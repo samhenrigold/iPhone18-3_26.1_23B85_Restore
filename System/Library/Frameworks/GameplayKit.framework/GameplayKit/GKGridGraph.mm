@@ -1,4 +1,6 @@
 @interface GKGridGraph
++ (GKGridGraph)graphFromGridStartingAt:(vector_int2)position width:(int)width height:(int)height diagonalsAllowed:(BOOL)diagonalsAllowed;
++ (GKGridGraph)graphFromGridStartingAt:(vector_int2)position width:(int)width height:(int)height diagonalsAllowed:(BOOL)diagonalsAllowed nodeClass:(Class)nodeClass;
 - (GKGridGraph)initFromGridStartingAt:(vector_int2)position width:(int)width height:(int)height diagonalsAllowed:(BOOL)diagonalsAllowed nodeClass:(Class)nodeClass;
 - (GKGridGraph)initWithCoder:(id)coder;
 - (id)nodeAtGridPosition:(vector_int2)position;
@@ -9,6 +11,20 @@
 @end
 
 @implementation GKGridGraph
+
++ (GKGridGraph)graphFromGridStartingAt:(vector_int2)position width:(int)width height:(int)height diagonalsAllowed:(BOOL)diagonalsAllowed
+{
+  v6 = [[GKGridGraph alloc] initFromGridStartingAt:*&width width:*&height height:diagonalsAllowed diagonalsAllowed:*&position];
+
+  return v6;
+}
+
++ (GKGridGraph)graphFromGridStartingAt:(vector_int2)position width:(int)width height:(int)height diagonalsAllowed:(BOOL)diagonalsAllowed nodeClass:(Class)nodeClass
+{
+  v7 = [[GKGridGraph alloc] initFromGridStartingAt:*&width width:*&height height:diagonalsAllowed diagonalsAllowed:nodeClass nodeClass:*&position];
+
+  return v7;
+}
 
 - (GKGridGraph)initFromGridStartingAt:(vector_int2)position width:(int)width height:(int)height diagonalsAllowed:(BOOL)diagonalsAllowed nodeClass:(Class)nodeClass
 {
@@ -57,100 +73,97 @@
 
 - (void)removeNodes:(id)nodes
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   nodesCopy = nodes;
-  v5 = [nodesCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v5 = [nodesCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v5)
   {
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(nodesCopy);
         }
 
-        (*(*self->_cGridGraph + 16))(self->_cGridGraph, [*(*(&v9 + 1) + 8 * v7++) cGraphNode]);
+        (*(*self->_cGridGraph + 16))(self->_cGridGraph, [*(*(&v8 + 1) + 8 * v7++) cGraphNode]);
       }
 
       while (v5 != v7);
-      v5 = [nodesCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [nodesCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (GKGridGraph)initWithCoder:(id)coder
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v29.receiver = self;
-  v29.super_class = GKGridGraph;
-  v5 = [(GKGraph *)&v29 initWithCoder:coderCopy];
+  v28.receiver = self;
+  v28.super_class = GKGridGraph;
+  v5 = [(GKGraph *)&v28 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeIntForKey:@"gridOriginX"];
     v7 = [coderCopy decodeIntForKey:@"gridOriginY"];
     v8 = [coderCopy decodeIntForKey:@"gridWidth"];
     v9 = [coderCopy decodeIntForKey:@"gridHeight"];
-    v23 = [coderCopy decodeBoolForKey:@"diagonalsAllowed"];
+    v22 = [coderCopy decodeBoolForKey:@"diagonalsAllowed"];
     v10 = *(v5 + 4);
     v11 = objc_opt_class();
-    GKCGridGraph::initDontConstructNodes(v10, v8, v9, v23, v11, COERCE_DOUBLE(__PAIR64__(v7, v6)));
+    GKCGridGraph::initDontConstructNodes(v10, v8, v9, v22, v11, COERCE_DOUBLE(__PAIR64__(v7, v6)));
     array = [MEMORY[0x277CBEB18] array];
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     nodes = [v5 nodes];
-    v21 = v9;
-    v22 = v8;
-    v14 = [nodes countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v20 = v9;
+    v21 = v8;
+    v14 = [nodes countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v14)
     {
-      v15 = *v26;
+      v15 = *v25;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v26 != v15)
+          if (*v25 != v15)
           {
             objc_enumerationMutation(nodes);
           }
 
-          v17 = *(*(&v25 + 1) + 8 * i);
+          v17 = *(*(&v24 + 1) + 8 * i);
           if ((GKCGridGraph::addNodeToGridNodes(*(v5 + 4), [v17 cGridGraphNode]) & 1) == 0)
           {
             [array addObject:v17];
           }
         }
 
-        v14 = [nodes countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v14 = [nodes countByEnumeratingWithState:&v24 objects:v29 count:16];
       }
 
       while (v14);
     }
 
-    v24.receiver = v5;
-    v24.super_class = GKGridGraph;
-    [(GKGraph *)&v24 removeNodes:array];
+    v23.receiver = v5;
+    v23.super_class = GKGridGraph;
+    [(GKGraph *)&v23 removeNodes:array];
     v18 = *(v5 + 4);
-    *(v18 + 48) = v22;
-    *(v18 + 52) = v21;
-    *(v18 + 56) = v23;
+    *(v18 + 48) = v21;
+    *(v18 + 52) = v20;
+    *(v18 + 56) = v22;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

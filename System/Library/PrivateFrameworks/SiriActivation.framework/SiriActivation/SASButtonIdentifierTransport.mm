@@ -157,16 +157,14 @@
 
 - (void)siriButtonIdentifier
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   identifier = [a2 identifier];
-  v6 = 136315394;
-  v7 = "[SASButtonIdentifierTransport siriButtonIdentifier]";
-  v8 = 2112;
-  v9 = identifier;
-  _os_log_error_impl(&dword_1C8137000, selfCopy, OS_LOG_TYPE_ERROR, "%s ERROR: attempted to create SiriButtonIdentifier from '%@'.", &v6, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 136315394;
+  v6 = "[SASButtonIdentifierTransport siriButtonIdentifier]";
+  v7 = 2112;
+  v8 = identifier;
+  _os_log_error_impl(&dword_1C8137000, selfCopy, OS_LOG_TYPE_ERROR, "%s ERROR: attempted to create SiriButtonIdentifier from '%@'.", &v5, 0x16u);
 }
 
 @end

@@ -34,7 +34,7 @@
 {
   groupCopy = group;
   v4 = +[NSMutableArray array];
-  v27 = +[NSMutableDictionary dictionary];
+  v28 = +[NSMutableDictionary dictionary];
   if (!self->_namesOfRecordsSavedToTheServer)
   {
     v5 = +[NSMutableSet set];
@@ -49,10 +49,9 @@
   while (2)
   {
     v11 = v10;
-    v12 = v10[234];
     do
     {
-      v13 = _dequeueNextCloudBookmarkToSave;
+      v12 = _dequeueNextCloudBookmarkToSave;
       _dequeueNextCloudBookmarkToSave = [(CloudBookmarkSyncMigrationSaveHandler *)self _dequeueNextCloudBookmarkToSave];
 
       if (!_dequeueNextCloudBookmarkToSave)
@@ -63,14 +62,14 @@
 
     while ((objc_opt_respondsToSelector() & 1) != 0 && ![WeakRetained cloudBookmarkSyncMigrationSaveHandler:self shouldSaveBookmark:_dequeueNextCloudBookmarkToSave]);
     record = [_dequeueNextCloudBookmarkToSave record];
-    v15 = [record size];
+    v14 = [record size];
 
-    v16 = [v4 count];
-    v17 = v16;
-    v18 = v15 + v9;
+    v15 = [v4 count];
+    v17 = v15;
+    v18 = v14 + v9;
     if (v18 < 0x200000)
     {
-      if (v16 >= 0x64)
+      if (v15 >= 0x64)
       {
         goto LABEL_13;
       }
@@ -78,7 +77,7 @@
 LABEL_12:
       [v4 addObject:_dequeueNextCloudBookmarkToSave];
       recordName = [_dequeueNextCloudBookmarkToSave recordName];
-      [v27 setObject:_dequeueNextCloudBookmarkToSave forKeyedSubscript:recordName];
+      [v28 setObject:_dequeueNextCloudBookmarkToSave forKeyedSubscript:recordName];
       [(NSMutableSet *)self->_namesOfRecordsSavedToTheServer addObject:recordName];
 
       v9 = v18;
@@ -89,20 +88,20 @@ LABEL_12:
     break;
   }
 
-  if (!v16)
+  if (!v15)
   {
     goto LABEL_12;
   }
 
 LABEL_13:
-  v20 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
+  v20 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v15, v16);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    v29 = v9;
-    v30 = 2048;
-    v31 = v17;
-    v32 = 2112;
+    v30 = v9;
+    v31 = 2048;
+    v32 = v17;
+    v33 = 2112;
     selfCopy = self;
     _os_log_debug_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "Batch of size %lu with %lu records is full for %@", buf, 0x20u);
   }
@@ -111,26 +110,26 @@ LABEL_13:
 LABEL_16:
   if ([v4 count])
   {
-    v21 = groupCopy;
-    v22 = v27;
-    [(CloudBookmarkSyncMigrationSaveHandler *)self _saveRecordBatch:v4 inOperationGroup:groupCopy recordNamesToCloudBookmarks:v27];
+    v22 = groupCopy;
+    v23 = v28;
+    [(CloudBookmarkSyncMigrationSaveHandler *)self _saveRecordBatch:v4 inOperationGroup:groupCopy recordNamesToCloudBookmarks:v28];
   }
 
   else
   {
-    v23 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    v21 = groupCopy;
-    v22 = v27;
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    v24 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(0, v21);
+    v22 = groupCopy;
+    v23 = v28;
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
-      sub_100080CB8(v23);
+      sub_100080CB8(v24);
     }
 
-    v24 = [(NSMutableSet *)self->_namesOfRecordsSavedToTheServer copy];
-    v25 = self->_namesOfRecordsSavedToTheServer;
+    v25 = [(NSMutableSet *)self->_namesOfRecordsSavedToTheServer copy];
+    v26 = self->_namesOfRecordsSavedToTheServer;
     self->_namesOfRecordsSavedToTheServer = 0;
 
-    [(CloudBookmarkSyncMigrationSaveHandler *)self _didFinishSavingRecordsWithNames:v24];
+    [(CloudBookmarkSyncMigrationSaveHandler *)self _didFinishSavingRecordsWithNames:v25];
   }
 }
 
@@ -202,13 +201,14 @@ LABEL_8:
   [bookmarkHashGenerator verifyIdentityHashInBookmarkRecord:recordCopy configuration:configuration];
 
   v11 = [bookmarkCopy resultFromMergingRecord:recordCopy usingUpdater:self];
+  v13 = v11;
   if ((v11 & 0x10) != 0)
   {
-    v12 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v11, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_100080CFC(v12, bookmarkCopy, v11);
-      if ((v11 & 2) == 0)
+      sub_100080CFC(v14, bookmarkCopy, v13);
+      if ((v13 & 2) == 0)
       {
         goto LABEL_5;
       }
@@ -217,42 +217,42 @@ LABEL_8:
     }
   }
 
-  if ((v11 & 2) != 0)
+  if ((v13 & 2) != 0)
   {
 LABEL_4:
     [bookmarkCopy updateLocalItemWithUpdater:self];
   }
 
 LABEL_5:
-  if ((v11 & 4) != 0)
+  if ((v13 & 4) != 0)
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v14 = objc_opt_respondsToSelector();
+    v16 = objc_opt_respondsToSelector();
 
-    if (v14)
+    if (v16)
     {
-      v15 = objc_loadWeakRetained(&self->_delegate);
-      [v15 cloudBookmarkSyncMigrationSaveHandler:self didMoveBookmark:bookmarkCopy];
+      v17 = objc_loadWeakRetained(&self->_delegate);
+      [v17 cloudBookmarkSyncMigrationSaveHandler:self didMoveBookmark:bookmarkCopy];
     }
   }
 
-  if ((v11 & 8) != 0)
+  if ((v13 & 8) != 0)
   {
-    v16 = objc_loadWeakRetained(&self->_delegate);
-    v17 = objc_opt_respondsToSelector();
+    v18 = objc_loadWeakRetained(&self->_delegate);
+    v19 = objc_opt_respondsToSelector();
 
-    if (v17)
+    if (v19)
     {
-      v18 = objc_loadWeakRetained(&self->_delegate);
+      v20 = objc_loadWeakRetained(&self->_delegate);
       recordName = [bookmarkCopy recordName];
-      [v18 cloudBookmarkSyncMigrationSaveHandler:self didDeleteBookmarkWithRecordName:recordName];
+      [v20 cloudBookmarkSyncMigrationSaveHandler:self didDeleteBookmarkWithRecordName:recordName];
     }
   }
 
-  v20 = v11 << 63 >> 63;
-  v21 = (v20 & recordCopy);
+  v22 = v13 << 63 >> 63;
+  v23 = (v22 & recordCopy);
 
-  return (v20 & recordCopy);
+  return (v22 & recordCopy);
 }
 
 - (id)recordIDForParentSyncServerID:(id)d

@@ -27,11 +27,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v21.receiver = self;
-  v21.super_class = _BlastDoorLPPlatformColor;
-  if ([(_BlastDoorLPPlatformColor *)&v21 isEqual:equalCopy])
+  v20.receiver = self;
+  v20.super_class = _BlastDoorLPPlatformColor;
+  if ([(_BlastDoorLPPlatformColor *)&v20 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -45,31 +45,28 @@
       [(_BlastDoorLPPlatformColor *)self r];
       v8 = v7;
       [v6 r];
-      if (v8 != v9)
+      v5 = 0;
+      if (v8 == v9)
       {
-        goto LABEL_8;
-      }
-
-      [(_BlastDoorLPPlatformColor *)self g];
-      v11 = v10;
-      [v6 g];
-      if (v11 != v12)
-      {
-        goto LABEL_8;
-      }
-
-      [(_BlastDoorLPPlatformColor *)self b];
-      v14 = v13;
-      [v6 b];
-      if (v14 == v15 && (-[_BlastDoorLPPlatformColor a](self, "a"), v17 = v16, [v6 a], v17 == v18))
-      {
-        v5 = 1;
-      }
-
-      else
-      {
-LABEL_8:
-        v5 = 0;
+        [(_BlastDoorLPPlatformColor *)self g];
+        v11 = v10;
+        [v6 g];
+        if (v11 == v12)
+        {
+          [(_BlastDoorLPPlatformColor *)self b];
+          v14 = v13;
+          [v6 b];
+          if (v14 == v15)
+          {
+            [(_BlastDoorLPPlatformColor *)self a];
+            v17 = v16;
+            [v6 a];
+            if (v17 == v18)
+            {
+              v5 = 1;
+            }
+          }
+        }
       }
     }
 
@@ -79,7 +76,6 @@ LABEL_8:
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

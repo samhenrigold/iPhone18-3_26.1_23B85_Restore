@@ -96,7 +96,7 @@
   if (v7)
   {
     objc_storeStrong(&v7->_referenceLayer, layer);
-    [(PULayerAnimationGroup *)v8 currentTime];
+    objc_msgSend_currentTime(v8);
     [(PUTimedAnimationGroup *)v8 setBeginTime:?];
   }
 

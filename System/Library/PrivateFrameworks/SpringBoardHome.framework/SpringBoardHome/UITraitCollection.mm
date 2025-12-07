@@ -17,10 +17,10 @@ void __89__UITraitCollection_SpringBoardHome__sbh_traitCollectionWithIconImageSt
   [v3 setObject:v2 forTrait:v4];
 }
 
-void __108__UITraitCollection_SpringBoardHome__sbh_traitCollectionWithIconImageStyleConfiguration_userInterfaceStyle___block_invoke(uint64_t a1, void *a2)
+void __108__UITraitCollection_SpringBoardHome__sbh_traitCollectionWithIconImageStyleConfiguration_userInterfaceStyle___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  [objc_opt_class() sbh_updateMutableTrait:v3 withIconImageStyleConfiguration:*(a1 + 40) userInterfaceStyle:*(a1 + 48)];
+  [objc_opt_class() sbh_updateMutableTrait:v3 withIconImageStyleConfiguration:a1[5] userInterfaceStyle:a1[6]];
 }
 
 void __90__UITraitCollection_SpringBoardHome__sbh_traitCollectionWithHomeScreenStyleConfiguration___block_invoke(uint64_t a1, void *a2)

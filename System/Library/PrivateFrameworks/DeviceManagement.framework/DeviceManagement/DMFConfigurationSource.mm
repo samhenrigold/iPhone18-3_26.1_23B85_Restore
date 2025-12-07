@@ -17,29 +17,25 @@
 
 - (id)description
 {
-  v7[3] = *MEMORY[0x1E69E9840];
-  v7[0] = @"identifier";
-  v7[1] = @"displayName";
-  v7[2] = @"machServiceName";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
+  v6[3] = *MEMORY[0x1E69E9840];
+  v6[0] = @"identifier";
+  v6[1] = @"displayName";
+  v6[2] = @"machServiceName";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:3];
   v4 = DMFObjectDescriptionWithProperties(self, v3);
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (id)debugDescription
 {
-  v7[4] = *MEMORY[0x1E69E9840];
-  v7[0] = @"identifier";
-  v7[1] = @"displayName";
-  v7[2] = @"machServiceName";
-  v7[3] = @"reportingRequirements";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:4];
+  v6[4] = *MEMORY[0x1E69E9840];
+  v6[0] = @"identifier";
+  v6[1] = @"displayName";
+  v6[2] = @"machServiceName";
+  v6[3] = @"reportingRequirements";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:4];
   v4 = DMFObjectDescriptionWithProperties(self, v3);
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

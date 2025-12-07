@@ -23,63 +23,63 @@
 
 - (id)_constructPlistForExperiments:(id)experiments
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   experimentsCopy = experiments;
   v5 = objc_opt_new();
   v6 = objc_alloc(MEMORY[0x277CBEB98]);
   v7 = [TRIKnownEnvVarFactorsReader knownFactorsFromPaths:self->_paths];
-  v25 = [v6 initWithArray:v7];
+  v24 = [v6 initWithArray:v7];
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   obj = experimentsCopy;
-  v26 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
-  if (v26)
+  v25 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+  if (v25)
   {
-    v24 = *v35;
+    v23 = *v34;
     do
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v25; ++i)
       {
-        if (*v35 != v24)
+        if (*v34 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v34 + 1) + 8 * i);
+        v9 = *(*(&v33 + 1) + 8 * i);
         factorLevelStrings = [v9 factorLevelStrings];
-        v32[0] = MEMORY[0x277D85DD0];
-        v32[1] = 3221225472;
-        v32[2] = __62__TRIActiveEnvVarFactorsWriter__constructPlistForExperiments___block_invoke;
-        v32[3] = &unk_279DE2048;
-        v33 = v25;
-        v11 = [factorLevelStrings _pas_filteredArrayWithTest:v32];
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __62__TRIActiveEnvVarFactorsWriter__constructPlistForExperiments___block_invoke;
+        v31[3] = &unk_279DE2048;
+        v32 = v24;
+        v11 = [factorLevelStrings _pas_filteredArrayWithTest:v31];
 
         if ([v11 count])
         {
-          v27 = i;
-          v30 = 0u;
-          v31 = 0u;
-          v28 = 0u;
+          v26 = i;
           v29 = 0u;
+          v30 = 0u;
+          v27 = 0u;
+          v28 = 0u;
           targetedBundleIds = [v9 targetedBundleIds];
-          v13 = [targetedBundleIds countByEnumeratingWithState:&v28 objects:v38 count:16];
+          v13 = [targetedBundleIds countByEnumeratingWithState:&v27 objects:v37 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v29;
+            v15 = *v28;
             do
             {
               for (j = 0; j != v14; ++j)
               {
-                if (*v29 != v15)
+                if (*v28 != v15)
                 {
                   objc_enumerationMutation(targetedBundleIds);
                 }
 
-                v17 = *(*(&v28 + 1) + 8 * j);
+                v17 = *(*(&v27 + 1) + 8 * j);
                 v18 = [v5 objectForKey:v17];
                 if (!v18)
                 {
@@ -90,31 +90,30 @@
                 [v5 setObject:v19 forKeyedSubscript:v17];
               }
 
-              v14 = [targetedBundleIds countByEnumeratingWithState:&v28 objects:v38 count:16];
+              v14 = [targetedBundleIds countByEnumeratingWithState:&v27 objects:v37 count:16];
             }
 
             while (v14);
           }
 
-          i = v27;
+          i = v26;
         }
       }
 
-      v26 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v25 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
 
   v20 = [v5 copy];
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
 
 uint64_t __62__TRIActiveEnvVarFactorsWriter__constructPlistForExperiments___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) containsObject:v3];
   if ((v4 & 1) == 0)
@@ -122,28 +121,27 @@ uint64_t __62__TRIActiveEnvVarFactorsWriter__constructPlistForExperiments___bloc
     v5 = TRILogCategory_Server();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = v3;
-      _os_log_error_impl(&dword_26F567000, v5, OS_LOG_TYPE_ERROR, "Refusing to write an active factor %@ which doesn't match a pre-declared known factor.", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v3;
+      _os_log_error_impl(&dword_26F567000, v5, OS_LOG_TYPE_ERROR, "Refusing to write an active factor %@ which doesn't match a pre-declared known factor.", &v9, 0xCu);
     }
 
     v6 = TRILogCategory_Server();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 32);
-      v10 = 138412290;
-      v11 = v9;
-      _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Known factors: %@", &v10, 0xCu);
+      v8 = *(a1 + 32);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Known factors: %@", &v9, 0xCu);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (void)writeExperiments:(id)experiments
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   experimentsCopy = experiments;
   v5 = objc_autoreleasePoolPush();
   v6 = TRILogCategory_Server();
@@ -151,32 +149,31 @@ uint64_t __62__TRIActiveEnvVarFactorsWriter__constructPlistForExperiments___bloc
   {
     v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(experimentsCopy, "count")}];
     *buf = 138412290;
-    v20 = v7;
+    v19 = v7;
     _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "Writing %@ low level experiments", buf, 0xCu);
   }
 
   v8 = [(TRIActiveEnvVarFactorsWriter *)self _constructPlistForExperiments:experimentsCopy];
-  v17 = @"ActiveLowLevelFactors";
-  v18 = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v16 = @"ActiveLowLevelFactors";
+  v17 = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
   v10 = [MEMORY[0x277CCAC58] dataWithPropertyList:v9 format:100 options:0 error:0];
   activeLowLevelFactorsFile = [(TRIPaths *)self->_paths activeLowLevelFactorsFile];
-  v16 = 0;
-  v12 = [v10 writeToFile:activeLowLevelFactorsFile options:1 error:&v16];
-  v13 = v16;
+  v15 = 0;
+  v12 = [v10 writeToFile:activeLowLevelFactorsFile options:1 error:&v15];
+  v13 = v15;
   if ((v12 & 1) == 0)
   {
     v14 = TRILogCategory_Server();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v20 = v13;
+      v19 = v13;
       _os_log_error_impl(&dword_26F567000, v14, OS_LOG_TYPE_ERROR, "Failed to write low level factors: %@", buf, 0xCu);
     }
   }
 
   objc_autoreleasePoolPop(v5);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

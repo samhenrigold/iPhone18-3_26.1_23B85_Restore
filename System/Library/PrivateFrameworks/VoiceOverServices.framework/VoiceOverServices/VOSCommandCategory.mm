@@ -26,65 +26,63 @@
 
 + (VOSCommandCategory)interaction
 {
-  v13[5] = *MEMORY[0x277D85DE8];
+  v12[5] = *MEMORY[0x277D85DE8];
   v2 = +[VOSCommand PrimaryActivate];
   v3 = +[VOSCommand SecondaryActivate];
-  v13[1] = v3;
+  v12[1] = v3;
   v4 = +[VOSCommand MagicTap];
-  v13[2] = v4;
+  v12[2] = v4;
   v5 = +[VOSCommand Escape];
-  v13[3] = v5;
+  v12[3] = v5;
   v6 = +[VOSCommand PerformLongPress];
-  v13[4] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:5];
+  v12[4] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:5];
 
   v8 = [VOSCommandCategory alloc];
   v9 = VOSLocString(@"VOSCommandCategory.Interaction");
   v10 = [(VOSCommandCategory *)v8 initWithCommands:v7 localizedCategoryName:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 + (VOSCommandCategory)basicNavigation
 {
-  v28[17] = *MEMORY[0x277D85DE8];
-  v27 = +[VOSCommand MoveToPreviousElement];
-  v28[0] = v27;
-  v26 = +[VOSCommand MoveToNextElement];
-  v28[1] = v26;
-  v25 = +[VOSCommand MoveToFirstElement];
-  v28[2] = v25;
-  v24 = +[VOSCommand MoveToElementAbove];
-  v28[3] = v24;
-  v23 = +[VOSCommand MoveToElementBelow];
-  v28[4] = v23;
-  v22 = +[VOSCommand MoveToLastElement];
-  v28[5] = v22;
-  v21 = +[VOSCommand MoveToCenterElement];
-  v28[6] = v21;
-  v20 = +[VOSCommand MoveToPreviousContainer];
-  v28[7] = v20;
-  v19 = +[VOSCommand MoveToNextContainer];
-  v28[8] = v19;
+  v27[17] = *MEMORY[0x277D85DE8];
+  v26 = +[VOSCommand MoveToPreviousElement];
+  v27[0] = v26;
+  v25 = +[VOSCommand MoveToNextElement];
+  v27[1] = v25;
+  v24 = +[VOSCommand MoveToFirstElement];
+  v27[2] = v24;
+  v23 = +[VOSCommand MoveToElementAbove];
+  v27[3] = v23;
+  v22 = +[VOSCommand MoveToElementBelow];
+  v27[4] = v22;
+  v21 = +[VOSCommand MoveToLastElement];
+  v27[5] = v21;
+  v20 = +[VOSCommand MoveToCenterElement];
+  v27[6] = v20;
+  v19 = +[VOSCommand MoveToPreviousContainer];
+  v27[7] = v19;
+  v18 = +[VOSCommand MoveToNextContainer];
+  v27[8] = v18;
   v2 = +[VOSCommand MoveToTopOfCurrentContainer];
-  v28[9] = v2;
+  v27[9] = v2;
   v3 = +[VOSCommand MoveToBottomOfCurrentContainer];
-  v28[10] = v3;
+  v27[10] = v3;
   v4 = +[VOSCommand MoveToTopOfCurrentDocument];
-  v28[11] = v4;
+  v27[11] = v4;
   v5 = +[VOSCommand MoveToBottomOfCurrentDocument];
-  v28[12] = v5;
+  v27[12] = v5;
   v6 = +[VOSCommand MoveToLinkedUI];
-  v28[13] = v6;
+  v27[13] = v6;
   v7 = +[VOSCommand MoveToStatusBar];
-  v28[14] = v7;
+  v27[14] = v7;
   v8 = +[VOSCommand MoveToPreviousElementCommunity];
-  v28[15] = v8;
+  v27[15] = v8;
   v9 = +[VOSCommand MoveToNextElementCommunity];
-  v28[16] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:17];
+  v27[16] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:17];
 
   if (_os_feature_enabled_impl())
   {
@@ -99,305 +97,293 @@
   v15 = VOSLocString(@"VOSCommandCategory.BasicNavigation");
   v16 = [(VOSCommandCategory *)v14 initWithCommands:v10 localizedCategoryName:v15];
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 + (VOSCommandCategory)textNavigation
 {
-  v36[28] = *MEMORY[0x277D85DE8];
-  v35 = +[VOSCommand MoveToPreviousCharacter];
-  v36[0] = v35;
-  v34 = +[VOSCommand MoveToNextCharacter];
-  v36[1] = v34;
-  v33 = +[VOSCommand MoveToPreviousWord];
-  v36[2] = v33;
-  v32 = +[VOSCommand MoveToNextWord];
-  v36[3] = v32;
-  v31 = +[VOSCommand MoveToPreviousSentence];
-  v36[4] = v31;
-  v30 = +[VOSCommand MoveToNextSentence];
-  v36[5] = v30;
-  v29 = +[VOSCommand MoveToPreviousParagraph];
-  v36[6] = v29;
-  v28 = +[VOSCommand MoveToNextParagraph];
-  v36[7] = v28;
-  v27 = +[VOSCommand MoveToPreviousStyleChange];
-  v36[8] = v27;
-  v26 = +[VOSCommand MoveToNextStyleChange];
-  v36[9] = v26;
-  v25 = +[VOSCommand MoveToPreviousFontChange];
-  v36[10] = v25;
-  v24 = +[VOSCommand MoveToNextFontChange];
-  v36[11] = v24;
-  v23 = +[VOSCommand MoveToPreviousUnderlineText];
-  v36[12] = v23;
-  v22 = +[VOSCommand MoveToNextUnderlineText];
-  v36[13] = v22;
-  v21 = +[VOSCommand MoveToPreviousItalicText];
-  v36[14] = v21;
-  v20 = +[VOSCommand MoveToNextItalicText];
-  v36[15] = v20;
-  v19 = +[VOSCommand MoveToPreviousBoldText];
-  v36[16] = v19;
-  v17 = +[VOSCommand MoveToNextBoldText];
-  v36[17] = v17;
+  v35[28] = *MEMORY[0x277D85DE8];
+  v34 = +[VOSCommand MoveToPreviousCharacter];
+  v35[0] = v34;
+  v33 = +[VOSCommand MoveToNextCharacter];
+  v35[1] = v33;
+  v32 = +[VOSCommand MoveToPreviousWord];
+  v35[2] = v32;
+  v31 = +[VOSCommand MoveToNextWord];
+  v35[3] = v31;
+  v30 = +[VOSCommand MoveToPreviousSentence];
+  v35[4] = v30;
+  v29 = +[VOSCommand MoveToNextSentence];
+  v35[5] = v29;
+  v28 = +[VOSCommand MoveToPreviousParagraph];
+  v35[6] = v28;
+  v27 = +[VOSCommand MoveToNextParagraph];
+  v35[7] = v27;
+  v26 = +[VOSCommand MoveToPreviousStyleChange];
+  v35[8] = v26;
+  v25 = +[VOSCommand MoveToNextStyleChange];
+  v35[9] = v25;
+  v24 = +[VOSCommand MoveToPreviousFontChange];
+  v35[10] = v24;
+  v23 = +[VOSCommand MoveToNextFontChange];
+  v35[11] = v23;
+  v22 = +[VOSCommand MoveToPreviousUnderlineText];
+  v35[12] = v22;
+  v21 = +[VOSCommand MoveToNextUnderlineText];
+  v35[13] = v21;
+  v20 = +[VOSCommand MoveToPreviousItalicText];
+  v35[14] = v20;
+  v19 = +[VOSCommand MoveToNextItalicText];
+  v35[15] = v19;
+  v18 = +[VOSCommand MoveToPreviousBoldText];
+  v35[16] = v18;
+  v16 = +[VOSCommand MoveToNextBoldText];
+  v35[17] = v16;
   v2 = +[VOSCommand MoveToPreviousColorChange];
-  v36[18] = v2;
+  v35[18] = v2;
   v3 = +[VOSCommand MoveToNextColorChange];
-  v36[19] = v3;
+  v35[19] = v3;
   v4 = +[VOSCommand MoveToPreviousPlainText];
-  v36[20] = v4;
+  v35[20] = v4;
   v5 = +[VOSCommand MoveToNextPlainText];
-  v36[21] = v5;
+  v35[21] = v5;
   v6 = +[VOSCommand MoveToPreviousMisspelledWord];
-  v36[22] = v6;
+  v35[22] = v6;
   v7 = +[VOSCommand MoveToNextMisspelledWord];
-  v36[23] = v7;
+  v35[23] = v7;
   v8 = +[VOSCommand MoveToPreviousBlockquote];
-  v36[24] = v8;
+  v35[24] = v8;
   v9 = +[VOSCommand MoveToNextBlockquote];
-  v36[25] = v9;
+  v35[25] = v9;
   v10 = +[VOSCommand MoveToPreviousSameBlockquote];
-  v36[26] = v10;
+  v35[26] = v10;
   v11 = +[VOSCommand MoveToNextSameBlockquote];
-  v36[27] = v11;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:28];
+  v35[27] = v11;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:28];
 
   v12 = [VOSCommandCategory alloc];
   v13 = VOSLocString(@"VOSCommandCategory.TextNavigation");
-  v14 = [(VOSCommandCategory *)v12 initWithCommands:v18 localizedCategoryName:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = [(VOSCommandCategory *)v12 initWithCommands:v17 localizedCategoryName:v13];
 
   return v14;
 }
 
 + (VOSCommandCategory)editing
 {
-  v13[5] = *MEMORY[0x277D85DE8];
+  v12[5] = *MEMORY[0x277D85DE8];
   v2 = +[VOSCommand Cut];
   v3 = +[VOSCommand Copy];
-  v13[1] = v3;
+  v12[1] = v3;
   v4 = +[VOSCommand Paste];
-  v13[2] = v4;
+  v12[2] = v4;
   v5 = +[VOSCommand Undo];
-  v13[3] = v5;
+  v12[3] = v5;
   v6 = +[VOSCommand Redo];
-  v13[4] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:5];
+  v12[4] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:5];
 
   v8 = [VOSCommandCategory alloc];
   v9 = VOSLocString(@"VOSCommandCategory.Editing");
   v10 = [(VOSCommandCategory *)v8 initWithCommands:v7 localizedCategoryName:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 + (VOSCommandCategory)advancedNavigation
 {
-  v40[32] = *MEMORY[0x277D85DE8];
-  v39 = +[VOSCommand MoveToPreviousFrame];
-  v40[0] = v39;
-  v38 = +[VOSCommand MoveToNextFrame];
-  v40[1] = v38;
-  v37 = +[VOSCommand MoveToPreviousTable];
-  v40[2] = v37;
-  v36 = +[VOSCommand MoveToNextTable];
-  v40[3] = v36;
-  v35 = +[VOSCommand MoveToPreviousColumn];
-  v40[4] = v35;
-  v34 = +[VOSCommand MoveToNextColumn];
-  v40[5] = v34;
-  v33 = +[VOSCommand MoveToPreviousList];
-  v40[6] = v33;
-  v32 = +[VOSCommand MoveToNextList];
-  v40[7] = v32;
-  v31 = +[VOSCommand MoveToPreviousSameElement];
-  v40[8] = v31;
-  v30 = +[VOSCommand MoveToNextSameElement];
-  v40[9] = v30;
-  v29 = +[VOSCommand MoveToPreviousDifferentElement];
-  v40[10] = v29;
-  v28 = +[VOSCommand MoveToNextDifferentElement];
-  v40[11] = v28;
-  v27 = +[VOSCommand MoveToPreviousHeading];
-  v40[12] = v27;
-  v26 = +[VOSCommand MoveToNextHeading];
-  v40[13] = v26;
-  v25 = +[VOSCommand MoveToPreviousSameHeading];
-  v40[14] = v25;
-  v24 = +[VOSCommand MoveToNextSameHeading];
-  v40[15] = v24;
-  v23 = +[VOSCommand MoveToPreviousLink];
-  v40[16] = v23;
-  v22 = +[VOSCommand MoveToNextLink];
-  v40[17] = v22;
-  v21 = +[VOSCommand MoveToPreviousVisitedLink];
-  v40[18] = v21;
-  v20 = +[VOSCommand MoveToNextVisitedLink];
-  v40[19] = v20;
-  v18 = +[VOSCommand MoveToPreviousControl];
-  v40[20] = v18;
-  v17 = +[VOSCommand MoveToNextControl];
-  v40[21] = v17;
+  v39[32] = *MEMORY[0x277D85DE8];
+  v38 = +[VOSCommand MoveToPreviousFrame];
+  v39[0] = v38;
+  v37 = +[VOSCommand MoveToNextFrame];
+  v39[1] = v37;
+  v36 = +[VOSCommand MoveToPreviousTable];
+  v39[2] = v36;
+  v35 = +[VOSCommand MoveToNextTable];
+  v39[3] = v35;
+  v34 = +[VOSCommand MoveToPreviousColumn];
+  v39[4] = v34;
+  v33 = +[VOSCommand MoveToNextColumn];
+  v39[5] = v33;
+  v32 = +[VOSCommand MoveToPreviousList];
+  v39[6] = v32;
+  v31 = +[VOSCommand MoveToNextList];
+  v39[7] = v31;
+  v30 = +[VOSCommand MoveToPreviousSameElement];
+  v39[8] = v30;
+  v29 = +[VOSCommand MoveToNextSameElement];
+  v39[9] = v29;
+  v28 = +[VOSCommand MoveToPreviousDifferentElement];
+  v39[10] = v28;
+  v27 = +[VOSCommand MoveToNextDifferentElement];
+  v39[11] = v27;
+  v26 = +[VOSCommand MoveToPreviousHeading];
+  v39[12] = v26;
+  v25 = +[VOSCommand MoveToNextHeading];
+  v39[13] = v25;
+  v24 = +[VOSCommand MoveToPreviousSameHeading];
+  v39[14] = v24;
+  v23 = +[VOSCommand MoveToNextSameHeading];
+  v39[15] = v23;
+  v22 = +[VOSCommand MoveToPreviousLink];
+  v39[16] = v22;
+  v21 = +[VOSCommand MoveToNextLink];
+  v39[17] = v21;
+  v20 = +[VOSCommand MoveToPreviousVisitedLink];
+  v39[18] = v20;
+  v19 = +[VOSCommand MoveToNextVisitedLink];
+  v39[19] = v19;
+  v17 = +[VOSCommand MoveToPreviousControl];
+  v39[20] = v17;
+  v16 = +[VOSCommand MoveToNextControl];
+  v39[21] = v16;
   v2 = +[VOSCommand MoveToPreviousGraphic];
-  v40[22] = v2;
+  v39[22] = v2;
   v3 = +[VOSCommand MoveToNextRadioGroup];
-  v40[23] = v3;
+  v39[23] = v3;
   v4 = +[VOSCommand MoveToPreviousRadioGroup];
-  v40[24] = v4;
+  v39[24] = v4;
   v5 = +[VOSCommand MoveToNextCheckbox];
-  v40[25] = v5;
+  v39[25] = v5;
   v6 = +[VOSCommand MoveToPreviousCheckbox];
-  v40[26] = v6;
+  v39[26] = v6;
   v7 = +[VOSCommand MoveToNextGraphic];
-  v40[27] = v7;
+  v39[27] = v7;
   v8 = +[VOSCommand MoveToSystemFocusedElement];
-  v40[28] = v8;
+  v39[28] = v8;
   v9 = +[VOSCommand FindElementWithTextSearch];
-  v40[29] = v9;
+  v39[29] = v9;
   v10 = +[VOSCommand PreviousSearchResult];
-  v40[30] = v10;
+  v39[30] = v10;
   v11 = +[VOSCommand NextSearchResult];
-  v40[31] = v11;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:32];
+  v39[31] = v11;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:32];
 
   v12 = [VOSCommandCategory alloc];
   v13 = VOSLocString(@"VOSCommandCategory.AdvancedNavigation");
-  v14 = [(VOSCommandCategory *)v12 initWithCommands:v19 localizedCategoryName:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = [(VOSCommandCategory *)v12 initWithCommands:v18 localizedCategoryName:v13];
 
   return v14;
 }
 
 + (VOSCommandCategory)braille
 {
-  v22[14] = *MEMORY[0x277D85DE8];
-  v21 = +[VOSCommand BraillePanLeft];
-  v22[0] = v21;
-  v20 = +[VOSCommand BraillePanRight];
-  v22[1] = v20;
-  v19 = +[VOSCommand BrailleNextInputTable];
-  v22[2] = v19;
-  v18 = +[VOSCommand BrailleNextOutputTable];
-  v22[3] = v18;
-  v17 = +[VOSCommand BrailleAnnouncementMode];
-  v22[4] = v17;
+  v21[14] = *MEMORY[0x277D85DE8];
+  v20 = +[VOSCommand BraillePanLeft];
+  v21[0] = v20;
+  v19 = +[VOSCommand BraillePanRight];
+  v21[1] = v19;
+  v18 = +[VOSCommand BrailleNextInputTable];
+  v21[2] = v18;
+  v17 = +[VOSCommand BrailleNextOutputTable];
+  v21[3] = v17;
+  v16 = +[VOSCommand BrailleAnnouncementMode];
+  v21[4] = v16;
   v2 = +[VOSCommand BrailleTranslate];
-  v22[5] = v2;
+  v21[5] = v2;
   v3 = +[VOSCommand BrailleToggleWordWrap];
-  v22[6] = v3;
+  v21[6] = v3;
   v4 = +[VOSCommand BrailleTranslateToClipboard];
-  v22[7] = v4;
+  v21[7] = v4;
   v5 = +[VOSCommand BrailleEnableAutoAdvance];
-  v22[8] = v5;
+  v21[8] = v5;
   v6 = +[VOSCommand BrailleIncreaseAutoAdvance];
-  v22[9] = v6;
+  v21[9] = v6;
   v7 = +[VOSCommand BrailleDecreaseAutoAdvance];
-  v22[10] = v7;
+  v21[10] = v7;
   v8 = +[VOSCommand BrailleReconnectBrailleDisplays];
-  v22[11] = v8;
+  v21[11] = v8;
   v9 = +[VOSCommand BrailleTogglePerkinsKeyboardInput];
-  v22[12] = v9;
+  v21[12] = v9;
   v10 = +[VOSCommand BrailleToggleKeyboardBrailleUI];
-  v22[13] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:14];
+  v21[13] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:14];
 
   v12 = [VOSCommandCategory alloc];
   v13 = VOSLocString(@"VOSCommandCategory.Braille");
   v14 = [(VOSCommandCategory *)v12 initWithCommands:v11 localizedCategoryName:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 + (VOSCommandCategory)speechAndAudio
 {
-  v15[7] = *MEMORY[0x277D85DE8];
+  v14[7] = *MEMORY[0x277D85DE8];
   v2 = +[VOSCommand ToggleMute];
   v3 = +[VOSCommand ToggleSpeech];
-  v15[1] = v3;
+  v14[1] = v3;
   v4 = +[VOSCommand ChangeAudioDuckingMode];
-  v15[2] = v4;
+  v14[2] = v4;
   v5 = +[VOSCommand VolumeUp];
-  v15[3] = v5;
+  v14[3] = v5;
   v6 = +[VOSCommand VolumeDown];
-  v15[4] = v6;
+  v14[4] = v6;
   v7 = +[VOSCommand NextSpeechVoice];
-  v15[5] = v7;
+  v14[5] = v7;
   v8 = +[VOSCommand PreviousSpeechVoice];
-  v15[6] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:7];
+  v14[6] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:7];
 
   v10 = [VOSCommandCategory alloc];
   v11 = VOSLocString(@"VOSCommandCategory.SpeechAndAudio");
   v12 = [(VOSCommandCategory *)v10 initWithCommands:v9 localizedCategoryName:v11];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 + (VOSCommandCategory)output
 {
-  v36[21] = *MEMORY[0x277D85DE8];
-  v34 = +[VOSCommand SummarizeElement];
-  v36[0] = v34;
-  v33 = +[VOSCommand AnalyzeElement];
-  v36[1] = v33;
-  v32 = +[VOSCommand ReadAll];
-  v36[2] = v32;
-  v31 = +[VOSCommand ReadFromTop];
-  v36[3] = v31;
-  v30 = +[VOSCommand ReadLine];
-  v36[4] = v30;
-  v29 = +[VOSCommand ReadWord];
-  v36[5] = v29;
-  v28 = +[VOSCommand ReadURL];
-  v36[6] = v28;
-  v27 = +[VOSCommand ReadSelectedText];
-  v36[7] = v27;
-  v26 = +[VOSCommand ReadTextStyle];
-  v36[8] = v26;
-  v25 = +[VOSCommand ReadHint];
-  v36[9] = v25;
-  v24 = +[VOSCommand ReadCharacter];
-  v36[10] = v24;
-  v23 = +[VOSCommand ReadCharacterPhonetically];
-  v36[11] = v23;
-  v22 = +[VOSCommand ReadRowHeader];
-  v36[12] = v22;
+  v35[21] = *MEMORY[0x277D85DE8];
+  v33 = +[VOSCommand SummarizeElement];
+  v35[0] = v33;
+  v32 = +[VOSCommand AnalyzeElement];
+  v35[1] = v32;
+  v31 = +[VOSCommand ReadAll];
+  v35[2] = v31;
+  v30 = +[VOSCommand ReadFromTop];
+  v35[3] = v30;
+  v29 = +[VOSCommand ReadLine];
+  v35[4] = v29;
+  v28 = +[VOSCommand ReadWord];
+  v35[5] = v28;
+  v27 = +[VOSCommand ReadURL];
+  v35[6] = v27;
+  v26 = +[VOSCommand ReadSelectedText];
+  v35[7] = v26;
+  v25 = +[VOSCommand ReadTextStyle];
+  v35[8] = v25;
+  v24 = +[VOSCommand ReadHint];
+  v35[9] = v24;
+  v23 = +[VOSCommand ReadCharacter];
+  v35[10] = v23;
+  v22 = +[VOSCommand ReadCharacterPhonetically];
+  v35[11] = v22;
+  v21 = +[VOSCommand ReadRowHeader];
+  v35[12] = v21;
   v2 = +[VOSCommand ReadRowContents];
-  v36[13] = v2;
+  v35[13] = v2;
   v3 = +[VOSCommand ReadTableRowColumn];
-  v36[14] = v3;
+  v35[14] = v3;
   v4 = +[VOSCommand ReadTableRowColumnCell];
-  v36[15] = v4;
+  v35[15] = v4;
   v5 = +[VOSCommand ReadColumnHeader];
-  v36[16] = v5;
+  v35[16] = v5;
   v6 = +[VOSCommand ReadColumnContents];
-  v36[17] = v6;
+  v35[17] = v6;
   v7 = +[VOSCommand ReadLineCount];
-  v36[18] = v7;
+  v35[18] = v7;
   v8 = +[VOSCommand SummarizeSystemFocusedElement];
-  v36[19] = v8;
+  v35[19] = v8;
   v9 = +[VOSCommand ReadSystemFocusedElementDetails];
-  v36[20] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:21];
+  v35[20] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:21];
 
   if (AXRuntimeCheck_SupportsVoiceOverReadPrefixes())
   {
     v11 = +[VOSCommand ReadAllPrefixes];
-    v35[0] = v11;
+    v34[0] = v11;
     v12 = +[VOSCommand ReadFromTopPrefixes];
-    v35[1] = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+    v34[1] = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
     v14 = [v10 arrayByAddingObjectsFromArray:v13];
 
     v10 = v14;
@@ -415,95 +401,89 @@
   v18 = VOSLocString(@"VOSCommandCategory.Output");
   v19 = [(VOSCommandCategory *)v17 initWithCommands:v10 localizedCategoryName:v18];
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 + (VOSCommandCategory)rotor
 {
-  v12[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   v2 = +[VOSCommand PreviousRotor];
-  v12[0] = v2;
+  v11[0] = v2;
   v3 = +[VOSCommand NextRotor];
-  v12[1] = v3;
+  v11[1] = v3;
   v4 = +[VOSCommand PreviousRotorItem];
-  v12[2] = v4;
+  v11[2] = v4;
   v5 = +[VOSCommand NextRotorItem];
-  v12[3] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:4];
+  v11[3] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:4];
 
   v7 = [VOSCommandCategory alloc];
   v8 = VOSLocString(@"VOSCommandCategory.Rotor");
   v9 = [(VOSCommandCategory *)v7 initWithCommands:v6 localizedCategoryName:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 + (VOSCommandCategory)scrolling
 {
-  v14[6] = *MEMORY[0x277D85DE8];
+  v13[6] = *MEMORY[0x277D85DE8];
   v2 = +[VOSCommand ScrollLeft];
-  v14[0] = v2;
+  v13[0] = v2;
   v3 = +[VOSCommand ScrollRight];
-  v14[1] = v3;
+  v13[1] = v3;
   v4 = +[VOSCommand ScrollUp];
-  v14[2] = v4;
+  v13[2] = v4;
   v5 = +[VOSCommand ScrollDown];
-  v14[3] = v5;
+  v13[3] = v5;
   v6 = +[VOSCommand ScrollToTop];
-  v14[4] = v6;
+  v13[4] = v6;
   v7 = +[VOSCommand ScrollToBottom];
-  v14[5] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:6];
+  v13[5] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:6];
 
   v9 = [VOSCommandCategory alloc];
   v10 = VOSLocString(@"VOSCommandCategory.Scrolling");
   v11 = [(VOSCommandCategory *)v9 initWithCommands:v8 localizedCategoryName:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (VOSCommandCategory)voiceOverFeatures
 {
-  v34[16] = *MEMORY[0x277D85DE8];
-  v33 = +[VOSCommand ShowItemChooser];
-  v34[0] = v33;
-  v32 = +[VOSCommand OpenVoiceOverSettings];
-  v34[1] = v32;
-  v31 = +[VOSCommand ToggleScreenCurtain];
-  v34[2] = v31;
-  v30 = +[VOSCommand ToggleSoundCurtain];
-  v34[3] = v30;
-  v29 = +[VOSCommand StartHelp];
-  v34[4] = v29;
-  v28 = +[VOSCommand ToggleCaptionPanel];
-  v34[5] = v28;
-  v27 = +[VOSCommand ToggleIgnoreTrackpad];
-  v34[6] = v27;
-  v26 = +[VOSCommand LabelElement];
-  v34[7] = v26;
+  v33[16] = *MEMORY[0x277D85DE8];
+  v32 = +[VOSCommand ShowItemChooser];
+  v33[0] = v32;
+  v31 = +[VOSCommand OpenVoiceOverSettings];
+  v33[1] = v31;
+  v30 = +[VOSCommand ToggleScreenCurtain];
+  v33[2] = v30;
+  v29 = +[VOSCommand ToggleSoundCurtain];
+  v33[3] = v29;
+  v28 = +[VOSCommand StartHelp];
+  v33[4] = v28;
+  v27 = +[VOSCommand ToggleCaptionPanel];
+  v33[5] = v27;
+  v26 = +[VOSCommand ToggleIgnoreTrackpad];
+  v33[6] = v26;
+  v25 = +[VOSCommand LabelElement];
+  v33[7] = v25;
   v2 = +[VOSCommand MonitorElement];
-  v34[8] = v2;
+  v33[8] = v2;
   v3 = +[VOSCommand ToggleSingleLetterQuickNav];
-  v34[9] = v3;
+  v33[9] = v3;
   v4 = +[VOSCommand ToggleQuickNav];
-  v34[10] = v4;
+  v33[10] = v4;
   v5 = +[VOSCommand ToggleLockModifierKeys];
-  v34[11] = v5;
+  v33[11] = v5;
   v6 = +[VOSCommand ToggleLiveRegions];
-  v34[12] = v6;
+  v33[12] = v6;
   v7 = +[VOSCommand ActivateBrailleScreenInput];
-  v34[13] = v7;
+  v33[13] = v7;
   v8 = +[VOSCommand ActivateBrailleScreenInputCommand];
-  v34[14] = v8;
+  v33[14] = v8;
   v9 = +[VOSCommand LaunchPeopleDetection];
-  v34[15] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:16];
+  v33[15] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:16];
 
   if ((AXDeviceIsPad() & 1) == 0)
   {
@@ -559,45 +539,43 @@ LABEL_13:
   v22 = VOSLocString(@"VOSCommandCategory.VoiceOverFeatures");
   v23 = [(VOSCommandCategory *)v21 initWithCommands:v10 localizedCategoryName:v22];
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v23;
 }
 
 + (VOSCommandCategory)system
 {
-  v25[15] = *MEMORY[0x277D85DE8];
-  v24 = +[VOSCommand ShowNotificationCenter];
-  v25[0] = v24;
-  v23 = +[VOSCommand ShowControlCenter];
-  v25[1] = v23;
-  v22 = +[VOSCommand ActivateSpeakScreen];
-  v25[2] = v22;
-  v21 = +[VOSCommand ActivateHomeButton];
-  v25[3] = v21;
-  v20 = +[VOSCommand ToggleDock];
-  v25[4] = v20;
-  v19 = +[VOSCommand ToggleAppSwitcher];
-  v25[5] = v19;
-  v18 = +[VOSCommand ActivateLockButton];
-  v25[6] = v18;
+  v24[15] = *MEMORY[0x277D85DE8];
+  v23 = +[VOSCommand ShowNotificationCenter];
+  v24[0] = v23;
+  v22 = +[VOSCommand ShowControlCenter];
+  v24[1] = v22;
+  v21 = +[VOSCommand ActivateSpeakScreen];
+  v24[2] = v21;
+  v20 = +[VOSCommand ActivateHomeButton];
+  v24[3] = v20;
+  v19 = +[VOSCommand ToggleDock];
+  v24[4] = v19;
+  v18 = +[VOSCommand ToggleAppSwitcher];
+  v24[5] = v18;
+  v17 = +[VOSCommand ActivateLockButton];
+  v24[6] = v17;
   v2 = +[VOSCommand ShowSpotlight];
-  v25[7] = v2;
+  v24[7] = v2;
   v3 = +[VOSCommand ActivateAccessibilityShortcut];
-  v25[8] = v3;
+  v24[8] = v3;
   v4 = +[VOSCommand ToggleReachability];
-  v25[9] = v4;
+  v24[9] = v4;
   v5 = +[VOSCommand TakeScreenshot];
-  v25[10] = v5;
+  v24[10] = v5;
   v6 = +[VOSCommand ToggleTypeToSiri];
-  v25[11] = v6;
+  v24[11] = v6;
   v7 = +[VOSCommand SwitchToPreviousApp];
-  v25[12] = v7;
+  v24[12] = v7;
   v8 = +[VOSCommand SwitchToNextApp];
-  v25[13] = v8;
+  v24[13] = v8;
   v9 = +[VOSCommand NextKeyboardLanguage];
-  v25[14] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:15];
+  v24[14] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:15];
 
   if (AXDeviceIsPad())
   {
@@ -611,25 +589,21 @@ LABEL_13:
   v14 = VOSLocString(@"VOSCommandCategory.System");
   v15 = [(VOSCommandCategory *)v13 initWithCommands:v10 localizedCategoryName:v14];
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 + (VOSCommandCategory)other
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v2 = +[VOSCommand ToggleTextSelection];
-  v10[0] = v2;
+  v9[0] = v2;
   v3 = +[VOSCommand CopySpeechToClipboard];
-  v10[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v9[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
 
   v5 = [VOSCommandCategory alloc];
   v6 = VOSLocString(@"VOSCommandCategory.Other");
   v7 = [(VOSCommandCategory *)v5 initWithCommands:v4 localizedCategoryName:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -654,34 +628,34 @@ LABEL_13:
 
 + (NSArray)allCategories
 {
-  v20[13] = *MEMORY[0x277D85DE8];
-  v19 = +[VOSCommandCategory interaction];
-  v20[0] = v19;
-  v18 = +[VOSCommandCategory basicNavigation];
-  v20[1] = v18;
-  v17 = +[VOSCommandCategory textNavigation];
-  v20[2] = v17;
-  v16 = +[VOSCommandCategory advancedNavigation];
-  v20[3] = v16;
-  v15 = +[VOSCommandCategory editing];
-  v20[4] = v15;
+  v19[13] = *MEMORY[0x277D85DE8];
+  v18 = +[VOSCommandCategory interaction];
+  v19[0] = v18;
+  v17 = +[VOSCommandCategory basicNavigation];
+  v19[1] = v17;
+  v16 = +[VOSCommandCategory textNavigation];
+  v19[2] = v16;
+  v15 = +[VOSCommandCategory advancedNavigation];
+  v19[3] = v15;
+  v14 = +[VOSCommandCategory editing];
+  v19[4] = v14;
   v2 = +[VOSCommandCategory rotor];
-  v20[5] = v2;
+  v19[5] = v2;
   v3 = +[VOSCommandCategory scrolling];
-  v20[6] = v3;
+  v19[6] = v3;
   v4 = +[VOSCommandCategory speechAndAudio];
-  v20[7] = v4;
+  v19[7] = v4;
   v5 = +[VOSCommandCategory output];
-  v20[8] = v5;
+  v19[8] = v5;
   v6 = +[VOSCommandCategory braille];
-  v20[9] = v6;
+  v19[9] = v6;
   v7 = +[VOSCommandCategory voiceOverFeatures];
-  v20[10] = v7;
+  v19[10] = v7;
   v8 = +[VOSCommandCategory system];
-  v20[11] = v8;
+  v19[11] = v8;
   v9 = +[VOSCommandCategory other];
-  v20[12] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:13];
+  v19[12] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:13];
 
   if (AXIsInternalInstall())
   {
@@ -692,97 +666,91 @@ LABEL_13:
     v10 = v11;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 + (VOSCommandCategory)handwriting
 {
-  v19[11] = *MEMORY[0x277D85DE8];
-  v18 = +[VOSCommand PreviousHandwritingCharacterMode];
-  v19[0] = v18;
-  v17 = +[VOSCommand NextHandwritingCharacterMode];
-  v19[1] = v17;
+  v18[11] = *MEMORY[0x277D85DE8];
+  v17 = +[VOSCommand PreviousHandwritingCharacterMode];
+  v18[0] = v17;
+  v16 = +[VOSCommand NextHandwritingCharacterMode];
+  v18[1] = v16;
   v2 = +[VOSCommand AnnounceHandwritingCharacterMode];
-  v19[2] = v2;
+  v18[2] = v2;
   v3 = +[VOSCommand GesturedTextInputInsertSpace];
-  v19[3] = v3;
+  v18[3] = v3;
   v4 = +[VOSCommand GesturedTextInputBackspace];
-  v19[4] = v4;
+  v18[4] = v4;
   v5 = +[VOSCommand GesturedTextInputDeleteWord];
-  v19[5] = v5;
+  v18[5] = v5;
   v6 = +[VOSCommand GesturedTextInputPerformReturnEquivalent];
-  v19[6] = v6;
+  v18[6] = v6;
   v7 = +[VOSCommand GesturedTextInputPreviousSuggestion];
-  v19[7] = v7;
+  v18[7] = v7;
   v8 = +[VOSCommand GesturedTextInputNextSuggestion];
-  v19[8] = v8;
+  v18[8] = v8;
   v9 = +[VOSCommand GesturedTextInputLaunchApp];
-  v19[9] = v9;
+  v18[9] = v9;
   v10 = +[VOSCommand GesturedTextInputNextKeyboardLanguage];
-  v19[10] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:11];
+  v18[10] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:11];
 
   v12 = [VOSCommandCategory alloc];
   v13 = VOSLocString(@"VOSCommandCategory.Handwriting");
   v14 = [(VOSCommandCategory *)v12 initWithCommands:v11 localizedCategoryName:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 + (VOSCommandCategory)brailleScreenInput
 {
-  v28[20] = *MEMORY[0x277D85DE8];
-  v27 = +[VOSCommand BSIExit];
-  v28[0] = v27;
-  v26 = +[VOSCommand BSIPreviousBrailleMode];
-  v28[1] = v26;
-  v25 = +[VOSCommand BSINextBrailleMode];
-  v28[2] = v25;
-  v24 = +[VOSCommand BSITranslateImmediately];
-  v28[3] = v24;
-  v23 = +[VOSCommand BSIOrientationLock];
-  v28[4] = v23;
-  v22 = +[VOSCommand BSIQuickAction];
-  v28[5] = v22;
-  v21 = +[VOSCommand GesturedTextInputInsertSpace];
-  v28[6] = v21;
-  v20 = +[VOSCommand GesturedTextInputBackspace];
-  v28[7] = v20;
-  v19 = +[VOSCommand GesturedTextInputDeleteWord];
-  v28[8] = v19;
-  v18 = +[VOSCommand GesturedTextInputPerformReturnEquivalent];
-  v28[9] = v18;
-  v17 = +[VOSCommand GesturedTextInputPreviousSuggestion];
-  v28[10] = v17;
+  v27[20] = *MEMORY[0x277D85DE8];
+  v26 = +[VOSCommand BSIExit];
+  v27[0] = v26;
+  v25 = +[VOSCommand BSIPreviousBrailleMode];
+  v27[1] = v25;
+  v24 = +[VOSCommand BSINextBrailleMode];
+  v27[2] = v24;
+  v23 = +[VOSCommand BSITranslateImmediately];
+  v27[3] = v23;
+  v22 = +[VOSCommand BSIOrientationLock];
+  v27[4] = v22;
+  v21 = +[VOSCommand BSIQuickAction];
+  v27[5] = v21;
+  v20 = +[VOSCommand GesturedTextInputInsertSpace];
+  v27[6] = v20;
+  v19 = +[VOSCommand GesturedTextInputBackspace];
+  v27[7] = v19;
+  v18 = +[VOSCommand GesturedTextInputDeleteWord];
+  v27[8] = v18;
+  v17 = +[VOSCommand GesturedTextInputPerformReturnEquivalent];
+  v27[9] = v17;
+  v16 = +[VOSCommand GesturedTextInputPreviousSuggestion];
+  v27[10] = v16;
   v2 = +[VOSCommand GesturedTextInputNextSuggestion];
-  v28[11] = v2;
+  v27[11] = v2;
   v3 = +[VOSCommand GesturedTextInputLaunchApp];
-  v28[12] = v3;
+  v27[12] = v3;
   v4 = +[VOSCommand GesturedTextInputNextKeyboardLanguage];
-  v28[13] = v4;
+  v27[13] = v4;
   v5 = +[VOSCommand GesturedTextInputNextBrailleTable];
-  v28[14] = v5;
+  v27[14] = v5;
   v6 = +[VOSCommand Cut];
-  v28[15] = v6;
+  v27[15] = v6;
   v7 = +[VOSCommand Copy];
-  v28[16] = v7;
+  v27[16] = v7;
   v8 = +[VOSCommand Paste];
-  v28[17] = v8;
+  v27[17] = v8;
   v9 = +[VOSCommand Undo];
-  v28[18] = v9;
+  v27[18] = v9;
   v10 = +[VOSCommand Redo];
-  v28[19] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:20];
+  v27[19] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:20];
 
   v12 = [VOSCommandCategory alloc];
   v13 = VOSLocString(@"VOSCommandCategory.BSI");
   v14 = [(VOSCommandCategory *)v12 initWithCommands:v11 localizedCategoryName:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -834,35 +802,35 @@ uint64_t __61__VOSCommandCategory_initWithCommands_localizedCategoryName___block
 
 + (BOOL)categories:(id)categories containsCommand:(id)command
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   categoriesCopy = categories;
   commandCopy = command;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v7 = categoriesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
-    v9 = *v14;
+    v9 = *v13;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        if ([*(*(&v13 + 1) + 8 * i) containsCommand:{commandCopy, v13}])
+        if ([*(*(&v12 + 1) + 8 * i) containsCommand:{commandCopy, v12}])
         {
           LOBYTE(v8) = 1;
           goto LABEL_11;
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v8)
       {
         continue;
@@ -874,7 +842,6 @@ uint64_t __61__VOSCommandCategory_initWithCommands_localizedCategoryName___block
 
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

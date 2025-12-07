@@ -75,7 +75,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_100265DB8();
+  sub_100265DB8(selfCopy, v2);
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path

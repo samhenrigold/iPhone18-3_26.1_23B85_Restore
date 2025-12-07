@@ -47,7 +47,7 @@
   swift_getKeyPath();
   swift_getKeyPath();
   selfCopy = self;
-  static Published.subscript.getter();
+  static Published.subscript.getter(&v5);
 
   return v5;
 }
@@ -86,7 +86,7 @@
   selfCopy = self;
   [v2 stopObservation_];
   v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for TrackRunningCoordinator();
+  v4.super_class = type metadata accessor for TrackRunningCoordinator(0);
   [(WOCoreTrackRunningCoordinator *)&v4 dealloc];
 }
 

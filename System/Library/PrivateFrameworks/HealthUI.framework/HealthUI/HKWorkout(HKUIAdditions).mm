@@ -7,9 +7,9 @@
 
 - (id)hkui_localizedActivityTypeName
 {
-  [self workoutActivityType];
+  workoutActivityType = [self workoutActivityType];
 
-  return HKUILocalizedWorkoutTypeName();
+  return HKUILocalizedWorkoutTypeName(workoutActivityType);
 }
 
 + (id)hkui_localizedWorkoutStringForValue:()HKUIAdditions

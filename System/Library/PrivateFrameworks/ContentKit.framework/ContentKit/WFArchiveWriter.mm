@@ -17,104 +17,104 @@
 
 - (BOOL)finishWithError:(id *)error
 {
-  v4 = archive_write_close();
-  v5 = v4;
-  if (error && v4)
+  v5 = archive_write_close();
+  v6 = v5;
+  if (error && v5)
   {
-    *error = WFLastArchiveError();
+    *error = WFLastArchiveError(self->_archive);
   }
 
-  return v5 == 0;
+  return v6 == 0;
 }
 
 - (BOOL)writeArchiveEntry:(id)entry error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
-  [entryCopy entry];
+  entry = [entryCopy entry];
   archive_write_header();
   dataProvider = [entryCopy dataProvider];
   if (dataProvider)
   {
-    v7 = getWFLibArchiveLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = getWFLibArchiveLogObject();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = WFPathFromArchiveEntry();
-      v19 = 136315394;
-      v20 = "[WFArchiveWriter writeArchiveEntry:error:]";
-      v21 = 2112;
-      v22 = v8;
-      _os_log_impl(&dword_21E1BD000, v7, OS_LOG_TYPE_DEFAULT, "%s Writing archive entry for %@", &v19, 0x16u);
+      v10 = WFPathFromArchiveEntry(entry);
+      v21 = 136315394;
+      v22 = "[WFArchiveWriter writeArchiveEntry:error:]";
+      v23 = 2112;
+      v24 = v10;
+      _os_log_impl(&dword_21E1BD000, v9, OS_LOG_TYPE_DEFAULT, "%s Writing archive entry for %@", &v21, 0x16u);
     }
 
-    v9 = dataProvider[2](dataProvider);
-    if (v9)
+    v11 = dataProvider[2](dataProvider);
+    if (v11)
     {
-      v10 = archive_entry_size();
-      v11 = v10;
-      if (v10 >= 0x4000)
+      v12 = archive_entry_size();
+      v13 = v12;
+      if (v12 >= 0x4000)
       {
-        v12 = 0x4000;
+        v14 = 0x4000;
       }
 
       else
       {
-        v12 = v10;
+        v14 = v12;
       }
 
-      v13 = malloc_type_malloc(v12, 0x3436D47CuLL);
-      [v9 open];
-      v14 = 0;
-      while (v14 < v11)
+      v15 = malloc_type_malloc(v14, 0x3436D47CuLL);
+      [v11 open];
+      v16 = 0;
+      while (v16 < v13)
       {
-        v15 = [v9 read:v13 maxLength:v12];
-        if (v15 < 1)
+        v17 = [v11 read:v15 maxLength:v14];
+        if (v17 < 1)
         {
           break;
         }
 
-        v14 += v15;
+        v16 += v17;
         if (archive_write_data() == -1)
         {
           if (error)
           {
-            *error = WFLastArchiveError();
+            *error = WFLastArchiveError(self->_archive);
           }
 
-          free(v13);
+          free(v15);
           goto LABEL_20;
         }
       }
 
-      free(v13);
-      streamError = [v9 streamError];
+      free(v15);
+      streamError = [v11 streamError];
 
       if (!streamError)
       {
-        [v9 close];
-        v16 = 1;
+        [v11 close];
+        v18 = 1;
         goto LABEL_21;
       }
 
       if (error)
       {
-        *error = [v9 streamError];
+        *error = [v11 streamError];
       }
 
-      [v9 close];
+      [v11 close];
     }
 
 LABEL_20:
-    v16 = 0;
+    v18 = 0;
 LABEL_21:
   }
 
   else
   {
-    v16 = 1;
+    v18 = 1;
   }
 
-  return v16;
+  return v18;
 }
 
 - (WFArchiveWriter)initWithDestinationURL:(id)l format:(id)format error:(id *)error
@@ -135,7 +135,7 @@ LABEL_21:
     goto LABEL_23;
   }
 
-  v11->_archive = archive_write_new();
+  *(v11 + 1) = archive_write_new();
   v12 = formatCopy;
   if (([v12 isEqualToString:@"gz"] & 1) != 0 || objc_msgSend(v12, "isEqualToString:", @"tar.gz"))
   {
@@ -195,7 +195,7 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  WFLastArchiveError();
+  WFLastArchiveError(*(v11 + 1));
   *error = v19 = 0;
 LABEL_24:
 

@@ -41,7 +41,7 @@ void __46___NUBufferImage_writeBufferRegion_withBlock___block_invoke_2(void *a1,
     goto LABEL_5;
   }
 
-  [v5 frameRect];
+  objc_msgSend_frameRect(v5);
   v6 = a1[4];
   if (!v6)
   {
@@ -50,7 +50,7 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  [v6 contentRect];
+  objc_msgSend_contentRect(v6);
 LABEL_6:
   v7 = [(NUMutableBufferTileAdapter *)v4 initWithFrameRect:v14 contentRect:v13 buffer:v3];
   (*(a1[5] + 16))(a1[5], v7, a1[6], v8, v9, v10, v11, v12);
@@ -83,7 +83,7 @@ void __45___NUBufferImage_readBufferRegion_withBlock___block_invoke_2(void *a1, 
     goto LABEL_5;
   }
 
-  [v5 frameRect];
+  objc_msgSend_frameRect(v5);
   v6 = a1[4];
   if (!v6)
   {
@@ -92,7 +92,7 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  [v6 contentRect];
+  objc_msgSend_contentRect(v6);
 LABEL_6:
   v7 = [(NUBufferTileAdapter *)v4 initWithFrameRect:v14 contentRect:v13 buffer:v3];
   (*(a1[5] + 16))(a1[5], v7, a1[6], v8, v9, v10, v11, v12);

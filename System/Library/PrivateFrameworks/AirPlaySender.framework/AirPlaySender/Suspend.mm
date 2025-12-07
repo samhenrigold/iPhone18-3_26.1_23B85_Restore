@@ -101,14 +101,14 @@ void __screenstream_Suspend_block_invoke_2(uint64_t a1)
 void __screenstreamudp_Suspend_block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v24 = *(a1 + 48);
+  v25 = *(a1 + 48);
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (*(DerivedStorage + 24))
   {
-    v14 = APSLogErrorAt();
-    OUTLINED_FUNCTION_5_6(v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24);
-    screenstreamudp_dispatchCallback(v2, v25, -16762);
-    screenstreamudp_handleFatalError(v2, -16762, @"Suspend failed");
+    v15 = APSLogErrorAt();
+    OUTLINED_FUNCTION_5_6(v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25);
+    screenstreamudp_dispatchCallback(v2, v26, -16762);
+    screenstreamudp_handleFatalError(v2, 4294950534, @"Suspend failed");
   }
 
   else if (*(DerivedStorage + 26))
@@ -117,21 +117,21 @@ void __screenstreamudp_Suspend_block_invoke(uint64_t a1)
     {
       if (!*(DerivedStorage + 256))
       {
-        *&v11 = OUTLINED_FUNCTION_5_6(*(DerivedStorage + 40), v4, v5, v6, v7, v8, v9, v10, v22, v23, v24).n128_u64[0];
-        [v12 stopWithCompletion:{v25, v11}];
-        screenstreamudp_teardownStream();
-        if (gLogCategory_APEndpointStreamScreenUDP <= 50 && (gLogCategory_APEndpointStreamScreenUDP != -1 || OUTLINED_FUNCTION_4()))
+        *&v11 = OUTLINED_FUNCTION_5_6(*(DerivedStorage + 40), v4, v5, v6, v7, v8, v9, v10, v23, v24, v25).n128_u64[0];
+        [v12 stopWithCompletion:{v26, v11}];
+        screenstreamudp_teardownStream(v2);
+        if (gLogCategory_APEndpointStreamScreenUDP <= 50 && (gLogCategory_APEndpointStreamScreenUDP != -1 || OUTLINED_FUNCTION_4(&gLogCategory_APEndpointStreamScreenUDP)))
         {
-          OUTLINED_FUNCTION_2();
+          OUTLINED_FUNCTION_2(&gLogCategory_APEndpointStreamScreenUDP, "OSStatus screenstreamudp_suspendInternal(FigEndpointStreamRef, CFDictionaryRef, StreamScreenUDPCompletionContext)", v13, "screen stream %{ptr} suspended\n");
         }
       }
     }
   }
 
-  v13 = *(a1 + 40);
-  if (v13)
+  v14 = *(a1 + 40);
+  if (v14)
   {
-    CFRelease(v13);
+    CFRelease(v14);
   }
 
   CFRelease(*(a1 + 32));
@@ -155,7 +155,7 @@ void __screenstream_Suspend_block_invoke(uint64_t a1)
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (DerivedStorage[24])
   {
-    v7 = -16762;
+    v8 = -16762;
     APSLogErrorAt();
   }
 
@@ -164,7 +164,7 @@ void __screenstream_Suspend_block_invoke(uint64_t a1)
     v4 = DerivedStorage;
     if (DerivedStorage[26] && DerivedStorage[25])
     {
-      screenstream_stopStatsTimer();
+      screenstream_stopStatsTimer(v2);
       v5 = *(v4 + 20);
       v6 = *(*(CMBaseObjectGetVTable() + 16) + 24);
       if (v6)
@@ -172,17 +172,17 @@ void __screenstream_Suspend_block_invoke(uint64_t a1)
         v6(v5);
       }
 
-      screenstream_teardownTransportStream();
+      screenstream_teardownTransportStream(v2);
       CMBufferQueueReset(*(v4 + 13));
       screenStream_setResumedAndNotifiyObservers(v2, 0);
-      if (gLogCategory_APEndpointStreamScreen <= 50 && (gLogCategory_APEndpointStreamScreen != -1 || OUTLINED_FUNCTION_4()))
+      if (gLogCategory_APEndpointStreamScreen <= 50 && (gLogCategory_APEndpointStreamScreen != -1 || OUTLINED_FUNCTION_4(&gLogCategory_APEndpointStreamScreen)))
       {
         OUTLINED_FUNCTION_29_3();
-        OUTLINED_FUNCTION_2();
+        OUTLINED_FUNCTION_2(&gLogCategory_APEndpointStreamScreen, "OSStatus screenstream_suspendInternal(FigEndpointStreamRef, CFDictionaryRef)", v7, "%@ suspended\n");
       }
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
   if (*(a1 + 48))
@@ -190,20 +190,20 @@ void __screenstream_Suspend_block_invoke(uint64_t a1)
     CFRetain(*(a1 + 32));
     OUTLINED_FUNCTION_1_17();
     OUTLINED_FUNCTION_27_1();
-    v12 = __screenstream_Suspend_block_invoke_2;
-    v13 = &__block_descriptor_tmp_102;
-    v8 = *(a1 + 32);
-    v14 = *(a1 + 48);
-    v15 = v8;
-    v17 = v7;
-    v16 = *(a1 + 64);
-    dispatch_async(v9, block);
+    v13 = __screenstream_Suspend_block_invoke_2;
+    v14 = &__block_descriptor_tmp_102;
+    v9 = *(a1 + 32);
+    v15 = *(a1 + 48);
+    v16 = v9;
+    v18 = v8;
+    v17 = *(a1 + 64);
+    dispatch_async(v10, block);
   }
 
-  v10 = *(a1 + 40);
-  if (v10)
+  v11 = *(a1 + 40);
+  if (v11)
   {
-    CFRelease(v10);
+    CFRelease(v11);
   }
 
   CFRelease(*(a1 + 32));

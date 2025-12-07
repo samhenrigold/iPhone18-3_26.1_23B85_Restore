@@ -3,6 +3,7 @@
 - (_INPBIntentSlotResolutionResult)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -363,7 +364,6 @@ LABEL_33:
 
   if ([(_INPBIntentSlotResolutionResult *)self hasType])
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -427,6 +427,22 @@ LABEL_33:
   }
 
   return v4;
+}
+
+- (id)typeAsString:(int)string
+{
+  v4 = string - 1;
+  if (string - 1) < 0xB && ((0x7EFu >> v4))
+  {
+    v5 = off_1E7283B28[v4];
+  }
+
+  else
+  {
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v5;
 }
 
 - (void)setType:(int)type

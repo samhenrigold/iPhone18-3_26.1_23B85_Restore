@@ -29,7 +29,7 @@
     {
       if (v5)
       {
-        v7 = TPDefaultLog();
+        v7 = TPDefaultLog(v5);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           [(CNFavoritesEntry(TelephonyUI) *)bundleIdentifier localizedBundleName];
@@ -73,13 +73,12 @@
 
 - (void)localizedBundleName
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1B4894000, log, OS_LOG_TYPE_ERROR, "Attempt to obtain application record for bundle identifier %@ failed with error %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1B4894000, log, OS_LOG_TYPE_ERROR, "Attempt to obtain application record for bundle identifier %@ failed with error %@", &v3, 0x16u);
 }
 
 @end

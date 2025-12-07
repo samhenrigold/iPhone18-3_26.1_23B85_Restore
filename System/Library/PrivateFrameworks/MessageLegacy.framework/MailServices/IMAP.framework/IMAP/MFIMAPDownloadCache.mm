@@ -19,7 +19,7 @@
 
 - (id)downloadForMessage:(id)message
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = [message uid];
   [(MFIMAPDownloadCache *)self mf_lock];
   RangeOfDownloadsWithUid = _lockedFindRangeOfDownloadsWithUid(self, v5);
@@ -30,9 +30,9 @@
       v10 = MFLogGeneral();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v14 = 138543362;
+        v13 = 138543362;
         ef_publicDescription = [message ef_publicDescription];
-        _os_log_impl(&dword_258B7A000, v10, OS_LOG_TYPE_INFO, "uid of message %{public}@ is 0", &v14, 0xCu);
+        _os_log_impl(&dword_258B7A000, v10, OS_LOG_TYPE_INFO, "uid of message %{public}@ is 0", &v13, 0xCu);
       }
     }
 
@@ -46,48 +46,46 @@
   }
 
   [(MFIMAPDownloadCache *)self mf_unlock];
-  result = v9;
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return v9;
 }
 
 - (void)handleFetchResponse:(id)response forUid:(unsigned int)uid
 {
   [(MFIMAPDownloadCache *)self mf_lock];
   RangeOfDownloadsWithUid = _lockedFindRangeOfDownloadsWithUid(self, uid);
-  _lockedUpdateDownloadsInRange(self, RangeOfDownloadsWithUid, v8, [response fetchResults]);
+  _lockedUpdateDownloadsInRange(&self->super.isa, RangeOfDownloadsWithUid, v8, [response fetchResults]);
 
   [(MFIMAPDownloadCache *)self mf_unlock];
 }
 
 - (void)handleFetchResponses:(id)responses
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if ([responses count])
   {
     [(MFIMAPDownloadCache *)self mf_lock];
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
-    v5 = [responses countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v5 = [responses countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
       RangeOfDownloadsWithUid = 0;
       v9 = 0;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(responses);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           v13 = [objc_msgSend(v12 fetchResultWithType:{8), "uid"}];
           if (v13)
           {
@@ -99,11 +97,11 @@
               v9 = v14;
             }
 
-            _lockedUpdateDownloadsInRange(self, RangeOfDownloadsWithUid, v7, [v12 fetchResults]);
+            _lockedUpdateDownloadsInRange(&self->super.isa, RangeOfDownloadsWithUid, v7, [v12 fetchResults]);
           }
         }
 
-        v6 = [responses countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v6 = [responses countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v6);
@@ -111,8 +109,6 @@
 
     [(MFIMAPDownloadCache *)self mf_unlock];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processResultsForUid:(unsigned int)uid

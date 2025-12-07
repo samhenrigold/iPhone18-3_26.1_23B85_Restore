@@ -15,17 +15,16 @@
 {
   if (*(&self->super.isa + OBJC_IVAR___JSAStoreContentLookupRequest__requestOptions))
   {
-    v2 = *(&self->super.isa + OBJC_IVAR___JSAStoreContentLookupRequest__requestOptions);
 
-    v3.super.isa = sub_8433C().super.isa;
+    v2.super.isa = sub_8433C().super.isa;
   }
 
   else
   {
-    v3.super.isa = 0;
+    v2.super.isa = 0;
   }
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setRequestOptions:(id)options
@@ -42,23 +41,20 @@
 
   if ((*(&self->super.isa + OBJC_IVAR___JSAStoreContentLookupRequest_frozen) & 1) == 0)
   {
-    v5 = *(&self->super.isa + OBJC_IVAR___JSAStoreContentLookupRequest__requestOptions);
     *(&self->super.isa + OBJC_IVAR___JSAStoreContentLookupRequest__requestOptions) = v4;
   }
 }
 
 - (NSArray)itemIdentifiers
 {
-  v3 = OBJC_IVAR___JSAStoreContentLookupRequest__itemIdentifiers;
   swift_beginAccess();
-  v4 = *(&self->super.isa + v3);
   selfCopy = self;
 
-  sub_634D8(v6);
+  sub_634D8(v4);
 
-  v7.super.isa = sub_8458C().super.isa;
+  v5.super.isa = sub_8458C().super.isa;
 
-  return v7.super.isa;
+  return v5.super.isa;
 }
 
 - (void)setItemIdentifiers:(id)identifiers

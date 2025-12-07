@@ -212,21 +212,19 @@ LABEL_28:
 
 - (id)dictionaryRepresentationWithContext:(id)context
 {
-  v12[3] = *MEMORY[0x277D85DE8];
-  v11[0] = @"recordID";
+  v11[3] = *MEMORY[0x277D85DE8];
+  v10[0] = @"recordID";
   v4 = [(DNDSIDSRecordID *)self->_recordID dictionaryRepresentationWithContext:context];
-  v12[0] = v4;
-  v11[1] = @"lastModified";
+  v11[0] = v4;
+  v10[1] = @"lastModified";
   v5 = MEMORY[0x277CCABB0];
   [(NSDate *)self->_lastModified timeIntervalSinceReferenceDate];
   v6 = [v5 numberWithDouble:?];
-  v12[1] = v6;
-  v11[2] = @"deleted";
+  v11[1] = v6;
+  v10[2] = @"deleted";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:self->_deleted];
-  v12[2] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[2] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   return v8;
 }

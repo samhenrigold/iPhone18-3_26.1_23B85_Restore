@@ -15,7 +15,7 @@
 
 - (void)readerSession:(id)session didDetectTags:(id)tags
 {
-  sub_24579D5E0(0, &qword_27EE2A7F8);
+  sub_24579D5E0(0, &qword_27EE2A7F8, 0x277D2C888);
   v6 = sub_245910C44();
   sessionCopy = session;
   selfCopy = self;

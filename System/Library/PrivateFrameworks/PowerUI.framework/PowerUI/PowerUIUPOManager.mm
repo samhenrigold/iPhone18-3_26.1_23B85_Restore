@@ -14,7 +14,7 @@
 
 void __55__PowerUIUPOManager_registerForWithdrawalNotifications__block_invoke(uint64_t a1, int token)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   state64 = 0;
   notify_get_state(token, &state64);
   v3 = *(*(a1 + 32) + 72);
@@ -22,9 +22,9 @@ void __55__PowerUIUPOManager_registerForWithdrawalNotifications__block_invoke(ui
   {
     v4 = *(*(a1 + 32) + 8);
     *buf = 134218240;
-    v25 = state64;
-    v26 = 1024;
-    v27 = v4;
+    v24 = state64;
+    v25 = 1024;
+    v26 = v4;
     _os_log_impl(&dword_21B766000, v3, OS_LOG_TYPE_DEFAULT, "Lock state changed: %llu (Loaded = %u)", buf, 0x12u);
   }
 
@@ -43,11 +43,11 @@ void __55__PowerUIUPOManager_registerForWithdrawalNotifications__block_invoke(ui
       {
         v10 = *(*(a1 + 32) + 56);
         *buf = 138412290;
-        v25 = v10;
+        v24 = v10;
         _os_log_impl(&dword_21B766000, v9, OS_LOG_TYPE_DEFAULT, "Locked at %@", buf, 0xCu);
       }
 
-      goto LABEL_22;
+      return;
     }
 
     v11 = [v7 upoTime];
@@ -68,7 +68,7 @@ void __55__PowerUIUPOManager_registerForWithdrawalNotifications__block_invoke(ui
           {
             v19 = *(*(*(a1 + 40) + 8) + 24);
             *buf = 67109120;
-            LODWORD(v25) = v19;
+            LODWORD(v24) = v19;
             _os_log_impl(&dword_21B766000, v18, OS_LOG_TYPE_DEFAULT, "Unlock Count: %d", buf, 8u);
           }
 
@@ -93,7 +93,7 @@ void __55__PowerUIUPOManager_registerForWithdrawalNotifications__block_invoke(ui
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          LODWORD(v25) = 15;
+          LODWORD(v24) = 15;
           v16 = "Device was locked for less than %ds. Not counting this unlock";
           goto LABEL_14;
         }
@@ -106,7 +106,7 @@ void __55__PowerUIUPOManager_registerForWithdrawalNotifications__block_invoke(ui
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v25) = 180;
+        LODWORD(v24) = 180;
         v16 = "Notification posted less than %ds ago. Not counting this unlock.";
 LABEL_14:
         _os_log_impl(&dword_21B766000, v15, OS_LOG_TYPE_DEFAULT, v16, buf, 8u);
@@ -115,9 +115,6 @@ LABEL_14:
 
 LABEL_21:
   }
-
-LABEL_22:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (PowerUIUPOManager)init
@@ -192,7 +189,6 @@ LABEL_22:
 
 uint64_t __35__PowerUIUPOManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance_manager = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -200,7 +196,7 @@ uint64_t __35__PowerUIUPOManager_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)dataProviderDidLoad
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   self->_dataProviderLoaded = 1;
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
@@ -208,12 +204,10 @@ uint64_t __35__PowerUIUPOManager_sharedInstance__block_invoke(uint64_t a1)
     v3 = MEMORY[0x277CBEAA8];
     v4 = log;
     date = [v3 date];
-    v7 = 138412290;
-    v8 = date;
-    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_DEFAULT, "Data provider loaded: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = date;
+    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_DEFAULT, "Data provider loaded: %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)displayMitigationsEnabledNotification

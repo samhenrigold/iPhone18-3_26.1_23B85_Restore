@@ -572,9 +572,9 @@ void __79__SKUITracklistLockupCollectionViewCell_sizeThatFitsWidth_viewElement_c
   color = [ikBorderColor color];
 
   dividerType = [style dividerType];
-  v17 = [dividerType isEqualToString:@"none"];
+  isEqualToString = objc_msgSend_isEqualToString_(dividerType);
 
-  if (!v17)
+  if (!isEqualToString)
   {
     separatorView = self->_separatorView;
     if (color)
@@ -589,7 +589,7 @@ void __79__SKUITracklistLockupCollectionViewCell_sizeThatFitsWidth_viewElement_c
     }
   }
 
-  [(UIView *)self->_separatorView setHidden:v17];
+  [(UIView *)self->_separatorView setHidden:isEqualToString];
   v28[0] = MEMORY[0x277D85DD0];
   v28[1] = 3221225472;
   v28[2] = __77__SKUITracklistLockupCollectionViewCell_reloadWithViewElement_width_context___block_invoke;
@@ -903,42 +903,43 @@ LABEL_16:
 - (BOOL)updateWithItemState:(id)state context:(id)context animated:(BOOL)animated
 {
   animatedCopy = animated;
-  v25 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   contextCopy = context;
-  v20 = 0u;
-  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v10 = self->_buyButtonDescriptorToButton;
-  v11 = [(NSMapTable *)v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v11 = [(NSMapTable *)v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v21;
+    v13 = *v23;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v21 != v13)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * i);
-        if (SKUIIKViewElementTypeIsButton([v15 elementType]) && (objc_msgSend(v15, "canPersonalizeUsingItemState:", stateCopy) & 1) != 0)
+        v15 = *(*(&v22 + 1) + 8 * i);
+        elementType = [v15 elementType];
+        if (SKUIIKViewElementTypeIsButton(elementType, v17) && ([v15 canPersonalizeUsingItemState:stateCopy] & 1) != 0)
         {
-          v17 = [(NSMapTable *)self->_buyButtonDescriptorToButton objectForKey:v15];
+          v19 = [(NSMapTable *)self->_buyButtonDescriptorToButton objectForKey:v15];
           clientContext = [contextCopy clientContext];
-          [v17 setValuesUsingBuyButtonDescriptor:v15 itemState:stateCopy clientContext:clientContext animated:animatedCopy];
+          [v19 setValuesUsingBuyButtonDescriptor:v15 itemState:stateCopy clientContext:clientContext animated:animatedCopy];
 
           [(SKUITracklistLockupCollectionViewCell *)self setNeedsLayout];
-          v16 = 1;
+          v18 = 1;
           goto LABEL_12;
         }
       }
 
-      v12 = [(NSMapTable *)v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v12 = [(NSMapTable *)v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v12)
       {
         continue;
@@ -948,10 +949,10 @@ LABEL_16:
     }
   }
 
-  v16 = 0;
+  v18 = 0;
 LABEL_12:
 
-  return v16;
+  return v18;
 }
 
 - (id)viewForElementIdentifier:(id)identifier
@@ -982,9 +983,9 @@ void __66__SKUITracklistLockupCollectionViewCell_viewForElementIdentifier___bloc
 {
   v10 = a3;
   v8 = [a2 itmlID];
-  v9 = [v8 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-  if (v9)
+  if (isEqualToString)
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
     *a4 = 1;
@@ -1614,6 +1615,36 @@ void __59__SKUITracklistLockupCollectionViewCell__previewColumnView__block_invok
     [(SKUIPreviewProgressIndicator *)self->_previewProgressIndicator reloadWithPlayerStatus:self->_lastPlayerStatus animated:0];
     self->_previewState = 2;
   }
+}
+
+- (void)initWithFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITracklistLockupCollectionViewCell initWithFrame:]";
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITracklistLockupCollectionViewCell prefetchResourcesForViewElement:reason:context:]";
+}
+
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITracklistLockupCollectionViewCell preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITracklistLockupCollectionViewCell requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITracklistLockupCollectionViewCell sizeThatFitsWidth:viewElement:context:]";
 }
 
 @end

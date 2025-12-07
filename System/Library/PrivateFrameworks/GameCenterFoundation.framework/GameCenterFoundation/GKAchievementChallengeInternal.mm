@@ -46,18 +46,18 @@ void __57__GKAchievementChallengeInternal_secureCodedPropertyKeys__block_invoke(
 - (id)serverRepresentationForReceivingPlayer:(id)player
 {
   selfCopy = self;
-  v17[2] = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = GKAchievementChallengeInternal;
-  v5 = [(GKChallengeInternal *)&v15 serverRepresentationForReceivingPlayer:player];
+  v16[2] = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = GKAchievementChallengeInternal;
+  v5 = [(GKChallengeInternal *)&v14 serverRepresentationForReceivingPlayer:player];
   v6 = [v5 mutableCopy];
 
   [v6 setObject:&unk_283B33430 forKey:@"challenge-type"];
-  v16[0] = @"achievement-id";
+  v15[0] = @"achievement-id";
   achievement = [selfCopy achievement];
   identifier = [achievement identifier];
-  v16[1] = @"timestamp";
-  v17[0] = identifier;
+  v15[1] = @"timestamp";
+  v16[0] = identifier;
   achievement2 = [selfCopy achievement];
   lastReportedDate = [achievement2 lastReportedDate];
   if (lastReportedDate)
@@ -72,8 +72,8 @@ void __57__GKAchievementChallengeInternal_secureCodedPropertyKeys__block_invoke(
     [MEMORY[0x277CBEAA8] _gkServerTimestamp];
   }
   v11 = ;
-  v17[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v16[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
   if (lastReportedDate)
   {
 
@@ -81,7 +81,6 @@ void __57__GKAchievementChallengeInternal_secureCodedPropertyKeys__block_invoke(
   }
 
   [v6 setObject:v12 forKey:@"achievement"];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

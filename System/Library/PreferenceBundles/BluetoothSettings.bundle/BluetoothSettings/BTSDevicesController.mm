@@ -40,6 +40,7 @@
 - (void)_updateDevicePosition:(id)position;
 - (void)_updateHealthDevices;
 - (void)alertSheetDismissed:(id)dismissed;
+- (void)allowBluetoothConnections:(BOOL)connections;
 - (void)allowBluetoothScans:(BOOL)scans;
 - (void)applicationDidBecomeActive:(id)active;
 - (void)applicationDidEnterBackground:(id)background;
@@ -109,20 +110,25 @@
 - (void)updateFirmwareUpdateRequiredDevicesList:(id)list;
 - (void)updateMainGroupFooter;
 - (void)updatePoorConnectedDevicesList:(id)list;
+- (void)updatePowerState:(BOOL)state powerSpec:(id)spec;
 - (void)updateUI:(BOOL)i;
 - (void)userDidTapWalletLink:(id)link;
 - (void)userDidTapWatchLink:(id)link;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation BTSDevicesController
 
 - (BTSDevicesController)init
 {
-  v72[2] = *MEMORY[0x277D85DE8];
-  v68.receiver = self;
-  v68.super_class = BTSDevicesController;
-  v2 = [(BTSDevicesController *)&v68 init];
+  v73[2] = *MEMORY[0x277D85DE8];
+  v69.receiver = self;
+  v69.super_class = BTSDevicesController;
+  v2 = [(BTSDevicesController *)&v69 init];
   if (v2)
   {
     date = [MEMORY[0x277CBEAA8] date];
@@ -209,11 +215,11 @@
     [(BTSDevicesController *)v2 registerForNotifications];
     v42 = objc_alloc(MEMORY[0x277CBDFF8]);
     v43 = *MEMORY[0x277CBDF08];
-    v71[0] = *MEMORY[0x277CBDD90];
-    v71[1] = v43;
-    v72[0] = MEMORY[0x277CBEC38];
-    v72[1] = MEMORY[0x277CBEC38];
-    v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:2];
+    v72[0] = *MEMORY[0x277CBDD90];
+    v72[1] = v43;
+    v73[0] = MEMORY[0x277CBEC38];
+    v73[1] = MEMORY[0x277CBEC38];
+    v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:v72 count:2];
     v45 = [v42 initWithDelegate:v2 queue:MEMORY[0x277D85CD0] options:v44];
     centralManager = v2->_centralManager;
     v2->_centralManager = v45;
@@ -221,71 +227,72 @@
     sharedPairingAgent = [(CBCentralManager *)v2->_centralManager sharedPairingAgent];
     [sharedPairingAgent setDelegate:v2];
 
-    if ([MEMORY[0x277CCD4D8] isHealthDataAvailable])
+    isHealthDataAvailable = [MEMORY[0x277CCD4D8] isHealthDataAvailable];
+    if (isHealthDataAvailable)
     {
-      v48 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+      v49 = sharedBluetoothSettingsLogComponent(isHealthDataAvailable);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_23C0F7000, v48, OS_LOG_TYPE_INFO, "HealthKit is supported", buf, 2u);
+        _os_log_impl(&dword_23C0F7000, v49, OS_LOG_TYPE_INFO, "HealthKit is supported", buf, 2u);
       }
 
-      v49 = objc_opt_new();
+      v50 = objc_opt_new();
       healthKitStore = v2->_healthKitStore;
-      v2->_healthKitStore = v49;
+      v2->_healthKitStore = v50;
 
       if ((_os_feature_enabled_impl() & 1) == 0)
       {
-        v51 = v2->_healthKitStore;
-        v65[0] = MEMORY[0x277D85DD0];
-        v65[1] = 3221225472;
-        v65[2] = __28__BTSDevicesController_init__block_invoke;
-        v65[3] = &unk_278BB0340;
-        v66 = v2;
-        [(HKHealthStore *)v51 healthServicePairingsWithHandler:v65];
+        v52 = v2->_healthKitStore;
+        v66[0] = MEMORY[0x277D85DD0];
+        v66[1] = 3221225472;
+        v66[2] = __28__BTSDevicesController_init__block_invoke;
+        v66[3] = &unk_278BB0340;
+        v67 = v2;
+        [(HKHealthStore *)v52 healthServicePairingsWithHandler:v66];
       }
     }
 
-    [(BTSDevicesController *)v2 reinitDASession];
-    v52 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+    v53 = sharedBluetoothSettingsLogComponent([(BTSDevicesController *)v2 reinitDASession]);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v70 = "[BTSDevicesController init]";
-      _os_log_impl(&dword_23C0F7000, v52, OS_LOG_TYPE_DEFAULT, "%s exposure notification init", buf, 0xCu);
+      v71 = "[BTSDevicesController init]";
+      _os_log_impl(&dword_23C0F7000, v53, OS_LOG_TYPE_DEFAULT, "%s exposure notification init", buf, 0xCu);
     }
 
-    v53 = objc_alloc_init(MEMORY[0x277CF89F8]);
+    v54 = objc_alloc_init(MEMORY[0x277CF89F8]);
     carplayStatus = v2->_carplayStatus;
-    v2->_carplayStatus = v53;
+    v2->_carplayStatus = v54;
 
     [(CARSessionStatus *)v2->_carplayStatus setSessionObserver:v2];
     v2->_scanningPausedForCarPlay = 0;
-    v55 = MGGetStringAnswer();
-    if (v55)
+    v56 = MGGetStringAnswer();
+    if (v56)
     {
-      v56 = v55;
-      if ([v55 isEqualToString:@"iPhone"])
+      v57 = v56;
+      if ([v56 isEqualToString:@"iPhone"])
       {
-        v57 = objc_alloc_init(MEMORY[0x277CC5C90]);
+        v58 = objc_alloc_init(MEMORY[0x277CC5C90]);
         exposureNotificationManager = v2->_exposureNotificationManager;
-        v2->_exposureNotificationManager = v57;
+        v2->_exposureNotificationManager = v58;
 
-        v59 = v2->_exposureNotificationManager;
-        v63[0] = MEMORY[0x277D85DD0];
-        v63[1] = 3221225472;
-        v63[2] = __28__BTSDevicesController_init__block_invoke_244;
-        v63[3] = &unk_278BB0368;
-        v64 = v2;
-        [(ENManager *)v59 activateWithCompletionHandler:v63];
-        CFRelease(v56);
+        v60 = v2->_exposureNotificationManager;
+        v64[0] = MEMORY[0x277D85DD0];
+        v64[1] = 3221225472;
+        v64[2] = __28__BTSDevicesController_init__block_invoke_244;
+        v64[3] = &unk_278BB0368;
+        v65 = v2;
+        [(ENManager *)v60 activateWithCompletionHandler:v64];
+        CFRelease(v57);
       }
     }
 
-    if (notify_register_check("com.apple.bluetooth.settings.app-state", &v2->_bluetoothSettingsAppStateNotifyToken))
+    v61 = notify_register_check("com.apple.bluetooth.settings.app-state", &v2->_bluetoothSettingsAppStateNotifyToken);
+    if (v61)
     {
-      v60 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+      v62 = sharedBluetoothSettingsLogComponent(v61);
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
       {
         [BTSDevicesController init];
       }
@@ -295,7 +302,6 @@
   }
 
   CFPreferencesGetAppBooleanValue(@"enableChannelSoundingTesting", @"com.apple.bluetooth", &v2->_isChannelSoundingTestingEnabled);
-  v61 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -303,10 +309,11 @@ void __28__BTSDevicesController_init__block_invoke(uint64_t a1, void *a2, void *
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sharedBluetoothSettingsLogComponent(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __28__BTSDevicesController_init__block_invoke_cold_1();
     }
@@ -314,24 +321,24 @@ void __28__BTSDevicesController_init__block_invoke(uint64_t a1, void *a2, void *
 
   else if ([v5 count])
   {
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __28__BTSDevicesController_init__block_invoke_233;
-    v8[3] = &unk_278BB0318;
-    v9 = *(a1 + 32);
-    v10 = v5;
-    dispatch_async(MEMORY[0x277D85CD0], v8);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __28__BTSDevicesController_init__block_invoke_233;
+    v9[3] = &unk_278BB0318;
+    v10 = *(a1 + 32);
+    v11 = v5;
+    dispatch_async(MEMORY[0x277D85CD0], v9);
 
-    v7 = v9;
+    v8 = v10;
   }
 
   else
   {
-    v7 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sharedBluetoothSettingsLogComponent(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23C0F7000, v7, OS_LOG_TYPE_DEFAULT, "Found no known health devices", buf, 2u);
+      _os_log_impl(&dword_23C0F7000, v8, OS_LOG_TYPE_DEFAULT, "Found no known health devices", buf, 2u);
     }
   }
 }
@@ -381,48 +388,49 @@ uint64_t __28__BTSDevicesController_init__block_invoke_244(uint64_t a1)
 
 - (void)reinitDASession
 {
-  if (_os_feature_enabled_impl())
+  v3 = _os_feature_enabled_impl();
+  if (v3)
   {
     if (self->_deviceAccessSession)
     {
-      v3 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = sharedBluetoothSettingsLogComponent(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&dword_23C0F7000, v3, OS_LOG_TYPE_DEFAULT, "Re-init DASession", buf, 2u);
+        _os_log_impl(&dword_23C0F7000, v4, OS_LOG_TYPE_DEFAULT, "Re-init DASession", buf, 2u);
       }
 
-      v4 = self->_deviceAccessSession;
-      [(DASession *)v4 setEventHandler:0];
-      [(DASession *)v4 invalidate];
+      v5 = self->_deviceAccessSession;
+      [(DASession *)v5 setEventHandler:0];
+      [(DASession *)v5 invalidate];
       deviceAccessSession = self->_deviceAccessSession;
       self->_deviceAccessSession = 0;
     }
 
-    v6 = objc_alloc_init(MEMORY[0x277D04780]);
-    v7 = self->_deviceAccessSession;
-    self->_deviceAccessSession = v6;
+    v7 = objc_alloc_init(MEMORY[0x277D04780]);
+    v8 = self->_deviceAccessSession;
+    self->_deviceAccessSession = v7;
 
     [(DASession *)self->_deviceAccessSession setDispatchQueue:MEMORY[0x277D85CD0]];
     objc_initWeak(buf, self);
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __39__BTSDevicesController_reinitDASession__block_invoke;
-    v9[3] = &unk_278BB0390;
-    objc_copyWeak(&v10, buf);
-    [(DASession *)self->_deviceAccessSession setEventHandler:v9];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __39__BTSDevicesController_reinitDASession__block_invoke;
+    v10[3] = &unk_278BB0390;
+    objc_copyWeak(&v11, buf);
+    [(DASession *)self->_deviceAccessSession setEventHandler:v10];
     [(DASession *)self->_deviceAccessSession activate];
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v8 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sharedBluetoothSettingsLogComponent(v3);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_23C0F7000, v8, OS_LOG_TYPE_DEFAULT, "AccessorySetupKit feature flag not enabled", buf, 2u);
+      _os_log_impl(&dword_23C0F7000, v9, OS_LOG_TYPE_DEFAULT, "AccessorySetupKit feature flag not enabled", buf, 2u);
     }
   }
 }
@@ -463,6 +471,33 @@ LABEL_6:
   completionCopy[2](completionCopy);
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v10.receiver = self;
+  v10.super_class = BTSDevicesController;
+  [(BTSDevicesController *)&v10 viewDidAppear:appear];
+  if (!self->_bluetoothInitialized)
+  {
+    [(BTSDevicesController *)self allowBluetoothConnections:1];
+    self->_bluetoothInitialized = 1;
+  }
+
+  if (self->_mainFooterNeedsUpdate)
+  {
+    [(BTSDevicesController *)self reloadSpecifiers];
+    self->_mainFooterNeedsUpdate = 0;
+  }
+
+  v4 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.Bluetooth"];
+  v5 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL = [v7 bundleURL];
+  v9 = [v5 initWithKey:@"Bluetooth" table:0 locale:currentLocale bundleURL:bundleURL];
+
+  [(BTSDevicesController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.bluetooth" title:v9 localizedNavigationComponents:MEMORY[0x277CBEBF8] deepLink:v4];
+}
+
 - (void)viewDidLoad
 {
   v7.receiver = self;
@@ -476,6 +511,94 @@ LABEL_6:
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   supportsBackgroundNIDictionary = self->supportsBackgroundNIDictionary;
   self->supportsBackgroundNIDictionary = v5;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v10 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = BTSDevicesController;
+  v4 = [(BTSDevicesController *)&v7 viewWillAppear:appear];
+  v5 = sharedBluetoothSettingsLogComponent(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134217984;
+    selfCopy = self;
+    _os_log_impl(&dword_23C0F7000, v5, OS_LOG_TYPE_DEFAULT, "BT Settings viewWillAppear %p", buf, 0xCu);
+  }
+
+  if (self->_shouldRestorePreviousScanningState)
+  {
+    mEMORY[0x277CF3248] = [MEMORY[0x277CF3248] sharedInstance];
+    [mEMORY[0x277CF3248] setDeviceScanningEnabled:self->_allowScanning];
+
+    self->_shouldRestorePreviousScanningState = 0;
+  }
+
+  if (_os_feature_enabled_impl())
+  {
+    [(BTSDevicesController *)self fetchDADevices];
+  }
+
+  if (self->_uiRefreshed)
+  {
+    [(BTSDevicesController *)self reloadSpecifiers];
+  }
+
+  else
+  {
+    [(BTSDevicesController *)self allowBluetoothConnections:1];
+    [(BTSDevicesController *)self refreshUI];
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v17 = *MEMORY[0x277D85DE8];
+  navigationController = [(BTSDevicesController *)self navigationController];
+  topViewController = [navigationController topViewController];
+  childViewControllers = [topViewController childViewControllers];
+  firstObject = [childViewControllers firstObject];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if ((isKindOfClass & 1) == 0)
+  {
+    v10 = sharedBluetoothSettingsLogComponent(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = 134217984;
+      selfCopy = self;
+      _os_log_impl(&dword_23C0F7000, v10, OS_LOG_TYPE_DEFAULT, "Unsubscribing from notifications because view controller was popped from the stack: BTSDevicesController instance %p", &v15, 0xCu);
+    }
+
+    [(BTSDevicesController *)self allowBluetoothConnections:0];
+    [(BTAlert *)self->_alert dismiss];
+    defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+    [defaultCenter removeObserver:self];
+
+    defaultCenter2 = [MEMORY[0x277CCA9A0] defaultCenter];
+    [defaultCenter2 removeObserver:self];
+
+    sharedPairingAgent = [(CBCentralManager *)self->_centralManager sharedPairingAgent];
+    [sharedPairingAgent setDelegate:0];
+
+    [(CBCentralManager *)self->_centralManager setDelegate:0];
+    self->_uiRefreshed = 0;
+    [(DASession *)self->_deviceAccessSession invalidate];
+    deviceAccessSession = self->_deviceAccessSession;
+    self->_deviceAccessSession = 0;
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  mEMORY[0x277CF3248] = [MEMORY[0x277CF3248] sharedInstance];
+  [mEMORY[0x277CF3248] setDeviceScanningEnabled:0];
+
+  self->_shouldRestorePreviousScanningState = 1;
+  pendingSetupDeviceID = self->_pendingSetupDeviceID;
+  self->_pendingSetupDeviceID = 0;
 }
 
 - (void)applicationWillResignActive:(id)active
@@ -499,7 +622,7 @@ LABEL_6:
 
 - (void)applicationWillEnterForeground:(id)foreground
 {
-  v4 = sharedBluetoothSettingsLogComponent();
+  v4 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -515,7 +638,7 @@ LABEL_6:
 
 - (void)applicationDidEnterBackground:(id)background
 {
-  v4 = sharedBluetoothSettingsLogComponent();
+  v4 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v12 = 0;
@@ -556,28 +679,28 @@ LABEL_6:
 
 - (unsigned)connectedLEAudio1DeviceCount
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [(CBCentralManager *)self->_centralManager retrieveConnectedPeripheralsWithServices:MEMORY[0x277CBEBF8] allowAll:1];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         if ([v8 hasTag:@"IsHearingAid"])
         {
           v9 = [v8 customProperty:@"LEAVersion"];
@@ -589,7 +712,7 @@ LABEL_6:
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
@@ -600,7 +723,6 @@ LABEL_6:
     v5 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -622,7 +744,7 @@ LABEL_6:
 
 - (void)powerChanged
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CF3248] = [MEMORY[0x277CF3248] sharedInstance];
   enabled = [mEMORY[0x277CF3248] enabled];
 
@@ -644,34 +766,35 @@ LABEL_6:
   [(BTSDevicesController *)self reloadCellForSpecifierID:@"BLUETOOTH"];
   if (self->_power && *(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]))
   {
+    v40 = 0u;
+    v41 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
     sharedPairingAgent = [(CBCentralManager *)self->_centralManager sharedPairingAgent];
     retrievePairedPeers = [sharedPairingAgent retrievePairedPeers];
 
-    v8 = [retrievePairedPeers countByEnumeratingWithState:&v36 objects:v43 count:16];
+    v8 = [retrievePairedPeers countByEnumeratingWithState:&v38 objects:v45 count:16];
     if (v8)
     {
       v9 = v8;
-      v31 = 0;
-      v10 = *v37;
+      v33 = 0;
+      v10 = *v39;
       do
       {
-        for (i = 0; i != v9; ++i)
+        v11 = 0;
+        do
         {
-          if (*v37 != v10)
+          if (*v39 != v10)
           {
             objc_enumerationMutation(retrievePairedPeers);
           }
 
-          v12 = *(*(&v36 + 1) + 8 * i);
-          v13 = sharedBluetoothSettingsLogComponent();
+          v12 = *(*(&v38 + 1) + 8 * v11);
+          v13 = sharedBluetoothSettingsLogComponent(v8);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v42 = v12;
+            v44 = v12;
             _os_log_impl(&dword_23C0F7000, v13, OS_LOG_TYPE_DEFAULT, "Paired Peripheral: %@", buf, 0xCu);
           }
 
@@ -679,14 +802,15 @@ LABEL_6:
           if (v14)
           {
             [v12 setDelegate:self];
-            if ([v14 isManagedByDeviceAccess])
+            isManagedByDeviceAccess = [v14 isManagedByDeviceAccess];
+            if (isManagedByDeviceAccess)
             {
-              v15 = sharedBluetoothSettingsLogComponent();
-              if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+              v16 = sharedBluetoothSettingsLogComponent(isManagedByDeviceAccess);
+              if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v42 = v14;
-                _os_log_impl(&dword_23C0F7000, v15, OS_LOG_TYPE_DEFAULT, "We're waiting for DADevices from DADaemon, delay display of these DA managed peripherals until we have the DADevice: %@", buf, 0xCu);
+                v44 = v14;
+                _os_log_impl(&dword_23C0F7000, v16, OS_LOG_TYPE_DEFAULT, "We're waiting for DADevices from DADaemon, delay display of these DA managed peripherals until we have the DADevice: %@", buf, 0xCu);
               }
             }
 
@@ -718,100 +842,106 @@ LABEL_6:
 
           else
           {
-            v16 = [(BTSDevicesController *)self _getDeviceForCTKDPeripheral:v12];
-            v17 = sharedBluetoothSettingsLogComponent();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+            v17 = [(BTSDevicesController *)self _getDeviceForCTKDPeripheral:v12];
+            v18 = sharedBluetoothSettingsLogComponent(v17);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v42 = v12;
-              _os_log_impl(&dword_23C0F7000, v17, OS_LOG_TYPE_DEFAULT, "CTKD Paired device : %@", buf, 0xCu);
+              v44 = v12;
+              _os_log_impl(&dword_23C0F7000, v18, OS_LOG_TYPE_DEFAULT, "CTKD Paired device : %@", buf, 0xCu);
             }
 
-            if (v16)
+            if (v17)
             {
               [v12 setDelegate:self];
-              v31 = 1;
+              v33 = 1;
             }
           }
+
+          ++v11;
         }
 
-        v9 = [retrievePairedPeers countByEnumeratingWithState:&v36 objects:v43 count:16];
+        while (v9 != v11);
+        v8 = [retrievePairedPeers countByEnumeratingWithState:&v38 objects:v45 count:16];
+        v9 = v8;
       }
 
-      while (v9);
+      while (v8);
     }
 
     else
     {
-      v31 = 0;
+      v33 = 0;
     }
 
+    v36 = 0u;
+    v37 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v18 = [(CBCentralManager *)self->_centralManager retrieveConnectedPeripheralsWithServices:0 allowAll:1];
-    v19 = [v18 countByEnumeratingWithState:&v32 objects:v40 count:16];
-    if (v19)
+    v19 = [(CBCentralManager *)self->_centralManager retrieveConnectedPeripheralsWithServices:0 allowAll:1];
+    v20 = [v19 countByEnumeratingWithState:&v34 objects:v42 count:16];
+    if (v20)
     {
-      v20 = v19;
-      v21 = *v33;
+      v21 = v20;
+      v22 = *v35;
       do
       {
-        for (j = 0; j != v20; ++j)
+        for (i = 0; i != v21; ++i)
         {
-          if (*v33 != v21)
+          if (*v35 != v22)
           {
-            objc_enumerationMutation(v18);
+            objc_enumerationMutation(v19);
           }
 
-          v23 = *(*(&v32 + 1) + 8 * j);
-          if ([v23 connectedTransport] == 2)
+          v24 = *(*(&v34 + 1) + 8 * i);
+          if ([v24 connectedTransport] == 2)
           {
-            v24 = [(BTSDevicesController *)self _getDeviceForPeripheral:v23];
-            if (v24)
+            v25 = [(BTSDevicesController *)self _getDeviceForPeripheral:v24];
+            if (v25)
             {
-              if ([v23 visibleInSettings])
+              visibleInSettings = [v24 visibleInSettings];
+              if (visibleInSettings)
               {
-                [v23 setDelegate:self];
-                isManagedByDeviceAccess = [v24 isManagedByDeviceAccess];
-                v26 = sharedBluetoothSettingsLogComponent();
-                v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
-                if (isManagedByDeviceAccess)
+                [v24 setDelegate:self];
+                isManagedByDeviceAccess2 = [v25 isManagedByDeviceAccess];
+                v28 = isManagedByDeviceAccess2;
+                v29 = sharedBluetoothSettingsLogComponent(isManagedByDeviceAccess2);
+                v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
+                if (v28)
                 {
-                  if (v27)
+                  if (v30)
                   {
                     *buf = 138412290;
-                    v42 = v24;
-                    v28 = v26;
-                    v29 = "We're waiting for DADevices from DADaemon, delay display of these DA managed peripherals until we have the DADevice: %@";
+                    v44 = v25;
+                    v31 = v29;
+                    v32 = "We're waiting for DADevices from DADaemon, delay display of these DA managed peripherals until we have the DADevice: %@";
                     goto LABEL_51;
                   }
 
                   goto LABEL_52;
                 }
 
-                if (v27)
+                if (v30)
                 {
                   *buf = 138412290;
-                  v42 = v23;
-                  _os_log_impl(&dword_23C0F7000, v26, OS_LOG_TYPE_DEFAULT, "Peripheral %@ will be added to Settings.", buf, 0xCu);
+                  v44 = v24;
+                  _os_log_impl(&dword_23C0F7000, v29, OS_LOG_TYPE_DEFAULT, "Peripheral %@ will be added to Settings.", buf, 0xCu);
                 }
 
-                [(BTSDevicesController *)self _addDevice:v24];
+                [(BTSDevicesController *)self _addDevice:v25];
               }
 
               else
               {
-                v26 = sharedBluetoothSettingsLogComponent();
-                if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+                v29 = sharedBluetoothSettingsLogComponent(visibleInSettings);
+                if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v42 = v23;
-                  v28 = v26;
-                  v29 = "Peripheral %@ should not be visible in Settings. Ignoring.";
+                  v44 = v24;
+                  v31 = v29;
+                  v32 = "Peripheral %@ should not be visible in Settings. Ignoring.";
 LABEL_51:
-                  _os_log_impl(&dword_23C0F7000, v28, OS_LOG_TYPE_DEFAULT, v29, buf, 0xCu);
+                  _os_log_impl(&dword_23C0F7000, v31, OS_LOG_TYPE_DEFAULT, v32, buf, 0xCu);
                 }
 
 LABEL_52:
@@ -822,21 +952,19 @@ LABEL_52:
           }
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v34 objects:v42 count:16];
       }
 
-      while (v20);
+      while (v21);
     }
 
     [(BTSDevicesController *)self _updateHealthDevices];
     [(BTSDevicesController *)self _setupCentralScanning];
-    if ((self->_mainFooterNeedsUpdate | v31))
+    if ((self->_mainFooterNeedsUpdate | v33))
     {
       [(BTSDevicesController *)self reloadSpecifiers];
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)powerChangedHandler:(id)handler
@@ -846,26 +974,25 @@ LABEL_52:
   mEMORY[0x277CF3248] = [MEMORY[0x277CF3248] sharedInstance];
   enabled = [mEMORY[0x277CF3248] enabled];
 
-  v7 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sharedBluetoothSettingsLogComponent(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     name = [handlerCopy name];
-    v9 = name;
-    v10 = "off";
+    v10 = name;
+    v11 = "off";
     if (enabled)
     {
-      v10 = "on";
+      v11 = "on";
     }
 
     v12 = 138412546;
     v13 = name;
     v14 = 2080;
-    v15 = v10;
-    _os_log_impl(&dword_23C0F7000, v7, OS_LOG_TYPE_DEFAULT, "Received %@ with power state %s", &v12, 0x16u);
+    v15 = v11;
+    _os_log_impl(&dword_23C0F7000, v8, OS_LOG_TYPE_DEFAULT, "Received %@ with power state %s", &v12, 0x16u);
   }
 
   [(BTSDevicesController *)self powerChanged];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceDiscoveredHandler:(id)handler
@@ -873,7 +1000,7 @@ LABEL_52:
   v24 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   object = [handlerCopy object];
-  v6 = sharedBluetoothSettingsLogComponent();
+  v6 = sharedBluetoothSettingsLogComponent(object);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     name = [handlerCopy name];
@@ -901,15 +1028,15 @@ LABEL_52:
 
       if (!v14)
       {
-        v15 = sharedBluetoothSettingsLogComponent();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+        v16 = sharedBluetoothSettingsLogComponent(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
           LOWORD(v18) = 0;
-          _os_log_impl(&dword_23C0F7000, v15, OS_LOG_TYPE_INFO, "Device exists in our list without a specifier. Add the specifier", &v18, 2u);
+          _os_log_impl(&dword_23C0F7000, v16, OS_LOG_TYPE_INFO, "Device exists in our list without a specifier. Add the specifier", &v18, 2u);
         }
 
-        v16 = [(BTSDevicesController *)self _specifierForDevice:v9];
-        [(BTSDevicesController *)self _addDeviceSpecifier:v16 withDevice:v9];
+        v17 = [(BTSDevicesController *)self _specifierForDevice:v9];
+        [(BTSDevicesController *)self _addDeviceSpecifier:v17 withDevice:v9];
       }
     }
 
@@ -918,27 +1045,25 @@ LABEL_52:
       [(BTSDevicesController *)self _addDevice:v9];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)devicePairedHandler:(id)handler
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   object = [handlerCopy object];
-  v6 = sharedBluetoothSettingsLogComponent();
+  v6 = sharedBluetoothSettingsLogComponent(object);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     name = [handlerCopy name];
     name2 = [object name];
     *buf = 136315906;
-    *v60 = "[BTSDevicesController devicePairedHandler:]";
-    *&v60[8] = 2112;
-    *&v60[10] = name;
-    v61 = 2112;
-    v62 = name2;
-    v63 = 2048;
+    *v62 = "[BTSDevicesController devicePairedHandler:]";
+    *&v62[8] = 2112;
+    *&v62[10] = name;
+    v63 = 2112;
+    v64 = name2;
+    v65 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_23C0F7000, v6, OS_LOG_TYPE_DEFAULT, "%s received %@ for device %@ for BTSDeviceController instance %p", buf, 0x2Au);
   }
@@ -1019,108 +1144,80 @@ LABEL_54:
       alert = self->_alert;
       self->_alert = v25;
 
-      v27 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v28 = sharedBluetoothSettingsLogComponent(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = self->_alert;
+        v29 = self->_alert;
         *buf = 138412290;
-        *v60 = v28;
-        _os_log_impl(&dword_23C0F7000, v27, OS_LOG_TYPE_DEFAULT, "Pairing failed BTAlert : %@", buf, 0xCu);
+        *v62 = v29;
+        _os_log_impl(&dword_23C0F7000, v28, OS_LOG_TYPE_DEFAULT, "Pairing failed BTAlert : %@", buf, 0xCu);
       }
 
       [(BTAlert *)self->_alert setDelegate:self];
-      if (v10)
+      if (v10 || ((sspAlert = self->_sspAlert) == 0 || -[BTSSPPairingRequest pairingStyle](sspAlert, "pairingStyle") == 2 || -[BTSSPPairingRequest pairingStyle](self->_sspAlert, "pairingStyle") == 3) && (-[BTSDevicesController rootController](self, "rootController"), v31 = objc_claimAutoreleasedReturnValue(), [v31 visibleViewController], v32 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v32, v31, (isKindOfClass & 1) == 0))
       {
-        goto LABEL_39;
-      }
-
-      sspAlert = self->_sspAlert;
-      if (sspAlert && [(BTSSPPairingRequest *)sspAlert pairingStyle]!= 2 && [(BTSSPPairingRequest *)self->_sspAlert pairingStyle]!= 3)
-      {
-        goto LABEL_21;
-      }
-
-      rootController = [(BTSDevicesController *)self rootController];
-      visibleViewController = [rootController visibleViewController];
-      objc_opt_class();
-      isKindOfClass = objc_opt_isKindOfClass();
-
-      if ((isKindOfClass & 1) == 0)
-      {
-LABEL_39:
         if (![v10 isEqualToString:@"entered"])
         {
           userInfo3 = [handlerCopy userInfo];
-          v46 = [userInfo3 objectForKey:*MEMORY[0x277CF31D8]];
+          v48 = [userInfo3 objectForKey:*MEMORY[0x277CF31D8]];
 
           goto LABEL_43;
         }
 
-        v33 = MEMORY[0x277CCABB0];
-        v34 = 156;
+        v34 = MEMORY[0x277CCABB0];
+        v35 = 156;
       }
 
       else
       {
-LABEL_21:
-        v33 = MEMORY[0x277CCABB0];
-        v34 = 1;
+        v34 = MEMORY[0x277CCABB0];
+        v35 = 1;
       }
 
-      v46 = [v33 numberWithUnsignedInt:v34];
+      v48 = [v34 numberWithUnsignedInt:v35];
 LABEL_43:
       transitionCoordinator = [(BTSDevicesController *)self transitionCoordinator];
+      v51 = transitionCoordinator;
       if (transitionCoordinator)
       {
-        v49 = sharedBluetoothSettingsLogComponent();
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+        v52 = sharedBluetoothSettingsLogComponent(transitionCoordinator);
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_23C0F7000, v49, OS_LOG_TYPE_DEFAULT, "UIViewController is currently displaying or dismissing an UIAlertCOntroller", buf, 2u);
+          _os_log_impl(&dword_23C0F7000, v52, OS_LOG_TYPE_DEFAULT, "UIViewController is currently displaying or dismissing an UIAlertCOntroller", buf, 2u);
         }
 
-        v53 = MEMORY[0x277D85DD0];
-        v54 = 3221225472;
-        v55 = __44__BTSDevicesController_devicePairedHandler___block_invoke;
-        v56 = &unk_278BB03B8;
+        v55 = MEMORY[0x277D85DD0];
+        v56 = 3221225472;
+        v57 = __44__BTSDevicesController_devicePairedHandler___block_invoke;
+        v58 = &unk_278BB03B8;
         selfCopy2 = self;
-        v58 = v46;
-        [transitionCoordinator animateAlongsideTransition:0 completion:&v53];
+        v60 = v48;
+        [v51 animateAlongsideTransition:0 completion:&v55];
       }
 
       else
       {
-        [(BTAlert *)self->_alert showAlertWithResult:v46];
+        [(BTAlert *)self->_alert showAlertWithResult:v48];
       }
 
       goto LABEL_49;
     }
 
-    v35 = self->_pendingOtherRadioDevicesDict;
+    v36 = self->_pendingOtherRadioDevicesDict;
     address4 = [object address];
-    v37 = [(NSMutableDictionary *)v35 objectForKeyedSubscript:address4];
+    v38 = [(NSMutableDictionary *)v36 objectForKeyedSubscript:address4];
 
-    if (v37)
+    if (v38 || (+[BTSDeviceClassic deviceWithDevice:](BTSDeviceClassic, "deviceWithDevice:", object), v39 = objc_claimAutoreleasedReturnValue(), -[BTSDevicesController _updateDevicePosition:](self, "_updateDevicePosition:", v39), v39, [handlerCopy name], v40 = objc_claimAutoreleasedReturnValue(), v41 = objc_msgSend(v40, "isEqualToString:", *MEMORY[0x277CF3210]), v40, v41))
     {
-      goto LABEL_24;
-    }
-
-    v38 = [BTSDeviceClassic deviceWithDevice:object];
-    [(BTSDevicesController *)self _updateDevicePosition:v38];
-
-    name4 = [handlerCopy name];
-    v40 = [name4 isEqualToString:*MEMORY[0x277CF3210]];
-
-    if (v40)
-    {
-LABEL_24:
       [(BTSDevicesController *)self reloadSpecifiers];
     }
 
     type = [object type];
-    v42 = [object isServiceSupported:2];
+    v43 = [object isServiceSupported:2];
     syncSettings = [object syncSettings];
-    if (-[BTSDevicesController isiPhone](self, "isiPhone") && ([object isServiceSupported:0x40000] & 1) == 0 && (objc_msgSend(object, "type") == 22 || objc_msgSend(object, "type") == 17))
+    isiPhone = [(BTSDevicesController *)self isiPhone];
+    if (isiPhone && (isiPhone = [object isServiceSupported:0x40000], (isiPhone & 1) == 0) && (objc_msgSend(object, "type") == 22 || (isiPhone = objc_msgSend(object, "type"), isiPhone == 17)))
     {
       [object setSyncSettings:syncSettings & 0xFFFF00FF];
       [(BTSDevicesController *)self showSyncContactsPrivacyPopup:object];
@@ -1128,20 +1225,20 @@ LABEL_24:
 
     else
     {
-      v44 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+      v46 = sharedBluetoothSettingsLogComponent(isiPhone);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
       {
-        v45 = "not";
-        if (v42)
+        v47 = "not";
+        if (v43)
         {
-          v45 = "";
+          v47 = "";
         }
 
         *buf = 67109378;
-        *v60 = type;
-        *&v60[4] = 2080;
-        *&v60[6] = v45;
-        _os_log_impl(&dword_23C0F7000, v44, OS_LOG_TYPE_DEFAULT, "Contact privacy alert ignored for device type : %x with phonebook service %s supported", buf, 0x12u);
+        *v62 = type;
+        *&v62[4] = 2080;
+        *&v62[6] = v47;
+        _os_log_impl(&dword_23C0F7000, v46, OS_LOG_TYPE_DEFAULT, "Contact privacy alert ignored for device type : %x with phonebook service %s supported", buf, 0x12u);
       }
 
       [object setSyncSettings:syncSettings | 0x100000000];
@@ -1154,27 +1251,25 @@ LABEL_24:
   }
 
 LABEL_55:
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceUpdatedHandler:(id)handler
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   object = [handlerCopy object];
-  v6 = sharedBluetoothSettingsLogComponent();
+  v6 = sharedBluetoothSettingsLogComponent(object);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     name = [handlerCopy name];
     name2 = [object name];
-    v18 = 136315650;
-    v19 = "[BTSDevicesController deviceUpdatedHandler:]";
-    v20 = 2112;
-    v21 = name;
-    v22 = 2112;
-    v23 = name2;
-    _os_log_impl(&dword_23C0F7000, v6, OS_LOG_TYPE_INFO, "%s received %@ for device %@", &v18, 0x20u);
+    v17 = 136315650;
+    v18 = "[BTSDevicesController deviceUpdatedHandler:]";
+    v19 = 2112;
+    v20 = name;
+    v21 = 2112;
+    v22 = name2;
+    _os_log_impl(&dword_23C0F7000, v6, OS_LOG_TYPE_INFO, "%s received %@ for device %@", &v17, 0x20u);
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -1203,8 +1298,6 @@ LABEL_55:
       [(BTSDevicesController *)self _updateDevicePosition:v16];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceConnectedHandler:(id)handler
@@ -1212,7 +1305,7 @@ LABEL_55:
   v38 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   object = [handlerCopy object];
-  v6 = sharedBluetoothSettingsLogComponent();
+  v6 = sharedBluetoothSettingsLogComponent(object);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     name = [handlerCopy name];
@@ -1265,19 +1358,19 @@ LABEL_15:
           address2 = [object address];
           [(BTSDevicesController *)self reloadCellForSpecifierID:address2];
 
-          v28 = [BTSDeviceClassic deviceWithDevice:object];
-          if ([v28 connected])
+          v29 = [BTSDeviceClassic deviceWithDevice:object];
+          if ([v29 connected])
           {
-            if ([v28 isLimitedConnectivityDevice])
+            if ([v29 isLimitedConnectivityDevice])
             {
-              [(NSMutableSet *)self->_connectedPoorBehaviorDevices addObject:v28];
+              [(NSMutableSet *)self->_connectedPoorBehaviorDevices addObject:v29];
               self->_mainFooterNeedsUpdate = 1;
               [(BTSDevicesController *)self updateMainGroupFooter];
             }
 
-            if ([v28 isHIDDevice])
+            if ([v29 isHIDDevice])
             {
-              [(NSMutableSet *)self->_connectedHIDDevices addObject:v28];
+              [(NSMutableSet *)self->_connectedHIDDevices addObject:v29];
               self->_mainFooterNeedsUpdate = 1;
               [(BTSDevicesController *)self updateMainGroupFooter];
             }
@@ -1293,52 +1386,50 @@ LABEL_15:
       alert = self->_alert;
       self->_alert = v18;
 
-      v20 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = sharedBluetoothSettingsLogComponent(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = self->_alert;
+        v22 = self->_alert;
         v30 = 138412290;
-        v31 = v21;
-        _os_log_impl(&dword_23C0F7000, v20, OS_LOG_TYPE_DEFAULT, "deviceConnected BTAlert : %@", &v30, 0xCu);
+        v31 = v22;
+        _os_log_impl(&dword_23C0F7000, v21, OS_LOG_TYPE_DEFAULT, "deviceConnected BTAlert : %@", &v30, 0xCu);
       }
 
       [(BTAlert *)self->_alert setDelegate:self];
       userInfo2 = [handlerCopy userInfo];
-      v23 = *MEMORY[0x277CF31D8];
-      v24 = [userInfo2 objectForKey:*MEMORY[0x277CF31D8]];
-      [v24 unsignedIntValue];
+      v24 = *MEMORY[0x277CF31D8];
+      v25 = [userInfo2 objectForKey:*MEMORY[0x277CF31D8]];
+      [v25 unsignedIntValue];
 
-      v25 = self->_alert;
+      v26 = self->_alert;
       name3 = [handlerCopy userInfo];
-      v26 = [name3 objectForKey:v23];
-      [(BTAlert *)v25 showAlertWithResult:v26];
+      v27 = [name3 objectForKey:v24];
+      [(BTAlert *)v26 showAlertWithResult:v27];
     }
 
     goto LABEL_14;
   }
 
 LABEL_23:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceDisconnectedHandler:(id)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   object = [handlerCopy object];
-  v6 = sharedBluetoothSettingsLogComponent();
+  v6 = sharedBluetoothSettingsLogComponent(object);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     name = [handlerCopy name];
     name2 = [object name];
-    v12 = 136315650;
-    v13 = "[BTSDevicesController deviceDisconnectedHandler:]";
-    v14 = 2112;
-    v15 = name;
-    v16 = 2112;
-    v17 = name2;
-    _os_log_impl(&dword_23C0F7000, v6, OS_LOG_TYPE_DEFAULT, "%s received %@ for device %@", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "[BTSDevicesController deviceDisconnectedHandler:]";
+    v13 = 2112;
+    v14 = name;
+    v15 = 2112;
+    v16 = name2;
+    _os_log_impl(&dword_23C0F7000, v6, OS_LOG_TYPE_DEFAULT, "%s received %@ for device %@", &v11, 0x20u);
   }
 
   if (self->_power && !self->_togglingPower)
@@ -1369,27 +1460,25 @@ LABEL_23:
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceRemovedHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   object = [handlerCopy object];
-  v6 = sharedBluetoothSettingsLogComponent();
+  v6 = sharedBluetoothSettingsLogComponent(object);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     name = [handlerCopy name];
     name2 = [object name];
-    v14 = 136315650;
-    v15 = "[BTSDevicesController deviceRemovedHandler:]";
-    v16 = 2112;
-    v17 = name;
-    v18 = 2112;
-    v19 = name2;
-    _os_log_impl(&dword_23C0F7000, v6, OS_LOG_TYPE_DEFAULT, "%s received %@ for device %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[BTSDevicesController deviceRemovedHandler:]";
+    v15 = 2112;
+    v16 = name;
+    v17 = 2112;
+    v18 = name2;
+    _os_log_impl(&dword_23C0F7000, v6, OS_LOG_TYPE_DEFAULT, "%s received %@ for device %@", &v13, 0x20u);
   }
 
   if (self->_power && !self->_togglingPower && ([object paired] & 1) == 0)
@@ -1404,8 +1493,6 @@ LABEL_23:
       [(BTSDevicesController *)self _removeDevice:v12];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceUnpairedHandler:(id)handler
@@ -1413,7 +1500,7 @@ LABEL_23:
   v21 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   object = [handlerCopy object];
-  v6 = sharedBluetoothSettingsLogComponent();
+  v6 = sharedBluetoothSettingsLogComponent(object);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     name = [handlerCopy name];
@@ -1431,15 +1518,15 @@ LABEL_23:
   mEMORY[0x277CF3248] = [MEMORY[0x277CF3248] sharedInstance];
   v11 = [mEMORY[0x277CF3248] wasDeviceDiscovered:object];
 
-  v12 = sharedBluetoothSettingsLogComponent();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
+  v13 = sharedBluetoothSettingsLogComponent(v12);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_INFO);
   if (v11)
   {
-    if (v13)
+    if (v14)
     {
       v15 = 138412290;
       v16 = object;
-      _os_log_impl(&dword_23C0F7000, v12, OS_LOG_TYPE_INFO, "Device %@ was unpaired and was discovered - updating position", &v15, 0xCu);
+      _os_log_impl(&dword_23C0F7000, v13, OS_LOG_TYPE_INFO, "Device %@ was unpaired and was discovered - updating position", &v15, 0xCu);
     }
 
     [(BTSDevicesController *)self _updateDevicePosition:v9];
@@ -1447,11 +1534,11 @@ LABEL_23:
 
   else
   {
-    if (v13)
+    if (v14)
     {
       v15 = 138412290;
       v16 = object;
-      _os_log_impl(&dword_23C0F7000, v12, OS_LOG_TYPE_INFO, "Device %@ was unpaired and wasn't discovered - removing", &v15, 0xCu);
+      _os_log_impl(&dword_23C0F7000, v13, OS_LOG_TYPE_INFO, "Device %@ was unpaired and wasn't discovered - removing", &v15, 0xCu);
     }
 
     [(BTSDevicesController *)self _removeDevice:v9];
@@ -1478,13 +1565,11 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)authenticationRequestHandler:(id)handler
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (self->_power && !self->_togglingPower)
   {
@@ -1502,10 +1587,10 @@ LABEL_16:
     if (syncContactsCarplayAlert)
     {
 LABEL_7:
-      object = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(object, OS_LOG_TYPE_ERROR))
+      v8 = sharedBluetoothSettingsLogComponent(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [BTSDevicesController authenticationRequestHandler:?];
+        [BTSDevicesController authenticationRequestHandler:];
       }
 
       goto LABEL_9;
@@ -1525,21 +1610,22 @@ LABEL_7:
       if (!v13)
       {
         object = [handlerCopy object];
+        v8 = object;
 LABEL_17:
-        v15 = sharedBluetoothSettingsLogComponent();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v16 = sharedBluetoothSettingsLogComponent(object);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           name3 = [handlerCopy name];
-          name4 = [object name];
+          name4 = [v8 name];
           *buf = 136315906;
-          v65 = "[BTSDevicesController authenticationRequestHandler:]";
-          v66 = 2112;
-          v67 = name3;
-          v68 = 2112;
-          v69 = name4;
-          v70 = 2048;
+          v71 = "[BTSDevicesController authenticationRequestHandler:]";
+          v72 = 2112;
+          v73 = name3;
+          v74 = 2112;
+          v75 = name4;
+          v76 = 2048;
           selfCopy = self;
-          _os_log_impl(&dword_23C0F7000, v15, OS_LOG_TYPE_DEFAULT, "%s received %@ for device %@ for BTSDeviceController instance %p", buf, 0x2Au);
+          _os_log_impl(&dword_23C0F7000, v16, OS_LOG_TYPE_DEFAULT, "%s received %@ for device %@ for BTSDeviceController instance %p", buf, 0x2Au);
         }
 
         [(BTSDevicesController *)self setBluetoothIsBusy:1];
@@ -1552,30 +1638,30 @@ LABEL_17:
 
         else
         {
-          if ([object majorClass]== 256)
+          if ([v8 majorClass]== 256)
           {
             userInfo2 = [handlerCopy userInfo];
-            v21 = [userInfo2 valueForKey:@"delayedPairingForNR"];
+            v22 = [userInfo2 valueForKey:@"delayedPairingForNR"];
 
-            if (!v21)
+            if (!v22)
             {
-              v53 = sharedBluetoothSettingsLogComponent();
-              if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+              v59 = sharedBluetoothSettingsLogComponent(v23);
+              if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
               {
                 *buf = 0;
-                _os_log_impl(&dword_23C0F7000, v53, OS_LOG_TYPE_INFO, "Delaying incoming pairing attempt from computer to try to retrieve the name…", buf, 2u);
+                _os_log_impl(&dword_23C0F7000, v59, OS_LOG_TYPE_INFO, "Delaying incoming pairing attempt from computer to try to retrieve the name…", buf, 2u);
               }
 
-              v54 = MEMORY[0x277CBEB38];
+              v60 = MEMORY[0x277CBEB38];
               userInfo3 = [handlerCopy userInfo];
-              v37 = [v54 dictionaryWithDictionary:userInfo3];
+              v42 = [v60 dictionaryWithDictionary:userInfo3];
 
-              [v37 setValue:&stru_284EE3458 forKey:@"delayedPairingForNR"];
-              v56 = MEMORY[0x277CCAB88];
+              [v42 setValue:&stru_284EE3458 forKey:@"delayedPairingForNR"];
+              v62 = MEMORY[0x277CCAB88];
               name5 = [handlerCopy name];
               object2 = [handlerCopy object];
-              v59 = [v56 notificationWithName:name5 object:object2 userInfo:v37];
-              [(BTSDevicesController *)self performSelector:sel_authenticationRequestHandler_ withObject:v59 afterDelay:1.0];
+              v65 = [v62 notificationWithName:name5 object:object2 userInfo:v42];
+              [(BTSDevicesController *)self performSelector:sel_authenticationRequestHandler_ withObject:v65 afterDelay:1.0];
 
 LABEL_55:
 LABEL_9:
@@ -1584,20 +1670,20 @@ LABEL_9:
             }
           }
 
-          address = [object address];
+          address = [v8 address];
           userInfo = [(BTSDevicesController *)self specifierForID:address];
 
-          v23 = sharedBluetoothSettingsLogComponent();
-          v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
+          v26 = sharedBluetoothSettingsLogComponent(v25);
+          v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
           if (userInfo)
           {
-            if (v24)
+            if (v27)
             {
               *buf = 136315394;
-              v65 = "[BTSDevicesController authenticationRequestHandler:]";
-              v66 = 2112;
-              v67 = userInfo;
-              _os_log_impl(&dword_23C0F7000, v23, OS_LOG_TYPE_DEFAULT, "%s reverse-pairing attempt from %@", buf, 0x16u);
+              v71 = "[BTSDevicesController authenticationRequestHandler:]";
+              v72 = 2112;
+              v73 = userInfo;
+              _os_log_impl(&dword_23C0F7000, v26, OS_LOG_TYPE_DEFAULT, "%s reverse-pairing attempt from %@", buf, 0x16u);
             }
 
             objc_storeStrong(&self->_currentDeviceSpecifier, userInfo);
@@ -1607,19 +1693,19 @@ LABEL_9:
 
           else
           {
-            if (v24)
+            if (v27)
             {
               *buf = 136315138;
-              v65 = "[BTSDevicesController authenticationRequestHandler:]";
-              _os_log_impl(&dword_23C0F7000, v23, OS_LOG_TYPE_DEFAULT, "%s reverse-pairing attempt from previously unknown device", buf, 0xCu);
+              v71 = "[BTSDevicesController authenticationRequestHandler:]";
+              _os_log_impl(&dword_23C0F7000, v26, OS_LOG_TYPE_DEFAULT, "%s reverse-pairing attempt from previously unknown device", buf, 0xCu);
             }
 
-            v26 = [BTSDeviceClassic deviceWithDevice:object];
-            v27 = [(BTSDevicesController *)self _specifierForDevice:v26];
-            v28 = self->_currentDeviceSpecifier;
-            self->_currentDeviceSpecifier = v27;
+            v29 = [BTSDeviceClassic deviceWithDevice:v8];
+            v30 = [(BTSDevicesController *)self _specifierForDevice:v29];
+            v31 = self->_currentDeviceSpecifier;
+            self->_currentDeviceSpecifier = v30;
 
-            identifier = [BTSDeviceClassic deviceWithDevice:object];
+            identifier = [BTSDeviceClassic deviceWithDevice:v8];
             [(BTSDevicesController *)self _addDevice:identifier];
           }
 
@@ -1630,10 +1716,10 @@ LABEL_9:
         userInfo5 = [(PSSpecifier *)self->_currentDeviceSpecifier userInfo];
         [userInfo5 removeObjectForKey:@"PIN-ended"];
 
-        if (!self->_currentDeviceSpecifier || (-[NSObject address](object, "address"), v31 = objc_claimAutoreleasedReturnValue(), -[PSSpecifier identifier](self->_currentDeviceSpecifier, "identifier"), v32 = objc_claimAutoreleasedReturnValue(), v33 = [v31 isEqualToString:v32], v32, v31, !v33))
+        if (!self->_currentDeviceSpecifier || (-[NSObject address](v8, "address"), v35 = objc_claimAutoreleasedReturnValue(), -[PSSpecifier identifier](self->_currentDeviceSpecifier, "identifier"), v36 = objc_claimAutoreleasedReturnValue(), v37 = [v35 isEqualToString:v36], v36, v35, !v37))
         {
-          v41 = sharedBluetoothSettingsLogComponent();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+          v46 = sharedBluetoothSettingsLogComponent(v34);
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
             [BTSDevicesController authenticationRequestHandler:];
           }
@@ -1641,27 +1727,27 @@ LABEL_9:
           goto LABEL_9;
         }
 
-        if (-[NSObject type](object, "type") != 24 || ([handlerCopy name], v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v34, "isEqualToString:", *MEMORY[0x277CF3200]), v34, !v35))
+        if (-[NSObject type](v8, "type") != 24 || ([handlerCopy name], v38 = objc_claimAutoreleasedReturnValue(), v39 = objc_msgSend(v38, "isEqualToString:", *MEMORY[0x277CF3200]), v38, !v39))
         {
-          type = [object type];
+          type = [v8 type];
           if ([(BTSDevicesController *)self isiPad]&& (type & 0xFFFFFFFB) == 0x19)
           {
             name6 = [handlerCopy name];
-            v44 = *MEMORY[0x277CF3200];
-            v45 = [name6 isEqualToString:*MEMORY[0x277CF3200]];
+            v49 = *MEMORY[0x277CF3200];
+            v50 = [name6 isEqualToString:*MEMORY[0x277CF3200]];
 
-            if (v45)
+            if (v50)
             {
-              v46 = sharedBluetoothSettingsLogComponent();
-              if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+              v52 = sharedBluetoothSettingsLogComponent(v51);
+              if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_23C0F7000, v46, OS_LOG_TYPE_DEFAULT, "Entering pairing flow for 2.0 mouses/trackpads", buf, 2u);
+                _os_log_impl(&dword_23C0F7000, v52, OS_LOG_TYPE_DEFAULT, "Entering pairing flow for 2.0 mouses/trackpads", buf, 2u);
               }
 
-              v47 = [[BTSSPPairingRequest alloc] initWithDevice:object andSpecifier:self->_currentDeviceSpecifier];
+              v53 = [[BTSSPPairingRequest alloc] initWithDevice:v8 andSpecifier:self->_currentDeviceSpecifier];
               sspAlert = self->_sspAlert;
-              self->_sspAlert = v47;
+              self->_sspAlert = v53;
 
               [(BTSSPPairingRequest *)self->_sspAlert setPairingStyle:4 andPasskey:0];
               [(BTSSPPairingRequest *)self->_sspAlert setDelegate:self];
@@ -1672,13 +1758,13 @@ LABEL_9:
 
           else
           {
-            v44 = *MEMORY[0x277CF3200];
+            v49 = *MEMORY[0x277CF3200];
           }
 
           name7 = [handlerCopy name];
-          v50 = [name7 isEqualToString:v44];
+          v56 = [name7 isEqualToString:v49];
 
-          if (v50)
+          if (v56)
           {
             [(BTSDevicesController *)self pinRequestHandler:handlerCopy];
           }
@@ -1686,9 +1772,9 @@ LABEL_9:
           else
           {
             name8 = [handlerCopy name];
-            v52 = [name8 isEqualToString:*MEMORY[0x277CF3220]];
+            v58 = [name8 isEqualToString:*MEMORY[0x277CF3220]];
 
-            if (v52)
+            if (v58)
             {
               [(BTSDevicesController *)self sspConfirmationHandler:handlerCopy];
             }
@@ -1696,9 +1782,9 @@ LABEL_9:
             else
             {
               name9 = [handlerCopy name];
-              v61 = [name9 isEqualToString:v11];
+              v67 = [name9 isEqualToString:v11];
 
-              if (v61)
+              if (v67)
               {
                 [(BTSDevicesController *)self sspNumericComparisonHandler:handlerCopy];
               }
@@ -1706,9 +1792,9 @@ LABEL_9:
               else
               {
                 name10 = [handlerCopy name];
-                v63 = [name10 isEqualToString:*MEMORY[0x277CF3218]];
+                v69 = [name10 isEqualToString:*MEMORY[0x277CF3218]];
 
-                if (v63)
+                if (v69)
                 {
                   [(BTSDevicesController *)self sspPasskeyDisplayHandler:handlerCopy];
                 }
@@ -1719,22 +1805,22 @@ LABEL_9:
           goto LABEL_9;
         }
 
-        v36 = sharedBluetoothSettingsLogComponent();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        v41 = sharedBluetoothSettingsLogComponent(v40);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_23C0F7000, v36, OS_LOG_TYPE_DEFAULT, "Entering pairing flow for 2.0 HID device", buf, 2u);
+          _os_log_impl(&dword_23C0F7000, v41, OS_LOG_TYPE_DEFAULT, "Entering pairing flow for 2.0 HID device", buf, 2u);
         }
 
-        v37 = [MEMORY[0x277CCABB0] numberWithInt:(random() % 10000)];
-        v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"%04u", objc_msgSend(v37, "unsignedIntValue")];
-        [object setPIN:v38];
+        v42 = [MEMORY[0x277CCABB0] numberWithInt:(random() % 10000)];
+        v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"%04u", objc_msgSend(v42, "unsignedIntValue")];
+        [v8 setPIN:v43];
 
-        v39 = [[BTSSPPairingRequest alloc] initWithDevice:object andSpecifier:self->_currentDeviceSpecifier];
-        v40 = self->_sspAlert;
-        self->_sspAlert = v39;
+        v44 = [[BTSSPPairingRequest alloc] initWithDevice:v8 andSpecifier:self->_currentDeviceSpecifier];
+        v45 = self->_sspAlert;
+        self->_sspAlert = v44;
 
-        [(BTSSPPairingRequest *)self->_sspAlert setPairingStyle:3 andPasskey:v37];
+        [(BTSSPPairingRequest *)self->_sspAlert setPairingStyle:3 andPasskey:v42];
         [(BTSSPPairingRequest *)self->_sspAlert setDelegate:self];
         [(BTSSPPairingRequest *)self->_sspAlert show];
         goto LABEL_55;
@@ -1742,33 +1828,31 @@ LABEL_9:
     }
 
     object3 = [handlerCopy object];
-    object = [object3 valueForKey:@"device"];
+    v8 = [object3 valueForKey:@"device"];
 
     goto LABEL_17;
   }
 
 LABEL_10:
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pinRequestHandler:(id)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   object = [handlerCopy object];
-  v6 = sharedBluetoothSettingsLogComponent();
+  v6 = sharedBluetoothSettingsLogComponent(object);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     name = [handlerCopy name];
     name2 = [object name];
-    v12 = 136315650;
-    v13 = "[BTSDevicesController pinRequestHandler:]";
-    v14 = 2112;
-    v15 = name;
-    v16 = 2112;
-    v17 = name2;
-    _os_log_impl(&dword_23C0F7000, v6, OS_LOG_TYPE_DEFAULT, "%s received %@ for device %@", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "[BTSDevicesController pinRequestHandler:]";
+    v13 = 2112;
+    v14 = name;
+    v15 = 2112;
+    v16 = name2;
+    _os_log_impl(&dword_23C0F7000, v6, OS_LOG_TYPE_DEFAULT, "%s received %@ for device %@", &v11, 0x20u);
   }
 
   v9 = objc_alloc_init(BTSPairSetup);
@@ -1780,27 +1864,25 @@ LABEL_10:
   [(PSRootController *)v9 setSpecifier:self->_currentDeviceSpecifier];
   objc_storeWeak((self->_currentDeviceSpecifier + *MEMORY[0x277D3FCB8]), self);
   [(BTSDevicesController *)self showController:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sspConfirmationHandler:(id)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   object = [handlerCopy object];
-  v6 = sharedBluetoothSettingsLogComponent();
+  v6 = sharedBluetoothSettingsLogComponent(object);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     name = [handlerCopy name];
     name2 = [object name];
-    v12 = 136315650;
-    v13 = "[BTSDevicesController sspConfirmationHandler:]";
-    v14 = 2112;
-    v15 = name;
-    v16 = 2112;
-    v17 = name2;
-    _os_log_impl(&dword_23C0F7000, v6, OS_LOG_TYPE_DEFAULT, "%s received %@ for device %@", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "[BTSDevicesController sspConfirmationHandler:]";
+    v13 = 2112;
+    v14 = name;
+    v15 = 2112;
+    v16 = name2;
+    _os_log_impl(&dword_23C0F7000, v6, OS_LOG_TYPE_DEFAULT, "%s received %@ for device %@", &v11, 0x20u);
   }
 
   v9 = [[BTSSPPairingRequest alloc] initWithDevice:object andSpecifier:self->_currentDeviceSpecifier];
@@ -1810,31 +1892,29 @@ LABEL_10:
   [(BTSSPPairingRequest *)self->_sspAlert setPairingStyle:0 andPasskey:0];
   [(BTSSPPairingRequest *)self->_sspAlert setDelegate:self];
   [(BTSSPPairingRequest *)self->_sspAlert show];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sspNumericComparisonHandler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   object = [handlerCopy object];
   v6 = [object valueForKey:@"device"];
   v7 = [object valueForKey:@"value"];
-  v8 = sharedBluetoothSettingsLogComponent();
+  v8 = sharedBluetoothSettingsLogComponent(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     name = [handlerCopy name];
     name2 = [v6 name];
-    v14 = 136315906;
-    v15 = "[BTSDevicesController sspNumericComparisonHandler:]";
-    v16 = 2112;
-    v17 = name;
-    v18 = 2112;
-    v19 = name2;
-    v20 = 2048;
+    v13 = 136315906;
+    v14 = "[BTSDevicesController sspNumericComparisonHandler:]";
+    v15 = 2112;
+    v16 = name;
+    v17 = 2112;
+    v18 = name2;
+    v19 = 2048;
     selfCopy = self;
-    _os_log_impl(&dword_23C0F7000, v8, OS_LOG_TYPE_DEFAULT, "%s received %@ for device %@ for BTSDeviceController instance %p", &v14, 0x2Au);
+    _os_log_impl(&dword_23C0F7000, v8, OS_LOG_TYPE_DEFAULT, "%s received %@ for device %@ for BTSDeviceController instance %p", &v13, 0x2Au);
   }
 
   if ([v6 isServiceSupported:0x40000] && -[BTSDevicesController isiPhone](self, "isiPhone") && -[BTSDevicesController isCarPlaySetupEnabled](self, "isCarPlaySetupEnabled"))
@@ -1852,29 +1932,27 @@ LABEL_10:
     [(BTSSPPairingRequest *)self->_sspAlert setDelegate:self];
     [(BTSSPPairingRequest *)self->_sspAlert show];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sspPasskeyDisplayHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   object = [handlerCopy object];
   v6 = [object valueForKey:@"device"];
   v7 = [object valueForKey:@"value"];
-  v8 = sharedBluetoothSettingsLogComponent();
+  v8 = sharedBluetoothSettingsLogComponent(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     name = [handlerCopy name];
     name2 = [v6 name];
-    v14 = 136315650;
-    v15 = "[BTSDevicesController sspPasskeyDisplayHandler:]";
-    v16 = 2112;
-    v17 = name;
-    v18 = 2112;
-    v19 = name2;
-    _os_log_impl(&dword_23C0F7000, v8, OS_LOG_TYPE_DEFAULT, "%s received %@ for device %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[BTSDevicesController sspPasskeyDisplayHandler:]";
+    v15 = 2112;
+    v16 = name;
+    v17 = 2112;
+    v18 = name2;
+    _os_log_impl(&dword_23C0F7000, v8, OS_LOG_TYPE_DEFAULT, "%s received %@ for device %@", &v13, 0x20u);
   }
 
   v11 = [[BTSSPPairingRequest alloc] initWithDevice:v6 andSpecifier:self->_currentDeviceSpecifier];
@@ -1884,8 +1962,6 @@ LABEL_10:
   [(BTSSPPairingRequest *)self->_sspAlert setPairingStyle:2 andPasskey:v7];
   [(BTSSPPairingRequest *)self->_sspAlert setDelegate:self];
   [(BTSSPPairingRequest *)self->_sspAlert show];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)bluetoothDenylistChanged:(id)changed
@@ -1900,9 +1976,9 @@ LABEL_10:
 
 - (void)centralManagerDidUpdateState:(id)state
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   stateCopy = state;
-  v5 = sharedBluetoothSettingsLogComponent();
+  v5 = sharedBluetoothSettingsLogComponent(stateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     state = [stateCopy state];
@@ -1916,18 +1992,17 @@ LABEL_10:
       v7 = off_278BB06E0[state];
     }
 
-    v9 = 136315138;
-    v10 = v7;
-    _os_log_impl(&dword_23C0F7000, v5, OS_LOG_TYPE_DEFAULT, "Received centralManagerDidUpdateState %s", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = v7;
+    _os_log_impl(&dword_23C0F7000, v5, OS_LOG_TYPE_DEFAULT, "Received centralManagerDidUpdateState %s", &v8, 0xCu);
   }
 
   [(BTSDevicesController *)self powerChanged];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)centralManager:(id)manager didDiscoverPeripheral:(id)peripheral advertisementData:(id)data RSSI:(id)i
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   peripheralCopy = peripheral;
   dataCopy = data;
   v10 = [(BTSDevicesController *)self _getDeviceForPeripheral:peripheralCopy];
@@ -1940,33 +2015,33 @@ LABEL_10:
       if (v11)
       {
         v12 = [MEMORY[0x277CBE0A0] UUIDWithString:@"185B"];
+        v29 = 0u;
         v30 = 0u;
         v31 = 0u;
         v32 = 0u;
-        v33 = 0u;
         v13 = v11;
-        v14 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v31;
+          v16 = *v30;
           while (2)
           {
             for (i = 0; i != v15; ++i)
             {
-              if (*v31 != v16)
+              if (*v30 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              if ([*(*(&v30 + 1) + 8 * i) isEqual:{v12, v30}])
+              if ([*(*(&v29 + 1) + 8 * i) isEqual:{v12, v29}])
               {
                 [v10 setIsChannelSoundingDevice:1];
                 goto LABEL_15;
               }
             }
 
-            v15 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+            v15 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
             if (v15)
             {
               continue;
@@ -2021,8 +2096,6 @@ LABEL_15:
       }
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)centralManager:(id)manager didFailToConnectPeripheral:(id)peripheral error:(id)error
@@ -2049,70 +2122,72 @@ LABEL_15:
 
 - (void)centralManager:(id)manager didUpdatePeripheralConnectionState:(id)state
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v6 = [(BTSDevicesController *)self _getDeviceForPeripheral:stateCopy];
+  v7 = v6;
   if (v6)
   {
-    v7 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = sharedBluetoothSettingsLogComponent(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v23 = 138412290;
-      v24 = stateCopy;
-      _os_log_impl(&dword_23C0F7000, v7, OS_LOG_TYPE_INFO, "didUpdatePeripheralConnectionState for device %@", &v23, 0xCu);
+      v25 = 138412290;
+      v26 = stateCopy;
+      _os_log_impl(&dword_23C0F7000, v8, OS_LOG_TYPE_INFO, "didUpdatePeripheralConnectionState for device %@", &v25, 0xCu);
     }
 
-    if ([v6 connected])
+    connected = [v7 connected];
+    if (connected)
     {
-      v8 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v10 = sharedBluetoothSettingsLogComponent(connected);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v23 = 138412290;
-        v24 = stateCopy;
-        _os_log_impl(&dword_23C0F7000, v8, OS_LOG_TYPE_INFO, "Discovering services for device %@", &v23, 0xCu);
+        v25 = 138412290;
+        v26 = stateCopy;
+        _os_log_impl(&dword_23C0F7000, v10, OS_LOG_TYPE_INFO, "Discovering services for device %@", &v25, 0xCu);
       }
 
       [stateCopy setDelegate:self];
-      v9 = [(NSArray *)self->_healthServices arrayByAddingObjectsFromArray:self->_hidServices];
+      v11 = [(NSArray *)self->_healthServices arrayByAddingObjectsFromArray:self->_hidServices];
       if ([(BTSDevicesController *)self isChannelSoundingTestingEnabled])
       {
-        v10 = [v9 mutableCopy];
-        v11 = [MEMORY[0x277CBE0A0] UUIDWithString:@"185B"];
-        [v10 addObject:v11];
+        v12 = [v11 mutableCopy];
+        v13 = [MEMORY[0x277CBE0A0] UUIDWithString:@"185B"];
+        [v12 addObject:v13];
 
-        v12 = [v10 copy];
-        v9 = v12;
+        v14 = [v12 copy];
+        v11 = v14;
       }
 
-      [stateCopy discoverServices:v9];
-      if ([v6 connected])
+      [stateCopy discoverServices:v11];
+      if ([v7 connected])
       {
-        if ([v6 isLimitedConnectivityDevice])
+        if ([v7 isLimitedConnectivityDevice])
         {
-          [(NSMutableSet *)self->_connectedPoorBehaviorDevices addObject:v6];
+          [(NSMutableSet *)self->_connectedPoorBehaviorDevices addObject:v7];
           self->_mainFooterNeedsUpdate = 1;
           [(BTSDevicesController *)self updateMainGroupFooter];
         }
 
-        if ([v6 isFirmwareUpdateRequiredDevice])
+        if ([v7 isFirmwareUpdateRequiredDevice])
         {
-          [(NSMutableSet *)self->_connectedFirmwareUpdateRequiredDevices addObject:v6];
+          [(NSMutableSet *)self->_connectedFirmwareUpdateRequiredDevices addObject:v7];
           self->_mainFooterNeedsUpdate = 1;
           [(BTSDevicesController *)self updateMainGroupFooter];
         }
 
-        if ([v6 isHIDDevice])
+        if ([v7 isHIDDevice])
         {
-          [(NSMutableSet *)self->_connectedHIDDevices addObject:v6];
+          [(NSMutableSet *)self->_connectedHIDDevices addObject:v7];
           self->_mainFooterNeedsUpdate = 1;
           [(BTSDevicesController *)self updateMainGroupFooter];
         }
 
-        if ([v6 isChannelSoundingDevice] && -[BTSDevicesController isChannelSoundingTestingEnabled](self, "isChannelSoundingTestingEnabled"))
+        if ([v7 isChannelSoundingDevice] && -[BTSDevicesController isChannelSoundingTestingEnabled](self, "isChannelSoundingTestingEnabled"))
         {
-          if ([v6 paired])
+          if ([v7 paired])
           {
-            [v6 openChannelSoundingL2CAP];
+            [v7 openChannelSoundingL2CAP];
           }
 
           else
@@ -2126,49 +2201,49 @@ LABEL_15:
 
     else
     {
-      identifier = [v6 identifier];
+      identifier = [v7 identifier];
       identifier2 = [(PSSpecifier *)self->_currentDeviceSpecifier identifier];
-      v19 = [identifier isEqualToString:identifier2];
+      v22 = [identifier isEqualToString:identifier2];
 
-      if (v19)
+      if (v22)
       {
         [(BTSDevicesController *)self setBluetoothIsBusy:0];
       }
 
-      if ([v6 isChannelSoundingDevice] && -[BTSDevicesController isChannelSoundingTestingEnabled](self, "isChannelSoundingTestingEnabled"))
+      if ([v7 isChannelSoundingDevice] && -[BTSDevicesController isChannelSoundingTestingEnabled](self, "isChannelSoundingTestingEnabled"))
       {
-        [v6 setChannelSoundingL2CAP:0];
+        [v7 setChannelSoundingL2CAP:0];
       }
 
-      if (-[BTSDevicesController isLEAudioLiveOnEnabled](self, "isLEAudioLiveOnEnabled") && [v6 isLEAudioSupported])
+      if (-[BTSDevicesController isLEAudioLiveOnEnabled](self, "isLEAudioLiveOnEnabled") && [v7 isLEAudioSupported])
       {
-        [v6 connect];
+        [v7 connect];
       }
     }
 
-    [(BTSDevicesController *)self _updateDevicePosition:v6];
-    identifier3 = [v6 identifier];
+    [(BTSDevicesController *)self _updateDevicePosition:v7];
+    identifier3 = [v7 identifier];
     [(BTSDevicesController *)self reloadCellForSpecifierID:identifier3];
 
-    if (([v6 connected] & 1) == 0)
+    if (([v7 connected] & 1) == 0)
     {
-      if ([(NSMutableSet *)self->_connectedPoorBehaviorDevices containsObject:v6])
+      if ([(NSMutableSet *)self->_connectedPoorBehaviorDevices containsObject:v7])
       {
-        [(NSMutableSet *)self->_connectedPoorBehaviorDevices removeObject:v6];
+        [(NSMutableSet *)self->_connectedPoorBehaviorDevices removeObject:v7];
         self->_mainFooterNeedsUpdate = 1;
         [(BTSDevicesController *)self updateMainGroupFooter];
       }
 
-      if ([(NSMutableSet *)self->_connectedFirmwareUpdateRequiredDevices containsObject:v6])
+      if ([(NSMutableSet *)self->_connectedFirmwareUpdateRequiredDevices containsObject:v7])
       {
-        [(NSMutableSet *)self->_connectedFirmwareUpdateRequiredDevices removeObject:v6];
+        [(NSMutableSet *)self->_connectedFirmwareUpdateRequiredDevices removeObject:v7];
         self->_mainFooterNeedsUpdate = 1;
         [(BTSDevicesController *)self updateMainGroupFooter];
       }
 
-      if ([(NSMutableSet *)self->_connectedHIDDevices containsObject:v6])
+      if ([(NSMutableSet *)self->_connectedHIDDevices containsObject:v7])
       {
-        [(NSMutableSet *)self->_connectedHIDDevices removeObject:v6];
+        [(NSMutableSet *)self->_connectedHIDDevices removeObject:v7];
         self->_mainFooterNeedsUpdate = 1;
         [(BTSDevicesController *)self updateMainGroupFooter];
       }
@@ -2177,25 +2252,24 @@ LABEL_15:
 
   else
   {
-    v13 = [(BTSDevicesController *)self _getDeviceForCTKDPeripheral:stateCopy];
-    if (v13)
+    v15 = [(BTSDevicesController *)self _getDeviceForCTKDPeripheral:stateCopy];
+    v16 = v15;
+    if (v15)
     {
-      v14 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v17 = sharedBluetoothSettingsLogComponent(v15);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 138412290;
-        v24 = stateCopy;
-        _os_log_impl(&dword_23C0F7000, v14, OS_LOG_TYPE_DEFAULT, "CTKD device %@ connection state updated", &v23, 0xCu);
+        v25 = 138412290;
+        v26 = stateCopy;
+        _os_log_impl(&dword_23C0F7000, v17, OS_LOG_TYPE_DEFAULT, "CTKD device %@ connection state updated", &v25, 0xCu);
       }
 
-      [(BTSDevicesController *)self _updateDevicePosition:v13];
-      classicDevice = [v13 classicDevice];
+      [(BTSDevicesController *)self _updateDevicePosition:v16];
+      classicDevice = [v16 classicDevice];
       address = [classicDevice address];
       [(BTSDevicesController *)self reloadCellForSpecifierID:address];
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_peripheralDidCompletePairing:(id)pairing
@@ -2298,13 +2372,13 @@ LABEL_15:
       alert = self->_alert;
       self->_alert = v11;
 
-      v13 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = sharedBluetoothSettingsLogComponent(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = self->_alert;
+        v15 = self->_alert;
         v16 = 138412290;
-        v17 = v14;
-        _os_log_impl(&dword_23C0F7000, v13, OS_LOG_TYPE_DEFAULT, "Pairing failed BTAlert : %@", &v16, 0xCu);
+        v17 = v15;
+        _os_log_impl(&dword_23C0F7000, v14, OS_LOG_TYPE_DEFAULT, "Pairing failed BTAlert : %@", &v16, 0xCu);
       }
 
       [(BTAlert *)self->_alert setDelegate:self];
@@ -2318,8 +2392,6 @@ LABEL_15:
 
     [(BTSDevicesController *)self _peripheralDidCompletePairing:v7];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pairingAgent:(id)agent peerDidUnpair:(id)unpair
@@ -2355,10 +2427,11 @@ LABEL_15:
 void __51__BTSDevicesController_pairingAgent_peerDidUnpair___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if ((a2 & 1) == 0)
   {
-    v5 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sharedBluetoothSettingsLogComponent(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __51__BTSDevicesController_pairingAgent_peerDidUnpair___block_invoke_cold_1();
     }
@@ -2401,13 +2474,13 @@ void __51__BTSDevicesController_pairingAgent_peerDidUnpair___block_invoke(uint64
       alert = self->_alert;
       self->_alert = v8;
 
-      v10 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = sharedBluetoothSettingsLogComponent(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = self->_alert;
+        v12 = self->_alert;
         v14 = 138412290;
-        v15 = v11;
-        _os_log_impl(&dword_23C0F7000, v10, OS_LOG_TYPE_DEFAULT, "Connection timeout BTAlert : %@", &v14, 0xCu);
+        v15 = v12;
+        _os_log_impl(&dword_23C0F7000, v11, OS_LOG_TYPE_DEFAULT, "Connection timeout BTAlert : %@", &v14, 0xCu);
       }
 
       [(BTAlert *)self->_alert setDelegate:self];
@@ -2419,19 +2492,18 @@ void __51__BTSDevicesController_pairingAgent_peerDidUnpair___block_invoke(uint64
     identifier3 = [userInfo identifier];
     [(BTSDevicesController *)self reloadCellForSpecifierID:identifier3];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)peripheral:(id)peripheral didDiscoverServices:(id)services
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   peripheralCopy = peripheral;
   servicesCopy = services;
+  v8 = servicesCopy;
   if (servicesCopy)
   {
-    v8 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sharedBluetoothSettingsLogComponent(servicesCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [BTSDevicesController peripheral:didDiscoverServices:];
     }
@@ -2439,176 +2511,178 @@ void __51__BTSDevicesController_pairingAgent_peerDidUnpair___block_invoke(uint64
 
   else
   {
-    v8 = [(BTSDevicesController *)self _getDeviceForPeripheral:peripheralCopy];
-    if (v8)
+    v10 = [(BTSDevicesController *)self _getDeviceForPeripheral:peripheralCopy];
+    v9 = v10;
+    if (v10)
     {
-      v9 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v11 = sharedBluetoothSettingsLogComponent(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         services = [peripheralCopy services];
         *buf = 138412546;
-        v49 = peripheralCopy;
-        v50 = 2112;
-        v51 = services;
-        _os_log_impl(&dword_23C0F7000, v9, OS_LOG_TYPE_INFO, "Device %@ supports services %@", buf, 0x16u);
+        v52 = peripheralCopy;
+        v53 = 2112;
+        v54 = services;
+        _os_log_impl(&dword_23C0F7000, v11, OS_LOG_TYPE_INFO, "Device %@ supports services %@", buf, 0x16u);
       }
 
-      v36 = v8;
+      v39 = v9;
 
-      v39 = [MEMORY[0x277CBEB98] setWithArray:self->_healthServices];
+      v42 = [MEMORY[0x277CBEB98] setWithArray:self->_healthServices];
       [MEMORY[0x277CBEB58] set];
-      v38 = v37 = peripheralCopy;
-      v43 = 0u;
-      v44 = 0u;
-      v45 = 0u;
+      v41 = v40 = peripheralCopy;
       v46 = 0u;
+      v47 = 0u;
+      v48 = 0u;
+      v49 = 0u;
       services2 = [peripheralCopy services];
-      v12 = [services2 countByEnumeratingWithState:&v43 objects:v47 count:16];
-      if (v12)
+      v14 = [services2 countByEnumeratingWithState:&v46 objects:v50 count:16];
+      if (v14)
       {
-        v13 = v12;
-        v14 = 0;
-        v15 = *v44;
+        v15 = v14;
+        v16 = 0;
+        v17 = *v47;
         do
         {
-          for (i = 0; i != v13; ++i)
+          for (i = 0; i != v15; ++i)
           {
             selfCopy = self;
-            if (*v44 != v15)
+            if (*v47 != v17)
             {
               objc_enumerationMutation(services2);
             }
 
-            v18 = *(*(&v43 + 1) + 8 * i);
-            uUID = [v18 UUID];
-            v20 = [v39 containsObject:uUID];
+            v20 = *(*(&v46 + 1) + 8 * i);
+            uUID = [v20 UUID];
+            v22 = [v42 containsObject:uUID];
 
-            if (v20)
+            if (v22)
             {
-              uUID2 = [v18 UUID];
+              uUID2 = [v20 UUID];
               uUIDString = [uUID2 UUIDString];
-              [v38 addObject:uUIDString];
+              [v41 addObject:uUIDString];
             }
 
             self = selfCopy;
             hidServices = selfCopy->_hidServices;
-            uUID3 = [v18 UUID];
+            uUID3 = [v20 UUID];
             LOBYTE(hidServices) = [(NSArray *)hidServices containsObject:uUID3];
 
-            v14 |= hidServices;
+            v16 |= hidServices;
           }
 
-          v13 = [services2 countByEnumeratingWithState:&v43 objects:v47 count:16];
+          v15 = [services2 countByEnumeratingWithState:&v46 objects:v50 count:16];
         }
 
-        while (v13);
+        while (v15);
       }
 
       else
       {
-        v14 = 0;
+        v16 = 0;
       }
 
-      v25 = [MEMORY[0x277CBE0A0] UUIDWithString:*MEMORY[0x277CBDFD0]];
-      uUIDString2 = [v25 UUIDString];
-      v27 = [v38 containsObject:uUIDString2];
+      v27 = [MEMORY[0x277CBE0A0] UUIDWithString:*MEMORY[0x277CBDFD0]];
+      uUIDString2 = [v27 UUIDString];
+      v29 = [v41 containsObject:uUIDString2];
 
-      v8 = v36;
-      if ((v14 & 1) != 0 && ([(NSMutableSet *)self->_connectedHIDDevices containsObject:v36]& 1) == 0)
+      v9 = v39;
+      if ((v16 & 1) != 0 && ([(NSMutableSet *)self->_connectedHIDDevices containsObject:v39]& 1) == 0)
       {
-        [(NSMutableSet *)self->_connectedHIDDevices addObject:v36];
+        [(NSMutableSet *)self->_connectedHIDDevices addObject:v39];
         self->_mainFooterNeedsUpdate = 1;
         [(BTSDevicesController *)self updateMainGroupFooter];
       }
 
-      servicesCopy = 0;
-      peripheralCopy = v37;
-      if ([v38 count])
+      v30 = [v41 count];
+      v8 = 0;
+      peripheralCopy = v40;
+      if (v30)
       {
-        v28 = sharedBluetoothSettingsLogComponent();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+        v31 = sharedBluetoothSettingsLogComponent(v30);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
           [BTSDevicesController peripheral:didDiscoverServices:];
         }
 
-        [v36 setHealthDevice:1];
-        if (v27)
+        [v39 setHealthDevice:1];
+        if (v29)
         {
-          if (_os_feature_enabled_impl())
+          v32 = _os_feature_enabled_impl();
+          if (v32)
           {
-            v29 = sharedBluetoothSettingsLogComponent();
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+            v33 = sharedBluetoothSettingsLogComponent(v32);
+            if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
             {
               [BTSDevicesController peripheral:didDiscoverServices:];
             }
 
-            [v37 setCustomProperty:@"Fitness" value:@"1"];
-            v30 = [v37 customProperty:@"UpdateHealth"];
+            [v40 setCustomProperty:@"Fitness" value:@"1"];
+            v34 = [v40 customProperty:@"UpdateHealth"];
 
-            if (!v30)
+            if (!v34)
             {
-              [v37 setCustomProperty:@"UpdateHealth" value:@"1"];
+              [v40 setCustomProperty:@"UpdateHealth" value:@"1"];
             }
 
-            [v37 tag:*MEMORY[0x277CCCB90]];
+            [v40 tag:*MEMORY[0x277CCCB90]];
             notify_post("BTSettingsHRMConnectedNotification");
           }
 
           else
           {
             healthKitStore = self->_healthKitStore;
-            identifier = [v37 identifier];
-            name = [v37 name];
-            allObjects = [v38 allObjects];
-            v40[0] = MEMORY[0x277D85DD0];
-            v40[1] = 3221225472;
-            v40[2] = __55__BTSDevicesController_peripheral_didDiscoverServices___block_invoke;
-            v40[3] = &unk_278BB0430;
-            v41 = v37;
-            v42 = v38;
-            [(HKHealthStore *)healthKitStore registerPeripheralIdentifier:identifier name:name services:allObjects withCompletion:v40];
+            identifier = [v40 identifier];
+            name = [v40 name];
+            allObjects = [v41 allObjects];
+            v43[0] = MEMORY[0x277D85DD0];
+            v43[1] = 3221225472;
+            v43[2] = __55__BTSDevicesController_peripheral_didDiscoverServices___block_invoke;
+            v43[3] = &unk_278BB0430;
+            v44 = v40;
+            v45 = v41;
+            [(HKHealthStore *)healthKitStore registerPeripheralIdentifier:identifier name:name services:allObjects withCompletion:v43];
           }
         }
 
-        [(BTSDevicesController *)self _updateDevicePosition:v36];
+        [(BTSDevicesController *)self _updateDevicePosition:v39];
       }
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __55__BTSDevicesController_peripheral_didDiscoverServices___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v5 = a3;
+  v4 = a3;
+  v5 = v4;
   if ((a2 & 1) == 0)
   {
-    v6 = sharedBluetoothSettingsLogComponent();
+    v6 = sharedBluetoothSettingsLogComponent(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __55__BTSDevicesController_peripheral_didDiscoverServices___block_invoke_cold_1(a1);
+      __55__BTSDevicesController_peripheral_didDiscoverServices___block_invoke_cold_1();
     }
   }
 }
 
 - (void)peripheral:(id)peripheral didOpenL2CAPChannel:(id)channel error:(id)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   peripheralCopy = peripheral;
   channelCopy = channel;
   errorCopy = error;
-  v11 = sharedBluetoothSettingsLogComponent();
+  v11 = sharedBluetoothSettingsLogComponent(errorCopy);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
   if (errorCopy)
   {
     if (v12)
     {
       v13 = [errorCopy description];
-      v15 = 138412546;
-      v16 = peripheralCopy;
-      v17 = 2112;
-      v18 = v13;
-      _os_log_impl(&dword_23C0F7000, v11, OS_LOG_TYPE_DEFAULT, "Error opening L2CAP channel for %@: %@", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = peripheralCopy;
+      v16 = 2112;
+      v17 = v13;
+      _os_log_impl(&dword_23C0F7000, v11, OS_LOG_TYPE_DEFAULT, "Error opening L2CAP channel for %@: %@", &v14, 0x16u);
     }
 
 LABEL_4:
@@ -2618,9 +2692,9 @@ LABEL_4:
 
   if (v12)
   {
-    v15 = 138412290;
-    v16 = peripheralCopy;
-    _os_log_impl(&dword_23C0F7000, v11, OS_LOG_TYPE_DEFAULT, "Peripheral %@ did open L2CAP channel", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = peripheralCopy;
+    _os_log_impl(&dword_23C0F7000, v11, OS_LOG_TYPE_DEFAULT, "Peripheral %@ did open L2CAP channel", &v14, 0xCu);
   }
 
   if (-[BTSDevicesController isChannelSoundingTestingEnabled](self, "isChannelSoundingTestingEnabled") && [channelCopy PSM] == 128)
@@ -2637,36 +2711,31 @@ LABEL_4:
   }
 
 LABEL_5:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)peripheral:(id)peripheral didCompleteChannelSoundingProcedure:(id)procedure error:(id)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   procedureCopy = procedure;
   peripheralCopy = peripheral;
-  v9 = sharedBluetoothSettingsLogComponent();
+  v9 = sharedBluetoothSettingsLogComponent(peripheralCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = procedureCopy;
-    _os_log_impl(&dword_23C0F7000, v9, OS_LOG_TYPE_DEFAULT, "Completed channel sounding procedure with results: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = procedureCopy;
+    _os_log_impl(&dword_23C0F7000, v9, OS_LOG_TYPE_DEFAULT, "Completed channel sounding procedure with results: %@", &v11, 0xCu);
   }
 
   v10 = [(BTSDevicesController *)self _getDeviceForPeripheral:peripheralCopy];
 
   [v10 sendChannelSoundingResults:procedureCopy];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchDADevices
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDASessionEvent:(id)event
@@ -2679,7 +2748,7 @@ LABEL_5:
     {
       if (eventType == 20)
       {
-        defaultCenter = sharedBluetoothSettingsLogComponent();
+        defaultCenter = sharedBluetoothSettingsLogComponent(20);
         if (os_log_type_enabled(defaultCenter, OS_LOG_TYPE_INFO))
         {
           *v14 = 0;
@@ -2692,7 +2761,7 @@ LABEL_5:
       goto LABEL_23;
     }
 
-    v8 = sharedBluetoothSettingsLogComponent();
+    v8 = sharedBluetoothSettingsLogComponent(10);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *v17 = 0;
@@ -2716,8 +2785,7 @@ LABEL_14:
       goto LABEL_23;
     }
 
-    [(BTSDevicesController *)self fetchDADevices];
-    v7 = sharedBluetoothSettingsLogComponent();
+    v7 = sharedBluetoothSettingsLogComponent([(BTSDevicesController *)self fetchDADevices]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -2727,7 +2795,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v9 = sharedBluetoothSettingsLogComponent();
+  v9 = sharedBluetoothSettingsLogComponent(41);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *v16 = 0;
@@ -2808,7 +2876,7 @@ LABEL_8:
 
 - (id)_getDeviceForPeripheral:(id)peripheral
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   peripheralCopy = peripheral;
   devicesDict = self->_devicesDict;
   identifier = [peripheralCopy identifier];
@@ -2819,14 +2887,13 @@ LABEL_8:
   {
     if ([peripheralCopy hasTag:@"_MANAGED_BY_WALLET_"])
     {
-      [v8 setManagedByWallet:1];
-      v9 = sharedBluetoothSettingsLogComponent();
+      v9 = sharedBluetoothSettingsLogComponent([v8 setManagedByWallet:1]);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v39) = 0;
+        LOWORD(v41) = 0;
         v10 = "DCK : Digital Car Key are special";
 LABEL_28:
-        _os_log_impl(&dword_23C0F7000, v9, OS_LOG_TYPE_DEFAULT, v10, &v39, 2u);
+        _os_log_impl(&dword_23C0F7000, v9, OS_LOG_TYPE_DEFAULT, v10, &v41, 2u);
       }
     }
 
@@ -2836,15 +2903,14 @@ LABEL_28:
       {
 LABEL_30:
         v8 = v8;
-        v32 = v8;
+        v34 = v8;
         goto LABEL_41;
       }
 
-      [v8 setManagedByAliroWallet:1];
-      v9 = sharedBluetoothSettingsLogComponent();
+      v9 = sharedBluetoothSettingsLogComponent([v8 setManagedByAliroWallet:1]);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v39) = 0;
+        LOWORD(v41) = 0;
         v10 = "Alire : Home Key are special";
         goto LABEL_28;
       }
@@ -2860,23 +2926,21 @@ LABEL_29:
   {
     if ([peripheralCopy hasTag:@"_MANAGED_BY_WALLET_"])
     {
-      [v8 setManagedByWallet:1];
-      v11 = sharedBluetoothSettingsLogComponent();
+      v11 = sharedBluetoothSettingsLogComponent([v8 setManagedByWallet:1]);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v39) = 0;
-        _os_log_impl(&dword_23C0F7000, v11, OS_LOG_TYPE_DEFAULT, "DCK : Digital Car Key are special", &v39, 2u);
+        LOWORD(v41) = 0;
+        _os_log_impl(&dword_23C0F7000, v11, OS_LOG_TYPE_DEFAULT, "DCK : Digital Car Key are special", &v41, 2u);
       }
     }
 
     if ([peripheralCopy hasTag:@"_MANAGED_BY_ALIRO_WALLET_"])
     {
-      [v8 setManagedByAliroWallet:1];
-      v12 = sharedBluetoothSettingsLogComponent();
+      v12 = sharedBluetoothSettingsLogComponent([v8 setManagedByAliroWallet:1]);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v39) = 0;
-        _os_log_impl(&dword_23C0F7000, v12, OS_LOG_TYPE_DEFAULT, "Aliro : Home Key are special", &v39, 2u);
+        LOWORD(v41) = 0;
+        _os_log_impl(&dword_23C0F7000, v12, OS_LOG_TYPE_DEFAULT, "Aliro : Home Key are special", &v41, 2u);
       }
     }
 
@@ -2887,15 +2951,16 @@ LABEL_29:
       [v8 setHealthDevice:1];
     }
 
-    if (![v8 supportsCTKD])
+    supportsCTKD = [v8 supportsCTKD];
+    if (!supportsCTKD)
     {
-      v9 = sharedBluetoothSettingsLogComponent();
+      v9 = sharedBluetoothSettingsLogComponent(supportsCTKD);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         name = [v8 name];
-        v39 = 138412290;
-        v40 = name;
-        _os_log_impl(&dword_23C0F7000, v9, OS_LOG_TYPE_DEFAULT, "CTKD : Device %@ does not support CTKD", &v39, 0xCu);
+        v41 = 138412290;
+        v42 = name;
+        _os_log_impl(&dword_23C0F7000, v9, OS_LOG_TYPE_DEFAULT, "CTKD : Device %@ does not support CTKD", &v41, 0xCu);
       }
 
       goto LABEL_29;
@@ -2905,35 +2970,35 @@ LABEL_29:
     identifier2 = [peripheralCopy identifier];
     v9 = [mEMORY[0x277CF3248] deviceFromIdentifier:identifier2];
 
-    v16 = [BTSDeviceClassic deviceWithDevice:v9];
-    v17 = self->_devicesDict;
-    classicDevice = [v16 classicDevice];
+    v17 = [BTSDeviceClassic deviceWithDevice:v9];
+    v18 = self->_devicesDict;
+    classicDevice = [v17 classicDevice];
     address = [classicDevice address];
-    v20 = [(NSMutableDictionary *)v17 objectForKey:address];
+    v21 = [(NSMutableDictionary *)v18 objectForKey:address];
 
-    if (v20)
+    if (v21)
     {
-      [v20 setCtkdDevice:1];
+      [v21 setCtkdDevice:1];
       if ([v8 isManagedByDeviceAccess])
       {
         knownDADevices = self->_knownDADevices;
         identifier3 = [peripheralCopy identifier];
-        v23 = [(NSMutableDictionary *)knownDADevices objectForKeyedSubscript:identifier3];
-        [v8 setUnderlyingDADevice:v23];
+        v24 = [(NSMutableDictionary *)knownDADevices objectForKeyedSubscript:identifier3];
+        [v8 setUnderlyingDADevice:v24];
 
         name2 = [v8 name];
-        [v20 setAccessorySetupKitDisplayName:name2];
+        [v21 setAccessorySetupKitDisplayName:name2];
 
-        [v20 setDenyIncomingClassicConnection:{objc_msgSend(v8, "shouldDenyIncomingClassicConnection")}];
+        [v21 setDenyIncomingClassicConnection:{objc_msgSend(v8, "shouldDenyIncomingClassicConnection")}];
       }
 
-      v25 = self->_devicesDict;
-      classicDevice2 = [v16 classicDevice];
+      v26 = self->_devicesDict;
+      classicDevice2 = [v17 classicDevice];
       address2 = [classicDevice2 address];
-      [(NSMutableDictionary *)v25 setObject:v20 forKey:address2];
+      [(NSMutableDictionary *)v26 setObject:v21 forKey:address2];
 
-      v28 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+      v30 = sharedBluetoothSettingsLogComponent(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
         [BTSDevicesController _getDeviceForPeripheral:];
       }
@@ -2943,25 +3008,26 @@ LABEL_29:
 
       if (uUIDString2)
       {
-        v31 = [(NSMutableDictionary *)self->_ctkdLeDevicesDict objectForKey:uUIDString2];
+        v33 = [(NSMutableDictionary *)self->_ctkdLeDevicesDict objectForKey:uUIDString2];
 
-        if (!v31)
+        if (!v33)
         {
           [v8 setCtkdDevice:1];
           [(NSMutableDictionary *)self->_ctkdLeDevicesDict setObject:v8 forKey:uUIDString2];
-          [(BTSDevicesController *)self updateCTKDCounterparts:v20 leDevice:v8];
+          [(BTSDevicesController *)self updateCTKDCounterparts:v21 leDevice:v8];
         }
       }
     }
 
     else
     {
-      v34 = [peripheralCopy hasTag:@"HasTS"];
-      v35 = sharedBluetoothSettingsLogComponent();
-      uUIDString2 = v35;
-      if (v34)
+      v36 = [peripheralCopy hasTag:@"HasTS"];
+      v37 = v36;
+      v38 = sharedBluetoothSettingsLogComponent(v36);
+      uUIDString2 = v38;
+      if (v37)
       {
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
         {
           [BTSDevicesController _getDeviceForPeripheral:];
         }
@@ -2969,22 +3035,20 @@ LABEL_29:
         goto LABEL_29;
       }
 
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
       {
         name3 = [v8 name];
-        v39 = 138412290;
-        v40 = name3;
-        _os_log_impl(&dword_23C0F7000, uUIDString2, OS_LOG_TYPE_INFO, "CTKD : Device %@ missing from list of classic paired devices", &v39, 0xCu);
+        v41 = 138412290;
+        v42 = name3;
+        _os_log_impl(&dword_23C0F7000, uUIDString2, OS_LOG_TYPE_INFO, "CTKD : Device %@ missing from list of classic paired devices", &v41, 0xCu);
       }
     }
   }
 
-  v32 = 0;
+  v34 = 0;
 LABEL_41:
 
-  v37 = *MEMORY[0x277D85DE8];
-
-  return v32;
+  return v34;
 }
 
 - (id)_getDeviceForCTKDPeripheral:(id)peripheral
@@ -3016,9 +3080,10 @@ LABEL_41:
       }
     }
 
-    if ([v8 doesSupportBackgroundNI] && (-[NSMutableDictionary objectForKey:](self->supportsBackgroundNIDictionary, "objectForKey:", address), v17 = objc_claimAutoreleasedReturnValue(), v17, !v17))
+    doesSupportBackgroundNI = [v8 doesSupportBackgroundNI];
+    if (doesSupportBackgroundNI && ([(NSMutableDictionary *)self->supportsBackgroundNIDictionary objectForKey:address], v18 = objc_claimAutoreleasedReturnValue(), v18, !v18))
     {
-      [(NSMutableDictionary *)self->supportsBackgroundNIDictionary setValue:MEMORY[0x277CBEC38] forKey:address];
+      doesSupportBackgroundNI = [(NSMutableDictionary *)self->supportsBackgroundNIDictionary setValue:MEMORY[0x277CBEC38] forKey:address];
       if (v15)
       {
         goto LABEL_9;
@@ -3028,12 +3093,12 @@ LABEL_41:
     else if (v15)
     {
 LABEL_9:
-      v18 = v15;
+      v19 = v15;
       goto LABEL_14;
     }
 
-    v19 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = sharedBluetoothSettingsLogComponent(doesSupportBackgroundNI);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [BTSDevicesController _getDeviceForCTKDPeripheral:];
     }
@@ -3090,99 +3155,98 @@ LABEL_7:
     v27 = specifierCopy;
     if ([deviceCopy isMyDevice])
     {
-      v15 = @"MY_DEVICES";
+      v16 = @"MY_DEVICES";
     }
 
     else
     {
-      v15 = @"DEVICES";
+      v16 = @"DEVICES";
     }
 
-    v16 = [(BTSDevicesController *)self indexOfSpecifierID:v15];
+    v17 = [(BTSDevicesController *)self indexOfSpecifierID:v16];
     array = [MEMORY[0x277CBEB18] array];
-    v17 = *MEMORY[0x277D3FC48];
-    v18 = v16 + 1;
-    if (v16 + 1 < [*(&self->super.super.super.super.super.isa + v17) count])
+    v18 = *MEMORY[0x277D3FC48];
+    v19 = v17 + 1;
+    if (v17 + 1 < [*(&self->super.super.super.super.super.isa + v18) count])
     {
-      v19 = v16 + 1;
+      v20 = v17 + 1;
       do
       {
-        v20 = [(BTSDevicesController *)self specifierAtIndex:v19];
-        userInfo = [v20 userInfo];
-        v22 = [userInfo objectForKey:@"bt-device"];
+        v21 = [(BTSDevicesController *)self specifierAtIndex:v20];
+        userInfo = [v21 userInfo];
+        v23 = [userInfo objectForKey:@"bt-device"];
 
-        if (!v22)
+        if (!v23)
         {
           break;
         }
 
         isMyDevice = [deviceCopy isMyDevice];
-        if (isMyDevice == [v22 isMyDevice])
+        if (isMyDevice == [v23 isMyDevice])
         {
-          [array addObject:v22];
+          [array addObject:v23];
         }
 
-        ++v19;
+        ++v20;
       }
 
-      while (v19 < [*(&self->super.super.super.super.super.isa + v17) count]);
+      while (v20 < [*(&self->super.super.super.super.super.isa + v18) count]);
     }
 
     [array addObject:deviceCopy];
     [array sortUsingSelector:sel_compare_];
-    v24 = [array indexOfObject:deviceCopy];
-    v25 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    v25 = [array indexOfObject:deviceCopy];
+    v26 = sharedBluetoothSettingsLogComponent(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
       [BTSDevicesController _addDeviceSpecifier:withDevice:];
     }
 
     specifierCopy = v27;
-    [(BTSDevicesController *)self insertSpecifier:v27 atIndex:v18 + v24 animated:1];
+    [(BTSDevicesController *)self insertSpecifier:v27 atIndex:v19 + v25 animated:1];
     goto LABEL_19;
   }
 
-  if (![deviceCopy isMyDevice])
+  isMyDevice2 = [deviceCopy isMyDevice];
+  if (!isMyDevice2)
   {
     goto LABEL_7;
   }
 
-  v9 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = sharedBluetoothSettingsLogComponent(isMyDevice2);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     name = [deviceCopy name];
     *buf = 138412290;
     v30 = name;
-    _os_log_impl(&dword_23C0F7000, v9, OS_LOG_TYPE_INFO, "Adding first known device %@", buf, 0xCu);
+    _os_log_impl(&dword_23C0F7000, v10, OS_LOG_TYPE_INFO, "Adding first known device %@", buf, 0xCu);
   }
 
   v28[0] = self->_myDevicesGroupSpec;
   v28[1] = specifierCopy;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
-  [(BTSDevicesController *)self insertContiguousSpecifiers:v11 afterSpecifierID:@"BLUETOOTH" animated:1];
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+  [(BTSDevicesController *)self insertContiguousSpecifiers:v12 afterSpecifierID:@"BLUETOOTH" animated:1];
 
   array = [(PSSpecifier *)self->_otherDevicesGroupSpec propertyForKey:*MEMORY[0x277D3FFB0]];
-  v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v14 = [v13 localizedStringForKey:@"OTHER_DEVICES" value:&stru_284EE3458 table:@"Devices"];
-  [array setName:v14];
+  v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v15 = [v14 localizedStringForKey:@"OTHER_DEVICES" value:&stru_284EE3458 table:@"Devices"];
+  [array setName:v15];
 
 LABEL_19:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeDeviceSpecifier:(id)specifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
-  [(BTSDevicesController *)self beginUpdates];
-  v5 = sharedBluetoothSettingsLogComponent();
+  v5 = sharedBluetoothSettingsLogComponent([(BTSDevicesController *)self beginUpdates]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    *v18 = 138412546;
-    *&v18[4] = specifierCopy;
-    v19 = 2048;
-    v20 = [(BTSDevicesController *)self indexOfSpecifier:specifierCopy];
-    _os_log_impl(&dword_23C0F7000, v5, OS_LOG_TYPE_INFO, "Removing specifier %@ at index %lu", v18, 0x16u);
+    *v20 = 138412546;
+    *&v20[4] = specifierCopy;
+    v21 = 2048;
+    v22 = [(BTSDevicesController *)self indexOfSpecifier:specifierCopy];
+    _os_log_impl(&dword_23C0F7000, v5, OS_LOG_TYPE_INFO, "Removing specifier %@ at index %lu", v20, 0x16u);
   }
 
   [(BTSDevicesController *)self removeSpecifier:specifierCopy animated:1];
@@ -3194,53 +3258,51 @@ LABEL_19:
 
     if (!v8)
     {
-      v9 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v10 = sharedBluetoothSettingsLogComponent(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        *v18 = 0;
-        _os_log_impl(&dword_23C0F7000, v9, OS_LOG_TYPE_INFO, "Removing known device section", v18, 2u);
+        *v20 = 0;
+        _os_log_impl(&dword_23C0F7000, v10, OS_LOG_TYPE_INFO, "Removing known device section", v20, 2u);
       }
 
       isMainSettingsPane = [(BTSDevicesController *)self isMainSettingsPane];
       table = [(BTSDevicesController *)self table];
       if (isMainSettingsPane)
       {
-        v12 = [(BTSDevicesController *)self tableView:table viewForHeaderInSection:2];
+        v13 = [(BTSDevicesController *)self tableView:table viewForHeaderInSection:2];
 
-        v13 = sharedBluetoothSettingsLogComponent();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        v15 = sharedBluetoothSettingsLogComponent(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
-          *v18 = 0;
-          v14 = "Removing in BT pane";
+          *v20 = 0;
+          v16 = "Removing in BT pane";
 LABEL_12:
-          _os_log_impl(&dword_23C0F7000, v13, OS_LOG_TYPE_INFO, v14, v18, 2u);
+          _os_log_impl(&dword_23C0F7000, v15, OS_LOG_TYPE_INFO, v16, v20, 2u);
         }
       }
 
       else
       {
-        v12 = [(BTSDevicesController *)self tableView:table viewForHeaderInSection:1];
+        v13 = [(BTSDevicesController *)self tableView:table viewForHeaderInSection:1];
 
-        v13 = sharedBluetoothSettingsLogComponent();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        v15 = sharedBluetoothSettingsLogComponent(v17);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
-          *v18 = 0;
-          v14 = "Removing in AX pane";
+          *v20 = 0;
+          v16 = "Removing in AX pane";
           goto LABEL_12;
         }
       }
 
-      v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v16 = [v15 localizedStringForKey:@"DEVICES" value:&stru_284EE3458 table:@"Devices"];
-      [v12 setName:v16];
+      v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v19 = [v18 localizedStringForKey:@"DEVICES" value:&stru_284EE3458 table:@"Devices"];
+      [v13 setName:v19];
 
       [(BTSDevicesController *)self removeSpecifier:self->_myDevicesGroupSpec animated:1];
     }
   }
 
   [(BTSDevicesController *)self endUpdates];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeDevice:(id)device
@@ -3267,6 +3329,53 @@ LABEL_12:
     [(NSMutableDictionary *)v10 removeObjectForKey:identifier3];
 
     [(BTSDevicesController *)self _removeDeviceSpecifier:v9];
+  }
+}
+
+- (void)allowBluetoothConnections:(BOOL)connections
+{
+  connectionsCopy = connections;
+  if (!connections || ([MEMORY[0x277D75128] sharedApplication], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "applicationState"), v5, !v6))
+  {
+    self->_allowScanning = connectionsCopy;
+    mEMORY[0x277CF3248] = [MEMORY[0x277CF3248] sharedInstance];
+    [mEMORY[0x277CF3248] setDiscoverable:connectionsCopy];
+
+    mEMORY[0x277CF3248]2 = [MEMORY[0x277CF3248] sharedInstance];
+    [mEMORY[0x277CF3248]2 setConnectable:connectionsCopy];
+
+    mEMORY[0x277CF3248]3 = [MEMORY[0x277CF3248] sharedInstance];
+    [mEMORY[0x277CF3248]3 setDeviceScanningEnabled:connectionsCopy];
+
+    if (!connectionsCopy)
+    {
+      mEMORY[0x277CF3248]4 = [MEMORY[0x277CF3248] sharedInstance];
+      [mEMORY[0x277CF3248]4 resetDeviceScanning];
+    }
+
+    [(BTSDevicesController *)self _setupCentralScanning];
+  }
+
+  sharingClient = self->_sharingClient;
+  if (self->_allowScanning)
+  {
+    if (!sharingClient)
+    {
+      v13 = objc_alloc_init(MEMORY[0x277D54CA0]);
+      v14 = self->_sharingClient;
+      self->_sharingClient = v13;
+
+      v15 = self->_sharingClient;
+
+      [(SFDiagnostics *)v15 bluetoothUserInteraction];
+    }
+  }
+
+  else
+  {
+    [(SFDiagnostics *)sharingClient invalidate];
+    v12 = self->_sharingClient;
+    self->_sharingClient = 0;
   }
 }
 
@@ -3302,66 +3411,62 @@ LABEL_12:
 
 - (void)_setupCentralScanning
 {
-  v19[3] = *MEMORY[0x277D85DE8];
-  if (!self->_power)
+  v17[3] = *MEMORY[0x277D85DE8];
+  if (self->_power)
   {
-LABEL_11:
-    v14 = *MEMORY[0x277D85DE8];
-    return;
+    if (self->_allowScanning)
+    {
+      v3 = [(NSArray *)self->_healthServices mutableCopy];
+      [v3 addObjectsFromArray:self->_hidServices];
+      if ([(BTSDevicesController *)self isiPhone]&& [(BTSDevicesController *)self isLECarPlayEnabled])
+      {
+        v4 = [MEMORY[0x277CBE0A0] UUIDWithString:*MEMORY[0x277CBDFE0]];
+        [v3 addObject:v4];
+      }
+
+      if ([(BTSDevicesController *)self isChannelSoundingTestingEnabled])
+      {
+        v5 = [MEMORY[0x277CBE0A0] UUIDWithString:@"185B"];
+        [v3 addObject:v5];
+      }
+
+      if ([(BTSDevicesController *)self isLEAudioLiveOnEnabled])
+      {
+        v6 = [MEMORY[0x277CBE0A0] UUIDWithString:*MEMORY[0x277CBDF98]];
+        [v3 addObject:v6];
+
+        v7 = [MEMORY[0x277CBE0A0] UUIDWithString:*MEMORY[0x277CBDFE8]];
+        [v3 addObject:v7];
+      }
+
+      v8 = [MEMORY[0x277CBE0A0] UUIDWithString:*MEMORY[0x277CBDF70]];
+      v17[0] = v8;
+      v9 = [MEMORY[0x277CBE0A0] UUIDWithString:*MEMORY[0x277CBDFA8]];
+      v17[1] = v9;
+      v10 = [MEMORY[0x277CBE0A0] UUIDWithString:*MEMORY[0x277CBDF68]];
+      v17[2] = v10;
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
+
+      centralManager = self->_centralManager;
+      v15 = *MEMORY[0x277CBDE60];
+      v16 = v11;
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+      [(CBCentralManager *)centralManager scanForPeripheralsWithServices:v3 options:v13];
+    }
+
+    else
+    {
+      v14 = self->_centralManager;
+
+      [(CBCentralManager *)v14 stopScan];
+    }
   }
-
-  if (self->_allowScanning)
-  {
-    v3 = [(NSArray *)self->_healthServices mutableCopy];
-    [v3 addObjectsFromArray:self->_hidServices];
-    if ([(BTSDevicesController *)self isiPhone]&& [(BTSDevicesController *)self isLECarPlayEnabled])
-    {
-      v4 = [MEMORY[0x277CBE0A0] UUIDWithString:*MEMORY[0x277CBDFE0]];
-      [v3 addObject:v4];
-    }
-
-    if ([(BTSDevicesController *)self isChannelSoundingTestingEnabled])
-    {
-      v5 = [MEMORY[0x277CBE0A0] UUIDWithString:@"185B"];
-      [v3 addObject:v5];
-    }
-
-    if ([(BTSDevicesController *)self isLEAudioLiveOnEnabled])
-    {
-      v6 = [MEMORY[0x277CBE0A0] UUIDWithString:*MEMORY[0x277CBDF98]];
-      [v3 addObject:v6];
-
-      v7 = [MEMORY[0x277CBE0A0] UUIDWithString:*MEMORY[0x277CBDFE8]];
-      [v3 addObject:v7];
-    }
-
-    v8 = [MEMORY[0x277CBE0A0] UUIDWithString:*MEMORY[0x277CBDF70]];
-    v19[0] = v8;
-    v9 = [MEMORY[0x277CBE0A0] UUIDWithString:*MEMORY[0x277CBDFA8]];
-    v19[1] = v9;
-    v10 = [MEMORY[0x277CBE0A0] UUIDWithString:*MEMORY[0x277CBDF68]];
-    v19[2] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
-
-    centralManager = self->_centralManager;
-    v17 = *MEMORY[0x277CBDE60];
-    v18 = v11;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
-    [(CBCentralManager *)centralManager scanForPeripheralsWithServices:v3 options:v13];
-
-    goto LABEL_11;
-  }
-
-  v15 = self->_centralManager;
-  v16 = *MEMORY[0x277D85DE8];
-
-  [(CBCentralManager *)v15 stopScan];
 }
 
 - (void)healthDeviceUnregisteredHandler:(id)handler
 {
   object = [handler object];
-  v5 = sharedBluetoothSettingsLogComponent();
+  v5 = sharedBluetoothSettingsLogComponent(object);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [BTSDevicesController healthDeviceUnregisteredHandler:];
@@ -3396,10 +3501,11 @@ LABEL_11:
 void __56__BTSDevicesController_healthDeviceUnregisteredHandler___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if ((a2 & 1) == 0)
   {
-    v5 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sharedBluetoothSettingsLogComponent(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __51__BTSDevicesController_pairingAgent_peerDidUnpair___block_invoke_cold_1();
     }
@@ -3432,7 +3538,7 @@ void __56__BTSDevicesController_healthDeviceUnregisteredHandler___block_invoke(u
 
 - (id)specifiers
 {
-  v175 = *MEMORY[0x277D85DE8];
+  v176 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
   self->_bluetoothRestricted = [mEMORY[0x277D262A0] isBluetoothModificationAllowed] ^ 1;
 
@@ -3442,7 +3548,7 @@ void __56__BTSDevicesController_healthDeviceUnregisteredHandler___block_invoke(u
     goto LABEL_78;
   }
 
-  v142 = *MEMORY[0x277D3FC48];
+  v143 = *MEMORY[0x277D3FC48];
   mEMORY[0x277CF3248] = [MEMORY[0x277CF3248] sharedInstance];
   mEMORY[0x277CF3248]2 = [MEMORY[0x277CF3248] sharedInstance];
   self->_denylistEnabled = [mEMORY[0x277CF3248]2 denylistEnabled];
@@ -3480,41 +3586,30 @@ void __56__BTSDevicesController_healthDeviceUnregisteredHandler___block_invoke(u
 
   selfCopy = self;
   v24 = self->_invokingClientID;
-  v25 = sharedBluetoothSettingsLogComponent();
-  v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+  v26 = sharedBluetoothSettingsLogComponent(v25);
+  v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
   if (v24)
   {
-    if (!v26)
+    if (!v27)
     {
       goto LABEL_20;
     }
 
-    v27 = self->_invokingClientID;
-    v28 = self->_customTitle;
+    v28 = self->_invokingClientID;
+    v29 = self->_customTitle;
     if (self->_showAppleDevices)
     {
-      v29 = "yes";
+      v30 = "yes";
     }
 
     else
     {
-      v29 = "no";
+      v30 = "no";
     }
 
     showCarStereoDevices = self->_showCarStereoDevices;
     showSpeakerDevices = self->_showSpeakerDevices;
     if (self->_showAudioDevicesOnly)
-    {
-      v32 = "yes";
-    }
-
-    else
-    {
-      v32 = "no";
-    }
-
-    *buf = 138413570;
-    if (showCarStereoDevices)
     {
       v33 = "yes";
     }
@@ -3524,9 +3619,8 @@ void __56__BTSDevicesController_healthDeviceUnregisteredHandler___block_invoke(u
       v33 = "no";
     }
 
-    v164 = v27;
-    v165 = 2112;
-    if (showSpeakerDevices)
+    *buf = 138413570;
+    if (showCarStereoDevices)
     {
       v34 = "yes";
     }
@@ -3536,66 +3630,78 @@ void __56__BTSDevicesController_healthDeviceUnregisteredHandler___block_invoke(u
       v34 = "no";
     }
 
-    v166 = v28;
-    v167 = 2080;
-    v168 = v29;
-    v169 = 2080;
-    v170 = v32;
-    v171 = 2080;
-    v172 = v33;
-    v173 = 2080;
-    v174 = v34;
-    v35 = "BTSettings invoked from a client that is not the main Settings, ID: %@, customTitle: %@, showAppleDevices: %s, showAudioOnly: %s, showCarStereos: %s showSpeakers: %s";
-    v36 = v25;
-    v37 = 62;
+    v165 = v28;
+    v166 = 2112;
+    if (showSpeakerDevices)
+    {
+      v35 = "yes";
+    }
+
+    else
+    {
+      v35 = "no";
+    }
+
+    v167 = v29;
+    v168 = 2080;
+    v169 = v30;
+    v170 = 2080;
+    v171 = v33;
+    v172 = 2080;
+    v173 = v34;
+    v174 = 2080;
+    v175 = v35;
+    v36 = "BTSettings invoked from a client that is not the main Settings, ID: %@, customTitle: %@, showAppleDevices: %s, showAudioOnly: %s, showCarStereos: %s showSpeakers: %s";
+    v37 = v26;
+    v38 = 62;
   }
 
   else
   {
-    if (!v26)
+    if (!v27)
     {
       goto LABEL_20;
     }
 
     *buf = 0;
-    v35 = "BTSettings invoked from main settings page";
-    v36 = v25;
-    v37 = 2;
+    v36 = "BTSettings invoked from main settings page";
+    v37 = v26;
+    v38 = 2;
   }
 
-  _os_log_impl(&dword_23C0F7000, v36, OS_LOG_TYPE_DEFAULT, v35, buf, v37);
+  _os_log_impl(&dword_23C0F7000, v37, OS_LOG_TYPE_DEFAULT, v36, buf, v38);
 LABEL_20:
 
-  v38 = 0x277CBE000uLL;
-  v39 = MEMORY[0x277CBEB18];
+  v39 = 0x277CBE000uLL;
+  v40 = MEMORY[0x277CBEB18];
   selfCopy3 = self;
-  v41 = [(BTSDevicesController *)self loadSpecifiersFromPlistName:@"Devices" target:self];
-  v42 = [v39 arrayWithArray:v41];
+  v42 = [(BTSDevicesController *)self loadSpecifiersFromPlistName:@"Devices" target:self];
+  v43 = [v40 arrayWithArray:v42];
 
   array = [MEMORY[0x277CBEB18] array];
   if ([(BTSDevicesController *)self isMainSettingsPane]|| !self->_power)
   {
-    v43 = [v42 objectAtIndexedSubscript:0];
-    [array addObject:v43];
+    v44 = [v43 objectAtIndexedSubscript:0];
+    [array addObject:v44];
 
     _heroPlacardSpecifiers = [(BTSDevicesController *)self _heroPlacardSpecifiers];
     [array addObjectsFromArray:_heroPlacardSpecifiers];
 
-    v45 = [v42 objectAtIndexedSubscript:1];
-    [array addObject:v45];
+    v46 = [v43 objectAtIndexedSubscript:1];
+    [array addObject:v46];
   }
 
-  v46 = [v42 objectAtIndexedSubscript:3];
+  v47 = [v43 objectAtIndexedSubscript:3];
   myDevicesGroupSpec = self->_myDevicesGroupSpec;
-  self->_myDevicesGroupSpec = v46;
+  self->_myDevicesGroupSpec = v47;
 
-  v48 = v142;
+  v49 = v143;
   if ([(NSMutableDictionary *)self->_pendingOtherRadioDevicesDict count])
   {
-    v49 = self->_myDevicesGroupSpec;
-    v50 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v51 = [v50 localizedStringForKey:@"FOLLOW_PAIR_INSTRUCTION_FOOTER" value:&stru_284EE3458 table:@"Devices"];
-    [(PSSpecifier *)v49 setProperty:v51 forKey:*MEMORY[0x277D3FF88]];
+    v50 = self->_myDevicesGroupSpec;
+    v51 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v52 = [v51 localizedStringForKey:@"FOLLOW_PAIR_INSTRUCTION_FOOTER" value:&stru_284EE3458 table:@"Devices"];
+    [(PSSpecifier *)v50 setProperty:v52 forKey:*MEMORY[0x277D3FF88]];
   }
 
   if (self->_bluetoothRestricted)
@@ -3611,43 +3717,43 @@ LABEL_20:
     }
 
     mEMORY[0x277D262A0]2 = [MEMORY[0x277D262A0] sharedConnection];
-    v162 = *MEMORY[0x277D25DA0];
-    v54 = [MEMORY[0x277CBEA60] arrayWithObjects:&v162 count:1];
-    v55 = [mEMORY[0x277D262A0]2 localizedRestrictionSourceDescriptionForFeatures:v54];
+    v163 = *MEMORY[0x277D25DA0];
+    v55 = [MEMORY[0x277CBEA60] arrayWithObjects:&v163 count:1];
+    v56 = [mEMORY[0x277D262A0]2 localizedRestrictionSourceDescriptionForFeatures:v55];
     restrictionDetail = self->_restrictionDetail;
-    self->_restrictionDetail = v55;
+    self->_restrictionDetail = v56;
 
-    v157 = 0u;
     v158 = 0u;
-    v155 = 0u;
+    v159 = 0u;
     v156 = 0u;
+    v157 = 0u;
     obj = array;
-    v57 = [obj countByEnumeratingWithState:&v155 objects:v161 count:16];
-    if (v57)
+    v58 = [obj countByEnumeratingWithState:&v156 objects:v162 count:16];
+    if (v58)
     {
-      v58 = v57;
-      v59 = v42;
-      v60 = *v156;
-      v61 = *MEMORY[0x277D3FF38];
+      v59 = v58;
+      v60 = v43;
+      v61 = *v157;
+      v62 = *MEMORY[0x277D3FF38];
       do
       {
-        for (i = 0; i != v58; ++i)
+        for (i = 0; i != v59; ++i)
         {
-          if (*v156 != v60)
+          if (*v157 != v61)
           {
             objc_enumerationMutation(obj);
           }
 
-          v63 = *(*(&v155 + 1) + 8 * i);
-          v64 = [MEMORY[0x277CCABB0] numberWithBool:0];
-          [v63 setProperty:v64 forKey:v61];
+          v64 = *(*(&v156 + 1) + 8 * i);
+          v65 = [MEMORY[0x277CCABB0] numberWithBool:0];
+          [v64 setProperty:v65 forKey:v62];
         }
 
-        v58 = [obj countByEnumeratingWithState:&v155 objects:v161 count:16];
+        v59 = [obj countByEnumeratingWithState:&v156 objects:v162 count:16];
       }
 
-      while (v58);
-      v42 = v59;
+      while (v59);
+      v43 = v60;
     }
   }
 
@@ -3655,27 +3761,27 @@ LABEL_20:
   {
     if (self->_denylistEnabled && self->_power)
     {
-      v65 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"DENYLIST_ACTION_GROUP_ID"];
-      v66 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      [v66 localizedStringForKey:@"DENYLIST_FOOTER" value:&stru_284EE3458 table:@"Devices"];
-      v68 = v67 = v42;
-      [v65 setProperty:v68 forKey:*MEMORY[0x277D3FF88]];
+      v66 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"DENYLIST_ACTION_GROUP_ID"];
+      v67 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      [v67 localizedStringForKey:@"DENYLIST_FOOTER" value:&stru_284EE3458 table:@"Devices"];
+      v69 = v68 = v43;
+      [v66 setProperty:v69 forKey:*MEMORY[0x277D3FF88]];
 
-      [array addObject:v65];
-      v69 = MEMORY[0x277D3FAD8];
-      v70 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v38 = 0x277CBE000;
-      v71 = [v70 localizedStringForKey:@"ALLOW_NEW_CONNECTIONS" value:&stru_284EE3458 table:@"Devices"];
-      v72 = [v69 preferenceSpecifierNamed:v71 target:self set:0 get:0 detail:0 cell:13 edit:0];
+      [array addObject:v66];
+      v70 = MEMORY[0x277D3FAD8];
+      v71 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v39 = 0x277CBE000;
+      v72 = [v71 localizedStringForKey:@"ALLOW_NEW_CONNECTIONS" value:&stru_284EE3458 table:@"Devices"];
+      v73 = [v70 preferenceSpecifierNamed:v72 target:self set:0 get:0 detail:0 cell:13 edit:0];
 
-      v42 = v67;
-      [v72 setIdentifier:@"DENYLIST_ACTION_ID"];
-      [array addObject:v72];
+      v43 = v68;
+      [v73 setIdentifier:@"DENYLIST_ACTION_ID"];
+      [array addObject:v73];
     }
 
-    v73 = [v42 objectAtIndexedSubscript:4];
+    v74 = [v43 objectAtIndexedSubscript:4];
     otherDevicesGroupSpec = self->_otherDevicesGroupSpec;
-    self->_otherDevicesGroupSpec = v73;
+    self->_otherDevicesGroupSpec = v74;
 
     if (MGGetBoolAnswer())
     {
@@ -3684,37 +3790,37 @@ LABEL_20:
 
       if ((isPaired & 1) == 0)
       {
-        v77 = MEMORY[0x277CCACA8];
+        v78 = MEMORY[0x277CCACA8];
         [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v78 = v140 = v42;
-        v79 = [v78 localizedStringForKey:@"APPLE_WATCH_FOOTER_TEXT" value:&stru_284EE3458 table:@"Devices"];
-        v80 = v38;
-        v81 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v82 = [v81 localizedStringForKey:@"APPLE_WATCH_APP_LINK" value:&stru_284EE3458 table:@"Devices"];
-        v83 = [v77 stringWithFormat:v79, v82];
+        v79 = v141 = v43;
+        v80 = [v79 localizedStringForKey:@"APPLE_WATCH_FOOTER_TEXT" value:&stru_284EE3458 table:@"Devices"];
+        v81 = v39;
+        v82 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v83 = [v82 localizedStringForKey:@"APPLE_WATCH_APP_LINK" value:&stru_284EE3458 table:@"Devices"];
+        v84 = [v78 stringWithFormat:v80, v83];
 
-        v48 = v142;
+        v49 = v143;
         selfCopy3 = self;
 
-        v84 = self->_otherDevicesGroupSpec;
-        v85 = objc_opt_class();
-        v86 = NSStringFromClass(v85);
-        [(PSSpecifier *)v84 setProperty:v86 forKey:*MEMORY[0x277D3FF48]];
+        v85 = self->_otherDevicesGroupSpec;
+        v86 = objc_opt_class();
+        v87 = NSStringFromClass(v86);
+        [(PSSpecifier *)v85 setProperty:v87 forKey:*MEMORY[0x277D3FF48]];
 
-        [(PSSpecifier *)self->_otherDevicesGroupSpec setProperty:v83 forKey:*MEMORY[0x277D3FF70]];
-        v87 = self->_otherDevicesGroupSpec;
-        v88 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v89 = [v88 localizedStringForKey:@"APPLE_WATCH_APP_LINK" value:&stru_284EE3458 table:@"Devices"];
-        v177.location = [v83 rangeOfString:v89];
-        v90 = NSStringFromRange(v177);
-        v91 = v87;
-        v38 = v80;
-        [(PSSpecifier *)v91 setProperty:v90 forKey:*MEMORY[0x277D3FF58]];
+        [(PSSpecifier *)self->_otherDevicesGroupSpec setProperty:v84 forKey:*MEMORY[0x277D3FF70]];
+        v88 = self->_otherDevicesGroupSpec;
+        v89 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v90 = [v89 localizedStringForKey:@"APPLE_WATCH_APP_LINK" value:&stru_284EE3458 table:@"Devices"];
+        v178.location = [v84 rangeOfString:v90];
+        v91 = NSStringFromRange(v178);
+        v92 = v88;
+        v39 = v81;
+        [(PSSpecifier *)v92 setProperty:v91 forKey:*MEMORY[0x277D3FF58]];
 
-        v42 = v140;
-        v92 = self->_otherDevicesGroupSpec;
-        v93 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
-        [(PSSpecifier *)v92 setProperty:v93 forKey:*MEMORY[0x277D3FF68]];
+        v43 = v141;
+        v93 = self->_otherDevicesGroupSpec;
+        v94 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
+        [(PSSpecifier *)v93 setProperty:v94 forKey:*MEMORY[0x277D3FF68]];
 
         [(PSSpecifier *)self->_otherDevicesGroupSpec setProperty:@"userDidTapWatchLink:" forKey:*MEMORY[0x277D3FF50]];
       }
@@ -3723,58 +3829,58 @@ LABEL_20:
     if (selfCopy3->_power)
     {
       obj = [(BTSDevicesController *)selfCopy3 _shareDevicesSpecifiers];
-      v141 = v42;
+      v142 = v43;
       if ([obj count])
       {
-        v94 = [v42 objectAtIndexedSubscript:2];
+        v95 = [v43 objectAtIndexedSubscript:2];
         sharingDevicesGroupSpec = selfCopy3->_sharingDevicesGroupSpec;
-        selfCopy3->_sharingDevicesGroupSpec = v94;
+        selfCopy3->_sharingDevicesGroupSpec = v95;
 
-        v96 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v97 = [v96 localizedStringForKey:@"SHARING_WITH" value:&stru_284EE3458 table:@"Devices"];
-        [(PSSpecifier *)selfCopy3->_sharingDevicesGroupSpec setName:v97];
+        v97 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v98 = [v97 localizedStringForKey:@"SHARING_WITH" value:&stru_284EE3458 table:@"Devices"];
+        [(PSSpecifier *)selfCopy3->_sharingDevicesGroupSpec setName:v98];
 
-        v153 = 0u;
         v154 = 0u;
-        v151 = 0u;
+        v155 = 0u;
         v152 = 0u;
-        v143 = obj;
-        v98 = [v143 countByEnumeratingWithState:&v151 objects:v160 count:16];
-        if (v98)
+        v153 = 0u;
+        v144 = obj;
+        v99 = [v144 countByEnumeratingWithState:&v152 objects:v161 count:16];
+        if (v99)
         {
-          v99 = v98;
-          v100 = *v152;
-          v101 = *MEMORY[0x277D3FF88];
+          v100 = v99;
+          v101 = *v153;
+          v102 = *MEMORY[0x277D3FF88];
           do
           {
-            for (j = 0; j != v99; ++j)
+            for (j = 0; j != v100; ++j)
             {
-              if (*v152 != v100)
+              if (*v153 != v101)
               {
-                objc_enumerationMutation(v143);
+                objc_enumerationMutation(v144);
               }
 
-              v103 = *(*(&v151 + 1) + 8 * j);
-              v104 = selfCopy->_sharingDevicesGroupSpec;
-              v105 = MEMORY[0x277CCACA8];
-              v106 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-              v107 = [v106 localizedStringForKey:@"SHARING_NOW" value:&stru_284EE3458 table:@"Devices"];
-              name = [v103 name];
-              v108 = [v105 stringWithFormat:v107, name];
-              [(PSSpecifier *)v104 setProperty:v108 forKey:v101];
+              v104 = *(*(&v152 + 1) + 8 * j);
+              v105 = selfCopy->_sharingDevicesGroupSpec;
+              v106 = MEMORY[0x277CCACA8];
+              v107 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+              v108 = [v107 localizedStringForKey:@"SHARING_NOW" value:&stru_284EE3458 table:@"Devices"];
+              name = [v104 name];
+              v109 = [v106 stringWithFormat:v108, name];
+              [(PSSpecifier *)v105 setProperty:v109 forKey:v102];
             }
 
-            v99 = [v143 countByEnumeratingWithState:&v151 objects:v160 count:16];
+            v100 = [v144 countByEnumeratingWithState:&v152 objects:v161 count:16];
           }
 
-          while (v99);
+          while (v100);
         }
 
         selfCopy3 = selfCopy;
         [array addObject:selfCopy->_sharingDevicesGroupSpec];
-        [array addObjectsFromArray:v143];
-        v48 = v142;
-        v38 = 0x277CBE000uLL;
+        [array addObjectsFromArray:v144];
+        v49 = v143;
+        v39 = 0x277CBE000uLL;
       }
 
       _knownDevicesSpecifiers2 = [(BTSDevicesController *)selfCopy3 _knownDevicesSpecifiers];
@@ -3782,64 +3888,64 @@ LABEL_20:
       {
         [array addObject:selfCopy3->_myDevicesGroupSpec];
         [array addObjectsFromArray:_knownDevicesSpecifiers2];
-        v111 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v112 = [v111 localizedStringForKey:@"OTHER_DEVICES" value:&stru_284EE3458 table:@"Devices"];
-        [(PSSpecifier *)selfCopy3->_otherDevicesGroupSpec setName:v112];
+        v112 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v113 = [v112 localizedStringForKey:@"OTHER_DEVICES" value:&stru_284EE3458 table:@"Devices"];
+        [(PSSpecifier *)selfCopy3->_otherDevicesGroupSpec setName:v113];
 
-        v113 = *(v38 + 2840);
+        v114 = *(v39 + 2840);
         mEMORY[0x277CF3248]3 = [MEMORY[0x277CF3248] sharedInstance];
         connectingDevices = [mEMORY[0x277CF3248]3 connectingDevices];
-        v116 = [v113 arrayWithArray:connectingDevices];
+        v117 = [v114 arrayWithArray:connectingDevices];
 
-        v117 = sharedBluetoothSettingsLogComponent();
-        if (os_log_type_enabled(v117, OS_LOG_TYPE_INFO))
+        v119 = sharedBluetoothSettingsLogComponent(v118);
+        if (os_log_type_enabled(v119, OS_LOG_TYPE_INFO))
         {
-          v118 = [v116 count];
+          v120 = [v117 count];
           *buf = 136315650;
-          v164 = "[BTSDevicesController specifiers]";
-          v165 = 2048;
-          v166 = v118;
-          v167 = 2112;
-          v168 = v116;
-          _os_log_impl(&dword_23C0F7000, v117, OS_LOG_TYPE_INFO, "%s found %lu connecting devices - %@", buf, 0x20u);
+          v165 = "[BTSDevicesController specifiers]";
+          v166 = 2048;
+          v167 = v120;
+          v168 = 2112;
+          v169 = v117;
+          _os_log_impl(&dword_23C0F7000, v119, OS_LOG_TYPE_INFO, "%s found %lu connecting devices - %@", buf, 0x20u);
         }
 
-        v149 = 0u;
         v150 = 0u;
-        v147 = 0u;
+        v151 = 0u;
         v148 = 0u;
-        v119 = v116;
-        v120 = [v119 countByEnumeratingWithState:&v147 objects:v159 count:16];
-        if (v120)
+        v149 = 0u;
+        v121 = v117;
+        v122 = [v121 countByEnumeratingWithState:&v148 objects:v160 count:16];
+        if (v122)
         {
-          v121 = v120;
-          v122 = *v148;
+          v123 = v122;
+          v124 = *v149;
           do
           {
-            for (k = 0; k != v121; ++k)
+            for (k = 0; k != v123; ++k)
             {
-              if (*v148 != v122)
+              if (*v149 != v124)
               {
-                objc_enumerationMutation(v119);
+                objc_enumerationMutation(v121);
               }
 
-              address = [*(*(&v147 + 1) + 8 * k) address];
-              v125 = [array specifierForID:address];
+              address = [*(*(&v148 + 1) + 8 * k) address];
+              v127 = [array specifierForID:address];
 
-              if (v125)
+              if (v127)
               {
                 [(BTSDevicesController *)selfCopy3 setBluetoothIsBusy:1];
-                objc_storeStrong(&selfCopy3->_currentDeviceSpecifier, v125);
+                objc_storeStrong(&selfCopy3->_currentDeviceSpecifier, v127);
               }
             }
 
-            v121 = [v119 countByEnumeratingWithState:&v147 objects:v159 count:16];
+            v123 = [v121 countByEnumeratingWithState:&v148 objects:v160 count:16];
           }
 
-          while (v121);
+          while (v123);
         }
 
-        v42 = v141;
+        v43 = v142;
       }
 
       [array addObject:selfCopy3->_otherDevicesGroupSpec];
@@ -3854,30 +3960,30 @@ LABEL_20:
     }
   }
 
-  objc_storeStrong((&selfCopy3->super.super.super.super.super.isa + v48), array);
+  objc_storeStrong((&selfCopy3->super.super.super.super.super.isa + v49), array);
   if (selfCopy3->_pendingSetupDeviceID)
   {
     mEMORY[0x277CF3248]4 = [MEMORY[0x277CF3248] sharedInstance];
-    v128 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:selfCopy3->_pendingSetupDeviceID];
-    v129 = [mEMORY[0x277CF3248]4 deviceFromIdentifier:v128];
+    v130 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:selfCopy3->_pendingSetupDeviceID];
+    v131 = [mEMORY[0x277CF3248]4 deviceFromIdentifier:v130];
 
-    address2 = [v129 address];
-    v131 = [(NSMutableDictionary *)selfCopy3->_devicesDict objectForKeyedSubscript:address2];
+    address2 = [v131 address];
+    v133 = [(NSMutableDictionary *)selfCopy3->_devicesDict objectForKeyedSubscript:address2];
 
-    if (v131)
+    if (v133)
     {
-      v132 = [(NSMutableDictionary *)selfCopy3->_devicesDict objectForKeyedSubscript:address2];
+      v134 = [(NSMutableDictionary *)selfCopy3->_devicesDict objectForKeyedSubscript:address2];
       ctkdCounterpartDevicesDict = selfCopy3->_ctkdCounterpartDevicesDict;
-      identifier = [v132 identifier];
-      v135 = [(NSMutableDictionary *)ctkdCounterpartDevicesDict objectForKeyedSubscript:identifier];
+      identifier = [v134 identifier];
+      v137 = [(NSMutableDictionary *)ctkdCounterpartDevicesDict objectForKeyedSubscript:identifier];
 
-      if (v135)
+      if (v137)
       {
-        underlyingDADevice = [v135 underlyingDADevice];
+        underlyingDADevice = [v137 underlyingDADevice];
 
         if (underlyingDADevice)
         {
-          [(BTSDevicesController *)selfCopy3 forcePushDetailViewForDevice:v132];
+          [(BTSDevicesController *)selfCopy3 forcePushDetailViewForDevice:v134];
           pendingSetupDeviceID = selfCopy3->_pendingSetupDeviceID;
           selfCopy3->_pendingSetupDeviceID = 0;
         }
@@ -3885,9 +3991,8 @@ LABEL_20:
     }
   }
 
-  v4 = *(&selfCopy3->super.super.super.super.super.isa + v48);
+  v4 = *(&selfCopy3->super.super.super.super.super.isa + v49);
 LABEL_78:
-  v138 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -3967,31 +4072,31 @@ LABEL_78:
 - (id)namesOfDevices:(id)devices displayableOnly:(BOOL)only
 {
   onlyCopy = only;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   devicesCopy = devices;
   v7 = objc_opt_new();
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v22 = devicesCopy;
+  v21 = devicesCopy;
   allObjects = [devicesCopy allObjects];
-  v9 = [allObjects countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v9 = [allObjects countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v24;
+    v11 = *v23;
     v12 = !onlyCopy;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        v14 = *(*(&v23 + 1) + 8 * i);
+        v14 = *(*(&v22 + 1) + 8 * i);
         name = [v14 name];
         if (name)
         {
@@ -4006,43 +4111,42 @@ LABEL_78:
         }
       }
 
-      v10 = [allObjects countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v10 = [allObjects countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v10);
   }
 
   v19 = [v7 copy];
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
 
 - (id)localizedList:(id)list
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   listCopy = list;
   v4 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = listCopy;
-  v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = MEMORY[0x277CCACA8];
         v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
         v12 = [v11 localizedStringForKey:@"QUOTED_DEVICE_NAME" value:&stru_284EE3458 table:@"Devices"];
@@ -4051,15 +4155,13 @@ LABEL_78:
         [v4 addObject:v13];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
   }
 
   v14 = [MEMORY[0x277CCAAF0] localizedStringByJoiningStrings:v4];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -4080,13 +4182,13 @@ LABEL_78:
 
 - (id)_specifierForDevice:(id)device
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
-  v5 = sharedBluetoothSettingsLogComponent();
+  v5 = sharedBluetoothSettingsLogComponent(deviceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v40 = deviceCopy;
+    v39 = deviceCopy;
     _os_log_impl(&dword_23C0F7000, v5, OS_LOG_TYPE_DEFAULT, "Creating specifier for device: %@.", buf, 0xCu);
   }
 
@@ -4121,18 +4223,18 @@ LABEL_78:
 
   v13 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:productName target:self set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
   v14 = objc_alloc(MEMORY[0x277CBEB38]);
-  v37[0] = *MEMORY[0x277D3FE58];
+  v36[0] = *MEMORY[0x277D3FE58];
   v15 = objc_opt_class();
   v16 = *MEMORY[0x277D3FF08];
-  v38[0] = v15;
-  v38[1] = @"BTSPairSetup";
+  v37[0] = v15;
+  v37[1] = @"BTSPairSetup";
   v17 = *MEMORY[0x277D400B8];
-  v37[1] = v16;
-  v37[2] = v17;
-  v37[3] = *MEMORY[0x277D40138];
-  v38[2] = @"BTSPairController";
-  v38[3] = @"PSLinkCell";
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:4];
+  v36[1] = v16;
+  v36[2] = v17;
+  v36[3] = *MEMORY[0x277D40138];
+  v37[2] = @"BTSPairController";
+  v37[3] = @"PSLinkCell";
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:4];
   v19 = [v14 initWithDictionary:v18];
 
   [v13 setName:productName];
@@ -4185,8 +4287,6 @@ LABEL_78:
 LABEL_18:
   [v13 setUserInfo:v21];
 
-  v35 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
@@ -4215,32 +4315,32 @@ LABEL_18:
 
 - (id)_knownDevicesSpecifiers
 {
-  v160 = *MEMORY[0x277D85DE8];
-  v110 = [MEMORY[0x277CBEB58] set];
+  v166 = *MEMORY[0x277D85DE8];
+  v116 = [MEMORY[0x277CBEB58] set];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v144 = 0u;
-  v145 = 0u;
-  v146 = 0u;
-  v147 = 0u;
+  v150 = 0u;
+  v151 = 0u;
+  v152 = 0u;
+  v153 = 0u;
   mEMORY[0x277CF3248] = [MEMORY[0x277CF3248] sharedInstance];
   pairedDevices = [mEMORY[0x277CF3248] pairedDevices];
 
   v5 = pairedDevices;
-  v6 = [pairedDevices countByEnumeratingWithState:&v144 objects:v159 count:16];
+  v6 = [pairedDevices countByEnumeratingWithState:&v150 objects:v165 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v145;
+    v8 = *v151;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v145 != v8)
+        if (*v151 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v144 + 1) + 8 * i);
+        v10 = *(*(&v150 + 1) + 8 * i);
         v11 = [BTSDeviceClassic deviceWithDevice:v10];
         classicDevice = [v11 classicDevice];
         address = [classicDevice address];
@@ -4262,7 +4362,7 @@ LABEL_18:
 
         if (([v10 isTemporaryPaired] & 1) == 0)
         {
-          [v110 addObject:v11];
+          [v116 addObject:v11];
           [dictionary setObject:v11 forKeyedSubscript:address];
           if ([v11 connected])
           {
@@ -4281,7 +4381,7 @@ LABEL_18:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v144 objects:v159 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v150 objects:v165 count:16];
     }
 
     while (v7);
@@ -4289,52 +4389,53 @@ LABEL_18:
 
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
   dictionary3 = [MEMORY[0x277CBEB38] dictionary];
-  v107 = dictionary2;
+  v113 = dictionary2;
   if (self->_power)
   {
-    v142 = 0u;
-    v143 = 0u;
-    v140 = 0u;
-    v141 = 0u;
+    v148 = 0u;
+    v149 = 0u;
+    v146 = 0u;
+    v147 = 0u;
     sharedPairingAgent = [(CBCentralManager *)self->_centralManager sharedPairingAgent];
     retrievePairedPeers = [sharedPairingAgent retrievePairedPeers];
 
-    v19 = [retrievePairedPeers countByEnumeratingWithState:&v140 objects:v158 count:16];
+    v19 = [retrievePairedPeers countByEnumeratingWithState:&v146 objects:v164 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v141;
+      v21 = *v147;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v141 != v21)
+          if (*v147 != v21)
           {
             objc_enumerationMutation(retrievePairedPeers);
           }
 
-          v23 = *(*(&v140 + 1) + 8 * j);
+          v23 = *(*(&v146 + 1) + 8 * j);
           v24 = [(BTSDevicesController *)self _getDeviceForPeripheral:v23];
           if (v24)
           {
             [v23 setDelegate:self];
-            if ([v24 isManagedByDeviceAccess])
+            isManagedByDeviceAccess = [v24 isManagedByDeviceAccess];
+            if (isManagedByDeviceAccess)
             {
-              v25 = sharedBluetoothSettingsLogComponent();
-              if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+              v26 = sharedBluetoothSettingsLogComponent(isManagedByDeviceAccess);
+              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v157 = v24;
-                _os_log_impl(&dword_23C0F7000, v25, OS_LOG_TYPE_DEFAULT, "This device needs to be coalesced with a DADevice before being displayed: %@", buf, 0xCu);
+                v163 = v24;
+                _os_log_impl(&dword_23C0F7000, v26, OS_LOG_TYPE_DEFAULT, "This device needs to be coalesced with a DADevice before being displayed: %@", buf, 0xCu);
               }
 
               identifier = [v23 identifier];
-              [v107 setObject:v23 forKeyedSubscript:identifier];
+              [v113 setObject:v23 forKeyedSubscript:identifier];
             }
 
             else
             {
-              [v110 addObject:v24];
+              [v116 addObject:v24];
               if ([v24 connected])
               {
                 if ([v24 isLimitedConnectivityDevice])
@@ -4359,66 +4460,68 @@ LABEL_18:
           }
         }
 
-        v20 = [retrievePairedPeers countByEnumeratingWithState:&v140 objects:v158 count:16];
+        v20 = [retrievePairedPeers countByEnumeratingWithState:&v146 objects:v164 count:16];
       }
 
       while (v20);
     }
 
-    v138 = 0u;
-    v139 = 0u;
-    v136 = 0u;
-    v137 = 0u;
-    v27 = [(CBCentralManager *)self->_centralManager retrieveConnectedPeripheralsWithServices:0 allowAll:1];
-    v28 = [v27 countByEnumeratingWithState:&v136 objects:v155 count:16];
-    dictionary2 = v107;
-    if (v28)
+    v144 = 0u;
+    v145 = 0u;
+    v142 = 0u;
+    v143 = 0u;
+    v28 = [(CBCentralManager *)self->_centralManager retrieveConnectedPeripheralsWithServices:0 allowAll:1];
+    v29 = [v28 countByEnumeratingWithState:&v142 objects:v161 count:16];
+    dictionary2 = v113;
+    if (v29)
     {
-      v29 = v28;
-      v30 = *v137;
+      v30 = v29;
+      v31 = *v143;
       do
       {
-        for (k = 0; k != v29; ++k)
+        for (k = 0; k != v30; ++k)
         {
-          if (*v137 != v30)
+          if (*v143 != v31)
           {
-            objc_enumerationMutation(v27);
+            objc_enumerationMutation(v28);
           }
 
-          v32 = *(*(&v136 + 1) + 8 * k);
-          if ([v32 connectedTransport] == 2)
+          v33 = *(*(&v142 + 1) + 8 * k);
+          if ([v33 connectedTransport] == 2)
           {
-            v33 = [(BTSDevicesController *)self _getDeviceForPeripheral:v32];
-            if (v33)
+            v34 = [(BTSDevicesController *)self _getDeviceForPeripheral:v33];
+            if (v34)
             {
-              if ([v32 visibleInSettings])
+              visibleInSettings = [v33 visibleInSettings];
+              if (visibleInSettings)
               {
-                [v32 setDelegate:self];
-                if ([v33 isManagedByDeviceAccess])
+                [v33 setDelegate:self];
+                isManagedByDeviceAccess2 = [v34 isManagedByDeviceAccess];
+                if (isManagedByDeviceAccess2)
                 {
-                  v34 = sharedBluetoothSettingsLogComponent();
-                  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+                  v37 = sharedBluetoothSettingsLogComponent(isManagedByDeviceAccess2);
+                  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412290;
-                    v157 = v33;
-                    _os_log_impl(&dword_23C0F7000, v34, OS_LOG_TYPE_DEFAULT, "This device needs to be coalesced with a DADevice before being displayed: %@", buf, 0xCu);
+                    v163 = v34;
+                    _os_log_impl(&dword_23C0F7000, v37, OS_LOG_TYPE_DEFAULT, "This device needs to be coalesced with a DADevice before being displayed: %@", buf, 0xCu);
                   }
 
-                  identifier2 = [v32 identifier];
-                  [v107 setObject:v32 forKeyedSubscript:identifier2];
+                  identifier2 = [v33 identifier];
+                  [v113 setObject:v33 forKeyedSubscript:identifier2];
                   goto LABEL_52;
                 }
 
-                [v110 addObject:v33];
+                [v116 addObject:v34];
               }
 
               else
               {
-                identifier2 = sharedBluetoothSettingsLogComponent();
+                identifier2 = sharedBluetoothSettingsLogComponent(visibleInSettings);
                 if (os_log_type_enabled(identifier2, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v157 = v32;
+                  v163 = v33;
                   _os_log_impl(&dword_23C0F7000, identifier2, OS_LOG_TYPE_DEFAULT, "Peripheral %@ should not be visible in Settings. Ignoring.", buf, 0xCu);
                 }
 
@@ -4426,64 +4529,64 @@ LABEL_52:
               }
             }
 
-            dictionary2 = v107;
+            dictionary2 = v113;
             continue;
           }
         }
 
-        v29 = [v27 countByEnumeratingWithState:&v136 objects:v155 count:16];
+        v30 = [v28 countByEnumeratingWithState:&v142 objects:v161 count:16];
       }
 
-      while (v29);
+      while (v30);
     }
 
-    v134 = 0u;
-    v135 = 0u;
-    v132 = 0u;
-    v133 = 0u;
+    v140 = 0u;
+    v141 = 0u;
+    v138 = 0u;
+    v139 = 0u;
     obj = [(NSMutableDictionary *)self->_knownDADevices allKeys];
-    v104 = [obj countByEnumeratingWithState:&v132 objects:v154 count:16];
-    if (!v104)
+    v110 = [obj countByEnumeratingWithState:&v138 objects:v160 count:16];
+    if (!v110)
     {
       goto LABEL_92;
     }
 
-    v103 = *v133;
+    v109 = *v139;
 LABEL_59:
-    v36 = 0;
+    v39 = 0;
     while (1)
     {
-      if (*v133 != v103)
+      if (*v139 != v109)
       {
         objc_enumerationMutation(obj);
       }
 
-      v105 = v36;
-      v37 = *(*(&v132 + 1) + 8 * v36);
-      v109 = [(NSMutableDictionary *)self->_knownDADevices objectForKey:v37];
+      v111 = v39;
+      v40 = *(*(&v138 + 1) + 8 * v39);
+      v115 = [(NSMutableDictionary *)self->_knownDADevices objectForKey:v40];
       centralManager = self->_centralManager;
-      v153 = v37;
-      v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v153 count:1];
-      v40 = [(CBCentralManager *)centralManager retrievePeripheralsWithIdentifiers:v39];
+      v159 = v40;
+      v42 = [MEMORY[0x277CBEA60] arrayWithObjects:&v159 count:1];
+      v43 = [(CBCentralManager *)centralManager retrievePeripheralsWithIdentifiers:v42];
 
-      v130 = 0u;
-      v131 = 0u;
-      v128 = 0u;
-      v129 = 0u;
-      v41 = v40;
-      v42 = [v41 countByEnumeratingWithState:&v128 objects:v152 count:16];
-      if (v42)
+      v136 = 0u;
+      v137 = 0u;
+      v134 = 0u;
+      v135 = 0u;
+      v44 = v43;
+      v45 = [v44 countByEnumeratingWithState:&v134 objects:v158 count:16];
+      if (v45)
       {
         break;
       }
 
 LABEL_90:
 
-      v36 = v105 + 1;
-      if (v105 + 1 == v104)
+      v39 = v111 + 1;
+      if (v111 + 1 == v110)
       {
-        v104 = [obj countByEnumeratingWithState:&v132 objects:v154 count:16];
-        if (!v104)
+        v110 = [obj countByEnumeratingWithState:&v138 objects:v160 count:16];
+        if (!v110)
         {
 LABEL_92:
 
@@ -4494,126 +4597,127 @@ LABEL_92:
       }
     }
 
-    v43 = v42;
-    v44 = *v129;
+    v46 = v45;
+    v47 = *v135;
 LABEL_64:
-    v45 = 0;
+    v48 = 0;
     while (1)
     {
-      if (*v129 != v44)
+      if (*v135 != v47)
       {
-        objc_enumerationMutation(v41);
+        objc_enumerationMutation(v44);
       }
 
-      v46 = *(*(&v128 + 1) + 8 * v45);
-      [v46 setDelegate:self];
-      identifier3 = [v46 identifier];
+      v49 = *(*(&v134 + 1) + 8 * v48);
+      [v49 setDelegate:self];
+      identifier3 = [v49 identifier];
       [dictionary2 setObject:0 forKeyedSubscript:identifier3];
 
-      v48 = [BTSDeviceLE deviceWithPeripheral:v46 manager:self->_centralManager];
-      v49 = v48;
-      if (v48)
+      v51 = [BTSDeviceLE deviceWithPeripheral:v49 manager:self->_centralManager];
+      v52 = v51;
+      if (v51)
       {
-        if ([v48 supportsCTKD])
+        supportsCTKD = [v51 supportsCTKD];
+        if (supportsCTKD)
         {
-          identifier4 = sharedBluetoothSettingsLogComponent();
+          identifier4 = sharedBluetoothSettingsLogComponent(supportsCTKD);
           if (os_log_type_enabled(identifier4, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v157 = v46;
-            v51 = identifier4;
-            v52 = "Not showing peripheral because it's CTKD and will be shown with the classic device instead: %@";
+            v163 = v49;
+            v55 = identifier4;
+            v56 = "Not showing peripheral because it's CTKD and will be shown with the classic device instead: %@";
 LABEL_73:
-            _os_log_impl(&dword_23C0F7000, v51, OS_LOG_TYPE_DEFAULT, v52, buf, 0xCu);
+            _os_log_impl(&dword_23C0F7000, v55, OS_LOG_TYPE_DEFAULT, v56, buf, 0xCu);
           }
         }
 
         else
         {
-          relatedFutureRadioAddress = [v49 relatedFutureRadioAddress];
+          relatedFutureRadioAddress = [v52 relatedFutureRadioAddress];
 
           if (relatedFutureRadioAddress)
           {
-            v54 = sharedBluetoothSettingsLogComponent();
-            if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+            v59 = sharedBluetoothSettingsLogComponent(v58);
+            if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v157 = v46;
-              _os_log_impl(&dword_23C0F7000, v54, OS_LOG_TYPE_DEFAULT, "Peripheral is waiting to link to a classic radio that is yet to be paired, showing LE first: %@", buf, 0xCu);
+              v163 = v49;
+              _os_log_impl(&dword_23C0F7000, v59, OS_LOG_TYPE_DEFAULT, "Peripheral is waiting to link to a classic radio that is yet to be paired, showing LE first: %@", buf, 0xCu);
             }
 
-            [v49 setUnderlyingDADevice:v109];
-            [v110 addObject:v49];
+            [v52 setUnderlyingDADevice:v115];
+            [v116 addObject:v52];
             pendingOtherRadioDevicesDict = self->_pendingOtherRadioDevicesDict;
-            relatedFutureRadioAddress2 = [v49 relatedFutureRadioAddress];
-            [(NSMutableDictionary *)pendingOtherRadioDevicesDict setObject:v49 forKey:relatedFutureRadioAddress2];
+            relatedFutureRadioAddress2 = [v52 relatedFutureRadioAddress];
+            [(NSMutableDictionary *)pendingOtherRadioDevicesDict setObject:v52 forKey:relatedFutureRadioAddress2];
 
             goto LABEL_88;
           }
 
-          linkedRadioAddress = [v49 linkedRadioAddress];
+          linkedRadioAddress = [v52 linkedRadioAddress];
 
           if (!linkedRadioAddress)
           {
             goto LABEL_87;
           }
 
-          v58 = self->_pendingOtherRadioDevicesDict;
-          linkedRadioAddress2 = [v49 linkedRadioAddress];
-          [(NSMutableDictionary *)v58 setObject:0 forKeyedSubscript:linkedRadioAddress2];
+          v63 = self->_pendingOtherRadioDevicesDict;
+          linkedRadioAddress2 = [v52 linkedRadioAddress];
+          [(NSMutableDictionary *)v63 setObject:0 forKeyedSubscript:linkedRadioAddress2];
 
-          linkedRadioAddress3 = [v49 linkedRadioAddress];
-          v61 = [dictionary objectForKeyedSubscript:linkedRadioAddress3];
+          linkedRadioAddress3 = [v52 linkedRadioAddress];
+          v66 = [dictionary objectForKeyedSubscript:linkedRadioAddress3];
 
-          v62 = sharedBluetoothSettingsLogComponent();
-          v63 = v62;
-          if (!v61)
+          v68 = sharedBluetoothSettingsLogComponent(v67);
+          v69 = v68;
+          if (!v66)
           {
-            dictionary2 = v107;
-            if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+            dictionary2 = v113;
+            if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v157 = v46;
-              _os_log_error_impl(&dword_23C0F7000, v63, OS_LOG_TYPE_ERROR, "Peripheral has linked classic radio but we don't see the classic device with this address. Showing LE device %@", buf, 0xCu);
+              v163 = v49;
+              _os_log_error_impl(&dword_23C0F7000, v69, OS_LOG_TYPE_ERROR, "Peripheral has linked classic radio but we don't see the classic device with this address. Showing LE device %@", buf, 0xCu);
             }
 
 LABEL_87:
-            [v49 setUnderlyingDADevice:v109];
-            [v110 addObject:v49];
+            [v52 setUnderlyingDADevice:v115];
+            [v116 addObject:v52];
             goto LABEL_88;
           }
 
-          dictionary2 = v107;
-          if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+          dictionary2 = v113;
+          if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v157 = v46;
-            _os_log_impl(&dword_23C0F7000, v63, OS_LOG_TYPE_DEFAULT, "Not showing peripheral because it's linked to another classic radio and will be shown with the classic device instead: %@", buf, 0xCu);
+            v163 = v49;
+            _os_log_impl(&dword_23C0F7000, v69, OS_LOG_TYPE_DEFAULT, "Not showing peripheral because it's linked to another classic radio and will be shown with the classic device instead: %@", buf, 0xCu);
           }
 
-          identifier4 = [v46 identifier];
-          [dictionary3 setObject:v46 forKeyedSubscript:identifier4];
+          identifier4 = [v49 identifier];
+          [dictionary3 setObject:v49 forKeyedSubscript:identifier4];
         }
       }
 
       else
       {
-        identifier4 = sharedBluetoothSettingsLogComponent();
+        identifier4 = sharedBluetoothSettingsLogComponent(0);
         if (os_log_type_enabled(identifier4, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v157 = v46;
-          v51 = identifier4;
-          v52 = "unable to create BTSDeviceLE for this DA peripheral: %@";
+          v163 = v49;
+          v55 = identifier4;
+          v56 = "unable to create BTSDeviceLE for this DA peripheral: %@";
           goto LABEL_73;
         }
       }
 
 LABEL_88:
-      if (v43 == ++v45)
+      if (v46 == ++v48)
       {
-        v43 = [v41 countByEnumeratingWithState:&v128 objects:v152 count:16];
-        if (!v43)
+        v46 = [v44 countByEnumeratingWithState:&v134 objects:v158 count:16];
+        if (!v46)
         {
           goto LABEL_90;
         }
@@ -4624,134 +4728,140 @@ LABEL_88:
   }
 
 LABEL_93:
-  v126 = 0u;
-  v127 = 0u;
-  v124 = 0u;
-  v125 = 0u;
+  v132 = 0u;
+  v133 = 0u;
+  v130 = 0u;
+  v131 = 0u;
   allValues = [dictionary2 allValues];
-  v65 = [allValues countByEnumeratingWithState:&v124 objects:v151 count:16];
-  if (v65)
+  v71 = [allValues countByEnumeratingWithState:&v130 objects:v157 count:16];
+  if (v71)
   {
-    v66 = v65;
-    v67 = *v125;
+    v72 = v71;
+    v73 = *v131;
     do
     {
-      for (m = 0; m != v66; ++m)
+      v74 = 0;
+      do
       {
-        if (*v125 != v67)
+        if (*v131 != v73)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v69 = *(*(&v124 + 1) + 8 * m);
-        v70 = sharedBluetoothSettingsLogComponent();
-        if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+        v75 = *(*(&v130 + 1) + 8 * v74);
+        v76 = sharedBluetoothSettingsLogComponent(v71);
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v157 = v69;
-          _os_log_impl(&dword_23C0F7000, v70, OS_LOG_TYPE_DEFAULT, "Unable to fetch DADevice for DA tagged Peripheral, we should still add it to UI for user to be able to manage: %@", buf, 0xCu);
+          v163 = v75;
+          _os_log_impl(&dword_23C0F7000, v76, OS_LOG_TYPE_DEFAULT, "Unable to fetch DADevice for DA tagged Peripheral, we should still add it to UI for user to be able to manage: %@", buf, 0xCu);
         }
 
-        v71 = [(BTSDevicesController *)self _getDeviceForPeripheral:v69];
-        if (v71)
+        v77 = [(BTSDevicesController *)self _getDeviceForPeripheral:v75];
+        if (v77)
         {
-          if ([v69 visibleInSettings])
+          visibleInSettings2 = [v75 visibleInSettings];
+          if (visibleInSettings2)
           {
-            [v69 setDelegate:self];
-            [v110 addObject:v71];
+            [v75 setDelegate:self];
+            [v116 addObject:v77];
           }
 
           else
           {
-            v72 = sharedBluetoothSettingsLogComponent();
-            if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
+            v79 = sharedBluetoothSettingsLogComponent(visibleInSettings2);
+            if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v157 = v69;
-              _os_log_impl(&dword_23C0F7000, v72, OS_LOG_TYPE_DEFAULT, "Peripheral %@ should not be visible in Settings. Ignoring.", buf, 0xCu);
+              v163 = v75;
+              _os_log_impl(&dword_23C0F7000, v79, OS_LOG_TYPE_DEFAULT, "Peripheral %@ should not be visible in Settings. Ignoring.", buf, 0xCu);
             }
           }
         }
+
+        ++v74;
       }
 
-      v66 = [allValues countByEnumeratingWithState:&v124 objects:v151 count:16];
+      while (v72 != v74);
+      v71 = [allValues countByEnumeratingWithState:&v130 objects:v157 count:16];
+      v72 = v71;
     }
 
-    while (v66);
+    while (v71);
   }
 
-  [v110 unionSet:self->_knownHealthDevices];
+  [v116 unionSet:self->_knownHealthDevices];
   array = [MEMORY[0x277CBEB18] array];
-  v120 = 0u;
-  v121 = 0u;
-  v122 = 0u;
-  v123 = 0u;
-  v74 = v110;
-  v75 = [v74 countByEnumeratingWithState:&v120 objects:v150 count:16];
-  if (v75)
+  v126 = 0u;
+  v127 = 0u;
+  v128 = 0u;
+  v129 = 0u;
+  v81 = v116;
+  v82 = [v81 countByEnumeratingWithState:&v126 objects:v156 count:16];
+  if (v82)
   {
-    v76 = v75;
-    v77 = *v121;
+    v83 = v82;
+    v84 = *v127;
     do
     {
-      for (n = 0; n != v76; ++n)
+      for (m = 0; m != v83; ++m)
       {
-        if (*v121 != v77)
+        if (*v127 != v84)
         {
-          objc_enumerationMutation(v74);
+          objc_enumerationMutation(v81);
         }
 
-        v79 = *(*(&v120 + 1) + 8 * n);
+        v86 = *(*(&v126 + 1) + 8 * m);
         devicesDict = self->_devicesDict;
-        identifier5 = [v79 identifier];
-        [(NSMutableDictionary *)devicesDict setObject:v79 forKey:identifier5];
+        identifier5 = [v86 identifier];
+        [(NSMutableDictionary *)devicesDict setObject:v86 forKey:identifier5];
       }
 
-      v76 = [v74 countByEnumeratingWithState:&v120 objects:v150 count:16];
+      v83 = [v81 countByEnumeratingWithState:&v126 objects:v156 count:16];
     }
 
-    while (v76);
+    while (v83);
   }
 
   [(BTSDevicesController *)self refreshCTKDDevices];
-  v82 = dictionary3;
+  v89 = dictionary3;
   if ([dictionary3 count])
   {
-    v111 = array;
-    v83 = [(BTSDevicesController *)self mergeDualRadioDevices:dictionary3];
-    v116 = 0u;
-    v117 = 0u;
-    v118 = 0u;
-    v119 = 0u;
-    v84 = [v83 countByEnumeratingWithState:&v116 objects:v149 count:16];
-    if (v84)
+    v117 = array;
+    v90 = [(BTSDevicesController *)self mergeDualRadioDevices:dictionary3];
+    v122 = 0u;
+    v123 = 0u;
+    v124 = 0u;
+    v125 = 0u;
+    v91 = [v90 countByEnumeratingWithState:&v122 objects:v155 count:16];
+    if (v91)
     {
-      v85 = v84;
-      v86 = *v117;
+      v92 = v91;
+      v93 = *v123;
       do
       {
-        for (ii = 0; ii != v85; ++ii)
+        for (n = 0; n != v92; ++n)
         {
-          if (*v117 != v86)
+          if (*v123 != v93)
           {
-            objc_enumerationMutation(v83);
+            objc_enumerationMutation(v90);
           }
 
-          v88 = *(*(&v116 + 1) + 8 * ii);
-          [v74 addObject:v88];
-          v89 = self->_devicesDict;
-          identifier6 = [v88 identifier];
-          [(NSMutableDictionary *)v89 setObject:v88 forKey:identifier6];
+          v95 = *(*(&v122 + 1) + 8 * n);
+          [v81 addObject:v95];
+          v96 = self->_devicesDict;
+          identifier6 = [v95 identifier];
+          [(NSMutableDictionary *)v96 setObject:v95 forKey:identifier6];
         }
 
-        v85 = [v83 countByEnumeratingWithState:&v116 objects:v149 count:16];
+        v92 = [v90 countByEnumeratingWithState:&v122 objects:v155 count:16];
       }
 
-      while (v85);
+      while (v92);
     }
 
-    v82 = dictionary3;
-    array = v111;
+    v89 = dictionary3;
+    array = v117;
   }
 
   else
@@ -4759,73 +4869,71 @@ LABEL_93:
     [(NSMutableDictionary *)self->_dualRadioCounterpartDevicesDict removeAllObjects];
   }
 
-  allObjects = [v74 allObjects];
-  v92 = [allObjects sortedArrayUsingComparator:&__block_literal_global];
+  allObjects = [v81 allObjects];
+  v99 = [allObjects sortedArrayUsingComparator:&__block_literal_global];
 
-  v114 = 0u;
-  v115 = 0u;
-  v112 = 0u;
-  v113 = 0u;
-  v93 = v92;
-  v94 = [v93 countByEnumeratingWithState:&v112 objects:v148 count:16];
-  if (v94)
+  v120 = 0u;
+  v121 = 0u;
+  v118 = 0u;
+  v119 = 0u;
+  v100 = v99;
+  v101 = [v100 countByEnumeratingWithState:&v118 objects:v154 count:16];
+  if (v101)
   {
-    v95 = v94;
-    v96 = *v113;
+    v102 = v101;
+    v103 = *v119;
     do
     {
-      for (jj = 0; jj != v95; ++jj)
+      for (ii = 0; ii != v102; ++ii)
       {
-        if (*v113 != v96)
+        if (*v119 != v103)
         {
-          objc_enumerationMutation(v93);
+          objc_enumerationMutation(v100);
         }
 
-        v98 = *(*(&v112 + 1) + 8 * jj);
-        if ([(BTSDevicesController *)self shouldDisplayDevice:v98])
+        v105 = *(*(&v118 + 1) + 8 * ii);
+        if ([(BTSDevicesController *)self shouldDisplayDevice:v105])
         {
-          v99 = [(BTSDevicesController *)self _specifierForDevice:v98];
-          [array addObject:v99];
+          v106 = [(BTSDevicesController *)self _specifierForDevice:v105];
+          [array addObject:v106];
         }
       }
 
-      v95 = [v93 countByEnumeratingWithState:&v112 objects:v148 count:16];
+      v102 = [v100 countByEnumeratingWithState:&v118 objects:v154 count:16];
     }
 
-    while (v95);
+    while (v102);
   }
-
-  v100 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)_shareDevicesSpecifiers
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   mEMORY[0x277CF3248] = [MEMORY[0x277CF3248] sharedInstance];
   connectedDevices = [mEMORY[0x277CF3248] connectedDevices];
 
-  v6 = [connectedDevices countByEnumeratingWithState:&v32 objects:v38 count:16];
+  v6 = [connectedDevices countByEnumeratingWithState:&v31 objects:v37 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v33;
+    v8 = *v32;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v33 != v8)
+        if (*v32 != v8)
         {
           objc_enumerationMutation(connectedDevices);
         }
 
-        v10 = *(*(&v32 + 1) + 8 * i);
+        v10 = *(*(&v31 + 1) + 8 * i);
         if ([v10 isTemporaryPaired])
         {
           v11 = [BTSDeviceClassic deviceWithDevice:v10];
@@ -4833,39 +4941,39 @@ LABEL_93:
         }
       }
 
-      v7 = [connectedDevices countByEnumeratingWithState:&v32 objects:v38 count:16];
+      v7 = [connectedDevices countByEnumeratingWithState:&v31 objects:v37 count:16];
     }
 
     while (v7);
   }
 
   v12 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"name" ascending:1];
-  v37 = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
-  v27 = v3;
+  v36 = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+  v26 = v3;
   v14 = [v3 sortedArrayUsingDescriptors:v13];
 
   array = [MEMORY[0x277CBEB18] array];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v16 = v14;
-  v17 = [v16 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v29;
+    v19 = *v28;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v29 != v19)
+        if (*v28 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v28 + 1) + 8 * j);
+        v21 = *(*(&v27 + 1) + 8 * j);
         if ([(BTSDevicesController *)self shouldDisplayDevice:v21])
         {
           v22 = [(BTSDevicesController *)self _specifierForSharingDevice:v21];
@@ -4877,36 +4985,31 @@ LABEL_93:
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
     while (v18);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (void)_retrievedRegisteredHealthDevices:(id)devices
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   devicesCopy = devices;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __58__BTSDevicesController__retrievedRegisteredHealthDevices___block_invoke;
-  v7[3] = &unk_278BB0478;
-  v7[4] = self;
-  [devicesCopy enumerateObjectsUsingBlock:v7];
-  v5 = sharedBluetoothSettingsLogComponent();
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __58__BTSDevicesController__retrievedRegisteredHealthDevices___block_invoke;
+  v6[3] = &unk_278BB0478;
+  v6[4] = self;
+  v5 = sharedBluetoothSettingsLogComponent([devicesCopy enumerateObjectsUsingBlock:v6]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v9 = devicesCopy;
+    v8 = devicesCopy;
     _os_log_impl(&dword_23C0F7000, v5, OS_LOG_TYPE_DEFAULT, "Received registered health devices %@", buf, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __58__BTSDevicesController__retrievedRegisteredHealthDevices___block_invoke(uint64_t a1, void *a2)
@@ -4976,28 +5079,26 @@ void __58__BTSDevicesController__retrievedRegisteredHealthDevices___block_invoke
       while (v9);
     }
 
-    v14 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v15 = sharedBluetoothSettingsLogComponent(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v15 = self->_knownHealthDevices;
+      v16 = self->_knownHealthDevices;
       *buf = 138412290;
-      v25 = v15;
-      _os_log_impl(&dword_23C0F7000, v14, OS_LOG_TYPE_INFO, "Found known health devices %@", buf, 0xCu);
+      v25 = v16;
+      _os_log_impl(&dword_23C0F7000, v15, OS_LOG_TYPE_INFO, "Found known health devices %@", buf, 0xCu);
     }
 
     if (*(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]))
     {
-      v16 = self->_knownHealthDevices;
+      v17 = self->_knownHealthDevices;
       v18[0] = MEMORY[0x277D85DD0];
       v18[1] = 3221225472;
       v18[2] = __44__BTSDevicesController__updateHealthDevices__block_invoke_556;
       v18[3] = &unk_278BB04A0;
       v18[4] = self;
-      [(NSMutableSet *)v16 enumerateObjectsUsingBlock:v18];
+      [(NSMutableSet *)v17 enumerateObjectsUsingBlock:v18];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __44__BTSDevicesController__updateHealthDevices__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -5005,12 +5106,13 @@ void __44__BTSDevicesController__updateHealthDevices__block_invoke(uint64_t a1, 
   v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sharedBluetoothSettingsLogComponent(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __44__BTSDevicesController__updateHealthDevices__block_invoke_cold_1(v6);
+      __44__BTSDevicesController__updateHealthDevices__block_invoke_cold_1(v7);
     }
   }
 
@@ -5020,46 +5122,51 @@ void __44__BTSDevicesController__updateHealthDevices__block_invoke(uint64_t a1, 
     v22 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v8 = [v5 countByEnumeratingWithState:&v19 objects:v25 count:16];
-    if (v8)
+    v9 = [v5 countByEnumeratingWithState:&v19 objects:v25 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = *v20;
+      v10 = v9;
+      v11 = *v20;
       do
       {
-        for (i = 0; i != v9; ++i)
+        v12 = 0;
+        do
         {
-          if (*v20 != v10)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v5);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * i);
-          if (([v12 hasTag:@"FitnessClassic"] & 1) == 0)
+          v13 = *(*(&v19 + 1) + 8 * v12);
+          if (([v13 hasTag:@"FitnessClassic"] & 1) == 0)
           {
-            v13 = [*(a1 + 32) _getDeviceForPeripheral:v12];
-            v14 = v13;
-            if (v13)
+            v14 = [*(a1 + 32) _getDeviceForPeripheral:v13];
+            v15 = v14;
+            if (v14)
             {
-              [v13 setHealthDevice:1];
-              [*(*(a1 + 32) + 1704) addObject:v14];
+              [v14 setHealthDevice:1];
+              [*(*(a1 + 32) + 1704) addObject:v15];
             }
           }
+
+          ++v12;
         }
 
+        while (v10 != v12);
         v9 = [v5 countByEnumeratingWithState:&v19 objects:v25 count:16];
+        v10 = v9;
       }
 
       while (v9);
     }
 
-    v15 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v16 = sharedBluetoothSettingsLogComponent(v9);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v16 = *(*(a1 + 32) + 1704);
+      v17 = *(*(a1 + 32) + 1704);
       *buf = 138412290;
-      v24 = v16;
-      _os_log_impl(&dword_23C0F7000, v15, OS_LOG_TYPE_INFO, "Found known health devices %@", buf, 0xCu);
+      v24 = v17;
+      _os_log_impl(&dword_23C0F7000, v16, OS_LOG_TYPE_INFO, "Found known health devices %@", buf, 0xCu);
     }
 
     block[0] = MEMORY[0x277D85DD0];
@@ -5069,8 +5176,6 @@ void __44__BTSDevicesController__updateHealthDevices__block_invoke(uint64_t a1, 
     block[4] = *(a1 + 32);
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __44__BTSDevicesController__updateHealthDevices__block_invoke_554(uint64_t a1)
@@ -5114,11 +5219,11 @@ void __44__BTSDevicesController__updateHealthDevices__block_invoke_556(uint64_t 
 
   if (v6)
   {
-    v7 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sharedBluetoothSettingsLogComponent(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_23C0F7000, v7, OS_LOG_TYPE_DEFAULT, "Found a health device that's already added - rearrange here.", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_23C0F7000, v8, OS_LOG_TYPE_DEFAULT, "Found a health device that's already added - rearrange here.", v9, 2u);
     }
   }
 
@@ -5130,64 +5235,65 @@ void __44__BTSDevicesController__updateHealthDevices__block_invoke_556(uint64_t 
 
 - (void)_updateDevicePosition:(id)position
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   positionCopy = position;
   identifier = [positionCopy identifier];
   v6 = [(BTSDevicesController *)self specifierForID:identifier];
 
   if (v6)
   {
-    v30 = 0x7FFFFFFFFFFFFFFFLL;
-    [(BTSDevicesController *)self getGroup:&v30 row:0 ofSpecifier:v6];
-    if (v30 != 0x7FFFFFFFFFFFFFFFLL)
+    v32 = 0x7FFFFFFFFFFFFFFFLL;
+    v8 = [(BTSDevicesController *)self getGroup:&v32 row:0 ofSpecifier:v6];
+    if (v32 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v7 = [(BTSDevicesController *)self specifierAtIndex:[(BTSDevicesController *)self indexOfGroup:?]];
-      if ([positionCopy isMyDevice] && v7 == self->_myDevicesGroupSpec || (objc_msgSend(positionCopy, "isMyDevice") & 1) == 0 && v7 == self->_otherDevicesGroupSpec)
+      v9 = [(BTSDevicesController *)self specifierAtIndex:[(BTSDevicesController *)self indexOfGroup:?]];
+      if ([positionCopy isMyDevice] && v9 == self->_myDevicesGroupSpec || (objc_msgSend(positionCopy, "isMyDevice") & 1) == 0 && v9 == self->_otherDevicesGroupSpec)
       {
-        v8 = [(BTSDevicesController *)self indexOfSpecifier:v6];
-        v9 = [(BTSDevicesController *)self specifierAtIndex:v8 - 1];
-        userInfo = [v9 userInfo];
-        v11 = [userInfo objectForKey:@"bt-device"];
+        v10 = [(BTSDevicesController *)self indexOfSpecifier:v6];
+        v11 = [(BTSDevicesController *)self specifierAtIndex:v10 - 1];
+        userInfo = [v11 userInfo];
+        v13 = [userInfo objectForKey:@"bt-device"];
 
-        v12 = [(BTSDevicesController *)self specifierAtIndex:v8 + 1];
-        userInfo2 = [v12 userInfo];
-        v14 = [userInfo2 objectForKey:@"bt-device"];
+        v14 = [(BTSDevicesController *)self specifierAtIndex:v10 + 1];
+        userInfo2 = [v14 userInfo];
+        v16 = [userInfo2 objectForKey:@"bt-device"];
 
-        LODWORD(v12) = [v11 isMyDevice];
-        if (v12 == [positionCopy isMyDevice])
+        LODWORD(v14) = [v13 isMyDevice];
+        if (v14 == [positionCopy isMyDevice])
         {
-          name = [v11 name];
+          name = [v13 name];
           name2 = [positionCopy name];
-          v15 = [name caseInsensitiveCompare:name2] == -1 || v11 == 0;
+          v17 = [name caseInsensitiveCompare:name2] == -1 || v13 == 0;
         }
 
         else
         {
-          v15 = v11 == 0;
+          v17 = v13 == 0;
         }
 
-        isMyDevice = [v14 isMyDevice];
-        if (isMyDevice == [positionCopy isMyDevice])
+        isMyDevice = [v16 isMyDevice];
+        isMyDevice2 = [positionCopy isMyDevice];
+        if (isMyDevice == isMyDevice2)
         {
-          name3 = [v14 name];
+          name3 = [v16 name];
           name4 = [positionCopy name];
-          v21 = [name3 caseInsensitiveCompare:name4] == -1 || v14 == 0;
+          v24 = [name3 caseInsensitiveCompare:name4] == -1 || v16 == 0;
         }
 
         else
         {
-          v21 = v14 == 0;
+          v24 = v16 == 0;
         }
 
-        if (v15 && v21)
+        if (v17 && v24)
         {
-          v25 = sharedBluetoothSettingsLogComponent();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+          v28 = sharedBluetoothSettingsLogComponent(isMyDevice2);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
           {
             identifier2 = [positionCopy identifier];
             *buf = 138412290;
-            v32 = identifier2;
-            _os_log_impl(&dword_23C0F7000, v25, OS_LOG_TYPE_INFO, "Reloading correctly located device %@", buf, 0xCu);
+            v34 = identifier2;
+            _os_log_impl(&dword_23C0F7000, v28, OS_LOG_TYPE_INFO, "Reloading correctly located device %@", buf, 0xCu);
           }
 
           identifier3 = [positionCopy identifier];
@@ -5198,8 +5304,8 @@ void __44__BTSDevicesController__updateHealthDevices__block_invoke_556(uint64_t 
       }
     }
 
-    v28 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+    v31 = sharedBluetoothSettingsLogComponent(v8);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
       [BTSDevicesController _updateDevicePosition:positionCopy];
     }
@@ -5212,16 +5318,14 @@ void __44__BTSDevicesController__updateHealthDevices__block_invoke_556(uint64_t 
 
   else
   {
-    v16 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = sharedBluetoothSettingsLogComponent(v7);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [BTSDevicesController _updateDevicePosition:positionCopy];
     }
   }
 
 LABEL_37:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateUI:(BOOL)i
@@ -5256,8 +5360,8 @@ LABEL_37:
       connectingDevices = [mEMORY[0x277CF3248] connectingDevices];
       v16 = [v13 arrayWithArray:connectingDevices];
 
-      v17 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v18 = sharedBluetoothSettingsLogComponent(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
         v37 = "[BTSDevicesController updateUI:]";
@@ -5265,42 +5369,42 @@ LABEL_37:
         v39 = [v16 count];
         v40 = 2112;
         v41 = v16;
-        _os_log_impl(&dword_23C0F7000, v17, OS_LOG_TYPE_INFO, "%s found %lu connecting devices - %@", buf, 0x20u);
+        _os_log_impl(&dword_23C0F7000, v18, OS_LOG_TYPE_INFO, "%s found %lu connecting devices - %@", buf, 0x20u);
       }
 
       v33 = 0u;
       v34 = 0u;
       v31 = 0u;
       v32 = 0u;
-      v18 = v16;
-      v19 = [v18 countByEnumeratingWithState:&v31 objects:v35 count:16];
-      if (v19)
+      v19 = v16;
+      v20 = [v19 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      if (v20)
       {
-        v20 = v19;
-        v21 = *v32;
+        v21 = v20;
+        v22 = *v32;
         do
         {
-          for (i = 0; i != v20; ++i)
+          for (i = 0; i != v21; ++i)
           {
-            if (*v32 != v21)
+            if (*v32 != v22)
             {
-              objc_enumerationMutation(v18);
+              objc_enumerationMutation(v19);
             }
 
             address = [*(*(&v31 + 1) + 8 * i) address];
-            v24 = [rootController specifierForID:address];
+            v25 = [rootController specifierForID:address];
 
-            if (v24)
+            if (v25)
             {
               [(BTSDevicesController *)self setBluetoothIsBusy:1];
-              objc_storeStrong(&self->_currentDeviceSpecifier, v24);
+              objc_storeStrong(&self->_currentDeviceSpecifier, v25);
             }
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v31 objects:v35 count:16];
+          v21 = [v19 countByEnumeratingWithState:&v31 objects:v35 count:16];
         }
 
-        while (v20);
+        while (v21);
       }
 
       v5 = v30;
@@ -5333,9 +5437,9 @@ LABEL_37:
   [(BTSDevicesController *)self cleanupAlerts];
   if ([(BTSDevicesController *)self numberOfGroups]>= 2)
   {
-    v25 = [(BTSDevicesController *)self indexOfGroup:1];
-    v26 = [*(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]) subarrayWithRange:{v25, objc_msgSend(*(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]), "count") - v25}];
-    [(BTSDevicesController *)self removeContiguousSpecifiers:v26 animated:1];
+    v26 = [(BTSDevicesController *)self indexOfGroup:1];
+    v27 = [*(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]) subarrayWithRange:{v26, objc_msgSend(*(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]), "count") - v26}];
+    [(BTSDevicesController *)self removeContiguousSpecifiers:v27 animated:1];
   }
 
   powerOffWarningString = [(BTSDevicesController *)self powerOffWarningString];
@@ -5346,43 +5450,41 @@ LABEL_37:
   if (parentViewController)
   {
     rootController = [(BTSDevicesController *)self rootController];
-    v28 = [rootController popToViewController:self animated:1];
+    v29 = [rootController popToViewController:self animated:1];
 LABEL_27:
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatePoorConnectedDevicesList:(id)list
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v4 = sharedBluetoothSettingsLogComponent();
+  v33 = *MEMORY[0x277D85DE8];
+  v4 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_23C0F7000, v4, OS_LOG_TYPE_DEFAULT, "Received 'le hid device behavior changed' notification", buf, 2u);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v5 = [(CBCentralManager *)self->_centralManager retrieveConnectedPeripheralsWithServices:0 allowAll:1];
-  v6 = [v5 countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v27;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * i);
+        v10 = *(*(&v26 + 1) + 8 * i);
         if ([v10 connectedTransport] == 2)
         {
           v11 = [(BTSDevicesController *)self _getDeviceForPeripheral:v10];
@@ -5406,37 +5508,37 @@ LABEL_16:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v26 objects:v32 count:16];
     }
 
     while (v7);
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   mEMORY[0x277CF3248] = [MEMORY[0x277CF3248] sharedInstance];
   connectedDevices = [mEMORY[0x277CF3248] connectedDevices];
 
-  v14 = [connectedDevices countByEnumeratingWithState:&v23 objects:v32 count:16];
+  v14 = [connectedDevices countByEnumeratingWithState:&v22 objects:v31 count:16];
   if (!v14)
   {
     goto LABEL_32;
   }
 
   v15 = v14;
-  v16 = *v24;
+  v16 = *v23;
   do
   {
     for (j = 0; j != v15; ++j)
     {
-      if (*v24 != v16)
+      if (*v23 != v16)
       {
         objc_enumerationMutation(connectedDevices);
       }
 
-      v18 = [BTSDeviceClassic deviceWithDevice:*(*(&v23 + 1) + 8 * j)];
+      v18 = [BTSDeviceClassic deviceWithDevice:*(*(&v22 + 1) + 8 * j)];
       isLimitedConnectivityDevice = [v18 isLimitedConnectivityDevice];
       connectedPoorBehaviorDevices = self->_connectedPoorBehaviorDevices;
       if (isLimitedConnectivityDevice)
@@ -5458,7 +5560,7 @@ LABEL_16:
 LABEL_30:
     }
 
-    v15 = [connectedDevices countByEnumeratingWithState:&v23 objects:v32 count:16];
+    v15 = [connectedDevices countByEnumeratingWithState:&v22 objects:v31 count:16];
   }
 
   while (v15);
@@ -5474,40 +5576,38 @@ LABEL_32:
     dispatch_async(MEMORY[0x277D85CD0], block);
     self->_mainFooterNeedsUpdate = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateFirmwareUpdateRequiredDevicesList:(id)list
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v4 = sharedBluetoothSettingsLogComponent();
+  v19 = *MEMORY[0x277D85DE8];
+  v4 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_23C0F7000, v4, OS_LOG_TYPE_DEFAULT, "Received 'le device firmware update required changed' notification", buf, 2u);
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = [(CBCentralManager *)self->_centralManager retrieveConnectedPeripheralsWithServices:0 allowAll:1];
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if ([v10 connectedTransport] == 2)
         {
           v11 = [(BTSDevicesController *)self _getDeviceForPeripheral:v10];
@@ -5519,7 +5619,7 @@ LABEL_32:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
     while (v7);
@@ -5535,8 +5635,6 @@ LABEL_32:
     dispatch_async(MEMORY[0x277D85CD0], block);
     self->_mainFooterNeedsUpdate = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateMainGroupFooter
@@ -5570,51 +5668,52 @@ LABEL_32:
   enabledCopy = enabled;
   mEMORY[0x277CF3248] = [MEMORY[0x277CF3248] sharedInstance];
   powerState = [mEMORY[0x277CF3248] powerState];
-  v7 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v7 = powerState;
+  v8 = sharedBluetoothSettingsLogComponent(powerState);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v8 = !self->_togglingPower;
+    v9 = !self->_togglingPower;
     *v25 = 136315650;
     *&v25[4] = "[BTSDevicesController bluetoothEnabled:]";
-    if (v8)
+    if (v9)
     {
-      v9 = "no";
+      v10 = "no";
     }
 
     else
     {
-      v9 = "yes";
+      v10 = "yes";
     }
 
     *&v25[12] = 2080;
-    *&v25[14] = v9;
+    *&v25[14] = v10;
     v26 = 1024;
-    v27 = powerState;
-    _os_log_impl(&dword_23C0F7000, v7, OS_LOG_TYPE_INFO, "%s - toggling: %s, powerstate: %d", v25, 0x1Cu);
+    v27 = v7;
+    _os_log_impl(&dword_23C0F7000, v8, OS_LOG_TYPE_INFO, "%s - toggling: %s, powerstate: %d", v25, 0x1Cu);
   }
 
   mEMORY[0x277D29518] = [MEMORY[0x277D29518] sharedInstance];
   if ([mEMORY[0x277D29518] isStoreDemoModeEnabled:0])
   {
     mEMORY[0x277D29528] = [MEMORY[0x277D29528] sharedInstance];
-    v12 = [mEMORY[0x277D29528] isBetterTogetherDemoDevice] ^ 1;
+    v13 = [mEMORY[0x277D29528] isBetterTogetherDemoDevice] ^ 1;
   }
 
   else
   {
-    v12 = 1;
+    v13 = 1;
   }
 
-  v13 = [MEMORY[0x277CCABB0] numberWithInt:v12];
-  v14 = *MEMORY[0x277D3FF38];
-  [enabledCopy setProperty:v13 forKey:*MEMORY[0x277D3FF38]];
+  v14 = [MEMORY[0x277CCABB0] numberWithInt:v13];
+  v15 = *MEMORY[0x277D3FF38];
+  [enabledCopy setProperty:v14 forKey:*MEMORY[0x277D3FF38]];
 
-  v15 = powerState == 1 || self->_togglingPower;
-  v16 = [mEMORY[0x277CF3248] available] & v15;
-  v17 = [MEMORY[0x277CCABB0] numberWithBool:v16];
-  [enabledCopy setProperty:v17 forKey:*MEMORY[0x277D3FEA8]];
+  v16 = v7 == 1 || self->_togglingPower;
+  v17 = [mEMORY[0x277CF3248] available] & v16;
+  v18 = [MEMORY[0x277CCABB0] numberWithBool:v17];
+  [enabledCopy setProperty:v18 forKey:*MEMORY[0x277D3FEA8]];
 
-  v18 = v16 == 1 && !self->_power;
+  v19 = v17 == 1 && !self->_power;
   if (self->_bluetoothRestricted)
   {
     available = 0;
@@ -5625,87 +5724,73 @@ LABEL_32:
     available = [mEMORY[0x277CF3248] available];
   }
 
-  v20 = [MEMORY[0x277CCABB0] numberWithBool:available];
-  [enabledCopy setProperty:v20 forKey:v14];
+  v21 = [MEMORY[0x277CCABB0] numberWithBool:available];
+  [enabledCopy setProperty:v21 forKey:v15];
 
-  v21 = powerState == 2 || v18;
-  v22 = [MEMORY[0x277CCABB0] numberWithInt:v21];
+  v22 = v7 == 2 || v19;
+  v23 = [MEMORY[0x277CCABB0] numberWithInt:v22];
 
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v23;
 }
 
 - (void)setBluetoothEnabled:(id)enabled specifier:(id)specifier
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   bOOLValue = [enabled BOOLValue];
-  v8 = sharedBluetoothSettingsLogComponent();
+  v8 = sharedBluetoothSettingsLogComponent(bOOLValue);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v38 = bOOLValue;
+    v37 = bOOLValue;
     _os_log_impl(&dword_23C0F7000, v8, OS_LOG_TYPE_DEFAULT, "Toggle setBluetoothEnabled : %d", buf, 8u);
   }
 
   if (self->_power != bOOLValue)
   {
-    if (bOOLValue)
+    if ((bOOLValue & 1) != 0 || ([MEMORY[0x277CBEBD0] standardUserDefaults], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "persistentDomainForName:", @"com.apple.bluetooth.settings"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "objectForKey:", @"HideGizmoPowerWarning"), v11 = objc_claimAutoreleasedReturnValue(), v11, v10, v9, v11))
     {
-      goto LABEL_6;
-    }
-
-    standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-    v10 = [standardUserDefaults persistentDomainForName:@"com.apple.bluetooth.settings"];
-    v11 = [v10 objectForKey:@"HideGizmoPowerWarning"];
-
-    if (v11)
-    {
-LABEL_6:
       [(BTSDevicesController *)self updatePowerState:bOOLValue powerSpec:specifierCopy];
     }
 
     else
     {
-      v13 = MEMORY[0x277D75110];
-      v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v15 = [v14 localizedStringForKey:@"POWER_WARNING_TITLE" value:&stru_284EE3458 table:@"Devices"];
+      v12 = MEMORY[0x277D75110];
+      v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v14 = [v13 localizedStringForKey:@"POWER_WARNING_TITLE" value:&stru_284EE3458 table:@"Devices"];
       powerOffWarningString = [(BTSDevicesController *)self powerOffWarningString];
-      v17 = [v13 alertControllerWithTitle:v15 message:powerOffWarningString preferredStyle:1];
+      v16 = [v12 alertControllerWithTitle:v14 message:powerOffWarningString preferredStyle:1];
 
-      v18 = MEMORY[0x277D750F8];
-      v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v20 = [v19 localizedStringForKey:@"CANCEL" value:&stru_284EE3458 table:@"Devices"];
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __54__BTSDevicesController_setBluetoothEnabled_specifier___block_invoke_2;
-      v34[3] = &unk_278BB04E8;
-      v36 = &__block_literal_global_577;
-      v34[4] = self;
-      v21 = specifierCopy;
-      v35 = v21;
-      v22 = [v18 actionWithTitle:v20 style:1 handler:v34];
-      [v17 addAction:v22];
+      v17 = MEMORY[0x277D750F8];
+      v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v19 = [v18 localizedStringForKey:@"CANCEL" value:&stru_284EE3458 table:@"Devices"];
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __54__BTSDevicesController_setBluetoothEnabled_specifier___block_invoke_2;
+      v33[3] = &unk_278BB04E8;
+      v35 = &__block_literal_global_577;
+      v33[4] = self;
+      v20 = specifierCopy;
+      v34 = v20;
+      v21 = [v17 actionWithTitle:v19 style:1 handler:v33];
+      [v16 addAction:v21];
 
-      v23 = MEMORY[0x277D750F8];
-      v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v25 = [v24 localizedStringForKey:@"TURN_OFF" value:&stru_284EE3458 table:@"Devices"];
-      v27 = MEMORY[0x277D85DD0];
-      v28 = 3221225472;
-      v29 = __54__BTSDevicesController_setBluetoothEnabled_specifier___block_invoke_3;
-      v30 = &unk_278BB0510;
+      v22 = MEMORY[0x277D750F8];
+      v23 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v24 = [v23 localizedStringForKey:@"TURN_OFF" value:&stru_284EE3458 table:@"Devices"];
+      v26 = MEMORY[0x277D85DD0];
+      v27 = 3221225472;
+      v28 = __54__BTSDevicesController_setBluetoothEnabled_specifier___block_invoke_3;
+      v29 = &unk_278BB0510;
       selfCopy = self;
-      v32 = v21;
-      v33 = &__block_literal_global_577;
-      v26 = [v23 actionWithTitle:v25 style:0 handler:&v27];
-      [v17 addAction:{v26, v27, v28, v29, v30, selfCopy}];
+      v31 = v20;
+      v32 = &__block_literal_global_577;
+      v25 = [v22 actionWithTitle:v24 style:0 handler:&v26];
+      [v16 addAction:{v25, v26, v27, v28, v29, selfCopy}];
 
-      [(BTSDevicesController *)self presentViewController:v17 animated:1 completion:0];
+      [(BTSDevicesController *)self presentViewController:v16 animated:1 completion:0];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __54__BTSDevicesController_setBluetoothEnabled_specifier___block_invoke()
@@ -5736,6 +5821,22 @@ uint64_t __54__BTSDevicesController_setBluetoothEnabled_specifier___block_invoke
   return v2();
 }
 
+- (void)updatePowerState:(BOOL)state powerSpec:(id)spec
+{
+  stateCopy = state;
+  specCopy = spec;
+  mEMORY[0x277CF3248] = [MEMORY[0x277CF3248] sharedInstance];
+  LODWORD(stateCopy) = [mEMORY[0x277CF3248] setEnabled:stateCopy];
+
+  if (stateCopy)
+  {
+    self->_togglingPower = 1;
+    [*(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC60]) setEnabled:0];
+  }
+
+  [(BTSDevicesController *)self reloadSpecifier:specCopy];
+}
+
 - (void)setBluetoothIsBusy:(BOOL)busy
 {
   if (busy)
@@ -5760,14 +5861,14 @@ uint64_t __54__BTSDevicesController_setBluetoothEnabled_specifier___block_invoke
 
 - (void)alertSheetDismissed:(id)dismissed
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v4 = sharedBluetoothSettingsLogComponent();
+  v15 = *MEMORY[0x277D85DE8];
+  v4 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     alert = self->_alert;
-    v14 = 138412290;
-    v15 = alert;
-    _os_log_impl(&dword_23C0F7000, v4, OS_LOG_TYPE_DEFAULT, "Dismiss BTAlert : %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = alert;
+    _os_log_impl(&dword_23C0F7000, v4, OS_LOG_TYPE_DEFAULT, "Dismiss BTAlert : %@", &v13, 0xCu);
   }
 
   v6 = self->_alert;
@@ -5785,8 +5886,6 @@ uint64_t __54__BTSDevicesController_setBluetoothEnabled_specifier___block_invoke
     parentViewController = [visibleViewController2 parentViewController];
     [parentViewController dismiss];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanupPairing
@@ -5945,11 +6044,11 @@ uint64_t __54__BTSDevicesController_setBluetoothEnabled_specifier___block_invoke
   defaultCenter4 = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter4 removeObserver:self name:*MEMORY[0x277D76758] object:0];
 
-  v7 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sharedBluetoothSettingsLogComponent(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_23C0F7000, v7, OS_LOG_TYPE_DEFAULT, "Re-register for bluetooth notifications", v9, 2u);
+    *v10 = 0;
+    _os_log_impl(&dword_23C0F7000, v8, OS_LOG_TYPE_DEFAULT, "Re-register for bluetooth notifications", v10, 2u);
   }
 
   sharedPairingAgent = [(CBCentralManager *)self->_centralManager sharedPairingAgent];
@@ -5965,15 +6064,15 @@ uint64_t __54__BTSDevicesController_setBluetoothEnabled_specifier___block_invoke
 - (void)reloadCellForSpecifierID:(id)d animated:(BOOL)animated
 {
   animatedCopy = animated;
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v6 = [(BTSDevicesController *)self specifierForID:d];
   v7 = [(BTSDevicesController *)self indexPathForSpecifier:v6];
 
   if (v7)
   {
     v8 = *(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC60]);
-    v12[0] = v7;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = v7;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
     if (animatedCopy)
     {
       v10 = 100;
@@ -5986,15 +6085,13 @@ uint64_t __54__BTSDevicesController_setBluetoothEnabled_specifier___block_invoke
 
     [v8 reloadRowsAtIndexPaths:v9 withRowAnimation:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)forcePushDetailViewForDevice:(id)device
 {
   v45 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
-  v5 = sharedBluetoothSettingsLogComponent();
+  v5 = sharedBluetoothSettingsLogComponent(deviceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -6025,12 +6122,12 @@ uint64_t __54__BTSDevicesController_setBluetoothEnabled_specifier___block_invoke
 
     if (v18)
     {
-      v19 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v20 = sharedBluetoothSettingsLogComponent(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         v42 = deviceCopy;
-        _os_log_impl(&dword_23C0F7000, v19, OS_LOG_TYPE_DEFAULT, "Stop Force Push to Detail View because we're already in this page for device %@", buf, 0xCu);
+        _os_log_impl(&dword_23C0F7000, v20, OS_LOG_TYPE_DEFAULT, "Stop Force Push to Detail View because we're already in this page for device %@", buf, 0xCu);
       }
 
       goto LABEL_11;
@@ -6038,64 +6135,62 @@ uint64_t __54__BTSDevicesController_setBluetoothEnabled_specifier___block_invoke
   }
 
   firstObject2 = objc_alloc_init(MEMORY[0x277D0FB70]);
-  v20 = objc_alloc_init(MEMORY[0x277D3FAD8]);
-  [firstObject2 setSpecifier:v20];
+  v21 = objc_alloc_init(MEMORY[0x277D3FAD8]);
+  [firstObject2 setSpecifier:v21];
 
-  v21 = objc_alloc(MEMORY[0x277CBEB38]);
+  v22 = objc_alloc(MEMORY[0x277CBEB38]);
   v39[0] = *MEMORY[0x277D3FE58];
-  v22 = objc_opt_class();
-  v23 = *MEMORY[0x277D3FF08];
-  v40[0] = v22;
+  v23 = objc_opt_class();
+  v24 = *MEMORY[0x277D3FF08];
+  v40[0] = v23;
   v40[1] = @"BTSPairSetup";
-  v24 = *MEMORY[0x277D400B8];
-  v39[1] = v23;
-  v39[2] = v24;
+  v25 = *MEMORY[0x277D400B8];
+  v39[1] = v24;
+  v39[2] = v25;
   v39[3] = *MEMORY[0x277D40138];
   v40[2] = @"BTSPairController";
   v40[3] = @"PSLinkCell";
-  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:4];
-  v19 = [v21 initWithDictionary:{v25, v39[0]}];
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:4];
+  v20 = [v22 initWithDictionary:{v26, v39[0]}];
 
   name = [deviceCopy name];
-  [v19 setObject:name forKey:*MEMORY[0x277D40170]];
+  [v20 setObject:name forKey:*MEMORY[0x277D40170]];
 
   identifier3 = [deviceCopy identifier];
-  [v19 setObject:identifier3 forKey:*MEMORY[0x277D3FFB8]];
+  [v20 setObject:identifier3 forKey:*MEMORY[0x277D3FFB8]];
 
-  [v19 setObject:@"BTSDeviceConfigController" forKey:v23];
+  [v20 setObject:@"BTSDeviceConfigController" forKey:v24];
   specifier = [firstObject2 specifier];
-  [specifier setProperties:v19];
+  [specifier setProperties:v20];
 
-  v29 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  [v29 setObject:deviceCopy forKey:@"bt-device"];
+  v30 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  [v30 setObject:deviceCopy forKey:@"bt-device"];
   if ([deviceCopy isCTKDDevice])
   {
     centralManager = self->_centralManager;
     classicDevice = [deviceCopy classicDevice];
     address = [classicDevice address];
-    v33 = [(CBCentralManager *)centralManager retrievePeripheralWithAddress:address];
+    v34 = [(CBCentralManager *)centralManager retrievePeripheralWithAddress:address];
 
     ctkdCounterpartDevicesDict = self->_ctkdCounterpartDevicesDict;
     identifier4 = [deviceCopy identifier];
-    v36 = [(NSMutableDictionary *)ctkdCounterpartDevicesDict objectForKeyedSubscript:identifier4];
+    v37 = [(NSMutableDictionary *)ctkdCounterpartDevicesDict objectForKeyedSubscript:identifier4];
 
-    [v29 setObject:v36 forKey:@"ctkd-device"];
+    [v30 setObject:v37 forKey:@"ctkd-device"];
   }
 
   specifier2 = [firstObject2 specifier];
-  [specifier2 setUserInfo:v29];
+  [specifier2 setUserInfo:v30];
 
   [(BTSDevicesController *)self showController:firstObject2];
 LABEL_11:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (id)mergeDualRadioDevices:(id)devices
 {
   v44 = *MEMORY[0x277D85DE8];
   devicesCopy = devices;
-  v5 = sharedBluetoothSettingsLogComponent();
+  v5 = sharedBluetoothSettingsLogComponent(devicesCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -6130,7 +6225,7 @@ LABEL_11:
         v10 = *(*(&v37 + 1) + 8 * v9);
         v11 = [BTSDeviceLE deviceWithPeripheral:v10 manager:*(&self->super.super.super.super.super.isa + *(v8 + 1448))];
         linkedRadioAddress = [v11 linkedRadioAddress];
-        v13 = sharedBluetoothSettingsLogComponent();
+        v13 = sharedBluetoothSettingsLogComponent(linkedRadioAddress);
         v14 = v13;
         if (v11)
         {
@@ -6178,12 +6273,12 @@ LABEL_11:
 
           if (v22)
           {
-            v23 = sharedBluetoothSettingsLogComponent();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+            v24 = sharedBluetoothSettingsLogComponent(v23);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
               v42 = v14;
-              _os_log_error_impl(&dword_23C0F7000, v23, OS_LOG_TYPE_ERROR, "We cannot link to the new classic device because it's already linked to another LE device due to CTKD %@", buf, 0xCu);
+              _os_log_error_impl(&dword_23C0F7000, v24, OS_LOG_TYPE_ERROR, "We cannot link to the new classic device because it's already linked to another LE device due to CTKD %@", buf, 0xCu);
             }
 
             [array addObject:v11];
@@ -6215,17 +6310,15 @@ LABEL_24:
       }
 
       while (v35 != v9);
-      v27 = [allValues countByEnumeratingWithState:&v37 objects:v43 count:16];
-      v35 = v27;
+      v28 = [allValues countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v35 = v28;
     }
 
-    while (v27);
+    while (v28);
   }
 
   dualRadioCounterpartDevicesDict = self->_dualRadioCounterpartDevicesDict;
   self->_dualRadioCounterpartDevicesDict = dictionary;
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -6235,7 +6328,7 @@ LABEL_24:
   v53 = *MEMORY[0x277D85DE8];
   if (self->_power)
   {
-    v3 = sharedBluetoothSettingsLogComponent();
+    v3 = sharedBluetoothSettingsLogComponent(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -6275,8 +6368,7 @@ LABEL_24:
           v14 = v13;
           if (v13 && [v13 supportsCTKD])
           {
-            [v12 setDelegate:self];
-            v15 = sharedBluetoothSettingsLogComponent();
+            v15 = sharedBluetoothSettingsLogComponent([v12 setDelegate:self]);
             if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
             {
               identifier = [v12 identifier];
@@ -6317,8 +6409,8 @@ LABEL_24:
               address2 = [classicDevice2 address];
               [(NSMutableDictionary *)v29 setObject:v24 forKey:address2];
 
-              v32 = sharedBluetoothSettingsLogComponent();
-              if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+              v33 = sharedBluetoothSettingsLogComponent(v32);
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
               {
                 name2 = [v14 name];
                 isCTKDDevice = [v24 isCTKDDevice];
@@ -6326,7 +6418,7 @@ LABEL_24:
                 v49 = name2;
                 v50 = 1024;
                 v51 = isCTKDDevice;
-                _os_log_debug_impl(&dword_23C0F7000, v32, OS_LOG_TYPE_DEBUG, "CTKD : classic device found in list %@ with CTKD : %d", buf, 0x12u);
+                _os_log_debug_impl(&dword_23C0F7000, v33, OS_LOG_TYPE_DEBUG, "CTKD : classic device found in list %@ with CTKD : %d", buf, 0x12u);
               }
 
               identifier4 = [v12 identifier];
@@ -6334,9 +6426,9 @@ LABEL_24:
 
               if (uUIDString)
               {
-                v35 = [(NSMutableDictionary *)self->_ctkdLeDevicesDict objectForKey:uUIDString];
+                v36 = [(NSMutableDictionary *)self->_ctkdLeDevicesDict objectForKey:uUIDString];
 
-                if (!v35)
+                if (!v36)
                 {
                   [v14 setCtkdDevice:1];
                   [(NSMutableDictionary *)self->_ctkdLeDevicesDict setObject:v14 forKey:uUIDString];
@@ -6361,8 +6453,6 @@ LABEL_24:
       while (v8);
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateCTKDCounterparts:(id)counterparts leDevice:(id)device
@@ -6381,11 +6471,11 @@ LABEL_24:
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
 {
-  v53 = *MEMORY[0x277D85DE8];
-  v44.receiver = self;
-  v44.super_class = BTSDevicesController;
+  v54 = *MEMORY[0x277D85DE8];
+  v45.receiver = self;
+  v45.super_class = BTSDevicesController;
   pathCopy = path;
-  v7 = [(BTSDevicesController *)&v44 tableView:view cellForRowAtIndexPath:pathCopy];
+  v7 = [(BTSDevicesController *)&v45 tableView:view cellForRowAtIndexPath:pathCopy];
   v8 = [(BTSDevicesController *)self indexForIndexPath:pathCopy];
 
   v9 = objc_opt_class();
@@ -6422,7 +6512,7 @@ LABEL_38:
         isManagedByAliroWallet = [v14 isManagedByAliroWallet];
       }
 
-      LOBYTE(isConnectedToSystem) = [v14 connected];
+      LOBYTE(v16) = [v14 connected];
       if ([v14 isCTKDDevice])
       {
         centralManager = self->_centralManager;
@@ -6430,60 +6520,71 @@ LABEL_38:
         address = [classicDevice address];
         v20 = [(CBCentralManager *)centralManager retrievePeripheralWithAddress:address];
 
-        if ([v14 connected])
+        connected = [v14 connected];
+        if (connected)
         {
-          isConnectedToSystem = 1;
+          v16 = 1;
         }
 
         else
         {
-          isConnectedToSystem = [v20 isConnectedToSystem];
+          connected = [v20 isConnectedToSystem];
+          v16 = connected;
         }
 
-        v22 = sharedBluetoothSettingsLogComponent();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v23 = sharedBluetoothSettingsLogComponent(connected);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           title = [v11 title];
           *buf = 138412546;
-          v46 = title;
-          v47 = 1024;
-          v48 = isConnectedToSystem;
-          _os_log_impl(&dword_23C0F7000, v22, OS_LOG_TYPE_DEFAULT, "CTKD : cell %@ is connected %d", buf, 0x12u);
+          v47 = title;
+          v48 = 1024;
+          v49 = v16;
+          _os_log_impl(&dword_23C0F7000, v23, OS_LOG_TYPE_DEFAULT, "CTKD : cell %@ is connected %d", buf, 0x12u);
         }
       }
 
       dualRadioCounterpartDevicesDict = self->_dualRadioCounterpartDevicesDict;
       identifier = [v14 identifier];
-      v26 = [(NSMutableDictionary *)dualRadioCounterpartDevicesDict objectForKeyedSubscript:identifier];
+      v27 = [(NSMutableDictionary *)dualRadioCounterpartDevicesDict objectForKeyedSubscript:identifier];
 
-      connected = (v26 != 0) | isConnectedToSystem;
-      if (v26 && (isConnectedToSystem & 1) == 0)
+      connected2 = (v27 != 0) | v16;
+      if (v27 && (v16 & 1) == 0)
       {
-        v28 = self->_dualRadioCounterpartDevicesDict;
+        v29 = self->_dualRadioCounterpartDevicesDict;
         identifier2 = [v14 identifier];
-        v30 = [(NSMutableDictionary *)v28 objectForKeyedSubscript:identifier2];
-        connected = [v30 connected];
+        v31 = [(NSMutableDictionary *)v29 objectForKeyedSubscript:identifier2];
+        connected2 = [v31 connected];
       }
 
-      v43 = 0;
-      if ([v14 isMyDevice] && (objc_msgSend(v14, "isApplePencil:", &v43) & 1) == 0 && objc_msgSend(v14, "isLimitedConnectivityDevice"))
+      v44 = 0;
+      isMyDevice = [v14 isMyDevice];
+      if (isMyDevice)
       {
-        [v11 setHasLimitedConnectivity:1];
+        isMyDevice = [v14 isApplePencil:&v44];
+        if ((isMyDevice & 1) == 0)
+        {
+          isMyDevice = [v14 isLimitedConnectivityDevice];
+          if (isMyDevice)
+          {
+            isMyDevice = [v11 setHasLimitedConnectivity:1];
+          }
+        }
       }
 
-      v31 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+      v33 = sharedBluetoothSettingsLogComponent(isMyDevice);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
       {
         title2 = [v11 title];
         *buf = 138413058;
-        v46 = title2;
-        v47 = 1024;
-        v48 = isManagedByAliroWallet;
-        v49 = 1024;
-        v50 = connected & 1;
-        v51 = 2112;
-        v52 = v14;
-        _os_log_impl(&dword_23C0F7000, v31, OS_LOG_TYPE_INFO, "Setting cell %@ paired %d and connected %d, device:%@", buf, 0x22u);
+        v47 = title2;
+        v48 = 1024;
+        v49 = isManagedByAliroWallet;
+        v50 = 1024;
+        v51 = connected2 & 1;
+        v52 = 2112;
+        v53 = v14;
+        _os_log_impl(&dword_23C0F7000, v33, OS_LOG_TYPE_INFO, "Setting cell %@ paired %d and connected %d, device:%@", buf, 0x22u);
       }
 
       objc_opt_class();
@@ -6509,26 +6610,26 @@ LABEL_38:
       }
 
 LABEL_31:
-      [v11 setDeviceStatePaired:isManagedByAliroWallet andConnected:connected & 1 andPendingSetup:shouldDenyIncomingClassicConnection];
+      [v11 setDeviceStatePaired:isManagedByAliroWallet andConnected:connected2 & 1 andPendingSetup:shouldDenyIncomingClassicConnection];
       if (self->_bluetoothIsBusy)
       {
         identifier4 = [v14 identifier];
         identifier5 = [(PSSpecifier *)self->_currentDeviceSpecifier identifier];
-        v39 = [identifier4 isEqualToString:identifier5];
+        v41 = [identifier4 isEqualToString:identifier5];
 
-        if (v39)
+        if (v41)
         {
           if (isManagedByAliroWallet)
           {
-            v40 = 4;
+            v42 = 4;
           }
 
           else
           {
-            v40 = 1;
+            v42 = 1;
           }
 
-          [v11 setDeviceState:v40];
+          [v11 setDeviceState:v42];
         }
       }
 
@@ -6537,14 +6638,13 @@ LABEL_31:
   }
 
 LABEL_39:
-  v41 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (void)tableView:(id)view accessoryButtonTappedForRowWithIndexPath:(id)path
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v6 = [(BTSDevicesController *)self indexForIndexPath:pathCopy];
   v7 = [(BTSDevicesController *)self indexOfSpecifierID:@"MY_DEVICES"];
@@ -6552,7 +6652,7 @@ LABEL_39:
   v9 = [*(&self->super.super.super.super.super.isa + v8) count];
   if (v6 > 255 || v7 >= 256)
   {
-    v14 = sharedBluetoothSettingsLogComponent();
+    v14 = sharedBluetoothSettingsLogComponent(v9);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [BTSDevicesController tableView:accessoryButtonTappedForRowWithIndexPath:];
@@ -6563,46 +6663,45 @@ LABEL_39:
   {
     if (v6 > v9 || v6 < v7)
     {
-      v11 = sharedBluetoothSettingsLogComponent();
+      v11 = sharedBluetoothSettingsLogComponent(v9);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v21 = [pathCopy row];
+        v20 = [pathCopy row];
         section = [pathCopy section];
-        v23 = [*(&self->super.super.super.super.super.isa + v8) count];
-        v27 = 134219008;
-        v28 = v21;
-        v29 = 2048;
-        v30 = section;
-        v31 = 2048;
-        v32 = v6;
-        v33 = 2048;
-        v34 = v7;
-        v35 = 2048;
-        v36 = v23;
-        _os_log_error_impl(&dword_23C0F7000, v11, OS_LOG_TYPE_ERROR, "Invalid index %ld in section %ld; rowIndex : %ld\t myDevicesGroupIndex : %ld\ttotal specifiers count %lu", &v27, 0x34u);
+        v22 = [*(&self->super.super.super.super.super.isa + v8) count];
+        v26 = 134219008;
+        v27 = v20;
+        v28 = 2048;
+        v29 = section;
+        v30 = 2048;
+        v31 = v6;
+        v32 = 2048;
+        v33 = v7;
+        v34 = 2048;
+        v35 = v22;
+        _os_log_error_impl(&dword_23C0F7000, v11, OS_LOG_TYPE_ERROR, "Invalid index %ld in section %ld; rowIndex : %ld\t myDevicesGroupIndex : %ld\ttotal specifiers count %lu", &v26, 0x34u);
       }
 
       [(BTSDevicesController *)self reloadSpecifiers];
       v6 = [(BTSDevicesController *)self indexForIndexPath:pathCopy];
       v12 = [(BTSDevicesController *)self indexOfSpecifierID:@"MY_DEVICES"];
-      [*(&self->super.super.super.super.super.isa + v8) count];
-      v13 = sharedBluetoothSettingsLogComponent();
+      v13 = sharedBluetoothSettingsLogComponent([*(&self->super.super.super.super.super.isa + v8) count]);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v24 = [pathCopy row];
+        v23 = [pathCopy row];
         section2 = [pathCopy section];
-        v26 = [*(&self->super.super.super.super.super.isa + v8) count];
-        v27 = 134219008;
-        v28 = v24;
-        v29 = 2048;
-        v30 = section2;
-        v31 = 2048;
-        v32 = v6;
-        v33 = 2048;
-        v34 = v12;
-        v35 = 2048;
-        v36 = v26;
-        _os_log_error_impl(&dword_23C0F7000, v13, OS_LOG_TYPE_ERROR, "Refreshed index %ld in section %ld; rowIndex : %ld\t myDevicesGroupIndex : %ld\ttotal specifiers count %lu", &v27, 0x34u);
+        v25 = [*(&self->super.super.super.super.super.isa + v8) count];
+        v26 = 134219008;
+        v27 = v23;
+        v28 = 2048;
+        v29 = section2;
+        v30 = 2048;
+        v31 = v6;
+        v32 = 2048;
+        v33 = v12;
+        v34 = 2048;
+        v35 = v25;
+        _os_log_error_impl(&dword_23C0F7000, v13, OS_LOG_TYPE_ERROR, "Refreshed index %ld in section %ld; rowIndex : %ld\t myDevicesGroupIndex : %ld\ttotal specifiers count %lu", &v26, 0x34u);
       }
     }
 
@@ -6628,44 +6727,41 @@ LABEL_39:
     [v18 setSpecifier:v14];
     [(BTSDevicesController *)self showController:v18];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isDeviceSupported:(id)supported
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   supportedCopy = supported;
   v4 = [MEMORY[0x277CBE0B0] isDeviceSupportedWithType:objc_msgSend(supportedCopy VIDsrc:"type") VID:objc_msgSend(supportedCopy PID:{"vendorIdSrc"), objc_msgSend(supportedCopy, "vendorId"), objc_msgSend(supportedCopy, "productId")}];
-  v5 = sharedBluetoothSettingsLogComponent();
+  v5 = sharedBluetoothSettingsLogComponent(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     type = [supportedCopy type];
     vendorIdSrc = [supportedCopy vendorIdSrc];
     vendorId = [supportedCopy vendorId];
     productId = [supportedCopy productId];
-    v13 = 136316418;
-    v14 = "[BTSDevicesController isDeviceSupported:]";
+    v12 = 136316418;
+    v13 = "[BTSDevicesController isDeviceSupported:]";
     v10 = "UNSUPPORTED";
-    v16 = type;
-    v15 = 1024;
+    v15 = type;
+    v14 = 1024;
     if (v4)
     {
       v10 = "SUPPORTED";
     }
 
-    v17 = 1024;
-    v18 = vendorIdSrc;
-    v19 = 1024;
-    v20 = vendorId;
-    v21 = 1024;
-    v22 = productId;
-    v23 = 2080;
-    v24 = v10;
-    _os_log_impl(&dword_23C0F7000, v5, OS_LOG_TYPE_INFO, "%s - type=%d vendorSrc=%d VID=0x%04X PID=0x%04X: %s", &v13, 0x2Eu);
+    v16 = 1024;
+    v17 = vendorIdSrc;
+    v18 = 1024;
+    v19 = vendorId;
+    v20 = 1024;
+    v21 = productId;
+    v22 = 2080;
+    v23 = v10;
+    _os_log_impl(&dword_23C0F7000, v5, OS_LOG_TYPE_INFO, "%s - type=%d vendorSrc=%d VID=0x%04X PID=0x%04X: %s", &v12, 0x2Eu);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -6722,8 +6818,7 @@ LABEL_53:
 
     if ([v10 connected] && (objc_msgSend(v10, "isTemporaryPairedDevice") & 1) == 0)
     {
-      [*(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC60]) selectRowAtIndexPath:0 animated:1 scrollPosition:0];
-      v32 = sharedBluetoothSettingsLogComponent();
+      v32 = sharedBluetoothSettingsLogComponent([*(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC60]) selectRowAtIndexPath:0 animated:1 scrollPosition:0]);
       if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
         [BTSDevicesController tableView:v10 didSelectRowAtIndexPath:?];
@@ -6904,18 +6999,15 @@ uint64_t __58__BTSDevicesController_tableView_didSelectRowAtIndexPath___block_in
 {
   if (*(*(a1 + 32) + 1680))
   {
-    v2 = sharedBluetoothSettingsLogComponent();
+    v2 = sharedBluetoothSettingsLogComponent(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_23C0F7000, v2, OS_LOG_TYPE_INFO, "Toggling Personal Hotspot to disconnect active clients", v7, 2u);
+      *v4 = 0;
+      _os_log_impl(&dword_23C0F7000, v2, OS_LOG_TYPE_INFO, "Toggling Personal Hotspot to disconnect active clients", v4, 2u);
     }
 
-    v3 = *(*(a1 + 32) + 1680);
     _NETRBClientSetGlobalServiceState();
-    v4 = *(*(a1 + 32) + 1680);
     _NETRBClientSetGlobalServiceState();
-    v5 = *(*(a1 + 32) + 1680);
     _NETRBClientDestroy();
     *(*(a1 + 32) + 1680) = 0;
   }
@@ -6944,63 +7036,63 @@ uint64_t __58__BTSDevicesController_tableView_didSelectRowAtIndexPath___block_in
 
 - (id)tableView:(id)view viewForFooterInSection:(int64_t)section
 {
-  v62[3] = *MEMORY[0x277D85DE8];
+  v61[3] = *MEMORY[0x277D85DE8];
   viewCopy = view;
   if (section || self->_denylistEnabled)
   {
-    v60.receiver = self;
-    v60.super_class = BTSDevicesController;
-    v7 = [(BTSDevicesController *)&v60 tableView:viewCopy viewForFooterInSection:section];
+    v59.receiver = self;
+    v59.super_class = BTSDevicesController;
+    v7 = [(BTSDevicesController *)&v59 tableView:viewCopy viewForFooterInSection:section];
     goto LABEL_4;
   }
 
-  v10 = SCDynamicStoreCopyComputerName(0, 0);
+  v9 = SCDynamicStoreCopyComputerName(0, 0);
   if (self->_bluetoothRestricted)
   {
     restrictionDetail = self->_restrictionDetail;
-    v59 = 0;
-    v12 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:restrictionDetail validFormatSpecifiers:@"%@" error:&v59, v10];
-    v13 = v59;
-    v14 = v13;
-    if (v12)
+    v58 = 0;
+    v11 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:restrictionDetail validFormatSpecifiers:@"%@" error:&v58, v9];
+    v12 = v58;
+    v13 = v12;
+    if (v11)
     {
-      v55 = v13;
-      v57 = v10;
+      v54 = v12;
+      v56 = v9;
 LABEL_12:
-      v56 = v12;
-      v19 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v12];
-      v20 = MGGetBoolAnswer();
-      v21 = @"WIFI";
-      if (v20)
+      v55 = v11;
+      v18 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v11];
+      v19 = MGGetBoolAnswer();
+      v20 = @"WIFI";
+      if (v19)
       {
-        v21 = @"WLAN";
+        v20 = @"WLAN";
       }
 
-      v22 = v21;
+      v21 = v20;
       connectedPoorBehaviorDeviceNames = [(BTSDevicesController *)self connectedPoorBehaviorDeviceNames];
-      v53 = connectedPoorBehaviorDeviceNames;
-      v54 = v22;
+      v52 = connectedPoorBehaviorDeviceNames;
+      v53 = v21;
       if ([connectedPoorBehaviorDeviceNames count])
       {
         if ([connectedPoorBehaviorDeviceNames count] <= 1)
         {
-          v24 = @"SINGULAR";
+          v23 = @"SINGULAR";
         }
 
         else
         {
-          v24 = @"PLURAL";
+          v23 = @"PLURAL";
         }
 
-        v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_DISCOVERABLE_WARNING_%@", v22, v24, connectedPoorBehaviorDeviceNames, v22];
-        v26 = [(BTSDevicesController *)self localizedList:connectedPoorBehaviorDeviceNames];
-        v27 = MEMORY[0x277CCACA8];
-        v28 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v29 = [v28 localizedStringForKey:v25 value:&stru_284EE3458 table:@"Devices"];
-        v30 = [v27 localizedStringWithFormat:v29, v26];
+        v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_DISCOVERABLE_WARNING_%@", v21, v23, connectedPoorBehaviorDeviceNames, v21];
+        v25 = [(BTSDevicesController *)self localizedList:connectedPoorBehaviorDeviceNames];
+        v26 = MEMORY[0x277CCACA8];
+        v27 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v28 = [v27 localizedStringForKey:v24 value:&stru_284EE3458 table:@"Devices"];
+        v29 = [v26 localizedStringWithFormat:v28, v25];
 
-        v31 = [(BTSDevicesController *)self makeWarningAttributedString:v30];
-        [v19 appendAttributedString:v31];
+        v30 = [(BTSDevicesController *)self makeWarningAttributedString:v29];
+        [v18 appendAttributedString:v30];
       }
 
       connectedFirmwareUpdateRequiredDeviceNames = [(BTSDevicesController *)self connectedFirmwareUpdateRequiredDeviceNames];
@@ -7008,27 +7100,27 @@ LABEL_12:
       {
         if ([connectedFirmwareUpdateRequiredDeviceNames count] <= 1)
         {
-          v33 = @"SINGULAR";
+          v32 = @"SINGULAR";
         }
 
         else
         {
-          v33 = @"PLURAL";
+          v32 = @"PLURAL";
         }
 
-        v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"FIRMWARE_WARNING_%@", v33];
-        v35 = [(BTSDevicesController *)self localizedList:connectedFirmwareUpdateRequiredDeviceNames];
-        v36 = MEMORY[0x277CCACA8];
-        v37 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v38 = [v37 localizedStringForKey:v34 value:&stru_284EE3458 table:@"Devices"];
-        v39 = [v36 localizedStringWithFormat:v38, v35];
+        v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"FIRMWARE_WARNING_%@", v32];
+        v34 = [(BTSDevicesController *)self localizedList:connectedFirmwareUpdateRequiredDeviceNames];
+        v35 = MEMORY[0x277CCACA8];
+        v36 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v37 = [v36 localizedStringForKey:v33 value:&stru_284EE3458 table:@"Devices"];
+        v38 = [v35 localizedStringWithFormat:v37, v34];
 
-        v40 = [(BTSDevicesController *)self makeWarningAttributedString:v39];
-        [v19 appendAttributedString:v40];
+        v39 = [(BTSDevicesController *)self makeWarningAttributedString:v38];
+        [v18 appendAttributedString:v39];
       }
 
-      v41 = objc_opt_new();
-      [v41 setAlignment:4];
+      v40 = objc_opt_new();
+      [v40 setAlignment:4];
       groupedFooterConfiguration = [MEMORY[0x277D756E0] groupedFooterConfiguration];
       textProperties = [groupedFooterConfiguration textProperties];
       font = [textProperties font];
@@ -7036,15 +7128,15 @@ LABEL_12:
       textProperties2 = [groupedFooterConfiguration textProperties];
       color = [textProperties2 color];
 
-      v47 = *MEMORY[0x277D740A8];
-      v61[0] = *MEMORY[0x277D740C0];
-      v61[1] = v47;
-      v62[0] = color;
-      v62[1] = font;
-      v61[2] = *MEMORY[0x277D74118];
-      v62[2] = v41;
-      v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:v61 count:3];
-      [v19 addAttributes:v48 range:{0, objc_msgSend(v19, "length")}];
+      v46 = *MEMORY[0x277D740A8];
+      v60[0] = *MEMORY[0x277D740C0];
+      v60[1] = v46;
+      v61[0] = color;
+      v61[1] = font;
+      v60[2] = *MEMORY[0x277D74118];
+      v61[2] = v40;
+      v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:v60 count:3];
+      [v18 addAttributes:v47 range:{0, objc_msgSend(v18, "length")}];
 
       v7 = [viewCopy dequeueReusableHeaderFooterViewWithIdentifier:@"MainGroupFooterId"];
       textLabel = [v7 textLabel];
@@ -7054,42 +7146,42 @@ LABEL_12:
       [textLabel2 setNumberOfLines:0];
 
       textLabel3 = [v7 textLabel];
-      [textLabel3 setAttributedText:v19];
+      [textLabel3 setAttributedText:v18];
 
       self->_mainFooterNeedsUpdate = 1;
-      v16 = v56;
-      v10 = v57;
-      v14 = v55;
+      v15 = v55;
+      v9 = v56;
+      v13 = v54;
       goto LABEL_31;
     }
 
-    v16 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = sharedBluetoothSettingsLogComponent(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [BTSDevicesController tableView:v14 viewForFooterInSection:&self->_restrictionDetail];
+      [BTSDevicesController tableView:viewForFooterInSection:];
     }
   }
 
   else
   {
-    v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v16 = [v15 localizedStringForKey:@"DISCOVERABLE" value:&stru_284EE3458 table:@"Devices"];
+    v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v15 = [v14 localizedStringForKey:@"DISCOVERABLE" value:&stru_284EE3458 table:@"Devices"];
 
-    v58 = 0;
-    v17 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v16 validFormatSpecifiers:@"%@" error:&v58, v10];
-    v18 = v58;
-    v14 = v18;
-    if (v17)
+    v57 = 0;
+    v16 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v15 validFormatSpecifiers:@"%@" error:&v57, v9];
+    v17 = v57;
+    v13 = v17;
+    if (v16)
     {
-      v55 = v18;
-      v57 = v10;
+      v54 = v17;
+      v56 = v9;
 
-      v12 = v17;
+      v11 = v16;
       goto LABEL_12;
     }
 
-    v52 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+    v51 = sharedBluetoothSettingsLogComponent(v17);
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
     {
       [BTSDevicesController tableView:viewForFooterInSection:];
     }
@@ -7099,35 +7191,34 @@ LABEL_12:
 LABEL_31:
 
 LABEL_4:
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (void)showSyncContactsPopup:(id)popup
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   popupCopy = popup;
-  v5 = sharedBluetoothSettingsLogComponent();
+  v5 = sharedBluetoothSettingsLogComponent(popupCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v35 = "[BTSDevicesController showSyncContactsPopup:]";
-    v36 = 2048;
+    v34 = "[BTSDevicesController showSyncContactsPopup:]";
+    v35 = 2048;
     selfCopy = self;
-    v38 = 2112;
-    v39 = popupCopy;
+    v37 = 2112;
+    v38 = popupCopy;
     _os_log_impl(&dword_23C0F7000, v5, OS_LOG_TYPE_DEFAULT, "%s Showing Sync Contacts Popup from BTSDeviceController instance %p, for device: %@", buf, 0x20u);
   }
 
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __46__BTSDevicesController_showSyncContactsPopup___block_invoke;
-  v32[3] = &unk_278BB0580;
-  v32[4] = self;
-  v33 = popupCopy;
-  v27 = popupCopy;
-  v26 = MEMORY[0x23EEC8440](v32);
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __46__BTSDevicesController_showSyncContactsPopup___block_invoke;
+  v31[3] = &unk_278BB0580;
+  v31[4] = self;
+  v32 = popupCopy;
+  v26 = popupCopy;
+  v25 = MEMORY[0x23EEC8440](v31);
   v6 = MEMORY[0x277D75110];
   v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v8 = [v7 localizedStringForKey:@"SYNC_CONTACTS_TITLE" value:&stru_284EE3458 table:@"Devices"];
@@ -7141,30 +7232,29 @@ LABEL_4:
   v14 = MEMORY[0x277D750F8];
   v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v16 = [v15 localizedStringForKey:@"SYNC_DISALLOW_BUTTON" value:&stru_284EE3458 table:@"Devices"];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __46__BTSDevicesController_showSyncContactsPopup___block_invoke_2;
-  v30[3] = &unk_278BB05A8;
-  v17 = v26;
-  v31 = v17;
-  v18 = [v14 actionWithTitle:v16 style:1 handler:v30];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __46__BTSDevicesController_showSyncContactsPopup___block_invoke_2;
+  v29[3] = &unk_278BB05A8;
+  v17 = v25;
+  v30 = v17;
+  v18 = [v14 actionWithTitle:v16 style:1 handler:v29];
   [(UIAlertController *)v13 addAction:v18];
 
   v19 = self->_syncContactsCarplayAlert;
   v20 = MEMORY[0x277D750F8];
   v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v22 = [v21 localizedStringForKey:@"SYNC_ALLOW_BUTTON" value:&stru_284EE3458 table:@"Devices"];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __46__BTSDevicesController_showSyncContactsPopup___block_invoke_3;
-  v28[3] = &unk_278BB05A8;
-  v29 = v17;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __46__BTSDevicesController_showSyncContactsPopup___block_invoke_3;
+  v27[3] = &unk_278BB05A8;
+  v28 = v17;
   v23 = v17;
-  v24 = [v20 actionWithTitle:v22 style:0 handler:v28];
+  v24 = [v20 actionWithTitle:v22 style:0 handler:v27];
   [(UIAlertController *)v19 addAction:v24];
 
   [(BTSDevicesController *)self presentViewController:self->_syncContactsCarplayAlert animated:1 completion:0];
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __46__BTSDevicesController_showSyncContactsPopup___block_invoke(uint64_t a1, int a2)
@@ -7176,75 +7266,74 @@ void __46__BTSDevicesController_showSyncContactsPopup___block_invoke(uint64_t a1
   [v5 acceptSSP:0 forDevice:*(a1 + 40)];
 
   v6 = [*(a1 + 40) syncSettings];
-  v7 = *(a1 + 40);
-  v8 = 0x100000000;
+  v7 = 0x100000000;
   if (a2)
   {
-    v8 = 0x100000100;
+    v7 = 0x100000100;
   }
 
-  [*(a1 + 40) setSyncSettings:v8 | v6 & 0xFFFF00FF];
-  v9 = *(a1 + 32);
-  v10 = *(v9 + 1656);
-  *(v9 + 1656) = 0;
+  [*(a1 + 40) setSyncSettings:v7 | v6 & 0xFFFF00FF];
+  v8 = *(a1 + 32);
+  v9 = *(v8 + 1656);
+  *(v8 + 1656) = 0;
 
   if (a2)
   {
-    v11 = *(*(a1 + 32) + 1520);
-    v12 = [*(a1 + 40) address];
-    v13 = [v11 objectForKeyedSubscript:v12];
+    v10 = *(*(a1 + 32) + 1520);
+    v11 = [*(a1 + 40) address];
+    v12 = [v10 objectForKeyedSubscript:v11];
 
-    [*(a1 + 32) forcePushDetailViewForDevice:v13];
+    [*(a1 + 32) forcePushDetailViewForDevice:v12];
   }
 }
 
 - (void)showSyncContactsPrivacyPopup:(id)popup
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   popupCopy = popup;
-  v6 = sharedBluetoothSettingsLogComponent();
+  v6 = sharedBluetoothSettingsLogComponent(popupCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v57 = "[BTSDevicesController showSyncContactsPrivacyPopup:]";
-    v58 = 2048;
+    v56 = "[BTSDevicesController showSyncContactsPrivacyPopup:]";
+    v57 = 2048;
     selfCopy = self;
-    v60 = 2112;
-    v61 = popupCopy;
+    v59 = 2112;
+    v60 = popupCopy;
     _os_log_impl(&dword_23C0F7000, v6, OS_LOG_TYPE_DEFAULT, "%s Showing Sync Contacts Popup from BTSDeviceController instance %p, for device: %@", buf, 0x20u);
   }
 
   objc_storeStrong(&_currentDevice, popup);
-  v46 = popupCopy;
+  v45 = popupCopy;
   if (MGGetBoolAnswer())
   {
     *buf = 0;
-    v54[0] = *MEMORY[0x277CBF188];
+    v53[0] = *MEMORY[0x277CBF188];
     v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v8 = [v7 localizedStringForKey:@"SYNC_CONTACTS_TITLE" value:&stru_284EE3458 table:@"Devices"];
-    v55[0] = v8;
-    v54[1] = *MEMORY[0x277CBF198];
+    v54[0] = v8;
+    v53[1] = *MEMORY[0x277CBF198];
     v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v10 = [v9 localizedStringForKey:@"SYNC_BLUETOOTH_CONTACTS_MESSAGE" value:&stru_284EE3458 table:@"Devices"];
     v11 = *MEMORY[0x277CBF1B0];
-    v55[1] = v10;
-    v55[2] = MEMORY[0x277CBEC38];
+    v54[1] = v10;
+    v54[2] = MEMORY[0x277CBEC38];
     v12 = *MEMORY[0x277CBF1C0];
-    v54[2] = v11;
-    v54[3] = v12;
+    v53[2] = v11;
+    v53[3] = v12;
     v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v14 = [v13 localizedStringForKey:@"SYNC_DISALLOW_BUTTON" value:&stru_284EE3458 table:@"Devices"];
-    v55[3] = v14;
-    v54[4] = *MEMORY[0x277CBF1E8];
+    v54[3] = v14;
+    v53[4] = *MEMORY[0x277CBF1E8];
     v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v16 = [v15 localizedStringForKey:@"SYNC_ALLOW_BUTTON" value:&stru_284EE3458 table:@"Devices"];
-    v55[4] = v16;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:5];
+    v54[4] = v16;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:5];
 
-    v18 = v46;
+    v18 = v45;
     objc_storeStrong(&_currentControllerInstance, self);
     devicesDict = self->_devicesDict;
-    address = [v46 address];
+    address = [v45 address];
     v21 = [(NSMutableDictionary *)devicesDict objectForKeyedSubscript:address];
     v22 = _currentBTSDevice;
     _currentBTSDevice = v21;
@@ -7258,13 +7347,13 @@ void __46__BTSDevicesController_showSyncContactsPopup___block_invoke(uint64_t a1
 
   else
   {
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __53__BTSDevicesController_showSyncContactsPrivacyPopup___block_invoke;
-    v51[3] = &unk_278BB0580;
-    v52 = popupCopy;
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __53__BTSDevicesController_showSyncContactsPrivacyPopup___block_invoke;
+    v50[3] = &unk_278BB0580;
+    v51 = popupCopy;
     selfCopy2 = self;
-    v45 = MEMORY[0x23EEC8440](v51);
+    v44 = MEMORY[0x23EEC8440](v50);
     v25 = MEMORY[0x277D75110];
     v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v27 = [v26 localizedStringForKey:@"SYNC_CONTACTS_TITLE" value:&stru_284EE3458 table:@"Devices"];
@@ -7278,60 +7367,57 @@ void __46__BTSDevicesController_showSyncContactsPopup___block_invoke(uint64_t a1
     v33 = MEMORY[0x277D750F8];
     v34 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v35 = [v34 localizedStringForKey:@"SYNC_DISALLOW_BUTTON" value:&stru_284EE3458 table:@"Devices"];
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __53__BTSDevicesController_showSyncContactsPrivacyPopup___block_invoke_2;
-    v49[3] = &unk_278BB05A8;
-    v36 = v45;
-    v50 = v36;
-    v37 = [v33 actionWithTitle:v35 style:1 handler:v49];
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __53__BTSDevicesController_showSyncContactsPrivacyPopup___block_invoke_2;
+    v48[3] = &unk_278BB05A8;
+    v36 = v44;
+    v49 = v36;
+    v37 = [v33 actionWithTitle:v35 style:1 handler:v48];
     [(UIAlertController *)v32 addAction:v37];
 
     v38 = self->_syncContactsPrivacyAlert;
     v39 = MEMORY[0x277D750F8];
     v40 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v41 = [v40 localizedStringForKey:@"SYNC_ALLOW_BUTTON" value:&stru_284EE3458 table:@"Devices"];
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __53__BTSDevicesController_showSyncContactsPrivacyPopup___block_invoke_3;
-    v47[3] = &unk_278BB05A8;
-    v48 = v36;
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __53__BTSDevicesController_showSyncContactsPrivacyPopup___block_invoke_3;
+    v46[3] = &unk_278BB05A8;
+    v47 = v36;
     v42 = v36;
-    v43 = [v39 actionWithTitle:v41 style:0 handler:v47];
+    v43 = [v39 actionWithTitle:v41 style:0 handler:v46];
     [(UIAlertController *)v38 addAction:v43];
 
-    v18 = v46;
+    v18 = v45;
     [(BTSDevicesController *)self presentViewController:self->_syncContactsPrivacyAlert animated:1 completion:0];
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __53__BTSDevicesController_showSyncContactsPrivacyPopup___block_invoke(uint64_t a1, int a2)
 {
   v4 = [*(a1 + 32) syncSettings];
-  v5 = *(a1 + 32);
-  v6 = 0x100000000;
+  v5 = 0x100000000;
   if (a2)
   {
-    v6 = 0x100000100;
+    v5 = 0x100000100;
   }
 
-  [*(a1 + 32) setSyncSettings:v6 | v4 & 0xFFFF00FF];
-  v7 = *(a1 + 40);
-  v8 = *(v7 + 1672);
-  *(v7 + 1672) = 0;
+  [*(a1 + 32) setSyncSettings:v5 | v4 & 0xFFFF00FF];
+  v6 = *(a1 + 40);
+  v7 = *(v6 + 1672);
+  *(v6 + 1672) = 0;
 
-  v9 = _currentDevice;
+  v8 = _currentDevice;
   _currentDevice = 0;
 
   if (a2)
   {
-    v10 = *(*(a1 + 40) + 1520);
-    v11 = [*(a1 + 32) address];
-    v12 = [v10 objectForKeyedSubscript:v11];
+    v9 = *(*(a1 + 40) + 1520);
+    v10 = [*(a1 + 32) address];
+    v11 = [v9 objectForKeyedSubscript:v10];
 
-    [*(a1 + 40) forcePushDetailViewForDevice:v12];
+    [*(a1 + 40) forcePushDetailViewForDevice:v11];
   }
 }
 
@@ -7386,7 +7472,7 @@ void __53__BTSDevicesController_showSyncContactsPrivacyPopup___block_invoke(uint
   }
 }
 
-uint64_t __60__BTSDevicesController_startedConnectionAttemptOnTransport___block_invoke(uint64_t a1)
+void *__60__BTSDevicesController_startedConnectionAttemptOnTransport___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) allowBluetoothScans:0];
   *(*(a1 + 32) + 1605) = 1;
@@ -7538,7 +7624,7 @@ void __43__BTSDevicesController_showUpgradeOSPopup___block_invoke(uint64_t a1, i
 
 - (BOOL)isSupportCarPlaySetup:(id)setup
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   setupCopy = setup;
   if (![(BTSDevicesController *)self isiPhone]|| ![(BTSDevicesController *)self isCarPlaySetupEnabled])
   {
@@ -7548,32 +7634,36 @@ void __43__BTSDevicesController_showUpgradeOSPopup___block_invoke(uint64_t a1, i
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    if (([setupCopy paired] & 1) == 0 && objc_msgSend(setupCopy, "isCarPlayDevice"))
+    if (([setupCopy paired] & 1) == 0)
     {
-      v5 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      isCarPlayDevice = [setupCopy isCarPlayDevice];
+      if (isCarPlayDevice)
       {
-        v11 = 138412290;
-        v12 = setupCopy;
-        _os_log_impl(&dword_23C0F7000, v5, OS_LOG_TYPE_DEFAULT, "Unpaired classic CarPlay, no CarPlay setup: %@", &v11, 0xCu);
-      }
+        v6 = sharedBluetoothSettingsLogComponent(isCarPlayDevice);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        {
+          v13 = 138412290;
+          v14 = setupCopy;
+          _os_log_impl(&dword_23C0F7000, v6, OS_LOG_TYPE_DEFAULT, "Unpaired classic CarPlay, no CarPlay setup: %@", &v13, 0xCu);
+        }
 
-      v6 = 0;
-      goto LABEL_19;
+        v7 = 0;
+        goto LABEL_19;
+      }
     }
 
     if ([(BTSDevicesController *)self isLECarPlayEnabled])
     {
-      v8 = [(BTSDevicesController *)self getLECarPlay:setupCopy];
+      v10 = [(BTSDevicesController *)self getLECarPlay:setupCopy];
 
-      if (v8)
+      if (v10)
       {
-        v5 = sharedBluetoothSettingsLogComponent();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+        v6 = sharedBluetoothSettingsLogComponent(v11);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
-          v11 = 138412290;
-          v12 = setupCopy;
-          v7 = "Paired classic device with LE CarPlay: %@";
+          v13 = 138412290;
+          v14 = setupCopy;
+          v9 = "Paired classic device with LE CarPlay: %@";
           goto LABEL_17;
         }
 
@@ -7582,32 +7672,37 @@ void __43__BTSDevicesController_showUpgradeOSPopup___block_invoke(uint64_t a1, i
     }
 
 LABEL_20:
-    v6 = 0;
+    v7 = 0;
     goto LABEL_21;
   }
 
-  if (!-[BTSDevicesController isLECarPlayEnabled](self, "isLECarPlayEnabled") || ![setupCopy isCarPlayDevice])
+  if (![(BTSDevicesController *)self isLECarPlayEnabled])
   {
     goto LABEL_20;
   }
 
-  v5 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  isCarPlayDevice2 = [setupCopy isCarPlayDevice];
+  if (!isCarPlayDevice2)
   {
-    v11 = 138412290;
-    v12 = setupCopy;
-    v7 = "LE only CarPlay: %@";
+    goto LABEL_20;
+  }
+
+  v6 = sharedBluetoothSettingsLogComponent(isCarPlayDevice2);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = 138412290;
+    v14 = setupCopy;
+    v9 = "LE only CarPlay: %@";
 LABEL_17:
-    _os_log_impl(&dword_23C0F7000, v5, OS_LOG_TYPE_DEFAULT, v7, &v11, 0xCu);
+    _os_log_impl(&dword_23C0F7000, v6, OS_LOG_TYPE_DEFAULT, v9, &v13, 0xCu);
   }
 
 LABEL_18:
-  v6 = 1;
+  v7 = 1;
 LABEL_19:
 
 LABEL_21:
-  v9 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v7;
 }
 
 - (BOOL)isLECarPlayEnabled
@@ -7637,7 +7732,7 @@ LABEL_21:
 
 - (void)startOutgoingCarPlaySetup:(id)setup
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   setupCopy = setup;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -7647,19 +7742,18 @@ LABEL_21:
   {
     device = [v6 device];
     address = [device address];
-    [(BTSDevicesController *)self allowBluetoothConnections:0];
-    v10 = sharedBluetoothSettingsLogComponent();
+    v10 = sharedBluetoothSettingsLogComponent([(BTSDevicesController *)self allowBluetoothConnections:0]);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = device;
+      v14 = device;
       _os_log_impl(&dword_23C0F7000, v10, OS_LOG_TYPE_DEFAULT, "CarPlay setup for classic device, %@", buf, 0xCu);
     }
 
     objc_initWeak(buf, device);
-    objc_copyWeak(&v13, buf);
+    objc_copyWeak(&v12, buf);
     CRStartBluetoothClassicPairing();
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(buf);
   }
 
@@ -7667,18 +7761,16 @@ LABEL_21:
   {
     device = [v6 identifier];
     address = [v7 name];
-    v11 = sharedBluetoothSettingsLogComponent();
+    v11 = sharedBluetoothSettingsLogComponent(address);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = device;
+      v14 = device;
       _os_log_impl(&dword_23C0F7000, v11, OS_LOG_TYPE_DEFAULT, "CarPlay setup for le device, UUID: %@", buf, 0xCu);
     }
 
     CRConnectBluetoothLE();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __50__BTSDevicesController_startOutgoingCarPlaySetup___block_invoke(uint64_t a1, char a2)
@@ -7698,7 +7790,7 @@ void __50__BTSDevicesController_startOutgoingCarPlaySetup___block_invoke(uint64_
 uint64_t __50__BTSDevicesController_startOutgoingCarPlaySetup___block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 48);
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(a1);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
   if (v2 == 1)
   {
@@ -7739,7 +7831,7 @@ void __50__BTSDevicesController_startOutgoingCarPlaySetup___block_invoke_745(uin
 uint64_t __50__BTSDevicesController_startOutgoingCarPlaySetup___block_invoke_2_746(uint64_t a1)
 {
   v2 = *(a1 + 40);
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(a1);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
   if (v2 == 1)
   {
@@ -7766,27 +7858,25 @@ LABEL_6:
 
 - (void)startIncomingCarPlaySetup:(id)setup andPasskey:(id)passkey
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   setupCopy = setup;
   passkeyCopy = passkey;
   address = [setupCopy address];
   name = [setupCopy name];
   v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%06u", objc_msgSend(passkeyCopy, "unsignedIntValue")];
-  v10 = sharedBluetoothSettingsLogComponent();
+  v10 = sharedBluetoothSettingsLogComponent(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = setupCopy;
+    v13 = setupCopy;
     _os_log_impl(&dword_23C0F7000, v10, OS_LOG_TYPE_DEFAULT, "CarPlay setup for classic device, %@", buf, 0xCu);
   }
 
   objc_initWeak(buf, setupCopy);
-  objc_copyWeak(&v12, buf);
+  objc_copyWeak(&v11, buf);
   CRConfirmAndContinueBluetoothClassicPairing();
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __61__BTSDevicesController_startIncomingCarPlaySetup_andPasskey___block_invoke(uint64_t a1, char a2)
@@ -7807,12 +7897,12 @@ uint64_t __61__BTSDevicesController_startIncomingCarPlaySetup_andPasskey___block
 {
   if (*(a1 + 48) == 1)
   {
-    v2 = sharedBluetoothSettingsLogComponent();
+    v2 = sharedBluetoothSettingsLogComponent(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 0;
+      v10 = 0;
       v3 = "successfully classic CarPlay paired";
-      v4 = &v9;
+      v4 = &v10;
 LABEL_6:
       _os_log_impl(&dword_23C0F7000, v2, OS_LOG_TYPE_DEFAULT, v3, v4, 2u);
     }
@@ -7824,12 +7914,12 @@ LABEL_6:
     v6 = [*(a1 + 40) address];
     [v5 reloadCellForSpecifierID:v6];
 
-    v2 = sharedBluetoothSettingsLogComponent();
+    v2 = sharedBluetoothSettingsLogComponent(v7);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 0;
+      v9 = 0;
       v3 = "failed to pair classic CarPlay";
-      v4 = &v8;
+      v4 = &v9;
       goto LABEL_6;
     }
   }
@@ -7861,18 +7951,17 @@ void __46__BTSDevicesController_isLEAudioLiveOnEnabled__block_invoke()
     }
   }
 
-  isLEAudioLiveOnEnabled_osFeatureLEAudioEnabled = _os_feature_enabled_impl();
-  v2 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v2 = _os_feature_enabled_impl();
+  isLEAudioLiveOnEnabled_osFeatureLEAudioEnabled = v2;
+  v3 = sharedBluetoothSettingsLogComponent(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4[0] = 67109376;
     v4[1] = isLEAudioLiveOnEnabled_flagExists;
     v5 = 1024;
     v6 = isLEAudioLiveOnEnabled_osFeatureLEAudioEnabled;
-    _os_log_impl(&dword_23C0F7000, v2, OS_LOG_TYPE_DEFAULT, "LEAudio - liveOnEnabled: %d, featureEnabled: %d", v4, 0xEu);
+    _os_log_impl(&dword_23C0F7000, v3, OS_LOG_TYPE_DEFAULT, "LEAudio - liveOnEnabled: %d, featureEnabled: %d", v4, 0xEu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markLEAudioDevice:(id)device
@@ -7883,16 +7972,16 @@ void __46__BTSDevicesController_isLEAudioLiveOnEnabled__block_invoke()
 
   if (v6)
   {
-    v7 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sharedBluetoothSettingsLogComponent(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_23C0F7000, v7, OS_LOG_TYPE_DEFAULT, "Mark LEAudio device", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_23C0F7000, v8, OS_LOG_TYPE_DEFAULT, "Mark LEAudio device", v11, 2u);
     }
 
     name = [deviceCopy name];
-    v9 = [@"[LEAudio]" stringByAppendingString:name];
-    [v6 setName:v9];
+    v10 = [@"[LEAudio]" stringByAppendingString:name];
+    [v6 setName:v10];
   }
 }
 
@@ -7964,97 +8053,95 @@ void __52__BTSDevicesController_migrateHKPairedHealthDevices__block_invoke(id *a
 
 void __52__BTSDevicesController_migrateHKPairedHealthDevices__block_invoke_2(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
 
   if (WeakRetained)
   {
     v3 = objc_loadWeakRetained((a1 + 56));
-    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v23 = a1;
+    v33 = 0u;
+    v24 = a1;
     obj = *(a1 + 32);
-    v4 = [obj countByEnumeratingWithState:&v29 objects:v38 count:16];
+    v4 = [obj countByEnumeratingWithState:&v30 objects:v39 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v30;
-      v25 = *MEMORY[0x277CCCB90];
+      v6 = *v31;
+      v26 = *MEMORY[0x277CCCB90];
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v30 != v6)
+          if (*v31 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v29 + 1) + 8 * i);
+          v8 = *(*(&v30 + 1) + 8 * i);
           v9 = v3[211];
           v10 = [v8 identifier];
-          v37 = v10;
-          v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
+          v38 = v10;
+          v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
           v12 = [v9 retrievePeripheralsWithIdentifiers:v11];
           v13 = [v12 firstObject];
 
           if (v13)
           {
-            [v13 tag:v25];
+            [v13 tag:v26];
             [v13 setCustomProperty:@"Fitness" value:@"1"];
-            v14 = v3[212];
-            v15 = [v8 identifier];
-            v26[0] = MEMORY[0x277D85DD0];
-            v26[1] = 3221225472;
-            v26[2] = __52__BTSDevicesController_migrateHKPairedHealthDevices__block_invoke_775;
-            v26[3] = &unk_278BB0670;
-            v26[4] = v8;
-            v27 = v13;
-            v28 = v3;
-            [v14 getEnabledStatusForPeripheral:v15 withCompletion:v26];
+            v15 = v3[212];
+            v16 = [v8 identifier];
+            v27[0] = MEMORY[0x277D85DD0];
+            v27[1] = 3221225472;
+            v27[2] = __52__BTSDevicesController_migrateHKPairedHealthDevices__block_invoke_775;
+            v27[3] = &unk_278BB0670;
+            v27[4] = v8;
+            v28 = v13;
+            v29 = v3;
+            [v15 getEnabledStatusForPeripheral:v16 withCompletion:v27];
           }
 
           else
           {
-            v16 = sharedBluetoothSettingsLogComponent();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+            v17 = sharedBluetoothSettingsLogComponent(v14);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
-              __52__BTSDevicesController_migrateHKPairedHealthDevices__block_invoke_2_cold_1(v35, v8, &v36, v16);
+              __52__BTSDevicesController_migrateHKPairedHealthDevices__block_invoke_2_cold_1(v36, v8, &v37, v17);
             }
           }
         }
 
-        v5 = [obj countByEnumeratingWithState:&v29 objects:v38 count:16];
+        v5 = [obj countByEnumeratingWithState:&v30 objects:v39 count:16];
       }
 
       while (v5);
     }
 
-    v17 = [*(v23 + 40) mutableCopy];
-    [v17 setObject:@"1" forKey:@"HRM_MIGRATION_COMPLETE"];
-    v18 = *(v23 + 48);
-    v19 = [v17 copy];
-    [v18 setPersistentDomain:v19 forName:@"com.apple.bluetooth.settings"];
+    v18 = [*(v24 + 40) mutableCopy];
+    [v18 setObject:@"1" forKey:@"HRM_MIGRATION_COMPLETE"];
+    v19 = *(v24 + 48);
+    v20 = [v18 copy];
+    [v19 setPersistentDomain:v20 forName:@"com.apple.bluetooth.settings"];
 
-    v20 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v22 = sharedBluetoothSettingsLogComponent(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = [*(v23 + 32) count];
+      v23 = [*(v24 + 32) count];
       *buf = 134217984;
-      v34 = v21;
-      _os_log_impl(&dword_23C0F7000, v20, OS_LOG_TYPE_DEFAULT, "HRM migration complete. Migrated %lu devices", buf, 0xCu);
+      v35 = v23;
+      _os_log_impl(&dword_23C0F7000, v22, OS_LOG_TYPE_DEFAULT, "HRM migration complete. Migrated %lu devices", buf, 0xCu);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __52__BTSDevicesController_migrateHKPairedHealthDevices__block_invoke_775(uint64_t a1, int a2, uint64_t a3)
 {
   if (a3)
   {
-    v4 = sharedBluetoothSettingsLogComponent();
+    v4 = sharedBluetoothSettingsLogComponent(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __52__BTSDevicesController_migrateHKPairedHealthDevices__block_invoke_775_cold_1(a1);
@@ -8094,8 +8181,8 @@ void __52__BTSDevicesController_migrateHKPairedHealthDevices__block_invoke_775(u
 
 void __52__BTSDevicesController_migrateHKPairedHealthDevices__block_invoke_779(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v5 = sharedBluetoothSettingsLogComponent();
+  v16 = *MEMORY[0x277D85DE8];
+  v5 = sharedBluetoothSettingsLogComponent(a1);
   v6 = v5;
   if (a3)
   {
@@ -8112,7 +8199,7 @@ void __52__BTSDevicesController_migrateHKPairedHealthDevices__block_invoke_779(u
       v7 = [*(a1 + 32) identifier];
       v8 = [v7 UUIDString];
       *buf = 138412290;
-      v16 = v8;
+      v15 = v8;
       _os_log_impl(&dword_23C0F7000, v6, OS_LOG_TYPE_DEFAULT, "Successfully migrated HRM device from HK to BT for identifier %@", buf, 0xCu);
     }
 
@@ -8124,17 +8211,15 @@ void __52__BTSDevicesController_migrateHKPairedHealthDevices__block_invoke_779(u
       [*(*(a1 + 40) + 1704) addObject:v10];
     }
 
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __52__BTSDevicesController_migrateHKPairedHealthDevices__block_invoke_780;
-    v12[3] = &unk_278BB0318;
-    v13 = *(a1 + 40);
-    v14 = v10;
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __52__BTSDevicesController_migrateHKPairedHealthDevices__block_invoke_780;
+    v11[3] = &unk_278BB0318;
+    v12 = *(a1 + 40);
+    v13 = v10;
     v6 = v10;
-    dispatch_async(MEMORY[0x277D85CD0], v12);
+    dispatch_async(MEMORY[0x277D85CD0], v11);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __52__BTSDevicesController_migrateHKPairedHealthDevices__block_invoke_780(uint64_t a1)
@@ -8159,40 +8244,41 @@ void __52__BTSDevicesController_migrateHKPairedHealthDevices__block_invoke_780(u
 - (id)_headphoneSettingsControllerFor:(id)for
 {
   forCopy = for;
-  if ([MEMORY[0x277D0FB80] modernSettingsUIFFEnabled])
+  modernSettingsUIFFEnabled = [MEMORY[0x277D0FB80] modernSettingsUIFFEnabled];
+  if (modernSettingsUIFFEnabled)
   {
     userInfo = [forCopy userInfo];
-    v5 = [userInfo objectForKeyedSubscript:@"bt-device"];
+    v6 = [userInfo objectForKeyedSubscript:@"bt-device"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v6 = [userInfo objectForKeyedSubscript:@"bt-device"];
+      v7 = [userInfo objectForKeyedSubscript:@"bt-device"];
 
-      if (v6)
+      if (v7)
       {
-        device = [v6 device];
+        device = [v7 device];
         if ([device isGenuineAirPods])
         {
-          device2 = [v6 device];
+          device2 = [v7 device];
           isAppleAudioDevice = [device2 isAppleAudioDevice];
 
           if (isAppleAudioDevice)
           {
-            device3 = [v6 device];
+            device3 = [v7 device];
             address = [device3 address];
-            v12 = [address stringByReplacingOccurrencesOfString:@":" withString:@"-"];
+            v15 = [address stringByReplacingOccurrencesOfString:@":" withString:@"-"];
 
             mEMORY[0x277D0FC08] = [MEMORY[0x277D0FC08] shared];
             connectedHeadphones = [mEMORY[0x277D0FC08] connectedHeadphones];
-            v15 = [connectedHeadphones objectForKeyedSubscript:v12];
+            v18 = [connectedHeadphones objectForKeyedSubscript:v15];
 
-            v16 = [objc_alloc(MEMORY[0x277D0FB78]) initWithHeadphoneDevice:v15 btsDevice:v6];
+            v19 = [objc_alloc(MEMORY[0x277D0FB78]) initWithHeadphoneDevice:v18 btsDevice:v7];
             deviceKey = [MEMORY[0x277D0FB78] deviceKey];
-            [userInfo setObject:v16 forKey:deviceKey];
+            [userInfo setObject:v19 forKey:deviceKey];
 
             [forCopy setUserInfo:userInfo];
-            v18 = [MEMORY[0x277D0FB80] controllerForSpecifier:forCopy];
-            [forCopy setTarget:v18];
+            v21 = [MEMORY[0x277D0FB80] controllerForSpecifier:forCopy];
+            [forCopy setTarget:v21];
 
 LABEL_18:
             goto LABEL_19;
@@ -8203,14 +8289,14 @@ LABEL_18:
         {
         }
 
-        v19 = sharedBluetoothSettingsLogComponent();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v22 = sharedBluetoothSettingsLogComponent(v12);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           [BTSDevicesController _headphoneSettingsControllerFor:];
         }
 
 LABEL_17:
-        v18 = 0;
+        v21 = 0;
         goto LABEL_18;
       }
     }
@@ -8219,8 +8305,8 @@ LABEL_17:
     {
     }
 
-    v6 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sharedBluetoothSettingsLogComponent(v8);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [BTSDevicesController _headphoneSettingsControllerFor:];
     }
@@ -8228,16 +8314,16 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  userInfo = sharedBluetoothSettingsLogComponent();
+  userInfo = sharedBluetoothSettingsLogComponent(modernSettingsUIFFEnabled);
   if (os_log_type_enabled(userInfo, OS_LOG_TYPE_ERROR))
   {
     [BTSDevicesController _headphoneSettingsControllerFor:];
   }
 
-  v18 = 0;
+  v21 = 0;
 LABEL_19:
 
-  return v18;
+  return v21;
 }
 
 - (void)init
@@ -8249,196 +8335,142 @@ LABEL_19:
 
 void __28__BTSDevicesController_init__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-- (void)authenticationRequestHandler:.cold.1()
+- (void)authenticationRequestHandler:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)authenticationRequestHandler:(void *)a1 .cold.2(void *a1)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = a1[206];
-  v2 = a1[205];
-  v3 = a1[207];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void __51__BTSDevicesController_pairingAgent_peerDidUnpair___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_9();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = [OUTLINED_FUNCTION_8(v1) identifier];
+  v1 = [OUTLINED_FUNCTION_8(v0) identifier];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)peripheral:didDiscoverServices:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)peripheral:didDiscoverServices:.cold.2()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v4 = v0;
-  _os_log_debug_impl(&dword_23C0F7000, v1, OS_LOG_TYPE_DEBUG, "Device %@ supports health service(s): %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_debug_impl(&dword_23C0F7000, v1, OS_LOG_TYPE_DEBUG, "Device %@ supports health service(s): %@", v2, 0x16u);
 }
 
 - (void)peripheral:didDiscoverServices:.cold.3()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_10(&dword_23C0F7000, v0, v1, "Pairing HRM device: %@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_10(&dword_23C0F7000, v0, v1, "Pairing HRM device: %@", v2);
 }
 
-void __55__BTSDevicesController_peripheral_didDiscoverServices___block_invoke_cold_1(uint64_t a1)
+void __55__BTSDevicesController_peripheral_didDiscoverServices___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 - (void)_getDeviceForPeripheral:.cold.1()
 {
   OUTLINED_FUNCTION_9();
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [v1 name];
+  v6 = [v1 name];
   [v0 isCTKDDevice];
   [v0 isManagedByWallet];
   [v0 isManagedByAliroWallet];
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0x1Eu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getDeviceForCTKDPeripheral:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addDeviceSpecifier:withDevice:.cold.1()
 {
   OUTLINED_FUNCTION_9();
   v1 = v0;
-  v8 = *MEMORY[0x277D85DE8];
   [v0 isMyDevice];
-  v7 = [v1 name];
+  v6 = [v1 name];
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)healthDeviceUnregisteredHandler:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_10(&dword_23C0F7000, v0, v1, "Unregistering health device %@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_10(&dword_23C0F7000, v0, v1, "Unregistering health device %@", v2);
 }
 
 void __44__BTSDevicesController__updateHealthDevices__block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateDevicePosition:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_10(v2, v3, v4, v5, v6);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateDevicePosition:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tableView:accessoryButtonTappedForRowWithIndexPath:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tableView:(void *)a1 didSelectRowAtIndexPath:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_10(v2, v3, v4, v5, v6);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tableView:viewForFooterInSection:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-- (void)tableView:(uint64_t)a1 viewForFooterInSection:(uint64_t *)a2 .cold.2(uint64_t a1, uint64_t *a2)
+- (void)tableView:viewForFooterInSection:.cold.2()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __52__BTSDevicesController_migrateHKPairedHealthDevices__block_invoke_2_cold_1(uint8_t *a1, void *a2, void *a3, NSObject *a4)
@@ -8452,26 +8484,20 @@ void __52__BTSDevicesController_migrateHKPairedHealthDevices__block_invoke_2_col
 
 void __52__BTSDevicesController_migrateHKPairedHealthDevices__block_invoke_775_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = [OUTLINED_FUNCTION_8(a1) identifier];
-  v3 = [v2 UUIDString];
+  v1 = [OUTLINED_FUNCTION_8(a1) identifier];
+  v2 = [v1 UUIDString];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 void __52__BTSDevicesController_migrateHKPairedHealthDevices__block_invoke_779_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = [OUTLINED_FUNCTION_8(a1) identifier];
-  v3 = [v2 UUIDString];
+  v1 = [OUTLINED_FUNCTION_8(a1) identifier];
+  v2 = [v1 UUIDString];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 - (void)_headphoneSettingsControllerFor:.cold.1()

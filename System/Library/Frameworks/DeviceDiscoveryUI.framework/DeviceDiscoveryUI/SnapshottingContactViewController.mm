@@ -34,10 +34,10 @@
   {
     v3 = *(&self->super.super._responderFlags + OBJC_IVAR____TtC17DeviceDiscoveryUI33SnapshottingContactViewController_dismiss);
     selfCopy = self;
-    v5 = sub_238086B74(v2);
+    v5 = sub_238086B74(v2, v3);
     v2(v5);
 
-    sub_23807A454(v2);
+    sub_23807A454(v2, v3);
   }
 }
 
@@ -48,10 +48,10 @@
   {
     v5 = *(&self->super.super._responderFlags + OBJC_IVAR____TtC17DeviceDiscoveryUI33SnapshottingContactViewController_dismiss);
     selfCopy = self;
-    v7 = sub_238086B74(v4);
+    v7 = sub_238086B74(v4, v5);
     v4(v7);
 
-    sub_23807A454(v4);
+    sub_23807A454(v4, v5);
   }
 }
 

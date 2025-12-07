@@ -145,7 +145,7 @@ void __34__VCSessionManager_sharedInstance__block_invoke()
   return v4;
 }
 
-uint64_t __35__VCSessionManager_sessionForUUID___block_invoke(void *a1)
+void *__35__VCSessionManager_sessionForUUID___block_invoke(void *a1)
 {
   result = [*(a1[4] + 8) objectForKeyedSubscript:a1[5]];
   *(*(a1[6] + 8) + 40) = result;
@@ -175,7 +175,7 @@ uint64_t __35__VCSessionManager_sessionForUUID___block_invoke(void *a1)
   return v4;
 }
 
-uint64_t __42__VCSessionManager_sessionForStreamToken___block_invoke(uint64_t a1)
+void *__42__VCSessionManager_sessionForStreamToken___block_invoke(uint64_t a1)
 {
   v14 = *MEMORY[0x1E69E9840];
   v10 = 0u;
@@ -207,7 +207,7 @@ uint64_t __42__VCSessionManager_sessionForStreamToken___block_invoke(uint64_t a1
           return result;
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);

@@ -157,7 +157,7 @@ void __29__UAUserActivityManager_init__block_invoke(uint64_t a1)
 
 - (NSXPCConnection)connection
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (selfCopy->_allowedToConnect)
@@ -175,7 +175,7 @@ void __29__UAUserActivityManager_init__block_invoke(uint64_t a1)
       {
         v7 = UActivityCreationXPCServiceName();
         *buf = 138543362;
-        v21 = v7;
+        v20 = v7;
         _os_log_impl(&dword_226A4E000, v6, OS_LOG_TYPE_DEBUG, "Creating NSXPCConnection to server %{public}@", buf, 0xCu);
       }
 
@@ -193,18 +193,18 @@ void __29__UAUserActivityManager_init__block_invoke(uint64_t a1)
       v14 = _LSGetUserActivityClientResponseProtocolInterface();
       [(NSXPCConnection *)selfCopy->_connection setExportedInterface:v14];
 
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __35__UAUserActivityManager_connection__block_invoke;
-      v19[3] = &unk_2785C3D18;
-      v19[4] = v8;
-      [(NSXPCConnection *)selfCopy->_connection setInterruptionHandler:v19];
       v18[0] = MEMORY[0x277D85DD0];
       v18[1] = 3221225472;
-      v18[2] = __35__UAUserActivityManager_connection__block_invoke_2;
+      v18[2] = __35__UAUserActivityManager_connection__block_invoke;
       v18[3] = &unk_2785C3D18;
       v18[4] = v8;
-      [(NSXPCConnection *)selfCopy->_connection setInvalidationHandler:v18];
+      [(NSXPCConnection *)selfCopy->_connection setInterruptionHandler:v18];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __35__UAUserActivityManager_connection__block_invoke_2;
+      v17[3] = &unk_2785C3D18;
+      v17[4] = v8;
+      [(NSXPCConnection *)selfCopy->_connection setInvalidationHandler:v17];
       [(NSXPCConnection *)selfCopy->_connection resume];
       v4 = selfCopy->_connection;
     }
@@ -235,8 +235,6 @@ void __29__UAUserActivityManager_init__block_invoke(uint64_t a1)
 
     v4 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -287,12 +285,12 @@ void __68__UAUserActivityManager_registerForApplicationDeactivateIfNecessary__bl
 
 char *__39__UAUserActivityManager_defaultManager__block_invoke_2()
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCAB68] string];
-  v25 = 0u;
-  v26 = 0u;
-  *__s = 0u;
   v24 = 0u;
+  v25 = 0u;
+  *__s = 0u;
+  v23 = 0u;
   strstr("@(#)PROGRAM:UserActivity  PROJECT:UserActivity-551\n", "PROJECT:");
   __strlcpy_chk();
   v1 = strrchr(__s, 10);
@@ -339,32 +337,32 @@ char *__39__UAUserActivityManager_defaultManager__block_invoke_2()
   if (v9)
   {
     [v0 appendString:@" - otherUUIDs:["];
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v10 = [defaultManager_sManager userActivitiesByUUID];
     v11 = [v10 keyEnumerator];
 
-    v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v12)
     {
-      v13 = *v19;
+      v13 = *v18;
       do
       {
         v14 = 0;
         do
         {
-          if (*v19 != v13)
+          if (*v18 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          [v0 appendFormat:@"%@ ", *(*(&v18 + 1) + 8 * v14++)];
+          [v0 appendFormat:@"%@ ", *(*(&v17 + 1) + 8 * v14++)];
         }
 
         while (v12 != v14);
-        v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v12);
@@ -376,7 +374,6 @@ char *__39__UAUserActivityManager_defaultManager__block_invoke_2()
   objc_sync_exit(v7);
 
   v15 = serializedCFType(v0);
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -620,7 +617,7 @@ void __35__UAUserActivityManager_connection__block_invoke_2(uint64_t a1)
 
 - (void)connectionInterrupted
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -645,7 +642,7 @@ void __35__UAUserActivityManager_connection__block_invoke_2(uint64_t a1)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134349056;
-        v13 = 0x3FB999999999999ALL;
+        v12 = 0x3FB999999999999ALL;
         _os_log_impl(&dword_226A4E000, v7, OS_LOG_TYPE_DEBUG, "CONNECTION reconnect; queueing up reconnection attempt in %{public}g seconds because our connection was interrupted.", buf, 0xCu);
       }
 
@@ -659,8 +656,6 @@ void __35__UAUserActivityManager_connection__block_invoke_2(uint64_t a1)
       dispatch_after(v8, serverQ, block);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__UAUserActivityManager_connectionInterrupted__block_invoke(uint64_t a1)
@@ -692,43 +687,43 @@ uint64_t __46__UAUserActivityManager_connectionInterrupted__block_invoke(uint64_
 
 - (id)fetchUUID:(id)d intervalToWaitForDocumentSynchonization:(double)synchonization withCompletionHandler:(id)handler
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   v10 = handlerCopy;
   if (dCopy)
   {
-    v47[0] = 0;
-    v47[1] = v47;
-    v47[2] = 0x3032000000;
-    v47[3] = __Block_byref_object_copy__2;
-    v47[4] = __Block_byref_object_dispose__2;
-    v48 = 0;
-    v45[0] = 0;
-    v45[1] = v45;
-    v45[2] = 0x3032000000;
-    v45[3] = __Block_byref_object_copy__2;
-    v45[4] = __Block_byref_object_dispose__2;
-    v46 = 0;
+    v46[0] = 0;
+    v46[1] = v46;
+    v46[2] = 0x3032000000;
+    v46[3] = __Block_byref_object_copy__2;
+    v46[4] = __Block_byref_object_dispose__2;
+    v47 = 0;
+    v44[0] = 0;
+    v44[1] = v44;
+    v44[2] = 0x3032000000;
+    v44[3] = __Block_byref_object_copy__2;
+    v44[4] = __Block_byref_object_dispose__2;
+    v45 = 0;
     v11 = _uaGetLogForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       uUIDString = [dCopy UUIDString];
       *buf = 138543362;
-      v50 = uUIDString;
+      v49 = uUIDString;
       _os_log_impl(&dword_226A4E000, v11, OS_LOG_TYPE_DEBUG, "uuid=%{public}@", buf, 0xCu);
     }
 
     v13 = [MEMORY[0x277CCAC48] progressWithTotalUnitCount:1];
     [v13 setCancellable:1];
     [v13 setPausable:0];
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __97__UAUserActivityManager_fetchUUID_intervalToWaitForDocumentSynchonization_withCompletionHandler___block_invoke;
-    v43[3] = &unk_2785C3D18;
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __97__UAUserActivityManager_fetchUUID_intervalToWaitForDocumentSynchonization_withCompletionHandler___block_invoke;
+    v42[3] = &unk_2785C3D18;
     v14 = dCopy;
-    v44 = v14;
-    [v13 setCancellationHandler:v43];
+    v43 = v14;
+    [v13 setCancellationHandler:v42];
     v15 = [(UAUserActivityManager *)self userActivityForUUID:v14];
     if (v15)
     {
@@ -737,7 +732,7 @@ uint64_t __46__UAUserActivityManager_connectionInterrupted__block_invoke(uint64_
       {
         uUIDString2 = [v14 UUIDString];
         *buf = 138412290;
-        v50 = uUIDString2;
+        v49 = uUIDString2;
         _os_log_impl(&dword_226A4E000, v16, OS_LOG_TYPE_INFO, "Found activity %@ local to this process, so doing an immediate copy.", buf, 0xCu);
       }
 
@@ -747,15 +742,15 @@ uint64_t __46__UAUserActivityManager_connectionInterrupted__block_invoke(uint64_
       block[1] = 3221225472;
       block[2] = __97__UAUserActivityManager_fetchUUID_intervalToWaitForDocumentSynchonization_withCompletionHandler___block_invoke_35;
       block[3] = &unk_2785C4298;
-      v41 = v47;
-      v37 = v15;
-      v38 = v13;
-      v39 = v14;
-      v42 = v45;
-      v40 = v10;
+      v40 = v46;
+      v36 = v15;
+      v37 = v13;
+      v38 = v14;
+      v41 = v44;
+      v39 = v10;
       dispatch_async(v18, block);
 
-      v19 = &v37;
+      v19 = &v36;
     }
 
     else
@@ -768,30 +763,30 @@ uint64_t __46__UAUserActivityManager_connectionInterrupted__block_invoke(uint64_
       if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
       {
         *buf = 138543362;
-        v50 = v14;
+        v49 = v14;
         _os_signpost_emit_with_name_impl(&dword_226A4E000, v24, OS_SIGNPOST_INTERVAL_BEGIN, v22, "fetchUserActivity", "Fetching handoff payload:%{public}@", buf, 0xCu);
       }
 
       serverQ = [(UAUserActivityManager *)self serverQ];
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __97__UAUserActivityManager_fetchUUID_intervalToWaitForDocumentSynchonization_withCompletionHandler___block_invoke_37;
-      v28[3] = &unk_2785C4310;
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __97__UAUserActivityManager_fetchUUID_intervalToWaitForDocumentSynchonization_withCompletionHandler___block_invoke_37;
+      v27[3] = &unk_2785C4310;
       synchonizationCopy = synchonization;
-      v29[0] = v14;
-      v29[1] = self;
-      v32 = v45;
-      v30 = v13;
-      v33 = v47;
-      v31 = v10;
-      v35 = v22;
-      dispatch_async(serverQ, v28);
+      v28[0] = v14;
+      v28[1] = self;
+      v31 = v44;
+      v29 = v13;
+      v32 = v46;
+      v30 = v10;
+      v34 = v22;
+      dispatch_async(serverQ, v27);
 
-      v19 = v29;
+      v19 = v28;
     }
 
-    _Block_object_dispose(v45, 8);
-    _Block_object_dispose(v47, 8);
+    _Block_object_dispose(v44, 8);
+    _Block_object_dispose(v46, 8);
   }
 
   else
@@ -805,29 +800,25 @@ uint64_t __46__UAUserActivityManager_connectionInterrupted__block_invoke(uint64_
     v13 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 void __97__UAUserActivityManager_fetchUUID_intervalToWaitForDocumentSynchonization_withCompletionHandler___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) UUIDString];
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_226A4E000, v2, OS_LOG_TYPE_INFO, "cancellationHandler for activity %{public}@ cancelled.", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_impl(&dword_226A4E000, v2, OS_LOG_TYPE_INFO, "cancellationHandler for activity %{public}@ cancelled.", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __97__UAUserActivityManager_fetchUUID_intervalToWaitForDocumentSynchonization_withCompletionHandler___block_invoke_35(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = [*(a1 + 32) copyWithNewUUID:1];
   v4 = *(*(a1 + 64) + 8);
@@ -843,43 +834,41 @@ void __97__UAUserActivityManager_fetchUUID_intervalToWaitForDocumentSynchonizati
       v7 = [*(*(*(a1 + 64) + 8) + 40) uniqueIdentifier];
       v8 = [v7 UUIDString];
       v9 = *(*(*(a1 + 64) + 8) + 40);
-      v17 = 138543619;
-      v18 = v8;
-      v19 = 2113;
-      v20 = v9;
-      _os_log_impl(&dword_226A4E000, v6, OS_LOG_TYPE_DEBUG, "Calling completion handler with activity %{public}@/%{private}@", &v17, 0x16u);
+      v15 = 138543619;
+      v16 = v8;
+      v17 = 2113;
+      v18 = v9;
+      _os_log_impl(&dword_226A4E000, v6, OS_LOG_TYPE_DEBUG, "Calling completion handler with activity %{public}@/%{private}@", &v15, 0x16u);
     }
 
-    v10 = *(*(*(a1 + 64) + 8) + 40);
     (*(*(a1 + 56) + 16))();
   }
 
   else
   {
-    v11 = _uaGetLogForCategory(0);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = _uaGetLogForCategory(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = [*(a1 + 48) UUIDString];
-      v13 = *(a1 + 32);
-      v17 = 138543619;
+      v11 = [*(a1 + 48) UUIDString];
+      v12 = *(a1 + 32);
+      v15 = 138543619;
+      v16 = v11;
+      v17 = 2113;
       v18 = v12;
-      v19 = 2113;
-      v20 = v13;
-      _os_log_impl(&dword_226A4E000, v11, OS_LOG_TYPE_ERROR, "Failed attempting to copy %{public}@/%{private}@, so calling completion handler with UAContinuityClientNoSuchActivity@", &v17, 0x16u);
+      _os_log_impl(&dword_226A4E000, v10, OS_LOG_TYPE_ERROR, "Failed attempting to copy %{public}@/%{private}@, so calling completion handler with UAContinuityClientNoSuchActivity@", &v15, 0x16u);
     }
 
-    v14 = *(a1 + 56);
-    v15 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"UAContinuityErrorDomain" code:-108 userInfo:0];
-    (*(v14 + 16))(v14, 0, v15);
+    v13 = *(a1 + 56);
+    v14 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"UAContinuityErrorDomain" code:-108 userInfo:0];
+    (*(v13 + 16))(v13, 0, v14);
   }
 
   objc_autoreleasePoolPop(v2);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __97__UAUserActivityManager_fetchUUID_intervalToWaitForDocumentSynchonization_withCompletionHandler___block_invoke_37(uint64_t a1)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v2 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
@@ -898,16 +887,16 @@ void __97__UAUserActivityManager_fetchUUID_intervalToWaitForDocumentSynchonizati
   }
 
   v6 = [*(a1 + 40) connection];
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __97__UAUserActivityManager_fetchUUID_intervalToWaitForDocumentSynchonization_withCompletionHandler___block_invoke_38;
-  v49[3] = &unk_2785C42C0;
-  v52 = *(a1 + 64);
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __97__UAUserActivityManager_fetchUUID_intervalToWaitForDocumentSynchonization_withCompletionHandler___block_invoke_38;
+  v46[3] = &unk_2785C42C0;
+  v49 = *(a1 + 64);
   v7 = v4;
-  v50 = v7;
+  v47 = v7;
   v8 = v5;
-  v51 = v8;
-  v9 = [v6 remoteObjectProxyWithErrorHandler:v49];
+  v48 = v8;
+  v9 = [v6 remoteObjectProxyWithErrorHandler:v46];
 
   if (!v9)
   {
@@ -925,20 +914,20 @@ void __97__UAUserActivityManager_fetchUUID_intervalToWaitForDocumentSynchonizati
   }
 
   v10 = *(a1 + 32);
-  v39 = MEMORY[0x277D85DD0];
-  v40 = 3221225472;
-  v41 = __97__UAUserActivityManager_fetchUUID_intervalToWaitForDocumentSynchonization_withCompletionHandler___block_invoke_40;
-  v42 = &unk_2785C42E8;
-  v43 = v10;
+  v36 = MEMORY[0x277D85DD0];
+  v37 = 3221225472;
+  v38 = __97__UAUserActivityManager_fetchUUID_intervalToWaitForDocumentSynchonization_withCompletionHandler___block_invoke_40;
+  v39 = &unk_2785C42E8;
+  v40 = v10;
   v11 = *(a1 + 48);
-  v48 = *(a1 + 64);
+  v45 = *(a1 + 64);
   v12 = *(a1 + 40);
-  v44 = v11;
-  v45 = v12;
-  v46 = v7;
+  v41 = v11;
+  v42 = v12;
+  v43 = v7;
   v13 = v8;
-  v47 = v13;
-  [v9 doFetchUserActivityInfoWithUUID:v43 completionHandler:&v39];
+  v44 = v13;
+  [v9 doFetchUserActivityInfoWithUUID:v40 completionHandler:&v36];
   v14 = *(a1 + 80);
   if (v14 < 3.40282347e38)
   {
@@ -985,71 +974,67 @@ LABEL_13:
 
 LABEL_18:
 
-  v18 = v43;
+  v18 = v40;
 LABEL_19:
 
   if (*(a1 + 56))
   {
-    v25 = *(*(*(a1 + 72) + 8) + 40);
-    v26 = *(*(*(a1 + 64) + 8) + 40);
     (*(*(a1 + 56) + 16))();
   }
 
-  v27 = _uaGetLogForCategory(@"signposts");
-  v28 = v27;
-  v29 = *(a1 + 88);
-  if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+  v25 = _uaGetLogForCategory(@"signposts");
+  v26 = v25;
+  v27 = *(a1 + 88);
+  if (v27 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
   {
-    v30 = *(a1 + 32);
-    v31 = *(*(*(a1 + 64) + 8) + 40) != 0;
+    v28 = *(a1 + 32);
+    v29 = *(*(*(a1 + 64) + 8) + 40) != 0;
     *buf = 138543618;
-    *&buf[4] = v30;
+    *&buf[4] = v28;
     *&buf[12] = 1026;
-    *&buf[14] = v31;
-    _os_signpost_emit_with_name_impl(&dword_226A4E000, v28, OS_SIGNPOST_INTERVAL_END, v29, "fetchUserActivity", "Fetching handoff payload:%{public}@ err=%{public}d", buf, 0x12u);
+    *&buf[14] = v29;
+    _os_signpost_emit_with_name_impl(&dword_226A4E000, v26, OS_SIGNPOST_INTERVAL_END, v27, "fetchUserActivity", "Fetching handoff payload:%{public}@ err=%{public}d", buf, 0x12u);
   }
 
-  v32 = _uaGetLogForCategory(@"signposts");
-  v33 = *(a1 + 32);
-  if (v33)
+  v30 = _uaGetLogForCategory(@"signposts");
+  v31 = *(a1 + 32);
+  if (v31)
   {
     *buf = 0;
     *&buf[8] = 0;
-    [v33 getUUIDBytes:buf];
-    v34 = 0;
-    v35 = 0;
+    [v31 getUUIDBytes:buf];
+    v32 = 0;
+    v33 = 0;
     do
     {
-      v35 = (buf[v34 + 1] ^ buf[v34]) | (v35 << 8);
-      v34 += 2;
+      v33 = (buf[v32 + 1] ^ buf[v32]) | (v33 << 8);
+      v32 += 2;
     }
 
-    while (v34 != 16);
-    if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
+    while (v32 != 16);
+    if (v33 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
     {
-      v36 = *(a1 + 32);
-      v37 = *(*(*(a1 + 64) + 8) + 40) != 0;
+      v34 = *(a1 + 32);
+      v35 = *(*(*(a1 + 64) + 8) + 40) != 0;
       *buf = 138543618;
-      *&buf[4] = v36;
+      *&buf[4] = v34;
       *&buf[12] = 1026;
-      *&buf[14] = v37;
-      _os_signpost_emit_with_name_impl(&dword_226A4E000, v32, OS_SIGNPOST_INTERVAL_END, v35, "fetchUserActivityQueued", "Fetching handoff payload:%{public}@ err=%{public}d", buf, 0x12u);
+      *&buf[14] = v35;
+      _os_signpost_emit_with_name_impl(&dword_226A4E000, v30, OS_SIGNPOST_INTERVAL_END, v33, "fetchUserActivityQueued", "Fetching handoff payload:%{public}@ err=%{public}d", buf, 0x12u);
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __97__UAUserActivityManager_fetchUUID_intervalToWaitForDocumentSynchonization_withCompletionHandler___block_invoke_38(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138543362;
-    v9 = v4;
-    _os_log_impl(&dword_226A4E000, v5, OS_LOG_TYPE_ERROR, "Error attempting to get user activity from server: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v4;
+    _os_log_impl(&dword_226A4E000, v5, OS_LOG_TYPE_ERROR, "Error attempting to get user activity from server: %{public}@", &v7, 0xCu);
   }
 
   objc_storeStrong((*(*(a1 + 48) + 8) + 40), a2);
@@ -1059,26 +1044,24 @@ void __97__UAUserActivityManager_fetchUUID_intervalToWaitForDocumentSynchonizati
   {
     dispatch_group_leave(v6);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __97__UAUserActivityManager_fetchUUID_intervalToWaitForDocumentSynchonization_withCompletionHandler___block_invoke_40(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = [*(a1 + 32) UUIDString];
-    v18 = 138543875;
-    v19 = v8;
-    v20 = 2113;
-    v21 = v5;
-    v22 = 2114;
-    v23 = v6;
-    _os_log_impl(&dword_226A4E000, v7, OS_LOG_TYPE_INFO, "fetchUUID: for uuid %{public}@, got %{private}@ from server, error=%{public}@", &v18, 0x20u);
+    v17 = 138543875;
+    v18 = v8;
+    v19 = 2113;
+    v20 = v5;
+    v21 = 2114;
+    v22 = v6;
+    _os_log_impl(&dword_226A4E000, v7, OS_LOG_TYPE_INFO, "fetchUUID: for uuid %{public}@, got %{private}@ from server, error=%{public}@", &v17, 0x20u);
   }
 
   kdebug_trace();
@@ -1121,24 +1104,22 @@ LABEL_10:
   {
     dispatch_group_leave(v16);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addUserActivity:(id)activity
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   v5 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     uniqueIdentifier = [activityCopy uniqueIdentifier];
     uUIDString = [uniqueIdentifier UUIDString];
-    v12 = 138543619;
-    v13 = uUIDString;
-    v14 = 2113;
-    v15 = activityCopy;
-    _os_log_impl(&dword_226A4E000, v5, OS_LOG_TYPE_DEBUG, "(%{public}@, %{private}@)", &v12, 0x16u);
+    v11 = 138543619;
+    v12 = uUIDString;
+    v13 = 2113;
+    v14 = activityCopy;
+    _os_log_impl(&dword_226A4E000, v5, OS_LOG_TYPE_DEBUG, "(%{public}@, %{private}@)", &v11, 0x16u);
   }
 
   selfCopy = self;
@@ -1148,7 +1129,6 @@ LABEL_10:
   [(NSMapTable *)userActivitiesByUUID setObject:activityCopy forKey:uniqueIdentifier2];
 
   objc_sync_exit(selfCopy);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeUserActivity:(id)activity
@@ -1189,7 +1169,7 @@ LABEL_10:
 
 void __44__UAUserActivityManager_removeUserActivity___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) connection];
   v3 = [v2 remoteObjectProxy];
 
@@ -1199,15 +1179,13 @@ void __44__UAUserActivityManager_removeUserActivity___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       v5 = [*(a1 + 40) UUIDString];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_DEBUG, "calling doDeleteUserActivityWithUUID: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_DEBUG, "calling doDeleteUserActivityWithUUID: %{public}@", &v6, 0xCu);
     }
 
     [v3 doDeleteUserActivityWithUUID:*(a1 + 40)];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addDynamicUserActivity:(id)activity matching:(id)matching
@@ -1229,7 +1207,7 @@ void __44__UAUserActivityManager_removeUserActivity___block_invoke(uint64_t a1)
 
 void __57__UAUserActivityManager_addDynamicUserActivity_matching___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) connection];
   v3 = [v2 remoteObjectProxy];
 
@@ -1240,17 +1218,15 @@ void __57__UAUserActivityManager_addDynamicUserActivity_matching___block_invoke(
     {
       v5 = *(a1 + 40);
       v6 = *(a1 + 48);
-      v8 = 138478083;
-      v9 = v5;
-      v10 = 2113;
-      v11 = v6;
-      _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_DEBUG, "calling doAddDynamicUserActivity: %{private}@ matching: %{private}@", &v8, 0x16u);
+      v7 = 138478083;
+      v8 = v5;
+      v9 = 2113;
+      v10 = v6;
+      _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_DEBUG, "calling doAddDynamicUserActivity: %{private}@ matching: %{private}@", &v7, 0x16u);
     }
 
     [v3 doAddDynamicUserActivity:*(a1 + 40) matching:*(a1 + 48)];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeDynamicUserActivity:(id)activity matching:(id)matching
@@ -1272,7 +1248,7 @@ void __57__UAUserActivityManager_addDynamicUserActivity_matching___block_invoke(
 
 void __60__UAUserActivityManager_removeDynamicUserActivity_matching___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) connection];
   v3 = [v2 remoteObjectProxy];
 
@@ -1283,22 +1259,20 @@ void __60__UAUserActivityManager_removeDynamicUserActivity_matching___block_invo
     {
       v5 = *(a1 + 40);
       v6 = *(a1 + 48);
-      v8 = 138478083;
-      v9 = v5;
-      v10 = 2113;
-      v11 = v6;
-      _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_DEBUG, "calling doRemoveDynamicUserActivity: %{private}@ matching: %{private}@", &v8, 0x16u);
+      v7 = 138478083;
+      v8 = v5;
+      v9 = 2113;
+      v10 = v6;
+      _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_DEBUG, "calling doRemoveDynamicUserActivity: %{private}@ matching: %{private}@", &v7, 0x16u);
     }
 
     [v3 doRemoveDynamicUserActivity:*(a1 + 40) matching:*(a1 + 48)];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)makeActive:(id)active
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   activeCopy = active;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -1312,7 +1286,7 @@ void __60__UAUserActivityManager_removeDynamicUserActivity_matching___block_invo
 
   activeUserActivityUUID = [(UAUserActivityManager *)selfCopy activeUserActivityUUID];
   v10 = activeUserActivityUUID;
-  v41 = activeUserActivityUUID;
+  v40 = activeUserActivityUUID;
   if ((activeCopy == 0) == (activeUserActivityUUID != 0))
   {
     if (!activeUserActivityUUID)
@@ -1357,27 +1331,27 @@ LABEL_11:
 
   if (v20)
   {
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     v21 = +[UAUserActivity observers];
-    v22 = [v21 countByEnumeratingWithState:&v49 objects:v58 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v48 objects:v57 count:16];
     if (v22)
     {
-      v23 = *v50;
+      v23 = *v49;
       do
       {
         v24 = 0;
         uniqueIdentifier6 = sel_userActivityWillBecomeCurrent_current_;
         do
         {
-          if (*v50 != v23)
+          if (*v49 != v23)
           {
             objc_enumerationMutation(v21);
           }
 
-          v25 = *(*(&v49 + 1) + 8 * v24);
+          v25 = *(*(&v48 + 1) + 8 * v24);
           if (objc_opt_respondsToSelector())
           {
             parentUserActivity = [v20 parentUserActivity];
@@ -1388,7 +1362,7 @@ LABEL_11:
         }
 
         while (v22 != v24);
-        v22 = [v21 countByEnumeratingWithState:&v49 objects:v58 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v48 objects:v57 count:16];
       }
 
       while (v22);
@@ -1402,27 +1376,27 @@ LABEL_11:
 
   if (activeCopy)
   {
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     v28 = +[UAUserActivity observers];
-    v29 = [v28 countByEnumeratingWithState:&v45 objects:v57 count:16];
+    v29 = [v28 countByEnumeratingWithState:&v44 objects:v56 count:16];
     if (v29)
     {
-      v30 = *v46;
+      v30 = *v45;
       do
       {
         v31 = 0;
         uniqueIdentifier6 = sel_userActivityWillBecomeCurrent_current_;
         do
         {
-          if (*v46 != v30)
+          if (*v45 != v30)
           {
             objc_enumerationMutation(v28);
           }
 
-          v32 = *(*(&v45 + 1) + 8 * v31);
+          v32 = *(*(&v44 + 1) + 8 * v31);
           if (objc_opt_respondsToSelector())
           {
             parentUserActivity2 = [activeCopy parentUserActivity];
@@ -1433,7 +1407,7 @@ LABEL_11:
         }
 
         while (v29 != v31);
-        v29 = [v28 countByEnumeratingWithState:&v45 objects:v57 count:16];
+        v29 = [v28 countByEnumeratingWithState:&v44 objects:v56 count:16];
       }
 
       while (v29);
@@ -1446,7 +1420,7 @@ LABEL_11:
   }
 
   v17 = 1;
-  v41 = uniqueIdentifier4;
+  v40 = uniqueIdentifier4;
 LABEL_35:
   objc_sync_exit(obj);
 
@@ -1456,21 +1430,21 @@ LABEL_35:
     uniqueIdentifier5 = [activeCopy uniqueIdentifier];
     uUIDString = [uniqueIdentifier5 UUIDString];
     v37 = &stru_283A5A2C8;
-    if (v41)
+    if (v40)
     {
       uniqueIdentifier6 = [activeCopy uniqueIdentifier];
-      if ([uniqueIdentifier6 isEqual:v41])
+      if ([uniqueIdentifier6 isEqual:v40])
       {
         v37 = @" (already active)";
       }
     }
 
     *buf = 138543618;
-    v54 = uUIDString;
-    v55 = 2114;
-    v56 = v37;
+    v53 = uUIDString;
+    v54 = 2114;
+    v55 = v37;
     _os_log_impl(&dword_226A4E000, v34, OS_LOG_TYPE_DEBUG, "makeActive, userActivity=%{public}@%{public}@", buf, 0x16u);
-    if (v41)
+    if (v40)
     {
     }
   }
@@ -1484,16 +1458,14 @@ LABEL_35:
     block[2] = __36__UAUserActivityManager_makeActive___block_invoke;
     block[3] = &unk_2785C4070;
     block[4] = obj;
-    v44 = v41;
+    v43 = v40;
     dispatch_async(serverQ, block);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void __36__UAUserActivityManager_makeActive___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) connection];
   v3 = [v2 remoteObjectProxy];
 
@@ -1501,13 +1473,12 @@ void __36__UAUserActivityManager_makeActive___block_invoke(uint64_t a1)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     v5 = [*(a1 + 40) UUIDString];
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_DEBUG, "calling doUpdateUserActivityWithUUID:%{public}@ setActive: YES", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_DEBUG, "calling doUpdateUserActivityWithUUID:%{public}@ setActive: YES", &v6, 0xCu);
   }
 
   [v3 doUpdateUserActivityWithUUID:*(a1 + 40) setActive:1];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)makeInactive:(id)inactive
@@ -1581,15 +1552,15 @@ uint64_t __51__UAUserActivityManager_activeActivitiesByPriority__block_invoke(ui
 
 - (void)askClientUserActivityToSave:(id)save
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   saveCopy = save;
   v5 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     uUIDString = [saveCopy UUIDString];
-    v9 = 138543362;
-    v10 = uUIDString;
-    _os_log_impl(&dword_226A4E000, v5, OS_LOG_TYPE_DEBUG, "uuid=%{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = uUIDString;
+    _os_log_impl(&dword_226A4E000, v5, OS_LOG_TYPE_DEBUG, "uuid=%{public}@", &v8, 0xCu);
   }
 
   v7 = [(UAUserActivityManager *)self userActivityForUUID:saveCopy];
@@ -1597,13 +1568,11 @@ uint64_t __51__UAUserActivityManager_activeActivitiesByPriority__block_invoke(ui
   {
     [v7 sendUserActivityInfoToLSUserActivityd:0 onAsyncQueue:0];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)askClientUserActivityToSave:(id)save completionHandler:(id)handler
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   saveCopy = save;
   handlerCopy = handler;
   v8 = _uaGetLogForCategory(0);
@@ -1611,7 +1580,7 @@ uint64_t __51__UAUserActivityManager_activeActivitiesByPriority__block_invoke(ui
   {
     uUIDString = [saveCopy UUIDString];
     *buf = 138543362;
-    v36 = uUIDString;
+    v35 = uUIDString;
     _os_log_impl(&dword_226A4E000, v8, OS_LOG_TYPE_INFO, "askClientUserActivityToSave: uuid=%{public}@", buf, 0xCu);
   }
 
@@ -1624,7 +1593,7 @@ uint64_t __51__UAUserActivityManager_activeActivitiesByPriority__block_invoke(ui
     {
       uUIDString2 = [saveCopy UUIDString];
       *buf = 138543362;
-      v36 = uUIDString2;
+      v35 = uUIDString2;
       _os_log_impl(&dword_226A4E000, v17, OS_LOG_TYPE_ERROR, "askClientUserActivityToSave:%{public}@ on activity, which does not seem to exist.", buf, 0xCu);
     }
 
@@ -1641,9 +1610,9 @@ uint64_t __51__UAUserActivityManager_activeActivitiesByPriority__block_invoke(ui
       uUIDString3 = [saveCopy UUIDString];
       typeIdentifier = [v11 typeIdentifier];
       *buf = 138543618;
-      v36 = uUIDString3;
-      v37 = 2114;
-      v38 = typeIdentifier;
+      v35 = uUIDString3;
+      v36 = 2114;
+      v37 = typeIdentifier;
       _os_log_impl(&dword_226A4E000, v12, OS_LOG_TYPE_ERROR, "askClientUserActivityToSave:%{public}@ %{public}@ on activity which has been invalidated.", buf, 0x16u);
     }
 
@@ -1674,15 +1643,15 @@ LABEL_11:
     }
 
     parentUserActivity2 = [v11 parentUserActivity];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __71__UAUserActivityManager_askClientUserActivityToSave_completionHandler___block_invoke;
-    v32[3] = &unk_2785C4380;
-    v33 = saveCopy;
-    v34 = handlerCopy;
-    [parentUserActivity2 doSaveUserActivityWithTimeout:v29 isCurrent:v32 withCompletionHandler:3.0];
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __71__UAUserActivityManager_askClientUserActivityToSave_completionHandler___block_invoke;
+    v31[3] = &unk_2785C4380;
+    v32 = saveCopy;
+    v33 = handlerCopy;
+    [parentUserActivity2 doSaveUserActivityWithTimeout:v29 isCurrent:v31 withCompletionHandler:3.0];
 
-    v19 = v33;
+    v19 = v32;
   }
 
   else
@@ -1692,13 +1661,11 @@ LABEL_11:
   }
 
 LABEL_17:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __71__UAUserActivityManager_askClientUserActivityToSave_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1707,11 +1674,11 @@ void __71__UAUserActivityManager_askClientUserActivityToSave_completionHandler__
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = [*(a1 + 32) UUIDString];
-      v17 = 138543618;
-      v18 = v8;
-      v19 = 2114;
-      v20 = v6;
-      _os_log_impl(&dword_226A4E000, v7, OS_LOG_TYPE_ERROR, "Failed asking parentUserActivity to doSaveUserActivityWithTimeout:, activity=%{public}@ error=%{public}@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v8;
+      v18 = 2114;
+      v19 = v6;
+      _os_log_impl(&dword_226A4E000, v7, OS_LOG_TYPE_ERROR, "Failed asking parentUserActivity to doSaveUserActivityWithTimeout:, activity=%{public}@ error=%{public}@", &v16, 0x16u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -1737,21 +1704,19 @@ void __71__UAUserActivityManager_askClientUserActivityToSave_completionHandler__
       (*(v11 + 16))(v11, 0, v14 ^ 1u, v15);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tellClientUserActivityItWasResumed:(id)resumed
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   resumedCopy = resumed;
   v5 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     uUIDString = [resumedCopy UUIDString];
-    v10 = 138543362;
-    v11 = uUIDString;
-    _os_log_impl(&dword_226A4E000, v5, OS_LOG_TYPE_DEBUG, "uuid=%{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = uUIDString;
+    _os_log_impl(&dword_226A4E000, v5, OS_LOG_TYPE_DEBUG, "uuid=%{public}@", &v9, 0xCu);
   }
 
   v7 = [(UAUserActivityManager *)self userActivityForUUID:resumedCopy];
@@ -1760,33 +1725,29 @@ void __71__UAUserActivityManager_askClientUserActivityToSave_completionHandler__
   {
     [v7 didSynchronizeUserActivity];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tellClientDebuggingEnabled:(BOOL)enabled logFileHandle:(id)handle
 {
   enabledCopy = enabled;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   v6 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v8[0] = 67109635;
-    v8[1] = enabledCopy;
-    v9 = 2113;
-    v10 = handleCopy;
-    v11 = 1024;
+    v7[0] = 67109635;
+    v7[1] = enabledCopy;
+    v8 = 2113;
+    v9 = handleCopy;
+    v10 = 1024;
     fileDescriptor = [handleCopy fileDescriptor];
-    _os_log_impl(&dword_226A4E000, v6, OS_LOG_TYPE_DEBUG, "Received debug update from server: %d %{private}@(%d)", v8, 0x18u);
+    _os_log_impl(&dword_226A4E000, v6, OS_LOG_TYPE_DEBUG, "Received debug update from server: %d %{private}@(%d)", v7, 0x18u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveInputStreamWithUUID:(id)d inputStream:(id)stream outputStream:(id)outputStream
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   streamCopy = stream;
   outputStreamCopy = outputStream;
@@ -1794,9 +1755,9 @@ void __71__UAUserActivityManager_askClientUserActivityToSave_completionHandler__
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     uUIDString = [dCopy UUIDString];
-    v16 = 138543362;
-    v17 = uUIDString;
-    _os_log_impl(&dword_226A4E000, v11, OS_LOG_TYPE_DEBUG, "uuid=%{public}@", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = uUIDString;
+    _os_log_impl(&dword_226A4E000, v11, OS_LOG_TYPE_DEBUG, "uuid=%{public}@", &v15, 0xCu);
   }
 
   v13 = [(UAUserActivityManager *)self userActivityForUUID:dCopy];
@@ -1805,8 +1766,6 @@ void __71__UAUserActivityManager_askClientUserActivityToSave_completionHandler__
   {
     [v13 didReceiveInputStream:streamCopy outputStream:outputStreamCopy];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)encodeUserActivity:(id)activity options:(id)options
@@ -1862,7 +1821,7 @@ void __71__UAUserActivityManager_askClientUserActivityToSave_completionHandler__
 
 - (void)tellDaemonAboutNewLSUserActivity:(id)activity
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   v5 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -1870,9 +1829,9 @@ void __71__UAUserActivityManager_askClientUserActivityToSave_completionHandler__
     uniqueIdentifier = [activityCopy uniqueIdentifier];
     uUIDString = [uniqueIdentifier UUIDString];
     *buf = 138543619;
-    v17 = uUIDString;
-    v18 = 2113;
-    v19 = activityCopy;
+    v16 = uUIDString;
+    v17 = 2113;
+    v18 = activityCopy;
     _os_log_impl(&dword_226A4E000, v5, OS_LOG_TYPE_DEBUG, "Sending initial activity uuid=%{public}@ %{private}@ information to server", buf, 0x16u);
   }
 
@@ -1884,7 +1843,7 @@ void __71__UAUserActivityManager_askClientUserActivityToSave_completionHandler__
       uniqueIdentifier2 = [activityCopy uniqueIdentifier];
       uUIDString2 = [uniqueIdentifier2 UUIDString];
       *buf = 138543362;
-      v17 = uUIDString2;
+      v16 = uUIDString2;
       _os_log_impl(&dword_226A4E000, v8, OS_LOG_TYPE_INFO, "Skipping telling server about activity because it has been invalidated, uuid=%{public}@.", buf, 0xCu);
     }
   }
@@ -1893,23 +1852,21 @@ void __71__UAUserActivityManager_askClientUserActivityToSave_completionHandler__
   {
     [(UAUserActivityManager *)self addUserActivity:activityCopy];
     serverQ = [(UAUserActivityManager *)self serverQ];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __58__UAUserActivityManager_tellDaemonAboutNewLSUserActivity___block_invoke;
-    v13[3] = &unk_2785C4070;
-    v14 = activityCopy;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __58__UAUserActivityManager_tellDaemonAboutNewLSUserActivity___block_invoke;
+    v12[3] = &unk_2785C4070;
+    v13 = activityCopy;
     selfCopy = self;
-    dispatch_async(serverQ, v13);
+    dispatch_async(serverQ, v12);
 
-    v8 = v14;
+    v8 = v13;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __58__UAUserActivityManager_tellDaemonAboutNewLSUserActivity___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) isInvalidated])
   {
     v2 = _uaGetLogForCategory(0);
@@ -1918,21 +1875,22 @@ void __58__UAUserActivityManager_tellDaemonAboutNewLSUserActivity___block_invoke
       v3 = [*(a1 + 32) uniqueIdentifier];
       v4 = [v3 UUIDString];
       *buf = 138543362;
-      v22 = v4;
+      v21 = v4;
       _os_log_impl(&dword_226A4E000, v2, OS_LOG_TYPE_INFO, "Skipping telling server about activity because it was invalidated, uuid=%{public}@.", buf, 0xCu);
     }
-
-LABEL_11:
-
-    goto LABEL_12;
   }
 
-  v5 = [*(a1 + 40) userActivityUUIDsSendToServer];
-  v6 = [*(a1 + 32) uniqueIdentifier];
-  v7 = [v5 containsObject:v6];
-
-  if ((v7 & 1) == 0)
+  else
   {
+    v5 = [*(a1 + 40) userActivityUUIDsSendToServer];
+    v6 = [*(a1 + 32) uniqueIdentifier];
+    v7 = [v5 containsObject:v6];
+
+    if (v7)
+    {
+      return;
+    }
+
     v8 = [*(a1 + 40) connection];
     v2 = [v8 remoteObjectProxy];
 
@@ -1950,27 +1908,22 @@ LABEL_11:
       v12 = [*(a1 + 32) uniqueIdentifier];
       v13 = [*(a1 + 40) activeUserActivityUUID];
       v14 = [v12 isEqual:v13];
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __58__UAUserActivityManager_tellDaemonAboutNewLSUserActivity___block_invoke_60;
-      v18[3] = &unk_2785C43A8;
-      v19 = v10;
-      v17 = *(a1 + 32);
-      v15 = v17.i64[0];
-      v20 = vextq_s8(v17, v17, 8uLL);
-      [v2 doUpdateUserActivityInfo:v19 makeCurrent:v14 completionHandler:v18];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __58__UAUserActivityManager_tellDaemonAboutNewLSUserActivity___block_invoke_60;
+      v17[3] = &unk_2785C43A8;
+      v18 = v10;
+      v16 = *(a1 + 32);
+      v15 = v16.i64[0];
+      v19 = vextq_s8(v16, v16, 8uLL);
+      [v2 doUpdateUserActivityInfo:v18 makeCurrent:v14 completionHandler:v17];
     }
-
-    goto LABEL_11;
   }
-
-LABEL_12:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __58__UAUserActivityManager_tellDaemonAboutNewLSUserActivity___block_invoke_60(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1981,11 +1934,11 @@ void __58__UAUserActivityManager_tellDaemonAboutNewLSUserActivity___block_invoke
       v6 = [v5 UUIDString];
       v7 = [*(a1 + 32) activityType];
       *buf = 138543875;
-      v14 = v6;
-      v15 = 2113;
-      v16 = v7;
-      v17 = 2114;
-      v18 = v3;
+      v13 = v6;
+      v14 = 2113;
+      v15 = v7;
+      v16 = 2114;
+      v17 = v3;
       _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_ERROR, "*** Unexpected error from doUpdateUserActivityInfo for activity %{public}@/%{private}@, error=%{public}@", buf, 0x20u);
     }
   }
@@ -1993,17 +1946,15 @@ void __58__UAUserActivityManager_tellDaemonAboutNewLSUserActivity___block_invoke
   else
   {
     v8 = [*(a1 + 40) serverQ];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __58__UAUserActivityManager_tellDaemonAboutNewLSUserActivity___block_invoke_61;
-    v11[3] = &unk_2785C4070;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __58__UAUserActivityManager_tellDaemonAboutNewLSUserActivity___block_invoke_61;
+    v10[3] = &unk_2785C4070;
     v9 = *(a1 + 48);
-    v11[4] = *(a1 + 40);
-    v12 = v9;
-    dispatch_async(v8, v11);
+    v10[4] = *(a1 + 40);
+    v11 = v9;
+    dispatch_async(v8, v10);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __58__UAUserActivityManager_tellDaemonAboutNewLSUserActivity___block_invoke_61(uint64_t a1)
@@ -2020,7 +1971,7 @@ void __58__UAUserActivityManager_tellDaemonAboutNewLSUserActivity___block_invoke
 - (void)sendUserActivityInfoToLSUserActivityd:(id)activityd makeCurrent:(BOOL)current
 {
   currentCopy = current;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   activitydCopy = activityd;
   v7 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -2035,9 +1986,9 @@ void __58__UAUserActivityManager_tellDaemonAboutNewLSUserActivity___block_invoke
     }
 
     *buf = 138543618;
-    v19 = uUIDString;
-    v20 = 2114;
-    v21 = v11;
+    v18 = uUIDString;
+    v19 = 2114;
+    v20 = v11;
     _os_log_impl(&dword_226A4E000, v7, OS_LOG_TYPE_DEBUG, "Sending updated activity %{public}@ information to server, makeCurrent=%{public}@", buf, 0x16u);
   }
 
@@ -2053,13 +2004,11 @@ void __58__UAUserActivityManager_tellDaemonAboutNewLSUserActivity___block_invoke
       block[2] = __75__UAUserActivityManager_sendUserActivityInfoToLSUserActivityd_makeCurrent___block_invoke;
       block[3] = &unk_2785C43F8;
       block[4] = self;
-      v16 = activitydCopy;
-      v17 = currentCopy;
+      v15 = activitydCopy;
+      v16 = currentCopy;
       dispatch_async(serverQ, block);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __75__UAUserActivityManager_sendUserActivityInfoToLSUserActivityd_makeCurrent___block_invoke(uint64_t a1)
@@ -2082,7 +2031,7 @@ void __75__UAUserActivityManager_sendUserActivityInfoToLSUserActivityd_makeCurre
 
 void __75__UAUserActivityManager_sendUserActivityInfoToLSUserActivityd_makeCurrent___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2091,21 +2040,19 @@ void __75__UAUserActivityManager_sendUserActivityInfoToLSUserActivityd_makeCurre
     {
       v5 = [*(a1 + 32) uuid];
       v6 = [v5 UUIDString];
-      v8 = 138543618;
-      v9 = v6;
-      v10 = 2114;
-      v11 = v3;
-      _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_DEBUG, "Got error, from doUpdateUserActivityInfo to server, for %{public}@, error: %{public}@", &v8, 0x16u);
+      v7 = 138543618;
+      v8 = v6;
+      v9 = 2114;
+      v10 = v3;
+      _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_DEBUG, "Got error, from doUpdateUserActivityInfo to server, for %{public}@, error: %{public}@", &v7, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markUserActivityAsDirty:(id)dirty forceImmediate:(BOOL)immediate
 {
   LODWORD(selfCopy) = immediate;
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   dirtyCopy = dirty;
   v7 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -2155,19 +2102,19 @@ void __75__UAUserActivityManager_sendUserActivityInfoToLSUserActivityd_makeCurre
       v13 = "NO";
     }
 
-    v35 = uUIDString;
-    v36 = 2113;
-    v37 = dirtyCopy;
-    v38 = 2114;
-    v39 = v9;
-    v40 = 2114;
-    v41 = v10;
-    v42 = 2082;
-    v43 = v12;
+    v34 = uUIDString;
+    v35 = 2113;
+    v36 = dirtyCopy;
+    v37 = 2114;
+    v38 = v9;
+    v39 = 2114;
+    v40 = v10;
+    v41 = 2082;
+    v42 = v12;
     self = selfCopy;
     LOBYTE(selfCopy) = v11;
-    v44 = 2082;
-    v45 = v13;
+    v43 = 2082;
+    v44 = v13;
     _os_log_impl(&dword_226A4E000, v7, OS_LOG_TYPE_DEBUG, "userActivity=%{public}@/%{private}@ forceImmediate=%{public}@%{public}@ iCloud=%{public}s/%{public}s", buf, 0x3Eu);
   }
 
@@ -2190,24 +2137,22 @@ void __75__UAUserActivityManager_sendUserActivityInfoToLSUserActivityd_makeCurre
     block[2] = __64__UAUserActivityManager_markUserActivityAsDirty_forceImmediate___block_invoke;
     block[3] = &unk_2785C4420;
     block[4] = self;
-    v28 = v15;
-    v31 = selfCopy;
-    v29 = v17;
-    v30 = v19;
-    v32 = expirationDate;
-    v33 = encodedContainsUnsynchronizedCloudDocument;
+    v27 = v15;
+    v30 = selfCopy;
+    v28 = v17;
+    v29 = v19;
+    v31 = expirationDate;
+    v32 = encodedContainsUnsynchronizedCloudDocument;
     v22 = v19;
     v23 = v17;
     v24 = v15;
     dispatch_async(serverQ, block);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __64__UAUserActivityManager_markUserActivityAsDirty_forceImmediate___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) connection];
   v3 = [v2 remoteObjectProxy];
 
@@ -2237,10 +2182,10 @@ void __64__UAUserActivityManager_markUserActivityAsDirty_forceImmediate___block_
         v8 = &stru_283A5A2C8;
       }
 
-      v15 = 138544642;
+      v14 = 138544642;
       v12 = "NO";
-      v16 = v5;
-      v18 = v6;
+      v15 = v5;
+      v17 = v6;
       if (v10)
       {
         v13 = "YES";
@@ -2251,32 +2196,30 @@ void __64__UAUserActivityManager_markUserActivityAsDirty_forceImmediate___block_
         v13 = "NO";
       }
 
-      v17 = 2114;
+      v16 = 2114;
       if (v11)
       {
         v12 = "YES";
       }
 
-      v19 = 2114;
-      v20 = v8;
-      v21 = 2114;
-      v22 = v9;
-      v23 = 2082;
-      v24 = v13;
-      v25 = 2082;
-      v26 = v12;
-      _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_DEBUG, "calling doMarkUserActivityAsDirty:%{public}@ forceImmediate:%{public}@ %{public}@ expiration=%{public}@ iCloud=%{public}s/%{public}s", &v15, 0x3Eu);
+      v18 = 2114;
+      v19 = v8;
+      v20 = 2114;
+      v21 = v9;
+      v22 = 2082;
+      v23 = v13;
+      v24 = 2082;
+      v25 = v12;
+      _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_DEBUG, "calling doMarkUserActivityAsDirty:%{public}@ forceImmediate:%{public}@ %{public}@ expiration=%{public}@ iCloud=%{public}s/%{public}s", &v14, 0x3Eu);
     }
 
     [v3 doMarkUserActivityAsDirty:*(a1 + 40) forceImmediate:*(a1 + 64) webpageURL:*(a1 + 48) expiration:*(a1 + 56) hasiCloudDocument:*(a1 + 65) hasUnsynchronizediCloudDoc:*(a1 + 66)];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)currentUserActivityUUIDWithOptions:(id)options completionHandler:(id)handler
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   handlerCopy = handler;
   v9 = _uaGetLogForCategory(0);
@@ -2294,7 +2237,7 @@ void __64__UAUserActivityManager_markUserActivityAsDirty_forceImmediate___block_
     }
 
     *buf = 138543362;
-    v18 = v10;
+    v17 = v10;
     _os_log_impl(&dword_226A4E000, v9, OS_LOG_TYPE_DEBUG, "options=%{public}@ ", buf, 0xCu);
     if (optionsCopy)
     {
@@ -2302,16 +2245,15 @@ void __64__UAUserActivityManager_markUserActivityAsDirty_forceImmediate___block_
   }
 
   serverQ = [(UAUserActivityManager *)self serverQ];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __78__UAUserActivityManager_currentUserActivityUUIDWithOptions_completionHandler___block_invoke;
-  v15[3] = &unk_2785C4470;
-  v15[4] = self;
-  v16 = handlerCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __78__UAUserActivityManager_currentUserActivityUUIDWithOptions_completionHandler___block_invoke;
+  v14[3] = &unk_2785C4470;
+  v14[4] = self;
+  v15 = handlerCopy;
   v12 = handlerCopy;
-  dispatch_async(serverQ, v15);
+  dispatch_async(serverQ, v14);
 
-  v13 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -2353,23 +2295,22 @@ void __78__UAUserActivityManager_currentUserActivityUUIDWithOptions_completionHa
 
 void __78__UAUserActivityManager_currentUserActivityUUIDWithOptions_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_ERROR, "XPC Error for Pin Activity Info: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_ERROR, "XPC Error for Pin Activity Info: %{public}@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __78__UAUserActivityManager_currentUserActivityUUIDWithOptions_completionHandler___block_invoke_77(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v12 = a2;
   v13 = a5;
   v14 = a6;
@@ -2379,7 +2320,7 @@ void __78__UAUserActivityManager_currentUserActivityUUIDWithOptions_completionHa
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     v18 = @"-";
-    v22 = a1;
+    v21 = a1;
     if (v12)
     {
       v19 = [v12 UUIDString];
@@ -2407,29 +2348,28 @@ void __78__UAUserActivityManager_currentUserActivityUUIDWithOptions_completionHa
     }
 
     *buf = 138543875;
-    v24 = v19;
-    v25 = 2113;
-    v26 = v20;
-    v27 = 2114;
-    v28 = v18;
+    v23 = v19;
+    v24 = 2113;
+    v25 = v20;
+    v26 = 2114;
+    v27 = v18;
     _os_log_impl(&dword_226A4E000, v17, OS_LOG_TYPE_DEBUG, "activityUUID=%{public}@ bundleID=%{private}@ error=%{public}@", buf, 0x20u);
     if (v14)
     {
     }
 
-    a1 = v22;
+    a1 = v21;
     if (v12)
     {
     }
   }
 
   (*(*(a1 + 32) + 16))();
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)currentUserActivityProxiesWithOptions:(id)options predicate:(id)predicate completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   predicateCopy = predicate;
   handlerCopy = handler;
@@ -2448,9 +2388,9 @@ void __78__UAUserActivityManager_currentUserActivityUUIDWithOptions_completionHa
     }
 
     *buf = 138543618;
-    v23 = v13;
-    v24 = 2114;
-    v25 = predicateCopy;
+    v22 = v13;
+    v23 = 2114;
+    v24 = predicateCopy;
     _os_log_impl(&dword_226A4E000, v12, OS_LOG_TYPE_DEBUG, "options=%{public}@ predicate=%{public}@", buf, 0x16u);
     if (optionsCopy)
     {
@@ -2462,14 +2402,13 @@ void __78__UAUserActivityManager_currentUserActivityUUIDWithOptions_completionHa
   block[1] = 3221225472;
   block[2] = __91__UAUserActivityManager_currentUserActivityProxiesWithOptions_predicate_completionHandler___block_invoke;
   block[3] = &unk_2785C44C0;
-  v20 = optionsCopy;
-  v21 = handlerCopy;
+  v19 = optionsCopy;
+  v20 = handlerCopy;
   block[4] = self;
   v15 = optionsCopy;
   v16 = handlerCopy;
   dispatch_async(serverQ, block);
 
-  v17 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -2512,23 +2451,22 @@ void __91__UAUserActivityManager_currentUserActivityProxiesWithOptions_predicate
 
 void __91__UAUserActivityManager_currentUserActivityProxiesWithOptions_predicate_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_ERROR, "XPC Error for currentUserActivityProxiesWithOptions: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_ERROR, "XPC Error for currentUserActivityProxiesWithOptions: %{public}@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __91__UAUserActivityManager_currentUserActivityProxiesWithOptions_predicate_completionHandler___block_invoke_79(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = _uaGetLogForCategory(0);
@@ -2536,20 +2474,19 @@ void __91__UAUserActivityManager_currentUserActivityProxiesWithOptions_predicate
   {
     v8 = [v5 description];
     v9 = stringRemovingNewlines(v8);
-    v11 = 138543618;
-    v12 = v9;
-    v13 = 2114;
-    v14 = v6;
-    _os_log_impl(&dword_226A4E000, v7, OS_LOG_TYPE_DEBUG, "proxies=%{public}@ error=%{public}@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v9;
+    v12 = 2114;
+    v13 = v6;
+    _os_log_impl(&dword_226A4E000, v7, OS_LOG_TYPE_DEBUG, "proxies=%{public}@ error=%{public}@", &v10, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)determineIfUserActivityIsCurrent:(id)current completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   currentCopy = current;
   handlerCopy = handler;
   v8 = _uaGetLogForCategory(0);
@@ -2557,7 +2494,7 @@ void __91__UAUserActivityManager_currentUserActivityProxiesWithOptions_predicate
   {
     uUIDString = [currentCopy UUIDString];
     *buf = 138412290;
-    v19 = uUIDString;
+    v18 = uUIDString;
     _os_log_impl(&dword_226A4E000, v8, OS_LOG_TYPE_DEBUG, "uuid=%@", buf, 0xCu);
   }
 
@@ -2566,14 +2503,13 @@ void __91__UAUserActivityManager_currentUserActivityProxiesWithOptions_predicate
   block[1] = 3221225472;
   block[2] = __76__UAUserActivityManager_determineIfUserActivityIsCurrent_completionHandler___block_invoke;
   block[3] = &unk_2785C44C0;
-  v16 = currentCopy;
-  v17 = handlerCopy;
+  v15 = currentCopy;
+  v16 = handlerCopy;
   block[4] = self;
   v11 = currentCopy;
   v12 = handlerCopy;
   dispatch_async(serverQ, block);
 
-  v13 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -2616,18 +2552,17 @@ void __76__UAUserActivityManager_determineIfUserActivityIsCurrent_completionHand
 
 void __76__UAUserActivityManager_determineIfUserActivityIsCurrent_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_ERROR, "XPC Error for Pin Activity Info: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_ERROR, "XPC Error for Pin Activity Info: %{public}@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pinUserActivity:(id)activity withCompletionHandler:(id)handler
@@ -2649,14 +2584,14 @@ void __76__UAUserActivityManager_determineIfUserActivityIsCurrent_completionHand
 
 void __63__UAUserActivityManager_pinUserActivity_withCompletionHandler___block_invoke(id *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] connection];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __63__UAUserActivityManager_pinUserActivity_withCompletionHandler___block_invoke_2;
-  v11[3] = &unk_2785C3E70;
-  v12 = a1[6];
-  v3 = [v2 remoteObjectProxyWithErrorHandler:v11];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __63__UAUserActivityManager_pinUserActivity_withCompletionHandler___block_invoke_2;
+  v10[3] = &unk_2785C3E70;
+  v11 = a1[6];
+  v3 = [v2 remoteObjectProxyWithErrorHandler:v10];
 
   v4 = [a1[5] callWillSaveDelegateIfDirtyAndPackageUpData:1 options:0 clearDirty:1];
   v5 = v4;
@@ -2678,32 +2613,29 @@ void __63__UAUserActivityManager_pinUserActivity_withCompletionHandler___block_i
       v8 = [v5 uuid];
       v9 = [v8 UUIDString];
       *buf = 138543619;
-      v14 = v9;
-      v15 = 2113;
-      v16 = v5;
+      v13 = v9;
+      v14 = 2113;
+      v15 = v5;
       _os_log_impl(&dword_226A4E000, v7, OS_LOG_TYPE_DEBUG, "Sending Info to pin: %{public}@/%{private}@", buf, 0x16u);
     }
 
     [v3 doPinUserActivityInfo:v5 completionHandler:a1[6]];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __63__UAUserActivityManager_pinUserActivity_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_ERROR, "XPC Error for Pin Activity Info: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_ERROR, "XPC Error for Pin Activity Info: %{public}@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasUserActivityWithUUID:(id)d
@@ -2732,7 +2664,7 @@ void __63__UAUserActivityManager_pinUserActivity_withCompletionHandler___block_i
 
 + (id)_determineMatchingApplicationBundleIdentfierWithOptionsForActivityType:(id)type dynamicType:(id)dynamicType kind:(unint64_t)kind teamIdentifier:(id)identifier
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   dynamicTypeCopy = dynamicType;
   identifierCopy = identifier;
@@ -2740,13 +2672,13 @@ void __63__UAUserActivityManager_pinUserActivity_withCompletionHandler___block_i
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 138544130;
-    v49 = typeCopy;
-    v50 = 2114;
-    v51 = dynamicTypeCopy;
-    v52 = 2048;
+    v47 = typeCopy;
+    v48 = 2114;
+    v49 = dynamicTypeCopy;
+    v50 = 2048;
     kindCopy = kind;
-    v54 = 2114;
-    v55 = identifierCopy;
+    v52 = 2114;
+    v53 = identifierCopy;
     _os_log_impl(&dword_226A4E000, v12, OS_LOG_TYPE_INFO, "determineMatchingApplicationBundleIdentfierWithOptionsForActivityType:%{public}@/%{public}@ %ld %{public}@", buf, 0x2Au);
   }
 
@@ -2754,68 +2686,50 @@ void __63__UAUserActivityManager_pinUserActivity_withCompletionHandler___block_i
   {
     v13 = applicationProxyForWebBrowserSupportingContinuation();
     v14 = v13;
-    if (!v13)
-    {
-      goto LABEL_7;
-    }
-
-    appState = [v13 appState];
-    isInstalled = [appState isInstalled];
-
-    if (!isInstalled)
-    {
-      goto LABEL_7;
-    }
-
-    appState2 = [v14 appState];
-    isRestricted = [appState2 isRestricted];
-
-    if ((isRestricted & 1) == 0)
+    if (v13 && ([v13 appState], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "isInstalled"), v15, v16) && (objc_msgSend(v14, "appState"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "isRestricted"), v17, (v18 & 1) == 0))
     {
       bundleIdentifier = [v14 bundleIdentifier];
     }
 
     else
     {
-LABEL_7:
       bundleIdentifier = 0;
     }
   }
 
   else
   {
-    v20 = *MEMORY[0x277CBECE8];
-    v21 = _LSCopyAdvertisementStringForTeamIdentifierAndActivityType();
+    v20 = _LSCopyAdvertisementStringForTeamIdentifierAndActivityType();
     defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
-    [defaultWorkspace applicationsForUserActivityType:v21];
+    [defaultWorkspace applicationsForUserActivityType:v20];
+    v41 = 0u;
+    v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v23 = v46 = 0u;
-    v24 = [v23 countByEnumeratingWithState:&v43 objects:v47 count:16];
-    if (v24)
+    v22 = v44 = 0u;
+    v23 = [v22 countByEnumeratingWithState:&v41 objects:v45 count:16];
+    if (v23)
     {
-      v25 = v24;
-      v40 = defaultWorkspace;
-      v41 = v21;
-      v42 = dynamicTypeCopy;
+      v24 = v23;
+      v38 = defaultWorkspace;
+      v39 = v20;
+      v40 = dynamicTypeCopy;
       v14 = 0;
       bundleIdentifier = 0;
-      v26 = *v44;
+      v25 = *v42;
       while (2)
       {
-        for (i = 0; i != v25; ++i)
+        for (i = 0; i != v24; ++i)
         {
-          v28 = v14;
-          if (*v44 != v26)
+          v27 = v14;
+          if (*v42 != v25)
           {
-            objc_enumerationMutation(v23);
+            objc_enumerationMutation(v22);
           }
 
-          v14 = *(*(&v43 + 1) + 8 * i);
+          v14 = *(*(&v41 + 1) + 8 * i);
 
-          appState3 = [v14 appState];
-          isPlaceholder = [appState3 isPlaceholder];
+          appState = [v14 appState];
+          isPlaceholder = [appState isPlaceholder];
 
           if (isPlaceholder)
           {
@@ -2826,18 +2740,18 @@ LABEL_7:
 
           else if (v14)
           {
-            appState4 = [v14 appState];
-            isInstalled2 = [appState4 isInstalled];
+            appState2 = [v14 appState];
+            isInstalled = [appState2 isInstalled];
 
-            if (isInstalled2)
+            if (isInstalled)
             {
-              appState5 = [v14 appState];
-              isRestricted2 = [appState5 isRestricted];
+              appState3 = [v14 appState];
+              isRestricted = [appState3 isRestricted];
 
-              if ((isRestricted2 & 1) == 0)
+              if ((isRestricted & 1) == 0)
               {
                 bundleIdentifier3 = [v14 bundleIdentifier];
-                v36 = bundleIdentifier;
+                v35 = bundleIdentifier;
                 bundleIdentifier = bundleIdentifier3;
                 goto LABEL_22;
               }
@@ -2845,8 +2759,8 @@ LABEL_7:
           }
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v43 objects:v47 count:16];
-        if (v25)
+        v24 = [v22 countByEnumeratingWithState:&v41 objects:v45 count:16];
+        if (v24)
         {
           continue;
         }
@@ -2854,13 +2768,13 @@ LABEL_7:
         break;
       }
 
-      v36 = v14;
+      v35 = v14;
       v14 = 0;
 LABEL_22:
 
-      v21 = v41;
-      dynamicTypeCopy = v42;
-      defaultWorkspace = v40;
+      v20 = v39;
+      dynamicTypeCopy = v40;
+      defaultWorkspace = v38;
     }
 
     else
@@ -2870,15 +2784,13 @@ LABEL_22:
     }
   }
 
-  v38 = *MEMORY[0x277D85DE8];
-
   return bundleIdentifier;
 }
 
 - (void)sendToIndexerIfAppropriate:(id)appropriate force:(BOOL)force
 {
   forceCopy = force;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   appropriateCopy = appropriate;
   v7 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -2891,11 +2803,11 @@ LABEL_22:
       v10 = "YES";
     }
 
-    v14 = 138543618;
-    v15 = uUIDString;
-    v16 = 2080;
-    v17 = v10;
-    _os_log_impl(&dword_226A4E000, v7, OS_LOG_TYPE_DEBUG, "sendToIndexerIfAppropriate(%{public}@,%s)", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = uUIDString;
+    v15 = 2080;
+    v16 = v10;
+    _os_log_impl(&dword_226A4E000, v7, OS_LOG_TYPE_DEBUG, "sendToIndexerIfAppropriate(%{public}@,%s)", &v13, 0x16u);
   }
 
   v11 = [(UAUserActivityManager *)self userActivityForUUID:appropriateCopy];
@@ -2904,35 +2816,31 @@ LABEL_22:
   {
     [v12 indexActivity:1 forceIndexing:0.0];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendCurrentActivityToIndexer:(id)indexer
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   activeUserActivityUUID = [(UAUserActivityManager *)self activeUserActivityUUID];
   v5 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v7 = 138543618;
-    v8 = @"UIApplicationWillResignActiveNotification";
-    v9 = 2114;
-    v10 = activeUserActivityUUID;
-    _os_log_impl(&dword_226A4E000, v5, OS_LOG_TYPE_INFO, "sendCurrentActivityToIndexer, got %{public}@ notification activeUUID=%{public}@", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = @"UIApplicationWillResignActiveNotification";
+    v8 = 2114;
+    v9 = activeUserActivityUUID;
+    _os_log_impl(&dword_226A4E000, v5, OS_LOG_TYPE_INFO, "sendCurrentActivityToIndexer, got %{public}@ notification activeUUID=%{public}@", &v6, 0x16u);
   }
 
   if (activeUserActivityUUID)
   {
     [(UAUserActivityManager *)self sendToIndexerIfAppropriate:activeUserActivityUUID force:1];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)registerAsProxyForApplication:(int)application options:(id)options completionBlock:(id)block
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   blockCopy = block;
   v10 = _uaGetLogForCategory(0);
@@ -2947,81 +2855,76 @@ LABEL_22:
   dispatch_assert_queue_not_V2(serverQ);
 
   serverQ2 = [(UAUserActivityManager *)self serverQ];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __79__UAUserActivityManager_registerAsProxyForApplication_options_completionBlock___block_invoke;
-  v17[3] = &unk_2785C4530;
-  v18 = optionsCopy;
-  v19 = blockCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __79__UAUserActivityManager_registerAsProxyForApplication_options_completionBlock___block_invoke;
+  v16[3] = &unk_2785C4530;
+  v17 = optionsCopy;
+  v18 = blockCopy;
   applicationCopy2 = application;
-  v17[4] = self;
+  v16[4] = self;
   v13 = optionsCopy;
   v14 = blockCopy;
-  dispatch_sync(serverQ2, v17);
+  dispatch_sync(serverQ2, v16);
 
-  v15 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 void __79__UAUserActivityManager_registerAsProxyForApplication_options_completionBlock___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) connection];
-  v6 = MEMORY[0x277D85DD0];
-  v7 = 3221225472;
-  v8 = __79__UAUserActivityManager_registerAsProxyForApplication_options_completionBlock___block_invoke_2;
-  v9 = &unk_2785C3E70;
-  v10 = *(a1 + 48);
-  v3 = [v2 remoteObjectProxyWithErrorHandler:&v6];
+  v5 = MEMORY[0x277D85DD0];
+  v6 = 3221225472;
+  v7 = __79__UAUserActivityManager_registerAsProxyForApplication_options_completionBlock___block_invoke_2;
+  v8 = &unk_2785C3E70;
+  v9 = *(a1 + 48);
+  v3 = [v2 remoteObjectProxyWithErrorHandler:&v5];
 
   if (v3)
   {
-    v4 = *(a1 + 40);
-    LODWORD(v5) = *(a1 + 56);
-    [v3 doRegisterAsProxyApplicationForPid:MEMORY[0x277D85DD0] options:3221225472 completionHandler:{__79__UAUserActivityManager_registerAsProxyForApplication_options_completionBlock___block_invoke_95, &__block_descriptor_36_e17_v16__0__NSError_8l, v5, v6, v7, v8, v9}];
+    LODWORD(v4) = *(a1 + 56);
+    [v3 doRegisterAsProxyApplicationForPid:MEMORY[0x277D85DD0] options:3221225472 completionHandler:{__79__UAUserActivityManager_registerAsProxyForApplication_options_completionBlock___block_invoke_95, &__block_descriptor_36_e17_v16__0__NSError_8l, v4, v5, v6, v7, v8}];
   }
 }
 
 void __79__UAUserActivityManager_registerAsProxyForApplication_options_completionBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_ERROR, "Error attempting to registerAsProxyForApplication from server: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_ERROR, "Error attempting to registerAsProxyForApplication from server: %{public}@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __79__UAUserActivityManager_registerAsProxyForApplication_options_completionBlock___block_invoke_95(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 32);
-    v7[0] = 67240450;
-    v7[1] = v5;
-    v8 = 2114;
-    v9 = v3;
-    _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_INFO, "doRegisterAsProxyApplicationForPid:%{public}d finished, error=%{public}@", v7, 0x12u);
+    v6[0] = 67240450;
+    v6[1] = v5;
+    v7 = 2114;
+    v8 = v3;
+    _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_INFO, "doRegisterAsProxyApplicationForPid:%{public}d finished, error=%{public}@", v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)initialServerHandshake:(BOOL)handshake
 {
-  v30[1] = *MEMORY[0x277D85DE8];
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 0;
+  v29[1] = *MEMORY[0x277D85DE8];
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
   serverQ = [(UAUserActivityManager *)self serverQ];
   dispatch_assert_queue_V2(serverQ);
 
@@ -3033,29 +2936,29 @@ void __79__UAUserActivityManager_registerAsProxyForApplication_options_completio
   v9 = selfCopy->_connection;
   objc_sync_exit(selfCopy);
 
-  v10 = v26;
+  v10 = v25;
   if (allowedToConnect && v9 != 0)
   {
-    *(v26 + 24) = 1;
+    *(v25 + 24) = 1;
     if (v7)
     {
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __57__UAUserActivityManager_Private__initialServerHandshake___block_invoke;
-      v24[3] = &unk_2785C4558;
-      v24[4] = selfCopy;
-      v24[5] = &v25;
-      v11 = [(NSXPCConnection *)v9 remoteObjectProxyWithErrorHandler:v24];
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __57__UAUserActivityManager_Private__initialServerHandshake___block_invoke;
+      v23[3] = &unk_2785C4558;
+      v23[4] = selfCopy;
+      v23[5] = &v24;
+      v11 = [(NSXPCConnection *)v9 remoteObjectProxyWithErrorHandler:v23];
       if (v11)
       {
         mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
         bundleIdentifier = [mainBundle bundleIdentifier];
         if (bundleIdentifier)
         {
-          v29 = @"CFBundleIdentifier";
+          v28 = @"CFBundleIdentifier";
           bundleIdentifier2 = [mainBundle bundleIdentifier];
-          v30[0] = bundleIdentifier2;
-          v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+          v29[0] = bundleIdentifier2;
+          v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
         }
 
         else
@@ -3070,37 +2973,36 @@ void __79__UAUserActivityManager_registerAsProxyForApplication_options_completio
           _os_log_impl(&dword_226A4E000, v16, OS_LOG_TYPE_DEBUG, "calling doInitializeWithClientVersion: 1", buf, 2u);
         }
 
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = __57__UAUserActivityManager_Private__initialServerHandshake___block_invoke_265;
-        v20[3] = &unk_2785C4580;
-        v20[4] = selfCopy;
-        v21 = v9;
-        v22 = &v25;
-        [v11 doInitializeWithClientVersion:1 clientInfo:v15 completionHandler:v20];
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 3221225472;
+        v19[2] = __57__UAUserActivityManager_Private__initialServerHandshake___block_invoke_265;
+        v19[3] = &unk_2785C4580;
+        v19[4] = selfCopy;
+        v20 = v9;
+        v21 = &v24;
+        [v11 doInitializeWithClientVersion:1 clientInfo:v15 completionHandler:v19];
       }
 
-      v10 = v26;
+      v10 = v25;
     }
   }
 
   v17 = *(v10 + 24);
 
-  _Block_object_dispose(&v25, 8);
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v24, 8);
   return v17 & 1;
 }
 
 void __57__UAUserActivityManager_Private__initialServerHandshake___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _uaGetLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138543362;
-    v8 = v3;
-    _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_ERROR, "*** Error on connection to useractivityd, err=%{public}@ (possibly useractivityd crashed?)", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v3;
+    _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_ERROR, "*** Error on connection to useractivityd, err=%{public}@ (possibly useractivityd crashed?)", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -3108,13 +3010,11 @@ void __57__UAUserActivityManager_Private__initialServerHandshake___block_invoke(
   *(*(a1 + 32) + 53) = 1;
   *(*(*(a1 + 40) + 8) + 24) = 0;
   objc_sync_exit(v5);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __57__UAUserActivityManager_Private__initialServerHandshake___block_invoke_265(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = _uaGetLogForCategory(0);
@@ -3122,13 +3022,13 @@ void __57__UAUserActivityManager_Private__initialServerHandshake___block_invoke_
   {
     v10 = [v7 description];
     v11 = stringRemovingNewlines(v10);
-    v19 = 134218499;
-    v20 = a2;
-    v21 = 2113;
-    v22 = v11;
-    v23 = 2114;
-    v24 = v8;
-    _os_log_impl(&dword_226A4E000, v9, OS_LOG_TYPE_DEBUG, " -- Server response to initialMessage, version=%ld info=%{private}@ error=%{public}@", &v19, 0x20u);
+    v18 = 134218499;
+    v19 = a2;
+    v20 = 2113;
+    v21 = v11;
+    v22 = 2114;
+    v23 = v8;
+    _os_log_impl(&dword_226A4E000, v9, OS_LOG_TYPE_DEBUG, " -- Server response to initialMessage, version=%ld info=%{private}@ error=%{public}@", &v18, 0x20u);
   }
 
   v12 = *(a1 + 32);
@@ -3155,9 +3055,9 @@ void __57__UAUserActivityManager_Private__initialServerHandshake___block_invoke_
       {
         v16 = [v12 uniqueIdentifier];
         v17 = [v16 UUIDString];
-        v19 = 138543362;
-        v20 = v17;
-        _os_log_impl(&dword_226A4E000, v15, OS_LOG_TYPE_DEBUG, " -- We had an active user activity, uuid=%{public}@, so sending that to server.", &v19, 0xCu);
+        v18 = 138543362;
+        v19 = v17;
+        _os_log_impl(&dword_226A4E000, v15, OS_LOG_TYPE_DEBUG, " -- We had an active user activity, uuid=%{public}@, so sending that to server.", &v18, 0xCu);
       }
 
       [*(a1 + 32) tellDaemonAboutNewLSUserActivity:v12];
@@ -3168,7 +3068,6 @@ void __57__UAUserActivityManager_Private__initialServerHandshake___block_invoke_
   }
 
   *(*(*(a1 + 48) + 8) + 24) = 1;
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

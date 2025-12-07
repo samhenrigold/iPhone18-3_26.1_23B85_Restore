@@ -48,15 +48,14 @@
 {
   v3 = sub_253CCFF58();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_253CCFF38();
-  v8 = objc_opt_self();
-  v9 = sub_253CCFF18();
-  createManagerForHomeUUID_ = [v8 createManagerForHomeUUID_];
+  v7 = objc_opt_self();
+  v8 = sub_253CCFF18();
+  createManagerForHomeUUID_ = [v7 createManagerForHomeUUID_];
 
-  (*(v4 + 8))(v7, v3);
+  (*(v4 + 8))(v6, v3);
 
   return createManagerForHomeUUID_;
 }
@@ -72,19 +71,18 @@
 {
   v5 = sub_253CCFF58();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_253CCFF38();
-  v10 = objc_allocWithZone(HMDHomeMetricsDispatcher);
+  v9 = objc_allocWithZone(HMDHomeMetricsDispatcher);
   swift_unknownObjectRetain();
-  v11 = sub_253CCFF18();
-  v12 = [v10 initWithIdentifier:v11 logEventSubmitter:submitter];
+  v10 = sub_253CCFF18();
+  v11 = [v9 initWithIdentifier:v10 logEventSubmitter:submitter];
   swift_unknownObjectRelease();
 
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 
-  return v12;
+  return v11;
 }
 
 - (id)makeReportingSessionManager

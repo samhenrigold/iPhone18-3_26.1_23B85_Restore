@@ -728,7 +728,7 @@ LABEL_6:
 
 - (void)voicemailGreetingDidSave
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

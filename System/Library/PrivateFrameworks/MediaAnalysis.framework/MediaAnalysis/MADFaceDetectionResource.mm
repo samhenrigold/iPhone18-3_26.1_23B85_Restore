@@ -25,7 +25,7 @@ MADFaceDetectionResource *__42__MADFaceDetectionResource_sharedResource__block_i
 
 - (int64_t)activeCost
 {
-  if (DeviceHasANE())
+  if (DeviceHasANE(self, a2))
   {
     return 20;
   }
@@ -38,7 +38,7 @@ MADFaceDetectionResource *__42__MADFaceDetectionResource_sharedResource__block_i
 
 - (int64_t)inactiveCost
 {
-  if (DeviceHasANE())
+  if (DeviceHasANE(self, a2))
   {
     return 5;
   }

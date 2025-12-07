@@ -96,54 +96,55 @@
 - (__CFData)_faCircularImageDataWithDiameter:()FamilyCircle cropRect:
 {
   v12 = objc_autoreleasePoolPush();
+  v13 = v12;
   if (a2 <= 0.0)
   {
-    v14 = _FALogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _FALogSystem(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [NSData(FamilyCircle) _faCircularImageDataWithDiameter:v14 cropRect:a2];
+      [NSData(FamilyCircle) _faCircularImageDataWithDiameter:v15 cropRect:a2];
     }
 
-    v15 = 0;
+    v16 = 0;
   }
 
   else
   {
     if ([self _faCreateImageRef])
     {
-      v13 = CFRetain([self _faCreateImageRef]);
+      v14 = CFRetain([self _faCreateImageRef]);
     }
 
     else
     {
-      v13 = 0;
+      v14 = 0;
     }
 
-    if ([self _faCreateContextWithImage:v13 crop:a3 diameter:{a4, a5, a6, a2}])
+    if ([self _faCreateContextWithImage:v14 crop:a3 diameter:{a4, a5, a6, a2}])
     {
-      v16 = CFRetain([self _faCreateContextWithImage:v13 crop:a3 diameter:{a4, a5, a6, a2}]);
+      v17 = CFRetain([self _faCreateContextWithImage:v14 crop:a3 diameter:{a4, a5, a6, a2}]);
     }
 
     else
     {
-      v16 = 0;
+      v17 = 0;
     }
 
-    Image = CGBitmapContextCreateImage(v16);
+    Image = CGBitmapContextCreateImage(v17);
     if (Image)
     {
-      v18 = Image;
+      v19 = Image;
       Mutable = CFDataCreateMutable(0, 0);
-      v20 = CGImageDestinationCreateWithData(Mutable, *MEMORY[0x1E6963860], 1uLL, 0);
-      if (v20)
+      v21 = CGImageDestinationCreateWithData(Mutable, *MEMORY[0x1E6963860], 1uLL, 0);
+      if (v21)
       {
-        v21 = v20;
-        CGImageDestinationAddImage(v20, v18, 0);
-        CGImageDestinationFinalize(v21);
-        CFRelease(v21);
+        v22 = v21;
+        CGImageDestinationAddImage(v21, v19, 0);
+        CGImageDestinationFinalize(v22);
+        CFRelease(v22);
       }
 
-      CFRelease(v18);
+      CFRelease(v19);
     }
 
     else
@@ -151,26 +152,26 @@
       Mutable = 0;
     }
 
-    CGContextRelease(v16);
-    if (v13)
+    CGContextRelease(v17);
+    if (v14)
     {
-      CFRelease(v13);
+      CFRelease(v14);
     }
 
     if ([(__CFData *)Mutable length])
     {
-      v15 = Mutable;
+      v16 = Mutable;
     }
 
     else
     {
-      v15 = 0;
+      v16 = 0;
     }
   }
 
-  objc_autoreleasePoolPop(v12);
+  objc_autoreleasePoolPop(v13);
 
-  return v15;
+  return v16;
 }
 
 - (id)fa_dictionaryFromPlistData
@@ -192,13 +193,12 @@
 
 - (void)_faCircularImageDataWithDiameter:()FamilyCircle cropRect:.cold.1(os_log_t log, double a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136315394;
-  v4 = "[NSData(FamilyCircle) _faCircularImageDataWithDiameter:cropRect:]";
-  v5 = 2048;
-  v6 = a2;
-  _os_log_error_impl(&dword_1B70B0000, log, OS_LOG_TYPE_ERROR, "%s invalid diameter %f", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136315394;
+  v3 = "[NSData(FamilyCircle) _faCircularImageDataWithDiameter:cropRect:]";
+  v4 = 2048;
+  v5 = a2;
+  _os_log_error_impl(&dword_1B70B0000, log, OS_LOG_TYPE_ERROR, "%s invalid diameter %f", &v2, 0x16u);
 }
 
 @end

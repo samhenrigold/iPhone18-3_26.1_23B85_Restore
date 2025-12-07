@@ -24,7 +24,7 @@
   contextCopy = context;
   selfCopy = self;
   sub_2406C8274(contextCopy, v6, v7);
-  sub_24058CA60(v6);
+  sub_24058CA60(v6, v7);
 }
 
 - (void)generateSymptomReportWithContext:(id)context completionHandler:(id)handler
@@ -45,7 +45,7 @@
   contextCopy = context;
   selfCopy = self;
   sub_2406C9324(contextCopy, v6, v7);
-  sub_24058CA60(v6);
+  sub_24058CA60(v6, v7);
 }
 
 - (__AISRepairController)init

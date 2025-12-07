@@ -20,61 +20,61 @@
 
     if (v5)
     {
-      v6 = [dictCopy objectForKeyedSubscript:@"type"];
+      v8 = [dictCopy objectForKeyedSubscript:@"type"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v7 = [dictCopy objectForKeyedSubscript:@"type"];
+        v9 = [dictCopy objectForKeyedSubscript:@"type"];
 
-        if (v7)
+        if (v9)
         {
-          intValue = [v7 intValue];
-          v9 = intValue;
+          intValue = [v9 intValue];
+          v14 = intValue;
           if (intValue < 2)
           {
-            v10 = [dictCopy objectForKeyedSubscript:@"e5FunctionName"];
+            v15 = [dictCopy objectForKeyedSubscript:@"e5FunctionName"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v11 = [dictCopy objectForKeyedSubscript:@"e5FunctionName"];
+              v16 = [dictCopy objectForKeyedSubscript:@"e5FunctionName"];
             }
 
             else
             {
-              v11 = 0;
+              v16 = 0;
             }
 
-            if (v9 != 1 || v11)
+            if (v14 != 1 || v16)
             {
-              v16 = [TGMutableTextGenerationResource alloc];
-              v17 = [MEMORY[0x277CBEBC0] fileURLWithPath:v5];
-              v12 = [(TGTextGenerationResource *)v16 initWithType:v9 url:v17];
+              v23 = [TGMutableTextGenerationResource alloc];
+              v24 = [MEMORY[0x277CBEBC0] fileURLWithPath:v5];
+              v17 = [(TGTextGenerationResource *)v23 initWithType:v14 url:v24];
 
-              [(TGTextGenerationResource *)v12 setE5FunctionName:v11];
+              [(TGTextGenerationResource *)v17 setE5FunctionName:v16];
             }
 
             else
             {
-              v15 = _nlpDefaultLog();
-              if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+              v22 = _nlpDefaultLog(v20, v21);
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
               {
                 +[TGTextGenerationResource createWithResourceDict:];
               }
 
-              v12 = 0;
+              v17 = 0;
             }
 
             goto LABEL_16;
           }
 
-          v14 = _nlpDefaultLog();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v19 = _nlpDefaultLog(intValue, v13);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            [(TGTextGenerationResource *)dictCopy createWithResourceDict:v9, v14];
+            [(TGTextGenerationResource *)dictCopy createWithResourceDict:v14, v19];
           }
 
 LABEL_15:
-          v12 = 0;
+          v17 = 0;
 LABEL_16:
 
           goto LABEL_17;
@@ -85,8 +85,8 @@ LABEL_16:
       {
       }
 
-      v7 = _nlpDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = _nlpDefaultLog(v10, v11);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         +[TGTextGenerationResource createWithResourceDict:];
       }
@@ -99,25 +99,25 @@ LABEL_16:
   {
   }
 
-  v5 = _nlpDefaultLog();
+  v5 = _nlpDefaultLog(v6, v7);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     +[TGTextGenerationResource createWithResourceDict:];
   }
 
-  v12 = 0;
+  v17 = 0;
 LABEL_17:
 
-  return v12;
+  return v17;
 }
 
 - (TGTextGenerationResource)initWithType:(unint64_t)type url:(id)url
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   urlCopy = url;
-  v18.receiver = self;
-  v18.super_class = TGTextGenerationResource;
-  v7 = [(TGTextGenerationResource *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = TGTextGenerationResource;
+  v7 = [(TGTextGenerationResource *)&v17 init];
   v8 = v7;
   if (v7)
   {
@@ -126,7 +126,7 @@ LABEL_17:
     url = v8->_url;
     v8->_url = v9;
 
-    v19[0] = @"type";
+    v18[0] = @"type";
     type = v8->_type;
     if (type == 1)
     {
@@ -143,16 +143,15 @@ LABEL_17:
       v12 = @"Sentence Piece Tokenizer";
     }
 
-    v19[1] = @"url";
-    v20[0] = v12;
-    v20[1] = v8->_url;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+    v18[1] = @"url";
+    v19[0] = v12;
+    v19[1] = v8->_url;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
     v14 = [v13 description];
     description = v8->_description;
     v8->_description = v14;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -236,37 +235,33 @@ LABEL_17:
 
 + (void)createWithResourceDict:(os_log_t)log .cold.1(uint64_t a1, int a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109378;
-  v4[1] = a2;
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_26D3B8000, log, OS_LOG_TYPE_ERROR, "Invalid type: %d for resource type in config dictionary: %@", v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109378;
+  v3[1] = a2;
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_26D3B8000, log, OS_LOG_TYPE_ERROR, "Invalid type: %d for resource type in config dictionary: %@", v3, 0x12u);
 }
 
 + (void)createWithResourceDict:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_26D3B8000, v0, v1, "Missing E5 function name key: %@ in configuration: %@ for foundation model", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_26D3B8000, v0, v1, "Missing E5 function name key: %@ in configuration: %@ for foundation model", v2, v3, v4, v5, v6);
 }
 
 + (void)createWithResourceDict:.cold.3()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_26D3B8000, v0, v1, "Missing type key: %@ in config dictionary: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_26D3B8000, v0, v1, "Missing type key: %@ in config dictionary: %@", v2, v3, v4, v5, v6);
 }
 
 + (void)createWithResourceDict:.cold.4()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_26D3B8000, v0, v1, "Missing path key: %@ in config dictionary: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_26D3B8000, v0, v1, "Missing path key: %@ in config dictionary: %@", v2, v3, v4, v5, v6);
 }
 
 @end

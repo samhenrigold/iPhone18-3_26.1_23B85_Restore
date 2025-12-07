@@ -864,7 +864,7 @@ LABEL_10:
 {
   observerCopy = observer;
   os_unfair_lock_lock(&self->_observersLock);
-  [(NSHashTable *)self->_observers removeObject:observerCopy];
+  objc_msgSend_removeObject_(self->_observers);
 
   os_unfair_lock_unlock(&self->_observersLock);
 }

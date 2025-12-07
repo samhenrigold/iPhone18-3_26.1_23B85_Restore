@@ -153,7 +153,7 @@ LABEL_10:
 
 - (id)internalProcessUsingQualityOfServiceClass:(unsigned int)class options:(id)options regionOfInterest:(CGRect)interest warningRecorder:(id)recorder error:(id *)error progressHandler:(id)handler
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   recorderCopy = recorder;
   handlerCopy = handler;
@@ -163,71 +163,70 @@ LABEL_10:
     v16 = [(VNDetector *)self computeDeviceForComputeStage:@"VNComputeStageMain" processingOptions:optionsCopy error:error];
     if (v16)
     {
-      [(VNImageSignatureDetector *)self _calculateImageSignatureprintDescriptorFromOptions:optionsCopy error:error];
-      if (v28)
+      objc_msgSend__calculateImageSignatureprintDescriptorFromOptions_error_(self);
+      if (v27)
       {
-        v17 = (*(*v28 + 104))(v28);
-        v18 = [VN6Ac6Cyl5O5oK19HboyMBR alloc];
-        v19 = [(VN6Ac6Cyl5O5oK19HboyMBR *)v18 initWithData:v28[7] elementCount:v17 >> 2 elementType:1 lengthInBytes:v17 imageSignatureprintType:[(VNImageSignatureDetector *)self imageSignatureprintType] originatingRequestSpecifier:v15];
-        [(VNImageSignatureDetector *)self _calculateImageSignatureHashDescriptorFrom:&v28 options:optionsCopy error:error];
-        if (v26)
+        v17 = (*(*v27 + 104))();
+        v18 = [[VN6Ac6Cyl5O5oK19HboyMBR alloc] initWithData:v27[7] elementCount:v17 >> 2 elementType:1 lengthInBytes:v17 imageSignatureprintType:[(VNImageSignatureDetector *)self imageSignatureprintType] originatingRequestSpecifier:v15];
+        objc_msgSend__calculateImageSignatureHashDescriptorFrom_options_error_(self);
+        if (v25)
         {
-          v20 = (*(*v26 + 104))();
-          v21 = [[VN6B8mkraBUpwUqskMYPtS3 alloc] initWithData:v26[7] elementCount:v20 >> 2 elementType:1 lengthInBytes:v20 imageSignatureHashType:[(VNImageSignatureDetector *)self imageSignatureHashType] requestRevision:1];
-          v22 = [[VN3XKGTKNBvy6h4RFtpxLyW alloc] initWithOriginatingRequestSpecifier:v15 imageSignatureprint:v19 imageSignatureHash:v21];
-          v23 = v22;
-          if (v22)
+          v19 = (*(*v25 + 104))();
+          v20 = [[VN6B8mkraBUpwUqskMYPtS3 alloc] initWithData:v25[7] elementCount:v19 >> 2 elementType:1 lengthInBytes:v19 imageSignatureHashType:[(VNImageSignatureDetector *)self imageSignatureHashType] requestRevision:1];
+          v21 = [[VN3XKGTKNBvy6h4RFtpxLyW alloc] initWithOriginatingRequestSpecifier:v15 imageSignatureprint:v18 imageSignatureHash:v20];
+          v22 = v21;
+          if (v21)
           {
-            v30[0] = v22;
-            v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
+            v29[0] = v21;
+            v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
           }
 
           else if (error)
           {
             [VNError errorForInternalErrorWithLocalizedDescription:@"Unknown error creating VNObservation object"];
-            *error = v24 = 0;
+            *error = v23 = 0;
           }
 
           else
           {
-            v24 = 0;
+            v23 = 0;
           }
         }
 
         else
         {
-          v24 = 0;
+          v23 = 0;
         }
 
-        if (v27)
+        if (v26)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v27);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v26);
         }
       }
 
       else
       {
-        v24 = 0;
+        v23 = 0;
       }
 
-      if (v29)
+      if (v28)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v28);
       }
     }
 
     else
     {
-      v24 = 0;
+      v23 = 0;
     }
   }
 
   else
   {
-    v24 = 0;
+    v23 = 0;
   }
 
-  return v24;
+  return v23;
 }
 
 - (BOOL)completeInitializationForSession:(id)session error:(id *)error

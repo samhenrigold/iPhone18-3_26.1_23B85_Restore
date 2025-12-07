@@ -18,12 +18,12 @@
     [v6 setProperty:v7 forKey:PSFooterTextGroupKey];
 
     [v5 addObject:v6];
-    v8 = SCATLocalizedHeadMovementSummary();
+    v8 = SCATLocalizedHeadMovementSummary(1);
     v9 = [PSSpecifier preferenceSpecifierNamed:v8 target:self set:0 get:0 detail:0 cell:3 edit:0];
 
     [v9 setProperty:&off_27A770 forKey:@"SensitivityKey"];
     [v5 addObject:v9];
-    v10 = SCATLocalizedHeadMovementSummary();
+    v10 = SCATLocalizedHeadMovementSummary(2);
     v11 = [PSSpecifier preferenceSpecifierNamed:v10 target:self set:0 get:0 detail:0 cell:3 edit:0];
 
     [v11 setProperty:&off_27A788 forKey:@"SensitivityKey"];

@@ -70,7 +70,7 @@
 {
   textures = [context textures];
   direction = [context direction];
-  [context duration];
+  objc_msgSend_duration(context);
   v8 = v7;
   lastObject = [textures lastObject];
   v10 = [objc_msgSend(context "metalContext")];
@@ -97,7 +97,7 @@
     mAnimationContext = self->super.mAnimationContext;
     if (mAnimationContext)
     {
-      [(KNAnimationContext *)mAnimationContext slideProjectionMatrix];
+      objc_msgSend_slideProjectionMatrix(mAnimationContext);
       v18 = vcvt_hight_f32_f64(vcvt_f32_f64(v30), v31);
       v19 = vcvt_hight_f32_f64(vcvt_f32_f64(v28), v29);
       v20 = vcvt_hight_f32_f64(vcvt_f32_f64(v26), v27);
@@ -144,7 +144,7 @@
   mAnimationContext = self->super.mAnimationContext;
   if (mAnimationContext)
   {
-    [(KNAnimationContext *)mAnimationContext slideProjectionMatrix];
+    objc_msgSend_slideProjectionMatrix(mAnimationContext, percent);
   }
 
   v11 = pow(size, 4.0);
@@ -249,7 +249,7 @@
   mAnimationContext = self->super.mAnimationContext;
   if (mAnimationContext)
   {
-    [(KNAnimationContext *)mAnimationContext slideProjectionMatrix];
+    objc_msgSend_slideProjectionMatrix(mAnimationContext);
   }
 
   v23 = (1.0 - pow(v21, 4.0)) * 0.25 + 0.75;
@@ -269,7 +269,7 @@
   currentBuffer = [metalContext currentBuffer];
   renderEncoder = [metalContext renderEncoder];
   memset(&v54, 0, sizeof(v54));
-  [(KNTransitionConfetti *)self p_calculateQuadShaderMVPMatrixWithPercent:v21 slideSize:v9 destRect:v11, v14, v16, v18, v20];
+  objc_msgSend_p_calculateQuadShaderMVPMatrixWithPercent_slideSize_destRect_(self, v21, v9, v11, v14, v16, v18, v20);
   if (device)
   {
     if (commandBuffer)
@@ -345,7 +345,7 @@ LABEL_7:
         v37 = self->super.mAnimationContext;
         if (v37)
         {
-          [(KNAnimationContext *)v37 slideProjectionMatrix];
+          objc_msgSend_slideProjectionMatrix(v37);
         }
 
         v38 = v48;

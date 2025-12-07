@@ -19,7 +19,7 @@ void FigCaptureNormalizedFocusWindowFromMetadata(void *a1)
   else
   {
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
   OUTLINED_FUNCTION_3();
@@ -88,8 +88,7 @@ LABEL_9:
   if (!Mutable)
   {
     OUTLINED_FUNCTION_0();
-LABEL_72:
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     return Mutable;
   }
 
@@ -139,7 +138,8 @@ LABEL_72:
   if (!theArray)
   {
     OUTLINED_FUNCTION_0();
-    goto LABEL_72;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+    return Mutable;
   }
 
   v109 = Mutable;
@@ -243,7 +243,7 @@ LABEL_72:
   v67 = theArray;
   if (HIDWORD(v108))
   {
-    FigCaptureMetadataUtilitiesGetFinalCropRect();
+    FigCaptureMetadataUtilitiesGetFinalCropRect(v107);
     OUTLINED_FUNCTION_8_3();
     v154 = 0u;
     v155 = 0u;
@@ -330,7 +330,7 @@ LABEL_72:
     v151 = 0u;
     v148 = 0u;
     v149 = 0u;
-    v95 = OUTLINED_FUNCTION_19_6(v87, v88, v89, v90, v91, v92, v93, v94, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v111, v112, v113, v114, v115, key, v117, v118, theArray, v121, v123, v124, v125, v127, v128, v129, v130, v131, v132[0], v133, v134, v135, v136, v137, v138, v139, v140, v141, v142, v143, v144, v145, v146, v147, 0);
+    v95 = OUTLINED_FUNCTION_19_6(v87, v88, v89, v90, v91, v92, v93, v94, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v111, v112, v113, v114, v115, key, v117, v118, theArray, v121, v123, v124, v125, v127, v128, v129, v130, v131, *v132, v133, v134, v135, v136, v137, v138, v139, v140, v141, v142, v143, v144, v145, v146, v147);
     if (v95)
     {
       v96 = v95;
@@ -431,77 +431,81 @@ uint64_t FigCaptureWritePackedValueForModuleAndCalibrationValidationStatusesFrom
   return result;
 }
 
-uint64_t FigCaptureMetadataUtilitiesUpdateISPSpatialMetadataForStillImageCrop(uint64_t result, uint64_t a2)
+void *FigCaptureMetadataUtilitiesUpdateISPSpatialMetadataForStillImageCrop(void *result, uint64_t a2)
 {
   if (result)
   {
     if (a2 < 1 || SHIDWORD(a2) <= 0)
     {
       OUTLINED_FUNCTION_0();
-      return FigDebugAssert3();
+      return FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v51, v53, v55, v57, v58, v60, *&recta.origin.x, LODWORD(recta.origin.y));
     }
 
     else
     {
       OUTLINED_FUNCTION_9_7();
       v4 = v3;
-      if (CGRectIsNull(v48))
+      if (CGRectIsNull(v66))
       {
         FigCaptureRectFromDimensions();
         OUTLINED_FUNCTION_11_1();
       }
 
       v5 = OUTLINED_FUNCTION_3_1();
-      FigCaptureMetadataUtilitiesNormalizeCropRect(v5, v6, v7, v8);
+      FigCaptureMetadataUtilitiesNormalizeCropRect(v5, v6, v7, v8, v9, v10);
       OUTLINED_FUNCTION_2_3();
       FigCaptureMetadataUtilitiesUpdateDetectedObjectsInfoAndFacesArrayWithCropRect(v4);
       FigCaptureNormalizedFocusWindowFromMetadata(v4);
-      OUTLINED_FUNCTION_36_2(v9, v10, v11, v12);
+      OUTLINED_FUNCTION_36_2(v11, v12, v13, v14, v15, v16, v17, v18);
       FigCaptureSetNormalizedFocusWindowToMetadata(v4);
-      v13 = *off_1E798B308;
-      v14 = [OUTLINED_FUNCTION_27_1() objectForKeyedSubscript:?];
-      [v14 count];
-      v15 = [OUTLINED_FUNCTION_7() arrayWithCapacity:?];
-      v44 = 0u;
-      v45 = 0u;
-      v46 = 0u;
-      v47 = 0u;
-      v23 = OUTLINED_FUNCTION_35_1(v15, v16, v17, v18, v19, v20, v21, v22, v37, v39);
-      if (v23)
+      v19 = *off_1E798B308;
+      v20 = [OUTLINED_FUNCTION_27_1() objectForKeyedSubscript:?];
+      [v20 count];
+      v21 = [OUTLINED_FUNCTION_7() arrayWithCapacity:?];
+      v62 = 0u;
+      v63 = 0u;
+      v64 = 0u;
+      v65 = 0u;
+      v29 = OUTLINED_FUNCTION_35_1(v21, v22, v23, v24, v25, v26, v27, v28, v51, v53, v55, v57, v58, v60, *&recta.origin.x, *&recta.origin.y, *&recta.size.width, *&recta.size.height);
+      if (v29)
       {
-        v24 = v23;
-        v25 = *v45;
-        v41 = *(MEMORY[0x1E695F050] + 16);
-        v42 = *MEMORY[0x1E695F050];
+        v30 = v29;
+        v31 = *v63;
+        v56 = *(MEMORY[0x1E695F050] + 16);
+        v59 = *MEMORY[0x1E695F050];
         do
         {
-          for (i = 0; i != v24; ++i)
+          for (i = 0; i != v30; ++i)
           {
-            if (*v45 != v25)
+            if (*v63 != v31)
             {
-              objc_enumerationMutation(v14);
+              objc_enumerationMutation(v20);
             }
 
-            v27 = *(*(&v44 + 1) + 8 * i);
-            recta.origin = v42;
-            recta.size = v41;
-            v28 = CGRectMakeWithDictionaryRepresentation(v27, &recta);
-            if (v28)
+            v33 = *(*(&v62 + 1) + 8 * i);
+            recta.origin = v59;
+            recta.size = v56;
+            v34 = CGRectMakeWithDictionaryRepresentation(v33, &recta);
+            if (v34)
             {
-              v49.origin.x = OUTLINED_FUNCTION_36_2(recta.origin.x, recta.origin.y, recta.size.width, recta.size.height);
-              DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v49);
+              v42.n128_u64[0] = *&recta.origin.x;
+              v43.n128_u64[0] = *&recta.origin.y;
+              v44.n128_u64[0] = *&recta.size.width;
+              v45.n128_u64[0] = *&recta.size.height;
+              v67.origin.x = OUTLINED_FUNCTION_36_2(v42, v43, v44, v45, v46, v47, v48, v49);
+              DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v67);
               CFAutorelease(DictionaryRepresentation);
-              v28 = [OUTLINED_FUNCTION_7() addObject:?];
+              v34 = [OUTLINED_FUNCTION_7() addObject:?];
             }
           }
 
-          v24 = OUTLINED_FUNCTION_35_1(v28, v29, v30, v31, v32, v33, v34, v35, v38, v40);
+          v30 = OUTLINED_FUNCTION_35_1(v34, v35, v36, v37, v38, v39, v40, v41, v52, v54, v56, *(&v56 + 1), v59, *(&v59 + 1), *&recta.origin.x, *&recta.origin.y, *&recta.size.width, *&recta.size.height);
         }
 
-        while (v24);
+        while (v30);
       }
 
-      return [v4 setObject:v15 forKeyedSubscript:v13];
+      return [v4 setObject:v21 forKeyedSubscript:v19];
     }
   }
 
@@ -514,21 +518,21 @@ void FigCaptureMetadataUtilitiesUpdateDetectedObjectsInfoAndFacesArrayWithCropRe
   {
     OUTLINED_FUNCTION_9_7();
     v2 = v1;
-    if (!CGRectIsNull(v15))
+    if (!CGRectIsNull(v25))
     {
       if ([OUTLINED_FUNCTION_27_1() objectForKeyedSubscript:?])
       {
         v3 = OUTLINED_FUNCTION_3_1();
-        FacesArrayForCropRect = FigCaptureMetadataUtilitiesCreateFacesArrayForCropRect(v4, v3, v5, v6);
+        FacesArrayForCropRect = FigCaptureMetadataUtilitiesCreateFacesArrayForCropRect(v4, v3, v5, v6, v7);
         [OUTLINED_FUNCTION_12_0() setObject:? forKeyedSubscript:?];
       }
 
-      v8 = *off_1E798B220;
+      v9 = *off_1E798B220;
       if ([OUTLINED_FUNCTION_27_1() objectForKeyedSubscript:?])
       {
-        v9 = OUTLINED_FUNCTION_3_1();
-        DetectedObjectsInfoForCropRect = FigCaptureMetadataUtilitiesCreateDetectedObjectsInfoForCropRect(v10, v9, v11, v12);
-        [v2 setObject:DetectedObjectsInfoForCropRect forKeyedSubscript:v8];
+        v10 = OUTLINED_FUNCTION_3_1();
+        DetectedObjectsInfoForCropRect = FigCaptureMetadataUtilitiesCreateDetectedObjectsInfoForCropRect(v11, v10, v12, v13, v14);
+        [v2 setObject:DetectedObjectsInfoForCropRect forKeyedSubscript:v9];
       }
     }
   }
@@ -536,130 +540,152 @@ void FigCaptureMetadataUtilitiesUpdateDetectedObjectsInfoAndFacesArrayWithCropRe
   else
   {
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v15, v16, v17, v18, v20, v21, v22, v23);
   }
 }
 
 uint64_t FigCaptureSetNormalizedFocusWindowToMetadata(void *a1)
 {
   OUTLINED_FUNCTION_9_7();
-  result = CGRectIsNull(v12);
+  result = CGRectIsNull(v19);
   if ((result & 1) == 0)
   {
     if (a1)
     {
       LODWORD(v7) = llround(v4 * 1000.0);
-      v11[0] = [MEMORY[0x1E696AD98] numberWithInt:v7];
+      v13 = [MEMORY[0x1E696AD98] numberWithInt:v7];
       LODWORD(v8) = llround(v3 * 1000.0);
-      v11[1] = [MEMORY[0x1E696AD98] numberWithInt:v8];
+      v14 = [MEMORY[0x1E696AD98] numberWithInt:v8];
       LODWORD(v9) = llround(v2 * 1000.0);
-      v11[2] = [MEMORY[0x1E696AD98] numberWithInt:v9];
+      v15 = [MEMORY[0x1E696AD98] numberWithInt:v9];
       LODWORD(v10) = llround(v1 * 1000.0);
-      v11[3] = [MEMORY[0x1E696AD98] numberWithInt:v10];
-      return [a1 setObject:objc_msgSend(MEMORY[0x1E695DEC8] forKeyedSubscript:{"arrayWithObjects:count:", v11, 4), *off_1E7989DF8}];
+      v16 = [MEMORY[0x1E696AD98] numberWithInt:v10];
+      return [a1 setObject:objc_msgSend(MEMORY[0x1E695DEC8] forKeyedSubscript:{"arrayWithObjects:count:", &v13, 4), *off_1E7989DF8}];
     }
 
     else
     {
       OUTLINED_FUNCTION_0();
-      return FigDebugAssert3();
+      return FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v11, v12, v13, v14, v15, v16, v17, v18);
     }
   }
 
   return result;
 }
 
-uint64_t FigCaptureMetadataUtilitiesUpdateDepthDataMetadataForStillImageCropAndScale(void *a1, double a2, double a3, double a4, double a5, double a6)
+void *FigCaptureMetadataUtilitiesUpdateDepthDataMetadataForStillImageCropAndScale(void *a1, double a2, double a3, double a4, double a5, double a6)
 {
-  v12 = *MEMORY[0x1E695F060];
-  v37 = 0u;
-  size = v12;
-  memset(v36, 0, sizeof(v36));
+  v13 = *MEMORY[0x1E695F060];
+  v46 = 0u;
+  size = v13;
+  v44 = 0u;
+  v45 = 0u;
   point = *MEMORY[0x1E695EFF8];
   if (!a1)
   {
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v6, *&point.x, *&point.y, v44, *(&v44 + 1), v45, DWORD2(v45));
+    v38 = qword_1ED844488;
+    v39 = 4294954516;
+    v40 = 2451;
+    v41 = v6;
     goto LABEL_19;
   }
 
-  v13 = [a1 objectForKeyedSubscript:*off_1E798CFE0];
-  if (!v13)
+  v14 = [a1 objectForKeyedSubscript:*off_1E798CFE0];
+  if (!v14)
   {
     OUTLINED_FUNCTION_2_23();
+    v39 = 4294954512;
+    v40 = 2456;
     goto LABEL_19;
   }
 
-  if (!CGSizeMakeWithDictionaryRepresentation(v13, &size) || (v14 = [a1 objectForKeyedSubscript:*off_1E798CFD8]) == 0)
+  if (!CGSizeMakeWithDictionaryRepresentation(v14, &size))
   {
     OUTLINED_FUNCTION_2_23();
+    v39 = 4294954516;
+    v40 = 2457;
     goto LABEL_19;
   }
 
-  v15 = v14;
-  result = [v14 length];
+  v15 = [a1 objectForKeyedSubscript:*off_1E798CFD8];
+  if (!v15)
+  {
+    OUTLINED_FUNCTION_2_23();
+    v39 = 4294954512;
+    v40 = 2463;
+    goto LABEL_19;
+  }
+
+  v16 = v15;
+  result = [v15 length];
   if (result != 48)
   {
     return result;
   }
 
-  [v15 getBytes:v36 length:48];
-  v17 = [a1 objectForKeyedSubscript:*off_1E798CFF0];
-  if (!v17)
+  [v16 getBytes:&v44 length:48];
+  v18 = [a1 objectForKeyedSubscript:*off_1E798CFF0];
+  if (!v18)
   {
     OUTLINED_FUNCTION_2_23();
+    v39 = 4294954512;
+    v40 = 2471;
     goto LABEL_19;
   }
 
-  if (!CGPointMakeWithDictionaryRepresentation(v17, &point))
+  if (!CGPointMakeWithDictionaryRepresentation(v18, &point))
   {
     OUTLINED_FUNCTION_2_23();
+    v39 = 4294954516;
+    v40 = 2472;
 LABEL_19:
-    result = FigSignalErrorAtGM();
+    result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v38, v39, "<<<< FigCaptureMetadataUtilities >>>>", v40, v41, v36, v37, v42);
     if (result)
     {
       return result;
     }
   }
 
-  v18 = *off_1E798D000;
+  v19 = *off_1E798D000;
   [objc_msgSend(OUTLINED_FUNCTION_27_1() "objectForKeyedSubscript:"floatValue"")];
-  v20 = *&v37 - a2 * size.width;
-  v21 = point.x - a2 * size.width;
-  v22 = *(&v37 + 1) - a3 * size.height;
-  point.x = v21;
+  v21 = *&v46 - a2 * size.width;
+  v22 = point.x - a2 * size.width;
+  v23 = *(&v46 + 1) - a3 * size.height;
+  point.x = v22;
   point.y = point.y - a3 * size.height;
-  v23 = a4 * size.width;
-  v24 = a5 * size.height;
+  v24 = a4 * size.width;
+  v25 = a5 * size.height;
   size.width = a4 * size.width;
   size.height = a5 * size.height;
   if (a6 > 0.0)
   {
-    v25 = v19 / a6;
-    v26 = v25;
+    v26 = v20 / a6;
+    v27 = v26;
   }
 
   else
   {
-    v26 = v19;
+    v27 = v20;
   }
 
-  v27 = v23;
-  DictionaryRepresentation = CGSizeCreateDictionaryRepresentation(*(&v24 - 1));
+  v28 = v24;
+  DictionaryRepresentation = CGSizeCreateDictionaryRepresentation(*(&v25 - 1));
   [OUTLINED_FUNCTION_12_0() setObject:? forKeyedSubscript:?];
 
-  v29 = v20;
-  *&v30 = v29;
-  v31 = v22;
-  *(&v30 + 1) = v31;
-  *&v37 = v30;
-  v32 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v36 length:48];
+  v30 = v21;
+  *&v31 = v30;
+  v32 = v23;
+  *(&v31 + 1) = v32;
+  *&v46 = v31;
+  v33 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:&v44 length:48];
   [OUTLINED_FUNCTION_12_0() setObject:? forKeyedSubscript:?];
 
-  v33 = CGPointCreateDictionaryRepresentation(point);
+  v34 = CGPointCreateDictionaryRepresentation(point);
   [OUTLINED_FUNCTION_12_0() setObject:? forKeyedSubscript:?];
 
-  *&v34 = v26;
-  return [a1 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithFloat:", v34), v18}];
+  *&v35 = v27;
+  return [a1 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithFloat:", v35), v19}];
 }
 
 uint64_t FigCaptureMetadataUtilitiesComputeNormalizedPixelBufferCoordinateTransformBetweenSampleBuffers(void *a1, void *a2, int a3, _OWORD *a4)
@@ -704,94 +730,94 @@ uint64_t fcmu_transformFromNormalizedBufferCoordsToDenormalizedNonBinnedSensorCo
   if (!a4 || !a1 || ((v5 = a2, v6 = HIDWORD(a2), a2 >= 1) ? (v7 = SHIDWORD(a2) <= 0) : (v7 = 1), v7))
   {
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     return 4294954516;
   }
 
   v10 = *(MEMORY[0x1E695F050] + 16);
-  *&v160.a = *MEMORY[0x1E695F050];
-  *&v160.c = v10;
+  *&v162.a = *MEMORY[0x1E695F050];
+  *&v162.c = v10;
   if (FigCFDictionaryGetCGRectIfPresent())
   {
     v11 = [a1 objectForKeyedSubscript:*off_1E798B588];
     if (v11)
     {
       v12 = v11;
-      v160.a = v160.a * [v11 intValue];
-      v160.b = v160.b * [v12 intValue];
-      v160.c = v160.c * [v12 intValue];
-      v160.d = v160.d * [v12 intValue];
+      v162.a = v162.a * [v11 intValue];
+      v162.b = v162.b * [v12 intValue];
+      v162.c = v162.c * [v12 intValue];
+      v162.d = v162.d * [v12 intValue];
     }
   }
 
-  v13 = *&v160.a;
-  v14 = *&v160.c;
-  v162.origin = *&v160.a;
-  v162.size = *&v160.c;
-  if (CGRectIsNull(v162))
+  v13 = *&v162.a;
+  v14 = *&v162.c;
+  v164.origin = *&v162.a;
+  v164.size = *&v162.c;
+  if (CGRectIsNull(v164))
   {
     return 4294954516;
   }
 
-  FigCaptureMetadataUtilitiesGetValidBufferRect();
+  FigCaptureMetadataUtilitiesGetValidBufferRect(a1);
   OUTLINED_FUNCTION_2_3();
   v23 = *MEMORY[0x1E695EFD0];
   v24 = *(MEMORY[0x1E695EFD0] + 16);
-  *&v161.a = *MEMORY[0x1E695EFD0];
-  *&v161.c = v24;
+  *&v163.a = *MEMORY[0x1E695EFD0];
+  *&v163.c = v24;
   v25 = *(MEMORY[0x1E695EFD0] + 32);
-  *&v161.tx = v25;
+  *&v163.tx = v25;
   if (!a3)
   {
 LABEL_17:
-    v159.b = v161.b;
-    *&v159.c = *&v161.c;
-    *&v159.tx = *&v161.tx;
-    v31 = OUTLINED_FUNCTION_34_1(v15, v16, v17, v18, v19, v20, v21, v22, v90, v96, v102, *(&v102 + 1), v113, v119, v125, *(&v125 + 1), v136, *(&v136 + 1), v147, *(&v147 + 1), *&v158.a, *&v158.b, *&v158.c, *&v158.d, *&v158.tx, *&v158.ty, SLOBYTE(v161.a));
+    v161.b = v163.b;
+    *&v161.c = *&v163.c;
+    *&v161.tx = *&v163.tx;
+    v31 = OUTLINED_FUNCTION_34_1(v15, v16, v17, v18, v19, v20, v21, v22, v92, v98, v104, *(&v104 + 1), v115, v121, v127, *(&v127 + 1), v138, *(&v138 + 1), v149, *(&v149 + 1), *&v160.a, *&v160.b, *&v160.c, *&v160.d, *&v160.tx, *&v160.ty, SLOBYTE(v163.a));
     v33 = CGAffineTransformTranslate(v32, v31, *&v13, *(&v13 + 1));
-    v161 = v160;
-    v159.b = v160.b;
-    *&v159.c = *&v160.c;
-    *&v159.tx = *&v160.tx;
-    v41 = OUTLINED_FUNCTION_34_1(v33, v34, v35, v36, v37, v38, v39, v40, v91, v97, v103, v108, v114, v120, v126, v131, v137, v142, v148, v153, *&v158.a, *&v158.b, *&v158.c, *&v158.d, *&v158.tx, *&v158.ty, SLOBYTE(v160.a));
+    v163 = v162;
+    v161.b = v162.b;
+    *&v161.c = *&v162.c;
+    *&v161.tx = *&v162.tx;
+    v41 = OUTLINED_FUNCTION_34_1(v33, v34, v35, v36, v37, v38, v39, v40, v93, v99, v105, v110, v116, v122, v128, v133, v139, v144, v150, v155, *&v160.a, *&v160.b, *&v160.c, *&v160.d, *&v160.tx, *&v160.ty, SLOBYTE(v162.a));
     v43 = CGAffineTransformScale(v42, v41, *&v14, *(&v14 + 1));
-    OUTLINED_FUNCTION_33_4(v43, v44, v45, v46, v47, v48, v49, v50, v92, v98, v104, v109, v115, v121, v127, v132, v138, v143, v149, v154, *&v158.a, *&v158.b, *&v158.c, *&v158.d, *&v158.tx, *&v158.ty, *&v159.a, *&v159.b, *&v159.c, *&v159.d, *&v159.tx, *&v159.ty, *&v160.a, *&v160.c, v51);
-    v163.origin.x = OUTLINED_FUNCTION_3();
-    v164.size.width = v5;
-    v164.size.height = v6;
-    if (!CGRectEqualToRect(v163, v164))
+    OUTLINED_FUNCTION_33_4(v43, v44, v45, v46, v47, v48, v49, v50, v51, v94, v100, v106, v111, v117, v123, v129, v134, v140, v145, v151, v156, *&v160.a, *&v160.b, *&v160.c, *&v160.d, *&v160.tx, *&v160.ty, *&v161.a, *&v161.b, *&v161.c, *&v161.d, *&v161.tx, *&v161.ty, *&v162.a, *&v162.c, v52);
+    v165.origin.x = OUTLINED_FUNCTION_3();
+    v166.size.width = v5;
+    v166.size.height = v6;
+    if (!CGRectEqualToRect(v165, v166))
     {
-      v52 = OUTLINED_FUNCTION_3();
-      v56 = FigCaptureMetadataUtilitiesNormalizeCropRect(v52, v53, v54, v55);
-      v159.b = v161.b;
-      *&v159.c = *&v161.c;
-      *&v159.tx = *&v161.tx;
-      v64 = OUTLINED_FUNCTION_34_1(v56, v57, v58, v59, v60, v61, v62, v63, v93, v99, v105, v110, v116, v122, v128, v133, v139, v144, v150, v155, *&v158.a, *&v158.b, *&v158.c, *&v158.d, *&v158.tx, *&v158.ty, SLOBYTE(v161.a));
-      v68 = CGAffineTransformScale(v65, v64, v66, v67);
-      v161 = v160;
-      v159.b = v160.b;
-      *&v159.c = *&v160.c;
-      *&v159.tx = *&v160.tx;
-      v76 = OUTLINED_FUNCTION_34_1(v68, v69, v70, v71, v72, v73, v74, v75, v94, v100, v106, v111, v117, v123, v129, v134, v140, v145, v151, v156, *&v158.a, *&v158.b, *&v158.c, *&v158.d, *&v158.tx, *&v158.ty, SLOBYTE(v160.a));
-      v80 = CGAffineTransformTranslate(v77, v76, v78, v79);
-      OUTLINED_FUNCTION_33_4(v80, v81, v82, v83, v84, v85, v86, v87, v95, v101, v107, v112, v118, v124, v130, v135, v141, v146, v152, v157, *&v158.a, *&v158.b, *&v158.c, *&v158.d, *&v158.tx, *&v158.ty, *&v159.a, *&v159.b, *&v159.c, *&v159.d, *&v159.tx, *&v159.ty, *&v160.a, *&v160.c, v88);
+      v53 = OUTLINED_FUNCTION_3();
+      v57 = FigCaptureMetadataUtilitiesNormalizeCropRect(v53, v54, v55, v56, v5, v6);
+      v161.b = v163.b;
+      *&v161.c = *&v163.c;
+      *&v161.tx = *&v163.tx;
+      v65 = OUTLINED_FUNCTION_34_1(v57, v58, v59, v60, v61, v62, v63, v64, v95, v101, v107, v112, v118, v124, v130, v135, v141, v146, v152, v157, *&v160.a, *&v160.b, *&v160.c, *&v160.d, *&v160.tx, *&v160.ty, SLOBYTE(v163.a));
+      v69 = CGAffineTransformScale(v66, v65, v67, v68);
+      v163 = v162;
+      v161.b = v162.b;
+      *&v161.c = *&v162.c;
+      *&v161.tx = *&v162.tx;
+      v77 = OUTLINED_FUNCTION_34_1(v69, v70, v71, v72, v73, v74, v75, v76, v96, v102, v108, v113, v119, v125, v131, v136, v142, v147, v153, v158, *&v160.a, *&v160.b, *&v160.c, *&v160.d, *&v160.tx, *&v160.ty, SLOBYTE(v162.a));
+      v81 = CGAffineTransformTranslate(v78, v77, v79, v80);
+      OUTLINED_FUNCTION_33_4(v81, v82, v83, v84, v85, v86, v87, v88, v89, v97, v103, v109, v114, v120, v126, v132, v137, v143, v148, v154, v159, *&v160.a, *&v160.b, *&v160.c, *&v160.d, *&v160.tx, *&v160.ty, *&v161.a, *&v161.b, *&v161.c, *&v161.d, *&v161.tx, *&v161.ty, *&v162.a, *&v162.c, v90);
     }
 
     result = 0;
-    v89 = *&v161.c;
-    *a4 = *&v161.a;
-    a4[1] = v89;
-    a4[2] = *&v161.tx;
+    v91 = *&v163.c;
+    *a4 = *&v163.a;
+    a4[1] = v91;
+    a4[2] = *&v163.tx;
     return result;
   }
 
-  v125 = v25;
-  v136 = v24;
-  v147 = v23;
+  v127 = v25;
+  v138 = v24;
+  v149 = v23;
   v26 = *(MEMORY[0x1E69E9B10] + 16);
-  *&v160.a = *MEMORY[0x1E69E9B10];
-  *&v160.c = v26;
-  *&v160.tx = *(MEMORY[0x1E69E9B10] + 32);
+  *&v162.a = *MEMORY[0x1E69E9B10];
+  *&v162.c = v26;
+  *&v162.tx = *(MEMORY[0x1E69E9B10] + 32);
   v27 = [a1 objectForKeyedSubscript:*off_1E798A948];
   if (!v27)
   {
@@ -804,20 +830,20 @@ LABEL_17:
     return 0;
   }
 
-  [v28 getBytes:&v160 length:48];
+  [v28 getBytes:&v162 length:48];
   result = 4294954516;
-  if (*&v160.a > 0.0 && *(&v160.c + 1) > 0.0)
+  if (*&v162.a > 0.0 && *(&v162.c + 1) > 0.0)
   {
-    v102 = *&v160.tx;
-    v119 = *(&v13 + 1);
-    v30 = *(&v160.tx + 1);
-    *&v159.a = v147;
-    *&v159.c = v136;
-    *&v159.tx = v125;
-    CGAffineTransformScale(&v161, &v159, 1.0 / *&v160.a, 1.0 / *(&v160.c + 1));
-    v158 = v161;
-    v15 = CGAffineTransformTranslate(&v159, &v158, 0.0 - *&v102, 0.0 - v30);
-    v161 = v159;
+    v104 = *&v162.tx;
+    v121 = *(&v13 + 1);
+    v30 = *(&v162.tx + 1);
+    *&v161.a = v149;
+    *&v161.c = v138;
+    *&v161.tx = v127;
+    CGAffineTransformScale(&v163, &v161, 1.0 / *&v162.a, 1.0 / *(&v162.c + 1));
+    v160 = v163;
+    v15 = CGAffineTransformTranslate(&v161, &v160, 0.0 - *&v104, 0.0 - v30);
+    v163 = v161;
     goto LABEL_17;
   }
 
@@ -857,7 +883,7 @@ void FigCaptureMetadataUtilitiesNormalizedRectEnforcedWithinValidRegionAfterGDC(
   OUTLINED_FUNCTION_3_1();
 }
 
-CFTypeRef FigCaptureMetadataUtilitiesCreateBoxedVideoOrientationBlockBuffer()
+CFTypeRef FigCaptureMetadataUtilitiesCreateBoxedVideoOrientationBlockBuffer(__int16 a1, uint64_t a2, uint64_t a3)
 {
   if (FigBoxedMetadataCreateForConstruction() || FigBoxedMetadataAppendValue() || FigBoxedMetadataEndConstruction())
   {
@@ -868,19 +894,19 @@ CFTypeRef FigCaptureMetadataUtilitiesCreateBoxedVideoOrientationBlockBuffer()
   return CFRetain(BlockBuffer);
 }
 
-CMSampleBufferRef FigCaptureMetadataUtilitiesCreateVideoOrientationSampleBuffer(CMTime *a1, OpaqueCMBlockBuffer *cf, uint64_t a3, const opaqueCMFormatDescription *a4)
+CMSampleBufferRef FigCaptureMetadataUtilitiesCreateVideoOrientationSampleBuffer(CMTime *a1, OpaqueCMBlockBuffer *cf, __int16 a3, const opaqueCMFormatDescription *a4, uint64_t a5)
 {
-  v11 = 0;
+  v12 = 0;
   if (cf)
   {
-    v6 = cf;
+    v7 = cf;
     CFRetain(cf);
   }
 
   else
   {
-    result = FigCaptureMetadataUtilitiesCreateBoxedVideoOrientationBlockBuffer();
-    v6 = result;
+    result = FigCaptureMetadataUtilitiesCreateBoxedVideoOrientationBlockBuffer(a3, a4, a5);
+    v7 = result;
     if (!result)
     {
       return result;
@@ -889,15 +915,15 @@ CMSampleBufferRef FigCaptureMetadataUtilitiesCreateVideoOrientationSampleBuffer(
 
   memcpy(&__dst, MEMORY[0x1E6960CF0], sizeof(__dst));
   __dst.presentationTimeStamp = *a1;
-  sampleSizeArray = CMBlockBufferGetDataLength(v6);
-  v7 = CMSampleBufferCreate(*MEMORY[0x1E695E480], v6, 1u, 0, 0, a4, 1, 1, &__dst, 1, &sampleSizeArray, &v11);
-  CFRelease(v6);
-  result = v11;
-  if (v7)
+  sampleSizeArray = CMBlockBufferGetDataLength(v7);
+  v8 = CMSampleBufferCreate(*MEMORY[0x1E695E480], v7, 1u, 0, 0, a4, 1, 1, &__dst, 1, &sampleSizeArray, &v12);
+  CFRelease(v7);
+  result = v12;
+  if (v8)
   {
-    if (v11)
+    if (v12)
     {
-      CFRelease(v11);
+      CFRelease(v12);
       return 0;
     }
   }
@@ -913,7 +939,7 @@ void *FigCaptureMetadataUtilitiesCreateMetadataSidecarFileURL(void *result)
     if (!v1 || (result = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:v1]) == 0)
     {
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
       return 0;
     }
   }
@@ -921,40 +947,40 @@ void *FigCaptureMetadataUtilitiesCreateMetadataSidecarFileURL(void *result)
   return result;
 }
 
-uint64_t FigCaptureMetadataUtilitiesAdjustValidBufferRectForDarkShadeCropping(void *a1)
+void FigCaptureMetadataUtilitiesAdjustValidBufferRectForDarkShadeCropping(void *a1)
 {
   v2 = CMGetAttachment(a1, *off_1E798A3C8, 0);
-  result = fcmu_darkShadeHorizontalCrop([v2 objectForKeyedSubscript:*off_1E798B540]);
-  if (result)
+  v3 = [v2 objectForKeyedSubscript:*off_1E798B540];
+  v5 = fcmu_darkShadeHorizontalCrop(v3, v4);
+  if (v5)
   {
-    v4 = result;
-    v18 = *MEMORY[0x1E695F058];
-    v19 = *(MEMORY[0x1E695F058] + 16);
-    v5 = [objc_msgSend(v2 objectForKeyedSubscript:{*off_1E798B5A8), "intValue"}];
-    v6 = [objc_msgSend(v2 objectForKeyedSubscript:{*off_1E798B5A0), "intValue"}];
-    result = FigCFDictionaryGetCGRectIfPresent();
-    if (result || (result = FigCFDictionaryGetCGRectIfPresent(), result))
+    v6 = v5;
+    v20 = *MEMORY[0x1E695F058];
+    v21 = *(MEMORY[0x1E695F058] + 16);
+    v7 = [objc_msgSend(v2 objectForKeyedSubscript:{*off_1E798B5A8), "intValue"}];
+    v8 = [objc_msgSend(v2 objectForKeyedSubscript:{*off_1E798B5A0), "intValue"}];
+    if (FigCFDictionaryGetCGRectIfPresent() || FigCFDictionaryGetCGRectIfPresent())
     {
-      v8 = *(&v18 + 1);
-      v7 = *&v18;
-      v10 = *(&v19 + 1);
-      v9 = *&v19;
+      v10 = *(&v20 + 1);
+      v9 = *&v20;
+      v12 = *(&v21 + 1);
+      v11 = *&v21;
     }
 
     else
     {
-      v9 = v5;
-      v10 = v6;
-      v8 = 0.0;
-      v7 = 0.0;
+      v11 = v7;
+      v12 = v8;
+      v10 = 0.0;
+      v9 = 0.0;
     }
 
-    v11 = v5 - 2 * (v4 >> (v5 == 2112));
-    if (v9 > v11)
+    v13 = v7 - 2 * (v6 >> (v7 == 2112));
+    if (v11 > v13)
     {
-      v12 = v9 / v11;
-      v13 = (1.0 / v12);
-      fcmu_scaleValidBufferRectOverWidth(v7, v8, v9, v10, v13);
+      v14 = v11 / v13;
+      v15 = (1.0 / v14);
+      fcmu_scaleValidBufferRectOverWidth(v9, v10, v11, v12, v15);
       FigCFDictionarySetCGRect();
       if (FigCFDictionaryGetCGRectIfPresent())
       {
@@ -970,12 +996,10 @@ uint64_t FigCaptureMetadataUtilitiesAdjustValidBufferRectForDarkShadeCropping(vo
         height = Dimensions.height;
       }
 
-      fcmu_scaleValidBufferRectOverWidth(0.0, 0.0, width, height, v13);
-      return FigCFDictionarySetCGRect();
+      fcmu_scaleValidBufferRectOverWidth(0.0, 0.0, width, height, v15);
+      FigCFDictionarySetCGRect();
     }
   }
-
-  return result;
 }
 
 uint64_t fcmu_addValueToAuxiliaryImageProperties(CGImageMetadata *a1, CFTypeRef value, CFStringRef xmlns, CFStringRef prefix, CFStringRef name)
@@ -997,7 +1021,7 @@ uint64_t fcmu_addValueToAuxiliaryImageProperties(CGImageMetadata *a1, CFTypeRef 
         else
         {
           OUTLINED_FUNCTION_0();
-          FigDebugAssert3();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v14, v16, v17, v18, v19, v20, v21, v22);
           v11 = 4294954516;
         }
       }
@@ -1005,7 +1029,7 @@ uint64_t fcmu_addValueToAuxiliaryImageProperties(CGImageMetadata *a1, CFTypeRef 
       else
       {
         OUTLINED_FUNCTION_0();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v14, v16, v17, v18, v19, v20, v21, v22);
         v11 = 4294954510;
       }
 
@@ -1015,7 +1039,7 @@ uint64_t fcmu_addValueToAuxiliaryImageProperties(CGImageMetadata *a1, CFTypeRef 
     else
     {
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v13, v15, v17, v18, v19, v20, v21, v22);
       v10 = 0;
       v11 = 4294954510;
     }
@@ -1059,9 +1083,9 @@ void *FigCaptureMetadataUtilitiesHasFlicker(void *result, double a2)
   return result;
 }
 
-void FigCaptureMetadataUtiltiesCreateFlexRangeImagePropertiesFromGainMapMetadata_cold_1(const void *a1)
+void FigCaptureMetadataUtiltiesCreateFlexRangeImagePropertiesFromGainMapMetadata_cold_1(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  FigSignalErrorAtGM();
+  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED844488, 0xFFFFBDA0, "<<<< FigCaptureMetadataUtilities >>>>", 0x1949, v8, a7, a8, v10);
 
   CFRelease(a1);
 }
@@ -1101,9 +1125,9 @@ uint64_t FigCaptureMetadataUtiltiesCreateFlexRangeImagePropertiesFromGainMapMeta
   return fcmu_addValueToAuxiliaryImageProperties(v42, v43, v44, v45, v41);
 }
 
-uint64_t FigCaptureMetadataUtilitiesCreateAuxiliaryImagePropertiesFromDepthMetadata_cold_1(_DWORD *a1)
+uint64_t FigCaptureMetadataUtilitiesCreateAuxiliaryImagePropertiesFromDepthMetadata_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED844488, 0xFFFFBDA0, "<<<< FigCaptureMetadataUtilities >>>>", 0x1987, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
@@ -1124,7 +1148,7 @@ uint64_t FigCaptureMetadataUtilitiesCreateAuxiliaryImagePropertiesFromDepthMetad
   }
 
   OUTLINED_FUNCTION_0_26();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
   return 0;
 }
 
@@ -1146,7 +1170,7 @@ uint64_t FigCaptureMetadataUtilitiesCreateAuxiliaryImagePropertiesFromDepthMetad
   }
 
   OUTLINED_FUNCTION_0_26();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v11, v12, v13, v14, v15, v16, v17, v18);
   return 0;
 }
 
@@ -1168,7 +1192,7 @@ uint64_t FigCaptureMetadataUtilitiesCreateAuxiliaryImagePropertiesFromDepthMetad
   }
 
   OUTLINED_FUNCTION_0_26();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v11, v12, v13, v14, v15, v16, v17, v18);
   return 0;
 }
 
@@ -1188,82 +1212,22 @@ uint64_t FigCaptureMetadataUtilitiesCreateAuxiliaryImagePropertiesFromDepthMetad
   }
 
   OUTLINED_FUNCTION_0_26();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
   return 0;
 }
 
-uint64_t FigCaptureMetadataUtilitiesCreateAuxiliaryImagePropertiesFromDepthMetadata_cold_13(CGImageMetadata *a1, const void *a2, const __CFString *a3, const __CFString *a4)
+uint64_t FigCaptureMetadataUtilitiesCreateAuxiliaryImagePropertiesFromDepthMetadata_cold_15(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  if (!fcmu_addValueToAuxiliaryImageProperties(a1, a2, a3, a4, *off_1E798CFB8))
-  {
-    return 1;
-  }
-
-  OUTLINED_FUNCTION_0_26();
-  FigDebugAssert3();
-  return 0;
-}
-
-uint64_t FigCaptureMetadataUtilitiesCreateAuxiliaryImagePropertiesFromDepthMetadata_cold_14(CGImageMetadata *a1, const void *a2, const __CFString *a3, const __CFString *a4)
-{
-  if (!fcmu_addValueToAuxiliaryImageProperties(a1, a2, a3, a4, *off_1E798CFB0))
-  {
-    return 1;
-  }
-
-  OUTLINED_FUNCTION_0_26();
-  FigDebugAssert3();
-  return 0;
-}
-
-uint64_t FigCaptureMetadataUtilitiesCreateAuxiliaryImagePropertiesFromDepthMetadata_cold_15(_DWORD *a1)
-{
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED844488, 0xFFFFBDA0, "<<<< FigCaptureMetadataUtilities >>>>", 0x1A22, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-uint64_t FigCaptureMetadataUtilitiesCreateAuxiliaryImagePropertiesFromDepthMetadata_cold_16(CGImageMetadata *a1, const void *a2, const __CFString *a3, const __CFString *a4)
+uint64_t FigCaptureMetadataUtilitiesCreateAuxiliaryImagePropertiesFromDepthMetadata_cold_18(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  if (!fcmu_addValueToAuxiliaryImageProperties(a1, a2, a3, a4, *off_1E798CF18))
-  {
-    return 1;
-  }
-
-  OUTLINED_FUNCTION_0_26();
-  FigDebugAssert3();
-  return 0;
-}
-
-uint64_t FigCaptureMetadataUtilitiesCreateAuxiliaryImagePropertiesFromDepthMetadata_cold_17(CGImageMetadata *a1, const void *a2, const __CFString *a3, const __CFString *a4)
-{
-  if (!fcmu_addValueToAuxiliaryImageProperties(a1, a2, a3, a4, *off_1E798CF10))
-  {
-    return 1;
-  }
-
-  OUTLINED_FUNCTION_0_26();
-  FigDebugAssert3();
-  return 0;
-}
-
-uint64_t FigCaptureMetadataUtilitiesCreateAuxiliaryImagePropertiesFromDepthMetadata_cold_18(_DWORD *a1)
-{
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED844488, 0xFFFFBDA0, "<<<< FigCaptureMetadataUtilities >>>>", 0x1A3B, v8, a7, a8, v11);
   *a1 = result;
   return result;
-}
-
-uint64_t FigCaptureMetadataUtilitiesCreateAuxiliaryImagePropertiesFromDepthMetadata_cold_19(CGImageMetadata *a1, const void *a2, const __CFString *a3, const __CFString *a4)
-{
-  if (!fcmu_addValueToAuxiliaryImageProperties(a1, a2, a3, a4, *off_1E798CFA0))
-  {
-    return 1;
-  }
-
-  OUTLINED_FUNCTION_0_26();
-  FigDebugAssert3();
-  return 0;
 }
 
 void BWAddStillImageCaptureFrameMetadataToSampleBuffer(const void *a1, void *a2, int a3, uint64_t *a4)
@@ -1349,7 +1313,7 @@ LABEL_33:
 LABEL_34:
         v22 = [objc_msgSend(v7 objectForKeyedSubscript:{*off_1E798B5E8), "BOOLValue"}];
         v23 = v22;
-        v31 = OUTLINED_FUNCTION_1_31(v22, v24, v25, v26, v27, v28, v29, v30, v55, v57, v59, target, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, 0);
+        v31 = OUTLINED_FUNCTION_1_31(v22, v24, v25, v26, v27, v28, v29, v30, v55, v57, v59, target, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92);
         if (!v31)
         {
           return;
@@ -1389,7 +1353,7 @@ LABEL_36:
 
       if (v32 == ++v36)
       {
-        v32 = OUTLINED_FUNCTION_1_31(v38, v39, v40, v41, v42, v43, v44, v45, v56, v58, v60, target, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91, v93, v94);
+        v32 = OUTLINED_FUNCTION_1_31(v38, v39, v40, v41, v42, v43, v44, v45, v56, v58, v60, target, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91, v93);
         if (v32)
         {
           goto LABEL_36;
@@ -1553,7 +1517,7 @@ uint64_t BWReferenceFrameSelectionUsingBlurScores(void *a1, int a2, _DWORD *a3, 
 
   v15 = 0;
   v16 = 0;
-  result = FigMotionComputeBlurScores(a1);
+  result = FigMotionComputeBlurScores(a1, 3, 1, 1);
   if (!result)
   {
     if ([a1 count] < 2)
@@ -1643,7 +1607,7 @@ LABEL_24:
   return result;
 }
 
-uint64_t BWReferenceFrameSelectionUsingMotionAndFocusScores(void *a1, void *a2, int a3, _DWORD *a4, int *a5)
+uint64_t BWReferenceFrameSelectionUsingMotionAndFocusScores(void *a1, void *a2, unsigned int a3, unsigned int *a4, int *a5)
 {
   if (a3 < 1)
   {
@@ -1879,338 +1843,38 @@ uint64_t captureSourceRemote_SetPixelBufferProperty(uint64_t a1, uint64_t a2, __
     v7 = v4;
     fig_log_get_emitter();
     OUTLINED_FUNCTION_3_23();
-LABEL_11:
-    FigDebugAssert3();
-    goto LABEL_7;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
   }
 
-  if (a3)
+  else
   {
-    IOSurface = CVPixelBufferGetIOSurface(a3);
-    if (!IOSurface)
+    if (a3)
     {
-      v7 = 4294954516;
-      goto LABEL_7;
+      IOSurface = CVPixelBufferGetIOSurface(a3);
+      if (!IOSurface)
+      {
+        v7 = 4294954516;
+        goto LABEL_8;
+      }
+
+      XPCObject = IOSurfaceCreateXPCObject(IOSurface);
+      xpc_dictionary_set_value(xdict, kFigCaptureSourceRemoteProprietaryDefaultMessagePayload_Value, XPCObject);
+      xpc_release(XPCObject);
     }
 
-    XPCObject = IOSurfaceCreateXPCObject(IOSurface);
-    xpc_dictionary_set_value(xdict, kFigCaptureSourceRemoteProprietaryDefaultMessagePayload_Value, XPCObject);
-    xpc_release(XPCObject);
+    v7 = FigXPCRemoteClientSendSyncMessage();
+    if (v7)
+    {
+      fig_log_get_emitter();
+      OUTLINED_FUNCTION_3_23();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+    }
   }
 
-  v7 = FigXPCRemoteClientSendSyncMessage();
-  if (v7)
-  {
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_3_23();
-    goto LABEL_11;
-  }
-
-LABEL_7:
+LABEL_8:
   FigXPCRelease();
   FigXPCRemoteClientKillServerOnTimeout();
   return v7;
-}
-
-uint64_t FigCaptureSourceRemoteCopyCaptureSources_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteCopyCaptureSources_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteCopyCaptureSources_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteCopyCaptureSources_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteCopyCaptureSources_cold_5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_createInternal_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_createInternal_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_createInternal_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_createInternal_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteCopyProxySource_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteCopyProxySource_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteCopyProxySource_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteCopyProxySource_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteCopyProxySource_cold_5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteCopyProxySource_cold_6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteCopyExternalSyncDeviceDiscoverySessionSource_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteCopyExternalSyncDeviceDiscoverySessionSource_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteCopyExternalSyncDeviceDiscoverySessionSource_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteCopyExternalSyncDeviceDiscoverySessionSource_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteMaxStillImageJPEGDataSize_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteMaxStillImageJPEGDataSize_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteMaxStillImageJPEGDataSize_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_ShowSystemUserInterface_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_ShowSystemUserInterface_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_ShowSystemUserInterface_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemotePublishFrameSenderServerEndpoint_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemotePublishFrameSenderServerEndpoint_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemotePublishFrameSenderServerEndpoint_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteSuppressFrameSenderServerEndpoint_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteSuppressFrameSenderServerEndpoint_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteSuppressFrameSenderServerEndpoint_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteCopyFrameSenderEndpoints_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteCopyFrameSenderEndpoints_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteCopyFrameSenderEndpoints_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteCopyFrameSenderEndpoints_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteCopyFrameSenderEndpoints_cold_5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureSourceRemoteCopyFrameSenderEndpoints_cold_6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-uint64_t csr_deadConnectionCallback_cold_1_0()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_Invalidate_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_Invalidate_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_Finalize_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_Finalize_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_CopyProperty_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
 }
 
 uint64_t captureSourceRemote_CopyProperty_cold_2()
@@ -2218,7 +1882,7 @@ uint64_t captureSourceRemote_CopyProperty_cold_2()
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1_14();
   OUTLINED_FUNCTION_4_7(v0);
-  return FigDebugAssert3();
+  return FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
 }
 
 uint64_t captureSourceRemote_CopyProperty_cold_3()
@@ -2226,7 +1890,7 @@ uint64_t captureSourceRemote_CopyProperty_cold_3()
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1_14();
   OUTLINED_FUNCTION_4_7(v0);
-  return FigDebugAssert3();
+  return FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
 }
 
 uint64_t captureSourceRemote_CopyProperty_cold_4()
@@ -2234,21 +1898,7 @@ uint64_t captureSourceRemote_CopyProperty_cold_4()
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1_14();
   OUTLINED_FUNCTION_4_7(v0);
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_CopyProperty_cold_5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_CopyProperty_cold_6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
+  return FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
 }
 
 CFTypeRef captureSourceRemote_CopyProperty_cold_8(uint64_t a1, const void **a2)
@@ -2264,41 +1914,13 @@ CFTypeRef captureSourceRemote_CopyProperty_cold_8(uint64_t a1, const void **a2)
   return CFRetain(v3);
 }
 
-uint64_t __captureSourceRemote_copyClock_block_invoke_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t __captureSourceRemote_copyClock_block_invoke_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_createBasicMessage_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_createBasicMessage_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
 uint64_t captureSourceRemote_getObjectID_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE0FLL, "<<<< FigCaptureSourceRemote >>>>", 0xEB, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -2307,419 +1929,81 @@ uint64_t captureSourceRemote_getObjectID_cold_2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFBFBBLL, "<<<< FigCaptureSourceRemote >>>>", 0xEC, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
 
-uint64_t captureSourceRemote_CheckTCCAccess_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_CheckTCCAccess_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_CopyProprietaryDefault_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_CopyProprietaryDefault_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_CopyProprietaryDefault_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_CopyProprietaryDefault_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_CopyProprietaryDefault_cold_5()
+uint64_t captureSourceRemote_ProprietaryDefaultsDomainForAuditToken_cold_2(int a1, void *a2, void *a3)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_CopyProprietaryDefault_cold_6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_SetProprietaryDefault_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_SetProprietaryDefault_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_SetProprietaryDefault_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_SetProprietaryDefault_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_RegisterNotificationForProprietaryDefaultChanges_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_RegisterNotificationForProprietaryDefaultChanges_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_RegisterNotificationForProprietaryDefaultChanges_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_UnregisterNotificationForProprietaryDefaultChanges_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_UnregisterNotificationForProprietaryDefaultChanges_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_UnregisterNotificationForProprietaryDefaultChanges_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_UpdateCameraHistory_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_UpdateCameraHistory_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_UpdateCameraHistory_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_UpdateCameraHistory_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_UpdateCameraHistory_cold_5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_UpdateCameraHistory_cold_6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_UpdateCameraOverrideHistory_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_UpdateCameraOverrideHistory_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_UpdateCameraOverrideHistory_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_UpdateCameraOverrideHistory_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_UpdateCameraOverrideHistory_cold_5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_CameraHistoryDownplayOverrideList_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_CameraHistoryDownplayOverrideList_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_CameraHistoryDownplayOverrideList_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_PerformReactionEffect_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_PerformReactionEffect_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_PerformReactionEffect_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_PerformReactionEffect_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_ProprietaryDefaultsDomainForAuditToken_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_ProprietaryDefaultsDomainForAuditToken_cold_2(uint64_t a1, void *a2, void *a3)
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  result = FigDebugAssert3();
+  v7 = a1;
+  result = FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v8, v9, v10, v11, v12, vars0, vars8);
   *a3 = *a2;
   return result;
 }
 
-uint64_t captureSourceRemote_ProprietaryDefaultsDomainForAuditToken_cold_3()
+uint64_t FigCapturePleaseFileRadar_cold_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_ProprietaryDefaultsDomainForAuditToken_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_CopyWildcardProprietaryDefault_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_CopyWildcardProprietaryDefault_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_CopyWildcardProprietaryDefault_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_CopyWildcardProprietaryDefault_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_CopyWildcardProprietaryDefault_cold_5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_CopyWildcardProprietaryDefault_cold_6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_SetWildcardProprietaryDefault_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_SetWildcardProprietaryDefault_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_SetWildcardProprietaryDefault_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_SetWildcardProprietaryDefault_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureSourceRemote_SetWildcardProprietaryDefault_cold_5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t mrcn_createSampleBufferProcessor_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCapturePleaseFileRadar_cold_3()
-{
-  v0 = OUTLINED_FUNCTION_1_38();
-  v8 = OUTLINED_FUNCTION_4_1(v0, v1, v2, v3, v4, v5, v6, v7, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_5_2(v8))
+  v8 = OUTLINED_FUNCTION_1_38(a1, a2, a3, a4, a5, a6, a7, a8, v32, v35, v38, v41, SWORD2(v41), SBYTE6(v41), SHIBYTE(v41));
+  v16 = OUTLINED_FUNCTION_4_1(v8, v9, v10, v11, v12, v13, v14, v15, v33, v36, v39, v42, v44, v45, v46);
+  v17 = OUTLINED_FUNCTION_5_2(v16);
+  if (v17)
   {
     OUTLINED_FUNCTION_2_11("fcru_promptOpenTapToRadarIfNecessary");
-    OUTLINED_FUNCTION_3_26();
+    OUTLINED_FUNCTION_3_26(v24, v25, v26, v27, &dword_1AC90E000, v28, v29, "<<<< FigCaptureRadarUtils >>>> %s: Skipping Tap-to-Radar prompt because another prompt was shown within the past minute.", v34);
     OUTLINED_FUNCTION_6_2();
   }
 
-  return OUTLINED_FUNCTION_0_34();
+  else
+  {
+    v30 = 0;
+  }
+
+  return OUTLINED_FUNCTION_0_34(v17, v18, v19, v30, v20, v21, v22, v23, v34, v37, v40, v43, v47);
 }
 
-uint64_t FigCapturePleaseFileRadar_cold_6()
+uint64_t FigCapturePleaseFileRadar_cold_6(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v0 = OUTLINED_FUNCTION_1_38();
-  v8 = OUTLINED_FUNCTION_4_1(v0, v1, v2, v3, v4, v5, v6, v7, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_5_2(v8))
+  v8 = OUTLINED_FUNCTION_1_38(a1, a2, a3, a4, a5, a6, a7, a8, v32, v35, v38, v41, SWORD2(v41), SBYTE6(v41), SHIBYTE(v41));
+  v16 = OUTLINED_FUNCTION_4_1(v8, v9, v10, v11, v12, v13, v14, v15, v33, v36, v39, v42, v44, v45, v46);
+  v17 = OUTLINED_FUNCTION_5_2(v16);
+  if (v17)
   {
     OUTLINED_FUNCTION_2_11("fcru_promptOpenTapToRadarIfNecessary");
-    OUTLINED_FUNCTION_3_26();
+    OUTLINED_FUNCTION_3_26(v24, v25, v26, v27, &dword_1AC90E000, v28, v29, "<<<< FigCaptureRadarUtils >>>> %s: Skipping Tap-to-Radar prompt because the build is the same as the last time the prompt was shown.", v34);
     OUTLINED_FUNCTION_6_2();
   }
 
-  return OUTLINED_FUNCTION_0_34();
+  else
+  {
+    v30 = 0;
+  }
+
+  return OUTLINED_FUNCTION_0_34(v17, v18, v19, v30, v20, v21, v22, v23, v34, v37, v40, v43, v47);
 }
 
-uint64_t FigCapturePleaseFileRadar_cold_7()
+uint64_t FigCapturePleaseFileRadar_cold_7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v0 = OUTLINED_FUNCTION_1_38();
-  v8 = OUTLINED_FUNCTION_4_1(v0, v1, v2, v3, v4, v5, v6, v7, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_5_2(v8))
+  v8 = OUTLINED_FUNCTION_1_38(a1, a2, a3, a4, a5, a6, a7, a8, v32, v35, v38, v41, SWORD2(v41), SBYTE6(v41), SHIBYTE(v41));
+  v16 = OUTLINED_FUNCTION_4_1(v8, v9, v10, v11, v12, v13, v14, v15, v33, v36, v39, v42, v44, v45, v46);
+  v17 = OUTLINED_FUNCTION_5_2(v16);
+  if (v17)
   {
     OUTLINED_FUNCTION_2_11("fcru_promptOpenTapToRadarIfNecessary");
-    OUTLINED_FUNCTION_3_26();
+    OUTLINED_FUNCTION_3_26(v24, v25, v26, v27, &dword_1AC90E000, v28, v29, "<<<< FigCaptureRadarUtils >>>> %s: Skipping Tap-to-Radar prompt because the date is the same as the last time the prompt was shown.", v34);
     OUTLINED_FUNCTION_6_2();
   }
 
-  return OUTLINED_FUNCTION_0_34();
+  else
+  {
+    v30 = 0;
+  }
+
+  return OUTLINED_FUNCTION_0_34(v17, v18, v19, v30, v20, v21, v22, v23, v34, v37, v40, v43, v47);
 }
 
 void FigCapturePleaseFileRadar_cold_8(uint64_t a1, void *a2)
@@ -2735,18 +2019,24 @@ void FigCapturePleaseFileRadar_cold_8(uint64_t a1, void *a2)
   _Block_object_dispose(a2, 8);
 }
 
-uint64_t FigCapturePleaseFileRadar_cold_9()
+uint64_t FigCapturePleaseFileRadar_cold_9(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v0 = OUTLINED_FUNCTION_1_38();
-  v8 = OUTLINED_FUNCTION_4_1(v0, v1, v2, v3, v4, v5, v6, v7, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_5_2(v8))
+  v8 = OUTLINED_FUNCTION_1_38(a1, a2, a3, a4, a5, a6, a7, a8, v32, v35, v38, v41, SWORD2(v41), SBYTE6(v41), SHIBYTE(v41));
+  v16 = OUTLINED_FUNCTION_4_1(v8, v9, v10, v11, v12, v13, v14, v15, v33, v36, v39, v42, v44, v45, v46);
+  v17 = OUTLINED_FUNCTION_5_2(v16);
+  if (v17)
   {
     OUTLINED_FUNCTION_2_11("fcru_promptOpenTapToRadar");
-    OUTLINED_FUNCTION_3_26();
+    OUTLINED_FUNCTION_3_26(v24, v25, v26, v27, &dword_1AC90E000, v28, v29, "<<<< FigCaptureRadarUtils >>>> %s: Skipping Tap-to-Radar prompt because the current process is xctest.", v34);
     OUTLINED_FUNCTION_6_2();
   }
 
-  return OUTLINED_FUNCTION_0_34();
+  else
+  {
+    v30 = 0;
+  }
+
+  return OUTLINED_FUNCTION_0_34(v17, v18, v19, v30, v20, v21, v22, v23, v34, v37, v40, v43, v47);
 }
 
 void FigCaptureLogCameraStillImageCapturePowerEvent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
@@ -2769,11 +2059,11 @@ void FigCaptureLogCameraStillImageCapturePowerEvent(uint64_t a1, uint64_t a2, ui
   }
 }
 
-uint64_t FigCaptureLogCameraStreamingPowerEvent_cold_1()
+uint64_t FigCaptureLogCameraStreamingPowerEvent_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v0 = OUTLINED_FUNCTION_9_13();
-  v8 = OUTLINED_FUNCTION_4_1(v0, v1, v2, v3, v4, v5, v6, v7, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_5_2(v8))
+  v8 = OUTLINED_FUNCTION_9_13(a1, a2, a3, a4, a5, a6, a7, a8, v23, v25, v27, v29, SWORD2(v29), SBYTE6(v29), SHIBYTE(v29));
+  v16 = OUTLINED_FUNCTION_4_1(v8, v9, v10, v11, v12, v13, v14, v15, v24, v26, v28, v30, v31, v32, v33);
+  if (OUTLINED_FUNCTION_5_2(v16))
   {
     OUTLINED_FUNCTION_2_11("FigCaptureLogCameraStreamingPowerEvent");
     OUTLINED_FUNCTION_13();
@@ -2781,14 +2071,14 @@ uint64_t FigCaptureLogCameraStreamingPowerEvent_cold_1()
   }
 
   OUTLINED_FUNCTION_1_4();
-  return OUTLINED_FUNCTION_16_1();
+  return OUTLINED_FUNCTION_16_1(v17, v18, v19, v20, v21);
 }
 
-uint64_t FigCaptureLogCameraStreamingPowerEvent_cold_2()
+uint64_t FigCaptureLogCameraStreamingPowerEvent_cold_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v0 = OUTLINED_FUNCTION_9_13();
-  v8 = OUTLINED_FUNCTION_4_1(v0, v1, v2, v3, v4, v5, v6, v7, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_5_2(v8))
+  v8 = OUTLINED_FUNCTION_9_13(a1, a2, a3, a4, a5, a6, a7, a8, v23, v25, v27, v29, SWORD2(v29), SBYTE6(v29), SHIBYTE(v29));
+  v16 = OUTLINED_FUNCTION_4_1(v8, v9, v10, v11, v12, v13, v14, v15, v24, v26, v28, v30, v31, v32, v33);
+  if (OUTLINED_FUNCTION_5_2(v16))
   {
     OUTLINED_FUNCTION_2_11("FigCaptureLogCameraStreamingPowerEvent");
     OUTLINED_FUNCTION_13();
@@ -2796,7 +2086,7 @@ uint64_t FigCaptureLogCameraStreamingPowerEvent_cold_2()
   }
 
   OUTLINED_FUNCTION_1_4();
-  return OUTLINED_FUNCTION_16_1();
+  return OUTLINED_FUNCTION_16_1(v17, v18, v19, v20, v21);
 }
 
 void *qtmfsn_movieRecordingIsProRes(void *a1)
@@ -2872,7 +2162,7 @@ void qtmfsn_setTrackProperties(uint64_t a1, uint64_t a2, int a3, void *a4)
   memset(&time, 0, sizeof(time));
   if (a4)
   {
-    [a4 movieFragmentInterval];
+    objc_msgSend_movieFragmentInterval(a4);
     if (time.flags)
     {
       time1 = time;
@@ -2902,7 +2192,7 @@ void *qtmfsn_movieRecordingIsProResRaw(void *a1)
   return result;
 }
 
-uint64_t qtmfsn_formatWriterDidWriteFragment(uint64_t a1, uint64_t a2)
+void *qtmfsn_formatWriterDidWriteFragment(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -3134,27 +2424,20 @@ uint64_t BWStereoUtilitiesComputeRectificationQuaternion_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x3D, v1, v4, v5, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t BWStereoUtilitiesComputeCenterShiftForPrimaryStream_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
 }
 
 uint64_t BWStereoUtilitiesComputeCenterShiftForPrimaryStream_cold_2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x76, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3163,9 +2446,9 @@ uint64_t BWStereoUtilitiesComputeCenterShiftForPrimaryStream_cold_3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x67, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3174,9 +2457,9 @@ uint64_t BWStereoUtilitiesComputeCenterShiftForPrimaryStream_cold_4(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x66, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3185,9 +2468,9 @@ uint64_t BWStereoUtilitiesComputeCenterShiftForPrimaryStream_cold_5(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x65, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3196,9 +2479,9 @@ uint64_t BWStereoUtilitiesComputeCenterShiftForPrimaryStream_cold_6(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x64, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3207,45 +2490,31 @@ uint64_t su_getIntrinsicsMatrix_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x99, v1, v4, v5, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t su_getIntrinsicsMatrix_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
 }
 
 uint64_t su_getIntrinsicsMatrix_cold_3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0xB7, v1, v4, v5, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t su_getIntrinsicsMatrix_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
 }
 
 uint64_t su_getIntrinsicsMatrix_cold_5(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0xB2, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3254,9 +2523,9 @@ uint64_t su_getIntrinsicsMatrix_cold_6(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0xAB, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3265,9 +2534,9 @@ uint64_t su_getIntrinsicsMatrix_cold_7(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x9C, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3276,9 +2545,9 @@ uint64_t su_getIntrinsicsMatrix_cold_8(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x96, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3287,9 +2556,9 @@ uint64_t su_getIntrinsicsMatrix_cold_9(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x93, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3298,9 +2567,9 @@ uint64_t su_getIntrinsicsMatrix_cold_10(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x92, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3309,48 +2578,20 @@ uint64_t su_getIntrinsicsMatrix_cold_11(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x91, v1, v4, v5, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t BWStereoUtilitiesComputeInverseRectificationHomographiesAndFOV_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t BWStereoUtilitiesComputeInverseRectificationHomographiesAndFOV_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t BWStereoUtilitiesComputeInverseRectificationHomographiesAndFOV_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t BWStereoUtilitiesComputeInverseRectificationHomographiesAndFOV_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
 }
 
 uint64_t BWStereoUtilitiesComputeInverseRectificationHomographiesAndFOV_cold_5(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x120, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3359,9 +2600,9 @@ uint64_t BWStereoUtilitiesComputeInverseRectificationHomographiesAndFOV_cold_6(_
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x11D, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3370,9 +2611,9 @@ uint64_t BWStereoUtilitiesComputeInverseRectificationHomographiesAndFOV_cold_7(_
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x10E, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3381,9 +2622,9 @@ uint64_t BWStereoUtilitiesComputeInverseRectificationHomographiesAndFOV_cold_8(_
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x10B, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3392,9 +2633,9 @@ uint64_t BWStereoUtilitiesComputeInverseRectificationHomographiesAndFOV_cold_9(_
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x106, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3403,9 +2644,9 @@ uint64_t BWStereoUtilitiesComputeInverseRectificationHomographiesAndFOV_cold_10(
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x105, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3414,9 +2655,9 @@ uint64_t BWStereoUtilitiesComputeInverseRectificationHomographiesAndFOV_cold_11(
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x104, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3425,9 +2666,9 @@ uint64_t BWStereoUtilitiesComputeInverseRectificationHomographiesAndFOV_cold_12(
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x15E, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3436,9 +2677,9 @@ uint64_t BWStereoUtilitiesComputeInverseRectificationHomographiesAndFOV_cold_13(
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x155, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3447,9 +2688,9 @@ uint64_t BWStereoUtilitiesComputeInverseRectificationHomographiesAndFOV_cold_14(
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x14F, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3458,9 +2699,9 @@ uint64_t BWStereoUtilitiesComputeInverseRectificationHomographiesAndFOV_cold_15(
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x14A, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3469,84 +2710,51 @@ uint64_t BWStereoUtilitiesComputeInverseRectificationHomographiesAndFOV_cold_16(
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x145, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
 
-uint64_t BWStereoUtilitiesComputeInverseRectificationHomographiesAndFOV_cold_17()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t BWStereoUtilitiesComputeInverseRectificationHomographiesAndFOV_cold_18(_DWORD *a1)
+uint64_t BWStereoUtilitiesComputeInverseRectificationHomographiesAndFOV_cold_18(int *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  fig_log_get_emitter();
-  v2 = FigSignalErrorAtGM();
-  *a1 = v2;
-  if (!v2)
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v9, v12, v13, v15, v17, v19, vars0, vars8);
+  emitter = fig_log_get_emitter();
+  v6 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0xE3, v1, v4, v5, v10);
+  *a1 = v6;
+  if (!v6)
   {
     return 1;
   }
 
+  v7 = v6;
   fig_log_get_emitter();
-  FigDebugAssert3();
+  LODWORD(v11) = v7;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v11, v1, v14, v16, v18, v20, vars0a, vars8a);
   return 0;
-}
-
-uint64_t BWStereoUtilitiesComputeInverseRectificationHomographiesAndFOV_cold_19()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-uint64_t BWStereoUtilitiesComputeInverseRectificationHomographiesAndFOV_cold_20()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 uint64_t BWStereoUtilitiesComputeInverseRectificationHomographiesAndFOV_cold_21(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x178, v1, v4, v5, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t BWStereoUtilitiesComputeStereoBaseline_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t BWStereoUtilitiesComputeStereoBaseline_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
 }
 
 uint64_t BWStereoUtilitiesComputeStereoBaseline_cold_3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x1BD, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3555,9 +2763,9 @@ uint64_t su_getViewMatrixInCameraCoordinates_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x4F, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3566,9 +2774,9 @@ uint64_t su_getViewMatrixInCameraCoordinates_cold_2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE11, "<<<< BWStereoUtilities >>>>", 0x4E, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3577,9 +2785,9 @@ uint64_t su_getViewMatrixInCameraCoordinates_cold_3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "<<<< BWStereoUtilities >>>>", 0x4B, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -3587,9 +2795,9 @@ uint64_t su_getViewMatrixInCameraCoordinates_cold_3(_DWORD *a1)
 uint64_t BWPortraitUtilitiesAttachSyntheticFocusRectangleToSampleBuffer(CMAttachmentBearerRef target)
 {
   v4 = *(MEMORY[0x1E695EFD0] + 16);
-  v109.size = *MEMORY[0x1E695EFD0];
-  v110 = v4;
-  v111 = *(MEMORY[0x1E695EFD0] + 32);
+  v110.size = *MEMORY[0x1E695EFD0];
+  v111 = v4;
+  v112 = *(MEMORY[0x1E695EFD0] + 32);
   v5 = MEMORY[0x1E695F050];
   if (target)
   {
@@ -3597,15 +2805,15 @@ uint64_t BWPortraitUtilitiesAttachSyntheticFocusRectangleToSampleBuffer(CMAttach
     if (v6)
     {
       v7 = v6;
-      v106 = *(v5 + 16);
-      v109.origin = *v5;
-      v131.origin = *v5;
-      v131.size = v106;
+      v107 = *(v5 + 16);
+      v110.origin = *v5;
+      v132.origin = *v5;
+      v132.size = v107;
       if (FigCFDictionaryGetCGRectIfPresent())
       {
-        FigCaptureMetadataUtilitiesGetFinalCropRect();
+        FigCaptureMetadataUtilitiesGetFinalCropRect(v7);
         OUTLINED_FUNCTION_8_3();
-        v8 = FigCaptureComputeAffineTransformFromSourceAndDestRects(&v109.size, v131.origin.x, v131.origin.y, v131.size.width, v131.size.height, v9, v10, v11, v12);
+        v8 = FigCaptureComputeAffineTransformFromSourceAndDestRects(&v110.size, v132.origin.x, v132.origin.y, v132.size.width, v132.size.height, v9, v10, v11, v12);
       }
 
       v13 = [v7 objectForKeyedSubscript:{*off_1E798B308, v8}];
@@ -3617,25 +2825,25 @@ uint64_t BWPortraitUtilitiesAttachSyntheticFocusRectangleToSampleBuffer(CMAttach
       }
 
       v16 = v13;
-      v134 = 0u;
       v135 = 0u;
-      v132 = 0u;
+      v136 = 0u;
       v133 = 0u;
-      v17 = [v13 countByEnumeratingWithState:&v132 objects:&v131 count:16];
+      v134 = 0u;
+      v17 = [v13 countByEnumeratingWithState:&v133 objects:&v132 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v133;
+        v19 = *v134;
         while (1)
         {
-          if (*v133 != v19)
+          if (*v134 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
           if (!--v18)
           {
-            v18 = [v16 countByEnumeratingWithState:&v132 objects:&v131 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v133 objects:&v132 count:16];
             if (!v18)
             {
               break;
@@ -3652,8 +2860,8 @@ uint64_t BWPortraitUtilitiesAttachSyntheticFocusRectangleToSampleBuffer(CMAttach
       if ([v16 count])
       {
         v20 = [v16 objectAtIndexedSubscript:{objc_msgSend(v16, "count") > 1}];
-        recta.origin = v109.origin;
-        recta.size = v106;
+        recta.origin = v110.origin;
+        recta.size = v107;
         if (CGRectMakeWithDictionaryRepresentation(v20, &recta) && !CGRectIsEmpty(recta))
         {
           v21 = [objc_msgSend(objc_msgSend(v7 objectForKeyedSubscript:{*off_1E798B220), "objectForKeyedSubscript:", *off_1E798ACB8), "objectForKeyedSubscript:", *off_1E798ACE8}];
@@ -3669,44 +2877,44 @@ uint64_t BWPortraitUtilitiesAttachSyntheticFocusRectangleToSampleBuffer(CMAttach
             FigCaptureNormalizedFocusWindowFromMetadata(v7);
             v25 = v24;
             OUTLINED_FUNCTION_5_33();
-            if (CGRectIsNull(v136))
+            if (CGRectIsNull(v137))
             {
               fig_log_get_emitter();
               OUTLINED_FUNCTION_1_16();
-              FigDebugAssert3();
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v94, v96, rect1, v103, v107, *(&v107 + 1), *&v110.origin.x, LODWORD(v110.origin.y));
             }
 
             else
             {
               v26 = fabs(width * height);
-              rect1 = v25;
+              rect1a = v25;
               OUTLINED_FUNCTION_4_32();
-              v138 = CGRectIntersection(v137, v152);
-              v27 = v138.size.width;
-              v28 = v138.size.height;
-              IsNull = CGRectIsNull(v138);
+              v139 = CGRectIntersection(v138, v153);
+              v27 = v139.size.width;
+              v28 = v139.size.height;
+              IsNull = CGRectIsNull(v139);
               v37 = 0.0;
               if (!IsNull)
               {
                 v37 = fabs(v27 * v28) / fmin(fabs(v1 * v2), v26);
               }
 
-              v128 = 0u;
               v129 = 0u;
-              v126 = 0u;
+              v130 = 0u;
               v127 = 0u;
-              v38 = OUTLINED_FUNCTION_9_16(IsNull, v30, v31, v32, v33, v34, v35, v36, v94, v96, rect1, v102, v106, *(&v106 + 1), *&v109.origin.x, *&v109.origin.y, *&v109.size.width, *&v109.size.height, v110, *(&v110 + 1), v111, *(&v111 + 1), *&v112.origin.x, *&v112.origin.y, *&v112.size.width, *&v112.size.height, SLOBYTE(v113.origin.x), *&v113.origin.y, *&v113.size.width, *&v113.size.height, v114, v115, v116, v117, v118, v119, v120, v121, v122, v123, v124, v125, 0);
+              v128 = 0u;
+              v38 = OUTLINED_FUNCTION_9_16(IsNull, v30, v31, v32, v33, v34, v35, v36, v94, v96, rect1a, v103, v107, *(&v107 + 1), *&v110.origin.x, *&v110.origin.y, *&v110.size.width, *&v110.size.height, v111, *(&v111 + 1), v112, *(&v112 + 1), *&v113.origin.x, *&v113.origin.y, *&v113.size.width, *&v113.size.height, *&v114.origin.x, *&v114.origin.y, *&v114.size.width, *&v114.size.height, v115, v116, v117, v118, v119, v120, v121, v122, v123, v124, v125, v126);
               if (v38)
               {
                 v39 = v38;
-                v40 = *v127;
+                v40 = *v128;
                 v41 = off_1E798B5C0;
                 v42 = *off_1E798B5C0;
 LABEL_24:
                 v43 = 0;
                 while (1)
                 {
-                  if (*v127 != v40)
+                  if (*v128 != v40)
                   {
                     objc_enumerationMutation(v21);
                   }
@@ -3716,31 +2924,31 @@ LABEL_24:
                     break;
                   }
 
-                  v44 = [*(*(&v126 + 1) + 8 * v43) objectForKeyedSubscript:v42];
-                  if (!v44 || (v112.origin = v109.origin, v112.size = v106, !CGRectMakeWithDictionaryRepresentation(v44, &v112)))
+                  v44 = [*(*(&v127 + 1) + 8 * v43) objectForKeyedSubscript:v42];
+                  if (!v44 || (v113.origin = v110.origin, v113.size = v107, !CGRectMakeWithDictionaryRepresentation(v44, &v113)))
                   {
                     fig_log_get_emitter();
                     OUTLINED_FUNCTION_1_16();
-                    FigDebugAssert3();
+                    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
                     v15 = off_1E798B5C0;
                     v14 = off_1E798B218;
                     goto LABEL_40;
                   }
 
-                  v139 = CGRectIntersection(v112, recta);
-                  v45 = v139.size.width;
-                  v46 = v139.size.height;
-                  v47 = CGRectIsNull(v139);
+                  v140 = CGRectIntersection(v113, recta);
+                  v45 = v140.size.width;
+                  v46 = v140.size.height;
+                  v47 = CGRectIsNull(v140);
                   v55 = 0.0;
                   if (!v47)
                   {
-                    v55 = fabs(v45 * v46) / fmin(fabs(v112.size.width * v112.size.height), v26);
+                    v55 = fabs(v45 * v46) / fmin(fabs(v113.size.width * v113.size.height), v26);
                   }
 
                   v37 = fmax(v37, v55);
                   if (v39 == ++v43)
                   {
-                    v39 = OUTLINED_FUNCTION_9_16(v47, v48, v49, v50, v51, v52, v53, v54, v94, v96, rect1a, v103, v106, *(&v106 + 1), *&v109.origin.x, *&v109.origin.y, *&v109.size.width, *&v109.size.height, v110, *(&v110 + 1), v111, *(&v111 + 1), *&v112.origin.x, *&v112.origin.y, *&v112.size.width, *&v112.size.height, SLOBYTE(v113.origin.x), *&v113.origin.y, *&v113.size.width, *&v113.size.height, v114, v115, v116, v117, v118, v119, v120, v121, v122, v123, v124, v125, v126);
+                    v39 = OUTLINED_FUNCTION_9_16(v47, v48, v49, v50, v51, v52, v53, v54, v94, v96, rect1b, v104, v107, *(&v107 + 1), *&v110.origin.x, *&v110.origin.y, *&v110.size.width, *&v110.size.height, v111, *(&v111 + 1), v112, *(&v112 + 1), *&v113.origin.x, *&v113.origin.y, *&v113.size.width, *&v113.size.height, *&v114.origin.x, *&v114.origin.y, *&v114.size.width, *&v114.size.height, v115, v116, v117, v118, v119, v120, v121, v122, v123, v124, v125, v126);
                     if (v39)
                     {
                       goto LABEL_24;
@@ -3761,7 +2969,7 @@ LABEL_24:
               if (v37 < 0.5)
               {
                 OUTLINED_FUNCTION_4_32();
-                v56 = CGRectCreateDictionaryRepresentation(v140);
+                v56 = CGRectCreateDictionaryRepresentation(v141);
                 if (v56)
                 {
 LABEL_52:
@@ -3769,7 +2977,7 @@ LABEL_52:
                   goto LABEL_53;
                 }
 
-                goto LABEL_70;
+                goto LABEL_38;
               }
             }
           }
@@ -3786,10 +2994,10 @@ LABEL_53:
         }
       }
 
-LABEL_70:
+LABEL_38:
       fig_log_get_emitter();
       OUTLINED_FUNCTION_1_16();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
 LABEL_41:
       Value = CFDictionaryGetValue(v7, *v14);
       if (Value)
@@ -3807,22 +3015,22 @@ LABEL_41:
           v63 = 0.0;
           while (1)
           {
-            v131.origin = v109.origin;
-            v131.size = v106;
+            v132.origin = v110.origin;
+            v132.size = v107;
             ValueAtIndex = CFArrayGetValueAtIndex(v58, v60);
             v65 = CFDictionaryGetValue(ValueAtIndex, v61);
-            if (!CGRectMakeWithDictionaryRepresentation(v65, &v131))
+            if (!CGRectMakeWithDictionaryRepresentation(v65, &v132))
             {
               break;
             }
 
             OUTLINED_FUNCTION_3_32();
-            if (CGRectIntersectsRect(v141, v153))
+            if (CGRectIntersectsRect(v142, v154))
             {
-              v66 = v131.size.width * v131.size.height;
+              v66 = v132.size.width * v132.size.height;
               if (v63 < v66)
               {
-                v63 = v131.size.width * v131.size.height;
+                v63 = v132.size.width * v132.size.height;
                 v20 = v65;
               }
             }
@@ -3846,29 +3054,29 @@ LABEL_41:
 
         fig_log_get_emitter();
         OUTLINED_FUNCTION_1_16();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
       }
 
 LABEL_51:
-      v142.origin.x = 0.25;
-      v142.origin.y = 0.25;
-      v142.size.width = 0.5;
-      v142.size.height = 0.5;
-      v56 = CGRectCreateDictionaryRepresentation(v142);
+      v143.origin.x = 0.25;
+      v143.origin.y = 0.25;
+      v143.size.width = 0.5;
+      v143.size.height = 0.5;
+      v56 = CGRectCreateDictionaryRepresentation(v143);
       goto LABEL_52;
     }
   }
 
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1_16();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
   v20 = 0;
   v67 = 4294954516;
 LABEL_54:
   v68 = *(v5 + 16);
-  v113.origin = *v5;
-  v113.size = v68;
-  if (!CGRectMakeWithDictionaryRepresentation(v20, &v113))
+  v114.origin = *v5;
+  v114.size = v68;
+  if (!CGRectMakeWithDictionaryRepresentation(v20, &v114))
   {
     CMSetAttachment(target, *off_1E798D340, v20, 1u);
 LABEL_66:
@@ -3876,69 +3084,69 @@ LABEL_66:
     goto LABEL_67;
   }
 
-  v109.origin.x = v113.origin.x;
-  v104 = *&v113.size.width;
-  *&v106 = v113.origin.y;
-  rect1c = *&v113.size.height;
-  v69 = CGRectCreateDictionaryRepresentation(v113);
-  OUTLINED_FUNCTION_6_26(v69, v70, v71, v72, v73, v74, v75, v76, v94, v96, rect1c, v104, v106, *(&v106 + 1), *&v109.origin.x, *&v109.origin.y, *&v109.size.width, *&v109.size.height, v110, *(&v110 + 1), v111);
+  v110.origin.x = v114.origin.x;
+  v105 = *&v114.size.width;
+  *&v107 = v114.origin.y;
+  rect1d = *&v114.size.height;
+  v69 = CGRectCreateDictionaryRepresentation(v114);
+  OUTLINED_FUNCTION_6_26(v69, v70, v71, v72, v73, v74, v75, v76, v94, v96, rect1d, v105, v107, *(&v107 + 1), *&v110.origin.x, *&v110.origin.y, *&v110.size.width, *&v110.size.height, v111, *(&v111 + 1), v112);
   IsIdentity = CGAffineTransformIsIdentity(v77);
   if (!IsIdentity)
   {
-    OUTLINED_FUNCTION_6_26(IsIdentity, v79, v80, v81, v82, v83, v84, v85, v95, v97, *&rect1b, *&v105, *&v107, v108, *&v109.origin.x, *&v109.origin.y, *&v109.size.width, *&v109.size.height, v110, *(&v110 + 1), v111);
-    v143.origin.x = OUTLINED_FUNCTION_2_41();
-    CGRectApplyAffineTransform(v143, v86);
+    OUTLINED_FUNCTION_6_26(IsIdentity, v79, v80, v81, v82, v83, v84, v85, v95, v97, *&rect1c, *&v106, *&v108, v109, *&v110.origin.x, *&v110.origin.y, *&v110.size.width, *&v110.size.height, v111, *(&v111 + 1), v112);
+    v144.origin.x = OUTLINED_FUNCTION_2_41();
+    CGRectApplyAffineTransform(v144, v86);
   }
 
   OUTLINED_FUNCTION_16_5();
-  v144.origin.x = OUTLINED_FUNCTION_2_41();
-  CGRectIntersection(v144, v154);
+  v145.origin.x = OUTLINED_FUNCTION_2_41();
+  CGRectIntersection(v145, v155);
   OUTLINED_FUNCTION_5_33();
   OUTLINED_FUNCTION_2_41();
   OUTLINED_FUNCTION_3_32();
-  CGRectEqualToRect(v145, v155);
+  CGRectEqualToRect(v146, v156);
   OUTLINED_FUNCTION_16_5();
-  v146.origin.x = v109.origin.x;
-  v146.origin.y = v107;
-  v146.size.width = v105;
-  v146.size.height = rect1b;
-  CGRectIntersection(v146, v156);
+  v147.origin.x = v110.origin.x;
+  v147.origin.y = v108;
+  v147.size.width = v106;
+  v147.size.height = rect1c;
+  CGRectIntersection(v147, v157);
   OUTLINED_FUNCTION_8_3();
-  v147.origin.x = v109.origin.x;
-  x = v157.origin.x;
-  v147.origin.y = v107;
-  y = v157.origin.y;
-  v147.size.width = v105;
-  v89 = v157.size.width;
-  v147.size.height = rect1b;
-  v90 = v157.size.height;
-  CGRectEqualToRect(v147, v157);
+  v148.origin.x = v110.origin.x;
+  x = v158.origin.x;
+  v148.origin.y = v108;
+  y = v158.origin.y;
+  v148.size.width = v106;
+  v89 = v158.size.width;
+  v148.size.height = rect1c;
+  v90 = v158.size.height;
+  CGRectEqualToRect(v148, v158);
   OUTLINED_FUNCTION_3_32();
-  if (!CGRectEqualToRect(v148, v158))
+  if (!CGRectEqualToRect(v149, v159))
   {
     OUTLINED_FUNCTION_4_32();
-    v91 = CGRectCreateDictionaryRepresentation(v149);
+    v91 = CGRectCreateDictionaryRepresentation(v150);
     if (v91)
     {
       v20 = v91;
     }
   }
 
-  v150.origin.x = v109.origin.x;
-  v150.size.width = v105;
-  v150.origin.y = v107;
-  v150.size.height = rect1b;
-  v159.origin.x = x;
-  v159.origin.y = y;
-  v159.size.width = v89;
-  v159.size.height = v90;
-  if (!CGRectEqualToRect(v150, v159))
+  v151.origin.x = v110.origin.x;
+  v151.size.width = v106;
+  v151.origin.y = v108;
+  v151.size.height = rect1c;
+  v160.origin.x = x;
+  v160.origin.y = y;
+  v160.size.width = v89;
+  v160.size.height = v90;
+  if (!CGRectEqualToRect(v151, v160))
   {
-    v151.origin.x = x;
-    v151.origin.y = y;
-    v151.size.width = v89;
-    v151.size.height = v90;
-    v92 = CGRectCreateDictionaryRepresentation(v151);
+    v152.origin.x = x;
+    v152.origin.y = y;
+    v152.size.width = v89;
+    v152.size.height = v90;
+    v92 = CGRectCreateDictionaryRepresentation(v152);
     if (v92)
     {
       v69 = v92;
@@ -3956,70 +3164,7 @@ LABEL_67:
   return v67;
 }
 
-uint64_t BWPortraitUtilitiesAttachLumaNoiseLevelToSampleBuffer_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t BWPortraitUtilitiesAttachLumaNoiseLevelToSampleBuffer_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t BWPortraitUtilitiesAttachLumaNoiseLevelToSampleBuffer_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t BWPortraitUtilitiesAttachLumaNoiseLevelToSampleBuffer_cold_5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t BWPortraitUtilitiesAttachLumaNoiseLevelToSampleBuffer_cold_6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t BWPortraitUtilitiesAttachLumaNoiseLevelToSampleBuffer_cold_7()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t BWPortraitUtilitiesAttachLumaNoiseLevelToSampleBuffer_cold_8()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t BWPortraitUtilitiesAttachLumaNoiseLevelToSampleBuffer_cold_9()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t BWPortraitUtilitiesAttachLumaNoiseLevelToSampleBuffer_cold_10()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-void __adsie_createStateMachine_block_invoke_2(uint64_t a1, uint64_t a2)
+void __adsie_createStateMachine_block_invoke_2(uint64_t a1, id *a2)
 {
   v3 = objc_autoreleasePoolPush();
   [(BWJasperColorStillsExecutorController *)a2 _serviceNextRequest];
@@ -4038,7 +3183,7 @@ void __adsie_createStateMachine_block_invoke_3(uint64_t a1, uint64_t a2)
   objc_autoreleasePoolPop(v3);
 }
 
-void __adsie_createStateMachine_block_invoke_4(uint64_t a1, uint64_t a2)
+void __adsie_createStateMachine_block_invoke_4(uint64_t a1, id *a2)
 {
   v3 = objc_autoreleasePoolPush();
   [(BWJasperColorStillsExecutorController *)a2 _execute];
@@ -4046,111 +3191,14 @@ void __adsie_createStateMachine_block_invoke_4(uint64_t a1, uint64_t a2)
   objc_autoreleasePoolPop(v3);
 }
 
-uint64_t FigCapturePreloadShadersInternal_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCapturePreloadShadersInternal_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t __FigCapturePreloadShadersInternal_block_invoke_2_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-void __FigCapturePreloadShadersInternal_block_invoke_2_cold_2(GLuint a1)
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  FigDebugAssert3();
-  glDeleteShader(a1);
-}
-
-uint64_t __FigCapturePreloadShadersInternal_block_invoke_2_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t __FigCapturePreloadShadersInternal_block_invoke_2_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_2_46(v0);
-  return FigDebugAssert3();
-}
-
-uint64_t __FigCapturePreloadShadersInternal_block_invoke_2_cold_5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_2_46(v0);
-  return FigDebugAssert3();
-}
-
-uint64_t __FigCapturePreloadShadersInternal_block_invoke_2_cold_6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_2_46(v0);
-  return FigDebugAssert3();
-}
-
-uint64_t __FigCapturePreloadShadersInternal_block_invoke_2_cold_7()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t __FigCapturePreloadShadersInternal_block_invoke_2_cold_8()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t __FigCapturePreloadShadersInternal_block_invoke_2_cold_10()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
 uint64_t __FigCapturePreloadShadersInternal_block_invoke_2_cold_11(id *a1)
 {
   fig_log_get_emitter();
-  LODWORD(v4) = 0;
-  FigDebugAssert3();
-  fig_log_get_emitter();
-  [*a1 code];
-  return FigSignalErrorAtGM();
-}
-
-uint64_t __FigWaitForDeferredShaderCacheCopyCompletion_block_invoke_cold_2(uint64_t a1)
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  result = FigDebugAssert3();
-  *(*(*(a1 + 32) + 8) + 24) = -15420;
-  return result;
-}
-
-uint64_t gl_UtilsCreateShader_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
+  v8 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v8, v1, v10, v11, v12, v13, vars0, vars8);
+  emitter = fig_log_get_emitter();
+  v4 = [*a1 code];
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v4, "<<<< ShaderPreloader >>>>", 0x723, v1, v5, v6, v9);
 }
 
 void VisionCoreLibrary_cold_1(void *a1)
@@ -4192,8 +3240,8 @@ uint64_t BWMemcpyPixelBuffer(__CVBuffer *a1, __CVBuffer *a2, double a3, double a
       if (v21 >= 1 && v22 > 0)
       {
         v25 = v21 | (v22 << 32);
-        v70.origin.x = OUTLINED_FUNCTION_13_16();
-        if (CGRectIsNull(v70) || (v26 = OUTLINED_FUNCTION_13_16(), FigCaptureRectIsFullBufferRectForPixelBuffer(a1, v26, v27, v28, v29)))
+        v78.origin.x = OUTLINED_FUNCTION_13_16();
+        if (CGRectIsNull(v78) || (v26 = OUTLINED_FUNCTION_13_16(), FigCaptureRectIsFullBufferRectForPixelBuffer(a1, v26, v27, v28, v29)))
         {
           FigCaptureRectFromDimensions();
           a5 = v30;
@@ -4232,12 +3280,12 @@ uint64_t BWMemcpyPixelBuffer(__CVBuffer *a1, __CVBuffer *a2, double a3, double a
             if (!BytesPerRow || (v48 = BytesPerRow, (v49 = CVPixelBufferGetBytesPerRow(a2)) == 0) || (v50 = v49, (v51 = v49 * (v23 & 0x7FFFFFFF)) == 0))
             {
               OUTLINED_FUNCTION_0();
-              FigDebugAssert3();
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
               v17 = 0;
               goto LABEL_44;
             }
 
-            pixelBuffer = a2;
+            pixelBuffera = a2;
             BaseAddress = CVPixelBufferGetBaseAddress(a1);
             if (!BaseAddress)
             {
@@ -4246,7 +3294,7 @@ uint64_t BWMemcpyPixelBuffer(__CVBuffer *a1, __CVBuffer *a2, double a3, double a
 
             v53 = BaseAddress;
             v54 = v32;
-            v55 = CVPixelBufferGetBaseAddress(pixelBuffer);
+            v55 = CVPixelBufferGetBaseAddress(pixelBuffera);
             if (v55)
             {
               v56 = v55;
@@ -4283,7 +3331,7 @@ uint64_t BWMemcpyPixelBuffer(__CVBuffer *a1, __CVBuffer *a2, double a3, double a
 
 LABEL_53:
                 OUTLINED_FUNCTION_0();
-                FigDebugAssert3();
+                FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
                 goto LABEL_54;
               }
 
@@ -4296,7 +3344,7 @@ LABEL_53:
 LABEL_42:
                   v17 = 1;
 LABEL_43:
-                  a2 = pixelBuffer;
+                  a2 = pixelBuffera;
 LABEL_44:
                   v64 = OUTLINED_FUNCTION_45();
                   CVPixelBufferUnlockBaseAddress(v64, v65);
@@ -4312,14 +3360,14 @@ LABEL_54:
 
 LABEL_52:
             OUTLINED_FUNCTION_0();
-            FigDebugAssert3();
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
             v17 = 0;
-            a2 = pixelBuffer;
+            a2 = pixelBuffera;
             goto LABEL_44;
           }
 
           OUTLINED_FUNCTION_0();
-          FigDebugAssert3();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v69, v70, v71, v72, v73, pixelBuffer, v76, v77);
           v67 = OUTLINED_FUNCTION_45();
           CVPixelBufferUnlockBaseAddress(v67, v68);
           return 0;
@@ -4329,15 +3377,15 @@ LABEL_52:
 
 LABEL_46:
     OUTLINED_FUNCTION_0();
-LABEL_56:
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     return 0;
   }
 
   if (FigDepthScaleBuffer(a1, a2))
   {
     OUTLINED_FUNCTION_1_5();
-    goto LABEL_56;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+    return 0;
   }
 
   return 1;
@@ -4363,7 +3411,7 @@ uint64_t BWProcessWiderAndNarrowerFOVBuffersForFacePropagation(const void *a1, c
     v13 = [v11 count];
     if (v12 >= v13)
     {
-      result = OUTLINED_FUNCTION_17_11(v13, v14, v15, v16, v17, v18, v19, v20, v62, a3, v68, v71, v74, v77, v80, v83, v86, v89, v92, v95, v98, v101, v104, v107, v110, v113, v116, v119, v121, v123, v125, v127, v129, v131, v133);
+      result = OUTLINED_FUNCTION_17_11(v13, v14, v15, v16, v17, v18, v19, v20, v62, a3, v68, v71, v74, v77, v80, v83, v86, v89, v92, v95, v98, v101, v104, v107, v110, v113, v116, v118, v120, v122, v124, v126, v128, v130);
       if (result)
       {
         v39 = result;
@@ -4390,7 +3438,7 @@ LABEL_14:
 
           if (v39 == ++v42)
           {
-            result = OUTLINED_FUNCTION_17_11(result, v49, v50, v51, v52, v53, v54, v55, v64, v67, v70, v73, v76, v79, v82, v85, v88, v91, v94, v97, v100, v103, v106, v109, v112, v115, v118, v120, v122, v124, v126, v128, v130, v132, v134);
+            result = OUTLINED_FUNCTION_17_11(result, v49, v50, v51, v52, v53, v54, v55, v64, v67, v70, v73, v76, v79, v82, v85, v88, v91, v94, v97, v100, v103, v106, v109, v112, v115, v117, v119, v121, v123, v125, v127, v129, v131);
             v39 = result;
             if (result)
             {
@@ -4405,7 +3453,7 @@ LABEL_14:
 
     else
     {
-      result = OUTLINED_FUNCTION_10_0(v13, v14, v15, v16, v17, v18, v19, v20, v62, a3, v68, v71, v74, v77, v80, v83, v86, v89, v92, v95, v98, v101, v104, v107, v110, v113, 0);
+      result = OUTLINED_FUNCTION_10_0(v13, v14, v15, v16, v17, v18, v19, v20, v62, a3, v68, v71, v74, v77, v80, v83, v86, v89, v92, v95, v98, v101, v104, v107, v110, v113);
       if (result)
       {
         v22 = result;
@@ -4432,7 +3480,7 @@ LABEL_5:
 
           if (v22 == ++v25)
           {
-            result = OUTLINED_FUNCTION_10_0(result, v32, v33, v34, v35, v36, v37, v38, v63, v66, v69, v72, v75, v78, v81, v84, v87, v90, v93, v96, v99, v102, v105, v108, v111, v114, v117);
+            result = OUTLINED_FUNCTION_10_0(result, v32, v33, v34, v35, v36, v37, v38, v63, v66, v69, v72, v75, v78, v81, v84, v87, v90, v93, v96, v99, v102, v105, v108, v111, v114);
             v22 = result;
             if (result)
             {
@@ -4510,7 +3558,7 @@ BOOL bwu_propagateDetectedObjects(const void *a1, const void *a2, void *a3, void
   v77 = 0u;
   v78 = 0u;
   v79 = 0u;
-  v26 = OUTLINED_FUNCTION_16(v18, v19, v20, v21, v22, v23, v24, v25, v56, a6, *&rect.origin.x, *&rect.origin.y, *&rect.size.width, *&rect.size.height, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, 0);
+  v26 = OUTLINED_FUNCTION_16(v18, v19, v20, v21, v22, v23, v24, v25, v56, a6, *&rect.origin.x, *&rect.origin.y, *&rect.size.width, *&rect.size.height, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75);
   if (v26)
   {
     v27 = v26;
@@ -4551,7 +3599,7 @@ BOOL bwu_propagateDetectedObjects(const void *a1, const void *a2, void *a3, void
         }
       }
 
-      v27 = OUTLINED_FUNCTION_16(v33, v34, v35, v36, v37, v38, v39, v40, v57, v58, *&rect.origin.x, *&rect.origin.y, *&rect.size.width, *&rect.size.height, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76);
+      v27 = OUTLINED_FUNCTION_16(v33, v34, v35, v36, v37, v38, v39, v40, v57, v58, *&rect.origin.x, *&rect.origin.y, *&rect.size.width, *&rect.size.height, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75);
     }
 
     while (v27);
@@ -4560,7 +3608,7 @@ BOOL bwu_propagateDetectedObjects(const void *a1, const void *a2, void *a3, void
   v47 = *off_1E798A3C8;
   v48 = [CMGetAttachment(a2 *off_1E798A3C8];
   v49 = *off_1E798B218;
-  if ([v58 isEqualToString:*off_1E798B218])
+  if (objc_msgSend_isEqualToString_(v58))
   {
     v50 = v48;
     v51 = v18;
@@ -4619,43 +3667,42 @@ LABEL_5:
       }
 
       OUTLINED_FUNCTION_0();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
     else
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      if (objc_opt_isKindOfClass())
       {
-        return 0;
-      }
+        result = [v3 length];
+        if (!result)
+        {
+          return result;
+        }
 
-      result = [v3 length];
-      if (!result)
-      {
-        return result;
-      }
+        v8 = [v3 componentsSeparatedByString:@"."];
+        v6 = [v8 count];
+        if (!v6)
+        {
+          v7 = 0;
+          LOWORD(v5) = 0;
+          goto LABEL_5;
+        }
 
-      v8 = [v3 componentsSeparatedByString:@"."];
-      v6 = [v8 count];
-      if (!v6)
-      {
-        v7 = 0;
-        LOWORD(v5) = 0;
-        goto LABEL_5;
-      }
+        if (v6 == 1 || (v6 == 2 || (bwu_validateLongConversion([v8 objectAtIndexedSubscript:2], &v9)) && (bwu_validateLongConversion(objc_msgSend(v8, "objectAtIndexedSubscript:", 1), &v10)) && bwu_validateLongConversion(objc_msgSend(v8, "objectAtIndexedSubscript:", 0), &v11))
+        {
+          LOWORD(v6) = v10;
+          LOWORD(v5) = v11;
+          v7 = v9;
+          goto LABEL_5;
+        }
 
-      if (v6 == 1 || (v6 == 2 || (bwu_validateLongConversion([v8 objectAtIndexedSubscript:2], &v9)) && (bwu_validateLongConversion(objc_msgSend(v8, "objectAtIndexedSubscript:", 1), &v10)) && bwu_validateLongConversion(objc_msgSend(v8, "objectAtIndexedSubscript:", 0), &v11))
-      {
-        LOWORD(v6) = v10;
-        LOWORD(v5) = v11;
-        v7 = v9;
-        goto LABEL_5;
+        OUTLINED_FUNCTION_0();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
       }
-
-      OUTLINED_FUNCTION_0();
     }
 
-    FigDebugAssert3();
     return 0;
   }
 
@@ -4799,7 +3846,7 @@ uint64_t BWSampleBufferHasDetectedFaces(const void *a1, int a2, int a3, int a4, 
 {
   v12 = CMGetAttachment(a1, *off_1E798A3C8, 0);
   [objc_msgSend(v12 objectForKeyedSubscript:{*off_1E798A5B0), "intValue"}];
-  FigCaptureMetadataUtilitiesGetFinalCropRect();
+  FigCaptureMetadataUtilitiesGetFinalCropRect(v12);
   OUTLINED_FUNCTION_2_3();
   if (a2)
   {
@@ -4807,7 +3854,7 @@ uint64_t BWSampleBufferHasDetectedFaces(const void *a1, int a2, int a3, int a4, 
     if (v13 && a6)
     {
       v14 = OUTLINED_FUNCTION_3();
-      if (simu_faceObservationsContainFacesWithinNormalizedRect(v15, v16, v14, v17, v18, v19))
+      if (simu_faceObservationsContainFacesWithinNormalizedRect(v14, v17, v18, v19, v15, v16))
       {
         return 1;
       }
@@ -4825,7 +3872,7 @@ uint64_t BWSampleBufferHasDetectedFaces(const void *a1, int a2, int a3, int a4, 
     if (v20 && a6)
     {
       v21 = OUTLINED_FUNCTION_3();
-      if (simu_faceObservationsContainFacesWithinNormalizedRect(v22, v23, v21, v24, v25, v26))
+      if (simu_faceObservationsContainFacesWithinNormalizedRect(v21, v24, v25, v26, v22, v23))
       {
         return 1;
       }
@@ -4844,7 +3891,7 @@ uint64_t BWSampleBufferHasDetectedFaces(const void *a1, int a2, int a3, int a4, 
     if (v28 && a6)
     {
       v29 = OUTLINED_FUNCTION_3();
-      result = simu_faceObservationsContainFacesWithinNormalizedRect(v30, v31, v29, v32, v33, v34);
+      result = simu_faceObservationsContainFacesWithinNormalizedRect(v29, v32, v33, v34, v30, v31);
       if (result)
       {
         return result;
@@ -4870,12 +3917,12 @@ uint64_t BWSampleBufferHasDetectedFaces(const void *a1, int a2, int a3, int a4, 
   return BWMetadataHasDetectedFaces(v12, a6);
 }
 
-uint64_t BWMetadataHasDetectedHumanBodies(uint64_t result)
+void *BWMetadataHasDetectedHumanBodies(void *result)
 {
   if (result)
   {
     v1 = result;
-    FigCaptureMetadataUtilitiesGetFinalCropRect();
+    FigCaptureMetadataUtilitiesGetFinalCropRect(result);
     OUTLINED_FUNCTION_2_3();
     [objc_msgSend(objc_msgSend(v1 objectForKeyedSubscript:{*off_1E798B220), "objectForKeyedSubscript:", *off_1E798ACB0), "objectForKeyedSubscript:", *off_1E798ACE8}];
     v3 = OUTLINED_FUNCTION_3();
@@ -4892,7 +3939,7 @@ CFTypeRef BWSampleBufferHasDetectedHumanBodies(const void *a1)
   if (result)
   {
     v2 = result;
-    FigCaptureMetadataUtilitiesGetFinalCropRect();
+    FigCaptureMetadataUtilitiesGetFinalCropRect(result);
     OUTLINED_FUNCTION_2_3();
     [objc_msgSend(objc_msgSend(v2 objectForKeyedSubscript:{*off_1E798B220), "objectForKeyedSubscript:", *off_1E798ACB0), "objectForKeyedSubscript:", *off_1E798ACE8}];
     v4 = OUTLINED_FUNCTION_3();
@@ -4932,184 +3979,194 @@ void BWUpdateLandmarksForStillImageCrop()
   if ((v1 - 803) >= 0xFFFFFFFE && !IsUnityRect)
   {
     v9 = CMGetAttachment(v3, *off_1E798A3C8, 0);
-    if (v9 && (v10 = [v9 objectForKeyedSubscript:*off_1E798A5B0]) != 0)
+    if (v9)
     {
-      memset(&v246, 0, sizeof(v246));
-      BWISPBufferCoordinatesToVisionCoordinatesTransform([v10 intValue], &v246);
-      memset(&v245, 0, sizeof(v245));
-      OUTLINED_FUNCTION_27_6();
-      CGAffineTransformInvert(&v245, &v244);
-      v121 = CMGetAttachment(v3, @"Inferences", 0);
-      v131 = [v121 objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", v1)}];
-      v11 = [objc_msgSend(v131 "inferences")];
-      if (![v11 count])
+      v10 = [v9 objectForKeyedSubscript:*off_1E798A5B0];
+      if (v10)
       {
+        memset(&v245, 0, sizeof(v245));
+        BWISPBufferCoordinatesToVisionCoordinatesTransform([v10 intValue], &v245);
+        memset(&v244, 0, sizeof(v244));
+        OUTLINED_FUNCTION_27_6();
+        CGAffineTransformInvert(&v244, &v243);
+        v121 = CMGetAttachment(v3, @"Inferences", 0);
+        v131 = [v121 objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", v1)}];
         v11 = [objc_msgSend(v131 "inferences")];
-      }
-
-      HIDWORD(v126) = v1;
-      v12 = objc_alloc(MEMORY[0x1E695DF70]);
-      [v11 count];
-      v13 = [OUTLINED_FUNCTION_17() initWithCapacity:?];
-      v21 = OUTLINED_FUNCTION_59_5(v13, v14, v15, v16, v17, v18, v19, v20, v104, v107, v110, v113, v116, 0x1F219E5F0, v121, @"Inferences", v126, v3, v131, v134, v137, v13, v142, v146, v149, v153, v157, v161, v165, v168, v171, v174, v177, v180, v183, v186, v189, v192, v195, v198, v201, v204, v207, v210, v213, v216, v219, v222, v225, v228, v230, v232, v234, v236, v238, v240, v242);
-      if (v21)
-      {
-        v22 = v21;
-        v23 = MEMORY[0];
-        v135 = MEMORY[0];
-        v138 = v11;
-        do
+        if (![v11 count])
         {
-          v24 = 0;
-          v144 = v22;
+          v11 = [objc_msgSend(v131 "inferences")];
+        }
+
+        HIDWORD(v126) = v1;
+        v12 = objc_alloc(MEMORY[0x1E695DF70]);
+        [v11 count];
+        v13 = [OUTLINED_FUNCTION_17() initWithCapacity:?];
+        v21 = OUTLINED_FUNCTION_59_5(v13, v14, v15, v16, v17, v18, v19, v20, v104, v107, v110, v113, v116, 0x1F219E5F0, v121, @"Inferences", v126, v3, v131, v134, v137, v13, v142, v146, v149, v153, v157, v161, v165, v168, v171, v174, v177, v180, v183, v186, v189, v192, v195, v198, v201, v204, v207, v210, v213, v216, v219, v222, v225, v227, v229, v231, v233, v235, v237, v239, v241);
+        if (v21)
+        {
+          v22 = v21;
+          v23 = MEMORY[0];
+          v135 = MEMORY[0];
+          v138 = v11;
           do
           {
-            if (MEMORY[0] != v23)
+            v24 = 0;
+            v144 = v22;
+            do
             {
-              objc_enumerationMutation(v11);
-            }
-
-            v25 = *(8 * v24);
-            [v25 boundingBox];
-            OUTLINED_FUNCTION_25_7(v26, v27, v28, v29);
-            OUTLINED_FUNCTION_2_3();
-            [v25 alignedBoundingBoxAsCGRect];
-            OUTLINED_FUNCTION_25_7(v30, v31, v32, v33);
-            OUTLINED_FUNCTION_26_2();
-            OUTLINED_FUNCTION_3_32();
-            v34 = CGRectContainsRect(v247, v253);
-            if (v34)
-            {
-              v42 = OUTLINED_FUNCTION_3();
-              v46 = FigCaptureTransformRectToCoordinateSpaceOfRect(v42, v43, v44, v45, *&v166, *&v169, *&v172);
-              v159 = v47;
-              v163 = v46;
-              v151 = v49;
-              v155 = v48;
-              v50 = OUTLINED_FUNCTION_3_0();
-              FigCaptureTransformRectToCoordinateSpaceOfRect(v50, v51, v52, v53, *&v166, *&v169, *&v172);
-              OUTLINED_FUNCTION_26_2();
-              OUTLINED_FUNCTION_27_6();
-              v248.origin.y = v159;
-              v248.origin.x = v163;
-              v248.size.height = v151;
-              v248.size.width = v155;
-              v249 = CGRectApplyAffineTransform(v248, &v244);
-              v158 = *&v249.origin.y;
-              v162 = *&v249.origin.x;
-              v150 = *&v249.size.height;
-              v154 = *&v249.size.width;
-              OUTLINED_FUNCTION_27_6();
-              v250.origin.x = OUTLINED_FUNCTION_3_0();
-              CGRectApplyAffineTransform(v250, v54);
-              OUTLINED_FUNCTION_2_3();
-              [objc_msgSend(objc_msgSend(objc_msgSend(v25 "faceAttributes")];
-              getVNFaceAttributeEyesClosed();
-              v55 = [OUTLINED_FUNCTION_17() isEqual:?];
-              v56 = v55;
-              v57 = 0;
-              if (v55)
+              if (MEMORY[0] != v23)
               {
-                [objc_msgSend(objc_msgSend(objc_msgSend(v25 "faceAttributes")];
-                v57 = v58;
+                objc_enumerationMutation(v11);
               }
 
-              getVNFaceObservationClass();
-              [v25 requestRevision];
-              v147 = [v25 roll];
-              [v25 yaw];
-              [v25 pitch];
-              [v25 isBoundingBoxAligned];
-              [v25 landmarks];
-              v59 = [v25 landmarks65];
-              [v25 landmarkScore];
-              v61 = v60;
-              [v25 faceOrientationIndex];
-              v63 = v62;
-              [v25 faceJunkinessIndex];
-              LODWORD(v114) = v64;
-              v111 = __PAIR64__(v63, v57);
-              BYTE4(v108) = v56;
-              LODWORD(v108) = v61;
-              v105 = v59;
-              OUTLINED_FUNCTION_3_32();
-              v34 = [v140 addObject:{objc_msgSend(v65, "faceObservationWithRequestRevision:boundingBox:roll:yaw:pitch:isBoundingBoxAligned:alignedBoundingBox:landmarks:landmarks65:landmarkScore:isBlinking:blinkScore:faceOrientationIndex:faceJunkinessIndex:")}];
-              v23 = v135;
-              v11 = v138;
-              v22 = v144;
-            }
-
-            ++v24;
-          }
-
-          while (v22 != v24);
-          v22 = OUTLINED_FUNCTION_59_5(v34, v35, v36, v37, v38, v39, v40, v41, v105, v108, v111, v114, v117, v119, v122, key, v127, target, v132, v135, v138, v140, v144, v147, v150, v154, v158, v162, v166, v169, v172, v175, v178, v181, v184, v187, v190, v193, v196, v199, v202, v205, v208, v211, v214, v217, v220, v223, v226, v229, v231, v233, v235, v237, v239, v241, v243);
-        }
-
-        while (v22);
-      }
-
-      v66 = [objc_msgSend(v132 "inferences")];
-      v67 = objc_alloc(MEMORY[0x1E695DF70]);
-      [v66 count];
-      v68 = [OUTLINED_FUNCTION_17() initWithCapacity:?];
-      v76 = OUTLINED_FUNCTION_60_5(v68, v69, v70, v71, v72, v73, v74, v75, v105, v108, v111, v114, v117, v119, v122, key, v127, target, v132, v135, v138, v140, v143, v147, v150, v154, v158, v162, v166, v169, v172, v175, v178, v181, v184, v187, v190, v193, v196, v199, v202, v205, v208, v211, v214, v217, v220, v223, 0);
-      if (v76)
-      {
-        v77 = v76;
-        v78 = MEMORY[0];
-        do
-        {
-          for (i = 0; i != v77; ++i)
-          {
-            if (MEMORY[0] != v78)
-            {
-              objc_enumerationMutation(v66);
-            }
-
-            v80 = *(8 * i);
-            [v80 boundingBox];
-            OUTLINED_FUNCTION_25_7(v81, v82, v83, v84);
-            OUTLINED_FUNCTION_2_3();
-            OUTLINED_FUNCTION_3_32();
-            v85 = CGRectContainsRect(v251, v254);
-            if (v85)
-            {
-              v93 = OUTLINED_FUNCTION_3();
-              v252.origin.x = FigCaptureTransformRectToCoordinateSpaceOfRect(v93, v94, v95, v96, *&v167, *&v170, *&v173);
-              v244 = v246;
-              CGRectApplyAffineTransform(v252, &v244);
+              v25 = *(8 * v24);
+              [v25 boundingBox];
+              OUTLINED_FUNCTION_25_7(v26, v27, v28, v29);
               OUTLINED_FUNCTION_2_3();
-              v97 = objc_alloc(getVNRecognizedObjectObservationClass());
-              [v80 requestRevision];
-              [v80 confidence];
-              [v80 labels];
-              v98 = OUTLINED_FUNCTION_3();
-              v100 = [v99 initWithRequestRevision:v98 boundingBox:? confidence:? labels:?];
-              [v68 addObject:v100];
+              [v25 alignedBoundingBoxAsCGRect];
+              OUTLINED_FUNCTION_25_7(v30, v31, v32, v33);
+              OUTLINED_FUNCTION_26_2();
+              OUTLINED_FUNCTION_3_32();
+              v34 = CGRectContainsRect(v246, v252);
+              if (v34)
+              {
+                v42 = OUTLINED_FUNCTION_3();
+                v46 = FigCaptureTransformRectToCoordinateSpaceOfRect(v42, v43, v44, v45, *&v166, *&v169, *&v172);
+                v159 = v47;
+                v163 = v46;
+                v151 = v49;
+                v155 = v48;
+                v50 = OUTLINED_FUNCTION_3_0();
+                FigCaptureTransformRectToCoordinateSpaceOfRect(v50, v51, v52, v53, *&v166, *&v169, *&v172);
+                OUTLINED_FUNCTION_26_2();
+                OUTLINED_FUNCTION_27_6();
+                v247.origin.y = v159;
+                v247.origin.x = v163;
+                v247.size.height = v151;
+                v247.size.width = v155;
+                v248 = CGRectApplyAffineTransform(v247, &v243);
+                v158 = *&v248.origin.y;
+                v162 = *&v248.origin.x;
+                v150 = *&v248.size.height;
+                v154 = *&v248.size.width;
+                OUTLINED_FUNCTION_27_6();
+                v249.origin.x = OUTLINED_FUNCTION_3_0();
+                CGRectApplyAffineTransform(v249, v54);
+                OUTLINED_FUNCTION_2_3();
+                [objc_msgSend(objc_msgSend(objc_msgSend(v25 "faceAttributes")];
+                getVNFaceAttributeEyesClosed();
+                v55 = [OUTLINED_FUNCTION_17() isEqual:?];
+                v56 = v55;
+                v57 = 0;
+                if (v55)
+                {
+                  [objc_msgSend(objc_msgSend(objc_msgSend(v25 "faceAttributes")];
+                  v57 = v58;
+                }
+
+                getVNFaceObservationClass();
+                [v25 requestRevision];
+                v147 = [v25 roll];
+                [v25 yaw];
+                [v25 pitch];
+                [v25 isBoundingBoxAligned];
+                [v25 landmarks];
+                v59 = [v25 landmarks65];
+                [v25 landmarkScore];
+                v61 = v60;
+                [v25 faceOrientationIndex];
+                v63 = v62;
+                [v25 faceJunkinessIndex];
+                LODWORD(v114) = v64;
+                v111 = __PAIR64__(v63, v57);
+                BYTE4(v108) = v56;
+                LODWORD(v108) = v61;
+                v105 = v59;
+                OUTLINED_FUNCTION_3_32();
+                v34 = [v140 addObject:{objc_msgSend(v65, "faceObservationWithRequestRevision:boundingBox:roll:yaw:pitch:isBoundingBoxAligned:alignedBoundingBox:landmarks:landmarks65:landmarkScore:isBlinking:blinkScore:faceOrientationIndex:faceJunkinessIndex:")}];
+                v23 = v135;
+                v11 = v138;
+                v22 = v144;
+              }
+
+              ++v24;
             }
+
+            while (v22 != v24);
+            v22 = OUTLINED_FUNCTION_59_5(v34, v35, v36, v37, v38, v39, v40, v41, v105, v108, v111, v114, v117, v119, v122, key, v127, target, v132, v135, v138, v140, v144, v147, v150, v154, v158, v162, v166, v169, v172, v175, v178, v181, v184, v187, v190, v193, v196, v199, v202, v205, v208, v211, v214, v217, v220, v223, v226, v228, v230, v232, v234, v236, v238, v240, v242);
           }
 
-          v77 = OUTLINED_FUNCTION_60_5(v85, v86, v87, v88, v89, v90, v91, v92, v106, v109, v112, v115, v118, v120, v123, keya, v128, targeta, v133, v136, v139, v141, v145, v148, v152, v156, v160, v164, v167, v170, v173, v176, v179, v182, v185, v188, v191, v194, v197, v200, v203, v206, v209, v212, v215, v218, v221, v224, v227);
+          while (v22);
         }
 
-        while (v77);
+        v66 = [objc_msgSend(v132 "inferences")];
+        v67 = objc_alloc(MEMORY[0x1E695DF70]);
+        [v66 count];
+        v68 = [OUTLINED_FUNCTION_17() initWithCapacity:?];
+        v76 = OUTLINED_FUNCTION_60_5(v68, v69, v70, v71, v72, v73, v74, v75, v105, v108, v111, v114, v117, v119, v122, key, v127, target, v132, v135, v138, v140, v143, v147, v150, v154, v158, v162, v166, v169, v172, v175, v178, v181, v184, v187, v190, v193, v196, v199, v202, v205, v208, v211, v214, v217, v220, v223);
+        if (v76)
+        {
+          v77 = v76;
+          v78 = MEMORY[0];
+          do
+          {
+            for (i = 0; i != v77; ++i)
+            {
+              if (MEMORY[0] != v78)
+              {
+                objc_enumerationMutation(v66);
+              }
+
+              v80 = *(8 * i);
+              [v80 boundingBox];
+              OUTLINED_FUNCTION_25_7(v81, v82, v83, v84);
+              OUTLINED_FUNCTION_2_3();
+              OUTLINED_FUNCTION_3_32();
+              v85 = CGRectContainsRect(v250, v253);
+              if (v85)
+              {
+                v93 = OUTLINED_FUNCTION_3();
+                v251.origin.x = FigCaptureTransformRectToCoordinateSpaceOfRect(v93, v94, v95, v96, *&v167, *&v170, *&v173);
+                v243 = v245;
+                CGRectApplyAffineTransform(v251, &v243);
+                OUTLINED_FUNCTION_2_3();
+                v97 = objc_alloc(getVNRecognizedObjectObservationClass());
+                [v80 requestRevision];
+                [v80 confidence];
+                [v80 labels];
+                v98 = OUTLINED_FUNCTION_3();
+                v100 = [v99 initWithRequestRevision:v98 boundingBox:? confidence:? labels:?];
+                [v68 addObject:v100];
+              }
+            }
+
+            v77 = OUTLINED_FUNCTION_60_5(v85, v86, v87, v88, v89, v90, v91, v92, v106, v109, v112, v115, v118, v120, v123, keya, v128, targeta, v133, v136, v139, v141, v145, v148, v152, v156, v160, v164, v167, v170, v173, v176, v179, v182, v185, v188, v191, v194, v197, v200, v203, v206, v209, v212, v215, v218, v221, v224);
+          }
+
+          while (v77);
+        }
+
+        v101 = [objc_msgSend(v133 "inferences")];
+        [v101 setObject:v141 forKeyedSubscript:@"VisionFaceDetectionObservations"];
+        [v101 setObject:v141 forKeyedSubscript:v120];
+        [v101 setObject:v68 forKeyedSubscript:0x1F219E610];
+        v102 = [[BWInferenceResult alloc] initWithResult:v133 replacementInferences:v101 replacementPreventionReason:0];
+        v103 = [v123 mutableCopy];
+        [v103 setObject:v102 forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", HIDWORD(v128))}];
+        CMSetAttachment(targeta, keya, v103, 1u);
       }
 
-      v101 = [objc_msgSend(v133 "inferences")];
-      [v101 setObject:v141 forKeyedSubscript:@"VisionFaceDetectionObservations"];
-      [v101 setObject:v141 forKeyedSubscript:v120];
-      [v101 setObject:v68 forKeyedSubscript:0x1F219E610];
-      v102 = [[BWInferenceResult alloc] initWithResult:v133 replacementInferences:v101 replacementPreventionReason:0];
-      v103 = [v123 mutableCopy];
-      [v103 setObject:v102 forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", HIDWORD(v128))}];
-      CMSetAttachment(targeta, keya, v103, 1u);
+      else
+      {
+        OUTLINED_FUNCTION_0();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+      }
     }
 
     else
     {
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
   }
 
@@ -5119,95 +4176,95 @@ void BWUpdateLandmarksForStillImageCrop()
 void BWCreateSushiRawDNGDictionary(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, unsigned __int8 a29, void *a30, void *a31, int a32)
 {
   OUTLINED_FUNCTION_6_4();
-  v301 = v32;
+  v350 = v32;
   v34 = v33;
   v36 = v35;
   v38 = v37;
-  v336 = v39;
-  v337 = v40;
-  LODWORD(v330) = v41;
+  v385 = v39;
+  v387 = v40;
+  LODWORD(v375) = v41;
   v43 = v42;
   v45 = v44;
   FigNote_AllowInternalDefaultLogs();
   OUTLINED_FUNCTION_3_7();
   fig_note_initialize_category_with_default_work_cf();
   v46 = v36;
-  OUTLINED_FUNCTION_10_4();
+  OUTLINED_FUNCTION_10_4(&dword_1EB58DFC0, @"bwstillimagemetadatautilities_trace", @"com.apple.coremedia", "", "com.apple.cameracapture");
   if (!v36)
   {
-    goto LABEL_80;
+    goto LABEL_82;
   }
 
   if (v38 == 0.0)
   {
-    goto LABEL_80;
+    goto LABEL_82;
   }
 
-  v47 = v337;
-  if (!v337)
+  v47 = v387;
+  if (!v387)
   {
-    goto LABEL_80;
+    goto LABEL_82;
   }
 
-  v48 = v336;
-  if (!HIDWORD(v336) || !v336 || !HIDWORD(v43) || !v43 || !a30)
+  v48 = v385;
+  if (!HIDWORD(v385) || !v385 || !HIDWORD(v43) || !v43 || !a30)
   {
-    goto LABEL_80;
+    goto LABEL_82;
   }
 
   if ((FigCapturePixelFormatIsBayerRaw(v45) & 1) == 0)
   {
     OUTLINED_FUNCTION_0_44();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v335, v337, v338, v339, v340, v341, v342, v343);
     FigCaptureGetFrameworkRadarComponent();
     LODWORD(recta.origin.x) = 0;
     OUTLINED_FUNCTION_20_7();
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v275 = os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type[0]);
-    if (OUTLINED_FUNCTION_6(v275))
+    v313 = os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type);
+    if (OUTLINED_FUNCTION_6(v313))
     {
-      v349 = 136315138;
-      v350 = "BWCreateSushiRawDNGDictionary";
+      v408 = 136315138;
+      v409 = "BWCreateSushiRawDNGDictionary";
       OUTLINED_FUNCTION_15_12();
       OUTLINED_FUNCTION_8_0();
       _os_log_send_and_compose_impl();
     }
 
     OUTLINED_FUNCTION_5_3();
-    OUTLINED_FUNCTION_17_8();
-    LOWORD(v357) = 0;
+    OUTLINED_FUNCTION_17_8(v315, v316, v317, v318, v319);
+    LOWORD(v416) = 0;
     OUTLINED_FUNCTION_16_14();
-    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_6_0(v320, v321, v322, v323, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
     OUTLINED_FUNCTION_13_18();
-    v277 = OUTLINED_FUNCTION_6_1();
-    FigCapturePleaseFileRadar(v277, v278, v279, v280, v281, 634, v282, v283, SLOBYTE(v284));
-    free(&v357);
-    goto LABEL_80;
+    v324 = OUTLINED_FUNCTION_6_1();
+    FigCapturePleaseFileRadar(v324, v325, v326, v327, v328, 634, v329, v330, v336);
+    free(&v416);
+    goto LABEL_82;
   }
 
-  v49 = [v337 objectForKeyedSubscript:*off_1E798A540];
+  v49 = [v387 objectForKeyedSubscript:*off_1E798A540];
   if (v49)
   {
     [v49 floatValue];
     if (v50 != 1.0)
     {
       OUTLINED_FUNCTION_20_7();
-      v276 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v276, type[0]);
+      v314 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v314, type);
       OUTLINED_FUNCTION_56_5();
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-      goto LABEL_80;
+      goto LABEL_82;
     }
   }
 
   v51 = [objc_msgSend(a30 objectForKeyedSubscript:{@"SushiRawLensShadingCorrectionType", "intValue"}];
-  v341 = v51;
+  HIDWORD(v394) = v51;
   if ((a29 & 1) != 0 || v51 == 1)
   {
     [objc_msgSend(a31 objectForKeyedSubscript:{*off_1E7989F18), "floatValue"}];
     if (v53 < 0.0)
     {
-      goto LABEL_134;
+      goto LABEL_135;
     }
 
     v54 = a32;
@@ -5217,134 +4274,145 @@ void BWCreateSushiRawDNGDictionary(uint64_t a1, uint64_t a2, uint64_t a3, uint64
     }
 
     v52 = v54 * v53;
-    v55 = simu_oisAdjustedOpticalCenter(v337, v54 * v53);
-    v332 = v56;
-    v333 = v55;
+    v55 = simu_oisAdjustedOpticalCenter(v387, v54 * v53);
+    v377 = v56;
+    v378 = v55;
   }
 
   else
   {
-    v332 = *(MEMORY[0x1E695EFF8] + 8);
-    v333 = *MEMORY[0x1E695EFF8];
+    v377 = *(MEMORY[0x1E695EFF8] + 8);
+    v378 = *MEMORY[0x1E695EFF8];
     v52 = 0.0;
   }
 
   width = *MEMORY[0x1E695F050];
   y = *(MEMORY[0x1E695F050] + 8);
   height = *(MEMORY[0x1E695F050] + 24);
-  v326 = *(MEMORY[0x1E695F050] + 16);
-  FinalCropRectFromSource = FigCaptureMetadataUtilitiesGetFinalCropRectFromSource();
+  v371 = *(MEMORY[0x1E695F050] + 16);
+  FinalCropRectFromSource = FigCaptureMetadataUtilitiesGetFinalCropRectFromSource(v387);
   v61 = v60;
   v63 = v62;
   v65 = v64;
-  v66 = FigCaptureAspectRatioForDimensions(v43);
-  v67 = [v337 objectForKeyedSubscript:*off_1E798A6F0];
-  *&v321 = v336;
-  v324 = v336 >> 32;
-  v329 = v38;
-  v334 = a31;
-  HIDWORD(v328) = a29;
-  *&v328 = v52;
-  v315 = y;
-  v318 = width;
-  v313 = height;
-  v335 = v66;
+  *&v66 = FigCaptureAspectRatioForDimensions(v43);
+  v67 = [v387 objectForKeyedSubscript:*off_1E798A6F0];
+  v366 = v385;
+  v369 = v385 >> 32;
+  v374 = v38;
+  v379 = a31;
+  HIDWORD(v373) = a29;
+  *&v373 = v52;
+  *&v360 = y;
+  *&v363 = width;
+  *&v358 = height;
+  v382 = *&v66;
   if (a29 && !v67)
   {
+    rect2 = *&v65;
     FigCaptureUnityRect();
     OUTLINED_FUNCTION_48_6();
-    FigCaptureDenormalizeCropRect(v68, v69, v70, v71);
-    if (LODWORD(v330))
+    FigCaptureDenormalizeCropRect(v385, v68, v69, v70, v71);
+    if (v375)
     {
-      v76 = BWAspectRatioValueFromAspectRatio(SLODWORD(v330));
-      v77 = FigCaptureMetadataUtilitiesEnforceAspectRatioWithStillImageDimensions(v336, v76);
-      FigCaptureMakeCenteredRectWithDimensionsInsideDimensions(v77, v336);
+      v76 = BWAspectRatioValueFromAspectRatio(v375);
+      v77 = FigCaptureMetadataUtilitiesEnforceAspectRatioWithStillImageDimensions(v385, v76);
+      FigCaptureMakeCenteredRectWithDimensionsInsideDimensions(v77, v385);
       OUTLINED_FUNCTION_62_3();
-      v298 = v79;
-      v300 = v78;
-      v340 = v80;
-      v296 = v81;
-      FigCaptureNormalizeCropRect(v78, v79, v80, v81);
+      *&v348 = v79;
+      *&v349 = v78;
+      v392 = v80;
+      *&v347 = v81;
+      FigCaptureNormalizeCropRect(v385, v78, v79, v80, v81);
       OUTLINED_FUNCTION_48_6();
     }
 
     else
     {
-      v296 = v75;
-      v298 = v73;
-      v340 = v74;
-      v300 = v72;
+      v347 = v75;
+      v348 = v73;
+      v392 = v74;
+      v349 = v72;
     }
 
-    v121 = FigCaptureUnityRect();
-    FigCaptureMetadataUtilitiesNormalizedRectEnforcedWithinValidRegionAfterGDC(v121, v122, v123, v124, height, v66, v65, width, a31, v337, v336);
-    v307 = v126;
-    v309 = v125;
-    v303 = v128;
-    v305 = v127;
-    FigCaptureMetadataUtilitiesDenormalizeCropRect(v125, v126, v127, v128);
-    v129 = v66;
-    v134 = FigCaptureMetadataUtilitiesRectByCroppingRectToAspectRatio(v130, v131, v132, v133, v129);
-    FigCaptureMetadataUtilitiesNormalizeCropRect(v134, v135, v136, v137);
-    v142 = FigCaptureMetadataUtilitiesScaleRect(v138, v139, v140, v141, 1.11);
-    v144 = v143;
-    v146 = v145;
-    v148 = v147;
+    v125 = FigCaptureUnityRect();
+    FigCaptureMetadataUtilitiesNormalizedRectEnforcedWithinValidRegionAfterGDC(v125, v126, v127, v128, height, *&v66, v65, width, a31, v387, v385);
+    v353 = *&v130;
+    v354 = *&v129;
+    v351 = *&v132;
+    v352 = *&v131;
+    FigCaptureMetadataUtilitiesDenormalizeCropRect(v129, v130, v131, v132, v385, SHIDWORD(v385));
+    v133 = *&v66;
+    v138 = FigCaptureMetadataUtilitiesRectByCroppingRectToAspectRatio(v134, v135, v136, v137, v133);
+    FigCaptureMetadataUtilitiesNormalizeCropRect(v138, v139, v140, v141, v385, SHIDWORD(v385));
+    v345 = *&v143;
+    v346 = *&v142;
+    v343 = *&v145;
+    v344 = *&v144;
+    v147 = FigCaptureMetadataUtilitiesScaleRect(v142, v143, v144, v145, 1.11, v146);
+    v149 = v148;
+    v151 = v150;
+    v153 = v152;
     FigCaptureUnityRect();
     OUTLINED_FUNCTION_8_3();
-    v367.origin.x = v142;
-    v367.origin.y = v144;
-    v367.size.width = v146;
-    v367.size.height = v148;
-    v368 = CGRectIntersection(v367, v372);
-    x = v368.origin.x;
-    y = v368.origin.y;
-    width = v368.size.width;
-    height = v368.size.height;
-    v373.origin.x = FinalCropRectFromSource;
-    v373.origin.y = v61;
-    v373.size.width = v63;
-    v373.size.height = v65;
-    v149 = CGRectContainsRect(v368, v373);
+    v426.origin.x = v147;
+    v426.origin.y = v149;
+    v426.size.width = v151;
+    v426.size.height = v153;
+    v427 = CGRectIntersection(v426, v431);
+    x = v427.origin.x;
+    y = v427.origin.y;
+    width = v427.size.width;
+    height = v427.size.height;
+    v432.origin.x = FinalCropRectFromSource;
+    v432.origin.y = v61;
+    v432.size.width = v63;
+    v432.size.height = v65;
+    v154 = CGRectContainsRect(v427, v432);
     if (dword_1EB58DFC0)
     {
+      v356 = v46;
       LODWORD(recta.origin.x) = 0;
       OUTLINED_FUNCTION_20_7();
-      v150 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v150, type[0]);
+      v160 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v160, type);
       OUTLINED_FUNCTION_56_5();
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-      v48 = v336;
-      v47 = v337;
+      v48 = v385;
+      v47 = v387;
     }
 
-    if (v149)
+    if (v154)
     {
-      v61 = v298;
-      v65 = v300;
-      v66 = v340;
-      v63 = v296;
-      if (!LODWORD(v330))
+      v61 = *&v348;
+      v65 = *&v349;
+      *&v66 = v392;
+      v63 = *&v347;
+      if (!v375)
       {
         FigCaptureMakeCenteredRectWithDimensionsInsideDimensions(v43, v48);
         OUTLINED_FUNCTION_62_3();
         OUTLINED_FUNCTION_18_12();
       }
 
-      FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(v336, v324, v309, v307, v305, v303, v335);
+      v155.n128_u64[0] = v354;
+      v157.n128_u64[0] = v351;
+      v156.n128_u64[0] = v352;
+      v158.n128_f64[0] = v382;
+      FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(v385, v369, v155, *&v353, v156, v157, v158, v159);
       OUTLINED_FUNCTION_52_7();
       goto LABEL_53;
     }
 
-LABEL_134:
+LABEL_135:
     OUTLINED_FUNCTION_0_44();
-    goto LABEL_135;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+    goto LABEL_82;
   }
 
   OUTLINED_FUNCTION_34_7();
   if (!FigCaptureIsUnityRect(v82, v83, v84, v85) && (v34 & 1) == 0)
   {
-    goto LABEL_134;
+    goto LABEL_135;
   }
 
   x = FinalCropRectFromSource;
@@ -5352,32 +4420,32 @@ LABEL_134:
   if (FigCaptureIsUnityRect(v87, v88, v89, v90))
   {
     v63 = height;
-    x = v326;
-    v66 = v326;
+    x = *&v371;
+    v66 = v371;
     v61 = y;
     v65 = width;
     if (FigCapturePlatformIdentifier() >= 12)
     {
-      SensorReadoutRect = FigCaptureMetadataUtilitiesGetSensorReadoutRect();
-      v99 = llround(v94);
-      v100 = v336 <= llround(v93) && SHIDWORD(v336) <= v99;
+      v91.n128_f64[0] = FigCaptureMetadataUtilitiesGetSensorReadoutRect(v387);
+      v99 = llround(v94.n128_f64[0]);
+      v100 = v385 <= llround(v93.n128_f64[0]) && SHIDWORD(v385) <= v99;
       v63 = height;
       v61 = y;
-      v66 = v326;
+      v66 = v371;
       v65 = width;
       if (!v100)
       {
-        OUTLINED_FUNCTION_58_7(SensorReadoutRect, v92, v93, v94, v95, v96, v97, v98, v284, v285, v286, v287, v288, v289, v290, v291, v292, v293, v294, v295, v297, v299, v301, v302, v304, v306, v308, rect2, v311, height, y, width, COERCE_DOUBLE(v336), *&v324, v326, v328, v38, v330, v332, v333, *&a31, v335);
+        OUTLINED_FUNCTION_58_7(v91, v92, v93, v94, v95, v96, v97, v98, *&v335, *&v337, *&v338, *&v339, *&v340, *&v341, *&v342, *&v343, *&v344, *&v345, *&v346, *&v347, *&v348, *&v349, *&v350, *&v351, *&v352, *&v353, *&v354, *&rect2, *&v356, height, y, width, COERCE_DOUBLE(v385), *&v369, *&v371, v373, v38, *&v375, *&v377, v378, *&a31, v382);
         OUTLINED_FUNCTION_62_3();
         OUTLINED_FUNCTION_18_12();
       }
 
-      v363.origin.x = OUTLINED_FUNCTION_17_12();
-      if (CGRectIsNull(v363))
+      v422.origin.x = OUTLINED_FUNCTION_17_12();
+      if (CGRectIsNull(v422))
       {
         OUTLINED_FUNCTION_0_44();
         OUTLINED_FUNCTION_2_5();
-        FigDebugAssert3();
+        FigDebugAssert3(v334);
       }
 
       OUTLINED_FUNCTION_45_7();
@@ -5387,167 +4455,172 @@ LABEL_134:
   else
   {
     OUTLINED_FUNCTION_34_7();
-    FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(v101, v102, v103, v104, v105, v106, v66);
+    v101.n128_u64[0] = v66;
+    FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(v102, v103, v104, v105, v106, v107, v101, v108);
     OUTLINED_FUNCTION_52_7();
-    if (CGRectIsNull(v364))
+    if (CGRectIsNull(v423))
     {
       OUTLINED_FUNCTION_0_44();
       OUTLINED_FUNCTION_2_5();
-      FigDebugAssert3();
+      FigDebugAssert3(v331);
     }
 
-    FinalCropRectForSushiRaw = FigCaptureMetadataUtilitiesGetFinalCropRectForSushiRaw();
-    FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(v336, v324, FinalCropRectForSushiRaw, v108, v109, v110, v66);
+    v109.n128_f64[0] = FigCaptureMetadataUtilitiesGetFinalCropRectForSushiRaw(v387);
+    v110.n128_u64[0] = v66;
+    FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(v385, v369, v109, v111, v112, v113, v110, v114);
     OUTLINED_FUNCTION_18_12();
-    if (CGRectIsNull(v365))
+    if (CGRectIsNull(v424))
     {
       OUTLINED_FUNCTION_0_44();
       OUTLINED_FUNCTION_2_5();
-      FigDebugAssert3();
+      FigDebugAssert3(v332);
     }
   }
 
-  ValidBufferRectForProcessedRaw = FigCaptureMetadataUtilitiesGetValidBufferRectForProcessedRaw();
-  v119 = llround(v114);
-  if (v336 > llround(v113) || SHIDWORD(v336) > v119)
+  v115.n128_f64[0] = FigCaptureMetadataUtilitiesGetValidBufferRectForProcessedRaw(v387);
+  v123 = llround(v118.n128_f64[0]);
+  if (v385 > llround(v117.n128_f64[0]) || SHIDWORD(v385) > v123)
   {
-    OUTLINED_FUNCTION_58_7(ValidBufferRectForProcessedRaw, v112, v113, v114, v115, v116, v117, v118, v284, v285, v286, v287, v288, v289, v290, v291, v292, v293, v294, v295, v297, v299, v301, v302, v304, v306, v308, rect2, v311, v313, v315, v318, v321, *&v324, v326, v328, v329, v330, v332, v333, *&v334, v335);
+    OUTLINED_FUNCTION_58_7(v115, v116, v117, v118, v119, v120, v121, v122, *&v335, *&v337, *&v338, *&v339, *&v340, *&v341, *&v342, *&v343, *&v344, *&v345, *&v346, *&v347, *&v348, *&v349, *&v350, *&v351, *&v352, *&v353, *&v354, *&rect2, *&v356, *&v358, *&v360, *&v363, *&v366, *&v369, *&v371, v373, v374, *&v375, *&v377, v378, *&v379, v382);
     OUTLINED_FUNCTION_62_3();
     OUTLINED_FUNCTION_18_12();
-    if (CGRectIsNull(v366))
+    if (CGRectIsNull(v425))
     {
       OUTLINED_FUNCTION_0_44();
       OUTLINED_FUNCTION_2_5();
-      FigDebugAssert3();
+      FigDebugAssert3(v333);
     }
 
     OUTLINED_FUNCTION_45_7();
   }
 
 LABEL_53:
-  v151 = [a30 objectForKeyedSubscript:@"SushiRawNoiseProfile"];
-  if (!v151)
+  v161 = [a30 objectForKeyedSubscript:@"SushiRawNoiseProfile"];
+  if (!v161)
   {
+    v356 = v46;
     FigCaptureGetFrameworkRadarComponent();
     LODWORD(recta.origin.x) = 0;
-    type[0] = OS_LOG_TYPE_DEFAULT;
-    v152 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v152, OS_LOG_TYPE_DEFAULT);
+    LOBYTE(type) = 0;
+    v162 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v162, OS_LOG_TYPE_DEFAULT);
     OUTLINED_FUNCTION_5_3();
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    LOWORD(v357) = 0;
+    LOWORD(v416) = 0;
     OUTLINED_FUNCTION_16_14();
-    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_6_0(v163, v164, v165, v166, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
     OUTLINED_FUNCTION_13_18();
-    v153 = OUTLINED_FUNCTION_6_1();
-    FigCapturePleaseFileRadar(v153, v154, v155, v156, v157, 775, v158, v159, SLOBYTE(v284));
-    free(&v357);
-    v151 = 0;
+    v167 = OUTLINED_FUNCTION_6_1();
+    FigCapturePleaseFileRadar(v167, v168, v169, v170, v171, 775, v172, v173, v335);
+    free(&v416);
+    v161 = 0;
   }
 
-  v369.origin.x = width;
-  v369.origin.y = y;
-  v369.size.width = x;
-  v369.size.height = height;
-  IsEmpty = CGRectIsEmpty(v369);
-  v370.origin.x = OUTLINED_FUNCTION_17_12();
-  v161 = CGRectIsEmpty(v370);
-  v162 = v161;
-  if (!IsEmpty && v161)
+  v428.origin.x = width;
+  v428.origin.y = y;
+  v428.size.width = x;
+  v428.size.height = height;
+  IsEmpty = CGRectIsEmpty(v428);
+  v429.origin.x = OUTLINED_FUNCTION_17_12();
+  v175 = CGRectIsEmpty(v429);
+  v176 = v175;
+  if (!IsEmpty && v175)
   {
-    v197 = 0;
-    goto LABEL_121;
+    v218 = 0;
+    goto LABEL_123;
   }
 
   if (!FigCaptureSushiRawDNGDictionaryCreatedInGraph())
   {
-    v240 = [a30 objectForKeyedSubscript:@"CroppedSushiRawLensShadingCorrectionCoefficients"];
-    if (!v240)
+    v268 = [a30 objectForKeyedSubscript:@"CroppedSushiRawLensShadingCorrectionCoefficients"];
+    if (!v268)
     {
       FigCaptureGetFrameworkRadarComponent();
       LODWORD(recta.origin.x) = 0;
       OUTLINED_FUNCTION_20_7();
-      v241 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v241, type[0]);
-      v242 = *off_1E798B540;
-      v48 = v336;
-      v168 = v334;
+      v269 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v269, type);
+      v270 = *off_1E798B540;
+      v48 = v385;
+      v189 = v379;
       OUTLINED_FUNCTION_8_1();
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-      v264 = [v337 objectForKeyedSubscript:v242];
-      v266 = BWPortTypeToDisplayString(v264, v265);
-      v357 = 138412290;
-      v358 = v266;
-      OUTLINED_FUNCTION_6_0();
+      v299 = [v387 objectForKeyedSubscript:v270];
+      v301 = BWPortTypeToDisplayString(v299, v300);
+      v416 = 138412290;
+      v417 = v301;
+      OUTLINED_FUNCTION_6_0(v301, v302, v303, v304, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
       OUTLINED_FUNCTION_13_18();
       OUTLINED_FUNCTION_10();
-      FigCapturePleaseFileRadar(v267, v268, v269, v270, v271, 972, v272, v273, &v357);
-      free(v242);
-      v197 = 0;
-      goto LABEL_73;
+      FigCapturePleaseFileRadar(v305, v306, v307, v308, v309, 972, v310, v311, &v416);
+      free(v270);
+      v218 = 0;
+      goto LABEL_74;
     }
 
-    v197 = 0;
-    v46 = v240;
-LABEL_121:
-    v168 = v334;
-    goto LABEL_73;
+    v218 = 0;
+    v46 = v268;
+LABEL_123:
+    v189 = v379;
+    goto LABEL_74;
   }
 
-  v342 = x;
-  v339 = height;
-  v163 = [v47 objectForKeyedSubscript:*off_1E798B5A8];
-  v164 = [v47 objectForKeyedSubscript:*off_1E798B5A0];
-  v165 = *(MEMORY[0x1E695F050] + 16);
+  v383 = y;
+  v395 = *&x;
+  v389 = *&height;
+  v177 = [v47 objectForKeyedSubscript:*off_1E798B5A8];
+  v178 = [v47 objectForKeyedSubscript:*off_1E798B5A0];
+  v179 = *(MEMORY[0x1E695F050] + 16);
   recta.origin = *MEMORY[0x1E695F050];
-  recta.size = v165;
+  recta.size = v179;
   height = v61;
   x = v61;
-  v166 = v66;
-  v167 = v63;
-  if (v162)
+  v393 = v66;
+  v180 = *&v66;
+  v181 = v63;
+  if (v176)
   {
-    x = v315;
-    v65 = v318;
-    v166 = v326;
-    v167 = v313;
+    x = *&v360;
+    v65 = *&v363;
+    v180 = *&v371;
+    v181 = *&v358;
     if (CGRectMakeWithDictionaryRepresentation([v47 objectForKeyedSubscript:*off_1E798B790], &recta))
     {
       v65 = recta.origin.x;
       x = recta.origin.y;
-      v166 = recta.size.width;
-      v167 = recta.size.height;
+      v180 = recta.size.width;
+      v181 = recta.size.height;
     }
   }
 
-  v371.origin.x = v65;
-  v371.origin.y = x;
-  v371.size.width = v166;
-  v371.size.height = v167;
-  if (!CGRectIsNull(v371))
+  v430.origin.x = v65;
+  v430.origin.y = x;
+  v430.size.width = v180;
+  v430.size.height = v181;
+  if (!CGRectIsNull(v430))
   {
-    if (v341)
+    if (HIDWORD(v394))
     {
-      if ((v341 - 1) >= 2)
+      if ((HIDWORD(v394) - 1) >= 2)
       {
-        v243 = OUTLINED_FUNCTION_36_9();
-        if (os_log_type_enabled(v243, v343))
+        v271 = OUTLINED_FUNCTION_36_9(v379, v182, v183, v184, v185, v186, v187, v188, v335, v337, v338, v339, v340, v341, v342, v343, v344, v345, v346, v347, v348, v349, v350, v351, v352, v353, v354, rect2, v356, v358, v360, v363, v366, v369, v371, *&v373, *&v374, v375, v377, *&v378, v379, *&y, v385, v387, v389, v393, v394, v395, v398, SBYTE2(v398), SHIBYTE(v398), type);
+        if (os_log_type_enabled(v271, v400))
         {
-          v244 = *type;
+          v272 = *typeb;
         }
 
         else
         {
-          v244 = *type & 0xFFFFFFFE;
+          v272 = *typeb & 0xFFFFFFFE;
         }
 
-        if (v244)
+        if (v272)
         {
-          v349 = 136315394;
-          v350 = "BWCreateSushiRawDNGDictionary";
-          v351 = 1026;
-          v245 = v341;
-          LODWORD(v352) = v341;
+          v408 = 136315394;
+          v409 = "BWCreateSushiRawDNGDictionary";
+          v410 = 1026;
+          v273 = HIDWORD(v394);
+          LODWORD(v411) = HIDWORD(v394);
           OUTLINED_FUNCTION_15_12();
           OUTLINED_FUNCTION_13();
           _os_log_send_and_compose_impl();
@@ -5555,59 +4628,59 @@ LABEL_121:
 
         else
         {
-          v245 = v341;
+          v273 = HIDWORD(v394);
         }
 
         OUTLINED_FUNCTION_33_10();
-        x = v342;
+        x = v397;
         OUTLINED_FUNCTION_8_1();
-        fig_log_call_emit_and_clean_up_after_send_and_compose();
-        v357 = 67240192;
-        LODWORD(v358) = v245;
-        OUTLINED_FUNCTION_6_0();
+        v274 = fig_log_call_emit_and_clean_up_after_send_and_compose();
+        v416 = 67240192;
+        LODWORD(v417) = v273;
+        OUTLINED_FUNCTION_6_0(v274, v275, v276, v277, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
         OUTLINED_FUNCTION_35_8();
         OUTLINED_FUNCTION_10();
-        FigCapturePleaseFileRadar(v246, v247, v248, v249, v250, 960, v251, v252, &v357);
-        free(&v357);
-        v197 = 0;
-        v168 = v334;
-        height = v339;
+        FigCapturePleaseFileRadar(v278, v279, v280, v281, v282, 960, v283, v284, &v416);
+        free(&v416);
+        v218 = 0;
+        v189 = v381;
+        height = v391;
         goto LABEL_73;
       }
 
-      v206 = [v334 objectForKeyedSubscript:*off_1E7989EE0];
-      v207 = [v206 bytes];
-      v208 = v207;
-      if (!v206 || *v207 != 2)
+      v227 = [v379 objectForKeyedSubscript:*off_1E7989EE0];
+      v228 = [v227 bytes];
+      v236 = v228;
+      if (!v227 || *v228 != 2)
       {
-        v238 = OUTLINED_FUNCTION_36_9();
-        if (os_log_type_enabled(v238, v343))
+        v266 = OUTLINED_FUNCTION_36_9(v228, v229, v230, v231, v232, v233, v234, v235, v335, v337, v338, v339, v340, v341, v342, v343, v344, v345, v346, v347, v348, v349, v350, v351, v352, v353, v354, rect2, v356, v358, v360, v363, v366, v369, v371, *&v373, *&v374, v375, v377, *&v378, v379, *&y, v385, v387, v389, v393, v394, v395, v398, SBYTE2(v398), SHIBYTE(v398), type);
+        if (os_log_type_enabled(v266, v399))
         {
-          v239 = *type;
+          v267 = *typea;
         }
 
         else
         {
-          v239 = *type & 0xFFFFFFFE;
+          v267 = *typea & 0xFFFFFFFE;
         }
 
-        if (v239)
+        if (v267)
         {
-          [v206 length];
+          [v227 length];
           OUTLINED_FUNCTION_33_10();
-          x = v342;
-          v349 = 136315907;
-          v350 = "BWCreateSushiRawDNGDictionary";
-          v351 = 2049;
-          v352 = v206;
-          v353 = 2050;
-          v354 = v253;
-          v355 = 1026;
-          v356 = v254;
+          x = v396;
+          v408 = 136315907;
+          v409 = "BWCreateSushiRawDNGDictionary";
+          v410 = 2049;
+          v411 = v227;
+          v412 = 2050;
+          v413 = v285;
+          v414 = 1026;
+          v415 = v286;
           OUTLINED_FUNCTION_15_12();
           OUTLINED_FUNCTION_13();
           _os_log_send_and_compose_impl();
-          height = v339;
+          height = v390;
         }
 
         else
@@ -5615,272 +4688,273 @@ LABEL_121:
           OUTLINED_FUNCTION_44_6();
         }
 
+        y = v384;
         OUTLINED_FUNCTION_8_1();
         fig_log_call_emit_and_clean_up_after_send_and_compose();
-        v255 = [v206 length];
-        v48 = v336;
-        v168 = v334;
-        if (v208)
+        v287 = [v227 length];
+        v48 = v386;
+        v189 = v380;
+        if (v236)
         {
-          v256 = *v208;
+          v291 = *v236;
         }
 
         else
         {
-          v256 = 0;
+          v291 = 0;
         }
 
-        v357 = 134284033;
-        v358 = v206;
-        v359 = 2050;
-        v360 = v255;
-        v361 = 1026;
-        v362 = v256;
-        OUTLINED_FUNCTION_6_0();
+        v416 = 134284033;
+        v417 = v227;
+        v418 = 2050;
+        v419 = v287;
+        v420 = 1026;
+        v421 = v291;
+        OUTLINED_FUNCTION_6_0(v287, v288, v289, v290, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
         OUTLINED_FUNCTION_35_8();
         OUTLINED_FUNCTION_10();
-        FigCapturePleaseFileRadar(v257, v258, v259, v260, v261, 954, v262, v263, &v357);
-        free(v208);
-        v197 = 0;
-        goto LABEL_73;
+        FigCapturePleaseFileRadar(v292, v293, v294, v295, v296, 954, v297, v298, &v416);
+        free(v236);
+        v218 = 0;
+        goto LABEL_74;
       }
 
-      v209 = (v65 + (2 * *(v207 + 8)));
-      v210 = (x + (2 * *(v207 + 12)));
-      v312 = v46;
-      if (*(v207 + 4))
+      v237 = (v65 + (2 * *(v228 + 8)));
+      v238 = (x + (2 * *(v228 + 12)));
+      v357 = v46;
+      if (*(v228 + 4))
       {
-        v209 = (v209 - v333);
-        v210 = (v210 - v332);
+        v237 = (v237 - v378);
+        v238 = (v238 - *&v377);
       }
 
-      v319 = *(v207 + 32);
-      v316 = *(v207 + 36);
-      v314 = *(v207 + 40);
-      v322 = *(v207 + 44);
-      v211 = 2 * *(v207 + 16);
-      v212 = 2 * *(v207 + 20);
-      v213 = v209 / v211;
-      x = v212;
-      v214 = v212;
-      v215 = v210 / v212;
-      v216 = *(v207 + 28);
-      if (*(v207 + 24) - 1 >= ((v166 + v209 + v211 + -1.0) / v211))
+      v364 = *(v228 + 32);
+      v361 = *(v228 + 36);
+      v359 = *(v228 + 40);
+      v367 = *(v228 + 44);
+      v239 = 2 * *(v228 + 16);
+      v240 = 2 * *(v228 + 20);
+      v241 = v237 / v239;
+      x = v240;
+      v242 = v240;
+      v243 = v238 / v240;
+      v244 = *(v228 + 28);
+      if (*(v228 + 24) - 1 >= ((v180 + v237 + v239 + -1.0) / v239))
       {
-        v217 = ((v166 + v209 + v211 + -1.0) / v211);
-      }
-
-      else
-      {
-        v217 = *(v207 + 24) - 1;
-      }
-
-      if (v216 - 1 >= ((v167 + v210 + v212 + -1.0) / v212))
-      {
-        v218 = ((v167 + v210 + v212 + -1.0) / v212);
+        v245 = ((v180 + v237 + v239 + -1.0) / v239);
       }
 
       else
       {
-        v218 = v216 - 1;
+        v245 = *(v228 + 24) - 1;
       }
 
-      v327 = v217 - v213 + 1;
-      v325 = v218 - v215 + 1;
-      v331 = [MEMORY[0x1E695DF88] dataWithLength:12 * v325 * v327];
-      v219 = [v331 mutableBytes];
-      if (v218 >= v215)
+      if (v244 - 1 >= ((v181 + v238 + v240 + -1.0) / v240))
       {
-        v220 = 0;
-        v221 = &v208[v316 + 12];
-        v222 = v215;
-        v223 = &v208[v322 + 12];
+        v246 = ((v181 + v238 + v240 + -1.0) / v240);
+      }
+
+      else
+      {
+        v246 = v244 - 1;
+      }
+
+      v372 = v245 - v241 + 1;
+      v370 = v246 - v243 + 1;
+      v376 = [MEMORY[0x1E695DF88] dataWithLength:12 * v370 * v372];
+      v247 = [v376 mutableBytes];
+      if (v246 >= v243)
+      {
+        v248 = 0;
+        v249 = &v236[v361 + 12];
+        v250 = v243;
+        v251 = &v236[v367 + 12];
         do
         {
-          if (v217 >= v213)
+          if (v245 >= v241)
           {
-            v224 = v208[6] * v222;
-            v225 = v209 / v211;
+            v252 = v236[6] * v250;
+            v253 = v237 / v239;
             do
             {
-              v226 = v224 + v225;
-              v227 = *&v208[v319 + 12 + v224 + v225];
-              v228 = *(v221 + 4 * (v224 + v225));
-              v229 = *&v208[v314 + 12 + v224 + v225];
-              if (v229 <= *(v223 + 4 * (v224 + v225)))
+              v254 = v252 + v253;
+              v255 = *&v236[v364 + 12 + v252 + v253];
+              v256 = *(v249 + 4 * (v252 + v253));
+              v257 = *&v236[v359 + 12 + v252 + v253];
+              if (v257 <= *(v251 + 4 * (v252 + v253)))
               {
-                v229 = *(v223 + 4 * v226);
+                v257 = *(v251 + 4 * v254);
               }
 
-              if (v228 <= v229)
+              if (v256 <= v257)
               {
-                if (v227 <= v229)
+                if (v255 <= v257)
                 {
-                  v227 = v229;
+                  v255 = v257;
                 }
               }
 
-              else if (v227 <= v228)
+              else if (v255 <= v256)
               {
-                v227 = *(v221 + 4 * v226);
+                v255 = *(v249 + 4 * v254);
               }
 
-              *(v219 + 4 * v220) = v227;
-              *(v219 + 4 * (v220 + 1)) = v227;
-              v230 = v220 + 2;
-              v220 += 3;
-              *(v219 + 4 * v230) = v227;
-              ++v225;
+              *(v247 + 4 * v248) = v255;
+              *(v247 + 4 * (v248 + 1)) = v255;
+              v258 = v248 + 2;
+              v248 += 3;
+              *(v247 + 4 * v258) = v255;
+              ++v253;
             }
 
-            while (v225 <= v217);
+            while (v253 <= v245);
           }
 
-          ++v222;
+          ++v250;
         }
 
-        while (v222 <= v218);
+        while (v250 <= v246);
       }
 
-      v231 = (v213 * v211 - v209) / v166;
-      v323 = v231;
-      v232 = (v215 * v214 - v210) / v167;
-      v320 = v232;
-      v233 = v211 / v166;
-      v317 = v233;
-      v346[0] = &unk_1F2243A20;
-      v345[0] = @"top";
-      v345[1] = @"bottom";
-      v346[1] = [MEMORY[0x1E696AD98] numberWithDouble:v167];
-      v346[2] = &unk_1F2243A20;
-      v345[2] = @"left";
-      v345[3] = @"right";
-      v346[3] = [MEMORY[0x1E696AD98] numberWithDouble:v166];
-      v346[4] = &unk_1F2243A20;
-      v345[4] = @"plane";
-      v345[5] = @"planes";
-      v346[5] = &unk_1F2243A38;
-      v346[6] = &unk_1F2243A50;
-      v345[6] = @"rowPitch";
-      v345[7] = @"colPitch";
-      v346[7] = &unk_1F2243A50;
-      v345[8] = @"mapsPointsV";
-      v346[8] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v325];
-      v345[9] = @"mapsPointsH";
-      v346[9] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v327];
-      v345[10] = @"mapsSpacingV";
-      *&v234 = x / v167;
-      v346[10] = [MEMORY[0x1E696AD98] numberWithFloat:v234];
-      v345[11] = @"mapsSpacingH";
-      *&v235 = v317;
-      v346[11] = [MEMORY[0x1E696AD98] numberWithFloat:v235];
-      v345[12] = @"mapOriginV";
-      *&v236 = v320;
-      v346[12] = [MEMORY[0x1E696AD98] numberWithFloat:v236];
-      v345[13] = @"mapOriginH";
-      *&v237 = v323;
-      v346[13] = [MEMORY[0x1E696AD98] numberWithFloat:v237];
-      v346[14] = &unk_1F2243A38;
-      v345[14] = @"mapPlanes";
-      v345[15] = @"gainData";
-      v346[15] = v331;
-      v197 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v346 forKeys:v345 count:16];
-      v48 = v336;
-      v46 = v312;
-      v168 = v334;
+      v259 = (v241 * v239 - v237) / v180;
+      v368 = v259;
+      v260 = (v243 * v242 - v238) / v181;
+      v365 = v260;
+      v261 = v239 / v180;
+      v362 = v261;
+      v405[0] = &unk_1F2243A20;
+      v404[0] = @"top";
+      v404[1] = @"bottom";
+      v405[1] = [MEMORY[0x1E696AD98] numberWithDouble:v181];
+      v405[2] = &unk_1F2243A20;
+      v404[2] = @"left";
+      v404[3] = @"right";
+      v405[3] = [MEMORY[0x1E696AD98] numberWithDouble:v180];
+      v405[4] = &unk_1F2243A20;
+      v404[4] = @"plane";
+      v404[5] = @"planes";
+      v405[5] = &unk_1F2243A38;
+      v405[6] = &unk_1F2243A50;
+      v404[6] = @"rowPitch";
+      v404[7] = @"colPitch";
+      v405[7] = &unk_1F2243A50;
+      v404[8] = @"mapsPointsV";
+      v405[8] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v370];
+      v404[9] = @"mapsPointsH";
+      v405[9] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v372];
+      v404[10] = @"mapsSpacingV";
+      *&v262 = x / v181;
+      v405[10] = [MEMORY[0x1E696AD98] numberWithFloat:v262];
+      v404[11] = @"mapsSpacingH";
+      *&v263 = v362;
+      v405[11] = [MEMORY[0x1E696AD98] numberWithFloat:v263];
+      v404[12] = @"mapOriginV";
+      *&v264 = v365;
+      v405[12] = [MEMORY[0x1E696AD98] numberWithFloat:v264];
+      v404[13] = @"mapOriginH";
+      *&v265 = v368;
+      v405[13] = [MEMORY[0x1E696AD98] numberWithFloat:v265];
+      v405[14] = &unk_1F2243A38;
+      v404[14] = @"mapPlanes";
+      v404[15] = @"gainData";
+      v405[15] = v376;
+      v218 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v405 forKeys:v404 count:16];
+      v48 = v385;
+      v46 = v357;
+      v189 = v379;
     }
 
     else
     {
-      v168 = v334;
-      if ([v46 count] != 7 || !v163 || !v164)
+      v189 = v379;
+      if ([v46 count] != 7 || !v177 || !v178)
       {
         OUTLINED_FUNCTION_0_44();
-        goto LABEL_135;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+        goto LABEL_82;
       }
 
-      if (v166 != *MEMORY[0x1E695F060] || v167 != *(MEMORY[0x1E695F060] + 8))
+      if (v180 != *MEMORY[0x1E695F060] || v181 != *(MEMORY[0x1E695F060] + 8))
       {
-        *&x = sqrt(v167 * v167 + v166 * v166) * 0.5;
-        [v163 floatValue];
-        v171 = v170;
-        [v163 floatValue];
-        v173 = v172;
-        [v164 floatValue];
-        v175 = v174;
-        [v164 floatValue];
-        v177 = *&x / (sqrtf((v175 * v176) + (v171 * v173)) * 0.5);
-        v178 = MEMORY[0x1E696AD98];
+        *&x = sqrt(v181 * v181 + v180 * v180) * 0.5;
+        [v177 floatValue];
+        v192 = v191;
+        [v177 floatValue];
+        v194 = v193;
+        [v178 floatValue];
+        v196 = v195;
+        [v178 floatValue];
+        v198 = *&x / (sqrtf((v196 * v197) + (v192 * v194)) * 0.5);
+        v199 = MEMORY[0x1E696AD98];
         [objc_msgSend(OUTLINED_FUNCTION_38_7() "objectAtIndexedSubscript:"floatValue"")];
-        *&v180 = v179 * (v177 * v177);
-        v347[0] = [v178 numberWithFloat:v180];
-        v181 = MEMORY[0x1E696AD98];
-        v182 = powf(v177, 4.0);
+        *&v201 = v200 * (v198 * v198);
+        v406[0] = [v199 numberWithFloat:v201];
+        v202 = MEMORY[0x1E696AD98];
+        v203 = powf(v198, 4.0);
         [objc_msgSend(v46 objectAtIndexedSubscript:{1), "floatValue"}];
-        *&v184 = v182 * v183;
-        v347[1] = [v181 numberWithFloat:v184];
-        v185 = MEMORY[0x1E696AD98];
-        v186 = powf(v177, 6.0);
+        *&v205 = v203 * v204;
+        v406[1] = [v202 numberWithFloat:v205];
+        v206 = MEMORY[0x1E696AD98];
+        v207 = powf(v198, 6.0);
         [objc_msgSend(v46 objectAtIndexedSubscript:{2), "floatValue"}];
-        *&v188 = v186 * v187;
-        v347[2] = [v185 numberWithFloat:v188];
-        v189 = MEMORY[0x1E696AD98];
-        v190 = powf(v177, 8.0);
+        *&v209 = v207 * v208;
+        v406[2] = [v206 numberWithFloat:v209];
+        v210 = MEMORY[0x1E696AD98];
+        v211 = powf(v198, 8.0);
         [objc_msgSend(v46 objectAtIndexedSubscript:{3), "floatValue"}];
-        *&v192 = v190 * v191;
-        v347[3] = [v189 numberWithFloat:v192];
-        v193 = MEMORY[0x1E696AD98];
-        v194 = powf(v177, 10.0);
+        *&v213 = v211 * v212;
+        v406[3] = [v210 numberWithFloat:v213];
+        v214 = MEMORY[0x1E696AD98];
+        v215 = powf(v198, 10.0);
         [objc_msgSend(v46 objectAtIndexedSubscript:{4), "floatValue"}];
-        *&v196 = v194 * v195;
-        v347[4] = [v193 numberWithFloat:v196];
-        v347[5] = [v46 objectAtIndexedSubscript:5];
-        v347[6] = [v46 objectAtIndexedSubscript:6];
-        v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:v347 count:7];
+        *&v217 = v215 * v216;
+        v406[4] = [v214 numberWithFloat:v217];
+        v406[5] = [v46 objectAtIndexedSubscript:5];
+        v406[6] = [v46 objectAtIndexedSubscript:6];
+        v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:v406 count:7];
       }
 
-      v197 = 0;
+      v218 = 0;
     }
 
     OUTLINED_FUNCTION_44_6();
 LABEL_73:
-    if (HIDWORD(v328))
+    y = v383;
+LABEL_74:
+    if (HIDWORD(v373))
     {
-      v198 = [v168 objectForKeyedSubscript:*off_1E7989EC0];
+      v219 = [v189 objectForKeyedSubscript:*off_1E7989EC0];
     }
 
     else
     {
-      v198 = 0;
+      v219 = 0;
     }
 
-    if (v341)
+    if (HIDWORD(v394))
     {
-      v199 = 0;
+      v220 = 0;
     }
 
     else
     {
-      v199 = v46;
+      v220 = v46;
     }
 
-    [v168 objectForKeyedSubscript:*off_1E7989E70];
-    v200 = OUTLINED_FUNCTION_17_12();
-    if (simu_createDNGDictionary(v201, v202, *&v329, v199, v151, v200, v203, v204, v205, width, y, x, height, v48, v198, v197, *&v328, v333, v332))
+    [v189 objectForKeyedSubscript:*off_1E7989E70];
+    v221 = OUTLINED_FUNCTION_17_12();
+    if (!simu_createDNGDictionary(v222, v223, *&v374, v220, v161, v48, v219, v218, v221, v224, v225, v226, width, y, x, height, *&v373, v378, *&v377))
     {
-      goto LABEL_80;
+      OUTLINED_FUNCTION_0_44();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
-
-    OUTLINED_FUNCTION_0_44();
-LABEL_135:
-    FigDebugAssert3();
   }
 
-LABEL_80:
+LABEL_82:
   OUTLINED_FUNCTION_5_5();
 }
 
-uint64_t simu_createDNGDictionary(int a1, void *a2, void *a3, void *a4, void *a5, double a6, double a7, double a8, double a9, double a10, CGFloat a11, CGFloat a12, double a13, uint64_t a14, uint64_t a15, uint64_t a16, float a17, double a18, double a19)
+uint64_t simu_createDNGDictionary(int a1, void *a2, void *a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, double a10, double a11, double a12, double d4_0, CGFloat d5_0, CGFloat d6_0, double a16, float a13, double a14, double a15)
 {
   if (!a2)
   {
@@ -5889,7 +4963,7 @@ uint64_t simu_createDNGDictionary(int a1, void *a2, void *a3, void *a4, void *a5
     v96 = OUTLINED_FUNCTION_24_8(v95);
     if (OUTLINED_FUNCTION_6(v96))
     {
-      v119 = 136315138;
+      v155 = 136315138;
       OUTLINED_FUNCTION_12_24();
       OUTLINED_FUNCTION_8_0();
       _os_log_send_and_compose_impl();
@@ -5897,23 +4971,23 @@ uint64_t simu_createDNGDictionary(int a1, void *a2, void *a3, void *a4, void *a5
     }
 
     OUTLINED_FUNCTION_5_3();
-    OUTLINED_FUNCTION_17_8();
-    LOWORD(v120[0]) = 0;
+    OUTLINED_FUNCTION_17_8(v105, v106, v107, v108, v109);
+    LOWORD(v156[0]) = 0;
     OUTLINED_FUNCTION_16_14();
-    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_6_0(v110, v111, v112, v113, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
     OUTLINED_FUNCTION_13_18();
-    v105 = OUTLINED_FUNCTION_6_1();
-    v112 = 1288;
+    v114 = OUTLINED_FUNCTION_6_1();
+    v121 = 1288;
     goto LABEL_96;
   }
 
   if (qword_1ED844ED0 != -1)
   {
-    v97 = a13;
-    v98 = a10;
+    v97 = a16;
+    v98 = d4_0;
     dispatch_once(&qword_1ED844ED0, &__block_literal_global_48);
-    a10 = v98;
-    a13 = v97;
+    d4_0 = v98;
+    a16 = v97;
   }
 
   if (!_MergedGlobals_3)
@@ -5923,7 +4997,7 @@ uint64_t simu_createDNGDictionary(int a1, void *a2, void *a3, void *a4, void *a5
     v100 = OUTLINED_FUNCTION_24_8(v99);
     if (OUTLINED_FUNCTION_6(v100))
     {
-      v119 = 136315138;
+      v155 = 136315138;
       OUTLINED_FUNCTION_12_24();
       OUTLINED_FUNCTION_8_0();
       _os_log_send_and_compose_impl();
@@ -5931,18 +5005,18 @@ uint64_t simu_createDNGDictionary(int a1, void *a2, void *a3, void *a4, void *a5
     }
 
     OUTLINED_FUNCTION_5_3();
-    OUTLINED_FUNCTION_17_8();
-    LOWORD(v120[0]) = 0;
+    OUTLINED_FUNCTION_17_8(v122, v123, v124, v125, v126);
+    LOWORD(v156[0]) = 0;
     OUTLINED_FUNCTION_16_14();
-    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_6_0(v127, v128, v129, v130, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
     OUTLINED_FUNCTION_13_18();
-    v105 = OUTLINED_FUNCTION_6_1();
-    v112 = 1295;
+    v114 = OUTLINED_FUNCTION_6_1();
+    v121 = 1295;
     goto LABEL_96;
   }
 
-  v114 = a10;
-  v115 = a13;
+  v150 = d4_0;
+  v151 = a16;
   v29 = [a2 objectForKeyedSubscript:*off_1E798B540];
   if (!v29)
   {
@@ -5951,7 +5025,7 @@ uint64_t simu_createDNGDictionary(int a1, void *a2, void *a3, void *a4, void *a5
     v102 = OUTLINED_FUNCTION_24_8(v101);
     if (OUTLINED_FUNCTION_6(v102))
     {
-      v119 = 136315138;
+      v155 = 136315138;
       OUTLINED_FUNCTION_12_24();
       OUTLINED_FUNCTION_8_0();
       _os_log_send_and_compose_impl();
@@ -5959,49 +5033,49 @@ uint64_t simu_createDNGDictionary(int a1, void *a2, void *a3, void *a4, void *a5
     }
 
     OUTLINED_FUNCTION_5_3();
-    OUTLINED_FUNCTION_17_8();
-    LOWORD(v120[0]) = 0;
+    OUTLINED_FUNCTION_17_8(v131, v132, v133, v134, v135);
+    LOWORD(v156[0]) = 0;
     OUTLINED_FUNCTION_16_14();
-    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_6_0(v136, v137, v138, v139, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
     OUTLINED_FUNCTION_13_18();
-    v105 = OUTLINED_FUNCTION_6_1();
-    v112 = 1301;
+    v114 = OUTLINED_FUNCTION_6_1();
+    v121 = 1301;
     goto LABEL_96;
   }
 
   v30 = v29;
-  if ([v29 isEqualToString:*off_1E798A0E0])
+  if (objc_msgSend_isEqualToString_(v29))
   {
     v31 = @"front camera";
     goto LABEL_16;
   }
 
-  if ([v30 isEqualToString:*off_1E798A0F8])
+  if (objc_msgSend_isEqualToString_(v30))
   {
     v31 = @"front ultra wide camera";
     goto LABEL_16;
   }
 
-  if ([v30 isEqualToString:*off_1E798A0C0])
+  if (objc_msgSend_isEqualToString_(v30))
   {
     v31 = @"back camera";
     goto LABEL_16;
   }
 
-  if ([v30 isEqualToString:*off_1E798A0D8])
+  if (objc_msgSend_isEqualToString_(v30))
   {
     v31 = @"back telephoto camera";
     goto LABEL_16;
   }
 
-  if (([v30 isEqualToString:*off_1E798A0D0] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(v30) & 1) == 0)
   {
     FigCaptureGetFrameworkRadarComponent();
     v103 = OUTLINED_FUNCTION_11_22();
     v104 = OUTLINED_FUNCTION_24_8(v103);
     if (OUTLINED_FUNCTION_6(v104))
     {
-      v119 = 136315138;
+      v155 = 136315138;
       OUTLINED_FUNCTION_12_24();
       OUTLINED_FUNCTION_8_0();
       _os_log_send_and_compose_impl();
@@ -6009,16 +5083,16 @@ uint64_t simu_createDNGDictionary(int a1, void *a2, void *a3, void *a4, void *a5
     }
 
     OUTLINED_FUNCTION_5_3();
-    OUTLINED_FUNCTION_17_8();
-    LOWORD(v120[0]) = 0;
+    OUTLINED_FUNCTION_17_8(v140, v141, v142, v143, v144);
+    LOWORD(v156[0]) = 0;
     OUTLINED_FUNCTION_16_14();
-    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_6_0(v145, v146, v147, v148, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
     OUTLINED_FUNCTION_13_18();
-    v105 = OUTLINED_FUNCTION_6_1();
-    v112 = 1319;
+    v114 = OUTLINED_FUNCTION_6_1();
+    v121 = 1319;
 LABEL_96:
-    FigCapturePleaseFileRadar(v105, v106, v107, v108, v109, v112, v110, v111, v113);
-    free(v120);
+    FigCapturePleaseFileRadar(v114, v115, v116, v117, v118, v121, v119, v120, v149);
+    free(v156);
     v32 = 0;
     goto LABEL_97;
   }
@@ -6095,12 +5169,12 @@ LABEL_16:
   *&v44 = v47 / v41;
   v48 = v47 / v42;
   v49 = v47 / v43;
-  v118[0] = [MEMORY[0x1E696AD98] numberWithFloat:v44];
+  v154[0] = [MEMORY[0x1E696AD98] numberWithFloat:v44];
   *&v50 = v48;
-  v118[1] = [MEMORY[0x1E696AD98] numberWithFloat:v50];
+  v154[1] = [MEMORY[0x1E696AD98] numberWithFloat:v50];
   *&v51 = v49;
-  v118[2] = [MEMORY[0x1E696AD98] numberWithFloat:v51];
-  v52 = [MEMORY[0x1E695DEC8] arrayWithObjects:v118 count:3];
+  v154[2] = [MEMORY[0x1E696AD98] numberWithFloat:v51];
+  v52 = [MEMORY[0x1E695DEC8] arrayWithObjects:v154 count:3];
   [v32 setObject:v52 forKeyedSubscript:*MEMORY[0x1E696D778]];
   if ([a3 count] != 2)
   {
@@ -6159,15 +5233,15 @@ LABEL_16:
   v61 = [MEMORY[0x1E696AD98] numberWithFloat:v56];
   [v32 setObject:v61 forKeyedSubscript:*MEMORY[0x1E696D798]];
 LABEL_52:
-  v121.origin.x = OUTLINED_FUNCTION_2_41();
-  if (!CGRectIsEmpty(v121))
+  v157.origin.x = OUTLINED_FUNCTION_2_41();
+  if (!CGRectIsEmpty(v157))
   {
     v62 = OUTLINED_FUNCTION_2_41();
     BWSetRawDenormalizedActiveRectToDNGDictionary(v32, v62, v63, v64, v65);
     [v32 setObject:&unk_1F2248760 forKeyedSubscript:*MEMORY[0x1E696D7F8]];
-    v117[0] = [MEMORY[0x1E696AD98] numberWithInt:a8];
-    v117[1] = [MEMORY[0x1E696AD98] numberWithInt:a9];
-    v66 = [MEMORY[0x1E695DEC8] arrayWithObjects:v117 count:2];
+    v153[0] = [MEMORY[0x1E696AD98] numberWithInt:a11];
+    v153[1] = [MEMORY[0x1E696AD98] numberWithInt:a12];
+    v66 = [MEMORY[0x1E695DEC8] arrayWithObjects:v153 count:2];
     [v32 setObject:v66 forKeyedSubscript:*MEMORY[0x1E696D800]];
   }
 
@@ -6176,9 +5250,9 @@ LABEL_52:
     [v32 setObject:a4 forKeyedSubscript:*MEMORY[0x1E696D810]];
   }
 
-  if (a16)
+  if (a8)
   {
-    [v32 setObject:a16 forKeyedSubscript:@"GainMap"];
+    [v32 setObject:a8 forKeyedSubscript:@"GainMap"];
   }
 
   if (a1 == 1)
@@ -6217,16 +5291,16 @@ LABEL_75:
                   v81 = v80;
                   [objc_msgSend(v72 objectAtIndexedSubscript:{v76), "doubleValue"}];
                   v83 = v82;
-                  v120[0] = [MEMORY[0x1E696AD98] numberWithDouble:v81];
-                  v120[1] = [MEMORY[0x1E696AD98] numberWithDouble:v83];
-                  v84 = [MEMORY[0x1E695DEC8] arrayWithObjects:v120 count:2];
+                  v156[0] = [MEMORY[0x1E696AD98] numberWithDouble:v81];
+                  v156[1] = [MEMORY[0x1E696AD98] numberWithDouble:v83];
+                  v84 = [MEMORY[0x1E695DEC8] arrayWithObjects:v156 count:2];
 LABEL_76:
                   [v32 setObject:v84 forKeyedSubscript:*MEMORY[0x1E696D820]];
 LABEL_77:
-                  if (a15)
+                  if (a7)
                   {
                     v88 = OUTLINED_FUNCTION_2_41();
-                    [v32 setObject:simu_createWarpRectilinearDictionary(v89 forKeyedSubscript:{v90, v91, v88, v92, v93, v94, v114, a11, a12, v115, a17, a18, a19), @"WarpRectilinear2"}];
+                    [v32 setObject:simu_createWarpRectilinearDictionary(v89 forKeyedSubscript:{v90, v91, v88, v92, v93, v94, v150, d5_0, d6_0, v151, a13, a14, a15), @"WarpRectilinear2"}];
                   }
 
                   goto LABEL_79;
@@ -6285,14 +5359,14 @@ LABEL_80:
   return v85;
 }
 
-uint64_t BWCreateDemosaicedRawDNGDictionary(uint64_t a1, _BOOL8 a2, void *a3, void *a4, void *a5, float a6)
+void *BWCreateDemosaicedRawDNGDictionary(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5, float a6)
 {
   FigNote_AllowInternalDefaultLogs();
   OUTLINED_FUNCTION_3_7();
   OUTLINED_FUNCTION_9_22();
   fig_note_initialize_category_with_default_work_cf();
   OUTLINED_FUNCTION_9_22();
-  OUTLINED_FUNCTION_10_4();
+  OUTLINED_FUNCTION_10_4(v12, v13, v14, v15, v16);
   result = 0;
   if (!HIDWORD(a1) || !a1 || a6 == 0.0 || !a3 || !a4)
   {
@@ -6302,54 +5376,58 @@ uint64_t BWCreateDemosaicedRawDNGDictionary(uint64_t a1, _BOOL8 a2, void *a3, vo
   if (!FigCapturePixelFormatIsDemosaicedRaw(a2))
   {
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v53, v55, v58, v61, v62, v63, v64, v65);
     FigCaptureGetFrameworkRadarComponent();
-    v38 = 0;
-    v37 = 0;
+    v68[0] = 0;
+    v67 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     OUTLINED_FUNCTION_5_3();
-    OUTLINED_FUNCTION_17_8();
-    v26 = BWStringFromCVPixelFormatType(a2);
+    OUTLINED_FUNCTION_17_8(v36, v37, v38, v39, v40);
+    v41 = BWStringFromCVPixelFormatType(a2);
     LODWORD(recta.origin.x) = 138412290;
-    *(&recta.origin.x + 4) = v26;
-    OUTLINED_FUNCTION_6_0();
+    *(&recta.origin.x + 4) = v41;
+    OUTLINED_FUNCTION_6_0(v41, v42, v43, v44, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
     OUTLINED_FUNCTION_13_18();
-    v27 = OUTLINED_FUNCTION_6_1();
-    FigCapturePleaseFileRadar(v27, v28, v29, v30, v31, 1029, v32, v33, &recta);
+    v45 = OUTLINED_FUNCTION_6_1();
+    FigCapturePleaseFileRadar(v45, v46, v47, v48, v49, 1029, v50, v51, &recta);
     free(&recta);
     return 0;
   }
 
-  v13 = [a3 objectForKeyedSubscript:*off_1E798A5C8];
-  if (v13)
+  v18 = [a3 objectForKeyedSubscript:*off_1E798A5C8];
+  if (v18)
   {
-    v14 = *(MEMORY[0x1E695F058] + 16);
+    v19 = *(MEMORY[0x1E695F058] + 16);
     recta.origin = *MEMORY[0x1E695F058];
-    recta.size = v14;
-    if (CGRectMakeWithDictionaryRepresentation(v13, &recta))
+    recta.size = v19;
+    if (CGRectMakeWithDictionaryRepresentation(v18, &recta))
     {
-      FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(a1, a1 >> 32, recta.origin.x, recta.origin.y, recta.size.width, recta.size.height, a6);
+      v23.n128_f64[0] = a6;
+      v20.n128_u64[0] = *&recta.origin.x;
+      v21.n128_u64[0] = *&recta.size.width;
+      v22.n128_u64[0] = *&recta.size.height;
+      FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(a1, a1 >> 32, v20, recta.origin.y, v21, v22, v23, v24);
       OUTLINED_FUNCTION_2_3();
-      if (CGRectIsNull(v39))
+      if (CGRectIsNull(v69))
       {
         OUTLINED_FUNCTION_0();
         OUTLINED_FUNCTION_2_5();
-        FigDebugAssert3();
+        FigDebugAssert3(v52);
       }
     }
   }
 
   [a5 objectForKeyedSubscript:*off_1E7989E70];
-  v34 = *MEMORY[0x1E695EFF8];
-  v35 = *(MEMORY[0x1E695EFF8] + 8);
+  v56 = *MEMORY[0x1E695EFF8];
+  v59 = *(MEMORY[0x1E695EFF8] + 8);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_3_32();
-  result = simu_createDNGDictionary(v15, v16, a4, 0, 0, v17, v18, v19, v20, v21, v22, v23, v24, a1, 0, 0, 0.0, v34, v35);
+  result = simu_createDNGDictionary(v25, v26, a4, 0, 0, a1, 0, 0, v27, v28, v29, v30, v31, v32, v33, v34, 0.0, v56, v59);
   if (!result)
   {
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v54, v57, v60, v61, v62, v63, v64, v65);
     return 0;
   }
 
@@ -6361,18 +5439,18 @@ id BWCreateProResRawGDCMetadata(unint64_t a1, void *a2, void *a3, float a4)
   FigNote_AllowInternalDefaultLogs();
   OUTLINED_FUNCTION_3_7();
   OUTLINED_FUNCTION_14_10();
-  OUTLINED_FUNCTION_61_2();
+  OUTLINED_FUNCTION_61_2(v12, v13, v14, v15, v16, v17);
   OUTLINED_FUNCTION_54_5();
   OUTLINED_FUNCTION_14_10();
-  OUTLINED_FUNCTION_10_4();
+  OUTLINED_FUNCTION_10_4(v18, v19, v20, v21, v22);
   if (!a3)
   {
     return 0;
   }
 
-  v12 = [a3 objectForKeyedSubscript:*off_1E7989EC0];
+  v23 = [a3 objectForKeyedSubscript:*off_1E7989EC0];
   result = 0;
-  if (!HIDWORD(a1) || !a1 || !a2 || !v12)
+  if (!HIDWORD(a1) || !a1 || !a2 || !v23)
   {
     return result;
   }
@@ -6380,8 +5458,7 @@ id BWCreateProResRawGDCMetadata(unint64_t a1, void *a2, void *a3, float a4)
   if (a4 < 0.0)
   {
     OUTLINED_FUNCTION_0();
-LABEL_15:
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     return 0;
   }
 
@@ -6389,38 +5466,39 @@ LABEL_15:
   rect.origin.y = 0.0;
   rect.size.width = a1;
   rect.size.height = SHIDWORD(a1);
-  v14 = [a2 objectForKeyedSubscript:*off_1E798B7A0];
-  if (v14)
+  v25 = [a2 objectForKeyedSubscript:*off_1E798B7A0];
+  if (v25)
   {
-    CGRectMakeWithDictionaryRepresentation(v14, &rect);
+    CGRectMakeWithDictionaryRepresentation(v25, &rect);
   }
 
-  v15 = [objc_msgSend(a2 objectForKeyedSubscript:{*off_1E798B588), "intValue"}];
-  v16 = v15;
-  if (!v15)
+  v26 = [objc_msgSend(a2 objectForKeyedSubscript:{*off_1E798B588), "intValue"}];
+  v27 = v26;
+  if (!v26)
   {
-    v16 = 1.0;
+    v27 = 1.0;
   }
 
-  v17 = v16 * a4;
+  v28 = v27 * a4;
   FigCaptureUnityRect();
   OUTLINED_FUNCTION_26_7();
   FigCaptureUnityRect();
   OUTLINED_FUNCTION_8_3();
-  v18 = OUTLINED_FUNCTION_49_4();
-  FigCaptureMetadataUtilitiesNormalizedRectEnforcedWithinValidRegionAfterGDC(v18, v19, v20, v21, v22, v23, v24, v25, a3, a2, a1);
+  v29 = OUTLINED_FUNCTION_49_4();
+  FigCaptureMetadataUtilitiesNormalizedRectEnforcedWithinValidRegionAfterGDC(v29, v30, v31, v32, v33, v34, v35, v36, a3, a2, a1);
   OUTLINED_FUNCTION_26_7();
-  FigCaptureDenormalizeCropRect(v26, v27, v28, v29);
+  FigCaptureDenormalizeCropRect(a1, v37, v38, v39, v40);
   FigCaptureAspectRatioForDimensions(a1);
-  v30 = OUTLINED_FUNCTION_49_4();
-  FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(v31, v32, v30, v33, v34, v35, v36);
+  v41.n128_f64[0] = OUTLINED_FUNCTION_49_4();
+  FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(v42, v43, v41, v44, v45, v46, v47, v48);
   OUTLINED_FUNCTION_26_7();
-  v37 = simu_oisAdjustedOpticalCenter(a2, v17);
-  result = simu_createWarpRectilinearDictionary(a2, a1, v12, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, v4, v5, v6, v7, v17, v37, v38);
+  v49 = simu_oisAdjustedOpticalCenter(a2, v28);
+  result = simu_createWarpRectilinearDictionary(a2, a1, v23, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, v4, v5, v6, v7, v28, v49, v50);
   if (!result)
   {
     OUTLINED_FUNCTION_0();
-    goto LABEL_15;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+    return 0;
   }
 
   return result;
@@ -6433,220 +5511,221 @@ id simu_createWarpRectilinearDictionary(void *a1, uint64_t a2, void *a3, double 
     goto LABEL_17;
   }
 
-  v68.origin.x = a8;
-  v68.origin.y = a9;
-  v68.size.width = a10;
-  v68.size.height = a11;
-  if (CGRectIsNull(v68))
+  v63.origin.x = a8;
+  v63.origin.y = a9;
+  v63.size.width = a10;
+  v63.size.height = a11;
+  if (CGRectIsNull(v63))
   {
     goto LABEL_17;
   }
 
-  v27 = [a3 objectForKeyedSubscript:*off_1E798ADC0];
-  if (!v27)
+  v22 = [a3 objectForKeyedSubscript:*off_1E798ADC0];
+  if (!v22)
   {
-    return v27;
+    return v22;
   }
 
-  v28 = v27;
-  if ([v27 length] != 64)
+  v23 = v22;
+  if ([v22 length] != 64)
   {
     goto LABEL_17;
   }
 
-  v29 = [v28 bytes];
-  v27 = [a3 objectForKeyedSubscript:*off_1E798ADC8];
-  if (!v27)
+  v24 = [v23 bytes];
+  v22 = [a3 objectForKeyedSubscript:*off_1E798ADC8];
+  if (!v22)
   {
-    return v27;
+    return v22;
   }
 
-  v30 = v27;
-  if ([v27 length] != 64)
+  v25 = v22;
+  if ([v22 length] != 64)
   {
 LABEL_17:
-    v27 = 0;
-    return v27;
+    v22 = 0;
+    return v22;
   }
 
-  v31 = [v30 bytes];
+  v26 = [v25 bytes];
   [objc_msgSend(a1 objectForKeyedSubscript:{*off_1E798B260), "floatValue"}];
-  v33 = 0;
-  v34 = (a13 + (a2 / 2)) / a2;
-  v35 = (a14 + (SHIDWORD(a2) / 2)) / SHIDWORD(a2);
-  v36 = 1.0 - v34;
-  if (v34 > 1.0 - v34)
+  v28 = 0;
+  v29 = (a13 + (a2 / 2)) / a2;
+  v30 = (a14 + (SHIDWORD(a2) / 2)) / SHIDWORD(a2);
+  v31 = 1.0 - v29;
+  if (v29 > 1.0 - v29)
   {
-    v36 = (a13 + (a2 / 2)) / a2;
+    v31 = (a13 + (a2 / 2)) / a2;
   }
 
-  v37 = 1.0 - v35;
-  if (v35 > 1.0 - v35)
+  v32 = 1.0 - v30;
+  if (v30 > 1.0 - v30)
   {
-    v37 = (a14 + (SHIDWORD(a2) / 2)) / SHIDWORD(a2);
+    v32 = (a14 + (SHIDWORD(a2) / 2)) / SHIDWORD(a2);
   }
 
-  v38 = sqrt(a11 * a11 * (v37 * v37) + v36 * v36 * (a10 * a10));
-  v39 = (v29 + 32);
-  v40 = (v31 + 32);
-  v41 = ((a12 / 1000.0) * v38);
-  v58 = vdupq_lane_s32(v32, 0);
-  v42 = xmmword_1ACF06180;
+  v33 = sqrt(a11 * a11 * (v32 * v32) + v31 * v31 * (a10 * a10));
+  v34 = (v24 + 32);
+  v35 = (v26 + 32);
+  v36 = ((a12 / 1000.0) * v33);
+  v53 = vdupq_lane_s32(v27, 0);
+  v37 = xmmword_1ACF06180;
   do
   {
-    v43 = *v39++;
-    v44 = v43;
-    v45 = *v40++;
-    v46 = vmlaq_f32(v44, v58, v45);
-    v63 = vcvt_hight_f64_f32(v46);
-    v64 = v42;
-    v62 = vcvtq_f64_f32(*v46.f32);
-    v47 = vaddq_s32(v42, v42);
-    v48.i64[0] = v47.u32[2];
-    v48.i64[1] = v47.u32[3];
-    __y = vcvtq_f64_u64(v48);
-    v48.i64[0] = v47.u32[0];
-    v48.i64[1] = v47.u32[1];
-    v60 = vcvtq_f64_u64(v48);
-    v61 = pow(v41, v60.f64[0]);
-    v60.f64[0] = pow(v41, v60.f64[1]);
-    v59 = pow(v41, __y.f64[0]);
-    v49 = pow(v41, __y.f64[1]);
-    v50.f64[0] = v59;
-    v50.f64[1] = v49;
-    v51.f64[0] = v61;
-    v51.f64[1] = v60.f64[0];
-    v52 = &v67[v33];
-    *v52 = vmulq_f64(v51, v62);
-    v52[1] = vmulq_f64(v50, v63);
-    v53.i64[0] = 0x400000004;
-    v53.i64[1] = 0x400000004;
-    v42 = vaddq_s32(v64, v53);
-    v33 += 4;
+    v38 = *v34++;
+    v39 = v38;
+    v40 = *v35++;
+    v41 = vmlaq_f32(v39, v53, v40);
+    v58 = vcvt_hight_f64_f32(v41);
+    v59 = v37;
+    v57 = vcvtq_f64_f32(*v41.f32);
+    v42 = vaddq_s32(v37, v37);
+    v43.i64[0] = v42.u32[2];
+    v43.i64[1] = v42.u32[3];
+    __y = vcvtq_f64_u64(v43);
+    v43.i64[0] = v42.u32[0];
+    v43.i64[1] = v42.u32[1];
+    v55 = vcvtq_f64_u64(v43);
+    v56 = pow(v36, v55.f64[0]);
+    v55.f64[0] = pow(v36, v55.f64[1]);
+    v54 = pow(v36, __y.f64[0]);
+    v44 = pow(v36, __y.f64[1]);
+    v45.f64[0] = v54;
+    v45.f64[1] = v44;
+    v46.f64[0] = v56;
+    v46.f64[1] = v55.f64[0];
+    v47 = &v62[v28];
+    *v47 = vmulq_f64(v46, v57);
+    v47[1] = vmulq_f64(v45, v58);
+    v48.i64[0] = 0x400000004;
+    v48.i64[1] = 0x400000004;
+    v37 = vaddq_s32(v59, v48);
+    v28 += 4;
   }
 
-  while (v33 != 8);
-  v54 = 0;
-  v67[0] = 100.0;
-  v55 = a6 / a10;
-  v56 = v55 / 100.0;
+  while (v28 != 8);
+  v49 = 0;
+  v62[0] = 100.0;
+  v50 = a6 / a10;
+  v51 = v50 / 100.0;
   do
   {
-    *&v67[v54] = vmulq_n_f64(*&v67[v54], v56);
-    v54 += 2;
+    *&v62[v49] = vmulq_n_f64(*&v62[v49], v51);
+    v49 += 2;
   }
 
-  while (v54 != 8);
-  v66[0] = [MEMORY[0x1E696AD98] numberWithDouble:v67[0]];
-  v66[1] = &unk_1F224C190;
-  v66[2] = [MEMORY[0x1E696AD98] numberWithDouble:v67[1]];
-  v66[3] = &unk_1F224C190;
-  v66[4] = [MEMORY[0x1E696AD98] numberWithDouble:v67[2]];
-  v66[5] = &unk_1F224C190;
-  v66[6] = [MEMORY[0x1E696AD98] numberWithDouble:v67[3]];
-  v66[7] = &unk_1F224C190;
-  v66[8] = [MEMORY[0x1E696AD98] numberWithDouble:v67[4]];
-  v66[9] = &unk_1F224C190;
-  v66[10] = [MEMORY[0x1E696AD98] numberWithDouble:v67[5]];
-  v66[11] = &unk_1F224C190;
-  v66[12] = [MEMORY[0x1E696AD98] numberWithDouble:v67[6]];
-  v66[13] = &unk_1F224C190;
-  v66[14] = [MEMORY[0x1E696AD98] numberWithDouble:v67[7]];
-  v66[15] = &unk_1F224C190;
-  v66[16] = &unk_1F224C190;
-  v66[17] = &unk_1F224C190;
-  v66[18] = &unk_1F224C1A0;
-  v66[19] = [MEMORY[0x1E696AD98] numberWithDouble:v34];
-  v66[20] = [MEMORY[0x1E696AD98] numberWithDouble:v35];
-  v66[21] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:1];
-  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:22];
-  return v27;
+  while (v49 != 8);
+  v61[0] = [MEMORY[0x1E696AD98] numberWithDouble:v62[0]];
+  v61[1] = &unk_1F224C190;
+  v61[2] = [MEMORY[0x1E696AD98] numberWithDouble:v62[1]];
+  v61[3] = &unk_1F224C190;
+  v61[4] = [MEMORY[0x1E696AD98] numberWithDouble:v62[2]];
+  v61[5] = &unk_1F224C190;
+  v61[6] = [MEMORY[0x1E696AD98] numberWithDouble:v62[3]];
+  v61[7] = &unk_1F224C190;
+  v61[8] = [MEMORY[0x1E696AD98] numberWithDouble:v62[4]];
+  v61[9] = &unk_1F224C190;
+  v61[10] = [MEMORY[0x1E696AD98] numberWithDouble:v62[5]];
+  v61[11] = &unk_1F224C190;
+  v61[12] = [MEMORY[0x1E696AD98] numberWithDouble:v62[6]];
+  v61[13] = &unk_1F224C190;
+  v61[14] = [MEMORY[0x1E696AD98] numberWithDouble:v62[7]];
+  v61[15] = &unk_1F224C190;
+  v61[16] = &unk_1F224C190;
+  v61[17] = &unk_1F224C190;
+  v61[18] = &unk_1F224C1A0;
+  v61[19] = [MEMORY[0x1E696AD98] numberWithDouble:v29];
+  v61[20] = [MEMORY[0x1E696AD98] numberWithDouble:v30];
+  v61[21] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:1];
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:22];
+  return v22;
 }
 
-void *BWDNGColorCalibrations(void *a1, int a2)
+void *BWDNGColorCalibrations(void *a1, uint64_t a2)
 {
+  v2 = a2;
   FigNote_AllowInternalDefaultLogs();
   OUTLINED_FUNCTION_3_7();
   OUTLINED_FUNCTION_2_16();
   fig_note_initialize_category_with_default_work_cf();
   OUTLINED_FUNCTION_2_16();
-  OUTLINED_FUNCTION_10_4();
+  OUTLINED_FUNCTION_10_4(v4, v5, v6, v7, v8);
   if (!a1 || [a1 count] != 2)
   {
     return 0;
   }
 
-  v50 = 0;
-  memset(v48, 0, sizeof(v48));
-  v49 = 0;
+  v55 = 0;
+  memset(v53, 0, sizeof(v53));
+  v54 = 0;
   if ([a1 count])
   {
-    v4 = 0;
-    v5 = 1;
+    v9 = 0;
+    v10 = 1;
     while (1)
     {
-      v6 = [a1 objectAtIndexedSubscript:v4];
-      result = [v6 objectForKeyedSubscript:@"Temperature"];
+      v11 = [a1 objectAtIndexedSubscript:v9];
+      result = [v11 objectForKeyedSubscript:@"Temperature"];
       if (!result)
       {
         break;
       }
 
-      if (a2)
+      if (v2)
       {
-        v8 = [result shortValue];
+        v13 = [result shortValue];
       }
 
       else
       {
         [result floatValue];
-        v8 = CMPhotoDNGGetLightSourceTagFromTemp();
+        v13 = CMPhotoDNGGetLightSourceTagFromTemp();
       }
 
-      *(&v50 + v4) = v8;
-      result = [v6 objectForKeyedSubscript:@"DeviceRGBToXYZMatrix"];
+      *(&v55 + v9) = v13;
+      result = [v11 objectForKeyedSubscript:@"DeviceRGBToXYZMatrix"];
       if (!result)
       {
         break;
       }
 
-      v9 = result;
+      v14 = result;
       if ([result length] != 36)
       {
         return 0;
       }
 
-      v10 = [v9 bytes];
-      v12 = v10[7];
-      v11 = v10[8];
-      v13 = v10[4];
-      v14 = v10[5];
-      v15 = v10[6];
-      v16.f32[0] = (v13 * v11) - (v14 * v12);
-      v17 = *v10;
-      v18 = v10[1];
-      v20 = v10[2];
-      v19 = v10[3];
-      v21 = (v19 * v12) - (v13 * v15);
-      *v22.i32 = ((v18 * ((v14 * v15) - (v19 * v11))) + (*v10 * v16.f32[0])) + (v20 * v21);
-      if (*v22.i32 == 0.0)
+      v15 = [v14 bytes];
+      v17 = v15[7];
+      v16 = v15[8];
+      v18 = v15[4];
+      v19 = v15[5];
+      v20 = v15[6];
+      v21.f32[0] = (v18 * v16) - (v19 * v17);
+      v22 = *v15;
+      v23 = v15[1];
+      v25 = v15[2];
+      v24 = v15[3];
+      v26 = (v24 * v17) - (v18 * v20);
+      *v27.i32 = ((v23 * ((v19 * v20) - (v24 * v16))) + (*v15 * v21.f32[0])) + (v25 * v26);
+      if (*v27.i32 == 0.0)
       {
         return 0;
       }
 
-      v16.f32[1] = (v20 * v12) - (v18 * v11);
-      v16.f32[2] = (v18 * v14) - (v20 * v13);
-      v16.f32[3] = (v14 * v15) - (v19 * v11);
-      v23 = (v48 + 36 * v4);
-      v24 = vdupq_lane_s32(v22, 0);
-      v25.f32[0] = (v17 * v11) - (v20 * v15);
-      v25.f32[1] = (v20 * v19) - (v17 * v14);
-      v25.i64[1] = __PAIR64__((v18 * v15) - (v17 * v12), LODWORD(v21));
-      *v23 = vdivq_f32(v16, v24);
-      v23[1] = vdivq_f32(v25, v24);
-      v23[2].f32[0] = ((v17 * v13) - (v18 * v19)) / *v22.i32;
-      v4 = v5;
-      if ([a1 count] <= v5++)
+      v21.f32[1] = (v25 * v17) - (v23 * v16);
+      v21.f32[2] = (v23 * v19) - (v25 * v18);
+      v21.f32[3] = (v19 * v20) - (v24 * v16);
+      v28 = (v53 + 36 * v9);
+      v29 = vdupq_lane_s32(v27, 0);
+      v30.f32[0] = (v22 * v16) - (v25 * v20);
+      v30.f32[1] = (v25 * v24) - (v22 * v19);
+      v30.i64[1] = __PAIR64__((v23 * v20) - (v22 * v17), LODWORD(v26));
+      *v28 = vdivq_f32(v21, v29);
+      v28[1] = vdivq_f32(v30, v29);
+      v28[2].f32[0] = ((v22 * v18) - (v23 * v24)) / *v27.i32;
+      v9 = v10;
+      if ([a1 count] <= v10++)
       {
         goto LABEL_13;
       }
@@ -6656,30 +5735,30 @@ void *BWDNGColorCalibrations(void *a1, int a2)
   else
   {
 LABEL_13:
-    v27 = 9;
-    v28 = [MEMORY[0x1E695DF70] arrayWithCapacity:9];
-    v29 = [MEMORY[0x1E695DF70] arrayWithCapacity:9];
-    v31 = v48;
+    v32 = 9;
+    v33 = [MEMORY[0x1E695DF70] arrayWithCapacity:9];
+    v34 = [MEMORY[0x1E695DF70] arrayWithCapacity:9];
+    v36 = v53;
     do
     {
-      LODWORD(v30) = *v31;
-      [MEMORY[0x1E696AD98] numberWithFloat:v30];
+      LODWORD(v35) = *v36;
+      [MEMORY[0x1E696AD98] numberWithFloat:v35];
       [OUTLINED_FUNCTION_17() addObject:?];
-      LODWORD(v32) = v31[9];
-      [v29 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v32)}];
-      ++v31;
-      --v27;
+      LODWORD(v37) = v36[9];
+      [v34 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v37)}];
+      ++v36;
+      --v32;
     }
 
-    while (v27);
-    LOBYTE(v46) = [MEMORY[0x1E696AD98] numberWithShort:v50];
-    v33 = [MEMORY[0x1E696AD98] numberWithShort:SHIWORD(v50)];
-    v41 = OUTLINED_FUNCTION_39_6(v33, v34, v35, v36, v37, v38, v39, v40, v42, v43, v44, v45, v46, v47);
-    v44 = v28;
-    v45 = v29;
-    v42 = v41;
-    v43 = [MEMORY[0x1E696AEC8] arrayWithObjects:&v44 count:2];
-    return [MEMORY[0x1E696AEC8] arrayWithObjects:&v42 count:2];
+    while (v32);
+    v51 = [MEMORY[0x1E696AD98] numberWithShort:v55];
+    v38 = [MEMORY[0x1E696AD98] numberWithShort:SHIWORD(v55)];
+    v46 = OUTLINED_FUNCTION_39_6(v38, v39, v40, v41, v42, v43, v44, v45, v47, v48, v49, v50, v51, v52);
+    v49 = v33;
+    v50 = v34;
+    v47 = v46;
+    v48 = [MEMORY[0x1E696AEC8] arrayWithObjects:&v49 count:2];
+    return [MEMORY[0x1E696AEC8] arrayWithObjects:&v47 count:2];
   }
 
   return result;
@@ -6690,37 +5769,37 @@ uint64_t BWCreateDNGDictionaryWithZoomedGDCParameters(void *a1, void *a2, uint64
   FigNote_AllowInternalDefaultLogs();
   OUTLINED_FUNCTION_3_7();
   OUTLINED_FUNCTION_3_39();
-  OUTLINED_FUNCTION_61_2();
+  OUTLINED_FUNCTION_61_2(v18, v19, v20, v21, v22, v23);
   OUTLINED_FUNCTION_54_5();
   OUTLINED_FUNCTION_3_39();
-  OUTLINED_FUNCTION_10_4();
+  OUTLINED_FUNCTION_10_4(v24, v25, v26, v27, v28);
   if (!a1)
   {
     goto LABEL_11;
   }
 
-  if ([a2 count] != 4 || (v23.origin.x = a4, v23.origin.y = a5, v23.size.width = a6, v23.size.height = a7, CGRectIsEmpty(v23)) || (a8 == *MEMORY[0x1E695EFF8] ? (v18 = a9 == *(MEMORY[0x1E695EFF8] + 8)) : (v18 = 0), v18))
+  if ([a2 count] != 4 || (v34.origin.x = a4, v34.origin.y = a5, v34.size.width = a6, v34.size.height = a7, CGRectIsEmpty(v34)) || (a8 == *MEMORY[0x1E695EFF8] ? (v29 = a9 == *(MEMORY[0x1E695EFF8] + 8)) : (v29 = 0), v29))
   {
     a1 = 0;
 LABEL_11:
-    v20 = 0;
+    v31 = 0;
     goto LABEL_9;
   }
 
   a1 = [a1 mutableCopy];
-  v22[0] = OUTLINED_FUNCTION_42_7();
-  v22[2] = [a2 objectAtIndexedSubscript:{2, v22[0], OUTLINED_FUNCTION_41_7()}];
-  v22[3] = [a2 objectAtIndexedSubscript:3];
-  v22[4] = &unk_1F224C180;
-  v22[5] = &unk_1F224C180;
-  v22[6] = [MEMORY[0x1E696AD98] numberWithDouble:{(a8 + vcvtd_n_f64_s32(a3, 1uLL) - a4) / a6}];
-  v22[7] = [MEMORY[0x1E696AD98] numberWithDouble:{(a9 + vcvtd_n_f64_s32(HIDWORD(a3), 1uLL) - a5) / a7}];
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:8];
-  [a1 setObject:v19 forKeyedSubscript:*MEMORY[0x1E696D870]];
-  v20 = [a1 copy];
+  v33[0] = OUTLINED_FUNCTION_42_7();
+  v33[2] = [a2 objectAtIndexedSubscript:{2, v33[0], OUTLINED_FUNCTION_41_7()}];
+  v33[3] = [a2 objectAtIndexedSubscript:3];
+  v33[4] = &unk_1F224C180;
+  v33[5] = &unk_1F224C180;
+  v33[6] = [MEMORY[0x1E696AD98] numberWithDouble:{(a8 + vcvtd_n_f64_s32(a3, 1uLL) - a4) / a6}];
+  v33[7] = [MEMORY[0x1E696AD98] numberWithDouble:{(a9 + vcvtd_n_f64_s32(HIDWORD(a3), 1uLL) - a5) / a7}];
+  v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:8];
+  [a1 setObject:v30 forKeyedSubscript:*MEMORY[0x1E696D870]];
+  v31 = [a1 copy];
 LABEL_9:
 
-  return v20;
+  return v31;
 }
 
 uint64_t BWCreateDNGDictionaryWithUpdatedDimensionsIfNeeded(id *a1, unint64_t a2, unint64_t a3)
@@ -6730,126 +5809,126 @@ uint64_t BWCreateDNGDictionaryWithUpdatedDimensionsIfNeeded(id *a1, unint64_t a2
   OUTLINED_FUNCTION_50_6();
   fig_note_initialize_category_with_default_work_cf();
   OUTLINED_FUNCTION_50_6();
-  OUTLINED_FUNCTION_10_4();
+  OUTLINED_FUNCTION_10_4(v6, v7, v8, v9, v10);
   if (!a1)
   {
     goto LABEL_21;
   }
 
-  v6 = 0;
+  v11 = 0;
   if (!HIDWORD(a2))
   {
     goto LABEL_22;
   }
 
-  v7 = 0;
+  v12 = 0;
   if (!a2)
   {
     goto LABEL_18;
   }
 
-  v6 = 0;
+  v11 = 0;
   if (!HIDWORD(a3))
   {
 LABEL_22:
-    v7 = 0;
+    v12 = 0;
     goto LABEL_18;
   }
 
-  v7 = 0;
+  v12 = 0;
   if (a3)
   {
     if (a2 != a3 || HIDWORD(a2) != HIDWORD(a3))
     {
-      v9 = [a1 objectForKeyedSubscript:*MEMORY[0x1E696D768]];
-      v10 = [a1 objectForKeyedSubscript:*MEMORY[0x1E696D7F8]];
-      v11 = *MEMORY[0x1E696D800];
-      v12 = [a1 objectForKeyedSubscript:*MEMORY[0x1E696D800]];
-      v13 = v12;
-      if (v9 || v10 || v12)
+      v14 = [a1 objectForKeyedSubscript:*MEMORY[0x1E696D768]];
+      v15 = [a1 objectForKeyedSubscript:*MEMORY[0x1E696D7F8]];
+      v16 = *MEMORY[0x1E696D800];
+      v17 = [a1 objectForKeyedSubscript:*MEMORY[0x1E696D800]];
+      v18 = v17;
+      if (v14 || v15 || v17)
       {
-        v41 = v11;
-        v6 = [a1 mutableCopy];
-        v14 = 1.0 / (a2 / a3);
-        v15 = 1.0 / (SHIDWORD(a2) / SHIDWORD(a3));
-        if (v9)
+        v47 = v16;
+        v11 = [a1 mutableCopy];
+        v20 = 1.0 / (a2 / a3);
+        v21 = 1.0 / (SHIDWORD(a2) / SHIDWORD(a3));
+        if (v14)
         {
-          v36 = BWRawDenormalizedActiveRectFromDNGDictionary(a1);
-          BWSetRawDenormalizedActiveRectToDNGDictionary(v6, v14 * v36, v15 * v37, v14 * v38, v15 * v39);
-          if (v10)
+          v42 = BWRawDenormalizedActiveRectFromDNGDictionary(a1, v19);
+          BWSetRawDenormalizedActiveRectToDNGDictionary(v11, v20 * v42, v21 * v43, v20 * v44, v21 * v45);
+          if (v15)
           {
 LABEL_15:
-            if (v13)
+            if (v18)
             {
-              [objc_msgSend(v10 objectAtIndexedSubscript:{0), "doubleValue"}];
-              v17 = v16;
-              [objc_msgSend(v10 objectAtIndexedSubscript:{1), "doubleValue"}];
-              v19 = v18;
-              [objc_msgSend(v13 objectAtIndexedSubscript:{0), "doubleValue"}];
-              v21 = v20;
-              [objc_msgSend(v13 objectAtIndexedSubscript:{1), "doubleValue"}];
-              v22 = v14 * v17;
-              v23 = v15 * v19;
-              v24 = v14 * v21;
-              v26 = v15 * v25;
-              LOBYTE(v44) = [MEMORY[0x1E696AD98] numberWithDouble:v22];
-              v27 = [MEMORY[0x1E696AD98] numberWithDouble:v23];
-              OUTLINED_FUNCTION_39_6(v27, v28, v29, v30, v31, v32, v33, v34, v40, v41, v42, v43, v44, v45);
+              [objc_msgSend(v15 objectAtIndexedSubscript:{0), "doubleValue"}];
+              v23 = v22;
+              [objc_msgSend(v15 objectAtIndexedSubscript:{1), "doubleValue"}];
+              v25 = v24;
+              [objc_msgSend(v18 objectAtIndexedSubscript:{0), "doubleValue"}];
+              v27 = v26;
+              [objc_msgSend(v18 objectAtIndexedSubscript:{1), "doubleValue"}];
+              v28 = v20 * v23;
+              v29 = v21 * v25;
+              v30 = v20 * v27;
+              v32 = v21 * v31;
+              v50 = [MEMORY[0x1E696AD98] numberWithDouble:v28];
+              v33 = [MEMORY[0x1E696AD98] numberWithDouble:v29];
+              OUTLINED_FUNCTION_39_6(v33, v34, v35, v36, v37, v38, v39, v40, v46, v47, v48, v49, v50, v51);
               [OUTLINED_FUNCTION_17() setObject:? forKeyedSubscript:?];
-              v42 = [MEMORY[0x1E696AD98] numberWithDouble:v24];
-              v43 = [MEMORY[0x1E696AD98] numberWithDouble:v26];
-              [a1[473] arrayWithObjects:&v42 count:2];
+              v48 = [MEMORY[0x1E696AD98] numberWithDouble:v30];
+              v49 = [MEMORY[0x1E696AD98] numberWithDouble:v32];
+              [a1[473] arrayWithObjects:&v48 count:2];
               [OUTLINED_FUNCTION_17() setObject:? forKeyedSubscript:?];
             }
           }
         }
 
-        else if (v10)
+        else if (v15)
         {
           goto LABEL_15;
         }
 
-        v7 = [v6 copy];
+        v12 = [v11 copy];
         goto LABEL_18;
       }
     }
 
 LABEL_21:
-    v6 = 0;
-    v7 = 0;
+    v11 = 0;
+    v12 = 0;
   }
 
 LABEL_18:
 
-  return v7;
+  return v12;
 }
 
-double BWRawDenormalizedActiveRectFromDNGDictionary(void *a1)
+double BWRawDenormalizedActiveRectFromDNGDictionary(void *a1, uint64_t a2)
 {
   FigNote_AllowInternalDefaultLogs();
   OUTLINED_FUNCTION_3_7();
   OUTLINED_FUNCTION_5_12();
   fig_note_initialize_category_with_default_work_cf();
   OUTLINED_FUNCTION_5_12();
-  OUTLINED_FUNCTION_10_4();
-  v2 = *MEMORY[0x1E695F050];
+  OUTLINED_FUNCTION_10_4(v3, v4, v5, v6, v7);
+  v8 = *MEMORY[0x1E695F050];
   if (a1)
   {
-    v3 = [a1 objectForKeyedSubscript:*MEMORY[0x1E696D768]];
-    if (v3)
+    v9 = [a1 objectForKeyedSubscript:*MEMORY[0x1E696D768]];
+    if (v9)
     {
-      v4 = v3;
-      if ([v3 count] == 4)
+      v10 = v9;
+      if ([v9 count] == 4)
       {
         [OUTLINED_FUNCTION_42_7() intValue];
-        v2 = [OUTLINED_FUNCTION_41_7() intValue];
-        [objc_msgSend(v4 objectAtIndexedSubscript:{2), "intValue"}];
-        [objc_msgSend(v4 objectAtIndexedSubscript:{3), "intValue"}];
+        v8 = [OUTLINED_FUNCTION_41_7() intValue];
+        [objc_msgSend(v10 objectAtIndexedSubscript:{2), "intValue"}];
+        [objc_msgSend(v10 objectAtIndexedSubscript:{3), "intValue"}];
       }
     }
   }
 
-  return v2;
+  return v8;
 }
 
 uint64_t BWCreateDNGDictionaryWithUpdatedToneCurvesIfNeeded(void *a1, unint64_t a2, void *a3)
@@ -6857,76 +5936,76 @@ uint64_t BWCreateDNGDictionaryWithUpdatedToneCurvesIfNeeded(void *a1, unint64_t 
   FigNote_AllowInternalDefaultLogs();
   OUTLINED_FUNCTION_3_7();
   OUTLINED_FUNCTION_3_39();
-  OUTLINED_FUNCTION_61_2();
+  OUTLINED_FUNCTION_61_2(v6, v7, v8, v9, v10, v11);
   OUTLINED_FUNCTION_54_5();
   OUTLINED_FUNCTION_3_39();
-  OUTLINED_FUNCTION_10_4();
+  OUTLINED_FUNCTION_10_4(v12, v13, v14, v15, v16);
   if (!a1)
   {
     goto LABEL_19;
   }
 
-  v6 = 0;
+  v17 = 0;
   if (!a3 || !HIDWORD(a2))
   {
-    v7 = 0;
+    v18 = 0;
     goto LABEL_18;
   }
 
-  v7 = 0;
+  v18 = 0;
   if (a2)
   {
     FigNote_AllowInternalDefaultLogs();
     OUTLINED_FUNCTION_3_7();
     OUTLINED_FUNCTION_3_39();
-    OUTLINED_FUNCTION_61_2();
+    OUTLINED_FUNCTION_61_2(v19, v20, v21, v22, v23, v24);
     OUTLINED_FUNCTION_54_5();
     OUTLINED_FUNCTION_3_39();
-    OUTLINED_FUNCTION_10_4();
-    v20 = 0;
-    v8 = simu_ltmLUTsFromMetadata(a3, &v20);
-    if (v8 && (v20 & 0xFFFFFFFE) == 4)
+    OUTLINED_FUNCTION_10_4(v25, v26, v27, v28, v29);
+    v42 = 0;
+    v30 = simu_ltmLUTsFromMetadata(a3, &v42);
+    if (v30 && (v42 & 0xFFFFFFFE) == 4)
     {
-      v9 = 8;
-      if (v20 == 4)
+      v31 = 8;
+      if (v42 == 4)
       {
-        v9 = 2;
+        v31 = 2;
       }
 
-      v10 = 7;
-      if (v20 == 4)
+      v32 = 7;
+      if (v42 == 4)
       {
-        v10 = 1;
+        v32 = 1;
       }
 
-      v11 = v8[v10];
-      v12 = v8[v9];
-      v13 = [a1 objectForKeyedSubscript:@"ProfileGainTableMap"];
-      if (!v13 || ((v14 = v13, v15 = [objc_msgSend(v13 objectForKeyedSubscript:{@"MapPointsH", "unsignedIntValue"}], v16 = objc_msgSend(objc_msgSend(v14, "objectForKeyedSubscript:", @"MapPointsV"), "unsignedIntValue"), v15 == v11) ? (v17 = v16 == v12) : (v17 = 0), !v17))
+      v33 = v30[v32];
+      v34 = v30[v31];
+      v35 = [a1 objectForKeyedSubscript:@"ProfileGainTableMap"];
+      if (!v35 || ((v36 = v35, v37 = [objc_msgSend(v35 objectForKeyedSubscript:{@"MapPointsH", "unsignedIntValue"}], v38 = objc_msgSend(objc_msgSend(v36, "objectForKeyedSubscript:", @"MapPointsV"), "unsignedIntValue"), v37 == v33) ? (v39 = v38 == v34) : (v39 = 0), !v39))
       {
-        v6 = [a1 mutableCopy];
+        v17 = [a1 mutableCopy];
         [objc_msgSend(a3 objectForKeyedSubscript:{*off_1E798B240), "floatValue"}];
         simu_addToneCurvesToDNGDictionary();
-        if (v18)
+        if (v40)
         {
-          v7 = [v6 copy];
+          v18 = [v17 copy];
           goto LABEL_18;
         }
 
 LABEL_20:
-        v7 = 0;
+        v18 = 0;
         goto LABEL_18;
       }
     }
 
 LABEL_19:
-    v6 = 0;
+    v17 = 0;
     goto LABEL_20;
   }
 
 LABEL_18:
 
-  return v7;
+  return v18;
 }
 
 void simu_addToneCurvesToDNGDictionary()
@@ -7367,56 +6446,56 @@ void *BWCreateRawMetadataFromMetadata(void *a1, void *a2, unsigned int a3, uint6
   OUTLINED_FUNCTION_9_22();
   fig_note_initialize_category_with_default_work_cf();
   OUTLINED_FUNCTION_9_22();
-  OUTLINED_FUNCTION_10_4();
-  v7 = [a1 mutableCopy];
-  [v7 setObject:a2 forKeyedSubscript:*MEMORY[0x1E696D808]];
-  [v7 removeObjectForKey:*MEMORY[0x1E696D320]];
-  v8 = *MEMORY[0x1E696D9B0];
-  v9 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:{objc_msgSend(v7, "objectForKeyedSubscript:", *MEMORY[0x1E696D9B0])}];
-  [v9 removeObjectForKey:*MEMORY[0x1E696D968]];
+  OUTLINED_FUNCTION_10_4(v7, v8, v9, v10, v11);
+  v12 = [a1 mutableCopy];
+  [v12 setObject:a2 forKeyedSubscript:*MEMORY[0x1E696D808]];
+  [v12 removeObjectForKey:*MEMORY[0x1E696D320]];
+  v13 = *MEMORY[0x1E696D9B0];
+  v14 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:{objc_msgSend(v12, "objectForKeyedSubscript:", *MEMORY[0x1E696D9B0])}];
+  [v14 removeObjectForKey:*MEMORY[0x1E696D968]];
   FigNote_AllowInternalDefaultLogs();
   OUTLINED_FUNCTION_3_7();
   OUTLINED_FUNCTION_9_22();
   fig_note_initialize_category_with_default_work_cf();
   OUTLINED_FUNCTION_9_22();
-  OUTLINED_FUNCTION_10_4();
+  OUTLINED_FUNCTION_10_4(v15, v16, v17, v18, v19);
   if (a2)
   {
-    v10 = [a2 objectForKeyedSubscript:*MEMORY[0x1E696D800]];
-    if (v10)
+    v20 = [a2 objectForKeyedSubscript:*MEMORY[0x1E696D800]];
+    if (v20)
     {
-      if ([v10 count] == 2)
+      if ([v20 count] == 2)
       {
-        v11 = [OUTLINED_FUNCTION_42_7() intValue];
-        v12 = [OUTLINED_FUNCTION_41_7() intValue];
-        if (v12)
+        v21 = [OUTLINED_FUNCTION_42_7() intValue];
+        v22 = [OUTLINED_FUNCTION_41_7() intValue];
+        if (v22)
         {
-          if (v11)
+          if (v21)
           {
-            v13 = v12;
-            v14 = [MEMORY[0x1E696AD98] numberWithInt:v11];
-            [v9 setObject:v14 forKeyedSubscript:*MEMORY[0x1E696DAA8]];
-            v15 = [MEMORY[0x1E696AD98] numberWithInt:v13];
-            [v9 setObject:v15 forKeyedSubscript:*MEMORY[0x1E696DAB0]];
+            v23 = v22;
+            v24 = [MEMORY[0x1E696AD98] numberWithInt:v21];
+            [v14 setObject:v24 forKeyedSubscript:*MEMORY[0x1E696DAA8]];
+            v25 = [MEMORY[0x1E696AD98] numberWithInt:v23];
+            [v14 setObject:v25 forKeyedSubscript:*MEMORY[0x1E696DAB0]];
           }
         }
       }
     }
   }
 
-  [v7 setObject:v9 forKeyedSubscript:v8];
-  v16 = *MEMORY[0x1E696DE30];
-  v17 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:{objc_msgSend(v7, "objectForKeyedSubscript:", *MEMORY[0x1E696DE30])}];
-  v18 = *off_1E7989D10;
-  v19 = [objc_msgSend(v17 objectForKeyedSubscript:{*off_1E7989D10), "unsignedIntValue"}];
-  [v17 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithUnsignedInt:", v19 | a3), v18}];
+  [v12 setObject:v14 forKeyedSubscript:v13];
+  v26 = *MEMORY[0x1E696DE30];
+  v27 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:{objc_msgSend(v12, "objectForKeyedSubscript:", *MEMORY[0x1E696DE30])}];
+  v28 = *off_1E7989D10;
+  v29 = [objc_msgSend(v27 objectForKeyedSubscript:{*off_1E7989D10), "unsignedIntValue"}];
+  [v27 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithUnsignedInt:", v29 | a3), v28}];
   if (a3 == 0x10000)
   {
-    [v17 setObject:a4 forKeyedSubscript:*off_1E7989AA0];
+    [v27 setObject:a4 forKeyedSubscript:*off_1E7989AA0];
   }
 
-  [v7 setObject:v17 forKeyedSubscript:v16];
-  return v7;
+  [v12 setObject:v27 forKeyedSubscript:v26];
+  return v12;
 }
 
 unsigned __int16 *simu_ltmLUTsFromMetadata(void *a1, int *a2)
@@ -7458,19 +6537,19 @@ LABEL_11:
     else
     {
       FigCaptureGetFrameworkRadarComponent();
-      v23 = 0;
-      v22 = 0;
+      v27 = 0;
+      v26 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       OUTLINED_FUNCTION_8_1();
-      fig_log_call_emit_and_clean_up_after_send_and_compose();
-      v12 = *v6;
-      v21[0] = 67109120;
-      v21[1] = v12;
-      OUTLINED_FUNCTION_6_0();
+      v12 = fig_log_call_emit_and_clean_up_after_send_and_compose();
+      v13 = *v6;
+      v25[0] = 67109120;
+      v25[1] = v13;
+      OUTLINED_FUNCTION_6_0(v12, v14, v15, v16, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
       OUTLINED_FUNCTION_35_8();
       OUTLINED_FUNCTION_10();
-      FigCapturePleaseFileRadar(v13, v14, v15, v16, v17, 1996, v18, v19, v21);
+      FigCapturePleaseFileRadar(v17, v18, v19, v20, v21, 1996, v22, v23, v25);
       free(v6);
     }
 
@@ -7513,7 +6592,7 @@ void __getSNMovieRemixRequestClass_block_invoke_cold_1()
   __break(1u);
 }
 
-uint64_t FigCaptureAffineTransformFromDictionaryRepresentation@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+void *FigCaptureAffineTransformFromDictionaryRepresentation@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = MEMORY[0x1E695EFD0];
   v5 = *(MEMORY[0x1E695EFD0] + 16);
@@ -7561,37 +6640,38 @@ void __getMPSImageStatisticsMeanClass_block_invoke_cold_2(void *a1)
 
 uint64_t FigCaptureCreateScaledCalibrationDataDictionaryFromSampleBufferMetadata(void *a1, uint64_t a2, void *a3, int a4, int a5, void *a6, const __CFDictionary *a7, int a8, unsigned __int8 a9, char a10, char a11)
 {
-  v19 = [MEMORY[0x1E695DF90] dictionary];
-  v20 = [a3 objectForKeyedSubscript:{objc_msgSend(a1, "objectForKeyedSubscript:", *off_1E798B540)}];
-  [objc_msgSend(v20 objectForKeyedSubscript:{*off_1E7989F18), "floatValue"}];
-  v22 = v21;
-  memset(v80, 0, sizeof(v80));
-  [a6 getBytes:v80 length:48];
-  v23 = [v20 objectForKeyedSubscript:*off_1E7989E78];
-  v79 = 0u;
-  v75 = 0x3F800000uLL;
-  v76 = 0x3F80000000000000uLL;
-  v78 = 1065353216;
-  v77 = 0;
-  if (v23)
+  v20 = [MEMORY[0x1E695DF90] dictionary];
+  v21 = [a3 objectForKeyedSubscript:{objc_msgSend(a1, "objectForKeyedSubscript:", *off_1E798B540)}];
+  [objc_msgSend(v21 objectForKeyedSubscript:{*off_1E7989F18), "floatValue"}];
+  v23 = v22;
+  memset(v102, 0, sizeof(v102));
+  [a6 getBytes:v102 length:48];
+  v24 = [v21 objectForKeyedSubscript:*off_1E7989E78];
+  v101 = 0u;
+  v97 = 0x3F800000uLL;
+  v98 = 0x3F80000000000000uLL;
+  v100 = 1065353216;
+  v99 = 0;
+  if (v24)
   {
-    v24 = v23;
-    if ([v23 length] != 48)
+    v25 = v24;
+    if ([v24 length] != 48)
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0_45();
-      goto LABEL_30;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
+      return 0;
     }
 
-    [v24 getBytes:time length:48];
-    v75.i32[2] = v71;
-    v75.i64[0] = vzip1q_s32(*time, *&time[16]).u64[0];
-    LODWORD(v78) = v73;
-    DWORD2(v76) = v72;
-    *&v76 = vtrn2q_s32(*time, *&time[16]).u64[0];
-    v77 = vzip1q_s32(vdupq_laneq_s32(*time, 2), vdupq_laneq_s32(*&time[16], 2)).u64[0];
-    DWORD2(v79) = v74;
-    *&v79 = vuzp2q_s32(vuzp2q_s32(*time, *&time[16]), *time).u64[0];
+    [v25 getBytes:time length:48];
+    v97.i32[2] = v93;
+    v97.i64[0] = vzip1q_s32(*time, *&time[16]).u64[0];
+    LODWORD(v100) = v95;
+    DWORD2(v98) = v94;
+    *&v98 = vtrn2q_s32(*time, *&time[16]).u64[0];
+    v99 = vzip1q_s32(vdupq_laneq_s32(*time, 2), vdupq_laneq_s32(*&time[16], 2)).u64[0];
+    DWORD2(v101) = v96;
+    *&v101 = vuzp2q_s32(vuzp2q_s32(*time, *&time[16]), *time).u64[0];
   }
 
   size = *MEMORY[0x1E695F060];
@@ -7599,145 +6679,153 @@ uint64_t FigCaptureCreateScaledCalibrationDataDictionaryFromSampleBufferMetadata
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0_45();
-LABEL_30:
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
     return 0;
   }
 
-  v25 = [objc_msgSend(a1 objectForKeyedSubscript:{*off_1E798B588), "intValue"}];
-  if (v25 <= 1)
+  v26 = [objc_msgSend(a1 objectForKeyedSubscript:{*off_1E798B588), "intValue"}];
+  if (v26 <= 1)
   {
-    v26 = 1;
+    v27 = 1;
   }
 
   else
   {
-    v26 = v25;
+    v27 = v26;
   }
 
-  v27 = (v26 * a5);
-  v28 = v26 * a4;
-  v68 = 1.0;
+  v28 = (v27 * a5);
+  v29 = (v27 * a4);
+  v90 = 1.0;
   if (a11)
   {
     [objc_msgSend(a1 objectForKeyedSubscript:{*off_1E798B608), "floatValue"}];
-    v68 = v29;
-    if (v29 <= 0.0)
+    v90 = v32;
+    if (v32 <= 0.0)
     {
-      v68 = 1.0;
-      v30 = FigMotionComputeLensPositionScalingFactor(a1, size.width, size.height, v28, v27, &v68);
-      if (v30)
+      v90 = 1.0;
+      v33 = FigMotionComputeLensPositionScalingFactor(a1, size.width, size.height, v29, v28, &v90, v30, v31);
+      if (v33)
       {
-        v60 = v30;
+        v74 = v33;
         fig_log_get_emitter();
         OUTLINED_FUNCTION_0_45();
-        LODWORD(v61) = v60;
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v74, v77, v78, v80, v81, v83, v84, v86);
       }
     }
   }
 
-  v67 = *MEMORY[0x1E695EFF8];
+  v89 = *MEMORY[0x1E695EFF8];
   *time = *a2;
   *&time[16] = *(a2 + 16);
-  CMTimeGetSeconds(time);
-  if (FigMotionComputeDistortionCenter(a1, size.width, size.height, v28, v27, &v67, 1.0 / v22, v68))
+  Seconds = CMTimeGetSeconds(time);
+  v37 = FigMotionComputeDistortionCenter(a1, size.width, size.height, v29, v28, &v89, 1.0 / v23, v90, Seconds, v35, v36);
+  if (v37)
   {
+    v66 = v37;
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0_45();
-    goto LABEL_30;
+    LODWORD(v75) = v66;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v75);
+    return 0;
   }
 
   if (!a10)
   {
-LABEL_17:
-    v33 = 0;
-    v34 = 0;
-    goto LABEL_24;
+    goto LABEL_17;
   }
 
-  v31 = [a1 objectForKeyedSubscript:*off_1E798B260];
-  if (v31)
+  v38 = [a1 objectForKeyedSubscript:*off_1E798B260];
+  if (v38)
   {
-    [v31 floatValue];
-    if (v32 == 0.0)
+    [v38 floatValue];
+    if (v39 == 0.0)
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0_45();
-      FigDebugAssert3();
-      goto LABEL_17;
+      LODWORD(v75) = 0;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v75, v77, v78, v80, v81, v83, v84, v86);
+LABEL_17:
+      v40 = 0;
+      v41 = 0;
+      goto LABEL_24;
     }
   }
 
   else
   {
-    v32 = 1.0;
+    v39 = 1.0;
   }
 
-  v66 = v32;
-  v35 = [v20 objectForKeyedSubscript:{*off_1E7989EC0, v61}];
-  if (!v35)
+  v88 = v39;
+  v42 = [v21 objectForKeyedSubscript:*off_1E7989EC0];
+  if (!v42)
   {
-    fig_log_get_emitter();
-    v59 = FigSignalErrorAtGM();
-    v47 = 0uLL;
+    emitter = fig_log_get_emitter();
+    v73 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE10, "<<<< FigCameraCalibrationDataUtilities >>>>", 0x134, v11, v71, v72, v75);
+    v54 = 0uLL;
+    v55 = 0uLL;
+    v52 = 0uLL;
+    v53 = 0uLL;
+    v50 = 0uLL;
+    v51 = 0uLL;
     v48 = 0uLL;
-    v45 = 0uLL;
-    v46 = 0uLL;
-    v43 = 0uLL;
-    v44 = 0uLL;
-    v41 = 0uLL;
-    v42 = 0uLL;
-    if (!v59)
+    v49 = 0uLL;
+    if (!v73)
     {
       goto LABEL_23;
     }
 
-    goto LABEL_28;
+    v67 = v73;
+LABEL_29:
+    fig_log_get_emitter();
+    LODWORD(v75) = v67;
+    v68 = OUTLINED_FUNCTION_2_54();
+    FigDebugAssert3(v68, v75, v11);
+    fig_log_get_emitter();
+    LODWORD(v76) = v67;
+    v69 = OUTLINED_FUNCTION_2_54();
+    FigDebugAssert3(v69, v76, v11);
+    return 0;
   }
 
-  v36 = v35;
-  v37 = [v35 objectForKeyedSubscript:*off_1E798ADC0];
-  if ([v37 length] != 64 || (v38 = objc_msgSend(v37, "bytes"), v64 = *v38, v65 = v38[1], v62 = v38[2], v63 = v38[3], v39 = objc_msgSend(v36, "objectForKeyedSubscript:", *off_1E798ADC8), objc_msgSend(v39, "length") != 64))
+  v43 = v42;
+  v44 = [v42 objectForKeyedSubscript:*off_1E798ADC0];
+  if ([v44 length] != 64 || (v45 = objc_msgSend(v44, "bytes"), v85 = *v45, v87 = v45[1], v79 = v45[2], v82 = v45[3], v46 = objc_msgSend(v43, "objectForKeyedSubscript:", *off_1E798ADC8), objc_msgSend(v46, "length") != 64))
   {
-LABEL_28:
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_2_54();
-    FigDebugAssert3();
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_2_54();
-    goto LABEL_30;
+    v67 = -12780;
+    goto LABEL_29;
   }
 
-  v40 = [v39 bytes];
-  v42 = *v40;
-  v41 = v40[1];
-  v44 = v40[2];
-  v43 = v40[3];
-  v46 = v64;
-  v45 = v65;
-  v48 = v62;
-  v47 = v63;
+  v47 = [v46 bytes];
+  v49 = *v47;
+  v48 = v47[1];
+  v51 = v47[2];
+  v50 = v47[3];
+  v53 = v85;
+  v52 = v87;
+  v55 = v79;
+  v54 = v82;
 LABEL_23:
-  *time = vmlaq_n_f32(v48, v44, v66);
-  *&time[16] = vmlaq_n_f32(v47, v43, v66);
-  v81[0] = vmlaq_n_f32(v46, v42, v66);
-  v81[1] = vmlaq_n_f32(v45, v41, v66);
-  v33 = [MEMORY[0x1E695DEF0] dataWithBytes:time length:32];
-  v34 = [MEMORY[0x1E695DEF0] dataWithBytes:v81 length:32];
+  *time = vmlaq_n_f32(v55, v51, v88);
+  *&time[16] = vmlaq_n_f32(v54, v50, v88);
+  v103[0] = vmlaq_n_f32(v53, v49, v88);
+  v103[1] = vmlaq_n_f32(v52, v48, v88);
+  v40 = [MEMORY[0x1E695DEF0] dataWithBytes:time length:32];
+  v41 = [MEMORY[0x1E695DEF0] dataWithBytes:v103 length:32];
 LABEL_24:
-  v49 = FigCaptureConvertRotationAndMirroringToExifOrientation(a8, a9);
-  if (!FigCaptureRotateCalibrationData(&size.width, v80, &v67, &v75, v49, v50, v51, v52, v53, v54, v55, v56))
+  v56 = FigCaptureConvertRotationAndMirroringToExifOrientation(a8, a9);
+  if (!FigCaptureRotateCalibrationData(&size, v102, &v89, &v97, v56, v57, v58, v59, v60, v61, v62, v63))
   {
-    *&v57 = (v22 * 0.001) / v68;
-    [v19 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithFloat:", v57), @"PixelSize"}];
-    [v19 setObject:objc_msgSend(MEMORY[0x1E695DEF0] forKeyedSubscript:{"dataWithBytes:length:", v80, 48), @"IntrinsicMatrix"}];
-    [v19 setObject:objc_msgSend(MEMORY[0x1E695DEF0] forKeyedSubscript:{"dataWithBytes:length:", &v75, 64), @"ExtrinsicMatrix"}];
-    [v19 setObject:CGPointCreateDictionaryRepresentation(v67) forKeyedSubscript:@"LensDistortionCenter"];
-    [v19 setObject:CGSizeCreateDictionaryRepresentation(size) forKeyedSubscript:@"IntrinsicMatrixReferenceDimensions"];
-    [v19 setObject:v33 forKeyedSubscript:@"LensDistortionCoefficients"];
-    [v19 setObject:v34 forKeyedSubscript:@"InverseLensDistortionCoefficients"];
-    return [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v19];
+    *&v64 = (v23 * 0.001) / v90;
+    [v20 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithFloat:", v64), @"PixelSize"}];
+    [v20 setObject:objc_msgSend(MEMORY[0x1E695DEF0] forKeyedSubscript:{"dataWithBytes:length:", v102, 48), @"IntrinsicMatrix"}];
+    [v20 setObject:objc_msgSend(MEMORY[0x1E695DEF0] forKeyedSubscript:{"dataWithBytes:length:", &v97, 64), @"ExtrinsicMatrix"}];
+    [v20 setObject:CGPointCreateDictionaryRepresentation(v89) forKeyedSubscript:@"LensDistortionCenter"];
+    [v20 setObject:CGSizeCreateDictionaryRepresentation(size) forKeyedSubscript:@"IntrinsicMatrixReferenceDimensions"];
+    [v20 setObject:v40 forKeyedSubscript:@"LensDistortionCoefficients"];
+    [v20 setObject:v41 forKeyedSubscript:@"InverseLensDistortionCoefficients"];
+    return [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v20];
   }
 
   return 0;
@@ -7745,14 +6833,16 @@ LABEL_24:
 
 uint64_t FigCaptureCreateCalibrationDataDictionaryFromSampleBufferMetadataIncludeMaxRadius(void *a1, __int128 *a2, void *a3, int a4, int a5, void *a6, const __CFDictionary *a7, int a8, unsigned __int8 a9, char a10, char a11)
 {
-  v19 = *a2;
-  v20 = *(a2 + 2);
-  ScaledCalibrationDataDictionaryFromSampleBufferMetadata = FigCaptureCreateScaledCalibrationDataDictionaryFromSampleBufferMetadata(a1, &v19, a3, a4, a5, a6, a7, a8, a9, a10, 0);
+  v22 = *a2;
+  v23 = *(a2 + 2);
+  ScaledCalibrationDataDictionaryFromSampleBufferMetadata = FigCaptureCreateScaledCalibrationDataDictionaryFromSampleBufferMetadata(a1, &v22, a3, a4, a5, a6, a7, a8, a9, a10, 0);
   if (!ScaledCalibrationDataDictionaryFromSampleBufferMetadata)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_6();
-    goto LABEL_8;
+    LODWORD(v20) = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v20);
+    return 0;
   }
 
   v14 = ScaledCalibrationDataDictionaryFromSampleBufferMetadata;
@@ -7760,19 +6850,21 @@ uint64_t FigCaptureCreateCalibrationDataDictionaryFromSampleBufferMetadataInclud
   [v15 addEntriesFromDictionary:v14];
 
   v16 = [a3 objectForKeyedSubscript:{objc_msgSend(a1, "objectForKeyedSubscript:", *off_1E798B540)}];
-  v18 = 0;
+  v21 = 0;
   if (a11)
   {
-    if (!FigCaptureGetDistortionCalibrationValidMaxRadiusInPixels(v16, &v18))
+    DistortionCalibrationValidMaxRadiusInPixels = FigCaptureGetDistortionCalibrationValidMaxRadiusInPixels(v16, &v21);
+    if (!DistortionCalibrationValidMaxRadiusInPixels)
     {
-      [v15 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInt:", v18), @"DistortionCalibrationValidMaxRadiusInPixels"}];
+      [v15 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInt:", v21), @"DistortionCalibrationValidMaxRadiusInPixels"}];
       return [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v15];
     }
 
+    v19 = DistortionCalibrationValidMaxRadiusInPixels;
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_6();
-LABEL_8:
-    FigDebugAssert3();
+    LODWORD(v20) = v19;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v20);
     return 0;
   }
 
@@ -7784,7 +6876,7 @@ uint64_t FigCaptureGetDistortionCalibrationValidMaxRadiusInPixels(uint64_t a1, i
   result = 4294954516;
   if (a1 && a2)
   {
-    if (BWDeviceIsiPad() && !OUTLINED_FUNCTION_4_43())
+    if (BWDeviceIsiPad(4294954516, a2) && !OUTLINED_FUNCTION_4_43())
     {
       v8 = 1837;
     }
@@ -7819,9 +6911,9 @@ uint64_t FigCaptureGetDistortionCalibrationValidMaxRadiusInPixels(uint64_t a1, i
   return result;
 }
 
-uint64_t FigCaptureCreateColorCameraCalibrationForColorSampleBuffer(void *a1, void *a2, int a3, int a4, void *a5)
+uint64_t FigCaptureCreateColorCameraCalibrationForColorSampleBuffer(void *a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v62 = *MEMORY[0x1E695EFF8];
+  v65 = *MEMORY[0x1E695EFF8];
   if (a5)
   {
     v10 = *off_1E798A3C8;
@@ -7836,108 +6928,113 @@ uint64_t FigCaptureCreateColorCameraCalibrationForColorSampleBuffer(void *a1, vo
         if (v13)
         {
           v14 = [v13 bytes];
-          v57 = v14[1];
-          v58 = *v14;
-          v56 = v14[2];
+          v60 = v14[1];
+          v61 = *v14;
+          v59 = v14[2];
           v15 = [objc_msgSend(a2 "cameraInfo")];
           if (v15)
           {
             v16 = v15;
             if ([v15 length] == 48)
             {
-              [v16 getBytes:v60 length:48];
-              *v17.i64 = OUTLINED_FUNCTION_1_60(v60[0], v60[1], v60[2]);
+              [v16 getBytes:v63 length:48];
+              *v17.i64 = OUTLINED_FUNCTION_1_60(v63[0], v63[1], v63[2]);
               v21 = FigCaptureTransformExtrinsicMatrix(v17, v18, v19, v20, _PromotedConst_52, unk_1AD0553F0, xmmword_1AD055400);
-              v54 = v22;
-              v55 = v21;
-              v52 = v24;
-              v53 = v23;
+              v57 = v22;
+              v58 = v21;
+              v55 = v24;
+              v56 = v23;
               [objc_msgSend(objc_msgSend(a2 "cameraInfo")];
-              if (v25 > 0.0)
+              if (v27 > 0.0)
               {
-                v26 = v25;
-                v27 = 1.0 / v25;
+                v28 = v27;
+                v29 = 1.0 / v27;
                 if (a1)
                 {
-                  v28 = [CMGetAttachment(a1 v10];
-                  CMTimeMakeFromDictionary(&time, v28);
-                  CMTimeGetSeconds(&time);
+                  v30 = [CMGetAttachment(a1 v10];
+                  CMTimeMakeFromDictionary(&time, v30);
+                  Seconds = CMTimeGetSeconds(&time);
                 }
 
-                v29 = 1.0;
-                result = FigMotionComputeDistortionCenter(v11, size.width, size.height, a3, a4, &v62, v27, 1.0);
+                else
+                {
+                  Seconds = 0.0;
+                }
+
+                v32 = 1.0;
+                result = FigMotionComputeDistortionCenter(v11, size.width, size.height, a3, a4, &v65, v29, 1.0, Seconds, v25, v26);
                 if (result)
                 {
-                  v46 = 0;
-                  goto LABEL_27;
+                  v49 = 0;
+                  goto LABEL_28;
                 }
 
-                v31 = [(__CFDictionary *)v11 objectForKeyedSubscript:*off_1E798B260];
-                if (!v31 || ([v31 floatValue], v29 = v32, v32 != 0.0))
+                v34 = [(__CFDictionary *)v11 objectForKeyedSubscript:*off_1E798B260];
+                if (!v34 || ([v34 floatValue], v32 = v35, v35 != 0.0))
                 {
-                  v33 = [objc_msgSend(a2 "cameraInfo")];
-                  if (v33)
+                  v36 = [objc_msgSend(a2 "cameraInfo")];
+                  if (v36)
                   {
-                    v34 = v33;
-                    v35 = [v33 objectForKeyedSubscript:*off_1E798ADC0];
-                    if ([v35 length] == 64)
+                    v37 = v36;
+                    v38 = [v36 objectForKeyedSubscript:*off_1E798ADC0];
+                    if ([v38 length] == 64)
                     {
-                      v36 = [v35 bytes];
-                      v37 = [v34 objectForKeyedSubscript:*off_1E798ADC8];
-                      if ([v37 length] == 64)
+                      v39 = [v38 bytes];
+                      v40 = [v37 objectForKeyedSubscript:*off_1E798ADC8];
+                      if ([v40 length] == 64)
                       {
-                        v38 = v26 * 0.001;
-                        v39 = [v37 bytes];
-                        v40 = 0;
-                        memset(v59, 0, sizeof(v59));
+                        v41 = v28 * 0.001;
+                        v42 = [v40 bytes];
+                        v43 = 0;
+                        memset(v62, 0, sizeof(v62));
                         do
                         {
-                          v41 = (v59 + v40);
-                          *v41 = *(v36 + v40) + (*(v39 + v40) * v29);
-                          v41[8] = *(v36 + v40 + 32) + (*(v39 + v40 + 32) * v29);
-                          v40 += 4;
+                          v44 = (v62 + v43);
+                          *v44 = *(v39 + v43) + (*(v42 + v43) * v32);
+                          v44[8] = *(v39 + v43 + 32) + (*(v42 + v43 + 32) * v32);
+                          v43 += 4;
                         }
 
-                        while (v40 != 32);
-                        v42 = objc_alloc(getADPolynomialsLensDistortionModelClass());
-                        v43 = [v42 initWithDistortionCenter:v59 andPolynomials:*&v62];
-                        if (v43)
+                        while (v43 != 32);
+                        v45 = objc_alloc(getADPolynomialsLensDistortionModelClass());
+                        v46 = [v45 initWithDistortionCenter:v62 andPolynomials:*&v65];
+                        if (v46)
                         {
-                          v44 = v43;
-                          v45 = objc_alloc(getADCameraCalibrationClass());
-                          v46 = [v45 initWithIntrinsics:v44 cameraToPlatformTransform:*&v58 pixelSize:*&v57 forReferenceDimensions:*&v56 withDistortionModel:{v55, v54, v53, v52, v38, *&size.width, *&size.height}];
+                          v47 = v46;
+                          v48 = objc_alloc(getADCameraCalibrationClass());
+                          v49 = [v48 initWithIntrinsics:v47 cameraToPlatformTransform:*&v61 pixelSize:*&v60 forReferenceDimensions:*&v59 withDistortionModel:{v58, v57, v56, v55, v41, *&size.width, *&size.height}];
 
-                          if (v46)
+                          if (v49)
                           {
                             ImageBuffer = CMSampleBufferGetImageBuffer(a1);
                             Width = CVPixelBufferGetWidth(ImageBuffer);
                             Height = CVPixelBufferGetHeight(ImageBuffer);
                             if (size.width != Width || size.height != Height)
                             {
-                              v51 = [v46 mutableCopy];
-                              if (![v51 scale:{Width, Height}])
+                              v54 = [v49 mutableCopy];
+                              if (![v54 scale:{Width, Height}])
                               {
                                 result = 4294954513;
-                                goto LABEL_27;
+                                goto LABEL_28;
                               }
 
-                              v46 = [v51 copy];
+                              v49 = [v54 copy];
                             }
 
                             result = 0;
-LABEL_27:
-                            *a5 = v46;
+LABEL_28:
+                            *a5 = v49;
                             return result;
                           }
                         }
 
                         else
                         {
-                          v46 = 0;
+                          v49 = 0;
                         }
 
                         result = 4294954510;
-                        goto LABEL_27;
+                        goto LABEL_28;
                       }
                     }
                   }
@@ -7949,9 +7046,9 @@ LABEL_27:
       }
     }
 
-    v46 = 0;
+    v49 = 0;
     result = 4294954516;
-    goto LABEL_27;
+    goto LABEL_28;
   }
 
   return 4294954516;
@@ -8043,16 +7140,16 @@ uint64_t FigCaptureCreateJasperToColorCameraTransformForJasperSensorConfiguratio
 
 uint64_t FigCaptureRotateCalibrationData_cold_1(_DWORD *a1)
 {
-  fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  emitter = fig_log_get_emitter();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE10, "<<<< FigCameraCalibrationDataUtilities >>>>", 0xE9, v1, v4, v5, v7);
   *a1 = result;
   return result;
 }
 
 uint64_t FigCaptureRotateCalibrationData_cold_2(_DWORD *a1)
 {
-  fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  emitter = fig_log_get_emitter();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14, "<<<< FigCameraCalibrationDataUtilities >>>>", 0x8C, v1, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8176,23 +7273,23 @@ LABEL_13:
   return [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:9];
 }
 
-uint64_t BWUpdateFrameLevelMetadataForProResRaw_cold_11(_DWORD *a1)
+uint64_t BWUpdateFrameLevelMetadataForProResRaw_cold_11(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EB58E5F8, 0xFFFFCE14, "<<<< BWProResRawMetadataUtilities >>>>", 0x629, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-uint64_t BWUpdateFrameLevelMetadataForProResRaw_cold_12(_DWORD *a1)
+uint64_t BWUpdateFrameLevelMetadataForProResRaw_cold_12(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EB58E5F8, 0xFFFFCE14, "<<<< BWProResRawMetadataUtilities >>>>", 0x628, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-uint64_t BWUpdateFrameLevelMetadataForProResRaw_cold_13(_DWORD *a1)
+uint64_t BWUpdateFrameLevelMetadataForProResRaw_cold_13(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EB58E5F8, 0xFFFFCE14, "<<<< BWProResRawMetadataUtilities >>>>", 0x627, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
@@ -8254,7 +7351,7 @@ float BWSampleBufferComputeIOSurfaceCompressionRatio(opaqueCMSampleBuffer *a1, u
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_8_28();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     v20 = 0;
     v12 = 0;
     v8 = 0.0;
@@ -8265,7 +7362,7 @@ float BWSampleBufferComputeIOSurfaceCompressionRatio(opaqueCMSampleBuffer *a1, u
   return v8;
 }
 
-uint64_t BWSampleBufferComputeIOSurfaceCompressionHistogram(opaqueCMSampleBuffer *a1)
+uint64_t BWSampleBufferComputeIOSurfaceCompressionHistogram(opaqueCMSampleBuffer *a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   ImageBuffer = CMSampleBufferGetImageBuffer(a1);
   if (!ImageBuffer)
@@ -8273,8 +7370,8 @@ uint64_t BWSampleBufferComputeIOSurfaceCompressionHistogram(opaqueCMSampleBuffer
     return 4294954516;
   }
 
-  v2 = ImageBuffer;
-  if (!CVPixelBufferGetIOSurface(ImageBuffer) || IOSurfaceGetCompressionTypeOfPlane() != 3 || CVPixelBufferGetPlaneCount(v2) != 2)
+  v5 = ImageBuffer;
+  if (!CVPixelBufferGetIOSurface(ImageBuffer) || IOSurfaceGetCompressionTypeOfPlane() != 3 || CVPixelBufferGetPlaneCount(v5) != 2)
   {
     return 4294954516;
   }
@@ -8345,71 +7442,15 @@ void BWPropagateZoomInformationToAttachedMediaSampleBuffer(const void *a1, const
   }
 }
 
-uint64_t BWSampleBufferCreateFromPixelBufferWithTimingInfo_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t BWSampleBufferCreateFromPixelBufferWithTimingInfo_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t BWSampleBufferCreateFromPixelBufferWithTimingInfo_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t BWSampleBufferCreateFromPixelBufferWithTimingInfo_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t BWSampleBufferCreateFromPixelBufferWithTimingInfo_cold_5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t BWCMSampleBufferCreateDeepCopyWithNewPixelBuffer_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t BWCMSampleBufferCreateDeepCopyWithNewPixelBuffer_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t BWCMSampleBufferCreateDeepCopyWithNewPixelBuffer_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
 uint64_t BWCMSampleBufferCreateDeepCopyWithNewPixelBuffer_cold_4(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_7();
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
   OUTLINED_FUNCTION_2_7();
-  fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  emitter = fig_log_get_emitter();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14, "<<<< BWSampleBufferUtilities >>>>", 0x80, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -8419,10 +7460,10 @@ uint64_t BWCMSampleBufferCreateDeepCopyWithNewPixelBuffer_cold_5(_DWORD *a1)
   OUTLINED_FUNCTION_2_7();
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
   OUTLINED_FUNCTION_2_7();
-  fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  emitter = fig_log_get_emitter();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14, "<<<< BWSampleBufferUtilities >>>>", 0x7F, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -8432,10 +7473,10 @@ uint64_t BWCMSampleBufferCreateDeepCopyWithNewPixelBuffer_cold_6(_DWORD *a1)
   OUTLINED_FUNCTION_2_7();
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
   OUTLINED_FUNCTION_2_7();
-  fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  emitter = fig_log_get_emitter();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14, "<<<< BWSampleBufferUtilities >>>>", 0x7E, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -8445,47 +7486,12 @@ uint64_t BWCMSampleBufferCreateDeepCopyWithNewPixelBuffer_cold_7(_DWORD *a1)
   OUTLINED_FUNCTION_2_7();
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
   OUTLINED_FUNCTION_2_7();
-  fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  emitter = fig_log_get_emitter();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14, "<<<< BWSampleBufferUtilities >>>>", 0x7D, v1, v4, v5, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t BWCMSampleBufferCreateCopyWithNewTimingIncludingMetadata_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t BWCMSampleBufferCreateCopyWithNewTimingIncludingMetadata_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t BWCMSampleBufferCreateCopyWithNewTimingIncludingMetadata_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t BWCMSampleBufferCreateCopyIncludingMetadata_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t BWCMSampleBufferCopyReattachAndReturnMutableMetadata_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 uint64_t BWCMSampleBufferCopyMetadataToSampleBuffer_cold_1(_DWORD *a1)
@@ -8493,10 +7499,10 @@ uint64_t BWCMSampleBufferCopyMetadataToSampleBuffer_cold_1(_DWORD *a1)
   OUTLINED_FUNCTION_2_7();
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
   OUTLINED_FUNCTION_2_7();
-  fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  emitter = fig_log_get_emitter();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14, "<<<< BWSampleBufferUtilities >>>>", 0x119, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -8506,40 +7512,20 @@ uint64_t BWCMSampleBufferCopyMetadataToSampleBuffer_cold_2(_DWORD *a1)
   OUTLINED_FUNCTION_2_7();
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
   OUTLINED_FUNCTION_2_7();
-  fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  emitter = fig_log_get_emitter();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14, "<<<< BWSampleBufferUtilities >>>>", 0x118, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
 
-uint64_t BWSampleBufferCreateFromEncodedImageSurface_cold_1()
+void BWSampleBufferCreateFromEncodedImageSurface_cold_3(int a1, const void *a2)
 {
   fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t BWSampleBufferCreateFromEncodedImageSurface_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-void BWSampleBufferCreateFromEncodedImageSurface_cold_3(uint64_t a1, const void *a2)
-{
-  fig_log_get_emitter();
-  FigDebugAssert3();
+  v5 = a1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v2, v6, v7, v8, v9, vars0, vars8);
   CFRelease(a2);
-}
-
-uint64_t BWSampleBufferCreateFromEncodedImageSurface_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
 }
 
 uint64_t BWSampleBufferCreateFromEncodedImageSurface_cold_5(_DWORD *a1)
@@ -8547,10 +7533,10 @@ uint64_t BWSampleBufferCreateFromEncodedImageSurface_cold_5(_DWORD *a1)
   OUTLINED_FUNCTION_2_7();
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
   OUTLINED_FUNCTION_2_7();
-  fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  emitter = fig_log_get_emitter();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14, "<<<< BWSampleBufferUtilities >>>>", 0x138, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -8560,10 +7546,10 @@ uint64_t BWSampleBufferCreateFromEncodedImageSurface_cold_6(_DWORD *a1)
   OUTLINED_FUNCTION_2_7();
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
   OUTLINED_FUNCTION_2_7();
-  fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  emitter = fig_log_get_emitter();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14, "<<<< BWSampleBufferUtilities >>>>", 0x137, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -8573,19 +7559,12 @@ uint64_t BWSampleBufferCreateFromEncodedImageSurface_cold_7(_DWORD *a1)
   OUTLINED_FUNCTION_2_7();
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
   OUTLINED_FUNCTION_2_7();
-  fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  emitter = fig_log_get_emitter();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14, "<<<< BWSampleBufferUtilities >>>>", 0x136, v1, v4, v5, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t BWSampleBufferCreateForDroppedFrame_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
 }
 
 uint64_t BWSampleBufferCreateForDroppedFrame_cold_2(_DWORD *a1)
@@ -8593,10 +7572,10 @@ uint64_t BWSampleBufferCreateForDroppedFrame_cold_2(_DWORD *a1)
   OUTLINED_FUNCTION_2_7();
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
   OUTLINED_FUNCTION_2_7();
-  fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  emitter = fig_log_get_emitter();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14, "<<<< BWSampleBufferUtilities >>>>", 0x16B, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -8606,96 +7585,12 @@ uint64_t BWSampleBufferCreateForDroppedFrame_cold_3(_DWORD *a1)
   OUTLINED_FUNCTION_2_7();
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
   OUTLINED_FUNCTION_2_7();
-  fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  emitter = fig_log_get_emitter();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14, "<<<< BWSampleBufferUtilities >>>>", 0x16A, v1, v4, v5, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t BWOverCaptureSampleBufferUnpackAndRetain_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t BWSampleBufferCreateFromDataBufferWithNumberOfPoints_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t BWSampleBufferCreateFromDataBufferWithNumberOfPoints_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t BWSampleBufferCreateFromDataBufferWithNumberOfPoints_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t BWSampleBufferCreateFromDataBufferWithNumberOfPoints_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t BWSampleBufferCreateFromDataBufferWithNumberOfPoints_cold_5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t BWSampleBufferCreateAttachedMediaFromPixelBuffer_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t BWSampleBufferCreateAttachedMediaFromPixelBuffer_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t BWSampleBufferCreateAttachedMediaFromPixelBuffer_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t BWSampleBufferCreateAttachedMediaFromPixelBuffer_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t BWSampleBufferCreateAttachedMediaFromPixelBuffer_cold_5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t BWSampleBufferSetAttachedMediaFromPixelBuffer_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
 }
 
 double ssln_getMaskValidBufferRectFromMetadata(void *a1, opaqueCMSampleBuffer *target)
@@ -8721,94 +7616,24 @@ double ssln_getMaskValidBufferRectFromMetadata(void *a1, opaqueCMSampleBuffer *t
   return *&v8;
 }
 
-uint64_t FigExternalStorageDeviceManagerServerReplyingMessageHandler_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigExternalStorageDeviceManagerServerReplyingMessageHandler_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigExternalStorageDeviceManagerServerReplyingMessageHandler_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-uint64_t FigExternalStorageDeviceManagerServerReplyingMessageHandler_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-uint64_t FigExternalStorageDeviceManagerServerReplyingMessageHandler_cold_5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigExternalStorageDeviceManagerServerReplyingMessageHandler_cold_6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigExternalStorageDeviceManagerServerReplyingMessageHandler_cold_7()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
 BOOL FigExternalStorageDeviceManagerServerReplyingMessageHandler_cold_8(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  v2 = FigSignalErrorAtGM();
-  *a1 = v2;
-  return v2 == 0;
-}
-
-uint64_t FigExternalStorageDeviceManagerServerReplyingMessageHandler_cold_9()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigExternalStorageDeviceManagerServerNoReplyMessageHandler_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t HandleExternalStorageDeviceManagerBeginMonitoring_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v8, v10, v11, v12, v13, v14, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  v6 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFB4BALL, "<<<< FigExternalStorageDeviceManagerServer >>>>", 0x7D, v1, v4, v5, v9);
+  *a1 = v6;
+  return v6 == 0;
 }
 
 uint64_t HandleExternalStorageDeviceManagerBeginMonitoring_cold_2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFB4B9, "<<<< FigExternalStorageDeviceManagerServer >>>>", 0xCB, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -8817,48 +7642,20 @@ uint64_t HandleExternalStorageDeviceManagerCopyStorageDeviceNextAvailableURLArra
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFB4B6, "<<<< FigExternalStorageDeviceManagerServer >>>>", 0xEC, v1, v4, v5, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t HandleExternalStorageDeviceManagerCopyStorageDeviceNextAvailableURLArray_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t HandleExternalStorageDeviceManagerCopyStorageDeviceNextAvailableURLArray_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t HandleExternalStorageDeviceManagerCopyStorageDeviceNextAvailableURLArray_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t HandleExternalStorageDeviceManagerCopyStorageDeviceNextAvailableURLArray_cold_5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
 }
 
 uint64_t HandleExternalStorageDeviceManagerCopyStorageDeviceNextAvailableURLArray_cold_6(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFB4B9, "<<<< FigExternalStorageDeviceManagerServer >>>>", 0xE8, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -8867,87 +7664,31 @@ uint64_t HandleExternalStorageDeviceManagerCopyStorageDeviceNextAvailableSecurit
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFB4B6, "<<<< FigExternalStorageDeviceManagerServer >>>>", 0x113, v1, v4, v5, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t HandleExternalStorageDeviceManagerCopyStorageDeviceNextAvailableSecurityScopeWrappedURLDataArray_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t HandleExternalStorageDeviceManagerCopyStorageDeviceNextAvailableSecurityScopeWrappedURLDataArray_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t HandleExternalStorageDeviceManagerCopyStorageDeviceNextAvailableSecurityScopeWrappedURLDataArray_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t HandleExternalStorageDeviceManagerCopyStorageDeviceNextAvailableSecurityScopeWrappedURLDataArray_cold_5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
 }
 
 uint64_t HandleExternalStorageDeviceManagerCopyStorageDeviceNextAvailableSecurityScopeWrappedURLDataArray_cold_6(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFB4B9, "<<<< FigExternalStorageDeviceManagerServer >>>>", 0x10F, v1, v4, v5, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t HandleExternalStorageDeviceManagerCopyStorageDeviceProperty_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t HandleExternalStorageDeviceManagerCopyStorageDeviceProperty_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t HandleExternalStorageDeviceManagerCopyStorageDeviceProperty_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t HandleExternalStorageDeviceManagerCopyStorageDeviceProperty_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
 }
 
 uint64_t HandleExternalStorageDeviceManagerCopyStorageDeviceProperty_cold_5(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE10, "<<<< FigExternalStorageDeviceManagerServer >>>>", 0x13D, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -8956,27 +7697,20 @@ uint64_t HandleExternalStorageDeviceManagerCopyStorageDeviceProperty_cold_6(_DWO
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFB4B9, "<<<< FigExternalStorageDeviceManagerServer >>>>", 0x136, v1, v4, v5, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t HandleExternalStorageDeviceManagerCheckAuthorizationStatus_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
 }
 
 uint64_t HandleExternalStorageDeviceManagerCheckAuthorizationStatus_cold_2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFB4B9, "<<<< FigExternalStorageDeviceManagerServer >>>>", 0x15C, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -8985,42 +7719,21 @@ uint64_t HandleExternalStorageDeviceManagerRequestAuthorization_cold_1(_DWORD *a
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFB4B9, "<<<< FigExternalStorageDeviceManagerServer >>>>", 0x1F7, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
 
-uint64_t externalStorageDeviceManagerCallback_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t externalStorageDeviceManagerCallback_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t externalStorageDeviceManagerCallback_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t externalStorageDeviceManagerCallback_cold_4()
+uint64_t externalStorageDeviceManagerCallback_cold_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id *a9)
 {
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v14, v15, v16, v17, v18, v19, vars0, vars8);
+  v10 = OUTLINED_FUNCTION_2();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v10, 0xFFFFB4B9, "<<<< FigExternalStorageDeviceManagerServer >>>>", 0xA7, v9, v11, v12, a9);
 }
 
 void __getICAccessManagerClass_block_invoke_cold_1()
@@ -9041,243 +7754,49 @@ uint64_t __HandleExternalStorageDeviceManagerRequestAuthorization_block_invoke_c
 {
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2();
-  return FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v7, v8, v9, v10, v11, vars0, vars8);
+  v1 = OUTLINED_FUNCTION_2();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1, 0xFFFFB4BALL, "<<<< FigExternalStorageDeviceManagerServer >>>>", 0x1C8, v0, v2, v3, v6);
 }
 
 uint64_t __HandleExternalStorageDeviceManagerRequestAuthorization_block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2();
-  return FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v7, v8, v9, v10, v11, vars0, vars8);
+  v1 = OUTLINED_FUNCTION_2();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1, 0xFFFFB4BALL, "<<<< FigExternalStorageDeviceManagerServer >>>>", 0x1C7, v0, v2, v3, v6);
 }
 
-uint64_t __HandleExternalStorageDeviceManagerRequestAuthorization_block_invoke_cold_3()
+uint64_t __HandleExternalStorageDeviceManagerRequestAuthorization_block_invoke_cold_3(void *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v8, v9, v10, v11, v12, vars0, vars8);
+  v2 = OUTLINED_FUNCTION_2_8();
+  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFB4BALL, "<<<< FigExternalStorageDeviceManagerServer >>>>", 0x1C0, v1, v3, v4, v7);
   return FigSimpleMutexUnlock();
 }
 
-uint64_t __HandleExternalStorageDeviceManagerRequestAuthorization_block_invoke_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t __HandleExternalStorageDeviceManagerRequestAuthorization_block_invoke_cold_5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureDeferredContainerManagerRemoteCopyContainerManager_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureDeferredContainerManagerRemoteCopyContainerManager_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureDeferredContainerManagerRemoteCopyContainerManager_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureDeferredContainerManagerRemoteCopyContainerManager_cold_4()
+uint64_t FigCaptureDeferredContainerManagerRemoteCopyContainerManager_cold_4(int a1)
 {
   OUTLINED_FUNCTION_2_8();
-  OUTLINED_FUNCTION_5_17();
-  FigDebugAssert3();
+  v6 = a1;
+  v3 = OUTLINED_FUNCTION_5_17();
+  FigDebugAssert3(v3, v6, v1);
   OUTLINED_FUNCTION_2_8();
-  OUTLINED_FUNCTION_5_17();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureDeferredContainerManagerRemoteCopyContainerManager_cold_5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureDeferredContainerManagerRemoteIsConnectionValid_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-uint64_t FigCaptureDeferredContainerManagerRemoteIsConnectionValid_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-uint64_t containerManager_deadConnectionCallback_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-uint64_t captureDeferredContainerManagerRemote_Invalidate_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureDeferredContainerManagerRemote_Invalidate_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureDeferredContainerManagerRemote_Finalize_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureDeferredContainerManagerRemote_Finalize_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureDeferredContainerManagerRemote_CopyContainerIdentifiers_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureDeferredContainerManagerRemote_CopyContainerIdentifiers_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureDeferredContainerManagerRemote_CopyContainerIdentifiers_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureDeferredContainerManagerRemote_QueryContainerStatus_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureDeferredContainerManagerRemote_QueryContainerStatus_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureDeferredContainerManagerRemote_QueryContainerStatus_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-uint64_t captureDeferredContainerManagerRemote_CopyRemoteContainer_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureDeferredContainerManagerRemote_CopyRemoteContainer_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureDeferredContainerManagerRemote_CopyRemoteContainer_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-uint64_t captureDeferredContainerManagerRemote_ReleaseRemoteContainer_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureDeferredContainerManagerRemote_ReleaseRemoteContainer_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureDeferredContainerManagerRemote_DeleteContainer_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureDeferredContainerManagerRemote_DeleteContainer_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureDeferredContainerManagerRemote_WaitForShaderCompilation_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureDeferredContainerManagerRemote_WaitForShaderCompilation_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
+  LODWORD(v7) = a1;
+  v4 = OUTLINED_FUNCTION_5_17();
+  return FigDebugAssert3(v4, v7, v1);
 }
 
 uint64_t captureDeferredContainerManagerRemote_createContainerManagerMessage_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE0FLL, "<<<< FigCaptureDeferredContainerManagerRemote >>>>", 0x75, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -9286,39 +7805,11 @@ uint64_t captureDeferredContainerManagerRemote_createContainerManagerMessage_col
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFC0F7, "<<<< FigCaptureDeferredContainerManagerRemote >>>>", 0x76, v1, v4, v5, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t captureDeferredContainerManagerRemote_createContainerManagerMessage_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureDeferredContainerManagerRemote_createContainerManagerMessage_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureDeferredContainerManagerRemote_createContainerManagerMessage_cold_5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t captureDeferredContainerManagerRemote_createContainerManagerMessage_cold_6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 unint64_t ubp_addFrame(int a1, id *a2, void *a3, void *a4, int a5)
@@ -9351,7 +7842,7 @@ unint64_t ubp_addFrame(int a1, id *a2, void *a3, void *a4, int a5)
         }
 
         [a2 err];
-        BWStillImageSampleBufferToDisplayString(a4);
+        BWStillImageSampleBufferToDisplayString(a4, v14);
         OUTLINED_FUNCTION_21_14();
         OUTLINED_FUNCTION_2_1();
         OUTLINED_FUNCTION_13();
@@ -9359,7 +7850,7 @@ unint64_t ubp_addFrame(int a1, id *a2, void *a3, void *a4, int a5)
       }
 
       OUTLINED_FUNCTION_2_4();
-      OUTLINED_FUNCTION_39_0();
+      OUTLINED_FUNCTION_39_0(v15, v16, v17, v18, v19);
     }
 
     result = [a2 err];
@@ -9395,14 +7886,14 @@ unint64_t ubp_addFrame(int a1, id *a2, void *a3, void *a4, int a5)
     }
 
     v11 = OUTLINED_FUNCTION_4_45();
-    if (os_log_type_enabled(v11, v38))
+    if (os_log_type_enabled(v11, v55))
     {
-      v12 = v39;
+      v12 = v56;
     }
 
     else
     {
-      v12 = v39 & 0xFFFFFFFE;
+      v12 = v56 & 0xFFFFFFFE;
     }
 
     if (v12)
@@ -9419,20 +7910,20 @@ unint64_t ubp_addFrame(int a1, id *a2, void *a3, void *a4, int a5)
 
   if (dword_1EB58DE40)
   {
-    v14 = OUTLINED_FUNCTION_4_45();
-    if (os_log_type_enabled(v14, v38))
+    v20 = OUTLINED_FUNCTION_4_45();
+    if (os_log_type_enabled(v20, v55))
     {
-      v15 = v39;
+      v22 = v56;
     }
 
     else
     {
-      v15 = v39 & 0xFFFFFFFE;
+      v22 = v56 & 0xFFFFFFFE;
     }
 
-    if (v15)
+    if (v22)
     {
-      BWStillImageSampleBufferToDisplayString(a4);
+      BWStillImageSampleBufferToDisplayString(a4, v21);
       [objc_msgSend(objc_msgSend(a2 "input")];
       OUTLINED_FUNCTION_1_7();
       OUTLINED_FUNCTION_13();
@@ -9449,66 +7940,66 @@ LABEL_31:
     goto LABEL_46;
   }
 
-  v16 = [a2 deepFusionOutput];
-  if (![v16 proxyPixelBuffer])
+  v23 = [a2 deepFusionOutput];
+  if (![v23 proxyPixelBuffer])
   {
     [a2 input];
-    v17 = [OUTLINED_FUNCTION_28_8() processorController:? newOutputPixelBufferForProcessorInput:? type:?];
-    if (!v17)
+    v24 = [OUTLINED_FUNCTION_28_8() processorController:? newOutputPixelBufferForProcessorInput:? type:?];
+    if (!v24)
     {
       goto LABEL_86;
     }
 
-    v18 = v17;
-    [v16 setProxyPixelBuffer:v17];
-    CFRelease(v18);
+    v25 = v24;
+    [v23 setProxyPixelBuffer:v24];
+    CFRelease(v25);
   }
 
-  if (![v16 referencePixelBuffer])
+  if (![v23 referencePixelBuffer])
   {
     [a2 input];
-    v19 = [OUTLINED_FUNCTION_28_8() processorController:? newOutputPixelBufferForProcessorInput:? type:?];
-    if (!v19)
+    v26 = [OUTLINED_FUNCTION_28_8() processorController:? newOutputPixelBufferForProcessorInput:? type:?];
+    if (!v26)
     {
       goto LABEL_86;
     }
 
-    v20 = v19;
-    [v16 setReferencePixelBuffer:v19];
-    CFRelease(v20);
+    v27 = v26;
+    [v23 setReferencePixelBuffer:v26];
+    CFRelease(v27);
   }
 
-  if (![v16 referenceNoisePixelBuffer])
+  if (![v23 referenceNoisePixelBuffer])
   {
     [a2 input];
-    v21 = [OUTLINED_FUNCTION_28_8() processorController:? newOutputPixelBufferForProcessorInput:? type:?];
-    if (v21)
+    v28 = [OUTLINED_FUNCTION_28_8() processorController:? newOutputPixelBufferForProcessorInput:? type:?];
+    if (v28)
     {
-      v9 = v21;
-      [v16 setReferenceNoisePixelBuffer:v21];
+      v9 = v28;
+      [v23 setReferenceNoisePixelBuffer:v28];
       CFRelease(v9);
       goto LABEL_46;
     }
 
 LABEL_86:
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
-    v23 = 4294954510;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+    v30 = 4294954510;
 LABEL_50:
     result = [a2 err];
     if (!result)
     {
-      return [a2 setErr:v23];
+      return [a2 setErr:v30];
     }
 
     return result;
   }
 
 LABEL_46:
-  v22 = [a3 addFrame:a4];
-  if (v22)
+  v29 = [a3 addFrame:a4];
+  if (v29)
   {
-    v23 = v22;
+    v30 = v29;
     if (a2 && [objc_msgSend(a2[1] "captureStreamSettings")])
     {
       -[BWUBProcessorInput _setErrorRecoveryFrame:]([a2 input], objc_msgSend(objc_msgSend(a2, "input"), "errorRecoveryFrame"));
@@ -9521,28 +8012,28 @@ LABEL_46:
 
   [a2 setNumberOfFramesAddedForMultiFrameProcessing:{objc_msgSend(a2, "numberOfFramesAddedForMultiFrameProcessing") + 1}];
   [objc_msgSend(CMGetAttachment(a4 *off_1E798A3C8];
-  v25 = v24;
+  v32 = v31;
   [a2 totalExposureTimesOfFramesAddedForMultiFrameProcessing];
-  *&v27 = v25 + v26;
-  [a2 setTotalExposureTimesOfFramesAddedForMultiFrameProcessing:v27];
+  *&v34 = v32 + v33;
+  [a2 setTotalExposureTimesOfFramesAddedForMultiFrameProcessing:v34];
   [a2 minExposureTimesOfFramesAddedForMultiFrameProcessing];
-  if (v25 < *&v28)
+  if (v32 < *&v35)
   {
-    *&v28 = v25;
+    *&v35 = v32;
   }
 
-  [a2 setMinExposureTimesOfFramesAddedForMultiFrameProcessing:v28];
+  [a2 setMinExposureTimesOfFramesAddedForMultiFrameProcessing:v35];
   [a2 maxExposureTimesOfFramesAddedForMultiFrameProcessing];
-  if (v25 >= *&v29)
+  if (v32 >= *&v36)
   {
-    *&v29 = v25;
+    *&v36 = v32;
   }
 
-  [a2 setMaxExposureTimesOfFramesAddedForMultiFrameProcessing:v29];
+  [a2 setMaxExposureTimesOfFramesAddedForMultiFrameProcessing:v36];
   if (dword_1EB58DE40)
   {
-    v30 = OUTLINED_FUNCTION_4_45();
-    OUTLINED_FUNCTION_33_12(v30);
+    v37 = OUTLINED_FUNCTION_4_45();
+    OUTLINED_FUNCTION_33_12(v37);
     OUTLINED_FUNCTION_4_0();
     if (v9)
     {
@@ -9565,7 +8056,7 @@ LABEL_46:
     }
 
     OUTLINED_FUNCTION_2_4();
-    OUTLINED_FUNCTION_39_0();
+    OUTLINED_FUNCTION_39_0(v38, v39, v40, v41, v42);
   }
 
   result = [objc_msgSend(objc_msgSend(a2 "input")];
@@ -9574,41 +8065,41 @@ LABEL_46:
     result = [a3 referenceFrameIndex];
     if ((result & 0x80000000) == 0)
     {
-      v31 = result;
+      v43 = result;
       result = [objc_msgSend(a2 "input")];
       if (!result)
       {
-        v32 = 0;
-        v33 = 0;
+        v44 = 0;
+        v45 = 0;
         while (1)
         {
-          v34 = [a2 input];
-          if (v34)
+          v46 = [a2 input];
+          if (v46)
           {
-            v34 = OUTLINED_FUNCTION_42_8(v34);
+            v46 = OUTLINED_FUNCTION_42_8(v46);
           }
 
-          result = [v34 count];
-          if (result <= v32)
+          result = [v46 count];
+          if (result <= v44)
           {
             break;
           }
 
-          v35 = [a2 input];
-          if (v35)
+          v47 = [a2 input];
+          if (v47)
           {
-            v35 = OUTLINED_FUNCTION_42_8(v35);
+            v47 = OUTLINED_FUNCTION_42_8(v47);
           }
 
-          v36 = [v35 objectAtIndexedSubscript:v32];
-          result = [(BWUBProcessorRequest *)a2 useFrameForMultiFrameProcessing:v36];
+          v48 = [v47 objectAtIndexedSubscript:v44];
+          result = [(BWUBProcessorRequest *)a2 useFrameForMultiFrameProcessing:v48];
           if (result)
           {
-            if (v33 == v31)
+            if (v45 == v43)
             {
-              if (v36)
+              if (v48)
               {
-                -[BWUBProcessorInput _setReferenceFrame:]([a2 input], v36);
+                -[BWUBProcessorInput _setReferenceFrame:]([a2 input], v48);
                 result = -[BWUBProcessorInput _setErrorRecoveryFrame:]([a2 input], objc_msgSend(objc_msgSend(a2, "input"), "errorRecoveryFrame"));
                 if (a2)
                 {
@@ -9621,10 +8112,10 @@ LABEL_46:
 
                 if (dword_1EB58DE40)
                 {
-                  v37 = OUTLINED_FUNCTION_4_45();
-                  OUTLINED_FUNCTION_33_12(v37);
+                  v49 = OUTLINED_FUNCTION_4_45();
+                  OUTLINED_FUNCTION_33_12(v49);
                   OUTLINED_FUNCTION_4_0();
-                  if (v33)
+                  if (v45)
                   {
                     [objc_msgSend(objc_msgSend(a2 "input")];
                     OUTLINED_FUNCTION_2_1();
@@ -9633,17 +8124,17 @@ LABEL_46:
                   }
 
                   OUTLINED_FUNCTION_2_4();
-                  return OUTLINED_FUNCTION_39_0();
+                  return OUTLINED_FUNCTION_39_0(v50, v51, v52, v53, v54);
                 }
               }
 
               return result;
             }
 
-            ++v33;
+            ++v45;
           }
 
-          ++v32;
+          ++v44;
         }
       }
     }
@@ -9652,7 +8143,7 @@ LABEL_46:
   return result;
 }
 
-uint64_t __ubp_createStateMachine_block_invoke_2(uint64_t a1, uint64_t a2)
+void *__ubp_createStateMachine_block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v3 = objc_autoreleasePoolPush();
   if (a2)
@@ -9667,7 +8158,7 @@ uint64_t __ubp_createStateMachine_block_invoke_2(uint64_t a1, uint64_t a2)
   return [(BWUBProcessorController *)a2 _updateStateIfNeeded];
 }
 
-uint64_t __ubp_createStateMachine_block_invoke_3_0(uint64_t a1, uint64_t a2)
+void *__ubp_createStateMachine_block_invoke_3_0(uint64_t a1, void *a2)
 {
   v4 = objc_autoreleasePoolPush();
   v5 = OUTLINED_FUNCTION_27_0();
@@ -9677,7 +8168,7 @@ uint64_t __ubp_createStateMachine_block_invoke_3_0(uint64_t a1, uint64_t a2)
   return [(BWUBProcessorController *)a2 _updateStateIfNeeded];
 }
 
-uint64_t __ubp_createStateMachine_block_invoke_4_0(uint64_t a1, uint64_t a2)
+void *__ubp_createStateMachine_block_invoke_4_0(uint64_t a1, void *a2)
 {
   v4 = objc_autoreleasePoolPush();
   v5 = OUTLINED_FUNCTION_27_0();
@@ -9687,7 +8178,7 @@ uint64_t __ubp_createStateMachine_block_invoke_4_0(uint64_t a1, uint64_t a2)
   return [(BWUBProcessorController *)a2 _updateStateIfNeeded];
 }
 
-uint64_t __ubp_createStateMachine_block_invoke_5(uint64_t a1, uint64_t a2)
+void *__ubp_createStateMachine_block_invoke_5(uint64_t a1, void *a2)
 {
   v4 = objc_autoreleasePoolPush();
   v5 = OUTLINED_FUNCTION_27_0();
@@ -9697,7 +8188,7 @@ uint64_t __ubp_createStateMachine_block_invoke_5(uint64_t a1, uint64_t a2)
   return [(BWUBProcessorController *)a2 _updateStateIfNeeded];
 }
 
-uint64_t __ubp_createStateMachine_block_invoke_6(uint64_t a1, uint64_t a2)
+void *__ubp_createStateMachine_block_invoke_6(uint64_t a1, void *a2)
 {
   v4 = objc_autoreleasePoolPush();
   v5 = OUTLINED_FUNCTION_27_0();
@@ -9707,7 +8198,7 @@ uint64_t __ubp_createStateMachine_block_invoke_6(uint64_t a1, uint64_t a2)
   return [(BWUBProcessorController *)a2 _updateStateIfNeeded];
 }
 
-uint64_t __ubp_createStateMachine_block_invoke_7(uint64_t a1, uint64_t a2)
+void *__ubp_createStateMachine_block_invoke_7(uint64_t a1, id *a2)
 {
   v3 = objc_autoreleasePoolPush();
   if (a2)
@@ -9720,7 +8211,7 @@ uint64_t __ubp_createStateMachine_block_invoke_7(uint64_t a1, uint64_t a2)
   return [(BWUBProcessorController *)a2 _updateStateIfNeeded];
 }
 
-uint64_t __ubp_createStateMachine_block_invoke_8(uint64_t a1, uint64_t a2)
+void *__ubp_createStateMachine_block_invoke_8(uint64_t a1, void *a2)
 {
   v4 = objc_autoreleasePoolPush();
   v5 = OUTLINED_FUNCTION_27_0();
@@ -9730,43 +8221,29 @@ uint64_t __ubp_createStateMachine_block_invoke_8(uint64_t a1, uint64_t a2)
   return [(BWUBProcessorController *)a2 _updateStateIfNeeded];
 }
 
-uint64_t nrfp_addFrame_0(uint64_t a1, uint64_t a2, void *a3, void *a4, int a5)
+void nrfp_addFrame_0(uint64_t a1, uint64_t a2, void *a3, void *a4, int a5)
 {
-  result = [(BWNRFProcessorRequest *)a2 processingType];
-  if (!result)
+  if (![(BWNRFProcessorRequest *)a2 processingType]|| [(BWNRFProcessorRequest *)a2 processingType]== 6 || [(BWNRFProcessorRequest *)a2 processingType]== 7)
   {
-    return result;
+    return;
   }
 
-  result = [(BWNRFProcessorRequest *)a2 processingType];
-  if (result == 6)
-  {
-    return result;
-  }
-
-  result = [(BWNRFProcessorRequest *)a2 processingType];
-  if (result == 7)
-  {
-    return result;
-  }
-
-  v11 = CMGetAttachment(a4, *off_1E798A3C8, 0);
+  v10 = CMGetAttachment(a4, *off_1E798A3C8, 0);
   if ([(BWNRFProcessorRequest *)a2 keepFramesUntilReferenceFrameSelected]&& (BWStillImageCaptureFrameFlagsForSampleBuffer(a4) & 0x20) != 0)
   {
     -[BWNRFProcessorInput _setErrorRecoveryFrame:]([a2 input]);
   }
 
-  result = [a2 err];
-  if (result || (result = [(BWNRFProcessorRequest *)a2 useFrameForMultiFrameProcessing:a4], !result))
+  if ([a2 err] || !-[BWNRFProcessorRequest useFrameForMultiFrameProcessing:](a2, a4))
   {
     if (!dword_1EB58E0E0)
     {
-      return result;
+      return;
     }
 
     OUTLINED_FUNCTION_58_3();
-    v16 = OUTLINED_FUNCTION_54_0();
-    os_log_type_enabled(v16, v48);
+    v15 = OUTLINED_FUNCTION_54_0(qword_1EB58E0D8);
+    os_log_type_enabled(v15, v53);
     OUTLINED_FUNCTION_4_0();
     if (a1)
     {
@@ -9777,16 +8254,16 @@ uint64_t nrfp_addFrame_0(uint64_t a1, uint64_t a2, void *a3, void *a4, int a5)
       }
 
       [a2 err];
-      BWStillImageSampleBufferToDisplayString(a4);
+      BWStillImageSampleBufferToDisplayString(a4, v16);
       OUTLINED_FUNCTION_2_1();
-      OUTLINED_FUNCTION_5_1();
+      OUTLINED_FUNCTION_5_1(v17, v18, v52, v19, &dword_1AC90E000);
     }
 
     OUTLINED_FUNCTION_1_63();
-    return fig_log_call_emit_and_clean_up_after_send_and_compose();
+    goto LABEL_31;
   }
 
-  if ([objc_msgSend(v11 objectForKeyedSubscript:{*off_1E798B1E8), "intValue"}])
+  if ([objc_msgSend(v10 objectForKeyedSubscript:{*off_1E798B1E8), "intValue"}])
   {
     goto LABEL_22;
   }
@@ -9797,15 +8274,15 @@ uint64_t nrfp_addFrame_0(uint64_t a1, uint64_t a2, void *a3, void *a4, int a5)
     if (dword_1EB58E0E0)
     {
       OUTLINED_FUNCTION_58_3();
-      v47 = OUTLINED_FUNCTION_54_0();
-      v19 = os_log_type_enabled(v47, v48);
-      v20 = v49 & 0xFFFFFFFE;
-      if (v19)
+      v51 = OUTLINED_FUNCTION_54_0(qword_1EB58E0D8);
+      v22 = os_log_type_enabled(v51, v53);
+      v23 = v54 & 0xFFFFFFFE;
+      if (v22)
       {
-        v20 = v49;
+        v23 = v54;
       }
 
-      if (v20)
+      if (v23)
       {
         [objc_msgSend(objc_msgSend(a2 "input")];
         OUTLINED_FUNCTION_2_1();
@@ -9826,65 +8303,65 @@ uint64_t nrfp_addFrame_0(uint64_t a1, uint64_t a2, void *a3, void *a4, int a5)
 
   if ([a2 deepFusionOutput] && (objc_msgSend(a3, "referenceFrameHasEVMinus") && objc_msgSend(a2, "numberOfFramesAddedForMultiFrameProcessing") == 1 || (objc_msgSend(a3, "referenceFrameHasEVMinus") & 1) == 0 && a5))
   {
-    v12 = [a2 deepFusionOutput];
+    v11 = [a2 deepFusionOutput];
     if (![objc_msgSend(objc_msgSend(a2 "input")])
     {
       if ([objc_msgSend(objc_msgSend(a2 "input")])
       {
-        v17 = [objc_msgSend(objc_msgSend(a2 "input")];
-        v18 = +[FigCaptureCameraParameters sharedInstance];
-        if (v17)
+        v20 = [objc_msgSend(objc_msgSend(a2 "input")];
+        v21 = +[FigCaptureCameraParameters sharedInstance];
+        if (v20)
         {
-          [(FigCaptureCameraParameters *)v18 softISPCropDimensionsForOptimizedLearnedFusionForSuperwide];
+          [(FigCaptureCameraParameters *)v21 softISPCropDimensionsForOptimizedLearnedFusionForSuperwide];
         }
 
         else
         {
-          [(FigCaptureCameraParameters *)v18 nrfProcessingDimensionsForOptimizedLearnedFusionForSuperwide];
+          [(FigCaptureCameraParameters *)v21 nrfProcessingDimensionsForOptimizedLearnedFusionForSuperwide];
         }
       }
 
 LABEL_43:
-      if ([objc_msgSend(objc_msgSend(a2 "input")] && !objc_msgSend(v12, "proxyPixelBuffer"))
+      if ([objc_msgSend(objc_msgSend(a2 "input")] && !objc_msgSend(v11, "proxyPixelBuffer"))
       {
         [a2 input];
-        v21 = [OUTLINED_FUNCTION_51_7() processorController:? newOutputPixelBufferForProcessorInput:? type:? dimensions:?];
-        if (!v21)
+        v24 = [OUTLINED_FUNCTION_51_7() processorController:? newOutputPixelBufferForProcessorInput:? type:? dimensions:?];
+        if (!v24)
         {
           goto LABEL_103;
         }
 
-        v22 = v21;
-        [v12 setProxyPixelBuffer:v21];
-        CVPixelBufferRelease(v22);
+        v25 = v24;
+        [v11 setProxyPixelBuffer:v24];
+        CVPixelBufferRelease(v25);
         [MEMORY[0x1E695DF90] dictionary];
         [OUTLINED_FUNCTION_37_0() setProxyMetadata:?];
       }
 
       [MEMORY[0x1E695DF90] dictionary];
       [OUTLINED_FUNCTION_37_0() setSyntheticReferenceMetadata:?];
-      if ([v12 syntheticReferencePixelBuffer] || objc_msgSend(objc_msgSend(objc_msgSend(a2, "input"), "captureSettings"), "captureType") != 13)
+      if ([v11 syntheticReferencePixelBuffer] || objc_msgSend(objc_msgSend(objc_msgSend(a2, "input"), "captureSettings"), "captureType") != 13)
       {
         goto LABEL_51;
       }
 
       [a2 input];
-      v23 = [OUTLINED_FUNCTION_51_7() processorController:? newOutputPixelBufferForProcessorInput:? type:?];
-      if (v23)
+      v26 = [OUTLINED_FUNCTION_51_7() processorController:? newOutputPixelBufferForProcessorInput:? type:?];
+      if (v26)
       {
-        v24 = v23;
-        [v12 setSyntheticReferencePixelBuffer:v23];
-        CVPixelBufferRelease(v24);
+        v27 = v26;
+        [v11 setSyntheticReferencePixelBuffer:v26];
+        CVPixelBufferRelease(v27);
 LABEL_51:
-        if ([objc_msgSend(objc_msgSend(a2 "input")] && !objc_msgSend(v12, "linearOutputPixelBuffer"))
+        if ([objc_msgSend(objc_msgSend(a2 "input")] && !objc_msgSend(v11, "linearOutputPixelBuffer"))
         {
           [a2 input];
-          v25 = [OUTLINED_FUNCTION_51_7() processorController:? newOutputPixelBufferForProcessorInput:? type:? dimensions:?];
-          if (v25)
+          v28 = [OUTLINED_FUNCTION_51_7() processorController:? newOutputPixelBufferForProcessorInput:? type:? dimensions:?];
+          if (v28)
           {
-            v26 = v25;
-            [v12 setLinearOutputPixelBuffer:v25];
-            CVPixelBufferRelease(v26);
+            v29 = v28;
+            [v11 setLinearOutputPixelBuffer:v28];
+            CVPixelBufferRelease(v29);
             [MEMORY[0x1E695DF90] dictionary];
             [OUTLINED_FUNCTION_37_0() setLinearOutputMetadata:?];
           }
@@ -9902,44 +8379,44 @@ LABEL_51:
 
         if (a2)
         {
-          v27 = *(a2 + 64);
+          v30 = *(a2 + 64);
         }
 
         else
         {
-          v27 = 0;
+          v30 = 0;
         }
 
-        v28 = [v27 processorController:a1 newOutputPixelBufferForProcessorInput:objc_msgSend(a2 type:{"input"), 41}];
-        if (v28)
+        v31 = [v30 processorController:a1 newOutputPixelBufferForProcessorInput:objc_msgSend(a2 type:{"input"), 41}];
+        if (v31)
         {
-          v29 = v28;
-          [v12 setLinearOutputMIWBAppliedPixelBuffer:v28];
+          v32 = v31;
+          [v11 setLinearOutputMIWBAppliedPixelBuffer:v31];
           [MEMORY[0x1E695DF90] dictionary];
           [OUTLINED_FUNCTION_37_0() setLinearOutputMIWBAppliedMetadata:?];
-          CVPixelBufferRelease(v29);
+          CVPixelBufferRelease(v32);
 LABEL_61:
-          if ([a2 gainMapEnabled] && !objc_msgSend(v12, "gainMapOutputPixelBuffer"))
+          if ([a2 gainMapEnabled] && !objc_msgSend(v11, "gainMapOutputPixelBuffer"))
           {
             if (a2)
             {
-              v30 = *(a2 + 64);
+              v33 = *(a2 + 64);
             }
 
             else
             {
-              v30 = 0;
+              v33 = 0;
             }
 
-            v31 = [v30 processorController:a1 newOutputPixelBufferForProcessorInput:objc_msgSend(a2 type:{"input"), 19}];
-            if (v31 && (objc_opt_respondsToSelector() & 1) != 0)
+            v34 = [v33 processorController:a1 newOutputPixelBufferForProcessorInput:objc_msgSend(a2 type:{"input"), 19}];
+            if (v34 && (objc_opt_respondsToSelector() & 1) != 0)
             {
               [MEMORY[0x1E695DF90] dictionary];
               [OUTLINED_FUNCTION_37_0() setGainMapOutputMetadata:?];
             }
 
-            [v12 setGainMapOutputPixelBuffer:v31];
-            CVPixelBufferRelease(v31);
+            [v11 setGainMapOutputPixelBuffer:v34];
+            CVPixelBufferRelease(v34);
           }
 
           goto LABEL_69;
@@ -9947,25 +8424,24 @@ LABEL_61:
       }
 
 LABEL_103:
-      v15 = 4294954510;
+      v14 = 4294954510;
 LABEL_97:
-      result = [a2 err];
-      if (!result)
+      if (![a2 err])
       {
-        return [a2 setErr:v15];
+        [a2 setErr:v14];
       }
 
-      return result;
+      return;
     }
 
-    v13 = BWPixelBufferDimensionsFromSampleBuffer(a4);
-    if (v13 >= 1 && SHIDWORD(v13) > 0)
+    v12 = BWPixelBufferDimensionsFromSampleBuffer(a4);
+    if (v12 >= 1 && SHIDWORD(v12) > 0)
     {
       goto LABEL_43;
     }
 
 LABEL_22:
-    v15 = 4294954516;
+    v14 = 4294954516;
     goto LABEL_97;
   }
 
@@ -9973,20 +8449,20 @@ LABEL_69:
   if (dword_1EB58E0E0)
   {
     OUTLINED_FUNCTION_58_3();
-    v32 = OUTLINED_FUNCTION_54_0();
-    if (os_log_type_enabled(v32, v48))
+    v35 = OUTLINED_FUNCTION_54_0(qword_1EB58E0D8);
+    if (os_log_type_enabled(v35, v53))
     {
-      v33 = v49;
+      v37 = v54;
     }
 
     else
     {
-      v33 = v49 & 0xFFFFFFFE;
+      v37 = v54 & 0xFFFFFFFE;
     }
 
-    if (v33)
+    if (v37)
     {
-      BWStillImageSampleBufferToDisplayString(a4);
+      BWStillImageSampleBufferToDisplayString(a4, v36);
       [objc_msgSend(objc_msgSend(a2 "input")];
       OUTLINED_FUNCTION_0_51();
       OUTLINED_FUNCTION_13();
@@ -9998,22 +8474,22 @@ LABEL_69:
   }
 
   ImageBuffer = CMSampleBufferGetImageBuffer(a4);
-  v35 = CVBufferCopyAttachment(ImageBuffer, *off_1E798A0B8, 0);
-  if (v35)
+  v39 = CVBufferCopyAttachment(ImageBuffer, *off_1E798A0B8, 0);
+  if (v39)
   {
-    v36 = [a3 addInputResource:v35];
+    v40 = [a3 addInputResource:v39];
   }
 
   else
   {
-    v36 = [OUTLINED_FUNCTION_53_1() addFrame:?];
+    v40 = [OUTLINED_FUNCTION_53_1() addFrame:?];
   }
 
-  v15 = v36;
+  v14 = v40;
 
-  v37 = OUTLINED_FUNCTION_39_9();
-  CVBufferRemoveAttachment(v37, v38);
-  if (v15)
+  v41 = OUTLINED_FUNCTION_39_9();
+  CVBufferRemoveAttachment(v41, v42);
+  if (v14)
   {
     if ([(BWNRFProcessorRequest *)a2 keepFramesUntilReferenceFrameSelected])
     {
@@ -10025,40 +8501,40 @@ LABEL_69:
   }
 
   [a2 setNumberOfFramesAddedForMultiFrameProcessing:{objc_msgSend(a2, "numberOfFramesAddedForMultiFrameProcessing") + 1}];
-  [objc_msgSend(v11 objectForKeyedSubscript:{*off_1E798B2A8), "floatValue"}];
-  v40 = v39;
+  [objc_msgSend(v10 objectForKeyedSubscript:{*off_1E798B2A8), "floatValue"}];
+  v44 = v43;
   [a2 totalExposureTimesOfFramesAddedForMultiFrameProcessing];
-  *&v42 = v40 + v41;
-  [a2 setTotalExposureTimesOfFramesAddedForMultiFrameProcessing:v42];
+  *&v46 = v44 + v45;
+  [a2 setTotalExposureTimesOfFramesAddedForMultiFrameProcessing:v46];
   [a2 minExposureTimesOfFramesAddedForMultiFrameProcessing];
-  if (v40 < *&v43)
+  if (v44 < *&v47)
   {
-    *&v43 = v40;
+    *&v47 = v44;
   }
 
-  [a2 setMinExposureTimesOfFramesAddedForMultiFrameProcessing:v43];
+  [a2 setMinExposureTimesOfFramesAddedForMultiFrameProcessing:v47];
   [a2 maxExposureTimesOfFramesAddedForMultiFrameProcessing];
-  if (v40 >= *&v44)
+  if (v44 >= *&v48)
   {
-    *&v44 = v40;
+    *&v48 = v44;
   }
 
-  result = [a2 setMaxExposureTimesOfFramesAddedForMultiFrameProcessing:v44];
+  [a2 setMaxExposureTimesOfFramesAddedForMultiFrameProcessing:v48];
   if (dword_1EB58E0E0)
   {
     OUTLINED_FUNCTION_58_3();
-    v45 = OUTLINED_FUNCTION_54_0();
-    if (os_log_type_enabled(v45, v48))
+    v49 = OUTLINED_FUNCTION_54_0(qword_1EB58E0D8);
+    if (os_log_type_enabled(v49, v53))
     {
-      v46 = v49;
+      v50 = v54;
     }
 
     else
     {
-      v46 = v49 & 0xFFFFFFFE;
+      v50 = v54 & 0xFFFFFFFE;
     }
 
-    if (v46)
+    if (v50)
     {
       [objc_msgSend(a2 "input")];
       if (a2)
@@ -10076,7 +8552,1461 @@ LABEL_69:
     }
 
     OUTLINED_FUNCTION_2_4();
-    return fig_log_call_emit_and_clean_up_after_send_and_compose();
+LABEL_31:
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+  }
+}
+
+void *__nrfp_createStateMachine_block_invoke_2_0(uint64_t a1, uint64_t a2)
+{
+  v3 = objc_autoreleasePoolPush();
+  if (a2)
+  {
+    [OUTLINED_FUNCTION_34_0(88) setOutput:?];
+    [*(a2 + 88) resetState];
+  }
+
+  [(BWNRFProcessorController *)a2 _serviceNextRequest];
+  objc_autoreleasePoolPop(v3);
+
+  return [(BWNRFProcessorController *)a2 _updateStateIfNeeded];
+}
+
+void *__nrfp_createStateMachine_block_invoke_3_0(uint64_t a1, void *a2)
+{
+  v4 = objc_autoreleasePoolPush();
+  v5 = OUTLINED_FUNCTION_27_0();
+  [(BWNRFProcessorController *)v5 _prepareProcessor];
+  objc_autoreleasePoolPop(v2);
+
+  return [(BWNRFProcessorController *)a2 _updateStateIfNeeded];
+}
+
+void *__nrfp_createStateMachine_block_invoke_4_0(uint64_t a1, void *a2)
+{
+  v4 = objc_autoreleasePoolPush();
+  v5 = OUTLINED_FUNCTION_27_0();
+  [(BWNRFProcessorController *)v5 _processSingleImage];
+  objc_autoreleasePoolPop(v2);
+
+  return [(BWNRFProcessorController *)a2 _updateStateIfNeeded];
+}
+
+void *__nrfp_createStateMachine_block_invoke_5_0(uint64_t a1, void *a2)
+{
+  v4 = objc_autoreleasePoolPush();
+  v5 = OUTLINED_FUNCTION_27_0();
+  [(BWNRFProcessorController *)v5 _processOriginalImage];
+  objc_autoreleasePoolPop(v2);
+
+  return [(BWNRFProcessorController *)a2 _updateStateIfNeeded];
+}
+
+void *__nrfp_createStateMachine_block_invoke_6_0(uint64_t a1, void *a2)
+{
+  v4 = objc_autoreleasePoolPush();
+  v5 = OUTLINED_FUNCTION_27_0();
+  [(BWNRFProcessorController *)v5 _processUBFusion];
+  objc_autoreleasePoolPop(v2);
+
+  return [(BWNRFProcessorController *)a2 _updateStateIfNeeded];
+}
+
+void *__nrfp_createStateMachine_block_invoke_7_0(uint64_t a1, void *a2)
+{
+  v4 = objc_autoreleasePoolPush();
+  v5 = OUTLINED_FUNCTION_27_0();
+  [(BWNRFProcessorController *)v5 _processDigitalFlash];
+  objc_autoreleasePoolPop(v2);
+
+  return [(BWNRFProcessorController *)a2 _updateStateIfNeeded];
+}
+
+void *__nrfp_createStateMachine_block_invoke_9(uint64_t a1, void *a2)
+{
+  v4 = objc_autoreleasePoolPush();
+  v5 = OUTLINED_FUNCTION_27_0();
+  [(BWNRFProcessorController *)v5 _processDigitalFlash];
+  objc_autoreleasePoolPop(v2);
+
+  return [(BWNRFProcessorController *)a2 _updateStateIfNeeded];
+}
+
+void *__nrfp_createStateMachine_block_invoke_10(uint64_t a1, void *a2)
+{
+  v4 = objc_autoreleasePoolPush();
+  v5 = OUTLINED_FUNCTION_27_0();
+  [(BWNRFProcessorController *)v5 _processLearnedHRNR];
+  objc_autoreleasePoolPop(v2);
+
+  return [(BWNRFProcessorController *)a2 _updateStateIfNeeded];
+}
+
+void AppleCVALibrary_cold_1(void *a1)
+{
+  v2 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v2 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"void *AppleCVALibrary(void)") description:{@"BWAppleCVASoftLinking.m", 14, @"%s", *a1}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_AddDebugInfo_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_AddDebugInfo) (*)(void))0)()) getkCVAFaceTracking_AddDebugInfo(void)") description:{@"BWAppleCVASoftLinking.m", 16, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_AddMesh_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_AddMesh) (*)(void))0)()) getkCVAFaceTracking_AddMesh(void)") description:{@"BWAppleCVASoftLinking.m", 17, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_Callback_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_Callback) (*)(void))0)()) getkCVAFaceTracking_Callback(void)") description:{@"BWAppleCVASoftLinking.m", 18, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_CameraColor_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_CameraColor) (*)(void))0)()) getkCVAFaceTracking_CameraColor(void)") description:{@"BWAppleCVASoftLinking.m", 19, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_CameraDepth_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_CameraDepth) (*)(void))0)()) getkCVAFaceTracking_CameraDepth(void)") description:{@"BWAppleCVASoftLinking.m", 20, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_Color_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_Color) (*)(void))0)()) getkCVAFaceTracking_Color(void)") description:{@"BWAppleCVASoftLinking.m", 21, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_ColorMetaData_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_ColorMetaData) (*)(void))0)()) getkCVAFaceTracking_ColorMetaData(void)") description:{@"BWAppleCVASoftLinking.m", 22, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_ColorOnly_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_ColorOnly) (*)(void))0)()) getkCVAFaceTracking_ColorOnly(void)") description:{@"BWAppleCVASoftLinking.m", 23, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_Depth_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_Depth) (*)(void))0)()) getkCVAFaceTracking_Depth(void)") description:{@"BWAppleCVASoftLinking.m", 24, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_DepthMetaData_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_DepthMetaData) (*)(void))0)()) getkCVAFaceTracking_DepthMetaData(void)") description:{@"BWAppleCVASoftLinking.m", 25, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_DepthSource_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_DepthSource) (*)(void))0)()) getkCVAFaceTracking_DepthSource(void)") description:{@"BWAppleCVASoftLinking.m", 26, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_DepthSource_Pearl_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_DepthSource_Pearl) (*)(void))0)()) getkCVAFaceTracking_DepthSource_Pearl(void)") description:{@"BWAppleCVASoftLinking.m", 27, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_DepthSource_SMPRaw_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_DepthSource_SMPRaw) (*)(void))0)()) getkCVAFaceTracking_DepthSource_SMPRaw(void)") description:{@"BWAppleCVASoftLinking.m", 28, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_DepthUnit_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_DepthUnit) (*)(void))0)()) getkCVAFaceTracking_DepthUnit(void)") description:{@"BWAppleCVASoftLinking.m", 29, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_DetectedFaceAngleInfoRoll_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_DetectedFaceAngleInfoRoll) (*)(void))0)()) getkCVAFaceTracking_DetectedFaceAngleInfoRoll(void)") description:{@"BWAppleCVASoftLinking.m", 30, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_DetectedFaceFaceID_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_DetectedFaceFaceID) (*)(void))0)()) getkCVAFaceTracking_DetectedFaceFaceID(void)") description:{@"BWAppleCVASoftLinking.m", 31, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_DetectedFaceRect_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_DetectedFaceRect) (*)(void))0)()) getkCVAFaceTracking_DetectedFaceRect(void)") description:{@"BWAppleCVASoftLinking.m", 32, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_DetectedFacesArray_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_DetectedFacesArray) (*)(void))0)()) getkCVAFaceTracking_DetectedFacesArray(void)") description:{@"BWAppleCVASoftLinking.m", 33, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_DisparityInvalidValue_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_DisparityInvalidValue) (*)(void))0)()) getkCVAFaceTracking_DisparityInvalidValue(void)") description:{@"BWAppleCVASoftLinking.m", 34, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_DisparityNormalizationMultiplier_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_DisparityNormalizationMultiplier) (*)(void))0)()) getkCVAFaceTracking_DisparityNormalizationMultiplier(void)") description:{@"BWAppleCVASoftLinking.m", 35, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_DisparityNormalizationOffset_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_DisparityNormalizationOffset) (*)(void))0)()) getkCVAFaceTracking_DisparityNormalizationOffset(void)") description:{@"BWAppleCVASoftLinking.m", 36, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_Extrinsics_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_Extrinsics) (*)(void))0)()) getkCVAFaceTracking_Extrinsics(void)") description:{@"BWAppleCVASoftLinking.m", 37, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_FaceID_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_FaceID) (*)(void))0)()) getkCVAFaceTracking_FaceID(void)") description:{@"BWAppleCVASoftLinking.m", 38, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_FailureType_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_FailureType) (*)(void))0)()) getkCVAFaceTracking_FailureType(void)") description:{@"BWAppleCVASoftLinking.m", 39, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_Geometry_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_Geometry) (*)(void))0)()) getkCVAFaceTracking_Geometry(void)") description:{@"BWAppleCVASoftLinking.m", 40, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_GeometryLandmarks_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_GeometryLandmarks) (*)(void))0)()) getkCVAFaceTracking_GeometryLandmarks(void)") description:{@"BWAppleCVASoftLinking.m", 41, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_Intrinsics_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_Intrinsics) (*)(void))0)()) getkCVAFaceTracking_Intrinsics(void)") description:{@"BWAppleCVASoftLinking.m", 43, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_LuxLevel_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_LuxLevel) (*)(void))0)()) getkCVAFaceTracking_LuxLevel(void)") description:{@"BWAppleCVASoftLinking.m", 44, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_NetworkFailureThresholdMultiplier_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_NetworkFailureThresholdMultiplier) (*)(void))0)()) getkCVAFaceTracking_NetworkFailureThresholdMultiplier(void)") description:{@"BWAppleCVASoftLinking.m", 45, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_NormalizedDisparity_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_NormalizedDisparity) (*)(void))0)()) getkCVAFaceTracking_NormalizedDisparity(void)") description:{@"BWAppleCVASoftLinking.m", 46, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_NumTrackedFaces_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_NumTrackedFaces) (*)(void))0)()) getkCVAFaceTracking_NumTrackedFaces(void)") description:{@"BWAppleCVASoftLinking.m", 47, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_Pose_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_Pose) (*)(void))0)()) getkCVAFaceTracking_Pose(void)") description:{@"BWAppleCVASoftLinking.m", 48, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_Rotation_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_Rotation) (*)(void))0)()) getkCVAFaceTracking_Rotation(void)") description:{@"BWAppleCVASoftLinking.m", 49, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_SetCameraDepthFromColor_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_SetCameraDepthFromColor) (*)(void))0)()) getkCVAFaceTracking_SetCameraDepthFromColor(void)") description:{@"BWAppleCVASoftLinking.m", 50, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_SmoothData_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_SmoothData) (*)(void))0)()) getkCVAFaceTracking_SmoothData(void)") description:{@"BWAppleCVASoftLinking.m", 51, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_StructuredLightOccluded_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_StructuredLightOccluded) (*)(void))0)()) getkCVAFaceTracking_StructuredLightOccluded(void)") description:{@"BWAppleCVASoftLinking.m", 52, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_ThreadPriority_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_ThreadPriority) (*)(void))0)()) getkCVAFaceTracking_ThreadPriority(void)") description:{@"BWAppleCVASoftLinking.m", 53, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_Timestamp_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_Timestamp) (*)(void))0)()) getkCVAFaceTracking_Timestamp(void)") description:{@"BWAppleCVASoftLinking.m", 54, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_TrackedFacesArray_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_TrackedFacesArray) (*)(void))0)()) getkCVAFaceTracking_TrackedFacesArray(void)") description:{@"BWAppleCVASoftLinking.m", 55, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_TrackingFailureFieldOfViewModifier_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_TrackingFailureFieldOfViewModifier) (*)(void))0)()) getkCVAFaceTracking_TrackingFailureFieldOfViewModifier(void)") description:{@"BWAppleCVASoftLinking.m", 56, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_Translation_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_Translation) (*)(void))0)()) getkCVAFaceTracking_Translation(void)") description:{@"BWAppleCVASoftLinking.m", 57, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVA_tmrLADzZUFnL94QtJ4Eb9fgi_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVA_tmrLADzZUFnL94QtJ4Eb9fgi) (*)(void))0)()) getkCVA_tmrLADzZUFnL94QtJ4Eb9fgi(void)") description:{@"BWAppleCVASoftLinking.m", 58, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void getkCVAFaceTracking_UseRecognition_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"typeof (((typeof (kCVAFaceTracking_UseRecognition) (*)(void))0)()) getkCVAFaceTracking_UseRecognition(void)") description:{@"BWAppleCVASoftLinking.m", 59, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void soft_CVAFaceTrackingCreate_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"int soft_CVAFaceTrackingCreate(CFAllocatorRef description:{CFDictionaryRef, CVAFaceTrackingRef *)"), @"BWAppleCVASoftLinking.m", 61, @"%s", dlerror()}];
+  __break(1u);
+}
+
+void soft_CVAFaceTrackingProcess_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"int soft_CVAFaceTrackingProcess(CVAFaceTrackingRef description:{CFDictionaryRef)"), @"BWAppleCVASoftLinking.m", 63, @"%s", dlerror()}];
+  __break(1u);
+}
+
+uint64_t FigDraw420Rectangle_cold_1(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_2_6();
+  OUTLINED_FUNCTION_3_52();
+  FigDebugAssert3(v3);
+  OUTLINED_FUNCTION_4_11();
+  result = FigSignalErrorAtGM(v4, v5, v6, v7, 0x152, v1, v8, v9, v11);
+  *a1 = result;
+  return result;
+}
+
+uint64_t BWUBCreateDeferredContainerControllerConfiguration(void *a1)
+{
+  if (![a1 deferredCaptureSupportEnabled])
+  {
+    return 0;
+  }
+
+  v2 = objc_alloc_init(BWDeferredCaptureControllerConfiguration);
+  v3 = OUTLINED_FUNCTION_27_0();
+  [(BWUBNodeConfiguration *)v3 sensorConfigurationsByPortType];
+  [OUTLINED_FUNCTION_4() setSensorConfigurationsByPortType:?];
+  return v1;
+}
+
+uint64_t BWUBCreateDeferredProcessorControllerConfiguration(void *a1)
+{
+  if (![a1 deferredPhotoProcessorEnabled])
+  {
+    return 0;
+  }
+
+  v3 = objc_alloc_init(BWDeferredProcessorControllerConfiguration);
+  v4 = OUTLINED_FUNCTION_27_0();
+  [(BWUBNodeConfiguration *)v4 sensorConfigurationsByPortType];
+  [OUTLINED_FUNCTION_4() setSensorConfigurationsByPortType:?];
+  [a1 deferredCaptureSupportEnabled];
+  [OUTLINED_FUNCTION_4() setDeferredCaptureSupportEnabled:?];
+  [a1 deferredPhotoProcessorEnabled];
+  [OUTLINED_FUNCTION_4() setDeferredPhotoProcessorEnabled:?];
+  [a1 metalCommandQueue];
+  [OUTLINED_FUNCTION_4() setMetalCommandQueue:?];
+  [a1 inferenceScheduler];
+  [OUTLINED_FUNCTION_4() setInferenceScheduler:?];
+  [a1 figThreadPriority];
+  [OUTLINED_FUNCTION_4() setFigThreadPriority:?];
+  return v1;
+}
+
+uint64_t BWUBCreateDeepFusionProcessorControllerConfiguration(void *a1)
+{
+  if (!-[BWUBNodeConfiguration deepFusionSupportEnabled](a1) || ([a1 deferredCaptureSupportEnabled] & 1) != 0)
+  {
+    return 0;
+  }
+
+  v3 = objc_alloc_init(BWDeepFusionProcessorControllerConfiguration);
+  v4 = OUTLINED_FUNCTION_27_0();
+  [(BWUBNodeConfiguration *)v4 sensorConfigurationsByPortType];
+  [OUTLINED_FUNCTION_4() setSensorConfigurationsByPortType:?];
+  [a1 metalCommandQueue];
+  [OUTLINED_FUNCTION_4() setMetalCommandQueue:?];
+  [a1 figThreadPriority];
+  [OUTLINED_FUNCTION_4() setFigThreadPriority:?];
+  [a1 deferredCaptureSupportEnabled];
+  [OUTLINED_FUNCTION_4() setDeferredCaptureSupportEnabled:?];
+  [a1 deferredPhotoProcessorEnabled];
+  [OUTLINED_FUNCTION_4() setDeferredPhotoProcessorEnabled:?];
+  [(BWUBNodeConfiguration *)a1 stillImageFusionScheme];
+  [OUTLINED_FUNCTION_4() setStillImageFusionScheme:?];
+  [(BWUBNodeConfiguration *)a1 rawColorCalibrationsByPortType];
+  [OUTLINED_FUNCTION_4() setRawColorCalibrationsByPortType:?];
+  [(BWUBNodeConfiguration *)a1 rawLensShadingCorrectionCoefficientsByPortType];
+  [OUTLINED_FUNCTION_4() setRawLensShadingCorrectionCoefficientsByPortType:?];
+  return v1;
+}
+
+BWLearnedNRProcessorControllerConfiguration *BWUBCreateLearnedNRProcessorControllerConfiguration(void *a1)
+{
+  if (([(BWUBNodeConfiguration *)a1 learnedNRMode]& 5) == 0)
+  {
+    return 0;
+  }
+
+  v2 = objc_alloc_init(BWLearnedNRProcessorControllerConfiguration);
+  [(BWStillImageProcessorControllerConfiguration *)v2 setSensorConfigurationsByPortType:[(BWUBNodeConfiguration *)a1 sensorConfigurationsByPortType]];
+  -[BWStillImageProcessorControllerConfiguration setMetalCommandQueue:](v2, "setMetalCommandQueue:", [a1 metalCommandQueue]);
+  -[BWStillImageProcessorControllerConfiguration setInferenceScheduler:](v2, "setInferenceScheduler:", [a1 inferenceScheduler]);
+  -[BWStillImageProcessorControllerConfiguration setFigThreadPriority:](v2, "setFigThreadPriority:", [a1 figThreadPriority]);
+  v3 = [MEMORY[0x1E695DF90] dictionary];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v4 = [(BWUBNodeConfiguration *)a1 portTypesWithGeometricDistortionCorrectionEnabled];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v10 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v12;
+    do
+    {
+      v8 = 0;
+      do
+      {
+        if (*v12 != v7)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        [v3 setObject:&unk_1F224A850 forKeyedSubscript:*(*(&v11 + 1) + 8 * v8++)];
+      }
+
+      while (v6 != v8);
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v10 count:16];
+    }
+
+    while (v6);
+  }
+
+  [(BWLearnedNRProcessorControllerConfiguration *)v2 setFinalCropRectOverscanMultiplierByPortType:v3];
+  return v2;
+}
+
+void *BWUBCreateInferenceControllerConfiguration(void *a1)
+{
+  if ([a1 deferredPhotoProcessorEnabled])
+  {
+    return 0;
+  }
+
+  v3 = ([(BWUBNodeConfiguration *)a1 semanticRenderingVersion]|| [(BWUBNodeConfiguration *)a1 semanticDevelopmentVersion]) && (([(BWUBNodeConfiguration *)a1 unifiedBracketingFusionSupportEnabled]& 1) != 0 || [(BWUBNodeConfiguration *)a1 learnedNRMode]!= 0);
+  [-[BWUBNodeConfiguration providedInferenceAttachedMediaByMode](a1) count];
+  v4 = OUTLINED_FUNCTION_27_0();
+  if (([(BWUBNodeConfiguration *)v4 redEyeReductionEnabled]& 1) != 0 || v3 || ([(BWUBNodeConfiguration *)a1 semanticStyleRenderingEnabled]& 1) != 0 || v1)
+  {
+    v5 = objc_alloc_init(BWInferenceEngineControllerConfiguration);
+    v6 = OUTLINED_FUNCTION_27_0();
+    [(BWUBNodeConfiguration *)v6 sensorConfigurationsByPortType];
+    [OUTLINED_FUNCTION_4() setSensorConfigurationsByPortType:?];
+    [a1 metalCommandQueue];
+    [OUTLINED_FUNCTION_4() setMetalCommandQueue:?];
+    [a1 inferenceScheduler];
+    [OUTLINED_FUNCTION_4() setInferenceScheduler:?];
+    [a1 figThreadPriority];
+    [OUTLINED_FUNCTION_4() setFigThreadPriority:?];
+    [v1 setFastMattingEnabled:-[BWUBNodeConfiguration semanticRenderingVersion](a1) > 1];
+    v7 = [MEMORY[0x1E695DFA8] set];
+    if ([(BWUBNodeConfiguration *)a1 semanticRenderingVersion]< 1)
+    {
+      v8 = 0;
+    }
+
+    else
+    {
+      [v7 addObject:@"PersonSemanticsSkin"];
+      [v7 addObject:0x1F219E750];
+      v8 = 2;
+    }
+
+    if ([(BWUBNodeConfiguration *)a1 semanticRenderingVersion]> 1)
+    {
+      [v7 addObject:0x1F21AAD30];
+    }
+
+    if ([(BWUBNodeConfiguration *)a1 semanticRenderingVersion]>= 3)
+    {
+      BWInferenceLowResPersonInstanceMaskKeys();
+      [OUTLINED_FUNCTION_8() addObjectsFromArray:?];
+      v8 |= 0x10uLL;
+    }
+
+    if ([(BWUBNodeConfiguration *)a1 semanticDevelopmentVersion])
+    {
+      v8 |= 8uLL;
+    }
+
+    if ([(BWUBNodeConfiguration *)a1 semanticStyleRenderingEnabled])
+    {
+      [v7 addObject:@"PersonSemanticsSkin"];
+      [v7 addObject:0x1F21AAD30];
+      [v7 addObject:0x1F219E750];
+      [v1 setSmartCameraClassificationsEnabled:1];
+    }
+
+    v23 = v1;
+    v9 = [(BWUBNodeConfiguration *)a1 redEyeReductionEnabled];
+    v10 = v8 | 6;
+    v30 = 0u;
+    v31 = 0u;
+    if (!v9)
+    {
+      v10 = v8;
+    }
+
+    v22 = v10;
+    v32 = 0uLL;
+    v33 = 0uLL;
+    v11 = [(BWUBNodeConfiguration *)a1 providedInferenceAttachedMediaByMode];
+    v12 = [v11 countByEnumeratingWithState:&v30 objects:v29 count:16];
+    if (v12)
+    {
+      v13 = v12;
+      v14 = *v31;
+      do
+      {
+        for (i = 0; i != v13; ++i)
+        {
+          if (*v31 != v14)
+          {
+            objc_enumerationMutation(v11);
+          }
+
+          v16 = [-[BWUBNodeConfiguration providedInferenceAttachedMediaByMode](a1) objectForKeyedSubscript:*(*(&v30 + 1) + 8 * i)];
+          v25 = 0u;
+          v26 = 0u;
+          v27 = 0u;
+          v28 = 0u;
+          v17 = [v16 countByEnumeratingWithState:&v25 objects:v24 count:16];
+          if (v17)
+          {
+            v18 = v17;
+            v19 = *v26;
+            do
+            {
+              for (j = 0; j != v18; ++j)
+              {
+                if (*v26 != v19)
+                {
+                  objc_enumerationMutation(v16);
+                }
+
+                [v7 addObject:{*(*(&v25 + 1) + 8 * j), v22}];
+              }
+
+              v18 = [v16 countByEnumeratingWithState:&v25 objects:v24 count:16];
+            }
+
+            while (v18);
+          }
+        }
+
+        v13 = [v11 countByEnumeratingWithState:&v30 objects:v29 count:16];
+      }
+
+      while (v13);
+    }
+
+    v1 = v23;
+    [v23 setMattingOutputValidContentDetectionEnabled:{objc_msgSend(-[BWUBNodeConfiguration providedInferenceAttachedMediaByMode](a1), "objectForKeyedSubscript:", &unk_1F2244320) != 0}];
+    [v7 allObjects];
+    [OUTLINED_FUNCTION_4() setEnabledInferenceMasks:?];
+    [v23 setEnabledVisionInferences:v22];
+    [(BWUBNodeConfiguration *)a1 personSemanticsVersion];
+    [OUTLINED_FUNCTION_4() setPersonSemanticsVersion:?];
+  }
+
+  return v1;
+}
+
+uint64_t BWUBCreateRedEyeProcessorControllerConfiguration(void *a1)
+{
+  if (![(BWUBNodeConfiguration *)a1 redEyeReductionEnabled])
+  {
+    return 0;
+  }
+
+  v3 = objc_alloc_init(BWStillImageProcessorControllerConfiguration);
+  v4 = OUTLINED_FUNCTION_27_0();
+  [(BWUBNodeConfiguration *)v4 sensorConfigurationsByPortType];
+  [OUTLINED_FUNCTION_4() setSensorConfigurationsByPortType:?];
+  [a1 metalCommandQueue];
+  [OUTLINED_FUNCTION_4() setMetalCommandQueue:?];
+  [a1 figThreadPriority];
+  [OUTLINED_FUNCTION_4() setFigThreadPriority:?];
+  return v1;
+}
+
+uint64_t BWUBCreateIntelligentDistortionCorrectionProcessorControllerConfiguration(void *a1)
+{
+  if (![-[BWUBNodeConfiguration portTypesWithIntelligentDistortionCorrectionEnabled](a1) count] && !objc_msgSend(-[BWUBNodeConfiguration portTypesWithGeometricDistortionCorrectionEnabled](a1), "count"))
+  {
+    return 0;
+  }
+
+  v3 = objc_alloc_init(BWIntelligentDistortionCorrectionProcessorControllerConfiguration);
+  v4 = OUTLINED_FUNCTION_27_0();
+  [(BWUBNodeConfiguration *)v4 sensorConfigurationsByPortType];
+  [OUTLINED_FUNCTION_4() setSensorConfigurationsByPortType:?];
+  [a1 metalCommandQueue];
+  [OUTLINED_FUNCTION_4() setMetalCommandQueue:?];
+  [a1 figThreadPriority];
+  [OUTLINED_FUNCTION_4() setFigThreadPriority:?];
+  [(BWUBNodeConfiguration *)a1 portTypesWithGeometricDistortionCorrectionEnabled];
+  [OUTLINED_FUNCTION_4() setPortTypesWithGeometricDistortionCorrectionEnabled:?];
+  [(BWUBNodeConfiguration *)a1 portTypesWithIntelligentDistortionCorrectionEnabled];
+  [OUTLINED_FUNCTION_4() setPortTypesWithIntelligentDistortionCorrectionEnabled:?];
+  [(BWUBNodeConfiguration *)a1 geometricDistortionCorrectionExpandedImageDimensions];
+  [OUTLINED_FUNCTION_4() setGeometricDistortionCorrectionExpandedImageDimensions:?];
+  [(BWUBNodeConfiguration *)a1 intelligentDistortionCorrectionVersion];
+  [OUTLINED_FUNCTION_4() setIntelligentDistortionCorrectionVersion:?];
+  [(BWUBNodeConfiguration *)a1 intelligentDistortionCorrectionAppliesFinalDimensions];
+  [OUTLINED_FUNCTION_4() setIntelligentDistortionCorrectionAppliesFinalDimensions:?];
+  [(BWUBNodeConfiguration *)a1 horizontalSensorBinningFactor];
+  [OUTLINED_FUNCTION_4() setHorizontalSensorBinningFactor:?];
+  [(BWUBNodeConfiguration *)a1 verticalSensorBinningFactor];
+  [OUTLINED_FUNCTION_4() setVerticalSensorBinningFactor:?];
+  [(BWUBNodeConfiguration *)a1 providedInferenceAttachedMediaByMode];
+  [OUTLINED_FUNCTION_4() setProvidedInferenceAttachedMediaByMode:?];
+  return v1;
+}
+
+BWDeepZoomProcessorControllerConfiguration *BWUBCreateDeepZoomProcessorControllerConfiguration(void *a1)
+{
+  if ([(BWUBNodeConfiguration *)a1 deepZoomVersion]< 1)
+  {
+    return 0;
+  }
+
+  if (([a1 deferredPhotoProcessorEnabled] & 1) == 0)
+  {
+    if (-[BWUBNodeConfiguration deepZoomVersion](a1) >= 2 && ([a1 deferredCaptureSupportEnabled] & 1) == 0)
+    {
+      v2 = 2;
+      goto LABEL_7;
+    }
+
+    return 0;
+  }
+
+  v2 = 1;
+LABEL_7:
+  v3 = objc_alloc_init(BWDeepZoomProcessorControllerConfiguration);
+  [(BWUBNodeConfiguration *)a1 sensorConfigurationsByPortType];
+  [OUTLINED_FUNCTION_8() setSensorConfigurationsByPortType:?];
+  [a1 metalCommandQueue];
+  [OUTLINED_FUNCTION_8() setMetalCommandQueue:?];
+  [a1 inferenceScheduler];
+  [OUTLINED_FUNCTION_8() setInferenceScheduler:?];
+  -[BWStillImageProcessorControllerConfiguration setFigThreadPriority:](v3, "setFigThreadPriority:", [a1 figThreadPriority]);
+  [(BWDeepZoomProcessorControllerConfiguration *)v3 setVersion:[(BWUBNodeConfiguration *)a1 deepZoomVersion]];
+  [(BWDeepZoomProcessorControllerConfiguration *)v3 setType:v2];
+  return v3;
+}
+
+uint64_t BWUBCreateStereoDisparityProcessorControllerConfiguration(void *a1)
+{
+  v3 = [(BWUBNodeConfiguration *)a1 disparityOutputDimensions];
+  v4 = v3 < 1 || SHIDWORD(v3) < 1;
+  if (v4 || ([(BWUBNodeConfiguration *)a1 generateLiDARDepth]& 1) != 0)
+  {
+    return 0;
+  }
+
+  v5 = objc_alloc_init(BWStereoDisparityProcessorControllerConfiguration);
+  v6 = OUTLINED_FUNCTION_27_0();
+  [(BWUBNodeConfiguration *)v6 sensorConfigurationsByPortType];
+  [OUTLINED_FUNCTION_4() setSensorConfigurationsByPortType:?];
+  [a1 metalCommandQueue];
+  [OUTLINED_FUNCTION_4() setMetalCommandQueue:?];
+  [a1 inferenceScheduler];
+  [OUTLINED_FUNCTION_4() setInferenceScheduler:?];
+  [a1 figThreadPriority];
+  [OUTLINED_FUNCTION_4() setFigThreadPriority:?];
+  [(BWUBNodeConfiguration *)a1 portTypesWithDepthSegmentationPortraitParameters];
+  [OUTLINED_FUNCTION_4() setPortTypesWithDepthSegmentationPortraitParameters:?];
+  [(BWUBNodeConfiguration *)a1 disparityOutputDimensions];
+  [OUTLINED_FUNCTION_4() setDisparityOutputDimensions:?];
+  [a1 depthDataType];
+  [OUTLINED_FUNCTION_4() setStillImageDepthDataType:?];
+  [(BWUBNodeConfiguration *)a1 shouldComputeDisparityWhenCalibrationFails];
+  [OUTLINED_FUNCTION_4() setShouldComputeDisparityWhenCalibrationFails:?];
+  return v1;
+}
+
+BWJasperColorStillsExecutorControllerConfiguration *BWUBCreateJasperColorStillsExecutorControllerConfiguration(void *a1)
+{
+  if (![(BWUBNodeConfiguration *)a1 depthDataDeliveryEnabled]|| ![(BWUBNodeConfiguration *)a1 jasperSensorConfiguration]|| ![(BWUBNodeConfiguration *)a1 digitalFlashSupportEnabled])
+  {
+    return 0;
+  }
+
+  v2 = MEMORY[0x1E695DF90];
+  [(BWUBNodeConfiguration *)a1 sensorConfigurationsByPortType];
+  v3 = [OUTLINED_FUNCTION_4() dictionaryWithDictionary:?];
+  [(BWUBNodeConfiguration *)a1 jasperSensorConfiguration];
+  v4 = OUTLINED_FUNCTION_27_0();
+  [v3 setObject:v2 forKeyedSubscript:{objc_msgSend(-[BWUBNodeConfiguration jasperSensorConfiguration](v4), "portType")}];
+  v5 = objc_alloc_init(BWJasperColorStillsExecutorControllerConfiguration);
+  [(BWStillImageProcessorControllerConfiguration *)v5 setSensorConfigurationsByPortType:v3];
+  [a1 metalCommandQueue];
+  [OUTLINED_FUNCTION_4() setMetalCommandQueue:?];
+  [a1 figThreadPriority];
+  [OUTLINED_FUNCTION_4() setFigThreadPriority:?];
+  [(BWUBNodeConfiguration *)a1 horizontalSensorBinningFactor];
+  [OUTLINED_FUNCTION_4() setHorizontalSensorBinningFactor:?];
+  [(BWUBNodeConfiguration *)a1 verticalSensorBinningFactor];
+  [OUTLINED_FUNCTION_4() setVerticalSensorBinningFactor:?];
+  return v5;
+}
+
+uint64_t BWUBCreateJasperDisparityProcessorControllerConfiguration(void *a1)
+{
+  if (![(BWUBNodeConfiguration *)a1 generateLiDARDepth])
+  {
+    return 0;
+  }
+
+  v3 = objc_alloc_init(BWJasperDisparityProcessorControllerConfiguration);
+  v4 = OUTLINED_FUNCTION_27_0();
+  [(BWUBNodeConfiguration *)v4 sensorConfigurationsByPortType];
+  [OUTLINED_FUNCTION_4() setSensorConfigurationsByPortType:?];
+  [a1 metalCommandQueue];
+  [OUTLINED_FUNCTION_4() setMetalCommandQueue:?];
+  [a1 figThreadPriority];
+  [OUTLINED_FUNCTION_4() setFigThreadPriority:?];
+  return v1;
+}
+
+uint64_t powerBlurNoiseReductionGPU_cold_1(_DWORD *a1, _DWORD *a2)
+{
+  fig_log_get_emitter();
+  OUTLINED_FUNCTION_1_11();
+  result = FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v6, v7, v8, v9, v10, vars0, vars8);
+  *a2 = *a1;
+  return result;
+}
+
+void *csu_secondaryNativeResolutionZoomFactorsForFormatIndex(void *a1, void *a2, uint64_t a3)
+{
+  v6 = [a2 objectAtIndexedSubscript:a3];
+  v7 = [v6 objectForKeyedSubscript:*off_1E798C998];
+  result = [v7 count];
+  if (result)
+  {
+    v31 = v6;
+    v32 = a1;
+    v9 = [MEMORY[0x1E695DF70] arrayWithArray:v7];
+    v10 = 0x1E696A000uLL;
+    [MEMORY[0x1E696AD98] numberWithInt:a3];
+    [OUTLINED_FUNCTION_17() addObject:?];
+    v11 = [MEMORY[0x1E695DFA8] set];
+    v36 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    obj = v9;
+    v13 = OUTLINED_FUNCTION_1_18(v11, v12, &v36, v35);
+    if (v13)
+    {
+      v14 = v13;
+      v15 = *v37;
+      v16 = MEMORY[0x1E695F058];
+LABEL_4:
+      v17 = 0;
+      while (1)
+      {
+        if (*v37 != v15)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v18 = *(*(&v36 + 1) + 8 * v17);
+        if (([v18 intValue] & 0x80000000) != 0)
+        {
+          return 0;
+        }
+
+        v19 = v10;
+        v20 = [v18 intValue];
+        if ([a2 count] <= v20)
+        {
+          return 0;
+        }
+
+        [a2 objectAtIndexedSubscript:{objc_msgSend(v18, "intValue")}];
+        v34 = *(v16 + 16);
+        if (!FigCFDictionaryGetCGRectIfPresent())
+        {
+          return 0;
+        }
+
+        HIDWORD(v21) = DWORD1(v34);
+        *&v21 = *&v34;
+        v10 = v19;
+        [*(v19 + 3480) numberWithFloat:v21];
+        [OUTLINED_FUNCTION_28() addObject:?];
+        if (v14 == ++v17)
+        {
+          v14 = [obj countByEnumeratingWithState:&v36 objects:v35 count:16];
+          if (v14)
+          {
+            goto LABEL_4;
+          }
+
+          break;
+        }
+      }
+    }
+
+    if ([v11 count] < 2)
+    {
+      return 0;
+    }
+
+    v22 = [objc_msgSend(v11 "allObjects")];
+    v23 = [MEMORY[0x1E695DF70] array];
+    v24 = [v22 count];
+    if (v24 >= 2)
+    {
+      for (i = (v24 - 2); i != -1; --i)
+      {
+        [objc_msgSend(v22 "lastObject")];
+        v27 = v26;
+        [objc_msgSend(v22 objectAtIndexedSubscript:{i), "floatValue"}];
+        *&v29 = v27 / v28;
+        [*(v10 + 3480) numberWithFloat:v29];
+        [OUTLINED_FUNCTION_8() addObject:?];
+      }
+    }
+
+    [objc_msgSend(v31 objectForKeyedSubscript:{*off_1E798D3F8), "floatValue"}];
+    return BWFilterNonDisruptiveSwitchingFormatZoomFactors(v32, v23, v30);
+  }
+
+  return result;
+}
+
+uint64_t fcsbp_plistCreateAndPreprocess(__CFString *a1, uint64_t *a2)
+{
+  v61[0] = 0;
+  v4 = FigCaptureCFCreatePropertyListForModelWithFileModificationDate(@"AVCaptureSession.plist", a1, v61);
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v5 = [(FigCaptureFlatPlist *)v4 mutableCopy];
+    v6 = [v5 objectForKeyedSubscript:@"AVCaptureDevices"];
+    if (!v6)
+    {
+      DeepCopy = 0;
+LABEL_17:
+      v35 = [v5 copy];
+      goto LABEL_18;
+    }
+
+    v7 = v6;
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v8 = *MEMORY[0x1E695E480];
+      DeepCopy = CFPropertyListCreateDeepCopy(*MEMORY[0x1E695E480], v7, 1uLL);
+      v57 = 0u;
+      v58 = 0u;
+      v59 = 0u;
+      v60 = 0u;
+      v17 = OUTLINED_FUNCTION_60_6(DeepCopy, v10, v11, v12, v13, v14, v15, v16, v5, v4, a2, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56);
+      if (v17)
+      {
+        v18 = v17;
+        v19 = *v58;
+        while (2)
+        {
+          for (i = 0; i != v18; ++i)
+          {
+            if (*v58 != v19)
+            {
+              objc_enumerationMutation(v7);
+            }
+
+            v21 = *(*(&v57 + 1) + 8 * i);
+            v22 = [v21 objectForKeyedSubscript:@"deviceInfoBase"];
+            if (v22)
+            {
+              v30 = v22;
+              v40 = 0;
+              objc_opt_class();
+              if ((objc_opt_isKindOfClass() & 1) == 0 || (v31 = FigCaptureCFCreatePropertyListForModelWithFileModificationDate(v30, a1, &v40)) == 0)
+              {
+                v35 = 0;
+                v4 = v38;
+                a2 = v39;
+                v5 = v37;
+                goto LABEL_18;
+              }
+
+              v32 = v31;
+              v61[0] = [v40 laterDate:v61[0]];
+              v33 = CFPropertyListCreateDeepCopy(v8, v32, 1uLL);
+              [v33 setObject:0 forKeyedSubscript:@"deviceInfoBase"];
+              FigCFDictionaryAddEntriesToDictionaryWithRecursion();
+              v22 = [DeepCopy setObject:v33 atIndexedSubscript:{objc_msgSend(v7, "indexOfObject:", v21)}];
+            }
+          }
+
+          v18 = OUTLINED_FUNCTION_60_6(v22, v23, v24, v25, v26, v27, v28, v29, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56);
+          if (v18)
+          {
+            continue;
+          }
+
+          break;
+        }
+      }
+
+      csu_preprocessDeviceDicts(DeepCopy);
+      v34 = [DeepCopy copy];
+      v5 = v37;
+      [OUTLINED_FUNCTION_8_8() setObject:? forKeyedSubscript:?];
+
+      v4 = v38;
+      a2 = v39;
+      goto LABEL_17;
+    }
+
+    v35 = 0;
+  }
+
+  else
+  {
+    v35 = 0;
+    v5 = 0;
+  }
+
+  DeepCopy = 0;
+LABEL_18:
+  if (a2)
+  {
+    *a2 = v61[0];
+  }
+
+  return v35;
+}
+
+void *csu_createBackingsFromCaptureSourceInfoDict(void *a1, uint64_t a2)
+{
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_2_5();
+    FigDebugAssert3(v12);
+  }
+
+  [a1 objectForKeyedSubscript:@"DependentUserDefaults"];
+  csu_dependentUserDefaultsDictionary();
+  if (!FigCFEqual())
+  {
+    return 0;
+  }
+
+  v3 = [a1 objectForKeyedSubscript:@"FileModificationDate"];
+  v23 = 0;
+  ModelSpecificName = FigCaptureGetModelSpecificName(v3, v4);
+
+  if (([v3 isEqualToDate:v23] & 1) == 0)
+  {
+    if (!dword_1EB58DF60)
+    {
+      return 0;
+    }
+
+    v13 = OUTLINED_FUNCTION_3_56();
+    v14 = OUTLINED_FUNCTION_24_13(v13);
+    if (!OUTLINED_FUNCTION_6(v14))
+    {
+      goto LABEL_25;
+    }
+
+LABEL_12:
+    OUTLINED_FUNCTION_10_28();
+LABEL_24:
+    OUTLINED_FUNCTION_7_4();
+    _os_log_send_and_compose_impl();
+    goto LABEL_25;
+  }
+
+  if ((objc_msgSend_isEqualToString_([a1 objectForKeyedSubscript:@"InterpreterBuildDate"]) & 1) == 0)
+  {
+    if (!dword_1EB58DF60)
+    {
+      return 0;
+    }
+
+    v15 = OUTLINED_FUNCTION_3_56();
+    v16 = OUTLINED_FUNCTION_24_13(v15);
+    if (!OUTLINED_FUNCTION_6(v16))
+    {
+      goto LABEL_25;
+    }
+
+    goto LABEL_12;
+  }
+
+  v6 = [a1 objectForKeyedSubscript:@"DeviceModel"];
+  v8 = FigCaptureGetModelSpecificName(v6, v7);
+  if ((objc_msgSend_isEqualToString_(v8) & 1) == 0)
+  {
+    if (dword_1EB58DF60)
+    {
+      v17 = OUTLINED_FUNCTION_3_56();
+      if (os_log_type_enabled(v17, v21))
+      {
+        v18 = v22;
+      }
+
+      else
+      {
+        v18 = v22 & 0xFFFFFFFE;
+      }
+
+      if (!v18)
+      {
+        goto LABEL_25;
+      }
+
+      goto LABEL_24;
+    }
+
+    return 0;
+  }
+
+  if ([objc_msgSend(a1 objectForKeyedSubscript:{@"ExperimentsEnabled", "BOOLValue"}])
+  {
+    if (dword_1EB58DF60)
+    {
+      v19 = OUTLINED_FUNCTION_3_56();
+      v20 = OUTLINED_FUNCTION_24_13(v19);
+      if (OUTLINED_FUNCTION_6(v20))
+      {
+        goto LABEL_24;
+      }
+
+LABEL_25:
+      OUTLINED_FUNCTION_2_4();
+      fig_log_call_emit_and_clean_up_after_send_and_compose();
+    }
+
+    return 0;
+  }
+
+  v9 = csu_createInMemorySourcesArrayFromOnDiskSourcesArray([a1 objectForKeyedSubscript:@"Sources"]);
+  v10 = -[FigCaptureSourceBackingsProvider initWithSourceInfoDictionaries:commonSettings:]([FigCaptureSourceBackingsProvider alloc], v9, [a1 objectForKeyedSubscript:@"CommonSettings"]);
+
+  return v10;
+}
+
+void *csu_addMetadataAttributes(void *a1, uint64_t a2, int a3, int a4, void *a5)
+{
+  v53 = [MEMORY[0x1E695DF90] dictionary];
+  v10 = [MEMORY[0x1E695DF70] array];
+  if (a2)
+  {
+    v11 = *(a2 + 8);
+    if (v11 <= 0x14 && ((1 << v11) & 0x100420) != 0)
+    {
+      v13 = 0;
+      if (!a4)
+      {
+        goto LABEL_13;
+      }
+
+      goto LABEL_10;
+    }
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  v13 = v11 - 21 < 0xFFFFFFFC;
+  if (!a4)
+  {
+    goto LABEL_13;
+  }
+
+LABEL_10:
+  if (![a5 objectForKeyedSubscript:@"faceTrackingSupported"] || objc_msgSend(objc_msgSend(a5, "objectForKeyedSubscript:", @"faceTrackingSupported"), "BOOLValue"))
+  {
+    [v10 addObject:*MEMORY[0x1E69629E8]];
+  }
+
+LABEL_13:
+  if (v13)
+  {
+    [v10 addObject:*MEMORY[0x1E69629D8]];
+    [v10 addObject:*off_1E798D150];
+    if (MGGetBoolAnswer())
+    {
+      [v10 addObject:*off_1E798D120];
+    }
+
+    if ([objc_msgSend(a1 objectForKeyedSubscript:{@"SmartCameraSupported", "BOOLValue"}])
+    {
+      [v10 addObject:*off_1E798D148];
+    }
+  }
+
+  v51 = a2;
+  v52 = v10;
+  if (a2)
+  {
+    v14 = *(a2 + 32);
+    v15 = (*(a2 + 8) - 17) < 4;
+  }
+
+  else
+  {
+    v14 = 0;
+    v15 = 0;
+  }
+
+  v16 = [MEMORY[0x1E695DF70] array];
+  [v16 addObject:*MEMORY[0x1E6960388]];
+  v59[0] = @"EyeDetection";
+  v59[1] = @"BlinkDetection";
+  v60[0] = MEMORY[0x1E695E118];
+  v60[1] = MEMORY[0x1E695E118];
+  v59[2] = @"SmileDetection";
+  v60[2] = MEMORY[0x1E695E118];
+  v54 = a1;
+  [a1 setObject:objc_msgSend(MEMORY[0x1E695DF20] forKeyedSubscript:{"dictionaryWithObjects:forKeys:count:", v60, v59, 3), @"SupportedOptionalFaceDetectionFeatures"}];
+  if (a3)
+  {
+    [a1 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"ObjectsDetection"];
+    v17 = [v14 getPropertyIfSupported:*off_1E798C0B8 error:0];
+    if (v17)
+    {
+      v18 = v17;
+      v57 = 0u;
+      v58 = 0u;
+      v55 = 0u;
+      v56 = 0u;
+      v19 = [v17 countByEnumeratingWithState:&v55 objects:&v61 count:16];
+      if (v19)
+      {
+        v20 = v19;
+        v21 = *v56;
+        do
+        {
+          v22 = 0;
+          do
+          {
+            if (*v56 != v21)
+            {
+              objc_enumerationMutation(v18);
+            }
+
+            v23 = *(*(&v55 + 1) + 8 * v22);
+            if ((!v15 || (objc_msgSend_isEqualToString_(*(*(&v55 + 1) + 8 * v22)) & 1) == 0) && v23)
+            {
+              if (_MergedGlobals_7 != -1)
+              {
+                dispatch_once(&_MergedGlobals_7, &__block_literal_global_456);
+              }
+
+              if ([qword_1ED844F58 objectForKeyedSubscript:v23])
+              {
+                [OUTLINED_FUNCTION_28() addObject:?];
+              }
+            }
+
+            ++v22;
+          }
+
+          while (v20 != v22);
+          v20 = [v18 countByEnumeratingWithState:&v55 objects:&v61 count:16];
+        }
+
+        while (v20);
+      }
+    }
+
+    else
+    {
+      v24 = FigCapturePlatformIdentifier();
+      v25 = *MEMORY[0x1E6960368];
+      v61 = *MEMORY[0x1E6960390];
+      v62 = v25;
+      v26 = *off_1E798D0E0;
+      v63 = *MEMORY[0x1E6960378];
+      v64 = v26;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v61 count:4];
+      [OUTLINED_FUNCTION_28() addObjectsFromArray:?];
+      if (!v15)
+      {
+        [v16 addObject:*MEMORY[0x1E6960398]];
+      }
+
+      if (v24 >= 8)
+      {
+        v27 = *MEMORY[0x1E6960380];
+        *&v55 = *MEMORY[0x1E6960370];
+        *(&v55 + 1) = v27;
+        *&v56 = *off_1E798D0D0;
+        [MEMORY[0x1E695DEC8] arrayWithObjects:&v55 count:3];
+        [OUTLINED_FUNCTION_28() addObjectsFromArray:?];
+        if (v24 >= 0xA)
+        {
+          [v16 addObject:*off_1E798D0D8];
+        }
+      }
+    }
+  }
+
+  if (v51)
+  {
+    v28 = *(v51 + 8);
+    if (v28 - 17 > 3)
+    {
+      v30 = 0;
+      v36 = v54;
+      v37 = v52;
+    }
+
+    else
+    {
+      v29 = *(v51 + 32);
+      v30 = [MEMORY[0x1E695DF70] array];
+      v31 = [objc_msgSend(objc_msgSend(objc_msgSend(v29 getProperty:*off_1E798C1B8 error:{0), "firstObject"), "objectForKeyedSubscript:", *off_1E798C9A0), "objectForKeyedSubscript:", *off_1E798CA88}];
+      v32 = [objc_msgSend(a5 objectForKeyedSubscript:{@"secureMetadataCameraSupported", "BOOLValue"}];
+      v33 = [v31 objectForKeyedSubscript:*off_1E798B010];
+      v34 = [v31 objectForKeyedSubscript:*off_1E798B018];
+      v35 = [v31 objectForKeyedSubscript:*off_1E798B028];
+      v36 = v54;
+      if (v32)
+      {
+        [v54 setObject:MEMORY[0x1E695E118] forKeyedSubscript:0x1F219FFF0];
+      }
+
+      if ([objc_msgSend(a5 objectForKeyedSubscript:{@"metadataFrameRateControlSupported", "BOOLValue"}])
+      {
+        [v54 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"MetadataFrameRateControlSupported"];
+      }
+
+      v37 = v52;
+      if (v28 == 20)
+      {
+        [v54 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"AttentionDetectionSupported"];
+      }
+
+      if (v34)
+      {
+        [v54 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"FaceOcclusionDetectionSupported"];
+      }
+
+      if (v33)
+      {
+        [v30 addObject:*off_1E798D128];
+      }
+
+      if (v34)
+      {
+        [v30 addObject:*off_1E798D130];
+      }
+
+      if (v35)
+      {
+        [v30 addObject:*off_1E798D140];
+      }
+
+      v28 = *(v51 + 8);
+    }
+
+    if (v28 <= 0x14 && ((1 << v28) & 0x100420) != 0 || v28 - 21 > 0xFFFFFFFB)
+    {
+      v38 = 0;
+      v39 = v53;
+      goto LABEL_62;
+    }
+
+    v39 = v53;
+  }
+
+  else
+  {
+    v30 = 0;
+    v39 = v53;
+    v36 = v54;
+    v37 = v52;
+  }
+
+  v41 = *MEMORY[0x1E6962968];
+  v61 = *MEMORY[0x1E6962960];
+  v62 = v41;
+  v42 = *MEMORY[0x1E6962978];
+  v63 = *MEMORY[0x1E6962970];
+  v64 = v42;
+  v43 = *MEMORY[0x1E6962988];
+  v65 = *MEMORY[0x1E6962980];
+  v66 = v43;
+  v44 = *MEMORY[0x1E6962998];
+  v67 = *MEMORY[0x1E6962990];
+  v68 = v44;
+  v45 = *MEMORY[0x1E69629A8];
+  v69 = *MEMORY[0x1E69629A0];
+  v70 = v45;
+  v46 = *MEMORY[0x1E69629B8];
+  v71 = *MEMORY[0x1E69629B0];
+  v72 = v46;
+  v47 = *off_1E798D0F0;
+  v73 = *MEMORY[0x1E69629C0];
+  v74 = v47;
+  v48 = *off_1E798D100;
+  v75 = *off_1E798D0F8;
+  v76 = v48;
+  v49 = *off_1E798D118;
+  v77 = *off_1E798D108;
+  v78 = v49;
+  v50 = *off_1E798D0E8;
+  v79 = *off_1E798D110;
+  v80 = v50;
+  v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v61 count:20];
+LABEL_62:
+  if ([v37 count])
+  {
+    [v39 setObject:v37 forKeyedSubscript:@"MetadataGroup-Misc"];
+  }
+
+  if ([v16 count])
+  {
+    [v39 setObject:v16 forKeyedSubscript:@"MetadataGroup-ObjectDetection"];
+  }
+
+  if ([v30 count])
+  {
+    [v39 setObject:v30 forKeyedSubscript:@"MetadataGroup-SecureMetadata"];
+  }
+
+  if ([v38 count])
+  {
+    [v39 setObject:v38 forKeyedSubscript:@"MetadataGroup-MRC"];
+  }
+
+  if ([v39 count])
+  {
+    [OUTLINED_FUNCTION_27_1() setObject:? forKeyedSubscript:?];
+  }
+
+  result = [objc_msgSend(v36 objectForKeyedSubscript:{0x1F219FFF0), "BOOLValue"}];
+  if (result)
+  {
+    return [OUTLINED_FUNCTION_27_1() setObject:? forKeyedSubscript:?];
   }
 
   return result;

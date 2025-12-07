@@ -14,7 +14,9 @@
 - (void)_getCBPeripheralforIdentifer:(id)identifer withCompletion:(id)completion;
 - (void)_getHealthPeripheralOrServicesStatus:(id)status completion:(id)completion;
 - (void)_getHealthPeripheralsStatus:(id)status withCompletion:(id)completion;
+- (void)_setAudioAccessoryWriteStatusEnabled:(BOOL)enabled identifier:(id)identifier completion:(id)completion;
 - (void)_setHealthKitDataWriteEnabled:(BOOL)enabled identifier:(id)identifier completion:(id)completion;
+- (void)_setHealthPeripheralOrServicesStatus:(id)status enabled:(BOOL)enabled completion:(id)completion;
 - (void)_setHealthPeripheralsStatus:(id)status status:(BOOL)a4 withCompletion:(id)completion;
 - (void)_startHealthServiceExtendedDiscovery:(id)discovery withHandler:(id)handler;
 - (void)addHealthServicePairing:(id)pairing withCompletion:(id)completion;
@@ -36,6 +38,7 @@
 - (void)performHealthServiceOperation:(id)operation onSession:(id)session withParameters:(id)parameters completion:(id)completion;
 - (void)registerPeripheralIdentifier:(id)identifier name:(id)name services:(id)services withCompletion:(id)completion;
 - (void)removeHealthServicePairing:(id)pairing withCompletion:(id)completion;
+- (void)setEnabledStatus:(BOOL)status forPeripheral:(id)peripheral withCompletion:(id)completion;
 - (void)startBluetoothStatusUpdates:(id)updates;
 - (void)startHealthServiceDiscovery:(id)discovery withHandler:(id)handler;
 - (void)startHealthServiceSession:(id)session withHandler:(id)handler;
@@ -214,11 +217,11 @@ uint64_t __52__HKHealthServicesManager_endBluetoothStatusUpdates__block_invoke(u
 void __52__HKHealthServicesManager_endBluetoothStatusUpdates__block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  _HKInitializeLogging();
-  v3 = HKLogServices;
+  _HKInitializeLogging(v2, v3);
+  v4 = HKLogServices;
   if (os_log_type_enabled(HKLogServices, OS_LOG_TYPE_ERROR))
   {
-    __52__HKHealthServicesManager_endBluetoothStatusUpdates__block_invoke_3_cold_1(v2, v3);
+    __52__HKHealthServicesManager_endBluetoothStatusUpdates__block_invoke_3_cold_1(v2, v4);
   }
 }
 
@@ -353,42 +356,42 @@ void __76__HKHealthServicesManager__startHealthServiceExtendedDiscovery_withHand
 {
   if (*(a1 + 64))
   {
-    v5 = [*(a1 + 32) discoveries];
+    v4 = [*(a1 + 32) discoveries];
 
-    if (v5)
+    if (v4)
     {
       [*(a1 + 48) setDiscoveryIdentifier:*(a1 + 64)];
       [*(a1 + 48) setDiscoveryHandler:*(a1 + 56)];
-      v6 = *(a1 + 48);
-      v12 = [*(a1 + 32) discoveries];
-      v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 64)];
-      [v12 setObject:v6 forKeyedSubscript:v7];
+      v7 = *(a1 + 48);
+      v13 = [*(a1 + 32) discoveries];
+      v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 64)];
+      [v13 setObject:v7 forKeyedSubscript:v8];
     }
 
     else
     {
-      _HKInitializeLogging();
+      _HKInitializeLogging(v5, v6);
       if (os_log_type_enabled(HKLogServices, OS_LOG_TYPE_ERROR))
       {
         __76__HKHealthServicesManager__startHealthServiceExtendedDiscovery_withHandler___block_invoke_3_cold_1();
       }
 
-      v8 = *(a1 + 32);
-      v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 64)];
-      [v8 _addEndedDiscovery:v9];
+      v9 = *(a1 + 32);
+      v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 64)];
+      [v9 _addEndedDiscovery:v10];
 
-      v10 = *(a1 + 56);
-      if (v10)
+      v11 = *(a1 + 56);
+      if (v11)
       {
         if (*(a1 + 40))
         {
-          (*(v10 + 16))(*(a1 + 56), 0, 1);
+          (*(v11 + 16))(*(a1 + 56), 0, 1);
         }
 
         else
         {
-          v11 = [MEMORY[0x1E696ABC0] hk_error:301 description:@"Discovery services ended unexpectedly."];
-          (*(v10 + 16))(v10, 0, 1, v11);
+          v12 = [MEMORY[0x1E696ABC0] hk_error:301 description:@"Discovery services ended unexpectedly."];
+          (*(v11 + 16))(v11, 0, 1, v12);
         }
       }
     }
@@ -399,10 +402,9 @@ void __76__HKHealthServicesManager__startHealthServiceExtendedDiscovery_withHand
     v2 = *(a1 + 56);
     if (v2)
     {
-      v3 = *(a1 + 40);
-      v4 = *(v2 + 16);
+      v3 = *(v2 + 16);
 
-      v4();
+      v3();
     }
   }
 }
@@ -466,7 +468,7 @@ void __53__HKHealthServicesManager_endHealthServiceDiscovery___block_invoke(uint
   dispatch_async(v4, v6);
 }
 
-uint64_t __53__HKHealthServicesManager_endHealthServiceDiscovery___block_invoke_2(uint64_t a1)
+void *__53__HKHealthServicesManager_endHealthServiceDiscovery___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) discoveryIdentifier];
   if (result)
@@ -653,54 +655,53 @@ void __65__HKHealthServicesManager_startHealthServiceSession_withHandler___block
 {
   if (!*(a1 + 64))
   {
-    v2 = 4 * ([*(a1 + 40) code] == 313);
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 56) + 16);
+    [*(a1 + 40) code];
+    v2 = *(*(a1 + 56) + 16);
 
-    v4();
+    v2();
     return;
   }
 
-  v5 = [*(a1 + 32) sessions];
+  v3 = [*(a1 + 32) sessions];
 
-  v6 = *(a1 + 64);
-  if (v5)
+  v4 = *(a1 + 64);
+  if (v3)
   {
-    [*(a1 + 48) setSessionIdentifier:v6];
+    [*(a1 + 48) setSessionIdentifier:v4];
     [*(a1 + 48) setSessionHandler:*(a1 + 56)];
-    v7 = *(a1 + 48);
-    v16 = [*(a1 + 32) sessions];
-    v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 64)];
-    [v16 setObject:v7 forKeyedSubscript:v8];
+    v5 = *(a1 + 48);
+    v14 = [*(a1 + 32) sessions];
+    v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 64)];
+    [v14 setObject:v5 forKeyedSubscript:v6];
 
-    v9 = v16;
+    v7 = v14;
 LABEL_7:
 
     return;
   }
 
-  v10 = *(a1 + 32);
-  v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v6];
-  [v10 _addEndedSession:v11];
+  v8 = *(a1 + 32);
+  v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v4];
+  [v8 _addEndedSession:v9];
 
-  v12 = *(a1 + 56);
-  if (!v12)
+  v10 = *(a1 + 56);
+  if (!v10)
   {
     return;
   }
 
   if (!*(a1 + 40))
   {
-    v15 = [MEMORY[0x1E696ABC0] hk_error:100 description:@"Service session ended unexpectedly."];
-    (*(v12 + 16))(v12, 0, 1, v15);
-    v9 = v15;
+    v13 = [MEMORY[0x1E696ABC0] hk_error:100 description:@"Service session ended unexpectedly."];
+    (*(v10 + 16))(v10, 0, 1, v13);
+    v7 = v13;
     goto LABEL_7;
   }
 
-  v13 = *(v12 + 16);
-  v14 = *(a1 + 56);
+  v11 = *(v10 + 16);
+  v12 = *(a1 + 56);
 
-  v13(v14, 0, 1);
+  v11(v12, 0, 1);
 }
 
 void __65__HKHealthServicesManager_startHealthServiceSession_withHandler___block_invoke_5(uint64_t a1, void *a2)
@@ -1052,28 +1053,28 @@ void __72__HKHealthServicesManager_getEnabledStatusForPeripheral_withCompletion_
   {
     v4 = *(a1 + 32);
     v5 = [*(a1 + 40) UUIDString];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __72__HKHealthServicesManager_getEnabledStatusForPeripheral_withCompletion___block_invoke_2;
-    v8[3] = &unk_1E73857B8;
-    v10 = *(a1 + 48);
-    v9 = *(a1 + 40);
-    [v4 _getAudioAccessoryWriteStatusForIdentifier:v5 completion:v8];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __72__HKHealthServicesManager_getEnabledStatusForPeripheral_withCompletion___block_invoke_2;
+    v7[3] = &unk_1E73857B8;
+    v9 = *(a1 + 48);
+    v8 = *(a1 + 40);
+    [v4 _getAudioAccessoryWriteStatusForIdentifier:v5 completion:v7];
   }
 
   else
   {
-    v6 = *(a1 + 48);
-    v7 = *(*(a1 + 48) + 16);
+    v6 = *(*(a1 + 48) + 16);
 
-    v7();
+    v6();
   }
 }
 
 void __72__HKHealthServicesManager_getEnabledStatusForPeripheral_withCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v7 = v5;
   if (a2)
   {
     (*(*(a1 + 40) + 16))(*(a1 + 40), [a2 BOOLValue], v5);
@@ -1081,24 +1082,22 @@ void __72__HKHealthServicesManager_getEnabledStatusForPeripheral_withCompletion_
 
   else
   {
-    _HKInitializeLogging();
-    v6 = HKLogServices;
+    _HKInitializeLogging(v5, v6);
+    v8 = HKLogServices;
     if (os_log_type_enabled(HKLogServices, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
-      v8 = v6;
-      v9 = [v7 UUIDString];
-      v11 = 138412546;
-      v12 = v9;
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "Get audio accessory write status not found or failed for identifier %@ error: %@", &v11, 0x16u);
+      v9 = *(a1 + 32);
+      v10 = v8;
+      v11 = [v9 UUIDString];
+      v12 = 138412546;
+      v13 = v11;
+      v14 = 2112;
+      v15 = v7;
+      _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "Get audio accessory write status not found or failed for identifier %@ error: %@", &v12, 0x16u);
     }
 
-    (*(*(a1 + 40) + 16))(*(a1 + 40), 0, v5);
+    (*(*(a1 + 40) + 16))(*(a1 + 40), 0, v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_getHealthPeripheralOrServicesStatus:(id)status completion:(id)completion
@@ -1121,28 +1120,56 @@ void __75__HKHealthServicesManager__getHealthPeripheralOrServicesStatus_completi
 {
   if (a3)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __75__HKHealthServicesManager__getHealthPeripheralOrServicesStatus_completion___block_invoke_2;
-    v9[3] = &unk_1E7385658;
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __75__HKHealthServicesManager__getHealthPeripheralOrServicesStatus_completion___block_invoke_2;
+    v8[3] = &unk_1E7385658;
     v4 = *(a1 + 32);
-    v10 = *(a1 + 40);
-    v11 = *(a1 + 48);
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __75__HKHealthServicesManager__getHealthPeripheralOrServicesStatus_completion___block_invoke_3;
-    v7[3] = &unk_1E7376960;
-    v8 = *(a1 + 48);
-    [v4 _fetchHealthServicesServerProxyWithHandler:v9 errorHandler:v7];
+    v9 = *(a1 + 40);
+    v10 = *(a1 + 48);
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __75__HKHealthServicesManager__getHealthPeripheralOrServicesStatus_completion___block_invoke_3;
+    v6[3] = &unk_1E7376960;
+    v7 = *(a1 + 48);
+    [v4 _fetchHealthServicesServerProxyWithHandler:v8 errorHandler:v6];
   }
 
   else
   {
-    v5 = *(a1 + 48);
-    v6 = *(*(a1 + 48) + 16);
+    v5 = *(*(a1 + 48) + 16);
 
-    v6();
+    v5();
   }
+}
+
+- (void)setEnabledStatus:(BOOL)status forPeripheral:(id)peripheral withCompletion:(id)completion
+{
+  statusCopy = status;
+  peripheralCopy = peripheral;
+  completionCopy = completion;
+  if (!completionCopy)
+  {
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%s may not be nil", "completion"}];
+  }
+
+  v10 = [(HKProxyProvider *)self->_proxyProvider clientQueueActionHandlerWithCompletion:completionCopy];
+
+  objc_initWeak(&location, self);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __73__HKHealthServicesManager_setEnabledStatus_forPeripheral_withCompletion___block_invoke;
+  v13[3] = &unk_1E73857E0;
+  v11 = v10;
+  v15 = v11;
+  objc_copyWeak(&v16, &location);
+  v17 = statusCopy;
+  v12 = peripheralCopy;
+  v14 = v12;
+  [(HKHealthServicesManager *)self _setHealthPeripheralOrServicesStatus:v12 enabled:statusCopy completion:v13];
+
+  objc_destroyWeak(&v16);
+  objc_destroyWeak(&location);
 }
 
 void __73__HKHealthServicesManager_setEnabledStatus_forPeripheral_withCompletion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1152,28 +1179,28 @@ void __73__HKHealthServicesManager_setEnabledStatus_forPeripheral_withCompletion
     WeakRetained = objc_loadWeakRetained((a1 + 48));
     v5 = *(a1 + 56);
     v6 = [*(a1 + 32) UUIDString];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __73__HKHealthServicesManager_setEnabledStatus_forPeripheral_withCompletion___block_invoke_2;
-    v9[3] = &unk_1E73857B8;
-    v11 = *(a1 + 40);
-    v10 = *(a1 + 32);
-    [WeakRetained _setAudioAccessoryWriteStatusEnabled:v5 identifier:v6 completion:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __73__HKHealthServicesManager_setEnabledStatus_forPeripheral_withCompletion___block_invoke_2;
+    v8[3] = &unk_1E73857B8;
+    v10 = *(a1 + 40);
+    v9 = *(a1 + 32);
+    [WeakRetained _setAudioAccessoryWriteStatusEnabled:v5 identifier:v6 completion:v8];
   }
 
   else
   {
-    v7 = *(a1 + 40);
-    v8 = *(*(a1 + 40) + 16);
+    v7 = *(*(a1 + 40) + 16);
 
-    v8();
+    v7();
   }
 }
 
 void __73__HKHealthServicesManager_setEnabledStatus_forPeripheral_withCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v7 = v5;
   if (a2)
   {
     (*(*(a1 + 40) + 16))(*(a1 + 40), [a2 BOOLValue], v5);
@@ -1181,24 +1208,35 @@ void __73__HKHealthServicesManager_setEnabledStatus_forPeripheral_withCompletion
 
   else
   {
-    _HKInitializeLogging();
-    v6 = HKLogServices;
+    _HKInitializeLogging(v5, v6);
+    v8 = HKLogServices;
     if (os_log_type_enabled(HKLogServices, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
-      v8 = v6;
-      v9 = [v7 UUIDString];
-      v11 = 138412546;
-      v12 = v9;
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "Set audio accessory write status failed for identifier %@ error: %@", &v11, 0x16u);
+      v9 = *(a1 + 32);
+      v10 = v8;
+      v11 = [v9 UUIDString];
+      v12 = 138412546;
+      v13 = v11;
+      v14 = 2112;
+      v15 = v7;
+      _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "Set audio accessory write status failed for identifier %@ error: %@", &v12, 0x16u);
     }
 
-    (*(*(a1 + 40) + 16))(*(a1 + 40), 0, v5);
+    (*(*(a1 + 40) + 16))(*(a1 + 40), 0, v7);
   }
+}
 
-  v10 = *MEMORY[0x1E69E9840];
+- (void)_setHealthPeripheralOrServicesStatus:(id)status enabled:(BOOL)enabled completion:(id)completion
+{
+  enabledCopy = enabled;
+  completionCopy = completion;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __83__HKHealthServicesManager__setHealthPeripheralOrServicesStatus_enabled_completion___block_invoke;
+  v10[3] = &unk_1E7376910;
+  v11 = completionCopy;
+  v9 = completionCopy;
+  [(HKHealthServicesManager *)self _setHealthPeripheralsStatus:status status:enabledCopy withCompletion:v10];
 }
 
 uint64_t __83__HKHealthServicesManager__setHealthPeripheralOrServicesStatus_enabled_completion___block_invoke(uint64_t a1, uint64_t a2)
@@ -1462,7 +1500,7 @@ void __80__HKHealthServicesManager_healthPeripheralsWithCustomProperties_withCom
 
 void __80__HKHealthServicesManager_healthPeripheralsWithCustomProperties_withCompletion___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (a3)
   {
@@ -1472,36 +1510,36 @@ void __80__HKHealthServicesManager_healthPeripheralsWithCustomProperties_withCom
   else
   {
     v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         v11 = 0;
         do
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v16 + 1) + 8 * v11);
+          v12 = *(*(&v15 + 1) + 8 * v11);
           v13 = [HKCBPeripheral alloc];
-          v14 = [(HKCBPeripheral *)v13 initWithCBPeripheral:v12, v16];
+          v14 = [(HKCBPeripheral *)v13 initWithCBPeripheral:v12, v15];
           [v6 addObject:v14];
 
           ++v11;
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
@@ -1509,8 +1547,6 @@ void __80__HKHealthServicesManager_healthPeripheralsWithCustomProperties_withCom
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_getCBPeripheralforIdentifer:(id)identifer withCompletion:(id)completion
@@ -1536,19 +1572,19 @@ void __80__HKHealthServicesManager_healthPeripheralsWithCustomProperties_withCom
 
 void __71__HKHealthServicesManager__getCBPeripheralforIdentifer_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v25[1] = *MEMORY[0x1E69E9840];
-  v25[0] = *(a1 + 32);
+  v27[1] = *MEMORY[0x1E69E9840];
+  v27[0] = *(a1 + 32);
   v3 = MEMORY[0x1E695DEC8];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:v25 count:1];
+  v5 = [v3 arrayWithObjects:v27 count:1];
   v6 = [v4 retrievePeripheralsWithIdentifiers:v5];
 
   if ([v6 count] != 1)
   {
-    v12 = [v6 count];
-    _HKInitializeLogging();
-    v13 = HKLogServices;
-    if (v12)
+    v14 = [v6 count];
+    _HKInitializeLogging(v14, v15);
+    v16 = HKLogServices;
+    if (v14)
     {
       if (os_log_type_enabled(HKLogServices, OS_LOG_TYPE_FAULT))
       {
@@ -1560,17 +1596,17 @@ void __71__HKHealthServicesManager__getCBPeripheralforIdentifer_withCompletion__
 
     if (os_log_type_enabled(HKLogServices, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = *(a1 + 32);
-      v18 = v13;
-      v19 = [v21 UUIDString];
-      v23 = 138412290;
-      v24 = v19;
-      v20 = "No CBPeripheral found for identifier %@";
+      v24 = *(a1 + 32);
+      v21 = v16;
+      v22 = [v24 UUIDString];
+      v25 = 138412290;
+      v26 = v22;
+      v23 = "No CBPeripheral found for identifier %@";
       goto LABEL_11;
     }
 
 LABEL_12:
-    (*(*(a1 + 40) + 16))(*(a1 + 40), 0, v14, v15);
+    (*(*(a1 + 40) + 16))(*(a1 + 40), 0, v17, v18);
     goto LABEL_13;
   }
 
@@ -1580,18 +1616,18 @@ LABEL_12:
 
   if (!v9)
   {
-    _HKInitializeLogging();
-    v16 = HKLogServices;
+    _HKInitializeLogging(v10, v11);
+    v19 = HKLogServices;
     if (os_log_type_enabled(HKLogServices, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = *(a1 + 32);
-      v18 = v16;
-      v19 = [v17 UUIDString];
-      v23 = 138543362;
-      v24 = v19;
-      v20 = "CBPeripheral for identifier %{public}@ does not have UpdateHealth property";
+      v20 = *(a1 + 32);
+      v21 = v19;
+      v22 = [v20 UUIDString];
+      v25 = 138543362;
+      v26 = v22;
+      v23 = "CBPeripheral for identifier %{public}@ does not have UpdateHealth property";
 LABEL_11:
-      _os_log_impl(&dword_19197B000, v18, OS_LOG_TYPE_DEFAULT, v20, &v23, 0xCu);
+      _os_log_impl(&dword_19197B000, v21, OS_LOG_TYPE_DEFAULT, v23, &v25, 0xCu);
 
       goto LABEL_12;
     }
@@ -1599,12 +1635,11 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v10 = *(a1 + 40);
-  v11 = [v6 firstObject];
-  (*(v10 + 16))(v10, v11);
+  v12 = *(a1 + 40);
+  v13 = [v6 firstObject];
+  (*(v12 + 16))(v12, v13);
 
 LABEL_13:
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_getHealthPeripheralsStatus:(id)status withCompletion:(id)completion
@@ -1630,32 +1665,32 @@ void __70__HKHealthServicesManager__getHealthPeripheralsStatus_withCompletion___
   if (a2)
   {
     v3 = [a2 customProperty:@"UpdateHealth"];
-    v4 = v3;
-    if (v3 && ![v3 isEqual:&stru_1F05FF230])
+    v5 = v3;
+    if (v3 && (v3 = [v3 isEqual:&stru_1F05FF230], !v3))
     {
-      [v4 BOOLValue];
+      [v5 BOOLValue];
       (*(*(a1 + 32) + 16))();
     }
 
     else
     {
-      _HKInitializeLogging();
+      _HKInitializeLogging(v3, v4);
       if (os_log_type_enabled(HKLogServices, OS_LOG_TYPE_FAULT))
       {
         __70__HKHealthServicesManager__getHealthPeripheralsStatus_withCompletion___block_invoke_cold_1();
       }
 
-      v5 = *(a1 + 32);
-      v6 = [MEMORY[0x1E696ABC0] hk_error:304 format:@"Migration to CBPeripheral is not complete"];
-      (*(v5 + 16))(v5, 0, v6);
+      v6 = *(a1 + 32);
+      v7 = [MEMORY[0x1E696ABC0] hk_error:304 format:@"Migration to CBPeripheral is not complete"];
+      (*(v6 + 16))(v6, 0, v7);
     }
   }
 
   else
   {
-    v7 = *(a1 + 32);
-    v8 = [MEMORY[0x1E696ABC0] hk_error:304 format:@"No Device found"];
-    (*(v7 + 16))(v7, 0, v8);
+    v8 = *(a1 + 32);
+    v9 = [MEMORY[0x1E696ABC0] hk_error:304 format:@"No Device found"];
+    (*(v8 + 16))(v8, 0, v9);
   }
 }
 
@@ -1701,7 +1736,7 @@ void __77__HKHealthServicesManager__setHealthPeripheralsStatus_status_withComple
 
   else
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(a1, 0);
     if (os_log_type_enabled(HKLogServices, OS_LOG_TYPE_FAULT))
     {
       __77__HKHealthServicesManager__setHealthPeripheralsStatus_status_withCompletion___block_invoke_cold_1();
@@ -1795,6 +1830,36 @@ LABEL_9:
 LABEL_10:
 }
 
+- (void)_setAudioAccessoryWriteStatusEnabled:(BOOL)enabled identifier:(id)identifier completion:(id)completion
+{
+  enabledCopy = enabled;
+  identifierCopy = identifier;
+  completionCopy = completion;
+  if (!completionCopy)
+  {
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%s may not be nil", "completion"}];
+  }
+
+  if (self->_audioDeviceManagerActivated)
+  {
+    [(HKHealthServicesManager *)self _setHealthKitDataWriteEnabled:enabledCopy identifier:identifierCopy completion:completionCopy];
+  }
+
+  else
+  {
+    audioDeviceManager = self->_audioDeviceManager;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __86__HKHealthServicesManager__setAudioAccessoryWriteStatusEnabled_identifier_completion___block_invoke;
+    v11[3] = &unk_1E73858F8;
+    v13 = completionCopy;
+    v11[4] = self;
+    v14 = enabledCopy;
+    v12 = identifierCopy;
+    [(AADeviceManager *)audioDeviceManager activateWithCompletion:v11];
+  }
+}
+
 uint64_t __86__HKHealthServicesManager__setAudioAccessoryWriteStatusEnabled_identifier_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
@@ -1875,7 +1940,7 @@ uint64_t __86__HKHealthServicesManager__setAudioAccessoryWriteStatusEnabled_iden
 
 void __61__HKHealthServicesManager__getAudioHRMDevicesWithCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (a3)
   {
@@ -1885,36 +1950,36 @@ void __61__HKHealthServicesManager__getAudioHRMDevicesWithCompletion___block_inv
   else
   {
     v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         v11 = 0;
         do
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v16 + 1) + 8 * v11);
+          v12 = *(*(&v15 + 1) + 8 * v11);
           v13 = [HKAudioAccessoryDevice alloc];
-          v14 = [(HKAudioAccessoryDevice *)v13 initWithAudioAccessoryDevice:v12, v16];
+          v14 = [(HKAudioAccessoryDevice *)v13 initWithAudioAccessoryDevice:v12, v15];
           [v6 addObject:v14];
 
           ++v11;
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
@@ -1922,8 +1987,6 @@ void __61__HKHealthServicesManager__getAudioHRMDevicesWithCompletion___block_inv
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)healthAudioHRMDevicesWithCompletion:(id)completion
@@ -2005,16 +2068,15 @@ uint64_t __73__HKHealthServicesManager_clientRemote_deliverBluetoothStatus_withE
   dispatch_async(clientQueue, v16);
 }
 
-void __98__HKHealthServicesManager_clientRemote_deliverDiscoveryHealthService_toClient_finished_withError___block_invoke(uint64_t a1)
+void __98__HKHealthServicesManager_clientRemote_deliverDiscoveryHealthService_toClient_finished_withError___block_invoke(uint64_t a1, uint64_t a2)
 {
   v27 = *MEMORY[0x1E69E9840];
-  v2 = (a1 + 56);
   if (*(a1 + 56))
   {
     v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
     v7 = [*(*(a1 + 32) + 56) objectForKeyedSubscript:v5];
     v8 = [v7 discoveryHandler];
-    v9 = v8;
+    v10 = v8;
     if (v8)
     {
       (*(v8 + 16))(v8, *(a1 + 40), *(a1 + 72), *(a1 + 48));
@@ -2027,65 +2089,64 @@ void __98__HKHealthServicesManager_clientRemote_deliverDiscoveryHealthService_to
 
     else
     {
-      v10 = *(a1 + 32);
-      if (*(v10 + 56) && ![*(v10 + 64) containsObject:v5])
+      v11 = *(a1 + 32);
+      if (*(v11 + 56) && (v8 = [*(v11 + 64) containsObject:v5], !v8))
       {
-        v12 = dispatch_time(0, 250000000);
-        v13 = [*(*(a1 + 32) + 8) clientQueue];
+        v13 = dispatch_time(0, 250000000);
+        v14 = [*(*(a1 + 32) + 8) clientQueue];
         v18[0] = MEMORY[0x1E69E9820];
         v18[1] = 3221225472;
         v18[2] = __98__HKHealthServicesManager_clientRemote_deliverDiscoveryHealthService_toClient_finished_withError___block_invoke_102;
         v18[3] = &unk_1E7385948;
-        v14 = *(a1 + 56);
+        v15 = *(a1 + 56);
         v22 = *(a1 + 64);
-        v23 = v14;
+        v23 = v15;
         v19 = *(a1 + 40);
-        v15 = *(a1 + 48);
-        v16 = *(a1 + 32);
-        v20 = v15;
-        v21 = v16;
+        v16 = *(a1 + 48);
+        v17 = *(a1 + 32);
+        v20 = v16;
+        v21 = v17;
         v24 = *(a1 + 72);
-        dispatch_after(v12, v13, v18);
+        dispatch_after(v13, v14, v18);
       }
 
       else
       {
-        _HKInitializeLogging();
-        v11 = HKLogServices;
+        _HKInitializeLogging(v8, v9);
+        v12 = HKLogServices;
         if (os_log_type_enabled(HKLogServices, OS_LOG_TYPE_DEBUG))
         {
-          __98__HKHealthServicesManager_clientRemote_deliverDiscoveryHealthService_toClient_finished_withError___block_invoke_cold_1(a1, v11, v2);
+          __98__HKHealthServicesManager_clientRemote_deliverDiscoveryHealthService_toClient_finished_withError___block_invoke_cold_1(a1, v12);
         }
       }
     }
-
-    goto LABEL_13;
   }
 
-  _HKInitializeLogging();
-  v3 = HKLogServices;
-  if (os_log_type_enabled(HKLogServices, OS_LOG_TYPE_DEFAULT))
+  else
   {
+    _HKInitializeLogging(a1, a2);
+    v3 = HKLogServices;
+    if (!os_log_type_enabled(HKLogServices, OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
     v4 = *(a1 + 64);
     v5 = v3;
     v6 = NSStringFromSelector(v4);
     *buf = 138543362;
     v26 = v6;
     _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@, Invalid discovery client returned and ignored.", buf, 0xCu);
-
-LABEL_13:
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __98__HKHealthServicesManager_clientRemote_deliverDiscoveryHealthService_toClient_finished_withError___block_invoke_102(uint64_t a1)
+uint64_t __98__HKHealthServicesManager_clientRemote_deliverDiscoveryHealthService_toClient_finished_withError___block_invoke_102(uint64_t a1, uint64_t a2)
 {
-  _HKInitializeLogging();
-  v2 = HKLogServices;
+  _HKInitializeLogging(a1, a2);
+  v3 = HKLogServices;
   if (os_log_type_enabled(HKLogServices, OS_LOG_TYPE_DEBUG))
   {
-    __98__HKHealthServicesManager_clientRemote_deliverDiscoveryHealthService_toClient_finished_withError___block_invoke_102_cold_1(a1, v2);
+    __98__HKHealthServicesManager_clientRemote_deliverDiscoveryHealthService_toClient_finished_withError___block_invoke_102_cold_1(a1, v3);
   }
 
   return [*(a1 + 48) clientRemote_deliverDiscoveryHealthService:*(a1 + 32) toClient:*(a1 + 64) finished:*(a1 + 72) withError:*(a1 + 40)];
@@ -2109,16 +2170,15 @@ uint64_t __98__HKHealthServicesManager_clientRemote_deliverDiscoveryHealthServic
   dispatch_async(clientQueue, v14);
 }
 
-void __102__HKHealthServicesManager_clientRemote_deliverSessionHealthServiceStatus_toClient_finished_withError___block_invoke(uint64_t a1)
+void __102__HKHealthServicesManager_clientRemote_deliverSessionHealthServiceStatus_toClient_finished_withError___block_invoke(uint64_t a1, uint64_t a2)
 {
   v29 = *MEMORY[0x1E69E9840];
-  v2 = (a1 + 48);
   if (*(a1 + 48))
   {
     v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
     v7 = [*(*(a1 + 32) + 72) objectForKeyedSubscript:v5];
     v8 = [v7 sessionHandler];
-    v9 = v8;
+    v10 = v8;
     if (v8)
     {
       (*(v8 + 16))(v8, *(a1 + 64), *(a1 + 72), *(a1 + 40));
@@ -2131,67 +2191,66 @@ void __102__HKHealthServicesManager_clientRemote_deliverSessionHealthServiceStat
 
     else
     {
-      v10 = *(a1 + 32);
-      if (*(v10 + 72) && ![*(v10 + 80) containsObject:v5])
+      v11 = *(a1 + 32);
+      if (*(v11 + 72) && (v8 = [*(v11 + 80) containsObject:v5], !v8))
       {
-        v12 = dispatch_time(0, 200000000);
-        v13 = [*(*(a1 + 32) + 8) clientQueue];
+        v13 = dispatch_time(0, 200000000);
+        v14 = [*(*(a1 + 32) + 8) clientQueue];
         v20[0] = MEMORY[0x1E69E9820];
         v20[1] = 3221225472;
         v20[2] = __102__HKHealthServicesManager_clientRemote_deliverSessionHealthServiceStatus_toClient_finished_withError___block_invoke_103;
         v20[3] = &unk_1E7385970;
-        v14 = *(a1 + 64);
-        v16 = *(a1 + 40);
-        v15 = *(a1 + 48);
+        v15 = *(a1 + 64);
+        v17 = *(a1 + 40);
+        v16 = *(a1 + 48);
         v23 = *(a1 + 56);
-        v24 = v15;
-        v25 = v14;
-        v17 = v16;
-        v18 = *(a1 + 32);
-        v21 = v17;
-        v22 = v18;
+        v24 = v16;
+        v25 = v15;
+        v18 = v17;
+        v19 = *(a1 + 32);
+        v21 = v18;
+        v22 = v19;
         v26 = *(a1 + 72);
-        dispatch_after(v12, v13, v20);
+        dispatch_after(v13, v14, v20);
       }
 
       else
       {
-        _HKInitializeLogging();
-        v11 = HKLogServices;
+        _HKInitializeLogging(v8, v9);
+        v12 = HKLogServices;
         if (os_log_type_enabled(HKLogServices, OS_LOG_TYPE_DEBUG))
         {
-          __102__HKHealthServicesManager_clientRemote_deliverSessionHealthServiceStatus_toClient_finished_withError___block_invoke_cold_1(a1, v11, v2);
+          __102__HKHealthServicesManager_clientRemote_deliverSessionHealthServiceStatus_toClient_finished_withError___block_invoke_cold_1(a1, v12);
         }
       }
     }
-
-    goto LABEL_13;
   }
 
-  _HKInitializeLogging();
-  v3 = HKLogServices;
-  if (os_log_type_enabled(HKLogServices, OS_LOG_TYPE_DEFAULT))
+  else
   {
+    _HKInitializeLogging(a1, a2);
+    v3 = HKLogServices;
+    if (!os_log_type_enabled(HKLogServices, OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
     v4 = *(a1 + 56);
     v5 = v3;
     v6 = NSStringFromSelector(v4);
     *buf = 138543362;
     v28 = v6;
     _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@, Invalid session client returned and ignored.", buf, 0xCu);
-
-LABEL_13:
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __102__HKHealthServicesManager_clientRemote_deliverSessionHealthServiceStatus_toClient_finished_withError___block_invoke_103(uint64_t a1)
+uint64_t __102__HKHealthServicesManager_clientRemote_deliverSessionHealthServiceStatus_toClient_finished_withError___block_invoke_103(uint64_t a1, uint64_t a2)
 {
-  _HKInitializeLogging();
-  v2 = HKLogServices;
+  _HKInitializeLogging(a1, a2);
+  v3 = HKLogServices;
   if (os_log_type_enabled(HKLogServices, OS_LOG_TYPE_DEBUG))
   {
-    __102__HKHealthServicesManager_clientRemote_deliverSessionHealthServiceStatus_toClient_finished_withError___block_invoke_103_cold_1(a1, v2);
+    __102__HKHealthServicesManager_clientRemote_deliverSessionHealthServiceStatus_toClient_finished_withError___block_invoke_103_cold_1(a1, v3);
   }
 
   return [*(a1 + 40) clientRemote_deliverSessionHealthServiceStatus:*(a1 + 64) toClient:*(a1 + 56) finished:*(a1 + 72) withError:*(a1 + 32)];
@@ -2248,36 +2307,36 @@ void __100__HKHealthServicesManager_clientRemote_deliverSessionCharacteristics_f
 
 void __48__HKHealthServicesManager_connectionInterrupted__block_invoke(uint64_t a1)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 56);
   if (v3)
   {
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     v4 = [v3 allValues];
-    v5 = [v4 countByEnumeratingWithState:&v44 objects:v49 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v43 objects:v48 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v45;
+      v7 = *v44;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v45 != v7)
+          if (*v44 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = [*(*(&v44 + 1) + 8 * i) discoveryHandler];
+          v9 = [*(*(&v43 + 1) + 8 * i) discoveryHandler];
           v10 = [MEMORY[0x1E696ABC0] hk_error:301 description:@"Connection interrupted"];
           (v9)[2](v9, 0, 1, v10);
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v44 objects:v49 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v43 objects:v48 count:16];
       }
 
       while (v6);
@@ -2308,27 +2367,27 @@ void __48__HKHealthServicesManager_connectionInterrupted__block_invoke(uint64_t 
 
   if (*(v2 + 80))
   {
-    v39 = a1;
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
+    v38 = a1;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v19 = [*(v2 + 72) allValues];
-    v20 = [v19 countByEnumeratingWithState:&v40 objects:v48 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v39 objects:v47 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v41;
+      v22 = *v40;
       do
       {
         for (j = 0; j != v21; ++j)
         {
-          if (*v41 != v22)
+          if (*v40 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v40 + 1) + 8 * j);
+          v24 = *(*(&v39 + 1) + 8 * j);
           v25 = [v24 sessionHandler];
           v26 = MEMORY[0x1E696ABC0];
           v27 = [v24 service];
@@ -2337,34 +2396,32 @@ void __48__HKHealthServicesManager_connectionInterrupted__block_invoke(uint64_t 
           (v25)[2](v25, 5, 1, v29);
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v40 objects:v48 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v39 objects:v47 count:16];
       }
 
       while (v21);
     }
 
-    v30 = *(v39 + 32);
+    v30 = *(v38 + 32);
     v31 = *(v30 + 80);
     if (!v31)
     {
       v32 = [MEMORY[0x1E695DFA8] set];
-      v33 = *(v39 + 32);
+      v33 = *(v38 + 32);
       v34 = *(v33 + 80);
       *(v33 + 80) = v32;
 
-      v30 = *(v39 + 32);
+      v30 = *(v38 + 32);
       v31 = *(v30 + 80);
     }
 
     v35 = [*(v30 + 72) allKeys];
     [v31 addObjectsFromArray:v35];
 
-    v36 = *(v39 + 32);
+    v36 = *(v38 + 32);
     v37 = *(v36 + 72);
     *(v36 + 72) = 0;
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startBluetoothStatusUpdates:.cold.1()
@@ -2377,11 +2434,10 @@ void __48__HKHealthServicesManager_connectionInterrupted__block_invoke(uint64_t 
 
 void __52__HKHealthServicesManager_endBluetoothStatusUpdates__block_invoke_3_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Failed to get health services proxy: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Failed to get health services proxy: %{public}@", &v2, 0xCu);
 }
 
 - (void)_fetchSupportedServiceIDsWithCompletion:.cold.1()
@@ -2520,66 +2576,50 @@ void __52__HKHealthServicesManager_endBluetoothStatusUpdates__block_invoke_3_col
   [v0 handleFailureInMethod:@"completion" object:? file:? lineNumber:? description:?];
 }
 
-void __98__HKHealthServicesManager_clientRemote_deliverDiscoveryHealthService_toClient_finished_withError___block_invoke_cold_1(void *a1, void *a2, uint64_t *a3)
+void __98__HKHealthServicesManager_clientRemote_deliverDiscoveryHealthService_toClient_finished_withError___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v5 = a1[8];
-  v6 = a2;
-  v7 = NSStringFromSelector(v5);
-  v8 = *a3;
-  v9 = a1[5];
-  v10 = a1[6];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 64);
+  v3 = a2;
+  v4 = NSStringFromSelector(v2);
   OUTLINED_FUNCTION_3_7();
   OUTLINED_FUNCTION_6_3();
-  _os_log_debug_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEBUG, "%{public}@, discovery for canceled client ID %d. service: %@, error: %@", v12, 0x26u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEBUG, "%{public}@, discovery for canceled client ID %d. service: %@, error: %@", v5, 0x26u);
 }
 
-void __98__HKHealthServicesManager_clientRemote_deliverDiscoveryHealthService_toClient_finished_withError___block_invoke_102_cold_1(void *a1, void *a2)
+void __98__HKHealthServicesManager_clientRemote_deliverDiscoveryHealthService_toClient_finished_withError___block_invoke_102_cold_1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = a1[7];
-  v4 = a2;
-  v5 = NSStringFromSelector(v3);
-  v6 = a1[8];
-  v7 = a1[4];
-  v8 = a1[5];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 56);
+  v3 = a2;
+  v4 = NSStringFromSelector(v2);
   OUTLINED_FUNCTION_3_7();
   OUTLINED_FUNCTION_6_3();
-  _os_log_debug_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEBUG, "%{public}@, rescheduling, discovery not yet available for client ID %d. service: %{public}@, error: %{public}@", v10, 0x26u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEBUG, "%{public}@, rescheduling, discovery not yet available for client ID %d. service: %{public}@, error: %{public}@", v5, 0x26u);
 }
 
-void __102__HKHealthServicesManager_clientRemote_deliverSessionHealthServiceStatus_toClient_finished_withError___block_invoke_cold_1(void *a1, void *a2, uint64_t *a3)
+void __102__HKHealthServicesManager_clientRemote_deliverSessionHealthServiceStatus_toClient_finished_withError___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v5 = a1[7];
-  v6 = a2;
-  v7 = NSStringFromSelector(v5);
-  v8 = *a3;
-  v9 = _HKStringForHealthServiceStatus(a1[8]);
-  v10 = a1[5];
-  OUTLINED_FUNCTION_2_13();
-  OUTLINED_FUNCTION_7_1(&dword_19197B000, v11, v12, "%{public}@, session for canceled client ID %d. status: %{public}@, error: %{public}@", v13, v14, v15, v16, 2u);
-
-  v17 = *MEMORY[0x1E69E9840];
-}
-
-void __102__HKHealthServicesManager_clientRemote_deliverSessionHealthServiceStatus_toClient_finished_withError___block_invoke_103_cold_1(void *a1, void *a2)
-{
-  v16 = *MEMORY[0x1E69E9840];
-  v3 = a1[6];
+  v3 = *(a1 + 56);
   v4 = a2;
   v5 = NSStringFromSelector(v3);
-  v6 = a1[7];
-  v7 = _HKStringForHealthServiceStatus(a1[8]);
-  v8 = a1[4];
+  v6 = _HKStringForHealthServiceStatus(*(a1 + 64));
+  LODWORD(v13) = 138544130;
+  *(&v13 + 4) = v5;
   OUTLINED_FUNCTION_2_13();
-  OUTLINED_FUNCTION_7_1(&dword_19197B000, v9, v10, "%{public}@, rescheduling, session not yet available for client ID %d. status: %{public}@, error: %{public}@", v11, v12, v13, v14, 2u);
+  OUTLINED_FUNCTION_7_1(&dword_19197B000, v7, v8, "%{public}@, session for canceled client ID %d. status: %{public}@, error: %{public}@", v9, v10, v11, v12, v13, DWORD2(v13));
+}
 
-  v15 = *MEMORY[0x1E69E9840];
+void __102__HKHealthServicesManager_clientRemote_deliverSessionHealthServiceStatus_toClient_finished_withError___block_invoke_103_cold_1(uint64_t a1, void *a2)
+{
+  v3 = *(a1 + 48);
+  v4 = a2;
+  v5 = NSStringFromSelector(v3);
+  v6 = _HKStringForHealthServiceStatus(*(a1 + 64));
+  LODWORD(v13) = 138544130;
+  *(&v13 + 4) = v5;
+  OUTLINED_FUNCTION_2_13();
+  OUTLINED_FUNCTION_7_1(&dword_19197B000, v7, v8, "%{public}@, rescheduling, session not yet available for client ID %d. status: %{public}@, error: %{public}@", v9, v10, v11, v12, v13, DWORD2(v13));
 }
 
 @end

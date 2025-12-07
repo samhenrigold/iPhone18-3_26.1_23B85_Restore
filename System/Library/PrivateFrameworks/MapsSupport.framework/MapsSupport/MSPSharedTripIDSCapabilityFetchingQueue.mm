@@ -31,49 +31,49 @@
   v29 = *MEMORY[0x277D85DE8];
   v24.receiver = self;
   v24.super_class = MSPSharedTripIDSCapabilityFetchingQueue;
-  [(MSPSharedTripCapabilityFetchingQueue *)&v24 _processPendingHandles];
+  _processPendingHandles = [(MSPSharedTripCapabilityFetchingQueue *)&v24 _processPendingHandles];
   if (!self->_retryAfterBackoffTimer)
   {
     contents = [(MSPCountedOrderedSet *)self->super._requestedHandles contents];
-    v6 = MSPGetSharedTripCapabilityFetchingLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = MSPGetSharedTripCapabilityFetchingLog(contents);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = [contents count];
+      v8 = [contents count];
       service = self->_service;
       *buf = 134218242;
-      v26 = v7;
+      v26 = v8;
       v27 = 2114;
       v28 = service;
-      _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_INFO, "requesting %lu %{public}@ handles", buf, 0x16u);
+      _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_INFO, "requesting %lu %{public}@ handles", buf, 0x16u);
     }
 
-    v9 = [contents count];
+    v10 = [contents count];
     batchIDQueryController = self->_batchIDQueryController;
-    if (v9)
+    if (v10)
     {
       if (!batchIDQueryController)
       {
-        v11 = MSPGetSharedTripCapabilityFetchingLog();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+        v12 = MSPGetSharedTripCapabilityFetchingLog(v10);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
-          v12 = MEMORY[0x277CCACA8];
+          v13 = MEMORY[0x277CCACA8];
           selfCopy = self;
-          selfCopy = [v12 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
+          selfCopy = [v13 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
 
           *buf = 138543362;
           v26 = selfCopy;
-          _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_DEBUG, "[%{public}@] Creating batch ID query controller", buf, 0xCu);
+          _os_log_impl(&dword_25813A000, v12, OS_LOG_TYPE_DEBUG, "[%{public}@] Creating batch ID query controller", buf, 0xCu);
         }
 
-        v15 = [objc_alloc(MEMORY[0x277D186D8]) initWithService:self->_service delegate:self queue:self->super._workQueue];
-        v16 = self->_batchIDQueryController;
-        self->_batchIDQueryController = v15;
+        v16 = [objc_alloc(MEMORY[0x277D186D8]) initWithService:self->_service delegate:self queue:self->super._workQueue];
+        v17 = self->_batchIDQueryController;
+        self->_batchIDQueryController = v16;
       }
 
       [(MSPSharedTripCapabilityFetchingQueue *)self _markHandlesInflight:contents];
-      v17 = self->_batchIDQueryController;
+      v18 = self->_batchIDQueryController;
       array = [contents array];
-      [(IDSBatchIDQueryController *)v17 setDestinations:array];
+      [(IDSBatchIDQueryController *)v18 setDestinations:array];
     }
 
     else
@@ -83,16 +83,16 @@
         goto LABEL_17;
       }
 
-      v19 = MSPGetSharedTripCapabilityFetchingLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v20 = MSPGetSharedTripCapabilityFetchingLog(0);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
-        v20 = MEMORY[0x277CCACA8];
+        v21 = MEMORY[0x277CCACA8];
         selfCopy2 = self;
-        selfCopy2 = [v20 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
+        selfCopy2 = [v21 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
 
         *buf = 138543362;
         v26 = selfCopy2;
-        _os_log_impl(&dword_25813A000, v19, OS_LOG_TYPE_DEBUG, "[%{public}@] Releasing batch ID query controller", buf, 0xCu);
+        _os_log_impl(&dword_25813A000, v20, OS_LOG_TYPE_DEBUG, "[%{public}@] Releasing batch ID query controller", buf, 0xCu);
       }
 
       [(IDSBatchIDQueryController *)self->_batchIDQueryController setDestinations:MEMORY[0x277CBEBF8]];
@@ -104,19 +104,17 @@
     goto LABEL_17;
   }
 
-  contents = MSPGetSharedTripCapabilityFetchingLog();
+  contents = MSPGetSharedTripCapabilityFetchingLog(_processPendingHandles);
   if (os_log_type_enabled(contents, OS_LOG_TYPE_INFO))
   {
     fireDate = [(GCDTimer *)self->_retryAfterBackoffTimer fireDate];
     [fireDate timeIntervalSinceNow];
     *buf = 134217984;
-    v26 = v5;
+    v26 = v6;
     _os_log_impl(&dword_25813A000, contents, OS_LOG_TYPE_INFO, "fetch queue updated but still backing off, %#.1lfs to go", buf, 0xCu);
   }
 
 LABEL_17:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_processUpdates:(id)updates
@@ -159,32 +157,33 @@ void __59__MSPSharedTripIDSCapabilityFetchingQueue__processUpdates___block_invok
 
 - (void)batchQueryController:(id)controller updatedDestinationsStatus:(id)status onService:(id)service error:(id)error
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   serviceCopy = service;
   errorCopy = error;
   dispatch_assert_queue_V2(self->super._workQueue);
-  if (![serviceCopy isEqualToString:self->_service])
+  code = [serviceCopy isEqualToString:self->_service];
+  if (!code)
   {
     goto LABEL_32;
   }
 
   if (errorCopy)
   {
-    v12 = MSPGetSharedTripCapabilityFetchingLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = MSPGetSharedTripCapabilityFetchingLog(code);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v13 = MEMORY[0x277CCACA8];
+      v14 = MEMORY[0x277CCACA8];
       selfCopy = self;
-      selfCopy = [v13 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
+      selfCopy = [v14 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
 
       *buf = 138543874;
-      v64 = selfCopy;
-      v65 = 2112;
-      v66 = *&serviceCopy;
-      v67 = 2112;
-      v68 = errorCopy;
-      _os_log_impl(&dword_25813A000, v12, OS_LOG_TYPE_ERROR, "[%{public}@] (%@) updatedDestinationsStatus error %@", buf, 0x20u);
+      v65 = selfCopy;
+      v66 = 2112;
+      v67 = *&serviceCopy;
+      v68 = 2112;
+      v69 = errorCopy;
+      _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_ERROR, "[%{public}@] (%@) updatedDestinationsStatus error %@", buf, 0x20u);
     }
 
     code = [errorCopy code];
@@ -193,14 +192,14 @@ void __59__MSPSharedTripIDSCapabilityFetchingQueue__processUpdates___block_invok
       if (statusCopy)
       {
 LABEL_22:
-        v34 = MSPGetSharedTripCapabilityFetchingLog();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        v35 = MSPGetSharedTripCapabilityFetchingLog(code);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           if (self)
           {
-            v35 = MEMORY[0x277CCACA8];
+            v36 = MEMORY[0x277CCACA8];
             selfCopy2 = self;
-            selfCopy2 = [v35 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
+            selfCopy2 = [v36 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
           }
 
           else
@@ -210,112 +209,112 @@ LABEL_22:
 
           service = self->_service;
           *buf = 138543875;
-          v64 = selfCopy2;
-          v65 = 2114;
-          v66 = *&service;
-          v67 = 2113;
-          v68 = statusCopy;
-          _os_log_impl(&dword_25813A000, v34, OS_LOG_TYPE_DEFAULT, "[%{public}@] idStatusUpdatedForDestinations %{public}@ service: %{private}@", buf, 0x20u);
+          v65 = selfCopy2;
+          v66 = 2114;
+          v67 = *&service;
+          v68 = 2113;
+          v69 = statusCopy;
+          _os_log_impl(&dword_25813A000, v35, OS_LOG_TYPE_DEFAULT, "[%{public}@] idStatusUpdatedForDestinations %{public}@ service: %{private}@", buf, 0x20u);
         }
 
-        v39 = [(MSPSharedTripIDSCapabilityFetchingQueue *)self _processUpdates:statusCopy];
+        v40 = [(MSPSharedTripIDSCapabilityFetchingQueue *)self _processUpdates:statusCopy];
         callbackQueue = self->super._callbackQueue;
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __106__MSPSharedTripIDSCapabilityFetchingQueue_batchQueryController_updatedDestinationsStatus_onService_error___block_invoke_13;
         block[3] = &unk_279865EF8;
         block[4] = self;
-        v56 = v39;
-        v41 = v39;
+        v57 = v40;
+        v42 = v40;
         dispatch_async(callbackQueue, block);
 
         goto LABEL_28;
       }
 
-      v53 = errorCopy;
-      v54 = serviceCopy;
+      v54 = errorCopy;
+      v55 = serviceCopy;
       userInfo = [errorCopy userInfo];
-      v25 = [userInfo objectForKeyedSubscript:@"destinations"];
+      v26 = [userInfo objectForKeyedSubscript:@"destinations"];
 
-      v26 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v25, "count")}];
-      v57 = 0u;
+      v27 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v26, "count")}];
       v58 = 0u;
       v59 = 0u;
       v60 = 0u;
-      v27 = v25;
-      v28 = [v27 countByEnumeratingWithState:&v57 objects:v62 count:16];
-      if (v28)
+      v61 = 0u;
+      v28 = v26;
+      v29 = [v28 countByEnumeratingWithState:&v58 objects:v63 count:16];
+      if (v29)
       {
-        v29 = v28;
-        v30 = *v58;
+        v30 = v29;
+        v31 = *v59;
         do
         {
-          for (i = 0; i != v29; ++i)
+          for (i = 0; i != v30; ++i)
           {
-            if (*v58 != v30)
+            if (*v59 != v31)
             {
-              objc_enumerationMutation(v27);
+              objc_enumerationMutation(v28);
             }
 
-            v32 = *(*(&v57 + 1) + 8 * i);
-            v33 = [MEMORY[0x277CCABB0] numberWithInteger:-1];
-            [v26 setObject:v33 forKeyedSubscript:v32];
+            v33 = *(*(&v58 + 1) + 8 * i);
+            v34 = [MEMORY[0x277CCABB0] numberWithInteger:-1];
+            [v27 setObject:v34 forKeyedSubscript:v33];
           }
 
-          v29 = [v27 countByEnumeratingWithState:&v57 objects:v62 count:16];
+          v30 = [v28 countByEnumeratingWithState:&v58 objects:v63 count:16];
         }
 
-        while (v29);
+        while (v30);
       }
 
-      statusCopy = [v26 copy];
-      errorCopy = v53;
-      serviceCopy = v54;
+      statusCopy = [v27 copy];
+      errorCopy = v54;
+      serviceCopy = v55;
     }
 
     else if (code == -4000)
     {
-      GEOConfigGetDouble();
-      v18 = v17;
+      Double = GEOConfigGetDouble();
+      v19 = v18;
       retryAfterBackoffTimer = self->_retryAfterBackoffTimer;
-      v20 = MSPGetSharedTripCapabilityFetchingLog();
-      v21 = v20;
+      v21 = MSPGetSharedTripCapabilityFetchingLog(Double);
+      v22 = v21;
       if (retryAfterBackoffTimer)
       {
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
         {
           fireDate = [(GCDTimer *)self->_retryAfterBackoffTimer fireDate];
           [fireDate timeIntervalSinceNow];
           *buf = 134217984;
-          v64 = v23;
-          _os_log_impl(&dword_25813A000, v21, OS_LOG_TYPE_INFO, "another back-off error, but still backing off, %#.1lfs to go", buf, 0xCu);
+          v65 = v24;
+          _os_log_impl(&dword_25813A000, v22, OS_LOG_TYPE_INFO, "another back-off error, but still backing off, %#.1lfs to go", buf, 0xCu);
         }
       }
 
       else
       {
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
-          v47 = MEMORY[0x277CCACA8];
+          v48 = MEMORY[0x277CCACA8];
           selfCopy3 = self;
-          selfCopy3 = [v47 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy3];
+          selfCopy3 = [v48 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy3];
 
           *buf = 138543618;
-          v64 = selfCopy3;
-          v65 = 2048;
-          v66 = v18;
-          _os_log_impl(&dword_25813A000, v21, OS_LOG_TYPE_ERROR, "[%{public}@] need to back off, will retry in %#.1lfs", buf, 0x16u);
+          v65 = selfCopy3;
+          v66 = 2048;
+          v67 = v19;
+          _os_log_impl(&dword_25813A000, v22, OS_LOG_TYPE_ERROR, "[%{public}@] need to back off, will retry in %#.1lfs", buf, 0x16u);
         }
 
         workQueue = self->super._workQueue;
-        v61[0] = MEMORY[0x277D85DD0];
-        v61[1] = 3221225472;
-        v61[2] = __106__MSPSharedTripIDSCapabilityFetchingQueue_batchQueryController_updatedDestinationsStatus_onService_error___block_invoke;
-        v61[3] = &unk_279867680;
-        v61[4] = self;
-        v51 = [GCDTimer scheduledTimerWithTimeInterval:workQueue queue:0 repeating:v61 block:v18];
-        v52 = self->_retryAfterBackoffTimer;
-        self->_retryAfterBackoffTimer = v51;
+        v62[0] = MEMORY[0x277D85DD0];
+        v62[1] = 3221225472;
+        v62[2] = __106__MSPSharedTripIDSCapabilityFetchingQueue_batchQueryController_updatedDestinationsStatus_onService_error___block_invoke;
+        v62[3] = &unk_279867680;
+        v62[4] = self;
+        v52 = [GCDTimer scheduledTimerWithTimeInterval:workQueue queue:0 repeating:v62 block:v19];
+        v53 = self->_retryAfterBackoffTimer;
+        self->_retryAfterBackoffTimer = v52;
       }
 
       goto LABEL_32;
@@ -328,19 +327,19 @@ LABEL_22:
   }
 
 LABEL_28:
-  [(MSPSharedTripIDSCapabilityFetchingQueue *)self _processPendingHandles];
+  _processPendingHandles = [(MSPSharedTripIDSCapabilityFetchingQueue *)self _processPendingHandles];
   if (self->_retryAfterBackoffTimer)
   {
-    v42 = MSPGetSharedTripCapabilityFetchingLog();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+    v44 = MSPGetSharedTripCapabilityFetchingLog(_processPendingHandles);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
     {
-      v43 = MEMORY[0x277CCACA8];
+      v45 = MEMORY[0x277CCACA8];
       selfCopy4 = self;
-      selfCopy4 = [v43 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy4];
+      selfCopy4 = [v45 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy4];
 
       *buf = 138543362;
-      v64 = selfCopy4;
-      _os_log_impl(&dword_25813A000, v42, OS_LOG_TYPE_INFO, "[%{public}@] Got a callback while backing off, fire immediately to trigger updates for both services", buf, 0xCu);
+      v65 = selfCopy4;
+      _os_log_impl(&dword_25813A000, v44, OS_LOG_TYPE_INFO, "[%{public}@] Got a callback while backing off, fire immediately to trigger updates for both services", buf, 0xCu);
     }
 
     [(GCDTimer *)self->_retryAfterBackoffTimer invalidate];
@@ -348,8 +347,6 @@ LABEL_28:
   }
 
 LABEL_32:
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __106__MSPSharedTripIDSCapabilityFetchingQueue_batchQueryController_updatedDestinationsStatus_onService_error___block_invoke_13(uint64_t a1)
@@ -360,8 +357,8 @@ void __106__MSPSharedTripIDSCapabilityFetchingQueue_batchQueryController_updated
 
 - (void)_retryAfterBackoff
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = MSPGetSharedTripCapabilityFetchingLog();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = MSPGetSharedTripCapabilityFetchingLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     if (self)
@@ -377,7 +374,7 @@ void __106__MSPSharedTripIDSCapabilityFetchingQueue_batchQueryController_updated
     }
 
     *buf = 138543362;
-    v10 = selfCopy;
+    v9 = selfCopy;
     _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_INFO, "[%{public}@] retrying fetch in response to IDSBatchQueryController back-off", buf, 0xCu);
   }
 
@@ -385,7 +382,6 @@ void __106__MSPSharedTripIDSCapabilityFetchingQueue_batchQueryController_updated
   self->_retryAfterBackoffTimer = 0;
 
   [(MSPSharedTripIDSCapabilityFetchingQueue *)self _processPendingHandles];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

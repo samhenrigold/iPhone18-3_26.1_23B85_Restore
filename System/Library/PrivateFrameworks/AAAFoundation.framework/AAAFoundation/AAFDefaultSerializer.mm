@@ -15,13 +15,14 @@
 
 - (id)dictionaryFromObject:(id)object
 {
-  v8 = 0;
-  v4 = [(AAFDefaultSerializer *)self dictionaryFromObject:object error:&v8];
-  v5 = v8;
+  v9 = 0;
+  v4 = [(AAFDefaultSerializer *)self dictionaryFromObject:object error:&v9];
+  v5 = v9;
+  v6 = v5;
   if (v5)
   {
-    v6 = _AAFLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _AAFLogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [AAFDefaultSerializer dictionaryFromObject:?];
     }
@@ -32,7 +33,7 @@
 
 - (id)dictionaryFromObject:(id)object error:(id *)error
 {
-  v20[3] = *MEMORY[0x1E69E9840];
+  v19[3] = *MEMORY[0x1E69E9840];
   objectCopy = object;
   if (!objectCopy)
   {
@@ -71,9 +72,9 @@
           v14 = [v10 stringWithFormat:@"[%@] result [%@] was not in the expected format (NSDictionary)", _className, v13];
 
           v15 = MEMORY[0x1E696ABC0];
-          v19 = *MEMORY[0x1E696A578];
-          v20[0] = v14;
-          v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+          v18 = *MEMORY[0x1E696A578];
+          v19[0] = v14;
+          v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
           *error = [v15 errorWithDomain:@"AAFSerializationError" code:-702 userInfo:v16];
 
 LABEL_11:
@@ -83,20 +84,19 @@ LABEL_11:
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)dataFromDictionary:(id)dictionary
 {
-  v8 = 0;
-  v4 = [(AAFDefaultSerializer *)self dataFromDictionary:dictionary error:&v8];
-  v5 = v8;
+  v9 = 0;
+  v4 = [(AAFDefaultSerializer *)self dataFromDictionary:dictionary error:&v9];
+  v5 = v9;
+  v6 = v5;
   if (v5)
   {
-    v6 = _AAFLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _AAFLogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [AAFDefaultSerializer dataFromDictionary:?];
     }
@@ -107,7 +107,6 @@ LABEL_11:
 
 - (id)dataFromDictionary:(id)dictionary error:(id *)error
 {
-  v10 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   if ([dictionaryCopy count])
   {
@@ -118,8 +117,6 @@ LABEL_11:
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -181,22 +178,16 @@ LABEL_11:
 
 - (void)dictionaryFromObject:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 _className];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1(&dword_1C8644000, v2, v3, "[%@] unable to parse data, error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1C8644000, v2, v3, "[%@] unable to parse data, error: %@", v4, v5, v6, v7);
 }
 
 - (void)dataFromDictionary:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 _className];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1(&dword_1C8644000, v2, v3, "[%@] serialization failed, error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1C8644000, v2, v3, "[%@] serialization failed, error: %@", v4, v5, v6, v7);
 }
 
 @end

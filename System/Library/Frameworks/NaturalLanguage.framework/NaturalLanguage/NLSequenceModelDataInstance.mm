@@ -82,31 +82,31 @@ void __54__NLSequenceModelDataInstance_initWithLine_tokenizer___block_invoke(uin
 
 - (id)label
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   labels = [(NLSequenceModelDataInstance *)self labels];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = labels;
-  v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
     v7 = 0;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [dictionary objectForKey:v10];
         unsignedIntegerValue = [v11 unsignedIntegerValue];
 
@@ -123,7 +123,7 @@ void __54__NLSequenceModelDataInstance_initWithLine_tokenizer___block_invoke(uin
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v5);
@@ -133,8 +133,6 @@ void __54__NLSequenceModelDataInstance_initWithLine_tokenizer___block_invoke(uin
   {
     v7 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

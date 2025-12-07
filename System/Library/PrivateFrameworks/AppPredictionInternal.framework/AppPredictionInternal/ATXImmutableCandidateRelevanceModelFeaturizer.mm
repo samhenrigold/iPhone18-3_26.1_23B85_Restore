@@ -66,12 +66,12 @@
   v8 = objc_opt_class();
   v9 = [v7 initWithObjects:{v8, objc_opt_class(), 0}];
   objc_autoreleasePoolPop(v6);
-  v10 = __atxlog_handle_relevance_model();
-  v11 = [v5 robustDecodeObjectOfClasses:v9 forKey:@"featureValueNames" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXImmutableCandidateRelevanceModelFeaturizer" errorCode:-1 logHandle:v10];
+  v11 = __atxlog_handle_relevance_model(v10);
+  v12 = [v5 robustDecodeObjectOfClasses:v9 forKey:@"featureValueNames" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXImmutableCandidateRelevanceModelFeaturizer" errorCode:-1 logHandle:v11];
 
-  if (v11)
+  if (v12)
   {
-    self = [(ATXImmutableCandidateRelevanceModelFeaturizer *)self initWithFeatureValueNames:v11];
+    self = [(ATXImmutableCandidateRelevanceModelFeaturizer *)self initWithFeatureValueNames:v12];
     selfCopy = self;
   }
 

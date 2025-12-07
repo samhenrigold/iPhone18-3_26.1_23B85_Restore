@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityHideVideoPlayer;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation VTUISiriEducationViewControllerAccessibility
@@ -32,6 +33,14 @@
 
   view2 = [v4 view];
   [view2 setIsAccessibilityElement:0];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = VTUISiriEducationViewControllerAccessibility;
+  [(VTUISiriEducationViewControllerAccessibility *)&v4 viewWillAppear:appear];
+  [(VTUISiriEducationViewControllerAccessibility *)self _accessibilityHideVideoPlayer];
 }
 
 @end

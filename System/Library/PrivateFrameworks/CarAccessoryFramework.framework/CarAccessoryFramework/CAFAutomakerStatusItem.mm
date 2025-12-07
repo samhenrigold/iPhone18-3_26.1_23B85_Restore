@@ -21,6 +21,7 @@
 - (NSString)symbolName;
 - (NSString)userVisibleLabel;
 - (unsigned)sortOrder;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -300,6 +301,140 @@
   v3 = hiddenCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000030000019"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    identifierCharacteristic = [(CAFAutomakerStatusItem *)self identifierCharacteristic];
+    uniqueIdentifier2 = [identifierCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      identifier = [(CAFAutomakerStatusItem *)self identifier];
+      [observers automakerStatusItemService:self didUpdateIdentifier:identifier];
+LABEL_12:
+
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000030000001"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    userVisibleLabelCharacteristic = [(CAFAutomakerStatusItem *)self userVisibleLabelCharacteristic];
+    uniqueIdentifier4 = [userVisibleLabelCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      identifier = [(CAFAutomakerStatusItem *)self userVisibleLabel];
+      [observers automakerStatusItemService:self didUpdateUserVisibleLabel:identifier];
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x000000003000005E"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    symbolNameCharacteristic = [(CAFAutomakerStatusItem *)self symbolNameCharacteristic];
+    uniqueIdentifier6 = [symbolNameCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers = [(CAFService *)self observers];
+      identifier = [(CAFAutomakerStatusItem *)self symbolName];
+      [observers automakerStatusItemService:self didUpdateSymbolName:identifier];
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType4 = [updateCopy characteristicType];
+  if ([characteristicType4 isEqual:@"0x0000000030000003"])
+  {
+    uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+    sortOrderCharacteristic = [(CAFAutomakerStatusItem *)self sortOrderCharacteristic];
+    uniqueIdentifier8 = [sortOrderCharacteristic uniqueIdentifier];
+    v28 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+    if (v28)
+    {
+      observers = [(CAFService *)self observers];
+      [observers automakerStatusItemService:self didUpdateSortOrder:{-[CAFAutomakerStatusItem sortOrder](self, "sortOrder")}];
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType5 = [updateCopy characteristicType];
+  if ([characteristicType5 isEqual:@"0x0000000032000011"])
+  {
+    uniqueIdentifier9 = [updateCopy uniqueIdentifier];
+    disabledCharacteristic = [(CAFAutomakerStatusItem *)self disabledCharacteristic];
+    uniqueIdentifier10 = [disabledCharacteristic uniqueIdentifier];
+    v33 = [uniqueIdentifier9 isEqual:uniqueIdentifier10];
+
+    if (v33)
+    {
+      observers = [(CAFService *)self observers];
+      [observers automakerStatusItemService:self didUpdateDisabled:{-[CAFAutomakerStatusItem disabled](self, "disabled")}];
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if ([observers isEqual:@"0x0000000036000023"])
+  {
+    uniqueIdentifier11 = [updateCopy uniqueIdentifier];
+    hiddenCharacteristic = [(CAFAutomakerStatusItem *)self hiddenCharacteristic];
+    uniqueIdentifier12 = [hiddenCharacteristic uniqueIdentifier];
+    v37 = [uniqueIdentifier11 isEqual:uniqueIdentifier12];
+
+    if (!v37)
+    {
+      goto LABEL_14;
+    }
+
+    observers = [(CAFService *)self observers];
+    [observers automakerStatusItemService:self didUpdateHidden:{-[CAFAutomakerStatusItem hidden](self, "hidden")}];
+  }
+
+LABEL_13:
+
+LABEL_14:
+  v38.receiver = self;
+  v38.super_class = CAFAutomakerStatusItem;
+  [(CAFService *)&v38 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForIdentifier

@@ -13,28 +13,27 @@
 
 - (VCSleepAction)initWithCoder:(id)coder
 {
-  v19[5] = *MEMORY[0x1E69E9840];
+  v18[5] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v17 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
+  v16 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
   v4 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"workflowActionIdentifier"];
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"sourceAppBundleIdentifier"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"bundleIdentifierForDisplay"];
   v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"title"];
   v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"subtitle"];
   v9 = MEMORY[0x1E695DFD8];
-  v19[0] = objc_opt_class();
-  v19[1] = objc_opt_class();
-  v19[2] = objc_opt_class();
-  v19[3] = objc_opt_class();
-  v19[4] = objc_opt_class();
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:5];
+  v18[0] = objc_opt_class();
+  v18[1] = objc_opt_class();
+  v18[2] = objc_opt_class();
+  v18[3] = objc_opt_class();
+  v18[4] = objc_opt_class();
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:5];
   v11 = [v9 setWithArray:v10];
   v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"serializedParameters"];
 
   v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"shortcutAvailability"];
 
-  v14 = -[VCSleepAction initWithIdentifier:workflowActionIdentifier:sourceAppBundleIdentifier:bundleIdentifierForDisplay:title:subtitle:serializedParameters:shortcutAvailability:](self, "initWithIdentifier:workflowActionIdentifier:sourceAppBundleIdentifier:bundleIdentifierForDisplay:title:subtitle:serializedParameters:shortcutAvailability:", v17, v4, v5, v6, v7, v8, v12, [v13 unsignedIntegerValue]);
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = -[VCSleepAction initWithIdentifier:workflowActionIdentifier:sourceAppBundleIdentifier:bundleIdentifierForDisplay:title:subtitle:serializedParameters:shortcutAvailability:](self, "initWithIdentifier:workflowActionIdentifier:sourceAppBundleIdentifier:bundleIdentifierForDisplay:title:subtitle:serializedParameters:shortcutAvailability:", v16, v4, v5, v6, v7, v8, v12, [v13 unsignedIntegerValue]);
   return v14;
 }
 

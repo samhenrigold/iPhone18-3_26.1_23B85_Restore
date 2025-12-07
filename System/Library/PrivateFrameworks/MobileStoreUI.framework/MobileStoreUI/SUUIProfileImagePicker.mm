@@ -173,40 +173,40 @@
 
 - (void)_presentImagePickerWithSourceType:(int64_t)type
 {
-  v19[5] = *MEMORY[0x277D85DE8];
+  v21[5] = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277D755C8]);
   imagePicker = self->_imagePicker;
   self->_imagePicker = v5;
 
-  [(UIImagePickerController *)self->_imagePicker setSourceType:type];
-  v7 = SUUIMobileCoreServicesFramework();
-  v8 = SUUIWeakLinkedSymbolForString("kUTTypeImage", v7);
-  v9 = MEMORY[0x277CBEA60];
-  v10 = *v8;
-  v11 = [v9 arrayWithObject:v10];
-  [(UIImagePickerController *)self->_imagePicker setMediaTypes:v11];
+  v7 = [(UIImagePickerController *)self->_imagePicker setSourceType:type];
+  v9 = SUUIMobileCoreServicesFramework(v7, v8);
+  v10 = SUUIWeakLinkedSymbolForString("kUTTypeImage", v9);
+  v11 = MEMORY[0x277CBEA60];
+  v12 = *v10;
+  v13 = [v11 arrayWithObject:v12];
+  [(UIImagePickerController *)self->_imagePicker setMediaTypes:v13];
   [(UIImagePickerController *)self->_imagePicker setDelegate:self];
   [(UIImagePickerController *)self->_imagePicker _setImagePickerSavingOptions:3];
-  v12 = MEMORY[0x277CBEB38];
+  v14 = MEMORY[0x277CBEB38];
   _properties = [(UIImagePickerController *)self->_imagePicker _properties];
-  v14 = [v12 dictionaryWithDictionary:_properties];
+  v16 = [v14 dictionaryWithDictionary:_properties];
 
-  v15 = *MEMORY[0x277D77490];
-  v18[0] = *MEMORY[0x277D76A40];
-  v18[1] = v15;
-  v19[0] = MEMORY[0x277CBEC38];
-  v19[1] = MEMORY[0x277CBEC38];
-  v16 = *MEMORY[0x277D77458];
-  v18[2] = *MEMORY[0x277D77438];
-  v18[3] = v16;
-  v19[2] = MEMORY[0x277CBEC38];
-  v19[3] = MEMORY[0x277CBEC38];
-  v18[4] = *MEMORY[0x277D77430];
-  v19[4] = MEMORY[0x277CBEC38];
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:5];
-  [v14 addEntriesFromDictionary:v17];
+  v17 = *MEMORY[0x277D77490];
+  v20[0] = *MEMORY[0x277D76A40];
+  v20[1] = v17;
+  v21[0] = MEMORY[0x277CBEC38];
+  v21[1] = MEMORY[0x277CBEC38];
+  v18 = *MEMORY[0x277D77458];
+  v20[2] = *MEMORY[0x277D77438];
+  v20[3] = v18;
+  v21[2] = MEMORY[0x277CBEC38];
+  v21[3] = MEMORY[0x277CBEC38];
+  v20[4] = *MEMORY[0x277D77430];
+  v21[4] = MEMORY[0x277CBEC38];
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:5];
+  [v16 addEntriesFromDictionary:v19];
 
-  [(UIImagePickerController *)self->_imagePicker _setProperties:v14];
+  [(UIImagePickerController *)self->_imagePicker _setProperties:v16];
   [(SUUIProfileImagePicker *)self presentViewController:self->_imagePicker animated:1 completion:0];
 }
 

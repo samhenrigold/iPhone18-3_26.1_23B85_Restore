@@ -167,24 +167,24 @@ void ___ef_log_EDMailboxProvider_block_invoke()
 
 - (void)_populateCache
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   [(EDMailboxProvider *)self beginDeferringInvalidation];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   weakToStrongObjectsMapTable = [MEMORY[0x1E696AD18] weakToStrongObjectsMapTable];
   weakToWeakObjectsMapTable = [MEMORY[0x1E696AD18] weakToWeakObjectsMapTable];
-  v13 = MEMORY[0x1E69E9820];
-  v14 = 3221225472;
-  v15 = __35__EDMailboxProvider__populateCache__block_invoke;
-  v16 = &unk_1E82533E8;
+  v12 = MEMORY[0x1E69E9820];
+  v13 = 3221225472;
+  v14 = __35__EDMailboxProvider__populateCache__block_invoke;
+  v15 = &unk_1E82533E8;
   selfCopy = self;
   v6 = weakToStrongObjectsMapTable;
-  v18 = v6;
+  v17 = v6;
   v7 = weakToWeakObjectsMapTable;
-  v19 = v7;
+  v18 = v7;
   v8 = v3;
-  v20 = v8;
-  [(EDMailboxProvider *)self enumerateAccountsWithBlock:&v13];
-  [(EDMailboxProvider *)self setLegacyMailboxToMailboxMap:v6, v13, v14, v15, v16, selfCopy];
+  v19 = v8;
+  [(EDMailboxProvider *)self enumerateAccountsWithBlock:&v12];
+  [(EDMailboxProvider *)self setLegacyMailboxToMailboxMap:v6, v12, v13, v14, v15, selfCopy];
   [(EDMailboxProvider *)self setObjectIDToLegacyMailboxMap:v7];
   v9 = [v8 copy];
   [(EDMailboxProvider *)self setAllMailboxCache:v9];
@@ -195,11 +195,9 @@ void ___ef_log_EDMailboxProvider_block_invoke()
   {
     v11 = [v8 count];
     *buf = 134217984;
-    v22 = v11;
+    v21 = v11;
     _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "populated cache: %lu", buf, 0xCu);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __35__EDMailboxProvider__populateCache__block_invoke(uint64_t a1, void *a2)
@@ -255,43 +253,41 @@ void __35__EDMailboxProvider__populateCache__block_invoke(uint64_t a1, void *a2)
 
 - (void)enumerateAccountsWithBlock:(id)block
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   WeakRetained = objc_loadWeakRetained(&self->_accountsProvider);
   mailAccounts = [WeakRetained mailAccounts];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = mailAccounts;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * i);
+        v11 = *(*(&v12 + 1) + 8 * i);
         if ([v11 isActive])
         {
           blockCopy[2](blockCopy, v11);
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_transformMailbox:(id)mailbox legacyMailboxToMailboxMap:(id)map objectIDToLegacyMailboxMap:(id)mailboxMap
@@ -323,13 +319,13 @@ void __35__EDMailboxProvider__populateCache__block_invoke(uint64_t a1, void *a2)
 
 - (id)mailboxFromLegacyMailbox:(id)mailbox
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   mailboxCopy = mailbox;
   v5 = mailboxCopy;
   if (mailboxCopy)
   {
-    v11[0] = mailboxCopy;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+    v10[0] = mailboxCopy;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
     v7 = [(EDMailboxProvider *)self mailboxesFromLegacyMailboxes:v6];
     firstObject = [v7 firstObject];
   }
@@ -338,8 +334,6 @@ void __35__EDMailboxProvider__populateCache__block_invoke(uint64_t a1, void *a2)
   {
     firstObject = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
@@ -418,13 +412,13 @@ id __50__EDMailboxProvider_mailboxesFromLegacyMailboxes___block_invoke_2(uint64_
 
 - (id)legacyMailboxForObjectID:(id)d
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = dCopy;
   if (dCopy)
   {
-    v11[0] = dCopy;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+    v10[0] = dCopy;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
     v7 = [(EDMailboxProvider *)self legacyMailboxesForObjectIDs:v6];
     firstObject = [v7 firstObject];
   }
@@ -433,8 +427,6 @@ id __50__EDMailboxProvider_mailboxesFromLegacyMailboxes___block_invoke_2(uint64_
   {
     firstObject = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
@@ -548,27 +540,27 @@ _BYTE *__41__EDMailboxProvider__mailboxInvalidated___block_invoke(uint64_t a1)
 
 - (id)mailboxObjectIDsForMailboxType:(int64_t)type
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   allMailboxes = [(EDMailboxProvider *)self allMailboxes];
-  v7 = [allMailboxes countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [allMailboxes countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(allMailboxes);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if ([v10 type] == type)
         {
           objectID = [v10 objectID];
@@ -576,13 +568,11 @@ _BYTE *__41__EDMailboxProvider__mailboxInvalidated___block_invoke(uint64_t a1)
         }
       }
 
-      v7 = [allMailboxes countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [allMailboxes countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

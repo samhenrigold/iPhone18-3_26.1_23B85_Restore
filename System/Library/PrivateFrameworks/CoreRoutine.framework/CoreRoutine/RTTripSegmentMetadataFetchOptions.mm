@@ -4,6 +4,7 @@
 - (RTTripSegmentMetadataFetchOptions)initWithCoder:(id)coder;
 - (RTTripSegmentMetadataFetchOptions)initWithDateInterval:(id)interval fetchRoadClass:(BOOL)class fetchFormOfWay:(BOOL)way fetchLocationType:(BOOL)type fetchPreferredNames:(BOOL)names;
 - (RTTripSegmentMetadataFetchOptions)initWithTripSegment:(id)segment;
+- (RTTripSegmentMetadataFetchOptions)initWithTripSegment:(id)segment fetchRoadClass:(BOOL)class fetchFormOfWay:(BOOL)way fetchLocationType:(BOOL)type fetchPreferredNames:(BOOL)names;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -15,11 +16,11 @@
   typeCopy = type;
   wayCopy = way;
   classCopy = class;
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   intervalCopy = interval;
-  v24.receiver = self;
-  v24.super_class = RTTripSegmentMetadataFetchOptions;
-  v15 = [(RTTripSegmentMetadataFetchOptions *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = RTTripSegmentMetadataFetchOptions;
+  v15 = [(RTTripSegmentMetadataFetchOptions *)&v23 init];
   v16 = v15;
   if (v15)
   {
@@ -33,31 +34,42 @@
       v17 = _rt_log_facility_get_os_log(RTLogFacilityTripSegment);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        v20 = objc_opt_class();
-        v21 = NSStringFromClass(v20);
-        v22 = NSStringFromSelector(a2);
-        v23 = [intervalCopy description];
+        v19 = objc_opt_class();
+        v20 = NSStringFromClass(v19);
+        v21 = NSStringFromSelector(a2);
+        v22 = [intervalCopy description];
         *buf = 138413827;
-        v26 = v21;
-        v27 = 2112;
-        v28 = v22;
-        v29 = 2112;
-        v30 = v23;
-        v31 = 1029;
-        v32 = classCopy;
-        v33 = 1029;
-        v34 = wayCopy;
-        v35 = 1024;
-        v36 = typeCopy;
-        v37 = 1029;
-        v38 = namesCopy;
+        v25 = v20;
+        v26 = 2112;
+        v27 = v21;
+        v28 = 2112;
+        v29 = v22;
+        v30 = 1029;
+        v31 = classCopy;
+        v32 = 1029;
+        v33 = wayCopy;
+        v34 = 1024;
+        v35 = typeCopy;
+        v36 = 1029;
+        v37 = namesCopy;
         _os_log_debug_impl(&dword_1BF1C4000, v17, OS_LOG_TYPE_DEBUG, "%@ %@, dateInterval,%@,fetchRoadClass,%{sensitive}d,fetchFormOfWay,%{sensitive}d,fetchLocationType,%d,fetchPreferredNames,%{sensitive}d", buf, 0x38u);
       }
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v16;
+}
+
+- (RTTripSegmentMetadataFetchOptions)initWithTripSegment:(id)segment fetchRoadClass:(BOOL)class fetchFormOfWay:(BOOL)way fetchLocationType:(BOOL)type fetchPreferredNames:(BOOL)names
+{
+  namesCopy = names;
+  typeCopy = type;
+  wayCopy = way;
+  classCopy = class;
+  dateInterval = [segment dateInterval];
+  v13 = [(RTTripSegmentMetadataFetchOptions *)self initWithDateInterval:dateInterval fetchRoadClass:classCopy fetchFormOfWay:wayCopy fetchLocationType:typeCopy fetchPreferredNames:namesCopy];
+
+  return v13;
 }
 
 - (RTTripSegmentMetadataFetchOptions)initWithTripSegment:(id)segment

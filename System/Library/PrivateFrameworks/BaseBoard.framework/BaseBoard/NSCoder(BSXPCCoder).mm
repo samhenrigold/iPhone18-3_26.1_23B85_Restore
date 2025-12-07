@@ -23,7 +23,7 @@
   v31 = *MEMORY[0x1E69E9840];
   if (!a3)
   {
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"bytes"];
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", a4, @"bytes"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       v10 = NSStringFromSelector(a2);

@@ -8,9 +8,9 @@
 - (PTSubjectRelighting)initWithMetalContext:(id)context effectUtil:(id)util prewarmOnly:(BOOL)only
 {
   contextCopy = context;
-  v82.receiver = self;
-  v82.super_class = PTSubjectRelighting;
-  v8 = [(PTSubjectRelighting *)&v82 init];
+  v88.receiver = self;
+  v88.super_class = PTSubjectRelighting;
+  v8 = [(PTSubjectRelighting *)&v88 init];
   if (!v8)
   {
     goto LABEL_30;
@@ -22,89 +22,89 @@
 
   if (!v8->_srlV2GlobalHistogramLivePhotos)
   {
-    v28 = _PTLogSystem();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v33 = _PTLogSystem(v11);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      [(PTSubjectRelighting *)v28 initWithMetalContext:v38 effectUtil:v39 prewarmOnly:v40, v41, v42, v43, v44];
+      [(PTSubjectRelighting *)v33 initWithMetalContext:v44 effectUtil:v45 prewarmOnly:v46, v47, v48, v49, v50];
     }
 
     goto LABEL_29;
   }
 
-  v11 = [contextCopy computePipelineStateFor:@"srlV2FaceSparseHistogramLivePhotos" withConstants:0];
+  v12 = [contextCopy computePipelineStateFor:@"srlV2FaceSparseHistogramLivePhotos" withConstants:0];
   srlV2FaceHistogramLivePhotos = v8->_srlV2FaceHistogramLivePhotos;
-  v8->_srlV2FaceHistogramLivePhotos = v11;
+  v8->_srlV2FaceHistogramLivePhotos = v12;
 
   if (!v8->_srlV2FaceHistogramLivePhotos)
   {
-    v28 = _PTLogSystem();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v33 = _PTLogSystem(v14);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      [(PTSubjectRelighting *)v28 initWithMetalContext:v45 effectUtil:v46 prewarmOnly:v47, v48, v49, v50, v51];
+      [(PTSubjectRelighting *)v33 initWithMetalContext:v51 effectUtil:v52 prewarmOnly:v53, v54, v55, v56, v57];
     }
 
     goto LABEL_29;
   }
 
-  v13 = [contextCopy computePipelineStateFor:@"srlV2CalcCoefficientsLivePhotos" withConstants:0];
+  v15 = [contextCopy computePipelineStateFor:@"srlV2CalcCoefficientsLivePhotos" withConstants:0];
   srlV2CalcCoefficientsLivePhotos = v8->_srlV2CalcCoefficientsLivePhotos;
-  v8->_srlV2CalcCoefficientsLivePhotos = v13;
+  v8->_srlV2CalcCoefficientsLivePhotos = v15;
 
   if (!v8->_srlV2CalcCoefficientsLivePhotos)
   {
-    v28 = _PTLogSystem();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v33 = _PTLogSystem(v17);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      [(PTSubjectRelighting *)v28 initWithMetalContext:v52 effectUtil:v53 prewarmOnly:v54, v55, v56, v57, v58];
+      [(PTSubjectRelighting *)v33 initWithMetalContext:v58 effectUtil:v59 prewarmOnly:v60, v61, v62, v63, v64];
     }
 
     goto LABEL_29;
   }
 
-  device = [contextCopy device];
-  v16 = [device newBufferWithLength:8460 options:0];
+  v18 = objc_msgSend_device(contextCopy);
+  v19 = [v18 newBufferWithLength:8460 options:0];
   srlV2GlobalStatsBuffer = v8->_srlV2GlobalStatsBuffer;
-  v8->_srlV2GlobalStatsBuffer = v16;
+  v8->_srlV2GlobalStatsBuffer = v19;
 
   if (!v8->_srlV2GlobalStatsBuffer)
   {
-    v28 = _PTLogSystem();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v33 = _PTLogSystem(v21);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      [(PTSubjectRelighting *)v28 initWithMetalContext:v59 effectUtil:v60 prewarmOnly:v61, v62, v63, v64, v65];
+      [(PTSubjectRelighting *)v33 initWithMetalContext:v65 effectUtil:v66 prewarmOnly:v67, v68, v69, v70, v71];
     }
 
     goto LABEL_29;
   }
 
-  device2 = [contextCopy device];
-  v19 = [device2 newBufferWithLength:271680 options:0];
+  v22 = objc_msgSend_device(contextCopy);
+  v23 = [v22 newBufferWithLength:271680 options:0];
   srlV2FaceStatsBuffer = v8->_srlV2FaceStatsBuffer;
-  v8->_srlV2FaceStatsBuffer = v19;
+  v8->_srlV2FaceStatsBuffer = v23;
 
   if (!v8->_srlV2FaceStatsBuffer)
   {
-    v28 = _PTLogSystem();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v33 = _PTLogSystem(v25);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      [(PTSubjectRelighting *)v28 initWithMetalContext:v66 effectUtil:v67 prewarmOnly:v68, v69, v70, v71, v72];
+      [(PTSubjectRelighting *)v33 initWithMetalContext:v72 effectUtil:v73 prewarmOnly:v74, v75, v76, v77, v78];
     }
 
     goto LABEL_29;
   }
 
-  device3 = [contextCopy device];
-  v22 = [device3 newBufferWithLength:100 options:0];
+  v26 = objc_msgSend_device(contextCopy);
+  v27 = [v26 newBufferWithLength:100 options:0];
   srlV2CoeffsBuffer = v8->_srlV2CoeffsBuffer;
-  v8->_srlV2CoeffsBuffer = v22;
+  v8->_srlV2CoeffsBuffer = v27;
 
-  v24 = v8->_srlV2CoeffsBuffer;
-  if (!v24)
+  v29 = v8->_srlV2CoeffsBuffer;
+  if (!v29)
   {
-    v28 = _PTLogSystem();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v33 = _PTLogSystem(0);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      [(PTSubjectRelighting *)v28 initWithMetalContext:v73 effectUtil:v74 prewarmOnly:v75, v76, v77, v78, v79];
+      [(PTSubjectRelighting *)v33 initWithMetalContext:v79 effectUtil:v80 prewarmOnly:v81, v82, v83, v84, v85];
     }
 
     goto LABEL_29;
@@ -112,59 +112,60 @@
 
   if (!v8->_srlV2GlobalStatsBuffer || !v8->_srlV2FaceStatsBuffer)
   {
-    v28 = _PTLogSystem();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v33 = _PTLogSystem(v29);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      [PTSubjectRelighting initWithMetalContext:v28 effectUtil:? prewarmOnly:?];
+      [PTSubjectRelighting initWithMetalContext:v33 effectUtil:? prewarmOnly:?];
     }
 
     goto LABEL_29;
   }
 
-  *([(MTLBuffer *)v24 contents]+ 96) = 1056964608;
-  v25 = objc_opt_new();
+  *([(MTLBuffer *)v29 contents]+ 96) = 1056964608;
+  v30 = objc_opt_new();
   srlV2Plist = v8->_srlV2Plist;
-  v8->_srlV2Plist = v25;
+  v8->_srlV2Plist = v30;
 
   if (only)
   {
 LABEL_33:
-    v80 = v8;
+    v86 = v8;
     goto LABEL_31;
   }
 
-  v27 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v28 = [v27 pathForResource:@"BackWide-IQTuning" ofType:@"plist" inDirectory:&stru_2837D16E8];
+  v32 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v33 = [v32 pathForResource:@"BackWide-IQTuning" ofType:@"plist" inDirectory:&stru_2837D16E8];
 
-  v29 = MEMORY[0x277CBEAC0];
-  v30 = [MEMORY[0x277CBEBC0] fileURLWithPath:v28];
-  v31 = [v29 dictionaryWithContentsOfURL:v30 error:0];
+  v34 = MEMORY[0x277CBEAC0];
+  v35 = [MEMORY[0x277CBEBC0] fileURLWithPath:v33];
+  v36 = [v34 dictionaryWithContentsOfURL:v35 error:0];
 
-  v32 = [v31 objectForKeyedSubscript:@"DeepFusionParameters"];
-  v33 = [v32 objectForKeyedSubscript:@"ToneMapping"];
-  v34 = [v33 objectForKeyedSubscript:@"DefaultParameters"];
-  v35 = [v34 objectForKeyedSubscript:@"SRLv2"];
+  v37 = [v36 objectForKeyedSubscript:@"DeepFusionParameters"];
+  v38 = [v37 objectForKeyedSubscript:@"ToneMapping"];
+  v39 = [v38 objectForKeyedSubscript:@"DefaultParameters"];
+  v40 = [v39 objectForKeyedSubscript:@"SRLv2"];
   plistSRL = v8->_plistSRL;
-  v8->_plistSRL = v35;
+  v8->_plistSRL = v40;
 
-  if (![(PTSRLv2Plist *)v8->_srlV2Plist readPlist:v8->_plistSRL])
+  v42 = [(PTSRLv2Plist *)v8->_srlV2Plist readPlist:v8->_plistSRL];
+  if (!v42)
   {
 
     goto LABEL_33;
   }
 
-  v37 = _PTLogSystem();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+  v43 = _PTLogSystem(v42);
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
   {
-    [PTSubjectRelighting initWithMetalContext:v37 effectUtil:? prewarmOnly:?];
+    [PTSubjectRelighting initWithMetalContext:v43 effectUtil:? prewarmOnly:?];
   }
 
 LABEL_29:
 LABEL_30:
-  v80 = 0;
+  v86 = 0;
 LABEL_31:
 
-  return v80;
+  return v86;
 }
 
 - (int)runSRLForLivePhotosWithInputBuffer:(id)buffer lumaTexture:(id)texture chromaTexture:(id)chromaTexture skinMaskTexture:(id)maskTexture personMaskTexture:(id)personMaskTexture skinToneClassification:(id)classification validROI:(CGRect)i expBias:(float)self0 faceExpRatio:(float)self1 transform:(CGAffineTransform *)self2
@@ -330,6 +331,48 @@ LABEL_31:
   [computeCommandEncoder endEncoding];
 
   return 0;
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 effectUtil:(uint64_t)a4 prewarmOnly:(uint64_t)a5 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_srlV2CoeffsBuffer";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 effectUtil:(uint64_t)a4 prewarmOnly:(uint64_t)a5 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_srlV2FaceStatsBuffer";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 effectUtil:(uint64_t)a4 prewarmOnly:(uint64_t)a5 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_srlV2GlobalStatsBuffer";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 effectUtil:(uint64_t)a4 prewarmOnly:(uint64_t)a5 .cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_srlV2CalcCoefficientsLivePhotos";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 effectUtil:(uint64_t)a4 prewarmOnly:(uint64_t)a5 .cold.7(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_srlV2FaceHistogramLivePhotos";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 effectUtil:(uint64_t)a4 prewarmOnly:(uint64_t)a5 .cold.8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_srlV2GlobalHistogramLivePhotos";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

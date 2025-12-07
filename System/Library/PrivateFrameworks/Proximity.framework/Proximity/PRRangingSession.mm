@@ -58,24 +58,24 @@
 
 - (void)startRangingWithPeer:(id)peer
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = peerCopy;
+    v14 = peerCopy;
     _os_log_impl(&dword_230EB5000, logger, OS_LOG_TYPE_DEFAULT, "startRangingWithPeer: %@", buf, 0xCu);
   }
 
   if (!self->_isReady)
   {
     v8 = *MEMORY[0x277CCA470];
-    v12[0] = *MEMORY[0x277CCA450];
-    v12[1] = v8;
-    v13[0] = @"Failed to start ranging.";
-    v13[1] = @"Service not ready.";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v11[0] = *MEMORY[0x277CCA450];
+    v11[1] = v8;
+    v12[0] = @"Failed to start ranging.";
+    v12[1] = @"Service not ready.";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
     remoteObject = PRErrorWithCodeAndUserInfo(999, v9);
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -91,7 +91,7 @@ LABEL_9:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v15 = 2;
+      v14 = 2;
       _os_log_impl(&dword_230EB5000, v6, OS_LOG_TYPE_DEFAULT, "ARKitParticipantsCount = %ld. Resuming session.", buf, 0xCu);
     }
 
@@ -102,28 +102,24 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopRangingWithPeer:(id)peer
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = peerCopy;
-    _os_log_impl(&dword_230EB5000, logger, OS_LOG_TYPE_DEFAULT, "stopRangingWithPeer: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = peerCopy;
+    _os_log_impl(&dword_230EB5000, logger, OS_LOG_TYPE_DEFAULT, "stopRangingWithPeer: %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pushCollaborationData:(id)data
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   sendingPeer = [dataCopy sendingPeer];
   uuid = [sendingPeer uuid];
@@ -142,25 +138,25 @@ LABEL_10:
       uuid3 = [(PRPeer *)localPeer uuid];
       sessionParticipants = self->_sessionParticipants;
       *buf = 134218498;
-      v23 = v8;
-      v24 = 2112;
-      v25 = uuid3;
-      v26 = 2112;
-      v27 = sessionParticipants;
+      v22 = v8;
+      v23 = 2112;
+      v24 = uuid3;
+      v25 = 2112;
+      v26 = sessionParticipants;
       _os_log_impl(&dword_230EB5000, v11, OS_LOG_TYPE_DEFAULT, "Local device index is: %lu, local UUID: %@, participants: %@", buf, 0x20u);
     }
 
     v14 = [(PRRangingSession *)self rangingConfigurationWithDeviceIndex:v8];
     objc_initWeak(buf, self);
     remoteObject = [(PRRangingSession *)self remoteObject];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __42__PRRangingSession_pushCollaborationData___block_invoke;
-    v20[3] = &unk_2788F3AE8;
-    objc_copyWeak(&v21, buf);
-    [remoteObject runWithConfiguration:v14 reply:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __42__PRRangingSession_pushCollaborationData___block_invoke;
+    v19[3] = &unk_2788F3AE8;
+    objc_copyWeak(&v20, buf);
+    [remoteObject runWithConfiguration:v14 reply:v19];
 
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(buf);
   }
 
@@ -168,13 +164,11 @@ LABEL_10:
   remoteObject2 = [(PRRangingSession *)self remoteObject];
   data = [dataCopy data];
   [remoteObject2 receivedData:data fromPeer:v16];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __42__PRRangingSession_pushCollaborationData___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v7 = WeakRetained;
@@ -186,15 +180,13 @@ void __42__PRRangingSession_pushCollaborationData___block_invoke(uint64_t a1, ui
       v9 = MEMORY[0x277CCABB0];
       v10 = v8;
       v11 = [v9 numberWithBool:a2];
-      v13 = 138412546;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v5;
-      _os_log_impl(&dword_230EB5000, v10, OS_LOG_TYPE_DEFAULT, "reply to runWithConfiguration. Success: %@, Error: %@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v11;
+      v14 = 2112;
+      v15 = v5;
+      _os_log_impl(&dword_230EB5000, v10, OS_LOG_TYPE_DEFAULT, "reply to runWithConfiguration. Success: %@, Error: %@", &v12, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invokeDelegateBlock:(id)block
@@ -258,21 +250,19 @@ void __73__PRRangingSession_requestInitialCollaborationDataWithCompletionHandler
 
 - (void)invalidate
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
+    v5 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_230EB5000, logger, OS_LOG_TYPE_DEFAULT, "Invalidating ranging session %p", &v6, 0xCu);
+    _os_log_impl(&dword_230EB5000, logger, OS_LOG_TYPE_DEFAULT, "Invalidating ranging session %p", &v5, 0xCu);
   }
 
   [(PRRangingSession *)self setValid:0];
   [(NSXPCConnection *)self->_connection invalidate];
   connection = self->_connection;
   self->_connection = 0;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectToDaemon
@@ -332,40 +322,36 @@ void __35__PRRangingSession_connectToDaemon__block_invoke_2(uint64_t a1)
 
 - (void)handleInterruption
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
     connection = self->_connection;
     v5 = logger;
     v6 = [(NSXPCConnection *)connection debugDescription];
-    v10 = 138412290;
-    v11 = v6;
-    _os_log_impl(&dword_230EB5000, v5, OS_LOG_TYPE_DEFAULT, "connection was interrupted: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v6;
+    _os_log_impl(&dword_230EB5000, v5, OS_LOG_TYPE_DEFAULT, "connection was interrupted: %@", &v9, 0xCu);
   }
 
   remoteObject = [(PRRangingSession *)self remoteObject];
   clientInfo = [(PRRangingDevice *)self->_rangingDevice clientInfo];
   [remoteObject connectWithClientInfo:clientInfo];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleInvalidation
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
     connection = self->_connection;
     v5 = logger;
     v6 = [(NSXPCConnection *)connection debugDescription];
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_230EB5000, v5, OS_LOG_TYPE_DEFAULT, "connection was invalidated: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_230EB5000, v5, OS_LOG_TYPE_DEFAULT, "connection was invalidated: %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)remoteObject
@@ -383,17 +369,15 @@ void __35__PRRangingSession_connectToDaemon__block_invoke_2(uint64_t a1)
 
 void __32__PRRangingSession_remoteObject__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 8);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_230EB5000, v4, OS_LOG_TYPE_DEFAULT, "Error getting remote object proxy %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_230EB5000, v4, OS_LOG_TYPE_DEFAULT, "Error getting remote object proxy %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendDataToPeers:(id)peers
@@ -421,31 +405,29 @@ void __36__PRRangingSession_sendDataToPeers___block_invoke(uint64_t a1)
 
 - (void)didFailWithError:(id)error
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = errorCopy;
-    _os_log_impl(&dword_230EB5000, logger, OS_LOG_TYPE_DEFAULT, "ranging session failed with error %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = errorCopy;
+    _os_log_impl(&dword_230EB5000, logger, OS_LOG_TYPE_DEFAULT, "ranging session failed with error %@", &v7, 0xCu);
   }
 
   delegate = [(PRRangingSession *)self delegate];
   [delegate rangingSession:self didFailWithError:errorCopy];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)rangingServiceDidUpdateState:(unint64_t)state cause:(int64_t)cause
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134217984;
+    v9 = 134217984;
     stateCopy = state;
-    _os_log_impl(&dword_230EB5000, logger, OS_LOG_TYPE_DEFAULT, "ranging service updated state %ld", &v10, 0xCu);
+    _os_log_impl(&dword_230EB5000, logger, OS_LOG_TYPE_DEFAULT, "ranging service updated state %ld", &v9, 0xCu);
   }
 
   if (state == 3)
@@ -461,13 +443,11 @@ void __36__PRRangingSession_sendDataToPeers___block_invoke(uint64_t a1)
   {
     self->_isReady = state == 2;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveNewSolutions:(id)solutions
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   solutionsCopy = solutions;
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
@@ -476,42 +456,40 @@ void __36__PRRangingSession_sendDataToPeers___block_invoke(uint64_t a1)
     _os_log_impl(&dword_230EB5000, logger, OS_LOG_TYPE_DEFAULT, "received new solutions", buf, 2u);
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = solutionsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
-        v13[0] = MEMORY[0x277D85DD0];
-        v13[1] = 3221225472;
-        v13[2] = __43__PRRangingSession_didReceiveNewSolutions___block_invoke;
-        v13[3] = &unk_2788F3B88;
-        v13[4] = v11;
-        v13[5] = self;
-        [(PRRangingSession *)self invokeDelegateBlock:v13];
+        v11 = *(*(&v13 + 1) + 8 * i);
+        v12[0] = MEMORY[0x277D85DD0];
+        v12[1] = 3221225472;
+        v12[2] = __43__PRRangingSession_didReceiveNewSolutions___block_invoke;
+        v12[3] = &unk_2788F3B88;
+        v12[4] = v11;
+        v12[5] = self;
+        [(PRRangingSession *)self invokeDelegateBlock:v12];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __43__PRRangingSession_didReceiveNewSolutions___block_invoke(uint64_t a1)
@@ -530,28 +508,26 @@ void __43__PRRangingSession_didReceiveNewSolutions___block_invoke(uint64_t a1)
 
 - (void)rangingRequestDidUpdateStatus:(unint64_t)status
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
+    v5 = 134217984;
     statusCopy = status;
-    _os_log_impl(&dword_230EB5000, logger, OS_LOG_TYPE_DEFAULT, "ranging request updated status: %ld", &v6, 0xCu);
+    _os_log_impl(&dword_230EB5000, logger, OS_LOG_TYPE_DEFAULT, "ranging request updated status: %ld", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (unint64_t)computeLocalDeviceIndex:(id)index sessionParticipants:(id)participants
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   indexCopy = index;
   participantsCopy = participants;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v9 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"UUIDString" ascending:1];
-  v17[0] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16[0] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   v11 = [participantsCopy sortedArrayUsingDescriptors:v10];
   v12 = 0;
   while ([v11 count] > v12)
@@ -571,19 +547,16 @@ void __43__PRRangingSession_didReceiveNewSolutions___block_invoke(uint64_t a1)
 LABEL_6:
 
   objc_sync_exit(selfCopy);
-  v15 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (id)rangingConfigurationWithDeviceIndex:(unint64_t)index
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"MultiSessionDevIndex";
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"MultiSessionDevIndex";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:index];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }

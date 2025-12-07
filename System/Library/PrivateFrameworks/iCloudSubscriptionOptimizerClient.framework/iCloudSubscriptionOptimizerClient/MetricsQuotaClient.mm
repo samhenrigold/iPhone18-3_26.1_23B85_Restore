@@ -20,11 +20,12 @@
 
 - (id)parseDelayedOfferFromJson:(id)json
 {
-  sub_275A3D934();
+  v4 = sub_275A3D934();
+  v6 = v5;
   selfCopy = self;
-  v5 = sub_275A32030();
+  v8 = sub_275A32030(v4, v6);
 
-  return v5;
+  return v8;
 }
 
 - (id)failsafeDelayedOfferJsonContext
@@ -48,9 +49,10 @@
 
 - (void)logFailsafeEvent:(id)event
 {
-  sub_275A3D934();
+  v4 = sub_275A3D934();
+  v6 = v5;
   selfCopy = self;
-  sub_275A32D5C();
+  sub_275A32D5C(v4, v6);
 }
 
 - (_TtC33iCloudSubscriptionOptimizerClient18MetricsQuotaClient)init

@@ -134,7 +134,7 @@ LABEL_8:
 
 + (id)hf_recurrenceNaturalLanguageStringKeyWithOptions:()NaturalLanguage recurrences:intendedForTimeTriggerEditor:
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
@@ -149,13 +149,13 @@ LABEL_8:
     v11 = [v8 na_map:&__block_literal_global_40];
     v12 = [v10 setWithArray:v11];
 
-    v54 = v12;
+    v53 = v12;
     allObjects = [v12 allObjects];
     v14 = [allObjects sortedArrayUsingSelector:sel_compare_];
 
     v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v56 = a5;
-    v55 = v7;
+    v55 = a5;
+    v54 = v7;
     if ([currentCalendar firstWeekday] == 7)
     {
       v16 = 0;
@@ -166,27 +166,27 @@ LABEL_8:
       v16 = [currentCalendar firstWeekday] - 1;
     }
 
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
     v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
     v23 = v14;
-    v24 = [v23 countByEnumeratingWithState:&v59 objects:v64 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v58 objects:v63 count:16];
     if (v24)
     {
       v25 = v24;
       v26 = 0;
-      v27 = *v60;
+      v27 = *v59;
       do
       {
         for (i = 0; i != v25; ++i)
         {
-          if (*v60 != v27)
+          if (*v59 != v27)
           {
             objc_enumerationMutation(v23);
           }
 
-          v29 = *(*(&v59 + 1) + 8 * i);
+          v29 = *(*(&v58 + 1) + 8 * i);
           if ([v29 integerValue] >= v16)
           {
             [v15 insertObject:v29 atIndex:v26++];
@@ -198,7 +198,7 @@ LABEL_8:
           }
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v59 objects:v64 count:16];
+        v25 = [v23 countByEnumeratingWithState:&v58 objects:v63 count:16];
       }
 
       while (v25);
@@ -247,12 +247,12 @@ LABEL_8:
         }
 
 LABEL_38:
-        if ((v56 & 1) != 0 || [v55 formattingStyle] == 2 || objc_msgSend(v55, "formattingStyle") == v35)
+        if ((v55 & 1) != 0 || [v54 formattingStyle] == 2 || objc_msgSend(v54, "formattingStyle") == v35)
         {
           if (v30 == v32)
           {
             v39 = [HFLocalizableStringKey alloc];
-            if (v56)
+            if (v55)
             {
               v40 = @"HFDailyTimerTriggerDetailEvery";
             }
@@ -273,8 +273,8 @@ LABEL_38:
           {
             if (!v34)
             {
-              v7 = v55;
-              if ([v23 count] == 1 || (objc_msgSend(v55, "shouldUseFullDayNames") & 1) != 0)
+              v7 = v54;
+              if ([v23 count] == 1 || (objc_msgSend(v54, "shouldUseFullDayNames") & 1) != 0)
               {
                 weekdaySymbols = [currentCalendar weekdaySymbols];
               }
@@ -284,32 +284,32 @@ LABEL_38:
                 weekdaySymbols = [currentCalendar shortWeekdaySymbols];
               }
 
-              v57[0] = MEMORY[0x277D85DD0];
-              v57[1] = 3221225472;
-              v57[2] = __125__HMTimerTrigger_NaturalLanguage__hf_recurrenceNaturalLanguageStringKeyWithOptions_recurrences_intendedForTimeTriggerEditor___block_invoke_4;
-              v57[3] = &unk_277DF5910;
-              v46 = weekdaySymbols;
-              v58 = v46;
-              v47 = [v15 na_map:v57];
-              v48 = [v47 count];
-              v42 = v48 != 0;
-              if (v48)
+              v56[0] = MEMORY[0x277D85DD0];
+              v56[1] = 3221225472;
+              v56[2] = __125__HMTimerTrigger_NaturalLanguage__hf_recurrenceNaturalLanguageStringKeyWithOptions_recurrences_intendedForTimeTriggerEditor___block_invoke_4;
+              v56[3] = &unk_277DF5910;
+              v45 = weekdaySymbols;
+              v57 = v45;
+              v46 = [v15 na_map:v56];
+              v47 = [v46 count];
+              v42 = v47 != 0;
+              if (v47)
               {
-                v49 = [MEMORY[0x277CCAAF0] localizedStringByJoiningStrings:v47];
-                v53 = v49;
-                if (v56)
+                v48 = [MEMORY[0x277CCAAF0] localizedStringByJoiningStrings:v46];
+                v52 = v48;
+                if (v55)
                 {
-                  v50 = @"HFSomeDaysTimerTriggerDetailEvery";
+                  v49 = @"HFSomeDaysTimerTriggerDetailEvery";
                 }
 
                 else
                 {
-                  v50 = @"HFSomeDaysTimerTriggerDetail";
+                  v49 = @"HFSomeDaysTimerTriggerDetail";
                 }
 
-                v63 = v49;
-                v51 = [MEMORY[0x277CBEA60] arrayWithObjects:&v63 count:{1, HFLocalizableStringKey}];
-                v32 = [v52 stringKeyWithKey:v50 arguments:v51];
+                v62 = v48;
+                v50 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:{1, HFLocalizableStringKey}];
+                v32 = [v51 stringKeyWithKey:v49 arguments:v50];
               }
 
 LABEL_51:
@@ -323,7 +323,7 @@ LABEL_51:
                 v22 = 0;
               }
 
-              if (v42 || !v56)
+              if (v42 || !v55)
               {
                 goto LABEL_58;
               }
@@ -345,7 +345,7 @@ LABEL_51:
 
         v32 = v41;
         v42 = 1;
-        v7 = v55;
+        v7 = v54;
         goto LABEL_51;
       }
 
@@ -393,8 +393,6 @@ LABEL_57:
   v22 = v21;
 LABEL_58:
 
-  v43 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
@@ -425,10 +423,10 @@ LABEL_58:
 
 + (id)_hf_naturalLanguageNameWithOptions:()NaturalLanguage timeString:fireDate:recurrences:
 {
-  v69[2] = *MEMORY[0x277D85DE8];
+  v68[2] = *MEMORY[0x277D85DE8];
   v9 = a3;
   v10 = a4;
-  v66 = a5;
+  v65 = a5;
   v11 = a6;
   overrideCalendar = [v9 overrideCalendar];
   v13 = overrideCalendar;
@@ -456,7 +454,7 @@ LABEL_58:
     date = [MEMORY[0x277CBEAA8] date];
   }
 
-  v64 = date;
+  v63 = date;
 
   if (qword_280E02DF0 != -1)
   {
@@ -469,22 +467,22 @@ LABEL_58:
     dispatch_once(&qword_280E02E00, &__block_literal_global_85);
   }
 
-  v61 = qword_280E02E08;
+  v60 = qword_280E02E08;
   if (qword_280E02E10 != -1)
   {
     dispatch_once(&qword_280E02E10, &__block_literal_global_92);
   }
 
-  v62 = qword_280E02E18;
-  v67[0] = MEMORY[0x277D85DD0];
-  v67[1] = 3221225472;
-  v67[2] = __102__HMTimerTrigger_NaturalLanguage___hf_naturalLanguageNameWithOptions_timeString_fireDate_recurrences___block_invoke_7;
-  v67[3] = &unk_277DF75E8;
-  v67[4] = v19;
-  v20 = __102__HMTimerTrigger_NaturalLanguage___hf_naturalLanguageNameWithOptions_timeString_fireDate_recurrences___block_invoke_7(v67);
+  v61 = qword_280E02E18;
+  v66[0] = MEMORY[0x277D85DD0];
+  v66[1] = 3221225472;
+  v66[2] = __102__HMTimerTrigger_NaturalLanguage___hf_naturalLanguageNameWithOptions_timeString_fireDate_recurrences___block_invoke_7;
+  v66[3] = &unk_277DF75E8;
+  v66[4] = v19;
+  v20 = __102__HMTimerTrigger_NaturalLanguage___hf_naturalLanguageNameWithOptions_timeString_fireDate_recurrences___block_invoke_7(v66);
   v21 = [self hf_recurrenceNaturalLanguageStringKeyWithOptions:v9 recurrences:v11];
 
-  v63 = v15;
+  v62 = v15;
   if (v21)
   {
     v22 = [v21 key];
@@ -501,21 +499,21 @@ LABEL_58:
       v25 = [v23 objectForKeyedSubscript:v22];
       v26 = [HFLocalizableStringKey stringKeyWithKey:v25 argumentKeys:v20];
 
-      v15 = v63;
+      v15 = v62;
     }
 
     else if ([v22 isEqualToString:@"HFSomeDaysTimerTriggerDetail"])
     {
-      v69[0] = v19;
-      v69[1] = v61;
-      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:2];
+      v68[0] = v19;
+      v68[1] = v60;
+      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:2];
       v26 = [HFLocalizableStringKey stringKeyWithKey:@"HFSomeDaysTimerTriggerName" argumentKeys:v27];
 
       v28 = [v21 localizedStringWithArgumentBlock:0];
       argumentMap = [v26 argumentMap];
-      [argumentMap setObject:v28 forKeyedSubscript:v61];
+      [argumentMap setObject:v28 forKeyedSubscript:v60];
 
-      v15 = v63;
+      v15 = v62;
     }
 
     else
@@ -538,26 +536,26 @@ LABEL_58:
     v26 = 0;
   }
 
-  if (v66 && !v26)
+  if (v65 && !v26)
   {
-    v30 = [v15 dateByAddingUnit:16 value:1 toDate:v64 options:0];
-    if ([v15 isDate:v66 inSameDayAsDate:v64])
+    v30 = [v15 dateByAddingUnit:16 value:1 toDate:v63 options:0];
+    if ([v15 isDate:v65 inSameDayAsDate:v63])
     {
       v31 = @"HFTodayTimerTriggerName";
     }
 
     else
     {
-      if (![v15 isDate:v66 inSameDayAsDate:v30])
+      if (![v15 isDate:v65 inSameDayAsDate:v30])
       {
         v32 = [self _dateFormatterWithOptions:v9];
         [v32 setLocalizedDateFormatFromTemplate:{@"d MMM, h:mm a"}];
-        v33 = [v32 stringFromDate:v66];
-        v68 = v33;
-        v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v68 count:1];
+        v33 = [v32 stringFromDate:v65];
+        v67 = v33;
+        v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v67 count:1];
         v26 = [HFLocalizableStringKey stringKeyWithKey:@"HFFormattedDateTimerTriggerName" arguments:v34];
 
-        v15 = v63;
+        v15 = v62;
         goto LABEL_33;
       }
 
@@ -623,15 +621,15 @@ LABEL_42:
       {
         [v26 setKey:v48];
         argumentKeys = [v26 argumentKeys];
-        v53 = [argumentKeys arrayByAddingObject:v62];
+        v53 = [argumentKeys arrayByAddingObject:v61];
         [v26 setArgumentKeys:v53];
 
         argumentMap2 = [v26 argumentMap];
-        [argumentMap2 setObject:v46 forKeyedSubscript:v62];
+        [argumentMap2 setObject:v46 forKeyedSubscript:v61];
       }
     }
 
-    v15 = v63;
+    v15 = v62;
   }
 
   if (!v26 || ([v26 argumentMap], v55 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v55, "setObject:forKeyedSubscript:", v10, v19), v55, objc_msgSend(v26, "localizedStringWithArgumentBlock:", 0), (v56 = objc_claimAutoreleasedReturnValue()) == 0))
@@ -641,13 +639,11 @@ LABEL_42:
 
   if (![v9 nameType])
   {
-    home = [v9 home];
-    v58 = [self hf_sanitizeTriggerName:v56 home:home];
+    v57 = objc_msgSend_home(v9);
+    v58 = [self hf_sanitizeTriggerName:v56 home:v57];
 
     v56 = v58;
   }
-
-  v59 = *MEMORY[0x277D85DE8];
 
   return v56;
 }

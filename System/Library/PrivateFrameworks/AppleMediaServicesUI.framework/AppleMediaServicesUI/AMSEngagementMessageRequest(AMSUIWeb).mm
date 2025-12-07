@@ -7,33 +7,33 @@
 
 - (id)generateWebExport
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   actions = [self actions];
-  v5 = [actions countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v5 = [actions countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v24;
+    v7 = *v23;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v24 != v7)
+        if (*v23 != v7)
         {
           objc_enumerationMutation(actions);
         }
 
-        v9 = [self _resultFromMessageAction:*(*(&v23 + 1) + 8 * i)];
+        v9 = [self _resultFromMessageAction:*(*(&v22 + 1) + 8 * i)];
         [v3 addObject:v9];
       }
 
-      v6 = [actions countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v6 = [actions countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v6);
@@ -66,8 +66,6 @@
 
   title = [self title];
   [v2 setObject:title forKeyedSubscript:@"title"];
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

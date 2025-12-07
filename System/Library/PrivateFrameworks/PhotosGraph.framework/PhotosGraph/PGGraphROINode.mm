@@ -130,7 +130,7 @@
 
 + (id)_localizationKeyForROINode:(id)node
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   label = [nodeCopy label];
   v5 = localizationKeyForROILabel(label);
@@ -141,13 +141,11 @@
 
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = nodeCopy;
-      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Trying to localize node with unsupported label/domain: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = nodeCopy;
+      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Trying to localize node with unsupported label/domain: %@", &v9, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -205,16 +203,14 @@
 
 + (id)validROILabels
 {
-  v6[5] = *MEMORY[0x277D85DE8];
-  v6[0] = @"Urban";
-  v6[1] = @"Beach";
-  v6[2] = @"Mountain";
-  v6[3] = @"Nature";
-  v6[4] = @"Water";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:5];
+  v5[5] = *MEMORY[0x277D85DE8];
+  v5[0] = @"Urban";
+  v5[1] = @"Beach";
+  v5[2] = @"Mountain";
+  v5[3] = @"Nature";
+  v5[4] = @"Water";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:5];
   v3 = [MEMORY[0x277CBEB98] setWithArray:v2];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

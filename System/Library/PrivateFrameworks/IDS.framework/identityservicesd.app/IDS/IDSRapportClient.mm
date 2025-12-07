@@ -32,9 +32,9 @@
 
 - (IDSRapportClient)init
 {
-  v49.receiver = self;
-  v49.super_class = IDSRapportClient;
-  v2 = [(IDSRapportClient *)&v49 init];
+  v51.receiver = self;
+  v51.super_class = IDSRapportClient;
+  v2 = [(IDSRapportClient *)&v51 init];
   if (v2)
   {
     v3 = objc_alloc_init(NSRecursiveLock);
@@ -71,84 +71,85 @@
     [(RPCompanionLinkClient *)v17 setDispatchQueue:v18];
 
     v19 = v2->_companionLinkClient;
+    v48[0] = _NSConcreteStackBlock;
+    v48[1] = 3221225472;
+    v48[2] = sub_10055031C;
+    v48[3] = &unk_100BE0010;
+    objc_copyWeak(&v49, &location);
+    [(RPCompanionLinkClient *)v19 setDeviceFoundHandler:v48];
+    v20 = v2->_companionLinkClient;
     v46[0] = _NSConcreteStackBlock;
     v46[1] = 3221225472;
-    v46[2] = sub_10055031C;
+    v46[2] = sub_100550378;
     v46[3] = &unk_100BE0010;
     objc_copyWeak(&v47, &location);
-    [(RPCompanionLinkClient *)v19 setDeviceFoundHandler:v46];
-    v20 = v2->_companionLinkClient;
-    v44[0] = _NSConcreteStackBlock;
-    v44[1] = 3221225472;
-    v44[2] = sub_100550378;
-    v44[3] = &unk_100BE0010;
-    objc_copyWeak(&v45, &location);
-    [(RPCompanionLinkClient *)v20 setDeviceLostHandler:v44];
+    [(RPCompanionLinkClient *)v20 setDeviceLostHandler:v46];
     v21 = +[IDSFoundationLog delivery];
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+    if (v22)
     {
-      v22 = sub_1005503D4();
+      v23 = sub_1005503D4(v22);
       *buf = 138412546;
       *&buf[4] = @"ids-message";
       *&buf[12] = 2112;
-      *&buf[14] = v22;
+      *&buf[14] = v23;
       _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Registering for events {eventID: %@, options: %@}", buf, 0x16u);
     }
 
-    v23 = v2->_companionLinkClient;
-    v24 = sub_1005503D4();
-    v52 = v24;
-    v53 = &__kCFBooleanTrue;
-    v25 = [NSDictionary dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-    v42[0] = _NSConcreteStackBlock;
-    v42[1] = 3221225472;
-    v42[2] = sub_100550418;
-    v42[3] = &unk_100BE0038;
-    objc_copyWeak(&v43, &location);
-    [(RPCompanionLinkClient *)v23 registerEventID:@"ids-message" options:v25 handler:v42];
+    v24 = v2->_companionLinkClient;
+    v26 = sub_1005503D4(v25);
+    v54 = v26;
+    v55 = &__kCFBooleanTrue;
+    v27 = [NSDictionary dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+    v44[0] = _NSConcreteStackBlock;
+    v44[1] = 3221225472;
+    v44[2] = sub_100550418;
+    v44[3] = &unk_100BE0038;
+    objc_copyWeak(&v45, &location);
+    [(RPCompanionLinkClient *)v24 registerEventID:@"ids-message" options:v27 handler:v44];
 
     [(RPCompanionLinkClient *)v2->_companionLinkClient setInvalidationHandler:&stru_100BE0058];
     [(RPCompanionLinkClient *)v2->_companionLinkClient setInterruptionHandler:&stru_100BE0078];
-    v26 = dispatch_group_create();
-    dispatch_group_enter(v26);
-    v27 = v2->_companionLinkClient;
-    v39[0] = _NSConcreteStackBlock;
-    v39[1] = 3221225472;
-    v39[2] = sub_100550568;
-    v39[3] = &unk_100BE00A0;
-    objc_copyWeak(&v41, &location);
-    v28 = v26;
-    v40 = v28;
-    [(RPCompanionLinkClient *)v27 activateWithCompletion:v39];
+    v28 = dispatch_group_create();
     dispatch_group_enter(v28);
+    v29 = v2->_companionLinkClient;
+    v41[0] = _NSConcreteStackBlock;
+    v41[1] = 3221225472;
+    v41[2] = sub_100550568;
+    v41[3] = &unk_100BE00A0;
+    objc_copyWeak(&v43, &location);
+    v30 = v28;
+    v42 = v30;
+    [(RPCompanionLinkClient *)v29 activateWithCompletion:v41];
+    dispatch_group_enter(v30);
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v51 = 0;
-    v29 = v2->_companionLinkClient;
+    v53 = 0;
+    v31 = v2->_companionLinkClient;
+    v38[0] = _NSConcreteStackBlock;
+    v38[1] = 3221225472;
+    v38[2] = sub_100550660;
+    v38[3] = &unk_100BE00C8;
+    v40 = buf;
+    v32 = v30;
+    v39 = v32;
+    [(RPCompanionLinkClient *)v31 setLocalDeviceUpdatedHandler:v38];
+    v33 = v2->_multiQueue;
     v36[0] = _NSConcreteStackBlock;
     v36[1] = 3221225472;
-    v36[2] = sub_100550660;
-    v36[3] = &unk_100BE00C8;
-    v38 = buf;
-    v30 = v28;
-    v37 = v30;
-    [(RPCompanionLinkClient *)v29 setLocalDeviceUpdatedHandler:v36];
-    v31 = v2->_multiQueue;
-    v34[0] = _NSConcreteStackBlock;
-    v34[1] = 3221225472;
-    v34[2] = sub_100550760;
-    v34[3] = &unk_100BE00F0;
-    v32 = v30;
-    v35 = v32;
-    [(IMMultiQueue *)v31 addBlock:v34 forKey:@"kDefaultMultiQueueKey" description:@"init"];
+    v36[2] = sub_100550760;
+    v36[3] = &unk_100BE00F0;
+    v34 = v32;
+    v37 = v34;
+    [(IMMultiQueue *)v33 addBlock:v36 forKey:@"kDefaultMultiQueueKey" description:@"init"];
 
     _Block_object_dispose(buf, 8);
-    objc_destroyWeak(&v41);
-
     objc_destroyWeak(&v43);
+
     objc_destroyWeak(&v45);
     objc_destroyWeak(&v47);
+    objc_destroyWeak(&v49);
     objc_destroyWeak(&location);
   }
 

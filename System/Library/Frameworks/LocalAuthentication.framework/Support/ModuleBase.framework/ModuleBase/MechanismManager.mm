@@ -5,6 +5,7 @@
 - (id)loadMechanism:(int64_t)mechanism initParams:(id)params request:(id)request className:(id)name error:(id *)error;
 - (int64_t)_eventForPlugin:(int64_t)plugin;
 - (void)_logClass:(Class)class tag:(id)tag;
+- (void)_logClass:(Class)class tag:(id)tag level:(int)level;
 @end
 
 @implementation MechanismManager
@@ -49,9 +50,9 @@
   else
   {
     v19 = [paramsCopy objectForKeyedSubscript:@"UserId"];
-    v45 = 0;
-    v20 = [(MechanismManager *)self _canLoadPlugin:mechanism className:nameCopy userId:v19 request:requestCopy error:&v45];
-    v21 = v45;
+    v46 = 0;
+    v20 = [(MechanismManager *)self _canLoadPlugin:mechanism className:nameCopy userId:v19 request:requestCopy error:&v46];
+    v21 = v46;
 
     if (!v20)
     {
@@ -65,10 +66,10 @@
       goto LABEL_19;
     }
 
-    v42 = requestCopy;
-    v44 = v21;
-    v22 = [(MechanismManager *)self _pathForPlugin:mechanism error:&v44];
-    v18 = v44;
+    v43 = requestCopy;
+    v45 = v21;
+    v22 = [(MechanismManager *)self _pathForPlugin:mechanism error:&v45];
+    v18 = v45;
 
     if (v22)
     {
@@ -76,9 +77,9 @@
       if (v23)
       {
         v17 = v23;
-        v41 = self->_plugins;
+        v42 = self->_plugins;
         v24 = [MEMORY[0x277CCABB0] numberWithInteger:mechanism];
-        [(NSMutableDictionary *)v41 setObject:v17 forKey:v24];
+        [(NSMutableDictionary *)v42 setObject:v17 forKey:v24];
       }
 
       else
@@ -97,7 +98,7 @@
       v17 = 0;
     }
 
-    requestCopy = v42;
+    requestCopy = v43;
   }
 
   isLoaded = [v17 isLoaded];
@@ -115,9 +116,9 @@
 
   else
   {
-    v43 = v18;
-    v29 = [v17 loadAndReturnError:&v43];
-    v21 = v43;
+    v44 = v18;
+    v29 = [v17 loadAndReturnError:&v44];
+    v21 = v44;
 
     if ((v29 & 1) == 0)
     {
@@ -142,12 +143,13 @@ LABEL_19:
   {
     v32 = requestCopy;
     v33 = [(objc_class *)principalClass isSubclassOfClass:objc_opt_class()];
+    v34 = v33;
     if ((v33 & 1) == 0)
     {
-      v34 = LA_LOG_MechanismManager();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v35 = LA_LOG_MechanismManager(v33);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        [MechanismManager loadMechanism:v17 initParams:v34 request:? className:? error:?];
+        [MechanismManager loadMechanism:v17 initParams:v35 request:? className:? error:?];
       }
 
       [(MechanismManager *)self _logClass:v31 tag:@"cls"];
@@ -157,25 +159,25 @@ LABEL_19:
 
     if (paramsCopy)
     {
-      v35 = [[v31 alloc] initWithParams:paramsCopy request:v32];
+      v36 = [[v31 alloc] initWithParams:paramsCopy request:v32];
     }
 
     else
     {
-      v35 = objc_opt_new();
+      v36 = objc_opt_new();
     }
 
-    v25 = v35;
-    if (v33)
+    v25 = v36;
+    if (v34)
     {
       requestCopy = v32;
       goto LABEL_38;
     }
 
-    v37 = LA_LOG_MechanismManager();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v38 = LA_LOG_MechanismManager(v36);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
-      [MechanismManager loadMechanism:v25 initParams:v37 request:? className:? error:?];
+      [MechanismManager loadMechanism:v25 initParams:v38 request:? className:? error:?];
     }
 
     requestCopy = v32;
@@ -183,18 +185,18 @@ LABEL_19:
 
   else
   {
-    v36 = MEMORY[0x277CD47F0];
-    v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"No class in bundle: %@", v17];
-    v38 = [v36 internalErrorWithMessage:v37];
+    v37 = MEMORY[0x277CD47F0];
+    v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"No class in bundle: %@", v17];
+    v39 = [v37 internalErrorWithMessage:v38];
 
     v25 = 0;
-    v21 = v38;
+    v21 = v39;
   }
 
 LABEL_38:
   if (error)
   {
-    v39 = v21;
+    v40 = v21;
     *error = v21;
   }
 
@@ -401,22 +403,86 @@ LABEL_6:
   }
 }
 
+- (void)_logClass:(Class)class tag:(id)tag level:(int)level
+{
+  v5 = *&level;
+  v27 = *MEMORY[0x277D85DE8];
+  tagCopy = tag;
+  v8 = LA_LOG_MechanismManager(tagCopy);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  {
+    if (v5)
+    {
+      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"superclass[%d]", v5];
+    }
+
+    else
+    {
+      v15 = @"class";
+    }
+
+    *buf = 138544642;
+    *v18 = tagCopy;
+    *&v18[8] = 2114;
+    *&v18[10] = v15;
+    v19 = 2114;
+    classCopy = class;
+    v21 = 2048;
+    classCopy2 = class;
+    v23 = 1024;
+    Version = class_getVersion(class);
+    v25 = 2082;
+    ImageName = class_getImageName(class);
+    _os_log_error_impl(&dword_238BBF000, v8, OS_LOG_TYPE_ERROR, "[%{public}@:%{public}@] %{public}@ (%p), version: %d, image: %{public}s", buf, 0x3Au);
+    if (v5)
+    {
+    }
+  }
+
+  if (([(objc_class *)class isEqual:objc_opt_class()]& 1) == 0)
+  {
+    outCount = 0;
+    v9 = class_copyMethodList(class, &outCount);
+    if (v9)
+    {
+      v10 = v9;
+      if (outCount)
+      {
+        for (i = 0; i < outCount; ++i)
+        {
+          v12 = LA_LOG_MechanismManager(v9);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          {
+            Name = method_getName(v10[i]);
+            v14 = sel_getName(Name);
+            *buf = 67109378;
+            *v18 = i;
+            *&v18[4] = 2082;
+            *&v18[6] = v14;
+            _os_log_error_impl(&dword_238BBF000, v12, OS_LOG_TYPE_ERROR, "    method[%d]: %{public}s", buf, 0x12u);
+          }
+        }
+      }
+
+      free(v10);
+    }
+  }
+}
+
 - (void)loadMechanism:(uint64_t)a1 initParams:(NSObject *)a2 request:className:error:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_238BBF000, a2, OS_LOG_TYPE_ERROR, "Class issue detected while loading principal class from bundle: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_238BBF000, a2, OS_LOG_TYPE_ERROR, "Class issue detected while loading principal class from bundle: %{public}@", &v2, 0xCu);
 }
 
 - (void)loadMechanism:(uint64_t)a1 initParams:(NSObject *)a2 request:className:error:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_238BBF000, a2, OS_LOG_TYPE_ERROR, "Created mechanism: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_238BBF000, a2, OS_LOG_TYPE_ERROR, "Created mechanism: %{public}@", &v2, 0xCu);
 }
 
 @end

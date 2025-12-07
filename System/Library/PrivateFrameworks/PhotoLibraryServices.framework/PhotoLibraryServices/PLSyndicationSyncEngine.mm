@@ -348,7 +348,7 @@ void __98__PLSyndicationSyncEngine_syncSyndicationItemsWithStartDate_endDate_que
 LABEL_2:
       v4 = v3;
       v5 = [v3 domain];
-      if ([v5 isEqualToString:*MEMORY[0x1E6963B80]])
+      if (objc_msgSend_isEqualToString_(v5))
       {
         v6 = [v4 code];
 
@@ -417,7 +417,7 @@ LABEL_10:
   v14 = 1;
 LABEL_18:
 
-  [*(a1 + 56) _changeSyncRangeDenominatorWithInterrupted:*(*(*(a1 + 72) + 8) + 40) != 0 success:v14 library:{*(a1 + 48), *v21, *&v21[16], v22}];
+  [*(a1 + 56) _changeSyncRangeDenominatorWithInterrupted:*(*(*(a1 + 72) + 8) + 40) != 0 success:v14 library:{*(a1 + 48), *v21, *&v21[8], v22}];
   (*(*(a1 + 64) + 16))();
 }
 
@@ -491,7 +491,7 @@ void __98__PLSyndicationSyncEngine_syncSyndicationItemsWithStartDate_endDate_que
 LABEL_2:
       v4 = v3;
       v5 = [v3 domain];
-      if ([v5 isEqualToString:*MEMORY[0x1E6963B80]])
+      if (objc_msgSend_isEqualToString_(v5))
       {
         v6 = [v4 code];
 
@@ -560,7 +560,7 @@ LABEL_10:
   v14 = 1;
 LABEL_18:
 
-  [*(a1 + 56) _changeSyncRangeDenominatorWithInterrupted:*(*(*(a1 + 72) + 8) + 40) != 0 success:v14 library:{*(a1 + 48), *v21, *&v21[16], v22}];
+  [*(a1 + 56) _changeSyncRangeDenominatorWithInterrupted:*(*(*(a1 + 72) + 8) + 40) != 0 success:v14 library:{*(a1 + 48), *v21, *&v21[8], v22}];
   (*(*(a1 + 64) + 16))();
 }
 
@@ -823,7 +823,7 @@ LABEL_6:
     }
 
     domain = [(__CFString *)v13 domain];
-    if ([domain isEqualToString:*MEMORY[0x1E69BFF48]])
+    if (objc_msgSend_isEqualToString_(domain))
     {
       code = [(__CFString *)v14 code];
 
@@ -1082,7 +1082,7 @@ void __79__PLSyndicationSyncEngine__deleteGuestAssetWithSyndicationIdentifiers_l
     v15 = PLSyndicationGetLog();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = [*(a1 + 56) count];
+      v16 = objc_msgSend_count(*(a1 + 56));
       v17 = [*(a1 + 56) componentsJoinedByString:{@", "}];
       *buf = 134218242;
       v24 = v16;
@@ -1310,9 +1310,9 @@ LABEL_16:
   }
 }
 
-uint64_t __121__PLSyndicationSyncEngine__recursiveFindStartDateForMessagesSpotlightItemsWithStartDate_endDate_block_completionHandler___block_invoke(uint64_t a1, void *a2)
+void *__121__PLSyndicationSyncEngine__recursiveFindStartDateForMessagesSpotlightItemsWithStartDate_endDate_block_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  result = [a2 count];
+  result = objc_msgSend_count(a2);
   *(*(*(a1 + 32) + 8) + 24) = result != 0;
   return result;
 }

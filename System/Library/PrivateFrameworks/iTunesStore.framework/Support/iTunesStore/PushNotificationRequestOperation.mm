@@ -63,53 +63,57 @@
 
 - (void)run
 {
-  v47 = 0;
+  v51 = 0;
   accountIdentifier = [(SSVPushNotificationParameters *)self->_parameters accountIdentifier];
   if (!accountIdentifier)
   {
     accountIdentifier = [objc_msgSend(+[SSAccountStore defaultStore](SSAccountStore "defaultStore")];
     if (!accountIdentifier)
     {
-      v27 = +[SSLogConfig sharedDaemonConfig];
-      if (!v27)
+      v29 = +[SSLogConfig sharedDaemonConfig];
+      if (!v29)
       {
-        v27 = +[SSLogConfig sharedConfig];
+        v29 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog = [v27 shouldLog];
-      if ([v27 shouldLogToDisk])
+      shouldLog = [v29 shouldLog];
+      if ([v29 shouldLogToDisk])
       {
-        v29 = shouldLog | 2;
+        LODWORD(v31) = shouldLog | 2;
       }
 
       else
       {
-        v29 = shouldLog;
+        LODWORD(v31) = shouldLog;
       }
 
-      if (!os_log_type_enabled([v27 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject = [v29 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v29 &= 2u;
+        v31 = v31;
       }
 
-      if (v29)
+      else
       {
-        v48 = 138412290;
-        v49 = objc_opt_class();
-        LODWORD(v45) = 12;
-        v44 = &v48;
-        v30 = _os_log_send_and_compose_impl();
-        if (v30)
+        v31 &= 2u;
+      }
+
+      if (v31)
+      {
+        v52 = 138412290;
+        v53 = objc_opt_class();
+        v33 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Can't perform request with no accountID", &v52, 12);
+        if (v33)
         {
-          v31 = v30;
-          v32 = [NSString stringWithCString:v30 encoding:4, &v48, v45];
-          free(v31);
-          v44 = v32;
+          v34 = v33;
+          v35 = [NSString stringWithCString:v33 encoding:4];
+          free(v34);
+          v48 = v35;
           SSFileLog();
         }
       }
 
-      goto LABEL_46;
+      goto LABEL_49;
     }
   }
 
@@ -123,7 +127,7 @@
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
   requestType = [(SSVPushNotificationParameters *)self->_parameters requestType];
@@ -131,15 +135,15 @@
   {
     v10 = [v8 objectForKey:@"add-push-notification-type-url"];
     LODWORD(v11) = 1;
-    goto LABEL_20;
+    goto LABEL_21;
   }
 
   if (requestType == 1)
   {
     v10 = [v8 objectForKey:@"remove-push-notification-type-url"];
-LABEL_19:
+LABEL_20:
     LODWORD(v11) = 0;
-    goto LABEL_20;
+    goto LABEL_21;
   }
 
   v12 = +[SSLogConfig sharedDaemonConfig];
@@ -149,96 +153,87 @@ LABEL_19:
   }
 
   shouldLog2 = [v12 shouldLog];
-  if ([v12 shouldLogToDisk])
-  {
-    v14 = shouldLog2 | 2;
-  }
-
-  else
-  {
-    v14 = shouldLog2;
-  }
-
-  if (!os_log_type_enabled([v12 OSLogObject], OS_LOG_TYPE_DEFAULT))
-  {
-    v14 &= 2u;
-  }
-
+  LODWORD(v14) = [v12 shouldLogToDisk] ? shouldLog2 | 2 : shouldLog2;
+  oSLogObject2 = [v12 OSLogObject];
+  v14 = os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT) ? v14 : v14 & 2u;
   if (!v14)
   {
-LABEL_18:
+LABEL_19:
     v10 = 0;
+    goto LABEL_20;
+  }
+
+  v16 = objc_opt_class();
+  requestType2 = [(SSVPushNotificationParameters *)self->_parameters requestType];
+  v52 = 138412546;
+  v53 = v16;
+  v54 = 2048;
+  v55 = requestType2;
+  v11 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Unknown request type: %ld", &v52, 22);
+  if (v11)
+  {
+    v18 = [NSString stringWithCString:v11 encoding:4];
+    free(v11);
+    v48 = v18;
+    SSFileLog();
     goto LABEL_19;
   }
 
-  v15 = objc_opt_class();
-  requestType2 = [(SSVPushNotificationParameters *)self->_parameters requestType];
-  v48 = 138412546;
-  v49 = v15;
-  v50 = 2048;
-  v51 = requestType2;
-  LODWORD(v45) = 22;
-  v44 = &v48;
-  v11 = _os_log_send_and_compose_impl();
-  if (v11)
-  {
-    v17 = [NSString stringWithCString:v11 encoding:4, &v48, v45];
-    free(v11);
-    v44 = v17;
-    SSFileLog();
-    goto LABEL_18;
-  }
-
   v10 = 0;
-LABEL_20:
+LABEL_21:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v20 = +[SSLogConfig sharedDaemonConfig];
-    if (!v20)
+    v21 = +[SSLogConfig sharedDaemonConfig];
+    if (!v21)
     {
-      v20 = +[SSLogConfig sharedConfig];
+      v21 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog3 = [v20 shouldLog];
-    if ([v20 shouldLogToDisk])
+    shouldLog3 = [v21 shouldLog];
+    if ([v21 shouldLogToDisk])
     {
-      v22 = shouldLog3 | 2;
+      LODWORD(v23) = shouldLog3 | 2;
     }
 
     else
     {
-      v22 = shouldLog3;
+      LODWORD(v23) = shouldLog3;
     }
 
-    if (!os_log_type_enabled([v20 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject3 = [v21 OSLogObject];
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
-      v22 &= 2u;
+      v23 = v23;
     }
 
-    if (v22)
+    else
     {
-      v23 = objc_opt_class();
-      v48 = 138412290;
-      v49 = v23;
-      LODWORD(v45) = 12;
-      v44 = &v48;
-      v24 = _os_log_send_and_compose_impl();
-      if (v24)
+      v23 &= 2u;
+    }
+
+    if (v23)
+    {
+      v25 = objc_opt_class();
+      v52 = 138412290;
+      v53 = v25;
+      LODWORD(v49) = 12;
+      v26 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Can't perform request with no URL", &v52, v49);
+      if (v26)
       {
-        v25 = v24;
-        v26 = [NSString stringWithCString:v24 encoding:4, &v48, v45];
-        free(v25);
-        v44 = v26;
+        v27 = v26;
+        v28 = [NSString stringWithCString:v26 encoding:4];
+        free(v27);
+        v48 = v28;
         SSFileLog();
       }
     }
 
-LABEL_46:
-    v33 = SSError();
-    v34 = 0;
-    v47 = v33;
-    goto LABEL_61;
+LABEL_49:
+    v36 = SSError();
+    v37 = 0;
+    v51 = v36;
+    goto LABEL_65;
   }
 
   if (v11)
@@ -246,11 +241,11 @@ LABEL_46:
     environmentName = [(SSVPushNotificationParameters *)self->_parameters environmentName];
     if (!environmentName)
     {
-      v19 = [v7 valueForKey:@"push-notifications"];
+      v20 = [v7 valueForKey:@"push-notifications"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        environmentName = [v19 objectForKey:@"environment"];
+        environmentName = [v20 objectForKey:@"environment"];
       }
 
       else
@@ -262,68 +257,73 @@ LABEL_46:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v35 = +[SSLogConfig sharedDaemonConfig];
-      if (!v35)
+      v38 = +[SSLogConfig sharedDaemonConfig];
+      if (!v38)
       {
-        v35 = +[SSLogConfig sharedConfig];
+        v38 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog4 = [v35 shouldLog];
-      if ([v35 shouldLogToDisk])
+      shouldLog4 = [v38 shouldLog];
+      if ([v38 shouldLogToDisk])
       {
-        v37 = shouldLog4 | 2;
+        LODWORD(v40) = shouldLog4 | 2;
       }
 
       else
       {
-        v37 = shouldLog4;
+        LODWORD(v40) = shouldLog4;
       }
 
-      if (!os_log_type_enabled([v35 OSLogObject], OS_LOG_TYPE_INFO))
+      oSLogObject4 = [v38 OSLogObject];
+      if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_INFO))
       {
-        v37 &= 2u;
+        v40 = v40;
       }
 
-      if (v37)
+      else
       {
-        v38 = objc_opt_class();
-        v48 = 138412802;
-        v49 = v38;
-        v50 = 2112;
-        v51 = environmentName;
-        v52 = 2112;
-        v53 = v10;
-        LODWORD(v45) = 32;
-        v44 = &v48;
-        v39 = _os_log_send_and_compose_impl();
-        if (v39)
+        v40 &= 2u;
+      }
+
+      if (v40)
+      {
+        v42 = objc_opt_class();
+        v52 = 138412802;
+        v53 = v42;
+        v54 = 2112;
+        v55 = environmentName;
+        v56 = 2112;
+        v57 = v10;
+        LODWORD(v49) = 32;
+        v43 = _os_log_send_and_compose_impl(v40, 0, 0, 0, &_mh_execute_header, oSLogObject4, 1, "%@: Waiting for token register for environment: %@, URL: %@", &v52, v49);
+        if (v43)
         {
-          v40 = v39;
-          v41 = [NSString stringWithCString:v39 encoding:4, &v48, v45];
-          free(v40);
-          v44 = v41;
+          v44 = v43;
+          v45 = [NSString stringWithCString:v43 encoding:4];
+          free(v44);
+          v48 = v45;
           SSFileLog();
         }
       }
 
-      v42 = dispatch_semaphore_create(0);
-      v46[0] = _NSConcreteStackBlock;
-      v46[1] = 3221225472;
-      v46[2] = sub_1001023D8;
-      v46[3] = &unk_100327378;
-      v46[4] = v42;
-      [+[PushNotificationController sharedInstance](PushNotificationController registerTokenForEnvironmentName:"registerTokenForEnvironmentName:accountIdentifier:completionBlock:" accountIdentifier:environmentName completionBlock:v4, v46];
-      v43 = dispatch_time(0, 60000000000);
-      dispatch_semaphore_wait(v42, v43);
-      dispatch_release(v42);
+      v46 = dispatch_semaphore_create(0);
+      v50[0] = _NSConcreteStackBlock;
+      v50[1] = 3221225472;
+      v50[2] = sub_1001023D8;
+      v50[3] = &unk_100327378;
+      v50[4] = v46;
+      [+[PushNotificationController sharedInstance](PushNotificationController registerTokenForEnvironmentName:"registerTokenForEnvironmentName:accountIdentifier:completionBlock:" accountIdentifier:environmentName completionBlock:v4, v50];
+      v47 = dispatch_time(0, 60000000000);
+      dispatch_semaphore_wait(v46, v47);
+      dispatch_release(v46);
     }
   }
 
-  v34 = [(PushNotificationRequestOperation *)self _loadResponseWithAccountIdentifier:v4 URL:[NSURL error:"URLWithString:" URLWithString:v10, v44], &v47];
-  v33 = v47;
-LABEL_61:
-  [(PushNotificationRequestOperation *)self setError:v33, v44];
-  [(PushNotificationRequestOperation *)self setSuccess:v34];
+  v37 = [(PushNotificationRequestOperation *)self _loadResponseWithAccountIdentifier:v4 URL:[NSURL error:"URLWithString:" URLWithString:v10, v48], &v51];
+  v36 = v51;
+LABEL_65:
+  [(PushNotificationRequestOperation *)self setError:v36, v48];
+  [(PushNotificationRequestOperation *)self setSuccess:v37];
 }
 
 - (BOOL)_loadResponseWithAccountIdentifier:(id)identifier URL:(id)l error:(id *)error
@@ -362,15 +362,21 @@ LABEL_61:
   shouldLog = [v16 shouldLog];
   if ([v16 shouldLogToDisk])
   {
-    v18 = shouldLog | 2;
+    LODWORD(v18) = shouldLog | 2;
   }
 
   else
   {
-    v18 = shouldLog;
+    LODWORD(v18) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v16 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v16 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v18 = v18;
+  }
+
+  else
   {
     v18 &= 2u;
   }
@@ -381,37 +387,35 @@ LABEL_61:
     v30 = objc_opt_class();
     v31 = 2112;
     lCopy = l;
-    LODWORD(v27) = 22;
-    v26 = &v29;
-    v19 = _os_log_send_and_compose_impl();
-    if (v19)
+    v20 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Performing push notification request: %@", &v29, 22);
+    if (v20)
     {
-      v20 = v19;
-      v21 = [NSString stringWithCString:v19 encoding:4, &v29, v27];
-      free(v20);
-      v26 = v21;
+      v21 = v20;
+      v22 = [NSString stringWithCString:v20 encoding:4];
+      free(v21);
+      v27 = v22;
       SSFileLog();
     }
   }
 
-  v22 = [(PushNotificationRequestOperation *)self runSubOperation:v9 returningError:&v28, v26];
-  if (v22)
+  v23 = [(PushNotificationRequestOperation *)self runSubOperation:v9 returningError:&v28, v27];
+  if (v23)
   {
-    v23 = [objc_msgSend(v9 "dataProvider")];
+    v24 = [objc_msgSend(v9 "dataProvider")];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v24 = [NSPropertyListSerialization dataWithPropertyList:v23 format:100 options:0 error:0];
+      v25 = [NSPropertyListSerialization dataWithPropertyList:v24 format:100 options:0 error:0];
     }
 
     else
     {
-      v24 = 0;
+      v25 = 0;
     }
 
     [(PushNotificationRequestOperation *)self lock];
 
-    self->_response = [[SSURLConnectionResponse alloc] initWithURLResponse:objc_msgSend(v9 bodyData:{"response"), v24}];
+    self->_response = [[SSURLConnectionResponse alloc] initWithURLResponse:objc_msgSend(v9 bodyData:{"response"), v25}];
     [(PushNotificationRequestOperation *)self unlock];
   }
 
@@ -424,7 +428,7 @@ LABEL_61:
     }
   }
 
-  return v22;
+  return v23;
 }
 
 @end

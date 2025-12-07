@@ -5,19 +5,19 @@ void sub_22F9C42D8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22F9C5604(_Unwind_Exception *a1, void *a2, ...)
+void sub_22F9C5604(_Unwind_Exception *a1, void *a2, void *a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   sub_22F9C7D28(va, 0);
   _Unwind_Resume(a1);
 }
 
-id sub_22F9C6264(_DWORD *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, double a6)
+id sub_22F9C6264(_DWORD *a1, double a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v102[16] = *MEMORY[0x277D85DE8];
-  LODWORD(a6) = *a1;
-  v101 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], a2, a3, a4, a5, a6);
+  LODWORD(a2) = *a1;
+  v101 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], a3, a4, a5, a6, a2);
   v102[0] = v101;
   LODWORD(v7) = a1[1];
   v100 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v8, v9, v10, v11, v7);
@@ -69,20 +69,20 @@ id sub_22F9C6264(_DWORD *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t 
   return v93;
 }
 
-void sub_22F9C7754(void *a1, unint64_t a2)
+void sub_22F9C7754(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 2;
+  v2 = (result[1] - *result) >> 2;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    sub_22F9C7BF8(a1, a2 - v2);
+    sub_22F9C7BF8(result, a2 - v2);
   }
 }
 
@@ -192,16 +192,18 @@ core::ThreadPool *sub_22F9C7D28(core::ThreadPool **a1, core::ThreadPool *a2)
   return result;
 }
 
-void sub_22F9C7D74(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_22F9C7D74(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_22F9C8A50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, void *a17, void *a18, void *a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_22F9C8A50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, void *a17, void *a18, void *a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  sub_22F9C8EBC(&a35);
+  va_start(va, a34);
 
+  sub_22F9C8EBC(va);
   _Unwind_Resume(a1);
 }
 
@@ -284,7 +286,7 @@ void sub_22F9C91D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(a1);
@@ -310,67 +312,67 @@ void sub_22F9CAEBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(a1);
 }
 
-void sub_22F9CC310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22F9CC310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   sub_22F9C8EBC(va);
   _Unwind_Resume(a1);
 }
 
-void sub_22F9CC484(void *a1, unint64_t a2)
+void sub_22F9CC484(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 4;
+  v2 = (result[1] - *result) >> 4;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 16 * a2;
+      result[1] = *result + 16 * a2;
     }
   }
 
   else
   {
-    sub_22F9CD65C(a1, a2 - v2);
+    sub_22F9CD65C(result, a2 - v2);
   }
 }
 
-void sub_22F9CC4B4(void *a1, unint64_t a2)
+void sub_22F9CC4B4(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    sub_22F9CD7B8(a1, a2 - v2);
+    sub_22F9CD7B8(result, a2 - v2);
   }
 }
 
-void sub_22F9CC4E4(void *a1, unint64_t a2)
+void sub_22F9CC4E4(void *result, unint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 2);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 2);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    sub_22F9CD914(a1, v4);
+    sub_22F9CD914(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 12 * a2;
+    result[1] = *result + 12 * a2;
   }
 }
 
@@ -665,7 +667,7 @@ void sub_22F9D67C0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_22F9D6D48(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_22F9D6D48(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -687,7 +689,7 @@ void sub_22F9D6DA8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_22F9D6DC4(uint64_t a1, unint64_t a2)
+void sub_22F9D6DC4(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -697,17 +699,17 @@ void sub_22F9D6DC4(uint64_t a1, unint64_t a2)
   sub_22F9C7AD4();
 }
 
-void *sub_22F9D6E00(void *result, unint64_t a2)
+uint64_t *sub_22F9D6E00(uint64_t *a1, unint64_t a2, int *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_22F9D6F14(result, a2);
+    sub_22F9D6F14(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_22F9D6EF8(_Unwind_Exception *exception_object)
@@ -722,7 +724,7 @@ void sub_22F9D6EF8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_22F9D6F14(uint64_t a1, unint64_t a2)
+void sub_22F9D6F14(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -732,20 +734,20 @@ void sub_22F9D6F14(uint64_t a1, unint64_t a2)
   sub_22F9C7AD4();
 }
 
-void *sub_22F9D6F50(void *result, unint64_t a2)
+uint64_t *sub_22F9D6F50(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_22F9D6FF4(result, a2);
+    sub_22F9D6FF4(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void sub_22F9D6FF4(uint64_t a1, unint64_t a2)
+void sub_22F9D6FF4(uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -812,9 +814,9 @@ void sub_22F9D7144(uint64_t a1)
   JUMPOUT(0x2319050F0);
 }
 
-void sub_22F9D8E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_22F9D8E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
 
   sub_22F9C8EBC(va);
   _Unwind_Resume(a1);
@@ -857,11 +859,11 @@ uint64_t sub_22F9DA070(uint64_t a1, unsigned int a2)
   return v3;
 }
 
-void sub_22F9DB9C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, void *a9, void *a10, uint64_t a11, uint64_t a12, ...)
+void sub_22F9DB9C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, void *a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
 
-  if (v12)
+  if (v19)
   {
   }
 
@@ -954,16 +956,16 @@ void sub_22F9DDDA8(uint64_t a1)
   JUMPOUT(0x2319050F0);
 }
 
-id _MXISignpostLogSystem()
+id _MXISignpostLogSystem(uint64_t a1)
 {
   if (qword_27DAD2778 != -1)
   {
     sub_22F9DDEC4();
   }
 
-  v1 = qword_27DAD2770;
+  v2 = qword_27DAD2770;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_22F9DDE80()
@@ -973,48 +975,48 @@ uint64_t sub_22F9DDE80()
   return MEMORY[0x2821F96F8]();
 }
 
-uint64_t core::get_info@<X0>(unint64_t *a1@<X8>)
+uint64_t *core::get_info@<X0>(unint64_t *__return_ptr a1@<X8>)
 {
-  v36 = 0;
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
+  v35 = 0;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   *task_info_out = 0u;
   task_info_outCnt = 93;
-  v3 = task_info(*MEMORY[0x277D85F48], 0x16u, task_info_out, &task_info_outCnt);
-  v4 = *(&v23 + 1) >> 20;
-  *a1 = v22 >> 20;
-  a1[1] = v4;
-  v5 = MEMORY[0x231905320](v3);
+  v2 = task_info(*MEMORY[0x277D85F48], 0x16u, task_info_out, &task_info_outCnt);
+  v3 = *(&v22 + 1) >> 20;
+  *a1 = v21 >> 20;
+  a1[1] = v3;
+  v4 = MEMORY[0x231905320](v2);
+  v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  memset(v9, 0, sizeof(v9));
+  memset(v8, 0, sizeof(v8));
   task_info_outCnt = 40;
-  host_statistics64(v5, 4, v9, &task_info_outCnt);
-  v6 = HIDWORD(v9[0]);
+  host_statistics64(v4, 4, v8, &task_info_outCnt);
+  v5 = HIDWORD(v8[0]);
   result = getpagesize();
-  v8 = ((v11 + HIDWORD(v10)) * result) >> 20;
-  a1[2] = (result * v6) >> 20;
-  a1[3] = v8;
+  v7 = ((v10 + HIDWORD(v9)) * result) >> 20;
+  a1[2] = (result * v5) >> 20;
+  a1[3] = v7;
   return result;
 }
 
@@ -1102,7 +1104,7 @@ void sub_22F9DE28C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_22F9DE2E8(void *a1, uint64_t a2)
+uint64_t sub_22F9DE2E8(unint64_t *a1, uint64_t a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -1135,19 +1137,19 @@ uint64_t sub_22F9DE2E8(void *a1, uint64_t a2)
   return result;
 }
 
-void *sub_22F9DE380(void *a1)
+void sub_22F9DE380(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x80;
   v3 = v1 - 128;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -1155,25 +1157,25 @@ void *sub_22F9DE380(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    sub_22F9DE990(a1, v9);
+    v10 = a1;
+    sub_22F9DE990(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return sub_22F9DE554(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  sub_22F9DE554(a1, &v9);
 }
 
 void sub_22F9DE508(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -1187,27 +1189,26 @@ void sub_22F9DE508(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *sub_22F9DE554(void *result, void *a2)
+void sub_22F9DE554(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      sub_22F9DE990(result, v11);
+      sub_22F9DE990(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -1216,28 +1217,26 @@ void *sub_22F9DE554(void *result, void *a2)
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **sub_22F9DE65C(const void **result, void *a2)
+void sub_22F9DE65C(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -1250,52 +1249,50 @@ const void **sub_22F9DE65C(const void **result, void *a2)
         v9 = (v7 - v4) >> 2;
       }
 
-      sub_22F9DE990(result, v9);
+      sub_22F9DE990(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *sub_22F9DE768(void *result, void *a2)
+void sub_22F9DE768(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      sub_22F9DE990(result[4], v11);
+      sub_22F9DE990(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -1304,28 +1301,26 @@ void *sub_22F9DE768(void *result, void *a2)
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **sub_22F9DE870(const void **result, void *a2)
+void sub_22F9DE870(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -1338,29 +1333,28 @@ const void **sub_22F9DE870(const void **result, void *a2)
         v9 = (v7 - v4) >> 2;
       }
 
-      sub_22F9DE990(result[4], v9);
+      sub_22F9DE990(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void sub_22F9DE990(uint64_t a1, unint64_t a2)
@@ -1663,38 +1657,41 @@ void sub_22F9DEF88(void ***a1)
   }
 }
 
-uint64_t sub_22F9DF00C(uint64_t result, int a2)
+uint64_t sub_22F9DF00C(uint64_t a1, int a2)
 {
-  *result = 0;
-  *(result + 8) = 0;
-  *(result + 24) = 850045863;
-  *(result + 144) = 1018212795;
-  *(result + 16) = 0;
-  *(result + 32) = 0u;
-  *(result + 48) = 0u;
-  *(result + 64) = 0u;
-  *(result + 80) = 0u;
-  *(result + 96) = 0u;
-  *(result + 112) = 0u;
-  *(result + 124) = 0u;
-  *(result + 152) = 0u;
-  *(result + 168) = 0u;
-  *(result + 184) = 0;
-  *(result + 192) = 1018212795;
-  *(result + 225) = 0u;
-  *(result + 216) = 0u;
-  *(result + 200) = 0u;
+  *a1 = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 24) = 850045863;
+  *(a1 + 144) = 1018212795;
+  *(a1 + 16) = 0;
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 64) = 0u;
+  *(a1 + 80) = 0u;
+  *(a1 + 96) = 0u;
+  *(a1 + 112) = 0u;
+  *(a1 + 124) = 0u;
+  *(a1 + 152) = 0u;
+  *(a1 + 168) = 0u;
+  *(a1 + 184) = 0;
+  *(a1 + 192) = 1018212795;
+  *(a1 + 225) = 0u;
+  *(a1 + 216) = 0u;
+  *(a1 + 200) = 0u;
   if (a2)
   {
-    if (*(result + 16))
+    *&v7 = core::ThreadPool::Impl::worker_entry_point;
+    *(&v7 + 1) = 0;
+    v6 = a1;
+    if (*(a1 + 16))
     {
-      sub_22F9DF3A8();
+      sub_22F9DF3A8(0, &v7, &v6);
     }
 
-    v2 = -*result >> 3;
+    v2 = -*a1 >> 3;
     if (!((v2 + 1) >> 61))
     {
-      v3 = -*result;
+      v3 = -*a1;
       v4 = v3 >> 2;
       if (v3 >> 2 <= (v2 + 1))
       {
@@ -1711,18 +1708,23 @@ uint64_t sub_22F9DF00C(uint64_t result, int a2)
         v5 = v4;
       }
 
+      v12 = a1;
       if (v5)
       {
-        sub_22F9DE990(result, v5);
+        sub_22F9DE990(a1, v5);
       }
 
-      sub_22F9DF3A8();
+      v8 = 0;
+      v9 = 8 * v2;
+      v10 = 8 * v2;
+      v11 = 0;
+      sub_22F9DF3A8((8 * v2), &v7, &v6);
     }
 
     sub_22F9C7AD4();
   }
 
-  return result;
+  return a1;
 }
 
 void sub_22F9DF1A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
@@ -1802,14 +1804,14 @@ void sub_22F9DF35C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22F9DF48C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22F9DF48C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_22F9DF598(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_22F9DF4C4(uint64_t *a1)
+uint64_t sub_22F9DF4C4(const void **a1)
 {
   v8 = a1;
   v2 = std::__thread_local_data();
@@ -1829,9 +1831,9 @@ uint64_t sub_22F9DF4C4(uint64_t *a1)
   return 0;
 }
 
-void sub_22F9DF53C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22F9DF53C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_22F9DF550(va);
   _Unwind_Resume(a1);
 }
@@ -1920,16 +1922,16 @@ uint64_t sub_22F9DF688(uint64_t a1)
   return a1;
 }
 
-id _mxi_log()
+id _mxi_log(uint64_t a1)
 {
   if (qword_27DAD2788 != -1)
   {
     sub_22F9DFAAC();
   }
 
-  v1 = qword_27DAD2780;
+  v2 = qword_27DAD2780;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_22F9DFA68()
@@ -1939,74 +1941,76 @@ uint64_t sub_22F9DFA68()
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_22F9DFAF8(void *a1@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void sub_22F9DFAF8(void *a1@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v7 = a1;
-  v10 = fopen(a2, "rb");
-  if (v10)
+  v8 = fopen(a2, "rb");
+  v11 = v8;
+  if (v8)
   {
-    v11 = _mxi_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = _mxi_log(v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v13 = a2;
-      _os_log_impl(&dword_22F9C3000, v11, OS_LOG_TYPE_DEFAULT, "[Core] Opened file %s as a file stream", buf, 0xCu);
+      v14 = a2;
+      _os_log_impl(&dword_22F9C3000, v12, OS_LOG_TYPE_DEFAULT, "[Core] Opened file %s as a file stream", buf, 0xCu);
     }
 
-    sub_22F9DFE08(v7, v10, a3, a4);
+    sub_22F9DFE08(v7, v11, a3, a4);
   }
 
   else
   {
-    objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v8, a3, @"Failed opening file '%s'.", v9, a2);
+    objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v9, a3, @"Failed opening file '%s'.", v10, a2);
     *a4 = 0;
   }
 }
 
 void sub_22F9DFC30(void *a1@<X0>, void *a2@<X1>, size_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  buf[3] = *MEMORY[0x277D85DE8];
   v9 = a1;
-  v12 = fmemopen(a2, a3, "rb");
-  if (v12)
+  v10 = fmemopen(a2, a3, "rb");
+  v13 = v10;
+  if (v10)
   {
-    v13 = _mxi_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = _mxi_log(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *buf = 134217984;
-      *&buf[4] = a2;
-      _os_log_impl(&dword_22F9C3000, v13, OS_LOG_TYPE_DEFAULT, "[Core] Opened data buffer %p as a file stream", buf, 0xCu);
+      LODWORD(buf[0]) = 134217984;
+      *(buf + 4) = a2;
+      _os_log_impl(&dword_22F9C3000, v14, OS_LOG_TYPE_DEFAULT, "[Core] Opened data buffer %p as a file stream", buf, 0xCu);
     }
 
-    sub_22F9DFE08(v9, v12, a4, buf);
-    *a5 = *buf;
+    sub_22F9DFE08(v9, v13, a4, buf);
+    *a5 = buf[0];
   }
 
   else
   {
-    objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v10, a4, @"Failed opening data buffer '%p' as stream", v11, a2);
+    objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v11, a4, @"Failed opening data buffer '%p' as stream", v12, a2);
     *a5 = 0;
   }
 }
 
-uint64_t core::Writer::Create@<X0>(const char *a1@<X0>, const char *a2@<X1>, void *a3@<X8>)
+uint64_t *core::Writer::Create@<X0>(const char *a1@<X0>, void *a2@<X8>, const char *a3@<X1>)
 {
   v5 = fopen(a1, "wb");
-  result = sub_22F9E2434(v5, a2, v6, &v8);
-  *a3 = v8;
+  result = sub_22F9E2434(&v8, v5, a3, v6);
+  *a2 = v8;
   return result;
 }
 
-uint64_t core::Writer::Create@<X0>(char **a1@<X0>, size_t *a2@<X1>, const char *a3@<X2>, void *a4@<X8>)
+uint64_t *core::Writer::Create@<X0>(char **a1@<X0>, size_t *a2@<X1>, void *a3@<X8>, const char *a4@<X2>)
 {
   v6 = open_memstream(a1, a2);
-  result = sub_22F9E2434(v6, a3, v7, &v9);
-  *a4 = v9;
+  result = sub_22F9E2434(&v9, v6, a4, v7);
+  *a3 = v9;
   return result;
 }
 
-void sub_22F9DFE08(void *a1@<X0>, FILE *a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void sub_22F9DFE08(void *a1@<X0>, FILE *a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
   v7 = a1;
   __ptr = 0;
@@ -2042,13 +2046,13 @@ void sub_22F9E00C0(uint64_t a1)
   JUMPOUT(0x2319050F0);
 }
 
-uint64_t *sub_22F9E00F8(uint64_t a1, unsigned int a2, _DWORD *a3, uint64_t a4)
+uint64_t sub_22F9E00F8(uint64_t a1, int a2, _DWORD *a3, uint64_t a4)
 {
   v14 = a2;
   result = sub_22F9E19EC((a1 + 24), &v14);
   if (result)
   {
-    if (fseek(*(a1 + 16), result[3], 0))
+    if (fseek(*(a1 + 16), *(result + 24), 0))
     {
       byte_27DAD2790 = HIBYTE(v14);
       byte_27DAD2791 = BYTE2(v14);
@@ -2086,7 +2090,7 @@ uint64_t *sub_22F9E00F8(uint64_t a1, unsigned int a2, _DWORD *a3, uint64_t a4)
   return result;
 }
 
-uint64_t *sub_22F9E0224(uint64_t a1, unsigned int a2, uint64_t a3)
+uint64_t *sub_22F9E0224(uint64_t a1, int a2, uint64_t a3)
 {
   v13 = a2;
   result = sub_22F9E19EC((a1 + 24), &v13);
@@ -2131,7 +2135,7 @@ uint64_t *sub_22F9E0224(uint64_t a1, unsigned int a2, uint64_t a3)
   return result;
 }
 
-id sub_22F9E0354(uint64_t a1, unsigned int a2, uint64_t a3)
+id sub_22F9E0354(uint64_t a1, int a2, uint64_t a3)
 {
   v32 = a2;
   v5 = sub_22F9E19EC((a1 + 24), &v32);
@@ -2192,7 +2196,7 @@ LABEL_10:
   return v13;
 }
 
-BOOL sub_22F9E056C(uint64_t a1, unsigned int a2, uint8_t *a3, size_t a4, uint64_t a5)
+BOOL sub_22F9E056C(uint64_t a1, int a2, uint8_t *a3, size_t a4, uint64_t a5)
 {
   v21 = a2;
   v9 = sub_22F9E19EC((a1 + 24), &v21);
@@ -2247,16 +2251,16 @@ BOOL sub_22F9E056C(uint64_t a1, unsigned int a2, uint8_t *a3, size_t a4, uint64_
   return 0;
 }
 
-id sub_22F9E0734(uint64_t a1, unsigned int a2, uint64_t a3)
+id sub_22F9E0734(uint64_t a1, int a2, void *a3)
 {
-  v152 = a2;
-  v5 = sub_22F9E19EC((a1 + 24), &v152);
+  v153 = a2;
+  v5 = sub_22F9E19EC((a1 + 24), &v153);
   if (!v5)
   {
-    byte_27DAD2790 = HIBYTE(v152);
-    byte_27DAD2791 = BYTE2(v152);
-    byte_27DAD2792 = BYTE1(v152);
-    byte_27DAD2793 = v152;
+    byte_27DAD2790 = HIBYTE(v153);
+    byte_27DAD2791 = BYTE2(v153);
+    byte_27DAD2792 = BYTE1(v153);
+    byte_27DAD2793 = v153;
     byte_27DAD2794 = 0;
     objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v6, a3, @"Key '%s' not found", v7, &byte_27DAD2790);
     goto LABEL_15;
@@ -2270,10 +2274,10 @@ id sub_22F9E0734(uint64_t a1, unsigned int a2, uint64_t a3)
 
   if (fseek(*(a1 + 16), v5[3], 0))
   {
-    byte_27DAD2790 = HIBYTE(v152);
-    byte_27DAD2791 = BYTE2(v152);
-    byte_27DAD2792 = BYTE1(v152);
-    byte_27DAD2793 = v152;
+    byte_27DAD2790 = HIBYTE(v153);
+    byte_27DAD2791 = BYTE2(v153);
+    byte_27DAD2792 = BYTE1(v153);
+    byte_27DAD2793 = v153;
     byte_27DAD2794 = 0;
     objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v8, a3, @"Failed seeking to texture chunk '%s'.", v9, &byte_27DAD2790);
 LABEL_15:
@@ -2283,10 +2287,10 @@ LABEL_15:
 
   if (fread(__ptr, 0x20uLL, 1uLL, *(a1 + 16)) != 1)
   {
-    byte_27DAD2790 = HIBYTE(v152);
-    byte_27DAD2791 = BYTE2(v152);
-    byte_27DAD2792 = BYTE1(v152);
-    byte_27DAD2793 = v152;
+    byte_27DAD2790 = HIBYTE(v153);
+    byte_27DAD2791 = BYTE2(v153);
+    byte_27DAD2792 = BYTE1(v153);
+    byte_27DAD2793 = v153;
     byte_27DAD2794 = 0;
     objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v10, a3, @"Failed reading chunk info for texture with key '%s'.", v11, &byte_27DAD2790);
     goto LABEL_15;
@@ -2294,20 +2298,20 @@ LABEL_15:
 
   if (__ptr[8] != 1)
   {
-    byte_27DAD2790 = HIBYTE(v152);
-    byte_27DAD2791 = BYTE2(v152);
-    byte_27DAD2792 = BYTE1(v152);
-    byte_27DAD2793 = v152;
+    byte_27DAD2790 = HIBYTE(v153);
+    byte_27DAD2791 = BYTE2(v153);
+    byte_27DAD2792 = BYTE1(v153);
+    byte_27DAD2793 = v153;
     byte_27DAD2794 = 0;
     objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v10, a3, @"Value for key '%s' is not of texture type", v11, &byte_27DAD2790);
     goto LABEL_15;
   }
 
-  v12 = v147;
+  v12 = v148;
   v13 = &dword_22FA07F68;
   v14 = 36;
-  v120 = a3;
-  while (*(v13 - 1) != v147)
+  v121 = a3;
+  while (*(v13 - 1) != v148)
   {
     v13 += 4;
     if (!--v14)
@@ -2320,11 +2324,11 @@ LABEL_15:
 
   v15 = *v13;
 LABEL_20:
-  v18 = v150;
-  v127 = v151;
-  sub_22F9E1D68(&v144, v151 * v150 + 1);
-  v132 = a1;
-  fread(v144, 4uLL, (v145 - v144) >> 2, *(a1 + 16));
+  v18 = v151;
+  v128 = v152;
+  sub_22F9E1D68(&v145, v152 * v151 + 1);
+  v133 = a1;
+  fread(v145, 4uLL, (v146 - v145) >> 2, *(a1 + 16));
   v19 = objc_opt_new();
   v23 = v19;
   if (v18)
@@ -2337,63 +2341,63 @@ LABEL_20:
     objc_msgSend_setTextureType_(v19, v20, 2, v21, v22);
   }
 
-  v27 = v148;
-  objc_msgSend_setWidth_(v23, v24, v148, v25, v26);
-  v28 = v149;
-  objc_msgSend_setHeight_(v23, v29, v149, v30, v31);
+  v27 = v149;
+  objc_msgSend_setWidth_(v23, v24, v149, v25, v26);
+  v28 = v150;
+  objc_msgSend_setHeight_(v23, v29, v150, v30, v31);
   objc_msgSend_setArrayLength_(v23, v32, v18, v33, v34);
-  objc_msgSend_setMipmapLevelCount_(v23, v35, v127, v36, v37);
+  objc_msgSend_setMipmapLevelCount_(v23, v35, v128, v36, v37);
   objc_msgSend_setPixelFormat_(v23, v38, v12, v39, v40);
   objc_msgSend_setStorageMode_(v23, v41, 2, v42, v43);
-  v128 = objc_msgSend_newSharedTextureWithDescriptor_(*(a1 + 8), v44, v23, v45, v46);
-  if (v128)
+  v129 = objc_msgSend_newSharedTextureWithDescriptor_(*(a1 + 8), v44, v23, v45, v46);
+  if (v129)
   {
     context = objc_autoreleasePoolPush();
     v55 = objc_msgSend_newCommandQueue(*(a1 + 8), v49, v50, v51, v52);
     if (v55)
     {
-      v125 = v15 - 1;
-      v126 = v15;
-      v123 = BYTE1(v15) - 1;
-      v124 = BYTE1(v15);
-      v122 = BYTE2(v15);
-      v121 = (v125 + v27) / v15 * BYTE2(v15) * ((v123 + v28) / BYTE1(v15));
-      v118 = v23;
-      v134 = objc_msgSend_newBufferWithLength_options_(*(a1 + 8), v53, v121, 0, v54);
-      if (!v134)
+      v126 = v15 - 1;
+      v127 = v15;
+      v124 = BYTE1(v15) - 1;
+      v125 = BYTE1(v15);
+      v123 = BYTE2(v15);
+      v122 = (v126 + v27) / v15 * BYTE2(v15) * ((v124 + v28) / BYTE1(v15));
+      v119 = v23;
+      v135 = objc_msgSend_newBufferWithLength_options_(*(a1 + 8), v53, v122, 0, v54);
+      if (!v135)
       {
-        v114 = _mxi_log();
-        if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
+        v115 = _mxi_log(0);
+        if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_22F9C3000, v114, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:700] Failed creating MTLBuffer.", buf, 2u);
+          _os_log_impl(&dword_22F9C3000, v115, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:700] Failed creating MTLBuffer.", buf, 2u);
         }
 
-        v142 = 0;
-        objc_msgSend_fillError_withDescription_(MXIInternalError, v115, &v142, @"Failed creating MTLBuffer.", v116);
-        v77 = v142;
+        v143 = 0;
+        objc_msgSend_fillError_withDescription_(MXIInternalError, v116, &v143, @"Failed creating MTLBuffer.", v117);
+        v77 = v143;
         goto LABEL_57;
       }
 
-      if (!v127)
+      if (!v128)
       {
         v77 = 0;
         goto LABEL_57;
       }
 
-      v133 = 0;
+      v134 = 0;
       while (1)
       {
-        v60 = v148 >> v133;
-        v61 = v149 >> v133;
-        v62 = (v125 + v60) / v126 * v122;
-        v63 = v62 * ((v123 + v61) / v124);
-        if (v63 > v121)
+        v60 = v149 >> v134;
+        v61 = v150 >> v134;
+        v62 = (v126 + v60) / v127 * v123;
+        v63 = v62 * ((v124 + v61) / v125);
+        if (v63 > v122)
         {
           __assert_rtn("ReadTexture", "CoreSerialization.mm", 712, "slice_size <= mip0_slice_size");
         }
 
-        if (!v150)
+        if (!v151)
         {
           v77 = 0;
           goto LABEL_46;
@@ -2401,63 +2405,64 @@ LABEL_20:
 
         v64 = 0;
         v65 = 0;
-        v130 = __ptr[9];
-        v129 = v150;
-        v131 = v150 * v133;
+        v131 = __ptr[9];
+        v130 = v151;
+        v132 = v151 * v134;
         while (1)
         {
           v66 = v55;
           v67 = objc_msgSend_commandBuffer(v55, v56, v57, v58, v59);
           if (!v67)
           {
-            v100 = _mxi_log();
-            if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
+            v101 = _mxi_log(0);
+            if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_impl(&dword_22F9C3000, v100, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:716] Failed creating MTLCommandBuffer.", buf, 2u);
+              _os_log_impl(&dword_22F9C3000, v101, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:716] Failed creating MTLCommandBuffer.", buf, 2u);
             }
 
-            v141 = v65;
-            objc_msgSend_fillError_withDescription_(MXIInternalError, v101, &v141, @"Failed creating MTLCommandBuffer.", v102);
-            v103 = v141;
+            v142 = v65;
+            objc_msgSend_fillError_withDescription_(MXIInternalError, v102, &v142, @"Failed creating MTLCommandBuffer.", v103);
+            v104 = v142;
             v77 = v65;
             goto LABEL_41;
           }
 
-          v68 = *(v144 + (v131 + v64 + 1));
-          v69 = *(v144 + (v131 + v64));
-          v70 = v134;
+          v68 = *(v145 + (v132 + v64 + 1));
+          v69 = *(v145 + (v132 + v64));
+          v70 = v135;
           v75 = objc_msgSend_contents(v70, v71, v72, v73, v74);
-          v140 = v65;
-          v76 = sub_22F9E1AA0(v132, v75, v63, v68 - v69, v130, &v140);
-          v77 = v140;
+          v141 = v65;
+          v76 = sub_22F9E1AA0(v133, v75, v63, v68 - v69, v131, &v141);
+          v77 = v141;
 
           if (!v76)
           {
-            v135 = v77;
-            byte_27DAD2790 = HIBYTE(v152);
-            byte_27DAD2791 = BYTE2(v152);
-            byte_27DAD2792 = BYTE1(v152);
-            byte_27DAD2793 = v152;
+            v136 = v77;
+            byte_27DAD2790 = HIBYTE(v153);
+            byte_27DAD2791 = BYTE2(v153);
+            byte_27DAD2792 = BYTE1(v153);
+            byte_27DAD2793 = v153;
             byte_27DAD2794 = 0;
-            objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v78, &v135, @"Failed reading slice: %d, mip: %d for key: %s", v81, v64, v133, &byte_27DAD2790);
-            v103 = v135;
+            objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v78, &v136, @"Failed reading slice: %d, mip: %d for key: %s", v81, v64, v134, &byte_27DAD2790);
+            v104 = v136;
 LABEL_41:
-            v104 = v103;
+            v105 = v104;
             goto LABEL_45;
           }
 
           v82 = objc_msgSend_blitCommandEncoder(v67, v78, v79, v80, v81);
           *buf = v60;
-          v138 = v61;
-          v139 = 1;
-          memset(v136, 0, sizeof(v136));
-          objc_msgSend_copyFromBuffer_sourceOffset_sourceBytesPerRow_sourceBytesPerImage_sourceSize_toTexture_destinationSlice_destinationLevel_destinationOrigin_(v82, v83, v134, 0, v62, v63, buf, v128, v64, v133, v136);
+          v139 = v61;
+          v140 = 1;
+          memset(v137, 0, sizeof(v137));
+          objc_msgSend_copyFromBuffer_sourceOffset_sourceBytesPerRow_sourceBytesPerImage_sourceSize_toTexture_destinationSlice_destinationLevel_destinationOrigin_(v82, v83, v135, 0, v62, v63, buf, v129, v64, v134, v137);
           objc_msgSend_endEncoding(v82, v84, v85, v86, v87);
 
           objc_msgSend_commit(v67, v88, v89, v90, v91);
           objc_msgSend_waitUntilCompleted(v67, v92, v93, v94, v95);
-          if (objc_msgSend_status(v67, v96, v97, v98, v99) != 4)
+          v100 = objc_msgSend_status(v67, v96, v97, v98, v99);
+          if (v100 != 4)
           {
             break;
           }
@@ -2465,56 +2470,56 @@ LABEL_41:
           ++v64;
           v65 = v77;
           v55 = v66;
-          if (v129 == v64)
+          if (v130 == v64)
           {
             goto LABEL_46;
           }
         }
 
-        v105 = _mxi_log();
-        if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
+        v106 = _mxi_log(v100);
+        if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_22F9C3000, v105, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:742] MTLCommandBuffer failed", buf, 2u);
+          _os_log_impl(&dword_22F9C3000, v106, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:742] MTLCommandBuffer failed", buf, 2u);
         }
 
-        v104 = objc_msgSend_error(v67, v106, v107, v108, v109);
+        v105 = objc_msgSend_error(v67, v107, v108, v109, v110);
 LABEL_45:
-        v110 = v104;
+        v111 = v105;
 
-        v77 = v110;
+        v77 = v111;
         v55 = v66;
 LABEL_46:
-        if (++v133 >= v127 || v77)
+        if (++v134 >= v128 || v77)
         {
 LABEL_57:
 
-          v23 = v118;
+          v23 = v119;
           goto LABEL_58;
         }
       }
     }
 
-    v111 = _mxi_log();
-    if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
+    v112 = _mxi_log(0);
+    if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_22F9C3000, v111, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:691] Failed creating MTLCommandQueue.", buf, 2u);
+      _os_log_impl(&dword_22F9C3000, v112, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:691] Failed creating MTLCommandQueue.", buf, 2u);
     }
 
-    v143 = 0;
-    objc_msgSend_fillError_withDescription_(MXIInternalError, v112, &v143, @"Failed creating MTLCommandQueue.", v113);
-    v77 = v143;
+    v144 = 0;
+    objc_msgSend_fillError_withDescription_(MXIInternalError, v113, &v144, @"Failed creating MTLCommandQueue.", v114);
+    v77 = v144;
 LABEL_58:
 
     objc_autoreleasePoolPop(context);
     if (v77)
     {
-      if (v120)
+      if (v121)
       {
-        v117 = v77;
+        v118 = v77;
         v16 = 0;
-        *v120 = v77;
+        *v121 = v77;
       }
 
       else
@@ -2525,25 +2530,25 @@ LABEL_58:
 
     else
     {
-      v16 = v128;
+      v16 = v129;
     }
   }
 
   else
   {
-    byte_27DAD2790 = HIBYTE(v152);
-    byte_27DAD2791 = BYTE2(v152);
-    byte_27DAD2792 = BYTE1(v152);
-    byte_27DAD2793 = v152;
+    byte_27DAD2790 = HIBYTE(v153);
+    byte_27DAD2791 = BYTE2(v153);
+    byte_27DAD2792 = BYTE1(v153);
+    byte_27DAD2793 = v153;
     byte_27DAD2794 = 0;
-    objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v47, v120, @"Failed creating texture for key: %s", v48, &byte_27DAD2790);
+    objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v47, v121, @"Failed creating texture for key: %s", v48, &byte_27DAD2790);
     v16 = 0;
   }
 
-  if (v144)
+  if (v145)
   {
-    v145 = v144;
-    operator delete(v144);
+    v146 = v145;
+    operator delete(v145);
   }
 
 LABEL_16:
@@ -2563,16 +2568,16 @@ void sub_22F9E0F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-id sub_22F9E101C(uint64_t a1, unsigned int a2, uint64_t a3)
+id sub_22F9E101C(uint64_t a1, int a2, void *a3)
 {
-  v157 = a2;
-  v5 = sub_22F9E19EC((a1 + 24), &v157);
+  v158 = a2;
+  v5 = sub_22F9E19EC((a1 + 24), &v158);
   if (!v5)
   {
-    byte_27DAD2790 = HIBYTE(v157);
-    byte_27DAD2791 = BYTE2(v157);
-    byte_27DAD2792 = BYTE1(v157);
-    byte_27DAD2793 = v157;
+    byte_27DAD2790 = HIBYTE(v158);
+    byte_27DAD2791 = BYTE2(v158);
+    byte_27DAD2792 = BYTE1(v158);
+    byte_27DAD2793 = v158;
     byte_27DAD2794 = 0;
     objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v6, a3, @"Key '%s' not found", v7, &byte_27DAD2790);
     goto LABEL_15;
@@ -2586,10 +2591,10 @@ id sub_22F9E101C(uint64_t a1, unsigned int a2, uint64_t a3)
 
   if (fseek(*(a1 + 16), v5[3], 0))
   {
-    byte_27DAD2790 = HIBYTE(v157);
-    byte_27DAD2791 = BYTE2(v157);
-    byte_27DAD2792 = BYTE1(v157);
-    byte_27DAD2793 = v157;
+    byte_27DAD2790 = HIBYTE(v158);
+    byte_27DAD2791 = BYTE2(v158);
+    byte_27DAD2792 = BYTE1(v158);
+    byte_27DAD2793 = v158;
     byte_27DAD2794 = 0;
     objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v8, a3, @"Failed seeking to texture chunk '%s'.", v9, &byte_27DAD2790);
 LABEL_15:
@@ -2599,10 +2604,10 @@ LABEL_15:
 
   if (fread(__ptr, 0x20uLL, 1uLL, *(a1 + 16)) != 1)
   {
-    byte_27DAD2790 = HIBYTE(v157);
-    byte_27DAD2791 = BYTE2(v157);
-    byte_27DAD2792 = BYTE1(v157);
-    byte_27DAD2793 = v157;
+    byte_27DAD2790 = HIBYTE(v158);
+    byte_27DAD2791 = BYTE2(v158);
+    byte_27DAD2792 = BYTE1(v158);
+    byte_27DAD2793 = v158;
     byte_27DAD2794 = 0;
     objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v10, a3, @"Failed reading chunk info for texture with key '%s'.", v11, &byte_27DAD2790);
     goto LABEL_15;
@@ -2610,19 +2615,19 @@ LABEL_15:
 
   if (__ptr[8] != 1)
   {
-    byte_27DAD2790 = HIBYTE(v157);
-    byte_27DAD2791 = BYTE2(v157);
-    byte_27DAD2792 = BYTE1(v157);
-    byte_27DAD2793 = v157;
+    byte_27DAD2790 = HIBYTE(v158);
+    byte_27DAD2791 = BYTE2(v158);
+    byte_27DAD2792 = BYTE1(v158);
+    byte_27DAD2793 = v158;
     byte_27DAD2794 = 0;
     objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v10, a3, @"Value for key '%s' is not of texture type", v11, &byte_27DAD2790);
     goto LABEL_15;
   }
 
-  v12 = v152;
+  v12 = v153;
   v13 = &dword_22FA07F68;
   v14 = 36;
-  while (*(v13 - 1) != v152)
+  while (*(v13 - 1) != v153)
   {
     v13 += 4;
     if (!--v14)
@@ -2635,35 +2640,35 @@ LABEL_15:
 
   v15 = *v13;
 LABEL_20:
-  v124 = a3;
-  v18 = v155;
-  v131 = v156;
-  sub_22F9E1D68(&v149, v156 * v155 + 1);
-  fread(v149, 4uLL, (v150 - v149) >> 2, *(a1 + 16));
-  sub_22F9E1EA4(v148, v18);
-  v132 = objc_opt_new();
-  objc_msgSend_setTextureType_(v132, v19, 2, v20, v21);
-  v22 = v153;
-  objc_msgSend_setWidth_(v132, v23, v153, v24, v25);
-  v26 = v154;
-  objc_msgSend_setHeight_(v132, v27, v154, v28, v29);
-  objc_msgSend_setArrayLength_(v132, v30, 1, v31, v32);
-  objc_msgSend_setMipmapLevelCount_(v132, v33, v131, v34, v35);
-  objc_msgSend_setPixelFormat_(v132, v36, v12, v37, v38);
+  v125 = a3;
+  v18 = v156;
+  v132 = v157;
+  sub_22F9E1D68(&v150, v157 * v156 + 1);
+  fread(v150, 4uLL, (v151 - v150) >> 2, *(a1 + 16));
+  sub_22F9E1EA4(v149, v18);
+  v133 = objc_opt_new();
+  objc_msgSend_setTextureType_(v133, v19, 2, v20, v21);
+  v22 = v154;
+  objc_msgSend_setWidth_(v133, v23, v154, v24, v25);
+  v26 = v155;
+  objc_msgSend_setHeight_(v133, v27, v155, v28, v29);
+  objc_msgSend_setArrayLength_(v133, v30, 1, v31, v32);
+  objc_msgSend_setMipmapLevelCount_(v133, v33, v132, v34, v35);
+  objc_msgSend_setPixelFormat_(v133, v36, v12, v37, v38);
   if (v18)
   {
     v42 = 0;
     while (1)
     {
-      objc_msgSend_setStorageMode_(v132, v39, 2, v40, v41);
-      v46 = objc_msgSend_newSharedTextureWithDescriptor_(*(a1 + 8), v43, v132, v44, v45);
+      objc_msgSend_setStorageMode_(v133, v39, 2, v40, v41);
+      v46 = objc_msgSend_newSharedTextureWithDescriptor_(*(a1 + 8), v43, v133, v44, v45);
       if (!v46)
       {
         break;
       }
 
-      v49 = *(v148[0] + v42);
-      *(v148[0] + v42) = v46;
+      v49 = *(v149[0] + v42);
+      *(v149[0] + v42) = v46;
 
       v42 += 8;
       if (8 * v18 == v42)
@@ -2672,12 +2677,12 @@ LABEL_20:
       }
     }
 
-    byte_27DAD2790 = HIBYTE(v157);
-    byte_27DAD2791 = BYTE2(v157);
-    byte_27DAD2792 = BYTE1(v157);
-    byte_27DAD2793 = v157;
+    byte_27DAD2790 = HIBYTE(v158);
+    byte_27DAD2791 = BYTE2(v158);
+    byte_27DAD2792 = BYTE1(v158);
+    byte_27DAD2793 = v158;
     byte_27DAD2794 = 0;
-    objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v47, v124, @"Failed creating texture for key: %s", v48, &byte_27DAD2790);
+    objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v47, v125, @"Failed creating texture for key: %s", v48, &byte_27DAD2790);
     v16 = 0;
   }
 
@@ -2685,53 +2690,53 @@ LABEL_20:
   {
 LABEL_24:
     v50 = objc_autoreleasePoolPush();
-    v133 = a1;
+    v134 = a1;
     v57 = objc_msgSend_newCommandQueue(*(a1 + 8), v51, v52, v53, v54);
     context = v50;
     if (v57)
     {
-      v129 = v15 - 1;
-      v130 = v15;
-      v127 = BYTE1(v15) - 1;
-      v128 = BYTE1(v15);
-      v126 = BYTE2(v15);
-      v125 = (v129 + v22) / v15 * BYTE2(v15) * ((v127 + v26) / BYTE1(v15));
-      v138 = objc_msgSend_newBufferWithLength_options_(*(a1 + 8), v55, v125, 0, v56);
-      if (!v138)
+      v130 = v15 - 1;
+      v131 = v15;
+      v128 = BYTE1(v15) - 1;
+      v129 = BYTE1(v15);
+      v127 = BYTE2(v15);
+      v126 = (v130 + v22) / v15 * BYTE2(v15) * ((v128 + v26) / BYTE1(v15));
+      v139 = objc_msgSend_newBufferWithLength_options_(*(a1 + 8), v55, v126, 0, v56);
+      if (!v139)
       {
-        v117 = _mxi_log();
-        if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
+        v118 = _mxi_log(0);
+        if (os_log_type_enabled(v118, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_22F9C3000, v117, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:826] Failed creating MTLBuffer.", buf, 2u);
+          _os_log_impl(&dword_22F9C3000, v118, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:826] Failed creating MTLBuffer.", buf, 2u);
         }
 
-        v146 = 0;
-        objc_msgSend_fillError_withDescription_(MXIInternalError, v118, &v146, @"Failed creating MTLBuffer.", v119);
-        v79 = v146;
+        v147 = 0;
+        objc_msgSend_fillError_withDescription_(MXIInternalError, v119, &v147, @"Failed creating MTLBuffer.", v120);
+        v79 = v147;
         goto LABEL_57;
       }
 
-      if (!v131)
+      if (!v132)
       {
         v79 = 0;
         goto LABEL_57;
       }
 
-      v137 = 0;
+      v138 = 0;
       while (1)
       {
-        v62 = v154 >> v137;
-        v136 = v153 >> v137;
-        v63 = (v129 + v136) / v130 * v126;
-        v64 = v63 * ((v127 + v62) / v128);
-        if (v64 > v125)
+        v62 = v155 >> v138;
+        v137 = v154 >> v138;
+        v63 = (v130 + v137) / v131 * v127;
+        v64 = v63 * ((v128 + v62) / v129);
+        if (v64 > v126)
         {
           __assert_rtn("ReadArrayTexture", "CoreSerialization.mm", 838, "slice_size <= mip0_slice_size");
         }
 
-        v65 = v155;
-        if (!v155)
+        v65 = v156;
+        if (!v156)
         {
           v79 = 0;
           goto LABEL_46;
@@ -2739,63 +2744,64 @@ LABEL_24:
 
         v66 = 0;
         v67 = 0;
-        v134 = __ptr[9];
-        v135 = v155 * v137;
+        v135 = __ptr[9];
+        v136 = v156 * v138;
         while (1)
         {
           v68 = v57;
           v69 = objc_msgSend_commandBuffer(v57, v58, v59, v60, v61);
           if (!v69)
           {
-            v103 = _mxi_log();
-            if (os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
+            v104 = _mxi_log(0);
+            if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_impl(&dword_22F9C3000, v103, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:842] Failed creating MTLCommandBuffer.", buf, 2u);
+              _os_log_impl(&dword_22F9C3000, v104, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:842] Failed creating MTLCommandBuffer.", buf, 2u);
             }
 
-            v145 = v67;
-            objc_msgSend_fillError_withDescription_(MXIInternalError, v104, &v145, @"Failed creating MTLCommandBuffer.", v105);
-            v106 = v145;
+            v146 = v67;
+            objc_msgSend_fillError_withDescription_(MXIInternalError, v105, &v146, @"Failed creating MTLCommandBuffer.", v106);
+            v107 = v146;
             v79 = v67;
             goto LABEL_41;
           }
 
-          v70 = *(v149 + (v135 + v66 + 1));
-          v71 = *(v149 + (v135 + v66));
-          v72 = v138;
+          v70 = *(v150 + (v136 + v66 + 1));
+          v71 = *(v150 + (v136 + v66));
+          v72 = v139;
           v77 = objc_msgSend_contents(v72, v73, v74, v75, v76);
-          v144 = v67;
-          v78 = sub_22F9E1AA0(v133, v77, v64, v70 - v71, v134, &v144);
-          v79 = v144;
+          v145 = v67;
+          v78 = sub_22F9E1AA0(v134, v77, v64, v70 - v71, v135, &v145);
+          v79 = v145;
 
           if (!v78)
           {
-            v139 = v79;
-            byte_27DAD2790 = HIBYTE(v157);
-            byte_27DAD2791 = BYTE2(v157);
-            byte_27DAD2792 = BYTE1(v157);
-            byte_27DAD2793 = v157;
+            v140 = v79;
+            byte_27DAD2790 = HIBYTE(v158);
+            byte_27DAD2791 = BYTE2(v158);
+            byte_27DAD2792 = BYTE1(v158);
+            byte_27DAD2793 = v158;
             byte_27DAD2794 = 0;
-            objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v80, &v139, @"Failed reading slice: %d, mip: %d for key: %s", v83, v66, v137, &byte_27DAD2790);
-            v106 = v139;
+            objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v80, &v140, @"Failed reading slice: %d, mip: %d for key: %s", v83, v66, v138, &byte_27DAD2790);
+            v107 = v140;
 LABEL_41:
-            v107 = v106;
+            v108 = v107;
             goto LABEL_45;
           }
 
           v84 = objc_msgSend_blitCommandEncoder(v69, v80, v81, v82, v83);
-          *buf = v136;
-          v142 = v62;
-          v143 = 1;
-          v85 = *(v148[0] + 8 * v66);
-          memset(v140, 0, sizeof(v140));
-          objc_msgSend_copyFromBuffer_sourceOffset_sourceBytesPerRow_sourceBytesPerImage_sourceSize_toTexture_destinationSlice_destinationLevel_destinationOrigin_(v84, v86, v138, 0, v63, v64, buf, v85, 0, v137, v140);
+          *buf = v137;
+          v143 = v62;
+          v144 = 1;
+          v85 = *(v149[0] + 8 * v66);
+          memset(v141, 0, sizeof(v141));
+          objc_msgSend_copyFromBuffer_sourceOffset_sourceBytesPerRow_sourceBytesPerImage_sourceSize_toTexture_destinationSlice_destinationLevel_destinationOrigin_(v84, v86, v139, 0, v63, v64, buf, v85, 0, v138, v141);
           objc_msgSend_endEncoding(v84, v87, v88, v89, v90);
 
           objc_msgSend_commit(v69, v91, v92, v93, v94);
           objc_msgSend_waitUntilCompleted(v69, v95, v96, v97, v98);
-          if (objc_msgSend_status(v69, v99, v100, v101, v102) != 4)
+          v103 = objc_msgSend_status(v69, v99, v100, v101, v102);
+          if (v103 != 4)
           {
             break;
           }
@@ -2809,21 +2815,21 @@ LABEL_41:
           }
         }
 
-        v108 = _mxi_log();
-        if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
+        v109 = _mxi_log(v103);
+        if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_22F9C3000, v108, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:868] MTLCommandBuffer failed", buf, 2u);
+          _os_log_impl(&dword_22F9C3000, v109, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:868] MTLCommandBuffer failed", buf, 2u);
         }
 
-        v107 = objc_msgSend_error(v69, v109, v110, v111, v112);
+        v108 = objc_msgSend_error(v69, v110, v111, v112, v113);
 LABEL_45:
-        v113 = v107;
+        v114 = v108;
 
-        v79 = v113;
+        v79 = v114;
         v57 = v68;
 LABEL_46:
-        if (++v137 >= v131 || v79)
+        if (++v138 >= v132 || v79)
         {
 LABEL_57:
 
@@ -2832,26 +2838,26 @@ LABEL_57:
       }
     }
 
-    v114 = _mxi_log();
-    if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
+    v115 = _mxi_log(0);
+    if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_22F9C3000, v114, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:817] Failed creating MTLCommandQueue.", buf, 2u);
+      _os_log_impl(&dword_22F9C3000, v115, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:817] Failed creating MTLCommandQueue.", buf, 2u);
     }
 
-    v147 = 0;
-    objc_msgSend_fillError_withDescription_(MXIInternalError, v115, &v147, @"Failed creating MTLCommandQueue.", v116);
-    v79 = v147;
+    v148 = 0;
+    objc_msgSend_fillError_withDescription_(MXIInternalError, v116, &v148, @"Failed creating MTLCommandQueue.", v117);
+    v79 = v148;
 LABEL_58:
 
     objc_autoreleasePoolPop(context);
     if (v79)
     {
-      if (v124)
+      if (v125)
       {
-        v122 = v79;
+        v123 = v79;
         v16 = 0;
-        *v124 = v79;
+        *v125 = v79;
       }
 
       else
@@ -2862,16 +2868,16 @@ LABEL_58:
 
     else
     {
-      v16 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v120, v148[0], (v148[1] - v148[0]) >> 3, v121);
+      v16 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v121, v149[0], (v149[1] - v149[0]) >> 3, v122);
     }
   }
 
-  *buf = v148;
+  *buf = v149;
   sub_22F9DC140(buf);
-  if (v149)
+  if (v150)
   {
-    v150 = v149;
-    operator delete(v149);
+    v151 = v150;
+    operator delete(v150);
   }
 
 LABEL_16:
@@ -3008,7 +3014,7 @@ BOOL sub_22F9E1AA0(uint64_t a1, uint8_t *__ptr, size_t __nitems, unsigned int a4
     v14 = compression_decode_scratch_buffer_size(v13);
     sub_22F9E1D68(v32, v14);
     sub_22F9E1DE0(&__p, 0x100000);
-    v15 = compression_stream_init(&stream, COMPRESSION_STREAM_DECODE, v13);
+    LODWORD(v15) = compression_stream_init(&stream, COMPRESSION_STREAM_DECODE, v13);
     if (v15)
     {
       objc_msgSend_fillError_withDescription_(MXIInternalError, v16, a6, @"Failed initializing compression stream.", v17);
@@ -3021,7 +3027,7 @@ BOOL sub_22F9E1AA0(uint64_t a1, uint8_t *__ptr, size_t __nitems, unsigned int a4
       stream.dst_ptr = __ptr;
       stream.dst_size = __nitems;
       v18 = a4;
-      while (v15 == COMPRESSION_STATUS_OK)
+      while (!v15)
       {
         if (v31 - __p >= v18)
         {
@@ -3038,10 +3044,10 @@ BOOL sub_22F9E1AA0(uint64_t a1, uint8_t *__ptr, size_t __nitems, unsigned int a4
         stream.src_size = v20;
         v15 = compression_stream_process(&stream, v20 == 0);
         v18 -= v20;
-        if (v15 == COMPRESSION_STATUS_ERROR)
+        if (v15 == -1)
         {
           dst_size = stream.dst_size;
-          v22 = _mxi_log();
+          v22 = _mxi_log(v15);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109888;
@@ -3116,17 +3122,17 @@ void sub_22F9E1D1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *sub_22F9E1D68(void *result, unint64_t a2)
+uint64_t *sub_22F9E1D68(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_22F9D6F14(result, a2);
+    sub_22F9D6F14(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_22F9E1DC4(_Unwind_Exception *exception_object)
@@ -3141,17 +3147,17 @@ void sub_22F9E1DC4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *sub_22F9E1DE0(void *result, uint64_t a2)
+uint64_t *sub_22F9E1DE0(uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_22F9E1E54(result, a2);
+    sub_22F9E1E54(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_22F9E1E38(_Unwind_Exception *exception_object)
@@ -3166,7 +3172,7 @@ void sub_22F9E1E38(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_22F9E1E54(uint64_t a1, uint64_t a2)
+void sub_22F9E1E54(uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -3176,20 +3182,20 @@ void sub_22F9E1E54(uint64_t a1, uint64_t a2)
   sub_22F9C7AD4();
 }
 
-void *sub_22F9E1EA4(void *result, unint64_t a2)
+uint64_t *sub_22F9E1EA4(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_22F9E1F24(result, a2);
+    sub_22F9E1F24(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void sub_22F9E1F24(uint64_t a1, unint64_t a2)
+void sub_22F9E1F24(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -3209,33 +3215,33 @@ void sub_22F9E1F60(uint64_t a1, unint64_t a2)
   sub_22F9C7BC4();
 }
 
-uint64_t *sub_22F9E1FA8(void *a1, unsigned int *a2)
+uint64_t *sub_22F9E1FA8(float *a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = *(a1 + 2);
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -3243,47 +3249,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_22F9E21E0(uint64_t a1, size_t __n)
+void sub_22F9E21E0(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -3299,7 +3305,7 @@ void sub_22F9E21E0(uint64_t a1, size_t __n)
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -3307,7 +3313,7 @@ void sub_22F9E21E0(uint64_t a1, size_t __n)
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -3331,7 +3337,7 @@ void sub_22F9E21E0(uint64_t a1, size_t __n)
     {
 LABEL_6:
 
-      sub_22F9E22D0(a1, prime);
+      sub_22F9E22D0(result, prime);
     }
   }
 }
@@ -3358,7 +3364,7 @@ void sub_22F9E22D0(uint64_t a1, unint64_t a2)
   *(a1 + 8) = 0;
 }
 
-uint64_t sub_22F9E2434@<X0>(FILE *__stream@<X0>, const char *a2@<X1>, uint64_t a3@<X4>, void *a4@<X8>)
+uint64_t *sub_22F9E2434@<X0>(uint64_t *__return_ptr a1@<X8>, FILE *__stream@<X0>, const char *a3@<X1>, uint64_t a4@<X4>)
 {
   __ptr[1] = *MEMORY[0x277D85DE8];
   if (__stream)
@@ -3369,15 +3375,15 @@ uint64_t sub_22F9E2434@<X0>(FILE *__stream@<X0>, const char *a2@<X1>, uint64_t a
       operator new();
     }
 
-    objc_msgSend_fillError_withDescription_(MXIInternalError, v6, a2, @"Failed writing signature and version.", v7);
+    objc_msgSend_fillError_withDescription_(MXIInternalError, v6, a3, @"Failed writing signature and version.", v7);
     result = 0;
-    *a4 = 0;
+    *a1 = 0;
   }
 
   else
   {
-    result = objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, a2, a2, @"Failed on creating file pointer '%p'.", a3, 0);
-    *a4 = 0;
+    result = objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, a3, a3, @"Failed on creating file pointer '%p'.", a4, 0);
+    *a1 = 0;
   }
 
   return result;
@@ -3445,7 +3451,7 @@ uint64_t sub_22F9E26C8(uint64_t a1, const char *a2, void *a3, size_t a4, uint64_
     }
   }
 
-  sub_22F9E3660(a1 + 8, &v33);
+  sub_22F9E3660(a1 + 8, &v33, &v33);
   __ptr = v33;
   v28 = a4 + 4;
   v29 = 0;
@@ -3524,7 +3530,7 @@ uint64_t sub_22F9E2948(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t
 
 uint64_t sub_22F9E2A80(uint64_t a1, unsigned int a2, void *a3, int a4, void *a5)
 {
-  v193 = a2;
+  v194[0] = a2;
   v8 = a3;
   if (!objc_msgSend_count(v8, v9, v10, v11, v12))
   {
@@ -3536,7 +3542,7 @@ LABEL_38:
     byte_27DAD2793 = a2;
     byte_27DAD2794 = 0;
     objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v13, a5, v32, v14, &byte_27DAD2790);
-    v138 = 0;
+    v139 = 0;
     goto LABEL_70;
   }
 
@@ -3565,7 +3571,7 @@ LABEL_38:
     }
   }
 
-  sub_22F9E3660(a1 + 8, &v193);
+  sub_22F9E3660(a1 + 8, v194, v194);
   v23 = objc_msgSend_objectAtIndexedSubscript_(v8, v20, 0, v21, v22);
   v28 = objc_msgSend_pixelFormat(v23, v24, v25, v26, v27);
   v29 = &dword_22FA07F68;
@@ -3583,60 +3589,60 @@ LABEL_38:
   v31 = *v29;
 LABEL_16:
 
-  __ptr = v193;
-  v184 = 0;
-  v185 = 1;
-  v186 = a4;
-  v187 = 0;
+  __ptr = v194[0];
+  v185 = 0;
+  v186 = 1;
+  v187 = a4;
+  v188 = 0;
   v36 = objc_msgSend_objectAtIndexedSubscript_(v8, v33, 0, v34, v35);
-  v188 = objc_msgSend_pixelFormat(v36, v37, v38, v39, v40);
+  v189 = objc_msgSend_pixelFormat(v36, v37, v38, v39, v40);
   v44 = objc_msgSend_objectAtIndexedSubscript_(v8, v41, 0, v42, v43);
-  v189 = objc_msgSend_width(v44, v45, v46, v47, v48);
+  v190 = objc_msgSend_width(v44, v45, v46, v47, v48);
   v52 = objc_msgSend_objectAtIndexedSubscript_(v8, v49, 0, v50, v51);
-  v190 = objc_msgSend_height(v52, v53, v54, v55, v56);
-  v191 = objc_msgSend_count(v8, v57, v58, v59, v60);
+  v191 = objc_msgSend_height(v52, v53, v54, v55, v56);
+  v192 = objc_msgSend_count(v8, v57, v58, v59, v60);
   v64 = objc_msgSend_objectAtIndexedSubscript_(v8, v61, 0, v62, v63);
-  v192 = objc_msgSend_mipmapLevelCount(v64, v65, v66, v67, v68);
+  v193 = objc_msgSend_mipmapLevelCount(v64, v65, v66, v67, v68);
 
-  sub_22F9E1D68(&v181, v192 * v191 + 1);
+  sub_22F9E1D68(&v182, v193 * v192 + 1);
   v69 = MEMORY[0x2319052B0](*(a1 + 32));
   if (fwrite(&__ptr, 0x20uLL, 1uLL, *(a1 + 32)) != 1)
   {
-    v137 = @"Failed writing chunk info for texture with key '%s'.";
+    v138 = @"Failed writing chunk info for texture with key '%s'.";
 LABEL_36:
-    byte_27DAD2790 = HIBYTE(v193);
-    byte_27DAD2791 = BYTE2(v193);
-    byte_27DAD2792 = BYTE1(v193);
-    byte_27DAD2793 = v193;
+    byte_27DAD2790 = HIBYTE(v194[0]);
+    byte_27DAD2791 = BYTE2(v194[0]);
+    byte_27DAD2792 = BYTE1(v194[0]);
+    byte_27DAD2793 = v194[0];
     byte_27DAD2794 = 0;
-    objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v70, a5, v137, v71, &byte_27DAD2790);
-    v138 = 0;
+    objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v70, a5, v138, v71, &byte_27DAD2790);
+    v139 = 0;
     goto LABEL_68;
   }
 
-  v72 = fwrite(v181, 4uLL, (v182 - v181) >> 2, *(a1 + 32));
-  if (v72 != (v182 - v181) >> 2)
+  v72 = fwrite(v182, 4uLL, (v183 - v182) >> 2, *(a1 + 32));
+  if (v72 != (v183 - v182) >> 2)
   {
-    v137 = @"Failed writing surface offsets for texture with key '%s'.";
+    v138 = @"Failed writing surface offsets for texture with key '%s'.";
     goto LABEL_36;
   }
 
   v74 = objc_msgSend_objectAtIndexedSubscript_(v8, v70, 0, v73, v71);
   v79 = objc_msgSend_device(v74, v75, v76, v77, v78);
 
-  v166 = v79;
-  v167 = objc_msgSend_newCommandQueue(v79, v80, v81, v82, v83);
-  if (!v167)
+  v167 = v79;
+  v168 = objc_msgSend_newCommandQueue(v79, v80, v81, v82, v83);
+  if (!v168)
   {
-    v139 = _mxi_log();
-    if (os_log_type_enabled(v139, OS_LOG_TYPE_ERROR))
+    v140 = _mxi_log(0);
+    if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_22F9C3000, v139, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:306] Failed creating MTLCommandQueue.", buf, 2u);
+      _os_log_impl(&dword_22F9C3000, v140, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:306] Failed creating MTLCommandQueue.", buf, 2u);
     }
 
-    objc_msgSend_fillError_withDescription_(MXIInternalError, v140, a5, @"Failed creating MTLCommandQueue.", v141);
-    v138 = 0;
+    objc_msgSend_fillError_withDescription_(MXIInternalError, v141, a5, @"Failed creating MTLCommandQueue.", v142);
+    v139 = 0;
     goto LABEL_67;
   }
 
@@ -3644,65 +3650,65 @@ LABEL_36:
   v85 = v31 - 1;
   v86 = BYTE1(v31);
   v87 = BYTE1(v31) - 1;
-  v164 = BYTE2(v31);
-  v165 = (v85 + v189) / v31 * BYTE2(v31) * ((v87 + v190) / BYTE1(v31));
-  sub_22F9E1DE0(v180, v165);
-  v91 = v192;
-  if (!v192)
+  v165 = BYTE2(v31);
+  v166 = (v85 + v190) / v31 * BYTE2(v31) * ((v87 + v191) / BYTE1(v31));
+  sub_22F9E1DE0(v181, v166);
+  v91 = v193;
+  if (!v193)
   {
     v93 = 0;
 LABEL_43:
-    *(v182 - 1) = v93;
-    v184 = MEMORY[0x2319052B0](*(a1 + 32)) - v69 - 12;
-    v142 = MEMORY[0x2319052B0](*(a1 + 32));
+    *(v183 - 1) = v93;
+    v185 = MEMORY[0x2319052B0](*(a1 + 32)) - v69 - 12;
+    v143 = MEMORY[0x2319052B0](*(a1 + 32));
     if (fseek(*(a1 + 32), v69, 0))
     {
-      v145 = @"Failed seeking to chunk info after writing texture with key '%s'.";
+      v146 = @"Failed seeking to chunk info after writing texture with key '%s'.";
     }
 
     else if (fwrite(&__ptr, 0x20uLL, 1uLL, *(a1 + 32)) == 1)
     {
-      v146 = fwrite(v181, 4uLL, (v182 - v181) >> 2, *(a1 + 32));
-      if (v146 == (v182 - v181) >> 2)
+      v147 = fwrite(v182, 4uLL, (v183 - v182) >> 2, *(a1 + 32));
+      if (v147 == (v183 - v182) >> 2)
       {
-        if (!fseek(*(a1 + 32), v142, 0))
+        if (!fseek(*(a1 + 32), v143, 0))
         {
-          v138 = 1;
+          v139 = 1;
           goto LABEL_65;
         }
 
-        v145 = @"Failed seeking to the end of the file after writing texture with key '%s'.";
+        v146 = @"Failed seeking to the end of the file after writing texture with key '%s'.";
       }
 
       else
       {
-        v145 = @"Failed updating surface offsets for texture with key '%s'.";
+        v146 = @"Failed updating surface offsets for texture with key '%s'.";
       }
     }
 
     else
     {
-      v145 = @"Failed updating chunk info for texture with key '%s'.";
+      v146 = @"Failed updating chunk info for texture with key '%s'.";
     }
 
-    byte_27DAD2790 = HIBYTE(v193);
-    byte_27DAD2791 = BYTE2(v193);
-    byte_27DAD2792 = BYTE1(v193);
-    byte_27DAD2793 = v193;
+    byte_27DAD2790 = HIBYTE(v194[0]);
+    byte_27DAD2791 = BYTE2(v194[0]);
+    byte_27DAD2792 = BYTE1(v194[0]);
+    byte_27DAD2793 = v194[0];
     byte_27DAD2794 = 0;
-    objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v143, a5, v145, v144, &byte_27DAD2790);
+    objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v144, a5, v146, v145, &byte_27DAD2790);
     goto LABEL_64;
   }
 
-  v168 = a4;
+  v169 = a4;
   v92 = 0;
   v93 = 0;
-  v94 = v191;
-  v163 = v69;
-  v161 = v31 - 1;
-  v162 = v31;
-  v159 = BYTE1(v31) - 1;
-  v160 = BYTE1(v31);
+  v94 = v192;
+  v164 = v69;
+  v162 = v31 - 1;
+  v163 = v31;
+  v160 = BYTE1(v31) - 1;
+  v161 = BYTE1(v31);
   while (!v94)
   {
 LABEL_32:
@@ -3713,10 +3719,10 @@ LABEL_32:
   }
 
   v95 = 0;
-  v170 = v190 >> v92;
-  v171 = v189 >> v92;
-  v169 = (v85 + v171) / v84 * v164;
-  v96 = v169 * ((v87 + v170) / v86);
+  v171 = v191 >> v92;
+  v172 = v190 >> v92;
+  v170 = (v85 + v172) / v84 * v165;
+  v96 = v170 * ((v87 + v171) / v86);
   while (1)
   {
     v97 = objc_msgSend_objectAtIndexedSubscript_(v8, v88, v95, v89, v90);
@@ -3726,60 +3732,61 @@ LABEL_32:
     {
       v108 = objc_msgSend_objectAtIndexedSubscript_(v8, v103, v95, v105, v106);
       *buf = 0;
-      v174 = 0;
       v175 = 0;
-      v176 = v171;
-      v177 = v170;
-      v178 = 1;
-      objc_msgSend_getBytes_bytesPerRow_bytesPerImage_fromRegion_mipmapLevel_slice_(v108, v136, v180[0], v169, v96, buf, v92, 0);
+      v176 = 0;
+      v177 = v172;
+      v178 = v171;
+      v179 = 1;
+      objc_msgSend_getBytes_bytesPerRow_bytesPerImage_fromRegion_mipmapLevel_slice_(v108, v137, v181[0], v170, v96, buf, v92, 0);
       goto LABEL_29;
     }
 
-    v108 = objc_msgSend_commandBuffer(v167, v103, v104, v105, v106);
+    v108 = objc_msgSend_commandBuffer(v168, v103, v104, v105, v106);
     if (!v108)
     {
       break;
     }
 
-    v113 = objc_msgSend_newBufferWithBytesNoCopy_length_options_deallocator_(v166, v107, v180[0], v165, 0, 0);
+    v113 = objc_msgSend_newBufferWithBytesNoCopy_length_options_deallocator_(v167, v107, v181[0], v166, 0, 0);
     if (!v113)
     {
-      v150 = _mxi_log();
-      if (os_log_type_enabled(v150, OS_LOG_TYPE_ERROR))
+      v151 = _mxi_log(0);
+      if (os_log_type_enabled(v151, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_22F9C3000, v150, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:343] Failed creating MTLBuffer.", buf, 2u);
+        _os_log_impl(&dword_22F9C3000, v151, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:343] Failed creating MTLBuffer.", buf, 2u);
       }
 
-      objc_msgSend_fillError_withDescription_(MXIInternalError, v151, a5, @"Failed creating MTLBuffer.", v152);
+      objc_msgSend_fillError_withDescription_(MXIInternalError, v152, a5, @"Failed creating MTLBuffer.", v153);
       goto LABEL_60;
     }
 
     v114 = objc_msgSend_blitCommandEncoder(v108, v109, v110, v111, v112);
     v118 = objc_msgSend_objectAtIndexedSubscript_(v8, v115, v95, v116, v117);
     *buf = 0;
-    v174 = 0;
     v175 = 0;
-    v179[0] = v171;
-    v179[1] = v170;
-    v179[2] = 1;
-    objc_msgSend_copyFromTexture_sourceSlice_sourceLevel_sourceOrigin_sourceSize_toBuffer_destinationOffset_destinationBytesPerRow_destinationBytesPerImage_(v114, v119, v118, 0, v92, buf, v179, v113, 0, v169, v96);
+    v176 = 0;
+    v180[0] = v172;
+    v180[1] = v171;
+    v180[2] = 1;
+    objc_msgSend_copyFromTexture_sourceSlice_sourceLevel_sourceOrigin_sourceSize_toBuffer_destinationOffset_destinationBytesPerRow_destinationBytesPerImage_(v114, v119, v118, 0, v92, buf, v180, v113, 0, v170, v96);
 
     objc_msgSend_endEncoding(v114, v120, v121, v122, v123);
     objc_msgSend_commit(v108, v124, v125, v126, v127);
     objc_msgSend_waitUntilCompleted(v108, v128, v129, v130, v131);
-    if (objc_msgSend_status(v108, v132, v133, v134, v135) != 4)
+    v136 = objc_msgSend_status(v108, v132, v133, v134, v135);
+    if (v136 != 4)
     {
-      v153 = _mxi_log();
-      if (os_log_type_enabled(v153, OS_LOG_TYPE_ERROR))
+      v154 = _mxi_log(v136);
+      if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_22F9C3000, v153, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:363] MTLCommandBuffer failed", buf, 2u);
+        _os_log_impl(&dword_22F9C3000, v154, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:363] MTLCommandBuffer failed", buf, 2u);
       }
 
       if (a5)
       {
-        *a5 = objc_msgSend_error(v108, v154, v155, v156, v157);
+        *a5 = objc_msgSend_error(v108, v155, v156, v157, v158);
       }
 
 LABEL_60:
@@ -3788,56 +3795,56 @@ LABEL_60:
 
 LABEL_29:
     *buf = 0;
-    if ((sub_22F9E3420(a1, v180[0], buf, v96, v168, a5) & 1) == 0)
+    if ((sub_22F9E3420(a1, v181[0], buf, v96, v169, a5) & 1) == 0)
     {
       goto LABEL_64;
     }
 
-    *(v181 + v95 + v92 * v191) = v93;
+    *(v182 + v95 + v92 * v192) = v93;
     v93 += *buf;
     ++v95;
-    v94 = v191;
-    if (v95 >= v191)
+    v94 = v192;
+    if (v95 >= v192)
     {
-      v91 = v192;
-      v69 = v163;
-      v85 = v161;
-      v84 = v162;
-      v87 = v159;
-      v86 = v160;
+      v91 = v193;
+      v69 = v164;
+      v85 = v162;
+      v84 = v163;
+      v87 = v160;
+      v86 = v161;
       goto LABEL_32;
     }
   }
 
-  v147 = _mxi_log();
-  if (os_log_type_enabled(v147, OS_LOG_TYPE_ERROR))
+  v148 = _mxi_log(0);
+  if (os_log_type_enabled(v148, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_22F9C3000, v147, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:334] Failed creating MTLCommandBuffer.", buf, 2u);
+    _os_log_impl(&dword_22F9C3000, v148, OS_LOG_TYPE_ERROR, "[Core/CoreSerialization.mm:334] Failed creating MTLCommandBuffer.", buf, 2u);
   }
 
-  objc_msgSend_fillError_withDescription_(MXIInternalError, v148, a5, @"Failed creating MTLCommandBuffer.", v149);
+  objc_msgSend_fillError_withDescription_(MXIInternalError, v149, a5, @"Failed creating MTLCommandBuffer.", v150);
 LABEL_64:
-  v138 = 0;
+  v139 = 0;
 LABEL_65:
-  if (v180[0])
+  if (v181[0])
   {
-    v180[1] = v180[0];
-    operator delete(v180[0]);
+    v181[1] = v181[0];
+    operator delete(v181[0]);
   }
 
 LABEL_67:
 
 LABEL_68:
-  if (v181)
+  if (v182)
   {
-    v182 = v181;
-    operator delete(v181);
+    v183 = v182;
+    operator delete(v182);
   }
 
 LABEL_70:
 
-  return v138;
+  return v139;
 }
 
 void sub_22F9E32AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, void *a19)
@@ -3980,48 +3987,48 @@ void sub_22F9E361C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *sub_22F9E3660(uint64_t a1, unsigned int *a2)
+uint64_t *sub_22F9E3660(uint64_t a1, unsigned int *a2, _DWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 28);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *sub_22F9E372C(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *sub_22F9E372C(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -4047,12 +4054,12 @@ uint64_t *sub_22F9E3784(uint64_t *result, uint64_t *a2)
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -4066,22 +4073,22 @@ uint64_t *sub_22F9E3784(uint64_t *result, uint64_t *a2)
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -4115,13 +4122,13 @@ uint64_t *sub_22F9E3784(uint64_t *result, uint64_t *a2)
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -4172,14 +4179,14 @@ void tiled::Processor::~Processor(tiled::Processor *this)
   sub_22F9E8B20(this, 0);
 }
 
-void tiled::Processor::Create(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, void **a5)
+void tiled::Processor::Create(void *a1, int a2, int a3, uint64_t a4, id *a5)
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v6 = a1;
-  v10 = objc_msgSend_bundleWithIdentifier_(MEMORY[0x277CCA8D8], v7, @"com.apple.mxi", v8, v9);
-  if (objc_msgSend_newDefaultLibraryWithBundle_error_(v6, v11, v10, a5, v12))
+  v41 = *MEMORY[0x277D85DE8];
+  v7 = a1;
+  v11 = objc_msgSend_bundleWithIdentifier_(MEMORY[0x277CCA8D8], v8, @"com.apple.mxi", v9, v10);
+  if (objc_msgSend_newDefaultLibraryWithBundle_error_(v7, v12, v11, a5, v13))
   {
-    v36 = v10;
+    v37 = v11;
   }
 
   else
@@ -4189,42 +4196,42 @@ void tiled::Processor::Create(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, v
       *a5 = 0;
     }
 
-    v16 = objc_msgSend_bundleWithIdentifier_(MEMORY[0x277CCA8D8], v13, @"com.apple.mxi.TiledTests", v14, v15);
+    v17 = objc_msgSend_bundleWithIdentifier_(MEMORY[0x277CCA8D8], v14, @"com.apple.mxi.TiledTests", v15, v16);
 
-    objc_msgSend_newDefaultLibraryWithBundle_error_(v6, v17, v16, a5, v18);
-    v36 = v16;
+    objc_msgSend_newDefaultLibraryWithBundle_error_(v7, v18, v17, a5, v19);
+    v37 = v17;
   }
 
-  v37 = objc_opt_new();
-  v21 = objc_msgSend_URLForResource_withExtension_(v36, v19, @"mxi_archive", @"metallib", v20);
-  objc_msgSend_setUrl_(v37, v22, v21, v23, v24);
+  v38 = objc_opt_new();
+  v22 = objc_msgSend_URLForResource_withExtension_(v37, v20, @"mxi_archive", @"metallib", v21);
+  objc_msgSend_setUrl_(v38, v23, v22, v24, v25);
 
-  v27 = objc_msgSend_newBinaryArchiveWithDescriptor_error_(v6, v25, v37, a5, v26);
-  if (v27)
+  v28 = objc_msgSend_newBinaryArchiveWithDescriptor_error_(v7, v26, v38, a5, v27);
+  if (v28)
   {
-    v38 = v27;
-    objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v28, &v38, 1, v29);
+    v39 = v28;
+    objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v29, &v39, 1, v30);
     objc_claimAutoreleasedReturnValue();
   }
 
   else
   {
-    v30 = _mxi_log();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v31 = _mxi_log(0);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      v35 = objc_msgSend_localizedDescription(*a5, v31, v32, v33, v34);
+      v36 = objc_msgSend_localizedDescription(*a5, v32, v33, v34, v35);
       *buf = 138412290;
-      *&buf[4] = v35;
-      _os_log_impl(&dword_22F9C3000, v30, OS_LOG_TYPE_ERROR, "[Tiled/TiledProcessor.mm:353] [TiledProcessor] WARNING: nil MTLBinaryArchive for mxi_archive, error %@", buf, 0xCu);
+      *&buf[4] = v36;
+      _os_log_impl(&dword_22F9C3000, v31, OS_LOG_TYPE_ERROR, "[Tiled/TiledProcessor.mm:353] [TiledProcessor] WARNING: nil MTLBinaryArchive for mxi_archive, error %@", buf, 0xCu);
     }
   }
 
   operator new();
 }
 
-void sub_22F9E44D8(_Unwind_Exception *a1, void *a2, void *a3, uint64_t a4, void *a5, void *a6, void *a7, uint64_t a8, uint64_t a9, ...)
+void sub_22F9E44D8(_Unwind_Exception *a1, void *a2, void *a3, uint64_t a4, void *a5, void *a6, void *a7, uint64_t a8, void *a9, void *a10, uint64_t a11, void *a12, void *a13, void *a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   sub_22F9E485C(va);
   _Unwind_Resume(a1);
@@ -4242,7 +4249,7 @@ id sub_22F9E46B4(void *a1, void *a2, void *a3, uint64_t a4, uint64_t a5)
   v20 = objc_msgSend_newComputePipelineStateWithDescriptor_options_reflection_error_(v9, v19, v12, a4, 0, a5);
   if (!v20)
   {
-    v21 = _mxi_log();
+    v21 = _mxi_log(0);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       v26 = objc_msgSend_name(v11, v22, v23, v24, v25);
@@ -4272,25 +4279,25 @@ uint64_t **sub_22F9E485C(uint64_t **a1)
 
 uint64_t tiled::Processor::AddLayer(uint64_t *a1, void *a2, int a3, int a4, void *a5, void *a6, __int128 *a7, float a8, float a9)
 {
-  v511 = *MEMORY[0x277D85DE8];
-  v480 = a2;
-  v478 = a5;
-  v479 = a6;
+  v514 = *MEMORY[0x277D85DE8];
+  v483 = a2;
+  v481 = a5;
+  v482 = a6;
   v16 = *a1;
-  v21 = objc_msgSend_width(v478, v17, v18, v19, v20);
-  v470 = a3;
-  v26 = objc_msgSend_height(v478, v22, v23, v24, v25);
-  v469 = 1 << (*(v16 + 356) - 1);
-  v31 = *(v16 + 352) - v469;
+  v21 = objc_msgSend_width(v481, v17, v18, v19, v20);
+  v473 = a3;
+  v26 = objc_msgSend_height(v481, v22, v23, v24, v25);
+  v472 = 1 << (*(v16 + 356) - 1);
+  v31 = *(v16 + 352) - v472;
   v32 = (v21 + v31 - 1) / v31;
   v33 = (v31 + v26 - 1) / v31;
-  v474 = v33;
-  v475 = (v32 + 7) >> 3;
-  v468 = (v33 + 7) >> 3;
-  v34 = (v468 * v475 - 1) | ((v468 * v475 - 1) >> 1);
+  v477 = v33;
+  v478 = (v32 + 7) >> 3;
+  v471 = (v33 + 7) >> 3;
+  v34 = (v471 * v478 - 1) | ((v471 * v478 - 1) >> 1);
   v35 = v34 | (v34 >> 2) | ((v34 | (v34 >> 2)) >> 4);
-  v471 = v32 + 1 + (v32 + 1) * v33;
-  v472 = v26;
+  v474 = v32 + 1 + (v32 + 1) * v33;
+  v475 = v26;
   if (*(v16 + 344))
   {
     v36 = 6;
@@ -4312,282 +4319,284 @@ uint64_t tiled::Processor::AddLayer(uint64_t *a1, void *a2, int a3, int a4, void
     v38 = 0;
   }
 
-  v476 = (v35 | (v35 >> 8) | ((v35 | (v35 >> 8)) >> 16)) + 1;
+  v479 = (v35 | (v35 >> 8) | ((v35 | (v35 >> 8)) >> 16)) + 1;
   v39 = (((v35 | (v35 >> 8) | ((v35 | (v35 >> 8)) >> 16)) + 1) * v36) << 6;
   *(v16 + 364) = v39;
-  v466 = v39 * v37;
-  v467 = v37;
+  v469 = v39 * v37;
+  v470 = v37;
   *(v16 + 368) = v39 * v37;
-  v40 = v480;
-  v473 = v21;
+  v40 = v483;
+  v476 = v21;
   if (*(v16 + 414))
   {
     goto LABEL_8;
   }
 
   *(v16 + 414) = 1;
-  v465 = v38;
+  v468 = v38;
   if (*(v16 + 404))
   {
-    v152 = _mxi_log();
-    if (os_log_type_enabled(v152, OS_LOG_TYPE_DEBUG))
+    v153 = _mxi_log(v26);
+    if (os_log_type_enabled(v153, OS_LOG_TYPE_DEBUG))
     {
-      *v501 = 0;
-      _os_log_impl(&dword_22F9C3000, v152, OS_LOG_TYPE_DEBUG, "[Tiled] [TiledProcessor] Allocating slices dynamically", v501, 2u);
+      *v504 = 0;
+      _os_log_impl(&dword_22F9C3000, v153, OS_LOG_TYPE_DEBUG, "[Tiled] [TiledProcessor] Allocating slices dynamically", v504, 2u);
     }
 
     v41 = dispatch_queue_create("com.apple.mxi.tiled", 0);
-    v157 = objc_msgSend_newSharedEvent(*v16, v153, v154, v155, v156);
-    v158 = *(v16 + 448);
-    *(v16 + 448) = v157;
+    v158 = objc_msgSend_newSharedEvent(*v16, v154, v155, v156, v157);
+    v159 = *(v16 + 448);
+    *(v16 + 448) = v158;
 
-    v159 = objc_alloc(MEMORY[0x277CD6FD8]);
-    v163 = objc_msgSend_initWithDispatchQueue_(v159, v160, v41, v161, v162);
-    v164 = *(v16 + 456);
-    *(v16 + 456) = v163;
+    v160 = objc_alloc(MEMORY[0x277CD6FD8]);
+    v164 = objc_msgSend_initWithDispatchQueue_(v160, v161, v41, v162, v163);
+    v165 = *(v16 + 456);
+    *(v16 + 456) = v164;
 
     *(v16 + 464) = 0;
-    v169 = objc_msgSend_newCommandQueue(*v16, v165, v166, v167, v168);
-    v170 = *(v16 + 440);
-    *(v16 + 440) = v169;
+    v170 = objc_msgSend_newCommandQueue(*v16, v166, v167, v168, v169);
+    v171 = *(v16 + 440);
+    *(v16 + 440) = v170;
     goto LABEL_22;
   }
 
-  v173 = _MXISignpostLogSystem();
-  spid = _MXISignpostCreate(v173);
-  v174 = _MXISignpostLogSystem();
+  v175 = _MXISignpostLogSystem(v26);
+  spid = _MXISignpostCreate(v175);
+  v176 = _MXISignpostLogSystem(spid);
   memset(buf, 0, sizeof(buf));
   core::get_info(buf);
-  v175 = v174;
-  v176 = v175;
-  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v175))
+  v177 = v176;
+  v178 = v177;
+  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v177))
   {
-    *v501 = 134218752;
-    *&v501[4] = *buf;
-    *&v501[12] = 2048;
-    *&v501[14] = *&buf[8];
-    *&v501[22] = 2048;
-    *&v501[24] = *&buf[16];
-    LOWORD(v502) = 2048;
-    *(&v502 + 2) = *&buf[24];
-    _os_signpost_emit_with_name_impl(&dword_22F9C3000, v176, OS_SIGNPOST_INTERVAL_BEGIN, spid, "MXI_MEMORY_PREALLOCATION", "process-unwired-current  %llu MB process-unwired-peak %llu MB system-wired-current %llu system-unwired-current %llu", v501, 0x2Au);
+    *v504 = 134218752;
+    *&v504[4] = *buf;
+    *&v504[12] = 2048;
+    *&v504[14] = *&buf[8];
+    *&v504[22] = 2048;
+    *&v504[24] = *&buf[16];
+    LOWORD(v505) = 2048;
+    *(&v505 + 2) = *&buf[24];
+    _os_signpost_emit_with_name_impl(&dword_22F9C3000, v178, OS_SIGNPOST_INTERVAL_BEGIN, spid, "MXI_MEMORY_PREALLOCATION", "process-unwired-current  %llu MB process-unwired-peak %llu MB system-wired-current %llu system-unwired-current %llu", v504, 0x2Au);
   }
 
-  v177 = *(v16 + 400);
-  v182 = objc_msgSend_width(v478, v178, v179, v180, v181);
-  v187 = objc_msgSend_height(v478, v183, v184, v185, v186);
-  if (v177 != -1)
+  v179 = *(v16 + 400);
+  v184 = objc_msgSend_width(v481, v180, v181, v182, v183);
+  v189 = objc_msgSend_height(v481, v185, v186, v187, v188);
+  if (v179 != -1)
   {
 LABEL_31:
-    if (v177 >= 513)
+    if (v179 >= 513)
     {
-      v41 = _mxi_log();
+      v41 = _mxi_log(v189);
       if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
-        *v501 = 0;
-        v172 = "[Tiled/TiledProcessor.mm:558] Number of atlas slices exceeds MAX_FIXED_ATLAS_SLICES.";
+        *v504 = 0;
+        v174 = "[Tiled/TiledProcessor.mm:558] Number of atlas slices exceeds MAX_FIXED_ATLAS_SLICES.";
         goto LABEL_66;
       }
 
 LABEL_144:
-      v151 = 0;
+      v152 = 0;
       goto LABEL_145;
     }
 
-    v343 = _mxi_log();
-    if (os_log_type_enabled(v343, OS_LOG_TYPE_DEBUG))
+    v345 = _mxi_log(v189);
+    if (os_log_type_enabled(v345, OS_LOG_TYPE_DEBUG))
     {
-      *v501 = 67109120;
-      *&v501[4] = v177;
-      _os_log_impl(&dword_22F9C3000, v343, OS_LOG_TYPE_DEBUG, "[Tiled] [TiledProcessor] Allocating %u slices", v501, 8u);
+      *v504 = 67109120;
+      *&v504[4] = v179;
+      _os_log_impl(&dword_22F9C3000, v345, OS_LOG_TYPE_DEBUG, "[Tiled] [TiledProcessor] Allocating %u slices", v504, 8u);
     }
 
-    sub_22F9E60AC((v16 + 112), v177);
-    sub_22F9E60AC((v16 + 136), v177);
-    v344 = objc_opt_new();
-    v41 = v344;
+    sub_22F9E60AC((v16 + 112), v179);
+    sub_22F9E60AC((v16 + 136), v179);
+    v346 = objc_opt_new();
+    v41 = v346;
     if (*(v16 + 413) == 1)
     {
-      objc_msgSend_setTextureType_(v344, v345, 2, v346, v347);
+      objc_msgSend_setTextureType_(v346, v347, 2, v348, v349);
     }
 
     else
     {
-      objc_msgSend_setTextureType_(v344, v345, 3, v346, v347);
-      objc_msgSend_setArrayLength_(v41, v351, v177, v352, v353);
+      objc_msgSend_setTextureType_(v346, v347, 3, v348, v349);
+      objc_msgSend_setArrayLength_(v41, v353, v179, v354, v355);
     }
 
-    objc_msgSend_setWidth_(v41, v348, *(v16 + 348), v349, v350, v458);
-    objc_msgSend_setHeight_(v41, v354, *(v16 + 348), v355, v356);
-    objc_msgSend_setMipmapLevelCount_(v41, v357, *(v16 + 356), v358, v359);
-    objc_msgSend_setPixelFormat_(v41, v360, *(v16 + 328), v361, v362);
-    objc_msgSend_setUsage_(v41, v363, 19, v364, v365);
+    objc_msgSend_setWidth_(v41, v350, *(v16 + 348), v351, v352, v461);
+    objc_msgSend_setHeight_(v41, v356, *(v16 + 348), v357, v358);
+    objc_msgSend_setMipmapLevelCount_(v41, v359, *(v16 + 356), v360, v361);
+    objc_msgSend_setPixelFormat_(v41, v362, *(v16 + 328), v363, v364);
+    v368 = objc_msgSend_setUsage_(v41, v365, 19, v366, v367);
     if (*(v16 + 413) == 1)
     {
-      if (v177)
+      if (v179)
       {
-        v369 = 0;
+        v372 = 0;
         while (1)
         {
-          objc_msgSend_setStorageMode_(v41, v366, 2, v367, v368);
-          v373 = objc_msgSend_newSharedTextureWithDescriptor_(*v16, v370, v41, v371, v372);
-          v374 = *(v16 + 112);
-          v375 = *(v374 + v369);
-          *(v374 + v369) = v373;
+          objc_msgSend_setStorageMode_(v41, v369, 2, v370, v371);
+          v376 = objc_msgSend_newSharedTextureWithDescriptor_(*v16, v373, v41, v374, v375);
+          v377 = *(v16 + 112);
+          v378 = *(v377 + v372);
+          *(v377 + v372) = v376;
 
-          v377 = *(*(v16 + 112) + v369);
-          if (!v377)
+          v380 = *(*(v16 + 112) + v372);
+          if (!v380)
           {
-            v455 = _mxi_log();
-            if (!os_log_type_enabled(v455, OS_LOG_TYPE_ERROR))
+            v458 = _mxi_log(0);
+            if (!os_log_type_enabled(v458, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_143;
             }
 
-            *v501 = 0;
-            v456 = "[Tiled/TiledProcessor.mm:587] Failed to allocate atlas.";
+            *v504 = 0;
+            v459 = "[Tiled/TiledProcessor.mm:587] Failed to allocate atlas.";
             goto LABEL_142;
           }
 
-          v378 = *(v16 + 336);
-          v379 = *(v16 + 409) == 1 ? objc_msgSend_newCompressedTextureViewWithPixelFormat_textureType_level_slice_(v377, v376, v378, 2, 0, 0) : objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(v377, v376, v378, 2, 0, 1, 0, 1);
-          v380 = *(v16 + 136);
-          v381 = *(v380 + v369);
-          *(v380 + v369) = v379;
+          v381 = *(v16 + 336);
+          v382 = *(v16 + 409) == 1 ? objc_msgSend_newCompressedTextureViewWithPixelFormat_textureType_level_slice_(v380, v379, v381, 2, 0, 0) : objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(v380, v379, v381, 2, 0, 1, 0, 1);
+          v383 = *(v16 + 136);
+          v384 = *(v383 + v372);
+          *(v383 + v372) = v382;
 
-          v386 = *(*(v16 + 136) + v369);
-          if (!v386)
+          v389 = *(*(v16 + 136) + v372);
+          if (!v389)
           {
             break;
           }
 
-          *(*(v16 + 304) + v369) = objc_msgSend_gpuResourceID(v386, v382, v383, v384, v385);
-          v369 += 8;
-          if (8 * v177 == v369)
+          v368 = objc_msgSend_gpuResourceID(v389, v385, v386, v387, v388);
+          *(*(v16 + 304) + v372) = v368;
+          v372 += 8;
+          if (8 * v179 == v372)
           {
             goto LABEL_90;
           }
         }
 
-        v455 = _mxi_log();
-        if (!os_log_type_enabled(v455, OS_LOG_TYPE_ERROR))
+        v458 = _mxi_log(0);
+        if (!os_log_type_enabled(v458, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_143;
         }
 
-        *v501 = 0;
-        v456 = "[Tiled/TiledProcessor.mm:603] Failed to allocate atlas view";
+        *v504 = 0;
+        v459 = "[Tiled/TiledProcessor.mm:603] Failed to allocate atlas view";
         goto LABEL_142;
       }
     }
 
     else
     {
-      objc_msgSend_setStorageMode_(v41, v366, 2, v367, v368);
-      v390 = objc_msgSend_newSharedTextureWithDescriptor_(*v16, v387, v41, v388, v389);
-      v391 = *(v16 + 160);
-      *(v16 + 160) = v390;
+      objc_msgSend_setStorageMode_(v41, v369, 2, v370, v371);
+      v393 = objc_msgSend_newSharedTextureWithDescriptor_(*v16, v390, v41, v391, v392);
+      v394 = *(v16 + 160);
+      *(v16 + 160) = v393;
 
       if (!*(v16 + 160))
       {
-        v455 = _mxi_log();
-        if (!os_log_type_enabled(v455, OS_LOG_TYPE_ERROR))
+        v458 = _mxi_log(v368);
+        if (!os_log_type_enabled(v458, OS_LOG_TYPE_ERROR))
         {
 LABEL_143:
 
           goto LABEL_144;
         }
 
-        *v501 = 0;
-        v456 = "[Tiled/TiledProcessor.mm:616] Failed to allocate atlas.";
+        *v504 = 0;
+        v459 = "[Tiled/TiledProcessor.mm:616] Failed to allocate atlas.";
 LABEL_142:
-        _os_log_impl(&dword_22F9C3000, v455, OS_LOG_TYPE_ERROR, v456, v501, 2u);
+        _os_log_impl(&dword_22F9C3000, v458, OS_LOG_TYPE_ERROR, v459, v504, 2u);
         goto LABEL_143;
       }
 
-      if (v177)
+      if (v179)
       {
-        v393 = 0;
+        v396 = 0;
         while (1)
         {
-          v394 = *(v16 + 160);
-          v395 = *(v16 + 336);
-          v396 = *(v16 + 409) == 1 ? objc_msgSend_newCompressedTextureViewWithPixelFormat_textureType_level_slice_(v394, v392, v395, 2, 0, v393) : objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(v394, v392, v395, 2, 0, 1, v393, 1);
-          v397 = *(v16 + 136);
-          v398 = *(v397 + 8 * v393);
-          *(v397 + 8 * v393) = v396;
+          v397 = *(v16 + 160);
+          v398 = *(v16 + 336);
+          v399 = *(v16 + 409) == 1 ? objc_msgSend_newCompressedTextureViewWithPixelFormat_textureType_level_slice_(v397, v395, v398, 2, 0, v396) : objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(v397, v395, v398, 2, 0, 1, v396, 1);
+          v400 = *(v16 + 136);
+          v401 = *(v400 + 8 * v396);
+          *(v400 + 8 * v396) = v399;
 
-          v403 = *(*(v16 + 136) + 8 * v393);
-          if (!v403)
+          v406 = *(*(v16 + 136) + 8 * v396);
+          if (!v406)
           {
             break;
           }
 
-          *(*(v16 + 304) + 8 * v393++) = objc_msgSend_gpuResourceID(v403, v399, v400, v401, v402);
-          if (v177 == v393)
+          v368 = objc_msgSend_gpuResourceID(v406, v402, v403, v404, v405);
+          *(*(v16 + 304) + 8 * v396++) = v368;
+          if (v179 == v396)
           {
             goto LABEL_90;
           }
         }
 
-        v455 = _mxi_log();
-        if (!os_log_type_enabled(v455, OS_LOG_TYPE_ERROR))
+        v458 = _mxi_log(0);
+        if (!os_log_type_enabled(v458, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_143;
         }
 
-        *v501 = 0;
-        v456 = "[Tiled/TiledProcessor.mm:633] Failed to allocate atlas view";
+        *v504 = 0;
+        v459 = "[Tiled/TiledProcessor.mm:633] Failed to allocate atlas view";
         goto LABEL_142;
       }
     }
 
 LABEL_90:
-    v404 = _MXISignpostLogSystem();
+    v407 = _MXISignpostLogSystem(v368);
     memset(buf, 0, sizeof(buf));
     core::get_info(buf);
-    v405 = v404;
-    v170 = v405;
-    if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v405))
+    v408 = v407;
+    v171 = v408;
+    if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v408))
     {
-      *v501 = 134218752;
-      *&v501[4] = *buf;
-      *&v501[12] = 2048;
-      *&v501[14] = *&buf[8];
-      *&v501[22] = 2048;
-      *&v501[24] = *&buf[16];
-      LOWORD(v502) = 2048;
-      *(&v502 + 2) = *&buf[24];
-      _os_signpost_emit_with_name_impl(&dword_22F9C3000, v170, OS_SIGNPOST_INTERVAL_END, spid, "MXI_MEMORY_PREALLOCATION", "process-unwired-current  %llu MB process-unwired-peak %llu MB system-wired-current %llu system-unwired-current %llu", v501, 0x2Au);
+      *v504 = 134218752;
+      *&v504[4] = *buf;
+      *&v504[12] = 2048;
+      *&v504[14] = *&buf[8];
+      *&v504[22] = 2048;
+      *&v504[24] = *&buf[16];
+      LOWORD(v505) = 2048;
+      *(&v505 + 2) = *&buf[24];
+      _os_signpost_emit_with_name_impl(&dword_22F9C3000, v171, OS_SIGNPOST_INTERVAL_END, spid, "MXI_MEMORY_PREALLOCATION", "process-unwired-current  %llu MB process-unwired-peak %llu MB system-wired-current %llu system-unwired-current %llu", v504, 0x2Au);
     }
 
 LABEL_22:
-    v171 = *(v16 + 392);
-    if (v171)
+    v173 = *(v16 + 392);
+    if (v173)
     {
-      v38 = v465;
-      if (v171 != v473)
+      v38 = v468;
+      if (v173 != v476)
       {
-        v41 = _mxi_log();
+        v41 = _mxi_log(v172);
         if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
-          *v501 = 0;
-          v172 = "[Tiled/TiledProcessor.mm:653] Unexpected color texture width";
+          *v504 = 0;
+          v174 = "[Tiled/TiledProcessor.mm:653] Unexpected color texture width";
           goto LABEL_66;
         }
 
         goto LABEL_144;
       }
 
-      if (*(v16 + 396) != v472)
+      if (*(v16 + 396) != v475)
       {
-        v41 = _mxi_log();
+        v41 = _mxi_log(v172);
         if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
-          *v501 = 0;
-          v172 = "[Tiled/TiledProcessor.mm:654] Unexpected color texture height";
+          *v504 = 0;
+          v174 = "[Tiled/TiledProcessor.mm:654] Unexpected color texture height";
 LABEL_66:
-          _os_log_impl(&dword_22F9C3000, v41, OS_LOG_TYPE_ERROR, v172, v501, 2u);
+          _os_log_impl(&dword_22F9C3000, v41, OS_LOG_TYPE_ERROR, v174, v504, 2u);
           goto LABEL_144;
         }
 
@@ -4597,82 +4606,82 @@ LABEL_66:
 
     else
     {
-      *(v16 + 392) = v473;
-      *(v16 + 396) = v472;
-      v38 = v465;
+      *(v16 + 392) = v476;
+      *(v16 + 396) = v475;
+      v38 = v468;
     }
 
-    v40 = v480;
+    v40 = v483;
     if (!*(v16 + 168))
     {
-      v265 = v38;
-      v266 = objc_msgSend_newBufferWithLength_options_(*v16, v27, v476 << 6, 32, v30);
-      v267 = *(v16 + 168);
-      *(v16 + 168) = v266;
+      v267 = v38;
+      v268 = objc_msgSend_newBufferWithLength_options_(*v16, v27, v479 << 6, 32, v30);
+      v269 = *(v16 + 168);
+      *(v16 + 168) = v268;
 
-      v270 = objc_msgSend_newBufferWithLength_options_(*v16, v268, 16 * v476, 0, v269);
-      v271 = *(v16 + 176);
-      *(v16 + 176) = v270;
+      v272 = objc_msgSend_newBufferWithLength_options_(*v16, v270, 16 * v479, 0, v271);
+      v273 = *(v16 + 176);
+      *(v16 + 176) = v272;
 
-      v274 = objc_msgSend_newBufferWithLength_options_(*v16, v272, 16, 0, v273);
-      v275 = *(v16 + 184);
-      *(v16 + 184) = v274;
+      v276 = objc_msgSend_newBufferWithLength_options_(*v16, v274, 16, 0, v275);
+      v277 = *(v16 + 184);
+      *(v16 + 184) = v276;
 
-      v278 = objc_msgSend_newBufferWithLength_options_(*v16, v276, 12 * v467, 0, v277);
-      v279 = *(v16 + 192);
-      *(v16 + 192) = v278;
+      v280 = objc_msgSend_newBufferWithLength_options_(*v16, v278, 12 * v470, 0, v279);
+      v281 = *(v16 + 192);
+      *(v16 + 192) = v280;
 
-      v282 = objc_msgSend_newBufferWithLength_options_(*v16, v280, 24, 32, v281);
-      v283 = *(v16 + 200);
-      *(v16 + 200) = v282;
+      v284 = objc_msgSend_newBufferWithLength_options_(*v16, v282, 24, 32, v283);
+      v285 = *(v16 + 200);
+      *(v16 + 200) = v284;
 
-      v286 = objc_msgSend_newBufferWithLength_options_(*v16, v284, v476 << 8, 32, v285);
-      v287 = *(v16 + 208);
-      *(v16 + 208) = v286;
+      v288 = objc_msgSend_newBufferWithLength_options_(*v16, v286, v479 << 8, 32, v287);
+      v289 = *(v16 + 208);
+      *(v16 + 208) = v288;
 
-      v290 = objc_msgSend_newBufferWithLength_options_(*v16, v288, 6144 * v476, 32, v289);
-      v291 = *(v16 + 216);
-      *(v16 + 216) = v290;
+      v292 = objc_msgSend_newBufferWithLength_options_(*v16, v290, 6144 * v479, 32, v291);
+      v293 = *(v16 + 216);
+      *(v16 + 216) = v292;
 
-      v294 = objc_msgSend_newBufferWithLength_options_(*v16, v292, 32 * v471, 32, v293);
-      v295 = *(v16 + 224);
-      *(v16 + 224) = v294;
+      v296 = objc_msgSend_newBufferWithLength_options_(*v16, v294, 32 * v474, 32, v295);
+      v297 = *(v16 + 224);
+      *(v16 + 224) = v296;
 
-      v298 = objc_msgSend_newBufferWithLength_options_(*v16, v296, 16 * (4 * v466), 0, v297);
-      v299 = *(v16 + 232);
-      *(v16 + 232) = v298;
+      v300 = objc_msgSend_newBufferWithLength_options_(*v16, v298, 16 * (4 * v469), 0, v299);
+      v301 = *(v16 + 232);
+      *(v16 + 232) = v300;
 
-      v302 = objc_msgSend_newBufferWithLength_options_(*v16, v300, 8 * (4 * v466), 0, v301);
-      v303 = *(v16 + 240);
-      *(v16 + 240) = v302;
+      v304 = objc_msgSend_newBufferWithLength_options_(*v16, v302, 8 * (4 * v469), 0, v303);
+      v305 = *(v16 + 240);
+      *(v16 + 240) = v304;
 
-      v304 = (2 * v466);
-      v307 = objc_msgSend_newBufferWithLength_options_(*v16, v305, 12 * v304, 0, v306);
-      v308 = *(v16 + 248);
-      *(v16 + 248) = v307;
+      v306 = (2 * v469);
+      v309 = objc_msgSend_newBufferWithLength_options_(*v16, v307, 12 * v306, 0, v308);
+      v310 = *(v16 + 248);
+      *(v16 + 248) = v309;
 
-      v311 = objc_msgSend_newBufferWithLength_options_(*v16, v309, 12 * v304, 0, v310);
-      v312 = *(v16 + 256);
-      *(v16 + 256) = v311;
+      v313 = objc_msgSend_newBufferWithLength_options_(*v16, v311, 12 * v306, 0, v312);
+      v314 = *(v16 + 256);
+      *(v16 + 256) = v313;
 
-      v315 = objc_msgSend_newBufferWithLength_options_(*v16, v313, 4 * v304, 0, v314);
-      v316 = *(v16 + 264);
-      *(v16 + 264) = v315;
+      v317 = objc_msgSend_newBufferWithLength_options_(*v16, v315, 4 * v306, 0, v316);
+      v318 = *(v16 + 264);
+      *(v16 + 264) = v317;
 
-      v319 = objc_msgSend_newBufferWithLength_options_(*v16, v317, 4 * v304, 0, v318);
-      v320 = *(v16 + 272);
-      *(v16 + 272) = v319;
+      v321 = objc_msgSend_newBufferWithLength_options_(*v16, v319, 4 * v306, 0, v320);
+      v322 = *(v16 + 272);
+      *(v16 + 272) = v321;
 
-      v323 = *(v16 + 411) == 1 ? objc_msgSend_newBufferWithLength_options_(*v16, v321, 16 * v32 * v474 * *(v16 + 360), 0, v322) : 0;
-      v406 = *(v16 + 280);
-      *(v16 + 280) = v323;
+      v325 = *(v16 + 411) == 1 ? objc_msgSend_newBufferWithLength_options_(*v16, v323, 16 * v32 * v477 * *(v16 + 360), 0, v324) : 0;
+      v409 = *(v16 + 280);
+      *(v16 + 280) = v325;
 
-      v411 = objc_msgSend_contents(*(v16 + 184), v407, v408, v409, v410);
-      v38 = v265;
-      v40 = v480;
+      v414 = objc_msgSend_contents(*(v16 + 184), v410, v411, v412, v413);
+      v38 = v267;
+      v40 = v483;
       if (*(v16 + 415) == 1)
       {
-        *v411 = xmmword_22FA081D0;
+        *v414 = xmmword_22FA081D0;
       }
     }
 
@@ -4689,7 +4698,7 @@ LABEL_8:
     objc_msgSend_setBuffer_offset_atIndex_(v41, v52, *(v16 + 224), 0, 9);
     objc_msgSend_setBuffer_offset_atIndex_(v41, v53, *(v16 + 232), 0, 10);
     objc_msgSend_setBuffer_offset_atIndex_(v41, v54, *(v16 + 240), 0, 11);
-    v55 = (v38 + v36 * v470);
+    v55 = (v38 + v36 * v473);
     v56 = 12 * v55;
     objc_msgSend_setBuffer_offset_atIndex_(v41, v57, *(v16 + 248), v56 * (2 * *(v16 + 364)), 12);
     objc_msgSend_setBuffer_offset_atIndex_(v41, v58, *(v16 + 256), v56 * (2 * *(v16 + 364)), 13);
@@ -4701,40 +4710,40 @@ LABEL_8:
     }
 
     objc_msgSend_setBytes_length_atIndex_(v41, v61, *(v16 + 304), 4096, 16);
-    memset(v510, 0, sizeof(v510));
-    v508 = 0u;
+    memset(v513, 0, sizeof(v513));
+    v511 = 0u;
+    v512 = 0u;
     v509 = 0u;
-    v506 = 0u;
+    v510 = 0u;
     v507 = 0u;
-    v504 = 0u;
+    v508 = 0u;
     v505 = 0u;
-    v502 = 0u;
-    v503 = 0u;
+    v506 = 0u;
     v64 = *(v16 + 348);
-    *v501 = *(v16 + 352);
-    *&v501[4] = v64;
-    *&v501[8] = v469;
-    *&v501[12] = v475;
-    *&v501[16] = v476;
-    *&v501[20] = v55;
-    *&v501[24] = *(v16 + 360);
-    *&v501[28] = a4;
-    LODWORD(v502) = *(v16 + 368);
-    *(&v502 + 1) = __PAIR64__(v472, v473);
-    *&v503 = __PAIR64__(LODWORD(a8), LODWORD(a9));
-    DWORD2(v503) = *(v16 + 380);
-    *&v505 = *(v16 + 432);
-    v504 = *(v16 + 416);
+    *v504 = *(v16 + 352);
+    *&v504[4] = v64;
+    *&v504[8] = v472;
+    *&v504[12] = v478;
+    *&v504[16] = v479;
+    *&v504[20] = v55;
+    *&v504[24] = *(v16 + 360);
+    *&v504[28] = a4;
+    LODWORD(v505) = *(v16 + 368);
+    *(&v505 + 1) = __PAIR64__(v475, v476);
+    *&v506 = __PAIR64__(LODWORD(a8), LODWORD(a9));
+    DWORD2(v506) = *(v16 + 380);
+    *&v508 = *(v16 + 432);
+    v507 = *(v16 + 416);
     v65 = a7[1];
-    v506 = *a7;
-    v507 = v65;
+    v509 = *a7;
+    v510 = v65;
     v66 = a7[3];
-    v508 = a7[2];
-    v509 = v66;
-    *&v510[0] = *(v16 + 384);
-    BYTE8(v510[0]) = v479 == 0;
-    *(v510 + 9) = *(v16 + 405);
-    if (*v501 < 0x41u)
+    v511 = a7[2];
+    v512 = v66;
+    *&v513[0] = *(v16 + 384);
+    BYTE8(v513[0]) = v482 == 0;
+    *(v513 + 9) = *(v16 + 405);
+    if (*v504 < 0x41u)
     {
       v67 = *(v16 + 407);
     }
@@ -4744,404 +4753,405 @@ LABEL_8:
       v67 = 0;
     }
 
-    BYTE11(v510[0]) = v67;
-    BYTE12(v510[0]) = *(v16 + 408);
-    BYTE13(v510[0]) = *(v16 + 410);
-    BYTE14(v510[0]) = *(a7 + 64);
-    *(v510 + 15) = *(v16 + 411);
-    v68 = v480;
-    objc_msgSend_setThreadgroupMemoryLength_atIndex_(v41, v62, 16 * v476, 0, v63);
-    objc_msgSend_setBytes_length_atIndex_(v41, v69, v501, 192, 5);
-    objc_msgSend_setTexture_atIndex_(v41, v70, v478, 0, v71);
-    objc_msgSend_setTexture_atIndex_(v41, v72, v479, 1, v73);
+    BYTE11(v513[0]) = v67;
+    BYTE12(v513[0]) = *(v16 + 408);
+    BYTE13(v513[0]) = *(v16 + 410);
+    BYTE14(v513[0]) = *(a7 + 64);
+    *(v513 + 15) = *(v16 + 411);
+    v68 = v483;
+    objc_msgSend_setThreadgroupMemoryLength_atIndex_(v41, v62, 16 * v479, 0, v63);
+    objc_msgSend_setBytes_length_atIndex_(v41, v69, v504, 192, 5);
+    objc_msgSend_setTexture_atIndex_(v41, v70, v481, 0, v71);
+    objc_msgSend_setTexture_atIndex_(v41, v72, v482, 1, v73);
     objc_msgSend_pushDebugGroup_(v41, v74, @"group_info", v75, v76);
     objc_msgSend_setComputePipelineState_(v41, v77, *(v16 + 8), v78, v79);
-    *buf = v475;
-    *&buf[8] = v468;
+    *buf = v478;
+    *&buf[8] = v471;
     *&buf[16] = 1;
-    *v499 = vdupq_n_s64(8uLL);
-    *&v499[16] = 1;
-    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v41, v80, buf, v499, v81);
+    *v502 = vdupq_n_s64(8uLL);
+    *&v502[16] = 1;
+    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v41, v80, buf, v502, v81);
     objc_msgSend_popDebugGroup(v41, v82, v83, v84, v85);
     objc_msgSend_pushDebugGroup_(v41, v86, @"prefix_sums", v87, v88);
     objc_msgSend_setComputePipelineState_(v41, v89, *(v16 + 16), v90, v91);
     *buf = vdupq_n_s64(1uLL);
     *&buf[16] = 1;
-    *v499 = fmin(v476, 1024.0);
-    *&v499[8] = *buf;
-    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v41, v92, buf, v499, v93);
+    *v502 = fmin(v479, 1024.0);
+    *&v502[8] = *buf;
+    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v41, v92, buf, v502, v93);
     objc_msgSend_popDebugGroup(v41, v94, v95, v96, v97);
     objc_msgSend_pushDebugGroup_(v41, v98, @"setup_indirect_dispatches", v99, v100);
     objc_msgSend_setComputePipelineState_(v41, v101, *(v16 + 40), v102, v103);
     *buf = vdupq_n_s64(1uLL);
     *&buf[16] = 1;
-    *v499 = *buf;
-    *&v499[16] = 1;
-    objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v41, v104, buf, v499, v105);
+    *v502 = *buf;
+    *&v502[16] = 1;
+    objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v41, v104, buf, v502, v105);
     objc_msgSend_popDebugGroup(v41, v106, v107, v108, v109);
     objc_msgSend_pushDebugGroup_(v41, v110, @"locations_mapping", v111, v112);
     objc_msgSend_setComputePipelineState_(v41, v113, *(v16 + 48), v114, v115);
     *buf = v32;
-    *&buf[8] = v474;
+    *&buf[8] = v477;
     *&buf[16] = 1;
-    *v499 = vdupq_n_s64(8uLL);
-    *&v499[16] = 1;
-    objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v41, v116, buf, v499, v117);
+    *v502 = vdupq_n_s64(8uLL);
+    *&v502[16] = 1;
+    objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v41, v116, buf, v502, v117);
     objc_msgSend_popDebugGroup(v41, v118, v119, v120, v121);
-    if (v479)
+    if (v482)
     {
       objc_msgSend_pushDebugGroup_(v41, v122, @"depth_adjust", v123, v124);
       objc_msgSend_pushDebugGroup_(v41, v125, @"init_distances", v126, v127);
       objc_msgSend_setComputePipelineState_(v41, v128, *(v16 + 56), v129, v130);
-      *buf = v471;
+      *buf = v474;
       *&buf[8] = vdupq_n_s64(1uLL);
-      *v499 = xmmword_22FA081E0;
-      *&v499[16] = 1;
-      objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v41, v131, buf, v499, v132);
+      *v502 = xmmword_22FA081E0;
+      *&v502[16] = 1;
+      objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v41, v131, buf, v502, v132);
       objc_msgSend_popDebugGroup(v41, v133, v134, v135, v136);
       objc_msgSend_pushDebugGroup_(v41, v137, @"gather_reduce", v138, v139);
       objc_msgSend_setComputePipelineState_(v41, v140, *(v16 + 64), v141, v142);
-      v143 = *v501;
-      v144 = *&v501[8];
-      if (objc_msgSend_maxTotalThreadsPerThreadgroup(*(v16 + 64), v145, v146, v147, v148) < (((v143 - v144 + 1) >> 1) * ((v143 - v144 + 1) >> 1)))
+      v143 = *v504;
+      v144 = *&v504[8];
+      v149 = objc_msgSend_maxTotalThreadsPerThreadgroup(*(v16 + 64), v145, v146, v147, v148);
+      if (v149 < ((v143 - v144 + 1) >> 1) * ((v143 - v144 + 1) >> 1))
       {
-        v150 = _mxi_log();
-        if (os_log_type_enabled(v150, OS_LOG_TYPE_ERROR))
+        v151 = _mxi_log(v149);
+        if (os_log_type_enabled(v151, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_22F9C3000, v150, OS_LOG_TYPE_ERROR, "[Tiled/TiledProcessor.mm:779] Not enough threads per threadgroup for tile size", buf, 2u);
+          _os_log_impl(&dword_22F9C3000, v151, OS_LOG_TYPE_ERROR, "[Tiled/TiledProcessor.mm:779] Not enough threads per threadgroup for tile size", buf, 2u);
         }
 
-        v151 = 0;
+        v152 = 0;
         goto LABEL_45;
       }
 
-      v188 = *(v16 + 200);
+      v190 = *(v16 + 200);
       *buf = ((v143 - v144 + 1) >> 1) * ((v143 - v144 + 1) >> 1);
       *&buf[8] = vdupq_n_s64(1uLL);
-      v68 = v480;
-      objc_msgSend_dispatchThreadgroupsWithIndirectBuffer_indirectBufferOffset_threadsPerThreadgroup_(v41, v149, v188, 12, buf);
-      objc_msgSend_popDebugGroup(v41, v189, v190, v191, v192);
-      objc_msgSend_pushDebugGroup_(v41, v193, @"solve", v194, v195);
-      objc_msgSend_setComputePipelineState_(v41, v196, *(v16 + 72), v197, v198);
-      v199 = *(v16 + 200);
+      v68 = v483;
+      objc_msgSend_dispatchThreadgroupsWithIndirectBuffer_indirectBufferOffset_threadsPerThreadgroup_(v41, v150, v190, 12, buf);
+      objc_msgSend_popDebugGroup(v41, v191, v192, v193, v194);
+      objc_msgSend_pushDebugGroup_(v41, v195, @"solve", v196, v197);
+      objc_msgSend_setComputePipelineState_(v41, v198, *(v16 + 72), v199, v200);
+      v201 = *(v16 + 200);
       *buf = xmmword_22FA081E0;
       *&buf[16] = 1;
-      objc_msgSend_dispatchThreadgroupsWithIndirectBuffer_indirectBufferOffset_threadsPerThreadgroup_(v41, v200, v199, 0, buf);
-      objc_msgSend_popDebugGroup(v41, v201, v202, v203, v204);
-      objc_msgSend_pushDebugGroup_(v41, v205, @"average_corners", v206, v207);
-      objc_msgSend_setComputePipelineState_(v41, v208, *(v16 + 80), v209, v210);
-      *buf = v471;
+      objc_msgSend_dispatchThreadgroupsWithIndirectBuffer_indirectBufferOffset_threadsPerThreadgroup_(v41, v202, v201, 0, buf);
+      objc_msgSend_popDebugGroup(v41, v203, v204, v205, v206);
+      objc_msgSend_pushDebugGroup_(v41, v207, @"average_corners", v208, v209);
+      objc_msgSend_setComputePipelineState_(v41, v210, *(v16 + 80), v211, v212);
+      *buf = v474;
       *&buf[8] = vdupq_n_s64(1uLL);
-      *v499 = xmmword_22FA081E0;
-      *&v499[16] = 1;
-      objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v41, v211, buf, v499, v212);
-      objc_msgSend_popDebugGroup(v41, v213, v214, v215, v216);
-      objc_msgSend_popDebugGroup(v41, v217, v218, v219, v220);
+      *v502 = xmmword_22FA081E0;
+      *&v502[16] = 1;
+      objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v41, v213, buf, v502, v214);
+      objc_msgSend_popDebugGroup(v41, v215, v216, v217, v218);
+      objc_msgSend_popDebugGroup(v41, v219, v220, v221, v222);
     }
 
     if (*(v16 + 411) == 1)
     {
       objc_msgSend_pushDebugGroup_(v41, v122, @"init_vtx_idx_map", v123, v124);
-      objc_msgSend_setComputePipelineState_(v41, v221, *(v16 + 96), v222, v223);
+      objc_msgSend_setComputePipelineState_(v41, v223, *(v16 + 96), v224, v225);
       *buf = v32;
-      *&buf[8] = v474;
+      *&buf[8] = v477;
       *&buf[16] = 1;
-      *v499 = vdupq_n_s64(8uLL);
-      *&v499[16] = 1;
-      objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v41, v224, buf, v499, v225);
-      objc_msgSend_popDebugGroup(v41, v226, v227, v228, v229);
+      *v502 = vdupq_n_s64(8uLL);
+      *&v502[16] = 1;
+      objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v41, v226, buf, v502, v227);
+      objc_msgSend_popDebugGroup(v41, v228, v229, v230, v231);
     }
 
     objc_msgSend_pushDebugGroup_(v41, v122, @"mesh", v123, v124);
-    objc_msgSend_setComputePipelineState_(v41, v230, *(v16 + 88), v231, v232);
-    v233 = *(v16 + 200);
+    objc_msgSend_setComputePipelineState_(v41, v232, *(v16 + 88), v233, v234);
+    v235 = *(v16 + 200);
     *buf = xmmword_22FA081E0;
     *&buf[16] = 1;
-    objc_msgSend_dispatchThreadgroupsWithIndirectBuffer_indirectBufferOffset_threadsPerThreadgroup_(v41, v234, v233, 0, buf);
-    objc_msgSend_popDebugGroup(v41, v235, v236, v237, v238);
+    objc_msgSend_dispatchThreadgroupsWithIndirectBuffer_indirectBufferOffset_threadsPerThreadgroup_(v41, v236, v235, 0, buf);
+    objc_msgSend_popDebugGroup(v41, v237, v238, v239, v240);
     if (*(v16 + 400))
     {
-      objc_msgSend_pushDebugGroup_(v41, v239, @"pack_tiles", v241, v242);
-      objc_msgSend_setComputePipelineState_(v41, v243, *(v16 + 24), v244, v245);
-      objc_msgSend_useResources_count_usage_(v41, v246, *(v16 + 136), (*(v16 + 144) - *(v16 + 136)) >> 3, 2);
+      objc_msgSend_pushDebugGroup_(v41, v241, @"pack_tiles", v243, v244);
+      objc_msgSend_setComputePipelineState_(v41, v245, *(v16 + 24), v246, v247);
+      objc_msgSend_useResources_count_usage_(v41, v248, *(v16 + 136), (*(v16 + 144) - *(v16 + 136)) >> 3, 2);
       if (*(v16 + 409) == 1)
       {
-        v249 = *(v16 + 200);
+        v251 = *(v16 + 200);
         *buf = ((*(v16 + 352) >> 2) * (*(v16 + 352) >> 2));
         *&buf[8] = vdupq_n_s64(1uLL);
-        objc_msgSend_dispatchThreadgroupsWithIndirectBuffer_indirectBufferOffset_threadsPerThreadgroup_(v41, v247, v249, 12, buf);
+        objc_msgSend_dispatchThreadgroupsWithIndirectBuffer_indirectBufferOffset_threadsPerThreadgroup_(v41, v249, v251, 12, buf);
       }
 
       else
       {
         *buf = v32;
-        *&buf[8] = v474;
+        *&buf[8] = v477;
         *&buf[16] = 1;
-        *v499 = vdupq_n_s64(0x10uLL);
-        *&v499[16] = 1;
-        objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v41, v247, buf, v499, v248);
+        *v502 = vdupq_n_s64(0x10uLL);
+        *&v502[16] = 1;
+        objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v41, v249, buf, v502, v250);
       }
 
-      objc_msgSend_popDebugGroup(v41, v250, v251, v252, v253);
+      objc_msgSend_popDebugGroup(v41, v252, v253, v254, v255);
     }
 
-    objc_msgSend_endEncoding(v41, v239, v240, v241, v242);
+    objc_msgSend_endEncoding(v41, v241, v242, v243, v244);
     if (*(v16 + 400))
     {
-      v151 = 1;
+      v152 = 1;
 LABEL_145:
 
       goto LABEL_146;
     }
 
-    v256 = v32;
-    v257 = *(v16 + 464);
-    v258 = (v257 + 1);
-    v259 = (v257 + 2);
-    *(v16 + 464) = v259;
-    objc_msgSend_encodeSignalEvent_value_(v68, v254, *(v16 + 448), v258, v255);
-    objc_msgSend_encodeWaitForEvent_value_(v68, v260, *(v16 + 448), v259, v261);
-    v262 = *(v16 + 448);
-    v263 = *(v16 + 456);
-    v481[0] = MEMORY[0x277D85DD0];
-    v481[1] = 3221225472;
-    v481[2] = sub_22F9E6134;
-    v481[3] = &unk_2788ADDB0;
-    v495 = v16;
-    v494 = v478;
+    v258 = v32;
+    v259 = *(v16 + 464);
+    v260 = (v259 + 1);
+    v261 = (v259 + 2);
+    *(v16 + 464) = v261;
+    objc_msgSend_encodeSignalEvent_value_(v68, v256, *(v16 + 448), v260, v257);
+    objc_msgSend_encodeWaitForEvent_value_(v68, v262, *(v16 + 448), v261, v263);
+    v264 = *(v16 + 448);
+    v265 = *(v16 + 456);
+    v484[0] = MEMORY[0x277D85DD0];
+    v484[1] = 3221225472;
+    v484[2] = sub_22F9E6134;
+    v484[3] = &unk_2788ADDB0;
+    v498 = v16;
+    v497 = v481;
+    v493 = v511;
+    v494 = v512;
+    v495 = v513[0];
+    v496 = v513[1];
+    v489 = v507;
     v490 = v508;
     v491 = v509;
-    v492 = v510[0];
-    v493 = v510[1];
-    v486 = v504;
+    v492 = v510;
+    v485 = *v504;
+    v486 = *&v504[16];
     v487 = v505;
     v488 = v506;
-    v489 = v507;
-    v482 = *v501;
-    v483 = *&v501[16];
-    v484 = v502;
-    v485 = v503;
-    v496 = v256;
-    v497 = v474;
-    v498 = v259;
-    objc_msgSend_notifyListener_atValue_block_(v262, v264, v263, v258, v481);
-    v151 = 1;
-    v150 = v494;
+    v499 = v258;
+    v500 = v477;
+    v501 = v261;
+    objc_msgSend_notifyListener_atValue_block_(v264, v266, v265, v260, v484);
+    v152 = 1;
+    v151 = v497;
 LABEL_45:
 
     goto LABEL_145;
   }
 
-  v324 = v187;
-  v463 = v32;
-  v325 = *(v16 + 348);
-  if ((atomic_load_explicit(qword_27DAD27A0, memory_order_acquire) & 1) == 0)
+  v326 = v189;
+  v466 = v32;
+  v327 = *(v16 + 348);
+  if ((atomic_load_explicit(byte_27DAD27A0, memory_order_acquire) & 1) == 0)
   {
     sub_22F9E8CD8();
   }
 
-  LOWORD(v326) = 0;
-  LOWORD(v327) = 0;
   LOWORD(v328) = 0;
-  v329 = fmax(v182, v324);
-  v330 = v329;
-  LOWORD(v331) = 0x7FFF;
-  v332 = &word_27DAD27B4;
-  v333 = 36;
-  LOWORD(v334) = 0x7FFF;
-  LOWORD(v335) = 0x7FFF;
+  LOWORD(v329) = 0;
+  LOWORD(v330) = 0;
+  v331 = fmax(v184, v326);
+  v332 = v331;
+  LOWORD(v333) = 0x7FFF;
+  v334 = &word_27DAD27B4;
+  v335 = 36;
+  LOWORD(v336) = 0x7FFF;
+  LOWORD(v337) = 0x7FFF;
   do
   {
-    LOWORD(v329) = *(v332 - 2);
-    v336 = *&v329;
-    *&v337 = fmax(v336, v328);
-    v328 = *&v337;
-    LOWORD(v337) = *(v332 - 1);
-    v338 = v337;
-    *&v339 = fmax(v338, v327);
-    v327 = *&v339;
-    LOWORD(v339) = *v332;
+    LOWORD(v331) = *(v334 - 2);
+    v338 = *&v331;
+    *&v339 = fmax(v338, v330);
+    v330 = *&v339;
+    LOWORD(v339) = *(v334 - 1);
     v340 = v339;
-    v326 = fmax(v340, v326);
-    v335 = fmin(v336, v335);
-    v334 = fmin(v338, v334);
-    v329 = fmin(v340, v331);
-    v331 = v329;
-    v332 += 4;
-    --v333;
+    *&v341 = fmax(v340, v329);
+    v329 = *&v341;
+    LOWORD(v341) = *v334;
+    v342 = v341;
+    v328 = fmax(v342, v328);
+    v337 = fmin(v338, v337);
+    v336 = fmin(v340, v336);
+    v331 = fmin(v342, v333);
+    v333 = v331;
+    v334 += 4;
+    --v335;
   }
 
-  while (v333);
-  if (v325 > v328 || v467 > v327 || v330 > v326)
+  while (v335);
+  if (v327 > v330 || v470 > v329 || v332 > v328)
   {
-    v41 = _mxi_log();
+    v41 = _mxi_log(v189);
     if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
-      *v501 = 0;
-      v172 = "[Tiled/TiledProcessor.mm:119] Atlas attributes are invalid";
+      *v504 = 0;
+      v174 = "[Tiled/TiledProcessor.mm:119] Atlas attributes are invalid";
       goto LABEL_66;
     }
 
     goto LABEL_144;
   }
 
-  v412 = v335;
-  v413 = fmax(v325, v335);
-  v414 = v334;
-  v415 = fmax(v467, v334);
-  v416 = v331;
-  v417 = fmax(v330, v331);
-  v462 = v413;
-  v460 = log2(v413);
-  v418 = fmax(ldexp(1.0, v460), v412);
-  v461 = v415;
-  v459 = log2(v415);
-  v419 = fmax(ldexp(1.0, v459), v414);
-  LODWORD(v458) = v417;
-  HIDWORD(v458) = log2(v417);
-  v420 = fmax(ldexp(1.0, SHIDWORD(v458)), v416);
-  v421 = fmin(ldexp(1.0, v460 + 1), v328);
-  v422 = fmin(ldexp(1.0, v459 + 1), v327);
-  v423 = ldexp(1.0, HIDWORD(v458) + 1);
-  v424 = 0;
-  v425 = 0;
-  v426 = 0;
+  v415 = v337;
+  v416 = fmax(v327, v337);
+  v417 = v336;
+  v418 = fmax(v470, v336);
+  v419 = v333;
+  v420 = fmax(v332, v333);
+  v465 = v416;
+  v463 = log2(v416);
+  v421 = fmax(ldexp(1.0, v463), v415);
+  v464 = v418;
+  v462 = log2(v418);
+  v422 = fmax(ldexp(1.0, v462), v417);
+  LODWORD(v461) = v420;
+  HIDWORD(v461) = log2(v420);
+  v423 = fmax(ldexp(1.0, SHIDWORD(v461)), v419);
+  v424 = fmin(ldexp(1.0, v463 + 1), v330);
+  v425 = fmin(ldexp(1.0, v462 + 1), v329);
+  v426 = ldexp(1.0, HIDWORD(v461) + 1);
   v427 = 0;
   v428 = 0;
   v429 = 0;
   v430 = 0;
   v431 = 0;
-  v432 = fmin(v423, v326);
-  v433 = &word_27DAD27B6;
-  v434 = 36;
-  v32 = v463;
+  v432 = 0;
+  v433 = 0;
+  v434 = 0;
+  v435 = fmin(v426, v328);
+  v436 = &word_27DAD27B6;
+  v437 = 36;
+  v32 = v466;
   do
   {
-    v435 = *(v433 - 3);
-    if (v435 == v418)
+    v438 = *(v436 - 3);
+    if (v438 == v421)
     {
-      v436 = *(v433 - 2);
-      if (v436 == v419)
+      v439 = *(v436 - 2);
+      if (v439 == v422)
       {
-        v437 = *(v433 - 1);
-        v438 = *v433;
-        if (v437 == v420)
+        v440 = *(v436 - 1);
+        v441 = *v436;
+        if (v440 == v423)
         {
-          v424 = *v433;
+          v427 = *v436;
         }
 
-        if (v437 == v432)
+        if (v440 == v435)
         {
-          v425 = *v433;
+          v428 = *v436;
         }
       }
 
       else
       {
-        v438 = *v433;
+        v441 = *v436;
       }
 
-      if (v436 == v422)
+      if (v439 == v425)
       {
-        v439 = *(v433 - 1);
-        if (v439 == v420)
+        v442 = *(v436 - 1);
+        if (v442 == v423)
         {
-          v426 = v438;
+          v429 = v441;
         }
 
-        if (v439 == v432)
+        if (v442 == v435)
         {
-          v427 = v438;
+          v430 = v441;
         }
       }
     }
 
     else
     {
-      v438 = *v433;
+      v441 = *v436;
     }
 
-    if (v435 == v421)
+    if (v438 == v424)
     {
-      v440 = *(v433 - 2);
-      if (v440 == v419)
+      v443 = *(v436 - 2);
+      if (v443 == v422)
       {
-        v441 = *(v433 - 1);
-        if (v441 == v420)
+        v444 = *(v436 - 1);
+        if (v444 == v423)
         {
-          v428 = v438;
+          v431 = v441;
         }
 
-        if (v441 == v432)
+        if (v444 == v435)
         {
-          v429 = v438;
+          v432 = v441;
         }
       }
 
-      if (v440 == v422)
+      if (v443 == v425)
       {
-        v442 = *(v433 - 1);
-        if (v442 == v420)
+        v445 = *(v436 - 1);
+        if (v445 == v423)
         {
-          v430 = v438;
+          v433 = v441;
         }
 
-        if (v442 == v432)
+        if (v445 == v435)
         {
-          v431 = v438;
+          v434 = v441;
         }
       }
     }
 
-    v433 += 4;
-    --v434;
+    v436 += 4;
+    --v437;
   }
 
-  while (v434);
-  v443 = 1.0;
-  v444 = 1.0;
-  v445 = __OFSUB__(v432, v420);
-  v446 = v432 - v420;
-  if (!((v446 < 0) ^ v445 | (v446 == 0)))
+  while (v437);
+  v446 = 1.0;
+  v447 = 1.0;
+  v448 = __OFSUB__(v435, v423);
+  v449 = v435 - v423;
+  if (!((v449 < 0) ^ v448 | (v449 == 0)))
   {
-    v444 = (v458 - v420) / v446;
+    v447 = (v461 - v423) / v449;
   }
 
-  v447 = v424 + (v444 * (v425 - v424));
-  v448 = v426 + (v444 * (v427 - v426));
-  v449 = v428 + (v444 * (v429 - v428));
-  v450 = v430 + (v444 * (v431 - v430));
-  v451 = (v461 - v419) / (v422 - v419);
-  if (v422 - v419 < 1)
+  v450 = v427 + (v447 * (v428 - v427));
+  v451 = v429 + (v447 * (v430 - v429));
+  v452 = v431 + (v447 * (v432 - v431));
+  v453 = v433 + (v447 * (v434 - v433));
+  v454 = (v464 - v422) / (v425 - v422);
+  if (v425 - v422 < 1)
   {
-    v451 = 1.0;
+    v454 = 1.0;
   }
 
-  v452 = v447 + (v451 * (v448 - v447));
-  v453 = v449 + (v451 * (v450 - v449));
-  if (v421 - v418 >= 1)
+  v455 = v450 + (v454 * (v451 - v450));
+  v456 = v452 + (v454 * (v453 - v452));
+  if (v424 - v421 >= 1)
   {
-    v443 = (v462 - v418) / (v421 - v418);
+    v446 = (v465 - v421) / (v424 - v421);
   }
 
-  v177 = (v452 + (v443 * (v453 - v452)));
-  if ((v177 & 0x80000000) == 0)
+  v179 = (v455 + (v446 * (v456 - v455)));
+  if ((v179 & 0x80000000) == 0)
   {
-    v454 = _mxi_log();
-    if (os_log_type_enabled(v454, OS_LOG_TYPE_DEBUG))
+    v457 = _mxi_log(0);
+    if (os_log_type_enabled(v457, OS_LOG_TYPE_DEBUG))
     {
-      *v501 = 0;
-      _os_log_impl(&dword_22F9C3000, v454, OS_LOG_TYPE_DEBUG, "[Tiled] [TiledProcessor] Chose number of slices from the look up table", v501, 2u);
+      *v504 = 0;
+      _os_log_impl(&dword_22F9C3000, v457, OS_LOG_TYPE_DEBUG, "[Tiled] [TiledProcessor] Chose number of slices from the look up table", v504, 2u);
     }
 
     goto LABEL_31;
   }
 
-  v151 = 0;
+  v152 = 0;
 LABEL_146:
 
-  return v151;
+  return v152;
 }
 
 void sub_22F9E60AC(void *a1, unint64_t a2)
@@ -5173,26 +5183,26 @@ void sub_22F9E60AC(void *a1, unint64_t a2)
 
 void sub_22F9E6134(uint64_t a1, void *a2)
 {
-  v152 = *MEMORY[0x277D85DE8];
+  v153 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = _MXISignpostLogSystem();
+  v4 = _MXISignpostLogSystem(v3);
   v5 = _MXISignpostCreate(v4);
-  v6 = _MXISignpostLogSystem();
-  v146 = 0u;
+  v6 = _MXISignpostLogSystem(v5);
   v147 = 0u;
-  core::get_info(&v146);
+  v148 = 0u;
+  core::get_info(&v147);
   v7 = v6;
   v8 = v7;
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     *buf = 134218752;
-    *&buf[4] = v146.i64[0];
+    *&buf[4] = v147.i64[0];
     *&buf[12] = 2048;
-    *&buf[14] = v146.i64[1];
+    *&buf[14] = v147.i64[1];
     *&buf[22] = 2048;
-    v149 = v147;
-    v150 = 2048;
-    v151 = *(&v147 + 1);
+    v150 = v148;
+    v151 = 2048;
+    v152 = *(&v148 + 1);
     _os_signpost_emit_with_name_impl(&dword_22F9C3000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "MXI_MEMORY_DYNAMIC_ALLOCATION", "process-unwired-current  %llu MB process-unwired-peak %llu MB system-wired-current %llu system-unwired-current %llu", buf, 0x2Au);
   }
 
@@ -5237,7 +5247,7 @@ void sub_22F9E6134(uint64_t a1, void *a2)
           }
 
           sub_22F9E6854((*(a1 + 232) + 112), buf);
-          v146.i64[0] = 0;
+          v147.i64[0] = 0;
           v60 = *(a1 + 232);
           v61 = *(v60 + 336);
           if (*(v60 + 409) == 1)
@@ -5250,20 +5260,20 @@ void sub_22F9E6134(uint64_t a1, void *a2)
             v62 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(*buf, v59, v61, 2, 0, 1, 0, 1);
           }
 
-          v63 = v146.i64[0];
-          v146.i64[0] = v62;
+          v63 = v147.i64[0];
+          v147.i64[0] = v62;
 
-          if (!v146.i64[0])
+          if (!v147.i64[0])
           {
-            v144 = 0;
-            objc_msgSend_fillError_withDescription_(MXIInternalError, v64, &v144, @"Failed creating dynamic atlas slice view", v65);
-            objc_storeStrong((*(a1 + 232) + 472), v144);
+            v145 = 0;
+            objc_msgSend_fillError_withDescription_(MXIInternalError, v64, &v145, @"Failed creating dynamic atlas slice view", v65);
+            objc_storeStrong((*(a1 + 232) + 472), v145);
           }
 
-          sub_22F9E6854((*(a1 + 232) + 136), &v146);
+          sub_22F9E6854((*(a1 + 232) + 136), &v147);
           if ((((*(*(a1 + 232) + 120) - *(*(a1 + 232) + 112)) >> 3) - 1) <= 0x1FF)
           {
-            *(*(*(a1 + 232) + 304) + *(*(a1 + 232) + 120) - *(*(a1 + 232) + 112) - 8) = objc_msgSend_gpuResourceID(v146.i64[0], v66, v67, v68, v69);
+            *(*(*(a1 + 232) + 304) + *(*(a1 + 232) + 120) - *(*(a1 + 232) + 112) - 8) = objc_msgSend_gpuResourceID(v147.i64[0], v66, v67, v68, v69);
           }
         }
 
@@ -5298,9 +5308,9 @@ void sub_22F9E6134(uint64_t a1, void *a2)
         *(&v102 + 1) = HIDWORD(v101);
         *buf = v102;
         *&buf[16] = 1;
-        v146 = vdupq_n_s64(0x10uLL);
-        *&v147 = 1;
-        objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v75, v93, buf, &v146, v94);
+        v147 = vdupq_n_s64(0x10uLL);
+        *&v148 = 1;
+        objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v75, v93, buf, &v147, v94);
       }
 
       objc_msgSend_popDebugGroup(v75, v97, v98, v99, v100);
@@ -5309,13 +5319,13 @@ void sub_22F9E6134(uint64_t a1, void *a2)
       objc_msgSend_waitUntilCompleted(v70, v111, v112, v113, v114);
       if (objc_msgSend_status(v70, v115, v116, v117, v118) != 4)
       {
-        v143 = 0;
+        v144 = 0;
         v123 = objc_msgSend_error(v70, v119, v120, v121, v122);
         v128 = objc_msgSend_debugDescription(v123, v124, v125, v126, v127);
         v129 = v128;
         v134 = objc_msgSend_UTF8String(v128, v130, v131, v132, v133);
-        objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v135, &v143, @"DynamicAtlas command buffer failed with error: %s", v136, v134);
-        v137 = v143;
+        objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v135, &v144, @"DynamicAtlas command buffer failed with error: %s", v136, v134);
+        v137 = v144;
 
         v138 = *(a1 + 232);
         v139 = *(v138 + 472);
@@ -5324,24 +5334,24 @@ void sub_22F9E6134(uint64_t a1, void *a2)
     }
   }
 
-  objc_msgSend_setSignaledValue_(v3, v18, *(a1 + 248), v20, v21);
-  v140 = _MXISignpostLogSystem();
-  v146 = 0u;
+  v140 = objc_msgSend_setSignaledValue_(v3, v18, *(a1 + 248), v20, v21);
+  v141 = _MXISignpostLogSystem(v140);
   v147 = 0u;
-  core::get_info(&v146);
-  v141 = v140;
+  v148 = 0u;
+  core::get_info(&v147);
   v142 = v141;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v141))
+  v143 = v142;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v142))
   {
     *buf = 134218752;
-    *&buf[4] = v146.i64[0];
+    *&buf[4] = v147.i64[0];
     *&buf[12] = 2048;
-    *&buf[14] = v146.i64[1];
+    *&buf[14] = v147.i64[1];
     *&buf[22] = 2048;
-    v149 = v147;
-    v150 = 2048;
-    v151 = *(&v147 + 1);
-    _os_signpost_emit_with_name_impl(&dword_22F9C3000, v142, OS_SIGNPOST_INTERVAL_END, v5, "MXI_MEMORY_DYNAMIC_ALLOCATION", "process-unwired-current  %llu MB process-unwired-peak %llu MB system-wired-current %llu system-unwired-current %llu", buf, 0x2Au);
+    v150 = v148;
+    v151 = 2048;
+    v152 = *(&v148 + 1);
+    _os_signpost_emit_with_name_impl(&dword_22F9C3000, v143, OS_SIGNPOST_INTERVAL_END, v5, "MXI_MEMORY_DYNAMIC_ALLOCATION", "process-unwired-current  %llu MB process-unwired-peak %llu MB system-wired-current %llu system-unwired-current %llu", buf, 0x2Au);
   }
 }
 
@@ -5402,46 +5412,46 @@ id sub_22F9E6854(void *a1, id *a2)
   return result;
 }
 
-void sub_22F9E6934(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22F9E6934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_22F9E8A68(va);
   _Unwind_Resume(a1);
 }
 
 void tiled::Processor::GetMesh(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v170 = *MEMORY[0x277D85DE8];
-  v6 = _mxi_log();
+  v172 = *MEMORY[0x277D85DE8];
+  v6 = _mxi_log(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_22F9C3000, v6, OS_LOG_TYPE_DEFAULT, "[Tiled] [TiledProcessor] Generating mesh", buf, 2u);
   }
 
-  v7 = _MXISignpostLogSystem();
-  v8 = _MXISignpostCreate(v7);
-  v9 = _MXISignpostLogSystem();
-  v157 = 0u;
-  v158 = 0u;
-  core::get_info(&v157);
-  v10 = v9;
+  v8 = _MXISignpostLogSystem(v7);
+  v9 = _MXISignpostCreate(v8);
+  v10 = _MXISignpostLogSystem(v9);
+  v159 = 0u;
+  v160 = 0u;
+  core::get_info(&v159);
   v11 = v10;
-  v12 = v8 - 1;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = v11;
+  v13 = v9 - 1;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 134218752;
-    *&buf[4] = v157;
+    *&buf[4] = v159;
     *&buf[12] = 2048;
-    *&buf[14] = *(&v157 + 1);
+    *&buf[14] = *(&v159 + 1);
     *&buf[22] = 2048;
-    *&buf[24] = v158;
-    LOWORD(v160) = 2048;
-    *(&v160 + 2) = *(&v158 + 1);
-    _os_signpost_emit_with_name_impl(&dword_22F9C3000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v8, "MXI_SIGNPOST_MESH_GENERATION", "process-unwired-current  %llu MB process-unwired-peak %llu MB system-wired-current %llu system-unwired-current %llu", buf, 0x2Au);
+    *&buf[24] = v160;
+    LOWORD(v162) = 2048;
+    *(&v162 + 2) = *(&v160 + 1);
+    _os_signpost_emit_with_name_impl(&dword_22F9C3000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "MXI_SIGNPOST_MESH_GENERATION", "process-unwired-current  %llu MB process-unwired-peak %llu MB system-wired-current %llu system-unwired-current %llu", buf, 0x2Au);
   }
 
-  v17 = *a1;
+  v18 = *a1;
   if (!*(*a1 + 168))
   {
     *(a3 + 96) = 0;
@@ -5454,12 +5464,14 @@ void tiled::Processor::GetMesh(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@
     return;
   }
 
-  if (*(v17 + 411) == 1)
+  if (*(v18 + 411) == 1)
   {
-    v18 = 1 << (*(v17 + 356) - 1);
-    v19 = *(v17 + 352);
-    v20 = *(v17 + 392);
+    v19 = 1 << (*(v18 + 356) - 1);
+    v20 = *(v18 + 352);
+    v21 = *(v18 + 392);
     memset(buf, 0, sizeof(buf));
+    v170 = 0u;
+    v171 = 0u;
     v168 = 0u;
     v169 = 0u;
     v166 = 0u;
@@ -5468,38 +5480,36 @@ void tiled::Processor::GetMesh(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@
     v165 = 0u;
     v162 = 0u;
     v163 = 0u;
-    v160 = 0u;
-    v161 = 0u;
-    *buf = v19;
-    *&buf[8] = v18;
-    *&buf[24] = *(v17 + 360);
-    v153 = v20;
-    *(&v160 + 1) = v20;
-    v21 = objc_msgSend_newCommandQueue(*v17, v13, v14, v15, v16);
-    v26 = objc_msgSend_commandBuffer(v21, v22, v23, v24, v25);
-    v31 = objc_msgSend_computeCommandEncoder(v26, v27, v28, v29, v30);
-    objc_msgSend_setLabel_(v31, v32, @"MXI: Remove Layer Mesh Overlap", v33, v34);
-    objc_msgSend_setComputePipelineState_(v31, v35, *(v17 + 104), v36, v37);
-    objc_msgSend_setBytes_length_atIndex_(v31, v38, buf, 192, 5);
-    objc_msgSend_setBuffer_offset_atIndex_(v31, v39, *(v17 + 280), 0, 17);
-    objc_msgSend_setBuffer_offset_atIndex_(v31, v40, *(v17 + 232), 0, 10);
-    v41 = v19 - v18 - 1;
-    *&v157 = (v41 + v153) / (v19 - v18) + 1;
-    *(&v157 + 1) = (v41 + HIDWORD(v153)) / (v19 - v18) + 1;
-    *&v158 = 1;
-    v155 = vdupq_n_s64(0x10uLL);
-    v156 = 1;
-    objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v31, v42, &v157, &v155, v43);
-    objc_msgSend_endEncoding(v31, v44, v45, v46, v47);
-    objc_msgSend_commit(v26, v48, v49, v50, v51);
-    objc_msgSend_waitUntilCompleted(v26, v52, v53, v54, v55);
-    if (objc_msgSend_status(v26, v56, v57, v58, v59) != 4)
+    *buf = v20;
+    *&buf[8] = v19;
+    *&buf[24] = *(v18 + 360);
+    v155 = v21;
+    *(&v162 + 1) = v21;
+    v22 = objc_msgSend_newCommandQueue(*v18, v14, v15, v16, v17);
+    v27 = objc_msgSend_commandBuffer(v22, v23, v24, v25, v26);
+    v32 = objc_msgSend_computeCommandEncoder(v27, v28, v29, v30, v31);
+    objc_msgSend_setLabel_(v32, v33, @"MXI: Remove Layer Mesh Overlap", v34, v35);
+    objc_msgSend_setComputePipelineState_(v32, v36, *(v18 + 104), v37, v38);
+    objc_msgSend_setBytes_length_atIndex_(v32, v39, buf, 192, 5);
+    objc_msgSend_setBuffer_offset_atIndex_(v32, v40, *(v18 + 280), 0, 17);
+    objc_msgSend_setBuffer_offset_atIndex_(v32, v41, *(v18 + 232), 0, 10);
+    v42 = v20 - v19 - 1;
+    *&v159 = (v42 + v155) / (v20 - v19) + 1;
+    *(&v159 + 1) = (v42 + HIDWORD(v155)) / (v20 - v19) + 1;
+    *&v160 = 1;
+    v157 = vdupq_n_s64(0x10uLL);
+    v158 = 1;
+    objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v32, v43, &v159, &v157, v44);
+    objc_msgSend_endEncoding(v32, v45, v46, v47, v48);
+    objc_msgSend_commit(v27, v49, v50, v51, v52);
+    objc_msgSend_waitUntilCompleted(v27, v53, v54, v55, v56);
+    if (objc_msgSend_status(v27, v57, v58, v59, v60) != 4)
     {
-      v129 = objc_msgSend_error(v26, v60, v61, v62, v63);
-      v134 = objc_msgSend_debugDescription(v129, v130, v131, v132, v133);
-      v135 = v134;
-      v140 = objc_msgSend_UTF8String(v134, v136, v137, v138, v139);
-      objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v141, a2, @"Mesh processing command buffer failed with error: %s", v142, v140);
+      v131 = objc_msgSend_error(v27, v61, v62, v63, v64);
+      v136 = objc_msgSend_debugDescription(v131, v132, v133, v134, v135);
+      v137 = v136;
+      v142 = objc_msgSend_UTF8String(v136, v138, v139, v140, v141);
+      objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v143, a2, @"Mesh processing command buffer failed with error: %s", v144, v142);
 
       *(a3 + 96) = 0;
       *(a3 + 64) = 0u;
@@ -5513,241 +5523,241 @@ void tiled::Processor::GetMesh(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@
     }
   }
 
-  v64 = objc_msgSend_contents(*(v17 + 184), v13, v14, v15, v16);
-  spid = v8;
-  v65 = v64[1];
-  v66 = v64[2];
-  v67 = v64[3];
+  v65 = objc_msgSend_contents(*(v18 + 184), v14, v15, v16, v17);
+  spid = v9;
+  v66 = v65[1];
+  v67 = v65[2];
+  v68 = v65[3];
   *(a3 + 64) = 0u;
   *(a3 + 80) = 0u;
   *(a3 + 32) = 0u;
   *(a3 + 48) = 0u;
   *a3 = 0u;
   *(a3 + 16) = 0u;
-  v146 = a3;
-  sub_22F9C7754((a3 + 72), v66);
-  sub_22F9CC4E4((a3 + 48), v66);
-  v68 = (4 * v65);
-  sub_22F9CC4B4((a3 + 24), v68);
-  sub_22F9CC484(a3, v68);
-  *(a3 + 96) = v67;
-  v151 = *(a3 + 48);
-  v152 = *(a3 + 72);
-  v73 = objc_msgSend_contents(*(v17 + 264), v69, v70, v71, v72);
-  v78 = objc_msgSend_contents(*(v17 + 272), v74, v75, v76, v77);
-  v83 = objc_msgSend_contents(*(v17 + 248), v79, v80, v81, v82);
-  v145 = v68;
-  v88 = objc_msgSend_contents(*(v17 + 256), v84, v85, v86, v87);
-  v144 = v12;
-  v93 = objc_msgSend_contents(*(v17 + 192), v89, v90, v91, v92);
-  v98 = v151;
-  if (*(v17 + 344))
+  v148 = a3;
+  sub_22F9C7754((a3 + 72), v67);
+  sub_22F9CC4E4((a3 + 48), v67);
+  v69 = (4 * v66);
+  sub_22F9CC4B4((a3 + 24), v69);
+  sub_22F9CC484(a3, v69);
+  *(a3 + 96) = v68;
+  v153 = *(a3 + 48);
+  v154 = *(a3 + 72);
+  v74 = objc_msgSend_contents(*(v18 + 264), v70, v71, v72, v73);
+  v79 = objc_msgSend_contents(*(v18 + 272), v75, v76, v77, v78);
+  v84 = objc_msgSend_contents(*(v18 + 248), v80, v81, v82, v83);
+  v147 = v69;
+  v89 = objc_msgSend_contents(*(v18 + 256), v85, v86, v87, v88);
+  v146 = v13;
+  v94 = objc_msgSend_contents(*(v18 + 192), v90, v91, v92, v93);
+  v99 = v153;
+  if (*(v18 + 344))
   {
-    v99 = 6;
+    v100 = 6;
   }
 
   else
   {
-    v99 = 1;
+    v100 = 1;
   }
 
-  v100 = *(v17 + 360);
-  v101 = (v99 * v100 - 1);
-  v154 = v17;
-  v102 = v152;
-  v150 = v83;
-  if ((v101 & 0x80000000) == 0)
+  v101 = *(v18 + 360);
+  v102 = (v100 * v101 - 1);
+  v156 = v18;
+  v103 = v154;
+  v152 = v84;
+  if ((v102 & 0x80000000) == 0)
   {
-    v103 = v73;
-    v104 = 0;
-    if (*(v17 + 415))
+    v104 = v74;
+    v105 = 0;
+    if (*(v18 + 415))
     {
-      v105 = 2;
+      v106 = 2;
     }
 
     else
     {
-      v105 = 0;
+      v106 = 0;
     }
 
-    v148 = v152 + 4 * v67;
-    v149 = v73;
-    v147 = v151 + 12 * v67;
-    v106 = v101 + 1;
-    v107 = 2 * v99 * v100 - 2;
-    v108 = (v93 + 12 * v101 + 8);
+    v150 = v154 + 4 * v68;
+    v151 = v74;
+    v149 = v153 + 12 * v68;
+    v107 = v102 + 1;
+    v108 = 2 * v100 * v101 - 2;
+    v109 = (v94 + 12 * v102 + 8);
     do
     {
-      v109 = v88;
-      v110 = v78;
-      v111 = (v107 * *(v154 + 364));
-      v112 = *v108;
-      memcpy((v102 + 4 * v104), (v103 + 4 * v111), 4 * v112);
-      v113 = (v98 + 12 * v104);
-      v114 = v111 + 2 * v111;
-      memcpy(v113, (v150 + 4 * v114), 12 * v112);
-      v104 += v112;
-      v115 = (*(v108 - 1) - *v108);
-      v116 = (v110 + 4 * v111);
-      v78 = v110;
-      v88 = v109;
-      memcpy((v148 + 4 * v105), v116, 4 * v115);
-      v117 = (v109 + 4 * v114);
-      v98 = v151;
-      memcpy((v147 + 12 * v105), v117, 4 * (v115 + 2 * v115));
-      v103 = v149;
-      v102 = v152;
-      v105 += v115;
-      v107 -= 2;
-      v108 -= 3;
-      --v106;
+      v110 = v89;
+      v111 = v79;
+      v112 = (v108 * *(v156 + 364));
+      v113 = *v109;
+      memcpy((v103 + 4 * v105), (v104 + 4 * v112), 4 * v113);
+      v114 = (v99 + 12 * v105);
+      v115 = v112 + 2 * v112;
+      memcpy(v114, (v152 + 4 * v115), 12 * v113);
+      v105 += v113;
+      v116 = (*(v109 - 1) - *v109);
+      v117 = (v111 + 4 * v112);
+      v79 = v111;
+      v89 = v110;
+      memcpy((v150 + 4 * v106), v117, 4 * v116);
+      v118 = (v110 + 4 * v115);
+      v99 = v153;
+      memcpy((v149 + 12 * v106), v118, 4 * (v116 + 2 * v116));
+      v104 = v151;
+      v103 = v154;
+      v106 += v116;
+      v108 -= 2;
+      v109 -= 3;
+      --v107;
     }
 
-    while (v106);
+    while (v107);
   }
 
-  v118 = *v146;
-  v119 = objc_msgSend_contents(*(v154 + 232), v94, v95, v96, v97);
-  memcpy(v118, v119, 16 * v145);
-  v120 = *(v146 + 24);
-  v125 = objc_msgSend_contents(*(v154 + 240), v121, v122, v123, v124);
-  memcpy(v120, v125, 8 * v145);
-  v126 = _MXISignpostLogSystem();
-  v157 = 0u;
-  v158 = 0u;
-  core::get_info(&v157);
-  v127 = v126;
-  v128 = v127;
-  if (v144 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v127))
+  v119 = *v148;
+  v120 = objc_msgSend_contents(*(v156 + 232), v95, v96, v97, v98);
+  memcpy(v119, v120, 16 * v147);
+  v121 = *(v148 + 24);
+  v126 = objc_msgSend_contents(*(v156 + 240), v122, v123, v124, v125);
+  v127 = memcpy(v121, v126, 8 * v147);
+  v128 = _MXISignpostLogSystem(v127);
+  v159 = 0u;
+  v160 = 0u;
+  core::get_info(&v159);
+  v129 = v128;
+  v130 = v129;
+  if (v146 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v129))
   {
     *buf = 134218752;
-    *&buf[4] = v157;
+    *&buf[4] = v159;
     *&buf[12] = 2048;
-    *&buf[14] = *(&v157 + 1);
+    *&buf[14] = *(&v159 + 1);
     *&buf[22] = 2048;
-    *&buf[24] = v158;
-    LOWORD(v160) = 2048;
-    *(&v160 + 2) = *(&v158 + 1);
-    _os_signpost_emit_with_name_impl(&dword_22F9C3000, v128, OS_SIGNPOST_INTERVAL_END, spid, "MXI_SIGNPOST_MESH_GENERATION", "process-unwired-current  %llu MB process-unwired-peak %llu MB system-wired-current %llu system-unwired-current %llu", buf, 0x2Au);
+    *&buf[24] = v160;
+    LOWORD(v162) = 2048;
+    *(&v162 + 2) = *(&v160 + 1);
+    _os_signpost_emit_with_name_impl(&dword_22F9C3000, v130, OS_SIGNPOST_INTERVAL_END, spid, "MXI_SIGNPOST_MESH_GENERATION", "process-unwired-current  %llu MB process-unwired-peak %llu MB system-wired-current %llu system-unwired-current %llu", buf, 0x2Au);
   }
 }
 
 uint64_t tiled::Processor::GetAtlas(uint64_t *a1, void *a2, _DWORD *a3, int a4, int a5, unsigned __int8 a6, void *a7, float a8)
 {
-  v299 = *MEMORY[0x277D85DE8];
-  v15 = _mxi_log();
+  v301 = *MEMORY[0x277D85DE8];
+  v15 = _mxi_log(a1);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_22F9C3000, v15, OS_LOG_TYPE_DEFAULT, "[Tiled] [TiledProcessor] Copying the atlas", buf, 2u);
   }
 
-  log = _MXISignpostLogSystem();
+  log = _MXISignpostLogSystem(v16);
   spid = _MXISignpostCreate(log);
-  v16 = _MXISignpostLogSystem();
-  *v293 = 0u;
-  v294 = 0u;
-  core::get_info(v293);
-  v17 = v16;
+  v17 = _MXISignpostLogSystem(spid);
+  *v295 = 0u;
+  v296 = 0u;
+  core::get_info(v295);
   v18 = v17;
-  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  v19 = v18;
+  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
     *buf = 134218752;
-    *&buf[4] = *v293;
+    *&buf[4] = *v295;
     *&buf[12] = 2048;
-    *&buf[14] = *&v293[8];
+    *&buf[14] = *&v295[8];
     *&buf[22] = 2048;
-    v296 = v294;
-    v297 = 2048;
-    v298 = *(&v294 + 1);
-    _os_signpost_emit_with_name_impl(&dword_22F9C3000, v18, OS_SIGNPOST_INTERVAL_BEGIN, spid, "MXI_SIGNPOST_ATLAS_COPY", "process-unwired-current  %llu MB process-unwired-peak %llu MB system-wired-current %llu system-unwired-current %llu", buf, 0x2Au);
+    v298 = v296;
+    v299 = 2048;
+    v300 = *(&v296 + 1);
+    _os_signpost_emit_with_name_impl(&dword_22F9C3000, v19, OS_SIGNPOST_INTERVAL_BEGIN, spid, "MXI_SIGNPOST_ATLAS_COPY", "process-unwired-current  %llu MB process-unwired-peak %llu MB system-wired-current %llu system-unwired-current %llu", buf, 0x2Au);
   }
 
-  v23 = *a1;
-  v24 = *(v23 + 472);
-  if (!v24)
+  v24 = *a1;
+  v25 = *(v24 + 472);
+  if (!v25)
   {
-    if (!*(v23 + 168))
+    if (!*(v24 + 168))
     {
       return 1;
     }
 
-    v30 = *(objc_msgSend_contents(*(v23 + 184), v19, v20, v21, v22) + 4);
-    v31 = *(v23 + 348) / *(v23 + 352);
-    v284 = v30 + v31 * v31 - 1;
-    v285 = v31 * v31;
-    v32 = v284 / (v31 * v31);
+    v31 = *(objc_msgSend_contents(*(v24 + 184), v20, v21, v22, v23) + 4);
+    v32 = *(v24 + 348) / *(v24 + 352);
+    v286 = v31 + v32 * v32 - 1;
+    v287 = v32 * v32;
+    v33 = v286 / (v32 * v32);
     if (a3)
     {
-      *a3 = v32;
+      *a3 = v33;
     }
 
-    if (!v30)
+    if (!v31)
     {
       return 1;
     }
 
-    if ((*(v23 + 404) & 1) == 0 && v32 > *(v23 + 400))
+    if ((*(v24 + 404) & 1) == 0 && v33 > *(v24 + 400))
     {
       return 0;
     }
 
-    v288 = v32;
-    loga = objc_msgSend_newCommandQueue(*v23, v26, v27, v28, v29);
-    v287 = objc_msgSend_commandBuffer(loga, v33, v34, v35, v36);
-    if (*(v23 + 409) == 1)
+    v290 = v33;
+    loga = objc_msgSend_newCommandQueue(*v24, v27, v28, v29, v30);
+    v289 = objc_msgSend_commandBuffer(loga, v34, v35, v36, v37);
+    if (*(v24 + 409) == 1)
     {
-      v41 = *(v23 + 160);
-      if (v41)
+      v42 = *(v24 + 160);
+      if (v42)
       {
-        v42 = v41;
-        *a2 = v42;
+        v43 = v42;
+        *a2 = v43;
 LABEL_32:
-        v90 = v42;
-        if (objc_msgSend_mipmapLevelCount(v90, v91, v92, v93, v94) >= 2)
+        v91 = v43;
+        if (objc_msgSend_mipmapLevelCount(v91, v92, v93, v94, v95) >= 2)
         {
-          v99 = objc_msgSend_computeCommandEncoder(v287, v95, v96, v97, v98);
-          objc_msgSend_setLabel_(v99, v100, @"MXI: ASTC MipMapping ComputeCommandEncoder", v101, v102);
-          objc_msgSend_setComputePipelineState_(v99, v103, *(v23 + 32), v104, v105);
-          objc_msgSend_setBytes_length_atIndex_(v99, v106, v23 + 380, 4, 0);
-          v286 = vdupq_n_s64(8uLL);
-          for (i = 1; objc_msgSend_mipmapLevelCount(v90, v107, v108, v109, v110) > i; ++i)
+          v100 = objc_msgSend_computeCommandEncoder(v289, v96, v97, v98, v99);
+          objc_msgSend_setLabel_(v100, v101, @"MXI: ASTC MipMapping ComputeCommandEncoder", v102, v103);
+          objc_msgSend_setComputePipelineState_(v100, v104, *(v24 + 32), v105, v106);
+          objc_msgSend_setBytes_length_atIndex_(v100, v107, v24 + 380, 4, 0);
+          v288 = vdupq_n_s64(8uLL);
+          for (i = 1; objc_msgSend_mipmapLevelCount(v91, v108, v109, v110, v111) > i; ++i)
           {
-            if (v285 <= v284)
+            if (v287 <= v286)
             {
-              v112 = 0;
-              v113 = *(v23 + 348) >> i >> 2;
+              v113 = 0;
+              v114 = *(v24 + 348) >> i >> 2;
               while (1)
               {
-                v116 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(v90, v107, 186, 2, i - 1, 1, v112, 1);
-                if (!v116)
+                v117 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(v91, v108, 186, 2, i - 1, 1, v113, 1);
+                if (!v117)
                 {
-                  objc_msgSend_fillError_withDescription_(MXIInternalError, v114, a7, @"Failed creating source texture view for compression.", v115);
+                  objc_msgSend_fillError_withDescription_(MXIInternalError, v115, a7, @"Failed creating source texture view for compression.", v116);
                   goto LABEL_53;
                 }
 
-                v119 = objc_msgSend_newCompressedTextureViewWithPixelFormat_textureType_level_slice_(v90, v114, *(v23 + 336), 2, i, v112);
-                if (!v119)
+                v120 = objc_msgSend_newCompressedTextureViewWithPixelFormat_textureType_level_slice_(v91, v115, *(v24 + 336), 2, i, v113);
+                if (!v120)
                 {
                   break;
                 }
 
-                objc_msgSend_setTexture_atIndex_(v99, v117, v119, 0, v118);
-                objc_msgSend_setTexture_atIndex_(v99, v120, v116, 1, v121);
-                *buf = v113;
-                *&buf[8] = v113;
+                objc_msgSend_setTexture_atIndex_(v100, v118, v120, 0, v119);
+                objc_msgSend_setTexture_atIndex_(v100, v121, v117, 1, v122);
+                *buf = v114;
+                *&buf[8] = v114;
                 *&buf[16] = 1;
-                *v293 = v286;
-                *&v294 = 1;
-                objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v99, v122, buf, v293, v123);
+                *v295 = v288;
+                *&v296 = 1;
+                objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v100, v123, buf, v295, v124);
 
-                if (++v112 >= v288)
+                if (++v113 >= v290)
                 {
                   goto LABEL_40;
                 }
               }
 
-              objc_msgSend_fillError_withDescription_(MXIInternalError, v117, a7, @"Failed creating destination texture view for compression.", v118);
+              objc_msgSend_fillError_withDescription_(MXIInternalError, v118, a7, @"Failed creating destination texture view for compression.", v119);
               goto LABEL_52;
             }
 
@@ -5755,20 +5765,20 @@ LABEL_40:
             ;
           }
 
-          objc_msgSend_endEncoding(v99, v107, v108, v109, v110);
-          objc_msgSend_commit(v287, v251, v252, v253, v254);
-          objc_msgSend_waitUntilCompleted(v287, v255, v256, v257, v258);
-          if (objc_msgSend_status(v287, v259, v260, v261, v262) == 4)
+          objc_msgSend_endEncoding(v100, v108, v109, v110, v111);
+          objc_msgSend_commit(v289, v253, v254, v255, v256);
+          objc_msgSend_waitUntilCompleted(v289, v257, v258, v259, v260);
+          if (objc_msgSend_status(v289, v261, v262, v263, v264) == 4)
           {
 
             goto LABEL_81;
           }
 
-          v116 = objc_msgSend_error(v287, v263, v264, v265, v266);
-          v275 = objc_msgSend_debugDescription(v116, v271, v272, v273, v274);
-          v276 = v275;
-          v281 = objc_msgSend_UTF8String(v275, v277, v278, v279, v280);
-          objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v282, a7, @"ASTC MipMapping command buffer failed with error: %s", v283, v281);
+          v117 = objc_msgSend_error(v289, v265, v266, v267, v268);
+          v277 = objc_msgSend_debugDescription(v117, v273, v274, v275, v276);
+          v278 = v277;
+          v283 = objc_msgSend_UTF8String(v277, v279, v280, v281, v282);
+          objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v284, a7, @"ASTC MipMapping command buffer failed with error: %s", v285, v283);
 
 LABEL_52:
 LABEL_53:
@@ -5779,59 +5789,59 @@ LABEL_53:
 LABEL_81:
 
 LABEL_82:
-        v267 = _MXISignpostLogSystem();
-        *v293 = 0u;
-        v294 = 0u;
-        core::get_info(v293);
-        v268 = v267;
-        v269 = v268;
-        if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v268))
+        v269 = _MXISignpostLogSystem(v221);
+        *v295 = 0u;
+        v296 = 0u;
+        core::get_info(v295);
+        v270 = v269;
+        v271 = v270;
+        if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v270))
         {
           *buf = 134218752;
-          *&buf[4] = *v293;
+          *&buf[4] = *v295;
           *&buf[12] = 2048;
-          *&buf[14] = *&v293[8];
+          *&buf[14] = *&v295[8];
           *&buf[22] = 2048;
-          v296 = v294;
-          v297 = 2048;
-          v298 = *(&v294 + 1);
-          _os_signpost_emit_with_name_impl(&dword_22F9C3000, v269, OS_SIGNPOST_INTERVAL_END, spid, "MXI_SIGNPOST_ATLAS_COPY", "process-unwired-current  %llu MB process-unwired-peak %llu MB system-wired-current %llu system-unwired-current %llu", buf, 0x2Au);
+          v298 = v296;
+          v299 = 2048;
+          v300 = *(&v296 + 1);
+          _os_signpost_emit_with_name_impl(&dword_22F9C3000, v271, OS_SIGNPOST_INTERVAL_END, spid, "MXI_SIGNPOST_ATLAS_COPY", "process-unwired-current  %llu MB process-unwired-peak %llu MB system-wired-current %llu system-unwired-current %llu", buf, 0x2Au);
         }
 
-        v25 = 1;
+        v26 = 1;
         goto LABEL_86;
       }
 
-      v43 = objc_msgSend_blitCommandEncoder(v287, v37, v38, v39, v40);
-      objc_msgSend_setLabel_(v43, v53, @"MXI: Atlas Packing BlitCommandEncoder", v54, v55);
-      v56 = objc_opt_new();
-      objc_msgSend_setTextureType_(v56, v57, 3, v58, v59);
-      objc_msgSend_setWidth_(v56, v60, *(v23 + 348), v61, v62);
-      objc_msgSend_setHeight_(v56, v63, *(v23 + 348), v64, v65);
-      objc_msgSend_setMipmapLevelCount_(v56, v66, *(v23 + 356), v67, v68);
-      objc_msgSend_setArrayLength_(v56, v69, v288, v70, v71);
-      objc_msgSend_setPixelFormat_(v56, v72, *(v23 + 328), v73, v74);
-      objc_msgSend_setUsage_(v56, v75, 19, v76, v77);
-      objc_msgSend_setStorageMode_(v56, v78, 2, v79, v80);
-      v84 = objc_msgSend_newSharedTextureWithDescriptor_(*v23, v81, v56, v82, v83);
-      *a2 = v84;
-      if (v84)
+      v44 = objc_msgSend_blitCommandEncoder(v289, v38, v39, v40, v41);
+      objc_msgSend_setLabel_(v44, v54, @"MXI: Atlas Packing BlitCommandEncoder", v55, v56);
+      v57 = objc_opt_new();
+      objc_msgSend_setTextureType_(v57, v58, 3, v59, v60);
+      objc_msgSend_setWidth_(v57, v61, *(v24 + 348), v62, v63);
+      objc_msgSend_setHeight_(v57, v64, *(v24 + 348), v65, v66);
+      objc_msgSend_setMipmapLevelCount_(v57, v67, *(v24 + 356), v68, v69);
+      objc_msgSend_setArrayLength_(v57, v70, v290, v71, v72);
+      objc_msgSend_setPixelFormat_(v57, v73, *(v24 + 328), v74, v75);
+      objc_msgSend_setUsage_(v57, v76, 19, v77, v78);
+      objc_msgSend_setStorageMode_(v57, v79, 2, v80, v81);
+      v85 = objc_msgSend_newSharedTextureWithDescriptor_(*v24, v82, v57, v83, v84);
+      *a2 = v85;
+      if (v85)
       {
-        if (v285 <= v284)
+        if (v287 <= v286)
         {
-          v89 = 0;
+          v90 = 0;
           do
           {
-            objc_msgSend_copyFromTexture_sourceSlice_sourceLevel_toTexture_destinationSlice_destinationLevel_sliceCount_levelCount_(v43, v85, *(*(v23 + 112) + 8 * v89), 0, 0, *a2, v89, 0, 1, 1);
-            ++v89;
+            objc_msgSend_copyFromTexture_sourceSlice_sourceLevel_toTexture_destinationSlice_destinationLevel_sliceCount_levelCount_(v44, v86, *(*(v24 + 112) + 8 * v90), 0, 0, *a2, v90, 0, 1, 1);
+            ++v90;
           }
 
-          while (v89 < v288);
+          while (v90 < v290);
         }
 
-        objc_msgSend_endEncoding(v43, v85, v86, v87, v88);
+        objc_msgSend_endEncoding(v44, v86, v87, v88, v89);
 
-        v42 = *a2;
+        v43 = *a2;
         goto LABEL_32;
       }
 
@@ -5840,173 +5850,173 @@ LABEL_82:
 
     if (a4)
     {
-      v43 = objc_msgSend_blitCommandEncoder(v287, v37, v38, v39, v40);
-      objc_msgSend_setLabel_(v43, v44, @"MXI: MipMapping BlitCommandEncoder", v45, v46);
-      v47 = *(v23 + 160);
-      if (v47)
+      v44 = objc_msgSend_blitCommandEncoder(v289, v38, v39, v40, v41);
+      objc_msgSend_setLabel_(v44, v45, @"MXI: MipMapping BlitCommandEncoder", v46, v47);
+      v48 = *(v24 + 160);
+      if (v48)
       {
-        v48 = v47;
-        *a2 = v48;
+        v49 = v48;
+        *a2 = v49;
       }
 
       else
       {
-        v56 = objc_opt_new();
-        objc_msgSend_setTextureType_(v56, v166, 3, v167, v168);
-        objc_msgSend_setWidth_(v56, v169, *(v23 + 348), v170, v171);
-        objc_msgSend_setHeight_(v56, v172, *(v23 + 348), v173, v174);
-        objc_msgSend_setMipmapLevelCount_(v56, v175, *(v23 + 356), v176, v177);
-        objc_msgSend_setArrayLength_(v56, v178, v288, v179, v180);
-        objc_msgSend_setPixelFormat_(v56, v181, 71, v182, v183);
-        objc_msgSend_setUsage_(v56, v184, 3, v185, v186);
-        objc_msgSend_setStorageMode_(v56, v187, 2, v188, v189);
-        v193 = objc_msgSend_newSharedTextureWithDescriptor_(*v23, v190, v56, v191, v192);
-        *a2 = v193;
-        if (!v193)
+        v57 = objc_opt_new();
+        objc_msgSend_setTextureType_(v57, v167, 3, v168, v169);
+        objc_msgSend_setWidth_(v57, v170, *(v24 + 348), v171, v172);
+        objc_msgSend_setHeight_(v57, v173, *(v24 + 348), v174, v175);
+        objc_msgSend_setMipmapLevelCount_(v57, v176, *(v24 + 356), v177, v178);
+        objc_msgSend_setArrayLength_(v57, v179, v290, v180, v181);
+        objc_msgSend_setPixelFormat_(v57, v182, 71, v183, v184);
+        objc_msgSend_setUsage_(v57, v185, 3, v186, v187);
+        objc_msgSend_setStorageMode_(v57, v188, 2, v189, v190);
+        v194 = objc_msgSend_newSharedTextureWithDescriptor_(*v24, v191, v57, v192, v193);
+        *a2 = v194;
+        if (!v194)
         {
 LABEL_64:
-          objc_msgSend_fillError_withDescription_(MXIInternalError, v85, a7, @"Failed creating atlas.", v88);
+          objc_msgSend_fillError_withDescription_(MXIInternalError, v86, a7, @"Failed creating atlas.", v89);
 
           goto LABEL_76;
         }
 
-        if (v285 <= v284)
+        if (v287 <= v286)
         {
-          v194 = 0;
+          v195 = 0;
           do
           {
-            objc_msgSend_copyFromTexture_sourceSlice_sourceLevel_toTexture_destinationSlice_destinationLevel_sliceCount_levelCount_(v43, v85, *(*(v23 + 136) + 8 * v194), 0, 0, *a2, v194, 0, 1, 1);
-            ++v194;
+            objc_msgSend_copyFromTexture_sourceSlice_sourceLevel_toTexture_destinationSlice_destinationLevel_sliceCount_levelCount_(v44, v86, *(*(v24 + 136) + 8 * v195), 0, 0, *a2, v195, 0, 1, 1);
+            ++v195;
           }
 
-          while (v194 < v288);
+          while (v195 < v290);
         }
 
-        v48 = *a2;
+        v49 = *a2;
       }
 
-      v195 = v48;
-      if (objc_msgSend_mipmapLevelCount(v195, v196, v197, v198, v199) >= 2)
+      v196 = v49;
+      if (objc_msgSend_mipmapLevelCount(v196, v197, v198, v199, v200) >= 2)
       {
-        objc_msgSend_generateMipmapsForTexture_(v43, v200, v195, v202, v203);
+        objc_msgSend_generateMipmapsForTexture_(v44, v201, v196, v203, v204);
       }
 
-      objc_msgSend_endEncoding(v43, v200, v201, v202, v203);
-      objc_msgSend_commit(v287, v204, v205, v206, v207);
-      objc_msgSend_waitUntilCompleted(v287, v208, v209, v210, v211);
-      if (objc_msgSend_status(v287, v212, v213, v214, v215) == 4)
+      objc_msgSend_endEncoding(v44, v201, v202, v203, v204);
+      objc_msgSend_commit(v289, v205, v206, v207, v208);
+      objc_msgSend_waitUntilCompleted(v289, v209, v210, v211, v212);
+      if (objc_msgSend_status(v289, v213, v214, v215, v216) == 4)
       {
 
         goto LABEL_82;
       }
 
-      v220 = objc_msgSend_error(v287, v216, v217, v218, v219);
-      v225 = objc_msgSend_debugDescription(v220, v221, v222, v223, v224);
-      v226 = v225;
-      v231 = objc_msgSend_UTF8String(v225, v227, v228, v229, v230);
-      objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v232, a7, @"MipMapping command buffer failed with error: %s", v233, v231);
+      v222 = objc_msgSend_error(v289, v217, v218, v219, v220);
+      v227 = objc_msgSend_debugDescription(v222, v223, v224, v225, v226);
+      v228 = v227;
+      v233 = objc_msgSend_UTF8String(v227, v229, v230, v231, v232);
+      objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v234, a7, @"MipMapping command buffer failed with error: %s", v235, v233);
 
 LABEL_76:
-      v25 = 0;
+      v26 = 0;
 LABEL_86:
 
-      return v25;
+      return v26;
     }
 
     *buf = 0;
     if (a5)
     {
-      v49 = a6 >> 4;
-      v50 = a6 & 0xF;
-      v51 = *(v23 + 160);
-      if (!v51)
+      v50 = a6 >> 4;
+      v51 = a6 & 0xF;
+      v52 = *(v24 + 160);
+      if (!v52)
       {
-        v52 = image::ToASTC(*(v23 + 112), v288, v49, v50, *(v23 + 376), *(v23 + 356), *(v23 + 380));
+        v53 = image::ToASTC(*(v24 + 112), v290, v50, v51, *(v24 + 376), *(v24 + 356), *(v24 + 380));
 LABEL_67:
-        *a2 = v52;
+        *a2 = v53;
 LABEL_70:
-        if (v52)
+        if (v53)
         {
-          sub_22F9C7D28(buf, 0);
+          v221 = sub_22F9C7D28(buf, 0);
           goto LABEL_82;
         }
 
-        v234 = _mxi_log();
-        if (os_log_type_enabled(v234, OS_LOG_TYPE_ERROR))
+        v236 = _mxi_log(0);
+        if (os_log_type_enabled(v236, OS_LOG_TYPE_ERROR))
         {
-          *v293 = 0;
-          _os_log_impl(&dword_22F9C3000, v234, OS_LOG_TYPE_ERROR, "[Tiled/TiledProcessor.mm:1300] Could not compress to ASTC", v293, 2u);
+          *v295 = 0;
+          _os_log_impl(&dword_22F9C3000, v236, OS_LOG_TYPE_ERROR, "[Tiled/TiledProcessor.mm:1300] Could not compress to ASTC", v295, 2u);
         }
 
-        objc_msgSend_fillError_withDescription_(MXIInternalError, v235, a7, @"Could not compress to ASTC", v236);
+        objc_msgSend_fillError_withDescription_(MXIInternalError, v237, a7, @"Could not compress to ASTC", v238);
         goto LABEL_75;
       }
     }
 
     else
     {
-      if (*(v23 + 372) >= 2u)
+      if (*(v24 + 372) >= 2u)
       {
         sub_22F9E7C78();
       }
 
-      v49 = a6 >> 4;
-      LODWORD(v50) = a6 & 0xF;
-      v51 = *(v23 + 160);
-      if (!v51)
+      v50 = a6 >> 4;
+      v51 = a6 & 0xF;
+      v52 = *(v24 + 160);
+      if (!v52)
       {
-        v52 = image::ToASTC(*(v23 + 112), v288, v49, v50, *buf, *(v23 + 356), a8);
+        v53 = image::ToASTC(*(v24 + 112), v290, v50, v51, *buf, *(v24 + 356), a8);
         goto LABEL_67;
       }
     }
 
-    v124 = objc_msgSend_pixelFormat(v51, v37, v38, v39, v40);
-    v126 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(v51, v125, v124, 3, 0, *(v23 + 356), 0, v288);
-    *a2 = v126;
-    if (v126)
+    v125 = objc_msgSend_pixelFormat(v52, v38, v39, v40, v41);
+    v127 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(v52, v126, v125, 3, 0, *(v24 + 356), 0, v290);
+    *a2 = v127;
+    if (v127)
     {
-      v129 = v126;
-      if (objc_msgSend_mipmapLevelCount(v129, v130, v131, v132, v133) < 2)
+      v130 = v127;
+      if (objc_msgSend_mipmapLevelCount(v130, v131, v132, v133, v134) < 2)
       {
 LABEL_48:
-        v165 = *a2;
+        v166 = *a2;
         if (a5)
         {
-          image::ToASTC(v165, v49, v50, *(v23 + 376), *(v23 + 380));
+          image::ToASTC(v166, v50, v51, *(v24 + 376), *(v24 + 380));
         }
 
         else
         {
-          image::ToASTC(v165, v49, v50, *buf, a8);
+          image::ToASTC(v166, v50, v51, *buf, a8);
         }
         *a2 = ;
 
-        v52 = *a2;
+        v53 = *a2;
         goto LABEL_70;
       }
 
-      v138 = objc_msgSend_blitCommandEncoder(v287, v134, v135, v136, v137);
-      objc_msgSend_setLabel_(v138, v139, @"MXI: MipMapping BlitCommandEncoder", v140, v141);
-      objc_msgSend_generateMipmapsForTexture_(v138, v142, v129, v143, v144);
-      objc_msgSend_endEncoding(v138, v145, v146, v147, v148);
-      objc_msgSend_commit(v287, v149, v150, v151, v152);
-      objc_msgSend_waitUntilCompleted(v287, v153, v154, v155, v156);
-      if (objc_msgSend_status(v287, v157, v158, v159, v160) == 4)
+      v139 = objc_msgSend_blitCommandEncoder(v289, v135, v136, v137, v138);
+      objc_msgSend_setLabel_(v139, v140, @"MXI: MipMapping BlitCommandEncoder", v141, v142);
+      objc_msgSend_generateMipmapsForTexture_(v139, v143, v130, v144, v145);
+      objc_msgSend_endEncoding(v139, v146, v147, v148, v149);
+      objc_msgSend_commit(v289, v150, v151, v152, v153);
+      objc_msgSend_waitUntilCompleted(v289, v154, v155, v156, v157);
+      if (objc_msgSend_status(v289, v158, v159, v160, v161) == 4)
       {
 
         goto LABEL_48;
       }
 
-      v237 = objc_msgSend_error(v287, v161, v162, v163, v164);
-      v242 = objc_msgSend_debugDescription(v237, v238, v239, v240, v241);
-      v243 = v242;
-      v248 = objc_msgSend_UTF8String(v242, v244, v245, v246, v247);
-      objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v249, a7, @"MipMapping command buffer failed with error: %s", v250, v248);
+      v239 = objc_msgSend_error(v289, v162, v163, v164, v165);
+      v244 = objc_msgSend_debugDescription(v239, v240, v241, v242, v243);
+      v245 = v244;
+      v250 = objc_msgSend_UTF8String(v244, v246, v247, v248, v249);
+      objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v251, a7, @"MipMapping command buffer failed with error: %s", v252, v250);
     }
 
     else
     {
-      objc_msgSend_fillError_withDescription_(MXIInternalError, v127, a7, @"Failed creating atlas.", v128);
+      objc_msgSend_fillError_withDescription_(MXIInternalError, v128, a7, @"Failed creating atlas.", v129);
     }
 
 LABEL_75:
@@ -6019,166 +6029,166 @@ LABEL_75:
     return 0;
   }
 
-  v25 = 0;
-  *a7 = v24;
-  return v25;
+  v26 = 0;
+  *a7 = v25;
+  return v26;
 }
 
-uint64_t tiled::Processor::GetAtlas(uint64_t *a1, void ***a2, int a3, char a4, unsigned __int8 a5, void *a6, float a7)
+uint64_t tiled::Processor::GetAtlas(uint64_t *a1, id **a2, int a3, char a4, unsigned __int8 a5, void *a6, float a7)
 {
-  v207 = *MEMORY[0x277D85DE8];
-  v13 = _mxi_log();
+  v210 = *MEMORY[0x277D85DE8];
+  v13 = _mxi_log(a1);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_22F9C3000, v13, OS_LOG_TYPE_DEFAULT, "[Tiled] [TiledProcessor] Copying the atlas", buf, 2u);
   }
 
-  v14 = _MXISignpostLogSystem();
-  v15 = _MXISignpostCreate(v14);
-  v16 = _MXISignpostLogSystem();
-  *v201 = 0u;
-  v202 = 0u;
-  core::get_info(v201);
-  v17 = v16;
+  v15 = _MXISignpostLogSystem(v14);
+  v16 = _MXISignpostCreate(v15);
+  v17 = _MXISignpostLogSystem(v16);
+  *v204 = 0u;
+  v205 = 0u;
+  core::get_info(v204);
   v18 = v17;
-  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  v19 = v18;
+  if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
     *buf = 134218752;
-    *&buf[4] = *v201;
+    *&buf[4] = *v204;
     *&buf[12] = 2048;
-    *&buf[14] = *&v201[8];
+    *&buf[14] = *&v204[8];
     *&buf[22] = 2048;
-    v204 = v202;
-    v205 = 2048;
-    v206 = *(&v202 + 1);
-    _os_signpost_emit_with_name_impl(&dword_22F9C3000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v15, "MXI_SIGNPOST_ATLAS_COPY", "process-unwired-current  %llu MB process-unwired-peak %llu MB system-wired-current %llu system-unwired-current %llu", buf, 0x2Au);
+    v207 = v205;
+    v208 = 2048;
+    v209 = *(&v205 + 1);
+    _os_signpost_emit_with_name_impl(&dword_22F9C3000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v16, "MXI_SIGNPOST_ATLAS_COPY", "process-unwired-current  %llu MB process-unwired-peak %llu MB system-wired-current %llu system-unwired-current %llu", buf, 0x2Au);
   }
 
-  v23 = *a1;
-  v24 = *(*a1 + 472);
-  if (!v24)
+  v24 = *a1;
+  v25 = *(*a1 + 472);
+  if (!v25)
   {
-    if (!*(v23 + 168))
+    if (!*(v24 + 168))
     {
       return 1;
     }
 
-    v31 = *(objc_msgSend_contents(*(v23 + 184), v19, v20, v21, v22) + 4);
-    if (!v31)
+    v32 = *(objc_msgSend_contents(*(v24 + 184), v20, v21, v22, v23) + 4);
+    if (!v32)
     {
       return 1;
     }
 
-    v32 = *(v23 + 348) / *(v23 + 352) * (*(v23 + 348) / *(v23 + 352));
-    v197 = v31 + v32 - 1;
-    v198 = v32;
-    v33 = v197 / v32;
-    if ((*(v23 + 404) & 1) == 0 && v33 > *(v23 + 400))
+    v33 = *(v24 + 348) / *(v24 + 352) * (*(v24 + 348) / *(v24 + 352));
+    v200 = v32 + v33 - 1;
+    v201 = v33;
+    v34 = v200 / v33;
+    if ((*(v24 + 404) & 1) == 0 && v34 > *(v24 + 400))
     {
       return 0;
     }
 
-    v34 = *(v23 + 112);
-    v35 = (*(v23 + 120) - v34) >> 3;
-    if (v35 < v33)
+    v35 = *(v24 + 112);
+    v36 = (*(v24 + 120) - v35) >> 3;
+    if (v36 < v34)
     {
-      objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v27, a6, @"Mismatched number of atlas slices (%zu) needing compression, expected (%d)", v30, v35, v33);
+      objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v28, a6, @"Mismatched number of atlas slices (%zu) needing compression, expected (%d)", v31, v36, v34);
       return 0;
     }
 
-    if (v32 <= v197)
+    if (v33 <= v200)
     {
-      v36 = 0;
+      v37 = 0;
       do
       {
-        if (!v34[v36])
+        if (!v35[v37])
         {
-          objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v27, a6, @"Invalid atlas slice texture (%d)", v30, v36);
+          objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v28, a6, @"Invalid atlas slice texture (%d)", v31, v37);
           return 0;
         }
 
-        if (!*(*(v23 + 136) + 8 * v36))
+        if (!*(*(v24 + 136) + 8 * v37))
         {
-          objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v27, a6, @"Invalid atlas slice view (%d)", v30, v36);
+          objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v28, a6, @"Invalid atlas slice view (%d)", v31, v37);
           return 0;
         }
 
-        ++v36;
+        ++v37;
       }
 
-      while (v36 < v33);
+      while (v37 < v34);
     }
 
-    if (*(v23 + 409) == 1)
+    if (*(v24 + 409) == 1)
     {
-      v193 = objc_msgSend_newCommandQueue(*v23, v27, v28, v29, v30);
-      v45 = objc_msgSend_commandBuffer(v193, v37, v38, v39, v40);
-      if (v198 <= v197)
+      v196 = objc_msgSend_newCommandQueue(*v24, v28, v29, v30, v31);
+      v46 = objc_msgSend_commandBuffer(v196, v38, v39, v40, v41);
+      if (v201 <= v200)
       {
-        v46 = 0;
         v47 = 0;
+        v48 = 0;
         do
         {
-          sub_22F9E6854(a2, (*(v23 + 112) + v46));
-          ++v47;
-          v46 += 8;
+          sub_22F9E6854(a2, (*(v24 + 112) + v47));
+          ++v48;
+          v47 += 8;
         }
 
-        while (v47 < v33);
+        while (v48 < v34);
       }
 
-      if (objc_msgSend_mipmapLevelCount(**a2, v41, v42, v43, v44) >= 2)
+      if (objc_msgSend_mipmapLevelCount(**a2, v42, v43, v44, v45) >= 2)
       {
-        v192 = v45;
-        v195 = objc_msgSend_computeCommandEncoder(v45, v48, v49, v50, v51);
-        objc_msgSend_setLabel_(v195, v52, @"MXI: ASTC MipMapping ComputeCommandEncoder", v53, v54);
-        objc_msgSend_setComputePipelineState_(v195, v55, *(v23 + 32), v56, v57);
-        v194 = vdupq_n_s64(8uLL);
-        for (i = 1; ; i = v196 + 1)
+        v195 = v46;
+        v198 = objc_msgSend_computeCommandEncoder(v46, v49, v50, v51, v52);
+        objc_msgSend_setLabel_(v198, v53, @"MXI: ASTC MipMapping ComputeCommandEncoder", v54, v55);
+        objc_msgSend_setComputePipelineState_(v198, v56, *(v24 + 32), v57, v58);
+        v197 = vdupq_n_s64(8uLL);
+        for (i = 1; ; i = v199 + 1)
         {
-          v196 = i;
-          if (objc_msgSend_mipmapLevelCount(**a2, v58, v59, v60, v61) <= i)
+          v199 = i;
+          if (objc_msgSend_mipmapLevelCount(**a2, v59, v60, v61, v62) <= i)
           {
             break;
           }
 
-          if (v198 <= v197)
+          if (v201 <= v200)
           {
-            v63 = 0;
-            v64 = *(v23 + 348) >> v196 >> 2;
+            v64 = 0;
+            v65 = *(v24 + 348) >> v199 >> 2;
             while (1)
             {
-              v67 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_((*a2)[v63], v58, 186, 2, (v196 - 1), 1, 0, 1);
-              if (!v67)
+              v68 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_((*a2)[v64], v59, 186, 2, (v199 - 1), 1, 0, 1);
+              if (!v68)
               {
-                objc_msgSend_fillError_withDescription_(MXIInternalError, v65, a6, @"Failed creating source texture view for compression.", v66);
+                objc_msgSend_fillError_withDescription_(MXIInternalError, v66, a6, @"Failed creating source texture view for compression.", v67);
                 goto LABEL_72;
               }
 
-              v70 = objc_msgSend_newCompressedTextureViewWithPixelFormat_textureType_level_slice_((*a2)[v63], v65, *(v23 + 336), 2, v196, 0);
-              if (!v70)
+              v71 = objc_msgSend_newCompressedTextureViewWithPixelFormat_textureType_level_slice_((*a2)[v64], v66, *(v24 + 336), 2, v199, 0);
+              if (!v71)
               {
                 break;
               }
 
-              objc_msgSend_setTexture_atIndex_(v195, v68, v70, 0, v69);
-              objc_msgSend_setTexture_atIndex_(v195, v71, v67, 1, v72);
-              objc_msgSend_setBytes_length_atIndex_(v195, v73, v23 + 380, 4, 0);
-              *buf = v64;
-              *&buf[8] = v64;
+              objc_msgSend_setTexture_atIndex_(v198, v69, v71, 0, v70);
+              objc_msgSend_setTexture_atIndex_(v198, v72, v68, 1, v73);
+              objc_msgSend_setBytes_length_atIndex_(v198, v74, v24 + 380, 4, 0);
+              *buf = v65;
+              *&buf[8] = v65;
               *&buf[16] = 1;
-              *v201 = v194;
-              *&v202 = 1;
-              objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v195, v74, buf, v201, v75);
+              *v204 = v197;
+              *&v205 = 1;
+              objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v198, v75, buf, v204, v76);
 
-              if (++v63 >= v33)
+              if (++v64 >= v34)
               {
                 goto LABEL_34;
               }
             }
 
-            objc_msgSend_fillError_withDescription_(MXIInternalError, v68, a6, @"Failed creating destination texture view for compression.", v69);
+            objc_msgSend_fillError_withDescription_(MXIInternalError, v69, a6, @"Failed creating destination texture view for compression.", v70);
             goto LABEL_71;
           }
 
@@ -6186,21 +6196,21 @@ LABEL_34:
           ;
         }
 
-        objc_msgSend_endEncoding(v195, v58, v59, v60, v61);
-        objc_msgSend_commit(v192, v160, v161, v162, v163);
-        objc_msgSend_waitUntilCompleted(v192, v164, v165, v166, v167);
-        if (objc_msgSend_status(v192, v168, v169, v170, v171) == 4)
+        objc_msgSend_endEncoding(v198, v59, v60, v61, v62);
+        objc_msgSend_commit(v195, v163, v164, v165, v166);
+        objc_msgSend_waitUntilCompleted(v195, v167, v168, v169, v170);
+        if (objc_msgSend_status(v195, v171, v172, v173, v174) == 4)
         {
 
-          v45 = v192;
+          v46 = v195;
           goto LABEL_81;
         }
 
-        v67 = objc_msgSend_error(v192, v172, v173, v174, v175);
-        v183 = objc_msgSend_debugDescription(v67, v179, v180, v181, v182);
-        v184 = v183;
-        v189 = objc_msgSend_UTF8String(v183, v185, v186, v187, v188);
-        objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v190, a6, @"MipMapping command buffer failed with error: %s", v191, v189);
+        v68 = objc_msgSend_error(v195, v175, v176, v177, v178);
+        v186 = objc_msgSend_debugDescription(v68, v182, v183, v184, v185);
+        v187 = v186;
+        v192 = objc_msgSend_UTF8String(v186, v188, v189, v190, v191);
+        objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v193, a6, @"MipMapping command buffer failed with error: %s", v194, v192);
 
 LABEL_71:
 LABEL_72:
@@ -6215,26 +6225,26 @@ LABEL_81:
 
     if (a3)
     {
-      v76 = objc_msgSend_newCommandQueue(*v23, v27, v28, v29, v30);
-      v77 = objc_opt_new();
-      objc_msgSend_setTextureType_(v77, v78, 2, v79, v80);
-      objc_msgSend_setWidth_(v77, v81, *(v23 + 348), v82, v83);
-      objc_msgSend_setHeight_(v77, v84, *(v23 + 348), v85, v86);
-      objc_msgSend_setMipmapLevelCount_(v77, v87, *(v23 + 356), v88, v89);
-      objc_msgSend_setPixelFormat_(v77, v90, 71, v91, v92);
-      objc_msgSend_setUsage_(v77, v93, 3, v94, v95);
-      objc_msgSend_setStorageMode_(v77, v96, 2, v97, v98);
-      if (v198 <= v197)
+      v77 = objc_msgSend_newCommandQueue(*v24, v28, v29, v30, v31);
+      v78 = objc_opt_new();
+      objc_msgSend_setTextureType_(v78, v79, 2, v80, v81);
+      objc_msgSend_setWidth_(v78, v82, *(v24 + 348), v83, v84);
+      objc_msgSend_setHeight_(v78, v85, *(v24 + 348), v86, v87);
+      objc_msgSend_setMipmapLevelCount_(v78, v88, *(v24 + 356), v89, v90);
+      objc_msgSend_setPixelFormat_(v78, v91, 71, v92, v93);
+      objc_msgSend_setUsage_(v78, v94, 3, v95, v96);
+      objc_msgSend_setStorageMode_(v78, v97, 2, v98, v99);
+      if (v201 <= v200)
       {
-        v103 = 0;
-        for (j = 0; j < v33; ++j)
+        v104 = 0;
+        for (j = 0; j < v34; ++j)
         {
-          if (*(v23 + 404) == 1)
+          if (*(v24 + 404) == 1)
           {
-            *buf = objc_msgSend_newSharedTextureWithDescriptor_(*v23, v99, v77, v101, v102);
+            *buf = objc_msgSend_newSharedTextureWithDescriptor_(*v24, v100, v78, v102, v103);
             if (!*buf)
             {
-              objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v105, a6, @"Failed creating atlas slice (%d)", v106, j);
+              objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v106, a6, @"Failed creating atlas slice (%d)", v107, j);
 
               return 0;
             }
@@ -6244,47 +6254,47 @@ LABEL_81:
 
           else
           {
-            sub_22F9E6854(a2, (*(v23 + 112) + v103));
+            sub_22F9E6854(a2, (*(v24 + 112) + v104));
           }
 
-          v103 += 8;
+          v104 += 8;
         }
       }
 
-      v107 = objc_msgSend_commandBuffer(v76, v99, v100, v101, v102);
-      v112 = objc_msgSend_blitCommandEncoder(v107, v108, v109, v110, v111);
-      objc_msgSend_setLabel_(v112, v113, @"MXI: MipMapping BlitCommandEncoder", v114, v115);
-      if (v198 <= v197)
+      v108 = objc_msgSend_commandBuffer(v77, v100, v101, v102, v103);
+      v113 = objc_msgSend_blitCommandEncoder(v108, v109, v110, v111, v112);
+      objc_msgSend_setLabel_(v113, v114, @"MXI: MipMapping BlitCommandEncoder", v115, v116);
+      if (v201 <= v200)
       {
-        v120 = 0;
+        v121 = 0;
         do
         {
-          if (*(v23 + 404) == 1)
+          if (*(v24 + 404) == 1)
           {
-            objc_msgSend_copyFromTexture_sourceSlice_sourceLevel_toTexture_destinationSlice_destinationLevel_sliceCount_levelCount_(v112, v116, *(*(v23 + 136) + 8 * v120), 0, 0, (*a2)[v120], 0, 0, 1, 1);
+            objc_msgSend_copyFromTexture_sourceSlice_sourceLevel_toTexture_destinationSlice_destinationLevel_sliceCount_levelCount_(v113, v117, *(*(v24 + 136) + 8 * v121), 0, 0, (*a2)[v121], 0, 0, 1, 1);
           }
 
-          if (objc_msgSend_mipmapLevelCount(**a2, v116, v117, v118, v119) >= 2)
+          if (objc_msgSend_mipmapLevelCount(**a2, v117, v118, v119, v120) >= 2)
           {
-            objc_msgSend_generateMipmapsForTexture_(v112, v116, (*a2)[v120], v118, v119);
+            objc_msgSend_generateMipmapsForTexture_(v113, v117, (*a2)[v121], v119, v120);
           }
 
-          ++v120;
+          ++v121;
         }
 
-        while (v120 < v33);
+        while (v121 < v34);
       }
 
-      objc_msgSend_endEncoding(v112, v116, v117, v118, v119);
-      objc_msgSend_commit(v107, v121, v122, v123, v124);
-      objc_msgSend_waitUntilCompleted(v107, v125, v126, v127, v128);
-      if (objc_msgSend_status(v107, v129, v130, v131, v132) != 4)
+      objc_msgSend_endEncoding(v113, v117, v118, v119, v120);
+      objc_msgSend_commit(v108, v122, v123, v124, v125);
+      objc_msgSend_waitUntilCompleted(v108, v126, v127, v128, v129);
+      if (objc_msgSend_status(v108, v130, v131, v132, v133) != 4)
       {
-        v143 = objc_msgSend_error(v107, v133, v134, v135, v136);
-        v148 = objc_msgSend_debugDescription(v143, v144, v145, v146, v147);
-        v149 = v148;
-        v154 = objc_msgSend_UTF8String(v148, v150, v151, v152, v153);
-        objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v155, a6, @"MipMapping command buffer failed with error: %s", v156, v154);
+        v146 = objc_msgSend_error(v108, v134, v135, v136, v137);
+        v151 = objc_msgSend_debugDescription(v146, v147, v148, v149, v150);
+        v152 = v151;
+        v157 = objc_msgSend_UTF8String(v151, v153, v154, v155, v156);
+        objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v158, a6, @"MipMapping command buffer failed with error: %s", v159, v157);
 
         return 0;
       }
@@ -6292,57 +6302,57 @@ LABEL_81:
       goto LABEL_82;
     }
 
-    v200 = 0;
+    v203 = 0;
     if (a4)
     {
-      image::ToASTCs(v34, v33, a5 >> 4, a5 & 0xF, *(v23 + 376), *(v23 + 356), buf, *(v23 + 380));
+      image::ToASTCs(v35, v34, a5 >> 4, a5 & 0xF, *(v24 + 376), *(v24 + 356), buf, *(v24 + 380));
       sub_22F9E8ABC(a2);
       *a2 = *buf;
       a2[2] = *&buf[16];
       memset(buf, 0, sizeof(buf));
-      *v201 = buf;
-      sub_22F9DC140(v201);
-      if (v33 != a2[1] - *a2)
+      *v204 = buf;
+      sub_22F9DC140(v204);
+      if (v34 != a2[1] - *a2)
       {
-        v137 = _mxi_log();
-        if (os_log_type_enabled(v137, OS_LOG_TYPE_ERROR))
+        v140 = _mxi_log(v139);
+        if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_22F9C3000, v137, OS_LOG_TYPE_ERROR, "[Tiled/TiledProcessor.mm:1489] Could not compress to ASTC", buf, 2u);
+          _os_log_impl(&dword_22F9C3000, v140, OS_LOG_TYPE_ERROR, "[Tiled/TiledProcessor.mm:1489] Could not compress to ASTC", buf, 2u);
         }
 
-        objc_msgSend_fillError_withDescription_(MXIInternalError, v138, a6, @"Could not compress to ASTC", v139);
+        objc_msgSend_fillError_withDescription_(MXIInternalError, v141, a6, @"Could not compress to ASTC", v142);
 LABEL_78:
-        sub_22F9C7D28(&v200, 0);
+        sub_22F9C7D28(&v203, 0);
         return 0;
       }
     }
 
     else
     {
-      v140 = *(v23 + 372);
-      if (v140 >= 2)
+      v143 = *(v24 + 372);
+      if (v143 >= 2)
       {
-        if (v140 <= 0x20)
+        if (v143 <= 0x20)
         {
-          v141 = v140 - 1;
+          v144 = v143 - 1;
         }
 
         else
         {
-          v141 = 31;
+          v144 = 31;
         }
 
-        *v201 = v141;
+        *v204 = v144;
         sub_22F9E7C78();
       }
 
-      if (v32 <= v197)
+      if (v33 <= v200)
       {
-        v142 = 0;
+        v145 = 0;
         while (1)
         {
-          *buf = image::ToASTC(*(*(v23 + 112) + 8 * v142), a5 >> 4, a5 & 0xF, v200, *(v23 + 356), a7);
+          *buf = image::ToASTC(*(*(v24 + 112) + 8 * v145), a5 >> 4, a5 & 0xF, v203, *(v24 + 356), a7);
           if (!*buf)
           {
             break;
@@ -6350,44 +6360,44 @@ LABEL_78:
 
           sub_22F9E6854(a2, buf);
 
-          if (++v142 >= v33)
+          if (++v145 >= v34)
           {
             goto LABEL_68;
           }
         }
 
-        v157 = _mxi_log();
-        if (os_log_type_enabled(v157, OS_LOG_TYPE_ERROR))
+        v160 = _mxi_log(0);
+        if (os_log_type_enabled(v160, OS_LOG_TYPE_ERROR))
         {
-          *v201 = 0;
-          _os_log_impl(&dword_22F9C3000, v157, OS_LOG_TYPE_ERROR, "[Tiled/TiledProcessor.mm:1502] Could not compress to ASTC", v201, 2u);
+          *v204 = 0;
+          _os_log_impl(&dword_22F9C3000, v160, OS_LOG_TYPE_ERROR, "[Tiled/TiledProcessor.mm:1502] Could not compress to ASTC", v204, 2u);
         }
 
-        objc_msgSend_fillError_withDescription_(MXIInternalError, v158, a6, @"Could not compress to ASTC", v159);
+        objc_msgSend_fillError_withDescription_(MXIInternalError, v161, a6, @"Could not compress to ASTC", v162);
         goto LABEL_78;
       }
     }
 
 LABEL_68:
-    sub_22F9C7D28(&v200, 0);
+    v138 = sub_22F9C7D28(&v203, 0);
 LABEL_82:
-    v176 = _MXISignpostLogSystem();
-    *v201 = 0u;
-    v202 = 0u;
-    core::get_info(v201);
-    v177 = v176;
-    v178 = v177;
-    if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v177))
+    v179 = _MXISignpostLogSystem(v138);
+    *v204 = 0u;
+    v205 = 0u;
+    core::get_info(v204);
+    v180 = v179;
+    v181 = v180;
+    if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v180))
     {
       *buf = 134218752;
-      *&buf[4] = *v201;
+      *&buf[4] = *v204;
       *&buf[12] = 2048;
-      *&buf[14] = *&v201[8];
+      *&buf[14] = *&v204[8];
       *&buf[22] = 2048;
-      v204 = v202;
-      v205 = 2048;
-      v206 = *(&v202 + 1);
-      _os_signpost_emit_with_name_impl(&dword_22F9C3000, v178, OS_SIGNPOST_INTERVAL_END, v15, "MXI_SIGNPOST_ATLAS_COPY", "process-unwired-current  %llu MB process-unwired-peak %llu MB system-wired-current %llu system-unwired-current %llu", buf, 0x2Au);
+      v207 = v205;
+      v208 = 2048;
+      v209 = *(&v205 + 1);
+      _os_signpost_emit_with_name_impl(&dword_22F9C3000, v181, OS_SIGNPOST_INTERVAL_END, v16, "MXI_SIGNPOST_ATLAS_COPY", "process-unwired-current  %llu MB process-unwired-peak %llu MB system-wired-current %llu system-unwired-current %llu", buf, 0x2Au);
     }
 
     return 1;
@@ -6398,9 +6408,9 @@ LABEL_82:
     return 0;
   }
 
-  v25 = v24;
+  v26 = v25;
   result = 0;
-  *a6 = v24;
+  *a6 = v25;
   return result;
 }
 
@@ -6461,9 +6471,9 @@ void sub_22F9E88B8(uint64_t a1, unint64_t a2)
   }
 }
 
-void sub_22F9E89A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22F9E89A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_22F9E8A68(va);
   _Unwind_Resume(a1);
 }
@@ -6523,7 +6533,7 @@ uint64_t sub_22F9E8A68(uint64_t a1)
   return a1;
 }
 
-void sub_22F9E8ABC(void **a1)
+void sub_22F9E8ABC(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -6583,7 +6593,7 @@ uint64_t sub_22F9E8B6C(uint64_t a1)
 
 void sub_22F9E8CD8()
 {
-  if (__cxa_guard_acquire(qword_27DAD27A0))
+  if (__cxa_guard_acquire(byte_27DAD27A0))
   {
     unk_27DAD27B0 = xmmword_22FA081F0;
     unk_27DAD27C0 = xmmword_22FA08200;
@@ -6603,7 +6613,7 @@ void sub_22F9E8CD8()
     unk_27DAD28A0 = xmmword_22FA082E0;
     xmmword_27DAD28B0 = xmmword_22FA082F0;
     unk_27DAD28C0 = xmmword_22FA08300;
-    __cxa_guard_release(qword_27DAD27A0);
+    __cxa_guard_release(byte_27DAD27A0);
   }
 }
 
@@ -6629,17 +6639,17 @@ void sub_22F9E9FB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *sub_22F9EA128(void *result, unint64_t a2)
+uint64_t *sub_22F9EA128(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_22F9D6F14(result, a2);
+    sub_22F9D6F14(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_22F9EA184(_Unwind_Exception *exception_object)
@@ -6654,7 +6664,7 @@ void sub_22F9EA184(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void init_block_size_descriptor(uint64_t a1, uint64_t a2, unsigned int a3)
+void init_block_size_descriptor(unsigned int a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, _DWORD *a6, float a7)
 {
   if (a3 >= 2)
   {
@@ -6824,15 +6834,15 @@ int32x4_t rgba_delta_unpack(int32x4_t *a1, int32x4_t *a2, uint32x4_t a3, int8x16
   return result;
 }
 
-__n128 *rgba_unpack(__n128 *result, __n128 *a2, int8x16_t a3, __n128 a4)
+__n128 *rgba_unpack(__n128 *result, __n128 *a2, __n128 a3, __n128 a4)
 {
-  v4 = vadd_s32(vadd_s32(vzip1_s32(*a3.i8, a4.n128_u64[0]), vzip2_s32(*a3.i8, a4.n128_u64[0])), vzip1_s32(*&vextq_s8(a3, a3, 8uLL), *&vextq_s8(a4, a4, 8uLL)));
+  v4 = vadd_s32(vadd_s32(vzip1_s32(a3.n128_u64[0], a4.n128_u64[0]), vzip2_s32(a3.n128_u64[0], a4.n128_u64[0])), vzip1_s32(*&vextq_s8(a3, a3, 8uLL), *&vextq_s8(a4, a4, 8uLL)));
   if (vcgt_s32(v4, vdup_lane_s32(v4, 1)).u8[0])
   {
     v5.n128_u64[0] = vshrq_n_s32(vaddq_s32(vdupq_laneq_s32(a3, 2), a3), 1uLL).u64[0];
-    v5.n128_u64[1] = a3.u64[1];
-    a3.i64[0] = vshrq_n_s32(vaddq_s32(vdupq_laneq_s32(a4, 2), a4), 1uLL).u64[0];
-    a3.i64[1] = a4.n128_i64[1];
+    v5.n128_u64[1] = a3.n128_u64[1];
+    a3.n128_u64[0] = vshrq_n_s32(vaddq_s32(vdupq_laneq_s32(a4, 2), a4), 1uLL).u64[0];
+    a3.n128_u64[1] = a4.n128_u64[1];
     a4 = v5;
   }
 
@@ -6841,8 +6851,9 @@ __n128 *rgba_unpack(__n128 *result, __n128 *a2, int8x16_t a3, __n128 a4)
   return result;
 }
 
-void unpack_color_endpoints(int a1, int a2, unsigned __int8 *a3, _BYTE *a4, _BYTE *a5, uint64_t a6, __n128 *a7, __n128 a8, int32x4_t a9, int32x4_t a10, int32x4_t a11)
+void unpack_color_endpoints(uint64_t result, int a2, unsigned __int8 *a3, _BYTE *a4, _BYTE *a5, int32x4_t *a6, __n128 *a7, __n128 a8, int32x4_t a9, int32x4_t a10, int32x4_t a11)
 {
+  v15 = result;
   *a4 = 0;
   *a5 = 0;
   switch(a2)
@@ -6862,9 +6873,9 @@ void unpack_color_endpoints(int a1, int a2, unsigned __int8 *a3, _BYTE *a4, _BYT
 
 LABEL_102:
       a8.n128_u32[3] = 255;
-      LODWORD(v114) = v17;
-      DWORD1(v114) = v17;
-      *(&v114 + 1) = v17 | 0xFF00000000;
+      v114.i32[0] = v17;
+      v114.i32[1] = v17;
+      v114.i64[1] = v17 | 0xFF00000000;
       a8.n128_u32[0] = v18;
       *a6 = v114;
       a8.n128_u32[1] = v18;
@@ -6899,7 +6910,7 @@ LABEL_102:
       a8.n128_u32[3] = 30720;
       a8.n128_u32[0] = v41;
       a8.n128_u32[1] = v41;
-      v43.n128_u32[3] = 30720;
+      v43.i32[3] = 30720;
       a8.n128_u32[2] = v41;
       v44 = 16 * v42;
       goto LABEL_42;
@@ -6945,13 +6956,13 @@ LABEL_102:
       a8.n128_u32[3] = 30720;
       a8.n128_u32[0] = 16 * v61;
       a8.n128_u32[1] = 16 * v61;
-      v43.n128_u32[3] = 30720;
+      v43.i32[3] = 30720;
       a8.n128_u32[2] = 16 * v61;
       v44 = 16 * v65;
 LABEL_42:
-      v43.n128_u32[0] = v44;
+      v43.i32[0] = v44;
       *a6 = a8;
-      v43.n128_u32[1] = v44;
+      v43.i32[1] = v44;
       goto LABEL_95;
     case 4:
       a8.n128_u8[0] = *a3;
@@ -6986,7 +6997,7 @@ LABEL_42:
       v117.i32[2] = a8.n128_u32[0];
       *a6 = v117;
       *a7 = v116;
-      if (!a1)
+      if (!result)
       {
         goto LABEL_126;
       }
@@ -6997,7 +7008,7 @@ LABEL_42:
       v126.i32[1] = a3[1];
       v126.i64[1] = a3[2];
       v127 = v126;
-      v127.n128_u32[3] = 255;
+      v127.i32[3] = 255;
       v128 = vmulq_s32(vdupq_n_s32(a3[3]), v126);
       *a7 = v127;
       a8 = vshrq_n_s32(v128, 8uLL);
@@ -7199,13 +7210,13 @@ LABEL_42:
       a8.n128_u32[0] = 16 * ((v102 - v111) & ~((v102 - v111) >> 31));
       a8.n128_u32[1] = 16 * ((v103 - v111) & ~((v103 - v111) >> 31));
       a8.n128_u32[2] = 16 * ((v107 - v111) & ~((v107 - v111) >> 31));
-      v43.n128_u32[3] = 30720;
+      v43.i32[3] = 30720;
       *a6 = a8;
-      v43.n128_u32[0] = 16 * (v102 & ~(v102 >> 31));
+      v43.i32[0] = 16 * (v102 & ~(v102 >> 31));
       v44 = 16 * (v107 & ~(v107 >> 31));
-      v43.n128_u32[1] = 16 * (v103 & ~(v103 >> 31));
+      v43.i32[1] = 16 * (v103 & ~(v103 >> 31));
 LABEL_95:
-      v43.n128_u32[2] = v44;
+      v43.i32[2] = v44;
       *a7 = v43;
       goto LABEL_96;
     case 8:
@@ -7254,9 +7265,9 @@ LABEL_95:
       a8 = vminq_s32(vmaxq_s32(v34, 0), v36);
       *a7 = a8;
 LABEL_125:
-      *(a6 + 12) = 255;
+      a6->i32[3] = 255;
       a7->n128_u32[3] = 255;
-      if (!a1)
+      if (!result)
       {
         goto LABEL_126;
       }
@@ -7269,7 +7280,7 @@ LABEL_125:
       v129.i32[2] = a3[2];
       v129.i32[3] = v130;
       v131 = v129;
-      v131.n128_u32[3] = a3[5];
+      v131.i32[3] = a3[5];
       v132 = vmulq_s32(vdupq_n_s32(a3[3]), v129);
       *a7 = v131;
       a8 = vshrq_n_s32(v132, 8uLL);
@@ -7281,22 +7292,22 @@ LABEL_112:
       *a4 = 1;
       a8 = sub_22F9EC780(a3, a6, a7);
 LABEL_96:
-      if (a1 == 3)
+      if (v15 == 3)
       {
-        *(a6 + 12) = 30720;
+        a6->i32[3] = 30720;
         a7->n128_u32[3] = 30720;
         v112 = 1;
         *a5 = 1;
         goto LABEL_120;
       }
 
-      *(a6 + 12) = 255;
+      a6->i32[3] = 255;
       a7->n128_u32[3] = 255;
       *a5 = 0;
-      if (a1)
+      if (v15)
       {
 LABEL_114:
-        if (a1 == 1)
+        if (v15 == 1)
         {
           if ((*a4 & 1) != 0 || *a5 == 1)
           {
@@ -7373,7 +7384,7 @@ LABEL_130:
 
       *a6 = a8;
       *a7 = v27;
-      if (!a1)
+      if (!result)
       {
         goto LABEL_126;
       }
@@ -7407,7 +7418,7 @@ LABEL_130:
       a8 = vminq_s32(vmaxq_s32(v123, 0), v125);
 LABEL_108:
       *a7 = a8;
-      if (!a1)
+      if (!result)
       {
         goto LABEL_126;
       }
@@ -7462,9 +7473,9 @@ LABEL_108:
       v19 = 16 * v55;
       v20 = 16 * v54;
 LABEL_29:
-      *(a6 + 12) = v19;
+      a6->i32[3] = v19;
       a7->n128_u32[3] = v20;
-      if (!a1)
+      if (!v15)
       {
         goto LABEL_126;
       }
@@ -7472,7 +7483,7 @@ LABEL_29:
       goto LABEL_114;
     default:
 LABEL_113:
-      if (a1)
+      if (result)
       {
         goto LABEL_114;
       }
@@ -7780,24 +7791,25 @@ uint64_t image::HeaderASTC(uint64_t a1, int a2, int a3, int a4, char a5, char a6
   return (*(*a1 + 16))(a1, &v7, 16);
 }
 
-id image::ToASTC(void *a1, unsigned int a2, unsigned int a3, core::ThreadPool *a4, float a5)
+id image::ToASTC(void *a1, uint64_t a2, uint64_t a3, core::ThreadPool *a4, float a5)
 {
   v5 = image::ToASTC(a1, a2, a3, a4, 0, a5);
 
   return v5;
 }
 
-id image::ToASTC(void *a1, unsigned int a2, unsigned int a3, core::ThreadPool *a4, unsigned int a5, float a6)
+id image::ToASTC(void *a1, uint64_t a2, unsigned int a3, core::ThreadPool *a4, unsigned int a5, float a6)
 {
-  v210 = *MEMORY[0x277D85DE8];
+  v7 = a2;
+  v213 = *MEMORY[0x277D85DE8];
   v8 = a1;
   context = objc_autoreleasePoolPush();
-  v195 = v8;
-  v9 = _MXISignpostLogSystem();
+  v198 = v8;
+  v9 = _MXISignpostLogSystem(context);
   v10 = _MXISignpostCreate(v9);
   v11 = v9;
   v12 = v11;
-  v188 = v10 - 1;
+  v191 = v10 - 1;
   spid = v10;
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
@@ -7806,11 +7818,11 @@ id image::ToASTC(void *a1, unsigned int a2, unsigned int a3, core::ThreadPool *a
   }
 
   v17 = objc_msgSend_device(v8, v13, v14, v15, v16);
-  v194 = v17;
+  v197 = v17;
   v22 = objc_msgSend_textureType(v8, v18, v19, v20, v21);
   v27 = objc_msgSend_pixelFormat(v8, v23, v24, v25, v26);
-  v199 = objc_msgSend_width(v8, v28, v29, v30, v31);
-  v198 = objc_msgSend_height(v8, v32, v33, v34, v35);
+  v202 = objc_msgSend_width(v8, v28, v29, v30, v31);
+  v201 = objc_msgSend_height(v8, v32, v33, v34, v35);
   v44 = objc_msgSend_arrayLength(v8, v36, v37, v38, v39);
   v45 = a5;
   if (a5 <= 1)
@@ -7818,64 +7830,66 @@ id image::ToASTC(void *a1, unsigned int a2, unsigned int a3, core::ThreadPool *a
     v45 = objc_msgSend_mipmapLevelCount(v8, v40, v41, v42, v43);
   }
 
-  v207 = 0;
-  v206 = 0u;
-  v205 = 0u;
-  if (sub_22F9ED314(buf, v17, v22, v27, v199, v198, v44, v45, 1u, a2, SHIWORD(a2), a3, a5))
+  v210 = 0;
+  v209 = 0u;
+  v208 = 0u;
+  if (sub_22F9ED314(buf, v17, v22, v27, v202, v201, v44, v45, 1u, v7, SHIWORD(v7), a3, a5))
   {
-    v192 = 16 * (a2 + v199 - 1) / a2 * ((a3 + v198 - 1) / a3);
-    v201 = objc_msgSend_newBufferWithLength_options_(v17, v46, v192, 0, v47);
-    v197 = objc_msgSend_newCommandQueue(v17, v48, v49, v50, v51);
+    v195 = 16 * (v7 + v202 - 1) / v7 * ((a3 + v201 - 1) / a3);
+    v204 = objc_msgSend_newBufferWithLength_options_(v17, v46, v195, 0, v47);
+    v52 = objc_msgSend_newCommandQueue(v17, v48, v49, v50, v51);
+    v200 = v52;
     if (v44)
     {
-      v56 = 0;
-      v186 = v44;
-      v187 = v45;
-      v191 = v45;
-      v185 = vdupq_n_s64(8uLL);
+      v57 = 0;
+      v189 = v44;
+      v190 = v45;
+      v194 = v45;
+      v188 = vdupq_n_s64(8uLL);
       while (1)
       {
         if (a5 >= 2)
         {
-          v57 = objc_msgSend_commandBuffer(v197, v52, v53, v54, v55);
-          v62 = objc_msgSend_computeCommandEncoder(v57, v58, v59, v60, v61);
-          objc_msgSend_setComputePipelineState_(v62, v63, v207, v64, v65);
-          objc_msgSend_setTexture_atIndex_(v62, v66, *(&v206 + 1), 0, v67);
-          objc_msgSend_setTexture_atIndex_(v62, v68, v8, 1, v69);
-          *&v208 = objc_msgSend_width(*(&v206 + 1), v70, v71, v72, v73);
-          *(&v208 + 1) = objc_msgSend_height(*(&v206 + 1), v74, v75, v76, v77);
-          v209 = 1;
-          v202 = v185;
-          v203 = 1;
-          objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v62, v78, &v208, &v202, v79);
-          objc_msgSend_endEncoding(v62, v80, v81, v82, v83);
+          v58 = objc_msgSend_commandBuffer(v200, v53, v54, v55, v56);
+          v63 = objc_msgSend_computeCommandEncoder(v58, v59, v60, v61, v62);
+          objc_msgSend_setComputePipelineState_(v63, v64, v210, v65, v66);
+          objc_msgSend_setTexture_atIndex_(v63, v67, *(&v209 + 1), 0, v68);
+          objc_msgSend_setTexture_atIndex_(v63, v69, v8, 1, v70);
+          *&v211 = objc_msgSend_width(*(&v209 + 1), v71, v72, v73, v74);
+          *(&v211 + 1) = objc_msgSend_height(*(&v209 + 1), v75, v76, v77, v78);
+          v212 = 1;
+          v205 = v188;
+          v206 = 1;
+          objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v63, v79, &v211, &v205, v80);
+          objc_msgSend_endEncoding(v63, v81, v82, v83, v84);
           if (a5 != 2)
           {
-            v88 = objc_msgSend_blitCommandEncoder(v57, v84, v85, v86, v87);
-            objc_msgSend_generateMipmapsForTexture_(v88, v89, *(&v206 + 1), v90, v91);
-            objc_msgSend_endEncoding(v88, v92, v93, v94, v95);
+            v89 = objc_msgSend_blitCommandEncoder(v58, v85, v86, v87, v88);
+            objc_msgSend_generateMipmapsForTexture_(v89, v90, *(&v209 + 1), v91, v92);
+            objc_msgSend_endEncoding(v89, v93, v94, v95, v96);
           }
 
-          objc_msgSend_commit(v57, v84, v85, v86, v87);
-          objc_msgSend_waitUntilCompleted(v57, v96, v97, v98, v99);
-          if (objc_msgSend_status(v57, v100, v101, v102, v103) != 4)
+          objc_msgSend_commit(v58, v85, v86, v87, v88);
+          objc_msgSend_waitUntilCompleted(v58, v97, v98, v99, v100);
+          v105 = objc_msgSend_status(v58, v101, v102, v103, v104);
+          if (v105 != 4)
           {
-            v168 = _mxi_log();
-            if (os_log_type_enabled(v168, OS_LOG_TYPE_ERROR))
+            v171 = _mxi_log(v105);
+            if (os_log_type_enabled(v171, OS_LOG_TYPE_ERROR))
             {
-              v173 = objc_msgSend_error(v57, v169, v170, v171, v172);
-              v178 = objc_msgSend_debugDescription(v173, v174, v175, v176, v177);
-              v179 = v178;
-              v184 = objc_msgSend_UTF8String(v178, v180, v181, v182, v183);
-              LODWORD(v208) = 136315138;
-              *(&v208 + 4) = v184;
-              _os_log_impl(&dword_22F9C3000, v168, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:382] [ImageASTC] command buffer failed with error: %s", &v208, 0xCu);
+              v176 = objc_msgSend_error(v58, v172, v173, v174, v175);
+              v181 = objc_msgSend_debugDescription(v176, v177, v178, v179, v180);
+              v182 = v181;
+              v187 = objc_msgSend_UTF8String(v181, v183, v184, v185, v186);
+              LODWORD(v211) = 136315138;
+              *(&v211 + 4) = v187;
+              _os_log_impl(&dword_22F9C3000, v171, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:382] [ImageASTC] command buffer failed with error: %s", &v211, 0xCu);
             }
 
             goto LABEL_35;
           }
 
-          v45 = v187;
+          v45 = v190;
         }
 
         if (v45)
@@ -7884,131 +7898,134 @@ id image::ToASTC(void *a1, unsigned int a2, unsigned int a3, core::ThreadPool *a
         }
 
 LABEL_22:
-        ++v56;
-        v45 = v187;
-        if (v56 == v186)
+        ++v57;
+        v45 = v190;
+        if (v57 == v189)
         {
           goto LABEL_23;
         }
       }
 
-      v104 = 0;
+      v106 = 0;
       while (1)
       {
-        v105 = *(&v206 + 1);
-        v106 = *(&v206 + 1) != 0;
-        v107 = v104 != 0;
-        v108 = v107 && v106;
-        if (!v107 || !v106)
+        v107 = *(&v209 + 1);
+        v108 = *(&v209 + 1) != 0;
+        v109 = v106 != 0;
+        v110 = v109 && v108;
+        if (!v109 || !v108)
         {
-          v105 = v8;
+          v107 = v8;
         }
 
-        v109 = v105;
-        v110 = v201;
-        v115 = objc_msgSend_contents(v201, v111, v112, v113, v114);
-        v116 = sub_22F9EDACC(a6, v115, v192, v109, v56, v104 - v108, a2, a3, a4);
-        v121 = v116;
-        if (!v116)
+        v111 = v107;
+        v112 = v204;
+        v117 = objc_msgSend_contents(v204, v113, v114, v115, v116);
+        v118 = sub_22F9EDACC(v117, v195, v111, v57, v106 - v110, v7, a3, a4, a6);
+        v123 = v118;
+        if (!v118)
         {
           goto LABEL_31;
         }
 
-        if (v116 != 16 * ((v199 >> v104) / a2) * ((v198 >> v104) / a3))
+        if (v118 != 16 * ((v202 >> v106) / v7) * ((v201 >> v106) / a3))
         {
-          v149 = _mxi_log();
-          v17 = v194;
-          v8 = v195;
-          if (os_log_type_enabled(v149, OS_LOG_TYPE_ERROR))
+          v152 = _mxi_log(v118);
+          v17 = v197;
+          v8 = v198;
+          if (os_log_type_enabled(v152, OS_LOG_TYPE_ERROR))
           {
-            LOWORD(v208) = 0;
-            _os_log_impl(&dword_22F9C3000, v149, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:402] Unexpected astc size", &v208, 2u);
+            LOWORD(v211) = 0;
+            _os_log_impl(&dword_22F9C3000, v152, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:402] Unexpected astc size", &v211, 2u);
           }
 
 LABEL_31:
           goto LABEL_35;
         }
 
-        v122 = objc_msgSend_commandBuffer(v197, v117, v118, v119, v120);
-        v127 = objc_msgSend_blitCommandEncoder(v122, v123, v124, v125, v126);
-        *&v208 = v199 >> v104;
-        *(&v208 + 1) = v198 >> v104;
-        v209 = 1;
-        v128 = *v205;
-        v202 = 0uLL;
-        v203 = 0;
-        objc_msgSend_copyFromBuffer_sourceOffset_sourceBytesPerRow_sourceBytesPerImage_sourceSize_toTexture_destinationSlice_destinationLevel_destinationOrigin_(v127, v129, v201, 0, 16 * ((v199 >> v104) / a2), v121, &v208, v128, v56, v104, &v202);
-        objc_msgSend_endEncoding(v127, v130, v131, v132, v133);
-        objc_msgSend_commit(v122, v134, v135, v136, v137);
-        objc_msgSend_waitUntilCompleted(v122, v138, v139, v140, v141);
-        v17 = v194;
-        v8 = v195;
-        if (objc_msgSend_status(v122, v142, v143, v144, v145) != 4)
+        v124 = objc_msgSend_commandBuffer(v200, v119, v120, v121, v122);
+        v129 = objc_msgSend_blitCommandEncoder(v124, v125, v126, v127, v128);
+        *&v211 = v202 >> v106;
+        *(&v211 + 1) = v201 >> v106;
+        v212 = 1;
+        v130 = *v208;
+        v205 = 0uLL;
+        v206 = 0;
+        objc_msgSend_copyFromBuffer_sourceOffset_sourceBytesPerRow_sourceBytesPerImage_sourceSize_toTexture_destinationSlice_destinationLevel_destinationOrigin_(v129, v131, v204, 0, 16 * ((v202 >> v106) / v7), v123, &v211, v130, v57, v106, &v205);
+        objc_msgSend_endEncoding(v129, v132, v133, v134, v135);
+        objc_msgSend_commit(v124, v136, v137, v138, v139);
+        objc_msgSend_waitUntilCompleted(v124, v140, v141, v142, v143);
+        v17 = v197;
+        v8 = v198;
+        v148 = objc_msgSend_status(v124, v144, v145, v146, v147);
+        if (v148 != 4)
         {
           break;
         }
 
-        if (v191 == ++v104)
+        if (v194 == ++v106)
         {
           goto LABEL_22;
         }
       }
 
-      v150 = _mxi_log();
-      if (os_log_type_enabled(v150, OS_LOG_TYPE_ERROR))
+      v153 = _mxi_log(v148);
+      if (os_log_type_enabled(v153, OS_LOG_TYPE_ERROR))
       {
-        v155 = objc_msgSend_error(v122, v151, v152, v153, v154);
-        v160 = objc_msgSend_debugDescription(v155, v156, v157, v158, v159);
-        v161 = v160;
-        v166 = objc_msgSend_UTF8String(v160, v162, v163, v164, v165);
-        LODWORD(v208) = 136315138;
-        *(&v208 + 4) = v166;
-        _os_log_impl(&dword_22F9C3000, v150, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:421] [ImageASTC] command buffer failed with error: %s", &v208, 0xCu);
+        v158 = objc_msgSend_error(v124, v154, v155, v156, v157);
+        v163 = objc_msgSend_debugDescription(v158, v159, v160, v161, v162);
+        v164 = v163;
+        v169 = objc_msgSend_UTF8String(v163, v165, v166, v167, v168);
+        LODWORD(v211) = 136315138;
+        *(&v211 + 4) = v169;
+        _os_log_impl(&dword_22F9C3000, v153, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:421] [ImageASTC] command buffer failed with error: %s", &v211, 0xCu);
       }
 
 LABEL_35:
-      v148 = 0;
+      v151 = 0;
     }
 
     else
     {
 LABEL_23:
-      v146 = _MXISignpostLogSystem();
-      v147 = v146;
-      if (v188 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v146))
+      v149 = _MXISignpostLogSystem(v52);
+      v150 = v149;
+      if (v191 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v149))
       {
-        LOWORD(v208) = 0;
-        _os_signpost_emit_with_name_impl(&dword_22F9C3000, v147, OS_SIGNPOST_INTERVAL_END, spid, "MXI_TO_ASTC", &unk_22FA1C169, &v208, 2u);
+        LOWORD(v211) = 0;
+        _os_signpost_emit_with_name_impl(&dword_22F9C3000, v150, OS_SIGNPOST_INTERVAL_END, spid, "MXI_TO_ASTC", &unk_22FA1C169, &v211, 2u);
       }
 
-      v148 = *v205;
+      v151 = *v208;
     }
   }
 
   else
   {
-    v148 = 0;
+    v151 = 0;
   }
 
-  *&v208 = &v205;
-  sub_22F9DC140(&v208);
+  *&v211 = &v208;
+  sub_22F9DC140(&v211);
 
   objc_autoreleasePoolPop(context);
 
-  return v148;
+  return v151;
 }
 
-void sub_22F9ED1DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, void *a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35)
+void sub_22F9ED1DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, void *a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  sub_22F9EE358(&a35);
+  va_start(va, a34);
 
+  sub_22F9EE358(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_22F9ED314(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, unsigned int a9, unsigned __int8 a10, __int16 a11, unsigned __int8 a12, unsigned int a13)
 {
-  v135 = *MEMORY[0x277D85DE8];
+  v137 = *MEMORY[0x277D85DE8];
   v20 = a2;
+  v21 = v20;
   if (a4 > 80)
   {
     if (a4 != 81)
@@ -8017,332 +8034,332 @@ uint64_t sub_22F9ED314(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, unsigned
       {
         if (a4 == 125)
         {
-          v21 = 0;
-          v130 = 0;
-          v132 = xmmword_22FA083F0;
-          v23 = 0x1000000002;
+          v22 = 0;
+          v132 = 0;
+          v134 = xmmword_22FA083F0;
+          v24 = 0x1000000002;
           goto LABEL_19;
         }
 
         goto LABEL_13;
       }
 
-      v21 = 0;
-      v130 = 0;
-      v132 = xmmword_22FA083F0;
-      v23 = 0x800000001;
+      v22 = 0;
+      v132 = 0;
+      v134 = xmmword_22FA083F0;
+      v24 = 0x800000001;
 LABEL_19:
-      v25 = objc_opt_new();
-      objc_msgSend_setTextureType_(v25, v27, a3, v28, v29);
-      v33 = (16 * a10) | a12;
-      if (v33 > 135)
+      v26 = objc_opt_new();
+      objc_msgSend_setTextureType_(v26, v28, a3, v29, v30);
+      v34 = (16 * a10) | a12;
+      if (v34 > 135)
       {
-        if (v33 > 167)
+        if (v34 > 167)
         {
-          v34 = 217;
-          if (v21)
+          v35 = 217;
+          if (v22)
           {
-            v34 = 199;
+            v35 = 199;
           }
 
-          v39 = 218;
-          if (v21)
+          v40 = 218;
+          if (v22)
           {
-            v39 = 200;
+            v40 = 200;
           }
 
-          if (v33 != 204)
-          {
-            v39 = 0;
-          }
-
-          if (v33 != 202)
-          {
-            v34 = v39;
-          }
-
-          v36 = 215;
-          if (v21)
-          {
-            v36 = 197;
-          }
-
-          v40 = 216;
-          if (v21)
-          {
-            v40 = 198;
-          }
-
-          if (v33 != 170)
+          if (v34 != 204)
           {
             v40 = 0;
           }
 
-          if (v33 != 168)
+          if (v34 != 202)
           {
-            v36 = v40;
+            v35 = v40;
           }
 
-          v38 = v33 <= 201;
+          v37 = 215;
+          if (v22)
+          {
+            v37 = 197;
+          }
+
+          v41 = 216;
+          if (v22)
+          {
+            v41 = 198;
+          }
+
+          if (v34 != 170)
+          {
+            v41 = 0;
+          }
+
+          if (v34 != 168)
+          {
+            v37 = v41;
+          }
+
+          v39 = v34 <= 201;
 LABEL_56:
-          if (!v38)
+          if (!v39)
           {
 LABEL_57:
-            objc_msgSend_setPixelFormat_(v25, v30, v34, v31, v32);
+            objc_msgSend_setPixelFormat_(v26, v31, v35, v32, v33);
             goto LABEL_83;
           }
 
 LABEL_82:
-          objc_msgSend_setPixelFormat_(v25, v30, v36, v31, v32);
+          objc_msgSend_setPixelFormat_(v26, v31, v37, v32, v33);
 LABEL_83:
-          objc_msgSend_setWidth_(v25, v41, a5, v42, v43);
-          objc_msgSend_setHeight_(v25, v47, a6, v48, v49);
-          objc_msgSend_setArrayLength_(v25, v50, a7, v51, v52);
-          objc_msgSend_setMipmapLevelCount_(v25, v53, a8, v54, v55);
-          objc_msgSend_setUsage_(v25, v56, 19, v57, v58);
+          objc_msgSend_setWidth_(v26, v42, a5, v43, v44);
+          objc_msgSend_setHeight_(v26, v48, a6, v49, v50);
+          objc_msgSend_setArrayLength_(v26, v51, a7, v52, v53);
+          objc_msgSend_setMipmapLevelCount_(v26, v54, a8, v55, v56);
+          objc_msgSend_setUsage_(v26, v57, 19, v58, v59);
           sub_22F9E60AC((a1 + 40), a9);
           if (a9)
           {
-            v62 = 0;
+            v63 = 0;
             while (1)
             {
-              objc_msgSend_setStorageMode_(v25, v59, 2, v60, v61);
-              v66 = objc_msgSend_newSharedTextureWithDescriptor_(v20, v63, v25, v64, v65);
-              if (!v66)
+              objc_msgSend_setStorageMode_(v26, v60, 2, v61, v62);
+              v67 = objc_msgSend_newSharedTextureWithDescriptor_(v21, v64, v26, v65, v66);
+              if (!v67)
               {
                 break;
               }
 
-              v67 = *(a1 + 40);
-              v68 = *(v67 + 8 * v62);
-              *(v67 + 8 * v62) = v66;
+              v68 = *(a1 + 40);
+              v69 = *(v68 + 8 * v63);
+              *(v68 + 8 * v63) = v67;
 
-              if (a9 == ++v62)
+              if (a9 == ++v63)
               {
                 goto LABEL_87;
               }
             }
 
-            v69 = _mxi_log();
-            if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+            v70 = _mxi_log(0);
+            if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
             {
               *buf = 67109120;
-              LODWORD(v134) = v62;
-              _os_log_impl(&dword_22F9C3000, v69, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:259] [ImageASTC] failed creating destination texture %d", buf, 8u);
+              LODWORD(v136) = v63;
+              _os_log_impl(&dword_22F9C3000, v70, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:259] [ImageASTC] failed creating destination texture %d", buf, 8u);
             }
 
-            v26 = 0;
+            v27 = 0;
             goto LABEL_103;
           }
 
 LABEL_87:
           if (a13 < 2)
           {
-            v106 = 0;
-            v97 = 0;
+            v107 = 0;
+            v98 = 0;
           }
 
           else
           {
-            v69 = objc_opt_new();
-            objc_msgSend_setTextureType_(v69, v70, 2, v71, v72);
-            objc_msgSend_setPixelFormat_(v69, v73, a4, v74, v75);
-            objc_msgSend_setWidth_(v69, v76, a5 >> 1, v77, v78);
-            objc_msgSend_setHeight_(v69, v79, a6 >> 1, v80, v81);
-            objc_msgSend_setArrayLength_(v69, v82, 1, v83, v84);
-            objc_msgSend_setMipmapLevelCount_(v69, v85, a13 - 1, v86, v87);
-            objc_msgSend_setUsage_(v69, v88, 3, v89, v90);
-            v97 = objc_msgSend_newTextureWithDescriptor_(v20, v91, v69, v92, v93);
-            if (!v97)
+            v70 = objc_opt_new();
+            objc_msgSend_setTextureType_(v70, v71, 2, v72, v73);
+            objc_msgSend_setPixelFormat_(v70, v74, a4, v75, v76);
+            objc_msgSend_setWidth_(v70, v77, a5 >> 1, v78, v79);
+            objc_msgSend_setHeight_(v70, v80, a6 >> 1, v81, v82);
+            objc_msgSend_setArrayLength_(v70, v83, 1, v84, v85);
+            objc_msgSend_setMipmapLevelCount_(v70, v86, a13 - 1, v87, v88);
+            objc_msgSend_setUsage_(v70, v89, 3, v90, v91);
+            v98 = objc_msgSend_newTextureWithDescriptor_(v21, v92, v70, v93, v94);
+            if (!v98)
             {
-              v107 = _mxi_log();
-              if (os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
+              v108 = _mxi_log(0);
+              if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
               {
                 *buf = 0;
-                _os_log_impl(&dword_22F9C3000, v107, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:279] [ImageASTC] failed creating mipmapping texture", buf, 2u);
+                _os_log_impl(&dword_22F9C3000, v108, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:279] [ImageASTC] failed creating mipmapping texture", buf, 2u);
               }
 
-              v26 = 0;
+              v27 = 0;
               goto LABEL_102;
             }
 
-            v98 = objc_msgSend_bundleWithIdentifier_(MEMORY[0x277CCA8D8], v94, @"com.apple.mxi", v95, v96);
-            v104 = objc_msgSend_newDefaultLibraryWithBundle_error_(v20, v99, v98, 0, v100);
-            if (v104)
+            v99 = objc_msgSend_bundleWithIdentifier_(MEMORY[0x277CCA8D8], v95, @"com.apple.mxi", v96, v97);
+            v105 = objc_msgSend_newDefaultLibraryWithBundle_error_(v21, v100, v99, 0, v101);
+            if (v105)
             {
-              v105 = v98;
+              v106 = v99;
             }
 
             else
             {
-              v105 = objc_msgSend_bundleWithIdentifier_(MEMORY[0x277CCA8D8], v101, @"com.apple.mxi.ImageTests", v102, v103);
+              v106 = objc_msgSend_bundleWithIdentifier_(MEMORY[0x277CCA8D8], v102, @"com.apple.mxi.ImageTests", v103, v104);
 
-              v104 = objc_msgSend_newDefaultLibraryWithBundle_error_(v20, v108, v105, 0, v109);
+              v105 = objc_msgSend_newDefaultLibraryWithBundle_error_(v21, v109, v106, 0, v110);
             }
 
-            v129 = v105;
-            v110 = objc_msgSend_newFunctionWithName_(v104, v101, @"kern_image_mipmap", v102, v103);
-            v131 = 0;
-            v106 = objc_msgSend_newComputePipelineStateWithFunction_error_(v20, v111, v110, &v131, v112);
-            v113 = v131;
+            v131 = v106;
+            v111 = objc_msgSend_newFunctionWithName_(v105, v102, @"kern_image_mipmap", v103, v104);
+            v133 = 0;
+            v107 = objc_msgSend_newComputePipelineStateWithFunction_error_(v21, v112, v111, &v133, v113);
+            v114 = v133;
 
-            if (!v106)
+            if (!v107)
             {
-              v117 = _mxi_log();
-              if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
+              v119 = _mxi_log(v115);
+              if (os_log_type_enabled(v119, OS_LOG_TYPE_ERROR))
               {
-                v122 = objc_msgSend_debugDescription(v113, v118, v119, v120, v121);
-                v123 = v122;
-                v128 = objc_msgSend_UTF8String(v122, v124, v125, v126, v127);
+                v124 = objc_msgSend_debugDescription(v114, v120, v121, v122, v123);
+                v125 = v124;
+                v130 = objc_msgSend_UTF8String(v124, v126, v127, v128, v129);
                 *buf = 136315138;
-                v134 = v128;
-                _os_log_impl(&dword_22F9C3000, v117, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:293] [ImageASTC] failed initializing compute pipeline: %s", buf, 0xCu);
+                v136 = v130;
+                _os_log_impl(&dword_22F9C3000, v119, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:293] [ImageASTC] failed initializing compute pipeline: %s", buf, 0xCu);
               }
 
-              v26 = 0;
-              v107 = v69;
-              v69 = v97;
+              v27 = 0;
+              v108 = v70;
+              v70 = v98;
               goto LABEL_102;
             }
           }
 
-          *a1 = v132;
-          *(a1 + 16) = v21;
+          *a1 = v134;
+          *(a1 + 16) = v22;
           *(a1 + 17) = 0;
           *(a1 + 19) = 0;
-          *(a1 + 20) = v23;
+          *(a1 + 20) = v24;
           *(a1 + 28) = 0;
-          *(a1 + 32) = v130;
-          v114 = *(a1 + 64);
-          *(a1 + 64) = v97;
-          v69 = v97;
+          *(a1 + 32) = v132;
+          v116 = *(a1 + 64);
+          *(a1 + 64) = v98;
+          v70 = v98;
 
-          v115 = *(a1 + 72);
-          *(a1 + 72) = v106;
-          v107 = v106;
+          v117 = *(a1 + 72);
+          *(a1 + 72) = v107;
+          v108 = v107;
 
-          v26 = 1;
+          v27 = 1;
 LABEL_102:
 
 LABEL_103:
           goto LABEL_104;
         }
 
-        v34 = 212;
-        if (v21)
+        v35 = 212;
+        if (v22)
         {
-          v34 = 194;
+          v35 = 194;
         }
 
-        v36 = 213;
-        if (v21)
+        v37 = 213;
+        if (v22)
         {
-          v36 = 195;
+          v37 = 195;
         }
 
-        v46 = 214;
-        if (v21)
+        v47 = 214;
+        if (v22)
         {
-          v46 = 196;
+          v47 = 196;
         }
 
-        if (v33 != 166)
+        if (v34 != 166)
         {
-          v46 = 0;
+          v47 = 0;
         }
 
-        if (v33 != 165)
+        if (v34 != 165)
         {
-          v36 = v46;
+          v37 = v47;
         }
 
-        v45 = v33 == 136;
+        v46 = v34 == 136;
       }
 
       else
       {
-        if (v33 > 100)
+        if (v34 > 100)
         {
-          v34 = 210;
-          if (v21)
+          v35 = 210;
+          if (v22)
           {
-            v34 = 192;
+            v35 = 192;
           }
 
-          v35 = 211;
-          if (v21)
+          v36 = 211;
+          if (v22)
           {
-            v35 = 193;
+            v36 = 193;
           }
 
-          if (v33 != 134)
+          if (v34 != 134)
           {
-            v35 = 0;
+            v36 = 0;
           }
 
-          if (v33 != 133)
+          if (v34 != 133)
           {
-            v34 = v35;
+            v35 = v36;
           }
 
-          v36 = 207;
-          if (v21)
+          v37 = 207;
+          if (v22)
           {
-            v36 = 189;
+            v37 = 189;
           }
 
-          v37 = 208;
-          if (v21)
+          v38 = 208;
+          if (v22)
           {
-            v37 = 190;
+            v38 = 190;
           }
 
-          if (v33 != 102)
+          if (v34 != 102)
           {
-            v37 = 0;
+            v38 = 0;
           }
 
-          if (v33 != 101)
+          if (v34 != 101)
           {
-            v36 = v37;
+            v37 = v38;
           }
 
-          v38 = v33 <= 132;
+          v39 = v34 <= 132;
           goto LABEL_56;
         }
 
-        v34 = 204;
-        if (v21)
+        v35 = 204;
+        if (v22)
         {
-          v34 = 186;
+          v35 = 186;
         }
 
-        v36 = 205;
-        if (v21)
+        v37 = 205;
+        if (v22)
         {
-          v36 = 187;
+          v37 = 187;
         }
 
-        v44 = 206;
-        if (v21)
+        v45 = 206;
+        if (v22)
         {
-          v44 = 188;
+          v45 = 188;
         }
 
-        if (v33 != 85)
+        if (v34 != 85)
         {
-          v44 = 0;
+          v45 = 0;
         }
 
-        if (v33 != 84)
+        if (v34 != 84)
         {
-          v36 = v44;
+          v37 = v45;
         }
 
-        v45 = v33 == 68;
+        v46 = v34 == 68;
       }
 
-      if (v45)
+      if (v46)
       {
         goto LABEL_57;
       }
@@ -8350,51 +8367,51 @@ LABEL_103:
       goto LABEL_82;
     }
 
-    v132 = xmmword_22FA08400;
-    v23 = 0x400000000;
-    v21 = 1;
-    v24 = 80;
+    v134 = xmmword_22FA08400;
+    v24 = 0x400000000;
+    v22 = 1;
+    v25 = 80;
 LABEL_17:
-    v130 = v24;
+    v132 = v25;
     goto LABEL_19;
   }
 
   switch(a4)
   {
     case 'F':
-      v21 = 0;
-      v130 = 0;
-      v22 = &xmmword_22FA083F0;
+      v22 = 0;
+      v132 = 0;
+      v23 = &xmmword_22FA083F0;
       goto LABEL_11;
     case 'G':
-      v132 = xmmword_22FA083F0;
-      v23 = 0x400000000;
-      v21 = 1;
-      v24 = 70;
+      v134 = xmmword_22FA083F0;
+      v24 = 0x400000000;
+      v22 = 1;
+      v25 = 70;
       goto LABEL_17;
     case 'P':
-      v21 = 0;
-      v130 = 0;
-      v22 = &xmmword_22FA08400;
+      v22 = 0;
+      v132 = 0;
+      v23 = &xmmword_22FA08400;
 LABEL_11:
-      v132 = *v22;
-      v23 = 0x400000000;
+      v134 = *v23;
+      v24 = 0x400000000;
       goto LABEL_19;
   }
 
 LABEL_13:
-  v25 = _mxi_log();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+  v26 = _mxi_log(v20);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
     *buf = 134217984;
-    v134 = a4;
-    _os_log_impl(&dword_22F9C3000, v25, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:74] Unrecognized pixel format: %lu", buf, 0xCu);
+    v136 = a4;
+    _os_log_impl(&dword_22F9C3000, v26, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:74] Unrecognized pixel format: %lu", buf, 0xCu);
   }
 
-  v26 = 0;
+  v27 = 0;
 LABEL_104:
 
-  return v26;
+  return v27;
 }
 
 void sub_22F9EDA20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
@@ -8404,13 +8421,13 @@ void sub_22F9EDA20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_22F9EDACC(float a1, uint64_t a2, unsigned int a3, void *a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, core::ThreadPool *a9)
+uint64_t sub_22F9EDACC(uint64_t a1, unsigned int a2, void *a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, core::ThreadPool *a8, float a9)
 {
-  v138 = *MEMORY[0x277D85DE8];
-  v13 = a4;
-  v128 = 0;
-  v126 = 0u;
-  v127 = 0u;
+  v144 = *MEMORY[0x277D85DE8];
+  v13 = a3;
+  v134 = 0;
+  v132 = 0u;
+  v133 = 0u;
   v18 = objc_msgSend_pixelFormat(v13, v14, v15, v16, v17);
   v23 = v18;
   if (v18 > 80)
@@ -8420,7 +8437,7 @@ uint64_t sub_22F9EDACC(float a1, uint64_t a2, unsigned int a3, void *a4, unsigne
       case 'Q':
         v25 = 0;
         v28 = 0;
-        v126 = xmmword_22FA08400;
+        v132 = xmmword_22FA08400;
         v29 = 4;
         v24 = 1;
         v26 = 80;
@@ -8428,7 +8445,7 @@ uint64_t sub_22F9EDACC(float a1, uint64_t a2, unsigned int a3, void *a4, unsigne
       case 's':
         v24 = 0;
         v26 = 0;
-        v126 = xmmword_22FA083F0;
+        v132 = xmmword_22FA083F0;
         v29 = 8;
         v25 = 1;
         v28 = 1;
@@ -8436,7 +8453,7 @@ uint64_t sub_22F9EDACC(float a1, uint64_t a2, unsigned int a3, void *a4, unsigne
       case '}':
         v24 = 0;
         v26 = 0;
-        v126 = xmmword_22FA083F0;
+        v132 = xmmword_22FA083F0;
         v28 = 1;
         v29 = 16;
         v25 = 2;
@@ -8446,43 +8463,44 @@ uint64_t sub_22F9EDACC(float a1, uint64_t a2, unsigned int a3, void *a4, unsigne
     }
 
 LABEL_18:
-    LOBYTE(v127) = v24;
-    *(&v127 + 4) = __PAIR64__(v29, v25);
-    v128 = v26;
+    LOBYTE(v133) = v24;
+    *(&v133 + 4) = __PAIR64__(v29, v25);
+    v134 = v26;
     v32 = objc_msgSend_width(v13, v19, v20, v21, v22);
-    v109 = v25;
-    v110 = v28;
-    v37 = v32 >> a6;
-    v38 = objc_msgSend_height(v13, v33, v34, v35, v36) >> a6;
+    v117 = v25;
+    v118 = v28;
+    v37 = v32 >> a5;
+    v38 = objc_msgSend_height(v13, v33, v34, v35, v36) >> a5;
     sub_22F9E1DE0(&__p, (v29 * v38 * v37));
     if (objc_msgSend_storageMode(v13, v39, v40, v41, v42) == 2)
     {
-      v111 = objc_msgSend_device(v13, v43, v44, v45, v46);
-      v108 = objc_msgSend_newCommandQueue(v111, v47, v48, v49, v50);
-      v55 = objc_msgSend_commandBuffer(v108, v51, v52, v53, v54);
-      v112 = objc_msgSend_newBufferWithBytesNoCopy_length_options_deallocator_(v111, v56, __p, v125 - __p, 0, 0);
+      v119 = objc_msgSend_device(v13, v43, v44, v45, v46);
+      v116 = objc_msgSend_newCommandQueue(v119, v47, v48, v49, v50);
+      v55 = objc_msgSend_commandBuffer(v116, v51, v52, v53, v54);
+      v120 = objc_msgSend_newBufferWithBytesNoCopy_length_options_deallocator_(v119, v56, __p, v131 - __p, 0, 0);
       v61 = objc_msgSend_blitCommandEncoder(v55, v57, v58, v59, v60);
       buf = 0uLL;
-      v134 = 0;
-      *v129 = v37;
-      *&v129[8] = v38;
-      *&v130 = 1;
-      objc_msgSend_copyFromTexture_sourceSlice_sourceLevel_sourceOrigin_sourceSize_toBuffer_destinationOffset_destinationBytesPerRow_destinationBytesPerImage_(v61, v62, v13, a5, a6, &buf, v129, v112, 0, (v29 * v37), (v29 * v38 * v37));
+      v140 = 0;
+      *v135 = v37;
+      *&v135[8] = v38;
+      *&v136 = 1;
+      objc_msgSend_copyFromTexture_sourceSlice_sourceLevel_sourceOrigin_sourceSize_toBuffer_destinationOffset_destinationBytesPerRow_destinationBytesPerImage_(v61, v62, v13, a4, a5, &buf, v135, v120, 0, (v29 * v37), (v29 * v38 * v37));
       objc_msgSend_endEncoding(v61, v63, v64, v65, v66);
       objc_msgSend_commit(v55, v67, v68, v69, v70);
       objc_msgSend_waitUntilCompleted(v55, v71, v72, v73, v74);
-      if (objc_msgSend_status(v55, v75, v76, v77, v78) != 4)
+      v79 = objc_msgSend_status(v55, v75, v76, v77, v78);
+      if (v79 != 4)
       {
-        v80 = _mxi_log();
-        if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+        v81 = _mxi_log(v79);
+        if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
         {
-          v85 = objc_msgSend_error(v55, v81, v82, v83, v84);
-          v90 = objc_msgSend_debugDescription(v85, v86, v87, v88, v89);
-          v91 = v90;
-          v96 = objc_msgSend_UTF8String(v90, v92, v93, v94, v95);
+          v86 = objc_msgSend_error(v55, v82, v83, v84, v85);
+          v91 = objc_msgSend_debugDescription(v86, v87, v88, v89, v90);
+          v92 = v91;
+          v97 = objc_msgSend_UTF8String(v91, v93, v94, v95, v96);
           LODWORD(buf) = 136315138;
-          *(&buf + 4) = v96;
-          _os_log_impl(&dword_22F9C3000, v80, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:127] [ImageASTC] command buffer failed with error: %s", &buf, 0xCu);
+          *(&buf + 4) = v97;
+          _os_log_impl(&dword_22F9C3000, v81, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:127] [ImageASTC] command buffer failed with error: %s", &buf, 0xCu);
         }
 
         goto LABEL_37;
@@ -8492,75 +8510,77 @@ LABEL_18:
     else
     {
       buf = 0uLL;
-      v134 = 0;
-      v135 = v32 >> a6;
-      v136 = v38;
-      v137 = 1;
-      objc_msgSend_getBytes_bytesPerRow_bytesPerImage_fromRegion_mipmapLevel_slice_(v13, v43, __p, (v29 * v37), (v29 * v38 * v37), &buf, a6, a5);
+      v140 = 0;
+      v141 = v32 >> a5;
+      v142 = v38;
+      v143 = 1;
+      objc_msgSend_getBytes_bytesPerRow_bytesPerImage_fromRegion_mipmapLevel_slice_(v13, v43, __p, (v29 * v37), (v29 * v38 * v37), &buf, a5, a4);
     }
 
-    v31 = 16 * (a7 + v37 - 1) / a7 * ((a8 + v38 - 1) / a8);
-    if (v31 <= a3)
+    v31 = 16 * (a6 + v37 - 1) / a6 * ((a7 + v38 - 1) / a7);
+    if (v31 <= a2)
     {
-      if (a9)
+      if (a8)
       {
-        v79 = core::ThreadPool::NumWorkerThreads(a9) + 1;
+        v80 = core::ThreadPool::NumWorkerThreads(a8) + 1;
       }
 
       else
       {
-        v79 = 1;
+        v80 = 1;
       }
 
-      *(&buf + 1) = __PAIR64__(a8, a7);
-      LODWORD(v134) = 1;
-      LODWORD(buf) = v110;
-      v97 = astcenc_config_init(v110, a7, a8, 1u, 0, &buf, a1 * 100.0);
-      if (v97)
+      *(&buf + 1) = __PAIR64__(a7, a6);
+      LODWORD(v140) = 1;
+      LODWORD(buf) = v118;
+      v98 = astcenc_config_init(v118, a6, a7, 1u, 0, &buf, a9 * 100.0);
+      v99 = v98;
+      if (v98)
       {
-        v98 = _mxi_log();
-        if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+        v100 = _mxi_log(v98);
+        if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
         {
-          error_string = astcenc_get_error_string(v97);
-          *v129 = 136315138;
-          *&v129[4] = error_string;
-          _os_log_impl(&dword_22F9C3000, v98, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:162] Codec config init failed: %s\n", v129, 0xCu);
+          error_string = astcenc_get_error_string(v99);
+          *v135 = 136315138;
+          *&v135[4] = error_string;
+          _os_log_impl(&dword_22F9C3000, v100, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:162] Codec config init failed: %s\n", v135, 0xCu);
         }
       }
 
       else
       {
-        v123 = 0;
-        v100 = astcenc_context_alloc(&buf, v79);
-        if (!v100)
+        v129 = 0;
+        v102 = astcenc_context_alloc(&buf, v80, &v129);
+        v105 = v102;
+        if (!v102)
         {
-          v117 = v37;
-          v118 = v38;
-          v119 = 1;
-          v120 = v109;
-          v121 = &v122;
-          v122 = __p;
-          if (a9)
+          v126[0] = v37;
+          v126[1] = v38;
+          v126[2] = 1;
+          v126[3] = v117;
+          v127 = &v128;
+          v128 = __p;
+          if (a8)
           {
-            v116 = 1;
-            if (v79)
+            v125 = 1;
+            if (v80)
             {
-              *v129 = v126;
-              v130 = v127;
-              v131 = v128;
-              v132 = 0;
+              *v135 = v132;
+              v136 = v133;
+              v137 = v134;
+              v138 = 0;
               operator new();
             }
 
-            core::ThreadPool::WaitForAllTask(a9);
-            v103 = atomic_load(&v116);
-            if ((v103 & 1) == 0)
+            v109 = core::ThreadPool::WaitForAllTask(a8);
+            v110 = atomic_load(&v125);
+            if ((v110 & 1) == 0)
             {
-              v104 = _mxi_log();
-              if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
+              v111 = _mxi_log(v109);
+              if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
               {
-                *v129 = 0;
-                _os_log_impl(&dword_22F9C3000, v104, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:198] ASTC encode failed", v129, 2u);
+                *v135 = 0;
+                _os_log_impl(&dword_22F9C3000, v111, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:198] ASTC encode failed", v135, 2u);
               }
 
               goto LABEL_37;
@@ -8569,40 +8589,41 @@ LABEL_18:
 
           else
           {
-            v105 = astcenc_compress_image();
-            if (v105)
+            v112 = astcenc_compress_image(v129, v126, &v132, a1, a2, 0, v103, v104);
+            v113 = v112;
+            if (v112)
             {
-              v106 = _mxi_log();
-              if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+              v114 = _mxi_log(v112);
+              if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
               {
-                v107 = astcenc_get_error_string(v105);
-                *v129 = 136315138;
-                *&v129[4] = v107;
-                _os_log_impl(&dword_22F9C3000, v106, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:207] Codec compress failed: %s\n", v129, 0xCu);
+                v115 = astcenc_get_error_string(v113);
+                *v135 = 136315138;
+                *&v135[4] = v115;
+                _os_log_impl(&dword_22F9C3000, v114, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:207] Codec compress failed: %s\n", v135, 0xCu);
               }
 
               goto LABEL_37;
             }
           }
 
-          astcenc_context_free(v123);
+          astcenc_context_free(v129);
 LABEL_38:
           if (__p)
           {
-            v125 = __p;
+            v131 = __p;
             operator delete(__p);
           }
 
           goto LABEL_40;
         }
 
-        v98 = _mxi_log();
-        if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+        v106 = _mxi_log(v102);
+        if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
         {
-          v101 = astcenc_get_error_string(v100);
-          *v129 = 136315138;
-          *&v129[4] = v101;
-          _os_log_impl(&dword_22F9C3000, v98, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:169] Codec context alloc failed: %s\n", v129, 0xCu);
+          v107 = astcenc_get_error_string(v105);
+          *v135 = 136315138;
+          *&v135[4] = v107;
+          _os_log_impl(&dword_22F9C3000, v106, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:169] Codec context alloc failed: %s\n", v135, 0xCu);
         }
       }
     }
@@ -8623,7 +8644,7 @@ LABEL_37:
     case 'G':
       v25 = 0;
       v28 = 0;
-      v126 = xmmword_22FA083F0;
+      v132 = xmmword_22FA083F0;
       v29 = 4;
       v24 = 1;
       v26 = 70;
@@ -8634,14 +8655,14 @@ LABEL_37:
       v26 = 0;
       v27 = &xmmword_22FA08400;
 LABEL_11:
-      v126 = *v27;
+      v132 = *v27;
       v28 = 1;
       v29 = 4;
       goto LABEL_18;
   }
 
 LABEL_13:
-  v30 = _mxi_log();
+  v30 = _mxi_log(v18);
   if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
     LODWORD(buf) = 134217984;
@@ -8672,15 +8693,15 @@ void **sub_22F9EE358(void **a1)
   return a1;
 }
 
-id image::ToASTC(void **a1, unsigned int a2, unsigned int a3, unsigned int a4, core::ThreadPool *a5, unsigned int a6, float a7)
+id image::ToASTC(id *a1, unsigned int a2, unsigned int a3, unsigned int a4, core::ThreadPool *a5, unsigned int a6, float a7)
 {
-  v202 = *MEMORY[0x277D85DE8];
+  v205 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
-  v10 = _MXISignpostLogSystem();
+  v10 = _MXISignpostLogSystem(context);
   v11 = _MXISignpostCreate(v10);
   v12 = v10;
   v13 = v12;
-  v180 = v11 - 1;
+  v183 = v11 - 1;
   spid = v11;
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
@@ -8689,74 +8710,76 @@ id image::ToASTC(void **a1, unsigned int a2, unsigned int a3, unsigned int a4, c
   }
 
   v18 = objc_msgSend_device(*a1, v14, v15, v16, v17);
-  v186 = v18;
+  v189 = v18;
   v23 = objc_msgSend_pixelFormat(*a1, v19, v20, v21, v22);
-  v190 = objc_msgSend_width(*a1, v24, v25, v26, v27);
-  v189 = objc_msgSend_height(*a1, v28, v29, v30, v31);
+  v193 = objc_msgSend_width(*a1, v24, v25, v26, v27);
+  v192 = objc_msgSend_height(*a1, v28, v29, v30, v31);
   v36 = a6;
   if (a6 <= 1)
   {
     v36 = objc_msgSend_mipmapLevelCount(*a1, v32, v33, v34, v35);
   }
 
-  v199 = 0;
-  v198 = 0u;
-  v197 = 0u;
-  if (sub_22F9ED314(buf, v18, 3, v23, v190, v189, a2, v36, 1u, a3, SHIWORD(a3), a4, a6))
+  v202 = 0;
+  v201 = 0u;
+  v200 = 0u;
+  if (sub_22F9ED314(buf, v18, 3, v23, v193, v192, a2, v36, 1u, a3, SHIWORD(a3), a4, a6))
   {
-    v184 = 16 * (a3 + v190 - 1) / a3 * ((a4 + v189 - 1) / a4);
-    v193 = objc_msgSend_newBufferWithLength_options_(v18, v37, v184, 0, v38);
-    v188 = objc_msgSend_newCommandQueue(v18, v39, v40, v41, v42);
+    v187 = 16 * (a3 + v193 - 1) / a3 * ((a4 + v192 - 1) / a4);
+    v196 = objc_msgSend_newBufferWithLength_options_(v18, v37, v187, 0, v38);
+    v43 = objc_msgSend_newCommandQueue(v18, v39, v40, v41, v42);
+    v191 = v43;
     if (a2)
     {
-      v47 = 0;
-      v178 = a2;
-      v179 = v36;
-      v183 = v36;
-      v177 = vdupq_n_s64(8uLL);
+      v48 = 0;
+      v181 = a2;
+      v182 = v36;
+      v186 = v36;
+      v180 = vdupq_n_s64(8uLL);
       while (1)
       {
         if (a6 >= 2)
         {
-          v48 = objc_msgSend_commandBuffer(v188, v43, v44, v45, v46);
-          v53 = objc_msgSend_computeCommandEncoder(v48, v49, v50, v51, v52);
-          objc_msgSend_setComputePipelineState_(v53, v54, v199, v55, v56);
-          objc_msgSend_setTexture_atIndex_(v53, v57, *(&v198 + 1), 0, v58);
-          objc_msgSend_setTexture_atIndex_(v53, v59, a1[v47], 1, v60);
-          *&v200 = objc_msgSend_width(*(&v198 + 1), v61, v62, v63, v64);
-          *(&v200 + 1) = objc_msgSend_height(*(&v198 + 1), v65, v66, v67, v68);
-          v201 = 1;
-          v194 = v177;
-          v195 = 1;
-          objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v53, v69, &v200, &v194, v70);
-          objc_msgSend_endEncoding(v53, v71, v72, v73, v74);
+          v49 = objc_msgSend_commandBuffer(v191, v44, v45, v46, v47);
+          v54 = objc_msgSend_computeCommandEncoder(v49, v50, v51, v52, v53);
+          objc_msgSend_setComputePipelineState_(v54, v55, v202, v56, v57);
+          objc_msgSend_setTexture_atIndex_(v54, v58, *(&v201 + 1), 0, v59);
+          objc_msgSend_setTexture_atIndex_(v54, v60, a1[v48], 1, v61);
+          *&v203 = objc_msgSend_width(*(&v201 + 1), v62, v63, v64, v65);
+          *(&v203 + 1) = objc_msgSend_height(*(&v201 + 1), v66, v67, v68, v69);
+          v204 = 1;
+          v197 = v180;
+          v198 = 1;
+          objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v54, v70, &v203, &v197, v71);
+          objc_msgSend_endEncoding(v54, v72, v73, v74, v75);
           if (a6 != 2)
           {
-            v79 = objc_msgSend_blitCommandEncoder(v48, v75, v76, v77, v78);
-            objc_msgSend_generateMipmapsForTexture_(v79, v80, *(&v198 + 1), v81, v82);
-            objc_msgSend_endEncoding(v79, v83, v84, v85, v86);
+            v80 = objc_msgSend_blitCommandEncoder(v49, v76, v77, v78, v79);
+            objc_msgSend_generateMipmapsForTexture_(v80, v81, *(&v201 + 1), v82, v83);
+            objc_msgSend_endEncoding(v80, v84, v85, v86, v87);
           }
 
-          objc_msgSend_commit(v48, v75, v76, v77, v78);
-          objc_msgSend_waitUntilCompleted(v48, v87, v88, v89, v90);
-          if (objc_msgSend_status(v48, v91, v92, v93, v94) != 4)
+          objc_msgSend_commit(v49, v76, v77, v78, v79);
+          objc_msgSend_waitUntilCompleted(v49, v88, v89, v90, v91);
+          v96 = objc_msgSend_status(v49, v92, v93, v94, v95);
+          if (v96 != 4)
           {
-            v160 = _mxi_log();
-            if (os_log_type_enabled(v160, OS_LOG_TYPE_ERROR))
+            v163 = _mxi_log(v96);
+            if (os_log_type_enabled(v163, OS_LOG_TYPE_ERROR))
             {
-              v165 = objc_msgSend_error(v48, v161, v162, v163, v164);
-              v170 = objc_msgSend_debugDescription(v165, v166, v167, v168, v169);
-              v171 = v170;
-              v176 = objc_msgSend_UTF8String(v170, v172, v173, v174, v175);
-              LODWORD(v200) = 136315138;
-              *(&v200 + 4) = v176;
-              _os_log_impl(&dword_22F9C3000, v160, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:487] [ImageASTC] command buffer failed with error: %s", &v200, 0xCu);
+              v168 = objc_msgSend_error(v49, v164, v165, v166, v167);
+              v173 = objc_msgSend_debugDescription(v168, v169, v170, v171, v172);
+              v174 = v173;
+              v179 = objc_msgSend_UTF8String(v173, v175, v176, v177, v178);
+              LODWORD(v203) = 136315138;
+              *(&v203 + 4) = v179;
+              _os_log_impl(&dword_22F9C3000, v163, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:487] [ImageASTC] command buffer failed with error: %s", &v203, 0xCu);
             }
 
             goto LABEL_42;
           }
 
-          v36 = v179;
+          v36 = v182;
         }
 
         if (v36)
@@ -8765,125 +8788,126 @@ id image::ToASTC(void **a1, unsigned int a2, unsigned int a3, unsigned int a4, c
         }
 
 LABEL_29:
-        ++v47;
-        v36 = v179;
-        if (v47 == v178)
+        ++v48;
+        v36 = v182;
+        if (v48 == v181)
         {
           goto LABEL_30;
         }
       }
 
-      v95 = 0;
+      v97 = 0;
       while (1)
       {
-        if (!v95 || (v96 = *(&v198 + 1)) == 0)
+        if (!v97 || (v98 = *(&v201 + 1)) == 0)
         {
-          v96 = a1[v47];
+          v98 = a1[v48];
         }
 
-        v97 = v96;
-        v98 = *(&v198 + 1);
-        v99 = v193;
-        v104 = objc_msgSend_contents(v193, v100, v101, v102, v103);
-        if (v95)
+        v99 = v98;
+        v100 = *(&v201 + 1);
+        v101 = v196;
+        v106 = objc_msgSend_contents(v196, v102, v103, v104, v105);
+        if (v97)
         {
-          v105 = v98 == 0;
+          v107 = v100 == 0;
         }
 
         else
         {
-          v105 = 1;
+          v107 = 1;
         }
 
-        v106 = !v105;
-        v107 = sub_22F9EDACC(a7, v104, v184, v97, 0, v95 - v106, a3, a4, a5);
-        v112 = v107;
-        if (!v107)
+        v108 = !v107;
+        v109 = sub_22F9EDACC(v106, v187, v99, 0, v97 - v108, a3, a4, a5, a7);
+        v114 = v109;
+        if (!v109)
         {
           goto LABEL_38;
         }
 
-        v113 = 16 * ((v190 >> v95) / a3);
-        if (v107 != v113 * ((v189 >> v95) / a4))
+        v115 = 16 * ((v193 >> v97) / a3);
+        if (v109 != v115 * ((v192 >> v97) / a4))
         {
-          v141 = _mxi_log();
-          v18 = v186;
-          if (os_log_type_enabled(v141, OS_LOG_TYPE_ERROR))
+          v144 = _mxi_log(v109);
+          v18 = v189;
+          if (os_log_type_enabled(v144, OS_LOG_TYPE_ERROR))
           {
-            LOWORD(v200) = 0;
-            _os_log_impl(&dword_22F9C3000, v141, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:508] Unexpected astc size", &v200, 2u);
+            LOWORD(v203) = 0;
+            _os_log_impl(&dword_22F9C3000, v144, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:508] Unexpected astc size", &v203, 2u);
           }
 
 LABEL_38:
           goto LABEL_42;
         }
 
-        v114 = objc_msgSend_commandBuffer(v188, v108, v109, v110, v111);
-        v119 = objc_msgSend_blitCommandEncoder(v114, v115, v116, v117, v118);
-        *&v200 = v190 >> v95;
-        *(&v200 + 1) = v189 >> v95;
-        v201 = 1;
-        v120 = *v197;
-        v194 = 0uLL;
-        v195 = 0;
-        objc_msgSend_copyFromBuffer_sourceOffset_sourceBytesPerRow_sourceBytesPerImage_sourceSize_toTexture_destinationSlice_destinationLevel_destinationOrigin_(v119, v121, v193, 0, v113, v112, &v200, v120, v47, v95, &v194);
-        objc_msgSend_endEncoding(v119, v122, v123, v124, v125);
-        objc_msgSend_commit(v114, v126, v127, v128, v129);
-        objc_msgSend_waitUntilCompleted(v114, v130, v131, v132, v133);
-        v18 = v186;
-        if (objc_msgSend_status(v114, v134, v135, v136, v137) != 4)
+        v116 = objc_msgSend_commandBuffer(v191, v110, v111, v112, v113);
+        v121 = objc_msgSend_blitCommandEncoder(v116, v117, v118, v119, v120);
+        *&v203 = v193 >> v97;
+        *(&v203 + 1) = v192 >> v97;
+        v204 = 1;
+        v122 = *v200;
+        v197 = 0uLL;
+        v198 = 0;
+        objc_msgSend_copyFromBuffer_sourceOffset_sourceBytesPerRow_sourceBytesPerImage_sourceSize_toTexture_destinationSlice_destinationLevel_destinationOrigin_(v121, v123, v196, 0, v115, v114, &v203, v122, v48, v97, &v197);
+        objc_msgSend_endEncoding(v121, v124, v125, v126, v127);
+        objc_msgSend_commit(v116, v128, v129, v130, v131);
+        objc_msgSend_waitUntilCompleted(v116, v132, v133, v134, v135);
+        v18 = v189;
+        v140 = objc_msgSend_status(v116, v136, v137, v138, v139);
+        if (v140 != 4)
         {
           break;
         }
 
-        if (v183 == ++v95)
+        if (v186 == ++v97)
         {
           goto LABEL_29;
         }
       }
 
-      v142 = _mxi_log();
-      if (os_log_type_enabled(v142, OS_LOG_TYPE_ERROR))
+      v145 = _mxi_log(v140);
+      if (os_log_type_enabled(v145, OS_LOG_TYPE_ERROR))
       {
-        v147 = objc_msgSend_error(v114, v143, v144, v145, v146);
-        v152 = objc_msgSend_debugDescription(v147, v148, v149, v150, v151);
-        v153 = v152;
-        v158 = objc_msgSend_UTF8String(v152, v154, v155, v156, v157);
-        LODWORD(v200) = 136315138;
-        *(&v200 + 4) = v158;
-        _os_log_impl(&dword_22F9C3000, v142, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:527] [ImageASTC] command buffer failed with error: %s", &v200, 0xCu);
+        v150 = objc_msgSend_error(v116, v146, v147, v148, v149);
+        v155 = objc_msgSend_debugDescription(v150, v151, v152, v153, v154);
+        v156 = v155;
+        v161 = objc_msgSend_UTF8String(v155, v157, v158, v159, v160);
+        LODWORD(v203) = 136315138;
+        *(&v203 + 4) = v161;
+        _os_log_impl(&dword_22F9C3000, v145, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:527] [ImageASTC] command buffer failed with error: %s", &v203, 0xCu);
       }
 
 LABEL_42:
-      v140 = 0;
+      v143 = 0;
     }
 
     else
     {
 LABEL_30:
-      v138 = _MXISignpostLogSystem();
-      v139 = v138;
-      if (v180 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v138))
+      v141 = _MXISignpostLogSystem(v43);
+      v142 = v141;
+      if (v183 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v141))
       {
-        LOWORD(v200) = 0;
-        _os_signpost_emit_with_name_impl(&dword_22F9C3000, v139, OS_SIGNPOST_INTERVAL_END, spid, "MXI_TO_ASTC", &unk_22FA1C169, &v200, 2u);
+        LOWORD(v203) = 0;
+        _os_signpost_emit_with_name_impl(&dword_22F9C3000, v142, OS_SIGNPOST_INTERVAL_END, spid, "MXI_TO_ASTC", &unk_22FA1C169, &v203, 2u);
       }
 
-      v140 = *v197;
+      v143 = *v200;
     }
   }
 
   else
   {
-    v140 = 0;
+    v143 = 0;
   }
 
-  *&v200 = &v197;
-  sub_22F9DC140(&v200);
+  *&v203 = &v200;
+  sub_22F9DC140(&v203);
 
   objc_autoreleasePoolPop(context);
 
-  return v140;
+  return v143;
 }
 
 void sub_22F9EEA40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35)
@@ -8893,7 +8917,7 @@ void sub_22F9EEA40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-id image::ToASTC(void *a1, uint64_t a2, unsigned int a3, uint64_t a4, float a5)
+id image::ToASTC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, float a5)
 {
   v5 = image::ToASTC(a1, a2, a3, a4, 0, a5);
 
@@ -8902,10 +8926,10 @@ id image::ToASTC(void *a1, uint64_t a2, unsigned int a3, uint64_t a4, float a5)
 
 id image::ToASTC(void *a1, uint64_t a2, unsigned int a3, uint64_t a4, unsigned int a5, float a6)
 {
-  v160 = *MEMORY[0x277D85DE8];
+  v164 = *MEMORY[0x277D85DE8];
   v9 = a1;
   v10 = objc_autoreleasePoolPush();
-  v11 = _MXISignpostLogSystem();
+  v11 = _MXISignpostLogSystem(v10);
   v12 = _MXISignpostCreate(v11);
   context = v10;
   v13 = v11;
@@ -8916,7 +8940,7 @@ id image::ToASTC(void *a1, uint64_t a2, unsigned int a3, uint64_t a4, unsigned i
     _os_signpost_emit_with_name_impl(&dword_22F9C3000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "MXI_TO_ASTC", "UseGPU: True", buf, 2u);
   }
 
-  v146 = objc_msgSend_device(v9, v15, v16, v17, v18);
+  v150 = objc_msgSend_device(v9, v15, v16, v17, v18);
   v23 = objc_msgSend_textureType(v9, v19, v20, v21, v22);
   v28 = objc_msgSend_pixelFormat(v9, v24, v25, v26, v27);
   v33 = objc_msgSend_width(v9, v29, v30, v31, v32);
@@ -8928,71 +8952,72 @@ id image::ToASTC(void *a1, uint64_t a2, unsigned int a3, uint64_t a4, unsigned i
     v48 = objc_msgSend_mipmapLevelCount(v9, v43, v44, v45, v46);
   }
 
-  v157 = 0;
-  v156 = 0u;
-  v155 = 0u;
-  if ((sub_22F9ED314(buf, v146, v23, v28, v33, v38, v47, v48, 1u, a2, SWORD1(a2), a3, a5) & 1) == 0)
+  v161 = 0;
+  v160 = 0u;
+  v159 = 0u;
+  if ((sub_22F9ED314(buf, v150, v23, v28, v33, v38, v47, v48, 1u, a2, SWORD1(a2), a3, a5) & 1) == 0)
   {
-    v121 = 0;
+    v125 = 0;
     goto LABEL_40;
   }
 
   v52 = v48;
-  if (v154)
+  if (v158)
   {
-    v53 = objc_msgSend_newTextureViewWithPixelFormat_(v9, v49, v154, v50, v51);
+    v53 = objc_msgSend_newTextureViewWithPixelFormat_(v9, v49, v158, v50, v51);
 
     v9 = v53;
     if (!v53)
     {
-      v140 = _mxi_log();
-      v143 = v140;
-      if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
+      v144 = _mxi_log(v54);
+      v147 = v144;
+      if (os_log_type_enabled(v144, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v158) = 0;
-        _os_log_impl(&dword_22F9C3000, v140, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:565] [ImageASTC] failed creating source texture view", &v158, 2u);
+        LOWORD(v162) = 0;
+        _os_log_impl(&dword_22F9C3000, v144, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:565] [ImageASTC] failed creating source texture view", &v162, 2u);
       }
 
       v9 = 0;
-      v121 = 0;
+      v125 = 0;
       goto LABEL_39;
     }
   }
 
-  v54 = [ASTCEncoder alloc];
-  v152 = 0;
-  *&v55 = a6;
-  v57 = objc_msgSend_initWithDevice_blockWidth_blockHeight_rankModesCountRatio_fastSkipThreshold_collectStatistics_error_(v54, v56, v146, a2, a3, a4, 0, &v152, v55);
-  v143 = v152;
-  if (v57)
+  v55 = [ASTCEncoder alloc];
+  v156 = 0;
+  *&v56 = a6;
+  v58 = objc_msgSend_initWithDevice_blockWidth_blockHeight_rankModesCountRatio_fastSkipThreshold_collectStatistics_error_(v55, v57, v150, a2, a3, a4, 0, &v156, v56);
+  v59 = v156;
+  v147 = v59;
+  if (v58)
   {
-    v142 = objc_msgSend_newCommandQueue(v146, v58, v59, v60, v61);
-    v70 = objc_msgSend_commandBuffer(v142, v62, v63, v64, v65);
+    v146 = objc_msgSend_newCommandQueue(v150, v60, v61, v62, v63);
+    v72 = objc_msgSend_commandBuffer(v146, v64, v65, v66, v67);
     if (v47)
     {
-      v71 = 0;
-      v148 = v47;
-      v145 = vdupq_n_s64(8uLL);
+      v73 = 0;
+      v152 = v47;
+      v149 = vdupq_n_s64(8uLL);
       do
       {
         if (a5 >= 2)
         {
-          v72 = objc_msgSend_computeCommandEncoder(v70, v66, v67, v68, v69);
-          objc_msgSend_setComputePipelineState_(v72, v73, v157, v74, v75);
-          objc_msgSend_setTexture_atIndex_(v72, v76, *(&v156 + 1), 0, v77);
-          objc_msgSend_setTexture_atIndex_(v72, v78, v9, 1, v79);
-          *&v158 = objc_msgSend_width(*(&v156 + 1), v80, v81, v82, v83);
-          *(&v158 + 1) = objc_msgSend_height(*(&v156 + 1), v84, v85, v86, v87);
-          v159 = 1;
-          v150 = v145;
-          v151 = 1;
-          objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v72, v88, &v158, &v150, v89);
-          objc_msgSend_endEncoding(v72, v90, v91, v92, v93);
+          v74 = objc_msgSend_computeCommandEncoder(v72, v68, v69, v70, v71);
+          objc_msgSend_setComputePipelineState_(v74, v75, v161, v76, v77);
+          objc_msgSend_setTexture_atIndex_(v74, v78, *(&v160 + 1), 0, v79);
+          objc_msgSend_setTexture_atIndex_(v74, v80, v9, 1, v81);
+          *&v162 = objc_msgSend_width(*(&v160 + 1), v82, v83, v84, v85);
+          *(&v162 + 1) = objc_msgSend_height(*(&v160 + 1), v86, v87, v88, v89);
+          v163 = 1;
+          v154 = v149;
+          v155 = 1;
+          objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v74, v90, &v162, &v154, v91);
+          objc_msgSend_endEncoding(v74, v92, v93, v94, v95);
           if (a5 != 2)
           {
-            v98 = objc_msgSend_blitCommandEncoder(v70, v94, v95, v96, v97);
-            objc_msgSend_generateMipmapsForTexture_(v98, v99, *(&v156 + 1), v100, v101);
-            objc_msgSend_endEncoding(v98, v102, v103, v104, v105);
+            v100 = objc_msgSend_blitCommandEncoder(v72, v96, v97, v98, v99);
+            objc_msgSend_generateMipmapsForTexture_(v100, v101, *(&v160 + 1), v102, v103);
+            objc_msgSend_endEncoding(v100, v104, v105, v106, v107);
           }
         }
 
@@ -9000,103 +9025,104 @@ id image::ToASTC(void *a1, uint64_t a2, unsigned int a3, uint64_t a4, unsigned i
         {
           for (i = 0; i != v52; ++i)
           {
-            v107 = *(&v156 + 1);
-            v108 = i != 0 && *(&v156 + 1) != 0;
-            if (i == 0 || *(&v156 + 1) == 0)
+            v109 = *(&v160 + 1);
+            v110 = i != 0 && *(&v160 + 1) != 0;
+            if (i == 0 || *(&v160 + 1) == 0)
             {
-              v107 = v9;
+              v109 = v9;
             }
 
-            v109 = v107;
-            objc_msgSend_encodeWithCommandBuffer_destTexture_destSlice_destLevel_srcTexture_srcSlice_srcLevel_(v57, v110, v70, *v155, v71, i, v109, v71, (i - v108));
+            v111 = v109;
+            objc_msgSend_encodeWithCommandBuffer_destTexture_destSlice_destLevel_srcTexture_srcSlice_srcLevel_(v58, v112, v72, *v159, v73, i, v111, v73, (i - v110));
           }
         }
 
-        ++v71;
+        ++v73;
       }
 
-      while (v71 != v148);
+      while (v73 != v152);
     }
 
-    objc_msgSend_commit(v70, v66, v67, v68, v69);
-    objc_msgSend_waitUntilCompleted(v70, v111, v112, v113, v114);
-    if (objc_msgSend_status(v70, v115, v116, v117, v118) == 4)
+    objc_msgSend_commit(v72, v68, v69, v70, v71);
+    objc_msgSend_waitUntilCompleted(v72, v113, v114, v115, v116);
+    v121 = objc_msgSend_status(v72, v117, v118, v119, v120);
+    if (v121 == 4)
     {
 
-      v119 = _MXISignpostLogSystem();
-      v120 = v119;
-      if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v119))
+      v123 = _MXISignpostLogSystem(v122);
+      v124 = v123;
+      if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v123))
       {
-        LOWORD(v158) = 0;
-        _os_signpost_emit_with_name_impl(&dword_22F9C3000, v120, OS_SIGNPOST_INTERVAL_END, v12, "MXI_TO_ASTC", &unk_22FA1C169, &v158, 2u);
+        LOWORD(v162) = 0;
+        _os_signpost_emit_with_name_impl(&dword_22F9C3000, v124, OS_SIGNPOST_INTERVAL_END, v12, "MXI_TO_ASTC", &unk_22FA1C169, &v162, 2u);
       }
 
-      v121 = *v155;
+      v125 = *v159;
       goto LABEL_35;
     }
 
-    v123 = _mxi_log();
-    if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+    v127 = _mxi_log(v121);
+    if (os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
     {
-      v128 = objc_msgSend_error(v70, v124, v125, v126, v127);
-      v133 = objc_msgSend_debugDescription(v128, v129, v130, v131, v132);
-      v134 = v133;
-      v139 = objc_msgSend_UTF8String(v133, v135, v136, v137, v138);
-      LODWORD(v158) = 136315138;
-      *(&v158 + 4) = v139;
-      _os_log_impl(&dword_22F9C3000, v123, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:618] [ImageASTC] command buffer failed with error: %s", &v158, 0xCu);
+      v132 = objc_msgSend_error(v72, v128, v129, v130, v131);
+      v137 = objc_msgSend_debugDescription(v132, v133, v134, v135, v136);
+      v138 = v137;
+      v143 = objc_msgSend_UTF8String(v137, v139, v140, v141, v142);
+      LODWORD(v162) = 136315138;
+      *(&v162 + 4) = v143;
+      _os_log_impl(&dword_22F9C3000, v127, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:618] [ImageASTC] command buffer failed with error: %s", &v162, 0xCu);
     }
   }
 
   else
   {
-    v122 = _mxi_log();
-    if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
+    v126 = _mxi_log(v59);
+    if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v158) = 0;
-      _os_log_impl(&dword_22F9C3000, v122, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:578] Failed creating ASTCEncoder", &v158, 2u);
+      LOWORD(v162) = 0;
+      _os_log_impl(&dword_22F9C3000, v126, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:578] Failed creating ASTCEncoder", &v162, 2u);
     }
   }
 
-  v121 = 0;
+  v125 = 0;
 LABEL_35:
 
 LABEL_39:
 LABEL_40:
 
-  *&v158 = &v155;
-  sub_22F9DC140(&v158);
+  *&v162 = &v159;
+  sub_22F9DC140(&v162);
 
   objc_autoreleasePoolPop(context);
 
-  return v121;
+  return v125;
 }
 
-void sub_22F9EF14C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_22F9EF14C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
 
   sub_22F9EE358(va);
   _Unwind_Resume(a1);
 }
 
-id image::ToASTC(void **a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, float a7)
+id image::ToASTC(id *a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, float a7)
 {
-  v154 = *MEMORY[0x277D85DE8];
+  v158 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
-  v14 = _MXISignpostLogSystem();
+  v14 = _MXISignpostLogSystem(context);
   v15 = _MXISignpostCreate(v14);
   v16 = v14;
   v17 = v16;
   spid = v15;
-  v139 = v15 - 1;
+  v143 = v15 - 1;
   if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
   {
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_22F9C3000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v15, "MXI_TO_ASTC", "UseGPU: True", buf, 2u);
   }
 
-  v143 = objc_msgSend_device(*a1, v18, v19, v20, v21);
+  v147 = objc_msgSend_device(*a1, v18, v19, v20, v21);
   v26 = objc_msgSend_pixelFormat(*a1, v22, v23, v24, v25);
   v31 = objc_msgSend_width(*a1, v27, v28, v29, v30);
   v40 = objc_msgSend_height(*a1, v32, v33, v34, v35);
@@ -9106,180 +9132,182 @@ id image::ToASTC(void **a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t 
     v41 = objc_msgSend_mipmapLevelCount(*a1, v36, v37, v38, v39);
   }
 
-  v151 = 0;
-  v150 = 0u;
-  v149 = 0u;
-  if ((sub_22F9ED314(buf, v143, 3, v26, v31, v40, a2, v41, 1u, a3, SWORD1(a3), a4, a6) & 1) == 0)
+  v155 = 0;
+  v154 = 0u;
+  v153 = 0u;
+  if ((sub_22F9ED314(buf, v147, 3, v26, v31, v40, a2, v41, 1u, a3, SWORD1(a3), a4, a6) & 1) == 0)
   {
-    v114 = 0;
+    v118 = 0;
     goto LABEL_46;
   }
 
   v42 = [ASTCEncoder alloc];
-  v146 = 0;
+  v150 = 0;
   *&v43 = a7;
-  v45 = objc_msgSend_initWithDevice_blockWidth_blockHeight_rankModesCountRatio_fastSkipThreshold_collectStatistics_error_(v42, v44, v143, a3, a4, a5, 0, &v146, v43);
-  v138 = v146;
+  v45 = objc_msgSend_initWithDevice_blockWidth_blockHeight_rankModesCountRatio_fastSkipThreshold_collectStatistics_error_(v42, v44, v147, a3, a4, a5, 0, &v150, v43);
+  v46 = v150;
+  v142 = v46;
   if (v45)
   {
-    v140 = v41;
-    v136 = objc_msgSend_newCommandQueue(v143, v46, v47, v48, v49);
-    v58 = objc_msgSend_commandBuffer(v136, v50, v51, v52, v53);
+    v144 = v41;
+    v140 = objc_msgSend_newCommandQueue(v147, v47, v48, v49, v50);
+    v59 = objc_msgSend_commandBuffer(v140, v51, v52, v53, v54);
     if (a2)
     {
-      v59 = 0;
-      v137 = a2;
-      v135 = vdupq_n_s64(8uLL);
+      v60 = 0;
+      v141 = a2;
+      v139 = vdupq_n_s64(8uLL);
       while (1)
       {
         if (a6 >= 2)
         {
-          v60 = objc_msgSend_computeCommandEncoder(v58, v54, v55, v56, v57);
-          objc_msgSend_setComputePipelineState_(v60, v61, v151, v62, v63);
-          objc_msgSend_setTexture_atIndex_(v60, v64, *(&v150 + 1), 0, v65);
-          objc_msgSend_setTexture_atIndex_(v60, v66, a1[v59], 1, v67);
-          *&v152 = objc_msgSend_width(*(&v150 + 1), v68, v69, v70, v71);
-          *(&v152 + 1) = objc_msgSend_height(*(&v150 + 1), v72, v73, v74, v75);
-          v153 = 1;
-          v144 = v135;
-          v145 = 1;
-          objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v60, v76, &v152, &v144, v77);
-          objc_msgSend_endEncoding(v60, v78, v79, v80, v81);
+          v61 = objc_msgSend_computeCommandEncoder(v59, v55, v56, v57, v58);
+          objc_msgSend_setComputePipelineState_(v61, v62, v155, v63, v64);
+          objc_msgSend_setTexture_atIndex_(v61, v65, *(&v154 + 1), 0, v66);
+          objc_msgSend_setTexture_atIndex_(v61, v67, a1[v60], 1, v68);
+          *&v156 = objc_msgSend_width(*(&v154 + 1), v69, v70, v71, v72);
+          *(&v156 + 1) = objc_msgSend_height(*(&v154 + 1), v73, v74, v75, v76);
+          v157 = 1;
+          v148 = v139;
+          v149 = 1;
+          objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v61, v77, &v156, &v148, v78);
+          objc_msgSend_endEncoding(v61, v79, v80, v81, v82);
           if (a6 != 2)
           {
-            v86 = objc_msgSend_blitCommandEncoder(v58, v82, v83, v84, v85);
-            objc_msgSend_generateMipmapsForTexture_(v86, v87, *(&v150 + 1), v88, v89);
-            objc_msgSend_endEncoding(v86, v90, v91, v92, v93);
+            v87 = objc_msgSend_blitCommandEncoder(v59, v83, v84, v85, v86);
+            objc_msgSend_generateMipmapsForTexture_(v87, v88, *(&v154 + 1), v89, v90);
+            objc_msgSend_endEncoding(v87, v91, v92, v93, v94);
           }
         }
 
-        if (v140)
+        if (v144)
         {
           break;
         }
 
 LABEL_28:
-        if (++v59 == v137)
+        if (++v60 == v141)
         {
           goto LABEL_29;
         }
       }
 
-      v94 = 0;
+      v95 = 0;
       while (1)
       {
-        if (!v94 || (v95 = *(&v150 + 1)) == 0)
+        if (!v95 || (v96 = *(&v154 + 1)) == 0)
         {
-          v95 = a1[v59];
+          v96 = a1[v60];
         }
 
-        v96 = v95;
-        v100 = v96;
-        v101 = !v94 || *(&v150 + 1) == 0;
-        v102 = !v101;
-        if (v148)
+        v97 = v96;
+        v101 = v97;
+        v102 = !v95 || *(&v154 + 1) == 0;
+        v103 = !v102;
+        if (v152)
         {
-          v103 = objc_msgSend_newTextureViewWithPixelFormat_(v96, v97, v148, v98, v99);
+          v104 = objc_msgSend_newTextureViewWithPixelFormat_(v97, v98, v152, v99, v100);
 
-          v100 = v103;
-          if (!v103)
+          v101 = v104;
+          if (!v104)
           {
             break;
           }
         }
 
-        objc_msgSend_encodeWithCommandBuffer_destTexture_destSlice_destLevel_srcTexture_srcSlice_srcLevel_(v45, v97, v58, *v149, v59, v94, v100, 0, (v94 - v102));
+        objc_msgSend_encodeWithCommandBuffer_destTexture_destSlice_destLevel_srcTexture_srcSlice_srcLevel_(v45, v98, v59, *v153, v60, v95, v101, 0, (v95 - v103));
 
-        if (v140 == ++v94)
+        if (v144 == ++v95)
         {
           goto LABEL_28;
         }
       }
 
-      v116 = _mxi_log();
-      if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
+      v120 = _mxi_log(v105);
+      if (os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
       {
-        LODWORD(v152) = 67109376;
-        DWORD1(v152) = v59;
-        WORD4(v152) = 1024;
-        *(&v152 + 10) = v94;
-        _os_log_impl(&dword_22F9C3000, v116, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:691] [ImageASTC] failed creating source texture view for slice (%d) and mip (%d)", &v152, 0xEu);
+        LODWORD(v156) = 67109376;
+        DWORD1(v156) = v60;
+        WORD4(v156) = 1024;
+        *(&v156 + 10) = v95;
+        _os_log_impl(&dword_22F9C3000, v120, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:691] [ImageASTC] failed creating source texture view for slice (%d) and mip (%d)", &v156, 0xEu);
       }
     }
 
     else
     {
 LABEL_29:
-      objc_msgSend_commit(v58, v54, v55, v56, v57);
-      objc_msgSend_waitUntilCompleted(v58, v104, v105, v106, v107);
-      if (objc_msgSend_status(v58, v108, v109, v110, v111) == 4)
+      objc_msgSend_commit(v59, v55, v56, v57, v58);
+      objc_msgSend_waitUntilCompleted(v59, v106, v107, v108, v109);
+      v114 = objc_msgSend_status(v59, v110, v111, v112, v113);
+      if (v114 == 4)
       {
 
-        v112 = _MXISignpostLogSystem();
-        v113 = v112;
-        if (v139 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v112))
+        v116 = _MXISignpostLogSystem(v115);
+        v117 = v116;
+        if (v143 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v116))
         {
-          LOWORD(v152) = 0;
-          _os_signpost_emit_with_name_impl(&dword_22F9C3000, v113, OS_SIGNPOST_INTERVAL_END, spid, "MXI_TO_ASTC", &unk_22FA1C169, &v152, 2u);
+          LOWORD(v156) = 0;
+          _os_signpost_emit_with_name_impl(&dword_22F9C3000, v117, OS_SIGNPOST_INTERVAL_END, spid, "MXI_TO_ASTC", &unk_22FA1C169, &v156, 2u);
         }
 
-        v114 = *v149;
+        v118 = *v153;
         goto LABEL_45;
       }
 
-      v117 = _mxi_log();
-      if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
+      v121 = _mxi_log(v114);
+      if (os_log_type_enabled(v121, OS_LOG_TYPE_ERROR))
       {
-        v122 = objc_msgSend_error(v58, v118, v119, v120, v121);
-        v127 = objc_msgSend_debugDescription(v122, v123, v124, v125, v126);
-        v128 = v127;
-        v133 = objc_msgSend_UTF8String(v127, v129, v130, v131, v132);
-        LODWORD(v152) = 136315138;
-        *(&v152 + 4) = v133;
-        _os_log_impl(&dword_22F9C3000, v117, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:707] [ImageASTC] command buffer failed with error: %s", &v152, 0xCu);
+        v126 = objc_msgSend_error(v59, v122, v123, v124, v125);
+        v131 = objc_msgSend_debugDescription(v126, v127, v128, v129, v130);
+        v132 = v131;
+        v137 = objc_msgSend_UTF8String(v131, v133, v134, v135, v136);
+        LODWORD(v156) = 136315138;
+        *(&v156 + 4) = v137;
+        _os_log_impl(&dword_22F9C3000, v121, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:707] [ImageASTC] command buffer failed with error: %s", &v156, 0xCu);
       }
     }
   }
 
   else
   {
-    v115 = _mxi_log();
-    if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
+    v119 = _mxi_log(v46);
+    if (os_log_type_enabled(v119, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v152) = 0;
-      _os_log_impl(&dword_22F9C3000, v115, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:660] Failed creating ASTCEncoder", &v152, 2u);
+      LOWORD(v156) = 0;
+      _os_log_impl(&dword_22F9C3000, v119, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:660] Failed creating ASTCEncoder", &v156, 2u);
     }
   }
 
-  v114 = 0;
+  v118 = 0;
 LABEL_45:
 
 LABEL_46:
-  *&v152 = &v149;
-  sub_22F9DC140(&v152);
+  *&v156 = &v153;
+  sub_22F9DC140(&v156);
 
   objc_autoreleasePoolPop(context);
 
-  return v114;
+  return v118;
 }
 
-void sub_22F9EF814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_22F9EF814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
 
   sub_22F9EE358(va);
   _Unwind_Resume(a1);
 }
 
-void image::ToASTCs(void **a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, unsigned int a6@<W5>, void *a7@<X8>, float a8@<S0>)
+void image::ToASTCs(id *a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, unsigned int a6@<W5>, uint64_t *a7@<X8>, float a8@<S0>)
 {
-  v153 = *MEMORY[0x277D85DE8];
+  v158 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
-  v15 = _MXISignpostLogSystem();
+  v15 = _MXISignpostLogSystem(context);
   v16 = _MXISignpostCreate(v15);
   v17 = v15;
   v18 = v17;
-  v138 = v16 - 1;
+  v143 = v16 - 1;
   spid = v16;
   if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
@@ -9289,44 +9317,45 @@ void image::ToASTCs(void **a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X2>, uint
 
   if (a1)
   {
-    v142 = objc_msgSend_device(*a1, v19, v20, v21, v22);
-    v27 = objc_msgSend_pixelFormat(*a1, v23, v24, v25, v26);
-    v32 = objc_msgSend_width(*a1, v28, v29, v30, v31);
-    v41 = objc_msgSend_height(*a1, v33, v34, v35, v36);
-    v42 = a6;
+    v147 = objc_msgSend_device(*a1, v20, v21, v22, v23);
+    v28 = objc_msgSend_pixelFormat(*a1, v24, v25, v26, v27);
+    v33 = objc_msgSend_width(*a1, v29, v30, v31, v32);
+    v42 = objc_msgSend_height(*a1, v34, v35, v36, v37);
+    v43 = a6;
     if (a6 <= 1)
     {
-      v42 = objc_msgSend_mipmapLevelCount(*a1, v37, v38, v39, v40);
+      v43 = objc_msgSend_mipmapLevelCount(*a1, v38, v39, v40, v41);
     }
 
-    v150 = 0;
-    v149 = 0u;
-    v148 = 0u;
-    if ((sub_22F9ED314(buf, v142, 2, v27, v32, v41, 1u, v42, a2, a3, SWORD1(a3), a4, a6) & 1) == 0)
+    v155 = 0;
+    v154 = 0u;
+    v153 = 0u;
+    if ((sub_22F9ED314(buf, v147, 2, v28, v33, v42, 1u, v43, a2, a3, SWORD1(a3), a4, a6) & 1) == 0)
     {
       *a7 = 0;
       a7[1] = 0;
       a7[2] = 0;
 LABEL_48:
 
-      *&v151 = &v148;
-      sub_22F9DC140(&v151);
+      *&v156 = &v153;
+      sub_22F9DC140(&v156);
 
       goto LABEL_49;
     }
 
-    v43 = [ASTCEncoder alloc];
-    v145 = 0;
-    *&v44 = a8;
-    v46 = objc_msgSend_initWithDevice_blockWidth_blockHeight_rankModesCountRatio_fastSkipThreshold_collectStatistics_error_(v43, v45, v142, a3, a4, a5, 0, &v145, v44);
-    v137 = v145;
-    if (!v46)
+    v44 = [ASTCEncoder alloc];
+    v150 = 0;
+    *&v45 = a8;
+    v47 = objc_msgSend_initWithDevice_blockWidth_blockHeight_rankModesCountRatio_fastSkipThreshold_collectStatistics_error_(v44, v46, v147, a3, a4, a5, 0, &v150, v45);
+    v48 = v150;
+    v142 = v48;
+    if (!v47)
     {
-      v116 = _mxi_log();
-      if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
+      v121 = _mxi_log(v48);
+      if (os_log_type_enabled(v121, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v151) = 0;
-        _os_log_impl(&dword_22F9C3000, v116, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:748] Failed creating ASTCEncoder", &v151, 2u);
+        LOWORD(v156) = 0;
+        _os_log_impl(&dword_22F9C3000, v121, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:748] Failed creating ASTCEncoder", &v156, 2u);
       }
 
       *a7 = 0;
@@ -9335,123 +9364,124 @@ LABEL_48:
       goto LABEL_47;
     }
 
-    v135 = objc_msgSend_newCommandQueue(v142, v47, v48, v49, v50);
-    v59 = objc_msgSend_commandBuffer(v135, v51, v52, v53, v54);
+    v140 = objc_msgSend_newCommandQueue(v147, v49, v50, v51, v52);
+    v61 = objc_msgSend_commandBuffer(v140, v53, v54, v55, v56);
     if (a2)
     {
-      v60 = 0;
-      v136 = a2;
-      v134 = vdupq_n_s64(8uLL);
+      v62 = 0;
+      v141 = a2;
+      v139 = vdupq_n_s64(8uLL);
       while (1)
       {
         if (a6 >= 2)
         {
-          v61 = objc_msgSend_computeCommandEncoder(v59, v55, v56, v57, v58);
-          objc_msgSend_setComputePipelineState_(v61, v62, v150, v63, v64);
-          objc_msgSend_setTexture_atIndex_(v61, v65, *(&v149 + 1), 0, v66);
-          objc_msgSend_setTexture_atIndex_(v61, v67, a1[v60], 1, v68);
-          *&v151 = objc_msgSend_width(*(&v149 + 1), v69, v70, v71, v72);
-          *(&v151 + 1) = objc_msgSend_height(*(&v149 + 1), v73, v74, v75, v76);
-          v152 = 1;
-          v143 = v134;
-          v144 = 1;
-          objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v61, v77, &v151, &v143, v78);
-          objc_msgSend_endEncoding(v61, v79, v80, v81, v82);
+          v63 = objc_msgSend_computeCommandEncoder(v61, v57, v58, v59, v60);
+          objc_msgSend_setComputePipelineState_(v63, v64, v155, v65, v66);
+          objc_msgSend_setTexture_atIndex_(v63, v67, *(&v154 + 1), 0, v68);
+          objc_msgSend_setTexture_atIndex_(v63, v69, a1[v62], 1, v70);
+          *&v156 = objc_msgSend_width(*(&v154 + 1), v71, v72, v73, v74);
+          *(&v156 + 1) = objc_msgSend_height(*(&v154 + 1), v75, v76, v77, v78);
+          v157 = 1;
+          v148 = v139;
+          v149 = 1;
+          objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v63, v79, &v156, &v148, v80);
+          objc_msgSend_endEncoding(v63, v81, v82, v83, v84);
           if (a6 != 2)
           {
-            v87 = objc_msgSend_blitCommandEncoder(v59, v83, v84, v85, v86);
-            objc_msgSend_generateMipmapsForTexture_(v87, v88, *(&v149 + 1), v89, v90);
-            objc_msgSend_endEncoding(v87, v91, v92, v93, v94);
+            v89 = objc_msgSend_blitCommandEncoder(v61, v85, v86, v87, v88);
+            objc_msgSend_generateMipmapsForTexture_(v89, v90, *(&v154 + 1), v91, v92);
+            objc_msgSend_endEncoding(v89, v93, v94, v95, v96);
           }
         }
 
-        if (v42)
+        if (v43)
         {
           break;
         }
 
 LABEL_29:
-        if (++v60 == v136)
+        if (++v62 == v141)
         {
           goto LABEL_30;
         }
       }
 
-      v95 = 0;
+      v97 = 0;
       while (1)
       {
-        if (!v95 || (v96 = *(&v149 + 1)) == 0)
+        if (!v97 || (v98 = *(&v154 + 1)) == 0)
         {
-          v96 = a1[v60];
+          v98 = a1[v62];
         }
 
-        v97 = v96;
-        v101 = v97;
-        v102 = !v95 || *(&v149 + 1) == 0;
-        v103 = !v102;
-        if (v147)
+        v99 = v98;
+        v103 = v99;
+        v104 = !v97 || *(&v154 + 1) == 0;
+        v105 = !v104;
+        if (v152)
         {
-          v104 = objc_msgSend_newTextureViewWithPixelFormat_(v97, v98, v147, v99, v100);
+          v106 = objc_msgSend_newTextureViewWithPixelFormat_(v99, v100, v152, v101, v102);
 
-          v101 = v104;
-          if (!v104)
+          v103 = v106;
+          if (!v106)
           {
             break;
           }
         }
 
-        objc_msgSend_encodeWithCommandBuffer_destTexture_destSlice_destLevel_srcTexture_srcSlice_srcLevel_(v46, v98, v59, *(v148 + 8 * v60), 0, v95, v101, 0, (v95 - v103));
+        objc_msgSend_encodeWithCommandBuffer_destTexture_destSlice_destLevel_srcTexture_srcSlice_srcLevel_(v47, v100, v61, *(v153 + 8 * v62), 0, v97, v103, 0, (v97 - v105));
 
-        if (v42 == ++v95)
+        if (v43 == ++v97)
         {
           goto LABEL_29;
         }
       }
 
-      v117 = _mxi_log();
-      if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
+      v122 = _mxi_log(v107);
+      if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
       {
-        LODWORD(v151) = 67109376;
-        DWORD1(v151) = v60;
-        WORD4(v151) = 1024;
-        *(&v151 + 10) = v95;
-        _os_log_impl(&dword_22F9C3000, v117, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:780] [ImageASTC] failed creating source texture view for slice (%d) and mip (%d)", &v151, 0xEu);
+        LODWORD(v156) = 67109376;
+        DWORD1(v156) = v62;
+        WORD4(v156) = 1024;
+        *(&v156 + 10) = v97;
+        _os_log_impl(&dword_22F9C3000, v122, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:780] [ImageASTC] failed creating source texture view for slice (%d) and mip (%d)", &v156, 0xEu);
       }
     }
 
     else
     {
 LABEL_30:
-      objc_msgSend_commit(v59, v55, v56, v57, v58);
-      objc_msgSend_waitUntilCompleted(v59, v105, v106, v107, v108);
-      if (objc_msgSend_status(v59, v109, v110, v111, v112) == 4)
+      objc_msgSend_commit(v61, v57, v58, v59, v60);
+      objc_msgSend_waitUntilCompleted(v61, v108, v109, v110, v111);
+      v116 = objc_msgSend_status(v61, v112, v113, v114, v115);
+      if (v116 == 4)
       {
 
-        v113 = _MXISignpostLogSystem();
-        v114 = v113;
-        if (v138 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v113))
+        v118 = _MXISignpostLogSystem(v117);
+        v119 = v118;
+        if (v143 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v118))
         {
-          LOWORD(v151) = 0;
-          _os_signpost_emit_with_name_impl(&dword_22F9C3000, v114, OS_SIGNPOST_INTERVAL_END, spid, "MXI_TO_ASTC", &unk_22FA1C169, &v151, 2u);
+          LOWORD(v156) = 0;
+          _os_signpost_emit_with_name_impl(&dword_22F9C3000, v119, OS_SIGNPOST_INTERVAL_END, spid, "MXI_TO_ASTC", &unk_22FA1C169, &v156, 2u);
         }
 
         *a7 = 0;
         a7[1] = 0;
         a7[2] = 0;
-        sub_22F9F05B0(a7, v148, *(&v148 + 1), (*(&v148 + 1) - v148) >> 3);
+        sub_22F9F05B0(a7, v153, *(&v153 + 1), (*(&v153 + 1) - v153) >> 3);
         goto LABEL_47;
       }
 
-      v117 = _mxi_log();
-      if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
+      v122 = _mxi_log(v116);
+      if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
       {
-        v122 = objc_msgSend_error(v59, v118, v119, v120, v121);
-        v127 = objc_msgSend_debugDescription(v122, v123, v124, v125, v126);
-        v128 = v127;
-        v133 = objc_msgSend_UTF8String(v127, v129, v130, v131, v132);
-        LODWORD(v151) = 136315138;
-        *(&v151 + 4) = v133;
-        _os_log_impl(&dword_22F9C3000, v117, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:796] [ImageASTC] command buffer failed with error: %s", &v151, 0xCu);
+        v127 = objc_msgSend_error(v61, v123, v124, v125, v126);
+        v132 = objc_msgSend_debugDescription(v127, v128, v129, v130, v131);
+        v133 = v132;
+        v138 = objc_msgSend_UTF8String(v132, v134, v135, v136, v137);
+        LODWORD(v156) = 136315138;
+        *(&v156 + 4) = v138;
+        _os_log_impl(&dword_22F9C3000, v122, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:796] [ImageASTC] command buffer failed with error: %s", &v156, 0xCu);
       }
     }
 
@@ -9463,11 +9493,11 @@ LABEL_47:
     goto LABEL_48;
   }
 
-  v115 = _mxi_log();
-  if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
+  v120 = _mxi_log(v19);
+  if (os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_22F9C3000, v115, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:723] Invalid array of textures", buf, 2u);
+    _os_log_impl(&dword_22F9C3000, v120, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:723] Invalid array of textures", buf, 2u);
   }
 
   *a7 = 0;
@@ -9486,7 +9516,7 @@ void sub_22F9EFF08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 BOOL image::ASTCStatistics(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v113 = *MEMORY[0x277D85DE8];
+  v114 = *MEMORY[0x277D85DE8];
   v9 = a1;
   v14 = objc_msgSend_device(v9, v10, v11, v12, v13);
   v19 = objc_msgSend_textureType(v9, v15, v16, v17, v18);
@@ -9495,115 +9525,89 @@ BOOL image::ASTCStatistics(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
   v34 = objc_msgSend_height(v9, v30, v31, v32, v33);
   v39 = objc_msgSend_arrayLength(v9, v35, v36, v37, v38);
   v44 = objc_msgSend_mipmapLevelCount(v9, v40, v41, v42, v43);
-  v111 = 0;
+  v112 = 0;
+  v111 = 0u;
   v110 = 0u;
-  v109 = 0u;
-  if (sub_22F9ED314(v107, v14, v19, v24, v29, v34, v39, v44, 1u, a2, SWORD1(a2), a3, 1u))
+  if (sub_22F9ED314(v108, v14, v19, v24, v29, v34, v39, v44, 1u, a2, SWORD1(a2), a3, 1u))
   {
-    if (v108)
+    if (v109)
     {
-      v48 = objc_msgSend_newTextureViewWithPixelFormat_(v9, v45, v108, v46, v47);
+      v48 = objc_msgSend_newTextureViewWithPixelFormat_(v9, v45, v109, v46, v47);
 
       v9 = v48;
     }
 
     v49 = [ASTCEncoder alloc];
-    v106 = 0;
+    v107 = 0;
     LODWORD(v50) = 1.0;
-    v52 = objc_msgSend_initWithDevice_blockWidth_blockHeight_rankModesCountRatio_fastSkipThreshold_collectStatistics_error_(v49, v51, v14, a2, a3, 5, 1, &v106, v50);
-    v57 = v106;
+    v52 = objc_msgSend_initWithDevice_blockWidth_blockHeight_rankModesCountRatio_fastSkipThreshold_collectStatistics_error_(v49, v51, v14, a2, a3, 5, 1, &v107, v50);
+    v53 = v107;
+    v58 = v53;
     if (v52)
     {
-      v58 = objc_msgSend_newCommandQueue(v14, v53, v54, v55, v56);
-      v67 = objc_msgSend_commandBuffer(v58, v59, v60, v61, v62);
-      for (i = 0; objc_msgSend_arrayLength(v9, v63, v64, v65, v66) > i; ++i)
+      v59 = objc_msgSend_newCommandQueue(v14, v54, v55, v56, v57);
+      v68 = objc_msgSend_commandBuffer(v59, v60, v61, v62, v63);
+      for (i = 0; objc_msgSend_arrayLength(v9, v64, v65, v66, v67) > i; ++i)
       {
-        for (j = 0; objc_msgSend_mipmapLevelCount(v9, v69, v70, v71, v72) > j; ++j)
+        for (j = 0; objc_msgSend_mipmapLevelCount(v9, v70, v71, v72, v73) > j; ++j)
         {
-          objc_msgSend_encodeWithCommandBuffer_destTexture_destSlice_destLevel_srcTexture_srcSlice_srcLevel_(v52, v63, v67, *v109, i, j, v9, i, j);
+          objc_msgSend_encodeWithCommandBuffer_destTexture_destSlice_destLevel_srcTexture_srcSlice_srcLevel_(v52, v64, v68, *v110, i, j, v9, i, j);
         }
       }
 
-      objc_msgSend_commit(v67, v69, v70, v71, v72);
-      objc_msgSend_waitUntilCompleted(v67, v75, v76, v77, v78);
-      v83 = objc_msgSend_status(v67, v79, v80, v81, v82);
-      v74 = v83 == 4;
-      if (v83 == 4)
+      objc_msgSend_commit(v68, v70, v71, v72, v73);
+      objc_msgSend_waitUntilCompleted(v68, v76, v77, v78, v79);
+      v84 = objc_msgSend_status(v68, v80, v81, v82, v83);
+      v75 = v84 == 4;
+      if (v84 == 4)
       {
-        objc_msgSend_finalizeStatistics_modesPath_errorsPath_(v52, v84, a4, a5, a6);
+        objc_msgSend_finalizeStatistics_modesPath_errorsPath_(v52, v85, a4, a5, a6);
       }
 
       else
       {
-        v85 = _mxi_log();
-        if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+        v86 = _mxi_log(v84);
+        if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
         {
-          v91 = objc_msgSend_error(v67, v87, v88, v89, v90);
-          v96 = objc_msgSend_debugDescription(v91, v92, v93, v94, v95);
-          v97 = v96;
-          v102 = objc_msgSend_UTF8String(v96, v98, v99, v100, v101);
+          v92 = objc_msgSend_error(v68, v88, v89, v90, v91);
+          v97 = objc_msgSend_debugDescription(v92, v93, v94, v95, v96);
+          v98 = v97;
+          v103 = objc_msgSend_UTF8String(v97, v99, v100, v101, v102);
           *buf = 136315138;
-          *&buf[4] = v102;
-          _os_log_impl(&dword_22F9C3000, v85, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:851] [ImageASTC] command buffer failed with error: %s", buf, 0xCu);
+          *&buf[4] = v103;
+          _os_log_impl(&dword_22F9C3000, v86, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:851] [ImageASTC] command buffer failed with error: %s", buf, 0xCu);
         }
       }
     }
 
     else
     {
-      v58 = _mxi_log();
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+      v59 = _mxi_log(v53);
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_22F9C3000, v58, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:831] Failed creating ASTCEncoder", buf, 2u);
+        _os_log_impl(&dword_22F9C3000, v59, OS_LOG_TYPE_ERROR, "[Image/ImageASTC.mm:831] Failed creating ASTCEncoder", buf, 2u);
       }
 
-      v74 = 0;
+      v75 = 0;
     }
   }
 
   else
   {
-    v74 = 0;
+    v75 = 0;
   }
 
-  *buf = &v109;
+  *buf = &v110;
   sub_22F9DC140(buf);
 
-  return v74;
+  return v75;
 }
 
-void sub_22F9F032C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22F9F032C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   sub_22F9EE358(va);
   _Unwind_Resume(a1);
-}
-
-__n128 sub_22F9F0474(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_28449BEF8;
-  v2 = *(a1 + 8);
-  *(a2 + 24) = *(a1 + 24);
-  *(a2 + 8) = v2;
-  result = *(a1 + 40);
-  v4 = *(a1 + 56);
-  v5 = *(a1 + 72);
-  *(a2 + 88) = *(a1 + 88);
-  *(a2 + 72) = v5;
-  *(a2 + 56) = v4;
-  *(a2 + 40) = result;
-  return result;
-}
-
-uint64_t sub_22F9F04CC(uint64_t a1)
-{
-  result = astcenc_compress_image();
-  if (result)
-  {
-    atomic_store(0, *(a1 + 8));
-  }
-
-  return result;
 }

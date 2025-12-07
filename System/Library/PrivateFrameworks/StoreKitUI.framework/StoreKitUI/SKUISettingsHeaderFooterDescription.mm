@@ -165,4 +165,34 @@ LABEL_12:
   return v14;
 }
 
+- (void)initWithViewElement:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISettingsHeaderFooterDescription initWithViewElement:]";
+}
+
++ (void)settingsHeaderFooterDescriptionWithViewElement:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISettingsHeaderFooterDescription settingsHeaderFooterDescriptionWithViewElement:]";
+}
+
++ (void)viewClassForSettingsHeaderFooterDescription:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISettingsHeaderFooterDescription viewClassForSettingsHeaderFooterDescription:]";
+}
+
++ (void)_settingsHeaderFooterDescriptionWithFooterElement:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISettingsHeaderFooterDescription _settingsHeaderFooterDescriptionWithFooterElement:]";
+}
+
++ (void)_settingsHeaderFooterDescriptionWithHeaderElement:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISettingsHeaderFooterDescription _settingsHeaderFooterDescriptionWithHeaderElement:]";
+}
+
 @end

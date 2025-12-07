@@ -123,7 +123,7 @@ LABEL_17:
   v3 = v2;
   if (v2)
   {
-    [v2 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(v2);
   }
 
   else

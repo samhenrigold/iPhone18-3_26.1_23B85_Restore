@@ -3,6 +3,7 @@
 - (id)MLANEExecutionPriority;
 - (int)E5ExecutionPriority;
 - (unint64_t)VNRequestModelExecutionPriority;
+- (void)MLANEExecutionPriority;
 @end
 
 @implementation PTInferenceANEConfig
@@ -39,7 +40,7 @@
 
   else
   {
-    v5 = _PTLogSystem();
+    v5 = _PTLogSystem(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(PTInferenceANEConfig *)p_espressoPlanPriority MLANEExecutionPriority:v5];
@@ -66,7 +67,7 @@
 
     else
     {
-      v4 = _PTLogSystem();
+      v4 = _PTLogSystem(result);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         [(PTInferenceANEConfig *)p_espressoPlanPriority MLANEExecutionPriority:v4];
@@ -93,13 +94,20 @@
     return 3;
   }
 
-  v5 = _PTLogSystem();
+  v5 = _PTLogSystem(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(PTInferenceANEConfig *)p_espressoPlanPriority MLANEExecutionPriority:v5];
   }
 
   return 5;
+}
+
+- (void)MLANEExecutionPriority
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = *self;
+  OUTLINED_FUNCTION_0_11(&dword_2243FB000, a2, a3, "Unsupported priority %i", a5, a6, a7, a8, v8);
 }
 
 @end

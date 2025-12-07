@@ -83,39 +83,37 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_sourceUUID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    authorizationStatus = self->_authorizationStatus;
     PBDataWriterWriteInt64Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    modificationDate = self->_modificationDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_sessionUUID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_syncIdentity)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -205,7 +203,6 @@
     }
   }
 
-  v6 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_authorizationStatus != *(equalCopy + 1))
@@ -217,7 +214,7 @@
   else if (*(equalCopy + 48))
   {
 LABEL_18:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_19;
   }
 
@@ -243,17 +240,17 @@ LABEL_18:
   syncIdentity = self->_syncIdentity;
   if (syncIdentity | *(equalCopy + 5))
   {
-    v9 = [(HDCodableSyncIdentity *)syncIdentity isEqual:?];
+    v8 = [(HDCodableSyncIdentity *)syncIdentity isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_19:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

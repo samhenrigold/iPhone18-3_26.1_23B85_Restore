@@ -54,7 +54,7 @@
   }
 
   v9 = MEMORY[0x1E696AEC0];
-  v10 = CKFrameworkBundle();
+  v10 = CKFrameworkBundle(v7);
   v11 = [v10 localizedStringForKey:@"COUNT_DAYS" value:&stru_1F04268F8 table:@"ChatKit"];
   v12 = [v9 localizedStringWithFormat:v11, v8];
 

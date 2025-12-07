@@ -1902,29 +1902,29 @@ LABEL_26:
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "building up reset state from reset message list", &buf, 2u);
   }
 
-  v59 = +[NSMutableDictionary dictionary];
+  v60 = +[NSMutableDictionary dictionary];
   v8 = +[NSMutableDictionary dictionary];
   v9 = +[NSMutableDictionary dictionary];
   allKeys = [storesCopy allKeys];
-  v81[0] = _NSConcreteStackBlock;
-  v81[1] = 3221225472;
-  v81[2] = sub_10003A554;
-  v81[3] = &unk_10005D510;
-  v55 = v8;
-  v82 = v55;
-  v56 = v9;
+  v82[0] = _NSConcreteStackBlock;
+  v82[1] = 3221225472;
+  v82[2] = sub_10003A554;
+  v82[3] = &unk_10005D510;
+  v56 = v8;
   v83 = v56;
-  [allKeys enumerateObjectsUsingBlock:v81];
+  v57 = v9;
+  v84 = v57;
+  [allKeys enumerateObjectsUsingBlock:v82];
 
-  v60 = +[NSMutableArray array];
+  v61 = +[NSMutableArray array];
   [listCopy suspendCoalescing];
   messageEnumerator = [listCopy messageEnumerator];
   v11 = objc_autoreleasePoolPush();
   nextObject = [messageEnumerator nextObject];
   if (nextObject)
   {
-    v63 = 0;
     v64 = 0;
+    v65 = 0;
     while (1)
     {
       v13 = _NTKLoggingObjectForDomain();
@@ -1954,7 +1954,7 @@ LABEL_20:
           payloadData = _NTKLoggingObjectForDomain();
           if (os_log_type_enabled(payloadData, OS_LOG_TYPE_ERROR))
           {
-            sub_10003FF10(v88, nextObject, &v89, payloadData);
+            sub_10003FF10(v89, nextObject, &v90, payloadData);
           }
 
           goto LABEL_44;
@@ -1963,7 +1963,7 @@ LABEL_20:
         payloadData = [nextObject payloadData];
         v16 = NTKDSelectedUUIDFromPayloadData();
 
-        v63 = v16;
+        v64 = v16;
 LABEL_44:
 
         goto LABEL_45;
@@ -1974,15 +1974,15 @@ LABEL_44:
       uUIDString = [v22 UUIDString];
       complicationDescriptor = [NSString stringWithFormat:@"In-%@.zip", uUIDString];
 
-      v25 = sub_10003A5E8();
-      v26 = [v25 stringByAppendingPathComponent:complicationDescriptor];
+      v26 = sub_10003A5E8(v25);
+      v27 = [v26 stringByAppendingPathComponent:complicationDescriptor];
 
-      if ([nextObject getPayloadDataIntoFile:v26])
+      if ([nextObject getPayloadDataIntoFile:v27])
       {
         deviceUUID = [storeCopy deviceUUID];
-        v80 = 0;
+        v81 = 0;
         complicationClientID2 = NTKDFaceFromPayloadPath();
-        payloadData = v80;
+        payloadData = v81;
       }
 
       else
@@ -1991,18 +1991,18 @@ LABEL_44:
         payloadData = 0;
       }
 
-      v37 = +[NSFileManager defaultManager];
-      [v37 removeItemAtPath:v26 error:0];
+      v38 = +[NSFileManager defaultManager];
+      [v38 removeItemAtPath:v27 error:0];
 
       if (faceUUID && complicationClientID2)
       {
-        [v59 setObject:complicationClientID2 forKey:faceUUID];
+        [v60 setObject:complicationClientID2 forKey:faceUUID];
       }
 
 LABEL_42:
       if (payloadData)
       {
-        [v60 addObject:payloadData];
+        [v61 addObject:payloadData];
         goto LABEL_44;
       }
 
@@ -2022,7 +2022,7 @@ LABEL_45:
       payloadData = [nextObject payloadData];
       v21 = NTKDOrderedUUIDsFromPayloadData();
 
-      v64 = v21;
+      v65 = v21;
       goto LABEL_44;
     }
 
@@ -2037,7 +2037,7 @@ LABEL_45:
 
         if (complicationClientID && v19)
         {
-          v20 = [v56 objectForKeyedSubscript:payloadData];
+          v20 = [v57 objectForKeyedSubscript:payloadData];
           [v20 setObject:v19 forKey:complicationClientID];
         }
 
@@ -2052,30 +2052,30 @@ LABEL_45:
     complicationDescriptor = [nextObject complicationDescriptor];
     context = objc_autoreleasePoolPush();
     payloadData3 = [nextObject payloadData];
-    v65 = NTKDClientSampleDataFromPayloadData();
+    v66 = NTKDClientSampleDataFromPayloadData();
 
-    v30 = NSTemporaryDirectory();
-    v31 = [v30 stringByAppendingPathComponent:@"sync"];
-    v32 = +[NSUUID UUID];
-    uUIDString2 = [v32 UUIDString];
-    payloadData = [v31 stringByAppendingPathComponent:uUIDString2];
+    v31 = NSTemporaryDirectory();
+    v32 = [v31 stringByAppendingPathComponent:@"sync"];
+    v33 = +[NSUUID UUID];
+    uUIDString2 = [v33 UUIDString];
+    payloadData = [v32 stringByAppendingPathComponent:uUIDString2];
 
-    v34 = +[NSFileManager defaultManager];
-    v79 = 0;
-    LOBYTE(v30) = [v34 createDirectoryAtPath:payloadData withIntermediateDirectories:1 attributes:0 error:&v79];
-    v35 = v79;
+    v35 = +[NSFileManager defaultManager];
+    v80 = 0;
+    LOBYTE(v31) = [v35 createDirectoryAtPath:payloadData withIntermediateDirectories:1 attributes:0 error:&v80];
+    v36 = v80;
 
-    if (v30)
+    if (v31)
     {
-      v36 = [v65 copyEncodedToDirectoryPath:payloadData];
-      if (v36)
+      v37 = [v66 copyEncodedToDirectoryPath:payloadData];
+      if (v37)
       {
 LABEL_38:
-        if (complicationClientID2 && v36)
+        if (complicationClientID2 && v37)
         {
-          v40 = [[NTKComplicationKey alloc] initWithClientIdentifier:complicationClientID2 descriptor:complicationDescriptor];
-          v41 = [v55 objectForKeyedSubscript:faceUUID];
-          [v41 setObject:v36 forKey:v40];
+          v41 = [[NTKComplicationKey alloc] initWithClientIdentifier:complicationClientID2 descriptor:complicationDescriptor];
+          v42 = [v56 objectForKeyedSubscript:faceUUID];
+          [v42 setObject:v37 forKey:v41];
         }
 
         objc_autoreleasePoolPop(context);
@@ -2085,98 +2085,98 @@ LABEL_38:
 
     else
     {
-      v38 = _NTKLoggingObjectForDomain();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+      v39 = _NTKLoggingObjectForDomain();
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
       {
         LODWORD(buf) = 138412290;
-        *(&buf + 4) = v35;
-        _os_log_fault_impl(&_mh_execute_header, v38, OS_LOG_TYPE_FAULT, "Failed to make temporary reset sync sample data directory: %@", &buf, 0xCu);
+        *(&buf + 4) = v36;
+        _os_log_fault_impl(&_mh_execute_header, v39, OS_LOG_TYPE_FAULT, "Failed to make temporary reset sync sample data directory: %@", &buf, 0xCu);
       }
     }
 
-    v36 = v65;
-    v39 = _NTKLoggingObjectForDomain();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v37 = v66;
+    v40 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
-      sub_10003FED4(&v77, v78);
+      sub_10003FED4(&v78, v79);
     }
 
     goto LABEL_38;
   }
 
-  v63 = 0;
   v64 = 0;
+  v65 = 0;
 LABEL_48:
   objc_autoreleasePoolPop(v11);
   [listCopy resumeCoalescing];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v86 = 0x2020000000;
-  v87 = 0;
-  if ([v59 count] && v64)
+  v87 = 0x2020000000;
+  v88 = 0;
+  if ([v60 count] && v65)
   {
-    [storeCopy withoutNotifyingSyncObserverResetWithFaces:v59 orderedUUIDs:v64 selectedUUID:v63];
+    [storeCopy withoutNotifyingSyncObserverResetWithFaces:v60 orderedUUIDs:v65 selectedUUID:v64];
     [storeCopy synchronize];
     *(*(&buf + 1) + 24) = 1;
   }
 
   allKeys2 = [storesCopy allKeys];
-  v72[0] = _NSConcreteStackBlock;
-  v72[1] = 3221225472;
-  v72[2] = sub_10003A62C;
-  v72[3] = &unk_10005E378;
-  v43 = v56;
-  v73 = v43;
-  v44 = v55;
+  v73[0] = _NSConcreteStackBlock;
+  v73[1] = 3221225472;
+  v73[2] = sub_10003A62C;
+  v73[3] = &unk_10005E378;
+  v44 = v57;
   v74 = v44;
-  v45 = storesCopy;
+  v45 = v56;
   v75 = v45;
+  v46 = storesCopy;
+  v76 = v46;
   p_buf = &buf;
-  [allKeys2 enumerateObjectsUsingBlock:v72];
+  [allKeys2 enumerateObjectsUsingBlock:v73];
 
   if ((*(*(&buf + 1) + 24) & 1) == 0)
   {
-    v46 = _NTKLoggingObjectForDomain();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+    v47 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
     {
-      sub_10003FF9C(v46);
+      sub_10003FF9C(v47);
     }
   }
 
   [listCopy clearAllMessages];
-  v70 = 0u;
   v71 = 0u;
-  v68 = 0u;
+  v72 = 0u;
   v69 = 0u;
-  v47 = v60;
-  v48 = [v47 countByEnumeratingWithState:&v68 objects:v84 count:16];
-  if (v48)
+  v70 = 0u;
+  v48 = v61;
+  v49 = [v48 countByEnumeratingWithState:&v69 objects:v85 count:16];
+  if (v49)
   {
-    v49 = *v69;
+    v50 = *v70;
     do
     {
-      for (i = 0; i != v48; i = i + 1)
+      for (i = 0; i != v49; i = i + 1)
       {
-        if (*v69 != v49)
+        if (*v70 != v50)
         {
-          objc_enumerationMutation(v47);
+          objc_enumerationMutation(v48);
         }
 
-        v51 = *(*(&v68 + 1) + 8 * i);
-        v52 = +[NSFileManager defaultManager];
-        [v52 removeItemAtPath:v51 error:0];
+        v52 = *(*(&v69 + 1) + 8 * i);
+        v53 = +[NSFileManager defaultManager];
+        [v53 removeItemAtPath:v52 error:0];
       }
 
-      v48 = [v47 countByEnumeratingWithState:&v68 objects:v84 count:16];
+      v49 = [v48 countByEnumeratingWithState:&v69 objects:v85 count:16];
     }
 
-    while (v48);
+    while (v49);
   }
 
-  v53 = *(*(&buf + 1) + 24);
+  v54 = *(*(&buf + 1) + 24);
   _Block_object_dispose(&buf, 8);
 
-  return v53 & 1;
+  return v54 & 1;
 }
 
 - (BOOL)_queue_applyDeltaMessageList:(id)list collectionStore:(id)store complicationStores:(id)stores
@@ -2190,15 +2190,15 @@ LABEL_48:
   {
     firstMessage2 = firstMessage;
     v13 = &CLKComplicationFamilyDescription_ptr;
-    v67 = storeCopy;
-    v68 = storesCopy;
+    v70 = storeCopy;
+    v71 = storesCopy;
     do
     {
       v14 = _NTKLoggingObjectForDomain();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v72 = firstMessage2;
+        v75 = firstMessage2;
         _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "applying incoming message: %@", buf, 0xCu);
       }
 
@@ -2225,21 +2225,21 @@ LABEL_48:
             }
 
             complicationCollectionIdentifier = [firstMessage2 complicationCollectionIdentifier];
-            v35 = [storesCopy objectForKeyedSubscript:complicationCollectionIdentifier];
+            v36 = [storesCopy objectForKeyedSubscript:complicationCollectionIdentifier];
             complicationClientID2 = [firstMessage2 complicationClientID];
             complicationDescriptor2 = [firstMessage2 complicationDescriptor];
             payloadData = [firstMessage2 payloadData];
-            v50 = NTKDClientSampleDataFromPayloadData();
+            v52 = NTKDClientSampleDataFromPayloadData();
 
-            if (complicationClientID2 && v50)
+            if (complicationClientID2 && v52)
             {
-              [v35 withoutNotifyingSyncObserverSetComplicationSampleData:v50 forClientIdentifier:complicationClientID2 descriptor:complicationDescriptor2];
+              [v36 withoutNotifyingSyncObserverSetComplicationSampleData:v52 forClientIdentifier:complicationClientID2 descriptor:complicationDescriptor2];
             }
 
 LABEL_50:
             v16 = 0;
 LABEL_72:
-            storesCopy = v68;
+            storesCopy = v71;
             goto LABEL_73;
           }
 
@@ -2260,49 +2260,49 @@ LABEL_53:
         {
           case 8:
             complicationCollectionIdentifier = [firstMessage2 complicationCollectionIdentifier];
-            v35 = [storesCopy objectForKeyedSubscript:complicationCollectionIdentifier];
+            v36 = [storesCopy objectForKeyedSubscript:complicationCollectionIdentifier];
             complicationClientID2 = [firstMessage2 complicationClientID];
             complicationDescriptor2 = [firstMessage2 complicationDescriptor];
             payloadData3 = [firstMessage2 payloadData];
-            v39 = NTKDClientSampleTemplateFromPayloadData();
+            v40 = NTKDClientSampleTemplateFromPayloadData();
 
             complicationFamily = [firstMessage2 complicationFamily];
-            v41 = complicationFamily;
-            if (complicationClientID2 && v39 && complicationFamily)
+            v42 = complicationFamily;
+            if (complicationClientID2 && v40 && complicationFamily)
             {
-              [v35 withoutNotifyingUpdateLocalizableSampleDataTemplate:v39 forClientIdentifier:complicationClientID2 descriptor:complicationDescriptor2 family:{objc_msgSend(complicationFamily, "integerValue")}];
+              [v36 withoutNotifyingUpdateLocalizableSampleDataTemplate:v40 forClientIdentifier:complicationClientID2 descriptor:complicationDescriptor2 family:{objc_msgSend(complicationFamily, "integerValue")}];
             }
 
             goto LABEL_50;
           case 9:
             complicationCollectionIdentifier = [firstMessage2 faceUUID];
-            v51 = +[NSUUID UUID];
-            uUIDString = [v51 UUIDString];
-            v53 = [NSString stringWithFormat:@"In-%@.zip", uUIDString];
+            v53 = +[NSUUID UUID];
+            uUIDString = [v53 UUIDString];
+            v55 = [NSString stringWithFormat:@"In-%@.zip", uUIDString];
 
-            v54 = sub_10003A5E8();
-            v55 = [v54 stringByAppendingPathComponent:v53];
+            v57 = sub_10003A5E8(v56);
+            v58 = [v57 stringByAppendingPathComponent:v55];
 
-            if ([firstMessage2 getPayloadDataIntoFile:v55])
+            if ([firstMessage2 getPayloadDataIntoFile:v58])
             {
               deviceUUID = [storeCopy deviceUUID];
-              v57 = NTKDFaceFromPayloadPath();
+              v60 = NTKDFaceFromPayloadPath();
               v16 = 0;
             }
 
             else
             {
-              v57 = 0;
+              v60 = 0;
               v16 = 0;
             }
 
-            v63 = +[NSFileManager defaultManager];
-            [v63 removeItemAtPath:v55 error:0];
+            v66 = +[NSFileManager defaultManager];
+            [v66 removeItemAtPath:v58 error:0];
 
-            if (complicationCollectionIdentifier && v57)
+            if (complicationCollectionIdentifier && v60)
             {
               faceUUID = [firstMessage2 faceUUID];
-              [storeCopy withoutNotifyingSyncObserverUpgradeFace:v57 forUUID:faceUUID];
+              [storeCopy withoutNotifyingSyncObserverUpgradeFace:v60 forUUID:faceUUID];
             }
 
             goto LABEL_72;
@@ -2339,33 +2339,33 @@ LABEL_74:
             uUIDString2 = [v29 UUIDString];
             v31 = [NSString stringWithFormat:@"In-%@.zip", uUIDString2];
 
-            v32 = sub_10003A5E8();
-            v33 = [v32 stringByAppendingPathComponent:v31];
+            v33 = sub_10003A5E8(v32);
+            v34 = [v33 stringByAppendingPathComponent:v31];
 
-            if ([firstMessage2 getPayloadDataIntoFile:v33])
+            if ([firstMessage2 getPayloadDataIntoFile:v34])
             {
-              v34 = NTKDFaceResourceDirectoryFromPayloadPath();
+              v35 = NTKDFaceResourceDirectoryFromPayloadPath();
             }
 
             else
             {
-              v34 = 0;
+              v35 = 0;
             }
 
-            v58 = +[NSFileManager defaultManager];
-            [v58 removeItemAtPath:v33 error:0];
+            v61 = +[NSFileManager defaultManager];
+            [v61 removeItemAtPath:v34 error:0];
 
             if (complicationCollectionIdentifier)
             {
-              [v67 withoutNotifyingSyncObserverUpdateFaceForUUID:complicationCollectionIdentifier withResourceDirectory:v34];
-              [v67 synchronize];
-              v59 = +[NSFileManager defaultManager];
-              [v59 removeItemAtPath:v34 error:0];
+              [v70 withoutNotifyingSyncObserverUpdateFaceForUUID:complicationCollectionIdentifier withResourceDirectory:v35];
+              [v70 synchronize];
+              v62 = +[NSFileManager defaultManager];
+              [v62 removeItemAtPath:v35 error:0];
             }
 
             v16 = 0;
             v13 = &CLKComplicationFamilyDescription_ptr;
-            storeCopy = v67;
+            storeCopy = v70;
             goto LABEL_74;
           }
 
@@ -2398,49 +2398,49 @@ LABEL_74:
             complicationCollectionIdentifier = _NTKLoggingObjectForDomain();
             if (os_log_type_enabled(complicationCollectionIdentifier, OS_LOG_TYPE_ERROR))
             {
-              sub_10003FFF4(&v69, v70);
+              sub_10003FFF4(&v72, v73);
             }
 
             goto LABEL_53;
           case 0:
             complicationCollectionIdentifier = [firstMessage2 faceUUID];
-            v42 = +[NSUUID UUID];
-            uUIDString3 = [v42 UUIDString];
-            v44 = [NSString stringWithFormat:@"In-%@.zip", uUIDString3];
+            v43 = +[NSUUID UUID];
+            uUIDString3 = [v43 UUIDString];
+            v45 = [NSString stringWithFormat:@"In-%@.zip", uUIDString3];
 
-            v45 = sub_10003A5E8();
-            v46 = [v45 stringByAppendingPathComponent:v44];
+            v47 = sub_10003A5E8(v46);
+            v48 = [v47 stringByAppendingPathComponent:v45];
 
-            if ([firstMessage2 getPayloadDataIntoFile:v46])
+            if ([firstMessage2 getPayloadDataIntoFile:v48])
             {
               deviceUUID2 = [storeCopy deviceUUID];
-              v48 = NTKDFaceFromPayloadPath();
+              v50 = NTKDFaceFromPayloadPath();
               v16 = 0;
             }
 
             else
             {
-              v48 = 0;
+              v50 = 0;
               v16 = 0;
             }
 
-            v60 = +[NSFileManager defaultManager];
-            [v60 removeItemAtPath:v46 error:0];
+            v63 = +[NSFileManager defaultManager];
+            [v63 removeItemAtPath:v48 error:0];
 
-            v61 = _NTKLoggingObjectForDomain();
-            if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
+            v64 = _NTKLoggingObjectForDomain();
+            if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
             {
               *buf = 138543618;
-              v72 = complicationCollectionIdentifier;
-              v73 = 2114;
-              v74 = v48;
-              _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_INFO, "incoming - %{public}@ - added face %{public}@", buf, 0x16u);
+              v75 = complicationCollectionIdentifier;
+              v76 = 2114;
+              v77 = v50;
+              _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_INFO, "incoming - %{public}@ - added face %{public}@", buf, 0x16u);
             }
 
-            if (complicationCollectionIdentifier && v48)
+            if (complicationCollectionIdentifier && v50)
             {
               faceUUID2 = [firstMessage2 faceUUID];
-              [storeCopy withoutNotifyingSyncObserverAddFace:v48 forUUID:faceUUID2];
+              [storeCopy withoutNotifyingSyncObserverAddFace:v50 forUUID:faceUUID2];
             }
 
             goto LABEL_72;
@@ -2454,9 +2454,9 @@ LABEL_74:
             if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
             {
               *buf = 138543618;
-              v72 = complicationCollectionIdentifier;
-              v73 = 2114;
-              v74 = v20;
+              v75 = complicationCollectionIdentifier;
+              v76 = 2114;
+              v77 = v20;
               _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "incoming - %{public}@ - updated face config %{public}@", buf, 0x16u);
             }
 
@@ -2511,26 +2511,26 @@ LABEL_74:
         uUIDString = [v27 UUIDString];
         complicationDescriptor = [NSString stringWithFormat:@"Out-%@.zip", uUIDString];
 
-        v29 = sub_10003A5E8();
-        faceUUID4 = [v29 stringByAppendingPathComponent:complicationDescriptor];
+        v30 = sub_10003A5E8(v29);
+        faceUUID4 = [v30 stringByAppendingPathComponent:complicationDescriptor];
 
         if (sub_10000610C(resourceDirectory, 0, faceUUID4))
         {
           [messageCopy setPayloadDataFromFile:faceUUID4];
         }
 
-        v30 = +[NSFileManager defaultManager];
-        [v30 removeItemAtPath:faceUUID4 error:0];
+        v31 = +[NSFileManager defaultManager];
+        [v31 removeItemAtPath:faceUUID4 error:0];
 
-        v31 = _NTKLoggingObjectForDomain();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+        v32 = _NTKLoggingObjectForDomain();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
         {
           faceUUID2 = [messageCopy faceUUID];
           *buf = 138543618;
-          v51 = faceUUID2;
-          v52 = 2114;
-          v53 = resourceDirectory;
-          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "Outgoing - %{public}@ - added face %{public}@", buf, 0x16u);
+          v54 = faceUUID2;
+          v55 = 2114;
+          v56 = resourceDirectory;
+          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "Outgoing - %{public}@ - added face %{public}@", buf, 0x16u);
         }
 
         goto LABEL_25;
@@ -2552,9 +2552,9 @@ LABEL_74:
       {
         faceUUID4 = [messageCopy faceUUID];
         *buf = 138543618;
-        v51 = faceUUID4;
-        v52 = 2114;
-        v53 = resourceDirectory;
+        v54 = faceUUID4;
+        v55 = 2114;
+        v56 = resourceDirectory;
         _os_log_impl(&_mh_execute_header, complicationDescriptor, OS_LOG_TYPE_INFO, "Outgoing - %{public}@ - updated face %{public}@", buf, 0x16u);
 LABEL_26:
       }
@@ -2567,24 +2567,24 @@ LABEL_30:
     if (messageType == 2)
     {
       faceUUID5 = [messageCopy faceUUID];
-      v34 = [storeCopy faceForUUID:faceUUID5];
-      resourceDirectory = [v34 resourceDirectory];
+      v35 = [storeCopy faceForUUID:faceUUID5];
+      resourceDirectory = [v35 resourceDirectory];
 
-      v35 = +[NSUUID UUID];
-      uUIDString2 = [v35 UUIDString];
+      v36 = +[NSUUID UUID];
+      uUIDString2 = [v36 UUIDString];
       complicationDescriptor = [NSString stringWithFormat:@"Out-%@.zip", uUIDString2];
 
-      v37 = sub_10003A5E8();
-      faceUUID4 = [v37 stringByAppendingPathComponent:complicationDescriptor];
+      v39 = sub_10003A5E8(v38);
+      faceUUID4 = [v39 stringByAppendingPathComponent:complicationDescriptor];
 
-      v38 = +[NTKDZIPArchivist sharedArchivist];
-      v39 = [v38 zippedDataForPath:resourceDirectory toZipFile:faceUUID4];
+      v40 = +[NTKDZIPArchivist sharedArchivist];
+      v41 = [v40 zippedDataForPath:resourceDirectory toZipFile:faceUUID4];
 
-      if (!v39)
+      if (!v41)
       {
 LABEL_24:
-        v31 = +[NSFileManager defaultManager];
-        [v31 removeItemAtPath:faceUUID4 error:0];
+        v32 = +[NSFileManager defaultManager];
+        [v32 removeItemAtPath:faceUUID4 error:0];
 LABEL_25:
 
         goto LABEL_26;
@@ -2643,23 +2643,23 @@ LABEL_29:
       integerValue = [complicationFamily integerValue];
 
       complicationCollectionIdentifier2 = [messageCopy complicationCollectionIdentifier];
-      v43 = [storesCopy objectForKeyedSubscript:complicationCollectionIdentifier2];
+      v45 = [storesCopy objectForKeyedSubscript:complicationCollectionIdentifier2];
 
-      v44 = [v43 sampleTemplateForClientIdentifier:resourceDirectory descriptor:complicationDescriptor family:integerValue];
-      v45 = NTKDPayloadDataFromComplicationTemplate();
-      [messageCopy setPayloadData:v45];
+      v46 = [v45 sampleTemplateForClientIdentifier:resourceDirectory descriptor:complicationDescriptor family:integerValue];
+      v47 = NTKDPayloadDataFromComplicationTemplate();
+      [messageCopy setPayloadData:v47];
 
       goto LABEL_30;
     case 9:
       faceUUID6 = [messageCopy faceUUID];
       resourceDirectory = [storeCopy faceForUUID:faceUUID6];
 
-      v47 = +[NSUUID UUID];
-      uUIDString3 = [v47 UUIDString];
+      v49 = +[NSUUID UUID];
+      uUIDString3 = [v49 UUIDString];
       complicationDescriptor = [NSString stringWithFormat:@"Out-%@.zip", uUIDString3];
 
-      v49 = sub_10003A5E8();
-      faceUUID4 = [v49 stringByAppendingPathComponent:complicationDescriptor];
+      v52 = sub_10003A5E8(v51);
+      faceUUID4 = [v52 stringByAppendingPathComponent:complicationDescriptor];
 
       if (!sub_10000610C(resourceDirectory, 0, faceUUID4))
       {

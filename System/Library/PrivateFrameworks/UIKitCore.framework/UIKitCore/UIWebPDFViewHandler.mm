@@ -309,7 +309,7 @@ LABEL_3:
   pdfView = self->_pdfView;
   if (pdfView)
   {
-    [(UIWebPDFView *)pdfView documentTransform];
+    objc_msgSend_documentTransform(pdfView);
     v12 = v19;
     v11 = v20;
     v14 = v21;
@@ -371,7 +371,9 @@ LABEL_3:
 
 - (void)_removePDFViewIfWebDocViewIsNotSamePDF:(id)f
 {
-  if (([objc_msgSend(objc_msgSend(f "_documentUrl")] & 1) == 0)
+  v5 = [objc_msgSend(f "_documentUrl")];
+  [(NSURL *)[(UIWebPDFView *)self->_pdfView documentURL] _webkit_URLByRemovingFragment];
+  if ((objc_msgSend_isEqual_(v5) & 1) == 0)
   {
 
     [(UIWebPDFViewHandler *)self _replacePDFViewIfPresentWithWebDocView:f];
@@ -528,7 +530,7 @@ LABEL_3:
     pdfView = self->_pdfView;
     if (pdfView)
     {
-      [(UIWebPDFView *)pdfView documentTransform];
+      objc_msgSend_documentTransform(pdfView);
     }
 
     else
@@ -676,7 +678,7 @@ LABEL_3:
           pdfView = self->_pdfView;
           if (pdfView)
           {
-            [(UIWebPDFView *)pdfView documentTransform];
+            objc_msgSend_documentTransform(pdfView);
             v19 = self->_pdfView;
           }
 
@@ -868,7 +870,7 @@ LABEL_14:
   return 0;
 }
 
-uint64_t __53__UIWebPDFViewHandler__actionForType_withActionInfo___block_invoke(uint64_t a1, void *a2)
+void *__53__UIWebPDFViewHandler__actionForType_withActionInfo___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 valueForKey:@"UIWebPDFLinkActionURLAttribute"];
   if (result)
@@ -882,7 +884,7 @@ uint64_t __53__UIWebPDFViewHandler__actionForType_withActionInfo___block_invoke(
   return result;
 }
 
-uint64_t __53__UIWebPDFViewHandler__actionForType_withActionInfo___block_invoke_2(uint64_t a1, void *a2)
+void *__53__UIWebPDFViewHandler__actionForType_withActionInfo___block_invoke_2(uint64_t a1, void *a2)
 {
   v8[2] = *MEMORY[0x1E69E9840];
   result = [a2 valueForKey:@"UIWebPDFLinkActionURLAttribute"];
@@ -902,7 +904,7 @@ uint64_t __53__UIWebPDFViewHandler__actionForType_withActionInfo___block_invoke_
   return result;
 }
 
-uint64_t __53__UIWebPDFViewHandler__actionForType_withActionInfo___block_invoke_3(uint64_t a1, void *a2)
+void *__53__UIWebPDFViewHandler__actionForType_withActionInfo___block_invoke_3(uint64_t a1, void *a2)
 {
   result = [a2 valueForKey:@"UIWebPDFLinkActionURLAttribute"];
   if (result)
@@ -1772,7 +1774,7 @@ LABEL_7:
   pdfView = self->_pdfView;
   if (pdfView)
   {
-    [(UIWebPDFView *)pdfView documentTransform];
+    objc_msgSend_documentTransform(pdfView);
   }
 
   else

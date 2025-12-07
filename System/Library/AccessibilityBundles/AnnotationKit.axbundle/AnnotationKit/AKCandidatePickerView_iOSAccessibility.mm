@@ -1,6 +1,7 @@
 @interface AKCandidatePickerView_iOSAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_createButtonsWithBlurStyle:(int64_t)style;
+- (void)_selectBackground:(id)background animated:(BOOL)animated;
 @end
 
 @implementation AKCandidatePickerView_iOSAccessibility
@@ -35,6 +36,16 @@
   v10 = v5;
   v8 = v5;
   [v7 enumerateObjectsUsingBlock:v9];
+}
+
+- (void)_selectBackground:(id)background animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v6.receiver = self;
+  v6.super_class = AKCandidatePickerView_iOSAccessibility;
+  backgroundCopy = background;
+  [(AKCandidatePickerView_iOSAccessibility *)&v6 _selectBackground:backgroundCopy animated:animatedCopy];
+  [backgroundCopy setAccessibilityTraits:{*MEMORY[0x29EDC7F70], v6.receiver, v6.super_class}];
 }
 
 @end

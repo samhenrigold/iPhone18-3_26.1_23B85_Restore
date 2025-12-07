@@ -1,265 +1,3 @@
-uint64_t rxm_cq_owner_writeerr(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = *a2;
-  v9 = *(*a2 + 48);
-  v16 = a2[10];
-  v10 = *(a2 + 4);
-  v15[3] = *(a2 + 3);
-  v15[4] = v10;
-  v11 = *(a2 + 2);
-  v15[1] = *(a2 + 1);
-  v15[2] = v11;
-  v15[0] = *a2;
-  v13 = *(v8 + 56);
-  v12 = *(v8 + 64);
-  *&v15[0] = v13;
-  *(&v15[0] + 1) = v12;
-  if ((v12 & 0x1000000000) != 0)
-  {
-    return (*(*(v9 + 12856) + 16))(*(v9 + 12840), v15);
-  }
-
-  else
-  {
-    return (*(*(*(a1 - 56) + 24) + 16))(*(a1 - 56), v15, a3, a4, a5, a6, a7, a8);
-  }
-}
-
-uint64_t rxm_post_recv(uint64_t a1)
-{
-  v1 = *(a1 + 48);
-  if (*(v1 + 12824))
-  {
-    *(a1 + 96) = 0;
-  }
-
-  *(a1 + 32) = 3;
-  *(a1 + 104) = 0;
-  *(a1 + 112) = 0;
-  v2 = *(*(v1 + 80) + 384);
-  v3 = *(a1 + 40);
-  return (*(*(*(a1 + 56) + 40) + 8))();
-}
-
-uint64_t rxm_prepost_recv(uint64_t a1, uint64_t a2)
-{
-  if (!*(*(*(a1 + 432) + 80) + 48))
-  {
-    return 0;
-  }
-
-  v4 = 0;
-  while (1)
-  {
-    v5 = rxm_rx_buf_alloc(a1, a2);
-    if (!v5)
-    {
-      return 4294967284;
-    }
-
-    v6 = v5;
-    v7 = rxm_post_recv(v5);
-    if (v7)
-    {
-      break;
-    }
-
-    if (++v4 >= *(*(*(a1 + 432) + 80) + 48))
-    {
-      return 0;
-    }
-  }
-
-  v8 = v7;
-  ofi_buf_free(v6);
-  return v8;
-}
-
-uint64_t *rxm_rx_buf_alloc(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 12992);
-  if ((v2[16] & 2) != 0)
-  {
-    sock_pe_acquire_entry_cold_2();
-  }
-
-  v5 = *v2;
-  if (!*v2)
-  {
-    if (ofi_bufpool_grow(*(a1 + 12992)))
-    {
-      return 0;
-    }
-
-    v5 = *v2;
-  }
-
-  if (v5 == v2[1])
-  {
-    *v2 = 0;
-    v2[1] = 0;
-  }
-
-  else
-  {
-    *v2 = *v5;
-  }
-
-  if (atomic_fetch_add((v5[2] + 76), 1u) == -1)
-  {
-    sock_pe_acquire_entry_cold_4();
-  }
-
-  if (*v5 == v5)
-  {
-    sock_pe_acquire_entry_cold_3();
-  }
-
-  *v5 = v5;
-  if (v5[12] != a1)
-  {
-    rxm_rx_buf_alloc_cold_2();
-  }
-
-  result = v5 + 6;
-  *(v5 + 20) = 3;
-  v5[13] = a2;
-  *(v5 + 192) = 1;
-  if (!*(a1 + 12824))
-  {
-    v5[18] = *(a2 + 8);
-  }
-
-  return result;
-}
-
-void rxm_ep_do_progress(uint64_t a1)
-{
-  v2 = 0;
-  v28 = *MEMORY[0x29EDCA608];
-  do
-  {
-    v3 = (*(*(*(a1 + 12880) + 24) + 8))();
-    v10 = v3;
-    if (v3 < 1)
-    {
-      if (v3 && v3 != -35)
-      {
-        if (v3 == -259)
-        {
-          (*(a1 + 12912))(a1);
-          goto LABEL_20;
-        }
-
-        rxm_cq_write_error_all(a1, v3, v4, v5, v6, v7, v8, v9);
-      }
-    }
-
-    else
-    {
-      v11 = &v27;
-      v12 = v3;
-      do
-      {
-        v13 = (*(a1 + 12920))(a1, v11);
-        if (v13)
-        {
-          rxm_cq_write_error_all(a1, v13, v14, v15, v16, v17, v18, v19);
-        }
-
-        v11 += 40;
-        --v12;
-      }
-
-      while (v12);
-      v2 += v10;
-    }
-
-    if (v10 == -35)
-    {
-      v20 = *(a1 + 440) == 0;
-      goto LABEL_10;
-    }
-
-LABEL_20:
-    if (*(a1 + 440))
-    {
-      *(a1 + 12904) = rxm_cq_eq_fairness;
-      goto LABEL_22;
-    }
-
-    v23 = *(a1 + 12904) - 1;
-    *(a1 + 12904) = v23;
-    if (v23)
-    {
-      continue;
-    }
-
-    v20 = 1;
-LABEL_10:
-    *(a1 + 12904) = rxm_cq_eq_fairness;
-    if (!v20 || rxm_cm_progress_interval == 0)
-    {
-      goto LABEL_22;
-    }
-
-    v22 = ofi_gettime_us();
-    if (v22 - *(a1 + 12888) > rxm_cm_progress_interval)
-    {
-      *(a1 + 12888) = v22;
-LABEL_22:
-      rxm_conn_progress(a1);
-    }
-  }
-
-  while (v10 >= 1 && v2 < *(a1 + 12896));
-  v24 = *(a1 + 13032);
-  if (v24 != (a1 + 13032))
-  {
-    do
-    {
-      v25 = *v24;
-      rxm_ep_progress_deferred_queue(a1, (v24 - 6));
-      v24 = v25;
-    }
-
-    while (v25 != (a1 + 13032));
-  }
-
-  v26 = *MEMORY[0x29EDCA608];
-}
-
-uint64_t rxm_ep_progress(uint64_t a1)
-{
-  (*(a1 + 384))(a1 + 312);
-  rxm_ep_do_progress(a1);
-  v2 = *(a1 + 392);
-
-  return v2(a1 + 312);
-}
-
-uint64_t rxm_ep_progress_coll(uint64_t a1)
-{
-  (*(a1 + 384))(a1 + 312);
-  rxm_ep_do_progress(a1);
-  (*(a1 + 392))(a1 + 312);
-  v2 = *(a1 + 12832);
-  if (v2)
-  {
-    (*(v2 + 296))();
-  }
-
-  result = *(a1 + 12840);
-  if (result)
-  {
-    v4 = *(result + 296);
-
-    return v4();
-  }
-
-  return result;
-}
-
 uint64_t rxm_cq_open(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
   v23[0] = 0;
@@ -293,7 +31,7 @@ uint64_t rxm_cq_open(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
           (*(*(v20 + 16) + 8))(v20, v16, v17, v18, v10, v11, v12);
         }
 
-        ofi_cq_cleanup(v9);
+        ofi_cq_cleanup(v9, v16);
         goto LABEL_3;
       }
 
@@ -311,40 +49,31 @@ LABEL_3:
   return v13;
 }
 
-uint64_t rxm_cq_write_recv_comp(void *a1)
+int *rxm_cq_write_recv_comp(void *a1)
 {
   v1 = a1[6];
   v2 = v1[1606];
   if (v2 && (v3 = a1[35], v3 < 0))
   {
-    v11 = *(a1[13] + 64);
-    v12 = 0u;
-    v13 = 0u;
-    v14 = v3;
-    return (*(v2 + 8))(v1[1604], &v11, 0);
+    v6 = *(a1[13] + 64);
+    v7 = 0u;
+    v8 = 0u;
+    v9 = v3;
+    return (*(v2 + 8))(v1[1604], &v6, 0);
   }
 
   else
   {
-    v4 = v1[53];
-    v5 = v1[15];
-    v6 = a1[34];
-    v7 = a1[35];
-    if ((*(v4 + 15) & 2) != 0)
-    {
-      v8 = *(*(a1[12] + 8) + 8);
-    }
-
-    result = (*(*(*(v5 + 288) + 24) + 8))();
+    result = (*(*(*(v1[15] + 288) + 24) + 8))();
     if (result)
     {
       result = fi_log_enabled(&rxm_prov, 0, 6);
       if (result)
       {
-        v10 = *__error();
+        v5 = *__error();
         fi_log(&rxm_prov, 0, 6, "rxm_cq_write_recv_comp", 131, "Unable to write rx completion\n");
         result = __error();
-        *result = v10;
+        *result = v5;
       }
     }
   }
@@ -370,17 +99,17 @@ uint64_t rxm_replace_rx_buf(uint64_t a1)
   return result;
 }
 
-uint64_t rxm_init_sar_proto(uint64_t result)
+uint64_t rxm_init_sar_proto(uint64_t result, uint64_t a2)
 {
-  v1 = *(*(result + 48) + 13016);
-  if ((*(v1 + 128) & 2) != 0)
+  v2 = *(*(result + 48) + 13016);
+  if ((*(v2 + 128) & 2) != 0)
   {
     sock_pe_acquire_entry_cold_2();
   }
 
-  v2 = result;
-  v3 = *v1;
-  if (*v1)
+  v3 = result;
+  v4 = *v2;
+  if (*v2)
   {
     goto LABEL_3;
   }
@@ -388,79 +117,79 @@ uint64_t rxm_init_sar_proto(uint64_t result)
   result = ofi_bufpool_grow(*(*(result + 48) + 13016));
   if (!result)
   {
-    v3 = *v1;
+    v4 = *v2;
 LABEL_3:
-    if (v3 == *(v1 + 8))
+    if (v4 == *(v2 + 8))
     {
-      *v1 = 0;
-      *(v1 + 8) = 0;
+      *v2 = 0;
+      *(v2 + 8) = 0;
     }
 
     else
     {
-      *v1 = *v3;
+      *v2 = *v4;
     }
 
-    if (atomic_fetch_add((v3[2] + 76), 1u) == -1)
+    if (atomic_fetch_add((v4[2] + 76), 1u) == -1)
     {
       sock_pe_acquire_entry_cold_4();
     }
 
-    if (*v3 == v3)
+    if (*v4 == v4)
     {
       sock_pe_acquire_entry_cold_3();
     }
 
-    *v3 = v3;
-    v5 = v3 + 6;
-    v6 = v2[12];
-    if (!v6)
+    *v4 = v4;
+    v6 = v4 + 6;
+    v7 = v3[12];
+    if (!v7)
     {
-      v7 = v2[6];
-      v8 = v2[29];
-      v9 = *(v7 + 8 * (v8 >> 10) + 448);
-      if (!v9 || !*(v7 + 4 * (v8 >> 10) + 8640))
+      v8 = v3[6];
+      v9 = v3[29];
+      v10 = *(v8 + 8 * (v9 >> 10) + 448);
+      if (!v10 || !*(v8 + 4 * (v9 >> 10) + 8640))
       {
         sock_av_remove_cold_1();
       }
 
-      v6 = *(v9 + 8 * (v2[29] & 0x3FFLL));
-      v2[12] = v6;
+      v7 = *(v10 + 8 * (v3[29] & 0x3FFLL));
+      v3[12] = v7;
     }
 
-    v10 = v2[30];
-    v3[12] = v6;
-    v3[13] = v10;
-    v3[10] = v2[13];
-    v3[11] = 0;
-    v11 = *(v2[12] + 88);
-    v12 = *v11;
-    v3[6] = *v11;
-    v3[7] = v11;
-    *(v12 + 8) = v5;
-    *v11 = v5;
-    v13 = v3 + 8;
-    v3[8] = v3 + 8;
-    v3[9] = v3 + 8;
-    if (*(v2[13] + 88))
+    v11 = v3[30];
+    v4[12] = v7;
+    v4[13] = v11;
+    v4[10] = v3[13];
+    v4[11] = 0;
+    v12 = *(v3[12] + 88);
+    v13 = *v12;
+    v4[6] = *v12;
+    v4[7] = v12;
+    *(v13 + 8) = v6;
+    *v12 = v6;
+    v14 = v4 + 8;
+    v4[8] = v4 + 8;
+    v4[9] = v4 + 8;
+    if (*(v3[13] + 88))
     {
-      v2[10] = v13;
-      v2[11] = v13;
-      v3[8] = v2 + 10;
-      v3[9] = v2 + 10;
+      v3[10] = v14;
+      v3[11] = v14;
+      v4[8] = v3 + 10;
+      v4[9] = v3 + 10;
     }
 
-    v2[14] = v5;
+    v3[14] = v6;
     return result;
   }
 
   result = fi_log_enabled(&rxm_prov, 0, 6);
   if (result)
   {
-    v4 = *__error();
+    v5 = *__error();
     fi_log(&rxm_prov, 0, 6, "rxm_init_sar_proto", 417, "Failed to allocate proto info buffer\n");
     result = __error();
-    *result = v4;
+    *result = v5;
   }
 
   return result;
@@ -614,23 +343,23 @@ uint64_t rxm_do_atomic(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, u
   return result;
 }
 
-uint64_t rxm_cq_close(void *a1)
+uint64_t rxm_cq_close(void *a1, uint64_t a2)
 {
-  v2 = a1[48];
-  if (v2)
-  {
-    (*(*(v2 + 16) + 8))();
-  }
-
-  v3 = a1[47];
+  v3 = a1[48];
   if (v3)
   {
     (*(*(v3 + 16) + 8))();
   }
 
-  v4 = ofi_cq_cleanup(a1);
+  v4 = a1[47];
+  if (v4)
+  {
+    (*(*(v4 + 16) + 8))();
+  }
+
+  v5 = ofi_cq_cleanup(a1, a2);
   free(a1);
-  return v4;
+  return v5;
 }
 
 BOOL OUTLINED_FUNCTION_0_0(uint64_t a1)
@@ -1181,7 +910,7 @@ LABEL_20:
   return 4294967284;
 }
 
-uint64_t rxm_getinfo(uint64_t a1, const char *a2, char *a3, unint64_t a4, uint64_t a5, void **a6)
+uint64_t rxm_getinfo(uint64_t a1, const char *a2, char *a3, unint64_t a4, uint64_t a5, void *a6)
 {
   v8 = a4;
   v9 = a3;
@@ -1549,98 +1278,98 @@ LABEL_94:
   return v13;
 }
 
-void *fi_rxm_ini(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *fi_rxm_ini()
 {
-  fi_param_define(&rxm_prov, "buffer_size", 3, "Defines the allocated buffer size used for bounce buffers, including buffers posted at the receive side to handle unexpected messages.  This value corresponds to the rxm inject limit, and is also typically used as the eager message size. (default %zu)", a5, a6, a7, a8, rxm_buffer_size);
-  fi_param_define(&rxm_prov, "comp_per_progress", 1, "Defines the maximum number of MSG provider CQ entries (default: 1) that would be read per progress (RxM CQ read).", v8, v9, v10, v11, v86);
-  fi_param_define(&rxm_prov, "sar_limit", 3, "Specifies the maximum size transfer that the SAR Segmentation And Reassembly) protocol For transfers smaller than SAR, data may be copied into multiple bounce buffers on the transmit side and received into bounce buffers at the receiver. The sar_limit value must be greater than the eager_limit to take effect.  (default %zu).", v12, v13, v14, v15, 8 * rxm_buffer_size);
-  fi_param_define(&rxm_prov, "use_srx", 2, "Set this environment variable to control the RxM receive path. If this variable set to 1 (default: 0), the RxM uses Shared Receive Context. This mode improves memory consumption, but it may increase small message latency as a side-effect.", v16, v17, v18, v19, v87);
-  fi_param_define(&rxm_prov, "tx_size", 3, "Defines default tx context size (default: 2048).", v20, v21, v22, v23, v88);
-  fi_param_define(&rxm_prov, "rx_size", 3, "Defines default rx context size (default: 2048).", v24, v25, v26, v27, v89);
-  fi_param_define(&rxm_prov, "msg_tx_size", 3, "Defines FI_EP_MSG tx size that would be requested (default: 128).", v28, v29, v30, v31, v90);
-  fi_param_define(&rxm_prov, "msg_rx_size", 3, "Defines FI_EP_MSG rx or srx size that would be requested. (default: 128, 4096 with srx", v32, v33, v34, v35, v91);
-  fi_param_define(&rxm_prov, "cm_progress_interval", 1, "Defines the number of microseconds to wait between function calls to the connection management progression functions during fi_cq_read calls. Higher values may decrease noise during cq polling, but may result in longer connection establishment times. (default: 10000).", v36, v37, v38, v39, v92);
-  fi_param_define(&rxm_prov, "cq_eq_fairness", 1, "Defines the maximum number of message provider CQ entries that can be consecutively read across progress calls without checking to see if the CM progress interval has been reached. (default: 128).", v40, v41, v42, v43, v93);
-  fi_param_define(&rxm_prov, "data_auto_progress", 2, "Force auto-progress for data transfers even if app requested manual progress (default: false/no).", v44, v45, v46, v47, v94);
-  fi_param_define(&rxm_prov, "use_rndv_write", 2, "Set this environment variable to control the  RxM Rendezvous protocol.  If set (1), RxM will use RMA writes rather than RMA reads during Rendezvous transactions. (default: false/no).", v48, v49, v50, v51, v95);
-  fi_param_define(&rxm_prov, "enable_direct_send", 2, "Enable support to pass application buffers directly to the core provider when possible.  This avoids copying application buffers through bounce buffers before passing them to the core provider.  This feature targets small to medium size message transfers over the tcp provider.  (default: true)", v52, v53, v54, v55, v96);
-  fi_param_define(&rxm_prov, "enable_passthru", 2, "Enable passthru optimization.  Pass thru allows rxm to pass all data transfer calls directly to the core provider, which eliminates the rxm protocol and related overhead.  Pass thru is an optimized path to the tcp provider, depending on the capabilities requested by the application.", v56, v57, v58, v59, v97);
-  fi_param_define(&rxm_prov, "detect_hmem_iface", 2, "Detect iface for user buffers with NULL desc passed in. This allows such buffers be copied or registered internally by RxM. (default: false).", v60, v61, v62, v63, v98);
-  fi_param_define(&rxm_prov, "rescan", 2, "Force or disable rescanning for network interface changes. Setting this to true will force rescanning on each fi_getinfo() invocation; setting it to false will disable rescanning. (default: unset)", v64, v65, v66, v67, v99);
+  fi_param_define(&rxm_prov, "buffer_size", 3, "Defines the allocated buffer size used for bounce buffers, including buffers posted at the receive side to handle unexpected messages.  This value corresponds to the rxm inject limit, and is also typically used as the eager message size. (default %zu)", rxm_buffer_size);
+  fi_param_define(&rxm_prov, "comp_per_progress", 1, "Defines the maximum number of MSG provider CQ entries (default: 1) that would be read per progress (RxM CQ read).");
+  fi_param_define(&rxm_prov, "sar_limit", 3, "Specifies the maximum size transfer that the SAR Segmentation And Reassembly) protocol For transfers smaller than SAR, data may be copied into multiple bounce buffers on the transmit side and received into bounce buffers at the receiver. The sar_limit value must be greater than the eager_limit to take effect.  (default %zu).", 8 * rxm_buffer_size);
+  fi_param_define(&rxm_prov, "use_srx", 2, "Set this environment variable to control the RxM receive path. If this variable set to 1 (default: 0), the RxM uses Shared Receive Context. This mode improves memory consumption, but it may increase small message latency as a side-effect.");
+  fi_param_define(&rxm_prov, "tx_size", 3, "Defines default tx context size (default: 2048).");
+  fi_param_define(&rxm_prov, "rx_size", 3, "Defines default rx context size (default: 2048).");
+  fi_param_define(&rxm_prov, "msg_tx_size", 3, "Defines FI_EP_MSG tx size that would be requested (default: 128).");
+  fi_param_define(&rxm_prov, "msg_rx_size", 3, "Defines FI_EP_MSG rx or srx size that would be requested. (default: 128, 4096 with srx");
+  fi_param_define(&rxm_prov, "cm_progress_interval", 1, "Defines the number of microseconds to wait between function calls to the connection management progression functions during fi_cq_read calls. Higher values may decrease noise during cq polling, but may result in longer connection establishment times. (default: 10000).");
+  fi_param_define(&rxm_prov, "cq_eq_fairness", 1, "Defines the maximum number of message provider CQ entries that can be consecutively read across progress calls without checking to see if the CM progress interval has been reached. (default: 128).");
+  fi_param_define(&rxm_prov, "data_auto_progress", 2, "Force auto-progress for data transfers even if app requested manual progress (default: false/no).");
+  fi_param_define(&rxm_prov, "use_rndv_write", 2, "Set this environment variable to control the  RxM Rendezvous protocol.  If set (1), RxM will use RMA writes rather than RMA reads during Rendezvous transactions. (default: false/no).");
+  fi_param_define(&rxm_prov, "enable_direct_send", 2, "Enable support to pass application buffers directly to the core provider when possible.  This avoids copying application buffers through bounce buffers before passing them to the core provider.  This feature targets small to medium size message transfers over the tcp provider.  (default: true)");
+  fi_param_define(&rxm_prov, "enable_passthru", 2, "Enable passthru optimization.  Pass thru allows rxm to pass all data transfer calls directly to the core provider, which eliminates the rxm protocol and related overhead.  Pass thru is an optimized path to the tcp provider, depending on the capabilities requested by the application.");
+  fi_param_define(&rxm_prov, "detect_hmem_iface", 2, "Detect iface for user buffers with NULL desc passed in. This allows such buffers be copied or registered internally by RxM. (default: false).");
+  fi_param_define(&rxm_prov, "rescan", 2, "Force or disable rescanning for network interface changes. Setting this to true will force rescanning on each fi_getinfo() invocation; setting it to false will disable rescanning. (default: unset)");
   fi_param_get(&rxm_prov, "enable_passthru", &rxm_passthru);
-  v103 = 0;
-  v104 = 0;
-  v102 = 0;
-  if (fi_param_get(&rxm_prov, "buffer_size", &v104))
+  v11 = 0;
+  v12 = 0;
+  v10 = 0;
+  if (fi_param_get(&rxm_prov, "buffer_size", &v12))
   {
-    v68 = rxm_buffer_size;
+    v0 = rxm_buffer_size;
     goto LABEL_11;
   }
 
-  v68 = v104;
-  if (v104 <= 0x67)
+  v0 = v12;
+  if (v12 <= 0x67)
   {
     if (fi_log_enabled(&rxm_prov, 0, 0))
     {
-      v69 = *__error();
+      v1 = *__error();
       fi_log(&rxm_prov, 0, 0, "rxm_init_infos", 405, "Requested buffer size too small\n");
-      *__error() = v69;
+      *__error() = v1;
     }
 
-    v68 = 104;
+    v0 = 104;
     goto LABEL_9;
   }
 
-  if (v104 >> 31)
+  if (v12 >> 31)
   {
-    v68 = 0x7FFFFFFFLL;
+    v0 = 0x7FFFFFFFLL;
 LABEL_9:
-    v104 = v68;
+    v12 = v0;
   }
 
-  rxm_buffer_size = v68;
+  rxm_buffer_size = v0;
 LABEL_11:
-  rxm_packet_size = v68 + 64;
-  fi_param_get(&rxm_prov, "tx_size", &v103);
-  fi_param_get(&rxm_prov, "rx_size", &v102);
-  v70 = v103;
-  if (v103)
+  rxm_packet_size = v0 + 64;
+  fi_param_get(&rxm_prov, "tx_size", &v11);
+  fi_param_get(&rxm_prov, "rx_size", &v10);
+  v2 = v11;
+  if (v11)
   {
-    rxm_def_tx_size = v103;
+    rxm_def_tx_size = v11;
   }
 
-  v71 = v102;
-  if (v102)
+  v3 = v10;
+  if (v10)
   {
-    rxm_def_rx_size = v102;
+    rxm_def_rx_size = v10;
   }
 
-  v72 = off_2A1892C70;
+  v4 = off_2A1892C70;
   if (off_2A1892C70)
   {
-    v73 = rxm_buffer_size;
+    v5 = rxm_buffer_size;
     do
     {
-      v74 = v72[11];
-      if (!v74 || *(v74 + 1) != 22)
+      v6 = v4[11];
+      if (!v6 || *(v6 + 1) != 22)
       {
-        v72[9][5] = v73;
+        v4[9][5] = v5;
       }
 
-      if (v70)
+      if (v2)
       {
-        v72[9][6] = v70;
+        v4[9][6] = v2;
       }
 
-      if (v71)
+      if (v3)
       {
-        v72[10][6] = v71;
+        v4[10][6] = v3;
       }
 
-      v72 = *v72;
+      v4 = *v4;
     }
 
-    while (v72);
+    while (v4);
   }
 
   fi_param_get(&rxm_prov, "msg_tx_size", &rxm_msg_tx_size);
@@ -1657,37 +1386,37 @@ LABEL_11:
 
   fi_param_get(&rxm_prov, "data_auto_progress", &force_auto_progress);
   fi_param_get(&rxm_prov, "use_rndv_write", &rxm_use_write_rndv);
-  v104 = 0;
-  fi_param_define(&rxm_prov, "def_wait_obj", 0, "Specifies the default wait object used for blocking operations (e.g. fi_cq_sread).  Supported values are: fd and pollfd (default: fd).", v75, v76, v77, v78, v100);
-  fi_param_define(&rxm_prov, "def_tcp_wait_obj", 0, "See def_wait_obj for description.  If set, this overrides the def_wait_obj when running over the tcp provider.  See def_wait_obj for valid values. (default: UNSPEC, tcp provider will select).", v79, v80, v81, v82, v101);
-  fi_param_get(&rxm_prov, "def_wait_obj", &v104);
-  if (v104 && !strcasecmp(v104, "pollfd"))
+  v12 = 0;
+  fi_param_define(&rxm_prov, "def_wait_obj", 0, "Specifies the default wait object used for blocking operations (e.g. fi_cq_sread).  Supported values are: fd and pollfd (default: fd).");
+  fi_param_define(&rxm_prov, "def_tcp_wait_obj", 0, "See def_wait_obj for description.  If set, this overrides the def_wait_obj when running over the tcp provider.  See def_wait_obj for valid values. (default: UNSPEC, tcp provider will select).");
+  fi_param_get(&rxm_prov, "def_wait_obj", &v12);
+  if (v12 && !strcasecmp(v12, "pollfd"))
   {
     def_wait_obj = 6;
   }
 
-  v104 = 0;
-  fi_param_get(&rxm_prov, "def_tcp_wait_obj", &v104);
-  if (v104)
+  v12 = 0;
+  fi_param_get(&rxm_prov, "def_tcp_wait_obj", &v12);
+  if (v12)
   {
-    if (!strcasecmp(v104, "pollfd"))
+    if (!strcasecmp(v12, "pollfd"))
     {
-      v83 = 6;
+      v7 = 6;
     }
 
     else
     {
-      v83 = 3;
+      v7 = 3;
     }
 
-    def_tcp_wait_obj = v83;
+    def_tcp_wait_obj = v7;
   }
 
   if (force_auto_progress && fi_log_enabled(&rxm_prov, 2, 0))
   {
-    v84 = *__error();
+    v8 = *__error();
     fi_log(&rxm_prov, 2, 0, "fi_rxm_ini", 739, "auto-progress for data requested (FI_OFI_RXM_DATA_AUTO_PROGRESS = 1), domain threading level would be set to FI_THREAD_SAFE\n");
-    *__error() = v84;
+    *__error() = v8;
   }
 
   fi_param_get(&rxm_prov, "detect_hmem_iface", &rxm_detect_hmem_iface);
@@ -1910,72 +1639,66 @@ void rxm_ep_progress_deferred_queue(uint64_t a1, uint64_t a2)
             goto LABEL_40;
           }
 
-          v20 = (*(*(a1 + 13072) + 16))(*(*(v3 - 1) + 16), v3 + 7, v3 + 15, *(v3 + 152), 0, v3[4], v3[6], v3[3]);
-          v5 = v20;
-          if (!v20)
+          v16 = (*(*(a1 + 13072) + 16))(*(*(v3 - 1) + 16), v3 + 7, v3 + 15, *(v3 + 152), 0, v3[4], v3[6], v3[3]);
+          v5 = v16;
+          if (!v16)
           {
             goto LABEL_40;
           }
 
+          if (v16 == -35)
+          {
+            return;
+          }
+
+          v17 = *(v3 - 2);
+          goto LABEL_31;
+        }
+
+        v24 = (*(*(*(*(v3 - 1) + 16) + 40) + 32))();
+        v5 = v24;
+        if (v24)
+        {
+          if (v24 == -35)
+          {
+            return;
+          }
+
+          rxm_cq_write_tx_error(*(v3 - 2), 0);
+        }
+
+        v21 = v3[3];
+        v22 = 16;
+      }
+
+      else
+      {
+        v19 = *(v3[3] + 112);
+        v20 = (*(*(*(*(v3 - 1) + 16) + 40) + 32))();
+        v5 = v20;
+        if (v20)
+        {
           if (v20 == -35)
           {
             return;
           }
 
-          v21 = *(v3 - 2);
-          v22 = *(*(v3[3] + 104) + 64);
-          goto LABEL_31;
-        }
-
-        v33 = *(*(v3[3] + 296) + 40);
-        v34 = (*(*(*(*(v3 - 1) + 16) + 40) + 32))();
-        v5 = v34;
-        if (v34)
-        {
-          if (v34 == -35)
-          {
-            return;
-          }
-
-          v35 = v3[3];
-          rxm_cq_write_tx_error(*(v3 - 2), 0);
-        }
-
-        v29 = v3[3];
-        v30 = 16;
-      }
-
-      else
-      {
-        v24 = v3[4];
-        v25 = *(v3[3] + 112);
-        v26 = *(*(v25 + 64) + 40);
-        v27 = (*(*(*(*(v3 - 1) + 16) + 40) + 32))();
-        v5 = v27;
-        if (v27)
-        {
-          if (v27 == -35)
-          {
-            return;
-          }
-
-          v28 = *(*(v3[3] + 104) + 64);
           rxm_cq_write_rx_error(*(v3 - 2), 0);
         }
 
-        v29 = v3[3];
-        if (*(*(v25 + 64) + 409) == 3)
+        v21 = v3[3];
+        if (*(*(v19 + 64) + 409) == 3)
         {
-          v30 = 12;
+          v22 = 12;
         }
 
         else
         {
-          v30 = 14;
+          v22 = 14;
         }
       }
 
-      *(v29 + 32) = v30;
+      *(v21 + 32) = v22;
       goto LABEL_40;
     }
 
@@ -1989,47 +1712,43 @@ void rxm_ep_progress_deferred_queue(uint64_t a1, uint64_t a2)
       v8 = v3[3];
       if (v8)
       {
-        v9 = *(v8 + 410);
-        v10 = *(v8 + 40);
-        v11 = v3[3];
-        v12 = (*(*(*(*(v3 - 1) + 16) + 40) + 32))();
-        if (v12)
+        v9 = (*(*(*(*(v3 - 1) + 16) + 40) + 32))();
+        if (v9)
         {
-          v5 = v12;
+          v5 = v9;
 LABEL_9:
           if (v5 == -35)
           {
             return;
           }
 
-          v13 = *v6;
-          v14 = v3[3];
-          v15 = *(*v6 + 13000);
-          v16 = *(v14 + 424);
-          v17 = v15[11];
-          if (v16 / v17 >= v15[5])
+          v10 = *v6;
+          v11 = v3[3];
+          v12 = *(*v6 + 13000);
+          v13 = *(v11 + 424);
+          v14 = v12[11];
+          if (v13 / v14 >= v12[5])
           {
             rxm_rndv_handle_rd_done_cold_1();
           }
 
-          v18 = *(*(v15[4] + 8 * (v16 / v17)) + 40) + v15[2] * (v16 % v17);
-          if (*(v18 - 48) != v18 - 48)
+          v15 = *(*(v12[4] + 8 * (v13 / v14)) + 40) + v12[2] * (v13 % v14);
+          if (*(v15 - 48) != v15 - 48)
           {
             rxm_rndv_handle_rd_done_cold_2();
           }
 
-          rxm_free_tx_buf(*v6, v18);
-          rxm_free_tx_buf(v13, v14);
-          v19 = v3[22];
+          rxm_free_tx_buf(*v6, v15);
+          rxm_free_tx_buf(v10, v11);
           rxm_cq_write_tx_error(*(v3 - 2), 0);
           goto LABEL_40;
         }
 
-        v43 = v3[17];
-        v42 = v3[16] + 1;
-        v3[16] = v42;
+        v32 = v3[17];
+        v31 = v3[16] + 1;
+        v3[16] = v31;
         v3[20] -= rxm_buffer_size;
-        if (v42 == v43)
+        if (v31 == v32)
         {
           if ((~*(v8 + 432) & 3) != 0)
           {
@@ -2044,29 +1763,29 @@ LABEL_51:
 
       else
       {
-        v42 = v3[16];
-        v43 = v3[17];
+        v31 = v3[16];
+        v32 = v3[17];
       }
 
-      if (v42 != v43)
+      if (v31 != v32)
       {
-        v44 = v3[20];
-        v45 = rxm_buffer_size;
+        v33 = v3[20];
+        v34 = rxm_buffer_size;
         while (1)
         {
-          v5 = rxm_send_segment(*(v3 - 2), *(v3 - 1), v3[22], v3[19], v44, v3[21], v45, v42, v43, v3[14], v3[23], v3[15], *(v3 + 144), (v3 + 4), *(v3 + 96), v3 + 13, v3 + 3, *(v3 + 48), v3[25]);
+          v5 = rxm_send_segment(*(v3 - 2), *(v3 - 1), v3[22], v3[19], v33, v3[21], v34, v31, v32, v3[14], v3[23], v3[15], *(v3 + 144), (v3 + 4), *(v3 + 96), v3 + 13, v3 + 3, *(v3 + 48), v3[25]);
           if (v5)
           {
             goto LABEL_9;
           }
 
-          v43 = v3[17];
-          v42 = v3[16] + 1;
-          v3[16] = v42;
-          v45 = rxm_buffer_size;
-          v44 = v3[20] - rxm_buffer_size;
-          v3[20] = v44;
-          if (v42 == v43)
+          v32 = v3[17];
+          v31 = v3[16] + 1;
+          v3[16] = v31;
+          v34 = rxm_buffer_size;
+          v33 = v3[20] - rxm_buffer_size;
+          v3[20] = v33;
+          if (v31 == v32)
           {
             goto LABEL_40;
           }
@@ -2076,41 +1795,40 @@ LABEL_51:
       goto LABEL_51;
     }
 
-    v31 = (*(*(a1 + 13072) + 16))(*(*(v3 - 1) + 16), v3 + 7, v3 + 15, *(v3 + 152), 0, v3[4], v3[6], v3[3]);
-    v5 = v31;
-    if (v31)
+    v23 = (*(*(a1 + 13072) + 16))(*(*(v3 - 1) + 16), v3 + 7, v3 + 15, *(v3 + 152), 0, v3[4], v3[6], v3[3]);
+    v5 = v23;
+    if (v23)
     {
-      if (v31 == -35)
+      if (v23 == -35)
       {
         return;
       }
 
-      v21 = *(v3 - 2);
-      v32 = v3[3];
+      v17 = *(v3 - 2);
 LABEL_31:
-      rxm_cq_write_rx_error(v21, 0);
+      rxm_cq_write_rx_error(v17, 0);
     }
 
 LABEL_40:
-    v36 = *(v3 - 1);
-    if (v36[8] == v36 + 8)
+    v25 = *(v3 - 1);
+    if (v25[8] == v25 + 8)
     {
       rxm_ep_progress_deferred_queue_cold_4();
     }
 
-    v37 = *v3;
-    v38 = v3[1];
-    *v38 = *v3;
-    *(v37 + 8) = v38;
-    if (v36[8] == v36 + 8)
+    v26 = *v3;
+    v27 = v3[1];
+    *v27 = *v3;
+    *(v26 + 8) = v27;
+    if (v25[8] == v25 + 8)
     {
-      v40 = v36[6];
-      v41 = v36[7];
-      v39 = v36 + 6;
-      *v41 = v40;
-      *(v40 + 8) = v41;
-      *v39 = v39;
-      v39[1] = v39;
+      v29 = v25[6];
+      v30 = v25[7];
+      v28 = v25 + 6;
+      *v30 = v29;
+      *(v29 + 8) = v30;
+      *v28 = v28;
+      v28[1] = v28;
     }
 
     free(v3 - 2);
@@ -2128,8 +1846,6 @@ LABEL_40:
 
   if (v7 == 5)
   {
-    v50 = v3[3] + 408;
-    v51 = v3[4];
     v5 = (*(*(*(*(v3 - 1) + 16) + 40) + 48))();
     if (v5 == -35)
     {
@@ -2144,19 +1860,15 @@ LABEL_40:
     goto LABEL_40;
   }
 
-  v49 = v3[3] + 408;
-  v48 = v3[3];
-  v47 = v3[3] + 40;
-  v23 = (*(*(*(*(v3 - 1) + 16) + 40) + 48))();
-  v5 = v23;
-  if (!v23)
+  v18 = (*(*(*(*(v3 - 1) + 16) + 40) + 48))();
+  v5 = v18;
+  if (!v18)
   {
     goto LABEL_40;
   }
 
-  if (v23 != -35)
+  if (v18 != -35)
   {
-    v46 = *(*(v3[3] + 104) + 64);
     rxm_cq_write_rx_error(*(v3 - 2), 0);
   }
 }
@@ -2537,10 +2249,10 @@ uint64_t rxm_endpoint(void *a1, __int128 *a2, uint64_t a3, uint64_t a4)
   *(v9 + 424) = v10;
   if (!v10)
   {
-    v17 = 4294967284;
+    v18 = 4294967284;
 LABEL_42:
     free(v9);
-    return v17;
+    return v18;
   }
 
   if (fi_param_get(&rxm_prov, "comp_per_progress", (v9 + 12896)))
@@ -2557,12 +2269,12 @@ LABEL_42:
     }
 
 LABEL_15:
-    v17 = v11;
+    v18 = v11;
 LABEL_40:
-    v33 = *(v9 + 424);
-    if (v33)
+    v28 = *(v9 + 424);
+    if (v28)
     {
-      fi_freeinfo(v33);
+      fi_freeinfo(v28);
     }
 
     goto LABEL_42;
@@ -2574,8 +2286,6 @@ LABEL_40:
     goto LABEL_15;
   }
 
-  v19 = a1[7];
-  v20 = *(v19 + 168);
   core_info = (*(*(a1[61] + 24) + 24))();
   if (core_info)
   {
@@ -2585,7 +2295,6 @@ LABEL_40:
   *(v9 + 12848) = 0;
   if (a1[63])
   {
-    v21 = *(v19 + 176);
     core_info = (*(*(a1[62] + 24) + 24))();
     if (core_info)
     {
@@ -2599,41 +2308,40 @@ LABEL_40:
 LABEL_7:
   v12 = *(v9 + 80);
   v13 = (v9 + 432);
-  v63 = v9 + 432;
+  v57 = v9 + 432;
   core_info = ofi_get_core_info(*(*(v12 + 56) + 32), 0, 0, 0, &rxm_util_prov, *(v9 + 424), 0, rxm_info_to_core);
   if (core_info)
   {
 LABEL_17:
-    v17 = core_info;
+    v18 = core_info;
 LABEL_35:
-    v31 = *(v9 + 12832);
-    if (v31)
+    v26 = *(v9 + 12832);
+    if (v26)
     {
-      (*(*(v31 + 16) + 8))();
+      (*(*(v26 + 16) + 8))();
     }
 
-    v32 = *(v9 + 12840);
-    if (v32)
+    v27 = *(v9 + 12840);
+    if (v27)
     {
-      (*(*(v32 + 16) + 8))();
+      (*(*(v27 + 16) + 8))();
     }
 
-    ofi_endpoint_close(v9);
+    ofi_endpoint_close(v9, v15);
     goto LABEL_40;
   }
 
   if (*((*v13)[11] + 72) == -1)
   {
-    v22 = (*v13)[10];
-    v23 = (*(*(*(v12 + 280) + 24) + 64))(*(v12 + 280));
-    if (v23)
+    v20 = (*(*(*(v12 + 280) + 24) + 64))(*(v12 + 280));
+    if (v20)
     {
-      v17 = v23;
+      v18 = v20;
       if (fi_log_enabled(&rxm_prov, 0, 3))
       {
-        v24 = *__error();
-        fi_log(&rxm_prov, 0, 3, "rxm_open_core_res", 1557, "Unable to open shared receive context\n", v63);
-        *__error() = v24;
+        v21 = *__error();
+        fi_log(&rxm_prov, 0, 3, "rxm_open_core_res", 1557, "Unable to open shared receive context\n", v57);
+        *__error() = v21;
       }
 
 LABEL_34:
@@ -2643,135 +2351,133 @@ LABEL_34:
     }
   }
 
-  v64[0] = xmmword_29ED129E0;
-  v64[1] = unk_29ED129F0;
-  v15 = *(*(v9 + 80) + 56);
-  v16 = (*(*(*(v15 + 160) + 24) + 24))(*(v15 + 160));
-  if (v16)
+  v58[0] = xmmword_29ED129E0;
+  v58[1] = unk_29ED129F0;
+  v16 = *(*(v9 + 80) + 56);
+  v17 = (*(*(*(v16 + 160) + 24) + 24))(*(v16 + 160));
+  if (v17)
   {
-    v17 = v16;
+    v18 = v17;
     if (fi_log_enabled(&rxm_prov, 0, 3))
     {
-      v18 = *__error();
-      fi_log(&rxm_prov, 0, 3, "rxm_listener_open", 1516, "Unable to open msg EQ\n", v63);
-      *__error() = v18;
+      v19 = *__error();
+      fi_log(&rxm_prov, 0, 3, "rxm_listener_open", 1516, "Unable to open msg EQ\n", v57);
+      *__error() = v19;
     }
 
     goto LABEL_32;
   }
 
-  v25 = *(v9 + 432);
-  v26 = (*(*(*(v15 + 160) + 24) + 16))(*(v15 + 160));
-  if (v26)
+  v22 = (*(*(*(v16 + 160) + 24) + 16))(*(v16 + 160));
+  if (v22)
   {
-    v17 = v26;
+    v18 = v22;
     if (fi_log_enabled(&rxm_prov, 0, 3))
     {
-      v27 = *__error();
-      fi_log(&rxm_prov, 0, 3, "rxm_listener_open", 1523, "Unable to open msg PEP\n", v63);
+      v23 = *__error();
+      fi_log(&rxm_prov, 0, 3, "rxm_listener_open", 1523, "Unable to open msg PEP\n", v57);
 LABEL_30:
-      *__error() = v27;
+      *__error() = v23;
       goto LABEL_31;
     }
 
     goto LABEL_31;
   }
 
-  v28 = *(v9 + 12816);
-  v29 = (*(*(*(v9 + 12808) + 16) + 16))(*(v9 + 12808));
-  if (v29)
+  v24 = (*(*(*(v9 + 12808) + 16) + 16))(*(v9 + 12808));
+  if (v24)
   {
-    v17 = v29;
+    v18 = v24;
     if (fi_log_enabled(&rxm_prov, 0, 3))
     {
-      v27 = *__error();
-      fi_log(&rxm_prov, 0, 3, "rxm_listener_open", 1530, "Unable to bind msg PEP to msg EQ\n", v63);
+      v23 = *__error();
+      fi_log(&rxm_prov, 0, 3, "rxm_listener_open", 1530, "Unable to bind msg PEP to msg EQ\n", v57);
       goto LABEL_30;
     }
 
 LABEL_31:
     rxm_listener_close(v9);
 LABEL_32:
-    v30 = *(v9 + 12824);
-    if (v30)
+    v25 = *(v9 + 12824);
+    if (v25)
     {
-      (*(*(v30 + 16) + 8))();
+      (*(*(v25 + 16) + 8))();
       *(v9 + 12824) = 0;
     }
 
     goto LABEL_34;
   }
 
-  v35 = *v13;
+  v30 = *v13;
   if (!*v13)
   {
     rxm_endpoint_cold_3();
   }
 
-  v36 = v35[9];
-  v37 = *(v35[10] + 48);
-  if (*(v36 + 48) < v37)
+  v31 = v30[9];
+  v32 = *(v30[10] + 48);
+  if (*(v31 + 48) < v32)
   {
-    v37 = *(v36 + 48);
+    v32 = *(v31 + 48);
   }
 
-  if (*(v9 + 12896) >= v37 >> 1)
+  if (*(v9 + 12896) >= v32 >> 1)
   {
-    v38 = v37 >> 1;
+    v33 = v32 >> 1;
   }
 
   else
   {
-    v38 = *(v9 + 12896);
+    v33 = *(v9 + 12896);
   }
 
-  *(v9 + 12896) = v38;
-  v39 = v35[12];
-  if (!v39)
+  *(v9 + 12896) = v33;
+  v34 = v30[12];
+  if (!v34)
   {
     goto LABEL_53;
   }
 
-  v40 = *(v39 + 36);
-  if ((v40 & 4) != 0)
+  v35 = *(v34 + 36);
+  if ((v35 & 4) != 0)
   {
-    LOBYTE(v41) = 1;
+    LOBYTE(v36) = 1;
   }
 
   else
   {
-    if (v40 <= 7)
+    if (v35 <= 7)
     {
 LABEL_53:
-      v41 = (v35[2] >> 55) & 1;
+      v36 = (v30[2] >> 55) & 1;
       goto LABEL_56;
     }
 
-    LOBYTE(v41) = 0;
+    LOBYTE(v36) = 0;
   }
 
 LABEL_56:
-  *(v9 + 12928) = v41;
-  v42 = *(v9 + 424);
-  if (!v42)
+  *(v9 + 12928) = v36;
+  v37 = *(v9 + 424);
+  if (!v37)
   {
 LABEL_61:
-    LOBYTE(v45) = 0;
+    LOBYTE(v40) = 0;
     goto LABEL_63;
   }
 
-  v43 = v42[12];
-  if (!v43)
+  v38 = v37[12];
+  if (!v38)
   {
 LABEL_60:
-    v45 = (v42[2] >> 55) & 1;
+    v40 = (v37[2] >> 55) & 1;
     goto LABEL_63;
   }
 
-  v44 = *(v43 + 36);
-  if ((v44 & 4) == 0)
+  v39 = *(v38 + 36);
+  if ((v39 & 4) == 0)
   {
-    if (v44 <= 7)
+    if (v39 <= 7)
     {
       goto LABEL_60;
     }
@@ -2779,26 +2485,26 @@ LABEL_60:
     goto LABEL_61;
   }
 
-  LOBYTE(v45) = 1;
+  LOBYTE(v40) = 1;
 LABEL_63:
-  *(v9 + 12929) = v45;
-  v46 = *(v36 + 40);
-  *(v9 + 12952) = v46;
-  *(v9 + 12976) = *(v42[9] + 48);
+  *(v9 + 12929) = v40;
+  v41 = *(v31 + 40);
+  *(v9 + 12952) = v41;
+  *(v9 + 12976) = *(v37[9] + 48);
   if (*(v9 + 12936))
   {
     rxm_endpoint_cold_1();
   }
 
-  if (v46 >= 0xA9)
+  if (v41 >= 0xA9)
   {
-    v47 = v46 - 168;
-    if (v47 >= rxm_buffer_size)
+    v42 = v41 - 168;
+    if (v42 >= rxm_buffer_size)
     {
-      v47 = rxm_buffer_size;
+      v42 = rxm_buffer_size;
     }
 
-    *(v9 + 12936) = v47;
+    *(v9 + 12936) = v42;
   }
 
   if (*(v9 + 12944))
@@ -2806,132 +2512,131 @@ LABEL_63:
     rxm_endpoint_cold_2();
   }
 
-  v48 = rxm_buffer_size;
+  v43 = rxm_buffer_size;
   *(v9 + 12944) = rxm_buffer_size;
-  *(v9 + 12984) = v48;
-  LODWORD(v64[0]) = 1;
-  if ((v41 & 1) == 0)
+  *(v9 + 12984) = v43;
+  LODWORD(v58[0]) = 1;
+  if ((v36 & 1) == 0)
   {
-    fi_param_get(&rxm_prov, "enable_direct_send", v64);
-    *(v9 + 12931) = LODWORD(v64[0]) != 0;
-    v48 = rxm_buffer_size;
+    fi_param_get(&rxm_prov, "enable_direct_send", v58);
+    *(v9 + 12931) = LODWORD(v58[0]) != 0;
+    v43 = rxm_buffer_size;
   }
 
-  v49 = *(v9 + 12960);
-  if (v49 < v48)
+  v44 = *(v9 + 12960);
+  if (v44 < v43)
   {
-    *(v9 + 12960) = v48;
-    v49 = v48;
+    *(v9 + 12960) = v43;
+    v44 = v43;
   }
 
-  if (v49 < 0x10000)
+  if (v44 < 0x10000)
   {
-    *&v64[0] = 0;
-    if (fi_param_get(&rxm_prov, "sar_limit", v64))
+    *&v58[0] = 0;
+    if (fi_param_get(&rxm_prov, "sar_limit", v58))
     {
-      v49 = 8 * *(v9 + 12960);
+      v44 = 8 * *(v9 + 12960);
     }
 
     else
     {
-      v49 = *&v64[0];
-      v50 = *(v9 + 12960);
-      if (*&v64[0] <= v50)
+      v44 = *&v58[0];
+      v45 = *(v9 + 12960);
+      if (*&v58[0] <= v45)
       {
-        *(v9 + 12968) = v50;
+        *(v9 + 12968) = v45;
         goto LABEL_78;
       }
     }
   }
 
-  *(v9 + 12968) = v49;
+  *(v9 + 12968) = v44;
 LABEL_78:
   if (fi_log_enabled(&rxm_prov, 2, 0))
   {
-    v51 = *__error();
-    v52 = *(v9 + 12960);
-    fi_log(&rxm_prov, 2, 0, "rxm_ep_settings_init", 1163, "Settings:\n\t\t MR local: MSG - %d, RxM - %d\n\t\t Completions per progress: MSG - %zu\n\t\t Buffered min: %zu\n\t\t inject size: %zu\n\t\t Protocol limits: Eager: %zu, SAR: %zu\n", *(v9 + 12928), *(v9 + 12929), *(v9 + 12896), *(v9 + 12936), *(v9 + 12952), v52, *(v9 + 12968));
-    *__error() = v51;
+    v46 = *__error();
+    fi_log(&rxm_prov, 2, 0, "rxm_ep_settings_init", 1163, "Settings:\n\t\t MR local: MSG - %d, RxM - %d\n\t\t Completions per progress: MSG - %zu\n\t\t Buffered min: %zu\n\t\t inject size: %zu\n\t\t Protocol limits: Eager: %zu, SAR: %zu\n", *(v9 + 12928), *(v9 + 12929), *(v9 + 12896), *(v9 + 12936), *(v9 + 12952), *(v9 + 12960), *(v9 + 12968));
+    *__error() = v46;
   }
 
-  v53 = malloc_type_calloc(1uLL, *(v9 + 12952) + 64, 0x1000040FA0F61DDuLL);
-  *(v9 + 13024) = v53;
-  if (!v53)
+  v47 = malloc_type_calloc(1uLL, *(v9 + 12952) + 64, 0x1000040FA0F61DDuLL);
+  *(v9 + 13024) = v47;
+  if (!v47)
   {
-    v17 = 4294967284;
+    v18 = 4294967284;
     goto LABEL_35;
   }
 
-  *v53 = 4;
-  v53[32] = 2;
+  *v47 = 4;
+  v47[32] = 2;
   *a3 = v9;
   *(v9 + 16) = &rxm_ep_fi_ops;
   *(*a3 + 24) = &rxm_ops_ep;
   *(*a3 + 32) = &rxm_ops_cm;
   if ((*(*(v9 + 424) + 8) & 0x40) != 0)
   {
-    v54 = &rxm_ops_collective;
+    v48 = &rxm_ops_collective;
   }
 
   else
   {
-    v54 = &rxm_ops_collective_none;
+    v48 = &rxm_ops_collective_none;
   }
 
-  v55 = coll_eager_ops;
+  v49 = coll_eager_ops;
   if ((*(*(v9 + 424) + 8) & 0x40) == 0)
   {
-    v55 = def_eager_ops;
+    v49 = def_eager_ops;
   }
 
-  *(*a3 + 72) = v54;
-  *(v9 + 13064) = v55;
+  *(*a3 + 72) = v48;
+  *(v9 + 13064) = v49;
   if (rxm_use_write_rndv)
   {
-    v56 = &rxm_rndv_ops_write;
+    v50 = &rxm_rndv_ops_write;
   }
 
   else
   {
-    v56 = &rxm_rndv_ops_read;
+    v50 = &rxm_rndv_ops_read;
   }
 
-  *(v9 + 13072) = v56;
+  *(v9 + 13072) = v50;
   *(v9 + 13048) = v9 + 13048;
   *(v9 + 13056) = v9 + 13048;
-  v57 = rxm_passthru_info(a2);
-  v58 = rxm_thru_comp_error;
-  v59 = rxm_thru_comp;
-  if (v57)
+  v51 = rxm_passthru_info(a2);
+  v52 = rxm_thru_comp_error;
+  v53 = rxm_thru_comp;
+  if (v51)
   {
-    v60 = &rxm_tagged_thru_ops;
-    v61 = &rxm_rma_thru_ops;
-    v62 = &rxm_msg_thru_ops;
+    v54 = &rxm_tagged_thru_ops;
+    v55 = &rxm_rma_thru_ops;
+    v56 = &rxm_msg_thru_ops;
   }
 
   else
   {
-    v58 = rxm_handle_comp_error;
-    v60 = &rxm_tagged_ops;
-    v59 = rxm_handle_comp;
-    v61 = &rxm_rma_ops;
-    v62 = &rxm_msg_ops;
+    v52 = rxm_handle_comp_error;
+    v54 = &rxm_tagged_ops;
+    v53 = rxm_handle_comp;
+    v55 = &rxm_rma_ops;
+    v56 = &rxm_msg_ops;
   }
 
-  *(*a3 + 40) = v62;
-  *(*a3 + 48) = v61;
-  *(*a3 + 56) = v60;
-  *(v9 + 12920) = v59;
-  *(v9 + 12912) = v58;
+  *(*a3 + 40) = v56;
+  *(*a3 + 48) = v55;
+  *(*a3 + 56) = v54;
+  *(v9 + 12920) = v53;
+  *(v9 + 12912) = v52;
   if ((*(*(v9 + 424) + 8) & 0x10) != 0)
   {
     *(*a3 + 64) = &rxm_ops_atomic;
   }
 
-  v17 = 0;
+  v18 = 0;
   *(v9 + 12736) = v9 + 12736;
   *(v9 + 12744) = v9 + 12736;
-  return v17;
+  return v18;
 }
 
 uint64_t rxm_listener_close(uint64_t a1)
@@ -3059,7 +2764,7 @@ LABEL_12:
     }
 
     free(*(a1 + 13024));
-    ofi_endpoint_close(a1);
+    ofi_endpoint_close(a1, v12);
     fi_freeinfo(*(a1 + 432));
     fi_freeinfo(*(a1 + 424));
     free(a1);
@@ -3084,7 +2789,7 @@ LABEL_12:
   return v2;
 }
 
-uint64_t rxm_ep_bind(void *a1, uint64_t *a2, unint64_t a3)
+uint64_t rxm_ep_bind(void *a1, atomic_uint *a2, unint64_t a3)
 {
   if (*a2 != 6)
   {
@@ -3100,7 +2805,7 @@ uint64_t rxm_ep_bind(void *a1, uint64_t *a2, unint64_t a3)
       v15 = a1[1604];
       if (v15)
       {
-        v16 = a2[47];
+        v16 = *(a2 + 47);
         if (v16)
         {
           result = ofi_ep_bind(v15, v16, a3);
@@ -3114,7 +2819,7 @@ uint64_t rxm_ep_bind(void *a1, uint64_t *a2, unint64_t a3)
       v11 = a1[1605];
       if (v11)
       {
-        v12 = a2[48];
+        v12 = *(a2 + 48);
         if (v12)
         {
           goto LABEL_28;
@@ -3134,7 +2839,7 @@ uint64_t rxm_ep_bind(void *a1, uint64_t *a2, unint64_t a3)
         v9 = a1[1604];
         if (v9)
         {
-          v10 = a2[55];
+          v10 = *(a2 + 55);
           if (v10)
           {
             result = ofi_ep_bind(v9, v10, a3);
@@ -3151,7 +2856,7 @@ uint64_t rxm_ep_bind(void *a1, uint64_t *a2, unint64_t a3)
           return 0;
         }
 
-        v12 = a2[56];
+        v12 = *(a2 + 56);
         if (!v12)
         {
           return 0;
@@ -3170,7 +2875,7 @@ LABEL_28:
       v13 = a1[1604];
       if (v13)
       {
-        v14 = a2[20];
+        v14 = *(a2 + 20);
         if (v14)
         {
           result = ofi_ep_bind(v13, v14, a3);
@@ -3184,7 +2889,7 @@ LABEL_28:
       v11 = a1[1605];
       if (v11)
       {
-        v12 = a2[21];
+        v12 = *(a2 + 21);
         if (v12)
         {
           goto LABEL_28;
@@ -3210,7 +2915,7 @@ LABEL_28:
   else
   {
     result = 0;
-    a1[1609] = a2[10];
+    a1[1609] = *(a2 + 10);
   }
 
   return result;
@@ -3218,32 +2923,28 @@ LABEL_28:
 
 uint64_t rxm_ep_ctrl(void *a1, int a2)
 {
-  v54 = *MEMORY[0x29EDCA608];
+  v52 = *MEMORY[0x29EDCA608];
   if (a2 != 6)
   {
-    started = 4294967218;
-    goto LABEL_60;
+    return 4294967218;
   }
 
   if (!a1[11])
   {
-    started = 4294967038;
-    goto LABEL_60;
+    return 4294967038;
   }
 
-  v41 = 0;
+  v39 = 0;
   if (ofi_needs_tx(*(a1[53] + 8)) && !a1[17])
   {
     if (fi_log_enabled(&rxm_prov, 0, 3))
     {
       v21 = *__error();
-      fi_log(&rxm_prov, 0, 3, "rxm_ep_enable_check", 1185, "missing Tx CQ\n", v41);
+      fi_log(&rxm_prov, 0, 3, "rxm_ep_enable_check", 1185, "missing Tx CQ\n", v39);
       goto LABEL_58;
     }
 
-LABEL_59:
-    started = 4294967033;
-    goto LABEL_60;
+    return 4294967033;
   }
 
   if (a1[15])
@@ -3256,13 +2957,13 @@ LABEL_59:
     if (fi_log_enabled(&rxm_prov, 0, 3))
     {
       v21 = *__error();
-      fi_log(&rxm_prov, 0, 3, "rxm_ep_enable_check", 1193, "missing Rx CQ\n", v41);
+      fi_log(&rxm_prov, 0, 3, "rxm_ep_enable_check", 1193, "missing Rx CQ\n", v39);
 LABEL_58:
       *__error() = v21;
-      goto LABEL_59;
+      return 4294967033;
     }
 
-    goto LABEL_59;
+    return 4294967033;
   }
 
   if (*(*(a1[53] + 96) + 48))
@@ -3270,11 +2971,11 @@ LABEL_58:
     if (fi_log_enabled(&rxm_prov, 0, 3))
     {
       v21 = *__error();
-      fi_log(&rxm_prov, 0, 3, "rxm_ep_enable_check", 1199, "user hinted that CQ data may be used but endpoint is missing recv CQ\n", v41);
+      fi_log(&rxm_prov, 0, 3, "rxm_ep_enable_check", 1199, "user hinted that CQ data may be used but endpoint is missing recv CQ\n", v39);
       goto LABEL_58;
     }
 
-    goto LABEL_59;
+    return 4294967033;
   }
 
 LABEL_6:
@@ -3283,18 +2984,18 @@ LABEL_6:
     rxm_ep_ctrl_cold_1();
   }
 
-  v43 = 0u;
-  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v3 = a1[17];
   v4 = a1[15];
   v6 = a1[22];
   v5 = a1[23];
-  *&v49 = v6;
-  *(&v49 + 1) = v5;
+  *&v47 = v6;
+  *(&v47 + 1) = v5;
   v7 = a1[24];
   v8 = a1[25];
-  *&v50 = v7;
-  *(&v50 + 1) = v8;
+  *&v48 = v7;
+  *(&v48 + 1) = v8;
   v10 = a1[53];
   v9 = a1[54];
   v11 = v9[9];
@@ -3311,11 +3012,11 @@ LABEL_6:
   v13 = v12 * *(v9[10] + 48);
   v14 = a1[26];
   v15 = a1[27];
-  *&v51 = v14;
-  *(&v51 + 1) = v15;
+  *&v49 = v14;
+  *(&v49 + 1) = v15;
   v16 = a1[10];
-  v42 = v13 + *(v11 + 48) * ofi_universe_size;
-  DWORD2(v43) = 3;
+  v40 = v13 + *(v11 + 48) * ofi_universe_size;
+  DWORD2(v41) = 3;
   if (*(*(v10 + 96) + 24) == 1 || v3 && *(v3 + 40) || v4 && *(v4 + 40) || v6 && *(v6 + 40) || v5 && *(v5 + 40) || v8 && *(v8 + 40) || v7 && *(v7 + 40) || v15 && *(v15 + 40) || v14 && *(v14 + 40))
   {
     v17 = def_tcp_wait_obj;
@@ -3330,11 +3031,11 @@ LABEL_6:
     v17 = 0;
   }
 
-  HIDWORD(v43) = v17;
+  HIDWORD(v41) = v17;
   v18 = (*(*(*(v16 + 280) + 24) + 16))();
   if (!v18)
   {
-    if (HIDWORD(v43) == 3)
+    if (HIDWORD(v41) == 3)
     {
       v22 = 1;
       while (1)
@@ -3360,7 +3061,7 @@ LABEL_6:
           v26 = 0;
           while (1)
           {
-            v27 = *(&v49 + v26);
+            v27 = *(&v47 + v26);
             if (v27)
             {
               v28 = *(v27 + 40);
@@ -3387,69 +3088,66 @@ LABEL_64:
       started = v25;
       (*(*(a1[1610] + 16) + 8))();
       a1[1610] = 0;
-      goto LABEL_60;
+      return started;
     }
 
 LABEL_50:
     if (rxm_passthru_info(a1[53]))
     {
-      v29 = a1[1610];
-      v30 = (*(*(a1[1603] + 16) + 16))();
-      if (v30)
+      v29 = (*(*(a1[1603] + 16) + 16))();
+      if (v29)
       {
-LABEL_52:
-        started = v30;
-        goto LABEL_60;
+        return v29;
       }
     }
 
-    v48 = 4;
-    v42 = rxm_buffer_size + 288;
-    v43 = 0x10uLL;
-    *&v44 = 1024;
-    *(&v44 + 1) = rxm_buf_reg;
-    v45 = rxm_buf_close;
-    v46 = rxm_init_rx_buf;
-    v47 = a1;
-    attr = ofi_bufpool_create_attr(&v42, a1 + 1624);
+    v46 = 4;
+    v40 = rxm_buffer_size + 288;
+    v41 = 0x10uLL;
+    *&v42 = 1024;
+    *(&v42 + 1) = rxm_buf_reg;
+    v43 = rxm_buf_close;
+    v44 = rxm_init_rx_buf;
+    v45 = a1;
+    attr = ofi_bufpool_create_attr(&v40, a1 + 1624);
     if (attr)
     {
       started = attr;
       if (!fi_log_enabled(&rxm_prov, 0, 3))
       {
-        goto LABEL_60;
+        return started;
       }
 
       v20 = *__error();
-      fi_log(&rxm_prov, 0, 3, "rxm_ep_create_pools", 134, "Unable to create rx buf pool\n", v41, v42, v43, v44);
+      fi_log(&rxm_prov, 0, 3, "rxm_ep_create_pools", 134, "Unable to create rx buf pool\n", v39, v40, v41, v42);
       goto LABEL_33;
     }
 
-    v42 = rxm_buffer_size + 472;
-    v46 = rxm_init_tx_buf;
-    v34 = ofi_bufpool_create_attr(&v42, a1 + 1625);
-    if (v34)
+    v40 = rxm_buffer_size + 472;
+    v44 = rxm_init_tx_buf;
+    v32 = ofi_bufpool_create_attr(&v40, a1 + 1625);
+    if (v32)
     {
-      started = v34;
+      started = v32;
       if (fi_log_enabled(&rxm_prov, 0, 3))
       {
-        v35 = *__error();
+        v33 = *__error();
         fi_log(&rxm_prov, 0, 3, "rxm_ep_create_pools", 143, "Unable to create tx buf pool\n");
-        *__error() = v35;
+        *__error() = v33;
       }
 
       goto LABEL_76;
     }
 
-    v53 = 4;
-    v49 = xmmword_29ED129B0;
-    v50 = xmmword_29ED12860;
-    v51 = 0u;
-    v52 = 0u;
-    v36 = ofi_bufpool_create_attr(&v49, a1 + 1626);
-    if (v36)
+    v51 = 4;
+    v47 = xmmword_29ED129B0;
+    v48 = xmmword_29ED12860;
+    v49 = 0u;
+    v50 = 0u;
+    v34 = ofi_bufpool_create_attr(&v47, a1 + 1626);
+    if (v34)
     {
-      started = v36;
+      started = v34;
       if (!fi_log_enabled(&rxm_prov, 0, 3))
       {
 LABEL_75:
@@ -3457,21 +3155,21 @@ LABEL_75:
 LABEL_76:
         ofi_bufpool_destroy(a1[1624]);
         a1[1624] = 0;
-        goto LABEL_60;
+        return started;
       }
 
-      v37 = *__error();
-      fi_log(&rxm_prov, 0, 3, "rxm_ep_create_pools", 152, "Unable to create peer xfer context pool\n", v41);
+      v35 = *__error();
+      fi_log(&rxm_prov, 0, 3, "rxm_ep_create_pools", 152, "Unable to create peer xfer context pool\n", v39);
     }
 
     else
     {
-      v42 = 72;
-      v45 = 0;
-      v46 = 0;
-      *(&v44 + 1) = 0;
-      v38 = ofi_bufpool_create_attr(&v42, a1 + 1627);
-      if (!v38)
+      v40 = 72;
+      v43 = 0;
+      v44 = 0;
+      *(&v42 + 1) = 0;
+      v36 = ofi_bufpool_create_attr(&v40, a1 + 1627);
+      if (!v36)
       {
         a1[1629] = a1 + 1629;
         a1[1630] = a1 + 1629;
@@ -3483,25 +3181,25 @@ LABEL_76:
 
         else
         {
-          v30 = util_ep_srx_context(a1[10], *(*(a1[53] + 80) + 48), 4, a1[1623], rxm_update, (a1 + 38), &v41);
-          if (v30)
+          v29 = util_ep_srx_context(a1[10], *(*(a1[53] + 80) + 48), 4, a1[1623], rxm_update, (a1 + 38), &v39);
+          if (v29)
           {
-            goto LABEL_52;
+            return v29;
           }
 
-          v40 = v41;
-          a1[1609] = v41;
-          *(v40 + 88) = &rxm_srx_peer_ops;
-          v30 = util_srx_bind(v40, a1[15], 1024);
-          if (v30)
+          v38 = v39;
+          a1[1609] = v39;
+          *(v38 + 88) = &rxm_srx_peer_ops;
+          v29 = util_srx_bind(v38, a1[15], 1024);
+          if (v29)
           {
-            goto LABEL_52;
+            return v29;
           }
         }
 
-        if (a1[1603] && !rxm_passthru_info(a1[53]) && (v39 = rxm_prepost_recv(a1, a1[1603]), v39))
+        if (a1[1603] && !rxm_passthru_info(a1[53]) && (v37 = rxm_prepost_recv(a1, a1[1603]), v37))
         {
-          started = v39;
+          started = v37;
         }
 
         else
@@ -3509,25 +3207,25 @@ LABEL_76:
           started = rxm_start_listen(a1);
           if (!started)
           {
-            goto LABEL_60;
+            return started;
           }
         }
 
         rxm_ep_txrx_res_close(a1);
-        goto LABEL_60;
+        return started;
       }
 
-      started = v38;
+      started = v36;
       if (!fi_log_enabled(&rxm_prov, 0, 3))
       {
         goto LABEL_75;
       }
 
-      v37 = *__error();
-      fi_log(&rxm_prov, 0, 3, "rxm_ep_create_pools", 162, "Unable to create proto info pool\n", v41);
+      v35 = *__error();
+      fi_log(&rxm_prov, 0, 3, "rxm_ep_create_pools", 162, "Unable to create proto info pool\n", v39);
     }
 
-    *__error() = v37;
+    *__error() = v35;
     goto LABEL_75;
   }
 
@@ -3535,13 +3233,11 @@ LABEL_76:
   if (fi_log_enabled(&rxm_prov, 0, 3))
   {
     v20 = *__error();
-    fi_log(&rxm_prov, 0, 3, "rxm_ep_msg_cq_open", 1051, "unable to open MSG CQ\n", v41, v42, v43, v44);
+    fi_log(&rxm_prov, 0, 3, "rxm_ep_msg_cq_open", 1051, "unable to open MSG CQ\n", v39, v40, v41, v42);
 LABEL_33:
     *__error() = v20;
   }
 
-LABEL_60:
-  v31 = *MEMORY[0x29EDCA608];
   return started;
 }
 
@@ -3605,26 +3301,23 @@ uint64_t rxm_ep_wait_fd_add(void *a1, uint64_t a2)
 
 uint64_t rxm_ep_trywait_cq(uint64_t a1)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v1 = *(a1 + 8);
-  v6 = *(v1 + 12880);
+  v5 = *(v1 + 12880);
   v2 = *(*(v1 + 80) + 56);
   (*(v1 + 384))(v1 + 312);
   v3 = (*(*(*(v2 + 160) + 24) + 40))();
   (*(v1 + 392))(v1 + 312);
-  v4 = *MEMORY[0x29EDCA608];
   return v3;
 }
 
 uint64_t rxm_ep_trywait_eq(uint64_t a1)
 {
-  v5[1] = *MEMORY[0x29EDCA608];
+  v4[1] = *MEMORY[0x29EDCA608];
   v1 = *(a1 + 8);
-  v5[0] = *(v1 + 12816);
+  v4[0] = *(v1 + 12816);
   v2 = *(*(*(v1 + 80) + 56) + 160);
-  result = (*(*(v2 + 24) + 40))(v2, v5);
-  v4 = *MEMORY[0x29EDCA608];
-  return result;
+  return (*(*(v2 + 24) + 40))(v2, v4);
 }
 
 uint64_t rxm_buf_reg(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -3740,7 +3433,7 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  return (*(*(v7 + 24) + 16))(*(a1 + 12872), 0, 0);
+  return (*(*(v7 + 24) + 16))(*(a1 + 12872), 0, 0, a4, a5);
 }
 
 uint64_t rxm_ep_setopt(uint64_t a1, int a2, int a3, void *a4)
@@ -3804,7 +3497,6 @@ uint64_t rxm_ep_setopt(uint64_t a1, int a2, int a3, void *a4)
     if (fi_log_enabled(&rxm_prov, 0, 4))
     {
       v9 = *__error();
-      v10 = *a4;
       fi_log(&rxm_prov, 0, 4, "rxm_ep_setopt", 318, "Invalid value for FI_OPT_BUFFERED_MIN: %zu(> FI_OPT_BUFFERED_LIMIT: %zu)\n", *a4, *(a1 + 12944));
       *__error() = v9;
     }
@@ -3816,11 +3508,11 @@ uint64_t rxm_ep_setopt(uint64_t a1, int a2, int a3, void *a4)
   result = fi_log_enabled(&rxm_prov, 2, 0);
   if (result)
   {
-    v11 = *__error();
+    v10 = *__error();
     fi_log(&rxm_prov, 2, 0, "rxm_ep_setopt", 324, "FI_OPT_BUFFERED_MIN set to %zu\n", *(a1 + 12936));
-    v12 = __error();
+    v11 = __error();
     result = 0;
-    *v12 = v11;
+    *v11 = v10;
   }
 
   return result;
@@ -4054,7 +3746,7 @@ uint64_t rxm_msg_mr_regv(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, u
         if (++v13 < a3)
         {
           v15 += 2;
-          v16 += 8;
+          v16 += 2;
           v9 -= v17;
           if (v9)
           {
@@ -4081,7 +3773,7 @@ uint64_t rxm_domain_open(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 
   v9 = v8;
-  v29 = 0;
+  v27 = 0;
   if (rxm_passthru_info(a2))
   {
     v10 = &rxm_thru_info;
@@ -4102,7 +3794,7 @@ uint64_t rxm_domain_open(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   if (core_info)
   {
 LABEL_39:
-    fi_freeinfo(v29);
+    fi_freeinfo(v27);
 LABEL_40:
     free(v9);
     return core_info;
@@ -4124,22 +3816,20 @@ LABEL_38:
       v16 = *(v15 + 24);
       if (v16 && *v16 >= 0x31uLL && (v17 = v16[6]) != 0)
       {
-        v18 = *(a1 + 168);
         core_info = v17(v15);
         if (!core_info)
         {
-          v19 = *(a1 + 192);
-          if (v19)
+          v18 = *(a1 + 192);
+          if (v18)
           {
-            v20 = *(v19 + 24);
-            if (!v20 || *v20 < 0x31uLL || (v21 = v20[6]) == 0)
+            v19 = *(v18 + 24);
+            if (!v19 || *v19 < 0x31uLL || (v20 = v19[6]) == 0)
             {
               core_info = 4294967218;
               goto LABEL_29;
             }
 
-            v22 = *(a1 + 176);
-            attr = v21(v19);
+            attr = v20(v18);
             if (attr)
             {
               goto LABEL_11;
@@ -4160,10 +3850,10 @@ LABEL_38:
 
     else if (fi_log_enabled(&rxm_prov, 0, 2))
     {
-      v27 = *__error();
-      fi_log(&rxm_prov, 0, 2, "rxm_domain_open", 926, "Util collective provider unavailable\n", &v29);
+      v25 = *__error();
+      fi_log(&rxm_prov, 0, 2, "rxm_domain_open", 926, "Util collective provider unavailable\n", &v27);
       core_info = 0;
-      *__error() = v27;
+      *__error() = v25;
     }
 
     else
@@ -4190,43 +3880,43 @@ LABEL_9:
   *a3 = v9;
   *(v9 + 16) = &rxm_domain_fi_ops;
   *(*a3 + 24) = &rxm_domain_ops;
-  v34 = 0;
-  v30[0] = v12;
-  v30[1] = 64;
+  v32 = 0;
+  v28[0] = v12;
+  v28[1] = 64;
+  v29 = 0u;
+  v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  attr = ofi_bufpool_create_attr(v30, (v9 + 416));
+  attr = ofi_bufpool_create_attr(v28, (v9 + 416));
   if (attr)
   {
 LABEL_11:
     core_info = attr;
 LABEL_29:
-    v25 = *(v9 + 496);
-    if (v25)
+    v23 = *(v9 + 496);
+    if (v23)
     {
-      (*(*(v25 + 16) + 8))(v25);
+      (*(*(v23 + 16) + 8))(v23);
     }
 
-    v26 = *(v9 + 488);
-    if (v26)
+    v24 = *(v9 + 488);
+    if (v24)
     {
-      (*(*(v26 + 16) + 8))(v26);
+      (*(*(v24 + 16) + 8))(v24);
     }
 
     goto LABEL_37;
   }
 
   pthread_mutex_init((v9 + 424), 0);
-  v23 = rxm_passthru_info(a2);
-  *(v9 + 400) = v23;
-  v24 = &rxm_domain_mr_ops;
-  if (v23)
+  v21 = rxm_passthru_info(a2);
+  *(v9 + 400) = v21;
+  v22 = &rxm_domain_mr_ops;
+  if (v21)
   {
-    v24 = &rxm_domain_mr_thru_ops;
+    v22 = &rxm_domain_mr_thru_ops;
   }
 
-  *(*a3 + 32) = v24;
+  *(*a3 + 32) = v22;
   core_info = rxm_config_flow_ctrl(v9);
   if (core_info)
   {
@@ -4235,7 +3925,7 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  fi_freeinfo(v29);
+  fi_freeinfo(v27);
   return core_info;
 }
 
@@ -4348,7 +4038,7 @@ uint64_t rxm_domain_close(uint64_t a1)
   return result;
 }
 
-uint64_t rxm_av_open(uint64_t a1, _DWORD *a2, void *a3, uint64_t a4)
+uint64_t rxm_av_open(uint64_t a1, uint64_t *a2, void *a3, uint64_t a4)
 {
   v22 = 0;
   memset(v18, 0, sizeof(v18));
@@ -4410,13 +4100,13 @@ uint64_t rxm_cntr_open(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
         v10 = v11;
         if (fi_log_enabled(&rxm_prov, 0, 9))
         {
-          v12 = *__error();
-          v13 = fi_strerror(-v10);
-          fi_log(&rxm_prov, 0, 9, "rxm_cntr_open", 315, "fi_cntr_open%s (%d)\n", v13, v10);
-          *__error() = v12;
+          v13 = *__error();
+          v14 = fi_strerror(-v10);
+          fi_log(&rxm_prov, 0, 9, "rxm_cntr_open", 315, "fi_cntr_open%s (%d)\n", v14, v10);
+          *__error() = v13;
         }
 
-        ofi_cntr_cleanup(v9);
+        ofi_cntr_cleanup(v9, v12);
         goto LABEL_3;
       }
 
@@ -4496,13 +4186,13 @@ uint64_t rxm_foreach_ep(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t rxm_passthru_cntr_close(void *a1)
+uint64_t rxm_passthru_cntr_close(void *a1, uint64_t a2)
 {
-  v2 = a1[29];
-  if (!v2 || (result = (*(*(v2 + 16) + 8))(), !result))
+  v3 = a1[29];
+  if (!v3 || (result = (*(*(v3 + 16) + 8))(), !result))
   {
     a1[29] = 0;
-    result = ofi_cntr_cleanup(a1);
+    result = ofi_cntr_cleanup(a1, a2);
     if (!result)
     {
       free(a1);
@@ -4688,32 +4378,32 @@ uint64_t rxm_mr_regv(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
   return v15;
 }
 
-uint64_t rxm_mr_regattr(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t rxm_mr_regattr(uint64_t a1, __int128 *a2, uint64_t a3, void *a4)
 {
-  v8 = *(a2 + 80);
-  v9 = *(a2 + 96);
-  v34 = *(a2 + 64);
+  v8 = a2[5];
+  v9 = a2[6];
+  v34 = a2[4];
   v35 = v8;
   v36 = v9;
-  v10 = *(a2 + 16);
+  v10 = a2[1];
   v30 = *a2;
   v31 = v10;
-  v11 = *(a2 + 48);
-  v32 = *(a2 + 32);
+  v11 = a2[3];
+  v32 = a2[2];
   v33 = v11;
-  if (ofi_hmem_is_initialized(*(a2 + 64)))
+  if (ofi_hmem_is_initialized(*(a2 + 16)))
   {
     v12 = malloc_type_calloc(1uLL, 0x98uLL, 0x10A004079C1A769uLL);
     if (v12)
     {
       v13 = v12;
       ofi_mr_update_attr(*(*(a1 + 56) + 32), *(a1 + 200), a2, &v30);
-      if ((a3 & 0x200000000000) != 0 && *(a2 + 64) == 3)
+      if ((a3 & 0x200000000000) != 0 && *(a2 + 16) == 3)
       {
         DWORD2(v34) = -1;
       }
 
-      v18 = *(a2 + 16);
+      v18 = *(a2 + 2);
       v19 = 512;
       if (!rxm_use_write_rndv)
       {
@@ -4744,7 +4434,7 @@ uint64_t rxm_mr_regattr(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 
       else
       {
-        v26 = *(a2 + 40);
+        v26 = *(a2 + 5);
         *v13 = 12;
         v13[1] = v26;
         v13[2] = &rxm_mr_ops;
@@ -5028,10 +4718,10 @@ uint64_t rxm_send_credits(uint64_t a1, uint64_t a2)
   return v18;
 }
 
-uint64_t rxm_send_segment(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, unsigned __int8 a15, unint64_t *a16, uint64_t **a17, int a18, uint64_t a19)
+uint64_t rxm_send_segment(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, unsigned __int8 a15, unint64_t *a16, uint64_t *a17, unsigned int a18, uint64_t a19)
 {
   v19 = a7;
-  v28 = a6;
+  v26 = a6;
   if (a9 - 1 == a8)
   {
     if (a5 > a7)
@@ -5048,7 +4738,7 @@ uint64_t rxm_send_segment(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, un
     v21 = 2;
   }
 
-  inited = rxm_init_segment(a1, a2, a3, a4, v19, a8, a10, a11, a12, a13, v21, &v28);
+  inited = rxm_init_segment(a1, a2, a3, a4, v19, a8, a10, a11, a12, a13, v21, &v26);
   if (inited)
   {
     v23 = inited;
@@ -5059,11 +4749,9 @@ uint64_t rxm_send_segment(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, un
 
     *a16 += v19;
     *a17 = v23;
-    v24 = v23[5];
-    v25 = *(*(*(a2 + 16) + 40) + 32);
-    v26 = *(v23 + 205) + 64;
+    v24 = *(*(*(a2 + 16) + 40) + 32);
 
-    return v25();
+    return v24();
   }
 
   else
@@ -5140,12 +4828,11 @@ uint64_t rxm_inject_send(void *a1, uint64_t a2, void *__src, size_t __n)
     *(tx_buf + 111) = v9 & 0x20000;
     tx_buf[56] = __n;
     memcpy(tx_buf + 59, __src, __n);
-    v15 = *(v14 + 40);
-    v16 = (*(*(*(a2 + 16) + 40) + 32))();
-    v17 = v16;
-    if (v16)
+    v15 = (*(*(*(a2 + 16) + 40) + 32))();
+    v16 = v15;
+    if (v15)
     {
-      if (v16 == -35)
+      if (v15 == -35)
       {
         rxm_ep_do_progress(a1);
       }
@@ -5153,23 +4840,23 @@ uint64_t rxm_inject_send(void *a1, uint64_t a2, void *__src, size_t __n)
       rxm_free_tx_buf(a1, v14);
     }
 
-    return v17;
+    return v16;
   }
 
   else
   {
     *(v8 + 40) = __n;
     memcpy((v8 + 64), __src, __n);
-    v19 = *(*(*(a2 + 16) + 40) + 56);
+    v18 = *(*(*(a2 + 16) + 40) + 56);
 
-    return v19();
+    return v18();
   }
 }
 
-unint64_t rxm_send_common(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, unint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, char a10)
+uint64_t rxm_send_common(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, unint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, char a10)
 {
   v12 = a4;
-  v86 = *MEMORY[0x29EDCA608];
+  v81 = *MEMORY[0x29EDCA608];
   v14 = 0;
   if (a5)
   {
@@ -5198,7 +4885,7 @@ unint64_t rxm_send_common(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, 
   }
 
   v20 = a9 | (a8 >> 36 << 63);
-  v80 = 0;
+  v75 = 0;
   if (!a5)
   {
     goto LABEL_18;
@@ -5209,7 +4896,7 @@ unint64_t rxm_send_common(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, 
     v21 = *a4;
     if (*a4)
     {
-      v80 = *(v21 + 64);
+      v75 = *(v21 + 64);
       hmem_iface = *(v21 + 56);
       goto LABEL_13;
     }
@@ -5222,7 +4909,7 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  hmem_iface = ofi_get_hmem_iface(*a3, &v80, 0);
+  hmem_iface = ofi_get_hmem_iface(*a3, &v75, 0);
 LABEL_13:
   if (hmem_iface != 3 && hmem_iface != 5)
   {
@@ -5232,7 +4919,7 @@ LABEL_19:
       tx_buf = rxm_get_tx_buf(a1);
       if (!tx_buf)
       {
-        goto LABEL_57;
+        return -35;
       }
 
       v27 = tx_buf;
@@ -5248,16 +4935,16 @@ LABEL_19:
       tx_buf[58] = v20;
       if (*(a1 + 12931) == 1 && *(*(*(a1 + 432) + 72) + 56) > a5)
       {
-        memset(v84, 0, sizeof(v84));
-        *&v85[0] = tx_buf + 51;
-        *(&v85[0] + 1) = 64;
+        memset(v79, 0, sizeof(v79));
+        *&v80[0] = tx_buf + 51;
+        *(&v80[0] + 1) = 64;
         __memcpy_chk();
         if (*(a1 + 12928) == 1)
         {
-          v83 = *(v27 + 40);
+          v78 = *(v27 + 40);
           if (a5)
           {
-            v35 = v84;
+            v35 = v79;
             v36 = a5;
             do
             {
@@ -5289,18 +4976,17 @@ LABEL_19:
           rxm_send_common_cold_1();
         }
 
-        v41 = *(v27 + 40);
         v37 = *(*(*(a2 + 16) + 40) + 32);
       }
 
-      v42 = v37();
-      if (!v42)
+      v41 = v37();
+      if (!v41)
       {
-        goto LABEL_80;
+        return v41;
       }
 
 LABEL_55:
-      if (v42 == -35)
+      if (v41 == -35)
       {
         rxm_ep_do_progress(a1);
       }
@@ -5315,13 +5001,13 @@ LABEL_55:
 
     v38 = rxm_buffer_size;
     v39 = (v14 + rxm_buffer_size - 1) / rxm_buffer_size;
-    v81 = 0;
+    v76 = 0;
     if (v39 <= 1)
     {
       rxm_send_common_cold_4();
     }
 
-    v82 = 0;
+    v77 = 0;
     if (a5)
     {
       if (v12)
@@ -5329,144 +5015,139 @@ LABEL_55:
         v40 = *v12;
         if (*v12)
         {
-          v82 = *(v40 + 64);
-          v74 = *(v40 + 56);
+          v77 = *(v40 + 64);
+          v69 = *(v40 + 56);
 LABEL_51:
-          inited = rxm_init_segment(a1, a2, a6, v14, v38, 0, a7, a8, v20, a10, 1, &v81);
+          inited = rxm_init_segment(a1, a2, a6, v14, v38, 0, a7, a8, v20, a10, 1, &v76);
           if (!inited)
           {
-            goto LABEL_57;
+            return -35;
           }
 
           v27 = inited;
-          v71 = v39;
-          v46 = ofi_copy_from_hmem_iov((inited + 59), rxm_buffer_size, v74, v82, a3, a5, 0);
-          if (v46 != rxm_buffer_size)
+          v66 = v39;
+          v45 = ofi_copy_from_hmem_iov((inited + 59), rxm_buffer_size, v69, v77, a3, a5, 0);
+          if (v45 != rxm_buffer_size)
           {
             rxm_send_common_cold_3();
           }
 
-          v83 = v46;
-          v47 = *(v27 + 410);
-          v48 = *(v27 + 40);
-          v49 = (*(*(*(a2 + 16) + 40) + 32))();
-          if (!v49)
+          v78 = v45;
+          v46 = (*(*(*(a2 + 16) + 40) + 32))();
+          if (!v46)
           {
-            v76 = a2;
-            *&v85[0] = 0;
-            v59 = rxm_buffer_size;
-            v60 = v14 - rxm_buffer_size;
-            v72 = v81;
-            v61 = 1;
+            v71 = a2;
+            *&v80[0] = 0;
+            v54 = rxm_buffer_size;
+            v55 = v14 - rxm_buffer_size;
+            v67 = v76;
+            v56 = 1;
             while (1)
             {
-              v62 = rxm_send_segment(a1, v76, a6, v14, v60, v72, v59, v61, v39, a7, a8, v20, a10, a3, a5, &v83, v85, v74, v82);
-              if (v62)
+              v57 = rxm_send_segment(a1, v71, a6, v14, v55, v67, v54, v56, v39, a7, a8, v20, a10, a3, a5, &v78, v80, v69, v77);
+              if (v57)
               {
                 break;
               }
 
-              v59 = rxm_buffer_size;
-              v60 -= rxm_buffer_size;
-              if (v39 == ++v61)
+              v54 = rxm_buffer_size;
+              v55 -= rxm_buffer_size;
+              if (v39 == ++v56)
               {
-                v42 = 0;
-                goto LABEL_80;
+                return 0;
               }
             }
 
-            v42 = v62;
-            if (v62 != -35)
+            v41 = v57;
+            if (v57 != -35)
             {
               goto LABEL_79;
             }
 
-            v63 = rxm_ep_alloc_deferred_tx_entry(a1, v76, 4);
-            if (v63)
+            v58 = rxm_ep_alloc_deferred_tx_entry(a1, v71, 4);
+            if (v58)
             {
-              v64 = v63;
-              memcpy(v63 + 6, a3, 16 * a5);
-              *(v64 + 112) = a5;
-              v64[15] = v83;
-              v64[16] = a7;
-              v64[5] = *&v85[0];
-              *(v64 + 160) = a10;
-              v64[17] = v20;
-              v64[18] = v61;
-              v64[19] = v71;
-              v64[21] = v14;
-              v64[22] = v60;
-              v64[24] = a6;
-              v64[25] = a8;
-              v64[23] = v72;
-              *(v64 + 52) = v74;
-              v64[27] = v82;
-              v65 = v64[1];
-              if (v65[8] == v65 + 8)
+              v59 = v58;
+              memcpy(v58 + 6, a3, 16 * a5);
+              *(v59 + 112) = a5;
+              v59[15] = v78;
+              v59[16] = a7;
+              v59[5] = *&v80[0];
+              *(v59 + 160) = a10;
+              v59[17] = v20;
+              v59[18] = v56;
+              v59[19] = v66;
+              v59[21] = v14;
+              v59[22] = v55;
+              v59[24] = a6;
+              v59[25] = a8;
+              v59[23] = v67;
+              *(v59 + 52) = v69;
+              v59[27] = v77;
+              v60 = v59[1];
+              if (v60[8] == v60 + 8)
               {
-                v66 = *(v65[3] + 13040);
-                v67 = *v66;
-                v65[6] = *v66;
-                v65[7] = v66;
-                *(v67 + 8) = v65 + 6;
-                *v66 = (v65 + 6);
+                v61 = *(v60[3] + 13040);
+                v62 = *v61;
+                v60[6] = *v61;
+                v60[7] = v61;
+                *(v62 + 8) = v60 + 6;
+                *v61 = (v60 + 6);
               }
 
-              v42 = 0;
-              v68 = v65[9];
-              v69 = *v68;
-              v64[2] = *v68;
-              v64[3] = v68;
-              v70 = v64 + 2;
-              *(v69 + 8) = v70;
-              *v68 = v70;
+              v41 = 0;
+              v63 = v60[9];
+              v64 = *v63;
+              v59[2] = *v63;
+              v59[3] = v63;
+              v65 = v59 + 2;
+              *(v64 + 8) = v65;
+              *v63 = v65;
             }
 
             else
             {
-              if (*&v85[0])
+              if (*&v80[0])
               {
-                rxm_free_tx_buf(a1, *&v85[0]);
+                rxm_free_tx_buf(a1, *&v80[0]);
               }
 
-              v42 = -12;
+              return -12;
             }
 
-            goto LABEL_80;
+            return v41;
           }
 
-          v42 = v49;
+          v41 = v46;
           goto LABEL_55;
         }
       }
 
       if (rxm_detect_hmem_iface)
       {
-        v74 = ofi_get_hmem_iface(*a3, &v82, 0);
+        v69 = ofi_get_hmem_iface(*a3, &v77, 0);
         v38 = rxm_buffer_size;
         goto LABEL_51;
       }
     }
 
-    v74 = 0;
+    v69 = 0;
     goto LABEL_51;
   }
 
 LABEL_21:
-  v73 = v80;
+  v68 = v75;
   v24 = rxm_get_tx_buf(a1);
   if (!v24)
   {
-LABEL_57:
-    v42 = -35;
-    goto LABEL_80;
+    return -35;
   }
 
   v27 = v24;
   v28 = a5;
-  memset(v85, 0, 32);
+  memset(v80, 0, 32);
   *(v24 + 409) = 2;
-  v75 = a2;
+  v70 = a2;
   v29 = *(a2 + 32);
   *(v24 + 442) = a10;
   *(v24 + 111) = a8 & 0x20000;
@@ -5486,45 +5167,45 @@ LABEL_57:
     {
       if (*(a1 + 13072) == &rxm_rndv_ops_write)
       {
-        v44 = v75;
-        v24[34] = v75;
-        v33 = v85;
+        v43 = v70;
+        v24[34] = v70;
+        v33 = v80;
 LABEL_66:
         rxm_rndv_hdr_init(a1, v27 + 472, v31, *(v27 + 104), v33);
         if ((*(*(a1 + 424) + 22) & 8) != 0)
         {
-          v53 = ofi_copy_from_hmem_iov(v27 + 576, *(a1 + 12936), hmem_iface, v73, v31, a5, 0);
-          if (v53 != *(a1 + 12936))
+          v50 = ofi_copy_from_hmem_iov(v27 + 576, *(a1 + 12936), hmem_iface, v68, v31, a5, 0);
+          if (v50 != *(a1 + 12936))
           {
             rxm_send_common_cold_5();
           }
 
-          v42 = v53 + 168;
-          if (v53 + 168 < 0)
+          v41 = v50 + 168;
+          if (v50 + 168 < 0)
           {
-            goto LABEL_80;
+            return v41;
           }
         }
 
         else
         {
-          v42 = 168;
+          v41 = 168;
         }
 
         goto LABEL_70;
       }
 
-      v33 = v85;
+      v33 = v80;
 LABEL_65:
-      v44 = v75;
+      v43 = v70;
       goto LABEL_66;
     }
 
     v32 = 0;
     do
     {
-      v33 = v85;
-      *(v85 + v32 * 8) = *(v12[v32] + 40);
+      v33 = v80;
+      *(v80 + v32 * 8) = *(v12[v32] + 40);
       ++v32;
     }
 
@@ -5532,21 +5213,21 @@ LABEL_65:
 LABEL_61:
     if (*(a1 + 13072) == &rxm_rndv_ops_write)
     {
-      *(v27 + 272) = v75;
+      *(v27 + 272) = v70;
       if (v28)
       {
-        v50 = 0;
-        v51 = 0;
-        v52 = v27 + 176;
+        v47 = 0;
+        v48 = 0;
+        v49 = v27 + 176;
         do
         {
-          *(v52 + v50) = *(v31 + v50);
-          *(v52 + 8 * v51 + 64) = *(v33[v51] + 24);
-          ++v51;
-          v50 += 16;
+          *(v49 + v47 * 8) = *&v31[v47];
+          *(v49 + 8 * v48 + 64) = *(v33[v48] + 24);
+          ++v48;
+          v47 += 2;
         }
 
-        while (a5 != v51);
+        while (a5 != v48);
       }
     }
 
@@ -5555,47 +5236,46 @@ LABEL_61:
 
   v33 = v24 + 9;
   v31 = a3;
-  v43 = rxm_msg_mr_regv(a1, a3, a5, v14, *(*(a1 + 13072) + 4), v24 + 18, v25, v26);
-  if (!v43)
+  v42 = rxm_msg_mr_regv(a1, a3, a5, v14, *(*(a1 + 13072) + 4), v24 + 18, v25, v26);
+  if (!v42)
   {
     v28 = a5;
     goto LABEL_61;
   }
 
-  v42 = v43;
+  v41 = v42;
   rxm_free_tx_buf(a1, v27);
-  v44 = v75;
-  if ((v42 & 0x8000000000000000) != 0)
+  v43 = v70;
+  if ((v41 & 0x8000000000000000) != 0)
   {
-    goto LABEL_80;
+    return v41;
   }
 
 LABEL_70:
-  if (*(a1 + 12952) >= v42)
+  if (*(a1 + 12952) >= v41)
   {
     if (*(a1 + 13072) == &rxm_rndv_ops_write)
     {
-      v56 = 8;
+      v52 = 8;
     }
 
     else
     {
-      v56 = 7;
+      v52 = 7;
     }
 
-    *(v27 + 32) = v56;
-    v55 = (*(*(*(v44 + 16) + 40) + 56))();
+    *(v27 + 32) = v52;
+    v51 = (*(*(*(v43 + 16) + 40) + 56))();
   }
 
   else
   {
     *(v27 + 32) = 6;
-    v54 = *(v27 + 40);
-    v55 = (*(*(*(v44 + 16) + 40) + 32))();
+    v51 = (*(*(*(v43 + 16) + 40) + 32))();
   }
 
-  v42 = v55;
-  if (v55)
+  v41 = v51;
+  if (v51)
   {
     if ((*(a1 + 12929) & 1) == 0)
     {
@@ -5606,9 +5286,7 @@ LABEL_79:
     rxm_free_tx_buf(a1, v27);
   }
 
-LABEL_80:
-  v57 = *MEMORY[0x29EDCA608];
-  return v42;
+  return v41;
 }
 
 uint64_t rxm_recv(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -5619,7 +5297,7 @@ uint64_t rxm_recv(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
   return util_srx_generic_recv(*(a1 + 12872), v7, &v8, 1uLL, a5, a6, *(a1 + 128));
 }
 
-unint64_t rxm_send(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6)
+uint64_t rxm_send(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6)
 {
   v12 = 0;
   v13 = a4;
@@ -5636,7 +5314,7 @@ unint64_t rxm_send(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t
   return conn;
 }
 
-unint64_t rxm_sendv(uint64_t a1, uint64_t *a2, uint64_t *a3, unint64_t a4, unint64_t a5, uint64_t a6)
+uint64_t rxm_sendv(uint64_t a1, uint64_t *a2, uint64_t *a3, unint64_t a4, unint64_t a5, uint64_t a6)
 {
   v14 = 0;
   (*(a1 + 384))(a1 + 312);
@@ -5650,7 +5328,7 @@ unint64_t rxm_sendv(uint64_t a1, uint64_t *a2, uint64_t *a3, unint64_t a4, unint
   return conn;
 }
 
-unint64_t rxm_sendmsg(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t rxm_sendmsg(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = 0;
   (*(a1 + 384))(a1 + 312);
@@ -5683,7 +5361,7 @@ uint64_t rxm_inject(uint64_t a1, void *a2, size_t a3, unint64_t a4)
   return conn;
 }
 
-unint64_t rxm_senddata(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7)
+uint64_t rxm_senddata(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7)
 {
   v14 = 0;
   v15 = a4;
@@ -5941,23 +5619,23 @@ uint64_t rxm_fabric_init_coll(const char *a1, void *a2, void *a3)
   return v9;
 }
 
-uint64_t rxm_fabric_close(uint64_t a1)
+uint64_t rxm_fabric_close(void *a1)
 {
-  v2 = *(a1 + 192);
+  v2 = a1[24];
   if (v2)
   {
     (*(*(v2 + 16) + 8))();
   }
 
-  v3 = *(a1 + 184);
+  v3 = a1[23];
   if (v3)
   {
     (*(*(v3 + 16) + 8))();
   }
 
-  fi_freeinfo(*(a1 + 176));
-  fi_freeinfo(*(a1 + 168));
-  result = (*(*(*(a1 + 160) + 16) + 8))();
+  fi_freeinfo(a1[22]);
+  fi_freeinfo(a1[21]);
+  result = (*(*(a1[20] + 16) + 8))();
   if (!result)
   {
     result = ofi_fabric_close(a1);
@@ -6249,14 +5927,10 @@ LABEL_28:
       goto LABEL_27;
     }
 
-    v18 = *(v8 + 24);
-    v21 = v18[1620];
-    v22 = *(*(v18[54] + 80) + 48);
-    *(v8 + 41);
-    v19 = (*(*(v18[1601] + 24) + 16))();
-    if (v19)
+    v18 = (*(*(*(*(v8 + 24) + 12808) + 24) + 16))();
+    if (v18)
     {
-      v17 = v19;
+      v17 = v18;
       if (!fi_log_enabled(&rxm_prov, 0, 3))
       {
 LABEL_25:
@@ -6265,7 +5939,7 @@ LABEL_25:
         goto LABEL_26;
       }
 
-      v20 = *__error();
+      v19 = *__error();
       fi_strerror(-v17);
       fi_log(&rxm_prov, 0, 3, "rxm_init_connect_data", 252, "fi_getopt%s (%d)\n");
     }
@@ -6278,12 +5952,12 @@ LABEL_25:
         goto LABEL_25;
       }
 
-      v20 = *__error();
+      v19 = *__error();
       fi_log(&rxm_prov, 0, 3, "rxm_init_connect_data", 257, "cm data too small\n");
       v17 = -256;
     }
 
-    *__error() = v20;
+    *__error() = v19;
     goto LABEL_25;
   }
 
@@ -6336,7 +6010,7 @@ LABEL_6:
         if (fi_log_enabled(&rxm_prov, 0, 3))
         {
           v7 = *__error();
-          v8 = fi_strerror(12);
+          v8 = fi_strerror(0xCu);
           fi_log(&rxm_prov, 0, 3, "rxm_add_conn", 433, "ofi_idm_set%s (%d)\n", v8, -12);
           v6 = 0;
           *__error() = v7;
@@ -6360,15 +6034,15 @@ LABEL_6:
 
 uint64_t rxm_conn_progress(uint64_t a1)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   if (!(*(a1 + 376))(a1 + 312))
   {
     rxm_conn_progress_cold_8();
   }
 
-  v20 = 0;
+  v19 = 0;
+  v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   while (1)
   {
     while (1)
@@ -6387,12 +6061,12 @@ uint64_t rxm_conn_progress(uint64_t a1)
 
     if (result != -259)
     {
-      break;
+      return result;
     }
 
-    v22 = 0u;
-    v23 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v20 = 0u;
     if (!(*(a1 + 376))(a1 + 312))
     {
       rxm_conn_progress_cold_3();
@@ -6404,7 +6078,7 @@ uint64_t rxm_conn_progress(uint64_t a1)
       v4 = v3;
       if (v3 == 48)
       {
-        if (DWORD2(v22) == 61)
+        if (DWORD2(v21) == 61)
         {
           if (!fi_log_ready(&rxm_prov, 0, 6, &rxm_handle_error_showtime))
           {
@@ -6425,16 +6099,16 @@ uint64_t rxm_conn_progress(uint64_t a1)
         }
 
         v7 = *__error();
-        v8 = fi_strerror(SDWORD2(v22));
-        v9 = DWORD2(v22);
+        v8 = fi_strerror(DWORD2(v21));
+        v9 = DWORD2(v21);
         v10 = (*(*(*(a1 + 12816) + 24) + 40))();
-        fi_log(&rxm_prov, 0, 6, "rxm_handle_error", v5, "fi_eq_readerr: err: %s (%d), prov_err: %s (%d)\n", v8, v9, v10, HIDWORD(v22));
+        fi_log(&rxm_prov, 0, 6, "rxm_handle_error", v5, "fi_eq_readerr: err: %s (%d), prov_err: %s (%d)\n", v8, v9, v10, HIDWORD(v21));
         *__error() = v7;
 LABEL_18:
-        if (v21 && *v21 == 3)
+        if (v20 && *v20 == 3)
         {
-          v11 = *(v21 + 8);
-          if (DWORD2(v22) == 61)
+          v11 = *(v20 + 8);
+          if (DWORD2(v21) == 61)
           {
             if (fi_log_enabled(&rxm_prov, 2, 3))
             {
@@ -6448,14 +6122,14 @@ LABEL_18:
               rxm_conn_progress_cold_2();
             }
 
-            if (*(&v23 + 1) < 2uLL)
+            if (*(&v22 + 1) < 2uLL)
             {
               goto LABEL_30;
             }
 
-            if (*v23 == 1)
+            if (*v22 == 1)
             {
-              v13 = *(v23 + 1) == 2;
+              v13 = *(v22 + 1) == 2;
               goto LABEL_31;
             }
 
@@ -6502,7 +6176,7 @@ LABEL_31:
 
           else
           {
-            rxm_process_shutdown(*(v21 + 8));
+            rxm_process_shutdown(*(v20 + 8));
           }
         }
       }
@@ -6516,9 +6190,6 @@ LABEL_31:
       }
     }
   }
-
-  v17 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 uint64_t rxm_process_connect(uint64_t a1)
@@ -6752,13 +6423,13 @@ LABEL_18:
 
 uint64_t rxm_cm_data_progress(uint64_t a1)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 12880);
-  v17 = *(a1 + 12816);
-  v18 = v2;
-  *&v16[0].fd = xmmword_29ED12A30;
+  v16 = *(a1 + 12816);
+  v17 = v2;
+  *&v15[0].fd = xmmword_29ED12A30;
   v3 = *(*(a1 + 80) + 56);
-  v4 = (*(*(v17 + 16) + 24))();
+  v4 = (*(*(v16 + 16) + 24))();
   if (v4)
   {
     v5 = v4;
@@ -6802,7 +6473,7 @@ LABEL_17:
         do
         {
           (*(a1 + 392))(a1 + 312);
-          if (!(*(*(*(v3 + 160) + 24) + 40))() && poll(v16, 2u, -1) == -1 && fi_log_enabled(&rxm_prov, 0, 3))
+          if (!(*(*(*(v3 + 160) + 24) + 40))() && poll(v15, 2u, -1) == -1 && fi_log_enabled(&rxm_prov, 0, 3))
           {
             v10 = *__error();
             v11 = __error();
@@ -6830,7 +6501,6 @@ LABEL_17:
     }
   }
 
-  v14 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
@@ -6896,7 +6566,7 @@ void *rxm_alloc_conn(uint64_t a1, _DWORD *a2)
   else if (fi_log_enabled(&rxm_prov, 0, 3))
   {
     v6 = *__error();
-    v7 = fi_strerror(12);
+    v7 = fi_strerror(0xCu);
     fi_log(&rxm_prov, 0, 3, "rxm_alloc_conn", 394, "rxm_av_alloc_conn%s (%d)\n", v7, -12);
     *__error() = v6;
   }
@@ -6916,18 +6586,17 @@ uint64_t rxm_open_conn(uint64_t a1)
   v4 = (*(*(*(v3 + 280) + 24) + 24))();
   if (!v4)
   {
-    v8 = v2[1602];
-    v9 = (*(MEMORY[0x10] + 16))();
-    if (v9)
+    v8 = (*(MEMORY[0x10] + 16))();
+    if (v8)
     {
-      v5 = v9;
+      v5 = v8;
       if (fi_log_enabled(&rxm_prov, 0, 3))
       {
-        v10 = *__error();
+        v9 = *__error();
         fi_strerror(-v5);
         fi_log(&rxm_prov, 0, 3, "rxm_open_conn", 191, "fi_ep_bind%s (%d)\n");
 LABEL_8:
-        *__error() = v10;
+        *__error() = v9;
       }
     }
 
@@ -6935,32 +6604,32 @@ LABEL_8:
     {
       if (v2[1603])
       {
-        v12 = (*(MEMORY[0x10] + 16))();
-        if (v12)
+        v11 = (*(MEMORY[0x10] + 16))();
+        if (v11)
         {
-          v5 = v12;
+          v5 = v11;
           if (!fi_log_enabled(&rxm_prov, 0, 3))
           {
             goto LABEL_9;
           }
 
-          v10 = *__error();
+          v9 = *__error();
           fi_strerror(-v5);
           fi_log(&rxm_prov, 0, 3, "rxm_open_conn", 198, "fi_ep_bind%s (%d)\n");
           goto LABEL_8;
         }
       }
 
-      v13 = (*(MEMORY[0x10] + 16))(0, v2[1610], 3072);
-      if (v13)
+      v12 = (*(MEMORY[0x10] + 16))(0, v2[1610], 3072);
+      if (v12)
       {
-        v5 = v13;
+        v5 = v12;
         if (!fi_log_enabled(&rxm_prov, 0, 3))
         {
           goto LABEL_9;
         }
 
-        v10 = *__error();
+        v9 = *__error();
         fi_strerror(-v5);
         fi_log(&rxm_prov, 0, 3, "rxm_bind_comp", 100, "fi_ep_bind%s (%d)\n");
         goto LABEL_8;
@@ -6968,114 +6637,114 @@ LABEL_8:
 
       if (rxm_passthru_info(v2[53]))
       {
-        v14 = v2[22];
-        if (v14)
+        v13 = v2[22];
+        if (v13)
         {
-          v15 = (*(MEMORY[0x10] + 16))(0, *(v14 + 232), 2048);
-          if (v15)
+          v14 = (*(MEMORY[0x10] + 16))(0, *(v13 + 232), 2048);
+          if (v14)
           {
-            v5 = v15;
+            v5 = v14;
             if (!fi_log_enabled(&rxm_prov, 0, 3))
             {
               goto LABEL_9;
             }
 
-            v10 = *__error();
+            v9 = *__error();
             fi_strerror(-v5);
             fi_log(&rxm_prov, 0, 3, "rxm_bind_comp", 112, "fi_ep_bind%s (%d)\n");
             goto LABEL_8;
           }
         }
 
-        v16 = v2[23];
-        if (v16)
+        v15 = v2[23];
+        if (v15)
         {
-          v17 = (*(MEMORY[0x10] + 16))(0, *(v16 + 232), 1024);
-          if (v17)
+          v16 = (*(MEMORY[0x10] + 16))(0, *(v15 + 232), 1024);
+          if (v16)
           {
-            v5 = v17;
+            v5 = v16;
             if (!fi_log_enabled(&rxm_prov, 0, 3))
             {
               goto LABEL_9;
             }
 
-            v10 = *__error();
+            v9 = *__error();
             fi_strerror(-v5);
             fi_log(&rxm_prov, 0, 3, "rxm_bind_comp", 122, "fi_ep_bind%s (%d)\n");
             goto LABEL_8;
           }
         }
 
-        v18 = v2[24];
-        if (v18)
+        v17 = v2[24];
+        if (v17)
         {
-          v19 = (*(MEMORY[0x10] + 16))(0, *(v18 + 232), 256);
-          if (v19)
+          v18 = (*(MEMORY[0x10] + 16))(0, *(v17 + 232), 256);
+          if (v18)
           {
-            v5 = v19;
+            v5 = v18;
             if (!fi_log_enabled(&rxm_prov, 0, 3))
             {
               goto LABEL_9;
             }
 
-            v10 = *__error();
+            v9 = *__error();
             fi_strerror(-v5);
             fi_log(&rxm_prov, 0, 3, "rxm_bind_comp", 132, "fi_ep_bind%s (%d)\n");
             goto LABEL_8;
           }
         }
 
-        v20 = v2[25];
-        if (v20)
+        v19 = v2[25];
+        if (v19)
         {
-          v21 = (*(MEMORY[0x10] + 16))(0, *(v20 + 232), 512);
-          if (v21)
+          v20 = (*(MEMORY[0x10] + 16))(0, *(v19 + 232), 512);
+          if (v20)
           {
-            v5 = v21;
+            v5 = v20;
             if (!fi_log_enabled(&rxm_prov, 0, 3))
             {
               goto LABEL_9;
             }
 
-            v10 = *__error();
+            v9 = *__error();
             fi_strerror(-v5);
             fi_log(&rxm_prov, 0, 3, "rxm_bind_comp", 142, "fi_ep_bind%s (%d)\n");
             goto LABEL_8;
           }
         }
 
-        v22 = v2[26];
-        if (v22)
+        v21 = v2[26];
+        if (v21)
         {
-          v23 = (*(MEMORY[0x10] + 16))(0, *(v22 + 232), 4096);
-          if (v23)
+          v22 = (*(MEMORY[0x10] + 16))(0, *(v21 + 232), 4096);
+          if (v22)
           {
-            v5 = v23;
+            v5 = v22;
             if (!fi_log_enabled(&rxm_prov, 0, 3))
             {
               goto LABEL_9;
             }
 
-            v10 = *__error();
+            v9 = *__error();
             fi_strerror(-v5);
             fi_log(&rxm_prov, 0, 3, "rxm_bind_comp", 152, "fi_ep_bind%s (%d)\n");
             goto LABEL_8;
           }
         }
 
-        v24 = v2[27];
-        if (v24)
+        v23 = v2[27];
+        if (v23)
         {
-          v25 = (*(MEMORY[0x10] + 16))(0, *(v24 + 232), 0x2000);
-          if (v25)
+          v24 = (*(MEMORY[0x10] + 16))(0, *(v23 + 232), 0x2000);
+          if (v24)
           {
-            v5 = v25;
+            v5 = v24;
             if (!fi_log_enabled(&rxm_prov, 0, 3))
             {
               goto LABEL_9;
             }
 
-            v10 = *__error();
+            v9 = *__error();
             fi_strerror(-v5);
             fi_log(&rxm_prov, 0, 3, "rxm_bind_comp", 162, "fi_ep_bind%s (%d)\n");
             goto LABEL_8;
@@ -7083,8 +6752,8 @@ LABEL_8:
         }
       }
 
-      v26 = (*(MEMORY[0x10] + 24))();
-      if (!v26)
+      v25 = (*(MEMORY[0x10] + 24))();
+      if (!v25)
       {
         *(a1 + 41) = (*(*(v3 + 408) + 8))(0);
         if (v2[1603] || (v5 = rxm_prepost_recv(v2, 0), !v5))
@@ -7097,10 +6766,10 @@ LABEL_8:
         goto LABEL_9;
       }
 
-      v5 = v26;
+      v5 = v25;
       if (fi_log_enabled(&rxm_prov, 0, 3))
       {
-        v10 = *__error();
+        v9 = *__error();
         fi_strerror(-v5);
         fi_log(&rxm_prov, 0, 3, "rxm_open_conn", 209, "fi_enable%s (%d)\n");
         goto LABEL_8;
@@ -7124,28 +6793,27 @@ LABEL_9:
   return v5;
 }
 
-int *rxm_reject_connreq(uint64_t a1, uint64_t a2)
+int *rxm_reject_connreq(uint64_t a1)
 {
-  v2 = *(*(a2 + 8) + 64);
   result = (*(*(*(a1 + 12808) + 32) + 56))();
   if (result)
   {
-    v4 = result;
+    v2 = result;
     result = fi_log_enabled(&rxm_prov, 0, 3);
     if (result)
     {
-      v5 = *__error();
-      v6 = fi_strerror(-v4);
-      fi_log(&rxm_prov, 0, 3, "rxm_reject_connreq", 620, "fi_reject%s (%d)\n", v6, v4);
+      v3 = *__error();
+      v4 = fi_strerror(-v2);
+      fi_log(&rxm_prov, 0, 3, "rxm_reject_connreq", 620, "fi_reject%s (%d)\n", v4, v2);
       result = __error();
-      *result = v5;
+      *result = v3;
     }
   }
 
   return result;
 }
 
-uint64_t rxm_ep_query_atomic(uint64_t a1, unsigned int a2, unsigned int a3, unint64_t *a4, unint64_t a5)
+uint64_t rxm_ep_query_atomic(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, unint64_t a5)
 {
   if ((a5 & 8) != 0)
   {
@@ -7159,41 +6827,45 @@ uint64_t rxm_ep_query_atomic(uint64_t a1, unsigned int a2, unsigned int a3, unin
     return 4294967274;
   }
 
-  else if ((a2 & 0xFFFFFFFE) == 0xE)
-  {
-    if (fi_log_enabled(&rxm_prov, 0, 3))
-    {
-      v7 = *__error();
-      fi_log(&rxm_prov, 0, 3, "rxm_ep_query_atomic", 516, "128-bit integers not supported\n");
-      *__error() = v7;
-    }
-
-    return 4294967194;
-  }
-
   else
   {
-    result = ofi_atomic_valid(&rxm_prov, a2, a3, a5);
-    if (a4)
+    v6 = a2;
+    if ((a2 & 0xFFFFFFFE) == 0xE)
     {
-      if (!result)
+      if (fi_log_enabled(&rxm_prov, 0, 3))
       {
-        v12 = *(a1 + 376);
-        v13 = ofi_datatype_size(a2);
-        a4[1] = v13;
-        result = 4294967194;
-        if (v13)
-        {
-          v14 = v12 >> ((a5 & 0x800000000000000) != 0);
-          *a4 = v14 / v13;
-          if (v13 <= v14)
-          {
-            return 0;
-          }
+        v7 = *__error();
+        fi_log(&rxm_prov, 0, 3, "rxm_ep_query_atomic", 516, "128-bit integers not supported\n");
+        *__error() = v7;
+      }
 
-          else
+      return 4294967194;
+    }
+
+    else
+    {
+      result = ofi_atomic_valid(&rxm_prov, a2, a3, a5);
+      if (a4)
+      {
+        if (!result)
+        {
+          v12 = *(a1 + 376);
+          v13 = ofi_datatype_size(v6);
+          a4[1] = v13;
+          result = 4294967194;
+          if (v13)
           {
-            return 4294967194;
+            v14 = v12 >> ((a5 & 0x800000000000000) != 0);
+            *a4 = v14 / v13;
+            if (v13 <= v14)
+            {
+              return 0;
+            }
+
+            else
+            {
+              return 4294967194;
+            }
           }
         }
       }
@@ -7265,27 +6937,27 @@ uint64_t rxm_ep_atomic_inject(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4
   return rxm_ep_generic_atomic_writemsg(a1, v9, 0x2000000);
 }
 
-uint64_t rxm_ep_atomic_readwrite(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, int a11, uint64_t a12)
+uint64_t rxm_ep_atomic_readwrite(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
-  v16 = a6;
-  v17 = a4;
-  if (a11 == 10)
+  v15 = a6;
+  v16 = a4;
+  if (HIDWORD(a10) == 10)
   {
-    v12 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v12 = a2;
+    v11 = a2;
   }
 
-  v15[0] = v12;
-  v15[1] = a3;
-  v14[0] = a5;
+  v14[0] = v11;
   v14[1] = a3;
-  if (a2 || a11 == 10)
+  v13[0] = a5;
+  v13[1] = a3;
+  if (a2 || HIDWORD(a10) == 10)
   {
-    return rxm_ep_atomic_readwritev(a1, v15, &v17, 1, v14, &v16, 1, a7, a8, a9, a10, a11, a12);
+    return rxm_ep_atomic_readwritev(a1, v14, &v16, 1, v13, &v15, 1, a7, a8, a9, a10, SHIDWORD(a10), a11);
   }
 
   else
@@ -7328,18 +7000,18 @@ uint64_t rxm_ep_atomic_readwritev(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
   return rxm_ep_generic_atomic_readwritemsg(a1, v18, a5, a6, a7, *(a1 + 144));
 }
 
-uint64_t rxm_ep_atomic_compwrite(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, int a13, uint64_t a14)
+uint64_t rxm_ep_atomic_compwrite(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
-  v19 = a6;
-  v20 = a4;
-  v17[1] = a3;
-  v18 = a8;
+  v18 = a6;
+  v19 = a4;
   v16[1] = a3;
-  v17[0] = a2;
-  v16[0] = a7;
-  v15[0] = a5;
+  v17 = a8;
   v15[1] = a3;
-  return rxm_ep_atomic_compwritev(a1, v17, &v20, 1, v15, &v19, 1uLL, v16, &v18, 1, a9, a10, a11, a12, a13, a14);
+  v16[0] = a2;
+  v15[0] = a7;
+  v14[0] = a5;
+  v14[1] = a3;
+  return rxm_ep_atomic_compwritev(a1, v16, &v19, 1, v14, &v18, 1uLL, v15, &v17, 1, a9, a10, a11, a12, SHIDWORD(a12), a13);
 }
 
 uint64_t rxm_ep_atomic_compwritev(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, unint64_t a7, uint64_t a8, uint64_t *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, int a14, int a15, uint64_t a16)
@@ -7376,7 +7048,7 @@ uint64_t rxm_ep_atomic_compwritev(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
   return rxm_ep_generic_atomic_compwritemsg(a1, v21, a5, a6, a7, a8, a9, a10, *(a1 + 144));
 }
 
-uint64_t rxm_ep_atomic_valid(uint64_t a1, unsigned int a2, unsigned int a3, void *a4)
+uint64_t rxm_ep_atomic_valid(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v6[0] = 0;
   v6[1] = 0;
@@ -7389,7 +7061,7 @@ uint64_t rxm_ep_atomic_valid(uint64_t a1, unsigned int a2, unsigned int a3, void
   return result;
 }
 
-uint64_t rxm_ep_atomic_fetch_valid(uint64_t a1, unsigned int a2, unsigned int a3, void *a4)
+uint64_t rxm_ep_atomic_fetch_valid(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v6[0] = 0;
   v6[1] = 0;
@@ -7402,7 +7074,7 @@ uint64_t rxm_ep_atomic_fetch_valid(uint64_t a1, unsigned int a2, unsigned int a3
   return result;
 }
 
-uint64_t rxm_ep_atomic_cswap_valid(uint64_t a1, unsigned int a2, unsigned int a3, void *a4)
+uint64_t rxm_ep_atomic_cswap_valid(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v6[0] = 0;
   v6[1] = 0;
@@ -7431,9 +7103,9 @@ uint64_t rxm_ep_generic_atomic_writemsg(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t rxm_ep_atomic_common(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, unint64_t a6, uint64_t a7, uint64_t *a8, uint64_t a9, char a10, uint64_t a11)
 {
-  v74[7] = *MEMORY[0x29EDCA608];
-  v69 = 0;
-  v70 = 0;
+  v71[7] = *MEMORY[0x29EDCA608];
+  v67 = 0;
+  v68 = 0;
   v19 = ofi_datatype_size(*(a3 + 48));
   v20 = *(a3 + 16);
   if (v20 > 4 || *(a3 + 40) >= 5uLL)
@@ -7451,13 +7123,11 @@ LABEL_43:
       *__error() = v24;
     }
 
-LABEL_44:
-    v44 = -22;
-    goto LABEL_45;
+    return -22;
   }
 
   v21 = v19;
-  v68 = a6;
+  v66 = a6;
   if (*(a3 + 52) == 10)
   {
     hmem_iface = 0;
@@ -7472,7 +7142,7 @@ LABEL_44:
 
   if (v20)
   {
-    v25 = v74;
+    v25 = v71;
     v26 = (*a3 + 8);
     v27 = *(a3 + 16);
     do
@@ -7490,7 +7160,7 @@ LABEL_44:
     v29 = 1;
     do
     {
-      v23 += v74[v29 - 1];
+      v23 += v71[v29 - 1];
       v29 += 2;
       --v20;
     }
@@ -7502,7 +7172,7 @@ LABEL_44:
       v31 = *v30;
       if (v31)
       {
-        v70 = *(v31 + 64);
+        v68 = *(v31 + 64);
         hmem_iface = *(v31 + 56);
         goto LABEL_22;
       }
@@ -7510,7 +7180,7 @@ LABEL_44:
 
     if (rxm_detect_hmem_iface)
     {
-      hmem_iface = ofi_get_hmem_iface(v73, &v70, 0);
+      hmem_iface = ofi_get_hmem_iface(v70, &v68, 0);
       goto LABEL_22;
     }
 
@@ -7523,9 +7193,9 @@ LABEL_44:
     v23 = 0;
   }
 
-  v70 = 0;
+  v68 = 0;
 LABEL_22:
-  v67 = a1;
+  v65 = a1;
   if (a10 != 8)
   {
     v40 = 0;
@@ -7538,14 +7208,14 @@ LABEL_22:
     rxm_ep_atomic_common_cold_5();
   }
 
-  v32 = v68;
-  if (!v68)
+  v32 = v66;
+  if (!v66)
   {
     if (!v23)
     {
       v40 = 0;
       v41 = 0;
-      v69 = 0;
+      v67 = 0;
       goto LABEL_40;
     }
 
@@ -7553,7 +7223,7 @@ LABEL_72:
     rxm_ep_atomic_common_cold_2();
   }
 
-  v33 = v72;
+  v33 = &v69[1];
   v34 = (a4 + 8);
   do
   {
@@ -7568,10 +7238,10 @@ LABEL_72:
   while (v32);
   v36 = 0;
   v37 = 1;
-  v38 = v68;
+  v38 = v66;
   do
   {
-    v36 += v71[v37];
+    v36 += v69[v37];
     v37 += 2;
     --v38;
   }
@@ -7584,21 +7254,21 @@ LABEL_72:
 
   if (a5 && (v39 = *a5) != 0)
   {
-    v69 = *(v39 + 64);
+    v67 = *(v39 + 64);
     v40 = *(v39 + 56);
   }
 
   else if (rxm_detect_hmem_iface)
   {
     v42 = hmem_iface;
-    v40 = ofi_get_hmem_iface(v71[0], &v69, 0);
+    v40 = ofi_get_hmem_iface(v69[0], &v67, 0);
     hmem_iface = v42;
   }
 
   else
   {
     v40 = 0;
-    v69 = 0;
+    v67 = 0;
   }
 
   v41 = v23;
@@ -7613,127 +7283,120 @@ LABEL_40:
       goto LABEL_43;
     }
 
-    goto LABEL_44;
+    return -22;
   }
 
-  v65 = v40;
-  v66 = hmem_iface;
-  tx_buf = rxm_get_tx_buf(v67);
-  if (tx_buf)
+  v63 = v40;
+  v64 = hmem_iface;
+  tx_buf = rxm_get_tx_buf(v65);
+  if (!tx_buf)
   {
-    v48 = tx_buf;
-    v49 = *(a3 + 48);
-    v50 = *(a3 + 52);
-    v51 = *(a3 + 64);
-    v52 = *(a3 + 32);
-    v53 = *(a3 + 40);
-    tx_buf[52] = *(a2 + 32);
-    tx_buf[57] = v51;
-    tx_buf[58] = 0;
-    *(tx_buf + 111) = 0;
-    tx_buf[56] = v41 + v23 + 96;
-    *(tx_buf + 409) = 4;
-    *(tx_buf + 442) = a10;
-    *(tx_buf + 464) = v49;
-    *(tx_buf + 465) = v50;
-    *(tx_buf + 466) = v53;
-    if (v53)
-    {
-      memcpy(tx_buf + 59, v52, 24 * v53);
-    }
+    return -35;
+  }
 
-    *(v48 + 424) = *(v48 - 24);
-    *(v48 + 56) = *(a3 + 56);
-    *(v48 + 64) = a11;
-    if (ofi_copy_from_hmem_iov(v48 + 568, v23, v66, v70, &v73, *(a3 + 16), 0) != v23)
-    {
-      rxm_ep_atomic_common_cold_3();
-    }
+  v47 = tx_buf;
+  v48 = *(a3 + 48);
+  v49 = *(a3 + 52);
+  v50 = *(a3 + 64);
+  v51 = *(a3 + 32);
+  v52 = *(a3 + 40);
+  tx_buf[52] = *(a2 + 32);
+  tx_buf[57] = v50;
+  tx_buf[58] = 0;
+  *(tx_buf + 111) = 0;
+  tx_buf[56] = v41 + v23 + 96;
+  *(tx_buf + 409) = 4;
+  *(tx_buf + 442) = a10;
+  *(tx_buf + 464) = v48;
+  *(tx_buf + 465) = v49;
+  *(tx_buf + 466) = v52;
+  if (v52)
+  {
+    memcpy(tx_buf + 59, v51, 24 * v52);
+  }
 
-    if (v41 && ofi_copy_from_hmem_iov(v48 + 568 + v23, v41, v65, v69, v71, v68, 0) != v41)
-    {
-      rxm_ep_atomic_common_cold_4();
-    }
+  *(v47 + 424) = *(v47 - 24);
+  *(v47 + 56) = *(a3 + 56);
+  *(v47 + 64) = a11;
+  if (ofi_copy_from_hmem_iov(v47 + 568, v23, v64, v68, &v70, *(a3 + 16), 0) != v23)
+  {
+    rxm_ep_atomic_common_cold_3();
+  }
 
-    v54 = a9;
-    *(v48 + 168) = a9;
-    if (a7)
+  if (v41 && ofi_copy_from_hmem_iov(v47 + 568 + v23, v41, v63, v67, v69, v66, 0) != v41)
+  {
+    rxm_ep_atomic_common_cold_4();
+  }
+
+  v53 = a9;
+  *(v47 + 168) = a9;
+  if (a7)
+  {
+    if (a9)
     {
-      if (a9)
+      v54 = (v47 + 80);
+      v55 = (a7 + 8);
+      v56 = a9;
+      do
       {
-        v55 = (v48 + 80);
-        v56 = (a7 + 8);
-        v57 = a9;
+        v57 = *v55 * v21;
+        *(v54 - 1) = *(v55 - 1);
+        *v54 = v57;
+        v54 += 2;
+        v55 += 2;
+        --v56;
+      }
+
+      while (v56);
+      if (a8)
+      {
+        v58 = (v47 + 136);
         do
         {
-          v58 = *v56 * v21;
-          *(v55 - 1) = *(v56 - 1);
-          *v55 = v58;
-          v55 += 2;
-          v56 += 2;
-          --v57;
+          v59 = *a8++;
+          *v58++ = v59;
+          --v53;
         }
 
-        while (v57);
-        if (a8)
-        {
-          v59 = (v48 + 136);
-          do
-          {
-            v60 = *a8++;
-            *v59++ = v60;
-            --v54;
-          }
-
-          while (v54);
-        }
+        while (v53);
       }
     }
+  }
 
-    *(v48 + 32) = 19;
-    v61 = *(a2 + 16);
-    if (*(v67 + 12952) >= v43)
-    {
-      v63 = (*(*(v61 + 40) + 56))();
-    }
-
-    else
-    {
-      v62 = *(v48 + 40);
-      v63 = (*(*(v61 + 40) + 32))();
-    }
-
-    v44 = v63;
-    if (v63 == -35)
-    {
-      rxm_ep_do_progress(v67);
-    }
-
-    else
-    {
-      if (!v63)
-      {
-        goto LABEL_45;
-      }
-
-      if (fi_log_enabled(&rxm_prov, 0, 4))
-      {
-        v64 = *__error();
-        fi_log(&rxm_prov, 0, 4, "rxm_ep_send_atomic_req", 86, "unable to send atomic request: op: %hhu msg_id: 0x%llx\n", *(v48 + 442), *(v48 + 424));
-        *__error() = v64;
-      }
-    }
-
-    rxm_free_tx_buf(v67, v48);
+  *(v47 + 32) = 19;
+  v60 = *(a2 + 16);
+  if (*(v65 + 12952) >= v43)
+  {
+    v61 = (*(*(v60 + 40) + 56))();
   }
 
   else
   {
-    v44 = -35;
+    v61 = (*(*(v60 + 40) + 32))();
   }
 
-LABEL_45:
-  v45 = *MEMORY[0x29EDCA608];
+  v44 = v61;
+  if (v61 == -35)
+  {
+    rxm_ep_do_progress(v65);
+  }
+
+  else
+  {
+    if (!v61)
+    {
+      return v44;
+    }
+
+    if (fi_log_enabled(&rxm_prov, 0, 4))
+    {
+      v62 = *__error();
+      fi_log(&rxm_prov, 0, 4, "rxm_ep_send_atomic_req", 86, "unable to send atomic request: op: %hhu msg_id: 0x%llx\n", *(v47 + 442), *(v47 + 424));
+      *__error() = v62;
+    }
+  }
+
+  rxm_free_tx_buf(v65, v47);
   return v44;
 }
 
@@ -7765,10 +7428,11 @@ uint64_t rxm_ep_generic_atomic_compwritemsg(uint64_t a1, uint64_t a2, uint64_t a
   return conn;
 }
 
-uint64_t rxm_copy_hmem_iov(uint64_t *a1, uint64_t a2, unint64_t a3, uint64_t a4, int a5, unint64_t a6, int a7)
+uint64_t rxm_copy_hmem_iov(uint64_t *a1, uint64_t a2, unint64_t a3, uint64_t a4, unsigned int a5, unint64_t a6, uint64_t a7)
 {
   if (a5 >= 1)
   {
+    v7 = a7;
     v11 = 0;
     v12 = (a4 + 8);
     v13 = a1;
@@ -7801,7 +7465,7 @@ uint64_t rxm_copy_hmem_iov(uint64_t *a1, uint64_t a2, unint64_t a3, uint64_t a4,
         a3 -= v17;
         if (v17)
         {
-          v18 = rxm_copy_hmem(v15, a2 + v11, *(v12 - 1) + a6, v17, a7);
+          v18 = rxm_copy_hmem(v15, a2 + v11, *(v12 - 1) + a6, v17, v7);
           if (v18)
           {
             return v18;
@@ -7881,7 +7545,7 @@ LABEL_5:
   return 0;
 }
 
-uint64_t rxm_trecv(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t *a8)
+uint64_t rxm_trecv(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t **a8)
 {
   v10 = a4;
   v9[0] = a2;
@@ -7889,7 +7553,7 @@ uint64_t rxm_trecv(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   return util_srx_generic_trecv(*(a1 + 12872), v9, &v10, 1uLL, a5, a8, a6, a7, *(a1 + 128));
 }
 
-unint64_t rxm_tsend(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t rxm_tsend(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7)
 {
   v14 = 0;
   v15 = a4;
@@ -7906,7 +7570,7 @@ unint64_t rxm_tsend(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_
   return conn;
 }
 
-unint64_t rxm_tsendv(uint64_t a1, uint64_t *a2, uint64_t *a3, unint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t rxm_tsendv(uint64_t a1, uint64_t *a2, uint64_t *a3, unint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7)
 {
   v16 = 0;
   (*(a1 + 384))(a1 + 312);
@@ -7920,7 +7584,7 @@ unint64_t rxm_tsendv(uint64_t a1, uint64_t *a2, uint64_t *a3, unint64_t a4, unin
   return conn;
 }
 
-unint64_t rxm_tsendmsg(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t rxm_tsendmsg(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = 0;
   (*(a1 + 384))(a1 + 312);
@@ -7953,7 +7617,7 @@ uint64_t rxm_tinject(uint64_t a1, void *a2, size_t a3, unint64_t a4, uint64_t a5
   return conn;
 }
 
-unint64_t rxm_tsenddata(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t rxm_tsenddata(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8)
 {
   v16 = 0;
   v17 = a4;
@@ -8350,7 +8014,7 @@ uint64_t ofi_shm_unmap(uint64_t a1)
   return 0;
 }
 
-uint64_t fi_read_file(const char *a1, const char *a2, void *a3, size_t a4)
+ssize_t fi_read_file(const char *a1, const char *a2, void *a3, size_t a4)
 {
   v10 = 0;
   if (asprintf(&v10, "%s/%s", a1, a2) < 0)
@@ -8378,14 +8042,14 @@ uint64_t fi_read_file(const char *a1, const char *a2, void *a3, size_t a4)
   return v8;
 }
 
-uint64_t ofi_pollfds_get_ctx(uint64_t a1, unsigned int a2)
+uint64_t ofi_pollfds_get_ctx(uint64_t a1, signed int a2)
 {
   if (!(*(a1 + 192))(a1 + 128))
   {
     ofi_pollfds_get_ctx_cold_1();
   }
 
-  if ((a2 & 0x80000000) != 0)
+  if (a2 < 0)
   {
     return 0;
   }
@@ -8409,24 +8073,25 @@ uint64_t ofi_pollfds_get_ctx(uint64_t a1, unsigned int a2)
   return 0;
 }
 
-uint64_t ofi_pollfds_alloc_ctx(uint64_t a1, signed int a2)
+uint64_t ofi_pollfds_alloc_ctx(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (!(*(a1 + 192))(a1 + 128))
   {
     ofi_pollfds_alloc_ctx_cold_3();
   }
 
-  if (ofi_pollfds_get_ctx(a1, a2))
+  if (ofi_pollfds_get_ctx(a1, v2))
   {
     ofi_pollfds_alloc_ctx_cold_1();
   }
 
-  if (*a1 <= a2 && ofi_pollfds_grow(a1, a2))
+  if (*a1 <= v2 && ofi_pollfds_grow(a1, v2))
   {
     return 0;
   }
 
-  result = *(a1 + 16) + 16 * a2;
+  result = *(a1 + 16) + 16 * v2;
   if ((*(result + 8) & 0x80000000) == 0)
   {
     ofi_pollfds_alloc_ctx_cold_2();
@@ -8764,7 +8429,7 @@ LABEL_23:
   return result;
 }
 
-uint64_t ofi_idx_remove(uint64_t a1, int a2)
+uint64_t ofi_idx_remove(uint64_t a1, uint64_t a2)
 {
   if (a2 < 1 || a2 >= *(a1 + 8196) << 10)
   {
@@ -8779,7 +8444,7 @@ uint64_t ofi_idx_remove(uint64_t a1, int a2)
   return v3;
 }
 
-uint64_t ofi_idx_remove_ordered(uint64_t a1, int a2)
+uint64_t ofi_idx_remove_ordered(uint64_t a1, uint64_t a2)
 {
   if (a2 < 1 || a2 >= *(a1 + 8196) << 10)
   {
@@ -8787,7 +8452,7 @@ uint64_t ofi_idx_remove_ordered(uint64_t a1, int a2)
   }
 
   v3 = *(a1 + 8 * (a2 >> 10));
-  v4 = (v3 + 16 * (a2 & 0x3FF));
+  v4 = v3 + 16 * (a2 & 0x3FF);
   result = *v4;
   *v4 = 0;
   v6 = (a1 + 0x2000);
@@ -8805,12 +8470,12 @@ uint64_t ofi_idx_remove_ordered(uint64_t a1, int a2)
     while (v9 < a2);
   }
 
-  *(v4 + 2) = v7;
+  *(v4 + 8) = v7;
   *v6 = a2;
   return result;
 }
 
-uint64_t ofi_idx_replace(uint64_t result, int a2, uint64_t a3)
+uint64_t ofi_idx_replace(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (a2 < 1 || a2 >= *(result + 8196) << 10)
   {
@@ -9069,7 +8734,7 @@ void ofi_array_destroy(uint64_t a1)
   }
 }
 
-uint64_t fi_getparams(void ***a1, int *a2)
+uint64_t fi_getparams(char ***a1, int *a2)
 {
   fi_ini();
   v4 = 0;
@@ -9158,7 +8823,7 @@ void fi_freeparams(void **a1)
   free(a1);
 }
 
-void fi_param_undefine(uint64_t a1)
+void fi_param_undefine(uint64_t result)
 {
   v1 = param_list;
   if (param_list != &param_list)
@@ -9167,7 +8832,7 @@ void fi_param_undefine(uint64_t a1)
     {
       v3 = *v1;
       v4 = (v1 - 5);
-      if (*(v1 - 5) == a1)
+      if (*(v1 - 5) == result)
       {
         v5 = v1[1];
         *v5 = v3;
@@ -9191,16 +8856,17 @@ void fi_free_param(void **a1)
   free(a1);
 }
 
-uint64_t fi_param_define(void *a1, const char *a2, int a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t fi_param_define(const char **a1, const char *a2, int a3, const char *a4, ...)
 {
+  va_start(va, a4);
   if (a1)
   {
-    v9 = a1;
+    v4 = a1;
   }
 
   else
   {
-    v9 = &core_prov;
+    v4 = &core_prov;
   }
 
   result = 4294967274;
@@ -9209,84 +8875,82 @@ uint64_t fi_param_define(void *a1, const char *a2, int a3, const char *a4, uint6
     return result;
   }
 
-  v14 = malloc_type_calloc(1uLL, 0x38uLL, 0x1070040BA0060A5uLL);
-  if (!v14)
+  v9 = malloc_type_calloc(1uLL, 0x38uLL, 0x1070040BA0060A5uLL);
+  if (!v9)
   {
     return 4294967284;
   }
 
-  v15 = v14;
-  v28 = 0;
-  *v14 = v9;
-  v14[1] = strdup(a2);
-  *(v15 + 4) = a3;
-  if (vasprintf(v15 + 3, a4, &a9) < 0)
+  v10 = v9;
+  v21 = 0;
+  *v9 = v4;
+  v9[1] = strdup(a2);
+  *(v10 + 4) = a3;
+  if (vasprintf(v10 + 3, a4, va) < 0)
   {
-    v15[3] = 0;
+    v10[3] = 0;
   }
 
-  if (v9 == &core_prov)
+  if (v4 == &core_prov)
   {
-    v19 = v15 + 4;
-    v20 = asprintf(v15 + 4, "FI_%s");
+    v13 = v10 + 4;
+    v14 = asprintf(v10 + 4, "FI_%s");
   }
 
   else
   {
-    v16 = *(v9 + 5);
-    v17 = asprintf(&v28, "%s: %s", v16, v15[3]);
-    free(v15[3]);
-    if (v17 < 0)
+    v11 = asprintf(&v21, "%s: %s", v4[5], v10[3]);
+    free(v10[3]);
+    if (v11 < 0)
     {
-      v18 = 0;
-      v28 = 0;
+      v12 = 0;
+      v21 = 0;
     }
 
     else
     {
-      v18 = v28;
+      v12 = v21;
     }
 
-    v15[3] = v18;
-    v19 = v15 + 4;
-    v21 = *(v9 + 5);
-    v20 = asprintf(v15 + 4, "FI_%s_%s");
+    v10[3] = v12;
+    v13 = v10 + 4;
+    v14 = asprintf(v10 + 4, "FI_%s_%s");
   }
 
-  if (v20 < 0)
+  if (v14 < 0)
   {
-    *v19 = 0;
+    *v13 = 0;
   }
 
-  if (!v15[1] || !v15[3] || (v22 = v15[4]) == 0)
+  if (!v10[1] || !v10[3] || (v15 = v10[4]) == 0)
   {
-    fi_free_param(v15);
+    fi_free_param(v10);
     return 4294967284;
   }
 
-  v23 = *v22;
-  if (*v22)
+  v16 = *v15;
+  if (*v15)
   {
-    v24 = 1;
+    v17 = 1;
     do
     {
-      *v22 = __toupper(v23);
-      v22 = (v15[4] + v24);
-      v23 = *v22;
-      ++v24;
+      *v15 = __toupper(v16);
+      v15 = (v10[4] + v17);
+      v16 = *v15;
+      ++v17;
     }
 
-    while (*v22);
+    while (*v15);
   }
 
   result = 0;
-  v25 = off_2A1892FC8[0];
-  v26 = *off_2A1892FC8[0];
-  v15[5] = *off_2A1892FC8[0];
-  v15[6] = v25;
-  v27 = v15 + 5;
-  *(v26 + 8) = v27;
-  *v25 = v27;
+  v18 = off_2A1892FC8[0];
+  v19 = *off_2A1892FC8[0];
+  v10[5] = *off_2A1892FC8[0];
+  v10[6] = v18;
+  v20 = v10 + 5;
+  *(v19 + 8) = v20;
+  *v18 = v20;
   return result;
 }
 
@@ -9387,17 +9051,17 @@ LABEL_17:
         {
           if (v15 == 2)
           {
-            v20 = *v12;
-            if (v20 != 48 || (v21 = v12[1], v12[1]))
+            v17 = *v12;
+            if (v17 != 48 || (v18 = v12[1], v12[1]))
             {
               if (!strcasecmp(v12, "false") || !strcasecmp(v12, "no") || !strcasecmp(v12, "off"))
               {
-                v21 = 0;
+                v18 = 0;
               }
 
               else
               {
-                if ((v20 != 49 || v12[1]) && strcasecmp(v12, "true") && strcasecmp(v12, "yes") && strcasecmp(v12, "on"))
+                if ((v17 != 49 || v12[1]) && strcasecmp(v12, "true") && strcasecmp(v12, "yes") && strcasecmp(v12, "on"))
                 {
                   if (!fi_log_enabled(v3, 0, 0))
                   {
@@ -9410,15 +9074,14 @@ LABEL_17:
                   goto LABEL_58;
                 }
 
-                v21 = 1;
+                v18 = 1;
               }
             }
 
-            *a3 = v21;
+            *a3 = v18;
             if (fi_log_enabled(v3, 2, 0))
             {
               v16 = *__error();
-              v22 = *a3;
               fi_log(v3, 2, 0, "fi_param_get", 400, "read BOOL var %s=%d\n");
               goto LABEL_57;
             }
@@ -9432,7 +9095,6 @@ LABEL_17:
             if (fi_log_enabled(v3, 2, 0))
             {
               v16 = *__error();
-              v18 = *a3;
               fi_log(v3, 2, 0, "fi_param_get", 405, "read long var %s=%zu\n");
               goto LABEL_57;
             }
@@ -9449,7 +9111,6 @@ LABEL_17:
             if (fi_log_enabled(v3, 2, 0))
             {
               v16 = *__error();
-              v19 = *a3;
               fi_log(v3, 2, 0, "fi_param_get", 382, "read string var %s=%s\n");
               goto LABEL_57;
             }
@@ -9463,7 +9124,6 @@ LABEL_17:
             if (fi_log_enabled(v3, 2, 0))
             {
               v16 = *__error();
-              v17 = *a3;
               fi_log(v3, 2, 0, "fi_param_get", 387, "read int var %s=%d\n");
 LABEL_57:
               v4 = 0;
@@ -9497,7 +9157,7 @@ LABEL_58:
 
 uint64_t fi_param_init()
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   param_list = &param_list;
   off_2A1892FC8[0] = &param_list;
   conf_list = &conf_list;
@@ -9508,7 +9168,7 @@ uint64_t fi_param_init()
     goto LABEL_14;
   }
 
-  v5 = v0;
+  v1 = v0;
   if (!fgets(__s, 2048, v0))
   {
     goto LABEL_13;
@@ -9516,61 +9176,59 @@ uint64_t fi_param_init()
 
   while (1)
   {
-    v6 = strchr(__s, 61);
-    if (v6)
+    v2 = strchr(__s, 61);
+    if (v2)
     {
       break;
     }
 
 LABEL_10:
-    if (!fgets(__s, 2048, v5))
+    if (!fgets(__s, 2048, v1))
     {
       goto LABEL_13;
     }
   }
 
-  v7 = v6;
-  v8 = strlen(__s);
-  *v7 = 0;
-  if (__s[v8 - 1] == 10)
+  v3 = v2;
+  v4 = strlen(__s);
+  *v3 = 0;
+  if (__s[v4 - 1] == 10)
   {
-    __s[v8 - 1] = 0;
+    __s[v4 - 1] = 0;
   }
 
-  v9 = malloc_type_calloc(1uLL, 0x20uLL, 0x30040E147AD8DuLL);
-  if (!v9)
+  v5 = malloc_type_calloc(1uLL, 0x20uLL, 0x30040E147AD8DuLL);
+  if (!v5)
   {
     goto LABEL_13;
   }
 
-  v10 = v9;
-  v11 = strdup(__s);
-  *v10 = v11;
-  if (v11)
+  v6 = v5;
+  v7 = strdup(__s);
+  *v6 = v7;
+  if (v7)
   {
-    v12 = strdup(v7 + 1);
-    v10[1] = v12;
-    if (v12)
+    v8 = strdup(v3 + 1);
+    v6[1] = v8;
+    if (v8)
     {
-      v13 = off_2A1892FD8;
-      v14 = *off_2A1892FD8;
-      v10[2] = *off_2A1892FD8;
-      v10[3] = v13;
-      v15 = (v10 + 2);
-      *(v14 + 8) = v15;
-      *v13 = v15;
+      v9 = off_2A1892FD8;
+      v10 = *off_2A1892FD8;
+      v6[2] = *off_2A1892FD8;
+      v6[3] = v9;
+      v11 = (v6 + 2);
+      *(v10 + 8) = v11;
+      *v9 = v11;
       goto LABEL_10;
     }
   }
 
-  free_conf(v10);
+  free_conf(v6);
 LABEL_13:
-  fclose(v5);
+  fclose(v1);
 LABEL_14:
-  fi_param_define(0, "prefer_sysconfig", 2, "Prefer system configured variables when loading the environment and variables are defined in both the system config (libfabric.conf) and in runtime environment. (default: false)", v1, v2, v3, v4, v18);
-  result = fi_param_get(0, "prefer_sysconfig", &ofi_prefer_sysconfig);
-  v17 = *MEMORY[0x29EDCA608];
-  return result;
+  fi_param_define(0, "prefer_sysconfig", 2, "Prefer system configured variables when loading the environment and variables are defined in both the system config (libfabric.conf) and in runtime environment. (default: false)");
+  return fi_param_get(0, "prefer_sysconfig", &ofi_prefer_sysconfig);
 }
 
 void fi_param_fini()
@@ -9622,19 +9280,18 @@ void *rbtNew(uint64_t a1)
   return result;
 }
 
-void rbtDelete(uint64_t **a1)
+void rbtDelete(void *a1)
 {
   deleteTree(a1, *a1);
 
   free(a1);
 }
 
-void deleteTree(uint64_t a1, uint64_t *a2)
+void deleteTree(uint64_t a1, void *a2)
 {
   if ((a1 + 8) != a2)
   {
-    v5 = *a2;
-    (deleteTree)();
+    deleteTree(a1, *a2);
     deleteTree(a1, a2[1]);
 
     free(a2);
@@ -9914,4 +9571,245 @@ LABEL_32:
 
   free(v5);
   return 0;
+}
+
+void *rbtNext(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 8);
+  v3 = (a1 + 8);
+  if (v2 == (a1 + 8))
+  {
+    do
+    {
+      v4 = *(a2 + 16);
+      if (!v4)
+      {
+        break;
+      }
+
+      v5 = a2 == v4[1];
+      a2 = *(a2 + 16);
+    }
+
+    while (v5);
+  }
+
+  else
+  {
+    do
+    {
+      v4 = v2;
+      v2 = *v2;
+    }
+
+    while (v2 != v3);
+  }
+
+  if (v4 == v3)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v4;
+  }
+}
+
+void *rbtBegin(void *a1)
+{
+  v3 = *a1;
+  v1 = a1 + 1;
+  v2 = v3;
+  do
+  {
+    v4 = v2;
+    v2 = *v2;
+  }
+
+  while (v2 != v1);
+  if (v4 == v1)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v4;
+  }
+}
+
+void *rbtFindLeftmost(void *a1, uint64_t a2, uint64_t (*a3)(uint64_t, void))
+{
+  v3 = a1 + 1;
+  v4 = *a1;
+  if (*a1 == a1 + 1)
+  {
+    return 0;
+  }
+
+  v7 = 0;
+  do
+  {
+    v8 = a3(a2, v4[4]);
+    if (v8)
+    {
+      if (v7)
+      {
+        if (v8 != 1)
+        {
+          return v7;
+        }
+
+        ++v4;
+      }
+
+      else
+      {
+        v4 += v8 >= 0;
+      }
+    }
+
+    else
+    {
+      v7 = v4;
+    }
+
+    v4 = *v4;
+  }
+
+  while (v4 != v3);
+  return v7;
+}
+
+uint64_t *rbtFind(uint64_t **a1, uint64_t a2)
+{
+  v3 = a1 + 1;
+  v2 = *a1;
+  if (*a1 == (a1 + 1))
+  {
+    return 0;
+  }
+
+  while (1)
+  {
+    v6 = (a1[7])(a2, *(v2 + 32));
+    if (!v6)
+    {
+      break;
+    }
+
+    v2 = *(v2 + 8 * (v6 >= 0));
+    if (v2 == v3)
+    {
+      return 0;
+    }
+  }
+
+  return v2;
+}
+
+uint64_t rbtTraversal(uint64_t a1, void *a2, uint64_t a3, uint64_t (*a4)(uint64_t, void *))
+{
+  v8 = (a1 + 8);
+  do
+  {
+    result = a4(a3, a2);
+    if (*a2 != v8)
+    {
+      result = rbtTraversal(a1, *a2, a3, a4);
+    }
+
+    a2 = a2[1];
+  }
+
+  while (a2 != v8);
+  return result;
+}
+
+void *rotateLeft(void *result, void *a2)
+{
+  v2 = a2[1];
+  v3 = *v2;
+  a2[1] = *v2;
+  v4 = result + 1;
+  if (v3 != result + 1)
+  {
+    v3[2] = a2;
+  }
+
+  v5 = a2[2];
+  if (v2 != v4)
+  {
+    v2[2] = v5;
+  }
+
+  if (v5)
+  {
+    result = &v5[*v5 != a2];
+  }
+
+  *result = v2;
+  *v2 = a2;
+  if (v4 != a2)
+  {
+    a2[2] = v2;
+  }
+
+  return result;
+}
+
+void *rotateRight(void *result, void *a2)
+{
+  v2 = *a2;
+  v3 = *(*a2 + 8);
+  *a2 = v3;
+  v4 = result + 1;
+  if (v3 != result + 1)
+  {
+    v3[2] = a2;
+  }
+
+  v5 = a2[2];
+  if (v2 != v4)
+  {
+    v2[2] = v5;
+  }
+
+  if (v5)
+  {
+    if (v5[1] == a2)
+    {
+      result = v5 + 1;
+    }
+
+    else
+    {
+      result = v5;
+    }
+  }
+
+  *result = v2;
+  v2[1] = a2;
+  if (v4 != a2)
+  {
+    a2[2] = v2;
+  }
+
+  return result;
+}
+
+uint64_t hook_debug_trecv(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8)
+{
+  v13 = 0;
+  v9 = hook_debug_rx_start(a1, a8, 0, &v13);
+  if (v9)
+  {
+    return v9;
+  }
+
+  v11 = v13;
+  v10 = (*(*(*(a1 + 80) + 56) + 8))();
+  hook_debug_rx_end(a1, "fi_trecv", v10, v11);
+  return v10;
 }

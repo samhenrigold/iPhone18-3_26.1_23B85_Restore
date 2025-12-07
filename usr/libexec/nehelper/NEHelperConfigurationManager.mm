@@ -1073,7 +1073,7 @@ LABEL_180:
       v119 = 0;
 LABEL_118:
       v124 = xpc_dictionary_get_BOOL(messageCopy, "has-entitlement");
-      v125 = sub_1000155F4();
+      v125 = sub_1000155F4(NEHelperConfigurationManager);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_10001564C;
@@ -1114,9 +1114,9 @@ LABEL_119:
 - (NEHelperConfigurationManager)initWithFirstMessage:(id)message
 {
   messageCopy = message;
-  v86.receiver = self;
-  v86.super_class = NEHelperConfigurationManager;
-  v5 = [(NEHelperConfigurationManager *)&v86 init];
+  v85.receiver = self;
+  v85.super_class = NEHelperConfigurationManager;
+  v5 = [(NEHelperConfigurationManager *)&v85 init];
   if (!v5)
   {
 LABEL_86:
@@ -1163,7 +1163,7 @@ LABEL_86:
         if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v88 = v19;
+          v87 = v19;
           _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Client is an extension with bundle identifier %@", buf, 0xCu);
         }
 
@@ -1178,7 +1178,7 @@ LABEL_86:
         {
           v26 = v5->_bundleID;
           *buf = 138412290;
-          v88 = v26;
+          v87 = v26;
           _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Containing app for extension is %@", buf, 0xCu);
         }
       }
@@ -1220,27 +1220,26 @@ LABEL_86:
 
     if (v31 && xpc_get_type(v31) == &_xpc_type_array && xpc_array_get_count(v31))
     {
+      v81 = 0u;
       v82 = 0u;
       v83 = 0u;
       v84 = 0u;
-      v85 = 0u;
       v49 = _CFXPCCreateCFObjectFromXPCObject();
-      v50 = [v49 countByEnumeratingWithState:&v82 objects:v98 count:16];
+      v50 = [v49 countByEnumeratingWithState:&v81 objects:v97 count:16];
       v32 = v49;
       if (v50)
       {
         v51 = v50;
-        v52 = *v83;
+        v52 = *v82;
         while (2)
         {
-          for (i = 0; i != v51; i = i + 1)
+          for (i = 0; i != v51; ++i)
           {
-            if (*v83 != v52)
+            if (*v82 != v52)
             {
               objc_enumerationMutation(v49);
             }
 
-            v54 = *(*(&v82 + 1) + 8 * i);
             if ((isa_nsstring() & 1) == 0)
             {
 
@@ -1249,7 +1248,7 @@ LABEL_86:
             }
           }
 
-          v51 = [v49 countByEnumeratingWithState:&v82 objects:v98 count:16];
+          v51 = [v49 countByEnumeratingWithState:&v81 objects:v97 count:16];
           if (v51)
           {
             continue;
@@ -1272,7 +1271,7 @@ LABEL_56:
     v33 = xpc_connection_copy_entitlement_value();
 
     v34 = NEGetEntitlement();
-    v77 = v32;
+    v76 = v32;
     if (v34)
     {
       v35 = v34;
@@ -1301,26 +1300,26 @@ LABEL_56:
       v38 = +[NEConfigurationManager sharedManagerForAllUsers];
       v39 = [v38 copyAppGroupMapDidChange:0];
 
-      v80 = 0u;
-      v81 = 0u;
-      v78 = 0u;
       v79 = 0u;
+      v80 = 0u;
+      v77 = 0u;
+      v78 = 0u;
       v40 = v32;
-      v41 = [v40 countByEnumeratingWithState:&v78 objects:v97 count:16];
+      v41 = [v40 countByEnumeratingWithState:&v77 objects:v96 count:16];
       if (v41)
       {
         v42 = v41;
-        v43 = *v79;
+        v43 = *v78;
         while (2)
         {
           for (j = 0; j != v42; j = j + 1)
           {
-            if (*v79 != v43)
+            if (*v78 != v43)
             {
               objc_enumerationMutation(v40);
             }
 
-            v45 = [v39 objectForKeyedSubscript:*(*(&v78 + 1) + 8 * j)];
+            v45 = [v39 objectForKeyedSubscript:*(*(&v77 + 1) + 8 * j)];
             if (v45)
             {
               applicationID = v5->_applicationID;
@@ -1333,7 +1332,7 @@ LABEL_56:
             }
           }
 
-          v42 = [v40 countByEnumeratingWithState:&v78 objects:v97 count:16];
+          v42 = [v40 countByEnumeratingWithState:&v77 objects:v96 count:16];
           if (v42)
           {
             continue;
@@ -1346,16 +1345,16 @@ LABEL_56:
 LABEL_58:
     }
 
-    v56 = xpc_connection_copy_entitlement_value();
-    v57 = v56;
-    if (v56)
+    v55 = xpc_connection_copy_entitlement_value();
+    v56 = v55;
+    if (v55)
     {
       v5->_entitled = 1;
       v5->_hasProviderPermission = 1;
       v5->_platformEntitled = 1;
-      if (xpc_get_type(v56) == &_xpc_type_string)
+      if (xpc_get_type(v55) == &_xpc_type_string)
       {
-        string_ptr = xpc_string_get_string_ptr(v57);
+        string_ptr = xpc_string_get_string_ptr(v56);
         if (!strcmp(string_ptr, "super"))
         {
           v5->_superEntitled = 1;
@@ -1364,65 +1363,65 @@ LABEL_58:
 
       if (xpc_dictionary_get_BOOL(messageCopy, "no-app-filter"))
       {
-        v59 = v5->_applicationID;
+        v58 = v5->_applicationID;
         v5->_applicationID = 0;
       }
 
       v5->_appGroupEntitled = 0;
     }
 
-    v60 = xpc_connection_copy_entitlement_value();
-    v61 = v60;
-    if (v60 && xpc_get_type(v60) == &_xpc_type_BOOL && xpc_BOOL_get_value(v61))
+    v59 = xpc_connection_copy_entitlement_value();
+    v60 = v59;
+    if (v59 && xpc_get_type(v59) == &_xpc_type_BOOL && xpc_BOOL_get_value(v60))
     {
       v5->_spiEntitled = 1;
     }
 
-    v62 = xpc_connection_copy_entitlement_value();
-    v63 = v62;
-    v64 = v62 && xpc_get_type(v62) == &_xpc_type_BOOL && xpc_BOOL_get_value(v63);
-    v5->_isDevelopment = v64;
-    v65 = xpc_connection_copy_entitlement_value();
-    v66 = v65;
-    if (v65 && xpc_get_type(v65) == &_xpc_type_BOOL && xpc_BOOL_get_value(v66))
+    v61 = xpc_connection_copy_entitlement_value();
+    v62 = v61;
+    v63 = v61 && xpc_get_type(v61) == &_xpc_type_BOOL && xpc_BOOL_get_value(v62);
+    v5->_isDevelopment = v63;
+    v64 = xpc_connection_copy_entitlement_value();
+    v65 = v64;
+    if (v64 && xpc_get_type(v64) == &_xpc_type_BOOL && xpc_BOOL_get_value(v65))
     {
       v5->_isTestClient = 1;
     }
 
-    v67 = objc_alloc_init(NSMutableDictionary);
+    v66 = objc_alloc_init(NSMutableDictionary);
     filter = v5->_filter;
-    v5->_filter = v67;
+    v5->_filter = v66;
 
     if (!xpc_dictionary_get_BOOL(messageCopy, "no-app-filter"))
     {
       [(NSMutableDictionary *)v5->_filter setObject:v5->_userUUID forKeyedSubscript:@"user-uuid"];
     }
 
-    v69 = v5->_applicationID;
-    if (v69)
+    v68 = v5->_applicationID;
+    if (v68)
     {
-      [(NSMutableDictionary *)v5->_filter setObject:v69 forKeyedSubscript:@"application-id"];
+      [(NSMutableDictionary *)v5->_filter setObject:v68 forKeyedSubscript:@"application-id"];
     }
 
-    v70 = ne_log_obj();
-    if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
+    v69 = ne_log_obj();
+    if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
     {
-      v71 = v5->_clientName;
-      v72 = v5->_bundleID;
-      v73 = v5->_applicationID;
+      v70 = v5->_clientName;
+      v71 = v5->_bundleID;
+      v72 = v5->_applicationID;
       entitled = v5->_entitled;
       hasProviderPermission = v5->_hasProviderPermission;
       *buf = 138413314;
-      v88 = v71;
-      v89 = 2112;
-      v90 = v72;
-      v91 = 2112;
-      v92 = v73;
-      v93 = 1024;
-      v94 = entitled;
-      v95 = 1024;
-      v96 = hasProviderPermission;
-      _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_INFO, "Created a new configuration delegate with name = %@, bundleID = %@, applicationID = %@, entitled = %d, hasProviderPermission = %d", buf, 0x2Cu);
+      v87 = v70;
+      v88 = 2112;
+      v89 = v71;
+      v90 = 2112;
+      v91 = v72;
+      v92 = 1024;
+      v93 = entitled;
+      v94 = 1024;
+      v95 = hasProviderPermission;
+      _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_INFO, "Created a new configuration delegate with name = %@, bundleID = %@, applicationID = %@, entitled = %d, hasProviderPermission = %d", buf, 0x2Cu);
     }
 
     goto LABEL_86;

@@ -784,17 +784,17 @@ uint64_t __52__ICDelegationProviderService__updateBrowsingStatus__block_invoke(u
   return [v5 setDelegate:?];
 }
 
-uint64_t __52__ICDelegationProviderService__updateBrowsingStatus__block_invoke_2(uint64_t result)
+_BYTE *__52__ICDelegationProviderService__updateBrowsingStatus__block_invoke_2(_BYTE *result)
 {
   v9 = *MEMORY[0x1E69E9840];
-  if ((*(result + 48) & 1) == 0)
+  if ((result[48] & 1) == 0)
   {
     v1 = result;
     v2 = os_log_create("com.apple.amp.iTunesCloud", "Delegation");
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(v1 + 32);
-      v4 = *(v1 + 40);
+      v3 = *(v1 + 4);
+      v4 = *(v1 + 5);
       v5 = 138543618;
       v6 = v3;
       v7 = 2114;
@@ -802,7 +802,7 @@ uint64_t __52__ICDelegationProviderService__updateBrowsingStatus__block_invoke_2
       _os_log_impl(&dword_1B4491000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Searching for services with browser: %{public}@", &v5, 0x16u);
     }
 
-    return [*(v1 + 40) searchForServicesOfType:@"_itsdlgt._tcp." inDomain:@"local"];
+    return [*(v1 + 5) searchForServicesOfType:@"_itsdlgt._tcp." inDomain:@"local"];
   }
 
   return result;
@@ -1505,18 +1505,18 @@ uint64_t __75__ICDelegationProviderService_netServiceBrowser_didFindService_more
   dispatch_barrier_async(accessQueue, block);
 }
 
-uint64_t __52__ICDelegationProviderService_startSystemXPCService__block_invoke(uint64_t result)
+void *__52__ICDelegationProviderService_startSystemXPCService__block_invoke(void *result)
 {
-  if (!*(*(result + 32) + 80))
+  if (!*(result[4] + 80))
   {
     v2 = result;
     v3 = [objc_alloc(MEMORY[0x1E696B0D8]) initWithMachServiceName:@"com.apple.itunescloud.delegation-provider"];
-    v4 = *(v2 + 32);
+    v4 = v2[4];
     v5 = *(v4 + 80);
     *(v4 + 80) = v3;
 
-    [*(*(v2 + 32) + 80) setDelegate:?];
-    v6 = *(*(v2 + 32) + 80);
+    [*(v2[4] + 80) setDelegate:?];
+    v6 = *(v2[4] + 80);
 
     return [v6 resume];
   }

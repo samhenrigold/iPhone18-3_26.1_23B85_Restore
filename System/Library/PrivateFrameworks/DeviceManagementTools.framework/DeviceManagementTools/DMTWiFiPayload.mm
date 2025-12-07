@@ -6,11 +6,11 @@
 
 - (DMTWiFiPayload)initWithDictionary:(id)dictionary error:(id *)error
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v49.receiver = self;
-  v49.super_class = DMTWiFiPayload;
-  v7 = [(DMTConfigurationPrimitive *)&v49 initWithDictionary:dictionaryCopy error:error];
+  v48.receiver = self;
+  v48.super_class = DMTWiFiPayload;
+  v7 = [(DMTConfigurationPrimitive *)&v48 initWithDictionary:dictionaryCopy error:error];
   if (v7)
   {
     v7->_autoJoin = DMTValidateProfileBoolean(dictionaryCopy, @"AutoJoin", 1, 1, error);
@@ -28,46 +28,46 @@
 
     if (!*error)
     {
-      v17 = v7->_eapClientConfiguration;
-      if (v17)
+      v16 = v7->_eapClientConfiguration;
+      if (v16)
       {
-        v18 = DMTValidateProfileArray(v17, @"AcceptEAPTypes", 0, error);
+        v17 = DMTValidateProfileArray(v16, @"AcceptEAPTypes", 0, error);
         acceptEAPTypes = v7->_acceptEAPTypes;
-        v7->_acceptEAPTypes = v18;
+        v7->_acceptEAPTypes = v17;
 
-        v20 = v7->_acceptEAPTypes;
-        if (!v20)
+        v19 = v7->_acceptEAPTypes;
+        if (!v19)
         {
           goto LABEL_3;
         }
 
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
         v46 = 0u;
-        obj = v20;
-        v21 = [(NSArray *)obj countByEnumeratingWithState:&v45 objects:v51 count:16];
-        if (v21)
+        v47 = 0u;
+        v44 = 0u;
+        v45 = 0u;
+        obj = v19;
+        v20 = [(NSArray *)obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+        if (v20)
         {
-          v22 = v21;
-          v23 = *v46;
+          v21 = v20;
+          v22 = *v45;
           while (2)
           {
-            for (i = 0; i != v22; ++i)
+            for (i = 0; i != v21; ++i)
             {
-              if (*v46 != v23)
+              if (*v45 != v22)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v25 = *(*(&v45 + 1) + 8 * i);
-              if (v25)
+              v24 = *(*(&v44 + 1) + 8 * i);
+              if (v24)
               {
-                v26 = v25;
-                v27 = CFGetTypeID(v25);
+                v25 = v24;
+                v26 = CFGetTypeID(v24);
                 TypeID = CFNumberGetTypeID();
 
-                if (v27 == TypeID)
+                if (v26 == TypeID)
                 {
                   continue;
                 }
@@ -78,8 +78,8 @@
               goto LABEL_3;
             }
 
-            v22 = [(NSArray *)obj countByEnumeratingWithState:&v45 objects:v51 count:16];
-            if (v22)
+            v21 = [(NSArray *)obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+            if (v21)
             {
               continue;
             }
@@ -88,42 +88,42 @@
           }
         }
 
-        v29 = DMTValidateProfileArray(v7->_eapClientConfiguration, @"PayloadCertificateAnchorUUID", 1, error);
+        v28 = DMTValidateProfileArray(v7->_eapClientConfiguration, @"PayloadCertificateAnchorUUID", 1, error);
         certificateAnchorUUID = v7->_certificateAnchorUUID;
-        v7->_certificateAnchorUUID = v29;
+        v7->_certificateAnchorUUID = v28;
 
         if (*error)
         {
           goto LABEL_3;
         }
 
-        v43 = 0u;
-        v44 = 0u;
-        v41 = 0u;
         v42 = 0u;
-        v31 = v7->_certificateAnchorUUID;
-        v32 = [(NSArray *)v31 countByEnumeratingWithState:&v41 objects:v50 count:16];
-        if (v32)
+        v43 = 0u;
+        v40 = 0u;
+        v41 = 0u;
+        v30 = v7->_certificateAnchorUUID;
+        v31 = [(NSArray *)v30 countByEnumeratingWithState:&v40 objects:v49 count:16];
+        if (v31)
         {
-          v33 = v32;
-          v34 = *v42;
+          v32 = v31;
+          v33 = *v41;
           while (2)
           {
-            for (j = 0; j != v33; ++j)
+            for (j = 0; j != v32; ++j)
             {
-              if (*v42 != v34)
+              if (*v41 != v33)
               {
-                objc_enumerationMutation(v31);
+                objc_enumerationMutation(v30);
               }
 
-              v36 = *(*(&v41 + 1) + 8 * j);
-              if (v36)
+              v35 = *(*(&v40 + 1) + 8 * j);
+              if (v35)
               {
-                v37 = v36;
-                v38 = CFGetTypeID(v36);
-                v39 = CFStringGetTypeID();
+                v36 = v35;
+                v37 = CFGetTypeID(v35);
+                v38 = CFStringGetTypeID();
 
-                if (v38 == v39)
+                if (v37 == v38)
                 {
                   continue;
                 }
@@ -134,8 +134,8 @@
               goto LABEL_3;
             }
 
-            v33 = [(NSArray *)v31 countByEnumeratingWithState:&v41 objects:v50 count:16];
-            if (v33)
+            v32 = [(NSArray *)v30 countByEnumeratingWithState:&v40 objects:v49 count:16];
+            if (v32)
             {
               continue;
             }
@@ -154,7 +154,6 @@ LABEL_3:
   v14 = 0;
 LABEL_4:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

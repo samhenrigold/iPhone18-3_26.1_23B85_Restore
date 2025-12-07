@@ -248,7 +248,7 @@ void __77__SpotlightKnowledge_coreSpotlightIndexWithBundleIdentifier_protectionC
 
 - (void)updateCoreSpotlightWithItems:(id)items index:(id)index group:(id)group cancelBlock:(id)block
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   indexCopy = index;
   groupCopy = group;
@@ -258,20 +258,18 @@ void __77__SpotlightKnowledge_coreSpotlightIndexWithBundleIdentifier_protectionC
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v17 = [itemsCopy count];
+      v16 = [itemsCopy count];
       _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: indexing %lu items", buf, 0xCu);
     }
 
     dispatch_group_enter(groupCopy);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __75__SpotlightKnowledge_updateCoreSpotlightWithItems_index_group_cancelBlock___block_invoke;
-    v14[3] = &unk_27893E840;
-    v15 = groupCopy;
-    [indexCopy indexSearchableItems:itemsCopy completionHandler:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __75__SpotlightKnowledge_updateCoreSpotlightWithItems_index_group_cancelBlock___block_invoke;
+    v13[3] = &unk_27893E840;
+    v14 = groupCopy;
+    [indexCopy indexSearchableItems:itemsCopy completionHandler:v13];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __75__SpotlightKnowledge_updateCoreSpotlightWithItems_index_group_cancelBlock___block_invoke(uint64_t a1, void *a2)
@@ -456,7 +454,7 @@ void __75__SpotlightKnowledge_updateCoreSpotlightWithItems_index_group_cancelBlo
 
 - (BOOL)updateSpotlightContactsWithJobContext:(id)context group:(id)group cancelBlock:(id)block
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   groupCopy = group;
   blockCopy = block;
@@ -465,10 +463,10 @@ void __75__SpotlightKnowledge_updateCoreSpotlightWithItems_index_group_cancelBlo
     [SpotlightKnowledge updateSpotlightContactsWithJobContext:group:cancelBlock:];
   }
 
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2020000000;
-  v43 = 1;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
+  v42 = 1;
   v10 = objc_autoreleasePoolPush();
   v11 = *MEMORY[0x277CCA1A0];
   v12 = objc_alloc(MEMORY[0x277CC34A8]);
@@ -481,98 +479,95 @@ void __75__SpotlightKnowledge_updateCoreSpotlightWithItems_index_group_cancelBlo
     _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: clearing spotlight knowledge", buf, 2u);
   }
 
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __78__SpotlightKnowledge_updateSpotlightContactsWithJobContext_group_cancelBlock___block_invoke_35;
-  v39[3] = &unk_27893F1D8;
-  v39[4] = &v40;
-  [v14 deleteAllSearchableItemsWithCompletionHandler:v39];
-  if (*(v41 + 24) == 1)
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __78__SpotlightKnowledge_updateSpotlightContactsWithJobContext_group_cancelBlock___block_invoke_35;
+  v38[3] = &unk_27893F1D8;
+  v38[4] = &v39;
+  [v14 deleteAllSearchableItemsWithCompletionHandler:v38];
+  if (*(v40 + 24) == 1)
   {
     *buf = 0;
-    v34 = buf;
-    v35 = 0x3032000000;
-    v36 = __Block_byref_object_copy__24;
-    v37 = __Block_byref_object_dispose__24;
-    v38 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v33 = buf;
+    v34 = 0x3032000000;
+    v35 = __Block_byref_object_copy__24;
+    v36 = __Block_byref_object_dispose__24;
+    v37 = objc_alloc_init(MEMORY[0x277CBEB18]);
     spotlightGraph = [(SpotlightKnowledge *)self spotlightGraph];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __78__SpotlightKnowledge_updateSpotlightContactsWithJobContext_group_cancelBlock___block_invoke_37;
-    v27[3] = &unk_27893F200;
-    v31 = buf;
-    v27[4] = self;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __78__SpotlightKnowledge_updateSpotlightContactsWithJobContext_group_cancelBlock___block_invoke_37;
+    v26[3] = &unk_27893F200;
+    v30 = buf;
+    v26[4] = self;
     v16 = v14;
-    v28 = v16;
+    v27 = v16;
     v17 = groupCopy;
-    v29 = v17;
+    v28 = v17;
     v18 = blockCopy;
-    v30 = v18;
-    v32 = &v40;
-    [spotlightGraph enumeratePeopleUsingBlock:v27];
-    if (*(v41 + 24) == 1 && [*(v34 + 5) count])
+    v29 = v18;
+    v31 = &v39;
+    [spotlightGraph enumeratePeopleUsingBlock:v26];
+    if (*(v40 + 24) == 1 && [*(v33 + 5) count])
     {
-      v25 = blockCopy;
+      v24 = blockCopy;
       v19 = MEMORY[0x277D86220];
       v20 = MEMORY[0x277D86220];
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = [*(v34 + 5) count];
-        *v44 = 134217984;
-        v45 = v21;
-        _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: indexing %lu items", v44, 0xCu);
+        v21 = [*(v33 + 5) count];
+        *v43 = 134217984;
+        v44 = v21;
+        _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: indexing %lu items", v43, 0xCu);
       }
 
-      blockCopy = v25;
-      [(SpotlightKnowledge *)self updateCoreSpotlightWithItems:*(v34 + 5) index:v16 group:v17 cancelBlock:v18];
+      blockCopy = v24;
+      [(SpotlightKnowledge *)self updateCoreSpotlightWithItems:*(v33 + 5) index:v16 group:v17 cancelBlock:v18];
     }
 
     _Block_object_dispose(buf, 8);
   }
 
   objc_autoreleasePoolPop(v10);
-  v22 = *(v41 + 24);
-  _Block_object_dispose(&v40, 8);
+  v22 = *(v40 + 24);
+  _Block_object_dispose(&v39, 8);
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22 & 1;
 }
 
 void __78__SpotlightKnowledge_updateSpotlightContactsWithJobContext_group_cancelBlock___block_invoke()
 {
-  v19[3] = *MEMORY[0x277D85DE8];
-  v18[0] = SKGKnowledgePersonEmailAddresses;
+  v18[3] = *MEMORY[0x277D85DE8];
+  v17[0] = SKGKnowledgePersonEmailAddresses;
   v0 = *MEMORY[0x277CC2788];
-  v16[0] = @"primary";
-  v16[1] = @"alternate";
+  v15[0] = @"primary";
+  v15[1] = @"alternate";
   v1 = *MEMORY[0x277CC2400];
-  v17[0] = v0;
-  v17[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-  v19[0] = v2;
-  v18[1] = SKGKnowledgePersonPhoneNumbers;
+  v16[0] = v0;
+  v16[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v18[0] = v2;
+  v17[1] = SKGKnowledgePersonPhoneNumbers;
   v3 = *MEMORY[0x277CC2EB8];
-  v14[0] = @"primary";
-  v14[1] = @"alternate";
+  v13[0] = @"primary";
+  v13[1] = @"alternate";
   v4 = *MEMORY[0x277CC2410];
-  v15[0] = v3;
-  v15[1] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-  v19[1] = v5;
-  v18[2] = SKGKnowledgePersonNames;
+  v14[0] = v3;
+  v14[1] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v18[1] = v5;
+  v17[2] = SKGKnowledgePersonNames;
   v6 = *MEMORY[0x277CC25F8];
-  v12[0] = @"primary";
-  v12[1] = @"alternate";
+  v11[0] = @"primary";
+  v11[1] = @"alternate";
   v7 = *MEMORY[0x277CC2408];
-  v13[0] = v6;
-  v13[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v19[2] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
+  v12[0] = v6;
+  v12[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v18[2] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
   v10 = updateSpotlightContactsWithJobContext_group_cancelBlock__sKeyMap;
   updateSpotlightContactsWithJobContext_group_cancelBlock__sKeyMap = v9;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __78__SpotlightKnowledge_updateSpotlightContactsWithJobContext_group_cancelBlock___block_invoke_35(uint64_t a1, void *a2)
@@ -591,16 +586,16 @@ void __78__SpotlightKnowledge_updateSpotlightContactsWithJobContext_group_cancel
 
 void __78__SpotlightKnowledge_updateSpotlightContactsWithJobContext_group_cancelBlock___block_invoke_37(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v128 = *MEMORY[0x277D85DE8];
+  v126 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   v8 = objc_autoreleasePoolPush();
   v9 = [v7 objectForKeyedSubscript:@"com.apple.spotlight"];
-  v87 = [v9 objectForKeyedSubscript:SKGKnowledgePersonDisplayName];
-  v86 = [v9 objectForKeyedSubscript:@"score"];
-  v93 = v9;
+  v85 = [v9 objectForKeyedSubscript:SKGKnowledgePersonDisplayName];
+  v84 = [v9 objectForKeyedSubscript:@"score"];
+  v91 = v9;
   v10 = [v9 objectForKeyedSubscript:SKGKnowledgePersonContactIdentifiers];
-  v75 = v10;
+  v73 = v10;
   if ([v10 count])
   {
     v11 = [v10 firstObject];
@@ -612,149 +607,148 @@ void __78__SpotlightKnowledge_updateSpotlightContactsWithJobContext_group_cancel
     v12 = 0;
   }
 
-  v13 = [v93 objectForKeyedSubscript:SKGKnowledgePersonEntityIdentifiers];
-  v74 = v13;
+  v13 = [v91 objectForKeyedSubscript:SKGKnowledgePersonEntityIdentifiers];
+  v72 = v13;
   if ([v13 count])
   {
     v14 = [v13 firstObject];
-    v85 = [v14 objectForKey:@"value"];
+    v83 = [v14 objectForKey:@"value"];
   }
 
   else
   {
-    v85 = 0;
+    v83 = 0;
   }
 
-  v15 = [v93 objectForKeyedSubscript:SKGKnowledgePersonPhotosIdentifiers];
-  v76 = v8;
-  v73 = v15;
+  v15 = [v91 objectForKeyedSubscript:SKGKnowledgePersonPhotosIdentifiers];
+  v74 = v8;
+  v71 = v15;
   if ([v15 count])
   {
     v16 = [v15 firstObject];
-    v89 = [v16 objectForKey:@"value"];
+    v87 = [v16 objectForKey:@"value"];
   }
 
   else
   {
-    v89 = 0;
+    v87 = 0;
   }
 
-  v119 = 0u;
-  v120 = 0u;
   v117 = 0u;
   v118 = 0u;
+  v115 = 0u;
+  v116 = 0u;
   obj = v7;
-  v88 = [obj countByEnumeratingWithState:&v117 objects:v127 count:16];
-  if (v88)
+  v86 = [obj countByEnumeratingWithState:&v115 objects:v125 count:16];
+  if (v86)
   {
-    v100 = 0;
-    v101 = 0;
+    v98 = 0;
     v99 = 0;
-    v80 = *MEMORY[0x277CC2E90];
-    v81 = *v118;
-    v17 = *MEMORY[0x277CC25F0];
-    v78 = *MEMORY[0x277CC25F0];
-    v79 = *MEMORY[0x277CC2E88];
-    v83 = a1;
-    v84 = v6;
-    v82 = v12;
+    v97 = 0;
+    v78 = *MEMORY[0x277CC2E90];
+    v79 = *v116;
+    v76 = *MEMORY[0x277CC25F0];
+    v77 = *MEMORY[0x277CC2E88];
+    v81 = a1;
+    v82 = v6;
+    v80 = v12;
     do
     {
-      v18 = 0;
+      v17 = 0;
       do
       {
-        if (*v118 != v81)
+        if (*v116 != v79)
         {
           objc_enumerationMutation(obj);
         }
 
-        v90 = *(*(&v117 + 1) + 8 * v18);
-        v91 = v18;
-        v103 = [v90 isEqualToString:@"com.apple.spotlight"];
-        v19 = objc_alloc_init(MEMORY[0x277CBEB38]);
+        v88 = *(*(&v115 + 1) + 8 * v17);
+        v89 = v17;
+        v101 = [v88 isEqualToString:@"com.apple.spotlight"];
+        v18 = objc_alloc_init(MEMORY[0x277CBEB38]);
+        v111 = 0u;
+        v112 = 0u;
         v113 = 0u;
         v114 = 0u;
-        v115 = 0u;
-        v116 = 0u;
-        v92 = updateSpotlightContactsWithJobContext_group_cancelBlock__sKeyMap;
-        v95 = [v92 countByEnumeratingWithState:&v113 objects:v126 count:16];
-        if (v95)
+        v90 = updateSpotlightContactsWithJobContext_group_cancelBlock__sKeyMap;
+        v93 = [v90 countByEnumeratingWithState:&v111 objects:v124 count:16];
+        if (v93)
         {
-          v98 = 0;
-          v102 = 0;
-          v94 = *v114;
+          v96 = 0;
+          v100 = 0;
+          v92 = *v112;
           while (1)
           {
-            v20 = 0;
+            v19 = 0;
             do
             {
-              if (*v114 != v94)
+              if (*v112 != v92)
               {
-                objc_enumerationMutation(v92);
+                objc_enumerationMutation(v90);
               }
 
-              v96 = v20;
-              v21 = *(*(&v113 + 1) + 8 * v20);
+              v94 = v19;
+              v20 = *(*(&v111 + 1) + 8 * v19);
+              v107 = 0u;
+              v108 = 0u;
               v109 = 0u;
               v110 = 0u;
-              v111 = 0u;
-              v112 = 0u;
-              v97 = [v93 objectForKeyedSubscript:v21];
-              v22 = [v97 countByEnumeratingWithState:&v109 objects:v125 count:16];
-              if (v22)
+              v95 = [v91 objectForKeyedSubscript:v20];
+              v21 = [v95 countByEnumeratingWithState:&v107 objects:v123 count:16];
+              if (v21)
               {
-                v23 = v22;
-                v104 = *v110;
+                v22 = v21;
+                v102 = *v108;
                 do
                 {
-                  for (i = 0; i != v23; ++i)
+                  for (i = 0; i != v22; ++i)
                   {
-                    if (*v110 != v104)
+                    if (*v108 != v102)
                     {
-                      objc_enumerationMutation(v97);
+                      objc_enumerationMutation(v95);
                     }
 
-                    v25 = *(*(&v109 + 1) + 8 * i);
-                    v26 = [v25 objectForKeyedSubscript:@"ambiguous"];
-                    v27 = [v26 BOOLValue];
+                    v24 = *(*(&v107 + 1) + 8 * i);
+                    v25 = [v24 objectForKeyedSubscript:@"ambiguous"];
+                    v26 = [v25 BOOLValue];
 
-                    v28 = [v25 objectForKeyedSubscript:@"count"];
-                    v29 = [v28 intValue];
+                    v27 = [v24 objectForKeyedSubscript:@"count"];
+                    v28 = [v27 intValue];
 
-                    v30 = [v25 objectForKeyedSubscript:@"in"];
-                    v31 = [v30 intValue];
+                    v29 = [v24 objectForKeyedSubscript:@"in"];
+                    v30 = [v29 intValue];
 
-                    v32 = [v25 objectForKeyedSubscript:@"out"];
-                    v33 = [v32 intValue];
+                    v31 = [v24 objectForKeyedSubscript:@"out"];
+                    v32 = [v31 intValue];
 
-                    v34 = [v25 objectForKeyedSubscript:@"value"];
-                    if (v103)
+                    v33 = [v24 objectForKeyedSubscript:@"value"];
+                    if (v101)
                     {
-                      v99 += v31;
-                      v100 += v33;
-                      v101 += v29;
+                      v97 += v30;
+                      v98 += v32;
+                      v99 += v28;
                     }
 
-                    v35 = vcvtd_n_f64_s32(v31, 2uLL) + v29 * 0.5 + v33 * 0.25;
-                    v36 = [updateSpotlightContactsWithJobContext_group_cancelBlock__sKeyMap objectForKeyedSubscript:v21];
-                    v37 = v36;
-                    if (v27)
+                    v34 = vcvtd_n_f64_s32(v30, 2uLL) + v28 * 0.5 + v32 * 0.25;
+                    v35 = [updateSpotlightContactsWithJobContext_group_cancelBlock__sKeyMap objectForKeyedSubscript:v20];
+                    v36 = v35;
+                    if (v26)
                     {
-                      v38 = [v36 objectForKeyedSubscript:@"alternate"];
+                      v37 = [v35 objectForKeyedSubscript:@"alternate"];
 
-                      v39 = [v19 objectForKeyedSubscript:v38];
+                      v38 = [v18 objectForKeyedSubscript:v37];
 
-                      if (!v39)
+                      if (!v38)
                       {
-                        v40 = [MEMORY[0x277CBEB38] dictionary];
-                        [v19 setObject:v40 forKey:v38];
+                        v39 = [MEMORY[0x277CBEB38] dictionary];
+                        [v18 setObject:v39 forKey:v37];
                       }
 
-                      v41 = [v19 objectForKeyedSubscript:v38];
-                      v42 = [MEMORY[0x277CCABB0] numberWithDouble:v35];
-                      [v41 setObject:v42 forKey:v34];
+                      v40 = [v18 objectForKeyedSubscript:v37];
+                      v41 = [MEMORY[0x277CCABB0] numberWithDouble:v34];
+                      [v40 setObject:v41 forKey:v33];
 
-                      if ([v21 isEqualToString:SKGKnowledgePersonEmailAddresses])
+                      if ([v20 isEqualToString:SKGKnowledgePersonEmailAddresses])
                       {
                         goto LABEL_37;
                       }
@@ -762,173 +756,171 @@ void __78__SpotlightKnowledge_updateSpotlightContactsWithJobContext_group_cancel
 
                     else
                     {
-                      v43 = [v36 objectForKeyedSubscript:@"primary"];
+                      v42 = [v35 objectForKeyedSubscript:@"primary"];
 
-                      v44 = [v19 objectForKeyedSubscript:v43];
+                      v43 = [v18 objectForKeyedSubscript:v42];
 
-                      if (!v44)
+                      if (!v43)
                       {
-                        v45 = [MEMORY[0x277CBEB38] dictionary];
-                        [v19 setObject:v45 forKey:v43];
+                        v44 = [MEMORY[0x277CBEB38] dictionary];
+                        [v18 setObject:v44 forKey:v42];
                       }
 
-                      v46 = [v19 objectForKeyedSubscript:v43];
-                      v47 = [MEMORY[0x277CCABB0] numberWithDouble:v35];
-                      [v46 setObject:v47 forKey:v34];
+                      v45 = [v18 objectForKeyedSubscript:v42];
+                      v46 = [MEMORY[0x277CCABB0] numberWithDouble:v34];
+                      [v45 setObject:v46 forKey:v33];
 
-                      if ([v21 isEqualToString:SKGKnowledgePersonEmailAddresses])
+                      if ([v20 isEqualToString:SKGKnowledgePersonEmailAddresses])
                       {
-                        if (v31 && !v33)
+                        if (v30 && !v32)
                         {
 LABEL_37:
-                          ++v98;
+                          ++v96;
                         }
 
-                        ++v102;
+                        ++v100;
                       }
                     }
                   }
 
-                  v23 = [v97 countByEnumeratingWithState:&v109 objects:v125 count:16];
+                  v22 = [v95 countByEnumeratingWithState:&v107 objects:v123 count:16];
                 }
 
-                while (v23);
+                while (v22);
               }
 
-              v20 = v96 + 1;
+              v19 = v94 + 1;
             }
 
-            while (v96 + 1 != v95);
-            v95 = [v92 countByEnumeratingWithState:&v113 objects:v126 count:16];
-            if (!v95)
+            while (v94 + 1 != v93);
+            v93 = [v90 countByEnumeratingWithState:&v111 objects:v124 count:16];
+            if (!v93)
             {
               goto LABEL_45;
             }
           }
         }
 
-        v98 = 0;
-        v102 = 0;
+        v96 = 0;
+        v100 = 0;
 LABEL_45:
 
-        v48 = objc_alloc_init(MEMORY[0x277CC34B8]);
-        v49 = objc_alloc_init(MEMORY[0x277CBEB38]);
-        v50 = v49;
-        if (v102 && v102 == v98)
+        v47 = objc_alloc_init(MEMORY[0x277CC34B8]);
+        v48 = objc_alloc_init(MEMORY[0x277CBEB38]);
+        v49 = v48;
+        if (v100 && v100 == v96)
         {
-          [v49 setObject:@"ml" forKey:@"com_apple_spotlight_contacts_type"];
+          [v48 setObject:@"ml" forKey:@"com_apple_spotlight_contacts_type"];
         }
 
-        v107 = 0u;
-        v108 = 0u;
         v105 = 0u;
         v106 = 0u;
-        v51 = v19;
-        v52 = [v51 countByEnumeratingWithState:&v105 objects:v124 count:16];
-        a1 = v83;
-        if (v52)
+        v103 = 0u;
+        v104 = 0u;
+        v50 = v18;
+        v51 = [v50 countByEnumeratingWithState:&v103 objects:v122 count:16];
+        a1 = v81;
+        if (v51)
         {
-          v53 = v52;
-          v54 = *v106;
+          v52 = v51;
+          v53 = *v104;
           do
           {
-            for (j = 0; j != v53; ++j)
+            for (j = 0; j != v52; ++j)
             {
-              if (*v106 != v54)
+              if (*v104 != v53)
               {
-                objc_enumerationMutation(v51);
+                objc_enumerationMutation(v50);
               }
 
-              v56 = *(*(&v105 + 1) + 8 * j);
-              v57 = [v51 objectForKeyedSubscript:v56];
-              v58 = [v57 keysSortedByValueUsingComparator:&__block_literal_global_67_0];
+              v55 = *(*(&v103 + 1) + 8 * j);
+              v56 = [v50 objectForKeyedSubscript:v55];
+              v57 = [v56 keysSortedByValueUsingComparator:&__block_literal_global_67_0];
 
-              [v50 setObject:v58 forKey:v56];
+              [v49 setObject:v57 forKey:v55];
             }
 
-            v53 = [v51 countByEnumeratingWithState:&v105 objects:v124 count:16];
+            v52 = [v50 countByEnumeratingWithState:&v103 objects:v122 count:16];
           }
 
-          while (v53);
+          while (v52);
         }
 
-        [v50 setObject:v86 forKey:v80];
-        v6 = v84;
-        [v50 setObject:v84 forKey:v79];
-        v59 = [MEMORY[0x277CCABB0] numberWithInteger:v99];
-        [v50 setObject:v59 forKey:@"_kMDItemPersonInCount"];
+        [v49 setObject:v84 forKey:v78];
+        v6 = v82;
+        [v49 setObject:v82 forKey:v77];
+        v58 = [MEMORY[0x277CCABB0] numberWithInteger:v97];
+        [v49 setObject:v58 forKey:@"_kMDItemPersonInCount"];
 
-        v60 = [MEMORY[0x277CCABB0] numberWithInteger:v100];
-        [v50 setObject:v60 forKey:@"_kMDItemPersonOutCount"];
+        v59 = [MEMORY[0x277CCABB0] numberWithInteger:v98];
+        [v49 setObject:v59 forKey:@"_kMDItemPersonOutCount"];
 
-        v61 = [MEMORY[0x277CCABB0] numberWithInteger:v101];
-        [v50 setObject:v61 forKey:@"_kMDItemPersonCount"];
+        v60 = [MEMORY[0x277CCABB0] numberWithInteger:v99];
+        [v49 setObject:v60 forKey:@"_kMDItemPersonCount"];
 
-        v62 = MEMORY[0x277CCABB0];
-        v63 = [MEMORY[0x277D657A0] sharedContext];
-        v64 = [v62 numberWithInteger:{objc_msgSend(v63, "knowledgeVersion")}];
-        [v50 setObject:v64 forKey:@"_kMDItemPersonVersion"];
+        v61 = MEMORY[0x277CCABB0];
+        v62 = [MEMORY[0x277D657A0] sharedContext];
+        v63 = [v61 numberWithInteger:{objc_msgSend(v62, "knowledgeVersion")}];
+        [v49 setObject:v63 forKey:@"_kMDItemPersonVersion"];
 
-        v12 = v82;
-        if (v82)
+        v12 = v80;
+        if (v80)
         {
-          [v50 setObject:v82 forKey:v78];
+          [v49 setObject:v80 forKey:v76];
         }
 
-        if (v85)
+        if (v83)
         {
-          [v50 setObject:v85 forKey:@"_kMDItemPersonEntityIdentifier"];
+          [v49 setObject:v83 forKey:@"_kMDItemPersonEntityIdentifier"];
         }
 
-        if (((v89 != 0) & v103) == 1)
+        if (((v87 != 0) & v101) == 1)
         {
-          [v50 setObject:v89 forKey:@"_kMDItemPersonPhotosIdentifier"];
+          [v49 setObject:v87 forKey:@"_kMDItemPersonPhotosIdentifier"];
         }
 
-        v65 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.contact", v90];
-        v123[0] = v65;
-        v123[1] = @"public.contact";
-        v66 = [MEMORY[0x277CBEA60] arrayWithObjects:v123 count:2];
-        [v50 setObject:v65 forKey:@"kMDItemContentType"];
-        [v50 setObject:v66 forKey:@"kMDItemContentTypeTree"];
-        [v48 addAttributesFromDictionary:v50];
-        [v48 setDisplayName:v87];
-        v67 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@", v90, v84];
-        v68 = [objc_alloc(MEMORY[0x277CC34B0]) initWithUniqueIdentifier:v67 domainIdentifier:v90 attributeSet:v48];
-        [*(*(*(v83 + 64) + 8) + 40) addObject:v68];
+        v64 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.contact", v88];
+        v121[0] = v64;
+        v121[1] = @"public.contact";
+        v65 = [MEMORY[0x277CBEA60] arrayWithObjects:v121 count:2];
+        [v49 setObject:v64 forKey:@"kMDItemContentType"];
+        [v49 setObject:v65 forKey:@"kMDItemContentTypeTree"];
+        [v47 addAttributesFromDictionary:v49];
+        [v47 setDisplayName:v85];
+        v66 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@", v88, v82];
+        v67 = [objc_alloc(MEMORY[0x277CC34B0]) initWithUniqueIdentifier:v66 domainIdentifier:v88 attributeSet:v47];
+        [*(*(*(v81 + 64) + 8) + 40) addObject:v67];
 
-        v18 = v91 + 1;
+        v17 = v89 + 1;
       }
 
-      while (v91 + 1 != v88);
-      v88 = [obj countByEnumeratingWithState:&v117 objects:v127 count:16];
+      while (v89 + 1 != v86);
+      v86 = [obj countByEnumeratingWithState:&v115 objects:v125 count:16];
     }
 
-    while (v88);
+    while (v86);
   }
 
   if ([*(*(*(a1 + 64) + 8) + 40) count] >= 0x64)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v69 = [*(*(*(a1 + 64) + 8) + 40) count];
+      v68 = [*(*(*(a1 + 64) + 8) + 40) count];
       *buf = 134217984;
-      v122 = v69;
+      v120 = v68;
       _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: indexing %lu items", buf, 0xCu);
     }
 
-    v70 = [*(*(*(a1 + 64) + 8) + 40) copy];
-    [*(a1 + 32) updateCoreSpotlightWithItems:v70 index:*(a1 + 40) group:*(a1 + 48) cancelBlock:*(a1 + 56)];
+    v69 = [*(*(*(a1 + 64) + 8) + 40) copy];
+    [*(a1 + 32) updateCoreSpotlightWithItems:v69 index:*(a1 + 40) group:*(a1 + 48) cancelBlock:*(a1 + 56)];
     [*(*(*(a1 + 64) + 8) + 40) removeAllObjects];
   }
 
-  objc_autoreleasePoolPop(v76);
+  objc_autoreleasePoolPop(v74);
   if ((*(*(*(a1 + 72) + 8) + 24) & 1) == 0)
   {
     *a4 = 1;
   }
-
-  v71 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __78__SpotlightKnowledge_updateSpotlightContactsWithJobContext_group_cancelBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -970,7 +962,7 @@ uint64_t __78__SpotlightKnowledge_updateSpotlightContactsWithJobContext_group_ca
 - (BOOL)processCSJournalsWithGroup:(id)group protectionClasses:(id)classes includeEmbeddings:(BOOL)embeddings includeKeyphrases:(BOOL)keyphrases shouldRemove:(BOOL)remove readerNextPathBlock:(id)block deletedReferencesBlock:(id)referencesBlock processedPathBlock:(id)self0 processedItemsBlock:(id)self1 errorLogBlock:(id)self2 cancelBlock:(id)self3
 {
   removeCopy = remove;
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   classesCopy = classes;
   blockCopy = block;
@@ -982,26 +974,26 @@ uint64_t __78__SpotlightKnowledge_updateSpotlightContactsWithJobContext_group_ca
   cancelBlockCopy = cancelBlock;
   spotlightContext = [(SpotlightKnowledge *)self spotlightContext];
   context = objc_autoreleasePoolPush();
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
-  v90 = 1;
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
+  v89 = 1;
+  v82 = 0u;
   v83 = 0u;
   v84 = 0u;
   v85 = 0u;
-  v86 = 0u;
   obj = classesCopy;
-  v20 = [obj countByEnumeratingWithState:&v83 objects:v91 count:16];
+  v20 = [obj countByEnumeratingWithState:&v82 objects:v90 count:16];
   if (v20)
   {
-    v50 = *v84;
+    v49 = *v83;
     v21 = 1;
 LABEL_3:
-    v49 = v20;
+    v48 = v20;
     v22 = 0;
     while (1)
     {
-      if (*v84 != v50)
+      if (*v83 != v49)
       {
         objc_enumerationMutation(obj);
       }
@@ -1011,16 +1003,16 @@ LABEL_3:
         break;
       }
 
-      v62 = *(*(&v83 + 1) + 8 * v22);
+      v61 = *(*(&v82 + 1) + 8 * v22);
       if (cancelBlockCopy[2](cancelBlockCopy, @"processCSJournalsWithQueryID:protectionClass"))
       {
-        *(v88 + 24) = 0;
+        *(v87 + 24) = 0;
         break;
       }
 
       if (v18)
       {
-        v23 = v18[2](v18, v62);
+        v23 = v18[2](v18, v61);
         if (v23)
         {
           v24 = [[SKGJournalReader alloc] initWithResourceDirectoryPath:v23];
@@ -1050,9 +1042,9 @@ LABEL_3:
         v23 = 0;
       }
 
-      v52 = v22;
-      v53 = v23;
-      v54 = journalPaths;
+      v51 = v22;
+      v52 = v23;
+      v53 = journalPaths;
       if ([journalPaths count])
       {
         firstObject = [journalPaths keysSortedByValueUsingSelector:sel_compare_];
@@ -1064,77 +1056,77 @@ LABEL_17:
         {
           if (cancelBlockCopy[2](cancelBlockCopy, @"processCSJournalsWithQueryID:journal"))
           {
-            *(v88 + 24) = 0;
+            *(v87 + 24) = 0;
             break;
           }
 
           v29 = objc_autoreleasePoolPush();
           v30 = v18;
-          v77 = 0;
-          v78 = &v77;
-          v79 = 0x3032000000;
-          v80 = __Block_byref_object_copy__24;
-          v81 = __Block_byref_object_dispose__24;
-          v82 = 0;
+          v76 = 0;
+          v77 = &v76;
+          v78 = 0x3032000000;
+          v79 = __Block_byref_object_copy__24;
+          v80 = __Block_byref_object_dispose__24;
+          v81 = 0;
           firstObject = [v28 firstObject];
-          v69[0] = MEMORY[0x277D85DD0];
-          v69[1] = 3221225472;
-          v69[2] = __224__SpotlightKnowledge_processCSJournalsWithGroup_protectionClasses_includeEmbeddings_includeKeyphrases_shouldRemove_readerNextPathBlock_deletedReferencesBlock_processedPathBlock_processedItemsBlock_errorLogBlock_cancelBlock___block_invoke;
-          v69[3] = &unk_27893F250;
+          v68[0] = MEMORY[0x277D85DD0];
+          v68[1] = 3221225472;
+          v68[2] = __224__SpotlightKnowledge_processCSJournalsWithGroup_protectionClasses_includeEmbeddings_includeKeyphrases_shouldRemove_readerNextPathBlock_deletedReferencesBlock_processedPathBlock_processedItemsBlock_errorLogBlock_cancelBlock___block_invoke;
+          v68[3] = &unk_27893F250;
           embeddingsCopy = embeddings;
           keyphrasesCopy = keyphrases;
-          v73 = &v87;
-          v74 = &v77;
-          v69[4] = v62;
+          v72 = &v86;
+          v73 = &v76;
+          v68[4] = v61;
           v31 = cancelBlockCopy;
-          v71 = v31;
-          v70 = spotlightContext;
+          v70 = v31;
+          v69 = spotlightContext;
           v32 = itemsBlockCopy;
-          v72 = v32;
-          v66[0] = MEMORY[0x277D85DD0];
-          v66[1] = 3221225472;
-          v66[2] = __224__SpotlightKnowledge_processCSJournalsWithGroup_protectionClasses_includeEmbeddings_includeKeyphrases_shouldRemove_readerNextPathBlock_deletedReferencesBlock_processedPathBlock_processedItemsBlock_errorLogBlock_cancelBlock___block_invoke_3;
-          v66[3] = &unk_27893F278;
-          v68 = &v87;
+          v71 = v32;
+          v65[0] = MEMORY[0x277D85DD0];
+          v65[1] = 3221225472;
+          v65[2] = __224__SpotlightKnowledge_processCSJournalsWithGroup_protectionClasses_includeEmbeddings_includeKeyphrases_shouldRemove_readerNextPathBlock_deletedReferencesBlock_processedPathBlock_processedItemsBlock_errorLogBlock_cancelBlock___block_invoke_3;
+          v65[3] = &unk_27893F278;
+          v67 = &v86;
           v33 = v31;
-          v67 = v33;
-          v63[0] = MEMORY[0x277D85DD0];
-          v63[1] = 3221225472;
-          v63[2] = __224__SpotlightKnowledge_processCSJournalsWithGroup_protectionClasses_includeEmbeddings_includeKeyphrases_shouldRemove_readerNextPathBlock_deletedReferencesBlock_processedPathBlock_processedItemsBlock_errorLogBlock_cancelBlock___block_invoke_4;
-          v63[3] = &unk_27893F2A0;
-          v65 = &v87;
-          v64 = referencesBlockCopy;
-          v21 = [(SKGJournalReader *)v25 enumerateItemsOfJournalAtPath:firstObject itemAdds:v69 itemUpdates:v66 itemDeletes:v63 cancelBlock:v33];
-          if ([v78[5] count])
+          v66 = v33;
+          v62[0] = MEMORY[0x277D85DD0];
+          v62[1] = 3221225472;
+          v62[2] = __224__SpotlightKnowledge_processCSJournalsWithGroup_protectionClasses_includeEmbeddings_includeKeyphrases_shouldRemove_readerNextPathBlock_deletedReferencesBlock_processedPathBlock_processedItemsBlock_errorLogBlock_cancelBlock___block_invoke_4;
+          v62[3] = &unk_27893F2A0;
+          v64 = &v86;
+          v63 = referencesBlockCopy;
+          v21 = [(SKGJournalReader *)v25 enumerateItemsOfJournalAtPath:firstObject itemAdds:v68 itemUpdates:v65 itemDeletes:v62 cancelBlock:v33];
+          if ([v77[5] count])
           {
-            v34 = (*(itemsBlockCopy + 2))(v32, v78[5]);
-            *(v88 + 24) = v34;
-            v35 = v78[5];
-            v78[5] = 0;
+            v34 = (*(itemsBlockCopy + 2))(v32, v77[5]);
+            *(v87 + 24) = v34;
+            v35 = v77[5];
+            v77[5] = 0;
           }
 
           v18 = v30;
-          _Block_object_dispose(&v77, 8);
+          _Block_object_dispose(&v76, 8);
 
           objc_autoreleasePoolPop(v29);
           if ((v21 & 1) == 0)
           {
-            v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"could not read journal path for %@", v62];
+            v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"could not read journal path for %@", v61];
             v41 = logBlockCopy[2](logBlockCopy, 8, v40);
-            *(v88 + 24) = v41;
+            *(v87 + 24) = v41;
 
             [v28 removeObject:firstObject];
             goto LABEL_17;
           }
 
-          v36 = *(v88 + 24);
+          v36 = *(v87 + 24);
           if (v36 == 1 && firstObject)
           {
             lastPathComponent = [firstObject lastPathComponent];
-            v38 = pathBlockCopy[2](pathBlockCopy, v62, lastPathComponent);
-            *(v88 + 24) = v38;
+            v38 = pathBlockCopy[2](pathBlockCopy, v61, lastPathComponent);
+            *(v87 + 24) = v38;
 
-            if ((v88[3] & 1) == 0)
+            if ((v87[3] & 1) == 0)
             {
 
 LABEL_37:
@@ -1145,11 +1137,11 @@ LABEL_37:
             if (removeCopy && ![(SKGJournalReader *)v25 removeJournalPath:firstObject error:0])
             {
               v39 = logBlockCopy[2](logBlockCopy, 9, @"could not delete journal path");
-              *(v88 + 24) = v39;
+              *(v87 + 24) = v39;
             }
 
             [v28 removeObject:firstObject];
-            LOBYTE(v36) = *(v88 + 24);
+            LOBYTE(v36) = *(v87 + 24);
           }
 
           else
@@ -1168,7 +1160,7 @@ LABEL_37:
         v21 = 1;
       }
 
-      v42 = *(v88 + 24);
+      v42 = *(v87 + 24);
 
       if ((v42 & 1) == 0)
       {
@@ -1176,9 +1168,9 @@ LABEL_37:
       }
 
       ++v22;
-      if (v52 + 1 == v49)
+      if (v51 + 1 == v48)
       {
-        v20 = [obj countByEnumeratingWithState:&v83 objects:v91 count:16];
+        v20 = [obj countByEnumeratingWithState:&v82 objects:v90 count:16];
         if (v20)
         {
           goto LABEL_3;
@@ -1189,11 +1181,10 @@ LABEL_37:
     }
   }
 
-  v43 = *(v88 + 24);
-  _Block_object_dispose(&v87, 8);
+  v43 = *(v87 + 24);
+  _Block_object_dispose(&v86, 8);
   objc_autoreleasePoolPop(context);
 
-  v44 = *MEMORY[0x277D85DE8];
   return v43 & 1;
 }
 
@@ -1254,40 +1245,39 @@ void __224__SpotlightKnowledge_processCSJournalsWithGroup_protectionClasses_incl
 
     v24 = [MEMORY[0x277D65798] sharedProcessor];
     v25 = *(a1 + 32);
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __224__SpotlightKnowledge_processCSJournalsWithGroup_protectionClasses_includeEmbeddings_includeKeyphrases_shouldRemove_readerNextPathBlock_deletedReferencesBlock_processedPathBlock_processedItemsBlock_errorLogBlock_cancelBlock___block_invoke_2;
-    v34[3] = &unk_27893F228;
-    v36 = *(a1 + 72);
-    v35 = *(a1 + 48);
-    *(*(*(a1 + 64) + 8) + 24) = [v24 enumerateProcessedItemsFromRecord:v10 referenceIdentifier:0 bundleIdentifier:v7 protectionClass:v25 processorFlags:v23 processedItemBlock:v34 cancelBlock:*(a1 + 48)];
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __224__SpotlightKnowledge_processCSJournalsWithGroup_protectionClasses_includeEmbeddings_includeKeyphrases_shouldRemove_readerNextPathBlock_deletedReferencesBlock_processedPathBlock_processedItemsBlock_errorLogBlock_cancelBlock___block_invoke_2;
+    v33[3] = &unk_27893F228;
+    v35 = *(a1 + 72);
+    v34 = *(a1 + 48);
+    *(*(*(a1 + 64) + 8) + 24) = [v24 enumerateProcessedItemsFromRecord:v10 referenceIdentifier:0 bundleIdentifier:v7 protectionClass:v25 processorFlags:v23 processedItemBlock:v33 cancelBlock:*(a1 + 48)];
   }
 
   v26 = [*(*(*(a1 + 72) + 8) + 40) count];
   if (v26 >= [*(a1 + 40) maxItemCountPerBatch])
   {
-    v27 = *(*(*(a1 + 72) + 8) + 40);
     *(*(*(a1 + 64) + 8) + 24) = (*(*(a1 + 56) + 16))();
-    v28 = *(*(a1 + 72) + 8);
-    v29 = *(v28 + 40);
-    *(v28 + 40) = 0;
+    v27 = *(*(a1 + 72) + 8);
+    v28 = *(v27 + 40);
+    *(v27 + 40) = 0;
   }
 
-  v30 = *(a1 + 48);
-  v31 = *(*(a1 + 64) + 8);
-  v32 = *(v31 + 24);
-  if (v30 && (v32 & 1) != 0)
+  v29 = *(a1 + 48);
+  v30 = *(*(a1 + 64) + 8);
+  v31 = *(v30 + 24);
+  if (v29 && (v31 & 1) != 0)
   {
-    v33 = (*(v30 + 16))(v30, @"processCSJournalsWithQueryID:item") ^ 1;
-    v31 = *(*(a1 + 64) + 8);
+    v32 = (*(v29 + 16))(v29, @"processCSJournalsWithQueryID:item") ^ 1;
+    v30 = *(*(a1 + 64) + 8);
   }
 
   else
   {
-    v33 = v32 != 0;
+    v32 = v31 != 0;
   }
 
-  *(v31 + 24) = v33;
+  *(v30 + 24) = v32;
   if ((*(*(*(a1 + 64) + 8) + 24) & 1) == 0)
   {
     *a4 = 1;
@@ -1343,7 +1333,7 @@ uint64_t __224__SpotlightKnowledge_processCSJournalsWithGroup_protectionClasses_
 - (BOOL)processCSArchivesWithGroup:(id)group protectionClasses:(id)classes shouldRemove:(BOOL)remove archiverNextPathBlock:(id)block processedPathBlock:(id)pathBlock processedItemsBlock:(id)itemsBlock errorLogBlock:(id)logBlock cancelBlock:(id)self0
 {
   removeCopy = remove;
-  v102 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   classesCopy = classes;
   blockCopy = block;
@@ -1352,29 +1342,29 @@ uint64_t __224__SpotlightKnowledge_processCSJournalsWithGroup_protectionClasses_
   logBlockCopy = logBlock;
   cancelBlockCopy = cancelBlock;
   spotlightContext = [(SpotlightKnowledge *)self spotlightContext];
-  v56 = objc_autoreleasePoolPush();
+  v55 = objc_autoreleasePoolPush();
+  v95 = 0u;
   v96 = 0u;
   v97 = 0u;
   v98 = 0u;
-  v99 = 0u;
   obj = classesCopy;
-  v62 = [obj countByEnumeratingWithState:&v96 objects:v101 count:16];
-  if (v62)
+  v61 = [obj countByEnumeratingWithState:&v95 objects:v100 count:16];
+  if (v61)
   {
-    v60 = *v97;
+    v59 = *v96;
     v17 = &selRef_primitiveString;
     do
     {
-      v65 = 0;
-      v58 = v17[268];
+      v64 = 0;
+      v57 = v17[268];
       do
       {
-        if (*v97 != v60)
+        if (*v96 != v59)
         {
           objc_enumerationMutation(obj);
         }
 
-        v76 = *(*(&v96 + 1) + 8 * v65);
+        v75 = *(*(&v95 + 1) + 8 * v64);
         if (cancelBlockCopy[2](cancelBlockCopy, @"processCSArchivesWithGroup:protectionClass"))
         {
 LABEL_71:
@@ -1388,18 +1378,18 @@ LABEL_71:
           goto LABEL_12;
         }
 
-        v68 = blockCopy[2]();
-        if (!v68)
+        v67 = blockCopy[2]();
+        if (!v67)
         {
           archivePaths = 0;
 LABEL_12:
-          v66 = 0;
-          v68 = 0;
+          v65 = 0;
+          v67 = 0;
           goto LABEL_13;
         }
 
-        archivePaths = [[SKGArchiver alloc] initWithResourceDirectoryPath:v68];
-        v66 = archivePaths;
+        archivePaths = [[SKGArchiver alloc] initWithResourceDirectoryPath:v67];
+        v65 = archivePaths;
         if (archivePaths)
         {
           archivePaths = [(SKGArchiver *)archivePaths archivePaths];
@@ -1407,21 +1397,21 @@ LABEL_12:
           goto LABEL_14;
         }
 
-        v66 = 0;
+        v65 = 0;
 LABEL_13:
         v19 = 0;
 LABEL_14:
-        v64 = archivePaths;
+        v63 = archivePaths;
         if ([(SKGArchiver *)archivePaths count])
         {
-          v20 = [(SKGArchiver *)v64 keysSortedByValueUsingSelector:v58];
-          v73 = [v20 mutableCopy];
+          v20 = [(SKGArchiver *)v63 keysSortedByValueUsingSelector:v57];
+          v72 = [v20 mutableCopy];
 
           v21 = 0;
-          v63 = v19 & removeCopy;
+          v62 = v19 & removeCopy;
           while (1)
           {
-            if (![v73 count])
+            if (![v72 count])
             {
 
               break;
@@ -1433,19 +1423,19 @@ LABEL_14:
             }
 
             context = objc_autoreleasePoolPush();
-            v90 = 0;
-            v91 = &v90;
-            v92 = 0x3032000000;
-            v93 = __Block_byref_object_copy__24;
-            v94 = __Block_byref_object_dispose__24;
-            v95 = 0;
-            lastObject = [v73 lastObject];
-            v89 = v21;
-            v74 = lastObject;
-            v75 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:? options:? error:?];
-            v72 = v89;
+            v89 = 0;
+            v90 = &v89;
+            v91 = 0x3032000000;
+            v92 = __Block_byref_object_copy__24;
+            v93 = __Block_byref_object_dispose__24;
+            v94 = 0;
+            lastObject = [v72 lastObject];
+            v88 = v21;
+            v73 = lastObject;
+            v74 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:? options:? error:?];
+            v71 = v88;
 
-            if (!v75)
+            if (!v74)
             {
               if (logBlockCopy)
               {
@@ -1460,29 +1450,29 @@ LABEL_14:
               goto LABEL_61;
             }
 
-            v23 = [MEMORY[0x277CCAAC8] unarchivedArrayOfObjectsOfClass:objc_opt_class() fromData:v75 error:0];
-            v87 = 0u;
-            v88 = 0u;
-            v85 = 0u;
+            v23 = [MEMORY[0x277CCAAC8] unarchivedArrayOfObjectsOfClass:objc_opt_class() fromData:v74 error:0];
             v86 = 0u;
+            v87 = 0u;
+            v84 = 0u;
+            v85 = 0u;
             v24 = v23;
-            v25 = [v24 countByEnumeratingWithState:&v85 objects:v100 count:16];
+            v25 = [v24 countByEnumeratingWithState:&v84 objects:v99 count:16];
             if (!v25)
             {
               goto LABEL_38;
             }
 
-            v26 = *v86;
+            v26 = *v85;
             while (2)
             {
               for (i = 0; i != v25; ++i)
               {
-                if (*v86 != v26)
+                if (*v85 != v26)
                 {
                   objc_enumerationMutation(v24);
                 }
 
-                attributeSet = [*(*(&v85 + 1) + 8 * i) attributeSet];
+                attributeSet = [*(*(&v84 + 1) + 8 * i) attributeSet];
                 attributeDictionary = [attributeSet attributeDictionary];
 
                 mEMORY[0x277D65798] = [MEMORY[0x277D65798] sharedProcessor];
@@ -1498,18 +1488,18 @@ LABEL_14:
 
                   mEMORY[0x277D65798]4 = [MEMORY[0x277D65798] sharedProcessor];
                   v37 = (v33 & v35) != 0 ? 8 : 0;
-                  v82[0] = MEMORY[0x277D85DD0];
-                  v82[1] = 3221225472;
-                  v82[2] = __167__SpotlightKnowledge_processCSArchivesWithGroup_protectionClasses_shouldRemove_archiverNextPathBlock_processedPathBlock_processedItemsBlock_errorLogBlock_cancelBlock___block_invoke;
-                  v82[3] = &unk_27893F228;
-                  v84 = &v90;
-                  v83 = cancelBlockCopy;
-                  v80[0] = MEMORY[0x277D85DD0];
-                  v80[1] = 3221225472;
-                  v80[2] = __167__SpotlightKnowledge_processCSArchivesWithGroup_protectionClasses_shouldRemove_archiverNextPathBlock_processedPathBlock_processedItemsBlock_errorLogBlock_cancelBlock___block_invoke_2;
-                  v80[3] = &unk_27893CC50;
-                  v81 = v83;
-                  v38 = [mEMORY[0x277D65798]4 enumerateProcessedItemsFromRecord:attributeDictionary referenceIdentifier:0 bundleIdentifier:0 protectionClass:v76 processorFlags:v37 processedItemBlock:v82 cancelBlock:{v80, groupCopy, v56}];
+                  v81[0] = MEMORY[0x277D85DD0];
+                  v81[1] = 3221225472;
+                  v81[2] = __167__SpotlightKnowledge_processCSArchivesWithGroup_protectionClasses_shouldRemove_archiverNextPathBlock_processedPathBlock_processedItemsBlock_errorLogBlock_cancelBlock___block_invoke;
+                  v81[3] = &unk_27893F228;
+                  v83 = &v89;
+                  v82 = cancelBlockCopy;
+                  v79[0] = MEMORY[0x277D85DD0];
+                  v79[1] = 3221225472;
+                  v79[2] = __167__SpotlightKnowledge_processCSArchivesWithGroup_protectionClasses_shouldRemove_archiverNextPathBlock_processedPathBlock_processedItemsBlock_errorLogBlock_cancelBlock___block_invoke_2;
+                  v79[3] = &unk_27893CC50;
+                  v80 = v82;
+                  v38 = [mEMORY[0x277D65798]4 enumerateProcessedItemsFromRecord:attributeDictionary referenceIdentifier:0 bundleIdentifier:0 protectionClass:v75 processorFlags:v37 processedItemBlock:v81 cancelBlock:{v79, groupCopy, v55}];
 
                   if ((v38 & 1) == 0)
                   {
@@ -1519,24 +1509,24 @@ LABEL_53:
                   }
                 }
 
-                v39 = [v91[5] count];
+                v39 = [v90[5] count];
                 if (v39 < [spotlightContext maxItemCountPerBatch])
                 {
                   goto LABEL_35;
                 }
 
-                v40 = v91[5];
+                v40 = v90[5];
                 if (!itemsBlockCopy)
                 {
-                  v91[5] = 0;
+                  v90[5] = 0;
 
 LABEL_35:
                   continue;
                 }
 
                 v41 = itemsBlockCopy[2](itemsBlockCopy, v40);
-                v42 = v91[5];
-                v91[5] = 0;
+                v42 = v90[5];
+                v90[5] = 0;
 
                 if ((v41 & 1) == 0)
                 {
@@ -1544,7 +1534,7 @@ LABEL_35:
                 }
               }
 
-              v25 = [v24 countByEnumeratingWithState:&v85 objects:v100 count:16];
+              v25 = [v24 countByEnumeratingWithState:&v84 objects:v99 count:16];
               if (v25)
               {
                 continue;
@@ -1555,19 +1545,19 @@ LABEL_35:
 
 LABEL_38:
 
-            v43 = [v91[5] count];
+            v43 = [v90[5] count];
             if (v43 >= [spotlightContext maxItemCountPerBatch])
             {
               if (itemsBlockCopy)
               {
-                itemsBlockCopy[2](itemsBlockCopy, v91[5]);
+                itemsBlockCopy[2](itemsBlockCopy, v90[5]);
               }
 
-              v44 = v91[5];
-              v91[5] = 0;
+              v44 = v90[5];
+              v90[5] = 0;
             }
 
-            if (pathBlockCopy && ([v74 lastPathComponent], v45 = objc_claimAutoreleasedReturnValue(), v46 = pathBlockCopy[2](pathBlockCopy, v76, v45), v45, !v46))
+            if (pathBlockCopy && ([v73 lastPathComponent], v45 = objc_claimAutoreleasedReturnValue(), v46 = pathBlockCopy[2](pathBlockCopy, v75, v45), v45, !v46))
             {
 LABEL_54:
               v50 = 0;
@@ -1575,12 +1565,12 @@ LABEL_54:
 
             else
             {
-              if (v63)
+              if (v62)
               {
                 v47 = objc_autoreleasePoolPush();
-                v79 = v72;
-                [(SKGArchiver *)v66 removeArchivePath:v74 error:&v79];
-                v48 = v79;
+                v78 = v71;
+                [(SKGArchiver *)v65 removeArchivePath:v73 error:&v78];
+                v48 = v78;
 
                 if (v48)
                 {
@@ -1603,7 +1593,7 @@ LABEL_54:
                 }
 
                 objc_autoreleasePoolPop(v47);
-                v72 = v48;
+                v71 = v48;
               }
 
               else
@@ -1611,13 +1601,13 @@ LABEL_54:
                 v50 = 1;
               }
 
-              [v73 removeObject:v74];
+              [v72 removeObject:v73];
             }
 
 LABEL_61:
-            v21 = v72;
+            v21 = v71;
 
-            _Block_object_dispose(&v90, 8);
+            _Block_object_dispose(&v89, 8);
             objc_autoreleasePoolPop(context);
             if ((v50 & 1) == 0)
             {
@@ -1628,12 +1618,12 @@ LABEL_62:
           }
         }
 
-        ++v65;
+        ++v64;
       }
 
-      while (v65 != v62);
-      v51 = [obj countByEnumeratingWithState:&v96 objects:v101 count:16];
-      v62 = v51;
+      while (v64 != v61);
+      v51 = [obj countByEnumeratingWithState:&v95 objects:v100 count:16];
+      v61 = v51;
       v17 = &selRef_primitiveString;
     }
 
@@ -1643,8 +1633,7 @@ LABEL_62:
   v52 = 1;
 LABEL_72:
 
-  objc_autoreleasePoolPop(v56);
-  v53 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v55);
   return v52;
 }
 
@@ -1792,60 +1781,60 @@ uint64_t __69__SpotlightKnowledge_processDeletesWithJobContext_group_cancelBlock
 
 - (BOOL)processAttributesWithJobContext:(id)context group:(id)group cancelBlock:(id)block
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   groupCopy = group;
   blockCopy = block;
   [contextCopy startTextProcessingJob];
-  v23 = objc_autoreleasePoolPush();
+  v22 = objc_autoreleasePoolPush();
   context = objc_autoreleasePoolPush();
-  v27 = [[SKGJob alloc] initWithJobContext:contextCopy];
+  v26 = [[SKGJob alloc] initWithJobContext:contextCopy];
   [contextCopy startTextQueries];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v8 = +[SKGProcessorTaskManager sharedManager];
   tasks = [v8 tasks];
 
   v10 = tasks;
-  v11 = [tasks countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v11 = [tasks countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v38;
-    v25 = v32;
-    v26 = v35;
+    v13 = *v37;
+    v24 = v31;
+    v25 = v34;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v38 != v13)
+        if (*v37 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v37 + 1) + 8 * i);
-        if ([v15 supportsEvent:{4, context, v23, groupCopy, v25, v26}])
+        v15 = *(*(&v36 + 1) + 8 * i);
+        if ([v15 supportsEvent:{4, context, v22, groupCopy, v24, v25}])
         {
           protectionClasses = [contextCopy protectionClasses];
-          v34[0] = MEMORY[0x277D85DD0];
-          v34[1] = 3221225472;
-          v35[0] = __72__SpotlightKnowledge_processAttributesWithJobContext_group_cancelBlock___block_invoke;
-          v35[1] = &unk_27893D2C0;
-          v36 = contextCopy;
-          v31[0] = MEMORY[0x277D85DD0];
-          v31[1] = 3221225472;
-          v32[0] = __72__SpotlightKnowledge_processAttributesWithJobContext_group_cancelBlock___block_invoke_2;
-          v32[1] = &unk_27893D2C0;
-          v17 = v36;
-          v33 = v17;
-          v29[0] = MEMORY[0x277D85DD0];
-          v29[1] = 3221225472;
-          v29[2] = __72__SpotlightKnowledge_processAttributesWithJobContext_group_cancelBlock___block_invoke_3;
-          v29[3] = &unk_27893D270;
-          v30 = blockCopy;
-          v18 = [(SKGJob *)v27 requestCSProcessingWithProtectionClasses:protectionClasses task:v15 batchProcessedBlock:v34 batchUpdatedBlock:v31 cancelBlock:v29];
+          v33[0] = MEMORY[0x277D85DD0];
+          v33[1] = 3221225472;
+          v34[0] = __72__SpotlightKnowledge_processAttributesWithJobContext_group_cancelBlock___block_invoke;
+          v34[1] = &unk_27893D2C0;
+          v35 = contextCopy;
+          v30[0] = MEMORY[0x277D85DD0];
+          v30[1] = 3221225472;
+          v31[0] = __72__SpotlightKnowledge_processAttributesWithJobContext_group_cancelBlock___block_invoke_2;
+          v31[1] = &unk_27893D2C0;
+          v17 = v35;
+          v32 = v17;
+          v28[0] = MEMORY[0x277D85DD0];
+          v28[1] = 3221225472;
+          v28[2] = __72__SpotlightKnowledge_processAttributesWithJobContext_group_cancelBlock___block_invoke_3;
+          v28[3] = &unk_27893D270;
+          v29 = blockCopy;
+          v18 = [(SKGJob *)v26 requestCSProcessingWithProtectionClasses:protectionClasses task:v15 batchProcessedBlock:v33 batchUpdatedBlock:v30 cancelBlock:v28];
 
           if (!v18)
           {
@@ -1858,7 +1847,7 @@ uint64_t __69__SpotlightKnowledge_processDeletesWithJobContext_group_cancelBlock
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v36 objects:v40 count:16];
       if (v12)
       {
         continue;
@@ -1873,41 +1862,36 @@ uint64_t __69__SpotlightKnowledge_processDeletesWithJobContext_group_cancelBlock
   [contextCopy logFlag:25 message:@"processing all done"];
   v19 = 0;
 LABEL_12:
-  objc_autoreleasePoolPop(v23);
+  objc_autoreleasePoolPop(v22);
   [contextCopy finishedTextProcessingJob];
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 void __72__SpotlightKnowledge_processAttributesWithJobContext_group_cancelBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
-  v10 = a2;
-  v11[0] = a3;
+  v9 = a2;
+  v10[0] = a3;
   v5 = MEMORY[0x277CBEAC0];
   v6 = a3;
   v7 = a2;
-  v8 = [v5 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v8 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   [v4 logQueryItemsProcessed:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __72__SpotlightKnowledge_processAttributesWithJobContext_group_cancelBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
-  v10 = a2;
-  v11[0] = a3;
+  v9 = a2;
+  v10[0] = a3;
   v5 = MEMORY[0x277CBEAC0];
   v6 = a3;
   v7 = a2;
-  v8 = [v5 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v8 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   [v4 logQueryItemsUpdated:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)processLegacyPipelinesReportWithCancelBlock:(id)block
@@ -2024,53 +2008,53 @@ void __66__SpotlightKnowledge_processLegacyPipelinesReportWithCancelBlock___bloc
 
 void __102__SpotlightKnowledge_processEmbeddingsReportWithJobContext_progressBlock_checkpointBlock_cancelBlock___block_invoke_235(uint64_t a1, void *a2)
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   v3 = a2;
   saveHistoricalReport(v3, 1);
   v4 = [*(a1 + 32) feedback];
-  v64 = [v4 getEmbeddingDonationItemCounts];
+  v63 = [v4 getEmbeddingDonationItemCounts];
 
   v5 = [*(a1 + 32) feedback];
-  v63 = [v5 getCleanupItemCountsForListenerType:2];
+  v62 = [v5 getCleanupItemCountsForListenerType:2];
 
   v6 = [*(a1 + 32) feedback];
-  v61 = [v6 getReindexRequestItemCounts];
+  v60 = [v6 getReindexRequestItemCounts];
 
-  v70 = 0u;
-  v68 = 0u;
   v69 = 0u;
   v67 = 0u;
+  v68 = 0u;
+  v66 = 0u;
   v7 = v3;
-  v62 = [v7 countByEnumeratingWithState:&v67 objects:v72 count:16];
-  if (v62)
+  v61 = [v7 countByEnumeratingWithState:&v66 objects:v71 count:16];
+  if (v61)
   {
-    v60 = *v68;
+    v59 = *v67;
     *&v8 = 138412290;
-    v54 = v8;
+    v53 = v8;
     do
     {
-      for (i = 0; i != v62; ++i)
+      for (i = 0; i != v61; ++i)
       {
-        if (*v68 != v60)
+        if (*v67 != v59)
         {
           objc_enumerationMutation(v7);
         }
 
-        v10 = *(*(&v67 + 1) + 8 * i);
+        v10 = *(*(&v66 + 1) + 8 * i);
         if (SKGLogGetCurrentLoggingLevel() >= 4)
         {
           v11 = SKGLogAgentInit();
           if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
             v12 = [v7 objectForKeyedSubscript:v10];
-            *buf = v54;
+            *buf = v53;
             *&buf[4] = v12;
             _os_log_impl(&dword_231B25000, v11, OS_LOG_TYPE_DEFAULT, "embedding generation progress: %@", buf, 0xCu);
           }
         }
 
         v13 = *(a1 + 32);
-        v14 = [v7 objectForKeyedSubscript:{v10, v54}];
+        v14 = [v7 objectForKeyedSubscript:{v10, v53}];
         v15 = [v14 objectForKeyedSubscript:@"completeness"];
         [v13 setEmbeddingGenCompleteness:v15 forBundle:v10];
 
@@ -2083,21 +2067,21 @@ void __102__SpotlightKnowledge_processEmbeddingsReportWithJobContext_progressBlo
           v19 = [v18 getUpdateTaskReindexCount];
 
           v20 = [v7 objectForKeyedSubscript:v10];
-          v21 = [v63 objectForKeyedSubscript:v10];
+          v21 = [v62 objectForKeyedSubscript:v10];
           v22 = v21;
           if (!v21)
           {
             v21 = objc_opt_new();
-            v55 = v21;
+            v54 = v21;
           }
 
           v23 = [v21 unsignedIntegerValue];
-          v24 = [v64 objectForKeyedSubscript:v10];
+          v24 = [v63 objectForKeyedSubscript:v10];
           v25 = v24;
           if (!v24)
           {
             v24 = objc_opt_new();
-            v56 = v24;
+            v55 = v24;
           }
 
           v26 = createEmbeddingGenerationRawEvent(v20, 1, v17, v23, v19, [v24 unsignedIntegerValue]);
@@ -2109,12 +2093,12 @@ void __102__SpotlightKnowledge_processEmbeddingsReportWithJobContext_progressBlo
           {
           }
 
-          v65[1] = MEMORY[0x277D85DD0];
-          v65[2] = 3221225472;
-          v65[3] = __102__SpotlightKnowledge_processEmbeddingsReportWithJobContext_progressBlock_checkpointBlock_cancelBlock___block_invoke_242;
-          v65[4] = &unk_27893D388;
+          v64[1] = MEMORY[0x277D85DD0];
+          v64[2] = 3221225472;
+          v64[3] = __102__SpotlightKnowledge_processEmbeddingsReportWithJobContext_progressBlock_checkpointBlock_cancelBlock___block_invoke_242;
+          v64[4] = &unk_27893D388;
           v27 = v26;
-          v66 = v27;
+          v65 = v27;
           AnalyticsSendEventLazy();
           v28 = SKGLogEmbedInit();
           v29 = SKGLogEmbedInit();
@@ -2143,39 +2127,39 @@ void __102__SpotlightKnowledge_processEmbeddingsReportWithJobContext_progressBlo
           if (*(a1 + 48))
           {
             *buf = 0;
-            v65[0] = 0;
+            v64[0] = 0;
             v35 = [v7 objectForKeyedSubscript:@"Total"];
-            [v35 bundleProgressNumerator:v65 denominator:buf];
+            [v35 bundleProgressNumerator:v64 denominator:buf];
 
             (*(*(a1 + 48) + 16))();
           }
         }
 
         v36 = [v7 objectForKeyedSubscript:v10];
-        v37 = [v63 objectForKeyedSubscript:v10];
+        v37 = [v62 objectForKeyedSubscript:v10];
         v38 = v37;
         if (!v37)
         {
           v37 = objc_opt_new();
-          v59 = v37;
+          v58 = v37;
         }
 
         v39 = [v37 unsignedIntegerValue];
-        v40 = [v61 objectForKeyedSubscript:v10];
+        v40 = [v60 objectForKeyedSubscript:v10];
         v41 = v40;
         if (!v40)
         {
           v40 = objc_opt_new();
-          v58 = v40;
+          v57 = v40;
         }
 
         v42 = [v40 unsignedIntegerValue];
-        v43 = [v64 objectForKeyedSubscript:v10];
+        v43 = [v63 objectForKeyedSubscript:v10];
         v44 = v43;
         if (!v43)
         {
           v43 = objc_opt_new();
-          v57 = v43;
+          v56 = v43;
         }
 
         v45 = createEmbeddingGenerationRawEvent(v36, 0, 0, v39, v42, [v43 unsignedIntegerValue]);
@@ -2205,10 +2189,10 @@ void __102__SpotlightKnowledge_processEmbeddingsReportWithJobContext_progressBlo
         }
       }
 
-      v62 = [v7 countByEnumeratingWithState:&v67 objects:v72 count:16];
+      v61 = [v7 countByEnumeratingWithState:&v66 objects:v71 count:16];
     }
 
-    while (v62);
+    while (v61);
   }
 
   v50 = [*(a1 + 32) feedback];
@@ -2219,8 +2203,6 @@ void __102__SpotlightKnowledge_processEmbeddingsReportWithJobContext_progressBlo
 
   v52 = [*(a1 + 32) feedback];
   [v52 resetReindexRequestItemCounts];
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)processSuggestedEventsReportWithJobContext:(id)context cancelBlock:(id)block
@@ -2261,44 +2243,44 @@ void __102__SpotlightKnowledge_processEmbeddingsReportWithJobContext_progressBlo
 
 void __77__SpotlightKnowledge_processSuggestedEventsReportWithJobContext_cancelBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = a2;
   saveHistoricalReport(v2, 2);
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v25;
+    v7 = *v24;
     *&v5 = 138412290;
-    v21 = v5;
+    v20 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v25 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v24 + 1) + 8 * i);
+        v9 = *(*(&v23 + 1) + 8 * i);
         if (SKGLogGetCurrentLoggingLevel() >= 4)
         {
           v10 = SKGLogAgentInit();
           if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
           {
             v11 = [v3 objectForKeyedSubscript:v9];
-            *buf = v21;
-            v29 = v11;
+            *buf = v20;
+            v28 = v11;
             _os_log_impl(&dword_231B25000, v10, OS_LOG_TYPE_DEFAULT, "suggested events pre-extraction progress: %@", buf, 0xCu);
           }
         }
 
-        v12 = [v3 objectForKeyedSubscript:{v9, v21}];
+        v12 = [v3 objectForKeyedSubscript:{v9, v20}];
         v13 = MEMORY[0x277CCABB0];
         v14 = [MEMORY[0x277D657A0] sharedContext];
         v15 = [v13 numberWithInteger:{objc_msgSend(v14, "suggestedEventsVersion")}];
@@ -2306,32 +2288,30 @@ void __77__SpotlightKnowledge_processSuggestedEventsReportWithJobContext_cancelB
 
         if ([v9 isEqualToString:@"Total"])
         {
-          v22[1] = MEMORY[0x277D85DD0];
-          v22[2] = 3221225472;
-          v22[3] = __77__SpotlightKnowledge_processSuggestedEventsReportWithJobContext_cancelBlock___block_invoke_263;
-          v22[4] = &unk_27893D388;
-          v23 = v16;
+          v21[1] = MEMORY[0x277D85DD0];
+          v21[2] = 3221225472;
+          v21[3] = __77__SpotlightKnowledge_processSuggestedEventsReportWithJobContext_cancelBlock___block_invoke_263;
+          v21[4] = &unk_27893D388;
+          v22 = v16;
           v17 = v16;
           AnalyticsSendEventLazy();
-          v18 = &v23;
+          v18 = &v22;
         }
 
         else
         {
-          v22[0] = v16;
+          v21[0] = v16;
           v19 = v16;
           AnalyticsSendEventLazy();
-          v18 = v22;
+          v18 = v21;
         }
       }
 
-      v6 = [v3 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v6 = [v3 countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v6);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)processDocumentUnderstandingReportWithJobContext:(id)context cancelBlock:(id)block
@@ -2372,44 +2352,44 @@ void __77__SpotlightKnowledge_processSuggestedEventsReportWithJobContext_cancelB
 
 void __83__SpotlightKnowledge_processDocumentUnderstandingReportWithJobContext_cancelBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = a2;
   saveHistoricalReport(v2, 3);
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v25;
+    v7 = *v24;
     *&v5 = 138412290;
-    v21 = v5;
+    v20 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v25 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v24 + 1) + 8 * i);
+        v9 = *(*(&v23 + 1) + 8 * i);
         if (SKGLogGetCurrentLoggingLevel() >= 4)
         {
           v10 = SKGLogAgentInit();
           if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
           {
             v11 = [v3 objectForKeyedSubscript:v9];
-            *buf = v21;
-            v29 = v11;
+            *buf = v20;
+            v28 = v11;
             _os_log_impl(&dword_231B25000, v10, OS_LOG_TYPE_DEFAULT, "DocumentUnderstanding pre-extraction progress: %@", buf, 0xCu);
           }
         }
 
-        v12 = [v3 objectForKeyedSubscript:{v9, v21}];
+        v12 = [v3 objectForKeyedSubscript:{v9, v20}];
         v13 = MEMORY[0x277CCABB0];
         v14 = [MEMORY[0x277D657A0] sharedContext];
         v15 = [v13 numberWithInteger:{objc_msgSend(v14, "documentUnderstandingVersion")}];
@@ -2417,32 +2397,30 @@ void __83__SpotlightKnowledge_processDocumentUnderstandingReportWithJobContext_c
 
         if ([v9 isEqualToString:@"Total"])
         {
-          v22[1] = MEMORY[0x277D85DD0];
-          v22[2] = 3221225472;
-          v22[3] = __83__SpotlightKnowledge_processDocumentUnderstandingReportWithJobContext_cancelBlock___block_invoke_282;
-          v22[4] = &unk_27893D388;
-          v23 = v16;
+          v21[1] = MEMORY[0x277D85DD0];
+          v21[2] = 3221225472;
+          v21[3] = __83__SpotlightKnowledge_processDocumentUnderstandingReportWithJobContext_cancelBlock___block_invoke_282;
+          v21[4] = &unk_27893D388;
+          v22 = v16;
           v17 = v16;
           AnalyticsSendEventLazy();
-          v18 = &v23;
+          v18 = &v22;
         }
 
         else
         {
-          v22[0] = v16;
+          v21[0] = v16;
           v19 = v16;
           AnalyticsSendEventLazy();
-          v18 = v22;
+          v18 = v21;
         }
       }
 
-      v6 = [v3 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v6 = [v3 countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v6);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)processTextWithJobContext:(id)context group:(id)group cancelBlock:(id)block
@@ -2588,41 +2566,41 @@ LABEL_7:
 
 uint64_t __66__SpotlightKnowledge_processTextWithJobContext_group_cancelBlock___block_invoke_4(uint64_t a1, void *a2)
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v65 = objc_autoreleasePoolPush();
+  v64 = objc_autoreleasePoolPush();
+  v82 = 0u;
   v83 = 0u;
   v84 = 0u;
   v85 = 0u;
-  v86 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v83 objects:v91 count:16];
-  v66 = v4;
+  v5 = [v4 countByEnumeratingWithState:&v82 objects:v90 count:16];
+  v65 = v4;
   if (v5)
   {
     v6 = v5;
-    v7 = *v84;
-    obj = *v84;
-    v73 = 0;
+    v7 = *v83;
+    obj = *v83;
+    v72 = 0;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v84 != v7)
+      if (*v83 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      v9 = *(*(&v83 + 1) + 8 * v8);
-      if (*(a1 + 64) == 1 && [*(*(&v83 + 1) + 8 * v8) errorProcessingKeyphrases] && *(a1 + 65) == 1 && (objc_msgSend(v9, "errorProcessingEmbeddings") & 1) != 0)
+      v9 = *(*(&v82 + 1) + 8 * v8);
+      if (*(a1 + 64) == 1 && [*(*(&v82 + 1) + 8 * v8) errorProcessingKeyphrases] && *(a1 + 65) == 1 && (objc_msgSend(v9, "errorProcessingEmbeddings") & 1) != 0)
       {
 
         v44 = 0;
 LABEL_32:
-        v45 = v73;
+        v45 = v72;
 LABEL_53:
 
-        objc_autoreleasePoolPop(v65);
+        objc_autoreleasePoolPop(v64);
         goto LABEL_54;
       }
 
@@ -2661,10 +2639,10 @@ LABEL_23:
             v21 = *(a1 + 32);
             v22 = [v9 referenceIdentifier];
             v23 = [v9 bundleIdentifier];
-            v67 = [v21 coreSpotlightItemWithAttributes:v18 referenceIdentifier:v22 bundleIdentifier:v23];
+            v66 = [v21 coreSpotlightItemWithAttributes:v18 referenceIdentifier:v22 bundleIdentifier:v23];
 
-            v24 = v73;
-            if (!v73)
+            v24 = v72;
+            if (!v72)
             {
               v24 = objc_alloc_init(MEMORY[0x277CBEB38]);
             }
@@ -2694,20 +2672,20 @@ LABEL_23:
             }
 
             v37 = [v9 protectionClass];
-            v73 = v24;
+            v72 = v24;
             v38 = [v24 objectForKeyedSubscript:v37];
             v39 = [v9 bundleIdentifier];
             v40 = [v38 objectForKeyedSubscript:v39];
-            [v40 addObject:v67];
+            [v40 addObject:v66];
 
             v41 = *(a1 + 40);
             v42 = [v9 bundleIdentifier];
-            v89 = v42;
-            v90 = &unk_2846E7F08;
-            v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
+            v88 = v42;
+            v89 = &unk_2846E7F08;
+            v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
             [v41 logJournalItemsProcessed:v43];
 
-            v4 = v66;
+            v4 = v65;
             v17 = context;
             v7 = obj;
           }
@@ -2736,7 +2714,7 @@ LABEL_27:
 
       if (v6 == ++v8)
       {
-        v6 = [v4 countByEnumeratingWithState:&v83 objects:v91 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v82 objects:v90 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -2747,58 +2725,58 @@ LABEL_27:
     }
   }
 
-  v73 = 0;
+  v72 = 0;
 LABEL_34:
 
   contexta = objc_autoreleasePoolPush();
+  v78 = 0u;
   v79 = 0u;
   v80 = 0u;
   v81 = 0u;
-  v82 = 0u;
-  v46 = v73;
-  v47 = [v46 countByEnumeratingWithState:&v79 objects:v88 count:16];
+  v46 = v72;
+  v47 = [v46 countByEnumeratingWithState:&v78 objects:v87 count:16];
   if (v47)
   {
-    v48 = *v80;
-    v74 = v46;
-    v63 = *v80;
+    v48 = *v79;
+    v73 = v46;
+    v62 = *v79;
     while (2)
     {
       v49 = 0;
-      v64 = v47;
+      v63 = v47;
       do
       {
-        if (*v80 != v48)
+        if (*v79 != v48)
         {
           objc_enumerationMutation(v46);
         }
 
-        v68 = v49;
-        v50 = *(*(&v79 + 1) + 8 * v49);
+        v67 = v49;
+        v50 = *(*(&v78 + 1) + 8 * v49);
+        v74 = 0u;
         v75 = 0u;
         v76 = 0u;
         v77 = 0u;
-        v78 = 0u;
-        obja = [v46 objectForKeyedSubscript:{v50, v63}];
-        v51 = [obja countByEnumeratingWithState:&v75 objects:v87 count:16];
+        obja = [v46 objectForKeyedSubscript:{v50, v62}];
+        v51 = [obja countByEnumeratingWithState:&v74 objects:v86 count:16];
         if (v51)
         {
           v52 = v51;
-          v53 = *v76;
+          v53 = *v75;
           while (2)
           {
             for (i = 0; i != v52; ++i)
             {
-              if (*v76 != v53)
+              if (*v75 != v53)
               {
                 objc_enumerationMutation(obja);
               }
 
-              v55 = *(*(&v75 + 1) + 8 * i);
+              v55 = *(*(&v74 + 1) + 8 * i);
               v56 = objc_autoreleasePoolPush();
               v57 = [*(a1 + 32) coreSpotlightIndexWithBundleIdentifier:v55 protectionClass:v50];
               v58 = *(a1 + 32);
-              v59 = [v74 objectForKeyedSubscript:v50];
+              v59 = [v73 objectForKeyedSubscript:v50];
               v60 = [v59 objectForKeyedSubscript:v55];
               [v58 updateCoreSpotlightWithItems:v60 index:v57 group:*(a1 + 48) cancelBlock:*(a1 + 56)];
 
@@ -2811,7 +2789,7 @@ LABEL_34:
               }
             }
 
-            v52 = [obja countByEnumeratingWithState:&v75 objects:v87 count:16];
+            v52 = [obja countByEnumeratingWithState:&v74 objects:v86 count:16];
             if (v52)
             {
               continue;
@@ -2824,22 +2802,22 @@ LABEL_34:
         if ((*(*(a1 + 56) + 16))())
         {
 LABEL_52:
-          v45 = v74;
+          v45 = v73;
 
           objc_autoreleasePoolPop(contexta);
           v44 = 1;
-          v4 = v66;
+          v4 = v65;
           goto LABEL_53;
         }
 
-        v4 = v66;
-        v49 = v68 + 1;
-        v48 = v63;
-        v46 = v74;
+        v4 = v65;
+        v49 = v67 + 1;
+        v48 = v62;
+        v46 = v73;
       }
 
-      while (v68 + 1 != v64);
-      v47 = [v74 countByEnumeratingWithState:&v79 objects:v88 count:16];
+      while (v67 + 1 != v63);
+      v47 = [v73 countByEnumeratingWithState:&v78 objects:v87 count:16];
       if (v47)
       {
         continue;
@@ -2850,11 +2828,10 @@ LABEL_52:
   }
 
   objc_autoreleasePoolPop(contexta);
-  objc_autoreleasePoolPop(v65);
+  objc_autoreleasePoolPop(v64);
   v44 = (*(*(a1 + 56) + 16))() ^ 1;
 LABEL_54:
 
-  v61 = *MEMORY[0x277D85DE8];
   return v44;
 }
 
@@ -2876,55 +2853,8 @@ uint64_t __66__SpotlightKnowledge_processTextWithJobContext_group_cancelBlock___
   [spotlightContext startPeopleIndexingJob];
   doArchiving = [spotlightContext doArchiving];
   v10 = objc_autoreleasePoolPush();
-  if (doArchiving)
+  if ((doArchiving & 1) != 0 || ([spotlightContext startPeopleArchives], objc_msgSend(spotlightContext, "protectionClasses"), v19 = objc_claimAutoreleasedReturnValue(), v45[0] = MEMORY[0x277D85DD0], v45[1] = 3221225472, v45[2] = __57__SpotlightKnowledge_processPeopleWithGroup_cancelBlock___block_invoke, v45[3] = &unk_27893F4B8, v45[4] = self, v47 = blockCopy, v46 = spotlightContext, v41[0] = MEMORY[0x277D85DD0], v41[1] = 3221225472, v41[2] = __57__SpotlightKnowledge_processPeopleWithGroup_cancelBlock___block_invoke_2, v41[3] = &unk_27893F318, v41[4] = self, v42 = groupCopy, v44 = v47, v43 = v46, v37[0] = MEMORY[0x277D85DD0], v37[1] = 3221225472, v37[2] = __57__SpotlightKnowledge_processPeopleWithGroup_cancelBlock___block_invoke_3, v37[3] = &unk_27893F4E0, v37[4] = self, v40 = v44, v38 = v43, v39 = v42, v34[0] = MEMORY[0x277D85DD0], v34[1] = 3221225472, v34[2] = __57__SpotlightKnowledge_processPeopleWithGroup_cancelBlock___block_invoke_4, v34[3] = &unk_27893F490, v11 = v38, v35 = v11, v36 = v40, v32[0] = MEMORY[0x277D85DD0], v32[1] = 3221225472, v32[2] = __57__SpotlightKnowledge_processPeopleWithGroup_cancelBlock___block_invoke_5, v32[3] = &unk_27893CC50, v33 = v36, v12 = 1, v13 = -[SpotlightKnowledge processCSArchivesWithGroup:protectionClasses:shouldRemove:archiverNextPathBlock:processedPathBlock:processedItemsBlock:errorLogBlock:cancelBlock:](self, "processCSArchivesWithGroup:protectionClasses:shouldRemove:archiverNextPathBlock:processedPathBlock:processedItemsBlock:errorLogBlock:cancelBlock:", v39, v19, 1, v45, v41, v37, v34, v32), v19, objc_msgSend(v11, "finishedPeopleArchives"), v33, v36, v35, v39, v38, v40, v43, v44, v42, v46, v47, v13))
   {
-    goto LABEL_3;
-  }
-
-  [spotlightContext startPeopleArchives];
-  protectionClasses = [spotlightContext protectionClasses];
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = __57__SpotlightKnowledge_processPeopleWithGroup_cancelBlock___block_invoke;
-  v45[3] = &unk_27893F4B8;
-  v45[4] = self;
-  v47 = blockCopy;
-  v46 = spotlightContext;
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __57__SpotlightKnowledge_processPeopleWithGroup_cancelBlock___block_invoke_2;
-  v41[3] = &unk_27893F318;
-  v41[4] = self;
-  v42 = groupCopy;
-  v44 = v47;
-  v43 = v46;
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __57__SpotlightKnowledge_processPeopleWithGroup_cancelBlock___block_invoke_3;
-  v37[3] = &unk_27893F4E0;
-  v37[4] = self;
-  v40 = v44;
-  v38 = v43;
-  v39 = v42;
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __57__SpotlightKnowledge_processPeopleWithGroup_cancelBlock___block_invoke_4;
-  v34[3] = &unk_27893F490;
-  v11 = v38;
-  v35 = v11;
-  v36 = v40;
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __57__SpotlightKnowledge_processPeopleWithGroup_cancelBlock___block_invoke_5;
-  v32[3] = &unk_27893CC50;
-  v33 = v36;
-  v12 = 1;
-  v13 = [(SpotlightKnowledge *)self processCSArchivesWithGroup:v39 protectionClasses:protectionClasses shouldRemove:1 archiverNextPathBlock:v45 processedPathBlock:v41 processedItemsBlock:v37 errorLogBlock:v34 cancelBlock:v32];
-
-  [v11 finishedPeopleArchives];
-  if (v13)
-  {
-LABEL_3:
     [spotlightContext startPeopleQueries];
     v30[0] = 0;
     v30[1] = v30;
@@ -3018,33 +2948,33 @@ uint64_t __57__SpotlightKnowledge_processPeopleWithGroup_cancelBlock___block_inv
 
 uint64_t __57__SpotlightKnowledge_processPeopleWithGroup_cancelBlock___block_invoke_3(uint64_t a1, void *a2)
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   v3 = a2;
   context = objc_autoreleasePoolPush();
+  v76 = 0u;
   v77 = 0u;
   v78 = 0u;
   v79 = 0u;
-  v80 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v77 objects:v85 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v76 objects:v84 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v78;
-    v63 = v4;
-    obj = *v78;
+    v8 = *v77;
+    v62 = v4;
+    obj = *v77;
 LABEL_3:
     v9 = 0;
-    v65 = v6;
+    v64 = v6;
     while (1)
     {
-      if (*v78 != v8)
+      if (*v77 != v8)
       {
         objc_enumerationMutation(v4);
       }
 
-      v10 = *(*(&v77 + 1) + 8 * v9);
+      v10 = *(*(&v76 + 1) + 8 * v9);
       v11 = [v10 referenceIdentifier];
       if (v11)
       {
@@ -3123,13 +3053,13 @@ LABEL_48:
 
           v38 = *(a1 + 40);
           v39 = [v10 bundleIdentifier];
-          v83 = v39;
-          v84 = &unk_2846E7F08;
-          v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+          v82 = v39;
+          v83 = &unk_2846E7F08;
+          v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
           [v38 logArchiveItemsProcessed:v40];
 
-          v4 = v63;
-          v6 = v65;
+          v4 = v62;
+          v6 = v64;
           v7 = v28;
 LABEL_18:
 
@@ -3139,7 +3069,7 @@ LABEL_19:
           goto LABEL_20;
         }
 
-        v6 = v65;
+        v6 = v64;
         v8 = obj;
       }
 
@@ -3153,7 +3083,7 @@ LABEL_20:
 
       if (v6 == ++v9)
       {
-        v41 = [v4 countByEnumeratingWithState:&v77 objects:v85 count:16];
+        v41 = [v4 countByEnumeratingWithState:&v76 objects:v84 count:16];
         v6 = v41;
         if (v41)
         {
@@ -3168,50 +3098,50 @@ LABEL_20:
   v7 = 0;
 LABEL_29:
 
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
   v74 = 0u;
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
   v44 = v7;
-  v45 = [v44 countByEnumeratingWithState:&v73 objects:v82 count:16];
+  v45 = [v44 countByEnumeratingWithState:&v72 objects:v81 count:16];
   if (v45)
   {
-    v46 = *v74;
-    v64 = v4;
-    v60 = *v74;
+    v46 = *v73;
+    v63 = v4;
+    v59 = *v73;
     while (2)
     {
       v47 = 0;
-      v61 = v45;
+      v60 = v45;
       do
       {
-        if (*v74 != v46)
+        if (*v73 != v46)
         {
           objc_enumerationMutation(v44);
         }
 
-        v66 = v47;
-        v48 = *(*(&v73 + 1) + 8 * v47);
+        v65 = v47;
+        v48 = *(*(&v72 + 1) + 8 * v47);
+        v68 = 0u;
         v69 = 0u;
         v70 = 0u;
         v71 = 0u;
-        v72 = 0u;
-        obja = [v44 objectForKeyedSubscript:{v48, v60}];
-        v49 = [obja countByEnumeratingWithState:&v69 objects:v81 count:16];
+        obja = [v44 objectForKeyedSubscript:{v48, v59}];
+        v49 = [obja countByEnumeratingWithState:&v68 objects:v80 count:16];
         if (v49)
         {
           v50 = v49;
-          v51 = *v70;
+          v51 = *v69;
           while (2)
           {
             for (i = 0; i != v50; ++i)
             {
-              if (*v70 != v51)
+              if (*v69 != v51)
               {
                 objc_enumerationMutation(obja);
               }
 
-              v53 = *(*(&v69 + 1) + 8 * i);
+              v53 = *(*(&v68 + 1) + 8 * i);
               v54 = [*(a1 + 32) coreSpotlightIndexWithBundleIdentifier:v53 protectionClass:v48];
               v55 = *(a1 + 32);
               v56 = [v44 objectForKeyedSubscript:v48];
@@ -3226,7 +3156,7 @@ LABEL_29:
               }
             }
 
-            v50 = [obja countByEnumeratingWithState:&v69 objects:v81 count:16];
+            v50 = [obja countByEnumeratingWithState:&v68 objects:v80 count:16];
             if (v50)
             {
               continue;
@@ -3241,17 +3171,17 @@ LABEL_29:
 LABEL_47:
           v43 = 1;
           v42 = v44;
-          v4 = v64;
+          v4 = v63;
           goto LABEL_48;
         }
 
-        v4 = v64;
-        v47 = v66 + 1;
-        v46 = v60;
+        v4 = v63;
+        v47 = v65 + 1;
+        v46 = v59;
       }
 
-      while (v66 + 1 != v61);
-      v45 = [v44 countByEnumeratingWithState:&v73 objects:v82 count:16];
+      while (v65 + 1 != v60);
+      v45 = [v44 countByEnumeratingWithState:&v72 objects:v81 count:16];
       if (v45)
       {
         continue;
@@ -3265,7 +3195,6 @@ LABEL_47:
   v43 = (*(*(a1 + 56) + 16))() ^ 1;
 LABEL_49:
 
-  v58 = *MEMORY[0x277D85DE8];
   return v43;
 }
 
@@ -3281,16 +3210,16 @@ uint64_t __57__SpotlightKnowledge_processPeopleWithGroup_cancelBlock___block_inv
 
 uint64_t __57__SpotlightKnowledge_processPeopleWithGroup_cancelBlock___block_invoke_6(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) addProcessedItem:v3 cancelBlock:*(a1 + 48)];
   if (v4)
   {
     v5 = *(a1 + 40);
     v6 = [v3 bundleIdentifier];
-    v10 = v6;
-    v11[0] = &unk_2846E7F08;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = v6;
+    v10[0] = &unk_2846E7F08;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     [v5 logQueryItemsProcessed:v7];
 
     if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0)
@@ -3300,38 +3229,33 @@ uint64_t __57__SpotlightKnowledge_processPeopleWithGroup_cancelBlock___block_inv
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 void __57__SpotlightKnowledge_processPeopleWithGroup_cancelBlock___block_invoke_7(uint64_t a1, void *a2, void *a3)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
-  v10 = a2;
-  v11[0] = a3;
+  v9 = a2;
+  v10[0] = a3;
   v5 = MEMORY[0x277CBEAC0];
   v6 = a3;
   v7 = a2;
-  v8 = [v5 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v8 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   [v4 logQueryItemsArchived:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __57__SpotlightKnowledge_processPeopleWithGroup_cancelBlock___block_invoke_8(uint64_t a1, void *a2, void *a3)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
-  v10 = a2;
-  v11[0] = a3;
+  v9 = a2;
+  v10[0] = a3;
   v5 = MEMORY[0x277CBEAC0];
   v6 = a3;
   v7 = a2;
-  v8 = [v5 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v8 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   [v4 logQueryItemsUpdated:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)processGraphWithGroup:(id)group cancelBlock:(id)block
@@ -3449,33 +3373,33 @@ void __56__SpotlightKnowledge_processGraphWithGroup_cancelBlock___block_invoke(u
 
 - (void)sendAnalytics
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   empty = xpc_dictionary_create_empty();
   spotlightContext = [(SpotlightKnowledge *)self spotlightContext];
   feedback = [spotlightContext feedback];
   feedbackData = [feedback feedbackData];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v6 = feedbackData;
-  v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v24;
+    v9 = *v23;
     do
     {
       v10 = 0;
       do
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * v10);
+        v11 = *(*(&v22 + 1) + 8 * v10);
         v12 = [v6 objectForKeyedSubscript:v11];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -3510,7 +3434,7 @@ void __56__SpotlightKnowledge_processGraphWithGroup_cancelBlock___block_invoke(u
       }
 
       while (v8 != v10);
-      v20 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v20 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
       v8 = v20;
     }
 
@@ -3518,7 +3442,6 @@ void __56__SpotlightKnowledge_processGraphWithGroup_cancelBlock___block_invoke(u
   }
 
   analytics_send_event();
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)timerWithBlock:(id)block
@@ -3695,14 +3618,14 @@ LABEL_38:
 
 void __108__SpotlightKnowledge_runWithQueue_group_progressBlock_checkpointBlock_completeBlock_cancelBlock_deferBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v4 = [*(a1 + 32) currentMessage];
-    v9 = 138412290;
-    v10 = v4;
-    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: too long till check in - %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v4;
+    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: too long till check in - %@", &v8, 0xCu);
   }
 
   v5 = *(a1 + 48);
@@ -3725,8 +3648,6 @@ void __108__SpotlightKnowledge_runWithQueue_group_progressBlock_checkpointBlock_
   {
     [*(*(*(a1 + 72) + 8) + 40) reset];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __108__SpotlightKnowledge_runWithQueue_group_progressBlock_checkpointBlock_completeBlock_cancelBlock_deferBlock___block_invoke_364(uint64_t a1, void *a2)
@@ -3804,52 +3725,36 @@ uint64_t __108__SpotlightKnowledge_runWithQueue_group_progressBlock_checkpointBl
 
 void __75__SpotlightKnowledge_updateCoreSpotlightWithItems_index_group_cancelBlock___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   [v1 UTF8String];
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __78__SpotlightKnowledge_updateSpotlightContactsWithJobContext_group_cancelBlock___block_invoke_35_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   [v1 UTF8String];
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __66__SpotlightKnowledge_processLegacyPipelinesReportWithCancelBlock___block_invoke_2_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __66__SpotlightKnowledge_processLegacyPipelinesReportWithCancelBlock___block_invoke_188_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218242;
-  v5 = a2;
-  v6 = 2112;
-  v7 = a1;
-  _os_log_error_impl(&dword_231B25000, log, OS_LOG_TYPE_ERROR, "Failed to report DAS checkpoint %lu: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218242;
+  v4 = a2;
+  v5 = 2112;
+  v6 = a1;
+  _os_log_error_impl(&dword_231B25000, log, OS_LOG_TYPE_ERROR, "Failed to report DAS checkpoint %lu: %@", &v3, 0x16u);
 }
 
 void __108__SpotlightKnowledge_runWithQueue_group_progressBlock_checkpointBlock_completeBlock_cancelBlock_deferBlock___block_invoke_364_cold_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = a1;
-  _os_log_debug_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "SKG: checkin %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = a1;
+  _os_log_debug_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "SKG: checkin %@", &v1, 0xCu);
 }
 
 @end

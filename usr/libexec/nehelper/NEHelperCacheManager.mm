@@ -11,7 +11,7 @@
 - (void)handleMessage:(id)message
 {
   messageCopy = message;
-  selfa = sub_100020804();
+  selfa = sub_100020804(NEHelperCacheManager);
   if (self)
   {
     Property = objc_getProperty(self, v5, 24, 1);
@@ -34,7 +34,7 @@
 
 - (OS_dispatch_queue)handlerQueue
 {
-  v2 = sub_100020804();
+  v2 = sub_100020804(NEHelperCacheManager);
   v4 = v2;
   if (v2)
   {
@@ -64,26 +64,13 @@
   v9.receiver = self;
   v9.super_class = NEHelperCacheManager;
   v2 = [(NEHelperCacheManager *)&v9 init];
-  if (!v2)
-  {
-    goto LABEL_3;
-  }
-
-  v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v4 = dispatch_queue_create("nehelper cache manager", v3);
-  queue = v2->_queue;
-  v2->_queue = v4;
-
-  v6 = SCPreferencesCreate(kCFAllocatorDefault, @"nehelper", @"/Library/Preferences/com.apple.networkextension.cache.plist");
-  v2->_prefs = v6;
-  if (!v6)
+  if (v2 && (dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v3 = objc_claimAutoreleasedReturnValue(), v4 = dispatch_queue_create("nehelper cache manager", v3), queue = v2->_queue, v2->_queue = v4, queue, v3, v6 = SCPreferencesCreate(kCFAllocatorDefault, @"nehelper", @"/Library/Preferences/com.apple.networkextension.cache.plist"), (v2->_prefs = v6) == 0))
   {
     v7 = 0;
   }
 
   else
   {
-LABEL_3:
     v7 = v2;
   }
 

@@ -9,6 +9,7 @@
 - (void)setIdleTimerDisabled:(BOOL)disabled;
 - (void)setViewDisappearHandler:(id)handler;
 - (void)simSetupFlowCompleted:(unint64_t)completed;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -26,7 +27,7 @@
 {
   completionCopy = completion;
   userInfo = [context userInfo];
-  v8 = sub_10000C1BC();
+  v8 = sub_10000C1BC(userInfo);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -101,7 +102,7 @@
   v16 = [userInfo objectForKeyedSubscript:@"device"];
   if (!v16)
   {
-    v17 = sub_10000C1BC();
+    v17 = sub_10000C1BC(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_10000F32C(v17);
@@ -113,7 +114,7 @@
   v18 = [[CBDevice alloc] initWithDictionary:v16 error:&v21];
   if (!v18)
   {
-    v19 = sub_10000C1BC();
+    v19 = sub_10000C1BC(0);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_10000F3B0(v19);
@@ -234,21 +235,22 @@
 
 - (void)simSetupFlowCompleted:(unint64_t)completed
 {
-  if (sub_10000C244())
+  v5 = sub_10000C244();
+  if (v5)
   {
-    v5 = sub_10000C1BC();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = sub_10000C1BC(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      sub_10000F4C0(completed, v5);
+      sub_10000F4C0(completed, v6);
     }
   }
 
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = sub_10000A408;
-  v6[3] = &unk_10001C7A0;
-  v6[4] = self;
-  [(TSProximitySIMTransferViewController *)self dismissViewControllerWithTransition:7 completion:v6];
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_10000A408;
+  v7[3] = &unk_10001C7A0;
+  v7[4] = self;
+  [(TSProximitySIMTransferViewController *)self dismissViewControllerWithTransition:7 completion:v7];
 }
 
 - (void)setIdleTimerDisabled:(BOOL)disabled
@@ -256,7 +258,7 @@
   if (self->_idleTimerDisabled != disabled)
   {
     self->_idleTimerDisabled = disabled;
-    v4 = sub_10000C1BC();
+    v4 = sub_10000C1BC(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       idleTimerDisabled = self->_idleTimerDisabled;
@@ -278,12 +280,12 @@
   viewDisappearHandler = self->_viewDisappearHandler;
   self->_viewDisappearHandler = v4;
 
-  _objc_release_x1();
+  _objc_release_x1(v4, viewDisappearHandler);
 }
 
 - (void)proxCardFlowDidDismiss
 {
-  v3 = sub_10000C1BC();
+  v3 = sub_10000C1BC(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136315138;
@@ -304,6 +306,18 @@
 
   v3 = +[UINavigationBar appearance];
   [v3 setTranslucent:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = TSProximitySIMTransferViewController;
+  [(TSProximitySIMTransferViewController *)&v5 viewDidDisappear:disappear];
+  viewDisappearHandler = self->_viewDisappearHandler;
+  if (viewDisappearHandler)
+  {
+    viewDisappearHandler[2]();
+  }
 }
 
 - (unint64_t)supportedInterfaceOrientations

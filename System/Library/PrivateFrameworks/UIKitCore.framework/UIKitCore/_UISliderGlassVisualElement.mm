@@ -49,14 +49,14 @@
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA933EB0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA933EB0, &unk_18A64BA50);
     v5 = swift_allocObject();
     *(v5 + 16) = xmmword_18A64B710;
     v6 = *&selfCopy->_TtC5UIKit27_UISliderFluidVisualElement_opaque[OBJC_IVAR____TtC5UIKit27_UISliderGlassVisualElement_lensView];
     *(v5 + 32) = v6;
     v7 = v6;
 
-    sub_188A34624(0, &qword_1ED48F680);
+    sub_188A34624(0, &qword_1ED48F680, off_1E70EAD78);
     v8 = sub_18A4A7518();
 
     v4 = v8;

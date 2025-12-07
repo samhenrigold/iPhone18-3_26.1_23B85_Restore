@@ -31,7 +31,7 @@
 {
   invalidateCopy = invalidate;
   selfCopy = self;
-  sub_100004634();
+  sub_100004634(invalidateCopy);
 }
 
 @end

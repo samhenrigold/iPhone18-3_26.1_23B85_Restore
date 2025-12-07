@@ -13,9 +13,9 @@
 
 - (W5RapportClient)init
 {
-  v8.receiver = self;
-  v8.super_class = W5RapportClient;
-  v2 = [(W5RapportClient *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = W5RapportClient;
+  v2 = [(W5RapportClient *)&v9 init];
   if (v2)
   {
     if ((+[W5FeatureAvailability diagnosticsModeEnabled]& 1) != 0)
@@ -36,13 +36,14 @@
       v6 = sub_100098A04();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 136315650;
-        v10 = "[W5RapportClient init]";
-        v11 = 2080;
-        v12 = "W5RapportClient.m";
-        v13 = 1024;
-        v14 = 59;
-        _os_log_send_and_compose_impl();
+        v10 = 136315650;
+        v11 = "[W5RapportClient init]";
+        v12 = 2080;
+        v13 = "W5RapportClient.m";
+        v14 = 1024;
+        v15 = 59;
+        LODWORD(v8) = 28;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v6, 0, "[wifivelocity] %s (%s:%u) rapport client is not available", &v10, v8, LODWORD(v9.receiver));
       }
     }
   }
@@ -50,13 +51,14 @@
   v7 = sub_100098A04();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315650;
-    v10 = "[W5RapportClient init]";
-    v11 = 2080;
-    v12 = "W5RapportClient.m";
-    v13 = 1024;
-    v14 = 72;
-    _os_log_send_and_compose_impl();
+    v10 = 136315650;
+    v11 = "[W5RapportClient init]";
+    v12 = 2080;
+    v13 = "W5RapportClient.m";
+    v14 = 1024;
+    v15 = 72;
+    LODWORD(v8) = 28;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v7, 0, "[wifivelocity] %s (%s:%u) init error!", &v10, v8, LODWORD(v9.receiver));
   }
 
   return 0;
@@ -83,43 +85,44 @@
       [v5 setControlFlags:{objc_msgSend(v5, "controlFlags") | 0x818126}];
       [v5 setServiceType:@"com.apple.wifivelocityd.rapportWake"];
       objc_initWeak(&location, self);
+      v16[0] = _NSConcreteStackBlock;
+      v16[1] = 3221225472;
+      v16[2] = sub_10004CC0C;
+      v16[3] = &unk_1000E2950;
+      objc_copyWeak(&v17, &location);
+      [v5 setInvalidationHandler:v16];
       v14[0] = _NSConcreteStackBlock;
       v14[1] = 3221225472;
-      v14[2] = sub_10004CC0C;
-      v14[3] = &unk_1000E2950;
+      v14[2] = sub_10004CD08;
+      v14[3] = &unk_1000E29A0;
+      v14[4] = self;
       objc_copyWeak(&v15, &location);
-      [v5 setInvalidationHandler:v14];
+      [v5 setDeviceFoundHandler:v14];
       v12[0] = _NSConcreteStackBlock;
       v12[1] = 3221225472;
-      v12[2] = sub_10004CD08;
-      v12[3] = &unk_1000E29A0;
-      v12[4] = self;
+      v12[2] = sub_10004CE28;
+      v12[3] = &unk_1000E29C8;
       objc_copyWeak(&v13, &location);
-      [v5 setDeviceFoundHandler:v12];
-      v10[0] = _NSConcreteStackBlock;
-      v10[1] = 3221225472;
-      v10[2] = sub_10004CE28;
-      v10[3] = &unk_1000E29C8;
-      objc_copyWeak(&v11, &location);
-      [v5 setDeviceLostHandler:v10];
+      [v5 setDeviceLostHandler:v12];
       [v5 setDeviceChangedHandler:&stru_1000E2A08];
       [v5 setLocalDeviceUpdatedHandler:&stru_1000E2A48];
       v7 = sub_100098A04();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 136315650;
-        v18 = "[W5RapportClient _configureDiscoveryClient]";
-        v19 = 2080;
-        v20 = "W5RapportClient.m";
-        v21 = 1024;
-        v22 = 125;
-        _os_log_send_and_compose_impl();
+        v19 = 136315650;
+        v20 = "[W5RapportClient _configureDiscoveryClient]";
+        v21 = 2080;
+        v22 = "W5RapportClient.m";
+        v23 = 1024;
+        v24 = 125;
+        LODWORD(v10) = 28;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v7, 0, "[wifivelocity] %s (%s:%u) companion link client activated successfully", &v19, v10, v11);
       }
 
       [(W5RapportClient *)self setDiscoveryClient:v5];
-      objc_destroyWeak(&v11);
       objc_destroyWeak(&v13);
       objc_destroyWeak(&v15);
+      objc_destroyWeak(&v17);
       objc_destroyWeak(&location);
     }
 
@@ -128,13 +131,14 @@
       v8 = sub_100098A04();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 136315650;
-        v18 = "[W5RapportClient _configureDiscoveryClient]";
-        v19 = 2080;
-        v20 = "W5RapportClient.m";
-        v21 = 1024;
-        v22 = 85;
-        _os_log_send_and_compose_impl();
+        v19 = 136315650;
+        v20 = "[W5RapportClient _configureDiscoveryClient]";
+        v21 = 2080;
+        v22 = "W5RapportClient.m";
+        v23 = 1024;
+        v24 = 85;
+        LODWORD(v10) = 28;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] %s (%s:%u) failed to init rapport client", &v19, v10, v11);
       }
     }
   }
@@ -156,38 +160,82 @@
   v5 = sub_100098A04();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    [foundCopy statusFlags];
-    [foundCopy statusFlags];
-    serviceTypes = [foundCopy serviceTypes];
-    [serviceTypes containsObject:@"com.apple.wifivelocityd.rapportWake"];
-    if (foundCopy)
+    if (([foundCopy statusFlags] & 2) != 0)
     {
-      [foundCopy operatingSystemVersion];
-      v7 = v17;
-      [foundCopy operatingSystemVersion];
-      v8 = v15;
-      [foundCopy operatingSystemVersion];
-      v9 = v13;
+      v6 = @"YES";
     }
 
     else
     {
-      v9 = 0;
-      v8 = 0;
-      v7 = 0;
-      v17 = 0;
-      v18 = 0;
-      v19 = 0;
-      v15 = 0;
-      v16 = 0;
-      v13 = 0;
-      v14 = 0;
-      v11 = 0;
-      v12 = 0;
+      v6 = @"NO";
     }
 
-    v20 = [NSString stringWithFormat:@"%ld.%ld.%ld", v7, v8, v9, v11, v12, v13, v14, v15, v16, v17, v18, v19];
-    _os_log_send_and_compose_impl();
+    if (([foundCopy statusFlags] & 4) != 0)
+    {
+      v7 = @"YES";
+    }
+
+    else
+    {
+      v7 = @"NO";
+    }
+
+    serviceTypes = [foundCopy serviceTypes];
+    if ([serviceTypes containsObject:@"com.apple.wifivelocityd.rapportWake"])
+    {
+      v9 = @"YES";
+    }
+
+    else
+    {
+      v9 = @"NO";
+    }
+
+    if (foundCopy)
+    {
+      objc_msgSend_operatingSystemVersion(foundCopy);
+      v10 = v22;
+      objc_msgSend_operatingSystemVersion(foundCopy);
+      v11 = v20;
+      objc_msgSend_operatingSystemVersion(foundCopy);
+      v12 = v18;
+    }
+
+    else
+    {
+      v12 = 0;
+      v11 = 0;
+      v10 = 0;
+      v22 = 0;
+      v23 = 0;
+      v24 = 0;
+      v20 = 0;
+      v21 = 0;
+      v18 = 0;
+      v19 = 0;
+      v16 = 0;
+      v17 = 0;
+    }
+
+    v13 = [NSString stringWithFormat:@"%ld.%ld.%ld", v10, v11, v12, v16, v17, v18, v19, v20, v21, v22, v23, v24];
+    v26 = "[W5RapportClient _handleDeviceFound:]";
+    v27 = 2080;
+    v25 = 136316930;
+    v28 = "W5RapportClient.m";
+    v29 = 1024;
+    v30 = 145;
+    v31 = 2114;
+    v32 = foundCopy;
+    v33 = 2112;
+    v34 = v6;
+    v35 = 2112;
+    v36 = v7;
+    v37 = 2112;
+    v38 = v9;
+    v39 = 2112;
+    v40 = v13;
+    LODWORD(v15) = 78;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v5, 0, "[wifivelocity] %s (%s:%u) rapport device found='%{public}@', BLE: %@, Infra: %@, hasVelocityServiceType: %@, osVersion: %@", &v25, v15);
   }
 
   deviceFoundHandler = self->_deviceFoundHandler;
@@ -203,7 +251,16 @@
   v5 = sub_100098A04();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v8 = 136315906;
+    v9 = "[W5RapportClient _handleDeviceLost:]";
+    v10 = 2080;
+    v11 = "W5RapportClient.m";
+    v12 = 1024;
+    v13 = 154;
+    v14 = 2114;
+    v15 = lostCopy;
+    v7 = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v5, 0, "[wifivelocity] %s (%s:%u) rapport device lost='%{public}@'", &v8, v7);
   }
 
   deviceFoundHandler = self->_deviceFoundHandler;
@@ -222,11 +279,12 @@
     {
       *location = 136315650;
       *&location[4] = "[W5RapportClient startDiscoveringDevices]";
-      v10 = 2080;
-      v11 = "W5RapportClient.m";
-      v12 = 1024;
-      v13 = 164;
-      _os_log_send_and_compose_impl();
+      v12 = 2080;
+      v13 = "W5RapportClient.m";
+      v14 = 1024;
+      v15 = 164;
+      LODWORD(v7) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v2, 0, "[wifivelocity] %s (%s:%u) discovery is already active", location, v7, v8);
     }
 
 LABEL_11:
@@ -243,11 +301,12 @@ LABEL_11:
     {
       *location = 136315650;
       *&location[4] = "[W5RapportClient startDiscoveringDevices]";
-      v10 = 2080;
-      v11 = "W5RapportClient.m";
-      v12 = 1024;
-      v13 = 169;
-      _os_log_send_and_compose_impl();
+      v12 = 2080;
+      v13 = "W5RapportClient.m";
+      v14 = 1024;
+      v15 = 169;
+      LODWORD(v7) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v2, 0, "[wifivelocity] %s (%s:%u) failed to configure discovery client", location, v7, v8);
     }
 
     goto LABEL_11;
@@ -257,24 +316,25 @@ LABEL_11:
   {
     *location = 136315650;
     *&location[4] = "[W5RapportClient startDiscoveringDevices]";
-    v10 = 2080;
-    v11 = "W5RapportClient.m";
-    v12 = 1024;
-    v13 = 173;
-    _os_log_send_and_compose_impl();
+    v12 = 2080;
+    v13 = "W5RapportClient.m";
+    v14 = 1024;
+    v15 = 173;
+    LODWORD(v7) = 28;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v2, 0, "[wifivelocity] %s (%s:%u) starting device discovery", location, v7, v8);
   }
 
   self->_discoveringDevices = 1;
   objc_initWeak(location, self);
   discoveryClient = [(W5RapportClient *)self discoveryClient];
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_10004D610;
-  v7[3] = &unk_1000E2A70;
-  objc_copyWeak(&v8, location);
-  [discoveryClient activateWithCompletion:v7];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_10004D610;
+  v9[3] = &unk_1000E2A70;
+  objc_copyWeak(&v10, location);
+  [discoveryClient activateWithCompletion:v9];
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(location);
 }
 
@@ -287,7 +347,13 @@ LABEL_11:
   {
     if (v5)
     {
-      _os_log_send_and_compose_impl();
+      v6 = 136315650;
+      v7 = "[W5RapportClient stopDiscoveryingDevices]";
+      v8 = 2080;
+      v9 = "W5RapportClient.m";
+      v10 = 1024;
+      v11 = 189;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v4, 0, "[wifivelocity] %s (%s:%u) stoping device discovery", &v6, 28);
     }
 
     [(W5RapportClient *)self _invalidateRapportClient];
@@ -298,7 +364,13 @@ LABEL_11:
   {
     if (v5)
     {
-      _os_log_send_and_compose_impl();
+      v6 = 136315650;
+      v7 = "[W5RapportClient stopDiscoveryingDevices]";
+      v8 = 2080;
+      v9 = "W5RapportClient.m";
+      v10 = 1024;
+      v11 = 193;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v4, 0, "[wifivelocity] %s (%s:%u) discovery is not active", &v6, 28);
     }
   }
 }
@@ -314,17 +386,15 @@ LABEL_11:
   {
     *location = 136316162;
     *&location[4] = "[W5RapportClient sendMessageToDevice:request:]";
-    v26 = 2080;
-    v27 = "W5RapportClient.m";
-    v28 = 1024;
-    v29 = 204;
+    v24 = 2080;
+    v25 = "W5RapportClient.m";
+    v26 = 1024;
+    v27 = 204;
+    v28 = 2112;
+    v29 = requestCopy;
     v30 = 2112;
-    v31 = requestCopy;
-    v32 = 2112;
-    v33 = deviceCopy;
-    LODWORD(v20) = 48;
-    v19 = location;
-    _os_log_send_and_compose_impl();
+    v31 = deviceCopy;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] %s (%s:%u) [Rapport] Request: %@, Destination: %@", location, 48);
   }
 
   model = [deviceCopy model];
@@ -355,18 +425,18 @@ LABEL_11:
   [v7 setControlFlags:v15 | controlFlags];
   [v7 setInvalidationHandler:&stru_1000E2A90];
   objc_initWeak(location, v7);
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_10004DC74;
-  v21[3] = &unk_1000E2AE0;
-  objc_copyWeak(&v24, location);
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_10004DC74;
+  v19[3] = &unk_1000E2AE0;
+  objc_copyWeak(&v22, location);
   v16 = requestCopy;
-  v22 = v16;
+  v20 = v16;
   v17 = deviceCopy;
-  v23 = v17;
-  [v7 activateWithCompletion:v21];
+  v21 = v17;
+  [v7 activateWithCompletion:v19];
 
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(location);
 
   return 0;

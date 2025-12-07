@@ -18,14 +18,17 @@
 - (void)exitDiscoverySessionWithReason:(id)reason;
 - (void)invalidate;
 - (void)personCanceled:(id)canceled;
+- (void)remoteDisplayChangedDevice:(id)device changes:(unsigned int)changes;
 - (void)remoteDisplayDedicatedDeviceChanged:(id)changed;
 - (void)remoteDisplayDeviceSelected:(id)selected;
 - (void)remoteDisplayFoundDevice:(id)device;
 - (void)remoteDisplayLostDevice:(id)device;
+- (void)remoteDisplayNotifyDiscoverySessionState:(unsigned __int8)state forDevice:(id)device startReason:(unsigned __int8)reason;
 - (void)remoteDisplayPersonDeclined;
 - (void)remoteDisplayUpdateErrorFlags:(unint64_t)flags;
 - (void)requestDedicatedDeviceConfirmationWithCompletion:(id)completion;
 - (void)saveDedicatedDevice:(id)device;
+- (void)setPersonSelected:(id)selected forPairingType:(unsigned int)type;
 @end
 
 @implementation RPRemoteDisplayDiscovery
@@ -128,56 +131,56 @@
 
 - (id)description
 {
-  discoveryFlags = self;
-  NSAppendPrintF();
-  v3 = 0;
+  v19 = 0;
+  NSAppendPrintF(&v19, "RPRemoteDisplayDiscovery %{ptr}", self);
+  v3 = v19;
   v4 = v3;
-  if (self->_discoveryFlags)
+  discoveryFlags = self->_discoveryFlags;
+  if (discoveryFlags)
   {
-    v15 = v3;
-    discoveryFlags = self->_discoveryFlags;
-    v14 = &unk_1B6F2E991;
-    NSAppendPrintF();
-    v5 = v15;
-
-    v4 = v5;
-  }
-
-  if (self->_controlFlags)
-  {
-    discoveryFlags = self->_controlFlags;
-    v14 = &unk_1B6F2E9B0;
-    NSAppendPrintF();
-    v6 = v4;
+    v18 = v3;
+    NSAppendPrintF(&v18, ", DF %ll{flags}", discoveryFlags, &unk_1B6F2E991);
+    v6 = v18;
 
     v4 = v6;
   }
 
-  if ([(NSMutableDictionary *)self->_discoveredDevices count:discoveryFlags])
+  controlFlags = self->_controlFlags;
+  if (controlFlags)
   {
-    v12 = [(NSMutableDictionary *)self->_discoveredDevices count];
-    NSAppendPrintF();
-    v7 = v4;
-
-    v4 = v7;
-  }
-
-  if ([(NSMutableDictionary *)self->_discoveredPeople count])
-  {
-    [(NSMutableDictionary *)self->_discoveredPeople count];
-    NSAppendPrintF();
-    v8 = v4;
+    v17 = v4;
+    NSAppendPrintF(&v17, ", CF %ll{flags}", controlFlags, &unk_1B6F2E9B0);
+    v8 = v17;
 
     v4 = v8;
   }
 
-  if (self->_rssiThreshold)
+  if ([(NSMutableDictionary *)self->_discoveredDevices count])
   {
-    rssiThreshold = self->_rssiThreshold;
-    NSAppendPrintF();
-    v9 = v4;
+    v16 = v4;
+    NSAppendPrintF(&v16, ", devices %u", [(NSMutableDictionary *)self->_discoveredDevices count]);
+    v9 = v16;
 
     v4 = v9;
+  }
+
+  if ([(NSMutableDictionary *)self->_discoveredPeople count])
+  {
+    v15 = v4;
+    NSAppendPrintF(&v15, ", people %u", [(NSMutableDictionary *)self->_discoveredPeople count]);
+    v10 = v15;
+
+    v4 = v10;
+  }
+
+  rssiThreshold = self->_rssiThreshold;
+  if (rssiThreshold)
+  {
+    v14 = v4;
+    NSAppendPrintF(&v14, ", RSSIThreshold %ld", rssiThreshold);
+    v12 = v14;
+
+    v4 = v12;
   }
 
   return v4;
@@ -228,74 +231,71 @@ uint64_t __51__RPRemoteDisplayDiscovery_activateWithCompletion___block_invoke(ui
   {
     if (gLogCategory_RPRemoteDisplayDiscovery <= 30 && (gLogCategory_RPRemoteDisplayDiscovery != -1 || _LogCategory_Initialize()))
     {
-LABEL_10:
-      [RPRemoteDisplayDiscovery _activateWithCompletion:reactivate:];
+      v9 = "Re-activate\n";
+LABEL_11:
+      [(RPRemoteDisplayDiscovery *)v9 _activateWithCompletion:v6 reactivate:v7];
     }
   }
 
   else if (gLogCategory_RPRemoteDisplayDiscovery <= 30 && (gLogCategory_RPRemoteDisplayDiscovery != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_10;
+    v9 = "Activate\n";
+    goto LABEL_11;
   }
 
   [(RPRemoteDisplayDiscovery *)self _ensureXPCStarted];
   xpcCnx = self->_xpcCnx;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __63__RPRemoteDisplayDiscovery__activateWithCompletion_reactivate___block_invoke;
+  v17[3] = &unk_1E7C92F88;
+  v19 = reactivateCopy;
+  v11 = completionCopy;
+  v18 = v11;
+  v12 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v17];
   v14[0] = MEMORY[0x1E69E9820];
   v14[1] = 3221225472;
-  v14[2] = __63__RPRemoteDisplayDiscovery__activateWithCompletion_reactivate___block_invoke;
-  v14[3] = &unk_1E7C92F88;
+  v14[2] = __63__RPRemoteDisplayDiscovery__activateWithCompletion_reactivate___block_invoke_2;
+  v14[3] = &unk_1E7C94D00;
   v16 = reactivateCopy;
-  v8 = completionCopy;
-  v15 = v8;
-  v9 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v14];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __63__RPRemoteDisplayDiscovery__activateWithCompletion_reactivate___block_invoke_2;
-  v11[3] = &unk_1E7C94D00;
-  v13 = reactivateCopy;
-  v11[4] = self;
-  v12 = v8;
-  v10 = v8;
-  [v9 remoteDisplayActivateDiscovery:self completion:v11];
+  v14[4] = self;
+  v15 = v11;
+  v13 = v11;
+  [v12 remoteDisplayActivateDiscovery:self completion:v14];
 }
 
 void __63__RPRemoteDisplayDiscovery__activateWithCompletion_reactivate___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v7 = v3;
+  v8 = v3;
   if (*(a1 + 40) == 1)
   {
     if (gLogCategory_RPRemoteDisplayDiscovery <= 90)
     {
-      if (gLogCategory_RPRemoteDisplayDiscovery != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
+      if (gLogCategory_RPRemoteDisplayDiscovery != -1 || (v4 = _LogCategory_Initialize(), v3 = v8, v4))
       {
-LABEL_14:
-        __63__RPRemoteDisplayDiscovery__activateWithCompletion_reactivate___block_invoke_cold_1();
-        v3 = v7;
+        v5 = "### Re-activate XPC error: %{error}\n";
+LABEL_15:
+        __63__RPRemoteDisplayDiscovery__activateWithCompletion_reactivate___block_invoke_cold_1(v5, v8);
+        v3 = v8;
       }
     }
   }
 
   else if (gLogCategory_RPRemoteDisplayDiscovery <= 90)
   {
-    if (gLogCategory_RPRemoteDisplayDiscovery != -1)
+    if (gLogCategory_RPRemoteDisplayDiscovery != -1 || (v6 = _LogCategory_Initialize(), v3 = v8, v6))
     {
-      goto LABEL_14;
-    }
-
-    v5 = _LogCategory_Initialize();
-    v3 = v7;
-    if (v5)
-    {
-      goto LABEL_14;
+      v5 = "### Activate XPC error: %{error}\n";
+      goto LABEL_15;
     }
   }
 
-  v6 = *(a1 + 32);
-  if (v6)
+  v7 = *(a1 + 32);
+  if (v7)
   {
-    (*(v6 + 16))(v6, v7);
-    v3 = v7;
+    (*(v7 + 16))(v7, v8);
+    v3 = v8;
   }
 }
 
@@ -303,7 +303,7 @@ void __63__RPRemoteDisplayDiscovery__activateWithCompletion_reactivate___block_i
 {
   v5 = a3;
   *(*(a1 + 32) + 112) = a2;
-  v14 = v5;
+  v13 = v5;
   if (a2 && (*(a1 + 48) & 1) != 0)
   {
     v6 = _Block_copy(*(*(a1 + 32) + 120));
@@ -313,30 +313,29 @@ void __63__RPRemoteDisplayDiscovery__activateWithCompletion_reactivate___block_i
       (*(v6 + 2))(v6);
     }
 
-    v5 = v14;
+    v5 = v13;
   }
 
-  v8 = *(a1 + 48);
   if (v5)
   {
     if (*(a1 + 48))
     {
       if (gLogCategory_RPRemoteDisplayDiscovery <= 90)
       {
-        if (gLogCategory_RPRemoteDisplayDiscovery != -1 || (v9 = _LogCategory_Initialize(), v5 = v14, v9))
+        if (gLogCategory_RPRemoteDisplayDiscovery != -1 || (v8 = _LogCategory_Initialize(), v5 = v13, v8))
         {
-          __63__RPRemoteDisplayDiscovery__activateWithCompletion_reactivate___block_invoke_2_cold_2();
+          __63__RPRemoteDisplayDiscovery__activateWithCompletion_reactivate___block_invoke_2_cold_2(v5);
 LABEL_25:
-          v5 = v14;
+          v5 = v13;
         }
       }
     }
 
     else if (gLogCategory_RPRemoteDisplayDiscovery <= 90)
     {
-      if (gLogCategory_RPRemoteDisplayDiscovery != -1 || (v11 = _LogCategory_Initialize(), v5 = v14, v11))
+      if (gLogCategory_RPRemoteDisplayDiscovery != -1 || (v10 = _LogCategory_Initialize(), v5 = v13, v10))
       {
-        __63__RPRemoteDisplayDiscovery__activateWithCompletion_reactivate___block_invoke_2_cold_1();
+        __63__RPRemoteDisplayDiscovery__activateWithCompletion_reactivate___block_invoke_2_cold_1(v5);
         goto LABEL_25;
       }
     }
@@ -346,9 +345,9 @@ LABEL_25:
   {
     if (gLogCategory_RPRemoteDisplayDiscovery <= 30)
     {
-      if (gLogCategory_RPRemoteDisplayDiscovery != -1 || (v10 = _LogCategory_Initialize(), v5 = v14, v10))
+      if (gLogCategory_RPRemoteDisplayDiscovery != -1 || (v9 = _LogCategory_Initialize(), v5 = v13, v9))
       {
-        __63__RPRemoteDisplayDiscovery__activateWithCompletion_reactivate___block_invoke_2_cold_4();
+        __63__RPRemoteDisplayDiscovery__activateWithCompletion_reactivate___block_invoke_2_cold_4(a2);
         goto LABEL_25;
       }
     }
@@ -356,18 +355,18 @@ LABEL_25:
 
   else if (gLogCategory_RPRemoteDisplayDiscovery <= 30)
   {
-    if (gLogCategory_RPRemoteDisplayDiscovery != -1 || (v12 = _LogCategory_Initialize(), v5 = v14, v12))
+    if (gLogCategory_RPRemoteDisplayDiscovery != -1 || (v11 = _LogCategory_Initialize(), v5 = v13, v11))
     {
-      __63__RPRemoteDisplayDiscovery__activateWithCompletion_reactivate___block_invoke_2_cold_3();
+      __63__RPRemoteDisplayDiscovery__activateWithCompletion_reactivate___block_invoke_2_cold_3(a2);
       goto LABEL_25;
     }
   }
 
-  v13 = *(a1 + 40);
-  if (v13)
+  v12 = *(a1 + 40);
+  if (v12)
   {
-    (*(v13 + 16))(v13, v14);
-    v5 = v14;
+    (*(v12 + 16))(v12, v13);
+    v5 = v13;
   }
 }
 
@@ -457,23 +456,26 @@ uint64_t __45__RPRemoteDisplayDiscovery__ensureXPCStarted__block_invoke_2(uint64
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __38__RPRemoteDisplayDiscovery_invalidate__block_invoke(uint64_t result)
+void *__38__RPRemoteDisplayDiscovery_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
-  v5 = *(result + 32);
-  if ((*(v5 + 32) & 1) == 0)
+  v7 = result[4];
+  if ((*(v7 + 32) & 1) == 0)
   {
-    v8 = v1;
-    v6 = result;
-    *(v5 + 32) = 1;
-    if (gLogCategory_RPRemoteDisplayDiscovery <= 30 && (gLogCategory_RPRemoteDisplayDiscovery != -1 || _LogCategory_Initialize()))
+    v10 = v3;
+    v8 = result;
+    *(v7 + 32) = 1;
+    if (gLogCategory_RPRemoteDisplayDiscovery <= 30)
     {
-      __38__RPRemoteDisplayDiscovery_invalidate__block_invoke_cold_1();
+      if (gLogCategory_RPRemoteDisplayDiscovery != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        __38__RPRemoteDisplayDiscovery_invalidate__block_invoke_cold_1(result, a2, a3);
+      }
     }
 
-    [*(*(v6 + 32) + 40) invalidate];
-    v7 = *(v6 + 32);
+    [*(v8[4] + 40) invalidate];
+    v9 = v8[4];
 
-    return [v7 _invalidated];
+    return [v9 _invalidated];
   }
 
   return result;
@@ -541,9 +543,12 @@ uint64_t __38__RPRemoteDisplayDiscovery_invalidate__block_invoke(uint64_t result
     self->_peerDeviceIdentifier = 0;
 
     self->_invalidateDone = 1;
-    if (gLogCategory_RPRemoteDisplayDiscovery <= 30 && (gLogCategory_RPRemoteDisplayDiscovery != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_RPRemoteDisplayDiscovery <= 30)
     {
-      [RPRemoteDisplayDiscovery _invalidated];
+      if (gLogCategory_RPRemoteDisplayDiscovery != -1 || (v21 = _LogCategory_Initialize(), v21))
+      {
+        [(RPRemoteDisplayDiscovery *)v21 _invalidated];
+      }
     }
   }
 }
@@ -572,12 +577,11 @@ void __43__RPRemoteDisplayDiscovery_personCanceled___block_invoke(uint64_t a1, v
   v4 = v3;
   if (gLogCategory_RPRemoteDisplayDiscovery <= 90)
   {
-    v7 = v3;
-    if (gLogCategory_RPRemoteDisplayDiscovery != -1 || (v5 = _LogCategory_Initialize(), v4 = v7, v5))
+    v6 = v3;
+    if (gLogCategory_RPRemoteDisplayDiscovery != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
     {
-      v6 = *(a1 + 32);
-      LogPrintF();
-      v4 = v7;
+      LogPrintF(&gLogCategory_RPRemoteDisplayDiscovery, "[RPRemoteDisplayDiscovery personCanceled:]_block_invoke", 90, "### Failed to cancel confirmation for person (%@): %@\n", *(a1 + 32), v4);
+      v4 = v6;
     }
   }
 }
@@ -631,13 +635,37 @@ void __43__RPRemoteDisplayDiscovery_personCanceled___block_invoke(uint64_t a1, v
   return allValues;
 }
 
+- (void)setPersonSelected:(id)selected forPairingType:(unsigned int)type
+{
+  v4 = *&type;
+  selectedCopy = selected;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  objc_storeStrong(&selfCopy->_personSelected, selected);
+  objc_sync_exit(selfCopy);
+
+  if (selectedCopy)
+  {
+    [(RPRemoteDisplayDiscovery *)selfCopy _ensureXPCStarted];
+    xpcCnx = selfCopy->_xpcCnx;
+    v12 = MEMORY[0x1E69E9820];
+    v13 = 3221225472;
+    v14 = __61__RPRemoteDisplayDiscovery_setPersonSelected_forPairingType___block_invoke;
+    v15 = &unk_1E7C92D10;
+    v10 = selectedCopy;
+    v16 = v10;
+    v17 = selfCopy;
+    v11 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:&v12];
+    [v11 remoteDisplayPersonSelected:v10 forPairingType:{v4, v12, v13, v14, v15}];
+  }
+}
+
 void __61__RPRemoteDisplayDiscovery_setPersonSelected_forPairingType___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = a2;
+  v6 = a2;
   if (gLogCategory_RPRemoteDisplayDiscovery <= 90 && (gLogCategory_RPRemoteDisplayDiscovery != -1 || _LogCategory_Initialize()))
   {
-    v6 = *(a1 + 32);
-    LogPrintF();
+    LogPrintF(&gLogCategory_RPRemoteDisplayDiscovery, "[RPRemoteDisplayDiscovery setPersonSelected:forPairingType:]_block_invoke", 90, "Failed to set selected person (%@): %@\n", *(a1 + 32), v6);
   }
 
   v3 = *(a1 + 40);
@@ -688,7 +716,7 @@ void __61__RPRemoteDisplayDiscovery_setPersonSelected_forPairingType___block_inv
   {
     if (gLogCategory_RPRemoteDisplayDiscovery <= 90 && (gLogCategory_RPRemoteDisplayDiscovery != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_RPRemoteDisplayDiscovery, "[RPRemoteDisplayDiscovery remoteDisplayFoundDevice:]", 90, "### Failed to initialize a person for device: %@\n", deviceCopy);
     }
 
 LABEL_14:
@@ -800,6 +828,66 @@ LABEL_15:
   }
 }
 
+- (void)remoteDisplayChangedDevice:(id)device changes:(unsigned int)changes
+{
+  v4 = *&changes;
+  deviceCopy = device;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  discoveredDevices = selfCopy->_discoveredDevices;
+  identifier = [deviceCopy identifier];
+  v9 = [(NSMutableDictionary *)discoveredDevices objectForKeyedSubscript:identifier];
+
+  if (v9)
+  {
+    v10 = selfCopy->_discoveredDevices;
+    identifier2 = [deviceCopy identifier];
+    [(NSMutableDictionary *)v10 setObject:deviceCopy forKeyedSubscript:identifier2];
+
+    accountAltDSID = [deviceCopy accountAltDSID];
+    if (accountAltDSID)
+    {
+      v13 = [(NSMutableDictionary *)selfCopy->_discoveredPeople valueForKey:accountAltDSID];
+      v14 = v13;
+      if (v13)
+      {
+        [v13 removeDevice:deviceCopy];
+        [v14 addDevice:deviceCopy];
+      }
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+
+    objc_sync_exit(selfCopy);
+    if (v14)
+    {
+      personChangedHandler = selfCopy->_personChangedHandler;
+      if (personChangedHandler)
+      {
+        personChangedHandler[2](personChangedHandler, v14);
+      }
+    }
+
+    deviceChangedHandler = selfCopy->_deviceChangedHandler;
+    if (deviceChangedHandler)
+    {
+      deviceChangedHandler[2](deviceChangedHandler, deviceCopy, v4);
+    }
+  }
+
+  else
+  {
+    [(RPRemoteDisplayDiscovery *)selfCopy remoteDisplayFoundDevice:deviceCopy];
+    objc_sync_exit(selfCopy);
+
+    v14 = 0;
+  }
+}
+
 - (void)remoteDisplayUpdateErrorFlags:(unint64_t)flags
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
@@ -847,6 +935,21 @@ LABEL_15:
   }
 }
 
+- (void)remoteDisplayNotifyDiscoverySessionState:(unsigned __int8)state forDevice:(id)device startReason:(unsigned __int8)reason
+{
+  stateCopy = state;
+  deviceCopy = device;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  self->_currentState = stateCopy;
+  objc_storeStrong(&self->_peerDeviceIdentifier, device);
+  self->_discoverySessionStartReason = reason;
+  discoverySessionStateChangedHandler = self->_discoverySessionStateChangedHandler;
+  if (discoverySessionStateChangedHandler)
+  {
+    discoverySessionStateChangedHandler[2](discoverySessionStateChangedHandler, stateCopy, deviceCopy);
+  }
+}
+
 - (void)remoteDisplayPersonDeclined
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
@@ -861,120 +964,122 @@ LABEL_15:
 
 - (void)_lostAllDevices
 {
-  v21 = *MEMORY[0x1E69E9840];
-  if (gLogCategory_RPRemoteDisplayDiscovery <= 30 && (gLogCategory_RPRemoteDisplayDiscovery != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  v20 = *MEMORY[0x1E69E9840];
+  if (gLogCategory_RPRemoteDisplayDiscovery <= 30)
   {
-    [RPRemoteDisplayDiscovery _lostAllDevices];
+    if (gLogCategory_RPRemoteDisplayDiscovery != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(RPRemoteDisplayDiscovery *)self _lostAllDevices];
+    }
   }
 
-  deviceLostHandler = self->_deviceLostHandler;
-  obj = self;
+  deviceLostHandler = selfCopy->_deviceLostHandler;
+  obj = selfCopy;
   objc_sync_enter(obj);
-  discoveredDevices = obj->_discoveredDevices;
+  v5 = obj[2];
   if (deviceLostHandler)
   {
-    allValues = [(NSMutableDictionary *)discoveredDevices allValues];
-    [(NSMutableDictionary *)obj->_discoveredDevices removeAllObjects];
-    v6 = obj->_discoveredDevices;
-    obj->_discoveredDevices = 0;
+    allValues = [v5 allValues];
+    [obj[2] removeAllObjects];
+    v7 = obj[2];
+    obj[2] = 0;
 
     objc_sync_exit(obj);
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
-    v7 = allValues;
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
-    if (v8)
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v8 = allValues;
+    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v9)
     {
-      v9 = *v17;
+      v10 = *v16;
       do
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v9)
+          if (*v16 != v10)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v8);
           }
 
-          v11 = self->_deviceLostHandler;
-          if (v11)
+          v12 = selfCopy->_deviceLostHandler;
+          if (v12)
           {
-            v11[2](v11, *(*(&v16 + 1) + 8 * i));
+            v12[2](v12, *(*(&v15 + 1) + 8 * i));
           }
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
-      while (v8);
+      while (v9);
     }
-
-    v12 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    [(NSMutableDictionary *)discoveredDevices removeAllObjects];
-    v13 = obj->_discoveredDevices;
-    obj->_discoveredDevices = 0;
+    [v5 removeAllObjects];
+    v13 = obj[2];
+    obj[2] = 0;
 
     objc_sync_exit(obj);
-    v14 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (void)_lostAllPeople
 {
-  v18 = *MEMORY[0x1E69E9840];
-  if (gLogCategory_RPRemoteDisplayDiscovery <= 30 && (gLogCategory_RPRemoteDisplayDiscovery != -1 || _LogCategory_Initialize()))
-  {
-    [RPRemoteDisplayDiscovery _lostAllPeople];
-  }
-
-  discoveredPeople = [(RPRemoteDisplayDiscovery *)self discoveredPeople];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  [(NSMutableDictionary *)selfCopy->_discoveredPeople removeAllObjects];
-  discoveredPeople = selfCopy->_discoveredPeople;
-  selfCopy->_discoveredPeople = 0;
-
-  personSelected = selfCopy->_personSelected;
-  selfCopy->_personSelected = 0;
-
-  objc_sync_exit(selfCopy);
-  if (selfCopy->_personLostHandler)
+  v17 = *MEMORY[0x1E69E9840];
+  if (gLogCategory_RPRemoteDisplayDiscovery <= 30)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    v7 = discoveredPeople;
-    v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v8)
+    if (gLogCategory_RPRemoteDisplayDiscovery != -1 || (self = _LogCategory_Initialize(), self))
     {
-      v9 = *v14;
-      do
-      {
-        for (i = 0; i != v8; ++i)
-        {
-          if (*v14 != v9)
-          {
-            objc_enumerationMutation(v7);
-          }
-
-          v11 = *(*(&v13 + 1) + 8 * i);
-          (*(selfCopy->_personLostHandler + 2))(selfCopy->_personLostHandler);
-        }
-
-        v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
-      }
-
-      while (v8);
+      [(RPRemoteDisplayDiscovery *)self _lostAllPeople];
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
+  discoveredPeople = [(RPRemoteDisplayDiscovery *)selfCopy discoveredPeople];
+  v5 = selfCopy;
+  objc_sync_enter(v5);
+  [(NSMutableDictionary *)v5->_discoveredPeople removeAllObjects];
+  discoveredPeople = v5->_discoveredPeople;
+  v5->_discoveredPeople = 0;
+
+  personSelected = v5->_personSelected;
+  v5->_personSelected = 0;
+
+  objc_sync_exit(v5);
+  if (v5->_personLostHandler)
+  {
+    v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    v8 = discoveredPeople;
+    v9 = [v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    if (v9)
+    {
+      v10 = *v13;
+      do
+      {
+        for (i = 0; i != v9; ++i)
+        {
+          if (*v13 != v10)
+          {
+            objc_enumerationMutation(v8);
+          }
+
+          (*(v5->_personLostHandler + 2))(v5->_personLostHandler);
+        }
+
+        v9 = [v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      }
+
+      while (v9);
+    }
+  }
 }
 
 - (BOOL)shouldReportDevice:(id)device
@@ -1003,7 +1108,7 @@ void __67__RPRemoteDisplayDiscovery_enterDiscoverySessionWithDevice_reason___blo
     v5 = v2;
     if (gLogCategory_RPRemoteDisplayDiscovery != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      __67__RPRemoteDisplayDiscovery_enterDiscoverySessionWithDevice_reason___block_invoke_cold_1();
+      __67__RPRemoteDisplayDiscovery_enterDiscoverySessionWithDevice_reason___block_invoke_cold_1(v3);
       v3 = v5;
     }
   }
@@ -1026,7 +1131,7 @@ void __59__RPRemoteDisplayDiscovery_exitDiscoverySessionWithReason___block_invok
     v5 = v2;
     if (gLogCategory_RPRemoteDisplayDiscovery != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      __59__RPRemoteDisplayDiscovery_exitDiscoverySessionWithReason___block_invoke_cold_1();
+      __59__RPRemoteDisplayDiscovery_exitDiscoverySessionWithReason___block_invoke_cold_1(v3);
       v3 = v5;
     }
   }
@@ -1049,7 +1154,7 @@ void __48__RPRemoteDisplayDiscovery_saveDedicatedDevice___block_invoke(uint64_t 
     v5 = v2;
     if (gLogCategory_RPRemoteDisplayDiscovery != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      __48__RPRemoteDisplayDiscovery_saveDedicatedDevice___block_invoke_cold_1();
+      __48__RPRemoteDisplayDiscovery_saveDedicatedDevice___block_invoke_cold_1(v3);
       v3 = v5;
     }
   }
@@ -1107,7 +1212,7 @@ void __77__RPRemoteDisplayDiscovery_requestDedicatedDeviceConfirmationWithComple
     v5 = v2;
     if (gLogCategory_RPRemoteDisplayDiscovery != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      __77__RPRemoteDisplayDiscovery_requestDedicatedDeviceConfirmationWithCompletion___block_invoke_cold_1();
+      __77__RPRemoteDisplayDiscovery_requestDedicatedDeviceConfirmationWithCompletion___block_invoke_cold_1(v3);
       v3 = v5;
     }
   }
@@ -1123,7 +1228,7 @@ void __77__RPRemoteDisplayDiscovery_requestDedicatedDeviceConfirmationWithComple
     {
       if (gLogCategory_RPRemoteDisplayDiscovery != -1 || (v4 = _LogCategory_Initialize(), v3 = v6, v4))
       {
-        __77__RPRemoteDisplayDiscovery_requestDedicatedDeviceConfirmationWithCompletion___block_invoke_2_cold_1();
+        __77__RPRemoteDisplayDiscovery_requestDedicatedDeviceConfirmationWithCompletion___block_invoke_2_cold_1(v3);
         v3 = v6;
       }
     }

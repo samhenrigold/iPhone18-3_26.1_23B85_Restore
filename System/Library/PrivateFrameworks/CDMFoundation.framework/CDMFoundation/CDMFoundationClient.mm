@@ -67,32 +67,30 @@
 
 void __54__CDMFoundationClient_waitForDataDispatcherCompletion__block_invoke()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
   {
-    v2 = 136315394;
-    v3 = "[CDMFoundationClient waitForDataDispatcherCompletion]_block_invoke";
-    v4 = 2080;
-    v5 = "[CDMFoundationClient waitForDataDispatcherCompletion]_block_invoke";
-    _os_log_debug_impl(&dword_1DC287000, v0, OS_LOG_TYPE_DEBUG, "%s %s: all blocks in the background CDMDataDispatcherCompletionQueue have been completed.", &v2, 0x16u);
+    v1 = 136315394;
+    v2 = "[CDMFoundationClient waitForDataDispatcherCompletion]_block_invoke";
+    v3 = 2080;
+    v4 = "[CDMFoundationClient waitForDataDispatcherCompletion]_block_invoke";
+    _os_log_debug_impl(&dword_1DC287000, v0, OS_LOG_TYPE_DEBUG, "%s %s: all blocks in the background CDMDataDispatcherCompletionQueue have been completed.", &v1, 0x16u);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processCDMNluRequest:(id)request nullableCompletionHandler:(id)handler
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   handlerCopy = handler;
   v7 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v56 = "[CDMFoundationClient processCDMNluRequest:nullableCompletionHandler:]";
-    v57 = 2112;
-    v58 = requestCopy;
+    v55 = "[CDMFoundationClient processCDMNluRequest:nullableCompletionHandler:]";
+    v56 = 2112;
+    v57 = requestCopy;
     _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s CDMClient processCDMNluRequest... %@", buf, 0x16u);
   }
 
@@ -128,7 +126,7 @@ void __54__CDMFoundationClient_waitForDataDispatcherCompletion__block_invoke()
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v56 = "[CDMFoundationClient processCDMNluRequest:nullableCompletionHandler:]";
+        v55 = "[CDMFoundationClient processCDMNluRequest:nullableCompletionHandler:]";
         _os_log_error_impl(&dword_1DC287000, v17, OS_LOG_TYPE_ERROR, "%s [ERR]: Using processCDMNluRequest:completionHandler with delegate is not supported use [CDMClient init]", buf, 0xCu);
       }
 
@@ -156,7 +154,7 @@ LABEL_18:
         objcProto2 = [requestCopy objcProto];
         v23 = [CDMNluRequestID alloc];
         requestId = [objcProto2 requestId];
-        v48 = [(CDMNluRequestID *)v23 initWithObjcProto:requestId];
+        v47 = [(CDMNluRequestID *)v23 initWithObjcProto:requestId];
 
         if ([(CDMClientInterface *)self successFromSetup])
         {
@@ -165,13 +163,13 @@ LABEL_18:
           aBlock[1] = 3221225472;
           aBlock[2] = __70__CDMFoundationClient_processCDMNluRequest_nullableCompletionHandler___block_invoke;
           aBlock[3] = &unk_1E862E770;
-          objc_copyWeak(v54, buf);
-          v54[1] = v8;
-          v53 = handlerCopy;
-          v25 = v48;
-          v51 = v25;
+          objc_copyWeak(v53, buf);
+          v53[1] = v8;
+          v52 = handlerCopy;
+          v25 = v47;
+          v50 = v25;
           selfCopy = self;
-          v47 = _Block_copy(aBlock);
+          v46 = _Block_copy(aBlock);
           v26 = [CDMAssistantNLUCommand alloc];
           requestId2 = [objcProto2 requestId];
           connectionId = [requestId2 connectionId];
@@ -182,8 +180,8 @@ LABEL_18:
           v32 = [CDMSELFLogUtil createSELFMetadataWithRequestId:requestId3];
           [CDMSELFLogUtil cdmAssetsReported:getAssetPaths metadata:v32 dataDispatcherContext:self->_dataDispatcherContext];
 
-          siri::ontology::resetSharedUsoVocabManager([(CDMFoundationClient *)self doHandleCommand:v29 forCallback:v47]);
-          objc_destroyWeak(v54);
+          siri::ontology::resetSharedUsoVocabManager([(CDMFoundationClient *)self doHandleCommand:v29 forCallback:v46]);
+          objc_destroyWeak(v53);
 
           objc_destroyWeak(buf);
         }
@@ -206,12 +204,12 @@ LABEL_18:
 
           else
           {
-            v45 = [(CDMClientDelegate *)self->_delegate processCDMNluRequestErrorCallback:v48 error:v42];
+            v45 = [(CDMClientDelegate *)self->_delegate processCDMNluRequestErrorCallback:v47 error:v42];
           }
 
           siri::ontology::resetSharedUsoVocabManager(v45);
 
-          v25 = v48;
+          v25 = v47;
         }
 
         goto LABEL_48;
@@ -271,7 +269,7 @@ LABEL_49:
   if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v56 = "[CDMFoundationClient processCDMNluRequest:nullableCompletionHandler:]";
+    v55 = "[CDMFoundationClient processCDMNluRequest:nullableCompletionHandler:]";
     _os_log_error_impl(&dword_1DC287000, v36, OS_LOG_TYPE_ERROR, "%s [ERR]: No delegate set? did you init with a valid delegate [CDMClient initWithDelegate:]?", buf, 0xCu);
   }
 
@@ -285,13 +283,11 @@ LABEL_49:
 
   siri::ontology::resetSharedUsoVocabManager(v39);
 LABEL_50:
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 void __70__CDMFoundationClient_processCDMNluRequest_nullableCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -301,7 +297,7 @@ void __70__CDMFoundationClient_processCDMNluRequest_nullableCompletionHandler___
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v33 = "[CDMFoundationClient processCDMNluRequest:nullableCompletionHandler:]_block_invoke";
+      v32 = "[CDMFoundationClient processCDMNluRequest:nullableCompletionHandler:]_block_invoke";
       _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s CDM graph finished processing, ready to send response back to SiriRequestDispatcher (SRD)", buf, 0xCu);
     }
 
@@ -322,13 +318,13 @@ void __70__CDMFoundationClient_processCDMNluRequest_nullableCompletionHandler___
       v12 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v29 = [v6 localizedDescription];
-        v30 = v29;
-        v31 = [v29 UTF8String];
+        v28 = [v6 localizedDescription];
+        v29 = v28;
+        v30 = [v28 UTF8String];
         *buf = 136315394;
-        v33 = "[CDMFoundationClient processCDMNluRequest:nullableCompletionHandler:]_block_invoke";
-        v34 = 2080;
-        v35 = v31;
+        v32 = "[CDMFoundationClient processCDMNluRequest:nullableCompletionHandler:]_block_invoke";
+        v33 = 2080;
+        v34 = v30;
         _os_log_error_impl(&dword_1DC287000, v12, OS_LOG_TYPE_ERROR, "%s [ERR]: %s", buf, 0x16u);
       }
 
@@ -364,9 +360,9 @@ void __70__CDMFoundationClient_processCDMNluRequest_nullableCompletionHandler___
         if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v33 = "[CDMFoundationClient processCDMNluRequest:nullableCompletionHandler:]_block_invoke";
-          v34 = 2112;
-          v35 = v17;
+          v32 = "[CDMFoundationClient processCDMNluRequest:nullableCompletionHandler:]_block_invoke";
+          v33 = 2112;
+          v34 = v17;
           _os_log_impl(&dword_1DC287000, v19, OS_LOG_TYPE_INFO, "%s CDM graph finished processing, sending response back to SiriRequestDispatcher (SRD): %@", buf, 0x16u);
         }
 
@@ -417,13 +413,11 @@ void __70__CDMFoundationClient_processCDMNluRequest_nullableCompletionHandler___
       }
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)warmupWithCompletionHandler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -446,8 +440,8 @@ void __70__CDMFoundationClient_processCDMNluRequest_nullableCompletionHandler___
       uUIDString = [(NSUUID *)self->_nlSetupId UUIDString];
       *location = 136315394;
       *&location[4] = "[CDMFoundationClient warmupWithCompletionHandler:]";
-      v26 = 2112;
-      v27 = uUIDString;
+      v25 = 2112;
+      v26 = uUIDString;
       _os_log_debug_impl(&dword_1DC287000, v9, OS_LOG_TYPE_DEBUG, "%s CDMClient warmup has no nlSetupId set. Minting: %@", location, 0x16u);
     }
 
@@ -468,8 +462,8 @@ void __70__CDMFoundationClient_processCDMNluRequest_nullableCompletionHandler___
     {
       *location = 136315394;
       *&location[4] = "[CDMFoundationClient warmupWithCompletionHandler:]";
-      v26 = 2112;
-      v27 = v14;
+      v25 = 2112;
+      v26 = v14;
       _os_log_debug_impl(&dword_1DC287000, v15, OS_LOG_TYPE_DEBUG, "%s Created CDMWarmupCommand to pass into active graph, %@", location, 0x16u);
     }
 
@@ -478,14 +472,14 @@ void __70__CDMFoundationClient_processCDMNluRequest_nullableCompletionHandler___
     aBlock[1] = 3221225472;
     aBlock[2] = __51__CDMFoundationClient_warmupWithCompletionHandler___block_invoke;
     aBlock[3] = &unk_1E862E748;
-    objc_copyWeak(&v24, location);
+    objc_copyWeak(&v23, location);
     v16 = v11;
-    v22 = v16;
-    v23 = handlerCopy;
+    v21 = v16;
+    v22 = handlerCopy;
     v17 = _Block_copy(aBlock);
     [(CDMFoundationClient *)self doHandleCommand:v14 forCallback:v17];
 
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(location);
   }
 
@@ -497,8 +491,8 @@ void __70__CDMFoundationClient_processCDMNluRequest_nullableCompletionHandler___
     {
       *location = 136315394;
       *&location[4] = "[CDMFoundationClient warmupWithCompletionHandler:]";
-      v26 = 2112;
-      v27 = @"warmupWithCompletionHandler called but dynamicConfig is nil. Did you have a successful setup?";
+      v25 = 2112;
+      v26 = @"warmupWithCompletionHandler called but dynamicConfig is nil. Did you have a successful setup?";
       _os_log_error_impl(&dword_1DC287000, v18, OS_LOG_TYPE_ERROR, "%s [ERR]: %@", location, 0x16u);
     }
 
@@ -506,13 +500,11 @@ void __70__CDMFoundationClient_processCDMNluRequest_nullableCompletionHandler___
     +[CDMSELFLogUtil cdmClientWarmupFailed:errorDomain:errorCode:logMessage:dataDispatcherContext:](CDMSELFLogUtil, "cdmClientWarmupFailed:errorDomain:errorCode:logMessage:dataDispatcherContext:", v13, 1, [v16 code], @"SELF client warmup failed message emitted", self->_dataDispatcherContext);
     (*(handlerCopy + 2))(handlerCopy, v16);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __51__CDMFoundationClient_warmupWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -521,13 +513,13 @@ void __51__CDMFoundationClient_warmupWithCompletionHandler___block_invoke(uint64
     v8 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v14 = 136315650;
-      v15 = "[CDMFoundationClient warmupWithCompletionHandler:]_block_invoke";
-      v16 = 2112;
-      v17 = v5;
-      v18 = 2112;
-      v19 = v6;
-      _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s CDM graph finished processing, output=%@, error=%@", &v14, 0x20u);
+      v13 = 136315650;
+      v14 = "[CDMFoundationClient warmupWithCompletionHandler:]_block_invoke";
+      v15 = 2112;
+      v16 = v5;
+      v17 = 2112;
+      v18 = v6;
+      _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s CDM graph finished processing, output=%@, error=%@", &v13, 0x20u);
     }
 
     if (v6)
@@ -535,14 +527,14 @@ void __51__CDMFoundationClient_warmupWithCompletionHandler___block_invoke(uint64
       v9 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v11 = [v6 localizedDescription];
-        v12 = v11;
-        v13 = [v11 UTF8String];
-        v14 = 136315394;
-        v15 = "[CDMFoundationClient warmupWithCompletionHandler:]_block_invoke";
-        v16 = 2080;
-        v17 = v13;
-        _os_log_error_impl(&dword_1DC287000, v9, OS_LOG_TYPE_ERROR, "%s [ERR]: %s", &v14, 0x16u);
+        v10 = [v6 localizedDescription];
+        v11 = v10;
+        v12 = [v10 UTF8String];
+        v13 = 136315394;
+        v14 = "[CDMFoundationClient warmupWithCompletionHandler:]_block_invoke";
+        v15 = 2080;
+        v16 = v12;
+        _os_log_error_impl(&dword_1DC287000, v9, OS_LOG_TYPE_ERROR, "%s [ERR]: %s", &v13, 0x16u);
       }
 
       +[CDMSELFLogUtil cdmClientWarmupFailed:errorDomain:errorCode:logMessage:dataDispatcherContext:](CDMSELFLogUtil, "cdmClientWarmupFailed:errorDomain:errorCode:logMessage:dataDispatcherContext:", *(a1 + 32), 2, [v6 code], @"SELF client warmup failed message emitted", WeakRetained[11]);
@@ -555,22 +547,20 @@ void __51__CDMFoundationClient_warmupWithCompletionHandler___block_invoke(uint64
       [CDMSELFLogUtil cdmClientWarmupEnded:*(a1 + 32) logMessage:@"SELF client warmup ended message emitted" dataDispatcherContext:WeakRetained[11]];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setup:(id)setup nullableCompletionHandler:(id)handler
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   setupCopy = setup;
   handlerCopy = handler;
   v7 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v65 = "[CDMFoundationClient setup:nullableCompletionHandler:]";
-    v66 = 2112;
-    v67 = setupCopy;
+    v62 = "[CDMFoundationClient setup:nullableCompletionHandler:]";
+    v63 = 2112;
+    v64 = setupCopy;
     _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s CDMClient setup... %@", buf, 0x16u);
   }
 
@@ -602,9 +592,9 @@ void __51__CDMFoundationClient_warmupWithCompletionHandler___block_invoke(uint64
     {
       uUIDString = [(NSUUID *)self->_nlSetupId UUIDString];
       *buf = 136315394;
-      v65 = "[CDMFoundationClient setup:nullableCompletionHandler:]";
-      v66 = 2112;
-      v67 = uUIDString;
+      v62 = "[CDMFoundationClient setup:nullableCompletionHandler:]";
+      v63 = 2112;
+      v64 = uUIDString;
       _os_log_debug_impl(&dword_1DC287000, p_super, OS_LOG_TYPE_DEBUG, "%s CDMClient setup has not nlSetupId set. Minting: %@", buf, 0x16u);
     }
   }
@@ -620,72 +610,70 @@ void __51__CDMFoundationClient_warmupWithCompletionHandler___block_invoke(uint64
   invocationSource = self->_invocationSource;
   self->_invocationSource = invocationSource;
 
-  v19 = [MEMORY[0x1E69D13F8] convertFromUUID:self->_nlSetupId];
-  v20 = self->_invocationSource;
-  v53 = v19;
-  v57 = [CDMSELFLogUtil createSELFMetadataWithNlId:"createSELFMetadataWithNlId:andWithTrpId:andWithRequestId:andWithResultCandidateId:andWithConnectionId:" andWithTrpId:? andWithRequestId:? andWithResultCandidateId:? andWithConnectionId:?];
+  v50 = [MEMORY[0x1E69D13F8] convertFromUUID:self->_nlSetupId];
+  v54 = [CDMSELFLogUtil createSELFMetadataWithNlId:"createSELFMetadataWithNlId:andWithTrpId:andWithRequestId:andWithResultCandidateId:andWithConnectionId:" andWithTrpId:? andWithRequestId:? andWithResultCandidateId:? andWithConnectionId:?];
   activeServiceGraph = [setupCopy activeServiceGraph];
   aClassName = [CDMDynamicConfig resolveActiveGraph:activeServiceGraph];
 
-  [CDMSELFLogUtil cdmClientSetupStarted:v57 logMessage:@"SELF client setup started message emitted" currentServiceGraph:[NSClassFromString(aClassName) getNLXSchemaCDMServiceGraphName] dataDispatcherContext:self->_dataDispatcherContext];
+  [CDMSELFLogUtil cdmClientSetupStarted:v54 logMessage:@"SELF client setup started message emitted" currentServiceGraph:[NSClassFromString(aClassName) getNLXSchemaCDMServiceGraphName] dataDispatcherContext:self->_dataDispatcherContext];
   if (setupCopy)
   {
     localeIdentifier = [setupCopy localeIdentifier];
-    v52 = localeIdentifier;
+    v49 = localeIdentifier;
     if (!localeIdentifier)
     {
-      v30 = [(CDMClientInterface *)self createNSError:@"CDMClientSetup does not have locale?" errorCode:1];
-      [(CDMFoundationClient *)self setValue:v30 forKey:@"errorFromSetup"];
-      [CDMSELFLogUtil cdmClientSetupFailed:v57 errorDomain:1 errorCode:2 logMessage:@"SELF client setup failed message emitted" dataDispatcherContext:self->_dataDispatcherContext];
+      v28 = [(CDMClientInterface *)self createNSError:@"CDMClientSetup does not have locale?" errorCode:1];
+      [(CDMFoundationClient *)self setValue:v28 forKey:@"errorFromSetup"];
+      [CDMSELFLogUtil cdmClientSetupFailed:v54 errorDomain:1 errorCode:2 logMessage:@"SELF client setup failed message emitted" dataDispatcherContext:self->_dataDispatcherContext];
       if (handlerCopy)
       {
-        handlerCopy[2](handlerCopy, v30);
+        handlerCopy[2](handlerCopy, v28);
       }
 
       goto LABEL_31;
     }
 
-    v22LocaleIdentifier = [localeIdentifier localeIdentifier];
-    v51 = [CDMPlatformUtils normalizeLocaleIdentifier:v22LocaleIdentifier];
+    v20LocaleIdentifier = [localeIdentifier localeIdentifier];
+    v48 = [CDMPlatformUtils normalizeLocaleIdentifier:v20LocaleIdentifier];
 
-    v24 = CDMOSLoggerForCategory(0);
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v22 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      v25 = [v52 debugDescription];
+      v23 = [v49 debugDescription];
       *buf = 136315650;
-      v65 = "[CDMFoundationClient setup:nullableCompletionHandler:]";
-      v66 = 2112;
-      v67 = v25;
-      v68 = 2112;
-      v69 = v51;
-      _os_log_impl(&dword_1DC287000, v24, OS_LOG_TYPE_INFO, "%s Received CDMClientSetup with locale=%@ normalized to %@", buf, 0x20u);
+      v62 = "[CDMFoundationClient setup:nullableCompletionHandler:]";
+      v63 = 2112;
+      v64 = v23;
+      v65 = 2112;
+      v66 = v48;
+      _os_log_impl(&dword_1DC287000, v22, OS_LOG_TYPE_INFO, "%s Received CDMClientSetup with locale=%@ normalized to %@", buf, 0x20u);
     }
 
     if ([(CDMFoundationClient *)self isLighthouseAPIEnabled])
     {
       assetDirPath = [setupCopy assetDirPath];
       overrideSiriVocabSpans = [setupCopy overrideSiriVocabSpans];
-      v28 = CDMOSLoggerForCategory(0);
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+      v26 = CDMOSLoggerForCategory(0);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315650;
-        v65 = "[CDMFoundationClient setup:nullableCompletionHandler:]";
-        v66 = 2112;
-        v67 = assetDirPath;
-        v68 = 2112;
-        v69 = overrideSiriVocabSpans;
-        _os_log_debug_impl(&dword_1DC287000, v28, OS_LOG_TYPE_DEBUG, "%s SiriMini lighthouse API is enabled. Got asset dir path: %@, overrides Siri vocabulary spans: %@.", buf, 0x20u);
+        v62 = "[CDMFoundationClient setup:nullableCompletionHandler:]";
+        v63 = 2112;
+        v64 = assetDirPath;
+        v65 = 2112;
+        v66 = overrideSiriVocabSpans;
+        _os_log_debug_impl(&dword_1DC287000, v26, OS_LOG_TYPE_DEBUG, "%s SiriMini lighthouse API is enabled. Got asset dir path: %@, overrides Siri vocabulary spans: %@.", buf, 0x20u);
       }
     }
 
     else
     {
-      v31 = CDMOSLoggerForCategory(0);
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+      v29 = CDMOSLoggerForCategory(0);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v65 = "[CDMFoundationClient setup:nullableCompletionHandler:]";
-        _os_log_debug_impl(&dword_1DC287000, v31, OS_LOG_TYPE_DEBUG, "%s SiriMini lighthouse API is disabled.", buf, 0xCu);
+        v62 = "[CDMFoundationClient setup:nullableCompletionHandler:]";
+        _os_log_debug_impl(&dword_1DC287000, v29, OS_LOG_TYPE_DEBUG, "%s SiriMini lighthouse API is disabled.", buf, 0xCu);
       }
 
       assetDirPath2 = [setupCopy assetDirPath];
@@ -696,88 +684,86 @@ void __51__CDMFoundationClient_warmupWithCompletionHandler___block_invoke(uint64
       else
       {
         overrideSiriVocabSpans2 = [setupCopy overrideSiriVocabSpans];
-        v34 = overrideSiriVocabSpans2 == 0;
+        v32 = overrideSiriVocabSpans2 == 0;
 
-        if (v34)
+        if (v32)
         {
-          v37 = 0;
-          v54 = 0;
+          v35 = 0;
+          v51 = 0;
           goto LABEL_30;
         }
       }
 
-      v28 = CDMOSLoggerForCategory(0);
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      v26 = CDMOSLoggerForCategory(0);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         assetDirPath3 = [setupCopy assetDirPath];
         overrideSiriVocabSpans3 = [setupCopy overrideSiriVocabSpans];
         *buf = 136315650;
-        v65 = "[CDMFoundationClient setup:nullableCompletionHandler:]";
-        v66 = 2112;
-        v67 = assetDirPath3;
-        v68 = 2112;
-        v69 = overrideSiriVocabSpans3;
-        _os_log_impl(&dword_1DC287000, v28, OS_LOG_TYPE_INFO, "%s [WARN]: CDM got asset dir path: %@, overrides Siri vocabulary spans: %@. However, SiriMini lighthouse API is disabled. You are holding it wrong! CDM will ignore above parameters.", buf, 0x20u);
+        v62 = "[CDMFoundationClient setup:nullableCompletionHandler:]";
+        v63 = 2112;
+        v64 = assetDirPath3;
+        v65 = 2112;
+        v66 = overrideSiriVocabSpans3;
+        _os_log_impl(&dword_1DC287000, v26, OS_LOG_TYPE_INFO, "%s [WARN]: CDM got asset dir path: %@, overrides Siri vocabulary spans: %@. However, SiriMini lighthouse API is disabled. You are holding it wrong! CDM will ignore above parameters.", buf, 0x20u);
       }
 
       overrideSiriVocabSpans = 0;
       assetDirPath = 0;
     }
 
-    v37 = overrideSiriVocabSpans;
-    v54 = assetDirPath;
+    v35 = overrideSiriVocabSpans;
+    v51 = assetDirPath;
 LABEL_30:
-    v38 = [CDMDynamicConfig alloc];
+    v36 = [CDMDynamicConfig alloc];
     embeddingVersion = [setupCopy embeddingVersion];
     activeServiceGraph2 = [setupCopy activeServiceGraph];
     sandboxId = [setupCopy sandboxId];
     serviceStateDirectory = [setupCopy serviceStateDirectory];
-    v43 = [(CDMDynamicConfig *)v38 initWithLanguageCode:v51 embeddingVersion:embeddingVersion graphName:activeServiceGraph2 sandboxId:sandboxId assetPaths:0 assetDirPath:v54 overrideSiriVocabSpans:v37 overrideMentions:0 overrideContextualSpans:0 serviceStateDirectory:serviceStateDirectory];
+    v41 = [(CDMDynamicConfig *)v36 initWithLanguageCode:v48 embeddingVersion:embeddingVersion graphName:activeServiceGraph2 sandboxId:sandboxId assetPaths:0 assetDirPath:v51 overrideSiriVocabSpans:v35 overrideMentions:0 overrideContextualSpans:0 serviceStateDirectory:serviceStateDirectory];
     dynamicConfig = self->_dynamicConfig;
-    self->_dynamicConfig = v43;
+    self->_dynamicConfig = v41;
 
     objc_initWeak(buf, self);
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __55__CDMFoundationClient_setup_nullableCompletionHandler___block_invoke;
     aBlock[3] = &unk_1E862E720;
-    objc_copyWeak(&v63, buf);
-    v45 = setupCopy;
-    v59 = v45;
-    v60 = v52;
-    v46 = v57;
-    v61 = v46;
-    v62 = handlerCopy;
-    v47 = _Block_copy(aBlock);
-    v48 = -[CDMSetupRequestCommand initWithDynamicConfig:selfMetadata:dataDispatcherContext:shouldPerformWarmup:]([CDMSetupRequestCommand alloc], "initWithDynamicConfig:selfMetadata:dataDispatcherContext:shouldPerformWarmup:", self->_dynamicConfig, v46, self->_dataDispatcherContext, [v45 shouldPerformWarmup]);
-    [(CDMFoundationClient *)self doHandleCommand:v48 forCallback:v47];
+    objc_copyWeak(&v60, buf);
+    v43 = setupCopy;
+    v56 = v43;
+    v57 = v49;
+    v44 = v54;
+    v58 = v44;
+    v59 = handlerCopy;
+    v45 = _Block_copy(aBlock);
+    v46 = -[CDMSetupRequestCommand initWithDynamicConfig:selfMetadata:dataDispatcherContext:shouldPerformWarmup:]([CDMSetupRequestCommand alloc], "initWithDynamicConfig:selfMetadata:dataDispatcherContext:shouldPerformWarmup:", self->_dynamicConfig, v44, self->_dataDispatcherContext, [v43 shouldPerformWarmup]);
+    [(CDMFoundationClient *)self doHandleCommand:v46 forCallback:v45];
 
-    objc_destroyWeak(&v63);
+    objc_destroyWeak(&v60);
     objc_destroyWeak(buf);
 
-    v30 = v51;
+    v28 = v48;
 LABEL_31:
 
-    v29 = v52;
+    v27 = v49;
     goto LABEL_32;
   }
 
-  v29 = [(CDMClientInterface *)self createNSError:@"Trust but verify: got nil CDMClientSetup" errorCode:1];
-  [(CDMFoundationClient *)self setValue:v29 forKey:@"errorFromSetup"];
-  [CDMSELFLogUtil cdmClientSetupFailed:v57 errorDomain:1 errorCode:1 logMessage:@"SELF client setup failed message emitted" dataDispatcherContext:self->_dataDispatcherContext];
+  v27 = [(CDMClientInterface *)self createNSError:@"Trust but verify: got nil CDMClientSetup" errorCode:1];
+  [(CDMFoundationClient *)self setValue:v27 forKey:@"errorFromSetup"];
+  [CDMSELFLogUtil cdmClientSetupFailed:v54 errorDomain:1 errorCode:1 logMessage:@"SELF client setup failed message emitted" dataDispatcherContext:self->_dataDispatcherContext];
   if (handlerCopy)
   {
-    handlerCopy[2](handlerCopy, v29);
+    handlerCopy[2](handlerCopy, v27);
   }
 
 LABEL_32:
-
-  v49 = *MEMORY[0x1E69E9840];
 }
 
 void __55__CDMFoundationClient_setup_nullableCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v4 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   if (WeakRetained)
@@ -789,17 +775,17 @@ void __55__CDMFoundationClient_setup_nullableCompletionHandler___block_invoke(ui
       v8 = v7;
       if (os_signpost_enabled(v6))
       {
-        LOWORD(v27) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1DC287000, v6, OS_SIGNPOST_EVENT, v8, "cdmClientSetupReceivedCDM finished setup", "", &v27, 2u);
+        LOWORD(v26) = 0;
+        _os_signpost_emit_with_name_impl(&dword_1DC287000, v6, OS_SIGNPOST_EVENT, v8, "cdmClientSetupReceivedCDM finished setup", "", &v26, 2u);
       }
     }
 
     v9 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v27 = 136315138;
-      v28 = "[CDMFoundationClient setup:nullableCompletionHandler:]_block_invoke";
-      _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s CDM finished processing CDMSetupRequestCommand during setup", &v27, 0xCu);
+      v26 = 136315138;
+      v27 = "[CDMFoundationClient setup:nullableCompletionHandler:]_block_invoke";
+      _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s CDM finished processing CDMSetupRequestCommand during setup", &v26, 0xCu);
     }
 
     if (v4)
@@ -807,14 +793,14 @@ void __55__CDMFoundationClient_setup_nullableCompletionHandler___block_invoke(ui
       v10 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v24 = [v4 localizedDescription];
-        v25 = v24;
-        v26 = [v24 UTF8String];
-        v27 = 136315394;
-        v28 = "[CDMFoundationClient setup:nullableCompletionHandler:]_block_invoke";
-        v29 = 2080;
-        v30 = v26;
-        _os_log_error_impl(&dword_1DC287000, v10, OS_LOG_TYPE_ERROR, "%s [ERR]: Setup failed: %s", &v27, 0x16u);
+        v23 = [v4 localizedDescription];
+        v24 = v23;
+        v25 = [v23 UTF8String];
+        v26 = 136315394;
+        v27 = "[CDMFoundationClient setup:nullableCompletionHandler:]_block_invoke";
+        v28 = 2080;
+        v29 = v25;
+        _os_log_error_impl(&dword_1DC287000, v10, OS_LOG_TYPE_ERROR, "%s [ERR]: Setup failed: %s", &v26, 0x16u);
       }
 
       v11 = [*(a1 + 32) activeServiceGraph];
@@ -830,18 +816,18 @@ void __55__CDMFoundationClient_setup_nullableCompletionHandler___block_invoke(ui
       v15 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        v27 = 136315138;
-        v28 = "[CDMFoundationClient setup:nullableCompletionHandler:]_block_invoke";
-        _os_log_debug_impl(&dword_1DC287000, v15, OS_LOG_TYPE_DEBUG, "%s Set CDMClient KVO as setup error", &v27, 0xCu);
+        v26 = 136315138;
+        v27 = "[CDMFoundationClient setup:nullableCompletionHandler:]_block_invoke";
+        _os_log_debug_impl(&dword_1DC287000, v15, OS_LOG_TYPE_DEBUG, "%s Set CDMClient KVO as setup error", &v26, 0xCu);
       }
 
       [WeakRetained setValue:v4 forKey:@"errorFromSetup"];
       v16 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        v27 = 136315138;
-        v28 = "[CDMFoundationClient setup:nullableCompletionHandler:]_block_invoke";
-        _os_log_debug_impl(&dword_1DC287000, v16, OS_LOG_TYPE_DEBUG, "%s Send CoreAnalytics", &v27, 0xCu);
+        v26 = 136315138;
+        v27 = "[CDMFoundationClient setup:nullableCompletionHandler:]_block_invoke";
+        _os_log_debug_impl(&dword_1DC287000, v16, OS_LOG_TYPE_DEBUG, "%s Send CoreAnalytics", &v26, 0xCu);
       }
 
       v17 = [*(a1 + 40) languageCode];
@@ -850,9 +836,9 @@ void __55__CDMFoundationClient_setup_nullableCompletionHandler___block_invoke(ui
       v18 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
-        v27 = 136315138;
-        v28 = "[CDMFoundationClient setup:nullableCompletionHandler:]_block_invoke";
-        _os_log_debug_impl(&dword_1DC287000, v18, OS_LOG_TYPE_DEBUG, "%s SELF Logging - client setup fail", &v27, 0xCu);
+        v26 = 136315138;
+        v27 = "[CDMFoundationClient setup:nullableCompletionHandler:]_block_invoke";
+        _os_log_debug_impl(&dword_1DC287000, v18, OS_LOG_TYPE_DEBUG, "%s SELF Logging - client setup fail", &v26, 0xCu);
       }
 
       +[CDMSELFLogUtil cdmClientSetupFailed:errorDomain:errorCode:logMessage:dataDispatcherContext:](CDMSELFLogUtil, "cdmClientSetupFailed:errorDomain:errorCode:logMessage:dataDispatcherContext:", *(a1 + 48), 2, [v4 code], @"SELF client setup failed message emitted", WeakRetained[11]);
@@ -880,33 +866,30 @@ void __55__CDMFoundationClient_setup_nullableCompletionHandler___block_invoke(ui
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)registerWithAssetsDelegate:(id)delegate withType:(int64_t)type
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   v7 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     assetsLocaleIdentifier = self->_assetsLocaleIdentifier;
-    v12 = 136315394;
-    v13 = "[CDMFoundationClient registerWithAssetsDelegate:withType:]";
-    v14 = 2112;
-    v15 = assetsLocaleIdentifier;
-    _os_log_debug_impl(&dword_1DC287000, v7, OS_LOG_TYPE_DEBUG, "%s Register assets delegate for CDMFoundationClient for locale: %@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[CDMFoundationClient registerWithAssetsDelegate:withType:]";
+    v13 = 2112;
+    v14 = assetsLocaleIdentifier;
+    _os_log_debug_impl(&dword_1DC287000, v7, OS_LOG_TYPE_DEBUG, "%s Register assets delegate for CDMFoundationClient for locale: %@", &v11, 0x16u);
   }
 
   v8 = [CDMAssetsUtils registerWithAssetsDelegate:delegateCopy withType:type withLocale:self->_assetsLocaleIdentifier];
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (BOOL)areAssetsAvailable:(id)available
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   availableCopy = available;
   if (availableCopy)
   {
@@ -914,11 +897,11 @@ void __55__CDMFoundationClient_setup_nullableCompletionHandler___block_invoke(ui
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       localeIdentifier = [availableCopy localeIdentifier];
-      v17 = 136315394;
-      v18 = "[CDMFoundationClient areAssetsAvailable:]";
-      v19 = 2112;
-      v20 = localeIdentifier;
-      _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s Are assets available called with locale: %@.", &v17, 0x16u);
+      v16 = 136315394;
+      v17 = "[CDMFoundationClient areAssetsAvailable:]";
+      v18 = 2112;
+      v19 = localeIdentifier;
+      _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s Are assets available called with locale: %@.", &v16, 0x16u);
     }
 
     localeIdentifier2 = [availableCopy localeIdentifier];
@@ -933,11 +916,11 @@ void __55__CDMFoundationClient_setup_nullableCompletionHandler___block_invoke(ui
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = self->_assetsLocaleIdentifier;
-      v17 = 136315394;
-      v18 = "[CDMFoundationClient areAssetsAvailable:]";
-      v19 = 2112;
-      v20 = v12;
-      _os_log_impl(&dword_1DC287000, v11, OS_LOG_TYPE_INFO, "%s Normalized localeIdentifier: %@", &v17, 0x16u);
+      v16 = 136315394;
+      v17 = "[CDMFoundationClient areAssetsAvailable:]";
+      v18 = 2112;
+      v19 = v12;
+      _os_log_impl(&dword_1DC287000, v11, OS_LOG_TYPE_INFO, "%s Normalized localeIdentifier: %@", &v16, 0x16u);
     }
 
     v13 = [(CDMServiceCenter *)self->_serviceCenter areAssetsAvailable:self->_assetsLocaleIdentifier];
@@ -948,17 +931,16 @@ void __55__CDMFoundationClient_setup_nullableCompletionHandler___block_invoke(ui
     v14 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v17 = 136315394;
-      v18 = "[CDMFoundationClient areAssetsAvailable:]";
-      v19 = 2112;
-      v20 = 0;
-      _os_log_error_impl(&dword_1DC287000, v14, OS_LOG_TYPE_ERROR, "%s [ERR]: I NEED localeIdentifier=%@", &v17, 0x16u);
+      v16 = 136315394;
+      v17 = "[CDMFoundationClient areAssetsAvailable:]";
+      v18 = 2112;
+      v19 = 0;
+      _os_log_error_impl(&dword_1DC287000, v14, OS_LOG_TYPE_ERROR, "%s [ERR]: I NEED localeIdentifier=%@", &v16, 0x16u);
     }
 
     v13 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -1017,21 +999,19 @@ void __55__CDMFoundationClient_setup_nullableCompletionHandler___block_invoke(ui
 
 + (id)createEmptyNluRequestId
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v7 = 136315138;
-    v8 = "+[CDMFoundationClient createEmptyNluRequestId]";
-    _os_log_impl(&dword_1DC287000, v2, OS_LOG_TYPE_INFO, "%s [WARN]: Creating an empty CDMNluRequestID object to send back", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "+[CDMFoundationClient createEmptyNluRequestId]";
+    _os_log_impl(&dword_1DC287000, v2, OS_LOG_TYPE_INFO, "%s [WARN]: Creating an empty CDMNluRequestID object to send back", &v6, 0xCu);
   }
 
   v3 = objc_alloc_init(MEMORY[0x1E69D11C0]);
   [v3 setIdA:@"received-invalid-CDMNluRequest"];
   [v3 setConnectionId:@"received-invalid-CDMNluRequest"];
   v4 = [[CDMNluRequestID alloc] initWithObjcProto:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

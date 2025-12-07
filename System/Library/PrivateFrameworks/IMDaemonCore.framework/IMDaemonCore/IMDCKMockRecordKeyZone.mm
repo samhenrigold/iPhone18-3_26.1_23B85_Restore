@@ -9,38 +9,38 @@
 
 - (BOOL)_operationIsCloudKitMetricsOperation:(id)operation
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   recordsToSave = [operation recordsToSave];
-  v4 = [recordsToSave countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [recordsToSave countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     while (2)
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(recordsToSave);
         }
 
-        if ([objc_msgSend(objc_msgSend(*(*(&v10 + 1) + 8 * v7) "recordID")])
+        if ([objc_msgSend(objc_msgSend(*(*(&v9 + 1) + 8 * v7) "recordID")])
         {
           LOBYTE(v4) = 1;
-          goto LABEL_11;
+          return v4;
         }
 
         ++v7;
       }
 
       while (v5 != v7);
-      v4 = [recordsToSave countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [recordsToSave countByEnumeratingWithState:&v9 objects:v13 count:16];
       v5 = v4;
       if (v4)
       {
@@ -51,14 +51,12 @@
     }
   }
 
-LABEL_11:
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (void)handleOperation:(id)operation
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
@@ -71,14 +69,13 @@ LABEL_11:
   }
 
   queue = [(IMDCKMockRecordZone *)self queue];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = sub_22B558D80;
-  v8[3] = &unk_2787043C8;
-  v8[4] = operation;
-  v8[5] = self;
-  dispatch_async(queue, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = sub_22B558D80;
+  v7[3] = &unk_2787043C8;
+  v7[4] = operation;
+  v7[5] = self;
+  dispatch_async(queue, v7);
 }
 
 - (void)_handleWritingCloudKitMetrics:(id)metrics

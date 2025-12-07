@@ -10,86 +10,81 @@
 + (PFDayOfWeekSchedule)firstDayOfWeek
 {
   v2 = sub_1D9176FDC();
-  v3 = *(v2 - 8);
-  v4 = v3[8];
+  v3 = *(v2 - 1);
   MEMORY[0x1EEE9AC00](v2);
-  v6 = &v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v9 = &v17 - v8;
+  v5 = &v16 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = &v16 - v7;
   sub_1D9176FAC();
-  v10 = sub_1D9176F2C();
-  v11 = v3[2];
-  v11(v6, v9, v2);
-  v12 = type metadata accessor for DayOfWeekSchedule();
-  v13 = objc_allocWithZone(v12);
-  *&v13[OBJC_IVAR___PFDayOfWeekSchedule_dayOfWeek] = v10;
-  v11(&v13[OBJC_IVAR___PFDayOfWeekSchedule_calendar], v6, v2);
-  v17.receiver = v13;
-  v17.super_class = v12;
-  v14 = objc_msgSendSuper2(&v17, sel_init);
-  v15 = v3[1];
-  v15(v6, v2);
-  v15(v9, v2);
+  v9 = sub_1D9176F2C();
+  v10 = *(v3 + 16);
+  v10(v5, v8, v2);
+  v11 = type metadata accessor for DayOfWeekSchedule(0);
+  v12 = objc_allocWithZone(v11);
+  *&v12[OBJC_IVAR___PFDayOfWeekSchedule_dayOfWeek] = v9;
+  v10(&v12[OBJC_IVAR___PFDayOfWeekSchedule_calendar], v5, v2);
+  v16.receiver = v12;
+  v16.super_class = v11;
+  v13 = objc_msgSendSuper2(&v16, sel_init);
+  v14 = *(v3 + 8);
+  v14(v5, v2);
+  v14(v8, v2);
 
-  return v14;
+  return v13;
 }
 
 - (PFDayOfWeekSchedule)initWithDayOfWeek:(int64_t)week calendar:(id)calendar
 {
   v6 = sub_1D9176FDC();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
+  v7 = *(v6 - 1);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D9176F8C();
   *(&self->super.isa + OBJC_IVAR___PFDayOfWeekSchedule_dayOfWeek) = week;
-  (*(v7 + 16))(self + OBJC_IVAR___PFDayOfWeekSchedule_calendar, v10, v6);
-  v11 = type metadata accessor for DayOfWeekSchedule();
-  v14.receiver = self;
-  v14.super_class = v11;
-  v12 = [(PFDayOfWeekSchedule *)&v14 init];
-  (*(v7 + 8))(v10, v6);
-  return v12;
+  (*(v7 + 16))(self + OBJC_IVAR___PFDayOfWeekSchedule_calendar, v9, v6);
+  v10 = type metadata accessor for DayOfWeekSchedule(0);
+  v13.receiver = self;
+  v13.super_class = v10;
+  v11 = [(PFDayOfWeekSchedule *)&v13 init];
+  (*(v7 + 8))(v9, v6);
+  return v11;
 }
 
 - (BOOL)shouldExecuteOn:(id)on previousExecution:(id)execution
 {
   v6 = sub_1D9176FBC();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v25 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECAB75C0, &unk_1D9188A50);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v25 - v13;
-  v15 = sub_1D9176E3C();
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  MEMORY[0x1EEE9AC00](v15);
-  v19 = &v25 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECAB75C0, &unk_1D9188A50);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = &v22 - v11;
+  v13 = sub_1D9176E3C();
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v22 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D9176DFC();
   if (execution)
   {
     sub_1D9176DFC();
-    v20 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v20 = 1;
+    v17 = 1;
   }
 
-  (*(v16 + 56))(v14, v20, 1, v15);
-  (*(v7 + 104))(v10, *MEMORY[0x1E6969AB0], v6);
+  (*(v14 + 56))(v12, v17, 1, v13);
+  (*(v7 + 104))(v9, *MEMORY[0x1E6969AB0], v6);
   selfCopy = self;
-  v22 = sub_1D9176FCC();
-  (*(v7 + 8))(v10, v6);
-  sub_1D8CF5EF8(v14);
-  (*(v16 + 8))(v19, v15);
-  v23 = *(&selfCopy->super.isa + OBJC_IVAR___PFDayOfWeekSchedule_dayOfWeek);
+  v19 = sub_1D9176FCC();
+  (*(v7 + 8))(v9, v6);
+  sub_1D8CF5EF8(v12);
+  (*(v14 + 8))(v16, v13);
+  v20 = *(&selfCopy->super.isa + OBJC_IVAR___PFDayOfWeekSchedule_dayOfWeek);
 
-  return v22 == v23;
+  return v19 == v20;
 }
 
 - (PFDayOfWeekSchedule)init

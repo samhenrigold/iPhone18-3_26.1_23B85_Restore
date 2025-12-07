@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   backgroundView = self->_backgroundView;
-  [(SBFloatyFolderBackgroundClipView *)self bounds];
+  objc_msgSend_bounds(self, a2);
 
   [(SBFolderBackgroundView *)backgroundView setFrame:?];
 }

@@ -21,7 +21,7 @@
   if ([urlAddresses count])
   {
     placeItem = [(MKPlaceActionManager *)self placeItem];
-    v6 = ([placeItem options] & 8) == 0;
+    v6 = (objc_msgSend_options(placeItem) & 8) == 0;
   }
 
   else
@@ -49,7 +49,7 @@
   countryCode = [mEMORY[0x1E69A1CD8] countryCode];
   v6 = [countryCode isEqualToString:@"KR"];
 
-  if (!v6 || ([(MKPlaceActionManager *)self options]& 0x80000) == 0 && ([(MKPlaceActionManager *)self options]& 0x40000) == 0)
+  if (!v6 || (objc_msgSend_options(self) & 0x80000) == 0 && (objc_msgSend_options(self) & 0x40000) == 0)
   {
     reportAProblemFooterAction = [(MKPlaceActionManager *)self reportAProblemFooterAction];
     [needCopy addObject:reportAProblemFooterAction];
@@ -69,7 +69,7 @@
 - (void)_addMyLocationFooterActions:(id)actions
 {
   actionsCopy = actions;
-  if (([(MKPlaceActionManager *)self options]& 0x20000000) != 0)
+  if ((objc_msgSend_options(self) & 0x20000000) != 0)
   {
     [(MKPlaceActionManager *)self reportAProblemAddPlaceFooterAction];
   }
@@ -138,7 +138,7 @@
     [array addObject:v7];
   }
 
-  if (GEOSupportsOfflineMaps() && ([(MKPlaceActionManager *)self options]& 0x1000000000) == 0)
+  if (GEOSupportsOfflineMaps() && (objc_msgSend_options(self) & 0x1000000000) == 0)
   {
     v8 = [MKPlaceCardActionItem actionItemWithType:34];
     [array addObject:v8];
@@ -163,7 +163,7 @@
 {
   appCopy = app;
   actionsCopy = actions;
-  if (([(MKPlaceActionManager *)self options]& 0x20000000) != 0)
+  if ((objc_msgSend_options(self) & 0x20000000) != 0)
   {
     [actionsCopy addObject:appCopy];
   }
@@ -181,16 +181,16 @@
   }
 
   v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  options = [(MKPlaceActionManager *)self options];
+  v7 = objc_msgSend_options(self);
   isCurrentLocation = [(MKPlaceActionManager *)self isCurrentLocation];
   placeItem = [(MKPlaceActionManager *)self placeItem];
-  options2 = [placeItem options];
+  v10 = objc_msgSend_options(placeItem);
 
   placeItem2 = [(MKPlaceActionManager *)self placeItem];
   mapItem2 = [placeItem2 mapItem];
   _isMapItemTypeAddress = [mapItem2 _isMapItemTypeAddress];
 
-  if ((options & 0x8000000000) != 0)
+  if ((v7 & 0x8000000000) != 0)
   {
     [(MUPlaceActionManager *)self _addDeveloperPlaceCardFooterActions:v6];
   }
@@ -205,7 +205,7 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    if ((options2 & 2) != 0)
+    if ((v10 & 2) != 0)
     {
       [(MUPlaceActionManager *)self _addDroppedPinFooterActions:v6];
       goto LABEL_12;

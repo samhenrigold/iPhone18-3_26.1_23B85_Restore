@@ -5,6 +5,7 @@
 - (id)_reallyLoad:(int64_t)load shouldDownload:(BOOL)download;
 - (id)addLoadObserver:(id)observer;
 - (id)onScheduler:(id)scheduler addLoadObserver:(id)observer;
+- (void)_load:(int64_t)_load shouldDownload:(BOOL)download;
 - (void)_setupMeetingData;
 - (void)_setupObservableStreams;
 - (void)assignAttachmentManagerToContent:(id)content;
@@ -77,11 +78,10 @@ void __30__MFMessageLoadingContext_log__block_invoke(uint64_t a1)
 
 - (void)_setupMeetingData
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "unable to get an event with external id %@ after it was successfully reconstituted.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "unable to get an event with external id %@ after it was successfully reconstituted.", &v2, 0xCu);
 }
 
 - (void)_setupObservableStreams
@@ -238,29 +238,63 @@ void __55__MFMessageLoadingContext_onScheduler_addLoadObserver___block_invoke_2(
   }
 }
 
+- (void)_load:(int64_t)_load shouldDownload:(BOOL)download
+{
+  downloadCopy = download;
+  currentThread = [MEMORY[0x1E696AF00] currentThread];
+  threadDictionary = [currentThread threadDictionary];
+
+  v8 = *MEMORY[0x1E69AD650];
+  v9 = [threadDictionary objectForKeyedSubscript:*MEMORY[0x1E69AD650]];
+  v10 = [MEMORY[0x1E696AD98] numberWithBool:downloadCopy];
+  [threadDictionary setObject:v10 forKeyedSubscript:v8];
+
+  v11 = [(MFMessageLoadingContext *)self _reallyLoad:_load shouldDownload:downloadCopy];
+  isCanceled = [(EFManualCancelationToken *)self->_cancelable isCanceled];
+  if (v11)
+  {
+    v13 = isCanceled;
+  }
+
+  else
+  {
+    v13 = 1;
+  }
+
+  if ((v13 & 1) == 0)
+  {
+    [(EFObserver *)self->_inputObservable observerDidReceiveResult:v11];
+  }
+
+  if (v9)
+  {
+    [threadDictionary setObject:v9 forKey:v8];
+  }
+}
+
 - (id)_reallyLoad:(int64_t)load shouldDownload:(BOOL)download
 {
   downloadCopy = download;
-  v125 = *MEMORY[0x1E69E9840];
+  v124 = *MEMORY[0x1E69E9840];
   if (([(EFManualCancelationToken *)self->_cancelable isCanceled]& 1) != 0)
   {
-    v111 = 0;
+    v110 = 0;
     goto LABEL_62;
   }
 
-  v111 = objc_alloc_init(MFMessageLoadingContextEvent);
-  [(MFMessageLoadingContextEvent *)v111 setContext:self];
+  v110 = objc_alloc_init(MFMessageLoadingContextEvent);
+  [(MFMessageLoadingContextEvent *)v110 setContext:self];
   message = [(MFMessageLoadingContext *)self message];
   messageBody = [(MFMessageLoadingContext *)self messageBody];
   v9 = +[MFActivityMonitor pushNewMonitor];
   cancelable = self->_cancelable;
-  v118[0] = MEMORY[0x1E69E9820];
-  v118[1] = 3221225472;
-  v118[2] = __54__MFMessageLoadingContext__reallyLoad_shouldDownload___block_invoke;
-  v118[3] = &unk_1E7AA25C0;
-  v106 = v9;
-  v119 = v106;
-  [(EFManualCancelationToken *)cancelable addCancelationBlock:v118];
+  v117[0] = MEMORY[0x1E69E9820];
+  v117[1] = 3221225472;
+  v117[2] = __54__MFMessageLoadingContext__reallyLoad_shouldDownload___block_invoke;
+  v117[3] = &unk_1E7AA25C0;
+  v105 = v9;
+  v118 = v105;
+  [(EFManualCancelationToken *)cancelable addCancelationBlock:v117];
   v11 = +[MFActivityMonitor currentMonitor];
   selfCopy = self;
   [v11 recordTransportType:1];
@@ -297,11 +331,11 @@ void __55__MFMessageLoadingContext_onScheduler_addLoadObserver___block_invoke_2(
       messageBody2 = [message messageBodyIfAvailable];
     }
 
-    v107 = messageBody2;
+    v106 = messageBody2;
 
-    v12 = v107;
+    v12 = v106;
     selfCopy4 = self;
-    if (v107)
+    if (v106)
     {
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -309,7 +343,7 @@ void __55__MFMessageLoadingContext_onScheduler_addLoadObserver___block_invoke_2(
         currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
         [currentHandler handleFailureInMethod:a2 object:self file:@"MFMessageLoadingContext.m" lineNumber:355 description:@"body must be a MIME body"];
 
-        v12 = v107;
+        v12 = v106;
         selfCopy4 = self;
       }
     }
@@ -317,39 +351,39 @@ void __55__MFMessageLoadingContext_onScheduler_addLoadObserver___block_invoke_2(
     [(MFMessageLoadingContext *)selfCopy4 _setMessageBody:v12];
     if (!v12)
     {
-      v62 = +[MFMessageLoadingContext log];
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      v61 = +[MFMessageLoadingContext log];
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
       {
         messageID = [message messageID];
-        [(MFMessageLoadingContext *)messageID _reallyLoad:buf shouldDownload:v62];
+        [(MFMessageLoadingContext *)messageID _reallyLoad:buf shouldDownload:v61];
       }
 
-      -[MFMessageLoadingContextEvent setTransportType:](v111, "setTransportType:", [v106 transportType]);
-      v64 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E699A730] code:2050 userInfo:0];
-      [(MFMessageLoadingContextEvent *)v111 setError:v64];
+      -[MFMessageLoadingContextEvent setTransportType:](v110, "setTransportType:", [v105 transportType]);
+      v63 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E699A730] code:2050 userInfo:0];
+      [(MFMessageLoadingContextEvent *)v110 setError:v63];
 
       +[MFActivityMonitor destroyMonitor];
-      v65 = v111;
-      v108 = 0;
+      v64 = v110;
+      v107 = 0;
       goto LABEL_61;
     }
   }
 
-  v117 = 0;
-  v108 = v12;
+  v116 = 0;
+  v107 = v12;
   v17 = [objc_opt_class() _nextOffsetForOffset:-[MFMessageLoadingContext contentOffset](selfCopy4 totalLength:"contentOffset") requestedAmount:{objc_msgSend(v12, "totalTextSize"), 0}];
   topLevelPart = [v12 topLevelPart];
   v19 = 0;
   v20 = 0;
   v21 = 0;
-  v116 = 0;
+  v115 = 0;
   v22 = *MEMORY[0x1E699A730];
   v23 = 1;
   do
   {
     if (!v23)
     {
-      v24 = [v19 contentToOffset:v17 resultOffset:&v117 downloadIfNecessary:downloadCopy asHTML:1 isComplete:&v116];
+      v24 = [v19 contentToOffset:v17 resultOffset:&v116 downloadIfNecessary:downloadCopy asHTML:1 isComplete:&v115];
 
       v25 = v19;
       v21 = v24;
@@ -364,12 +398,12 @@ void __55__MFMessageLoadingContext_onScheduler_addLoadObserver___block_invoke_2(
 
     v26 = [message bestAlternativeInPart:topLevelPart];
 
-    if (v20 && v26 == v20 && _contentLoadedEmptyDocument(v21, v117))
+    if (v20 && v26 == v20 && _contentLoadedEmptyDocument(v21, v116))
     {
 
-      v117 = 0;
+      v116 = 0;
       v27 = [MEMORY[0x1E696ABC0] errorWithDomain:v22 code:2050 userInfo:0];
-      [(MFMessageLoadingContextEvent *)v111 setError:v27];
+      [(MFMessageLoadingContextEvent *)v110 setError:v27];
       v21 = 0;
       v20 = 0;
       v26 = 0;
@@ -384,26 +418,26 @@ LABEL_26:
 
   while (!v26 || v26 != v20);
   [(MFMessageLoadingContext *)selfCopy setLoadedPart:v26];
-  [(MFMessageLoadingContext *)selfCopy setContentOffset:v117];
+  [(MFMessageLoadingContext *)selfCopy setContentOffset:v116];
   rfc822DecodedMessageBody = [v26 rfc822DecodedMessageBody];
   v29 = rfc822DecodedMessageBody;
-  v30 = v108;
+  v30 = v107;
   if (rfc822DecodedMessageBody)
   {
     v30 = rfc822DecodedMessageBody;
   }
 
-  v109 = v30;
+  v108 = v30;
 
-  attachments = [v109 attachments];
-  v115[0] = MEMORY[0x1E69E9820];
-  v115[1] = 3221225472;
-  v115[2] = __54__MFMessageLoadingContext__reallyLoad_shouldDownload___block_invoke_138;
-  v115[3] = &unk_1E7AA7068;
-  v115[4] = selfCopy;
-  v105 = [attachments ef_map:v115];
+  attachments = [v108 attachments];
+  v114[0] = MEMORY[0x1E69E9820];
+  v114[1] = 3221225472;
+  v114[2] = __54__MFMessageLoadingContext__reallyLoad_shouldDownload___block_invoke_138;
+  v114[3] = &unk_1E7AA7068;
+  v114[4] = selfCopy;
+  v104 = [attachments ef_map:v114];
 
-  if ([v105 count])
+  if ([v104 count])
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -412,35 +446,35 @@ LABEL_26:
       memset(buf, 170, 16);
       os_activity_scope_enter(v32, buf);
       attachmentManager = [(MFMessageLoadingContext *)selfCopy attachmentManager];
-      [attachmentManager insertMessageAttachmentMetadataToPersistence:v105 forMessage:message];
+      [attachmentManager insertMessageAttachmentMetadataToPersistence:v104 forMessage:message];
 
       v34 = EDAttachmentsLog();
       if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
-        v123 = 138543362;
-        v124 = v105;
-        _os_log_impl(&dword_1B0389000, v34, OS_LOG_TYPE_DEFAULT, "Loading attachments %{public}@", &v123, 0xCu);
+        v122 = 138543362;
+        v123 = v104;
+        _os_log_impl(&dword_1B0389000, v34, OS_LOG_TYPE_DEFAULT, "Loading attachments %{public}@", &v122, 0xCu);
       }
 
       os_activity_scope_leave(buf);
     }
   }
 
-  LOBYTE(v123) = 0;
-  v114 = 0;
-  [v109 numberOfAttachmentsSigned:&v123 encrypted:&v114];
+  LOBYTE(v122) = 0;
+  v113 = 0;
+  [v108 numberOfAttachmentsSigned:&v122 encrypted:&v113];
   messageFlags = [(MFMailMessage *)selfCopy->_message messageFlags];
-  if (v123 == 1 && (messageFlags & 0x800000) == 0 || (v114 & 1) != 0 && (messageFlags & 8) == 0)
+  if (v122 == 1 && (messageFlags & 0x800000) == 0 || (v113 & 1) != 0 && (messageFlags & 8) == 0)
   {
-    LOBYTE(v123) = v123 | ((messageFlags & 0x800000) != 0);
-    v114 |= (messageFlags & 8) != 0;
+    LOBYTE(v122) = v122 | ((messageFlags & 0x800000) != 0);
+    v113 |= (messageFlags & 8) != 0;
     numberOfAttachments = [message numberOfAttachments];
-    [message setNumberOfAttachments:numberOfAttachments isSigned:v123 isEncrypted:v114];
+    [message setNumberOfAttachments:numberOfAttachments isSigned:v122 isEncrypted:v113];
   }
 
-  if (_contentLoadedEmptyDocument(v21, v117))
+  if (_contentLoadedEmptyDocument(v21, v116))
   {
-    [(MFMessageLoadingContextEvent *)v111 setContent:MEMORY[0x1E695E0F0]];
+    [(MFMessageLoadingContextEvent *)v110 setContent:MEMORY[0x1E695E0F0]];
     [(MFMessageLoadingContext *)selfCopy setHasLoadedSomeContent:1];
     goto LABEL_43;
   }
@@ -460,28 +494,28 @@ LABEL_26:
     v41 = 0;
   }
 
-  v104 = error;
+  v103 = error;
   if (v41)
   {
     [(MFMessageLoadingContext *)selfCopy setHasLoadedSomeContent:0];
-    -[MFMessageLoadingContextEvent setTransportType:](v111, "setTransportType:", [v106 transportType]);
-    [(MFMessageLoadingContextEvent *)v111 setError:v104];
+    -[MFMessageLoadingContextEvent setTransportType:](v110, "setTransportType:", [v105 transportType]);
+    [(MFMessageLoadingContextEvent *)v110 setError:v103];
     +[MFActivityMonitor destroyMonitor];
-    v42 = v111;
+    v42 = v110;
 
     goto LABEL_60;
   }
 
-  v59 = v109;
-  v102 = v59;
+  v58 = v108;
+  v101 = v58;
   if ([v21 count])
   {
+    v59 = 0;
     v60 = 0;
-    v61 = 0;
     goto LABEL_76;
   }
 
-  topLevelPart2 = [v59 topLevelPart];
+  topLevelPart2 = [v58 topLevelPart];
   sMIMEError = [topLevelPart2 SMIMEError];
 
   domain = [sMIMEError domain];
@@ -491,30 +525,30 @@ LABEL_26:
     goto LABEL_74;
   }
 
-  v69 = [sMIMEError code] == 1035;
+  v68 = [sMIMEError code] == 1035;
 
-  if (!v69)
+  if (!v68)
   {
 LABEL_74:
+    v59 = 0;
     v60 = 0;
-    v61 = 0;
     goto LABEL_75;
   }
 
-  v70 = sMIMEError;
-  v61 = 1;
-  v60 = sMIMEError;
+  v69 = sMIMEError;
+  v60 = 1;
+  v59 = sMIMEError;
 LABEL_75:
 
 LABEL_76:
-  v71 = v60;
-  if (v61)
+  v70 = v59;
+  if (v60)
   {
     [(MFMessageLoadingContext *)selfCopy setHasLoadedSomeContent:0];
-    -[MFMessageLoadingContextEvent setTransportType:](v111, "setTransportType:", [v106 transportType]);
-    [(MFMessageLoadingContextEvent *)v111 setError:v71];
+    -[MFMessageLoadingContextEvent setTransportType:](v110, "setTransportType:", [v105 transportType]);
+    [(MFMessageLoadingContextEvent *)v110 setError:v70];
     +[MFActivityMonitor destroyMonitor];
-    v72 = v111;
+    v71 = v110;
 
     goto LABEL_60;
   }
@@ -522,38 +556,38 @@ LABEL_76:
   isHTML = [v19 isHTML];
   if (load < 1)
   {
-    v74 = isHTML;
+    v73 = isHTML;
   }
 
   else
   {
-    v74 = 0;
+    v73 = 0;
   }
 
-  v103 = v71;
-  if (v74 != 1 || [(MFMessageLoadingContext *)selfCopy contentOffset]>> 14 > 2 || (v116 & 1) != 0)
+  v102 = v70;
+  if (v73 != 1 || [(MFMessageLoadingContext *)selfCopy contentOffset]>> 14 > 2 || (v115 & 1) != 0)
   {
     goto LABEL_113;
   }
 
-  v98 = [v21 count];
-  v100 = 0;
-  v101 = v21;
-  v75 = 0;
-  while ((v116 & 1) != 0 || v75 >= v98)
+  v97 = [v21 count];
+  v99 = 0;
+  v100 = v21;
+  v74 = 0;
+  while ((v115 & 1) != 0 || v74 >= v97)
   {
 LABEL_103:
-    v89 = v75;
-    v90 = +[MFMessageLoadingContext _nextOffsetForOffset:totalLength:requestedAmount:](MFMessageLoadingContext, "_nextOffsetForOffset:totalLength:requestedAmount:", -[MFMessageLoadingContext contentOffset](selfCopy, "contentOffset"), [v108 totalTextSize], 0x4000);
-    v21 = [v19 contentToOffset:v90 resultOffset:&v117 downloadIfNecessary:downloadCopy asHTML:1 isComplete:&v116];
+    v88 = v74;
+    v89 = +[MFMessageLoadingContext _nextOffsetForOffset:totalLength:requestedAmount:](MFMessageLoadingContext, "_nextOffsetForOffset:totalLength:requestedAmount:", -[MFMessageLoadingContext contentOffset](selfCopy, "contentOffset"), [v107 totalTextSize], 0x4000);
+    v21 = [v19 contentToOffset:v89 resultOffset:&v116 downloadIfNecessary:downloadCopy asHTML:1 isComplete:&v115];
 
-    [(MFMessageLoadingContext *)selfCopy setContentOffset:v117];
-    if (v17 != v90)
+    [(MFMessageLoadingContext *)selfCopy setContentOffset:v116];
+    if (v17 != v89)
     {
-      v17 = v90;
-      v101 = v21;
-      v75 = v89;
-      if (v117 < 0xC000)
+      v17 = v89;
+      v100 = v21;
+      v74 = v88;
+      if (v116 < 0xC000)
       {
         continue;
       }
@@ -562,19 +596,19 @@ LABEL_103:
     goto LABEL_113;
   }
 
-  v97 = sel_encodedFileSize;
+  v96 = sel_encodedFileSize;
   while (2)
   {
-    v76 = v75;
-    v77 = [v101 objectAtIndex:v97];
+    v75 = v74;
+    v76 = [v100 objectAtIndex:v96];
     if ((objc_opt_respondsToSelector() & 1) == 0)
     {
       if ((objc_opt_respondsToSelector() & 1) == 0)
       {
 LABEL_101:
 
-        v75 = v76 + 1;
-        if ((v116 & 1) != 0 || v75 >= v98)
+        v74 = v75 + 1;
+        if ((v115 & 1) != 0 || v74 >= v97)
         {
           goto LABEL_103;
         }
@@ -582,49 +616,49 @@ LABEL_101:
         continue;
       }
 
-      v88 = [v77 encodedFileSize] + v100;
+      v87 = [v76 encodedFileSize] + v99;
 LABEL_100:
-      v100 = v88;
+      v99 = v87;
       goto LABEL_101;
     }
 
     break;
   }
 
-  htmlData = [v77 htmlData];
-  v78 = htmlData;
+  htmlData = [v76 htmlData];
+  v77 = htmlData;
   bytes = [htmlData bytes];
-  v80 = [htmlData length];
+  v79 = [htmlData length];
   if (!bytes)
   {
-    v83 = 0;
+    v82 = 0;
     goto LABEL_107;
   }
 
-  v81 = v80;
-  v82 = memchr(bytes, 60, v80);
-  if (!v82 || (v83 = v82, v84 = &bytes[v81], (v84 - v82) < 6))
+  v80 = v79;
+  v81 = memchr(bytes, 60, v79);
+  if (!v81 || (v82 = v81, v83 = &bytes[v80], (v83 - v81) < 6))
   {
 LABEL_97:
-    v87 = [htmlData length];
+    v86 = [htmlData length];
 
-    v88 = v87 + v100;
+    v87 = v86 + v99;
     goto LABEL_100;
   }
 
   while (1)
   {
-    v85 = *(v83 + 5);
-    if ((v85 == 62 || v85 == 32) && !strncasecmp(v83 + 1, "body", 4uLL))
+    v84 = *(v82 + 5);
+    if ((v84 == 62 || v84 == 32) && !strncasecmp(v82 + 1, "body", 4uLL))
     {
       break;
     }
 
-    v86 = memchr((v83 + 1), 60, v84 - (v83 + 1));
-    if (v86)
+    v85 = memchr((v82 + 1), 60, v83 - (v82 + 1));
+    if (v85)
     {
-      v83 = v86;
-      if ((v84 - v86) > 5)
+      v82 = v85;
+      if ((v83 - v85) > 5)
       {
         continue;
       }
@@ -635,47 +669,47 @@ LABEL_97:
 
 LABEL_107:
 
-  v91 = v83 - bytes + v100;
-  if (v91 < 0x401)
+  v90 = v82 - bytes + v99;
+  if (v90 < 0x401)
   {
-    v21 = v101;
+    v21 = v100;
   }
 
   else
   {
     contentOffset = [(MFMessageLoadingContext *)selfCopy contentOffset];
-    totalTextSize = [v108 totalTextSize];
-    if (v91 <= 0x1F58)
+    totalTextSize = [v107 totalTextSize];
+    if (v90 <= 0x1F58)
     {
-      v94 = 8024;
+      v93 = 8024;
     }
 
     else
     {
-      v94 = v91;
+      v93 = v90;
     }
 
-    v21 = [v19 contentToOffset:+[MFMessageLoadingContext _nextOffsetForOffset:totalLength:requestedAmount:](MFMessageLoadingContext resultOffset:"_nextOffsetForOffset:totalLength:requestedAmount:" downloadIfNecessary:contentOffset asHTML:totalTextSize isComplete:{v94), &v117, downloadCopy, 1, &v116}];
+    v21 = [v19 contentToOffset:+[MFMessageLoadingContext _nextOffsetForOffset:totalLength:requestedAmount:](MFMessageLoadingContext resultOffset:"_nextOffsetForOffset:totalLength:requestedAmount:" downloadIfNecessary:contentOffset asHTML:totalTextSize isComplete:{v93), &v116, downloadCopy, 1, &v115}];
 
-    [(MFMessageLoadingContext *)selfCopy setContentOffset:v117];
+    [(MFMessageLoadingContext *)selfCopy setContentOffset:v116];
   }
 
 LABEL_113:
-  [(MFMessageLoadingContextEvent *)v111 setContent:v21];
-  if (v117)
+  [(MFMessageLoadingContextEvent *)v110 setContent:v21];
+  if (v116)
   {
-    v95 = [v21 count] != 0;
+    v94 = [v21 count] != 0;
   }
 
   else
   {
-    v95 = 0;
+    v94 = 0;
   }
 
-  [(MFMessageLoadingContext *)selfCopy setHasLoadedSomeContent:v95];
+  [(MFMessageLoadingContext *)selfCopy setHasLoadedSomeContent:v94];
 
 LABEL_43:
-  if (v116)
+  if (v115)
   {
     v37 = 1;
   }
@@ -694,13 +728,13 @@ LABEL_43:
       v45 = 0;
     }
 
-    [(MFMessageLoadingContextEvent *)v111 setRemainingBytes:v45];
+    [(MFMessageLoadingContextEvent *)v110 setRemainingBytes:v45];
     v46 = +[MFMessageLoadingContext log];
     if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
       message2 = [(MFMessageLoadingContext *)selfCopy message];
       ef_publicDescription = [message2 ef_publicDescription];
-      remainingBytes = [(MFMessageLoadingContextEvent *)v111 remainingBytes];
+      remainingBytes = [(MFMessageLoadingContextEvent *)v110 remainingBytes];
       *buf = 138543618;
       *&buf[4] = ef_publicDescription;
       *&buf[12] = 2048;
@@ -708,51 +742,50 @@ LABEL_43:
       _os_log_impl(&dword_1B0389000, v46, OS_LOG_TYPE_DEFAULT, "Body download not complete for message %{public}@. Remaining bytes: %ld", buf, 0x16u);
     }
 
-    v37 = v116;
+    v37 = v115;
   }
 
-  [(MFMessageLoadingContextEvent *)v111 setHasLoadedCompleteBody:v37 & 1];
+  [(MFMessageLoadingContextEvent *)v110 setHasLoadedCompleteBody:v37 & 1];
   v50 = [message bestAlternativeInPart:topLevelPart];
-  [(MFMessageLoadingContextEvent *)v111 setHasLoadedBestAlternativePart:v20 == v50];
+  [(MFMessageLoadingContextEvent *)v110 setHasLoadedBestAlternativePart:v20 == v50];
 
-  [(MFMessageLoadingContextEvent *)v111 setLoadedPart:v20];
-  [(MFMessageLoadingContextEvent *)v111 setLoadedBody:v109];
-  -[MFMessageLoadingContextEvent setTransportType:](v111, "setTransportType:", [v106 transportType]);
-  [(MFMessageLoadingContext *)selfCopy setHasLoadedCompleteMessage:v116];
-  [(MFMessageLoadingContext *)selfCopy setHasLoadedBestAlternativePart:[(MFMessageLoadingContextEvent *)v111 hasLoadedBestAlternativePart]];
+  [(MFMessageLoadingContextEvent *)v110 setLoadedPart:v20];
+  [(MFMessageLoadingContextEvent *)v110 setLoadedBody:v108];
+  -[MFMessageLoadingContextEvent setTransportType:](v110, "setTransportType:", [v105 transportType]);
+  [(MFMessageLoadingContext *)selfCopy setHasLoadedCompleteMessage:v115];
+  [(MFMessageLoadingContext *)selfCopy setHasLoadedBestAlternativePart:[(MFMessageLoadingContextEvent *)v110 hasLoadedBestAlternativePart]];
   v51 = +[MFMessageLoadingContext log];
   if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
   {
     message3 = [(MFMessageLoadingContext *)selfCopy message];
     ef_publicDescription2 = [message3 ef_publicDescription];
-    v53 = v116;
-    hasLoadedBestAlternativePart = [(MFMessageLoadingContextEvent *)v111 hasLoadedBestAlternativePart];
-    transportType = [(MFMessageLoadingContextEvent *)v111 transportType];
+    v53 = v115;
+    hasLoadedBestAlternativePart = [(MFMessageLoadingContextEvent *)v110 hasLoadedBestAlternativePart];
+    transportType = [(MFMessageLoadingContextEvent *)v110 transportType];
     *buf = 138544130;
     *&buf[4] = ef_publicDescription2;
     *&buf[12] = 1024;
     *&buf[14] = v53;
     *&buf[18] = 1024;
     *&buf[20] = hasLoadedBestAlternativePart;
-    v121 = 2048;
-    v122 = transportType;
+    v120 = 2048;
+    v121 = transportType;
     _os_log_impl(&dword_1B0389000, v51, OS_LOG_TYPE_DEFAULT, "MFMessageLoadingContextEvent for message:%{public}@ hasLoadedCompleteMessage %{BOOL}d, hasLoadedBestAlternativePart %{BOOL}d, transportType %ld", buf, 0x22u);
   }
 
   +[MFActivityMonitor destroyMonitor];
-  v56 = v111;
+  v56 = v110;
 LABEL_60:
 
 LABEL_61:
 LABEL_62:
-  v57 = *MEMORY[0x1E69E9840];
 
-  return v111;
+  return v110;
 }
 
 id __54__MFMessageLoadingContext__reallyLoad_shouldDownload___block_invoke_138(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 mimePart];
   v5 = [v4 partNumber];
@@ -760,44 +793,42 @@ id __54__MFMessageLoadingContext__reallyLoad_shouldDownload___block_invoke_138(u
   v6 = EDAttachmentsLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543618;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1B0389000, v6, OS_LOG_TYPE_DEFAULT, "Creating MFAttachment for part number %{public}@ textAttachment %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1B0389000, v6, OS_LOG_TYPE_DEFAULT, "Creating MFAttachment for part number %{public}@ textAttachment %@", &v10, 0x16u);
   }
 
   v7 = [*(a1 + 32) attachmentManager];
   v8 = [v7 attachmentForTextAttachment:v3 error:0];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (void)assignAttachmentManagerToContent:(id)content
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   contentCopy = content;
-  v5 = [contentCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [contentCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(contentCopy);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * v7);
+        v8 = *(*(&v11 + 1) + 8 * v7);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -822,38 +853,36 @@ LABEL_11:
       }
 
       while (v5 != v7);
-      v5 = [contentCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [contentCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processMeetingInvitations:(id)invitations
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   invitationsCopy = invitations;
-  v5 = [invitationsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [invitationsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(invitationsCopy);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * v7);
+        v8 = *(*(&v11 + 1) + 8 * v7);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -884,13 +913,11 @@ LABEL_11:
       }
 
       while (v5 != v7);
-      v5 = [invitationsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [invitationsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_reallyLoad:(os_log_t)log shouldDownload:.cold.1(void *a1, uint8_t *buf, os_log_t log)

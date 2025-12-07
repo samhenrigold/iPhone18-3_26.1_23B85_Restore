@@ -43,25 +43,25 @@
 
     if (layerData && mEMORY[0x1E69C70A0])
     {
-      v11 = objc_alloc(MEMORY[0x1E69A89C8]);
+      v12 = objc_alloc(MEMORY[0x1E69A89C8]);
       layerData2 = [(IFConcreteImage *)self layerData];
-      v17 = 0;
-      v13 = [v11 initFromSerializedData:layerData2 device:mEMORY[0x1E69C70A0] error:&v17];
-      v8 = v17;
+      v19 = 0;
+      v14 = [v12 initFromSerializedData:layerData2 device:mEMORY[0x1E69C70A0] error:&v19];
+      v8 = v19;
 
-      if (!v13)
+      if (!v14)
       {
-        v15 = IFDefaultLog();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v17 = IFDefaultLog(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           [(IFConcreteImage *)v8 ICRIconLayer];
         }
 
-        v9 = 0;
+        v10 = 0;
         goto LABEL_18;
       }
 
-      [(IFConcreteImage *)self setFinalizedIcon:v13];
+      [(IFConcreteImage *)self setFinalizedIcon:v14];
     }
   }
 
@@ -69,7 +69,7 @@
 
   if (!finalizedIcon2 || ![MEMORY[0x1E69A89D8] instancesRespondToSelector:sel_initWithFinalizedIcon_])
   {
-    v9 = 0;
+    v10 = 0;
     goto LABEL_19;
   }
 
@@ -80,25 +80,25 @@
   if (v8)
   {
     v8 = v8;
-    v9 = v8;
+    v10 = v8;
   }
 
   else
   {
-    v14 = IFDefaultLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = IFDefaultLog(v9);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [(IFConcreteImage *)self ICRIconLayer];
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
 LABEL_18:
 
 LABEL_19:
 
-  return v9;
+  return v10;
 }
 
 - (CGSize)iconSize

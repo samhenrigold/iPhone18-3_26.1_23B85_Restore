@@ -753,6 +753,7 @@ LABEL_27:
   {
     *buf = 0;
     *(pixelBuffer + 4) = buffer;
+    *(&pixelBuffer[1] + 4) = 0;
     if (buffer)
     {
       v11 = CVPixelBufferLockBaseAddress(buffer, 0);
@@ -923,6 +924,7 @@ LABEL_9:
     if (!v13 || (v14 = v13, os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR)) && (*buf = 134218240, pixelBuffer[0] = outputFlow, LOWORD(pixelBuffer[1]) = 1024, *(&pixelBuffer[1] + 2) = v14, _os_log_error_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to lock CVPixelBuffer (%p, %d)", buf, 0x12u), (v14 = v36) == 0))
     {
       *(pixelBuffer + 4) = to;
+      *(&pixelBuffer[1] + 4) = 0;
       if (to)
       {
         v14 = CVPixelBufferLockBaseAddress(to, 0);
@@ -1041,6 +1043,7 @@ LABEL_9:
     {
       *buf = 0;
       *(v45 + 4) = to;
+      *(&v45[1] + 4) = 0;
       if (to)
       {
         v17 = CVPixelBufferLockBaseAddress(to, 0);
@@ -1049,6 +1052,7 @@ LABEL_9:
         {
           *v42 = 0;
           *(v43 + 4) = y;
+          *(&v43[1] + 4) = 0;
           if (y)
           {
             v17 = CVPixelBufferLockBaseAddress(y, 0);

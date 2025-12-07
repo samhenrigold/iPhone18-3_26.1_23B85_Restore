@@ -8,6 +8,7 @@
 - (UILabel)subLabel;
 - (double)spaceFromSuperViewToLabel;
 - (void)awakeFromNib;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 - (void)updateWithDevice:(id)device showsDetail:(BOOL)detail showsTransport:(BOOL)transport isSelected:(BOOL)selected;
 @end
 
@@ -50,6 +51,13 @@
   detailLabelTrailingConstraint = [(FBADevicePairingCell *)self detailLabelTrailingConstraint];
   [detailLabelTrailingConstraint constant];
   [(FBADevicePairingCell *)self setDetailLabelTrailingConstraintInitial:?];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = FBADevicePairingCell;
+  [(FBADevicePairingCell *)&v4 setSelected:selected animated:animated];
 }
 
 - (void)updateWithDevice:(id)device showsDetail:(BOOL)detail showsTransport:(BOOL)transport isSelected:(BOOL)selected

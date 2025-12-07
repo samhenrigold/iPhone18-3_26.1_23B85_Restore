@@ -26,12 +26,12 @@
 - (int64_t)fetchMessages:(id)messages intoQueue:(id)queue serverIDsByNumber:(id)number;
 - (int64_t)getMessageNumbers:(id *)numbers messageIdsByNumber:(id *)number numbersByMessageId:(id *)id;
 - (int64_t)getTop:(int)top ofMessageNumber:(unint64_t)number intoMutableData:(id)data;
+- (int64_t)list:(int)list;
 - (int64_t)quit;
 - (int64_t)retr:(unint64_t)retr consumer:(id)consumer intoQueue:(id)queue idsByNumber:(id)number allowIncomplete:(BOOL)incomplete queueStatus:(BOOL *)status;
 - (int64_t)retr:(unint64_t)retr data:(id *)data;
 - (unint64_t)serverMessageCount;
 - (unint64_t)sizeOfMessageNumber:(unint64_t)number;
-- (void)disableAPOP;
 @end
 
 @implementation MFPOP3Connection
@@ -78,7 +78,7 @@ void __23__MFPOP3Connection_log__block_invoke(uint64_t a1)
 
 - (id)capabilities
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   [(MFPOP3Connection *)self _sendCommand:"CAPA" withArguments:0];
   v3 = [(MFPOP3Connection *)self _getStatusFromReply]== 0;
   copyReplyLineData = +[MFPOP3Connection log];
@@ -91,11 +91,11 @@ void __23__MFPOP3Connection_log__block_invoke(uint64_t a1)
       currentMonitor = [MEMORY[0x277D281F0] currentMonitor];
       error = [currentMonitor error];
       ef_publicDescription = [error ef_publicDescription];
-      v28 = 138543618;
-      v29 = accountLogString;
-      v30 = 2114;
-      v31 = ef_publicDescription;
-      _os_log_impl(&dword_258B68000, copyReplyLineData, OS_LOG_TYPE_DEFAULT, "<Account:%{public}@> Received CAPA error %{public}@", &v28, 0x16u);
+      v27 = 138543618;
+      v28 = accountLogString;
+      v29 = 2114;
+      v30 = ef_publicDescription;
+      _os_log_impl(&dword_258B68000, copyReplyLineData, OS_LOG_TYPE_DEFAULT, "<Account:%{public}@> Received CAPA error %{public}@", &v27, 0x16u);
     }
 
     v10 = 0;
@@ -107,11 +107,11 @@ LABEL_5:
   if (v5)
   {
     accountLogString2 = [(MFConnection *)self accountLogString];
-    v28 = 138543618;
-    v29 = accountLogString2;
-    v30 = 2114;
-    v31 = 0;
-    _os_log_impl(&dword_258B68000, copyReplyLineData, OS_LOG_TYPE_DEFAULT, "<Account:%{public}@> Successful CAPA response %{public}@", &v28, 0x16u);
+    v27 = 138543618;
+    v28 = accountLogString2;
+    v29 = 2114;
+    v30 = 0;
+    _os_log_impl(&dword_258B68000, copyReplyLineData, OS_LOG_TYPE_DEFAULT, "<Account:%{public}@> Successful CAPA response %{public}@", &v27, 0x16u);
   }
 
   copyReplyLineData = [(MFPOP3Connection *)self copyReplyLineData];
@@ -122,49 +122,49 @@ LABEL_5:
     {
       if ([copyReplyLineData length]== 3)
       {
-        v14 = copyReplyLineData;
+        v13 = copyReplyLineData;
         if (!strncmp([copyReplyLineData bytes], ".\r\n", [copyReplyLineData length]))
         {
           break;
         }
       }
 
-      v15 = [objc_allocWithZone(MEMORY[0x277CBEB18]) initWithCapacity:5];
-      v16 = [copyReplyLineData length];
-      v17 = copyReplyLineData;
+      v14 = [objc_allocWithZone(MEMORY[0x277CBEB18]) initWithCapacity:5];
+      v15 = [copyReplyLineData length];
+      v16 = copyReplyLineData;
       bytes = [copyReplyLineData bytes];
-      v19 = memchr(bytes, 13, v16);
-      if (v19)
+      v18 = memchr(bytes, 13, v15);
+      if (v18)
       {
-        v20 = v19;
-        v21 = v19 - bytes;
-        while (v21)
+        v19 = v18;
+        v20 = v18 - bytes;
+        while (v20)
         {
-          v22 = memchr(bytes, 32, v21);
-          if (v22)
+          v21 = memchr(bytes, 32, v20);
+          if (v21)
           {
-            v23 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:bytes length:v22 - bytes encoding:1];
-            v24 = &bytes[v21];
-            bytes = v22 + 1;
-            v21 = v24 - (v22 + 1);
+            v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:bytes length:v21 - bytes encoding:1];
+            v23 = &bytes[v20];
+            bytes = v21 + 1;
+            v20 = v23 - (v21 + 1);
           }
 
           else
           {
-            v23 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:bytes length:v20 - bytes encoding:1];
-            v21 = 0;
+            v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:bytes length:v19 - bytes encoding:1];
+            v20 = 0;
           }
 
-          v25 = v23;
-          if (v23)
+          v24 = v22;
+          if (v22)
           {
-            uppercaseString = [v23 uppercaseString];
-            [v15 addObject:uppercaseString];
+            uppercaseString = [v22 uppercaseString];
+            [v14 addObject:uppercaseString];
           }
         }
       }
 
-      [v10 addObject:v15];
+      [v10 addObject:v14];
       copyReplyLineData2 = [(MFPOP3Connection *)self copyReplyLineData];
 
       copyReplyLineData = copyReplyLineData2;
@@ -175,34 +175,33 @@ LABEL_5:
   }
 
 LABEL_6:
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (id)authenticationMechanisms
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   [(MFPOP3Connection *)self capabilities];
+  v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v2 = v16 = 0u;
+  v14 = 0u;
+  v2 = v15 = 0u;
   v3 = 0;
-  v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * i);
+        v7 = *(*(&v14 + 1) + 8 * i);
         v8 = [v7 count];
         if (v8)
         {
@@ -225,7 +224,7 @@ LABEL_6:
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
@@ -236,17 +235,15 @@ LABEL_6:
     [v3 addObject:*MEMORY[0x277D06F20]];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (BOOL)_doBasicConnectionWithAccount:(id)account
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v26.receiver = self;
-  v26.super_class = MFPOP3Connection;
-  v4 = [(MFConnection *)&v26 connectUsingAccount:account];
+  v30 = *MEMORY[0x277D85DE8];
+  v25.receiver = self;
+  v25.super_class = MFPOP3Connection;
+  v4 = [(MFConnection *)&v25 connectUsingAccount:account];
   apopTimeStamp = self->_apopTimeStamp;
   self->_apopTimeStamp = 0;
 
@@ -297,13 +294,12 @@ LABEL_6:
     }
 
     *buf = 138543618;
-    v28 = accountLogString;
-    v29 = 2114;
-    v30 = v23;
+    v27 = accountLogString;
+    v28 = 2114;
+    v29 = v23;
     _os_log_impl(&dword_258B68000, v20, OS_LOG_TYPE_DEFAULT, "<Account:%{public}@> Successful Connection Established: %{public}@", buf, 0x16u);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -390,12 +386,12 @@ LABEL_18:
 
 - (BOOL)authenticateUsingAccount:(id)account
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   currentMonitor = [MEMORY[0x277D281F0] currentMonitor];
-  v49.receiver = self;
-  v49.super_class = MFPOP3Connection;
-  v6 = [(MFConnection *)&v49 authenticateUsingAccount:accountCopy];
+  v48.receiver = self;
+  v48.super_class = MFPOP3Connection;
+  v6 = [(MFConnection *)&v48 authenticateUsingAccount:accountCopy];
   v7 = +[MFPOP3Connection log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
@@ -408,9 +404,9 @@ LABEL_18:
     }
 
     *buf = 138543618;
-    v51 = accountLogString;
-    v52 = 2114;
-    v53 = v10;
+    v50 = accountLogString;
+    v51 = 2114;
+    v52 = v10;
     _os_log_impl(&dword_258B68000, v7, OS_LOG_TYPE_DEFAULT, "<Account:%{public}@> Account loggedIn: %{public}@", buf, 0x16u);
   }
 
@@ -431,9 +427,9 @@ LABEL_18:
 
   username = [accountCopy username];
   password = [accountCopy password];
-  v48 = [password dataUsingEncoding:4];
+  v47 = [password dataUsingEncoding:4];
 
-  if (v48)
+  if (v47)
   {
     if (!-[MFPOP3Connection supportsAPOP](self, "supportsAPOP") || ![accountCopy shouldAttemptAPOP])
     {
@@ -442,12 +438,12 @@ LABEL_18:
     }
 
     [accountCopy setShouldAttemptAPOP:0];
-    if ([(MFPOP3Connection *)self _apopWithUsername:username password:v48])
+    if ([(MFPOP3Connection *)self _apopWithUsername:username password:v47])
     {
       v16 = 2;
 LABEL_15:
       v17 = 0;
-      v47 = *MEMORY[0x277D281D8];
+      v46 = *MEMORY[0x277D281D8];
       while (1)
       {
         if (!v16)
@@ -460,9 +456,9 @@ LABEL_15:
         {
           accountLogString2 = [(MFConnection *)self accountLogString];
           *buf = 138543618;
-          v51 = accountLogString2;
-          v52 = 1024;
-          LODWORD(v53) = v16;
+          v50 = accountLogString2;
+          v51 = 1024;
+          LODWORD(v52) = v16;
           _os_log_impl(&dword_258B68000, v18, OS_LOG_TYPE_DEFAULT, "<Account:%{public}@> Login attempt %d", buf, 0x12u);
         }
 
@@ -488,7 +484,7 @@ LABEL_15:
 
         if (([currentMonitor shouldCancel] & 1) == 0)
         {
-          v26 = [(MFPOP3Connection *)self _pass:v48];
+          v26 = [(MFPOP3Connection *)self _pass:v47];
           if (!v26 || v16 != 1)
           {
             v11 = 1;
@@ -505,7 +501,7 @@ LABEL_15:
           if (error2)
           {
             domain = [error2 domain];
-            if ([v47 isEqualToString:domain])
+            if ([v46 isEqualToString:domain])
             {
               v29 = [error2 code] == 1033;
 
@@ -522,9 +518,9 @@ LABEL_42:
                 accountLogString3 = [(MFConnection *)self accountLogString];
                 ef_publicDescription = [v17 ef_publicDescription];
                 *buf = 138543618;
-                v51 = accountLogString3;
-                v52 = 2112;
-                v53 = ef_publicDescription;
+                v50 = accountLogString3;
+                v51 = 2112;
+                v52 = ef_publicDescription;
                 _os_log_error_impl(&dword_258B68000, v23, OS_LOG_TYPE_ERROR, "<Account:%{public}@> Login Failure %@", buf, 0x16u);
               }
 
@@ -546,7 +542,7 @@ LABEL_37:
 
             v33 = MEMORY[0x277D28200];
             v34 = MFLookupLocalizedString();
-            v17 = [v33 errorWithDomain:v47 code:1032 localizedDescription:domain title:v34 userInfo:0];
+            v17 = [v33 errorWithDomain:v46 code:1032 localizedDescription:domain title:v34 userInfo:0];
           }
 
           goto LABEL_42;
@@ -573,23 +569,23 @@ LABEL_25:
       v22 = MEMORY[0x277CCACA8];
       v23 = MFLookupLocalizedString();
       v24 = [v22 stringWithFormat:v23, username];
-      v25 = [v21 errorWithDomain:v47 code:1030 localizedDescription:v24];
+      v25 = [v21 errorWithDomain:v46 code:1030 localizedDescription:v24];
 
       v17 = v25;
       goto LABEL_23;
     }
 
-    v44 = +[MFPOP3Connection log];
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+    v43 = +[MFPOP3Connection log];
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
       accountLogString4 = [(MFConnection *)self accountLogString];
       *buf = 138543362;
-      v51 = accountLogString4;
-      _os_log_impl(&dword_258B68000, v44, OS_LOG_TYPE_DEFAULT, "<Account:%{public}@> Login Successful. Setting AuthScheme to ECAuthenticationSchemeAPOP", buf, 0xCu);
+      v50 = accountLogString4;
+      _os_log_impl(&dword_258B68000, v43, OS_LOG_TYPE_DEFAULT, "<Account:%{public}@> Login Successful. Setting AuthScheme to ECAuthenticationSchemeAPOP", buf, 0xCu);
     }
 
-    v46 = [MEMORY[0x277D07070] schemeWithName:*MEMORY[0x277D06F20]];
-    [accountCopy setPreferredAuthScheme:v46];
+    v45 = [MEMORY[0x277D07070] schemeWithName:*MEMORY[0x277D06F20]];
+    [accountCopy setPreferredAuthScheme:v45];
 
     v17 = 0;
     [accountCopy savePersistentAccount];
@@ -623,13 +619,12 @@ LABEL_50:
     }
 
     *buf = 138543618;
-    v51 = accountLogString5;
-    v52 = 2112;
-    v53 = v41;
+    v50 = accountLogString5;
+    v51 = 2112;
+    v52 = v41;
     _os_log_impl(&dword_258B68000, v38, OS_LOG_TYPE_DEFAULT, "<Account:%{public}@> Login %@", buf, 0x16u);
   }
 
-  v42 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -737,13 +732,6 @@ LABEL_26:
   return _getStatusFromReply;
 }
 
-- (void)disableAPOP
-{
-  apopTimeStamp = self->_apopTimeStamp;
-  self->_apopTimeStamp = 0;
-  MEMORY[0x2821F96F8]();
-}
-
 - (int64_t)doStat
 {
   v3 = [(MFPOP3Connection *)self _sendCommand:"STAT" withArguments:0];
@@ -771,6 +759,27 @@ LABEL_26:
   }
 
   return v3;
+}
+
+- (int64_t)list:(int)list
+{
+  if (list < 0)
+  {
+    v4 = 0;
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", *&list];
+  }
+
+  _getStatusFromReply = [(MFPOP3Connection *)self _sendCommand:"LIST" withArguments:v4, 0];
+  if (!_getStatusFromReply)
+  {
+    _getStatusFromReply = [(MFPOP3Connection *)self _getStatusFromReply];
+  }
+
+  return _getStatusFromReply;
 }
 
 - (int64_t)_getListResults
@@ -1071,10 +1080,10 @@ LABEL_12:
 - (int64_t)retr:(unint64_t)retr consumer:(id)consumer intoQueue:(id)queue idsByNumber:(id)number allowIncomplete:(BOOL)incomplete queueStatus:(BOOL *)status
 {
   incompleteCopy = incomplete;
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   consumerCopy = consumer;
   queueCopy = queue;
-  v39 = consumerCopy;
+  v38 = consumerCopy;
   numberCopy = number;
   v15 = [(MFPOP3Connection *)self sizeOfMessageNumber:retr];
   v16 = v15;
@@ -1094,7 +1103,7 @@ LABEL_12:
     else
     {
       v19 = [(MFPOP3Connection *)self _retrieveMessage:retr ofSize:v15 consumer:consumerCopy];
-      data = [v39 data];
+      data = [v38 data];
       if (v19)
       {
 LABEL_22:
@@ -1107,18 +1116,18 @@ LABEL_22:
     {
       mf_rangeOfRFC822HeaderData = [data mf_rangeOfRFC822HeaderData];
       v22 = v21;
-      v36 = [data mf_subdataWithRange:{mf_rangeOfRFC822HeaderData, v21}];
-      v37 = [objc_alloc(MEMORY[0x277D24F80]) initWithHeaderData:v36 encoding:0xFFFFFFFFLL];
+      v35 = [data mf_subdataWithRange:{mf_rangeOfRFC822HeaderData, v21}];
+      v36 = [objc_alloc(MEMORY[0x277D24F80]) initWithHeaderData:v35 encoding:0xFFFFFFFFLL];
       v23 = EFStringWithUnsignedInteger();
-      [v37 setHeader:v23 forKey:@"x-apple-content-length"];
+      [v36 setHeader:v23 forKey:@"x-apple-content-length"];
 
-      encodedHeaders = [v37 encodedHeaders];
-      v38 = [encodedHeaders mutableCopy];
+      encodedHeaders = [v36 encodedHeaders];
+      v37 = [encodedHeaders mutableCopy];
 
       v25 = [data mf_subdataWithRange:{v22, objc_msgSend(data, "length") - v22}];
-      [v38 appendData:v25];
+      [v37 appendData:v25];
 
-      v26 = v36;
+      v26 = v35;
       if (queueCopy && numberCopy)
       {
         v27 = objc_alloc_init(MFPOPMessage);
@@ -1127,10 +1136,10 @@ LABEL_22:
 
         [(MFPOPMessage *)v27 setMessageID:v29];
         [(MFPOPMessage *)v27 setMessageNumber:retr];
-        [(MFPOPMessage *)v27 setMessageData:v38 isComplete:!v17];
+        [(MFPOPMessage *)v27 setMessageData:v37 isComplete:!v17];
         [(MFPOPMessage *)v27 setAccountURL:self->_accountURL];
         [(MFPOPMessage *)v27 setMessageSize:v16];
-        v26 = v36;
+        v26 = v35;
         v30 = [queueCopy addItem:v27];
         if (status)
         {
@@ -1152,7 +1161,7 @@ LABEL_22:
         {
           subject = [(MFPOPMessage *)v27 subject];
           *buf = 138412290;
-          v43 = subject;
+          v42 = subject;
           _os_log_impl(&dword_258B68000, v32, OS_LOG_TYPE_INFO, "#Power [New Message] subject=%@;", buf, 0xCu);
         }
       }
@@ -1164,7 +1173,6 @@ LABEL_22:
   v19 = 7;
 LABEL_23:
 
-  v34 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -1221,7 +1229,7 @@ LABEL_23:
 
 - (int64_t)fetchMessages:(id)messages intoQueue:(id)queue serverIDsByNumber:(id)number
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   queueCopy = queue;
   numberCopy = number;
@@ -1258,7 +1266,7 @@ LABEL_23:
 
     v17 = 0;
     v18 = 0;
-    v32 = 1;
+    v31 = 1;
     while (v15)
     {
       shouldCancel = [currentMonitor shouldCancel];
@@ -1268,7 +1276,7 @@ LABEL_23:
         break;
       }
 
-      if (v32 != 1)
+      if (v31 != 1)
       {
         v18 = 0;
         goto LABEL_24;
@@ -1279,7 +1287,7 @@ LABEL_23:
       [currentMonitor setCurrentCount:v17 + 1];
       v23 = objc_alloc_init(MEMORY[0x277D24EE8]);
       v24 = [messagesCopy objectAtIndexedSubscript:v17];
-      v18 = -[MFPOP3Connection retr:consumer:intoQueue:idsByNumber:allowIncomplete:queueStatus:](self, "retr:consumer:intoQueue:idsByNumber:allowIncomplete:queueStatus:", [v24 unsignedLongValue], v23, queueCopy, numberCopy, 1, &v32);
+      v18 = -[MFPOP3Connection retr:consumer:intoQueue:idsByNumber:allowIncomplete:queueStatus:](self, "retr:consumer:intoQueue:idsByNumber:allowIncomplete:queueStatus:", [v24 unsignedLongValue], v23, queueCopy, numberCopy, 1, &v31);
 
       --v15;
       objc_autoreleasePoolPop(v21);
@@ -1306,7 +1314,6 @@ LABEL_24:
     v18 = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -1800,7 +1807,7 @@ LABEL_37:
 
 - (int64_t)_apopWithUsername:(id)username password:(id)password
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   usernameCopy = username;
   passwordCopy = password;
   if (self->_apopTimeStamp)
@@ -1813,7 +1820,7 @@ LABEL_37:
     *&c.Nl = v8;
     *&c.data[2] = v8;
     *&c.A = v8;
-    v21 = [objc_allocWithZone(MEMORY[0x277CBEB28]) initWithCapacity:32];
+    v20 = [objc_allocWithZone(MEMORY[0x277CBEB28]) initWithCapacity:32];
     CC_MD5_Init(&c);
     v9 = self->_apopTimeStamp;
     v10 = v9;
@@ -1831,15 +1838,15 @@ LABEL_37:
       CC_MD5_Update(&c, [v13 bytes], objc_msgSend(v13, "length"));
     }
 
-    v15 = v21;
+    v15 = v20;
     memset(md, 170, sizeof(md));
     CC_MD5_Final(md, &c);
     v16 = v15;
     for (i = 0; i != 16; ++i)
     {
-      memset(v23, 170, sizeof(v23));
-      __snprintf_chk(v23, 3uLL, 0, 3uLL, "%02x", md[i]);
-      [v16 appendBytes:v23 length:2];
+      memset(v22, 170, sizeof(v22));
+      __snprintf_chk(v22, 3uLL, 0, 3uLL, "%02x", md[i]);
+      [v16 appendBytes:v22 length:2];
     }
 
     [(MFPOP3Connection *)self _sendCommand:"APOP" withArguments:usernameCopy, v16, 0];
@@ -1851,7 +1858,6 @@ LABEL_37:
     _getStatusFromReply = 7;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return _getStatusFromReply;
 }
 

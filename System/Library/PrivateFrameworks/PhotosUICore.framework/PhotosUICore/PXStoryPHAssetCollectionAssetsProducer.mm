@@ -23,7 +23,7 @@
   }
 
   handlerCopy = handler;
-  v10 = v9 & 0xFFFFFFFFFFFFFFBFLL | (([(PXStoryPHAssetCollectionAssetsProducer *)self options]& 1) << 6);
+  v10 = v9 & 0xFFFFFFFFFFFFFFBFLL | ((objc_msgSend_options(self) & 1) << 6);
   assetCollection = [(PXStoryPHAssetCollectionAssetsProducer *)self assetCollection];
   v12 = [objc_opt_class() shouldEnableCurationForAssetCollection:assetCollection];
   if (v12)
@@ -56,7 +56,7 @@
     [(PXPhotosDataSourceConfiguration *)v16 setCurationType:1];
   }
 
-  if (([(PXStoryPHAssetCollectionAssetsProducer *)self options]& 2) != 0)
+  if ((objc_msgSend_options(self) & 2) != 0)
   {
     [(PXPhotosDataSourceConfiguration *)v16 setLibraryFilterState:0];
     [(PXPhotosDataSourceConfiguration *)v16 setLibraryFilter:0];

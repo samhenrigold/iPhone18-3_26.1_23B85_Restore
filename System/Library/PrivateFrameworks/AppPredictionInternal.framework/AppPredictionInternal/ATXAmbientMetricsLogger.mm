@@ -9,28 +9,27 @@
 {
   ObjectType = swift_getObjectType();
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D7A1F30, &qword_226873360);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8, v8);
-  v10 = &v15 - v9;
+  MEMORY[0x28223BE20](v6 - 8);
+  v8 = &v13 - v7;
   activityCopy = activity;
   selfCopy = self;
   if ([activityCopy setContinue])
   {
-    v12 = sub_226836628();
-    (*(*(v12 - 8) + 56))(v10, 1, 1, v12);
-    v13 = swift_allocObject();
-    v13[2] = 0;
-    v13[3] = 0;
-    v13[4] = activityCopy;
-    v13[5] = selfCopy;
-    v13[6] = ObjectType;
-    sub_2267AEA94(0, 0, v10, &unk_226873AC8, v13);
+    v10 = sub_226836628();
+    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v11 = swift_allocObject();
+    v11[2] = 0;
+    v11[3] = 0;
+    v11[4] = activityCopy;
+    v11[5] = selfCopy;
+    v11[6] = ObjectType;
+    sub_2267AEA94(0, 0, v8, &unk_226873AC8, v11);
   }
 
   else
   {
 
-    v14 = selfCopy;
+    v12 = selfCopy;
   }
 }
 

@@ -1,4 +1,5 @@
 @interface PGKeyCurator
+- (BOOL)cluster:(id)cluster isBetterThanCluster:(id)thanCluster forMemories:(BOOL)memories allowGuestAsset:(BOOL)asset;
 - (BOOL)cluster:(id)cluster scoresBetterThanCluster:(id)thanCluster;
 - (BOOL)scoreLevelOfCluster:(id)cluster isAboveScoreLevelOfCluster:(id)ofCluster;
 - (PGKeyCurator)initWithCurationCriteriaFactory:(id)factory;
@@ -295,7 +296,7 @@ BOOL __95__PGKeyCurator_bestItemInItems_options_criteria_minimumCriteriaScore_tr
 - (id)bestItemInItems:(id)items options:(id)options criteria:(id)criteria minimumCriteriaScore:(double)score useIconicScore:(BOOL)iconicScore
 {
   iconicScoreCopy = iconicScore;
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   optionsCopy = options;
   criteriaCopy = criteria;
@@ -312,44 +313,44 @@ BOOL __95__PGKeyCurator_bestItemInItems_options_criteria_minimumCriteriaScore_tr
       v14 = 0;
     }
 
-    v48 = criteriaCopy;
+    v47 = criteriaCopy;
     [optionsCopy setPromoteAutoplayableItems:v14];
-    v49 = itemsCopy;
-    v52 = [(PGKeyCurator *)self itemsByIconicScoreBucketWithItems:itemsCopy];
-    allKeys = [v52 allKeys];
+    v48 = itemsCopy;
+    v51 = [(PGKeyCurator *)self itemsByIconicScoreBucketWithItems:itemsCopy];
+    allKeys = [v51 allKeys];
     v16 = [allKeys sortedArrayUsingSelector:sel_compare_];
     reverseObjectEnumerator = [v16 reverseObjectEnumerator];
 
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
     obj = reverseObjectEnumerator;
-    v18 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
+    v18 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
     if (v18)
     {
       v19 = v18;
-      v53 = 0;
+      v52 = 0;
       v15 = 0;
-      v51 = *v57;
+      v50 = *v56;
 LABEL_8:
       v20 = 0;
       while (1)
       {
-        if (*v57 != v51)
+        if (*v56 != v50)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v56 + 1) + 8 * v20);
+        v21 = *(*(&v55 + 1) + 8 * v20);
         if (![v21 intValue])
         {
           break;
         }
 
-        v22 = [v52 objectForKeyedSubscript:v21];
-        v55 = 0;
-        v23 = [(PGKeyCurator *)self bestItemInItems:v22 options:optionsCopy criteria:0 minimumCriteriaScore:&v55 triedAndFailedToDoBetter:score];
+        v22 = [v51 objectForKeyedSubscript:v21];
+        v54 = 0;
+        v23 = [(PGKeyCurator *)self bestItemInItems:v22 options:optionsCopy criteria:0 minimumCriteriaScore:&v54 triedAndFailedToDoBetter:score];
         v24 = v23;
         if (v23)
         {
@@ -370,18 +371,18 @@ LABEL_8:
           [v24 clsContentScore];
           v38 = v37;
           [v15 clsContentScore];
-          if (!v15 || (v53 & (v55 == 0)) != 0 || (v53 & 1) == v55 && version == version2 && v34 - v36 <= v30 && v38 - v39 >= 0.05)
+          if (!v15 || (v52 & (v54 == 0)) != 0 || (v52 & 1) == v54 && version == version2 && v34 - v36 <= v30 && v38 - v39 >= 0.05)
           {
             v40 = v24;
 
-            v53 = v55;
+            v52 = v54;
             v15 = v40;
           }
         }
 
         if (v19 == ++v20)
         {
-          v19 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
+          v19 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
           if (v19)
           {
             goto LABEL_8;
@@ -394,23 +395,23 @@ LABEL_8:
 
     else
     {
-      v53 = 0;
+      v52 = 0;
       v15 = 0;
     }
 
     [optionsCopy setPromoteAutoplayableItems:promoteAutoplayableItems];
-    if (v15 && (v53 & 1) == 0)
+    if (v15 && (v52 & 1) == 0)
     {
       v15 = v15;
 
       v41 = v15;
-      criteriaCopy = v48;
-      itemsCopy = v49;
+      criteriaCopy = v47;
+      itemsCopy = v48;
       goto LABEL_34;
     }
 
-    criteriaCopy = v48;
-    itemsCopy = v49;
+    criteriaCopy = v47;
+    itemsCopy = v48;
   }
 
   else
@@ -418,9 +419,9 @@ LABEL_8:
     v15 = 0;
   }
 
-  v55 = 0;
-  v41 = [(PGKeyCurator *)self bestItemInItems:itemsCopy options:optionsCopy criteria:criteriaCopy minimumCriteriaScore:&v55 triedAndFailedToDoBetter:score];
-  if (v55 == 1 && v15 != 0)
+  v54 = 0;
+  v41 = [(PGKeyCurator *)self bestItemInItems:itemsCopy options:optionsCopy criteria:criteriaCopy minimumCriteriaScore:&v54 triedAndFailedToDoBetter:score];
+  if (v54 == 1 && v15 != 0)
   {
     v43 = v15;
 
@@ -429,36 +430,34 @@ LABEL_8:
 
 LABEL_34:
 
-  v44 = *MEMORY[0x277D85DE8];
-
   return v41;
 }
 
 - (id)itemsByIconicScoreBucketWithItems:(id)items
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v5 = itemsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         [v10 clsIconicScore];
         v12 = v11;
         curationModel = [v10 curationModel];
@@ -475,15 +474,29 @@ LABEL_34:
         [v16 addObject:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v4;
+}
+
+- (BOOL)cluster:(id)cluster isBetterThanCluster:(id)thanCluster forMemories:(BOOL)memories allowGuestAsset:(BOOL)asset
+{
+  assetCopy = asset;
+  memoriesCopy = memories;
+  clusterCopy = cluster;
+  thanClusterCopy = thanCluster;
+  keyItem = [clusterCopy keyItem];
+  v13 = [keyItem clsAvoidIfPossibleAsKeyItemForMemories:memoriesCopy allowGuestAsset:assetCopy];
+
+  keyItem2 = [thanClusterCopy keyItem];
+  v15 = [keyItem2 clsAvoidIfPossibleAsKeyItemForMemories:memoriesCopy allowGuestAsset:assetCopy];
+
+  v16 = (v13 & 1) == 0 && v15 || v15 & 1 | ((v13 & 1) == 0) && [(PGKeyCurator *)self cluster:clusterCopy scoresBetterThanCluster:thanClusterCopy];
+  return v16;
 }
 
 - (BOOL)cluster:(id)cluster scoresBetterThanCluster:(id)thanCluster
@@ -547,33 +560,33 @@ LABEL_34:
 
 - (id)clusterWithSubclusters:(id)subclusters keyItem:(id)item
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   subclustersCopy = subclusters;
   itemCopy = item;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v7 = [subclustersCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [subclustersCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     v10 = 0.0;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(subclustersCopy);
         }
 
-        [*(*(&v16 + 1) + 8 * i) score];
+        [*(*(&v15 + 1) + 8 * i) score];
         v10 = v10 + v12;
       }
 
-      v8 = [subclustersCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [subclustersCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -586,46 +599,44 @@ LABEL_34:
 
   v13 = -[PGKeyCuratorCluster initWithSubclusters:keyItem:score:]([PGKeyCuratorCluster alloc], "initWithSubclusters:keyItem:score:", subclustersCopy, itemCopy, v10 / [subclustersCopy count]);
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)_keyItemInItems:(id)items options:(id)options criteria:(id)criteria debugInfo:(id)info progressBlock:(id)block
 {
-  v129 = *MEMORY[0x277D85DE8];
+  v128 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   optionsCopy = options;
   criteriaCopy = criteria;
   infoCopy = info;
   blockCopy = block;
-  v116 = 0;
-  v117 = &v116;
-  v118 = 0x2020000000;
-  v119 = 0;
-  v112 = 0;
-  v113 = &v112;
-  v114 = 0x2020000000;
   v115 = 0;
-  v67 = _Block_copy(blockCopy);
-  if (v67)
+  v116 = &v115;
+  v117 = 0x2020000000;
+  v118 = 0;
+  v111 = 0;
+  v112 = &v111;
+  v113 = 0x2020000000;
+  v114 = 0;
+  v66 = _Block_copy(blockCopy);
+  if (v66)
   {
     Current = CFAbsoluteTimeGetCurrent();
-    if (Current - v113[3] >= 0.01)
+    if (Current - v112[3] >= 0.01)
     {
-      v113[3] = Current;
-      v111 = 0;
-      v67[2](v67, &v111, 0.0);
-      v14 = *(v117 + 24) | v111;
-      *(v117 + 24) = v14;
+      v112[3] = Current;
+      v110 = 0;
+      v66[2](v66, &v110, 0.0);
+      v14 = *(v116 + 24) | v110;
+      *(v116 + 24) = v14;
       if (v14)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
           *&buf[4] = 284;
-          v127 = 2080;
-          v128 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/PGKeyCurator.m";
+          v126 = 2080;
+          v127 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/PGKeyCurator.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
@@ -662,41 +673,41 @@ LABEL_9:
     v18 = [PGCurationManager summaryClusteringForDuration:v17];
     [v18 setDiffuseDensityClusteringMaximumDistance:28800.0];
     [v18 setConciseDensityClusteringMaximumDistance:2700.0];
-    v106[0] = MEMORY[0x277D85DD0];
-    v106[1] = 3221225472;
-    v106[2] = __73__PGKeyCurator__keyItemInItems_options_criteria_debugInfo_progressBlock___block_invoke;
-    v106[3] = &unk_27888A188;
-    v74 = v67;
-    v107 = v74;
-    v108 = &v112;
-    v110 = 0x3F847AE147AE147BLL;
-    v109 = &v116;
-    v65 = v18;
-    v19 = [v18 densityClustersWithItems:itemsCopy progressBlock:v106];
+    v105[0] = MEMORY[0x277D85DD0];
+    v105[1] = 3221225472;
+    v105[2] = __73__PGKeyCurator__keyItemInItems_options_criteria_debugInfo_progressBlock___block_invoke;
+    v105[3] = &unk_27888A188;
+    v73 = v66;
+    v106 = v73;
+    v107 = &v111;
+    v109 = 0x3F847AE147AE147BLL;
+    v108 = &v115;
+    v64 = v18;
+    v19 = [v18 densityClustersWithItems:itemsCopy progressBlock:v105];
     v20 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v19, "count")}];
-    v104 = 0u;
-    v105 = 0u;
-    v102 = 0u;
     v103 = 0u;
+    v104 = 0u;
+    v101 = 0u;
+    v102 = 0u;
     obj = v19;
-    v21 = [obj countByEnumeratingWithState:&v102 objects:v125 count:16];
+    v21 = [obj countByEnumeratingWithState:&v101 objects:v124 count:16];
     if (v21)
     {
-      v22 = *v103;
+      v22 = *v102;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v103 != v22)
+          if (*v102 != v22)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = [MEMORY[0x277D3AC38] clusterWithObjects:*(*(&v102 + 1) + 8 * i)];
+          v24 = [MEMORY[0x277D3AC38] clusterWithObjects:*(*(&v101 + 1) + 8 * i)];
           [v20 addObject:v24];
         }
 
-        v21 = [obj countByEnumeratingWithState:&v102 objects:v125 count:16];
+        v21 = [obj countByEnumeratingWithState:&v101 objects:v124 count:16];
       }
 
       while (v21);
@@ -706,116 +717,116 @@ LABEL_9:
     if ([optionsCopy useIconicScore])
     {
       v25 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"iconicScoreBucket" ascending:0];
-      v124[0] = v25;
+      v123[0] = v25;
       v26 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"score" ascending:0];
-      v124[1] = v26;
+      v123[1] = v26;
       v27 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"keyItem.clsIdentifier" ascending:0];
-      v124[2] = v27;
-      v73 = [MEMORY[0x277CBEA60] arrayWithObjects:v124 count:3];
+      v123[2] = v27;
+      v72 = [MEMORY[0x277CBEA60] arrayWithObjects:v123 count:3];
     }
 
     else
     {
       v25 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"score" ascending:0];
-      v123[0] = v25;
+      v122[0] = v25;
       v26 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"keyItem.clsIdentifier" ascending:0];
-      v123[1] = v26;
-      v73 = [MEMORY[0x277CBEA60] arrayWithObjects:v123 count:2];
+      v122[1] = v26;
+      v72 = [MEMORY[0x277CBEA60] arrayWithObjects:v122 count:2];
     }
 
     isForMemories = [optionsCopy isForMemories];
     allowGuestAsset = [optionsCopy allowGuestAsset];
-    v100 = 0u;
-    v101 = 0u;
-    v98 = 0u;
     v99 = 0u;
-    v69 = v20;
-    v75 = [v69 countByEnumeratingWithState:&v98 objects:v122 count:16];
-    if (v75)
+    v100 = 0u;
+    v97 = 0u;
+    v98 = 0u;
+    v68 = v20;
+    v74 = [v68 countByEnumeratingWithState:&v97 objects:v121 count:16];
+    if (v74)
     {
-      v77 = 0;
-      v72 = *v99;
+      v76 = 0;
+      v71 = *v98;
       do
       {
-        for (j = 0; j != v75; ++j)
+        for (j = 0; j != v74; ++j)
         {
-          if (*v99 != v72)
+          if (*v98 != v71)
           {
-            objc_enumerationMutation(v69);
+            objc_enumerationMutation(v68);
           }
 
-          v28 = *(*(&v98 + 1) + 8 * j);
-          v83 = [infoCopy debugInfoForCluster:v28];
+          v28 = *(*(&v97 + 1) + 8 * j);
+          v82 = [infoCopy debugInfoForCluster:v28];
           similarStacker = self->_similarStacker;
           objects = [v28 objects];
-          v93[0] = MEMORY[0x277D85DD0];
-          v93[1] = 3221225472;
-          v93[2] = __73__PGKeyCurator__keyItemInItems_options_criteria_debugInfo_progressBlock___block_invoke_2;
-          v93[3] = &unk_27888A188;
-          v94 = v74;
-          v95 = &v112;
-          v97 = 0x3F847AE147AE147BLL;
-          v96 = &v116;
-          v31 = [(CLSSimilarStacker *)similarStacker stackSimilarItems:objects withSimilarity:0 timestampSupport:0 progressBlock:v93];
+          v92[0] = MEMORY[0x277D85DD0];
+          v92[1] = 3221225472;
+          v92[2] = __73__PGKeyCurator__keyItemInItems_options_criteria_debugInfo_progressBlock___block_invoke_2;
+          v92[3] = &unk_27888A188;
+          v93 = v73;
+          v94 = &v111;
+          v96 = 0x3F847AE147AE147BLL;
+          v95 = &v115;
+          v31 = [(CLSSimilarStacker *)similarStacker stackSimilarItems:objects withSimilarity:0 timestampSupport:0 progressBlock:v92];
 
           v32 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v31, "count")}];
-          v91 = 0u;
-          v92 = 0u;
-          v89 = 0u;
           v90 = 0u;
+          v91 = 0u;
+          v88 = 0u;
+          v89 = 0u;
           v33 = v31;
-          v34 = [v33 countByEnumeratingWithState:&v89 objects:v121 count:16];
+          v34 = [v33 countByEnumeratingWithState:&v88 objects:v120 count:16];
           if (v34)
           {
-            v35 = *v90;
+            v35 = *v89;
             do
             {
               for (k = 0; k != v34; ++k)
               {
-                if (*v90 != v35)
+                if (*v89 != v35)
                 {
                   objc_enumerationMutation(v33);
                 }
 
-                v37 = [MEMORY[0x277D3AC38] clusterWithObjects:*(*(&v89 + 1) + 8 * k)];
+                v37 = [MEMORY[0x277D3AC38] clusterWithObjects:*(*(&v88 + 1) + 8 * k)];
                 [v32 addObject:v37];
               }
 
-              v34 = [v33 countByEnumeratingWithState:&v89 objects:v121 count:16];
+              v34 = [v33 countByEnumeratingWithState:&v88 objects:v120 count:16];
             }
 
             while (v34);
           }
 
-          [v83 setClusters:v32 withReason:@"Stack Similar"];
+          [v82 setClusters:v32 withReason:@"Stack Similar"];
+          v80 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v33, "count")}];
           v81 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v33, "count")}];
-          v82 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v33, "count")}];
-          v87 = 0u;
-          v88 = 0u;
-          v85 = 0u;
           v86 = 0u;
-          v80 = v33;
-          v38 = [v80 countByEnumeratingWithState:&v85 objects:v120 count:16];
+          v87 = 0u;
+          v84 = 0u;
+          v85 = 0u;
+          v79 = v33;
+          v38 = [v79 countByEnumeratingWithState:&v84 objects:v119 count:16];
           if (v38)
           {
-            v39 = *v86;
+            v39 = *v85;
             v40 = 0.0;
             do
             {
               for (m = 0; m != v38; ++m)
               {
-                if (*v86 != v39)
+                if (*v85 != v39)
                 {
-                  objc_enumerationMutation(v80);
+                  objc_enumerationMutation(v79);
                 }
 
-                v42 = *(*(&v85 + 1) + 8 * m);
+                v42 = *(*(&v84 + 1) + 8 * m);
                 v43 = -[PGKeyCurator bestItemInItems:options:criteria:minimumCriteriaScore:useIconicScore:](self, "bestItemInItems:options:criteria:minimumCriteriaScore:useIconicScore:", v42, optionsCopy, criteriaCopy, [optionsCopy useIconicScore], 0.0);
                 if (v43)
                 {
                   *buf = 0.0;
                   [(PGKeyCurator *)self item:v43 passesCriteria:criteriaCopy score:buf];
-                  [v82 addObject:v43];
+                  [v81 addObject:v43];
                   if (criteriaCopy)
                   {
                     v44 = *buf;
@@ -856,9 +867,9 @@ LABEL_9:
                   }
 
                   v56 = [[PGKeyCuratorSubcluster alloc] initWithItems:v42 keyItem:v43 score:v55 iconicScoreBucket:v46];
-                  [v81 addObject:v56];
+                  [v80 addObject:v56];
                   v57 = *buf;
-                  [v83 dedupItems:v42 toItem:v43 withDedupingType:1];
+                  [v82 dedupItems:v42 toItem:v43 withDedupingType:1];
                   if (criteriaCopy)
                   {
                     v40 = v40 + v57;
@@ -868,11 +879,11 @@ LABEL_9:
                 else
                 {
                   v47 = [MEMORY[0x277CBEB98] setWithArray:v42];
-                  [v83 setState:2 ofItems:v47 withReason:@"No key item"];
+                  [v82 setState:2 ofItems:v47 withReason:@"No key item"];
                 }
               }
 
-              v38 = [v80 countByEnumeratingWithState:&v85 objects:v120 count:16];
+              v38 = [v79 countByEnumeratingWithState:&v84 objects:v119 count:16];
             }
 
             while (v38);
@@ -883,37 +894,37 @@ LABEL_9:
             v40 = 0.0;
           }
 
-          v58 = [v82 count];
+          v58 = [v81 count];
           if (v58)
           {
             v40 = v40 / v58;
           }
 
-          v59 = -[PGKeyCurator bestItemInItems:options:criteria:minimumCriteriaScore:useIconicScore:](self, "bestItemInItems:options:criteria:minimumCriteriaScore:useIconicScore:", v82, optionsCopy, criteriaCopy, [optionsCopy useIconicScore], fmin(v40, 0.5));
-          [v83 setState:3 ofItem:v59 withReason:@"Key item in subcluster"];
-          [v81 sortUsingDescriptors:v73];
-          v60 = [(PGKeyCurator *)self clusterWithSubclusters:v81 keyItem:v59];
-          v61 = v77;
-          if (!v77 || (v61 = v77, [(PGKeyCurator *)self cluster:v60 isBetterThanCluster:v77 forMemories:isForMemories allowGuestAsset:allowGuestAsset]))
+          v59 = -[PGKeyCurator bestItemInItems:options:criteria:minimumCriteriaScore:useIconicScore:](self, "bestItemInItems:options:criteria:minimumCriteriaScore:useIconicScore:", v81, optionsCopy, criteriaCopy, [optionsCopy useIconicScore], fmin(v40, 0.5));
+          [v82 setState:3 ofItem:v59 withReason:@"Key item in subcluster"];
+          [v80 sortUsingDescriptors:v72];
+          v60 = [(PGKeyCurator *)self clusterWithSubclusters:v80 keyItem:v59];
+          v61 = v76;
+          if (!v76 || (v61 = v76, [(PGKeyCurator *)self cluster:v60 isBetterThanCluster:v76 forMemories:isForMemories allowGuestAsset:allowGuestAsset]))
           {
             v62 = v60;
 
-            v77 = v62;
+            v76 = v62;
           }
         }
 
-        v75 = [v69 countByEnumeratingWithState:&v98 objects:v122 count:16];
+        v74 = [v68 countByEnumeratingWithState:&v97 objects:v121 count:16];
       }
 
-      while (v75);
+      while (v74);
     }
 
     else
     {
-      v77 = 0;
+      v76 = 0;
     }
 
-    firstObject = [v77 keyItem];
+    firstObject = [v76 keyItem];
     if (firstObject)
     {
       [infoCopy forceState:4 ofItem:firstObject withReason:@"Key item in town"];
@@ -921,10 +932,8 @@ LABEL_9:
   }
 
 LABEL_70:
-  _Block_object_dispose(&v112, 8);
-  _Block_object_dispose(&v116, 8);
-
-  v63 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v111, 8);
+  _Block_object_dispose(&v115, 8);
 
   return firstObject;
 }
@@ -1082,7 +1091,7 @@ void __61__PGKeyCurator_keyItemIdentifierWithItems_options_debugInfo___block_inv
 
 - (id)keyItemInItems:(id)items options:(id)options criteria:(id)criteria debugInfo:(id)info progressBlock:(id)block
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   optionsCopy = options;
   criteriaCopy = criteria;
@@ -1124,8 +1133,8 @@ LABEL_3:
       clsIdentifier = [firstObject clsIdentifier];
       LODWORD(buf) = 138412290;
       *(&buf + 4) = clsIdentifier;
-      v22 = MEMORY[0x277D86220];
-      v23 = "Found '%@' as key item with complete == YES";
+      v21 = MEMORY[0x277D86220];
+      v22 = "Found '%@' as key item with complete == YES";
       goto LABEL_53;
     }
   }
@@ -1137,133 +1146,133 @@ LABEL_3:
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Couldn't find a key item with complete == YES, try and use the highest content scoring non-utility item, or the if none the highest aesthetic scoring utility item", &buf, 2u);
   }
 
-  v51 = blockCopy;
-  v52 = infoCopy;
+  v50 = blockCopy;
+  v51 = infoCopy;
   [infoCopy resetWithReason:{@"Couldn't find a key item with complete == YES, try and use the highest content scoring non-utility item, or the if none the highest aesthetic scoring utility item"}];
   isForMemories = [optionsCopy isForMemories];
-  v53 = optionsCopy;
+  v52 = optionsCopy;
   allowGuestAsset = [optionsCopy allowGuestAsset];
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
-  v26 = itemsCopy;
-  v27 = [v26 countByEnumeratingWithState:&v55 objects:v61 count:16];
-  if (v27)
+  v25 = itemsCopy;
+  v26 = [v25 countByEnumeratingWithState:&v54 objects:v60 count:16];
+  if (v26)
   {
-    v28 = v27;
-    v50 = itemsCopy;
-    v29 = 0;
+    v27 = v26;
+    v49 = itemsCopy;
+    v28 = 0;
     firstObject = 0;
-    v30 = *v56;
+    v29 = *v55;
+    v30 = 0.0;
     v31 = 0.0;
     v32 = 0.0;
     v33 = 0.0;
     v34 = 0.0;
     v35 = 0.0;
-    v36 = 0.0;
     do
     {
-      for (i = 0; i != v28; ++i)
+      for (i = 0; i != v27; ++i)
       {
-        if (*v56 != v30)
+        if (*v55 != v29)
         {
-          objc_enumerationMutation(v26);
+          objc_enumerationMutation(v25);
         }
 
-        v38 = *(*(&v55 + 1) + 8 * i);
+        v37 = *(*(&v54 + 1) + 8 * i);
         buf = 0uLL;
-        v60 = 0.0;
-        [v38 clsContentScore];
-        *&buf = v39;
-        if (!criteriaCopy || [(PGKeyCurator *)selfCopy item:v38 passesCriteria:criteriaCopy score:&buf + 8])
+        v59 = 0.0;
+        [v37 clsContentScore];
+        *&buf = v38;
+        if (!criteriaCopy || [(PGKeyCurator *)selfCopy item:v37 passesCriteria:criteriaCopy score:&buf + 8])
         {
-          [v38 clsAestheticScore];
-          v60 = v40;
-          if ([v38 clsAvoidIfPossibleAsKeyItemForMemories:isForMemories allowGuestAsset:allowGuestAsset])
+          [v37 clsAestheticScore];
+          v59 = v39;
+          if ([v37 clsAvoidIfPossibleAsKeyItemForMemories:isForMemories allowGuestAsset:allowGuestAsset])
           {
-            if (!v29 || (*(ItemScoreIsBetterThanOtherItemScore + 2))(*&buf, *(&buf + 1), v60, v33, v32, v31))
+            if (!v28 || (*(ItemScoreIsBetterThanOtherItemScore + 2))(*&buf, *(&buf + 1), v59, v32, v31, v30))
             {
-              v41 = v38;
+              v40 = v37;
 
-              v32 = *(&buf + 1);
-              v33 = *&buf;
-              v29 = v41;
-              v31 = v60;
+              v31 = *(&buf + 1);
+              v32 = *&buf;
+              v28 = v40;
+              v30 = v59;
             }
           }
 
-          else if (!firstObject || (*(ItemScoreIsBetterThanOtherItemScore + 2))(*&buf, *(&buf + 1), v60, v36, v35, v34))
+          else if (!firstObject || (*(ItemScoreIsBetterThanOtherItemScore + 2))(*&buf, *(&buf + 1), v59, v35, v34, v33))
           {
-            v42 = v38;
+            v41 = v37;
 
-            v35 = *(&buf + 1);
-            v36 = *&buf;
-            firstObject = v42;
-            v34 = v60;
+            v34 = *(&buf + 1);
+            v35 = *&buf;
+            firstObject = v41;
+            v33 = v59;
           }
         }
       }
 
-      v28 = [v26 countByEnumeratingWithState:&v55 objects:v61 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v54 objects:v60 count:16];
     }
 
-    while (v28);
+    while (v27);
 
-    v43 = MEMORY[0x277D3C778];
+    v42 = MEMORY[0x277D3C778];
     if (firstObject)
     {
-      v44 = *MEMORY[0x277D3C778];
-      if (v36 != *MEMORY[0x277D3C778] || v33 <= v44)
+      v43 = *MEMORY[0x277D3C778];
+      if (v35 != *MEMORY[0x277D3C778] || v32 <= v43)
       {
-        v33 = v36;
-        itemsCopy = v50;
-        infoCopy = v52;
+        v32 = v35;
+        itemsCopy = v49;
+        infoCopy = v51;
         goto LABEL_41;
       }
     }
 
-    v46 = v29;
+    v45 = v28;
 
-    itemsCopy = v50;
-    infoCopy = v52;
-    if (v46)
+    itemsCopy = v49;
+    infoCopy = v51;
+    if (v45)
     {
-      v44 = *v43;
-      firstObject = v46;
+      v43 = *v42;
+      firstObject = v45;
 LABEL_41:
-      if (v33 <= v44)
+      if (v32 <= v43)
       {
-        [infoCopy chooseItem:firstObject inItems:v26 withReason:@"Key utility item"];
-        optionsCopy = v53;
+        [infoCopy chooseItem:firstObject inItems:v25 withReason:@"Key utility item"];
+        optionsCopy = v52;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           clsIdentifier2 = [firstObject clsIdentifier];
           LODWORD(buf) = 138412290;
           *(&buf + 4) = clsIdentifier2;
-          v48 = MEMORY[0x277D86220];
-          v49 = "Found utility item '%@' for key item";
+          v47 = MEMORY[0x277D86220];
+          v48 = "Found utility item '%@' for key item";
           goto LABEL_56;
         }
       }
 
       else
       {
-        [infoCopy chooseItem:firstObject inItems:v26 withReason:@"Key non-utility item"];
-        optionsCopy = v53;
+        [infoCopy chooseItem:firstObject inItems:v25 withReason:@"Key non-utility item"];
+        optionsCopy = v52;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           clsIdentifier2 = [firstObject clsIdentifier];
           LODWORD(buf) = 138412290;
           *(&buf + 4) = clsIdentifier2;
-          v48 = MEMORY[0x277D86220];
-          v49 = "Found non-utility item '%@' for key item";
+          v47 = MEMORY[0x277D86220];
+          v48 = "Found non-utility item '%@' for key item";
 LABEL_56:
-          _os_log_impl(&dword_22F0FC000, v48, OS_LOG_TYPE_INFO, v49, &buf, 0xCu);
+          _os_log_impl(&dword_22F0FC000, v47, OS_LOG_TYPE_INFO, v48, &buf, 0xCu);
         }
       }
 
-      blockCopy = v51;
+      blockCopy = v50;
       goto LABEL_5;
     }
   }
@@ -1272,8 +1281,8 @@ LABEL_56:
   {
   }
 
-  optionsCopy = v53;
-  blockCopy = v51;
+  optionsCopy = v52;
+  blockCopy = v50;
   if (criteriaCopy)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -1283,7 +1292,7 @@ LABEL_56:
     }
 
     [infoCopy resetWithReason:{@"Couldn't find a key item with criteria, retrying without criteria"}];
-    v17 = [(PGKeyCurator *)selfCopy keyItemInItems:v26 options:v53 criteria:0 debugInfo:infoCopy progressBlock:v51];
+    v17 = [(PGKeyCurator *)selfCopy keyItemInItems:v25 options:v52 criteria:0 debugInfo:infoCopy progressBlock:v50];
     if (v17)
     {
       goto LABEL_3;
@@ -1296,22 +1305,20 @@ LABEL_56:
     _os_log_fault_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Couldn't find anything although we have items, this should never happen", &buf, 2u);
   }
 
-  firstObject = [v26 firstObject];
-  [infoCopy chooseItem:firstObject inItems:v26 withReason:@"At least it's an item"];
+  firstObject = [v25 firstObject];
+  [infoCopy chooseItem:firstObject inItems:v25 withReason:@"At least it's an item"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     clsIdentifier = [firstObject clsIdentifier];
     LODWORD(buf) = 138412290;
     *(&buf + 4) = clsIdentifier;
-    v22 = MEMORY[0x277D86220];
-    v23 = "Found '%@' item for key item";
+    v21 = MEMORY[0x277D86220];
+    v22 = "Found '%@' item for key item";
 LABEL_53:
-    _os_log_impl(&dword_22F0FC000, v22, OS_LOG_TYPE_INFO, v23, &buf, 0xCu);
+    _os_log_impl(&dword_22F0FC000, v21, OS_LOG_TYPE_INFO, v22, &buf, 0xCu);
   }
 
 LABEL_5:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }

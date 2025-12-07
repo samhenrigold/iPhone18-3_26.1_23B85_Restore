@@ -88,16 +88,18 @@
 
 - (void)setHasCustomizedPlaybackSettings:(BOOL)settings
 {
+  settingsCopy = settings;
   *(self + OBJC_IVAR____TtC10VoiceMemos34RCRecordingViewNavigationBarHelper__hasPlaybackSettings) = settings;
   selfCopy = self;
-  sub_1001B4354(settings);
+  sub_1001B4354(settingsCopy);
 }
 
 - (void)setIsTranscriptViewDisplayed:(BOOL)displayed
 {
+  displayedCopy = displayed;
   *(self + OBJC_IVAR____TtC10VoiceMemos34RCRecordingViewNavigationBarHelper__isTranscriptViewDisplayed) = displayed;
   selfCopy = self;
-  sub_1001B42E4(displayed);
+  sub_1001B42E4(displayedCopy);
 }
 
 - (void)setHasNoTranscribableContent:(BOOL)content
@@ -173,14 +175,16 @@
 
 - (void)updateTranscriptViewDisplayed:(BOOL)displayed
 {
+  displayedCopy = displayed;
   selfCopy = self;
-  sub_1001B42E4(displayed);
+  sub_1001B42E4(displayedCopy);
 }
 
 - (void)updateHasPlaybackSettings:(BOOL)settings
 {
+  settingsCopy = settings;
   selfCopy = self;
-  sub_1001B4354(settings);
+  sub_1001B4354(settingsCopy);
 }
 
 - (_TtC10VoiceMemos34RCRecordingViewNavigationBarHelper)init

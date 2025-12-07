@@ -23,16 +23,16 @@ void __59___UIContextMenuUIControllerAccessibility__axPerformEscape__block_invok
   objc_storeStrong(v11, 0);
 }
 
-void __59___UIContextMenuUIControllerAccessibility__axPerformEscape__block_invoke_2()
+void __59___UIContextMenuUIControllerAccessibility__axPerformEscape__block_invoke_2(uint64_t a1)
 {
   if (AXProcessIsSpringBoard())
   {
     NSClassFromString(&cfstr_Sbtopaffordanc.isa);
     if (objc_opt_isKindOfClass())
     {
-      v0 = [MEMORY[0x29EDBDFA8] server];
-      [v0 dismissShelfSwitcher];
-      MEMORY[0x29EDC9740](v0);
+      v1 = [MEMORY[0x29EDBDFA8] server];
+      [v1 dismissShelfSwitcher];
+      MEMORY[0x29EDC9740](v1);
     }
   }
 

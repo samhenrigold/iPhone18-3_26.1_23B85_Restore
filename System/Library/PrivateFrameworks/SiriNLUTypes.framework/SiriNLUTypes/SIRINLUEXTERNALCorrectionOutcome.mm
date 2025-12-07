@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -86,7 +87,6 @@ LABEL_7:
 {
   if (*&self->_has)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -144,6 +144,29 @@ LABEL_7:
   else
   {
     v4 = [typeCopy isEqualToString:@"CORRECTION_TYPE_USER_INITIATED"];
+  }
+
+  return v4;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"CORRECTION_TYPE_USER_INITIATED";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"CORRECTION_TYPE_NONE";
   }
 
   return v4;

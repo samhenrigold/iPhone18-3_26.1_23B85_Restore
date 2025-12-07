@@ -433,37 +433,37 @@ LABEL_6:
 - (id)previewViewControllerForURL:(id)l
 {
   lCopy = l;
-  if ([lCopy isTelephonyURL] & 1) != 0 || (objc_msgSend(lCopy, "sf_isFacetimeURL") & 1) != 0 || (objc_msgSend(lCopy, "safari_isMailtoURL"))
+  if ([lCopy isTelephonyURL] & 1) != 0 || (objc_msgSend(lCopy, "sf_isFacetimeURL") & 1) != 0 || (v5 = objc_msgSend(lCopy, "safari_isMailtoURL"), (v5))
   {
-    v5 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXUserInteraction();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = WBS_LOG_CHANNEL_PREFIXUserInteraction(v5, v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1D4644000, v7, OS_LOG_TYPE_DEFAULT, "Showing link preview for link on webpage", v10, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_1D4644000, v9, OS_LOG_TYPE_DEFAULT, "Showing link preview for link on webpage", v12, 2u);
     }
 
-    v5 = [[_SFAdaptivePreviewViewController alloc] initWithURL:lCopy];
-    [(_SFAdaptivePreviewViewController *)v5 setDelegate:self];
+    v7 = [[_SFAdaptivePreviewViewController alloc] initWithURL:lCopy];
+    [(_SFAdaptivePreviewViewController *)v7 setDelegate:self];
     if ([(_WKActivatedElementInfo *)self->_elementInfo type]== 1)
     {
       image = [(_WKActivatedElementInfo *)self->_elementInfo image];
       [image size];
-      [(_SFAdaptivePreviewViewController *)v5 setPreferredDocumentContentSize:?];
+      [(_SFAdaptivePreviewViewController *)v7 setPreferredDocumentContentSize:?];
     }
 
     else
     {
       Width = CGRectGetWidth(self->_windowBounds);
-      [(_SFAdaptivePreviewViewController *)v5 setPreferredDocumentContentSize:Width, Width * 1.33333333];
+      [(_SFAdaptivePreviewViewController *)v7 setPreferredDocumentContentSize:Width, Width * 1.33333333];
     }
   }
 
-  return v5;
+  return v7;
 }
 
 - (id)menuElementsForSuggestedActions:(id)actions

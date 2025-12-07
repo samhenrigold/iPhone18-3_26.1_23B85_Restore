@@ -90,25 +90,23 @@ LABEL_4:
 
 - (id)hf_updateValue:()HFIncludedContextProtocol forContextType:
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = HFLogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138413058;
+    v11 = 138413058;
     selfCopy = self;
-    v14 = 2080;
-    v15 = "[HMMediaProfile(HFIncludedContextProtocol) hf_updateValue:forContextType:]";
-    v16 = 1024;
-    v17 = a3;
-    v18 = 2048;
-    v19 = a4;
-    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "(%@:%s) Updating value to %{BOOL}d for context %lu", &v12, 0x26u);
+    v13 = 2080;
+    v14 = "[HMMediaProfile(HFIncludedContextProtocol) hf_updateValue:forContextType:]";
+    v15 = 1024;
+    v16 = a3;
+    v17 = 2048;
+    v18 = a4;
+    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "(%@:%s) Updating value to %{BOOL}d for context %lu", &v11, 0x26u);
   }
 
   accessory = [self accessory];
   v9 = [accessory hf_updateValue:a3 forContextType:a4];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

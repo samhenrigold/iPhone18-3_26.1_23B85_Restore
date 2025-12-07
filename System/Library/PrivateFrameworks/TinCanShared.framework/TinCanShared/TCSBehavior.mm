@@ -168,13 +168,14 @@ uint64_t __29__TCSBehavior_sharedBehavior__block_invoke()
 
 - (void)_handleDeviceFirstUnlock
 {
-  self->_isMobileKeyBagDisabledOrDeviceUnlockedSinceBoot = [objc_opt_class() _isMobileKeyBagDisabledOrDeviceUnlockedSinceBoot];
-  _TCSInitializeLogging();
-  v3 = TCSLogDefault;
+  _isMobileKeyBagDisabledOrDeviceUnlockedSinceBoot = [objc_opt_class() _isMobileKeyBagDisabledOrDeviceUnlockedSinceBoot];
+  self->_isMobileKeyBagDisabledOrDeviceUnlockedSinceBoot = _isMobileKeyBagDisabledOrDeviceUnlockedSinceBoot;
+  _TCSInitializeLogging(_isMobileKeyBagDisabledOrDeviceUnlockedSinceBoot, v4);
+  v5 = TCSLogDefault;
   if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_26F110000, v3, OS_LOG_TYPE_DEFAULT, "TCSBehavior notifying clients of device first unlock.", v5, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_26F110000, v5, OS_LOG_TYPE_DEFAULT, "TCSBehavior notifying clients of device first unlock.", v7, 2u);
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];

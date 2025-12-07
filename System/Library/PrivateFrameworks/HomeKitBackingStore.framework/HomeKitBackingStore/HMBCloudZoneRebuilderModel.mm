@@ -52,18 +52,16 @@ uint64_t __42__HMBCloudZoneRebuilderModel_sentinelUUID__block_invoke()
 
 void __43__HMBCloudZoneRebuilderModel_hmbProperties__block_invoke()
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"uniqueToken";
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"uniqueToken";
   v0 = [HMBModelField fieldWithClass:objc_opt_class()];
-  v5[1] = @"hasCompleted";
-  v6[0] = v0;
+  v4[1] = @"hasCompleted";
+  v5[0] = v0;
   v1 = [HMBModelField fieldWithClass:objc_opt_class()];
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
   v3 = hmbProperties__properties_3020;
   hmbProperties__properties_3020 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

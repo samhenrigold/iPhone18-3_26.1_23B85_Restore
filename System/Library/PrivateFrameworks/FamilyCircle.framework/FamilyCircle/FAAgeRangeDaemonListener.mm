@@ -18,7 +18,7 @@
 
 + (id)createAndReturnError:(id *)error
 {
-  v3 = objc_allocWithZone(type metadata accessor for AgeRangeDaemonListener());
+  v3 = objc_allocWithZone(type metadata accessor for AgeRangeDaemonListener(self, a2));
   v4 = sub_100026624(sub_100026A9C, 0);
 
   return v4;

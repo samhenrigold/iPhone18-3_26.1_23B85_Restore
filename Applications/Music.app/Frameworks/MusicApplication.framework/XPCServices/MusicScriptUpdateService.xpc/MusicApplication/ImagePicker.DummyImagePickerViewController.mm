@@ -20,7 +20,7 @@
   *(&self->super.super.super.isa + OBJC_IVAR____TtCV11MusicCoreUI11ImagePicker30DummyImagePickerViewController_hasPresentationInProgress) = 0;
   *(&self->super.super.super.isa + OBJC_IVAR____TtCV11MusicCoreUI11ImagePicker30DummyImagePickerViewController_presentedChild) = 0;
   v4.receiver = self;
-  v4.super_class = type metadata accessor for ImagePicker.DummyImagePickerViewController();
+  v4.super_class = type metadata accessor for ImagePicker.DummyImagePickerViewController(self, a2);
   return [(ImagePicker.DummyImagePickerViewController *)&v4 initWithNibName:0 bundle:0];
 }
 

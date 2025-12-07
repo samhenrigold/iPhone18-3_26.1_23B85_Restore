@@ -42,29 +42,29 @@
 
 - (uint64_t)shouldGeneratePeopleForRecord:()PeopleUtils
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a3;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   mEMORY[0x277D657A0] = [MEMORY[0x277D657A0] sharedContext];
   peopleExtractionAttributes = [mEMORY[0x277D657A0] peopleExtractionAttributes];
 
-  v6 = [peopleExtractionAttributes countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [peopleExtractionAttributes countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(peopleExtractionAttributes);
         }
 
-        v9 = [v3 objectForKeyedSubscript:*(*(&v12 + 1) + 8 * i)];
+        v9 = [v3 objectForKeyedSubscript:*(*(&v11 + 1) + 8 * i)];
 
         if (v9)
         {
@@ -73,7 +73,7 @@
         }
       }
 
-      v6 = [peopleExtractionAttributes countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [peopleExtractionAttributes countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -85,7 +85,6 @@
 
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

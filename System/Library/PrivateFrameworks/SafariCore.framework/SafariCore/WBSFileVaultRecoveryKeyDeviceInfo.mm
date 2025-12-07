@@ -53,15 +53,15 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF90];
   v4 = *&self->_serialNumber;
-  v10[0] = @"serialNumber";
-  v10[1] = @"model";
-  v11 = v4;
-  v10[2] = @"deviceTypeIdentifier";
+  v9[0] = @"serialNumber";
+  v9[1] = @"model";
+  v10 = v4;
+  v9[2] = @"deviceTypeIdentifier";
   deviceTypeIdentifier = self->_deviceTypeIdentifier;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:v10 count:3];
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v10 forKeys:v9 count:3];
   v6 = [v3 dictionaryWithDictionary:v5];
 
   variant = self->_variant;
@@ -69,8 +69,6 @@
   {
     [v6 setObject:variant forKeyedSubscript:@"variant"];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

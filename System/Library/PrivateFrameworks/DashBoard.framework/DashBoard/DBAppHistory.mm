@@ -795,7 +795,7 @@ void __74__DBAppHistory__evaluateUniversalLinksForURL_withIconProvider_completio
       v15 = DBLogForCategory(0);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        __74__DBAppHistory__evaluateUniversalLinksForURL_withIconProvider_completion___block_invoke_cold_1(a1 + 32, v15, v16, v17, v18, v19, v20, v21);
+        __74__DBAppHistory__evaluateUniversalLinksForURL_withIconProvider_completion___block_invoke_cold_1((a1 + 32), v15, v16, v17, v18, v19, v20, v21);
       }
 
       (*(*(a1 + 56) + 16))();
@@ -1573,6 +1573,27 @@ void __54__DBAppHistory_Contexts__availableApplicationContexts__block_invoke()
   [sessionContextOwners setObject:v8 forKey:contextCopy];
 
   [(DBAppHistory *)self _persistSessionUIContextOwnership];
+}
+
+void __74__DBAppHistory__evaluateUniversalLinksForURL_withIconProvider_completion___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_6(&dword_248146000, a2, a3, "Unable to locate any candidate app to launch %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __74__DBAppHistory__evaluateUniversalLinksForURL_withIconProvider_completion___block_invoke_292_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_6(&dword_248146000, a2, a3, "Failed opening a universal link with %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __74__DBAppHistory__evaluateUniversalLinksForURL_withIconProvider_completion___block_invoke_292_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_6(&dword_248146000, a2, a3, "Indeterminate result for universal link for %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

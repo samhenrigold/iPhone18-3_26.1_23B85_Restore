@@ -2,7 +2,6 @@
 - (BOOL)parentOfWithJavaLangThreadGroup:(id)group;
 - (JavaLangThreadGroup)init;
 - (JavaLangThreadGroup)initWithNSString:(id)string;
-- (NSString)description;
 - (int)activeCount;
 - (int)activeGroupCount;
 - (void)addWithJavaLangThread:(id)thread;
@@ -16,7 +15,7 @@
 - (JavaLangThreadGroup)init
 {
   self->maxPriority_ = 10;
-  v3 = [IOSObjectArray newArrayWithLength:5 type:JavaLangThread_class_()];
+  v3 = [IOSObjectArray newArrayWithLength:5 type:JavaLangThread_class_(self, a2)];
   JreStrongAssignAndConsume(&self->childrenThreads_, v3);
   if (qword_1005553E0 != -1)
   {
@@ -32,7 +31,7 @@
 
 - (JavaLangThreadGroup)initWithNSString:(id)string
 {
-  v5 = JavaLangThread_currentThread();
+  v5 = JavaLangThread_currentThread(self, a2);
   if (!v5)
   {
     JreThrowNullPointerException();
@@ -147,7 +146,7 @@ LABEL_11:
   numThreads = self->numThreads_;
   if (size == numThreads)
   {
-    v9 = [IOSObjectArray arrayWithLength:2 * size type:JavaLangThread_class_()];
+    v9 = [IOSObjectArray arrayWithLength:2 * size type:JavaLangThread_class_(childrenThreads, numThreads)];
     JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(self->childrenThreads_, 0, v9, 0, self->numThreads_);
     v10 = self->numThreads_;
     self->numThreads_ = v10 + 1;
@@ -235,14 +234,6 @@ LABEL_11:
   objc_sync_exit(childrenThreadsLock);
 }
 
-- (NSString)description
-{
-  v3 = [-[JavaLangThreadGroup getClass](self "getClass")];
-  maxPriority = self->maxPriority_;
-  name = self->name_;
-  return JreStrcat("$$$$IC", v4, v5, v6, v7, v8, v9, v10, v3);
-}
-
 - (void)uncaughtExceptionWithJavaLangThread:(id)thread withJavaLangThrowable:(id)throwable
 {
   parent = self->parent_;
@@ -254,9 +245,10 @@ LABEL_4:
     return;
   }
 
-  if (JavaLangThread_getDefaultUncaughtExceptionHandler())
+  DefaultUncaughtExceptionHandler = JavaLangThread_getDefaultUncaughtExceptionHandler(0, a2);
+  if (DefaultUncaughtExceptionHandler)
   {
-    parent = JavaLangThread_getDefaultUncaughtExceptionHandler();
+    parent = JavaLangThread_getDefaultUncaughtExceptionHandler(DefaultUncaughtExceptionHandler, v8);
     if (parent)
     {
       goto LABEL_4;

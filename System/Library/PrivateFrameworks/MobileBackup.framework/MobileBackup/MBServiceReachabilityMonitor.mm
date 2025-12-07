@@ -100,10 +100,19 @@
     }
 
     *buf = 136315138;
-    v8 = v5;
+    v9 = v5;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "isInternetReachableViaWiFi:%s", buf, 0xCu);
-    self->_isInternetReachableViaWiFi;
-    _MBLog();
+    if (self->_isInternetReachableViaWiFi)
+    {
+      v6 = "YES";
+    }
+
+    else
+    {
+      v6 = "NO";
+    }
+
+    _MBLog(@"Df", "isInternetReachableViaWiFi:%s", v6);
   }
 
   wifiStatusChangedCallback = self->_wifiStatusChangedCallback;
@@ -122,7 +131,7 @@
     {
       LOWORD(buf.version) = 0;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Reachability monitor started monitoring WiFi connection", &buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Reachability monitor started monitoring WiFi connection");
     }
 
     *&address.sa_len = 528;
@@ -153,7 +162,7 @@
       {
         LOWORD(buf.version) = 0;
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to setup reachability", &buf, 2u);
-        _MBLog();
+        _MBLog(@"E ", "Failed to setup reachability");
       }
     }
   }
@@ -170,7 +179,7 @@
     {
       *v8 = 0;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Reachability monitor stopped monitoring WiFi connection", v8, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Reachability monitor stopped monitoring WiFi connection");
     }
 
     if (self->_callbackQueue)

@@ -22,9 +22,9 @@
 
 - (NSString)assetID
 {
-  v3 = getPHObjectClass[0]();
+  PHObjectClass = getPHObjectClass(self, a2);
   assetIdentifier = [(PHPickerResult *)self->_wrappedResult assetIdentifier];
-  v5 = [(objc_class *)v3 uuidFromLocalIdentifier:assetIdentifier];
+  v5 = [PHObjectClass uuidFromLocalIdentifier:assetIdentifier];
 
   return v5;
 }

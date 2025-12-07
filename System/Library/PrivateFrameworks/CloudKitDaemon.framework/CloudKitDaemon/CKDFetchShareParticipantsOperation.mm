@@ -35,7 +35,7 @@
 
 - (void)_handleFetchedInfo:(id)info withIdentity:(id)identity error:(id)error
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   identityCopy = identity;
   errorCopy = error;
@@ -48,11 +48,11 @@
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
   {
     *buf = 138412802;
-    v58 = infoCopy;
-    v59 = 2112;
-    v60 = identityCopy;
-    v61 = 2112;
-    v62 = errorCopy;
+    v57 = infoCopy;
+    v58 = 2112;
+    v59 = identityCopy;
+    v60 = 2112;
+    v61 = errorCopy;
     _os_log_impl(&dword_22506F000, v11, OS_LOG_TYPE_INFO, "For fetch info %@, found user identity %@, error %@", buf, 0x20u);
   }
 
@@ -85,24 +85,22 @@
     }
 
     v50 = objc_msgSend_callbackQueue(self, v15, v16);
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = sub_225262638;
-    v53[3] = &unk_2785463D0;
-    v53[4] = self;
-    v54 = infoCopy;
-    v55 = inited;
-    v56 = errorCopy;
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = sub_225262638;
+    v52[3] = &unk_2785463D0;
+    v52[4] = self;
+    v53 = infoCopy;
+    v54 = inited;
+    v55 = errorCopy;
     v51 = inited;
-    dispatch_async(v50, v53);
+    dispatch_async(v50, v52);
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchIdentities
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_usesBackgroundSession(self, a2, v2);
   v7 = objc_msgSend_container(self, v5, v6);
   v10 = v7;
@@ -128,7 +126,7 @@
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v45 = v11;
+    v44 = v11;
     _os_log_debug_impl(&dword_22506F000, v14, OS_LOG_TYPE_DEBUG, "Got lookup service for identity fetch operation: %@", buf, 0xCu);
   }
 
@@ -138,21 +136,21 @@
   objc_msgSend_setPendingRequest_(self, v21, v20);
 
   objc_initWeak(&location, self);
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = sub_225262A04;
-  v41[3] = &unk_27854B468;
-  objc_copyWeak(&v42, &location);
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = sub_225262A04;
+  v40[3] = &unk_27854B468;
+  objc_copyWeak(&v41, &location);
   v24 = objc_msgSend_pendingRequest(self, v22, v23);
-  objc_msgSend_setPerLookupInfoProgressBlock_(v24, v25, v41);
+  objc_msgSend_setPerLookupInfoProgressBlock_(v24, v25, v40);
 
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = sub_225262A90;
-  v39[3] = &unk_278549318;
-  objc_copyWeak(&v40, &location);
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = sub_225262A90;
+  v38[3] = &unk_278549318;
+  objc_copyWeak(&v39, &location);
   v28 = objc_msgSend_pendingRequest(self, v26, v27);
-  objc_msgSend_setLookupCompletionBlock_(v28, v29, v39);
+  objc_msgSend_setLookupCompletionBlock_(v28, v29, v38);
 
   if (*v12 != -1)
   {
@@ -162,20 +160,18 @@
   v30 = *v13;
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
   {
-    v38 = objc_msgSend_pendingRequest(self, v31, v32);
+    v37 = objc_msgSend_pendingRequest(self, v31, v32);
     *buf = 138412290;
-    v45 = v38;
+    v44 = v37;
     _os_log_debug_impl(&dword_22506F000, v30, OS_LOG_TYPE_DEBUG, "Scheduling a request %@ to the lookup service", buf, 0xCu);
   }
 
   v35 = objc_msgSend_pendingRequest(self, v33, v34);
   objc_msgSend_scheduleRequest_(v11, v36, v35);
 
-  objc_destroyWeak(&v40);
-  objc_destroyWeak(&v42);
+  objc_destroyWeak(&v39);
+  objc_destroyWeak(&v41);
   objc_destroyWeak(&location);
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)main

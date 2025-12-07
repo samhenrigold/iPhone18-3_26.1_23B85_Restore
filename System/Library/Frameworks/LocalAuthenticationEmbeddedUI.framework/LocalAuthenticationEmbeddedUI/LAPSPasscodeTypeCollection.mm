@@ -8,22 +8,20 @@
 
 + (id)allPasscodeTypes
 {
-  v13[5] = *MEMORY[0x277D85DE8];
+  v12[5] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CBEB70]);
   v3 = +[LAPSPasscodeType noneType];
   v4 = +[LAPSPasscodeType numericFourDigitsType];
-  v13[1] = v4;
+  v12[1] = v4;
   v5 = +[LAPSPasscodeType numericSixDigitsType];
-  v13[2] = v5;
+  v12[2] = v5;
   v6 = +[LAPSPasscodeType numericCustomDigitsType];
-  v13[3] = v6;
+  v12[3] = v6;
   v7 = +[LAPSPasscodeType alphanumericType];
-  v13[4] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:5];
+  v12[4] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:5];
   v9 = [v8 sortedArrayUsingComparator:&__block_literal_global];
   v10 = [v2 initWithArray:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

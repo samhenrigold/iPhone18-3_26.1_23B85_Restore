@@ -19,8 +19,9 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_10015D2C0(appear);
+  sub_10015D2C0(appearCopy);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear

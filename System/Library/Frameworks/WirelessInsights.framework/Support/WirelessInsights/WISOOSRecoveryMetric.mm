@@ -4,6 +4,7 @@
 - (WISOOSRecoveryMetric)init;
 - (id)extractCellInfo:(id)info error:(id *)error;
 - (id)findContextsToDelete:(id)delete;
+- (void)airplaneModeStatusChanged:(BOOL)changed;
 - (void)cellMonitorUpdate:(id)update info:(id)info;
 - (void)currentDataSimChanged:(id)changed;
 - (void)handleCompletedOutOfServiceEventWithState:(id)state atTime:(unint64_t)time;
@@ -472,10 +473,9 @@ LABEL_36:
 
     if (v12)
     {
-      v19 = 0;
-      v13 = [(WISOOSRecoveryMetric *)self extractCellInfo:infoCopy error:&v19];
-      v14 = v19;
-      v15 = *(qword_1002DBE98 + 48);
+      v18 = 0;
+      v13 = [(WISOOSRecoveryMetric *)self extractCellInfo:infoCopy error:&v18];
+      v14 = v18;
       if (v14 || !v13)
       {
         if (os_log_type_enabled(*(qword_1002DBE98 + 48), OS_LOG_TYPE_ERROR))
@@ -504,9 +504,9 @@ LABEL_36:
           if (oosStart)
           {
             registrationState = [v12 registrationState];
-            v18 = [WISTelephonyUtils isRegistrationDisplayStatusInService:registrationState];
+            v17 = [WISTelephonyUtils isRegistrationDisplayStatusInService:registrationState];
 
-            if (v18)
+            if (v17)
             {
               if (os_log_type_enabled(*(qword_1002DBE98 + 48), OS_LOG_TYPE_DEBUG))
               {
@@ -528,6 +528,33 @@ LABEL_36:
       objc_claimAutoreleasedReturnValue();
       sub_100209528();
     }
+  }
+}
+
+- (void)airplaneModeStatusChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  isAirplaneModeActive = [(WISOOSRecoveryMetric *)self isAirplaneModeActive];
+  v6 = *(qword_1002DBE98 + 48);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
+  if (isAirplaneModeActive == changedCopy)
+  {
+    if (v7)
+    {
+      sub_10020956C();
+    }
+  }
+
+  else
+  {
+    if (v7)
+    {
+      sub_1002095A0(changedCopy, v6, v8);
+    }
+
+    [(WISOOSRecoveryMetric *)self setIsAirplaneModeActive:changedCopy];
+    contextUUIDToStateMap = [(WISOOSRecoveryMetric *)self contextUUIDToStateMap];
+    [contextUUIDToStateMap enumerateKeysAndObjectsUsingBlock:&stru_1002B14C8];
   }
 }
 

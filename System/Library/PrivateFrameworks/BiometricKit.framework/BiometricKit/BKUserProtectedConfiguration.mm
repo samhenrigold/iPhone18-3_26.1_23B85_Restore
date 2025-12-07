@@ -152,10 +152,9 @@
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v6 = *&self->_unlockEnabled;
-  v7 = [v3 stringWithFormat:@"<%@: %p:(unlockEnabled:%@, identificationEnabled:%@, loginEnabled:%@, applePayEnabled:%@, attentionDetectionEnabled:%@, periocularFaceIDMatchEnabled:%@)>", v5, self, self->_unlockEnabled, self->_identificationEnabled, self->_loginEnabled, self->_applePayEnabled, self->_attentionDetectionEnabled, self->_periocularFaceIDMatchEnabled];
+  v6 = [v3 stringWithFormat:@"<%@: %p:(unlockEnabled:%@, identificationEnabled:%@, loginEnabled:%@, applePayEnabled:%@, attentionDetectionEnabled:%@, periocularFaceIDMatchEnabled:%@)>", v5, self, self->_unlockEnabled, self->_identificationEnabled, self->_loginEnabled, self->_applePayEnabled, self->_attentionDetectionEnabled, self->_periocularFaceIDMatchEnabled];
 
-  return v7;
+  return v6;
 }
 
 @end

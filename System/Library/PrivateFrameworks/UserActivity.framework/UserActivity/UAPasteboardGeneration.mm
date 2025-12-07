@@ -40,41 +40,41 @@
 
 - (BOOL)addItem:(id)item
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   items = [(UAPasteboardGeneration *)self items];
   v6 = [items arrayByAddingObject:itemCopy];
   [(UAPasteboardGeneration *)self setItems:v6];
 
   v7 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   types = [itemCopy types];
-  v9 = [types countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [types countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       v12 = 0;
       do
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(types);
         }
 
-        type = [*(*(&v18 + 1) + 8 * v12) type];
+        type = [*(*(&v17 + 1) + 8 * v12) type];
         [v7 addObject:type];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [types countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [types countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
@@ -84,13 +84,12 @@
   v15 = [allTypes setByAddingObjectsFromSet:v7];
   [(UAPasteboardGeneration *)self setAllTypes:v15];
 
-  v16 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)addType:(id)type toItemAtIndex:(unint64_t)index
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   items = [(UAPasteboardGeneration *)self items];
   v8 = [items count];
@@ -108,13 +107,13 @@
       {
         generation = [(UAPasteboardGeneration *)self generation];
         type = [typeCopy type];
-        v38 = 134218498;
+        v37 = 134218498;
         indexCopy2 = index;
-        v40 = 2048;
-        v41 = generation;
-        v42 = 2112;
-        v43 = type;
-        _os_log_impl(&dword_226A4E000, &v13->super, OS_LOG_TYPE_DEBUG, "[Local Pasteboard] Adding type to index %lu for generation %lu: %@", &v38, 0x20u);
+        v39 = 2048;
+        v40 = generation;
+        v41 = 2112;
+        v42 = type;
+        _os_log_impl(&dword_226A4E000, &v13->super, OS_LOG_TYPE_DEBUG, "[Local Pasteboard] Adding type to index %lu for generation %lu: %@", &v37, 0x20u);
       }
 
       v13 = objc_alloc_init(UAPasteboardItem);
@@ -135,11 +134,11 @@
         v27 = MEMORY[0x277CCABB0];
         items3 = [(UAPasteboardGeneration *)self items];
         v29 = [v27 numberWithUnsignedInteger:{objc_msgSend(items3, "count")}];
-        v38 = 138412546;
+        v37 = 138412546;
         indexCopy2 = v26;
-        v40 = 2112;
-        v41 = v29;
-        _os_log_impl(&dword_226A4E000, &v13->super, OS_LOG_TYPE_ERROR, "[Local Pasteboard] Error adding type to item %@, cur count: %@", &v38, 0x16u);
+        v39 = 2112;
+        v40 = v29;
+        _os_log_impl(&dword_226A4E000, &v13->super, OS_LOG_TYPE_ERROR, "[Local Pasteboard] Error adding type to item %@, cur count: %@", &v37, 0x16u);
       }
 
       v17 = 0;
@@ -153,13 +152,13 @@
     {
       generation2 = [(UAPasteboardGeneration *)self generation];
       type3 = [typeCopy type];
-      v38 = 134218498;
+      v37 = 134218498;
       indexCopy2 = index;
-      v40 = 2048;
-      v41 = generation2;
-      v42 = 2112;
-      v43 = type3;
-      _os_log_impl(&dword_226A4E000, v9, OS_LOG_TYPE_DEBUG, "[Local Pasteboard] Adding type to index %lu for generation %lu: %@", &v38, 0x20u);
+      v39 = 2048;
+      v40 = generation2;
+      v41 = 2112;
+      v42 = type3;
+      _os_log_impl(&dword_226A4E000, v9, OS_LOG_TYPE_DEBUG, "[Local Pasteboard] Adding type to index %lu for generation %lu: %@", &v37, 0x20u);
     }
 
     items4 = [(UAPasteboardGeneration *)self items];
@@ -200,7 +199,6 @@
     }
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -236,16 +234,16 @@
 
 void __39__UAPasteboardGeneration_fetchTypeURL___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [v3 open];
   v4 = objc_alloc_init(MEMORY[0x277CBEB28]);
-  v5 = [v3 read:v14 maxLength:1024];
+  v5 = [v3 read:v13 maxLength:1024];
   if (v5 >= 1)
   {
-    for (i = v5; i > 0; i = [v3 read:v14 maxLength:1024])
+    for (i = v5; i > 0; i = [v3 read:v13 maxLength:1024])
     {
-      [v4 appendBytes:v14 length:i];
+      [v4 appendBytes:v13 length:i];
     }
   }
 
@@ -257,7 +255,7 @@ void __39__UAPasteboardGeneration_fetchTypeURL___block_invoke(uint64_t a1, void 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v16 = v8;
+      v15 = v8;
       _os_log_impl(&dword_226A4E000, v9, OS_LOG_TYPE_DEBUG, "[Local Pasteboard] Saving file name: %@", buf, 0xCu);
     }
 
@@ -266,8 +264,6 @@ void __39__UAPasteboardGeneration_fetchTypeURL___block_invoke(uint64_t a1, void 
     v12 = [*(a1 + 32) uuid];
     [v11 setObject:v8 forKey:v12];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

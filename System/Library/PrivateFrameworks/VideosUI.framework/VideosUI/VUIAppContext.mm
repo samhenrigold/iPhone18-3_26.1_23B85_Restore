@@ -41,13 +41,14 @@
 
 - (void)start
 {
-  if ([(VUIAppContext *)self isRunning])
+  isRunning = [(VUIAppContext *)self isRunning];
+  if (isRunning)
   {
-    v3 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = VUIDefaultLogObject(isRunning);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v3, OS_LOG_TYPE_INFO, "VUIAppContext - We are already preparing to start...", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_INFO, "VUIAppContext - We are already preparing to start...", buf, 2u);
     }
   }
 
@@ -55,8 +56,8 @@
   {
     [(VUIAppContext *)self setRunning:1];
     kdebug_trace();
-    v5 = [(VUIAppContext *)self app];
-    appJSURL = [v5 appJSURL];
+    v6 = [(VUIAppContext *)self app];
+    appJSURL = [v6 appJSURL];
     [(VUIAppContext *)self _prepareStartWithURL:appJSURL];
   }
 }
@@ -197,7 +198,7 @@ id __31__VUIAppContext__sourcePerform__block_invoke(uint64_t a1)
 
 - (void)evaluateFoundationJS
 {
-  v3 = VUISignpostLogObject();
+  v3 = VUISignpostLogObject(self);
   if (os_signpost_enabled(v3))
   {
     *buf = 0;
@@ -227,16 +228,17 @@ id __31__VUIAppContext__sourcePerform__block_invoke(uint64_t a1)
 
   [(VUIAppContext *)self _addPrivateInterfaces];
   delegate = [(VUIAppContext *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v12 = objc_opt_respondsToSelector();
+  if (v12)
   {
-    [delegate appContext:self evaluateAppJavaScriptInContext:jsContext];
+    v12 = [delegate appContext:self evaluateAppJavaScriptInContext:jsContext];
   }
 
-  v12 = VUISignpostLogObject();
-  if (os_signpost_enabled(v12))
+  v13 = VUISignpostLogObject(v12);
+  if (os_signpost_enabled(v13))
   {
-    *v13 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v12, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "JS.Evaluate.Foundation", "", v13, 2u);
+    *v14 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v13, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "JS.Evaluate.Foundation", "", v14, 2u);
   }
 
   kdebug_trace();
@@ -246,7 +248,7 @@ id __31__VUIAppContext__sourcePerform__block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
-  v5 = VUISignpostLogObject();
+  v5 = VUISignpostLogObject(optionsCopy);
   if (os_signpost_enabled(v5))
   {
     LOWORD(v11) = 0;
@@ -254,7 +256,7 @@ id __31__VUIAppContext__sourcePerform__block_invoke(uint64_t a1)
   }
 
   jsContext = [(VUIAppContext *)self jsContext];
-  v7 = VUIDefaultLogObject();
+  v7 = VUIDefaultLogObject(jsContext);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v11 = 138412290;
@@ -265,8 +267,7 @@ id __31__VUIAppContext__sourcePerform__block_invoke(uint64_t a1)
   v8 = [jsContext objectForKeyedSubscript:@"App"];
   v9 = [v8 toObjectOfClass:objc_opt_class()];
 
-  [v9 launchAppWithOptions:optionsCopy];
-  v10 = VUISignpostLogObject();
+  v10 = VUISignpostLogObject([v9 launchAppWithOptions:optionsCopy]);
   if (os_signpost_enabled(v10))
   {
     LOWORD(v11) = 0;
@@ -862,7 +863,7 @@ void __35__VUIAppContext_resumeWithOptions___block_invoke(uint64_t a1)
 void __35__VUIAppContext_resumeWithOptions___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -1085,7 +1086,7 @@ void __62__VUIAppContext_handleReloadWithUrgencyType_minInterval_data___block_in
   else
   {
     v6 = [WeakRetained app];
-    v7 = VUIDefaultLogObject();
+    v7 = VUIDefaultLogObject(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __62__VUIAppContext_handleReloadWithUrgencyType_minInterval_data___block_invoke_cold_1(WeakRetained, v6);
@@ -1095,39 +1096,40 @@ void __62__VUIAppContext_handleReloadWithUrgencyType_minInterval_data___block_in
 
 - (BOOL)_prepareStartWithURL:(id)l
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   lCopy = l;
   objc_initWeak(&location, self);
   mode = [(VUIAppContext *)self mode];
   v6 = lCopy;
+  v7 = v6;
   if (!v6)
   {
     goto LABEL_15;
   }
 
-  v7 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = VUIDefaultLogObject(v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
     mode2 = [(VUIAppContext *)self mode];
     *buf = 138413058;
-    v31 = v9;
-    v32 = 2048;
-    v33 = mode2;
-    v34 = 2048;
+    v32 = v10;
+    v33 = 2048;
+    v34 = mode2;
+    v35 = 2048;
     selfCopy = self;
-    v36 = 2112;
-    v37 = v6;
-    _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_INFO, "VUIAppContext - <%@ (%lu): %p> Launching JavaScript app from URL: %@", buf, 0x2Au);
+    v37 = 2112;
+    v38 = v7;
+    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_INFO, "VUIAppContext - <%@ (%lu): %p> Launching JavaScript app from URL: %@", buf, 0x2Au);
   }
 
-  scheme = [v6 scheme];
+  scheme = [v7 scheme];
   lowercaseString = [scheme lowercaseString];
   if (![lowercaseString isEqualToString:@"https"])
   {
-    v13 = [(VUIAppContext *)self app];
-    shouldIgnoreJSValidation = [v13 shouldIgnoreJSValidation];
+    v14 = [(VUIAppContext *)self app];
+    shouldIgnoreJSValidation = [v14 shouldIgnoreJSValidation];
 
     if (shouldIgnoreJSValidation)
     {
@@ -1149,44 +1151,44 @@ LABEL_8:
 
   if (self)
   {
-    v18 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    [(VUIAppContext *)selfCopy2 setPendingQueue:v18];
+    v19 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    [(VUIAppContext *)selfCopy2 setPendingQueue:v19];
 
     [(VUIAppContext *)selfCopy2 setCanAccessPendingQueue:1];
-    v19 = [VUIRunLoopSourceRecord alloc];
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __38__VUIAppContext__prepareStartWithURL___block_invoke;
-    v26[3] = &unk_1E872F038;
-    objc_copyWeak(&v28, &location);
-    v27 = v6;
-    v20 = [(VUIRunLoopSourceRecord *)v19 initWithEvaluateBlock:v26 completionBlock:0 completionQueue:0];
+    v20 = [VUIRunLoopSourceRecord alloc];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __38__VUIAppContext__prepareStartWithURL___block_invoke;
+    v27[3] = &unk_1E872F038;
+    objc_copyWeak(&v29, &location);
+    v28 = v7;
+    v21 = [(VUIRunLoopSourceRecord *)v20 initWithEvaluateBlock:v27 completionBlock:0 completionQueue:0];
     pendingQueue2 = [(VUIAppContext *)selfCopy2 pendingQueue];
-    [pendingQueue2 addObject:v20];
+    [pendingQueue2 addObject:v21];
 
-    v22 = [objc_alloc(MEMORY[0x1E696AF00]) initWithTarget:selfCopy2 selector:sel__jsThreadMain object:0];
-    v23 = v22;
+    v23 = [objc_alloc(MEMORY[0x1E696AF00]) initWithTarget:selfCopy2 selector:sel__jsThreadMain object:0];
+    v24 = v23;
     if (mode == 1000)
     {
-      v24 = 9;
+      v25 = 9;
     }
 
     else
     {
-      v24 = 25;
+      v25 = 25;
     }
 
-    [v22 setQualityOfService:v24];
-    [v23 setName:@"VUICoreThread"];
-    [v23 start];
+    [v23 setQualityOfService:v25];
+    [v24 setName:@"VUICoreThread"];
+    [v24 start];
 
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v29);
   }
 
   else
   {
-    v17 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E69DF888] code:100 userInfo:0];
-    [(VUIAppContext *)selfCopy2 contextDidFailWithError:v17];
+    v18 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E69DF888] code:100 userInfo:0];
+    [(VUIAppContext *)selfCopy2 contextDidFailWithError:v18];
   }
 
   objc_sync_exit(selfCopy2);
@@ -1204,90 +1206,91 @@ void __38__VUIAppContext__prepareStartWithURL___block_invoke(uint64_t a1)
 
 - (void)_startWithURL:(id)l
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   lCopy = l;
-  if (+[VUIPreference ignoreHTTPCache])
+  v5 = +[VUIPreference ignoreHTTPCache];
+  if (v5)
   {
-    v5 = 1;
+    v6 = 1;
   }
 
   else
   {
     reloadContext = [(VUIAppContext *)self reloadContext];
-    v5 = reloadContext != 0;
+    v6 = reloadContext != 0;
   }
 
-  v7 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = VUIDefaultLogObject(v5);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
     *buf = 138412802;
-    *&buf[4] = v9;
+    *&buf[4] = v10;
     *&buf[12] = 2048;
     *&buf[14] = [(VUIAppContext *)self mode];
     *&buf[22] = 2048;
     selfCopy = self;
-    _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "<%@ (%lu): %p> Attempting to start context with script", buf, 0x20u);
+    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "<%@ (%lu): %p> Attempting to start context with script", buf, 0x20u);
   }
 
   delegate = [(VUIAppContext *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v12 = objc_opt_respondsToSelector();
+  if (v12)
   {
-    v11 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v13 = VUIDefaultLogObject(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_INFO, "Fetch application script using App Script Loader", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_INFO, "Fetch application script using App Script Loader", buf, 2u);
     }
 
-    v12 = dispatch_semaphore_create(0);
+    v14 = dispatch_semaphore_create(0);
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
     selfCopy = __Block_byref_object_copy__38;
-    v45 = __Block_byref_object_dispose__38;
-    v46 = 0;
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x3032000000;
-    v32 = __Block_byref_object_copy__38;
-    v33 = __Block_byref_object_dispose__38;
-    v34 = 0;
-    v28[0] = 0;
-    v28[1] = v28;
-    v28[2] = 0x2020000000;
-    v28[3] = 0;
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __31__VUIAppContext__startWithURL___block_invoke;
-    v23[3] = &unk_1E8737558;
-    v25 = buf;
-    v26 = &v29;
-    v27 = v28;
-    v13 = v12;
-    v24 = v13;
-    [delegate appContext:self scriptForURL:lCopy cachePolicy:v5 completion:v23];
-    dispatch_semaphore_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
-    if (v30[5] || ![*(*&buf[8] + 40) length])
+    v48 = __Block_byref_object_dispose__38;
+    v49 = 0;
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x3032000000;
+    v35 = __Block_byref_object_copy__38;
+    v36 = __Block_byref_object_dispose__38;
+    v37 = 0;
+    v31[0] = 0;
+    v31[1] = v31;
+    v31[2] = 0x2020000000;
+    v31[3] = 0;
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __31__VUIAppContext__startWithURL___block_invoke;
+    v26[3] = &unk_1E8737558;
+    v28 = buf;
+    v29 = &v32;
+    v30 = v31;
+    v15 = v14;
+    v27 = v15;
+    [delegate appContext:self scriptForURL:lCopy cachePolicy:v6 completion:v26];
+    dispatch_semaphore_wait(v15, 0xFFFFFFFFFFFFFFFFLL);
+    if (v33[5] || (v18 = [*(*&buf[8] + 40) length]) == 0)
     {
-      [(VUIAppContext *)self _invalidateJSThread];
-      v14 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = VUIDefaultLogObject([(VUIAppContext *)self _invalidateJSThread]);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v17 = objc_opt_class();
-        v18 = NSStringFromClass(v17);
+        v20 = objc_opt_class();
+        v21 = NSStringFromClass(v20);
         mode = [(VUIAppContext *)self mode];
-        v20 = v30[5];
-        *v35 = 138413058;
-        v36 = v18;
-        v37 = 2048;
-        v38 = mode;
-        v39 = 2048;
+        v23 = v33[5];
+        *v38 = 138413058;
+        v39 = v21;
+        v40 = 2048;
+        v41 = mode;
+        v42 = 2048;
         selfCopy2 = self;
-        v41 = 2112;
-        v42 = v20;
-        _os_log_error_impl(&dword_1E323F000, v14, OS_LOG_TYPE_ERROR, "<%@ (%lu): %p> Failed to load launch URL with error: %@", v35, 0x2Au);
+        v44 = 2112;
+        v45 = v23;
+        _os_log_error_impl(&dword_1E323F000, v16, OS_LOG_TYPE_ERROR, "<%@ (%lu): %p> Failed to load launch URL with error: %@", v38, 0x2Au);
       }
 
       block[0] = MEMORY[0x1E69E9820];
@@ -1295,43 +1298,42 @@ void __38__VUIAppContext__prepareStartWithURL___block_invoke(uint64_t a1)
       block[2] = __31__VUIAppContext__startWithURL___block_invoke_92;
       block[3] = &unk_1E872E5B0;
       block[4] = self;
-      block[5] = v28;
+      block[5] = v31;
       dispatch_async(MEMORY[0x1E69E96A0], block);
     }
 
     else
     {
-      v16 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v19 = VUIDefaultLogObject(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
-        *v35 = 0;
-        _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_INFO, "Downloaded application script sussessfully. Starting script...", v35, 2u);
+        *v38 = 0;
+        _os_log_impl(&dword_1E323F000, v19, OS_LOG_TYPE_INFO, "Downloaded application script sussessfully. Starting script...", v38, 2u);
       }
 
       [(VUIAppContext *)self _startWithScript:*(*&buf[8] + 40) scriptUrl:lCopy];
     }
 
-    _Block_object_dispose(v28, 8);
-    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(v31, 8);
+    _Block_object_dispose(&v32, 8);
 
     _Block_object_dispose(buf, 8);
   }
 
   else
   {
-    [(VUIAppContext *)self _invalidateJSThread];
-    v15 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = VUIDefaultLogObject([(VUIAppContext *)self _invalidateJSThread]);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [VUIAppContext _startWithURL:?];
     }
 
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __31__VUIAppContext__startWithURL___block_invoke_93;
-    v21[3] = &unk_1E872D768;
-    v21[4] = self;
-    dispatch_async(MEMORY[0x1E69E96A0], v21);
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __31__VUIAppContext__startWithURL___block_invoke_93;
+    v24[3] = &unk_1E872D768;
+    v24[4] = self;
+    dispatch_async(MEMORY[0x1E69E96A0], v24);
   }
 }
 
@@ -1382,41 +1384,41 @@ void __31__VUIAppContext__startWithURL___block_invoke_93(uint64_t a1)
 
 - (void)_startWithScript:(id)script scriptUrl:(id)url
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   scriptCopy = script;
   urlCopy = url;
-  v8 = VUISignpostLogObject();
+  v8 = VUISignpostLogObject(urlCopy);
   v9 = os_signpost_id_generate(v8);
 
-  v10 = VUISignpostLogObject();
-  v11 = v10;
-  v12 = v9 - 1;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v11 = VUISignpostLogObject(v10);
+  v12 = v11;
+  v13 = v9 - 1;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "JS.Evaluate", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "JS.Evaluate", "", buf, 2u);
   }
 
   if ([scriptCopy length])
   {
     delegate = [(VUIAppContext *)self delegate];
-    if ((objc_opt_respondsToSelector() & 1) != 0 && ([delegate appContext:self shouldStartWithScript:scriptCopy scriptURL:urlCopy] & 1) == 0)
+    if ((objc_opt_respondsToSelector() & 1) != 0 && (v15 = [delegate appContext:self shouldStartWithScript:scriptCopy scriptURL:urlCopy], (v15 & 1) == 0))
     {
-      v29 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+      v31 = VUIDefaultLogObject(v15);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
-        v30 = objc_opt_class();
-        v31 = NSStringFromClass(v30);
+        v32 = objc_opt_class();
+        v33 = NSStringFromClass(v32);
         mode = [(VUIAppContext *)self mode];
         *buf = 138413058;
-        v49 = v31;
-        v50 = 2048;
-        v51 = mode;
+        v51 = v33;
         v52 = 2048;
+        v53 = mode;
+        v54 = 2048;
         selfCopy2 = self;
-        v54 = 2112;
-        v55 = urlCopy;
-        _os_log_impl(&dword_1E323F000, v29, OS_LOG_TYPE_INFO, "VUIAppContext - <%@ (%lu): %p> Delegate opted to stop script loading from %@", buf, 0x2Au);
+        v56 = 2112;
+        v57 = urlCopy;
+        _os_log_impl(&dword_1E323F000, v31, OS_LOG_TYPE_INFO, "VUIAppContext - <%@ (%lu): %p> Delegate opted to stop script loading from %@", buf, 0x2Au);
       }
 
       [(VUIAppContext *)self stop];
@@ -1424,125 +1426,122 @@ void __31__VUIAppContext__startWithURL___block_invoke_93(uint64_t a1)
 
     else
     {
-      v38 = [(VUIAppContext *)self app];
-      appIdentifier = [v38 appIdentifier];
-      v15 = objc_alloc_init(MEMORY[0x1E696EB40]);
+      v40 = [(VUIAppContext *)self app];
+      appIdentifier = [v40 appIdentifier];
+      v17 = objc_alloc_init(MEMORY[0x1E696EB40]);
       if ([appIdentifier length])
       {
-        [v15 setName:appIdentifier];
+        [v17 setName:appIdentifier];
       }
 
-      [v15 _setITMLDebuggableType];
-      [v15 _setDebuggerRunLoop:self->_jsThreadRunLoop];
-      [v15 _setRemoteInspectionEnabled:0];
-      [(VUIAppContext *)self setJsContext:v15];
-      [(VUIAppContext *)self evaluateFoundationJS];
-      v16 = VUISignpostLogObject();
-      if (os_signpost_enabled(v16))
-      {
-        *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1E323F000, v16, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "JS.Evaluate.JSContextEvaluateScript", "", buf, 2u);
-      }
-
-      v17 = [v15 evaluateScript:scriptCopy withSourceURL:urlCopy];
-      v18 = VUISignpostLogObject();
+      [v17 _setITMLDebuggableType];
+      [v17 _setDebuggerRunLoop:self->_jsThreadRunLoop];
+      [v17 _setRemoteInspectionEnabled:0];
+      [(VUIAppContext *)self setJsContext:v17];
+      v18 = VUISignpostLogObject([(VUIAppContext *)self evaluateFoundationJS]);
       if (os_signpost_enabled(v18))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1E323F000, v18, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "JS.Evaluate.JSContextEvaluateScript", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1E323F000, v18, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "JS.Evaluate.JSContextEvaluateScript", "", buf, 2u);
       }
 
-      exception = [v15 exception];
+      v19 = VUISignpostLogObject([v17 evaluateScript:scriptCopy withSourceURL:urlCopy]);
+      if (os_signpost_enabled(v19))
+      {
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&dword_1E323F000, v19, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "JS.Evaluate.JSContextEvaluateScript", "", buf, 2u);
+      }
+
+      exception = [v17 exception];
 
       if (exception)
       {
-        exception2 = [v15 exception];
-        v21 = VUIDefaultLogObject();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        exception2 = [v17 exception];
+        v22 = VUIDefaultLogObject(exception2);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          v33 = objc_opt_class();
-          v34 = NSStringFromClass(v33);
+          v35 = objc_opt_class();
+          v36 = NSStringFromClass(v35);
           mode2 = [(VUIAppContext *)self mode];
           toDictionary = [exception2 toDictionary];
           *buf = 138413570;
-          v49 = v34;
-          v50 = 2048;
-          v51 = mode2;
+          v51 = v36;
           v52 = 2048;
+          v53 = mode2;
+          v54 = 2048;
           selfCopy2 = self;
-          v54 = 2112;
-          v55 = urlCopy;
           v56 = 2112;
-          v57 = exception2;
+          v57 = urlCopy;
           v58 = 2112;
-          v59 = toDictionary;
-          v37 = toDictionary;
-          _os_log_error_impl(&dword_1E323F000, v21, OS_LOG_TYPE_ERROR, "<%@ (%lu): %p> Unable to start script (%@) because of %@: %@", buf, 0x3Eu);
+          v59 = exception2;
+          v60 = 2112;
+          v61 = toDictionary;
+          v39 = toDictionary;
+          _os_log_error_impl(&dword_1E323F000, v22, OS_LOG_TYPE_ERROR, "<%@ (%lu): %p> Unable to start script (%@) because of %@: %@", buf, 0x3Eu);
         }
 
-        [v15 setException:0];
+        [v17 setException:0];
         [(VUIAppContext *)self _invalidateJSThread];
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __44__VUIAppContext__startWithScript_scriptUrl___block_invoke_98;
         block[3] = &unk_1E872D990;
-        v45 = exception2;
+        v47 = exception2;
         selfCopy3 = self;
-        v22 = exception2;
+        v23 = exception2;
         dispatch_async(MEMORY[0x1E69E96A0], block);
 
-        v23 = v38;
+        v24 = v40;
       }
 
       else
       {
-        [(VUIAppContext *)self setIsValid:1];
-        v25 = VUISignpostLogObject();
-        v26 = v25;
-        if (v12 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+        v26 = VUISignpostLogObject([(VUIAppContext *)self setIsValid:1]);
+        v27 = v26;
+        if (v13 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1E323F000, v26, OS_SIGNPOST_INTERVAL_BEGIN, v9, "JS.Evaluate.AppContextEvaluateScript", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1E323F000, v27, OS_SIGNPOST_INTERVAL_BEGIN, v9, "JS.Evaluate.AppContextEvaluateScript", "", buf, 2u);
         }
 
-        v27 = VUISignpostLogObject();
-        v28 = v27;
-        if (v12 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+        v29 = VUISignpostLogObject(v28);
+        v30 = v29;
+        if (v13 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1E323F000, v28, OS_SIGNPOST_INTERVAL_BEGIN, v9, "JS.Evaluate.AppContextEvaluateScript.Evaluate", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1E323F000, v30, OS_SIGNPOST_INTERVAL_BEGIN, v9, "JS.Evaluate.AppContextEvaluateScript.Evaluate", "", buf, 2u);
         }
 
-        v39[0] = MEMORY[0x1E69E9820];
-        v39[1] = 3221225472;
-        v39[2] = __44__VUIAppContext__startWithScript_scriptUrl___block_invoke_99;
-        v39[3] = &unk_1E87375A8;
-        v43 = v9;
-        v39[4] = self;
-        v23 = v38;
-        v40 = v38;
-        v41 = urlCopy;
-        v42 = scriptCopy;
-        [(VUIAppContext *)self _evaluate:v39];
+        v41[0] = MEMORY[0x1E69E9820];
+        v41[1] = 3221225472;
+        v41[2] = __44__VUIAppContext__startWithScript_scriptUrl___block_invoke_99;
+        v41[3] = &unk_1E87375A8;
+        v45 = v9;
+        v41[4] = self;
+        v24 = v40;
+        v42 = v40;
+        v43 = urlCopy;
+        v44 = scriptCopy;
+        [(VUIAppContext *)self _evaluate:v41];
       }
     }
   }
 
   else
   {
-    v24 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = VUIDefaultLogObject(0);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       [VUIAppContext _startWithScript:? scriptUrl:?];
     }
 
     [(VUIAppContext *)self _invalidateJSThread];
-    v47[0] = MEMORY[0x1E69E9820];
-    v47[1] = 3221225472;
-    v47[2] = __44__VUIAppContext__startWithScript_scriptUrl___block_invoke;
-    v47[3] = &unk_1E872D768;
-    v47[4] = self;
-    dispatch_async(MEMORY[0x1E69E96A0], v47);
+    v49[0] = MEMORY[0x1E69E9820];
+    v49[1] = 3221225472;
+    v49[2] = __44__VUIAppContext__startWithScript_scriptUrl___block_invoke;
+    v49[3] = &unk_1E872D768;
+    v49[4] = self;
+    dispatch_async(MEMORY[0x1E69E96A0], v49);
   }
 }
 
@@ -1564,7 +1563,7 @@ void __44__VUIAppContext__startWithScript_scriptUrl___block_invoke_98(uint64_t a
 
 void __44__VUIAppContext__startWithScript_scriptUrl___block_invoke_99(uint64_t a1)
 {
-  v2 = VUISignpostLogObject();
+  v2 = VUISignpostLogObject(a1);
   v3 = v2;
   v4 = *(a1 + 64);
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
@@ -1573,61 +1572,62 @@ void __44__VUIAppContext__startWithScript_scriptUrl___block_invoke_99(uint64_t a
     _os_signpost_emit_with_name_impl(&dword_1E323F000, v3, OS_SIGNPOST_INTERVAL_END, v4, "JS.Evaluate.AppContextEvaluateScript.Evaluate", "", buf, 2u);
   }
 
-  if ([*(a1 + 32) mode] != 1000)
+  v5 = [*(a1 + 32) mode];
+  if (v5 != 1000)
   {
-    if ((objc_opt_respondsToSelector() & 1) == 0 || ([*(a1 + 40) appLaunchParams], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "mutableCopy"), v5, !v6))
+    if ((objc_opt_respondsToSelector() & 1) == 0 || ([*(a1 + 40) appLaunchParams], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "mutableCopy"), v6, !v7))
     {
-      v6 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:0];
+      v7 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:0];
     }
 
-    v7 = [v6 objectForKey:@"location"];
+    v8 = [v7 objectForKey:@"location"];
 
-    v8 = [*(a1 + 48) absoluteString];
-    v9 = v8;
-    if (*(a1 + 48) && !v7 && [v8 length])
+    v9 = [*(a1 + 48) absoluteString];
+    v10 = v9;
+    if (*(a1 + 48) && !v8 && [v9 length])
     {
-      [v6 setObject:v9 forKey:@"location"];
+      [v7 setObject:v10 forKey:@"location"];
     }
 
-    v10 = [*(a1 + 32) reloadContext];
-    v11 = [v10 reloadData];
+    v11 = [*(a1 + 32) reloadContext];
+    v12 = [v11 reloadData];
 
-    if (v11)
+    if (v12)
     {
-      v12 = [*(a1 + 32) reloadContext];
-      v13 = [v12 reloadData];
-      [v6 setObject:v13 forKey:@"reloadData"];
+      v13 = [*(a1 + 32) reloadContext];
+      v14 = [v13 reloadData];
+      [v7 setObject:v14 forKey:@"reloadData"];
     }
 
-    v14 = *(a1 + 32);
-    v15 = [v6 copy];
-    [v14 launchAppWithOptions:v15];
+    v15 = *(a1 + 32);
+    v16 = [v7 copy];
+    [v15 launchAppWithOptions:v16];
   }
 
-  v16 = VUISignpostLogObject();
-  v17 = v16;
-  v18 = *(a1 + 64);
-  if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v17 = VUISignpostLogObject(v5);
+  v18 = v17;
+  v19 = *(a1 + 64);
+  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v17, OS_SIGNPOST_INTERVAL_END, v18, "JS.Evaluate.AppContextEvaluateScript", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v18, OS_SIGNPOST_INTERVAL_END, v19, "JS.Evaluate.AppContextEvaluateScript", "", buf, 2u);
   }
 
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __44__VUIAppContext__startWithScript_scriptUrl___block_invoke_106;
   block[3] = &unk_1E8737580;
-  v19 = *(a1 + 32);
-  v20 = *(a1 + 56);
-  v23 = *(a1 + 64);
-  block[4] = v19;
-  v22 = v20;
+  v20 = *(a1 + 32);
+  v21 = *(a1 + 56);
+  v24 = *(a1 + 64);
+  block[4] = v20;
+  v23 = v21;
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
 void __44__VUIAppContext__startWithScript_scriptUrl___block_invoke_106(uint64_t a1)
 {
-  v2 = VUISignpostLogObject();
+  v2 = VUISignpostLogObject(a1);
   v3 = v2;
   v4 = *(a1 + 48);
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
@@ -1636,23 +1636,22 @@ void __44__VUIAppContext__startWithScript_scriptUrl___block_invoke_106(uint64_t 
     _os_signpost_emit_with_name_impl(&dword_1E323F000, v3, OS_SIGNPOST_INTERVAL_END, v4, "JS.Evaluate", "", buf, 2u);
   }
 
-  v5 = VUISignpostLogObject();
-  v6 = v5;
-  v7 = *(a1 + 48);
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  v6 = VUISignpostLogObject(v5);
+  v7 = v6;
+  v8 = *(a1 + 48);
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
-    *v12 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v7, "JS.contextDidStartWithJS", "", v12, 2u);
+    *v13 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v8, "JS.contextDidStartWithJS", "", v13, 2u);
   }
 
-  [*(a1 + 32) contextDidStartWithJS:*(a1 + 40) options:0];
-  v8 = VUISignpostLogObject();
-  v9 = v8;
-  v10 = *(a1 + 48);
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  v9 = VUISignpostLogObject([*(a1 + 32) contextDidStartWithJS:*(a1 + 40) options:0]);
+  v10 = v9;
+  v11 = *(a1 + 48);
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
-    *v11 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v9, OS_SIGNPOST_INTERVAL_END, v10, "JS.contextDidStartWithJS", "", v11, 2u);
+    *v12 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v10, OS_SIGNPOST_INTERVAL_END, v11, "JS.contextDidStartWithJS", "", v12, 2u);
   }
 }
 
@@ -1701,24 +1700,24 @@ void __56__VUIAppContext__addStopRecordToPendingQueueWithReload___block_invoke(u
 - (void)_stopAndReload:(BOOL)reload
 {
   reloadCopy = reload;
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter removeObserver:self name:@"VUINetworkPropertiesChangedNotification" object:0];
 
-  v6 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = VUIDefaultLogObject(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     *buf = 138413058;
-    v14 = v8;
-    v15 = 2048;
+    v15 = v9;
+    v16 = 2048;
     mode = [(VUIAppContext *)self mode];
-    v17 = 2048;
+    v18 = 2048;
     selfCopy = self;
-    v19 = 1024;
-    v20 = reloadCopy;
-    _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "<%@ (%lu): %p> Stop and reload %d", buf, 0x26u);
+    v20 = 1024;
+    v21 = reloadCopy;
+    _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "<%@ (%lu): %p> Stop and reload %d", buf, 0x26u);
   }
 
   [(VUIAppContext *)self setIsValid:0];
@@ -1741,16 +1740,16 @@ void __56__VUIAppContext__addStopRecordToPendingQueueWithReload___block_invoke(u
     [(VUIAppContext *)selfCopy2 setReloadContext:0];
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __32__VUIAppContext__stopAndReload___block_invoke;
-  v11[3] = &unk_1E872ECA0;
-  v11[4] = self;
-  v12 = reloadCopy;
-  dispatch_async(MEMORY[0x1E69E96A0], v11);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __32__VUIAppContext__stopAndReload___block_invoke;
+  v12[3] = &unk_1E872ECA0;
+  v12[4] = self;
+  v13 = reloadCopy;
+  dispatch_async(MEMORY[0x1E69E96A0], v12);
 }
 
-uint64_t __32__VUIAppContext__stopAndReload___block_invoke(uint64_t a1)
+void *__32__VUIAppContext__stopAndReload___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) contextDidStopWithOptions:0];
   if (*(a1 + 40) == 1)
@@ -1854,10 +1853,11 @@ void __31__VUIAppContext__sourcePerform__block_invoke_2(uint64_t a1)
 - (void)_doEvaluate:(id)evaluate
 {
   evaluateCopy = evaluate;
-  if (![(VUIAppContext *)self isValid])
+  isValid = [(VUIAppContext *)self isValid];
+  if ((isValid & 1) == 0)
   {
-    v5 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = VUIDefaultLogObject(isValid);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [VUIAppContext _doEvaluate:?];
     }
@@ -1972,7 +1972,7 @@ LABEL_16:
     if ([toString length])
     {
       v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@:%@", toString3, toString4];
-      v16 = VUIDefaultLogObject();
+      v16 = VUIDefaultLogObject(v15);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         v17 = objc_opt_class();
@@ -2017,7 +2017,7 @@ LABEL_16:
 
 - (void)_drainOnStartQueue
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   onStartQueue = [(VUIAppContext *)selfCopy onStartQueue];
@@ -2027,53 +2027,55 @@ LABEL_16:
   [onStartQueue2 removeAllObjects];
 
   objc_sync_exit(selfCopy);
-  if ([v4 count])
+  v6 = [v4 count];
+  if (v6)
   {
-    v6 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = VUIDefaultLogObject(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_INFO, "[StartQueue] Draining start Queue", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_INFO, "[StartQueue] Draining start Queue", buf, 2u);
     }
   }
 
+  v16 = 0u;
+  v17 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v7 = v4;
-  v8 = [v7 countByEnumeratingWithState:&v12 objects:v17 count:16];
-  if (v8)
+  v8 = v4;
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  if (v9)
   {
-    v9 = *v13;
+    v10 = *v15;
     do
     {
-      v10 = 0;
+      v11 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v15 != v10)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v8);
         }
 
-        (*(*(*(&v12 + 1) + 8 * v10) + 16))(*(*(&v12 + 1) + 8 * v10));
-        ++v10;
+        (*(*(*(&v14 + 1) + 8 * v11) + 16))(*(*(&v14 + 1) + 8 * v11));
+        ++v11;
       }
 
-      while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v12 objects:v17 count:16];
+      while (v9 != v11);
+      v9 = [v8 countByEnumeratingWithState:&v14 objects:v19 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 
-  if ([v7 count])
+  v12 = [v8 count];
+  if (v12)
   {
-    v11 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v13 = VUIDefaultLogObject(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_INFO, "[StartQueue] Done Draining start Queue!", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_INFO, "[StartQueue] Done Draining start Queue!", buf, 2u);
     }
   }
 }

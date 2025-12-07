@@ -21,9 +21,11 @@ id AXVectorKitLocString(void *a1)
 
 uint64_t __AXVectorKitLocString_block_invoke()
 {
-  AXVectorKitLocString_bundle = [MEMORY[0x29EDB9F48] bundleWithIdentifier:@"com.apple.VectorKit.axbundle"];
+  v0 = [MEMORY[0x29EDB9F48] bundleWithIdentifier:@"com.apple.VectorKit.axbundle"];
+  v1 = AXVectorKitLocString_bundle;
+  AXVectorKitLocString_bundle = v0;
 
-  return MEMORY[0x2A1C71028]();
+  return MEMORY[0x2A1C71028](v0, v1);
 }
 
 id AXMapKitLocString(void *a1)
@@ -49,9 +51,11 @@ id AXMapKitLocString(void *a1)
 
 uint64_t __AXMapKitLocString_block_invoke()
 {
-  AXMapKitLocString_bundle = [MEMORY[0x29EDB9F48] bundleWithIdentifier:@"com.apple.MapKitFramework.axbundle"];
+  v0 = [MEMORY[0x29EDB9F48] bundleWithIdentifier:@"com.apple.MapKitFramework.axbundle"];
+  v1 = AXMapKitLocString_bundle;
+  AXMapKitLocString_bundle = v0;
 
-  return MEMORY[0x2A1C71028]();
+  return MEMORY[0x2A1C71028](v0, v1);
 }
 
 id AXMapsLocString(void *a1)
@@ -77,9 +81,11 @@ id AXMapsLocString(void *a1)
 
 uint64_t __AXMapsLocString_block_invoke()
 {
-  AXMapsLocString_bundle = [MEMORY[0x29EDB9F48] accessibilityBundleWithLastPathComponent:@"Maps.axbundle"];
+  v0 = [MEMORY[0x29EDB9F48] accessibilityBundleWithLastPathComponent:@"Maps.axbundle"];
+  v1 = AXMapsLocString_bundle;
+  AXMapsLocString_bundle = v0;
 
-  return MEMORY[0x2A1C71028]();
+  return MEMORY[0x2A1C71028](v0, v1);
 }
 
 id AXStringByReplacingMiddleDots(void *a1)
@@ -106,9 +112,11 @@ id AXStringByReplacingMiddleDots(void *a1)
 
 uint64_t __AXStringByReplacingMiddleDots_block_invoke()
 {
-  AXStringByReplacingMiddleDots_MiddleDotCharacterSet = [MEMORY[0x29EDB9F50] characterSetWithCharactersInString:@"·"];
+  v0 = [MEMORY[0x29EDB9F50] characterSetWithCharactersInString:@"·"];
+  v1 = AXStringByReplacingMiddleDots_MiddleDotCharacterSet;
+  AXStringByReplacingMiddleDots_MiddleDotCharacterSet = v0;
 
-  return MEMORY[0x2A1C71028]();
+  return MEMORY[0x2A1C71028](v0, v1);
 }
 
 id __AXStringByReplacingMiddleDots_block_invoke_2(uint64_t a1, void *a2)
@@ -255,15 +263,14 @@ LABEL_6:
 
 id AXNotificationsForMapAccessibilityClients()
 {
-  v5[4] = *MEMORY[0x29EDCA608];
+  v4[4] = *MEMORY[0x29EDCA608];
   v0 = *MEMORY[0x29EDC83E8];
-  v5[0] = *MEMORY[0x29EDC8538];
-  v5[1] = v0;
+  v4[0] = *MEMORY[0x29EDC8538];
+  v4[1] = v0;
   v1 = *MEMORY[0x29EDC8418];
-  v5[2] = *MEMORY[0x29EDC8400];
-  v5[3] = v1;
-  v2 = [MEMORY[0x29EDB8D80] arrayWithObjects:v5 count:4];
-  v3 = *MEMORY[0x29EDCA608];
+  v4[2] = *MEMORY[0x29EDC8400];
+  v4[3] = v1;
+  v2 = [MEMORY[0x29EDB8D80] arrayWithObjects:v4 count:4];
 
   return v2;
 }
@@ -388,6 +395,13 @@ void sub_29BEEB908(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
+void sub_29BEED204(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -395,23 +409,23 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_29BEED89C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29BEED89C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_29BEEE428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_29BEEE428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_29BEEE6E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_29BEEE6E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

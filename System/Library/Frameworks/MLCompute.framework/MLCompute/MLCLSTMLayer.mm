@@ -9,6 +9,7 @@
 - (id)resultStateTensorWithSources:(id)sources;
 - (id)resultTensorFromSources:(id)sources;
 - (id)summarizedDOTDescription;
+- (unint64_t)allocatedDataSizeForTraining:(BOOL)training optimizer:(id)optimizer;
 - (unint64_t)parametersCount;
 - (unint64_t)resultSizeFromSourceSize:(unint64_t)size dimension:(unint64_t)dimension;
 - (void)allocateGradientsForParameters;
@@ -20,7 +21,7 @@
 
 + (MLCLSTMLayer)layerWithDescriptor:(MLCLSTMDescriptor *)descriptor inputWeights:(NSArray *)inputWeights hiddenWeights:(NSArray *)hiddenWeights peepholeWeights:(NSArray *)peepholeWeights biases:(NSArray *)biases
 {
-  v23[4] = *MEMORY[0x277D85DE8];
+  v22[4] = *MEMORY[0x277D85DE8];
   v12 = biases;
   v13 = peepholeWeights;
   v14 = hiddenWeights;
@@ -28,14 +29,12 @@
   v16 = descriptor;
   v17 = [MLCActivationDescriptor descriptorWithType:3];
   v18 = [MLCActivationDescriptor descriptorWithType:5];
-  v23[0] = v17;
-  v23[1] = v17;
-  v23[2] = v18;
-  v23[3] = v17;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:4];
+  v22[0] = v17;
+  v22[1] = v17;
+  v22[2] = v18;
+  v22[3] = v17;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
   v20 = [[self alloc] initWithDescriptor:v16 inputWeights:v15 hiddenWeights:v14 peepholeWeights:v13 biases:v12 gateActivations:v19 outputResultActivation:v18];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -294,7 +293,7 @@ LABEL_22:
 
 - (BOOL)compileForDevice:(id)device sourceTensors:(id)tensors resultTensor:(id)tensor
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   tensorsCopy = tensors;
   tensorCopy = tensor;
@@ -310,8 +309,8 @@ LABEL_10:
     biases = [(MLCLSTMLayer *)self biases];
     gateActivations = [(MLCLSTMLayer *)self gateActivations];
     outputResultActivation = [(MLCLSTMLayer *)self outputResultActivation];
-    LOBYTE(v32) = [(MLCLayer *)self compileForInferenceOnly];
-    v24 = [computeEngine lstmLayerWithDescriptor:descriptor inputWeights:inputWeights hiddenWeights:hiddenWeights peepholeWeights:peepholeWeights biasTerms:biases gateActivations:gateActivations outputResultActivation:outputResultActivation inferenceOnly:v32];
+    LOBYTE(v31) = [(MLCLayer *)self compileForInferenceOnly];
+    v24 = [computeEngine lstmLayerWithDescriptor:descriptor inputWeights:inputWeights hiddenWeights:hiddenWeights peepholeWeights:peepholeWeights biasTerms:biases gateActivations:gateActivations outputResultActivation:outputResultActivation inferenceOnly:v31];
 
     if (v24 && [v24 count])
     {
@@ -319,9 +318,9 @@ LABEL_10:
       v26 = tensorCopy;
       v27 = [computeEngine2 compileLayerDeviceOps:v24 sourceTensors:tensorsCopy resultTensor:tensorCopy];
 
-      v36.receiver = self;
-      v36.super_class = MLCLSTMLayer;
-      [(MLCLayer *)&v36 bindDevice:deviceCopy deviceOps:v24];
+      v35.receiver = self;
+      v35.super_class = MLCLSTMLayer;
+      [(MLCLayer *)&v35 bindDevice:deviceCopy deviceOps:v24];
     }
 
     else
@@ -380,15 +379,15 @@ LABEL_7:
   v24 = +[MLCLog framework];
   if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
-    v31 = NSStringFromSelector(a2);
+    v30 = NSStringFromSelector(a2);
     *buf = 138413058;
-    v38 = v31;
-    v39 = 2048;
-    v40 = v14;
-    v41 = 1024;
-    v42 = dataType;
-    v43 = 2112;
-    v44 = deviceCopy;
+    v37 = v30;
+    v38 = 2048;
+    v39 = v14;
+    v40 = 1024;
+    v41 = dataType;
+    v42 = 2112;
+    v43 = deviceCopy;
     _os_log_error_impl(&dword_238C1D000, v24, OS_LOG_TYPE_ERROR, "%@: sourceTensor[%lu] uses unsupported data type = %d on a device = %@", buf, 0x26u);
   }
 
@@ -396,7 +395,6 @@ LABEL_7:
   v26 = tensorCopy;
 LABEL_19:
 
-  v29 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
@@ -433,7 +431,7 @@ LABEL_5:
 
 - (id)resultTensorFromSources:(id)sources
 {
-  v105[3] = *MEMORY[0x277D85DE8];
+  v104[3] = *MEMORY[0x277D85DE8];
   sourcesCopy = sources;
   v5 = [sourcesCopy objectAtIndexedSubscript:0];
   descriptor = [v5 descriptor];
@@ -476,20 +474,20 @@ LABEL_5:
     v31 = v30;
     if (variableLengthSequences)
     {
-      v104[0] = v30;
-      v101 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue3];
-      v104[1] = v101;
-      v99 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v17];
-      v104[2] = v99;
-      v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v104 count:3];
-      v97 = [sourcesCopy objectAtIndexedSubscript:0];
-      descriptor7 = [v97 descriptor];
+      v103[0] = v30;
+      v100 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue3];
+      v103[1] = v100;
+      v98 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v17];
+      v103[2] = v98;
+      v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v103 count:3];
+      v96 = [sourcesCopy objectAtIndexedSubscript:0];
+      descriptor7 = [v96 descriptor];
       sequenceLengths = [descriptor7 sequenceLengths];
       v35 = [sourcesCopy objectAtIndexedSubscript:0];
       descriptor8 = [v35 descriptor];
       sortedSequences = [descriptor8 sortedSequences];
       [sourcesCopy objectAtIndexedSubscript:0];
-      v38 = v96 = v31;
+      v38 = v95 = v31;
       descriptor9 = [v38 descriptor];
       v40 = v32;
       v41 = +[MLCTensorDescriptor descriptorWithShape:sequenceLengths:sortedSequences:dataType:](MLCTensorDescriptor, "descriptorWithShape:sequenceLengths:sortedSequences:dataType:", v32, sequenceLengths, sortedSequences, [descriptor9 dataType]);
@@ -497,12 +495,12 @@ LABEL_5:
 
     else
     {
-      v105[0] = v30;
+      v104[0] = v30;
       v89 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue3];
-      v105[1] = v89;
+      v104[1] = v89;
       v90 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v17];
-      v105[2] = v90;
-      v91 = [MEMORY[0x277CBEA60] arrayWithObjects:v105 count:3];
+      v104[2] = v90;
+      v91 = [MEMORY[0x277CBEA60] arrayWithObjects:v104 count:3];
       v92 = [sourcesCopy objectAtIndexedSubscript:0];
       descriptor10 = [v92 descriptor];
       v41 = +[MLCTensorDescriptor descriptorWithShape:dataType:](MLCTensorDescriptor, "descriptorWithShape:dataType:", v91, [descriptor10 dataType]);
@@ -567,14 +565,14 @@ LABEL_5:
         v77 = [sequenceLengths2 objectAtIndexedSubscript:0];
         unsignedIntegerValue8 = [v77 unsignedIntegerValue];
 
-        v102 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue7];
-        v103[0] = v102;
-        v100 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v55];
-        v103[1] = v100;
-        v103[2] = &unk_284BA5EE8;
-        v98 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue8];
-        v103[3] = v98;
-        v79 = [MEMORY[0x277CBEA60] arrayWithObjects:v103 count:4];
+        v101 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue7];
+        v102[0] = v101;
+        v99 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v55];
+        v102[1] = v99;
+        v102[2] = &unk_284BA5EE8;
+        v97 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue8];
+        v102[3] = v97;
+        v79 = [MEMORY[0x277CBEA60] arrayWithObjects:v102 count:4];
         v80 = [sourcesCopy objectAtIndexedSubscript:0];
         descriptor19 = [v80 descriptor];
         sequenceLengths3 = [descriptor19 sequenceLengths];
@@ -595,14 +593,12 @@ LABEL_5:
     }
   }
 
-  v94 = *MEMORY[0x277D85DE8];
-
   return v46;
 }
 
 - (id)resultStateTensorWithSources:(id)sources
 {
-  v34[4] = *MEMORY[0x277D85DE8];
+  v33[4] = *MEMORY[0x277D85DE8];
   sourcesCopy = sources;
   descriptor = [(MLCLSTMLayer *)self descriptor];
   layerCount = [descriptor layerCount];
@@ -629,33 +625,31 @@ LABEL_5:
   hiddenSize = [descriptor4 hiddenSize];
 
   v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:layerCount];
-  v34[0] = v15;
+  v33[0] = v15;
   v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v8];
-  v34[1] = v16;
+  v33[1] = v16;
   v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
-  v34[2] = v17;
+  v33[2] = v17;
   v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:hiddenSize];
-  v34[3] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:4];
+  v33[3] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:4];
   v20 = [MLCTensor tensorWithShape:v19];
 
   v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:layerCount];
-  v33[0] = v21;
+  v32[0] = v21;
   v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v8];
-  v33[1] = v22;
+  v32[1] = v22;
   v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
-  v33[2] = v23;
+  v32[2] = v23;
   v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:hiddenSize];
-  v33[3] = v24;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:4];
+  v32[3] = v24;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:4];
   v26 = [MLCTensor tensorWithShape:v25];
 
-  v32[0] = v20;
-  v32[1] = v26;
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
+  v31[0] = v20;
+  v31[1] = v26;
+  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
   v28 = [v27 copy];
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
@@ -739,6 +733,128 @@ LABEL_5:
   }
 
   return v7 != 0;
+}
+
+- (unint64_t)allocatedDataSizeForTraining:(BOOL)training optimizer:(id)optimizer
+{
+  trainingCopy = training;
+  v6 = [(MLCLSTMLayer *)self inputWeights:training];
+  v7 = [v6 count];
+
+  if (v7)
+  {
+    v8 = 0;
+    v9 = 0;
+    do
+    {
+      inputWeights = [(MLCLSTMLayer *)self inputWeights];
+      v11 = [inputWeights objectAtIndexedSubscript:v8];
+      descriptor = [v11 descriptor];
+      v9 += [descriptor tensorAllocationSizeInBytes];
+
+      ++v8;
+      inputWeights2 = [(MLCLSTMLayer *)self inputWeights];
+      v14 = [inputWeights2 count];
+    }
+
+    while (v8 < v14);
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  hiddenWeights = [(MLCLSTMLayer *)self hiddenWeights];
+  v16 = [hiddenWeights count];
+
+  if (v16)
+  {
+    v17 = 0;
+    do
+    {
+      hiddenWeights2 = [(MLCLSTMLayer *)self hiddenWeights];
+      v19 = [hiddenWeights2 objectAtIndexedSubscript:v17];
+      descriptor2 = [v19 descriptor];
+      v9 += [descriptor2 tensorAllocationSizeInBytes];
+
+      ++v17;
+      hiddenWeights3 = [(MLCLSTMLayer *)self hiddenWeights];
+      v22 = [hiddenWeights3 count];
+    }
+
+    while (v17 < v22);
+  }
+
+  peepholeWeights = [(MLCLSTMLayer *)self peepholeWeights];
+
+  if (peepholeWeights)
+  {
+    peepholeWeights2 = [(MLCLSTMLayer *)self peepholeWeights];
+    v25 = [peepholeWeights2 count];
+
+    if (v25)
+    {
+      v26 = 0;
+      do
+      {
+        peepholeWeights3 = [(MLCLSTMLayer *)self peepholeWeights];
+        v28 = [peepholeWeights3 objectAtIndexedSubscript:v26];
+        descriptor3 = [v28 descriptor];
+        v9 += [descriptor3 tensorAllocationSizeInBytes];
+
+        ++v26;
+        peepholeWeights4 = [(MLCLSTMLayer *)self peepholeWeights];
+        v31 = [peepholeWeights4 count];
+      }
+
+      while (v26 < v31);
+    }
+  }
+
+  biases = [(MLCLSTMLayer *)self biases];
+
+  if (biases)
+  {
+    biases2 = [(MLCLSTMLayer *)self biases];
+    v34 = [biases2 count];
+
+    if (v34)
+    {
+      v35 = 0;
+      do
+      {
+        biases3 = [(MLCLSTMLayer *)self biases];
+        v37 = [biases3 objectAtIndexedSubscript:v35];
+        descriptor4 = [v37 descriptor];
+        v9 += [descriptor4 tensorAllocationSizeInBytes];
+
+        ++v35;
+        biases4 = [(MLCLSTMLayer *)self biases];
+        v40 = [biases4 count];
+      }
+
+      while (v35 < v40);
+    }
+  }
+
+  v48.receiver = self;
+  v48.super_class = MLCLSTMLayer;
+  device = [(MLCLayer *)&v48 device];
+
+  if (device)
+  {
+    v47.receiver = self;
+    v47.super_class = MLCLSTMLayer;
+    device2 = [(MLCLayer *)&v47 device];
+    computeEngine = [device2 computeEngine];
+    v46.receiver = self;
+    v46.super_class = MLCLSTMLayer;
+    deviceOps = [(MLCLayer *)&v46 deviceOps];
+    v9 += [computeEngine allocatedDeviceDataSizeForTraining:trainingCopy layer:deviceOps];
+  }
+
+  return v9;
 }
 
 - (void)allocateGradientsForParameters
@@ -963,278 +1079,274 @@ LABEL_37:
 
 - (void)linkAssociatedTensors
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   inputWeights = [(MLCLSTMLayer *)self inputWeights];
-  v4 = [inputWeights countByEnumeratingWithState:&v40 objects:v47 count:16];
+  v4 = [inputWeights countByEnumeratingWithState:&v39 objects:v46 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v41;
+    v6 = *v40;
     do
     {
       v7 = 0;
       do
       {
-        if (*v41 != v6)
+        if (*v40 != v6)
         {
           objc_enumerationMutation(inputWeights);
         }
 
-        childLayers = [*(*(&v40 + 1) + 8 * v7) childLayers];
+        childLayers = [*(*(&v39 + 1) + 8 * v7) childLayers];
         [childLayers addObject:self];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [inputWeights countByEnumeratingWithState:&v40 objects:v47 count:16];
+      v5 = [inputWeights countByEnumeratingWithState:&v39 objects:v46 count:16];
     }
 
     while (v5);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   hiddenWeights = [(MLCLSTMLayer *)self hiddenWeights];
-  v10 = [hiddenWeights countByEnumeratingWithState:&v36 objects:v46 count:16];
+  v10 = [hiddenWeights countByEnumeratingWithState:&v35 objects:v45 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v37;
+    v12 = *v36;
     do
     {
       v13 = 0;
       do
       {
-        if (*v37 != v12)
+        if (*v36 != v12)
         {
           objc_enumerationMutation(hiddenWeights);
         }
 
-        childLayers2 = [*(*(&v36 + 1) + 8 * v13) childLayers];
+        childLayers2 = [*(*(&v35 + 1) + 8 * v13) childLayers];
         [childLayers2 addObject:self];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [hiddenWeights countByEnumeratingWithState:&v36 objects:v46 count:16];
+      v11 = [hiddenWeights countByEnumeratingWithState:&v35 objects:v45 count:16];
     }
 
     while (v11);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   peepholeWeights = [(MLCLSTMLayer *)self peepholeWeights];
-  v16 = [peepholeWeights countByEnumeratingWithState:&v32 objects:v45 count:16];
+  v16 = [peepholeWeights countByEnumeratingWithState:&v31 objects:v44 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v33;
+    v18 = *v32;
     do
     {
       v19 = 0;
       do
       {
-        if (*v33 != v18)
+        if (*v32 != v18)
         {
           objc_enumerationMutation(peepholeWeights);
         }
 
-        childLayers3 = [*(*(&v32 + 1) + 8 * v19) childLayers];
+        childLayers3 = [*(*(&v31 + 1) + 8 * v19) childLayers];
         [childLayers3 addObject:self];
 
         ++v19;
       }
 
       while (v17 != v19);
-      v17 = [peepholeWeights countByEnumeratingWithState:&v32 objects:v45 count:16];
+      v17 = [peepholeWeights countByEnumeratingWithState:&v31 objects:v44 count:16];
     }
 
     while (v17);
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   biases = [(MLCLSTMLayer *)self biases];
-  v22 = [biases countByEnumeratingWithState:&v28 objects:v44 count:16];
+  v22 = [biases countByEnumeratingWithState:&v27 objects:v43 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v29;
+    v24 = *v28;
     do
     {
       v25 = 0;
       do
       {
-        if (*v29 != v24)
+        if (*v28 != v24)
         {
           objc_enumerationMutation(biases);
         }
 
-        childLayers4 = [*(*(&v28 + 1) + 8 * v25) childLayers];
+        childLayers4 = [*(*(&v27 + 1) + 8 * v25) childLayers];
         [childLayers4 addObject:self];
 
         ++v25;
       }
 
       while (v23 != v25);
-      v23 = [biases countByEnumeratingWithState:&v28 objects:v44 count:16];
+      v23 = [biases countByEnumeratingWithState:&v27 objects:v43 count:16];
     }
 
     while (v23);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unlinkAssociatedTensors
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   inputWeights = [(MLCLSTMLayer *)self inputWeights];
-  v4 = [inputWeights countByEnumeratingWithState:&v40 objects:v47 count:16];
+  v4 = [inputWeights countByEnumeratingWithState:&v39 objects:v46 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v41;
+    v6 = *v40;
     do
     {
       v7 = 0;
       do
       {
-        if (*v41 != v6)
+        if (*v40 != v6)
         {
           objc_enumerationMutation(inputWeights);
         }
 
-        childLayers = [*(*(&v40 + 1) + 8 * v7) childLayers];
+        childLayers = [*(*(&v39 + 1) + 8 * v7) childLayers];
         [childLayers removeObject:self];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [inputWeights countByEnumeratingWithState:&v40 objects:v47 count:16];
+      v5 = [inputWeights countByEnumeratingWithState:&v39 objects:v46 count:16];
     }
 
     while (v5);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   hiddenWeights = [(MLCLSTMLayer *)self hiddenWeights];
-  v10 = [hiddenWeights countByEnumeratingWithState:&v36 objects:v46 count:16];
+  v10 = [hiddenWeights countByEnumeratingWithState:&v35 objects:v45 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v37;
+    v12 = *v36;
     do
     {
       v13 = 0;
       do
       {
-        if (*v37 != v12)
+        if (*v36 != v12)
         {
           objc_enumerationMutation(hiddenWeights);
         }
 
-        childLayers2 = [*(*(&v36 + 1) + 8 * v13) childLayers];
+        childLayers2 = [*(*(&v35 + 1) + 8 * v13) childLayers];
         [childLayers2 removeObject:self];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [hiddenWeights countByEnumeratingWithState:&v36 objects:v46 count:16];
+      v11 = [hiddenWeights countByEnumeratingWithState:&v35 objects:v45 count:16];
     }
 
     while (v11);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   peepholeWeights = [(MLCLSTMLayer *)self peepholeWeights];
-  v16 = [peepholeWeights countByEnumeratingWithState:&v32 objects:v45 count:16];
+  v16 = [peepholeWeights countByEnumeratingWithState:&v31 objects:v44 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v33;
+    v18 = *v32;
     do
     {
       v19 = 0;
       do
       {
-        if (*v33 != v18)
+        if (*v32 != v18)
         {
           objc_enumerationMutation(peepholeWeights);
         }
 
-        childLayers3 = [*(*(&v32 + 1) + 8 * v19) childLayers];
+        childLayers3 = [*(*(&v31 + 1) + 8 * v19) childLayers];
         [childLayers3 removeObject:self];
 
         ++v19;
       }
 
       while (v17 != v19);
-      v17 = [peepholeWeights countByEnumeratingWithState:&v32 objects:v45 count:16];
+      v17 = [peepholeWeights countByEnumeratingWithState:&v31 objects:v44 count:16];
     }
 
     while (v17);
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   biases = [(MLCLSTMLayer *)self biases];
-  v22 = [biases countByEnumeratingWithState:&v28 objects:v44 count:16];
+  v22 = [biases countByEnumeratingWithState:&v27 objects:v43 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v29;
+    v24 = *v28;
     do
     {
       v25 = 0;
       do
       {
-        if (*v29 != v24)
+        if (*v28 != v24)
         {
           objc_enumerationMutation(biases);
         }
 
-        childLayers4 = [*(*(&v28 + 1) + 8 * v25) childLayers];
+        childLayers4 = [*(*(&v27 + 1) + 8 * v25) childLayers];
         [childLayers4 removeObject:self];
 
         ++v25;
       }
 
       while (v23 != v25);
-      v23 = [biases countByEnumeratingWithState:&v28 objects:v44 count:16];
+      v23 = [biases countByEnumeratingWithState:&v27 objects:v43 count:16];
     }
 
     while (v23);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -1305,115 +1417,85 @@ LABEL_37:
 - (void)initWithDescriptor:inputWeights:hiddenWeights:peepholeWeights:biases:gateActivations:outputResultActivation:.cold.1()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:inputWeights:hiddenWeights:peepholeWeights:biases:gateActivations:outputResultActivation:.cold.2()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:inputWeights:hiddenWeights:peepholeWeights:biases:gateActivations:outputResultActivation:.cold.3()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:inputWeights:hiddenWeights:peepholeWeights:biases:gateActivations:outputResultActivation:.cold.4()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:(const char *)a1 inputWeights:hiddenWeights:peepholeWeights:biases:gateActivations:outputResultActivation:.cold.5(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:(const char *)a1 inputWeights:hiddenWeights:peepholeWeights:biases:gateActivations:outputResultActivation:.cold.6(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:(const char *)a1 inputWeights:hiddenWeights:peepholeWeights:biases:gateActivations:outputResultActivation:.cold.7(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:(const char *)a1 inputWeights:hiddenWeights:peepholeWeights:biases:gateActivations:outputResultActivation:.cold.8(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)allocateDataForOptimizer:(const char *)a1 .cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isSupportedShapeForTensorSources:(const char *)a1 .cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -1,102 +1,3 @@
-void sub_260002E60(_Unwind_Exception *a1)
-{
-  *(v1 + 80) = v2;
-  *(v1 + 96) = 0;
-  PCWeakCount::~PCWeakCount(v3);
-  _Unwind_Resume(a1);
-}
-
-ProShade::ConstVector *ProShade::ConstVector::ConstVector(ProShade::ConstVector *this, float a2)
-{
-  *(this + 10) = &unk_2872DEA38;
-  *(this + 11) = 0;
-  *(this + 96) = 1;
-  ProShade::Node::Node(this, &off_2872726E8);
-  v4 = off_2872726E0;
-  *this = off_2872726E0;
-  *(this + *(v4 - 3)) = off_287272708;
-  *this = &unk_2872725B8;
-  *(this + 10) = &unk_2872726C0;
-  *(this + 6) = a2;
-  *(this + 7) = a2;
-  *(this + 8) = a2;
-  *(this + 9) = a2;
-  *(this + 3) = 0x100000003;
-  return this;
-}
-
-void sub_260002FD4(_Unwind_Exception *a1)
-{
-  *(v1 + 80) = v2;
-  *(v1 + 96) = 0;
-  PCWeakCount::~PCWeakCount(v3);
-  _Unwind_Resume(a1);
-}
-
-uint64_t LoadLockCache::instance(LoadLockCache *this)
-{
-  {
-    operator new();
-  }
-
-  return LoadLockCache::instance(void)::instance + 8;
-}
-
-void sub_26000306C(_Unwind_Exception *a1)
-{
-  MEMORY[0x2666E9F00](v1, 0x10A1C40A64E3564);
-  _Unwind_Resume(a1);
-}
-
-void LoadLockCache::LoadLockCache(LoadLockCache *this)
-{
-  PCSingleton::PCSingleton(this, 0);
-  *v2 = &unk_28726B690;
-  PCMutex::PCMutex((v2 + 8));
-  *(this + 12) = 0;
-  *(this + 11) = 0;
-  *(this + 10) = this + 88;
-}
-
-void LoadLockCache::~LoadLockCache(LoadLockCache *this)
-{
-  *this = &unk_28726B690;
-  std::__tree<std::__value_type<PCHash128,std::weak_ptr<LiTextureStoreTokenImpl>>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,std::weak_ptr<LiTextureStoreTokenImpl>>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,std::weak_ptr<LiTextureStoreTokenImpl>>>>::destroy(this + 80, *(this + 11));
-  PCMutex::~PCMutex((this + 8));
-
-  PCSingleton::~PCSingleton(this);
-}
-
-{
-  LoadLockCache::~LoadLockCache(this);
-
-  JUMPOUT(0x2666E9F00);
-}
-
-void LiTransform::LiTransform(LiTransform *this)
-{
-  *this = 0;
-  *(this + 1) = 0;
-  *(this + 2) = 0;
-  *(this + 7) = 0;
-  *(this + 8) = 0;
-  *(this + 25) = 0x3FF0000000000000;
-  *(this + 20) = 0x3FF0000000000000;
-  *(this + 15) = 0x3FF0000000000000;
-  *(this + 9) = 0;
-  *(this + 10) = 0x3FF0000000000000;
-  *(this + 88) = 0u;
-  *(this + 104) = 0u;
-  *(this + 8) = 0u;
-  *(this + 9) = 0u;
-  *(this + 168) = 0u;
-  *(this + 184) = 0u;
-  __asm { FMOV            V0.2D, #1.0 }
-
-  *(this + 24) = _Q0;
-  *(this + 40) = _Q0;
-}
-
 double PCMatrix44Tmpl<double>::rightRotate(uint64_t a1, double *a2)
 {
   v13 = 0x3FF0000000000000;
@@ -139,15 +40,16 @@ void LiMaterialLayer::LiMaterialLayer(LiMaterialLayer *this, uint64_t *a2, uint6
   *(this + 12) = 257;
 }
 
-void LiMaterialLayer::getHash(LiMaterialLayer *this)
+void LiMaterialLayer::getHash(LiMaterialLayer *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v1 = MEMORY[0x28223BE20](this);
-  v3 = v2;
-  v4[520] = *MEMORY[0x277D85DE8];
-  PCHashWriteStream::PCHashWriteStream(v4);
-  (*(*v1 + 56))(v1, v4);
-  *v3 = *PCHashWriteStream::getHash(v4)->i8;
-  PCHashWriteStream::~PCHashWriteStream(v4);
+  MEMORY[0x28223BE20](this, a2, a3, a4, a5);
+  v6 = v5;
+  v8 = v7;
+  v9[520] = *MEMORY[0x277D85DE8];
+  PCHashWriteStream::PCHashWriteStream(v9);
+  (*(*v6 + 56))(v6, v9);
+  *v8 = *PCHashWriteStream::getHash(v9)->i8;
+  PCHashWriteStream::~PCHashWriteStream(v9);
 }
 
 int8x8_t *LiMaterialLayer::writeHash(LiMaterialLayer *this, int8x8_t *a2)
@@ -231,19 +133,19 @@ void *LiMaterialLayer::print(uint64_t a1, void *a2, int a3)
   return result;
 }
 
-void LiMaterialLayer::clampColorToEdge(_DWORD *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+void LiMaterialLayer::clampColorToEdge(_DWORD *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a5@<X8>)
 {
   if (!*a1)
   {
     ProShade::Selector_base::_select(a3 + 8, 0);
   }
 
-  *a4 = &unk_28725E328;
-  *(a4 + 8) = *(a2 + 8);
-  *(a4 + 16) = *(a2 + 16);
-  v4 = (a2 + 24);
+  *a5 = &unk_28725E328;
+  *(a5 + 8) = *(a2 + 8);
+  *(a5 + 16) = *(a2 + 16);
+  v5 = (a2 + 24);
 
-  PCSharedCount::PCSharedCount((a4 + 24), v4);
+  PCSharedCount::PCSharedCount((a5 + 24), v5);
 }
 
 void sub_2600044FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, _Unwind_Exception *exception_object, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, uint64_t a45, PCSharedCount a46)
@@ -266,39 +168,39 @@ void sub_2600044FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void LiMaterialLayer::sampleTextureMap()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = &unk_28725E328;
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = &unk_28725E328;
   operator new();
 }
 
 void sub_260006260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unint64_t a9, unint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, PC_Sp_counted_base *a16, uint64_t a17, uint64_t a18, uint64_t a19, PCSharedCount *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   STACK[0x290] = &unk_28725E328;
-  PCSharedCount::~PCSharedCount(v70 + 3);
-  PCSharedCount::~PCSharedCount(v72 + 3);
+  PCSharedCount::~PCSharedCount(v66 + 3);
+  PCSharedCount::~PCSharedCount(v68 + 3);
+  PCSharedCount::~PCSharedCount(&a65);
   PCSharedCount::~PCSharedCount(&a66);
-  PCSharedCount::~PCSharedCount(&a70);
-  PCSharedCount::~PCSharedCount(v71 + 3);
+  PCSharedCount::~PCSharedCount(v67 + 3);
   STACK[0x210] = a9;
   PCSharedCount::~PCSharedCount(&STACK[0x228]);
   STACK[0x2B0] = a10;
   PCSharedCount::~PCSharedCount(&STACK[0x2C8]);
-  *(v73 - 256) = a11;
-  PCSharedCount::~PCSharedCount((v73 - 232));
-  *(v73 - 224) = a12;
-  PCSharedCount::~PCSharedCount((v73 - 200));
-  *(v73 - 192) = a13;
-  PCSharedCount::~PCSharedCount((v73 - 168));
-  *(v73 - 160) = a14;
-  PCSharedCount::~PCSharedCount((v73 - 136));
-  *(v73 - 128) = a15;
-  PCSharedCount::~PCSharedCount((v73 - 104));
+  *(v69 - 256) = a11;
+  PCSharedCount::~PCSharedCount((v69 - 232));
+  *(v69 - 224) = a12;
+  PCSharedCount::~PCSharedCount((v69 - 200));
+  *(v69 - 192) = a13;
+  PCSharedCount::~PCSharedCount((v69 - 168));
+  *(v69 - 160) = a14;
+  PCSharedCount::~PCSharedCount((v69 - 136));
+  *(v69 - 128) = a15;
+  PCSharedCount::~PCSharedCount((v69 - 104));
   a20->var0 = a16;
   PCSharedCount::~PCSharedCount(a20 + 3);
   _Unwind_Resume(a1);
 }
 
-void LiMaterialLayer::calculateTriplanarNormal(LiMaterialLayer *this)
+void LiMaterialLayer::calculateTriplanarNormal()
 {
   v2 = *MEMORY[0x277D85DE8];
   v1 = &unk_28725E328;
@@ -324,43 +226,43 @@ void sub_260007860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_260008CE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, PC_Sp_counted_base *a10, uint64_t a11, PCSharedCount *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, PCSharedCount a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   STACK[0x210] = &unk_28725E328;
-  PCSharedCount::~PCSharedCount(v74 + 3);
-  PCSharedCount::~PCSharedCount(v73 + 3);
-  a71 = &unk_28725E328;
+  PCSharedCount::~PCSharedCount(v68 + 3);
+  PCSharedCount::~PCSharedCount(v67 + 3);
+  a65 = &unk_28725E328;
   PCSharedCount::~PCSharedCount(&STACK[0x208]);
   PCSharedCount::~PCSharedCount(&a50);
-  PCSharedCount::~PCSharedCount(v71 + 3);
-  PCSharedCount::~PCSharedCount(v72 + 3);
-  *(v75 - 232) = &unk_28725E328;
-  PCSharedCount::~PCSharedCount((v75 - 208));
+  PCSharedCount::~PCSharedCount(v65 + 3);
+  PCSharedCount::~PCSharedCount(v66 + 3);
+  *(v69 - 232) = &unk_28725E328;
+  PCSharedCount::~PCSharedCount((v69 - 208));
   a12->var0 = a10;
   PCSharedCount::~PCSharedCount(a12 + 3);
   _Unwind_Resume(a1);
 }
 
-void adjustHSVWithColor(double a1, double a2, double a3, double a4, double a5, double a6, int64x2_t a7)
+void adjustHSVWithColor(double d0_0, double a5, double a6, double a7, double a8, double a9, int64x2_t a10)
 {
-  v17[68] = *MEMORY[0x277D85DE8];
-  PCGetRec709YCbCrMatrix(v17, a2, a3, a4, a5, a6, a7);
-  v7 = 0;
-  v8 = &v11;
-  for (i = v17; ; i = (i + 12))
+  v21[8] = *MEMORY[0x277D85DE8];
+  PCGetRec709YCbCrMatrix(&v20, a5, a6, a7, a8, a9, a10);
+  v10 = 0;
+  v11 = v14;
+  for (i = &v20; ; i = (i + 12))
   {
     for (j = 0; j != 3; ++j)
     {
-      *&v8[8 * j] = *(i + j);
+      *&v11[8 * j] = *(i + j);
     }
 
-    ++v7;
-    v8 += 32;
-    if (v7 == 3)
+    ++v10;
+    v11 += 32;
+    if (v10 == 3)
     {
-      v12 = 0;
-      v13 = 0;
-      v14 = 0u;
-      v15 = 0u;
-      v16 = 0x3FF0000000000000;
-      ProShade::Mat4::Mat4();
+      v15 = 0;
+      v16 = 0;
+      v17 = 0u;
+      v18 = 0u;
+      v19 = 0x3FF0000000000000;
+      ProShade::Mat4::Mat4(v21, v14);
     }
   }
 }
@@ -396,10 +298,10 @@ void sub_26000AF88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void LiMaterialLayer::getSurfaceSpecularScalar(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int *a8)
+void LiMaterialLayer::getSurfaceSpecularScalar(uint64_t a1, void x1_0, uint64_t a2, _BYTE *a3, const PCSharedCount *a4, const PCSharedCount *a5, const PCSharedCount *a6, int *a7)
 {
   v9 = *MEMORY[0x277D85DE8];
-  PCGetWorkingColorSpaceLuminanceCoefficients(*a8, &v8);
+  PCGetWorkingColorSpaceLuminanceCoefficients(*a7, &v8);
   operator new();
 }
 
@@ -478,7 +380,7 @@ void sub_26000CF88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void LiMaterialLayer::getSurfaceSpecularShininess(uint64_t a1, uint64_t a2, uint64_t a3, const PCSharedCount *a4)
+void LiMaterialLayer::getSurfaceSpecularShininess(uint64_t a1, const PCSharedCount *a2, uint64_t a3, const PCSharedCount *a4)
 {
   v13[6] = *MEMORY[0x277D85DE8];
   SamplerInfo = LiMaterial::getSamplerInfo(a1, *(a3 + 16));
@@ -501,40 +403,40 @@ void sub_26000D764(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void LiMaterialLayer::getSurfaceSpecularIntensity(os_unfair_lock_s *this, const LiLayeredMaterial *a2, const LiMaterialLayerUniform *a3)
+void LiMaterialLayer::getSurfaceSpecularIntensity(os_unfair_lock_s *this, const LiLayeredMaterial *a3)
 {
   v12[2] = *MEMORY[0x277D85DE8];
-  SamplerInfo = LiMaterial::getSamplerInfo(this, *(a2 + 126));
+  SamplerInfo = LiMaterial::getSamplerInfo(this, *(a3 + 126));
   v8 = *(SamplerInfo + 316);
   v9 = *(SamplerInfo + 332);
   v6 = BYTE1(this[174]._os_unfair_lock_opaque);
   os_unfair_lock_opaque_high = HIWORD(this[174]._os_unfair_lock_opaque);
   v11 = &unk_28725E328;
-  PCPtr<LiImageSource>::PCPtr<OZGradientSource>(v12, a2 + 234);
+  PCPtr<LiImageSource>::PCPtr<OZGradientSource>(v12, a3 + 234);
   v10 = &unk_28725E328;
   operator new();
 }
 
-void sub_26000DA8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_26000DA8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
-  PCSharedCount::~PCSharedCount(v16 + 3);
+  va_start(va, a21);
+  PCSharedCount::~PCSharedCount(v23 + 3);
   PCSharedCount::~PCSharedCount(va);
-  PCSharedCount::~PCSharedCount(v15 + 3);
-  *(v17 - 128) = v14;
-  PCSharedCount::~PCSharedCount((v17 - 104));
+  PCSharedCount::~PCSharedCount(v22 + 3);
+  *(v24 - 128) = v21;
+  PCSharedCount::~PCSharedCount((v24 - 104));
   _Unwind_Resume(a1);
 }
 
-void LiMaterialLayer::tangentSpaceToEyeSpace(const PCSharedCount *this, const PCSharedCount *a2, const ProShade::Vec3 *a3, const ProShade::Vec3 *a4, const ProShade::Vec3 *a5)
+void LiMaterialLayer::tangentSpaceToEyeSpace(const PCSharedCount *this, const PCSharedCount *a3, const ProShade::Vec3 *a4, const ProShade::Vec3 *a5)
 {
   v12[4] = *MEMORY[0x277D85DE8];
   ProShade::Func<ProShade::Func_normalize>::eval(this, v12);
-  ProShade::Func<ProShade::Func_normalize>::eval(a2, v11);
+  ProShade::Func<ProShade::Func_normalize>::eval(a3, v11);
   v7 = &unk_28725E328;
-  v8 = *(a4 + 8);
-  v9 = *(a4 + 2);
-  PCSharedCount::PCSharedCount(&v10, a4 + 3);
+  v8 = *(a5 + 8);
+  v9 = *(a5 + 2);
+  PCSharedCount::PCSharedCount(&v10, a5 + 3);
   ProShade::Func<ProShade::Func_dot>::eval(v12, &v7);
 }
 
@@ -555,70 +457,70 @@ void sub_26000E730(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void LiMaterialLayerUniform::setup(uint64_t a1, const void **a2, LiString *a3)
+void LiMaterialLayerUniform::setup(uint64_t a1, const void **a2, LiString *a3, int a4, int a5)
 {
-  v4 = *a2;
+  v6 = *a2;
   if (*a2)
   {
-    v5 = *(v4 - 2);
+    v7 = *(v6 - 2);
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
   }
 
-  v6 = malloc_type_malloc(v5 + 14, 0x10000403E1C8BA9uLL);
-  v6[1] = v5 + 1;
-  v6[2] = v5 + 2;
-  atomic_store(1u, v6);
-  atomic_store(0, v6);
-  memcpy(v6 + 3, v4, v5);
-  *(v6 + v5 + 12) = 95;
-  atomic_fetch_add(v6, 1u);
-  LiString::format(a3, v13);
-  v7 = v6[1];
-  v8 = v13[0];
-  if (v13[0])
+  v8 = malloc_type_malloc(v7 + 14, 0x10000403E1C8BA9uLL);
+  v8[1] = v7 + 1;
+  v8[2] = v7 + 2;
+  atomic_store(1u, v8);
+  atomic_store(0, v8);
+  memcpy(v8 + 3, v6, v7);
+  *(v8 + v7 + 12) = 95;
+  atomic_fetch_add(v8, 1u);
+  LiString::format(v16, a3, v9);
+  v10 = v8[1];
+  v11 = v16[0];
+  if (v16[0])
   {
-    v9 = *(v13[0] - 8);
+    v12 = *(v16[0] - 8);
   }
 
   else
   {
-    v9 = 0;
+    v12 = 0;
   }
 
-  v10 = v7 + v9;
-  v11 = malloc_type_malloc(v10 + 13, 0x10000403E1C8BA9uLL);
-  v11[1] = v10;
-  v11[2] = v10 + 1;
-  atomic_store(1u, v11);
-  atomic_store(0, v11);
-  memcpy(v11 + 3, v6 + 3, v7);
-  memcpy(v11 + v7 + 12, v8, v9);
-  *(v11 + v10 + 12) = 0;
-  v13[1] = v11 + 3;
-  atomic_fetch_add(v11, 1u);
-  if (v13[0] && atomic_fetch_add((v13[0] - 12), 0xFFFFFFFF) == 1)
+  v13 = v10 + v12;
+  v14 = malloc_type_malloc(v13 + 13, 0x10000403E1C8BA9uLL);
+  v14[1] = v13;
+  v14[2] = v13 + 1;
+  atomic_store(1u, v14);
+  atomic_store(0, v14);
+  memcpy(v14 + 3, v8 + 3, v10);
+  memcpy(v14 + v10 + 12, v11, v12);
+  *(v14 + v13 + 12) = 0;
+  v16[1] = v14 + 3;
+  atomic_fetch_add(v14, 1u);
+  if (v16[0] && atomic_fetch_add((v16[0] - 12), 0xFFFFFFFF) == 1)
   {
-    *v13[0] = 0;
-    if (v13[0])
+    *v16[0] = 0;
+    if (v16[0])
     {
-      v12 = (v13[0] - 12);
+      v15 = (v16[0] - 12);
     }
 
     else
     {
-      v12 = 0;
+      v15 = 0;
     }
 
-    free(v12);
+    free(v15);
   }
 
-  if (atomic_fetch_add(v6, 0xFFFFFFFF) == 1)
+  if (atomic_fetch_add(v8, 0xFFFFFFFF) == 1)
   {
-    free(v6);
+    free(v8);
   }
 
   operator new();
@@ -626,7 +528,7 @@ void LiMaterialLayerUniform::setup(uint64_t a1, const void **a2, LiString *a3)
 
 void sub_26000F024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, atomic_uint *a12)
 {
-  MEMORY[0x2666E9F00](v12, 0x10B1C402CAA7C2BLL);
+  MEMORY[0x2666E9F00](v12, 0x10B1C402CAA7C2BLL, a3, a4, a5, a6, a7, a8);
   if (a12)
   {
     if (atomic_fetch_add(a12 - 3, 0xFFFFFFFF) == 1)
@@ -641,7 +543,7 @@ void sub_26000F024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void LiMaterialLayerUniform::setup(LiMaterialLayerUniform *this, const void **a2, const LiString *a3)
 {
-  v14[12] = *MEMORY[0x277D85DE8];
+  v15[12] = *MEMORY[0x277D85DE8];
   v4 = *a2;
   if (*a2)
   {
@@ -661,44 +563,44 @@ void LiMaterialLayerUniform::setup(LiMaterialLayerUniform *this, const void **a2
   memcpy(v6 + 3, v4, v5);
   *(v6 + v5 + 12) = 95;
   atomic_fetch_add(v6, 1u);
-  LiString::format(a3, v14);
-  v7 = v6[1];
-  v8 = v14[0];
-  if (v14[0])
+  LiString::format(v15, a3, v7);
+  v8 = v6[1];
+  v9 = v15[0];
+  if (v15[0])
   {
-    v9 = *(v14[0] - 8);
+    v10 = *(v15[0] - 8);
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  v10 = v7 + v9;
-  v11 = malloc_type_malloc(v10 + 13, 0x10000403E1C8BA9uLL);
-  v11[1] = v10;
-  v11[2] = v10 + 1;
-  atomic_store(1u, v11);
-  atomic_store(0, v11);
-  memcpy(v11 + 3, v6 + 3, v7);
-  memcpy(v11 + v7 + 12, v8, v9);
-  *(v11 + v10 + 12) = 0;
-  v13 = v11 + 3;
-  atomic_fetch_add(v11, 1u);
-  if (v14[0] && atomic_fetch_add((v14[0] - 12), 0xFFFFFFFF) == 1)
+  v11 = v8 + v10;
+  v12 = malloc_type_malloc(v11 + 13, 0x10000403E1C8BA9uLL);
+  v12[1] = v11;
+  v12[2] = v11 + 1;
+  atomic_store(1u, v12);
+  atomic_store(0, v12);
+  memcpy(v12 + 3, v6 + 3, v8);
+  memcpy(v12 + v8 + 12, v9, v10);
+  *(v12 + v11 + 12) = 0;
+  v14 = v12 + 3;
+  atomic_fetch_add(v12, 1u);
+  if (v15[0] && atomic_fetch_add((v15[0] - 12), 0xFFFFFFFF) == 1)
   {
-    *v14[0] = 0;
-    if (v14[0])
+    *v15[0] = 0;
+    if (v15[0])
     {
-      v12 = (v14[0] - 12);
+      v13 = (v15[0] - 12);
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
 
-    free(v12);
+    free(v13);
   }
 
   if (atomic_fetch_add(v6, 0xFFFFFFFF) == 1)
@@ -711,7 +613,7 @@ void LiMaterialLayerUniform::setup(LiMaterialLayerUniform *this, const void **a2
 
 void sub_26000F4D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, atomic_uint *a9, atomic_uint *a10)
 {
-  MEMORY[0x2666E9F00](v10, 0x10B1C402CAA7C2BLL);
+  MEMORY[0x2666E9F00](v10, 0x10B1C402CAA7C2BLL, a3, a4, a5, a6, a7, a8);
   if (a10 && atomic_fetch_add(a10 - 3, 0xFFFFFFFF) == 1)
   {
     *a10 = 0;
@@ -730,27 +632,27 @@ void sub_26000F4D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t LiMaterialLayerUniform::get(os_unfair_lock_s *this, uint64_t a2)
+uint64_t LiMaterialLayerUniform::get(os_unfair_lock_s *this, uint64_t a2, int a3)
 {
   if (!*a2)
   {
     throw_PCNullPointerException(1);
   }
 
-  v2 = *(*a2 + 12);
+  v3 = *(*a2 + 12);
 
-  return LiMaterialLayerUniform::get(this, v2);
+  return LiMaterialLayerUniform::get(this, v3);
 }
 
 uint64_t LiMaterialLayerUniform::get(os_unfair_lock_s *this, LiLayeredMaterial *a2)
 {
   v2 = a2;
-  if ((atomic_load_explicit(&qword_280C5E9C0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5E9C0, memory_order_acquire) & 1) == 0)
   {
     LiMaterialLayerUniform::get();
   }
 
-  if ((atomic_load_explicit(&qword_280C5E9C8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5E9C8, memory_order_acquire) & 1) == 0)
   {
     LiMaterialLayerUniform::get();
   }
@@ -778,9 +680,9 @@ uint64_t LiMaterialLayerUniform::get(os_unfair_lock_s *this, LiLayeredMaterial *
   return v6;
 }
 
-void sub_260010AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_260010AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   PCLockSentry<PCSpinLock>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
@@ -797,79 +699,79 @@ uint64_t std::vector<LiMaterialLayerUniform *>::~vector[abi:ne200100](uint64_t a
   return a1;
 }
 
-uint64_t LiMaterialLayerUniform::initializeSamplerAttributes(os_unfair_lock_s *this, const ProShade::SamplerNode **a2, LiMaterialLayerUniform *a3)
+LiMaterialSamplerInfo *LiMaterialLayerUniform::initializeSamplerAttributes(os_unfair_lock_s *this, const ProShade::SamplerNode **a2, LiMaterialLayerUniform *a3)
 {
   v5 = LiMaterial::obtainSamplerInfo(this, a2[46]);
-  *(v5 + 324) = 0;
+  *(v5 + 81) = 0;
   *(v5 + 316) = 0;
-  *(v5 + 328) = 257;
-  *(v5 + 332) = 0;
-  *(v5 + 336) = 256;
+  *(v5 + 164) = 257;
+  *(v5 + 83) = 0;
+  *(v5 + 168) = 256;
   *(v5 + 338) = 0;
   *(v5 + 312) = 1;
   v6 = LiMaterial::obtainSamplerInfo(this, a2[58]);
-  *(v6 + 324) = 0;
+  *(v6 + 81) = 0;
   *(v6 + 316) = 0;
-  *(v6 + 328) = 257;
-  *(v6 + 332) = 0;
-  *(v6 + 336) = 256;
+  *(v6 + 164) = 257;
+  *(v6 + 83) = 0;
+  *(v6 + 168) = 256;
   *(v6 + 338) = 0;
   *(v6 + 312) = 1;
   v7 = LiMaterial::obtainSamplerInfo(this, a2[70]);
   *(v7 + 316) = 0;
-  *(v7 + 324) = 1;
-  *(v7 + 328) = 257;
-  *(v7 + 332) = 0;
+  *(v7 + 81) = 1;
+  *(v7 + 164) = 257;
+  *(v7 + 83) = 0;
   *(v7 + 335) = 0;
   *(v7 + 312) = 1;
   v8 = LiMaterial::obtainSamplerInfo(this, a2[82]);
   *(v8 + 316) = 0;
-  *(v8 + 324) = 2;
-  *(v8 + 328) = 257;
-  *(v8 + 332) = 0;
+  *(v8 + 81) = 2;
+  *(v8 + 164) = 257;
+  *(v8 + 83) = 0;
   *(v8 + 335) = 0;
   *(v8 + 312) = 1;
   v9 = LiMaterial::obtainSamplerInfo(this, a2[94]);
   *(v9 + 316) = 0;
-  *(v9 + 324) = 3;
-  *(v9 + 328) = 257;
-  *(v9 + 332) = 0;
+  *(v9 + 81) = 3;
+  *(v9 + 164) = 257;
+  *(v9 + 83) = 0;
   *(v9 + 335) = 0;
   *(v9 + 312) = 1;
   v10 = LiMaterial::obtainSamplerInfo(this, a2[106]);
-  *(v10 + 316) = 0;
-  *(v10 + 320) = 1;
-  *(v10 + 328) = 257;
-  *(v10 + 332) = 0;
+  *(v10 + 79) = 0;
+  *(v10 + 40) = 1;
+  *(v10 + 164) = 257;
+  *(v10 + 83) = 0;
   *(v10 + 335) = 0;
   *(v10 + 312) = 1;
   v11 = LiMaterial::obtainSamplerInfo(this, a2[126]);
-  *(v11 + 316) = 0;
-  *(v11 + 320) = 1;
-  *(v11 + 328) = 257;
-  *(v11 + 332) = 0;
+  *(v11 + 79) = 0;
+  *(v11 + 40) = 1;
+  *(v11 + 164) = 257;
+  *(v11 + 83) = 0;
   *(v11 + 335) = 0;
   *(v11 + 312) = 1;
   v12 = LiMaterial::obtainSamplerInfo(this, a2[146]);
-  *(v12 + 316) = 0;
-  *(v12 + 320) = 1;
-  *(v12 + 328) = 1;
-  *(v12 + 332) = 0;
-  *(v12 + 336) = 0;
+  *(v12 + 79) = 0;
+  *(v12 + 40) = 1;
+  *(v12 + 164) = 1;
+  *(v12 + 83) = 0;
+  *(v12 + 168) = 0;
   *(v12 + 338) = 1;
   *(v12 + 312) = 1;
   v13 = LiMaterial::obtainSamplerInfo(this, a2[158]);
-  *(v13 + 324) = 0;
+  *(v13 + 81) = 0;
   *(v13 + 316) = 0;
-  *(v13 + 328) = 257;
-  *(v13 + 332) = 0;
+  *(v13 + 164) = 257;
+  *(v13 + 83) = 0;
   *(v13 + 335) = 0;
   *(v13 + 312) = 1;
   result = LiMaterial::obtainSamplerInfo(this, a2[170]);
-  *(result + 324) = 0;
+  *(result + 81) = 0;
   *(result + 316) = 0;
-  *(result + 328) = 257;
-  *(result + 332) = 0;
+  *(result + 164) = 257;
+  *(result + 83) = 0;
   *(result + 335) = 0;
   *(result + 312) = 1;
   return result;
@@ -955,122 +857,124 @@ void LiLayeredMaterial::getLayer(LiLayeredMaterial *this@<X0>, int a2@<W1>, PCSh
   }
 }
 
-void LiLayeredMaterial::getHash(LiLayeredMaterial *this)
+void LiLayeredMaterial::getHash(LiLayeredMaterial *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v1 = MEMORY[0x28223BE20](this);
-  v3 = v2;
-  v19[520] = *MEMORY[0x277D85DE8];
-  PCHashWriteStream::PCHashWriteStream(v19);
-  v4 = *(v1 + 664);
-  if (*(v1 + 672) != v4)
+  MEMORY[0x28223BE20](this, a2, a3, a4, a5);
+  v6 = v5;
+  v8 = v7;
+  v64[520] = *MEMORY[0x277D85DE8];
+  PCHashWriteStream::PCHashWriteStream(v64);
+  v13 = *(v6 + 664);
+  if (*(v6 + 672) != v13)
   {
-    v5 = 0;
-    v6 = 0;
+    v14 = 0;
+    v15 = 0;
     do
     {
-      v7 = *(v4 + v5);
-      if (!v7)
+      v16 = *(v13 + v14);
+      if (!v16)
       {
         throw_PCNullPointerException(1);
       }
 
-      LiMaterialLayer::getHash(v7);
-      PCHashWriteStream::writeValue(v19, v18);
-      v8 = LiMaterialLayerUniform::get(v1, v6);
-      SamplerInfo = LiMaterial::getSamplerInfo(v1, v8[46]);
-      SamplerAttributes::getHash((SamplerInfo + 316));
-      PCHashWriteStream::writeValue(v19, v18);
-      v10 = LiMaterial::getSamplerInfo(v1, v8[58]);
-      SamplerAttributes::getHash((v10 + 316));
-      PCHashWriteStream::writeValue(v19, v18);
-      v11 = LiMaterial::getSamplerInfo(v1, v8[70]);
-      SamplerAttributes::getHash((v11 + 316));
-      PCHashWriteStream::writeValue(v19, v18);
-      v12 = LiMaterial::getSamplerInfo(v1, v8[82]);
-      SamplerAttributes::getHash((v12 + 316));
-      PCHashWriteStream::writeValue(v19, v18);
-      v13 = LiMaterial::getSamplerInfo(v1, v8[94]);
-      SamplerAttributes::getHash((v13 + 316));
-      PCHashWriteStream::writeValue(v19, v18);
-      v14 = LiMaterial::getSamplerInfo(v1, v8[106]);
-      SamplerAttributes::getHash((v14 + 316));
-      PCHashWriteStream::writeValue(v19, v18);
-      v15 = LiMaterial::getSamplerInfo(v1, v8[126]);
-      SamplerAttributes::getHash((v15 + 316));
-      PCHashWriteStream::writeValue(v19, v18);
-      v16 = LiMaterial::getSamplerInfo(v1, v8[146]);
-      SamplerAttributes::getHash((v16 + 316));
-      PCHashWriteStream::writeValue(v19, v18);
-      v17 = LiMaterial::getSamplerInfo(v1, v8[158]);
-      SamplerAttributes::getHash((v17 + 316));
-      PCHashWriteStream::writeValue(v19, v18);
-      ++v6;
-      v4 = *(v1 + 664);
-      v5 += 16;
+      LiMaterialLayer::getHash(v16, v9, v10, v11, v12);
+      PCHashWriteStream::writeValue(v64, v63);
+      v17 = LiMaterialLayerUniform::get(v6, v15);
+      SamplerInfo = LiMaterial::getSamplerInfo(v6, v17[46]);
+      SamplerAttributes::getHash((SamplerInfo + 316), v19, v20, v21, v22);
+      PCHashWriteStream::writeValue(v64, v63);
+      v23 = LiMaterial::getSamplerInfo(v6, v17[58]);
+      SamplerAttributes::getHash((v23 + 316), v24, v25, v26, v27);
+      PCHashWriteStream::writeValue(v64, v63);
+      v28 = LiMaterial::getSamplerInfo(v6, v17[70]);
+      SamplerAttributes::getHash((v28 + 316), v29, v30, v31, v32);
+      PCHashWriteStream::writeValue(v64, v63);
+      v33 = LiMaterial::getSamplerInfo(v6, v17[82]);
+      SamplerAttributes::getHash((v33 + 316), v34, v35, v36, v37);
+      PCHashWriteStream::writeValue(v64, v63);
+      v38 = LiMaterial::getSamplerInfo(v6, v17[94]);
+      SamplerAttributes::getHash((v38 + 316), v39, v40, v41, v42);
+      PCHashWriteStream::writeValue(v64, v63);
+      v43 = LiMaterial::getSamplerInfo(v6, v17[106]);
+      SamplerAttributes::getHash((v43 + 316), v44, v45, v46, v47);
+      PCHashWriteStream::writeValue(v64, v63);
+      v48 = LiMaterial::getSamplerInfo(v6, v17[126]);
+      SamplerAttributes::getHash((v48 + 316), v49, v50, v51, v52);
+      PCHashWriteStream::writeValue(v64, v63);
+      v53 = LiMaterial::getSamplerInfo(v6, v17[146]);
+      SamplerAttributes::getHash((v53 + 316), v54, v55, v56, v57);
+      PCHashWriteStream::writeValue(v64, v63);
+      v58 = LiMaterial::getSamplerInfo(v6, v17[158]);
+      SamplerAttributes::getHash((v58 + 316), v59, v60, v61, v62);
+      PCHashWriteStream::writeValue(v64, v63);
+      ++v15;
+      v13 = *(v6 + 664);
+      v14 += 16;
     }
 
-    while (v6 < (*(v1 + 672) - v4) >> 4);
+    while (v15 < (*(v6 + 672) - v13) >> 4);
   }
 
-  PCHashWriteStream::writeValue(v19, *(v1 + 688));
-  PCHashWriteStream::writeValue(v19, *(v1 + 689));
-  PCHashWriteStream::writeValue(v19, *(v1 + 690));
-  PCHashWriteStream::writeValue(v19, *(v1 + 697));
-  PCHashWriteStream::writeValue(v19, *(v1 + 698));
-  PCHashWriteStream::writeValue(v19, *(v1 + 699));
-  PCHashWriteStream::writeValue(v19, *(v1 + 691));
-  PCHashWriteStream::writeValue(v19, *(v1 + 692));
-  PCHashWriteStream::writeValue(v19, *(v1 + 693));
-  PCHashWriteStream::writeValue(v19, *(v1 + 694));
-  PCHashWriteStream::writeValue(v19, *(v1 + 695));
-  PCHashWriteStream::writeValue(v19, *(v1 + 696));
-  PCHashWriteStream::writeValue(v19, *(v1 + 656));
-  *v3 = *PCHashWriteStream::getHash(v19)->i8;
-  PCHashWriteStream::~PCHashWriteStream(v19);
+  PCHashWriteStream::writeValue(v64, *(v6 + 688));
+  PCHashWriteStream::writeValue(v64, *(v6 + 689));
+  PCHashWriteStream::writeValue(v64, *(v6 + 690));
+  PCHashWriteStream::writeValue(v64, *(v6 + 697));
+  PCHashWriteStream::writeValue(v64, *(v6 + 698));
+  PCHashWriteStream::writeValue(v64, *(v6 + 699));
+  PCHashWriteStream::writeValue(v64, *(v6 + 691));
+  PCHashWriteStream::writeValue(v64, *(v6 + 692));
+  PCHashWriteStream::writeValue(v64, *(v6 + 693));
+  PCHashWriteStream::writeValue(v64, *(v6 + 694));
+  PCHashWriteStream::writeValue(v64, *(v6 + 695));
+  PCHashWriteStream::writeValue(v64, *(v6 + 696));
+  PCHashWriteStream::writeValue(v64, *(v6 + 656));
+  *v8 = *PCHashWriteStream::getHash(v64)->i8;
+  PCHashWriteStream::~PCHashWriteStream(v64);
 }
 
-void SamplerAttributes::getHash(SamplerAttributes *this)
+void SamplerAttributes::getHash(SamplerAttributes *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v1 = MEMORY[0x28223BE20](this);
-  v3 = v2;
-  v4[520] = *MEMORY[0x277D85DE8];
-  PCHashWriteStream::PCHashWriteStream(v4);
-  PCHashWriteStream::writeValue(v4, *v1);
-  PCHashWriteStream::writeValue(v4, *(v1 + 1));
-  PCHashWriteStream::writeValue(v4, *(v1 + 2));
-  PCHashWriteStream::writeValue(v4, *(v1 + 3));
-  PCHashWriteStream::writeValue(v4, *(v1 + 4));
-  PCHashWriteStream::writeValue(v4, *(v1 + 8));
-  PCHashWriteStream::writeValue(v4, *(v1 + 12));
-  PCHashWriteStream::writeValue(v4, *(v1 + 13));
-  PCHashWriteStream::writeValue(v4, *(v1 + 16));
-  PCHashWriteStream::writeValue(v4, *(v1 + 20));
-  PCHashWriteStream::writeValue(v4, *(v1 + 21));
-  PCHashWriteStream::writeValue(v4, *(v1 + 22));
-  *v3 = *PCHashWriteStream::getHash(v4)->i8;
-  PCHashWriteStream::~PCHashWriteStream(v4);
+  MEMORY[0x28223BE20](this, a2, a3, a4, a5);
+  v6 = v5;
+  v8 = v7;
+  v9[520] = *MEMORY[0x277D85DE8];
+  PCHashWriteStream::PCHashWriteStream(v9);
+  PCHashWriteStream::writeValue(v9, *v6);
+  PCHashWriteStream::writeValue(v9, *(v6 + 1));
+  PCHashWriteStream::writeValue(v9, *(v6 + 2));
+  PCHashWriteStream::writeValue(v9, *(v6 + 3));
+  PCHashWriteStream::writeValue(v9, *(v6 + 4));
+  PCHashWriteStream::writeValue(v9, *(v6 + 8));
+  PCHashWriteStream::writeValue(v9, *(v6 + 12));
+  PCHashWriteStream::writeValue(v9, *(v6 + 13));
+  PCHashWriteStream::writeValue(v9, *(v6 + 16));
+  PCHashWriteStream::writeValue(v9, *(v6 + 20));
+  PCHashWriteStream::writeValue(v9, *(v6 + 21));
+  PCHashWriteStream::writeValue(v9, *(v6 + 22));
+  *v8 = *PCHashWriteStream::getHash(v9)->i8;
+  PCHashWriteStream::~PCHashWriteStream(v9);
 }
 
-uint64_t LiLayeredMaterial::appendLayer(void *a1, const PCSharedCount *a2)
+PCSharedCount *LiLayeredMaterial::appendLayer(void *a1, const PCSharedCount *a2)
 {
   v3 = a1[84];
-  v4.var0 = a2->var0;
+  var0 = a2->var0;
   if (!a2->var0)
   {
     throw_PCNullPointerException(1);
   }
 
-  *(v4.var0 + 3) = (v3 - a1[83]) >> 4;
+  *(var0 + 3) = (v3 - a1[83]) >> 4;
   if (v3 >= a1[85])
   {
-    result = std::vector<PCPtr<LiMaterialLayer>>::__emplace_back_slow_path<PCPtr<LiMaterialLayer> const&>((a1 + 83), a2);
+    result = std::vector<PCPtr<LiMaterialLayer>>::__emplace_back_slow_path<PCPtr<LiMaterialLayer> const&>(a1 + 83, a2);
   }
 
   else
   {
-    v3->var0 = v4.var0;
+    v3->var0 = var0;
     PCSharedCount::PCSharedCount(v3 + 1, a2 + 1);
-    result = &v3[2];
+    result = v3 + 2;
     a1[84] = v3 + 2;
   }
 
@@ -1078,7 +982,7 @@ uint64_t LiLayeredMaterial::appendLayer(void *a1, const PCSharedCount *a2)
   return result;
 }
 
-unint64_t LiLayeredMaterial::insertLayer(uint64_t a1, int a2, PCSharedCount *a3)
+PCSharedCount *LiLayeredMaterial::insertLayer(uint64_t a1, int a2, PCSharedCount *a3)
 {
   v3 = *(a1 + 664);
   if (!a3->var0)
@@ -1093,7 +997,7 @@ unint64_t LiLayeredMaterial::insertLayer(uint64_t a1, int a2, PCSharedCount *a3)
   return std::vector<PCPtr<LiMaterialLayer>>::insert(v5, v4, a3);
 }
 
-unint64_t std::vector<PCPtr<LiMaterialLayer>>::insert(void *a1, const PCSharedCount *a2, PCSharedCount *a3)
+PCSharedCount *std::vector<PCPtr<LiMaterialLayer>>::insert(void *a1, PCSharedCount *a2, PCSharedCount *a3)
 {
   v4 = a2;
   v7 = a1[1];
@@ -1158,9 +1062,9 @@ unint64_t std::vector<PCPtr<LiMaterialLayer>>::insert(void *a1, const PCSharedCo
       v9 = 0;
     }
 
-    *v4 = a3[v9];
+    v4->var0 = a3[v9];
     PCSharedCount::PCSharedCount(&v18, &a3[v9 + 1]);
-    PCSharedCount::operator=((v4 + 8), &v18);
+    PCSharedCount::operator=(&v4[1], &v18);
     PCSharedCount::~PCSharedCount(&v18);
   }
 
@@ -1209,8 +1113,8 @@ void LiLayeredMaterial::setUnlimitedSamplers(LiLayeredMaterial *this, char a2)
 
 void LiLayeredMaterial::sampleSpecEnvironment()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = &unk_28725E328;
+  v3 = *MEMORY[0x277D85DE8];
+  v2 = &unk_28725E328;
   operator new();
 }
 
@@ -1224,8 +1128,8 @@ void sub_260011E70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void LiLayeredMaterial::sampleDiffEnvironment()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = &unk_28725E328;
+  v3 = *MEMORY[0x277D85DE8];
+  v2 = &unk_28725E328;
   operator new();
 }
 
@@ -1239,18 +1143,18 @@ void sub_260012384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void LiLayeredMaterial::makeProgram(LiLayeredMaterial *this, const LiContext *a2)
 {
-  v11 = &unk_2872DEA38;
-  v12 = 0;
-  v13 = 1;
-  LiMaterial::LiMaterial(v8, off_28726BC40);
-  v8[0] = &unk_28726BB38;
-  v11 = &unk_28726BC20;
-  v8[83] = 0;
+  v10 = &unk_2872DEA38;
+  v11 = 0;
+  v12 = 1;
+  LiMaterial::LiMaterial(v7, off_28726BC40);
+  v7[0] = &unk_28726BB38;
+  v10 = &unk_28726BC20;
+  v7[83] = 0;
   __asm { FMOV            V0.2D, #1.0 }
 
-  v9 = _Q0;
-  v10 = 0x3FF0000000000000;
-  LiErrorLimitsExceededMaterial::makeProgram(v8, v7);
+  v8 = _Q0;
+  v9 = 0x3FF0000000000000;
+  LiErrorLimitsExceededMaterial::makeProgram();
 }
 
 void sub_2600129DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, PCSharedCount *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
@@ -1278,12 +1182,12 @@ void LiErrorLimitsExceededMaterial::~LiErrorLimitsExceededMaterial(LiErrorLimits
   JUMPOUT(0x2666E9F00);
 }
 
-void *LiLayeredMaterial::printMaterialDetails(uint64_t a1, void *a2, int a3)
+void *LiLayeredMaterial::printMaterialDetails(PCArray_base *a1, void *a2, int a3)
 {
   LiImageSource::printIndent(a2, a3 + 1);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2, "Layers:\n", 8);
-  v6 = *(a1 + 664);
-  for (i = *(a1 + 672); v6 != i; v6 += 2)
+  v6 = *(a1 + 83);
+  for (i = *(a1 + 84); v6 != i; v6 += 2)
   {
     var0 = v6->var0;
     PCSharedCount::PCSharedCount(&v10, v6 + 1);
@@ -1340,8 +1244,8 @@ ProShade::Program *ProShade::Program::Program(ProShade::Program *this)
   ProShade::ProgramBase::ProgramBase(this, &off_28725E1E0);
   *this = &unk_28725E170;
   *(this + 194) = &unk_28725E1C0;
-  ProShade::VertexProgram::VertexProgram((this + 272));
-  ProShade::FragmentProgram::FragmentProgram((this + 912));
+  ProShade::VertexProgram::VertexProgram(this + 34);
+  ProShade::FragmentProgram::FragmentProgram(this + 114);
   *(this + 328) = 0;
   *(this + 1336) = 0u;
   *(this + 166) = this + 1336;
@@ -1377,15 +1281,15 @@ void sub_260012F54(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void LiErrorLimitsExceededMaterial::getHash(LiErrorLimitsExceededMaterial *this)
+void LiErrorLimitsExceededMaterial::getHash(LiErrorLimitsExceededMaterial *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  MEMORY[0x28223BE20](this);
-  v2 = v1;
-  v3[520] = *MEMORY[0x277D85DE8];
-  PCHashWriteStream::PCHashWriteStream(v3);
-  PCHashWriteStream::writeValue(v3, 54321);
-  *v2 = *PCHashWriteStream::getHash(v3)->i8;
-  PCHashWriteStream::~PCHashWriteStream(v3);
+  MEMORY[0x28223BE20](this, a2, a3, a4, a5);
+  v6 = v5;
+  v7[520] = *MEMORY[0x277D85DE8];
+  PCHashWriteStream::PCHashWriteStream(v7);
+  PCHashWriteStream::writeValue(v7, 54321);
+  *v6 = *PCHashWriteStream::getHash(v7)->i8;
+  PCHashWriteStream::~PCHashWriteStream(v7);
 }
 
 void sub_26001344C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, PCSharedCount *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
@@ -1396,29 +1300,30 @@ void sub_26001344C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void LiVramLimitsExceededMaterial::getHash(LiVramLimitsExceededMaterial *this)
+void LiVramLimitsExceededMaterial::getHash(LiVramLimitsExceededMaterial *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v1 = MEMORY[0x28223BE20](this);
-  v3 = v2;
-  v6[520] = *MEMORY[0x277D85DE8];
-  PCHashWriteStream::PCHashWriteStream(v6);
-  PCHashWriteStream::writeValue(v6, 7654321);
-  v4 = 0;
-  v5 = v1 + 664;
+  MEMORY[0x28223BE20](this, a2, a3, a4, a5);
+  v6 = v5;
+  v8 = v7;
+  v11[520] = *MEMORY[0x277D85DE8];
+  PCHashWriteStream::PCHashWriteStream(v11);
+  PCHashWriteStream::writeValue(v11, 7654321);
+  v9 = 0;
+  v10 = v6 + 664;
   do
   {
-    PCHashWriteStream::writeValue(v6, *(v5 + v4));
-    v4 += 8;
+    PCHashWriteStream::writeValue(v11, *(v10 + v9));
+    v9 += 8;
   }
 
-  while (v4 != 32);
-  *v3 = *PCHashWriteStream::getHash(v6)->i8;
-  PCHashWriteStream::~PCHashWriteStream(v6);
+  while (v9 != 32);
+  *v8 = *PCHashWriteStream::getHash(v11)->i8;
+  PCHashWriteStream::~PCHashWriteStream(v11);
 }
 
-void sub_2600136A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2600136A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCHashWriteStream::~PCHashWriteStream(va);
   _Unwind_Resume(a1);
 }
@@ -1482,81 +1387,81 @@ void virtual thunk toLiVramLimitsExceededMaterial::~LiVramLimitsExceededMaterial
 
 void ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::step_traits>>::eval(uint64_t a1, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 16);
-  if (v3)
+  v8[1] = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 16);
+  if (v4)
   {
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  v5 = *(a2 + 16);
-  if (v5)
+  v6 = *(a2 + 16);
+  if (v6)
   {
-    if (v4)
+    if (v5)
     {
-      if (v6)
+      if (v7)
       {
-        ProShade::ScalarFunctionTraits_2<ProShade::step_traits>::compute(v4, v6);
+        ProShade::ScalarFunctionTraits_2<ProShade::step_traits>::compute(v5, v7);
       }
     }
   }
 
-  PCSharedCount::PCSharedCount(v7);
+  PCSharedCount::PCSharedCount(v8);
   operator new();
 }
 
-void sub_260013C0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_260013C0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   PCSharedCount::~PCSharedCount(va);
   _Unwind_Resume(a1);
 }
 
 void ProShade::ScalarFunctionTraits_2<ProShade::step_traits>::compute(uint64_t a1, uint64_t a2)
 {
-  v8[18] = *MEMORY[0x277D85DE8];
+  v9[18] = *MEMORY[0x277D85DE8];
+  ProShade::Value::Value(v9);
   ProShade::Value::Value(v8);
-  ProShade::Value::Value(v7);
-  ProShade::Value::Value(&v6);
-  (*(*a1 + 224))(a1, v8);
-  (*(*a2 + 224))(a2, v7);
-  if (SLODWORD(v8[0]) > 1)
+  ProShade::Value::Value(&v7);
+  (*(*a1 + 224))(a1, v9);
+  (*(*a2 + 224))(a2, v8);
+  if (SLODWORD(v9[0]) > 1)
   {
-    if (LODWORD(v8[0]) != 2)
+    if (LODWORD(v9[0]) != 2)
     {
       goto LABEL_8;
     }
 
-    v4 = v7[0];
+    v5 = v8[0];
   }
 
   else
   {
-    v4 = v7[0];
-    if (SLODWORD(v7[0]) < 2)
+    v5 = v8[0];
+    if (SLODWORD(v8[0]) < 2)
     {
-      ProShade::eval_type<ProShade::step_traits,BOOL>(v8, v7, &v6);
+      ProShade::eval_type<ProShade::step_traits,BOOL>(v9, v8, &v7);
       goto LABEL_9;
     }
   }
 
-  if (v4 <= 2)
+  if (v5 <= 2)
   {
-    ProShade::eval_type<ProShade::step_traits,int>(v8, v7, &v6);
+    ProShade::eval_type<ProShade::step_traits,int>(v9, v8, &v7);
     goto LABEL_9;
   }
 
 LABEL_8:
-  ProShade::eval_type<ProShade::step_traits,double>(v8, v7, &v6);
+  ProShade::eval_type<ProShade::step_traits,double>(v9, v8, &v7);
 LABEL_9:
-  ProShade::Const::create(&v6, v5);
+  ProShade::Const::create(&v7, v6);
 }
 
-uint64_t ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::step_traits>>::Func(uint64_t a1, PCShared_base *a2, PCShared_base *a3)
+uint64_t ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::step_traits>>::Func(uint64_t a1, PCShared_base *a2, PC_Sp_counted_base *a3)
 {
   v14[1] = *MEMORY[0x277D85DE8];
   *(a1 + 72) = &unk_2872DEA38;
@@ -1973,10 +1878,10 @@ uint64_t ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::step_traits>>
   return result;
 }
 
-void sub_2600149DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2600149DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  MEMORY[0x2666E9F00](v3, 0x10B1C40241F72B2);
+  va_start(va, a5);
+  MEMORY[0x2666E9F00](v5, 0x10B1C40241F72B2, a3);
   PCArray<ProShade::VarT<ProShade::Node>,PCArray_Traits<ProShade::VarT<ProShade::Node>>>::~PCArray(va);
   _Unwind_Resume(a1);
 }
@@ -2049,9 +1954,9 @@ void virtual thunk toProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::s
 
 {
   v1 = a1 + *(*a1 - 24);
-  *(v1 + 72) = &unk_2872DEA38;
-  *(v1 + 88) = 0;
-  PCWeakCount::~PCWeakCount((v1 + 80));
+  *(v1 + 9) = &unk_2872DEA38;
+  v1[88] = 0;
+  PCWeakCount::~PCWeakCount(v1 + 10);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -2151,7 +2056,7 @@ void LiMaterialLayerUniform::LiMaterialLayerUniform(LiMaterialLayerUniform *this
   *(this + 42) = 0;
   PCSharedCount::PCSharedCount(this + 43);
   *(this + 40) = &unk_28725EAF8;
-  ProShade::SamplerT<3553,false,false,false>::SamplerT();
+  ProShade::SamplerT<3553,false,false,false>::SamplerT((this + 352));
 }
 
 void sub_260015DF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t *a12, uint64_t *a13, uint64_t a14, uint64_t *a15, uint64_t a16, uint64_t *a17, uint64_t a18, uint64_t *a19, uint64_t a20, uint64_t *a21, uint64_t a22, uint64_t *a23, uint64_t a24, uint64_t *a25, uint64_t a26, uint64_t *a27, uint64_t a28, uint64_t *a29, uint64_t a30, uint64_t *a31, uint64_t a32, uint64_t *a33, uint64_t a34, uint64_t *a35, uint64_t a36, uint64_t *a37, uint64_t a38, uint64_t *a39, uint64_t a40, uint64_t *a41, uint64_t a42, uint64_t *a43, uint64_t a44, uint64_t *a45, uint64_t a46, uint64_t *a47, uint64_t a48, uint64_t *a49, uint64_t a50, uint64_t *a51, uint64_t a52, PCSharedCount *a53, PCSharedCount *a54, PCSharedCount *a55, uint64_t *a56, uint64_t a57, uint64_t *a58, uint64_t a59, PCSharedCount *a60, uint64_t *a61, uint64_t a62, uint64_t *a63)
@@ -2253,30 +2158,30 @@ void sub_260015DF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ProShade::Func<ProShade::ScalarFunctionTraits_1<ProShade::cos_traits>>::eval(uint64_t a1)
 {
-  v7[15] = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 16);
-  if (v1)
+  v8[15] = *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 16);
+  if (v2)
   {
-    if (v2)
+    if (v3)
     {
-      v3 = v2;
-      ProShade::Value::Value(v6);
-      ProShade::Value::Value(&v5);
-      (*(*v3 + 224))(v3, v6);
-      ProShade::ScalarFunctionTraits_1<ProShade::cos_traits>::eval(v6, &v5);
-      ProShade::Const::create(&v5, v4);
+      v4 = v3;
+      ProShade::Value::Value(v7);
+      ProShade::Value::Value(&v6);
+      (*(*v4 + 224))(v4, v7);
+      ProShade::ScalarFunctionTraits_1<ProShade::cos_traits>::eval(v7, &v6);
+      ProShade::Const::create(&v6, v5);
     }
   }
 
-  v6[0] = &unk_28725E328;
-  v6[2] = 0;
-  PCSharedCount::PCSharedCount(v7);
+  v7[0] = &unk_28725E328;
+  v7[2] = 0;
+  PCSharedCount::PCSharedCount(v8);
   operator new();
 }
 
-void sub_260016434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_260016434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   PCSharedCount::~PCSharedCount(va);
   _Unwind_Resume(a1);
 }
@@ -2344,10 +2249,11 @@ void ProShade::ScalarFunctionTraits_1<ProShade::cos_traits>::eval(int *a1, OZCha
 
     else if (Size >= 1)
     {
-      v13 = (a1 + 4);
+      v13 = a1 + 4;
       do
       {
-        v14 = *v13++;
+        v14 = *v13;
+        v13 += 2;
         *Serializer++ = cos(v14);
         --v10;
       }
@@ -2565,10 +2471,10 @@ uint64_t ProShade::Func<ProShade::ScalarFunctionTraits_1<ProShade::cos_traits>>:
   return result;
 }
 
-void sub_260016C38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_260016C38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  MEMORY[0x2666E9F00](v3, 0x10B1C40241F72B2);
+  va_start(va, a5);
+  MEMORY[0x2666E9F00](v5, 0x10B1C40241F72B2, a3);
   PCArray<ProShade::VarT<ProShade::Node>,PCArray_Traits<ProShade::VarT<ProShade::Node>>>::~PCArray(va);
   _Unwind_Resume(a1);
 }
@@ -2605,9 +2511,9 @@ void virtual thunk toProShade::Func<ProShade::ScalarFunctionTraits_1<ProShade::c
 
 {
   v1 = a1 + *(*a1 - 24);
-  *(v1 + 72) = &unk_2872DEA38;
-  *(v1 + 88) = 0;
-  PCWeakCount::~PCWeakCount((v1 + 80));
+  *(v1 + 9) = &unk_2872DEA38;
+  v1[88] = 0;
+  PCWeakCount::~PCWeakCount(v1 + 10);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -2663,30 +2569,30 @@ void sub_2600170C4(_Unwind_Exception *a1)
 
 void ProShade::Func<ProShade::ScalarFunctionTraits_1<ProShade::sin_traits>>::eval(uint64_t a1)
 {
-  v7[15] = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 16);
-  if (v1)
+  v8[15] = *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 16);
+  if (v2)
   {
-    if (v2)
+    if (v3)
     {
-      v3 = v2;
-      ProShade::Value::Value(v6);
-      ProShade::Value::Value(&v5);
-      (*(*v3 + 224))(v3, v6);
-      ProShade::ScalarFunctionTraits_1<ProShade::sin_traits>::eval(v6, &v5);
-      ProShade::Const::create(&v5, v4);
+      v4 = v3;
+      ProShade::Value::Value(v7);
+      ProShade::Value::Value(&v6);
+      (*(*v4 + 224))(v4, v7);
+      ProShade::ScalarFunctionTraits_1<ProShade::sin_traits>::eval(v7, &v6);
+      ProShade::Const::create(&v6, v5);
     }
   }
 
-  v6[0] = &unk_28725E328;
-  v6[2] = 0;
-  PCSharedCount::PCSharedCount(v7);
+  v7[0] = &unk_28725E328;
+  v7[2] = 0;
+  PCSharedCount::PCSharedCount(v8);
   operator new();
 }
 
-void sub_2600172D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2600172D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   PCSharedCount::~PCSharedCount(va);
   _Unwind_Resume(a1);
 }
@@ -2754,10 +2660,11 @@ void ProShade::ScalarFunctionTraits_1<ProShade::sin_traits>::eval(int *a1, OZCha
 
     else if (Size >= 1)
     {
-      v13 = (a1 + 4);
+      v13 = a1 + 4;
       do
       {
-        v14 = *v13++;
+        v14 = *v13;
+        v13 += 2;
         *Serializer++ = sin(v14);
         --v10;
       }
@@ -2975,10 +2882,10 @@ uint64_t ProShade::Func<ProShade::ScalarFunctionTraits_1<ProShade::sin_traits>>:
   return result;
 }
 
-void sub_260017AD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_260017AD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  MEMORY[0x2666E9F00](v3, 0x10B1C40241F72B2);
+  va_start(va, a5);
+  MEMORY[0x2666E9F00](v5, 0x10B1C40241F72B2, a3);
   PCArray<ProShade::VarT<ProShade::Node>,PCArray_Traits<ProShade::VarT<ProShade::Node>>>::~PCArray(va);
   _Unwind_Resume(a1);
 }
@@ -3015,9 +2922,9 @@ void virtual thunk toProShade::Func<ProShade::ScalarFunctionTraits_1<ProShade::s
 
 {
   v1 = a1 + *(*a1 - 24);
-  *(v1 + 72) = &unk_2872DEA38;
-  *(v1 + 88) = 0;
-  PCWeakCount::~PCWeakCount((v1 + 80));
+  *(v1 + 9) = &unk_2872DEA38;
+  v1[88] = 0;
+  PCWeakCount::~PCWeakCount(v1 + 10);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -3164,16 +3071,16 @@ void std::vector<PCPtr<LiMaterialLayer>>::__destroy_vector::operator()[abi:ne200
   }
 }
 
-uint64_t std::vector<PCPtr<LiMaterialLayer>>::__emplace_back_slow_path<PCPtr<LiMaterialLayer> const&>(uint64_t a1, const PCSharedCount *a2)
+uint64_t std::vector<PCPtr<LiMaterialLayer>>::__emplace_back_slow_path<PCPtr<LiMaterialLayer> const&>(uint64_t *a1, const PCSharedCount *a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 4;
+  v2 = (a1[1] - *a1) >> 4;
   v3 = v2 + 1;
   if ((v2 + 1) >> 60)
   {
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 3 > v3)
   {
     v3 = v6 >> 3;
@@ -3201,14 +3108,14 @@ uint64_t std::vector<PCPtr<LiMaterialLayer>>::__emplace_back_slow_path<PCPtr<LiM
   v15->var0 = a2->var0;
   PCSharedCount::PCSharedCount((16 * v2 + 8), a2 + 1);
   *&v16 = v16 + 16;
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   v9 = v15 + *a1 - v8;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<PCPtr<LiMaterialLayer>>,PCPtr<LiMaterialLayer>*>(a1, *a1, v8, v9);
   v10 = *a1;
   *a1 = v9;
-  v11 = *(a1 + 16);
+  v11 = a1[2];
   v13 = v16;
-  *(a1 + 8) = v16;
+  *(a1 + 1) = v16;
   *&v16 = v10;
   *(&v16 + 1) = v11;
   v14 = v10;
@@ -3217,9 +3124,9 @@ uint64_t std::vector<PCPtr<LiMaterialLayer>>::__emplace_back_slow_path<PCPtr<LiM
   return v13;
 }
 
-void sub_260018438(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_260018438(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<PCPtr<LiMaterialLayer>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3306,7 +3213,7 @@ const PCSharedCount *std::vector<PCPtr<LiMaterialLayer>>::__move_range(uint64_t 
   return std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<PCPtr<LiMaterialLayer> *,PCPtr<LiMaterialLayer> *,PCPtr<LiMaterialLayer> *>(&v12, a2, v7, v6);
 }
 
-void std::__split_buffer<PCPtr<LiMaterialLayer>>::emplace_back<PCPtr<LiMaterialLayer> const&>(PCSharedCount **a1, PCSharedCount *a2)
+void std::__split_buffer<PCPtr<LiMaterialLayer>>::emplace_back<PCPtr<LiMaterialLayer> const&>(unint64_t *a1, PCSharedCount *a2)
 {
   v4 = a1[2];
   if (v4 == a1[3])
@@ -3321,7 +3228,7 @@ void std::__split_buffer<PCPtr<LiMaterialLayer>>::emplace_back<PCPtr<LiMaterialL
 
       else
       {
-        v8 = v4 - *a1;
+        v8 = (v4 - *a1) >> 3;
       }
 
       v9 = a1[4];
@@ -3332,18 +3239,18 @@ void std::__split_buffer<PCPtr<LiMaterialLayer>>::emplace_back<PCPtr<LiMaterialL
     v6 = (((v5 - *a1) >> 4) + 1 + ((((v5 - *a1) >> 4) + 1) >> 63)) >> 1;
     std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<PCPtr<LiMaterialLayer> *,PCPtr<LiMaterialLayer> *,PCPtr<LiMaterialLayer> *>(v10, v5, v4, &v5[-2 * v6].var0);
     v4 = v7;
-    a1[1] -= 2 * v6;
+    a1[1] -= 16 * v6;
     a1[2] = v7;
   }
 
   v4->var0 = a2->var0;
   PCSharedCount::PCSharedCount(v4 + 1, a2 + 1);
-  a1[2] += 2;
+  a1[2] += 16;
 }
 
-void sub_260018748(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_260018748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<PCPtr<LiMaterialLayer>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3410,12 +3317,12 @@ PCSharedCount *std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
     var0 = v4->var0;
     v6 = v4 + 1;
     *a4 = var0;
-    v8 = (a4 + 1);
+    v8 = a4 + 1;
     PCSharedCount::PCSharedCount(&v10, v6);
     PCSharedCount::operator=(v8, &v10);
     PCSharedCount::~PCSharedCount(&v10);
     v4 = &v6[1];
-    a4 = (v8 + 1);
+    a4 = v8 + 1;
   }
 
   while (v4 != v5);
@@ -3424,24 +3331,24 @@ PCSharedCount *std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
 
 void LiMaterialLayerUniform::get()
 {
-  if (__cxa_guard_acquire(&qword_280C5E9C0))
+  if (__cxa_guard_acquire(byte_280C5E9C0))
   {
     qword_280C5E9D8 = 0;
     qword_280C5E9E0 = 0;
     qword_280C5E9D0 = 0;
     __cxa_atexit(std::vector<LiMaterialLayerUniform *>::~vector[abi:ne200100], &qword_280C5E9D0, &dword_25F8F0000);
 
-    __cxa_guard_release(&qword_280C5E9C0);
+    __cxa_guard_release(byte_280C5E9C0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5E9C8))
+  if (__cxa_guard_acquire(byte_280C5E9C8))
   {
     _MergedGlobals_37 = 0;
     __cxa_atexit(PCSpinLock::~PCSpinLock, &_MergedGlobals_37, &dword_25F8F0000);
 
-    __cxa_guard_release(&qword_280C5E9C8);
+    __cxa_guard_release(byte_280C5E9C8);
   }
 }
 
@@ -3484,21 +3391,21 @@ void PSShaderBase::~PSShaderBase(PCString *this)
   }
 }
 
-uint64_t PSShaderBase::id(PSShaderBase *this)
+uint64_t PSShaderBase::id(std::__shared_weak_count **this)
 {
-  if (!ProGL::ObjectHandle::name((this + 8)))
+  if (!ProGL::ObjectHandle::name((this + 1)))
   {
     ProGL::GL::GL(v4);
-    v2 = (*(*this + 16))(this);
+    v2 = ((*this)->__shared_weak_owners_)(this);
     ProGL::createShaderObject(v4, v2);
   }
 
-  return ProGL::ObjectHandle::name((this + 8));
+  return ProGL::ObjectHandle::name((this + 1));
 }
 
-void sub_260018BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_260018BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   ProGL::GL::~GL(va);
   _Unwind_Resume(a1);
 }
@@ -3594,9 +3501,9 @@ void std::vector<PCString>::resize(void *a1, unint64_t a2)
   }
 }
 
-PSShaderBase *PSShaderBase::compile(PSShaderBase *this)
+void PSShaderBase::compile(std::__shared_weak_count **this)
 {
-  if ((*(this + 24) & 1) == 0)
+  if ((this[3] & 1) == 0)
   {
     PSShaderBase::id(this);
     ProGL::GL::GL(v3);
@@ -3604,11 +3511,9 @@ PSShaderBase *PSShaderBase::compile(PSShaderBase *this)
     v2 = 0;
     operator new[]();
   }
-
-  return this;
 }
 
-void sub_260019190(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, PCString a10, uint64_t a11, PCString a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19, uint64_t a20, char a21)
+void sub_260019190(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, PCString a10, uint64_t a11, PCString a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, char a21)
 {
   PCString::~PCString(&a10);
   PCString::~PCString(&a12);
@@ -3632,64 +3537,64 @@ void printWithLineNumbers(PCString *a1)
 {
   v2 = PCString::size(a1);
   CStr = PCString::createCStr(a1);
-  v4 = CStr;
+  v5 = CStr;
   if (v2 >= 1)
   {
-    v5 = 0;
-    v6 = v2;
-    v7 = MEMORY[0x277D82670];
-    v8 = 1;
-    v9 = CStr;
+    v6 = 0;
+    v7 = v2;
+    v8 = MEMORY[0x277D82670];
+    v9 = 1;
+    v10 = CStr;
     do
     {
-      v11 = *v9++;
-      v10 = v11;
-      if (!v5)
+      v12 = *v10++;
+      v11 = v12;
+      if (!v6)
       {
-        LiString::format("%4d: ", &v15, v8);
-        v12 = v15 ? v15 : "";
-        v13 = strlen(v12);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, v12, v13);
-        if (v15)
+        LiString::format(&v16, "%4d: ", v4, v9);
+        v13 = v16 ? v16 : "";
+        v14 = strlen(v13);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, v13, v14);
+        if (v16)
         {
-          if (atomic_fetch_add(v15 - 3, 0xFFFFFFFF) == 1)
+          if (atomic_fetch_add(v16 - 3, 0xFFFFFFFF) == 1)
           {
-            *v15 = 0;
-            if (v15)
+            *v16 = 0;
+            if (v16)
             {
-              v14 = (v15 - 12);
+              v15 = (v16 - 12);
             }
 
             else
             {
-              v14 = 0;
+              v15 = 0;
             }
 
-            free(v14);
+            free(v15);
           }
         }
       }
 
-      v5 = v10 != 10;
-      if (v10 == 10)
+      v6 = v11 != 10;
+      if (v11 == 10)
       {
-        v8 = (v8 + 1);
+        v9 = (v9 + 1);
       }
 
       else
       {
-        v8 = v8;
+        v9 = v9;
       }
 
-      v16 = v10;
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, &v16, 1);
-      --v6;
+      v17 = v11;
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, &v17, 1);
+      --v7;
     }
 
-    while (v6);
+    while (v7);
   }
 
-  free(v4);
+  free(v5);
 }
 
 void sub_2600193D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
@@ -3717,9 +3622,9 @@ void PSShaderBase::source(PSShaderBase *this@<X0>, PCSharedCount *a2@<X8>)
       {
         if (*(this + 25) == 1)
         {
-          PCString::ssprintf("// segment %d\n", &v8, v6);
-          PCString::append(a2, &v8);
-          PCString::~PCString(&v8);
+          PCString::ssprintf(&v9, "// segment %d\n", v8, v6);
+          PCString::append(a2, &v9);
+          PCString::~PCString(&v9);
         }
 
         PCString::append(a2, (*(this + 4) + v5));
@@ -3830,9 +3735,9 @@ void std::vector<PCString>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void sub_26001967C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26001967C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<PCString>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3872,7 +3777,7 @@ uint64_t PCDynamicArray<std::string>::~PCDynamicArray(uint64_t a1)
   return a1;
 }
 
-BOOL PCDynamicArray<std::string>::insert(int *a1, unsigned int a2, const std::string *a3)
+BOOL PCDynamicArray<std::string>::insert(unsigned int *a1, unsigned int a2, const std::string *a3)
 {
   v6 = *a1;
   v7 = a1[1];
@@ -3889,7 +3794,7 @@ BOOL PCDynamicArray<std::string>::insert(int *a1, unsigned int a2, const std::st
   return v6 == v7;
 }
 
-BOOL PCDynamicArray<char const*>::insert(int *a1, unsigned int a2, void *a3)
+BOOL PCDynamicArray<char const*>::insert(unsigned int *a1, unsigned int a2, void *a3)
 {
   v6 = *a1;
   v7 = a1[1];
@@ -4005,324 +3910,324 @@ void virtual thunk toLiSolidRendererImageSource::~LiSolidRendererImageSource(LiS
 void LiSolidRendererImageSource::getHelium(LiSolidRendererImageSource *this, __int128 **a2)
 {
   RequestedColorDescription = LiAgent::getRequestedColorDescription(a2);
-  FxColorDescription::FxColorDescription(&v95, RequestedColorDescription, 0);
-  LiAgentRequestedColorSpaceSentry::LiAgentRequestedColorSpaceSentry(v94, a2, &v95);
-  v5 = HGObject::operator new(0x730uLL);
-  LiHeSolidRendererNode::LiHeSolidRendererNode(v5);
-  v6 = a2[6];
-  v5[1480] = LiRenderingTechnology::getDebugShaders((v6 + 5));
-  v5[1481] = *(a2 + 248);
-  v7 = *(this + 4);
-  if (!v7)
+  FxColorDescription::FxColorDescription(&v96, RequestedColorDescription, 0);
+  LiAgentRequestedColorSpaceSentry::LiAgentRequestedColorSpaceSentry(v95, a2, &v96);
+  v6 = HGObject::operator new(0x730uLL);
+  LiHeSolidRendererNode::LiHeSolidRendererNode(v6);
+  v7 = a2[6];
+  v6[1480] = LiRenderingTechnology::getDebugShaders((v7 + 5));
+  v6[1481] = *(a2 + 248);
+  v8 = *(this + 4);
+  if (!v8)
   {
-    v7 = *a2[6];
+    v8 = *a2[6];
   }
 
-  ObjectToWorldTransform = LiAgent::getObjectToWorldTransform(a2, v93);
-  (*(*v7 + 240))(v91, v7, ObjectToWorldTransform);
-  PCMatrix44Tmpl<double>::operator*(v91, v93, v92);
-  LiSimpleCamera::LiSimpleCamera(v91);
+  ObjectToWorldTransform = LiAgent::getObjectToWorldTransform(a2, v94);
+  (*(*v8 + 240))(v92, v8, ObjectToWorldTransform);
+  PCMatrix44Tmpl<double>::operator*(v92, v94, v93);
+  LiSimpleCamera::LiSimpleCamera(v92);
   {
-    LiCamera::copy(v91, v7);
-    if (LiSimpleCamera::getAngleOfView(v91) == 0.0)
+    LiCamera::copy(v92, v8);
+    if (LiSimpleCamera::getAngleOfView(v92) == 0.0)
     {
-      v7 = v91;
+      v8 = v92;
     }
 
     else
     {
-      LiSolidUtils::getBoundsOfGeometry(*(this + 2), v92, v90);
-      FarPlane = *&v90[4] * -1.02;
-      v10 = fmax(*&v90[5] * -0.98, 0.1);
-      if ((LiSimpleCamera::getCrop(v91) & 1) != 0 || LiSimpleCamera::getFarCrop(v91))
+      LiSolidUtils::getBoundsOfGeometry(*(this + 2), v93, v91);
+      FarPlane = *&v91[4] * -1.02;
+      v11 = fmax(*&v91[5] * -0.98, 0.1);
+      if ((LiSimpleCamera::getCrop(v92) & 1) != 0 || LiSimpleCamera::getFarCrop(v92))
       {
-        v11 = LiSimpleCamera::getNearPlaneFade(v91);
-        FarPlaneFade = LiSimpleCamera::getFarPlaneFade(v91);
-        v10 = v10 - v11;
-        if (v10 < LiSimpleCamera::getNearPlane(v91) || v10 > LiSimpleCamera::getFarPlane(v91))
+        v12 = LiSimpleCamera::getNearPlaneFade(v92);
+        FarPlaneFade = LiSimpleCamera::getFarPlaneFade(v92);
+        v11 = v11 - v12;
+        if (v11 < LiSimpleCamera::getNearPlane(v92) || v11 > LiSimpleCamera::getFarPlane(v92))
         {
-          v10 = LiSimpleCamera::getNearPlane(v91);
+          v11 = LiSimpleCamera::getNearPlane(v92);
         }
 
         FarPlane = FarPlane + FarPlaneFade;
-        if (FarPlane < LiSimpleCamera::getNearPlane(v91) || FarPlane > LiSimpleCamera::getFarPlane(v91))
+        if (FarPlane < LiSimpleCamera::getNearPlane(v92) || FarPlane > LiSimpleCamera::getFarPlane(v92))
         {
-          FarPlane = LiSimpleCamera::getFarPlane(v91);
+          FarPlane = LiSimpleCamera::getFarPlane(v92);
         }
       }
 
-      LiSimpleCamera::setNearPlane(v91, v10);
-      v7 = v91;
-      LiSimpleCamera::setFarPlane(v91, FarPlane);
+      LiSimpleCamera::setNearPlane(v92, v11);
+      v8 = v92;
+      LiSimpleCamera::setFarPlane(v92, FarPlane);
     }
   }
 
-  (*(*v7 + 200))(v90, v7);
-  v13 = a2[20];
-  v14 = v13[3];
-  v16 = *v13;
-  v15 = v13[1];
-  v89[2] = v13[2];
-  v89[3] = v14;
-  v89[0] = v16;
-  v89[1] = v15;
-  v17 = v13[7];
-  v19 = v13[4];
-  v18 = v13[5];
-  v89[6] = v13[6];
-  v89[7] = v17;
-  v89[4] = v19;
-  v89[5] = v18;
-  v20 = *(this + 184);
-  v85 = *(this + 168);
-  v86 = v20;
-  v21 = *(this + 216);
-  v87 = *(this + 200);
-  v88 = v21;
-  v22 = *(this + 120);
-  v81 = *(this + 104);
-  v82 = v22;
-  v23 = *(this + 152);
-  v83 = *(this + 136);
-  v84 = v23;
+  (*(*v8 + 200))(v91, v8);
+  v14 = a2[20];
+  v15 = v14[3];
+  v17 = *v14;
+  v16 = v14[1];
+  v90[2] = v14[2];
+  v90[3] = v15;
+  v90[0] = v17;
+  v90[1] = v16;
+  v18 = v14[7];
+  v20 = v14[4];
+  v19 = v14[5];
+  v90[6] = v14[6];
+  v90[7] = v18;
+  v90[4] = v20;
+  v90[5] = v19;
+  v21 = *(this + 184);
+  v86 = *(this + 168);
+  v87 = v21;
+  v22 = *(this + 216);
+  v88 = *(this + 200);
+  v89 = v22;
+  v23 = *(this + 120);
+  v82 = *(this + 104);
+  v83 = v23;
+  v24 = *(this + 152);
+  v84 = *(this + 136);
+  v85 = v24;
   if (*(this + 4))
   {
-    v24 = *a2[6];
-    if (v24)
+    v25 = *a2[6];
+    if (v25)
     {
-      (*(*v24 + 48))(v67);
-      PCMatrix44Tmpl<double>::operator*(v67, &v81, &v73);
+      (*(*v25 + 48))(v68);
+      PCMatrix44Tmpl<double>::operator*(v68, &v82, &v74);
       for (i = 0; i != 128; i += 32)
       {
-        v26 = (&v81 + i);
-        v27 = *(&v73 + i + 16);
-        *v26 = *(&v73 + i);
-        v26[1] = v27;
+        v27 = (&v82 + i);
+        v28 = *(&v74 + i + 16);
+        *v27 = *(&v74 + i);
+        v27[1] = v28;
       }
     }
   }
 
-  if (!PCMatrix44Tmpl<double>::is2Didentity(&v81))
+  if (!PCMatrix44Tmpl<double>::is2Didentity(&v82))
   {
-    v28 = 0;
-    *(&v80 + 1) = *(&v88 + 1);
-    v73 = v81;
-    *(&v74 + 1) = *(&v82 + 1);
-    v75 = v83;
-    *(&v76 + 1) = *(&v84 + 1);
-    *&v80 = 0;
-    *&v76 = 0;
-    *&v74 = 0;
-    v77 = 0uLL;
-    v78 = xmmword_2603426F0;
-    v79 = v87;
-    v29 = 1.0 / sqrt(*&v87 * *&v87 + *(&v87 + 1) * *(&v87 + 1) + *(&v88 + 1) * *(&v88 + 1));
-    v30 = &v73;
+    v29 = 0;
+    *(&v81 + 1) = *(&v89 + 1);
+    v74 = v82;
+    *(&v75 + 1) = *(&v83 + 1);
+    v76 = v84;
+    *(&v77 + 1) = *(&v85 + 1);
+    *&v81 = 0;
+    *&v77 = 0;
+    *&v75 = 0;
+    v78 = 0uLL;
+    v79 = xmmword_2603426F0;
+    v80 = v88;
+    v30 = 1.0 / sqrt(*&v88 * *&v88 + *(&v88 + 1) * *(&v88 + 1) + *(&v89 + 1) * *(&v89 + 1));
+    v31 = &v74;
     do
     {
       for (j = 0; j != 2; ++j)
       {
-        v30[j] = vmulq_n_f64(v30[j], v29);
+        v31[j] = vmulq_n_f64(v31[j], v30);
       }
 
-      ++v28;
-      v30 += 2;
+      ++v29;
+      v31 += 2;
     }
 
-    while (v28 != 4);
-    v79 = 0uLL;
-    v72 = 0x3FF0000000000000;
-    *v71 = 0x3FF0000000000000;
-    v68 = 0x3FF0000000000000;
-    *v67 = 0x3FF0000000000000;
-    memset(&v67[8], 0, 32);
-    v69 = 0u;
+    while (v29 != 4);
+    v80 = 0uLL;
+    v73 = 0x3FF0000000000000;
+    *v72 = 0x3FF0000000000000;
+    v69 = 0x3FF0000000000000;
+    *v68 = 0x3FF0000000000000;
+    memset(&v68[8], 0, 32);
     v70 = 0u;
-    memset(&v71[8], 0, 32);
-    if (PCMatrix44Tmpl<double>::invert(v67, &v73, 0.0))
+    v71 = 0u;
+    memset(&v72[8], 0, 32);
+    if (PCMatrix44Tmpl<double>::invert(v68, &v74, 0.0))
     {
-      PCMatrix44Tmpl<double>::operator*(v89, &v73, v66);
+      PCMatrix44Tmpl<double>::operator*(v90, &v74, v67);
       for (k = 0; k != 16; k += 4)
       {
-        v33 = &v89[k / 2];
-        v34 = *&v66[k + 2].var0;
-        *v33 = *&v66[k].var0;
-        v33[1] = v34;
+        v34 = &v90[k / 2];
+        v35 = *&v67[k + 2].var0;
+        *v34 = *&v67[k].var0;
+        v34[1] = v35;
       }
 
-      PCMatrix44Tmpl<double>::operator*(&v81, v67, v66);
+      PCMatrix44Tmpl<double>::operator*(&v82, v68, v67);
       for (m = 0; m != 16; m += 4)
       {
-        v36 = (&v81 + m * 8);
-        v37 = *&v66[m + 2].var0;
-        *v36 = *&v66[m].var0;
-        v36[1] = v37;
+        v37 = (&v82 + m * 8);
+        v38 = *&v67[m + 2].var0;
+        *v37 = *&v67[m].var0;
+        v37[1] = v38;
       }
     }
   }
 
-  v77 = v92[4];
-  v78 = v92[5];
-  v79 = v92[6];
-  v80 = v92[7];
-  v73 = v92[0];
-  v74 = v92[1];
-  v75 = v92[2];
-  v76 = v92[3];
-  PCMatrix44Tmpl<double>::invert(&v73, &v73, 0.0);
-  LiHeSolidRendererNode::setCameraInfo(v5, v7);
-  if (v5 + 432 != v92)
+  v78 = v93[4];
+  v79 = v93[5];
+  v80 = v93[6];
+  v81 = v93[7];
+  v74 = v93[0];
+  v75 = v93[1];
+  v76 = v93[2];
+  v77 = v93[3];
+  PCMatrix44Tmpl<double>::invert(&v74, &v74, 0.0);
+  LiHeSolidRendererNode::setCameraInfo(v6, v8);
+  if (v6 + 432 != v93)
   {
-    v38 = 0;
-    v39 = v92;
-    v40 = v5 + 432;
+    v39 = 0;
+    v40 = v93;
+    v41 = v6 + 432;
     do
     {
       for (n = 0; n != 32; n += 8)
       {
-        *&v40[n] = *(v39 + n);
+        *&v41[n] = *(v40 + n);
       }
 
-      ++v38;
-      v40 += 32;
-      v39 += 2;
+      ++v39;
+      v41 += 32;
+      v40 += 2;
     }
 
-    while (v38 != 4);
+    while (v39 != 4);
   }
 
-  v42 = v5 + 560;
-  if (v5 + 560 != &v73)
+  v43 = v6 + 560;
+  if (v6 + 560 != &v74)
   {
-    v43 = 0;
-    v44 = &v73;
+    v44 = 0;
+    v45 = &v74;
     do
     {
       for (ii = 0; ii != 32; ii += 8)
       {
-        *&v42[ii] = *(v44 + ii);
+        *&v43[ii] = *(v45 + ii);
       }
 
-      ++v43;
-      v42 += 32;
-      v44 += 2;
+      ++v44;
+      v43 += 32;
+      v45 += 2;
     }
 
-    while (v43 != 4);
+    while (v44 != 4);
   }
 
-  v46 = v5 + 688;
-  if (v5 + 688 != v90)
+  v47 = v6 + 688;
+  if (v6 + 688 != v91)
   {
-    v47 = 0;
-    v48 = v90;
+    v48 = 0;
+    v49 = v91;
     do
     {
       for (jj = 0; jj != 4; ++jj)
       {
-        *&v46[jj * 8] = v48[jj];
+        *&v47[jj * 8] = v49[jj];
       }
 
-      ++v47;
-      v46 += 32;
-      v48 += 4;
+      ++v48;
+      v47 += 32;
+      v49 += 4;
     }
 
-    while (v47 != 4);
+    while (v48 != 4);
   }
 
-  v50 = v5 + 816;
-  if (v5 + 816 != v93)
+  v51 = v6 + 816;
+  if (v6 + 816 != v94)
   {
-    v51 = 0;
-    v52 = v93;
+    v52 = 0;
+    v53 = v94;
     do
     {
       for (kk = 0; kk != 32; kk += 8)
       {
-        *&v50[kk] = *(v52 + kk);
+        *&v51[kk] = *(v53 + kk);
       }
 
-      ++v51;
-      v50 += 32;
-      v52 += 2;
+      ++v52;
+      v51 += 32;
+      v53 += 2;
     }
 
-    while (v51 != 4);
+    while (v52 != 4);
   }
 
-  (*(*v7 + 344))(v67, v7);
-  v54 = *&v67[16];
-  *(v5 + 59) = *v67;
-  *(v5 + 60) = v54;
-  v64 = 0uLL;
-  v65 = 0;
-  v62 = 0uLL;
-  v63 = 0;
-  v60 = 0uLL;
-  v61 = 0;
-  if ((*(*v7 + 568))(v7, &v62, &v60))
+  (*(*v8 + 344))(v68, v8);
+  v55 = *&v68[16];
+  *(v6 + 59) = *v68;
+  *(v6 + 60) = v55;
+  v65 = 0uLL;
+  v66 = 0;
+  v63 = 0uLL;
+  v64 = 0;
+  v61 = 0uLL;
+  v62 = 0;
+  if ((*(*v8 + 568))(v8, &v63, &v61))
   {
-    v56 = *(&v60 + 1);
-    v55 = *&v60;
-    v57 = v61;
+    v57 = *(&v61 + 1);
+    v56 = *&v61;
+    v58 = v62;
   }
 
   else
   {
-    v60 = 0x3FF0000000000000uLL;
-    v61 = 0;
-    v62 = 0x3FF0000000000000uLL;
-    v63 = 0;
-    v55 = 1.0;
+    v61 = 0x3FF0000000000000uLL;
+    v62 = 0;
+    v63 = 0x3FF0000000000000uLL;
+    v64 = 0;
+    v56 = 1.0;
+    v58 = 0;
     v57 = 0;
-    v56 = 0;
   }
 
-  v64 = v62;
   v65 = v63;
-  if ((*(*v7 + 608))(v7, &v62, &v60))
+  v66 = v64;
+  if ((*(*v8 + 608))(v8, &v63, &v61))
   {
-    v58 = v60;
     v59 = v61;
+    v60 = v62;
   }
 
   else
   {
-    v60 = 0x3FF0000000000000uLL;
-    v61 = 0;
-    v62 = 0x3FF0000000000000uLL;
-    v63 = 0;
-    v58 = xmmword_2603426F0;
-    v59 = 0;
+    v61 = 0x3FF0000000000000uLL;
+    v62 = 0;
+    v63 = 0x3FF0000000000000uLL;
+    v64 = 0;
+    v59 = xmmword_2603426F0;
+    v60 = 0;
   }
 
-  *(v5 + 93) = v64;
-  *(v5 + 188) = v65;
-  *(v5 + 189) = v55;
-  *(v5 + 190) = v56;
-  *(v5 + 191) = v57;
-  *(v5 + 96) = v62;
-  *(v5 + 194) = v63;
-  *(v5 + 1560) = v58;
-  *(v5 + 197) = v59;
-  *(v5 + 396) = *(this + 25);
-  *(v5 + 316) = *(this + 24);
-  LiHeSolidRendererNode::setScene(v5, *(this + 2), a2);
-  *(v5 + 69) = *(this + 3);
-  LiHeSolidRendererNode::setAAType(v5, *(this + 16));
+  *(v6 + 93) = v65;
+  *(v6 + 188) = v66;
+  *(v6 + 189) = v56;
+  *(v6 + 190) = v57;
+  *(v6 + 191) = v58;
+  *(v6 + 96) = v63;
+  *(v6 + 194) = v64;
+  *(v6 + 1560) = v59;
+  *(v6 + 197) = v60;
+  *(v6 + 396) = *(this + 25);
+  *(v6 + 316) = *(this + 24);
+  LiHeSolidRendererNode::setScene(v6, *(this + 2), a2);
+  *(v6 + 69) = *(this + 3);
+  LiHeSolidRendererNode::setAAType(v6, *(this + 16));
 }
 
-void sub_26001A9B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, PCString a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, PCSharedCount a45)
+void sub_26001A9B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, PCString a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, PCSharedCount a45)
 {
   if (a45.var0)
   {
-    (*(*a45.var0 + 24))(a45.var0);
+    (*(*a45.var0 + 24))(a45.var0, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (*v46)
   {
-    (*(**v46 + 24))(*v46);
+    (*(**v46 + 24))(*v46, a2, a3, a4, a5, a6, a7, a8);
   }
 
   PCArray<PCPtr<LiMaterialFilter>,PCArray_Traits<PCPtr<LiMaterialFilter>>>::~PCArray(&a25);
@@ -4365,13 +4270,13 @@ uint64_t LiSolidRendererImageSource::print(uint64_t a1, void *a2, uint64_t a3)
 
 LiSolidUtils *LiSolidRendererImageSource::adjustCasterLocalToWorld(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, double *a6)
 {
-  result = (*(*a1 + 176))(a1);
+  result = (*(*a1 + 176))(a1, a2, a3);
   if (!result)
   {
     return result;
   }
 
-  LiSolidUtils::getBoundsOfGeometry(result, &v86);
+  LiSolidUtils::getBoundsOfGeometry(&v86, result);
   v11 = (v86 + v87) * 0.5;
   v12 = (v88 + v89) * 0.5;
   v13 = v90;
@@ -4427,7 +4332,7 @@ LiSolidUtils *LiSolidRendererImageSource::adjustCasterLocalToWorld(uint64_t a1, 
     v24 = a4 + 32 * v21;
     if (v23 <= 0.0)
     {
-      v68 = *&v86;
+      v68 = v86;
       *&v69 = v88;
       *(&v69 + 1) = v90;
       v25 = *(&v68 + v21);
@@ -4437,7 +4342,7 @@ LiSolidUtils *LiSolidRendererImageSource::adjustCasterLocalToWorld(uint64_t a1, 
 
     else
     {
-      v68 = *&v87;
+      v68 = v87;
       *&v69 = v89;
       *(&v69 + 1) = v91;
       v25 = *(&v68 + v21);
@@ -4564,7 +4469,7 @@ LABEL_22:
   v74 = 0x3FF0000000000000;
   v71 = 0x3FF0000000000000;
   v67 = 0x3FF0000000000000;
-  v68 = 0x3FF0000000000000;
+  v68 = 1.0;
   v69 = 0u;
   v70 = 0u;
   v72 = 0u;
@@ -4586,7 +4491,7 @@ LABEL_22:
     v37 = *(&v78 + 1) - v79 * 0.0;
     v38 = v79 * 0.0 - *&v78;
     v39 = *&v78 * 0.0 - *(&v78 + 1) * 0.0;
-    v40 = -acos(v79 + *(&v78 + 1) * 0.0 + *&v78 * 0.0);
+    v40.n128_f64[0] = -acos(v79 + *(&v78 + 1) * 0.0 + *&v78 * 0.0);
     v41 = sqrt(v37 * v37 + v38 * v38 + v39 * v39);
     if (fabs(v41) >= 0.000000100000001)
     {
@@ -4669,15 +4574,15 @@ uint64_t *ProShade::Vec3::operator=(uint64_t *a1, const PCSharedCount *a2)
 
 void LiLightProperties::reflectedViewDir(LiLightProperties *this)
 {
-  v6[29] = *MEMORY[0x277D85DE8];
-  v2 = (this + 16);
-  v1 = *(this + 2);
-  v3[4] = &unk_28725E328;
-  v4 = *(v1 + 104);
-  v5 = *(v1 + 112);
-  PCSharedCount::PCSharedCount(v6, (v1 + 120));
-  ProShade::Func<ProShade::Func_normalize>::eval(*v2 + 16, v3);
-  v6[17].var0 = &unk_28725E328;
+  v7[29] = *MEMORY[0x277D85DE8];
+  v3 = (this + 16);
+  v2 = *(this + 2);
+  v4[4] = &unk_28725E328;
+  v5 = *(v2 + 104);
+  v6 = *(v2 + 112);
+  PCSharedCount::PCSharedCount(v7, (v2 + 120));
+  ProShade::Func<ProShade::Func_normalize>::eval(*v3 + 16, v4);
+  v7[17].var0 = &unk_28725E328;
   operator new();
 }
 
@@ -4694,10 +4599,10 @@ void sub_26001C2C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void LiLightProperties::lightAngle(LiLightProperties *this)
+void LiLightProperties::lightAngle()
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v1 = &unk_28725E328;
+  v3 = *MEMORY[0x277D85DE8];
+  v2 = &unk_28725E328;
   operator new();
 }
 
@@ -4710,7 +4615,7 @@ void sub_26001C844(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void LiLightProperties::getAttenuation(LiLightProperties *this@<X0>, ProShade::Float *a2@<X8>)
+void LiLightProperties::getAttenuation(PCSharedCount *__return_ptr a1@<X8>, LiLightProperties *this@<X0>)
 {
   v8[9] = *MEMORY[0x277D85DE8];
   v5 = &unk_28725E328;
@@ -4721,7 +4626,7 @@ void LiLightProperties::getAttenuation(LiLightProperties *this@<X0>, ProShade::F
   PCSharedCount::PCSharedCount(&v4, this + 11);
   if (*(*this + 656) <= 1u)
   {
-    ProShade::Float::Float(a2, 1.0);
+    ProShade::Float::Float(a1, 1.0);
   }
 
   operator new();
@@ -4853,15 +4758,15 @@ void sub_260021B60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void LiShadowGenMaterial::getHash(LiShadowGenMaterial *this)
+void LiShadowGenMaterial::getHash(LiShadowGenMaterial *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  MEMORY[0x28223BE20](this);
-  v2 = v1;
-  v3[520] = *MEMORY[0x277D85DE8];
-  PCHashWriteStream::PCHashWriteStream(v3);
-  PCHashWriteStream::writeValue(v3, 123456);
-  *v2 = *PCHashWriteStream::getHash(v3)->i8;
-  PCHashWriteStream::~PCHashWriteStream(v3);
+  MEMORY[0x28223BE20](this, a2, a3, a4, a5);
+  v6 = v5;
+  v7[520] = *MEMORY[0x277D85DE8];
+  PCHashWriteStream::PCHashWriteStream(v7);
+  PCHashWriteStream::writeValue(v7, 123456);
+  *v6 = *PCHashWriteStream::getHash(v7)->i8;
+  PCHashWriteStream::~PCHashWriteStream(v7);
 }
 
 void LiShadowGenMaterial::~LiShadowGenMaterial(LiShadowGenMaterial *this)
@@ -4903,30 +4808,30 @@ void virtual thunk toLiShadowGenMaterial::~LiShadowGenMaterial(LiShadowGenMateri
 
 void ProShade::Func<ProShade::ScalarFunctionTraits_1<ProShade::acos_traits>>::eval(uint64_t a1)
 {
-  v7[15] = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 16);
-  if (v1)
+  v8[15] = *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 16);
+  if (v2)
   {
-    if (v2)
+    if (v3)
     {
-      v3 = v2;
-      ProShade::Value::Value(v6);
-      ProShade::Value::Value(&v5);
-      (*(*v3 + 224))(v3, v6);
-      ProShade::ScalarFunctionTraits_1<ProShade::acos_traits>::eval(v6, &v5);
-      ProShade::Const::create(&v5, v4);
+      v4 = v3;
+      ProShade::Value::Value(v7);
+      ProShade::Value::Value(&v6);
+      (*(*v4 + 224))(v4, v7);
+      ProShade::ScalarFunctionTraits_1<ProShade::acos_traits>::eval(v7, &v6);
+      ProShade::Const::create(&v6, v5);
     }
   }
 
-  v6[0] = &unk_28725E328;
-  v6[2] = 0;
-  PCSharedCount::PCSharedCount(v7);
+  v7[0] = &unk_28725E328;
+  v7[2] = 0;
+  PCSharedCount::PCSharedCount(v8);
   operator new();
 }
 
-void sub_260022844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_260022844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   PCSharedCount::~PCSharedCount(va);
   _Unwind_Resume(a1);
 }
@@ -4994,10 +4899,11 @@ void ProShade::ScalarFunctionTraits_1<ProShade::acos_traits>::eval(int *a1, OZCh
 
     else if (Size >= 1)
     {
-      v13 = (a1 + 4);
+      v13 = a1 + 4;
       do
       {
-        v14 = *v13++;
+        v14 = *v13;
+        v13 += 2;
         *Serializer++ = acos(v14);
         --v10;
       }
@@ -5214,10 +5120,10 @@ uint64_t ProShade::Func<ProShade::ScalarFunctionTraits_1<ProShade::acos_traits>>
   return result;
 }
 
-void sub_260023040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_260023040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  MEMORY[0x2666E9F00](v3, 0x10B1C40241F72B2);
+  va_start(va, a5);
+  MEMORY[0x2666E9F00](v5, 0x10B1C40241F72B2, a3);
   PCArray<ProShade::VarT<ProShade::Node>,PCArray_Traits<ProShade::VarT<ProShade::Node>>>::~PCArray(va);
   _Unwind_Resume(a1);
 }
@@ -5254,9 +5160,9 @@ void virtual thunk toProShade::Func<ProShade::ScalarFunctionTraits_1<ProShade::a
 
 {
   v1 = a1 + *(*a1 - 24);
-  *(v1 + 72) = &unk_2872DEA38;
-  *(v1 + 88) = 0;
-  PCWeakCount::~PCWeakCount((v1 + 80));
+  *(v1 + 9) = &unk_2872DEA38;
+  v1[88] = 0;
+  PCWeakCount::~PCWeakCount(v1 + 10);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -5312,30 +5218,30 @@ void sub_2600234CC(_Unwind_Exception *a1)
 
 void ProShade::Func<ProShade::ScalarFunctionTraits_1<ProShade::asin_traits>>::eval(uint64_t a1)
 {
-  v7[15] = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 16);
-  if (v1)
+  v8[15] = *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 16);
+  if (v2)
   {
-    if (v2)
+    if (v3)
     {
-      v3 = v2;
-      ProShade::Value::Value(v6);
-      ProShade::Value::Value(&v5);
-      (*(*v3 + 224))(v3, v6);
-      ProShade::ScalarFunctionTraits_1<ProShade::asin_traits>::eval(v6, &v5);
-      ProShade::Const::create(&v5, v4);
+      v4 = v3;
+      ProShade::Value::Value(v7);
+      ProShade::Value::Value(&v6);
+      (*(*v4 + 224))(v4, v7);
+      ProShade::ScalarFunctionTraits_1<ProShade::asin_traits>::eval(v7, &v6);
+      ProShade::Const::create(&v6, v5);
     }
   }
 
-  v6[0] = &unk_28725E328;
-  v6[2] = 0;
-  PCSharedCount::PCSharedCount(v7);
+  v7[0] = &unk_28725E328;
+  v7[2] = 0;
+  PCSharedCount::PCSharedCount(v8);
   operator new();
 }
 
-void sub_2600237B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2600237B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   PCSharedCount::~PCSharedCount(va);
   _Unwind_Resume(a1);
 }
@@ -5403,10 +5309,11 @@ void ProShade::ScalarFunctionTraits_1<ProShade::asin_traits>::eval(int *a1, OZCh
 
     else if (Size >= 1)
     {
-      v13 = (a1 + 4);
+      v13 = a1 + 4;
       do
       {
-        v14 = *v13++;
+        v14 = *v13;
+        v13 += 2;
         *Serializer++ = asin(v14);
         --v10;
       }
@@ -5623,10 +5530,10 @@ uint64_t ProShade::Func<ProShade::ScalarFunctionTraits_1<ProShade::asin_traits>>
   return result;
 }
 
-void sub_260023FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_260023FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  MEMORY[0x2666E9F00](v3, 0x10B1C40241F72B2);
+  va_start(va, a5);
+  MEMORY[0x2666E9F00](v5, 0x10B1C40241F72B2, a3);
   PCArray<ProShade::VarT<ProShade::Node>,PCArray_Traits<ProShade::VarT<ProShade::Node>>>::~PCArray(va);
   _Unwind_Resume(a1);
 }
@@ -5663,9 +5570,9 @@ void virtual thunk toProShade::Func<ProShade::ScalarFunctionTraits_1<ProShade::a
 
 {
   v1 = a1 + *(*a1 - 24);
-  *(v1 + 72) = &unk_2872DEA38;
-  *(v1 + 88) = 0;
-  PCWeakCount::~PCWeakCount((v1 + 80));
+  *(v1 + 9) = &unk_2872DEA38;
+  v1[88] = 0;
+  PCWeakCount::~PCWeakCount(v1 + 10);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -5721,15 +5628,15 @@ void sub_260024438(_Unwind_Exception *a1)
 
 void LiSolidUtils::aux_createTexture(LiSolidUtils *this@<X0>, ProGL::GL *a2@<X1>, int a3@<W2>, int a4@<W3>, GLenum a5@<W4>, GLenum a6@<W5>, GLvoid *a7@<X6>, HGGLBlendingInfo **a8@<X8>, int a9, int a10)
 {
-  v16 = a2;
-  ProGL::GL::getPGLContextHandle(this, v21);
-  ProGL::TextureDescription::TextureDescription(v22, 0xDE1u, v16, a3, 0, a4, v21);
-  ProGL::ContextHandle::~ContextHandle(v21);
-  ProGL::GL::getPGLContextHandle(this, v21);
-  VirtualScreen = ProGL::ContextHandle::getVirtualScreen(v21);
-  ProGL::ContextHandle::~ContextHandle(v21);
-  v23 = VirtualScreen;
-  ProGL::createTextureFromPool(this, v22, a8);
+  v15 = a2;
+  ProGL::GL::getPGLContextHandle(this, v20);
+  ProGL::TextureDescription::TextureDescription(v21, 3553, v15, a3, 0, a4, v20);
+  ProGL::ContextHandle::~ContextHandle(v20);
+  ProGL::GL::getPGLContextHandle(this, v20);
+  VirtualScreen = ProGL::ContextHandle::getVirtualScreen(v20);
+  ProGL::ContextHandle::~ContextHandle(v20);
+  v22 = VirtualScreen;
+  ProGL::createTextureFromPool(this, v21, a8);
   glActiveTexture(0x84C0u);
   Name = ProGL::TextureHandle::getName(a8);
   glBindTexture(0xDE1u, Name);
@@ -5738,15 +5645,15 @@ void LiSolidUtils::aux_createTexture(LiSolidUtils *this@<X0>, ProGL::GL *a2@<X1>
   glTexParameteri(0xDE1u, 0x2801u, 9729);
   glTexParameteri(0xDE1u, 0x2802u, 33071);
   glTexParameteri(0xDE1u, 0x2803u, 33071);
-  ProGL::TextureHandle::texImage2D(a8, this, 0xDE1u, 0, a4, v16, a3, 0, a5, a6, a7);
+  ProGL::TextureHandle::texImage2D(a8, this, 0xDE1u, 0, a4, v15, a3, 0, a5, a6, a7);
   glBindTexture(0xDE1u, 0);
   glDisable(0xDE1u);
-  ProGL::ContextHandle::~ContextHandle(v22);
+  ProGL::ContextHandle::~ContextHandle(v21);
 }
 
-void sub_260024600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_260024600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   ProGL::ContextHandle::~ContextHandle(va);
   _Unwind_Resume(a1);
 }
@@ -5833,6 +5740,13 @@ uint64_t LiSolidUtils::getBoundsOfGeometry@<X0>(uint64_t a1@<X0>, double *a2@<X1
   return LiSceneIterator<LiSolid,LiSceneIteratorAlways>::~LiSceneIterator(v23);
 }
 
+void sub_260024820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
+{
+  va_start(va, a33);
+  LiSceneIterator<LiSolid,LiSceneIteratorAlways>::~LiSceneIterator(va);
+  _Unwind_Resume(a1);
+}
+
 uint64_t LiSceneIterator<LiSolid,LiSceneIteratorAlways>::operator++(uint64_t a1)
 {
   if (*(a1 + 8))
@@ -5873,19 +5787,19 @@ uint64_t LiSceneIterator<LiSolid,LiSceneIteratorAlways>::~LiSceneIterator(uint64
   return a1;
 }
 
-uint64_t LiSolidUtils::getBoundsOfGeometry@<X0>(LiSolidUtils *this@<X0>, uint64_t a2@<X8>)
+uint64_t *LiSolidUtils::getBoundsOfGeometry@<X0>(uint64_t *__return_ptr a1@<X8>, LiSolidUtils *this@<X0>)
 {
-  v13 = 0x3FF0000000000000;
-  v10 = 0x3FF0000000000000;
-  v7 = 0x3FF0000000000000;
-  v4 = 0x3FF0000000000000;
+  v12 = 0x3FF0000000000000;
+  v9 = 0x3FF0000000000000;
+  v6 = 0x3FF0000000000000;
+  v3 = 0x3FF0000000000000;
+  v4 = 0u;
   v5 = 0u;
-  v6 = 0u;
+  v7 = 0u;
   v8 = 0u;
-  v9 = 0u;
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  return LiSolidUtils::getBoundsOfGeometry(this, &v4, a2);
+  return LiSolidUtils::getBoundsOfGeometry(this, &v3, a1);
 }
 
 uint64_t LiSolidUtils::anyTransparencyInScene(uint64_t this, LiSceneObject *a2)
@@ -5954,13 +5868,13 @@ LABEL_11:
   return this;
 }
 
-void LiSolidUtils::drawRect(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6)
+void LiSolidUtils::drawRect(uint64_t a1, float *a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6)
 {
-  v6 = *(a2 + 4);
-  LODWORD(v12) = *a2;
+  v6 = a2[1];
+  *&v12 = *a2;
   *(&v12 + 1) = v6;
-  v7 = *(a2 + 12);
-  *&v11 = *&v12 + *(a2 + 8);
+  v7 = a2[3];
+  *&v11 = *&v12 + a2[2];
   *(&v11 + 1) = v6;
   LODWORD(v10) = v11;
   *(&v10 + 1) = v6 + v7;
@@ -6010,12 +5924,12 @@ void LiSolidUtils::drawRect(uint64_t a1, void *a2, uint64_t *a3, uint64_t *a4, u
 
 void LiSolidUtils::createBumpMapFromHeightMap(void *a1)
 {
-  v2 = HGObject::operator new(0x1D0uLL);
-  HGTextureWrap::HGTextureWrap(v2);
-  (*(*v2 + 120))(v2, 0, *a1);
-  HGTextureWrap::SetTextureWrapMode(v2, 3, v3);
-  v4 = HGObject::operator new(0x1A0uLL);
-  HgcSolidRendererBumpMap::HgcSolidRendererBumpMap(v4);
+  v8 = HGObject::operator new(0x1D0uLL);
+  HGTextureWrap::HGTextureWrap(v8);
+  (*(*v8 + 120))(v8, 0, *a1);
+  HGTextureWrap::SetTextureWrapMode(v8, 3, v9);
+  v10 = HGObject::operator new(0x1A0uLL);
+  HgcSolidRendererBumpMap::HgcSolidRendererBumpMap(v10);
 }
 
 void sub_260025030(_Unwind_Exception *a1)
@@ -6064,8 +5978,8 @@ void LiSolidUtils::depthBlur(LiSolidUtils *this, ProGL::GL *a2, const LiSolidDof
     ProGL::makeProgramHandle<LiSolidUtils::CirclesOfConfusionProgram>();
   }
 
-  ProGL::UseProgramSentry::UseProgramSentry(v10, this, &LiSolidUtils::depthBlur(ProGL::GL &,LiSolidDofInfo const&,unsigned int,unsigned int,int,int)::circlesHandle);
-  ProGL::ProgramHandle::getProgram<LiSolidUtils::CirclesOfConfusionProgram>(&LiSolidUtils::depthBlur(ProGL::GL &,LiSolidDofInfo const&,unsigned int,unsigned int,int,int)::circlesHandle, this);
+  ProGL::UseProgramSentry::UseProgramSentry(v10, this, LiSolidUtils::depthBlur(ProGL::GL &,LiSolidDofInfo const&,unsigned int,unsigned int,int,int)::circlesHandle);
+  ProGL::ProgramHandle::getProgram<LiSolidUtils::CirclesOfConfusionProgram>(LiSolidUtils::depthBlur(ProGL::GL &,LiSolidDofInfo const&,unsigned int,unsigned int,int,int)::circlesHandle, this);
   ProGL::UseProgramSentry::~UseProgramSentry(v10);
   glBindFramebuffer(0x8D40u, 0);
   v7 = -6;
@@ -6438,7 +6352,7 @@ ProGL::Private::VariableBase *ProGL::Uniform<float>::Uniform(ProGL::Private::Var
   v5 = ProGL::Private::VariableBase::VariableBase(a1, a2);
   *v5 = &unk_28726D980;
   *(v5 + 4) = 0;
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   *(a1 + 12) = -1;
   return a1;
 }
@@ -6452,54 +6366,54 @@ void ProGL::Uniform<float>::~Uniform(void **a1)
 
 uint64_t ProGL::Uniform<float>::getString(uint64_t a1)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v13);
-  v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, "uniform ", 8);
-  v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, "float", 5);
-  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, " ", 1);
-  v7 = *(a1 + 24);
-  v6 = a1 + 24;
-  v5 = v7;
-  v8 = *(v6 + 23);
-  if (v8 >= 0)
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v14);
+  v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "uniform ", 8);
+  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, "float", 5);
+  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, " ", 1);
+  v8 = *(a1 + 24);
+  v7 = a1 + 24;
+  v6 = v8;
+  v9 = *(v7 + 23);
+  if (v9 >= 0)
   {
-    v9 = v6;
+    v10 = v7;
   }
 
   else
   {
-    v9 = v5;
+    v10 = v6;
   }
 
-  if (v8 >= 0)
+  if (v9 >= 0)
   {
-    v10 = *(v6 + 23);
+    v11 = *(v7 + 23);
   }
 
   else
   {
-    v10 = *(v6 + 8);
+    v11 = *(v7 + 8);
   }
 
-  v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, v9, v10);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, ";\n", 2);
+  v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, v10, v11);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, ";\n", 2);
   std::stringbuf::str();
-  v13 = *MEMORY[0x277D82828];
-  *(&v13 + *(v13 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v14 = MEMORY[0x277D82878] + 16;
-  if (v16 < 0)
+  v14 = *MEMORY[0x277D82828];
+  *(&v14 + *(v14 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v15 = MEMORY[0x277D82878] + 16;
+  if (v17 < 0)
   {
-    operator delete(v15[7].__locale_);
+    operator delete(v16[7].__locale_);
   }
 
-  v14 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v15);
+  v15 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v16);
   std::ostream::~ostream();
-  return MEMORY[0x2666E9E10](&v17);
+  return MEMORY[0x2666E9E10](&v18);
 }
 
-void sub_260025E0C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_260025E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -6591,7 +6505,7 @@ ProGL::Private::VariableBase *ProGL::Uniform<PCMatrix44Tmpl<float>>::Uniform(Pro
   *(v5 + 6) = 0;
   *(v5 + 68) = 0;
   *(v5 + 60) = 0;
-  std::string::basic_string[abi:ne200100]<0>(v5 + 80, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 10, a3);
   *(a1 + 26) = -1;
   return a1;
 }
@@ -6620,54 +6534,54 @@ BOOL ProGL::Uniform<PCMatrix44Tmpl<float>>::prepare(uint64_t a1)
 
 uint64_t ProGL::Uniform<PCMatrix44Tmpl<float>>::getString(uint64_t a1)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v13);
-  v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, "uniform ", 8);
-  v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, "mat4", 4);
-  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, " ", 1);
-  v7 = *(a1 + 80);
-  v6 = a1 + 80;
-  v5 = v7;
-  v8 = *(v6 + 23);
-  if (v8 >= 0)
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v14);
+  v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "uniform ", 8);
+  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, "mat4", 4);
+  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, " ", 1);
+  v8 = *(a1 + 80);
+  v7 = a1 + 80;
+  v6 = v8;
+  v9 = *(v7 + 23);
+  if (v9 >= 0)
   {
-    v9 = v6;
+    v10 = v7;
   }
 
   else
   {
-    v9 = v5;
+    v10 = v6;
   }
 
-  if (v8 >= 0)
+  if (v9 >= 0)
   {
-    v10 = *(v6 + 23);
+    v11 = *(v7 + 23);
   }
 
   else
   {
-    v10 = *(v6 + 8);
+    v11 = *(v7 + 8);
   }
 
-  v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, v9, v10);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, ";\n", 2);
+  v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, v10, v11);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, ";\n", 2);
   std::stringbuf::str();
-  v13 = *MEMORY[0x277D82828];
-  *(&v13 + *(v13 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v14 = MEMORY[0x277D82878] + 16;
-  if (v16 < 0)
+  v14 = *MEMORY[0x277D82828];
+  *(&v14 + *(v14 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v15 = MEMORY[0x277D82878] + 16;
+  if (v17 < 0)
   {
-    operator delete(v15[7].__locale_);
+    operator delete(v16[7].__locale_);
   }
 
-  v14 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v15);
+  v15 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v16);
   std::ostream::~ostream();
-  return MEMORY[0x2666E9E10](&v17);
+  return MEMORY[0x2666E9E10](&v18);
 }
 
-void sub_260026480(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_260026480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -7029,7 +6943,7 @@ LABEL_5:
   v30 = v12 | (v13 << 32);
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v31 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v31 = HGRectMake4i(-1, -1, 1, 1);
     v32 = HGRectGrow(v4 | (v5 << 32), v30, v31);
     v5 = HIDWORD(v32);
     LODWORD(v4) = v32;
@@ -7083,7 +6997,7 @@ uint64_t LiHeEdge::GetROI(LiHeEdge *this, HGRenderer *a2, int a3, HGRect a4)
   v4 = *&a4.var0;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v6 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v6 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(v4, v5, v6);
   }
 
@@ -7099,13 +7013,13 @@ void LiHeEdge::LiHeEdge(LiHeEdge *this)
 
 void sub_2600275A8(_Unwind_Exception *a1)
 {
-  v3 = *(v1 + 55);
+  v3 = *(v1 + 440);
   if (v3)
   {
     HGArrayData::Release(v3);
   }
 
-  v4 = *(v1 + 53);
+  v4 = *(v1 + 424);
   if (v4)
   {
     HGArrayData::Release(v4);
@@ -7152,7 +7066,7 @@ void LiHeEdge::~LiHeEdge(LiHeEdge *this)
   HGObject::operator delete(v1);
 }
 
-void LiHeEdge::setLines(uint64_t a1, uint64_t a2)
+void LiHeEdge::setLines(uint64_t a1, int *a2)
 {
   if (*a2)
   {
@@ -7304,10 +7218,10 @@ uint64_t LiHeEdgeMix::GetDOD(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   Input = HGRenderer::GetInput(a2, this, a3);
   DOD = HGRenderer::GetDOD(a2, Input);
   v10 = v9;
-  v11 = HGRenderer::GetInput(a2, this, 1u);
+  v11 = HGRenderer::GetInput(a2, this, 1);
   v12 = HGRenderer::GetDOD(a2, v11);
   v14 = v13;
-  v15 = HGRenderer::GetInput(a2, this, 2u);
+  v15 = HGRenderer::GetInput(a2, this, 2);
   v16 = HGRenderer::GetDOD(a2, v15);
   v18 = HGRectIntersection(DOD, v10, v16, v17);
   return HGRectUnion(v12, v14, v18, v19);
@@ -7641,23 +7555,23 @@ void sub_2600281CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void LiSceneDrawer::~LiSceneDrawer(LiSceneDrawer *this)
+void LiSceneDrawer::~LiSceneDrawer(PCSharedCount *this)
 {
-  *this = &unk_28726E0B8;
+  this->var0 = &unk_28726E0B8;
   PCSharedCount::~PCSharedCount(this + 115);
   PCSharedCount::~PCSharedCount(this + 113);
-  v3 = (this + 872);
+  v3 = this + 109;
   std::vector<LiSceneDrawer::MaterialInfo>::__destroy_vector::operator()[abi:ne200100](&v3);
-  v2 = *(this + 106);
-  if (v2)
+  var0 = this[106].var0;
+  if (var0)
   {
-    *(this + 107) = v2;
-    operator delete(v2);
+    this[107].var0 = var0;
+    operator delete(var0);
   }
 
-  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(this + 816, *(this + 103));
-  std::__tree<std::__value_type<PCPtr<ProShade::Program>,LiSceneDrawer::ByMaterial>,std::__map_value_compare<PCPtr<ProShade::Program>,std::__value_type<PCPtr<ProShade::Program>,LiSceneDrawer::ByMaterial>,std::less<PCPtr<ProShade::Program>>,true>,std::allocator<std::__value_type<PCPtr<ProShade::Program>,LiSceneDrawer::ByMaterial>>>::destroy(this + 792, *(this + 100));
-  PCArray<LiLight,PCArray_Traits<LiLight>>::~PCArray(this + 760);
+  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(&this[102], this[103].var0);
+  std::__tree<std::__value_type<PCPtr<ProShade::Program>,LiSceneDrawer::ByMaterial>,std::__map_value_compare<PCPtr<ProShade::Program>,std::__value_type<PCPtr<ProShade::Program>,LiSceneDrawer::ByMaterial>,std::less<PCPtr<ProShade::Program>>,true>,std::allocator<std::__value_type<PCPtr<ProShade::Program>,LiSceneDrawer::ByMaterial>>>::destroy(&this[99], this[100].var0);
+  PCArray<LiLight,PCArray_Traits<LiLight>>::~PCArray(&this[95]);
 }
 
 {
@@ -7870,19 +7784,19 @@ uint64_t LiSceneIterator<LiLight,LiSceneIteratorShineOut>::~LiSceneIterator(uint
   return a1;
 }
 
-void LiSceneDrawer::beginRender(_BYTE *a1, uint64_t a2, uint64_t a3, __int128 *a4, void *a5, uint64_t *a6, uint64_t a7)
+void LiSceneDrawer::beginRender(LiSceneDrawer *a1, uint64_t a2, uint64_t a3, __int128 *a4, void *a5, uint64_t *a6, uint64_t a7)
 {
   v24 = v25;
   v25[0] = 0;
   v25[1] = 0;
   memset(v26, 0, sizeof(v26));
   v27 = *a6;
-  a1[928] = 0;
+  *(a1 + 928) = 0;
   (*(*a1 + 16))(a1, a2, a3, a4, a5, a7, &v24);
   if (v27 == 1)
   {
     LiContext::LiContext(v15);
-    v17 = a1[476];
+    v17 = *(a1 + 476);
     LiClipSet::operator=(v16, a3);
     v16[9] = *a5;
     LiContext::setMaterialFilters(v15, a7);
@@ -8079,11 +7993,11 @@ void LiSceneDrawer::render_zsort(uint64_t a1, uint64_t a2, uint64_t a3)
         {
 LABEL_25:
           v73[0].var0 = &v76;
-          *(std::__tree<std::__value_type<double,PCRect<double>>,std::__map_value_compare<double,std::__value_type<double,PCRect<double>>,std::less<double>,true>,std::allocator<std::__value_type<double,PCRect<double>>>>::__emplace_unique_key_args<double,std::piecewise_construct_t const&,std::tuple<double const&>,std::tuple<>>(&v81, v76.f64) + 7) = v67;
+          *(std::__tree<std::__value_type<double,PCRect<double>>,std::__map_value_compare<double,std::__value_type<double,PCRect<double>>,std::less<double>,true>,std::allocator<std::__value_type<double,PCRect<double>>>>::__emplace_unique_key_args<double,std::piecewise_construct_t const&,std::tuple<double const&>,std::tuple<>>(&v81, v76.f64, &std::piecewise_construct, v73) + 7) = v67;
         }
 
         v73[0].var0 = &v76;
-        v27 = std::__tree<std::__value_type<double,PCRect<double>>,std::__map_value_compare<double,std::__value_type<double,PCRect<double>>,std::less<double>,true>,std::allocator<std::__value_type<double,PCRect<double>>>>::__emplace_unique_key_args<double,std::piecewise_construct_t const&,std::tuple<double const&>,std::tuple<>>(&v81, v76.f64);
+        v27 = std::__tree<std::__value_type<double,PCRect<double>>,std::__map_value_compare<double,std::__value_type<double,PCRect<double>>,std::less<double>,true>,std::allocator<std::__value_type<double,PCRect<double>>>>::__emplace_unique_key_args<double,std::piecewise_construct_t const&,std::tuple<double const&>,std::tuple<>>(&v81, v76.f64, &std::piecewise_construct, v73);
         PCRect<double>::operator|=((v27 + 5), (v20 + 552));
         PCRect<double>::operator|=(&v83, (v20 + 552));
         v28 = *v11;
@@ -8228,13 +8142,13 @@ LABEL_25:
           {
             if (v75 < v80)
             {
-              v87 = &v75;
-              v47 = std::__tree<std::__value_type<double,PCRect<double>>,std::__map_value_compare<double,std::__value_type<double,PCRect<double>>,std::less<double>,true>,std::allocator<std::__value_type<double,PCRect<double>>>>::__emplace_unique_key_args<double,std::piecewise_construct_t const&,std::tuple<double const&>,std::tuple<>>(&v81, &v75);
+              v87[0] = &v75;
+              v47 = std::__tree<std::__value_type<double,PCRect<double>>,std::__map_value_compare<double,std::__value_type<double,PCRect<double>>,std::less<double>,true>,std::allocator<std::__value_type<double,PCRect<double>>>>::__emplace_unique_key_args<double,std::piecewise_construct_t const&,std::tuple<double const&>,std::tuple<>>(&v81, &v75, &std::piecewise_construct, v87);
               v48 = *(v47 + 7);
               *&v73[0].var0 = *(v47 + 5);
               v74 = v48;
-              v87 = &v80;
-              v49 = std::__tree<std::__value_type<double,PCRect<double>>,std::__map_value_compare<double,std::__value_type<double,PCRect<double>>,std::less<double>,true>,std::allocator<std::__value_type<double,PCRect<double>>>>::__emplace_unique_key_args<double,std::piecewise_construct_t const&,std::tuple<double const&>,std::tuple<>>(&v81, &v80);
+              v87[0] = &v80;
+              v49 = std::__tree<std::__value_type<double,PCRect<double>>,std::__map_value_compare<double,std::__value_type<double,PCRect<double>>,std::less<double>,true>,std::allocator<std::__value_type<double,PCRect<double>>>>::__emplace_unique_key_args<double,std::piecewise_construct_t const&,std::tuple<double const&>,std::tuple<>>(&v81, &v80, &std::piecewise_construct, v87);
               PCRect<double>::operator|=(&v76, (v49 + 5));
               v80 = v75;
               if ((v72 & 1) == 0 && PCRect<double>::overlaps(v73, v76.f64))
@@ -8329,7 +8243,7 @@ LABEL_25:
                 throw_PCNullPointerException(1);
               }
 
-              v62 = ProShade::Program::bindTextures(v61);
+              ProShade::Program::bindTextures(v61);
               *(v12 + 432) = *(v42 + 472);
               LiSceneDrawer::setMaterialUniforms(v62, v12, v42 + 40);
               ProShade::UniformData::setWorkspaceGlobals(CurrentContextUniformData, v53);
@@ -8375,7 +8289,7 @@ LABEL_25:
       {
         glEnable(0xC11u);
         v73[0].var0 = &v80;
-        v65 = std::__tree<std::__value_type<double,PCRect<double>>,std::__map_value_compare<double,std::__value_type<double,PCRect<double>>,std::less<double>,true>,std::allocator<std::__value_type<double,PCRect<double>>>>::__emplace_unique_key_args<double,std::piecewise_construct_t const&,std::tuple<double const&>,std::tuple<>>(&v81, &v80);
+        v65 = std::__tree<std::__value_type<double,PCRect<double>>,std::__map_value_compare<double,std::__value_type<double,PCRect<double>>,std::less<double>,true>,std::allocator<std::__value_type<double,PCRect<double>>>>::__emplace_unique_key_args<double,std::piecewise_construct_t const&,std::tuple<double const&>,std::tuple<>>(&v81, &v80, &std::piecewise_construct, v73);
         PCRect<double>::operator|=(&v76, (v65 + 5));
         glScissor(v76.f64[0], v76.f64[1], *&v77, *(&v77 + 1));
       }
@@ -8523,7 +8437,7 @@ void LiSceneDrawer::traverseAndRender(uint64_t a1, LiSceneObject *a2, uint64_t a
       v48[10] = v37;
       v49[0] = v38;
       v48[9] = v36;
-      v39.var0 = *v19;
+      v39 = *v19;
       if (*(*v19 + 644) == 1)
       {
         v40 = *(a1 + 772);
@@ -8554,11 +8468,11 @@ void LiSceneDrawer::traverseAndRender(uint64_t a1, LiSceneObject *a2, uint64_t a
         }
 
         v53 = *(a1 + 784);
-        v39.var0 = *v19;
+        v39 = *v19;
         a7 = v42;
       }
 
-      LiSceneDrawer::traverseAndRender(&v45, v39.var0, v57, v61, &v59, &v58, a7);
+      LiSceneDrawer::traverseAndRender(&v45, v39, v57, v61, &v59, &v58, a7);
       LiSceneDrawer::~LiSceneDrawer(&v45);
       v19 += 472;
       v21 += 472;
@@ -8573,9 +8487,9 @@ void LiSceneDrawer::traverseAndRender(uint64_t a1, LiSceneObject *a2, uint64_t a
   LiContext::~LiContext(v56);
 }
 
-void sub_2600299A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2600299A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   PCSharedCount::~PCSharedCount(va);
   PCSharedCount::~PCSharedCount(&STACK[0x3D8]);
   PCSharedCount::~PCSharedCount(&STACK[0x3E8]);
@@ -8627,7 +8541,7 @@ void LiSceneDrawer::traverseObject(uint64_t a1, uint64_t a2, uint64_t a3, uint64
     v19 = *(a1 + 880);
     if (v19 >= *(a1 + 888))
     {
-      v20 = std::vector<LiSceneDrawer::MaterialInfo>::__emplace_back_slow_path<LiSceneDrawer::MaterialInfo const&>(a1 + 872, &v129);
+      v20 = std::vector<LiSceneDrawer::MaterialInfo>::__emplace_back_slow_path<LiSceneDrawer::MaterialInfo const&>((a1 + 872), &v129);
     }
 
     else
@@ -8639,12 +8553,12 @@ void LiSceneDrawer::traverseObject(uint64_t a1, uint64_t a2, uint64_t a3, uint64
 
     *(a1 + 880) = v20;
     *&__src[0] = &v151;
-    v84 = std::__tree<std::__value_type<PCPtr<ProShade::Program>,LiSceneDrawer::ByMaterial>,std::__map_value_compare<PCPtr<ProShade::Program>,std::__value_type<PCPtr<ProShade::Program>,LiSceneDrawer::ByMaterial>,std::less<PCPtr<ProShade::Program>>,true>,std::allocator<std::__value_type<PCPtr<ProShade::Program>,LiSceneDrawer::ByMaterial>>>::__emplace_unique_key_args<PCPtr<ProShade::Program>,std::piecewise_construct_t const&,std::tuple<PCPtr<ProShade::Program> const&>,std::tuple<>>(a1 + 792, &v151);
+    v84 = std::__tree<std::__value_type<PCPtr<ProShade::Program>,LiSceneDrawer::ByMaterial>,std::__map_value_compare<PCPtr<ProShade::Program>,std::__value_type<PCPtr<ProShade::Program>,LiSceneDrawer::ByMaterial>,std::less<PCPtr<ProShade::Program>>,true>,std::allocator<std::__value_type<PCPtr<ProShade::Program>,LiSceneDrawer::ByMaterial>>>::__emplace_unique_key_args<PCPtr<ProShade::Program>,std::piecewise_construct_t const&,std::tuple<PCPtr<ProShade::Program> const&>,std::tuple<>>(a1 + 792, &v151, &std::piecewise_construct, __src, v187);
     LODWORD(__src[0]) = v18;
     *(&__src[0] + 1) = v18;
     v85 = v84[6];
     v187[0] = __src;
-    v86 = std::__tree<std::__value_type<LiSceneDrawer::ByMaterial::MaterialKey,LiSceneDrawer::DrawingList>,std::__map_value_compare<LiSceneDrawer::ByMaterial::MaterialKey,std::__value_type<LiSceneDrawer::ByMaterial::MaterialKey,LiSceneDrawer::DrawingList>,std::less<LiSceneDrawer::ByMaterial::MaterialKey>,true>,std::allocator<std::__value_type<LiSceneDrawer::ByMaterial::MaterialKey,LiSceneDrawer::DrawingList>>>::__emplace_unique_key_args<LiSceneDrawer::ByMaterial::MaterialKey,std::piecewise_construct_t const&,std::tuple<LiSceneDrawer::ByMaterial::MaterialKey const&>,std::tuple<>>(v85, __src);
+    v86 = std::__tree<std::__value_type<LiSceneDrawer::ByMaterial::MaterialKey,LiSceneDrawer::DrawingList>,std::__map_value_compare<LiSceneDrawer::ByMaterial::MaterialKey,std::__value_type<LiSceneDrawer::ByMaterial::MaterialKey,LiSceneDrawer::DrawingList>,std::less<LiSceneDrawer::ByMaterial::MaterialKey>,true>,std::allocator<std::__value_type<LiSceneDrawer::ByMaterial::MaterialKey,LiSceneDrawer::DrawingList>>>::__emplace_unique_key_args<LiSceneDrawer::ByMaterial::MaterialKey,std::piecewise_construct_t const&,std::tuple<LiSceneDrawer::ByMaterial::MaterialKey const&>,std::tuple<>>(v85, __src, &std::piecewise_construct, v187, v148);
     v87 = (*(*v18 + 152))(v18);
     v88 = 0;
     v89 = (v86 + 6);
@@ -8654,7 +8568,7 @@ void LiSceneDrawer::traverseObject(uint64_t a1, uint64_t a2, uint64_t a3, uint64
       if ((v87 >> v88))
       {
         *&__src[0] = v187;
-        std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 816, v187)[5] = v89;
+        std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 816, v187, &std::piecewise_construct, __src)[5] = v89;
         v88 = v187[0];
       }
 
@@ -8829,7 +8743,7 @@ void LiSceneDrawer::traverseObject(uint64_t a1, uint64_t a2, uint64_t a3, uint64
     {
       v149 = (*(*v51 + 136))(v51);
       *&v129.var0 = COERCE_DOUBLE(&v149);
-      v52 = std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 816, &v149)[5];
+      v52 = std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 816, &v149, &std::piecewise_construct, &v129)[5];
       if (v52)
       {
         v53 = *v52;
@@ -9139,7 +9053,7 @@ LABEL_119:
             *(v138 + 9) = *&v186[25];
             v137 = *v186;
             v138[0] = *&v186[16];
-            std::__tree<std::__value_type<double,LiSceneDrawer::ObjectDrawInfo>,std::__map_value_compare<double,std::__value_type<double,LiSceneDrawer::ObjectDrawInfo>,std::less<double>,true>,std::allocator<std::__value_type<double,LiSceneDrawer::ObjectDrawInfo>>>::__emplace_multi<std::pair<double,LiSceneDrawer::ObjectDrawInfo>>();
+            std::__tree<std::__value_type<double,LiSceneDrawer::ObjectDrawInfo>,std::__map_value_compare<double,std::__value_type<double,LiSceneDrawer::ObjectDrawInfo>,std::less<double>,true>,std::allocator<std::__value_type<double,LiSceneDrawer::ObjectDrawInfo>>>::__emplace_multi<std::pair<double,LiSceneDrawer::ObjectDrawInfo>>(v126);
           }
 
           v107 = 1 << v104;
@@ -9268,7 +9182,7 @@ LABEL_119:
             v102 = *(v134 + 15);
             *(v101 + 440) = v134[0];
             *(v101 + 455) = v102;
-            v103 = v101 + 472;
+            v103 = (v101 + 472);
           }
 
           *(a1 + 856) = v103;
@@ -9278,16 +9192,16 @@ LABEL_119:
   }
 }
 
-void sub_26002AA10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26002AA10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   PCSharedCount::~PCSharedCount(va);
-  PCSharedCount::~PCSharedCount(v9 + 3);
-  PCSharedCount::~PCSharedCount(v9 + 1);
+  PCSharedCount::~PCSharedCount(v16 + 3);
+  PCSharedCount::~PCSharedCount(v16 + 1);
   _Unwind_Resume(a1);
 }
 
-void LiSceneDrawer::render(LiSceneDrawer *this, void **a2)
+void LiSceneDrawer::render(LiSceneDrawer *this, LiGLState **a2)
 {
   CurrentContextUniformData = ProShade::UniformData::getCurrentContextUniformData(this);
   v28 = this;
@@ -9449,17 +9363,17 @@ void LiSceneDrawer::render(LiSceneDrawer *this, void **a2)
   unbindAllTextures();
 }
 
-void sub_26002B020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_26002B020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   __cxa_end_catch();
   PCSharedCount::~PCSharedCount(va);
   _Unwind_Resume(a1);
 }
 
-void sub_26002B034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_26002B034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   PCSharedCount::~PCSharedCount(va);
   _Unwind_Resume(a1);
 }
@@ -9471,7 +9385,7 @@ uint64_t LiSceneDrawer::buildProgram(uint64_t a1, LiContext *a2, PC_Sp_counted_b
     __cxa_atexit(PCMutex::~PCMutex, &LiSceneDrawer::buildProgram(LiMaterial *,LiContext &,PCPtr<ProShade::Program> *,BOOL)::compiledProgramMutex, &dword_25F8F0000);
   }
 
-  if ((atomic_load_explicit(&_MergedGlobals_38, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_38, memory_order_acquire) & 1) == 0)
   {
     LiSceneDrawer::buildProgram();
   }
@@ -9522,7 +9436,7 @@ LABEL_20:
     {
 LABEL_12:
       v13.var0 = v19;
-      *(std::__tree<std::__value_type<PCHash128,BOOL>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,BOOL>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,BOOL>>>::__emplace_unique_key_args<PCHash128,std::piecewise_construct_t const&,std::tuple<PCHash128 const&>,std::tuple<>>(&qword_280C5E9F0, v19) + 44) = 0;
+      *(std::__tree<std::__value_type<PCHash128,BOOL>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,BOOL>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,BOOL>>>::__emplace_unique_key_args<PCHash128,std::piecewise_construct_t const&,std::tuple<PCHash128 const&>,std::tuple<>>(&qword_280C5E9F0, v19, &std::piecewise_construct, &v13) + 44) = 0;
       if (a3)
       {
         *a3 = var0;
@@ -9558,7 +9472,7 @@ LABEL_12:
 
   v13.var0 = v19;
   LOBYTE(a3) = 1;
-  *(std::__tree<std::__value_type<PCHash128,BOOL>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,BOOL>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,BOOL>>>::__emplace_unique_key_args<PCHash128,std::piecewise_construct_t const&,std::tuple<PCHash128 const&>,std::tuple<>>(&qword_280C5E9F0, v19) + 44) = 1;
+  *(std::__tree<std::__value_type<PCHash128,BOOL>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,BOOL>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,BOOL>>>::__emplace_unique_key_args<PCHash128,std::piecewise_construct_t const&,std::tuple<PCHash128 const&>,std::tuple<>>(&qword_280C5E9F0, v19, &std::piecewise_construct, &v13) + 44) = 1;
 LABEL_17:
   PCSharedCount::~PCSharedCount(&v16);
   v11 = v17;
@@ -9584,9 +9498,9 @@ void unbindAllTextures(void)
   ProGL::GL::~GL(v0);
 }
 
-void sub_26002B460(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26002B460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ProGL::GL::~GL(va);
   _Unwind_Resume(a1);
 }
@@ -9756,41 +9670,41 @@ void std::__tree<std::__value_type<double,LiSceneDrawer::ObjectDrawInfo>,std::__
   }
 }
 
-uint64_t *std::__tree<std::__value_type<LiSceneDrawer::ByMaterial::MaterialKey,LiSceneDrawer::DrawingList>,std::__map_value_compare<LiSceneDrawer::ByMaterial::MaterialKey,std::__value_type<LiSceneDrawer::ByMaterial::MaterialKey,LiSceneDrawer::DrawingList>,std::less<LiSceneDrawer::ByMaterial::MaterialKey>,true>,std::allocator<std::__value_type<LiSceneDrawer::ByMaterial::MaterialKey,LiSceneDrawer::DrawingList>>>::__emplace_unique_key_args<LiSceneDrawer::ByMaterial::MaterialKey,std::piecewise_construct_t const&,std::tuple<LiSceneDrawer::ByMaterial::MaterialKey const&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<LiSceneDrawer::ByMaterial::MaterialKey,LiSceneDrawer::DrawingList>,std::__map_value_compare<LiSceneDrawer::ByMaterial::MaterialKey,std::__value_type<LiSceneDrawer::ByMaterial::MaterialKey,LiSceneDrawer::DrawingList>,std::less<LiSceneDrawer::ByMaterial::MaterialKey>,true>,std::allocator<std::__value_type<LiSceneDrawer::ByMaterial::MaterialKey,LiSceneDrawer::DrawingList>>>::__emplace_unique_key_args<LiSceneDrawer::ByMaterial::MaterialKey,std::piecewise_construct_t const&,std::tuple<LiSceneDrawer::ByMaterial::MaterialKey const&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v5 = *(a1 + 8);
+  if (!v5)
   {
 LABEL_8:
     std::__tree<std::__value_type<LiSceneDrawer::ByMaterial::MaterialKey,LiSceneDrawer::DrawingList>,std::__map_value_compare<LiSceneDrawer::ByMaterial::MaterialKey,std::__value_type<LiSceneDrawer::ByMaterial::MaterialKey,LiSceneDrawer::DrawingList>,std::less<LiSceneDrawer::ByMaterial::MaterialKey>,true>,std::allocator<std::__value_type<LiSceneDrawer::ByMaterial::MaterialKey,LiSceneDrawer::DrawingList>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<LiSceneDrawer::ByMaterial::MaterialKey const&>,std::tuple<>>();
   }
 
-  v3 = *a2;
+  v6 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v5 >= v3)
+      v7 = v5;
+      v8 = *(v5 + 32);
+      if (v8 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v5 = *v7;
+      if (!*v7)
       {
         goto LABEL_8;
       }
     }
 
-    if (v3 >= v5)
+    if (v6 >= v8)
     {
-      return v4;
+      return v7;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v5 = v7[1];
+    if (!v5)
     {
       goto LABEL_8;
     }

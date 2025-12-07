@@ -55,11 +55,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:valueCopy clusterID:153 commandID:0 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v14)
   {
     sub_2393C5AAC(v13);
-    sub_2393C5ADC(v13, *(v14 + 1), *(v14 + 3));
+    sub_2393C5ADC(v13, *(v14 + 8), *(v14 + 24));
     v8 = sub_2393C6FD0(v13, 256);
     if (!v8)
     {
@@ -115,31 +115,31 @@ LABEL_6:
 - (ChipError)_setFieldsFromDecodableStruct:(const void *)struct
 {
   v4 = objc_opt_new();
-  sub_238EA2DBC(v23, struct);
-  while (sub_238EA1A80(v23) && sub_238EA2E18(v23))
+  sub_238EA2DBC(v25, struct);
+  while (sub_238EA1A80(v25) && sub_238EA2E18(v25))
   {
     v5 = objc_opt_new();
-    v6 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v24];
+    v6 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v26];
     [v5 setDayOfWeekForSequence:v6];
 
     v7 = objc_opt_new();
-    sub_2393C5AAC(v19);
-    v17 = 0;
-    v18 = 0;
-    sub_2393C5BDC(v19, &v25);
+    sub_2393C5AAC(v21);
+    v19 = 0;
     v20 = 0;
-    v21[0] = 0;
-    v22[0] = 0;
-    while (sub_238EA1A80(&v17) && sub_238EA2EB8(&v17))
+    sub_2393C5BDC(v21, &v27);
+    v22 = 0;
+    v23[0] = 0;
+    v24[0] = 0;
+    while (sub_238EA1A80(&v19) && sub_238EA2EB8(&v19))
     {
       v8 = objc_opt_new();
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v20];
+      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v22];
       [v8 setTargetTimeMinutesPastMidnight:v9];
 
-      if (v21[0] == 1)
+      if (v23[0] == 1)
       {
-        v10 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*sub_238DE36D8(v21)];
-        [v8 setTargetSoC:v10];
+        v11 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{LOBYTE(sub_238DE36D8(v23, v10)->super.isa)}];
+        [v8 setTargetSoC:v11];
       }
 
       else
@@ -147,10 +147,10 @@ LABEL_6:
         [v8 setTargetSoC:0];
       }
 
-      if (v22[0] == 1)
+      if (v24[0] == 1)
       {
-        v11 = [MEMORY[0x277CCABB0] numberWithLongLong:*sub_238DE36B8(v22)];
-        [v8 setAddedEnergy:v11];
+        v13 = [MEMORY[0x277CCABB0] numberWithLongLong:{*sub_238DE36B8(v24, v12)}];
+        [v8 setAddedEnergy:v13];
       }
 
       else
@@ -161,12 +161,12 @@ LABEL_6:
       [v7 addObject:v8];
     }
 
-    if (v17 != 33)
+    if (v19 != 33)
     {
-      v12 = v17;
-      if (v17)
+      v14 = v19;
+      if (v19)
       {
-        v13 = v18;
+        v15 = v20;
 
         goto LABEL_22;
       }
@@ -177,24 +177,24 @@ LABEL_6:
     [v4 addObject:v5];
   }
 
-  if (LODWORD(v23[0]) == 33 || (v12 = v23[0], !LODWORD(v23[0])))
+  if (LODWORD(v25[0]) == 33 || (v14 = v25[0], !LODWORD(v25[0])))
   {
     [(MTREnergyEVSEClusterGetTargetsResponseParams *)self setChargingTargetSchedules:v4];
 
-    v13 = 0;
-    v12 = 0;
+    v15 = 0;
+    v14 = 0;
     goto LABEL_23;
   }
 
-  v13 = v23[1];
+  v15 = v25[1];
 LABEL_22:
 
 LABEL_23:
-  v14 = v12;
-  v15 = v13;
-  result.mFile = v15;
-  result.mError = v14;
-  result.mLine = HIDWORD(v14);
+  v16 = v14;
+  v17 = v15;
+  result.mFile = v17;
+  result.mError = v16;
+  result.mLine = HIDWORD(v16);
   return result;
 }
 

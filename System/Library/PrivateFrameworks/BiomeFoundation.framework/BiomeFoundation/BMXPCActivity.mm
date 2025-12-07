@@ -25,7 +25,7 @@
 
 - (BOOL)didDefer
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if ([(BMXPCActivity *)self _state]== 3)
   {
     v3 = __biome_log_for_category(0);
@@ -51,11 +51,11 @@ LABEL_4:
         v7 = objc_opt_class();
         v8 = NSStringFromClass(v7);
         activityName = self->_activityName;
-        v12 = 138412546;
-        v13 = v8;
-        v14 = 2112;
-        v15 = activityName;
-        _os_log_impl(&dword_1AC15D000, v3, OS_LOG_TYPE_DEFAULT, "%@ successfully deferred activity with name: %@, didDefer returning YES", &v12, 0x16u);
+        v11 = 138412546;
+        v12 = v8;
+        v13 = 2112;
+        v14 = activityName;
+        _os_log_impl(&dword_1AC15D000, v3, OS_LOG_TYPE_DEFAULT, "%@ successfully deferred activity with name: %@, didDefer returning YES", &v11, 0x16u);
       }
     }
 
@@ -76,20 +76,15 @@ LABEL_4:
   v4 = 0;
 LABEL_12:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (void)didDefer
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v4 = *(self + 16);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1_3(&dword_1AC15D000, v5, v6, "%@ with name: %@ has already been deferred, didDefer returning YES", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_3(&dword_1AC15D000, v3, v4, "%@ with name: %@ has already been deferred, didDefer returning YES", v5, v6, v7, v8);
 }
 
 @end

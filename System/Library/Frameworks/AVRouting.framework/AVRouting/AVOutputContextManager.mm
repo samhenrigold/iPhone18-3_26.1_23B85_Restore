@@ -65,7 +65,7 @@ void __66__AVOutputContextManager_outputContextManagerForAllOutputContexts__bloc
 
 - (void)outputContextManagerImpl:(id)impl observedFailureToConnectToOutputDevice:(id)device reason:(id)reason didFailToConnectToOutputDeviceDictionary:(id)dictionary
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v11 = dictionary;
   if (reason)
@@ -90,8 +90,7 @@ void __66__AVOutputContextManager_outputContextManagerForAllOutputContexts__bloc
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v13 = *MEMORY[0x1E69E9840];
+  [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
 }
 
 - (void)outputContextManagerImplDidExpireWithReplacementImpl:(id)impl

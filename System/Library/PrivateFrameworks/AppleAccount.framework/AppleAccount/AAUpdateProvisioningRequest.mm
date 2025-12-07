@@ -96,6 +96,7 @@
   v18 = 0;
   v8 = [MEMORY[0x1E696AE40] dataWithPropertyList:v6 format:100 options:0 error:&v18];
   v9 = v18;
+  v10 = v9;
   if (v8)
   {
     [v4 setHTTPBody:v8];
@@ -103,23 +104,23 @@
 
   else
   {
-    v10 = _AALogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _AALogSystem(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      localizedDescription = [v9 localizedDescription];
+      localizedDescription = [v10 localizedDescription];
       *buf = 138412290;
       v21 = localizedDescription;
-      _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+      _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
     }
   }
 
-  v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:objc_msgSend(v8 length:"bytes") encoding:{objc_msgSend(v8, "length"), 4}];
-  v13 = _AALogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:objc_msgSend(v8 length:"bytes") encoding:{objc_msgSend(v8, "length"), 4}];
+  v14 = _AALogSystem(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = v12;
-    _os_log_impl(&dword_1B6F6A000, v13, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+    v21 = v13;
+    _os_log_impl(&dword_1B6F6A000, v14, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
 
   [v4 setHTTPMethod:@"POST"];
@@ -130,8 +131,6 @@
 
   [v4 addValue:@"application/xml" forHTTPHeaderField:@"Content-Type"];
   [v4 aa_addMultiUserDeviceHeaderIfEnabled];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

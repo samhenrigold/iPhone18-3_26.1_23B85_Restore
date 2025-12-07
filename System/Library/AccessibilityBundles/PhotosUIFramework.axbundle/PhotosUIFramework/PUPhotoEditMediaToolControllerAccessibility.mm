@@ -1,7 +1,11 @@
 @interface PUPhotoEditMediaToolControllerAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)_updateLivePhotoButtonAnimated:(BOOL)animated;
+- (void)_updateMuteButtonAnimated:(BOOL)animated;
 - (void)_updateTrimControlAndToolbarButtons;
+- (void)reloadToolbarButtons:(BOOL)buttons;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation PUPhotoEditMediaToolControllerAccessibility
@@ -255,11 +259,43 @@ id __89__PUPhotoEditMediaToolControllerAccessibility__accessibilityLoadAccessibi
   return v3;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PUPhotoEditMediaToolControllerAccessibility;
+  [(PUPhotoEditMediaToolControllerAccessibility *)&v4 viewDidAppear:appear];
+  [(PUPhotoEditMediaToolControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
 - (void)_updateTrimControlAndToolbarButtons
 {
   v3.receiver = self;
   v3.super_class = PUPhotoEditMediaToolControllerAccessibility;
   [(PUPhotoEditMediaToolControllerAccessibility *)&v3 _updateTrimControlAndToolbarButtons];
+  [(PUPhotoEditMediaToolControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)reloadToolbarButtons:(BOOL)buttons
+{
+  v4.receiver = self;
+  v4.super_class = PUPhotoEditMediaToolControllerAccessibility;
+  [(PUPhotoEditMediaToolControllerAccessibility *)&v4 reloadToolbarButtons:buttons];
+  [(PUPhotoEditMediaToolControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)_updateLivePhotoButtonAnimated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = PUPhotoEditMediaToolControllerAccessibility;
+  [(PUPhotoEditMediaToolControllerAccessibility *)&v4 _updateLivePhotoButtonAnimated:animated];
+  [(PUPhotoEditMediaToolControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)_updateMuteButtonAnimated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = PUPhotoEditMediaToolControllerAccessibility;
+  [(PUPhotoEditMediaToolControllerAccessibility *)&v4 _updateMuteButtonAnimated:animated];
   [(PUPhotoEditMediaToolControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 

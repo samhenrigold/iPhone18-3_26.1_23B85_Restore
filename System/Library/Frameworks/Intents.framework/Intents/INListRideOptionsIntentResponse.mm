@@ -23,8 +23,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v17[4] = *MEMORY[0x1E69E9840];
-  v16[0] = @"code";
+  v16[4] = *MEMORY[0x1E69E9840];
+  v15[0] = @"code";
   code = [(INListRideOptionsIntentResponse *)self code];
   v4 = code;
   if (code < (INListRideOptionsIntentResponseCodeFailurePreviousRideNeedsFeedback|INListRideOptionsIntentResponseCodeReady))
@@ -39,8 +39,8 @@
     v6 = 0;
   }
 
-  v17[0] = null;
-  v16[1] = @"rideOptions";
+  v16[0] = null;
+  v15[1] = @"rideOptions";
   rideOptions = [(INListRideOptionsIntentResponse *)self rideOptions];
   null2 = rideOptions;
   if (!rideOptions)
@@ -48,8 +48,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[1] = null2;
-  v16[2] = @"paymentMethods";
+  v16[1] = null2;
+  v15[2] = @"paymentMethods";
   paymentMethods = [(INListRideOptionsIntentResponse *)self paymentMethods];
   null3 = paymentMethods;
   if (!paymentMethods)
@@ -57,8 +57,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[2] = null3;
-  v16[3] = @"expirationDate";
+  v16[2] = null3;
+  v15[3] = @"expirationDate";
   expirationDate = [(INListRideOptionsIntentResponse *)self expirationDate];
   null4 = expirationDate;
   if (!expirationDate)
@@ -66,8 +66,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[3] = null4;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v16[3] = null4;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
   if (!expirationDate)
   {
   }
@@ -83,8 +83,6 @@
   if (v4 >= 0xB)
   {
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -266,7 +264,7 @@
 
 - (INListRideOptionsIntentResponse)initWithCode:(INListRideOptionsIntentResponseCode)code userActivity:(NSUserActivity *)userActivity
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = userActivity;
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -284,21 +282,20 @@
 
     v10 = v9;
     *buf = 136315906;
-    v16 = "[INListRideOptionsIntentResponse initWithCode:userActivity:]";
-    v17 = 2048;
-    v18 = code;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = v6;
+    v15 = "[INListRideOptionsIntentResponse initWithCode:userActivity:]";
+    v16 = 2048;
+    v17 = code;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = v6;
     _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s code = %zd (%@), userActivity = %@", buf, 0x2Au);
   }
 
-  v14.receiver = self;
-  v14.super_class = INListRideOptionsIntentResponse;
-  v11 = [(INIntentResponse *)&v14 _initWithCode:code userActivity:v6];
+  v13.receiver = self;
+  v13.super_class = INListRideOptionsIntentResponse;
+  v11 = [(INIntentResponse *)&v13 _initWithCode:code userActivity:v6];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

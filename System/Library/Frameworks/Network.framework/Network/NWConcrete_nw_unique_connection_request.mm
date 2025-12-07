@@ -15,7 +15,7 @@
     v24 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_unique_connection_request_copy_description";
-    v25 = _os_log_send_and_compose_impl();
+    v25 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v24, 16, "%{public}s called with null request", buf, 12);
 
     out[0] = OS_LOG_TYPE_ERROR;
     LOBYTE(v33) = 0;
@@ -214,18 +214,18 @@ LABEL_51:
 
 - (void)dealloc
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   rejectTimer = self->rejectTimer;
   if (rejectTimer)
   {
-    nw_queue_cancel_source(rejectTimer, a2);
+    nw_queue_cancel_source(rejectTimer);
     self->rejectTimer = 0;
   }
 
   preexistingConnectionTimer = self->preexistingConnectionTimer;
   if (preexistingConnectionTimer)
   {
-    nw_queue_cancel_source(preexistingConnectionTimer, a2);
+    nw_queue_cancel_source(preexistingConnectionTimer);
     self->preexistingConnectionTimer = 0;
   }
 
@@ -246,16 +246,14 @@ LABEL_51:
   networkd_settings_init();
   v6 = gLogObj;
   *buf = 136446466;
-  v20 = "[NWConcrete_nw_unique_connection_request dealloc]";
-  v21 = 2114;
+  v18 = "[NWConcrete_nw_unique_connection_request dealloc]";
+  v19 = 2114;
   selfCopy5 = self;
-  v15 = 22;
-  v14 = buf;
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s Dealloc of %{public}@ with requestCompletionBlock present", buf, 22);
 
   type = OS_LOG_TYPE_ERROR;
-  v17 = 0;
-  if (__nwlog_fault(v7, &type, &v17))
+  v15 = 0;
+  if (__nwlog_fault(v7, &type, &v15))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
@@ -266,14 +264,14 @@ LABEL_51:
       if (os_log_type_enabled(v8, type))
       {
         *buf = 136446466;
-        v20 = "[NWConcrete_nw_unique_connection_request dealloc]";
-        v21 = 2114;
+        v18 = "[NWConcrete_nw_unique_connection_request dealloc]";
+        v19 = 2114;
         selfCopy5 = self;
         _os_log_impl(&dword_181A37000, v8, v9, "%{public}s Dealloc of %{public}@ with requestCompletionBlock present", buf, 0x16u);
       }
     }
 
-    else if (v17 == 1)
+    else if (v15 == 1)
     {
       backtrace_string = __nw_create_backtrace_string();
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -286,11 +284,11 @@ LABEL_51:
         if (v12)
         {
           *buf = 136446722;
-          v20 = "[NWConcrete_nw_unique_connection_request dealloc]";
-          v21 = 2114;
+          v18 = "[NWConcrete_nw_unique_connection_request dealloc]";
+          v19 = 2114;
           selfCopy5 = self;
-          v23 = 2082;
-          v24 = backtrace_string;
+          v21 = 2082;
+          v22 = backtrace_string;
           _os_log_impl(&dword_181A37000, v8, v11, "%{public}s Dealloc of %{public}@ with requestCompletionBlock present, dumping backtrace:%{public}s", buf, 0x20u);
         }
 
@@ -306,8 +304,8 @@ LABEL_51:
       if (v12)
       {
         *buf = 136446466;
-        v20 = "[NWConcrete_nw_unique_connection_request dealloc]";
-        v21 = 2114;
+        v18 = "[NWConcrete_nw_unique_connection_request dealloc]";
+        v19 = 2114;
         selfCopy5 = self;
         _os_log_impl(&dword_181A37000, v8, v11, "%{public}s Dealloc of %{public}@ with requestCompletionBlock present, no backtrace", buf, 0x16u);
       }
@@ -322,8 +320,8 @@ LABEL_51:
       if (os_log_type_enabled(v8, type))
       {
         *buf = 136446466;
-        v20 = "[NWConcrete_nw_unique_connection_request dealloc]";
-        v21 = 2114;
+        v18 = "[NWConcrete_nw_unique_connection_request dealloc]";
+        v19 = 2114;
         selfCopy5 = self;
         _os_log_impl(&dword_181A37000, v8, v13, "%{public}s Dealloc of %{public}@ with requestCompletionBlock present, backtrace limit exceeded", buf, 0x16u);
       }
@@ -337,9 +335,9 @@ LABEL_14:
   }
 
 LABEL_15:
-  v16.receiver = self;
-  v16.super_class = NWConcrete_nw_unique_connection_request;
-  [(NWConcrete_nw_unique_connection_request *)&v16 dealloc:v14];
+  v14.receiver = self;
+  v14.super_class = NWConcrete_nw_unique_connection_request;
+  [(NWConcrete_nw_unique_connection_request *)&v14 dealloc];
 }
 
 - (NWConcrete_nw_unique_connection_request)init
@@ -359,7 +357,7 @@ LABEL_15:
   v6 = __nwlog_obj();
   *buf = 136446210;
   v18 = "[NWConcrete_nw_unique_connection_request init]";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v14 = 0;

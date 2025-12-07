@@ -11,6 +11,7 @@
 - (dispatch_queue_t)_doesLocalMeshContainPrimaryResident:(dispatch_queue_t *)result;
 - (id)_consensusPrimaryFromResidentCandidates:(uint64_t)candidates;
 - (id)_createDebounceTimerWithInterval:(void *)interval;
+- (id)_handlePrimaryResidentPingFailed;
 - (id)_meshNodesToResidentDevices;
 - (id)_retrievePrimaryMeshInformationWithContext:(void *)context otherResidents:;
 - (id)dumpState;
@@ -23,7 +24,6 @@
 - (uint64_t)_currentStateRequiresElection;
 - (uint64_t)_doesLocalMeshContainPrimaryResident:(void *)resident meshCandidates:;
 - (uint64_t)_expectState:(void *)state action:;
-- (uint64_t)_handlePrimaryResidentPingFailed;
 - (uint64_t)_maybeNotifyDelegateUpdatedPrimary:(void *)primary currentPrimary:;
 - (void)_clearPessimisticMeshState;
 - (void)_determineIfPrimaryMesh;
@@ -100,8 +100,8 @@
 
 void __48__HMDPrimaryElectionCoordinationAddOn_dumpState__block_invoke(uint64_t a1)
 {
-  v20[4] = *MEMORY[0x277D85DE8];
-  v19[0] = @"Leader";
+  v19[4] = *MEMORY[0x277D85DE8];
+  v18[0] = @"Leader";
   v2 = [*(*(a1 + 32) + 8) leaderNode];
   v3 = [v2 description];
   v4 = v3;
@@ -111,8 +111,8 @@ void __48__HMDPrimaryElectionCoordinationAddOn_dumpState__block_invoke(uint64_t 
     v5 = v3;
   }
 
-  v20[0] = v5;
-  v19[1] = @"Nodes";
+  v19[0] = v5;
+  v18[1] = @"Nodes";
   v6 = [*(*(a1 + 32) + 8) meshNodes];
   v7 = [v6 description];
   v8 = v7;
@@ -122,12 +122,12 @@ void __48__HMDPrimaryElectionCoordinationAddOn_dumpState__block_invoke(uint64_t 
     v9 = v7;
   }
 
-  v20[1] = v9;
-  v19[2] = @"Missing Residents";
+  v19[1] = v9;
+  v18[2] = @"Missing Residents";
   v10 = [(HMDPrimaryElectionCoordinationAddOn *)*(a1 + 32) residentDevicesNotFoundInMesh];
   v11 = [v10 na_map:&__block_literal_global_126];
-  v20[2] = v11;
-  v19[3] = @"State";
+  v19[2] = v11;
+  v18[3] = @"State";
   v12 = [*(a1 + 32) state];
   if (v12 > 5)
   {
@@ -140,13 +140,11 @@ void __48__HMDPrimaryElectionCoordinationAddOn_dumpState__block_invoke(uint64_t 
   }
 
   v14 = v13;
-  v20[3] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:4];
+  v19[3] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
   v16 = *(*(a1 + 40) + 8);
   v17 = *(v16 + 40);
   *(v16 + 40) = v15;
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)residentDevicesNotFoundInMesh
@@ -195,7 +193,7 @@ void __48__HMDPrimaryElectionCoordinationAddOn_dumpState__block_invoke(uint64_t 
 
 - (void)timerDidFire:(id)fire
 {
-  v127 = *MEMORY[0x277D85DE8];
+  v126 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   dispatch_assert_queue_V2(self->_queue);
   debounceTimer = [(HMDPrimaryElectionCoordinationAddOn *)self debounceTimer];
@@ -256,7 +254,7 @@ void __48__HMDPrimaryElectionCoordinationAddOn_dumpState__block_invoke(uint64_t 
                 *&buf[12] = 2112;
                 *&buf[14] = primaryResidentDevice;
                 *&buf[22] = 2114;
-                v124 = _meshNodesToResidentDevices;
+                v123 = _meshNodesToResidentDevices;
                 _os_log_impl(&dword_229538000, v75, OS_LOG_TYPE_INFO, "%{public}@Broadcasting the current primary %@ to nodes %{public}@", buf, 0x20u);
               }
 
@@ -284,14 +282,14 @@ void __48__HMDPrimaryElectionCoordinationAddOn_dumpState__block_invoke(uint64_t 
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __101__HMDPrimaryElectionCoordinationAddOn__determineIfPrimaryMeshAfterWaitingForPrimaryResidentDiscovery__block_invoke;
-          v124 = &unk_278689CB0;
-          v125 = selfCopy;
-          v122[0] = MEMORY[0x277D85DD0];
-          v122[1] = 3221225472;
-          v122[2] = __101__HMDPrimaryElectionCoordinationAddOn__determineIfPrimaryMeshAfterWaitingForPrimaryResidentDiscovery__block_invoke_2;
-          v122[3] = &unk_278689CD8;
-          v122[4] = selfCopy;
-          v71 = [firstPrimaryResidentDiscoveryAttemptCompletionFuture inContext:_meshNodesToResidentDevices then:buf orRecover:v122];
+          v123 = &unk_278689CB0;
+          v124 = selfCopy;
+          v121[0] = MEMORY[0x277D85DD0];
+          v121[1] = 3221225472;
+          v121[2] = __101__HMDPrimaryElectionCoordinationAddOn__determineIfPrimaryMeshAfterWaitingForPrimaryResidentDiscovery__block_invoke_2;
+          v121[3] = &unk_278689CD8;
+          v121[4] = selfCopy;
+          v71 = [firstPrimaryResidentDiscoveryAttemptCompletionFuture inContext:_meshNodesToResidentDevices then:buf orRecover:v121];
 LABEL_81:
 
 LABEL_82:
@@ -417,9 +415,9 @@ LABEL_74:
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __68__HMDPrimaryElectionCoordinationAddOn__handlePingTimerExpiredAsNode__block_invoke;
-        v124 = &unk_27868A1D8;
-        v125 = v61;
-        v126 = pingTimer3;
+        v123 = &unk_27868A1D8;
+        v124 = v61;
+        v125 = pingTimer3;
         _meshNodesToResidentDevices = pingTimer3;
         [(HMDLocalElectionMeshController *)meshController sendPingCommandToLeaderWithCompletion:buf];
 
@@ -444,7 +442,7 @@ LABEL_104:
       {
         if (v56)
         {
-          v120 = v51;
+          v119 = v51;
           v57 = HMFGetLogIdentifier();
           state5 = [(HMDPrimaryElectionCoordinationAddOn *)v54 state];
           if (state5 > 5)
@@ -464,10 +462,10 @@ LABEL_104:
           *&buf[12] = 2114;
           *&buf[14] = v88;
           *&buf[22] = 2114;
-          v124 = shortDescription;
+          v123 = shortDescription;
           _os_log_impl(&dword_229538000, v55, OS_LOG_TYPE_INFO, "%{public}@We are the leader in state: %{public}@. Sending periodic ping notification to followers with primary resident: %{public}@", buf, 0x20u);
 
-          v51 = v120;
+          v51 = v119;
         }
 
         objc_autoreleasePoolPop(v53);
@@ -485,7 +483,7 @@ LABEL_104:
 
         if (!v93)
         {
-          v121 = v51;
+          v120 = v51;
           v98 = primaryResidentDevice2;
           v99 = primaryResidentDevice2;
           v100 = [(HMDPrimaryElectionCoordinationAddOn *)v54 meshNodeForResident:v99];
@@ -535,9 +533,9 @@ LABEL_104:
             *buf = MEMORY[0x277D85DD0];
             *&buf[8] = 3221225472;
             *&buf[16] = __72__HMDPrimaryElectionCoordinationAddOn_sendPingRequestToPrimaryResident___block_invoke;
-            v124 = &unk_27868A1D8;
-            v125 = meshLeaderToPrimaryResidentPingResponseTimer4;
-            v126 = v102;
+            v123 = &unk_27868A1D8;
+            v124 = meshLeaderToPrimaryResidentPingResponseTimer4;
+            v125 = v102;
             v118 = meshLeaderToPrimaryResidentPingResponseTimer4;
             [(HMDLocalElectionMeshController *)v117 sendPingRequestToNode:v100 withCompletion:buf];
           }
@@ -559,7 +557,7 @@ LABEL_104:
           }
 
           primaryResidentDevice2 = v98;
-          v51 = v121;
+          v51 = v120;
           goto LABEL_103;
         }
 
@@ -679,7 +677,7 @@ LABEL_103:
       }
 
       objc_autoreleasePoolPop(v43);
-      [(HMDPrimaryElectionCoordinationAddOn *)selfCopy4 _handlePrimaryResidentPingFailed];
+      [(HMDPrimaryElectionCoordinationAddOn *)&selfCopy4->super.isa _handlePrimaryResidentPingFailed];
       [(HMDPrimaryElectionCoordinationAddOn *)selfCopy4 setMeshLeaderToPrimaryResidentPingResponseTimer:0];
     }
 
@@ -750,13 +748,11 @@ LABEL_103:
   }
 
 LABEL_105:
-
-  v119 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_pingPrimaryResident
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (self)
   {
     dispatch_assert_queue_V2(self[2]);
@@ -772,7 +768,7 @@ LABEL_105:
         {
           v6 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v30 = v6;
+          v29 = v6;
           _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Pessimistic secondary mesh state pinging over IDS", buf, 0xCu);
         }
 
@@ -793,22 +789,22 @@ LABEL_105:
           objc_initWeak(buf, self);
           objc_initWeak(&location, context);
           v12 = objc_getProperty(self, v11, 136, 1);
-          v25[0] = MEMORY[0x277D85DD0];
-          v25[1] = 3221225472;
-          v25[2] = __59__HMDPrimaryElectionCoordinationAddOn__pingPrimaryResident__block_invoke;
-          v25[3] = &unk_278686F60;
-          objc_copyWeak(&v26, buf);
-          objc_copyWeak(&v27, &location);
-          v23[0] = MEMORY[0x277D85DD0];
-          v23[1] = 3221225472;
-          v23[2] = __59__HMDPrimaryElectionCoordinationAddOn__pingPrimaryResident__block_invoke_58;
-          v23[3] = &unk_278686F88;
-          objc_copyWeak(&v24, buf);
-          v13 = [v10 inContext:v12 then:v25 orRecover:v23];
+          v24[0] = MEMORY[0x277D85DD0];
+          v24[1] = 3221225472;
+          v24[2] = __59__HMDPrimaryElectionCoordinationAddOn__pingPrimaryResident__block_invoke;
+          v24[3] = &unk_278686F60;
+          objc_copyWeak(&v25, buf);
+          objc_copyWeak(&v26, &location);
+          v22[0] = MEMORY[0x277D85DD0];
+          v22[1] = 3221225472;
+          v22[2] = __59__HMDPrimaryElectionCoordinationAddOn__pingPrimaryResident__block_invoke_58;
+          v22[3] = &unk_278686F88;
+          objc_copyWeak(&v23, buf);
+          v13 = [v10 inContext:v12 then:v24 orRecover:v22];
 
-          objc_destroyWeak(&v24);
-          objc_destroyWeak(&v27);
+          objc_destroyWeak(&v23);
           objc_destroyWeak(&v26);
+          objc_destroyWeak(&v25);
           objc_destroyWeak(&location);
           objc_destroyWeak(buf);
         }
@@ -822,7 +818,7 @@ LABEL_105:
           {
             v21 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v30 = v21;
+            v29 = v21;
             _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@We're not online, restarting ping timer", buf, 0xCu);
           }
 
@@ -841,7 +837,7 @@ LABEL_105:
         {
           v17 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v30 = v17;
+          v29 = v17;
           _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@No current primary resident, doing meta mesh election", buf, 0xCu);
         }
 
@@ -851,17 +847,15 @@ LABEL_105:
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
-- (uint64_t)_handlePrimaryResidentPingFailed
+- (id)_handlePrimaryResidentPingFailed
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
-    result = [*(result + 8) isLeader];
+    result = [result[1] isLeader];
     if (result)
     {
       result = [v1 state];
@@ -873,18 +867,17 @@ LABEL_105:
         if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
         {
           v5 = HMFGetLogIdentifier();
-          v7 = 138543362;
-          v8 = v5;
-          _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@The ping request to the primary resident failed. Starting an election", &v7, 0xCu);
+          v6 = 138543362;
+          v7 = v5;
+          _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@The ping request to the primary resident failed. Starting an election", &v6, 0xCu);
         }
 
         objc_autoreleasePoolPop(v2);
-        result = [v3 _selectPrimaryResidentWithReason:0];
+        return [v3 _selectPrimaryResidentWithReason:0];
       }
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -967,19 +960,19 @@ LABEL_105:
 
 void __81__HMDPrimaryElectionCoordinationAddOn_createMissingResidentDevicesFromMeshNodes___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) hmd_residentDeviceForMeshNode:v3];
   if (!v4)
   {
     v5 = *(a1 + 40);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __81__HMDPrimaryElectionCoordinationAddOn_createMissingResidentDevicesFromMeshNodes___block_invoke_2;
-    v15[3] = &unk_278686FB0;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __81__HMDPrimaryElectionCoordinationAddOn_createMissingResidentDevicesFromMeshNodes___block_invoke_2;
+    v14[3] = &unk_278686FB0;
     v6 = v3;
-    v16 = v6;
-    v7 = [v5 na_firstObjectPassingTest:v15];
+    v15 = v6;
+    v7 = [v5 na_firstObjectPassingTest:v14];
     if (v7)
     {
       v8 = [HMDResidentDevice alloc];
@@ -998,9 +991,9 @@ void __81__HMDPrimaryElectionCoordinationAddOn_createMissingResidentDevicesFromM
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v18 = v13;
-        v19 = 2112;
-        v20 = v6;
+        v17 = v13;
+        v18 = 2112;
+        v19 = v6;
         _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to find device matching node %@, skipping", buf, 0x16u);
       }
 
@@ -1008,13 +1001,11 @@ void __81__HMDPrimaryElectionCoordinationAddOn_createMissingResidentDevicesFromM
       v4 = 0;
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __81__HMDPrimaryElectionCoordinationAddOn_createMissingResidentDevicesFromMeshNodes___block_invoke_64(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1022,17 +1013,15 @@ void __81__HMDPrimaryElectionCoordinationAddOn_createMissingResidentDevicesFromM
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Creating new resident %@ from mesh node", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Creating new resident %@ from mesh node", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   [*(a1 + 40) primaryElectionAddOn:*(a1 + 32) didUpdateResidentDevice:v3];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __81__HMDPrimaryElectionCoordinationAddOn_createMissingResidentDevicesFromMeshNodes___block_invoke_2(uint64_t a1, void *a2)
@@ -1080,10 +1069,10 @@ uint64_t __81__HMDPrimaryElectionCoordinationAddOn_createMissingResidentDevicesF
 
 - (void)_startSecondaryMeshTimer
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (!self)
   {
-    goto LABEL_17;
+    return;
   }
 
   dispatch_assert_queue_V2(self[2]);
@@ -1097,9 +1086,9 @@ uint64_t __81__HMDPrimaryElectionCoordinationAddOn_createMissingResidentDevicesF
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v25 = 138543362;
-      v26 = v13;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Starting secondary mesh timer", &v25, 0xCu);
+      v24 = 138543362;
+      v25 = v13;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Starting secondary mesh timer", &v24, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -1141,9 +1130,9 @@ uint64_t __81__HMDPrimaryElectionCoordinationAddOn_createMissingResidentDevicesF
     if (v8)
     {
       v17 = HMFGetLogIdentifier();
-      v25 = 138543362;
-      v26 = v17;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Resuming secondary mesh timer", &v25, 0xCu);
+      v24 = 138543362;
+      v25 = v17;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Resuming secondary mesh timer", &v24, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -1152,20 +1141,18 @@ LABEL_16:
     secondaryMeshTimer5 = [(dispatch_queue_t *)v18 secondaryMeshTimer];
     [secondaryMeshTimer5 resume];
 
-    goto LABEL_17;
+    return;
   }
 
   if (v8)
   {
     v9 = HMFGetLogIdentifier();
-    v25 = 138543362;
-    v26 = v9;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Secondary mesh timer is already running", &v25, 0xCu);
+    v24 = 138543362;
+    v25 = v9;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Secondary mesh timer is already running", &v24, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
-LABEL_17:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_retrievePrimaryMeshInformationWithContext:(void *)context otherResidents:
@@ -1223,7 +1210,7 @@ LABEL_17:
 
 uint64_t __59__HMDPrimaryElectionCoordinationAddOn__pingPrimaryResident__block_invoke(uint64_t a1, void *a2)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = objc_loadWeakRetained((a1 + 40));
@@ -1252,9 +1239,9 @@ LABEL_27:
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v44 = v13;
-        v45 = 2112;
-        v46 = v9;
+        v43 = v13;
+        v44 = 2112;
+        v45 = v9;
         _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Our mesh info: %@", buf, 0x16u);
       }
 
@@ -1272,9 +1259,9 @@ LABEL_27:
           v20 = HMFGetLogIdentifier();
           v21 = [v9 reachableIPAccessories];
           *buf = 138543618;
-          v44 = v20;
-          v45 = 1024;
-          LODWORD(v46) = v21;
+          v43 = v20;
+          v44 = 1024;
+          LODWORD(v45) = v21;
           _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@The current primary mesh has 0 reachable IP accessories and we have %d, taking over the primary mesh", buf, 0x12u);
         }
 
@@ -1303,20 +1290,20 @@ LABEL_26:
           if (v34)
           {
             HMFGetLogIdentifier();
-            v37 = v42 = v17;
-            v41 = [v14 primary];
-            v38 = [v41 identifier];
+            v36 = v41 = v17;
             v40 = [v14 primary];
-            v39 = [v40 name];
+            v37 = [v40 identifier];
+            v39 = [v14 primary];
+            v38 = [v39 name];
             *buf = 138543874;
-            v44 = v37;
-            v45 = 2114;
-            v46 = v38;
-            v47 = 2112;
-            v48 = v39;
+            v43 = v36;
+            v44 = 2114;
+            v45 = v37;
+            v46 = 2112;
+            v47 = v38;
             _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@The current primary thinks the primary is another resident %{public}@ (%@), taking over the primary mesh", buf, 0x20u);
 
-            v17 = v42;
+            v17 = v41;
           }
 
           goto LABEL_12;
@@ -1326,7 +1313,7 @@ LABEL_26:
         {
           v26 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v44 = v26;
+          v43 = v26;
           v28 = "%{public}@The current primary responded and we are not better than it, staying in secondary mesh and restarting ping timer";
           v29 = v19;
           v30 = 12;
@@ -1344,9 +1331,9 @@ LABEL_26:
           v26 = HMFGetLogIdentifier();
           v27 = [v14 reachableIPAccessories];
           *buf = 138543618;
-          v44 = v26;
-          v45 = 1024;
-          LODWORD(v46) = v27;
+          v43 = v26;
+          v44 = 1024;
+          LODWORD(v45) = v27;
           v28 = "%{public}@The current primary has reachable %d IP accessories (we have 0), staying in secondary mesh and restarting ping timer";
           v29 = v19;
           v30 = 18;
@@ -1368,7 +1355,7 @@ LABEL_24:
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v44 = v25;
+      v43 = v25;
       _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Primary resident didn't respond, doing meta mesh election", buf, 0xCu);
     }
 
@@ -1379,13 +1366,12 @@ LABEL_24:
 
 LABEL_28:
 
-  v35 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __59__HMDPrimaryElectionCoordinationAddOn__pingPrimaryResident__block_invoke_58(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained && (![v3 isHMError] || objc_msgSend(v3, "code") != 23))
@@ -1396,11 +1382,11 @@ uint64_t __59__HMDPrimaryElectionCoordinationAddOn__pingPrimaryResident__block_i
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Ping operation completed with error: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Ping operation completed with error: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -1408,13 +1394,12 @@ uint64_t __59__HMDPrimaryElectionCoordinationAddOn__pingPrimaryResident__block_i
     [(HMDPrimaryElectionCoordinationAddOn *)v6 _startSecondaryMeshTimer];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (uint64_t)_expectState:(void *)state action:
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   if (!self)
   {
@@ -1455,15 +1440,15 @@ LABEL_13:
       }
 
       v16 = v15;
-      v19 = 138544130;
-      v20 = v12;
-      v21 = 2114;
-      v22 = v14;
-      v23 = 2114;
-      v24 = v16;
-      v25 = 2114;
-      v26 = stateCopy;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Expecting state %{public}@, got %{public}@ - action: %{public}@", &v19, 0x2Au);
+      v18 = 138544130;
+      v19 = v12;
+      v20 = 2114;
+      v21 = v14;
+      v22 = 2114;
+      v23 = v16;
+      v24 = 2114;
+      v25 = stateCopy;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Expecting state %{public}@, got %{public}@ - action: %{public}@", &v18, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -1473,13 +1458,12 @@ LABEL_13:
   v7 = 1;
 LABEL_14:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t __97__HMDPrimaryElectionCoordinationAddOn__retrievePrimaryMeshInformationWithContext_otherResidents___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = objc_loadWeakRetained((a1 + 48));
@@ -1501,8 +1485,8 @@ uint64_t __97__HMDPrimaryElectionCoordinationAddOn__retrievePrimaryMeshInformati
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v11;
+      v18 = 138543362;
+      v19 = v11;
       v12 = "%{public}@No context, bailing";
       goto LABEL_5;
     }
@@ -1516,11 +1500,11 @@ uint64_t __97__HMDPrimaryElectionCoordinationAddOn__retrievePrimaryMeshInformati
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v11;
+      v18 = 138543362;
+      v19 = v11;
       v12 = "%{public}@Ignoring stale find primary mesh operation";
 LABEL_5:
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, v12, &v19, 0xCu);
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, v12, &v18, 0xCu);
     }
   }
 
@@ -1541,13 +1525,12 @@ LABEL_5:
   v16 = 2;
 LABEL_10:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 uint64_t __58__HMDPrimaryElectionCoordinationAddOn__doMetaMeshElection__block_invoke(uint64_t a1, void *a2)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = objc_loadWeakRetained((a1 + 40));
@@ -1565,12 +1548,12 @@ uint64_t __58__HMDPrimaryElectionCoordinationAddOn__doMetaMeshElection__block_in
         v10 = v9;
         if (v9)
         {
-          v43[0] = MEMORY[0x277D85DD0];
-          v43[1] = 3221225472;
-          v43[2] = __58__HMDPrimaryElectionCoordinationAddOn__doMetaMeshElection__block_invoke_53;
-          v43[3] = &unk_278686F18;
-          v44 = v9;
-          v11 = [v3 na_firstObjectPassingTest:v43];
+          v42[0] = MEMORY[0x277D85DD0];
+          v42[1] = 3221225472;
+          v42[2] = __58__HMDPrimaryElectionCoordinationAddOn__doMetaMeshElection__block_invoke_53;
+          v42[3] = &unk_278686F18;
+          v43 = v9;
+          v11 = [v3 na_firstObjectPassingTest:v42];
         }
 
         else
@@ -1608,9 +1591,9 @@ LABEL_33:
               v29 = HMFGetLogIdentifier();
               v30 = [v11 reachableIPAccessories];
               *buf = 138543618;
-              v46 = v29;
-              v47 = 1024;
-              v48 = v30;
+              v45 = v29;
+              v46 = 1024;
+              v47 = v30;
               v31 = "%{public}@The current primary responded and has %d accessories, staying secondary";
               v32 = v28;
               v33 = 18;
@@ -1631,9 +1614,9 @@ LABEL_31:
             v36 = HMFGetLogIdentifier();
             v37 = [v22 reachableIPAccessories];
             *buf = 138543618;
-            v46 = v36;
-            v47 = 1024;
-            v48 = v37;
+            v45 = v36;
+            v46 = 1024;
+            v47 = v37;
             v38 = "%{public}@We have %d reachable accessories trying to become primary";
             v39 = v28;
             v40 = 18;
@@ -1659,7 +1642,7 @@ LABEL_37:
 
           v29 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v46 = v29;
+          v45 = v29;
           v31 = "%{public}@The primary responded, staying secondary";
         }
 
@@ -1671,7 +1654,7 @@ LABEL_37:
             {
               v36 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v46 = v36;
+              v45 = v36;
               v38 = "%{public}@Nobody has reachable IP accessories, becoming primary";
               v39 = v28;
               v40 = 12;
@@ -1693,7 +1676,7 @@ LABEL_38:
 
           v29 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v46 = v29;
+          v45 = v29;
           v31 = "%{public}@Another mesh has accessories and we don't, staying secondary";
         }
 
@@ -1709,7 +1692,7 @@ LABEL_38:
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v46 = v19;
+        v45 = v19;
         _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@No other residents responded to us, becoming primary", buf, 0xCu);
       }
 
@@ -1727,7 +1710,7 @@ LABEL_38:
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v46 = v15;
+        v45 = v15;
         _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@We're not online, going to secondary state and resuming pinging", buf, 0xCu);
       }
 
@@ -1739,13 +1722,12 @@ LABEL_38:
 
 LABEL_34:
 
-  v41 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __58__HMDPrimaryElectionCoordinationAddOn__doMetaMeshElection__block_invoke_57(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained && (![v3 isHMError] || objc_msgSend(v3, "code") != 23))
@@ -1756,11 +1738,11 @@ uint64_t __58__HMDPrimaryElectionCoordinationAddOn__doMetaMeshElection__block_in
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Ping operation completed with error: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Ping operation completed with error: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -1768,7 +1750,6 @@ uint64_t __58__HMDPrimaryElectionCoordinationAddOn__doMetaMeshElection__block_in
     [(HMDPrimaryElectionCoordinationAddOn *)v6 _startSecondaryMeshTimer];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1782,7 +1763,7 @@ uint64_t __58__HMDPrimaryElectionCoordinationAddOn__doMetaMeshElection__block_in
 
 void __68__HMDPrimaryElectionCoordinationAddOn__handlePingTimerExpiredAsNode__block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1796,10 +1777,10 @@ void __68__HMDPrimaryElectionCoordinationAddOn__handlePingTimerExpiredAsNode__bl
     }
 
     v8 = HMFGetLogIdentifier();
-    v26 = 138543618;
-    v27 = v8;
-    v28 = 2112;
-    v29 = v3;
+    v25 = 138543618;
+    v26 = v8;
+    v27 = 2112;
+    v28 = v3;
     v9 = "%{public}@Ping command to leader failed with error: %@.";
     v10 = v7;
     v11 = OS_LOG_TYPE_ERROR;
@@ -1814,15 +1795,15 @@ void __68__HMDPrimaryElectionCoordinationAddOn__handlePingTimerExpiredAsNode__bl
     }
 
     v8 = HMFGetLogIdentifier();
-    v26 = 138543362;
-    v27 = v8;
+    v25 = 138543362;
+    v26 = v8;
     v9 = "%{public}@Ping command to leader succeeded";
     v10 = v7;
     v11 = OS_LOG_TYPE_INFO;
     v12 = 12;
   }
 
-  _os_log_impl(&dword_229538000, v10, v11, v9, &v26, v12);
+  _os_log_impl(&dword_229538000, v10, v11, v9, &v25, v12);
 
 LABEL_7:
   objc_autoreleasePoolPop(v4);
@@ -1838,9 +1819,9 @@ LABEL_13:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       v24 = HMFGetLogIdentifier();
-      v26 = 138543362;
-      v27 = v24;
-      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Not resuming ping timer", &v26, 0xCu);
+      v25 = 138543362;
+      v26 = v24;
+      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Not resuming ping timer", &v25, 0xCu);
     }
 
     objc_autoreleasePoolPop(v21);
@@ -1860,9 +1841,9 @@ LABEL_13:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     v19 = HMFGetLogIdentifier();
-    v26 = 138543362;
-    v27 = v19;
-    _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Resuming ping timer", &v26, 0xCu);
+    v25 = 138543362;
+    v26 = v19;
+    _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Resuming ping timer", &v25, 0xCu);
   }
 
   objc_autoreleasePoolPop(v16);
@@ -1870,7 +1851,6 @@ LABEL_13:
   [v20 resume];
 
 LABEL_16:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)meshNodeForResident:(uint64_t)resident
@@ -1911,7 +1891,7 @@ LABEL_16:
 
 void __72__HMDPrimaryElectionCoordinationAddOn_sendPingRequestToPrimaryResident___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = [*(a1 + 40) meshLeaderToPrimaryResidentPingResponseTimer];
@@ -1930,11 +1910,11 @@ void __72__HMDPrimaryElectionCoordinationAddOn_sendPingRequestToPrimaryResident_
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         v14 = HMFGetLogIdentifier();
-        v16 = 138543618;
-        v17 = v14;
-        v18 = 2112;
-        v19 = v3;
-        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Ping request to the primary resident failed with error: %@.", &v16, 0x16u);
+        v15 = 138543618;
+        v16 = v14;
+        v17 = 2112;
+        v18 = v3;
+        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Ping request to the primary resident failed with error: %@.", &v15, 0x16u);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -1950,17 +1930,15 @@ void __72__HMDPrimaryElectionCoordinationAddOn_sendPingRequestToPrimaryResident_
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v9;
-      v18 = 2112;
-      v19 = v3;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Ignoring the error response to the ping request from the primary resident since the response timer has changed. Error: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v3;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Ignoring the error response to the ping request from the primary resident since the response timer has changed. Error: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __59__HMDPrimaryElectionCoordinationAddOn_meshNodeForResident___block_invoke(uint64_t a1, void *a2)
@@ -1974,42 +1952,42 @@ uint64_t __59__HMDPrimaryElectionCoordinationAddOn_meshNodeForResident___block_i
 
 - (void)sendNewPrimaryNotification:(void *)notification to:
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a2;
   notificationCopy = notification;
   dispatch_assert_queue_V2(self[2]);
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   obj = notificationCopy;
-  v7 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v7 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v26;
+    v9 = *v25;
     do
     {
       v10 = 0;
       do
       {
-        if (*v26 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * v10);
+        v11 = *(*(&v24 + 1) + 8 * v10);
         v12 = [HMDRemoteDeviceMessageDestination alloc];
         messageTargetUUID = [(dispatch_queue_t *)self messageTargetUUID];
         device = [v11 device];
         v15 = [(HMDRemoteDeviceMessageDestination *)v12 initWithTarget:messageTargetUUID device:device];
 
         v16 = [HMDRemoteMessage alloc];
-        v29 = @"uuid";
+        v28 = @"uuid";
         identifier = [v5 identifier];
         uUIDString = [identifier UUIDString];
-        v30 = uUIDString;
-        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+        v29 = uUIDString;
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
         v20 = [(HMDRemoteMessage *)v16 initWithName:@"mesh.currentPrimaryUpdate" qualityOfService:17 destination:v15 payload:v19 type:3 timeout:1 secure:0.0 restriction:[(dispatch_queue_t *)self messageTransportRestriction]];
 
         context = [(dispatch_queue_t *)self context];
@@ -2020,21 +1998,19 @@ uint64_t __59__HMDPrimaryElectionCoordinationAddOn_meshNodeForResident___block_i
       }
 
       while (v8 != v10);
-      v8 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v8 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
     }
 
     while (v8);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_determineIfPrimaryMesh
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (!self)
   {
-    goto LABEL_21;
+    return;
   }
 
   dispatch_assert_queue_V2(self[2]);
@@ -2048,35 +2024,35 @@ uint64_t __59__HMDPrimaryElectionCoordinationAddOn_meshNodeForResident___block_i
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v33 = v11;
+      v32 = v11;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Determining if we're in the primary mesh", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
-    context = [selfCopy context];
+    context = [(dispatch_queue_t *)selfCopy context];
     if (context)
     {
-      if ([selfCopy[1] isLeader])
+      if (([selfCopy[1] isLeader]& 1) != 0)
       {
         _meshNodesToResidentDevices = [(HMDPrimaryElectionCoordinationAddOn *)selfCopy _meshNodesToResidentDevices];
         v14 = MEMORY[0x277CBEB98];
         meshNodes = [selfCopy[1] meshNodes];
         v16 = [v14 setWithArray:meshNodes];
 
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __62__HMDPrimaryElectionCoordinationAddOn__determineIfPrimaryMesh__block_invoke;
-        v28[3] = &unk_278689438;
-        v28[4] = selfCopy;
-        v29 = context;
-        v30 = _meshNodesToResidentDevices;
-        v31 = v16;
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __62__HMDPrimaryElectionCoordinationAddOn__determineIfPrimaryMesh__block_invoke;
+        v27[3] = &unk_278689438;
+        v27[4] = selfCopy;
+        v28 = context;
+        v29 = _meshNodesToResidentDevices;
+        v30 = v16;
         v17 = v16;
         v18 = _meshNodesToResidentDevices;
-        [(HMDPrimaryElectionCoordinationAddOn *)selfCopy _requestElectionParametersFromCandidates:v18 completionHandler:v28];
+        [(HMDPrimaryElectionCoordinationAddOn *)selfCopy _requestElectionParametersFromCandidates:v18 completionHandler:v27];
 
 LABEL_20:
-        goto LABEL_21;
+        return;
       }
 
       v20 = objc_autoreleasePoolPush();
@@ -2086,7 +2062,7 @@ LABEL_20:
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v33 = v23;
+        v32 = v23;
         v24 = "%{public}@No longer leader, waiting for broadcast from the leader";
         v25 = v22;
         v26 = OS_LOG_TYPE_INFO;
@@ -2103,7 +2079,7 @@ LABEL_20:
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v33 = v23;
+        v32 = v23;
         v24 = "%{public}@Nil context in determineIfPrimaryMesh";
         v25 = v22;
         v26 = OS_LOG_TYPE_ERROR;
@@ -2113,7 +2089,7 @@ LABEL_18:
     }
 
     objc_autoreleasePoolPop(v20);
-    [v21 setState:0];
+    [(dispatch_queue_t *)v21 setState:0];
     goto LABEL_20;
   }
 
@@ -2136,20 +2112,18 @@ LABEL_18:
 
     v19 = v7;
     *buf = 138543618;
-    v33 = v5;
-    v34 = 2112;
-    v35 = v19;
+    v32 = v5;
+    v33 = 2112;
+    v34 = v19;
     _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Not determining if we are in the primary mesh due to current state: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-LABEL_21:
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __62__HMDPrimaryElectionCoordinationAddOn__determineIfPrimaryMesh__block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([(HMDPrimaryElectionCoordinationAddOn *)*(a1 + 32) _expectState:@"aborting determining primary mesh" action:?])
   {
@@ -2175,11 +2149,11 @@ void __62__HMDPrimaryElectionCoordinationAddOn__determineIfPrimaryMesh__block_in
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = HMFGetLogIdentifier();
-        v19 = 138543618;
-        v20 = v10;
-        v21 = 2114;
-        v22 = v4;
-        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unknown resident %{public}@", &v19, 0x16u);
+        v18 = 138543618;
+        v19 = v10;
+        v20 = 2114;
+        v21 = v4;
+        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unknown resident %{public}@", &v18, 0x16u);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -2196,11 +2170,11 @@ LABEL_10:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         v15 = HMFGetLogIdentifier();
-        v19 = 138543618;
-        v20 = v15;
-        v21 = 2114;
-        v22 = v11;
-        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Found other residents that could be in a primary mesh, checking if they are: %{public}@", &v19, 0x16u);
+        v18 = 138543618;
+        v19 = v15;
+        v20 = 2114;
+        v21 = v11;
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Found other residents that could be in a primary mesh, checking if they are: %{public}@", &v18, 0x16u);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -2225,13 +2199,11 @@ LABEL_17:
     v3 = v17;
 LABEL_18:
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestElectionParametersFromCandidates:(void *)candidates completionHandler:
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v5 = a2;
   candidatesCopy = candidates;
   if (self)
@@ -2240,7 +2212,7 @@ LABEL_18:
     context = [(dispatch_queue_t *)self context];
     if (context)
     {
-      v32 = candidatesCopy;
+      v31 = candidatesCopy;
       v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v5, "count")}];
       v8 = objc_autoreleasePoolPush();
       selfCopy = self;
@@ -2249,34 +2221,34 @@ LABEL_18:
       {
         v11 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v46 = v11;
-        v47 = 2114;
-        v48 = v5;
+        v45 = v11;
+        v46 = 2114;
+        v47 = v5;
         _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Requesting election parameters from candidates: %{public}@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v8);
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
       v41 = 0u;
-      v33 = v5;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
+      v32 = v5;
       obj = v5;
-      v12 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v12 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v41;
+        v14 = *v40;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v41 != v14)
+            if (*v40 != v14)
             {
               objc_enumerationMutation(obj);
             }
 
-            v16 = *(*(&v40 + 1) + 8 * i);
+            v16 = *(*(&v39 + 1) + 8 * i);
             if ([v16 isCurrentDevice])
             {
               candidateRepresentation = [(HMDPrimaryElectionCoordinationAddOn *)selfCopy candidateRepresentation];
@@ -2299,43 +2271,43 @@ LABEL_18:
               v24 = [messageDispatcher sendMessageExpectingResponse:v19];
 
               Property = objc_getProperty(selfCopy, v25, 136, 1);
-              v39[0] = MEMORY[0x277D85DD0];
-              v39[1] = 3221225472;
-              v39[2] = __98__HMDPrimaryElectionCoordinationAddOn__requestElectionParametersFromCandidates_completionHandler___block_invoke;
-              v39[3] = &unk_278687110;
-              v39[4] = v16;
-              v39[5] = selfCopy;
               v38[0] = MEMORY[0x277D85DD0];
               v38[1] = 3221225472;
-              v38[2] = __98__HMDPrimaryElectionCoordinationAddOn__requestElectionParametersFromCandidates_completionHandler___block_invoke_93;
-              v38[3] = &unk_2786882F0;
-              v38[4] = selfCopy;
-              v38[5] = v16;
-              v27 = [v24 inContext:Property then:v39 orRecover:v38];
+              v38[2] = __98__HMDPrimaryElectionCoordinationAddOn__requestElectionParametersFromCandidates_completionHandler___block_invoke;
+              v38[3] = &unk_278687110;
+              v38[4] = v16;
+              v38[5] = selfCopy;
+              v37[0] = MEMORY[0x277D85DD0];
+              v37[1] = 3221225472;
+              v37[2] = __98__HMDPrimaryElectionCoordinationAddOn__requestElectionParametersFromCandidates_completionHandler___block_invoke_93;
+              v37[3] = &unk_2786882F0;
+              v37[4] = selfCopy;
+              v37[5] = v16;
+              v27 = [v24 inContext:Property then:v38 orRecover:v37];
               [v7 addObject:v27];
             }
           }
 
-          v13 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+          v13 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
         }
 
         while (v13);
       }
 
       v28 = MEMORY[0x277D0F7C0];
-      v29 = [v7 copy];
+      v29 = objc_msgSend_copy(v7);
       v30 = [v28 allSettled:v29];
 
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __98__HMDPrimaryElectionCoordinationAddOn__requestElectionParametersFromCandidates_completionHandler___block_invoke_94;
-      v36[3] = &unk_278687158;
-      v36[4] = selfCopy;
-      candidatesCopy = v32;
-      v37 = v32;
-      [v30 getResultWithCompletion:v36];
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __98__HMDPrimaryElectionCoordinationAddOn__requestElectionParametersFromCandidates_completionHandler___block_invoke_94;
+      v35[3] = &unk_278687158;
+      v35[4] = selfCopy;
+      candidatesCopy = v31;
+      v36 = v31;
+      [v30 getResultWithCompletion:v35];
 
-      v5 = v33;
+      v5 = v32;
     }
 
     else
@@ -2343,8 +2315,6 @@ LABEL_18:
       (*(candidatesCopy + 2))(candidatesCopy, MEMORY[0x277CBEBF8]);
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (__HMDPrimaryElectionCandidate)candidateRepresentation
@@ -2418,7 +2388,7 @@ LABEL_18:
 
 uint64_t __98__HMDPrimaryElectionCoordinationAddOn__requestElectionParametersFromCandidates_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [__HMDPrimaryElectionCandidate fromMessagePayload:v3];
   v5 = v4;
@@ -2433,13 +2403,13 @@ uint64_t __98__HMDPrimaryElectionCoordinationAddOn__requestElectionParametersFro
       v9 = HMFGetLogIdentifier();
       v10 = [*(a1 + 32) device];
       v11 = [v10 shortDescription];
-      v23 = 138543874;
-      v24 = v9;
-      v25 = 2114;
-      v26 = v11;
-      v27 = 2112;
-      v28 = v5;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Adding election candidate %{public}@: %@", &v23, 0x20u);
+      v22 = 138543874;
+      v23 = v9;
+      v24 = 2114;
+      v25 = v11;
+      v26 = 2112;
+      v27 = v5;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Adding election candidate %{public}@: %@", &v22, 0x20u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -2456,13 +2426,13 @@ uint64_t __98__HMDPrimaryElectionCoordinationAddOn__requestElectionParametersFro
     {
       v16 = HMFGetLogIdentifier();
       v17 = *(a1 + 32);
-      v23 = 138543874;
-      v24 = v16;
-      v25 = 2112;
-      v26 = v17;
-      v27 = 2112;
-      v28 = v3;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Candidate %@ responded with invalid payload: %@", &v23, 0x20u);
+      v22 = 138543874;
+      v23 = v16;
+      v24 = 2112;
+      v25 = v17;
+      v26 = 2112;
+      v27 = v3;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Candidate %@ responded with invalid payload: %@", &v22, 0x20u);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -2482,13 +2452,12 @@ uint64_t __98__HMDPrimaryElectionCoordinationAddOn__requestElectionParametersFro
     v12 = 2;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 uint64_t __98__HMDPrimaryElectionCoordinationAddOn__requestElectionParametersFromCandidates_completionHandler___block_invoke_93(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -2497,13 +2466,13 @@ uint64_t __98__HMDPrimaryElectionCoordinationAddOn__requestElectionParametersFro
   {
     v7 = HMFGetLogIdentifier();
     v8 = *(a1 + 40);
-    v14 = 138543874;
-    v15 = v7;
-    v16 = 2112;
-    v17 = v8;
-    v18 = 2112;
-    v19 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Candidate %@ responded with error: %@", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v7;
+    v15 = 2112;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Candidate %@ responded with error: %@", &v13, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -2520,7 +2489,6 @@ uint64_t __98__HMDPrimaryElectionCoordinationAddOn__requestElectionParametersFro
     objc_claimAutoreleasedReturnValue();
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 2;
 }
 
@@ -2611,7 +2579,7 @@ uint64_t __98__HMDPrimaryElectionCoordinationAddOn__requestElectionParametersFro
 
 - (uint64_t)_doesLocalMeshContainPrimaryResident:(void *)resident meshCandidates:
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   residentCopy = resident;
   if (!self)
@@ -2636,9 +2604,9 @@ uint64_t __98__HMDPrimaryElectionCoordinationAddOn__requestElectionParametersFro
       if (v18)
       {
         v19 = HMFGetLogIdentifier();
-        v22 = 138543362;
-        v23 = v19;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@We are not the current primary and it isn't in our mesh", &v22, 0xCu);
+        v21 = 138543362;
+        v22 = v19;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@We are not the current primary and it isn't in our mesh", &v21, 0xCu);
       }
 
       v13 = 0;
@@ -2652,8 +2620,8 @@ uint64_t __98__HMDPrimaryElectionCoordinationAddOn__requestElectionParametersFro
     }
 
     v14 = HMFGetLogIdentifier();
-    v22 = 138543362;
-    v23 = v14;
+    v21 = 138543362;
+    v22 = v14;
     v15 = "%{public}@The current primary resident is in our mesh, we are in the primary mesh";
     v13 = 1;
     goto LABEL_8;
@@ -2666,11 +2634,11 @@ uint64_t __98__HMDPrimaryElectionCoordinationAddOn__requestElectionParametersFro
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     v14 = HMFGetLogIdentifier();
-    v22 = 138543362;
-    v23 = v14;
+    v21 = 138543362;
+    v22 = v14;
     v15 = "%{public}@We are the current primary resident, we are in the primary mesh";
 LABEL_8:
-    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, v15, &v22, 0xCu);
+    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, v15, &v21, 0xCu);
   }
 
 LABEL_13:
@@ -2678,13 +2646,12 @@ LABEL_13:
   objc_autoreleasePoolPop(v10);
 LABEL_14:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (uint64_t)_maybeNotifyDelegateUpdatedPrimary:(void *)primary currentPrimary:
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   primaryCopy = primary;
   if (self)
@@ -2706,11 +2673,11 @@ LABEL_14:
       v10 = HMFGetLogIdentifier();
       context = [selfCopy context];
       primaryResidentDevice = [context primaryResidentDevice];
-      v17 = 138543618;
-      v18 = v10;
-      v19 = 2112;
-      v20 = primaryResidentDevice;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Selected primary is current primary: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v10;
+      v18 = 2112;
+      v19 = primaryResidentDevice;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Selected primary is current primary: %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -2719,19 +2686,18 @@ LABEL_14:
   v13 = 0;
 LABEL_8:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (void)_selectPrimaryResidentFromCandidates:(void *)candidates meshCandidates:(void *)meshCandidates meshCandidateNodes:(void *)nodes context:(uint64_t)context electionTriggerReason:
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   v11 = a2;
   candidatesCopy = candidates;
   meshCandidatesCopy = meshCandidates;
   nodesCopy = nodes;
-  v51 = meshCandidatesCopy;
-  v55 = nodesCopy;
+  v50 = meshCandidatesCopy;
+  v54 = nodesCopy;
   if (!self)
   {
     goto LABEL_20;
@@ -2751,11 +2717,11 @@ LABEL_20:
   contextCopy = context;
   v15 = [(HMDPrimaryElectionCoordinationAddOn *)self _consensusPrimaryFromResidentCandidates:v11];
   availableResidentDevices = [v14 availableResidentDevices];
-  v54 = v15;
+  v53 = v15;
   v17 = [availableResidentDevices hmd_residentWithIdentifier:v15];
 
-  v53 = v17;
-  v50 = [(dispatch_queue_t *)self primarySortComparatorForCurrentPrimary:v17];
+  v52 = v17;
+  v49 = [(dispatch_queue_t *)self primarySortComparatorForCurrentPrimary:v17];
   v18 = [(__CFString *)v11 sortedArrayUsingComparator:?];
 
   v19 = objc_autoreleasePoolPush();
@@ -2765,15 +2731,15 @@ LABEL_20:
   {
     v22 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v57 = v22;
-    v58 = 2114;
-    v59 = v18;
+    v56 = v22;
+    v57 = 2114;
+    v58 = v18;
     _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@Sorted primary candidates: %{public}@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v19);
   lastObject = [(__CFString *)v18 lastObject];
-  [selfCopy setSelectedPrimaryResidentCandidate:lastObject];
+  [(dispatch_queue_t *)selfCopy setSelectedPrimaryResidentCandidate:lastObject];
   residentDevice = [lastObject residentDevice];
   v25 = candidatesCopy;
   if ([(__CFString *)v18 count]>= 2)
@@ -2786,32 +2752,32 @@ LABEL_20:
       v29 = HMFGetLogIdentifier();
       v30 = @"same device";
       *buf = 138543618;
-      v57 = v29;
-      v58 = 2114;
-      v59 = @"same device";
+      v56 = v29;
+      v57 = 2114;
+      v58 = @"same device";
       _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@The primary resident was chosen because of: %{public}@", buf, 0x16u);
 
       v25 = candidatesCopy;
-      meshCandidatesCopy = v51;
+      meshCandidatesCopy = v50;
     }
 
     objc_autoreleasePoolPop(v26);
   }
 
-  [selfCopy setElectionGotAborted:0];
-  [selfCopy setLastEvaluatedMeshNodes:meshCandidatesCopy];
-  primaryResidentDevice = [v55 primaryResidentDevice];
+  [(dispatch_queue_t *)selfCopy setElectionGotAborted:0];
+  [(dispatch_queue_t *)selfCopy setLastEvaluatedMeshNodes:meshCandidatesCopy];
+  primaryResidentDevice = [v54 primaryResidentDevice];
   v32 = [(HMDPrimaryElectionCoordinationAddOn *)selfCopy _maybeNotifyDelegateUpdatedPrimary:residentDevice currentPrimary:primaryResidentDevice];
 
-  currentResidentDevice = [v55 currentResidentDevice];
+  currentResidentDevice = [v54 currentResidentDevice];
   identifier = [currentResidentDevice identifier];
-  v35 = [identifier isEqual:v54];
+  v35 = [identifier isEqual:v53];
 
-  v36 = -[HMDCoordinationPrimaryElectionDetailedLogEvent initWithIsPrimary:didChangePrimary:electionTriggerReason:confirmationCriteria:meshAndPrimaryCandidateCountEqual:previousPrimaryInMesh:]([HMDCoordinationPrimaryElectionDetailedLogEvent alloc], "initWithIsPrimary:didChangePrimary:electionTriggerReason:confirmationCriteria:meshAndPrimaryCandidateCountEqual:previousPrimaryInMesh:", v35, v32, contextCopy, 0, -[__CFString count](v18, "count") == [v25 count], objc_msgSend(v25, "containsObject:", v53));
+  v36 = -[HMDCoordinationPrimaryElectionDetailedLogEvent initWithIsPrimary:didChangePrimary:electionTriggerReason:confirmationCriteria:meshAndPrimaryCandidateCountEqual:previousPrimaryInMesh:]([HMDCoordinationPrimaryElectionDetailedLogEvent alloc], "initWithIsPrimary:didChangePrimary:electionTriggerReason:confirmationCriteria:meshAndPrimaryCandidateCountEqual:previousPrimaryInMesh:", v35, v32, contextCopy, 0, -[__CFString count](v18, "count") == [v25 count], objc_msgSend(v25, "containsObject:", v52));
   v37 = +[HMDMetricsManager sharedLogEventSubmitter];
   [v37 submitLogEvent:v36];
 
-  [selfCopy setState:2];
+  [(dispatch_queue_t *)selfCopy setState:2];
   [(HMDPrimaryElectionCoordinationAddOn *)selfCopy sendNewPrimaryNotification:residentDevice to:v25];
   [(HMDPrimaryElectionCoordinationAddOn *)selfCopy _maybeStartPingTimer];
   dispatch_assert_queue_V2(self[2]);
@@ -2824,7 +2790,7 @@ LABEL_20:
     {
       v41 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v57 = v41;
+      v56 = v41;
       _os_log_impl(&dword_229538000, v40, OS_LOG_TYPE_DEBUG, "%{public}@Checking for split network", buf, 0xCu);
     }
 
@@ -2840,9 +2806,9 @@ LABEL_20:
         HMFGetLogIdentifier();
         v47 = v46 = v43;
         *buf = 138543618;
-        v57 = v47;
-        v58 = 2114;
-        v59 = residentDevicesNotFoundInMesh;
+        v56 = v47;
+        v57 = 2114;
+        v58 = residentDevicesNotFoundInMesh;
         _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_DEFAULT, "%{public}@Expected resident devices not found in mesh, we have a split network: %{public}@", buf, 0x16u);
 
         v43 = v46;
@@ -2853,12 +2819,11 @@ LABEL_20:
   }
 
 LABEL_18:
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_maybeStartPingTimer
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (self)
   {
     dispatch_assert_queue_V2(*(self + 16));
@@ -2874,9 +2839,9 @@ LABEL_18:
         if (v6)
         {
           v7 = HMFGetLogIdentifier();
-          v26 = 138543362;
-          v27 = v7;
-          _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting ping timer as a leader", &v26, 0xCu);
+          v25 = 138543362;
+          v26 = v7;
+          _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting ping timer as a leader", &v25, 0xCu);
         }
 
         objc_autoreleasePoolPop(v3);
@@ -2889,9 +2854,9 @@ LABEL_18:
         if (v6)
         {
           v15 = HMFGetLogIdentifier();
-          v26 = 138543362;
-          v27 = v15;
-          _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting ping timer as a node", &v26, 0xCu);
+          v25 = 138543362;
+          v26 = v15;
+          _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting ping timer as a node", &v25, 0xCu);
         }
 
         objc_autoreleasePoolPop(v3);
@@ -2937,18 +2902,16 @@ LABEL_18:
       {
         v13 = HMFGetLogIdentifier();
         debugDescriptionForMeshState = [*(self + 8) debugDescriptionForMeshState];
-        v26 = 138543618;
-        v27 = v13;
-        v28 = 2114;
-        v29 = debugDescriptionForMeshState;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Not starting ping timer in state %{public}@", &v26, 0x16u);
+        v25 = 138543618;
+        v26 = v13;
+        v27 = 2114;
+        v28 = debugDescriptionForMeshState;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Not starting ping timer in state %{public}@", &v25, 0x16u);
       }
 
       objc_autoreleasePoolPop(v10);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __74__HMDPrimaryElectionCoordinationAddOn__consensusPrimaryFromResidentUUIDs___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -2971,7 +2934,7 @@ uint64_t __74__HMDPrimaryElectionCoordinationAddOn__consensusPrimaryFromResident
 
 - (void)meshControllerDidUpdatesNodes:(id)nodes
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   dispatch_assert_queue_V2(self->_queue);
   if (([nodesCopy isEqual:self->_meshController] & 1) == 0)
@@ -2985,9 +2948,9 @@ uint64_t __74__HMDPrimaryElectionCoordinationAddOn__consensusPrimaryFromResident
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v35 = 138543362;
-    v36 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Mesh nodes updated", &v35, 0xCu);
+    v34 = 138543362;
+    v35 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Mesh nodes updated", &v34, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -3041,9 +3004,9 @@ uint64_t __74__HMDPrimaryElectionCoordinationAddOn__consensusPrimaryFromResident
       if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
         v28 = HMFGetLogIdentifier();
-        v35 = 138543362;
-        v36 = v28;
-        _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_INFO, "%{public}@Primary resident is in our mesh", &v35, 0xCu);
+        v34 = 138543362;
+        v35 = v28;
+        _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_INFO, "%{public}@Primary resident is in our mesh", &v34, 0xCu);
       }
 
       objc_autoreleasePoolPop(v25);
@@ -3075,13 +3038,11 @@ uint64_t __74__HMDPrimaryElectionCoordinationAddOn__consensusPrimaryFromResident
   [(HMDCoordinationPrimaryMeshLogEvent *)v31 setDidCurrentDeviceLeavePrimaryMesh:v30 & (v12 ^ 1)];
   v33 = +[HMDMetricsManager sharedLogEventSubmitter];
   [v33 submitLogEvent:v31];
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearPessimisticMeshState
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
@@ -3096,8 +3057,8 @@ uint64_t __74__HMDPrimaryElectionCoordinationAddOn__consensusPrimaryFromResident
         if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
         {
           v5 = HMFGetLogIdentifier();
-          *v9 = 138543362;
-          *&v9[4] = v5;
+          *v8 = 138543362;
+          *&v8[4] = v5;
           v6 = "%{public}@Pessimistic secondary mesh state terminated while performing an IDS ping";
           goto LABEL_9;
         }
@@ -3107,9 +3068,7 @@ uint64_t __74__HMDPrimaryElectionCoordinationAddOn__consensusPrimaryFromResident
       {
         if (result != 1)
         {
-LABEL_11:
-          result = [v1 setInPessimisticSecondaryMesh:{0, *v9}];
-          goto LABEL_12;
+          return [v1 setInPessimisticSecondaryMesh:{0, *v8, *&v8[8]}];
         }
 
         v2 = objc_autoreleasePoolPush();
@@ -3118,21 +3077,19 @@ LABEL_11:
         if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
         {
           v5 = HMFGetLogIdentifier();
-          *v9 = 138543362;
-          *&v9[4] = v5;
+          *v8 = 138543362;
+          *&v8[4] = v5;
           v6 = "%{public}@Pessimistic secondary mesh state terminated before an IDS ping";
 LABEL_9:
-          _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, v6, v9, 0xCu);
+          _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, v6, v8, 0xCu);
         }
       }
 
       objc_autoreleasePoolPop(v2);
-      goto LABEL_11;
+      return [v1 setInPessimisticSecondaryMesh:{0, *v8, *&v8[8]}];
     }
   }
 
-LABEL_12:
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3153,127 +3110,123 @@ LABEL_12:
 
 - (uint64_t)_currentStateRequiresElection
 {
-  v49 = *MEMORY[0x277D85DE8];
-  if (self)
+  v48 = *MEMORY[0x277D85DE8];
+  if (!self)
   {
-    dispatch_assert_queue_V2(*(self + 16));
-    leaderNode = [*(self + 8) leaderNode];
-    lastKnownLeaderNode = [self lastKnownLeaderNode];
-    v3 = [leaderNode isEqual:lastKnownLeaderNode];
+    return 0;
+  }
 
-    context = [self context];
-    primaryResidentDevice = [context primaryResidentDevice];
+  dispatch_assert_queue_V2(*(self + 16));
+  leaderNode = [*(self + 8) leaderNode];
+  lastKnownLeaderNode = [self lastKnownLeaderNode];
+  v3 = [leaderNode isEqual:lastKnownLeaderNode];
 
-    device = [primaryResidentDevice device];
-    idsIdentifier = [device idsIdentifier];
+  context = [self context];
+  primaryResidentDevice = [context primaryResidentDevice];
 
-    v37 = 0;
-    v38 = &v37;
-    v39 = 0x2020000000;
-    v40 = 0;
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x2020000000;
-    v36 = [primaryResidentDevice isCurrentDevice] ^ 1;
-    meshNodes = [*(self + 8) meshNodes];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __68__HMDPrimaryElectionCoordinationAddOn__currentStateRequiresElection__block_invoke;
-    v29[3] = &unk_278687180;
-    v31 = &v37;
-    v29[4] = self;
-    v32 = &v33;
-    v9 = idsIdentifier;
-    v30 = v9;
-    [meshNodes hmf_enumerateWithAutoreleasePoolUsingBlock:v29];
+  device = [primaryResidentDevice device];
+  idsIdentifier = [device idsIdentifier];
 
-    if (v38[3])
-    {
-      v10 = 1;
-    }
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
+  v39 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = [primaryResidentDevice isCurrentDevice] ^ 1;
+  meshNodes = [*(self + 8) meshNodes];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __68__HMDPrimaryElectionCoordinationAddOn__currentStateRequiresElection__block_invoke;
+  v28[3] = &unk_278687180;
+  v30 = &v36;
+  v28[4] = self;
+  v31 = &v32;
+  v9 = idsIdentifier;
+  v29 = v9;
+  [meshNodes hmf_enumerateWithAutoreleasePoolUsingBlock:v28];
 
-    else
-    {
-      v10 = *(v34 + 24);
-    }
-
-    if (v3 && (([self electionGotAborted] | v10) & 1) == 0)
-    {
-      v22 = objc_autoreleasePoolPush();
-      selfCopy = self;
-      v24 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
-      {
-        v25 = HMFGetLogIdentifier();
-        *buf = 138543362;
-        v42 = v25;
-        _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@We don't need an election now. No major changes since the last election", buf, 0xCu);
-      }
-
-      objc_autoreleasePoolPop(v22);
-      v21 = 0;
-    }
-
-    else
-    {
-      v11 = objc_autoreleasePoolPush();
-      selfCopy2 = self;
-      v13 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
-      {
-        v14 = HMFGetLogIdentifier();
-        v15 = HMFBooleanToString();
-        v16 = HMFBooleanToString();
-        [selfCopy2 electionGotAborted];
-        v17 = HMFBooleanToString();
-        *buf = 138544130;
-        v42 = v14;
-        v43 = 2112;
-        v44 = v15;
-        v45 = 2112;
-        v46 = v16;
-        v47 = 2112;
-        v48 = v17;
-        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@We need an election, leader changed: %@, nodes changed: %@, previous election aborted: %@", buf, 0x2Au);
-      }
-
-      objc_autoreleasePoolPop(v11);
-      v18 = 4;
-      if (!*(v34 + 24))
-      {
-        v18 = 1;
-      }
-
-      v19 = 5;
-      if (!*(v38 + 24))
-      {
-        v19 = v18;
-      }
-
-      if (v3)
-      {
-        v20 = v19;
-      }
-
-      else
-      {
-        v20 = 6;
-      }
-
-      [selfCopy2 setCoordinationUpdateElectionTriggerReason:v20];
-      v21 = 1;
-    }
-
-    _Block_object_dispose(&v33, 8);
-    _Block_object_dispose(&v37, 8);
+  if (v37[3])
+  {
+    v10 = 1;
   }
 
   else
   {
+    v10 = *(v33 + 24);
+  }
+
+  if (v3 && (([self electionGotAborted] | v10) & 1) == 0)
+  {
+    v22 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v24 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    {
+      v25 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      v41 = v25;
+      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@We don't need an election now. No major changes since the last election", buf, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v22);
     v21 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v11 = objc_autoreleasePoolPush();
+    selfCopy2 = self;
+    v13 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      v14 = HMFGetLogIdentifier();
+      v15 = HMFBooleanToString();
+      v16 = HMFBooleanToString();
+      [selfCopy2 electionGotAborted];
+      v17 = HMFBooleanToString();
+      *buf = 138544130;
+      v41 = v14;
+      v42 = 2112;
+      v43 = v15;
+      v44 = 2112;
+      v45 = v16;
+      v46 = 2112;
+      v47 = v17;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@We need an election, leader changed: %@, nodes changed: %@, previous election aborted: %@", buf, 0x2Au);
+    }
+
+    objc_autoreleasePoolPop(v11);
+    v18 = 4;
+    if (!*(v33 + 24))
+    {
+      v18 = 1;
+    }
+
+    v19 = 5;
+    if (!*(v37 + 24))
+    {
+      v19 = v18;
+    }
+
+    if (v3)
+    {
+      v20 = v19;
+    }
+
+    else
+    {
+      v20 = 6;
+    }
+
+    [selfCopy2 setCoordinationUpdateElectionTriggerReason:v20];
+    v21 = 1;
+  }
+
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v36, 8);
+
   return v21;
 }
 
@@ -3334,37 +3287,37 @@ LABEL_12:
 
 - (void)_stopBeingLeader
 {
-  if (!self)
+  if (!result)
   {
     return;
   }
 
-  dispatch_assert_queue_V2(self[2]);
-  state = [(dispatch_queue_t *)self state];
+  dispatch_assert_queue_V2(result[2]);
+  state = [(dispatch_queue_t *)result state];
   switch(state)
   {
     case 5:
-      selfCopy2 = self;
+      v3 = result;
       v4 = 4;
       goto LABEL_8;
     case 3:
-      [(dispatch_queue_t *)self setState:2];
-      [(dispatch_queue_t *)self setElectionGotAborted:1];
+      [(dispatch_queue_t *)result setState:2];
+      [(dispatch_queue_t *)result setElectionGotAborted:1];
       break;
     case 1:
-      selfCopy2 = self;
+      v3 = result;
       v4 = 0;
 LABEL_8:
-      [(dispatch_queue_t *)selfCopy2 setState:v4];
+      [(dispatch_queue_t *)v3 setState:v4];
       break;
   }
 
-  [(HMDPrimaryElectionCoordinationAddOn *)self _stopSecondaryMeshTimer];
+  [(HMDPrimaryElectionCoordinationAddOn *)result _stopSecondaryMeshTimer];
 }
 
 - (void)_stopSecondaryMeshTimer
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self)
   {
     dispatch_assert_queue_V2(self[2]);
@@ -3378,9 +3331,9 @@ LABEL_8:
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         v6 = HMFGetLogIdentifier();
-        v9 = 138543362;
-        v10 = v6;
-        _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping secondary mesh timer", &v9, 0xCu);
+        v8 = 138543362;
+        v9 = v6;
+        _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping secondary mesh timer", &v8, 0xCu);
       }
 
       objc_autoreleasePoolPop(v3);
@@ -3390,8 +3343,6 @@ LABEL_8:
       [(dispatch_queue_t *)selfCopy setSecondaryMeshTimer:0];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resumeDebounceWithInterval:(void *)interval
@@ -3466,7 +3417,7 @@ void __68__HMDPrimaryElectionCoordinationAddOn__currentStateRequiresElection__bl
 
 - (void)meshControllerDidElectLeader:(id)leader
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   leaderCopy = leader;
   dispatch_assert_queue_V2(self->_queue);
   leaderNode = [(HMDLocalElectionMeshController *)self->_meshController leaderNode];
@@ -3493,11 +3444,11 @@ void __68__HMDPrimaryElectionCoordinationAddOn__currentStateRequiresElection__bl
       }
 
       v19 = v13;
-      v26 = 138543618;
-      v27 = v11;
-      v28 = 2114;
-      v29 = v19;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@We are now the mesh leader in state: %{public}@", &v26, 0x16u);
+      v25 = 138543618;
+      v26 = v11;
+      v27 = 2114;
+      v28 = v19;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@We are now the mesh leader in state: %{public}@", &v25, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -3514,11 +3465,11 @@ void __68__HMDPrimaryElectionCoordinationAddOn__currentStateRequiresElection__bl
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       v18 = HMFGetLogIdentifier();
-      v26 = 138543618;
-      v27 = v18;
-      v28 = 2112;
-      v29 = meshLeaderResidentDevice;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Other device elected mesh leader: %@", &v26, 0x16u);
+      v25 = 138543618;
+      v26 = v18;
+      v27 = 2112;
+      v28 = meshLeaderResidentDevice;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Other device elected mesh leader: %@", &v25, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
@@ -3540,8 +3491,6 @@ void __68__HMDPrimaryElectionCoordinationAddOn__currentStateRequiresElection__bl
 
   [(HMDPrimaryElectionCoordinationAddOn *)self setLastKnownLeaderNode:leaderNode];
   [(HMDPrimaryElectionCoordinationAddOn *)self _maybeStartPingTimer];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)meshLeaderResidentDevice
@@ -3562,7 +3511,7 @@ void __68__HMDPrimaryElectionCoordinationAddOn__currentStateRequiresElection__bl
 
 - (void)meshControllerDidStartElection:(id)election
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   electionCopy = election;
   dispatch_assert_queue_V2(self->_queue);
   v5 = objc_autoreleasePoolPush();
@@ -3571,9 +3520,9 @@ void __68__HMDPrimaryElectionCoordinationAddOn__currentStateRequiresElection__bl
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Election started, suspending ping timer", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Election started, suspending ping timer", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -3587,13 +3536,11 @@ void __68__HMDPrimaryElectionCoordinationAddOn__currentStateRequiresElection__bl
   [(HMDPrimaryElectionCoordinationAddOn *)selfCopy setMeshLeaderToPrimaryResidentPingResponseTimer:0];
   [(HMDPrimaryElectionCoordinationAddOn *)selfCopy _clearPessimisticMeshState];
   [(HMDPrimaryElectionCoordinationAddOn *)selfCopy _stopBeingLeader];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)meshController:(id)controller didReceivePingFromLeaderWithPrimaryResidentUUID:(id)d
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   dCopy = d;
   pingTimer = [(HMDPrimaryElectionCoordinationAddOn *)self pingTimer];
@@ -3608,11 +3555,11 @@ void __68__HMDPrimaryElectionCoordinationAddOn__currentStateRequiresElection__bl
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v17 = 138543618;
-      v18 = v13;
-      v19 = 2114;
-      v20 = dCopy;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Received ping from leader. The leader is alive. Primary resident UUID sent by the leader is %{public}@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v13;
+      v18 = 2114;
+      v19 = dCopy;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Received ping from leader. The leader is alive. Primary resident UUID sent by the leader is %{public}@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -3625,20 +3572,18 @@ void __68__HMDPrimaryElectionCoordinationAddOn__currentStateRequiresElection__bl
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v15 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v15;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Received ping from leader. The leader is alive.", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v15;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Received ping from leader. The leader is alive.", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleSetPreferredPrimaryDebugRequest:(id)request
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   dispatch_assert_queue_V2(self->_queue);
   messagePayload = [requestCopy messagePayload];
@@ -3660,13 +3605,13 @@ void __68__HMDPrimaryElectionCoordinationAddOn__currentStateRequiresElection__bl
     {
       v15 = HMFGetLogIdentifier();
       v16 = HMFBooleanToString();
-      v32 = 138543874;
-      v33 = v15;
-      v34 = 2112;
-      v35 = v6;
-      v36 = 2112;
-      v37 = v16;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Received SetPreferredPrimaryDebugRequest with primary: %@ ...isOneTime: %@", &v32, 0x20u);
+      v31 = 138543874;
+      v32 = v15;
+      v33 = 2112;
+      v34 = v6;
+      v35 = 2112;
+      v36 = v16;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Received SetPreferredPrimaryDebugRequest with primary: %@ ...isOneTime: %@", &v31, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -3683,9 +3628,9 @@ LABEL_9:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       v22 = HMFGetLogIdentifier();
-      v32 = 138543362;
-      v33 = v22;
-      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@SetPreferredPrimary - Triggering resident election", &v32, 0xCu);
+      v31 = 138543362;
+      v32 = v22;
+      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@SetPreferredPrimary - Triggering resident election", &v31, 0xCu);
     }
 
     objc_autoreleasePoolPop(v19);
@@ -3701,9 +3646,9 @@ LABEL_9:
         if (v27)
         {
           v28 = HMFGetLogIdentifier();
-          v32 = 138543362;
-          v33 = v28;
-          _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@Handling force resident election request: This device is the leader. Starting election.", &v32, 0xCu);
+          v31 = 138543362;
+          v32 = v28;
+          _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@Handling force resident election request: This device is the leader. Starting election.", &v31, 0xCu);
         }
 
         objc_autoreleasePoolPop(v24);
@@ -3714,8 +3659,8 @@ LABEL_9:
       if (v27)
       {
         v29 = HMFGetLogIdentifier();
-        v32 = 138543362;
-        v33 = v29;
+        v31 = 138543362;
+        v32 = v29;
         v30 = "%{public}@Handling force resident election request: This device is not in the primary mesh. Discarding message.";
         goto LABEL_20;
       }
@@ -3729,11 +3674,11 @@ LABEL_9:
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         v29 = HMFGetLogIdentifier();
-        v32 = 138543362;
-        v33 = v29;
+        v31 = 138543362;
+        v32 = v29;
         v30 = "%{public}@Handling force resident election request: This device is not the leader. Discarding message.";
 LABEL_20:
-        _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_DEFAULT, v30, &v32, 0xCu);
+        _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_DEFAULT, v30, &v31, 0xCu);
       }
     }
 
@@ -3745,11 +3690,11 @@ LABEL_20:
   {
     v17 = HMFGetLogIdentifier();
     v18 = HMFBooleanToString();
-    v32 = 138543618;
-    v33 = v17;
-    v34 = 2112;
-    v35 = v18;
-    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Received SetPreferredPrimaryDebugRequest with nil primary, requireOneTime: %@", &v32, 0x16u);
+    v31 = 138543618;
+    v32 = v17;
+    v33 = 2112;
+    v34 = v18;
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Received SetPreferredPrimaryDebugRequest with nil primary, requireOneTime: %@", &v31, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -3760,13 +3705,11 @@ LABEL_20:
   }
 
 LABEL_22:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleMeshInformationRequest:(id)request
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   dispatch_assert_queue_V2(self->_queue);
   context = [(HMDPrimaryElectionCoordinationAddOn *)self context];
@@ -3786,11 +3729,11 @@ LABEL_22:
       if (v13)
       {
         v14 = HMFGetLogIdentifier();
-        v18 = 138543618;
-        v19 = v14;
-        v20 = 2112;
-        v21 = v9;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Handling mesh information request and responding with: %@", &v18, 0x16u);
+        v17 = 138543618;
+        v18 = v14;
+        v19 = 2112;
+        v20 = v9;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Handling mesh information request and responding with: %@", &v17, 0x16u);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -3803,9 +3746,9 @@ LABEL_22:
       if (v13)
       {
         v16 = HMFGetLogIdentifier();
-        v18 = 138543362;
-        v19 = v16;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Handling mesh information request and responding with error", &v18, 0xCu);
+        v17 = 138543362;
+        v18 = v16;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Handling mesh information request and responding with error", &v17, 0xCu);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -3819,13 +3762,11 @@ LABEL_22:
     v9 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
     [requestCopy respondWithError:v9];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCurrentPrimaryNotification:(id)notification
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   dispatch_assert_queue_V2(self->_queue);
   [notificationCopy respondWithSuccess];
@@ -3848,19 +3789,19 @@ LABEL_22:
           v23 = HMFGetLogIdentifier();
           shortDescription = [meshLeaderResidentDevice shortDescription];
           [notificationCopy remoteSourceDevice];
-          v52 = v20;
+          v51 = v20;
           v26 = v25 = meshLeaderResidentDevice;
           shortDescription2 = [v26 shortDescription];
           *buf = 138543874;
-          v55 = v23;
-          v56 = 2114;
-          v57 = shortDescription;
-          v58 = 2114;
-          v59 = shortDescription2;
+          v54 = v23;
+          v55 = 2114;
+          v56 = shortDescription;
+          v57 = 2114;
+          v58 = shortDescription2;
           _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Received a current primary update from an unexpected device: Leader: %{public}@, Source: %{public}@", buf, 0x20u);
 
           meshLeaderResidentDevice = v25;
-          v20 = v52;
+          v20 = v51;
         }
 
         objc_autoreleasePoolPop(v20);
@@ -3887,9 +3828,9 @@ LABEL_22:
             HMFGetLogIdentifier();
             v32 = v31 = meshLeaderResidentDevice;
             *buf = 138543618;
-            v55 = v32;
-            v56 = 2114;
-            v57 = v7;
+            v54 = v32;
+            v55 = 2114;
+            v56 = v7;
             _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@Unable to map %{public}@ to known resident", buf, 0x16u);
 
             meshLeaderResidentDevice = v31;
@@ -3924,15 +3865,15 @@ LABEL_22:
           if (v40)
           {
             HMFGetLogIdentifier();
-            v41 = v53 = meshLeaderResidentDevice;
+            v41 = v52 = meshLeaderResidentDevice;
             primaryResidentDevice2 = [context primaryResidentDevice];
             *buf = 138543618;
-            v55 = v41;
-            v56 = 2112;
-            v57 = primaryResidentDevice2;
+            v54 = v41;
+            v55 = 2112;
+            v56 = primaryResidentDevice2;
             _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_INFO, "%{public}@Broadcasted primary is current primary: %@", buf, 0x16u);
 
-            meshLeaderResidentDevice = v53;
+            meshLeaderResidentDevice = v52;
           }
 
           objc_autoreleasePoolPop(v37);
@@ -3945,9 +3886,9 @@ LABEL_22:
             HMFGetLogIdentifier();
             v44 = v43 = meshLeaderResidentDevice;
             *buf = 138543618;
-            v55 = v44;
-            v56 = 2112;
-            v57 = v13;
+            v54 = v44;
+            v55 = 2112;
+            v56 = v13;
             _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_INFO, "%{public}@Received update for current primary: %@", buf, 0x16u);
 
             meshLeaderResidentDevice = v43;
@@ -3980,20 +3921,18 @@ LABEL_22:
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v55 = v19;
+        v54 = v19;
         _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Message did not contain a primary resident value", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v16);
     }
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCurrentPrimaryRequest:(id)request
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   dispatch_assert_queue_V2(self->_queue);
   if (([(HMDLocalElectionMeshController *)self->_meshController isLeader]& 1) == 0)
@@ -4005,7 +3944,7 @@ LABEL_22:
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v34 = v16;
+      v33 = v16;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Not responding to current primary request because we're not the leader", buf, 0xCu);
     }
 
@@ -4027,7 +3966,7 @@ LABEL_22:
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v34 = v10;
+      v33 = v10;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Not responding to current primary request because we are debouncing an election", buf, 0xCu);
     }
 
@@ -4055,19 +3994,19 @@ LABEL_9:
       remoteSourceDevice = [requestCopy remoteSourceDevice];
       identifier = [primaryResidentDevice identifier];
       *buf = 138543874;
-      v34 = v23;
-      v35 = 2114;
-      v36 = remoteSourceDevice;
-      v37 = 2114;
-      v38 = identifier;
+      v33 = v23;
+      v34 = 2114;
+      v35 = remoteSourceDevice;
+      v36 = 2114;
+      v37 = identifier;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Responding to current primary request from: %{public}@ with: %{public}@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v19);
     identifier2 = [primaryResidentDevice identifier];
     uUIDString = [identifier2 UUIDString];
-    v32 = uUIDString;
-    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+    v31 = uUIDString;
+    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
     [requestCopy respondWithPayload:v28];
   }
 
@@ -4077,7 +4016,7 @@ LABEL_9:
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v34 = v29;
+      v33 = v29;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Not responding to current primary request because our primary resident is nil", buf, 0xCu);
     }
 
@@ -4087,12 +4026,11 @@ LABEL_9:
   }
 
 LABEL_18:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDeviceCapabilitiesRequest:(id)request
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   dispatch_assert_queue_V2(self->_queue);
   v5 = objc_autoreleasePoolPush();
@@ -4102,11 +4040,11 @@ LABEL_18:
   {
     v8 = HMFGetLogIdentifier();
     remoteSourceDevice = [requestCopy remoteSourceDevice];
-    v14 = 138543618;
-    v15 = v8;
-    v16 = 2112;
-    v17 = remoteSourceDevice;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Received capabilities request from: %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v8;
+    v15 = 2112;
+    v16 = remoteSourceDevice;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Received capabilities request from: %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -4116,8 +4054,6 @@ LABEL_18:
   candidateRepresentation = [(HMDPrimaryElectionCoordinationAddOn *)selfCopy candidateRepresentation];
   toMessagePayload = [candidateRepresentation toMessagePayload];
   [requestCopy respondWithPayload:toMessagePayload];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (NSUUID)messageTargetUUID
@@ -4145,7 +4081,7 @@ LABEL_18:
 
 - (void)_selectPrimaryResidentWithReason:(unint64_t)reason
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -4154,7 +4090,7 @@ LABEL_18:
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v41 = v8;
+    v40 = v8;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Electing a primary resident", buf, 0xCu);
   }
 
@@ -4168,7 +4104,7 @@ LABEL_18:
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v41 = v12;
+      v40 = v12;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Calling _selectPrimaryResidentFromCandidates due to forced primary election from debug/tools", buf, 0xCu);
     }
 
@@ -4187,7 +4123,7 @@ LABEL_18:
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v41 = v18;
+      v40 = v18;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Debounce timer active, deferring election", buf, 0xCu);
     }
 
@@ -4210,21 +4146,21 @@ LABEL_18:
       _meshNodesToResidentDevices = [(HMDPrimaryElectionCoordinationAddOn *)selfCopy _meshNodesToResidentDevices];
       v26 = [_meshNodesToResidentDevices setByAddingObject:currentResidentDevice];
       objc_initWeak(buf, selfCopy);
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __72__HMDPrimaryElectionCoordinationAddOn__selectPrimaryResidentWithReason___block_invoke;
-      v35[3] = &unk_278687078;
-      objc_copyWeak(v39, buf);
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __72__HMDPrimaryElectionCoordinationAddOn__selectPrimaryResidentWithReason___block_invoke;
+      v34[3] = &unk_278687078;
+      objc_copyWeak(v38, buf);
       v27 = _meshNodesToResidentDevices;
-      v36 = v27;
+      v35 = v27;
       v28 = v24;
-      v37 = v28;
+      v36 = v28;
       v29 = context2;
-      v38 = v29;
-      v39[1] = reason;
-      [(HMDPrimaryElectionCoordinationAddOn *)selfCopy _requestElectionParametersFromCandidates:v26 completionHandler:v35];
+      v37 = v29;
+      v38[1] = reason;
+      [(HMDPrimaryElectionCoordinationAddOn *)selfCopy _requestElectionParametersFromCandidates:v26 completionHandler:v34];
 
-      objc_destroyWeak(v39);
+      objc_destroyWeak(v38);
       objc_destroyWeak(buf);
     }
 
@@ -4237,15 +4173,13 @@ LABEL_18:
       {
         v33 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v41 = v33;
+        v40 = v33;
         _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@No current resident device, bailing", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v30);
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __72__HMDPrimaryElectionCoordinationAddOn__selectPrimaryResidentWithReason___block_invoke(uint64_t a1, void *a2)
@@ -4274,31 +4208,29 @@ void __72__HMDPrimaryElectionCoordinationAddOn__selectPrimaryResidentWithReason_
 
 void __71__HMDPrimaryElectionCoordinationAddOn_selectPrimaryResidentWithReason___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ([*(*(a1 + 32) + 8) isLeader])
   {
     v2 = *(a1 + 32);
     v3 = *(a1 + 40);
-    v4 = *MEMORY[0x277D85DE8];
 
     [v2 _selectPrimaryResidentWithReason:v3];
   }
 
   else
   {
-    v5 = objc_autoreleasePoolPush();
-    v6 = *(a1 + 32);
-    v7 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v4 = objc_autoreleasePoolPush();
+    v5 = *(a1 + 32);
+    v6 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Not running primary resident election because this device is not the leader", &v10, 0xCu);
+      v7 = HMFGetLogIdentifier();
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Not running primary resident election because this device is not the leader", &v8, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v5);
-    v9 = *MEMORY[0x277D85DE8];
+    objc_autoreleasePoolPop(v4);
   }
 }
 
@@ -4320,7 +4252,7 @@ void __71__HMDPrimaryElectionCoordinationAddOn_selectPrimaryResidentWithReason__
 
 uint64_t __82__HMDPrimaryElectionCoordinationAddOn__findPrimaryMeshWithContext_otherResidents___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([(HMDPrimaryElectionCoordinationAddOn *)*(a1 + 32) _expectState:@"deciding if we're in primary mesh" action:?])
   {
@@ -4341,9 +4273,9 @@ uint64_t __82__HMDPrimaryElectionCoordinationAddOn__findPrimaryMeshWithContext_o
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           v12 = HMFGetLogIdentifier();
-          v15 = 138543362;
-          v16 = v12;
-          _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Pinging primary resident", &v15, 0xCu);
+          v14 = 138543362;
+          v15 = v12;
+          _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Pinging primary resident", &v14, 0xCu);
         }
 
         objc_autoreleasePoolPop(v9);
@@ -4360,9 +4292,9 @@ uint64_t __82__HMDPrimaryElectionCoordinationAddOn__findPrimaryMeshWithContext_o
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = HMFGetLogIdentifier();
-        v15 = 138543362;
-        v16 = v8;
-        _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@No primary resident after cloud ready, doing a meta mesh election", &v15, 0xCu);
+        v14 = 138543362;
+        v15 = v8;
+        _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@No primary resident after cloud ready, doing a meta mesh election", &v14, 0xCu);
       }
 
       objc_autoreleasePoolPop(v5);
@@ -4371,7 +4303,6 @@ uint64_t __82__HMDPrimaryElectionCoordinationAddOn__findPrimaryMeshWithContext_o
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -4384,123 +4315,123 @@ uint64_t __82__HMDPrimaryElectionCoordinationAddOn__findPrimaryMeshWithContext_o
 
 - (void)setState:(unint64_t)state
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   state = self->_state;
-  if (state == state)
+  if (state != state)
   {
-    goto LABEL_25;
-  }
-
-  v6 = objc_autoreleasePoolPush();
-  selfCopy = self;
-  v8 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-  {
-    v9 = HMFGetLogIdentifier();
-    if (state > 5)
+    v6 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v8 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = @"<unknown state>";
-    }
-
-    else
-    {
-      v10 = off_2786871C0[state];
-    }
-
-    v11 = v10;
-    if (state > 5)
-    {
-      v12 = @"<unknown state>";
-    }
-
-    else
-    {
-      v12 = off_2786871C0[state];
-    }
-
-    v13 = v12;
-    *v23 = 138543874;
-    *&v23[4] = v9;
-    *&v23[12] = 2114;
-    *&v23[14] = v11;
-    v24 = 2114;
-    v25 = v13;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Transitioning state from %{public}@ -> %{public}@", v23, 0x20u);
-  }
-
-  objc_autoreleasePoolPop(v6);
-  self->_state = state;
-  switch(state)
-  {
-    case 5uLL:
-      if ([(HMDPrimaryElectionCoordinationAddOn *)selfCopy inPessimisticSecondaryMesh]!= 2)
+      v9 = HMFGetLogIdentifier();
+      if (state > 5)
       {
-        goto LABEL_24;
-      }
-
-      state = [(HMDPrimaryElectionCoordinationAddOn *)selfCopy state];
-      if (state == 4)
-      {
-        v16 = objc_autoreleasePoolPush();
-        v21 = selfCopy;
-        v18 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
-        {
-          v19 = HMFGetLogIdentifier();
-          *v23 = 138543362;
-          *&v23[4] = v19;
-          v20 = "%{public}@Staying in secondary mesh state after being in pessimistic secondary mesh";
-          goto LABEL_21;
-        }
+        v10 = @"<unknown state>";
       }
 
       else
       {
-        if (state != 2)
-        {
-LABEL_23:
-          [(HMDPrimaryElectionCoordinationAddOn *)selfCopy setInPessimisticSecondaryMesh:0, *v23];
-          goto LABEL_24;
-        }
-
-        v16 = objc_autoreleasePoolPush();
-        v17 = selfCopy;
-        v18 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
-        {
-          v19 = HMFGetLogIdentifier();
-          *v23 = 138543362;
-          *&v23[4] = v19;
-          v20 = "%{public}@Becoming primary after pinging in pessimistic secondary mesh";
-LABEL_21:
-          _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, v20, v23, 0xCu);
-        }
+        v10 = off_2786871C0[state];
       }
 
-      objc_autoreleasePoolPop(v16);
-      goto LABEL_23;
-    case 4uLL:
+      v11 = v10;
+      if (state > 5)
+      {
+        v12 = @"<unknown state>";
+      }
+
+      else
+      {
+        v12 = off_2786871C0[state];
+      }
+
+      v13 = v12;
+      *v22 = 138543874;
+      *&v22[4] = v9;
+      *&v22[12] = 2114;
+      *&v22[14] = v11;
+      v23 = 2114;
+      v24 = v13;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Transitioning state from %{public}@ -> %{public}@", v22, 0x20u);
+    }
+
+    objc_autoreleasePoolPop(v6);
+    self->_state = state;
+    if (state != 5)
+    {
+      if (state != 4)
+      {
+        if (state == 1)
+        {
+          dispatch_assert_queue_V2(self->_queue);
+          findPrimaryMeshOperation = [(HMDPrimaryElectionCoordinationAddOn *)selfCopy findPrimaryMeshOperation];
+          [(HMDPrimaryElectionCoordinationAddOn *)selfCopy setFindPrimaryMeshOperation:0];
+          [(HMDPrimaryElectionCoordinationAddOn *)selfCopy setFindPrimaryMeshFuture:0];
+          [findPrimaryMeshOperation cancel];
+        }
+
+        return;
+      }
+
 LABEL_24:
       [(HMDPrimaryElectionCoordinationAddOn *)selfCopy _stopSecondaryMeshTimer];
-      break;
-    case 1uLL:
-      dispatch_assert_queue_V2(self->_queue);
-      findPrimaryMeshOperation = [(HMDPrimaryElectionCoordinationAddOn *)selfCopy findPrimaryMeshOperation];
-      [(HMDPrimaryElectionCoordinationAddOn *)selfCopy setFindPrimaryMeshOperation:0];
-      [(HMDPrimaryElectionCoordinationAddOn *)selfCopy setFindPrimaryMeshFuture:0];
-      [findPrimaryMeshOperation cancel];
+      return;
+    }
 
-      break;
+    if ([(HMDPrimaryElectionCoordinationAddOn *)selfCopy inPessimisticSecondaryMesh]!= 2)
+    {
+      goto LABEL_24;
+    }
+
+    state = [(HMDPrimaryElectionCoordinationAddOn *)selfCopy state];
+    if (state == 4)
+    {
+      v16 = objc_autoreleasePoolPush();
+      v21 = selfCopy;
+      v18 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      {
+        v19 = HMFGetLogIdentifier();
+        *v22 = 138543362;
+        *&v22[4] = v19;
+        v20 = "%{public}@Staying in secondary mesh state after being in pessimistic secondary mesh";
+        goto LABEL_21;
+      }
+    }
+
+    else
+    {
+      if (state != 2)
+      {
+LABEL_23:
+        [(HMDPrimaryElectionCoordinationAddOn *)selfCopy setInPessimisticSecondaryMesh:0, *v22, *&v22[8]];
+        goto LABEL_24;
+      }
+
+      v16 = objc_autoreleasePoolPush();
+      v17 = selfCopy;
+      v18 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      {
+        v19 = HMFGetLogIdentifier();
+        *v22 = 138543362;
+        *&v22[4] = v19;
+        v20 = "%{public}@Becoming primary after pinging in pessimistic secondary mesh";
+LABEL_21:
+        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, v20, v22, 0xCu);
+      }
+    }
+
+    objc_autoreleasePoolPop(v16);
+    goto LABEL_23;
   }
-
-LABEL_25:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)allowExternalUpdateOfPrimaryResidentTo:(id)to
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   toCopy = to;
   dispatch_assert_queue_V2(self->_queue);
   context = [(HMDPrimaryElectionCoordinationAddOn *)self context];
@@ -4525,11 +4456,11 @@ LABEL_25:
       {
         v13 = HMFGetLogIdentifier();
         shortDescription = [toCopy shortDescription];
-        v17 = 138543618;
-        v18 = v13;
-        v19 = 2114;
-        v20 = shortDescription;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Not allowing external update of primary resident to: %{public}@ because we are the leader and this resident is in our mesh.", &v17, 0x16u);
+        v16 = 138543618;
+        v17 = v13;
+        v18 = 2114;
+        v19 = shortDescription;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Not allowing external update of primary resident to: %{public}@ because we are the leader and this resident is in our mesh.", &v16, 0x16u);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -4537,7 +4468,6 @@ LABEL_25:
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -4570,7 +4500,7 @@ LABEL_25:
 
 void __85__HMDPrimaryElectionCoordinationAddOn_primaryResidentChanged_previousResidentDevice___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (v3)
@@ -4595,11 +4525,11 @@ void __85__HMDPrimaryElectionCoordinationAddOn_primaryResidentChanged_previousRe
       {
         v9 = HMFGetLogIdentifier();
         v10 = *(a1 + 32);
-        v24 = 138543618;
-        v25 = v9;
-        v26 = 2112;
-        v27 = v10;
-        _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling new primary resident: %@", &v24, 0x16u);
+        v23 = 138543618;
+        v24 = v9;
+        v25 = 2112;
+        v26 = v10;
+        _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling new primary resident: %@", &v23, 0x16u);
       }
 
       objc_autoreleasePoolPop(v6);
@@ -4636,11 +4566,11 @@ void __85__HMDPrimaryElectionCoordinationAddOn_primaryResidentChanged_previousRe
             }
 
             v22 = v17;
-            v24 = 138543618;
-            v25 = v15;
-            v26 = 2112;
-            v27 = v22;
-            _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Received a primary resident change while we are the leader in state: %@.", &v24, 0x16u);
+            v23 = 138543618;
+            v24 = v15;
+            v25 = 2112;
+            v26 = v22;
+            _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Received a primary resident change while we are the leader in state: %@.", &v23, 0x16u);
           }
 
           objc_autoreleasePoolPop(v12);
@@ -4658,27 +4588,24 @@ void __85__HMDPrimaryElectionCoordinationAddOn_primaryResidentChanged_previousRe
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       v21 = HMFGetLogIdentifier();
-      v24 = 138543362;
-      v25 = v21;
-      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Primary resident was set to nil, calling an election", &v24, 0xCu);
+      v23 = 138543362;
+      v24 = v21;
+      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Primary resident was set to nil, calling an election", &v23, 0xCu);
     }
 
     objc_autoreleasePoolPop(v18);
     [*(a1 + 40) performElection];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performElection
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   meshNodes = [(HMDLocalElectionMeshController *)self->_meshController meshNodes];
   v4 = [meshNodes count];
 
   if ([(HMDPrimaryElectionCoordinationAddOn *)self residentCountDuringLastElection]< 2 || v4)
   {
-    v17 = *MEMORY[0x277D85DE8];
 
     [(HMDPrimaryElectionCoordinationAddOn *)self resumeDebounceWithInterval:?];
   }
@@ -4691,13 +4618,13 @@ void __85__HMDPrimaryElectionCoordinationAddOn_primaryResidentChanged_previousRe
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v20 = 138543874;
-      v21 = v8;
-      v22 = 2048;
+      v18 = 138543874;
+      v19 = v8;
+      v20 = 2048;
       residentCountDuringLastElection = [(HMDPrimaryElectionCoordinationAddOn *)selfCopy residentCountDuringLastElection];
-      v24 = 2048;
-      v25 = 0;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Rapportd might have died (%lu -> %lu visible devices)", &v20, 0x20u);
+      v22 = 2048;
+      v23 = 0;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Rapportd might have died (%lu -> %lu visible devices)", &v18, 0x20u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -4714,9 +4641,9 @@ void __85__HMDPrimaryElectionCoordinationAddOn_primaryResidentChanged_previousRe
       if (v15)
       {
         v16 = HMFGetLogIdentifier();
-        v20 = 138543362;
-        v21 = v16;
-        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@We are the current primary resident, using the cautious debounce timeout", &v20, 0xCu);
+        v18 = 138543362;
+        v19 = v16;
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@We are the current primary resident, using the cautious debounce timeout", &v18, 0xCu);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -4727,10 +4654,10 @@ void __85__HMDPrimaryElectionCoordinationAddOn_primaryResidentChanged_previousRe
     {
       if (v15)
       {
-        v18 = HMFGetLogIdentifier();
-        v20 = 138543362;
-        v21 = v18;
-        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@We are not the current primary, going to pessimistic secondary mesh state", &v20, 0xCu);
+        v17 = HMFGetLogIdentifier();
+        v18 = 138543362;
+        v19 = v17;
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@We are not the current primary, going to pessimistic secondary mesh state", &v18, 0xCu);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -4738,14 +4665,12 @@ void __85__HMDPrimaryElectionCoordinationAddOn_primaryResidentChanged_previousRe
       [(HMDPrimaryElectionCoordinationAddOn *)v13 setInPessimisticSecondaryMesh:1];
       [(HMDPrimaryElectionCoordinationAddOn *)v13 _startSecondaryMeshTimer];
     }
-
-    v19 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)stop
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -4754,11 +4679,11 @@ void __85__HMDPrimaryElectionCoordinationAddOn_primaryResidentChanged_previousRe
   {
     v6 = HMFGetLogIdentifier();
     debugDescriptionForControllerType = [(HMDLocalElectionMeshController *)selfCopy->_meshController debugDescriptionForControllerType];
-    v11 = 138543618;
-    v12 = v6;
-    v13 = 2114;
-    v14 = debugDescriptionForControllerType;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping mesh controller with type: %{public}@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v6;
+    v12 = 2114;
+    v13 = debugDescriptionForControllerType;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping mesh controller with type: %{public}@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -4770,12 +4695,11 @@ void __85__HMDPrimaryElectionCoordinationAddOn_primaryResidentChanged_previousRe
 
   [(HMDPrimaryElectionCoordinationAddOn *)selfCopy _stopSecondaryMeshTimer];
   [(HMDLocalElectionMeshController *)selfCopy->_meshController stop];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v3 = MEMORY[0x277CCACA8];
   context = [(HMDPrimaryElectionCoordinationAddOn *)self context];
@@ -4791,23 +4715,21 @@ void __85__HMDPrimaryElectionCoordinationAddOn_primaryResidentChanged_previousRe
     v11 = HMFGetLogIdentifier();
     debugDescriptionForControllerType = [(HMDLocalElectionMeshController *)selfCopy->_meshController debugDescriptionForControllerType];
     *buf = 138543874;
-    v15 = v11;
-    v16 = 2114;
-    v17 = debugDescriptionForControllerType;
-    v18 = 2114;
-    v19 = v7;
+    v14 = v11;
+    v15 = 2114;
+    v16 = debugDescriptionForControllerType;
+    v17 = 2114;
+    v18 = v7;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Starting mesh controller with type: %{public}@, name: %{public}@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
   [(HMDLocalElectionMeshController *)selfCopy->_meshController startMeshWithName:v7];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForMessages
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   context = [(HMDPrimaryElectionCoordinationAddOn *)self context];
   messageDispatcher = [context messageDispatcher];
@@ -4815,28 +4737,28 @@ void __85__HMDPrimaryElectionCoordinationAddOn_primaryResidentChanged_previousRe
   v6 = +[(HMDRemoteMessagePolicy *)HMDMutableRemoteMessagePolicy];
   [v6 setRequiresSecureMessage:1];
   [v6 setRequiresAccountMessage:1];
-  v7 = [v6 copy];
+  v7 = objc_msgSend_copy(v6);
   v8 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:3 remoteAccessRequired:0];
-  v21[0] = v7;
-  v21[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
-  [messageDispatcher registerForMessage:@"mesh.requestCapabilities" receiver:self policies:v9 selector:sel_handleDeviceCapabilitiesRequest_];
-
   v20[0] = v7;
   v20[1] = v8;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
-  [messageDispatcher registerForMessage:@"mesh.requestCurrentPrimary" receiver:self policies:v10 selector:sel_handleCurrentPrimaryRequest_];
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  [messageDispatcher registerForMessage:@"mesh.requestCapabilities" receiver:self policies:v9 selector:sel_handleDeviceCapabilitiesRequest_];
 
   v19[0] = v7;
   v19[1] = v8;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+  [messageDispatcher registerForMessage:@"mesh.requestCurrentPrimary" receiver:self policies:v10 selector:sel_handleCurrentPrimaryRequest_];
+
+  v18[0] = v7;
+  v18[1] = v8;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
   [messageDispatcher registerForMessage:@"mesh.currentPrimaryUpdate" receiver:self policies:v11 selector:sel_handleCurrentPrimaryNotification_];
 
   if (isInternalBuild())
   {
-    v18[0] = v7;
-    v18[1] = v8;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+    v17[0] = v7;
+    v17[1] = v8;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
     [messageDispatcher registerForMessage:@"mesh.setPreferredPrimary.debug" receiver:self policies:v12 selector:sel_handleSetPreferredPrimaryDebugRequest_];
   }
 
@@ -4844,13 +4766,11 @@ void __85__HMDPrimaryElectionCoordinationAddOn_primaryResidentChanged_previousRe
   [v13 setRequiresSecureMessage:1];
   [v6 setRequiresAccountMessage:1];
   [v13 setRoles:{objc_msgSend(v13, "roles") | 4}];
-  v14 = [v13 copy];
-  v17[0] = v14;
-  v17[1] = v8;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v14 = objc_msgSend_copy(v13);
+  v16[0] = v14;
+  v16[1] = v8;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
   [messageDispatcher registerForMessage:@"mesh.meshInformationRequest" receiver:self policies:v15 selector:sel_handleMeshInformationRequest_];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDPrimaryElectionCoordinationAddOn)initWithContext:(id)context meshController:(id)controller dataSource:(id)source
@@ -4937,10 +4857,9 @@ void __85__HMDPrimaryElectionCoordinationAddOn_primaryResidentChanged_previousRe
 
 void __50__HMDPrimaryElectionCoordinationAddOn_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v126;
-  logCategory__hmf_once_v126 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v126;
+  logCategory__hmf_once_v126 = v0;
 }
 
 @end

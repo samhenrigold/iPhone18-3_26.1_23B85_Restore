@@ -4,6 +4,7 @@
 - (NTTodayResultsSource)initWithFetchDescriptor:(id)descriptor feedPersonalizerFactory:(id)factory groupingService:(id)service todayBannerValidator:(id)validator articleExposureRegistry:(id)registry privateDataStorage:(id)storage contentContext:(id)context fetchQueue:(id)self0;
 - (id)placeholderResultsWithOperationInfo:(id)info;
 - (void)_fetchLatestResultsWithOperationInfo:(id)info prefetchedContent:(id)content completion:(id)completion;
+- (void)_fetchTodayModuleDescriptorsWithContentRequest:(id)request requireRefreshedAppConfig:(BOOL)config qualityOfService:(int64_t)service completion:(id)completion;
 - (void)fetchLatestResultsWithOperationInfo:(id)info completion:(id)completion;
 - (void)fetchModuleDescriptorsWithCompletion:(id)completion;
 @end
@@ -251,12 +252,11 @@ void __71__NTTodayResultsSource_fetchLatestResultsWithOperationInfo_completion__
 
 void __71__NTTodayResultsSource_fetchLatestResultsWithOperationInfo_completion___block_invoke_3(uint64_t a1)
 {
-  v5 = objc_opt_new();
+  v4 = objc_opt_new();
   v2 = [*(a1 + 32) fetchDescriptor];
   v3 = [v2 sourceIdentifier];
-  [v5 setTodaySourceIdentifier:v3];
+  [v4 setTodaySourceIdentifier:v3];
 
-  v4 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
   (*(*(a1 + 56) + 16))();
 }
@@ -474,18 +474,41 @@ NTSection *__91__NTTodayResultsSource_placeholderResultsWithFetchDescriptor_cont
   return v6;
 }
 
+- (void)_fetchTodayModuleDescriptorsWithContentRequest:(id)request requireRefreshedAppConfig:(BOOL)config qualityOfService:(int64_t)service completion:(id)completion
+{
+  configCopy = config;
+  completionCopy = completion;
+  requestCopy = request;
+  fetchDescriptor = [(NTTodayResultsSource *)self fetchDescriptor];
+  contentContext = [(NTTodayResultsSource *)self contentContext];
+  [fetchDescriptor descriptorsOperationClass];
+  v13 = objc_opt_new();
+  [v13 setContentRequest:requestCopy];
+
+  [v13 setContentContext:contentContext];
+  privateDataStorage = [(NTTodayResultsSource *)self privateDataStorage];
+  [v13 setPrivateDataStorage:privateDataStorage];
+
+  [v13 setRequireRefreshedAppConfig:configCopy];
+  [v13 setQualityOfService:service];
+  [v13 setRelativePriority:FCInferRelativePriorityFromQualityOfService()];
+  [v13 setDescriptorsCompletion:completionCopy];
+
+  [v13 start];
+}
+
 - (void)_fetchLatestResultsWithOperationInfo:(id)info prefetchedContent:(id)content completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   completionCopy = completion;
   contentCopy = content;
-  v11 = NTSharedLog();
+  v11 = NTSharedLog(contentCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     [infoCopy slotsLimit];
     *buf = 134217984;
-    v27 = v12;
+    v26 = v12;
     _os_log_impl(&dword_25BF21000, v11, OS_LOG_TYPE_INFO, "Requesting %f slots from headline results source", buf, 0xCu);
   }
 
@@ -530,219 +553,183 @@ LABEL_8:
   [v15 setOperationInfo:infoCopy];
   [v15 setQualityOfService:{objc_msgSend(infoCopy, "qualityOfService")}];
   [v15 setRelativePriority:FCInferRelativePriorityFromQualityOfService()];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __90__NTTodayResultsSource__fetchLatestResultsWithOperationInfo_prefetchedContent_completion___block_invoke;
-  v23[3] = &unk_279982B50;
-  v23[4] = self;
-  v24 = contentContext;
-  v25 = completionCopy;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __90__NTTodayResultsSource__fetchLatestResultsWithOperationInfo_prefetchedContent_completion___block_invoke;
+  v22[3] = &unk_279982B50;
+  v22[4] = self;
+  v23 = contentContext;
+  v24 = completionCopy;
   v20 = completionCopy;
   v21 = contentContext;
-  [v15 setHeadlineResultCompletionHandler:v23];
+  [v15 setHeadlineResultCompletionHandler:v22];
   [v15 start];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __90__NTTodayResultsSource__fetchLatestResultsWithOperationInfo_prefetchedContent_completion___block_invoke(id *a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a4;
   v12 = a5;
-  v13 = NTSharedLog();
+  v13 = NTSharedLog(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v36 = v9;
+    v37 = v9;
     _os_log_impl(&dword_25BF21000, v13, OS_LOG_TYPE_INFO, "Fetched %{public}@", buf, 0xCu);
   }
 
   if (v12)
   {
-    v14 = NTSharedLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = NTSharedLog(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v36 = v12;
-      _os_log_impl(&dword_25BF21000, v14, OS_LOG_TYPE_ERROR, "Attempt to fetch completed with error %@", buf, 0xCu);
+      v37 = v12;
+      _os_log_impl(&dword_25BF21000, v15, OS_LOG_TYPE_ERROR, "Attempt to fetch completed with error %@", buf, 0xCu);
     }
   }
 
-  if (([a1[4] hasFlushingBeenEnabled] & 1) == 0)
+  v16 = [a1[4] hasFlushingBeenEnabled];
+  if ((v16 & 1) == 0)
   {
-    v15 = NTSharedLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v17 = NTSharedLog(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_25BF21000, v15, OS_LOG_TYPE_INFO, "Enabling flushing with zero interest threshold", buf, 2u);
+      _os_log_impl(&dword_25BF21000, v17, OS_LOG_TYPE_INFO, "Enabling flushing with zero interest threshold", buf, 2u);
     }
 
-    v16 = [a1[5] assetManager];
-    [v16 enableFlushingWithFlushingThreshold:1];
-    [a1[5] enableFlushingWithFlushingThreshold:0 exceptForFlusher:v16];
+    v18 = [a1[5] assetManager];
+    [v18 enableFlushingWithFlushingThreshold:1];
+    [a1[5] enableFlushingWithFlushingThreshold:0 exceptForFlusher:v18];
     [a1[4] setFlushingHasBeenEnabled:1];
   }
 
-  v17 = [v9 assetsHoldToken];
-  v18 = [v9 recordsHoldToken];
-  [a1[4] setLatestResultRecordsHoldToken:v18];
+  v19 = [v9 assetsHoldToken];
+  v20 = [v9 recordsHoldToken];
+  [a1[4] setLatestResultRecordsHoldToken:v20];
 
-  v19 = dispatch_time(0, 20000000);
-  v20 = FCDispatchQueueForQualityOfService();
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __90__NTTodayResultsSource__fetchLatestResultsWithOperationInfo_prefetchedContent_completion___block_invoke_57;
-  v28[3] = &unk_279982B28;
-  v21 = a1[6];
-  v29 = v9;
-  v30 = v10;
-  v31 = v11;
-  v32 = v12;
-  v33 = v17;
-  v34 = v21;
-  v22 = v17;
-  v23 = v12;
-  v24 = v11;
-  v25 = v10;
-  v26 = v9;
-  dispatch_after(v19, v20, v28);
-
-  v27 = *MEMORY[0x277D85DE8];
+  v21 = dispatch_time(0, 20000000);
+  v22 = FCDispatchQueueForQualityOfService();
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __90__NTTodayResultsSource__fetchLatestResultsWithOperationInfo_prefetchedContent_completion___block_invoke_57;
+  v29[3] = &unk_279982B28;
+  v23 = a1[6];
+  v30 = v9;
+  v31 = v10;
+  v32 = v11;
+  v33 = v12;
+  v34 = v19;
+  v35 = v23;
+  v24 = v19;
+  v25 = v12;
+  v26 = v11;
+  v27 = v10;
+  v28 = v9;
+  dispatch_after(v21, v22, v29);
 }
 
 - (void)initWithFetchDescriptor:feedPersonalizerFactory:groupingService:todayBannerValidator:articleExposureRegistry:privateDataStorage:contentContext:fetchQueue:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "fetchDescriptor"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "fetchDescriptor", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)initWithFetchDescriptor:feedPersonalizerFactory:groupingService:todayBannerValidator:articleExposureRegistry:privateDataStorage:contentContext:fetchQueue:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "feedPersonalizerFactory"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "feedPersonalizerFactory", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)initWithFetchDescriptor:feedPersonalizerFactory:groupingService:todayBannerValidator:articleExposureRegistry:privateDataStorage:contentContext:fetchQueue:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDataStorage"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "privateDataStorage", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)initWithFetchDescriptor:feedPersonalizerFactory:groupingService:todayBannerValidator:articleExposureRegistry:privateDataStorage:contentContext:fetchQueue:.cold.4()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "contentContext"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "contentContext", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)initWithFetchDescriptor:feedPersonalizerFactory:groupingService:todayBannerValidator:articleExposureRegistry:privateDataStorage:contentContext:fetchQueue:.cold.5()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "fetchQueue"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "fetchQueue", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)placeholderResultsWithOperationInfo:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "operationInfo != nil"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "operationInfo != nil", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 + (void)placeholderResultsWithFetchDescriptor:contentContext:operationInfo:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "fetchDescriptor != nil"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "fetchDescriptor != nil", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 + (void)placeholderResultsWithFetchDescriptor:contentContext:operationInfo:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "contentContext != nil"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "contentContext != nil", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 + (void)placeholderResultsWithFetchDescriptor:contentContext:operationInfo:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "operationInfo != nil"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "operationInfo != nil", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_fetchLatestResultsWithOperationInfo:prefetchedContent:completion:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "operationInfo != nil"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "operationInfo != nil", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_fetchLatestResultsWithOperationInfo:prefetchedContent:completion:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "completion != nil"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "completion != nil", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 @end

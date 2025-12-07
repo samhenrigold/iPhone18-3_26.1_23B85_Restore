@@ -303,10 +303,11 @@
     identifierCopy = [(PHASEAssetRegistry *)self getUniqueIdentifier];
   }
 
-  -[PHASEAssetRegistry makeSoundAssetInfoWithURL:assetString:assetType:channelLayout:normalizationMode:targetLKFS:ownerTask:outError:](self, "makeSoundAssetInfoWithURL:assetString:assetType:channelLayout:normalizationMode:targetLKFS:ownerTask:outError:", lCopy, [identifierCopy UTF8String], type, layoutCopy, mode, task, v24, error);
+  [identifierCopy UTF8String];
+  objc_msgSend_makeSoundAssetInfoWithURL_assetString_assetType_channelLayout_normalizationMode_targetLKFS_ownerTask_outError_(self, v24, error);
   if (v38)
   {
-    [(PHASEAssetRegistry *)self makeStringPoolForSingleAsset:identifierCopy outError:error];
+    objc_msgSend_makeStringPoolForSingleAsset_outError_(self);
     v25 = [PHASESoundAsset alloc];
     v26 = v38;
     v38 = 0;
@@ -531,7 +532,7 @@ LABEL_14:
   }
 
   [MEMORY[0x277CBEAD8] raise:@"API Misuse" format:{@"Unhandled Asset Type: %lu", type}];
-  [(PHASEAssetRegistry *)self makeStringPoolForSingleAsset:identifierCopy outError:error];
+  objc_msgSend_makeStringPoolForSingleAsset_outError_(self);
   if (!v37[0])
   {
     std::unique_ptr<Phase::StringPool>::~unique_ptr[abi:ne200100](v37);
@@ -852,7 +853,7 @@ LABEL_7:
         v15 = **(v12 + 8);
         v23 = 0;
         v22 = 1;
-        v16 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v15, 32, &v23, &v22);
+        v16 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v15, 0x20uLL, &v23, &v22);
         if (!v16)
         {
           Instance = Phase::Logger::GetInstance(0);
@@ -1036,9 +1037,10 @@ LABEL_15:
   objc_sync_enter(selfCopy);
   v14 = *a4.var0;
   *a4.var0 = 0;
-  v24 = v14;
-  v15 = std::__hash_table<std::__hash_value_type<unsigned long long,std::unique_ptr<Phase::StringPool>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unique_ptr<Phase::StringPool>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unique_ptr<Phase::StringPool>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unique_ptr<Phase::StringPool>>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,std::unique_ptr<Phase::StringPool>>>(&selfCopy->_stringPools.__table_.__bucket_list_.__ptr_, StringHashId);
-  std::unique_ptr<Phase::StringPool>::~unique_ptr[abi:ne200100](&v24);
+  v24 = StringHashId;
+  v25 = v14;
+  v15 = std::__hash_table<std::__hash_value_type<unsigned long long,std::unique_ptr<Phase::StringPool>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unique_ptr<Phase::StringPool>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unique_ptr<Phase::StringPool>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unique_ptr<Phase::StringPool>>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,std::unique_ptr<Phase::StringPool>>>(&selfCopy->_stringPools, StringHashId, &v24);
+  std::unique_ptr<Phase::StringPool>::~unique_ptr[abi:ne200100](&v25);
   if (phase && (v15 & 1) == 0)
   {
     *phase = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.coreaudio.phase" code:1346920804 userInfo:0];

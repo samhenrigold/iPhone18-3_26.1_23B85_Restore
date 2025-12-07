@@ -68,11 +68,6 @@
   v5 = objc_opt_class();
   v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
   date = self->_date;
-  distance = self->_distance;
-  averageSpeed = self->_averageSpeed;
-  verticalDescent = self->_verticalDescent;
-  runCount = self->_runCount;
-  maximumSpeed = self->_maximumSpeed;
 
   return MEMORY[0x1EEE66B58](v7, sel_initWithDate_distance_averageSpeed_verticalDescent_runCount_maximumSpeed_, date);
 }

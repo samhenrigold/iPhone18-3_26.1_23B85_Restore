@@ -210,7 +210,7 @@ uint64_t __41__ICAttachmentImageLoadingOperation_main__block_invoke_2(uint64_t a
     *(v4 + 40) = v3;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2);
 }
 
 intptr_t __41__ICAttachmentImageLoadingOperation_main__block_invoke_3(uint64_t a1)
@@ -230,9 +230,10 @@ intptr_t __41__ICAttachmentImageLoadingOperation_main__block_invoke_3(uint64_t a
 
 uint64_t __41__ICAttachmentImageLoadingOperation_main__block_invoke_4(uint64_t a1)
 {
-  *(*(*(a1 + 32) + 8) + 40) = [*(*(*(a1 + 40) + 8) + 40) orientedImage];
+  v2 = [*(*(*(a1 + 40) + 8) + 40) orientedImage];
+  *(*(*(a1 + 32) + 8) + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2);
 }
 
 void __41__ICAttachmentImageLoadingOperation_main__block_invoke_5(uint64_t a1)

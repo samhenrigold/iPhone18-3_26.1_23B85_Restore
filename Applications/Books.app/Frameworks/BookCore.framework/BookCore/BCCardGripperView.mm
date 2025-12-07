@@ -144,7 +144,7 @@ LABEL_7:
 
 - (id)accessibilityLabel
 {
-  v2 = IMCommonCoreBundle();
+  v2 = IMCommonCoreBundle(self);
   v3 = [v2 localizedStringForKey:@"Close" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
   return v3;
@@ -152,7 +152,7 @@ LABEL_7:
 
 - (id)accessibilityHint
 {
-  v2 = IMCommonCoreBundle();
+  v2 = IMCommonCoreBundle(self);
   v3 = [v2 localizedStringForKey:@"Double tap to dismiss the popover" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
   return v3;

@@ -159,13 +159,13 @@
 - (void)disableTimeChangeAnimations
 {
   selfCopy = self;
-  sub_23BF9C45C(0);
+  sub_23BF9C45C(0, sub_23BF9CA8C);
 }
 
 - (void)enableTimeChangeAnimations
 {
   selfCopy = self;
-  sub_23BF9C45C(1);
+  sub_23BF9C45C(1, sub_23BF9C660);
 }
 
 - (NTKParmesanGalleryView)initWithFrame:(CGRect)frame device:(id)device typeface:(int64_t)typeface numerals:(unint64_t)numerals timeOption:(int64_t)option timeLayout:(id)layout timePalette:(id)palette

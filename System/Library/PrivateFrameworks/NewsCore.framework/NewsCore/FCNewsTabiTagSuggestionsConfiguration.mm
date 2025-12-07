@@ -27,7 +27,7 @@
 
 - (FCNewsTabiTagSuggestionsConfiguration)initWithDictionary:(id)dictionary
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v5 = [FCNewsTabiTagSuggestionsOutputConfiguration alloc];
   v6 = FCAppConfigurationDictionaryValueWithDefaultValue(dictionaryCopy, @"bundleOutputConfiguration", 0);
@@ -50,17 +50,17 @@
         v15 = FCTabiConfigurationLog;
         if (os_log_type_enabled(FCTabiConfigurationLog, OS_LOG_TYPE_ERROR))
         {
-          v21 = v15;
-          v22 = [dictionaryCopy description];
+          v20 = v15;
+          v21 = [dictionaryCopy description];
           *buf = 138543362;
-          v29 = v22;
-          _os_log_error_impl(&dword_1B63EF000, v21, OS_LOG_TYPE_ERROR, "Failed to initialize FCNewsTabiRecipeEventAggregationConfiguration in FCNewsTabiTagSuggestionsConfiguration due to failure to decode configuration from configuration %{public}@", buf, 0xCu);
+          v28 = v21;
+          _os_log_error_impl(&dword_1B63EF000, v20, OS_LOG_TYPE_ERROR, "Failed to initialize FCNewsTabiRecipeEventAggregationConfiguration in FCNewsTabiTagSuggestionsConfiguration due to failure to decode configuration from configuration %{public}@", buf, 0xCu);
         }
       }
 
-      v23.receiver = self;
-      v23.super_class = FCNewsTabiTagSuggestionsConfiguration;
-      v16 = [(FCNewsTabiTagSuggestionsConfiguration *)&v23 init];
+      v22.receiver = self;
+      v22.super_class = FCNewsTabiTagSuggestionsConfiguration;
+      v16 = [(FCNewsTabiTagSuggestionsConfiguration *)&v22 init];
       p_isa = &v16->super.isa;
       if (v16)
       {
@@ -76,64 +76,61 @@
 
     else
     {
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __60__FCNewsTabiTagSuggestionsConfiguration_initWithDictionary___block_invoke_58;
-      v24[3] = &unk_1E7C36F98;
-      v25 = dictionaryCopy;
-      selfCopy = __60__FCNewsTabiTagSuggestionsConfiguration_initWithDictionary___block_invoke_58(v24);
-      v12 = v25;
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __60__FCNewsTabiTagSuggestionsConfiguration_initWithDictionary___block_invoke_58;
+      v23[3] = &unk_1E7C36F98;
+      v24 = dictionaryCopy;
+      selfCopy = __60__FCNewsTabiTagSuggestionsConfiguration_initWithDictionary___block_invoke_58(v23);
+      v12 = v24;
     }
   }
 
   else
   {
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __60__FCNewsTabiTagSuggestionsConfiguration_initWithDictionary___block_invoke;
-    v26[3] = &unk_1E7C36F98;
-    v27 = dictionaryCopy;
-    selfCopy = __60__FCNewsTabiTagSuggestionsConfiguration_initWithDictionary___block_invoke(v26);
-    v8 = v27;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __60__FCNewsTabiTagSuggestionsConfiguration_initWithDictionary___block_invoke;
+    v25[3] = &unk_1E7C36F98;
+    v26 = dictionaryCopy;
+    selfCopy = __60__FCNewsTabiTagSuggestionsConfiguration_initWithDictionary___block_invoke(v25);
+    v8 = v26;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 uint64_t __60__FCNewsTabiTagSuggestionsConfiguration_initWithDictionary___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = FCTabiConfigurationLog;
   if (os_log_type_enabled(FCTabiConfigurationLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = v2;
-    v7 = [v5 description];
-    v8 = 138543362;
-    v9 = v7;
-    _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "Failed to initialize FCNewsTabiTagSuggestionsConfiguration due to failure to decode bundleOutputConfiguration from configuration %{public}@", &v8, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = v2;
+    v6 = [v4 description];
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_error_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_ERROR, "Failed to initialize FCNewsTabiTagSuggestionsConfiguration due to failure to decode bundleOutputConfiguration from configuration %{public}@", &v7, 0xCu);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __60__FCNewsTabiTagSuggestionsConfiguration_initWithDictionary___block_invoke_58(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = FCTabiConfigurationLog;
   if (os_log_type_enabled(FCTabiConfigurationLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = v2;
-    v7 = [v5 description];
-    v8 = 138543362;
-    v9 = v7;
-    _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "Failed to initialize FCNewsTabiTagSuggestionsConfiguration due to failure to decode nonBundleOutputConfiguration from configuration %{public}@", &v8, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = v2;
+    v6 = [v4 description];
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_error_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_ERROR, "Failed to initialize FCNewsTabiTagSuggestionsConfiguration due to failure to decode nonBundleOutputConfiguration from configuration %{public}@", &v7, 0xCu);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

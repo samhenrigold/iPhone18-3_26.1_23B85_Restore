@@ -24,19 +24,23 @@
 
 - (BOOL)shouldShowMirroringAsEnabled
 {
-  if (![(COSMirrorController *)self mirrorSettings])
+  result = 0;
+  if ([(COSMirrorController *)self mirrorSettings])
   {
-    return 0;
+    internationalController = [(COSMirrorController *)self internationalController];
+    languageSelector = [internationalController languageSelector];
+    appleLanguages = [languageSelector appleLanguages];
+
+    v6 = +[NSLocale preferredLanguages];
+    LOBYTE(languageSelector) = [appleLanguages isEqualToArray:v6];
+
+    if (languageSelector)
+    {
+      return 1;
+    }
   }
 
-  internationalController = [(COSMirrorController *)self internationalController];
-  languageSelector = [internationalController languageSelector];
-  appleLanguages = [languageSelector appleLanguages];
-
-  v6 = +[NSLocale preferredLanguages];
-  LOBYTE(languageSelector) = [appleLanguages isEqualToArray:v6];
-
-  return (languageSelector & 1) != 0;
+  return result;
 }
 
 - (id)applicationBundleIdentifier

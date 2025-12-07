@@ -104,7 +104,7 @@
 
   else
   {
-    v7 = logForCSLogCategoryDefault();
+    v7 = logForCSLogCategoryDefault(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -119,15 +119,15 @@ void __35__SDSignalHandler_addMemoryHandler__block_invoke()
   v0 = _memoryStatusSource;
   objc_sync_enter(v0);
   data = dispatch_source_get_data(_memoryStatusSource);
-  v2 = CFAbsoluteTimeGetCurrent() - *&_block_invoke_lastNotification;
-  if (data != _block_invoke_lastStatus || v2 > 30.0)
+  v3 = CFAbsoluteTimeGetCurrent() - *&_block_invoke_lastNotification;
+  if (data != _block_invoke_lastStatus || v3 > 30.0)
   {
-    v4 = logForCSLogCategoryDefault();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = logForCSLogCategoryDefault(v2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 134217984;
       v7 = data;
-      _os_log_impl(&dword_231A35000, v4, OS_LOG_TYPE_DEFAULT, "Memory pressure (%ld)", &v6, 0xCu);
+      _os_log_impl(&dword_231A35000, v5, OS_LOG_TYPE_DEFAULT, "Memory pressure (%ld)", &v6, 0xCu);
     }
 
     [sSignalHandlerDelegate didReceiveMemoryPressureNotification:data];
@@ -136,8 +136,6 @@ void __35__SDSignalHandler_addMemoryHandler__block_invoke()
   _block_invoke_lastStatus = data;
   _block_invoke_lastNotification = CFAbsoluteTimeGetCurrent();
   objc_sync_exit(v0);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

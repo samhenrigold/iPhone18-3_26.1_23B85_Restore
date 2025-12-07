@@ -9,17 +9,17 @@ void *__cdecl _Block_copy(const void *aBlock)
   {
     do
     {
-      v11 = *(aBlock + 2);
-      if ((~v11 & 0xFFFE) == 0)
+      v8 = *(aBlock + 2);
+      if ((~v8 & 0xFFFE) == 0)
       {
         break;
       }
 
-      v12 = *(aBlock + 2);
-      atomic_compare_exchange_strong(aBlock + 2, &v12, v11 + 2);
+      v9 = *(aBlock + 2);
+      atomic_compare_exchange_strong(aBlock + 2, &v9, v8 + 2);
     }
 
-    while (v12 != v11);
+    while (v9 != v8);
     return aBlock;
   }
 
@@ -36,62 +36,55 @@ void *__cdecl _Block_copy(const void *aBlock)
       _Block_copy_cold_1();
     }
 
-    v3 = *(aBlock + 2);
     _platform_memmove();
-    v4 = *(aBlock + 2);
-    if (v4)
-    {
-      v5 = *(aBlock + 2);
-    }
-
-    v2->invoke = v4;
+    v2->invoke = *(aBlock + 2);
     v2->flags &= 0xFFFF0000;
     v2->flags |= 0x1000002u;
-    v6 = **(aBlock + 3);
-    if (!v6)
+    v3 = **(aBlock + 3);
+    if (!v3)
     {
-      goto LABEL_12;
+      goto LABEL_9;
     }
 
-    v7 = v6 >> 14;
-    if (v7 > 1)
+    v4 = v3 >> 14;
+    if (v4 > 1)
     {
-      if (v7 != 2)
+      if (v4 != 2)
       {
-        LOBYTE(v7) = 3;
+        LOBYTE(v4) = 3;
       }
     }
 
     else
     {
-      if (!v7)
+      if (!v4)
       {
-LABEL_12:
-        v8 = v2;
-        v9 = aBlock;
-        v10 = 0;
-LABEL_24:
-        _call_copy_helpers_excp(v8, v9, v10);
+LABEL_9:
+        v5 = v2;
+        v6 = aBlock;
+        v7 = 0;
+LABEL_21:
+        _call_copy_helpers_excp(v5, v6, v7);
         v2->isa = OBJC_CLASS_____NSMallocBlock__;
         return v2;
       }
 
       if (hasInlineExtendedLayout(aBlock))
       {
-        LOBYTE(v7) = 1;
+        LOBYTE(v4) = 1;
       }
 
       else
       {
-        LOBYTE(v7) = 5;
+        LOBYTE(v4) = 5;
       }
     }
 
-    v14 = v7;
-    v10 = &v14;
-    v8 = v2;
-    v9 = aBlock;
-    goto LABEL_24;
+    v11 = v4;
+    v7 = &v11;
+    v5 = v2;
+    v6 = aBlock;
+    goto LABEL_21;
   }
 
   return v2;
@@ -154,14 +147,14 @@ void _call_copy_helpers_excp(Block_layout *a1, uint64_t a2, GenericInline *a3)
   _cleanup_generic_captures(v5);
 }
 
-void sub_299DC9E90(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_299DC9E90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _cleanup_generic_captures(va);
   _Unwind_Resume(a1);
 }
 
-unint64_t HelperBase<GenericInline>::copyBlock(GenericInline *this, uint64_t a2, uint64_t a3)
+unint64_t HelperBase<GenericInline>::copyBlock(GenericInline *this, unint64_t a2, uint64_t a3)
 {
   *(this + 7) = *(*(a2 + 24) - 8);
   *(this + 8) = 8;
@@ -170,8 +163,8 @@ unint64_t HelperBase<GenericInline>::copyBlock(GenericInline *this, uint64_t a2,
   *(this + 2) = a3 + 32;
   while (1)
   {
-    result = GenericInline::getNextOpcodeAndCount(this);
-    v5 = HIDWORD(result);
+    result = GenericInline::getNextOpcodeAndCount(this, a2);
+    a2 = HIDWORD(result);
     if (result <= 3)
     {
       break;
@@ -201,11 +194,11 @@ LABEL_15:
   {
     if (result == 2)
     {
-      v7 = 8 * (HIDWORD(result) & 0x1FFFFFFF);
-      v8 = *(this + 1) + v7;
-      v9 = *(this + 2) + v7;
-      *(this + 1) = v8;
-      *(this + 2) = v9;
+      v6 = 8 * (HIDWORD(result) & 0x1FFFFFFF);
+      v7 = *(this + 1) + v6;
+      v8 = *(this + 2) + v6;
+      *(this + 1) = v7;
+      *(this + 2) = v8;
     }
 
     else
@@ -218,9 +211,9 @@ LABEL_15:
 
   if (result == 1)
   {
-    v6 = *(this + 2) + v5;
-    *(this + 1) += v5;
-    *(this + 2) = v6;
+    v5 = *(this + 2) + a2;
+    *(this + 1) += a2;
+    *(this + 2) = v5;
     goto LABEL_15;
   }
 
@@ -233,9 +226,9 @@ LABEL_17:
   return result;
 }
 
-id HelperBase<ExtendedOutOfLine>::copyCapture<(HelperBase<ExtendedOutOfLine>::BlockCaptureKind)3>(id result, unsigned int a2)
+_DWORD *HelperBase<ExtendedOutOfLine>::copyCapture<(HelperBase<ExtendedOutOfLine>::BlockCaptureKind)3>(_DWORD *result, unsigned int a2)
 {
-  if (*(result + 6))
+  if (result[6])
   {
     HelperBase<ExtendedOutOfLine>::copyCapture<(HelperBase<ExtendedOutOfLine>::BlockCaptureKind)3>();
   }
@@ -247,11 +240,11 @@ id HelperBase<ExtendedOutOfLine>::copyCapture<(HelperBase<ExtendedOutOfLine>::Bl
     do
     {
       result = *v4;
-      v4 = (v3[2] + 8);
-      v3[1] += 8;
-      v3[2] = v4;
-      v5 = *(v3 + 6) + 1;
-      *(v3 + 6) = v5;
+      v4 = (*(v3 + 2) + 8);
+      *(v3 + 1) += 8;
+      *(v3 + 2) = v4;
+      v5 = v3[6] + 1;
+      v3[6] = v5;
     }
 
     while (v5 < a2);
@@ -260,9 +253,9 @@ id HelperBase<ExtendedOutOfLine>::copyCapture<(HelperBase<ExtendedOutOfLine>::Bl
   return result;
 }
 
-void *HelperBase<ExtendedOutOfLine>::copyCapture<(HelperBase<ExtendedOutOfLine>::BlockCaptureKind)4>(void *result, unsigned int a2)
+_DWORD *HelperBase<ExtendedOutOfLine>::copyCapture<(HelperBase<ExtendedOutOfLine>::BlockCaptureKind)4>(_DWORD *result, unsigned int a2)
 {
-  if (*(result + 6))
+  if (result[6])
   {
     HelperBase<ExtendedOutOfLine>::copyCapture<(HelperBase<ExtendedOutOfLine>::BlockCaptureKind)3>();
   }
@@ -276,12 +269,12 @@ void *HelperBase<ExtendedOutOfLine>::copyCapture<(HelperBase<ExtendedOutOfLine>:
     {
       result = _Block_copy(*v4);
       *v5 = result;
-      v5 = (v3[1] + 8);
-      v4 = (v3[2] + 8);
-      v3[1] = v5;
-      v3[2] = v4;
-      v6 = *(v3 + 6) + 1;
-      *(v3 + 6) = v6;
+      v5 = (*(v3 + 1) + 8);
+      v4 = (*(v3 + 2) + 8);
+      *(v3 + 1) = v5;
+      *(v3 + 2) = v4;
+      v6 = v3[6] + 1;
+      v3[6] = v6;
     }
 
     while (v6 < a2);
@@ -290,39 +283,39 @@ void *HelperBase<ExtendedOutOfLine>::copyCapture<(HelperBase<ExtendedOutOfLine>:
   return result;
 }
 
-unint64_t GenericInline::getNextOpcodeAndCount(GenericInline *this)
+unint64_t GenericInline::getNextOpcodeAndCount(GenericInline *this, uint64_t a2)
 {
-  v1 = *(this + 8);
-  HIDWORD(v3) = v1 - 8;
-  LODWORD(v3) = v1 - 8;
-  v2 = v3 >> 2;
-  if (v2 <= 1)
+  v2 = *(this + 8);
+  HIDWORD(v4) = v2 - 8;
+  LODWORD(v4) = v2 - 8;
+  v3 = v4 >> 2;
+  if (v3 <= 1)
   {
-    if (v2)
+    if (v3)
     {
-      if (v2 != 1)
+      if (v3 != 1)
       {
         goto LABEL_13;
       }
 
-      v5 = 4;
+      v6 = 4;
     }
 
     else
     {
-      v5 = 3;
+      v6 = 3;
     }
   }
 
   else
   {
-    switch(v2)
+    switch(v3)
     {
       case 2:
-        v5 = 5;
+        v6 = 5;
         break;
       case 3:
-        v5 = 6;
+        v6 = 6;
         break;
       case 4:
         return 0;
@@ -332,7 +325,7 @@ LABEL_13:
     }
   }
 
-  return v5 | (((*(this + 7) >> v1) & 0xF) << 32);
+  return v6 | (((*(this + 7) >> v2) & 0xF) << 32);
 }
 
 void _Block_release(const void *aBlock)
@@ -525,11 +518,11 @@ uint64_t _call_custom_copy_helper(uint64_t a1, uint64_t a2)
     v2 = *(*(a2 + 24) + 16);
     if (v2)
     {
-      return v2();
+      return v2(a1);
     }
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t _call_custom_dispose_helper(uint64_t result)
@@ -546,25 +539,25 @@ uint64_t _call_custom_dispose_helper(uint64_t result)
   return result;
 }
 
-uint64_t _call_dispose_helpers_excp(Block_layout *a1, ExtendedInline *a2)
+void _call_dispose_helpers_excp(Block_layout *a1, ExtendedInline *a2)
 {
-  v5[1] = a1;
-  v5[0] = 4;
-  v5[2] = a2;
+  v4[1] = a1;
+  v4[0] = 4;
+  v4[2] = a2;
   _call_custom_dispose_helper(a1);
   if (a2)
   {
-    LODWORD(v5[0]) = 3;
+    LODWORD(v4[0]) = 3;
     _call_generic_destroy_helper(a1, a2);
   }
 
-  LODWORD(v5[0]) = 0;
-  return _cleanup_generic_captures(v5);
+  LODWORD(v4[0]) = 0;
+  _cleanup_generic_captures(v4);
 }
 
-void sub_299DCA48C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_299DCA48C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _cleanup_generic_captures(va);
   _Unwind_Resume(a1);
 }
@@ -585,7 +578,7 @@ void _Block_object_assign(void *a1, const void *a2, const int a3)
       goto LABEL_12;
     }
 
-LABEL_29:
+LABEL_25:
     *a1 = v3;
     return;
   }
@@ -594,10 +587,10 @@ LABEL_29:
   {
     case 3u:
       _Block_retain_object(a2);
-      goto LABEL_29;
+      goto LABEL_25;
     case 7u:
       v3 = _Block_copy(a2);
-      goto LABEL_29;
+      goto LABEL_25;
     case 8u:
 LABEL_12:
       v7 = *(a2 + 1);
@@ -631,20 +624,8 @@ LABEL_12:
         v10[5] = v3[5];
         if ((v3[4] & 0x2000000) != 0)
         {
-          v11 = *(v3 + 3);
-          if (v11)
-          {
-            v12 = *(v3 + 3);
-          }
-
-          *(v10 + 3) = v11;
-          v13 = *(v3 + 4);
-          if (v13)
-          {
-            v14 = *(v3 + 4);
-          }
-
-          *(v10 + 4) = v13;
+          *(v10 + 3) = *(v3 + 3);
+          *(v10 + 4) = *(v3 + 4);
           if (v3[4] >> 28 == 1)
           {
             *(v10 + 5) = *(v3 + 5);
@@ -660,11 +641,11 @@ LABEL_12:
       }
 
       v3 = *(v3 + 1);
-      goto LABEL_29;
+      goto LABEL_25;
   }
 }
 
-unint64_t HelperBase<GenericInline>::destroyBlock(GenericInline *this, uint64_t a2, int a3, const void **a4)
+unint64_t HelperBase<GenericInline>::destroyBlock(GenericInline *this, unint64_t a2, int a3, const void **a4)
 {
   if (a3)
   {
@@ -676,14 +657,14 @@ unint64_t HelperBase<GenericInline>::destroyBlock(GenericInline *this, uint64_t 
 
   while (1)
   {
-    result = GenericInline::getNextOpcodeAndCount(this);
-    v7 = HIDWORD(result);
+    result = GenericInline::getNextOpcodeAndCount(this, a2);
+    a2 = HIDWORD(result);
     if (result > 3)
     {
       switch(result)
       {
         case 4:
-          result = HelperBase<ExtendedOutOfLine>::disposeCapture<(HelperBase<ExtendedOutOfLine>::BlockCaptureKind)4>(this, v7, a4);
+          result = HelperBase<ExtendedOutOfLine>::disposeCapture<(HelperBase<ExtendedOutOfLine>::BlockCaptureKind)4>(this, HIDWORD(result), a4);
           if (result)
           {
             goto LABEL_21;
@@ -726,7 +707,7 @@ LABEL_21:
 
     if (result == 2)
     {
-      v8 = *(this + 1) + 8 * (HIDWORD(result) & 0x1FFFFFFF);
+      v7 = *(this + 1) + 8 * (HIDWORD(result) & 0x1FFFFFFF);
       goto LABEL_18;
     }
 
@@ -743,9 +724,9 @@ LABEL_20:
 
   if (result == 1)
   {
-    v8 = *(this + 1) + v7;
+    v7 = *(this + 1) + a2;
 LABEL_18:
-    *(this + 1) = v8;
+    *(this + 1) = v7;
     goto LABEL_20;
   }
 
@@ -776,7 +757,7 @@ uint64_t _call_generic_destroy_helper(Block_layout *a1, ExtendedInline *this)
     if ((*this & 4) != 0)
     {
 
-      return HelperBase<ExtendedOutOfLine>::destroyBlock(this);
+      return HelperBase<ExtendedOutOfLine>::destroyBlock(this, a1, 1, 0);
     }
 
     else
@@ -1228,8 +1209,8 @@ unint64_t HelperBase<ExtendedOutOfLine>::copyBlock(uint64_t a1, uint64_t a2, uin
   *(a1 + 16) = a3 + 32;
   while (1)
   {
-    result = ExtendedOutOfLine::getNextOpcodeAndCount(a1);
-    v6 = HIDWORD(result);
+    result = ExtendedOutOfLine::getNextOpcodeAndCount(a1, v5);
+    v5 = HIDWORD(result);
     if (result <= 3)
     {
       break;
@@ -1276,8 +1257,8 @@ LABEL_15:
 
   if (result == 1)
   {
-    v7 = *(a1 + 16) + v6;
-    *(a1 + 8) += v6;
+    v7 = *(a1 + 16) + v5;
+    *(a1 + 8) += v5;
     *(a1 + 16) = v7;
     goto LABEL_15;
   }
@@ -1299,8 +1280,8 @@ unint64_t HelperBase<ExtendedInline>::copyBlock(uint64_t a1, Block_layout *a2, u
   *(a1 + 16) = a3 + 32;
   while (1)
   {
-    result = ExtendedInline::getNextOpcodeAndCount(a1);
-    v7 = HIDWORD(result);
+    result = ExtendedInline::getNextOpcodeAndCount(a1, v6);
+    v6 = HIDWORD(result);
     if (result <= 3)
     {
       break;
@@ -1347,8 +1328,8 @@ LABEL_15:
 
   if (result == 1)
   {
-    v8 = *(a1 + 16) + v7;
-    *(a1 + 8) += v7;
+    v8 = *(a1 + 16) + v6;
+    *(a1 + 8) += v6;
     *(a1 + 16) = v8;
     goto LABEL_15;
   }
@@ -1362,7 +1343,7 @@ LABEL_17:
   return result;
 }
 
-unint64_t HelperBase<ExtendedOutOfLine>::destroyBlock(ExtendedOutOfLine *this, uint64_t a2, int a3, const void **a4)
+unint64_t HelperBase<ExtendedOutOfLine>::destroyBlock(ExtendedOutOfLine *this, unint64_t a2, int a3, const void **a4)
 {
   if (a3)
   {
@@ -1371,7 +1352,8 @@ unint64_t HelperBase<ExtendedOutOfLine>::destroyBlock(ExtendedOutOfLine *this, u
 
   while (1)
   {
-    result = ExtendedOutOfLine::getNextOpcodeAndCount(this);
+    result = ExtendedOutOfLine::getNextOpcodeAndCount(this, a2);
+    a2 = HIDWORD(result);
     if (result > 3)
     {
       switch(result)
@@ -1437,7 +1419,7 @@ LABEL_20:
 
   if (result == 1)
   {
-    v7 = *(this + 1) + HIDWORD(result);
+    v7 = *(this + 1) + a2;
 LABEL_18:
     *(this + 1) = v7;
     goto LABEL_20;
@@ -1456,21 +1438,22 @@ unint64_t HelperBase<ExtendedInline>::destroyBlock(ExtendedInline *this, Block_l
 {
   if (a3)
   {
+    v6 = a2;
     ExtendedInline::initState(this, a2);
     *(this + 6) = 0;
-    *(this + 1) = a2 + 1;
+    *(this + 1) = v6 + 1;
   }
 
   while (1)
   {
-    result = ExtendedInline::getNextOpcodeAndCount(this);
-    v8 = HIDWORD(result);
+    result = ExtendedInline::getNextOpcodeAndCount(this, a2);
+    a2 = HIDWORD(result);
     if (result > 3)
     {
       switch(result)
       {
         case 4:
-          result = HelperBase<ExtendedOutOfLine>::disposeCapture<(HelperBase<ExtendedOutOfLine>::BlockCaptureKind)4>(this, v8, a4);
+          result = HelperBase<ExtendedOutOfLine>::disposeCapture<(HelperBase<ExtendedOutOfLine>::BlockCaptureKind)4>(this, HIDWORD(result), a4);
           if (result)
           {
             goto LABEL_21;
@@ -1513,7 +1496,7 @@ LABEL_21:
 
     if (result == 2)
     {
-      v9 = *(this + 1) + 8 * (HIDWORD(result) & 0x1FFFFFFF);
+      v8 = (*(this + 1) + 8 * (HIDWORD(result) & 0x1FFFFFFF));
       goto LABEL_18;
     }
 
@@ -1530,9 +1513,9 @@ LABEL_20:
 
   if (result == 1)
   {
-    v9 = *(this + 1) + v8;
+    v8 = a2 + *(this + 1);
 LABEL_18:
-    *(this + 1) = v9;
+    *(this + 1) = v8;
     goto LABEL_20;
   }
 
@@ -1801,15 +1784,15 @@ const char *__cdecl _Block_extended_layout(void *aBlock)
   }
 }
 
-unint64_t ExtendedOutOfLine::getNextOpcodeAndCount(ExtendedOutOfLine *this)
+unint64_t ExtendedOutOfLine::getNextOpcodeAndCount(ExtendedOutOfLine *this, uint64_t a2)
 {
-  v1 = **(this + 4);
-  if (v1 >= 0x70)
+  v2 = **(this + 4);
+  if (v2 >= 0x70)
   {
     ExtendedOutOfLine::getNextOpcodeAndCount();
   }
 
-  return *(&unk_299DCBC60 + ((v1 >> 1) & 0x78)) | (((v1 & 0xF) + 1) << 32);
+  return *(&unk_299DCBC60 + ((v2 >> 1) & 0x78)) | (((v2 & 0xF) + 1) << 32);
 }
 
 uint64_t HelperBase<ExtendedOutOfLine>::initState(uint64_t result, uint64_t a2)
@@ -1840,41 +1823,41 @@ uint64_t HelperBase<ExtendedOutOfLine>::initState(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t ExtendedInline::getNextOpcodeAndCount(ExtendedInline *this)
+uint64_t ExtendedInline::getNextOpcodeAndCount(ExtendedInline *this, uint64_t a2)
 {
-  v1 = *(this + 8);
-  HIDWORD(v3) = v1 + 4;
-  LODWORD(v3) = v1 + 4;
-  v2 = (v3 >> 2);
-  if (v2 > 1)
+  v2 = *(this + 8);
+  HIDWORD(v4) = v2 + 4;
+  LODWORD(v4) = v2 + 4;
+  v3 = (v4 >> 2);
+  if (v3 > 1)
   {
-    if (v2 == 3)
+    if (v3 == 3)
     {
-      return v2 | (((*(this + 14) >> v1) & 0xF) << 32);
+      return v3 | (((*(this + 14) >> v2) & 0xF) << 32);
     }
 
-    if (v2 == 2)
+    if (v3 == 2)
     {
-      v2 = 5;
-      return v2 | (((*(this + 14) >> v1) & 0xF) << 32);
+      v3 = 5;
+      return v3 | (((*(this + 14) >> v2) & 0xF) << 32);
     }
 
     goto LABEL_10;
   }
 
-  if (v2)
+  if (v3)
   {
-    if (v2 == 1)
+    if (v3 == 1)
     {
-      v2 = 6;
-      return v2 | (((*(this + 14) >> v1) & 0xF) << 32);
+      v3 = 6;
+      return v3 | (((*(this + 14) >> v2) & 0xF) << 32);
     }
 
 LABEL_10:
     ExtendedInline::getNextOpcodeAndCount();
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t ExtendedInline::initState(uint64_t this, Block_layout *a2)

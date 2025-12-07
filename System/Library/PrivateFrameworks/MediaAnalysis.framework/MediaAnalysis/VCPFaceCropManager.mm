@@ -1802,87 +1802,93 @@ LABEL_28:
 
 - (int)processDirtyFaceCrops:(unint64_t *)crops withCancelBlock:(id)block andExtendTimeoutBlock:(id)timeoutBlock
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   timeoutBlockCopy = timeoutBlock;
-  v7 = VCPSignPostLog();
+  v7 = VCPSignPostLog(timeoutBlockCopy);
   v8 = os_signpost_id_generate(v7);
 
-  v9 = VCPSignPostLog();
-  v10 = v9;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v10 = VCPSignPostLog(v9);
+  v11 = v10;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "VCPFaceProcessingDirtyFaceCrops", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v8, "VCPFaceProcessingDirtyFaceCrops", "", buf, 2u);
   }
 
-  v11 = MEMORY[0x1E69787E8];
+  v12 = MEMORY[0x1E69787E8];
   librarySpecificFetchOptions = [(PHPhotoLibrary *)self->_photoLibrary librarySpecificFetchOptions];
-  v13 = [v11 fetchFaceCropsNeedingFaceDetectionWithOptions:librarySpecificFetchOptions];
+  v14 = [v12 fetchFaceCropsNeedingFaceDetectionWithOptions:librarySpecificFetchOptions];
 
   if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
-    v14 = [v13 count];
+    v15 = [v14 count];
     *buf = 134217984;
-    v32 = v14;
+    v34 = v15;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[FaceCropManager] Library has %lu dirty facecrops to analyze", buf, 0xCu);
   }
 
-  v15 = 0;
   v16 = 0;
-  while (v15 < [v13 count])
+  v17 = 0;
+  while (1)
   {
-    v17 = objc_autoreleasePoolPush();
-    v18 = blockCopy[2](blockCopy);
-    if ((v18 & 1) == 0)
+    v18 = [v14 count];
+    if (v16 >= v18)
+    {
+      break;
+    }
+
+    v19 = objc_autoreleasePoolPush();
+    v20 = blockCopy[2](blockCopy);
+    if ((v20 & 1) == 0)
     {
       if (timeoutBlockCopy)
       {
         timeoutBlockCopy[2]();
       }
 
-      v19 = [v13 objectAtIndexedSubscript:v15];
-      v30 = 0;
-      v20 = [(VCPFaceCropManager *)self _processDirtyFaceCrop:v19 faceCropFaceLocalIdentifier:0 error:&v30];
-      v21 = v30;
-      if (v20)
+      v21 = [v14 objectAtIndexedSubscript:v16];
+      v32 = 0;
+      v22 = [(VCPFaceCropManager *)self _processDirtyFaceCrop:v21 faceCropFaceLocalIdentifier:0 error:&v32];
+      v23 = v32;
+      if (v22)
       {
-        ++v16;
+        ++v17;
       }
 
       else if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        localIdentifier = [v19 localIdentifier];
+        localIdentifier = [v21 localIdentifier];
         *buf = 138412546;
-        v32 = localIdentifier;
-        v33 = 2112;
-        v34 = v21;
+        v34 = localIdentifier;
+        v35 = 2112;
+        v36 = v23;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceCropManager] Failed to process dirty facecrop %@ - %@", buf, 0x16u);
       }
     }
 
-    objc_autoreleasePoolPop(v17);
-    ++v15;
-    if (v18)
+    objc_autoreleasePoolPop(v19);
+    ++v16;
+    if (v20)
     {
-      v23 = -128;
+      v25 = -128;
       goto LABEL_24;
     }
   }
 
-  *crops = v16;
-  v24 = VCPSignPostLog();
-  v25 = v24;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+  *crops = v17;
+  v26 = VCPSignPostLog(v18);
+  v27 = v26;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_END, v8, "VCPFaceProcessingDirtyFaceCrops", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_END, v8, "VCPFaceProcessingDirtyFaceCrops", "", buf, 2u);
   }
 
-  v23 = 0;
+  v25 = 0;
 LABEL_24:
 
-  return v23;
+  return v25;
 }
 
 @end

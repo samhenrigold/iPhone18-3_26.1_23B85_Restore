@@ -202,10 +202,7 @@ void __46__SUControllerManager_cancelCurrentConnection__block_invoke(uint64_t a1
 
 uint64_t __31__SUControllerManager_delegate__block_invoke(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 24));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = WeakRetained;
+  *(*(*(a1 + 40) + 8) + 40) = objc_loadWeakRetained((*(a1 + 32) + 24));
 
   return MEMORY[0x2821F96F8]();
 }
@@ -294,10 +291,7 @@ void __39__SUControllerManager__connectToServer__block_invoke(uint64_t a1, void 
 
 uint64_t __40__SUControllerManager__serverConnection__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _connectToServer];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _connectToServer];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -331,8 +325,8 @@ void __50__SUControllerManager__handleXPCEvent_connection___block_invoke(uint64_
     v11 = *(a1 + 32);
     if (v11 == MEMORY[0x277D863F0])
     {
-      v19 = +[SUControllerLogger sharedLogger];
-      [v19 logAtLevel:0 label:"-[SUControllerManager _handleXPCEvent:connection:]_block_invoke" format:@"Received XPC_ERROR_CONNECTION_INTERRUPTED. sucontrollerd disconnected"];
+      v18 = +[SUControllerLogger sharedLogger];
+      [v18 logAtLevel:0 label:"-[SUControllerManager _handleXPCEvent:connection:]_block_invoke" format:@"Received XPC_ERROR_CONNECTION_INTERRUPTED. sucontrollerd disconnected"];
 
       [*(a1 + 40) setDisconnected:1];
       [*(a1 + 40) setNeedToAddClientForXPCMessages:1];
@@ -340,25 +334,24 @@ void __50__SUControllerManager__handleXPCEvent_connection___block_invoke(uint64_
 
     else if (v11 == MEMORY[0x277D863F8])
     {
-      v12 = *(a1 + 48);
-      v13 = xpc_connection_copy_invalidation_reason();
-      if (v13)
+      v12 = xpc_connection_copy_invalidation_reason();
+      if (v12)
       {
-        v14 = v13;
-        v15 = +[SUControllerLogger sharedLogger];
-        [v15 logAtLevel:0 label:"-[SUControllerManager _handleXPCEvent:connection:]_block_invoke" format:{@"Received XPC_ERROR_CONNECTION_INVALID. sucontrollerd disconnected.  Invalidation reason: %s", v14}];
+        v13 = v12;
+        v14 = +[SUControllerLogger sharedLogger];
+        [v14 logAtLevel:0 label:"-[SUControllerManager _handleXPCEvent:connection:]_block_invoke" format:{@"Received XPC_ERROR_CONNECTION_INVALID. sucontrollerd disconnected.  Invalidation reason: %s", v13}];
 
-        free(v14);
+        free(v13);
       }
 
       [*(a1 + 40) setServerXPCConnection:0];
       [*(a1 + 40) setDisconnected:1];
     }
 
-    v21 = *(a1 + 32);
-    v20 = *(a1 + 40);
+    v20 = *(a1 + 32);
+    v19 = *(a1 + 40);
 
-    [v20 _indicateConnectionError:v21];
+    [v19 _indicateConnectionError:v20];
   }
 
   else
@@ -370,21 +363,21 @@ void __50__SUControllerManager__handleXPCEvent_connection___block_invoke(uint64_
       string = xpc_dictionary_get_string(v4, SUControllerMessageTypeKey);
       if (!strcmp(string, SUControllerMessageTypeClientHasBeenAdded))
       {
-        v22 = +[SUControllerLogger sharedLogger];
-        v23 = [*(a1 + 40) _stateName];
-        [v22 logAtLevel:1 label:"-[SUControllerManager _handleXPCEvent:connection:]_block_invoke" format:{@"%@ XPC connection has been added", v23}];
+        v21 = +[SUControllerLogger sharedLogger];
+        v22 = [*(a1 + 40) _stateName];
+        [v21 logAtLevel:1 label:"-[SUControllerManager _handleXPCEvent:connection:]_block_invoke" format:{@"%@ XPC connection has been added", v22}];
 
-        v24 = *(a1 + 40);
+        v23 = *(a1 + 40);
 
-        [v24 setNeedToAddClientForXPCMessages:0];
+        [v23 setNeedToAddClientForXPCMessages:0];
       }
 
       else
       {
-        v18 = *(a1 + 32);
-        v17 = *(a1 + 40);
+        v17 = *(a1 + 32);
+        v16 = *(a1 + 40);
 
-        [v17 _indicateMessageReceived:v18 messageType:string];
+        [v16 _indicateMessageReceived:v17 messageType:string];
       }
     }
 
@@ -1408,73 +1401,7 @@ LABEL_15:
 
   assetAudienceUUID = [v14 assetAudienceUUID];
 
-  if (!assetAudienceUUID)
-  {
-    goto LABEL_13;
-  }
-
-  v15 = @"PrerequisiteBuildVersion";
-  v22 = [(__CFString *)deviceCopy objectForKey:@"PrerequisiteBuildVersion"];
-  [v14 setPrerequisiteBuildVersion:v22];
-
-  prerequisiteBuildVersion = [v14 prerequisiteBuildVersion];
-
-  if (!prerequisiteBuildVersion)
-  {
-    goto LABEL_13;
-  }
-
-  v15 = @"PrerequisiteProductVersion";
-  v24 = [(__CFString *)deviceCopy objectForKey:@"PrerequisiteProductVersion"];
-  [v14 setPrerequisiteProductVersion:v24];
-
-  prerequisiteProductVersion = [v14 prerequisiteProductVersion];
-
-  if (!prerequisiteProductVersion)
-  {
-    goto LABEL_13;
-  }
-
-  v15 = @"PrerequisiteRestoreVersion";
-  v26 = [(__CFString *)deviceCopy objectForKey:@"PrerequisiteRestoreVersion"];
-  [v14 setPrerequisiteRestoreVersion:v26];
-
-  prerequisiteRestoreVersion = [v14 prerequisiteRestoreVersion];
-
-  if (!prerequisiteRestoreVersion)
-  {
-    goto LABEL_13;
-  }
-
-  v15 = @"DeviceClass";
-  v28 = [(__CFString *)deviceCopy objectForKey:@"DeviceClass"];
-  [v14 setDeviceClass:v28];
-
-  deviceClass = [v14 deviceClass];
-
-  if (!deviceClass)
-  {
-    goto LABEL_13;
-  }
-
-  v15 = @"HWModelStr";
-  v30 = [(__CFString *)deviceCopy objectForKey:@"HWModelStr"];
-  [v14 setHwModelStr:v30];
-
-  hwModelStr = [v14 hwModelStr];
-
-  if (!hwModelStr)
-  {
-    goto LABEL_13;
-  }
-
-  v15 = @"ProductType";
-  v32 = [(__CFString *)deviceCopy objectForKey:@"ProductType"];
-  [v14 setProductType:v32];
-
-  productType = [v14 productType];
-
-  if (productType)
+  if (assetAudienceUUID && (v15 = @"PrerequisiteBuildVersion", -[__CFString objectForKey:](deviceCopy, "objectForKey:", @"PrerequisiteBuildVersion"), v22 = objc_claimAutoreleasedReturnValue(), [v14 setPrerequisiteBuildVersion:v22], v22, objc_msgSend(v14, "prerequisiteBuildVersion"), v23 = objc_claimAutoreleasedReturnValue(), v23, v23) && (v15 = @"PrerequisiteProductVersion", -[__CFString objectForKey:](deviceCopy, "objectForKey:", @"PrerequisiteProductVersion"), v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "setPrerequisiteProductVersion:", v24), v24, objc_msgSend(v14, "prerequisiteProductVersion"), v25 = objc_claimAutoreleasedReturnValue(), v25, v25) && (v15 = @"PrerequisiteRestoreVersion", -[__CFString objectForKey:](deviceCopy, "objectForKey:", @"PrerequisiteRestoreVersion"), v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "setPrerequisiteRestoreVersion:", v26), v26, objc_msgSend(v14, "prerequisiteRestoreVersion"), v27 = objc_claimAutoreleasedReturnValue(), v27, v27) && (v15 = @"DeviceClass", -[__CFString objectForKey:](deviceCopy, "objectForKey:", @"DeviceClass"), v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "setDeviceClass:", v28), v28, objc_msgSend(v14, "deviceClass"), v29 = objc_claimAutoreleasedReturnValue(), v29, v29) && (v15 = @"HWModelStr", -[__CFString objectForKey:](deviceCopy, "objectForKey:", @"HWModelStr"), v30 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "setHwModelStr:", v30), v30, objc_msgSend(v14, "hwModelStr"), v31 = objc_claimAutoreleasedReturnValue(), v31, v31) && (v15 = @"ProductType", -[__CFString objectForKey:](deviceCopy, "objectForKey:", @"ProductType"), v32 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "setProductType:", v32), v32, objc_msgSend(v14, "productType"), v33 = objc_claimAutoreleasedReturnValue(), v33, v33))
   {
     v34 = [(__CFString *)deviceCopy objectForKey:@"ReleaseType"];
     [v14 setReleaseType:v34];
@@ -1484,9 +1411,9 @@ LABEL_15:
     {
       [v14 setIsInternal:{-[SUControllerManager numToBool:](self, "numToBool:", v39)}];
       v40 = objc_alloc(MEMORY[0x277CCACA8]);
-      deviceClass2 = [v14 deviceClass];
+      deviceClass = [v14 deviceClass];
       assetAudienceUUID2 = [v14 assetAudienceUUID];
-      v43 = [v40 initWithFormat:@"tvOS-%@-%@", deviceClass2, assetAudienceUUID2];
+      v43 = [v40 initWithFormat:@"tvOS-%@-%@", deviceClass, assetAudienceUUID2];
       [v14 setMobileAssetPurposeOverride:v43];
 
       [v14 setEnablePreSUStaging:0];
@@ -1587,7 +1514,6 @@ LABEL_15:
 
   else
   {
-LABEL_13:
     v50 = SUControllerError(@"SUControllerError", 60, 0, @"Provided scan parameter dictionary is missing required parameter for scanning: %@", v18, v19, v20, v21, v15);
     (*(completionCopy + 2))(completionCopy, 0, v50);
   }
@@ -1660,23 +1586,21 @@ LABEL_10:
 LABEL_12:
 }
 
-void __66__SUControllerManager_scanForUpdatesFromNonTVOSDevice_completion___block_invoke_2(void *a1, void *a2)
+void __66__SUControllerManager_scanForUpdatesFromNonTVOSDevice_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = a2;
+  v5 = a2;
   v3 = +[SUControllerLogger sharedLogger];
-  if (v7)
+  if (v5)
   {
-    [v3 logAtLevel:0 label:"-[SUControllerManager scanForUpdatesFromNonTVOSDevice:completion:]_block_invoke_2" format:{@"Failed to purged catalog for %@.  Error: %@", a1[4], v7}];
+    [v3 logAtLevel:0 label:"-[SUControllerManager scanForUpdatesFromNonTVOSDevice:completion:]_block_invoke_2" format:{@"Failed to purged catalog for %@.  Error: %@", *(a1 + 32), v5}];
   }
 
   else
   {
-    [v3 logAtLevel:2 label:"-[SUControllerManager scanForUpdatesFromNonTVOSDevice:completion:]_block_invoke_2" format:{@"Successfully purged catalog for %@", a1[4], v6}];
+    [v3 logAtLevel:2 label:"-[SUControllerManager scanForUpdatesFromNonTVOSDevice:completion:]_block_invoke_2" format:{@"Successfully purged catalog for %@", *(a1 + 32), v4}];
   }
 
-  v4 = a1[6];
-  v5 = a1[5];
-  (*(a1[7] + 16))();
+  (*(*(a1 + 56) + 16))();
 }
 
 - (id)getTrainName

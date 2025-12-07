@@ -258,7 +258,7 @@ void sub_1000024AC(uint64_t a1, uint64_t a2)
   {
     if (a2 == 1)
     {
-      v4 = sub_100005438();
+      v4 = sub_100005438(a1, 1);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -268,7 +268,7 @@ void sub_1000024AC(uint64_t a1, uint64_t a2)
 
     else
     {
-      v8 = sub_100005438();
+      v8 = sub_100005438(a1, a2);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_10000585C(a1, v8, a2);
@@ -389,11 +389,12 @@ void sub_1000024AC(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_10000290C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_10000290C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 160), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -622,8 +623,7 @@ void sub_1000031BC(uint64_t a1)
     v2 = [NSError errorWithDomain:SFExternalCredentialIdentityStoreErrorDomain code:0 userInfo:0];
   }
 
-  v3 = *(a1 + 48);
-  v4 = v2;
+  v3 = v2;
   (*(*(a1 + 40) + 16))();
 }
 
@@ -774,8 +774,7 @@ void sub_100003AB8(uint64_t a1)
     v2 = [NSError errorWithDomain:SFExternalCredentialIdentityStoreErrorDomain code:0 userInfo:0];
   }
 
-  v3 = *(a1 + 48);
-  v4 = v2;
+  v3 = v2;
   (*(*(a1 + 40) + 16))();
 }
 
@@ -854,8 +853,7 @@ void sub_100003F70(uint64_t a1)
     v2 = [NSError errorWithDomain:SFExternalCredentialIdentityStoreErrorDomain code:0 userInfo:0];
   }
 
-  v3 = *(a1 + 48);
-  v4 = v2;
+  v3 = v2;
   (*(*(a1 + 40) + 16))();
 }
 
@@ -932,8 +930,7 @@ void sub_1000043DC(uint64_t a1)
     v2 = [NSError errorWithDomain:SFExternalCredentialIdentityStoreErrorDomain code:0 userInfo:0];
   }
 
-  v3 = *(a1 + 48);
-  v4 = v2;
+  v3 = v2;
   (*(*(a1 + 40) + 16))();
 }
 
@@ -961,48 +958,45 @@ void sub_1000046D8(uint64_t a1, void *a2)
   }
 }
 
-void sub_100004800(void *a1, uint64_t a2)
+void sub_100004800(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
     if (a2 == 1)
     {
-      v4 = sub_100005438();
+      v4 = sub_100005438(a1, 1);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         sub_1000059F0();
       }
 
-      v5 = a1[5];
+      v5 = *(a1 + 40);
       v6 = SFExternalCredentialIdentityStoreErrorDomain;
       v7 = 0;
     }
 
     else
     {
-      v12 = sub_100005438();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v9 = sub_100005438(a1, a2);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        sub_100005A24(a1, v12, a2);
+        sub_100005A24(a1, v9, a2);
       }
 
       v7 = 2 * (a2 == 2);
-      v5 = a1[5];
+      v5 = *(a1 + 40);
       v6 = SFExternalCredentialIdentityStoreErrorDomain;
     }
 
-    v13 = [NSError errorWithDomain:v6 code:v7 userInfo:0];
-    (*(v5 + 16))(v5, 0, v13, a1[6]);
+    v10 = [NSError errorWithDomain:v6 code:v7 userInfo:0];
+    (*(v5 + 16))(v5, 0, v10, *(a1 + 48));
   }
 
   else
   {
-    v9 = a1[4];
-    v8 = a1[5];
-    v10 = a1[6];
-    v11 = *(a1[5] + 16);
+    v8 = *(*(a1 + 40) + 16);
 
-    v11();
+    v8();
   }
 }
 
@@ -1052,8 +1046,7 @@ void sub_100004CB0(uint64_t a1, void *a2)
 
 void sub_100004D8C(uint64_t a1, void *a2)
 {
-  v4 = [a2 objectForKey:BKSApplicationStateDisplayIDKey];
-  v3 = *(a1 + 40);
+  v3 = [a2 objectForKey:BKSApplicationStateDisplayIDKey];
   (*(*(a1 + 32) + 16))();
 }
 
@@ -1080,13 +1073,14 @@ id sub_100005330(void *a1)
   return v4;
 }
 
-void sub_100005410(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100005410(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-uint64_t sub_100005438()
+uint64_t sub_100005438(uint64_t a1, uint64_t a2)
 {
   if (qword_100010BC8 != -1)
   {

@@ -295,12 +295,12 @@ void sub_1000C808C()
   v40 = [v39 initWithLeadingAccessoryView:v25 trailingAccessoryView:v30];
   v41 = OBJC_IVAR____TtC4Siri36SRAssetsDownloadBannerViewController_pillView;
   *&v1[OBJC_IVAR____TtC4Siri36SRAssetsDownloadBannerViewController_pillView] = v40;
-  sub_100093B6C(&qword_10018E930);
+  sub_100093B6C(&qword_10018E930, &unk_1000F7A90);
   v42 = swift_allocObject();
   *(v42 + 16) = xmmword_1000F7D00;
   *(v42 + 32) = v34;
   *(v42 + 40) = v38;
-  sub_10000A238(0, &unk_10018EF80);
+  sub_10000A238(0, &unk_10018EF80, PLPillContentItem_ptr);
   v43 = v40;
   v44 = v34;
   v45 = v38;
@@ -366,7 +366,7 @@ uint64_t sub_1000C88DC(double a1)
   v11 = aBlock - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   if ((*(v1 + OBJC_IVAR____TtC4Siri36SRAssetsDownloadBannerViewController_isBannerPresent) & 1) == 0)
   {
-    sub_10000A238(0, &qword_10018EAE0);
+    sub_10000A238(0, &qword_10018EAE0, OS_dispatch_queue_ptr);
     v12 = static OS_dispatch_queue.main.getter();
     v13 = swift_allocObject();
     *(v13 + 16) = v1;
@@ -383,7 +383,7 @@ uint64_t sub_1000C88DC(double a1)
     static DispatchQoS.unspecified.getter();
     aBlock[0] = &_swiftEmptyArrayStorage;
     sub_1000CA094();
-    sub_100093B6C(&unk_10018EAF0);
+    sub_100093B6C(&unk_10018EAF0, &qword_1000F8040);
     sub_1000BA610();
     dispatch thunk of SetAlgebra.init<A>(_:)();
     OS_dispatch_queue.async(group:qos:flags:execute:)();
@@ -557,7 +557,7 @@ uint64_t sub_1000C91B4(double a1)
   v15 = &v25 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v13);
   v17 = &v25 - v16;
-  sub_10000A238(0, &qword_10018EAE0);
+  sub_10000A238(0, &qword_10018EAE0, OS_dispatch_queue_ptr);
   v18 = static OS_dispatch_queue.main.getter();
   result = static DispatchTime.now()();
   if ((*&v30 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
@@ -597,7 +597,7 @@ LABEL_6:
     static DispatchQoS.unspecified.getter();
     aBlock[0] = &_swiftEmptyArrayStorage;
     sub_1000CA094();
-    sub_100093B6C(&unk_10018EAF0);
+    sub_100093B6C(&unk_10018EAF0, &qword_1000F8040);
     sub_1000BA610();
     dispatch thunk of SetAlgebra.init<A>(_:)();
     OS_dispatch_queue.asyncAfter(deadline:qos:flags:execute:)();
@@ -625,7 +625,7 @@ uint64_t sub_1000C9650(void *a1)
   v10 = aBlock - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (*(a1 + OBJC_IVAR____TtC4Siri36SRAssetsDownloadBannerViewController_isBannerPresent) == 1)
   {
-    sub_10000A238(0, &qword_10018EAE0);
+    sub_10000A238(0, &qword_10018EAE0, OS_dispatch_queue_ptr);
     v11 = static OS_dispatch_queue.main.getter();
     v12 = swift_allocObject();
     *(v12 + 16) = a1;
@@ -641,7 +641,7 @@ uint64_t sub_1000C9650(void *a1)
     static DispatchQoS.unspecified.getter();
     aBlock[0] = &_swiftEmptyArrayStorage;
     sub_1000CA094();
-    sub_100093B6C(&unk_10018EAF0);
+    sub_100093B6C(&unk_10018EAF0, &qword_1000F8040);
     sub_1000BA610();
     dispatch thunk of SetAlgebra.init<A>(_:)();
     OS_dispatch_queue.async(group:qos:flags:execute:)();
@@ -666,7 +666,7 @@ uint64_t sub_1000C98F8()
   v9 = aBlock - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (*(v0 + OBJC_IVAR____TtC4Siri36SRAssetsDownloadBannerViewController_isBannerPresent) == 1)
   {
-    sub_10000A238(0, &qword_10018EAE0);
+    sub_10000A238(0, &qword_10018EAE0, OS_dispatch_queue_ptr);
     v10 = static OS_dispatch_queue.main.getter();
     v11 = swift_allocObject();
     *(v11 + 16) = v0;
@@ -682,7 +682,7 @@ uint64_t sub_1000C98F8()
     static DispatchQoS.unspecified.getter();
     aBlock[0] = &_swiftEmptyArrayStorage;
     sub_1000CA094();
-    sub_100093B6C(&unk_10018EAF0);
+    sub_100093B6C(&unk_10018EAF0, &qword_1000F8040);
     sub_1000BA610();
     dispatch thunk of SetAlgebra.init<A>(_:)();
     OS_dispatch_queue.async(group:qos:flags:execute:)();
@@ -773,12 +773,12 @@ id sub_1000C9EDC()
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-id sub_1000CA000()
+id sub_1000CA000(uint64_t a1, uint64_t a2, void *a3)
 {
 
-  v0 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
 
-  return v0;
+  return v3;
 }
 
 unint64_t sub_1000CA094()
@@ -832,7 +832,7 @@ void sub_1000CA100()
 
 id sub_1000CA2E0()
 {
-  v0 = sub_100093B6C(&unk_10018E310);
+  v0 = sub_100093B6C(&unk_10018E310, &unk_1000F8300);
   __chkstk_darwin(v0 - 8);
   v2 = &v23 - v1;
   v3 = type metadata accessor for URL();
@@ -916,7 +916,7 @@ id sub_1000CA2E0()
   return result;
 }
 
-uint64_t type metadata accessor for SRCarPlaySiriUnavailableViewController()
+uint64_t type metadata accessor for SRCarPlaySiriUnavailableViewController(uint64_t a1)
 {
   result = qword_10018F050;
   if (!qword_10018F050)
@@ -930,7 +930,7 @@ uint64_t type metadata accessor for SRCarPlaySiriUnavailableViewController()
 id sub_1000CA800()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for SRCarPlaySiriUnavailableViewController();
+  v2.super_class = type metadata accessor for SRCarPlaySiriUnavailableViewController(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
@@ -943,11 +943,53 @@ void sub_1000CA874(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "%s #errorHandling received unhandled error: %{public}@", &v2, 0x16u);
 }
 
+void sub_1000CA914()
+{
+  v6 = 136315394;
+  sub_10000F8D8();
+  sub_10000F8EC(&_mh_execute_header, v0, v1, "%s Failed to stop user attention controller: %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000CA988()
+{
+  v6 = 136315394;
+  sub_10000F8D8();
+  sub_10000F8EC(&_mh_execute_header, v0, v1, "%s Failed to stop attention awareness client: %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000CA9FC()
+{
+  v6 = 136315394;
+  sub_10000F8D8();
+  sub_10000F8EC(&_mh_execute_header, v0, v1, "%s Failed to restart attention awareness client: %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000CAA70(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRSystemAssistantExperienceViewController _setUpConversationStarterSuggestions:isVoiceTrigger:invocationSource:]_block_invoke_2";
+  sub_10000F974(&_mh_execute_header, a1, a3, "%s #suggestions: received zero starter suggestions - skipping view update", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1000CAAE8(os_log_t log)
 {
   v1 = 136315138;
   v2 = "[SRSystemAssistantExperienceViewController _siriRequestCommittedFromSuggestionToolInvocation:]";
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "%s #suggestions encoded tool invocation data is nil, not executing suggestion", &v1, 0xCu);
+}
+
+void sub_1000CAB6C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRSystemAssistantExperienceViewController _setUpConversationContinuerSuggestions:forRequestId:currentMode:]_block_invoke_3";
+  sub_10000F974(&_mh_execute_header, a1, a3, "%s #suggestions: no continuer suggestions, skipping view update", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000CABE4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRSystemAssistantExperienceViewController loadContinuerSuggestionsForRequest:currentMode:]";
+  sub_10000F974(&_mh_execute_header, a1, a3, "%s #suggestions: feature flag for continuers is OFF, skipping continuer suggestions", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1000CAC5C(uint64_t a1, NSObject *a2)
@@ -957,6 +999,20 @@ void sub_1000CAC5C(uint64_t a1, NSObject *a2)
   v4 = 2114;
   v5 = a1;
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "%s #compact Returning nil for controller %{public}@", &v2, 0x16u);
+}
+
+void sub_1000CACE8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRSystemAssistantExperienceViewController didChangeText:]_block_invoke_2";
+  sub_10000F974(&_mh_execute_header, a1, a3, "%s #suggestions: New suggestions are same as old ones - skipping view update", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000CAD60(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRSystemAssistantExperienceViewController didChangeText:]_block_invoke";
+  sub_10000F974(&_mh_execute_header, a1, a3, "%s #suggestions: Old and new suggestions are both empty - skipping view update", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1000CADD8(char a1, char a2, os_log_t log)
@@ -977,15 +1033,85 @@ void sub_1000CAE78(os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "%s #generativeAssistantOnboarding: Did not call onboarding completion", &v1, 0xCu);
 }
 
-void sub_1000CAF88(void *a1)
+void sub_1000CAF10(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = a1;
-  v2 = SUICStringForAutoDismissalReason();
-  v3 = 136315394;
-  v4 = "[SRCompactAutoDismissController _requestDismissalWithReason:]";
-  v5 = 2112;
-  v6 = v2;
-  _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "%s #autodismiss Requesting dismissal with reason %@", &v3, 0x16u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRCompactAutoDismissController _requestDismissalWithReason:]";
+  sub_10000F974(&_mh_execute_header, a1, a3, "%s #autodismiss Rejecting dismissal request because auto dismiss controller is disabled", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000CAF88(void *a1, uint64_t a2)
+{
+  v2 = a1;
+  v3 = SUICStringForAutoDismissalReason();
+  v4 = 136315394;
+  v5 = "[SRCompactAutoDismissController _requestDismissalWithReason:]";
+  v6 = 2112;
+  v7 = v3;
+  _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "%s #autodismiss Requesting dismissal with reason %@", &v4, 0x16u);
+}
+
+void sub_1000CB044(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRCompactAutoDismissController scheduleAutoDismissalForLongIdling:]";
+  sub_10000F974(&_mh_execute_header, a1, a3, "%s #autodismiss Not scheduling auto-dismissal for long idling because auto dismiss controller is disabled", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000CB0BC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRCompactAutoDismissController scheduleAutoDismissalForTouchOutsideOfSiri:]";
+  sub_10000F974(&_mh_execute_header, a1, a3, "%s #autodismiss Not scheduling auto-dismissal for touch outside of Siri because auto dismiss controller is disabled", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000CB134(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRCompactAutoDismissController scheduleAutoDismissalForTouchOutsideOfSiri:]";
+  sub_10000F974(&_mh_execute_header, a1, a3, "%s #autodismiss WARNING: scheduleAutoDismissalForTouchOutsideOfSiri called but SAE not enabled - this is unexpected and has no effect", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000CB1AC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRCompactAutoDismissController scheduleAutoDismissalForTouchOutsideOfSiri:]";
+  sub_10000F974(&_mh_execute_header, a1, a3, "%s #autodismiss Auto-dismissal already scheduled for touch outside of Siri", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000CB224(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRCompactAutoDismissController cancelAutoDismissalForTouchOutsideOfSiri]";
+  sub_10000F974(&_mh_execute_header, a1, a3, "%s #autodismiss WARNING: cancelAutoDismissalForTouchOutsideOfSiri called but SAE not enabled - this is unexpected and has no effect", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000CB29C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRCompactAutoDismissController cancelAutoDismissalForTouchOutsideOfSiri]";
+  sub_10000F974(&_mh_execute_header, a1, a3, "%s #autodismiss no auto-dismissal timer for touch outside of Siri scheduled", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000CB314(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRCompactAutoDismissController scheduleAutoDismissalPostAppLaunch:]";
+  sub_10000F974(&_mh_execute_header, a1, a3, "%s #autodismiss Not scheduling auto-dismissal post app launch because auto dismiss controller is disabled", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000CB38C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRCompactAutoDismissController scheduleAutoDismissalPostSystemUIResponse:]";
+  sub_10000F974(&_mh_execute_header, a1, a3, "%s #autodismiss Not scheduling auto-dismissal post system UI response because auto dismiss controller is disabled", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000CB404(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRCompactAutoDismissController _startUserAttentionControllerIfNeededForTypes:]";
+  sub_10000F974(&_mh_execute_header, a1, a3, "%s #autodismiss Not starting user attention controller because auto dismiss controller is disabled", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1000CB47C(uint64_t a1, void *a2, uint64_t a3)
@@ -1070,16 +1196,18 @@ void sub_1000CB990(void *a1, void *a2)
 {
   v3 = a1;
   [a2 requestSource];
+  v10 = 136315394;
   sub_10000F990();
-  sub_10000F908(&_mh_execute_header, v4, v5, "%s #tipKitSignalEmitter Unsupported requestSource: %ld", v6, v7, v8, v9, 2u);
+  sub_10000F908(&_mh_execute_header, v4, v5, "%s #tipKitSignalEmitter Unsupported requestSource: %ld", v6, v7, v8, v9, v10);
 }
 
 void sub_1000CBA24(void *a1, void *a2)
 {
   v3 = a1;
   [a2 requestSource];
+  v10 = 136315394;
   sub_10000F990();
-  sub_10000F908(&_mh_execute_header, v4, v5, "%s #tipKitSignalEmitter Unsupported bluetooth car requestSource: %ld", v6, v7, v8, v9, 2u);
+  sub_10000F908(&_mh_execute_header, v4, v5, "%s #tipKitSignalEmitter Unsupported bluetooth car requestSource: %ld", v6, v7, v8, v9, v10);
 }
 
 void sub_1000CBAB8(os_log_t log)
@@ -1098,18 +1226,53 @@ void sub_1000CBB3C(uint64_t a1, NSObject *a2)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "%s Siri will process app launch for %@", &v2, 0x16u);
 }
 
-void sub_1000CBC40(void *a1)
+void sub_1000CBBC8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = a1;
-  v2 = SiriSharedUIGestureEventDescription();
-  v3 = SiriSharedUIGestureEventRegionDescription();
-  v4 = 136315650;
-  v5 = "[SRSystemAssistantExperiencePresentation didDetectGestureEvent:inRegion:]";
-  v6 = 2112;
-  v7 = v2;
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRSystemAssistantExperiencePresentation siriWillPunchOutWithOptions:]";
+  sub_10000F974(&_mh_execute_header, a1, a3, "%s #dismissal Recording _willPunchOut=YES", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000CBC40(void *a1, uint64_t a2, uint64_t a3)
+{
+  v3 = a1;
+  v4 = SiriSharedUIGestureEventDescription();
+  v5 = SiriSharedUIGestureEventRegionDescription();
+  v6 = 136315650;
+  v7 = "[SRSystemAssistantExperiencePresentation didDetectGestureEvent:inRegion:]";
   v8 = 2112;
-  v9 = v3;
-  _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "%s #dismissal Detected gesture event %@ in region %@", &v4, 0x20u);
+  v9 = v4;
+  v10 = 2112;
+  v11 = v5;
+  _os_log_debug_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "%s #dismissal Detected gesture event %@ in region %@", &v6, 0x20u);
+}
+
+void sub_1000CBD24(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRSystemAssistantExperiencePresentation didPresentContentForSAEViewController:]";
+  sub_10000F974(&_mh_execute_header, a1, a3, "%s #dismissal Recording _hasPresentedContent=YES", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000CBD9C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRSystemAssistantExperiencePresentation siriSAEViewControllerRequestsTextActivation:withRequestSource:]";
+  sub_10000F974(&_mh_execute_header, a1, a3, "%s #dismissal Recording _userTappedToEditUtterance=YES", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000CBE14(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRSystemAssistantExperiencePresentation didReceiveBugButtonLongPress]";
+  sub_10000F974(&_mh_execute_header, a1, a3, "%s #SiriTTR didReceiveBugButtonLongPress", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000CBE8C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRSystemAssistantExperiencePresentation didReceiveReportBugAction]";
+  sub_10000F974(&_mh_execute_header, a1, a3, "%s #SiriTTR didReceiveReportBugAction", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1000CBF40(os_log_t log)
@@ -1126,11 +1289,11 @@ void sub_1000CBFC4(os_log_t log)
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "%s #SiriTTR didReceiveReportBugAction", &v1, 0xCu);
 }
 
-uint64_t sub_1000CC048()
+void sub_1000CC048()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return sub_1000CC06C(v0);
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  sub_1000CC06C(v1);
 }
 
 void sub_1000CC06C(os_log_t log)
@@ -1169,8 +1332,9 @@ void sub_1000CC28C(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 name];
+  v11 = 136315394;
   sub_10000F8D8();
-  sub_10000F928(&_mh_execute_header, v5, v6, "%s Notification not supported; returning nil { notificationName: %@ }", v7, v8, v9, v10, 2u);
+  sub_10000F928(&_mh_execute_header, v5, v6, "%s Notification not supported; returning nil { notificationName: %@ }", v7, v8, v9, v10, v11);
 }
 
 void sub_1000CC32C()
@@ -1184,8 +1348,9 @@ void sub_1000CC3AC(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 name];
+  v11 = 136315394;
   sub_10000F8D8();
-  sub_10000F928(&_mh_execute_header, v5, v6, "%s Notification not supported; returning nil { notificationName: %@ }", v7, v8, v9, v10, 2u);
+  sub_10000F928(&_mh_execute_header, v5, v6, "%s Notification not supported; returning nil { notificationName: %@ }", v7, v8, v9, v10, v11);
 }
 
 void sub_1000CC44C(os_log_t log)
@@ -1375,22 +1540,22 @@ void sub_1000CD6F8()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_1000CD77C(uint64_t a1, void *a2)
+void sub_1000CD77C(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = a2;
-  v3 = SRUIFSpeechSynthesisResultGetName();
+  v3 = a2;
+  v4 = SRUIFSpeechSynthesisResultGetName();
   sub_10007555C();
   sub_100075518();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x2Au);
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x2Au);
 }
 
-void sub_1000CD848(uint64_t a1, void *a2)
+void sub_1000CD848(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = a2;
-  v3 = SRUIFSpeechSynthesisResultGetName();
+  v3 = a2;
+  v4 = SRUIFSpeechSynthesisResultGetName();
   sub_10007555C();
   sub_100075518();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x2Au);
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x2Au);
 }
 
 void sub_1000CD918()
@@ -1574,40 +1739,65 @@ void sub_1000CE8AC(os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "%s Scene connecting without window", &v1, 0xCu);
 }
 
-void sub_1000CE944(void *a1)
+void sub_1000CE944(void *a1, uint64_t a2)
 {
-  v1 = a1;
+  v2 = a1;
   objc_opt_class();
+  v11 = 136315394;
   sub_10000F9A4();
-  v3 = v2;
-  sub_10000F908(&_mh_execute_header, v4, v5, "%s expected stored bundle identifier to be a string, but it was a %{public}@", v6, v7, v8, v9, 2u);
+  v4 = v3;
+  sub_10000F908(&_mh_execute_header, v5, v6, "%s expected stored bundle identifier to be a string, but it was a %{public}@", v7, v8, v9, v10, v11);
 }
 
-void sub_1000CE9E8(void *a1)
+void sub_1000CE9E8(void *a1, uint64_t a2)
 {
-  v1 = a1;
+  v2 = a1;
   objc_opt_class();
+  v11 = 136315394;
   sub_10000F9A4();
-  v3 = v2;
-  sub_10000F908(&_mh_execute_header, v4, v5, "%s expected stored bundle path to be a string, but it was a %{public}@", v6, v7, v8, v9, 2u);
+  v4 = v3;
+  sub_10000F908(&_mh_execute_header, v5, v6, "%s expected stored bundle path to be a string, but it was a %{public}@", v7, v8, v9, v10, v11);
 }
 
 void sub_1000CEA8C(void *a1, void *a2)
 {
   v3 = a2;
   v4 = [a1 _URL];
+  v11 = 136315906;
   sub_10000F9A4();
   sub_10000F95C();
-  sub_1000783E8(&_mh_execute_header, v5, v6, "%s %{public}@ unable to read property list from data at %{public}@: %{public}@", v7, v8, v9, v10, 2u);
+  sub_1000783E8(&_mh_execute_header, v5, v6, "%s %{public}@ unable to read property list from data at %{public}@: %{public}@", v7, v8, v9, v10, v11);
 }
 
 void sub_1000CEB3C(void *a1, void *a2)
 {
   v3 = a2;
   v4 = [a1 _URL];
+  v11 = 136315906;
   sub_10000F9A4();
   sub_10000F95C();
-  sub_1000783E8(&_mh_execute_header, v5, v6, "%s %{public}@ unable to read on-disk cache at %{public}@: %{public}@", v7, v8, v9, v10, 2u);
+  sub_1000783E8(&_mh_execute_header, v5, v6, "%s %{public}@ unable to read on-disk cache at %{public}@: %{public}@", v7, v8, v9, v10, v11);
+}
+
+void sub_1000CEBEC()
+{
+  v6 = 136315394;
+  sub_10000F8D8();
+  sub_10000F8EC(&_mh_execute_header, v0, v1, "%s Typed data not found on SAPersonAttribute when attempting to convert to INPerson - attempting to fall back to raw data\n    SAPersonAttribute: %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000CEC60()
+{
+  v6 = 136315394;
+  sub_10000F8D8();
+  sub_10000F8EC(&_mh_execute_header, v0, v1, "%s Typed data not found on SAPersonAttribute when attempting to find phone data - attempting to fall back to raw data\n    SAPersonAttribute: %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000CECD4()
+{
+  v6 = 136315394;
+  sub_10000F8D8();
+  sub_10000F8EC(&_mh_execute_header, v0, v1, "%s Typed data not found on SAPersonAttribute when attempting to find email data - attempting to fall back to raw data\n    SAPersonAttribute: %@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000CED48(os_log_t log)
@@ -1662,6 +1852,27 @@ void sub_1000CF060(uint8_t *buf, void *a2, os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "%s #presynthesize Presynthesizing failed: No speakable text", buf, 0xCu);
 }
 
+void sub_1000CF0B0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRPreSynthesisTask handlePreSynthesisCommandWithError:]";
+  sub_10000F9B4(&_mh_execute_header, a1, a3, "%s #presynthesize Unable to handle PreSynthesis command because there are zero dialogStrings", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000CF128(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRPreSynthesisTask handlePreSynthesisCommandWithError:]";
+  sub_10000F9B4(&_mh_execute_header, a1, a3, "%s #presynthesize Unable to handle PreSynthesis command because there are no valid dialogStrings to operate on", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000CF1A0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRPreSynthesisTask handlePreSynthesisCommandWithError:]";
+  sub_10000F9B4(&_mh_execute_header, a1, a3, "%s #presynthesize Unable to handle PreSynthesisTTS command because it is set to nil.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1000CF218()
 {
   v1[0] = 136315394;
@@ -1679,6 +1890,13 @@ void sub_1000CF298(uint64_t a1, uint64_t *a2, os_log_t log)
   v8 = 2112;
   v9 = v3;
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "%s #presynthesize Unable to determine dialog string duration for %@, error: %@", &v4, 0x20u);
+}
+
+void sub_1000CF334(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRPreSynthesisTask didFinishSynthesisRequest:withInstrumentMetrics:error:]_block_invoke";
+  sub_10000F9B4(&_mh_execute_header, a1, a3, "%s #presynthesize Unable to determine index of dialogString that was synthesized.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1000CF3D4(void **a1, void *a2)

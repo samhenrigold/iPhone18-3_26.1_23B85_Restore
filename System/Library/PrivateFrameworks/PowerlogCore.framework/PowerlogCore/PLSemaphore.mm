@@ -38,9 +38,10 @@
 
 uint64_t __37__PLSemaphore_sharedSemaphoreForKey___block_invoke()
 {
-  sharedSemaphoreForKey___sharedSemaphores = objc_opt_new();
+  v0 = objc_opt_new();
+  sharedSemaphoreForKey___sharedSemaphores = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (PLSemaphore)initWithKey:(id)key
@@ -131,8 +132,8 @@ uint64_t __37__PLSemaphore_sharedSemaphoreForKey___block_invoke()
       v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSemaphore signalDoneByObject:]"];
       [PLCoreStorage logMessage:objectCopy fromFile:lastPathComponent fromFunction:v9 fromLineNumber:80];
 
-      v10 = PLLogCommon();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = PLLogCommon(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -141,33 +142,33 @@ uint64_t __37__PLSemaphore_sharedSemaphoreForKey___block_invoke()
 
   [(NSCondition *)self->_pendingObjectsLock lock];
   pendingDoneObjects = [(PLSemaphore *)self pendingDoneObjects];
-  v12 = [pendingDoneObjects count];
+  v13 = [pendingDoneObjects count];
 
-  if (v12)
+  if (v13)
   {
     if (+[PLDefaults debugEnabled])
     {
-      v13 = objc_opt_class();
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __34__PLSemaphore_signalDoneByObject___block_invoke_26;
-      v35[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v35[4] = v13;
+      v14 = objc_opt_class();
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = __34__PLSemaphore_signalDoneByObject___block_invoke_26;
+      v38[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v38[4] = v14;
       if (signalDoneByObject__defaultOnce_24 != -1)
       {
-        dispatch_once(&signalDoneByObject__defaultOnce_24, v35);
+        dispatch_once(&signalDoneByObject__defaultOnce_24, v38);
       }
 
       if (signalDoneByObject__classDebugEnabled_25 == 1)
       {
         objectCopy2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"removed %@ from pendingDoneObjects", objectCopy];
-        v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/PLSemaphore.m"];
-        lastPathComponent2 = [v15 lastPathComponent];
-        v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSemaphore signalDoneByObject:]"];
-        [PLCoreStorage logMessage:objectCopy2 fromFile:lastPathComponent2 fromFunction:v17 fromLineNumber:83];
+        v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/PLSemaphore.m"];
+        lastPathComponent2 = [v16 lastPathComponent];
+        v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSemaphore signalDoneByObject:]"];
+        [PLCoreStorage logMessage:objectCopy2 fromFile:lastPathComponent2 fromFunction:v18 fromLineNumber:83];
 
-        v18 = PLLogCommon();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        v20 = PLLogCommon(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
@@ -178,36 +179,36 @@ uint64_t __37__PLSemaphore_sharedSemaphoreForKey___block_invoke()
     [pendingDoneObjects2 removeObject:objectCopy];
 
     pendingDoneObjects3 = [(PLSemaphore *)self pendingDoneObjects];
-    v21 = [pendingDoneObjects3 count];
+    v23 = [pendingDoneObjects3 count];
 
-    if (!v21)
+    if (!v23)
     {
       if (+[PLDefaults debugEnabled])
       {
-        v22 = objc_opt_class();
-        v30 = MEMORY[0x1E69E9820];
-        v31 = 3221225472;
-        v32 = __34__PLSemaphore_signalDoneByObject___block_invoke_32;
-        v33 = &__block_descriptor_40_e5_v8__0lu32l8;
-        v34 = v22;
+        v24 = objc_opt_class();
+        v33 = MEMORY[0x1E69E9820];
+        v34 = 3221225472;
+        v35 = __34__PLSemaphore_signalDoneByObject___block_invoke_32;
+        v36 = &__block_descriptor_40_e5_v8__0lu32l8;
+        v37 = v24;
         if (signalDoneByObject__defaultOnce_30 != -1)
         {
-          dispatch_once(&signalDoneByObject__defaultOnce_30, &v30);
+          dispatch_once(&signalDoneByObject__defaultOnce_30, &v33);
         }
 
         if (signalDoneByObject__classDebugEnabled_31 == 1)
         {
-          v23 = MEMORY[0x1E696AEC0];
-          v24 = [(PLSemaphore *)self key];
-          v25 = [v23 stringWithFormat:@"PLSemaphore %@ signalDone!", v24, v30, v31, v32, v33, v34];
+          v25 = MEMORY[0x1E696AEC0];
+          v26 = [(PLSemaphore *)self key];
+          v27 = [v25 stringWithFormat:@"PLSemaphore %@ signalDone!", v26, v33, v34, v35, v36, v37];
 
-          v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/PLSemaphore.m"];
-          lastPathComponent3 = [v26 lastPathComponent];
-          v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSemaphore signalDoneByObject:]"];
-          [PLCoreStorage logMessage:v25 fromFile:lastPathComponent3 fromFunction:v28 fromLineNumber:87];
+          v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/PLSemaphore.m"];
+          lastPathComponent3 = [v28 lastPathComponent];
+          v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSemaphore signalDoneByObject:]"];
+          [PLCoreStorage logMessage:v27 fromFile:lastPathComponent3 fromFunction:v30 fromLineNumber:87];
 
-          v29 = PLLogCommon();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+          v32 = PLLogCommon(v31);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
           {
             [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
           }
@@ -253,10 +254,10 @@ BOOL __34__PLSemaphore_signalDoneByObject___block_invoke_32(uint64_t a1)
   {
     v5 = objc_opt_class();
     block = MEMORY[0x1E69E9820];
-    v14 = 3221225472;
-    v15 = __35__PLSemaphore_signalStartListening__block_invoke;
-    v16 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v17 = v5;
+    v15 = 3221225472;
+    v16 = __35__PLSemaphore_signalStartListening__block_invoke;
+    v17 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v18 = v5;
     if (signalStartListening_defaultOnce != -1)
     {
       dispatch_once(&signalStartListening_defaultOnce, &block);
@@ -266,15 +267,15 @@ BOOL __34__PLSemaphore_signalDoneByObject___block_invoke_32(uint64_t a1)
     {
       v6 = MEMORY[0x1E696AEC0];
       pendingDoneObjects2 = [(PLSemaphore *)self pendingDoneObjects];
-      v8 = [v6 stringWithFormat:@"Start Listening for %@", pendingDoneObjects2, block, v14, v15, v16, v17];
+      v8 = [v6 stringWithFormat:@"Start Listening for %@", pendingDoneObjects2, block, v15, v16, v17, v18];
 
       v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/PLSemaphore.m"];
       lastPathComponent = [v9 lastPathComponent];
       v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSemaphore signalStartListening]"];
       [PLCoreStorage logMessage:v8 fromFile:lastPathComponent fromFunction:v11 fromLineNumber:97];
 
-      v12 = PLLogCommon();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v13 = PLLogCommon(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -307,7 +308,7 @@ BOOL __35__PLSemaphore_signalStartListening__block_invoke(uint64_t a1)
 
 - (void)waitWithBlockSync:(id)sync
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   syncCopy = sync;
   [(NSCondition *)self->_pendingObjectsLock lock];
   pendingDoneObjects = [(PLSemaphore *)self pendingDoneObjects];
@@ -318,8 +319,8 @@ BOOL __35__PLSemaphore_signalStartListening__block_invoke(uint64_t a1)
   v9 = &__block_descriptor_40_e5_v8__0lu32l8;
   if (v6)
   {
-    v39 = syncCopy;
-    v10 = v42;
+    v40 = syncCopy;
+    v10 = v43;
     p_name = &OBJC_PROTOCOL___UMUserSwitchStakeholder.name;
     v12 = &OBJC_PROTOCOL___UMUserSwitchStakeholder.name;
     do
@@ -329,9 +330,9 @@ BOOL __35__PLSemaphore_signalStartListening__block_invoke(uint64_t a1)
         v13 = objc_opt_class();
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
-        v42[0] = __33__PLSemaphore_waitWithBlockSync___block_invoke;
-        v42[1] = v9;
-        v42[2] = v13;
+        v43[0] = __33__PLSemaphore_waitWithBlockSync___block_invoke;
+        v43[1] = v9;
+        v43[2] = v13;
         if (p_name[270] != -1)
         {
           dispatch_once(&waitWithBlockSync__defaultOnce, block);
@@ -349,12 +350,12 @@ BOOL __35__PLSemaphore_signalStartListening__block_invoke(uint64_t a1)
           v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSemaphore waitWithBlockSync:]"];
           [PLCoreStorage logMessage:v18 fromFile:lastPathComponent fromFunction:v21 fromLineNumber:111];
 
-          v22 = PLLogCommon();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+          v23 = PLLogCommon(v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v44 = v18;
-            _os_log_debug_impl(&dword_1D8611000, v22, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+            v45 = v18;
+            _os_log_debug_impl(&dword_1D8611000, v23, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
 
           v9 = v17;
@@ -365,53 +366,53 @@ BOOL __35__PLSemaphore_signalStartListening__block_invoke(uint64_t a1)
         }
       }
 
-      v23 = MEMORY[0x1E695DF00];
+      v24 = MEMORY[0x1E695DF00];
       [(PLSemaphore *)self timeout];
-      v24 = [v23 dateWithTimeIntervalSinceNow:?];
-      v25 = [(NSCondition *)self->_pendingObjectsLock waitUntilDate:v24];
+      v25 = [v24 dateWithTimeIntervalSinceNow:?];
+      v26 = [(NSCondition *)self->_pendingObjectsLock waitUntilDate:v25];
 
       pendingDoneObjects2 = [(PLSemaphore *)self pendingDoneObjects];
-      v27 = [pendingDoneObjects2 count];
+      v28 = [pendingDoneObjects2 count];
     }
 
-    while (v27 && v25);
-    v28 = !v25;
-    syncCopy = v39;
+    while (v28 && v26);
+    v29 = !v26;
+    syncCopy = v40;
     v8 = &off_1D86FA000;
   }
 
   else
   {
-    v28 = 0;
+    v29 = 0;
   }
 
   if ([*(v7 + 2224) debugEnabled])
   {
-    v29 = objc_opt_class();
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = *(v8 + 230);
-    v40[2] = __33__PLSemaphore_waitWithBlockSync___block_invoke_45;
-    v40[3] = v9;
-    v40[4] = v29;
+    v30 = objc_opt_class();
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = *(v8 + 230);
+    v41[2] = __33__PLSemaphore_waitWithBlockSync___block_invoke_45;
+    v41[3] = v9;
+    v41[4] = v30;
     if (waitWithBlockSync__defaultOnce_43 != -1)
     {
-      dispatch_once(&waitWithBlockSync__defaultOnce_43, v40);
+      dispatch_once(&waitWithBlockSync__defaultOnce_43, v41);
     }
 
     if (waitWithBlockSync__classDebugEnabled_44 == 1)
     {
-      v30 = MEMORY[0x1E696AEC0];
-      v31 = [(PLSemaphore *)self key];
+      v31 = MEMORY[0x1E696AEC0];
+      v32 = [(PLSemaphore *)self key];
       pendingDoneObjects3 = [(PLSemaphore *)self pendingDoneObjects];
-      v33 = [v30 stringWithFormat:@"PLSemaphore %@ ended! timedOut=%d pendingDoneObjects=%@", v31, v28, pendingDoneObjects3];
+      v34 = [v31 stringWithFormat:@"PLSemaphore %@ ended! timedOut=%d pendingDoneObjects=%@", v32, v29, pendingDoneObjects3];
 
-      v34 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/PLSemaphore.m"];
-      lastPathComponent2 = [v34 lastPathComponent];
-      v36 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSemaphore waitWithBlockSync:]"];
-      [PLCoreStorage logMessage:v33 fromFile:lastPathComponent2 fromFunction:v36 fromLineNumber:117];
+      v35 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/PLSemaphore.m"];
+      lastPathComponent2 = [v35 lastPathComponent];
+      v37 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSemaphore waitWithBlockSync:]"];
+      [PLCoreStorage logMessage:v34 fromFile:lastPathComponent2 fromFunction:v37 fromLineNumber:117];
 
-      v37 = PLLogCommon();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+      v39 = PLLogCommon(v38);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -420,8 +421,6 @@ BOOL __35__PLSemaphore_signalStartListening__block_invoke(uint64_t a1)
 
   [(NSCondition *)self->_pendingObjectsLock unlock];
   syncCopy[2](syncCopy);
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __33__PLSemaphore_waitWithBlockSync___block_invoke(uint64_t a1)

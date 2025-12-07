@@ -8,7 +8,7 @@
 {
   recognizerCopy = recognizer;
   viewCopy = view;
-  if (CKIsRunningInMessagesNotificationExtension() || ([viewCopy _ck_isEditing] & 1) != 0 || (objc_msgSend(viewCopy, "isDecelerating") & 1) != 0)
+  if (CKIsRunningInMessagesNotificationExtension(viewCopy) || ([viewCopy _ck_isEditing] & 1) != 0 || (objc_msgSend(viewCopy, "isDecelerating") & 1) != 0)
   {
     goto LABEL_7;
   }

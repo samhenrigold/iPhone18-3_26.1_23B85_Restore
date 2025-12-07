@@ -93,6 +93,47 @@
 
 - (id)registeredTypeIdentifiers
 {
+  v19 = *MEMORY[0x1E69E9840];
+  v3 = MEMORY[0x1E695DF70];
+  representations = [(SWShareableContent *)self representations];
+  v5 = [v3 arrayWithCapacity:{objc_msgSend(representations, "count")}];
+
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  representations2 = [(SWShareableContent *)self representations];
+  v7 = [representations2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v15;
+    do
+    {
+      for (i = 0; i != v8; ++i)
+      {
+        if (*v15 != v9)
+        {
+          objc_enumerationMutation(representations2);
+        }
+
+        typeIdentifier = [*(*(&v14 + 1) + 8 * i) typeIdentifier];
+        [v5 addObject:typeIdentifier];
+      }
+
+      v8 = [representations2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    }
+
+    while (v8);
+  }
+
+  v12 = [v5 copy];
+
+  return v12;
+}
+
+- (id)registeredOpenInPlaceTypeIdentifiers
+{
   v20 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF70];
   representations = [(SWShareableContent *)self representations];
@@ -117,8 +158,12 @@
           objc_enumerationMutation(representations2);
         }
 
-        typeIdentifier = [*(*(&v15 + 1) + 8 * i) typeIdentifier];
-        [v5 addObject:typeIdentifier];
+        v11 = *(*(&v15 + 1) + 8 * i);
+        if ([v11 preferredRepresentation] == 2)
+        {
+          typeIdentifier = [v11 typeIdentifier];
+          [v5 addObject:typeIdentifier];
+        }
       }
 
       v8 = [representations2 countByEnumeratingWithState:&v15 objects:v19 count:16];
@@ -127,70 +172,67 @@
     while (v8);
   }
 
-  v12 = [v5 copy];
-  v13 = *MEMORY[0x1E69E9840];
-
-  return v12;
-}
-
-- (id)registeredOpenInPlaceTypeIdentifiers
-{
-  v21 = *MEMORY[0x1E69E9840];
-  v3 = MEMORY[0x1E695DF70];
-  representations = [(SWShareableContent *)self representations];
-  v5 = [v3 arrayWithCapacity:{objc_msgSend(representations, "count")}];
-
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  representations2 = [(SWShareableContent *)self representations];
-  v7 = [representations2 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v7)
-  {
-    v8 = v7;
-    v9 = *v17;
-    do
-    {
-      for (i = 0; i != v8; ++i)
-      {
-        if (*v17 != v9)
-        {
-          objc_enumerationMutation(representations2);
-        }
-
-        v11 = *(*(&v16 + 1) + 8 * i);
-        if ([v11 preferredRepresentation] == 2)
-        {
-          typeIdentifier = [v11 typeIdentifier];
-          [v5 addObject:typeIdentifier];
-        }
-      }
-
-      v8 = [representations2 countByEnumeratingWithState:&v16 objects:v20 count:16];
-    }
-
-    while (v8);
-  }
-
   v13 = [v5 copy];
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (BOOL)hasRepresentationConformingToTypeIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  itemProviders = [(SWShareableContent *)self itemProviders];
+  v6 = [itemProviders countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
+  {
+    v7 = *v11;
+    while (2)
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v11 != v7)
+        {
+          objc_enumerationMutation(itemProviders);
+        }
+
+        if ([*(*(&v10 + 1) + 8 * i) hasRepresentationConformingToTypeIdentifier:identifierCopy fileOptions:0])
+        {
+          LOBYTE(v6) = 1;
+          goto LABEL_11;
+        }
+      }
+
+      v6 = [itemProviders countByEnumeratingWithState:&v10 objects:v14 count:16];
+      if (v6)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+LABEL_11:
+
+  return v6;
+}
+
+- (BOOL)canLoadObjectOfClass:(Class)class
+{
+  v16 = *MEMORY[0x1E69E9840];
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   itemProviders = [(SWShareableContent *)self itemProviders];
-  v6 = [itemProviders countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v6)
+  v5 = [itemProviders countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v5)
   {
+    v6 = v5;
     v7 = *v12;
     while (2)
     {
@@ -201,9 +243,9 @@
           objc_enumerationMutation(itemProviders);
         }
 
-        if ([*(*(&v11 + 1) + 8 * i) hasRepresentationConformingToTypeIdentifier:identifierCopy fileOptions:0])
+        if ([*(*(&v11 + 1) + 8 * i) canLoadObjectOfClass:class])
         {
-          LOBYTE(v6) = 1;
+          v9 = 1;
           goto LABEL_11;
         }
       }
@@ -218,87 +260,41 @@
     }
   }
 
-LABEL_11:
-
-  v9 = *MEMORY[0x1E69E9840];
-  return v6;
-}
-
-- (BOOL)canLoadObjectOfClass:(Class)class
-{
-  v17 = *MEMORY[0x1E69E9840];
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  itemProviders = [(SWShareableContent *)self itemProviders];
-  v5 = [itemProviders countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v5)
-  {
-    v6 = v5;
-    v7 = *v13;
-    while (2)
-    {
-      for (i = 0; i != v6; ++i)
-      {
-        if (*v13 != v7)
-        {
-          objc_enumerationMutation(itemProviders);
-        }
-
-        if ([*(*(&v12 + 1) + 8 * i) canLoadObjectOfClass:class])
-        {
-          v9 = 1;
-          goto LABEL_11;
-        }
-      }
-
-      v6 = [itemProviders countByEnumeratingWithState:&v12 objects:v16 count:16];
-      if (v6)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (BOOL)hasPossibleCollaborationRepresentation
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   itemProviders = [(SWShareableContent *)self itemProviders];
-  v3 = [itemProviders countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [itemProviders countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(itemProviders);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) sl_hasPossibleCollaborationRepresentation])
+        if ([*(*(&v7 + 1) + 8 * i) sl_hasPossibleCollaborationRepresentation])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [itemProviders countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [itemProviders countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -310,7 +306,6 @@ LABEL_11:
 
 LABEL_11:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -360,34 +355,34 @@ LABEL_11:
 
 void __35__SWShareableContent_itemProviders__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = objc_alloc_init(MEMORY[0x1E696ACA0]);
   v7 = [v5 suggestedFileName];
   [v6 setSuggestedName:v7];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
-  v16 = v5;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v15 = v5;
   obj = [v5 representations];
-  v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       v11 = 0;
       do
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * v11);
+        v12 = *(*(&v18 + 1) + 8 * v11);
         aBlock[0] = MEMORY[0x1E69E9820];
         aBlock[1] = 3221225472;
         aBlock[2] = __35__SWShareableContent_itemProviders__block_invoke_2;
@@ -403,14 +398,13 @@ void __35__SWShareableContent_itemProviders__block_invoke(uint64_t a1, void *a2,
       }
 
       while (v9 != v11);
-      v9 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
   }
 
   [*(a1 + 40) addObject:v6];
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __35__SWShareableContent_itemProviders__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -470,7 +464,7 @@ void __35__SWShareableContent_itemProviders__block_invoke_3(uint64_t a1, void *a
 
 - (SWShareableContent)initWithCoder:(id)coder
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -513,22 +507,21 @@ void __35__SWShareableContent_itemProviders__block_invoke_3(uint64_t a1, void *a
   {
     v29 = MEMORY[0x1E696ABC0];
     v30 = *MEMORY[0x1E696A250];
-    v35 = *MEMORY[0x1E696A278];
-    v36[0] = @"This type only supports encoding and decoding via NSXPCCoder.";
-    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+    v34 = *MEMORY[0x1E696A278];
+    v35[0] = @"This type only supports encoding and decoding via NSXPCCoder.";
+    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1];
     v32 = [v29 errorWithDomain:v30 code:4866 userInfo:v31];
     [coderCopy failWithError:v32];
 
     selfCopy = 0;
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -566,14 +559,12 @@ void __35__SWShareableContent_itemProviders__block_invoke_3(uint64_t a1, void *a
   {
     v19 = MEMORY[0x1E696ABC0];
     v20 = *MEMORY[0x1E696A250];
-    v24 = *MEMORY[0x1E696A278];
-    v25[0] = @"This type only supports encoding and decoding via NSXPCCoder.";
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x1E696A278];
+    v24[0] = @"This type only supports encoding and decoding via NSXPCCoder.";
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     v22 = [v19 errorWithDomain:v20 code:4866 userInfo:v21];
     [coderCopy failWithError:v22];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 @end

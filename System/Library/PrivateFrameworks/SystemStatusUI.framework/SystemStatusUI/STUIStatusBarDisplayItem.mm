@@ -193,7 +193,7 @@
   view = self->_view;
   if (view)
   {
-    [(STUIStatusBarDisplayable *)view transform];
+    objc_msgSend_transform(view, a2);
     t1 = v13;
     if (!CGAffineTransformEqualToTransform(&t1, &t2))
     {

@@ -7,6 +7,7 @@
 - (id)_filterOutUnchangedCharacteristicsFrom:(id)from enable:(BOOL)enable;
 - (id)_mergeFailedUpdateIfAnyToUpdate:(id)update;
 - (id)logIdentifier;
+- (id)setEnable:(BOOL)enable forCharacteristics:(id)characteristics clientIdentifier:(id)identifier changeThresholds:(id)thresholds;
 - (void)_handleUpdateComplete;
 - (void)_handleUpdateCompletedSuccessfully;
 - (void)_handleUpdateCompletedWithError:(id)error;
@@ -43,7 +44,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   failedUpdateRetryTimer = [(HMDHAPAccessoryLocalNotifyUpdateManager *)self failedUpdateRetryTimer];
 
@@ -57,13 +58,13 @@
       v9 = HMFGetLogIdentifier();
       failedUpdateRetryCount = [(HMDHAPAccessoryLocalNotifyUpdateManager *)selfCopy failedUpdateRetryCount];
       failedUpdate = [(HMDHAPAccessoryLocalNotifyUpdateManager *)selfCopy failedUpdate];
-      v14 = 138543874;
-      v15 = v9;
-      v16 = 2048;
-      v17 = failedUpdateRetryCount;
-      v18 = 2112;
-      v19 = failedUpdate;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Failed update retry timer fired. Retry count: %ld. Failed update: %@", &v14, 0x20u);
+      v13 = 138543874;
+      v14 = v9;
+      v15 = 2048;
+      v16 = failedUpdateRetryCount;
+      v17 = 2112;
+      v18 = failedUpdate;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Failed update retry timer fired. Retry count: %ld. Failed update: %@", &v13, 0x20u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -77,8 +78,6 @@
 
     [(HMDHAPAccessoryLocalNotifyUpdateManager *)selfCopy processPendingUpdateIfAny];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeFailedUpdateRetryTimer
@@ -130,7 +129,7 @@
 
 - (void)_handleUpdateCompletedWithError:(id)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   queue = [(HMDHAPAccessoryLocalNotifyUpdateManager *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -147,11 +146,11 @@
     {
       v10 = HMFGetLogIdentifier();
       failedUpdate = [(HMDHAPAccessoryLocalNotifyUpdateManager *)selfCopy failedUpdate];
-      v15 = 138543618;
-      v16 = v10;
-      v17 = 2112;
-      v18 = failedUpdate;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Failed update: %@ needs retry.", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v10;
+      v16 = 2112;
+      v17 = failedUpdate;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Failed update: %@ needs retry.", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -174,8 +173,6 @@
       [(HMDHAPAccessoryLocalNotifyUpdateManager *)self _startFailedUpdateRetryTimer];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_mergeFailedUpdateIfAnyToUpdate:(id)update
@@ -205,7 +202,7 @@
 
 - (void)_processPendingUpdate
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   queue = [(HMDHAPAccessoryLocalNotifyUpdateManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -218,11 +215,11 @@
     pendingUpdate = [(HMDHAPAccessoryLocalNotifyUpdateManager *)selfCopy pendingUpdate];
     failedUpdate = [(HMDHAPAccessoryLocalNotifyUpdateManager *)selfCopy failedUpdate];
     *buf = 138543874;
-    v23 = v7;
-    v24 = 2112;
-    v25 = pendingUpdate;
-    v26 = 2112;
-    v27 = failedUpdate;
+    v22 = v7;
+    v23 = 2112;
+    v24 = pendingUpdate;
+    v25 = 2112;
+    v26 = failedUpdate;
     _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Processing enable notify update. Pending: %@. Failed: %@", buf, 0x20u);
   }
 
@@ -244,24 +241,22 @@
 
   inFlightUpdate2 = [(HMDHAPAccessoryLocalNotifyUpdateManager *)selfCopy inFlightUpdate];
   completionFuture = [inFlightUpdate2 completionFuture];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __64__HMDHAPAccessoryLocalNotifyUpdateManager__processPendingUpdate__block_invoke;
-  v21[3] = &unk_2797333D8;
-  v21[4] = selfCopy;
   v20[0] = MEMORY[0x277D85DD0];
   v20[1] = 3221225472;
-  v20[2] = __64__HMDHAPAccessoryLocalNotifyUpdateManager__processPendingUpdate__block_invoke_77;
-  v20[3] = &unk_279733400;
+  v20[2] = __64__HMDHAPAccessoryLocalNotifyUpdateManager__processPendingUpdate__block_invoke;
+  v20[3] = &unk_2797333D8;
   v20[4] = selfCopy;
-  v18 = [completionFuture inContext:v15 then:v21 orRecover:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __64__HMDHAPAccessoryLocalNotifyUpdateManager__processPendingUpdate__block_invoke_77;
+  v19[3] = &unk_279733400;
+  v19[4] = selfCopy;
+  v18 = [completionFuture inContext:v15 then:v20 orRecover:v19];
 }
 
 uint64_t __64__HMDHAPAccessoryLocalNotifyUpdateManager__processPendingUpdate__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) pendingUpdate];
 
@@ -272,23 +267,22 @@ uint64_t __64__HMDHAPAccessoryLocalNotifyUpdateManager__processPendingUpdate__bl
   {
     v7 = HMFGetLogIdentifier();
     v8 = HMFBooleanToString();
-    v11 = 138543618;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v8;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Enable notify update succeeded. Got queued updates: %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v8;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Enable notify update succeeded. Got queued updates: %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   [*(a1 + 32) _handleUpdateCompletedSuccessfully];
 
-  v9 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __64__HMDHAPAccessoryLocalNotifyUpdateManager__processPendingUpdate__block_invoke_77(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) pendingUpdate];
 
@@ -299,19 +293,18 @@ uint64_t __64__HMDHAPAccessoryLocalNotifyUpdateManager__processPendingUpdate__bl
   {
     v7 = HMFGetLogIdentifier();
     v8 = HMFBooleanToString();
-    v11 = 138543874;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v3;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Enable notify update failed with error: %@. Got queued updates: %@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v3;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Enable notify update failed with error: %@. Got queued updates: %@", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
   [*(a1 + 32) _handleUpdateCompletedWithError:v3];
 
-  v9 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -354,45 +347,191 @@ void __68__HMDHAPAccessoryLocalNotifyUpdateManager_processPendingUpdateIfAny__bl
 - (id)_filterOutUnchangedCharacteristicsFrom:(id)from enable:(BOOL)enable
 {
   enableCopy = enable;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   array = [MEMORY[0x277CBEB18] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = fromCopy;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         if ([v12 isNotificationEnabled] != enableCopy)
         {
           [array addObject:v12];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
 
-  v13 = [array copy];
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = objc_msgSend_copy(array);
 
   return v13;
+}
+
+- (id)setEnable:(BOOL)enable forCharacteristics:(id)characteristics clientIdentifier:(id)identifier changeThresholds:(id)thresholds
+{
+  enableCopy = enable;
+  v64 = *MEMORY[0x277D85DE8];
+  characteristicsCopy = characteristics;
+  identifierCopy = identifier;
+  thresholdsCopy = thresholds;
+  v45 = characteristicsCopy;
+  if ([characteristicsCopy count])
+  {
+    selfCopy = self;
+    v49 = enableCopy;
+    v44 = [(HMDHAPAccessoryLocalNotifyUpdateManager *)self _filterOutUnchangedCharacteristicsFrom:characteristicsCopy enable:enableCopy];
+    v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
+    obj = characteristicsCopy;
+    v11 = [obj countByEnumeratingWithState:&v51 objects:v63 count:16];
+    if (v11)
+    {
+      v12 = *v52;
+      do
+      {
+        for (i = 0; i != v11; ++i)
+        {
+          if (*v52 != v12)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v14 = *(*(&v51 + 1) + 8 * i);
+          v15 = objc_autoreleasePoolPush();
+          v16 = selfCopy;
+          v17 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          {
+            v18 = HMFGetLogIdentifier();
+            v19 = HMFBooleanToString();
+            shortDescription = [v14 shortDescription];
+            *buf = 138544130;
+            v56 = v18;
+            v57 = 2112;
+            v58 = v19;
+            v59 = 2112;
+            v60 = shortDescription;
+            v61 = 2112;
+            v62 = identifierCopy;
+            _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Marking the notification change (%@) before actually doing it in the accessory for characteristic %@ for client %@", buf, 0x2Au);
+          }
+
+          objc_autoreleasePoolPop(v15);
+          hmdHAPAccessory = [(HMDHAPAccessoryLocalNotifyUpdateManager *)v16 hmdHAPAccessory];
+          v22 = [hmdHAPAccessory changeThresholdForCharacteristic:v14 changeThresholds:thresholdsCopy];
+
+          [v14 setNotificationEnabled:v49 forClientIdentifier:identifierCopy changeThreshold:v22];
+        }
+
+        v11 = [obj countByEnumeratingWithState:&v51 objects:v63 count:16];
+      }
+
+      while (v11);
+    }
+
+    v23 = [v44 count] == 0;
+    v24 = objc_autoreleasePoolPush();
+    v25 = selfCopy;
+    v26 = HMFGetOSLogHandle();
+    v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
+    if (v23)
+    {
+      if (v27)
+      {
+        v41 = HMFGetLogIdentifier();
+        v42 = HMFBooleanToString();
+        *buf = 138543874;
+        v56 = v41;
+        v57 = 2112;
+        v58 = obj;
+        v59 = 2112;
+        v60 = v42;
+        _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@No change in enablement for characteristics %@. Enable value: %@.", buf, 0x20u);
+      }
+
+      objc_autoreleasePoolPop(v24);
+      pendingUpdate3 = 0;
+    }
+
+    else
+    {
+      if (v27)
+      {
+        v28 = HMFGetLogIdentifier();
+        v29 = HMFBooleanToString();
+        *buf = 138543874;
+        v56 = v28;
+        v57 = 2112;
+        v58 = v44;
+        v59 = 2112;
+        v60 = v29;
+        _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@characteristicsNeedingUpdate: %@. Enable: %@.", buf, 0x20u);
+      }
+
+      objc_autoreleasePoolPop(v24);
+      os_unfair_lock_lock_with_options();
+      pendingUpdate = [(HMDHAPAccessoryLocalNotifyUpdateManager *)v25 pendingUpdate];
+      v31 = pendingUpdate == 0;
+
+      if (v31)
+      {
+        dataSource = [(HMDHAPAccessoryLocalNotifyUpdateManager *)v25 dataSource];
+        createLocalNotifyUpdate = [dataSource createLocalNotifyUpdate];
+        [(HMDHAPAccessoryLocalNotifyUpdateManager *)v25 setPendingUpdate:createLocalNotifyUpdate];
+      }
+
+      pendingUpdate2 = [(HMDHAPAccessoryLocalNotifyUpdateManager *)v25 pendingUpdate];
+      [pendingUpdate2 setEnable:v49 forCharacteristics:v44];
+
+      os_unfair_lock_unlock(&updateLocalNotifyLock);
+      [(HMDHAPAccessoryLocalNotifyUpdateManager *)v25 processPendingUpdateIfAny];
+      pendingUpdate3 = [(HMDHAPAccessoryLocalNotifyUpdateManager *)v25 pendingUpdate];
+    }
+  }
+
+  else
+  {
+    v36 = objc_autoreleasePoolPush();
+    selfCopy2 = self;
+    v38 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    {
+      v39 = HMFGetLogIdentifier();
+      v40 = HMFBooleanToString();
+      *buf = 138543618;
+      v56 = v39;
+      v57 = 2112;
+      v58 = v40;
+      _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_DEFAULT, "%{public}@No characteristics to enable to %@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v36);
+    pendingUpdate3 = 0;
+  }
+
+  return pendingUpdate3;
 }
 
 - (HMDHAPAccessoryLocalNotifyUpdateManager)initWithHome:(id)home hmdHAPAccessory:(id)accessory queue:(id)queue dataSource:(id)source
@@ -442,12 +581,11 @@ void __68__HMDHAPAccessoryLocalNotifyUpdateManager_processPendingUpdateIfAny__bl
 
 uint64_t __54__HMDHAPAccessoryLocalNotifyUpdateManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v12_157708;
-  logCategory__hmf_once_v12_157708 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v12_157708;
+  logCategory__hmf_once_v12_157708 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

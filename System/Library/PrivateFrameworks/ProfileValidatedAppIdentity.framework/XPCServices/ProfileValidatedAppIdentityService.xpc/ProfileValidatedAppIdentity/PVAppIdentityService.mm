@@ -30,7 +30,7 @@
 
   else
   {
-    v7 = _PVAppIdentityLogSystem();
+    v7 = _PVAppIdentityLogSystem(v3);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       sub_100019A0C(v7);

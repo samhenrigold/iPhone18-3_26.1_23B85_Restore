@@ -90,27 +90,27 @@
   v5 = encodingCopy;
   if (encodingCopy && MEMORY[0x1DA6E0380](encodingCopy) == MEMORY[0x1E69E9E80])
   {
-    v15.receiver = self;
-    v15.super_class = SSVPushNotificationParameters;
-    v6 = [(SSVPushNotificationParameters *)&v15 init];
+    v18.receiver = self;
+    v18.super_class = SSVPushNotificationParameters;
+    v6 = [(SSVPushNotificationParameters *)&v18 init];
     if (v6)
     {
-      objc_opt_class();
-      v8 = SSXPCDictionaryCopyCFObjectWithClass(v5, "0");
+      v8 = objc_opt_class();
+      v9 = SSXPCDictionaryCopyCFObjectWithClass(v5, "0", v8);
       accountIdentifier = v6->_accountIdentifier;
-      v6->_accountIdentifier = v8;
+      v6->_accountIdentifier = v9;
 
-      objc_opt_class();
-      v10 = SSXPCDictionaryCopyCFObjectWithClass(v5, "1");
+      v11 = objc_opt_class();
+      v12 = SSXPCDictionaryCopyCFObjectWithClass(v5, "1", v11);
       environmentName = v6->_environmentName;
-      v6->_environmentName = v10;
+      v6->_environmentName = v12;
 
       v6->_requestType = xpc_dictionary_get_int64(v5, "3");
-      objc_opt_class();
-      v12 = SSXPCDictionaryCopyCFObjectWithClass(v5, "2");
-      v13 = [(__CFArray *)v12 copy];
+      v14 = objc_opt_class();
+      v15 = SSXPCDictionaryCopyCFObjectWithClass(v5, "2", v14);
+      v16 = [(__CFDate *)v15 copy];
       parameterDictionary = v6->_parameterDictionary;
-      v6->_parameterDictionary = v13;
+      v6->_parameterDictionary = v16;
     }
   }
 

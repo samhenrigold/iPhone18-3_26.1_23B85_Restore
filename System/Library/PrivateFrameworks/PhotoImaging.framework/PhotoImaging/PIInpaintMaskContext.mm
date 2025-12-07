@@ -49,7 +49,7 @@
 
   if (contextCopy)
   {
-    [contextCopy fullImageExtent];
+    objc_msgSend_fullImageExtent(contextCopy);
   }
 
   else
@@ -66,7 +66,7 @@
 
   if (contextCopy)
   {
-    [contextCopy livePhotoKeyFrameTime];
+    objc_msgSend_livePhotoKeyFrameTime(contextCopy);
   }
 
   else
@@ -307,7 +307,7 @@ uint64_t __104__PIInpaintMaskContext_updateSubjectMaskBufferIfNeededForCompositi
     v13 = *(a1 + 40);
     if (v13)
     {
-      [v13 fullImageExtent];
+      objc_msgSend_fullImageExtent(v13);
       v15 = *(&v23 + 1);
       v14 = v23;
     }
@@ -514,7 +514,7 @@ uint64_t __79__PIInpaintMaskContext__foregroundOperationsFromComposition_subject
     v17 = [PIInpaintMask alloc];
     if (v11)
     {
-      [v11 bounds];
+      objc_msgSend_bounds(v11);
     }
 
     else

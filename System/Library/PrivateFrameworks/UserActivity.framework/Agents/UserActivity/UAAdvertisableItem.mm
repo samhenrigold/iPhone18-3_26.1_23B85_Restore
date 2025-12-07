@@ -25,7 +25,7 @@
   uUIDString = [uuid UUIDString];
   activityType = [(UAAdvertisableItem *)self activityType];
   v9 = [(UAAdvertisableItem *)self payloadForIdentifier:UAUserActivityUserInfoPayload];
-  v10 = sub_1000021AC(v9, 8uLL);
+  v10 = sub_1000021AC(v9, 8);
   payloads = [(UAAdvertisableItem *)self payloads];
   v12 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@ %@ %@ .userInfo=%@ payloads=%ld", v5, uUIDString, activityType, v10, [payloads count]);
 
@@ -46,7 +46,7 @@
   uUIDString = [uuid UUIDString];
   activityType = [(UAAdvertisableItem *)self activityType];
   v5 = [(UAAdvertisableItem *)self payloadForIdentifier:UAUserActivityUserInfoPayload];
-  v6 = sub_1000021AC(v5, 0x20uLL);
+  v6 = sub_1000021AC(v5, 32);
   webpageURL = [(UAAdvertisableItem *)self webpageURL];
   v8 = &stru_1000C67D0;
   if (webpageURL)
@@ -173,7 +173,7 @@
   }
 
   v37 = [(UAAdvertisableItem *)self payloadForIdentifier:UAUserActivityUserInfoPayload];
-  v16 = sub_1000021AC(v37, 0x18uLL);
+  v16 = sub_1000021AC(v37, 24);
   webpageURL = [(UAAdvertisableItem *)self webpageURL];
   if (webpageURL)
   {

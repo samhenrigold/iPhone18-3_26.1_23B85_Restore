@@ -62,6 +62,7 @@
 - (void)setDefaultPaymentApplication:(id)application forPassUniqueIdentifier:(id)identifier completion:(id)completion;
 - (void)setDefaultPaymentPassIdentifier:(id)identifier;
 - (void)setExpressWithPassConfiguration:(id)configuration visibleViewController:(id)controller requiresAuth:(BOOL)auth completion:(id)completion;
+- (void)setPaymentHandoffDisabled:(BOOL)disabled;
 - (void)sharesDidUpdateWithPaymentPassWithUniqueIdentifier:(id)identifier;
 - (void)startServiceModeForPassWithUniqueIdentifier:(id)identifier visibleViewController:(id)controller;
 - (void)transactionSourceIdentifier:(id)identifier didReceiveTransaction:(id)transaction;
@@ -445,6 +446,18 @@ LABEL_7:
   v3 = [v2 BOOLForKey:PKHandoffPaymentsDisabledKey];
 
   return v3;
+}
+
+- (void)setPaymentHandoffDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  v8 = [[NPSDomainAccessor alloc] initWithDomain:@".GlobalPreferences"];
+  v4 = PKHandoffPaymentsDisabledKey;
+  [v8 setBool:disabledCopy forKey:PKHandoffPaymentsDisabledKey];
+  synchronize = [v8 synchronize];
+  v6 = objc_opt_new();
+  v7 = [NSSet setWithObject:v4];
+  [v6 synchronizeNanoDomain:@".GlobalPreferences" keys:v7];
 }
 
 - (NSString)deviceClass

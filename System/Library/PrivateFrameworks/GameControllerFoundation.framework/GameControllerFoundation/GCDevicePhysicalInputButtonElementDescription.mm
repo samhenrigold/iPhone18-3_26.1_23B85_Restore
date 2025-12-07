@@ -112,9 +112,9 @@
 - (id)description
 {
   v3 = MEMORY[0x1E696AEC0];
-  v10.receiver = self;
-  v10.super_class = GCDevicePhysicalInputButtonElementDescription;
-  v4 = [(GCDevicePhysicalInputElementDescription *)&v10 description];
+  v9.receiver = self;
+  v9.super_class = GCDevicePhysicalInputButtonElementDescription;
+  v4 = [(GCDevicePhysicalInputElementDescription *)&v9 description];
   v5 = v4;
   if (self->_analog)
   {
@@ -126,10 +126,9 @@
     v6 = @"digital";
   }
 
-  eventTouchValueField = self->_eventTouchValueField;
-  v8 = [v3 stringWithFormat:@"Button %@ %@ P:%#zx V:%#zx T:%#zx F:%#zx", v4, v6, self->_eventPressedValueField, self->_eventAnalogPressValueField, eventTouchValueField, self->_eventForceValueField];
+  v7 = [v3 stringWithFormat:@"Button %@ %@ P:%#zx V:%#zx T:%#zx F:%#zx", v4, v6, self->_eventPressedValueField, self->_eventAnalogPressValueField, self->_eventTouchValueField, self->_eventForceValueField];
 
-  return v8;
+  return v7;
 }
 
 @end

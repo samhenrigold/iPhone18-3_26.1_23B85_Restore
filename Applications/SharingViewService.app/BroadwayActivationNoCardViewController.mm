@@ -12,7 +12,7 @@
   buttonCopy = button;
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationNoCardViewController handleOrderPhysicalCardButton:]", 30, "Order physical card button");
   }
 
   [self->super._mainController dismiss:5 completion:&stru_100195650];
@@ -23,7 +23,7 @@
   buttonCopy = button;
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationNoCardViewController handleOKButton:]", 30, "OK button");
   }
 
   [self->super._mainController dismiss:5];
@@ -34,7 +34,7 @@
   disappearCopy = disappear;
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationNoCardViewController viewDidDisappear:]", 30, "NoCardVC ViewDidDisappear");
   }
 
   v5.receiver = self;
@@ -47,7 +47,7 @@
   appearCopy = appear;
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationNoCardViewController viewWillAppear:]", 30, "NoCardVC ViewWillAppear");
   }
 
   v14.receiver = self;

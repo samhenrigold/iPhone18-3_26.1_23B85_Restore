@@ -9,21 +9,23 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
+  height = fits.height;
+  width = fits.width;
   selfCopy = self;
-  v4 = sub_1000AB0CC();
-  v6 = v5;
+  v6 = sub_1000AB0CC(width, height);
+  v8 = v7;
 
-  v7 = v4;
-  v8 = v6;
-  result.height = v8;
-  result.width = v7;
+  v9 = v6;
+  v10 = v8;
+  result.height = v10;
+  result.width = v9;
   return result;
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1000AC528();
+  sub_1000AC528(selfCopy, v2);
 }
 
 - (id)hitTest:(CGPoint)test withEvent:(id)event
@@ -32,16 +34,16 @@
   x = test.x;
   eventCopy = event;
   selfCopy = self;
-  v10 = sub_1000ACBE4(event, x, y);
+  v11 = sub_1000ACBE4(event, v10, x, y);
 
-  return v10;
+  return v11;
 }
 
 - (void)traitCollectionDidChange:(id)change
 {
   changeCopy = change;
   selfCopy = self;
-  sub_1000ACD38(change);
+  sub_1000ACD38(change, selfCopy);
 }
 
 @end

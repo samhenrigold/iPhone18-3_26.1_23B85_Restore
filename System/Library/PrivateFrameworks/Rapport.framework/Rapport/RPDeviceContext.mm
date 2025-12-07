@@ -50,7 +50,7 @@ void __29__RPDeviceContext_pairVerify__block_invoke(uint64_t a1, void *a2)
     v6 = v3;
     if (gLogCategory_RPLegacySupport <= 60 && (gLogCategory_RPLegacySupport != -1 || _LogCategory_Initialize()))
     {
-      __29__RPDeviceContext_pairVerify__block_invoke_cold_1();
+      __29__RPDeviceContext_pairVerify__block_invoke_cold_1(v6);
     }
 
     [*(*(a1 + 32) + 32) invalidate];
@@ -67,7 +67,7 @@ void __29__RPDeviceContext_pairVerify__block_invoke_2(uint64_t a1, void *a2)
   v3 = a2;
   if (gLogCategory_RPLegacySupport <= 30 && (gLogCategory_RPLegacySupport != -1 || _LogCategory_Initialize()))
   {
-    __29__RPDeviceContext_pairVerify__block_invoke_2_cold_1(a1);
+    __29__RPDeviceContext_pairVerify__block_invoke_2_cold_1(a1, v3);
     if (v3)
     {
       goto LABEL_6;
@@ -97,12 +97,13 @@ LABEL_6:
 {
   responseCopy = response;
   errorCopy = error;
+  v7 = errorCopy;
   if (responseCopy)
   {
     [(RPDevice *)self->_device updateWithSystemInfo:?];
     if (gLogCategory_RPLegacySupport <= 30 && (gLogCategory_RPLegacySupport != -1 || _LogCategory_Initialize()))
     {
-      [RPDeviceContext systemInfoResponse:? error:?];
+      [RPDeviceContext systemInfoResponse:error:];
     }
 
     self->_state = 4;
@@ -111,7 +112,7 @@ LABEL_6:
 
   else
   {
-    [RPDeviceContext systemInfoResponse:? error:?];
+    [RPDeviceContext systemInfoResponse:errorCopy error:?];
   }
 
   [(RPLegacySession *)self->_session invalidate];
@@ -119,16 +120,21 @@ LABEL_6:
   self->_session = 0;
 }
 
-- (uint64_t)systemInfoResponse:(uint64_t)result error:.cold.2(uint64_t result)
+- (uint64_t)systemInfoResponse:(uint64_t)result error:(uint64_t)a2 .cold.2(uint64_t result, uint64_t a2)
 {
   *(result + 12) = 3;
   if (gLogCategory_RPLegacySupport <= 60)
   {
     OUTLINED_FUNCTION_6();
-    if (!v2 || (result = _LogCategory_Initialize(), result))
+    if (!v4)
     {
-      v3 = *(v1 + 16);
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_RPLegacySupport, "[RPDeviceContext systemInfoResponse:error:]", 60, "### Get SystemInfo failed for %@: %{error}\n", *(v2 + 16), a2);
+    }
+
+    result = _LogCategory_Initialize();
+    if (result)
+    {
+      return LogPrintF(&gLogCategory_RPLegacySupport, "[RPDeviceContext systemInfoResponse:error:]", 60, "### Get SystemInfo failed for %@: %{error}\n", *(v2 + 16), a2);
     }
   }
 

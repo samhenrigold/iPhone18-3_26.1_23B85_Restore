@@ -10,12 +10,12 @@
 + (id)bundleIdentifierForManagedObject:(id)object wellKnownLibraryIdentifier:(int64_t)identifier
 {
   objectCopy = object;
-  entity = [objectCopy entity];
-  name = [entity name];
+  v6 = objc_msgSend_entity(objectCopy);
+  name = [v6 name];
   v8 = +[PLManagedAsset entityName];
-  v9 = [name isEqualToString:v8];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
 
-  if (v9)
+  if (isEqualToString)
   {
     [PLSpotlightDonationUtilities bundleIdentifierForAsset:objectCopy wellKnownLibraryIdentifier:identifier];
   }
@@ -36,40 +36,40 @@
   helperCopy = helper;
   contextCopy = context;
   fetcherCopy = fetcher;
-  entity = [objectCopy entity];
-  name = [entity name];
+  v17 = objc_msgSend_entity(objectCopy);
+  name = [v17 name];
   v19 = +[PLManagedAsset entityName];
-  v20 = [name isEqualToString:v19];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
 
-  if (!v20)
+  if (!isEqualToString)
   {
-    entity2 = [objectCopy entity];
-    name2 = [entity2 name];
+    v30 = objc_msgSend_entity(objectCopy);
+    name2 = [v30 name];
     v32 = +[PLManagedAlbum entityName];
     v74 = helperCopy;
-    if (([name2 isEqualToString:v32] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(name2) & 1) == 0)
     {
-      entity3 = [objectCopy entity];
-      name3 = [entity3 name];
+      v33 = objc_msgSend_entity(objectCopy);
+      name3 = [v33 name];
       v35 = +[PLFetchingAlbum entityName];
-      if (([name3 isEqualToString:v35] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(name3) & 1) == 0)
       {
-        entity4 = [objectCopy entity];
-        [entity4 name];
+        v44 = objc_msgSend_entity(objectCopy);
+        [v44 name];
         v45 = v73 = contextCopy;
         +[PLCloudSharedAlbum entityName];
         v46 = v72 = fetcherCopy;
-        v71 = [v45 isEqualToString:v46];
+        v71 = objc_msgSend_isEqualToString_(v45);
 
         fetcherCopy = v72;
         contextCopy = v73;
 
         if ((v71 & 1) == 0)
         {
-          entity5 = [objectCopy entity];
-          name4 = [entity5 name];
+          v47 = objc_msgSend_entity(objectCopy);
+          name4 = [v47 name];
           v49 = +[PLCollectionShare entityName];
-          v50 = [name4 isEqualToString:v49];
+          v50 = objc_msgSend_isEqualToString_(name4);
 
           if (v50)
           {
@@ -80,10 +80,10 @@
 
           else
           {
-            entity6 = [objectCopy entity];
-            name5 = [entity6 name];
+            v53 = objc_msgSend_entity(objectCopy);
+            name5 = [v53 name];
             v55 = +[PLMemory entityName];
-            v56 = [name5 isEqualToString:v55];
+            v56 = objc_msgSend_isEqualToString_(name5);
 
             if (v56)
             {
@@ -94,10 +94,10 @@
 
             else
             {
-              entity7 = [objectCopy entity];
-              name6 = [entity7 name];
+              v57 = objc_msgSend_entity(objectCopy);
+              name6 = [v57 name];
               v59 = +[PLPhotosHighlight entityName];
-              v60 = [name6 isEqualToString:v59];
+              v60 = objc_msgSend_isEqualToString_(name6);
 
               if (v60)
               {
@@ -108,17 +108,17 @@
 
               else
               {
-                entity8 = [objectCopy entity];
-                name7 = [entity8 name];
+                v61 = objc_msgSend_entity(objectCopy);
+                name7 = [v61 name];
                 v63 = +[PLPerson entityName];
-                v64 = [name7 isEqualToString:v63];
+                v64 = objc_msgSend_isEqualToString_(name7);
 
                 if (!v64)
                 {
-                  entity9 = [objectCopy entity];
-                  name8 = [entity9 name];
+                  v65 = objc_msgSend_entity(objectCopy);
+                  name8 = [v65 name];
                   v67 = +[PLGraphNode entityName];
-                  v68 = [name8 isEqualToString:v67];
+                  v68 = objc_msgSend_isEqualToString_(name8);
 
                   if (v68)
                   {
@@ -133,8 +133,8 @@
                   v37 = PLSearchBackendIndexingEngineGetLog();
                   if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
                   {
-                    entity10 = [objectCopy entity];
-                    name9 = [entity10 name];
+                    v69 = objc_msgSend_entity(objectCopy);
+                    name9 = [v69 name];
                     *buf = 138543362;
                     v76 = name9;
                     _os_log_impl(&dword_19BF1F000, v37, OS_LOG_TYPE_ERROR, "Invalid entity to process for search indexing: %{public}@", buf, 0xCu);
@@ -171,7 +171,7 @@ LABEL_16:
           v37 = PLSearchBackendIndexWorkerGetLog();
           if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
           {
-            [objectCopy entity];
+            objc_msgSend_entity(objectCopy);
             v38 = fetcherCopy;
             v40 = v39 = helperCopy;
             [v40 name];
@@ -312,17 +312,17 @@ LABEL_5:
   objectCopy = object;
   helperCopy = helper;
   contextCopy = context;
-  entity = [objectCopy entity];
-  name = [entity name];
+  v12 = objc_msgSend_entity(objectCopy);
+  name = [v12 name];
   v14 = +[PLManagedAsset entityName];
-  v15 = [name isEqualToString:v14];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
 
-  if (!v15)
+  if (!isEqualToString)
   {
-    entity2 = [objectCopy entity];
-    name2 = [entity2 name];
+    v19 = objc_msgSend_entity(objectCopy);
+    name2 = [v19 name];
     v21 = +[PLManagedAlbum entityName];
-    if ([name2 isEqualToString:v21])
+    if (objc_msgSend_isEqualToString_(name2))
     {
 LABEL_8:
 
@@ -333,21 +333,21 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    entity3 = [objectCopy entity];
-    name3 = [entity3 name];
+    v22 = objc_msgSend_entity(objectCopy);
+    name3 = [v22 name];
     v24 = +[PLFetchingAlbum entityName];
-    if ([name3 isEqualToString:v24])
+    if (objc_msgSend_isEqualToString_(name3))
     {
 
       goto LABEL_8;
     }
 
-    [objectCopy entity];
+    objc_msgSend_entity(objectCopy);
     v27 = v55 = helperCopy;
     [v27 name];
     v28 = v56 = contextCopy;
     v29 = +[PLCloudSharedAlbum entityName];
-    v54 = [v28 isEqualToString:v29];
+    v54 = objc_msgSend_isEqualToString_(v28);
 
     contextCopy = v56;
     helperCopy = v55;
@@ -357,10 +357,10 @@ LABEL_10:
       goto LABEL_9;
     }
 
-    entity4 = [objectCopy entity];
-    name4 = [entity4 name];
+    v30 = objc_msgSend_entity(objectCopy);
+    name4 = [v30 name];
     v32 = +[PLCollectionShare entityName];
-    v33 = [name4 isEqualToString:v32];
+    v33 = objc_msgSend_isEqualToString_(name4);
 
     if (v33)
     {
@@ -369,10 +369,10 @@ LABEL_10:
       goto LABEL_10;
     }
 
-    entity5 = [objectCopy entity];
-    name5 = [entity5 name];
+    v34 = objc_msgSend_entity(objectCopy);
+    name5 = [v34 name];
     v36 = +[PLMemory entityName];
-    v37 = [name5 isEqualToString:v36];
+    v37 = objc_msgSend_isEqualToString_(name5);
 
     if (v37)
     {
@@ -381,17 +381,17 @@ LABEL_10:
       goto LABEL_10;
     }
 
-    entity6 = [objectCopy entity];
-    name6 = [entity6 name];
+    v38 = objc_msgSend_entity(objectCopy);
+    name6 = [v38 name];
     v40 = +[PLPhotosHighlight entityName];
-    v41 = [name6 isEqualToString:v40];
+    v41 = objc_msgSend_isEqualToString_(name6);
 
     if ((v41 & 1) == 0)
     {
-      entity7 = [objectCopy entity];
-      name7 = [entity7 name];
+      v42 = objc_msgSend_entity(objectCopy);
+      name7 = [v42 name];
       v44 = +[PLGraphNode entityName];
-      v45 = [name7 isEqualToString:v44];
+      v45 = objc_msgSend_isEqualToString_(name7);
 
       if (v45)
       {
@@ -401,18 +401,18 @@ LABEL_10:
         goto LABEL_23;
       }
 
-      entity8 = [objectCopy entity];
-      name8 = [entity8 name];
+      v47 = objc_msgSend_entity(objectCopy);
+      name8 = [v47 name];
       v49 = +[PLPerson entityName];
-      v50 = [name8 isEqualToString:v49];
+      v50 = objc_msgSend_isEqualToString_(name8);
 
       if ((v50 & 1) == 0)
       {
         v51 = PLSearchBackendIndexingEngineGetLog();
         if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
         {
-          entity9 = [objectCopy entity];
-          name9 = [entity9 name];
+          v52 = objc_msgSend_entity(objectCopy);
+          name9 = [v52 name];
           *buf = 138543362;
           v58 = name9;
           _os_log_impl(&dword_19BF1F000, v51, OS_LOG_TYPE_ERROR, "Invalid entity to process for search indexing: %{public}@", buf, 0xCu);

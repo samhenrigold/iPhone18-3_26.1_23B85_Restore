@@ -16,106 +16,106 @@
 
 + (id)enumeratorIncludingPlaceHolders
 {
-  v2 = _EXRegistrationLog();
+  v2 = _EXRegistrationLog(self);
   v3 = os_signpost_id_generate(v2);
 
-  v4 = _EXRegistrationLog();
-  v5 = v4;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v5 = _EXRegistrationLog(v4);
+  v6 = v5;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1847D1000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "extensionPointDefinitionEnumerator", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1847D1000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v3, "extensionPointDefinitionEnumerator", "", buf, 2u);
   }
 
   extensionPointCacheFileURLs = [objc_opt_class() extensionPointCacheFileURLs];
   extensionPointDefinitionDirectoryURLs = [objc_opt_class() extensionPointDefinitionDirectoryURLs];
-  v8 = [extensionPointCacheFileURLs arrayByAddingObjectsFromArray:extensionPointDefinitionDirectoryURLs];
+  v9 = [extensionPointCacheFileURLs arrayByAddingObjectsFromArray:extensionPointDefinitionDirectoryURLs];
 
   config = [objc_opt_class() config];
   [config setIncludePlaceholders:1];
-  v10 = [[EXExtensionPointEnumerator alloc] initWithCacheURLs:v8 config:config];
-  v11 = _EXRegistrationLog();
-  v12 = v11;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v11 = [[EXExtensionPointEnumerator alloc] initWithCacheURLs:v9 config:config];
+  v12 = _EXRegistrationLog(v11);
+  v13 = v12;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    *v14 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1847D1000, v12, OS_SIGNPOST_INTERVAL_END, v3, "extensionPointDefinitionEnumerator", "", v14, 2u);
+    *v15 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1847D1000, v13, OS_SIGNPOST_INTERVAL_END, v3, "extensionPointDefinitionEnumerator", "", v15, 2u);
   }
 
-  return v10;
+  return v11;
 }
 
 + (void)enumerateExtensionPointsInDirectoryAtURL:(id)l block:(id)block
 {
-  v50[2] = *MEMORY[0x1E69E9840];
+  v49[2] = *MEMORY[0x1E69E9840];
   lCopy = l;
   blockCopy = block;
   path = [lCopy path];
-  v38 = [path containsString:@"/System/iOSSupport/"];
+  v37 = [path containsString:@"/System/iOSSupport/"];
 
   v8 = *MEMORY[0x1E695DBB8];
-  v50[0] = *MEMORY[0x1E695DB78];
-  v50[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:2];
+  v49[0] = *MEMORY[0x1E695DB78];
+  v49[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:2];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v32 = v9;
-  v33 = lCopy;
+  v31 = v9;
+  v32 = lCopy;
   v11 = [defaultManager enumeratorAtURL:lCopy includingPropertiesForKeys:v9 options:1 errorHandler:0];
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   obj = v11;
-  v12 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
+  v12 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v45;
-    v34 = *v45;
+    v14 = *v44;
+    v33 = *v44;
     do
     {
       v15 = 0;
-      v35 = v13;
+      v34 = v13;
       do
       {
-        if (*v45 != v14)
+        if (*v44 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v44 + 1) + 8 * v15);
+        v16 = *(*(&v43 + 1) + 8 * v15);
         pathExtension = [v16 pathExtension];
         v18 = [pathExtension caseInsensitiveCompare:@"appexpt"];
 
         if (!v18)
         {
-          v37 = v15;
+          v36 = v15;
           v19 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v16];
           v20 = v19;
           if (v19)
           {
-            v42 = 0u;
-            v43 = 0u;
-            v40 = 0u;
             v41 = 0u;
-            v21 = [v19 countByEnumeratingWithState:&v40 objects:v48 count:16];
+            v42 = 0u;
+            v39 = 0u;
+            v40 = 0u;
+            v21 = [v19 countByEnumeratingWithState:&v39 objects:v47 count:16];
             if (v21)
             {
               v22 = v21;
-              v23 = *v41;
+              v23 = *v40;
               do
               {
                 for (i = 0; i != v22; ++i)
                 {
-                  if (*v41 != v23)
+                  if (*v40 != v23)
                   {
                     objc_enumerationMutation(v20);
                   }
 
-                  v25 = *(*(&v40 + 1) + 8 * i);
+                  v25 = *(*(&v39 + 1) + 8 * i);
                   v26 = [v20 _EX_dictionaryForKey:v25];
-                  v27 = sdkDictionaryAdditions();
+                  v27 = sdkDictionaryAdditions(v26);
                   v28 = [v27 objectForKeyedSubscript:v25];
 
                   if (v28)
@@ -125,34 +125,32 @@
                     v26 = v29;
                   }
 
-                  v30 = [self translateAppexptDictionary:v26 definitionURL:v16 isCatalyst:v38];
+                  v30 = [self translateAppexptDictionary:v26 definitionURL:v16 isCatalyst:v37];
 
                   blockCopy[2](blockCopy, v25, v30);
                 }
 
-                v22 = [v20 countByEnumeratingWithState:&v40 objects:v48 count:16];
+                v22 = [v20 countByEnumeratingWithState:&v39 objects:v47 count:16];
               }
 
               while (v22);
             }
           }
 
-          v14 = v34;
-          v13 = v35;
-          v15 = v37;
+          v14 = v33;
+          v13 = v34;
+          v15 = v36;
         }
 
         ++v15;
       }
 
       while (v15 != v13);
-      v13 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
+      v13 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
     }
 
     while (v13);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (EXExtensionPointEnumerator)initWithSDKDictionary:(id)dictionary config:(id)config
@@ -224,7 +222,7 @@
 
           else
           {
-            v24 = _EXDefaultLog();
+            v24 = _EXDefaultLog(0);
             if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
@@ -286,7 +284,8 @@
             {
               v72 = 0;
               v35 = [MEMORY[0x1E695DF20] _EX_dictionaryWithSignedURL:v30 error:&v72];
-              v65 = v72;
+              v36 = v72;
+              v65 = v36;
               if (v35)
               {
                 goto LABEL_29;
@@ -300,67 +299,68 @@
           {
           }
 
-          v35 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v30];
+          v36 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v30];
+          v35 = v36;
           v65 = 0;
-          if (v35)
+          if (v36)
           {
 LABEL_29:
             v70 = 0u;
             v71 = 0u;
             v68 = 0u;
             v69 = 0u;
-            v36 = v35;
-            v37 = [v36 countByEnumeratingWithState:&v68 objects:v88 count:16];
-            if (v37)
+            v37 = v35;
+            v38 = [v37 countByEnumeratingWithState:&v68 objects:v88 count:16];
+            if (v38)
             {
-              v38 = v37;
+              v39 = v38;
               v63 = v35;
-              v39 = *v69;
+              v40 = *v69;
               do
               {
-                for (j = 0; j != v38; ++j)
+                for (j = 0; j != v39; ++j)
                 {
-                  if (*v69 != v39)
+                  if (*v69 != v40)
                   {
-                    objc_enumerationMutation(v36);
+                    objc_enumerationMutation(v37);
                   }
 
-                  v41 = *(*(&v68 + 1) + 8 * j);
-                  v42 = [v36 _EX_dictionaryForKey:v41];
-                  v43 = [(EXExtensionPointEnumerator *)v11 translateXPCCacheDictionary:v42];
+                  v42 = *(*(&v68 + 1) + 8 * j);
+                  v43 = [v37 _EX_dictionaryForKey:v42];
+                  v44 = [(EXExtensionPointEnumerator *)v11 translateXPCCacheDictionary:v43];
 
-                  if ([v43 count])
+                  if ([v44 count])
                   {
-                    v44 = [(NSDictionary *)v12 _EX_dictionaryForKey:v41];
-                    v45 = v44;
-                    v46 = MEMORY[0x1E695E0F8];
-                    if (v44)
+                    v45 = [(NSDictionary *)v12 _EX_dictionaryForKey:v42];
+                    v46 = v45;
+                    v47 = MEMORY[0x1E695E0F8];
+                    if (v45)
                     {
-                      v46 = v44;
+                      v47 = v45;
                     }
 
-                    v47 = v46;
+                    v48 = v47;
 
-                    v48 = [v47 _EX_dictionaryBySettingValuesForKeysWithDictionary:v43];
+                    v49 = [v48 _EX_dictionaryBySettingValuesForKeysWithDictionary:v44];
 
-                    [(NSDictionary *)v12 setObject:v48 forKey:v41];
+                    [(NSDictionary *)v12 setObject:v49 forKey:v42];
                   }
 
                   else
                   {
-                    v48 = _EXDefaultLog();
-                    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+                    v49 = _EXDefaultLog(0);
+                    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 138543362;
-                      v85 = v41;
+                      v85 = v42;
                     }
                   }
                 }
 
-                v38 = [v36 countByEnumeratingWithState:&v68 objects:v88 count:16];
+                v39 = [v37 countByEnumeratingWithState:&v68 objects:v88 count:16];
               }
 
-              while (v38);
+              while (v39);
               v28 = v61;
               v25 = v62;
               v35 = v63;
@@ -372,8 +372,8 @@ LABEL_43:
           }
 
 LABEL_25:
-          v36 = _EXDefaultLog();
-          if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+          v37 = _EXDefaultLog(v36);
+          if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_43;
           }
@@ -401,15 +401,15 @@ LABEL_45:
     objc_storeStrong(&v11->_config, obj);
     extensionPoints = v11->_extensionPoints;
     v11->_extensionPoints = v12;
-    v50 = v12;
+    v51 = v12;
 
     keyEnumerator = [(NSDictionary *)v11->_extensionPoints keyEnumerator];
     extensionPointsKeyEnumerator = v11->_extensionPointsKeyEnumerator;
     v11->_extensionPointsKeyEnumerator = keyEnumerator;
 
-    v53 = objc_opt_new();
+    v54 = objc_opt_new();
     currentExtensionPoint = v11->_currentExtensionPoint;
-    v11->_currentExtensionPoint = v53;
+    v11->_currentExtensionPoint = v54;
 
     v11->_validateExtensionPoints = 1;
     dictionaryCopy = v59;
@@ -417,13 +417,12 @@ LABEL_45:
     configCopy = v58;
   }
 
-  v55 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 void __64__EXExtensionPointEnumerator_initWithSDKDictionary_urls_config___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([v6 count])
@@ -445,20 +444,18 @@ void __64__EXExtensionPointEnumerator_initWithSDKDictionary_urls_config___block_
 
   else
   {
-    v12 = _EXDefaultLog();
+    v12 = _EXDefaultLog(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138543362;
-      v15 = v5;
+      v13 = 138543362;
+      v14 = v5;
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (id)translateAppexptDictionary:(id)dictionary definitionURL:(id)l isCatalyst:(BOOL)catalyst
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   lCopy = l;
   v8 = dictionaryCopy;
@@ -474,17 +471,15 @@ void __64__EXExtensionPointEnumerator_initWithSDKDictionary_urls_config___block_
   v13 = v12;
   if (v12)
   {
-    v17 = @"EXNativeSDKVariant";
-    v18[0] = v12;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = @"EXNativeSDKVariant";
+    v17[0] = v12;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   }
 
   else
   {
     v14 = MEMORY[0x1E695E0F8];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -493,7 +488,7 @@ void __64__EXExtensionPointEnumerator_initWithSDKDictionary_urls_config___block_
 {
   v29 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v4 = _EXRegistrationLog();
+  v4 = _EXRegistrationLog(dictionaryCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [EXExtensionPointEnumerator translateXPCCacheDictionary:];
@@ -579,13 +574,11 @@ LABEL_20:
 LABEL_21:
 
 LABEL_22:
-  v18 = _EXRegistrationLog();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v19 = _EXRegistrationLog(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     [EXExtensionPointEnumerator translateXPCCacheDictionary:];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -620,18 +613,18 @@ LABEL_4:
   v24[1] = @"NSExtensionPointVersion";
   v25[0] = identifierCopy;
   v25[1] = @"1.0";
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
-  v27[2] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:3];
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
+  v27[2] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:3];
 
   v22[0] = @"NSExtension";
   v22[1] = @"EXRequiresLegacyInfrastructure";
-  v23[0] = v13;
+  v23[0] = v12;
   v23[1] = MEMORY[0x1E695E110];
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
-  v9 = [dictionaryCopy _EX_dictionaryBySettingValuesForKeysWithDictionary:v14];
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
+  v9 = [dictionaryCopy _EX_dictionaryBySettingValuesForKeysWithDictionary:v13];
 
-  v15 = _EXRegistrationLog();
+  v15 = _EXRegistrationLog(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     v16 = 138543874;
@@ -644,31 +637,28 @@ LABEL_4:
   }
 
 LABEL_5:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)flattenEXExtensionPointConfigurationInDictionary:(id)dictionary identifier:(id)identifier
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   identifierCopy = identifier;
   v7 = [dictionaryCopy _EX_objectForKey:@"EXExtensionPointConfiguration" ofClass:objc_opt_class()];
   v8 = [dictionaryCopy _EX_dictionaryBySettingValuesForKeysWithDictionary:v7];
-  v9 = _EXRegistrationLog();
+  v9 = _EXRegistrationLog(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138543874;
-    v13 = identifierCopy;
-    v14 = 2114;
-    v15 = dictionaryCopy;
-    v16 = 2114;
-    v17 = v8;
-    _os_log_debug_impl(&dword_1847D1000, v9, OS_LOG_TYPE_DEBUG, "Extension point '%{public}@' - flattened EXExtensionPointConfiguration dictionary: %{public}@ -> %{public}@", &v12, 0x20u);
+    v11 = 138543874;
+    v12 = identifierCopy;
+    v13 = 2114;
+    v14 = dictionaryCopy;
+    v15 = 2114;
+    v16 = v8;
+    _os_log_debug_impl(&dword_1847D1000, v9, OS_LOG_TYPE_DEBUG, "Extension point '%{public}@' - flattened EXExtensionPointConfiguration dictionary: %{public}@ -> %{public}@", &v11, 0x20u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -684,73 +674,73 @@ LABEL_5:
 
     if (legacyExtensionPointAllowList)
     {
-      v10 = [dictionaryCopy objectForKey:@"EXExtensionPointConfiguration"];
-      if (v10)
+      v11 = [dictionaryCopy objectForKey:@"EXExtensionPointConfiguration"];
+      if (v11)
       {
 
         goto LABEL_9;
       }
 
-      v14 = [dictionaryCopy objectForKey:@"NSExtension"];
+      v15 = [dictionaryCopy objectForKey:@"NSExtension"];
 
-      if (!v14)
+      if (!v15)
       {
         goto LABEL_9;
       }
 
-      v15 = [legacyExtensionPointAllowList _EX_BOOLForKey:identifierCopy];
-      v16 = +[_EXDefaults sharedInstance];
-      if ([v16 appleInternal])
+      v16 = [legacyExtensionPointAllowList _EX_BOOLForKey:identifierCopy];
+      v17 = +[_EXDefaults sharedInstance];
+      if ([v17 appleInternal])
       {
-        v17 = [dictionaryCopy _EX_stringForKey:@"EXExtensionPointDefinitionPath"];
-        v18 = [v17 hasPrefix:@"/AppleInternal/"];
+        v18 = [dictionaryCopy _EX_stringForKey:@"EXExtensionPointDefinitionPath"];
+        v19 = [v18 hasPrefix:@"/AppleInternal/"];
       }
 
       else
       {
-        v18 = 0;
+        v19 = 0;
       }
 
-      v19 = _EXRegistrationLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v21 = _EXRegistrationLog(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         [EXExtensionPointEnumerator validateExtensionPointIdentifier:sdkDictionary:];
       }
 
-      if ((v15 | v18))
+      if ((v16 | v19))
       {
         goto LABEL_9;
       }
 
-      v20 = +[_EXDefaults sharedInstance];
-      enforceLegacyExtensionPointAllowList = [v20 enforceLegacyExtensionPointAllowList];
+      v22 = +[_EXDefaults sharedInstance];
+      enforceLegacyExtensionPointAllowList = [v22 enforceLegacyExtensionPointAllowList];
 
       if (enforceLegacyExtensionPointAllowList)
       {
-        v22 = _EXRegistrationLog();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+        v25 = _EXRegistrationLog(v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
         {
           [EXExtensionPointEnumerator validateExtensionPointIdentifier:sdkDictionary:];
         }
 
-        v11 = 0;
+        v12 = 0;
         goto LABEL_10;
       }
 
-      v23 = +[_EXDefaults sharedInstance];
-      enforceLegacyExtensionPointAllowList2 = [v23 enforceLegacyExtensionPointAllowList];
+      v26 = +[_EXDefaults sharedInstance];
+      enforceLegacyExtensionPointAllowList2 = [v26 enforceLegacyExtensionPointAllowList];
 
       if (enforceLegacyExtensionPointAllowList2)
       {
 LABEL_9:
-        v11 = 1;
+        v12 = 1;
 LABEL_10:
 
         goto LABEL_11;
       }
 
-      v12 = _EXRegistrationLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+      v13 = _EXRegistrationLog(v28);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
         [EXExtensionPointEnumerator validateExtensionPointIdentifier:sdkDictionary:];
       }
@@ -758,27 +748,27 @@ LABEL_10:
 
     else
     {
-      v12 = _EXRegistrationLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = _EXRegistrationLog(v10);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        *v25 = 0;
-        _os_log_impl(&dword_1847D1000, v12, OS_LOG_TYPE_DEFAULT, "NO list of legacy extension points found. All extension points are considered valid... for now.", v25, 2u);
+        *v29 = 0;
+        _os_log_impl(&dword_1847D1000, v13, OS_LOG_TYPE_DEFAULT, "NO list of legacy extension points found. All extension points are considered valid... for now.", v29, 2u);
       }
     }
 
     goto LABEL_9;
   }
 
-  v11 = 1;
+  v12 = 1;
 LABEL_11:
 
-  return v11;
+  return v12;
 }
 
 - (id)nextObject
 {
   selfCopy = self;
-  v89[2] = *MEMORY[0x1E69E9840];
+  v90[2] = *MEMORY[0x1E69E9840];
   ++nextObject_count;
   v3 = 56;
   if ([(NSMutableDictionary *)self->_currentSDKDictionaryForPlatform count])
@@ -795,10 +785,10 @@ LABEL_11:
   v5 = nextObject;
   v6 = 0;
   v7 = 0x1E695D000uLL;
-  v70 = 56;
+  v71 = 56;
   while (1)
   {
-    v8 = [(NSDictionary *)selfCopy->_extensionPoints _EX_dictionaryForKey:v5, v70];
+    v8 = [(NSDictionary *)selfCopy->_extensionPoints _EX_dictionaryForKey:v5, v71];
 
     if (!v8)
     {
@@ -824,7 +814,7 @@ LABEL_55:
   }
 
   v9 = objc_alloc_init(*(v7 + 3984));
-  v72 = v8;
+  v73 = v8;
   v10 = [v8 _EX_dictionaryForKey:@"EXNativeSDKVariant"];
   if ([v10 _EX_BOOLForKey:@"EXPlaceholderExtensionPoint" defaultValue:0])
   {
@@ -836,7 +826,7 @@ LABEL_55:
       nextObject2 = [(NSEnumerator *)selfCopy->_extensionPointsKeyEnumerator nextObject];
 
       v5 = v9;
-      v8 = v72;
+      v8 = v73;
       goto LABEL_54;
     }
   }
@@ -850,46 +840,46 @@ LABEL_55:
   v13 = [v10 objectForKey:@"EXSupportedPlatforms"];
   if (!v13)
   {
-    v89[0] = @"EXSupportedPlatforms";
-    v89[1] = @"EXSupportedPlatformsKey";
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v89 count:2];
+    v90[0] = @"EXSupportedPlatforms";
+    v90[1] = @"EXSupportedPlatformsKey";
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v90 count:2];
     v13 = [v10 _EX_dictionaryForKeys:v14];
   }
 
   objc_opt_class();
-  v71 = v13;
+  v72 = v13;
   if (objc_opt_isKindOfClass())
   {
     dictionary = [*(v7 + 3984) dictionary];
 
-    v81 = 0u;
     v82 = 0u;
-    v79 = 0u;
+    v83 = 0u;
     v80 = 0u;
+    v81 = 0u;
     v16 = v13;
-    v17 = [v16 countByEnumeratingWithState:&v79 objects:v88 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v80 objects:v89 count:16];
     if (v17)
     {
       v18 = v17;
       v19 = v5;
-      v20 = *v80;
+      v20 = *v81;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v80 != v20)
+          if (*v81 != v20)
           {
             objc_enumerationMutation(v16);
           }
 
-          v22 = [&unk_1EF29DF20 objectForKey:*(*(&v79 + 1) + 8 * i)];
+          v22 = [&unk_1EF29DF20 objectForKey:*(*(&v80 + 1) + 8 * i)];
           if (v22)
           {
             [dictionary setObject:v10 forKey:v22];
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v79 objects:v88 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v80 objects:v89 count:16];
       }
 
       while (v18);
@@ -912,36 +902,36 @@ LABEL_50:
   {
     dictionary2 = [*(v7 + 3984) dictionary];
 
-    v77 = 0u;
     v78 = 0u;
-    v75 = 0u;
+    v79 = 0u;
     v76 = 0u;
+    v77 = 0u;
     v16 = v13;
-    v24 = [v16 countByEnumeratingWithState:&v75 objects:v87 count:16];
+    v24 = [v16 countByEnumeratingWithState:&v76 objects:v88 count:16];
     if (v24)
     {
       v25 = v24;
-      v73 = v5;
+      v74 = v5;
       v26 = selfCopy;
-      v27 = *v76;
+      v27 = *v77;
       do
       {
         for (j = 0; j != v25; ++j)
         {
           v29 = dictionary2;
-          if (*v76 != v27)
+          if (*v77 != v27)
           {
             objc_enumerationMutation(v16);
           }
 
-          v30 = *(*(&v75 + 1) + 8 * j);
+          v30 = *(*(&v76 + 1) + 8 * j);
           v31 = [&unk_1EF29DF48 objectForKey:v30];
           v32 = [v16 objectForKey:v30];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
             v33 = [v16 objectForKey:v30];
-            if (v33 && [(EXExtensionPointEnumerator *)v26 validateExtensionPointIdentifier:v73 sdkDictionary:v33])
+            if (v33 && [(EXExtensionPointEnumerator *)v26 validateExtensionPointIdentifier:v74 sdkDictionary:v33])
             {
               [v29 setObject:v33 forKey:v31];
             }
@@ -967,14 +957,14 @@ LABEL_50:
           }
         }
 
-        v25 = [v16 countByEnumeratingWithState:&v75 objects:v87 count:16];
+        v25 = [v16 countByEnumeratingWithState:&v76 objects:v88 count:16];
       }
 
       while (v25);
       v9 = dictionary2;
       selfCopy = v26;
-      v3 = v70;
-      v5 = v73;
+      v3 = v71;
+      v5 = v74;
       goto LABEL_50;
     }
 
@@ -989,7 +979,7 @@ LABEL_50:
       [v9 setObject:v10 forKey:v36];
     }
 
-    v16 = [v72 _EX_dictionaryForKey:@"EXCatalystSDKVariant"];
+    v16 = [v73 _EX_dictionaryForKey:@"EXCatalystSDKVariant"];
     if (v16 && [(EXExtensionPointEnumerator *)selfCopy validateExtensionPointIdentifier:v5 sdkDictionary:v16])
     {
       [v9 setObject:v16 forKey:&unk_1EF29DEF0];
@@ -1017,7 +1007,7 @@ LABEL_54:
   v39 = *(&selfCopy->super.super.isa + v3);
   *(&selfCopy->super.super.isa + v3) = v9;
 
-  v8 = v72;
+  v8 = v73;
 LABEL_59:
 
 LABEL_60:
@@ -1053,7 +1043,7 @@ LABEL_60:
     v47 = 0;
   }
 
-  v74 = intValue;
+  v75 = intValue;
   v48 = [v43 _EX_dictionaryByRemovingObjectForKey:@"EXExtensionPointDefinitionPath"];
 
   v49 = [v48 _EX_objectForKey:@"XPCService" ofClass:objc_opt_class()];
@@ -1081,19 +1071,19 @@ LABEL_60:
 
   v54 = [(EXExtensionPointEnumerator *)selfCopy flattenEXExtensionPointConfigurationInDictionary:v53 identifier:selfCopy->_currentIdentifier];
 
-  v55 = sdkDictionaryAdditions();
-  v56 = [v55 objectForKeyedSubscript:selfCopy->_currentIdentifier];
+  v56 = sdkDictionaryAdditions(v55);
+  v57 = [v56 objectForKeyedSubscript:selfCopy->_currentIdentifier];
 
-  if (v56)
+  if (v57)
   {
-    v57 = [v54 _EX_dictionaryBySettingValuesForKeysWithDictionary:v56];
+    v58 = [v54 _EX_dictionaryBySettingValuesForKeysWithDictionary:v57];
 
-    v54 = v57;
+    v54 = v58;
   }
 
-  v58 = [v54 objectForKeyedSubscript:@"EXExtensionIconPersonality"];
+  v59 = [v54 objectForKeyedSubscript:@"EXExtensionIconPersonality"];
 
-  if (v58)
+  if (v59)
   {
     if (v51)
     {
@@ -1101,23 +1091,23 @@ LABEL_60:
     }
 
 LABEL_78:
-    v83[0] = @"EXRequiresLegacyInfrastructure";
-    v83[1] = @"EXExtensionPointConfiguration";
-    v84[0] = MEMORY[0x1E695E110];
-    v84[1] = MEMORY[0x1E695E0F8];
-    v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v84 forKeys:v83 count:2];
-    v43 = [v54 _EX_dictionaryBySettingValuesForKeysWithDictionary:v62];
+    v84[0] = @"EXRequiresLegacyInfrastructure";
+    v84[1] = @"EXExtensionPointConfiguration";
+    v85[0] = MEMORY[0x1E695E110];
+    v85[1] = MEMORY[0x1E695E0F8];
+    v63 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v85 forKeys:v84 count:2];
+    v43 = [v54 _EX_dictionaryBySettingValuesForKeysWithDictionary:v63];
 
-    v59 = 1;
-    v54 = v62;
+    v60 = 1;
+    v54 = v63;
   }
 
   else
   {
-    v85 = @"EXExtensionIconPersonality";
-    v86 = @"container";
-    v60 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
-    v61 = [v54 _EX_dictionaryBySettingValuesForKeysWithDictionary:v60];
+    v86 = @"EXExtensionIconPersonality";
+    v87 = @"container";
+    v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
+    v62 = [v54 _EX_dictionaryBySettingValuesForKeysWithDictionary:v61];
 
     if (!v51)
     {
@@ -1126,88 +1116,59 @@ LABEL_78:
 
 LABEL_76:
     v43 = [v54 _EX_dictionaryBySettingObject:MEMORY[0x1E695E118] forKey:@"EXRequiresLegacyInfrastructure"];
-    v59 = 0;
+    v60 = 0;
   }
 
-  [(_EXExtensionPoint *)v46->_currentExtensionPoint setVariant:v59];
-  v63 = [v43 _EX_stringForKey:@"EXExtensionPointDomain"];
-  v64 = v46;
-  v65 = v63 ? v46->_currentIdentifier : 0;
+  [(_EXExtensionPoint *)v46->_currentExtensionPoint setVariant:v60];
+  v64 = [v43 _EX_stringForKey:@"EXExtensionPointDomain"];
+  v65 = v46;
+  v66 = v64 ? v46->_currentIdentifier : 0;
   [(_EXExtensionPoint *)v46->_currentExtensionPoint setIdentifier:v46->_currentIdentifier];
   [(_EXExtensionPoint *)v46->_currentExtensionPoint setSDKDictionary:v43];
   [(_EXExtensionPoint *)v46->_currentExtensionPoint setUrl:v47];
-  [(_EXExtensionPoint *)v46->_currentExtensionPoint setPlatform:v74];
-  [(_EXExtensionPoint *)v46->_currentExtensionPoint setDomain:v63];
-  [(_EXExtensionPoint *)v46->_currentExtensionPoint setName:v65];
-  v66 = v46->_currentExtensionPoint;
+  [(_EXExtensionPoint *)v46->_currentExtensionPoint setPlatform:v75];
+  [(_EXExtensionPoint *)v46->_currentExtensionPoint setDomain:v64];
+  [(_EXExtensionPoint *)v46->_currentExtensionPoint setName:v66];
+  v67 = v46->_currentExtensionPoint;
 
-  selfCopy = v64;
+  selfCopy = v65;
   v40 = &OBJC_IVAR____EXExtensionPoint__variant;
-  if (!v66)
+  if (!v67)
   {
 LABEL_83:
-    [*(&selfCopy->super.super.isa + v40[15]) reset];
-    v66 = 0;
+    reset = [*(&selfCopy->super.super.isa + v40[15]) reset];
+    v67 = 0;
   }
 
-  v67 = _EXRegistrationLog();
-  if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
+  v69 = _EXRegistrationLog(reset);
+  if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
   {
-    [(EXExtensionPointEnumerator *)v66 nextObject];
+    [(EXExtensionPointEnumerator *)v67 nextObject];
   }
 
-  v68 = *MEMORY[0x1E69E9840];
-
-  return v66;
-}
-
-- (void)translateXPCCacheDictionary:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_3(&dword_1847D1000, v0, v1, "Translating SDK Dictionary: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)translateXPCCacheDictionary:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_3(&dword_1847D1000, v0, v1, "Translated SDK Dictionary: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)validateExtensionPointIdentifier:sdkDictionary:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_1_1(&dword_1847D1000, v0, v1, "NSExtension Extension Point identifier: %{public}@ is legacy: %{public}s");
-  v2 = *MEMORY[0x1E69E9840];
+  return v67;
 }
 
 - (void)validateExtensionPointIdentifier:sdkDictionary:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 - (void)validateExtensionPointIdentifier:sdkDictionary:.cold.3()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 - (void)nextObject
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109378;
-  v3[1] = nextObject_count;
-  v4 = 2114;
+  v5 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109378;
+  v2[1] = nextObject_count;
+  v3 = 2114;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1847D1000, a2, OS_LOG_TYPE_DEBUG, "[%d] Enumerator returning: '%{public}@'", v3, 0x12u);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1847D1000, a2, OS_LOG_TYPE_DEBUG, "[%d] Enumerator returning: '%{public}@'", v2, 0x12u);
 }
 
 @end

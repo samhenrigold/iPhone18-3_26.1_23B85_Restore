@@ -123,47 +123,47 @@
 
 + (id)_connectionHandoverWithNdefMessage:(id)message
 {
-  v191 = *MEMORY[0x277D85DE8];
+  v190 = *MEMORY[0x277D85DE8];
   messageCopy = message;
-  v169 = objc_msgSend_array(MEMORY[0x277CBEB18], v4, v5);
-  v161 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v6, v7);
+  v168 = objc_msgSend_array(MEMORY[0x277CBEB18], v4, v5);
+  v160 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v6, v7);
   v10 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v8, v9);
+  v182 = 0u;
   v183 = 0u;
   v184 = 0u;
   v185 = 0u;
-  v186 = 0u;
   v11 = messageCopy;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v183, v190, 16);
+  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v182, v189, 16);
   if (v13)
   {
     v16 = v13;
     obj = v11;
-    v162 = 0;
+    v161 = 0;
     LOBYTE(v17) = 0;
-    v170 = 0;
-    v165 = 0;
-    v18 = *v184;
-    v156 = *v184;
+    v169 = 0;
+    v164 = 0;
+    v18 = *v183;
+    v155 = *v183;
     while (1)
     {
       v19 = 0;
-      v158 = v16;
+      v157 = v16;
       do
       {
-        if (*v184 != v18)
+        if (*v183 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v183 + 1) + 8 * v19);
+        v20 = *(*(&v182 + 1) + 8 * v19);
         isHandoverSelectRecord = objc_msgSend_isHandoverSelectRecord(v20, v14, v15);
         isHandoverRequestRecord = objc_msgSend_isHandoverRequestRecord(v20, v22, v23);
-        v167 = v19;
+        v166 = v19;
         if ((isHandoverSelectRecord & 1) != 0 || isHandoverRequestRecord)
         {
-          if (v165)
+          if (v164)
           {
-            sub_2645011D4(OS_LOG_TYPE_ERROR, 0, "+[STSConnectionHandover _connectionHandoverWithNdefMessage:]", 174, @"Previous Hr/Hs found.  Invalid handover NDEF", v27, v28, v29, v155);
+            sub_2645011D4(OS_LOG_TYPE_ERROR, 0, "+[STSConnectionHandover _connectionHandoverWithNdefMessage:]", 174, @"Previous Hr/Hs found.  Invalid handover NDEF", v27, v28, v29, v154);
             v11 = obj;
 
             goto LABEL_70;
@@ -176,52 +176,52 @@
           v56 = objc_msgSend_payload(v20, v54, v55);
           v59 = objc_msgSend_length(v56, v57, v58);
 
-          v163 = *v53;
+          v162 = *v53;
           v61 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v60, (v53 + 1), (v59 - 1));
           v63 = objc_msgSend_ndefRecordsWithData_(STSNDEFRecord, v62, v61);
 
           v66 = objc_msgSend_count(v63, v64, v65);
-          v165 = v66 != 0;
+          v164 = v66 != 0;
           if (!v66)
           {
-            sub_2645011D4(OS_LOG_TYPE_ERROR, 0, "+[STSConnectionHandover _connectionHandoverWithNdefMessage:]", 193, @"Missing local records in Hr/Hs record", v67, v68, v69, v155);
+            sub_2645011D4(OS_LOG_TYPE_ERROR, 0, "+[STSConnectionHandover _connectionHandoverWithNdefMessage:]", 193, @"Missing local records in Hr/Hs record", v67, v68, v69, v154);
           }
 
-          v181 = 0u;
-          v182 = 0u;
-          v179 = 0u;
           v180 = 0u;
+          v181 = 0u;
+          v178 = 0u;
+          v179 = 0u;
           v70 = v63;
-          v72 = objc_msgSend_countByEnumeratingWithState_objects_count_(v70, v71, &v179, v189, 16);
+          v72 = objc_msgSend_countByEnumeratingWithState_objects_count_(v70, v71, &v178, v188, 16);
           if (v72)
           {
             v75 = v72;
-            v76 = *v180;
+            v76 = *v179;
             do
             {
               v77 = 0;
               do
               {
-                if (*v180 != v76)
+                if (*v179 != v76)
                 {
                   objc_enumerationMutation(v70);
                 }
 
-                v78 = *(*(&v179 + 1) + 8 * v77);
+                v78 = *(*(&v178 + 1) + 8 * v77);
                 if (objc_msgSend_typeNameFormat(v78, v73, v74) == 1)
                 {
                   if ((objc_msgSend_isCollisionResolutionRecord(v78, v79, v80) & 1) == 0)
                   {
                     if (objc_msgSend_isAlternativeCarrierRecord(v78, v73, v74))
                     {
-                      objc_msgSend_addObject_(v169, v81, v78);
+                      objc_msgSend_addObject_(v168, v81, v78);
                     }
 
                     else if ((objc_msgSend_isHandoverSelectErrorRecord(v78, v81, v82) & isHandoverSelectRecord) == 1)
                     {
                       v87 = v78;
 
-                      v170 = v87;
+                      v169 = v87;
                     }
 
                     else
@@ -245,18 +245,18 @@
               }
 
               while (v75 != v77);
-              v97 = objc_msgSend_countByEnumeratingWithState_objects_count_(v70, v73, &v179, v189, 16);
+              v97 = objc_msgSend_countByEnumeratingWithState_objects_count_(v70, v73, &v178, v188, 16);
               v75 = v97;
             }
 
             while (v97);
           }
 
-          v17 = v163 >> 4;
-          v162 = v163 & 0xF;
+          v17 = v162 >> 4;
+          v161 = v162 & 0xF;
 
-          v18 = v156;
-          v16 = v158;
+          v18 = v155;
+          v16 = v157;
         }
 
         else
@@ -291,7 +291,7 @@ LABEL_15:
           if (v32)
           {
             v38 = objc_msgSend_identifier(v20, v33, v34);
-            v40 = objc_msgSend_objectForKey_(v161, v39, v38);
+            v40 = objc_msgSend_objectForKey_(v160, v39, v38);
 
             if (v40)
             {
@@ -300,105 +300,105 @@ LABEL_15:
             }
 
             v47 = objc_msgSend_identifier(v20, v41, v42);
-            objc_msgSend_setObject_forKey_(v161, v48, v20, v47);
+            objc_msgSend_setObject_forKey_(v160, v48, v20, v47);
             goto LABEL_15;
           }
 
-          sub_2645011D4(OS_LOG_TYPE_INFO, 0, "+[STSConnectionHandover _connectionHandoverWithNdefMessage:]", 223, @"Missing ID", v35, v36, v37, v155);
+          sub_2645011D4(OS_LOG_TYPE_INFO, 0, "+[STSConnectionHandover _connectionHandoverWithNdefMessage:]", 223, @"Missing ID", v35, v36, v37, v154);
         }
 
 LABEL_37:
-        v19 = v167 + 1;
+        v19 = v166 + 1;
       }
 
-      while ((v167 + 1) != v16);
-      v113 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v14, &v183, v190, 16);
+      while ((v166 + 1) != v16);
+      v113 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v14, &v182, v189, 16);
       v16 = v113;
       if (!v113)
       {
         v11 = obj;
 
-        if (!v165)
+        if (!v164)
         {
           goto LABEL_69;
         }
 
         v117 = objc_alloc_init(STSConnectionHandover);
         v117->_majorVersion = v17;
-        v117->_minorVersion = v162;
-        v159 = v117;
+        v117->_minorVersion = v161;
+        v158 = v117;
+        v174 = 0u;
         v175 = 0u;
         v176 = 0u;
         v177 = 0u;
-        v178 = 0u;
-        v157 = v169;
-        v166 = objc_msgSend_countByEnumeratingWithState_objects_count_(v157, v118, &v175, v188, 16);
-        if (v166)
+        v156 = v168;
+        v165 = objc_msgSend_countByEnumeratingWithState_objects_count_(v156, v118, &v174, v187, 16);
+        if (v165)
         {
-          v164 = *v176;
+          v163 = *v175;
           do
           {
-            for (i = 0; i != v166; ++i)
+            for (i = 0; i != v165; ++i)
             {
-              if (*v176 != v164)
+              if (*v175 != v163)
               {
-                objc_enumerationMutation(v157);
+                objc_enumerationMutation(v156);
               }
 
-              v122 = *(*(&v175 + 1) + 8 * i);
+              v122 = *(*(&v174 + 1) + 8 * i);
               v124 = objc_msgSend_getCarrierDataReferenceFromAlternativeCarrierRecord(v122, v119, v120);
               if (v124)
               {
-                v168 = objc_msgSend_objectForKeyedSubscript_(v161, v123, v124);
+                v167 = objc_msgSend_objectForKeyedSubscript_(v160, v123, v124);
                 v127 = objc_msgSend_array(MEMORY[0x277CBEB18], v125, v126);
                 v130 = objc_msgSend_getAuxiliaryDataReferencesFromAlternativeCarrierRecord(v122, v128, v129);
+                v170 = 0u;
                 v171 = 0u;
                 v172 = 0u;
                 v173 = 0u;
-                v174 = 0u;
-                v132 = objc_msgSend_countByEnumeratingWithState_objects_count_(v130, v131, &v171, v187, 16);
+                v132 = objc_msgSend_countByEnumeratingWithState_objects_count_(v130, v131, &v170, v186, 16);
                 if (v132)
                 {
                   v134 = v132;
-                  v135 = *v172;
+                  v135 = *v171;
                   do
                   {
                     for (j = 0; j != v134; ++j)
                     {
-                      if (*v172 != v135)
+                      if (*v171 != v135)
                       {
                         objc_enumerationMutation(v130);
                       }
 
-                      v138 = objc_msgSend_objectForKeyedSubscript_(v10, v133, *(*(&v171 + 1) + 8 * j));
+                      v138 = objc_msgSend_objectForKeyedSubscript_(v10, v133, *(*(&v170 + 1) + 8 * j));
                       if (v138)
                       {
                         objc_msgSend_addObject_(v127, v137, v138);
                       }
                     }
 
-                    v134 = objc_msgSend_countByEnumeratingWithState_objects_count_(v130, v133, &v171, v187, 16);
+                    v134 = objc_msgSend_countByEnumeratingWithState_objects_count_(v130, v133, &v170, v186, 16);
                   }
 
                   while (v134);
                 }
 
                 v139 = [STSCHNdefRecordBundle alloc];
-                v141 = objc_msgSend_initWithAlternativeRecord_configurationRecord_auxiliaryRecords_errorRecord_(v139, v140, v122, v168, v127, v170);
-                isWiFiAwareConfigurationRecord = objc_msgSend_isWiFiAwareConfigurationRecord(v168, v142, v143);
+                v141 = objc_msgSend_initWithAlternativeRecord_configurationRecord_auxiliaryRecords_errorRecord_(v139, v140, v122, v167, v127, v169);
+                isWiFiAwareConfigurationRecord = objc_msgSend_isWiFiAwareConfigurationRecord(v167, v142, v143);
                 v147 = off_279B5FC58;
-                if (isWiFiAwareConfigurationRecord & 1) != 0 || (isBluetoothLEConfigurationRecord = objc_msgSend_isBluetoothLEConfigurationRecord(v168, v145, v146), v147 = off_279B5FC40, (isBluetoothLEConfigurationRecord) || (isNfcConfigurationRecord = objc_msgSend_isNfcConfigurationRecord(v168, v145, v149), v147 = off_279B5FC50, isNfcConfigurationRecord))
+                if (isWiFiAwareConfigurationRecord & 1) != 0 || (isBluetoothLEConfigurationRecord = objc_msgSend_isBluetoothLEConfigurationRecord(v167, v145, v146), v147 = off_279B5FC40, (isBluetoothLEConfigurationRecord) || (isNfcConfigurationRecord = objc_msgSend_isNfcConfigurationRecord(v167, v145, v149), v147 = off_279B5FC50, isNfcConfigurationRecord))
                 {
                   v151 = objc_msgSend_connectionHandoverAlternativeCarrierWithBundle_(*v147, v145, v141);
-                  objc_msgSend_addAlternativeCarrier_(v159, v152, v151);
+                  objc_msgSend_addAlternativeCarrier_(v158, v152, v151);
                 }
               }
             }
 
-            v166 = objc_msgSend_countByEnumeratingWithState_objects_count_(v157, v119, &v175, v188, 16);
+            v165 = objc_msgSend_countByEnumeratingWithState_objects_count_(v156, v119, &v174, v187, 16);
           }
 
-          while (v166);
+          while (v165);
         }
 
         v11 = obj;
@@ -407,21 +407,19 @@ LABEL_37:
     }
   }
 
-  v170 = 0;
+  v169 = 0;
 LABEL_69:
-  sub_2645011D4(OS_LOG_TYPE_INFO, 0, "+[STSConnectionHandover _connectionHandoverWithNdefMessage:]", 234, @"No Hr record found", v114, v115, v116, v155);
+  sub_2645011D4(OS_LOG_TYPE_INFO, 0, "+[STSConnectionHandover _connectionHandoverWithNdefMessage:]", 234, @"No Hr record found", v114, v115, v116, v154);
 LABEL_70:
-  v159 = 0;
+  v158 = 0;
 LABEL_71:
 
-  v153 = *MEMORY[0x277D85DE8];
-
-  return v159;
+  return v158;
 }
 
 + (id)_createNdefWithType:(int64_t)type alternativeCarriers:(id)carriers errorRecord:(id)record
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   carriersCopy = carriers;
   recordCopy = record;
   if (type)
@@ -433,10 +431,10 @@ LABEL_71:
   {
     objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v8, "Hr", 2);
   }
-  v61 = ;
-  v68 = 21;
+  v60 = ;
+  v67 = 21;
   v11 = objc_msgSend_data(MEMORY[0x277CBEB28], v9, v10);
-  objc_msgSend_appendBytes_length_(v11, v12, &v68, 1);
+  objc_msgSend_appendBytes_length_(v11, v12, &v67, 1);
   v15 = objc_msgSend_array(MEMORY[0x277CBEB18], v13, v14);
   v18 = objc_msgSend_array(MEMORY[0x277CBEB18], v16, v17);
   if (!type)
@@ -450,26 +448,26 @@ LABEL_71:
     objc_msgSend_addObject_(v15, v26, v25);
   }
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   v27 = carriersCopy;
-  v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v28, &v63, v69, 16);
+  v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v28, &v62, v68, 16);
   if (v29)
   {
     v32 = v29;
-    v33 = *v64;
+    v33 = *v63;
     do
     {
       for (i = 0; i != v32; ++i)
       {
-        if (*v64 != v33)
+        if (*v63 != v33)
         {
           objc_enumerationMutation(v27);
         }
 
-        v35 = objc_msgSend_createNdefRecordBundle(*(*(&v63 + 1) + 8 * i), v30, v31);
+        v35 = objc_msgSend_createNdefRecordBundle(*(*(&v62 + 1) + 8 * i), v30, v31);
         v38 = objc_msgSend_alternativeRecord(v35, v36, v37);
         objc_msgSend_addObject_(v15, v39, v38);
 
@@ -480,7 +478,7 @@ LABEL_71:
         objc_msgSend_addObjectsFromArray_(v18, v47, v46);
       }
 
-      v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v30, &v63, v69, 16);
+      v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v30, &v62, v68, 16);
     }
 
     while (v32);
@@ -495,13 +493,11 @@ LABEL_71:
   objc_msgSend_appendData_(v11, v50, v49);
 
   v51 = [STSNDEFRecord alloc];
-  v53 = objc_msgSend_initWithFormat_type_identifier_payload_(v51, v52, 1, v61, 0, v11);
+  v53 = objc_msgSend_initWithFormat_type_identifier_payload_(v51, v52, 1, v60, 0, v11);
   v54 = objc_opt_new();
   objc_msgSend_addObject_(v54, v55, v53);
   objc_msgSend_addObjectsFromArray_(v54, v56, v18);
   v58 = objc_msgSend_dataWithSTSNDEFRecords_(MEMORY[0x277CBEA90], v57, v54);
-
-  v59 = *MEMORY[0x277D85DE8];
 
   return v58;
 }

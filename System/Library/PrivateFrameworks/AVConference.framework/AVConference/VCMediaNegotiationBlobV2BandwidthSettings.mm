@@ -174,26 +174,25 @@ LABEL_8:
 
 - (void)printWithLogFile:(void *)file prefix:(id)prefix
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   prefix = [MEMORY[0x1E696AD60] stringWithFormat:@"[%lu] %@", objc_msgSend(-[VCMediaNegotiationBlobV2BandwidthSettings data](self, "data"), "length"), prefix];
   [prefix appendFormat:@"BandwidthSettings: 2G=%u 3G=%u LTE=%u 5G=%u Wifi=%u", -[VCMediaNegotiationBlobV2BandwidthSettings cap2G](self, "cap2G"), -[VCMediaNegotiationBlobV2BandwidthSettings cap3G](self, "cap3G"), -[VCMediaNegotiationBlobV2BandwidthSettings capLTE](self, "capLTE"), -[VCMediaNegotiationBlobV2BandwidthSettings cap5G](self, "cap5G"), -[VCMediaNegotiationBlobV2BandwidthSettings capWifi](self, "capWifi")];
-  uTF8String = [prefix UTF8String];
-  VRLogfilePrintWithTimestamp(file, "%s\n", v8, v9, v10, v11, v12, v13, uTF8String);
+  VRLogfilePrintWithTimestamp(file, "%s\n", [prefix UTF8String]);
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    v14 = VRTraceErrorLogLevelToCSTR();
-    v15 = *MEMORY[0x1E6986650];
+    v7 = VRTraceErrorLogLevelToCSTR();
+    v8 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v17 = v14;
-      v18 = 2080;
-      v19 = "[VCMediaNegotiationBlobV2BandwidthSettings(Utils) printWithLogFile:prefix:]";
-      v20 = 1024;
-      v21 = 90;
-      v22 = 2112;
-      v23 = prefix;
-      _os_log_impl(&dword_1DB56E000, v15, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@", buf, 0x26u);
+      v10 = v7;
+      v11 = 2080;
+      v12 = "[VCMediaNegotiationBlobV2BandwidthSettings(Utils) printWithLogFile:prefix:]";
+      v13 = 1024;
+      v14 = 90;
+      v15 = 2112;
+      v16 = prefix;
+      _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@", buf, 0x26u);
     }
   }
 }

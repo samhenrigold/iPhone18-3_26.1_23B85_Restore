@@ -153,7 +153,7 @@ id __40__HFEventTriggerBuilder_characteristics__block_invoke(uint64_t a1, void *
 
 - (void)setRecurrences:(id)recurrences
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   recurrencesCopy = recurrences;
   v5 = ([(NSArray *)recurrencesCopy na_all:&__block_literal_global_11]& 1) != 0 || [(NSArray *)recurrencesCopy count]== 0;
   if (-[NSArray count](recurrencesCopy, "count") == 1 && (-[NSArray firstObject](recurrencesCopy, "firstObject"), v6 = objc_claimAutoreleasedReturnValue(), [MEMORY[0x277CBEAB8] hf_dailyIntervalComponents], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "hf_isEqualToHomeKitRecurrence:", v7), v7, v6, v8))
@@ -163,11 +163,11 @@ id __40__HFEventTriggerBuilder_characteristics__block_invoke(uint64_t a1, void *
     {
       recurrences = [(HFEventTriggerBuilder *)self recurrences];
       name = [(HFTriggerBuilder *)self name];
-      v21 = 138412546;
-      v22 = recurrences;
-      v23 = 2112;
-      v24 = name;
-      _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Reset recurrences: %@ to weekday components for trigger with name: %@", &v21, 0x16u);
+      v20 = 138412546;
+      v21 = recurrences;
+      v22 = 2112;
+      v23 = name;
+      _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Reset recurrences: %@ to weekday components for trigger with name: %@", &v20, 0x16u);
     }
 
     hf_dailyWeekdayIntervalComponents = [MEMORY[0x277CBEAB8] hf_dailyWeekdayIntervalComponents];
@@ -186,11 +186,11 @@ id __40__HFEventTriggerBuilder_characteristics__block_invoke(uint64_t a1, void *
     {
       recurrences2 = [(HFEventTriggerBuilder *)self recurrences];
       name2 = [(HFTriggerBuilder *)self name];
-      v21 = 138412546;
-      v22 = recurrences2;
-      v23 = 2112;
-      v24 = name2;
-      _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "Filtered to recurrences: %@ for trigger with name: %@", &v21, 0x16u);
+      v20 = 138412546;
+      v21 = recurrences2;
+      v22 = 2112;
+      v23 = name2;
+      _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "Filtered to recurrences: %@ for trigger with name: %@", &v20, 0x16u);
     }
 
     hf_dailyWeekdayIntervalComponents = [(NSArray *)recurrencesCopy na_filter:&__block_literal_global_11];
@@ -208,8 +208,6 @@ LABEL_14:
   {
     self->_executeOnce = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __40__HFEventTriggerBuilder_setRecurrences___block_invoke(uint64_t a1, void *a2)
@@ -292,7 +290,7 @@ BOOL __40__HFEventTriggerBuilder_setRecurrences___block_invoke(uint64_t a1, void
     typeCopy = 1;
   }
 
-  context2 = [(HFItemBuilder *)self home];
+  context2 = objc_msgSend_home(self);
   v9 = [HFTriggerNaturalLanguageOptions optionsWithHome:context2 nameType:typeCopy];
   triggerContextAwareTitle2 = [(HFEventTriggerBuilder *)self naturalLanguageNameWithOptions:v9];
 
@@ -311,16 +309,16 @@ LABEL_6:
     goto LABEL_2;
   }
 
-  home = [(HFItemBuilder *)self home];
-  currentUser = [home currentUser];
+  v8 = objc_msgSend_home(self);
+  currentUser = [v8 currentUser];
 
   if (!currentUser)
   {
     trigger = [(HFTriggerBuilder *)self trigger];
     trigger2 = [(HFTriggerBuilder *)self trigger];
     creator2 = [trigger2 creator];
-    home2 = [(HFItemBuilder *)self home];
-    currentUser2 = [home2 currentUser];
+    v15 = objc_msgSend_home(self);
+    currentUser2 = [v15 currentUser];
     NSLog(&cfstr_UnexpectedNilU.isa, trigger, creator2, currentUser2);
 
 LABEL_2:
@@ -358,12 +356,12 @@ id __59__HFEventTriggerBuilder_naturalLanguageDetailsWithOptions___block_invoke(
 
 - (id)deleteTrigger
 {
-  home = [(HFItemBuilder *)self home];
+  v3 = objc_msgSend_home(self, a2);
   trigger = [(HFTriggerBuilder *)self trigger];
   trigger2 = [(HFTriggerBuilder *)self trigger];
   uniqueIdentifier = [trigger2 uniqueIdentifier];
 
-  if (uniqueIdentifier && home)
+  if (uniqueIdentifier && v3)
   {
     v7 = [MEMORY[0x277CBEB58] setWithObject:trigger];
     context = [(HFTriggerBuilder *)self context];
@@ -380,7 +378,7 @@ id __59__HFEventTriggerBuilder_naturalLanguageDetailsWithOptions___block_invoke(
     v24 = 3221225472;
     v25 = __38__HFEventTriggerBuilder_deleteTrigger__block_invoke_2;
     v26 = &unk_277DF4E80;
-    v27 = home;
+    v27 = v3;
     v11 = [v10 na_map:&v23];
     allObjects = [v11 allObjects];
 
@@ -527,20 +525,19 @@ void __47__HFEventTriggerBuilder_removeServiceLikeItem___block_invoke_3(uint64_t
 
 void __53__HFEventTriggerBuilder_lazilyFinishCommitingTrigger__block_invoke(uint64_t a1, void *a2)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D2C900];
   v4 = *(a1 + 32);
   v5 = a2;
   v6 = [v4 _lazilyMarkTriggerAsHomeAppCreated];
-  v13[0] = v6;
+  v12[0] = v6;
   v7 = [*(a1 + 32) _updateExecuteOnce];
-  v13[1] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[1] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   v9 = [v3 chainFutures:v8];
   v10 = [v5 completionHandlerAdapter];
 
   v11 = [v9 addCompletionBlock:v10];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)commitCreateTrigger
@@ -587,35 +584,31 @@ id __44__HFEventTriggerBuilder_commitCreateTrigger__block_invoke(uint64_t a1)
 
 void __44__HFEventTriggerBuilder_commitCreateTrigger__block_invoke_2(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) name];
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Created event trigger with name:%@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Created event trigger with name:%@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __44__HFEventTriggerBuilder_commitCreateTrigger__block_invoke_107(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = [*(a1 + 32) name];
-    v7 = 138412546;
-    v8 = v6;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to create event trigger with name:%@. Error: %@", &v7, 0x16u);
+    v5 = [*(a1 + 32) name];
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to create event trigger with name:%@. Error: %@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)commitEditTrigger
@@ -729,43 +722,39 @@ void __38__HFEventTriggerBuilder__updateEvents__block_invoke(uint64_t a1, void *
 
 void __38__HFEventTriggerBuilder__updateEvents__block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) mutableEventBuilders];
     v4 = [v3 hf_prettyDescription];
     v5 = [*(a1 + 32) name];
-    v7 = 138412546;
-    v8 = v4;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Updated events: %@ from trigger with name: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v4;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Updated events: %@ from trigger with name: %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __38__HFEventTriggerBuilder__updateEvents__block_invoke_114(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = [*(a1 + 32) mutableEventBuilders];
-    v7 = [v6 hf_prettyDescription];
-    v8 = [*(a1 + 32) name];
-    v9 = 138412802;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to update events: %@ from trigger with name: %@. Error: %@", &v9, 0x20u);
+    v5 = [*(a1 + 32) mutableEventBuilders];
+    v6 = [v5 hf_prettyDescription];
+    v7 = [*(a1 + 32) name];
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to update events: %@ from trigger with name: %@. Error: %@", &v8, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_updateExecuteOnce
@@ -837,41 +826,37 @@ uint64_t __43__HFEventTriggerBuilder__updateExecuteOnce__block_invoke_2(uint64_t
 
 void __43__HFEventTriggerBuilder__updateExecuteOnce__block_invoke_3(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
     v4 = [*(a1 + 32) name];
-    v6[0] = 67109378;
-    v6[1] = v3;
-    v7 = 2112;
-    v8 = v4;
-    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Updated execute once: %d for trigger with name: %@", v6, 0x12u);
+    v5[0] = 67109378;
+    v5[1] = v3;
+    v6 = 2112;
+    v7 = v4;
+    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Updated execute once: %d for trigger with name: %@", v5, 0x12u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __43__HFEventTriggerBuilder__updateExecuteOnce__block_invoke_115(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 40);
-    v7 = [*(a1 + 32) name];
-    v8[0] = 67109634;
-    v8[1] = v6;
-    v9 = 2112;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to update execute once: %d for trigger with name: %@. Error: %@", v8, 0x1Cu);
+    v5 = *(a1 + 40);
+    v6 = [*(a1 + 32) name];
+    v7[0] = 67109634;
+    v7[1] = v5;
+    v8 = 2112;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to update execute once: %d for trigger with name: %@. Error: %@", v7, 0x1Cu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_updateRecurrences
@@ -932,41 +917,37 @@ uint64_t __43__HFEventTriggerBuilder__updateRecurrences__block_invoke_2(uint64_t
 
 void __43__HFEventTriggerBuilder__updateRecurrences__block_invoke_3(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) recurrences];
     v4 = [*(a1 + 32) name];
-    v6 = 138412546;
-    v7 = v3;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Updated recurrences: %@ for trigger with name: %@", &v6, 0x16u);
+    v5 = 138412546;
+    v6 = v3;
+    v7 = 2112;
+    v8 = v4;
+    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Updated recurrences: %@ for trigger with name: %@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __43__HFEventTriggerBuilder__updateRecurrences__block_invoke_116(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = [*(a1 + 32) recurrences];
-    v7 = [*(a1 + 32) name];
-    v8 = 138412802;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to update recurrences: %@ for trigger with name: %@. Error: %@", &v8, 0x20u);
+    v5 = [*(a1 + 32) recurrences];
+    v6 = [*(a1 + 32) name];
+    v7 = 138412802;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to update recurrences: %@ for trigger with name: %@. Error: %@", &v7, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_lazilyMarkTriggerAsHomeAppCreated
@@ -1069,8 +1050,8 @@ void __59__HFEventTriggerBuilder__lazilyMarkTriggerAsHomeAppCreated__block_invok
   v9 = [events2 na_map:&__block_literal_global_121];
 
   mutableEventBuilders = [(HFEventTriggerBuilder *)self mutableEventBuilders];
-  home = [(HFItemBuilder *)self home];
-  v12 = [HFCharacteristicEventBuilder characteristicEventBuildersForEvents:v9 inHome:home];
+  v11 = objc_msgSend_home(self);
+  v12 = [HFCharacteristicEventBuilder characteristicEventBuildersForEvents:v9 inHome:v11];
   [mutableEventBuilders addObjectsFromArray:v12];
 
   [v6 removeObjectsInArray:v9];
@@ -1115,19 +1096,19 @@ void __45__HFEventTriggerBuilder__createEventBuilders__block_invoke_2(uint64_t a
 
 - (id)createNewTriggerBuilder
 {
-  home = [(HFItemBuilder *)self home];
-  newEventTriggerBuilder = [home newEventTriggerBuilder];
+  v2 = objc_msgSend_home(self, a2);
+  newEventTriggerBuilder = [v2 newEventTriggerBuilder];
 
   return newEventTriggerBuilder;
 }
 
 - (id)updateTriggerBuilder:(id)builder
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   builderCopy = builder;
-  v24.receiver = self;
-  v24.super_class = HFEventTriggerBuilder;
-  v6 = [(HFTriggerBuilder *)&v24 updateTriggerBuilder:builderCopy];
+  v23.receiver = self;
+  v23.super_class = HFEventTriggerBuilder;
+  v6 = [(HFTriggerBuilder *)&v23 updateTriggerBuilder:builderCopy];
   objc_opt_class();
   v7 = builderCopy;
   if (objc_opt_isKindOfClass())
@@ -1154,25 +1135,25 @@ void __45__HFEventTriggerBuilder__createEventBuilders__block_invoke_2(uint64_t a
     [v9 setRecurrences:recurrences];
 
     [v9 setExecuteOnce:{-[HFEventTriggerBuilder _effectiveExecuteOnce](self, "_effectiveExecuteOnce")}];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __66__HFEventTriggerBuilder_AutomationBuilders__updateTriggerBuilder___block_invoke;
-    v23[3] = &unk_277DF3A18;
-    v23[4] = self;
-    v13 = __66__HFEventTriggerBuilder_AutomationBuilders__updateTriggerBuilder___block_invoke(v23);
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __66__HFEventTriggerBuilder_AutomationBuilders__updateTriggerBuilder___block_invoke;
+    v22[3] = &unk_277DF3A18;
+    v22[4] = self;
+    v13 = __66__HFEventTriggerBuilder_AutomationBuilders__updateTriggerBuilder___block_invoke(v22);
     [v9 setPredicate:v13];
 
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __66__HFEventTriggerBuilder_AutomationBuilders__updateTriggerBuilder___block_invoke_2;
-    v21[3] = &unk_277DF9660;
-    v21[4] = self;
-    v22 = v9;
-    v14 = __66__HFEventTriggerBuilder_AutomationBuilders__updateTriggerBuilder___block_invoke_2(v21);
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __66__HFEventTriggerBuilder_AutomationBuilders__updateTriggerBuilder___block_invoke_2;
+    v20[3] = &unk_277DF9660;
+    v20[4] = self;
+    v21 = v9;
+    v14 = __66__HFEventTriggerBuilder_AutomationBuilders__updateTriggerBuilder___block_invoke_2(v20);
     v15 = MEMORY[0x277D2C900];
-    v25[0] = v6;
-    v25[1] = v14;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+    v24[0] = v6;
+    v24[1] = v14;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
     v17 = [v15 combineAllFutures:v16];
   }
 
@@ -1183,8 +1164,6 @@ void __45__HFEventTriggerBuilder__createEventBuilders__block_invoke_2(uint64_t a
 
     v17 = v6;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

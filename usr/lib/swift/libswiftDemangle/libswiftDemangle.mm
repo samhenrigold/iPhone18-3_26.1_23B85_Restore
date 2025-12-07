@@ -1,4 +1,4 @@
-uint64_t swift_demangle_getDemangledName(char *a1, const char *a2, uint64_t a3)
+uint64_t swift_demangle_getDemangledName(swift::Demangle *a1, char *a2, size_t a3)
 {
   *&v9[1] = 0x101010101010101;
   v9[9] = 1;
@@ -42,27 +42,22 @@ uint64_t swift_demangle_getDemangledName(char *a1, const char *a2, uint64_t a3)
   return DemangledName_Options;
 }
 
-uint64_t swift_demangle_getDemangledName_Options(char *a1, const char *a2, uint64_t a3, unint64_t a4)
+uint64_t swift_demangle_getDemangledName_Options(swift::Demangle *a1, char *a2, size_t a3, unint64_t a4)
 {
   if (swift::Demangle::isSwiftSymbol(a1, a2))
   {
     if (a1)
     {
-      v7 = strlen(a1);
+      strlen(a1);
     }
 
-    else
-    {
-      v7 = 0;
-    }
-
-    swift::Demangle::demangleSymbolAsString(a1, v7, a4, v6);
+    swift::Demangle::demangleSymbolAsString();
   }
 
   return 0;
 }
 
-uint64_t swift_demangle_getSimplifiedDemangledName(char *a1, const char *a2, uint64_t a3)
+uint64_t swift_demangle_getSimplifiedDemangledName(swift::Demangle *a1, char *a2, size_t a3)
 {
   v9[9] = 1;
   v9[18] = 1;
@@ -176,9 +171,9 @@ char *_swift_mangleSimpleProtocol(uint64_t a1, const char *a2)
   return v7;
 }
 
-void swift::Demangle::failAssert(swift::Demangle *this, const char *a2, swift::Demangle *a3, swift::Demangle::Node *a4, const char *a5)
+void swift::Demangle::failAssert(swift::Demangle *this, char *a2, swift::Demangle *a3, swift::Demangle::Node *a4, const char *a5)
 {
-  NodeTreeAsString = swift::Demangle::getNodeTreeAsString(a3, &v13);
+  NodeTreeAsString = swift::Demangle::getNodeTreeAsString(&v13, a3);
   if ((v13.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v12 = &v13;
@@ -329,7 +324,7 @@ uint64_t swift::Demangle::getManglingPrefixLength(uint64_t a1, unint64_t a2)
   return 2;
 }
 
-BOOL swift::Demangle::isSwiftSymbol(swift::Demangle *this, const char *a2)
+uint64_t swift::Demangle::isSwiftSymbol(swift::Demangle *this, const char *a2)
 {
   if (!this)
   {
@@ -1183,16 +1178,14 @@ LABEL_12:
   return v5;
 }
 
-void *swift::Demangle::mangledNameForTypeMetadataAccessor@<X0>(const void *a1@<X0>, size_t a2@<X1>, const void *a3@<X2>, size_t a4@<X3>, __int16 a5@<W4>, std::string *a6@<X8>)
+void *swift::Demangle::mangledNameForTypeMetadataAccessor@<X0>(const void *a1@<X0>, size_t a2@<X1>, const void *a3@<X2>, size_t a4@<X3>, __int16 a5@<W4>, unsigned int a6@<W5>, std::string *a7@<X8>)
 {
-  v69 = 0;
-  v70 = 0;
-  v105 = 0;
+  v71 = 0;
   v72 = 0;
-  v73 = 0;
+  v107 = 0;
   v74 = 0;
-  v86 = 0u;
-  v87 = 0u;
+  v75 = 0;
+  v76 = 0;
   v88 = 0u;
   v89 = 0u;
   v90 = 0u;
@@ -1208,8 +1201,8 @@ void *swift::Demangle::mangledNameForTypeMetadataAccessor@<X0>(const void *a1@<X
   v100 = 0u;
   v101 = 0u;
   v102 = 0u;
-  v75 = 0u;
-  v76 = 0u;
+  v103 = 0u;
+  v104 = 0u;
   v77 = 0u;
   v78 = 0u;
   v79 = 0u;
@@ -1219,242 +1212,244 @@ void *swift::Demangle::mangledNameForTypeMetadataAccessor@<X0>(const void *a1@<X
   v83 = 0u;
   v84 = 0u;
   v85 = 0u;
-  v103 = 0;
-  v64 = &unk_2A2008368;
-  v71 = 0;
-  v68 = 4800;
-  v9 = malloc_type_malloc(0x12C8uLL, 0x2004093837F09uLL);
-  v67 = v9;
-  *v9 = 0;
-  v12 = (v9 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v13 = v12 + 24;
-  *(v12 + 16) = 101;
-  *(v12 + 18) = 0;
-  __dst = (v12 + 24);
-  v66 = (v9 + 601);
-  if (v12 + 48 > (v9 + 601))
-  {
-    v14 = 2 * v68;
-    if ((2 * v68) <= 0x20)
-    {
-      v14 = 32;
-    }
-
-    v68 = v14;
-    v15 = v14 + 8;
-    v16 = malloc_type_malloc(v14 + 8, 0x2004093837F09uLL);
-    v17 = v16 + v15;
-    *v16 = v67;
-    v13 = (v16 + 15) & 0xFFFFFFFFFFFFFFF8;
-    v66 = v17;
-    v67 = v16;
-  }
-
-  *(v13 + 16) = 249;
+  v86 = 0u;
+  v87 = 0u;
+  v105 = 0;
+  v66 = &unk_2A2008368;
+  v73 = 0;
+  v70 = 4800;
+  v10 = malloc_type_malloc(0x12C8uLL, 0x2004093837F09uLL);
+  v69 = v10;
+  *v10 = 0;
+  v13 = (v10 + 15) & 0xFFFFFFFFFFFFFFF8;
+  v14 = v13 + 24;
+  *(v13 + 16) = 101;
   *(v13 + 18) = 0;
-  v18 = (v13 + 31) & 0xFFFFFFFFFFFFFFF8;
-  __dst = v18;
-  if (!v18 || v18 + 24 > v66)
+  __dst = (v13 + 24);
+  v68 = (v10 + 601);
+  if (v13 + 48 > (v10 + 601))
   {
-    v19 = 2 * v68;
-    if ((2 * v68) <= 0x20)
+    v15 = 2 * v70;
+    if ((2 * v70) <= 0x20)
     {
-      v19 = 32;
+      v15 = 32;
     }
 
-    v68 = v19;
-    v20 = v19 + 8;
-    v21 = malloc_type_malloc(v19 + 8, 0x2004093837F09uLL);
-    *v21 = v67;
-    v18 = (v21 + 15) & 0xFFFFFFFFFFFFFFF8;
-    v66 = v21 + v20;
-    v67 = v21;
+    v70 = v15;
+    v16 = v15 + 8;
+    v17 = malloc_type_malloc(v15 + 8, 0x2004093837F09uLL);
+    v18 = v17 + v16;
+    *v17 = v69;
+    v14 = (v17 + 15) & 0xFFFFFFFFFFFFFFF8;
+    v68 = v18;
+    v69 = v17;
   }
 
-  v22 = (v18 + 24);
-  __dst = (v18 + 24);
-  *(v18 + 16) = 243;
-  *(v18 + 18) = 0;
+  *(v14 + 16) = 249;
+  *(v14 + 18) = 0;
+  v19 = (v14 + 31) & 0xFFFFFFFFFFFFFFF8;
+  __dst = v19;
+  if (!v19 || v19 + 24 > v68)
+  {
+    v20 = 2 * v70;
+    if ((2 * v70) <= 0x20)
+    {
+      v20 = 32;
+    }
+
+    v70 = v20;
+    v21 = v20 + 8;
+    v22 = malloc_type_malloc(v20 + 8, 0x2004093837F09uLL);
+    *v22 = v69;
+    v19 = (v22 + 15) & 0xFFFFFFFFFFFFFFF8;
+    v68 = v22 + v21;
+    v69 = v22;
+  }
+
+  v23 = (v19 + 24);
+  __dst = (v19 + 24);
+  *(v19 + 16) = 243;
+  *(v19 + 18) = 0;
   if (a2)
   {
-    v23 = &v22[a2];
-    if (&v22[a2] > v66)
+    v24 = &v23[a2];
+    if (&v23[a2] > v68)
     {
-      v24 = 2 * v68;
-      if (2 * v68 <= a2 + 1)
+      v25 = 2 * v70;
+      if (2 * v70 <= a2 + 1)
       {
-        v24 = a2 + 1;
+        v25 = a2 + 1;
       }
 
-      v68 = v24;
-      v25 = v24 + 8;
-      v26 = malloc_type_malloc(v24 + 8, 0x2004093837F09uLL);
-      v27 = &v26[v25];
-      *v26 = v67;
-      v22 = v26 + 8;
-      v66 = v27;
-      v67 = v26;
-      v23 = &v26[a2 + 8];
+      v70 = v25;
+      v26 = v25 + 8;
+      v27 = malloc_type_malloc(v25 + 8, 0x2004093837F09uLL);
+      v28 = &v27[v26];
+      *v27 = v69;
+      v23 = v27 + 8;
+      v68 = v28;
+      v69 = v27;
+      v24 = &v27[a2 + 8];
     }
 
-    __dst = v23;
-    memmove(v22, a1, a2);
-    v28 = v22;
-    v22 = __dst;
+    __dst = v24;
+    memmove(v23, a1, a2);
+    v29 = v23;
+    v23 = __dst;
   }
 
   else
   {
-    v28 = 0;
+    v29 = 0;
   }
 
-  v29 = ((v22 + 7) & 0xFFFFFFFFFFFFFFF8);
-  __dst = v29;
-  if (!v29 || (v29 + 3) > v66)
+  v30 = ((v23 + 7) & 0xFFFFFFFFFFFFFFF8);
+  __dst = v30;
+  if (!v30 || (v30 + 3) > v68)
   {
-    v30 = 2 * v68;
-    if ((2 * v68) <= 0x20)
+    v31 = 2 * v70;
+    if ((2 * v70) <= 0x20)
     {
-      v30 = 32;
+      v31 = 32;
     }
 
-    v68 = v30;
-    v31 = v30 + 8;
-    v32 = malloc_type_malloc(v30 + 8, 0x2004093837F09uLL);
-    v33 = v32 + v31;
-    *v32 = v67;
-    v29 = ((v32 + 15) & 0xFFFFFFFFFFFFFFF8);
-    v66 = v33;
-    v67 = v32;
+    v70 = v31;
+    v32 = v31 + 8;
+    v33 = malloc_type_malloc(v31 + 8, 0x2004093837F09uLL);
+    v34 = v33 + v32;
+    *v33 = v69;
+    v30 = ((v33 + 15) & 0xFFFFFFFFFFFFFFF8);
+    v68 = v34;
+    v69 = v33;
   }
 
-  __dst = v29 + 3;
-  *(v29 + 8) = 163;
-  *(v29 + 18) = 3;
-  *v29 = v28;
-  v29[1] = a2;
+  __dst = v30 + 3;
+  *(v30 + 8) = 163;
+  *(v30 + 18) = 3;
+  *v30 = v29;
+  v30[1] = a2;
   if (a4)
   {
-    v34 = __dst;
-    if (!__dst || (v35 = __dst + a4, __dst + a4 > v66))
+    v35 = __dst;
+    if (!__dst || (v36 = __dst + a4, __dst + a4 > v68))
     {
-      v36 = 2 * v68;
-      if (2 * v68 <= a4 + 1)
+      v37 = 2 * v70;
+      if (2 * v70 <= a4 + 1)
       {
-        v36 = a4 + 1;
+        v37 = a4 + 1;
       }
 
-      v68 = v36;
-      v37 = v36 + 8;
-      v38 = malloc_type_malloc(v36 + 8, 0x2004093837F09uLL);
-      *v38 = v67;
-      v34 = v38 + 1;
-      v66 = v38 + v37;
-      v67 = v38;
-      v35 = v38 + a4 + 8;
+      v70 = v37;
+      v38 = v37 + 8;
+      v39 = malloc_type_malloc(v37 + 8, 0x2004093837F09uLL);
+      *v39 = v69;
+      v35 = v39 + 1;
+      v68 = v39 + v38;
+      v69 = v39;
+      v36 = v39 + a4 + 8;
     }
 
-    __dst = v35;
-    memmove(v34, a3, a4);
+    __dst = v36;
+    memmove(v35, a3, a4);
   }
 
   else
   {
-    v34 = 0;
+    v35 = 0;
   }
 
-  v39 = (__dst + 7) & 0xFFFFFFFFFFFFFFF8;
-  if (!v39 || v39 + 24 > v66)
+  v40 = (__dst + 7) & 0xFFFFFFFFFFFFFFF8;
+  if (!v40 || v40 + 24 > v68)
   {
-    v40 = 2 * v68;
-    if ((2 * v68) <= 0x20)
+    v41 = 2 * v70;
+    if ((2 * v70) <= 0x20)
     {
-      v40 = 32;
+      v41 = 32;
     }
 
-    v68 = v40;
-    v41 = v40 + 8;
-    v42 = malloc_type_malloc(v40 + 8, 0x2004093837F09uLL);
-    v43 = v42 + v41;
-    *v42 = v67;
-    v39 = (v42 + 15) & 0xFFFFFFFFFFFFFFF8;
-    v66 = v43;
-    v67 = v42;
+    v70 = v41;
+    v42 = v41 + 8;
+    v43 = malloc_type_malloc(v41 + 8, 0x2004093837F09uLL);
+    v44 = v43 + v42;
+    *v43 = v69;
+    v40 = (v43 + 15) & 0xFFFFFFFFFFFFFFF8;
+    v68 = v44;
+    v69 = v43;
   }
 
-  __dst = (v39 + 24);
-  *(v39 + 16) = 103;
-  *(v39 + 18) = 3;
-  *v39 = v34;
-  *(v39 + 8) = a4;
-  v44 = (__dst + 7) & 0xFFFFFFFFFFFFFFF8;
-  if (!v44 || v44 + 24 > v66)
+  __dst = (v40 + 24);
+  *(v40 + 16) = 103;
+  *(v40 + 18) = 3;
+  *v40 = v35;
+  *(v40 + 8) = a4;
+  v45 = (__dst + 7) & 0xFFFFFFFFFFFFFFF8;
+  if (!v45 || v45 + 24 > v68)
   {
-    v45 = 2 * v68;
-    if ((2 * v68) <= 0x20)
+    v46 = 2 * v70;
+    if ((2 * v70) <= 0x20)
     {
-      v45 = 32;
+      v46 = 32;
     }
 
-    v68 = v45;
-    v46 = v45 + 8;
-    v47 = malloc_type_malloc(v45 + 8, 0x2004093837F09uLL);
-    v48 = v47 + v46;
-    *v47 = v67;
-    v44 = (v47 + 15) & 0xFFFFFFFFFFFFFFF8;
-    v66 = v48;
-    v67 = v47;
+    v70 = v46;
+    v47 = v46 + 8;
+    v48 = malloc_type_malloc(v46 + 8, 0x2004093837F09uLL);
+    v49 = v48 + v47;
+    *v48 = v69;
+    v45 = (v48 + 15) & 0xFFFFFFFFFFFFFFF8;
+    v68 = v49;
+    v69 = v48;
   }
 
-  __dst = (v44 + 24);
-  *(v44 + 16) = a5;
-  *(v44 + 18) = 0;
-  swift::Demangle::Node::addChild(v44, v29, &v64, v10, v11);
-  swift::Demangle::Node::addChild(v44, v39, &v64, v49, v50);
-  swift::Demangle::Node::addChild(v18, v44, &v64, v51, v52);
-  swift::Demangle::Node::addChild(v13, v18, &v64, v53, v54);
-  swift::Demangle::Node::addChild(v12, v13, &v64, v55, v56);
-  swift::Demangle::mangleNode();
-  if (SHIBYTE(v63) < 0)
+  __dst = (v45 + 24);
+  *(v45 + 16) = a5;
+  *(v45 + 18) = 0;
+  swift::Demangle::Node::addChild(v45, v30, &v66, v11, v12);
+  swift::Demangle::Node::addChild(v45, v40, &v66, v50, v51);
+  swift::Demangle::Node::addChild(v19, v45, &v66, v52, v53);
+  swift::Demangle::Node::addChild(v14, v19, &v66, v54, v55);
+  swift::Demangle::Node::addChild(v13, v14, &v66, v56, v57);
+  swift::Demangle::mangleNode(v13, a6);
+  if (SHIBYTE(v65) < 0)
   {
-    std::string::__init_copy_ctor_external(a6, __p, *(&__p + 1));
+    std::string::__init_copy_ctor_external(a7, __p, *(&__p + 1));
     operator delete(__p);
   }
 
   else
   {
-    *&a6->__r_.__value_.__l.__data_ = __p;
-    a6->__r_.__value_.__r.__words[2] = v63;
+    *&a7->__r_.__value_.__l.__data_ = __p;
+    a7->__r_.__value_.__r.__words[2] = v65;
   }
 
-  v64 = &unk_2A2008368;
-  if (v105 == &v104)
+  v66 = &unk_2A2008368;
+  if (v107 == &v106)
   {
-    (*(*v105 + 32))(v105);
+    (*(*v107 + 32))(v107);
   }
 
-  else if (v105)
+  else if (v107)
   {
-    (*(*v105 + 40))();
+    (*(*v107 + 40))();
   }
 
-  v64 = &unk_2A2008340;
-  result = v67;
-  if (v67)
+  v66 = &unk_2A2008340;
+  result = v69;
+  if (v69)
   {
     do
     {
-      v58 = *result;
+      v59 = *result;
       free(result);
-      result = v58;
+      result = v59;
     }
 
-    while (v58);
+    while (v59);
   }
 
-  if (v69)
+  if (v71)
   {
-    *(v69 + 48) = 0;
+    *(v71 + 48) = 0;
   }
 
   return result;
@@ -1560,7 +1555,7 @@ unint64_t swift::Demangle::NodeFactory::createNode(void *a1, __int16 a2, void *_
   return result;
 }
 
-unsigned int *swift::Demangle::Node::addChild(unsigned int *this, swift::Demangle::Node *a2, swift::Demangle::NodeFactory *a3, uint64_t a4, const char *a5)
+swift::Demangle *swift::Demangle::Node::addChild(swift::Demangle *this, swift::Demangle::Node *a2, swift::Demangle::NodeFactory *a3, uint64_t a4, const char *a5)
 {
   if (!a2)
   {
@@ -1596,8 +1591,8 @@ unsigned int *swift::Demangle::Node::addChild(unsigned int *this, swift::Demangl
       return this;
     }
 
-    v6 = this[2];
-    v7 = this[3];
+    v6 = *(this + 2);
+    v7 = *(this + 3);
     v8 = *this;
     if (v6 < v7)
     {
@@ -1615,10 +1610,10 @@ unsigned int *swift::Demangle::Node::addChild(unsigned int *this, swift::Demangl
         v8 = *this;
         LODWORD(v26) = 1;
 LABEL_37:
-        this[3] = v7 + v26;
-        v6 = this[2];
+        *(this + 3) = v7 + v26;
+        v6 = *(this + 2);
 LABEL_38:
-        this[2] = v6 + 1;
+        *(this + 2) = v6 + 1;
         v8[v6] = a2;
         return this;
       }
@@ -1678,7 +1673,7 @@ LABEL_38:
     }
 
     *this = v8;
-    LODWORD(v7) = this[3];
+    LODWORD(v7) = *(this + 3);
     goto LABEL_37;
   }
 
@@ -1724,7 +1719,7 @@ LABEL_38:
       v16 = ((v25 + 15) & 0xFFFFFFFFFFFFFFF8);
       *(v23 + 2) = v25 + v20;
       *(v23 + 3) = v25;
-      v17 = *(v21 + 12) + 4;
+      v17 = v21[3] + 4;
     }
 
     else
@@ -1746,8 +1741,8 @@ LABEL_38:
   *v16 = v13;
   *(*this + 8) = v12;
   *(*this + 16) = a2;
-  this[2] = 3;
-  this[3] = v17;
+  *(this + 2) = 3;
+  *(this + 3) = v17;
   *(this + 18) = 5;
   return this;
 }
@@ -1852,7 +1847,7 @@ uint64_t swift::Demangle::Node::findByKind(uint64_t result, uint64_t a2, int a3)
   v3 = (result + 16);
   if (*(result + 16) != a2)
   {
-    v4 = (a3 - 1);
+    v4 = a3 - 1;
     if (a3 < 1)
     {
       return 0;
@@ -1887,7 +1882,7 @@ uint64_t swift::Demangle::Node::findByKind(uint64_t result, uint64_t a2, int a3)
       case 5:
         v8 = *result;
 LABEL_11:
-        v3 = &v8[*(result + 8)];
+        v3 = (v8 + 8 * *(result + 8));
         if (v7 != v3)
         {
           goto LABEL_12;
@@ -1973,24 +1968,24 @@ __n128 swift::Demangle::NodeFactory::pushCheckpoint@<Q0>(swift::Demangle::NodeFa
   return result;
 }
 
-__n128 swift::Demangle::NodeFactory::popCheckpoint(uint64_t a1, uint64_t a2, const char *a3, char *a4)
+__n128 swift::Demangle::NodeFactory::popCheckpoint(void *result, void *a2, const char *a3, char *a4)
 {
   v6 = *a2;
-  v7 = *(a1 + 24);
+  v7 = result[3];
   if (*a2 != v7)
   {
     if (v7)
     {
-      if (*(a2 + 16) - *(a2 + 8) >= (*(a1 + 16) - v7 - 8) >> 4)
+      if (a2[2] - a2[1] >= (result[2] - v7 - 8) >> 4)
       {
         v9 = 0;
-        v8 = *(a1 + 24);
+        v8 = result[3];
 LABEL_10:
         while (*a2 != v8)
         {
-          *(a1 + 24) = *v8;
+          result[3] = *v8;
           free(v8);
-          v8 = *(a1 + 24);
+          v8 = result[3];
           if (!v8)
           {
             v6 = *a2;
@@ -2006,13 +2001,13 @@ LABEL_10:
         }
 
 LABEL_17:
-        result = *(a2 + 8);
-        *(a1 + 8) = result;
-        return result;
+        v13 = *(a2 + 1);
+        *(result + 1) = v13;
+        return v13;
       }
 
       v8 = *v7;
-      *(a1 + 24) = *v7;
+      result[3] = *v7;
       v9 = v7;
       if (v8)
       {
@@ -2023,7 +2018,7 @@ LABEL_17:
 LABEL_13:
     if (v6)
     {
-      swift::Demangle::fatal(0, "Popping checkpoint {%p, %p, %p} with slab that is not within the allocator's slab chain.\n", a3, a4, v6, *(a2 + 8), *(a2 + 16));
+      swift::Demangle::fatal(0, "Popping checkpoint {%p, %p, %p} with slab that is not within the allocator's slab chain.\n", a3, a4, v6, a2[1], a2[2]);
     }
 
     v8 = 0;
@@ -2031,29 +2026,29 @@ LABEL_13:
     {
 LABEL_15:
       *v7 = v8;
-      *(a1 + 24) = v7;
-      *(a1 + 8) = v7 + 1;
-      return result;
+      result[3] = v7;
+      result[1] = v7 + 1;
+      return v13;
     }
 
     goto LABEL_17;
   }
 
-  v10 = *(a2 + 8);
-  v11 = *(a2 + 16);
-  if (v10 > *(a1 + 8))
+  v10 = a2[1];
+  v11 = a2[2];
+  if (v10 > result[1])
   {
     swift::Demangle::fatal(0, "Popping checkpoint {%p, %p, %p} that is after the current pointer.\n", a3, a4, v6, v10, v11);
   }
 
-  v12 = *(a1 + 16);
+  v12 = result[2];
   if (v11 != v12)
   {
     swift::Demangle::fatal(0, "Popping checkpoint {%p, %p, %p} with End that does not match current End %p.\n", a3, a4, v6, v10, v11, v12);
   }
 
-  *(a1 + 8) = v10;
-  return result;
+  result[1] = v10;
+  return v13;
 }
 
 unint64_t swift::Demangle::NodeFactory::createNode(void *a1, __int16 a2, uint64_t a3)
@@ -2279,15 +2274,15 @@ unsigned int *swift::Demangle::CharVector::append(unsigned int *this, unsigned i
   if (v5 + 11 > v6)
   {
     v8 = *(a3 + 1);
-    if (&v7[v6] == v8)
+    if ((v7 + v6) == v8)
     {
       v9 = *(a3 + 2);
-      if ((v8 + 11) <= v9)
+      if (v8 + 11 <= v9)
       {
         *(a3 + 1) = v8 + 11;
         LODWORD(v10) = 11;
 LABEL_16:
-        *(v4 + 12) = v6 + v10;
+        v4[3] = v6 + v10;
         goto LABEL_17;
       }
     }
@@ -2308,7 +2303,7 @@ LABEL_16:
     }
 
     v11 = v10 + v6;
-    if (!v8 || &v8[v11] > v9)
+    if (!v8 || v8 + v11 > v9)
     {
       v12 = 2 * *(a3 + 4);
       if (v12 <= v11 + 1)
@@ -2323,12 +2318,12 @@ LABEL_16:
       a3 = v14;
       v15 = this + v13;
       *this = *(v14 + 3);
-      v8 = (this + 2);
+      v8 = this + 2;
       *(v14 + 2) = v15;
       *(v14 + 3) = this;
     }
 
-    *(a3 + 1) = &v8[v11];
+    *(a3 + 1) = v8 + v11;
     if (v6)
     {
       this = memcpy(v8, *v4, v6);
@@ -2336,13 +2331,13 @@ LABEL_16:
 
     *v4 = v8;
     v7 = v8;
-    v5 = *(v4 + 8);
-    LODWORD(v6) = *(v4 + 12);
+    v5 = v4[2];
+    LODWORD(v6) = v4[3];
     goto LABEL_16;
   }
 
 LABEL_17:
-  v16 = &v7[v5];
+  v16 = v7 + v5;
   if ((a2 & 0x80000000) != 0)
   {
     v17 = 0;
@@ -2413,7 +2408,7 @@ LABEL_17:
     v17 = 1;
   }
 
-  *(v4 + 8) += v17;
+  v4[2] += v17;
   return this;
 }
 
@@ -2426,15 +2421,15 @@ unsigned int *swift::Demangle::CharVector::append(unsigned int *this, unint64_t 
   if (v5 + 21 > v6)
   {
     v8 = *(a3 + 1);
-    if (&v7[v6] == v8)
+    if ((v7 + v6) == v8)
     {
       v9 = *(a3 + 2);
-      if ((v8 + 21) <= v9)
+      if (v8 + 21 <= v9)
       {
         *(a3 + 1) = v8 + 21;
         LODWORD(v10) = 21;
 LABEL_16:
-        *(v4 + 12) = v6 + v10;
+        v4[3] = v6 + v10;
         goto LABEL_17;
       }
     }
@@ -2455,7 +2450,7 @@ LABEL_16:
     }
 
     v11 = v10 + v6;
-    if (!v8 || &v8[v11] > v9)
+    if (!v8 || v8 + v11 > v9)
     {
       v12 = 2 * *(a3 + 4);
       if (v12 <= v11 + 1)
@@ -2470,12 +2465,12 @@ LABEL_16:
       a3 = v14;
       v15 = this + v13;
       *this = *(v14 + 3);
-      v8 = (this + 2);
+      v8 = this + 2;
       *(v14 + 2) = v15;
       *(v14 + 3) = this;
     }
 
-    *(a3 + 1) = &v8[v11];
+    *(a3 + 1) = v8 + v11;
     if (v6)
     {
       this = memcpy(v8, *v4, v6);
@@ -2483,13 +2478,13 @@ LABEL_16:
 
     *v4 = v8;
     v7 = v8;
-    v5 = *(v4 + 8);
-    LODWORD(v6) = *(v4 + 12);
+    v5 = v4[2];
+    LODWORD(v6) = v4[3];
     goto LABEL_16;
   }
 
 LABEL_17:
-  v16 = &v7[v5];
+  v16 = v7 + v5;
   if (a2)
   {
     v17 = 0;
@@ -2527,15 +2522,15 @@ LABEL_17:
     v17 = 1;
   }
 
-  *(v4 + 8) += v17;
+  v4[2] += v17;
   return this;
 }
 
-void *swift::Demangle::Demangler::clear(void *this)
+_DWORD *swift::Demangle::Demangler::clear(_DWORD *this)
 {
-  *(this + 25) = 0;
+  this[25] = 0;
   *(this + 11) = 0;
-  *(this + 29) = 0;
+  this[29] = 0;
   *(this + 13) = 0;
   v1 = *(this + 3);
   if (v1)
@@ -3039,7 +3034,7 @@ uint64_t swift::Demangle::Demangler::popNode<BOOL (*)(swift::Demangle::Node::Kin
   return result;
 }
 
-int8x16_t *swift::Demangle::Demangler::demangleOperator(swift::Demangle::Demangler *this, uint64_t a2, uint64_t a3, uint64_t a4, char *a5)
+swift::Demangle *swift::Demangle::Demangler::demangleOperator(swift::Demangle::Demangler *this, uint64_t a2, uint64_t a3, uint64_t a4, char *a5)
 {
   v6 = *(this + 8);
   v5 = *(this + 9);
@@ -3092,16 +3087,16 @@ LABEL_11:
 
           return swift::Demangle::Demangler::demangleIntegerType(this, v10, a3, a4, a5);
         case 0x2E:
-          v84 = v5 - 1;
-          if (v6 < v84)
+          v83 = v5 - 1;
+          if (v6 < v83)
           {
-            v84 = v6;
+            v83 = v6;
           }
 
-          v85 = v6 - v84;
+          v84 = v6 - v83;
           *(this + 9) = v6;
-          v86 = (v9 + v84);
-          v87 = 232;
+          v85 = (v9 + v83);
+          v86 = 232;
           goto LABEL_112;
         case 0x41:
 
@@ -3110,7 +3105,7 @@ LABEL_11:
 
           return swift::Demangle::Demangler::demangleBuiltinType(this, v10, a3, a4, a5);
         case 0x43:
-          v88 = 25;
+          v87 = 25;
           goto LABEL_206;
         case 0x44:
 
@@ -3127,275 +3122,275 @@ LABEL_11:
         case 0x48:
           if (v5 < v6)
           {
-            v73 = v5 + 1;
+            v72 = v5 + 1;
             *(this + 9) = v5 + 1;
             switch(*(v9 + v5))
             {
               case 'A':
-                v74 = this;
-                v75 = swift::Demangle::Demangler::demangleDependentConformanceIndex(this);
-                v80 = swift::Demangle::Demangler::popDependentAssociatedConformance(v74, v76, v77, v78, v79);
-                v81 = *(v74 + 24);
-                if (v81 && (v82 = v81 - 1, v83 = *(*(v74 + 11) + 8 * v82), v83[8] - 48 <= 2))
+                v73 = this;
+                v74 = swift::Demangle::Demangler::demangleDependentConformanceIndex(this);
+                v79 = swift::Demangle::Demangler::popDependentAssociatedConformance(v73, v75, v76, v77, v78);
+                v80 = *(v73 + 24);
+                if (v80 && (v81 = v80 - 1, v82 = *(*(v73 + 11) + 8 * v81), v82[8] - 48 <= 2))
                 {
-                  *(v74 + 24) = v82;
+                  *(v73 + 24) = v81;
                 }
 
                 else
                 {
-                  v83 = 0;
+                  v82 = 0;
                 }
 
-                v167 = v74;
-                v195 = 50;
+                v166 = v73;
+                v194 = 50;
                 goto LABEL_311;
               case 'C':
-                v162 = this;
-                v75 = swift::Demangle::Demangler::popAnyProtocolConformanceList(this, v10, a3, a4, a5);
-                v166 = *(v162 + 24);
-                if (v166 && ((v167 = v162, v168 = v166 - 1, v80 = *(*(v162 + 11) + 8 * v168), v169 = v80[8], v169 == 194) || v169 == 193))
+                v161 = this;
+                v74 = swift::Demangle::Demangler::popAnyProtocolConformanceList(this, v10, a3, a4, a5);
+                v165 = *(v161 + 24);
+                if (v165 && ((v166 = v161, v167 = v165 - 1, v79 = *(*(v161 + 11) + 8 * v167), v168 = v79[8], v168 == 194) || v168 == 193))
                 {
-                  *(v162 + 24) = v168;
+                  *(v161 + 24) = v167;
                 }
 
                 else
                 {
-                  v80 = swift::Demangle::Demangler::demangleRetroactiveProtocolConformanceRef(v162, v163, v164, v80, v165);
-                  v167 = v162;
-                  v168 = *(v162 + 24);
+                  v79 = swift::Demangle::Demangler::demangleRetroactiveProtocolConformanceRef(v161, v162, v163, v79, v164);
+                  v166 = v161;
+                  v167 = *(v161 + 24);
                 }
 
-                if (v168 && (v196 = v168 - 1, v83 = *(*(v167 + 11) + 8 * v196), v83[8] == 243))
+                if (v167 && (v195 = v167 - 1, v82 = *(*(v166 + 11) + 8 * v195), v82[8] == 243))
                 {
-                  *(v167 + 24) = v196;
+                  *(v166 + 24) = v195;
                 }
 
                 else
                 {
-                  v83 = 0;
+                  v82 = 0;
                 }
 
-                v195 = 27;
+                v194 = 27;
                 goto LABEL_311;
               case 'D':
-                v155 = this;
-                v75 = swift::Demangle::Demangler::demangleDependentConformanceIndex(this);
-                v80 = swift::Demangle::Demangler::popProtocol(v155, v156, v157, v158, v159);
-                v160 = *(v155 + 24);
-                if (v160 && (v161 = v160 - 1, v83 = *(*(v155 + 11) + 8 * v161), v83[8] == 243))
+                v154 = this;
+                v74 = swift::Demangle::Demangler::demangleDependentConformanceIndex(this);
+                v79 = swift::Demangle::Demangler::popProtocol(v154, v155, v156, v157, v158);
+                v159 = *(v154 + 24);
+                if (v159 && (v160 = v159 - 1, v82 = *(*(v154 + 11) + 8 * v160), v82[8] == 243))
                 {
-                  *(v155 + 24) = v161;
+                  *(v154 + 24) = v160;
                 }
 
                 else
                 {
-                  v83 = 0;
+                  v82 = 0;
                 }
 
-                v167 = v155;
-                v195 = 48;
+                v166 = v154;
+                v194 = 48;
                 goto LABEL_311;
               case 'F':
                 v17 = (*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
                 *(this + 1) = v17;
                 if (!v17 || v17 + 24 > *(this + 2))
                 {
-                  v150 = 2 * *(this + 4);
-                  if (v150 <= 0x20)
+                  v149 = 2 * *(this + 4);
+                  if (v149 <= 0x20)
                   {
-                    v150 = 32;
+                    v149 = 32;
                   }
 
-                  *(this + 4) = v150;
-                  v151 = v150 + 8;
-                  v152 = this;
-                  v153 = malloc_type_malloc(v150 + 8, 0x2004093837F09uLL);
-                  this = v152;
-                  v154 = v153 + v151;
-                  *v153 = *(v152 + 3);
-                  v17 = (v153 + 15) & 0xFFFFFFFFFFFFFFF8;
-                  *(v152 + 2) = v154;
-                  *(v152 + 3) = v153;
+                  *(this + 4) = v149;
+                  v150 = v149 + 8;
+                  v151 = this;
+                  v152 = malloc_type_malloc(v149 + 8, 0x2004093837F09uLL);
+                  this = v151;
+                  v153 = v152 + v150;
+                  *v152 = *(v151 + 3);
+                  v17 = (v152 + 15) & 0xFFFFFFFFFFFFFFF8;
+                  *(v151 + 2) = v153;
+                  *(v151 + 3) = v152;
                 }
 
                 *(this + 1) = v17 + 24;
-                v55 = 344;
+                v54 = 344;
                 goto LABEL_88;
               case 'I':
-                v131 = this;
-                v75 = swift::Demangle::Demangler::demangleDependentConformanceIndex(this);
-                v80 = swift::Demangle::Demangler::popProtocol(v131, v132, v133, v134, v135);
-                v136 = *(v131 + 24);
-                if (v136 && (v137 = v136 - 1, v83 = *(*(v131 + 11) + 8 * v137), v83[8] - 48 <= 2))
+                v130 = this;
+                v74 = swift::Demangle::Demangler::demangleDependentConformanceIndex(this);
+                v79 = swift::Demangle::Demangler::popProtocol(v130, v131, v132, v133, v134);
+                v135 = *(v130 + 24);
+                if (v135 && (v136 = v135 - 1, v82 = *(*(v130 + 11) + 8 * v136), v82[8] - 48 <= 2))
                 {
-                  *(v131 + 24) = v137;
+                  *(v130 + 24) = v136;
                 }
 
                 else
                 {
-                  v83 = 0;
+                  v82 = 0;
                 }
 
-                v167 = v131;
-                v195 = 49;
+                v166 = v130;
+                v194 = 49;
 LABEL_311:
 
-                return swift::Demangle::Demangler::createWithChildren(v167, v195, v83, v80, v75);
+                return swift::Demangle::Demangler::createWithChildren(v166, v194, v82, v79, v74);
               case 'O':
 
                 return swift::Demangle::Demangler::demangleDependentProtocolConformanceOpaque(this, v10, a3, a4, a5);
               case 'P':
-                v170 = this;
-                v171 = swift::Demangle::Demangler::popProtocol(this, v10, a3, a4, a5);
-                if (!v171)
+                v169 = this;
+                v170 = swift::Demangle::Demangler::popProtocol(this, v10, a3, a4, a5);
+                if (!v170)
                 {
                   goto LABEL_297;
                 }
 
-                v18 = v171;
-                v89 = v170;
-                v17 = (*(v170 + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
-                *(v170 + 1) = v17;
-                if (!v17 || v17 + 24 > *(v170 + 2))
+                v18 = v170;
+                v88 = v169;
+                v17 = (*(v169 + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
+                *(v169 + 1) = v17;
+                if (!v17 || v17 + 24 > *(v169 + 2))
                 {
-                  v172 = 2 * *(v170 + 4);
-                  if (v172 <= 0x20)
+                  v171 = 2 * *(v169 + 4);
+                  if (v171 <= 0x20)
                   {
-                    v172 = 32;
+                    v171 = 32;
                   }
 
-                  *(v170 + 4) = v172;
-                  v173 = v172 + 8;
-                  v174 = malloc_type_malloc(v172 + 8, 0x2004093837F09uLL);
-                  v89 = v170;
-                  v175 = v174 + v173;
-                  *v174 = *(v170 + 3);
-                  v17 = (v174 + 15) & 0xFFFFFFFFFFFFFFF8;
-                  *(v170 + 2) = v175;
-                  *(v170 + 3) = v174;
+                  *(v169 + 4) = v171;
+                  v172 = v171 + 8;
+                  v173 = malloc_type_malloc(v171 + 8, 0x2004093837F09uLL);
+                  v88 = v169;
+                  v174 = v173 + v172;
+                  *v173 = *(v169 + 3);
+                  v17 = (v173 + 15) & 0xFFFFFFFFFFFFFFF8;
+                  *(v169 + 2) = v174;
+                  *(v169 + 3) = v173;
                 }
 
-                *(v89 + 1) = v17 + 24;
-                v122 = 193;
+                *(v88 + 1) = v17 + 24;
+                v121 = 193;
                 goto LABEL_199;
               case 'X':
-                v176 = this;
-                v177 = swift::Demangle::Demangler::popAnyProtocolConformanceList(this, v10, a3, a4, a5);
-                if (!v177)
+                v175 = this;
+                v176 = swift::Demangle::Demangler::popAnyProtocolConformanceList(this, v10, a3, a4, a5);
+                if (!v176)
                 {
                   goto LABEL_297;
                 }
 
-                v18 = v177;
-                v89 = v176;
-                v17 = (*(v176 + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
-                *(v176 + 1) = v17;
-                if (!v17 || v17 + 24 > *(v176 + 2))
+                v18 = v176;
+                v88 = v175;
+                v17 = (*(v175 + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
+                *(v175 + 1) = v17;
+                if (!v17 || v17 + 24 > *(v175 + 2))
                 {
-                  v178 = 2 * *(v176 + 4);
-                  if (v178 <= 0x20)
+                  v177 = 2 * *(v175 + 4);
+                  if (v177 <= 0x20)
                   {
-                    v178 = 32;
+                    v177 = 32;
                   }
 
-                  *(v176 + 4) = v178;
-                  v179 = v178 + 8;
-                  v180 = malloc_type_malloc(v178 + 8, 0x2004093837F09uLL);
-                  v89 = v176;
-                  v181 = v180 + v179;
-                  *v180 = *(v176 + 3);
-                  v17 = (v180 + 15) & 0xFFFFFFFFFFFFFFF8;
-                  *(v176 + 2) = v181;
-                  *(v176 + 3) = v180;
+                  *(v175 + 4) = v177;
+                  v178 = v177 + 8;
+                  v179 = malloc_type_malloc(v177 + 8, 0x2004093837F09uLL);
+                  v88 = v175;
+                  v180 = v179 + v178;
+                  *v179 = *(v175 + 3);
+                  v17 = (v179 + 15) & 0xFFFFFFFFFFFFFFF8;
+                  *(v175 + 2) = v180;
+                  *(v175 + 3) = v179;
                 }
 
-                *(v89 + 1) = v17 + 24;
-                v122 = 28;
+                *(v88 + 1) = v17 + 24;
+                v121 = 28;
                 goto LABEL_199;
               case 'c':
-                v189 = this;
-                v190 = swift::Demangle::Demangler::popProtocolConformance(this, v10, a3, a4, a5);
-                if (!v190)
+                v188 = this;
+                v189 = swift::Demangle::Demangler::popProtocolConformance(this, v10, a3, a4, a5);
+                if (!v189)
                 {
                   goto LABEL_297;
                 }
 
-                v18 = v190;
-                v89 = v189;
-                v17 = (*(v189 + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
-                *(v189 + 1) = v17;
-                if (!v17 || v17 + 24 > *(v189 + 2))
+                v18 = v189;
+                v88 = v188;
+                v17 = (*(v188 + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
+                *(v188 + 1) = v17;
+                if (!v17 || v17 + 24 > *(v188 + 2))
                 {
-                  v191 = 2 * *(v189 + 4);
-                  if (v191 <= 0x20)
+                  v190 = 2 * *(v188 + 4);
+                  if (v190 <= 0x20)
                   {
-                    v191 = 32;
+                    v190 = 32;
                   }
 
-                  *(v189 + 4) = v191;
-                  v192 = v191 + 8;
-                  v193 = malloc_type_malloc(v191 + 8, 0x2004093837F09uLL);
-                  v89 = v189;
-                  v194 = v193 + v192;
-                  *v193 = *(v189 + 3);
-                  v17 = (v193 + 15) & 0xFFFFFFFFFFFFFFF8;
-                  *(v189 + 2) = v194;
-                  *(v189 + 3) = v193;
+                  *(v188 + 4) = v190;
+                  v191 = v190 + 8;
+                  v192 = malloc_type_malloc(v190 + 8, 0x2004093837F09uLL);
+                  v88 = v188;
+                  v193 = v192 + v191;
+                  *v192 = *(v188 + 3);
+                  v17 = (v192 + 15) & 0xFFFFFFFFFFFFFFF8;
+                  *(v188 + 2) = v193;
+                  *(v188 + 3) = v192;
                 }
 
-                *(v89 + 1) = v17 + 24;
-                v122 = 199;
+                *(v88 + 1) = v17 + 24;
+                v121 = 199;
                 goto LABEL_199;
               case 'n':
-                v182 = *(this + 24);
-                if (!v182)
+                v181 = *(this + 24);
+                if (!v181)
                 {
                   goto LABEL_297;
                 }
 
-                v183 = v182 - 1;
-                v18 = *(*(this + 11) + 8 * v183);
+                v182 = v181 - 1;
+                v18 = *(*(this + 11) + 8 * v182);
                 if (*(v18 + 16) != 243)
                 {
                   goto LABEL_297;
                 }
 
-                *(this + 24) = v183;
+                *(this + 24) = v182;
                 v17 = (*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
                 *(this + 1) = v17;
                 if (!v17 || v17 + 24 > *(this + 2))
                 {
-                  v184 = 2 * *(this + 4);
-                  if (v184 <= 0x20)
+                  v183 = 2 * *(this + 4);
+                  if (v183 <= 0x20)
                   {
-                    v184 = 32;
+                    v183 = 32;
                   }
 
-                  *(this + 4) = v184;
-                  v185 = v184 + 8;
-                  v186 = this;
-                  v187 = malloc_type_malloc(v184 + 8, 0x2004093837F09uLL);
-                  this = v186;
-                  v188 = v187 + v185;
-                  *v187 = *(v186 + 3);
-                  v17 = (v187 + 15) & 0xFFFFFFFFFFFFFFF8;
-                  *(v186 + 2) = v188;
-                  *(v186 + 3) = v187;
+                  *(this + 4) = v183;
+                  v184 = v183 + 8;
+                  v185 = this;
+                  v186 = malloc_type_malloc(v183 + 8, 0x2004093837F09uLL);
+                  this = v185;
+                  v187 = v186 + v184;
+                  *v186 = *(v185 + 3);
+                  v17 = (v186 + 15) & 0xFFFFFFFFFFFFFFF8;
+                  *(v185 + 2) = v187;
+                  *(v185 + 3) = v186;
                 }
 
                 *(this + 1) = v17 + 24;
-                v35 = 169;
+                v34 = 169;
                 goto LABEL_174;
               case 'o':
-                v124 = *(this + 24);
-                if (!v124)
+                v123 = *(this + 24);
+                if (!v123)
                 {
                   goto LABEL_297;
                 }
 
-                v125 = v124 - 1;
-                v18 = *(*(this + 11) + 8 * v125);
-                *(this + 24) = v125;
+                v124 = v123 - 1;
+                v18 = *(*(this + 11) + 8 * v124);
+                *(this + 24) = v124;
                 if (!v18)
                 {
                   goto LABEL_297;
@@ -3405,103 +3400,103 @@ LABEL_311:
                 *(this + 1) = v17;
                 if (!v17 || v17 + 24 > *(this + 2))
                 {
-                  v126 = 2 * *(this + 4);
-                  if (v126 <= 0x20)
+                  v125 = 2 * *(this + 4);
+                  if (v125 <= 0x20)
                   {
-                    v126 = 32;
+                    v125 = 32;
                   }
 
-                  *(this + 4) = v126;
-                  v127 = v126 + 8;
-                  v128 = this;
-                  v129 = malloc_type_malloc(v126 + 8, 0x2004093837F09uLL);
-                  this = v128;
-                  v130 = v129 + v127;
-                  *v129 = *(v128 + 3);
-                  v17 = (v129 + 15) & 0xFFFFFFFFFFFFFFF8;
-                  *(v128 + 2) = v130;
-                  *(v128 + 3) = v129;
+                  *(this + 4) = v125;
+                  v126 = v125 + 8;
+                  v127 = this;
+                  v128 = malloc_type_malloc(v125 + 8, 0x2004093837F09uLL);
+                  this = v127;
+                  v129 = v128 + v126;
+                  *v128 = *(v127 + 3);
+                  v17 = (v128 + 15) & 0xFFFFFFFFFFFFFFF8;
+                  *(v127 + 2) = v129;
+                  *(v127 + 3) = v128;
                 }
 
                 *(this + 1) = v17 + 24;
-                v35 = 317;
+                v34 = 317;
                 goto LABEL_174;
               case 'p':
-                v144 = this;
-                v145 = swift::Demangle::Demangler::popProtocol(this, v10, a3, a4, a5);
-                if (!v145)
+                v143 = this;
+                v144 = swift::Demangle::Demangler::popProtocol(this, v10, a3, a4, a5);
+                if (!v144)
                 {
                   goto LABEL_297;
                 }
 
-                v18 = v145;
-                v89 = v144;
-                v17 = (*(v144 + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
-                *(v144 + 1) = v17;
-                if (!v17 || v17 + 24 > *(v144 + 2))
+                v18 = v144;
+                v88 = v143;
+                v17 = (*(v143 + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
+                *(v143 + 1) = v17;
+                if (!v17 || v17 + 24 > *(v143 + 2))
                 {
-                  v146 = 2 * *(v144 + 4);
-                  if (v146 <= 0x20)
+                  v145 = 2 * *(v143 + 4);
+                  if (v145 <= 0x20)
                   {
-                    v146 = 32;
+                    v145 = 32;
                   }
 
-                  *(v144 + 4) = v146;
-                  v147 = v146 + 8;
-                  v148 = malloc_type_malloc(v146 + 8, 0x2004093837F09uLL);
-                  v89 = v144;
-                  v149 = v148 + v147;
-                  *v148 = *(v144 + 3);
-                  v17 = (v148 + 15) & 0xFFFFFFFFFFFFFFF8;
-                  *(v144 + 2) = v149;
-                  *(v144 + 3) = v148;
+                  *(v143 + 4) = v145;
+                  v146 = v145 + 8;
+                  v147 = malloc_type_malloc(v145 + 8, 0x2004093837F09uLL);
+                  v88 = v143;
+                  v148 = v147 + v146;
+                  *v147 = *(v143 + 3);
+                  v17 = (v147 + 15) & 0xFFFFFFFFFFFFFFF8;
+                  *(v143 + 2) = v148;
+                  *(v143 + 3) = v147;
                 }
 
-                *(v89 + 1) = v17 + 24;
-                v122 = 194;
+                *(v88 + 1) = v17 + 24;
+                v121 = 194;
                 goto LABEL_199;
               case 'r':
-                v138 = this;
-                v139 = swift::Demangle::Demangler::popProtocol(this, v10, a3, a4, a5);
-                if (!v139)
+                v137 = this;
+                v138 = swift::Demangle::Demangler::popProtocol(this, v10, a3, a4, a5);
+                if (!v138)
                 {
                   goto LABEL_297;
                 }
 
-                v18 = v139;
-                v89 = v138;
-                v17 = (*(v138 + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
-                *(v138 + 1) = v17;
-                if (!v17 || v17 + 24 > *(v138 + 2))
+                v18 = v138;
+                v88 = v137;
+                v17 = (*(v137 + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
+                *(v137 + 1) = v17;
+                if (!v17 || v17 + 24 > *(v137 + 2))
                 {
-                  v140 = 2 * *(v138 + 4);
-                  if (v140 <= 0x20)
+                  v139 = 2 * *(v137 + 4);
+                  if (v139 <= 0x20)
                   {
-                    v140 = 32;
+                    v139 = 32;
                   }
 
-                  *(v138 + 4) = v140;
-                  v141 = v140 + 8;
-                  v142 = malloc_type_malloc(v140 + 8, 0x2004093837F09uLL);
-                  v89 = v138;
-                  v143 = v142 + v141;
-                  *v142 = *(v138 + 3);
-                  v17 = (v142 + 15) & 0xFFFFFFFFFFFFFFF8;
-                  *(v138 + 2) = v143;
-                  *(v138 + 3) = v142;
+                  *(v137 + 4) = v139;
+                  v140 = v139 + 8;
+                  v141 = malloc_type_malloc(v139 + 8, 0x2004093837F09uLL);
+                  v88 = v137;
+                  v142 = v141 + v140;
+                  *v141 = *(v137 + 3);
+                  v17 = (v141 + 15) & 0xFFFFFFFFFFFFFFF8;
+                  *(v137 + 2) = v142;
+                  *(v137 + 3) = v141;
                 }
 
-                *(v89 + 1) = v17 + 24;
-                v122 = 197;
+                *(v88 + 1) = v17 + 24;
+                v121 = 197;
                 goto LABEL_199;
               default:
                 goto LABEL_226;
             }
           }
 
-          v73 = v5;
+          v72 = v5;
 LABEL_226:
-          v12 = v73 - 2;
+          v12 = v72 - 2;
           goto LABEL_11;
         case 0x49:
 
@@ -3511,26 +3506,26 @@ LABEL_226:
           *(this + 1) = v17;
           if (!v17 || v17 + 24 > *(this + 2))
           {
-            v50 = 2 * *(this + 4);
-            if (v50 <= 0x20)
+            v49 = 2 * *(this + 4);
+            if (v49 <= 0x20)
             {
-              v50 = 32;
+              v49 = 32;
             }
 
-            *(this + 4) = v50;
-            v51 = v50 + 8;
-            v52 = this;
-            v53 = malloc_type_malloc(v50 + 8, 0x2004093837F09uLL);
-            this = v52;
-            v54 = v53 + v51;
-            *v53 = *(v52 + 3);
-            v17 = (v53 + 15) & 0xFFFFFFFFFFFFFFF8;
-            *(v52 + 2) = v54;
-            *(v52 + 3) = v53;
+            *(this + 4) = v49;
+            v50 = v49 + 8;
+            v51 = this;
+            v52 = malloc_type_malloc(v49 + 8, 0x2004093837F09uLL);
+            this = v51;
+            v53 = v52 + v50;
+            *v52 = *(v51 + 3);
+            v17 = (v52 + 15) & 0xFFFFFFFFFFFFFFF8;
+            *(v51 + 2) = v53;
+            *(v51 + 3) = v52;
           }
 
           *(this + 1) = v17 + 24;
-          v55 = 285;
+          v54 = 285;
           goto LABEL_88;
         case 0x4C:
 
@@ -3539,50 +3534,50 @@ LABEL_226:
 
           return swift::Demangle::Demangler::demangleMetatype(this, v10, a3, a4, a5);
         case 0x4E:
-          v103 = *(this + 24);
-          if (!v103)
+          v102 = *(this + 24);
+          if (!v102)
           {
             goto LABEL_297;
           }
 
-          v104 = v103 - 1;
-          v18 = *(*(this + 11) + 8 * v104);
+          v103 = v102 - 1;
+          v18 = *(*(this + 11) + 8 * v103);
           if (*(v18 + 16) != 243)
           {
             goto LABEL_297;
           }
 
-          *(this + 24) = v104;
+          *(this + 24) = v103;
           v17 = (*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
           *(this + 1) = v17;
           if (!v17 || v17 + 24 > *(this + 2))
           {
-            v105 = 2 * *(this + 4);
-            if (v105 <= 0x20)
+            v104 = 2 * *(this + 4);
+            if (v104 <= 0x20)
             {
-              v105 = 32;
+              v104 = 32;
             }
 
-            *(this + 4) = v105;
-            v106 = v105 + 8;
-            v107 = this;
-            v108 = malloc_type_malloc(v105 + 8, 0x2004093837F09uLL);
-            this = v107;
-            v109 = v108 + v106;
-            *v108 = *(v107 + 3);
-            v17 = (v108 + 15) & 0xFFFFFFFFFFFFFFF8;
-            *(v107 + 2) = v109;
-            *(v107 + 3) = v108;
+            *(this + 4) = v104;
+            v105 = v104 + 8;
+            v106 = this;
+            v107 = malloc_type_malloc(v104 + 8, 0x2004093837F09uLL);
+            this = v106;
+            v108 = v107 + v105;
+            *v107 = *(v106 + 3);
+            v17 = (v107 + 15) & 0xFFFFFFFFFFFFFFF8;
+            *(v106 + 2) = v108;
+            *(v106 + 3) = v107;
           }
 
           *(this + 1) = v17 + 24;
-          v35 = 248;
+          v34 = 248;
           goto LABEL_174;
         case 0x4F:
-          v88 = 63;
+          v87 = 63;
           goto LABEL_206;
         case 0x50:
-          v88 = 190;
+          v87 = 190;
           goto LABEL_206;
         case 0x51:
 
@@ -3597,7 +3592,7 @@ LABEL_226:
 
           return swift::Demangle::Demangler::demangleThunkOrSpecialization(this, v10, a3, a4, a5);
         case 0x56:
-          v88 = 230;
+          v87 = 230;
           goto LABEL_206;
         case 0x57:
 
@@ -3620,7 +3615,6 @@ LABEL_226:
           if (*(v18 + 16) != 243)
           {
             v27 = this;
-            v28 = *(v18 + 16);
             isContext = swift::Demangle::isContext();
             this = v27;
             if (!isContext)
@@ -3634,62 +3628,62 @@ LABEL_226:
           *(this + 1) = v17;
           if (!v17 || v17 + 24 > *(this + 2))
           {
-            v30 = 2 * *(this + 4);
-            if (v30 <= 0x20)
+            v29 = 2 * *(this + 4);
+            if (v29 <= 0x20)
             {
-              v30 = 32;
+              v29 = 32;
             }
 
-            *(this + 4) = v30;
-            v31 = v30 + 8;
-            v32 = this;
-            v33 = malloc_type_malloc(v30 + 8, 0x2004093837F09uLL);
-            this = v32;
-            v34 = v33 + v31;
-            *v33 = *(v32 + 3);
-            v17 = (v33 + 15) & 0xFFFFFFFFFFFFFFF8;
-            *(v32 + 2) = v34;
-            *(v32 + 3) = v33;
+            *(this + 4) = v29;
+            v30 = v29 + 8;
+            v31 = this;
+            v32 = malloc_type_malloc(v29 + 8, 0x2004093837F09uLL);
+            this = v31;
+            v33 = v32 + v30;
+            *v32 = *(v31 + 3);
+            v17 = (v32 + 15) & 0xFFFFFFFFFFFFFFF8;
+            *(v31 + 2) = v33;
+            *(v31 + 3) = v32;
           }
 
           *(this + 1) = v17 + 24;
-          v35 = 229;
+          v34 = 229;
 LABEL_174:
-          *(v17 + 16) = v35;
+          *(v17 + 16) = v34;
           *(v17 + 18) = 0;
-          v89 = this;
+          v88 = this;
           goto LABEL_200;
         case 0x5F:
           v17 = (*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
           *(this + 1) = v17;
           if (!v17 || v17 + 24 > *(this + 2))
           {
-            v66 = 2 * *(this + 4);
-            if (v66 <= 0x20)
+            v65 = 2 * *(this + 4);
+            if (v65 <= 0x20)
             {
-              v66 = 32;
+              v65 = 32;
             }
 
-            *(this + 4) = v66;
-            v67 = v66 + 8;
-            v68 = this;
-            v69 = malloc_type_malloc(v66 + 8, 0x2004093837F09uLL);
-            this = v68;
-            v70 = v69 + v67;
-            *v69 = *(v68 + 3);
-            v17 = (v69 + 15) & 0xFFFFFFFFFFFFFFF8;
-            *(v68 + 2) = v70;
-            *(v68 + 3) = v69;
+            *(this + 4) = v65;
+            v66 = v65 + 8;
+            v67 = this;
+            v68 = malloc_type_malloc(v65 + 8, 0x2004093837F09uLL);
+            this = v67;
+            v69 = v68 + v66;
+            *v68 = *(v67 + 3);
+            v17 = (v68 + 15) & 0xFFFFFFFFFFFFFFF8;
+            *(v67 + 2) = v69;
+            *(v67 + 3) = v68;
           }
 
           *(this + 1) = v17 + 24;
-          v55 = 288;
+          v54 = 288;
           goto LABEL_88;
         case 0x61:
-          v88 = 245;
+          v87 = 245;
 LABEL_206:
 
-          return swift::Demangle::Demangler::demangleAnyGenericType(this, v88, a3, a4, a5);
+          return swift::Demangle::Demangler::demangleAnyGenericType(this, v87, a3, a4, a5);
         case 0x63:
 
           return swift::Demangle::Demangler::popFunctionType(this, 84, 0, a4, a5);
@@ -3698,26 +3692,26 @@ LABEL_206:
           *(this + 1) = v17;
           if (!v17 || v17 + 24 > *(this + 2))
           {
-            v61 = 2 * *(this + 4);
-            if (v61 <= 0x20)
+            v60 = 2 * *(this + 4);
+            if (v60 <= 0x20)
             {
-              v61 = 32;
+              v60 = 32;
             }
 
-            *(this + 4) = v61;
-            v62 = v61 + 8;
-            v63 = this;
-            v64 = malloc_type_malloc(v61 + 8, 0x2004093837F09uLL);
-            this = v63;
-            v65 = v64 + v62;
-            *v64 = *(v63 + 3);
-            v17 = (v64 + 15) & 0xFFFFFFFFFFFFFFF8;
-            *(v63 + 2) = v65;
-            *(v63 + 3) = v64;
+            *(this + 4) = v60;
+            v61 = v60 + 8;
+            v62 = this;
+            v63 = malloc_type_malloc(v60 + 8, 0x2004093837F09uLL);
+            this = v62;
+            v64 = v63 + v61;
+            *v63 = *(v62 + 3);
+            v17 = (v63 + 15) & 0xFFFFFFFFFFFFFFF8;
+            *(v62 + 2) = v64;
+            *(v62 + 3) = v63;
           }
 
           *(this + 1) = v17 + 24;
-          v55 = 289;
+          v54 = 289;
           goto LABEL_88;
         case 0x66:
 
@@ -3788,78 +3782,78 @@ LABEL_20:
 
           return swift::Demangle::Demangler::demangleSubscript(this, v10, a3, a4, a5);
         case 0x6C:
-          v123 = 0;
+          v122 = 0;
           goto LABEL_222;
         case 0x6D:
-          v110 = *(this + 24);
-          if (!v110)
+          v109 = *(this + 24);
+          if (!v109)
           {
             goto LABEL_297;
           }
 
-          v111 = v110 - 1;
-          v17 = *(*(this + 11) + 8 * v111);
+          v110 = v109 - 1;
+          v17 = *(*(this + 11) + 8 * v110);
           if (*(v17 + 16) != 243)
           {
             goto LABEL_297;
           }
 
-          *(this + 24) = v111;
+          *(this + 24) = v110;
           v18 = (*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
           *(this + 1) = v18;
           if (!v18 || v18 + 24 > *(this + 2))
           {
-            v112 = 2 * *(this + 4);
-            if (v112 <= 0x20)
+            v111 = 2 * *(this + 4);
+            if (v111 <= 0x20)
             {
-              v112 = 32;
+              v111 = 32;
             }
 
-            *(this + 4) = v112;
-            v113 = v112 + 8;
-            v114 = this;
-            v115 = malloc_type_malloc(v112 + 8, 0x2004093837F09uLL);
-            this = v114;
-            v116 = v115 + v113;
-            *v115 = *(v114 + 3);
-            v18 = (v115 + 15) & 0xFFFFFFFFFFFFFFF8;
-            *(v114 + 2) = v116;
-            *(v114 + 3) = v115;
+            *(this + 4) = v111;
+            v112 = v111 + 8;
+            v113 = this;
+            v114 = malloc_type_malloc(v111 + 8, 0x2004093837F09uLL);
+            this = v113;
+            v115 = v114 + v112;
+            *v114 = *(v113 + 3);
+            v18 = (v114 + 15) & 0xFFFFFFFFFFFFFFF8;
+            *(v113 + 2) = v115;
+            *(v113 + 3) = v114;
           }
 
           *(this + 1) = v18 + 24;
           v24 = 154;
           goto LABEL_193;
         case 0x6E:
-          v94 = *(this + 24);
-          if (!v94)
+          v93 = *(this + 24);
+          if (!v93)
           {
             goto LABEL_297;
           }
 
-          v95 = v94 - 1;
-          v96 = *(*(this + 11) + 8 * (v94 - 1));
-          if (*(v96 + 16) != 243)
+          v94 = v93 - 1;
+          v95 = *(*(this + 11) + 8 * (v93 - 1));
+          if (*(v95 + 16) != 243)
           {
             goto LABEL_297;
           }
 
-          *(this + 24) = v95;
-          v97 = *(v96 + 18);
-          if (v97 == 1)
+          *(this + 24) = v94;
+          v96 = *(v95 + 18);
+          if (v96 == 1)
           {
             goto LABEL_158;
           }
 
-          if (v97 != 5 || *(v96 + 8) != 1)
+          if (v96 != 5 || *(v95 + 8) != 1)
           {
             goto LABEL_297;
           }
 
-          v96 = *v96;
+          v95 = *v95;
 LABEL_158:
-          v17 = *v96;
-          if (!*v96)
+          v17 = *v95;
+          if (!*v95)
           {
             goto LABEL_298;
           }
@@ -3868,22 +3862,22 @@ LABEL_158:
           *(this + 1) = v18;
           if (!v18 || v18 + 24 > *(this + 2))
           {
-            v98 = 2 * *(this + 4);
-            if (v98 <= 0x20)
+            v97 = 2 * *(this + 4);
+            if (v97 <= 0x20)
             {
-              v98 = 32;
+              v97 = 32;
             }
 
-            *(this + 4) = v98;
-            v99 = v98 + 8;
-            v100 = this;
-            v101 = malloc_type_malloc(v98 + 8, 0x2004093837F09uLL);
-            this = v100;
-            v102 = v101 + v99;
-            *v101 = *(v100 + 3);
-            v18 = (v101 + 15) & 0xFFFFFFFFFFFFFFF8;
-            *(v100 + 2) = v102;
-            *(v100 + 3) = v101;
+            *(this + 4) = v97;
+            v98 = v97 + 8;
+            v99 = this;
+            v100 = malloc_type_malloc(v97 + 8, 0x2004093837F09uLL);
+            this = v99;
+            v101 = v100 + v98;
+            *v100 = *(v99 + 3);
+            v18 = (v100 + 15) & 0xFFFFFFFFFFFFFFF8;
+            *(v99 + 2) = v101;
+            *(v99 + 3) = v100;
           }
 
           *(this + 1) = v18 + 24;
@@ -3893,7 +3887,7 @@ LABEL_158:
 
           return swift::Demangle::Demangler::demangleOperatorIdentifier(this);
         case 0x70:
-          v71 = this;
+          v70 = this;
           DependentGenericParamType = swift::Demangle::Demangler::demangleProtocolList(this, v10, a3, a4, a5);
           if (!DependentGenericParamType)
           {
@@ -3902,7 +3896,7 @@ LABEL_158:
 
           goto LABEL_140;
         case 0x71:
-          v71 = this;
+          v70 = this;
           DependentGenericParamType = swift::Demangle::Demangler::demangleGenericParamIndex(this, v10, a3, a4, a5);
           if (DependentGenericParamType)
           {
@@ -3911,17 +3905,17 @@ LABEL_158:
 
           goto LABEL_297;
         case 0x72:
-          v123 = 1;
+          v122 = 1;
 LABEL_222:
 
-          return swift::Demangle::Demangler::demangleGenericSignature(this, v123, a3, a4, a5);
+          return swift::Demangle::Demangler::demangleGenericSignature(this, v122, a3, a4, a5);
         case 0x73:
-          v86 = "Swift";
-          v87 = 163;
-          v85 = 5;
+          v85 = "Swift";
+          v86 = 163;
+          v84 = 5;
 LABEL_112:
 
-          return swift::Demangle::NodeFactory::createNode(this, v87, v86, v85);
+          return swift::Demangle::NodeFactory::createNode(this, v86, v85, v84);
         case 0x74:
 
           return swift::Demangle::Demangler::popTuple(this, v10, a3, a4, a5);
@@ -3929,15 +3923,15 @@ LABEL_112:
 
           return swift::Demangle::Demangler::demangleGenericType(this, v10, a3, a4, a5);
         case 0x76:
-          v36 = this;
-          v37 = swift::Demangle::Demangler::demangleEntity(this, 266, a3, a4, a5);
+          v35 = this;
+          v36 = swift::Demangle::Demangler::demangleEntity(this, 266, a3, a4, a5);
 
-          return swift::Demangle::Demangler::demangleAccessor(v36, v37, v38, v39, v40);
+          return swift::Demangle::Demangler::demangleAccessor(v35, v36, v37, v38, v39);
         case 0x77:
 
           return swift::Demangle::Demangler::demangleValueWitness(this, v10, a3, a4, a5);
         case 0x78:
-          v71 = this;
+          v70 = this;
           DependentGenericParamType = swift::Demangle::Demangler::getDependentGenericParamType(this, 0, 0, a4, a5);
           if (!DependentGenericParamType)
           {
@@ -3946,26 +3940,26 @@ LABEL_112:
 
 LABEL_140:
           v18 = DependentGenericParamType;
-          v89 = v71;
-          v17 = (*(v71 + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
-          *(v71 + 1) = v17;
-          if (!v17 || v17 + 24 > *(v71 + 2))
+          v88 = v70;
+          v17 = (*(v70 + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
+          *(v70 + 1) = v17;
+          if (!v17 || v17 + 24 > *(v70 + 2))
           {
-            v90 = 2 * *(v71 + 4);
-            if (v90 <= 0x20)
+            v89 = 2 * *(v70 + 4);
+            if (v89 <= 0x20)
             {
-              v90 = 32;
+              v89 = 32;
             }
 
-            *(v71 + 4) = v90;
-            v91 = v90 + 8;
-            v92 = malloc_type_malloc(v90 + 8, 0x2004093837F09uLL);
-            v89 = v71;
-            v93 = v92 + v91;
-            *v92 = *(v71 + 3);
-            v17 = (v92 + 15) & 0xFFFFFFFFFFFFFFF8;
-            *(v71 + 2) = v93;
-            *(v71 + 3) = v92;
+            *(v70 + 4) = v89;
+            v90 = v89 + 8;
+            v91 = malloc_type_malloc(v89 + 8, 0x2004093837F09uLL);
+            v88 = v70;
+            v92 = v91 + v90;
+            *v91 = *(v70 + 3);
+            v17 = (v91 + 15) & 0xFFFFFFFFFFFFFFF8;
+            *(v70 + 2) = v92;
+            *(v70 + 3) = v91;
           }
 
           goto LABEL_198;
@@ -3974,78 +3968,78 @@ LABEL_140:
           *(this + 1) = v17;
           if (!v17 || v17 + 24 > *(this + 2))
           {
-            v56 = 2 * *(this + 4);
-            if (v56 <= 0x20)
+            v55 = 2 * *(this + 4);
+            if (v55 <= 0x20)
             {
-              v56 = 32;
+              v55 = 32;
             }
 
-            *(this + 4) = v56;
-            v57 = v56 + 8;
-            v58 = this;
-            v59 = malloc_type_malloc(v56 + 8, 0x2004093837F09uLL);
-            this = v58;
-            v60 = v59 + v57;
-            *v59 = *(v58 + 3);
-            v17 = (v59 + 15) & 0xFFFFFFFFFFFFFFF8;
-            *(v58 + 2) = v60;
-            *(v58 + 3) = v59;
+            *(this + 4) = v55;
+            v56 = v55 + 8;
+            v57 = this;
+            v58 = malloc_type_malloc(v55 + 8, 0x2004093837F09uLL);
+            this = v57;
+            v59 = v58 + v56;
+            *v58 = *(v57 + 3);
+            v17 = (v58 + 15) & 0xFFFFFFFFFFFFFFF8;
+            *(v57 + 2) = v59;
+            *(v57 + 3) = v58;
           }
 
           *(this + 1) = v17 + 24;
-          v55 = 287;
+          v54 = 287;
 LABEL_88:
-          *(v17 + 16) = v55;
+          *(v17 + 16) = v54;
           *(v17 + 18) = 0;
           goto LABEL_298;
         case 0x7A:
-          v41 = *(this + 24);
-          if (!v41)
+          v40 = *(this + 24);
+          if (!v40)
           {
             goto LABEL_297;
           }
 
-          v42 = v41 - 1;
-          v43 = *(*(this + 11) + 8 * (v41 - 1));
-          if (*(v43 + 16) != 243)
+          v41 = v40 - 1;
+          v42 = *(*(this + 11) + 8 * (v40 - 1));
+          if (*(v42 + 16) != 243)
           {
             goto LABEL_297;
           }
 
-          *(this + 24) = v42;
-          v44 = *(v43 + 18);
-          if (v44 == 1)
+          *(this + 24) = v41;
+          v43 = *(v42 + 18);
+          if (v43 == 1)
           {
             goto LABEL_51;
           }
 
-          if (v44 == 5 && *(v43 + 8) == 1)
+          if (v43 == 5 && *(v42 + 8) == 1)
           {
-            v43 = *v43;
+            v42 = *v42;
 LABEL_51:
-            v17 = *v43;
-            if (*v43)
+            v17 = *v42;
+            if (*v42)
             {
               v18 = (*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
               *(this + 1) = v18;
               if (!v18 || v18 + 24 > *(this + 2))
               {
-                v45 = 2 * *(this + 4);
-                if (v45 <= 0x20)
+                v44 = 2 * *(this + 4);
+                if (v44 <= 0x20)
                 {
-                  v45 = 32;
+                  v44 = 32;
                 }
 
-                *(this + 4) = v45;
-                v46 = v45 + 8;
-                v47 = this;
-                v48 = malloc_type_malloc(v45 + 8, 0x2004093837F09uLL);
-                this = v47;
-                v49 = v48 + v46;
-                *v48 = *(v47 + 3);
-                v18 = (v48 + 15) & 0xFFFFFFFFFFFFFFF8;
-                *(v47 + 2) = v49;
-                *(v47 + 3) = v48;
+                *(this + 4) = v44;
+                v45 = v44 + 8;
+                v46 = this;
+                v47 = malloc_type_malloc(v44 + 8, 0x2004093837F09uLL);
+                this = v46;
+                v48 = v47 + v45;
+                *v47 = *(v46 + 3);
+                v18 = (v47 + 15) & 0xFFFFFFFFFFFFFFF8;
+                *(v46 + 2) = v48;
+                *(v46 + 3) = v47;
               }
 
               *(this + 1) = v18 + 24;
@@ -4053,38 +4047,38 @@ LABEL_51:
 LABEL_193:
               *(v18 + 16) = v24;
               *(v18 + 18) = 0;
-              v117 = this;
+              v116 = this;
               swift::Demangle::Node::addChild(v18, v17, this, a4, a5);
-              v89 = v117;
-              v17 = (*(v117 + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
-              *(v117 + 1) = v17;
-              if (!v17 || v17 + 24 > *(v117 + 2))
+              v88 = v116;
+              v17 = (*(v116 + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
+              *(v116 + 1) = v17;
+              if (!v17 || v17 + 24 > *(v116 + 2))
               {
-                v118 = 2 * *(v117 + 4);
-                if (v118 <= 0x20)
+                v117 = 2 * *(v116 + 4);
+                if (v117 <= 0x20)
                 {
-                  v118 = 32;
+                  v117 = 32;
                 }
 
-                *(v117 + 4) = v118;
-                v119 = v118 + 8;
-                v120 = malloc_type_malloc(v118 + 8, 0x2004093837F09uLL);
-                v89 = v117;
-                v121 = v120 + v119;
-                *v120 = *(v117 + 3);
-                v17 = (v120 + 15) & 0xFFFFFFFFFFFFFFF8;
-                *(v117 + 2) = v121;
-                *(v117 + 3) = v120;
+                *(v116 + 4) = v117;
+                v118 = v117 + 8;
+                v119 = malloc_type_malloc(v117 + 8, 0x2004093837F09uLL);
+                v88 = v116;
+                v120 = v119 + v118;
+                *v119 = *(v116 + 3);
+                v17 = (v119 + 15) & 0xFFFFFFFFFFFFFFF8;
+                *(v116 + 2) = v120;
+                *(v116 + 3) = v119;
               }
 
 LABEL_198:
-              *(v89 + 1) = v17 + 24;
-              v122 = 243;
+              *(v88 + 1) = v17 + 24;
+              v121 = 243;
 LABEL_199:
-              *(v17 + 16) = v122;
+              *(v17 + 16) = v121;
               *(v17 + 18) = 0;
 LABEL_200:
-              swift::Demangle::Node::addChild(v17, v18, v89, a4, a5);
+              swift::Demangle::Node::addChild(v17, v18, v88, a4, a5);
             }
           }
 
@@ -4516,9 +4510,9 @@ unint64_t swift::Demangle::Demangler::popFunctionParamLabels(swift::Demangle::De
       if (*(*(*(this + 11) + 8 * v7) + 16) == 287)
       {
         *(this + 24) = v7;
-        v8 = ((*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8);
+        v8 = (*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
         *(this + 1) = v8;
-        if (!v8 || &v8[1].u64[1] > *(this + 2))
+        if (!v8 || v8 + 24 > *(this + 2))
         {
           v9 = 2 * *(this + 4);
           if (v9 <= 0x20)
@@ -4531,14 +4525,14 @@ unint64_t swift::Demangle::Demangler::popFunctionParamLabels(swift::Demangle::De
           v11 = malloc_type_malloc(v9 + 8, 0x2004093837F09uLL);
           v12 = v11 + v10;
           *v11 = *(this + 3);
-          v8 = ((v11 + 15) & 0xFFFFFFFFFFFFFFF8);
+          v8 = (v11 + 15) & 0xFFFFFFFFFFFFFFF8;
           *(this + 2) = v12;
           *(this + 3) = v11;
         }
 
         *(this + 1) = v8 + 24;
-        v8[1].i16[0] = 303;
-        v8[1].i8[2] = 0;
+        *(v8 + 16) = 303;
+        *(v8 + 18) = 0;
         return v8;
       }
     }
@@ -4851,9 +4845,9 @@ LABEL_94:
   }
 
 LABEL_100:
-  v8 = ((*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8);
+  v8 = (*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
   *(this + 1) = v8;
-  if (!v8 || &v8[1].u64[1] > *(this + 2))
+  if (!v8 || v8 + 24 > *(this + 2))
   {
     v33 = 2 * *(this + 4);
     if (v33 <= 0x20)
@@ -4866,14 +4860,14 @@ LABEL_100:
     v35 = malloc_type_malloc(v33 + 8, 0x2004093837F09uLL);
     v36 = v35 + v34;
     *v35 = *(this + 3);
-    v8 = ((v35 + 15) & 0xFFFFFFFFFFFFFFF8);
+    v8 = (v35 + 15) & 0xFFFFFFFFFFFFFFF8;
     *(this + 2) = v36;
     *(this + 3) = v35;
   }
 
   *(this + 1) = v8 + 24;
-  v8[1].i16[0] = 303;
-  v8[1].i8[2] = 0;
+  *(v8 + 16) = 303;
+  *(v8 + 18) = 0;
   v37 = *(v26 + 18);
   if ((v37 - 1) < 2)
   {
@@ -6848,7 +6842,7 @@ uint64_t swift::Demangle::Demangler::demanglePlainFunction(swift::Demangle::Dema
   return result;
 }
 
-unsigned int *swift::Demangle::Demangler::demangleBoundGenericType(swift::Demangle::Demangler *this, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+swift::Demangle *swift::Demangle::Demangler::demangleBoundGenericType(swift::Demangle::Demangler *this, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
   v6 = *(this + 2);
   v7 = ((*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8);
@@ -7096,7 +7090,7 @@ unint64_t swift::Demangle::Demangler::demangleDependentProtocolConformanceOpaque
   return v11;
 }
 
-unint64_t swift::Demangle::Demangler::popProtocol(swift::Demangle::Demangler *this, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+swift::Demangle::Node *swift::Demangle::Demangler::popProtocol(swift::Demangle::Demangler *this, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
   v6 = *(this + 24);
   if (!v6)
@@ -7297,7 +7291,7 @@ unint64_t swift::Demangle::Demangler::demanglePackProtocolConformance(swift::Dem
   return v10;
 }
 
-unsigned int *swift::Demangle::Demangler::popProtocolConformance(swift::Demangle::Demangler *this, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+swift::Demangle *swift::Demangle::Demangler::popProtocolConformance(swift::Demangle::Demangler *this, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
   v6 = *(this + 24);
   if (!v6)
@@ -9357,7 +9351,7 @@ swift::Demangle::Node *swift::Demangle::Demangler::demangleMetatype(swift::Deman
         {
           v178 = v173;
 LABEL_306:
-          v272 = *v172;
+          v271 = *v172;
           goto LABEL_308;
         }
 
@@ -9368,10 +9362,10 @@ LABEL_306:
           goto LABEL_306;
         }
 
-        v272 = 0;
+        v271 = 0;
 LABEL_308:
 
-        result = swift::Demangle::Demangler::createWithChild(v178, 273, v272, v176, v177);
+        result = swift::Demangle::Demangler::createWithChild(v178, 273, v271, v176, v177);
         break;
       case 'D':
       case 'd':
@@ -9900,7 +9894,6 @@ LABEL_308:
         if (*(v9 + 8) != 243)
         {
           v257 = this;
-          v258 = *(v9 + 8);
           isContext = swift::Demangle::isContext();
           this = v257;
           if (!isContext)
@@ -9914,22 +9907,22 @@ LABEL_308:
         *(this + 1) = v6;
         if (!v6 || v6 + 24 > *(this + 2))
         {
-          v260 = 2 * *(this + 4);
-          if (v260 <= 0x20)
+          v259 = 2 * *(this + 4);
+          if (v259 <= 0x20)
           {
-            v260 = 32;
+            v259 = 32;
           }
 
-          *(this + 4) = v260;
-          v261 = v260 + 8;
-          v262 = this;
-          v263 = malloc_type_malloc(v260 + 8, 0x2004093837F09uLL);
-          this = v262;
-          v264 = v263 + v261;
-          *v263 = *(v262 + 3);
-          v6 = (v263 + 15) & 0xFFFFFFFFFFFFFFF8;
-          *(v262 + 2) = v264;
-          *(v262 + 3) = v263;
+          *(this + 4) = v259;
+          v260 = v259 + 8;
+          v261 = this;
+          v262 = malloc_type_malloc(v259 + 8, 0x2004093837F09uLL);
+          this = v261;
+          v263 = v262 + v260;
+          *v262 = *(v261 + 3);
+          v6 = (v262 + 15) & 0xFFFFFFFFFFFFFFF8;
+          *(v261 + 2) = v263;
+          *(v261 + 3) = v262;
         }
 
         *(this + 1) = v6 + 24;
@@ -10570,40 +10563,40 @@ LABEL_281:
         v15 = 250;
         goto LABEL_299;
       case 's':
-        v265 = *(this + 24);
-        if (!v265)
+        v264 = *(this + 24);
+        if (!v264)
         {
           return 0;
         }
 
-        v266 = v265 - 1;
-        v9 = *(*(this + 11) + 8 * v266);
+        v265 = v264 - 1;
+        v9 = *(*(this + 11) + 8 * v265);
         if (*(v9 + 8) != 243)
         {
           return 0;
         }
 
-        *(this + 24) = v266;
+        *(this + 24) = v265;
         v6 = (*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
         *(this + 1) = v6;
         if (!v6 || v6 + 24 > *(this + 2))
         {
-          v267 = 2 * *(this + 4);
-          if (v267 <= 0x20)
+          v266 = 2 * *(this + 4);
+          if (v266 <= 0x20)
           {
-            v267 = 32;
+            v266 = 32;
           }
 
-          *(this + 4) = v267;
-          v268 = v267 + 8;
-          v269 = this;
-          v270 = malloc_type_malloc(v267 + 8, 0x2004093837F09uLL);
-          this = v269;
-          v271 = v270 + v268;
-          *v270 = *(v269 + 3);
-          v6 = (v270 + 15) & 0xFFFFFFFFFFFFFFF8;
-          *(v269 + 2) = v271;
-          *(v269 + 3) = v270;
+          *(this + 4) = v266;
+          v267 = v266 + 8;
+          v268 = this;
+          v269 = malloc_type_malloc(v266 + 8, 0x2004093837F09uLL);
+          this = v268;
+          v270 = v269 + v267;
+          *v269 = *(v268 + 3);
+          v6 = (v269 + 15) & 0xFFFFFFFFFFFFFFF8;
+          *(v268 + 2) = v270;
+          *(v268 + 3) = v269;
         }
 
         *(this + 1) = v6 + 24;

@@ -23,20 +23,20 @@
 
 - (int)setupWithSubprocessFd:(int)fd fileActions:(void *)actions queue:(id)queue group:(id)group readErrno:(int *)errno
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   groupCopy = group;
-  if (pipe(v35))
+  if (pipe(v34))
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v24 = __error();
-      v25 = strerror(*v24);
-      v26 = *__error();
+      v23 = __error();
+      v24 = strerror(*v23);
+      v25 = *__error();
       *buf = 136315394;
-      v32 = v25;
-      v33 = 1024;
-      v34 = v26;
+      v31 = v24;
+      v32 = 1024;
+      v33 = v25;
       _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "runCommandWithPath failed to create pipe: %s (%d)", buf, 0x12u);
     }
 
@@ -45,9 +45,9 @@
 
   else
   {
-    v16 = v35[0];
-    v17 = v35[1];
-    posix_spawn_file_actions_addclose(actions, v35[0]);
+    v16 = v34[0];
+    v17 = v34[1];
+    posix_spawn_file_actions_addclose(actions, v34[0]);
     posix_spawn_file_actions_adddup2(actions, v17, fd);
     posix_spawn_file_actions_addclose(actions, v17);
     v18 = [objc_alloc(MEMORY[0x1E696AC00]) initWithFileDescriptor:v17 closeOnDealloc:1];
@@ -59,9 +59,9 @@
     cleanup_handler[1] = 3221225472;
     cleanup_handler[2] = __80___PASPosixPipeContext_setupWithSubprocessFd_fileActions_queue_group_readErrno___block_invoke;
     cleanup_handler[3] = &unk_1E77F2240;
-    v30 = v16;
+    v29 = v16;
     errnoCopy = errno;
-    v28 = groupCopy;
+    v27 = groupCopy;
     v20 = dispatch_io_create(0, v16, queueCopy, cleanup_handler);
     readChannel = self->_readChannel;
     self->_readChannel = v20;
@@ -72,7 +72,6 @@
     v15 = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

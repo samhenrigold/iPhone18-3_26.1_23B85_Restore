@@ -70,18 +70,16 @@
 
 - (NSArray)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   accessoryUUID = [(HMSiriEndpointApplyOnboardingSelectionsPayload *)self accessoryUUID];
   v5 = [v3 initWithName:@"accessoryUUID" value:accessoryUUID];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   onboardingSelections = [(HMSiriEndpointApplyOnboardingSelectionsPayload *)self onboardingSelections];
   v8 = [v6 initWithName:@"onboardingSelections" value:onboardingSelections];
-  v12[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
 
   return v9;
 }
@@ -95,7 +93,7 @@
 
 - (HMSiriEndpointApplyOnboardingSelectionsPayload)initWithPayload:(id)payload
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   v5 = [payloadCopy hmf_UUIDForKey:@"HMAccessoryUUIDPayloadKey"];
   v6 = [payloadCopy hmf_dictionaryForKey:@"HMSiriEndpointOnboardingSelectionsPayloadKey"];
@@ -115,35 +113,32 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v13;
-      v18 = 2112;
-      v19 = payloadCopy;
-      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@Failed to decode apply onboarding selections payload: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v13;
+      v17 = 2112;
+      v18 = payloadCopy;
+      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@Failed to decode apply onboarding selections payload: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
     v10 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (id)payloadCopy
 {
-  v11[2] = *MEMORY[0x1E69E9840];
-  v10[0] = @"HMAccessoryUUIDPayloadKey";
+  v10[2] = *MEMORY[0x1E69E9840];
+  v9[0] = @"HMAccessoryUUIDPayloadKey";
   accessoryUUID = [(HMSiriEndpointApplyOnboardingSelectionsPayload *)self accessoryUUID];
   uUIDString = [accessoryUUID UUIDString];
-  v10[1] = @"HMSiriEndpointOnboardingSelectionsPayloadKey";
-  v11[0] = uUIDString;
+  v9[1] = @"HMSiriEndpointOnboardingSelectionsPayloadKey";
+  v10[0] = uUIDString;
   onboardingSelections = [(HMSiriEndpointApplyOnboardingSelectionsPayload *)self onboardingSelections];
   payloadCopy = [onboardingSelections payloadCopy];
-  v11[1] = payloadCopy;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[1] = payloadCopy;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   return v7;
 }
@@ -179,12 +174,11 @@
 
 uint64_t __61__HMSiriEndpointApplyOnboardingSelectionsPayload_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_58385;
-  logCategory__hmf_once_v2_58385 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_58385;
+  logCategory__hmf_once_v2_58385 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)shortDescription

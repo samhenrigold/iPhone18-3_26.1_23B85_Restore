@@ -23,8 +23,8 @@
 
 - (void)performVerificationRequestWith:(AKAppleIDPasskeySetupContext *)with completionHandler:(id)handler
 {
-  v7 = (*(*(sub_1001AD17C(&unk_100372310, &qword_10029CEC0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v7 = sub_1001AD17C(&unk_100372310, &qword_10029CEC0);
+  __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
   v11 = swift_allocObject();

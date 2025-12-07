@@ -54,7 +54,7 @@
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Hydrating apps: [%{public}@]", buf, 0xCu);
     }
 
-    v14 = sub_1002856D4();
+    v14 = sub_1002856D4(RestoreManager);
     sub_100287B80(v14, v9);
 
     if (self)

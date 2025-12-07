@@ -72,7 +72,7 @@
     JreThrowNullPointerException();
   }
 
-  v5 = new_OrgApacheLuceneDocumentStoredField_initWithNSString_withInt_(*(info + 1), int);
+  v5 = new_OrgApacheLuceneDocumentStoredField_initWithNSString_withInt_(*(info + 1), *&int);
 
   [(OrgApacheLuceneDocumentDocument *)doc addWithOrgApacheLuceneIndexIndexableField:v5];
 }
@@ -140,7 +140,7 @@ LABEL_7:
     }
   }
 
-  v4 = &OrgApacheLuceneIndexStoredFieldVisitor_StatusEnum_values_;
+  v4 = OrgApacheLuceneIndexStoredFieldVisitor_StatusEnum_values_;
   if ((atomic_load_explicit(OrgApacheLuceneIndexStoredFieldVisitor_StatusEnum__initialized, memory_order_acquire) & 1) == 0)
   {
     goto LABEL_7;

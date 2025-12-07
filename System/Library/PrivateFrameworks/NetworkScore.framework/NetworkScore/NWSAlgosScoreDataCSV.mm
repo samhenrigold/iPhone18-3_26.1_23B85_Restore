@@ -110,7 +110,7 @@ LABEL_41:
         operator delete(v28);
       }
 
-      v6 = (v6 + 72);
+      v6 += 72;
       if (v6 == v7)
       {
         goto LABEL_44;
@@ -171,7 +171,7 @@ LABEL_44:
       {
         AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, v18);
         v20 = objc_alloc(MEMORY[0x277CCACA8]);
-        AlgosScoreStreamCSVFrameRow::GetDescription(__p, &v28);
+        AlgosScoreStreamCSVFrameRow::GetDescription(&v28, __p);
         if (v30 >= 0)
         {
           v21 = &v28;
@@ -196,12 +196,12 @@ LABEL_44:
         v26 = v23;
         __nws_log_run_with_lock(v25);
 
-        if (SBYTE7(v37) < 0)
+        if ((v37[7] & 0x80000000) != 0)
         {
           operator delete(__p[0]);
         }
 
-        v18 = (v18 + 72);
+        v18 += 72;
       }
 
       while (v18 != v19);
@@ -225,20 +225,20 @@ uint64_t __38__NWSAlgosScoreDataCSV_populateScore___block_invoke(uint64_t a1)
 
 - (id)readData:(id)data catchException:(BOOL)exception
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   [(NWSAlgosScoreDataCSV *)self setRawStreamData:0];
   v6 = [NWSAlgosScoreCSVReader csvReader:dataCopy header:1];
   if ([(NWSAlgosScoreDataCSV *)self debug])
   {
     v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"--> Read %s\n", objc_msgSend(dataCopy, "cStringUsingEncoding:", 4)];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __48__NWSAlgosScoreDataCSV_readData_catchException___block_invoke;
-    v23[3] = &unk_27996CF98;
-    v24 = v7;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __48__NWSAlgosScoreDataCSV_readData_catchException___block_invoke;
+    v22[3] = &unk_27996CF98;
+    v23 = v7;
     v8 = v7;
-    __nws_log_run_with_lock(v23);
+    __nws_log_run_with_lock(v22);
   }
 
   if ([(NWSAlgosScoreDataCSV *)self debug]>= 2)
@@ -273,14 +273,12 @@ uint64_t __38__NWSAlgosScoreDataCSV_populateScore___block_invoke(uint64_t a1)
     v15 = MEMORY[0x277CBEAD8];
     error3 = [v6 error];
     v17 = [error3 description];
-    v25 = @"error";
+    v24 = @"error";
     error4 = [v6 error];
-    v26[0] = error4;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v25[0] = error4;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v20 = [v15 exceptionWithName:@"ReaderError" reason:v17 userInfo:v19];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -310,7 +308,7 @@ uint64_t __48__NWSAlgosScoreDataCSV_readData_catchException___block_invoke_2(uin
 
 - (id)readDirectoryAndScore:(id)score score:(id)a4 options:(id)options
 {
-  v80[1] = *MEMORY[0x277D85DE8];
+  v81[1] = *MEMORY[0x277D85DE8];
   scoreCopy = score;
   v8 = a4;
   optionsCopy = options;
@@ -320,51 +318,51 @@ uint64_t __48__NWSAlgosScoreDataCSV_readData_catchException___block_invoke_2(uin
   v9 = [optionsCopy objectForKey:@"continue_on_error"];
   bOOLValue = [v9 BOOLValue];
 
-  v58 = [optionsCopy objectForKey:@"tracePath"];
-  if (stat([scoreCopy cStringUsingEncoding:4], &v73))
+  v59 = [optionsCopy objectForKey:@"tracePath"];
+  if (stat([scoreCopy cStringUsingEncoding:4], &v74))
   {
-    v79 = @"error";
-    v80[0] = [MEMORY[0x277CCABB0] numberWithInt:*__error()];
-    obj = v80[0];
-    dictionary = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:&v79 count:1];
+    v80 = @"error";
+    v81[0] = [MEMORY[0x277CCABB0] numberWithInt:*__error()];
+    obj = v81[0];
+    dictionary = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:&v80 count:1];
     [array addObject:dictionary];
 LABEL_40:
 
     goto LABEL_41;
   }
 
-  v11 = v73.st_mode & 0xF000;
+  v11 = v74.st_mode & 0xF000;
   if (v11 == 0x4000)
   {
     v13 = [MEMORY[0x277CBEBC0] fileURLWithPath:scoreCopy];
-    v78 = *MEMORY[0x277CBE868];
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v78 count:1];
-    v71[0] = MEMORY[0x277D85DD0];
-    v71[1] = 3221225472;
-    v71[2] = __60__NWSAlgosScoreDataCSV_readDirectoryAndScore_score_options___block_invoke;
-    v71[3] = &__block_descriptor_33_e27_B24__0__NSURL_8__NSError_16l;
-    v72 = bOOLValue;
-    v15 = [defaultManager enumeratorAtURL:v13 includingPropertiesForKeys:v14 options:0 errorHandler:v71];
+    v79 = *MEMORY[0x277CBE868];
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v79 count:1];
+    v72[0] = MEMORY[0x277D85DD0];
+    v72[1] = 3221225472;
+    v72[2] = __60__NWSAlgosScoreDataCSV_readDirectoryAndScore_score_options___block_invoke;
+    v72[3] = &__block_descriptor_33_e27_B24__0__NSURL_8__NSError_16l;
+    v73 = bOOLValue;
+    v15 = [defaultManager enumeratorAtURL:v13 includingPropertiesForKeys:v14 options:0 errorHandler:v72];
 
-    v69 = 0u;
     v70 = 0u;
-    v67 = 0u;
+    v71 = 0u;
     v68 = 0u;
+    v69 = 0u;
     v12 = v15;
-    v16 = [v12 countByEnumeratingWithState:&v67 objects:v77 count:16];
+    v16 = [v12 countByEnumeratingWithState:&v68 objects:v78 count:16];
     if (v16)
     {
-      v17 = *v68;
+      v17 = *v69;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v68 != v17)
+          if (*v69 != v17)
           {
             objc_enumerationMutation(v12);
           }
 
-          v19 = *(*(&v67 + 1) + 8 * i);
+          v19 = *(*(&v68 + 1) + 8 * i);
           pathExtension = [v19 pathExtension];
           if ([pathExtension isEqualToString:@"csv"])
           {
@@ -381,7 +379,7 @@ LABEL_40:
           }
         }
 
-        v16 = [v12 countByEnumeratingWithState:&v67 objects:v77 count:16];
+        v16 = [v12 countByEnumeratingWithState:&v68 objects:v78 count:16];
       }
 
       while (v16);
@@ -397,30 +395,30 @@ LABEL_40:
 LABEL_18:
   }
 
-  v65 = 0u;
   v66 = 0u;
-  v63 = 0u;
+  v67 = 0u;
   v64 = 0u;
+  v65 = 0u;
   v22 = array2;
-  v23 = [v22 countByEnumeratingWithState:&v63 objects:v76 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v64 objects:v77 count:16];
   if (!v23)
   {
     goto LABEL_42;
   }
 
   obj = v22;
-  v56 = *v64;
+  v57 = *v65;
   while (2)
   {
-    v57 = v23;
-    for (j = 0; j != v57; ++j)
+    v58 = v23;
+    for (j = 0; j != v58; ++j)
     {
-      if (*v64 != v56)
+      if (*v65 != v57)
       {
         objc_enumerationMutation(obj);
       }
 
-      v25 = *(*(&v63 + 1) + 8 * j);
+      v25 = *(*(&v64 + 1) + 8 * j);
       dictionary = [MEMORY[0x277CBEB38] dictionary];
       path = [v25 path];
       v27 = [(NWSAlgosScoreDataCSV *)self readData:path];
@@ -438,66 +436,67 @@ LABEL_18:
       if (v8)
       {
         [(NWSAlgosScoreDataCSV *)self populateScore:v8];
-        if (v58)
+        if (v59)
         {
           path2 = [v25 path];
           lastPathComponent = [path2 lastPathComponent];
           v30 = [lastPathComponent stringByAppendingPathExtension:@"trace"];
-          v31 = [v58 stringByAppendingPathComponent:v30];
+          v31 = [v59 stringByAppendingPathComponent:v30];
 
-          if ([v8 saveEventsToFile:v31])
+          v32 = [v8 saveEventsToFile:v31];
+          if (v32)
           {
-            v32 = nws_algos_log_obj();
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+            v34 = nws_algos_log_obj(v32, v33);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
             {
-              v33 = v31;
-              v34 = [v31 cStringUsingEncoding:4];
+              v35 = v31;
+              v36 = [v31 cStringUsingEncoding:4];
               *buf = 136315138;
-              v75 = v34;
-              _os_log_impl(&dword_25BA15000, v32, OS_LOG_TYPE_INFO, "Trace in %s\n", buf, 0xCu);
+              v76 = v36;
+              _os_log_impl(&dword_25BA15000, v34, OS_LOG_TYPE_INFO, "Trace in %s\n", buf, 0xCu);
             }
           }
 
           else
           {
-            v35 = *MEMORY[0x277D85DF8];
-            v36 = v31;
-            fprintf(v35, "Couldn't write trace file to %s\n", [v31 cStringUsingEncoding:4]);
+            v37 = *MEMORY[0x277D85DF8];
+            v38 = v31;
+            fprintf(v37, "Couldn't write trace file to %s\n", [v31 cStringUsingEncoding:4]);
           }
         }
 
         path3 = [v25 path];
-        v38 = [v8 scoreStreaming:path3];
-        [dictionary setObject:v38 forKeyedSubscript:@"score"];
+        v40 = [v8 scoreStreaming:path3];
+        [dictionary setObject:v40 forKeyedSubscript:@"score"];
 
-        v39 = [dictionary objectForKeyedSubscript:@"score"];
-        v40 = [v39 objectForKeyedSubscript:@"stats"];
+        v41 = [dictionary objectForKeyedSubscript:@"score"];
+        v42 = [v41 objectForKeyedSubscript:@"stats"];
         statsDict = [(NWSAlgosScoreDataCSV *)self statsDict];
-        [v40 addEntriesFromDictionary:statsDict];
+        [v42 addEntriesFromDictionary:statsDict];
 
         if ([(NWSAlgosScoreDataCSV *)self debug])
         {
-          v42 = objc_alloc(MEMORY[0x277CCACA8]);
-          v43 = [dictionary objectForKeyedSubscript:@"score"];
-          v44 = [v43 objectForKeyedSubscript:@"score"];
-          v45 = [v44 description];
-          v46 = v45;
-          v47 = [v42 initWithFormat:@"Score: %s\n", objc_msgSend(v45, "cStringUsingEncoding:", 4)];
-
-          v61[0] = MEMORY[0x277D85DD0];
-          v61[1] = 3221225472;
-          v61[2] = __60__NWSAlgosScoreDataCSV_readDirectoryAndScore_score_options___block_invoke_61;
-          v61[3] = &unk_27996CF98;
-          v62 = v47;
+          v44 = objc_alloc(MEMORY[0x277CCACA8]);
+          v45 = [dictionary objectForKeyedSubscript:@"score"];
+          v46 = [v45 objectForKeyedSubscript:@"score"];
+          v47 = [v46 description];
           v48 = v47;
-          __nws_log_run_with_lock(v61);
+          v49 = [v44 initWithFormat:@"Score: %s\n", objc_msgSend(v47, "cStringUsingEncoding:", 4)];
+
+          v62[0] = MEMORY[0x277D85DD0];
+          v62[1] = 3221225472;
+          v62[2] = __60__NWSAlgosScoreDataCSV_readDirectoryAndScore_score_options___block_invoke_61;
+          v62[3] = &unk_27996CF98;
+          v63 = v49;
+          v50 = v49;
+          __nws_log_run_with_lock(v62);
         }
       }
 
       [array addObject:dictionary];
     }
 
-    v23 = [obj countByEnumeratingWithState:&v63 objects:v76 count:16];
+    v23 = [obj countByEnumeratingWithState:&v64 objects:v77 count:16];
     if (v23)
     {
       continue;
@@ -509,8 +508,6 @@ LABEL_18:
 LABEL_41:
   v22 = obj;
 LABEL_42:
-
-  v49 = *MEMORY[0x277D85DE8];
 
   return array;
 }

@@ -58,34 +58,30 @@
 
 - (id)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   accessoryIdentifier = [(HMDAppleMediaAccessoryModelIdentifierRequestMessagePayload *)self accessoryIdentifier];
   v5 = [v3 initWithName:@"accessoryIdentifier" value:accessoryIdentifier];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
 
 - (id)payloadCopy
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = *MEMORY[0x277CCEC20];
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277CCEC20];
   accessoryIdentifier = [(HMDAppleMediaAccessoryModelIdentifierRequestMessagePayload *)self accessoryIdentifier];
-  v7[0] = accessoryIdentifier;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = accessoryIdentifier;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 - (HMDAppleMediaAccessoryModelIdentifierRequestMessagePayload)initWithPayload:(id)payload
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   v5 = [payloadCopy hmf_stringForKey:*MEMORY[0x277CCEC20]];
   if (v5)
@@ -102,18 +98,17 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2112;
-      v16 = payloadCopy;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to derive message due to no accessory identifier in payload: %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2112;
+      v15 = payloadCopy;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to derive message due to no accessory identifier in payload: %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -156,12 +151,11 @@
 
 uint64_t __73__HMDAppleMediaAccessoryModelIdentifierRequestMessagePayload_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_75646;
-  logCategory__hmf_once_v2_75646 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_75646;
+  logCategory__hmf_once_v2_75646 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

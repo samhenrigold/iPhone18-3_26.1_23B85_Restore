@@ -8,26 +8,26 @@
 - (uint64_t)wf_isFocusConfigurationExtensionBundle
 {
   bundleIdentifier = [self bundleIdentifier];
-  if ([bundleIdentifier isEqualToString:*MEMORY[0x1E69E0F20]])
+  if (objc_msgSend_isEqualToString_(bundleIdentifier))
   {
-    v3 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
     bundleIdentifier2 = [self bundleIdentifier];
-    v3 = [bundleIdentifier2 isEqualToString:*MEMORY[0x1E69E0F28]];
+    isEqualToString = objc_msgSend_isEqualToString_(bundleIdentifier2);
   }
 
-  return v3;
+  return isEqualToString;
 }
 
 - (uint64_t)wf_isWidgetConfigurationExtensionBundle
 {
   bundleIdentifier = [self bundleIdentifier];
-  v2 = [bundleIdentifier isEqualToString:*MEMORY[0x1E69E0F58]];
+  isEqualToString = objc_msgSend_isEqualToString_(bundleIdentifier);
 
-  return v2;
+  return isEqualToString;
 }
 
 @end

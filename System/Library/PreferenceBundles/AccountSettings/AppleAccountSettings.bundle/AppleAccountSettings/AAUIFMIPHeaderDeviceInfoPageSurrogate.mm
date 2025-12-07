@@ -72,7 +72,6 @@
 
 - (void)forwardInvocation:(id)invocation
 {
-  remoteTableViewController = self->_remoteTableViewController;
   invocationCopy = invocation;
   [invocationCopy selector];
   if (objc_opt_respondsToSelector())
@@ -82,9 +81,9 @@
 
   else
   {
-    v6.receiver = self;
-    v6.super_class = AAUIFMIPHeaderDeviceInfoPageSurrogate;
-    [(AAUIFMIPHeaderDeviceInfoPageSurrogate *)&v6 forwardInvocation:invocationCopy];
+    v5.receiver = self;
+    v5.super_class = AAUIFMIPHeaderDeviceInfoPageSurrogate;
+    [(AAUIFMIPHeaderDeviceInfoPageSurrogate *)&v5 forwardInvocation:invocationCopy];
   }
 }
 
@@ -103,49 +102,49 @@
 
 - (BOOL)respondsToSelector:(SEL)selector
 {
-  remoteTableViewController = self->_remoteTableViewController;
   if (objc_opt_respondsToSelector())
   {
     return 1;
   }
 
-  v7.receiver = self;
-  v7.super_class = AAUIFMIPHeaderDeviceInfoPageSurrogate;
-  return [(AAUIFMIPHeaderDeviceInfoPageSurrogate *)&v7 respondsToSelector:selector];
+  v6.receiver = self;
+  v6.super_class = AAUIFMIPHeaderDeviceInfoPageSurrogate;
+  return [(AAUIFMIPHeaderDeviceInfoPageSurrogate *)&v6 respondsToSelector:selector];
 }
 
 - (id)tableView:(id)view viewForHeaderInSection:(int64_t)section
 {
   viewCopy = view;
+  v7 = viewCopy;
   if (self->_remoteTableView == viewCopy)
   {
     if (section)
     {
-      v7 = [(UITableViewDelegate *)self->_remoteTableViewController tableView:viewCopy viewForHeaderInSection:section];
+      v8 = [(UITableViewDelegate *)self->_remoteTableViewController tableView:viewCopy viewForHeaderInSection:section];
     }
 
     else
     {
-      v8 = _AAUILogSystem();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = _AAUILogSystem(viewCopy);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v13 = 0;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Creating a device info header view", v13, 2u);
+        *v14 = 0;
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Creating a device info header view", v14, 2u);
       }
 
-      v9 = [AAUIDeviceInfoHeaderView alloc];
+      v10 = [AAUIDeviceInfoHeaderView alloc];
       device = self->_device;
       style = [(RUIPage *)self->_remoteUIPage style];
-      v7 = [(AAUIDeviceInfoHeaderView *)v9 initWithDevice:device style:style];
+      v8 = [(AAUIDeviceInfoHeaderView *)v10 initWithDevice:device style:style];
     }
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (double)tableView:(id)view estimatedHeightForHeaderInSection:(int64_t)section
@@ -397,45 +396,45 @@ LABEL_10:
 - (id)backupForUDID:(id)d backupList:(id)list
 {
   dCopy = d;
-  v19 = 0u;
-  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   listCopy = list;
-  v7 = [listCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [listCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v22;
     while (2)
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v20 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(listCopy);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         backupUUID = [v11 backupUUID];
         v13 = [backupUUID isEqualToString:dCopy];
 
         if (v13)
         {
-          v16 = _AAUILogSystem();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v18 = _AAUILogSystem(v14);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
-            *v18 = 0;
-            _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Found matching backupUUID", v18, 2u);
+            *v20 = 0;
+            _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Found matching backupUUID", v20, 2u);
           }
 
-          v15 = v11;
-          v14 = listCopy;
+          v17 = v11;
+          v16 = listCopy;
           goto LABEL_15;
         }
       }
 
-      v8 = [listCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [listCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v8)
       {
         continue;
@@ -445,17 +444,17 @@ LABEL_10:
     }
   }
 
-  v14 = _AAUILogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v16 = _AAUILogSystem(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    *v18 = 0;
-    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "No peer backup info found.", v18, 2u);
+    *v20 = 0;
+    _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "No peer backup info found.", v20, 2u);
   }
 
-  v15 = 0;
+  v17 = 0;
 LABEL_15:
 
-  return v15;
+  return v17;
 }
 
 - (void)updateDetailLabelWithBackup:(id)backup
@@ -489,10 +488,10 @@ LABEL_15:
 
     v10 = [v7 localizedStringForKey:v9 value:&stru_5A5F0 table:@"Localizable"];
 
-    v11 = _AAUILogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = _AAUILogSystem(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      sub_33C04(v10, v11);
+      sub_33C04(v10, v12);
     }
 
     [(AAUIFMIPHeaderDeviceInfoPageSurrogate *)self refreshBackupDetailText:v10];

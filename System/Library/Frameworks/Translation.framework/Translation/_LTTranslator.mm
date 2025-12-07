@@ -14,6 +14,7 @@
 + (void)addLanguages:(id)languages useCellular:(BOOL)cellular;
 + (void)additionalLikelyPreferredLocalesForLocale:(id)locale completion:(id)completion;
 + (void)autoDetectSpeechUnsupportedPairsWithCompletion:(id)completion;
++ (void)availableLocalePairsForTask:(int64_t)task useDedicatedMachPort:(BOOL)port completion:(id)completion;
 + (void)configInfoForLocale:(id)locale otherLocale:(id)otherLocale completion:(id)completion;
 + (void)initialize;
 + (void)installOfflineLocales:(id)locales completion:(id)completion;
@@ -21,7 +22,9 @@
 + (void)installedLocalesForTask:(int64_t)task completion:(id)completion;
 + (void)languageAssetsWithOptions:(unint64_t)options completion:(id)completion;
 + (void)languageForText:(id)text completion:(id)completion;
++ (void)languagesForText:(id)text usingModel:(unint64_t)model strategy:(unint64_t)strategy useDedicatedTextMachPort:(BOOL)port completion:(id)completion;
 + (void)modalitiesPerLocaleWithCompletion:(id)completion;
++ (void)onDeviceModeEnabledWithDedicatedMachPort:(BOOL)port completion:(id)completion;
 + (void)onDeviceModeSupported:(id)supported;
 + (void)removeLanguages:(id)languages;
 + (void)selfLoggingEventWithData:(id)data;
@@ -30,6 +33,7 @@
 + (void)selfLoggingInvocationStartedWithData:(id)data invocationStartedTier1Data:(id)tier1Data;
 + (void)selfLoggingLanguageIdentificationCompletedWithLIDData:(id)data;
 + (void)setLanguageAssets:(id)assets options:(unint64_t)options progress:(id)progress completion:(id)completion;
++ (void)shouldPresentSystemFirstUseConsentWithDedicatedMachPort:(BOOL)port completion:(id)completion;
 + (void)task:(int64_t)task isSupportedInCountry:(id)country completion:(id)completion;
 + (void)taskIsSupportedInCurrentRegion:(int64_t)region completion:(id)completion;
 + (void)textStreamingConfigurationWithCompletion:(id)completion;
@@ -75,6 +79,25 @@
   v4 = _Block_copy(handler);
 
   return v4;
+}
+
++ (void)onDeviceModeEnabledWithDedicatedMachPort:(BOOL)port completion:(id)completion
+{
+  portCopy = port;
+  completionCopy = completion;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __69___LTTranslator_onDeviceModeEnabledWithDedicatedMachPort_completion___block_invoke;
+  v9[3] = &unk_278B6DE78;
+  v11 = portCopy;
+  v10 = completionCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __69___LTTranslator_onDeviceModeEnabledWithDedicatedMachPort_completion___block_invoke_7;
+  v7[3] = &unk_278B6DEC8;
+  v8 = v10;
+  v6 = v10;
+  [_LTTranslator _getTextServiceProxyWithDelegate:0 useDedicatedTextMachPort:portCopy errorHandler:v9 block:v7];
 }
 
 + (void)languageAssetsWithOptions:(unint64_t)options completion:(id)completion
@@ -343,6 +366,26 @@
   [_LTTranslator _getServiceProxyWithDelegate:v8 errorHandler:v12 block:v10];
 }
 
++ (void)availableLocalePairsForTask:(int64_t)task useDedicatedMachPort:(BOOL)port completion:(id)completion
+{
+  portCopy = port;
+  completionCopy = completion;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __77___LTTranslator_availableLocalePairsForTask_useDedicatedMachPort_completion___block_invoke;
+  v12[3] = &unk_278B6DE78;
+  v14 = portCopy;
+  v13 = completionCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __77___LTTranslator_availableLocalePairsForTask_useDedicatedMachPort_completion___block_invoke_40;
+  v9[3] = &unk_278B6E078;
+  v10 = v13;
+  taskCopy = task;
+  v8 = v13;
+  [_LTTranslator _getTextServiceProxyWithDelegate:0 useDedicatedTextMachPort:portCopy errorHandler:v12 block:v9];
+}
+
 + (void)additionalLikelyPreferredLocalesForLocale:(id)locale completion:(id)completion
 {
   localeCopy = locale;
@@ -401,6 +444,43 @@
   v6 = v8;
   v4 = v8;
   [_LTTranslator _getServiceProxyWithDelegate:0 errorHandler:v7 block:v5];
+}
+
++ (void)shouldPresentSystemFirstUseConsentWithDedicatedMachPort:(BOOL)port completion:(id)completion
+{
+  portCopy = port;
+  completionCopy = completion;
+  mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
+  infoDictionary = [mainBundle infoDictionary];
+  v8 = [infoDictionary objectForKeyedSubscript:*MEMORY[0x277CBED38]];
+
+  v9 = [v8 isEqualToString:@"com.apple.Translate"];
+  if (v9)
+  {
+    v11 = _LTOSLogOnboarding(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_23AAF5000, v11, OS_LOG_TYPE_INFO, "Not showing first-use consent because it's running in the Translate app", buf, 2u);
+    }
+
+    completionCopy[2](completionCopy, 0);
+  }
+
+  else
+  {
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __84___LTTranslator_shouldPresentSystemFirstUseConsentWithDedicatedMachPort_completion___block_invoke;
+    v14[3] = &unk_278B6DBE8;
+    v15 = completionCopy;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __84___LTTranslator_shouldPresentSystemFirstUseConsentWithDedicatedMachPort_completion___block_invoke_47;
+    v12[3] = &unk_278B6DEC8;
+    v13 = v15;
+    [_LTTranslator _getTextServiceProxyWithDelegate:0 useDedicatedTextMachPort:portCopy errorHandler:v14 block:v12];
+  }
 }
 
 + (void)taskIsSupportedInCurrentRegion:(int64_t)region completion:(id)completion
@@ -513,48 +593,72 @@
   [_LTTranslator _getServiceProxyWithDelegate:0 errorHandler:v12 block:v9];
 }
 
++ (void)languagesForText:(id)text usingModel:(unint64_t)model strategy:(unint64_t)strategy useDedicatedTextMachPort:(BOOL)port completion:(id)completion
+{
+  portCopy = port;
+  textCopy = text;
+  completionCopy = completion;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __90___LTTranslator_languagesForText_usingModel_strategy_useDedicatedTextMachPort_completion___block_invoke;
+  v20[3] = &unk_278B6DE78;
+  v22 = portCopy;
+  v21 = completionCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __90___LTTranslator_languagesForText_usingModel_strategy_useDedicatedTextMachPort_completion___block_invoke_64;
+  v15[3] = &unk_278B6E230;
+  modelCopy = model;
+  strategyCopy = strategy;
+  v16 = textCopy;
+  v17 = v21;
+  v13 = v21;
+  v14 = textCopy;
+  [_LTTranslator _getTextServiceProxyWithDelegate:0 useDedicatedTextMachPort:portCopy errorHandler:v20 block:v15];
+}
+
 + (void)_getServiceProxyWithDelegate:(id)delegate errorHandler:(id)handler block:(id)block
 {
   delegateCopy = delegate;
   handlerCopy = handler;
   blockCopy = block;
-  v10 = _LTOSLogXPC();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = _LTOSLogXPC(blockCopy, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_23AAF5000, v10, OS_LOG_TYPE_INFO, "Creating service proxy", buf, 2u);
+    _os_log_impl(&dword_23AAF5000, v11, OS_LOG_TYPE_INFO, "Creating service proxy", buf, 2u);
   }
 
-  v11 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.translationd" options:0];
-  v12 = _LTTranslationServiceXPCInterface();
-  [v11 setRemoteObjectInterface:v12];
+  v12 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.translationd" options:0];
+  v13 = _LTTranslationServiceXPCInterface();
+  [v12 setRemoteObjectInterface:v13];
 
   if (delegateCopy)
   {
-    [v11 setExportedObject:delegateCopy];
-    v13 = _LTTranslationServiceDelegateXPCInterface();
-    [v11 setExportedInterface:v13];
+    [v12 setExportedObject:delegateCopy];
+    v14 = _LTTranslationServiceDelegateXPCInterface();
+    [v12 setExportedInterface:v14];
   }
 
-  [v11 setInterruptionHandler:internalInterruptionHandler];
-  [v11 resume];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __65___LTTranslator__getServiceProxyWithDelegate_errorHandler_block___block_invoke;
-  v21[3] = &unk_278B6E258;
-  v14 = v11;
-  v22 = v14;
-  v23 = handlerCopy;
-  v15 = handlerCopy;
-  v16 = [v14 remoteObjectProxyWithErrorHandler:v21];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __65___LTTranslator__getServiceProxyWithDelegate_errorHandler_block___block_invoke_70;
-  v19[3] = &unk_278B6CEE8;
-  v20 = v14;
-  v17 = blockCopy[2];
-  v18 = v14;
-  v17(blockCopy, v16, v19);
+  [v12 setInterruptionHandler:internalInterruptionHandler];
+  [v12 resume];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __65___LTTranslator__getServiceProxyWithDelegate_errorHandler_block___block_invoke;
+  v22[3] = &unk_278B6E258;
+  v15 = v12;
+  v23 = v15;
+  v24 = handlerCopy;
+  v16 = handlerCopy;
+  v17 = [v15 remoteObjectProxyWithErrorHandler:v22];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __65___LTTranslator__getServiceProxyWithDelegate_errorHandler_block___block_invoke_70;
+  v20[3] = &unk_278B6CEE8;
+  v21 = v15;
+  v18 = blockCopy[2];
+  v19 = v15;
+  v18(blockCopy, v17, v20);
 }
 
 + (void)_getTextServiceProxyWithDelegate:(id)delegate useDedicatedTextMachPort:(BOOL)port errorHandler:(id)handler block:(id)block
@@ -563,52 +667,52 @@
   delegateCopy = delegate;
   handlerCopy = handler;
   blockCopy = block;
-  v12 = _LTOSLogXPC();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v13 = _LTOSLogXPC(blockCopy, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_23AAF5000, v12, OS_LOG_TYPE_INFO, "Creating text-only service proxy", buf, 2u);
+    _os_log_impl(&dword_23AAF5000, v13, OS_LOG_TYPE_INFO, "Creating text-only service proxy", buf, 2u);
   }
 
-  v13 = @"com.apple.translationd";
+  v14 = @"com.apple.translationd";
   if (portCopy)
   {
-    v13 = @"com.apple.translation.text";
+    v14 = @"com.apple.translation.text";
   }
 
-  v14 = MEMORY[0x277CCAE80];
-  v15 = v13;
-  v16 = [[v14 alloc] initWithMachServiceName:v15 options:0];
+  v15 = MEMORY[0x277CCAE80];
+  v16 = v14;
+  v17 = [[v15 alloc] initWithMachServiceName:v16 options:0];
 
-  v17 = _LTTextTranslationServiceXPCInterface();
-  [v16 setRemoteObjectInterface:v17];
+  v18 = _LTTextTranslationServiceXPCInterface();
+  [v17 setRemoteObjectInterface:v18];
 
   if (delegateCopy)
   {
-    [v16 setExportedObject:delegateCopy];
-    v18 = _LTTranslationServiceDelegateXPCInterface();
-    [v16 setExportedInterface:v18];
+    [v17 setExportedObject:delegateCopy];
+    v19 = _LTTranslationServiceDelegateXPCInterface();
+    [v17 setExportedInterface:v19];
   }
 
-  [v16 setInterruptionHandler:internalInterruptionHandler];
-  [v16 resume];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __94___LTTranslator__getTextServiceProxyWithDelegate_useDedicatedTextMachPort_errorHandler_block___block_invoke;
-  v26[3] = &unk_278B6E258;
-  v19 = v16;
-  v27 = v19;
-  v28 = handlerCopy;
-  v20 = handlerCopy;
-  v21 = [v19 remoteObjectProxyWithErrorHandler:v26];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __94___LTTranslator__getTextServiceProxyWithDelegate_useDedicatedTextMachPort_errorHandler_block___block_invoke_74;
-  v24[3] = &unk_278B6CEE8;
-  v25 = v19;
-  v22 = blockCopy[2];
-  v23 = v19;
-  v22(blockCopy, v21, v24);
+  [v17 setInterruptionHandler:internalInterruptionHandler];
+  [v17 resume];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __94___LTTranslator__getTextServiceProxyWithDelegate_useDedicatedTextMachPort_errorHandler_block___block_invoke;
+  v27[3] = &unk_278B6E258;
+  v20 = v17;
+  v28 = v20;
+  v29 = handlerCopy;
+  v21 = handlerCopy;
+  v22 = [v20 remoteObjectProxyWithErrorHandler:v27];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __94___LTTranslator__getTextServiceProxyWithDelegate_useDedicatedTextMachPort_errorHandler_block___block_invoke_74;
+  v25[3] = &unk_278B6CEE8;
+  v26 = v20;
+  v23 = blockCopy[2];
+  v24 = v20;
+  v23(blockCopy, v22, v25);
 }
 
 + (void)_getSyncServiceProxyWithDelegate:(id)delegate errorHandler:(id)handler block:(id)block
@@ -616,38 +720,38 @@
   delegateCopy = delegate;
   handlerCopy = handler;
   blockCopy = block;
-  v10 = _LTOSLogXPC();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = _LTOSLogXPC(blockCopy, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_23AAF5000, v10, OS_LOG_TYPE_INFO, "Creating SYNC service proxy", buf, 2u);
+    _os_log_impl(&dword_23AAF5000, v11, OS_LOG_TYPE_INFO, "Creating SYNC service proxy", buf, 2u);
   }
 
-  v11 = [objc_alloc(MEMORY[0x277CCAE80]) initWithServiceName:@"com.apple.translationd" options:0];
-  v12 = _LTTranslationServiceXPCInterface();
-  [v11 setRemoteObjectInterface:v12];
+  v12 = [objc_alloc(MEMORY[0x277CCAE80]) initWithServiceName:@"com.apple.translationd" options:0];
+  v13 = _LTTranslationServiceXPCInterface();
+  [v12 setRemoteObjectInterface:v13];
 
   if (delegateCopy)
   {
-    [v11 setExportedObject:delegateCopy];
-    v13 = _LTTranslationServiceDelegateXPCInterface();
-    [v11 setExportedInterface:v13];
+    [v12 setExportedObject:delegateCopy];
+    v14 = _LTTranslationServiceDelegateXPCInterface();
+    [v12 setExportedInterface:v14];
   }
 
-  [v11 setInterruptionHandler:internalInterruptionHandler];
-  [v11 resume];
-  v17 = MEMORY[0x277D85DD0];
-  v18 = 3221225472;
-  v19 = __69___LTTranslator__getSyncServiceProxyWithDelegate_errorHandler_block___block_invoke;
-  v20 = &unk_278B6E258;
-  v21 = v11;
-  v22 = handlerCopy;
-  v14 = handlerCopy;
-  v15 = v11;
-  v16 = [v15 synchronousRemoteObjectProxyWithErrorHandler:&v17];
-  blockCopy[2](blockCopy, v16);
+  [v12 setInterruptionHandler:internalInterruptionHandler];
+  [v12 resume];
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = __69___LTTranslator__getSyncServiceProxyWithDelegate_errorHandler_block___block_invoke;
+  v21 = &unk_278B6E258;
+  v22 = v12;
+  v23 = handlerCopy;
+  v15 = handlerCopy;
+  v16 = v12;
+  v17 = [v16 synchronousRemoteObjectProxyWithErrorHandler:&v18];
+  blockCopy[2](blockCopy, v17);
 
-  [v15 invalidate];
+  [v16 invalidate];
 }
 
 - (void)preheatForRequestSync:(id)sync
@@ -684,7 +788,7 @@
 
 - (void)cleanup
 {
-  v2 = _LTOSLogXPC();
+  v2 = _LTOSLogXPC(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v3 = 0;
@@ -697,81 +801,81 @@
 - (void)translate:(id)translate useDedicatedTextMachPort:(BOOL)port
 {
   portCopy = port;
-  v24 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   translateCopy = translate;
-  v6 = _LTOSLogXPC();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = _LTOSLogXPC(translateCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    v23 = portCopy;
-    _os_log_impl(&dword_23AAF5000, v6, OS_LOG_TYPE_INFO, "Starting translation for request (using dedicated text mach port = %{BOOL}i)", buf, 8u);
+    v25 = portCopy;
+    _os_log_impl(&dword_23AAF5000, v7, OS_LOG_TYPE_INFO, "Starting translation for request (using dedicated text mach port = %{BOOL}i)", buf, 8u);
   }
 
   serviceDelegate = [translateCopy serviceDelegate];
   if (portCopy)
   {
-    if ([translateCopy _canUseTextService])
+    _canUseTextService = [translateCopy _canUseTextService];
+    if (_canUseTextService)
     {
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __52___LTTranslator_translate_useDedicatedTextMachPort___block_invoke;
+      v22[3] = &unk_278B6E2C8;
+      v23 = translateCopy;
       v20[0] = MEMORY[0x277D85DD0];
       v20[1] = 3221225472;
-      v20[2] = __52___LTTranslator_translate_useDedicatedTextMachPort___block_invoke;
-      v20[3] = &unk_278B6E2C8;
-      v21 = translateCopy;
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __52___LTTranslator_translate_useDedicatedTextMachPort___block_invoke_93;
-      v18[3] = &unk_278B6E2F0;
-      v19 = v21;
-      [_LTTranslator _getTextServiceProxyWithDelegate:serviceDelegate useDedicatedTextMachPort:1 errorHandler:v20 block:v18];
+      v20[2] = __52___LTTranslator_translate_useDedicatedTextMachPort___block_invoke_93;
+      v20[3] = &unk_278B6E2F0;
+      v21 = v23;
+      [_LTTranslator _getTextServiceProxyWithDelegate:serviceDelegate useDedicatedTextMachPort:1 errorHandler:v22 block:v20];
 
-      mainBundle = v21;
+      mainBundle = v23;
     }
 
     else
     {
-      v9 = _LTOSLogXPC();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v12 = _LTOSLogXPC(_canUseTextService, v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [_LTTranslator translate:v9 useDedicatedTextMachPort:?];
+        [_LTTranslator translate:v12 useDedicatedTextMachPort:?];
       }
 
-      v10 = MEMORY[0x277CCA9B8];
+      v13 = MEMORY[0x277CCA9B8];
       mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
-      v11 = [mainBundle localizedStringForKey:@"CLIENT_REQUIRES_TEXT_SERVICE_ERROR_DESCRIPTION" value:&stru_284DBB9B8 table:0];
-      v12 = [v10 lt_errorWithCode:17 description:v11 userInfo:0];
-      [translateCopy _translationFailedWithError:v12];
+      v14 = [mainBundle localizedStringForKey:@"CLIENT_REQUIRES_TEXT_SERVICE_ERROR_DESCRIPTION" value:&stru_284DBB9B8 table:0];
+      v15 = [v13 lt_errorWithCode:17 description:v14 userInfo:0];
+      [translateCopy _translationFailedWithError:v15];
     }
   }
 
   else
   {
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __52___LTTranslator_translate_useDedicatedTextMachPort___block_invoke_2;
+    v18[3] = &unk_278B6E2C8;
+    v19 = translateCopy;
     v16[0] = MEMORY[0x277D85DD0];
     v16[1] = 3221225472;
-    v16[2] = __52___LTTranslator_translate_useDedicatedTextMachPort___block_invoke_2;
-    v16[3] = &unk_278B6E2C8;
-    v17 = translateCopy;
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __52___LTTranslator_translate_useDedicatedTextMachPort___block_invoke_94;
-    v14[3] = &unk_278B6DF60;
-    v15 = v17;
-    [_LTTranslator _getServiceProxyWithDelegate:serviceDelegate errorHandler:v16 block:v14];
+    v16[2] = __52___LTTranslator_translate_useDedicatedTextMachPort___block_invoke_94;
+    v16[3] = &unk_278B6DF60;
+    v17 = v19;
+    [_LTTranslator _getServiceProxyWithDelegate:serviceDelegate errorHandler:v18 block:v16];
 
-    mainBundle = v17;
+    mainBundle = v19;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)log:(id)log
 {
-  v8 = 0;
-  v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:log requiringSecureCoding:1 error:&v8];
-  v4 = v8;
+  v10 = 0;
+  v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:log requiringSecureCoding:1 error:&v10];
+  v4 = v10;
+  v6 = v4;
   if (v4)
   {
-    v5 = _LTOSLogXPC();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = _LTOSLogXPC(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [_LTTranslator log:];
     }
@@ -779,12 +883,12 @@
 
   else
   {
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __21___LTTranslator_log___block_invoke_98;
-    v6[3] = &unk_278B6DF60;
-    v7 = v3;
-    [_LTTranslator _getServiceProxyWithDelegate:0 errorHandler:&__block_literal_global_97 block:v6];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __21___LTTranslator_log___block_invoke_98;
+    v8[3] = &unk_278B6DF60;
+    v9 = v3;
+    [_LTTranslator _getServiceProxyWithDelegate:0 errorHandler:&__block_literal_global_97 block:v8];
   }
 }
 
@@ -906,14 +1010,6 @@
   v6 = stateCopy;
   v4 = stateCopy;
   [_LTTranslator _getServiceProxyWithDelegate:0 errorHandler:&__block_literal_global_107 block:v5];
-}
-
-- (void)log:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_23AAF5000, v0, v1, "Failed to serialize logging request: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

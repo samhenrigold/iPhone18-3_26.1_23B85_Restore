@@ -353,7 +353,7 @@ LABEL_10:
         v30 = layer;
         if (layer)
         {
-          [layer transform];
+          objc_msgSend_transform(layer);
         }
 
         else
@@ -479,7 +479,7 @@ LABEL_10:
   v9 = [MEMORY[0x1E696AD08] localizedStringByJoiningStrings:v8];
   v10 = [v8 count];
   v11 = MEMORY[0x1E696AEC0];
-  v12 = CKFrameworkBundle();
+  v12 = CKFrameworkBundle(v10);
   v13 = v12;
   if (v10 <= 1)
   {

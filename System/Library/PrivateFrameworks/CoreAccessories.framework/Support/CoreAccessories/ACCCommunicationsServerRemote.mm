@@ -301,4 +301,25 @@
   platform_communications_listUpdate(type, updateCopy, coalescedCopy);
 }
 
+- (void)callStateDidChange:(uint64_t)a3 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_8(&_mh_execute_header, a2, a3, "[#Communications] callState: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)commStatusDidChange:(uint64_t)a3 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_8(&_mh_execute_header, a2, a3, "[#Communications] commStatus: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)listUpdate:(uint64_t)a3 forType:(uint64_t)a4 coalesced:(uint64_t)a5 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_8(&_mh_execute_header, a2, a3, "[#Communications] list: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 @end

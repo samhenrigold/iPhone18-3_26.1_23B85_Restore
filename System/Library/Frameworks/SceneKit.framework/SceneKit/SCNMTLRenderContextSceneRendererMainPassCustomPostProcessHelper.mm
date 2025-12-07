@@ -34,7 +34,7 @@
 {
   if ((self->_currentPass[2].var4.var0 & 1) == 0)
   {
-    v9 = scn_default_log();
+    v9 = scn_default_log(self, a2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       [SCNMTLRenderContextSceneRendererMainPassCustomPostProcessHelper drawSceneBackgroundUsingEncoder:v9 commandBuffer:? renderPassDescriptor:?];
@@ -51,17 +51,17 @@
     return 0;
   }
 
-  v6.receiver = context;
-  v6.super_class = SCNMTLRenderContextSceneRendererMainPassCustomPostProcessHelper;
-  v3 = objc_msgSendSuper2(&v6, sel_init);
-  v4 = v3;
+  v7.receiver = context;
+  v7.super_class = SCNMTLRenderContextSceneRendererMainPassCustomPostProcessHelper;
+  v3 = objc_msgSendSuper2(&v7, sel_init);
+  v5 = v3;
   if (v3)
   {
     v3[1] = a2;
-    v3[2] = C3DEngineContextGetRenderContext(a2);
+    v3[2] = C3DEngineContextGetRenderContext(a2, v4);
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)drawSceneBackgroundUsingEncoder:(os_log_t)log commandBuffer:renderPassDescriptor:.cold.1(os_log_t log)

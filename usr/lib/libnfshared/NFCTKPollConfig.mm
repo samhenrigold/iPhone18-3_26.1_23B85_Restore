@@ -43,61 +43,57 @@
 
 - (BOOL)_validate
 {
-  v23 = *MEMORY[0x277D85DE8];
-  if (objc_msgSend_count(self->_appletIdentifiers, a2, v2))
+  v22 = *MEMORY[0x277D85DE8];
+  if (!objc_msgSend_count(self->_appletIdentifiers, a2, v2))
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    v4 = self->_appletIdentifiers;
-    v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v18, v22, 16);
-    if (v6)
+    return 0;
+  }
+
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v4 = self->_appletIdentifiers;
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v17, v21, 16);
+  if (v6)
+  {
+    v9 = v6;
+    v10 = *v18;
+    while (2)
     {
-      v9 = v6;
-      v10 = *v19;
-      while (2)
+      for (i = 0; i != v9; ++i)
       {
-        for (i = 0; i != v9; ++i)
+        if (*v18 != v10)
         {
-          if (*v19 != v10)
-          {
-            objc_enumerationMutation(v4);
-          }
-
-          v12 = *(*(&v18 + 1) + 8 * i);
-          if (objc_msgSend_length(v12, v7, v8, v18) < 5 || objc_msgSend_length(v12, v13, v14) > 0x10)
-          {
-            v15 = 0;
-            goto LABEL_15;
-          }
+          objc_enumerationMutation(v4);
         }
 
-        v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v18, v22, 16);
-        v15 = 1;
-        if (v9)
+        v12 = *(*(&v17 + 1) + 8 * i);
+        if (objc_msgSend_length(v12, v7, v8, v17) < 5 || objc_msgSend_length(v12, v13, v14) > 0x10)
         {
-          continue;
+          v15 = 0;
+          goto LABEL_15;
         }
-
-        break;
       }
-    }
 
-    else
-    {
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v17, v21, 16);
       v15 = 1;
-    }
+      if (v9)
+      {
+        continue;
+      }
 
-LABEL_15:
+      break;
+    }
   }
 
   else
   {
-    v15 = 0;
+    v15 = 1;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
+LABEL_15:
+
   return v15;
 }
 

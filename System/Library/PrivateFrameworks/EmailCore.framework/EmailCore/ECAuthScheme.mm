@@ -26,37 +26,35 @@
 
 + (NSArray)knownSchemes
 {
-  v15[10] = *MEMORY[0x277D85DE8];
-  v14 = +[ECExternalAuthScheme externalAuthScheme];
-  v15[0] = v14;
+  v14[10] = *MEMORY[0x277D85DE8];
+  v13 = +[ECExternalAuthScheme externalAuthScheme];
+  v14[0] = v13;
   v2 = +[ECGSSAPIAuthScheme gssapiAuthScheme];
-  v15[1] = v2;
+  v14[1] = v2;
   v3 = +[ECAppleTokenAuthScheme appleTokenAuthScheme];
-  v15[2] = v3;
+  v14[2] = v3;
   v4 = +[ECAppleToken2AuthScheme appleToken2AuthScheme];
-  v15[3] = v4;
+  v14[3] = v4;
   v5 = +[ECOAuth2AuthScheme oauth2AuthScheme];
-  v15[4] = v5;
+  v14[4] = v5;
   v6 = +[ECNTLMAuthScheme ntlmAuthScheme];
-  v15[5] = v6;
+  v14[5] = v6;
   v7 = +[ECDigestMD5AuthScheme digestMD5AuthScheme];
-  v15[6] = v7;
+  v14[6] = v7;
   v8 = +[ECCramMD5AuthScheme cramMD5AuthScheme];
-  v15[7] = v8;
+  v14[7] = v8;
   v9 = +[ECAPOPAuthScheme apopAuthScheme];
-  v15[8] = v9;
+  v14[8] = v9;
   v10 = +[ECPlainAuthScheme plainAuthScheme];
-  v15[9] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:10];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[9] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:10];
 
   return v11;
 }
 
 + (id)schemeWithName:(id)name
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v5 = nameCopy;
   if (!nameCopy || [nameCopy isEqualToString:&stru_284041D88])
@@ -121,36 +119,36 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   knownSchemes = [self knownSchemes];
-  v7 = [knownSchemes countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [knownSchemes countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
-    v11 = *v17;
+    v10 = *v16;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v17 != v11)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(knownSchemes);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
-        supportedSASLMechanisms = [v13 supportedSASLMechanisms];
-        v15 = [supportedSASLMechanisms containsObject:v5];
+        v12 = *(*(&v15 + 1) + 8 * i);
+        supportedSASLMechanisms = [v12 supportedSASLMechanisms];
+        v14 = [supportedSASLMechanisms containsObject:v5];
 
-        if (v15)
+        if (v14)
         {
-          v7 = v13;
+          v7 = v12;
           goto LABEL_36;
         }
       }
 
-      v7 = [knownSchemes countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [knownSchemes countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -163,7 +161,6 @@ LABEL_4:
 LABEL_36:
 
 LABEL_5:
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

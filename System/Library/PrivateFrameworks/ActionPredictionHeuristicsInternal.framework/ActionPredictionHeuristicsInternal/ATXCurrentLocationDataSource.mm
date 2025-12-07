@@ -22,7 +22,7 @@
 
 - (void)obtainOneTimeLocationWithCallback:(id)callback
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   if (ATXHeuristicCanLearnFromApp(&unk_2850BA308))
   {
@@ -35,17 +35,17 @@
 
       if (getCurrentLocation)
       {
-        v17[0] = @"lat";
+        v16[0] = @"lat";
         v8 = MEMORY[0x277CCABB0];
         [getCurrentLocation coordinate];
         v9 = [v8 numberWithDouble:?];
-        v17[1] = @"lon";
-        v18[0] = v9;
+        v16[1] = @"lon";
+        v17[0] = v9;
         v10 = MEMORY[0x277CCABB0];
         [getCurrentLocation coordinate];
         v12 = [v10 numberWithDouble:v11];
-        v18[1] = v12;
-        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+        v17[1] = v12;
+        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
 
         callbackCopy[2](callbackCopy, v13, 0);
       }
@@ -74,8 +74,6 @@
   {
     callbackCopy[2](callbackCopy, MEMORY[0x277CBEC10], 0);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

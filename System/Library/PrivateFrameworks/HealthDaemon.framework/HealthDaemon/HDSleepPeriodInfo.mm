@@ -14,15 +14,15 @@
   v11 = [(HDSleepPeriodInfo *)&v19 init];
   if (v11)
   {
-    v12 = [schedulesCopy copy];
+    v12 = objc_msgSend_copy(schedulesCopy);
     userSetSchedules = v11->_userSetSchedules;
     v11->_userSetSchedules = v12;
 
-    v14 = [sessionsCopy copy];
+    v14 = objc_msgSend_copy(sessionsCopy);
     incompleteSessions = v11->_incompleteSessions;
     v11->_incompleteSessions = v14;
 
-    v16 = [timezonesCopy copy];
+    v16 = objc_msgSend_copy(timezonesCopy);
     mappedTimezones = v11->_mappedTimezones;
     v11->_mappedTimezones = v16;
   }

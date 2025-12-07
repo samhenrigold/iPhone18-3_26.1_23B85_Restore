@@ -76,7 +76,7 @@
 
   [v5 removeObject:@"/"];
   scheme = [v15 scheme];
-  if (([scheme isEqualToString:@"http"] & 1) != 0 || objc_msgSend(scheme, "isEqualToString:", @"https"))
+  if ((objc_msgSend_isEqualToString_(scheme) & 1) != 0 || objc_msgSend_isEqualToString_(scheme))
   {
     firstObject = [v5 firstObject];
     v8 = 1;
@@ -104,7 +104,7 @@
   subAction = self->_subAction;
   self->_subAction = v10;
 
-  if ([(NSString *)self->_action isEqualToString:@"x-callback-url"])
+  if (objc_msgSend_isEqualToString_(self->_action))
   {
     self->_callbackRequest = 1;
     objc_storeStrong(&self->_action, self->_subAction);

@@ -3,6 +3,7 @@
 - (BOOL)_pairVerifyVerifySignature:(id)signature data:(id)data flags:(unsigned int)flags error:(id *)error;
 - (BOOL)_receivedSystemInfo:(id)info xid:(id)xid;
 - (BOOL)_serverPairingAllowed;
+- (BOOL)containsInUseProcess:(int)process;
 - (RPConnection)init;
 - (id)_allowedMACAddressesForMCFeature:(id)feature;
 - (id)_getCurrentProcessName;
@@ -22,6 +23,7 @@
 - (void)_clientConnectStartTCP;
 - (void)_clientNetworkError:(id)error label:(const char *)label;
 - (void)_clientPairSetupCompleted:(id)completed;
+- (void)_clientPairSetupPromptWithFlags:(unsigned int)flags throttleSeconds:(int)seconds handler:(id)handler;
 - (void)_clientPairSetupStart;
 - (void)_clientPairSetupWithData:(id)data;
 - (void)_clientPairVerifyCompleted:(id)completed;
@@ -51,6 +53,7 @@
 - (void)_pairSetupInvalidate;
 - (void)_pairVerifyInvalidate;
 - (void)_processSends;
+- (void)_pskPrepare:(BOOL)prepare;
 - (void)_receiveCompletion:(id)completion readFrame:(id *)frame requestable:(id)requestable;
 - (void)_receiveStart:(id)start readFrame:(id *)frame requestable:(id)requestable;
 - (void)_receivedEvent:(id)event ctx:(id *)ctx;
@@ -60,7 +63,11 @@
 - (void)_receivedRequest:(id)request ctx:(id *)ctx;
 - (void)_receivedResponse:(id)response ctx:(id *)ctx;
 - (void)_run;
+- (void)_sendEncryptedEventID:(id)d data:(id)data xid:(unsigned int)xid options:(id)options completion:(id)completion;
+- (void)_sendEncryptedRequestID:(id)d request:(id)request xpcID:(unsigned int)iD options:(id)options sendEntry:(id)entry responseHandler:(id)handler;
 - (void)_sendEncryptedResponse:(id)response options:(id)options error:(id)error xid:(id)xid requestID:(id)d highPriority:(BOOL)priority isChatty:(BOOL)chatty replyStartTime:(id)self0;
+- (void)_sendFrameType:(unsigned __int8)type body:(id)body;
+- (void)_sendFrameType:(unsigned __int8)type unencryptedObject:(id)object;
 - (void)_serverAccept;
 - (void)_serverAcceptBLE;
 - (void)_serverAcceptBTPipe;
@@ -79,13 +86,17 @@
 - (void)_updateExternalState;
 - (void)_updateLinkInfo;
 - (void)activate;
+- (void)addInUseProcess:(int)process;
 - (void)dealloc;
 - (void)homeKitIdentityUpdated;
 - (void)invalidate;
 - (void)invalidateWithError:(id)error;
 - (void)processSendsUsingConnection:(id)connection;
+- (void)removeInUseProcess:(int)process;
 - (void)sameAccountIdentityUpdated;
+- (void)sendEncryptedEventID:(id)d data:(id)data xid:(unsigned int)xid options:(id)options completion:(id)completion;
 - (void)sendEncryptedEventID:(id)d event:(id)event options:(id)options completion:(id)completion;
+- (void)sendEncryptedRequestID:(id)d request:(id)request xpcID:(unsigned int)iD options:(id)options responseHandler:(id)handler;
 - (void)sendReachabilityProbe:(const char *)probe;
 - (void)setFlowControlReadEnabled:(BOOL)enabled;
 - (void)setLabel:(id)label;
@@ -110,14 +121,15 @@
   {
     if (self->_identityKeyData && self->_identitySignature)
     {
-      v14 = v3;
+      v12 = v3;
       v5 = ([RPIdentityDaemon resolveIdentityTypesForSignature:v3 data:"resolveIdentityTypesForSignature:data:typeFlags:" typeFlags:?]<< 18) & 0x80000;
       [(RPEndpoint *)self->_peerDeviceInfo setStatusFlags:[(RPEndpoint *)self->_peerDeviceInfo statusFlags]| v5];
-      self->_statusFlags |= v5;
-      var0 = self->_ucat->var0;
-      if (var0 <= 30)
+      statusFlags = self->_statusFlags | v5;
+      self->_statusFlags = statusFlags;
+      ucat = self->_ucat;
+      if (ucat->var0 <= 30)
       {
-        if (var0 == -1)
+        if (ucat->var0 == -1)
         {
           if (!_LogCategory_Initialize())
           {
@@ -128,7 +140,7 @@
           statusFlags = self->_statusFlags;
         }
 
-        LogPrintF();
+        LogPrintF(ucat, "[RPConnection sameAccountIdentityUpdated]", 30, "SA Identity Update: adding %#ll{flags}, now status flags %#ll{flags}\n", v5, &unk_1B6F2DEF3, statusFlags, &unk_1B6F2DEF3);
       }
 
 LABEL_18:
@@ -142,24 +154,24 @@ LABEL_18:
       goto LABEL_21;
     }
 
-    v7 = self->_ucat->var0;
-    if (v7 <= 30)
+    v8 = self->_ucat;
+    if (v8->var0 <= 30)
     {
-      v14 = v3;
-      if (v7 != -1)
+      v12 = v4;
+      if (v8->var0 != -1)
       {
 LABEL_14:
-        LogPrintF();
+        LogPrintF(v8, "[RPConnection sameAccountIdentityUpdated]", 30, "SA Identity Update: nothing to verify\n");
 LABEL_21:
-        v4 = v14;
+        v4 = v12;
         goto LABEL_22;
       }
 
-      v8 = _LogCategory_Initialize();
-      v4 = v14;
-      if (v8)
+      v9 = _LogCategory_Initialize();
+      v4 = v12;
+      if (v9)
       {
-        v9 = self->_ucat;
+        v8 = self->_ucat;
         goto LABEL_14;
       }
     }
@@ -220,62 +232,77 @@ LABEL_22:
 
 - (id)descriptionWithLevel:(int)level
 {
-  v138 = *MEMORY[0x1E69E9840];
-  v5 = self->_peerDeviceInfo;
-  v6 = shouldPrintSensitiveData();
-  v136 = 0;
-  self->_label;
-  NSAppendPrintF();
-  v135 = 0;
-  retryCount = _StateToString(self->_internalState);
-  NSAppendPrintF();
-  v7 = v135;
+  v176 = *MEMORY[0x1E69E9840];
+  if (level <= 49)
+  {
+    v5 = 100;
+  }
+
+  else
+  {
+    v5 = 8;
+  }
+
+  v6 = self->_peerDeviceInfo;
+  v8 = shouldPrintSensitiveData(v6, v7);
+  v174 = 0;
+  label = self->_label;
+  if (!label)
+  {
+    label = @"CLinkCnx-?";
+  }
+
+  NSAppendPrintF(&v174, "%@", label);
+  v10 = v174;
+  v173 = v10;
+  v11 = _StateToString(self->_internalState);
+  NSAppendPrintF(&v173, ", %s", v11);
+  v12 = v173;
 
   linkType = self->_linkType;
   if (linkType)
   {
-    v134 = v7;
+    v172 = v12;
     if (linkType > 0xB)
     {
-      v9 = "?";
+      v14 = "?";
     }
 
     else
     {
-      v9 = off_1E7C93DE8[linkType - 1];
+      v14 = off_1E7C93DE8[linkType - 1];
     }
 
-    retryCount = v9;
-    NSAppendPrintF();
-    v10 = v134;
+    NSAppendPrintF(&v172, ", LT %s", v14);
+    v15 = v172;
 
-    v7 = v10;
+    v12 = v15;
   }
 
   trafficFlags = self->_trafficFlags;
   if (trafficFlags)
   {
-    v133[1] = v7;
-    retryCount = trafficFlags;
-    v127 = &unk_1B6F2DBC8;
-    NSAppendPrintF();
-    v12 = v7;
+    v171 = v12;
+    NSAppendPrintF(&v171, ", TF %#{flags}", trafficFlags, &unk_1B6F2DBC8);
+    v17 = v171;
 
-    v7 = v12;
+    v12 = v17;
   }
 
   if (self->_pairVerifyCompleted)
   {
     if (self->_pairVerifyUsedIdentity)
     {
-      v133[0] = v7;
-      v13 = v133;
+      v170 = v12;
+      v18 = &v170;
+      NSAppendPrintF(&v170, ", PV-RPI");
     }
 
     else
     {
-      v132 = v7;
-      v13 = &v132;
+      v169 = v12;
+      v18 = &v169;
+      NSAppendPrintF(&v169, ", PV-HK");
     }
   }
 
@@ -283,119 +310,121 @@ LABEL_22:
   {
     if (!self->_mainStream)
     {
-      goto LABEL_15;
+      goto LABEL_20;
     }
 
-    v131 = v7;
-    v13 = &v131;
+    v168 = v12;
+    v18 = &v168;
+    NSAppendPrintF(&v168, ", PS");
   }
 
-  NSAppendPrintF();
-  v14 = *v13;
+  v19 = *v18;
 
-  v7 = v14;
-LABEL_15:
+  v12 = v19;
+LABEL_20:
   passwordType = self->_passwordType;
   if (passwordType)
   {
+    v167 = v12;
     if (passwordType > 0xB)
     {
-      v16 = "?";
+      v21 = "?";
     }
 
     else
     {
-      v16 = off_1E7C93E40[passwordType - 1];
+      v21 = off_1E7C93E40[passwordType - 1];
     }
 
-    retryCount = v16;
-    NSAppendPrintF();
-    v17 = v7;
+    NSAppendPrintF(&v167, ", PWType %s", v21);
+    v22 = v167;
 
-    v7 = v17;
+    v12 = v22;
   }
 
   pairVerifyAuthType = self->_pairVerifyAuthType;
   if (pairVerifyAuthType)
   {
+    v166 = v12;
     if (pairVerifyAuthType > 0xA)
     {
-      v19 = "?";
+      v24 = "?";
     }
 
     else
     {
-      v19 = off_1E7C93E98[pairVerifyAuthType - 1];
+      v24 = off_1E7C93E98[pairVerifyAuthType - 1];
     }
 
-    retryCount = v19;
-    NSAppendPrintF();
-    v20 = v7;
+    NSAppendPrintF(&v166, ", PVAuth %s", v24);
+    v25 = v166;
 
-    v7 = v20;
+    v12 = v25;
   }
 
-  if (self->_retryCount > 0)
+  retryCount = self->_retryCount;
+  if (retryCount > 0)
   {
-    retryCount = self->_retryCount;
-    NSAppendPrintF();
-    v21 = v7;
+    v165 = v12;
+    NSAppendPrintF(&v165, ", Retry %d", retryCount);
+    v27 = v165;
 
-    v7 = v21;
+    v12 = v27;
   }
 
-  v22 = self->_stepError;
-  v23 = v22;
-  if (v22)
+  v28 = self->_stepError;
+  v29 = v28;
+  if (v28)
   {
-    retryCount = v22;
-    NSAppendPrintF();
-    v24 = v7;
+    v164 = v12;
+    NSAppendPrintF(&v164, ", %{error}", v28);
+    v30 = v164;
 
-    v7 = v24;
+    v12 = v30;
   }
 
   inUseProcessesToString = [(RPConnection *)self inUseProcessesToString];
-  v26 = inUseProcessesToString;
+  v32 = inUseProcessesToString;
   if (inUseProcessesToString)
   {
-    controlFlags = inUseProcessesToString;
-    NSAppendPrintF();
-    v27 = v7;
+    v163 = v12;
+    NSAppendPrintF(&v163, ", Processes [ %@ ]", inUseProcessesToString);
+    v33 = v163;
 
-    v7 = v27;
+    v12 = v33;
   }
 
-  if (v6)
+  if (v8)
   {
+    v162 = v12;
     peerIdentifier = self->_peerIdentifier;
     if (peerIdentifier)
     {
-      v29 = 0;
+      v35 = 0;
       publicIdentifier = self->_peerIdentifier;
     }
 
     else
     {
-      identifier = [(RPEndpoint *)v5 identifier];
-      v26 = identifier;
+      identifier = [(RPEndpoint *)v6 identifier];
+      v32 = identifier;
       if (identifier)
       {
-        v29 = 0;
+        v35 = 0;
         publicIdentifier = identifier;
       }
 
       else
       {
-        publicIdentifier = [(RPCompanionLinkDevice *)v5 publicIdentifier];
-        v29 = 1;
+        publicIdentifier = [(RPCompanionLinkDevice *)v6 publicIdentifier];
+        v35 = 1;
       }
     }
 
-    NSAppendPrintF();
-    v32 = v7;
+    NSAppendPrintF(&v162, ", ID %@", publicIdentifier);
+    v38 = v162;
 
-    if (v29)
+    if (v35)
     {
     }
 
@@ -403,199 +432,157 @@ LABEL_15:
     {
     }
 
-    v33 = [(RPEndpoint *)v5 idsDeviceIdentifier:publicIdentifier];
-    v34 = v33;
-    if (v33)
+    idsDeviceIdentifier = [(RPEndpoint *)v6 idsDeviceIdentifier];
+    v40 = idsDeviceIdentifier;
+    if (idsDeviceIdentifier)
     {
-      v128 = v33;
-      NSAppendPrintF();
-      v35 = v32;
+      v161 = v38;
+      NSAppendPrintF(&v161, ", IDS '%.*@'", v5, idsDeviceIdentifier);
+      v41 = v161;
 
-      v32 = v35;
+      v38 = v41;
     }
 
-    name = [(RPEndpoint *)v5 name];
-    NSAppendPrintF();
-    v36 = v32;
+    v160 = v38;
+    name = [(RPEndpoint *)v6 name];
+    NSAppendPrintF(&v160, ", Nm '%@'", name);
+    v43 = v160;
 
-    model = [(RPEndpoint *)v5 model];
-    NSAppendPrintF();
-    v37 = v36;
+    v159 = v43;
+    model = [(RPEndpoint *)v6 model];
+    NSAppendPrintF(&v159, ", Md '%@'", model);
+    v45 = v159;
 
-    accountID = [(RPEndpoint *)v5 accountID];
-    NSAppendPrintF();
-    v7 = v37;
+    v158 = v45;
+    accountID = [(RPEndpoint *)v6 accountID];
+    NSAppendPrintF(&v158, ", AID '%@'", accountID);
+    v12 = v158;
 
-    v38 = self->_appID;
-    v39 = v38;
-    if (v38)
+    v47 = self->_appID;
+    v48 = v47;
+    if (v47)
     {
-      accountID = v38;
-      NSAppendPrintF();
-      v40 = v7;
+      v157 = v12;
+      NSAppendPrintF(&v157, ", AppID '%@'", v47);
+      v49 = v157;
 
-      v7 = v40;
+      v12 = v49;
     }
 
-    idsPersonalDeviceIdentifier = [(RPCompanionLinkDevice *)v5 idsPersonalDeviceIdentifier];
-    v42 = idsPersonalDeviceIdentifier;
+    idsPersonalDeviceIdentifier = [(RPCompanionLinkDevice *)v6 idsPersonalDeviceIdentifier];
+    v51 = idsPersonalDeviceIdentifier;
     if (idsPersonalDeviceIdentifier)
     {
-      v120 = idsPersonalDeviceIdentifier;
-      NSAppendPrintF();
-      v43 = v7;
+      v156 = v12;
+      NSAppendPrintF(&v156, ", IDP '%@'", idsPersonalDeviceIdentifier);
+      v52 = v156;
 
-      v7 = v43;
+      v12 = v52;
     }
 
-    homeKitIdentifier = [(RPCompanionLinkDevice *)v5 homeKitIdentifier];
-    v45 = homeKitIdentifier;
+    homeKitIdentifier = [(RPCompanionLinkDevice *)v6 homeKitIdentifier];
+    v54 = homeKitIdentifier;
     if (homeKitIdentifier)
     {
-      v120 = homeKitIdentifier;
-      NSAppendPrintF();
-      v46 = v7;
+      v155 = v12;
+      NSAppendPrintF(&v155, ", HKI '%@'", homeKitIdentifier);
+      v55 = v155;
 
-      v7 = v46;
+      v12 = v55;
     }
 
-    mediaRemoteIdentifier = [(RPEndpoint *)v5 mediaRemoteIdentifier];
-    v48 = mediaRemoteIdentifier;
+    mediaRemoteIdentifier = [(RPEndpoint *)v6 mediaRemoteIdentifier];
+    v57 = mediaRemoteIdentifier;
     if (mediaRemoteIdentifier)
     {
-      v120 = mediaRemoteIdentifier;
-      NSAppendPrintF();
-      v49 = v7;
+      v154 = v12;
+      NSAppendPrintF(&v154, ", MRI '%@'", mediaRemoteIdentifier);
+      v58 = v154;
 
-      v7 = v49;
+      v12 = v58;
     }
 
-    mediaRouteIdentifier = [(RPEndpoint *)v5 mediaRouteIdentifier];
-    v51 = mediaRouteIdentifier;
+    mediaRouteIdentifier = [(RPEndpoint *)v6 mediaRouteIdentifier];
+    v60 = mediaRouteIdentifier;
     if (mediaRouteIdentifier)
     {
-      v120 = mediaRouteIdentifier;
-      NSAppendPrintF();
-      v52 = v7;
+      v153 = v12;
+      NSAppendPrintF(&v153, ", MRtI '%@'", mediaRouteIdentifier);
+      v61 = v153;
 
-      v7 = v52;
+      v12 = v61;
     }
 
-    mediaSystemIdentifier = [(RPCompanionLinkDevice *)v5 mediaSystemIdentifier];
-    v54 = mediaSystemIdentifier;
+    mediaSystemIdentifier = [(RPCompanionLinkDevice *)v6 mediaSystemIdentifier];
+    v63 = mediaSystemIdentifier;
     if (mediaSystemIdentifier)
     {
-      v120 = mediaSystemIdentifier;
-      NSAppendPrintF();
-      v55 = v7;
+      v152 = v12;
+      NSAppendPrintF(&v152, ", MSi '%@'", mediaSystemIdentifier);
+      v64 = v152;
 
-      v7 = v55;
+      v12 = v64;
     }
 
-    mediaSystemName = [(RPCompanionLinkDevice *)v5 mediaSystemName];
-    v57 = mediaSystemName;
+    mediaSystemName = [(RPCompanionLinkDevice *)v6 mediaSystemName];
+    v66 = mediaSystemName;
     if (mediaSystemName)
     {
-      v120 = mediaSystemName;
-      NSAppendPrintF();
-      v58 = v7;
+      v151 = v12;
+      NSAppendPrintF(&v151, ", MSn '%@'", mediaSystemName);
+      v67 = v151;
 
-      v7 = v58;
+      v12 = v67;
     }
 
-    mediaSystemRole = [(RPCompanionLinkDevice *)v5 mediaSystemRole];
+    mediaSystemRole = [(RPCompanionLinkDevice *)v6 mediaSystemRole];
     if (mediaSystemRole)
     {
+      v150 = v12;
       if (mediaSystemRole > 3)
       {
-        v60 = "?";
+        v69 = "?";
       }
 
       else
       {
-        v60 = off_1E7C93EE8[mediaSystemRole - 1];
+        v69 = off_1E7C93EE8[mediaSystemRole - 1];
       }
 
-      v120 = v60;
-      NSAppendPrintF();
-      v61 = v7;
+      NSAppendPrintF(&v150, ", MSr %s", v69);
+      v70 = v150;
 
-      v7 = v61;
+      v12 = v70;
     }
 
-    v62 = [(RPCompanionLinkDevice *)v5 mediaSystemState:v120];
-    if (v62)
+    mediaSystemState = [(RPCompanionLinkDevice *)v6 mediaSystemState];
+    if (mediaSystemState)
     {
-      if (v62 > 4)
+      v149 = v12;
+      if (mediaSystemState > 4)
       {
-        v63 = "?";
+        v72 = "?";
       }
 
       else
       {
-        v63 = off_1E7C93F00[v62 - 1];
+        v72 = off_1E7C93F00[mediaSystemState - 1];
       }
 
-      v121 = v63;
-      NSAppendPrintF();
-      v64 = v7;
+      NSAppendPrintF(&v149, ", MSs %s", v72);
+      v73 = v149;
 
-      v7 = v64;
+      v12 = v73;
     }
 
-    personalDeviceState = [(RPCompanionLinkDevice *)v5 personalDeviceState];
+    personalDeviceState = [(RPCompanionLinkDevice *)v6 personalDeviceState];
     if (personalDeviceState)
     {
+      v148 = v12;
       if (personalDeviceState >= 8)
       {
-        v66 = "-";
-        if (personalDeviceState > 9)
-        {
-          v66 = "U";
-        }
-      }
-
-      else
-      {
-        v66 = off_1E7C93F20[personalDeviceState - 1];
-      }
-
-      v122 = v66;
-      NSAppendPrintF();
-      v67 = v7;
-
-      v7 = v67;
-    }
-
-    v68 = self->_peerHomeKitUserIdentifier;
-    v69 = v68;
-    if (v68)
-    {
-      v122 = v68;
-      NSAppendPrintF();
-      v70 = v7;
-
-      v7 = v70;
-    }
-
-    publicIdentifier2 = [(RPCompanionLinkDevice *)v5 publicIdentifier];
-    v72 = publicIdentifier2;
-    if (publicIdentifier2)
-    {
-      v122 = publicIdentifier2;
-      NSAppendPrintF();
-      v73 = v7;
-
-      v7 = v73;
-    }
-
-    personalRequestsState = [(RPCompanionLinkDevice *)v5 personalRequestsState];
-    if (personalRequestsState)
-    {
-      if (personalRequestsState >= 8)
-      {
         v75 = "-";
-        if (personalRequestsState > 9)
+        if (personalDeviceState > 9)
         {
           v75 = "U";
         }
@@ -603,179 +590,230 @@ LABEL_15:
 
       else
       {
-        v75 = off_1E7C93F20[personalRequestsState - 1];
+        v75 = off_1E7C93F20[personalDeviceState - 1];
       }
 
-      v122 = v75;
-      NSAppendPrintF();
-      v76 = v7;
+      NSAppendPrintF(&v148, ", PDS %s", v75);
+      v76 = v148;
 
-      v7 = v76;
+      v12 = v76;
     }
 
-    roomName = [(RPCompanionLinkDevice *)v5 roomName];
-    v78 = roomName;
+    v77 = self->_peerHomeKitUserIdentifier;
+    v78 = v77;
+    if (v77)
+    {
+      v147 = v12;
+      NSAppendPrintF(&v147, ", PHKUI %@", v77);
+      v79 = v147;
+
+      v12 = v79;
+    }
+
+    publicIdentifier2 = [(RPCompanionLinkDevice *)v6 publicIdentifier];
+    v81 = publicIdentifier2;
+    if (publicIdentifier2)
+    {
+      v146 = v12;
+      NSAppendPrintF(&v146, ", PI %@", publicIdentifier2);
+      v82 = v146;
+
+      v12 = v82;
+    }
+
+    personalRequestsState = [(RPCompanionLinkDevice *)v6 personalRequestsState];
+    if (personalRequestsState)
+    {
+      v145 = v12;
+      if (personalRequestsState >= 8)
+      {
+        v84 = "-";
+        if (personalRequestsState > 9)
+        {
+          v84 = "U";
+        }
+      }
+
+      else
+      {
+        v84 = off_1E7C93F20[personalRequestsState - 1];
+      }
+
+      NSAppendPrintF(&v145, ", PRS %s", v84);
+      v85 = v145;
+
+      v12 = v85;
+    }
+
+    roomName = [(RPCompanionLinkDevice *)v6 roomName];
+    v87 = roomName;
     if (roomName)
     {
-      controlFlags = roomName;
-      NSAppendPrintF();
-      v79 = v7;
+      v144 = v12;
+      NSAppendPrintF(&v144, ", Rm '%@'", roomName);
+      v88 = v144;
 
-      v7 = v79;
+      v12 = v88;
     }
 
-    verifiedIdentity = [(RPEndpoint *)v5 verifiedIdentity];
-    v81 = verifiedIdentity;
+    verifiedIdentity = [(RPEndpoint *)v6 verifiedIdentity];
+    v90 = verifiedIdentity;
     if (verifiedIdentity)
     {
-      controlFlags = verifiedIdentity;
-      NSAppendPrintF();
-      v82 = v7;
+      v143 = v12;
+      NSAppendPrintF(&v143, ", VI %@", verifiedIdentity);
+      v91 = v143;
 
-      v7 = v82;
+      v12 = v91;
     }
   }
 
   if (level <= 20)
   {
-    if (self->_controlFlags)
+    controlFlags = self->_controlFlags;
+    if (controlFlags)
     {
-      controlFlags = self->_controlFlags;
-      v127 = &unk_1B6F2DC4E;
-      NSAppendPrintF();
-      v83 = v7;
+      v142 = v12;
+      NSAppendPrintF(&v142, ", CF %#ll{flags}", controlFlags, &unk_1B6F2DC4E);
+      v93 = v142;
 
-      v7 = v83;
+      v12 = v93;
     }
 
-    v84 = [(RPCompanionLinkDevice *)v5 deviceColor:controlFlags];
-    v85 = v84;
-    if (v84)
+    deviceColor = [(RPCompanionLinkDevice *)v6 deviceColor];
+    v95 = deviceColor;
+    if (deviceColor)
     {
-      v123 = v84;
-      NSAppendPrintF();
-      v86 = v7;
+      v141 = v12;
+      NSAppendPrintF(&v141, ", Cl '%@'", deviceColor);
+      v96 = v141;
 
-      v7 = v86;
+      v12 = v96;
     }
 
-    deviceCapabilityFlags = [(RPCompanionLinkDevice *)v5 deviceCapabilityFlags];
+    deviceCapabilityFlags = [(RPCompanionLinkDevice *)v6 deviceCapabilityFlags];
     if (deviceCapabilityFlags)
     {
-      v123 = deviceCapabilityFlags;
-      v129 = &unk_1B6F2DED3;
-      NSAppendPrintF();
-      v88 = v7;
+      v140 = v12;
+      NSAppendPrintF(&v140, ", dCapF %#{flags}", deviceCapabilityFlags, &unk_1B6F2DED3);
+      v98 = v140;
 
-      v7 = v88;
+      v12 = v98;
     }
 
-    v89 = [(RPEndpoint *)v5 serviceTypes:v123];
-    v90 = v89;
-    if (v89)
+    serviceTypes = [(RPEndpoint *)v6 serviceTypes];
+    v100 = serviceTypes;
+    if (serviceTypes)
     {
-      v124 = v89;
-      NSAppendPrintF();
-      v91 = v7;
+      v139 = v12;
+      NSAppendPrintF(&v139, ", SrvT %##@", serviceTypes);
+      v101 = v139;
 
-      v7 = v91;
+      v12 = v101;
     }
 
-    siriInfo = [(RPCompanionLinkDevice *)v5 siriInfo];
-    v93 = siriInfo;
+    siriInfo = [(RPCompanionLinkDevice *)v6 siriInfo];
+    v103 = siriInfo;
     if (siriInfo)
     {
-      v124 = [siriInfo count];
-      NSAppendPrintF();
-      v94 = v7;
+      v138 = v12;
+      NSAppendPrintF(&v138, ", SiriInfo (%d)", [siriInfo count]);
+      v104 = v138;
 
-      v7 = v94;
+      v12 = v104;
     }
 
-    sourceVersion = [(RPEndpoint *)v5 sourceVersion];
-    v96 = sourceVersion;
+    sourceVersion = [(RPEndpoint *)v6 sourceVersion];
+    v106 = sourceVersion;
     if (sourceVersion)
     {
-      v124 = sourceVersion;
-      NSAppendPrintF();
-      v97 = v7;
+      v137 = v12;
+      NSAppendPrintF(&v137, ", SV %@", sourceVersion);
+      v107 = v137;
 
-      v7 = v97;
+      v12 = v107;
     }
 
     flags = self->_flags;
     if (flags)
     {
-      v124 = RPCompanionLinkFlagsToShortString(flags, v137);
-      NSAppendPrintF();
-      v99 = v7;
+      v136 = v12;
+      v109 = RPCompanionLinkFlagsToShortString(flags, v175);
+      NSAppendPrintF(&v136, ", Flags <%s>", v109);
+      v110 = v136;
 
-      v7 = v99;
+      v12 = v110;
     }
 
-    flags = [(RPCompanionLinkDevice *)v5 flags];
+    flags = [(RPCompanionLinkDevice *)v6 flags];
     if (flags)
     {
-      v125 = RPCompanionLinkFlagsToShortString(flags, v137);
-      NSAppendPrintF();
-      v101 = v7;
+      v135 = v12;
+      v112 = RPCompanionLinkFlagsToShortString(flags, v175);
+      NSAppendPrintF(&v135, ", DF <%s>", v112);
+      v113 = v135;
 
-      v7 = v101;
+      v12 = v113;
     }
 
-    statusFlags = [(RPEndpoint *)v5 statusFlags];
+    statusFlags = [(RPEndpoint *)v6 statusFlags];
     if (statusFlags)
     {
-      v126 = statusFlags;
-      v130 = &unk_1B6F2DEF3;
-      NSAppendPrintF();
-      v103 = v7;
+      v134 = v12;
+      NSAppendPrintF(&v134, ", SF %#ll{flags}", statusFlags, &unk_1B6F2DEF3);
+      v115 = v134;
 
-      v7 = v103;
+      v12 = v115;
     }
 
-    v104 = [(RPEndpoint *)v5 verifiedAcl:v126];
-    if (v104)
+    verifiedAcl = [(RPEndpoint *)v6 verifiedAcl];
+    v117 = verifiedAcl;
+    if (verifiedAcl)
     {
-      NSAppendPrintF();
-      v105 = v7;
+      v133 = v12;
+      NSAppendPrintF(&v133, ", VAcl %@", verifiedAcl);
+      v118 = v133;
 
-      v7 = v105;
+      v12 = v118;
     }
 
-    v106 = self->_btPipe;
-    if (v106)
+    v119 = self->_btPipe;
+    v120 = v119;
+    if (v119)
     {
-      NSAppendPrintF();
-      v107 = v7;
+      v132 = v12;
+      NSAppendPrintF(&v132, ", %@", v119);
+      v121 = v132;
 
-      v7 = v107;
+      v12 = v121;
     }
 
-    v108 = self->_bleConnection;
-    if (v108)
+    v122 = self->_bleConnection;
+    v123 = v122;
+    if (v122)
     {
-      NSAppendPrintF();
-      v109 = v7;
+      v131 = v12;
+      NSAppendPrintF(&v131, ", %@", v122);
+      v124 = v131;
 
-      v7 = v109;
+      v12 = v124;
     }
 
-    v110 = self->_tcpConnection;
-    if (v110)
+    v125 = self->_tcpConnection;
+    v126 = v125;
+    if (v125)
     {
-      NSAppendPrintF();
-      v111 = v7;
+      v130 = v12;
+      NSAppendPrintF(&v130, ", %@", v125);
+      v127 = v130;
 
-      v7 = v111;
+      v12 = v127;
     }
   }
 
-  v112 = v7;
+  v128 = v12;
 
-  v113 = *MEMORY[0x1E69E9840];
-
-  return v112;
+  return v128;
 }
 
 - (id)_getCurrentProcessName
@@ -816,14 +854,30 @@ LABEL_15:
   }
 
   self->_flowControlReadEnabled = enabledCopy;
-  var0 = self->_ucat->var0;
-  if (var0 <= 9)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 9)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_4:
-      LogPrintF();
-      goto LABEL_6;
+      v6 = "yes";
+      if (enabledCopy)
+      {
+        v7 = "no";
+      }
+
+      else
+      {
+        v7 = "yes";
+      }
+
+      if (!enabledCopy)
+      {
+        v6 = "no";
+      }
+
+      LogPrintF(ucat, "[RPConnection setFlowControlReadEnabled:]", 9, "Flow control read changed: %s -> %s\n", v7, v6);
+      goto LABEL_11;
     }
 
     if (_LogCategory_Initialize())
@@ -833,7 +887,7 @@ LABEL_4:
     }
   }
 
-LABEL_6:
+LABEL_11:
   if (enabledCopy)
   {
     if (!self->_readFrame.readRequested)
@@ -853,48 +907,64 @@ LABEL_6:
 {
   objc_storeStrong(&self->_label, label);
   labelCopy = label;
-  [labelCopy UTF8String];
+  uTF8String = [labelCopy UTF8String];
 
-  LogCategoryReplaceF();
+  LogCategoryReplaceF(&self->_ucat, "%s", uTF8String);
 }
 
 - (void)setPresent:(BOOL)present
 {
   presentCopy = present;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (self->_present == presentCopy)
+  present = self->_present;
+  if (present == presentCopy)
   {
     return;
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 != -1)
+    if (ucat->var0 == -1)
     {
-LABEL_4:
-      LogPrintF();
-      goto LABEL_6;
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_11;
+      }
+
+      ucat = self->_ucat;
+      LOBYTE(present) = self->_present;
     }
 
-    if (_LogCategory_Initialize())
+    v13 = "no";
+    if (present)
     {
-      ucat = self->_ucat;
-      present = self->_present;
-      goto LABEL_4;
+      v14 = "yes";
     }
+
+    else
+    {
+      v14 = "no";
+    }
+
+    if (presentCopy)
+    {
+      v13 = "yes";
+    }
+
+    LogPrintF(ucat, "[RPConnection setPresent:]", 30, "Peer present changed: %s -> %s\n", v14, v13);
   }
 
-LABEL_6:
+LABEL_11:
   self->_present = presentCopy;
   if (presentCopy)
   {
     probeTimer = self->_probeTimer;
     if (probeTimer)
     {
-      v7 = probeTimer;
-      dispatch_source_cancel(v7);
-      v8 = self->_probeTimer;
+      v16 = probeTimer;
+      dispatch_source_cancel(v16);
+      v17 = self->_probeTimer;
       self->_probeTimer = 0;
     }
 
@@ -904,51 +974,50 @@ LABEL_6:
 
   if (self->_tcpConnection)
   {
-    v9 = self->_probeTimer;
-    if (v9)
+    v18 = self->_probeTimer;
+    if (v18)
     {
-      v10 = v9;
-      dispatch_source_cancel(v10);
-      v11 = self->_probeTimer;
+      v19 = v18;
+      dispatch_source_cancel(v19);
+      v20 = self->_probeTimer;
       self->_probeTimer = 0;
     }
 
-    v12 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
-    v13 = self->_probeTimer;
-    self->_probeTimer = v12;
+    v21 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
+    v22 = self->_probeTimer;
+    self->_probeTimer = v21;
 
-    v14 = self->_probeTimer;
+    v23 = self->_probeTimer;
     handler[0] = MEMORY[0x1E69E9820];
     handler[1] = 3221225472;
     handler[2] = __27__RPConnection_setPresent___block_invoke;
     handler[3] = &unk_1E7C92CE8;
     handler[4] = self;
-    dispatch_source_set_event_handler(v14, handler);
-    v15 = self->_probeTimer;
+    dispatch_source_set_event_handler(v23, handler);
     CUDispatchTimerSet();
     dispatch_resume(self->_probeTimer);
     return;
   }
 
-  v16 = self->_ucat->var0;
-  if (v16 <= 30)
+  v24 = self->_ucat;
+  if (v24->var0 <= 30)
   {
-    if (v16 == -1)
+    if (v24->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_21;
+        goto LABEL_26;
       }
 
-      v19 = self->_ucat;
+      v24 = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(v24, "[RPConnection setPresent:]", 30, "Peer lost when not connected, invalidating\n");
   }
 
-LABEL_21:
-  v20 = RPErrorF();
-  [(RPConnection *)self _invalidateWithError:v20];
+LABEL_26:
+  v26 = RPErrorF(4294896153, "Peer lost when not connected", v5, v6, v7, v8, v9, v10, v25);
+  [(RPConnection *)self _invalidateWithError:v26];
 }
 
 uint64_t __27__RPConnection_setPresent___block_invoke(uint64_t a1)
@@ -999,23 +1068,32 @@ uint64_t __27__RPConnection_setPresent___block_invoke(uint64_t a1)
     self->_clientMode = 1;
     [(RPCompanionLinkDevice *)self->_peerDeviceInfo updateWithBonjourDevice:?];
     [(RPEndpoint *)self->_peerDeviceInfo setStatusFlags:[(RPEndpoint *)self->_peerDeviceInfo statusFlags]| 4];
-    var0 = self->_ucat->var0;
-    if (var0 <= 30)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 != -1)
+      if (ucat->var0 != -1)
       {
 LABEL_4:
-        controlFlags = self->_controlFlags;
         linkType = self->_linkType;
-        if (linkType <= 0xB)
+        if (linkType > 0xB)
         {
-          v6 = off_1E7C94188[linkType];
+          v5 = "?";
+        }
+
+        else
+        {
+          v5 = off_1E7C94188[linkType];
         }
 
         bonjourPeerDevice = self->_bonjourPeerDevice;
-LABEL_25:
-        LogPrintF();
-        goto LABEL_26;
+        btPipe = v5;
+        controlFlags = self->_controlFlags;
+        v32 = &unk_1B6F2DC4E;
+LABEL_28:
+        v14 = "Activate for client: CF %#ll{flags}, %@, %s\n";
+LABEL_29:
+        LogPrintF(ucat, "[RPConnection activate]", 30, v14, controlFlags, v32, bonjourPeerDevice, btPipe, v35);
+        goto LABEL_30;
       }
 
       if (_LogCategory_Initialize())
@@ -1025,43 +1103,52 @@ LABEL_25:
       }
     }
 
-    goto LABEL_26;
+    goto LABEL_30;
   }
 
-  if (self->_destinationString)
+  destinationString = self->_destinationString;
+  if (destinationString)
   {
     self->_clientMode = 1;
-    v7 = self->_ucat->var0;
-    if (v7 <= 30)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 30)
     {
-      if (v7 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
-          goto LABEL_26;
+          goto LABEL_30;
         }
 
-        v18 = self->_ucat;
+        ucat = self->_ucat;
         destinationString = self->_destinationString;
       }
 
-      v8 = self->_controlFlags;
-      v9 = self->_linkType;
-      if (v9 <= 0xB)
+      v7 = self->_linkType;
+      if (v7 > 0xB)
       {
-        v10 = off_1E7C94188[v9];
+        v8 = "?";
       }
 
-      goto LABEL_25;
+      else
+      {
+        v8 = off_1E7C94188[v7];
+      }
+
+      bonjourPeerDevice = destinationString;
+      btPipe = v8;
+      controlFlags = self->_controlFlags;
+      v32 = &unk_1B6F2DC4E;
+      goto LABEL_28;
     }
 
-LABEL_26:
+LABEL_30:
     identifierOverride = self->_identifierOverride;
-    v21 = identifierOverride;
-    v50 = v21;
-    if (v21)
+    v16 = identifierOverride;
+    v36 = v16;
+    if (v16)
     {
-      [(RPEndpoint *)self->_peerDeviceInfo setIdentifier:v21];
+      [(RPEndpoint *)self->_peerDeviceInfo setIdentifier:v16];
       objc_storeStrong(&self->_peerIdentifier, identifierOverride);
     }
 
@@ -1084,31 +1171,35 @@ LABEL_26:
   {
     self->_clientMode = 1;
     [(RPEndpoint *)self->_peerDeviceInfo setStatusFlags:[(RPEndpoint *)self->_peerDeviceInfo statusFlags]| 2];
-    v11 = self->_ucat->var0;
-    if (v11 <= 30)
+    v9 = self->_ucat;
+    if (v9->var0 <= 30)
     {
-      if (v11 == -1)
+      if (v9->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
-          goto LABEL_26;
+          goto LABEL_30;
         }
 
-        v26 = self->_ucat;
+        v9 = self->_ucat;
       }
 
-      v12 = self->_controlFlags;
-      v13 = self->_linkType;
-      if (v13 <= 0xB)
+      v10 = self->_linkType;
+      if (v10 > 0xB)
       {
-        v14 = off_1E7C94188[v13];
+        v11 = "?";
       }
 
-      blePeerIdentifier = self->_blePeerIdentifier;
-      goto LABEL_25;
+      else
+      {
+        v11 = off_1E7C94188[v10];
+      }
+
+      LogPrintF(v9, "[RPConnection activate]", 30, "Activate for client: CF %#ll{flags}, BLE peer %@, %s\n", self->_controlFlags, &unk_1B6F2DC4E, self->_blePeerIdentifier, v11);
+      goto LABEL_30;
     }
 
-    goto LABEL_26;
+    goto LABEL_30;
   }
 
   if (self->_bleConnection)
@@ -1116,27 +1207,31 @@ LABEL_26:
     self->_clientMode = 0;
     [(RPEndpoint *)self->_peerDeviceInfo setStatusFlags:[(RPEndpoint *)self->_peerDeviceInfo statusFlags]| 2];
     objc_storeStrong(&self->_requestable, self->_bleConnection);
-    v16 = self->_ucat->var0;
-    if (v16 <= 30)
+    v12 = self->_ucat;
+    if (v12->var0 > 30)
     {
-      if (v16 == -1)
-      {
-        v33 = self->_ucat;
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_26;
-        }
-
-        v34 = self->_ucat;
-      }
-
-      v17 = self->_controlFlags;
-      bleConnection = self->_bleConnection;
-      RPDataLinkTypeToString(self->_linkType);
-      goto LABEL_25;
+      goto LABEL_30;
     }
 
-    goto LABEL_26;
+    if (v12->var0 == -1)
+    {
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_30;
+      }
+
+      v12 = self->_ucat;
+    }
+
+    v13 = self->_controlFlags;
+    bonjourPeerDevice = self->_bleConnection;
+    btPipe = RPDataLinkTypeToString(self->_linkType);
+    controlFlags = v13;
+    v32 = &unk_1B6F2DC4E;
+    v14 = "Activate for server: CF %#ll{flags}, %@, %s\n";
+LABEL_44:
+    ucat = v12;
+    goto LABEL_29;
   }
 
   if (self->_btPipe)
@@ -1144,58 +1239,69 @@ LABEL_26:
     self->_clientMode = GestaltGetDeviceClass() == 6;
     [(RPEndpoint *)self->_peerDeviceInfo setStatusFlags:[(RPEndpoint *)self->_peerDeviceInfo statusFlags]| 0x41];
     objc_storeStrong(&self->_requestable, self->_btPipe);
-    v24 = self->_ucat->var0;
-    if (v24 > 30)
+    v12 = self->_ucat;
+    if (v12->var0 > 30)
     {
-      goto LABEL_26;
+      goto LABEL_30;
     }
 
-    if (v24 == -1)
+    if (v12->var0 == -1)
     {
-      v36 = self->_ucat;
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_26;
+        goto LABEL_30;
       }
 
-      v37 = self->_ucat;
+      v12 = self->_ucat;
     }
 
-    self->_clientMode;
-    v25 = self->_controlFlags;
+    if (self->_clientMode)
+    {
+      v19 = "client";
+    }
+
+    else
+    {
+      v19 = "server";
+    }
+
+    v20 = self->_controlFlags;
     btPipe = self->_btPipe;
-    RPDataLinkTypeToString(self->_linkType);
-    goto LABEL_25;
+    v35 = RPDataLinkTypeToString(self->_linkType);
+    v32 = v20;
+    bonjourPeerDevice = &unk_1B6F2DC4E;
+    controlFlags = v19;
+    v14 = "Activate for %s: CF %#ll{flags}, %@, %s\n";
+    goto LABEL_44;
   }
 
   if (self->_tcpConnection)
   {
     self->_clientMode = 0;
-    v27 = self->_linkType;
+    v21 = self->_linkType;
     peerDeviceInfo = self->_peerDeviceInfo;
     statusFlags = [(RPEndpoint *)peerDeviceInfo statusFlags];
-    v30 = 4;
-    if (v27 == 4)
+    v24 = 4;
+    if (v21 == 4)
     {
-      v30 = 8;
+      v24 = 8;
     }
 
-    [(RPEndpoint *)peerDeviceInfo setStatusFlags:statusFlags | v30];
+    [(RPEndpoint *)peerDeviceInfo setStatusFlags:statusFlags | v24];
     objc_storeStrong(&self->_requestable, self->_tcpConnection);
-    v31 = self->_ucat->var0;
-    if (v31 > 30)
+    v25 = self->_ucat;
+    if (v25->var0 > 30)
     {
-      goto LABEL_56;
+      goto LABEL_65;
     }
 
-    if (v31 == -1)
+    if (v25->var0 == -1)
     {
-      v38 = self->_ucat;
       if (!_LogCategory_Initialize())
       {
-LABEL_56:
-        v39 = [(RPEndpoint *)self->_peerDeviceInfo ipAddress:v42];
-        if (v39)
+LABEL_65:
+        ipAddress = [(RPEndpoint *)self->_peerDeviceInfo ipAddress];
+        if (ipAddress)
         {
         }
 
@@ -1204,38 +1310,36 @@ LABEL_56:
           [(RPEndpoint *)self->_peerDeviceInfo setIpAddress:?];
         }
 
-        goto LABEL_26;
+        goto LABEL_30;
       }
 
-      v40 = self->_ucat;
+      v25 = self->_ucat;
     }
 
-    v32 = self->_controlFlags;
+    v26 = self->_controlFlags;
     tcpConnection = self->_tcpConnection;
-    v48 = RPDataLinkTypeToString(self->_linkType);
-    v42 = v32;
-    v43 = &unk_1B6F2DC4E;
-    LogPrintF();
-    goto LABEL_56;
+    v28 = RPDataLinkTypeToString(self->_linkType);
+    LogPrintF(v25, "[RPConnection activate]", 30, "Activate for server: CF %#ll{flags}, %@, %s\n", v26, &unk_1B6F2DC4E, tcpConnection, v28);
+    goto LABEL_65;
   }
 
-  v35 = self->_ucat->var0;
-  if (v35 > 90)
+  v29 = self->_ucat;
+  if (v29->var0 > 90)
   {
     return;
   }
 
-  if (v35 == -1)
+  if (v29->var0 == -1)
   {
     if (!_LogCategory_Initialize())
     {
       return;
     }
 
-    v41 = self->_ucat;
+    v29 = self->_ucat;
   }
 
-  LogPrintF();
+  LogPrintF(v29, "[RPConnection activate]", 90, "### Activate without role?\n");
 }
 
 - (void)invalidate
@@ -1269,14 +1373,14 @@ LABEL_56:
   if (!self->_invalidateCalled)
   {
     self->_invalidateCalled = 1;
-    var0 = self->_ucat->var0;
-    v9 = errorCopy;
-    if (var0 <= 30)
+    ucat = self->_ucat;
+    v7 = errorCopy;
+    if (ucat->var0 <= 30)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         v6 = _LogCategory_Initialize();
-        errorCopy = v9;
+        errorCopy = v7;
         if (!v6)
         {
           goto LABEL_6;
@@ -1285,14 +1389,13 @@ LABEL_56:
         ucat = self->_ucat;
       }
 
-      v8 = errorCopy;
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _invalidateWithError:]", 30, "Invalidating: %{error}\n", errorCopy);
     }
 
 LABEL_6:
-    [(RPConnection *)self _invalidateCore:v9, v8];
+    [(RPConnection *)self _invalidateCore:v7];
     [(RPConnection *)self _invalidated];
-    errorCopy = v9;
+    errorCopy = v7;
   }
 }
 
@@ -1303,12 +1406,13 @@ LABEL_6:
     return;
   }
 
-  v9 = v2;
+  v7 = v3;
+  v8 = v2;
   self->_invalidateCalled = 1;
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -1318,18 +1422,18 @@ LABEL_6:
       ucat = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[RPConnection _invalidate]", 30, "Invalidating\n", v3, v8);
   }
 
 LABEL_6:
-  [(RPConnection *)self _invalidateCore:0, v3, v9, v4];
+  [(RPConnection *)self _invalidateCore:0, v7, v8];
 
   [(RPConnection *)self _invalidated];
 }
 
 - (void)_invalidateCore:(id)core
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   coreCopy = core;
   bleConnectTimer = self->_bleConnectTimer;
   if (bleConnectTimer)
@@ -1378,150 +1482,145 @@ LABEL_6:
 
   [(CUBLEConnection *)self->_bleConnection invalidate];
   [(CUTCPConnection *)self->_tcpConnection invalidate];
-  v20 = _Block_copy(self->_readErrorHandler);
-  if (v20)
+  v25 = _Block_copy(self->_readErrorHandler);
+  if (v25)
   {
     if (coreCopy)
     {
-      RPNestedErrorF();
+      RPNestedErrorF(coreCopy, 4294960573, "Read error due to invalidation", v20, v21, v22, v23, v24, v56);
     }
 
     else
     {
       NSErrorWithOSStatusF();
     }
-    v21 = ;
-    v20[2](v20, v21);
+    v26 = ;
+    v25[2](v25, v26);
   }
 
   if (self->_showPasswordCalled)
   {
     self->_showPasswordCalled = 0;
-    v22 = _Block_copy(self->_hidePasswordHandler);
-    v23 = v22;
-    if (v22)
+    v33 = _Block_copy(self->_hidePasswordHandler);
+    v34 = v33;
+    if (v33)
     {
-      (*(v22 + 2))(v22, 0);
+      (*(v33 + 2))(v33, 0);
     }
   }
 
   stepError = coreCopy;
-  v49 = coreCopy;
+  v57 = coreCopy;
   if (coreCopy || (stepError = self->_stepError) != 0)
   {
-    v25 = stepError;
+    v36 = stepError;
   }
 
   else
   {
-    v25 = RPErrorF();
+    v36 = RPErrorF(4294896148, "Connection invalidated", v27, v28, v29, v30, v31, v32, v56);
   }
 
-  v26 = v25;
-  [(RPConnection *)self _abortRequestsWithError:v25];
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v27 = self->_sendArray;
-  v28 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v54 objects:v59 count:16];
-  if (v28)
+  v37 = v36;
+  [(RPConnection *)self _abortRequestsWithError:v36];
+  v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v38 = self->_sendArray;
+  v39 = [(NSMutableArray *)v38 countByEnumeratingWithState:&v62 objects:v67 count:16];
+  if (v39)
   {
-    v29 = v28;
-    v30 = *v55;
+    v40 = v39;
+    v41 = *v63;
     do
     {
-      for (i = 0; i != v29; ++i)
+      for (i = 0; i != v40; ++i)
       {
-        if (*v55 != v30)
+        if (*v63 != v41)
         {
-          objc_enumerationMutation(v27);
+          objc_enumerationMutation(v38);
         }
 
-        [(RPConnection *)self _abortSendEntry:*(*(&v54 + 1) + 8 * i) withError:v26];
+        [(RPConnection *)self _abortSendEntry:*(*(&v62 + 1) + 8 * i) withError:v37];
       }
 
-      v29 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v54 objects:v59 count:16];
+      v40 = [(NSMutableArray *)v38 countByEnumeratingWithState:&v62 objects:v67 count:16];
     }
 
-    while (v29);
+    while (v40);
   }
 
   [(NSMutableArray *)self->_sendArray removeAllObjects];
   sendArray = self->_sendArray;
   self->_sendArray = 0;
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v33 = self->_receivedMessages;
-  v34 = [(NSMutableArray *)v33 countByEnumeratingWithState:&v50 objects:v58 count:16];
-  if (v34)
+  v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v44 = self->_receivedMessages;
+  v45 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v58 objects:v66 count:16];
+  if (v45)
   {
-    v35 = v34;
-    v36 = *v51;
+    v46 = v45;
+    v47 = *v59;
     do
     {
-      for (j = 0; j != v35; ++j)
+      for (j = 0; j != v46; ++j)
       {
-        if (*v51 != v36)
+        if (*v59 != v47)
         {
-          objc_enumerationMutation(v33);
+          objc_enumerationMutation(v44);
         }
 
-        v38 = *(*(&v50 + 1) + 8 * j);
-        var0 = self->_ucat->var0;
-        if (var0 <= 60)
+        v49 = *(*(&v58 + 1) + 8 * j);
+        ucat = self->_ucat;
+        if (ucat->var0 <= 60)
         {
-          if (var0 != -1)
+          if (ucat->var0 != -1)
           {
             goto LABEL_37;
           }
 
-          ucat = self->_ucat;
           if (_LogCategory_Initialize())
           {
-            v43 = self->_ucat;
+            ucat = self->_ucat;
 LABEL_37:
-            requestID = [v38 requestID];
-            v41 = requestID;
+            requestID = [v49 requestID];
+            v52 = requestID;
             if (requestID)
             {
-              eventID = requestID;
-              v48 = v26;
-              LogPrintF();
+              LogPrintF(ucat, "[RPConnection _invalidateCore:]", 60, "### Abort received message ID '%@': %{error}\n", requestID, v37);
             }
 
             else
             {
-              eventID = [v38 eventID];
-              v48 = v26;
-              LogPrintF();
+              eventID = [v49 eventID];
+              LogPrintF(ucat, "[RPConnection _invalidateCore:]", 60, "### Abort received message ID '%@': %{error}\n", eventID, v37);
             }
           }
         }
 
-        responseHandler = [v38 responseHandler];
-        [v38 setResponseHandler:0];
+        responseHandler = [v49 responseHandler];
+        [v49 setResponseHandler:0];
         if (responseHandler)
         {
-          (responseHandler)[2](responseHandler, 0, 0, v26);
+          (responseHandler)[2](responseHandler, 0, 0, v37);
         }
       }
 
-      v35 = [(NSMutableArray *)v33 countByEnumeratingWithState:&v50 objects:v58 count:16];
+      v46 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v58 objects:v66 count:16];
     }
 
-    while (v35);
+    while (v46);
   }
 
   [(NSMutableArray *)self->_receivedMessages removeAllObjects];
   receivedMessages = self->_receivedMessages;
   self->_receivedMessages = 0;
 
-  [(RPConnection *)self _logConnectionInvalidatedWithError:v49];
-  v46 = *MEMORY[0x1E69E9840];
+  [(RPConnection *)self _logConnectionInvalidatedWithError:v57];
 }
 
 - (void)_invalidated
@@ -1542,10 +1641,10 @@ LABEL_37:
     self->_startTimer = 0;
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -1555,7 +1654,7 @@ LABEL_37:
       ucat = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[RPConnection _invalidated]", 30, "Invalidated\n");
   }
 
 LABEL_10:
@@ -1638,9 +1737,9 @@ LABEL_10:
 
   if ((self->_statusFlags & 0x80000) == 0)
   {
-    v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    [(RPConnection *)self _identityProofsAdd:v12 update:1];
-    if (![(NSString *)v12 count])
+    v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    [(RPConnection *)self _identityProofsAdd:v11 update:1];
+    if (![(NSString *)v11 count])
     {
 LABEL_19:
       peerHomeKitUserIdentifier = self->_homeKitIdentityIdentifier;
@@ -1656,10 +1755,10 @@ LABEL_19:
       goto LABEL_22;
     }
 
-    var0 = self->_ucat->var0;
-    if (var0 <= 30)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -1669,11 +1768,11 @@ LABEL_19:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection homeKitIdentityUpdated]", 30, "Send identity update\n");
     }
 
 LABEL_18:
-    [(RPConnection *)self sendEncryptedEventID:@"_systemInfoUpdate" event:v12 options:0 completion:0];
+    [(RPConnection *)self sendEncryptedEventID:@"_systemInfoUpdate" event:v11 options:0 completion:0];
     goto LABEL_19;
   }
 
@@ -1682,7 +1781,7 @@ LABEL_18:
 
   peerHomeKitUserIdentifier = self->_peerHomeKitUserIdentifier;
   v7 = identifier;
-  v12 = v7;
+  v11 = v7;
   if (peerHomeKitUserIdentifier == v7)
   {
   }
@@ -1703,9 +1802,9 @@ LABEL_18:
     {
     }
 
-    v9 = v12;
+    v9 = v11;
     peerHomeKitUserIdentifier = self->_peerHomeKitUserIdentifier;
-    v12 = v9;
+    v11 = v9;
     self->_peerHomeKitUserIdentifier = v9;
   }
 
@@ -1718,57 +1817,56 @@ LABEL_23:
 {
   errorCopy = error;
   mach_absolute_time();
-  activatedTicks = self->_activatedTicks;
-  v6 = UpTicksToSeconds();
+  v5 = UpTicksToSeconds();
   mediaSystemIdentifier = [(RPCompanionLinkDevice *)self->_localDeviceInfo mediaSystemIdentifier];
   mediaSystemIdentifier2 = [(RPCompanionLinkDevice *)self->_peerDeviceInfo mediaSystemIdentifier];
-  v9 = mediaSystemIdentifier;
-  v10 = mediaSystemIdentifier2;
-  v11 = v10;
-  if (v9 == v10)
+  v8 = mediaSystemIdentifier;
+  v9 = mediaSystemIdentifier2;
+  v10 = v9;
+  if (v8 == v9)
   {
 
     goto LABEL_6;
   }
 
-  if ((v9 != 0) == (v10 == 0))
+  if ((v8 != 0) == (v9 == 0))
   {
-    v12 = 0;
-    model2 = v10;
-    model = v9;
+    v11 = 0;
+    model2 = v9;
+    model = v8;
     goto LABEL_9;
   }
 
-  v12 = [v9 isEqual:v10];
+  v11 = [v8 isEqual:v9];
 
-  if (v12)
+  if (v11)
   {
 LABEL_6:
     model = [(RPEndpoint *)self->_localDeviceInfo model];
     if (GestaltProductTypeStringToDeviceClass() != 7)
     {
-      v12 = 0;
+      v11 = 0;
       goto LABEL_11;
     }
 
     model2 = [(RPEndpoint *)self->_peerDeviceInfo model];
-    v12 = GestaltProductTypeStringToDeviceClass() == 7;
+    v11 = GestaltProductTypeStringToDeviceClass() == 7;
 LABEL_9:
 
 LABEL_11:
   }
 
   model3 = [(RPEndpoint *)self->_localDeviceInfo model];
-  v16 = GestaltProductTypeStringToDeviceClass();
-  v22 = RPDeviceClassToString(v16);
+  v15 = GestaltProductTypeStringToDeviceClass();
+  v21 = RPDeviceClassToString(v15);
 
   model4 = [(RPEndpoint *)self->_peerDeviceInfo model];
-  v18 = GestaltProductTypeStringToDeviceClass();
-  v19 = RPDeviceClassToString(v18);
+  v17 = GestaltProductTypeStringToDeviceClass();
+  v18 = RPDeviceClassToString(v17);
 
-  v20 = +[RPConnectionMetrics sharedMetrics];
-  LODWORD(v21) = self->_linkType;
-  [v20 logConnectionWithDeviceModelFrom:v22 deviceModelTo:v19 error:errorCopy initiator:self->_initiator isOnDemand:(self->_controlFlags >> 9) & 1 isStereoPair:v12 lifetime:v6 linkType:v21];
+  v19 = +[RPConnectionMetrics sharedMetrics];
+  LODWORD(v20) = self->_linkType;
+  [v19 logConnectionWithDeviceModelFrom:v21 deviceModelTo:v18 error:errorCopy initiator:self->_initiator isOnDemand:(self->_controlFlags >> 9) & 1 isStereoPair:v11 lifetime:v5 linkType:v20];
 }
 
 - (void)_pairSetupInvalidate
@@ -1855,7 +1953,9 @@ LABEL_11:
   dataCopy = data;
   v8 = self->_forcedSelfIdentity;
   peerAppFlags = [(CUPairingSession *)self->_pairVerifySession peerAppFlags];
-  if ((self->_controlFlags & 0x40) != 0 || (peerAppFlags & 1) != 0 || v8)
+  v10 = peerAppFlags;
+  controlFlags = self->_controlFlags;
+  if ((controlFlags & 0x40) != 0 || (peerAppFlags & 1) != 0 || v8)
   {
     if (!self->_clientMode)
     {
@@ -1872,21 +1972,21 @@ LABEL_11:
     if (copyIdentityHandler)
     {
       copyIdentityHandler2 = [(CUPairingSession *)self->_pairVerifySession copyIdentityHandler];
-      v17 = copyIdentityHandler2[2](copyIdentityHandler2, 2, 0);
+      v19 = copyIdentityHandler2[2](copyIdentityHandler2, 2, 0);
 
-      if (v17)
+      if (v19)
       {
         v8 = objc_alloc_init(RPIdentity);
-        altIRK = [v17 altIRK];
+        altIRK = [v19 altIRK];
         [(RPIdentity *)v8 setDeviceIRKData:altIRK];
 
-        publicKey = [v17 publicKey];
+        publicKey = [v19 publicKey];
         [(RPIdentity *)v8 setEdPKData:publicKey];
 
-        secretKey = [v17 secretKey];
+        secretKey = [v19 secretKey];
         [(RPIdentity *)v8 setEdSKData:secretKey];
 
-        rp_sepPrivateKey = [v17 rp_sepPrivateKey];
+        rp_sepPrivateKey = [v19 rp_sepPrivateKey];
         if (rp_sepPrivateKey)
         {
           [(RPIdentity *)v8 updateWithSEPPrivateKey:rp_sepPrivateKey];
@@ -1895,7 +1995,7 @@ LABEL_11:
         if (v8)
         {
 LABEL_10:
-          v11 = 0;
+          v13 = 0;
           goto LABEL_11;
         }
       }
@@ -1906,24 +2006,24 @@ LABEL_10:
     }
 
     identityDaemon = self->_identityDaemon;
-    v37 = 0;
-    v8 = [(RPIdentityDaemon *)identityDaemon identityOfSelfAndReturnError:&v37];
-    v11 = v37;
+    v33 = 0;
+    v8 = [(RPIdentityDaemon *)identityDaemon identityOfSelfAndReturnError:&v33];
+    v13 = v33;
     if (v8)
     {
 LABEL_11:
-      v12 = v11;
-      v36 = v11;
-      v13 = [(RPIdentity *)v8 signData:dataCopy error:&v36];
-      v11 = v36;
+      v14 = v13;
+      v32 = v13;
+      v15 = [(RPIdentity *)v8 signData:dataCopy error:&v32];
+      v13 = v32;
 
-      if (v13)
+      if (v15)
       {
         self->_pairVerifyUsedIdentity = 1;
-        var0 = self->_ucat->var0;
-        if (var0 <= 30)
+        ucat = self->_ucat;
+        if (ucat->var0 <= 30)
         {
-          if (var0 == -1)
+          if (ucat->var0 == -1)
           {
             if (!_LogCategory_Initialize())
             {
@@ -1933,31 +2033,30 @@ LABEL_11:
             ucat = self->_ucat;
           }
 
-          controlFlags = self->_controlFlags;
-          LogPrintF();
+          LogPrintF(ucat, "[RPConnection _pairVerifySignData:flags:error:]", 30, "PairVerifySign success: CF %#ll{flags}, AF %#ll{flags}\n", self->_controlFlags, &unk_1B6F2DC4E, v10, &unk_1B6F2E0C2);
         }
 
 LABEL_25:
-        v23 = v13;
+        v25 = v15;
 LABEL_34:
 
 LABEL_35:
         goto LABEL_40;
       }
 
-      v22 = self->_ucat->var0;
-      if (v22 <= 90)
+      v24 = self->_ucat;
+      if (v24->var0 <= 90)
       {
-        if (v22 != -1)
+        if (v24->var0 != -1)
         {
 LABEL_23:
-          LogPrintF();
+          LogPrintF(v24, "[RPConnection _pairVerifySignData:flags:error:]", 90, "### PairVerifySign failed: %{error}\n", v13);
           goto LABEL_32;
         }
 
         if (_LogCategory_Initialize())
         {
-          v31 = self->_ucat;
+          v24 = self->_ucat;
           goto LABEL_23;
         }
       }
@@ -1965,26 +2064,26 @@ LABEL_23:
 LABEL_32:
       if (error)
       {
-        v26 = v11;
-        *error = v11;
+        v28 = v13;
+        *error = v13;
       }
 
       goto LABEL_34;
     }
 
-    v25 = self->_ucat->var0;
-    if (v25 <= 90)
+    v27 = self->_ucat;
+    if (v27->var0 <= 90)
     {
-      if (v25 != -1)
+      if (v27->var0 != -1)
       {
 LABEL_30:
-        LogPrintF();
+        LogPrintF(v27, "[RPConnection _pairVerifySignData:flags:error:]", 90, "### PairVerifySign get self identity failed: %{error}\n", v13);
         goto LABEL_44;
       }
 
       if (_LogCategory_Initialize())
       {
-        v34 = self->_ucat;
+        v27 = self->_ucat;
         goto LABEL_30;
       }
     }
@@ -1992,49 +2091,49 @@ LABEL_30:
 LABEL_44:
     if (error)
     {
-      v29 = v11;
+      v31 = v13;
       v8 = 0;
-      v13 = 0;
-      *error = v11;
+      v15 = 0;
+      *error = v13;
     }
 
     else
     {
       v8 = 0;
-      v13 = 0;
+      v15 = 0;
     }
 
     goto LABEL_35;
   }
 
-  v10 = self->_ucat->var0;
-  if (v10 <= 30)
+  v12 = self->_ucat;
+  if (v12->var0 <= 30)
   {
-    if (v10 == -1)
+    if (v12->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_37;
       }
 
-      v32 = self->_ucat;
-      v33 = self->_controlFlags;
+      v12 = self->_ucat;
+      controlFlags = self->_controlFlags;
     }
 
-    LogPrintF();
+    LogPrintF(v12, "[RPConnection _pairVerifySignData:flags:error:]", 30, "PairVerifySign: Not using RPI: CF %#ll{flags}, AF %#ll{flags}\n", controlFlags, &unk_1B6F2DC4E, v10, &unk_1B6F2E0C2);
   }
 
 LABEL_37:
   if (error)
   {
-    v27 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:-6714 userInfo:0];
-    *error = v27;
+    v29 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:-6714 userInfo:0];
+    *error = v29;
   }
 
-  v13 = 0;
+  v15 = 0;
 LABEL_40:
 
-  return v13;
+  return v15;
 }
 
 - (BOOL)_pairVerifyVerifySignature:(id)signature data:(id)data flags:(unsigned int)flags error:(id *)error
@@ -2043,31 +2142,32 @@ LABEL_40:
   dataCopy = data;
   v12 = self->_forcedPeerIdentity;
   peerAppFlags = [(CUPairingSession *)self->_pairVerifySession peerAppFlags];
+  v14 = peerAppFlags;
   controlFlags = self->_controlFlags;
   if ((controlFlags & 0x40) != 0 || (peerAppFlags & 1) != 0 || v12)
   {
     self->_pairVerifyUsedIdentity = 1;
     if (v12)
     {
-      v16 = 0;
+      v17 = 0;
       goto LABEL_16;
     }
 
-    v17 = controlFlags & 0x400000000000;
-    if (self->_pairVerifyAuthType != 8 && v17 == 0)
+    v18 = controlFlags & 0x400000000000;
+    if (self->_pairVerifyAuthType != 8 && v18 == 0)
     {
-      v19 = 19498;
+      v20 = 19498;
     }
 
     else
     {
-      v19 = 19458;
+      v20 = 19458;
     }
 
     identityDaemon = self->_identityDaemon;
-    v35 = 0;
-    v12 = [(RPIdentityDaemon *)identityDaemon resolveIdentityForSignature:signatureCopy data:dataCopy typeFlags:v19 error:&v35];
-    v16 = v35;
+    v31 = 0;
+    v12 = [(RPIdentityDaemon *)identityDaemon resolveIdentityForSignature:signatureCopy data:dataCopy typeFlags:v20 error:&v31];
+    v17 = v31;
     if (v12)
     {
 LABEL_16:
@@ -2079,20 +2179,24 @@ LABEL_16:
 
       type = [(RPIdentity *)v12 type];
       self->_pairVerifyIdentityType = type;
-      var0 = self->_ucat->var0;
-      if (var0 <= 30)
+      ucat = self->_ucat;
+      if (ucat->var0 <= 30)
       {
-        if (var0 != -1)
+        if (ucat->var0 != -1)
         {
 LABEL_18:
-          if (type <= 0x10)
+          if (type > 0x10)
           {
-            v24 = off_1E7C94048[type];
+            v25 = "?";
           }
 
-          v34 = self->_controlFlags;
-          LogPrintF();
-          goto LABEL_26;
+          else
+          {
+            v25 = off_1E7C94048[type];
+          }
+
+          LogPrintF(ucat, "[RPConnection _pairVerifyVerifySignature:data:flags:error:]", 30, "PairVerifyVerify success: %s, CF %#ll{flags}, AF %#ll{flags}\n", v25, self->_controlFlags, &unk_1B6F2DC4E, v14, &unk_1B6F2E0C2);
+          goto LABEL_27;
         }
 
         if (_LogCategory_Initialize())
@@ -2102,37 +2206,37 @@ LABEL_18:
         }
       }
 
-LABEL_26:
-      v27 = 1;
 LABEL_27:
+      v27 = 1;
+LABEL_28:
 
-      goto LABEL_32;
+      goto LABEL_33;
     }
 
-    v26 = self->_ucat->var0;
-    if (v26 <= 90)
+    v26 = self->_ucat;
+    if (v26->var0 <= 90)
     {
-      if (v26 != -1)
+      if (v26->var0 != -1)
       {
 LABEL_24:
-        LogPrintF();
-        goto LABEL_34;
+        LogPrintF(v26, "[RPConnection _pairVerifyVerifySignature:data:flags:error:]", 90, "### PairVerifyVerify failed: %{error}\n", v17);
+        goto LABEL_35;
       }
 
       if (_LogCategory_Initialize())
       {
-        v33 = self->_ucat;
+        v26 = self->_ucat;
         goto LABEL_24;
       }
     }
 
-LABEL_34:
+LABEL_35:
     if (error)
     {
-      v30 = v16;
+      v30 = v17;
       v27 = 0;
       v12 = 0;
-      *error = v16;
+      *error = v17;
     }
 
     else
@@ -2141,27 +2245,27 @@ LABEL_34:
       v12 = 0;
     }
 
-    goto LABEL_27;
+    goto LABEL_28;
   }
 
-  v15 = self->_ucat->var0;
-  if (v15 <= 30)
+  v16 = self->_ucat;
+  if (v16->var0 <= 30)
   {
-    if (v15 == -1)
+    if (v16->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_29;
+        goto LABEL_30;
       }
 
-      v31 = self->_ucat;
-      v32 = self->_controlFlags;
+      v16 = self->_ucat;
+      controlFlags = self->_controlFlags;
     }
 
-    LogPrintF();
+    LogPrintF(v16, "[RPConnection _pairVerifyVerifySignature:data:flags:error:]", 30, "PairVerifyVerify: Not using RPI: CF %#ll{flags}, AF %#ll{flags}\n", controlFlags, &unk_1B6F2DC4E, v14, &unk_1B6F2E0C2);
   }
 
-LABEL_29:
+LABEL_30:
   if (error)
   {
     v28 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:-6714 userInfo:0];
@@ -2169,9 +2273,100 @@ LABEL_29:
   }
 
   v27 = 0;
-LABEL_32:
+LABEL_33:
 
   return v27;
+}
+
+- (void)_pskPrepare:(BOOL)prepare
+{
+  prepareCopy = prepare;
+  v5 = objc_alloc_init(MEMORY[0x1E6999500]);
+  pskData = self->_pskData;
+  v30 = 0;
+  v7 = [v5 prepareWithName:@"main" isClient:prepareCopy pskData:pskData error:&v30];
+  v13 = v30;
+  if ((v7 & 1) == 0)
+  {
+    ucat = self->_ucat;
+    if (ucat->var0 > 90)
+    {
+      goto LABEL_12;
+    }
+
+    if (ucat->var0 == -1)
+    {
+      if (!_LogCategory_Initialize())
+      {
+LABEL_12:
+        if (!self->_stepError)
+        {
+          v25 = RPNestedErrorF(v13, 4294960519, "PSK prepare failed", v8, v9, v10, v11, v12, v28);
+          stepError = self->_stepError;
+          self->_stepError = v25;
+LABEL_18:
+
+          goto LABEL_19;
+        }
+
+        goto LABEL_19;
+      }
+
+      ucat = self->_ucat;
+    }
+
+    LogPrintF(ucat, "[RPConnection _pskPrepare:]", 90, "### PSK prepare failed: %{error}\n", v13);
+    goto LABEL_12;
+  }
+
+  objc_storeStrong(&self->_mainStream, v5);
+  self->_mainAuthTagLength = [v5 authTagLength];
+  if (self->_btPipeHighPriority)
+  {
+    stepError = objc_alloc_init(MEMORY[0x1E6999500]);
+    v15 = self->_pskData;
+    v29 = v13;
+    v16 = [(NSError *)stepError prepareWithName:@"hipri" isClient:prepareCopy pskData:v15 error:&v29];
+    v17 = v29;
+
+    if (v16)
+    {
+      objc_storeStrong(&self->_highPriorityStream, stepError);
+      self->_highPriorityAuthTagLength = [(NSError *)stepError authTagLength];
+LABEL_17:
+      v13 = v17;
+      goto LABEL_18;
+    }
+
+    v24 = self->_ucat;
+    if (v24->var0 <= 90)
+    {
+      if (v24->var0 != -1)
+      {
+LABEL_10:
+        LogPrintF(v24, "[RPConnection _pskPrepare:]", 90, "### PSK prepare failed: %{error}\n", v17);
+        goto LABEL_15;
+      }
+
+      if (_LogCategory_Initialize())
+      {
+        v24 = self->_ucat;
+        goto LABEL_10;
+      }
+    }
+
+LABEL_15:
+    if (!self->_stepError)
+    {
+      v26 = RPNestedErrorF(v17, 4294960519, "PSK prepare failed", v18, v19, v20, v21, v22, v28);
+      v27 = self->_stepError;
+      self->_stepError = v26;
+    }
+
+    goto LABEL_17;
+  }
+
+LABEL_19:
 }
 
 - (void)_run
@@ -2191,54 +2386,52 @@ LABEL_32:
 {
   passwordCopy = password;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (self->_clientMode)
+  if (!self->_clientMode)
   {
-    pairSetupSession = self->_pairSetupSession;
-    if (pairSetupSession)
+    ucat = self->_ucat;
+    if (ucat->var0 > 90)
     {
-      [(CUPairingSession *)pairSetupSession tryPIN:passwordCopy];
-      goto LABEL_13;
+      goto LABEL_14;
     }
 
-    var0 = self->_ucat->var0;
-    if (var0 <= 90)
+    if (ucat->var0 == -1)
     {
-      if (var0 != -1)
+      if (!_LogCategory_Initialize())
       {
-LABEL_9:
-        LogPrintF();
-        goto LABEL_13;
+        goto LABEL_14;
       }
 
-      if (_LogCategory_Initialize())
-      {
-        ucat = self->_ucat;
-        goto LABEL_9;
-      }
+      ucat = self->_ucat;
     }
+
+    LogPrintF(ucat, "[RPConnection tryPassword:]", 90, "### Try password invalid in server mode\n");
+    goto LABEL_14;
   }
 
-  else
+  pairSetupSession = self->_pairSetupSession;
+  if (pairSetupSession)
   {
-    v5 = self->_ucat->var0;
-    if (v5 > 90)
-    {
-      goto LABEL_13;
-    }
-
-    if (v5 != -1)
-    {
-      goto LABEL_9;
-    }
-
-    if (_LogCategory_Initialize())
-    {
-      v7 = self->_ucat;
-      goto LABEL_9;
-    }
+    [(CUPairingSession *)pairSetupSession tryPIN:passwordCopy];
+    goto LABEL_14;
   }
 
-LABEL_13:
+  v6 = self->_ucat;
+  if (v6->var0 <= 90)
+  {
+    if (v6->var0 == -1)
+    {
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_14;
+      }
+
+      v6 = self->_ucat;
+    }
+
+    LogPrintF(v6, "[RPConnection tryPassword:]", 90, "### Try password without PairSetup session\n");
+  }
+
+LABEL_14:
 }
 
 - (void)_updateExternalState
@@ -2251,42 +2444,67 @@ LABEL_13:
     return;
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_10:
-      LogPrintF();
-      goto LABEL_12;
+      v8 = "?";
+      if (state == 1)
+      {
+        v8 = "Ready";
+      }
+
+      if (state)
+      {
+        v9 = v8;
+      }
+
+      else
+      {
+        v9 = "Unknown";
+      }
+
+      if (v4)
+      {
+        v10 = "Ready";
+      }
+
+      else
+      {
+        v10 = "Unknown";
+      }
+
+      LogPrintF(ucat, "[RPConnection _updateExternalState]", 30, "External state changed: %s -> %s\n", v9, v10);
+      goto LABEL_20;
     }
 
     if (_LogCategory_Initialize())
     {
       ucat = self->_ucat;
-      v11 = self->_state;
+      state = self->_state;
       goto LABEL_10;
     }
   }
 
-LABEL_12:
+LABEL_20:
   self->_state = v4;
   stateChangedHandler = self->_stateChangedHandler;
   if (stateChangedHandler)
   {
-    v9 = *(stateChangedHandler + 2);
+    v12 = *(stateChangedHandler + 2);
 
-    v9();
+    v12();
   }
 }
 
 - (void)_updateLinkInfo
 {
-  v20 = *MEMORY[0x1E69E9840];
   tcpConnection = self->_tcpConnection;
   if (tcpConnection)
   {
-    [(CUTCPConnection *)tcpConnection peerAddr];
+    objc_msgSend_peerAddr(tcpConnection, a2);
     SockAddrToString();
     peerAddrString = self->_peerAddrString;
     self->_peerAddrString = 0;
@@ -2294,7 +2512,7 @@ LABEL_12:
     v7 = self->_tcpConnection;
     if (v7)
     {
-      [(CUTCPConnection *)v7 selfAddr];
+      objc_msgSend_selfAddr(v7);
     }
 
     SockAddrToString();
@@ -2445,8 +2663,6 @@ LABEL_12:
   {
     self->_linkType = v15;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_clientRun
@@ -2477,7 +2693,7 @@ LABEL_12:
 
           if (self->_preAuthEnabled)
           {
-            v4 = 12;
+            v9 = 12;
             goto LABEL_62;
           }
 
@@ -2487,7 +2703,7 @@ LABEL_41:
             goto LABEL_61;
           }
 
-          v4 = 18;
+          v9 = 18;
           goto LABEL_62;
         case 0xCu:
           self->_internalState = 13;
@@ -2527,10 +2743,10 @@ LABEL_41:
             self->_pairVerifyFailed = 1;
             if (self->_pairVerifySession)
             {
-              var0 = self->_ucat->var0;
-              if (var0 <= 60)
+              ucat = self->_ucat;
+              if (ucat->var0 <= 60)
               {
-                if (var0 != -1)
+                if (ucat->var0 != -1)
                 {
                   goto LABEL_35;
                 }
@@ -2540,26 +2756,25 @@ LABEL_41:
                   ucat = self->_ucat;
                   stepError = self->_stepError;
 LABEL_35:
-                  v24 = stepError;
-                  LogPrintF();
+                  LogPrintF(ucat, "[RPConnection _clientRun]", 60, "### PairVerify client failed: %{error}\n", stepError);
                 }
               }
 
-              v12 = _Block_copy(self->_pairVerifyCompletion);
-              v13 = v12;
-              if (v12)
+              v17 = _Block_copy(self->_pairVerifyCompletion);
+              v18 = v17;
+              if (v17)
               {
-                (*(v12 + 2))(v12, self->_stepError);
+                (*(v17 + 2))(v17, self->_stepError);
               }
             }
 
             controlFlags = self->_controlFlags;
             if (controlFlags & 0x400) != 0 || (controlFlags & 0x8000000000) != 0 || (self->_flags)
             {
-              v16 = self->_ucat->var0;
-              if (v16 <= 30)
+              v21 = self->_ucat;
+              if (v21->var0 <= 30)
               {
-                if (v16 != -1)
+                if (v21->var0 != -1)
                 {
                   goto LABEL_57;
                 }
@@ -2568,11 +2783,11 @@ LABEL_35:
                 {
                   v21 = self->_ucat;
 LABEL_57:
-                  LogPrintF();
+                  LogPrintF(v21, "[RPConnection _clientRun]", 30, "Client PairSetup retry\n");
                 }
               }
 
-              v4 = 14;
+              v9 = 14;
               goto LABEL_62;
             }
 
@@ -2583,24 +2798,24 @@ LABEL_27:
               goto LABEL_63;
             }
 
-            v15 = self->_ucat->var0;
-            if (v15 <= 30)
+            v20 = self->_ucat;
+            if (v20->var0 <= 30)
             {
-              if (v15 != -1)
+              if (v20->var0 != -1)
               {
                 goto LABEL_54;
               }
 
               if (_LogCategory_Initialize())
               {
-                v23 = self->_ucat;
+                v20 = self->_ucat;
 LABEL_54:
-                LogPrintF();
+                LogPrintF(v20, "[RPConnection _clientRun]", 30, "Client immediate non-RPIdentity retry\n");
               }
             }
 
 LABEL_61:
-            v4 = 16;
+            v9 = 16;
             goto LABEL_62;
           }
 
@@ -2610,50 +2825,49 @@ LABEL_36:
             goto LABEL_63;
           }
 
-          v4 = 19;
+          v9 = 19;
 LABEL_62:
-          self->_internalState = v4;
+          self->_internalState = v9;
 LABEL_63:
-          v17 = self->_internalState;
-          if (v17 == internalState)
+          v22 = self->_internalState;
+          if (v22 == internalState)
           {
             return;
           }
 
-          v18 = self->_ucat->var0;
-          if (v18 <= 30)
+          v23 = self->_ucat;
+          if (v23->var0 <= 30)
           {
-            if (v18 != -1)
+            if (v23->var0 != -1)
             {
               goto LABEL_66;
             }
 
-            v19 = self->_ucat;
             if (_LogCategory_Initialize())
             {
-              v20 = self->_ucat;
-              v17 = self->_internalState;
+              v23 = self->_ucat;
+              v22 = self->_internalState;
 LABEL_66:
               v24 = _StateToString(internalState);
-              v25 = _StateToString(v17);
-              LogPrintF();
+              v25 = _StateToString(v22);
+              LogPrintF(v23, "[RPConnection _clientRun]", 30, "Client state: %s -> %s\n", v24, v25);
             }
           }
 
-          [(RPConnection *)self _updateExternalState:v24];
+          [(RPConnection *)self _updateExternalState];
           break;
         case 0x12u:
           [(RPConnection *)self _pskPrepare:1];
           startTimer = self->_startTimer;
           if (startTimer)
           {
-            v6 = startTimer;
-            dispatch_source_cancel(v6);
-            v7 = self->_startTimer;
+            v11 = startTimer;
+            dispatch_source_cancel(v11);
+            v12 = self->_startTimer;
             self->_startTimer = 0;
           }
 
-          v4 = 21;
+          v9 = 21;
           goto LABEL_62;
         case 0x13u:
           self->_internalState = 20;
@@ -2671,7 +2885,7 @@ LABEL_66:
           }
 
           [(RPConnection *)self _clientStarted];
-          v4 = self->_internalState + 1;
+          v9 = self->_internalState + 1;
           goto LABEL_62;
         case 0x15u:
           if (self->_stepError)
@@ -2692,16 +2906,16 @@ LABEL_66:
 
           else
           {
-            v10 = RPErrorF();
-            v11 = [(RPConnection *)self _clientError:v10];
+            v15 = RPErrorF(4294960534, "Client error without error", 0, v2, v3, v4, v5, v6, v26);
+            v16 = [(RPConnection *)self _clientError:v15];
 
-            if (!v11)
+            if (!v16)
             {
               goto LABEL_63;
             }
           }
 
-          v4 = 23;
+          v9 = 23;
           goto LABEL_62;
         case 0x17u:
           self->_internalState = 24;
@@ -2726,13 +2940,13 @@ LABEL_24:
 
 - (void)_clientConnectStart
 {
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _clientConnectStart]", 30, "Client connect start: %@\n", self);
       goto LABEL_5;
     }
 
@@ -2802,51 +3016,49 @@ LABEL_5:
   [(CUBLEConnection *)v4 setLabel:label];
   if (self->_clientBundleID)
   {
-    var0 = self->_ucat->var0;
-    if (var0 <= 30)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 != -1)
+      if (ucat->var0 != -1)
       {
 LABEL_10:
         clientBundleID = [(CUBLEConnection *)v4 clientBundleID];
-        [MEMORY[0x1E696AD98] numberWithInteger:{-[CUBLEConnection clientUseCase](v4, "clientUseCase")}];
-        v20 = v19 = clientBundleID;
-        LogPrintF();
+        v10 = [MEMORY[0x1E696AD98] numberWithInteger:{-[CUBLEConnection clientUseCase](v4, "clientUseCase")}];
+        LogPrintF(ucat, "[RPConnection _clientConnectStartBLE]", 30, "BLE client connection with bundleID: %@ and clientUseCase: %@\n", clientBundleID, v10);
 
         goto LABEL_12;
       }
 
-      ucat = self->_ucat;
       if (_LogCategory_Initialize())
       {
-        v18 = self->_ucat;
+        ucat = self->_ucat;
         goto LABEL_10;
       }
     }
   }
 
 LABEL_12:
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __38__RPConnection__clientConnectStartBLE__block_invoke;
-  v24[3] = &unk_1E7C92D10;
-  v24[4] = v4;
-  v24[5] = self;
-  [(CUBLEConnection *)v4 setErrorHandler:v24, v19, v20];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __38__RPConnection__clientConnectStartBLE__block_invoke_2;
-  v23[3] = &unk_1E7C92D80;
-  v23[4] = v4;
-  v23[5] = self;
-  [(CUBLEConnection *)v4 setInvalidationHandler:v23];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __38__RPConnection__clientConnectStartBLE__block_invoke_3;
-  v22[3] = &unk_1E7C92D10;
-  v22[4] = v4;
-  v22[5] = self;
-  [(CUBLEConnection *)v4 activateWithCompletion:v22];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __38__RPConnection__clientConnectStartBLE__block_invoke;
+  v20[3] = &unk_1E7C92D10;
+  v20[4] = v4;
+  v20[5] = self;
+  [(CUBLEConnection *)v4 setErrorHandler:v20];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __38__RPConnection__clientConnectStartBLE__block_invoke_2;
+  v19[3] = &unk_1E7C92D80;
+  v19[4] = v4;
+  v19[5] = self;
+  [(CUBLEConnection *)v4 setInvalidationHandler:v19];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __38__RPConnection__clientConnectStartBLE__block_invoke_3;
+  v18[3] = &unk_1E7C92D10;
+  v18[4] = v4;
+  v18[5] = self;
+  [(CUBLEConnection *)v4 activateWithCompletion:v18];
   bleConnectTimer = self->_bleConnectTimer;
   if (bleConnectTimer)
   {
@@ -2867,7 +3079,6 @@ LABEL_12:
   handler[3] = &unk_1E7C92CE8;
   handler[4] = self;
   dispatch_source_set_event_handler(v16, handler);
-  v17 = self->_bleConnectTimer;
   CUDispatchTimerSet();
   dispatch_resume(self->_bleConnectTimer);
 }
@@ -2884,44 +3095,46 @@ void *__38__RPConnection__clientConnectStartBLE__block_invoke(uint64_t a1, uint6
   return result;
 }
 
-uint64_t __38__RPConnection__clientConnectStartBLE__block_invoke_2(uint64_t result)
+void *__38__RPConnection__clientConnectStartBLE__block_invoke_2(void *result)
 {
-  v2 = *(result + 40);
-  if (*(result + 32) != *(v2 + 472))
+  v5 = result[5];
+  if (result[4] != *(v5 + 472))
   {
     return result;
   }
 
-  v3 = result;
-  v4 = **(v2 + 296);
-  if (v4 <= 30)
+  v12 = v1;
+  v13 = v4;
+  v6 = result;
+  v7 = *(v5 + 296);
+  if (*v7 <= 30)
   {
-    if (v4 != -1)
+    if (*v7 != -1)
     {
 LABEL_4:
-      LogPrintF();
-      v2 = *(v3 + 40);
+      LogPrintF(v7, "[RPConnection _clientConnectStartBLE]_block_invoke_2", 30, "BLE client connection invalidated\n", v2, v12, v3, v4);
+      v5 = v6[5];
       goto LABEL_6;
     }
 
-    v5 = _LogCategory_Initialize();
-    v2 = *(v3 + 40);
-    if (v5)
+    v8 = _LogCategory_Initialize();
+    v5 = v6[5];
+    if (v8)
     {
-      v9 = *(v2 + 296);
+      v7 = *(v5 + 296);
       goto LABEL_4;
     }
   }
 
 LABEL_6:
-  v6 = *(v2 + 472);
-  *(v2 + 472) = 0;
+  v9 = *(v5 + 472);
+  *(v5 + 472) = 0;
 
-  v7 = *(v3 + 40);
-  v8 = *(v7 + 256);
-  *(v7 + 256) = 0;
+  v10 = v6[5];
+  v11 = *(v10 + 256);
+  *(v10 + 256) = 0;
 
-  result = *(v3 + 40);
+  result = v6[5];
   if (*(result + 80) == 1)
   {
 
@@ -2943,21 +3156,21 @@ void __38__RPConnection__clientConnectStartBLE__block_invoke_3(uint64_t a1, void
   }
 }
 
-void __38__RPConnection__clientConnectStartBLE__block_invoke_4(uint64_t a1)
+void __38__RPConnection__clientConnectStartBLE__block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v2 = *(*(a1 + 32) + 24);
-  if (v2)
+  v9 = *(*(a1 + 32) + 24);
+  if (v9)
   {
-    v3 = v2;
-    dispatch_source_cancel(v3);
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 24);
-    *(v4 + 24) = 0;
+    v10 = v9;
+    dispatch_source_cancel(v10);
+    v11 = *(a1 + 32);
+    v12 = *(v11 + 24);
+    *(v11 + 24) = 0;
   }
 
-  v6 = *(a1 + 32);
-  v7 = RPErrorF();
-  [v6 _clientConnectCompleted:v7];
+  v13 = *(a1 + 32);
+  v15 = RPErrorF(4294896153, "BLE client connect timeout", a3, a4, a5, a6, a7, a8, v14);
+  [v13 _clientConnectCompleted:v15];
 }
 
 - (void)_clientConnectStartBTPipe
@@ -3090,44 +3303,46 @@ void __38__RPConnection__clientConnectStartTCP__block_invoke_2(uint64_t a1)
   }
 }
 
-uint64_t __38__RPConnection__clientConnectStartTCP__block_invoke_3(uint64_t result)
+void *__38__RPConnection__clientConnectStartTCP__block_invoke_3(void *result)
 {
-  v2 = *(result + 40);
-  if (*(result + 32) != *(v2 + 768))
+  v5 = result[5];
+  if (result[4] != *(v5 + 768))
   {
     return result;
   }
 
-  v3 = result;
-  v4 = **(v2 + 296);
-  if (v4 <= 30)
+  v12 = v1;
+  v13 = v4;
+  v6 = result;
+  v7 = *(v5 + 296);
+  if (*v7 <= 30)
   {
-    if (v4 != -1)
+    if (*v7 != -1)
     {
 LABEL_4:
-      LogPrintF();
-      v2 = *(v3 + 40);
+      LogPrintF(v7, "[RPConnection _clientConnectStartTCP]_block_invoke_3", 30, "TCP client connection invalidated\n", v2, v12, v3, v4);
+      v5 = v6[5];
       goto LABEL_6;
     }
 
-    v5 = _LogCategory_Initialize();
-    v2 = *(v3 + 40);
-    if (v5)
+    v8 = _LogCategory_Initialize();
+    v5 = v6[5];
+    if (v8)
     {
-      v9 = *(v2 + 296);
+      v7 = *(v5 + 296);
       goto LABEL_4;
     }
   }
 
 LABEL_6:
-  v6 = *(v2 + 768);
-  *(v2 + 768) = 0;
+  v9 = *(v5 + 768);
+  *(v5 + 768) = 0;
 
-  v7 = *(v3 + 40);
-  v8 = *(v7 + 256);
-  *(v7 + 256) = 0;
+  v10 = v6[5];
+  v11 = *(v10 + 256);
+  *(v10 + 256) = 0;
 
-  result = *(v3 + 40);
+  result = v6[5];
   if (*(result + 80) == 1)
   {
 
@@ -3155,9 +3370,9 @@ void __38__RPConnection__clientConnectStartTCP__block_invoke_4(uint64_t a1, void
   bleConnectTimer = self->_bleConnectTimer;
   if (bleConnectTimer)
   {
-    v6 = bleConnectTimer;
-    dispatch_source_cancel(v6);
-    v7 = self->_bleConnectTimer;
+    v11 = bleConnectTimer;
+    dispatch_source_cancel(v11);
+    v12 = self->_bleConnectTimer;
     self->_bleConnectTimer = 0;
   }
 
@@ -3183,24 +3398,23 @@ void __38__RPConnection__clientConnectStartTCP__block_invoke_4(uint64_t a1, void
     startTimer = self->_startTimer;
     if (startTimer)
     {
-      v11 = startTimer;
-      dispatch_source_cancel(v11);
-      v12 = self->_startTimer;
+      v16 = startTimer;
+      dispatch_source_cancel(v16);
+      v17 = self->_startTimer;
       self->_startTimer = 0;
     }
 
-    v13 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
-    v14 = self->_startTimer;
-    self->_startTimer = v13;
+    v18 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
+    v19 = self->_startTimer;
+    self->_startTimer = v18;
 
-    v15 = self->_startTimer;
+    v20 = self->_startTimer;
     handler[0] = MEMORY[0x1E69E9820];
     handler[1] = 3221225472;
     handler[2] = __40__RPConnection__clientConnectCompleted___block_invoke;
     handler[3] = &unk_1E7C92CE8;
     handler[4] = self;
-    dispatch_source_set_event_handler(v15, handler);
-    v16 = self->_startTimer;
+    dispatch_source_set_event_handler(v20, handler);
     CUDispatchTimerSet();
     dispatch_resume(self->_startTimer);
     if (self->_readFrame.readRequested)
@@ -3211,10 +3425,10 @@ LABEL_24:
         goto LABEL_31;
       }
 
-      var0 = self->_ucat->var0;
-      if (var0 <= 40)
+      ucat = self->_ucat;
+      if (ucat->var0 <= 40)
       {
-        if (var0 == -1)
+        if (ucat->var0 == -1)
         {
           if (!_LogCategory_Initialize())
           {
@@ -3224,7 +3438,7 @@ LABEL_24:
           ucat = self->_ucat;
         }
 
-        LogPrintF();
+        LogPrintF(ucat, "[RPConnection _clientConnectCompleted:]", 40, "Start receiving data from high priority pipe");
       }
 
 LABEL_30:
@@ -3234,20 +3448,20 @@ LABEL_31:
       goto LABEL_32;
     }
 
-    v17 = self->_ucat->var0;
-    if (v17 <= 40)
+    v21 = self->_ucat;
+    if (v21->var0 <= 40)
     {
-      if (v17 == -1)
+      if (v21->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_23;
         }
 
-        v22 = self->_ucat;
+        v21 = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(v21, "[RPConnection _clientConnectCompleted:]", 40, "Start receiving data from the default pipe");
     }
 
 LABEL_23:
@@ -3255,74 +3469,72 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v8 = self->_ucat->var0;
-  if (v8 > 60)
+  v13 = self->_ucat;
+  if (v13->var0 > 60)
   {
     goto LABEL_20;
   }
 
-  if (v8 != -1)
+  if (v13->var0 != -1)
   {
     goto LABEL_6;
   }
 
   if (_LogCategory_Initialize())
   {
-    v21 = self->_ucat;
+    v13 = self->_ucat;
 LABEL_6:
-    v24 = completedCopy;
-    LogPrintF();
+    LogPrintF(v13, "[RPConnection _clientConnectCompleted:]", 60, "### Connect failed: %{error}\n", completedCopy);
   }
 
 LABEL_20:
   if (!self->_stepError)
   {
-    v18 = RPNestedErrorF();
+    v22 = RPNestedErrorF(completedCopy, 4294896153, "Connect failed", v4, v5, v6, v7, v8, v25);
     stepError = self->_stepError;
-    self->_stepError = v18;
+    self->_stepError = v22;
   }
 
 LABEL_32:
   [(RPConnection *)self _run];
 }
 
-uint64_t __40__RPConnection__clientConnectCompleted___block_invoke(uint64_t a1)
+uint64_t __40__RPConnection__clientConnectCompleted___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v2 = *(*(a1 + 32) + 128);
-  if (v2)
+  v9 = *(*(a1 + 32) + 128);
+  if (v9)
   {
-    v3 = v2;
-    dispatch_source_cancel(v3);
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 128);
-    *(v4 + 128) = 0;
+    v10 = v9;
+    dispatch_source_cancel(v10);
+    v11 = *(a1 + 32);
+    v12 = *(v11 + 128);
+    *(v11 + 128) = 0;
   }
 
-  v6 = *(a1 + 32);
-  if (!v6[18])
+  v13 = *(a1 + 32);
+  if (!v13[18])
   {
-    v7 = RPErrorF();
-    v8 = *(a1 + 32);
-    v9 = *(v8 + 144);
-    *(v8 + 144) = v7;
+    v14 = RPErrorF(4294896153, "Start session timeout", a3, a4, a5, a6, a7, a8, v18);
+    v15 = *(a1 + 32);
+    v16 = *(v15 + 144);
+    *(v15 + 144) = v14;
 
-    v6 = *(a1 + 32);
+    v13 = *(a1 + 32);
   }
 
-  return [v6 _run];
+  return [v13 _run];
 }
 
 - (BOOL)_clientError:(id)error
 {
   errorCopy = error;
-  var0 = self->_ucat->var0;
-  if (var0 <= 60)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 60)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_3:
-      v30 = errorCopy;
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _clientError:]", 60, "### Client error: %{error}\n", errorCopy);
       goto LABEL_5;
     }
 
@@ -3337,18 +3549,18 @@ LABEL_5:
   bleConnectTimer = self->_bleConnectTimer;
   if (bleConnectTimer)
   {
-    v7 = bleConnectTimer;
-    dispatch_source_cancel(v7);
-    v8 = self->_bleConnectTimer;
+    v13 = bleConnectTimer;
+    dispatch_source_cancel(v13);
+    v14 = self->_bleConnectTimer;
     self->_bleConnectTimer = 0;
   }
 
   startTimer = self->_startTimer;
   if (startTimer)
   {
-    v10 = startTimer;
-    dispatch_source_cancel(v10);
-    v11 = self->_startTimer;
+    v16 = startTimer;
+    dispatch_source_cancel(v16);
+    v17 = self->_startTimer;
     self->_startTimer = 0;
   }
 
@@ -3359,8 +3571,8 @@ LABEL_5:
 
   else
   {
-    v12 = RPErrorF();
-    [(RPConnection *)self _abortRequestsWithError:v12];
+    v18 = RPErrorF(4294960596, "Client error", v4, v5, v6, v7, v8, v9, v31);
+    [(RPConnection *)self _abortRequestsWithError:v18];
   }
 
   [(CUBLEConnection *)self->_bleConnection invalidate];
@@ -3373,44 +3585,44 @@ LABEL_5:
   code = [errorCopy code];
   if (code == -6776)
   {
-    v14 = self->_ucat->var0;
-    if (v14 <= 30)
+    v20 = self->_ucat;
+    if (v20->var0 <= 30)
     {
-      if (v14 != -1)
-      {
-        goto LABEL_35;
-      }
-
-      if (_LogCategory_Initialize())
-      {
-        v21 = self->_ucat;
-LABEL_35:
-        LogPrintF();
-      }
-    }
-
-LABEL_48:
-    [(RPConnection *)self _invalidateWithError:errorCopy];
-    v23 = 0;
-    goto LABEL_49;
-  }
-
-  if ((self->_controlFlags & 0x200) != 0)
-  {
-    v19 = self->_ucat->var0;
-    if (v19 <= 30)
-    {
-      if (v19 == -1)
+      if (v20->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_48;
         }
 
-        v22 = self->_ucat;
+        v20 = self->_ucat;
       }
 
-      goto LABEL_35;
+      LogPrintF(v20, "[RPConnection _clientError:]", 30, "Peer is blocking access, invalidating\n");
+    }
+
+LABEL_48:
+    [(RPConnection *)self _invalidateWithError:errorCopy];
+    v28 = 0;
+    goto LABEL_49;
+  }
+
+  if ((self->_controlFlags & 0x200) != 0)
+  {
+    v25 = self->_ucat;
+    if (v25->var0 <= 30)
+    {
+      if (v25->var0 == -1)
+      {
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_48;
+        }
+
+        v25 = self->_ucat;
+      }
+
+      LogPrintF(v25, "[RPConnection _clientError:]", 30, "OnDemand connection failed, invalidating\n");
     }
 
     goto LABEL_48;
@@ -3422,81 +3634,80 @@ LABEL_48:
     retryCount = self->_retryCount;
     if (retryCount >= 10)
     {
-      v17 = code;
-      v18 = self->_ucat->var0;
-      if (v18 > 30)
+      v23 = code;
+      v24 = self->_ucat;
+      if (v24->var0 > 30)
       {
         goto LABEL_43;
       }
 
-      if (v18 == -1)
+      if (v24->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
 LABEL_43:
-          if (v17 == -6754 && ([(RPIdentity *)self->_identityResolved type]== 8 || [(RPIdentity *)self->_identityResolved type]== 9))
+          if (v23 == -6754 && ([(RPIdentity *)self->_identityResolved type]== 8 || [(RPIdentity *)self->_identityResolved type]== 9))
           {
-            v25 = mach_absolute_time();
-            [(RPIdentity *)self->_identityResolved setDisabledUntilTicks:SecondsToUpTicks() + v25];
+            v29 = mach_absolute_time();
+            [(RPIdentity *)self->_identityResolved setDisabledUntilTicks:SecondsToUpTicks() + v29];
           }
 
-          [(CUBonjourDevice *)self->_bonjourPeerDevice reconfirm:v31];
+          [(CUBonjourDevice *)self->_bonjourPeerDevice reconfirm];
           goto LABEL_48;
         }
 
-        v29 = self->_ucat;
+        v24 = self->_ucat;
         retryCount = self->_retryCount;
         bonjourPeerDevice = self->_bonjourPeerDevice;
       }
 
-      v31 = retryCount;
-      v32 = bonjourPeerDevice;
-      LogPrintF();
+      LogPrintF(v24, "[RPConnection _clientError:]", 30, "Too many retries, invalidating: retries %d, %@\n", retryCount, bonjourPeerDevice);
       goto LABEL_43;
     }
   }
 
-  v20 = self->_ucat->var0;
+  v26 = self->_ucat;
+  var0 = v26->var0;
   if (!self->_present)
   {
-    if (v20 <= 30)
+    if (var0 <= 30)
     {
-      if (v20 == -1)
+      if (var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_48;
         }
 
-        v24 = self->_ucat;
+        v26 = self->_ucat;
       }
 
-      goto LABEL_35;
+      LogPrintF(v26, "[RPConnection _clientError:]", 30, "Peer appears missing, invalidating\n");
     }
 
     goto LABEL_48;
   }
 
-  if (v20 <= 30)
+  if (var0 <= 30)
   {
-    if (v20 == -1)
+    if (var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_39;
       }
 
-      v28 = self->_ucat;
+      v26 = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(v26, "[RPConnection _clientError:]", 30, "Peer appears present, retrying\n");
   }
 
 LABEL_39:
-  v23 = 1;
+  v28 = 1;
 LABEL_49:
 
-  return v23;
+  return v28;
 }
 
 - (void)_clientNetworkError:(id)error label:(const char *)label
@@ -3511,10 +3722,9 @@ LABEL_49:
   {
     if (!self->_stepError)
     {
-      labelCopy = label;
-      v6 = RPNestedErrorF();
+      v11 = RPNestedErrorF(errorCopy, 4294896153, "%s", v6, v7, v8, v9, v10, label);
       stepError = self->_stepError;
-      self->_stepError = v6;
+      self->_stepError = v11;
     }
 
     [(RPConnection *)self _run];
@@ -3527,129 +3737,131 @@ LABEL_49:
   stepError = self->_stepError;
   self->_stepError = 0;
 
-  v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  [v8 setObject:@"715.2" forKeyedSubscript:@"_sv"];
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  [v6 setObject:@"715.2" forKeyedSubscript:@"_sv"];
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    v5 = v8;
-    if (var0 != -1)
+    v5 = v6;
+    if (ucat->var0 != -1)
     {
 LABEL_3:
-      v7 = v5;
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _clientPreAuthStart]", 30, "Send PreAuthRequest: %##@\n", v5);
       goto LABEL_5;
     }
 
     if (_LogCategory_Initialize())
     {
       ucat = self->_ucat;
-      v5 = v8;
+      v5 = v6;
       goto LABEL_3;
     }
   }
 
 LABEL_5:
-  [(RPConnection *)self _sendFrameType:10 unencryptedObject:v8, v7];
+  [(RPConnection *)self _sendFrameType:10 unencryptedObject:v6];
 }
 
 - (void)_clientPreAuthResponseWithData:(id)data
 {
   v4 = OPACKDecodeData();
-  if (v4)
+  if (!v4)
   {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    ucat = self->_ucat;
+    if (ucat->var0 > 90)
     {
-      var0 = self->_ucat->var0;
-      if (self->_internalState == 13)
-      {
-        if (var0 <= 30)
-        {
-          if (var0 == -1)
-          {
-            if (!_LogCategory_Initialize())
-            {
-              goto LABEL_21;
-            }
-
-            ucat = self->_ucat;
-          }
-
-          LogPrintF();
-        }
-
-LABEL_21:
-        stepError = self->_stepError;
-        self->_stepError = 0;
-
-        self->_stepDone = 1;
-        [(RPConnection *)self _run];
-        goto LABEL_22;
-      }
-
-      if (var0 <= 60)
-      {
-        if (var0 == -1)
-        {
-          if (!_LogCategory_Initialize())
-          {
-            goto LABEL_22;
-          }
-
-          v11 = self->_ucat;
-        }
-
-LABEL_12:
-        LogPrintF();
-      }
+      goto LABEL_23;
     }
 
-    else
+    if (ucat->var0 == -1)
     {
-      v7 = self->_ucat->var0;
-      if (v7 <= 90)
+      if (!_LogCategory_Initialize())
       {
-        if (v7 == -1)
-        {
-          if (!_LogCategory_Initialize())
-          {
-            goto LABEL_22;
-          }
-
-          v9 = self->_ucat;
-        }
-
-        goto LABEL_12;
+        goto LABEL_23;
       }
+
+      ucat = self->_ucat;
     }
+
+    v10 = 0;
+    v8 = "### PreAuthResponse decode failed: %#m\n";
+LABEL_13:
+    LogPrintF(ucat, "[RPConnection _clientPreAuthResponseWithData:]", 90, v8, v10);
+    goto LABEL_23;
   }
 
-  else
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v6 = self->_ucat->var0;
-    if (v6 <= 90)
+    ucat = self->_ucat;
+    if (ucat->var0 > 90)
     {
-      if (v6 == -1)
+      goto LABEL_23;
+    }
+
+    if (ucat->var0 == -1)
+    {
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_23;
+      }
+
+      ucat = self->_ucat;
+    }
+
+    v8 = "### PreAuthResponse bad type\n";
+    goto LABEL_13;
+  }
+
+  v5 = self->_ucat;
+  var0 = v5->var0;
+  if (self->_internalState == 13)
+  {
+    if (var0 <= 30)
+    {
+      if (var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_22;
         }
 
-        v8 = self->_ucat;
+        v5 = self->_ucat;
       }
 
-      goto LABEL_12;
+      LogPrintF(v5, "[RPConnection _clientPreAuthResponseWithData:]", 30, "Received PreAuthResponse: %##@\n", v4);
     }
-  }
 
 LABEL_22:
+    stepError = self->_stepError;
+    self->_stepError = 0;
+
+    self->_stepDone = 1;
+    [(RPConnection *)self _run];
+    goto LABEL_23;
+  }
+
+  if (var0 <= 60)
+  {
+    if (var0 == -1)
+    {
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_23;
+      }
+
+      v5 = self->_ucat;
+    }
+
+    LogPrintF(v5, "[RPConnection _clientPreAuthResponseWithData:]", 60, "### Ignoring received PreAuthResponse when not expected: %##@\n", v4);
+  }
+
+LABEL_23:
 }
 
 - (void)_clientPairSetupStart
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   [(RPConnection *)self _pairSetupInvalidate];
   self->_stepDone = 0;
   stepError = self->_stepError;
@@ -3680,10 +3892,10 @@ LABEL_22:
 
   if ((self->_controlFlags & 0x1000000000) != 0)
   {
-    var0 = self->_ucat->var0;
-    if (var0 <= 30)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -3693,7 +3905,7 @@ LABEL_22:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _clientPairSetupStart]", 30, "Enabling FitnessPairing \n");
     }
 
 LABEL_11:
@@ -3728,32 +3940,30 @@ LABEL_16:
   if (v11)
   {
     v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v24 = 0u;
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    v29 = 0u;
     v13 = v11;
-    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v27;
+      v16 = *v25;
       v17 = MEMORY[0x1E695E118];
       do
       {
-        v18 = 0;
-        do
+        for (i = 0; i != v15; ++i)
         {
-          if (*v27 != v16)
+          if (*v25 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          [v12 setObject:v17 forKeyedSubscript:*(*(&v26 + 1) + 8 * v18++)];
+          [v12 setObject:v17 forKeyedSubscript:*(*(&v24 + 1) + 8 * i)];
         }
 
-        while (v15 != v18);
-        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v15);
@@ -3766,13 +3976,13 @@ LABEL_16:
   v20 = v19;
   if (v19)
   {
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __37__RPConnection__clientPairSetupStart__block_invoke;
-    v25[3] = &unk_1E7C93A80;
-    v25[4] = self;
-    v25[5] = v19;
-    [(CUPairingSession *)self->_pairSetupSession setPromptForPINHandler:v25];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __37__RPConnection__clientPairSetupStart__block_invoke;
+    v23[3] = &unk_1E7C93A80;
+    v23[4] = self;
+    v23[5] = v19;
+    [(CUPairingSession *)self->_pairSetupSession setPromptForPINHandler:v23];
   }
 
   if (self->_pairSetupAuthType == 8)
@@ -3785,20 +3995,19 @@ LABEL_16:
     [(RPConnection *)self _configureForSessionPairing:self->_pairSetupSession];
   }
 
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __37__RPConnection__clientPairSetupStart__block_invoke_2;
-  v24[3] = &unk_1E7C93AA8;
-  v24[4] = self;
-  [(CUPairingSession *)self->_pairSetupSession setSendDataHandler:v24];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __37__RPConnection__clientPairSetupStart__block_invoke_3;
-  v23[3] = &unk_1E7C92D58;
-  v23[4] = self;
-  [(CUPairingSession *)self->_pairSetupSession setCompletionHandler:v23];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __37__RPConnection__clientPairSetupStart__block_invoke_2;
+  v22[3] = &unk_1E7C93AA8;
+  v22[4] = self;
+  [(CUPairingSession *)self->_pairSetupSession setSendDataHandler:v22];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __37__RPConnection__clientPairSetupStart__block_invoke_3;
+  v21[3] = &unk_1E7C92D58;
+  v21[4] = self;
+  [(CUPairingSession *)self->_pairSetupSession setCompletionHandler:v21];
   [(CUPairingSession *)self->_pairSetupSession activate];
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __37__RPConnection__clientPairSetupStart__block_invoke_2(uint64_t a1, char a2, void *a3)
@@ -3841,99 +4050,117 @@ void __37__RPConnection__clientPairSetupStart__block_invoke_2(uint64_t a1, char 
 - (void)_clientPairSetupWithData:(id)data
 {
   dataCopy = data;
-  v16 = 0;
+  v32 = 0;
   if (!self->_pairSetupSession)
   {
-    v11 = RPErrorF();
-    v7 = 0;
+    v29 = RPErrorF(4294960551, "No PairSetup client session", v4, v5, v6, v7, v8, v9, v31);
+    v19 = 0;
     goto LABEL_19;
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_4:
-      v15 = [dataCopy length];
-      LogPrintF();
+      LogPrintF(ucat, "-[RPConnection _clientPairSetupWithData:]", 30, "PairSetup next (%d bytes)\n", [dataCopy length]);
       goto LABEL_6;
     }
 
-    ucat = self->_ucat;
     if (_LogCategory_Initialize())
     {
-      v13 = self->_ucat;
+      ucat = self->_ucat;
       goto LABEL_4;
     }
   }
 
 LABEL_6:
-  v7 = OPACKDecodeData();
-  if (!v7)
+  v19 = OPACKDecodeData();
+  if (!v19)
   {
-    [RPConnection _clientPairSetupWithData:?];
-    v10 = 0;
+    [(RPConnection *)&v32 _clientPairSetupWithData:v12, v13, v14, v15, v16, v17, v18];
+    v28 = 0;
     goto LABEL_11;
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [(RPConnection *)v7 _clientPairSetupWithData:?];
+    [(RPConnection *)v19 _clientPairSetupWithData:?];
 LABEL_17:
-    v11 = v17;
+    v29 = v33;
     goto LABEL_19;
   }
 
   Int64Ranged = CFDictionaryGetInt64Ranged();
-  v16 = Int64Ranged;
+  v32 = Int64Ranged;
   if (Int64Ranged)
   {
-    [(RPConnection *)v7 _clientPairSetupWithData:&v17];
+    [(RPConnection *)v19 _clientPairSetupWithData:&v33];
     goto LABEL_17;
   }
 
   CFDataGetTypeID();
-  v9 = CFDictionaryGetTypedValue();
-  if (!v9)
+  v21 = CFDictionaryGetTypedValue();
+  if (!v21)
   {
-    v11 = RPErrorF();
+    v29 = RPErrorF(v32, "PairSetup request with no pairing data", v22, v23, v24, v25, v26, v27, v31);
 LABEL_19:
-    if (!v11)
+    if (!v29)
     {
 LABEL_25:
-      v10 = 0;
+      v28 = 0;
       goto LABEL_12;
     }
 
-    v12 = self->_ucat->var0;
-    if (v12 <= 60)
+    v30 = self->_ucat;
+    if (v30->var0 <= 60)
     {
-      if (v12 != -1)
+      if (v30->var0 == -1)
       {
-LABEL_22:
-        LogPrintF();
-        [(RPConnection *)self _clientPairSetupCompleted:v11, v11];
-        goto LABEL_25;
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_24;
+        }
+
+        v30 = self->_ucat;
       }
 
-      if (_LogCategory_Initialize())
-      {
-        v14 = self->_ucat;
-        goto LABEL_22;
-      }
+      LogPrintF(v30, "[RPConnection _clientPairSetupWithData:]", 60, "### PairSetup client receive failed: %{error}\n", v29);
     }
 
-    [(RPConnection *)self _clientPairSetupCompleted:v11, v15];
+LABEL_24:
+    [(RPConnection *)self _clientPairSetupCompleted:v29];
     goto LABEL_25;
   }
 
-  v10 = v9;
-  [(CUPairingSession *)self->_pairSetupSession receivedData:v9];
+  v28 = v21;
+  [(CUPairingSession *)self->_pairSetupSession receivedData:v21];
 LABEL_11:
-  v11 = 0;
+  v29 = 0;
 LABEL_12:
+}
+
+- (void)_clientPairSetupPromptWithFlags:(unsigned int)flags throttleSeconds:(int)seconds handler:(id)handler
+{
+  v5 = *&seconds;
+  v6 = *&flags;
+  pairSetupSession = self->_pairSetupSession;
+  handlerCopy = handler;
+  v9 = [(CUPairingSession *)pairSetupSession pinTypeActual]- 1;
+  if (v9 > 7)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v10 = dword_1B6F2E178[v9];
+  }
+
+  self->_passwordTypeActual = v10;
+  handlerCopy[2](handlerCopy, v6, v5);
 }
 
 - (void)_clientPairSetupCompleted:(id)completed
@@ -3947,9 +4174,9 @@ LABEL_12:
   }
 
   pairSetupSession = self->_pairSetupSession;
-  v24 = 0;
-  v7 = [(CUPairingSession *)pairSetupSession openStreamWithName:@"main" error:&v24];
-  v8 = v24;
+  v22 = 0;
+  v7 = [(CUPairingSession *)pairSetupSession openStreamWithName:@"main" error:&v22];
+  v8 = v22;
   mainStream = self->_mainStream;
   self->_mainStream = v7;
 
@@ -3960,9 +4187,9 @@ LABEL_12:
     if (self->_btPipeHighPriority)
     {
       v11 = self->_pairSetupSession;
-      v23 = v8;
-      v12 = [(CUPairingSession *)v11 openStreamWithName:@"hipri" error:&v23];
-      v13 = v23;
+      v21 = v8;
+      v12 = [(CUPairingSession *)v11 openStreamWithName:@"hipri" error:&v21];
+      v13 = v21;
 
       highPriorityStream = self->_highPriorityStream;
       self->_highPriorityStream = v12;
@@ -4017,21 +4244,20 @@ LABEL_13:
   }
 
 LABEL_14:
-  var0 = self->_ucat->var0;
-  if (var0 <= 60)
+  v18 = self->_ucat;
+  if (v18->var0 <= 60)
   {
-    if (var0 == -1)
+    if (v18->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_18;
       }
 
-      v21 = self->_ucat;
+      v18 = self->_ucat;
     }
 
-    v22 = v13;
-    LogPrintF();
+    LogPrintF(v18, "[RPConnection _clientPairSetupCompleted:]", 60, "### PairSetup client completion failed: %{error}\n", v13);
   }
 
 LABEL_18:
@@ -4054,7 +4280,7 @@ LABEL_21:
 
 - (void)_clientPairVerifyStart
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   [(RPConnection *)self _pairVerifyInvalidate];
   self->_pairVerifyCompleted = 0;
   self->_pairVerifyUsedIdentity = 0;
@@ -4083,10 +4309,10 @@ LABEL_21:
   controlFlags = self->_controlFlags;
   if ((controlFlags & 0x20000000) != 0)
   {
-    v36 = @"_cf";
+    v24 = @"_cf";
     0x20000000 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:controlFlags & 0x20000000];
-    v37[0] = 0x20000000;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+    v25[0] = 0x20000000;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     [(CUPairingSession *)self->_pairVerifySession setAppInfoSelf:v9];
 
     controlFlags = self->_controlFlags;
@@ -4127,8 +4353,8 @@ LABEL_37:
       case 9:
         self->_pairVerifyAuthType = 3;
         [(CUPairingSession *)self->_pairVerifySession setFlags:[(CUPairingSession *)self->_pairVerifySession flags]& 0xFFBFFFFFLL];
-        v14 = self->_pairVerifySession;
-        v15 = [(CUPairingSession *)v14 flags]| 0x4000000;
+        v13 = self->_pairVerifySession;
+        v14 = [(CUPairingSession *)v13 flags]| 0x4000000;
         goto LABEL_31;
       case 8:
         goto LABEL_29;
@@ -4144,7 +4370,6 @@ LABEL_37:
       self->_pairVerifyAuthType = 9;
       [(CUPairingSession *)self->_pairVerifySession setFlags:[(CUPairingSession *)self->_pairVerifySession flags]& 0xFFBFFFFFLL];
       [(CUPairingSession *)self->_pairVerifySession setSelfAppFlags:1];
-      v12 = self->_pairVerifySession;
       (*(self->_configurePairingHandler + 2))();
       goto LABEL_32;
     }
@@ -4156,10 +4381,10 @@ LABEL_37:
     {
       self->_pairVerifyAuthType = 7;
       [(CUPairingSession *)self->_pairVerifySession setFlags:[(CUPairingSession *)self->_pairVerifySession flags]& 0xFFBFFFFFLL];
-      v14 = self->_pairVerifySession;
-      v15 = [(CUPairingSession *)v14 flags]| 0x1000;
+      v13 = self->_pairVerifySession;
+      v14 = [(CUPairingSession *)v13 flags]| 0x1000;
 LABEL_31:
-      [(CUPairingSession *)v14 setFlags:v15];
+      [(CUPairingSession *)v13 setFlags:v14];
       goto LABEL_32;
     }
 
@@ -4171,8 +4396,8 @@ LABEL_31:
 LABEL_29:
     self->_pairVerifyAuthType = 4;
     [(CUPairingSession *)self->_pairVerifySession setFlags:[(CUPairingSession *)self->_pairVerifySession flags]& 0xFFBFFFFFLL];
-    v14 = self->_pairVerifySession;
-    v15 = [(CUPairingSession *)v14 flags]| 0xC;
+    v13 = self->_pairVerifySession;
+    v14 = [(CUPairingSession *)v13 flags]| 0xC;
     goto LABEL_31;
   }
 
@@ -4191,10 +4416,10 @@ LABEL_32:
   [(RPConnection *)self _configureForSessionPairing:self->_pairVerifySession];
   if (GestaltGetDeviceClass() == 4)
   {
-    var0 = self->_ucat->var0;
-    if (var0 <= 30)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -4204,9 +4429,7 @@ LABEL_32:
         ucat = self->_ucat;
       }
 
-      v23 = "SessionPaired";
-      v25 = "RPIdentity";
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _clientPairVerifyStart]", 30, "Backwards compatibility change authType (%s) -> (%s)", "SessionPaired", "RPIdentity");
     }
 
 LABEL_40:
@@ -4216,80 +4439,73 @@ LABEL_40:
 
   pairVerifyAuthType = 8;
 LABEL_41:
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __38__RPConnection__clientPairVerifyStart__block_invoke;
-  v34[3] = &unk_1E7C93AD0;
-  v35 = pairVerifyAuthType;
-  v34[4] = self;
-  [(CUPairingSession *)self->_pairVerifySession setSendDataHandler:v34, v23, v25];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __38__RPConnection__clientPairVerifyStart__block_invoke;
+  v22[3] = &unk_1E7C93AD0;
+  v23 = pairVerifyAuthType;
+  v22[4] = self;
+  [(CUPairingSession *)self->_pairVerifySession setSendDataHandler:v22];
   if (pairVerifyAuthType > 7 || ((1 << pairVerifyAuthType) & 0x98) == 0)
   {
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __38__RPConnection__clientPairVerifyStart__block_invoke_2;
-    v33[3] = &unk_1E7C93AF8;
-    v33[4] = self;
-    [(CUPairingSession *)self->_pairVerifySession setSignDataHandler:v33];
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __38__RPConnection__clientPairVerifyStart__block_invoke_3;
-    v32[3] = &unk_1E7C93B20;
-    v32[4] = self;
-    [(CUPairingSession *)self->_pairVerifySession setVerifySignatureHandler:v32];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __38__RPConnection__clientPairVerifyStart__block_invoke_2;
+    v21[3] = &unk_1E7C93AF8;
+    v21[4] = self;
+    [(CUPairingSession *)self->_pairVerifySession setSignDataHandler:v21];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __38__RPConnection__clientPairVerifyStart__block_invoke_3;
+    v20[3] = &unk_1E7C93B20;
+    v20[4] = self;
+    [(CUPairingSession *)self->_pairVerifySession setVerifySignatureHandler:v20];
   }
 
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __38__RPConnection__clientPairVerifyStart__block_invoke_4;
-  v31[3] = &unk_1E7C92D58;
-  v31[4] = self;
-  [(CUPairingSession *)self->_pairVerifySession setCompletionHandler:v31];
-  v17 = self->_ucat->var0;
-  if (v17 <= 30)
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __38__RPConnection__clientPairVerifyStart__block_invoke_4;
+  v19[3] = &unk_1E7C92D58;
+  v19[4] = self;
+  [(CUPairingSession *)self->_pairVerifySession setCompletionHandler:v19];
+  v16 = self->_ucat;
+  if (v16->var0 <= 30)
   {
-    if (v17 == -1)
+    if (v16->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_55;
       }
 
-      v19 = self->_ucat;
+      v16 = self->_ucat;
     }
 
     if (pairVerifyAuthType > 0xA)
+    {
+      v17 = "?";
+    }
+
+    else
+    {
+      v17 = off_1E7C94130[pairVerifyAuthType];
+    }
+
+    if (passwordType > 0xB)
     {
       v18 = "?";
     }
 
     else
     {
-      v18 = off_1E7C94130[pairVerifyAuthType];
+      v18 = off_1E7C940D0[passwordType];
     }
 
-    if (passwordType > 0xB)
-    {
-      v20 = "?";
-    }
-
-    else
-    {
-      v20 = off_1E7C940D0[passwordType];
-    }
-
-    v29 = &unk_1B6F2E0D0;
-    v30 = v20;
-    v27 = &unk_1B6F2DC4E;
-    flags = self->_flags;
-    v24 = v18;
-    v26 = self->_controlFlags;
-    LogPrintF();
+    LogPrintF(v16, "[RPConnection _clientPairVerifyStart]", 30, "PairVerify start client: AT %s, CF %#ll{flags}, FL %#{flags}, PWT %s\n", v17, self->_controlFlags, &unk_1B6F2DC4E, self->_flags, &unk_1B6F2E0D0, v18);
   }
 
 LABEL_55:
-  [(CUPairingSession *)self->_pairVerifySession activate:v24];
-  v21 = *MEMORY[0x1E69E9840];
+  [(CUPairingSession *)self->_pairVerifySession activate];
 }
 
 void __38__RPConnection__clientPairVerifyStart__block_invoke(uint64_t a1, char a2, void *a3)
@@ -4319,89 +4535,86 @@ void __38__RPConnection__clientPairVerifyStart__block_invoke(uint64_t a1, char a
 - (void)_clientPairVerifyWithData:(id)data
 {
   dataCopy = data;
-  v15 = 0;
+  v31 = 0;
   if (!self->_pairVerifySession)
   {
-    v10 = RPErrorF();
-    v7 = 0;
+    v28 = RPErrorF(4294960551, "No PairVerify client session", v4, v5, v6, v7, v8, v9, v30);
+    v19 = 0;
     goto LABEL_16;
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_4:
-      v14 = [dataCopy length];
-      LogPrintF();
+      LogPrintF(ucat, "-[RPConnection _clientPairVerifyWithData:]", 30, "PairVerify next (%d bytes)\n", [dataCopy length]);
       goto LABEL_6;
     }
 
-    ucat = self->_ucat;
     if (_LogCategory_Initialize())
     {
-      v12 = self->_ucat;
+      ucat = self->_ucat;
       goto LABEL_4;
     }
   }
 
 LABEL_6:
-  v7 = OPACKDecodeData();
-  if (!v7)
+  v19 = OPACKDecodeData();
+  if (!v19)
   {
-    [RPConnection _clientPairSetupWithData:?];
-    v9 = 0;
+    [(RPConnection *)&v31 _clientPairSetupWithData:v12, v13, v14, v15, v16, v17, v18];
+    v27 = 0;
     goto LABEL_10;
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [(RPConnection *)v7 _clientPairVerifyWithData:?];
-    v10 = v16;
+    [(RPConnection *)v19 _clientPairVerifyWithData:?];
+    v28 = v32;
     goto LABEL_16;
   }
 
   CFDataGetTypeID();
-  v8 = CFDictionaryGetTypedValue();
-  if (!v8)
+  v20 = CFDictionaryGetTypedValue();
+  if (!v20)
   {
-    v10 = RPErrorF();
+    v28 = RPErrorF(v31, "PairVerify request with no pairing data", v21, v22, v23, v24, v25, v26, v30);
 LABEL_16:
-    if (!v10)
+    if (!v28)
     {
 LABEL_22:
-      v9 = 0;
+      v27 = 0;
       goto LABEL_11;
     }
 
-    v11 = self->_ucat->var0;
-    if (v11 <= 60)
+    v29 = self->_ucat;
+    if (v29->var0 <= 60)
     {
-      if (v11 != -1)
+      if (v29->var0 == -1)
       {
-LABEL_19:
-        LogPrintF();
-        [(RPConnection *)self _clientPairVerifyCompleted:v10, v10];
-        goto LABEL_22;
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_21;
+        }
+
+        v29 = self->_ucat;
       }
 
-      if (_LogCategory_Initialize())
-      {
-        v13 = self->_ucat;
-        goto LABEL_19;
-      }
+      LogPrintF(v29, "[RPConnection _clientPairVerifyWithData:]", 60, "### PairVerify client receive failed: %{error}\n", v28);
     }
 
-    [(RPConnection *)self _clientPairVerifyCompleted:v10, v14];
+LABEL_21:
+    [(RPConnection *)self _clientPairVerifyCompleted:v28];
     goto LABEL_22;
   }
 
-  v9 = v8;
-  [(CUPairingSession *)self->_pairVerifySession receivedData:v8];
+  v27 = v20;
+  [(CUPairingSession *)self->_pairVerifySession receivedData:v20];
 LABEL_10:
-  v10 = 0;
+  v28 = 0;
 LABEL_11:
 }
 
@@ -4419,9 +4632,9 @@ LABEL_11:
   if ((self->_controlFlags & 0x20000000) != 0 && ([(CUPairingSession *)self->_pairVerifySession appInfoPeer], v7 = objc_claimAutoreleasedReturnValue(), Int64 = CFDictionaryGetInt64(), v7, (Int64 & 0x20000000) != 0))
   {
     pairVerifySession = self->_pairVerifySession;
-    v73 = 0;
-    v17 = [(CUPairingSession *)pairVerifySession openStreamWithName:@"main" type:2 error:&v73];
-    v11 = v73;
+    v65 = 0;
+    v17 = [(CUPairingSession *)pairVerifySession openStreamWithName:@"main" type:2 error:&v65];
+    v11 = v65;
     mainStream = self->_mainStream;
     self->_mainStream = v17;
 
@@ -4431,17 +4644,17 @@ LABEL_11:
     }
 
     v19 = self->_pairVerifySession;
-    v72 = v11;
-    v14 = [(CUPairingSession *)v19 openStreamWithName:@"hipri" type:2 error:&v72];
-    v15 = v72;
+    v64 = v11;
+    v14 = [(CUPairingSession *)v19 openStreamWithName:@"hipri" type:2 error:&v64];
+    v15 = v64;
   }
 
   else
   {
     v9 = self->_pairVerifySession;
-    v71 = 0;
-    v10 = [(CUPairingSession *)v9 openStreamWithName:@"main" error:&v71];
-    v11 = v71;
+    v63 = 0;
+    v10 = [(CUPairingSession *)v9 openStreamWithName:@"main" error:&v63];
+    v11 = v63;
     v12 = self->_mainStream;
     self->_mainStream = v10;
 
@@ -4451,9 +4664,9 @@ LABEL_11:
     }
 
     v13 = self->_pairVerifySession;
-    v70 = v11;
-    v14 = [(CUPairingSession *)v13 openStreamWithName:@"hipri" error:&v70];
-    v15 = v70;
+    v62 = v11;
+    v14 = [(CUPairingSession *)v13 openStreamWithName:@"hipri" error:&v62];
+    v15 = v62;
   }
 
   v20 = v15;
@@ -4714,13 +4927,13 @@ LABEL_57:
 
 LABEL_62:
   self->_stepDone = 1;
-  var0 = self->_ucat->var0;
-  if (var0 > 30)
+  ucat = self->_ucat;
+  if (ucat->var0 > 30)
   {
     goto LABEL_66;
   }
 
-  if (var0 != -1)
+  if (ucat->var0 != -1)
   {
     goto LABEL_64;
   }
@@ -4729,13 +4942,7 @@ LABEL_62:
   {
     ucat = self->_ucat;
 LABEL_64:
-    v68 = &unk_1B6F2DEF3;
-    v69 = self->_identityVerified;
-    v66 = &unk_1B6F2E0D0;
-    statusFlags = self->_statusFlags;
-    v64 = v28;
-    flags = self->_flags;
-    LogPrintF();
+    LogPrintF(ucat, "[RPConnection _clientPairVerifyCompleted:]", 30, "PairVerify completed client %s, %#{flags}, %#ll{flags}, RPI %@\n", v28, self->_flags, &unk_1B6F2E0D0, self->_statusFlags, &unk_1B6F2DEF3, self->_identityVerified);
   }
 
 LABEL_66:
@@ -4754,21 +4961,20 @@ LABEL_70:
   }
 
 LABEL_71:
-  v59 = self->_ucat->var0;
-  if (v59 <= 60)
+  v59 = self->_ucat;
+  if (v59->var0 <= 60)
   {
-    if (v59 == -1)
+    if (v59->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_75;
       }
 
-      v63 = self->_ucat;
+      v59 = self->_ucat;
     }
 
-    v64 = v11;
-    LogPrintF();
+    LogPrintF(v59, "[RPConnection _clientPairVerifyCompleted:]", 60, "### PairVerify client completion failed: %{error}\n", v11);
   }
 
 LABEL_75:
@@ -4777,7 +4983,7 @@ LABEL_75:
     objc_storeStrong(&self->_stepError, completed);
   }
 
-  [(RPConnection *)self _pairVerifyInvalidate:v64];
+  [(RPConnection *)self _pairVerifyInvalidate];
 LABEL_78:
   v60 = _Block_copy(self->_pairVerifyCompletion);
   v61 = v60;
@@ -4796,10 +5002,10 @@ LABEL_78:
   self->_stepError = 0;
 
   _systeminfo = [(RPConnection *)self _systeminfo];
-  var0 = self->_ucat->var0;
-  if (var0 <= 10)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 10)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -4809,17 +5015,16 @@ LABEL_78:
       ucat = self->_ucat;
     }
 
-    v10 = _systeminfo;
-    LogPrintF();
+    LogPrintF(ucat, "[RPConnection _clientStartSession]", 10, "Sending system info: %@", _systeminfo);
   }
 
 LABEL_5:
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __35__RPConnection__clientStartSession__block_invoke;
-  v11[3] = &unk_1E7C93B48;
-  v11[4] = self;
-  [(RPConnection *)self _sendEncryptedRequestID:@"_systemInfo" request:_systeminfo xpcID:0 options:0 sendEntry:0 responseHandler:v11, v10];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __35__RPConnection__clientStartSession__block_invoke;
+  v9[3] = &unk_1E7C93B48;
+  v9[4] = self;
+  [(RPConnection *)self _sendEncryptedRequestID:@"_systemInfo" request:_systeminfo xpcID:0 options:0 sendEntry:0 responseHandler:v9];
   v6 = self->_statusFlags & 0x50000AE000;
   v7 = _Block_copy(self->_proxyDeviceUpdateHandler);
   v8 = v7;
@@ -4831,30 +5036,30 @@ LABEL_5:
 
 void __35__RPConnection__clientStartSession__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v11 = a2;
+  v18 = a2;
   v7 = a3;
-  v8 = a4;
-  if (v11)
+  v13 = a4;
+  if (v18)
   {
-    v9 = [*(a1 + 32) _receivedSystemInfo:v11 xid:0];
-    if (!v8 && (v9 & 1) == 0)
+    v14 = [*(a1 + 32) _receivedSystemInfo:v18 xid:0];
+    if (!v13 && (v14 & 1) == 0)
     {
-      v8 = RPErrorF();
+      v13 = RPErrorF(4294960534, "Rejected connection", v15, v8, v9, v10, v11, v12, v17);
     }
   }
 
-  if (v8)
+  if (v13)
   {
-    v10 = RPNestedErrorF();
+    v16 = RPNestedErrorF(v13, 4294896153, "Start session response failed", v8, v9, v10, v11, v12, v17);
   }
 
   else
   {
-    v10 = 0;
+    v16 = 0;
   }
 
-  objc_storeStrong((*(a1 + 32) + 144), v10);
-  if (v8)
+  objc_storeStrong((*(a1 + 32) + 144), v16);
+  if (v13)
   {
   }
 
@@ -4896,7 +5101,8 @@ void __35__RPConnection__clientStartSession__block_invoke(uint64_t a1, void *a2,
     v10 = 10.0 - v8;
   }
 
-  var0 = self->_ucat->var0;
+  ucat = self->_ucat;
+  var0 = ucat->var0;
   if (v10 > 0.0)
   {
     if (var0 <= 30)
@@ -4911,23 +5117,22 @@ void __35__RPConnection__clientStartSession__block_invoke(uint64_t a1, void *a2,
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _clientRetryStart]", 30, "Retrying delayed: %.3f seconds\n", v10);
     }
 
 LABEL_24:
     self->_retryFired = 0;
-    v12 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
-    v13 = self->_retryTimer;
-    self->_retryTimer = v12;
-
+    v13 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
     v14 = self->_retryTimer;
+    self->_retryTimer = v13;
+
+    v15 = self->_retryTimer;
     handler[0] = MEMORY[0x1E69E9820];
     handler[1] = 3221225472;
     handler[2] = __33__RPConnection__clientRetryStart__block_invoke;
     handler[3] = &unk_1E7C92CE8;
     handler[4] = self;
-    dispatch_source_set_event_handler(v14, handler);
-    v15 = self->_retryTimer;
+    dispatch_source_set_event_handler(v15, handler);
     CUDispatchTimerSet();
     dispatch_resume(self->_retryTimer);
     return;
@@ -4944,11 +5149,10 @@ LABEL_24:
           goto LABEL_28;
         }
 
-        v18 = self->_ucat;
+        ucat = self->_ucat;
       }
 
-LABEL_22:
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _clientRetryStart]", 30, "Retrying immediately: first retry\n");
     }
   }
 
@@ -4961,10 +5165,10 @@ LABEL_22:
         goto LABEL_28;
       }
 
-      v16 = self->_ucat;
+      ucat = self->_ucat;
     }
 
-    goto LABEL_22;
+    LogPrintF(ucat, "[RPConnection _clientRetryStart]", 30, "Retrying immediately: %{dur} since last retry\n", v8);
   }
 
 LABEL_28:
@@ -4984,9 +5188,9 @@ uint64_t __33__RPConnection__clientRetryStart__block_invoke(uint64_t a1)
   retryTimer = self->_retryTimer;
   if (retryTimer)
   {
-    v4 = retryTimer;
-    dispatch_source_cancel(v4);
-    v5 = self->_retryTimer;
+    v10 = retryTimer;
+    dispatch_source_cancel(v10);
+    v11 = self->_retryTimer;
     self->_retryTimer = 0;
   }
 
@@ -4998,10 +5202,10 @@ uint64_t __33__RPConnection__clientRetryStart__block_invoke(uint64_t a1)
     return;
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -5011,12 +5215,12 @@ uint64_t __33__RPConnection__clientRetryStart__block_invoke(uint64_t a1)
       ucat = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[RPConnection _clientRetryFired]", 30, "Peer missing after retry timer, invalidating\n");
   }
 
 LABEL_11:
-  v8 = RPErrorF();
-  [(RPConnection *)self _invalidateWithError:v8];
+  v14 = RPErrorF(4294896153, "Peer missing after retry", v2, v3, v4, v5, v6, v7, v13);
+  [(RPConnection *)self _invalidateWithError:v14];
 }
 
 - (void)_clientStarted
@@ -5117,27 +5321,26 @@ LABEL_16:
         return;
       }
 
-      var0 = self->_ucat->var0;
-      if (var0 <= 30)
+      ucat = self->_ucat;
+      if (ucat->var0 <= 30)
       {
-        if (var0 != -1)
+        if (ucat->var0 != -1)
         {
           goto LABEL_24;
         }
 
-        ucat = self->_ucat;
         if (_LogCategory_Initialize())
         {
-          v8 = self->_ucat;
+          ucat = self->_ucat;
           v5 = self->_internalState;
 LABEL_24:
-          v9 = _StateToString(internalState);
-          v10 = _StateToString(v5);
-          LogPrintF();
+          v7 = _StateToString(internalState);
+          v8 = _StateToString(v5);
+          LogPrintF(ucat, "[RPConnection _serverRun]", 30, "Server state: %s -> %s\n", v7, v8);
         }
       }
 
-      [(RPConnection *)self _updateExternalState:v9];
+      [(RPConnection *)self _updateExternalState];
     }
   }
 }
@@ -5164,7 +5367,6 @@ LABEL_24:
   handler[3] = &unk_1E7C92CE8;
   handler[4] = self;
   dispatch_source_set_event_handler(v8, handler);
-  v9 = self->_startTimer;
   CUDispatchTimerSet();
   dispatch_resume(self->_startTimer);
   [(RPConnection *)self _pairSetupInvalidate];
@@ -5192,21 +5394,21 @@ LABEL_24:
   }
 }
 
-void __29__RPConnection__serverAccept__block_invoke(uint64_t a1)
+void __29__RPConnection__serverAccept__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v2 = *(*(a1 + 32) + 128);
-  if (v2)
+  v9 = *(*(a1 + 32) + 128);
+  if (v9)
   {
-    v3 = v2;
-    dispatch_source_cancel(v3);
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 128);
-    *(v4 + 128) = 0;
+    v10 = v9;
+    dispatch_source_cancel(v10);
+    v11 = *(a1 + 32);
+    v12 = *(v11 + 128);
+    *(v11 + 128) = 0;
   }
 
-  v6 = *(a1 + 32);
-  v7 = RPErrorF();
-  [v6 _serverError:v7];
+  v13 = *(a1 + 32);
+  v15 = RPErrorF(4294896153, "Start session timeout", a3, a4, a5, a6, a7, a8, v14);
+  [v13 _serverError:v15];
 }
 
 - (void)_serverAcceptBLE
@@ -5229,13 +5431,13 @@ void __29__RPConnection__serverAccept__block_invoke(uint64_t a1)
 uint64_t __32__RPConnection__serverAcceptBLE__block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v3 = **(v2 + 296);
-  if (v3 <= 30)
+  v3 = *(v2 + 296);
+  if (*v3 <= 30)
   {
-    if (v3 != -1)
+    if (*v3 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(v3, "[RPConnection _serverAcceptBLE]_block_invoke_2", 30, "BLE server connection invalidated\n");
       v2 = *(a1 + 32);
       goto LABEL_5;
     }
@@ -5244,7 +5446,7 @@ LABEL_3:
     v2 = *(a1 + 32);
     if (v4)
     {
-      v10 = *(v2 + 296);
+      v3 = *(v2 + 296);
       goto LABEL_3;
     }
   }
@@ -5266,10 +5468,10 @@ LABEL_5:
 {
   if (!self->_readFrame.readRequested)
   {
-    var0 = self->_ucat->var0;
-    if (var0 <= 40)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 40)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -5279,7 +5481,7 @@ LABEL_5:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _serverAcceptBTPipe]", 40, "Start receiving data from the default pipe");
     }
 
 LABEL_6:
@@ -5291,20 +5493,20 @@ LABEL_6:
     return;
   }
 
-  v4 = self->_ucat->var0;
-  if (v4 <= 40)
+  v4 = self->_ucat;
+  if (v4->var0 <= 40)
   {
-    if (v4 == -1)
+    if (v4->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_12;
       }
 
-      v7 = self->_ucat;
+      v4 = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(v4, "[RPConnection _serverAcceptBTPipe]", 40, "Start receiving data from high priority pipe");
   }
 
 LABEL_12:
@@ -5358,13 +5560,13 @@ void __32__RPConnection__serverAcceptTCP__block_invoke_2(uint64_t a1)
 uint64_t __32__RPConnection__serverAcceptTCP__block_invoke_3(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v3 = **(v2 + 296);
-  if (v3 <= 30)
+  v3 = *(v2 + 296);
+  if (*v3 <= 30)
   {
-    if (v3 != -1)
+    if (*v3 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(v3, "[RPConnection _serverAcceptTCP]_block_invoke_3", 30, "TCP server connection invalidated\n");
       v2 = *(a1 + 32);
       goto LABEL_5;
     }
@@ -5373,7 +5575,7 @@ LABEL_3:
     v2 = *(a1 + 32);
     if (v4)
     {
-      v10 = *(v2 + 296);
+      v3 = *(v2 + 296);
       goto LABEL_3;
     }
   }
@@ -5394,21 +5596,20 @@ LABEL_5:
 - (void)_serverError:(id)error
 {
   errorCopy = error;
-  var0 = self->_ucat->var0;
-  v10 = errorCopy;
-  if (var0 <= 60)
+  ucat = self->_ucat;
+  v8 = errorCopy;
+  if (ucat->var0 <= 60)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_3:
-      v9 = errorCopy;
-      LogPrintF();
-      errorCopy = v10;
+      LogPrintF(ucat, "[RPConnection _serverError:]", 60, "### Server error: %{error}\n", errorCopy);
+      errorCopy = v8;
       goto LABEL_5;
     }
 
     v7 = _LogCategory_Initialize();
-    errorCopy = v10;
+    errorCopy = v8;
     if (v7)
     {
       ucat = self->_ucat;
@@ -5444,9 +5645,8 @@ LABEL_5:
 
   else
   {
-    labelCopy = label;
-    v6 = RPNestedErrorF();
-    [(RPConnection *)self _serverError:v6, labelCopy];
+    v11 = RPNestedErrorF(errorCopy, 4294896153, "%s", v6, v7, v8, v9, v10, label);
+    [(RPConnection *)self _serverError:v11];
   }
 }
 
@@ -5457,7 +5657,8 @@ LABEL_5:
   {
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
-    var0 = self->_ucat->var0;
+    ucat = self->_ucat;
+    var0 = ucat->var0;
     if (isKindOfClass)
     {
       if (var0 > 30)
@@ -5472,34 +5673,32 @@ LABEL_5:
 LABEL_15:
           v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
           [v9 setObject:@"715.2" forKeyedSubscript:@"_sv"];
-          v10 = self->_ucat->var0;
-          if (v10 <= 30)
+          v10 = self->_ucat;
+          if (v10->var0 <= 30)
           {
-            if (v10 == -1)
+            if (v10->var0 == -1)
             {
               if (!_LogCategory_Initialize())
               {
                 goto LABEL_21;
               }
 
-              ucat = self->_ucat;
+              v10 = self->_ucat;
             }
 
-            v14 = v9;
-            LogPrintF();
+            LogPrintF(v10, "[RPConnection _serverPreAuthRequestWithData:]", 30, "Send PreAuthResponse: %##@\n", v9);
           }
 
 LABEL_21:
-          [(RPConnection *)self _sendFrameType:11 unencryptedObject:v9, v14];
+          [(RPConnection *)self _sendFrameType:11 unencryptedObject:v9];
 
           goto LABEL_22;
         }
 
-        v12 = self->_ucat;
+        ucat = self->_ucat;
       }
 
-      v14 = v4;
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _serverPreAuthRequestWithData:]", 30, "Received PreAuthRequest: %##@\n", v4);
       goto LABEL_15;
     }
 
@@ -5512,20 +5711,19 @@ LABEL_21:
           goto LABEL_22;
         }
 
-        v11 = self->_ucat;
+        ucat = self->_ucat;
       }
 
-LABEL_11:
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _serverPreAuthRequestWithData:]", 90, "### PreAuthRequest bad type\n");
     }
   }
 
   else
   {
-    v7 = self->_ucat->var0;
-    if (v7 <= 90)
+    v8 = self->_ucat;
+    if (v8->var0 <= 90)
     {
-      if (v7 == -1)
+      if (v8->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -5535,7 +5733,7 @@ LABEL_11:
         v8 = self->_ucat;
       }
 
-      goto LABEL_11;
+      LogPrintF(v8, "[RPConnection _serverPreAuthRequestWithData:]", 90, "### PreAuthRequest decode failed: %#m\n", 0);
     }
   }
 
@@ -5544,29 +5742,29 @@ LABEL_22:
 
 - (BOOL)_serverPairingAllowed
 {
-  sharedConnection = [getMCProfileConnectionClass[0]() sharedConnection];
-  v3 = getMCFeatureRemoteAppPairingAllowed();
-  v4 = [sharedConnection effectiveBoolValueForSetting:v3];
+  v2 = [getMCProfileConnectionClass(self a2)];
+  v3 = getMCFeatureRemoteAppPairingAllowed(v2);
+  v4 = [v2 effectiveBoolValueForSetting:v3];
 
   return v4 != 2;
 }
 
 - (void)_serverPairSetupWithData:(id)data start:(BOOL)start
 {
-  v69[2] = *MEMORY[0x1E69E9840];
-  v63 = 0;
-  v6 = OPACKDecodeData();
-  if (!v6)
+  v74[2] = *MEMORY[0x1E69E9840];
+  v68 = 0;
+  v13 = OPACKDecodeData();
+  if (!v13)
   {
-    [RPConnection _clientPairSetupWithData:?];
+    [(RPConnection *)&v68 _clientPairSetupWithData:v6, v7, v8, v9, v10, v11, v12];
     goto LABEL_92;
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [(RPConnection *)v6 _clientPairSetupWithData:?];
-    v45 = v64;
+    [(RPConnection *)v13 _clientPairSetupWithData:?];
+    v57 = v69;
     goto LABEL_98;
   }
 
@@ -5594,10 +5792,10 @@ LABEL_22:
 LABEL_7:
   if ((self->_flags & 0x4000) == 0)
   {
-    var0 = self->_ucat->var0;
-    if (var0 <= 50)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 50)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -5607,82 +5805,82 @@ LABEL_7:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _serverPairSetupWithData:start:]", 50, "PairSetup server rejecting when not allowing non-Home devices\n");
     }
 
 LABEL_34:
-    v68[0] = @"_ec";
-    v68[1] = @"_em";
-    v69[0] = &unk_1F2EEC6B0;
-    v69[1] = @"Non-home access not allowed";
-    v19 = MEMORY[0x1E695DF20];
-    v20 = v69;
-    v21 = v68;
+    v73[0] = @"_ec";
+    v73[1] = @"_em";
+    v74[0] = &unk_1F2EEC6B0;
+    v74[1] = @"Non-home access not allowed";
+    v26 = MEMORY[0x1E695DF20];
+    v27 = v74;
+    v28 = v73;
 LABEL_37:
-    v22 = [v19 dictionaryWithObjects:v20 forKeys:v21 count:2];
-    [(RPConnection *)self _sendFrameType:4 unencryptedObject:v22];
+    v29 = [v26 dictionaryWithObjects:v27 forKeys:v28 count:2];
+    [(RPConnection *)self _sendFrameType:4 unencryptedObject:v29];
 LABEL_91:
 
 LABEL_92:
-    v45 = 0;
+    v57 = 0;
     goto LABEL_93;
   }
 
 LABEL_12:
-  v9 = self->_ucat->var0;
-  if (v9 <= 30)
+  v16 = self->_ucat;
+  if (v16->var0 <= 30)
   {
-    if (v9 == -1)
+    if (v16->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_16;
       }
 
-      v49 = self->_ucat;
+      v16 = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(v16, "[RPConnection _serverPairSetupWithData:start:]", 30, "AirPlay restrictions ignored\n");
   }
 
 LABEL_16:
   Int64Ranged = CFDictionaryGetInt64Ranged();
-  v11 = Int64Ranged;
+  v18 = Int64Ranged;
   if (Int64Ranged <= 0xA && ((1 << Int64Ranged) & 0x426) != 0 && ![(RPConnection *)self _serverPairingAllowed])
   {
-    v18 = self->_ucat->var0;
-    if (v18 <= 50)
+    v25 = self->_ucat;
+    if (v25->var0 <= 50)
     {
-      if (v18 == -1)
+      if (v25->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_36;
         }
 
-        v51 = self->_ucat;
+        v25 = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(v25, "[RPConnection _serverPairSetupWithData:start:]", 50, "PairSetup server rejecting when not allowed\n");
     }
 
 LABEL_36:
-    v66[0] = @"_ec";
-    v66[1] = @"_em";
-    v67[0] = &unk_1F2EEC6B0;
-    v67[1] = @"Pairing not allowed";
-    v19 = MEMORY[0x1E695DF20];
-    v20 = v67;
-    v21 = v66;
+    v71[0] = @"_ec";
+    v71[1] = @"_em";
+    v72[0] = &unk_1F2EEC6B0;
+    v72[1] = @"Pairing not allowed";
+    v26 = MEMORY[0x1E695DF20];
+    v27 = v72;
+    v28 = v71;
     goto LABEL_37;
   }
 
   if (start || !self->_pairSetupSession)
   {
     [(RPConnection *)self _pairSetupInvalidate];
-    v12 = objc_alloc_init(MEMORY[0x1E69994F8]);
+    v19 = objc_alloc_init(MEMORY[0x1E69994F8]);
     pairSetupSession = self->_pairSetupSession;
-    self->_pairSetupSession = v12;
+    self->_pairSetupSession = v19;
 
     [(CUPairingSession *)self->_pairSetupSession setDispatchQueue:self->_dispatchQueue];
     [(CUPairingSession *)self->_pairSetupSession setFlags:self->_pairSetupFlags];
@@ -5698,132 +5896,130 @@ LABEL_36:
 
     [(CUPairingSession *)self->_pairSetupSession setLabel:label];
     [(CUPairingSession *)self->_pairSetupSession setSessionType:2];
-    v15 = CFDictionaryGetInt64Ranged();
+    v22 = CFDictionaryGetInt64Ranged();
     DeviceClass = GestaltGetDeviceClass();
-    if (v11 != 10 || DeviceClass != 4 || v15)
+    if (v18 != 10 || DeviceClass != 4 || v22)
     {
 LABEL_40:
-      v23 = self->_ucat->var0;
-      if (v23 > 30)
+      v30 = self->_ucat;
+      if (v30->var0 > 30)
       {
         goto LABEL_51;
       }
 
-      if (v23 == -1)
+      if (v30->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_51;
         }
 
-        v25 = self->_ucat;
+        v30 = self->_ucat;
       }
 
-      if (v11 > 0xB)
+      if (v18 > 0xB)
       {
-        v24 = "?";
+        v31 = "?";
       }
 
       else
       {
-        v24 = off_1E7C940D0[v11 & 0xF];
+        v31 = off_1E7C940D0[v18 & 0xF];
       }
 
-      if (v15 > 0xA)
+      if (v22 > 0xA)
       {
-        v26 = "?";
+        v32 = "?";
       }
 
       else
       {
-        v26 = off_1E7C94130[v15];
+        v32 = off_1E7C94130[v22];
       }
 
-      v53 = v24;
-      v54 = v26;
-      LogPrintF();
+      LogPrintF(v30, "[RPConnection _serverPairSetupWithData:start:]", 30, "Requested password type: %s auth type: %s\n", v31, v32);
 LABEL_51:
-      if (v15 == 8)
+      if (v22 == 8)
       {
         self->_pairSetupAuthType = 8;
         self->_pairVerifyAuthType = 8;
-        if (v11 == 1)
+        if (v18 == 1)
         {
-          v27 = 1;
+          v33 = 1;
         }
 
         else
         {
-          v27 = 8;
+          v33 = 8;
         }
 
-        [(CUPairingSession *)self->_pairSetupSession setPinType:v27, v53, v54];
+        [(CUPairingSession *)self->_pairSetupSession setPinType:v33];
         [(CUPairingSession *)self->_pairSetupSession setFlags:[(CUPairingSession *)self->_pairSetupSession flags]& 0xFFBFFFE3];
         [(RPConnection *)self _configureForSessionPairing:self->_pairSetupSession];
       }
 
-      v28 = self->_passwordType;
-      if (v28 == 2)
+      v34 = self->_passwordType;
+      if (v34 == 2)
       {
         self->_pairSetupAuthType = 5;
-        v29 = self->_pairSetupSession;
-        v30 = 2;
+        v35 = self->_pairSetupSession;
+        v36 = 2;
         goto LABEL_60;
       }
 
-      if (v28 == 1)
+      if (v34 == 1)
       {
         self->_pairSetupAuthType = 5;
-        v29 = self->_pairSetupSession;
-        v30 = 1;
+        v35 = self->_pairSetupSession;
+        v36 = 1;
 LABEL_60:
-        [(CUPairingSession *)v29 setPinType:v30, v53];
+        [(CUPairingSession *)v35 setPinType:v36];
         [(CUPairingSession *)self->_pairSetupSession setFlags:[(CUPairingSession *)self->_pairSetupSession flags]& 0xFFFFFFEFLL];
 LABEL_72:
-        v35 = self->_pairSetupACL;
-        if (v35)
+        v41 = self->_pairSetupACL;
+        if (v41)
         {
-          v36 = objc_alloc_init(MEMORY[0x1E695DF90]);
-          v59 = 0u;
-          v60 = 0u;
-          v61 = 0u;
-          v62 = 0u;
-          v37 = v35;
-          v38 = [(NSArray *)v37 countByEnumeratingWithState:&v59 objects:v65 count:16];
-          if (v38)
+          v42 = objc_alloc_init(MEMORY[0x1E695DF90]);
+          v64 = 0u;
+          v65 = 0u;
+          v66 = 0u;
+          v67 = 0u;
+          v43 = v41;
+          v44 = [(NSArray *)v43 countByEnumeratingWithState:&v64 objects:v70 count:16];
+          if (v44)
           {
-            v39 = v38;
-            v40 = *v60;
-            v41 = MEMORY[0x1E695E118];
+            v45 = v44;
+            v46 = *v65;
+            v47 = MEMORY[0x1E695E118];
             do
             {
-              for (i = 0; i != v39; ++i)
+              for (i = 0; i != v45; ++i)
               {
-                if (*v60 != v40)
+                if (*v65 != v46)
                 {
-                  objc_enumerationMutation(v37);
+                  objc_enumerationMutation(v43);
                 }
 
-                [v36 setObject:v41 forKeyedSubscript:*(*(&v59 + 1) + 8 * i)];
+                [v42 setObject:v47 forKeyedSubscript:*(*(&v64 + 1) + 8 * i)];
               }
 
-              v39 = [(NSArray *)v37 countByEnumeratingWithState:&v59 objects:v65 count:16];
+              v45 = [(NSArray *)v43 countByEnumeratingWithState:&v64 objects:v70 count:16];
             }
 
-            while (v39);
+            while (v45);
           }
 
-          [(CUPairingSession *)self->_pairSetupSession setAcl:v36];
+          [(CUPairingSession *)self->_pairSetupSession setAcl:v42];
         }
 
         if (self->_showPasswordHandler)
         {
-          v58[0] = MEMORY[0x1E69E9820];
-          v58[1] = 3221225472;
-          v58[2] = __47__RPConnection__serverPairSetupWithData_start___block_invoke;
-          v58[3] = &unk_1E7C93B70;
-          v58[4] = self;
-          [(CUPairingSession *)self->_pairSetupSession setShowPINHandlerEx:v58];
+          v63[0] = MEMORY[0x1E69E9820];
+          v63[1] = 3221225472;
+          v63[2] = __47__RPConnection__serverPairSetupWithData_start___block_invoke;
+          v63[3] = &unk_1E7C93B70;
+          v63[4] = self;
+          [(CUPairingSession *)self->_pairSetupSession setShowPINHandlerEx:v63];
         }
 
         else
@@ -5833,42 +6029,42 @@ LABEL_72:
 
         if (self->_hidePasswordHandler)
         {
-          v57[0] = MEMORY[0x1E69E9820];
-          v57[1] = 3221225472;
-          v57[2] = __47__RPConnection__serverPairSetupWithData_start___block_invoke_2;
-          v57[3] = &unk_1E7C92CE8;
-          v57[4] = self;
-          [(CUPairingSession *)self->_pairSetupSession setHidePINHandler:v57];
+          v62[0] = MEMORY[0x1E69E9820];
+          v62[1] = 3221225472;
+          v62[2] = __47__RPConnection__serverPairSetupWithData_start___block_invoke_2;
+          v62[3] = &unk_1E7C92CE8;
+          v62[4] = self;
+          [(CUPairingSession *)self->_pairSetupSession setHidePINHandler:v62];
         }
 
-        v56[0] = MEMORY[0x1E69E9820];
-        v56[1] = 3221225472;
-        v56[2] = __47__RPConnection__serverPairSetupWithData_start___block_invoke_3;
-        v56[3] = &unk_1E7C93AA8;
-        v56[4] = self;
-        [(CUPairingSession *)self->_pairSetupSession setSendDataHandler:v56];
-        v55[0] = MEMORY[0x1E69E9820];
-        v55[1] = 3221225472;
-        v55[2] = __47__RPConnection__serverPairSetupWithData_start___block_invoke_4;
-        v55[3] = &unk_1E7C92D58;
-        v55[4] = self;
-        [(CUPairingSession *)self->_pairSetupSession setCompletionHandler:v55];
+        v61[0] = MEMORY[0x1E69E9820];
+        v61[1] = 3221225472;
+        v61[2] = __47__RPConnection__serverPairSetupWithData_start___block_invoke_3;
+        v61[3] = &unk_1E7C93AA8;
+        v61[4] = self;
+        [(CUPairingSession *)self->_pairSetupSession setSendDataHandler:v61];
+        v60[0] = MEMORY[0x1E69E9820];
+        v60[1] = 3221225472;
+        v60[2] = __47__RPConnection__serverPairSetupWithData_start___block_invoke_4;
+        v60[3] = &unk_1E7C92D58;
+        v60[4] = self;
+        [(CUPairingSession *)self->_pairSetupSession setCompletionHandler:v60];
         [(CUPairingSession *)self->_pairSetupSession activate];
         goto LABEL_87;
       }
 
-      v31 = self->_password;
-      if (![(NSString *)v31 length])
+      v37 = self->_password;
+      if (![(NSString *)v37 length])
       {
         password = [(RPCompanionLinkDevice *)self->_localDeviceInfo password];
 
-        v31 = password;
+        v37 = password;
       }
 
-      if ([(NSString *)v31 length])
+      if ([(NSString *)v37 length])
       {
         self->_pairSetupAuthType = 5;
-        [(CUPairingSession *)self->_pairSetupSession setFixedPIN:v31];
+        [(CUPairingSession *)self->_pairSetupSession setFixedPIN:v37];
         [(CUPairingSession *)self->_pairSetupSession setFlags:[(CUPairingSession *)self->_pairSetupSession flags]& 0xFFFFFFEFLL];
         [(CUPairingSession *)self->_pairSetupSession setPinType:5];
 LABEL_71:
@@ -5876,19 +6072,19 @@ LABEL_71:
         goto LABEL_72;
       }
 
-      switch(v11)
+      switch(v18)
       {
         case 1u:
           self->_pairSetupAuthType = 5;
-          v33 = self->_pairSetupSession;
-          v34 = 1;
+          v39 = self->_pairSetupSession;
+          v40 = 1;
           break;
         case 0xAu:
           goto LABEL_71;
         case 2u:
           self->_pairSetupAuthType = 5;
-          v33 = self->_pairSetupSession;
-          v34 = 2;
+          v39 = self->_pairSetupSession;
+          v40 = 2;
           break;
         default:
           self->_pairSetupAuthType = 6;
@@ -5896,31 +6092,29 @@ LABEL_71:
           goto LABEL_71;
       }
 
-      [(CUPairingSession *)v33 setPinType:v34];
+      [(CUPairingSession *)v39 setPinType:v40];
       [(CUPairingSession *)self->_pairSetupSession setFlags:[(CUPairingSession *)self->_pairSetupSession flags]& 0xFFFFFFEFLL];
       goto LABEL_71;
     }
 
-    v17 = self->_ucat->var0;
-    if (v17 <= 30)
+    v24 = self->_ucat;
+    if (v24->var0 <= 30)
     {
-      if (v17 == -1)
+      if (v24->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_39;
         }
 
-        v52 = self->_ucat;
+        v24 = self->_ucat;
       }
 
-      v53 = "Invalid";
-      v54 = "SessionPaired";
-      LogPrintF();
+      LogPrintF(v24, "[RPConnection _serverPairSetupWithData:start:]", 30, "Backwards compatibility authType (%s) -> (%s)", "Invalid", "SessionPaired");
     }
 
 LABEL_39:
-    v15 = 8;
+    v22 = 8;
     goto LABEL_40;
   }
 
@@ -5932,38 +6126,36 @@ LABEL_87:
   }
 
   CFDataGetTypeID();
-  v44 = CFDictionaryGetTypedValue();
-  if (v44)
+  v50 = CFDictionaryGetTypedValue();
+  if (v50)
   {
-    v22 = v44;
-    [(CUPairingSession *)self->_pairSetupSession receivedData:v44];
+    v29 = v50;
+    [(CUPairingSession *)self->_pairSetupSession receivedData:v50];
     goto LABEL_91;
   }
 
-  v45 = RPErrorF();
+  v57 = RPErrorF(v68, "PairSetup request with no pairing data", v51, v52, v53, v54, v55, v56, v59);
 LABEL_98:
-  if (v45)
+  if (v57)
   {
-    v47 = self->_ucat->var0;
-    if (v47 <= 60)
+    v58 = self->_ucat;
+    if (v58->var0 <= 60)
     {
-      if (v47 == -1)
+      if (v58->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_93;
         }
 
-        v48 = self->_ucat;
+        v58 = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(v58, "[RPConnection _serverPairSetupWithData:start:]", 60, "### PairSetup server receive failed: %{error}\n", v57);
     }
   }
 
 LABEL_93:
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 void __47__RPConnection__serverPairSetupWithData_start___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -5996,16 +6188,14 @@ void __47__RPConnection__serverPairSetupWithData_start___block_invoke_2(uint64_t
 
 void __47__RPConnection__serverPairSetupWithData_start___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v8 = @"_pd";
-  v9[0] = a3;
+  v7 = @"_pd";
+  v8[0] = a3;
   v4 = MEMORY[0x1E695DF20];
   v5 = a3;
-  v6 = [v4 dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6 = [v4 dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [v3 _sendFrameType:4 unencryptedObject:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_serverPairSetupCompleted:(id)completed
@@ -6019,9 +6209,9 @@ void __47__RPConnection__serverPairSetupWithData_start___block_invoke_3(uint64_t
   }
 
   pairSetupSession = self->_pairSetupSession;
-  v29 = 0;
-  v7 = [(CUPairingSession *)pairSetupSession openStreamWithName:@"main" error:&v29];
-  v8 = v29;
+  v26 = 0;
+  v7 = [(CUPairingSession *)pairSetupSession openStreamWithName:@"main" error:&v26];
+  v8 = v26;
   mainStream = self->_mainStream;
   self->_mainStream = v7;
 
@@ -6035,10 +6225,10 @@ void __47__RPConnection__serverPairSetupWithData_start___block_invoke_3(uint64_t
     }
 
 LABEL_20:
-    var0 = self->_ucat->var0;
-    if (var0 <= 60)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 60)
     {
-      if (var0 != -1)
+      if (ucat->var0 != -1)
       {
 LABEL_22:
         pairSetupAuthType = self->_pairSetupAuthType;
@@ -6052,9 +6242,7 @@ LABEL_22:
           v24 = off_1E7C94130[pairSetupAuthType];
         }
 
-        v26 = v24;
-        v27 = v13;
-        LogPrintF();
+        LogPrintF(ucat, "[RPConnection _serverPairSetupCompleted:]", 60, "### PairSetup server completion failed: %s, %{error}\n", v24, v13);
         goto LABEL_28;
       }
 
@@ -6066,7 +6254,7 @@ LABEL_22:
     }
 
 LABEL_28:
-    [(RPConnection *)self _pairSetupInvalidate:v26];
+    [(RPConnection *)self _pairSetupInvalidate];
 
     goto LABEL_29;
   }
@@ -6075,9 +6263,9 @@ LABEL_28:
   if (self->_btPipeHighPriority)
   {
     v11 = self->_pairSetupSession;
-    v28 = v8;
-    v12 = [(CUPairingSession *)v11 openStreamWithName:@"hipri" error:&v28];
-    v13 = v28;
+    v25 = v8;
+    v12 = [(CUPairingSession *)v11 openStreamWithName:@"hipri" error:&v25];
+    v13 = v25;
 
     highPriorityStream = self->_highPriorityStream;
     self->_highPriorityStream = v12;
@@ -6145,20 +6333,20 @@ LABEL_29:
 
 - (void)_serverPairVerifyWithData:(id)data start:(BOOL)start
 {
-  v31[1] = *MEMORY[0x1E69E9840];
-  v28 = 0;
-  v6 = OPACKDecodeData();
-  if (!v6)
+  v43[1] = *MEMORY[0x1E69E9840];
+  v40 = 0;
+  v13 = OPACKDecodeData();
+  if (!v13)
   {
-    [RPConnection _clientPairSetupWithData:?];
+    [(RPConnection *)&v40 _clientPairSetupWithData:v6, v7, v8, v9, v10, v11, v12];
     goto LABEL_26;
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [(RPConnection *)v6 _clientPairVerifyWithData:?];
-    v20 = v29;
+    [(RPConnection *)v13 _clientPairVerifyWithData:?];
+    v33 = v41;
     goto LABEL_31;
   }
 
@@ -6166,9 +6354,9 @@ LABEL_29:
   {
     [(RPConnection *)self _pairVerifyInvalidate];
     self->_pairVerifyUsedIdentity = 0;
-    v7 = objc_alloc_init(MEMORY[0x1E69994F8]);
+    v14 = objc_alloc_init(MEMORY[0x1E69994F8]);
     pairVerifySession = self->_pairVerifySession;
-    self->_pairVerifySession = v7;
+    self->_pairVerifySession = v14;
 
     if ((self->_controlFlags & 0xC0) != 0)
     {
@@ -6192,15 +6380,15 @@ LABEL_29:
     controlFlags = self->_controlFlags;
     if ((controlFlags & 0x20000000) != 0)
     {
-      v30 = @"_cf";
+      v42 = @"_cf";
       0x20000000 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:controlFlags & 0x20000000];
-      v31[0] = 0x20000000;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
-      [(CUPairingSession *)self->_pairVerifySession setAppInfoSelf:v12];
+      v43[0] = 0x20000000;
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:&v42 count:1];
+      [(CUPairingSession *)self->_pairVerifySession setAppInfoSelf:v19];
     }
 
     Int64Ranged = CFDictionaryGetInt64Ranged();
-    v14 = Int64Ranged;
+    v21 = Int64Ranged;
     if (Int64Ranged != 3)
     {
       if (Int64Ranged == 8)
@@ -6212,42 +6400,42 @@ LABEL_29:
       else if (Int64Ranged == 4)
       {
         [(CUPairingSession *)self->_pairVerifySession setFlags:[(CUPairingSession *)self->_pairVerifySession flags]& 0xFFBFFFFFLL];
-        v15 = self->_pairVerifySession;
-        v16 = [(CUPairingSession *)v15 flags]| 0xC;
+        v22 = self->_pairVerifySession;
+        v23 = [(CUPairingSession *)v22 flags]| 0xC;
 LABEL_18:
-        [(CUPairingSession *)v15 setFlags:v16];
+        [(CUPairingSession *)v22 setFlags:v23];
       }
 
-      self->_pairVerifyAuthType = v14;
-      self->_pairSetupAuthType = v14;
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __48__RPConnection__serverPairVerifyWithData_start___block_invoke;
-      v27[3] = &unk_1E7C93AA8;
-      v27[4] = self;
-      [(CUPairingSession *)self->_pairVerifySession setSendDataHandler:v27];
-      if ((v14 - 5) <= 0xFFFFFFFD)
+      self->_pairVerifyAuthType = v21;
+      self->_pairSetupAuthType = v21;
+      v39[0] = MEMORY[0x1E69E9820];
+      v39[1] = 3221225472;
+      v39[2] = __48__RPConnection__serverPairVerifyWithData_start___block_invoke;
+      v39[3] = &unk_1E7C93AA8;
+      v39[4] = self;
+      [(CUPairingSession *)self->_pairVerifySession setSendDataHandler:v39];
+      if ((v21 - 5) <= 0xFFFFFFFD)
       {
-        v26[0] = MEMORY[0x1E69E9820];
-        v26[1] = 3221225472;
-        v26[2] = __48__RPConnection__serverPairVerifyWithData_start___block_invoke_2;
-        v26[3] = &unk_1E7C93AF8;
-        v26[4] = self;
-        [(CUPairingSession *)self->_pairVerifySession setSignDataHandler:v26];
-        v25[0] = MEMORY[0x1E69E9820];
-        v25[1] = 3221225472;
-        v25[2] = __48__RPConnection__serverPairVerifyWithData_start___block_invoke_3;
-        v25[3] = &unk_1E7C93B20;
-        v25[4] = self;
-        [(CUPairingSession *)self->_pairVerifySession setVerifySignatureHandler:v25];
+        v38[0] = MEMORY[0x1E69E9820];
+        v38[1] = 3221225472;
+        v38[2] = __48__RPConnection__serverPairVerifyWithData_start___block_invoke_2;
+        v38[3] = &unk_1E7C93AF8;
+        v38[4] = self;
+        [(CUPairingSession *)self->_pairVerifySession setSignDataHandler:v38];
+        v37[0] = MEMORY[0x1E69E9820];
+        v37[1] = 3221225472;
+        v37[2] = __48__RPConnection__serverPairVerifyWithData_start___block_invoke_3;
+        v37[3] = &unk_1E7C93B20;
+        v37[4] = self;
+        [(CUPairingSession *)self->_pairVerifySession setVerifySignatureHandler:v37];
       }
 
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __48__RPConnection__serverPairVerifyWithData_start___block_invoke_4;
-      v24[3] = &unk_1E7C92D58;
-      v24[4] = self;
-      [(CUPairingSession *)self->_pairVerifySession setCompletionHandler:v24];
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __48__RPConnection__serverPairVerifyWithData_start___block_invoke_4;
+      v36[3] = &unk_1E7C92D58;
+      v36[4] = self;
+      [(CUPairingSession *)self->_pairVerifySession setCompletionHandler:v36];
       configurePairingHandler = self->_configurePairingHandler;
       if (configurePairingHandler)
       {
@@ -6259,32 +6447,32 @@ LABEL_18:
     }
 
     [(CUPairingSession *)self->_pairVerifySession setFlags:[(CUPairingSession *)self->_pairVerifySession flags]& 0xFFBFFFFFLL];
-    v15 = self->_pairVerifySession;
-    v16 = [(CUPairingSession *)v15 flags]| 0x4000000;
+    v22 = self->_pairVerifySession;
+    v23 = [(CUPairingSession *)v22 flags]| 0x4000000;
     goto LABEL_18;
   }
 
 LABEL_24:
   CFDataGetTypeID();
-  v18 = CFDictionaryGetTypedValue();
-  if (v18)
+  v25 = CFDictionaryGetTypedValue();
+  if (v25)
   {
-    v19 = v18;
-    [(CUPairingSession *)self->_pairVerifySession receivedData:v18];
+    v32 = v25;
+    [(CUPairingSession *)self->_pairVerifySession receivedData:v25];
 
 LABEL_26:
-    v20 = 0;
+    v33 = 0;
     goto LABEL_27;
   }
 
-  v20 = RPErrorF();
+  v33 = RPErrorF(v40, "PairVerify request with no pairing data", v26, v27, v28, v29, v30, v31, v35);
 LABEL_31:
-  if (v20)
+  if (v33)
   {
-    var0 = self->_ucat->var0;
-    if (var0 <= 60)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 60)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -6294,27 +6482,23 @@ LABEL_31:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _serverPairVerifyWithData:start:]", 60, "### PairVerify server receive failed: %{error}\n", v33);
     }
   }
 
 LABEL_27:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __48__RPConnection__serverPairVerifyWithData_start___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v8 = @"_pd";
-  v9[0] = a3;
+  v7 = @"_pd";
+  v8[0] = a3;
   v4 = MEMORY[0x1E695DF20];
   v5 = a3;
-  v6 = [v4 dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6 = [v4 dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [v3 _sendFrameType:6 unencryptedObject:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_serverPairVerifyCompleted:(id)completed
@@ -6330,9 +6514,9 @@ void __48__RPConnection__serverPairVerifyWithData_start___block_invoke(uint64_t 
   if ((self->_controlFlags & 0x20000000) != 0 && ([(CUPairingSession *)self->_pairVerifySession appInfoPeer], v6 = objc_claimAutoreleasedReturnValue(), Int64 = CFDictionaryGetInt64(), v6, (Int64 & 0x20000000) != 0))
   {
     pairVerifySession = self->_pairVerifySession;
-    v72 = 0;
-    v16 = [(CUPairingSession *)pairVerifySession openStreamWithName:@"main" type:2 error:&v72];
-    v10 = v72;
+    v64 = 0;
+    v16 = [(CUPairingSession *)pairVerifySession openStreamWithName:@"main" type:2 error:&v64];
+    v10 = v64;
     mainStream = self->_mainStream;
     self->_mainStream = v16;
 
@@ -6342,17 +6526,17 @@ void __48__RPConnection__serverPairVerifyWithData_start___block_invoke(uint64_t 
     }
 
     v18 = self->_pairVerifySession;
-    v71 = v10;
-    v13 = [(CUPairingSession *)v18 openStreamWithName:@"hipri" type:2 error:&v71];
-    v14 = v71;
+    v63 = v10;
+    v13 = [(CUPairingSession *)v18 openStreamWithName:@"hipri" type:2 error:&v63];
+    v14 = v63;
   }
 
   else
   {
     v8 = self->_pairVerifySession;
-    v70 = 0;
-    v9 = [(CUPairingSession *)v8 openStreamWithName:@"main" error:&v70];
-    v10 = v70;
+    v62 = 0;
+    v9 = [(CUPairingSession *)v8 openStreamWithName:@"main" error:&v62];
+    v10 = v62;
     v11 = self->_mainStream;
     self->_mainStream = v9;
 
@@ -6362,9 +6546,9 @@ void __48__RPConnection__serverPairVerifyWithData_start___block_invoke(uint64_t 
     }
 
     v12 = self->_pairVerifySession;
-    v69 = v10;
-    v13 = [(CUPairingSession *)v12 openStreamWithName:@"hipri" error:&v69];
-    v14 = v69;
+    v61 = v10;
+    v13 = [(CUPairingSession *)v12 openStreamWithName:@"hipri" error:&v61];
+    v14 = v61;
   }
 
   v19 = v14;
@@ -6622,13 +6806,13 @@ LABEL_57:
   }
 
 LABEL_62:
-  var0 = self->_ucat->var0;
-  if (var0 > 30)
+  ucat = self->_ucat;
+  if (ucat->var0 > 30)
   {
     goto LABEL_66;
   }
 
-  if (var0 != -1)
+  if (ucat->var0 != -1)
   {
     goto LABEL_64;
   }
@@ -6637,13 +6821,7 @@ LABEL_62:
   {
     ucat = self->_ucat;
 LABEL_64:
-    v67 = &unk_1B6F2DEF3;
-    v68 = self->_identityVerified;
-    v65 = &unk_1B6F2E0D0;
-    statusFlags = self->_statusFlags;
-    v63 = v27;
-    flags = self->_flags;
-    LogPrintF();
+    LogPrintF(ucat, "[RPConnection _serverPairVerifyCompleted:]", 30, "PairVerify completed server: %s, %#{flags}, %#ll{flags}, RPI %@\n", v27, self->_flags, &unk_1B6F2E0D0, self->_statusFlags, &unk_1B6F2DEF3, self->_identityVerified);
   }
 
 LABEL_66:
@@ -6660,17 +6838,17 @@ LABEL_68:
   }
 
 LABEL_69:
-  v56 = self->_ucat->var0;
-  if (v56 <= 60)
+  v56 = self->_ucat;
+  if (v56->var0 <= 60)
   {
-    if (v56 == -1)
+    if (v56->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_77;
       }
 
-      v59 = self->_ucat;
+      v56 = self->_ucat;
     }
 
     v57 = self->_pairVerifyAuthType;
@@ -6684,18 +6862,16 @@ LABEL_69:
       v58 = off_1E7C94130[v57];
     }
 
-    v63 = v58;
-    flags = v10;
-    LogPrintF();
+    LogPrintF(v56, "[RPConnection _serverPairVerifyCompleted:]", 60, "### PairVerify server completion failed: %s, %{error}\n", v58, v10);
   }
 
 LABEL_77:
-  [(RPConnection *)self _pairVerifyInvalidate:v63];
-  v60 = _Block_copy(self->_pairVerifyCompletion);
-  v61 = v60;
-  if (v60)
+  [(RPConnection *)self _pairVerifyInvalidate];
+  v59 = _Block_copy(self->_pairVerifyCompletion);
+  v60 = v59;
+  if (v59)
   {
-    (*(v60 + 2))(v60, v10);
+    (*(v59 + 2))(v59, v10);
   }
 
 LABEL_80:
@@ -6715,7 +6891,7 @@ LABEL_80:
   if (!self->_peerIdentifier)
   {
     RandomBytes();
-    v6 = NSPrintF();
+    v6 = NSPrintF("ri%.3H", v8, 5, 5);
     peerIdentifier = self->_peerIdentifier;
     self->_peerIdentifier = v6;
   }
@@ -6763,10 +6939,10 @@ LABEL_9:
           goto LABEL_9;
         }
 
-        var0 = self->_ucat->var0;
-        if (var0 <= 90)
+        ucat = self->_ucat;
+        if (ucat->var0 <= 90)
         {
-          if (var0 == -1)
+          if (ucat->var0 == -1)
           {
             if (!_LogCategory_Initialize())
             {
@@ -6776,7 +6952,7 @@ LABEL_9:
             ucat = self->_ucat;
           }
 
-          LogPrintF();
+          LogPrintF(ucat, "[RPConnection _processSends]", 90, "### Process unsupported request\n");
         }
       }
 
@@ -6794,34 +6970,34 @@ LABEL_10:
 
 - (unint64_t)_eligiblePendingSendCount
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = self->_sendArray;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        options = [*(*(&v13 + 1) + 8 * i) options];
+        options = [*(*(&v12 + 1) + 8 * i) options];
         v10 = [(RPConnection *)self _isEligibleToSendWithOptions:options];
 
         v6 += v10;
       }
 
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -6832,8 +7008,96 @@ LABEL_10:
     v6 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v6;
+}
+
+- (void)sendEncryptedEventID:(id)d data:(id)data xid:(unsigned int)xid options:(id)options completion:(id)completion
+{
+  v9 = *&xid;
+  dCopy = d;
+  dataCopy = data;
+  optionsCopy = options;
+  completionCopy = completion;
+  if (self->_invalidateCalled)
+  {
+    ucat = self->_ucat;
+    if (ucat->var0 > 60)
+    {
+      goto LABEL_17;
+    }
+
+    if (ucat->var0 == -1)
+    {
+      if (!_LogCategory_Initialize())
+      {
+LABEL_17:
+        if (completionCopy)
+        {
+          v25 = RPErrorF(4294896148, "Connection invalidating", v14, v15, v16, v17, v18, v19, v28);
+          completionCopy[2](completionCopy, v25);
+        }
+
+        goto LABEL_26;
+      }
+
+      ucat = self->_ucat;
+    }
+
+    LogPrintF(ucat, "[RPConnection sendEncryptedEventID:data:xid:options:completion:]", 60, "### Ignoring call to send event ID '%@' when invalidating\n", dCopy);
+    goto LABEL_17;
+  }
+
+  internalState = self->_internalState;
+  v23 = internalState == 28 || internalState == 21;
+  if (v23 && ![(RPConnection *)self _eligiblePendingSendCount]&& [(RPConnection *)self _isEligibleToSendWithOptions:optionsCopy])
+  {
+    [(RPConnection *)self _sendEncryptedEventID:dCopy data:dataCopy xid:v9 options:optionsCopy completion:completionCopy];
+    goto LABEL_26;
+  }
+
+  v24 = self->_ucat;
+  if (v24->var0 <= 30)
+  {
+    if (v24->var0 == -1)
+    {
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_20;
+      }
+
+      v24 = self->_ucat;
+    }
+
+    LogPrintF(v24, "[RPConnection sendEncryptedEventID:data:xid:options:completion:]", 30, "Queuing send event ID '%@', XID 0x%X (%d send(s) pending)\n", dCopy, v9, [(NSMutableArray *)self->_sendArray count]);
+  }
+
+LABEL_20:
+  v26 = objc_alloc_init(RPSendEntry);
+  [(RPSendEntry *)v26 setCompletion:completionCopy];
+  [(RPSendEntry *)v26 setEventID:dCopy];
+  [(RPSendEntry *)v26 setEventData:dataCopy];
+  [(RPSendEntry *)v26 setOptions:optionsCopy];
+  [(RPSendEntry *)v26 setQueueTicks:mach_absolute_time()];
+  if (!v9)
+  {
+    xidLast = self->_xidLast;
+    if (xidLast + 1 > 1)
+    {
+      v9 = xidLast + 1;
+    }
+
+    else
+    {
+      v9 = 1;
+    }
+
+    self->_xidLast = v9;
+  }
+
+  [(RPSendEntry *)v26 setXid:v9];
+  [(NSMutableArray *)self->_sendArray addObject:v26];
+
+LABEL_26:
 }
 
 - (void)sendEncryptedEventID:(id)d event:(id)event options:(id)options completion:(id)completion
@@ -6856,30 +7120,108 @@ LABEL_10:
   eventCopy = event;
   Int64 = CFDictionaryGetInt64();
   v17 = MEMORY[0x1E695DF90];
-  v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v14];
-  v19 = [v17 dictionaryWithObjectsAndKeys:{eventCopy, @"_c", dCopy, @"_i", &unk_1F2EEC6C8, @"_t", v18, @"_x", 0}];
+  v31 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v14];
+  v18 = [v17 dictionaryWithObjectsAndKeys:eventCopy];
 
   if (Int64)
   {
-    [v19 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"_cht"];
+    [v18 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"_cht"];
   }
 
-  v20 = [optionsCopy objectForKeyedSubscript:@"inUseProcess"];
-  if (v20)
+  v19 = [optionsCopy objectForKeyedSubscript:@"inUseProcess"];
+  if (v19)
   {
     clientMode = self->_clientMode;
 
     if (clientMode)
     {
-      v22 = [optionsCopy objectForKeyedSubscript:@"inUseProcess"];
-      [v19 setObject:v22 forKeyedSubscript:@"_inUseProc"];
+      v21 = [optionsCopy objectForKeyedSubscript:@"inUseProcess"];
+      [v18 setObject:v21 forKeyedSubscript:@"_inUseProc"];
     }
   }
 
-  v26 = 0;
+  v32 = 0;
   if (self->_canDecode128bit)
   {
-    v23 = 16;
+    v22 = 16;
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  v29 = MEMORY[0x1B8C9E170](v18, v22, &v32);
+  if (v29)
+  {
+    [(RPConnection *)self sendEncryptedEventID:dCopy data:v29 xid:v14 options:optionsCopy completion:completionCopy];
+  }
+
+  else if (completionCopy)
+  {
+    v30 = RPErrorF(v32, "OPACK encode failed", v23, v24, v25, v26, v27, v28, @"_c");
+    completionCopy[2](completionCopy, v30);
+  }
+}
+
+- (void)_sendEncryptedEventID:(id)d data:(id)data xid:(unsigned int)xid options:(id)options completion:(id)completion
+{
+  v71 = *&xid;
+  v95[2] = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  dataCopy = data;
+  optionsCopy = options;
+  completionCopy = completion;
+  v89 = 0;
+  v90 = &v89;
+  v91 = 0x3032000000;
+  v92 = __Block_byref_object_copy__2;
+  v93 = __Block_byref_object_dispose__2;
+  v94 = 0;
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __66__RPConnection__sendEncryptedEventID_data_xid_options_completion___block_invoke;
+  aBlock[3] = &unk_1E7C93B98;
+  v88 = &v89;
+  v72 = completionCopy;
+  v87 = v72;
+  v12 = _Block_copy(aBlock);
+  btPipe = self->_btPipe;
+  if (btPipe && [(CUBluetoothScalablePipe *)btPipe peerHostState]!= 2 && CFDictionaryGetInt64())
+  {
+    v20 = RPErrorF(4294896140, "Peer asleep with FailIfAsleep option", v14, v15, v16, v17, v18, v19, v70);
+    ucat = self->_ucat;
+    if (ucat->var0 <= 30)
+    {
+      if (ucat->var0 == -1)
+      {
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_61;
+        }
+
+        ucat = self->_ucat;
+      }
+
+      LogPrintF(ucat, "[RPConnection _sendEncryptedEventID:data:xid:options:completion:]", 30, "Send encrypted event failed: '%@', %{error}\n", dCopy, v20);
+    }
+
+LABEL_61:
+    v12[2](v12, v20);
+    v59 = 0;
+    v66 = 0;
+    v50 = 0;
+    v49 = 0;
+    goto LABEL_59;
+  }
+
+  v74 = self->_requestable;
+  if ([(CUBluetoothScalablePipe *)self->_btPipeHighPriority state]== 1 && CFDictionaryGetInt64())
+  {
+    v22 = self->_btPipeHighPriority;
+
+    v23 = 1;
+    v74 = v22;
   }
 
   else
@@ -6887,17 +7229,236 @@ LABEL_10:
     v23 = 0;
   }
 
-  v24 = MEMORY[0x1B8C9E170](v19, v23, &v26);
-  if (v24)
+  v85 = 8;
+  v24 = [dataCopy length];
+  mainAuthTagLength = self->_mainAuthTagLength;
+  v26 = self->_mainStream;
+  if (v23)
   {
-    [(RPConnection *)self sendEncryptedEventID:dCopy data:v24 xid:v14 options:optionsCopy completion:completionCopy];
+    v27 = self->_highPriorityStream;
+
+    LOBYTE(v85) = 12;
+    v28 = self->_highPriorityAuthTagLength + [dataCopy length];
+    v26 = v27;
   }
 
-  else if (completionCopy)
+  else
   {
-    v25 = RPErrorF();
-    completionCopy[2](completionCopy, v25);
+    v28 = mainAuthTagLength + v24;
   }
+
+  Int64 = CFDictionaryGetInt64();
+  if (v28 >> 24)
+  {
+    v20 = RPErrorF(4294960553, "Frame too big (%zu vs %u)", v30, v31, v32, v33, v34, v35, v28);
+    v59 = 0;
+    v66 = 0;
+    v50 = 0;
+    v49 = 0;
+    goto LABEL_52;
+  }
+
+  v36 = Int64;
+  if (v28 >= 0x800000)
+  {
+    v37 = self->_ucat;
+    if (v37->var0 <= 90)
+    {
+      if (v37->var0 != -1)
+      {
+LABEL_18:
+        linkType = self->_linkType;
+        if (linkType > 0xB)
+        {
+          v39 = "?";
+        }
+
+        else
+        {
+          v39 = off_1E7C94188[linkType];
+        }
+
+        LogPrintF(v37, "[RPConnection _sendEncryptedEventID:data:xid:options:completion:]", 90, "Large Frame: SendEventID '%@', XID 0x%X, <%.16@> (%zu bytes) on link type %s\n", dCopy, v71, 0, v28, v39);
+        goto LABEL_24;
+      }
+
+      if (_LogCategory_Initialize())
+      {
+        v37 = self->_ucat;
+        goto LABEL_18;
+      }
+    }
+
+LABEL_24:
+    v40 = [optionsCopy objectForKeyedSubscript:@"_rP"];
+    v70 = v28;
+    v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"len:%zu, check:%d"];
+    v42 = +[RPAutoBugCapture sharedReporter];
+    [v42 reportIssueOfType:3 issueContext:@"sendEncryptedEventID" processName:v40 triggerThresholdValues:v41];
+  }
+
+  BYTE1(v85) = BYTE2(v28);
+  BYTE2(v85) = BYTE1(v28);
+  HIBYTE(v85) = v28;
+  v49 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:&v85 length:4];
+  if (!v26)
+  {
+    v20 = RPErrorF(4294960593, "Encryption not setup", v43, v44, v45, v46, v47, v48, v70);
+    v59 = 0;
+    v66 = 0;
+    v50 = 0;
+    goto LABEL_52;
+  }
+
+  v84 = 0;
+  v50 = [(CUPairingStream *)v26 encryptData:dataCopy aadData:v49 error:&v84];
+  v20 = v84;
+  if (!v50)
+  {
+    v59 = 0;
+    v66 = 0;
+    goto LABEL_52;
+  }
+
+  if (v36)
+  {
+    goto LABEL_33;
+  }
+
+  v51 = dCopy;
+  if ([v51 isEqual:@"HIDRelay"] & 1) != 0 || (objc_msgSend(v51, "isEqual:", @"synchSetupStateFromStereoCounterpart") & 1) != 0 || (objc_msgSend(v51, "isEqual:", @"_hidT") & 1) != 0 || (objc_msgSend(v51, "isEqual:", @"_laData"))
+  {
+
+LABEL_33:
+    v52 = 10;
+    goto LABEL_34;
+  }
+
+  v69 = [v51 isEqual:@"_siA"];
+
+  if (v69)
+  {
+    goto LABEL_33;
+  }
+
+  v52 = 30;
+LABEL_34:
+  v53 = self->_ucat;
+  if (v52 >= v53->var0)
+  {
+    if (v53->var0 != -1)
+    {
+LABEL_36:
+      v54 = self->_linkType;
+      if (v54 > 0xB)
+      {
+        v55 = "?";
+      }
+
+      else
+      {
+        v55 = off_1E7C94188[v54];
+      }
+
+      v56 = "";
+      if (v23)
+      {
+        v56 = "at high priority";
+      }
+
+      LogPrintF(v53, "[RPConnection _sendEncryptedEventID:data:xid:options:completion:]", v52, "SendEventID '%@', XID 0x%X, <%.16@> (%zu bytes) on link type %s %s\n", dCopy, v71, v50, v28, v55, v56);
+      goto LABEL_44;
+    }
+
+    if (_LogCategory_Initialize())
+    {
+      v53 = self->_ucat;
+      goto LABEL_36;
+    }
+  }
+
+LABEL_44:
+  v57 = +[RPConnectionMetrics sharedMetrics];
+  [v57 logMessageForClient:self->_initiator length:v28 linkType:self->_linkType];
+
+  v58 = [optionsCopy objectForKeyedSubscript:@"nwActivityMetrics"];
+  v59 = v58;
+  if (v58)
+  {
+    [v58 setEventSize:v28];
+    [v59 submitMetrics];
+  }
+
+  v60 = [RPNWActivityMessageMetrics startMessageMetrics:1 withParent:v59];
+  v61 = v90[5];
+  v90[5] = v60;
+
+  [v90[5] setMessageSize:v28];
+  [v90[5] setLinkType:self->_linkType];
+  model = [(RPEndpoint *)self->_peerDeviceInfo model];
+  [v90[5] setPeerDeviceModel:model];
+
+  peerDeviceInfo = self->_peerDeviceInfo;
+  if (peerDeviceInfo)
+  {
+    objc_msgSend_operatingSystemVersion(peerDeviceInfo);
+  }
+
+  else
+  {
+    v82 = 0uLL;
+    v83 = 0;
+  }
+
+  v64 = v90[5];
+  v80 = v82;
+  v81 = v83;
+  [v64 setPeerOSVersion:&v80];
+  [v90[5] submitMetrics];
+  v65 = objc_alloc_init(MEMORY[0x1E6999570]);
+  v66 = v65;
+  if (v12)
+  {
+    v77[0] = MEMORY[0x1E69E9820];
+    v77[1] = 3221225472;
+    v77[2] = __66__RPConnection__sendEncryptedEventID_data_xid_options_completion___block_invoke_2;
+    v77[3] = &unk_1E7C92E20;
+    v78 = v65;
+    v79 = v12;
+    [v78 setCompletion:v77];
+  }
+
+  v95[0] = v49;
+  v95[1] = v50;
+  v67 = [MEMORY[0x1E695DEC8] arrayWithObjects:v95 count:2];
+  [v66 setDataArray:v67];
+
+  [(CUReadWriteRequestable *)v74 writeWithRequest:v66];
+LABEL_52:
+  if (v20)
+  {
+    v68 = self->_ucat;
+    if (v68->var0 <= 90)
+    {
+      if (v68->var0 == -1)
+      {
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_57;
+        }
+
+        v68 = self->_ucat;
+      }
+
+      LogPrintF(v68, "[RPConnection _sendEncryptedEventID:data:xid:options:completion:]", 90, "### Send encrypted data (%zu bytes) failed: '%@', %{error}\n", v28, dCopy, v20);
+    }
+
+LABEL_57:
+    v12[2](v12, v20);
+  }
+
+LABEL_59:
+  _Block_object_dispose(&v89, 8);
 }
 
 void __66__RPConnection__sendEncryptedEventID_data_xid_options_completion___block_invoke(uint64_t a1, void *a2)
@@ -6927,18 +7488,108 @@ void __66__RPConnection__sendEncryptedEventID_data_xid_options_completion___bloc
 void __66__RPConnection__sendEncryptedEventID_data_xid_options_completion___block_invoke_2(uint64_t a1)
 {
   v2 = [*(a1 + 32) error];
-  v3 = *(a1 + 40);
-  v5 = v2;
+  v8 = *(a1 + 40);
+  v11 = v2;
   if (v2)
   {
-    v4 = RPNestedErrorF();
-    (*(v3 + 16))(v3, v4);
+    v9 = RPNestedErrorF(v2, 4294896153, "Send event failed", v3, v4, v5, v6, v7, v10);
+    (*(v8 + 16))(v8, v9);
   }
 
   else
   {
-    (*(v3 + 16))(v3, 0);
+    (*(v8 + 16))(v8, 0);
   }
+}
+
+- (void)sendEncryptedRequestID:(id)d request:(id)request xpcID:(unsigned int)iD options:(id)options responseHandler:(id)handler
+{
+  v9 = *&iD;
+  dCopy = d;
+  requestCopy = request;
+  optionsCopy = options;
+  handlerCopy = handler;
+  if (self->_invalidateCalled)
+  {
+    ucat = self->_ucat;
+    if (ucat->var0 <= 60)
+    {
+      if (ucat->var0 == -1)
+      {
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_17;
+        }
+
+        ucat = self->_ucat;
+      }
+
+      LogPrintF(ucat, "[RPConnection sendEncryptedRequestID:request:xpcID:options:responseHandler:]", 60, "### Ignoring send request ID '%@' when invalidating\n", dCopy);
+    }
+
+LABEL_17:
+    v26 = RPErrorF(4294896148, "Connection invalidating", v15, v16, v17, v18, v19, v20, v30);
+    (*(handlerCopy + 2))(handlerCopy, 0, 0, v26);
+
+    goto LABEL_23;
+  }
+
+  internalState = self->_internalState;
+  v24 = internalState == 28 || internalState == 21;
+  if (v24 && ![(RPConnection *)self _eligiblePendingSendCount]&& [(RPConnection *)self _isEligibleToSendWithOptions:optionsCopy])
+  {
+    [(RPConnection *)self _sendEncryptedRequestID:dCopy request:requestCopy xpcID:v9 options:optionsCopy sendEntry:0 responseHandler:handlerCopy];
+    goto LABEL_23;
+  }
+
+  v25 = self->_ucat;
+  if (v25->var0 <= 30)
+  {
+    if (v25->var0 != -1)
+    {
+LABEL_15:
+      LogPrintF(v25, "[RPConnection sendEncryptedRequestID:request:xpcID:options:responseHandler:]", 30, "Queuing send request ID '%@' (%d send(s) pending)\n", dCopy, [(NSMutableArray *)self->_sendArray count]);
+      goto LABEL_19;
+    }
+
+    if (_LogCategory_Initialize())
+    {
+      v25 = self->_ucat;
+      goto LABEL_15;
+    }
+  }
+
+LABEL_19:
+  v27 = objc_alloc_init(RPSendEntry);
+  [(RPSendEntry *)v27 setOptions:optionsCopy];
+  [(RPSendEntry *)v27 setQueueTicks:mach_absolute_time()];
+  [(RPSendEntry *)v27 setRequestID:dCopy];
+  [(RPSendEntry *)v27 setRequest:requestCopy];
+  [(RPSendEntry *)v27 setXpcID:v9];
+  [(RPSendEntry *)v27 setResponseHandler:handlerCopy];
+  if (optionsCopy)
+  {
+    CFDictionaryGetDouble();
+    if (v28 > 0.0)
+    {
+      v29 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
+      handler[0] = MEMORY[0x1E69E9820];
+      handler[1] = 3221225472;
+      handler[2] = __77__RPConnection_sendEncryptedRequestID_request_xpcID_options_responseHandler___block_invoke;
+      handler[3] = &unk_1E7C93BC0;
+      handler[4] = v29;
+      handler[5] = self;
+      handler[6] = v27;
+      dispatch_source_set_event_handler(v29, handler);
+      CUDispatchTimerSet();
+      dispatch_resume(v29);
+      [(RPSendEntry *)v27 setTimer:v29];
+    }
+  }
+
+  [(NSMutableArray *)self->_sendArray addObject:v27];
+
+LABEL_23:
 }
 
 uint64_t __77__RPConnection_sendEncryptedRequestID_request_xpcID_options_responseHandler___block_invoke(uint64_t a1)
@@ -6948,6 +7599,460 @@ uint64_t __77__RPConnection_sendEncryptedRequestID_request_xpcID_options_respons
   v3 = *(a1 + 48);
 
   return [v2 _timeoutForSendEntry:v3];
+}
+
+- (void)_sendEncryptedRequestID:(id)d request:(id)request xpcID:(unsigned int)iD options:(id)options sendEntry:(id)entry responseHandler:(id)handler
+{
+  v11 = *&iD;
+  v142 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  requestCopy = request;
+  optionsCopy = options;
+  entryCopy = entry;
+  handlerCopy = handler;
+  v125 = 0;
+  v126 = &v125;
+  v127 = 0x3032000000;
+  v128 = __Block_byref_object_copy__2;
+  v129 = __Block_byref_object_dispose__2;
+  v130 = 0;
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __88__RPConnection__sendEncryptedRequestID_request_xpcID_options_sendEntry_responseHandler___block_invoke;
+  aBlock[3] = &unk_1E7C93BE8;
+  v123 = 0;
+  v124 = &v125;
+  v104 = _Block_copy(aBlock);
+  btPipe = self->_btPipe;
+  if (btPipe && [(CUBluetoothScalablePipe *)btPipe peerHostState]!= 2 && CFDictionaryGetInt64())
+  {
+    v110 = RPErrorF(4294896140, "Peer asleep with FailIfAsleep option", v16, v17, v18, v19, v20, v21, v100);
+    ucat = self->_ucat;
+    if (ucat->var0 <= 30)
+    {
+      if (ucat->var0 == -1)
+      {
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_88;
+        }
+
+        ucat = self->_ucat;
+      }
+
+      LogPrintF(ucat, "[RPConnection _sendEncryptedRequestID:request:xpcID:options:sendEntry:responseHandler:]", 30, "Send encrypted requestID '%@' failed: %{error}\n", dCopy, v110);
+    }
+
+LABEL_88:
+    (*(handlerCopy + 2))(handlerCopy, 0, 0, v110);
+    v87 = 0;
+    v65 = 0;
+    v93 = 0;
+    v63 = 0;
+    v64 = 0;
+    v41 = 0;
+    goto LABEL_86;
+  }
+
+  v106 = self->_requestable;
+  v23 = self->_mainStream;
+  if ([(CUBluetoothScalablePipe *)self->_btPipeHighPriority state]== 1 && CFDictionaryGetInt64())
+  {
+    v24 = v23;
+    v25 = self->_btPipeHighPriority;
+
+    v107 = 1;
+    v106 = v25;
+    v23 = v24;
+  }
+
+  else
+  {
+    v107 = 0;
+  }
+
+  v113 = v23;
+  xidLast = self->_xidLast;
+  if (xidLast + 1 > 1)
+  {
+    v27 = xidLast + 1;
+  }
+
+  else
+  {
+    v27 = 1;
+  }
+
+  self->_xidLast = v27;
+  spid = v27;
+  v112 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
+  v28 = MEMORY[0x1E695DF90];
+  v102 = [MEMORY[0x1E696AD98] numberWithBool:v107];
+  v101 = @"_c";
+  v109 = [v28 dictionaryWithObjectsAndKeys:requestCopy];
+
+  Int64 = CFDictionaryGetInt64();
+  if (Int64)
+  {
+    [v109 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"_cht"];
+  }
+
+  v30 = [optionsCopy objectForKeyedSubscript:@"inUseProcess"];
+  if (v30)
+  {
+    clientMode = self->_clientMode;
+
+    if (clientMode)
+    {
+      v32 = [optionsCopy objectForKeyedSubscript:@"inUseProcess"];
+      [v109 setObject:v32 forKeyedSubscript:@"_inUseProc"];
+    }
+  }
+
+  if (CFDictionaryGetInt64())
+  {
+    [v109 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"_pttEligible"];
+  }
+
+  v121 = 0;
+  if (self->_canDecode128bit)
+  {
+    v33 = 16;
+  }
+
+  else
+  {
+    v33 = 0;
+  }
+
+  v34 = MEMORY[0x1B8C9E170](v109, v33, &v121);
+  v41 = v34;
+  if (!v34)
+  {
+    v110 = RPErrorF(v121, "OPACK encode failed", v35, v36, v37, v38, v39, v40, @"_c");
+LABEL_91:
+    v87 = 0;
+    v65 = 0;
+    v93 = 0;
+    v63 = 0;
+LABEL_93:
+    v64 = 0;
+    goto LABEL_79;
+  }
+
+  v120 = 8;
+  v42 = [v34 length];
+  if (v107)
+  {
+    v49 = self->_highPriorityStream;
+
+    LOBYTE(v120) = 12;
+    v50 = self->_highPriorityAuthTagLength + [v41 length];
+  }
+
+  else
+  {
+    v50 = self->_mainAuthTagLength + v42;
+    v49 = v113;
+  }
+
+  v113 = v49;
+  if (v50 >> 24)
+  {
+    v110 = RPErrorF(4294960553, "Frame too big (%zu vs %u)", v43, v44, v45, v46, v47, v48, v50);
+    goto LABEL_91;
+  }
+
+  if (v50 < 0x800000)
+  {
+    goto LABEL_39;
+  }
+
+  v51 = self->_ucat;
+  if (v51->var0 <= 90)
+  {
+    if (v51->var0 != -1)
+    {
+LABEL_32:
+      linkType = self->_linkType;
+      if (linkType > 0xB)
+      {
+        v53 = "?";
+      }
+
+      else
+      {
+        v53 = off_1E7C94188[linkType];
+      }
+
+      LogPrintF(v51, "[RPConnection _sendEncryptedRequestID:request:xpcID:options:sendEntry:responseHandler:]", 90, "Large Frame: Send request ID '%@', XID 0x%X, <%.16@> (%zu bytes) on link type %s\n", dCopy, spid, 0, v50, v53);
+      goto LABEL_38;
+    }
+
+    if (_LogCategory_Initialize())
+    {
+      v51 = self->_ucat;
+      goto LABEL_32;
+    }
+  }
+
+LABEL_38:
+  0x7FFFFFLL = [MEMORY[0x1E696AEC0] stringWithFormat:@"len:%zu, check:%d", v50, 0x7FFFFFLL];
+  v55 = [optionsCopy objectForKeyedSubscript:@"_rP"];
+  v56 = +[RPAutoBugCapture sharedReporter];
+  [v56 reportIssueOfType:3 issueContext:@"sendEncryptedRequestID" processName:v55 triggerThresholdValues:0x7FFFFFLL];
+
+LABEL_39:
+  BYTE1(v120) = BYTE2(v50);
+  BYTE2(v120) = BYTE1(v50);
+  HIBYTE(v120) = v50;
+  v63 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:&v120 length:4];
+  if (!v113)
+  {
+    v110 = RPErrorF(4294960593, "Encryption not setup", v57, v58, v59, v60, v61, v62, v101);
+    v113 = 0;
+    v87 = 0;
+    v65 = 0;
+    v93 = 0;
+    goto LABEL_93;
+  }
+
+  v119 = 0;
+  v64 = [(CUPairingStream *)v113 encryptData:v41 aadData:v63 error:&v119];
+  v110 = v119;
+  if (!v64)
+  {
+    v87 = 0;
+    v65 = 0;
+    v93 = 0;
+    goto LABEL_79;
+  }
+
+  v65 = objc_alloc_init(RPRequestEntry);
+  [(RPRequestEntry *)v65 setOptions:optionsCopy];
+  [(RPRequestEntry *)v65 setRequestID:dCopy];
+  [(RPRequestEntry *)v65 setResponseHandler:handlerCopy];
+  [(RPRequestEntry *)v65 setSendTicks:mach_absolute_time()];
+  [(RPRequestEntry *)v65 setXpcID:v11];
+  [(RPRequestEntry *)v65 setLength:v50];
+  if (entryCopy)
+  {
+    timer = [entryCopy timer];
+    [(RPRequestEntry *)v65 setTimer:timer];
+
+    [entryCopy setXidObj:v112];
+  }
+
+  requests = self->_requests;
+  if (!requests)
+  {
+    v68 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v69 = self->_requests;
+    self->_requests = v68;
+
+    requests = self->_requests;
+  }
+
+  v70 = RPConnectionLog([(NSMutableDictionary *)requests setObject:v65 forKeyedSubscript:v112]);
+  if (os_signpost_enabled(v70))
+  {
+    v71 = dCopy;
+    uTF8String = [dCopy UTF8String];
+    label = self->_label;
+    v74 = self->_linkType;
+    if (v74 > 0xB)
+    {
+      v75 = "?";
+    }
+
+    else
+    {
+      v75 = off_1E7C94188[v74];
+    }
+
+    peerIdentifier = self->_peerIdentifier;
+    *buf = 67110658;
+    *&buf[4] = spid;
+    *&buf[8] = 2080;
+    *&buf[10] = uTF8String;
+    *&buf[18] = 2112;
+    *&buf[20] = label;
+    v134 = 2048;
+    v135 = v50;
+    v136 = 2080;
+    v137 = v75;
+    v138 = 1024;
+    v139 = v107;
+    v140 = 2112;
+    v141 = peerIdentifier;
+    _os_signpost_emit_with_name_impl(&dword_1B6E85000, v70, OS_SIGNPOST_INTERVAL_BEGIN, spid, "RPConnectionSendRequestTime", " enableTelemetry=YES {XID:0x%X, requestID=%{signpost.telemetry:string1}s, connectionID:%@, requestSize:%zu, linkType:%s, highPriority:%d, peer:%@, signpost.description:begin_time}", buf, 0x40u);
+  }
+
+  v77 = Int64 == 0;
+
+  v78 = dCopy;
+  v79 = v78;
+  if (v77)
+  {
+    if ([v78 isEqual:@"_ftSm"] & 1) != 0 || (objc_msgSend(v79, "isEqual:", @"_ftLg"))
+    {
+      v80 = 9;
+    }
+
+    else if ([v79 isEqual:@"_ftRs"])
+    {
+      v80 = 9;
+    }
+
+    else
+    {
+      v80 = 30;
+    }
+  }
+
+  else
+  {
+    v80 = 10;
+  }
+
+  v81 = self->_ucat;
+  if (v80 >= v81->var0)
+  {
+    if (v81->var0 != -1)
+    {
+LABEL_60:
+      v82 = self->_linkType;
+      if (v82 > 0xB)
+      {
+        v83 = "?";
+      }
+
+      else
+      {
+        v83 = off_1E7C94188[v82];
+      }
+
+      v84 = "";
+      if (v107)
+      {
+        v84 = "at high priority";
+      }
+
+      LogPrintF(v81, "[RPConnection _sendEncryptedRequestID:request:xpcID:options:sendEntry:responseHandler:]", v80, "Send request ID '%@', XID 0x%X, <%.16@> (%zu bytes) on link type %s %s\n", v79, spid, v64, v50, v83, v84);
+      goto LABEL_68;
+    }
+
+    if (_LogCategory_Initialize())
+    {
+      v81 = self->_ucat;
+      goto LABEL_60;
+    }
+  }
+
+LABEL_68:
+  v85 = +[RPConnectionMetrics sharedMetrics];
+  [v85 logMessageForClient:self->_initiator length:v50 linkType:self->_linkType];
+
+  v86 = [optionsCopy objectForKeyedSubscript:@"nwActivityMetrics"];
+  v87 = v86;
+  if (v86)
+  {
+    [v86 setRequestSize:v50];
+  }
+
+  v88 = [RPNWActivityMessageMetrics startMessageMetrics:2 withParent:v87];
+  v89 = v126[5];
+  v126[5] = v88;
+
+  [v126[5] setMessageSize:v50];
+  [v126[5] setLinkType:self->_linkType];
+  model = [(RPEndpoint *)self->_peerDeviceInfo model];
+  [v126[5] setPeerDeviceModel:model];
+
+  peerDeviceInfo = self->_peerDeviceInfo;
+  if (peerDeviceInfo)
+  {
+    objc_msgSend_operatingSystemVersion(peerDeviceInfo);
+  }
+
+  else
+  {
+    v117 = 0uLL;
+    v118 = 0;
+  }
+
+  v92 = v126[5];
+  *buf = v117;
+  *&buf[16] = v118;
+  [v92 setPeerOSVersion:buf];
+  [v126[5] submitMetrics];
+  v93 = objc_alloc_init(MEMORY[0x1E6999570]);
+  [v93 setCompletion:v104];
+  if (v50)
+  {
+    v132[0] = v63;
+    v132[1] = v64;
+    v94 = v132;
+    v95 = 2;
+  }
+
+  else
+  {
+    v131 = v63;
+    v94 = &v131;
+    v95 = 1;
+  }
+
+  v96 = [MEMORY[0x1E695DEC8] arrayWithObjects:v94 count:v95];
+  [v93 setDataArray:v96];
+
+  [(CUReadWriteRequestable *)v106 writeWithRequest:v93];
+  if (optionsCopy)
+  {
+    CFDictionaryGetDouble();
+    if (v97 > 0.0)
+    {
+      v98 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
+      handler[0] = MEMORY[0x1E69E9820];
+      handler[1] = 3221225472;
+      handler[2] = __88__RPConnection__sendEncryptedRequestID_request_xpcID_options_sendEntry_responseHandler___block_invoke_421;
+      handler[3] = &unk_1E7C93C10;
+      handler[4] = v98;
+      handler[5] = self;
+      handler[6] = v112;
+      v116 = spid;
+      dispatch_source_set_event_handler(v98, handler);
+      CUDispatchTimerSet();
+      dispatch_resume(v98);
+      [(RPRequestEntry *)v65 setTimer:v98];
+    }
+  }
+
+LABEL_79:
+  if (v110)
+  {
+    v99 = self->_ucat;
+    if (v99->var0 <= 90)
+    {
+      if (v99->var0 == -1)
+      {
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_84;
+        }
+
+        v99 = self->_ucat;
+      }
+
+      LogPrintF(v99, "[RPConnection _sendEncryptedRequestID:request:xpcID:options:sendEntry:responseHandler:]", 90, "### Send encrypted requestID '%@' failed: %{error}\n", dCopy, v110);
+    }
+
+LABEL_84:
+    (*(handlerCopy + 2))(handlerCopy, 0, 0, v110);
+  }
+
+LABEL_86:
+  _Block_object_dispose(&v125, 8);
 }
 
 void __88__RPConnection__sendEncryptedRequestID_request_xpcID_options_sendEntry_responseHandler___block_invoke(uint64_t a1)
@@ -6973,10 +8078,9 @@ void __88__RPConnection__sendEncryptedRequestID_request_xpcID_options_sendEntry_
 
 void __88__RPConnection__sendEncryptedRequestID_request_xpcID_options_sendEntry_responseHandler___block_invoke_421(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dispatch_source_cancel(*(a1 + 32));
-  [*(a1 + 40) _timeoutForXID:*(a1 + 48)];
-  v2 = RPConnectionLog();
+  v2 = RPConnectionLog([*(a1 + 40) _timeoutForXID:*(a1 + 48)]);
   v3 = v2;
   v4 = *(a1 + 56);
   if (v4 && os_signpost_enabled(v2))
@@ -6984,41 +8088,39 @@ void __88__RPConnection__sendEncryptedRequestID_request_xpcID_options_sendEntry_
     v5 = *(a1 + 40);
     v6 = *(v5 + 632);
     v7 = *(v5 + 672);
-    v9[0] = 67109634;
-    v9[1] = v4;
-    v10 = 2112;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v7;
-    _os_signpost_emit_with_name_impl(&dword_1B6E85000, v3, OS_SIGNPOST_INTERVAL_END, v4, "RPConnectionSendRequestTime", " enableTelemetry=YES {XID:0x%X, connectionID:%@, peer:%@, signpost.description:end_time, error:request_timed_out}", v9, 0x1Cu);
+    v8[0] = 67109634;
+    v8[1] = v4;
+    v9 = 2112;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v7;
+    _os_signpost_emit_with_name_impl(&dword_1B6E85000, v3, OS_SIGNPOST_INTERVAL_END, v4, "RPConnectionSendRequestTime", " enableTelemetry=YES {XID:0x%X, connectionID:%@, peer:%@, signpost.description:end_time, error:request_timed_out}", v8, 0x1Cu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendEncryptedResponse:(id)response options:(id)options error:(id)error xid:(id)xid requestID:(id)d highPriority:(BOOL)priority isChatty:(BOOL)chatty replyStartTime:(id)self0
 {
   priorityCopy = priority;
-  v114 = *MEMORY[0x1E69E9840];
+  v122 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   optionsCopy = options;
   errorCopy = error;
   xidCopy = xid;
   dCopy = d;
   timeCopy = time;
-  v99 = 0;
-  v100 = &v99;
-  v101 = 0x3032000000;
-  v102 = __Block_byref_object_copy__2;
-  v103 = __Block_byref_object_dispose__2;
-  v104 = 0;
+  v107 = 0;
+  v108 = &v107;
+  v109 = 0x3032000000;
+  v110 = __Block_byref_object_copy__2;
+  v111 = __Block_byref_object_dispose__2;
+  v112 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __104__RPConnection__sendEncryptedResponse_options_error_xid_requestID_highPriority_isChatty_replyStartTime___block_invoke;
   aBlock[3] = &unk_1E7C93BE8;
-  v97 = 0;
-  v98 = &v99;
-  v82 = _Block_copy(aBlock);
+  v105 = 0;
+  v106 = &v107;
+  v90 = _Block_copy(aBlock);
   v15 = self->_requestable;
   v16 = self->_mainStream;
   btPipeHighPriority = self->_btPipeHighPriority;
@@ -7058,10 +8160,10 @@ void __88__RPConnection__sendEncryptedRequestID_request_xpcID_options_sendEntry_
   spid = [xidCopy unsignedIntValue];
   if (errorCopy)
   {
-    var0 = self->_ucat->var0;
-    if (var0 <= 60)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 60)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -7071,17 +8173,15 @@ void __88__RPConnection__sendEncryptedRequestID_request_xpcID_options_sendEntry_
         ucat = self->_ucat;
       }
 
-      v74 = spid;
-      v75 = errorCopy;
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _sendEncryptedResponse:options:error:xid:requestID:highPriority:isChatty:replyStartTime:]", 60, "### Sending response XID 0x%X, error: %{error}\n", spid, errorCopy);
     }
 
 LABEL_15:
     RPEncodeNSError(errorCopy, v20);
   }
 
-  v89 = v16;
-  v81 = v15;
+  v97 = v16;
+  v89 = v15;
   if (timeCopy)
   {
     [timeCopy unsignedLongLongValue];
@@ -7089,7 +8189,7 @@ LABEL_15:
     [v20 setObject:v24 forKeyedSubscript:@"_rT"];
   }
 
-  v95 = 0;
+  v103 = 0;
   if (self->_canDecode128bit)
   {
     v25 = 16;
@@ -7100,189 +8200,182 @@ LABEL_15:
     v25 = 0;
   }
 
-  v26 = MEMORY[0x1B8C9E170](v20, v25, &v95);
-  v27 = v26;
+  v26 = MEMORY[0x1B8C9E170](v20, v25, &v103);
+  v33 = v26;
   if (!v26)
   {
-    goto LABEL_75;
+    v86 = RPErrorF(v103, "OPACK encode failed", v27, v28, v29, v30, v31, v32, v87);
+LABEL_77:
+    v59 = v86;
+    v81 = 0;
+    v57 = 0;
+LABEL_79:
+    v58 = 0;
+    goto LABEL_69;
   }
 
-  v94 = 8;
-  v28 = [v26 length];
+  v102 = 8;
+  v34 = [v26 length];
   if (priorityCopy)
   {
-    LOBYTE(v94) = 12;
-    v29 = [v27 length];
+    LOBYTE(v102) = 12;
+    v41 = [v33 length];
     highPriorityAuthTagLength = self->_highPriorityAuthTagLength;
-    v31 = self->_highPriorityStream;
+    v43 = self->_highPriorityStream;
 
-    v32 = highPriorityAuthTagLength + v29;
-    v89 = v31;
+    v44 = highPriorityAuthTagLength + v41;
+    v97 = v43;
   }
 
   else
   {
-    v32 = self->_mainAuthTagLength + v28;
+    v44 = self->_mainAuthTagLength + v34;
   }
 
-  if (v32 >> 24)
+  if (v44 >> 24)
   {
-LABEL_75:
-    v43 = RPErrorF();
-    v66 = 0;
-    v41 = 0;
-LABEL_77:
-    v42 = 0;
-    goto LABEL_69;
-  }
-
-  if (v32 >= 0x800000)
-  {
-    v33 = self->_ucat->var0;
-    if (v33 <= 90)
-    {
-      if (v33 != -1)
-      {
-LABEL_29:
-        linkType = self->_linkType;
-        if (linkType > 0xB)
-        {
-          v35 = "?";
-        }
-
-        else
-        {
-          v35 = off_1E7C94188[linkType];
-        }
-
-        v77 = v35;
-        code = [errorCopy code];
-        v75 = 0;
-        v76 = v32;
-        v74 = spid;
-        LogPrintF();
-        goto LABEL_35;
-      }
-
-      v36 = self->_ucat;
-      if (_LogCategory_Initialize())
-      {
-        v37 = self->_ucat;
-        goto LABEL_29;
-      }
-    }
-
-LABEL_35:
-    v38 = [optionsCopy objectForKeyedSubscript:{@"_rP", v74, v75, v76, v77, code}];
-    0x7FFFFFLL = [MEMORY[0x1E696AEC0] stringWithFormat:@"len:%zu, check:%d", v32, 0x7FFFFFLL];
-    v40 = +[RPAutoBugCapture sharedReporter];
-    [v40 reportIssueOfType:3 issueContext:@"sendEncryptedResponse" processName:v38 triggerThresholdValues:0x7FFFFFLL];
-  }
-
-  BYTE1(v94) = BYTE2(v32);
-  BYTE2(v94) = BYTE1(v32);
-  HIBYTE(v94) = v32;
-  v41 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:&v94 length:4];
-  if (!v89)
-  {
-    v43 = RPErrorF();
-    v89 = 0;
-    v66 = 0;
+    v86 = RPErrorF(4294960553, "Frame too big (%zu vs %u)", v35, v36, v37, v38, v39, v40, v44);
     goto LABEL_77;
   }
 
-  v93 = 0;
-  v42 = [(CUPairingStream *)v89 encryptData:v27 aadData:v41 error:&v93];
-  v43 = v93;
-  if (!v42)
+  if (v44 < 0x800000)
   {
-    v66 = 0;
+    goto LABEL_36;
+  }
+
+  v45 = self->_ucat;
+  if (v45->var0 <= 90)
+  {
+    if (v45->var0 != -1)
+    {
+LABEL_29:
+      linkType = self->_linkType;
+      if (linkType > 0xB)
+      {
+        v47 = "?";
+      }
+
+      else
+      {
+        v47 = off_1E7C94188[linkType];
+      }
+
+      LogPrintF(v45, "-[RPConnection _sendEncryptedResponse:options:error:xid:requestID:highPriority:isChatty:replyStartTime:]", 90, "Large Frame: Send response XID 0x%X, <%.16@> (%zu bytes) on link type %s, %#m\n", spid, 0, v44, v47, [errorCopy code]);
+      goto LABEL_35;
+    }
+
+    if (_LogCategory_Initialize())
+    {
+      v45 = self->_ucat;
+      goto LABEL_29;
+    }
+  }
+
+LABEL_35:
+  v48 = [optionsCopy objectForKeyedSubscript:@"_rP"];
+  v87 = v44;
+  v49 = [MEMORY[0x1E696AEC0] stringWithFormat:@"len:%zu, check:%d"];
+  v50 = +[RPAutoBugCapture sharedReporter];
+  [v50 reportIssueOfType:3 issueContext:@"sendEncryptedResponse" processName:v48 triggerThresholdValues:v49];
+
+LABEL_36:
+  BYTE1(v102) = BYTE2(v44);
+  BYTE2(v102) = BYTE1(v44);
+  HIBYTE(v102) = v44;
+  v57 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:&v102 length:4];
+  if (!v97)
+  {
+    v59 = RPErrorF(4294960593, "Encryption not setup", v51, v52, v53, v54, v55, v56, v87);
+    v97 = 0;
+    v81 = 0;
+    goto LABEL_79;
+  }
+
+  v101 = 0;
+  v58 = [(CUPairingStream *)v97 encryptData:v33 aadData:v57 error:&v101];
+  v59 = v101;
+  if (!v58)
+  {
+    v81 = 0;
     goto LABEL_69;
   }
 
-  v44 = dCopy;
-  v45 = v44;
+  v60 = dCopy;
+  v61 = v60;
   if (chatty)
   {
-    v46 = 10;
+    v62 = 10;
   }
 
-  else if ([v44 isEqual:@"_ftSm"] & 1) != 0 || (objc_msgSend(v45, "isEqual:", @"_ftLg"))
+  else if ([v60 isEqual:@"_ftSm"] & 1) != 0 || (objc_msgSend(v61, "isEqual:", @"_ftLg"))
   {
-    v46 = 9;
+    v62 = 9;
   }
 
-  else if ([v45 isEqual:@"_ftRs"])
+  else if ([v61 isEqual:@"_ftRs"])
   {
-    v46 = 9;
+    v62 = 9;
   }
 
   else
   {
-    v46 = 30;
+    v62 = 30;
   }
 
-  v47 = self->_ucat->var0;
-  if (v46 < v47)
+  v63 = self->_ucat;
+  if (v62 < v63->var0)
   {
     goto LABEL_56;
   }
 
-  if (v47 != -1)
+  if (v63->var0 != -1)
   {
     goto LABEL_48;
   }
 
-  v50 = self->_ucat;
   if (_LogCategory_Initialize())
   {
-    v51 = self->_ucat;
+    v63 = self->_ucat;
 LABEL_48:
-    v48 = self->_linkType;
-    if (v48 > 0xB)
+    v64 = self->_linkType;
+    if (v64 > 0xB)
     {
-      v49 = "?";
+      v65 = "?";
     }
 
     else
     {
-      v49 = off_1E7C94188[v48];
+      v65 = off_1E7C94188[v64];
     }
 
-    code2 = [errorCopy code];
-    v53 = "";
+    code = [errorCopy code];
+    v67 = "";
     if (priorityCopy)
     {
-      v53 = " at high priority";
+      v67 = " at high priority";
     }
 
-    code = v53;
-    v79 = code2;
-    v76 = v32;
-    v77 = v49;
-    v74 = spid;
-    v75 = v42;
-    LogPrintF();
+    LogPrintF(v63, "[RPConnection _sendEncryptedResponse:options:error:xid:requestID:highPriority:isChatty:replyStartTime:]", v62, "Send response XID 0x%X, <%.16@> (%zu bytes) on link type %s%s, %#m\n", spid, v58, v44, v65, v67, code);
   }
 
 LABEL_56:
-  v54 = [RPConnectionMetrics sharedMetrics:v74];
-  [v54 logMessageForClient:self->_initiator length:v32 linkType:self->_linkType];
+  v68 = +[RPConnectionMetrics sharedMetrics];
+  [v68 logMessageForClient:self->_initiator length:v44 linkType:self->_linkType];
 
-  v55 = RPConnectionLog();
-  v56 = v55;
-  if (spid && os_signpost_enabled(v55))
+  v70 = RPConnectionLog(v69);
+  v71 = v70;
+  if (spid && os_signpost_enabled(v70))
   {
     label = self->_label;
-    v58 = self->_linkType;
-    if (v58 > 0xB)
+    v73 = self->_linkType;
+    if (v73 > 0xB)
     {
-      v59 = "?";
+      v74 = "?";
     }
 
     else
     {
-      v59 = off_1E7C94188[v58];
+      v74 = off_1E7C94188[v73];
     }
 
     peerIdentifier = self->_peerIdentifier;
@@ -7291,87 +8384,86 @@ LABEL_56:
     *&buf[8] = 2112;
     *&buf[10] = label;
     *&buf[18] = 2048;
-    *&buf[20] = v32;
-    v108 = 2080;
-    v109 = v59;
-    v110 = 1024;
-    v111 = priorityCopy;
-    v112 = 2112;
-    v113 = peerIdentifier;
-    _os_signpost_emit_with_name_impl(&dword_1B6E85000, v56, OS_SIGNPOST_INTERVAL_END, spid, "RPConnectionClientResponseTime", " enableTelemetry=YES {XID:0x%X, connectionID:%@, responseSize:%zu, linkType:%s, highPriority:%d, peer:%@, signpost.description:end_time}", buf, 0x36u);
+    *&buf[20] = v44;
+    v116 = 2080;
+    v117 = v74;
+    v118 = 1024;
+    v119 = priorityCopy;
+    v120 = 2112;
+    v121 = peerIdentifier;
+    _os_signpost_emit_with_name_impl(&dword_1B6E85000, v71, OS_SIGNPOST_INTERVAL_END, spid, "RPConnectionClientResponseTime", " enableTelemetry=YES {XID:0x%X, connectionID:%@, responseSize:%zu, linkType:%s, highPriority:%d, peer:%@, signpost.description:end_time}", buf, 0x36u);
   }
 
-  v61 = [RPNWActivityMessageMetrics startMessageMetrics:3 withParent:0];
-  v62 = v100[5];
-  v100[5] = v61;
+  v76 = [RPNWActivityMessageMetrics startMessageMetrics:3 withParent:0];
+  v77 = v108[5];
+  v108[5] = v76;
 
-  [v100[5] setMessageSize:v32];
-  [v100[5] setLinkType:self->_linkType];
+  [v108[5] setMessageSize:v44];
+  [v108[5] setLinkType:self->_linkType];
   model = [(RPEndpoint *)self->_peerDeviceInfo model];
-  [v100[5] setPeerDeviceModel:model];
+  [v108[5] setPeerDeviceModel:model];
 
   peerDeviceInfo = self->_peerDeviceInfo;
   if (peerDeviceInfo)
   {
-    [(RPEndpoint *)peerDeviceInfo operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(peerDeviceInfo);
   }
 
   else
   {
-    v91 = 0uLL;
-    v92 = 0;
+    v99 = 0uLL;
+    v100 = 0;
   }
 
-  v65 = v100[5];
-  *buf = v91;
-  *&buf[16] = v92;
-  [v65 setPeerOSVersion:buf];
-  [v100[5] submitMetrics];
-  v66 = objc_alloc_init(MEMORY[0x1E6999570]);
-  [v66 setCompletion:v82];
-  if (v32)
+  v80 = v108[5];
+  *buf = v99;
+  *&buf[16] = v100;
+  [v80 setPeerOSVersion:buf];
+  [v108[5] submitMetrics];
+  v81 = objc_alloc_init(MEMORY[0x1E6999570]);
+  [v81 setCompletion:v90];
+  if (v44)
   {
-    v106[0] = v41;
-    v106[1] = v42;
-    v67 = v106;
-    v68 = 2;
+    v114[0] = v57;
+    v114[1] = v58;
+    v82 = v114;
+    v83 = 2;
   }
 
   else
   {
-    v105 = v41;
-    v67 = &v105;
-    v68 = 1;
+    v113 = v57;
+    v82 = &v113;
+    v83 = 1;
   }
 
-  v69 = [MEMORY[0x1E695DEC8] arrayWithObjects:v67 count:v68];
-  [v66 setDataArray:v69];
+  v84 = [MEMORY[0x1E695DEC8] arrayWithObjects:v82 count:v83];
+  [v81 setDataArray:v84];
 
-  [(CUReadWriteRequestable *)v81 writeWithRequest:v66];
+  [(CUReadWriteRequestable *)v89 writeWithRequest:v81];
 LABEL_69:
-  if (v43)
+  if (v59)
   {
-    v70 = self->_ucat->var0;
-    if (v70 <= 90)
+    v85 = self->_ucat;
+    if (v85->var0 <= 90)
     {
-      if (v70 == -1)
+      if (v85->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_74;
         }
 
-        v73 = self->_ucat;
+        v85 = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(v85, "[RPConnection _sendEncryptedResponse:options:error:xid:requestID:highPriority:isChatty:replyStartTime:]", 90, "### Send encrypted response XID 0x%X failed: %{error}\n", spid, v59);
     }
   }
 
 LABEL_74:
 
-  _Block_object_dispose(&v99, 8);
-  v71 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v107, 8);
 }
 
 void __104__RPConnection__sendEncryptedResponse_options_error_xid_requestID_highPriority_isChatty_replyStartTime___block_invoke(uint64_t a1)
@@ -7395,16 +8487,343 @@ void __104__RPConnection__sendEncryptedResponse_options_error_xid_requestID_high
   }
 }
 
+- (void)_sendFrameType:(unsigned __int8)type body:(id)body
+{
+  typeCopy = type;
+  v31[2] = *MEMORY[0x1E69E9840];
+  bodyCopy = body;
+  v29 = typeCopy;
+  v7 = [bodyCopy length];
+  v14 = v7;
+  if (!(v7 >> 24))
+  {
+    if (v7 < 0x800000)
+    {
+      goto LABEL_39;
+    }
+
+    ucat = self->_ucat;
+    if (ucat->var0 <= 90)
+    {
+      if (ucat->var0 != -1)
+      {
+        goto LABEL_5;
+      }
+
+      if (_LogCategory_Initialize())
+      {
+        ucat = self->_ucat;
+LABEL_5:
+        if (typeCopy <= 47)
+        {
+          v16 = "Invalid";
+          switch(typeCopy)
+          {
+            case 0:
+              goto LABEL_37;
+            case 1:
+              v16 = "NoOp";
+              break;
+            case 3:
+              v16 = "PS_Start";
+              break;
+            case 4:
+              v16 = "PS_Next";
+              break;
+            case 5:
+              v16 = "PV_Start";
+              break;
+            case 6:
+              v16 = "PV_Next";
+              break;
+            case 7:
+              v16 = "U_OPACK";
+              break;
+            case 8:
+              v16 = "E_OPACK";
+              break;
+            case 9:
+              v16 = "P_OPACK";
+              break;
+            case 10:
+              v16 = "PA_Req";
+              break;
+            case 11:
+              v16 = "PA_Rsp";
+              break;
+            case 16:
+              v16 = "SessionStartRequest";
+              break;
+            case 17:
+              v16 = "SessionStartResponse";
+              break;
+            case 18:
+              v16 = "SessionData";
+              break;
+            case 32:
+              v16 = "FamilyIdentityRequest";
+              break;
+            case 33:
+              v16 = "FamilyIdentityResponse";
+              break;
+            case 34:
+              v16 = "FamilyIdentityUpdate";
+              break;
+            default:
+              goto LABEL_36;
+          }
+
+          goto LABEL_37;
+        }
+
+        if (typeCopy <= 63)
+        {
+          if (typeCopy == 48)
+          {
+            v16 = "WatchIdentityRequest";
+            goto LABEL_37;
+          }
+
+          if (typeCopy == 49)
+          {
+            v16 = "WatchIdentityResponse";
+            goto LABEL_37;
+          }
+        }
+
+        else
+        {
+          switch(typeCopy)
+          {
+            case '@':
+              v16 = "FriendIdentityRequest";
+              goto LABEL_37;
+            case 'A':
+              v16 = "FriendIdentityResponse";
+              goto LABEL_37;
+            case 'B':
+              v16 = "FriendIdentityUpdate";
+LABEL_37:
+              LogPrintF(ucat, "[RPConnection _sendFrameType:body:]", 90, "Large Frame: Send frame 0x%02X (%s), <%.16@> (%zu bytes)\n", typeCopy, v16, bodyCopy, v14);
+              goto LABEL_38;
+          }
+        }
+
+LABEL_36:
+        v16 = "?";
+        goto LABEL_37;
+      }
+    }
+
+LABEL_38:
+    0x7FFFFFLL = [MEMORY[0x1E696AEC0] stringWithFormat:@"len:%zu, check:%d", v14, 0x7FFFFFLL];
+    v18 = +[RPAutoBugCapture sharedReporter];
+    [v18 reportIssueOfType:3 issueContext:@"sendFrameType" processName:@"rapportd" triggerThresholdValues:0x7FFFFFLL];
+
+LABEL_39:
+    BYTE1(v29) = BYTE2(v14);
+    BYTE2(v29) = BYTE1(v14);
+    HIBYTE(v29) = v14;
+    v19 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:&v29 length:4];
+    v20 = self->_ucat;
+    if (v20->var0 <= 9)
+    {
+      if (v20->var0 != -1)
+      {
+        goto LABEL_41;
+      }
+
+      if (_LogCategory_Initialize())
+      {
+        v20 = self->_ucat;
+LABEL_41:
+        if (typeCopy <= 47)
+        {
+          v21 = "Invalid";
+          switch(typeCopy)
+          {
+            case 0:
+              goto LABEL_73;
+            case 1:
+              v21 = "NoOp";
+              break;
+            case 3:
+              v21 = "PS_Start";
+              break;
+            case 4:
+              v21 = "PS_Next";
+              break;
+            case 5:
+              v21 = "PV_Start";
+              break;
+            case 6:
+              v21 = "PV_Next";
+              break;
+            case 7:
+              v21 = "U_OPACK";
+              break;
+            case 8:
+              v21 = "E_OPACK";
+              break;
+            case 9:
+              v21 = "P_OPACK";
+              break;
+            case 10:
+              v21 = "PA_Req";
+              break;
+            case 11:
+              v21 = "PA_Rsp";
+              break;
+            case 16:
+              v21 = "SessionStartRequest";
+              break;
+            case 17:
+              v21 = "SessionStartResponse";
+              break;
+            case 18:
+              v21 = "SessionData";
+              break;
+            case 32:
+              v21 = "FamilyIdentityRequest";
+              break;
+            case 33:
+              v21 = "FamilyIdentityResponse";
+              break;
+            case 34:
+              v21 = "FamilyIdentityUpdate";
+              break;
+            default:
+              goto LABEL_72;
+          }
+
+          goto LABEL_73;
+        }
+
+        if (typeCopy <= 63)
+        {
+          if (typeCopy == 48)
+          {
+            v21 = "WatchIdentityRequest";
+            goto LABEL_73;
+          }
+
+          if (typeCopy == 49)
+          {
+            v21 = "WatchIdentityResponse";
+            goto LABEL_73;
+          }
+        }
+
+        else
+        {
+          switch(typeCopy)
+          {
+            case '@':
+              v21 = "FriendIdentityRequest";
+              goto LABEL_73;
+            case 'A':
+              v21 = "FriendIdentityResponse";
+              goto LABEL_73;
+            case 'B':
+              v21 = "FriendIdentityUpdate";
+LABEL_73:
+              LogPrintF(v20, "[RPConnection _sendFrameType:body:]", 9, "Send frame 0x%02X (%s), <%.16@> (%zu bytes)\n", typeCopy, v21, bodyCopy, v14);
+              goto LABEL_74;
+          }
+        }
+
+LABEL_72:
+        v21 = "?";
+        goto LABEL_73;
+      }
+    }
+
+LABEL_74:
+    v22 = objc_alloc_init(MEMORY[0x1E6999570]);
+    if (v14)
+    {
+      v31[0] = v19;
+      v31[1] = bodyCopy;
+      v23 = MEMORY[0x1E695DEC8];
+      v24 = v31;
+      v25 = 2;
+    }
+
+    else
+    {
+      v30 = v19;
+      v23 = MEMORY[0x1E695DEC8];
+      v24 = &v30;
+      v25 = 1;
+    }
+
+    v26 = [v23 arrayWithObjects:v24 count:v25];
+    [v22 setDataArray:v26];
+
+    [(CUReadWriteRequestable *)self->_requestable writeWithRequest:v22];
+    v27 = 0;
+    goto LABEL_78;
+  }
+
+  v27 = RPErrorF(4294960553, "Frame too big (%zu vs %u)", v8, v9, v10, v11, v12, v13, v7);
+  if (v27)
+  {
+    v28 = self->_ucat;
+    if (v28->var0 <= 90)
+    {
+      if (v28->var0 == -1)
+      {
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_78;
+        }
+
+        v28 = self->_ucat;
+      }
+
+      LogPrintF(v28, "[RPConnection _sendFrameType:body:]", 90, "### Send frame type 0x%X failed: %{error}\n", typeCopy, v27);
+    }
+  }
+
+LABEL_78:
+}
+
+- (void)_sendFrameType:(unsigned __int8)type unencryptedObject:(id)object
+{
+  typeCopy = type;
+  v8 = 0;
+  if (self->_canDecode128bit)
+  {
+    v6 = 16;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = MEMORY[0x1B8C9E170](object, v6, &v8);
+  if (v7)
+  {
+    [(RPConnection *)self _sendFrameType:typeCopy body:v7];
+  }
+
+  else
+  {
+    [RPConnection _sendFrameType:typeCopy unencryptedObject:?];
+  }
+}
+
 - (void)sendReachabilityProbe:(const char *)probe
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  var0 = self->_ucat->var0;
-  if (var0 <= 60)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 60)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection sendReachabilityProbe:]", 60, "Peer may be unreachable, sending reachability probe (%s)\n", probe);
       goto LABEL_5;
     }
 
@@ -7481,24 +8900,21 @@ LABEL_5:
 
         if (requestID)
         {
-          var0 = self->_ucat->var0;
-          if (var0 <= 30)
+          ucat = self->_ucat;
+          if (ucat->var0 <= 30)
           {
-            if (var0 != -1)
+            if (ucat->var0 != -1)
             {
               goto LABEL_15;
             }
 
-            ucat = self->_ucat;
             if (_LogCategory_Initialize())
             {
-              v38 = self->_ucat;
+              ucat = self->_ucat;
 LABEL_15:
               requestID2 = [v5 requestID];
-              [connectionCopy label];
-              v42 = v9;
-              v41 = v40 = requestID2;
-              LogPrintF();
+              label = [connectionCopy label];
+              LogPrintF(ucat, "[RPConnection processSendsUsingConnection:]", 30, "Transferring request ID %@ to connection %@ with timeout %f\n", requestID2, label, *&v9);
             }
           }
 
@@ -7515,25 +8931,24 @@ LABEL_28:
 
         eventID = [v5 eventID];
 
-        v24 = self->_ucat->var0;
+        v25 = self->_ucat;
+        var0 = v25->var0;
         if (eventID)
         {
-          if (v24 <= 30)
+          if (var0 <= 30)
           {
-            if (v24 != -1)
+            if (var0 != -1)
             {
               goto LABEL_20;
             }
 
-            v32 = self->_ucat;
             if (_LogCategory_Initialize())
             {
-              v39 = self->_ucat;
+              v25 = self->_ucat;
 LABEL_20:
               eventID2 = [v5 eventID];
-              [connectionCopy label];
-              v41 = v40 = eventID2;
-              LogPrintF();
+              label2 = [connectionCopy label];
+              LogPrintF(v25, "[RPConnection processSendsUsingConnection:]", 30, "Transferring event ID %@ to connection %@", eventID2, label2);
             }
           }
 
@@ -7546,20 +8961,19 @@ LABEL_20:
           goto LABEL_28;
         }
 
-        if (v24 <= 90)
+        if (var0 <= 90)
         {
-          if (v24 == -1)
+          if (var0 == -1)
           {
-            v36 = self->_ucat;
             if (!_LogCategory_Initialize())
             {
               goto LABEL_29;
             }
 
-            v37 = self->_ucat;
+            v25 = self->_ucat;
           }
 
-          LogPrintF();
+          LogPrintF(v25, "[RPConnection processSendsUsingConnection:]", 90, "### Unsupported send attempt\n");
         }
       }
 
@@ -7579,7 +8993,8 @@ LABEL_29:
 {
   startCopy = start;
   requestableCopy = requestable;
-  var0 = self->_ucat->var0;
+  ucat = self->_ucat;
+  var0 = ucat->var0;
   if (self->_flowControlReadEnabled)
   {
     if (var0 <= 9)
@@ -7594,7 +9009,7 @@ LABEL_29:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _receiveStart:readFrame:requestable:]", 9, "Start receiving header\n");
     }
 
 LABEL_9:
@@ -7608,18 +9023,18 @@ LABEL_9:
     [startCopy setBufferData:0];
     [startCopy setMinLength:4];
     [startCopy setMaxLength:4];
-    v14 = MEMORY[0x1E69E9820];
-    v15 = 3221225472;
-    v16 = __52__RPConnection__receiveStart_readFrame_requestable___block_invoke;
-    v17 = &unk_1E7C93C38;
+    v13 = MEMORY[0x1E69E9820];
+    v14 = 3221225472;
+    v15 = __52__RPConnection__receiveStart_readFrame_requestable___block_invoke;
+    v16 = &unk_1E7C93C38;
     selfCopy = self;
     startCopy = startCopy;
-    v19 = startCopy;
+    v18 = startCopy;
     frameCopy = frame;
-    v11 = requestableCopy;
-    v20 = v11;
-    [startCopy setCompletion:&v14];
-    [v11 readWithRequest:{startCopy, v14, v15, v16, v17, selfCopy}];
+    v12 = requestableCopy;
+    v19 = v12;
+    [startCopy setCompletion:&v13];
+    [v12 readWithRequest:{startCopy, v13, v14, v15, v16, selfCopy}];
     frame->var2 = 1;
 
     goto LABEL_12;
@@ -7634,10 +9049,10 @@ LABEL_9:
         goto LABEL_12;
       }
 
-      v12 = self->_ucat;
+      ucat = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[RPConnection _receiveStart:readFrame:requestable:]", 9, "Flow control read suppress\n");
   }
 
 LABEL_12:
@@ -7651,187 +9066,282 @@ LABEL_12:
   error = [completionCopy error];
   if (error)
   {
-    var0 = self->_ucat->var0;
-    if (var0 > 60)
+    ucat = self->_ucat;
+    if (ucat->var0 > 60)
     {
-      goto LABEL_15;
+      goto LABEL_17;
     }
 
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
-LABEL_15:
-        v18 = _Block_copy(self->_readErrorHandler);
-        v19 = v18;
-        if (v18)
+LABEL_17:
+        v19 = _Block_copy(self->_readErrorHandler);
+        0x4000 = v19;
+        if (v19)
         {
-          (*(v18 + 2))(v18, error);
+          (*(v19 + 2))(v19, error);
         }
 
-        goto LABEL_17;
+        goto LABEL_19;
       }
 
       ucat = self->_ucat;
     }
 
-    LogPrintF();
-    goto LABEL_15;
+    LogPrintF(ucat, "[RPConnection _receiveCompletion:readFrame:requestable:]", 60, "### Receive failed: %{error}\n", error);
+    goto LABEL_17;
   }
 
   if (!frame->var1)
   {
-    v40 = 0;
-    v16 = [completionCopy length];
-    v39 = v16;
-    v17 = self->_ucat->var0;
-    if (v17 <= 9)
+    v32 = 0;
+    v17 = [completionCopy length];
+    v31 = v17;
+    v18 = self->_ucat;
+    if (v18->var0 <= 9)
     {
-      if (v17 == -1)
+      if (v18->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
-          goto LABEL_27;
+          goto LABEL_29;
         }
 
-        v33 = self->_ucat;
+        v18 = self->_ucat;
       }
 
-      v37 = v16;
-      LogPrintF();
+      LogPrintF(v18, "[RPConnection _receiveCompletion:readFrame:requestable:]", 9, "Received body: %zu byte(s)\n", v17);
     }
 
-LABEL_27:
-    v22 = completionCopy;
-LABEL_28:
-    data = [v22 data];
-    [(RPConnection *)self _receivedHeader:frame body:data ctx:&v39];
+LABEL_29:
+    v23 = completionCopy;
+LABEL_30:
+    data = [v23 data];
+    [(RPConnection *)self _receivedHeader:frame body:data ctx:&v31];
 
     [(RPConnection *)self _receiveStart:completionCopy readFrame:frame requestable:requestableCopy];
-    goto LABEL_38;
+    goto LABEL_45;
   }
 
   v12 = frame->var0.var1[0];
   v13 = frame->var0.var1[2] | (v12 << 16) | (frame->var0.var1[1] << 8);
-  v14 = frame->var0.var0;
-  if ((v14 - 3) > 3 || v13 <= 0x4000)
+  var0 = frame->var0.var0;
+  if ((var0 - 3) > 3 || v13 <= 0x4000)
   {
     if ((v12 & 0x80000000) == 0)
     {
       if (!v13)
       {
-        v20 = self->_ucat->var0;
-        if (v20 <= 9)
+        v21 = self->_ucat;
+        if (v21->var0 <= 9)
         {
-          if (v20 == -1)
+          if (v21->var0 == -1)
           {
             if (!_LogCategory_Initialize())
             {
-              goto LABEL_40;
+              goto LABEL_47;
             }
 
-            v36 = self->_ucat;
+            v21 = self->_ucat;
           }
 
-          LogPrintF();
+          LogPrintF(v21, "[RPConnection _receiveCompletion:readFrame:requestable:]", 9, "Received header: empty body\n");
         }
 
-LABEL_40:
-        v39 = 0;
-        v40 = [completionCopy statusFlags] & 1;
-        v22 = MEMORY[0x1E695DEF0];
-        goto LABEL_28;
+LABEL_47:
+        v31 = 0;
+        v32 = [completionCopy statusFlags] & 1;
+        v23 = MEMORY[0x1E695DEF0];
+        goto LABEL_30;
       }
 
-LABEL_33:
-      v28 = self->_ucat->var0;
-      if (v28 <= 9)
+LABEL_40:
+      v27 = self->_ucat;
+      if (v27->var0 <= 9)
       {
-        if (v28 == -1)
+        if (v27->var0 == -1)
         {
           if (!_LogCategory_Initialize())
           {
-            goto LABEL_37;
+            goto LABEL_44;
           }
 
-          v34 = self->_ucat;
+          v27 = self->_ucat;
         }
 
-        v37 = v13;
-        LogPrintF();
+        LogPrintF(v27, "[RPConnection _receiveCompletion:readFrame:requestable:]", 9, "Received header. Start receiving %zu byte body\n", v13);
       }
 
-LABEL_37:
+LABEL_44:
       frame->var1 = 0;
-      [completionCopy setBufferBytes:{0, v37}];
+      [completionCopy setBufferBytes:0];
       [completionCopy setBufferData:0];
       [completionCopy setMinLength:v13];
       [completionCopy setMaxLength:v13];
-      v41[0] = MEMORY[0x1E69E9820];
-      v41[1] = 3221225472;
-      v41[2] = __57__RPConnection__receiveCompletion_readFrame_requestable___block_invoke;
-      v41[3] = &unk_1E7C93C38;
-      v41[4] = self;
-      v29 = completionCopy;
-      v42 = v29;
+      v33[0] = MEMORY[0x1E69E9820];
+      v33[1] = 3221225472;
+      v33[2] = __57__RPConnection__receiveCompletion_readFrame_requestable___block_invoke;
+      v33[3] = &unk_1E7C93C38;
+      v33[4] = self;
+      v28 = completionCopy;
+      v34 = v28;
       frameCopy = frame;
-      v30 = requestableCopy;
-      v43 = v30;
-      [v29 setCompletion:v41];
-      [v30 readWithRequest:v29];
+      v29 = requestableCopy;
+      v35 = v29;
+      [v28 setCompletion:v33];
+      [v29 readWithRequest:v28];
       frame->var2 = 1;
 
-      goto LABEL_38;
+      goto LABEL_45;
     }
 
-    v21 = self->_ucat->var0;
-    if (v21 <= 90)
+    v22 = self->_ucat;
+    if (v22->var0 <= 90)
     {
-      if (v21 == -1)
+      if (v22->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
-          goto LABEL_32;
+          goto LABEL_39;
         }
 
-        v35 = self->_ucat;
+        v22 = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(v22, "[RPConnection _receiveCompletion:readFrame:requestable:]", 90, "Large Frame: Received header. Start receiving %zu byte body\n", v13);
     }
 
-LABEL_32:
+LABEL_39:
     0x7FFFFFLL = [MEMORY[0x1E696AEC0] stringWithFormat:@"len:%zu, check:%d", v13, 0x7FFFFFLL];
-    v27 = +[RPAutoBugCapture sharedReporter];
-    [v27 reportIssueOfType:4 issueContext:@"receiveFrameHeader" processName:@"rapportd" triggerThresholdValues:0x7FFFFFLL];
+    v26 = +[RPAutoBugCapture sharedReporter];
+    [v26 reportIssueOfType:4 issueContext:@"receiveFrameHeader" processName:@"rapportd" triggerThresholdValues:0x7FFFFFLL];
 
-    goto LABEL_33;
+    goto LABEL_40;
   }
 
-  v15 = self->_ucat->var0;
-  if (v15 <= 90)
+  v15 = self->_ucat;
+  if (v15->var0 <= 90)
   {
-    if (v15 != -1)
+    if (v15->var0 != -1)
     {
-      goto LABEL_41;
+      goto LABEL_10;
     }
 
     if (_LogCategory_Initialize())
     {
-      v24 = self->_ucat;
-      v25 = frame->var0.var0;
-LABEL_41:
-      v38 = v13;
-      LogPrintF();
+      v15 = self->_ucat;
+      var0 = frame->var0.var0;
+LABEL_10:
+      if (var0 <= 47)
+      {
+        v16 = "Invalid";
+        switch(var0)
+        {
+          case 0:
+            goto LABEL_70;
+          case 1:
+            v16 = "NoOp";
+            break;
+          case 3:
+            v16 = "PS_Start";
+            break;
+          case 4:
+            v16 = "PS_Next";
+            break;
+          case 5:
+            v16 = "PV_Start";
+            break;
+          case 6:
+            v16 = "PV_Next";
+            break;
+          case 7:
+            v16 = "U_OPACK";
+            break;
+          case 8:
+            v16 = "E_OPACK";
+            break;
+          case 9:
+            v16 = "P_OPACK";
+            break;
+          case 10:
+            v16 = "PA_Req";
+            break;
+          case 11:
+            v16 = "PA_Rsp";
+            break;
+          case 16:
+            v16 = "SessionStartRequest";
+            break;
+          case 17:
+            v16 = "SessionStartResponse";
+            break;
+          case 18:
+            v16 = "SessionData";
+            break;
+          case 32:
+            v16 = "FamilyIdentityRequest";
+            break;
+          case 33:
+            v16 = "FamilyIdentityResponse";
+            break;
+          case 34:
+            v16 = "FamilyIdentityUpdate";
+            break;
+          default:
+            goto LABEL_69;
+        }
+
+        goto LABEL_70;
+      }
+
+      if (var0 <= 63)
+      {
+        if (var0 == 48)
+        {
+          v16 = "WatchIdentityRequest";
+          goto LABEL_70;
+        }
+
+        if (var0 == 49)
+        {
+          v16 = "WatchIdentityResponse";
+          goto LABEL_70;
+        }
+      }
+
+      else
+      {
+        switch(var0)
+        {
+          case '@':
+            v16 = "FriendIdentityRequest";
+            goto LABEL_70;
+          case 'A':
+            v16 = "FriendIdentityResponse";
+            goto LABEL_70;
+          case 'B':
+            v16 = "FriendIdentityUpdate";
+LABEL_70:
+            LogPrintF(v15, "[RPConnection _receiveCompletion:readFrame:requestable:]", 90, "### Received frame too big for pair/verify type:%d (%s) (%zu bytes)\n", var0, v16, v13);
+            goto LABEL_71;
+        }
+      }
+
+LABEL_69:
+      v16 = "?";
+      goto LABEL_70;
     }
   }
 
-  v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"len:%zu, check:%d", v13, 0x4000, v38];
-  v31 = +[RPAutoBugCapture sharedReporter];
-  [v31 reportIssueOfType:5 issueContext:@"receivePairVerifyHeader" processName:@"rapportd" triggerThresholdValues:v19];
+LABEL_71:
+  0x4000 = [MEMORY[0x1E696AEC0] stringWithFormat:@"len:%zu, check:%d", v13, 0x4000];
+  v30 = +[RPAutoBugCapture sharedReporter];
+  [v30 reportIssueOfType:5 issueContext:@"receivePairVerifyHeader" processName:@"rapportd" triggerThresholdValues:0x4000];
 
-LABEL_17:
-LABEL_38:
+LABEL_19:
+LABEL_45:
 }
 
 - (void)_receivedHeader:(id *)header body:(id)body ctx:(id *)ctx
@@ -7839,14 +9349,14 @@ LABEL_38:
   bodyCopy = body;
   ++self->_receivedFrameCountCurrent;
   var0 = header->var0;
-  v10 = self->_ucat->var0;
-  v36 = bodyCopy;
-  if (v10 <= 9)
+  ucat = self->_ucat;
+  v28 = bodyCopy;
+  if (ucat->var0 <= 9)
   {
-    if (v10 == -1)
+    if (ucat->var0 == -1)
     {
       v12 = _LogCategory_Initialize();
-      bodyCopy = v36;
+      bodyCopy = v28;
       if (!v12)
       {
         goto LABEL_36;
@@ -7945,12 +9455,8 @@ LABEL_38:
         case 'B':
           v11 = "FriendIdentityUpdate";
 LABEL_35:
-          v35 = [bodyCopy length];
-          v33 = v11;
-          v34 = v36;
-          v32 = var0;
-          LogPrintF();
-          bodyCopy = v36;
+          LogPrintF(ucat, "-[RPConnection _receivedHeader:body:ctx:]", 9, "Received frame 0x%02X (%s), <%.16@> (%ld bytes)\n", var0, v11, v28, [bodyCopy length]);
+          bodyCopy = v28;
           goto LABEL_36;
       }
     }
@@ -7969,47 +9475,48 @@ LABEL_36:
       {
         if (self->_clientMode)
         {
-          v15 = self->_ucat->var0;
-          if (v15 > 60)
+          v14 = self->_ucat;
+          if (v14->var0 > 60)
           {
-            goto LABEL_92;
+            goto LABEL_91;
           }
 
-          if (v15 == -1)
+          if (v14->var0 == -1)
           {
             if (!_LogCategory_Initialize())
             {
-              goto LABEL_92;
+              goto LABEL_91;
             }
 
-            v29 = self->_ucat;
+            v14 = self->_ucat;
           }
 
+          LogPrintF(v14, "[RPConnection _receivedHeader:body:ctx:]", 60, "### Ignoring PairVerifyStart on client\n", v25, v26, v27);
           goto LABEL_91;
         }
 
         selfCopy4 = self;
-        v20 = bodyCopy;
-        v23 = 1;
+        v19 = bodyCopy;
+        v22 = 1;
         goto LABEL_76;
       }
 
       selfCopy3 = self;
-      v17 = bodyCopy;
+      v16 = bodyCopy;
       if (self->_clientMode)
       {
         [(RPConnection *)self _clientPairSetupWithData:bodyCopy];
-        goto LABEL_92;
+        goto LABEL_91;
       }
 
-      v22 = 0;
+      v21 = 0;
     }
 
     else
     {
       if (var0 == 1)
       {
-        goto LABEL_92;
+        goto LABEL_91;
       }
 
       if (var0 != 3)
@@ -8019,32 +9526,33 @@ LABEL_36:
 
       if (self->_clientMode)
       {
-        v14 = self->_ucat->var0;
-        if (v14 > 60)
+        v13 = self->_ucat;
+        if (v13->var0 > 60)
         {
-          goto LABEL_92;
+          goto LABEL_91;
         }
 
-        if (v14 == -1)
+        if (v13->var0 == -1)
         {
           if (!_LogCategory_Initialize())
           {
-            goto LABEL_92;
+            goto LABEL_91;
           }
 
-          v28 = self->_ucat;
+          v13 = self->_ucat;
         }
 
+        LogPrintF(v13, "[RPConnection _receivedHeader:body:ctx:]", 60, "### Ignoring PairSetupStart on client\n", v25, v26, v27);
         goto LABEL_91;
       }
 
       selfCopy3 = self;
-      v17 = bodyCopy;
-      v22 = 1;
+      v16 = bodyCopy;
+      v21 = 1;
     }
 
-    [(RPConnection *)selfCopy3 _serverPairSetupWithData:v17 start:v22, v32, v33, v34, v35];
-    goto LABEL_92;
+    [(RPConnection *)selfCopy3 _serverPairSetupWithData:v16 start:v21];
+    goto LABEL_91;
   }
 
   if (var0 <= 9)
@@ -8054,48 +9562,46 @@ LABEL_36:
       if (var0 != 8)
       {
 LABEL_67:
-        v21 = self->_ucat->var0;
-        if (v21 > 60)
+        v20 = self->_ucat;
+        if (v20->var0 > 60)
         {
-          goto LABEL_92;
+          goto LABEL_91;
         }
 
-        if (v21 == -1)
+        if (v20->var0 == -1)
         {
-          v25 = self->_ucat;
-          v26 = _LogCategory_Initialize();
-          bodyCopy = v36;
-          if (!v26)
+          v24 = _LogCategory_Initialize();
+          bodyCopy = v28;
+          if (!v24)
           {
-            goto LABEL_92;
+            goto LABEL_91;
           }
 
-          v27 = self->_ucat;
+          v20 = self->_ucat;
         }
 
         [bodyCopy length];
-LABEL_91:
-        LogPrintF();
-        goto LABEL_92;
+        LogPrintF(v20, "[RPConnection _receivedHeader:body:ctx:]", 60, "### Ignoring unhandled frame 0x%02X (%s), %d bytes\n");
+        goto LABEL_91;
       }
 
 LABEL_56:
-      [(RPConnection *)self _receivedHeader:header encryptedObjectData:v36 ctx:ctx, v32, v33, v34, v35];
-      goto LABEL_92;
+      [(RPConnection *)self _receivedHeader:header encryptedObjectData:v28 ctx:ctx];
+      goto LABEL_91;
     }
 
     selfCopy4 = self;
-    v20 = bodyCopy;
+    v19 = bodyCopy;
     if (self->_clientMode)
     {
       [(RPConnection *)self _clientPairVerifyWithData:bodyCopy];
-      goto LABEL_92;
+      goto LABEL_91;
     }
 
-    v23 = 0;
+    v22 = 0;
 LABEL_76:
-    [(RPConnection *)selfCopy4 _serverPairVerifyWithData:v20 start:v23, v32, v33, v34, v35];
-    goto LABEL_92;
+    [(RPConnection *)selfCopy4 _serverPairVerifyWithData:v19 start:v22];
+    goto LABEL_91;
   }
 
   if (var0 == 10)
@@ -8103,25 +9609,26 @@ LABEL_76:
     if (!self->_clientMode)
     {
       [(RPConnection *)self _serverPreAuthRequestWithData:bodyCopy];
-      goto LABEL_92;
+      goto LABEL_91;
     }
 
-    v18 = self->_ucat->var0;
-    if (v18 > 60)
+    v17 = self->_ucat;
+    if (v17->var0 > 60)
     {
-      goto LABEL_92;
+      goto LABEL_91;
     }
 
-    if (v18 == -1)
+    if (v17->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_92;
+        goto LABEL_91;
       }
 
-      v30 = self->_ucat;
+      v17 = self->_ucat;
     }
 
+    LogPrintF(v17, "[RPConnection _receivedHeader:body:ctx:]", 60, "### Ignoring PreAuthRequest on client\n", v25, v26, v27);
     goto LABEL_91;
   }
 
@@ -8138,26 +9645,26 @@ LABEL_76:
   if (self->_clientMode)
   {
     [(RPConnection *)self _clientPreAuthResponseWithData:bodyCopy];
-    goto LABEL_92;
-  }
-
-  v24 = self->_ucat->var0;
-  if (v24 <= 60)
-  {
-    if (v24 == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_92;
-      }
-
-      v31 = self->_ucat;
-    }
-
     goto LABEL_91;
   }
 
-LABEL_92:
+  v23 = self->_ucat;
+  if (v23->var0 <= 60)
+  {
+    if (v23->var0 == -1)
+    {
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_91;
+      }
+
+      v23 = self->_ucat;
+    }
+
+    LogPrintF(v23, "[RPConnection _receivedHeader:body:ctx:]", 60, "### Ignoring PreAuthResponse on server\n");
+  }
+
+LABEL_91:
 
   MEMORY[0x1EEE66C30]();
 }
@@ -8172,37 +9679,38 @@ LABEL_92:
     goto LABEL_10;
   }
 
+  v7 = Int64Ranged;
   if (Int64Ranged == 2)
   {
     [(RPConnection *)self _receivedRequest:objectCopy ctx:ctx];
     goto LABEL_10;
   }
 
-  v7 = objectCopy;
+  v8 = objectCopy;
   if (Int64Ranged == 1)
   {
     [(RPConnection *)self _receivedEvent:objectCopy ctx:ctx];
 LABEL_10:
-    v7 = objectCopy;
+    v8 = objectCopy;
     goto LABEL_11;
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 > 60)
+  ucat = self->_ucat;
+  if (ucat->var0 > 60)
   {
     goto LABEL_11;
   }
 
-  if (var0 != -1)
+  if (ucat->var0 != -1)
   {
 LABEL_9:
-    LogPrintF();
+    LogPrintF(ucat, "[RPConnection _receivedObject:ctx:]", 60, "### Unknown message type: %d\n", v7);
     goto LABEL_10;
   }
 
-  v9 = _LogCategory_Initialize();
-  v7 = objectCopy;
-  if (v9)
+  v10 = _LogCategory_Initialize();
+  v8 = objectCopy;
+  if (v10)
   {
     ucat = self->_ucat;
     goto LABEL_9;
@@ -8213,7 +9721,7 @@ LABEL_11:
 
 - (void)_receivedEvent:(id)event ctx:(id *)ctx
 {
-  v94 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   CFDictionaryGetTypeID();
   v7 = CFDictionaryGetTypedValue();
@@ -8239,82 +9747,76 @@ LABEL_11:
         }
 
         [(NSMutableSet *)inUseProcesses addObject:v10];
-        var0 = self->_ucat->var0;
-        if (var0 <= 30)
+        ucat = self->_ucat;
+        if (ucat->var0 <= 30)
         {
-          if (var0 != -1)
+          if (ucat->var0 != -1)
           {
 LABEL_9:
             inUseProcessesToString = [(RPConnection *)self inUseProcessesToString];
-            LogPrintF();
+            LogPrintF(ucat, "[RPConnection _receivedEvent:ctx:]", 30, "In use processes updated to: %@\n", inUseProcessesToString);
 
             goto LABEL_21;
           }
 
-          ucat = self->_ucat;
           if (_LogCategory_Initialize())
           {
-            v60 = self->_ucat;
+            ucat = self->_ucat;
             goto LABEL_9;
           }
         }
       }
 
 LABEL_21:
-      v78 = NSDictionaryGetNSNumber();
-      unsignedIntValue = [v78 unsignedIntValue];
+      v66 = NSDictionaryGetNSNumber();
+      unsignedIntValue = [v66 unsignedIntValue];
       if (!Int64)
       {
-        v21 = v8;
-        if (([v21 isEqual:@"HIDRelay"] & 1) != 0 || (objc_msgSend(v21, "isEqual:", @"synchSetupStateFromStereoCounterpart") & 1) != 0 || (objc_msgSend(v21, "isEqual:", @"_hidT") & 1) != 0 || objc_msgSend(v21, "isEqual:", @"_laData"))
+        v19 = v8;
+        if (([v19 isEqual:@"HIDRelay"] & 1) != 0 || (objc_msgSend(v19, "isEqual:", @"synchSetupStateFromStereoCounterpart") & 1) != 0 || (objc_msgSend(v19, "isEqual:", @"_hidT") & 1) != 0 || objc_msgSend(v19, "isEqual:", @"_laData"))
         {
         }
 
         else
         {
-          v58 = [v21 isEqual:@"_siA"];
+          v54 = [v19 isEqual:@"_siA"];
 
-          if (!v58)
+          if (!v54)
           {
-            v22 = 30;
+            v20 = 30;
 LABEL_28:
-            v23 = self->_ucat->var0;
-            if (v22 >= v23)
+            v21 = self->_ucat;
+            if (v20 >= v21->var0)
             {
-              if (v23 == -1)
+              if (v21->var0 == -1)
               {
-                v24 = self->_ucat;
                 if (!_LogCategory_Initialize())
                 {
                   goto LABEL_32;
                 }
 
-                v59 = self->_ucat;
+                v21 = self->_ucat;
               }
 
-              v65 = [v7 count];
-              peerIdentifier = self->_peerIdentifier;
-              inUseProcessesToString = v8;
-              v64 = unsignedIntValue;
-              LogPrintF();
+              LogPrintF(v21, "-[RPConnection _receivedEvent:ctx:]", v20, "Received event ID '%@', XID 0x%X, %d keys, from %@\n", v8, unsignedIntValue, [v7 count], self->_peerIdentifier);
             }
 
 LABEL_32:
-            if ([v8 isEqual:{@"_systemInfoUpdate", inUseProcessesToString, v64, v65, peerIdentifier}])
+            if ([v8 isEqual:@"_systemInfoUpdate"])
             {
               [(RPConnection *)self _receivedSystemInfo:v7 xid:0];
             }
 
             else if (self->_receivedEventHandler)
             {
-              v76 = v10;
-              v25 = self->_peerIdentifier;
-              if (!v25)
+              v64 = v10;
+              peerIdentifier = self->_peerIdentifier;
+              if (!peerIdentifier)
               {
-                v25 = @"?";
+                peerIdentifier = @"?";
               }
 
-              v77 = v25;
+              v65 = peerIdentifier;
               if ([v8 isEqualToString:@"ids-message"])
               {
                 publicIdentifier = [(RPCompanionLinkDevice *)self->_peerDeviceInfo publicIdentifier];
@@ -8323,51 +9825,51 @@ LABEL_32:
                 {
                   publicIdentifier2 = [(RPCompanionLinkDevice *)self->_peerDeviceInfo publicIdentifier];
 
-                  v77 = publicIdentifier2;
+                  v65 = publicIdentifier2;
                 }
               }
 
               peerDeviceInfo = self->_peerDeviceInfo;
-              v79[0] = @"dlt";
-              v29 = MEMORY[0x1E696AD98];
+              v67[0] = @"dlt";
+              v26 = MEMORY[0x1E696AD98];
               linkType = self->_linkType;
-              v31 = peerDeviceInfo;
-              v75 = [v29 numberWithInt:linkType];
-              v80[0] = v75;
-              v79[1] = @"senderIDSCID";
-              idsCorrelationIdentifier = [(RPEndpoint *)v31 idsCorrelationIdentifier];
-              v74 = idsCorrelationIdentifier;
+              v28 = peerDeviceInfo;
+              v63 = [v26 numberWithInt:linkType];
+              v68[0] = v63;
+              v67[1] = @"senderIDSCID";
+              idsCorrelationIdentifier = [(RPEndpoint *)v28 idsCorrelationIdentifier];
+              v62 = idsCorrelationIdentifier;
               if (idsCorrelationIdentifier)
               {
-                v33 = idsCorrelationIdentifier;
+                v30 = idsCorrelationIdentifier;
               }
 
               else
               {
-                v33 = &stru_1F2ED6FB8;
+                v30 = &stru_1F2ED6FB8;
               }
 
-              v80[1] = v33;
-              v79[2] = @"length";
-              v73 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:ctx->var0];
-              v80[2] = v73;
-              v79[3] = @"moreComing";
-              v72 = [MEMORY[0x1E696AD98] numberWithBool:ctx->var1];
-              v80[3] = v72;
-              v79[4] = @"peerAddr";
-              v79[5] = @"peerHomeKitUserIdentifier";
-              v81 = vbslq_s8(vceqzq_s64(*&self->_peerAddrString), vdupq_n_s64(&stru_1F2ED6FB8), *&self->_peerAddrString);
-              v79[6] = @"peerVerifiedIdentity";
-              verifiedIdentity = [(RPEndpoint *)v31 verifiedIdentity];
-              v71 = verifiedIdentity;
+              v68[1] = v30;
+              v67[2] = @"length";
+              v61 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:ctx->var0];
+              v68[2] = v61;
+              v67[3] = @"moreComing";
+              v60 = [MEMORY[0x1E696AD98] numberWithBool:ctx->var1];
+              v68[3] = v60;
+              v67[4] = @"peerAddr";
+              v67[5] = @"peerHomeKitUserIdentifier";
+              v69 = vbslq_s8(vceqzq_s64(*&self->_peerAddrString), vdupq_n_s64(&stru_1F2ED6FB8), *&self->_peerAddrString);
+              v67[6] = @"peerVerifiedIdentity";
+              verifiedIdentity = [(RPEndpoint *)v28 verifiedIdentity];
+              v59 = verifiedIdentity;
               if (verifiedIdentity)
               {
-                v35 = verifiedIdentity;
+                v32 = verifiedIdentity;
               }
 
               else
               {
-                v35 = @"?";
+                v32 = @"?";
               }
 
               selfAddrString = self->_selfAddrString;
@@ -8376,57 +9878,73 @@ LABEL_32:
                 selfAddrString = &stru_1F2ED6FB8;
               }
 
-              v82 = v35;
-              v83 = selfAddrString;
-              v79[7] = @"selfAddr";
-              v79[8] = @"senderAccountAltDSID";
-              accountAltDSID = [(RPEndpoint *)v31 accountAltDSID];
-              v70 = accountAltDSID;
+              v70 = v32;
+              v71 = selfAddrString;
+              v67[7] = @"selfAddr";
+              v67[8] = @"senderAccountAltDSID";
+              accountAltDSID = [(RPEndpoint *)v28 accountAltDSID];
+              v58 = accountAltDSID;
               if (accountAltDSID)
               {
-                v38 = accountAltDSID;
+                v35 = accountAltDSID;
               }
 
               else
               {
-                v38 = &stru_1F2ED6FB8;
+                v35 = &stru_1F2ED6FB8;
               }
 
-              v84 = v38;
-              v79[9] = @"senderAccountID";
-              accountID = [(RPEndpoint *)v31 accountID];
-              v69 = accountID;
+              v72 = v35;
+              v67[9] = @"senderAccountID";
+              accountID = [(RPEndpoint *)v28 accountID];
+              v57 = accountID;
               if (accountID)
               {
-                v40 = accountID;
+                v37 = accountID;
               }
 
               else
               {
-                v40 = &stru_1F2ED6FB8;
+                v37 = &stru_1F2ED6FB8;
               }
 
-              v85 = v40;
-              v79[10] = @"senderDeviceName";
-              name = [(RPEndpoint *)v31 name];
-              v68 = name;
+              v73 = v37;
+              v67[10] = @"senderDeviceName";
+              name = [(RPEndpoint *)v28 name];
+              v56 = name;
               if (name)
               {
-                v42 = name;
+                v39 = name;
               }
 
               else
               {
-                v42 = &stru_1F2ED6FB8;
+                v39 = &stru_1F2ED6FB8;
               }
 
-              v86 = v42;
-              v79[11] = @"senderFileTransferTargetID";
-              idsDeviceIdentifier = [(RPEndpoint *)v31 idsDeviceIdentifier];
-              v67 = idsDeviceIdentifier;
+              v74 = v39;
+              v67[11] = @"senderFileTransferTargetID";
+              idsDeviceIdentifier = [(RPEndpoint *)v28 idsDeviceIdentifier];
+              v55 = idsDeviceIdentifier;
               if (idsDeviceIdentifier)
               {
-                v44 = idsDeviceIdentifier;
+                v41 = idsDeviceIdentifier;
+              }
+
+              else
+              {
+                v41 = @"?";
+              }
+
+              v75 = v41;
+              v76 = v65;
+              v67[12] = @"senderID";
+              v67[13] = @"senderIDS";
+              idsDeviceIdentifier2 = [(RPEndpoint *)v28 idsDeviceIdentifier];
+              v43 = idsDeviceIdentifier2;
+              if (idsDeviceIdentifier2)
+              {
+                v44 = idsDeviceIdentifier2;
               }
 
               else
@@ -8434,15 +9952,13 @@ LABEL_32:
                 v44 = @"?";
               }
 
-              v87 = v44;
-              v88 = v77;
-              v79[12] = @"senderID";
-              v79[13] = @"senderIDS";
-              idsDeviceIdentifier2 = [(RPEndpoint *)v31 idsDeviceIdentifier];
-              v46 = idsDeviceIdentifier2;
-              if (idsDeviceIdentifier2)
+              v77 = v44;
+              v67[14] = @"senderModelID";
+              model = [(RPEndpoint *)v28 model];
+              v46 = model;
+              if (model)
               {
-                v47 = idsDeviceIdentifier2;
+                v47 = model;
               }
 
               else
@@ -8450,46 +9966,32 @@ LABEL_32:
                 v47 = @"?";
               }
 
-              v89 = v47;
-              v79[14] = @"senderModelID";
-              model = [(RPEndpoint *)v31 model];
-              v49 = model;
-              if (model)
-              {
-                v50 = model;
-              }
-
-              else
-              {
-                v50 = @"?";
-              }
-
-              v90 = v50;
-              v79[15] = @"statusFlags";
-              v51 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[RPEndpoint statusFlags](v31, "statusFlags")}];
-              v91 = v51;
-              v79[16] = @"senderSessionPairingID";
-              sessionPairingIdentifier = [(RPEndpoint *)v31 sessionPairingIdentifier];
-              v53 = sessionPairingIdentifier;
-              v54 = &stru_1F2ED6FB8;
+              v78 = v47;
+              v67[15] = @"statusFlags";
+              v48 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[RPEndpoint statusFlags](v28, "statusFlags")}];
+              v79 = v48;
+              v67[16] = @"senderSessionPairingID";
+              sessionPairingIdentifier = [(RPEndpoint *)v28 sessionPairingIdentifier];
+              v50 = sessionPairingIdentifier;
+              v51 = &stru_1F2ED6FB8;
               if (sessionPairingIdentifier)
               {
-                v54 = sessionPairingIdentifier;
+                v51 = sessionPairingIdentifier;
               }
 
-              v79[17] = @"xid";
-              v55 = &unk_1F2EEC728;
-              if (v78)
+              v67[17] = @"xid";
+              v52 = &unk_1F2EEC728;
+              if (v66)
               {
-                v55 = v78;
+                v52 = v66;
               }
 
-              v92 = v54;
-              v93 = v55;
-              v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v80 forKeys:v79 count:18];
+              v80 = v51;
+              v81 = v52;
+              v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v68 forKeys:v67 count:18];
 
               (*(self->_receivedEventHandler + 2))();
-              v10 = v76;
+              v10 = v64;
             }
 
             goto LABEL_72;
@@ -8497,25 +9999,24 @@ LABEL_32:
         }
       }
 
-      v22 = 10;
+      v20 = 10;
       goto LABEL_28;
     }
 
-    v16 = self->_ucat->var0;
-    if (v16 <= 90)
+    v17 = self->_ucat;
+    if (v17->var0 <= 90)
     {
-      if (v16 == -1)
+      if (v17->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_72;
         }
 
-        v18 = self->_ucat;
+        v17 = self->_ucat;
       }
 
-      v63 = self->_peerIdentifier;
-      LogPrintF();
+      LogPrintF(v17, "[RPConnection _receivedEvent:ctx:]", 90, "### Received event with no ID from %@: %#m\n", self->_peerIdentifier, 0);
     }
 
 LABEL_72:
@@ -8523,33 +10024,30 @@ LABEL_72:
     goto LABEL_73;
   }
 
-  v15 = self->_ucat->var0;
-  if (v15 <= 90)
+  v16 = self->_ucat;
+  if (v16->var0 <= 90)
   {
-    if (v15 == -1)
+    if (v16->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_73;
       }
 
-      v17 = self->_ucat;
+      v16 = self->_ucat;
     }
 
-    v62 = self->_peerIdentifier;
-    LogPrintF();
+    LogPrintF(v16, "[RPConnection _receivedEvent:ctx:]", 90, "### Received event with no content from %@: %#m\n", self->_peerIdentifier, 0);
   }
 
 LABEL_73:
-
-  v57 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_receivedRequest:(id)request ctx:(id *)ctx
 {
-  v134 = *MEMORY[0x1E69E9840];
+  v126 = *MEMORY[0x1E69E9840];
   requestCopy = request;
-  v109 = 0;
+  v101 = 0;
   v7 = NSDictionaryGetNSNumber();
   unsignedIntValue = [v7 unsignedIntValue];
   if (unsignedIntValue)
@@ -8564,188 +10062,186 @@ LABEL_73:
       v12 = v11;
       if (v11)
       {
-        v104 = v11;
+        v96 = v11;
         Int64 = CFDictionaryGetInt64();
-        v100 = Int64 != 0;
+        v92 = Int64 != 0;
         v13 = CFDictionaryGetInt64();
-        v99 = v13 != 0;
-        v97 = CFDictionaryGetInt64();
+        v91 = v13 != 0;
+        v89 = CFDictionaryGetInt64();
         CFStringGetTypeID();
         v14 = CFDictionaryGetTypedValue();
+        v15 = v14;
         if (v14 && !self->_clientMode)
         {
           inUseProcesses = self->_inUseProcesses;
           if (!inUseProcesses)
           {
-            v16 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-            v17 = self->_inUseProcesses;
-            self->_inUseProcesses = v16;
+            v17 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+            v18 = self->_inUseProcesses;
+            self->_inUseProcesses = v17;
 
             inUseProcesses = self->_inUseProcesses;
           }
 
-          [(NSMutableSet *)inUseProcesses addObject:v14];
-          var0 = self->_ucat->var0;
-          if (var0 <= 30)
+          v14 = [(NSMutableSet *)inUseProcesses addObject:v15];
+          ucat = self->_ucat;
+          if (ucat->var0 <= 30)
           {
-            if (var0 != -1)
+            if (ucat->var0 != -1)
             {
 LABEL_10:
               inUseProcessesToString = [(RPConnection *)self inUseProcessesToString];
-              LogPrintF();
+              LogPrintF(ucat, "[RPConnection _receivedRequest:ctx:]", 30, "In use processes updated to: %@\n");
 
               goto LABEL_27;
             }
 
-            ucat = self->_ucat;
-            if (_LogCategory_Initialize())
+            v14 = _LogCategory_Initialize();
+            if (v14)
             {
-              v75 = self->_ucat;
+              ucat = self->_ucat;
               goto LABEL_10;
             }
           }
         }
 
 LABEL_27:
-        v103 = v14;
-        v26 = RPConnectionLog();
-        if (os_signpost_enabled(v26))
+        v95 = v15;
+        v23 = RPConnectionLog(v14);
+        if (os_signpost_enabled(v23))
         {
           uTF8String = [v10 UTF8String];
           label = self->_label;
           peerIdentifier = self->_peerIdentifier;
           *buf = 67109890;
-          v127 = v9;
-          v128 = 2080;
-          v129 = uTF8String;
-          v130 = 2112;
-          v131 = label;
-          v132 = 2112;
-          v133 = peerIdentifier;
-          _os_signpost_emit_with_name_impl(&dword_1B6E85000, v26, OS_SIGNPOST_INTERVAL_BEGIN, v9, "RPConnectionClientResponseTime", " enableTelemetry=YES {XID:0x%X, requestID=%{signpost.telemetry:string1}s, connectionID:%@, peer:%@, signpost.description:begin_time}", buf, 0x26u);
+          v119 = v9;
+          v120 = 2080;
+          v121 = uTF8String;
+          v122 = 2112;
+          v123 = label;
+          v124 = 2112;
+          v125 = peerIdentifier;
+          _os_signpost_emit_with_name_impl(&dword_1B6E85000, v23, OS_SIGNPOST_INTERVAL_BEGIN, v9, "RPConnectionClientResponseTime", " enableTelemetry=YES {XID:0x%X, requestID=%{signpost.telemetry:string1}s, connectionID:%@, peer:%@, signpost.description:begin_time}", buf, 0x26u);
         }
 
-        v30 = v10;
-        v31 = v30;
+        v27 = v10;
+        v28 = v27;
         if (v13)
         {
-          v32 = 10;
+          v29 = 10;
         }
 
-        else if ([v30 isEqual:@"_ftSm"])
+        else if ([v27 isEqual:@"_ftSm"])
         {
-          v32 = 9;
+          v29 = 9;
         }
 
         else
         {
-          v32 = 9;
-          if (([v31 isEqual:@"_ftLg"] & 1) == 0)
+          v29 = 9;
+          if (([v28 isEqual:@"_ftLg"] & 1) == 0)
           {
-            if ([v31 isEqual:@"_ftRs"])
+            if ([v28 isEqual:@"_ftRs"])
             {
-              v32 = 9;
+              v29 = 9;
             }
 
             else
             {
-              v32 = 30;
+              v29 = 30;
             }
           }
         }
 
-        v33 = self->_ucat->var0;
-        if (v32 >= v33)
+        v30 = self->_ucat;
+        if (v29 >= v30->var0)
         {
-          if (v33 != -1)
+          if (v30->var0 != -1)
           {
 LABEL_39:
-            v81 = [v104 count];
-            v84 = self->_peerIdentifier;
-            inUseProcessesToString = v31;
-            v79 = v9;
-            LogPrintF();
+            [v96 count];
+            inUseProcessesToString = v28;
+            LogPrintF(v30, "[RPConnection _receivedRequest:ctx:]", v29, "Received requestID '%@', XID 0x%X, %d keys, from %@\n");
             goto LABEL_41;
           }
 
-          v34 = self->_ucat;
           if (_LogCategory_Initialize())
           {
-            v74 = self->_ucat;
+            v30 = self->_ucat;
             goto LABEL_39;
           }
         }
 
 LABEL_41:
-        v35 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:mach_absolute_time()];
-        if ([v31 isEqual:@"_ping"])
+        v31 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:mach_absolute_time()];
+        if ([v28 isEqual:@"_ping"])
         {
           LOBYTE(inUseProcessesToString) = v13 != 0;
-          v12 = v104;
-          [(RPConnection *)self _sendEncryptedResponse:v104 options:0 error:0 xid:v7 requestID:v31 highPriority:Int64 != 0 isChatty:inUseProcessesToString replyStartTime:v35, v81, v84];
-          v36 = v35;
+          v12 = v96;
+          [(RPConnection *)self _sendEncryptedResponse:v96 options:0 error:0 xid:v7 requestID:v28 highPriority:Int64 != 0 isChatty:inUseProcessesToString replyStartTime:v31];
+          v32 = v31;
 LABEL_82:
 
           goto LABEL_83;
         }
 
-        v96 = v35;
-        if ([v31 isEqual:@"_systemInfo"])
+        v88 = v31;
+        if ([v28 isEqual:@"_systemInfo"])
         {
-          v12 = v104;
-          [(RPConnection *)self _receivedSystemInfo:v104 xid:v7];
-          v36 = v35;
+          v12 = v96;
+          [(RPConnection *)self _receivedSystemInfo:v96 xid:v7];
+          v32 = v31;
           goto LABEL_82;
         }
 
         if (self->_receivedRequestHandler)
         {
-          v92 = v97 != 0;
-          v37 = v13 != 0;
+          v84 = v89 != 0;
+          v39 = v13 != 0;
           peerDeviceInfo = self->_peerDeviceInfo;
-          v110[0] = @"dlt";
-          v39 = MEMORY[0x1E696AD98];
+          v102[0] = @"dlt";
+          v41 = MEMORY[0x1E696AD98];
           linkType = self->_linkType;
-          v41 = peerDeviceInfo;
-          v102 = [v39 numberWithInt:linkType];
-          v111[0] = v102;
-          v110[1] = @"senderIDSCID";
-          idsCorrelationIdentifier = [(RPEndpoint *)v41 idsCorrelationIdentifier];
-          v98 = idsCorrelationIdentifier;
+          v43 = peerDeviceInfo;
+          v94 = [v41 numberWithInt:linkType];
+          v103[0] = v94;
+          v102[1] = @"senderIDSCID";
+          idsCorrelationIdentifier = [(RPEndpoint *)v43 idsCorrelationIdentifier];
+          v90 = idsCorrelationIdentifier;
           if (idsCorrelationIdentifier)
           {
-            v43 = idsCorrelationIdentifier;
+            v45 = idsCorrelationIdentifier;
           }
 
           else
           {
-            v43 = &stru_1F2ED6FB8;
+            v45 = &stru_1F2ED6FB8;
           }
 
-          v111[1] = v43;
-          v110[2] = @"length";
-          v95 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:{ctx->var0, inUseProcessesToString, v79, v81, v84}];
-          v111[2] = v95;
-          v110[3] = @"chatty";
-          v94 = [MEMORY[0x1E696AD98] numberWithBool:v37];
-          v111[3] = v94;
-          v110[4] = @"moreComing";
-          v91 = [MEMORY[0x1E696AD98] numberWithBool:ctx->var1];
-          v111[4] = v91;
-          v110[5] = @"peerAddr";
-          v110[6] = @"peerHomeKitUserIdentifier";
-          v112 = vbslq_s8(vceqzq_s64(*&self->_peerAddrString), vdupq_n_s64(&stru_1F2ED6FB8), *&self->_peerAddrString);
-          v110[7] = @"peerVerifiedIdentity";
+          v103[1] = v45;
+          v102[2] = @"length";
+          v87 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:ctx->var0];
+          v103[2] = v87;
+          v102[3] = @"chatty";
+          v86 = [MEMORY[0x1E696AD98] numberWithBool:v39];
+          v103[3] = v86;
+          v102[4] = @"moreComing";
+          v83 = [MEMORY[0x1E696AD98] numberWithBool:ctx->var1];
+          v103[4] = v83;
+          v102[5] = @"peerAddr";
+          v102[6] = @"peerHomeKitUserIdentifier";
+          v104 = vbslq_s8(vceqzq_s64(*&self->_peerAddrString), vdupq_n_s64(&stru_1F2ED6FB8), *&self->_peerAddrString);
+          v102[7] = @"peerVerifiedIdentity";
           verifiedIdentity = [(RPEndpoint *)self->_peerDeviceInfo verifiedIdentity];
-          v90 = verifiedIdentity;
+          v82 = verifiedIdentity;
           if (verifiedIdentity)
           {
-            v45 = verifiedIdentity;
+            v47 = verifiedIdentity;
           }
 
           else
           {
-            v45 = @"?";
+            v47 = @"?";
           }
 
           selfAddrString = self->_selfAddrString;
@@ -8754,29 +10250,15 @@ LABEL_82:
             selfAddrString = &stru_1F2ED6FB8;
           }
 
-          v113 = v45;
-          v114 = selfAddrString;
-          v110[8] = @"selfAddr";
-          v110[9] = @"senderAccountAltDSID";
-          accountAltDSID = [(RPEndpoint *)v41 accountAltDSID];
-          v89 = accountAltDSID;
+          v105 = v47;
+          v106 = selfAddrString;
+          v102[8] = @"selfAddr";
+          v102[9] = @"senderAccountAltDSID";
+          accountAltDSID = [(RPEndpoint *)v43 accountAltDSID];
+          v81 = accountAltDSID;
           if (accountAltDSID)
           {
-            v48 = accountAltDSID;
-          }
-
-          else
-          {
-            v48 = &stru_1F2ED6FB8;
-          }
-
-          v115 = v48;
-          v110[10] = @"senderAccountID";
-          accountID = [(RPEndpoint *)v41 accountID];
-          v87 = accountID;
-          if (accountID)
-          {
-            v50 = accountID;
+            v50 = accountAltDSID;
           }
 
           else
@@ -8784,13 +10266,13 @@ LABEL_82:
             v50 = &stru_1F2ED6FB8;
           }
 
-          v116 = v50;
-          v110[11] = @"senderDeviceName";
-          name = [(RPEndpoint *)v41 name];
-          v86 = name;
-          if (name)
+          v107 = v50;
+          v102[10] = @"senderAccountID";
+          accountID = [(RPEndpoint *)v43 accountID];
+          v79 = accountID;
+          if (accountID)
           {
-            v52 = name;
+            v52 = accountID;
           }
 
           else
@@ -8798,142 +10280,153 @@ LABEL_82:
             v52 = &stru_1F2ED6FB8;
           }
 
-          v117 = v52;
-          v110[12] = @"senderFileTransferTargetID";
-          idsDeviceIdentifier = [(RPEndpoint *)v41 idsDeviceIdentifier];
-          v85 = idsDeviceIdentifier;
+          v108 = v52;
+          v102[11] = @"senderDeviceName";
+          name = [(RPEndpoint *)v43 name];
+          v78 = name;
+          if (name)
+          {
+            v54 = name;
+          }
+
+          else
+          {
+            v54 = &stru_1F2ED6FB8;
+          }
+
+          v109 = v54;
+          v102[12] = @"senderFileTransferTargetID";
+          idsDeviceIdentifier = [(RPEndpoint *)v43 idsDeviceIdentifier];
+          v77 = idsDeviceIdentifier;
           if (idsDeviceIdentifier)
           {
-            v54 = idsDeviceIdentifier;
+            v56 = idsDeviceIdentifier;
           }
 
           else
           {
-            v54 = @"?";
+            v56 = @"?";
           }
 
-          v55 = self->_peerIdentifier;
-          if (!v55)
+          v57 = self->_peerIdentifier;
+          if (!v57)
           {
-            v55 = @"?";
+            v57 = @"?";
           }
 
-          v118 = v54;
-          v119 = v55;
-          v110[13] = @"senderID";
-          v110[14] = @"senderIDS";
-          idsDeviceIdentifier2 = [(RPEndpoint *)v41 idsDeviceIdentifier];
-          v57 = idsDeviceIdentifier2;
+          v110 = v56;
+          v111 = v57;
+          v102[13] = @"senderID";
+          v102[14] = @"senderIDS";
+          idsDeviceIdentifier2 = [(RPEndpoint *)v43 idsDeviceIdentifier];
+          v59 = idsDeviceIdentifier2;
           if (idsDeviceIdentifier2)
           {
-            v58 = idsDeviceIdentifier2;
+            v60 = idsDeviceIdentifier2;
           }
 
           else
           {
-            v58 = @"?";
+            v60 = @"?";
           }
 
-          v120 = v58;
-          v110[15] = @"senderModelID";
-          model = [(RPEndpoint *)v41 model];
-          v60 = model;
+          v112 = v60;
+          v102[15] = @"senderModelID";
+          model = [(RPEndpoint *)v43 model];
+          v62 = model;
           if (model)
           {
-            v61 = model;
+            v63 = model;
           }
 
           else
           {
-            v61 = @"?";
+            v63 = @"?";
           }
 
-          v121 = v61;
-          v110[16] = @"statusFlags";
-          v88 = v41;
-          v62 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[RPEndpoint statusFlags](v41, "statusFlags")}];
-          v122 = v62;
-          v110[17] = @"senderSessionPairingID";
-          sessionPairingIdentifier = [(RPEndpoint *)v41 sessionPairingIdentifier];
-          v64 = sessionPairingIdentifier;
-          v65 = &stru_1F2ED6FB8;
+          v113 = v63;
+          v102[16] = @"statusFlags";
+          v80 = v43;
+          v64 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[RPEndpoint statusFlags](v43, "statusFlags")}];
+          v114 = v64;
+          v102[17] = @"senderSessionPairingID";
+          sessionPairingIdentifier = [(RPEndpoint *)v43 sessionPairingIdentifier];
+          v66 = sessionPairingIdentifier;
+          v67 = &stru_1F2ED6FB8;
           if (sessionPairingIdentifier)
           {
-            v65 = sessionPairingIdentifier;
+            v67 = sessionPairingIdentifier;
           }
 
-          v123 = v65;
-          v124 = v7;
-          v110[18] = @"xid";
-          v110[19] = @"_pttEligible";
-          v66 = [MEMORY[0x1E696AD98] numberWithBool:v92];
-          v125 = v66;
-          v93 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v111 forKeys:v110 count:20];
+          v115 = v67;
+          v116 = v7;
+          v102[18] = @"xid";
+          v102[19] = @"_pttEligible";
+          v68 = [MEMORY[0x1E696AD98] numberWithBool:v84];
+          v117 = v68;
+          v85 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v103 forKeys:v102 count:20];
 
           receivedRequestHandler = self->_receivedRequestHandler;
-          v105[0] = MEMORY[0x1E69E9820];
-          v105[1] = 3221225472;
-          v105[2] = __37__RPConnection__receivedRequest_ctx___block_invoke;
-          v105[3] = &unk_1E7C93C60;
-          v105[4] = self;
-          v105[5] = v31;
-          v105[6] = v7;
-          v107 = v100;
-          v108 = v99;
-          v36 = v96;
-          v106 = v96;
-          v68 = receivedRequestHandler[2];
-          v69 = receivedRequestHandler;
-          v12 = v104;
-          v68(v69, v31, v104, v93, v105);
+          v97[0] = MEMORY[0x1E69E9820];
+          v97[1] = 3221225472;
+          v97[2] = __37__RPConnection__receivedRequest_ctx___block_invoke;
+          v97[3] = &unk_1E7C93C60;
+          v97[4] = self;
+          v97[5] = v28;
+          v97[6] = v7;
+          v99 = v92;
+          v100 = v91;
+          v32 = v88;
+          v98 = v88;
+          v70 = receivedRequestHandler[2];
+          v71 = receivedRequestHandler;
+          v12 = v96;
+          v70(v71, v28, v96, v85, v97);
 
           goto LABEL_82;
         }
 
-        v70 = self->_ucat->var0;
-        if (v70 <= 90)
+        v72 = self->_ucat;
+        if (v72->var0 <= 90)
         {
-          if (v70 == -1)
+          if (v72->var0 == -1)
           {
             if (!_LogCategory_Initialize())
             {
               goto LABEL_81;
             }
 
-            v76 = self->_ucat;
+            v72 = self->_ucat;
           }
 
-          v83 = self->_peerIdentifier;
-          inUseProcessesToString = v31;
-          LogPrintF();
+          LogPrintF(v72, "[RPConnection _receivedRequest:ctx:]", 90, "### Received requestID '%@', XID 0x%X, from %@ with no handler\n", v28, v9, self->_peerIdentifier);
         }
 
 LABEL_81:
-        v71 = v13 != 0;
-        v72 = RPErrorF();
-        v36 = v96;
-        LOBYTE(inUseProcessesToString) = v71;
-        [(RPConnection *)self _sendEncryptedResponse:0 options:0 error:v72 xid:v7 requestID:v31 highPriority:Int64 != 0 isChatty:inUseProcessesToString replyStartTime:v96];
+        v73 = v13 != 0;
+        v74 = RPErrorF(4294960582, "No receive request handler", v33, v34, v35, v36, v37, v38, inUseProcessesToString);
+        v32 = v88;
+        LOBYTE(v76) = v73;
+        [(RPConnection *)self _sendEncryptedResponse:0 options:0 error:v74 xid:v7 requestID:v28 highPriority:Int64 != 0 isChatty:v76 replyStartTime:v88];
 
-        v12 = v104;
+        v12 = v96;
         goto LABEL_82;
       }
 
-      v21 = self->_ucat->var0;
-      if (v21 <= 90)
+      v22 = self->_ucat;
+      if (v22->var0 <= 90)
       {
-        if (v21 == -1)
+        if (v22->var0 == -1)
         {
           if (!_LogCategory_Initialize())
           {
             goto LABEL_83;
           }
 
-          v24 = self->_ucat;
+          v22 = self->_ucat;
         }
 
-        v82 = self->_peerIdentifier;
-        LogPrintF();
+        LogPrintF(v22, "[RPConnection _receivedRequest:ctx:]", 90, "### Received requestID '%@', XID 0x%X with no content from %@: %#m\n", v10, v9, self->_peerIdentifier, v101);
       }
 
 LABEL_83:
@@ -8941,21 +10434,20 @@ LABEL_83:
       goto LABEL_84;
     }
 
-    v20 = self->_ucat->var0;
-    if (v20 <= 90)
+    v21 = self->_ucat;
+    if (v21->var0 <= 90)
     {
-      if (v20 == -1)
+      if (v21->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_84;
         }
 
-        v23 = self->_ucat;
+        v21 = self->_ucat;
       }
 
-      v80 = self->_peerIdentifier;
-      LogPrintF();
+      LogPrintF(v21, "[RPConnection _receivedRequest:ctx:]", 90, "### Received request XID 0x%X with no ID from %@: %#m\n", v9, self->_peerIdentifier, v101);
     }
 
 LABEL_84:
@@ -8963,63 +10455,57 @@ LABEL_84:
     goto LABEL_85;
   }
 
-  v19 = self->_ucat->var0;
-  if (v19 <= 90)
+  v20 = self->_ucat;
+  if (v20->var0 <= 90)
   {
-    if (v19 == -1)
+    if (v20->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_85;
       }
 
-      v22 = self->_ucat;
+      v20 = self->_ucat;
     }
 
-    v78 = self->_peerIdentifier;
-    LogPrintF();
+    LogPrintF(v20, "[RPConnection _receivedRequest:ctx:]", 90, "### Received request with no XID from %@: %#m\n", self->_peerIdentifier, v101);
   }
 
 LABEL_85:
-
-  v73 = *MEMORY[0x1E69E9840];
 }
 
 void __37__RPConnection__receivedRequest_ctx___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v16 = a2;
+  v12 = a2;
   v7 = a3;
   v8 = a4;
   v9 = *(a1 + 32);
   if (*(v9 + 80) == 1)
   {
-    v10 = **(v9 + 296);
-    if (v10 > 90)
+    v10 = *(v9 + 296);
+    if (*v10 > 90)
     {
       goto LABEL_6;
     }
 
-    if (v10 != -1)
+    if (*v10 != -1)
     {
       goto LABEL_4;
     }
 
-    v11 = *(v9 + 296);
     if (_LogCategory_Initialize())
     {
       v9 = *(a1 + 32);
-      v12 = *(v9 + 296);
+      v10 = *(v9 + 296);
 LABEL_4:
-      v14 = *(a1 + 40);
-      v15 = *(v9 + 672);
-      LogPrintF();
+      LogPrintF(v10, "[RPConnection _receivedRequest:ctx:]_block_invoke", 90, "### Ignoring response to requestID '%@' from %@ after invalidation\n", *(a1 + 40), *(v9 + 672));
     }
   }
 
   else
   {
-    LOBYTE(v13) = *(a1 + 65);
-    [v9 _sendEncryptedResponse:v16 options:v7 error:v8 xid:*(a1 + 48) requestID:*(a1 + 40) highPriority:*(a1 + 64) isChatty:v13 replyStartTime:*(a1 + 56)];
+    LOBYTE(v11) = *(a1 + 65);
+    [v9 _sendEncryptedResponse:v12 options:v7 error:v8 xid:*(a1 + 48) requestID:*(a1 + 40) highPriority:*(a1 + 64) isChatty:v11 replyStartTime:*(a1 + 56)];
   }
 
 LABEL_6:
@@ -9027,7 +10513,7 @@ LABEL_6:
 
 - (void)_receivedResponse:(id)response ctx:(id *)ctx
 {
-  v127 = *MEMORY[0x1E69E9840];
+  v109 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   v7 = NSDictionaryGetNSNumber();
   unsignedIntValue = [v7 unsignedIntValue];
@@ -9052,19 +10538,19 @@ LABEL_6:
       v15 = v14;
       if (v14)
       {
-        v99 = v14;
+        v81 = v14;
         mach_absolute_time();
         [v10 sendTicks];
-        v97 = UpTicksToMilliseconds();
-        v98 = RPDecodeNSError(responseCopy);
-        if (v98)
+        v79 = UpTicksToMilliseconds();
+        v80 = RPDecodeNSError(responseCopy);
+        if (v80)
         {
-          var0 = self->_ucat->var0;
-          v17 = v98;
-          v15 = v99;
-          if (var0 <= 90)
+          ucat = self->_ucat;
+          v17 = v80;
+          v15 = v81;
+          if (ucat->var0 <= 90)
           {
-            if (var0 == -1)
+            if (ucat->var0 == -1)
             {
               if (!_LogCategory_Initialize())
               {
@@ -9074,45 +10560,41 @@ LABEL_6:
               ucat = self->_ucat;
             }
 
-            peerIdentifier = self->_peerIdentifier;
-            v81 = v97;
-            v75 = v9;
-            v77 = v98;
-            LogPrintF();
+            LogPrintF(ucat, "[RPConnection _receivedResponse:ctx:]", 90, "### Received response XID 0x%X, error %{error}, from %@, %llu ms\n", v9, v80, self->_peerIdentifier, v79);
           }
 
 LABEL_30:
           responseHandler = [v10 responseHandler];
-          responseHandler[2](responseHandler, 0, 0, v98);
+          responseHandler[2](responseHandler, 0, 0, v80);
 LABEL_76:
 
           goto LABEL_77;
         }
 
         Int64 = CFDictionaryGetInt64();
-        v95 = options;
+        v77 = options;
         v21 = CFDictionaryGetInt64();
-        v22 = RPConnectionLog();
-        v93 = timer;
-        v94 = requestID;
+        v22 = RPConnectionLog(v21);
+        v75 = timer;
+        v76 = requestID;
         if (os_signpost_enabled(v22))
         {
           label = self->_label;
           v24 = [v10 length];
-          v25 = self->_peerIdentifier;
+          peerIdentifier = self->_peerIdentifier;
           *buf = 67110402;
-          v116 = v9;
-          v117 = 2112;
-          v118 = label;
-          requestID = v94;
-          v119 = 2048;
-          v120 = v97;
-          v121 = 2048;
-          v122 = v24;
-          v123 = 2048;
-          v124 = Int64;
-          v125 = 2112;
-          v126 = v25;
+          v98 = v9;
+          v99 = 2112;
+          v100 = label;
+          requestID = v76;
+          v101 = 2048;
+          v102 = v79;
+          v103 = 2048;
+          v104 = v24;
+          v105 = 2048;
+          v106 = Int64;
+          v107 = 2112;
+          v108 = peerIdentifier;
           _os_signpost_emit_with_name_impl(&dword_1B6E85000, v22, OS_SIGNPOST_INTERVAL_END, v9, "RPConnectionSendRequestTime", " enableTelemetry=YES {XID:0x%X, connectionID:%@, rtt:%llu, requestSize:%zu, responseSize:%zu, peer:%@, signpost.description:end_time}", buf, 0x3Au);
         }
 
@@ -9145,238 +10627,228 @@ LABEL_76:
           }
         }
 
-        v33 = self->_ucat->var0;
-        if (v28 >= v33)
+        v30 = self->_ucat;
+        if (v28 >= v30->var0)
         {
-          if (v33 == -1)
+          if (v30->var0 == -1)
           {
-            v36 = self->_ucat;
             if (!_LogCategory_Initialize())
             {
               goto LABEL_41;
             }
 
-            v74 = self->_ucat;
+            v30 = self->_ucat;
           }
 
-          v34 = [v99 count];
-          v35 = self->_peerIdentifier;
-          v82 = [v10 length];
-          v83 = Int64;
-          peerIdentifier = v35;
-          v81 = v97;
-          v75 = v9;
-          v77 = v34;
-          LogPrintF();
+          LogPrintF(v30, "-[RPConnection _receivedResponse:ctx:]", v28, "Received response XID 0x%X, %d keys, from %@, %llu ms request size %llu response size %llu\n", v9, [v81 count], self->_peerIdentifier, v79, objc_msgSend(v10, "length"), Int64);
         }
 
 LABEL_41:
-        v37 = [v95 objectForKeyedSubscript:{@"nwActivityMetrics", v75, v77, peerIdentifier, v81, v82, v83}];
-        v38 = v37;
-        if (v37)
+        v31 = [v77 objectForKeyedSubscript:@"nwActivityMetrics"];
+        v32 = v31;
+        if (v31)
         {
-          [v37 setResponseSize:Int64];
+          [v31 setResponseSize:Int64];
           *buf = 0;
-          v39 = CFDictionaryGetInt64();
+          v33 = CFDictionaryGetInt64();
           if (!*buf)
           {
-            [v38 setReplyTime:v39];
+            [v32 setReplyTime:v33];
           }
 
-          [v38 submitMetrics];
+          [v32 submitMetrics];
         }
 
         peerDeviceInfo = self->_peerDeviceInfo;
-        v100[0] = @"dlt";
-        spid = v38;
-        v41 = MEMORY[0x1E696AD98];
+        v82[0] = @"dlt";
+        spid = v32;
+        v35 = MEMORY[0x1E696AD98];
         linkType = self->_linkType;
-        v43 = peerDeviceInfo;
-        v91 = [v41 numberWithInt:linkType];
-        v101[0] = v91;
-        v100[1] = @"senderIDSCID";
-        idsCorrelationIdentifier = [(RPEndpoint *)v43 idsCorrelationIdentifier];
-        v90 = idsCorrelationIdentifier;
+        v37 = peerDeviceInfo;
+        v73 = [v35 numberWithInt:linkType];
+        v83[0] = v73;
+        v82[1] = @"senderIDSCID";
+        idsCorrelationIdentifier = [(RPEndpoint *)v37 idsCorrelationIdentifier];
+        v72 = idsCorrelationIdentifier;
         if (idsCorrelationIdentifier)
         {
-          v45 = idsCorrelationIdentifier;
+          v39 = idsCorrelationIdentifier;
         }
 
         else
         {
-          v45 = &stru_1F2ED6FB8;
+          v39 = &stru_1F2ED6FB8;
         }
 
-        v101[1] = v45;
-        v100[2] = @"length";
-        v89 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:ctx->var0];
-        v101[2] = v89;
-        v100[3] = @"peerAddr";
-        v100[4] = @"peerHomeKitUserIdentifier";
-        v102 = vbslq_s8(vceqzq_s64(*&self->_peerAddrString), vdupq_n_s64(&stru_1F2ED6FB8), *&self->_peerAddrString);
+        v83[1] = v39;
+        v82[2] = @"length";
+        v71 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:ctx->var0];
+        v83[2] = v71;
+        v82[3] = @"peerAddr";
+        v82[4] = @"peerHomeKitUserIdentifier";
+        v84 = vbslq_s8(vceqzq_s64(*&self->_peerAddrString), vdupq_n_s64(&stru_1F2ED6FB8), *&self->_peerAddrString);
         selfAddrString = self->_selfAddrString;
         if (!selfAddrString)
         {
           selfAddrString = &stru_1F2ED6FB8;
         }
 
-        v103 = selfAddrString;
-        v100[5] = @"selfAddr";
-        v100[6] = @"peerVerifiedIdentity";
-        verifiedIdentity = [(RPEndpoint *)v43 verifiedIdentity];
-        v88 = verifiedIdentity;
+        v85 = selfAddrString;
+        v82[5] = @"selfAddr";
+        v82[6] = @"peerVerifiedIdentity";
+        verifiedIdentity = [(RPEndpoint *)v37 verifiedIdentity];
+        v70 = verifiedIdentity;
         if (verifiedIdentity)
         {
-          v48 = verifiedIdentity;
+          v42 = verifiedIdentity;
         }
 
         else
         {
-          v48 = @"?";
+          v42 = @"?";
         }
 
-        v104 = v48;
-        v100[7] = @"senderAccountAltDSID";
-        accountAltDSID = [(RPEndpoint *)v43 accountAltDSID];
-        v87 = accountAltDSID;
+        v86 = v42;
+        v82[7] = @"senderAccountAltDSID";
+        accountAltDSID = [(RPEndpoint *)v37 accountAltDSID];
+        v69 = accountAltDSID;
         if (accountAltDSID)
         {
-          v50 = accountAltDSID;
+          v44 = accountAltDSID;
         }
 
         else
         {
-          v50 = &stru_1F2ED6FB8;
+          v44 = &stru_1F2ED6FB8;
         }
 
-        v105 = v50;
-        v100[8] = @"senderAccountID";
-        accountID = [(RPEndpoint *)v43 accountID];
-        v86 = accountID;
+        v87 = v44;
+        v82[8] = @"senderAccountID";
+        accountID = [(RPEndpoint *)v37 accountID];
+        v68 = accountID;
         if (accountID)
         {
-          v52 = accountID;
+          v46 = accountID;
         }
 
         else
         {
-          v52 = &stru_1F2ED6FB8;
+          v46 = &stru_1F2ED6FB8;
         }
 
-        v106 = v52;
-        v100[9] = @"senderDeviceName";
-        name = [(RPEndpoint *)v43 name];
-        v85 = name;
+        v88 = v46;
+        v82[9] = @"senderDeviceName";
+        name = [(RPEndpoint *)v37 name];
+        v67 = name;
         if (name)
         {
-          v54 = name;
+          v48 = name;
         }
 
         else
         {
-          v54 = &stru_1F2ED6FB8;
+          v48 = &stru_1F2ED6FB8;
         }
 
-        v107 = v54;
-        v100[10] = @"senderFileTransferTargetID";
-        idsDeviceIdentifier = [(RPEndpoint *)v43 idsDeviceIdentifier];
-        v84 = idsDeviceIdentifier;
+        v89 = v48;
+        v82[10] = @"senderFileTransferTargetID";
+        idsDeviceIdentifier = [(RPEndpoint *)v37 idsDeviceIdentifier];
+        v66 = idsDeviceIdentifier;
         if (idsDeviceIdentifier)
         {
-          v56 = idsDeviceIdentifier;
+          v50 = idsDeviceIdentifier;
         }
 
         else
         {
-          v56 = @"?";
+          v50 = @"?";
         }
 
-        v57 = self->_peerIdentifier;
-        if (!v57)
+        v51 = self->_peerIdentifier;
+        if (!v51)
+        {
+          v51 = @"?";
+        }
+
+        v90 = v50;
+        v91 = v51;
+        v82[11] = @"senderID";
+        v82[12] = @"senderIDS";
+        idsDeviceIdentifier2 = [(RPEndpoint *)v37 idsDeviceIdentifier];
+        v53 = idsDeviceIdentifier2;
+        if (idsDeviceIdentifier2)
+        {
+          v54 = idsDeviceIdentifier2;
+        }
+
+        else
+        {
+          v54 = @"?";
+        }
+
+        v92 = v54;
+        v82[13] = @"senderModelID";
+        model = [(RPEndpoint *)v37 model];
+        v56 = model;
+        if (model)
+        {
+          v57 = model;
+        }
+
+        else
         {
           v57 = @"?";
         }
 
-        v108 = v56;
-        v109 = v57;
-        v100[11] = @"senderID";
-        v100[12] = @"senderIDS";
-        idsDeviceIdentifier2 = [(RPEndpoint *)v43 idsDeviceIdentifier];
-        v59 = idsDeviceIdentifier2;
-        if (idsDeviceIdentifier2)
-        {
-          v60 = idsDeviceIdentifier2;
-        }
-
-        else
-        {
-          v60 = @"?";
-        }
-
-        v110 = v60;
-        v100[13] = @"senderModelID";
-        model = [(RPEndpoint *)v43 model];
-        v62 = model;
-        if (model)
-        {
-          v63 = model;
-        }
-
-        else
-        {
-          v63 = @"?";
-        }
-
-        v111 = v63;
-        v100[14] = @"statusFlags";
-        v64 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[RPEndpoint statusFlags](v43, "statusFlags")}];
-        v112 = v64;
-        v100[15] = @"senderSessionPairingID";
-        sessionPairingIdentifier = [(RPEndpoint *)v43 sessionPairingIdentifier];
-        v66 = sessionPairingIdentifier;
-        v67 = &stru_1F2ED6FB8;
+        v93 = v57;
+        v82[14] = @"statusFlags";
+        v58 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[RPEndpoint statusFlags](v37, "statusFlags")}];
+        v94 = v58;
+        v82[15] = @"senderSessionPairingID";
+        sessionPairingIdentifier = [(RPEndpoint *)v37 sessionPairingIdentifier];
+        v60 = sessionPairingIdentifier;
+        v61 = &stru_1F2ED6FB8;
         if (sessionPairingIdentifier)
         {
-          v67 = sessionPairingIdentifier;
+          v61 = sessionPairingIdentifier;
         }
 
-        v100[16] = @"xid";
-        v113 = v67;
-        v114 = v7;
-        v68 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v101 forKeys:v100 count:17];
+        v82[16] = @"xid";
+        v95 = v61;
+        v96 = v7;
+        v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v83 forKeys:v82 count:17];
 
-        options = v95;
+        options = v77;
         responseHandler2 = [v10 responseHandler];
-        (responseHandler2)[2](responseHandler2, v99, v68, 0);
+        (responseHandler2)[2](responseHandler2, v81, v62, 0);
 
-        v70 = +[RPConnectionMetrics sharedMetrics];
-        v71 = self->_linkType;
+        v64 = +[RPConnectionMetrics sharedMetrics];
+        v65 = self->_linkType;
 
-        v15 = v99;
-        [v70 logRequestOnLinkType:v71 length:objc_msgSend(v10 rtt:{"length") + Int64, v97}];
+        v15 = v81;
+        [v64 logRequestOnLinkType:v65 length:objc_msgSend(v10 rtt:{"length") + Int64, v79}];
 
         responseHandler = spid;
-        timer = v93;
-        requestID = v94;
+        timer = v75;
+        requestID = v76;
         v17 = 0;
         goto LABEL_76;
       }
 
-      v20 = self->_ucat->var0;
-      if (v20 <= 90)
+      v20 = self->_ucat;
+      if (v20->var0 <= 90)
       {
-        if (v20 == -1)
+        if (v20->var0 == -1)
         {
           if (!_LogCategory_Initialize())
           {
             goto LABEL_77;
           }
 
-          v32 = self->_ucat;
+          v20 = self->_ucat;
         }
 
-        v79 = self->_peerIdentifier;
-        LogPrintF();
+        LogPrintF(v20, "[RPConnection _receivedResponse:ctx:]", 90, "### Received response XID 0x%X with no content from %@: %#m\n", v9, self->_peerIdentifier, 0);
       }
 
 LABEL_77:
@@ -9384,21 +10856,20 @@ LABEL_77:
       goto LABEL_78;
     }
 
-    v19 = self->_ucat->var0;
-    if (v19 <= 90)
+    v19 = self->_ucat;
+    if (v19->var0 <= 90)
     {
-      if (v19 == -1)
+      if (v19->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_78;
         }
 
-        v30 = self->_ucat;
+        v19 = self->_ucat;
       }
 
-      v78 = self->_peerIdentifier;
-      LogPrintF();
+      LogPrintF(v19, "[RPConnection _receivedResponse:ctx:]", 90, "### Received response XID 0x%X with no request from %@\n", v9, self->_peerIdentifier);
     }
 
 LABEL_78:
@@ -9406,45 +10877,41 @@ LABEL_78:
     goto LABEL_79;
   }
 
-  v18 = self->_ucat->var0;
-  if (v18 <= 90)
+  v18 = self->_ucat;
+  if (v18->var0 <= 90)
   {
-    if (v18 == -1)
+    if (v18->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_79;
       }
 
-      v29 = self->_ucat;
+      v18 = self->_ucat;
     }
 
-    v76 = self->_peerIdentifier;
-    LogPrintF();
+    LogPrintF(v18, "[RPConnection _receivedResponse:ctx:]", 90, "### Received response with no XID from %@: %#m\n", self->_peerIdentifier, 0);
   }
 
 LABEL_79:
-
-  v72 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_abortSendEntry:(id)entry withError:(id)error
 {
   entryCopy = entry;
   errorCopy = error;
-  var0 = self->_ucat->var0;
-  if (var0 <= 60)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 60)
   {
     v8 = entryCopy;
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
-      ucat = self->_ucat;
       if (!_LogCategory_Initialize())
       {
         goto LABEL_9;
       }
 
-      v12 = self->_ucat;
+      ucat = self->_ucat;
       v8 = entryCopy;
     }
 
@@ -9452,16 +10919,13 @@ LABEL_79:
     v10 = requestID;
     if (requestID)
     {
-      eventID = requestID;
-      v17 = errorCopy;
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _abortSendEntry:withError:]", 60, "### Abort queued ID '%@': %{error}\n", requestID, errorCopy);
     }
 
     else
     {
       eventID = [entryCopy eventID];
-      v17 = errorCopy;
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _abortSendEntry:withError:]", 60, "### Abort queued ID '%@': %{error}\n", eventID, errorCopy);
     }
   }
 
@@ -9508,41 +10972,38 @@ LABEL_9:
 
 void __40__RPConnection__abortRequestsWithError___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = a2;
+  v9 = a2;
   v5 = a3;
-  v6 = **(*(a1 + 32) + 296);
-  if (v6 <= 60)
+  v6 = *(*(a1 + 32) + 296);
+  if (*v6 <= 60)
   {
-    if (v6 != -1)
+    if (*v6 != -1)
     {
 LABEL_3:
-      v11 = [v13 unsignedIntValue];
-      v12 = *(a1 + 40);
-      LogPrintF();
+      LogPrintF(v6, "-[RPConnection _abortRequestsWithError:]_block_invoke", 60, "### Abort request XID 0x%X: %{error}\n", [v9 unsignedIntValue], *(a1 + 40));
       goto LABEL_5;
     }
 
-    v7 = *(*(a1 + 32) + 296);
     if (_LogCategory_Initialize())
     {
-      v10 = *(*(a1 + 32) + 296);
+      v6 = *(*(a1 + 32) + 296);
       goto LABEL_3;
     }
   }
 
 LABEL_5:
-  v8 = [v5 timer];
+  v7 = [v5 timer];
   [v5 setTimer:0];
-  if (v8)
+  if (v7)
   {
-    dispatch_source_cancel(v8);
+    dispatch_source_cancel(v7);
   }
 
-  v9 = [v5 responseHandler];
+  v8 = [v5 responseHandler];
   [v5 setResponseHandler:0];
-  if (v9)
+  if (v8)
   {
-    v9[2](v9, 0, 0, *(a1 + 40));
+    v8[2](v8, 0, 0, *(a1 + 40));
   }
 }
 
@@ -9564,54 +11025,51 @@ LABEL_5:
   if (v7 != 0x7FFFFFFFFFFFFFFFLL)
   {
     [(NSMutableArray *)self->_sendArray removeObjectAtIndex:v7];
-    var0 = self->_ucat->var0;
-    if (var0 <= 60)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 60)
     {
       v11 = entryCopy;
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
-        ucat = self->_ucat;
         if (!_LogCategory_Initialize())
         {
           goto LABEL_13;
         }
 
-        v16 = self->_ucat;
+        ucat = self->_ucat;
         v11 = entryCopy;
       }
 
-      [v11 requestID];
-      v17 = v18 = v6;
-      LogPrintF();
+      requestID = [v11 requestID];
+      LogPrintF(ucat, "[RPConnection _timeoutForSendEntry:]", 60, "### Request timeout '%@', %.3f seconds\n");
     }
 
 LABEL_13:
     responseHandler = [entryCopy responseHandler];
-    v15 = RPErrorF();
-    (responseHandler)[2](responseHandler, 0, 0, v15);
+    v18 = RPErrorF(4294960574, "Request timed out before send", v12, v13, v14, v15, v16, v17, requestID);
+    (responseHandler)[2](responseHandler, 0, 0, v18);
 
     goto LABEL_14;
   }
 
-  v8 = self->_ucat->var0;
-  if (v8 > 90)
+  v8 = self->_ucat;
+  if (v8->var0 > 90)
   {
     goto LABEL_15;
   }
 
-  if (v8 == -1)
+  if (v8->var0 == -1)
   {
-    v12 = self->_ucat;
     if (!_LogCategory_Initialize())
     {
       goto LABEL_15;
     }
 
-    v13 = self->_ucat;
+    v8 = self->_ucat;
   }
 
   responseHandler = [entryCopy requestID];
-  LogPrintF();
+  LogPrintF(v8, "[RPConnection _timeoutForSendEntry:]", 90, "### Request timeout '%@' not found, %.3f seconds\n", responseHandler, v6);
 LABEL_14:
 
 LABEL_15:
@@ -9628,11 +11086,11 @@ LABEL_15:
     mach_absolute_time();
     [v5 sendTicks];
     UpTicksToSecondsF();
-    var0 = self->_ucat->var0;
-    if (var0 <= 60)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 60)
     {
       v8 = v6;
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -9642,35 +11100,33 @@ LABEL_15:
         ucat = self->_ucat;
       }
 
-      v15 = v8;
-      v14 = unsignedIntValue;
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _timeoutForXID:]", 60, "### Request timeout XID 0x%X, %.3f seconds\n", unsignedIntValue, v8);
     }
 
 LABEL_9:
     responseHandler = [v5 responseHandler];
-    v11 = RPErrorF();
-    (responseHandler)[2](responseHandler, 0, 0, v11);
+    v17 = RPErrorF(4294960574, "Request timed out", v11, v12, v13, v14, v15, v16, v18);
+    (responseHandler)[2](responseHandler, 0, 0, v17);
 
     goto LABEL_10;
   }
 
-  v9 = self->_ucat->var0;
-  if (v9 > 90)
+  v9 = self->_ucat;
+  if (v9->var0 > 90)
   {
     goto LABEL_10;
   }
 
-  if (v9 != -1)
+  if (v9->var0 != -1)
   {
 LABEL_7:
-    LogPrintF();
+    LogPrintF(v9, "[RPConnection _timeoutForXID:]", 90, "### Timeout for XID 0x%X with no request\n", unsignedIntValue);
     goto LABEL_10;
   }
 
   if (_LogCategory_Initialize())
   {
-    v12 = self->_ucat;
+    v9 = self->_ucat;
     goto LABEL_7;
   }
 
@@ -9684,17 +11140,19 @@ LABEL_10:
   v4 = v3;
   if (v3)
   {
-    if (![(CUPairingSession *)v3 deriveKeyWithSaltPtr:"IdentityProofClient-Salt" saltLen:24 infoPtr:"IdentityProofClient-Info" infoLen:24 keyLen:32 outputKeyPtr:__s])
+    v5 = [(CUPairingSession *)v3 deriveKeyWithSaltPtr:"IdentityProofClient-Salt" saltLen:24 infoPtr:"IdentityProofClient-Info" infoLen:24 keyLen:32 outputKeyPtr:__s];
+    if (!v5)
     {
-      v6 = [MEMORY[0x1E695DEF0] _newZeroingDataWithBytes:__s length:32];
+      v8 = [MEMORY[0x1E695DEF0] _newZeroingDataWithBytes:__s length:32];
       memset_s(__s, 0x20uLL, 0, 0x20uLL);
       goto LABEL_9;
     }
 
-    var0 = self->_ucat->var0;
-    if (var0 <= 90)
+    v6 = v5;
+    ucat = self->_ucat;
+    if (ucat->var0 <= 90)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -9704,17 +11162,15 @@ LABEL_10:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _identityProofDataClient]", 90, "### IdentityProofDataClient derive key failed: %#m\n", v6);
     }
   }
 
 LABEL_8:
-  v6 = 0;
+  v8 = 0;
 LABEL_9:
 
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v6;
+  return v8;
 }
 
 - (id)_identityProofDataServer
@@ -9724,17 +11180,19 @@ LABEL_9:
   v4 = v3;
   if (v3)
   {
-    if (![(CUPairingSession *)v3 deriveKeyWithSaltPtr:"IdentityProofServer-Salt" saltLen:24 infoPtr:"IdentityProofServer-Info" infoLen:24 keyLen:32 outputKeyPtr:__s])
+    v5 = [(CUPairingSession *)v3 deriveKeyWithSaltPtr:"IdentityProofServer-Salt" saltLen:24 infoPtr:"IdentityProofServer-Info" infoLen:24 keyLen:32 outputKeyPtr:__s];
+    if (!v5)
     {
-      v6 = [MEMORY[0x1E695DEF0] _newZeroingDataWithBytes:__s length:32];
+      v8 = [MEMORY[0x1E695DEF0] _newZeroingDataWithBytes:__s length:32];
       memset_s(__s, 0x20uLL, 0, 0x20uLL);
       goto LABEL_9;
     }
 
-    var0 = self->_ucat->var0;
-    if (var0 <= 90)
+    v6 = v5;
+    ucat = self->_ucat;
+    if (ucat->var0 <= 90)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -9744,17 +11202,15 @@ LABEL_9:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _identityProofDataServer]", 90, "### IdentityProofDataServer derive key failed: %#m\n", v6);
     }
   }
 
 LABEL_8:
-  v6 = 0;
+  v8 = 0;
 LABEL_9:
 
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v6;
+  return v8;
 }
 
 - (void)_identityProofsAdd:(id)add update:(BOOL)update
@@ -9791,13 +11247,13 @@ LABEL_26:
         goto LABEL_27;
       }
 
-      v24 = 0;
-      v17 = [homeKitIdentity signData:v8 error:&v24];
-      v18 = v24;
-      var0 = self->_ucat->var0;
-      if (var0 < 31)
+      v21 = 0;
+      v17 = [homeKitIdentity signData:v8 error:&v21];
+      v18 = v21;
+      ucat = self->_ucat;
+      if (ucat->var0 < 31)
       {
-        if (var0 == -1)
+        if (ucat->var0 == -1)
         {
           if (!_LogCategory_Initialize())
           {
@@ -9807,7 +11263,7 @@ LABEL_26:
           ucat = self->_ucat;
         }
 
-        LogPrintF();
+        LogPrintF(ucat, "[RPConnection _identityProofsAdd:update:]", 30, "IdentityProofsAdd HK: %{error}\n", v18);
       }
 
 LABEL_22:
@@ -9843,24 +11299,23 @@ LABEL_15:
       goto LABEL_17;
     }
 
-    v26 = 0;
-    v11 = [v9 signData:v8 error:&v26];
-    v12 = v26;
-    v13 = self->_ucat->var0;
-    if (v13 < 31)
+    v23 = 0;
+    v11 = [v9 signData:v8 error:&v23];
+    v12 = v23;
+    v13 = self->_ucat;
+    if (v13->var0 < 31)
     {
-      if (v13 == -1)
+      if (v13->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_12;
         }
 
-        v22 = self->_ucat;
+        v13 = self->_ucat;
       }
 
-      v23 = v12;
-      LogPrintF();
+      LogPrintF(v13, "[RPConnection _identityProofsAdd:update:]", 30, "IdentityProofsAdd RP: %{error}\n", v12);
     }
 
 LABEL_12:
@@ -9897,25 +11352,22 @@ void __42__RPConnection__identityProofsAdd_update___block_invoke_2(uint64_t a1)
   v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  v12 = 0;
-  v5 = [v3 signData:v4 error:&v12];
-  v6 = v12;
-  v7 = **(*(a1 + 48) + 296);
-  if (v7 <= 30)
+  v8 = 0;
+  v5 = [v3 signData:v4 error:&v8];
+  v6 = v8;
+  v7 = *(*(a1 + 48) + 296);
+  if (*v7 <= 30)
   {
-    if (v7 != -1)
+    if (*v7 != -1)
     {
 LABEL_3:
-      v10 = v6;
-      v11 = [v5 length];
-      LogPrintF();
+      LogPrintF(v7, "-[RPConnection _identityProofsAdd:update:]_block_invoke_2", 30, "IdentityProofsAdd PD: %{error} length %llu \n", v6, [v5 length]);
       goto LABEL_5;
     }
 
-    v8 = *(*(a1 + 48) + 296);
     if (_LogCategory_Initialize())
     {
-      v9 = *(*(a1 + 48) + 296);
+      v7 = *(*(a1 + 48) + 296);
       goto LABEL_3;
     }
   }
@@ -9975,20 +11427,20 @@ void __50__RPConnection__identityProofsAddWithHomeKitUUID___block_invoke(int8x16
   v8 = a1[2].i64[0];
   if (!v5 || v6)
   {
-    v10 = **(v8 + 296);
-    if (v10 <= 30)
+    v10 = *(v8 + 296);
+    if (*v10 <= 30)
     {
-      if (v10 == -1)
+      if (*v10 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_8;
         }
 
-        v11 = *(a1[2].i64[0] + 296);
+        v10 = *(a1[2].i64[0] + 296);
       }
 
-      LogPrintF();
+      LogPrintF(v10, "[RPConnection _identityProofsAddWithHomeKitUUID:]_block_invoke", 30, "### Failed to get HomeKit pairing identity: %@", v7);
     }
   }
 
@@ -9999,8 +11451,8 @@ void __50__RPConnection__identityProofsAddWithHomeKitUUID___block_invoke(int8x16
     block[1] = 3221225472;
     block[2] = __50__RPConnection__identityProofsAddWithHomeKitUUID___block_invoke_2;
     block[3] = &unk_1E7C93BC0;
-    v13 = v5;
-    v14 = vextq_s8(a1[2], a1[2], 8uLL);
+    v12 = v5;
+    v13 = vextq_s8(a1[2], a1[2], 8uLL);
     dispatch_async(v9, block);
   }
 
@@ -10011,26 +11463,25 @@ void __50__RPConnection__identityProofsAddWithHomeKitUUID___block_invoke_2(uint6
 {
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v13 = 0;
-  v4 = [v2 signData:v3 error:&v13];
-  v5 = v13;
+  v11 = 0;
+  v4 = [v2 signData:v3 error:&v11];
+  v5 = v11;
   if (v4)
   {
-    v6 = **(*(a1 + 48) + 296);
-    if (v6 <= 30)
+    v6 = *(*(a1 + 48) + 296);
+    if (*v6 <= 30)
     {
-      if (v6 == -1)
+      if (*v6 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_6;
         }
 
-        v10 = *(*(a1 + 48) + 296);
+        v6 = *(*(a1 + 48) + 296);
       }
 
-      v11 = v5;
-      LogPrintF();
+      LogPrintF(v6, "[RPConnection _identityProofsAddWithHomeKitUUID:]_block_invoke_2", 30, "IdentityProofsAdd HKPI: %{error}\n", v5);
     }
 
 LABEL_6:
@@ -10040,12 +11491,12 @@ LABEL_6:
 
     [v7 setObject:v4 forKeyedSubscript:@"_sigHKU"];
     v9 = *(a1 + 48);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __50__RPConnection__identityProofsAddWithHomeKitUUID___block_invoke_3;
-    v12[3] = &unk_1E7C92D58;
-    v12[4] = v9;
-    [v9 sendEncryptedEventID:@"_systemInfoUpdate" event:v7 options:0 completion:v12];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __50__RPConnection__identityProofsAddWithHomeKitUUID___block_invoke_3;
+    v10[3] = &unk_1E7C92D58;
+    v10[4] = v9;
+    [v9 sendEncryptedEventID:@"_systemInfoUpdate" event:v7 options:0 completion:v10];
   }
 }
 
@@ -10054,23 +11505,23 @@ void __50__RPConnection__identityProofsAddWithHomeKitUUID___block_invoke_3(uint6
   v3 = a2;
   if (v3)
   {
-    v4 = **(*(a1 + 32) + 296);
-    if (v4 <= 30)
+    v4 = *(*(a1 + 32) + 296);
+    if (*v4 <= 30)
     {
-      v7 = v3;
-      if (v4 != -1)
+      v6 = v3;
+      if (*v4 != -1)
       {
 LABEL_4:
-        LogPrintF();
-        v3 = v7;
+        LogPrintF(v4, "[RPConnection _identityProofsAddWithHomeKitUUID:]_block_invoke_3", 30, "### Failed to send HomeKit user signature event: %@\n", v3);
+        v3 = v6;
         goto LABEL_6;
       }
 
       v5 = _LogCategory_Initialize();
-      v3 = v7;
+      v3 = v6;
       if (v5)
       {
-        v6 = *(*(a1 + 32) + 296);
+        v4 = *(*(a1 + 32) + 296);
         goto LABEL_4;
       }
     }
@@ -10118,14 +11569,15 @@ LABEL_6:
     v8 = [(RPIdentityDaemon *)v4 resolveIdentityTypesForSignature:v7 data:v5 typeFlags:19496];
     v9 = ((v8 << 12) & 0x20000 | (((v8 >> 3) & 1) << 14)) & 0xFFFFFF8FFFFFFFFFLL | ((((v8 & 0xC00) >> 10) & 3) << 36) & 0xFFFFFFBFFFFFFFFFLL | ((((v8 & 0x4000) >> 14) & 1) << 38);
     [(RPEndpoint *)self->_peerDeviceInfo setStatusFlags:v9 | [(RPEndpoint *)self->_peerDeviceInfo statusFlags]];
-    self->_statusFlags |= v9;
-    var0 = self->_ucat->var0;
-    if (var0 > 30)
+    statusFlags = v9 | self->_statusFlags;
+    self->_statusFlags = statusFlags;
+    ucat = self->_ucat;
+    if (ucat->var0 > 30)
     {
       goto LABEL_12;
     }
 
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -10136,40 +11588,40 @@ LABEL_6:
       statusFlags = self->_statusFlags;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[RPConnection _identityProofsVerify:]", 30, "IdentityProofsVerify RP: %s, %#ll{flags} current status flags %#ll{flags}\n", "yes", v9, &unk_1B6F2DEF3, statusFlags, &unk_1B6F2DEF3);
 LABEL_12:
   }
 
   CFDataGetTypeID();
-  v11 = CFDictionaryGetTypedValue();
-  v12 = v11;
-  if (!v5 || !v11 || (self->_statusFlags & 0x8000) != 0)
+  v12 = CFDictionaryGetTypedValue();
+  v13 = v12;
+  if (!v5 || !v12 || (self->_statusFlags & 0x8000) != 0)
   {
     goto LABEL_22;
   }
 
-  v13 = [(RPIdentityDaemon *)v4 resolveIdentityForSignature:v11 data:v5 typeFlags:128 error:0];
-  if (v13)
+  v14 = [(RPIdentityDaemon *)v4 resolveIdentityForSignature:v12 data:v5 typeFlags:128 error:0];
+  if (v14)
   {
     [(RPEndpoint *)self->_peerDeviceInfo setStatusFlags:[(RPEndpoint *)self->_peerDeviceInfo statusFlags]| 0x8000];
-    v14 = [v13 acl];
-    [(RPEndpoint *)self->_peerDeviceInfo setVerifiedAcl:v14];
+    v15 = [v14 acl];
+    [(RPEndpoint *)self->_peerDeviceInfo setVerifiedAcl:v15];
 
     self->_statusFlags |= 0x8000uLL;
-    v15 = self->_ucat->var0;
-    if (v15 <= 30)
+    v16 = self->_ucat;
+    if (v16->var0 <= 30)
     {
-      if (v15 == -1)
+      if (v16->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_21;
         }
 
-        v21 = self->_ucat;
+        v16 = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(v16, "[RPConnection _identityProofsVerify:]", 30, "IdentityProofsVerify PD: %s\n", "yes");
     }
   }
 
@@ -10177,15 +11629,15 @@ LABEL_21:
 
 LABEL_22:
   CFStringGetTypeID();
-  v16 = CFDictionaryGetTypedValue();
-  CFDataGetTypeID();
   v17 = CFDictionaryGetTypedValue();
-  v18 = v17;
-  if (v16 && v17)
+  CFDataGetTypeID();
+  v18 = CFDictionaryGetTypedValue();
+  v19 = v18;
+  if (v17 && v18)
   {
-    objc_storeStrong(&self->_homeKitIdentityIdentifier, v16);
-    objc_storeStrong(&self->_homeKitIdentitySignature, v18);
-    [(RPConnection *)self _identityProofsVerifyHomeKitSignature:v18 identifier:v16];
+    objc_storeStrong(&self->_homeKitIdentityIdentifier, v17);
+    objc_storeStrong(&self->_homeKitIdentitySignature, v19);
+    [(RPConnection *)self _identityProofsVerifyHomeKitSignature:v19 identifier:v17];
   }
 
 LABEL_26:
@@ -10295,16 +11747,16 @@ LABEL_9:
     goto LABEL_14;
   }
 
-  v15 = 0;
-  v10 = [homeKitIdentity verifySignature:ownerCopy data:v9 error:&v15];
-  v11 = v15;
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  v14 = 0;
+  v10 = [homeKitIdentity verifySignature:ownerCopy data:v9 error:&v14];
+  v11 = v14;
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_8:
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _identityProofsVerifyHomeKitSignatureOwner:completion:]", 30, "IdentityProofsVerify HKO: %{error}\n", v11);
       goto LABEL_11;
     }
 
@@ -10339,10 +11791,10 @@ LABEL_14:
   v11 = completionCopy;
   if (self->_homeKitManager)
   {
-    var0 = self->_ucat->var0;
-    if (var0 <= 30)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -10352,7 +11804,7 @@ LABEL_14:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _identityProofsVerifyHomeKitSignatureSharedUser:identifier:completion:]", 30, "IdentityProofsVerify check HKU: ID %@\n", identifierCopy);
     }
 
 LABEL_7:
@@ -10361,15 +11813,15 @@ LABEL_7:
     [v13 setIdentifier:v14];
 
     homeKitManager = self->_homeKitManager;
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __86__RPConnection__identityProofsVerifyHomeKitSignatureSharedUser_identifier_completion___block_invoke;
-    v17[3] = &unk_1E7C93D50;
-    v17[4] = self;
-    v18 = identifierCopy;
-    v20 = v11;
-    v19 = userCopy;
-    [(CUHomeKitManager *)homeKitManager findPairedPeer:v13 options:32 completion:v17];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __86__RPConnection__identityProofsVerifyHomeKitSignatureSharedUser_identifier_completion___block_invoke;
+    v16[3] = &unk_1E7C93D50;
+    v16[4] = self;
+    v17 = identifierCopy;
+    v19 = v11;
+    v18 = userCopy;
+    [(CUHomeKitManager *)homeKitManager findPairedPeer:v13 options:32 completion:v16];
 
     goto LABEL_8;
   }
@@ -10429,24 +11881,23 @@ LABEL_23:
     [(RPIdentity *)v6 setEdPKData:v7];
 
     v8 = *(a1 + 64);
-    v18 = 0;
-    v9 = [(RPIdentity *)v6 verifySignature:v8 data:v5 error:&v18];
-    v10 = v18;
-    v11 = **(*(a1 + 48) + 296);
-    if (v11 <= 30)
+    v13 = 0;
+    v9 = [(RPIdentity *)v6 verifySignature:v8 data:v5 error:&v13];
+    v10 = v13;
+    v11 = *(*(a1 + 48) + 296);
+    if (*v11 <= 30)
     {
-      if (v11 == -1)
+      if (*v11 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_19;
         }
 
-        v14 = *(*(a1 + 48) + 296);
+        v11 = *(*(a1 + 48) + 296);
       }
 
-      v16 = *(a1 + 56);
-      LogPrintF();
+      LogPrintF(v11, "[RPConnection _identityProofsVerifyHomeKitSignatureSharedUser:identifier:completion:]_block_invoke_2", 30, "IdentityProofsVerify verify HKU: ID %@, %{error}\n", *(a1 + 56), v10);
     }
 
 LABEL_19:
@@ -10465,22 +11916,20 @@ LABEL_19:
     goto LABEL_23;
   }
 
-  v2 = **(*(a1 + 48) + 296);
-  if (v2 <= 30)
+  v2 = *(*(a1 + 48) + 296);
+  if (*v2 <= 30)
   {
-    if (v2 == -1)
+    if (*v2 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_9;
       }
 
-      v13 = *(*(a1 + 48) + 296);
+      v2 = *(*(a1 + 48) + 296);
     }
 
-    v15 = *(a1 + 56);
-    v17 = *(a1 + 40);
-    LogPrintF();
+    LogPrintF(v2, "[RPConnection _identityProofsVerifyHomeKitSignatureSharedUser:identifier:completion:]_block_invoke_2", 30, "IdentityProofsVerify find failed HKU: ID %@, %{error}\n", *(a1 + 56), *(a1 + 40));
   }
 
 LABEL_9:
@@ -10491,21 +11940,22 @@ LABEL_9:
 
 - (void)_idleTimerStart:(unsigned int)start repeat:(unsigned int)repeat
 {
-  self->_receivedFrameCountLast = self->_receivedFrameCountCurrent;
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  receivedFrameCountCurrent = self->_receivedFrameCountCurrent;
+  self->_receivedFrameCountLast = receivedFrameCountCurrent;
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _idleTimerStart:repeat:]", 30, "Idle timer start: %u/%u seconds, %llu frames\n", start, repeat, receivedFrameCountCurrent);
       goto LABEL_5;
     }
 
     if (_LogCategory_Initialize())
     {
       ucat = self->_ucat;
-      receivedFrameCountLast = self->_receivedFrameCountLast;
+      receivedFrameCountCurrent = self->_receivedFrameCountLast;
       goto LABEL_3;
     }
   }
@@ -10514,26 +11964,26 @@ LABEL_5:
   idleTimer = self->_idleTimer;
   if (idleTimer)
   {
-    v7 = idleTimer;
-    dispatch_source_cancel(v7);
-    v8 = self->_idleTimer;
+    v10 = idleTimer;
+    dispatch_source_cancel(v10);
+    v11 = self->_idleTimer;
     self->_idleTimer = 0;
   }
 
-  v9 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
-  v10 = self->_idleTimer;
-  self->_idleTimer = v9;
-  v11 = v9;
+  v12 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
+  v13 = self->_idleTimer;
+  self->_idleTimer = v12;
+  v14 = v12;
 
   handler[0] = MEMORY[0x1E69E9820];
   handler[1] = 3221225472;
   handler[2] = __39__RPConnection__idleTimerStart_repeat___block_invoke;
   handler[3] = &unk_1E7C92D80;
-  handler[4] = v11;
+  handler[4] = v14;
   handler[5] = self;
-  dispatch_source_set_event_handler(v11, handler);
+  dispatch_source_set_event_handler(v14, handler);
   CUDispatchTimerSet();
-  dispatch_activate(v11);
+  dispatch_activate(v14);
 }
 
 void *__39__RPConnection__idleTimerStart_repeat___block_invoke(uint64_t a1)
@@ -10551,14 +12001,13 @@ void *__39__RPConnection__idleTimerStart_repeat___block_invoke(uint64_t a1)
 - (void)_idleTimerFired
 {
   receivedFrameCountCurrent = self->_receivedFrameCountCurrent;
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_3:
-      receivedFrameCountLast = self->_receivedFrameCountLast;
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _idleTimerFired]", 30, "Idle timer check: %llu -> %llu frames\n", self->_receivedFrameCountLast, receivedFrameCountCurrent);
       goto LABEL_5;
     }
 
@@ -10572,8 +12021,8 @@ LABEL_3:
 LABEL_5:
   if (receivedFrameCountCurrent == self->_receivedFrameCountLast)
   {
-    v7 = RPErrorF();
-    [(RPConnection *)self _invalidateWithError:v7];
+    v12 = RPErrorF(4294896153, "Idle disconnect", v2, v3, v4, v5, v6, v7, v11);
+    [(RPConnection *)self _invalidateWithError:v12];
   }
 
   else
@@ -10584,7 +12033,7 @@ LABEL_5:
 
 - (BOOL)_receivedSystemInfo:(id)info xid:(id)xid
 {
-  v144 = *MEMORY[0x1E69E9840];
+  v134 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   xidCopy = xid;
   statusFlags = self->_statusFlags;
@@ -10593,7 +12042,7 @@ LABEL_5:
     [(RPConnection *)self _identityProofsVerify:infoCopy];
   }
 
-  v142 = 0;
+  v132 = 0;
   if ((statusFlags & 0x50000AE000) != 0)
   {
     CFStringGetTypeID();
@@ -10612,7 +12061,7 @@ LABEL_5:
   }
 
   [(RPEndpoint *)self->_peerDeviceInfo setActivityLevel:CFDictionaryGetInt64Ranged()];
-  v111 = statusFlags & 0x50000AE000;
+  v101 = statusFlags & 0x50000AE000;
   CFStringGetTypeID();
   v11 = CFDictionaryGetTypedValue();
   if (v11)
@@ -10628,11 +12077,11 @@ LABEL_5:
   }
 
   Int64 = CFDictionaryGetInt64();
-  LODWORD(v135) = [(RPCompanionLinkDevice *)self->_peerDeviceInfo flags];
-  RPCompanionLinkFlagsWithUpdateBonjourFlags(&v135, Int64);
-  [(RPCompanionLinkDevice *)self->_peerDeviceInfo setFlags:v135];
+  LODWORD(v125) = [(RPCompanionLinkDevice *)self->_peerDeviceInfo flags];
+  RPCompanionLinkFlagsWithUpdateBonjourFlags(&v125, Int64);
+  [(RPCompanionLinkDevice *)self->_peerDeviceInfo setFlags:v125];
   v14 = statusFlags & 0x50000AE000;
-  if (!v111 && (self->_statusFlags & 0x2000000000) == 0)
+  if (!v101 && (self->_statusFlags & 0x2000000000) == 0)
   {
     v15 = v11;
     goto LABEL_26;
@@ -10641,15 +12090,15 @@ LABEL_5:
   CFStringGetTypeID();
   v15 = CFDictionaryGetTypedValue();
 
-  if (v15 || v142 == -6756)
+  if (v15 || v132 == -6756)
   {
     [(RPConnection *)self setServiceType:v15];
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -10659,15 +12108,14 @@ LABEL_5:
       ucat = self->_ucat;
     }
 
-    idsDeviceIdentifier = v15;
-    LogPrintF();
+    LogPrintF(ucat, "[RPConnection _receivedSystemInfo:xid:]", 30, "Received client service type %@\n", v15);
   }
 
 LABEL_23:
-  if (v111)
+  if (v101)
   {
     Int64Ranged = CFDictionaryGetInt64Ranged();
-    if (!v142)
+    if (!v132)
     {
       [(RPCompanionLinkDevice *)self->_peerDeviceInfo setFlags:[(RPCompanionLinkDevice *)self->_peerDeviceInfo flags]& 0xFFFFFD7F | Int64Ranged & 0x280];
     }
@@ -10679,7 +12127,7 @@ LABEL_26:
     self->_controlFlags |= 0x200uLL;
   }
 
-  if (!v111)
+  if (!v101)
   {
 LABEL_32:
     if ((statusFlags & 0x80000) == 0)
@@ -10693,13 +12141,13 @@ LABEL_32:
   CFStringGetTypeID();
   v18 = CFDictionaryGetTypedValue();
 
-  if (!v18 && v142 != -6756)
+  if (!v18 && v132 != -6756)
   {
     v15 = 0;
     goto LABEL_32;
   }
 
-  [(RPCompanionLinkDevice *)self->_peerDeviceInfo setDeviceColor:v18, idsDeviceIdentifier];
+  [(RPCompanionLinkDevice *)self->_peerDeviceInfo setDeviceColor:v18];
   v15 = v18;
   if ((statusFlags & 0x80000) == 0)
   {
@@ -10710,9 +12158,9 @@ LABEL_35:
   CFStringGetTypeID();
   v19 = CFDictionaryGetTypedValue();
 
-  if (v19 || v142 == -6756)
+  if (v19 || v132 == -6756)
   {
-    [(RPCompanionLinkDevice *)self->_peerDeviceInfo setRole:v19, idsDeviceIdentifier];
+    [(RPCompanionLinkDevice *)self->_peerDeviceInfo setRole:v19];
     v15 = v19;
   }
 
@@ -10722,8 +12170,8 @@ LABEL_35:
   }
 
 LABEL_39:
-  v109 = statusFlags;
-  if (v111)
+  v99 = statusFlags;
+  if (v101)
   {
     v20 = NSDictionaryGetNSUUID();
     if (v20)
@@ -10733,7 +12181,7 @@ LABEL_39:
       [(RPConnection *)self _identityProofsAddWithHomeKitUUID:homeKitIdentifier];
     }
 
-    LODWORD(v135) = 0;
+    LODWORD(v125) = 0;
     objc_opt_class();
     v22 = NSDictionaryGetNSArrayOfClass();
     if (v22 && self->_homeKitUserIdentifierHandler)
@@ -10746,10 +12194,10 @@ LABEL_39:
         v23[2](v23);
       }
 
-      LODWORD(statusFlags) = v109;
+      LODWORD(statusFlags) = v99;
     }
 
-    v14 = v111;
+    v14 = v101;
   }
 
   else
@@ -10766,7 +12214,7 @@ LABEL_39:
 
 LABEL_60:
     v25 = 0;
-    v110 = 0;
+    v100 = 0;
     goto LABEL_61;
   }
 
@@ -10785,8 +12233,8 @@ LABEL_60:
     v15 = 0;
   }
 
-  v14 = v111;
-  if (!v111)
+  v14 = v101;
+  if (!v101)
   {
     goto LABEL_60;
   }
@@ -10795,44 +12243,40 @@ LABEL_51:
   CFStringGetTypeID();
   v24 = CFDictionaryGetTypedValue();
   v25 = v24 != 0;
-  v110 = v24;
+  v100 = v24;
   if ((statusFlags & 0x80000) == 0 || !v24)
   {
 LABEL_61:
-    if ((self->_statusFlags & 0x2000) != 0)
+    if ((self->_statusFlags & 0x2000) == 0 || (DeviceClass = GestaltGetDeviceClass(), !RPDeviceIsCommunal(DeviceClass)))
     {
-      DeviceClass = GestaltGetDeviceClass();
-      if (RPDeviceIsCommunal(DeviceClass))
+LABEL_73:
+      if (!v14)
       {
-        v28 = self->_ucat->var0;
-        if (v28 <= 30)
-        {
-          if (v28 != -1)
-          {
-LABEL_65:
-            LogPrintF();
-            [(RPIdentityDaemon *)self->_identityDaemon addSharedHomeIdentityWithRPMessage:infoCopy, v110];
-            goto LABEL_73;
-          }
+        goto LABEL_92;
+      }
 
-          if (_LogCategory_Initialize())
-          {
-            v101 = self->_ucat;
-            goto LABEL_65;
-          }
+      goto LABEL_74;
+    }
+
+    v28 = self->_ucat;
+    if (v28->var0 <= 30)
+    {
+      if (v28->var0 == -1)
+      {
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_72;
         }
 
-        [(RPIdentityDaemon *)self->_identityDaemon addSharedHomeIdentityWithRPMessage:infoCopy, idsDeviceIdentifier];
+        v28 = self->_ucat;
       }
+
+      LogPrintF(v28, "[RPConnection _receivedSystemInfo:xid:]", 30, "Received SharedHome identity: ID '%.8@'\n", v100);
     }
 
-LABEL_73:
-    if (!v14)
-    {
-      goto LABEL_92;
-    }
-
-    goto LABEL_74;
+LABEL_72:
+    [(RPIdentityDaemon *)self->_identityDaemon addSharedHomeIdentityWithRPMessage:infoCopy];
+    goto LABEL_73;
   }
 
   if (!self->_pairVerifyCompleted || self->_pairVerifyIdentityType == 2)
@@ -10845,28 +12289,26 @@ LABEL_73:
 
   if (v29 || ([infoCopy objectForKeyedSubscript:@"_edPK"], v30 = objc_claimAutoreleasedReturnValue(), v30, v30))
   {
-    v31 = self->_ucat->var0;
-    if (v31 <= 30)
+    v31 = self->_ucat;
+    if (v31->var0 <= 30)
     {
-      if (v31 != -1)
+      if (v31->var0 == -1)
       {
-LABEL_70:
-        LogPrintF();
-        [(RPIdentityDaemon *)self->_identityDaemon saveIdentityWithIDSDeviceID:v110 message:infoCopy error:0, v110];
-        goto LABEL_91;
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_90;
+        }
+
+        v31 = self->_ucat;
       }
 
-      if (_LogCategory_Initialize())
-      {
-        v103 = self->_ucat;
-        goto LABEL_70;
-      }
+      LogPrintF(v31, "[RPConnection _receivedSystemInfo:xid:]", 30, "Received identity from IDS '%.8@'\n", v100);
     }
 
-    [(RPIdentityDaemon *)self->_identityDaemon saveIdentityWithIDSDeviceID:v110 message:infoCopy error:0, idsDeviceIdentifier];
+LABEL_90:
+    [(RPIdentityDaemon *)self->_identityDaemon saveIdentityWithIDSDeviceID:v100 message:infoCopy error:0];
   }
 
-LABEL_91:
   v25 = 1;
   if (!v14)
   {
@@ -10885,46 +12327,45 @@ LABEL_74:
     goto LABEL_92;
   }
 
-  if (!self->_clientMode || (-[RPCloudDaemon idsDeviceIDSelf](self->_cloudDaemon, "idsDeviceIDSelf"), v32 = objc_claimAutoreleasedReturnValue(), v33 = [v32 isEqual:v110], v32, !v33))
+  if (!self->_clientMode || (-[RPCloudDaemon idsDeviceIDSelf](self->_cloudDaemon, "idsDeviceIDSelf"), v32 = objc_claimAutoreleasedReturnValue(), v33 = [v32 isEqual:v100], v32, !v33))
   {
     if ([(RPIdentity *)self->_identityVerified type]== 15)
     {
       identifier = [(RPIdentity *)self->_identityVerified identifier];
       [(RPEndpoint *)self->_peerDeviceInfo setIdsDeviceIdentifier:identifier];
 
-      v36 = self->_ucat->var0;
-      if (v36 > 30)
+      v36 = self->_ucat;
+      if (v36->var0 > 30)
       {
         goto LABEL_93;
       }
 
-      if (v36 != -1)
+      if (v36->var0 != -1)
       {
         goto LABEL_83;
       }
 
-      v37 = self->_ucat;
       if (_LogCategory_Initialize())
       {
-        v38 = self->_ucat;
+        v36 = self->_ucat;
 LABEL_83:
         idsDeviceIdentifier = [(RPEndpoint *)self->_peerDeviceInfo idsDeviceIdentifier];
-        LogPrintF();
+        LogPrintF(v36, "[RPConnection _receivedSystemInfo:xid:]", 30, "Using AdHocPaired identifier for connection: %@", idsDeviceIdentifier);
       }
     }
 
     else
     {
-      [(RPEndpoint *)self->_peerDeviceInfo setIdsDeviceIdentifier:v110];
+      [(RPEndpoint *)self->_peerDeviceInfo setIdsDeviceIdentifier:v100];
     }
 
 LABEL_93:
     CFStringGetTypeID();
-    v40 = CFDictionaryGetTypedValue();
+    v39 = CFDictionaryGetTypedValue();
 
-    if (v40 || v142 == -6756)
+    if (v39 || v132 == -6756)
     {
-      [(RPEndpoint *)self->_peerDeviceInfo setIdsCorrelationIdentifier:v40, idsDeviceIdentifier];
+      [(RPEndpoint *)self->_peerDeviceInfo setIdsCorrelationIdentifier:v39];
     }
 
     if (CFDictionaryGetInt64Ranged())
@@ -10933,25 +12374,25 @@ LABEL_93:
     }
 
     CFStringGetTypeID();
-    v41 = CFDictionaryGetTypedValue();
-    if (v41 || v142 == -6756)
+    v40 = CFDictionaryGetTypedValue();
+    if (v40 || v132 == -6756)
     {
-      [(RPEndpoint *)self->_peerDeviceInfo setMediaRemoteIdentifier:v41, idsDeviceIdentifier];
+      [(RPEndpoint *)self->_peerDeviceInfo setMediaRemoteIdentifier:v40];
     }
 
     CFStringGetTypeID();
-    v42 = CFDictionaryGetTypedValue();
-    if (v42 || v142 == -6756)
+    v41 = CFDictionaryGetTypedValue();
+    if (v41 || v132 == -6756)
     {
-      [(RPEndpoint *)self->_peerDeviceInfo setMediaRouteIdentifier:v42, idsDeviceIdentifier];
+      [(RPEndpoint *)self->_peerDeviceInfo setMediaRouteIdentifier:v41];
     }
 
-    v43 = NSDictionaryGetNSUUID();
+    v42 = NSDictionaryGetNSUUID();
 
-    if (v43 || v142 == -6756)
+    if (v42 || v132 == -6756)
     {
-      [(RPCompanionLinkDevice *)self->_peerDeviceInfo setMediaSystemIdentifier:v43, idsDeviceIdentifier];
-      v20 = v43;
+      [(RPCompanionLinkDevice *)self->_peerDeviceInfo setMediaSystemIdentifier:v42];
+      v20 = v42;
     }
 
     else
@@ -10961,9 +12402,9 @@ LABEL_93:
 
     CFStringGetTypeID();
     v15 = CFDictionaryGetTypedValue();
-    if (v15 || v142 == -6756)
+    if (v15 || v132 == -6756)
     {
-      [(RPCompanionLinkDevice *)self->_peerDeviceInfo setMediaSystemName:v15, idsDeviceIdentifier];
+      [(RPCompanionLinkDevice *)self->_peerDeviceInfo setMediaSystemName:v15];
     }
 
     else
@@ -10971,39 +12412,39 @@ LABEL_93:
       v15 = 0;
     }
 
-    v44 = CFDictionaryGetInt64Ranged();
-    if (!v142)
+    v43 = CFDictionaryGetInt64Ranged();
+    if (!v132)
     {
-      [(RPCompanionLinkDevice *)self->_peerDeviceInfo setMediaSystemRole:v44];
+      [(RPCompanionLinkDevice *)self->_peerDeviceInfo setMediaSystemRole:v43];
     }
 
-    v45 = CFDictionaryGetInt64Ranged();
-    if (!v142)
+    v44 = CFDictionaryGetInt64Ranged();
+    if (!v132)
     {
-      [(RPCompanionLinkDevice *)self->_peerDeviceInfo setMediaSystemState:v45];
+      [(RPCompanionLinkDevice *)self->_peerDeviceInfo setMediaSystemState:v44];
     }
 
 LABEL_116:
+    CFStringGetTypeID();
+    v45 = CFDictionaryGetTypedValue();
+
+    if (v45)
+    {
+      [(RPEndpoint *)self->_peerDeviceInfo setModel:v45];
+    }
+
     CFStringGetTypeID();
     v46 = CFDictionaryGetTypedValue();
 
     if (v46)
     {
-      [(RPEndpoint *)self->_peerDeviceInfo setModel:v46];
+      [(RPEndpoint *)self->_peerDeviceInfo setName:v46];
     }
 
     CFStringGetTypeID();
     v47 = CFDictionaryGetTypedValue();
 
-    if (v47)
-    {
-      [(RPEndpoint *)self->_peerDeviceInfo setName:v47];
-    }
-
-    CFStringGetTypeID();
-    v48 = CFDictionaryGetTypedValue();
-
-    if (!v48)
+    if (!v47)
     {
       goto LABEL_123;
     }
@@ -11011,8 +12452,8 @@ LABEL_116:
     peerDeviceInfo = self->_peerDeviceInfo;
     if (peerDeviceInfo)
     {
-      [(RPEndpoint *)peerDeviceInfo operatingSystemVersion];
-      if (v139)
+      objc_msgSend_operatingSystemVersion(peerDeviceInfo);
+      if (v129)
       {
 LABEL_123:
         if (!v25)
@@ -11020,11 +12461,11 @@ LABEL_123:
           goto LABEL_135;
         }
 
-        v50 = self->_peerDeviceInfo;
-        if (v50)
+        v49 = self->_peerDeviceInfo;
+        if (v49)
         {
-          [(RPEndpoint *)v50 operatingSystemVersion];
-          if (v132)
+          objc_msgSend_operatingSystemVersion(v49);
+          if (v122)
           {
             goto LABEL_135;
           }
@@ -11032,29 +12473,29 @@ LABEL_123:
 
         else
         {
-          v132 = 0;
-          v133 = 0;
-          v134 = 0;
+          v122 = 0;
+          v123 = 0;
+          v124 = 0;
         }
 
         cloudDaemon = self->_cloudDaemon;
         if (cloudDaemon)
         {
-          [(RPCloudDaemon *)cloudDaemon operatingSystemVersionForID:v110];
+          objc_msgSend_operatingSystemVersionForID_(cloudDaemon);
         }
 
         else
         {
-          v130 = 0uLL;
-          v131 = 0;
+          v120 = 0uLL;
+          v121 = 0;
         }
 
-        v51 = self->_peerDeviceInfo;
-        v135 = v130;
-        v52 = v131;
+        v50 = self->_peerDeviceInfo;
+        v125 = v120;
+        v51 = v121;
 LABEL_134:
-        v136 = v52;
-        [(RPEndpoint *)v51 setOperatingSystemVersion:&v135, idsDeviceIdentifier];
+        v126 = v51;
+        [(RPEndpoint *)v50 setOperatingSystemVersion:&v125];
 LABEL_135:
         model = [(RPEndpoint *)self->_peerDeviceInfo model];
         if (!model)
@@ -11062,20 +12503,20 @@ LABEL_135:
           goto LABEL_147;
         }
 
-        v55 = model;
-        v56 = self->_peerDeviceInfo;
-        if (!v56)
+        v54 = model;
+        v55 = self->_peerDeviceInfo;
+        if (!v55)
         {
-          v127 = 0;
-          v128 = 0;
-          v129 = 0;
+          v117 = 0;
+          v118 = 0;
+          v119 = 0;
 
           goto LABEL_147;
         }
 
-        [(RPEndpoint *)v56 operatingSystemVersion];
+        objc_msgSend_operatingSystemVersion(v55);
 
-        if (v127 < 1)
+        if (v117 < 1)
         {
           goto LABEL_147;
         }
@@ -11083,86 +12524,85 @@ LABEL_135:
         model2 = [(RPEndpoint *)self->_peerDeviceInfo model];
         GestaltProductTypeStringToDeviceClass();
 
-        v58 = self->_peerDeviceInfo;
-        if (v58)
+        v57 = self->_peerDeviceInfo;
+        if (v57)
         {
-          [(RPEndpoint *)v58 operatingSystemVersion];
-          v59 = self->_peerDeviceInfo;
-          if (v59)
+          objc_msgSend_operatingSystemVersion(v57);
+          v58 = self->_peerDeviceInfo;
+          if (v58)
           {
-            [(RPEndpoint *)v59 operatingSystemVersion];
-            v60 = self->_peerDeviceInfo;
-            if (v60)
+            objc_msgSend_operatingSystemVersion(v58);
+            v59 = self->_peerDeviceInfo;
+            if (v59)
             {
-              [(RPEndpoint *)v60 operatingSystemVersion];
+              objc_msgSend_operatingSystemVersion(v59);
 LABEL_146:
-              LODWORD(v105) = 20200;
+              LODWORD(v96) = 20200;
               self->_canDecode128bit = DeviceOSVersionAtOrLaterEx();
 LABEL_147:
+              CFStringGetTypeID();
+              v60 = CFDictionaryGetTypedValue();
+
+              if (v60)
+              {
+                [(RPCompanionLinkDevice *)self->_peerDeviceInfo setPublicIdentifier:v60];
+              }
+
               CFStringGetTypeID();
               v61 = CFDictionaryGetTypedValue();
 
               if (v61)
               {
-                [(RPCompanionLinkDevice *)self->_peerDeviceInfo setPublicIdentifier:v61];
-              }
-
-              CFStringGetTypeID();
-              v62 = CFDictionaryGetTypedValue();
-
-              if (v62)
-              {
-                [(RPEndpoint *)self->_peerDeviceInfo setSessionPairingIdentifier:v62];
+                [(RPEndpoint *)self->_peerDeviceInfo setSessionPairingIdentifier:v61];
               }
 
               if (v14)
               {
                 CFStringGetTypeID();
-                v63 = CFDictionaryGetTypedValue();
+                v62 = CFDictionaryGetTypedValue();
 
-                if (v63)
+                if (v62)
                 {
-                  [(RPCompanionLinkDevice *)self->_peerDeviceInfo setRoomName:v63];
+                  [(RPCompanionLinkDevice *)self->_peerDeviceInfo setRoomName:v62];
                 }
 
                 CFArrayGetTypeID();
-                v64 = CFDictionaryGetTypedValue();
-                v65 = v64;
-                if (v64)
+                v63 = CFDictionaryGetTypedValue();
+                v64 = v63;
+                if (v63)
                 {
-                  v116 = 0u;
-                  v117 = 0u;
-                  v114 = 0u;
-                  v115 = 0u;
-                  v66 = v64;
-                  v67 = [v66 countByEnumeratingWithState:&v114 objects:v143 count:16];
-                  if (v67)
+                  v106 = 0u;
+                  v107 = 0u;
+                  v104 = 0u;
+                  v105 = 0u;
+                  v65 = v63;
+                  v66 = [v65 countByEnumeratingWithState:&v104 objects:v133 count:16];
+                  if (v66)
                   {
-                    v68 = v67;
-                    v69 = *v115;
-                    v108 = xidCopy;
+                    v67 = v66;
+                    v68 = *v105;
+                    v98 = xidCopy;
                     while (2)
                     {
-                      for (i = 0; i != v68; ++i)
+                      for (i = 0; i != v67; ++i)
                       {
-                        if (*v115 != v69)
+                        if (*v105 != v68)
                         {
-                          objc_enumerationMutation(v66);
+                          objc_enumerationMutation(v65);
                         }
 
-                        v71 = *(*(&v114 + 1) + 8 * i);
                         objc_opt_class();
                         if ((objc_opt_isKindOfClass() & 1) == 0)
                         {
 
-                          xidCopy = v108;
+                          xidCopy = v98;
                           goto LABEL_166;
                         }
                       }
 
-                      v68 = [v66 countByEnumeratingWithState:&v114 objects:v143 count:16];
-                      xidCopy = v108;
-                      if (v68)
+                      v67 = [v65 countByEnumeratingWithState:&v104 objects:v133 count:16];
+                      xidCopy = v98;
+                      if (v67)
                       {
                         continue;
                       }
@@ -11171,22 +12611,22 @@ LABEL_147:
                     }
                   }
 
-                  [(RPEndpoint *)self->_peerDeviceInfo setServiceTypes:v66];
+                  [(RPEndpoint *)self->_peerDeviceInfo setServiceTypes:v65];
 LABEL_166:
-                  v14 = v111;
+                  v14 = v101;
                 }
 
                 CFDictionaryGetTypeID();
-                v72 = CFDictionaryGetTypedValue();
-                if (v72)
+                v70 = CFDictionaryGetTypedValue();
+                if (v70)
                 {
-                  [(RPCompanionLinkDevice *)self->_peerDeviceInfo setSiriInfo:v72];
+                  [(RPCompanionLinkDevice *)self->_peerDeviceInfo setSiriInfo:v70];
                 }
               }
 
               else
               {
-                v63 = v62;
+                v62 = v61;
               }
 
               CFStringGetTypeID();
@@ -11199,27 +12639,27 @@ LABEL_166:
 
               if (v14)
               {
-                v73 = CFDictionaryGetInt64();
-                if (!v142)
+                v71 = CFDictionaryGetInt64();
+                if (!v132)
                 {
-                  v74 = v73;
-                  v75 = v20;
-                  v76 = xidCopy;
-                  if ((*&v109 & 0x80000) != 0)
+                  v72 = v71;
+                  v73 = v20;
+                  v74 = xidCopy;
+                  if ((*&v99 & 0x80000) != 0)
                   {
-                    v77 = (v73 >> 33) & 0x80;
+                    v75 = (v71 >> 33) & 0x80;
                   }
 
                   else
                   {
-                    v77 = 0;
+                    v75 = 0;
                   }
 
                   statusFlags = [(RPEndpoint *)self->_peerDeviceInfo statusFlags];
-                  v79 = v77 | v74 & 0x10000010180;
-                  xidCopy = v76;
-                  v20 = v75;
-                  [(RPEndpoint *)self->_peerDeviceInfo setStatusFlags:v79 | statusFlags & 0xFFFFFEFFFFFEFE7FLL];
+                  v77 = v75 | v72 & 0x10000010180;
+                  xidCopy = v74;
+                  v20 = v73;
+                  [(RPEndpoint *)self->_peerDeviceInfo setStatusFlags:v77 | statusFlags & 0xFFFFFEFFFFFEFE7FLL];
                 }
               }
 
@@ -11229,32 +12669,32 @@ LABEL_166:
               }
 
               CFStringGetTypeID();
-              v80 = CFDictionaryGetTypedValue();
-              if (v80)
+              v78 = CFDictionaryGetTypedValue();
+              if (v78)
               {
-                [(RPCompanionLinkDevice *)self->_peerDeviceInfo setActiveUserAltDSID:v80];
+                [(RPCompanionLinkDevice *)self->_peerDeviceInfo setActiveUserAltDSID:v78];
               }
 
-              v81 = CFDictionaryGetInt64Ranged();
-              if (!v142)
+              v79 = CFDictionaryGetInt64Ranged();
+              if (!v132)
               {
-                [(RPCompanionLinkDevice *)self->_peerDeviceInfo setDeviceCapabilityFlags:[(RPCompanionLinkDevice *)self->_peerDeviceInfo deviceCapabilityFlags]& 0xFFFFFFFC | v81 & 3];
+                [(RPCompanionLinkDevice *)self->_peerDeviceInfo setDeviceCapabilityFlags:[(RPCompanionLinkDevice *)self->_peerDeviceInfo deviceCapabilityFlags]& 0xFFFFFFFC | v79 & 3];
               }
 
 LABEL_184:
               if (([(RPEndpoint *)self->_peerDeviceInfo statusFlags]& 0x2000000000) != 0)
               {
-                v82 = objc_alloc_init(RPIdentity);
+                v80 = objc_alloc_init(RPIdentity);
                 verifiedIdentity = [(RPEndpoint *)self->_peerDeviceInfo verifiedIdentity];
-                [(RPIdentity *)v82 setIdentifier:verifiedIdentity];
+                [(RPIdentity *)v80 setIdentifier:verifiedIdentity];
 
                 model3 = [(RPEndpoint *)self->_peerDeviceInfo model];
-                [(RPIdentity *)v82 setModel:model3];
+                [(RPIdentity *)v80 setModel:model3];
 
                 name = [(RPEndpoint *)self->_peerDeviceInfo name];
-                [(RPIdentity *)v82 setName:name];
+                [(RPIdentity *)v80 setName:name];
 
-                [(RPIdentityDaemon *)self->_identityDaemon updateSessionPairedIdentity:v82];
+                [(RPIdentityDaemon *)self->_identityDaemon updateSessionPairedIdentity:v80];
                 verifiedIdentity2 = [(RPEndpoint *)self->_peerDeviceInfo verifiedIdentity];
                 [(RPEndpoint *)self->_peerDeviceInfo setIdsDeviceIdentifier:verifiedIdentity2];
 
@@ -11271,27 +12711,27 @@ LABEL_184:
                   aBlock[2] = __40__RPConnection__receivedSystemInfo_xid___block_invoke;
                   aBlock[3] = &unk_1E7C92D10;
                   aBlock[4] = self;
-                  v113 = xidCopy;
-                  v88 = _Block_copy(aBlock);
+                  v103 = xidCopy;
+                  v86 = _Block_copy(aBlock);
                   sessionStartHandler = self->_sessionStartHandler;
                   if (sessionStartHandler)
                   {
-                    sessionStartHandler[2](sessionStartHandler, v88);
-                    v90 = self->_sessionStartHandler;
+                    sessionStartHandler[2](sessionStartHandler, v86);
+                    v88 = self->_sessionStartHandler;
                     self->_sessionStartHandler = 0;
                   }
 
                   else
                   {
-                    v88[2](v88, 0);
+                    v86[2](v86, 0);
                   }
                 }
 
                 else
                 {
                   _systeminfo = [(RPConnection *)self _systeminfo];
-                  LOBYTE(v106) = 0;
-                  [(RPConnection *)self _sendEncryptedResponse:_systeminfo options:0 error:0 xid:xidCopy requestID:@"_systemInfo" highPriority:0 isChatty:v106 replyStartTime:0];
+                  LOBYTE(v97) = 0;
+                  [(RPConnection *)self _sendEncryptedResponse:_systeminfo options:0 error:0 xid:xidCopy requestID:@"_systemInfo" highPriority:0 isChatty:v97 replyStartTime:0];
                 }
               }
 
@@ -11305,102 +12745,100 @@ LABEL_184:
               }
 
               proxyDeviceUpdateHandler = [(RPConnection *)self proxyDeviceUpdateHandler];
-              v94 = proxyDeviceUpdateHandler;
+              v92 = proxyDeviceUpdateHandler;
               if (v14 && proxyDeviceUpdateHandler)
               {
                 (*(proxyDeviceUpdateHandler + 16))(proxyDeviceUpdateHandler);
               }
 
-              v95 = self->_ucat->var0;
-              if (v95 > 10)
+              v93 = self->_ucat;
+              if (v93->var0 > 10)
               {
                 goto LABEL_203;
               }
 
-              if (v95 == -1)
+              if (v93->var0 == -1)
               {
-                v96 = self->_ucat;
                 if (!_LogCategory_Initialize())
                 {
                   goto LABEL_203;
                 }
 
-                v99 = self->_ucat;
+                v93 = self->_ucat;
               }
 
-              v107 = [(RPConnection *)self descriptionWithLevel:10];
-              LogPrintF();
+              v94 = [(RPConnection *)self descriptionWithLevel:10];
+              LogPrintF(v93, "[RPConnection _receivedSystemInfo:xid:]", 10, "Received peerDeviceInfo for connection: %@", v94);
 
 LABEL_203:
-              v39 = 1;
+              v38 = 1;
               goto LABEL_204;
             }
 
 LABEL_145:
-            v118 = 0;
-            v119 = 0;
-            v120 = 0;
+            v108 = 0;
+            v109 = 0;
+            v110 = 0;
             goto LABEL_146;
           }
         }
 
         else
         {
-          v124 = 0;
-          v125 = 0;
-          v126 = 0;
+          v114 = 0;
+          v115 = 0;
+          v116 = 0;
         }
 
-        v121 = 0;
-        v122 = 0;
-        v123 = 0;
+        v111 = 0;
+        v112 = 0;
+        v113 = 0;
         goto LABEL_145;
       }
     }
 
     else
     {
-      v139 = 0;
-      v140 = 0;
-      v141 = 0;
+      v129 = 0;
+      v130 = 0;
+      v131 = 0;
     }
 
-    RPStringToOperatingSystemVersion(v48, &v137);
-    v51 = self->_peerDeviceInfo;
-    v135 = v137;
-    v52 = v138;
+    RPStringToOperatingSystemVersion(v47, &v127);
+    v50 = self->_peerDeviceInfo;
+    v125 = v127;
+    v51 = v128;
     goto LABEL_134;
   }
 
-  v34 = self->_ucat->var0;
-  if (v34 <= 90)
+  v34 = self->_ucat;
+  if (v34->var0 <= 90)
   {
-    if (v34 == -1)
+    if (v34->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_88;
       }
 
-      v102 = self->_ucat;
+      v34 = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(v34, "[RPConnection _receivedSystemInfo:xid:]", 90, "### Rejecting connection to self");
   }
 
 LABEL_88:
   [(CUBonjourDevice *)self->_bonjourPeerDevice reconfirm];
-  v39 = 0;
+  v38 = 0;
 LABEL_204:
 
-  v97 = *MEMORY[0x1E69E9840];
-  return v39;
+  return v38;
 }
 
 void __40__RPConnection__receivedSystemInfo_xid___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = a2;
-  if (v10)
+  v8 = a2;
+  if (v8)
   {
     v3 = 0;
   }
@@ -11411,31 +12849,29 @@ void __40__RPConnection__receivedSystemInfo_xid___block_invoke(uint64_t a1, void
   }
 
   v4 = *(a1 + 32);
-  v5 = *v4[37];
-  if (v5 <= 10)
+  v5 = v4[37];
+  if (*v5 <= 10)
   {
-    if (v5 != -1)
+    if (*v5 != -1)
     {
 LABEL_6:
-      v9 = v3;
-      LogPrintF();
+      LogPrintF(v5, "[RPConnection _receivedSystemInfo:xid:]_block_invoke", 10, "Sending system info: %@", v3);
       v4 = *(a1 + 32);
       goto LABEL_8;
     }
 
-    v6 = v4[37];
-    v7 = _LogCategory_Initialize();
+    v6 = _LogCategory_Initialize();
     v4 = *(a1 + 32);
-    if (v7)
+    if (v6)
     {
-      v8 = v4[37];
+      v5 = v4[37];
       goto LABEL_6;
     }
   }
 
 LABEL_8:
-  LOBYTE(v9) = 0;
-  [v4 _sendEncryptedResponse:v3 options:0 error:v10 xid:*(a1 + 40) requestID:@"_systemInfo" highPriority:0 isChatty:v9 replyStartTime:0];
+  LOBYTE(v7) = 0;
+  [v4 _sendEncryptedResponse:v3 options:0 error:v8 xid:*(a1 + 40) requestID:@"_systemInfo" highPriority:0 isChatty:v7 replyStartTime:0];
   *(*(a1 + 32) + 140) = 1;
   [*(a1 + 32) _run];
 }
@@ -11483,9 +12919,9 @@ LABEL_8:
     [v3 setObject:v12 forKeyedSubscript:@"_appInfo"];
   }
 
-  v67 = 0;
-  RPBonjourFlagsUpdateWithRPCompanionLinkFlags(&v67, [(RPCompanionLinkDevice *)self->_localDeviceInfo flags]);
-  v13 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v67];
+  v63 = 0;
+  RPBonjourFlagsUpdateWithRPCompanionLinkFlags(&v63, [(RPCompanionLinkDevice *)self->_localDeviceInfo flags]);
+  v13 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v63];
   [v3 setObject:v13 forKeyedSubscript:@"_bf"];
 
   if (!v5 && (self->_statusFlags & 0x2000000000) == 0)
@@ -11501,10 +12937,10 @@ LABEL_8:
     [v3 setObject:p_isa forKeyedSubscript:@"_clSrv"];
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -11514,8 +12950,7 @@ LABEL_8:
       ucat = self->_ucat;
     }
 
-    serviceType = self->_serviceType;
-    LogPrintF();
+    LogPrintF(ucat, "[RPConnection _systeminfo]", 30, "Sending client service type %@\n", self->_serviceType);
   }
 
 LABEL_24:
@@ -11572,12 +13007,12 @@ LABEL_31:
   }
 
 LABEL_37:
-  v23 = [(RPCompanionLinkDevice *)self->_localDeviceInfo role:v14];
+  role = [(RPCompanionLinkDevice *)self->_localDeviceInfo role];
 
-  if (v23)
+  if (role)
   {
-    [v3 setObject:v23 forKeyedSubscript:@"_forcedRole"];
-    p_isa = v23;
+    [v3 setObject:role forKeyedSubscript:@"_forcedRole"];
+    p_isa = role;
   }
 
   else
@@ -11628,25 +13063,23 @@ LABEL_52:
 
   if ((statusFlags & 0x80000) != 0 && self->_pairVerifyCompleted && self->_pairVerifyIdentityType != 2)
   {
-    v31 = self->_ucat->var0;
-    if (v31 <= 30)
+    v31 = self->_ucat;
+    if (v31->var0 <= 30)
     {
-      if (v31 == -1)
+      if (v31->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
-          goto LABEL_67;
+          goto LABEL_68;
         }
 
-        v61 = self->_ucat;
+        v31 = self->_ucat;
       }
 
-LABEL_63:
-      LogPrintF();
+      LogPrintF(v31, "[RPConnection _systeminfo]", 30, "Send identity\n");
+      goto LABEL_68;
     }
 
-LABEL_67:
-    [(RPIdentityDaemon *)self->_identityDaemon addSelfIdentityInfoToMessage:v3 flags:0, serviceType];
     goto LABEL_68;
   }
 
@@ -11655,27 +13088,27 @@ LABEL_67:
     v29 = GestaltGetDeviceClass();
     if (!RPDeviceIsCommunal(v29))
     {
-      v30 = self->_ucat->var0;
-      if (v30 <= 30)
+      v30 = self->_ucat;
+      if (v30->var0 <= 30)
       {
-        if (v30 == -1)
+        if (v30->var0 == -1)
         {
           if (!_LogCategory_Initialize())
           {
-            goto LABEL_67;
+            goto LABEL_68;
           }
 
-          v32 = self->_ucat;
+          v30 = self->_ucat;
         }
 
-        goto LABEL_63;
+        LogPrintF(v30, "[RPConnection _systeminfo]", 30, "Send SharedHome identity\n");
       }
 
-      goto LABEL_67;
+LABEL_68:
+      [(RPIdentityDaemon *)self->_identityDaemon addSelfIdentityInfoToMessage:v3 flags:0];
     }
   }
 
-LABEL_68:
   if (v5)
   {
     idsDeviceIdentifier = [(RPEndpoint *)self->_localDeviceInfo idsDeviceIdentifier];
@@ -11695,8 +13128,8 @@ LABEL_68:
     listeningPort = [(RPCompanionLinkDevice *)self->_localDeviceInfo listeningPort];
     if (listeningPort)
     {
-      v36 = [MEMORY[0x1E696AD98] numberWithInt:listeningPort];
-      [v3 setObject:v36 forKeyedSubscript:@"_lP"];
+      v35 = [MEMORY[0x1E696AD98] numberWithInt:listeningPort];
+      [v3 setObject:v35 forKeyedSubscript:@"_lP"];
     }
 
     mediaRemoteIdentifier = [(RPEndpoint *)self->_localDeviceInfo mediaRemoteIdentifier];
@@ -11730,15 +13163,15 @@ LABEL_68:
     mediaSystemRole = [(RPCompanionLinkDevice *)self->_localDeviceInfo mediaSystemRole];
     if (mediaSystemRole)
     {
-      v42 = [MEMORY[0x1E696AD98] numberWithInt:mediaSystemRole];
-      [v3 setObject:v42 forKeyedSubscript:@"_msRo"];
+      v41 = [MEMORY[0x1E696AD98] numberWithInt:mediaSystemRole];
+      [v3 setObject:v41 forKeyedSubscript:@"_msRo"];
     }
 
     mediaSystemState = [(RPCompanionLinkDevice *)self->_localDeviceInfo mediaSystemState];
     if (mediaSystemState)
     {
-      v44 = [MEMORY[0x1E696AD98] numberWithInt:mediaSystemState];
-      [v3 setObject:v44 forKeyedSubscript:@"_msSt"];
+      v43 = [MEMORY[0x1E696AD98] numberWithInt:mediaSystemState];
+      [v3 setObject:v43 forKeyedSubscript:@"_msSt"];
     }
 
     p_isa = [(RPCompanionLinkDevice *)self->_localDeviceInfo activeUserAltDSID];
@@ -11749,9 +13182,9 @@ LABEL_68:
     }
   }
 
-  v45 = [v3 objectForKeyedSubscript:{@"model", serviceType}];
+  v44 = [v3 objectForKeyedSubscript:@"model"];
 
-  if (!v45)
+  if (!v44)
   {
     model = [(RPEndpoint *)self->_localDeviceInfo model];
 
@@ -11767,16 +13200,16 @@ LABEL_68:
     }
   }
 
-  v47 = [v3 objectForKeyedSubscript:@"name"];
+  v46 = [v3 objectForKeyedSubscript:@"name"];
 
-  if (!v47)
+  if (!v46)
   {
-    v48 = GestaltCopyAnswer();
+    v47 = GestaltCopyAnswer();
 
-    if (v48)
+    if (v47)
     {
-      [v3 setObject:v48 forKeyedSubscript:@"name"];
-      p_isa = v48;
+      [v3 setObject:v47 forKeyedSubscript:@"name"];
+      p_isa = v47;
     }
 
     else
@@ -11790,24 +13223,24 @@ LABEL_68:
   {
     if (localDeviceInfo)
     {
-      [(RPEndpoint *)localDeviceInfo operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(localDeviceInfo);
       localDeviceInfo = self->_localDeviceInfo;
-      if (v64 >= 1)
+      if (v60 >= 1)
       {
         if (localDeviceInfo)
         {
-          [(RPEndpoint *)localDeviceInfo operatingSystemVersion];
+          objc_msgSend_operatingSystemVersion(localDeviceInfo);
         }
 
         else
         {
-          memset(v63, 0, sizeof(v63));
+          memset(v59, 0, sizeof(v59));
         }
 
-        v50 = RPNSOperatingSystemVersionToString(v63);
-        if (v50)
+        v49 = RPNSOperatingSystemVersionToString(v59);
+        if (v49)
         {
-          [v3 setObject:v50 forKeyedSubscript:@"_osV"];
+          [v3 setObject:v49 forKeyedSubscript:@"_osV"];
         }
 
         localDeviceInfo = self->_localDeviceInfo;
@@ -11816,9 +13249,9 @@ LABEL_68:
 
     else
     {
-      v64 = 0;
-      v65 = 0;
-      v66 = 0;
+      v60 = 0;
+      v61 = 0;
+      v62 = 0;
     }
   }
 
@@ -11863,17 +13296,17 @@ LABEL_68:
   [v3 setObject:@"715.2" forKeyedSubscript:@"_sv"];
   if (self->_pairVerifyIdentityType == 2)
   {
-    v55 = [MEMORY[0x1E696AD98] numberWithInt:{-[RPEndpoint activityLevel](self->_localDeviceInfo, "activityLevel")}];
-    [v3 setObject:v55 forKeyedSubscript:@"_actLvl"];
+    v54 = [MEMORY[0x1E696AD98] numberWithInt:{-[RPEndpoint activityLevel](self->_localDeviceInfo, "activityLevel")}];
+    [v3 setObject:v54 forKeyedSubscript:@"_actLvl"];
   }
 
   if (v5)
   {
-    v56 = [(RPEndpoint *)self->_localDeviceInfo statusFlags]& 0x10000010100;
-    if (v56)
+    v55 = [(RPEndpoint *)self->_localDeviceInfo statusFlags]& 0x10000010100;
+    if (v55)
     {
-      v57 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v56];
-      [v3 setObject:v57 forKeyedSubscript:@"_sf"];
+      v56 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v55];
+      [v3 setObject:v56 forKeyedSubscript:@"_sf"];
     }
   }
 
@@ -11882,65 +13315,63 @@ LABEL_68:
     [(RPConnection *)self _identityProofsAdd:v3 update:0];
   }
 
-  v58 = v3;
+  v57 = v3;
 
-  return v58;
+  return v57;
 }
 
 - (id)_allowedMACAddressesForMCFeature:(id)feature
 {
   v22 = *MEMORY[0x1E69E9840];
   featureCopy = feature;
-  sharedConnection = [getMCProfileConnectionClass[0]() sharedConnection];
-  v5 = [sharedConnection effectiveValuesForUnionSetting:featureCopy];
+  v5 = [getMCProfileConnectionClass(featureCopy v4)];
+  v6 = [v5 effectiveValuesForUnionSetting:featureCopy];
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && [v5 count])
+  if ((objc_opt_isKindOfClass() & 1) != 0 && [v6 count])
   {
-    v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
-    if (v8)
+    v8 = v6;
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = *v18;
+      v10 = v9;
+      v11 = *v18;
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v10)
+          if (*v18 != v11)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v13 = *(*(&v17 + 1) + 8 * i);
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) != 0 && [v12 UTF8String] && !TextToHardwareAddress())
+          if ((objc_opt_isKindOfClass() & 1) != 0 && [v13 UTF8String] && !TextToHardwareAddress())
           {
-            v13 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v16 length:6];
-            [v6 addObject:v13];
+            v14 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v16 length:6];
+            [v7 addObject:v14];
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v6;
+  return v7;
 }
 
 - (void)_configureForSessionPairing:(id)pairing
@@ -11949,10 +13380,10 @@ LABEL_68:
   v5 = self->_identityDaemon;
   if (v5)
   {
-    var0 = self->_ucat->var0;
-    if (var0 <= 30)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -11962,40 +13393,40 @@ LABEL_68:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _configureForSessionPairing:]", 30, "Configuring for session pairing\n");
     }
 
 LABEL_6:
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __44__RPConnection__configureForSessionPairing___block_invoke;
-    v10[3] = &unk_1E7C93D78;
-    v10[4] = v5;
-    v10[5] = self;
-    [pairingCopy setCopyIdentityHandler:v10];
     v9[0] = MEMORY[0x1E69E9820];
     v9[1] = 3221225472;
-    v9[2] = __44__RPConnection__configureForSessionPairing___block_invoke_2;
-    v9[3] = &unk_1E7C93DA0;
-    v9[4] = self;
-    v9[5] = v5;
-    [pairingCopy setFindPeerHandler:v9];
+    v9[2] = __44__RPConnection__configureForSessionPairing___block_invoke;
+    v9[3] = &unk_1E7C93D78;
+    v9[4] = v5;
+    v9[5] = self;
+    [pairingCopy setCopyIdentityHandler:v9];
     v8[0] = MEMORY[0x1E69E9820];
     v8[1] = 3221225472;
-    v8[2] = __44__RPConnection__configureForSessionPairing___block_invoke_3;
-    v8[3] = &unk_1E7C93DC8;
+    v8[2] = __44__RPConnection__configureForSessionPairing___block_invoke_2;
+    v8[3] = &unk_1E7C93DA0;
     v8[4] = self;
     v8[5] = v5;
-    [pairingCopy setSavePeerHandler:v8];
+    [pairingCopy setFindPeerHandler:v8];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __44__RPConnection__configureForSessionPairing___block_invoke_3;
+    v7[3] = &unk_1E7C93DC8;
+    v7[4] = self;
+    v7[5] = v5;
+    [pairingCopy setSavePeerHandler:v7];
   }
 }
 
 id __44__RPConnection__configureForSessionPairing___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v6 = *(a1 + 32);
-  v19 = 0;
-  v7 = [v6 identityOfSelfAndReturnError:&v19];
-  v8 = v19;
+  v18 = 0;
+  v7 = [v6 identityOfSelfAndReturnError:&v18];
+  v8 = v18;
   if (v8)
   {
     v9 = 1;
@@ -12008,13 +13439,13 @@ id __44__RPConnection__configureForSessionPairing___block_invoke(uint64_t a1, ch
 
   if (v9)
   {
-    v10 = **(*(a1 + 40) + 296);
-    if (v10 > 90)
+    v10 = *(*(a1 + 40) + 296);
+    if (*v10 > 90)
     {
       goto LABEL_12;
     }
 
-    if (v10 == -1)
+    if (*v10 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -12034,10 +13465,10 @@ LABEL_12:
         goto LABEL_15;
       }
 
-      v18 = *(*(a1 + 40) + 296);
+      v10 = *(*(a1 + 40) + 296);
     }
 
-    LogPrintF();
+    LogPrintF(v10, "[RPConnection _configureForSessionPairing:]_block_invoke", 90, "### Failed to get self identity: %@\n.", v8);
     goto LABEL_12;
   }
 
@@ -12066,32 +13497,30 @@ LABEL_15:
 
 uint64_t __44__RPConnection__configureForSessionPairing___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v7 = a2;
-  v8 = **(*(a1 + 32) + 296);
-  if (v8 <= 30)
+  v8 = *(*(a1 + 32) + 296);
+  if (*v8 <= 30)
   {
-    if (v8 != -1)
+    if (*v8 != -1)
     {
 LABEL_3:
-      v29 = v7;
-      v30 = a3;
-      LogPrintF();
+      LogPrintF(v8, "[RPConnection _configureForSessionPairing:]_block_invoke_2", 30, "Find paired peer handler for peer %@ options %lu\n", v7, a3);
       goto LABEL_5;
     }
 
     if (_LogCategory_Initialize())
     {
-      v28 = *(*(a1 + 32) + 296);
+      v8 = *(*(a1 + 32) + 296);
       goto LABEL_3;
     }
   }
 
 LABEL_5:
   v9 = *(a1 + 40);
-  v37 = 0;
-  v10 = [v9 identitiesOfType:13 error:{&v37, v29, v30}];
-  v11 = v37;
+  v40 = 0;
+  v10 = [v9 identitiesOfType:13 error:&v40];
+  v11 = v40;
   v12 = v11;
   if (v11)
   {
@@ -12107,27 +13536,27 @@ LABEL_5:
     v14 = [v7 identifier];
     v15 = [v14 UUIDString];
 
-    v35 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     v36 = 0u;
-    v33 = 0u;
-    v34 = 0u;
+    v37 = 0u;
     v16 = v10;
-    v17 = [v16 countByEnumeratingWithState:&v33 objects:v38 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v36 objects:v41 count:16];
     if (v17)
     {
-      v31 = v10;
-      v32 = v7;
-      v18 = *v34;
+      v34 = v10;
+      v35 = v7;
+      v18 = *v37;
       while (2)
       {
         for (i = 0; i != v17; i = i + 1)
         {
-          if (*v34 != v18)
+          if (*v37 != v18)
           {
             objc_enumerationMutation(v16);
           }
 
-          v20 = *(*(&v33 + 1) + 8 * i);
+          v20 = *(*(&v36 + 1) + 8 * i);
           v21 = [v20 identifier];
           v22 = [v21 isEqual:v15];
 
@@ -12138,7 +13567,7 @@ LABEL_5:
           }
         }
 
-        v17 = [v16 countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v36 objects:v41 count:16];
         if (v17)
         {
           continue;
@@ -12148,64 +13577,95 @@ LABEL_5:
       }
 
 LABEL_18:
-      v10 = v31;
-      v7 = v32;
+      v10 = v34;
+      v7 = v35;
     }
 
     if (!a4 || v17)
     {
-      v23 = [v17 name];
-      [0 setName:v23];
+      v29 = [v17 name];
+      [0 setName:v29];
 
-      v24 = [v17 model];
-      [0 setModel:v24];
+      v30 = [v17 model];
+      [0 setModel:v30];
 
-      v25 = [v17 edPKData];
-      [0 setPublicKey:v25];
+      v31 = [v17 edPKData];
+      [0 setPublicKey:v31];
     }
 
     else
     {
-      *a4 = RPErrorF();
+      *a4 = RPErrorF(4294960569, "Temporary identity of the peer was not found.", v23, v24, v25, v26, v27, v28, v33);
     }
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
-BOOL __44__RPConnection__configureForSessionPairing___block_invoke_3(uint64_t a1, void *a2)
+BOOL __44__RPConnection__configureForSessionPairing___block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
 {
-  v3 = a2;
-  v4 = **(*(a1 + 32) + 296);
-  if (v4 <= 30)
+  v5 = a2;
+  v6 = *(*(a1 + 32) + 296);
+  if (*v6 <= 30)
   {
-    if (v4 != -1)
+    if (*v6 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(v6, "[RPConnection _configureForSessionPairing:]_block_invoke_3", 30, "Save paired peer handler for peer %@ options %lu\n", v5, a3);
       goto LABEL_5;
     }
 
     if (_LogCategory_Initialize())
     {
-      v8 = *(*(a1 + 32) + 296);
+      v6 = *(*(a1 + 32) + 296);
       goto LABEL_3;
     }
   }
 
 LABEL_5:
-  v5 = [[RPIdentity alloc] initWithPairedPeer:v3 type:13];
-  if (v5)
+  v7 = [[RPIdentity alloc] initWithPairedPeer:v5 type:13];
+  if (v7)
   {
     [*(*(a1 + 32) + 664) setStatusFlags:{objc_msgSend(*(*(a1 + 32) + 664), "statusFlags") | 0x2000000000}];
-    v6 = [(RPIdentity *)v5 identifier];
-    [*(*(a1 + 32) + 664) setVerifiedIdentity:v6];
+    v8 = [(RPIdentity *)v7 identifier];
+    [*(*(a1 + 32) + 664) setVerifiedIdentity:v8];
 
-    [*(a1 + 40) addSessionPairedIdentity:v5];
+    [*(a1 + 40) addSessionPairedIdentity:v7];
   }
 
-  return v5 != 0;
+  return v7 != 0;
+}
+
+- (void)addInUseProcess:(int)process
+{
+  v4 = RPProcessIDToNameString(*&process);
+  inUseProcesses = self->_inUseProcesses;
+  v8 = v4;
+  if (!inUseProcesses)
+  {
+    v6 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v7 = self->_inUseProcesses;
+    self->_inUseProcesses = v6;
+
+    v4 = v8;
+    inUseProcesses = self->_inUseProcesses;
+  }
+
+  [(NSMutableSet *)inUseProcesses addObject:v4];
+}
+
+- (BOOL)containsInUseProcess:(int)process
+{
+  if (!self->_inUseProcesses)
+  {
+    return 0;
+  }
+
+  selfCopy = self;
+  v4 = RPProcessIDToNameString(*&process);
+  LOBYTE(selfCopy) = [(NSMutableSet *)selfCopy->_inUseProcesses containsObject:v4];
+
+  return selfCopy;
 }
 
 - (id)inUseProcessesToString
@@ -12226,68 +13686,76 @@ LABEL_5:
   return v5;
 }
 
+- (void)removeInUseProcess:(int)process
+{
+  if (self->_inUseProcesses)
+  {
+    v4 = RPProcessIDToNameString(*&process);
+    [(NSMutableSet *)self->_inUseProcesses removeObject:v4];
+  }
+}
+
 - (void)_receivedHeader:(id *)header encryptedObjectData:(id)data ctx:(id *)ctx
 {
   dataCopy = data;
   var0 = header->var0;
-  v10 = self->_mainStream;
+  v16 = self->_mainStream;
   if (var0 == 12)
   {
-    v11 = self->_highPriorityStream;
+    v17 = self->_highPriorityStream;
 
-    v10 = v11;
+    v16 = v17;
   }
 
-  if (v10)
+  if (v16)
   {
-    v25 = 0;
-    v12 = [(CUPairingStream *)v10 decryptData:dataCopy aadBytes:header aadLength:4 error:&v25];
-    v13 = v25;
-    if (v12)
+    v43 = 0;
+    v18 = [(CUPairingStream *)v16 decryptData:dataCopy aadBytes:header aadLength:4 error:&v43];
+    v19 = v43;
+    if (v18)
     {
-      self->_controlFlags;
-      v14 = OPACKDecodeData();
-      if (v14)
+      v20 = OPACKDecodeData();
+      if (v20)
       {
-        v15 = v14;
+        v27 = v20;
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v21 = objc_opt_class();
-          v24 = NSStringFromClass(v21);
-          v22 = RPErrorF();
+          v33 = objc_opt_class();
+          v34 = NSStringFromClass(v33);
+          v41 = RPErrorF(4294960540, "Bad object type %@", v35, v36, v37, v38, v39, v40, v34);
 
-          v13 = v22;
+          v19 = v41;
           goto LABEL_9;
         }
 
-        v16 = [v15 mutableCopy];
-        v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(dataCopy, "length")}];
-        [v16 setObject:v17 forKeyedSubscript:&unk_1F2EEC710];
+        v28 = [v27 mutableCopy];
+        v29 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(dataCopy, "length")}];
+        [v28 setObject:v29 forKeyedSubscript:&unk_1F2EEC710];
 
-        v18 = v16;
-        [(RPConnection *)self _receivedObject:v18 ctx:ctx];
+        v30 = v28;
+        [(RPConnection *)self _receivedObject:v30 ctx:ctx];
       }
 
       else
       {
-        v20 = RPErrorF();
+        v32 = RPErrorF(0, "OPACK decode failed", v21, v22, v23, v24, v25, v26, v42);
       }
     }
   }
 
   else
   {
-    v13 = RPErrorF();
+    v19 = RPErrorF(4294960593, "Encryption not setup", v10, v11, v12, v13, v14, v15, v42);
   }
 
 LABEL_9:
-  if (v13)
+  if (v19)
   {
-    v19 = self->_ucat->var0;
-    if (v19 <= 90)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 90)
     {
-      if (v19 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -12297,7 +13765,7 @@ LABEL_9:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[RPConnection _receivedHeader:encryptedObjectData:ctx:]", 90, "### Receive encrypted object failed: %{error}\n", v19);
     }
   }
 
@@ -12310,14 +13778,20 @@ LABEL_14:
   NSStringFromClass(v4);
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_0_3();
-  *a2 = RPErrorF();
+  *a2 = RPErrorF(4294960540, "Bad PairSetup request object type %@", v5, v6, v7, v8, v9, v10, v11);
 }
 
 - (uint64_t)_clientPairSetupWithData:(uint64_t *)a3 .cold.2(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   CFStringGetTypeID();
-  CFDictionaryGetTypedValue();
-  result = RPErrorF();
+  TypedValue = CFDictionaryGetTypedValue();
+  v12 = &stru_1F2ED6FB8;
+  if (TypedValue)
+  {
+    v12 = TypedValue;
+  }
+
+  result = RPErrorF(a2, "PairSetup response error: '%@'", v6, v7, v8, v9, v10, v11, v12);
   *a3 = result;
   return result;
 }
@@ -12326,14 +13800,14 @@ LABEL_14:
 {
   if (a1 != -1)
   {
-    return LogPrintF();
+    return LogPrintF(a2, "[RPConnection _clientPairSetupCompleted:]", 30, "PairSetup completed client.\n");
   }
 
   result = _LogCategory_Initialize();
   if (result)
   {
-    v5 = *a3;
-    return LogPrintF();
+    a2 = *a3;
+    return LogPrintF(a2, "[RPConnection _clientPairSetupCompleted:]", 30, "PairSetup completed client.\n");
   }
 
   return result;
@@ -12345,7 +13819,7 @@ LABEL_14:
   NSStringFromClass(v4);
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_0_3();
-  *a2 = RPErrorF();
+  *a2 = RPErrorF(4294960540, "Bad PairVerify request object type %@", v5, v6, v7, v8, v9, v10, v11);
 }
 
 - (uint64_t)_serverPairSetupCompleted:(uint64_t)a3 .cold.1(int a1, uint64_t a2, uint64_t a3, uint64_t *a4)
@@ -12358,37 +13832,40 @@ LABEL_14:
       return result;
     }
 
-    v9 = *a4;
+    a2 = *a4;
   }
 
-  v5 = *(a3 + 200);
-  if (v5 < 0xB)
+  v6 = *(a3 + 200);
+  if (v6 >= 0xB)
   {
-    v6 = off_1E7C94130[v5];
+    v7 = "?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v7 = off_1E7C94130[v6];
+  }
+
+  return LogPrintF(a2, "[RPConnection _serverPairSetupCompleted:]", 30, "PairSetup completed server: %s\n", v7);
 }
 
-- (uint64_t)_sendFrameType:(unsigned int *)a3 unencryptedObject:.cold.1(uint64_t result, unsigned __int8 a2, unsigned int *a3)
+- (uint64_t)_sendFrameType:(uint64_t)result unencryptedObject:(unsigned __int8)a2 .cold.1(uint64_t result, unsigned __int8 a2)
 {
-  v3 = **(result + 296);
-  if (v3 <= 90)
+  v2 = *(result + 296);
+  if (*v2 <= 90)
   {
-    if (v3 != -1)
+    if (*v2 != -1)
     {
 LABEL_3:
-      RPFrameTypeToString(a2);
-      v9 = *a3;
-      return LogPrintF();
+      v4 = RPFrameTypeToString(a2);
+      return LogPrintF(v2, "[RPConnection _sendFrameType:unencryptedObject:]", 90, "### Send %s encode failed: %#m\n", v4);
     }
 
-    v6 = result;
-    v7 = *(result + 296);
+    v5 = result;
     result = _LogCategory_Initialize();
     if (result)
     {
-      v8 = *(v6 + 296);
+      v2 = *(v5 + 296);
       goto LABEL_3;
     }
   }
@@ -12406,10 +13883,10 @@ LABEL_3:
       return result;
     }
 
-    v5 = *a3;
+    a2 = *a3;
   }
 
-  return LogPrintF();
+  return LogPrintF(a2, "[RPConnection _identityProofsAddWithHomeKitUUID:]", 30, "Getting pairing identity using HomeKit UUID\n");
 }
 
 @end

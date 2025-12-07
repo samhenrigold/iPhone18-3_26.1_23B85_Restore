@@ -1,5 +1,6 @@
 @interface SBUIBackgroundViewInvertColorsAccessibility
 - (id)_backgroundColorForDarkenAlpha:(double)alpha andProgress:(double)progress;
+- (void)_updateAppearanceForBackgroundStyle:(int64_t)style transitionToSettings:(BOOL)settings;
 - (void)beginTransitionToBackgroundStyle:(int64_t)style;
 @end
 
@@ -38,6 +39,27 @@
   v4.receiver = self;
   v4.super_class = SBUIBackgroundViewInvertColorsAccessibility;
   [(SBUIBackgroundViewInvertColorsAccessibility *)&v4 beginTransitionToBackgroundStyle:style];
+}
+
+- (void)_updateAppearanceForBackgroundStyle:(int64_t)style transitionToSettings:(BOOL)settings
+{
+  settingsCopy = settings;
+  if (style == 8)
+  {
+    if (_AXSInvertColorsEnabled())
+    {
+      style = 4;
+    }
+
+    else
+    {
+      style = 8;
+    }
+  }
+
+  v6.receiver = self;
+  v6.super_class = SBUIBackgroundViewInvertColorsAccessibility;
+  [(SBUIBackgroundViewInvertColorsAccessibility *)&v6 _updateAppearanceForBackgroundStyle:style transitionToSettings:settingsCopy];
 }
 
 @end

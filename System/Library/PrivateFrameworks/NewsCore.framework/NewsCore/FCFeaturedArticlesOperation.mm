@@ -54,7 +54,7 @@
 
 - (BOOL)validateOperation
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self && self->_context)
   {
     LOBYTE(v2) = 1;
@@ -65,22 +65,21 @@
     v2 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
     if (v2)
     {
-      v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"current featured headlines fetch operation requires a context"];
-      v6 = 136315906;
-      v7 = "[FCFeaturedArticlesOperation validateOperation]";
-      v8 = 2080;
-      v9 = "FCFeaturedArticlesOperation.m";
-      v10 = 1024;
-      v11 = 60;
-      v12 = 2114;
-      v13 = v4;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v6, 0x26u);
+      v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"current featured headlines fetch operation requires a context"];
+      v5 = 136315906;
+      v6 = "[FCFeaturedArticlesOperation validateOperation]";
+      v7 = 2080;
+      v8 = "FCFeaturedArticlesOperation.m";
+      v9 = 1024;
+      v10 = 60;
+      v11 = 2114;
+      v12 = v3;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v5, 0x26u);
 
       LOBYTE(v2) = 0;
     }
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -241,7 +240,7 @@ uint64_t __47__FCFeaturedArticlesOperation_performOperation__block_invoke_4(uint
 
 void __71__FCFeaturedArticlesOperation__promiseArticleRecordsWithConfiguration___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v38[1] = *MEMORY[0x1E69E9840];
+  v37[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_alloc_init(FCCKMultiFetchQueryOperation);
@@ -266,16 +265,16 @@ void __71__FCFeaturedArticlesOperation__promiseArticleRecordsWithConfiguration__
     objc_setProperty_nonatomic_copy(v7, v12, v13, 408);
   }
 
-  v38[0] = *(a1 + 40);
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:1];
+  v37[0] = *(a1 + 40);
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:1];
   [(FCCKMultiFetchQueryOperation *)v7 setRecordIDs:v14];
 
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __71__FCFeaturedArticlesOperation__promiseArticleRecordsWithConfiguration___block_invoke_3;
-  v37[3] = &unk_1E7C36D40;
-  v37[4] = *(a1 + 32);
-  v15 = [MEMORY[0x1E695DEC8] fc_array:v37];
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __71__FCFeaturedArticlesOperation__promiseArticleRecordsWithConfiguration___block_invoke_3;
+  v36[3] = &unk_1E7C36D40;
+  v36[4] = *(a1 + 32);
+  v15 = [MEMORY[0x1E695DEC8] fc_array:v36];
   [(FCCKMultiFetchQueryOperation *)v7 setRecordSpecs:v15];
 
   v16 = objc_opt_new();
@@ -284,43 +283,41 @@ void __71__FCFeaturedArticlesOperation__promiseArticleRecordsWithConfiguration__
   newValue[2] = __71__FCFeaturedArticlesOperation__promiseArticleRecordsWithConfiguration___block_invoke_4;
   newValue[3] = &unk_1E7C37FE0;
   v18 = v16;
-  v36 = v18;
+  v35 = v18;
   if (v7)
   {
     objc_setProperty_nonatomic_copy(v7, v17, newValue, 440);
   }
 
   objc_initWeak(&location, v7);
-  v25 = MEMORY[0x1E69E9820];
-  v26 = 3221225472;
-  v27 = __71__FCFeaturedArticlesOperation__promiseArticleRecordsWithConfiguration___block_invoke_5;
-  v28 = &unk_1E7C3B2E8;
+  v24 = MEMORY[0x1E69E9820];
+  v25 = 3221225472;
+  v26 = __71__FCFeaturedArticlesOperation__promiseArticleRecordsWithConfiguration___block_invoke_5;
+  v27 = &unk_1E7C3B2E8;
   v19 = v6;
   v20 = *(a1 + 32);
-  v31 = v19;
-  v29 = v20;
-  objc_copyWeak(&v33, &location);
+  v30 = v19;
+  v28 = v20;
+  objc_copyWeak(&v32, &location);
   v21 = v5;
-  v32 = v21;
+  v31 = v21;
   v23 = v18;
-  v30 = v23;
+  v29 = v23;
   if (v7)
   {
-    objc_setProperty_nonatomic_copy(v7, v22, &v25, 448);
+    objc_setProperty_nonatomic_copy(v7, v22, &v24, 448);
   }
 
-  [*(a1 + 32) associateChildOperation:{v7, v25, v26, v27, v28, v29}];
+  [*(a1 + 32) associateChildOperation:{v7, v24, v25, v26, v27, v28}];
   [(FCOperation *)v7 start];
 
-  objc_destroyWeak(&v33);
+  objc_destroyWeak(&v32);
   objc_destroyWeak(&location);
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __71__FCFeaturedArticlesOperation__promiseArticleRecordsWithConfiguration___block_invoke_3(uint64_t a1, void *a2)
 {
-  v44[1] = *MEMORY[0x1E69E9840];
+  v43[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_opt_new();
   v6 = v4;
@@ -330,8 +327,8 @@ void __71__FCFeaturedArticlesOperation__promiseArticleRecordsWithConfiguration__
     objc_setProperty_nonatomic_copy(v6, v7, MEMORY[0x1E695E0F0], 24);
   }
 
-  v44[0] = @"tagIDs";
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:1];
+  v43[0] = @"tagIDs";
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:1];
   if (v6)
   {
     objc_setProperty_nonatomic_copy(v6, v8, v9, 32);
@@ -346,9 +343,9 @@ void __71__FCFeaturedArticlesOperation__promiseArticleRecordsWithConfiguration__
     objc_setProperty_nonatomic_copy(v12, v13, MEMORY[0x1E695E0F0], 24);
   }
 
-  v43[0] = @"latestIssueIDs";
-  v43[1] = @"currentNonIssueBundleFeaturedArticleListID";
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
+  v42[0] = @"latestIssueIDs";
+  v42[1] = @"currentNonIssueBundleFeaturedArticleListID";
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2];
   if (v12)
   {
     objc_setProperty_nonatomic_copy(v12, v14, v15, 32);
@@ -363,8 +360,8 @@ void __71__FCFeaturedArticlesOperation__promiseArticleRecordsWithConfiguration__
     objc_setProperty_nonatomic_copy(v18, v19, MEMORY[0x1E695E0F0], 24);
   }
 
-  v42 = @"bundleFeaturedArticleIDs";
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
+  v41 = @"bundleFeaturedArticleIDs";
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
   if (v18)
   {
     objc_setProperty_nonatomic_copy(v18, v20, v21, 32);
@@ -379,8 +376,8 @@ void __71__FCFeaturedArticlesOperation__promiseArticleRecordsWithConfiguration__
     objc_setProperty_nonatomic_copy(v24, v25, MEMORY[0x1E695E0F0], 24);
   }
 
-  v41 = @"articleIDs";
-  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
+  v40 = @"articleIDs";
+  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
   if (v24)
   {
     objc_setProperty_nonatomic_copy(v24, v26, v27, 32);
@@ -422,8 +419,6 @@ void __71__FCFeaturedArticlesOperation__promiseArticleRecordsWithConfiguration__
   }
 
   [v3 addObject:v30];
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 void __71__FCFeaturedArticlesOperation__promiseArticleRecordsWithConfiguration___block_invoke_4(uint64_t a1, void *a2)

@@ -48,7 +48,7 @@
   v12 = [v9 objectForKeyedSubscript:lCopy];
   if (!v12)
   {
-    v13 = TUIInstallBundleLog();
+    v13 = TUIInstallBundleLog(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v16 = 138543362;
@@ -73,7 +73,7 @@
 + (void)removeCacheForURL:(id)l
 {
   lCopy = l;
-  v4 = TUIInstallBundleLog();
+  v4 = TUIInstallBundleLog(lCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138543362;
@@ -155,8 +155,8 @@
       }
     }
 
-    TUI::Package::Decoder::sectionWithTag(&v10->_decoder, 0x656C6E62u, 2, &v19);
-    TUI::Package::Section::decodeStrings(&v19, 2, &v21);
+    TUI::Package::Decoder::sectionWithTag(&v19, &v10->_decoder, 0x656C6E62u, 2);
+    TUI::Package::Section::decodeStrings(&v21.st_dev, &v19, 2);
     *&v10->_elementNames.base = *&v21.st_dev;
     v10->_elementNames.offsets = *&v21.st_uid;
 

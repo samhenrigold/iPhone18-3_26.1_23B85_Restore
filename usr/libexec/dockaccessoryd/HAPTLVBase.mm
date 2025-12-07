@@ -69,7 +69,7 @@
         v15 = [v6 parseResponseForNumber:{objc_msgSend(v14, "tlvid")}];
         if (!v15)
         {
-          v16 = sub_10007FAA0();
+          v16 = sub_10007FAA0(0);
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             v17 = sub_10007FAFC(0);
@@ -103,7 +103,7 @@
           v15 = [v6 parseResponseForUInt8:{objc_msgSend(v14, "tlvid")}];
           if (!v15)
           {
-            v16 = sub_10007FAA0();
+            v16 = sub_10007FAA0(0);
             if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
               v21 = sub_10007FAFC(0);
@@ -136,7 +136,7 @@
             v15 = [v6 parseResponseForUInt16:{objc_msgSend(v14, "tlvid")}];
             if (!v15)
             {
-              v16 = sub_10007FAA0();
+              v16 = sub_10007FAA0(0);
               if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
               {
                 v21 = sub_10007FAFC(0);
@@ -169,7 +169,7 @@
               v15 = [v6 parseResponseForString:{objc_msgSend(v14, "tlvid")}];
               if (!v15)
               {
-                v16 = sub_10007FAA0();
+                v16 = sub_10007FAA0(0);
                 if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
                 {
                   v21 = sub_10007FAFC(0);
@@ -202,7 +202,7 @@
                 v15 = [v6 parseResponseForData:{objc_msgSend(v14, "tlvid")}];
                 if (!v15)
                 {
-                  v16 = sub_10007FAA0();
+                  v16 = sub_10007FAA0(0);
                   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
                   {
                     v21 = sub_10007FAFC(0);
@@ -256,7 +256,7 @@ LABEL_36:
 
                       else
                       {
-                        v41 = sub_10007FAA0();
+                        v41 = sub_10007FAA0(0);
                         if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
                         {
                           v42 = sub_10007FAFC(0);
@@ -293,7 +293,7 @@ LABEL_36:
 
                   else
                   {
-                    v15 = sub_10007FAA0();
+                    v15 = sub_10007FAA0(0);
                     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
                     {
                       v37 = sub_10007FAFC(0);
@@ -330,7 +330,7 @@ LABEL_36:
                 v15 = [v6 parseResponseForUUID:{objc_msgSend(v14, "tlvid")}];
                 if (!v15)
                 {
-                  v16 = sub_10007FAA0();
+                  v16 = sub_10007FAA0(0);
                   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
                   {
                     v21 = sub_10007FAFC(0);

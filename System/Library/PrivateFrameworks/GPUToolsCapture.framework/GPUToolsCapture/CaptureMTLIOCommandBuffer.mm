@@ -29,31 +29,30 @@
 
 - (void)waitUntilCompleted
 {
-  v14 = 0u;
-  v15 = 0u;
   v13 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v13);
+  v14 = 0u;
+  v12 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v12);
   [(MTLIOCommandBufferSPI *)self->_baseObject waitUntilCompleted];
-  v4 = v14;
-  *(v14 + 8) = -15335;
-  v5 = BYTE9(v15);
-  if (BYTE9(v15) > 0x38uLL)
+  v3 = v13;
+  *(v13 + 8) = -15335;
+  v4 = BYTE9(v14);
+  if (BYTE9(v14) > 0x38uLL)
   {
-    v7 = *(*(&v13 + 1) + 24);
-    v8 = BYTE10(v15);
-    ++BYTE10(v15);
-    v6 = GTTraceMemPool_allocateBytes(v7, *(&v14 + 1), v8 | 0x800000000) + 16;
-    v5 = v8;
+    v6 = *(*(&v12 + 1) + 24);
+    v7 = BYTE10(v14);
+    ++BYTE10(v14);
+    v5 = GTTraceMemPool_allocateBytes(v6, *(&v13 + 1), v7 | 0x800000000) + 16;
+    v4 = v7;
   }
 
   else
   {
-    v6 = (v4 + BYTE9(v15));
-    BYTE9(v15) += 8;
+    v5 = (v3 + BYTE9(v14));
+    BYTE9(v14) += 8;
   }
 
-  *(v4 + 13) = v5;
+  *(v3 + 13) = v4;
   traceStream = [(CaptureMTLIOCommandBuffer *)self traceStream];
   if (traceStream)
   {
@@ -65,40 +64,39 @@
     var0 = 0;
   }
 
-  *v6 = var0;
+  *v5 = var0;
   s();
-  *v11 = v12;
-  *(v11 + 8) = BYTE8(v15);
-  *(v14 + 15) |= 8u;
+  *v10 = v11;
+  *(v10 + 8) = BYTE8(v14);
+  *(v13 + 15) |= 8u;
 }
 
 - (void)tryCancel
 {
-  v14 = 0u;
-  v15 = 0u;
   v13 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v13);
+  v14 = 0u;
+  v12 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v12);
   [(MTLIOCommandBufferSPI *)self->_baseObject tryCancel];
-  v4 = v14;
-  *(v14 + 8) = -15336;
-  v5 = BYTE9(v15);
-  if (BYTE9(v15) > 0x38uLL)
+  v3 = v13;
+  *(v13 + 8) = -15336;
+  v4 = BYTE9(v14);
+  if (BYTE9(v14) > 0x38uLL)
   {
-    v7 = *(*(&v13 + 1) + 24);
-    v8 = BYTE10(v15);
-    ++BYTE10(v15);
-    v6 = GTTraceMemPool_allocateBytes(v7, *(&v14 + 1), v8 | 0x800000000) + 16;
-    v5 = v8;
+    v6 = *(*(&v12 + 1) + 24);
+    v7 = BYTE10(v14);
+    ++BYTE10(v14);
+    v5 = GTTraceMemPool_allocateBytes(v6, *(&v13 + 1), v7 | 0x800000000) + 16;
+    v4 = v7;
   }
 
   else
   {
-    v6 = (v4 + BYTE9(v15));
-    BYTE9(v15) += 8;
+    v5 = (v3 + BYTE9(v14));
+    BYTE9(v14) += 8;
   }
 
-  *(v4 + 13) = v5;
+  *(v3 + 13) = v4;
   traceStream = [(CaptureMTLIOCommandBuffer *)self traceStream];
   if (traceStream)
   {
@@ -110,41 +108,40 @@
     var0 = 0;
   }
 
-  *v6 = var0;
+  *v5 = var0;
   s();
-  *v11 = v12;
-  *(v11 + 8) = BYTE8(v15);
-  *(v14 + 15) |= 8u;
+  *v10 = v11;
+  *(v10 + 8) = BYTE8(v14);
+  *(v13 + 15) |= 8u;
 }
 
 - (void)pushDebugGroup:(id)group
 {
   groupCopy = group;
-  v19 = 0u;
-  v20 = 0u;
   v18 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v18);
+  v19 = 0u;
+  v17 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v17);
   [(MTLIOCommandBufferSPI *)self->_baseObject pushDebugGroup:groupCopy];
-  v6 = v19;
-  *(v19 + 8) = -15292;
-  v7 = BYTE9(v20);
-  if (BYTE9(v20) > 0x30uLL)
+  v5 = v18;
+  *(v18 + 8) = -15292;
+  v6 = BYTE9(v19);
+  if (BYTE9(v19) > 0x30uLL)
   {
-    v9 = *(*(&v18 + 1) + 24);
-    v10 = BYTE10(v20);
-    ++BYTE10(v20);
-    v8 = GTTraceMemPool_allocateBytes(v9, *(&v19 + 1), v10 | 0x1000000000) + 16;
-    v7 = v10;
+    v8 = *(*(&v17 + 1) + 24);
+    v9 = BYTE10(v19);
+    ++BYTE10(v19);
+    v7 = GTTraceMemPool_allocateBytes(v8, *(&v18 + 1), v9 | 0x1000000000) + 16;
+    v6 = v9;
   }
 
   else
   {
-    v8 = (v6 + BYTE9(v20));
-    BYTE9(v20) += 16;
+    v7 = (v5 + BYTE9(v19));
+    BYTE9(v19) += 16;
   }
 
-  *(v6 + 13) = v7;
+  *(v5 + 13) = v6;
   traceStream = [(CaptureMTLIOCommandBuffer *)self traceStream];
   if (traceStream)
   {
@@ -160,47 +157,46 @@
   if (uTF8String)
   {
     uTF8String2 = [groupCopy UTF8String];
-    v15 = strlen([groupCopy UTF8String]);
-    LOBYTE(uTF8String) = GTTraceEncoder_storeBytes(&v18, uTF8String2, v15 + 1);
+    v14 = strlen([groupCopy UTF8String]);
+    LOBYTE(uTF8String) = GTTraceEncoder_storeBytes(&v17, uTF8String2, v14 + 1);
   }
 
-  *v8 = var0;
-  v8[8] = uTF8String;
-  *(v8 + 9) = 0;
-  *(v8 + 3) = 0;
+  *v7 = var0;
+  v7[8] = uTF8String;
+  *(v7 + 9) = 0;
+  *(v7 + 3) = 0;
   s();
-  *v16 = v17;
-  *(v16 + 8) = BYTE8(v20);
-  *(v19 + 15) |= 8u;
+  *v15 = v16;
+  *(v15 + 8) = BYTE8(v19);
+  *(v18 + 15) |= 8u;
 }
 
 - (void)popDebugGroup
 {
-  v14 = 0u;
-  v15 = 0u;
   v13 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v13);
+  v14 = 0u;
+  v12 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v12);
   [(MTLIOCommandBufferSPI *)self->_baseObject popDebugGroup];
-  v4 = v14;
-  *(v14 + 8) = -15293;
-  v5 = BYTE9(v15);
-  if (BYTE9(v15) > 0x38uLL)
+  v3 = v13;
+  *(v13 + 8) = -15293;
+  v4 = BYTE9(v14);
+  if (BYTE9(v14) > 0x38uLL)
   {
-    v7 = *(*(&v13 + 1) + 24);
-    v8 = BYTE10(v15);
-    ++BYTE10(v15);
-    v6 = GTTraceMemPool_allocateBytes(v7, *(&v14 + 1), v8 | 0x800000000) + 16;
-    v5 = v8;
+    v6 = *(*(&v12 + 1) + 24);
+    v7 = BYTE10(v14);
+    ++BYTE10(v14);
+    v5 = GTTraceMemPool_allocateBytes(v6, *(&v13 + 1), v7 | 0x800000000) + 16;
+    v4 = v7;
   }
 
   else
   {
-    v6 = (v4 + BYTE9(v15));
-    BYTE9(v15) += 8;
+    v5 = (v3 + BYTE9(v14));
+    BYTE9(v14) += 8;
   }
 
-  *(v4 + 13) = v5;
+  *(v3 + 13) = v4;
   traceStream = [(CaptureMTLIOCommandBuffer *)self traceStream];
   if (traceStream)
   {
@@ -212,41 +208,40 @@
     var0 = 0;
   }
 
-  *v6 = var0;
+  *v5 = var0;
   s();
-  *v11 = v12;
-  *(v11 + 8) = BYTE8(v15);
-  *(v14 + 15) |= 8u;
+  *v10 = v11;
+  *(v10 + 8) = BYTE8(v14);
+  *(v13 + 15) |= 8u;
 }
 
 - (void)loadTexture:(id)texture slice:(unint64_t)slice level:(unint64_t)level size:(id *)size sourceBytesPerRow:(unint64_t)row sourceBytesPerImage:(unint64_t)image destinationOrigin:(id *)origin sourceHandle:(id)self0 sourceHandleOffset:(unint64_t)self1
 {
-  v50 = 0u;
-  v51 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v48 = 0u;
   traceContext = self->_traceContext;
-  traceStream = self->_traceStream;
   handleCopy = handle;
   textureCopy = texture;
-  GTTraceContext_pushEncoderWithStream(traceContext, &v49);
+  GTTraceContext_pushEncoderWithStream(traceContext, &v48);
   baseObject = self->_baseObject;
   baseObject = [textureCopy baseObject];
-  v42 = handleCopy;
+  v41 = handleCopy;
   baseObject2 = [handleCopy baseObject];
-  v48 = *size;
-  v47 = *origin;
+  v47 = *size;
+  v46 = *origin;
   sliceCopy = slice;
   rowCopy = row;
-  [(MTLIOCommandBufferSPI *)baseObject loadTexture:baseObject slice:slice level:level size:&v48 sourceBytesPerRow:row sourceBytesPerImage:image destinationOrigin:&v47 sourceHandle:baseObject2 sourceHandleOffset:offset];
+  [(MTLIOCommandBufferSPI *)baseObject loadTexture:baseObject slice:slice level:level size:&v47 sourceBytesPerRow:row sourceBytesPerImage:image destinationOrigin:&v46 sourceHandle:baseObject2 sourceHandleOffset:offset];
 
-  v23 = *(&v49 + 1);
-  v24 = v50;
-  *(v50 + 8) = -15310;
-  v25 = *(v23 + 24);
-  v26 = BYTE10(v51);
-  ++BYTE10(v51);
-  Bytes = GTTraceMemPool_allocateBytes(v25, *(&v50 + 1), v26 | 0x7000000000);
-  *(v24 + 13) = v26;
+  v22 = *(&v48 + 1);
+  v23 = v49;
+  *(v49 + 8) = -15310;
+  v24 = *(v22 + 24);
+  v25 = BYTE10(v50);
+  ++BYTE10(v50);
+  Bytes = GTTraceMemPool_allocateBytes(v24, *(&v49 + 1), v25 | 0x7000000000);
+  *(v23 + 13) = v25;
   traceStream = [(CaptureMTLIOCommandBuffer *)self traceStream];
   if (traceStream)
   {
@@ -262,79 +257,78 @@
 
   if (traceStream2)
   {
-    v30 = *traceStream2;
+    v29 = *traceStream2;
   }
 
   else
   {
-    v30 = 0;
+    v29 = 0;
   }
 
-  v31 = size->var0;
+  v30 = size->var0;
   var1 = size->var1;
   var2 = size->var2;
-  v34 = origin->var0;
-  v35 = origin->var1;
-  v36 = origin->var2;
-  traceStream3 = [v42 traceStream];
+  v33 = origin->var0;
+  v34 = origin->var1;
+  v35 = origin->var2;
+  traceStream3 = [v41 traceStream];
 
   if (traceStream3)
   {
-    v38 = *traceStream3;
+    v37 = *traceStream3;
   }
 
   else
   {
-    v38 = 0;
+    v37 = 0;
   }
 
   *(Bytes + 2) = var0;
-  *(Bytes + 3) = v30;
+  *(Bytes + 3) = v29;
   *(Bytes + 4) = sliceCopy;
   *(Bytes + 5) = level;
-  *(Bytes + 6) = v31;
+  *(Bytes + 6) = v30;
   *(Bytes + 7) = var1;
   *(Bytes + 8) = var2;
   *(Bytes + 9) = rowCopy;
   *(Bytes + 10) = image;
-  *(Bytes + 11) = v34;
-  *(Bytes + 12) = v35;
-  *(Bytes + 13) = v36;
-  *(Bytes + 14) = v38;
+  *(Bytes + 11) = v33;
+  *(Bytes + 12) = v34;
+  *(Bytes + 13) = v35;
+  *(Bytes + 14) = v37;
   *(Bytes + 15) = offset;
   s();
-  *v39 = v40;
-  *(v39 + 8) = BYTE8(v51);
-  *(v50 + 15) |= 8u;
+  *v38 = v39;
+  *(v38 + 8) = BYTE8(v50);
+  *(v49 + 15) |= 8u;
 }
 
 - (void)enqueue
 {
-  v14 = 0u;
-  v15 = 0u;
   v13 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v13);
+  v14 = 0u;
+  v12 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v12);
   [(MTLIOCommandBufferSPI *)self->_baseObject enqueue];
-  v4 = v14;
-  *(v14 + 8) = -15312;
-  v5 = BYTE9(v15);
-  if (BYTE9(v15) > 0x38uLL)
+  v3 = v13;
+  *(v13 + 8) = -15312;
+  v4 = BYTE9(v14);
+  if (BYTE9(v14) > 0x38uLL)
   {
-    v7 = *(*(&v13 + 1) + 24);
-    v8 = BYTE10(v15);
-    ++BYTE10(v15);
-    v6 = GTTraceMemPool_allocateBytes(v7, *(&v14 + 1), v8 | 0x800000000) + 16;
-    v5 = v8;
+    v6 = *(*(&v12 + 1) + 24);
+    v7 = BYTE10(v14);
+    ++BYTE10(v14);
+    v5 = GTTraceMemPool_allocateBytes(v6, *(&v13 + 1), v7 | 0x800000000) + 16;
+    v4 = v7;
   }
 
   else
   {
-    v6 = (v4 + BYTE9(v15));
-    BYTE9(v15) += 8;
+    v5 = (v3 + BYTE9(v14));
+    BYTE9(v14) += 8;
   }
 
-  *(v4 + 13) = v5;
+  *(v3 + 13) = v4;
   traceStream = [(CaptureMTLIOCommandBuffer *)self traceStream];
   if (traceStream)
   {
@@ -346,45 +340,44 @@
     var0 = 0;
   }
 
-  *v6 = var0;
+  *v5 = var0;
   s();
-  *v11 = v12;
-  *(v11 + 8) = BYTE8(v15);
-  *(v14 + 15) |= 8u;
+  *v10 = v11;
+  *(v10 + 8) = BYTE8(v14);
+  *(v13 + 15) |= 8u;
 }
 
 - (void)copyStatusToBuffer:(id)buffer offset:(unint64_t)offset
 {
-  v23 = 0u;
-  v24 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v21 = 0u;
   traceContext = self->_traceContext;
-  traceStream = self->_traceStream;
   bufferCopy = buffer;
-  GTTraceContext_pushEncoderWithStream(traceContext, &v22);
+  GTTraceContext_pushEncoderWithStream(traceContext, &v21);
   baseObject = self->_baseObject;
   baseObject = [bufferCopy baseObject];
   [(MTLIOCommandBufferSPI *)baseObject copyStatusToBuffer:baseObject offset:offset];
 
-  v11 = v23;
-  *(v23 + 8) = -15342;
-  v12 = BYTE9(v24);
-  if (BYTE9(v24) > 0x28uLL)
+  v10 = v22;
+  *(v22 + 8) = -15342;
+  v11 = BYTE9(v23);
+  if (BYTE9(v23) > 0x28uLL)
   {
-    v14 = *(*(&v22 + 1) + 24);
-    v15 = BYTE10(v24);
-    ++BYTE10(v24);
-    v13 = GTTraceMemPool_allocateBytes(v14, *(&v23 + 1), v15 | 0x1800000000) + 16;
-    v12 = v15;
+    v13 = *(*(&v21 + 1) + 24);
+    v14 = BYTE10(v23);
+    ++BYTE10(v23);
+    v12 = GTTraceMemPool_allocateBytes(v13, *(&v22 + 1), v14 | 0x1800000000) + 16;
+    v11 = v14;
   }
 
   else
   {
-    v13 = (v11 + BYTE9(v24));
-    BYTE9(v24) += 24;
+    v12 = (v10 + BYTE9(v23));
+    BYTE9(v23) += 24;
   }
 
-  *(v11 + 13) = v12;
+  *(v10 + 13) = v11;
   traceStream = [(CaptureMTLIOCommandBuffer *)self traceStream];
   if (traceStream)
   {
@@ -400,50 +393,49 @@
 
   if (traceStream2)
   {
-    v19 = *traceStream2;
+    v18 = *traceStream2;
   }
 
   else
   {
-    v19 = 0;
+    v18 = 0;
   }
 
-  *v13 = var0;
-  *(v13 + 1) = v19;
-  *(v13 + 2) = offset;
+  *v12 = var0;
+  *(v12 + 1) = v18;
+  *(v12 + 2) = offset;
   s();
-  *v20 = v21;
-  *(v20 + 8) = BYTE8(v24);
-  *(v23 + 15) |= 8u;
+  *v19 = v20;
+  *(v19 + 8) = BYTE8(v23);
+  *(v22 + 15) |= 8u;
 }
 
 - (void)addBarrier
 {
-  v14 = 0u;
-  v15 = 0u;
   v13 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v13);
+  v14 = 0u;
+  v12 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v12);
   [(MTLIOCommandBufferSPI *)self->_baseObject addBarrier];
-  v4 = v14;
-  *(v14 + 8) = -15295;
-  v5 = BYTE9(v15);
-  if (BYTE9(v15) > 0x38uLL)
+  v3 = v13;
+  *(v13 + 8) = -15295;
+  v4 = BYTE9(v14);
+  if (BYTE9(v14) > 0x38uLL)
   {
-    v7 = *(*(&v13 + 1) + 24);
-    v8 = BYTE10(v15);
-    ++BYTE10(v15);
-    v6 = GTTraceMemPool_allocateBytes(v7, *(&v14 + 1), v8 | 0x800000000) + 16;
-    v5 = v8;
+    v6 = *(*(&v12 + 1) + 24);
+    v7 = BYTE10(v14);
+    ++BYTE10(v14);
+    v5 = GTTraceMemPool_allocateBytes(v6, *(&v13 + 1), v7 | 0x800000000) + 16;
+    v4 = v7;
   }
 
   else
   {
-    v6 = (v4 + BYTE9(v15));
-    BYTE9(v15) += 8;
+    v5 = (v3 + BYTE9(v14));
+    BYTE9(v14) += 8;
   }
 
-  *(v4 + 13) = v5;
+  *(v3 + 13) = v4;
   traceStream = [(CaptureMTLIOCommandBuffer *)self traceStream];
   if (traceStream)
   {
@@ -455,11 +447,11 @@
     var0 = 0;
   }
 
-  *v6 = var0;
+  *v5 = var0;
   s();
-  *v11 = v12;
-  *(v11 + 8) = BYTE8(v15);
-  *(v14 + 15) |= 8u;
+  *v10 = v11;
+  *(v10 + 8) = BYTE8(v14);
+  *(v13 + 15) |= 8u;
 }
 
 - (BOOL)conformsToProtocol:(id)protocol
@@ -557,35 +549,34 @@
     while (!v17);
   }
 
-  v38 = 0u;
-  v39 = 0u;
   v37 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v37);
+  v38 = 0u;
+  v36 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v36);
   baseObject = self->_baseObject;
   baseObject = [bufferCopy baseObject];
   baseObject2 = [handleCopy baseObject];
   [(MTLIOCommandBufferSPI *)baseObject loadBuffer:baseObject offset:offset size:size sourceHandle:baseObject2 sourceHandleOffset:handleOffset];
 
-  v25 = v38;
-  *(v38 + 8) = -15311;
-  v26 = BYTE9(v39);
-  if (BYTE9(v39) > 0x10uLL)
+  v24 = v37;
+  *(v37 + 8) = -15311;
+  v25 = BYTE9(v38);
+  if (BYTE9(v38) > 0x10uLL)
   {
-    v28 = *(*(&v37 + 1) + 24);
-    v29 = BYTE10(v39);
-    ++BYTE10(v39);
-    v27 = GTTraceMemPool_allocateBytes(v28, *(&v38 + 1), v29 | 0x3000000000) + 16;
-    v26 = v29;
+    v27 = *(*(&v36 + 1) + 24);
+    v28 = BYTE10(v38);
+    ++BYTE10(v38);
+    v26 = GTTraceMemPool_allocateBytes(v27, *(&v37 + 1), v28 | 0x3000000000) + 16;
+    v25 = v28;
   }
 
   else
   {
-    v27 = (v25 + BYTE9(v39));
-    BYTE9(v39) += 48;
+    v26 = (v24 + BYTE9(v38));
+    BYTE9(v38) += 48;
   }
 
-  *(v25 + 13) = v26;
+  *(v24 + 13) = v25;
   traceStream3 = [(CaptureMTLIOCommandBuffer *)self traceStream];
   if (traceStream3)
   {
@@ -608,58 +599,57 @@
 
   if (traceStream5)
   {
-    v34 = *traceStream5;
+    v33 = *traceStream5;
   }
 
   else
   {
-    v34 = 0;
+    v33 = 0;
   }
 
-  *v27 = var0;
-  *(v27 + 1) = traceStream4;
-  *(v27 + 2) = offset;
-  *(v27 + 3) = size;
-  *(v27 + 4) = v34;
-  *(v27 + 5) = handleOffset;
+  *v26 = var0;
+  *(v26 + 1) = traceStream4;
+  *(v26 + 2) = offset;
+  *(v26 + 3) = size;
+  *(v26 + 4) = v33;
+  *(v26 + 5) = handleOffset;
   s();
-  *v35 = v36;
-  *(v35 + 8) = BYTE8(v39);
-  *(v38 + 15) |= 8u;
+  *v34 = v35;
+  *(v34 + 8) = BYTE8(v38);
+  *(v37 + 15) |= 8u;
 }
 
 - (void)loadBytes:(void *)bytes size:(unint64_t)size sourceHandle:(id)handle sourceHandleOffset:(unint64_t)offset
 {
-  v28 = 0u;
-  v29 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v26 = 0u;
   traceContext = self->_traceContext;
-  traceStream = self->_traceStream;
   handleCopy = handle;
-  GTTraceContext_pushEncoderWithStream(traceContext, &v27);
+  GTTraceContext_pushEncoderWithStream(traceContext, &v26);
   baseObject = self->_baseObject;
   baseObject = [handleCopy baseObject];
   [(MTLIOCommandBufferSPI *)baseObject loadBytes:bytes size:size sourceHandle:baseObject sourceHandleOffset:offset];
 
-  v15 = v28;
-  *(v28 + 8) = -15294;
-  v16 = BYTE9(v29);
-  if (BYTE9(v29) > 0x18uLL)
+  v14 = v27;
+  *(v27 + 8) = -15294;
+  v15 = BYTE9(v28);
+  if (BYTE9(v28) > 0x18uLL)
   {
-    v18 = *(*(&v27 + 1) + 24);
-    v19 = BYTE10(v29);
-    ++BYTE10(v29);
-    v17 = GTTraceMemPool_allocateBytes(v18, *(&v28 + 1), v19 | 0x2800000000) + 16;
-    v16 = v19;
+    v17 = *(*(&v26 + 1) + 24);
+    v18 = BYTE10(v28);
+    ++BYTE10(v28);
+    v16 = GTTraceMemPool_allocateBytes(v17, *(&v27 + 1), v18 | 0x2800000000) + 16;
+    v15 = v18;
   }
 
   else
   {
-    v17 = (v15 + BYTE9(v29));
-    BYTE9(v29) += 40;
+    v16 = (v14 + BYTE9(v28));
+    BYTE9(v28) += 40;
   }
 
-  *(v15 + 13) = v16;
+  *(v14 + 13) = v15;
   traceStream = [(CaptureMTLIOCommandBuffer *)self traceStream];
   if (traceStream)
   {
@@ -675,7 +665,17 @@
 
   if (traceStream2)
   {
-    v23 = *traceStream2;
+    v22 = *traceStream2;
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  if ((*(boundaryTrackerInstance + 20) & 0xFFFFFFFE) == 2)
+  {
+    v23 = GTTraceEncoder_storeBlob(&v26, bytes, size);
   }
 
   else
@@ -683,27 +683,17 @@
     v23 = 0;
   }
 
-  if ((*(boundaryTrackerInstance + 20) & 0xFFFFFFFE) == 2)
-  {
-    v24 = GTTraceEncoder_storeBlob(&v27, bytes, size);
-  }
-
-  else
-  {
-    v24 = 0;
-  }
-
-  *v17 = var0;
-  *(v17 + 1) = size;
-  *(v17 + 2) = v23;
-  *(v17 + 3) = offset;
-  v17[32] = v24;
-  *(v17 + 33) = 0;
-  *(v17 + 9) = 0;
+  *v16 = var0;
+  *(v16 + 1) = size;
+  *(v16 + 2) = v22;
+  *(v16 + 3) = offset;
+  v16[32] = v23;
+  *(v16 + 33) = 0;
+  *(v16 + 9) = 0;
   s();
-  *v25 = v26;
-  *(v25 + 8) = BYTE8(v29);
-  *(v28 + 15) |= 8u;
+  *v24 = v25;
+  *(v24 + 8) = BYTE8(v28);
+  *(v27 + 15) |= 8u;
 }
 
 - (void)encodeWaitForEvent:(id)event value:(unint64_t)value
@@ -719,34 +709,33 @@
     }
   }
 
-  v23 = 0u;
-  v24 = 0u;
   v22 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v22);
+  v23 = 0u;
+  v21 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v21);
   baseObject = self->_baseObject;
   baseObject = [eventCopy baseObject];
   [(MTLIOCommandBufferSPI *)baseObject encodeWaitForEvent:baseObject value:value];
 
-  v11 = v23;
-  *(v23 + 8) = -15339;
-  v12 = BYTE9(v24);
-  if (BYTE9(v24) > 0x28uLL)
+  v10 = v22;
+  *(v22 + 8) = -15339;
+  v11 = BYTE9(v23);
+  if (BYTE9(v23) > 0x28uLL)
   {
-    v14 = *(*(&v22 + 1) + 24);
-    v15 = BYTE10(v24);
-    ++BYTE10(v24);
-    v13 = GTTraceMemPool_allocateBytes(v14, *(&v23 + 1), v15 | 0x1800000000) + 16;
-    v12 = v15;
+    v13 = *(*(&v21 + 1) + 24);
+    v14 = BYTE10(v23);
+    ++BYTE10(v23);
+    v12 = GTTraceMemPool_allocateBytes(v13, *(&v22 + 1), v14 | 0x1800000000) + 16;
+    v11 = v14;
   }
 
   else
   {
-    v13 = (v11 + BYTE9(v24));
-    BYTE9(v24) += 24;
+    v12 = (v10 + BYTE9(v23));
+    BYTE9(v23) += 24;
   }
 
-  *(v11 + 13) = v12;
+  *(v10 + 13) = v11;
   traceStream = [(CaptureMTLIOCommandBuffer *)self traceStream];
   if (traceStream)
   {
@@ -761,21 +750,21 @@
   traceStream2 = [eventCopy traceStream];
   if (traceStream2)
   {
-    v19 = *traceStream2;
+    v18 = *traceStream2;
   }
 
   else
   {
-    v19 = 0;
+    v18 = 0;
   }
 
-  *v13 = var0;
-  *(v13 + 1) = v19;
-  *(v13 + 2) = value;
+  *v12 = var0;
+  *(v12 + 1) = v18;
+  *(v12 + 2) = value;
   s();
-  *v20 = v21;
-  *(v20 + 8) = BYTE8(v24);
-  *(v23 + 15) |= 8u;
+  *v19 = v20;
+  *(v19 + 8) = BYTE8(v23);
+  *(v22 + 15) |= 8u;
 }
 
 - (void)encodeSignalEvent:(id)event value:(unint64_t)value
@@ -791,34 +780,33 @@
     }
   }
 
-  v23 = 0u;
-  v24 = 0u;
   v22 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v22);
+  v23 = 0u;
+  v21 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v21);
   baseObject = self->_baseObject;
   baseObject = [eventCopy baseObject];
   [(MTLIOCommandBufferSPI *)baseObject encodeSignalEvent:baseObject value:value];
 
-  v11 = v23;
-  *(v23 + 8) = -15340;
-  v12 = BYTE9(v24);
-  if (BYTE9(v24) > 0x28uLL)
+  v10 = v22;
+  *(v22 + 8) = -15340;
+  v11 = BYTE9(v23);
+  if (BYTE9(v23) > 0x28uLL)
   {
-    v14 = *(*(&v22 + 1) + 24);
-    v15 = BYTE10(v24);
-    ++BYTE10(v24);
-    v13 = GTTraceMemPool_allocateBytes(v14, *(&v23 + 1), v15 | 0x1800000000) + 16;
-    v12 = v15;
+    v13 = *(*(&v21 + 1) + 24);
+    v14 = BYTE10(v23);
+    ++BYTE10(v23);
+    v12 = GTTraceMemPool_allocateBytes(v13, *(&v22 + 1), v14 | 0x1800000000) + 16;
+    v11 = v14;
   }
 
   else
   {
-    v13 = (v11 + BYTE9(v24));
-    BYTE9(v24) += 24;
+    v12 = (v10 + BYTE9(v23));
+    BYTE9(v23) += 24;
   }
 
-  *(v11 + 13) = v12;
+  *(v10 + 13) = v11;
   traceStream = [(CaptureMTLIOCommandBuffer *)self traceStream];
   if (traceStream)
   {
@@ -833,21 +821,21 @@
   traceStream2 = [eventCopy traceStream];
   if (traceStream2)
   {
-    v19 = *traceStream2;
+    v18 = *traceStream2;
   }
 
   else
   {
-    v19 = 0;
+    v18 = 0;
   }
 
-  *v13 = var0;
-  *(v13 + 1) = v19;
-  *(v13 + 2) = value;
+  *v12 = var0;
+  *(v12 + 1) = v18;
+  *(v12 + 2) = value;
   s();
-  *v20 = v21;
-  *(v20 + 8) = BYTE8(v24);
-  *(v23 + 15) |= 8u;
+  *v19 = v20;
+  *(v19 + 8) = BYTE8(v23);
+  *(v22 + 15) |= 8u;
 }
 
 - (void)signalEvent:(id)event value:(unint64_t)value
@@ -863,34 +851,33 @@
     }
   }
 
-  v23 = 0u;
-  v24 = 0u;
   v22 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v22);
+  v23 = 0u;
+  v21 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v21);
   baseObject = self->_baseObject;
   baseObject = [eventCopy baseObject];
   [(MTLIOCommandBufferSPI *)baseObject signalEvent:baseObject value:value];
 
-  v11 = v23;
-  *(v23 + 8) = -15309;
-  v12 = BYTE9(v24);
-  if (BYTE9(v24) > 0x28uLL)
+  v10 = v22;
+  *(v22 + 8) = -15309;
+  v11 = BYTE9(v23);
+  if (BYTE9(v23) > 0x28uLL)
   {
-    v14 = *(*(&v22 + 1) + 24);
-    v15 = BYTE10(v24);
-    ++BYTE10(v24);
-    v13 = GTTraceMemPool_allocateBytes(v14, *(&v23 + 1), v15 | 0x1800000000) + 16;
-    v12 = v15;
+    v13 = *(*(&v21 + 1) + 24);
+    v14 = BYTE10(v23);
+    ++BYTE10(v23);
+    v12 = GTTraceMemPool_allocateBytes(v13, *(&v22 + 1), v14 | 0x1800000000) + 16;
+    v11 = v14;
   }
 
   else
   {
-    v13 = (v11 + BYTE9(v24));
-    BYTE9(v24) += 24;
+    v12 = (v10 + BYTE9(v23));
+    BYTE9(v23) += 24;
   }
 
-  *(v11 + 13) = v12;
+  *(v10 + 13) = v11;
   traceStream = [(CaptureMTLIOCommandBuffer *)self traceStream];
   if (traceStream)
   {
@@ -905,21 +892,21 @@
   traceStream2 = [eventCopy traceStream];
   if (traceStream2)
   {
-    v19 = *traceStream2;
+    v18 = *traceStream2;
   }
 
   else
   {
-    v19 = 0;
+    v18 = 0;
   }
 
-  *v13 = var0;
-  *(v13 + 1) = v19;
-  *(v13 + 2) = value;
+  *v12 = var0;
+  *(v12 + 1) = v18;
+  *(v12 + 2) = value;
   s();
-  *v20 = v21;
-  *(v20 + 8) = BYTE8(v24);
-  *(v23 + 15) |= 8u;
+  *v19 = v20;
+  *(v19 + 8) = BYTE8(v23);
+  *(v22 + 15) |= 8u;
 }
 
 - (void)waitForEvent:(id)event value:(unint64_t)value
@@ -935,34 +922,33 @@
     }
   }
 
-  v23 = 0u;
-  v24 = 0u;
   v22 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v22);
+  v23 = 0u;
+  v21 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v21);
   baseObject = self->_baseObject;
   baseObject = [eventCopy baseObject];
   [(MTLIOCommandBufferSPI *)baseObject waitForEvent:baseObject value:value];
 
-  v11 = v23;
-  *(v23 + 8) = -15308;
-  v12 = BYTE9(v24);
-  if (BYTE9(v24) > 0x28uLL)
+  v10 = v22;
+  *(v22 + 8) = -15308;
+  v11 = BYTE9(v23);
+  if (BYTE9(v23) > 0x28uLL)
   {
-    v14 = *(*(&v22 + 1) + 24);
-    v15 = BYTE10(v24);
-    ++BYTE10(v24);
-    v13 = GTTraceMemPool_allocateBytes(v14, *(&v23 + 1), v15 | 0x1800000000) + 16;
-    v12 = v15;
+    v13 = *(*(&v21 + 1) + 24);
+    v14 = BYTE10(v23);
+    ++BYTE10(v23);
+    v12 = GTTraceMemPool_allocateBytes(v13, *(&v22 + 1), v14 | 0x1800000000) + 16;
+    v11 = v14;
   }
 
   else
   {
-    v13 = (v11 + BYTE9(v24));
-    BYTE9(v24) += 24;
+    v12 = (v10 + BYTE9(v23));
+    BYTE9(v23) += 24;
   }
 
-  *(v11 + 13) = v12;
+  *(v10 + 13) = v11;
   traceStream = [(CaptureMTLIOCommandBuffer *)self traceStream];
   if (traceStream)
   {
@@ -977,51 +963,50 @@
   traceStream2 = [eventCopy traceStream];
   if (traceStream2)
   {
-    v19 = *traceStream2;
+    v18 = *traceStream2;
   }
 
   else
   {
-    v19 = 0;
+    v18 = 0;
   }
 
-  *v13 = var0;
-  *(v13 + 1) = v19;
-  *(v13 + 2) = value;
+  *v12 = var0;
+  *(v12 + 1) = v18;
+  *(v12 + 2) = value;
   s();
-  *v20 = v21;
-  *(v20 + 8) = BYTE8(v24);
-  *(v23 + 15) |= 8u;
+  *v19 = v20;
+  *(v19 + 8) = BYTE8(v23);
+  *(v22 + 15) |= 8u;
 }
 
 - (void)setLabel:(id)label
 {
   labelCopy = label;
-  v19 = 0u;
-  v20 = 0u;
   v18 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v18);
+  v19 = 0u;
+  v17 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v17);
   [(MTLIOCommandBufferSPI *)self->_baseObject setLabel:labelCopy];
-  v6 = v19;
-  *(v19 + 8) = -15313;
-  v7 = BYTE9(v20);
-  if (BYTE9(v20) > 0x30uLL)
+  v5 = v18;
+  *(v18 + 8) = -15313;
+  v6 = BYTE9(v19);
+  if (BYTE9(v19) > 0x30uLL)
   {
-    v9 = *(*(&v18 + 1) + 24);
-    v10 = BYTE10(v20);
-    ++BYTE10(v20);
-    v8 = GTTraceMemPool_allocateBytes(v9, *(&v19 + 1), v10 | 0x1000000000) + 16;
-    v7 = v10;
+    v8 = *(*(&v17 + 1) + 24);
+    v9 = BYTE10(v19);
+    ++BYTE10(v19);
+    v7 = GTTraceMemPool_allocateBytes(v8, *(&v18 + 1), v9 | 0x1000000000) + 16;
+    v6 = v9;
   }
 
   else
   {
-    v8 = (v6 + BYTE9(v20));
-    BYTE9(v20) += 16;
+    v7 = (v5 + BYTE9(v19));
+    BYTE9(v19) += 16;
   }
 
-  *(v6 + 13) = v7;
+  *(v5 + 13) = v6;
   traceStream = [(CaptureMTLIOCommandBuffer *)self traceStream];
   if (traceStream)
   {
@@ -1037,48 +1022,47 @@
   if (uTF8String)
   {
     uTF8String2 = [labelCopy UTF8String];
-    v15 = strlen([labelCopy UTF8String]);
-    LOBYTE(uTF8String) = GTTraceEncoder_storeBytes(&v18, uTF8String2, v15 + 1);
+    v14 = strlen([labelCopy UTF8String]);
+    LOBYTE(uTF8String) = GTTraceEncoder_storeBytes(&v17, uTF8String2, v14 + 1);
   }
 
-  *v8 = var0;
-  v8[8] = uTF8String;
-  *(v8 + 9) = 0;
-  *(v8 + 3) = 0;
+  *v7 = var0;
+  v7[8] = uTF8String;
+  *(v7 + 9) = 0;
+  *(v7 + 3) = 0;
   s();
-  *v16 = v17;
-  *(v16 + 8) = BYTE8(v20);
-  *(v19 + 15) |= 8u;
+  *v15 = v16;
+  *(v15 + 8) = BYTE8(v19);
+  *(v18 + 15) |= 8u;
 }
 
 - (void)commit
 {
-  v14 = 0u;
-  v15 = 0u;
   v13 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v13);
-  [(CaptureMTLIOCommandBuffer *)self _preCommitWithIndex:*v14];
+  v14 = 0u;
+  v12 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v12);
+  [(CaptureMTLIOCommandBuffer *)self _preCommitWithIndex:*v13];
   [(MTLIOCommandBufferSPI *)self->_baseObject commit];
-  v4 = v14;
-  *(v14 + 8) = -15343;
-  v5 = BYTE9(v15);
-  if (BYTE9(v15) > 0x38uLL)
+  v3 = v13;
+  *(v13 + 8) = -15343;
+  v4 = BYTE9(v14);
+  if (BYTE9(v14) > 0x38uLL)
   {
-    v7 = *(*(&v13 + 1) + 24);
-    v8 = BYTE10(v15);
-    ++BYTE10(v15);
-    v6 = GTTraceMemPool_allocateBytes(v7, *(&v14 + 1), v8 | 0x800000000) + 16;
-    v5 = v8;
+    v6 = *(*(&v12 + 1) + 24);
+    v7 = BYTE10(v14);
+    ++BYTE10(v14);
+    v5 = GTTraceMemPool_allocateBytes(v6, *(&v13 + 1), v7 | 0x800000000) + 16;
+    v4 = v7;
   }
 
   else
   {
-    v6 = (v4 + BYTE9(v15));
-    BYTE9(v15) += 8;
+    v5 = (v3 + BYTE9(v14));
+    BYTE9(v14) += 8;
   }
 
-  *(v4 + 13) = v5;
+  *(v3 + 13) = v4;
   traceStream = [(CaptureMTLIOCommandBuffer *)self traceStream];
   if (traceStream)
   {
@@ -1090,11 +1074,11 @@
     var0 = 0;
   }
 
-  *v6 = var0;
+  *v5 = var0;
   s();
-  *v11 = v12;
-  *(v11 + 8) = BYTE8(v15);
-  *(v14 + 15) |= 8u;
+  *v10 = v11;
+  *(v10 + 8) = BYTE8(v14);
+  *(v13 + 15) |= 8u;
 }
 
 - (void)_preCommitWithIndex:(unint64_t)index
@@ -1123,44 +1107,42 @@
 
 void __49__CaptureMTLIOCommandBuffer__preCommitWithIndex___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 48);
   s();
-  v4 = v3;
-  v5 = *v3;
-  *v3 = v6;
+  v3 = v2;
+  v4 = *v2;
+  *v2 = v5;
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v7 = *(a1 + 32);
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v8)
+  v6 = *(a1 + 32);
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v14;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      v11 = 0;
+      v10 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(a1 + 40);
-        (*(*(*(&v13 + 1) + 8 * v11) + 16))(*(*(&v13 + 1) + 8 * v11));
-        v11 = v11 + 1;
+        (*(*(*(&v11 + 1) + 8 * v10) + 16))(*(*(&v11 + 1) + 8 * v10));
+        v10 = v10 + 1;
       }
 
-      while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      while (v8 != v10);
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
-  *v4 = v5;
+  *v3 = v4;
 }
 
 - (void)addCompletedHandler:(id)handler
@@ -1179,30 +1161,29 @@ void __49__CaptureMTLIOCommandBuffer__preCommitWithIndex___block_invoke(uint64_t
   v8 = objc_retainBlock(handlerCopy);
   [(NSMutableArray *)completedDispatchArray addObject:v8];
 
-  v20 = 0u;
-  v21 = 0u;
   v19 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v19);
-  v10 = v20;
-  *(v20 + 8) = -15345;
-  v11 = BYTE9(v21);
-  if (BYTE9(v21) > 0x30uLL)
+  v20 = 0u;
+  v18 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v18);
+  v9 = v19;
+  *(v19 + 8) = -15345;
+  v10 = BYTE9(v20);
+  if (BYTE9(v20) > 0x30uLL)
   {
-    v13 = *(*(&v19 + 1) + 24);
-    v14 = BYTE10(v21);
-    ++BYTE10(v21);
-    v12 = GTTraceMemPool_allocateBytes(v13, *(&v20 + 1), v14 | 0x1000000000) + 16;
-    v11 = v14;
+    v12 = *(*(&v18 + 1) + 24);
+    v13 = BYTE10(v20);
+    ++BYTE10(v20);
+    v11 = GTTraceMemPool_allocateBytes(v12, *(&v19 + 1), v13 | 0x1000000000) + 16;
+    v10 = v13;
   }
 
   else
   {
-    v12 = (v10 + BYTE9(v21));
-    BYTE9(v21) += 16;
+    v11 = (v9 + BYTE9(v20));
+    BYTE9(v20) += 16;
   }
 
-  *(v10 + 13) = v11;
+  *(v9 + 13) = v10;
   traceStream = [(CaptureMTLIOCommandBuffer *)self traceStream];
   if (traceStream)
   {
@@ -1214,73 +1195,72 @@ void __49__CaptureMTLIOCommandBuffer__preCommitWithIndex___block_invoke(uint64_t
     var0 = 0;
   }
 
-  *v12 = var0;
-  *(v12 + 1) = handlerCopy;
+  *v11 = var0;
+  *(v11 + 1) = handlerCopy;
   s();
-  *v17 = v18;
-  *(v17 + 8) = BYTE8(v21);
-  *(v20 + 15) |= 8u;
+  *v16 = v17;
+  *(v16 + 8) = BYTE8(v20);
+  *(v19 + 15) |= 8u;
 }
 
 - (void)dealloc
 {
-  v27 = 0u;
-  v28 = 0u;
   v26 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v26);
+  v27 = 0u;
+  v25 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v25);
   s();
-  v5 = v4;
-  v6 = *v4;
-  *v4 = v7;
+  v4 = v3;
+  v5 = *v3;
+  *v3 = v6;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v8 = self->_completedDispatchArray;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v22 objects:v29 count:16];
-  if (v9)
+  v7 = self->_completedDispatchArray;
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v21 objects:v28 count:16];
+  if (v8)
   {
-    v10 = v9;
-    v11 = *v23;
+    v9 = v8;
+    v10 = *v22;
     do
     {
-      for (i = 0; i != v10; i = i + 1)
+      for (i = 0; i != v9; i = i + 1)
       {
-        if (*v23 != v11)
+        if (*v22 != v10)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v7);
         }
 
-        (*(*(*(&v22 + 1) + 8 * i) + 16))();
+        (*(*(*(&v21 + 1) + 8 * i) + 16))();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v22 objects:v29 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v21 objects:v28 count:16];
     }
 
-    while (v10);
+    while (v9);
   }
 
-  *v5 = v6;
-  v13 = v27;
-  *(v27 + 8) = -15341;
-  v14 = BYTE9(v28);
-  if (BYTE9(v28) > 0x38uLL)
+  *v4 = v5;
+  v12 = v26;
+  *(v26 + 8) = -15341;
+  v13 = BYTE9(v27);
+  if (BYTE9(v27) > 0x38uLL)
   {
-    v16 = *(*(&v26 + 1) + 24);
-    v17 = BYTE10(v28);
-    ++BYTE10(v28);
-    v15 = GTTraceMemPool_allocateBytes(v16, *(&v27 + 1), v17 | 0x800000000) + 16;
-    v14 = v17;
+    v15 = *(*(&v25 + 1) + 24);
+    v16 = BYTE10(v27);
+    ++BYTE10(v27);
+    v14 = GTTraceMemPool_allocateBytes(v15, *(&v26 + 1), v16 | 0x800000000) + 16;
+    v13 = v16;
   }
 
   else
   {
-    v15 = (v13 + BYTE9(v28));
-    BYTE9(v28) += 8;
+    v14 = (v12 + BYTE9(v27));
+    BYTE9(v27) += 8;
   }
 
-  *(v13 + 13) = v14;
+  *(v12 + 13) = v13;
   traceStream = [(CaptureMTLIOCommandBuffer *)self traceStream];
   if (traceStream)
   {
@@ -1292,15 +1272,15 @@ void __49__CaptureMTLIOCommandBuffer__preCommitWithIndex___block_invoke(uint64_t
     var0 = 0;
   }
 
-  *v15 = var0;
-  v20 = v27;
-  *v5 = v28;
-  *(v5 + 8) = BYTE8(v28);
-  *(v20 + 15) |= 8u;
+  *v14 = var0;
+  v19 = v26;
+  *v4 = v27;
+  *(v4 + 8) = BYTE8(v27);
+  *(v19 + 15) |= 8u;
   GTTraceContext_closeStream(self->_traceContext, &self->_traceStream->var0);
-  v21.receiver = self;
-  v21.super_class = CaptureMTLIOCommandBuffer;
-  [(CaptureMTLIOCommandBuffer *)&v21 dealloc];
+  v20.receiver = self;
+  v20.super_class = CaptureMTLIOCommandBuffer;
+  [(CaptureMTLIOCommandBuffer *)&v20 dealloc];
 }
 
 - (CaptureMTLIOCommandBuffer)initWithBaseObject:(id)object captureIOCommandQueue:(id)queue

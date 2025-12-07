@@ -375,9 +375,9 @@ LABEL_14:
   cgImageSource = v22;
   if (v22)
   {
-    [(CGImageSource *)v22 extent];
+    objc_msgSend_extent(v22);
     v24 = v23;
-    [(CGImageSource *)cgImageSource extent];
+    objc_msgSend_extent(cgImageSource);
     v26 = v25;
     v27 = [(NUCGImageSourceNode *)self pixelSizeWithSourceOptions:v9];
     v29 = (v27 + v28) / (v26 + v24);
@@ -708,7 +708,7 @@ __n128 __28__NUCGImageSourceNode_load___block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __28__NUCGImageSourceNode_load___block_invoke_2(uint64_t a1)
+void *__28__NUCGImageSourceNode_load___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _load:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;

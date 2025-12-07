@@ -1,6 +1,6 @@
-void sub_2728547C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2728547C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -12,16 +12,30 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2728553CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2728553CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_272855718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272855718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_272856D50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2728596B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
+{
+  va_start(va, a40);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -289,8 +303,8 @@ uint64_t VSRecognitionSetBluetoothInputAllowed(uint64_t a1, char a2)
 uint64_t _VSRecognitionPrepareAndBegin(char *cf, int a2, void *a3)
 {
   v3 = a3;
-  v56[1] = *MEMORY[0x277D85DE8];
-  v48 = 1;
+  v55[1] = *MEMORY[0x277D85DE8];
+  v47 = 1;
   if (a3)
   {
     *a3 = 0;
@@ -311,7 +325,7 @@ uint64_t _VSRecognitionPrepareAndBegin(char *cf, int a2, void *a3)
 LABEL_20:
       v14 = 0;
       *v3 = CFErrorCreateWithUserInfoKeysAndValues(v8, @"VSErrorDomain", v9, &userInfoKeys, userInfoValues, 1);
-      goto LABEL_90;
+      goto LABEL_91;
     }
 
     goto LABEL_34;
@@ -332,7 +346,7 @@ LABEL_18:
 
 LABEL_34:
     v14 = 0;
-    goto LABEL_90;
+    goto LABEL_91;
   }
 
   v13 = *(cf + 10);
@@ -371,13 +385,14 @@ LABEL_34:
     if (*(cf + 24) != -1)
     {
       Port = CFMachPortGetPort(v15);
-      v54 = 0u;
-      v52 = 1;
-      v53 = CFMachPortGetPort(v17);
-      DWORD1(v54) = 1245184;
+      v53 = 0u;
+      userInfoKeys.msgh_size = 0;
+      v51 = 1;
+      v52 = CFMachPortGetPort(v17);
+      DWORD1(v53) = 1245184;
       reply_port = mig_get_reply_port();
       userInfoKeys.msgh_local_port = reply_port;
-      *&userInfoKeys.msgh_bits = 2147489043;
+      userInfoKeys.msgh_bits = -2147478253;
       userInfoKeys.msgh_remote_port = Port;
       *&userInfoKeys.msgh_voucher_port = 0xF54BF00000000;
       if (MEMORY[0x28223BE58])
@@ -402,17 +417,17 @@ LABEL_34:
         mig_dealloc_reply_port(userInfoKeys.msgh_local_port);
       }
 
-      else if (userInfoKeys.msgh_id != 1004835 || (userInfoKeys.msgh_bits & 0x80000000) != 0 || *&userInfoKeys.msgh_size != 40 || v54)
+      else if (userInfoKeys.msgh_id != 1004835 || (userInfoKeys.msgh_bits & 0x80000000) != 0 || userInfoKeys.msgh_size != 40 || userInfoKeys.msgh_remote_port || v53)
       {
         mach_msg_destroy(&userInfoKeys);
       }
 
       else
       {
-        v48 = BYTE4(v54);
+        v47 = BYTE4(v53);
       }
 
-      goto LABEL_82;
+      goto LABEL_83;
     }
 
     v23 = *(cf + 23);
@@ -429,10 +444,10 @@ LABEL_34:
         }
 
         BinaryXMLData = 0;
-        v48 = 0;
+        v47 = 0;
         LOBYTE(userInfoKeys.msgh_bits) = 0;
         LOBYTE(userInfoValues[0]) = 0;
-        goto LABEL_65;
+        goto LABEL_66;
       }
 
       v25 = DictionaryRepresentation;
@@ -459,15 +474,15 @@ LABEL_34:
         if (v3)
         {
           *buffer = *MEMORY[0x277CBEE30];
-          v56[0] = @"error converting audio input path to server";
-          *v3 = CFErrorCreateWithUserInfoKeysAndValues(v6, @"VSErrorDomain", -4007, buffer, v56, 1);
+          v55[0] = @"error converting audio input path to server";
+          *v3 = CFErrorCreateWithUserInfoKeysAndValues(v6, @"VSErrorDomain", -4007, buffer, v55, 1);
         }
 
-        v48 = 0;
-LABEL_65:
+        v47 = 0;
+LABEL_66:
         v33 = 0;
         usedBufLen = 0;
-        goto LABEL_77;
+        goto LABEL_78;
       }
     }
 
@@ -492,20 +507,20 @@ LABEL_65:
         v33 = buffer;
       }
 
-      v57.location = 0;
-      v57.length = Length;
-      if (!CFStringGetBytes(*(cf + 11), v57, 0x8000100u, 0, 0, v33, MaximumSizeForEncoding, &usedBufLen))
+      v56.location = 0;
+      v56.length = Length;
+      if (!CFStringGetBytes(*(cf + 11), v56, 0x8000100u, 0, 0, v33, MaximumSizeForEncoding, &usedBufLen))
       {
         if (v3)
         {
           v41 = *MEMORY[0x277CBEE30];
-          v55 = @"error converting model identifier";
-          v56[0] = v41;
-          *v3 = CFErrorCreateWithUserInfoKeysAndValues(v6, @"VSErrorDomain", -4007, v56, &v55, 1);
+          v54 = @"error converting model identifier";
+          v55[0] = v41;
+          *v3 = CFErrorCreateWithUserInfoKeysAndValues(v6, @"VSErrorDomain", -4007, v55, &v54, 1);
         }
 
-        v48 = 0;
-        goto LABEL_77;
+        v47 = 0;
+        goto LABEL_78;
       }
     }
 
@@ -515,20 +530,20 @@ LABEL_65:
       usedBufLen = 0;
     }
 
-    v46 = CFMachPortGetPort(v15);
+    v45 = CFMachPortGetPort(v15);
     v34 = CFMachPortGetPort(v17);
     v35 = *(cf + 32);
     v36 = *(cf + 20);
     v37 = usedBufLen;
-    v45 = BinaryXMLData;
+    v44 = BinaryXMLData;
     if (BinaryXMLData)
     {
-      v44 = v34;
+      v43 = v34;
       BytePtr = CFDataGetBytePtr(BinaryXMLData);
       v39 = BinaryXMLData;
       BinaryXMLData = BytePtr;
       v40 = CFDataGetLength(v39);
-      v34 = v44;
+      v34 = v43;
     }
 
     else
@@ -536,9 +551,9 @@ LABEL_65:
       v40 = 0;
     }
 
-    remote_VSRecognitionPrepareOrBegin(v46, v34, v35, &userInfoKeys, userInfoValues, v33, v37, BinaryXMLData, v36, v40, a2 == 0, *(cf + 72), HIBYTE(*(cf + 72)), &v48);
-    BinaryXMLData = v45;
-LABEL_77:
+    remote_VSRecognitionPrepareOrBegin(v45, v34, v35, &userInfoKeys, userInfoValues, v33, v37, BinaryXMLData, v36, v40, a2 == 0, *(cf + 72), HIBYTE(*(cf + 72)), &v47);
+    BinaryXMLData = v44;
+LABEL_78:
     if (BinaryXMLData)
     {
       CFRelease(BinaryXMLData);
@@ -549,17 +564,17 @@ LABEL_77:
       free(v33);
     }
 
-LABEL_82:
-    if (v48 == 1)
+LABEL_83:
+    if (v47 == 1)
     {
       *(cf + 24) = a2 != 0;
       v3 = 1;
-      goto LABEL_87;
+      goto LABEL_88;
     }
 
     if (!v3)
     {
-      goto LABEL_87;
+      goto LABEL_88;
     }
 
     if (!*v3)
@@ -582,9 +597,9 @@ LABEL_82:
     {
 LABEL_29:
       v22 = *MEMORY[0x277CBEE30];
-      v55 = @"recognition request denied";
-      v56[0] = v22;
-      *v3 = CFErrorCreateWithUserInfoKeysAndValues(v6, @"VSErrorDomain", -4000, v56, &v55, 1);
+      v54 = @"recognition request denied";
+      v55[0] = v22;
+      *v3 = CFErrorCreateWithUserInfoKeysAndValues(v6, @"VSErrorDomain", -4000, v55, &v54, 1);
     }
   }
 
@@ -593,7 +608,7 @@ LABEL_30:
   v14 = 0;
   if (v15)
   {
-LABEL_87:
+LABEL_88:
     CFRelease(v15);
     v14 = v3;
   }
@@ -603,9 +618,8 @@ LABEL_87:
     CFRelease(v17);
   }
 
-LABEL_90:
+LABEL_91:
   pthread_mutex_unlock((cf + 16));
-  v42 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -615,7 +629,7 @@ void _VSRecognitionNotificationCallBack(int a1, CFStringRef theString1, const __
   valuePtr = -4001;
   if (!a4)
   {
-    goto LABEL_53;
+    return;
   }
 
   if (CFStringCompare(theString1, @"note.recog.prepare", 0) == kCFCompareEqualTo)
@@ -623,105 +637,156 @@ void _VSRecognitionNotificationCallBack(int a1, CFStringRef theString1, const __
     pthread_mutex_lock((a4 + 16));
     v11 = *(a4 + 96);
     pthread_mutex_unlock((a4 + 16));
-    if (v11 <= 1)
+    if (v11 > 1)
     {
-      v12 = *(a4 + 104);
-      if (v12)
-      {
-        goto LABEL_17;
-      }
+      return;
     }
 
-LABEL_53:
-    v34 = *MEMORY[0x277D85DE8];
+    v12 = *(a4 + 104);
+    if (!v12)
+    {
+      return;
+    }
+
+    goto LABEL_17;
+  }
+
+  if (CFStringCompare(theString1, @"note.recog.start", 0) == kCFCompareEqualTo)
+  {
+    pthread_mutex_lock((a4 + 16));
+    v13 = *(a4 + 96);
+    pthread_mutex_unlock((a4 + 16));
+    if (v13 != 1)
+    {
+      return;
+    }
+
+    v12 = *(a4 + 112);
+    if (!v12)
+    {
+      return;
+    }
+
+LABEL_17:
+    v14 = *(a4 + 192);
+
+    v12(a4, v14);
     return;
   }
 
-  if (CFStringCompare(theString1, @"note.recog.start", 0))
+  if (CFStringCompare(theString1, @"note.recog.results", 0) == kCFCompareEqualTo)
   {
-    if (CFStringCompare(theString1, @"note.recog.results", 0))
+    if (Mutable)
     {
-      if (CFStringCompare(theString1, @"note.recog.cancel", 0))
+      v15 = CFGetAllocator(a4);
+      Value = CFDictionaryGetValue(Mutable, @"key.recog.results");
+      if (!Value || (v17 = Value, Count = CFArrayGetCount(Value), Count < 1) || (v19 = Count, TypeID = CFArrayGetTypeID(), TypeID != CFGetTypeID(v17)))
       {
-        if (CFStringCompare(theString1, @"note.recog.error", 0) == kCFCompareEqualTo)
-        {
-          if (Mutable)
-          {
-            Value = CFDictionaryGetValue(Mutable, @"key.recog.errordesc");
-            v29 = CFDictionaryGetValue(Mutable, @"key.recog.errorcode");
-            if (v29)
-            {
-              CFNumberGetValue(v29, kCFNumberCFIndexType, &valuePtr);
-            }
-          }
-
-          else
-          {
-            Value = 0;
-          }
-
-          v9 = CFGetAllocator(a4);
-          v10 = valuePtr;
-          *userInfoKeys = *MEMORY[0x277CBEE30];
-          userInfoValues[0] = Value;
-          v26 = Value != 0;
-          goto LABEL_38;
-        }
-
-        if (CFStringCompare(theString1, @"note.server.died", 0))
-        {
-          goto LABEL_53;
-        }
-
-        pthread_mutex_lock((a4 + 16));
-        v7 = *(a4 + 96);
-        v8 = *(a4 + 80);
-        if (v8)
-        {
-          CFRelease(v8);
-          *(a4 + 80) = 0;
-        }
-
-        pthread_mutex_unlock((a4 + 16));
-        if (v7 > 1)
-        {
-          goto LABEL_53;
-        }
-
-        v9 = CFGetAllocator(a4);
-        *userInfoKeys = *MEMORY[0x277CBEE30];
-        userInfoValues[0] = @"connection lost";
-        v10 = -4004;
+        v24 = 0;
+        Mutable = 0;
+        goto LABEL_32;
       }
 
-      else
-      {
-        v9 = CFGetAllocator(a4);
-        *userInfoKeys = *MEMORY[0x277CBEE30];
-        userInfoValues[0] = @"recognition cancelled";
-        v10 = -4002;
-      }
-
-      v26 = 1;
-LABEL_38:
-      v25 = CFErrorCreateWithUserInfoKeysAndValues(v9, @"VSErrorDomain", v10, userInfoKeys, userInfoValues, v26);
-      Mutable = 0;
-      v27 = -1;
-LABEL_39:
-      pthread_mutex_lock((a4 + 16));
-      *(a4 + 96) = v27;
-      v30 = *(a4 + 168);
-      if (v30)
-      {
-        munmap(v30, 4uLL);
-      }
-
-      v31 = *(a4 + 176);
+      Mutable = CFArrayCreateMutable(v15, 0, MEMORY[0x277CBF128]);
+      v37.location = 0;
+      v37.length = v19;
+      CFArrayApplyFunction(v17, v37, _ConvertSingleRecognitionResultDictionaryRepresentation, Mutable);
       if (Mutable)
       {
-        if (v31)
+        v21 = CFArrayGetCount(Mutable);
+        v22 = v19 - v21;
+        if (v19 != v21)
         {
-          CFRelease(v31);
+          v23 = VSGetLogDefault();
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          {
+            *userInfoKeys = 134217984;
+            *&userInfoKeys[4] = v22;
+            _os_log_error_impl(&dword_272850000, v23, OS_LOG_TYPE_ERROR, "Failed to convert %ld recognition results\n", userInfoKeys, 0xCu);
+          }
+        }
+      }
+    }
+
+    v24 = 0;
+LABEL_32:
+    v26 = 2;
+    goto LABEL_39;
+  }
+
+  if (CFStringCompare(theString1, @"note.recog.cancel", 0) == kCFCompareEqualTo)
+  {
+    v9 = CFGetAllocator(a4);
+    *userInfoKeys = *MEMORY[0x277CBEE30];
+    userInfoValues[0] = @"recognition cancelled";
+    v10 = -4002;
+    goto LABEL_30;
+  }
+
+  if (CFStringCompare(theString1, @"note.recog.error", 0) == kCFCompareEqualTo)
+  {
+    if (Mutable)
+    {
+      v27 = CFDictionaryGetValue(Mutable, @"key.recog.errordesc");
+      v28 = CFDictionaryGetValue(Mutable, @"key.recog.errorcode");
+      if (v28)
+      {
+        CFNumberGetValue(v28, kCFNumberCFIndexType, &valuePtr);
+      }
+    }
+
+    else
+    {
+      v27 = 0;
+    }
+
+    v9 = CFGetAllocator(a4);
+    v10 = valuePtr;
+    *userInfoKeys = *MEMORY[0x277CBEE30];
+    userInfoValues[0] = v27;
+    v25 = v27 != 0;
+    goto LABEL_38;
+  }
+
+  if (CFStringCompare(theString1, @"note.server.died", 0) == kCFCompareEqualTo)
+  {
+    pthread_mutex_lock((a4 + 16));
+    v7 = *(a4 + 96);
+    v8 = *(a4 + 80);
+    if (v8)
+    {
+      CFRelease(v8);
+      *(a4 + 80) = 0;
+    }
+
+    pthread_mutex_unlock((a4 + 16));
+    if (v7 <= 1)
+    {
+      v9 = CFGetAllocator(a4);
+      *userInfoKeys = *MEMORY[0x277CBEE30];
+      userInfoValues[0] = @"connection lost";
+      v10 = -4004;
+LABEL_30:
+      v25 = 1;
+LABEL_38:
+      v24 = CFErrorCreateWithUserInfoKeysAndValues(v9, @"VSErrorDomain", v10, userInfoKeys, userInfoValues, v25);
+      Mutable = 0;
+      v26 = -1;
+LABEL_39:
+      pthread_mutex_lock((a4 + 16));
+      *(a4 + 96) = v26;
+      v29 = *(a4 + 168);
+      if (v29)
+      {
+        munmap(v29, 4uLL);
+      }
+
+      v30 = *(a4 + 176);
+      if (Mutable)
+      {
+        if (v30)
+        {
+          CFRelease(v30);
         }
 
         *(a4 + 176) = Mutable;
@@ -730,93 +795,34 @@ LABEL_39:
       else
       {
         Mutable = *(a4 + 176);
-        if (!v31)
+        if (!v30)
         {
-          v32 = 1;
+          v31 = 1;
           goto LABEL_47;
         }
       }
 
       CFRetain(Mutable);
-      v32 = 0;
+      v31 = 0;
 LABEL_47:
       pthread_mutex_unlock((a4 + 16));
-      v33 = *(a4 + 120);
-      if (v33)
+      v32 = *(a4 + 120);
+      if (v32)
       {
-        v33(a4, Mutable, v25, *(a4 + 192));
+        v32(a4, Mutable, v24, *(a4 + 192));
       }
 
-      if ((v32 & 1) == 0)
+      if ((v31 & 1) == 0)
       {
         CFRelease(Mutable);
       }
 
-      if (v25)
+      if (v24)
       {
-        CFRelease(v25);
-      }
-
-      goto LABEL_53;
-    }
-
-    if (Mutable)
-    {
-      v16 = CFGetAllocator(a4);
-      v17 = CFDictionaryGetValue(Mutable, @"key.recog.results");
-      if (!v17 || (v18 = v17, Count = CFArrayGetCount(v17), Count < 1) || (v20 = Count, TypeID = CFArrayGetTypeID(), TypeID != CFGetTypeID(v18)))
-      {
-        v25 = 0;
-        Mutable = 0;
-        goto LABEL_32;
-      }
-
-      Mutable = CFArrayCreateMutable(v16, 0, MEMORY[0x277CBF128]);
-      v39.location = 0;
-      v39.length = v20;
-      CFArrayApplyFunction(v18, v39, _ConvertSingleRecognitionResultDictionaryRepresentation, Mutable);
-      if (Mutable)
-      {
-        v22 = CFArrayGetCount(Mutable);
-        v23 = v20 - v22;
-        if (v20 != v22)
-        {
-          v24 = VSGetLogDefault();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-          {
-            *userInfoKeys = 134217984;
-            *&userInfoKeys[4] = v23;
-            _os_log_error_impl(&dword_272850000, v24, OS_LOG_TYPE_ERROR, "Failed to convert %ld recognition results\n", userInfoKeys, 0xCu);
-          }
-        }
+        CFRelease(v24);
       }
     }
-
-    v25 = 0;
-LABEL_32:
-    v27 = 2;
-    goto LABEL_39;
   }
-
-  pthread_mutex_lock((a4 + 16));
-  v13 = *(a4 + 96);
-  pthread_mutex_unlock((a4 + 16));
-  if (v13 != 1)
-  {
-    goto LABEL_53;
-  }
-
-  v12 = *(a4 + 112);
-  if (!v12)
-  {
-    goto LABEL_53;
-  }
-
-LABEL_17:
-  v14 = *(a4 + 192);
-  v15 = *MEMORY[0x277D85DE8];
-
-  v12(a4, v14);
 }
 
 void _ConvertSingleRecognitionResultDictionaryRepresentation(const __CFDictionary *a1, void *a2)
@@ -861,10 +867,10 @@ BOOL VSRecognitionCancel(uint64_t a1, CFErrorRef *a2)
   if (v5 && v6)
   {
     Port = CFMachPortGetPort(v5);
-    v18 = 0;
+    v17 = 0;
     *&msg[4] = 0u;
-    v17 = CFMachPortGetPort(v7);
-    v19 = 1245184;
+    v16 = CFMachPortGetPort(v7);
+    v18 = 1245184;
     *msg = -2147483629;
     *&msg[8] = Port;
     *&msg[20] = 0x1000F54C2;
@@ -917,7 +923,6 @@ LABEL_17:
 
 LABEL_21:
   pthread_mutex_unlock((a1 + 16));
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1555,7 +1560,7 @@ LABEL_13:
 const __CFURL *VSLogBundleCreate(const __CFAllocator *a1)
 {
   valuePtr[128] = *MEMORY[0x277D85DE8];
-  v26 = 0;
+  v25 = 0;
   pthread_once(&_VSLogBundleGetMainDirectoryURL___CreateMainDirectoryOnce, _VSLogBundleCreateMainLogDirectory);
   v2 = __MainDirectory;
   v3 = __DateFormatter;
@@ -1569,114 +1574,116 @@ const __CFURL *VSLogBundleCreate(const __CFAllocator *a1)
     v4 = 1;
   }
 
-  if (v4 || (Current = CFAbsoluteTimeGetCurrent(), (StringWithAbsoluteTime = CFDateFormatterCreateStringWithAbsoluteTime(a1, v3, Current)) == 0))
+  if (v4)
   {
-    v9 = 0;
+    return 0;
   }
 
-  else
+  Current = CFAbsoluteTimeGetCurrent();
+  StringWithAbsoluteTime = CFDateFormatterCreateStringWithAbsoluteTime(a1, v3, Current);
+  if (!StringWithAbsoluteTime)
   {
-    v7 = StringWithAbsoluteTime;
-    v8 = CFURLCreateCopyAppendingPathComponent(a1, v2, StringWithAbsoluteTime, 1u);
-    v9 = v8;
-    if (v8)
+    return 0;
+  }
+
+  v7 = StringWithAbsoluteTime;
+  v8 = CFURLCreateCopyAppendingPathComponent(a1, v2, StringWithAbsoluteTime, 1u);
+  v9 = v8;
+  if (v8)
+  {
+    if (VSDirectoryExistsAtURL(v8, 1, &v25) || VSCreateDirectory(v2) && VSDirectoryExistsAtURL(v9, 1, &v25))
     {
-      if (VSDirectoryExistsAtURL(v8, 1, &v26) || VSCreateDirectory(v2) && VSDirectoryExistsAtURL(v9, 1, &v26))
+      pthread_once(&_VSLogBundleGetMainDirectoryURL___CreateMainDirectoryOnce, _VSLogBundleCreateMainLogDirectory);
+      v10 = VSCopyContentsOfDirectoryAtURL(__MainDirectory, 0);
+      v11 = v10;
+      if (v10)
       {
-        pthread_once(&_VSLogBundleGetMainDirectoryURL___CreateMainDirectoryOnce, _VSLogBundleCreateMainLogDirectory);
-        v10 = VSCopyContentsOfDirectoryAtURL(__MainDirectory, 0);
-        v11 = v10;
-        if (v10)
-        {
-          Count = CFArrayGetCount(v10);
-        }
-
-        else
-        {
-          Count = 0;
-        }
-
-        v13 = 25;
-        valuePtr[0] = 25;
-        v14 = CFPreferencesCopyAppValue(@"MaxLogCount", @"com.apple.voiceservices");
-        if (v14)
-        {
-          v15 = v14;
-          CFNumberGetValue(v14, kCFNumberCFIndexType, valuePtr);
-          if (valuePtr[0] <= 24)
-          {
-            valuePtr[0] = 25;
-          }
-
-          CFRelease(v15);
-          v13 = valuePtr[0];
-        }
-
-        if (Count > v13)
-        {
-          MutableCopy = CFArrayCreateMutableCopy(*MEMORY[0x277CBECE8], 0, v11);
-          if (MutableCopy)
-          {
-            v17 = MutableCopy;
-            v29.location = 0;
-            v29.length = Count;
-            CFArraySortValues(MutableCopy, v29, _CompareURLsByModificationDate, 0);
-            v30.length = Count - valuePtr[0];
-            v30.location = 0;
-            CFArrayApplyFunction(v17, v30, _DeleteLogURL, 0);
-            CFRelease(v17);
-          }
-        }
-
-        if (v11)
-        {
-          CFRelease(v11);
-        }
-
-        if (v26)
-        {
-          PathComponent = CFURLCopyLastPathComponent(v9);
-          if (PathComponent)
-          {
-            v19 = PathComponent;
-            if (CFStringGetFileSystemRepresentation(PathComponent, valuePtr, 1024))
-            {
-              pthread_once(&_VSLogBundleGetMainDirectoryURL___CreateMainDirectoryOnce, _VSLogBundleCreateMainLogDirectory);
-              v20 = __MainDirectory;
-              if (__MainDirectory)
-              {
-                v21 = CFGetAllocator(v9);
-                v22 = CFURLCreateCopyAppendingPathComponent(v21, v20, @"Latest.vslog", 0);
-                if (v22)
-                {
-                  v23 = v22;
-                  if (CFURLGetFileSystemRepresentation(v22, 1u, buffer, 1024))
-                  {
-                    unlink(buffer);
-                    symlink(valuePtr, buffer);
-                  }
-
-                  CFRelease(v23);
-                }
-              }
-            }
-
-            CFRelease(v19);
-          }
-        }
+        Count = CFArrayGetCount(v10);
       }
 
       else
       {
-        CFRelease(v9);
-        v9 = 0;
+        Count = 0;
+      }
+
+      v13 = 25;
+      valuePtr[0] = 25;
+      v14 = CFPreferencesCopyAppValue(@"MaxLogCount", @"com.apple.voiceservices");
+      if (v14)
+      {
+        v15 = v14;
+        CFNumberGetValue(v14, kCFNumberCFIndexType, valuePtr);
+        if (valuePtr[0] <= 24)
+        {
+          valuePtr[0] = 25;
+        }
+
+        CFRelease(v15);
+        v13 = valuePtr[0];
+      }
+
+      if (Count > v13)
+      {
+        MutableCopy = CFArrayCreateMutableCopy(*MEMORY[0x277CBECE8], 0, v11);
+        if (MutableCopy)
+        {
+          v17 = MutableCopy;
+          v28.location = 0;
+          v28.length = Count;
+          CFArraySortValues(MutableCopy, v28, _CompareURLsByModificationDate, 0);
+          v29.length = Count - valuePtr[0];
+          v29.location = 0;
+          CFArrayApplyFunction(v17, v29, _DeleteLogURL, 0);
+          CFRelease(v17);
+        }
+      }
+
+      if (v11)
+      {
+        CFRelease(v11);
+      }
+
+      if (v25)
+      {
+        PathComponent = CFURLCopyLastPathComponent(v9);
+        if (PathComponent)
+        {
+          v19 = PathComponent;
+          if (CFStringGetFileSystemRepresentation(PathComponent, valuePtr, 1024))
+          {
+            pthread_once(&_VSLogBundleGetMainDirectoryURL___CreateMainDirectoryOnce, _VSLogBundleCreateMainLogDirectory);
+            v20 = __MainDirectory;
+            if (__MainDirectory)
+            {
+              v21 = CFGetAllocator(v9);
+              v22 = CFURLCreateCopyAppendingPathComponent(v21, v20, @"Latest.vslog", 0);
+              if (v22)
+              {
+                v23 = v22;
+                if (CFURLGetFileSystemRepresentation(v22, 1u, buffer, 1024))
+                {
+                  unlink(buffer);
+                  symlink(valuePtr, buffer);
+                }
+
+                CFRelease(v23);
+              }
+            }
+          }
+
+          CFRelease(v19);
+        }
       }
     }
 
-    CFRelease(v7);
+    else
+    {
+      CFRelease(v9);
+      v9 = 0;
+    }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
+  CFRelease(v7);
   return v9;
 }
 
@@ -1998,7 +2005,7 @@ void _VSRecognitionResultDestroy(void *a1)
   }
 }
 
-void *VSRecognitionResultCreateWithHandlerInfo(int a1, const void *a2, const void *a3, CFArrayRef theArray, const void *a5)
+void *VSRecognitionResultCreateWithHandlerInfo(uint64_t a1, const void *a2, const void *a3, CFArrayRef theArray, const void *a5)
 {
   v5 = 0;
   if (a3 && theArray)
@@ -2040,7 +2047,7 @@ void *VSRecognitionResultCreateWithHandlerInfo(int a1, const void *a2, const voi
   return v5;
 }
 
-void *VSRecognitionResultCreateFromDictionaryRepresentation(int a1, CFDictionaryRef theDict)
+void *VSRecognitionResultCreateFromDictionaryRepresentation(uint64_t a1, CFDictionaryRef theDict)
 {
   Value = CFDictionaryGetValue(theDict, @"classes");
   v5 = CFDictionaryGetValue(theDict, @"phrases");
@@ -2225,12 +2232,12 @@ BOOL VSPluginRegistryRebuild(char a1)
 
 BOOL VSRecognitionConfigurationCacheUpdate(const __CFString *a1, const __CFString *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v4 = _VSServerConnectionCreate(*MEMORY[0x277CBECE8], 0, 0);
   if (v4)
   {
     v5 = v4;
-    v21 = 0;
+    v20 = 0;
     usedBufLen = 0;
     v6 = _VSServerConnectionCopyServerPort(v4);
     if (!v6)
@@ -2239,7 +2246,7 @@ BOOL VSRecognitionConfigurationCacheUpdate(const __CFString *a1, const __CFStrin
 LABEL_28:
       _VSServerConnectionInvalidate(v5);
       CFRelease(v5);
-      goto LABEL_29;
+      return v12;
     }
 
     v7 = v6;
@@ -2259,16 +2266,16 @@ LABEL_28:
         v11 = buffer;
       }
 
-      v37.location = 0;
-      v37.length = Length;
-      v13 = CFStringGetBytes(a1, v37, 0x8000100u, 0, 0, v11, v10, &usedBufLen) == 0;
+      v36.location = 0;
+      v36.length = Length;
+      v13 = CFStringGetBytes(a1, v36, 0x8000100u, 0, 0, v11, v10, &usedBufLen) == 0;
       if (a2)
       {
 LABEL_12:
         v15 = CFStringGetLength(a2);
         v16 = CFStringGetMaximumSizeForEncoding(v15, 0x8000100u);
         v17 = v16;
-        v21 = v16;
+        v20 = v16;
         if (v16 >= 257)
         {
           v14 = malloc_type_malloc(v16, 0xCB83053EuLL);
@@ -2276,12 +2283,12 @@ LABEL_12:
 
         else
         {
-          v14 = v34;
+          v14 = v33;
         }
 
-        v38.location = 0;
-        v38.length = v15;
-        if (!CFStringGetBytes(a2, v38, 0x8000100u, 0, 0, v14, v17, &v21))
+        v37.location = 0;
+        v37.length = v15;
+        if (!CFStringGetBytes(a2, v37, 0x8000100u, 0, 0, v14, v17, &v20))
         {
           goto LABEL_17;
         }
@@ -2302,21 +2309,21 @@ LABEL_12:
     }
 
     v14 = 0;
-    v21 = 0;
+    v20 = 0;
 LABEL_16:
     if (!v13)
     {
       Port = CFMachPortGetPort(v7);
-      v24 = v11;
-      v25 = 16777472;
-      v26 = usedBufLen;
-      v27 = v14;
-      v28 = 16777472;
-      v29 = v21;
-      v30 = *MEMORY[0x277D85EF8];
-      v31 = 0;
-      v32 = usedBufLen;
-      v33 = v21;
+      v23 = v11;
+      v24 = 16777472;
+      v25 = usedBufLen;
+      v26 = v14;
+      v27 = 16777472;
+      v28 = v20;
+      v29 = *MEMORY[0x277D85EF8];
+      v30 = 0;
+      v31 = usedBufLen;
+      v32 = v20;
       *msg = 2147483667;
       *&msg[8] = Port;
       *&msg[12] = xmmword_272896B20;
@@ -2337,7 +2344,7 @@ LABEL_21:
       free(v11);
     }
 
-    if (v14 && v14 != v34)
+    if (v14 && v14 != v33)
     {
       free(v14);
     }
@@ -2346,15 +2353,12 @@ LABEL_21:
     goto LABEL_28;
   }
 
-  v12 = 0;
-LABEL_29:
-  v19 = *MEMORY[0x277D85DE8];
-  return v12;
+  return 0;
 }
 
 const void *VSCopyUpdatableRecognitionModelDataProviderInfos()
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CBECE8];
   v1 = _VSServerConnectionCreate(*MEMORY[0x277CBECE8], 0, 0);
   if (v1)
@@ -2367,7 +2371,7 @@ const void *VSCopyUpdatableRecognitionModelDataProviderInfos()
 LABEL_29:
       _VSServerConnectionInvalidate(v2);
       CFRelease(v2);
-      goto LABEL_30;
+      return v8;
     }
 
     v4 = v3;
@@ -2452,10 +2456,7 @@ LABEL_28:
     goto LABEL_29;
   }
 
-  v8 = 0;
-LABEL_30:
-  v16 = *MEMORY[0x277D85DE8];
-  return v8;
+  return 0;
 }
 
 CFStringRef VSRecognitionPluginInfoCreateString(const __CFURL *a1, uint64_t a2)
@@ -2652,7 +2653,7 @@ void _VSRecognitionDisambiguationContextDestroy(void *a1)
   }
 }
 
-void *VSRecognitionDisambiguationContextCreate(int a1, const void *a2, const void *a3, CFDictionaryRef theDict, const void *a5, const void *a6, const void *a7)
+void *VSRecognitionDisambiguationContextCreate(uint64_t a1, const void *a2, const void *a3, CFDictionaryRef theDict, const void *a5, const void *a6, const void *a7)
 {
   Instance = 0;
   if (a2)
@@ -2705,7 +2706,7 @@ void *VSRecognitionDisambiguationContextCreate(int a1, const void *a2, const voi
   return Instance;
 }
 
-void *VSRecognitionDisambiguationContextCreateFromDictionaryRepresentation(int a1, CFDictionaryRef theDict)
+void *VSRecognitionDisambiguationContextCreateFromDictionaryRepresentation(uint64_t a1, CFDictionaryRef theDict)
 {
   Value = CFDictionaryGetValue(theDict, @"modelid");
   v5 = CFDictionaryGetValue(theDict, @"seqtag");
@@ -2772,30 +2773,30 @@ LABEL_16:
 
 CFDictionaryRef VSRecognitionDisambiguationContextCreateDictionaryRepresentation(const __CFAllocator *a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   *keys = xmmword_279E4EFA0;
-  v16 = *&off_279E4EFB0;
-  v17 = xmmword_279E4EFC0;
-  v10 = *(a2 + 16);
+  v15 = *&off_279E4EFB0;
+  v16 = xmmword_279E4EFC0;
+  v9 = *(a2 + 16);
   v3 = *(a2 + 40);
   v2 = *(a2 + 48);
-  v11 = *(a2 + 32);
-  v12 = v2;
+  v10 = *(a2 + 32);
+  v11 = v2;
+  v12 = 0;
   v13 = 0;
-  v14 = 0;
   if (v3)
   {
-    v4 = &v14;
-    v5 = (&v17 + 8);
-    *&v17 = @"knownp";
-    v13 = v3;
+    v4 = &v13;
+    v5 = (&v16 + 8);
+    *&v16 = @"knownp";
+    v12 = v3;
     v6 = 5;
   }
 
   else
   {
-    v5 = &v17;
-    v4 = &v13;
+    v5 = &v16;
+    v4 = &v12;
     v6 = 4;
   }
 
@@ -2807,9 +2808,7 @@ CFDictionaryRef VSRecognitionDisambiguationContextCreateDictionaryRepresentation
     *v4 = v7;
   }
 
-  result = CFDictionaryCreate(a1, keys, &v10, v6, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return CFDictionaryCreate(a1, keys, &v9, v6, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
 }
 
 uint64_t VSRecognitionDisambiguationContextGetKnownClassValue(uint64_t a1, void *key, void *a3, const void **a4)
@@ -2972,7 +2971,7 @@ void sub_272862EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -2986,13 +2985,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -3077,12 +3076,12 @@ const void *VSKeywordIndexCreateWithURL(const __CFAllocator *a1, const __CFURL *
 
 CFURLRef VSKeywordIndexCopyDefaultURL(const __CFAllocator *a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = _VSServerConnectionCreate(a1, 0, 0);
   if (v2)
   {
     v3 = v2;
-    memset(v18, 0, 512);
+    memset(v17, 0, 512);
     v4 = _VSServerConnectionCopyServerPort(v2);
     if (!v4)
     {
@@ -3090,12 +3089,12 @@ CFURLRef VSKeywordIndexCopyDefaultURL(const __CFAllocator *a1)
 LABEL_35:
       _VSServerConnectionInvalidate(v3);
       CFRelease(v3);
-      goto LABEL_36;
+      return v9;
     }
 
     v5 = v4;
     Port = CFMachPortGetPort(v4);
-    memset(v24, 0, 476);
+    memset(v23, 0, 476);
     *&msg_16[4] = 0u;
     msg_4 = 0;
     reply_port = mig_get_reply_port();
@@ -3172,11 +3171,11 @@ LABEL_35:
         if (!*&msg_16[16])
         {
           v13 = -300;
-          if (v24[1] <= 0x400u && (msg_4 - 44) >= v24[1] && msg_4 == ((LOWORD(v24[1]) + 3) & 0xFFC) + 44)
+          if (v23[1] <= 0x400u && (msg_4 - 44) >= v23[1] && msg_4 == ((LOWORD(v23[1]) + 3) & 0xFFC) + 44)
           {
-            mig_strncpy(v18, &v24[2], 1024);
+            mig_strncpy(v17, &v23[2], 1024);
 LABEL_31:
-            v14 = CFStringCreateWithFileSystemRepresentation(a1, v18);
+            v14 = CFStringCreateWithFileSystemRepresentation(a1, v17);
             if (v14)
             {
               v15 = v14;
@@ -3208,10 +3207,7 @@ LABEL_30:
     goto LABEL_30;
   }
 
-  v9 = 0;
-LABEL_36:
-  v16 = *MEMORY[0x277D85DE8];
-  return v9;
+  return 0;
 }
 
 BOOL VSKeywordIndexSaveToURL(const void *a1, const __CFURL *a2)
@@ -3883,7 +3879,7 @@ LABEL_10:
   CFRelease(v3);
 }
 
-void *VSPreferencesCopySpokenLanguageIdentifier()
+CFPropertyListRef VSPreferencesCopySpokenLanguageIdentifier()
 {
   VSPreferencesInitialize();
   pthread_mutex_lock(&__VSPreferencesSpokenLanguageLock);
@@ -3913,7 +3909,7 @@ uint64_t VSPreferencesInitialize()
   return pthread_mutex_unlock(&__VSPreferencesSpokenLanguageLock);
 }
 
-void *_VSPreferencesGetSpokenLanguageIdentifier()
+CFPropertyListRef _VSPreferencesGetSpokenLanguageIdentifier()
 {
   result = __VSPreferencesSpokenLanguage;
   if (!__VSPreferencesSpokenLanguage)
@@ -4473,7 +4469,7 @@ void _VSRegisterLanguageChanges()
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, _VSDeviceLanguageChangedHandler, @"com.apple.language.changed", 0, CFNotificationSuspensionBehaviorDrop);
 }
 
-uint64_t _VSDeviceLanguageChangedHandler()
+void _VSDeviceLanguageChangedHandler()
 {
   pthread_mutex_lock(&__VSLanguageLock);
   if (__VSLanguage)
@@ -4488,9 +4484,9 @@ uint64_t _VSDeviceLanguageChangedHandler()
     __VSLanguageCode = 0;
   }
 
-  v0 = pthread_mutex_unlock(&__VSLanguageLock);
+  pthread_mutex_unlock(&__VSLanguageLock);
 
-  return _VSPreferencesSpokenLanguageChangedHandler(v0);
+  _VSPreferencesSpokenLanguageChangedHandler();
 }
 
 CFStringRef _VSCopyQualifiedLanguageIdentifierForLanguageCode(const void *a1, CFStringRef theString)
@@ -4609,31 +4605,31 @@ LABEL_16:
 const __CFString *_VSCopyLanguageArrayForLanguageIdentifier(const __CFString *a1)
 {
   v1 = a1;
-  v9[1] = *MEMORY[0x277D85DE8];
-  v8 = 0;
-  v9[0] = 0;
+  v8[1] = *MEMORY[0x277D85DE8];
+  v7 = 0;
+  v8[0] = 0;
   if (a1)
   {
     v2 = _VSCopyLanguageCodeFromLanguageIdentifier(a1);
-    v7 = v1;
+    v6 = v1;
     if (CFStringCompare(v1, @"zh-HK", 0))
     {
-      v3 = &v8;
+      v3 = &v7;
       v4 = 1;
       if (v2)
       {
 LABEL_4:
         *v3 = v2;
-        v1 = CFArrayCreate(*MEMORY[0x277CBECE8], &v7, v4 + 1, MEMORY[0x277CBF128]);
+        v1 = CFArrayCreate(*MEMORY[0x277CBECE8], &v6, v4 + 1, MEMORY[0x277CBF128]);
         CFRelease(v2);
-        goto LABEL_7;
+        return v1;
       }
     }
 
     else
     {
-      v3 = v9;
-      v8 = @"zh-TW";
+      v3 = v8;
+      v7 = @"zh-TW";
       v4 = 2;
       if (v2)
       {
@@ -4641,11 +4637,9 @@ LABEL_4:
       }
     }
 
-    v1 = CFArrayCreate(*MEMORY[0x277CBECE8], &v7, v4, MEMORY[0x277CBF128]);
+    return CFArrayCreate(*MEMORY[0x277CBECE8], &v6, v4, MEMORY[0x277CBF128]);
   }
 
-LABEL_7:
-  v5 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
@@ -5099,26 +5093,26 @@ LABEL_14:
   return 0;
 }
 
-void sub_27286A90C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_27286A90C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void *__getTTSSpeechTransformTextWithLanguageSymbolLoc_block_invoke(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6[0] = 0;
+  v8 = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
   if (!TextToSpeechLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x277D85DD0];
-    v6[2] = 3221225472;
-    v6[3] = __TextToSpeechLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_279E4F030;
-    v8 = 0;
+    v5[1] = MEMORY[0x277D85DD0];
+    v5[2] = 3221225472;
+    v5[3] = __TextToSpeechLibraryCore_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_279E4F030;
+    v7 = 0;
     TextToSpeechLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
@@ -5127,14 +5121,14 @@ void *__getTTSSpeechTransformTextWithLanguageSymbolLoc_block_invoke(void *a1)
   {
     a1 = [MEMORY[0x277CCA890] currentHandler];
     v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *TextToSpeechLibrary(void)"];
-    [a1 handleFailureInFunction:v2 file:@"NSString+VSSpeechService.m" lineNumber:17 description:{@"%s", v6[0]}];
+    [a1 handleFailureInFunction:v2 file:@"NSString+VSSpeechService.m" lineNumber:17 description:{@"%s", v5[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v3 = v6[0];
-  if (v6[0])
+  v3 = v5[0];
+  if (v5[0])
   {
 LABEL_7:
     free(v3);
@@ -5143,17 +5137,13 @@ LABEL_7:
   result = dlsym(v2, "TTSSpeechTransformTextWithLanguage");
   *(*(a1[4] + 8) + 24) = result;
   getTTSSpeechTransformTextWithLanguageSymbolLoc_ptr = *(*(a1[4] + 8) + 24);
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __TextToSpeechLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   TextToSpeechLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5215,26 +5205,24 @@ LABEL_3:
 
 const __CFURL *_VSVocalizerCopyURLForResourcesInDirectory(CFStringRef pathComponent, const __CFURL *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
-    goto LABEL_6;
+    return 0;
   }
 
   v2 = CFURLCreateCopyAppendingPathComponent(*MEMORY[0x277CBECE8], a2, pathComponent, 1u);
   v3 = v2;
   if (v2)
   {
-    memset(&v6, 0, sizeof(v6));
-    if (!CFURLGetFileSystemRepresentation(v2, 1u, buffer, 1024) || stat(buffer, &v6))
+    memset(&v5, 0, sizeof(v5));
+    if (!CFURLGetFileSystemRepresentation(v2, 1u, buffer, 1024) || stat(buffer, &v5))
     {
       CFRelease(v3);
-LABEL_6:
-      v3 = 0;
+      return 0;
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -5348,7 +5336,7 @@ LABEL_10:
 
 CFStringRef VSVocalizerCopyPathForLocalizedResources(const __CFString *a1, void *a2, const __CFString *a3, int a4)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v8 = _VSVocalizerCopyURLForFrameworkResources();
   v9 = VSVocalizerCopyURLForAssets();
   if (!a1)
@@ -5364,8 +5352,8 @@ CFStringRef VSVocalizerCopyPathForLocalizedResources(const __CFString *a1, void 
   v10 = VSGetLogDefault();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v31) = 0;
-    _os_log_debug_impl(&dword_272850000, v10, OS_LOG_TYPE_DEBUG, "compact explicitly specified, look at framework asset first\n", &v31, 2u);
+    LOWORD(v30) = 0;
+    _os_log_debug_impl(&dword_272850000, v10, OS_LOG_TYPE_DEBUG, "compact explicitly specified, look at framework asset first\n", &v30, 2u);
   }
 
   v11 = _VSVocalizerCopyURLForLocalizedResourcesFoundAtURL(a1, a2, v8);
@@ -5380,17 +5368,17 @@ LABEL_60:
       {
         if (v9)
         {
-          v28 = CFURLGetString(v9);
+          v27 = CFURLGetString(v9);
         }
 
         else
         {
-          v28 = 0;
+          v27 = 0;
         }
 
-        v31 = 138412290;
-        v32 = v28;
-        _os_log_debug_impl(&dword_272850000, v13, OS_LOG_TYPE_DEBUG, "Looking for the resources in %@\n", &v31, 0xCu);
+        v30 = 138412290;
+        v31 = v27;
+        _os_log_debug_impl(&dword_272850000, v13, OS_LOG_TYPE_DEBUG, "Looking for the resources in %@\n", &v30, 0xCu);
       }
 
       v12 = _VSVocalizerCopyURLForLocalizedResourcesFoundAtURL(a1, a2, v9);
@@ -5423,17 +5411,17 @@ LABEL_14:
   {
     if (v8)
     {
-      v27 = CFURLGetString(v8);
+      v26 = CFURLGetString(v8);
     }
 
     else
     {
-      v27 = 0;
+      v26 = 0;
     }
 
-    v31 = 138412290;
-    v32 = v27;
-    _os_log_debug_impl(&dword_272850000, v15, OS_LOG_TYPE_DEBUG, "Looking for the resources in %@\n", &v31, 0xCu);
+    v30 = 138412290;
+    v31 = v26;
+    _os_log_debug_impl(&dword_272850000, v15, OS_LOG_TYPE_DEBUG, "Looking for the resources in %@\n", &v30, 0xCu);
     if (v14)
     {
       goto LABEL_17;
@@ -5459,9 +5447,9 @@ LABEL_17:
   v17 = VSGetLogDefault();
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
-    v31 = 138412290;
-    v32 = v16;
-    _os_log_debug_impl(&dword_272850000, v17, OS_LOG_TYPE_DEBUG, "Now looking for the fallback language: %@\n", &v31, 0xCu);
+    v30 = 138412290;
+    v31 = v16;
+    _os_log_debug_impl(&dword_272850000, v17, OS_LOG_TYPE_DEBUG, "Now looking for the fallback language: %@\n", &v30, 0xCu);
   }
 
   if (!VSVocalizerShouldUseAssetForLanguage(v16))
@@ -5475,17 +5463,17 @@ LABEL_17:
   {
     if (v9)
     {
-      v30 = CFURLGetString(v9);
+      v29 = CFURLGetString(v9);
     }
 
     else
     {
-      v30 = 0;
+      v29 = 0;
     }
 
-    v31 = 138412290;
-    v32 = v30;
-    _os_log_debug_impl(&dword_272850000, v18, OS_LOG_TYPE_DEBUG, "Looking for the resources in %@\n", &v31, 0xCu);
+    v30 = 138412290;
+    v31 = v29;
+    _os_log_debug_impl(&dword_272850000, v18, OS_LOG_TYPE_DEBUG, "Looking for the resources in %@\n", &v30, 0xCu);
   }
 
   v19 = _VSVocalizerCopyURLForLocalizedResourcesFoundAtURL(v16, a2, v9);
@@ -5497,17 +5485,17 @@ LABEL_24:
     {
       if (v8)
       {
-        v29 = CFURLGetString(v8);
+        v28 = CFURLGetString(v8);
       }
 
       else
       {
-        v29 = 0;
+        v28 = 0;
       }
 
-      v31 = 138412290;
-      v32 = v29;
-      _os_log_debug_impl(&dword_272850000, v20, OS_LOG_TYPE_DEBUG, "Looking for the resources in %@\n", &v31, 0xCu);
+      v30 = 138412290;
+      v31 = v28;
+      _os_log_debug_impl(&dword_272850000, v20, OS_LOG_TYPE_DEBUG, "Looking for the resources in %@\n", &v30, 0xCu);
     }
 
     v12 = _VSVocalizerCopyURLForLocalizedResourcesFoundAtURL(v16, a2, v8);
@@ -5516,8 +5504,8 @@ LABEL_24:
       v21 = VSGetLogDefault();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v31) = 0;
-        _os_log_error_impl(&dword_272850000, v21, OS_LOG_TYPE_ERROR, "Can't find the resources anywhere!\n", &v31, 2u);
+        LOWORD(v30) = 0;
+        _os_log_error_impl(&dword_272850000, v21, OS_LOG_TYPE_ERROR, "Can't find the resources anywhere!\n", &v30, 2u);
       }
 
       v12 = 0;
@@ -5535,10 +5523,10 @@ LABEL_32:
     v22 = VSGetLogDefault();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
-      v26 = CFURLGetString(v12);
-      v31 = 138412290;
-      v32 = v26;
-      _os_log_debug_impl(&dword_272850000, v22, OS_LOG_TYPE_DEBUG, "Found the resources here: %@\n", &v31, 0xCu);
+      v25 = CFURLGetString(v12);
+      v30 = 138412290;
+      v31 = v25;
+      _os_log_debug_impl(&dword_272850000, v22, OS_LOG_TYPE_DEBUG, "Found the resources here: %@\n", &v30, 0xCu);
     }
 
     v23 = CFURLCopyFileSystemPath(v12, kCFURLPOSIXPathStyle);
@@ -5565,7 +5553,6 @@ LABEL_36:
     CFRelease(v9);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -5583,7 +5570,7 @@ const __CFURL *VSVocalizerCopyURLForAssets()
   return result;
 }
 
-uint64_t VSVocalizerShouldUseAssetForLanguage(_BOOL8 a1)
+BOOL VSVocalizerShouldUseAssetForLanguage(_BOOL8 a1)
 {
   v1 = a1;
   if (a1)
@@ -5616,20 +5603,20 @@ uint64_t VSVocalizerShouldUseAssetForLanguage(_BOOL8 a1)
 
 void _VSVocalizerFinishInstallingAssetForLang(const __CFString *a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v2 = _VSVocalizerCopyTemporaryAssetURLForLang(a1);
     if (v2)
     {
       v3 = v2;
-      memset(&v23, 0, sizeof(v23));
+      memset(&v22, 0, sizeof(v22));
       if (!CFURLGetFileSystemRepresentation(v2, 1u, buffer, 1024))
       {
         goto LABEL_19;
       }
 
-      if (stat(buffer, &v23))
+      if (stat(buffer, &v22))
       {
         goto LABEL_19;
       }
@@ -5641,25 +5628,25 @@ void _VSVocalizerFinishInstallingAssetForLang(const __CFString *a1)
       }
 
       v5 = v4;
-      v6 = open(buffer, 32, *&v23.st_dev, *&v23.st_uid, *&v23.st_atimespec, *&v23.st_mtimespec, *&v23.st_ctimespec, *&v23.st_birthtimespec, *&v23.st_size, *&v23.st_blksize, *v23.st_qspare);
+      v6 = open(buffer, 32, *&v22.st_dev, *&v22.st_uid, *&v22.st_atimespec, *&v22.st_mtimespec, *&v22.st_ctimespec, *&v22.st_birthtimespec, *&v22.st_size, *&v22.st_blksize, *v22.st_qspare);
       if (v6 < 0)
       {
         v14 = VSGetLogDefault();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           v15 = *__error();
-          LODWORD(v30[0].__pn_.__r_.__value_.__l.__data_) = 136315394;
-          *(v30[0].__pn_.__r_.__value_.__r.__words + 4) = buffer;
-          WORD2(v30[0].__pn_.__r_.__value_.__r.__words[1]) = 1024;
-          *(&v30[0].__pn_.__r_.__value_.__r.__words[1] + 6) = v15;
-          _os_log_debug_impl(&dword_272850000, v14, OS_LOG_TYPE_DEBUG, "Unable to lock temporary asset: %s; presumably peer was first - error: %d\n", v30, 0x12u);
+          LODWORD(v29[0].__pn_.__r_.__value_.__l.__data_) = 136315394;
+          *(v29[0].__pn_.__r_.__value_.__r.__words + 4) = buffer;
+          WORD2(v29[0].__pn_.__r_.__value_.__r.__words[1]) = 1024;
+          *(&v29[0].__pn_.__r_.__value_.__r.__words[1] + 6) = v15;
+          _os_log_debug_impl(&dword_272850000, v14, OS_LOG_TYPE_DEBUG, "Unable to lock temporary asset: %s; presumably peer was first - error: %d\n", v29, 0x12u);
         }
 
         goto LABEL_18;
       }
 
       v7 = v6;
-      if (stat(buffer, &v23) < 0)
+      if (stat(buffer, &v22) < 0)
       {
         v16 = VSGetLogDefault();
         if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
@@ -5668,12 +5655,12 @@ void _VSVocalizerFinishInstallingAssetForLang(const __CFString *a1)
         }
 
         v17 = *__error();
-        LODWORD(v30[0].__pn_.__r_.__value_.__l.__data_) = 136315394;
-        *(v30[0].__pn_.__r_.__value_.__r.__words + 4) = buffer;
-        WORD2(v30[0].__pn_.__r_.__value_.__r.__words[1]) = 1024;
-        *(&v30[0].__pn_.__r_.__value_.__r.__words[1] + 6) = v17;
+        LODWORD(v29[0].__pn_.__r_.__value_.__l.__data_) = 136315394;
+        *(v29[0].__pn_.__r_.__value_.__r.__words + 4) = buffer;
+        WORD2(v29[0].__pn_.__r_.__value_.__r.__words[1]) = 1024;
+        *(&v29[0].__pn_.__r_.__value_.__r.__words[1] + 6) = v17;
         v18 = "Temporary asset: %s has moved; presumably peer was first - error: %d\n";
-        v19 = v30;
+        v19 = v29;
         v20 = v16;
         v21 = 18;
       }
@@ -5681,12 +5668,12 @@ void _VSVocalizerFinishInstallingAssetForLang(const __CFString *a1)
       else
       {
         _VSVocalizerDeleteAssetAtURL(v5);
-        if (!CFURLGetFileSystemRepresentation(v5, 1u, v30, 1024))
+        if (!CFURLGetFileSystemRepresentation(v5, 1u, v29, 1024))
         {
           goto LABEL_17;
         }
 
-        rename(buffer, v30, v8);
+        rename(buffer, v29, v8);
         v10 = v9;
         v11 = VSGetLogDefault();
         v12 = v11;
@@ -5696,11 +5683,11 @@ void _VSVocalizerFinishInstallingAssetForLang(const __CFString *a1)
           {
             v13 = *__error();
             *buf = 136315650;
-            v25 = buffer;
-            v26 = 2080;
-            v27 = v30;
-            v28 = 1024;
-            v29 = v13;
+            v24 = buffer;
+            v25 = 2080;
+            v26 = v29;
+            v27 = 1024;
+            v28 = v13;
             _os_log_error_impl(&dword_272850000, v12, OS_LOG_TYPE_ERROR, "Couldn't move the temporary asset: %s to the real asset: %s - error: %d\n", buf, 0x1Cu);
           }
 
@@ -5715,13 +5702,13 @@ LABEL_18:
           CFRelease(v5);
 LABEL_19:
           CFRelease(v3);
-          goto LABEL_20;
+          return;
         }
 
         *buf = 136315394;
-        v25 = buffer;
-        v26 = 2080;
-        v27 = v30;
+        v24 = buffer;
+        v25 = 2080;
+        v26 = v29;
         v18 = "Moved the temporary asset: %s to the real asset: %s\n";
         v19 = buf;
         v20 = v12;
@@ -5732,17 +5719,14 @@ LABEL_19:
       goto LABEL_17;
     }
   }
-
-LABEL_20:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 BOOL _VSVocalizerIsValidAssetAtURLMigratingIfNeeded(const __CFURL *a1)
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   if (_VSVocalizerIsValidAssetAtURL(a1))
   {
-    goto LABEL_89;
+    return 1;
   }
 
   v2 = VSGetLogDefault();
@@ -5841,9 +5825,9 @@ LABEL_30:
         v20 = v19;
         if (v18 && v19)
         {
-          if (CFURLGetFileSystemRepresentation(v19, 0, buffer, 1024) && CFURLGetFileSystemRepresentation(v18, 0, v81, 1024))
+          if (CFURLGetFileSystemRepresentation(v19, 0, buffer, 1024) && CFURLGetFileSystemRepresentation(v18, 0, v80, 1024))
           {
-            if (symlink(v81, buffer))
+            if (symlink(v80, buffer))
             {
               if (*__error() != 17)
               {
@@ -5854,13 +5838,13 @@ LABEL_30:
                   v21 = __error();
                   v22 = strerror(*v21);
                   *buf = 67109890;
-                  v74 = streama;
-                  v75 = 2080;
-                  v76 = v22;
-                  v77 = 2080;
-                  v78 = v81;
-                  v79 = 2080;
-                  v80 = buffer;
+                  v73 = streama;
+                  v74 = 2080;
+                  v75 = v22;
+                  v76 = 2080;
+                  v77 = v80;
+                  v78 = 2080;
+                  v79 = buffer;
                   _os_log_error_impl(&dword_272850000, log, OS_LOG_TYPE_ERROR, "***ERROR*** There was an error (%d - %s) when trying to symlink %s to %s\n", buf, 0x26u);
                 }
               }
@@ -5872,11 +5856,11 @@ LABEL_30:
               loga = VSGetLogDefault();
               if (os_log_type_enabled(loga, OS_LOG_TYPE_DEBUG))
               {
-                *v69 = 136315394;
-                v70 = buf;
-                v71 = 2080;
-                v72 = buffer;
-                _os_log_debug_impl(&dword_272850000, loga, OS_LOG_TYPE_DEBUG, "Symlinked %s to %s\n", v69, 0x16u);
+                *v68 = 136315394;
+                v69 = buf;
+                v70 = 2080;
+                v71 = buffer;
+                _os_log_debug_impl(&dword_272850000, loga, OS_LOG_TYPE_DEBUG, "Symlinked %s to %s\n", v68, 0x16u);
               }
             }
           }
@@ -5924,7 +5908,7 @@ LABEL_35:
       theData = CFDataCreateMutableCopy(v7, 0, v29);
       if (theData)
       {
-        v66 = v30;
+        v65 = v30;
         BytePtr = CFDataGetBytePtr(v28);
         v32 = v28;
         if (BytePtr)
@@ -5936,14 +5920,14 @@ LABEL_35:
 
         v35 = CFWriteStreamCreateWithFile(v7, v24);
         v28 = v32;
-        v30 = v66;
+        v30 = v65;
         if (v35)
         {
           logb = v23;
           v36 = v35;
           if (CFWriteStreamOpen(v35))
           {
-            v60 = v28;
+            v59 = v28;
             MutableBytePtr = CFDataGetMutableBytePtr(theData);
             v38 = CFDataGetLength(theData);
             stream = v36;
@@ -5955,13 +5939,13 @@ LABEL_35:
               v42 = logb;
               if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
               {
-                v59 = *__error();
-                v54 = __error();
-                v55 = strerror(*v54);
+                v58 = *__error();
+                v53 = __error();
+                v54 = strerror(*v53);
                 LODWORD(buffer[0].__pn_.__r_.__value_.__l.__data_) = 67109378;
-                HIDWORD(buffer[0].__pn_.__r_.__value_.__r.__words[0]) = v59;
+                HIDWORD(buffer[0].__pn_.__r_.__value_.__r.__words[0]) = v58;
                 LOWORD(buffer[0].__pn_.__r_.__value_.__r.__words[1]) = 2080;
-                *(&buffer[0].__pn_.__r_.__value_.__r.__words[1] + 2) = v55;
+                *(&buffer[0].__pn_.__r_.__value_.__r.__words[1] + 2) = v54;
                 _os_log_error_impl(&dword_272850000, v41, OS_LOG_TYPE_ERROR, "***ERROR*** couldn't append broker header files (%d - %s)\n", buffer, 0x12u);
               }
             }
@@ -5977,7 +5961,7 @@ LABEL_35:
             }
 
             CFWriteStreamClose(stream);
-            v28 = v60;
+            v28 = v59;
             if (CFURLGetFileSystemRepresentation(v24, 1u, buffer, 1024))
             {
               if (v39 < 1)
@@ -5987,31 +5971,31 @@ LABEL_35:
 
               else
               {
-                if (CFURLGetFileSystemRepresentation(v42, 1u, v81, 1024))
+                if (CFURLGetFileSystemRepresentation(v42, 1u, v80, 1024))
                 {
-                  rename(buffer, v81, v45);
+                  rename(buffer, v80, v45);
                   if (v46 < 0)
                   {
                     v47 = VSGetLogDefault();
                     if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
                     {
-                      v56 = *__error();
-                      v57 = __error();
-                      v58 = strerror(*v57);
+                      v55 = *__error();
+                      v56 = __error();
+                      v57 = strerror(*v56);
                       *buf = 67109378;
-                      v74 = v56;
-                      v75 = 2080;
-                      v76 = v58;
+                      v73 = v55;
+                      v74 = 2080;
+                      v75 = v57;
                       _os_log_error_impl(&dword_272850000, v47, OS_LOG_TYPE_ERROR, "***ERROR*** couldn't move broker header file to final location (%d - %s)\n", buf, 0x12u);
                     }
                   }
                 }
 
-                v28 = v60;
+                v28 = v59;
               }
             }
 
-            v30 = v66;
+            v30 = v65;
             v36 = stream;
           }
 
@@ -6081,41 +6065,36 @@ LABEL_87:
 LABEL_88:
   if (_VSVocalizerIsValidAssetAtURL(a1))
   {
-LABEL_89:
-    result = 1;
-    goto LABEL_90;
+    return 1;
   }
 
-  v53 = VSGetLogDefault();
-  result = os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG);
+  v52 = VSGetLogDefault();
+  result = os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG);
   if (result)
   {
     LOWORD(buffer[0].__pn_.__r_.__value_.__l.__data_) = 0;
-    _os_log_debug_impl(&dword_272850000, v53, OS_LOG_TYPE_DEBUG, "After migrating asset, it's still not valid -- sorry\n", buffer, 2u);
-    result = 0;
+    _os_log_debug_impl(&dword_272850000, v52, OS_LOG_TYPE_DEBUG, "After migrating asset, it's still not valid -- sorry\n", buffer, 2u);
+    return 0;
   }
 
-LABEL_90:
-  v52 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-CFURLRef _VSVocalizerIsValidAssetAtURL(CFURLRef url)
+const __CFURL *_VSVocalizerIsValidAssetAtURL(CFURLRef url)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   result = CFURLCreateCopyAppendingPathComponent(*MEMORY[0x277CBECE8], url, @".migrated", 0);
   if (result)
   {
     v3 = result;
-    memset(&v6, 0, sizeof(v6));
+    memset(&v5, 0, sizeof(v5));
     if (CFURLGetFileSystemRepresentation(result, 1u, buffer, 1024))
     {
-      v4 = stat(buffer, &v6);
+      v4 = stat(buffer, &v5);
       CFRelease(v3);
       if (!v4)
       {
-        result = (_VSVocalizerEngineFormatVersionMatchesAssetFormatVersionAtURL(url) != 0);
-        goto LABEL_7;
+        return (_VSVocalizerEngineFormatVersionMatchesAssetFormatVersionAtURL(url) != 0);
       }
     }
 
@@ -6124,30 +6103,28 @@ CFURLRef _VSVocalizerIsValidAssetAtURL(CFURLRef url)
       CFRelease(v3);
     }
 
-    result = 0;
+    return 0;
   }
 
-LABEL_7:
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t _VSVocalizerEngineFormatVersionMatchesAssetFormatVersionAtURL(const __CFURL *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   cf = 0;
   v1 = _VSVocalizerCopyVoiceAssetFormatVersionFoundAtURL(a1, &cf);
   if (v1 && cf)
   {
     v2 = _VSVocalizerCopyVoiceEngineFormatVersionsForLanguage(cf);
     v3 = v2;
-    if (!v2 || (v17.length = CFArrayGetCount(v2), v17.location = 0, CFArrayGetFirstIndexOfValue(v3, v17, v1) == -1))
+    if (!v2 || (v16.length = CFArrayGetCount(v2), v16.location = 0, CFArrayGetFirstIndexOfValue(v3, v16, v1) == -1))
     {
       v8 = VSGetLogDefault();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v15 = v1;
+        v14 = v1;
         _os_log_debug_impl(&dword_272850000, v8, OS_LOG_TYPE_DEBUG, "---> asset's version is %@\n", buf, 0xCu);
       }
 
@@ -6156,7 +6133,7 @@ uint64_t _VSVocalizerEngineFormatVersionMatchesAssetFormatVersionAtURL(const __C
       {
         ValueAtIndex = CFArrayGetValueAtIndex(v3, 0);
         *buf = 138412290;
-        v15 = ValueAtIndex;
+        v14 = ValueAtIndex;
         _os_log_debug_impl(&dword_272850000, v9, OS_LOG_TYPE_DEBUG, "---> engine's version is %@\n", buf, 0xCu);
       }
 
@@ -6201,19 +6178,18 @@ LABEL_17:
     CFRelease(cf);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t _VSVocalizerDeleteAssetAtURL(const __CFURL *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = VSGetLogDefault();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = CFURLGetString(a1);
-    _os_log_debug_impl(&dword_272850000, v2, OS_LOG_TYPE_DEBUG, "Deleting asset at url: %@\n", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = CFURLGetString(a1);
+    _os_log_debug_impl(&dword_272850000, v2, OS_LOG_TYPE_DEBUG, "Deleting asset at url: %@\n", &v6, 0xCu);
   }
 
   v3 = CFURLCreateCopyAppendingPathComponent(*MEMORY[0x277CBECE8], a1, @"voice_format_version.plist", 0);
@@ -6225,14 +6201,12 @@ uint64_t _VSVocalizerDeleteAssetAtURL(const __CFURL *a1)
   }
 
   VSCFURLDeleteDirectoryContents(a1);
-  result = [objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")];
 }
 
 const __CFDictionary *_VSVocalizerCopyVoiceAssetFormatVersionFoundAtURL(const __CFURL *a1, void *a2)
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   if (a2)
   {
     *a2 = 0;
@@ -6275,7 +6249,7 @@ const __CFDictionary *_VSVocalizerCopyVoiceAssetFormatVersionFoundAtURL(const __
     else
     {
       MEMORY[0x28223BE20]();
-      v9 = (v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+      v9 = (v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
       if (v8 >= 0x200)
       {
         v10 = 512;
@@ -6286,7 +6260,7 @@ const __CFDictionary *_VSVocalizerCopyVoiceAssetFormatVersionFoundAtURL(const __
         v10 = v8;
       }
 
-      bzero(v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), v10);
+      bzero(v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), v10);
       CFDictionaryGetKeysAndValues(v4, v9, 0);
       v11 = *v9;
       if (!*v9 || (v12 = CFGetTypeID(*v9), v12 != CFStringGetTypeID()))
@@ -6306,11 +6280,11 @@ LABEL_22:
           v15 = CFDictionaryGetValue(v6, @"NotForSiri");
           if (!v15 || !CFBooleanGetValue(v15))
           {
-            v18 = CFDictionaryGetValue(v6, @"FormatVersion");
-            v6 = v18;
-            if (v18)
+            v17 = CFDictionaryGetValue(v6, @"FormatVersion");
+            v6 = v17;
+            if (v17)
             {
-              CFRetain(v18);
+              CFRetain(v17);
             }
 
             if (a2)
@@ -6329,22 +6303,19 @@ LABEL_22:
 
 LABEL_25:
     CFRelease(v4);
-    goto LABEL_26;
+    return v6;
   }
 
-  v6 = 0;
-LABEL_26:
-  v16 = *MEMORY[0x277D85DE8];
-  return v6;
+  return 0;
 }
 
 CFArrayRef _VSVocalizerCopyVoiceEngineFormatVersionsForLanguage(const void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   pthread_once(&_VSVocalizerCopyVoiceEngineFormatVersionsForLanguage___InitializeVoiceFormatVersionOnce, _VSVocalizerInitializeVoiceEngineFormatVersions);
   if (!a1)
   {
-    goto LABEL_9;
+    return 0;
   }
 
   if (!__VoiceEngineFormatVersions)
@@ -6352,16 +6323,14 @@ CFArrayRef _VSVocalizerCopyVoiceEngineFormatVersionsForLanguage(const void *a1)
     v9 = VSGetLogDefault();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v11) = 0;
+      LOWORD(v10) = 0;
       v6 = "VoiceEngineFormatVersions hasn't been initialized, voices may not be compatible\n";
       v7 = v9;
       v8 = 2;
       goto LABEL_12;
     }
 
-LABEL_9:
-    result = 0;
-    goto LABEL_10;
+    return 0;
   }
 
   Value = CFDictionaryGetValue(__VoiceEngineFormatVersions, a1);
@@ -6370,21 +6339,19 @@ LABEL_9:
     v5 = VSGetLogDefault();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138543362;
-      v12 = a1;
+      v10 = 138543362;
+      v11 = a1;
       v6 = "Couldn't get the engine format version for language %{public}@\n";
       v7 = v5;
       v8 = 12;
 LABEL_12:
-      _os_log_error_impl(&dword_272850000, v7, OS_LOG_TYPE_ERROR, v6, &v11, v8);
-      goto LABEL_9;
+      _os_log_error_impl(&dword_272850000, v7, OS_LOG_TYPE_ERROR, v6, &v10, v8);
+      return 0;
     }
 
-    goto LABEL_9;
+    return 0;
   }
 
-LABEL_10:
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6486,7 +6453,7 @@ CFURLRef _VSVocalizerCopyTemporaryAssetURLForLang(uint64_t a1)
   return v7;
 }
 
-const __CFURL *_VSVocalizerCopyAssetURLForLang(const __CFString *a1)
+CFURLRef _VSVocalizerCopyAssetURLForLang(const __CFString *a1)
 {
   result = VSVocalizerCopyURLForAssets();
   if (result)
@@ -6502,12 +6469,11 @@ const __CFURL *_VSVocalizerCopyAssetURLForLang(const __CFString *a1)
 
 const __CFArray *_VSVocalizerCopyAssetLanguages()
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v0 = VSVocalizerCopyURLForAssets();
   if (!v0)
   {
-    Mutable = 0;
-    goto LABEL_39;
+    return 0;
   }
 
   v1 = v0;
@@ -6536,7 +6502,7 @@ const __CFArray *_VSVocalizerCopyAssetLanguages()
       }
 
       *buf = 134217984;
-      v28 = Code;
+      v27 = Code;
       _os_log_debug_impl(&dword_272850000, v5, OS_LOG_TYPE_DEBUG, "Couldn't get the contents of the assets directory (error %ld)\n", buf, 0xCu);
     }
 
@@ -6564,7 +6530,7 @@ LABEL_37:
   }
 
   v8 = Count;
-  v25 = v1;
+  v24 = v1;
   for (i = 0; i != v8; ++i)
   {
     ValueAtIndex = CFArrayGetValueAtIndex(v3, i);
@@ -6629,9 +6595,9 @@ LABEL_28:
     {
       if (_VSVocalizerStringIsALanguageString(PathComponent))
       {
-        v30.length = CFArrayGetCount(Mutable);
-        v30.location = 0;
-        if (!CFArrayContainsValue(Mutable, v30, v21))
+        v29.length = CFArrayGetCount(Mutable);
+        v29.location = 0;
+        if (!CFArrayContainsValue(Mutable, v29, v21))
         {
           CFArrayAppendValue(Mutable, v21);
         }
@@ -6641,7 +6607,7 @@ LABEL_28:
     }
   }
 
-  v1 = v25;
+  v1 = v24;
   if (v3)
   {
     goto LABEL_37;
@@ -6649,14 +6615,12 @@ LABEL_28:
 
 LABEL_38:
   CFRelease(v1);
-LABEL_39:
-  v22 = *MEMORY[0x277D85DE8];
   return Mutable;
 }
 
 const __CFString *VSVocalizerCopyDefaultAssetLanguage()
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v0 = VSPreferencesCopySpokenLanguageIdentifier();
   v1 = _VSVocalizerCopyURLForFrameworkResources();
   v2 = v1;
@@ -6665,7 +6629,7 @@ const __CFString *VSVocalizerCopyDefaultAssetLanguage()
     v4 = v3;
     CFRelease(v2);
     CFRelease(v4);
-    v5 = v0;
+    return v0;
   }
 
   else
@@ -6673,9 +6637,9 @@ const __CFString *VSVocalizerCopyDefaultAssetLanguage()
     v6 = VSGetLogDefault();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v11 = 138412290;
-      v12 = v0;
-      _os_log_debug_impl(&dword_272850000, v6, OS_LOG_TYPE_DEBUG, "No TTS resources for asset. Trying fallback language for %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v0;
+      _os_log_debug_impl(&dword_272850000, v6, OS_LOG_TYPE_DEBUG, "No TTS resources for asset. Trying fallback language for %@", &v10, 0xCu);
     }
 
     v7 = _VSVocalizerCopyFallbackLanguageIdentifier(v0, 0);
@@ -6690,9 +6654,9 @@ const __CFString *VSVocalizerCopyDefaultAssetLanguage()
       v8 = VSGetLogDefault();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v11 = 138412290;
-        v12 = v5;
-        _os_log_debug_impl(&dword_272850000, v8, OS_LOG_TYPE_DEBUG, "Using asset fallback language %@", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = v5;
+        _os_log_debug_impl(&dword_272850000, v8, OS_LOG_TYPE_DEBUG, "Using asset fallback language %@", &v10, 0xCu);
       }
     }
 
@@ -6707,7 +6671,6 @@ const __CFString *VSVocalizerCopyDefaultAssetLanguage()
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -6964,17 +6927,16 @@ const void *VSVocalizerCopyVoiceEngineFormatVersionForLanguage(const void *a1)
 
 uint64_t VSCreateDirectory(const __CFURL *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  memset(&v3, 0, sizeof(v3));
+  v4 = *MEMORY[0x277D85DE8];
+  memset(&v2, 0, sizeof(v2));
   result = CFURLGetFileSystemRepresentation(a1, 1u, buffer, 1023);
   if (result)
   {
     buffer[1023] = 0;
     mkdir(buffer, 0x1C0u);
-    result = stat(buffer, &v3) == 0;
+    return stat(buffer, &v2) == 0;
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7010,7 +6972,7 @@ uint64_t VSCreateURLAndDirectory(CFURLRef url, CFStringRef pathComponent, const 
 
 uint64_t VSDirectoryExistsAtURL(uint64_t result, int a2, _BYTE *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     *a3 = 0;
@@ -7018,45 +6980,47 @@ uint64_t VSDirectoryExistsAtURL(uint64_t result, int a2, _BYTE *a3)
 
   if (result)
   {
-    memset(&v7, 0, sizeof(v7));
+    memset(&v6, 0, sizeof(v6));
     result = CFURLGetFileSystemRepresentation(result, 1u, buffer, 1024);
     if (result)
     {
-      if (stat(buffer, &v7))
+      if (stat(buffer, &v6))
       {
         if (a2 == 1)
         {
           v5 = mkdir(buffer, 0x1C0u);
           result = v5 == 0;
-          if (a3 && !v5)
+          if (a3)
           {
-            result = 1;
-            *a3 = 1;
+            if (!v5)
+            {
+              result = 1;
+              *a3 = 1;
+            }
           }
         }
 
         else
         {
-          result = 0;
+          return 0;
         }
       }
 
       else
       {
-        result = 1;
+        return 1;
       }
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 BOOL VSCreateTemporaryDirectory(const void *a1, CFStringRef theString, CFURLRef *a3)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   Length = CFStringGetLength(theString);
-  v7 = v18 - ((MEMORY[0x28223BE20]() + 1040) & 0xFFFFFFFFFFFFFFF0);
+  v7 = v17 - ((MEMORY[0x28223BE20]() + 1040) & 0xFFFFFFFFFFFFFFF0);
   v8 = CFGetAllocator(a1);
   v9 = v8;
   if (a3)
@@ -7065,37 +7029,32 @@ BOOL VSCreateTemporaryDirectory(const void *a1, CFStringRef theString, CFURLRef 
   }
 
   v10 = CFURLCreateCopyAppendingPathComponent(v8, a1, theString, 1u);
-  if (v10)
+  if (!v10)
   {
-    v11 = v10;
-    if (CFURLGetFileSystemRepresentation(v10, 1u, v7, Length + 1025))
-    {
-      v12 = mkdtemp(v7);
-      v13 = v12 != 0;
-      if (a3 && v12)
-      {
-        v14 = CFStringCreateWithFileSystemRepresentation(v9, v12);
-        if (v14)
-        {
-          v15 = v14;
-          v13 = 1;
-          *a3 = CFURLCreateWithFileSystemPath(v9, v14, kCFURLPOSIXPathStyle, 1u);
-          CFRelease(v15);
-        }
+    return 0;
+  }
 
-        else
-        {
-          v13 = 1;
-        }
+  v11 = v10;
+  if (CFURLGetFileSystemRepresentation(v10, 1u, v7, Length + 1025))
+  {
+    v12 = mkdtemp(v7);
+    v13 = v12 != 0;
+    if (a3 && v12)
+    {
+      v14 = CFStringCreateWithFileSystemRepresentation(v9, v12);
+      if (v14)
+      {
+        v15 = v14;
+        v13 = 1;
+        *a3 = CFURLCreateWithFileSystemPath(v9, v14, kCFURLPOSIXPathStyle, 1u);
+        CFRelease(v15);
+      }
+
+      else
+      {
+        v13 = 1;
       }
     }
-
-    else
-    {
-      v13 = 0;
-    }
-
-    CFRelease(v11);
   }
 
   else
@@ -7103,7 +7062,7 @@ BOOL VSCreateTemporaryDirectory(const void *a1, CFStringRef theString, CFURLRef 
     v13 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
+  CFRelease(v11);
   return v13;
 }
 
@@ -7123,50 +7082,49 @@ void VSCFURLDeleteDirectoryContents(uint64_t a1)
 
 id VSCopyContentsOfDirectoryAtURL(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v5 = objc_autoreleasePoolPush();
-  v19 = 0;
+  v18 = 0;
   v6 = [MEMORY[0x277CCAA00] defaultManager];
-  v7 = [v6 contentsOfDirectoryAtURL:a1 includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:0 error:&v19];
+  v7 = [v6 contentsOfDirectoryAtURL:a1 includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:0 error:&v18];
   if (a2)
   {
-    *a2 = v19;
+    *a2 = v18;
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [objc_msgSend(*(*(&v15 + 1) + 8 * v11) "path")];
+        v12 = [objc_msgSend(*(*(&v14 + 1) + 8 * v11) "path")];
         [v4 addObject:{objc_msgSend(MEMORY[0x277CBEBC0], "fileURLWithPath:", v12)}];
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
     }
 
     while (v9);
   }
 
   objc_autoreleasePoolPop(v5);
-  v13 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -7212,21 +7170,21 @@ id VSCopyModificationDateForFileAtURL(void *a1)
   return v3;
 }
 
-void sub_272870BA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_272870BA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_272871350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_272871350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va1, a12);
-  va_start(va, a12);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a19);
+  va_start(va, a19);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -7263,7 +7221,7 @@ LABEL_5:
   return v5;
 }
 
-unint64_t _AddAmbiguousKeywords(uint64_t a1, void *a2, void *a3)
+void *_AddAmbiguousKeywords(uint64_t a1, void *a2, void *a3)
 {
   result = [a2 count];
   if (result >= 2)
@@ -7275,7 +7233,7 @@ unint64_t _AddAmbiguousKeywords(uint64_t a1, void *a2, void *a3)
   return result;
 }
 
-uint64_t _RecognitionCompletedCallBack(uint64_t result, uint64_t a2, uint64_t a3, void *a4)
+void *_RecognitionCompletedCallBack(void *result, uint64_t a2, uint64_t a3, void *a4)
 {
   if (a4)
   {
@@ -7285,7 +7243,7 @@ uint64_t _RecognitionCompletedCallBack(uint64_t result, uint64_t a2, uint64_t a3
   return result;
 }
 
-uint64_t _RecognitionStartedCallBack(uint64_t result, void *a2)
+void *_RecognitionStartedCallBack(void *result, void *a2)
 {
   if (a2)
   {
@@ -7295,7 +7253,7 @@ uint64_t _RecognitionStartedCallBack(uint64_t result, void *a2)
   return result;
 }
 
-uint64_t _RecognitionPreparedCallBack(uint64_t result, void *a2)
+void *_RecognitionPreparedCallBack(void *result, void *a2)
 {
   if (a2)
   {
@@ -7353,9 +7311,9 @@ id VSRecognitionModelDataProviderChanged(uint64_t a1, uint64_t a2)
 
 CFStringRef VSCreate4CCString(unsigned int a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = bswap32(a1);
-  v9 = v2;
+  v8 = v2;
   if ((v2 & 0x80) != 0)
   {
     if (!__maskrune(v2, 0x40000uLL))
@@ -7406,9 +7364,9 @@ LABEL_13:
       goto LABEL_17;
     }
 
-    v10 = 39;
+    v9 = 39;
     __str = 39;
-    goto LABEL_20;
+    return CFStringCreateWithCString(0, &__str, 0x600u);
   }
 
   if ((*(MEMORY[0x277D85DE0] + 4 * v4 + 60) & 0x40000) != 0)
@@ -7427,13 +7385,10 @@ LABEL_17:
     snprintf(&__str, 0x10uLL, "%d");
   }
 
-LABEL_20:
-  result = CFStringCreateWithCString(0, &__str, 0x600u);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return CFStringCreateWithCString(0, &__str, 0x600u);
 }
 
-uint64_t VSRecognitionModelCopyResourceURLForLanguage(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, const __CFString *a5)
+CFStringRef VSRecognitionModelCopyResourceURLForLanguage(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, const __CFString *a5)
 {
   result = _VSRecognitionModelCopyResourceURLForLanguageString(a1, a2, a3, a4, a5);
   if (!result)
@@ -7531,82 +7486,78 @@ uint64_t VSRecognitionModelCopyResourceURL(void *a1, uint64_t a2, uint64_t a3)
   return [v13 initFileURLWithPath:v12];
 }
 
-void sub_27287933C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_27287933C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_27287C034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_27287C034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_27287C26C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_27287C26C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getAFAudioPowerUpdaterClass_block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v7[0] = 0;
+  v9 = *MEMORY[0x277D85DE8];
+  v6[0] = 0;
   if (!AssistantServicesLibraryCore_frameworkLibrary)
   {
-    v7[1] = MEMORY[0x277D85DD0];
-    v7[2] = 3221225472;
-    v7[3] = __AssistantServicesLibraryCore_block_invoke;
-    v7[4] = &__block_descriptor_40_e5_v8__0l;
-    v7[5] = v7;
-    v8 = xmmword_279E4F728;
-    v9 = 0;
+    v6[1] = MEMORY[0x277D85DD0];
+    v6[2] = 3221225472;
+    v6[3] = __AssistantServicesLibraryCore_block_invoke;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_279E4F728;
+    v8 = 0;
     AssistantServicesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!AssistantServicesLibraryCore_frameworkLibrary)
   {
-    v4 = [MEMORY[0x277CCA890] currentHandler];
-    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *AssistantServicesLibrary(void)"];
-    [v4 handleFailureInFunction:v5 file:@"VSSpeechSynthesizer.m" lineNumber:47 description:{@"%s", v7[0]}];
+    v3 = [MEMORY[0x277CCA890] currentHandler];
+    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *AssistantServicesLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"VSSpeechSynthesizer.m" lineNumber:47 description:{@"%s", v6[0]}];
 
     goto LABEL_10;
   }
 
-  if (v7[0])
+  if (v6[0])
   {
-    free(v7[0]);
+    free(v6[0]);
   }
 
   result = objc_getClass("AFAudioPowerUpdater");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    v4 = [MEMORY[0x277CCA890] currentHandler];
-    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Class getAFAudioPowerUpdaterClass(void)_block_invoke"];
-    [v4 handleFailureInFunction:v6 file:@"VSSpeechSynthesizer.m" lineNumber:48 description:{@"Unable to find class %s", "AFAudioPowerUpdater"}];
+    v3 = [MEMORY[0x277CCA890] currentHandler];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Class getAFAudioPowerUpdaterClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"VSSpeechSynthesizer.m" lineNumber:48 description:{@"Unable to find class %s", "AFAudioPowerUpdater"}];
 
 LABEL_10:
     __break(1u);
   }
 
   getAFAudioPowerUpdaterClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __AssistantServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AssistantServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7617,9 +7568,9 @@ uint64_t __Block_byref_object_copy__2748(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_272881330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272881330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7658,26 +7609,26 @@ void soft_BYSetupAssistantNeedsToRun()
   }
 }
 
-void sub_2728860F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2728860F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void *__getBYSetupAssistantNeedsToRunSymbolLoc_block_invoke(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6[0] = 0;
+  v8 = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
   if (!SetupAssistantLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x277D85DD0];
-    v6[2] = 3221225472;
-    v6[3] = __SetupAssistantLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_279E4F768;
-    v8 = 0;
+    v5[1] = MEMORY[0x277D85DD0];
+    v5[2] = 3221225472;
+    v5[3] = __SetupAssistantLibraryCore_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_279E4F768;
+    v7 = 0;
     SetupAssistantLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
@@ -7686,14 +7637,14 @@ void *__getBYSetupAssistantNeedsToRunSymbolLoc_block_invoke(void *a1)
   {
     a1 = [MEMORY[0x277CCA890] currentHandler];
     v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *SetupAssistantLibrary(void)"];
-    [a1 handleFailureInFunction:v2 file:@"VSPreferencesInterface.m" lineNumber:23 description:{@"%s", v6[0]}];
+    [a1 handleFailureInFunction:v2 file:@"VSPreferencesInterface.m" lineNumber:23 description:{@"%s", v5[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v3 = v6[0];
-  if (v6[0])
+  v3 = v5[0];
+  if (v5[0])
   {
 LABEL_7:
     free(v3);
@@ -7702,17 +7653,13 @@ LABEL_7:
   result = dlsym(v2, "BYSetupAssistantNeedsToRun");
   *(*(a1[4] + 8) + 24) = result;
   getBYSetupAssistantNeedsToRunSymbolLoc_ptr = *(*(a1[4] + 8) + 24);
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __SetupAssistantLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SetupAssistantLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7723,37 +7670,37 @@ void sub_272886F40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2728880B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2728880B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_272888274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272888274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_272888618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272888618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2728887D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2728887D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_272888A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272888A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7765,16 +7712,16 @@ uint64_t __Block_byref_object_copy__3142(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_272888C2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272888C2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_272888F54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272888F54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7810,36 +7757,36 @@ void sub_272890058(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void remote_VSRecognitionPrepareOrBegin(mach_port_t a1, int a2, int a3, char *src, const char *a5, uint64_t a6, int a7, uint64_t a8, double a9, int a10, char a11, char a12, char a13, _BYTE *a14)
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v40 = 0;
-  memset(v41, 0, 432);
-  v33 = 0x13000000000000;
+  v41 = *MEMORY[0x277D85DE8];
+  v39 = 0;
+  memset(v40, 0, 432);
+  v32 = 0x13000000000000;
   memset(&reply_port, 0, sizeof(reply_port));
-  v31 = 3;
-  v32 = a2;
-  v34 = a6;
-  v35 = 16777472;
-  v36 = a7;
-  v37 = a8;
-  v38 = 16777472;
-  v39 = a10;
-  v40 = *MEMORY[0x277D85EF8];
-  LODWORD(v41[0]) = a3;
+  v30 = 3;
+  v31 = a2;
+  v33 = a6;
+  v34 = 16777472;
+  v35 = a7;
+  v36 = a8;
+  v37 = 16777472;
+  v38 = a10;
+  v39 = *MEMORY[0x277D85EF8];
+  LODWORD(v40[0]) = a3;
   if (MEMORY[0x28223BE50])
   {
-    v18 = mig_strncpy_zerofill(v41 + 12, src, 1024);
+    v18 = mig_strncpy_zerofill(v40 + 12, src, 1024);
   }
 
   else
   {
-    v18 = mig_strncpy(v41 + 12, src, 1024);
+    v18 = mig_strncpy(v40 + 12, src, 1024);
   }
 
-  DWORD1(v41[0]) = 0;
-  DWORD2(v41[0]) = v18;
+  DWORD1(v40[0]) = 0;
+  DWORD2(v40[0]) = v18;
   v19 = (v18 + 3) & 0xFFFFFFFC;
   v20 = &reply_port + v19 - 1024;
-  v21 = &v41[1] + v19 + 4;
+  v21 = &v40[1] + v19 + 4;
   if (MEMORY[0x28223BE50])
   {
     v22 = mig_strncpy_zerofill(v21, a5, 1024);
@@ -7894,17 +7841,15 @@ void remote_VSRecognitionPrepareOrBegin(mach_port_t a1, int a2, int a3, char *sr
     mig_dealloc_reply_port(reply_port.msgh_local_port);
   }
 
-  else if (reply_port.msgh_id != 1004834 || (reply_port.msgh_bits & 0x80000000) != 0 || reply_port.msgh_size != 40 || reply_port.msgh_remote_port || v33)
+  else if (reply_port.msgh_id != 1004834 || (reply_port.msgh_bits & 0x80000000) != 0 || reply_port.msgh_size != 40 || reply_port.msgh_remote_port || v32)
   {
     mach_msg_destroy(&reply_port);
   }
 
   else
   {
-    *a14 = BYTE4(v33);
+    *a14 = BYTE4(v32);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void _XPostNotification(uint64_t a1, uint64_t a2)

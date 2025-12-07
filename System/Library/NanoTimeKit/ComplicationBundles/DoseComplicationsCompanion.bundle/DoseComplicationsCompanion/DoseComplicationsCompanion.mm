@@ -109,31 +109,29 @@ id sub_6384(uint64_t a1)
 
 id sub_63E8(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [NSBundle bundleForClass:objc_opt_class()];
-  v6 = [UIImage imageNamed:v4 inBundle:v5];
+  v3 = a2;
+  v4 = [NSBundle bundleForClass:objc_opt_class()];
+  v5 = [UIImage imageNamed:v3 inBundle:v4];
 
-  v7 = *(a1 + 32);
-  v8 = [UIColor colorWithRed:1.0 green:0.79 blue:0.0 alpha:1.0];
-  v9 = [v7 imageProviderWithImage:v6 tintColor:v8];
+  v6 = *(a1 + 32);
+  v7 = [UIColor colorWithRed:1.0 green:0.79 blue:0.0 alpha:1.0];
+  v8 = [v6 imageProviderWithImage:v5 tintColor:v7];
 
-  return v9;
+  return v8;
 }
 
 id sub_64D0(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [NSBundle bundleForClass:objc_opt_class()];
-  v6 = [UIImage imageNamed:v4 inBundle:v5];
+  v3 = a2;
+  v4 = [NSBundle bundleForClass:objc_opt_class()];
+  v5 = [UIImage imageNamed:v3 inBundle:v4];
 
-  v7 = [UIColor colorWithRed:1.0 green:0.79 blue:0.0 alpha:1.0];
-  v8 = [v6 imageWithTintColor:v7];
+  v6 = [UIColor colorWithRed:1.0 green:0.79 blue:0.0 alpha:1.0];
+  v7 = [v5 imageWithTintColor:v6];
 
-  v9 = [*(a1 + 32) fullColorImageProviderWithImage:v8];
+  v8 = [*(a1 + 32) fullColorImageProviderWithImage:v7];
 
-  return v9;
+  return v8;
 }
 
 void sub_6780(id a1)

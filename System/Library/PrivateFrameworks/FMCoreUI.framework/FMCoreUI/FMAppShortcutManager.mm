@@ -31,7 +31,7 @@ uint64_t __38__FMAppShortcutManager_sharedInstance__block_invoke()
 
 - (void)setShortcutItems:(id)items
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
   v6 = mEMORY[0x277D75128];
@@ -50,48 +50,49 @@ LABEL_19:
     if (v8)
     {
       shortcutItems = [MEMORY[0x277CBEB18] array];
-      v9 = LogCategory_Unspecified();
+      v9 = LogCategory_Unspecified(shortcutItems);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         [FMAppShortcutManager setShortcutItems:v9];
       }
 
-      v23 = 0u;
       v24 = 0u;
-      v21 = 0u;
+      v25 = 0u;
       v22 = 0u;
+      v23 = 0u;
       v10 = itemsCopy;
-      v11 = [v10 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v22 objects:v28 count:16];
       if (v11)
       {
         v12 = v11;
-        v20 = itemsCopy;
+        v21 = itemsCopy;
         shortcutIdentifier = 0;
-        v14 = *v22;
+        v14 = *v23;
         do
         {
           v15 = 0;
           v16 = shortcutIdentifier;
           do
           {
-            if (*v22 != v14)
+            if (*v23 != v14)
             {
               objc_enumerationMutation(v10);
             }
 
-            v17 = *(*(&v21 + 1) + 8 * v15);
+            v17 = *(*(&v22 + 1) + 8 * v15);
             shortcutIdentifier = [v17 shortcutIdentifier];
 
-            if ([shortcutIdentifier length])
+            v18 = [shortcutIdentifier length];
+            if (v18)
             {
-              v18 = LogCategory_Unspecified();
-              if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+              v19 = LogCategory_Unspecified(v18);
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
               {
-                [(FMAppShortcutManager *)v25 setShortcutItems:v17, &v26, v18];
+                [(FMAppShortcutManager *)v26 setShortcutItems:v17, &v27, v19];
               }
 
-              v19 = [(FMAppShortcutManager *)self createShortcutForItem:v17];
-              [shortcutItems addObject:v19];
+              v20 = [(FMAppShortcutManager *)self createShortcutForItem:v17];
+              [shortcutItems addObject:v20];
             }
 
             ++v15;
@@ -99,12 +100,12 @@ LABEL_19:
           }
 
           while (v12 != v15);
-          v12 = [v10 countByEnumeratingWithState:&v21 objects:v27 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v22 objects:v28 count:16];
         }
 
         while (v12);
 
-        itemsCopy = v20;
+        itemsCopy = v21;
       }
 
       [v6 setShortcutItems:shortcutItems];
@@ -126,7 +127,7 @@ LABEL_20:
 
 - (void)setShortcutItem:(id)item
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
   v6 = mEMORY[0x277D75128];
@@ -139,32 +140,32 @@ LABEL_20:
     if ([shortcutIdentifier length])
     {
       selfCopy = self;
-      v25 = v8;
-      v26 = v6;
-      v27 = itemCopy;
-      v30 = 0u;
+      v26 = v8;
+      v27 = v6;
+      v28 = itemCopy;
       v31 = 0u;
-      v28 = 0u;
+      v32 = 0u;
       v29 = 0u;
+      v30 = 0u;
       v10 = v8;
-      v11 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
       if (v11)
       {
         v12 = v11;
         userInfo = 0;
-        v14 = *v29;
+        v14 = *v30;
         while (2)
         {
           v15 = 0;
           v16 = userInfo;
           do
           {
-            if (*v29 != v14)
+            if (*v30 != v14)
             {
               objc_enumerationMutation(v10);
             }
 
-            v17 = *(*(&v28 + 1) + 8 * v15);
+            v17 = *(*(&v29 + 1) + 8 * v15);
             userInfo = [v17 userInfo];
 
             v18 = [userInfo objectForKeyedSubscript:@"FMShortcutItemIdentifierKey"];
@@ -187,7 +188,7 @@ LABEL_20:
           }
 
           while (v12 != v15);
-          v12 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
           if (v12)
           {
             continue;
@@ -204,14 +205,14 @@ LABEL_20:
 
       v20 = 0;
 LABEL_17:
-      v6 = v26;
-      itemCopy = v27;
-      v8 = v25;
-      v21 = [(FMAppShortcutManager *)selfCopy createShortcutForItem:v27, selfCopy, v25, v26, v27];
+      v6 = v27;
+      itemCopy = v28;
+      v8 = v26;
+      v21 = [(FMAppShortcutManager *)selfCopy createShortcutForItem:v28, selfCopy, v26, v27, v28];
       [v10 insertObject:v21 atIndex:0];
       if ([v10 count] < 5)
       {
-        [v6 setShortcutItems:v10];
+        v23 = [v6 setShortcutItems:v10];
       }
 
       else
@@ -220,10 +221,10 @@ LABEL_17:
         [v6 setShortcutItems:v22];
       }
 
-      v23 = LogCategory_Unspecified();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v24 = LogCategory_Unspecified(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
-        [(FMAppShortcutManager *)itemCopy setShortcutItem:v23];
+        [(FMAppShortcutManager *)itemCopy setShortcutItem:v24];
       }
     }
   }
@@ -371,10 +372,10 @@ LABEL_14:
   v3 = mEMORY[0x277D75128];
   if (mEMORY[0x277D75128])
   {
-    [mEMORY[0x277D75128] setShortcutItems:0];
+    mEMORY[0x277D75128] = [mEMORY[0x277D75128] setShortcutItems:0];
   }
 
-  v4 = LogCategory_Unspecified();
+  v4 = LogCategory_Unspecified(mEMORY[0x277D75128]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [(FMAppShortcutManager *)v4 clearShortcutItems];

@@ -33,7 +33,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFRemoteNotificationObservable.remoteNotificationService(_:didUpdateUserAction:)();
+  CAFRemoteNotificationObservable.remoteNotificationService(_:didUpdateUserAction:)(selfCopy, action);
 }
 
 - (void)remoteNotificationService:(id)service didUpdateSymbolNameAndColor:(id)color

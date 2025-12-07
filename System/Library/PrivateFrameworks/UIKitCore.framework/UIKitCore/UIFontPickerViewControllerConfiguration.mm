@@ -124,7 +124,7 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v14 = 1;
+    isEqual = 1;
   }
 
   else
@@ -136,7 +136,7 @@
       includeFaces = [(UIFontPickerViewControllerConfiguration *)self includeFaces];
       if (includeFaces != [(UIFontPickerViewControllerConfiguration *)v6 includeFaces]|| (v8 = [(UIFontPickerViewControllerConfiguration *)self displayUsingSystemFont], v8 != [(UIFontPickerViewControllerConfiguration *)v6 displayUsingSystemFont]) || (v9 = [(UIFontPickerViewControllerConfiguration *)self filteredTraits], v9 != [(UIFontPickerViewControllerConfiguration *)v6 filteredTraits]))
       {
-        v14 = 0;
+        isEqual = 0;
 LABEL_13:
 
         goto LABEL_14;
@@ -147,9 +147,9 @@ LABEL_13:
       {
         filteredLanguagesPredicate2 = [(UIFontPickerViewControllerConfiguration *)self filteredLanguagesPredicate];
         filteredLanguagesPredicate3 = [(UIFontPickerViewControllerConfiguration *)v6 filteredLanguagesPredicate];
-        if (![filteredLanguagesPredicate2 isEqual:filteredLanguagesPredicate3])
+        if (!objc_msgSend_isEqual_(filteredLanguagesPredicate2))
         {
-          v14 = 0;
+          isEqual = 0;
           goto LABEL_52;
         }
 
@@ -172,7 +172,7 @@ LABEL_13:
         v83 = _allowedLanguages2;
         if (![_allowedLanguages2 isEqualToArray:_allowedLanguages3])
         {
-          v14 = 0;
+          isEqual = 0;
           _allowedLanguages = v17;
           goto LABEL_47;
         }
@@ -201,7 +201,7 @@ LABEL_32:
           _hideSearchBar = [(UIFontPickerViewControllerConfiguration *)self _hideSearchBar];
           if (_hideSearchBar != [(UIFontPickerViewControllerConfiguration *)v6 _hideSearchBar])
           {
-            v14 = 0;
+            isEqual = 0;
             v3 = v23;
             v13 = v22;
             goto LABEL_42;
@@ -213,7 +213,7 @@ LABEL_32:
           {
             _tintColor = [(UIFontPickerViewControllerConfiguration *)self _tintColor];
             _tintColor2 = [(UIFontPickerViewControllerConfiguration *)v6 _tintColor];
-            if (([_tintColor isEqual:_tintColor2] & 1) == 0)
+            if ((objc_msgSend_isEqual_(_tintColor) & 1) == 0)
             {
 
               v13 = v22;
@@ -225,7 +225,7 @@ LABEL_32:
               {
               }
 
-              v14 = 0;
+              isEqual = 0;
 LABEL_42:
               if ((v77 & 1) == 0)
               {
@@ -250,7 +250,7 @@ LABEL_42:
           _includeDefaultFont = [(UIFontPickerViewControllerConfiguration *)self _includeDefaultFont];
           if (_includeDefaultFont != [(UIFontPickerViewControllerConfiguration *)v6 _includeDefaultFont])
           {
-            v14 = 0;
+            isEqual = 0;
             v3 = v23;
             v13 = v22;
 LABEL_59:
@@ -266,7 +266,7 @@ LABEL_59:
             v13 = v22;
             if (!_filterFamilyName)
             {
-              v14 = 0;
+              isEqual = 0;
               v37 = v78;
               v30 = v73;
               v31 = v71;
@@ -285,7 +285,7 @@ LABEL_59:
                 v38 = v67;
               }
 
-              v14 = 0;
+              isEqual = 0;
 LABEL_60:
               v31 = v71;
               if ((v72 & 1) == 0)
@@ -300,7 +300,7 @@ LABEL_60:
             _filterFamilyName3 = [(UIFontPickerViewControllerConfiguration *)self _filterFamilyName];
             _filterFamilyName4 = [(UIFontPickerViewControllerConfiguration *)v6 _filterFamilyName];
             v63 = _filterFamilyName3;
-            if (([_filterFamilyName3 isEqualToString:_filterFamilyName4] & 1) == 0)
+            if ((objc_msgSend_isEqualToString_(_filterFamilyName3) & 1) == 0)
             {
 
               v39 = v68;
@@ -309,7 +309,7 @@ LABEL_60:
                 v39 = v67;
               }
 
-              v14 = 0;
+              isEqual = 0;
               v31 = v71;
               v30 = v73;
               if ((v72 & 1) == 0)
@@ -366,7 +366,7 @@ LABEL_61:
             if (!_filterFontNames2)
             {
               v62 = _filterFontNames5;
-              v14 = 0;
+              isEqual = 0;
 LABEL_98:
               v31 = v71;
               if (!_filterFontNames)
@@ -419,7 +419,7 @@ LABEL_102:
               {
               }
 
-              v14 = 0;
+              isEqual = 0;
               goto LABEL_59;
             }
 
@@ -451,7 +451,7 @@ LABEL_102:
               {
               }
 
-              v14 = 0;
+              isEqual = 0;
               v3 = v59;
               goto LABEL_59;
             }
@@ -473,7 +473,7 @@ LABEL_102:
           _showsSectionIndexBar = [(UIFontPickerViewControllerConfiguration *)self _showsSectionIndexBar];
           if (_showsSectionIndexBar != [(UIFontPickerViewControllerConfiguration *)v6 _showsSectionIndexBar])
           {
-            v14 = 0;
+            isEqual = 0;
             goto LABEL_95;
           }
 
@@ -483,9 +483,9 @@ LABEL_102:
             _clientFontContextEndpoint2 = [(UIFontPickerViewControllerConfiguration *)self _clientFontContextEndpoint];
             _clientFontContextEndpoint3 = [(UIFontPickerViewControllerConfiguration *)v6 _clientFontContextEndpoint];
             v53 = _clientFontContextEndpoint2;
-            if (([_clientFontContextEndpoint2 isEqual:_clientFontContextEndpoint3] & 1) == 0)
+            if ((objc_msgSend_isEqual_(_clientFontContextEndpoint2) & 1) == 0)
             {
-              v14 = 0;
+              isEqual = 0;
               goto LABEL_126;
             }
 
@@ -500,7 +500,7 @@ LABEL_102:
 
           _clientRecentFonts = [(UIFontPickerViewControllerConfiguration *)self _clientRecentFonts];
           _clientRecentFonts2 = [(UIFontPickerViewControllerConfiguration *)v6 _clientRecentFonts];
-          v14 = [_clientRecentFonts isEqual:_clientRecentFonts2];
+          isEqual = objc_msgSend_isEqual_(_clientRecentFonts);
 
           if (!v51)
           {
@@ -561,7 +561,7 @@ LABEL_126:
         v24 = _swiftPredicate2;
       }
 
-      v14 = 0;
+      isEqual = 0;
       if ((v19 & 1) == 0)
       {
         goto LABEL_48;
@@ -591,12 +591,12 @@ LABEL_53:
       goto LABEL_13;
     }
 
-    v14 = 0;
+    isEqual = 0;
   }
 
 LABEL_14:
 
-  return v14;
+  return isEqual;
 }
 
 - (void)encodeWithCoder:(id)coder

@@ -19,7 +19,7 @@
 
 - (NSString)currentPhoneLanguage
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   preferredPhoneLanguages = [(SUBDocumentation *)self preferredPhoneLanguages];
   v3 = preferredPhoneLanguages;
   if (preferredPhoneLanguages && [preferredPhoneLanguages count])
@@ -29,9 +29,9 @@
     {
       v5 = v4;
       v6 = [v3 objectAtIndex:0];
-      v11 = 138543362;
-      v12 = v6;
-      _os_log_impl(&dword_26AB06000, v5, OS_LOG_TYPE_DEFAULT, "[SUBDocumentation] : currentPhoneLanguage returned via preferredPhoneLanguages is (%{public}@)", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v6;
+      _os_log_impl(&dword_26AB06000, v5, OS_LOG_TYPE_DEFAULT, "[SUBDocumentation] : currentPhoneLanguage returned via preferredPhoneLanguages is (%{public}@)", &v10, 0xCu);
     }
 
     v7 = [v3 objectAtIndex:0];
@@ -42,21 +42,19 @@
     v8 = softwareupdatebridge_log;
     if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_26AB06000, v8, OS_LOG_TYPE_DEFAULT, "[SUBDocumentation] : Using default language for currentPhoneLanguage", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_26AB06000, v8, OS_LOG_TYPE_DEFAULT, "[SUBDocumentation] : Using default language for currentPhoneLanguage", &v10, 2u);
     }
 
     v7 = @"en";
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (NSArray)preferredPhoneLanguages
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   preferredLanguages = [MEMORY[0x277CBEAF8] preferredLanguages];
   v3 = [preferredLanguages count];
   v4 = softwareupdatebridge_log;
@@ -68,8 +66,8 @@
       goto LABEL_7;
     }
 
-    v11 = 138543362;
-    v12 = preferredLanguages;
+    v10 = 138543362;
+    v11 = preferredLanguages;
     v6 = "[SUBDocumentation] : Preferred languages are %{public}@";
     v7 = v4;
     v8 = 12;
@@ -82,15 +80,14 @@
       goto LABEL_7;
     }
 
-    LOWORD(v11) = 0;
+    LOWORD(v10) = 0;
     v6 = "[SUBDocumentation] : NSLocale did not return any preferred phone languages";
     v7 = v4;
     v8 = 2;
   }
 
-  _os_log_impl(&dword_26AB06000, v7, OS_LOG_TYPE_DEFAULT, v6, &v11, v8);
+  _os_log_impl(&dword_26AB06000, v7, OS_LOG_TYPE_DEFAULT, v6, &v10, v8);
 LABEL_7:
-  v9 = *MEMORY[0x277D85DE8];
 
   return preferredLanguages;
 }
@@ -114,11 +111,11 @@ LABEL_7:
 
 - (SUBDocumentation)initWithMAAsset:(id)asset
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
-  v15.receiver = self;
-  v15.super_class = SUBDocumentation;
-  v5 = [(SUBDocumentation *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = SUBDocumentation;
+  v5 = [(SUBDocumentation *)&v14 init];
   if (v5)
   {
     getLocalUrl = [assetCopy getLocalUrl];
@@ -141,12 +138,11 @@ LABEL_7:
     {
       v12 = v5->_suCoreParsedDocumentation;
       *buf = 138543362;
-      v17 = v12;
+      v16 = v12;
       _os_log_impl(&dword_26AB06000, v11, OS_LOG_TYPE_DEFAULT, "[SUBDocumentation]: Parsed doc asset is: %{public}@\n", buf, 0xCu);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -213,64 +209,61 @@ LABEL_7:
 
 - (NSData)releaseNotesSummary
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   [(SUBDocumentation *)self _loadBundleResources];
   v3 = softwareupdatebridge_log;
   if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
   {
     v4 = self->_releaseNotesSummary != 0;
-    v8[0] = 67240192;
-    v8[1] = v4;
-    _os_log_impl(&dword_26AB06000, v3, OS_LOG_TYPE_DEFAULT, "[SUBDocumentation] : releaseNotesSummary requested, is valid? %{public}d", v8, 8u);
+    v7[0] = 67240192;
+    v7[1] = v4;
+    _os_log_impl(&dword_26AB06000, v3, OS_LOG_TYPE_DEFAULT, "[SUBDocumentation] : releaseNotesSummary requested, is valid? %{public}d", v7, 8u);
   }
 
   releaseNotesSummary = self->_releaseNotesSummary;
-  v6 = *MEMORY[0x277D85DE8];
 
   return releaseNotesSummary;
 }
 
 - (NSData)releaseNotes
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   [(SUBDocumentation *)self _loadBundleResources];
   v3 = softwareupdatebridge_log;
   if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
   {
     v4 = self->_releaseNotes != 0;
-    v8[0] = 67240192;
-    v8[1] = v4;
-    _os_log_impl(&dword_26AB06000, v3, OS_LOG_TYPE_DEFAULT, "[SUBDocumentation] : releaseNotes requested, is valid? %{public}d", v8, 8u);
+    v7[0] = 67240192;
+    v7[1] = v4;
+    _os_log_impl(&dword_26AB06000, v3, OS_LOG_TYPE_DEFAULT, "[SUBDocumentation] : releaseNotes requested, is valid? %{public}d", v7, 8u);
   }
 
   releaseNotes = self->_releaseNotes;
-  v6 = *MEMORY[0x277D85DE8];
 
   return releaseNotes;
 }
 
 - (NSData)licenseAgreement
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   [(SUBDocumentation *)self _loadBundleResources];
   v3 = softwareupdatebridge_log;
   if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
   {
     v4 = self->_licenseAgreement != 0;
-    v8[0] = 67240192;
-    v8[1] = v4;
-    _os_log_impl(&dword_26AB06000, v3, OS_LOG_TYPE_DEFAULT, "[SUBDocumentation] : licenseAgreement requested, is valid? %{public}d", v8, 8u);
+    v7[0] = 67240192;
+    v7[1] = v4;
+    _os_log_impl(&dword_26AB06000, v3, OS_LOG_TYPE_DEFAULT, "[SUBDocumentation] : licenseAgreement requested, is valid? %{public}d", v7, 8u);
   }
 
   licenseAgreement = self->_licenseAgreement;
-  v6 = *MEMORY[0x277D85DE8];
 
   return licenseAgreement;
 }
 
 - (id)_resourceFromBundle:(id)bundle forKey:(id)key
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = CFBundleCopyResourceURLInDirectory(bundle, key, @"html", 0);
   if (v4)
   {
@@ -280,11 +273,11 @@ LABEL_7:
       v6 = MEMORY[0x277CBEA90];
       v7 = v5;
       v8 = [v6 dataWithContentsOfURL:v4];
-      v12 = 138543618;
-      v13 = v4;
-      v14 = 2050;
-      v15 = [v8 length];
-      _os_log_impl(&dword_26AB06000, v7, OS_LOG_TYPE_DEFAULT, "[SUBDocumentation] :Length of resource at URL: %{public}@ : %{public}lu", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v4;
+      v13 = 2050;
+      v14 = [v8 length];
+      _os_log_impl(&dword_26AB06000, v7, OS_LOG_TYPE_DEFAULT, "[SUBDocumentation] :Length of resource at URL: %{public}@ : %{public}lu", &v11, 0x16u);
     }
 
     v9 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v4];
@@ -295,14 +288,12 @@ LABEL_7:
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (void)_loadBundleResources
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   documentationBundleURL = self->_documentationBundleURL;
   v4 = softwareupdatebridge_log;
   v5 = os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT);
@@ -329,7 +320,7 @@ LABEL_7:
 
 LABEL_38:
 
-      goto LABEL_39;
+      return;
     }
 
     if (v9)
@@ -420,9 +411,9 @@ LABEL_33:
         _os_log_impl(&dword_26AB06000, v19, OS_LOG_TYPE_DEFAULT, "[SUBDocumentation]: SoftwareUpdateIcon found at path %{public}@", buf, 0xCu);
       }
 
-      v37 = 0;
-      v21 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:softwareUpdateIconImagePath options:1 error:&v37];
-      v22 = v37;
+      v36 = 0;
+      v21 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:softwareUpdateIconImagePath options:1 error:&v36];
+      v22 = v36;
       v23 = v22;
       if (v21 && !v22)
       {
@@ -434,8 +425,8 @@ LABEL_33:
       {
         *buf = 138543618;
         selfCopy = softwareUpdateIconImagePath;
-        v40 = 2114;
-        v41 = v23;
+        v39 = 2114;
+        v40 = v23;
         _os_log_impl(&dword_26AB06000, v24, OS_LOG_TYPE_DEFAULT, "[SUBDocumentation]: Failed to read contents of icon file at %{public}@. Error: %{public}@", buf, 0x16u);
       }
 
@@ -478,9 +469,6 @@ LABEL_32:
     *buf = 0;
     _os_log_impl(&dword_26AB06000, v4, OS_LOG_TYPE_DEFAULT, "[SUBDocumentation] : Documentation bundle URL is nil..", buf, 2u);
   }
-
-LABEL_39:
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal

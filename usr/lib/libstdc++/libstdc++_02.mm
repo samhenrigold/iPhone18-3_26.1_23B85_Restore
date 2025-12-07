@@ -1,88 +1,3 @@
-void sub_223D8(void *a1)
-{
-  __cxa_begin_catch(a1);
-  (*(*v1 + 8))(v1);
-  __cxa_rethrow();
-}
-
-_BYTE *std::__add_grouping<char>(_BYTE *result, char a2, char *a3, uint64_t a4, char *a5, char *a6)
-{
-  v6 = *a3;
-  if (v6 < 1 || a6 - a5 <= v6)
-  {
-    v9 = 0;
-    v8 = 0;
-  }
-
-  else
-  {
-    v8 = 0;
-    v9 = 0;
-    do
-    {
-      a6 -= v6;
-      if (v9 >= a4 - 1)
-      {
-        ++v8;
-      }
-
-      else
-      {
-        ++v9;
-      }
-
-      v10 = a3[v9];
-      v11 = v10 < 1 || a6 - a5 <= v10;
-      LOBYTE(v6) = a3[v9];
-    }
-
-    while (!v11);
-  }
-
-  for (; a5 != a6; ++result)
-  {
-    v12 = *a5++;
-    *result = v12;
-  }
-
-  for (; v8; --v8)
-  {
-    *result++ = a2;
-    v13 = a3[v9];
-    if (v13 >= 1)
-    {
-      do
-      {
-        v14 = *a5++;
-        *result++ = v14;
-        v15 = v13--;
-      }
-
-      while (v15 > 1);
-    }
-  }
-
-  while (v9)
-  {
-    --v9;
-    *result++ = a2;
-    v16 = a3[v9];
-    if (v16 >= 1)
-    {
-      do
-      {
-        v17 = *a5++;
-        *result++ = v17;
-        v18 = v16--;
-      }
-
-      while (v18 > 1);
-    }
-  }
-
-  return result;
-}
-
 uint64_t std::numpunct<char>::numpunct(uint64_t a1, uint64_t a2)
 {
   *(a1 + 8) = a2 != 0;
@@ -376,7 +291,7 @@ void std::num_get<char,std::istreambuf_iterator<char>>::~num_get(std::locale::fa
   operator delete(v1);
 }
 
-uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, std::string *a8)
+void *std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, std::string *a8)
 {
   v55 = a2;
   v56 = a3;
@@ -413,7 +328,7 @@ uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(ui
       v24 = v55[2];
       if (v24 >= v55[3])
       {
-        std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v55);
+        std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
       }
 
       else
@@ -462,7 +377,7 @@ LABEL_29:
       v26 = v55[2];
       if (v26 >= v55[3])
       {
-        std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v55);
+        std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
       }
 
       else
@@ -907,7 +822,7 @@ uint64_t std::num_get<char,std::istreambuf_iterator<char>>::_M_find<char>(uint64
   }
 }
 
-uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::do_get(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int *a7, _BYTE *a8)
+void *std::num_get<char,std::istreambuf_iterator<char>>::do_get(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int *a7, _BYTE *a8)
 {
   v31 = a2;
   v32 = a3;
@@ -1025,7 +940,7 @@ LABEL_20:
       v23 = v31[2];
       if (v23 >= v31[3])
       {
-        std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v31);
+        std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
       }
 
       else
@@ -1075,7 +990,7 @@ LABEL_54:
   return v31;
 }
 
-uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_int<long>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, unint64_t *a8)
+void *std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_int<long>(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, unint64_t *a8)
 {
   v63 = a2;
   v64 = a3;
@@ -1133,7 +1048,7 @@ uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_int<long
     v20 = v63[2];
     if (v20 >= v63[3])
     {
-      std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v63);
+      std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
     }
 
     else
@@ -1250,7 +1165,7 @@ LABEL_54:
       v29 = v63[2];
       if (v29 >= v63[3])
       {
-        std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v63);
+        std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
       }
 
       else
@@ -1529,7 +1444,7 @@ void sub_24438(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::do_get(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, unint64_t *a8)
+void *std::num_get<char,std::istreambuf_iterator<char>>::do_get(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, unint64_t *a8)
 {
   return std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_int<long>(a1, a2, a3, a4, a5, a6, a7, a8);
 }
@@ -1546,7 +1461,7 @@ uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::do_get(uint64_t a1,
   return std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_int<unsigned long long>(a1, a2, a3, a4, a5, a6, a7, a8);
 }
 
-uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_int<unsigned short>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, unsigned __int16 *a8)
+void *std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_int<unsigned short>(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, unsigned __int16 *a8)
 {
   v58 = a2;
   v59 = a3;
@@ -1596,7 +1511,7 @@ uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_int<unsi
     v20 = v58[2];
     if (v20 >= v58[3])
     {
-      std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v58);
+      std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
     }
 
     else
@@ -1713,7 +1628,7 @@ LABEL_53:
       v29 = v58[2];
       if (v29 >= v58[3])
       {
-        std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v58);
+        std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
       }
 
       else
@@ -1966,7 +1881,7 @@ void sub_24B14(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_int<unsigned int>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, unsigned int *a8)
+void *std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_int<unsigned int>(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, unsigned int *a8)
 {
   v61 = a2;
   v62 = a3;
@@ -2016,7 +1931,7 @@ uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_int<unsi
     v20 = v61[2];
     if (v20 >= v61[3])
     {
-      std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v61);
+      std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
     }
 
     else
@@ -2133,7 +2048,7 @@ LABEL_53:
       v29 = v61[2];
       if (v29 >= v61[3])
       {
-        std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v61);
+        std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
       }
 
       else
@@ -2400,7 +2315,7 @@ void sub_251C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_int<unsigned long>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, unint64_t *a8)
+void *std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_int<unsigned long>(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, unint64_t *a8)
 {
   v63 = a2;
   v64 = a3;
@@ -2450,7 +2365,7 @@ uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_int<unsi
     v20 = v63[2];
     if (v20 >= v63[3])
     {
-      std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v63);
+      std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
     }
 
     else
@@ -2567,7 +2482,7 @@ LABEL_53:
       v29 = v63[2];
       if (v29 >= v63[3])
       {
-        std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v63);
+        std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
       }
 
       else
@@ -2833,7 +2748,7 @@ void sub_25888(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_int<long long>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, unint64_t *a8)
+void *std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_int<long long>(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, unint64_t *a8)
 {
   v63 = a2;
   v64 = a3;
@@ -2891,7 +2806,7 @@ uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_int<long
     v20 = v63[2];
     if (v20 >= v63[3])
     {
-      std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v63);
+      std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
     }
 
     else
@@ -3008,7 +2923,7 @@ LABEL_54:
       v29 = v63[2];
       if (v29 >= v63[3])
       {
-        std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v63);
+        std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
       }
 
       else
@@ -3287,7 +3202,7 @@ void sub_25F94(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_int<unsigned long long>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, unint64_t *a8)
+void *std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_int<unsigned long long>(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, unint64_t *a8)
 {
   v63 = a2;
   v64 = a3;
@@ -3337,7 +3252,7 @@ uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_int<unsi
     v20 = v63[2];
     if (v20 >= v63[3])
     {
-      std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v63);
+      std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
     }
 
     else
@@ -3454,7 +3369,7 @@ LABEL_53:
       v29 = v63[2];
       if (v29 >= v63[3])
       {
-        std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v63);
+        std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
       }
 
       else
@@ -3720,7 +3635,7 @@ void sub_26654(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::do_get(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, float *a8)
+std::locale::facet *std::num_get<char,std::istreambuf_iterator<char>>::do_get(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, float *a8)
 {
   v23 = &unk_60620;
   std::string::reserve(&v23, 0x20uLL);
@@ -3728,7 +3643,7 @@ uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::do_get(uint64_t a1,
   v17 = v23;
   std::locale::facet::_S_get_c_locale(v16, v18, v19, v20);
   std::__convert_to_v<float>(v17, a8, a7);
-  v21 = (v23 - 24);
+  v21 = v23 - 24;
   if (v23 - 24 != &std::string::_Rep::_S_empty_rep_storage && atomic_fetch_add(v23 - 2, 0xFFFFFFFF) <= 0)
   {
     std::string::_Rep::_M_destroy(v21);
@@ -3747,7 +3662,7 @@ void sub_267AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::do_get(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, double *a8)
+std::locale::facet *std::num_get<char,std::istreambuf_iterator<char>>::do_get(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, double *a8)
 {
   v23 = &unk_60620;
   std::string::reserve(&v23, 0x20uLL);
@@ -3755,7 +3670,7 @@ uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::do_get(uint64_t a1,
   v17 = v23;
   std::locale::facet::_S_get_c_locale(v16, v18, v19, v20);
   std::__convert_to_v<double>(v17, a8, a7);
-  v21 = (v23 - 24);
+  v21 = v23 - 24;
   if (v23 - 24 != &std::string::_Rep::_S_empty_rep_storage && atomic_fetch_add(v23 - 2, 0xFFFFFFFF) <= 0)
   {
     std::string::_Rep::_M_destroy(v21);
@@ -3771,7 +3686,7 @@ uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::do_get(uint64_t a1,
   v17 = v23;
   std::locale::facet::_S_get_c_locale(v16, v18, v19, v20);
   std::__convert_to_v<long double>(v17, a8, a7);
-  v21 = (v23 - 24);
+  v21 = v23 - 24;
   if (v23 - 24 != &std::string::_Rep::_S_empty_rep_storage && atomic_fetch_add(v23 - 2, 0xFFFFFFFF) <= 0)
   {
     std::string::_Rep::_M_destroy(v21);
@@ -3800,7 +3715,7 @@ void sub_26A44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::do_get(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, void *a8)
+void *std::num_get<char,std::istreambuf_iterator<char>>::do_get(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, void *a8)
 {
   v11 = *(a6 + 24);
   *(a6 + 24) = v11 & 0xFFFFFFB5 | 8;
@@ -3954,11 +3869,13 @@ void std::num_put<char,std::ostreambuf_iterator<char>>::~num_put(std::locale::fa
   operator delete(v1);
 }
 
-uint64_t std::num_put<char,std::ostreambuf_iterator<char>>::do_put(uint64_t a1, uint64_t a2, char a3, uint64_t a4, int a5, int a6)
+uint64_t std::num_put<char,std::ostreambuf_iterator<char>>::do_put(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6)
 {
+  v7 = a5;
+  v9 = a3;
   if (*(a4 + 24))
   {
-    v11 = std::__use_cache<std::__numpunct_cache<char>>::operator()(&v22, (a4 + 208));
+    v11 = std::__use_cache<std::__numpunct_cache<char>>::operator()(&v21, (a4 + 208));
     v12 = a6 == 0;
     v13 = 56;
     if (a6)
@@ -3977,16 +3894,15 @@ uint64_t std::num_put<char,std::ostreambuf_iterator<char>>::do_put(uint64_t a1, 
     v17 = *(a4 + 16);
     if (v17 > v16)
     {
-      v18 = *(a4 + 16);
       off_5C2F0(v11);
-      bzero(&v21[-((v17 + 15) & 0xFFFFFFFFFFFFFFF0)], v17);
-      std::__pad<char,std::char_traits<char>>::_S_pad(a4, a5, &v21[-((v17 + 15) & 0xFFFFFFFFFFFFFFF0)], v14, v17, v16, 1);
+      bzero(&v20[-((v17 + 15) & 0xFFFFFFFFFFFFFFF0)], v17);
+      std::__pad<char,std::char_traits<char>>::_S_pad(a4, v7, &v20[-((v17 + 15) & 0xFFFFFFFFFFFFFFF0)], v14, v17, v16, 1);
       LODWORD(v16) = v17;
-      v14 = &v21[-((v17 + 15) & 0xFFFFFFFFFFFFFFF0)];
+      v14 = &v20[-((v17 + 15) & 0xFFFFFFFFFFFFFFF0)];
     }
 
     *(a4 + 16) = 0;
-    if ((a3 & 1) == 0)
+    if ((v9 & 1) == 0)
     {
       (*(*a2 + 96))(a2, v14, v16);
     }
@@ -3995,7 +3911,7 @@ uint64_t std::num_put<char,std::ostreambuf_iterator<char>>::do_put(uint64_t a1, 
   else
   {
     std::num_put<char,std::ostreambuf_iterator<char>>::_M_insert_int<long>();
-    return v20;
+    return v19;
   }
 
   return a2;
@@ -4018,7 +3934,7 @@ void std::num_put<char,std::ostreambuf_iterator<char>>::do_put()
   std::num_put<char,std::ostreambuf_iterator<char>>::_M_insert_int<long>();
 }
 
-uint64_t std::num_put<char,std::ostreambuf_iterator<char>>::do_put(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+uint64_t std::num_put<char,std::ostreambuf_iterator<char>>::do_put(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   return std::num_put<char,std::ostreambuf_iterator<char>>::_M_insert_float<double>(a1, a2, a3, a4, a5);
 }
@@ -4098,7 +4014,7 @@ uint64_t std::__timepunct<char>::__timepunct(uint64_t a1, uint64_t a2, uint64_t 
   return a1;
 }
 
-uint64_t std::__timepunct<char>::__timepunct(uint64_t a1, int a2, char *__s, uint64_t a4)
+uint64_t std::__timepunct<char>::__timepunct(uint64_t a1, uint64_t a2, char *__s, uint64_t a4)
 {
   *(a1 + 8) = a4 != 0;
   *a1 = off_5DCB0;
@@ -4340,7 +4256,7 @@ uint64_t std::time_put<char,std::ostreambuf_iterator<char>>::time_put(uint64_t r
   return result;
 }
 
-uint64_t std::time_put<char,std::ostreambuf_iterator<char>>::put(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned __int8 *a7, unsigned __int8 *a8)
+uint64_t std::time_put<char,std::ostreambuf_iterator<char>>::put(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, char *a7, char *a8)
 {
   v29 = a2;
   v12 = a2;
@@ -4367,7 +4283,7 @@ uint64_t std::time_put<char,std::ostreambuf_iterator<char>>::put(uint64_t a1, ui
 
       if (v18 == 37)
       {
-        v19 = a7 + 1;
+        v19 = (a7 + 1);
         if (a7 + 1 == a8)
         {
           return v29;
@@ -4383,7 +4299,7 @@ LABEL_11:
             goto LABEL_17;
           }
 
-          v19 = a7 + 2;
+          v19 = (a7 + 2);
           if (a7 + 2 == a8)
           {
             return v29;
@@ -4447,9 +4363,9 @@ LABEL_22:
   return v12;
 }
 
-uint64_t *std::ostreambuf_iterator<char>::operator=(uint64_t *a1, unsigned __int8 a2)
+_BYTE *std::ostreambuf_iterator<char>::operator=(_BYTE *a1, uint64_t a2)
 {
-  if ((a1[1] & 1) == 0)
+  if ((a1[8] & 1) == 0)
   {
     v3 = *a1;
     v4 = *(*a1 + 40);
@@ -4562,7 +4478,7 @@ void std::time_get<char,std::istreambuf_iterator<char>>::~time_get(std::locale::
   operator delete(v1);
 }
 
-uint64_t *std::time_get<char,std::istreambuf_iterator<char>>::do_get_time(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, int *a8)
+void *std::time_get<char,std::istreambuf_iterator<char>>::do_get_time(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, int *a8)
 {
   v27 = a3;
   v25[0] = a4;
@@ -4587,7 +4503,7 @@ uint64_t *std::time_get<char,std::istreambuf_iterator<char>>::do_get_time(uint64
   return v26;
 }
 
-uint64_t *std::time_get<char,std::istreambuf_iterator<char>>::_M_extract_via_format(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, int *a8, const char *a9)
+void *std::time_get<char,std::istreambuf_iterator<char>>::_M_extract_via_format(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, int *a8, const char *a9)
 {
   v94 = a2;
   v95 = a3;
@@ -4637,7 +4553,7 @@ LABEL_20:
             v31 = v94[2];
             if (v31 >= v94[3])
             {
-              std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v94);
+              std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
             }
 
             else
@@ -5057,7 +4973,7 @@ LABEL_45:
             if (v51 >= v94[3])
             {
 LABEL_36:
-              std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v50);
+              std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
             }
 
             else
@@ -5110,7 +5026,7 @@ LABEL_99:
   return v94;
 }
 
-uint64_t *std::time_get<char,std::istreambuf_iterator<char>>::do_get_date(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, int *a8)
+void *std::time_get<char,std::istreambuf_iterator<char>>::do_get_date(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, int *a8)
 {
   v27 = a3;
   v25[0] = a4;
@@ -5135,7 +5051,7 @@ uint64_t *std::time_get<char,std::istreambuf_iterator<char>>::do_get_date(uint64
   return v26;
 }
 
-uint64_t *std::time_get<char,std::istreambuf_iterator<char>>::do_get_weekday(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, uint64_t a8)
+uint64_t std::time_get<char,std::istreambuf_iterator<char>>::do_get_weekday(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, uint64_t a8)
 {
   v41 = a3;
   v39[0] = a4;
@@ -5195,15 +5111,15 @@ uint64_t *std::time_get<char,std::istreambuf_iterator<char>>::do_get_weekday(uin
 
           if (v40)
           {
-            v31 = v40[2];
-            if (v31 >= v40[3])
+            v31 = *(v40 + 16);
+            if (v31 >= *(v40 + 24))
             {
-              std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v40);
+              std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
             }
 
             else
             {
-              v40[2] = v31 + 1;
+              *(v40 + 16) = v31 + 1;
             }
 
             LODWORD(v41) = -1;
@@ -5245,7 +5161,7 @@ LABEL_19:
   return v40;
 }
 
-uint64_t *std::time_get<char,std::istreambuf_iterator<char>>::_M_extract_name(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6, uint64_t a7, uint64_t a8, uint64_t a9, _DWORD *a10)
+uint64_t std::time_get<char,std::istreambuf_iterator<char>>::_M_extract_name(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6, uint64_t a7, uint64_t a8, uint64_t a9, _DWORD *a10)
 {
   v41 = a2;
   v42 = a3;
@@ -5305,15 +5221,15 @@ uint64_t *std::time_get<char,std::istreambuf_iterator<char>>::_M_extract_name(ui
 
       if (v41)
       {
-        v26 = v41[2];
-        if (v26 >= v41[3])
+        v26 = *(v41 + 16);
+        if (v26 >= *(v41 + 24))
         {
-          std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v41);
+          std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
         }
 
         else
         {
-          v41[2] = v26 + 1;
+          *(v41 + 16) = v26 + 1;
         }
 
         LODWORD(v42) = -1;
@@ -5360,15 +5276,15 @@ uint64_t *std::time_get<char,std::istreambuf_iterator<char>>::_M_extract_name(ui
 
   if (v41)
   {
-    v31 = v41[2];
-    if (v31 >= v41[3])
+    v31 = *(v41 + 16);
+    if (v31 >= *(v41 + 24))
     {
-      std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v41);
+      std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
     }
 
     else
     {
-      v41[2] = v31 + 1;
+      *(v41 + 16) = v31 + 1;
     }
 
     LODWORD(v42) = -1;
@@ -5395,15 +5311,15 @@ uint64_t *std::time_get<char,std::istreambuf_iterator<char>>::_M_extract_name(ui
 
       if (v41)
       {
-        v37 = v41[2];
-        if (v37 >= v41[3])
+        v37 = *(v41 + 16);
+        if (v37 >= *(v41 + 24))
         {
-          std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v41);
+          std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
         }
 
         else
         {
-          v41[2] = v37 + 1;
+          *(v41 + 16) = v37 + 1;
         }
 
         LODWORD(v42) = -1;
@@ -5431,7 +5347,7 @@ LABEL_47:
   return v41;
 }
 
-uint64_t *std::time_get<char,std::istreambuf_iterator<char>>::do_get_monthname(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, uint64_t a8)
+uint64_t std::time_get<char,std::istreambuf_iterator<char>>::do_get_monthname(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, uint64_t a8)
 {
   v41 = a3;
   v39[0] = a4;
@@ -5495,15 +5411,15 @@ uint64_t *std::time_get<char,std::istreambuf_iterator<char>>::do_get_monthname(u
 
           if (v40)
           {
-            v31 = v40[2];
-            if (v31 >= v40[3])
+            v31 = *(v40 + 16);
+            if (v31 >= *(v40 + 24))
             {
-              std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v40);
+              std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
             }
 
             else
             {
-              v40[2] = v31 + 1;
+              *(v40 + 16) = v31 + 1;
             }
 
             LODWORD(v41) = -1;
@@ -5545,7 +5461,7 @@ LABEL_19:
   return v40;
 }
 
-uint64_t *std::time_get<char,std::istreambuf_iterator<char>>::do_get_year(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, uint64_t a8)
+uint64_t std::time_get<char,std::istreambuf_iterator<char>>::do_get_year(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, uint64_t a8)
 {
   v30 = a2;
   v31 = a3;
@@ -5585,15 +5501,15 @@ uint64_t *std::time_get<char,std::istreambuf_iterator<char>>::do_get_year(uint64
 
     if (v30)
     {
-      v19 = v30[2];
-      if (v19 >= v30[3])
+      v19 = *(v30 + 16);
+      if (v19 >= *(v30 + 24))
       {
-        std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v30);
+        std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
       }
 
       else
       {
-        v30[2] = v19 + 1;
+        *(v30 + 16) = v19 + 1;
       }
 
       LODWORD(v31) = -1;
@@ -5640,7 +5556,7 @@ LABEL_22:
   return v30;
 }
 
-uint64_t *std::time_get<char,std::istreambuf_iterator<char>>::_M_extract_num(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, int *a6, int a7, int a8, unint64_t a9, uint64_t a10, _DWORD *a11)
+uint64_t std::time_get<char,std::istreambuf_iterator<char>>::_M_extract_num(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int *a6, int a7, int a8, unint64_t a9, uint64_t a10, _DWORD *a11)
 {
   v30 = a2;
   v31 = a3;
@@ -5708,15 +5624,15 @@ uint64_t *std::time_get<char,std::istreambuf_iterator<char>>::_M_extract_num(uin
 
       if (v30)
       {
-        v25 = v30[2];
-        if (v25 >= v30[3])
+        v25 = *(v30 + 16);
+        if (v25 >= *(v30 + 24))
         {
-          std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float(v30);
+          std::num_get<char,std::istreambuf_iterator<char>>::_M_extract_float();
         }
 
         else
         {
-          v30[2] = v25 + 1;
+          *(v30 + 16) = v25 + 1;
         }
 
         LODWORD(v31) = -1;
@@ -6149,7 +6065,7 @@ uint64_t std::use_facet<std::messages<char>>(uint64_t a1)
   return result;
 }
 
-uint64_t std::istreambuf_iterator<char>::equal(void *a1, void *a2)
+BOOL std::istreambuf_iterator<char>::equal(void *a1, void *a2)
 {
   v3 = std::istreambuf_iterator<char>::_M_get(a1);
   v4 = std::istreambuf_iterator<char>::_M_get(a2);
@@ -6190,13 +6106,6 @@ uint64_t std::istreambuf_iterator<char>::_M_get(void *a1)
   }
 
   return v2;
-}
-
-uint64_t OUTLINED_FUNCTION_4_0()
-{
-  result = v0;
-  v3 = *(v1 - 148);
-  return result;
 }
 
 uint64_t OUTLINED_FUNCTION_7()
@@ -6246,13 +6155,6 @@ void OUTLINED_FUNCTION_15(uint64_t a1, size_t a2, uint64_t a3, uint64_t a4, uint
 {
 
   bzero(&a9 - ((a2 + 15) & 0xFFFFFFFFFFFFFFF0), a2);
-}
-
-_BYTE *OUTLINED_FUNCTION_20()
-{
-  v5 = &v1[v0];
-  v6 = *(v4 - 160);
-  return std::__add_grouping<char>((v2 + 2), *(v3 + 73), *(v3 + 16), *(v3 + 24), v1, v5);
 }
 
 uint64_t OUTLINED_FUNCTION_22()
@@ -6376,7 +6278,7 @@ std::istream *std::getline<char,std::char_traits<char>,std::allocator<char>>(std
   return std::getline<char,std::char_traits<char>,std::allocator<char>>(a1, a2, v4);
 }
 
-void *std::operator>><wchar_t>(void *a1, const __int32 **a2)
+uint64_t *std::operator>><wchar_t>(uint64_t *a1, const __int32 **a2)
 {
   std::wistream::sentry::sentry(&v16, a1, 0);
   if (v16 == 1)
@@ -6481,7 +6383,7 @@ void sub_2B68C(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void *std::getline<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>(void *a1, const __int32 **a2)
+uint64_t *std::getline<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>(uint64_t *a1, const __int32 **a2)
 {
   v4 = std::wios::widen(a1 + *(*a1 - 24));
 
@@ -6513,23 +6415,23 @@ uint64_t __gnu_cxx::stdio_sync_filebuf<char>::stdio_sync_filebuf(uint64_t a1, ui
   return a1;
 }
 
-void *__gnu_cxx::stdio_sync_filebuf<char>::~stdio_sync_filebuf(void *a1)
+uint64_t __gnu_cxx::stdio_sync_filebuf<char>::~stdio_sync_filebuf(uint64_t a1)
 {
   *a1 = off_5EE88;
-  std::locale::~locale((a1 + 7));
+  std::locale::~locale((a1 + 56));
   return a1;
 }
 
 {
   *a1 = off_5EE88;
-  std::locale::~locale((a1 + 7));
+  std::locale::~locale((a1 + 56));
   return a1;
 }
 
-void __gnu_cxx::stdio_sync_filebuf<char>::~stdio_sync_filebuf(void *a1)
+void __gnu_cxx::stdio_sync_filebuf<char>::~stdio_sync_filebuf(atomic_uint **a1)
 {
   *a1 = off_5EE88;
-  std::locale::~locale((a1 + 7));
+  std::locale::~locale(a1 + 7);
 
   operator delete(a1);
 }
@@ -6663,23 +6565,23 @@ uint64_t __gnu_cxx::stdio_sync_filebuf<wchar_t>::stdio_sync_filebuf(uint64_t a1,
   return a1;
 }
 
-void *__gnu_cxx::stdio_sync_filebuf<wchar_t>::~stdio_sync_filebuf(void *a1)
+uint64_t __gnu_cxx::stdio_sync_filebuf<wchar_t>::~stdio_sync_filebuf(uint64_t a1)
 {
   *a1 = off_5EF08;
-  std::locale::~locale((a1 + 7));
+  std::locale::~locale((a1 + 56));
   return a1;
 }
 
 {
   *a1 = off_5EF08;
-  std::locale::~locale((a1 + 7));
+  std::locale::~locale((a1 + 56));
   return a1;
 }
 
-void __gnu_cxx::stdio_sync_filebuf<wchar_t>::~stdio_sync_filebuf(void *a1)
+void __gnu_cxx::stdio_sync_filebuf<wchar_t>::~stdio_sync_filebuf(atomic_uint **a1)
 {
   *a1 = off_5EF08;
-  std::locale::~locale((a1 + 7));
+  std::locale::~locale(a1 + 7);
 
   operator delete(a1);
 }
@@ -6884,13 +6786,13 @@ uint64_t std::ostream::ostream(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void std::ostream::~ostream(std::ostream *this)
+void std::ostream::~ostream(atomic_uint **this)
 {
-  std::ios_base::~ios_base((this + 8));
+  std::ios_base::~ios_base(this + 1);
 }
 
 {
-  std::ios_base::~ios_base((this + 8));
+  std::ios_base::~ios_base(this + 1);
 
   operator delete(this);
 }
@@ -6901,8 +6803,8 @@ void virtual thunk tostd::ostream::~ostream(std::ostream *this)
 }
 
 {
-  v1 = this + *(*this - 24);
-  std::ios_base::~ios_base((v1 + 8));
+  v1 = (this + *(*this - 24));
+  std::ios_base::~ios_base(v1 + 1);
 
   operator delete(v1);
 }
@@ -7408,9 +7310,9 @@ void sub_2D2E4(void *a1)
   __cxa_rethrow();
 }
 
-void sub_2D324(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2D324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __cxa_end_catch();
   std::ostream::sentry::~sentry(va);
   _Unwind_Resume(a1);
@@ -7907,39 +7809,37 @@ void *std::operator<<<char,std::char_traits<char>>(void *result, int a2)
 }
 
 {
+  if (a2 == 10)
+  {
+    v2 = 2;
+  }
+
+  else
+  {
+    v2 = 8 * (a2 == 16);
+  }
+
+  if (a2 == 8)
+  {
+    v3 = 64;
+  }
+
+  else
+  {
+    v3 = v2;
+  }
+
+  *(result + *(*result - 24) + 24) = *(result + *(*result - 24) + 24) & 0xFFFFFFB5 | v3;
+  return result;
+}
+
+{
   *(result + *(*result - 24) + 8) = a2;
   return result;
 }
 
 {
   *(result + *(*result - 24) + 16) = a2;
-  return result;
-}
-
-uint64_t *std::operator<<<char,std::char_traits<char>>(uint64_t *result, int a2)
-{
-  v2 = *result;
-  if (a2 == 10)
-  {
-    v3 = 2;
-  }
-
-  else
-  {
-    v3 = 8 * (a2 == 16);
-  }
-
-  if (a2 == 8)
-  {
-    v4 = 64;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  *(result + *(*result - 24) + 24) = *(result + *(*result - 24) + 24) & 0xFFFFFFB5 | v4;
   return result;
 }
 
@@ -7972,15 +7872,15 @@ void virtual thunk tostd::wostream::~wostream(void *a1)
 }
 
 {
-  v1 = a1 + *(*a1 - 24);
-  std::ios_base::~ios_base((v1 + 8));
+  v1 = (a1 + *(*a1 - 24));
+  std::ios_base::~ios_base(v1 + 1);
 
   operator delete(v1);
 }
 
-void std::wostream::~wostream(uint64_t a1)
+void std::wostream::~wostream(atomic_uint **a1)
 {
-  std::ios_base::~ios_base((a1 + 8));
+  std::ios_base::~ios_base(a1 + 1);
 
   operator delete(a1);
 }
@@ -7999,7 +7899,7 @@ uint64_t std::wostream::sentry::sentry(uint64_t a1, uint64_t *a2)
   }
 
   v7 = a2 + *(v4 - 24);
-  v8 = *(v7 + 32);
+  v8 = *(v7 + 8);
   if (v8)
   {
     std::wios::clear(v7, v8 | 4);
@@ -8073,23 +7973,23 @@ uint64_t *std::wostream::_M_insert<long>(uint64_t *a1, uint64_t a2)
   if (v10[0] == 1)
   {
     v4 = a1 + *(*a1 - 24);
-    v5 = *(v4 + 248);
+    v5 = *(v4 + 31);
     if (!v5)
     {
       std::__throw_bad_cast();
     }
 
-    v6 = *(v4 + 232);
-    if (*(v4 + 228) == 1)
+    v6 = *(v4 + 29);
+    if (v4[228] == 1)
     {
-      v7 = *(v4 + 224);
+      v7 = *(v4 + 56);
     }
 
     else
     {
       v7 = std::wios::widen(v4);
-      *(v4 + 224) = v7;
-      *(v4 + 228) = 1;
+      *(v4 + 56) = v7;
+      v4[228] = 1;
     }
 
     (*(*v5 + 24))(v5, v6, v6 == 0, v4, v7, a2);
@@ -8116,23 +8016,23 @@ uint64_t *std::wostream::_M_insert<unsigned long>(uint64_t *a1, uint64_t a2)
   if (v10[0] == 1)
   {
     v4 = a1 + *(*a1 - 24);
-    v5 = *(v4 + 248);
+    v5 = *(v4 + 31);
     if (!v5)
     {
       std::__throw_bad_cast();
     }
 
-    v6 = *(v4 + 232);
-    if (*(v4 + 228) == 1)
+    v6 = *(v4 + 29);
+    if (v4[228] == 1)
     {
-      v7 = *(v4 + 224);
+      v7 = *(v4 + 56);
     }
 
     else
     {
       v7 = std::wios::widen(v4);
-      *(v4 + 224) = v7;
-      *(v4 + 228) = 1;
+      *(v4 + 56) = v7;
+      v4[228] = 1;
     }
 
     (*(*v5 + 32))(v5, v6, v6 == 0, v4, v7, a2);
@@ -8159,23 +8059,23 @@ uint64_t *std::wostream::_M_insert<BOOL>(uint64_t *a1, uint64_t a2)
   if (v10[0] == 1)
   {
     v4 = a1 + *(*a1 - 24);
-    v5 = *(v4 + 248);
+    v5 = *(v4 + 31);
     if (!v5)
     {
       std::__throw_bad_cast();
     }
 
-    v6 = *(v4 + 232);
-    if (*(v4 + 228) == 1)
+    v6 = *(v4 + 29);
+    if (v4[228] == 1)
     {
-      v7 = *(v4 + 224);
+      v7 = *(v4 + 56);
     }
 
     else
     {
       v7 = std::wios::widen(v4);
-      *(v4 + 224) = v7;
-      *(v4 + 228) = 1;
+      *(v4 + 56) = v7;
+      v4[228] = 1;
     }
 
     (*(*v5 + 16))(v5, v6, v6 == 0, v4, v7, a2);
@@ -8242,23 +8142,23 @@ uint64_t *std::wostream::_M_insert<long long>(uint64_t *a1, uint64_t a2)
   if (v10[0] == 1)
   {
     v4 = a1 + *(*a1 - 24);
-    v5 = *(v4 + 248);
+    v5 = *(v4 + 31);
     if (!v5)
     {
       std::__throw_bad_cast();
     }
 
-    v6 = *(v4 + 232);
-    if (*(v4 + 228) == 1)
+    v6 = *(v4 + 29);
+    if (v4[228] == 1)
     {
-      v7 = *(v4 + 224);
+      v7 = *(v4 + 56);
     }
 
     else
     {
       v7 = std::wios::widen(v4);
-      *(v4 + 224) = v7;
-      *(v4 + 228) = 1;
+      *(v4 + 56) = v7;
+      v4[228] = 1;
     }
 
     (*(*v5 + 40))(v5, v6, v6 == 0, v4, v7, a2);
@@ -8285,23 +8185,23 @@ uint64_t *std::wostream::_M_insert<unsigned long long>(uint64_t *a1, uint64_t a2
   if (v10[0] == 1)
   {
     v4 = a1 + *(*a1 - 24);
-    v5 = *(v4 + 248);
+    v5 = *(v4 + 31);
     if (!v5)
     {
       std::__throw_bad_cast();
     }
 
-    v6 = *(v4 + 232);
-    if (*(v4 + 228) == 1)
+    v6 = *(v4 + 29);
+    if (v4[228] == 1)
     {
-      v7 = *(v4 + 224);
+      v7 = *(v4 + 56);
     }
 
     else
     {
       v7 = std::wios::widen(v4);
-      *(v4 + 224) = v7;
-      *(v4 + 228) = 1;
+      *(v4 + 56) = v7;
+      v4[228] = 1;
     }
 
     (*(*v5 + 48))(v5, v6, v6 == 0, v4, v7, a2);
@@ -8328,23 +8228,23 @@ uint64_t *std::wostream::_M_insert<double>(uint64_t *a1, double a2)
   if (v10[0] == 1)
   {
     v4 = a1 + *(*a1 - 24);
-    v5 = *(v4 + 248);
+    v5 = *(v4 + 31);
     if (!v5)
     {
       std::__throw_bad_cast();
     }
 
-    v6 = *(v4 + 232);
-    if (*(v4 + 228) == 1)
+    v6 = *(v4 + 29);
+    if (v4[228] == 1)
     {
-      v7 = *(v4 + 224);
+      v7 = *(v4 + 56);
     }
 
     else
     {
       v7 = std::wios::widen(v4);
-      *(v4 + 224) = v7;
-      *(v4 + 228) = 1;
+      *(v4 + 56) = v7;
+      v4[228] = 1;
     }
 
     (*(*v5 + 56))(v5, v6, v6 == 0, v4, v7, a2);
@@ -8371,23 +8271,23 @@ uint64_t *std::wostream::_M_insert<long double>(uint64_t *a1, double a2)
   if (v10[0] == 1)
   {
     v4 = a1 + *(*a1 - 24);
-    v5 = *(v4 + 248);
+    v5 = *(v4 + 31);
     if (!v5)
     {
       std::__throw_bad_cast();
     }
 
-    v6 = *(v4 + 232);
-    if (*(v4 + 228) == 1)
+    v6 = *(v4 + 29);
+    if (v4[228] == 1)
     {
-      v7 = *(v4 + 224);
+      v7 = *(v4 + 56);
     }
 
     else
     {
       v7 = std::wios::widen(v4);
-      *(v4 + 224) = v7;
-      *(v4 + 228) = 1;
+      *(v4 + 56) = v7;
+      v4[228] = 1;
     }
 
     (*(*v5 + 64))(v5, v6, v6 == 0, v4, v7, a2);
@@ -8414,23 +8314,23 @@ uint64_t *std::wostream::_M_insert<void const*>(uint64_t *a1, uint64_t a2)
   if (v10[0] == 1)
   {
     v4 = a1 + *(*a1 - 24);
-    v5 = *(v4 + 248);
+    v5 = *(v4 + 31);
     if (!v5)
     {
       std::__throw_bad_cast();
     }
 
-    v6 = *(v4 + 232);
-    if (*(v4 + 228) == 1)
+    v6 = *(v4 + 29);
+    if (v4[228] == 1)
     {
-      v7 = *(v4 + 224);
+      v7 = *(v4 + 56);
     }
 
     else
     {
       v7 = std::wios::widen(v4);
-      *(v4 + 224) = v7;
-      *(v4 + 228) = 1;
+      *(v4 + 56) = v7;
+      v4[228] = 1;
     }
 
     (*(*v5 + 72))(v5, v6, v6 == 0, v4, v7, a2);
@@ -8488,9 +8388,9 @@ void sub_2F5D4(void *a1)
   __cxa_rethrow();
 }
 
-void sub_2F614(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2F614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __cxa_end_catch();
   std::wostream::sentry::~sentry(va);
   _Unwind_Resume(a1);
@@ -8548,11 +8448,11 @@ void sub_2F754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
 uint64_t std::wostream::_M_write(void *a1, uint64_t a2, uint64_t a3)
 {
   v5 = *(a1 + *(*a1 - 24) + 232);
-  result = (*(*v5 + 96))(v5);
+  result = (*(*v5 + 96))(v5, a2);
   if (result != a3)
   {
     v7 = a1 + *(*a1 - 24);
-    v8 = *(v7 + 32) | 1;
+    v8 = *(v7 + 8) | 1;
 
     return std::wios::clear(v7, v8);
   }
@@ -8940,30 +8840,29 @@ uint64_t *std::operator<<<wchar_t,std::char_traits<wchar_t>>(uint64_t *a1, char 
 {
   if (__s)
   {
-    v4 = strlen(__s);
-    v5 = v4;
-    if (v4 >> 62)
+    v3 = strlen(__s);
+    v4 = v3;
+    if (v3 >> 62)
     {
-      v6 = -1;
+      v5 = -1;
     }
 
     else
     {
-      v6 = 4 * v4;
+      v5 = 4 * v3;
     }
 
-    v7 = operator new[](v6);
-    if (v5)
+    v6 = operator new[](v5);
+    if (v4)
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v4; ++i)
       {
-        v9 = __s[i];
-        v7[i] = std::wios::widen(a1 + *(*a1 - 24));
+        v6[i] = std::wios::widen(a1 + *(*a1 - 24));
       }
     }
 
-    std::__ostream_insert<wchar_t,std::char_traits<wchar_t>>(a1, v7, v5);
-    operator delete[](v7);
+    std::__ostream_insert<wchar_t,std::char_traits<wchar_t>>(a1, v6, v4);
+    operator delete[](v6);
   }
 
   else
@@ -9006,39 +8905,37 @@ void *std::operator<<<wchar_t,std::char_traits<wchar_t>>(void *result, int a2)
 }
 
 {
+  if (a2 == 10)
+  {
+    v2 = 2;
+  }
+
+  else
+  {
+    v2 = 8 * (a2 == 16);
+  }
+
+  if (a2 == 8)
+  {
+    v3 = 64;
+  }
+
+  else
+  {
+    v3 = v2;
+  }
+
+  *(result + *(*result - 24) + 24) = *(result + *(*result - 24) + 24) & 0xFFFFFFB5 | v3;
+  return result;
+}
+
+{
   *(result + *(*result - 24) + 8) = a2;
   return result;
 }
 
 {
   *(result + *(*result - 24) + 16) = a2;
-  return result;
-}
-
-uint64_t *std::operator<<<wchar_t,std::char_traits<wchar_t>>(uint64_t *result, int a2)
-{
-  v2 = *result;
-  if (a2 == 10)
-  {
-    v3 = 2;
-  }
-
-  else
-  {
-    v3 = 8 * (a2 == 16);
-  }
-
-  if (a2 == 8)
-  {
-    v4 = 64;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  *(result + *(*result - 24) + 24) = *(result + *(*result - 24) + 24) & 0xFFFFFFB5 | v4;
   return result;
 }
 
@@ -9067,7 +8964,7 @@ uint64_t std::stringbuf::basic_stringbuf(uint64_t a1, int a2)
   return a1;
 }
 
-uint64_t std::stringbuf::basic_stringbuf(uint64_t a1, _BYTE **a2, int a3)
+uint64_t std::stringbuf::basic_stringbuf(uint64_t a1, void *a2, int a3)
 {
   *a1 = off_5EE88;
   *(a1 + 8) = 0u;
@@ -9076,7 +8973,7 @@ uint64_t std::stringbuf::basic_stringbuf(uint64_t a1, _BYTE **a2, int a3)
   std::locale::locale((a1 + 56));
   *a1 = off_5E608;
   *(a1 + 64) = 0;
-  std::string::string((a1 + 72), *a2, *(*a2 - 3));
+  std::string::string((a1 + 72), *a2, *(*a2 - 24), v9);
   *(a1 + 64) = a3;
   v6 = *(a1 + 72);
   if ((a3 & 3) != 0)
@@ -9095,14 +8992,14 @@ uint64_t std::stringbuf::basic_stringbuf(uint64_t a1, _BYTE **a2, int a3)
 
 void sub_30830(_Unwind_Exception *a1)
 {
-  v4 = v1[9];
+  v4 = *(v1 + 72);
   if ((v4 - 24) != &std::string::_Rep::_S_empty_rep_storage && atomic_fetch_add((v4 - 8), 0xFFFFFFFF) <= 0)
   {
     std::string::_Rep::_M_destroy((v4 - 24));
   }
 
   *v1 = v2;
-  std::locale::~locale((v1 + 7));
+  std::locale::~locale((v1 + 56));
   _Unwind_Resume(a1);
 }
 
@@ -9124,47 +9021,47 @@ uint64_t std::stringbuf::_M_stringbuf_init(uint64_t a1, int a2)
   return std::stringbuf::_M_sync(a1, v3, 0, v4);
 }
 
-void *std::stringbuf::~stringbuf(void *a1)
+uint64_t std::stringbuf::~stringbuf(uint64_t a1)
 {
   *a1 = off_5E608;
-  v2 = a1[9];
+  v2 = *(a1 + 72);
   if ((v2 - 24) != &std::string::_Rep::_S_empty_rep_storage && atomic_fetch_add((v2 - 8), 0xFFFFFFFF) <= 0)
   {
     std::string::_Rep::_M_destroy((v2 - 24));
   }
 
   *a1 = off_5EE88;
-  std::locale::~locale((a1 + 7));
+  std::locale::~locale((a1 + 56));
   return a1;
 }
 
-void std::stringbuf::~stringbuf(void *a1)
+void std::stringbuf::~stringbuf(uint64_t a1)
 {
   v1 = std::stringbuf::~stringbuf(a1);
 
   operator delete(v1);
 }
 
-void std::stringbuf::str(uint64_t a1@<X0>, atomic_uint **a2@<X8>)
+void std::stringbuf::str(atomic_uint **a1@<X0>, atomic_uint **a2@<X8>)
 {
   *a2 = &unk_60620;
-  v3 = *(a1 + 40);
+  v3 = a1[5];
   if (v3)
   {
-    v4 = *(a1 + 24);
+    v4 = a1[3];
     if (v3 <= v4)
     {
-      v6 = std::string::_S_construct<char *>(*(a1 + 32), v4);
+      v6 = std::string::_S_construct<char *>(a1[4], v4);
     }
 
     else
     {
-      v6 = std::string::_S_construct<char *>(*(a1 + 32), v3);
+      v6 = std::string::_S_construct<char *>(a1[4], v3);
     }
 
     std::string::assign(a2, &v6);
-    v5 = v6 - 6;
-    if (v6 - 6 != &std::string::_Rep::_S_empty_rep_storage && atomic_fetch_add(v6 - 2, 0xFFFFFFFF) <= 0)
+    v5 = (v6 - 24);
+    if ((v6 - 24) != &std::string::_Rep::_S_empty_rep_storage && atomic_fetch_add((v6 - 8), 0xFFFFFFFF) <= 0)
     {
       std::string::_Rep::_M_destroy(v5);
     }
@@ -9172,7 +9069,7 @@ void std::stringbuf::str(uint64_t a1@<X0>, atomic_uint **a2@<X8>)
 
   else
   {
-    std::string::assign(a2, (a1 + 72));
+    std::string::assign(a2, a1 + 9);
   }
 }
 
@@ -9258,7 +9155,7 @@ uint64_t std::stringbuf::_M_sync(uint64_t result, uint64_t a2, uint64_t a3, int 
   return result;
 }
 
-uint64_t std::stringbuf::showmanyc(uint64_t a1)
+unint64_t std::stringbuf::showmanyc(uint64_t a1)
 {
   if ((*(a1 + 64) & 8) == 0)
   {
@@ -9749,7 +9646,7 @@ void sub_31470(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::istringstream::basic_istringstream(uint64_t *a1, uint64_t *a2, _BYTE **a3, int a4)
+uint64_t *std::istringstream::basic_istringstream(uint64_t *a1, uint64_t *a2, void *a3, int a4)
 {
   v5 = a2[1];
   *a1 = v5;
@@ -9765,7 +9662,7 @@ uint64_t *std::istringstream::basic_istringstream(uint64_t *a1, uint64_t *a2, _B
 
 void sub_31634(_Unwind_Exception *a1)
 {
-  std::stringbuf::~stringbuf(v1 + 2);
+  std::stringbuf::~stringbuf((v1 + 2));
   v4 = *(v2 + 8);
   *v1 = v4;
   *(v1 + *(v4 - 24)) = *(v2 + 16);
@@ -9773,7 +9670,7 @@ void sub_31634(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::istringstream::basic_istringstream(uint64_t a1, _BYTE **a2, int a3)
+uint64_t std::istringstream::basic_istringstream(uint64_t a1, void *a2, int a3)
 {
   std::ios_base::ios_base((a1 + 96));
   *(a1 + 312) = 0;
@@ -9790,7 +9687,7 @@ uint64_t std::istringstream::basic_istringstream(uint64_t a1, _BYTE **a2, int a3
 
 void sub_3178C(_Unwind_Exception *a1)
 {
-  std::stringbuf::~stringbuf(v1 + 2);
+  std::stringbuf::~stringbuf((v1 + 2));
   v1[12] = off_5EAA0;
   *v1 = off_5EA78;
   v1[1] = 0;
@@ -9803,7 +9700,7 @@ uint64_t *std::istringstream::~istringstream(uint64_t *a1, uint64_t *a2)
   v4 = *a2;
   *a1 = *a2;
   *(a1 + *(v4 - 24)) = a2[3];
-  std::stringbuf::~stringbuf(a1 + 2);
+  std::stringbuf::~stringbuf((a1 + 2));
   v5 = a2[1];
   *a1 = v5;
   *(a1 + *(v5 - 24)) = a2[2];
@@ -9813,7 +9710,7 @@ uint64_t *std::istringstream::~istringstream(uint64_t *a1, uint64_t *a2)
 
 uint64_t *std::istringstream::~istringstream(uint64_t *a1)
 {
-  std::ios_base::~ios_base((v2 + 12));
+  std::ios_base::~ios_base(v2 + 12);
   return a1;
 }
 
@@ -9829,7 +9726,7 @@ void virtual thunk tostd::istringstream::~istringstream(void *a1)
 
 void std::istringstream::~istringstream(uint64_t *a1)
 {
-  std::ios_base::~ios_base((v2 + 12));
+  std::ios_base::~ios_base(v2 + 12);
 
   operator delete(a1);
 }
@@ -9853,4 +9750,100 @@ uint64_t std::ostringstream::basic_ostringstream(uint64_t a1, uint64_t *a2, int 
   *(a1 + 80) = &unk_60620;
   std::ios::init(a1 + *(*a1 - 24), a1 + 8);
   return a1;
+}
+
+uint64_t std::ostringstream::basic_ostringstream(uint64_t a1, int a2)
+{
+  std::ios_base::ios_base((a1 + 88));
+  *(a1 + 304) = 0;
+  *(a1 + 312) = 0;
+  *(a1 + 320) = 0u;
+  *(a1 + 336) = 0u;
+  *a1 = off_5E700;
+  *(a1 + 88) = off_5E728;
+  *(a1 + 8) = off_5EE88;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  std::locale::locale((a1 + 64));
+  *(a1 + 8) = off_5E608;
+  *(a1 + 72) = a2 | 0x10;
+  *(a1 + 80) = &unk_60620;
+  std::ios::init(a1 + *(*a1 - 24), a1 + 8);
+  return a1;
+}
+
+void sub_31CF8(_Unwind_Exception *a1)
+{
+  std::stringbuf::~stringbuf(v2);
+  std::ios_base::~ios_base(v1);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *std::ostringstream::basic_ostringstream(uint64_t *a1, uint64_t *a2, void *a3, int a4)
+{
+  v5 = a2[1];
+  *a1 = v5;
+  *(a1 + *(v5 - 24)) = a2[2];
+  v6 = *a2;
+  *a1 = *a2;
+  *(a1 + *(v6 - 24)) = a2[3];
+  std::stringbuf::basic_stringbuf((a1 + 1), a3, a4 | 0x10);
+  std::ios::init(a1 + *(*a1 - 24), (a1 + 1));
+  return a1;
+}
+
+uint64_t std::ostringstream::basic_ostringstream(uint64_t a1, void *a2, int a3)
+{
+  std::ios_base::ios_base((a1 + 88));
+  *(a1 + 304) = 0;
+  *(a1 + 312) = 0;
+  *(a1 + 320) = 0u;
+  *(a1 + 336) = 0u;
+  *a1 = off_5E700;
+  *(a1 + 88) = off_5E728;
+  std::stringbuf::basic_stringbuf(a1 + 8, a2, a3 | 0x10);
+  std::ios::init(a1 + *(*a1 - 24), a1 + 8);
+  return a1;
+}
+
+void sub_31F38(_Unwind_Exception *a1)
+{
+  std::stringbuf::~stringbuf(v2 + 8);
+  std::ios_base::~ios_base(v1);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *std::ostringstream::~ostringstream(uint64_t *a1, uint64_t *a2)
+{
+  v3 = *a2;
+  *a1 = *a2;
+  *(a1 + *(v3 - 24)) = a2[3];
+  std::stringbuf::~stringbuf((a1 + 1));
+  return a1;
+}
+
+void *std::ostringstream::~ostringstream(void *a1)
+{
+  *a1 = off_5E700;
+  v2 = (a1 + 11);
+  a1[11] = off_5E728;
+  std::stringbuf::~stringbuf((a1 + 1));
+  std::ios_base::~ios_base(v2);
+  return a1;
+}
+
+void virtual thunk tostd::ostringstream::~ostringstream(void *a1)
+{
+  v1 = (a1 + *(*a1 - 24));
+  *v1 = off_5E700;
+  v2 = (v1 + 11);
+  v1[11] = off_5E728;
+  std::stringbuf::~stringbuf((v1 + 1));
+
+  std::ios_base::~ios_base(v2);
+}
+
+{
+  std::ostringstream::~ostringstream((a1 + *(*a1 - 24)));
 }

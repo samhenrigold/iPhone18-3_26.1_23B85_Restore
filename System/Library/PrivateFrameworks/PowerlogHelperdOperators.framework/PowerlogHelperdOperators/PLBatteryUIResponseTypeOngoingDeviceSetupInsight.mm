@@ -32,30 +32,28 @@
 
   else
   {
-    v3 = *MEMORY[0x277CBF040];
-    v4 = *MEMORY[0x277CBF030];
     +[PLUtilities containerPath];
-    v11 = _CFPreferencesCopyValueWithContainer();
+    v9 = _CFPreferencesCopyValueWithContainer();
     if ([(PLBatteryUIResponseTypeOngoingDeviceSetupInsight *)self didUpgradeInLast:604800.0])
     {
       responderService = [(PLBatteryUIResponseTypeOngoingDeviceSetupInsight *)self responderService];
-      v6 = [responderService getBreakdownForLength:86400 fromCachedLength:1296000 forBucketSize:86400];
+      v4 = [responderService getBreakdownForLength:86400 fromCachedLength:1296000 forBucketSize:86400];
 
-      v7 = [v6 objectForKeyedSubscript:@"PLBatteryUIPerAppBreakdownKey"];
-      v8 = [v7 objectForKeyedSubscript:@"DeviceSetup"];
+      v5 = [v4 objectForKeyedSubscript:@"PLBatteryUIPerAppBreakdownKey"];
+      v6 = [v5 objectForKeyedSubscript:@"DeviceSetup"];
 
-      if (v8)
+      if (v6)
       {
-        v9 = [v8 objectForKeyedSubscript:@"PLBatteryUIAppEnergyValueKey"];
-        v10 = [v9 intValue] > 2;
+        v7 = [v6 objectForKeyedSubscript:@"PLBatteryUIAppEnergyValueKey"];
+        v8 = [v7 intValue] > 2;
       }
 
       else
       {
-        v10 = 0;
+        v8 = 0;
       }
 
-      -[PLBatteryUIResponseTypeOngoingDeviceSetupInsight setSuggest:](self, "setSuggest:", ([v11 BOOLValue] | v10) & 1);
+      -[PLBatteryUIResponseTypeOngoingDeviceSetupInsight setSuggest:](self, "setSuggest:", ([v9 BOOLValue] | v8) & 1);
     }
 
     else
@@ -91,13 +89,11 @@
 
 id __58__PLBatteryUIResponseTypeOngoingDeviceSetupInsight_result__block_invoke_2(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"duration";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"duration";
   v1 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }

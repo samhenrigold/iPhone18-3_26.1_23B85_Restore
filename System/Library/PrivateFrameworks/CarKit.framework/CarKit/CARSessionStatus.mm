@@ -331,7 +331,7 @@ void __62__CARSessionStatus__handleStartingWiredConnectionNotification__block_in
 
 void __47__CARSessionStatus__handleConfigurationUpdated__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) session];
   [v2 _sessionUpdatesQueue_updateConfiguration];
 
@@ -339,13 +339,13 @@ void __47__CARSessionStatus__handleConfigurationUpdated__block_invoke(uint64_t a
   v4 = [v3 session];
   [v3 _sessionUpdatesQueue_notifyDidUpdateSession:v4];
 
-  v5 = CarGeneralLogging();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = CarGeneralLogging(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 32);
-    v7 = 138412290;
-    v8 = v6;
-    _os_log_impl(&dword_1C81FC000, v5, OS_LOG_TYPE_DEFAULT, "Configuration updated for session %@", &v7, 0xCu);
+    v7 = *(a1 + 32);
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_1C81FC000, v6, OS_LOG_TYPE_DEFAULT, "Configuration updated for session %@", &v8, 0xCu);
   }
 }
 
@@ -366,7 +366,7 @@ void __47__CARSessionStatus__handleConfigurationUpdated__block_invoke(uint64_t a
 
 void __49__CARSessionStatus__handleCarCapabilitiesUpdated__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = [WeakRetained session];
   [v2 _updateCarCapabilities];
@@ -374,12 +374,12 @@ void __49__CARSessionStatus__handleCarCapabilitiesUpdated__block_invoke(uint64_t
   v3 = [WeakRetained session];
   [WeakRetained _sessionUpdatesQueue_notifyDidUpdateSession:v3];
 
-  v4 = CarGeneralLogging();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = CarGeneralLogging(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = WeakRetained;
-    _os_log_impl(&dword_1C81FC000, v4, OS_LOG_TYPE_DEFAULT, "CarCapabilities updated for session %@", &v5, 0xCu);
+    v6 = 138412290;
+    v7 = WeakRetained;
+    _os_log_impl(&dword_1C81FC000, v5, OS_LOG_TYPE_DEFAULT, "CarCapabilities updated for session %@", &v6, 0xCu);
   }
 }
 
@@ -409,16 +409,16 @@ void __49__CARSessionStatus__handleCarCapabilitiesUpdated__block_invoke(uint64_t
   v3 = +[CARSessionStatus sessionUpdatesQueue];
   dispatch_assert_queue_V2(v3);
 
-  v4 = CarGeneralLogging();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = CarGeneralLogging(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_1C81FC000, v4, OS_LOG_TYPE_INFO, "starting session connecting timeout", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_1C81FC000, v5, OS_LOG_TYPE_INFO, "starting session connecting timeout", v8, 2u);
   }
 
   connectingTimer = [(CARSessionStatus *)self connectingTimer];
-  v6 = dispatch_time(0, 1000000000 * [(CARSessionStatus *)self timeoutInterval]);
-  dispatch_source_set_timer(connectingTimer, v6, 0xFFFFFFFFFFFFFFFFLL, 0x1DCD6500uLL);
+  v7 = dispatch_time(0, 1000000000 * [(CARSessionStatus *)self timeoutInterval]);
+  dispatch_source_set_timer(connectingTimer, v7, 0xFFFFFFFFFFFFFFFFLL, 0x1DCD6500uLL);
   dispatch_activate(connectingTimer);
 }
 
@@ -443,17 +443,17 @@ void __49__CARSessionStatus__handleCarCapabilitiesUpdated__block_invoke(uint64_t
 
 - (void)_sessionUpdatesQueue_notifyStartedConnectionAttemptOnTransport:(unint64_t)transport
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = +[CARSessionStatus sessionUpdatesQueue];
   dispatch_assert_queue_V2(v5);
 
-  v6 = CarGeneralLogging();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = CarGeneralLogging(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = [CARSessionConfiguration _descriptionForTransportType:transport];
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_1C81FC000, v6, OS_LOG_TYPE_DEFAULT, "attempting connection on transport %{public}@", &v9, 0xCu);
+    v8 = [CARSessionConfiguration _descriptionForTransportType:transport];
+    v10 = 138543362;
+    v11 = v8;
+    _os_log_impl(&dword_1C81FC000, v7, OS_LOG_TYPE_DEFAULT, "attempting connection on transport %{public}@", &v10, 0xCu);
   }
 
   sessionObservers = [(CARSessionStatus *)self sessionObservers];
@@ -462,17 +462,17 @@ void __49__CARSessionStatus__handleCarCapabilitiesUpdated__block_invoke(uint64_t
 
 - (void)_sessionUpdatesQueue_notifyCancelledConnectionAttemptOnTransport:(unint64_t)transport
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = +[CARSessionStatus sessionUpdatesQueue];
   dispatch_assert_queue_V2(v5);
 
-  v6 = CarGeneralLogging();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = CarGeneralLogging(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = [CARSessionConfiguration _descriptionForTransportType:transport];
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_1C81FC000, v6, OS_LOG_TYPE_DEFAULT, "cancelled connection attempt on transport %{public}@", &v9, 0xCu);
+    v8 = [CARSessionConfiguration _descriptionForTransportType:transport];
+    v10 = 138543362;
+    v11 = v8;
+    _os_log_impl(&dword_1C81FC000, v7, OS_LOG_TYPE_DEFAULT, "cancelled connection attempt on transport %{public}@", &v10, 0xCu);
   }
 
   sessionObservers = [(CARSessionStatus *)self sessionObservers];
@@ -481,17 +481,17 @@ void __49__CARSessionStatus__handleCarCapabilitiesUpdated__block_invoke(uint64_t
 
 - (void)_sessionUpdatesQueue_notifyDidConnectSession:(id)session
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   v5 = +[CARSessionStatus sessionUpdatesQueue];
   dispatch_assert_queue_V2(v5);
 
-  v6 = CarGeneralLogging();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = CarGeneralLogging(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = sessionCopy;
-    _os_log_impl(&dword_1C81FC000, v6, OS_LOG_TYPE_DEFAULT, "connected session %@", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = sessionCopy;
+    _os_log_impl(&dword_1C81FC000, v7, OS_LOG_TYPE_DEFAULT, "connected session %@", &v9, 0xCu);
   }
 
   sessionObservers = [(CARSessionStatus *)self sessionObservers];
@@ -500,18 +500,18 @@ void __49__CARSessionStatus__handleCarCapabilitiesUpdated__block_invoke(uint64_t
 
 - (void)_sessionUpdatesQueue_notifyDidDisconnectSession:(id)session
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   v5 = +[CARSessionStatus sessionUpdatesQueue];
   dispatch_assert_queue_V2(v5);
 
-  v6 = CarGeneralLogging();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = CarGeneralLogging(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     _fig_safe_description = [sessionCopy _fig_safe_description];
-    v9 = 138412290;
-    v10 = _fig_safe_description;
-    _os_log_impl(&dword_1C81FC000, v6, OS_LOG_TYPE_DEFAULT, "disconnected session %@", &v9, 0xCu);
+    v10 = 138412290;
+    v11 = _fig_safe_description;
+    _os_log_impl(&dword_1C81FC000, v7, OS_LOG_TYPE_DEFAULT, "disconnected session %@", &v10, 0xCu);
   }
 
   sessionObservers = [(CARSessionStatus *)self sessionObservers];
@@ -520,17 +520,17 @@ void __49__CARSessionStatus__handleCarCapabilitiesUpdated__block_invoke(uint64_t
 
 - (void)_sessionUpdatesQueue_notifyDidUpdateSession:(id)session
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   v5 = +[CARSessionStatus sessionUpdatesQueue];
   dispatch_assert_queue_V2(v5);
 
-  v6 = CarGeneralLogging();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = CarGeneralLogging(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = sessionCopy;
-    _os_log_impl(&dword_1C81FC000, v6, OS_LOG_TYPE_DEFAULT, "updated session %@", &v9, 0xCu);
+    v10 = 138412290;
+    v11 = sessionCopy;
+    _os_log_impl(&dword_1C81FC000, v7, OS_LOG_TYPE_DEFAULT, "updated session %@", &v10, 0xCu);
   }
 
   sessionObservers = [(CARSessionStatus *)self sessionObservers];

@@ -324,7 +324,7 @@ void __81__SBIconListViewDraggingAppPolicyHandler__iconViewForDragItem_createIfN
     {
       [dragDelegate iconListView:iconListView willUseIconView:v13 forDroppingIconDragItem:itemCopy];
       dropContainerView = [v13 dropContainerView];
-      [v13 bounds];
+      objc_msgSend_bounds(v13);
       v16 = v15;
       v18 = v17;
       v20 = v19;

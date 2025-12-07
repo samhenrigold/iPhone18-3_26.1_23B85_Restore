@@ -162,9 +162,7 @@
     self->_analytics = v7;
   }
 
-  v9 = +[TLAlertQueuePlayerAnalyticsRecorder sharedRecorder];
-  analyticsRecorder = self->_analyticsRecorder;
-  self->_analyticsRecorder = v9;
+  self->_analyticsRecorder = +[TLAlertQueuePlayerAnalyticsRecorder sharedRecorder];
 
   MEMORY[0x1EEE66BB8]();
 }

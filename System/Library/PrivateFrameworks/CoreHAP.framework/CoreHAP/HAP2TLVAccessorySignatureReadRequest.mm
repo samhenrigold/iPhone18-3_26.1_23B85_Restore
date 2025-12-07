@@ -69,28 +69,28 @@
 
 - (id)serializeWithError:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
+  v41 = *MEMORY[0x277D85DE8];
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v27 = 0u;
+  v30 = 0u;
   v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   TLV8BufferInit();
   accessoryList = [(HAP2TLVAccessorySignatureReadRequest *)self accessoryList];
 
@@ -100,9 +100,9 @@
   }
 
   accessoryList2 = [(HAP2TLVAccessorySignatureReadRequest *)self accessoryList];
-  v20 = 0;
-  v7 = [accessoryList2 serializeWithError:&v20];
-  v8 = v20;
+  v19 = 0;
+  v7 = [accessoryList2 serializeWithError:&v19];
+  v8 = v19;
 
   if (!v8)
   {
@@ -161,7 +161,7 @@
     }
 
 LABEL_20:
-    v10 = [MEMORY[0x277CBEA90] dataWithBytes:v21 length:?];
+    v10 = [MEMORY[0x277CBEA90] dataWithBytes:v20 length:?];
     v8 = 0;
     goto LABEL_23;
   }
@@ -178,8 +178,6 @@ LABEL_22:
   v10 = 0;
 LABEL_23:
   TLV8BufferFree();
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

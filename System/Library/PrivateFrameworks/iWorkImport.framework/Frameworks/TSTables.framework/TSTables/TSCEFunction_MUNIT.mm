@@ -7,80 +7,80 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v8 = **arguments;
-  v68 = 0;
-  v9 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v8, a2, context, spec, 0, &v68);
-  v13 = v68;
-  if (v13)
+  v56 = 0;
+  v9 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v8, a2, context, spec, 0, &v56);
+  v12 = v56;
+  if (v12)
   {
-    v14 = objc_msgSend_raiseErrorOrConvert_(context, v10, v13, v11, v12);
+    v13 = objc_msgSend_raiseErrorOrConvert_(context, v10, v12, v11);
 LABEL_3:
-    v15 = v14;
+    v14 = v13;
     goto LABEL_13;
   }
 
-  v20 = objc_msgSend_errorForDuration_argumentIndex_(v9, v10, spec, 1, v12);
-  if (v20)
+  v18 = objc_msgSend_errorForDuration_argumentIndex_(v9, v10, spec, 1);
+  if (v18)
   {
-    v15 = objc_msgSend_raiseErrorOrConvert_(context, v16, v20, v18, v19);
-    v13 = v20;
+    v14 = objc_msgSend_raiseErrorOrConvert_(context, v15, v18, v17);
+    v12 = v18;
   }
 
   else
   {
-    v21 = objc_msgSend_nativeType(**arguments, v16, v17, v18, v19);
-    if (v21 == 16 || v21 == 1)
+    v19 = objc_msgSend_nativeType(**arguments, v15, v16, v17);
+    if (v19 == 16 || v19 == 1)
     {
-      v27 = objc_msgSend_argumentSetUsedOutOfContextError(TSCEError, v22, v23, v24, v25);
-      v15 = objc_msgSend_raiseErrorOrConvert_(context, v28, v27, v29, v30);
+      v24 = objc_msgSend_argumentSetUsedOutOfContextError(TSCEError, v20, v21, v22);
+      v14 = objc_msgSend_raiseErrorOrConvert_(context, v25, v24, v26);
     }
 
     else
     {
-      v67._decimal.w[0] = objc_msgSend_decimalRepresentation(v9, v22, v23, v24, v25);
-      v67._decimal.w[1] = v32;
-      v33 = TSUDecimal::truncatedIntegerValue(&v67);
-      v38 = objc_msgSend_functionName(spec, v34, v35, v36, v37);
-      v13 = objc_msgSend_checkForTooLargeMatrixNumColumns_numRows_functionName_(TSCEError, v39, v33, v33, v38);
+      v55._decimal.w[0] = objc_msgSend_decimalRepresentation(v9, v20, v21, v22);
+      v55._decimal.w[1] = v28;
+      v29 = TSUDecimal::truncatedIntegerValue(&v55);
+      v33 = objc_msgSend_functionName(spec, v30, v31, v32);
+      v12 = objc_msgSend_checkForTooLargeMatrixNumColumns_numRows_functionName_(TSCEError, v34, v29, v29, v33);
 
-      if (v13)
+      if (v12)
       {
-        v14 = objc_msgSend_raiseErrorOrConvert_(context, v40, v13, v41, v42);
+        v13 = objc_msgSend_raiseErrorOrConvert_(context, v35, v12, v36);
         goto LABEL_3;
       }
 
-      v27 = objc_opt_new();
-      v47 = objc_msgSend_zero(TSCENumberValue, v43, v44, v45, v46);
-      v48 = [TSCENumberValue alloc];
+      v24 = objc_opt_new();
+      v40 = objc_msgSend_zero(TSCENumberValue, v37, v38, v39);
+      v41 = [TSCENumberValue alloc];
       TSUDecimal::operator=();
-      v52 = objc_msgSend_initWithDecimal_(v48, v49, &v67, v50, v51);
-      LODWORD(v67._decimal.w[0]) = v33;
-      HIDWORD(v67._decimal.w[0]) = v33;
-      objc_msgSend_padUnsetWithValue_forDimensions_(v27, v53, v47, &v67, v54);
-      if (v33)
+      v44 = objc_msgSend_initWithDecimal_(v41, v42, &v55, v43);
+      LODWORD(v55._decimal.w[0]) = v29;
+      HIDWORD(v55._decimal.w[0]) = v29;
+      objc_msgSend_padUnsetWithValue_forDimensions_(v24, v45, v40, &v55);
+      if (v29)
       {
-        v57 = 0;
+        v47 = 0;
         do
         {
-          v66[0] = v57;
-          v66[1] = v57;
-          objc_msgSend_setValue_atCoord_(v27, v55, v52, v66, v56);
-          ++v57;
+          v54[0] = v47;
+          v54[1] = v47;
+          objc_msgSend_setValue_atCoord_(v24, v46, v44, v54);
+          ++v47;
         }
 
-        while (v33 != v57);
+        while (v29 != v47);
       }
 
-      v58 = [TSCEDenseGrid alloc];
-      v62 = objc_msgSend_initWithValueGrid_(v58, v59, v27, v60, v61);
-      v15 = objc_msgSend_gridValue_(TSCEGridValue, v63, v62, v64, v65);
+      v48 = [TSCEDenseGrid alloc];
+      v51 = objc_msgSend_initWithValueGrid_(v48, v49, v24, v50);
+      v14 = objc_msgSend_gridValue_(TSCEGridValue, v52, v51, v53);
     }
 
-    v13 = 0;
+    v12 = 0;
   }
 
 LABEL_13:
 
-  return v15;
+  return v14;
 }
 
 @end

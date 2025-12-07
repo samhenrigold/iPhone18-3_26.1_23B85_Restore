@@ -10,7 +10,7 @@
 
 - (void)setIsPinned:(BOOL)pinned
 {
-  v5 = _s7SectionVMa_0();
+  v5 = _s7SectionVMa_0(0);
   v6 = v5 - 8;
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v13[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
@@ -42,7 +42,7 @@
   v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = *(&self->super.isa + OBJC_IVAR___SFTabSwitcherSection__internal) + OBJC_IVAR____TtC12MobileSafari28SFTabSwitcherSectionInternal_wrapped;
   swift_beginAccess();
-  v8 = _s7SectionVMa_0();
+  v8 = _s7SectionVMa_0(0);
   (*(v4 + 16))(v6, &v7[*(v8 + 20)], v3);
   v9 = sub_18BC1EBC8();
   (*(v4 + 8))(v6, v3);
@@ -54,13 +54,13 @@
 {
   v2 = *(&self->super.isa + OBJC_IVAR___SFTabSwitcherSection__internal) + OBJC_IVAR____TtC12MobileSafari28SFTabSwitcherSectionInternal_wrapped;
   swift_beginAccess();
-  return v2[*(_s7SectionVMa_0() + 24)];
+  return v2[*(_s7SectionVMa_0(0) + 24)];
 }
 
 - (NSString)title
 {
   swift_beginAccess();
-  _s7SectionVMa_0();
+  _s7SectionVMa_0(0);
   sub_18BC1E3F8();
   v2 = sub_18BC20B98();
 

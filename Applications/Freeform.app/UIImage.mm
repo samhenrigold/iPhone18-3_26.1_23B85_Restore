@@ -24,34 +24,34 @@
   y = BoundingBox.origin.y;
   width = BoundingBox.size.width;
   height = BoundingBox.size.height;
-  v10 = sub_1000CDA34(1, BoundingBox.size.width, BoundingBox.size.height, scale);
-  if (v10)
+  v11 = sub_1000CDA34(1, v10, BoundingBox.size.width, BoundingBox.size.height, scale);
+  if (v11)
   {
-    v11 = v10;
-    CGContextSaveGState(v10);
-    CGContextAddPath(v11, path);
-    CGContextClip(v11);
-    CGContextSetRGBFillColor(v11, 1.0, 1.0, 1.0, 1.0);
-    v18.origin.x = x;
-    v18.origin.y = y;
-    v18.size.width = width;
-    v18.size.height = height;
-    CGContextFillRect(v11, v18);
-    CGContextRestoreGState(v11);
-    Image = CGBitmapContextCreateImage(v11);
-    v13 = [UIImage imageWithCGImage:Image scale:0 orientation:scale];
-    v14 = [v13 imageWithRenderingMode:2];
+    v12 = v11;
+    CGContextSaveGState(v11);
+    CGContextAddPath(v12, path);
+    CGContextClip(v12);
+    CGContextSetRGBFillColor(v12, 1.0, 1.0, 1.0, 1.0);
+    v19.origin.x = x;
+    v19.origin.y = y;
+    v19.size.width = width;
+    v19.size.height = height;
+    CGContextFillRect(v12, v19);
+    CGContextRestoreGState(v12);
+    Image = CGBitmapContextCreateImage(v12);
+    v14 = [UIImage imageWithCGImage:Image scale:0 orientation:scale];
+    v15 = [v14 imageWithRenderingMode:2];
 
     CGImageRelease(Image);
-    CGContextRelease(v11);
+    CGContextRelease(v12);
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  return v14;
+  return v15;
 }
 
 - (id)crl_imageWithAlpha:(double)alpha renderingMode:(int64_t)mode

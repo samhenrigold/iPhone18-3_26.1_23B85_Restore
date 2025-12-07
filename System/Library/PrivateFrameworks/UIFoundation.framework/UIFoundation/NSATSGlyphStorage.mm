@@ -1,8 +1,8 @@
 @interface NSATSGlyphStorage
 + (NSATSGlyphStorage)allocWithZone:(_NSZone *)zone;
+- (__CFString)_flushCachedObjects;
 - (__CTGlyphStorage)createCopy:(id)copy;
 - (const)_createEllipsisRunWithStringRange:(uint64_t)range attributes:;
-- (const)_flushCachedObjects;
 - (double)_widthForStringRange:(uint64_t)range;
 - (uint64_t)_collectElasticRangeSurroundingCharacterAtIndex:(uint64_t)index minimumCharacterIndex:;
 - (uint64_t)createCTTypesetter;
@@ -264,7 +264,7 @@
   }
 }
 
-- (const)_flushCachedObjects
+- (__CFString)_flushCachedObjects
 {
   if (result)
   {

@@ -439,7 +439,7 @@ LABEL_26:
 
 - ($F79AFF246B753071D4AF2E33424639CF)shadowPropertiesForFreeTransformController:(SEL)controller defaults:(id)defaults
 {
-  [defaults completionTargetRect];
+  objc_msgSend_completionTargetRect(defaults, controller);
   CGRectGetWidth(v8);
   [objc_msgSend(defaults "targetLayer")];
   CGRectGetWidth(v9);

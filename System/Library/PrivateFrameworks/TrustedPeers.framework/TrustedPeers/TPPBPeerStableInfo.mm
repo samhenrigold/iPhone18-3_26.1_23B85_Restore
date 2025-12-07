@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)userControllableViewStatusAsString:(int)string;
 - (int)StringAsUserControllableViewStatus:(id)status;
 - (int)userControllableViewStatus;
 - (unint64_t)hash;
@@ -22,7 +23,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   v6 = *(fromCopy + 140);
@@ -44,29 +45,29 @@
     [(TPPBPeerStableInfo *)self setFrozenPolicyHash:?];
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v7 = v5[9];
-  v8 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v30;
+    v10 = *v29;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v30 != v10)
+        if (*v29 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(TPPBPeerStableInfo *)self addPolicySecrets:*(*(&v29 + 1) + 8 * i)];
+        [(TPPBPeerStableInfo *)self addPolicySecrets:*(*(&v28 + 1) + 8 * i)];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v9);
@@ -114,29 +115,29 @@
     *&self->_has |= 8u;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v12 = v5[4];
-  v13 = [v12 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v26;
+    v15 = *v25;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v26 != v15)
+        if (*v25 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [(TPPBPeerStableInfo *)self addCustodianRecoveryKeys:*(*(&v25 + 1) + 8 * j), v25];
+        [(TPPBPeerStableInfo *)self addCustodianRecoveryKeys:*(*(&v24 + 1) + 8 * j), v24];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v14);
@@ -200,8 +201,6 @@
     self->_supportsRepudiation = *(v5 + 137);
     *&self->_has |= 0x20u;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)hash
@@ -292,7 +291,6 @@ LABEL_14:
     goto LABEL_62;
   }
 
-  v5 = *(equalCopy + 140);
   if (*&self->_has)
   {
     if ((*(equalCopy + 140) & 1) == 0 || self->_clock != *(equalCopy + 1))
@@ -380,7 +378,7 @@ LABEL_14:
   }
 
   has = self->_has;
-  v14 = *(equalCopy + 140);
+  v13 = *(equalCopy + 140);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 140) & 2) == 0 || self->_flexiblePolicyVersion != *(equalCopy + 2))
@@ -403,18 +401,18 @@ LABEL_14:
     }
 
     has = self->_has;
-    v14 = *(equalCopy + 140);
+    v13 = *(equalCopy + 140);
   }
 
   if ((has & 8) != 0)
   {
-    if ((v14 & 8) == 0 || self->_userControllableViewStatus != *(equalCopy + 28))
+    if ((v13 & 8) == 0 || self->_userControllableViewStatus != *(equalCopy + 28))
     {
       goto LABEL_62;
     }
   }
 
-  else if ((v14 & 8) != 0)
+  else if ((v13 & 8) != 0)
   {
     goto LABEL_62;
   }
@@ -459,7 +457,6 @@ LABEL_14:
       goto LABEL_62;
     }
 
-    v21 = *(equalCopy + 136);
     if (self->_isInheritedAccount)
     {
       if ((*(equalCopy + 136) & 1) == 0)
@@ -494,25 +491,25 @@ LABEL_14:
       else if (!*(equalCopy + 137))
       {
 LABEL_64:
-        v20 = 1;
+        v19 = 1;
         goto LABEL_63;
       }
     }
 
 LABEL_62:
-    v20 = 0;
+    v19 = 0;
     goto LABEL_63;
   }
 
-  v20 = (*(equalCopy + 140) & 0x20) == 0;
+  v19 = (*(equalCopy + 140) & 0x20) == 0;
 LABEL_63:
 
-  return v20;
+  return v19;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -533,30 +530,30 @@ LABEL_63:
   v9 = *(v6 + 56);
   *(v6 + 56) = v8;
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v10 = self->_policySecrets;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v47 objects:v52 count:16];
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v46 objects:v51 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v48;
+    v13 = *v47;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v48 != v13)
+        if (*v47 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [*(*(&v47 + 1) + 8 * i) copyWithZone:zone];
+        v15 = [*(*(&v46 + 1) + 8 * i) copyWithZone:zone];
         [v6 addPolicySecrets:v15];
       }
 
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v47 objects:v52 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v46 objects:v51 count:16];
     }
 
     while (v12);
@@ -598,30 +595,30 @@ LABEL_63:
     *(v6 + 140) |= 8u;
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v28 = self->_custodianRecoveryKeys;
-  v29 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v43 objects:v51 count:16];
+  v29 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v42 objects:v50 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v44;
+    v31 = *v43;
     do
     {
       for (j = 0; j != v30; ++j)
       {
-        if (*v44 != v31)
+        if (*v43 != v31)
         {
           objc_enumerationMutation(v28);
         }
 
-        v33 = [*(*(&v43 + 1) + 8 * j) copyWithZone:{zone, v43}];
+        v33 = [*(*(&v42 + 1) + 8 * j) copyWithZone:{zone, v42}];
         [v6 addCustodianRecoveryKeys:v33];
       }
 
-      v30 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v43 objects:v51 count:16];
+      v30 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v42 objects:v50 count:16];
     }
 
     while (v30);
@@ -653,7 +650,6 @@ LABEL_63:
     *(v6 + 140) |= 0x20u;
   }
 
-  v41 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -793,19 +789,17 @@ LABEL_63:
 
 - (void)writeTo:(id)to
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   toCopy = to;
   has = self->_has;
   if (has)
   {
-    clock = self->_clock;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    frozenPolicyVersion = self->_frozenPolicyVersion;
     PBDataWriterWriteUint64Field();
   }
 
@@ -814,33 +808,32 @@ LABEL_63:
     PBDataWriterWriteStringField();
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v8 = self->_policySecrets;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v30 objects:v35 count:16];
-  if (v9)
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v6 = self->_policySecrets;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v31;
+    v8 = v7;
+    v9 = *v22;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v31 != v11)
+        if (*v22 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v30 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
   if (self->_osVersion)
@@ -870,7 +863,6 @@ LABEL_63:
 
   if ((*&self->_has & 2) != 0)
   {
-    flexiblePolicyVersion = self->_flexiblePolicyVersion;
     PBDataWriterWriteUint64Field();
   }
 
@@ -881,37 +873,35 @@ LABEL_63:
 
   if ((*&self->_has & 8) != 0)
   {
-    userControllableViewStatus = self->_userControllableViewStatus;
     PBDataWriterWriteInt32Field();
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v16 = self->_custodianRecoveryKeys;
-  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
-  if (v17)
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v11 = self->_custodianRecoveryKeys;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  if (v12)
   {
-    v18 = v17;
-    v19 = *v27;
+    v13 = v12;
+    v14 = *v18;
     do
     {
-      for (j = 0; j != v18; ++j)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v27 != v19)
+        if (*v18 != v14)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v11);
         }
 
-        v21 = *(*(&v26 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
-    while (v18);
+    while (v13);
   }
 
   if (self->_secureElementIdentity)
@@ -929,26 +919,22 @@ LABEL_63:
     PBDataWriterWriteSubmessage();
   }
 
-  v22 = self->_has;
-  if ((v22 & 0x10) != 0)
+  v16 = self->_has;
+  if ((v16 & 0x10) != 0)
   {
-    isInheritedAccount = self->_isInheritedAccount;
     PBDataWriterWriteBOOLField();
-    v22 = self->_has;
+    v16 = self->_has;
   }
 
-  if ((v22 & 0x20) != 0)
+  if ((v16 & 0x20) != 0)
   {
-    supportsRepudiation = self->_supportsRepudiation;
     PBDataWriterWriteBOOLField();
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dictionaryRepresentation
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   has = self->_has;
   if (has)
@@ -1016,30 +1002,30 @@ LABEL_63:
   if ([(NSMutableArray *)self->_policySecrets count])
   {
     v15 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_policySecrets, "count")}];
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v49 = 0u;
     v16 = self->_policySecrets;
-    v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v46 objects:v51 count:16];
+    v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v45 objects:v50 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v47;
+      v19 = *v46;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v47 != v19)
+          if (*v46 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          dictionaryRepresentation = [*(*(&v46 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v45 + 1) + 8 * i) dictionaryRepresentation];
           [v15 addObject:dictionaryRepresentation];
         }
 
-        v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v46 objects:v51 count:16];
+        v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v45 objects:v50 count:16];
       }
 
       while (v18);
@@ -1067,30 +1053,30 @@ LABEL_63:
   if ([(NSMutableArray *)self->_custodianRecoveryKeys count])
   {
     v24 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_custodianRecoveryKeys, "count")}];
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
     v25 = self->_custodianRecoveryKeys;
-    v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v42 objects:v50 count:16];
+    v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v41 objects:v49 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v43;
+      v28 = *v42;
       do
       {
         for (j = 0; j != v27; ++j)
         {
-          if (*v43 != v28)
+          if (*v42 != v28)
           {
             objc_enumerationMutation(v25);
           }
 
-          dictionaryRepresentation2 = [*(*(&v42 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v41 + 1) + 8 * j) dictionaryRepresentation];
           [v24 addObject:dictionaryRepresentation2];
         }
 
-        v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v42 objects:v50 count:16];
+        v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v41 objects:v49 count:16];
       }
 
       while (v27);
@@ -1134,8 +1120,6 @@ LABEL_63:
     v39 = [MEMORY[0x277CCABB0] numberWithBool:self->_supportsRepudiation];
     [dictionary setObject:v39 forKey:@"supportsRepudiation"];
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -1226,6 +1210,21 @@ LABEL_63:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)userControllableViewStatusAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279DEDD48[string];
   }
 
   return v4;

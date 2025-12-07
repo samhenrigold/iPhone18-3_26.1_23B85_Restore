@@ -55,7 +55,7 @@
 
 - (NSUUID)configurationUUID
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD92EE8);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD92EE8, &unk_21B6D8330);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v13 - v4;
   selfCopy = self;

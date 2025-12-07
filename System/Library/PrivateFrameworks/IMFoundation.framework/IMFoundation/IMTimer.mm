@@ -10,24 +10,23 @@
 
 - (NSDate)fireDate
 {
-  timer = self->_timer;
   if (objc_opt_respondsToSelector())
   {
-    v6 = objc_msgSend_fireDate(self->_timer, v4, v5);
+    v5 = objc_msgSend_fireDate(self->_timer, v3, v4);
   }
 
   else if (objc_opt_respondsToSelector())
   {
-    objc_msgSend_fireTime(self->_timer, v7, v8);
-    v6 = objc_msgSend_dateWithTimeIntervalSinceReferenceDate_(MEMORY[0x1E695DF00], v9, v10);
+    objc_msgSend_fireTime(self->_timer, v6, v7);
+    v5 = objc_msgSend_dateWithTimeIntervalSinceReferenceDate_(MEMORY[0x1E695DF00], v8, v9);
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  return v6;
+  return v5;
 }
 
 - (void)dealloc
@@ -59,41 +58,40 @@
   name = self->_name;
   if (selector)
   {
-    v16 = self->_selector;
-    v17 = objc_msgSend_initWithFireDate_serviceIdentifier_target_selector_userInfo_(v11, v12, v9, name, target, selector, self->_userInfo);
+    v16 = objc_msgSend_initWithFireDate_serviceIdentifier_target_selector_userInfo_(v11, v12, v9, name, target, selector, self->_userInfo);
   }
 
   else
   {
-    v17 = objc_msgSend_initWithFireDate_serviceIdentifier_target_selector_userInfo_(v11, v12, v9, name, target, 0, self->_userInfo);
+    v16 = objc_msgSend_initWithFireDate_serviceIdentifier_target_selector_userInfo_(v11, v12, v9, name, target, 0, self->_userInfo);
   }
 
-  v18 = self->_timer;
-  self->_timer = v17;
+  v17 = self->_timer;
+  self->_timer = v16;
 
-  objc_msgSend_setMinimumEarlyFireProportion_(self->_timer, v19, v20, 1.0);
-  objc_msgSend_setDisableSystemWaking_(self->_timer, v21, !self->_wakeDevice);
+  objc_msgSend_setMinimumEarlyFireProportion_(self->_timer, v18, v19, 1.0);
+  objc_msgSend_setDisableSystemWaking_(self->_timer, v20, !self->_wakeDevice);
   queue = self->_queue;
   if (queue)
   {
-    objc_msgSend_scheduleInQueue_(self->_timer, v22, queue);
+    objc_msgSend_scheduleInQueue_(self->_timer, v21, queue);
   }
 
   else
   {
-    isMainThread = objc_msgSend_isMainThread(MEMORY[0x1E696AF00], v22, 0);
-    v27 = self->_timer;
+    isMainThread = objc_msgSend_isMainThread(MEMORY[0x1E696AF00], v21, 0);
+    v26 = self->_timer;
     if (isMainThread)
     {
-      objc_msgSend_currentRunLoop(MEMORY[0x1E695DFD0], v24, v25);
+      objc_msgSend_currentRunLoop(MEMORY[0x1E695DFD0], v23, v24);
     }
 
     else
     {
-      objc_msgSend_mainRunLoop(MEMORY[0x1E695DFD0], v24, v25);
+      objc_msgSend_mainRunLoop(MEMORY[0x1E695DFD0], v23, v24);
     }
-    v28 = ;
-    objc_msgSend_scheduleInRunLoop_(v27, v29, v28);
+    v27 = ;
+    objc_msgSend_scheduleInRunLoop_(v26, v28, v27);
   }
 
   objc_autoreleasePoolPop(v3);

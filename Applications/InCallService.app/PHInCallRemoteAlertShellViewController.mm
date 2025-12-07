@@ -114,9 +114,9 @@
 
 - (void)viewDidLoad
 {
-  v21.receiver = self;
-  v21.super_class = PHInCallRemoteAlertShellViewController;
-  [(PHInCallRemoteAlertShellViewController *)&v21 viewDidLoad];
+  v24.receiver = self;
+  v24.super_class = PHInCallRemoteAlertShellViewController;
+  [(PHInCallRemoteAlertShellViewController *)&v24 viewDidLoad];
   v3 = +[UIColor clearColor];
   view = [(PHInCallRemoteAlertShellViewController *)self view];
   [view setBackgroundColor:v3];
@@ -132,12 +132,12 @@
   layer2 = [view4 layer];
   [layer2 setAllowsGroupOpacity:0];
 
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_100104860;
-  v20[3] = &unk_100356988;
-  v20[4] = self;
-  v10 = objc_retainBlock(v20);
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_100104860;
+  v23[3] = &unk_100356988;
+  v23[4] = self;
+  v10 = objc_retainBlock(v23);
   pipController = [(PHInCallRemoteAlertShellViewController *)self pipController];
   if ([pipController pipState] == 2)
   {
@@ -145,8 +145,8 @@
 
     if (callDisplayStyle != 4)
     {
-      v13 = sub_10000B2A0();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = sub_10000B2A0(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_100256A40();
       }
@@ -164,26 +164,26 @@ LABEL_10:
   pipController2 = [(PHInCallRemoteAlertShellViewController *)self pipController];
   pipState = [pipController2 pipState];
 
-  v16 = sub_100004F84();
-  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+  v19 = sub_100004F84(v18);
+  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
   if (pipState == 3)
   {
-    if (v17)
+    if (v20)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "loadView: Appeared without a root view controller, but the PIP was animating so we'll create a new after a delay", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "loadView: Appeared without a root view controller, but the PIP was animating so we'll create a new after a delay", buf, 2u);
     }
 
     goto LABEL_10;
   }
 
-  if (v17)
+  if (v20)
   {
     pipController3 = [(PHInCallRemoteAlertShellViewController *)self pipController];
     pipState2 = [pipController3 pipState];
     *buf = 134217984;
-    v23 = pipState2;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "loadView: Appeared without a root view controller so we'll create a new one (%ld)", buf, 0xCu);
+    v26 = pipState2;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "loadView: Appeared without a root view controller so we'll create a new one (%ld)", buf, 0xCu);
   }
 
   (v10[2])(v10);
@@ -192,20 +192,20 @@ LABEL_14:
 
 - (void)viewWillAppear:(BOOL)appear
 {
-  v13.receiver = self;
-  v13.super_class = PHInCallRemoteAlertShellViewController;
-  [(PHInCallRemoteAlertShellViewController *)&v13 viewWillAppear:appear];
+  v15.receiver = self;
+  v15.super_class = PHInCallRemoteAlertShellViewController;
+  [(PHInCallRemoteAlertShellViewController *)&v15 viewWillAppear:appear];
   v4 = +[PHInCallUtilities sharedInstance];
   if ([v4 requestedVCPresentationWithStatusBar])
   {
 
 LABEL_8:
-    v9 = sub_100004F84();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100004F84(v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = @"PHSuppressInCallStatusBarForFullscreenUIReason";
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "requestedVCPresentationWithStatusBar, do not add status bar suppression %@", buf, 0xCu);
+      v17 = @"PHSuppressInCallStatusBarForFullscreenUIReason";
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "requestedVCPresentationWithStatusBar, do not add status bar suppression %@", buf, 0xCu);
     }
 
     goto LABEL_11;
@@ -219,18 +219,19 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  if (![(PHInCallRemoteAlertShellViewController *)self hasStartedInitialSuppressionOfInCallStatusBarForFullscreenUIReason])
+  hasStartedInitialSuppressionOfInCallStatusBarForFullscreenUIReason = [(PHInCallRemoteAlertShellViewController *)self hasStartedInitialSuppressionOfInCallStatusBarForFullscreenUIReason];
+  if ((hasStartedInitialSuppressionOfInCallStatusBarForFullscreenUIReason & 1) == 0)
   {
-    v7 = sub_100004F84();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004F84(hasStartedInitialSuppressionOfInCallStatusBarForFullscreenUIReason);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = @"PHSuppressInCallStatusBarForFullscreenUIReason";
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "add status bar suppression %@", buf, 0xCu);
+      v17 = @"PHSuppressInCallStatusBarForFullscreenUIReason";
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "add status bar suppression %@", buf, 0xCu);
     }
 
-    v8 = +[PHInCallUtilities sharedInstance];
-    [v8 startSuppressingInCallStatusBarForReason:@"PHSuppressInCallStatusBarForFullscreenUIReason"];
+    v10 = +[PHInCallUtilities sharedInstance];
+    [v10 startSuppressingInCallStatusBarForReason:@"PHSuppressInCallStatusBarForFullscreenUIReason"];
 
     [(PHInCallRemoteAlertShellViewController *)self setHasStartedInitialSuppressionOfInCallStatusBarForFullscreenUIReason:1];
   }
@@ -242,8 +243,8 @@ LABEL_11:
 
     if (!hidEventMonitor)
     {
-      v11 = +[PHHIDEventMonitor HIDEventMonitor];
-      [(PHInCallRemoteAlertShellViewController *)self setHidEventMonitor:v11];
+      v13 = +[PHHIDEventMonitor HIDEventMonitor];
+      [(PHInCallRemoteAlertShellViewController *)self setHidEventMonitor:v13];
     }
 
     hidEventMonitor2 = [(PHInCallRemoteAlertShellViewController *)self hidEventMonitor];
@@ -255,36 +256,36 @@ LABEL_11:
 {
   disappearCopy = disappear;
   windowCopy = window;
-  v8.receiver = self;
-  v8.super_class = PHInCallRemoteAlertShellViewController;
-  [(PHInCallRemoteAlertShellViewController *)&v8 viewDidMoveToWindow:windowCopy shouldAppearOrDisappear:disappearCopy];
-  v7 = sub_100004F84();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v9.receiver = self;
+  v9.super_class = PHInCallRemoteAlertShellViewController;
+  v7 = [(PHInCallRemoteAlertShellViewController *)&v9 viewDidMoveToWindow:windowCopy shouldAppearOrDisappear:disappearCopy];
+  v8 = sub_100004F84(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v10 = windowCopy;
-    v11 = 1024;
-    v12 = disappearCopy;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "window: %@, shouldAppearOrDisappear: %d", buf, 0x12u);
+    v11 = windowCopy;
+    v12 = 1024;
+    v13 = disappearCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "window: %@, shouldAppearOrDisappear: %d", buf, 0x12u);
   }
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
-  v14.receiver = self;
-  v14.super_class = PHInCallRemoteAlertShellViewController;
-  [(PHInCallRemoteAlertShellViewController *)&v14 viewDidAppear:appear];
-  v4 = sub_100004F84();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v15.receiver = self;
+  v15.super_class = PHInCallRemoteAlertShellViewController;
+  v4 = [(PHInCallRemoteAlertShellViewController *)&v15 viewDidAppear:appear];
+  v5 = sub_100004F84(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     isViewLoaded = [(PHInCallRemoteAlertShellViewController *)self isViewLoaded];
     view = [(PHInCallRemoteAlertShellViewController *)self view];
     window = [view window];
     *buf = 67109378;
-    v16 = isViewLoaded;
-    v17 = 2112;
-    v18 = window;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "self.isViewLoaded: %d, self.view.window: %@", buf, 0x12u);
+    v17 = isViewLoaded;
+    v18 = 2112;
+    v19 = window;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "self.isViewLoaded: %d, self.view.window: %@", buf, 0x12u);
   }
 
   [ICSAriadne trace:4];
@@ -293,50 +294,50 @@ LABEL_11:
   _rootSheetPresentationController = [window2 _rootSheetPresentationController];
   [_rootSheetPresentationController _setShouldScaleDownBehindDescendantSheets:0];
 
-  v11 = dispatch_time(0, 500000000);
+  v12 = dispatch_time(0, 500000000);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100104D44;
   block[3] = &unk_100356988;
   block[4] = self;
-  dispatch_after(v11, &_dispatch_main_q, block);
-  v12 = +[PHInCallUtilities sharedInstance];
-  [v12 startAllowingRingingCallStatusIndicator];
+  dispatch_after(v12, &_dispatch_main_q, block);
+  v13 = +[PHInCallUtilities sharedInstance];
+  [v13 startAllowingRingingCallStatusIndicator];
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
-  v13.receiver = self;
-  v13.super_class = PHInCallRemoteAlertShellViewController;
-  [(PHInCallRemoteAlertShellViewController *)&v13 viewDidDisappear:disappear];
-  v4 = sub_100004F84();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v14.receiver = self;
+  v14.super_class = PHInCallRemoteAlertShellViewController;
+  v4 = [(PHInCallRemoteAlertShellViewController *)&v14 viewDidDisappear:disappear];
+  v5 = sub_100004F84(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = @"PHSuppressInCallStatusBarForFullscreenUIReason";
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "remove status bar suppression %@", buf, 0xCu);
+    v16 = @"PHSuppressInCallStatusBarForFullscreenUIReason";
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "remove status bar suppression %@", buf, 0xCu);
   }
 
-  v5 = +[PHInCallUtilities sharedInstance];
-  [v5 stopSuppressingInCallStatusBarForReason:@"PHSuppressInCallStatusBarForFullscreenUIReason"];
+  v6 = +[PHInCallUtilities sharedInstance];
+  [v6 stopSuppressingInCallStatusBarForReason:@"PHSuppressInCallStatusBarForFullscreenUIReason"];
 
   hidEventMonitor = [(PHInCallRemoteAlertShellViewController *)self hidEventMonitor];
   [hidEventMonitor stop];
 
-  v7 = +[TUCallCenter sharedInstance];
-  v8 = [v7 audioOrVideoCallWithStatus:4];
+  v8 = +[TUCallCenter sharedInstance];
+  v9 = [v8 audioOrVideoCallWithStatus:4];
 
-  if (v8)
+  if (v9)
   {
     callDisplayStyleManager = [(PHInCallRemoteAlertShellViewController *)self callDisplayStyleManager];
     callDisplayStyle = [callDisplayStyleManager callDisplayStyle];
 
     if (callDisplayStyle != 3)
     {
-      v11 = +[UIApplication sharedApplication];
-      delegate = [v11 delegate];
+      v12 = +[UIApplication sharedApplication];
+      delegate = [v12 delegate];
 
-      [delegate requestPresentationForCall:v8 dialRequest:0];
+      [delegate requestPresentationForCall:v9 dialRequest:0];
     }
   }
 }
@@ -408,16 +409,16 @@ LABEL_11:
 
     if (!callDisplayStyleManager)
     {
-      v7 = objc_alloc_init(ICSCallDisplayStyleManager);
-      [(ICSCallDisplayStyleManager *)v7 setCallDisplayStyle:+[ICSCallDisplayStyleManager callDisplayStyleToRequestForCurrentState]];
-      v8 = +[UIApplication sharedApplication];
-      delegate = [v8 delegate];
+      v8 = objc_alloc_init(ICSCallDisplayStyleManager);
+      [(ICSCallDisplayStyleManager *)v8 setCallDisplayStyle:+[ICSCallDisplayStyleManager callDisplayStyleToRequestForCurrentState]];
+      v9 = +[UIApplication sharedApplication];
+      delegate = [v9 delegate];
       currentInCallScene = [delegate currentInCallScene];
       session = [currentInCallScene session];
       persistentIdentifier = [session persistentIdentifier];
-      [(ICSCallDisplayStyleManager *)v7 setSceneSessionIdentifier:persistentIdentifier];
+      [(ICSCallDisplayStyleManager *)v8 setSceneSessionIdentifier:persistentIdentifier];
 
-      [(PHInCallRemoteAlertShellViewController *)self setCallDisplayStyleManager:v7];
+      [(PHInCallRemoteAlertShellViewController *)self setCallDisplayStyleManager:v8];
     }
 
     callDisplayStyleManager2 = [(PHInCallRemoteAlertShellViewController *)self callDisplayStyleManager];
@@ -433,33 +434,33 @@ LABEL_11:
           goto LABEL_22;
         }
 
-        v24 = +[UIApplication sharedApplication];
-        delegate2 = [v24 delegate];
+        v25 = +[UIApplication sharedApplication];
+        delegate2 = [v25 delegate];
         activationContext = [delegate2 activationContext];
         videoMessageURL = [activationContext videoMessageURL];
 
-        v28 = +[UIApplication sharedApplication];
-        delegate3 = [v28 delegate];
+        v29 = +[UIApplication sharedApplication];
+        delegate3 = [v29 delegate];
         [delegate3 setActivationContext:0];
 
         if (videoMessageURL)
         {
-          v30 = [(PHInCallRemoteAlertShellViewController *)self makeVideoMessageViewControllerWithURL:videoMessageURL];
-          [(PHInCallRemoteAlertShellViewController *)self setVideoMessageRootViewController:v30];
+          v32 = [(PHInCallRemoteAlertShellViewController *)self makeVideoMessageViewControllerWithURL:videoMessageURL];
+          [(PHInCallRemoteAlertShellViewController *)self setVideoMessageRootViewController:v32];
 
           videoMessageRootViewController = [(PHInCallRemoteAlertShellViewController *)self videoMessageRootViewController];
         }
 
         else
         {
-          v40 = sub_100004F84();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+          v42 = sub_100004F84(v31);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
           {
             sub_100256A80();
           }
 
-          v41 = +[UIApplication sharedApplication];
-          delegate4 = [v41 delegate];
+          v43 = +[UIApplication sharedApplication];
+          delegate4 = [v43 delegate];
           [delegate4 dismissVideoMessageSceneSession];
 
           videoMessageRootViewController = 0;
@@ -486,15 +487,15 @@ LABEL_11:
       {
         if (sceneType == 2)
         {
-          v15 = +[UIApplication sharedApplication];
-          delegate5 = [v15 delegate];
+          v16 = +[UIApplication sharedApplication];
+          delegate5 = [v16 delegate];
           featureFlags = [delegate5 featureFlags];
           screenSharingDrawToHighlightEnabled = [featureFlags screenSharingDrawToHighlightEnabled];
 
           if (screenSharingDrawToHighlightEnabled)
           {
-            v19 = objc_alloc_init(ICSScreenSharingBroadcasterRootViewController);
-            [(PHInCallRemoteAlertShellViewController *)self setScreenSharingBroadcasterViewController:v19];
+            v20 = objc_alloc_init(ICSScreenSharingBroadcasterRootViewController);
+            [(PHInCallRemoteAlertShellViewController *)self setScreenSharingBroadcasterViewController:v20];
 
             screenSharingBroadcasterViewController = [(PHInCallRemoteAlertShellViewController *)self screenSharingBroadcasterViewController];
 LABEL_24:
@@ -518,21 +519,21 @@ LABEL_22:
         goto LABEL_32;
       }
 
-      v31 = +[UIApplication sharedApplication];
-      delegate6 = [v31 delegate];
+      v33 = +[UIApplication sharedApplication];
+      delegate6 = [v33 delegate];
       featureFlags2 = [delegate6 featureFlags];
       screenSharingDrawToHighlightEnabled2 = [featureFlags2 screenSharingDrawToHighlightEnabled];
 
-      v35 = off_1003531D0;
+      v37 = off_1003531D0;
       if (!screenSharingDrawToHighlightEnabled2)
       {
-        v35 = off_100353248;
+        v37 = off_100353248;
       }
 
-      v36 = objc_alloc(*v35);
+      v38 = objc_alloc(*v37);
       callDisplayStyleManager4 = [(PHInCallRemoteAlertShellViewController *)self callDisplayStyleManager];
-      v38 = [v36 initWithCallDisplayStyleManager:callDisplayStyleManager4];
-      [(PHInCallRemoteAlertShellViewController *)self setScreenSharingContainerViewController:v38];
+      v40 = [v38 initWithCallDisplayStyleManager:callDisplayStyleManager4];
+      [(PHInCallRemoteAlertShellViewController *)self setScreenSharingContainerViewController:v40];
 
       videoMessageRootViewController = [(PHInCallRemoteAlertShellViewController *)self screenSharingContainerViewController];
       videoMessageURL = [(PHInCallRemoteAlertShellViewController *)self pipController];
@@ -545,10 +546,10 @@ LABEL_31:
 
     if (!self->_inCallRootViewController)
     {
-      v21 = [PHInCallRootViewController alloc];
+      v22 = [PHInCallRootViewController alloc];
       callDisplayStyleManager5 = [(PHInCallRemoteAlertShellViewController *)self callDisplayStyleManager];
-      v23 = [(PHInCallRootViewController *)v21 initWithCallDisplayStyleManager:callDisplayStyleManager5];
-      [(PHInCallRemoteAlertShellViewController *)self setInCallRootViewController:v23];
+      v24 = [(PHInCallRootViewController *)v22 initWithCallDisplayStyleManager:callDisplayStyleManager5];
+      [(PHInCallRemoteAlertShellViewController *)self setInCallRootViewController:v24];
 
       screenSharingBroadcasterViewController = [(PHInCallRemoteAlertShellViewController *)self inCallRootViewController];
       goto LABEL_24;
@@ -557,11 +558,11 @@ LABEL_31:
     goto LABEL_22;
   }
 
-  callDisplayStyleManager3 = sub_100004F84();
+  callDisplayStyleManager3 = sub_100004F84(v4);
   if (os_log_type_enabled(callDisplayStyleManager3, OS_LOG_TYPE_DEFAULT))
   {
-    *v59 = 0;
-    _os_log_impl(&_mh_execute_header, callDisplayStyleManager3, OS_LOG_TYPE_DEFAULT, "Not creating a new root view controller because one already exists", v59, 2u);
+    *v61 = 0;
+    _os_log_impl(&_mh_execute_header, callDisplayStyleManager3, OS_LOG_TYPE_DEFAULT, "Not creating a new root view controller because one already exists", v61, 2u);
   }
 
   videoMessageRootViewController = 0;
@@ -569,12 +570,12 @@ LABEL_33:
 
   view = [(PHInCallRemoteAlertShellViewController *)self view];
   [view bounds];
-  v45 = v44;
   v47 = v46;
   v49 = v48;
   v51 = v50;
+  v53 = v52;
   view2 = [videoMessageRootViewController view];
-  [view2 setFrame:{v45, v47, v49, v51}];
+  [view2 setFrame:{v47, v49, v51, v53}];
 
   view3 = [videoMessageRootViewController view];
   [view3 setAutoresizingMask:18];
@@ -594,7 +595,7 @@ LABEL_33:
 
 - (void)stopPIPAndStealViewController
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -656,15 +657,16 @@ LABEL_33:
     goto LABEL_6;
   }
 
-  if (![stealCopy conformsToProtocol:&OBJC_PROTOCOL___PHInCallRootViewControllerProtocol])
+  v9 = [stealCopy conformsToProtocol:&OBJC_PROTOCOL___PHInCallRootViewControllerProtocol];
+  if (!v9)
   {
 LABEL_6:
-    v9 = sub_10000B2A0();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_10000B2A0(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v32 = stealCopy;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "View controller stolen from PIP is not an InCallRootViewController: %@", buf, 0xCu);
+      v34 = stealCopy;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "View controller stolen from PIP is not an InCallRootViewController: %@", buf, 0xCu);
     }
 
     goto LABEL_8;
@@ -674,7 +676,7 @@ LABEL_6:
 LABEL_8:
   containerController = [(PHInCallRemoteAlertShellViewController *)self containerController];
   parentViewControllerForRestoringPiP = [containerController parentViewControllerForRestoringPiP];
-  v12 = parentViewControllerForRestoringPiP;
+  v14 = parentViewControllerForRestoringPiP;
   if (parentViewControllerForRestoringPiP)
   {
     selfCopy = parentViewControllerForRestoringPiP;
@@ -685,45 +687,45 @@ LABEL_8:
     selfCopy = self;
   }
 
-  v14 = selfCopy;
+  v16 = selfCopy;
 
-  [stealCopy willMoveToParentViewController:v14];
-  [(PHInCallRemoteAlertShellViewController *)v14 addChildViewController:stealCopy];
-  view = [(PHInCallRemoteAlertShellViewController *)v14 view];
+  [stealCopy willMoveToParentViewController:v16];
+  [(PHInCallRemoteAlertShellViewController *)v16 addChildViewController:stealCopy];
+  view = [(PHInCallRemoteAlertShellViewController *)v16 view];
   view2 = [stealCopy view];
   [view addSubview:view2];
 
-  [stealCopy didMoveToParentViewController:v14];
+  [stealCopy didMoveToParentViewController:v16];
   containerController2 = [(PHInCallRemoteAlertShellViewController *)self containerController];
   [containerController2 handlePIPViewControllerRestoredAfterPIPStopped:stealCopy];
 
   [stealCopy viewWillAppear:1];
+  v30 = 0u;
+  v31 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
   childViewControllers = [stealCopy childViewControllers];
-  v19 = [childViewControllers countByEnumeratingWithState:&v26 objects:v30 count:16];
-  if (v19)
+  v21 = [childViewControllers countByEnumeratingWithState:&v28 objects:v32 count:16];
+  if (v21)
   {
-    v20 = v19;
-    v21 = *v27;
+    v22 = v21;
+    v23 = *v29;
     do
     {
-      for (i = 0; i != v20; i = i + 1)
+      for (i = 0; i != v22; i = i + 1)
       {
-        if (*v27 != v21)
+        if (*v29 != v23)
         {
           objc_enumerationMutation(childViewControllers);
         }
 
-        [*(*(&v26 + 1) + 8 * i) viewWillAppear:1];
+        [*(*(&v28 + 1) + 8 * i) viewWillAppear:1];
       }
 
-      v20 = [childViewControllers countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v22 = [childViewControllers countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
-    while (v20);
+    while (v22);
   }
 
   _remoteViewControllerProxy = [(PHInCallRemoteAlertShellViewController *)self _remoteViewControllerProxy];
@@ -749,16 +751,16 @@ LABEL_22:
 - (void)_willAppearInRemoteViewController:(id)controller
 {
   controllerCopy = controller;
-  v12.receiver = self;
-  v12.super_class = PHInCallRemoteAlertShellViewController;
-  [(PHInCallRemoteAlertShellViewController *)&v12 _willAppearInRemoteViewController:controllerCopy];
-  v5 = sub_100004F84();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v13.receiver = self;
+  v13.super_class = PHInCallRemoteAlertShellViewController;
+  v5 = [(PHInCallRemoteAlertShellViewController *)&v13 _willAppearInRemoteViewController:controllerCopy];
+  v6 = sub_100004F84(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [NSNumber numberWithInteger:[(PHInCallRemoteAlertShellViewController *)self preferredWhitePointAdaptivityStyle]];
+    v7 = [NSNumber numberWithInteger:[(PHInCallRemoteAlertShellViewController *)self preferredWhitePointAdaptivityStyle]];
     *buf = 138412290;
-    v14 = v6;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Setting WhitePointAdaptivityStyle to : %@", buf, 0xCu);
+    v15 = v7;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Setting WhitePointAdaptivityStyle to : %@", buf, 0xCu);
   }
 
   _remoteViewControllerProxy = [(PHInCallRemoteAlertShellViewController *)self _remoteViewControllerProxy];
@@ -768,9 +770,9 @@ LABEL_22:
   [_remoteViewControllerProxy2 setAllowsControlCenter:1];
 
   _childViewController = [(PHInCallRemoteAlertShellViewController *)self _childViewController];
-  v10 = objc_opt_respondsToSelector();
+  v11 = objc_opt_respondsToSelector();
 
-  if (v10)
+  if (v11)
   {
     _childViewController2 = [(PHInCallRemoteAlertShellViewController *)self _childViewController];
     [_childViewController2 _willAppearInRemoteViewController:controllerCopy];
@@ -780,16 +782,16 @@ LABEL_22:
 - (void)requestScreenTimeShieldIfNecessary
 {
   pendingRestrictedScreenTimeRequest = [(PHInCallRemoteAlertShellViewController *)self pendingRestrictedScreenTimeRequest];
-  if (pendingRestrictedScreenTimeRequest && (v4 = pendingRestrictedScreenTimeRequest, [(PHInCallRemoteAlertShellViewController *)self inCallRootViewController], v5 = objc_claimAutoreleasedReturnValue(), v5, v4, v5))
+  if (pendingRestrictedScreenTimeRequest && (v5 = pendingRestrictedScreenTimeRequest, [(PHInCallRemoteAlertShellViewController *)self inCallRootViewController], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v6))
   {
-    v6 = sub_10010D80C();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_10010D80C(pendingRestrictedScreenTimeRequest, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = v6;
+      v8 = v7;
       pendingRestrictedScreenTimeRequest2 = [(PHInCallRemoteAlertShellViewController *)self pendingRestrictedScreenTimeRequest];
-      v14 = 138412290;
-      v15 = pendingRestrictedScreenTimeRequest2;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Will request screen time alert for request %@", &v14, 0xCu);
+      v15 = 138412290;
+      v16 = pendingRestrictedScreenTimeRequest2;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Will request screen time alert for request %@", &v15, 0xCu);
     }
 
     [PHInCallRootViewController obtainDismissalAssertionForReason:@"PHScreenTimeAlertAssertionReason"];
@@ -802,14 +804,14 @@ LABEL_22:
 
   else
   {
-    v11 = sub_10010D80C();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_10010D80C(pendingRestrictedScreenTimeRequest, v4);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = v11;
+      v13 = v12;
       pendingRestrictedScreenTimeRequest4 = [(PHInCallRemoteAlertShellViewController *)self pendingRestrictedScreenTimeRequest];
-      v14 = 138412290;
-      v15 = pendingRestrictedScreenTimeRequest4;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Not requesting screen time shield for filtered request: %@", &v14, 0xCu);
+      v15 = 138412290;
+      v16 = pendingRestrictedScreenTimeRequest4;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Not requesting screen time shield for filtered request: %@", &v15, 0xCu);
     }
   }
 }
@@ -818,33 +820,34 @@ LABEL_22:
 {
   reasonCopy = reason;
   infoCopy = info;
-  v8 = sub_100004F84();
+  v8 = sub_100004F84(infoCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412546;
-    v22 = reasonCopy;
-    v23 = 2112;
-    v24 = infoCopy;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Activated for reason: %@, userInfo: %@", &v21, 0x16u);
+    v22 = 138412546;
+    v23 = reasonCopy;
+    v24 = 2112;
+    v25 = infoCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Activated for reason: %@, userInfo: %@", &v22, 0x16u);
   }
 
-  if (![reasonCopy isEqualToString:SBUIRemoteAlertActivationReasonActivatingForUILock])
+  v9 = [reasonCopy isEqualToString:SBUIRemoteAlertActivationReasonActivatingForUILock];
+  if (!v9)
   {
     if ([reasonCopy isEqualToString:SOSRemoteAlertActivationReasonActivatingForSOSWithClicks])
     {
-      v13 = SOSRemoteAlertActivationReasonActivatingForSOSAlertRestingScreen;
+      v14 = SOSRemoteAlertActivationReasonActivatingForSOSAlertRestingScreen;
     }
 
     else
     {
-      v14 = [reasonCopy isEqualToString:SOSRemoteAlertActivationReasonActivatingForSOSWithKappa];
-      v13 = SOSRemoteAlertActivationReasonActivatingForSOSAlertRestingScreen;
-      if ((v14 & 1) == 0 && ([reasonCopy isEqualToString:SOSRemoteAlertActivationReasonActivatingForSOSAlertRestingScreen] & 1) == 0 && !objc_msgSend(reasonCopy, "isEqualToString:", SOSRemoteAlertActivationReasonActivatingForSOSWithVolumeLockHold))
+      v15 = [reasonCopy isEqualToString:SOSRemoteAlertActivationReasonActivatingForSOSWithKappa];
+      v14 = SOSRemoteAlertActivationReasonActivatingForSOSAlertRestingScreen;
+      if ((v15 & 1) == 0 && ([reasonCopy isEqualToString:SOSRemoteAlertActivationReasonActivatingForSOSAlertRestingScreen] & 1) == 0 && !objc_msgSend(reasonCopy, "isEqualToString:", SOSRemoteAlertActivationReasonActivatingForSOSWithVolumeLockHold))
       {
         if ([reasonCopy isEqualToString:SOSRemoteAlertActivationReasonActivatingForScreenTime])
         {
-          v20 = [(PHInCallRemoteAlertShellViewController *)self requestFromAlertActivationContextUserInfo:infoCopy];
-          [(PHInCallRemoteAlertShellViewController *)self setPendingRestrictedScreenTimeRequest:v20];
+          v21 = [(PHInCallRemoteAlertShellViewController *)self requestFromAlertActivationContextUserInfo:infoCopy];
+          [(PHInCallRemoteAlertShellViewController *)self setPendingRestrictedScreenTimeRequest:v21];
 
           [(PHInCallRemoteAlertShellViewController *)self requestScreenTimeShieldIfNecessary];
         }
@@ -853,17 +856,17 @@ LABEL_22:
       }
     }
 
-    v15 = +[TUCallCenter sharedInstance];
-    [v15 disconnectAllCalls];
+    v16 = +[TUCallCenter sharedInstance];
+    [v16 disconnectAllCalls];
 
-    v16 = [reasonCopy isEqualToString:v13];
-    v17 = off_100359460;
-    if (!v16)
+    v17 = [reasonCopy isEqualToString:v14];
+    v18 = off_100359460;
+    if (!v17)
     {
-      v17 = off_100359418;
+      v18 = off_100359418;
     }
 
-    [PHInCallRootViewController obtainDismissalAssertionForReason:*v17];
+    [PHInCallRootViewController obtainDismissalAssertionForReason:*v18];
     inCallRootViewController = [(PHInCallRemoteAlertShellViewController *)self inCallRootViewController];
     [inCallRootViewController setCurrentAlertButtonAction:0];
 
@@ -875,17 +878,17 @@ LABEL_22:
     goto LABEL_16;
   }
 
-  v9 = sub_100004F84();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100004F84(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v21) = 0;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Notified that we were activated for ending all calls and locking", &v21, 2u);
+    LOWORD(v22) = 0;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Notified that we were activated for ending all calls and locking", &v22, 2u);
   }
 
   _childViewController = [(PHInCallRemoteAlertShellViewController *)self _childViewController];
-  v11 = objc_opt_respondsToSelector();
+  v12 = objc_opt_respondsToSelector();
 
-  if (v11)
+  if (v12)
   {
     inCallRootViewController3 = [(PHInCallRemoteAlertShellViewController *)self _childViewController];
     [inCallRootViewController3 handleActivationForEndAndLock];
@@ -946,7 +949,7 @@ LABEL_17:
 - (void)noteActivatedForActivityContinuationWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(identifierCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -978,11 +981,11 @@ LABEL_17:
 
   else
   {
-    v9 = sub_100009960();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100009960(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "PHInCallRemoteAlertShellViewController does not have a child VC that can handle button events", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "PHInCallRemoteAlertShellViewController does not have a child VC that can handle button events", buf, 2u);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0);
@@ -1065,7 +1068,7 @@ LABEL_17:
 {
   completionCopy = completion;
   contextCopy = context;
-  v8 = sub_100004F84();
+  v8 = sub_100004F84(contextCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [NSNumber numberWithInteger:[(PHInCallRemoteAlertShellViewController *)self preferredWhitePointAdaptivityStyle]];
@@ -1086,12 +1089,12 @@ LABEL_17:
 {
   contextCopy = context;
   completionCopy = completion;
-  v8 = sub_100004F84();
+  v8 = sub_100004F84(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412290;
-    v15 = contextCopy;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "context: %@", &v14, 0xCu);
+    v15 = 138412290;
+    v16 = contextCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "context: %@", &v15, 0xCu);
   }
 
   actions = [contextCopy actions];
@@ -1101,7 +1104,8 @@ LABEL_17:
   userInfo = [contextCopy userInfo];
   [(PHInCallRemoteAlertShellViewController *)self noteActivatedForCustomReason:reason withUserInfo:userInfo];
 
-  if (+[PHInCallUIUtilities isSpringBoardPasscodeLocked])
+  v12 = +[PHInCallUIUtilities isSpringBoardPasscodeLocked];
+  if (v12)
   {
     inCallRootViewController = [(PHInCallRemoteAlertShellViewController *)self inCallRootViewController];
     [inCallRootViewController prepareForDeviceLock];
@@ -1109,11 +1113,11 @@ LABEL_17:
 
   if (completionCopy)
   {
-    v13 = sub_100004F84();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100004F84(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Calling completion block", &v14, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Calling completion block", &v15, 2u);
     }
 
     completionCopy[2](completionCopy);
@@ -1123,42 +1127,43 @@ LABEL_17:
 - (void)handleButtonActions:(id)actions
 {
   actionsCopy = actions;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(actionsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v38[0] = actionsCopy;
+    v40[0] = actionsCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "buttonActions: %@", buf, 0xCu);
   }
 
+  v37 = 0u;
+  v38 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
   obj = actionsCopy;
-  v6 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
+  v6 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
   if (v6)
   {
     v8 = v6;
     v9 = &_s16CommunicationsUI29CallTranslationLanguagePickerV05SwiftB04ViewAAMc_ptr;
-    v10 = *v34;
+    v10 = *v36;
     *&v7 = 67109378;
-    v31 = v7;
+    v33 = v7;
     do
     {
-      for (i = 0; i != v8; i = i + 1)
+      v11 = 0;
+      do
       {
-        if (*v34 != v10)
+        if (*v36 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v33 + 1) + 8 * i);
-        v13 = sub_100004F84();
+        v12 = *(*(&v35 + 1) + 8 * v11);
+        v13 = sub_100004F84(v6);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v38[0] = v12;
+          v40[0] = v12;
           _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Handling current SBUIRemoteAlertButtonAction: %@", buf, 0xCu);
         }
 
@@ -1180,16 +1185,17 @@ LABEL_17:
         }
 
         v20 = +[PHSOSViewController isSOSDismissalAssertionActive];
-        if ((v20 & 1) != 0 || incomingVideoCall && ([incomingVideoCall shouldSuppressRingtone] & 1) == 0)
+        v21 = v20;
+        if ((v20 & 1) != 0 || incomingVideoCall && (v20 = [incomingVideoCall shouldSuppressRingtone], (v20 & 1) == 0))
         {
-          v21 = sub_100004F84();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v22 = sub_100004F84(v20);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v31;
-            LODWORD(v38[0]) = v20;
-            WORD2(v38[0]) = 2112;
-            *(v38 + 6) = incomingVideoCall;
-            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "dismissalAssertions contains PHSOSCallAssertionReason: %d; incomingCall = %@\nSending response that we have handled all events", buf, 0x12u);
+            *buf = v33;
+            LODWORD(v40[0]) = v21;
+            WORD2(v40[0]) = 2112;
+            *(v40 + 6) = incomingVideoCall;
+            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "dismissalAssertions contains PHSOSCallAssertionReason: %d; incomingCall = %@\nSending response that we have handled all events", buf, 0x12u);
           }
 
           inCallRootViewController2 = [(PHInCallRemoteAlertShellViewController *)self inCallRootViewController];
@@ -1197,24 +1203,24 @@ LABEL_17:
         }
 
         events = [v12 events];
-        v24 = sub_100004F84();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v25 = sub_100004F84(events);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v38[0] = events;
-          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "[alertAction events]: %ld", buf, 0xCu);
+          v40[0] = events;
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "[alertAction events]: %ld", buf, 0xCu);
         }
 
         if (events)
         {
-          v25 = sub_100004F84();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v27 = sub_100004F84(handleLockButtonPressed);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "alertAction events contained SBUIRemoteAlertServiceButtonEventLockButton", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "alertAction events contained SBUIRemoteAlertServiceButtonEventLockButton", buf, 2u);
           }
 
-          [(PHInCallRemoteAlertShellViewController *)self handleLockButtonPressed];
+          handleLockButtonPressed = [(PHInCallRemoteAlertShellViewController *)self handleLockButtonPressed];
           if ((events & 2) == 0)
           {
 LABEL_23:
@@ -1232,14 +1238,14 @@ LABEL_23:
           goto LABEL_23;
         }
 
-        v26 = sub_100004F84();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v28 = sub_100004F84(handleLockButtonPressed);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "alertAction events contained SBUIRemoteAlertServiceButtonEventVolumeUpButton", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "alertAction events contained SBUIRemoteAlertServiceButtonEventVolumeUpButton", buf, 2u);
         }
 
-        [(PHInCallRemoteAlertShellViewController *)self handleVolumeUpButtonPressed];
+        handleLockButtonPressed = [(PHInCallRemoteAlertShellViewController *)self handleVolumeUpButtonPressed];
         if ((events & 4) == 0)
         {
 LABEL_24:
@@ -1252,14 +1258,14 @@ LABEL_24:
         }
 
 LABEL_34:
-        v27 = sub_100004F84();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        v29 = sub_100004F84(handleLockButtonPressed);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "alertAction events contained SBUIRemoteAlertServiceButtonEventVolumeDownButton", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "alertAction events contained SBUIRemoteAlertServiceButtonEventVolumeDownButton", buf, 2u);
         }
 
-        [(PHInCallRemoteAlertShellViewController *)self handleVolumeDownButtonPressed];
+        handleLockButtonPressed = [(PHInCallRemoteAlertShellViewController *)self handleVolumeDownButtonPressed];
         if ((events & 8) == 0)
         {
 LABEL_25:
@@ -1272,14 +1278,14 @@ LABEL_25:
         }
 
 LABEL_37:
-        v28 = sub_100004F84();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        v30 = sub_100004F84(handleLockButtonPressed);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "alertAction events contained SBUIRemoteAlertServiceButtonEventHeadsetButton", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "alertAction events contained SBUIRemoteAlertServiceButtonEventHeadsetButton", buf, 2u);
         }
 
-        [(PHInCallRemoteAlertShellViewController *)self handleHeadsetButtonPressed];
+        handleLockButtonPressed = [(PHInCallRemoteAlertShellViewController *)self handleHeadsetButtonPressed];
         if ((events & 0x20) == 0)
         {
 LABEL_26:
@@ -1289,11 +1295,11 @@ LABEL_26:
           }
 
 LABEL_43:
-          v30 = sub_100004F84();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+          v32 = sub_100004F84(handleLockButtonPressed);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "alertAction events contained SBUIRemoteAlertServiceButtonEventHomeButton", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "alertAction events contained SBUIRemoteAlertServiceButtonEventHomeButton", buf, 2u);
           }
 
           [(PHInCallRemoteAlertShellViewController *)self handleHomeButtonPressed];
@@ -1301,14 +1307,14 @@ LABEL_43:
         }
 
 LABEL_40:
-        v29 = sub_100004F84();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v31 = sub_100004F84(handleLockButtonPressed);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "alertAction events contained SBUIRemoteAlertServiceButtonEventHeadsetButtonLongPress", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "alertAction events contained SBUIRemoteAlertServiceButtonEventHeadsetButtonLongPress", buf, 2u);
         }
 
-        [(PHInCallRemoteAlertShellViewController *)self handleHeadsetButtonLongPressed];
+        handleLockButtonPressed = [(PHInCallRemoteAlertShellViewController *)self handleHeadsetButtonLongPressed];
         if ((events & 0x10) != 0)
         {
           goto LABEL_43;
@@ -1316,13 +1322,16 @@ LABEL_40:
 
 LABEL_46:
 
+        v11 = v11 + 1;
         v9 = &_s16CommunicationsUI29CallTranslationLanguagePickerV05SwiftB04ViewAAMc_ptr;
       }
 
-      v8 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
+      while (v8 != v11);
+      v6 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+      v8 = v6;
     }
 
-    while (v8);
+    while (v6);
   }
 }
 
@@ -1412,22 +1421,22 @@ LABEL_9:
 - (void)pipWillCancelNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_10000B2A0();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_10000B2A0(notificationCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
+    v7 = v6;
     pipController = [(PHInCallRemoteAlertShellViewController *)self pipController];
     *buf = 138543362;
-    v13 = pipController;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "PiP will cancel: %{public}@", buf, 0xCu);
+    v16 = pipController;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "PiP will cancel: %{public}@", buf, 0xCu);
   }
 
   pipFinishedCancellationBlock = [(PHInCallRemoteAlertShellViewController *)self pipFinishedCancellationBlock];
 
   if (pipFinishedCancellationBlock)
   {
-    v9 = sub_10000B2A0();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v12 = sub_10000B2A0(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_100256BB0();
     }
@@ -1436,27 +1445,27 @@ LABEL_9:
   else
   {
     objc_initWeak(buf, self);
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_100107AD8;
-    v10[3] = &unk_100356F60;
-    objc_copyWeak(&v11, buf);
-    [(PHInCallRemoteAlertShellViewController *)self setPipFinishedCancellationBlock:v10];
-    objc_destroyWeak(&v11);
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_100107AD8;
+    v13[3] = &unk_100356F60;
+    objc_copyWeak(&v14, buf);
+    [(PHInCallRemoteAlertShellViewController *)self setPipFinishedCancellationBlock:v13];
+    objc_destroyWeak(&v14);
     objc_destroyWeak(buf);
   }
 }
 
 - (void)pipDidCancelNotification:(id)notification
 {
-  v4 = sub_10000B2A0();
+  v4 = sub_10000B2A0(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = v4;
     pipController = [(PHInCallRemoteAlertShellViewController *)self pipController];
-    v13 = 138412290;
-    v14 = pipController;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PiP did cancel: %@", &v13, 0xCu);
+    v15 = 138412290;
+    v16 = pipController;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PiP did cancel: %@", &v15, 0xCu);
   }
 
   pipController2 = [(PHInCallRemoteAlertShellViewController *)self pipController];
@@ -1484,11 +1493,11 @@ LABEL_5:
     return;
   }
 
-  v11 = sub_10000B2A0();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_10000B2A0(v11, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v13) = 0;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "PIP state did change and we have a pending transition block - we'll run that block now", &v13, 2u);
+    LOWORD(v15) = 0;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "PIP state did change and we have a pending transition block - we'll run that block now", &v15, 2u);
   }
 
   pipFinishedTransitionBlock2 = [(PHInCallRemoteAlertShellViewController *)self pipFinishedTransitionBlock];
@@ -1500,31 +1509,31 @@ LABEL_5:
 - (void)pipControllerDidRequestReturnToFullScreenNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_10000B2A0();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_10000B2A0(notificationCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543618;
+    v15 = 138543618;
     selfCopy = self;
-    v14 = 2112;
-    v15 = notificationCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ is handling notification %@", &v12, 0x16u);
+    v17 = 2112;
+    v18 = notificationCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ is handling notification %@", &v15, 0x16u);
   }
 
   pipController = [(PHInCallRemoteAlertShellViewController *)self pipController];
   windowForTransitionAnimation = [pipController windowForTransitionAnimation];
   view = [(PHInCallRemoteAlertShellViewController *)self view];
   window = [view window];
-  v10 = [windowForTransitionAnimation isEqual:window];
+  v11 = [windowForTransitionAnimation isEqual:window];
 
-  if (v10)
+  if (v11)
   {
     [(PHInCallRemoteAlertShellViewController *)self stopPIPAndStealViewController];
   }
 
   else
   {
-    v11 = sub_10000B2A0();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = sub_10000B2A0(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_100256BF0();
     }
@@ -1558,26 +1567,26 @@ LABEL_5:
 - (void)showPIPPlaceholderView
 {
   pipPlaceholderView = [(PHInCallRemoteAlertShellViewController *)self pipPlaceholderView];
-  if (!pipPlaceholderView || (v4 = pipPlaceholderView, -[PHInCallRemoteAlertShellViewController pipPlaceholderView](self, "pipPlaceholderView"), v5 = objc_claimAutoreleasedReturnValue(), [v5 superview], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v4, !v6))
+  if (!pipPlaceholderView || (v5 = pipPlaceholderView, -[PHInCallRemoteAlertShellViewController pipPlaceholderView](self, "pipPlaceholderView"), v6 = objc_claimAutoreleasedReturnValue(), [v6 superview], v7 = objc_claimAutoreleasedReturnValue(), v7, v6, v5, !v7))
   {
-    v7 = sub_10000B2A0();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_10000B2A0(pipPlaceholderView, v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Setting up PIP placeholder view to show in app switcher while calls is PIPped", v16, 2u);
+      *v17 = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Setting up PIP placeholder view to show in app switcher while calls is PIPped", v17, 2u);
     }
 
-    v8 = objc_alloc_init(AVPictureInPictureIndicatorView);
-    [(PHInCallRemoteAlertShellViewController *)self setPipPlaceholderView:v8];
+    v9 = objc_alloc_init(AVPictureInPictureIndicatorView);
+    [(PHInCallRemoteAlertShellViewController *)self setPipPlaceholderView:v9];
 
-    v9 = +[NSBundle mainBundle];
-    v10 = [v9 localizedStringForKey:@"PIP_PLACEHOLDER_MESSAGE" value:&stru_100361FD0 table:@"InCallService"];
+    v10 = +[NSBundle mainBundle];
+    v11 = [v10 localizedStringForKey:@"PIP_PLACEHOLDER_MESSAGE" value:&stru_100361FD0 table:@"InCallService"];
     pipPlaceholderView2 = [(PHInCallRemoteAlertShellViewController *)self pipPlaceholderView];
-    [pipPlaceholderView2 setCustomMessage:v10];
+    [pipPlaceholderView2 setCustomMessage:v11];
 
-    v12 = +[UIColor blackColor];
+    v13 = +[UIColor blackColor];
     pipPlaceholderView3 = [(PHInCallRemoteAlertShellViewController *)self pipPlaceholderView];
-    [pipPlaceholderView3 setBackgroundColor:v12];
+    [pipPlaceholderView3 setBackgroundColor:v13];
 
     view = [(PHInCallRemoteAlertShellViewController *)self view];
     pipPlaceholderView4 = [(PHInCallRemoteAlertShellViewController *)self pipPlaceholderView];
@@ -1622,7 +1631,7 @@ LABEL_5:
 
 - (void)removePIPPlaceholderView
 {
-  v3 = sub_10000B2A0();
+  v3 = sub_10000B2A0(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -1686,15 +1695,15 @@ LABEL_5:
 {
   v4 = type metadata accessor for URL();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4, v6);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  v10 = sub_1001A8370(v8);
+  v9 = sub_1001A8370(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 
-  return v10;
+  return v9;
 }
 
 @end

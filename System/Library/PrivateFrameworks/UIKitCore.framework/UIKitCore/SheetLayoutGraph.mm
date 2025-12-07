@@ -236,7 +236,7 @@
 {
   selfCopy = self;
   AGGraphClearUpdate();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA93F3F0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA93F3F0, &qword_18A66ECD8);
   AGGraphGetValue();
   Strong = swift_unknownObjectWeakLoadStrong();
   AGGraphSetUpdate();
@@ -248,14 +248,14 @@
 {
   controllerCopy = controller;
   selfCopy = self;
-  sub_1891BA484();
+  sub_1891BA484(controller);
 }
 
 - (UIViewController)_presentedViewController
 {
   selfCopy = self;
   AGGraphClearUpdate();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA93F3F0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA93F3F0, &qword_18A66ECD8);
   AGGraphGetValue();
   Strong = swift_unknownObjectWeakLoadStrong();
   AGGraphSetUpdate();
@@ -267,14 +267,14 @@
 {
   controllerCopy = controller;
   selfCopy = self;
-  sub_1891BA554();
+  sub_1891BA554(controller);
 }
 
 - (UIView)_containerView
 {
   selfCopy = self;
   AGGraphClearUpdate();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA937AA0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA937AA0, &qword_18A653940);
   v3 = *AGGraphGetValue();
   AGGraphSetUpdate();
 
@@ -341,10 +341,11 @@
 
   v7 = (self + OBJC_IVAR____TtC5UIKitP33_A96866C2920FEF12151F6D0347E0D9CE16SheetLayoutGraph__indexOfCurrentActiveOrDismissDetentWasInvalidated);
   v8 = *(self + OBJC_IVAR____TtC5UIKitP33_A96866C2920FEF12151F6D0347E0D9CE16SheetLayoutGraph__indexOfCurrentActiveOrDismissDetentWasInvalidated);
+  v9 = *(self + OBJC_IVAR____TtC5UIKitP33_A96866C2920FEF12151F6D0347E0D9CE16SheetLayoutGraph__indexOfCurrentActiveOrDismissDetentWasInvalidated + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_188A55B8C(v8);
+  sub_188A55B8C(v8, v9);
 }
 
 - (void)set_rubberBandExtentBeyondMinimumOffsetWasInvalidated:(id)invalidated
@@ -365,10 +366,11 @@
 
   v7 = (self + OBJC_IVAR____TtC5UIKitP33_A96866C2920FEF12151F6D0347E0D9CE16SheetLayoutGraph__rubberBandExtentBeyondMinimumOffsetWasInvalidated);
   v8 = *(self + OBJC_IVAR____TtC5UIKitP33_A96866C2920FEF12151F6D0347E0D9CE16SheetLayoutGraph__rubberBandExtentBeyondMinimumOffsetWasInvalidated);
+  v9 = *(self + OBJC_IVAR____TtC5UIKitP33_A96866C2920FEF12151F6D0347E0D9CE16SheetLayoutGraph__rubberBandExtentBeyondMinimumOffsetWasInvalidated + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_188A55B8C(v8);
+  sub_188A55B8C(v8, v9);
 }
 
 - (void)set_rubberBandExtentBeyondMaximumOffsetWasInvalidated:(id)invalidated
@@ -389,10 +391,11 @@
 
   v7 = (self + OBJC_IVAR____TtC5UIKitP33_A96866C2920FEF12151F6D0347E0D9CE16SheetLayoutGraph__rubberBandExtentBeyondMaximumOffsetWasInvalidated);
   v8 = *(self + OBJC_IVAR____TtC5UIKitP33_A96866C2920FEF12151F6D0347E0D9CE16SheetLayoutGraph__rubberBandExtentBeyondMaximumOffsetWasInvalidated);
+  v9 = *(self + OBJC_IVAR____TtC5UIKitP33_A96866C2920FEF12151F6D0347E0D9CE16SheetLayoutGraph__rubberBandExtentBeyondMaximumOffsetWasInvalidated + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_188A55B8C(v8);
+  sub_188A55B8C(v8, v9);
 }
 
 - (CGRect)_containerBounds
@@ -490,7 +493,7 @@
 
 - (void)_setContainerTraitCollection:(id)collection
 {
-  sub_188A34624(0, &qword_1ED490410);
+  sub_188A34624(0, &qword_1ED490410, off_1E70EABD0);
   collectionCopy = collection;
   selfCopy = self;
   if (AGGraphSetValue())
@@ -1173,7 +1176,7 @@
 {
   selfCopy = self;
   AGGraphClearUpdate();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA93F3D8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA93F3D8, &qword_18A66ECC0);
   v3 = *AGGraphGetValue();
   swift_unknownObjectRetain();
   AGGraphSetUpdate();
@@ -1183,7 +1186,7 @@
 
 - (void)_setLargeBackground:(id)background
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA93F3D8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA93F3D8, &qword_18A66ECC0);
   swift_unknownObjectRetain();
   selfCopy = self;
   if (AGGraphSetValue())
@@ -1198,7 +1201,7 @@
 {
   selfCopy = self;
   AGGraphClearUpdate();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA93F3D8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA93F3D8, &qword_18A66ECC0);
   v3 = *AGGraphGetValue();
   swift_unknownObjectRetain();
   AGGraphSetUpdate();
@@ -1208,7 +1211,7 @@
 
 - (void)_setNonLargeBackground:(id)background
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA93F3D8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA93F3D8, &qword_18A66ECC0);
   swift_unknownObjectRetain();
   selfCopy = self;
   if (AGGraphSetValue())
@@ -1223,12 +1226,12 @@
 {
   selfCopy = self;
   AGGraphClearUpdate();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA93F380);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA93F380, &qword_18A66EC88);
   AGGraphGetValue();
 
   AGGraphSetUpdate();
 
-  sub_188A34624(0, &unk_1ED490400);
+  sub_188A34624(0, &unk_1ED490400, off_1E70EA6B8);
   v3 = sub_18A4A7518();
 
   return v3;
@@ -1236,7 +1239,7 @@
 
 - (void)_setDetents:(id)detents
 {
-  sub_188A34624(0, &unk_1ED490400);
+  sub_188A34624(0, &unk_1ED490400, off_1E70EA6B8);
   v4 = sub_18A4A7548();
   selfCopy = self;
   sub_18919E084(v4);
@@ -1253,7 +1256,7 @@
 {
   selfCopy = self;
   AGGraphClearUpdate();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA93F390);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA93F390, &qword_18A66EC90);
   v3 = *AGGraphGetValue();
   AGGraphSetUpdate();
 
@@ -1264,14 +1267,14 @@
 {
   identifierCopy = identifier;
   selfCopy = self;
-  sub_1891BA774();
+  sub_1891BA774(identifier);
 }
 
 - (_UISheetPresentationControllerAppearance)_standardAppearance
 {
   selfCopy = self;
   AGGraphClearUpdate();
-  sub_188A34624(0, &qword_1EA930A70);
+  sub_188A34624(0, &qword_1EA930A70, off_1E70EC238);
   v3 = *AGGraphGetValue();
   AGGraphSetUpdate();
 
@@ -1280,7 +1283,7 @@
 
 - (void)_setStandardAppearance:(id)appearance
 {
-  sub_188A34624(0, &qword_1EA930A70);
+  sub_188A34624(0, &qword_1EA930A70, off_1E70EC238);
   appearanceCopy = appearance;
   selfCopy = self;
   if (AGGraphSetValue())
@@ -1293,7 +1296,7 @@
 {
   selfCopy = self;
   AGGraphClearUpdate();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA93F3A0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA93F3A0, &qword_18A66EC98);
   v3 = *AGGraphGetValue();
   AGGraphSetUpdate();
 
@@ -1302,7 +1305,7 @@
 
 - (void)_setEdgeAttachedCompactHeightAppearance:(id)appearance
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA93F3A0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA93F3A0, &qword_18A66EC98);
   appearanceCopy = appearance;
   selfCopy = self;
   if (AGGraphSetValue())
@@ -1315,7 +1318,7 @@
 {
   selfCopy = self;
   AGGraphClearUpdate();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA93F3A0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA93F3A0, &qword_18A66EC98);
   v3 = *AGGraphGetValue();
   AGGraphSetUpdate();
 
@@ -1324,7 +1327,7 @@
 
 - (void)_setFloatingAppearance:(id)appearance
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA93F3A0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA93F3A0, &qword_18A66EC98);
   appearanceCopy = appearance;
   selfCopy = self;
   if (AGGraphSetValue())
@@ -1337,7 +1340,7 @@
 {
   selfCopy = self;
   AGGraphClearUpdate();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933140);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933140, &qword_18A648D50);
   v3 = *(AGGraphGetValue() + 8);
 
   AGGraphSetUpdate();
@@ -1362,7 +1365,7 @@
     sub_18A4A7288();
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933140);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933140, &qword_18A648D50);
   selfCopy = self;
   v5 = AGGraphSetValue();
 
@@ -1376,7 +1379,7 @@
 {
   selfCopy = self;
   AGGraphClearUpdate();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933140);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933140, &qword_18A648D50);
   v3 = *(AGGraphGetValue() + 8);
 
   AGGraphSetUpdate();
@@ -1401,7 +1404,7 @@
     sub_18A4A7288();
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933140);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933140, &qword_18A648D50);
   selfCopy = self;
   v5 = AGGraphSetValue();
 
@@ -1837,7 +1840,7 @@
 {
   selfCopy = self;
   AGGraphClearUpdate();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA93F3E8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA93F3E8, &qword_18A66ECD0);
   v3 = *AGGraphGetValue();
   AGGraphSetUpdate();
 
@@ -1846,7 +1849,7 @@
 
 - (void)setBackgroundEffect:(id)effect
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA93F3E8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA93F3E8, &qword_18A66ECD0);
   effectCopy = effect;
   selfCopy = self;
   if (AGGraphSetValue())
@@ -1894,7 +1897,7 @@
 
   selfCopy = self;
   sub_1891BA838(v7, v6);
-  sub_188A55B8C(v7);
+  sub_188A55B8C(v7, v6);
 }
 
 - (void)_invalidateCurrentOffset
@@ -2183,7 +2186,7 @@
 
   AGGraphSetUpdate();
 
-  sub_188A34624(0, &qword_1ED48FD80);
+  sub_188A34624(0, &qword_1ED48FD80, 0x1E696AD98);
   v3 = sub_18A4A7518();
 
   return v3;
@@ -2197,7 +2200,7 @@
 
   AGGraphSetUpdate();
 
-  sub_188A34624(0, &unk_1ED48C6A0);
+  sub_188A34624(0, &unk_1ED48C6A0, off_1E70EC208);
   v3 = sub_18A4A7518();
 
   return v3;
@@ -2605,7 +2608,7 @@
 {
   selfCopy = self;
   AGGraphClearUpdate();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA93F3D8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA93F3D8, &qword_18A66ECC0);
   v3 = *AGGraphGetValue();
   swift_unknownObjectRetain();
   AGGraphSetUpdate();
@@ -2683,7 +2686,7 @@
 {
   selfCopy = self;
   AGGraphClearUpdate();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA93F3D0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA93F3D0, &qword_18A66ECB8);
   v3 = *AGGraphGetValue() != 0;
   AGGraphSetUpdate();
 

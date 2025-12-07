@@ -156,7 +156,7 @@
   else
   {
     v20 = 5.0;
-    if ((![(NFReaderRestrictor *)self thermalPressureBackoff]|| v8 <= 5.0) && (![(NFLastOneReaderRestrictor *)self _wasActiveTooLong]|| v8 < 5.0))
+    if ((!objc_msgSend_thermalPressureBackoff(self) || v8 <= 5.0) && (![(NFLastOneReaderRestrictor *)self _wasActiveTooLong]|| v8 < 5.0))
     {
       if (v8 >= 19.0)
       {
@@ -196,7 +196,7 @@
   v8 = v7;
   [(NFLastOneReaderRestrictor *)self _getLastDisconnectionTime:v6];
   v10 = v9;
-  if (v8 >= 20.0 || [(NFReaderRestrictor *)self thermalPressureBackoff])
+  if (v8 >= 20.0 || (objc_msgSend_thermalPressureBackoff(self) & 1) != 0)
   {
     v11 = 1;
   }
@@ -569,7 +569,7 @@ LABEL_30:
     v5 = @"\t Current window = Critical\n";
   }
 
-  else if ([(NFReaderRestrictor *)self thermalPressureBackoff])
+  else if (objc_msgSend_thermalPressureBackoff(self))
   {
     v5 = @"\t Current window = Backoff\n";
   }

@@ -86,18 +86,16 @@
 
 - (id)_attributesWithFont:(id)font color:(id)color
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   v5 = *MEMORY[0x1E69DB650];
-  v12[0] = *MEMORY[0x1E69DB648];
-  v12[1] = v5;
-  v13[0] = font;
-  v13[1] = color;
+  v11[0] = *MEMORY[0x1E69DB648];
+  v11[1] = v5;
+  v12[0] = font;
+  v12[1] = color;
   v6 = MEMORY[0x1E695DF20];
   colorCopy = color;
   fontCopy = font;
-  v9 = [v6 dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = [v6 dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }
@@ -118,87 +116,85 @@
 
 - (void)_setupConstraints
 {
-  v58[18] = *MEMORY[0x1E69E9840];
-  v38 = MEMORY[0x1E696ACD8];
+  v57[18] = *MEMORY[0x1E69E9840];
+  v37 = MEMORY[0x1E696ACD8];
   leadingAnchor = [(UIImageView *)self->_imageView leadingAnchor];
   leadingAnchor2 = [(MUCuratedCollectionSummaryView *)self leadingAnchor];
-  v55 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v58[0] = v55;
+  v54 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v57[0] = v54;
   topAnchor = [(UIImageView *)self->_imageView topAnchor];
   topAnchor2 = [(MUCuratedCollectionSummaryView *)self topAnchor];
-  v52 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2];
-  v58[1] = v52;
+  v51 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2];
+  v57[1] = v51;
   centerYAnchor = [(UIImageView *)self->_imageView centerYAnchor];
   centerYAnchor2 = [(MUCuratedCollectionSummaryView *)self centerYAnchor];
-  v49 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v58[2] = v49;
+  v48 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+  v57[2] = v48;
   bottomAnchor = [(UIImageView *)self->_imageView bottomAnchor];
   bottomAnchor2 = [(MUCuratedCollectionSummaryView *)self bottomAnchor];
-  v46 = [bottomAnchor constraintLessThanOrEqualToAnchor:bottomAnchor2];
-  v58[3] = v46;
+  v45 = [bottomAnchor constraintLessThanOrEqualToAnchor:bottomAnchor2];
+  v57[3] = v45;
   widthAnchor = [(UIImageView *)self->_imageView widthAnchor];
-  v44 = [widthAnchor constraintEqualToConstant:36.0];
-  v58[4] = v44;
+  v43 = [widthAnchor constraintEqualToConstant:36.0];
+  v57[4] = v43;
   heightAnchor = [(UIImageView *)self->_imageView heightAnchor];
-  v42 = [heightAnchor constraintEqualToConstant:36.0];
-  v58[5] = v42;
+  v41 = [heightAnchor constraintEqualToConstant:36.0];
+  v57[5] = v41;
   leadingAnchor3 = [(UILayoutGuide *)self->_layoutGuide leadingAnchor];
   trailingAnchor = [(UIImageView *)self->_imageView trailingAnchor];
-  v39 = [leadingAnchor3 constraintEqualToAnchor:trailingAnchor constant:8.0];
-  v58[6] = v39;
+  v38 = [leadingAnchor3 constraintEqualToAnchor:trailingAnchor constant:8.0];
+  v57[6] = v38;
   topAnchor3 = [(UILayoutGuide *)self->_layoutGuide topAnchor];
   topAnchor4 = [(MUCuratedCollectionSummaryView *)self topAnchor];
-  v35 = [topAnchor3 constraintGreaterThanOrEqualToAnchor:topAnchor4];
-  v58[7] = v35;
+  v34 = [topAnchor3 constraintGreaterThanOrEqualToAnchor:topAnchor4];
+  v57[7] = v34;
   bottomAnchor3 = [(UILayoutGuide *)self->_layoutGuide bottomAnchor];
   bottomAnchor4 = [(MUCuratedCollectionSummaryView *)self bottomAnchor];
-  v32 = [bottomAnchor3 constraintLessThanOrEqualToAnchor:bottomAnchor4];
-  v58[8] = v32;
+  v31 = [bottomAnchor3 constraintLessThanOrEqualToAnchor:bottomAnchor4];
+  v57[8] = v31;
   trailingAnchor2 = [(UILayoutGuide *)self->_layoutGuide trailingAnchor];
   trailingAnchor3 = [(MUCuratedCollectionSummaryView *)self trailingAnchor];
-  v29 = [trailingAnchor2 constraintEqualToAnchor:trailingAnchor3];
-  v58[9] = v29;
+  v28 = [trailingAnchor2 constraintEqualToAnchor:trailingAnchor3];
+  v57[9] = v28;
   centerYAnchor3 = [(UILayoutGuide *)self->_layoutGuide centerYAnchor];
   centerYAnchor4 = [(MUCuratedCollectionSummaryView *)self centerYAnchor];
-  v26 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
-  v58[10] = v26;
+  v25 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
+  v57[10] = v25;
   topAnchor5 = [(UILabel *)self->_titleLabel topAnchor];
   topAnchor6 = [(UILayoutGuide *)self->_layoutGuide topAnchor];
-  v23 = [topAnchor5 constraintEqualToAnchor:topAnchor6];
-  v58[11] = v23;
+  v22 = [topAnchor5 constraintEqualToAnchor:topAnchor6];
+  v57[11] = v22;
   leadingAnchor4 = [(UILabel *)self->_titleLabel leadingAnchor];
   leadingAnchor5 = [(UILayoutGuide *)self->_layoutGuide leadingAnchor];
-  v20 = [leadingAnchor4 constraintEqualToAnchor:leadingAnchor5];
-  v58[12] = v20;
+  v19 = [leadingAnchor4 constraintEqualToAnchor:leadingAnchor5];
+  v57[12] = v19;
   trailingAnchor4 = [(UILabel *)self->_titleLabel trailingAnchor];
   trailingAnchor5 = [(UILayoutGuide *)self->_layoutGuide trailingAnchor];
-  v17 = [trailingAnchor4 constraintEqualToAnchor:trailingAnchor5];
-  v58[13] = v17;
+  v16 = [trailingAnchor4 constraintEqualToAnchor:trailingAnchor5];
+  v57[13] = v16;
   bottomAnchor5 = [(UILabel *)self->_titleLabel bottomAnchor];
   topAnchor7 = [(UILabel *)self->_descriptionLabel topAnchor];
-  v14 = [bottomAnchor5 constraintEqualToAnchor:topAnchor7];
-  v58[14] = v14;
+  v13 = [bottomAnchor5 constraintEqualToAnchor:topAnchor7];
+  v57[14] = v13;
   leadingAnchor6 = [(UILabel *)self->_descriptionLabel leadingAnchor];
   leadingAnchor7 = [(UILayoutGuide *)self->_layoutGuide leadingAnchor];
   v5 = [leadingAnchor6 constraintEqualToAnchor:leadingAnchor7];
-  v58[15] = v5;
+  v57[15] = v5;
   trailingAnchor6 = [(UILabel *)self->_descriptionLabel trailingAnchor];
   trailingAnchor7 = [(UILayoutGuide *)self->_layoutGuide trailingAnchor];
   v8 = [trailingAnchor6 constraintEqualToAnchor:trailingAnchor7];
-  v58[16] = v8;
+  v57[16] = v8;
   bottomAnchor6 = [(UILabel *)self->_descriptionLabel bottomAnchor];
   bottomAnchor7 = [(UILayoutGuide *)self->_layoutGuide bottomAnchor];
   v11 = [bottomAnchor6 constraintEqualToAnchor:bottomAnchor7];
-  v58[17] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:18];
-  [v38 activateConstraints:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v57[17] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:18];
+  [v37 activateConstraints:v12];
 }
 
 - (void)_setupSubviews
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   _mapsui_defaultLabel = [MEMORY[0x1E69DCC10] _mapsui_defaultLabel];
   titleLabel = self->_titleLabel;
   self->_titleLabel = _mapsui_defaultLabel;
@@ -238,16 +234,14 @@
 
   [(MUCuratedCollectionSummaryView *)self addLayoutGuide:self->_layoutGuide];
   v15 = objc_opt_self();
-  v23[0] = v15;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+  v22[0] = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
   v17 = [(MUCuratedCollectionSummaryView *)self registerForTraitChanges:v16 withAction:sel__updateImageViewForInterfaceStyle];
 
   v18 = objc_opt_self();
-  v22 = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
+  v21 = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
   v20 = [(MUCuratedCollectionSummaryView *)self registerForTraitChanges:v19 withAction:sel__contentSizeDidChange];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setViewModel:(id)model

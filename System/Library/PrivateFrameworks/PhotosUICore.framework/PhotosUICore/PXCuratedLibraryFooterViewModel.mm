@@ -966,7 +966,7 @@ LABEL_15:
   {
     if (controllerCopy)
     {
-      [controllerCopy counts];
+      objc_msgSend_counts(controllerCopy);
     }
 
     inResetSync = [iStatusCopy inResetSync];

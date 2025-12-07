@@ -75,12 +75,12 @@
     v3 = swift_once();
   }
 
-  v5 = __chkstk_darwin(v3);
-  v7 = *(v6 + 24);
-  __chkstk_darwin(v5);
-  os_unfair_lock_lock(v7 + 8);
-  sub_1000B3630(&v7[4], &v10);
-  os_unfair_lock_unlock(v7 + 8);
+  __chkstk_darwin(v3);
+  v6 = *(v5 + 24);
+  __chkstk_darwin(v7);
+  os_unfair_lock_lock(v6 + 8);
+  sub_1000B3630(&v6[4], &v10);
+  os_unfair_lock_unlock(v6 + 8);
   v8 = v10;
   _Block_release(v4);
   return v8;

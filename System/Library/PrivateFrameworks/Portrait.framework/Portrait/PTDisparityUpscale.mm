@@ -9,13 +9,13 @@
 {
   width = disparitySize.width;
   height = disparitySize.height;
-  v59 = size.height;
-  v60 = size.width;
-  v65[1] = *MEMORY[0x277D85DE8];
+  v62 = size.height;
+  v63 = size.width;
+  v68[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v63.receiver = self;
-  v63.super_class = PTDisparityUpscale;
-  v8 = [(PTDisparityUpscale *)&v63 init];
+  v66.receiver = self;
+  v66.super_class = PTDisparityUpscale;
+  v8 = [(PTDisparityUpscale *)&v66 init];
   v9 = v8;
   if (!v8)
   {
@@ -30,8 +30,8 @@
   v12.f64[0] = width;
   v12.f64[1] = height;
   v13 = vmulq_n_f64(v12, upscaleFactor);
-  v14.f64[0] = v60;
-  v14.f64[1] = v59;
+  v14.f64[0] = v63;
+  v14.f64[1] = v62;
   *&v9->_width = vcvtq_u64_f64(vbslq_s8(vcgtq_f64(v13, v14), v14, v13));
   if (upscaleFactor > 1.0 && (Bool & 1) == 0)
   {
@@ -42,95 +42,95 @@
     if (v9->_portraitUtil)
     {
       textureUtil = [(PTMetalContext *)v9->_metalContext textureUtil];
-      v18 = [textureUtil createWithWidth:v9->_width height:v9->_height pixelFormat:25];
+      v19 = [textureUtil createWithWidth:v9->_width height:v9->_height pixelFormat:25];
       disparityUpscaled = v9->_disparityUpscaled;
-      v9->_disparityUpscaled = v18;
+      v9->_disparityUpscaled = v19;
 
       if (v9->_disparityUpscaled)
       {
-        HIDWORD(v20) = HIDWORD(height);
-        LOBYTE(v58) = 0;
-        LODWORD(v20) = 1000593162;
-        v21 = [MEMORY[0x277CD7570] filterDescriptorWithWidth:width height:height arrayLength:1 kernelSpatialDiameter:3 kernelTemporalDiameter:1 epsilon:1 sourceChannels:v20 guideChannels:3 preallocateIntermediates:v58];
-        if (!v21)
+        HIDWORD(v22) = HIDWORD(height);
+        LOBYTE(v61) = 0;
+        LODWORD(v22) = 1000593162;
+        v23 = [MEMORY[0x277CD7570] filterDescriptorWithWidth:width height:height arrayLength:1 kernelSpatialDiameter:3 kernelTemporalDiameter:1 epsilon:1 sourceChannels:v22 guideChannels:3 preallocateIntermediates:v61];
+        if (!v23)
         {
-          v22 = _PTLogSystem();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v24 = _PTLogSystem(0);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
-            [(PTDisparityUpscale *)v22 initWithMetalContext:v23 colorSize:v24 disparitySize:v25, v26, v27, v28, v29];
+            [(PTDisparityUpscale *)v24 initWithMetalContext:v25 colorSize:v26 disparitySize:v27, v28, v29, v30, v31];
           }
         }
 
-        v30 = objc_alloc(MEMORY[0x277CD7568]);
-        device = [(PTMetalContext *)v9->_metalContext device];
-        v32 = [v30 initWithDevice:device filterDescriptor:v21];
+        v32 = objc_alloc(MEMORY[0x277CD7568]);
+        v33 = objc_msgSend_device(v9->_metalContext);
+        v34 = [v32 initWithDevice:v33 filterDescriptor:v23];
         guidedFilter = v9->_guidedFilter;
-        v9->_guidedFilter = v32;
+        v9->_guidedFilter = v34;
 
         if (v9->_guidedFilter)
         {
-          v34 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:115 width:width height:height mipmapped:0];
-          [v34 setUsage:19];
+          v37 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:115 width:width height:height mipmapped:0];
+          [v37 setUsage:19];
           if ([(PTMetalContext *)v9->_metalContext supportsFamily:1007])
           {
-            v35 = 0;
+            v38 = 0;
           }
 
           else
           {
-            v35 = 32;
+            v38 = 32;
           }
 
-          [v34 setResourceOptions:v35];
-          [v34 setTextureType:3];
-          device2 = [(PTMetalContext *)v9->_metalContext device];
-          v37 = [device2 newTextureWithDescriptor:v34];
-          v64 = v37;
-          v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v64 count:1];
-          v65[0] = v38;
-          v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:1];
+          [v37 setResourceOptions:v38];
+          [v37 setTextureType:3];
+          v39 = objc_msgSend_device(v9->_metalContext);
+          v40 = [v39 newTextureWithDescriptor:v37];
+          v67 = v40;
+          v41 = [MEMORY[0x277CBEA60] arrayWithObjects:&v67 count:1];
+          v68[0] = v41;
+          v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:1];
           coefficientsTextureArray = v9->_coefficientsTextureArray;
-          v9->_coefficientsTextureArray = v39;
+          v9->_coefficientsTextureArray = v42;
 
           goto LABEL_15;
         }
 
-        v49 = _PTLogSystem();
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+        v52 = _PTLogSystem(v36);
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
         {
-          [(PTRaytracingV3001 *)v49 initWithMetalContext:v50 colorSize:v51 disparitySize:v52 debugRendering:v53 verbose:v54 options:v55 quality:v56];
+          [(PTRaytracingV3001 *)v52 initWithMetalContext:v53 colorSize:v54 disparitySize:v55 debugRendering:v56 verbose:v57 options:v58 quality:v59];
         }
       }
 
       else
       {
-        v21 = _PTLogSystem();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v23 = _PTLogSystem(v21);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          [PTDisparityUpscale initWithMetalContext:v21 colorSize:? disparitySize:?];
+          [PTDisparityUpscale initWithMetalContext:v23 colorSize:? disparitySize:?];
         }
       }
     }
 
     else
     {
-      v21 = _PTLogSystem();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v23 = _PTLogSystem(v17);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        [(PTDisparityUpscale *)v21 initWithMetalContext:v42 colorSize:v43 disparitySize:v44, v45, v46, v47, v48];
+        [(PTDisparityUpscale *)v23 initWithMetalContext:v45 colorSize:v46 disparitySize:v47, v48, v49, v50, v51];
       }
     }
 
 LABEL_24:
-    v41 = 0;
+    v44 = 0;
     goto LABEL_25;
   }
 
 LABEL_15:
-  v41 = v9;
+  v44 = v9;
 LABEL_25:
 
-  return v41;
+  return v44;
 }
 
 - (id)guidedUpsampling:(id)upsampling inDisparity:(id)disparity inRGBA:(id)a colorDepth:(int64_t)depth
@@ -191,6 +191,20 @@ LABEL_25:
   v30 = v14;
 
   return v14;
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "descr";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_portraitUtil";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -25,39 +25,38 @@
 - (IMChatItemFilterController)initWithChat:(id)chat
 {
   chatCopy = chat;
-  v13.receiver = self;
-  v13.super_class = IMChatItemFilterController;
-  v5 = [(IMItemsController *)&v13 init];
-  v7 = v5;
+  v10.receiver = self;
+  v10.super_class = IMChatItemFilterController;
+  v5 = [(IMItemsController *)&v10 init];
+  v6 = v5;
   if (v5)
   {
-    objc_msgSend_setChat_(v5, v6, chatCopy);
-    v8 = objc_alloc(MEMORY[0x1E69A6158]);
-    v10 = objc_msgSend_initWithTarget_action_(v8, v9, v7, sel__updateChatItemsForChatItemUpdater);
-    chatItemsUpdater = v7->_chatItemsUpdater;
-    v7->_chatItemsUpdater = v10;
+    [(IMChatItemFilterController *)v5 setChat:chatCopy];
+    v7 = [objc_alloc(MEMORY[0x1E69A6158]) initWithTarget:v6 action:sel__updateChatItemsForChatItemUpdater];
+    chatItemsUpdater = v6->_chatItemsUpdater;
+    v6->_chatItemsUpdater = v7;
 
-    v7->_hasEarlierMessagesToLoad = 0;
-    v7->_hasRecentMessagesToLoad = 0;
+    v6->_hasEarlierMessagesToLoad = 0;
+    v6->_hasRecentMessagesToLoad = 0;
   }
 
-  return v7;
+  return v6;
 }
 
 - (void)dealloc
 {
-  objc_msgSend_invalidate(self->_chatItemsUpdater, a2, v2);
-  v4.receiver = self;
-  v4.super_class = IMChatItemFilterController;
-  [(IMItemsController *)&v4 dealloc];
+  [(IMScheduledUpdater *)self->_chatItemsUpdater invalidate];
+  v3.receiver = self;
+  v3.super_class = IMChatItemFilterController;
+  [(IMItemsController *)&v3 dealloc];
 }
 
 - (IMMessage)firstMessage
 {
-  v3 = objc_msgSend__firstMessage(self, a2, v2);
-  v6 = objc_msgSend_message(v3, v4, v5);
+  _firstMessage = [(IMItemsController *)self _firstMessage];
+  message = [_firstMessage message];
 
-  return v6;
+  return message;
 }
 
 - (NSArray)chatItems
@@ -65,36 +64,34 @@
   chatItemRules = self->_chatItemRules;
   if (!chatItemRules)
   {
-    objc_msgSend__setupChatItemRules(self, a2, v2);
+    [(IMChatItemFilterController *)self _setupChatItemRules];
     chatItemRules = self->_chatItemRules;
   }
 
-  return objc_msgSend__chatItems(chatItemRules, a2, v2);
+  return [(IMChatItemRules *)chatItemRules _chatItems];
 }
 
 - (IMMessage)lastMessage
 {
-  v3 = objc_msgSend__lastMessage(self, a2, v2);
-  v6 = objc_msgSend_message(v3, v4, v5);
+  _lastMessage = [(IMItemsController *)self _lastMessage];
+  message = [_lastMessage message];
 
-  return v6;
+  return message;
 }
 
 - (void)insertHistoricalMessages:(id)messages queryID:(id)d hasMessagesBefore:(BOOL)before hasMessagesAfter:(BOOL)after isReplacingItems:(BOOL)items
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   dCopy = d;
   v14 = IMLogHandleForCategory();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
-    v17 = MEMORY[0x1E696AD98];
-    v18 = objc_msgSend_count(messagesCopy, v15, v16);
-    v20 = objc_msgSend_numberWithUnsignedInteger_(v17, v19, v18);
+    v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(messagesCopy, "count")}];
     *buf = 136315394;
     *&buf[4] = "[IMChatItemFilterController insertHistoricalMessages:queryID:hasMessagesBefore:hasMessagesAfter:isReplacingItems:]";
     *&buf[12] = 2112;
-    *&buf[14] = v20;
+    *&buf[14] = v15;
     _os_log_impl(&dword_1A823F000, v14, OS_LOG_TYPE_INFO, "%s archivedMessages: %@", buf, 0x16u);
   }
 
@@ -103,147 +100,139 @@
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v37 = sub_1A8259B90;
-  v38 = sub_1A825AEF4;
-  v21 = messagesCopy;
-  v39 = v21;
-  v26 = MEMORY[0x1E69E9820];
-  v27 = 3221225472;
-  v28 = sub_1A82FE28C;
-  v29 = &unk_1E7811F80;
-  v22 = dCopy;
+  v30 = sub_1A8259B90;
+  v31 = sub_1A825AEF4;
+  v16 = messagesCopy;
+  v32 = v16;
+  v19 = MEMORY[0x1E69E9820];
+  v20 = 3221225472;
+  v21 = sub_1A82FE28C;
+  v22 = &unk_1E7811F80;
+  v17 = dCopy;
   selfCopy = self;
-  v32 = buf;
+  v25 = buf;
   beforeCopy = before;
   afterCopy = after;
   itemsCopy = items;
-  v30 = v22;
-  v23 = _Block_copy(&v26);
-  objc_msgSend__updateChatItemsWithReason_block_(self, v24, @"history query", v23, v26, v27, v28, v29);
+  v23 = v17;
+  v18 = _Block_copy(&v19);
+  [(IMChatItemFilterController *)self _updateChatItemsWithReason:@"history query" block:v18, v19, v20, v21, v22];
 
   _Block_object_dispose(buf, 8);
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_itemsDidChange:(id)change
 {
-  v6.receiver = self;
-  v6.super_class = IMChatItemFilterController;
-  [(IMItemsController *)&v6 _itemsDidChange:change];
-  objc_msgSend_setNeedsUpdate(self->_chatItemsUpdater, v4, v5);
+  v4.receiver = self;
+  v4.super_class = IMChatItemFilterController;
+  [(IMItemsController *)&v4 _itemsDidChange:change];
+  [(IMScheduledUpdater *)self->_chatItemsUpdater setNeedsUpdate];
 }
 
 - (void)insertItem:(id)item
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   itemCopy = item;
-  if (objc_msgSend_itemMatchesFilter_(self, v5, itemCopy))
+  if ([(IMChatItemFilterController *)self itemMatchesFilter:itemCopy])
   {
-    v6 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v5 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v9 = objc_msgSend_guid(itemCopy, v7, v8);
-      v18 = 136315394;
-      v19 = "[IMChatItemFilterController insertItem:]";
-      v20 = 2112;
-      v21 = v9;
-      _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "%s inserting %@, matches filter", &v18, 0x16u);
+      guid = [itemCopy guid];
+      v8 = 136315394;
+      v9 = "[IMChatItemFilterController insertItem:]";
+      v10 = 2112;
+      v11 = guid;
+      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "%s inserting %@, matches filter", &v8, 0x16u);
     }
 
-    v12 = objc_msgSend_chat(self, v10, v11);
-    v15 = objc_msgSend_chatStyle(v12, v13, v14);
-    objc_msgSend__handleItem_forChatStyle_(self, v16, itemCopy, v15);
+    chat = [(IMChatItemFilterController *)self chat];
+    -[IMItemsController _handleItem:forChatStyle:](self, "_handleItem:forChatStyle:", itemCopy, [chat chatStyle]);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeItem:(id)item
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   itemCopy = item;
-  if (objc_msgSend_itemMatchesFilter_(self, v5, itemCopy))
+  if ([(IMChatItemFilterController *)self itemMatchesFilter:itemCopy])
   {
-    v6 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v5 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v9 = objc_msgSend_guid(itemCopy, v7, v8);
-      v12 = 136315394;
-      v13 = "[IMChatItemFilterController removeItem:]";
-      v14 = 2112;
-      v15 = v9;
-      _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "%s removing %@", &v12, 0x16u);
+      guid = [itemCopy guid];
+      v7 = 136315394;
+      v8 = "[IMChatItemFilterController removeItem:]";
+      v9 = 2112;
+      v10 = guid;
+      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "%s removing %@", &v7, 0x16u);
     }
 
-    objc_msgSend__removeItem_(self, v10, itemCopy);
+    [(IMItemsController *)self _removeItem:itemCopy];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)replaceItems:(id)items
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DF70];
   itemsCopy = items;
   v6 = objc_alloc_init(v4);
-  v8 = objc_msgSend__itemsMatchingFilter_guids_(self, v7, itemsCopy, v6);
+  v7 = [(IMChatItemFilterController *)self _itemsMatchingFilter:itemsCopy guids:v6];
 
-  if (objc_msgSend_count(v8, v9, v10))
+  if ([v7 count])
   {
-    v11 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v8 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v13 = objc_msgSend_componentsJoinedByString_(v6, v12, @",");
-      v16 = 136315394;
-      v17 = "[IMChatItemFilterController replaceItems:]";
-      v18 = 2112;
-      v19 = v13;
-      _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "%s replacing items %@", &v16, 0x16u);
+      v9 = [v6 componentsJoinedByString:{@", "}];
+      v10 = 136315394;
+      v11 = "[IMChatItemFilterController replaceItems:]";
+      v12 = 2112;
+      v13 = v9;
+      _os_log_impl(&dword_1A823F000, v8, OS_LOG_TYPE_INFO, "%s replacing items %@", &v10, 0x16u);
     }
 
-    objc_msgSend__replaceItems_(self, v14, v8);
+    [(IMItemsController *)self _replaceItems:v7];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performActionDisallowingItemInsert:(id)insert
 {
   insertCopy = insert;
-  objc_msgSend_setDisableItemInserts_(self, v5, 1);
+  [(IMChatItemFilterController *)self setDisableItemInserts:1];
   insertCopy[2](insertCopy);
 
-  objc_msgSend_setDisableItemInserts_(self, v6, 0);
+  [(IMChatItemFilterController *)self setDisableItemInserts:0];
 }
 
 - (void)_updateChatItemsWithReason:(id)reason block:(id)block shouldPost:(BOOL)post
 {
   postCopy = post;
-  v192 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   blockCopy = block;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   v10 = IMLogHandleForCategory();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v13 = objc_msgSend_chat(self, v11, v12);
-    v16 = objc_msgSend_guid(v13, v14, v15);
+    chat = [(IMChatItemFilterController *)self chat];
+    guid = [chat guid];
     *buf = 138412546;
-    v189 = v16;
-    v190 = 2112;
-    v191 = reasonCopy;
+    v88 = guid;
+    v89 = 2112;
+    v90 = reasonCopy;
     _os_log_impl(&dword_1A823F000, v10, OS_LOG_TYPE_INFO, "Update chat items (chatGUID: %@), reason: %@", buf, 0x16u);
   }
 
-  v17 = self->_chatItemRules;
+  v13 = self->_chatItemRules;
   if (self->_isUpdatingChatItems)
   {
-    v18 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v14 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A823F000, v18, OS_LOG_TYPE_INFO, "Update already in progress, executing update block", buf, 2u);
+      _os_log_impl(&dword_1A823F000, v14, OS_LOG_TYPE_INFO, "Update already in progress, executing update block", buf, 2u);
     }
 
     blockCopy[2](blockCopy);
@@ -252,181 +241,175 @@
 
   self->_isUpdatingChatItems = 1;
   blockCopy[2](blockCopy);
-  objc_msgSend_setNeedsUpdate_(self->_chatItemsUpdater, v19, 0);
+  [(IMScheduledUpdater *)self->_chatItemsUpdater setNeedsUpdate:0];
   self->_isUpdatingChatItems = 0;
-  if (v17)
+  if (v13)
   {
-    v171 = blockCopy;
-    v22 = objc_msgSend__items(self, v20, v21);
-    v23 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    v70 = blockCopy;
+    _items = [(IMItemsController *)self _items];
+    v16 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v26 = MEMORY[0x1E696AD98];
-      v27 = objc_msgSend_count(v22, v24, v25);
-      v29 = objc_msgSend_numberWithUnsignedInteger_(v26, v28, v27);
+      v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(_items, "count")}];
       *buf = 138412290;
-      v189 = v29;
-      _os_log_impl(&dword_1A823F000, v23, OS_LOG_TYPE_INFO, "\tIMItem count = %@", buf, 0xCu);
+      v88 = v17;
+      _os_log_impl(&dword_1A823F000, v16, OS_LOG_TYPE_INFO, "\tIMItem count = %@", buf, 0xCu);
     }
 
-    v32 = objc_msgSend__chatItems(v17, v30, v31);
-    v35 = objc_msgSend_copy(v32, v33, v34);
-    _IMChatItemsReplaceWithChatItemsForItems(v32, v17, v22);
-    objc_msgSend__didProcessChatItems_(v17, v36, v32);
-    v178 = v35;
-    if (v35)
+    _chatItems = [(IMChatItemRules *)v13 _chatItems];
+    v19 = [_chatItems copy];
+    _IMChatItemsReplaceWithChatItemsForItems(_chatItems, v13, _items);
+    [(IMChatItemRules *)v13 _didProcessChatItems:_chatItems];
+    array = v19;
+    if (v19)
     {
-      if (v32)
+      if (_chatItems)
       {
 LABEL_12:
-        v172 = reasonCopy;
-        v173 = v22;
-        v166 = postCopy;
-        v170 = v17;
-        objc_msgSend_differenceFromArray_(v32, v37, v178);
-        v185 = 0;
-        v169 = v186 = 0;
-        IMIndexesFromOrderedCollectionDifference(v169, &v186, &v185);
-        v39 = v186;
-        v174 = v185;
-        v42 = objc_msgSend_date(MEMORY[0x1E695DF00], v40, v41);
-        if (objc_msgSend_count(v39, v43, v44))
+        v71 = reasonCopy;
+        v72 = _items;
+        v65 = postCopy;
+        v69 = v13;
+        [_chatItems differenceFromArray:array];
+        v84 = 0;
+        v68 = v85 = 0;
+        IMIndexesFromOrderedCollectionDifference(v68, &v85, &v84);
+        v20 = v85;
+        v73 = v84;
+        date = [MEMORY[0x1E695DF00] date];
+        if ([v20 count])
         {
-          v183[0] = MEMORY[0x1E69E9820];
-          v183[1] = 3221225472;
-          v183[2] = sub_1A82FF480;
-          v183[3] = &unk_1E7811FA8;
-          v184 = v42;
-          objc_msgSend_enumerateObjectsAtIndexes_options_usingBlock_(v32, v47, v39, 0, v183);
+          v82[0] = MEMORY[0x1E69E9820];
+          v82[1] = 3221225472;
+          v82[2] = sub_1A82FF480;
+          v82[3] = &unk_1E7811FA8;
+          v83 = date;
+          [_chatItems enumerateObjectsAtIndexes:v20 options:0 usingBlock:v82];
         }
 
-        v167 = v42;
-        v175 = objc_msgSend_indexSet(MEMORY[0x1E696AD50], v45, v46);
-        v177 = objc_msgSend_indexSet(MEMORY[0x1E696AD50], v48, v49);
-        v50 = objc_alloc(MEMORY[0x1E696AD50]);
-        v53 = objc_msgSend_count(v178, v51, v52);
-        v55 = objc_msgSend_initWithIndexesInRange_(v50, v54, 0, v53);
-        v56 = objc_alloc(MEMORY[0x1E696AD50]);
-        v59 = objc_msgSend_count(v32, v57, v58);
-        v61 = objc_msgSend_initWithIndexesInRange_(v56, v60, 0, v59);
-        objc_msgSend_removeIndexes_(v55, v62, v174);
-        v168 = v39;
-        objc_msgSend_removeIndexes_(v61, v63, v39);
-        Index = objc_msgSend_firstIndex(v55, v64, v65);
-        v69 = objc_msgSend_firstIndex(v61, v67, v68);
+        v66 = date;
+        indexSet = [MEMORY[0x1E696AD50] indexSet];
+        indexSet2 = [MEMORY[0x1E696AD50] indexSet];
+        v22 = [objc_alloc(MEMORY[0x1E696AD50]) initWithIndexesInRange:{0, objc_msgSend(array, "count")}];
+        v23 = [objc_alloc(MEMORY[0x1E696AD50]) initWithIndexesInRange:{0, objc_msgSend(_chatItems, "count")}];
+        [v22 removeIndexes:v73];
+        v67 = v20;
+        [v23 removeIndexes:v20];
+        firstIndex = [v22 firstIndex];
+        firstIndex2 = [v23 firstIndex];
         selfCopy = self;
-        if (Index != 0x7FFFFFFFFFFFFFFFLL)
+        if (firstIndex != 0x7FFFFFFFFFFFFFFFLL)
         {
-          v71 = v69;
-          if (v69 != 0x7FFFFFFFFFFFFFFFLL)
+          v26 = firstIndex2;
+          if (firstIndex2 != 0x7FFFFFFFFFFFFFFFLL)
           {
             do
             {
-              v72 = objc_msgSend_objectAtIndex_(v178, v70, Index);
-              v75 = objc_msgSend_objectAtIndex_(v32, v73, v71);
-              if (v72 != v75)
+              v27 = [array objectAtIndex:firstIndex];
+              v28 = [_chatItems objectAtIndex:v26];
+              if (v27 != v28)
               {
-                objc_msgSend_addIndex_(v177, v74, v71);
-                v78 = objc_msgSend__timeAdded(v72, v76, v77);
-                objc_msgSend__setTimeAdded_(v75, v79, v78);
+                [indexSet2 addIndex:v26];
+                _timeAdded = [v27 _timeAdded];
+                [v28 _setTimeAdded:_timeAdded];
 
                 self = selfCopy;
               }
 
-              if (objc_msgSend__shouldReloadChatItem_oldChatItem_(self->_chatItemRules, v74, v75, v72))
+              if ([(IMChatItemRules *)self->_chatItemRules _shouldReloadChatItem:v28 oldChatItem:v27])
               {
-                objc_msgSend_addIndex_(v175, v80, v71);
+                [indexSet addIndex:v26];
               }
 
-              Index = objc_msgSend_indexGreaterThanIndex_(v55, v80, Index);
-              v71 = objc_msgSend_indexGreaterThanIndex_(v61, v81, v71);
+              firstIndex = [v22 indexGreaterThanIndex:firstIndex];
+              v26 = [v23 indexGreaterThanIndex:v26];
             }
 
-            while (Index != 0x7FFFFFFFFFFFFFFFLL && v71 != 0x7FFFFFFFFFFFFFFFLL);
+            while (firstIndex != 0x7FFFFFFFFFFFFFFFLL && v26 != 0x7FFFFFFFFFFFFFFFLL);
           }
         }
 
-        v181 = 0u;
-        v182 = 0u;
-        v179 = 0u;
-        v180 = 0u;
-        v82 = v32;
-        v84 = objc_msgSend_countByEnumeratingWithState_objects_count_(v82, v83, &v179, v187, 16);
-        if (v84)
+        v80 = 0u;
+        v81 = 0u;
+        v78 = 0u;
+        v79 = 0u;
+        v30 = _chatItems;
+        v31 = [v30 countByEnumeratingWithState:&v78 objects:v86 count:16];
+        if (v31)
         {
-          v87 = v84;
-          v88 = 0;
-          v89 = *v180;
-          v17 = v170;
+          v32 = v31;
+          v33 = 0;
+          v34 = *v79;
+          v13 = v69;
           do
           {
-            for (i = 0; i != v87; ++i)
+            for (i = 0; i != v32; ++i)
             {
-              if (*v180 != v89)
+              if (*v79 != v34)
               {
-                objc_enumerationMutation(v82);
+                objc_enumerationMutation(v30);
               }
 
-              v91 = objc_msgSend__timeStale(*(*(&v179 + 1) + 8 * i), v85, v86);
-              v93 = v91;
-              if (v91)
+              _timeStale = [*(*(&v78 + 1) + 8 * i) _timeStale];
+              v37 = _timeStale;
+              if (_timeStale)
               {
-                v94 = objc_msgSend_earlierDate_(v91, v92, v88);
+                v38 = [_timeStale earlierDate:v33];
 
-                if (v94 == v93)
+                if (v38 == v37)
                 {
-                  v95 = v93;
+                  v39 = v37;
 
-                  v88 = v95;
+                  v33 = v39;
                 }
               }
             }
 
-            v87 = objc_msgSend_countByEnumeratingWithState_objects_count_(v82, v85, &v179, v187, 16);
+            v32 = [v30 countByEnumeratingWithState:&v78 objects:v86 count:16];
           }
 
-          while (v87);
+          while (v32);
 
-          v98 = v173;
-          v99 = v168;
-          if (v88)
+          v40 = v72;
+          v41 = v67;
+          if (v33)
           {
-            v100 = objc_msgSend__nextStaleTime(v170, v96, v97);
-            isEqualToDate = objc_msgSend_isEqualToDate_(v88, v101, v100);
+            _nextStaleTime = [(IMChatItemRules *)v69 _nextStaleTime];
+            v43 = [v33 isEqualToDate:_nextStaleTime];
 
-            reasonCopy = v172;
+            reasonCopy = v71;
             self = selfCopy;
-            if ((isEqualToDate & 1) == 0)
+            if ((v43 & 1) == 0)
             {
-              v103 = IMLogHandleForCategory();
-              if (os_log_type_enabled(v103, OS_LOG_TYPE_INFO))
+              v44 = IMLogHandleForCategory();
+              if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v189 = v88;
-                _os_log_impl(&dword_1A823F000, v103, OS_LOG_TYPE_INFO, "\tSchedule _replaceStaleChatItems for nextStaleTime:%@", buf, 0xCu);
+                v88 = v33;
+                _os_log_impl(&dword_1A823F000, v44, OS_LOG_TYPE_INFO, "\tSchedule _replaceStaleChatItems for nextStaleTime:%@", buf, 0xCu);
               }
 
-              objc_msgSend__setNextStaleTime_(v170, v104, v88);
-              objc_msgSend_timeIntervalSinceReferenceDate(v88, v105, v106);
-              v108 = v107;
-              objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x1E695DF00], v109, v110);
-              v113 = 0.0;
-              if (v108 > v114)
+              [(IMChatItemRules *)v69 _setNextStaleTime:v33];
+              [v33 timeIntervalSinceReferenceDate];
+              v46 = v45;
+              [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
+              v47 = 0.0;
+              if (v46 > v48)
               {
-                objc_msgSend_timeIntervalSinceReferenceDate(v88, v111, v112);
-                v116 = v115;
-                objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x1E695DF00], v117, v118);
-                v113 = v116 - v119;
+                [v33 timeIntervalSinceReferenceDate];
+                v50 = v49;
+                [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
+                v47 = v50 - v51;
               }
 
-              objc_msgSend_cancelPreviousPerformRequestsWithTarget_selector_object_(MEMORY[0x1E69E58C0], v111, selfCopy, sel__replaceStaleChatItems, 0);
-              objc_msgSend_performSelector_withObject_afterDelay_(selfCopy, v120, sel__replaceStaleChatItems, 0, v113);
+              [MEMORY[0x1E69E58C0] cancelPreviousPerformRequestsWithTarget:selfCopy selector:sel__replaceStaleChatItems object:0];
+              [(IMChatItemFilterController *)selfCopy performSelector:sel__replaceStaleChatItems withObject:0 afterDelay:v47];
             }
           }
 
           else
           {
-            reasonCopy = v172;
+            reasonCopy = v71;
             self = selfCopy;
           }
         }
@@ -434,140 +417,135 @@ LABEL_12:
         else
         {
 
-          v88 = 0;
-          v98 = v173;
-          v17 = v170;
-          v99 = v168;
+          v33 = 0;
+          v40 = v72;
+          v13 = v69;
+          v41 = v67;
         }
 
-        if (objc_msgSend_count(v174, v96, v97) || objc_msgSend_count(v99, v122, v123) || objc_msgSend_count(v175, v124, v125) || objc_msgSend_count(v177, v126, v127))
+        if ([v73 count] || objc_msgSend(v41, "count") || objc_msgSend(indexSet, "count") || objc_msgSend(indexSet2, "count"))
         {
-          v128 = IMLogHandleForCategory();
-          if (os_log_type_enabled(v128, OS_LOG_TYPE_INFO))
+          v53 = IMLogHandleForCategory();
+          if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
           {
-            v131 = objc_msgSend_chat(self, v129, v130);
-            v134 = objc_msgSend_chat(self, v132, v133);
-            v137 = objc_msgSend_guid(v134, v135, v136);
+            chat2 = [(IMChatItemFilterController *)self chat];
+            chat3 = [(IMChatItemFilterController *)self chat];
+            guid2 = [chat3 guid];
             *buf = 138412546;
-            v189 = v131;
-            v190 = 2112;
-            v191 = v137;
-            _os_log_impl(&dword_1A823F000, v128, OS_LOG_TYPE_INFO, "\tchat: %@, guid: %@", buf, 0x16u);
+            v88 = chat2;
+            v89 = 2112;
+            v90 = guid2;
+            _os_log_impl(&dword_1A823F000, v53, OS_LOG_TYPE_INFO, "\tchat: %@, guid: %@", buf, 0x16u);
 
             self = selfCopy;
-            v98 = v173;
+            v40 = v72;
           }
 
-          if (objc_msgSend_count(v99, v138, v139))
+          if ([v41 count])
           {
-            v142 = IMLogHandleForCategory();
-            if (os_log_type_enabled(v142, OS_LOG_TYPE_INFO))
+            v57 = IMLogHandleForCategory();
+            if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v189 = v99;
-              _os_log_impl(&dword_1A823F000, v142, OS_LOG_TYPE_INFO, "\tinserted: %@", buf, 0xCu);
+              v88 = v41;
+              _os_log_impl(&dword_1A823F000, v57, OS_LOG_TYPE_INFO, "\tinserted: %@", buf, 0xCu);
             }
           }
 
-          if (objc_msgSend_count(v174, v140, v141))
+          if ([v73 count])
           {
-            v145 = IMLogHandleForCategory();
-            if (os_log_type_enabled(v145, OS_LOG_TYPE_INFO))
+            v58 = IMLogHandleForCategory();
+            if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v189 = v174;
-              _os_log_impl(&dword_1A823F000, v145, OS_LOG_TYPE_INFO, "\tremoved: %@", buf, 0xCu);
+              v88 = v73;
+              _os_log_impl(&dword_1A823F000, v58, OS_LOG_TYPE_INFO, "\tremoved: %@", buf, 0xCu);
             }
           }
 
-          if (objc_msgSend_count(v175, v143, v144))
+          if ([indexSet count])
           {
-            v148 = IMLogHandleForCategory();
-            if (os_log_type_enabled(v148, OS_LOG_TYPE_INFO))
+            v59 = IMLogHandleForCategory();
+            if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v189 = v175;
-              _os_log_impl(&dword_1A823F000, v148, OS_LOG_TYPE_INFO, "\treload: %@", buf, 0xCu);
+              v88 = indexSet;
+              _os_log_impl(&dword_1A823F000, v59, OS_LOG_TYPE_INFO, "\treload: %@", buf, 0xCu);
             }
           }
 
-          if (objc_msgSend_count(v177, v146, v147))
+          if ([indexSet2 count])
           {
-            v149 = IMLogHandleForCategory();
-            if (os_log_type_enabled(v149, OS_LOG_TYPE_INFO))
+            v60 = IMLogHandleForCategory();
+            if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v189 = v177;
-              _os_log_impl(&dword_1A823F000, v149, OS_LOG_TYPE_INFO, "\tregenerate: %@", buf, 0xCu);
+              v88 = indexSet2;
+              _os_log_impl(&dword_1A823F000, v60, OS_LOG_TYPE_INFO, "\tregenerate: %@", buf, 0xCu);
             }
           }
 
-          v150 = IMLogHandleForCategory();
-          if (os_log_type_enabled(v150, OS_LOG_TYPE_INFO))
+          v61 = IMLogHandleForCategory();
+          if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
           {
-            v153 = MEMORY[0x1E696AD98];
-            v154 = objc_msgSend_count(v178, v151, v152);
-            v156 = objc_msgSend_numberWithUnsignedInteger_(v153, v155, v154);
-            v157 = MEMORY[0x1E696AD98];
-            v160 = objc_msgSend_count(v82, v158, v159);
-            v162 = objc_msgSend_numberWithUnsignedInteger_(v157, v161, v160);
+            v62 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(array, "count")}];
+            v63 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v30, "count")}];
             *buf = 138412546;
-            v189 = v156;
-            v190 = 2112;
-            v191 = v162;
-            _os_log_impl(&dword_1A823F000, v150, OS_LOG_TYPE_INFO, "\toldChatItems: %@, newChatItems: %@", buf, 0x16u);
+            v88 = v62;
+            v89 = 2112;
+            v90 = v63;
+            _os_log_impl(&dword_1A823F000, v61, OS_LOG_TYPE_INFO, "\toldChatItems: %@, newChatItems: %@", buf, 0x16u);
 
-            v98 = v173;
+            v40 = v72;
           }
 
-          if (v166)
+          if (v65)
           {
-            objc_msgSend__postIMChatItemsDidChangeNotificationWithInserted_removed_reload_regenerate_oldChatItems_newChatItems_(self, v163, v99, v174, v175, v177, v178, v82);
+            [(IMChatItemFilterController *)self _postIMChatItemsDidChangeNotificationWithInserted:v41 removed:v73 reload:indexSet regenerate:indexSet2 oldChatItems:array newChatItems:v30];
           }
         }
 
         else
         {
-          v165 = IMLogHandleForCategory();
-          if (os_log_type_enabled(v165, OS_LOG_TYPE_INFO))
+          v64 = IMLogHandleForCategory();
+          if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_1A823F000, v165, OS_LOG_TYPE_INFO, "\tDon't post update, no significant updates to chatItems.", buf, 2u);
+            _os_log_impl(&dword_1A823F000, v64, OS_LOG_TYPE_INFO, "\tDon't post update, no significant updates to chatItems.", buf, 2u);
           }
         }
 
-        blockCopy = v171;
+        blockCopy = v70;
         goto LABEL_73;
       }
     }
 
     else
     {
-      v178 = objc_msgSend_array(MEMORY[0x1E695DF70], v37, v38);
-      if (v32)
+      array = [MEMORY[0x1E695DF70] array];
+      if (_chatItems)
       {
         goto LABEL_12;
       }
     }
 
-    v32 = objc_msgSend_array(MEMORY[0x1E695DF70], v37, v38);
+    _chatItems = [MEMORY[0x1E695DF70] array];
     goto LABEL_12;
   }
 
-  v121 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v121, OS_LOG_TYPE_INFO))
+  v52 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1A823F000, v121, OS_LOG_TYPE_INFO, "ChatItem Rules undefined, skipping update.", buf, 2u);
+    _os_log_impl(&dword_1A823F000, v52, OS_LOG_TYPE_INFO, "ChatItem Rules undefined, skipping update.", buf, 2u);
   }
 
 LABEL_73:
-  v164 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_replaceStaleChatItems
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = IMLogHandleForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -575,186 +553,182 @@ LABEL_73:
     _os_log_impl(&dword_1A823F000, v3, OS_LOG_TYPE_INFO, "(IMChatItemFilterController) _replaceStaleChatItems", buf, 2u);
   }
 
-  v52 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v57 = 0u;
-  v58 = 0u;
-  v59 = 0u;
-  v60 = 0u;
-  v6 = objc_msgSend_chatItems(self, v4, v5);
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v57, v63, 16);
-  if (v8)
+  v27 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v32 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  chatItems = [(IMChatItemFilterController *)self chatItems];
+  v5 = [chatItems countByEnumeratingWithState:&v32 objects:v38 count:16];
+  if (v5)
   {
-    v11 = v8;
-    v12 = 0;
-    v13 = *v58;
+    v6 = v5;
+    v7 = 0;
+    v8 = *v33;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v58 != v13)
+        if (*v33 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(chatItems);
         }
 
-        v15 = *(*(&v57 + 1) + 8 * i);
-        v18 = objc_msgSend__timeStale(v15, v9, v10);
-        if (v18)
+        v10 = *(*(&v32 + 1) + 8 * i);
+        _timeStale = [v10 _timeStale];
+        if (_timeStale)
         {
-          v19 = objc_msgSend_date(MEMORY[0x1E695DF00], v16, v17);
-          objc_msgSend_timeIntervalSinceReferenceDate(v19, v20, v21);
-          v23 = v22;
-          objc_msgSend_timeIntervalSinceReferenceDate(v18, v24, v25);
-          v27 = v26;
+          date = [MEMORY[0x1E695DF00] date];
+          [date timeIntervalSinceReferenceDate];
+          v14 = v13;
+          [_timeStale timeIntervalSinceReferenceDate];
+          v16 = v15;
 
-          if (v23 >= v27)
+          if (v14 >= v16)
           {
-            v30 = objc_msgSend__item(v15, v28, v29);
-            v31 = v30;
-            if (v12 != v30)
+            _item = [v10 _item];
+            _copy = _item;
+            if (v7 != _item)
             {
-              v32 = v30;
+              v19 = _item;
 
-              v31 = objc_msgSend__copy(v32, v33, v34);
-              objc_msgSend_addObject_(v52, v35, v31);
-              v12 = v32;
+              _copy = [v19 _copy];
+              [v27 addObject:_copy];
+              v7 = v19;
             }
           }
         }
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v57, v63, 16);
+      v6 = [chatItems countByEnumeratingWithState:&v32 objects:v38 count:16];
     }
 
-    while (v11);
+    while (v6);
   }
 
   else
   {
-    v12 = 0;
+    v7 = 0;
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
-  v54 = 0u;
-  v36 = v52;
-  v38 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v37, &v53, v62, 16);
-  if (v38)
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v20 = v27;
+  v21 = [v20 countByEnumeratingWithState:&v28 objects:v37 count:16];
+  if (v21)
   {
-    v41 = v38;
-    v42 = *v54;
+    v22 = v21;
+    v23 = *v29;
     do
     {
-      for (j = 0; j != v41; ++j)
+      for (j = 0; j != v22; ++j)
       {
-        if (*v54 != v42)
+        if (*v29 != v23)
         {
-          objc_enumerationMutation(v36);
+          objc_enumerationMutation(v20);
         }
 
-        v44 = *(*(&v53 + 1) + 8 * j);
-        v45 = objc_msgSend_chat(self, v39, v40);
-        v48 = objc_msgSend_chatStyle(v45, v46, v47);
-        objc_msgSend__handleItem_forChatStyle_(self, v49, v44, v48);
+        v25 = *(*(&v28 + 1) + 8 * j);
+        chat = [(IMChatItemFilterController *)self chat];
+        -[IMItemsController _handleItem:forChatStyle:](self, "_handleItem:forChatStyle:", v25, [chat chatStyle]);
       }
 
-      v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v39, &v53, v62, 16);
+      v22 = [v20 countByEnumeratingWithState:&v28 objects:v37 count:16];
     }
 
-    while (v41);
+    while (v22);
   }
 
-  objc_msgSend__setNextStaleTime_(self->_chatItemRules, v50, 0);
-  v51 = *MEMORY[0x1E69E9840];
+  [(IMChatItemRules *)self->_chatItemRules _setNextStaleTime:0];
 }
 
 - (void)_postNotification:(id)notification userInfo:(id)info
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   infoCopy = info;
-  v10 = objc_msgSend_sharedRegistry(IMChatRegistry, v8, v9);
-  isFirstLoad = objc_msgSend_isFirstLoad(v10, v11, v12);
+  v8 = +[IMChatRegistry sharedRegistry];
+  isFirstLoad = [v8 isFirstLoad];
 
   if ((isFirstLoad & 1) == 0)
   {
-    v14 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v10 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v20 = 138412290;
-      v21 = notificationCopy;
-      _os_log_impl(&dword_1A823F000, v14, OS_LOG_TYPE_INFO, "Notification posted: %@", &v20, 0xCu);
+      v12 = 138412290;
+      v13 = notificationCopy;
+      _os_log_impl(&dword_1A823F000, v10, OS_LOG_TYPE_INFO, "Notification posted: %@", &v12, 0xCu);
     }
 
-    v17 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v15, v16);
-    objc_msgSend___mainThreadPostNotificationName_object_userInfo_(v17, v18, notificationCopy, self, infoCopy);
+    defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+    [defaultCenter __mainThreadPostNotificationName:notificationCopy object:self userInfo:infoCopy];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_postIMChatItemsDidChangeNotificationWithInserted:(id)inserted removed:(id)removed reload:(id)reload regenerate:(id)regenerate oldChatItems:(id)items newChatItems:(id)chatItems
 {
-  v42[6] = *MEMORY[0x1E69E9840];
+  v34[6] = *MEMORY[0x1E69E9840];
   insertedCopy = inserted;
   removedCopy = removed;
   reloadCopy = reload;
   regenerateCopy = regenerate;
   itemsCopy = items;
   chatItemsCopy = chatItems;
-  v41[0] = @"__kIMChatItemsInserted";
-  v21 = insertedCopy;
+  v33[0] = @"__kIMChatItemsInserted";
+  indexSet = insertedCopy;
   if (!insertedCopy)
   {
-    v21 = objc_msgSend_indexSet(MEMORY[0x1E696AC90], v18, v19);
+    indexSet = [MEMORY[0x1E696AC90] indexSet];
   }
 
-  v38 = v21;
-  v42[0] = v21;
-  v41[1] = @"__kIMChatItemsRemoved";
-  v22 = removedCopy;
+  v30 = indexSet;
+  v34[0] = indexSet;
+  v33[1] = @"__kIMChatItemsRemoved";
+  indexSet2 = removedCopy;
   if (!removedCopy)
   {
-    v22 = objc_msgSend_indexSet(MEMORY[0x1E696AC90], v18, v19);
+    indexSet2 = [MEMORY[0x1E696AC90] indexSet];
   }
 
-  v37 = v22;
-  v42[1] = v22;
-  v41[2] = @"__kIMChatItemsReload";
-  v23 = reloadCopy;
+  v29 = indexSet2;
+  v34[1] = indexSet2;
+  v33[2] = @"__kIMChatItemsReload";
+  indexSet3 = reloadCopy;
   if (!reloadCopy)
   {
-    v23 = objc_msgSend_indexSet(MEMORY[0x1E696AC90], v18, v19);
+    indexSet3 = [MEMORY[0x1E696AC90] indexSet];
   }
 
-  v40 = removedCopy;
-  v42[2] = v23;
-  v41[3] = @"__kIMChatItemsRegenerate";
-  v24 = regenerateCopy;
+  v32 = removedCopy;
+  v34[2] = indexSet3;
+  v33[3] = @"__kIMChatItemsRegenerate";
+  indexSet4 = regenerateCopy;
   if (!regenerateCopy)
   {
-    v24 = objc_msgSend_indexSet(MEMORY[0x1E696AC90], v18, v19);
+    indexSet4 = [MEMORY[0x1E696AC90] indexSet];
   }
 
-  v25 = insertedCopy;
-  v42[3] = v24;
-  v41[4] = @"__kIMChatItemsOldItems";
-  v26 = itemsCopy;
+  v23 = insertedCopy;
+  v34[3] = indexSet4;
+  v33[4] = @"__kIMChatItemsOldItems";
+  array = itemsCopy;
   if (!itemsCopy)
   {
-    v26 = objc_msgSend_array(MEMORY[0x1E695DEC8], v18, v19);
+    array = [MEMORY[0x1E695DEC8] array];
   }
 
-  v42[4] = v26;
-  v41[5] = @"__kIMChatItemsNewItems";
-  v27 = chatItemsCopy;
+  v34[4] = array;
+  v33[5] = @"__kIMChatItemsNewItems";
+  array2 = chatItemsCopy;
   if (!chatItemsCopy)
   {
-    v27 = objc_msgSend_array(MEMORY[0x1E695DEC8], v18, v19);
+    array2 = [MEMORY[0x1E695DEC8] array];
   }
 
-  v42[5] = v27;
-  v30 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v18, v42, v41, 6);
+  v34[5] = array2;
+  v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:6];
   if (chatItemsCopy)
   {
     if (itemsCopy)
@@ -779,14 +753,14 @@ LABEL_15:
 
   if (reloadCopy)
   {
-    if (v40)
+    if (v32)
     {
       goto LABEL_19;
     }
 
 LABEL_25:
 
-    if (v25)
+    if (v23)
     {
       goto LABEL_20;
     }
@@ -794,13 +768,13 @@ LABEL_25:
     goto LABEL_26;
   }
 
-  if (!v40)
+  if (!v32)
   {
     goto LABEL_25;
   }
 
 LABEL_19:
-  if (v25)
+  if (v23)
   {
     goto LABEL_20;
   }
@@ -808,89 +782,83 @@ LABEL_19:
 LABEL_26:
 
 LABEL_20:
-  v31 = objc_msgSend_notificationName(self, v28, v29);
+  notificationName = [(IMChatItemFilterController *)self notificationName];
 
-  if (v31)
+  if (notificationName)
   {
-    v34 = objc_msgSend_notificationName(self, v32, v33);
-    objc_msgSend__postNotification_userInfo_(self, v35, v34, v30);
+    notificationName2 = [(IMChatItemFilterController *)self notificationName];
+    [(IMChatItemFilterController *)self _postNotification:notificationName2 userInfo:v26];
   }
 
   else
   {
-    v34 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    notificationName2 = IMLogHandleForCategory();
+    if (os_log_type_enabled(notificationName2, OS_LOG_TYPE_ERROR))
     {
-      sub_1A84E0330(v34);
+      sub_1A84E0330(notificationName2);
     }
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupChatItemRules
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v4 = objc_msgSend_IMCoreSetupTimingCollection(MEMORY[0x1E69A6170], a2, v2);
-  objc_msgSend_startTimingForKey_(v4, v5, @"IMChatItemFilterController: Generate chat items");
-  v8 = objc_msgSend_generateChatItemRules(self, v6, v7);
+  v15 = *MEMORY[0x1E69E9840];
+  iMCoreSetupTimingCollection = [MEMORY[0x1E69A6170] IMCoreSetupTimingCollection];
+  [iMCoreSetupTimingCollection startTimingForKey:@"IMChatItemFilterController: Generate chat items"];
+  generateChatItemRules = [(IMChatItemFilterController *)self generateChatItemRules];
   chatItemRules = self->_chatItemRules;
-  self->_chatItemRules = v8;
+  self->_chatItemRules = generateChatItemRules;
 
-  v12 = objc_msgSend__items(self, v10, v11);
-  v13 = self->_chatItemRules;
-  v16 = objc_msgSend__chatItems(v13, v14, v15);
-  _IMChatItemsReplaceWithChatItemsForItems(v16, v13, v12);
-  objc_msgSend__didProcessChatItems_(v13, v17, v16);
-  v18 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  _items = [(IMItemsController *)self _items];
+  v7 = self->_chatItemRules;
+  _chatItems = [(IMChatItemRules *)v7 _chatItems];
+  _IMChatItemsReplaceWithChatItemsForItems(_chatItems, v7, _items);
+  [(IMChatItemRules *)v7 _didProcessChatItems:_chatItems];
+  v9 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v21 = MEMORY[0x1E696AD98];
-    v22 = objc_msgSend_count(v16, v19, v20);
-    v24 = objc_msgSend_numberWithUnsignedInteger_(v21, v23, v22);
-    v27 = 136315394;
-    v28 = "[IMChatItemFilterController _setupChatItemRules]";
-    v29 = 2112;
-    v30 = v24;
-    _os_log_impl(&dword_1A823F000, v18, OS_LOG_TYPE_INFO, "%s Configuring chatItemRules and chatItems, count: %@", &v27, 0x16u);
+    v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(_chatItems, "count")}];
+    v11 = 136315394;
+    v12 = "[IMChatItemFilterController _setupChatItemRules]";
+    v13 = 2112;
+    v14 = v10;
+    _os_log_impl(&dword_1A823F000, v9, OS_LOG_TYPE_INFO, "%s Configuring chatItemRules and chatItems, count: %@", &v11, 0x16u);
   }
 
-  objc_msgSend_stopTimingForKey_(v4, v25, @"IMChatItemFilterController: Generate chat items");
-  v26 = *MEMORY[0x1E69E9840];
+  [iMCoreSetupTimingCollection stopTimingForKey:@"IMChatItemFilterController: Generate chat items"];
 }
 
 - (id)_itemsMatchingFilter:(id)filter guids:(id)guids
 {
   guidsCopy = guids;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = sub_1A82FFDAC;
-  v11[3] = &unk_1E7811FD0;
-  v11[4] = self;
-  v12 = guidsCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = sub_1A82FFDAC;
+  v10[3] = &unk_1E7811FD0;
+  v10[4] = self;
+  v11 = guidsCopy;
   v7 = guidsCopy;
-  v9 = objc_msgSend___imArrayByApplyingBlock_(filter, v8, v11);
+  v8 = [filter __imArrayByApplyingBlock:v10];
 
-  return v9;
+  return v8;
 }
 
 - (BOOL)itemMatchesFilter:(id)filter
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v3 = objc_msgSend_disableItemInserts(self, a2, filter);
-  if (v3)
+  v8 = *MEMORY[0x1E69E9840];
+  disableItemInserts = [(IMChatItemFilterController *)self disableItemInserts];
+  if (disableItemInserts)
   {
     v4 = IMLogHandleForCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v7 = 136315138;
-      v8 = "[IMChatItemFilterController itemMatchesFilter:]";
-      _os_log_impl(&dword_1A823F000, v4, OS_LOG_TYPE_INFO, "%s returning NO, disableItemInserts enabled", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[IMChatItemFilterController itemMatchesFilter:]";
+      _os_log_impl(&dword_1A823F000, v4, OS_LOG_TYPE_INFO, "%s returning NO, disableItemInserts enabled", &v6, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
-  return v3 ^ 1;
+  return !disableItemInserts;
 }
 
 - (IMChat)chat

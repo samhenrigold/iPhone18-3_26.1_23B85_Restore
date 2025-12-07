@@ -98,7 +98,7 @@
   if (timeComponent == 1)
   {
     formatter = self->_formatter;
-    v6 = @"mm";
+    v5 = @"mm";
   }
 
   else
@@ -108,21 +108,20 @@
       goto LABEL_9;
     }
 
-    v5 = self->_formatter;
     if (v3)
     {
-      v6 = @"HH";
+      v5 = @"HH";
     }
 
     else
     {
-      v6 = @"hh";
+      v5 = @"hh";
     }
 
     formatter = self->_formatter;
   }
 
-  [(NSDateFormatter *)formatter setDateFormat:v6];
+  [(NSDateFormatter *)formatter setDateFormat:v5];
 LABEL_9:
   [(NTKVivaldiTimeLabel *)self _updateLabelText];
 }
@@ -162,13 +161,12 @@ LABEL_9:
   {
     [palette numerals];
   }
-  v9 = ;
+  v8 = ;
   blackColor = [MEMORY[0x277D75348] blackColor];
-  v6 = *MEMORY[0x277D2BF18];
-  v7 = CLKInterpolateBetweenColors();
+  v6 = CLKInterpolateBetweenColors();
 
-  v8 = CLKInterpolateBetweenColors();
-  [(CLKUIColoringLabel *)self->_label setTextColor:v8];
+  v7 = CLKInterpolateBetweenColors();
+  [(CLKUIColoringLabel *)self->_label setTextColor:v7];
 }
 
 @end

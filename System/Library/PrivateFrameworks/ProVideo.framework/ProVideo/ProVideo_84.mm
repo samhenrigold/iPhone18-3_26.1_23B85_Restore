@@ -1,6 +1,6 @@
-void sub_2600E6314(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2600E6314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -21,7 +21,7 @@ uint64_t OZSceneSettings::parseEnd(OZSceneSettings *this, PCSerializerReadStream
     v11 = 0.0;
     v10 = 0.0;
     v9 = 0;
-    PCColor::getColorSpace((this + 80), &v8);
+    PCColor::getColorSpace(&v8, (this + 80));
     PCColor::getRGBA((this + 80), &v11, &v10, &v9 + 1, &v9, &v8);
     PCCFRef<CGColorSpace *>::~PCCFRef(&v8);
     if (*&v9 <= 0.0)
@@ -62,9 +62,9 @@ uint64_t OZSceneSettings::parseEnd(OZSceneSettings *this, PCSerializerReadStream
   return 1;
 }
 
-void sub_2600E648C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2600E648C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -90,8 +90,8 @@ uint64_t OZSceneSettings::parseElement(OZSceneSettings *this, PCSerializerReadSt
 LABEL_28:
       if (*(a2 + 26) <= 4u)
       {
-        OZSceneSettings::getFrameDuration(this, &v19);
-        PCSerializerReadStream::setTimeScale(a2, &v19);
+        OZSceneSettings::getFrameDuration(&v21, this);
+        PCSerializerReadStream::setTimeScale(a2, &v21);
       }
 
       return 1;
@@ -99,49 +99,49 @@ LABEL_28:
       (*(*a3 + 64))(a3, this + 48);
       return 1;
     case 0xA:
-      v22 = 0.0;
+      v24 = 0.0;
+      v25 = 0.0;
       v23 = 0.0;
-      v21 = 0.0;
-      v20 = 1.0;
+      v22 = 1.0;
       if (*(a2 + 26) > 3u)
       {
-        v8 = PCColorSpaceCache::cgsRGB(*(this + 14));
+        v8 = PCColorSpaceCache::cgsRGB(*(this + 14), a2);
       }
 
       else
       {
-        v8 = PCColorSpaceCache::cgGenericRGB(this);
+        v8 = PCColorSpaceCache::cgGenericRGB(this, a2);
       }
 
       v9 = v8;
-      (*(*a3 + 144))(a3, 1, &v23);
-      (*(*a3 + 144))(a3, 2, &v22);
-      (*(*a3 + 144))(a3, 3, &v21);
-      (*(*a3 + 144))(a3, 4, &v20);
-      v10 = v23;
-      v11 = v22;
-      v12 = v21;
-      v13 = v20;
+      (*(*a3 + 144))(a3, 1, &v25);
+      (*(*a3 + 144))(a3, 2, &v24);
+      (*(*a3 + 144))(a3, 3, &v23);
+      (*(*a3 + 144))(a3, 4, &v22);
+      v10 = v25;
+      v11 = v24;
+      v12 = v23;
+      v13 = v22;
       PCColor::setRGBA((this + 80), v10, v11, v12, v13, v9);
-      if (v9 != PCColorSpaceCache::cgsRGB(*(this + 14)))
+      if (v9 != PCColorSpaceCache::cgsRGB(*(this + 14), v14))
       {
-        v14 = PCColorSpaceCache::cgsRGB(*(this + 14));
-        PCColor::PCColor(&v19, (this + 80), v14);
-        v15 = *&v19.var0.var1[1];
-        *(this + 5) = *&v19.var0.var0;
-        *(this + 6) = v15;
-        *(this + 7) = *&v19.var0.var1[3];
-        v16 = *(this + 16);
-        obj = v19.var1._obj;
-        if (v16 && v16 != v19.var1._obj)
+        v16 = PCColorSpaceCache::cgsRGB(*(this + 14), v15);
+        PCColor::PCColor(&v21, (this + 80), v16);
+        v17 = *&v21.var0.var1[1];
+        *(this + 5) = *&v21.var0.var0;
+        *(this + 6) = v17;
+        *(this + 7) = *&v21.var0.var1[3];
+        v18 = *(this + 16);
+        obj = v21.var1._obj;
+        if (v18 && v18 != v21.var1._obj)
         {
-          PCCFRefTraits<CGColorSpace *>::release(v16);
-          obj = v19.var1._obj;
+          PCCFRefTraits<CGColorSpace *>::release(v18);
+          obj = v21.var1._obj;
         }
 
         *(this + 16) = obj;
-        v19.var1._obj = 0;
-        PCCFRef<CGColorSpace *>::~PCCFRef(&v19.var1._obj);
+        v21.var1._obj = 0;
+        PCCFRef<CGColorSpace *>::~PCCFRef(&v21.var1._obj);
       }
 
       return 1;
@@ -165,8 +165,8 @@ LABEL_28:
       (*(*a3 + 64))(a3, this + 152);
       return 1;
     case 0x13:
-      v19.var0.var0 = 0;
-      (*(*a3 + 32))(a3, &v19);
+      v21.var0.var0 = 0;
+      (*(*a3 + 32))(a3, &v21);
       return 1;
     case 0x14:
       (*(*a3 + 32))(a3, this + 24);
@@ -175,9 +175,9 @@ LABEL_28:
       (*(*a3 + 16))(a3, this + 184);
       return 1;
     case 0x1D:
-      LOBYTE(v19.var0.var0) = 0;
-      (*(*a3 + 72))(a3, &v19);
-      if (LOBYTE(v19.var0.var0) == 1)
+      LOBYTE(v21.var0.var0) = 0;
+      (*(*a3 + 72))(a3, &v21);
+      if (LOBYTE(v21.var0.var0) == 1)
       {
         if (*(this + 140))
         {
@@ -215,9 +215,9 @@ LABEL_62:
       (*(*a3 + 24))(a3, this + 176);
       return 1;
     case 0x24:
-      LOBYTE(v19.var0.var0) = 0;
-      (*(*a3 + 72))(a3, &v19);
-      if (LOBYTE(v19.var0.var0) != 1)
+      LOBYTE(v21.var0.var0) = 0;
+      (*(*a3 + 72))(a3, &v21);
+      if (LOBYTE(v21.var0.var0) != 1)
       {
         return 1;
       }
@@ -234,13 +234,13 @@ LABEL_62:
       (*(*a3 + 72))(a3, this + 220);
       return 1;
     case 0x28:
-      v19.var0.var0 = 0;
-      (*(*a3 + 56))(a3, &v19);
+      v21.var0.var0 = 0;
+      (*(*a3 + 56))(a3, &v21);
       return 1;
     case 0x29:
-      v19.var0.var0 = 0;
-      (*(*a3 + 32))(a3, &v19);
-      *(this + 57) = PCColorSpaceCache::intToColorSpaceID(v19.var0.var0, 3u);
+      v21.var0.var0 = 0;
+      (*(*a3 + 32))(a3, &v21);
+      *(this + 57) = PCColorSpaceCache::intToColorSpaceID(v21.var0.var0, 3u);
       return 1;
     case 0x2A:
       (*(*a3 + 72))(a3, this + 20);
@@ -255,31 +255,31 @@ LABEL_62:
       (*(*a3 + 72))(a3, this + 160);
       return 1;
     case 0x2E:
-      v19.var0.var0 = 0;
-      (*(*a3 + 24))(a3, &v19);
-      var0 = v19.var0.var0 > 2;
+      v21.var0.var0 = 0;
+      (*(*a3 + 24))(a3, &v21);
+      var0 = v21.var0.var0 > 2;
       goto LABEL_40;
     case 0x2F:
-      v19.var0.var0 = 0;
-      (*(*a3 + 24))(a3, &v19);
-      var0 = v19.var0.var0;
+      v21.var0.var0 = 0;
+      (*(*a3 + 24))(a3, &v21);
+      var0 = v21.var0.var0;
 LABEL_40:
       *(this + 14) = var0;
       return 1;
     case 0x30:
-      v19.var0.var0 = 0;
-      (*(*a3 + 24))(a3, &v19);
-      *(this + 15) = v19.var0.var0;
+      v21.var0.var0 = 0;
+      (*(*a3 + 24))(a3, &v21);
+      *(this + 15) = v21.var0.var0;
       return 1;
     case 0x31:
-      v19.var0.var0 = 0;
-      (*(*a3 + 32))(a3, &v19);
-      *(this + 67) = v19.var0.var0;
+      v21.var0.var0 = 0;
+      (*(*a3 + 32))(a3, &v21);
+      *(this + 67) = v21.var0.var0;
       return 1;
     case 0x32:
-      v19.var0.var0 = 0;
-      (*(*a3 + 24))(a3, &v19);
-      *(this + 16) = v19.var0.var0;
+      v21.var0.var0 = 0;
+      (*(*a3 + 24))(a3, &v21);
+      *(this + 16) = v21.var0.var0;
       return 1;
     case 0x33:
       (*(*a3 + 64))(a3, this + 248);
@@ -337,10 +337,10 @@ void OZChannelMaterialLayerMap::~OZChannelMaterialLayerMap(OZChannelMaterialLaye
   *(this + 2) = &unk_2872883C8;
   OZChannel::~OZChannel((this + 6304));
   OZChannel::~OZChannel((this + 6152));
-  OZChannelEnum::~OZChannelEnum((this + 5896));
+  OZChannelEnum::~OZChannelEnum(this + 737);
   OZChannelBool::~OZChannelBool((this + 5744));
-  OZChannelMaterialMapTransform::~OZChannelMaterialMapTransform((this + 1840));
-  OZChannelEnum::~OZChannelEnum((this + 1584));
+  OZChannelMaterialMapTransform::~OZChannelMaterialMapTransform(this + 230);
+  OZChannelEnum::~OZChannelEnum(this + 198);
 
   OZChannelImageWithOptions::~OZChannelImageWithOptions(this);
 }
@@ -351,14 +351,14 @@ void OZChannelMaterialLayerMap::~OZChannelMaterialLayerMap(OZChannelMaterialLaye
   JUMPOUT(0x2666E9F00);
 }
 
-void sub_2600E70BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2600E70BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCURL::~PCURL(va);
   _Unwind_Resume(a1);
 }
 
-PCURL **std::unique_ptr<PCURL>::~unique_ptr[abi:ne200100](PCURL **a1)
+const void ***std::unique_ptr<PCURL>::~unique_ptr[abi:ne200100](const void ***a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -656,7 +656,7 @@ LABEL_15:
   return PC_CMTimeSaferSubtract(&time1, &time2, a5);
 }
 
-double METimeRemap::componentTimeFromMotionTime@<D0>(METimeRemap *this@<X0>, const CMTime *a2@<X1>, const CMTimeRange *a3@<X2>, uint64_t a4@<X8>)
+double METimeRemap::componentTimeFromMotionTime@<D0>(uint64_t *__return_ptr a1@<X8>, METimeRemap *this@<X0>, const CMTime *a3@<X1>, const CMTimeRange *a4@<X2>)
 {
   if (this->_isLoop && !this->_forceDisableLoop)
   {
@@ -665,10 +665,10 @@ double METimeRemap::componentTimeFromMotionTime@<D0>(METimeRemap *this@<X0>, con
 
   if (!METimeRemap::shouldShowIntro(this) && !METimeRemap::shouldShowOutro(this))
   {
-    time1 = *a2;
+    time1 = *a3;
     time2 = this->_introDuration;
     PC_CMTimeSaferSubtract(&time1, &time2, &v17);
-    p_value = &a3->duration.value;
+    p_value = &a4->duration.value;
     v9 = &v17;
     goto LABEL_15;
   }
@@ -677,16 +677,16 @@ double METimeRemap::componentTimeFromMotionTime@<D0>(METimeRemap *this@<X0>, con
   {
     if (METimeRemap::shouldShowIntro(this) && !METimeRemap::shouldShowOutro(this))
     {
-      time1 = *a2;
+      time1 = *a3;
       time2 = this->_introDuration;
       if ((CMTimeCompare(&time1, &time2) & 0x80000000) == 0)
       {
         v17 = 0uLL;
         v18 = 0;
-        time1 = a3->duration;
+        time1 = a4->duration;
         time2 = this->_introDuration;
         PC_CMTimeSaferSubtract(&time1, &time2, &v17);
-        time1 = *a2;
+        time1 = *a3;
         time2 = this->_introDuration;
         PC_CMTimeSaferSubtract(&time1, &time2, &v14);
         operator*(&v17, &v14, &v15);
@@ -699,19 +699,19 @@ double METimeRemap::componentTimeFromMotionTime@<D0>(METimeRemap *this@<X0>, con
 
     else
     {
-      time1 = *a2;
+      time1 = *a3;
       time2 = this->_introDuration;
       if ((CMTimeCompare(&time1, &time2) & 0x80000000) == 0)
       {
         v17 = 0uLL;
         v18 = 0;
-        time1 = a3->duration;
+        time1 = a4->duration;
         time2 = this->_outroDuration;
         PC_CMTimeSaferSubtract(&time1, &time2, &v17);
         time1 = this->_introDuration;
         time2 = this->_scaleableDuration;
         PC_CMTimeSaferAdd(&time1, &time2, &v19);
-        time1 = *a2;
+        time1 = *a3;
         time2 = v19;
         if (CMTimeCompare(&time1, &time2) >= 1)
         {
@@ -719,13 +719,13 @@ double METimeRemap::componentTimeFromMotionTime@<D0>(METimeRemap *this@<X0>, con
         }
 
         memset(&v16, 0, sizeof(v16));
-        time1 = a3->duration;
+        time1 = a4->duration;
         time2 = this->_introDuration;
         PC_CMTimeSaferSubtract(&time1, &time2, &v19);
         time1 = v19;
         time2 = this->_outroDuration;
         PC_CMTimeSaferSubtract(&time1, &time2, &v16);
-        time1 = *a2;
+        time1 = *a3;
         time2 = this->_introDuration;
         PC_CMTimeSaferSubtract(&time1, &time2, v13);
         operator*(&v16.value, v13, &v14);
@@ -741,24 +741,24 @@ LABEL_20:
     }
 
 LABEL_18:
-    v19 = *a2;
+    v19 = *a3;
     goto LABEL_22;
   }
 
   v17 = 0uLL;
   v18 = 0;
-  time1 = a3->duration;
+  time1 = a4->duration;
   time2 = this->_outroDuration;
   PC_CMTimeSaferSubtract(&time1, &time2, &v17);
   time1 = this->_introDuration;
   time2 = this->_scaleableDuration;
   PC_CMTimeSaferAdd(&time1, &time2, &v19);
-  time1 = *a2;
+  time1 = *a3;
   time2 = v19;
   if ((CMTimeCompare(&time1, &time2) & 0x80000000) == 0)
   {
 LABEL_13:
-    time1 = *a2;
+    time1 = *a3;
     time2 = this->_introDuration;
     PC_CMTimeSaferSubtract(&time1, &time2, &v15);
     time1 = v15;
@@ -773,7 +773,7 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  time1 = *a2;
+  time1 = *a3;
   time2 = this->_introDuration;
   PC_CMTimeSaferSubtract(&time1, &time2, &v16);
   p_value = &v17;
@@ -783,8 +783,8 @@ LABEL_15:
   operator/(&time1.value, &this->_scaleableDuration, &v19);
 LABEL_22:
   time1 = v19;
-  time2 = a3->start;
-  return PC_CMTimeSaferAdd(&time1, &time2, a4);
+  time2 = a4->start;
+  return PC_CMTimeSaferAdd(&time1, &time2, a1);
 }
 
 void OZApplication::OZApplication(OZApplication *this, void *a2)
@@ -794,7 +794,7 @@ void OZApplication::OZApplication(OZApplication *this, void *a2)
   *(this + 7) = 0;
   PCSharedCount::PCSharedCount(this + 13);
   PCMutex::PCMutex((this + 112));
-  v3 = PCMutex::PCMutex((this + 184));
+  PCMutex::PCMutex((this + 184));
   v4 = FxDeviceComputeActiveGPUsSet(v3);
   *(this + 32) = v4;
   if (OZChannelBase::isObjectRef(v4))
@@ -823,112 +823,111 @@ void sub_2600E87D0(_Unwind_Exception *a1)
 
 void OZApplication::initialize(OZChannelBase *this, const PCString *a2)
 {
-  v2 = this;
   if ((this->var10 & 1) == 0)
   {
-    this = OZChannelBase::setRangeName(this, a2);
+    OZChannelBase::setRangeName(this, a2);
   }
 
   v3 = OZPreferenceManager::Instance(this);
   ContentPath = OZPreferenceManager::getContentPath(v3);
   Instance = OZFactories::getInstance(ContentPath);
-  v2->var4.var0 = Instance;
+  this->var4.var0 = Instance;
   v6 = OZSceneNode_Factory::getInstance(Instance);
-  v7 = OZFactories::addFactory(v2->var4.var0, v6);
+  v7 = OZFactories::addFactory(this->var4.var0, v6);
   v8 = OZTransformNode_Factory::getInstance(v7);
-  v9 = OZFactories::addFactory(v2->var4.var0, v8);
+  v9 = OZFactories::addFactory(this->var4.var0, v8);
   v10 = OZElement_Factory::getInstance(v9);
-  v11 = OZFactories::addFactory(v2->var4.var0, v10);
+  v11 = OZFactories::addFactory(this->var4.var0, v10);
   v12 = OZRotoshape_Factory::getInstance(v11);
-  v13 = OZFactories::addFactory(v2->var4.var0, v12);
+  v13 = OZFactories::addFactory(this->var4.var0, v12);
   v14 = OZFootage_Factory::getInstance(v13);
-  v15 = OZFactories::addFactory(v2->var4.var0, v14);
+  v15 = OZFactories::addFactory(this->var4.var0, v14);
   v16 = OZLayer_Factory::getInstance(v15);
-  v17 = OZFactories::addFactory(v2->var4.var0, v16);
+  v17 = OZFactories::addFactory(this->var4.var0, v16);
   v18 = OZFootageLayer_Factory::getInstance(v17);
-  v19 = OZFactories::addFactory(v2->var4.var0, v18);
+  v19 = OZFactories::addFactory(this->var4.var0, v18);
   v20 = OZGroup_Factory::getInstance(v19);
-  v21 = OZFactories::addFactory(v2->var4.var0, v20);
+  v21 = OZFactories::addFactory(this->var4.var0, v20);
   v22 = OZImageElement_Factory::getInstance(v21);
-  v23 = OZFactories::addFactory(v2->var4.var0, v22);
+  v23 = OZFactories::addFactory(this->var4.var0, v22);
   v24 = OZImageMask_Factory::getInstance(v23);
-  v25 = OZFactories::addFactory(v2->var4.var0, v24);
+  v25 = OZFactories::addFactory(this->var4.var0, v24);
   v26 = OZCamera_Factory::getInstance(v25);
-  v27 = OZFactories::addFactory(v2->var4.var0, v26);
+  v27 = OZFactories::addFactory(this->var4.var0, v26);
   v28 = OZLight_Factory::getInstance(v27);
-  v29 = OZFactories::addFactory(v2->var4.var0, v28);
+  v29 = OZFactories::addFactory(this->var4.var0, v28);
   v30 = OZBehavior_Factory::getInstance(v29);
-  v31 = OZFactories::addFactory(v2->var4.var0, v30);
+  v31 = OZFactories::addFactory(this->var4.var0, v30);
   v32 = OZNULLBehavior_Factory::getInstance(v31);
-  v33 = OZFactories::addFactory(v2->var4.var0, v32);
+  v33 = OZFactories::addFactory(this->var4.var0, v32);
   v34 = OZSimulationBehavior_Factory::getInstance(v33);
-  v35 = OZFactories::addFactory(v2->var4.var0, v34);
+  v35 = OZFactories::addFactory(this->var4.var0, v34);
   v36 = OZShapeBehavior_Factory::getInstance(v35);
-  v37 = OZFactories::addFactory(v2->var4.var0, v36);
+  v37 = OZFactories::addFactory(this->var4.var0, v36);
   v38 = OZWriteOnBehavior_Factory::getInstance(v37);
-  v39 = OZFactories::addFactory(v2->var4.var0, v38);
+  v39 = OZFactories::addFactory(this->var4.var0, v38);
   v40 = OZReflexiveBehavior_Factory::getInstance(v39);
-  v41 = OZFactories::addFactory(v2->var4.var0, v40);
+  v41 = OZFactories::addFactory(this->var4.var0, v40);
   v42 = OZTransitiveBehavior_Factory::getInstance(v41);
-  v43 = OZFactories::addFactory(v2->var4.var0, v42);
+  v43 = OZFactories::addFactory(this->var4.var0, v42);
   v44 = OZChannelBehavior_Factory::getInstance(v43);
-  v45 = OZFactories::addFactory(v2->var4.var0, v44);
+  v45 = OZFactories::addFactory(this->var4.var0, v44);
   v46 = OZSingleChannelBehavior_Factory::getInstance(v45);
-  v47 = OZFactories::addFactory(v2->var4.var0, v46);
+  v47 = OZFactories::addFactory(this->var4.var0, v46);
   v48 = OZMotionToForcesBehavior_Factory::getInstance(v47);
-  v49 = OZFactories::addFactory(v2->var4.var0, v48);
+  v49 = OZFactories::addFactory(this->var4.var0, v48);
   v50 = OZSimSystemMoToFoBehavior_Factory::getInstance(v49);
-  v51 = OZFactories::addFactory(v2->var4.var0, v50);
+  v51 = OZFactories::addFactory(this->var4.var0, v50);
   v52 = OZCollisionBehavior_Factory::getInstance(v51);
-  v53 = OZFactories::addFactory(v2->var4.var0, v52);
+  v53 = OZFactories::addFactory(this->var4.var0, v52);
   v54 = OZRetimingBehavior_Factory::getInstance(v53);
-  v55 = OZFactories::addFactory(v2->var4.var0, v54);
+  v55 = OZFactories::addFactory(this->var4.var0, v54);
   v56 = OZRig_Factory::getInstance(v55);
-  v57 = OZFactories::addFactory(v2->var4.var0, v56);
+  v57 = OZFactories::addFactory(this->var4.var0, v56);
   v58 = OZRigWidget_Factory::getInstance(v57);
-  v59 = OZFactories::addFactory(v2->var4.var0, v58);
+  v59 = OZFactories::addFactory(this->var4.var0, v58);
   v60 = OZRigWidgetAspectRatio_Factory::getInstance(v59);
-  v61 = OZFactories::addFactory(v2->var4.var0, v60);
+  v61 = OZFactories::addFactory(this->var4.var0, v60);
   v62 = OZRigBehavior_Factory::getInstance(v61);
-  v63 = OZFactories::addFactory(v2->var4.var0, v62);
+  v63 = OZFactories::addFactory(this->var4.var0, v62);
   v64 = OZProjectNode_Factory::getInstance(v63);
-  v65 = OZFactories::addFactory(v2->var4.var0, v64);
+  v65 = OZFactories::addFactory(this->var4.var0, v64);
   v66 = OZLinkBehavior_Factory::getInstance(v65);
-  v67 = OZFactories::addFactory(v2->var4.var0, v66);
+  v67 = OZFactories::addFactory(this->var4.var0, v66);
   v68 = OZMotionPathBehavior_Factory::getInstance(v67);
-  v69 = OZFactories::addFactory(v2->var4.var0, v68);
+  v69 = OZFactories::addFactory(this->var4.var0, v68);
   v70 = OZFxGenerator_Factory::getInstance(v69);
-  v71 = OZFactories::addFactory(v2->var4.var0, v70);
+  v71 = OZFactories::addFactory(this->var4.var0, v70);
   v72 = OZGradientGenerator_Factory::getInstance(v71);
-  v73 = OZFactories::addFactory(v2->var4.var0, v72);
+  v73 = OZFactories::addFactory(this->var4.var0, v72);
   v74 = OZCloneGenerator_Factory::getInstance(v73);
-  v75 = OZFactories::addFactory(v2->var4.var0, v74);
+  v75 = OZFactories::addFactory(this->var4.var0, v74);
   v76 = OZEffect_Factory::getInstance(v75);
-  v77 = OZFactories::addFactory(v2->var4.var0, v76);
+  v77 = OZFactories::addFactory(this->var4.var0, v76);
   v78 = OZFxFilter_Factory::getInstance(v77);
-  v79 = OZFactories::addFactory(v2->var4.var0, v78);
+  v79 = OZFactories::addFactory(this->var4.var0, v78);
   v80 = OZChanElementOrFootageRef_Factory::getInstance(v79);
-  v81 = OZFactories::addFactory(v2->var4.var0, v80);
+  v81 = OZFactories::addFactory(this->var4.var0, v80);
   v82 = OZChanRotoshapeRef_Factory::getInstance(v81);
-  v83 = OZFactories::addFactory(v2->var4.var0, v82);
+  v83 = OZFactories::addFactory(this->var4.var0, v82);
   v84 = OZChannelImageWithOptions_Factory::getInstance(v83);
-  v85 = OZFactories::addFactory(v2->var4.var0, v84);
+  v85 = OZFactories::addFactory(this->var4.var0, v84);
   v86 = OZChanRotoshapeRefWithPicker_Factory::getInstance(v85);
-  v87 = OZFactories::addFactory(v2->var4.var0, v86);
+  v87 = OZFactories::addFactory(this->var4.var0, v86);
   v88 = OZ3DEngineSceneElement_Factory::getInstance(v87);
-  v89 = OZFactories::addFactory(v2->var4.var0, v88);
+  v89 = OZFactories::addFactory(this->var4.var0, v88);
   v90 = OZ3DEngineSceneFile_Factory::getInstance(v89);
-  v91 = OZFactories::addFactory(v2->var4.var0, v90);
+  v91 = OZFactories::addFactory(this->var4.var0, v90);
   v92 = OZARFaceAnchorElement_Factory::getInstance(v91);
-  v93 = OZFactories::addFactory(v2->var4.var0, v92);
+  v93 = OZFactories::addFactory(this->var4.var0, v92);
   v94 = OZ3DEnginePlaneElement_Factory::getInstance(v93);
-  v95 = OZFactories::addFactory(v2->var4.var0, v94);
+  v95 = OZFactories::addFactory(this->var4.var0, v94);
   v96 = OZARPlaneAnchorElement_Factory::getInstance(v95);
-  v97 = OZFactories::addFactory(v2->var4.var0, v96);
+  v97 = OZFactories::addFactory(this->var4.var0, v96);
   v98 = OZEnvironmentMeshSceneElement_Factory::getInstance(v97);
-  v99 = OZFactories::addFactory(v2->var4.var0, v98);
+  v99 = OZFactories::addFactory(this->var4.var0, v98);
   v100 = OZARPersonAnchorElement_Factory::getInstance(v99);
-  v101 = OZFactories::addFactory(v2->var4.var0, v100);
+  v101 = OZFactories::addFactory(this->var4.var0, v100);
   OZImageElement::registerRetiming(v101);
   OZ3DEngineSceneElement::registerRetiming(v102);
 
@@ -1383,7 +1382,7 @@ uint64_t OZMotionPathBehavior_Factory::getInstance(OZMotionPathBehavior_Factory 
   return OZMotionPathBehavior_Factory::_instance;
 }
 
-uint64_t OZFxGenerator_Factory::getInstance(OZFxGenerator_Factory *this)
+OZFxGenerator_Factory *OZFxGenerator_Factory::getInstance(OZFxGenerator_Factory *this)
 {
   if (!OZFxGenerator_Factory::_instance)
   {
@@ -1435,7 +1434,7 @@ uint64_t OZEffect_Factory::getInstance(OZEffect_Factory *this)
   return OZEffect_Factory::_instance;
 }
 
-uint64_t OZFxFilter_Factory::getInstance(OZFxFilter_Factory *this)
+OZFxFilter_Factory *OZFxFilter_Factory::getInstance(OZFxFilter_Factory *this)
 {
   if (!OZFxFilter_Factory::_instance)
   {
@@ -1585,12 +1584,12 @@ uint64_t OZARPersonAnchorElement_Factory::getInstance(OZARPersonAnchorElement_Fa
   return OZARPersonAnchorElement_Factory::_instance;
 }
 
-void OZApplication::setHostApplicationDelegate(OZApplication *this, void *a2)
+void OZApplication::setHostApplicationDelegate(OZChannelBase **this, void *a2)
 {
-  PCMutex::lock((this + 184));
+  PCMutex::lock((this + 23));
   if (*this)
   {
-    v4 = OZChannelBase::setRangeName(*this, v3);
+    OZChannelBase::setRangeName(*this, v3);
     MEMORY[0x2666E9F00](v4, 0x80C40B8603338);
     *this = 0;
   }
@@ -1600,7 +1599,7 @@ void OZApplication::setHostApplicationDelegate(OZApplication *this, void *a2)
 
 void sub_2600EA0DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  MEMORY[0x2666E9F00](v9, 0x80C40B8603338);
+  MEMORY[0x2666E9F00](v9, 0x80C40B8603338, a3, a4, a5, a6, a7, a8);
   PCLockSentry<PCMutex>::~PCLockSentry(&a9);
   _Unwind_Resume(a1);
 }
@@ -1751,7 +1750,7 @@ void OZRotoshape_Factory::~OZRotoshape_Factory(OZRotoshape_Factory *this)
   OZFactory::~OZFactory(this);
 }
 
-OZChannelBase *OZRotoshape_Factory::create(OZRotoshape_Factory *this, const PCString *a2, unsigned int NextUniqueID)
+OZChannelBase *OZRotoshape_Factory::create(OZFactory *this, const PCString *a2, unsigned int NextUniqueID)
 {
   if (!*(this + 17))
   {
@@ -1788,7 +1787,7 @@ OZChannelBase *OZRotoshape_Factory::create(OZRotoshape_Factory *this, const PCSt
 
 void sub_2600EAB70(_Unwind_Exception *a1, int a2, uint64_t a3, OZChannelBase *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x10F1C408B2AE773, a3, a4);
+  MEMORY[0x2666E9F00](v13, 0x10F1C408B2AE773, a3, a4, a5, a6, a7, a8);
   OZChannelBase::setRangeName(&a13, v15);
   _Unwind_Resume(a1);
 }
@@ -1839,7 +1838,7 @@ void OZFootage_Factory::~OZFootage_Factory(OZFootage_Factory *this)
   OZFactory::~OZFactory(this);
 }
 
-OZChannelBase *OZFootage_Factory::create(OZFootage_Factory *this, const PCString *a2, unsigned int NextUniqueID)
+OZChannelBase *OZFootage_Factory::create(OZFactory *this, const PCString *a2, unsigned int NextUniqueID)
 {
   if (!*(this + 17))
   {
@@ -1865,7 +1864,7 @@ OZChannelBase *OZFootage_Factory::create(OZFootage_Factory *this, const PCString
 
 void sub_2600EB208(_Unwind_Exception *a1, int a2, uint64_t a3, OZChannelBase *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x10F1C405F7C6635, a3, a4);
+  MEMORY[0x2666E9F00](v13, 0x10F1C405F7C6635, a3, a4, a5, a6, a7, a8);
   OZChannelBase::setRangeName(&a13, v15);
   _Unwind_Resume(a1);
 }
@@ -1916,7 +1915,7 @@ void OZLayer_Factory::~OZLayer_Factory(OZLayer_Factory *this)
   OZFactory::~OZFactory(this);
 }
 
-OZChannelBase *OZLayer_Factory::create(OZLayer_Factory *this, const PCString *a2, unsigned int NextUniqueID)
+OZChannelBase *OZLayer_Factory::create(OZFactory *this, const PCString *a2, unsigned int NextUniqueID)
 {
   if (!*(this + 17))
   {
@@ -1942,7 +1941,7 @@ OZChannelBase *OZLayer_Factory::create(OZLayer_Factory *this, const PCString *a2
 
 void sub_2600EB868(_Unwind_Exception *a1, int a2, uint64_t a3, OZChannelBase *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x10F1C40017E444ALL, a3, a4);
+  MEMORY[0x2666E9F00](v13, 0x10F1C40017E444ALL, a3, a4, a5, a6, a7, a8);
   OZChannelBase::setRangeName(&a13, v15);
   _Unwind_Resume(a1);
 }
@@ -1993,7 +1992,7 @@ void OZFootageLayer_Factory::~OZFootageLayer_Factory(OZFootageLayer_Factory *thi
   OZFactory::~OZFactory(this);
 }
 
-OZChannelBase *OZFootageLayer_Factory::create(OZFootageLayer_Factory *this, const PCString *a2, unsigned int NextUniqueID)
+OZChannelBase *OZFootageLayer_Factory::create(OZFactory *this, const PCString *a2, unsigned int NextUniqueID)
 {
   if (!*(this + 17))
   {
@@ -2019,7 +2018,7 @@ OZChannelBase *OZFootageLayer_Factory::create(OZFootageLayer_Factory *this, cons
 
 void sub_2600EBEE8(_Unwind_Exception *a1, int a2, uint64_t a3, OZChannelBase *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x10F1C40A27F4032, a3, a4);
+  MEMORY[0x2666E9F00](v13, 0x10F1C40A27F4032, a3, a4, a5, a6, a7, a8);
   OZChannelBase::setRangeName(&a13, v15);
   _Unwind_Resume(a1);
 }
@@ -2070,7 +2069,7 @@ void OZGroup_Factory::~OZGroup_Factory(OZGroup_Factory *this)
   OZFactory::~OZFactory(this);
 }
 
-OZChannelBase *OZGroup_Factory::create(OZGroup_Factory *this, const PCString *a2, unsigned int NextUniqueID)
+OZChannelBase *OZGroup_Factory::create(OZFactory *this, const PCString *a2, unsigned int NextUniqueID)
 {
   if (!*(this + 17))
   {
@@ -2096,7 +2095,7 @@ OZChannelBase *OZGroup_Factory::create(OZGroup_Factory *this, const PCString *a2
 
 void sub_2600EC548(_Unwind_Exception *a1, int a2, uint64_t a3, OZChannelBase *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x10F1C40017E444ALL, a3, a4);
+  MEMORY[0x2666E9F00](v13, 0x10F1C40017E444ALL, a3, a4, a5, a6, a7, a8);
   OZChannelBase::setRangeName(&a13, v15);
   _Unwind_Resume(a1);
 }
@@ -2147,7 +2146,7 @@ void OZImageElement_Factory::~OZImageElement_Factory(OZImageElement_Factory *thi
   OZFactory::~OZFactory(this);
 }
 
-OZChannelBase *OZImageElement_Factory::create(OZImageElement_Factory *this, const PCString *a2, unsigned int NextUniqueID)
+OZChannelBase *OZImageElement_Factory::create(OZFactory *this, const PCString *a2, unsigned int NextUniqueID)
 {
   if (!*(this + 17))
   {
@@ -2173,7 +2172,7 @@ OZChannelBase *OZImageElement_Factory::create(OZImageElement_Factory *this, cons
 
 void sub_2600ECBA8(_Unwind_Exception *a1, int a2, uint64_t a3, OZChannelBase *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x10F1C40804CB178, a3, a4);
+  MEMORY[0x2666E9F00](v13, 0x10F1C40804CB178, a3, a4, a5, a6, a7, a8);
   OZChannelBase::setRangeName(&a13, v15);
   _Unwind_Resume(a1);
 }
@@ -2224,7 +2223,7 @@ void OZImageMask_Factory::~OZImageMask_Factory(OZImageMask_Factory *this)
   OZFactory::~OZFactory(this);
 }
 
-OZChannelBase *OZImageMask_Factory::create(OZImageMask_Factory *this, const PCString *a2, unsigned int NextUniqueID)
+OZChannelBase *OZImageMask_Factory::create(OZFactory *this, const PCString *a2, unsigned int NextUniqueID)
 {
   if (!*(this + 17))
   {
@@ -2250,7 +2249,7 @@ OZChannelBase *OZImageMask_Factory::create(OZImageMask_Factory *this, const PCSt
 
 void sub_2600ED228(_Unwind_Exception *a1, int a2, uint64_t a3, OZChannelBase *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x10F1C402CA23E7BLL, a3, a4);
+  MEMORY[0x2666E9F00](v13, 0x10F1C402CA23E7BLL, a3, a4, a5, a6, a7, a8);
   OZChannelBase::setRangeName(&a13, v15);
   _Unwind_Resume(a1);
 }
@@ -2301,7 +2300,7 @@ void OZCamera_Factory::~OZCamera_Factory(OZCamera_Factory *this)
   OZFactory::~OZFactory(this);
 }
 
-OZChannelBase *OZCamera_Factory::create(OZCamera_Factory *this, const PCString *a2, unsigned int NextUniqueID)
+OZChannelBase *OZCamera_Factory::create(OZFactory *this, const PCString *a2, unsigned int NextUniqueID)
 {
   if (!*(this + 17))
   {
@@ -2327,7 +2326,7 @@ OZChannelBase *OZCamera_Factory::create(OZCamera_Factory *this, const PCString *
 
 void sub_2600ED8B0(_Unwind_Exception *a1, int a2, uint64_t a3, OZChannelBase *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x10F1C4059BDEAAALL, a3, a4);
+  MEMORY[0x2666E9F00](v13, 0x10F1C4059BDEAAALL, a3, a4, a5, a6, a7, a8);
   OZChannelBase::setRangeName(&a13, v15);
   _Unwind_Resume(a1);
 }
@@ -2378,7 +2377,7 @@ void OZLight_Factory::~OZLight_Factory(OZLight_Factory *this)
   OZFactory::~OZFactory(this);
 }
 
-OZChannelBase *OZLight_Factory::create(OZLight_Factory *this, const PCString *a2, unsigned int NextUniqueID)
+OZChannelBase *OZLight_Factory::create(OZFactory *this, const PCString *a2, unsigned int NextUniqueID)
 {
   if (!*(this + 17))
   {
@@ -2404,7 +2403,7 @@ OZChannelBase *OZLight_Factory::create(OZLight_Factory *this, const PCString *a2
 
 void sub_2600EDF38(_Unwind_Exception *a1, int a2, uint64_t a3, OZChannelBase *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x10F1C40CC0084FBLL, a3, a4);
+  MEMORY[0x2666E9F00](v13, 0x10F1C40CC0084FBLL, a3, a4, a5, a6, a7, a8);
   OZChannelBase::setRangeName(&a13, v15);
   _Unwind_Resume(a1);
 }
@@ -2597,7 +2596,7 @@ void OZRig_Factory::~OZRig_Factory(OZRig_Factory *this)
   OZFactory::~OZFactory(this);
 }
 
-OZChannelBase *OZRig_Factory::create(OZRig_Factory *this, const PCString *a2, unsigned int NextUniqueID)
+OZChannelBase *OZRig_Factory::create(OZFactory *this, const PCString *a2, unsigned int NextUniqueID)
 {
   if (!*(this + 17))
   {
@@ -2623,7 +2622,7 @@ OZChannelBase *OZRig_Factory::create(OZRig_Factory *this, const PCString *a2, un
 
 void sub_2600F1140(_Unwind_Exception *a1, int a2, uint64_t a3, OZChannelBase *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x10F1C4029BB6CCDLL, a3, a4);
+  MEMORY[0x2666E9F00](v13, 0x10F1C4029BB6CCDLL, a3, a4, a5, a6, a7, a8);
   OZChannelBase::setRangeName(&a13, v15);
   _Unwind_Resume(a1);
 }
@@ -2674,7 +2673,7 @@ void OZRigWidget_Factory::~OZRigWidget_Factory(OZRigWidget_Factory *this)
   OZFactory::~OZFactory(this);
 }
 
-OZChannelBase *OZRigWidget_Factory::create(OZRigWidget_Factory *this, const PCString *a2, unsigned int NextUniqueID)
+OZChannelBase *OZRigWidget_Factory::create(OZFactory *this, const PCString *a2, unsigned int NextUniqueID)
 {
   if (!*(this + 17))
   {
@@ -2700,7 +2699,7 @@ OZChannelBase *OZRigWidget_Factory::create(OZRigWidget_Factory *this, const PCSt
 
 void sub_2600F17C8(_Unwind_Exception *a1, int a2, uint64_t a3, OZChannelBase *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x10F1C40FCF65154, a3, a4);
+  MEMORY[0x2666E9F00](v13, 0x10F1C40FCF65154, a3, a4, a5, a6, a7, a8);
   OZChannelBase::setRangeName(&a13, v15);
   _Unwind_Resume(a1);
 }
@@ -2751,7 +2750,7 @@ void OZRigWidgetAspectRatio_Factory::~OZRigWidgetAspectRatio_Factory(OZRigWidget
   OZFactory::~OZFactory(this);
 }
 
-OZChannelBase *OZRigWidgetAspectRatio_Factory::create(OZRigWidgetAspectRatio_Factory *this, const PCString *a2, unsigned int NextUniqueID)
+OZChannelBase *OZRigWidgetAspectRatio_Factory::create(OZFactory *this, const PCString *a2, unsigned int NextUniqueID)
 {
   if (!*(this + 17))
   {
@@ -2777,7 +2776,7 @@ OZChannelBase *OZRigWidgetAspectRatio_Factory::create(OZRigWidgetAspectRatio_Fac
 
 void sub_2600F1E50(_Unwind_Exception *a1, int a2, uint64_t a3, OZChannelBase *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x10F1C40FCF65154, a3, a4);
+  MEMORY[0x2666E9F00](v13, 0x10F1C40FCF65154, a3, a4, a5, a6, a7, a8);
   OZChannelBase::setRangeName(&a13, v15);
   _Unwind_Resume(a1);
 }
@@ -2838,7 +2837,7 @@ void OZProjectNode_Factory::~OZProjectNode_Factory(OZProjectNode_Factory *this)
   OZFactory::~OZFactory(this);
 }
 
-OZChannelBase *OZProjectNode_Factory::create(OZProjectNode_Factory *this, const PCString *a2, unsigned int NextUniqueID)
+OZChannelBase *OZProjectNode_Factory::create(OZFactory *this, const PCString *a2, unsigned int NextUniqueID)
 {
   if (!*(this + 17))
   {
@@ -2864,7 +2863,7 @@ OZChannelBase *OZProjectNode_Factory::create(OZProjectNode_Factory *this, const 
 
 void sub_2600F2800(_Unwind_Exception *a1, int a2, uint64_t a3, OZChannelBase *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x10F1C40692255DDLL, a3, a4);
+  MEMORY[0x2666E9F00](v13, 0x10F1C40692255DDLL, a3, a4, a5, a6, a7, a8);
   OZChannelBase::setRangeName(&a13, v15);
   _Unwind_Resume(a1);
 }
@@ -2947,7 +2946,7 @@ void OZGradientGenerator_Factory::~OZGradientGenerator_Factory(OZGradientGenerat
   OZFactory::~OZFactory(this);
 }
 
-OZChannelBase *OZGradientGenerator_Factory::create(OZGradientGenerator_Factory *this, const PCString *a2, unsigned int NextUniqueID)
+OZChannelBase *OZGradientGenerator_Factory::create(OZFactory *this, const PCString *a2, unsigned int NextUniqueID)
 {
   if (!*(this + 17))
   {
@@ -2973,7 +2972,7 @@ OZChannelBase *OZGradientGenerator_Factory::create(OZGradientGenerator_Factory *
 
 void sub_2600F3910(_Unwind_Exception *a1, int a2, uint64_t a3, OZChannelBase *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x10F3C40A32CEB6FLL, a3, a4);
+  MEMORY[0x2666E9F00](v13, 0x10F3C40A32CEB6FLL, a3, a4, a5, a6, a7, a8);
   OZChannelBase::setRangeName(&a13, v15);
   _Unwind_Resume(a1);
 }
@@ -3024,7 +3023,7 @@ void OZCloneGenerator_Factory::~OZCloneGenerator_Factory(OZCloneGenerator_Factor
   OZFactory::~OZFactory(this);
 }
 
-OZChannelBase *OZCloneGenerator_Factory::create(OZCloneGenerator_Factory *this, const PCString *a2, unsigned int NextUniqueID)
+OZChannelBase *OZCloneGenerator_Factory::create(OZFactory *this, const PCString *a2, unsigned int NextUniqueID)
 {
   if (!*(this + 17))
   {
@@ -3050,7 +3049,7 @@ OZChannelBase *OZCloneGenerator_Factory::create(OZCloneGenerator_Factory *this, 
 
 void sub_2600F3F60(_Unwind_Exception *a1, int a2, uint64_t a3, OZChannelBase *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x10F1C40EA6D2BFALL, a3, a4);
+  MEMORY[0x2666E9F00](v13, 0x10F1C40EA6D2BFALL, a3, a4, a5, a6, a7, a8);
   OZChannelBase::setRangeName(&a13, v15);
   _Unwind_Resume(a1);
 }
@@ -3155,7 +3154,7 @@ void OZ3DEngineSceneElement_Factory::~OZ3DEngineSceneElement_Factory(OZ3DEngineS
   OZFactory::~OZFactory(this);
 }
 
-OZChannelBase *OZ3DEngineSceneElement_Factory::create(OZ3DEngineSceneElement_Factory *this, const PCString *a2, unsigned int NextUniqueID)
+OZChannelBase *OZ3DEngineSceneElement_Factory::create(OZFactory *this, const PCString *a2, unsigned int NextUniqueID)
 {
   if (!*(this + 17))
   {
@@ -3181,7 +3180,7 @@ OZChannelBase *OZ3DEngineSceneElement_Factory::create(OZ3DEngineSceneElement_Fac
 
 void sub_2600F548C(_Unwind_Exception *a1, int a2, uint64_t a3, OZChannelBase *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x10F1C408C1AE853, a3, a4);
+  MEMORY[0x2666E9F00](v13, 0x10F1C408C1AE853, a3, a4, a5, a6, a7, a8);
   OZChannelBase::setRangeName(&a13, v15);
   _Unwind_Resume(a1);
 }
@@ -3232,7 +3231,7 @@ void OZ3DEngineSceneFile_Factory::~OZ3DEngineSceneFile_Factory(OZ3DEngineSceneFi
   OZFactory::~OZFactory(this);
 }
 
-OZChannelBase *OZ3DEngineSceneFile_Factory::create(OZ3DEngineSceneFile_Factory *this, const PCString *a2, unsigned int NextUniqueID)
+OZChannelBase *OZ3DEngineSceneFile_Factory::create(OZFactory *this, const PCString *a2, unsigned int NextUniqueID)
 {
   if (!*(this + 17))
   {
@@ -3258,7 +3257,7 @@ OZChannelBase *OZ3DEngineSceneFile_Factory::create(OZ3DEngineSceneFile_Factory *
 
 void sub_2600F5B1C(_Unwind_Exception *a1, int a2, uint64_t a3, OZChannelBase *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x10F1C402CAECB46, a3, a4);
+  MEMORY[0x2666E9F00](v13, 0x10F1C402CAECB46, a3, a4, a5, a6, a7, a8);
   OZChannelBase::setRangeName(&a13, v15);
   _Unwind_Resume(a1);
 }
@@ -3309,7 +3308,7 @@ void OZARFaceAnchorElement_Factory::~OZARFaceAnchorElement_Factory(OZARFaceAncho
   OZFactory::~OZFactory(this);
 }
 
-OZChannelBase *OZARFaceAnchorElement_Factory::create(OZARFaceAnchorElement_Factory *this, const PCString *a2, unsigned int NextUniqueID)
+OZChannelBase *OZARFaceAnchorElement_Factory::create(OZFactory *this, const PCString *a2, unsigned int NextUniqueID)
 {
   if (!*(this + 17))
   {
@@ -3335,7 +3334,7 @@ OZChannelBase *OZARFaceAnchorElement_Factory::create(OZARFaceAnchorElement_Facto
 
 void sub_2600F617C(_Unwind_Exception *a1, int a2, uint64_t a3, OZChannelBase *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x10F1C40ED398990, a3, a4);
+  MEMORY[0x2666E9F00](v13, 0x10F1C40ED398990, a3, a4, a5, a6, a7, a8);
   OZChannelBase::setRangeName(&a13, v15);
   _Unwind_Resume(a1);
 }
@@ -3386,7 +3385,7 @@ void OZ3DEnginePlaneElement_Factory::~OZ3DEnginePlaneElement_Factory(OZ3DEngineP
   OZFactory::~OZFactory(this);
 }
 
-OZChannelBase *OZ3DEnginePlaneElement_Factory::create(OZ3DEnginePlaneElement_Factory *this, const PCString *a2, unsigned int NextUniqueID)
+OZChannelBase *OZ3DEnginePlaneElement_Factory::create(OZFactory *this, const PCString *a2, unsigned int NextUniqueID)
 {
   if (!*(this + 17))
   {
@@ -3412,7 +3411,7 @@ OZChannelBase *OZ3DEnginePlaneElement_Factory::create(OZ3DEnginePlaneElement_Fac
 
 void sub_2600F67E4(_Unwind_Exception *a1, int a2, uint64_t a3, OZChannelBase *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x10F1C4098A97AEELL, a3, a4);
+  MEMORY[0x2666E9F00](v13, 0x10F1C4098A97AEELL, a3, a4, a5, a6, a7, a8);
   OZChannelBase::setRangeName(&a13, v15);
   _Unwind_Resume(a1);
 }
@@ -3463,7 +3462,7 @@ void OZARPlaneAnchorElement_Factory::~OZARPlaneAnchorElement_Factory(OZARPlaneAn
   OZFactory::~OZFactory(this);
 }
 
-OZChannelBase *OZARPlaneAnchorElement_Factory::create(OZARPlaneAnchorElement_Factory *this, const PCString *a2, unsigned int NextUniqueID)
+OZChannelBase *OZARPlaneAnchorElement_Factory::create(OZFactory *this, const PCString *a2, unsigned int NextUniqueID)
 {
   if (!*(this + 17))
   {
@@ -3489,7 +3488,7 @@ OZChannelBase *OZARPlaneAnchorElement_Factory::create(OZARPlaneAnchorElement_Fac
 
 void sub_2600F6E2C(_Unwind_Exception *a1, int a2, uint64_t a3, OZChannelBase *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x10F1C40245721ACLL, a3, a4);
+  MEMORY[0x2666E9F00](v13, 0x10F1C40245721ACLL, a3, a4, a5, a6, a7, a8);
   OZChannelBase::setRangeName(&a13, v15);
   _Unwind_Resume(a1);
 }
@@ -3540,7 +3539,7 @@ void OZEnvironmentMeshSceneElement_Factory::~OZEnvironmentMeshSceneElement_Facto
   OZFactory::~OZFactory(this);
 }
 
-OZChannelBase *OZEnvironmentMeshSceneElement_Factory::create(OZEnvironmentMeshSceneElement_Factory *this, const PCString *a2, unsigned int NextUniqueID)
+OZChannelBase *OZEnvironmentMeshSceneElement_Factory::create(OZFactory *this, const PCString *a2, unsigned int NextUniqueID)
 {
   if (!*(this + 17))
   {
@@ -3566,7 +3565,7 @@ OZChannelBase *OZEnvironmentMeshSceneElement_Factory::create(OZEnvironmentMeshSc
 
 void sub_2600F7474(_Unwind_Exception *a1, int a2, uint64_t a3, OZChannelBase *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x10F1C4079491FA7, a3, a4);
+  MEMORY[0x2666E9F00](v13, 0x10F1C4079491FA7, a3, a4, a5, a6, a7, a8);
   OZChannelBase::setRangeName(&a13, v15);
   _Unwind_Resume(a1);
 }
@@ -3617,7 +3616,7 @@ void OZARPersonAnchorElement_Factory::~OZARPersonAnchorElement_Factory(OZARPerso
   OZFactory::~OZFactory(this);
 }
 
-OZChannelBase *OZARPersonAnchorElement_Factory::create(OZARPersonAnchorElement_Factory *this, const PCString *a2, unsigned int NextUniqueID)
+OZChannelBase *OZARPersonAnchorElement_Factory::create(OZFactory *this, const PCString *a2, unsigned int NextUniqueID)
 {
   if (!*(this + 17))
   {
@@ -3643,7 +3642,7 @@ OZChannelBase *OZARPersonAnchorElement_Factory::create(OZARPersonAnchorElement_F
 
 void sub_2600F7ABC(_Unwind_Exception *a1, int a2, uint64_t a3, OZChannelBase *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x10F1C40324BC503, a3, a4);
+  MEMORY[0x2666E9F00](v13, 0x10F1C40324BC503, a3, a4, a5, a6, a7, a8);
   OZChannelBase::setRangeName(&a13, v15);
   _Unwind_Resume(a1);
 }
@@ -3689,7 +3688,7 @@ void OZ3DEngineScenePlacementBehavior::OZ3DEngineScenePlacementBehavior(OZ3DEngi
   OZChannel::setSliderMax((this + 952), 2000.0);
   v8 = 2;
   v7.var0 = 0x400000001;
-  OZChannelEnum::setTags((this + 696), &v7, 3);
+  OZChannelEnum::setTags(this + 87, &v7, 3);
 }
 
 void sub_2600F8054(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, PCString a11, PCString a12)
@@ -3741,7 +3740,7 @@ void OZ3DEngineScenePlacementBehavior::~OZ3DEngineScenePlacementBehavior(OZ3DEng
   OZChannelBool::~OZChannelBool((this + 1256));
   OZChannelBool::~OZChannelBool((this + 1104));
   OZChannel::~OZChannel((this + 952));
-  OZChannelEnum::~OZChannelEnum((this + 696));
+  OZChannelEnum::~OZChannelEnum(this + 87);
   OZChanTransformNodeRef::~OZChanTransformNodeRef((this + 536));
   *(this + 42) = &unk_2872018B0;
   PCMutex::~PCMutex((this + 464));
@@ -3798,18 +3797,18 @@ void *OZ3DEngineScenePlacementBehavior::didAddToNode(void *this, OZSceneNode *lp
     v3 = this;
     if (this)
     {
-      *(v3 + 328) = lpsrc;
+      v3[41] = lpsrc;
     }
   }
 
   return this;
 }
 
-uint64_t OZ3DEngineScenePlacementBehavior::getLockDependencies(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t OZ3DEngineScenePlacementBehavior::getLockDependencies(uint64_t result, uint64_t a2, uint64_t a3, uint64_t **a4)
 {
   v6 = result;
   v7 = (result + 336);
-  for (i = *(a4 + 8); i; i = *i)
+  for (i = a4[1]; i; i = *i)
   {
     v9 = i[4];
     if (v7 >= v9)
@@ -3824,7 +3823,7 @@ uint64_t OZ3DEngineScenePlacementBehavior::getLockDependencies(uint64_t result, 
   }
 
   v11 = (result + 336);
-  std::__tree<OZLocking *>::__emplace_unique_key_args<OZLocking *,OZLocking *>(a4, &v11);
+  std::__tree<OZLocking *>::__emplace_unique_key_args<OZLocking *,OZLocking *>(a4, &v11, &v11);
   v10 = (*(*v6 + 336))(v6);
   OZLocking::addLockDependenciesForDependents(v7, v10, a3, a4);
   v11 = v7;
@@ -3951,25 +3950,26 @@ void OZMaterialLayersFolder::assign(OZChannelBase *this, const OZChannelBase *a2
     {
       v7 = (*(**v5 + 248))();
       v7->var6 = this;
+      v8 = *v5;
       v5 += 8;
-      (*(v7->var0 + 32))();
+      (*(v7->var0 + 32))(v7, v8);
       OZChannelFolder::push_back(this, v7);
     }
   }
 
   else
   {
-    v8 = this[1].var0;
-    if (v8)
+    v9 = this[1].var0;
+    if (v9)
     {
-      v9 = *v8;
-      if (*v8)
+      v10 = *v9;
+      if (*v9)
       {
-        v8[1] = v9;
-        operator delete(v9);
+        v9[1] = v10;
+        operator delete(v10);
       }
 
-      MEMORY[0x2666E9F00](v8, 0x80C40D6874129);
+      MEMORY[0x2666E9F00](v9, 0x80C40D6874129);
     }
 
     this[1].var0 = 0;
@@ -3992,7 +3992,7 @@ char *OZMaterialLayersFolder::resetToDefault(OZMaterialLayersFolder *this)
   return result;
 }
 
-OZFactories *OZMaterialLayersFolder::markFactoriesForSerialization(OZChannelFolder *this, PCSerializerWriteStream *a2, int a3)
+uint64_t *OZMaterialLayersFolder::markFactoriesForSerialization(OZChannelFolder *this, PCSerializerWriteStream *a2, int a3)
 {
   result = OZChannelFolder::markFactoriesForSerialization(this, a2);
   if (a3)
@@ -4438,7 +4438,7 @@ void sub_2600F9E2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *OZScene::addRootNode(OZScene *this, OZSceneNode *a2)
+OZScene *OZScene::addRootNode(OZScene *this, OZSceneNode *a2)
 {
   result = OZScene::getNode(this, *(a2 + 20));
   if (!result)
@@ -4455,7 +4455,7 @@ void *OZScene::addRootNode(OZScene *this, OZSceneNode *a2)
   return result;
 }
 
-uint64_t OZSceneList::instance(OZSceneList *this)
+OZSceneList *OZSceneList::instance(OZSceneList *this)
 {
   {
     operator new();
@@ -4467,13 +4467,13 @@ uint64_t OZSceneList::addScene(OZSceneList *this, OZScene *a2)
   v5 = a2;
   v3 = (this + 8);
   PCMutex::lock((this + 8));
-  std::__tree<OZLocking *>::__emplace_unique_key_args<OZLocking *,OZLocking *>(this + 80, &v5);
+  std::__tree<OZLocking *>::__emplace_unique_key_args<OZLocking *,OZLocking *>(this + 80, &v5, &v5);
   return PCMutex::unlock(v3);
 }
 
-void sub_2600FA1A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2600FA1A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCLockSentry<PCMutex>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
@@ -4489,10 +4489,10 @@ void OZScene::OZScene(OZScene *this, const OZScene *a2, OZDocument *a3)
   PCSharedMutex::PCSharedMutex((this + 40));
   PCMutex::PCMutex((this + 160));
   PCSharedMutex::PCSharedMutex((this + 232));
-  OZSceneSettings::OZSceneSettings((this + 336), (a2 + 336));
+  OZSceneSettings::OZSceneSettings((this + 336), a2 + 336);
   OZExportSettings::OZExportSettings((this + 640));
   OZPublishSettings::OZPublishSettings((this + 720), (a2 + 720), this);
-  OZChannelObjectRoot::OZChannelObjectRoot((this + 920), (a2 + 920), 0);
+  OZChannelObjectRoot::OZChannelObjectRoot((this + 920), a2 + 115, 0);
   *(this + 150) = this + 1200;
   *(this + 151) = this + 1200;
   *(this + 152) = 0;
@@ -4665,60 +4665,60 @@ void OZScene::~OZScene(OZScene *this)
   v2 = OZSceneList::instance(this);
   OZSceneList::removeScene(v2, this);
   OZScene::clearLockingGroups(this);
-  v3 = *(this + 188);
-  if (v3)
+  v4 = *(this + 188);
+  if (v4)
   {
-    OZRenderManager::~OZRenderManager(v3);
+    OZRenderManager::~OZRenderManager(v4, v3);
     MEMORY[0x2666E9F00]();
     *(this + 188) = 0;
   }
 
   while (1)
   {
-    v8 = *(this + 152);
-    if (!v8)
+    v9 = *(this + 152);
+    if (!v9)
     {
       break;
     }
 
-    v4 = *(this + 151);
-    v5 = v4[1];
-    v6 = v4[2];
-    v7 = *v4;
-    *(v7 + 8) = v5;
-    *v5 = v7;
-    *(this + 152) = v8 - 1;
-    operator delete(v4);
-    OZScene::unregisterNode(this, v6);
-    OZScene::removeAllDependencies(this, v6);
-    if (v6)
+    v5 = *(this + 151);
+    v6 = v5[1];
+    v7 = v5[2];
+    v8 = *v5;
+    *(v8 + 8) = v6;
+    *v6 = v8;
+    *(this + 152) = v9 - 1;
+    operator delete(v5);
+    OZScene::unregisterNode(this, v7);
+    OZScene::removeAllDependencies(this, v7);
+    if (v7)
     {
-      (*(*v6 + 8))(v6);
+      (*(*v7 + 8))(v7);
     }
   }
 
-  v9 = (this + 1264);
+  v10 = (this + 1264);
   while (*(this + 160))
   {
-    v10 = *v9;
-    v11 = (*v9)[5];
-    std::__tree<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>>>::__remove_node_pointer(this + 158, *v9);
-    operator delete(v10);
-    if (v11)
+    v11 = *v10;
+    v12 = (*v10)[5];
+    std::__tree<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>>>::__remove_node_pointer(this + 158, *v10);
+    operator delete(v11);
+    if (v12)
     {
-      std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(v11, *(v11 + 8));
-      MEMORY[0x2666E9F00](v11, 0x1020C4062D53EE8);
+      std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(v12, *(v12 + 8));
+      MEMORY[0x2666E9F00](v12, 0x1020C4062D53EE8);
     }
   }
 
   OZScene::destroyObjectiveCClasses(this);
   PCCFRef<CGColorSpace *>::~PCCFRef(this + 229);
   PCCFRef<CGColorSpace *>::~PCCFRef(this + 228);
-  v12 = *(this + 223);
-  if (v12)
+  v13 = *(this + 223);
+  if (v13)
   {
-    *(this + 224) = v12;
-    operator delete(v12);
+    *(this + 224) = v13;
+    operator delete(v13);
   }
 
   std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(this + 1744, *(this + 219));
@@ -4726,11 +4726,11 @@ void OZScene::~OZScene(OZScene *this)
   PCSpinLock::~PCSpinLock(this + 428);
   std::__tree<std::__value_type<PCHash128,LiTextureStoreToken>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,LiTextureStoreToken>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,LiTextureStoreToken>>>::destroy(this + 1688, *(this + 212));
   PCMutex::~PCMutex((this + 1616));
-  v13 = *(this + 194);
-  if (v13)
+  v14 = *(this + 194);
+  if (v14)
   {
-    *(this + 195) = v13;
-    operator delete(v13);
+    *(this + 195) = v14;
+    operator delete(v14);
   }
 
   std::__tree<OZGuide>::destroy(this + 1520, *(this + 191));
@@ -4739,7 +4739,7 @@ void OZScene::~OZScene(OZScene *this)
   std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(this + 1264, *(this + 159));
   std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(this + 1240, *(this + 156));
   std::__list_imp<unsigned int>::clear(this + 150);
-  OZChannelObjectRoot::~OZChannelObjectRoot((this + 920));
+  OZChannelObjectRoot::~OZChannelObjectRoot(this + 115);
   OZPublishSettings::~OZPublishSettings((this + 720));
   OZExportSettings::~OZExportSettings((this + 640));
   *(this + 42) = &unk_287283398;
@@ -4765,9 +4765,9 @@ uint64_t OZSceneList::removeScene(uint64_t **this, OZScene *a2)
   return PCMutex::unlock(v3);
 }
 
-void sub_2600FA9D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2600FA9D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCLockSentry<PCMutex>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
@@ -4841,7 +4841,7 @@ void sub_2600FABB8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *OZScene::unregisterNode(OZScene *this, OZSceneNode *a2)
+OZSceneNode **OZScene::unregisterNode(OZScene *this, OZSceneNode *a2)
 {
   (*(*a2 + 872))(a2, this);
   if (OZScene::OZNodeMap::operator[](this + 1288, *(a2 + 20)))
@@ -4943,8 +4943,8 @@ void *OZScene::unregisterNode(OZScene *this, OZSceneNode *a2)
       v24 = result;
       do
       {
-        result = OZScene::unregisterNode(this, *(v24 + 16));
-        v24 = *(v24 + 8);
+        result = OZScene::unregisterNode(this, v24[2]);
+        v24 = v24[1];
       }
 
       while (v24 != v23);
@@ -5026,10 +5026,9 @@ void non-virtual thunk toOZScene::~OZScene(OZScene *this)
 
 double OZScene::getTimeForFrame@<D0>(OZScene *this@<X0>, double a2@<D0>, __n128 *a3@<X8>)
 {
-  a3->n128_u64[0] = 0;
-  a3->n128_u64[1] = 0;
+  *a3 = 0uLL;
   a3[1].n128_u64[0] = 0;
-  OZSceneSettings::getFrameDuration((this + 336), a3);
+  OZSceneSettings::getFrameDuration(a3, (this + 336));
   result = a3->n128_i64[0] * a2;
   a3->n128_u64[0] = result;
   return result;
@@ -5054,7 +5053,7 @@ __n128 OZScene::getSceneSettings(OZScene *this, OZExportSettings *a2)
   return result;
 }
 
-void *OZScene::getNode(OZScene *this, unsigned int a2)
+void *OZScene::getNode(OZScene *this, uint64_t a2)
 {
   result = OZScene::OZNodeMap::operator[](this + 1288, a2);
   if (result)
@@ -5098,7 +5097,7 @@ void OZScene::setTimeRange(OZScene *this, const PCTimeRange *a2)
     goto LABEL_8;
   }
 
-  if ((*(a2 + 9) & 0x1D) != 1 || (OZSceneSettings::getFrameDuration((this + 336), &time), (time.flags & 0x1D) != 1))
+  if ((*(a2 + 9) & 0x1D) != 1 || (OZSceneSettings::getFrameDuration(&time, (this + 336)), (time.flags & 0x1D) != 1))
   {
     puts("OZScene::setTimeRange range is not numeric, setting num frames to 1.");
 LABEL_8:
@@ -5108,7 +5107,7 @@ LABEL_8:
 
   v8 = *(a2 + 24);
   v9 = *(a2 + 5);
-  OZSceneSettings::getFrameDuration((this + 336), &v7);
+  OZSceneSettings::getFrameDuration(&v7, (this + 336));
   operator/(&v8, &v7, &time);
   Seconds = CMTimeGetSeconds(&time);
 LABEL_9:
@@ -5160,15 +5159,15 @@ __n128 OZScene::setPlayRange(OZScene *this, const PCTimeRange *a2)
   return result;
 }
 
-__n128 OZScene::getCurrentTime@<Q0>(OZScene *this@<X0>, __n128 *a2@<X8>)
+__n128 OZScene::getCurrentTime@<Q0>(__n128 *__return_ptr a1@<X8>, OZScene *this@<X0>)
 {
-  a2[1].n128_u64[0] = *(this + 149);
+  a1[1].n128_u64[0] = *(this + 149);
   result = *(this + 1176);
-  *a2 = result;
+  *a1 = result;
   return result;
 }
 
-uint64_t OZScene::setTargetDisplayAspectRatio(uint64_t this, double a2, int a3, BOOL *a4)
+uint64_t OZScene::setTargetDisplayAspectRatio(uint64_t this, double a2, BOOL a3, BOOL *a4)
 {
   v5 = *(this + 344);
   v6 = *(this + 384);
@@ -5334,7 +5333,7 @@ void sub_2600FB8D0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t OZScene::setTargetDisplayAspectRatioWithNativeSize(uint64_t this, double a2, double a3, double a4, int a5)
+uint64_t OZScene::setTargetDisplayAspectRatioWithNativeSize(uint64_t this, double a2, double a3, double a4, BOOL a5)
 {
   v6 = *(this + 344);
   v7 = *(this + 384);
@@ -5444,7 +5443,7 @@ uint64_t OZScene::setCurrentObject(OZScene *this, OZSceneNode *a2)
 
 uint64_t OZScene::clearSelection(OZScene *this)
 {
-  OZScene::begin_sel(this, v6);
+  OZScene::begin_sel(v6, this);
   memset(v4, 0, sizeof(v4));
   v5 = 1065353216;
   while (v6[0] != (this + 1200))
@@ -5464,26 +5463,26 @@ uint64_t OZScene::clearSelection(OZScene *this)
   return std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(&v7);
 }
 
-void sub_2600FBD54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_2600FBD54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
-  std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(v14 + 32);
+  va_start(va, a21);
+  std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(v21 + 32);
   std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *OZScene::begin_all_sel@<X0>(uint64_t *this@<X0>, uint64_t a2@<X8>)
+uint64_t *OZScene::begin_all_sel@<X0>(uint64_t **__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  *(a2 + 48) = 0u;
+  *(a1 + 3) = 0u;
   v3 = this[151];
-  *(a2 + 64) = 0u;
-  *(a2 + 24) = 0;
-  *(a2 + 32) = 0;
-  *(a2 + 80) = 1065353216;
-  *a2 = v3;
-  *(a2 + 8) = v3;
-  *(a2 + 16) = this + 150;
-  *(a2 + 40) = 0;
+  *(a1 + 4) = 0u;
+  a1[3] = 0;
+  a1[4] = 0;
+  *(a1 + 20) = 1065353216;
+  *a1 = v3;
+  a1[1] = v3;
+  a1[2] = this + 150;
+  *(a1 + 10) = 0;
   if (v3 == this + 150)
   {
     return this;
@@ -5499,39 +5498,39 @@ uint64_t *OZScene::begin_all_sel@<X0>(uint64_t *this@<X0>, uint64_t a2@<X8>)
       this = OZChannelBase::testFlag(v5, 1);
       if (!this)
       {
-        return OZObject::all_iterator_t<OZObjectManipulator,true,true,OZObject::defaultAllValidator>::operator++(a2);
+        return OZObject::all_iterator_t<OZObjectManipulator,true,true,OZObject::defaultAllValidator>::operator++(a1);
       }
     }
   }
 
-  v6 = *(a2 + 40);
+  v6 = *(a1 + 10);
   if (v6 < 2)
   {
-    v8 = *a2;
-    if (*a2 != *(a2 + 16))
+    v8 = *a1;
+    if (*a1 != a1[2])
     {
       goto LABEL_13;
     }
 
-    return OZObject::all_iterator_t<OZObjectManipulator,true,true,OZObject::defaultAllValidator>::operator++(a2);
+    return OZObject::all_iterator_t<OZObjectManipulator,true,true,OZObject::defaultAllValidator>::operator++(a1);
   }
 
   if (v6 == 2)
   {
-    v7 = 24;
+    v7 = 3;
     goto LABEL_12;
   }
 
   if (v6 != 3)
   {
-    return OZObject::all_iterator_t<OZObjectManipulator,true,true,OZObject::defaultAllValidator>::operator++(a2);
+    return OZObject::all_iterator_t<OZObjectManipulator,true,true,OZObject::defaultAllValidator>::operator++(a1);
   }
 
-  v7 = 32;
+  v7 = 4;
 LABEL_12:
-  v8 = *(a2 + v7);
+  v8 = a1[v7];
 LABEL_13:
-  v9 = *(v8 + 16);
+  v9 = v8[2];
   if (v4)
   {
     v10 = v9 == 0;
@@ -5544,25 +5543,25 @@ LABEL_13:
 
   if (v10)
   {
-    return OZObject::all_iterator_t<OZObjectManipulator,true,true,OZObject::defaultAllValidator>::operator++(a2);
+    return OZObject::all_iterator_t<OZObjectManipulator,true,true,OZObject::defaultAllValidator>::operator++(a1);
   }
 
   return this;
 }
 
-double OZScene::end_all_sel@<D0>(OZScene *this@<X0>, uint64_t a2@<X8>)
+double OZScene::end_all_sel@<D0>(uint64_t *__return_ptr a1@<X8>, OZScene *this@<X0>)
 {
   v2 = *(this + 151);
   result = 0.0;
-  *(a2 + 48) = 0u;
-  *(a2 + 64) = 0u;
-  *(a2 + 24) = 0;
-  *(a2 + 32) = 0;
-  *(a2 + 80) = 1065353216;
-  *a2 = this + 1200;
-  *(a2 + 8) = v2;
-  *(a2 + 16) = this + 1200;
-  *(a2 + 40) = 0;
+  *(a1 + 3) = 0u;
+  *(a1 + 4) = 0u;
+  a1[3] = 0;
+  a1[4] = 0;
+  *(a1 + 20) = 1065353216;
+  *a1 = this + 1200;
+  a1[1] = v2;
+  a1[2] = this + 1200;
+  *(a1 + 10) = 0;
   return result;
 }
 
@@ -5631,39 +5630,39 @@ LABEL_15:
   return this;
 }
 
-void *OZScene::begin_sel@<X0>(void *this@<X0>, uint64_t a2@<X8>)
+uint64_t *OZScene::begin_sel@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
   v3 = this[151];
-  *(a2 + 32) = 0u;
-  *(a2 + 48) = 0u;
-  *(a2 + 64) = 1065353216;
-  *a2 = v3;
-  *(a2 + 8) = v3;
-  *(a2 + 16) = this + 150;
-  *(a2 + 24) = 0;
+  *(a1 + 2) = 0u;
+  *(a1 + 3) = 0u;
+  *(a1 + 16) = 1065353216;
+  *a1 = v3;
+  a1[1] = v3;
+  a1[2] = (this + 150);
+  *(a1 + 24) = 0;
   if (v3 != this + 150)
   {
     this = (*(**(v3 + 16) + 680))(*(v3 + 16));
     if (!this || !*(v3 + 16))
     {
-      return OZObject::iterator_t<OZSceneNode,true,true,OZObject::defaultValidator>::operator++(a2);
+      return OZObject::iterator_t<OZSceneNode,true,true,OZObject::defaultValidator>::operator++(a1);
     }
   }
 
   return this;
 }
 
-double OZScene::end_sel@<D0>(OZScene *this@<X0>, uint64_t a2@<X8>)
+double OZScene::end_sel@<D0>(uint64_t *__return_ptr a1@<X8>, OZScene *this@<X0>)
 {
   v2 = *(this + 151);
   result = 0.0;
-  *(a2 + 32) = 0u;
-  *(a2 + 48) = 0u;
-  *(a2 + 64) = 1065353216;
-  *a2 = this + 1200;
-  *(a2 + 8) = v2;
-  *(a2 + 16) = this + 1200;
-  *(a2 + 24) = 0;
+  *(a1 + 2) = 0u;
+  *(a1 + 3) = 0u;
+  *(a1 + 16) = 1065353216;
+  *a1 = this + 1200;
+  a1[1] = v2;
+  a1[2] = this + 1200;
+  *(a1 + 24) = 0;
   return result;
 }
 
@@ -5689,7 +5688,7 @@ uint64_t OZScene::updateSoloFlag(OZScene *this, OZSceneNode *a2)
   memset(v25, 0, sizeof(v25));
   memset(v24, 0, 24);
   v26 = 1065353216;
-  OZScene::begin_v<OZSceneNode,false,true,OZSoloChildNodeValidator>(this, a2, v20);
+  OZScene::begin_v<OZSceneNode,false,true,OZSoloChildNodeValidator>(this, v20, a2);
   *v27 = *v20;
   *&v27[9] = *&v20[9];
   v29 = v23;
@@ -5730,7 +5729,7 @@ uint64_t OZScene::updateSoloFlag(OZScene *this, OZSceneNode *a2)
   memset(v18, 0, sizeof(v18));
   memset(v17, 0, 24);
   v19 = 1065353216;
-  OZScene::begin_v<OZSceneNode,false,true,OZSoloNodeValidator>(this, v4, v13);
+  OZScene::begin_v<OZSceneNode,false,true,OZSoloNodeValidator>(this, v13, v4);
   *v20 = *v13;
   *&v20[9] = *&v13[9];
   v23 = v16;
@@ -5790,29 +5789,29 @@ void sub_2600FC588(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t OZScene::begin_v<OZSceneNode,false,true,OZSoloNodeValidator>@<X0>(uint64_t result@<X0>, OZSceneNode *a2@<X1>, uint64_t a3@<X8>)
+uint64_t OZScene::begin_v<OZSceneNode,false,true,OZSoloNodeValidator>@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>, OZSceneNode *a3@<X1>)
 {
   v4 = *(result + 1208);
-  *(a3 + 32) = 0u;
-  *(a3 + 48) = 0u;
-  *(a3 + 64) = 1065353216;
-  *a3 = v4;
-  *(a3 + 8) = v4;
-  *(a3 + 16) = result + 1200;
-  *(a3 + 24) = 0;
+  *(a2 + 32) = 0u;
+  *(a2 + 48) = 0u;
+  *(a2 + 64) = 1065353216;
+  *a2 = v4;
+  *(a2 + 8) = v4;
+  *(a2 + 16) = result + 1200;
+  *(a2 + 24) = 0;
   if (v4 != result + 1200)
   {
     v5 = *(v4 + 16);
     if (!v5)
     {
-      return OZObject::iterator_t<OZSceneNode,false,true,OZSoloNodeValidator>::operator++(a3, a2);
+      return OZObject::iterator_t<OZSceneNode,false,true,OZSoloNodeValidator>::operator++(a2, a3);
     }
 
     v6 = (*(*v5 + 640))(v5);
     result = OZChannelBase::isSolo(v6);
     if ((result & 1) == 0)
     {
-      return OZObject::iterator_t<OZSceneNode,false,true,OZSoloNodeValidator>::operator++(a3, a2);
+      return OZObject::iterator_t<OZSceneNode,false,true,OZSoloNodeValidator>::operator++(a2, a3);
     }
   }
 
@@ -5843,29 +5842,29 @@ void *OZObject::iterator_t<OZSceneNode,false,true,OZSoloNodeValidator>::operator
   return i;
 }
 
-void *OZScene::begin_v<OZSceneNode,false,true,OZSoloChildNodeValidator>@<X0>(void *result@<X0>, OZSceneNode *a2@<X1>, uint64_t a3@<X8>)
+uint64_t OZScene::begin_v<OZSceneNode,false,true,OZSoloChildNodeValidator>@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>, OZSceneNode *a3@<X1>)
 {
-  v4 = result[151];
-  *(a3 + 32) = 0u;
-  *(a3 + 48) = 0u;
-  *(a3 + 64) = 1065353216;
-  *a3 = v4;
-  *(a3 + 8) = v4;
-  *(a3 + 16) = result + 150;
-  *(a3 + 24) = 0;
-  if (v4 != result + 150)
+  v4 = *(result + 1208);
+  *(a2 + 32) = 0u;
+  *(a2 + 48) = 0u;
+  *(a2 + 64) = 1065353216;
+  *a2 = v4;
+  *(a2 + 8) = v4;
+  *(a2 + 16) = result + 1200;
+  *(a2 + 24) = 0;
+  if (v4 != result + 1200)
   {
-    v5 = v4[2];
+    v5 = *(v4 + 16);
     if (!v5)
     {
-      return OZObject::iterator_t<OZSceneNode,false,true,OZSoloChildNodeValidator>::operator++(a3, a2);
+      return OZObject::iterator_t<OZSceneNode,false,true,OZSoloChildNodeValidator>::operator++(a2, a3);
     }
 
     v6 = (*(*v5 + 640))(v5);
     result = OZChannelBase::testFlag(v6, 0x100000);
     if ((result & 1) == 0)
     {
-      return OZObject::iterator_t<OZSceneNode,false,true,OZSoloChildNodeValidator>::operator++(a3, a2);
+      return OZObject::iterator_t<OZSceneNode,false,true,OZSoloChildNodeValidator>::operator++(a2, a3);
     }
   }
 
@@ -5896,7 +5895,7 @@ void *OZObject::iterator_t<OZSceneNode,false,true,OZSoloChildNodeValidator>::ope
   return i;
 }
 
-void *OZScene::addRootNodeAfter(OZScene *this, OZSceneNode *a2, OZSceneNode *a3)
+OZScene *OZScene::addRootNodeAfter(OZScene *this, OZSceneNode *a2, OZSceneNode *a3)
 {
   result = OZScene::getNode(this, *(a2 + 20));
   if (!result)
@@ -6080,31 +6079,31 @@ LABEL_12:
   return result;
 }
 
-void sub_2600FCF30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2600FCF30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
   v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(va);
   std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(va1);
-  std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(v5 + 32);
+  std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(v9 + 32);
   _Unwind_Resume(a1);
 }
 
-uint64_t OZScene::addAllDependencies(uint64_t this, OZSceneNode *a2)
+OZScene *OZScene::addAllDependencies(OZScene *this, OZSceneNode *a2)
 {
   if (a2)
   {
     v2 = this;
-    if ((*(this + 1592) & 0x10) == 0)
+    if ((*(this + 398) & 0x10) == 0)
     {
       v4 = *(a2 + 120);
       if (v4)
@@ -6122,7 +6121,7 @@ uint64_t OZScene::addAllDependencies(uint64_t this, OZSceneNode *a2)
   return this;
 }
 
-void *OZScene::addRootNodeBefore(OZScene **this, OZSceneNode *a2, OZSceneNode *a3)
+OZScene *OZScene::addRootNodeBefore(OZScene **this, OZSceneNode *a2, OZSceneNode *a3)
 {
   result = OZScene::getNode(this, *(a2 + 20));
   if (!result)
@@ -6273,7 +6272,7 @@ void OZScene::addNode(OZDocument **this, OZSceneNode *a2, PCString *a3, __int16 
     {
       v24 = v23;
       (*(*v23 + 1280))(&v49.var11);
-      OZFootage::getFormatName(v24, &v49);
+      OZFootage::getFormatName(&v49, v24);
       (*(*v24 + 1288))(&v48, v24);
       OZFootage::getDisplayWidth(v24);
       OZFootage::getDisplayHeight(v24);
@@ -6342,7 +6341,7 @@ void OZScene::addNode(OZDocument **this, OZSceneNode *a2, PCString *a3, __int16 
           PCString::PCString(&v49.var1, a3);
         }
 
-        (*(*(v18 + 2) + 176))(v18 + 2, &v49.var1, 1);
+        (*(*(v18 + 2) + 176))(v18 + 16, &v49.var1, 1);
         PCString::~PCString(&v49.var1);
       }
     }
@@ -6767,15 +6766,15 @@ void OZScene::OZNodeMap::setNode(os_unfair_lock_s *this, OZObjectManipulator *a2
   PCSpinLock::lock(this);
   OZChannelBase::updateIDGenerator(v5);
   v7 = &v6;
-  std::__hash_table<std::__hash_value_type<unsigned int,OZObjectManipulator *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,OZObjectManipulator *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,OZObjectManipulator *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,OZObjectManipulator *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&this[2]._os_unfair_lock_opaque, &v6)[3] = a2;
+  std::__hash_table<std::__hash_value_type<unsigned int,OZObjectManipulator *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,OZObjectManipulator *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,OZObjectManipulator *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,OZObjectManipulator *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&this[2]._os_unfair_lock_opaque, &v6, &std::piecewise_construct, &v7)[3] = a2;
   this[12]._os_unfair_lock_opaque = v6;
   *&this[14]._os_unfair_lock_opaque = a2;
   PCSpinLock::unlock(this);
 }
 
-void sub_2600FE748(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2600FE748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCLockSentry<PCSpinLock>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
@@ -7029,26 +7028,26 @@ OZObjectManipulator ***OZScene::removeObjectFromLoadObjectsWithDuplicateIDs(OZOb
 
   if (v4 != v3)
   {
-    v6 = (v4 - (v3 + 1));
+    v6 = v4 - (v3 + 1);
     if (v4 != v3 + 1)
     {
       this = memmove(v3, v3 + 1, v4 - (v3 + 1));
     }
 
-    v2[195] = &v6[v3];
+    v2[195] = (v3 + v6);
   }
 
   return this;
 }
 
-uint64_t OZScene::addNodeDependency(uint64_t this, unsigned int a2, unsigned int a3)
+char *OZScene::addNodeDependency(char *this, unsigned int a2, unsigned int a3)
 {
   v11 = a3;
   v12 = a2;
-  if ((*(this + 1592) & 0x10) == 0)
+  if ((this[1592] & 0x10) == 0)
   {
     v3 = this;
-    v4 = *(this + 1272);
+    v4 = *(this + 159);
     if (!v4)
     {
       goto LABEL_10;
@@ -7069,15 +7068,15 @@ uint64_t OZScene::addNodeDependency(uint64_t this, unsigned int a2, unsigned int
     }
 
     while (v4);
-    if (v5 == this + 1272 || *(v5 + 32) > a2)
+    if (v5 == this + 1272 || *(v5 + 8) > a2)
     {
 LABEL_10:
       operator new();
     }
 
-    std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(*(v5 + 40), &v11);
-    v9 = OZScene::OZNodeMap::operator[](v3 + 1288, v12);
-    this = OZScene::OZNodeMap::operator[](v3 + 1288, v11);
+    std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(*(v5 + 5), &v11, &v11);
+    v9 = OZScene::OZNodeMap::operator[]((v3 + 1288), v12);
+    this = OZScene::OZNodeMap::operator[]((v3 + 1288), v11);
     if (v9)
     {
       v10 = this;
@@ -7087,9 +7086,9 @@ LABEL_10:
         {
           if (this)
           {
-            if (*(v3 + 1578) == 1)
+            if (v3[1578] == 1)
             {
-              atomic_store(1u, (v3 + 1808));
+              atomic_store(1u, v3 + 1808);
             }
           }
         }
@@ -7100,9 +7099,9 @@ LABEL_10:
   return this;
 }
 
-uint64_t OZScene::addAllDependencies(uint64_t this, OZChannelFolder *a2, unsigned int a3)
+char *OZScene::addAllDependencies(char *this, OZChannelFolder *a2, unsigned int a3)
 {
-  if ((*(this + 1592) & 0x10) == 0)
+  if ((this[1592] & 0x10) == 0)
   {
     v3 = *(a2 + 14);
     if (v3)
@@ -7334,7 +7333,7 @@ void OZScene::removeAllDependencies(OZScene *this, unsigned int a2)
   }
 }
 
-OZScene *OZScene::removeAllDependencies(OZScene *this, OZChannelFolder *a2, unsigned int a3)
+uint64_t OZScene::removeAllDependencies(uint64_t this, OZChannelFolder *a2, uint64_t a3)
 {
   v3 = *(a2 + 14);
   if (v3)
@@ -7421,8 +7420,10 @@ LABEL_13:
   return this;
 }
 
-const void *OZScene::removeNodeDependency(OZScene *this, unsigned int a2, unsigned int a3)
+void *OZScene::removeNodeDependency(OZScene *this, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
   v6 = *(this + 159);
   if (v6)
   {
@@ -7479,8 +7480,8 @@ const void *OZScene::removeNodeDependency(OZScene *this, unsigned int a2, unsign
     }
   }
 
-  v16 = OZScene::OZNodeMap::operator[](this + 1288, a2);
-  result = OZScene::OZNodeMap::operator[](this + 1288, a3);
+  v16 = OZScene::OZNodeMap::operator[](this + 1288, v4);
+  result = OZScene::OZNodeMap::operator[](this + 1288, v3);
   if (v16)
   {
     v18 = result;
@@ -7611,7 +7612,7 @@ uint64_t OZScene::getDependantNodes(OZScene *this, unsigned int a2)
   }
 }
 
-const void *OZScene::getCloneNodes(uint64_t *a1, unsigned int a2, uint64_t a3)
+void *OZScene::getCloneNodes(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   result = OZScene::OZNodeMap::operator[]((a1 + 161), a2);
   if (result)
@@ -7666,7 +7667,7 @@ const void *OZScene::getCloneNodes(uint64_t *a1, unsigned int a2, uint64_t a3)
                 {
 LABEL_17:
                   v22 = *(v11 + 20);
-                  std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a3, &v22);
+                  std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a3, &v22, &v22);
                   OZScene::getCloneNodes(a1, *(v11 + 20), a3);
                 }
               }
@@ -7697,10 +7698,10 @@ LABEL_17:
   return result;
 }
 
-void sub_2600FFE9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_2600FFE9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
-  std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(v16 + 32);
+  va_start(va, a23);
+  std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(v23 + 32);
   std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -7828,7 +7829,7 @@ uint64_t OZScene::getReferencedNodes(uint64_t result, int a2, uint64_t a3)
           }
         }
 
-        std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a3, &v24);
+        std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a3, &v24, &v24);
         result = OZScene::getReferencedNodes(v7, v24, a3);
       }
 
@@ -7869,7 +7870,7 @@ LABEL_22:
 uint64_t *OZScene::getImmediatelyReferencedNodes(uint64_t *result, int a2, uint64_t a3)
 {
   v3 = result[158];
-  v4 = result + 159;
+  v4 = (result + 159);
   if (v3 != (result + 159))
   {
     do
@@ -7913,7 +7914,7 @@ uint64_t *OZScene::getImmediatelyReferencedNodes(uint64_t *result, int a2, uint6
           }
         }
 
-        result = std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a3, v3 + 8);
+        result = std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a3, v3 + 8, v3 + 8);
       }
 
 LABEL_12:
@@ -8034,50 +8035,50 @@ float64x2_t non-virtual thunk toOZScene::getBounds(uint64_t a1, float64x2_t *a2)
   return result;
 }
 
-void OZScene::getHashForState(OZScene *this, PCSerializerWriteStream *a2, const OZRenderParams *a3)
+void OZScene::getHashForState(OZScene *this, PCSerializerWriteStream *a2, const OZRenderParams *a3, uint64_t a4, uint64_t a5)
 {
-  v3 = MEMORY[0x28223BE20](this);
-  v5 = v4;
-  v7 = v6;
-  v8 = v3;
-  v21 = *MEMORY[0x277D85DE8];
+  MEMORY[0x28223BE20](this, a2, a3, a4, a5);
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  v26 = *MEMORY[0x277D85DE8];
   {
-    Hash = OZRenderParams::getHash(v5);
-    v10 = Hash[1];
-    v18[0] = *Hash;
-    v18[1] = v10;
-    v11 = Hash[3];
-    v19 = Hash[2];
-    v20 = v11;
-    v17[0] = v18[0];
-    v17[1] = v10;
-    v17[2] = v19;
-    v17[3] = v11;
-    StaticHash = OZScene::getStaticHash(v8, v7);
-    PCHash128::operator+=(v17, StaticHash);
-    PCWorkingColorVector::PCWorkingColorVector(v16);
-    PCMutex::lock((v8 + 1616));
-    v13 = std::__tree<std::__value_type<PCHash128,PCRect<double>>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,PCRect<double>>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,PCRect<double>>>>::find<PCHash128>(v8 + 1688, v18);
-    if (v8 + 1696 == v13)
+    Hash = OZRenderParams::getHash(v6);
+    v12 = Hash[1];
+    v23[0] = *Hash;
+    v23[1] = v12;
+    v13 = Hash[3];
+    v24 = Hash[2];
+    v25 = v13;
+    v22[0] = v23[0];
+    v22[1] = v12;
+    v22[2] = v24;
+    v22[3] = v13;
+    StaticHash = OZScene::getStaticHash(v10, v8, v14, v15, v16);
+    PCHash128::operator+=(v22, StaticHash);
+    PCWorkingColorVector::PCWorkingColorVector(v21);
+    PCMutex::lock((v10 + 1616));
+    v18 = std::__tree<std::__value_type<PCHash128,PCRect<double>>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,PCRect<double>>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,PCRect<double>>>>::find<PCHash128>(v10 + 1688, v23);
+    if (v10 + 1696 == v18)
     {
-      PCMutex::unlock((v8 + 1616));
+      PCMutex::unlock((v10 + 1616));
     }
 
     else
     {
-      v15 = *(v13 + 48);
-      v14 = *(v13 + 56);
-      if (v14)
+      v20 = *(v18 + 48);
+      v19 = *(v18 + 56);
+      if (v19)
       {
-        atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      PCMutex::unlock((v8 + 1616));
-      PCMutex::lock(v15);
-      PCMutex::unlock(v15);
-      if (v14)
+      PCMutex::unlock((v10 + 1616));
+      PCMutex::lock(v20);
+      PCMutex::unlock(v20);
+      if (v19)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v19);
       }
     }
 
@@ -8099,67 +8100,69 @@ void sub_260100854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-os_unfair_lock_s *OZScene::getStaticHash(OZScene *this, PCSerializerWriteStream *a2)
+os_unfair_lock_s *OZScene::getStaticHash(OZScene *this, PCSerializerWriteStream *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = MEMORY[0x28223BE20](this);
-  v4 = v3;
-  v5 = v2;
-  v23[520] = *MEMORY[0x277D85DE8];
-  v6 = v2 + 428;
-  v22 = v2 + 428;
-  PCSpinLock::lock(v2 + 428);
-  if (!(v5[400]._os_unfair_lock_opaque | v5[399]._os_unfair_lock_opaque | v5[401]._os_unfair_lock_opaque | v5[402]._os_unfair_lock_opaque))
+  MEMORY[0x28223BE20](this, a2, a3, a4, a5);
+  v6 = v5;
+  v8 = v7;
+  v41 = *MEMORY[0x277D85DE8];
+  v9 = v7 + 428;
+  v39 = v7 + 428;
+  PCSpinLock::lock(v7 + 428);
+  if (!(v8[400]._os_unfair_lock_opaque | v8[399]._os_unfair_lock_opaque | v8[401]._os_unfair_lock_opaque | v8[402]._os_unfair_lock_opaque))
   {
-    PCWorkingColorVector::PCWorkingColorVector(&v21);
-    if (!v7)
+    PCWorkingColorVector::PCWorkingColorVector(&v38);
+    if (!v10)
     {
       __cxa_bad_cast();
     }
 
-    v8 = v7;
-    OZScene::begin_t<OZElement,false,false>(v5, v19);
-    v9 = *&v5[302]._os_unfair_lock_opaque;
-    memset(v17, 0, sizeof(v17));
-    v18 = 1065353216;
-    v13 = v5 + 300;
-    v14 = v9;
-    v15 = v5 + 300;
-    v16 = 0;
-    (*(v8->n128_u64[0] + 40))(v8);
-    while (v19[0] != v13)
+    v11 = v10;
+    OZScene::begin_t<OZElement,false,false>(v8, v36);
+    v12 = *&v8[302]._os_unfair_lock_opaque;
+    memset(v34, 0, sizeof(v34));
+    v35 = 1065353216;
+    v30 = v8 + 300;
+    v31 = v12;
+    v32 = v8 + 300;
+    v33 = 0;
+    (*(v11->n128_u64[0] + 40))(v11);
+    while (v36[0] != v30)
     {
-      if (v19[0] != v19[2])
+      if (v36[0] != v36[2])
       {
-        v10 = *(v19[0] + 16);
-        if (v10)
+        v17 = *(v36[0] + 16);
+        if (v17)
         {
+          if (v18)
           {
-            PCHashWriteStream::PCHashWriteStream(v23);
-            v12[0] = v12;
-            v12[1] = v12;
-            v12[2] = 0;
-            OZObjectManipulator::getStaticHash();
+            v19 = v18;
+            PCHashWriteStream::PCHashWriteStream(v40);
+            v29[0] = v29;
+            v29[1] = v29;
+            v29[2] = 0;
+            OZObjectManipulator::getStaticHash(v19 + 1, v40, v29);
           }
         }
       }
 
-      OZObject::iterator_t<OZElement,false,false,OZObject::defaultValidator>::operator++(v19);
+      OZObject::iterator_t<OZElement,false,false,OZObject::defaultValidator>::operator++(v36);
     }
 
-    OZScene::getStaticLightHash(v23, v5);
-    PCHash128::operator+=(&v21, v23);
-    OZScene::getStaticCameraHash(v23, v5);
-    PCHash128::operator+=(&v21, v23);
-    OZScene::getStaticProjectNodeHash(v23, v5);
-    PCHash128::operator+=(&v21, v23);
-    PCHashWriteStream::setHash(v8, &v21);
-    *&v5[399]._os_unfair_lock_opaque = *PCHashWriteStream::getHash(v8)->i8;
-    std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(v17);
-    std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(&v20);
+    OZScene::getStaticLightHash(v8, v13, v14, v15, v16);
+    PCHash128::operator+=(&v38, v40);
+    OZScene::getStaticCameraHash(v8, v20, v21, v22, v23);
+    PCHash128::operator+=(&v38, v40);
+    OZScene::getStaticProjectNodeHash(v8, v24, v25, v26, v27);
+    PCHash128::operator+=(&v38, v40);
+    PCHashWriteStream::setHash(v11, &v38);
+    *&v8[399]._os_unfair_lock_opaque = *PCHashWriteStream::getHash(v11)->i8;
+    std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(v34);
+    std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(&v37);
   }
 
-  PCSpinLock::unlock(v6);
-  return v5 + 399;
+  PCSpinLock::unlock(v9);
+  return v8 + 399;
 }
 
 uint64_t OZScene::hitCheckDepthOrdered(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7)
@@ -8298,20 +8301,20 @@ void sub_260100F90(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::pair<OZSceneNode *,PCVector3<double>>>::resize(void *a1, unint64_t a2)
+void std::vector<std::pair<OZSceneNode *,PCVector3<double>>>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 5;
+  v2 = (result[1] - *result) >> 5;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 32 * a2;
+      result[1] = *result + 32 * a2;
     }
   }
 
   else
   {
-    std::vector<std::pair<OZSceneNode *,PCVector3<double>>>::__append(a1, a2 - v2);
+    std::vector<std::pair<OZSceneNode *,PCVector3<double>>>::__append(result, a2 - v2);
   }
 }
 
@@ -8345,7 +8348,7 @@ uint64_t OZScene::OZNodeMap::operator[](uint64_t a1, unsigned int a2)
   return v4;
 }
 
-uint64_t OZScene::getAllDropZones@<X0>(OZScene *this@<X0>, uint64_t a2@<X8>)
+uint64_t *OZScene::getAllDropZones@<X0>(const void **__return_ptr a1@<X8>, OZScene *this@<X0>)
 {
   OZScene::begin_t<OZImageElement,false,true>(this, v15);
   v4 = *(this + 151);
@@ -8355,9 +8358,9 @@ uint64_t OZScene::getAllDropZones@<X0>(OZScene *this@<X0>, uint64_t a2@<X8>)
   v10 = v4;
   v11 = this + 1200;
   v12 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
   while (v15[0] != v9)
   {
     if (v15[0] == v15[2] || (v5 = *(v15[0] + 16)) == 0)
@@ -8372,7 +8375,7 @@ uint64_t OZScene::getAllDropZones@<X0>(OZScene *this@<X0>, uint64_t a2@<X8>)
     if (OZImageElement::isDropZone(v6))
     {
       v8 = *(v6 + 20);
-      std::vector<int>::push_back[abi:ne200100](a2, &v8);
+      std::vector<int>::push_back[abi:ne200100](a1, &v8);
     }
 
     OZObject::iterator_t<OZImageElement,false,true,OZObject::defaultValidator>::operator++(v15);
@@ -8382,22 +8385,22 @@ uint64_t OZScene::getAllDropZones@<X0>(OZScene *this@<X0>, uint64_t a2@<X8>)
   return std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(&v16);
 }
 
-void sub_2601011AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_2601011AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
-  v19 = *v16;
-  if (*v16)
+  va_start(va, a23);
+  v26 = *v23;
+  if (*v23)
   {
-    *(v16 + 8) = v19;
-    operator delete(v19);
+    *(v23 + 8) = v26;
+    operator delete(v26);
   }
 
-  std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(v17 + 32);
+  std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(v24 + 32);
   std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t OZScene::getAllDropZonesMap@<X0>(OZScene *this@<X0>, void *a2@<X8>)
+uint64_t *OZScene::getAllDropZonesMap@<X0>(uint64_t *__return_ptr a1@<X8>, OZScene *this@<X0>)
 {
   OZScene::begin_t<OZImageElement,false,true>(this, v23);
   v4 = *(this + 151);
@@ -8407,9 +8410,9 @@ uint64_t OZScene::getAllDropZonesMap@<X0>(OZScene *this@<X0>, void *a2@<X8>)
   v18 = v4;
   v19 = this + 1200;
   v20 = 0;
-  a2[2] = 0;
-  a2[1] = 0;
-  *a2 = a2 + 1;
+  a1[2] = 0;
+  a1[1] = 0;
+  *a1 = (a1 + 1);
   v16 = 0;
   while (*v23 != v17)
   {
@@ -8425,13 +8428,13 @@ uint64_t OZScene::getAllDropZonesMap@<X0>(OZScene *this@<X0>, void *a2@<X8>)
     if (OZImageElement::isDropZone(v6))
     {
       v7 = *(v6 + 20);
-      *&v13[0] = &v16;
-      *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a2, &v16) + 8) = v7;
+      *v13 = &v16;
+      *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a1, &v16, &std::piecewise_construct, v13) + 8) = v7;
       if (OZImageElement::getDropZoneInputID(v6))
       {
         OZScene::begin_t<OZImageElement,false,true>(this, v13);
-        *v23 = v13[0];
-        *&v23[9] = *(v13 + 9);
+        *v23 = *v13;
+        *&v23[9] = *&v13[9];
         v25 = v15;
         std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,void *> *>>(v24, v14[2], 0);
         std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(v14);
@@ -8450,8 +8453,8 @@ uint64_t OZScene::getAllDropZonesMap@<X0>(OZScene *this@<X0>, void *a2@<X8>)
           {
             v10 = *(v9 + 20);
             DropZoneInputID = OZImageElement::getDropZoneInputID(v9);
-            *&v13[0] = &DropZoneInputID;
-            *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a2, &DropZoneInputID) + 8) = v10;
+            *v13 = &DropZoneInputID;
+            *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a1, &DropZoneInputID, &std::piecewise_construct, v13) + 8) = v10;
           }
 
           OZObject::iterator_t<OZImageElement,false,true,OZObject::defaultValidator>::operator++(v23);
@@ -8523,9 +8526,9 @@ uint64_t OZScene::reloadResources(OZScene *this, PGContext *a2)
   return std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(&v9);
 }
 
-void sub_2601016B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2601016B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -8551,7 +8554,7 @@ uint64_t OZScene::markFactoriesForSerialization(OZScene *this, PCSerializerWrite
     v5 = v7;
   }
 
-  OZPublishSettings::markFactoriesForSerialization((this + 720), a2, 0);
+  OZPublishSettings::markFactoriesForSerialization((this + 720), a2);
   std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(v8);
   return std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(v14);
 }
@@ -8576,7 +8579,7 @@ uint64_t OZScene::writeBody(OZScene *this, PCSerializerWriteStream *a2, BOOL a3,
   v60 = 0uLL;
   v61 = 0;
   v8 = this + 336;
-  OZSceneSettings::getFrameDuration((this + 336), &v60);
+  OZSceneSettings::getFrameDuration(&v60, (this + 336));
   PCSerializerWriteStream::pushScope(a2, &OZSceneScope);
   Size = PVPerfStats::FrameStats::GetSize((this + 1816));
   v10 = PCGetDefaultRenderModel();
@@ -8875,9 +8878,9 @@ uint64_t OZScene::parseBegin(OZScene *this, PCSerializerReadStream *a2)
   return 1;
 }
 
-void sub_260102968(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_260102968(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -8900,7 +8903,7 @@ void OZScene::renumberObjectsWithDuplicateIDs(OZScene *this, const void ****a2)
         v15[1] = 0;
         v14 = v15;
         p_var3 = &var3;
-        *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(&v14, &var3) + 8) = NextUniqueID;
+        *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(&v14, &var3, &std::piecewise_construct, &p_var3) + 8) = NextUniqueID;
         v9 = OZChannelBase::getObjectManipulator(v5);
         (*(*v9 + 360))(v9, &v14);
         std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(&v14, v15[0]);
@@ -9131,13 +9134,13 @@ char *OZScene::updateColorChannelsForWorkingGamut(char *result, uint64_t a2, uin
         do
         {
           result = *v13;
-          if (((*v13)[57] & 0x10) != 0)
+          if ((*(*v13 + 57) & 0x10) != 0)
           {
             result = OZScene::updateColorChannelsForWorkingGamut(v7, a2, a3, v14);
             v12 = v11[1];
           }
 
-          ++v13;
+          v13 += 8;
         }
 
         while (v13 != v12);
@@ -9311,7 +9314,7 @@ LABEL_44:
         {
           v14 = v24;
           memset(&v21, 0, sizeof(v21));
-          OZSceneSettings::getFrameDuration((this + 336), &v21);
+          OZSceneSettings::getFrameDuration(&v21, (this + 336));
           v21.value = (v14 * v21.value);
           v15 = (this + 1176);
           *(this + 149) = v21.epoch;
@@ -9460,33 +9463,33 @@ LABEL_51:
   return 1;
 }
 
-double OZScene::begin@<D0>(OZScene *this@<X0>, uint64_t a2@<X8>)
+double OZScene::begin@<D0>(uint64_t *__return_ptr a1@<X8>, OZScene *this@<X0>)
 {
   v2 = *(this + 151);
   result = 0.0;
-  *(a2 + 32) = 0u;
-  *(a2 + 48) = 0u;
-  *(a2 + 64) = 1065353216;
-  *a2 = v2;
-  *(a2 + 8) = v2;
-  *(a2 + 16) = this + 1200;
-  *(a2 + 24) = 0;
+  *(a1 + 2) = 0u;
+  *(a1 + 3) = 0u;
+  *(a1 + 16) = 1065353216;
+  *a1 = v2;
+  a1[1] = v2;
+  a1[2] = this + 1200;
+  *(a1 + 24) = 0;
   return result;
 }
 
-double OZScene::begin_all@<D0>(OZScene *this@<X0>, uint64_t a2@<X8>)
+double OZScene::begin_all@<D0>(uint64_t *__return_ptr a1@<X8>, OZScene *this@<X0>)
 {
   v2 = *(this + 151);
   result = 0.0;
-  *(a2 + 48) = 0u;
-  *(a2 + 64) = 0u;
-  *(a2 + 24) = 0;
-  *(a2 + 32) = 0;
-  *(a2 + 80) = 1065353216;
-  *a2 = v2;
-  *(a2 + 8) = v2;
-  *(a2 + 16) = this + 1200;
-  *(a2 + 40) = 0;
+  *(a1 + 3) = 0u;
+  *(a1 + 4) = 0u;
+  a1[3] = 0;
+  a1[4] = 0;
+  *(a1 + 20) = 1065353216;
+  *a1 = v2;
+  a1[1] = v2;
+  a1[2] = this + 1200;
+  *(a1 + 10) = 0;
   return result;
 }
 
@@ -9679,7 +9682,7 @@ void sub_260103E8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t OZScene::duplicateSelected(OZScene *this)
 {
-  OZScene::begin_all_sel(this, v69);
+  OZScene::begin_all_sel(v69, this);
   v2 = *(this + 151);
   memset(v67, 0, sizeof(v67));
   v64 = 0;
@@ -9765,7 +9768,7 @@ uint64_t OZScene::duplicateSelected(OZScene *this)
       v6 = 16;
     }
 
-    v8 = *(v5 + 16);
+    v8 = v5[2];
     v9 = v8 + v6;
     if (v8)
     {

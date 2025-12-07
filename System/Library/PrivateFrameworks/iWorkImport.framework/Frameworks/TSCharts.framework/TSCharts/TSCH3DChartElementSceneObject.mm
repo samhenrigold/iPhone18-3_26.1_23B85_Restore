@@ -156,30 +156,30 @@
   stateCopy = state;
   sceneCopy = scene;
   v11 = objc_msgSend_camera(sceneCopy, v7, v8, v9, v10);
-  v16 = v11;
+  v15 = v11;
   if (v11)
   {
-    objc_msgSend_space(v11, v12, v13, v14, v15);
+    objc_msgSend_space(v11, v12, v13, v14);
   }
 
   else
   {
-    memset(v28, 0, sizeof(v28));
+    memset(v26, 0, sizeof(v26));
   }
 
   if (sceneCopy)
   {
-    objc_msgSend_transform(sceneCopy, v17, v18, v19, v20);
+    objc_msgSend_transform(sceneCopy, v16, v17, v18);
   }
 
   else
   {
-    memset(v25, 0, sizeof(v25));
+    memset(v23, 0, sizeof(v23));
   }
 
-  sub_2761558A0(v28, v25, v26);
-  *&v21 = sub_27617F7E4(v27, v28, v26);
-  objc_msgSend_setLightingPackageEffectState_effectsStates_(TSCH3DLightingPackageShaderEffect, v22, v21, v23, v24, v27, stateCopy);
+  sub_2761558A0(v26, v23, v24);
+  *&v19 = sub_27617F7E4(v25, v26, v24);
+  objc_msgSend_setLightingPackageEffectState_effectsStates_(TSCH3DLightingPackageShaderEffect, v20, v19, v21, v22, v25, stateCopy);
 }
 
 - (tvec2<float>)labelObjectSpacePosition:(unsigned int)position axisValue:(double)value intercept:(double)intercept
@@ -285,31 +285,31 @@ LABEL_8:
 
   v27 = objc_msgSend_properties(v22, v23, v24, v25, v26);
   v32 = objc_msgSend_enumerator(v22, v28, v29, v30, v31);
-  v38 = objc_msgSend_labels(v27, v33, v34, v35, v36);
+  v37 = objc_msgSend_labels(v27, v33, v34, v35, v36);
   if (v32)
   {
-    objc_msgSend_size(v32, v37, v39, v40, v41);
+    objc_msgSend_size(v32, v38, v39, v40);
   }
 
   else
   {
-    v55 = 0;
+    v54 = 0;
   }
 
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = sub_27617E0D8;
-  v50[3] = &unk_27A6B65A0;
-  v50[4] = self;
-  v42 = objectCopy;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = sub_27617E0D8;
+  v49[3] = &unk_27A6B65A0;
+  v49[4] = self;
+  v41 = objectCopy;
+  v50 = v41;
+  v42 = pipelineCopy;
   v51 = v42;
-  v43 = pipelineCopy;
+  v43 = v32;
   v52 = v43;
-  v44 = v32;
+  v44 = v27;
   v53 = v44;
-  v45 = v27;
-  v54 = v45;
-  objc_msgSend_renderLabelsResourcesSessionWithResources_expectedSize_pipeline_renderBlock_(v42, v46, v47, v48, v49, v38, &v55, v43, v50);
+  objc_msgSend_renderLabelsResourcesSessionWithResources_expectedSize_pipeline_renderBlock_(v41, v45, v46, v47, v48, v37, &v54, v42, v49);
 }
 
 - (tvec3<float>)adjustedScaleForInfoChartScale:(void *)scale scene:(id)scene
@@ -376,7 +376,7 @@ LABEL_8:
   v14 = pointCopy;
   if (pointCopy)
   {
-    objc_msgSend_element(pointCopy, v10, v11, v12, v13);
+    objc_msgSend_element(pointCopy, v11, v12, v13);
     objc_msgSend_seriesSelectionPathWithSeriesIndex_(TSCHSelectionPath, v15, v16, v17, v18, v40);
   }
 
@@ -429,51 +429,51 @@ LABEL_8:
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v30, v31, v32, v33);
   }
 
-  v162 = 0;
-  v163 = &v162;
-  v164 = 0x3032000000;
-  v165 = sub_27617ED18;
-  v166 = sub_27617ED28;
-  v167 = objc_msgSend_resource(TSCH3DGeometryResource, v14, COERCE_DOUBLE(0x3032000000), v17, v18);
+  v161 = 0;
+  v162 = &v161;
+  v163 = 0x3032000000;
+  v164 = sub_27617ED18;
+  v165 = sub_27617ED28;
+  v166 = objc_msgSend_resource(TSCH3DGeometryResource, v14, COERCE_DOUBLE(0x3032000000), v17, v18);
   if (objc_msgSend_useBoundsGeometry(elementCopy, v34, v35, v36, v37))
   {
     v43 = objc_msgSend_series(elementCopy, v38, v39, v40, v41);
     if (elementCopy)
     {
-      objc_msgSend_index(elementCopy, v42, v44, v45, v46);
+      objc_msgSend_index(elementCopy, v44, v45, v46);
     }
 
     else
     {
-      *&v159 = 0;
+      *&v158 = 0;
     }
 
-    v47 = objc_msgSend_boundsGeometryForSeries_index_(v15, v42, v44, v45, v46, v43, &v159);
-    v48 = v163[5];
-    v163[5] = v47;
+    v47 = objc_msgSend_boundsGeometryForSeries_index_(v15, v42, v44, v45, v46, v43, &v158);
+    v48 = v162[5];
+    v162[5] = v47;
   }
 
-  v49 = objc_msgSend_resource(v163[5], v38, v39, v40, v41);
+  v49 = objc_msgSend_resource(v162[5], v38, v39, v40, v41);
 
   if (!v49)
   {
     v55 = objc_msgSend_series(elementCopy, v50, v51, v52, v53);
     if (elementCopy)
     {
-      objc_msgSend_index(elementCopy, v54, v56, v57, v58);
+      objc_msgSend_index(elementCopy, v56, v57, v58);
     }
 
     else
     {
-      *&v159 = 0;
+      *&v158 = 0;
     }
 
-    v59 = objc_msgSend_geometryForSeries_index_(v15, v54, v56, v57, v58, v55, &v159);
-    v60 = v163[5];
-    v163[5] = v59;
+    v59 = objc_msgSend_geometryForSeries_index_(v15, v54, v56, v57, v58, v55, &v158);
+    v60 = v162[5];
+    v162[5] = v59;
   }
 
-  v61 = objc_msgSend_resource(v163[5], v50, v51, v52, v53);
+  v61 = objc_msgSend_resource(v162[5], v50, v51, v52, v53);
 
   if (!v61)
   {
@@ -485,78 +485,78 @@ LABEL_8:
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v77, v78, v79, v80);
   }
 
-  v81 = objc_msgSend_resource(v163[5], v62, v63, v64, v65);
-  v86 = v81;
+  v81 = objc_msgSend_resource(v162[5], v62, v63, v64, v65);
+  v85 = v81;
   if (v81)
   {
-    objc_msgSend_bufferInfo(v81, v82, v83, v84, v85);
+    objc_msgSend_bufferInfo(v81, v82, v83, v84);
   }
 
   else
   {
-    v160 = 0u;
-    v161 = 0u;
     v159 = 0u;
+    v160 = 0u;
+    v158 = 0u;
   }
 
-  if (v160)
+  if (v159)
   {
-    if ((objc_msgSend_geometryOnly(elementCopy, v87, v88, v89, v90) & 1) == 0)
+    if ((objc_msgSend_geometryOnly(elementCopy, v86, v87, v88, v89) & 1) == 0)
     {
-      v96 = objc_msgSend_series(elementCopy, v91, v92, v93, v94);
+      v95 = objc_msgSend_series(elementCopy, v90, v91, v92, v93);
       if (elementCopy)
       {
-        objc_msgSend_index(elementCopy, v95, v97, v98, v99);
+        objc_msgSend_index(elementCopy, v96, v97, v98);
       }
 
       else
       {
-        v158 = 0;
+        v157 = 0;
       }
 
-      v100 = objc_msgSend_normalsForSeries_index_(v15, v95, v97, v98, v99, v96, &v158);
-      objc_msgSend_normals_(v9, v101, v102, v103, v104, v100);
+      v99 = objc_msgSend_normalsForSeries_index_(v15, v94, v96, v97, v98, v95, &v157);
+      objc_msgSend_normals_(v9, v100, v101, v102, v103, v99);
 
-      v110 = objc_msgSend_series(elementCopy, v105, v106, v107, v108);
+      v109 = objc_msgSend_series(elementCopy, v104, v105, v106, v107);
       if (elementCopy)
       {
-        objc_msgSend_index(elementCopy, v109, v111, v112, v113);
+        objc_msgSend_index(elementCopy, v110, v111, v112);
       }
 
       else
       {
-        v158 = 0;
+        v157 = 0;
       }
 
-      objc_msgSend_addTexcoordsToProcessor_series_index_(v15, v109, v111, v112, v113, v9, v110, &v158);
+      objc_msgSend_addTexcoordsToProcessor_series_index_(v15, v108, v110, v111, v112, v9, v109, &v157);
     }
 
-    v114 = objc_msgSend_resource(v163[5], v91, v92, v93, v94);
-    objc_msgSend_geometry_(v9, v115, v116, v117, v118, v114);
+    v113 = objc_msgSend_resource(v162[5], v90, v91, v92, v93);
+    objc_msgSend_geometry_(v9, v114, v115, v116, v117, v113);
 
-    v123 = objc_msgSend_pipeline(elementCopy, v119, v120, v121, v122);
-    v128 = objc_msgSend_scene(v123, v124, v125, v126, v127);
-    v133 = objc_msgSend_delegateFromScene_(self, v129, v130, v131, v132, v128);
+    v122 = objc_msgSend_pipeline(elementCopy, v118, v119, v120, v121);
+    v127 = objc_msgSend_scene(v122, v123, v124, v125, v126);
+    v132 = objc_msgSend_delegateFromScene_(self, v128, v129, v130, v131, v127);
 
-    v154 = &unk_2885B1D68;
-    v135 = TSUProtocolCast();
-    if (!v135 || (objc_msgSend_geometry(v163[5], v134, v136, v137, v138, &unk_2885B1D68), v139 = objc_claimAutoreleasedReturnValue(), v144 = objc_msgSend_willSubmitGeometry_(v135, v140, v141, v142, v143, v139), v139, v135, (v144 & 1) == 0))
+    v153 = &unk_2885B1D68;
+    v134 = TSUProtocolCast();
+    if (!v134 || (objc_msgSend_geometry(v162[5], v133, v135, v136, v137, &unk_2885B1D68), v138 = objc_claimAutoreleasedReturnValue(), v143 = objc_msgSend_willSubmitGeometry_(v134, v139, v140, v141, v142, v138), v138, v134, (v143 & 1) == 0))
     {
-      if ((objc_msgSend_willSubmitElement_sceneObject_(v133, v134, v136, v137, v138, elementCopy, self, v154) & 1) == 0)
+      if ((objc_msgSend_willSubmitElement_sceneObject_(v132, v133, v135, v136, v137, elementCopy, self, v153) & 1) == 0)
       {
-        v149 = objc_msgSend_twoPasses(elementCopy, v145, v146, v147, v148);
-        v155[0] = MEMORY[0x277D85DD0];
-        v155[1] = 3221225472;
-        v155[2] = sub_27617ED30;
-        v155[3] = &unk_27A6B65F0;
-        v157 = &v162;
-        v156 = v9;
-        objc_msgSend_renderTwoPassGeometry_processor_renderBlock_(self, v150, v151, v152, v153, v149, v156, v155);
+        v148 = objc_msgSend_twoPasses(elementCopy, v144, v145, v146, v147);
+        v154[0] = MEMORY[0x277D85DD0];
+        v154[1] = 3221225472;
+        v154[2] = sub_27617ED30;
+        v154[3] = &unk_27A6B65F0;
+        v156 = &v161;
+        v155 = v9;
+        objc_msgSend_renderTwoPassGeometry_processor_renderBlock_(self, v149, v150, v151, v152, v148, v155, v154);
       }
     }
   }
 
-  _Block_object_dispose(&v162, 8);
+  _Block_object_dispose(&v161, 8);
 }
 
 - (ElementRenderPass)render:(id)render pushMatrix:(BOOL)matrix delayedPass:(BOOL)pass
@@ -679,7 +679,7 @@ LABEL_4:
   v9 = processorCopy;
   if (processorCopy)
   {
-    objc_msgSend_renderState(processorCopy, v5, v6, v7, v8);
+    objc_msgSend_renderState(processorCopy, v6, v7, v8);
   }
 
   else

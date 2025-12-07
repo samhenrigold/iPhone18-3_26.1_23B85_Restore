@@ -24,7 +24,7 @@ uint64_t dxbte_state_reset(uint64_t a1)
   return 0;
 }
 
-uint64_t dxbte_state_equals(unint64_t a1, unint64_t a2)
+uint64_t dxbte_state_equals(uint64_t *a1, uint64_t *a2)
 {
   if (!(a1 | a2))
   {
@@ -44,8 +44,8 @@ uint64_t dxbte_state_equals(unint64_t a1, unint64_t a2)
 
       if (a1 == a2)
       {
-        v5 = (a2 + 24);
-        v6 = (a1 + 24);
+        v5 = a2 + 3;
+        v6 = a1 + 3;
         result = 1;
         while (1)
         {
@@ -83,32 +83,33 @@ uint64_t ttmark(uint64_t a1)
   return ttsh1(a1);
 }
 
-double ttgesp(uint64_t a1, int a2, int a3)
+double ttgesp(_DWORD *result, int a2, uint64_t a3)
 {
-  v5 = (a1 + 32340);
+  v3 = a3;
+  v5 = result + 8085;
   if (a2 == 2)
   {
-    if (*(a1 + 34004) <= 0)
+    if (result[8501] <= 0)
     {
-      v8 = *(a1 + 32344 + 4 * ((*v5 + a3) & 0x3F));
+      v8 = result[((*v5 + a3) & 0x3F) + 8086];
       v9 = (*v5 + a3 + 1) & 0x3F;
-      *(a1 + 32344 + 4 * ((*v5 + a3) & 0x3F)) = *(a1 + 32344 + 4 * ((*v5 + a3 + 1) & 0x3F));
-      *(a1 + 32344 + 4 * v9) = v8;
+      result[((*v5 + a3) & 0x3F) + 8086] = result[((*v5 + a3 + 1) & 0x3F) + 8086];
+      result[v9 + 8086] = v8;
     }
   }
 
   else if (a2 == 1)
   {
-    if (*(a1 + 34004) <= 0)
+    if (result[8501] <= 0)
     {
-      if (*(a1 + 4 * ((*v5 + a3) & 0x3F) + 32344) == 28)
+      if (result[((*v5 + a3) & 0x3F) + 8086] == 28)
       {
         do
         {
-          v10 = ttshnd(a1, a3);
+          v10 = ttshnd(result, v3);
           if (v5[416] <= 1u)
           {
-            result = stacq(a1, v10);
+            v7 = stacq(result, v10);
           }
         }
 
@@ -118,21 +119,21 @@ double ttgesp(uint64_t a1, int a2, int a3)
 
     else
     {
-      *(a1 + 34360) = a3;
+      result[8590] = a3;
     }
   }
 
-  else if (!a2 && *(a1 + 34004) <= 0)
+  else if (!a2 && result[8501] <= 0)
   {
-    v6 = ttshnd(a1, a3);
+    v6 = ttshnd(result, a3);
     if ((v5[416] & 0x80000000) == 0)
     {
 
-      return stacq(a1, v6);
+      return stacq(result, v6);
     }
   }
 
-  return result;
+  return v7;
 }
 
 uint64_t tttbl(uint64_t result)
@@ -624,7 +625,7 @@ LABEL_29:
       v19 = v14[1];
       if (*v4 >= 18)
       {
-        v19 = v19 | (v14[2] << 8);
+        v19 |= v14[2] << 8;
       }
 
       v20 = trcck(a1, v17, v19);
@@ -875,7 +876,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t (*dxlog_setup(uint64_t (*result)()))()
+void (*dxlog_setup(void (*result)()))()
 {
   v1 = dxlog_printf_standard_implementation;
   if (result)

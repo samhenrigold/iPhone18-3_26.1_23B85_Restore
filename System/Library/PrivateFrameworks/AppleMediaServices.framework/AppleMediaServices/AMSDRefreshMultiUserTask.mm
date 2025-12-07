@@ -1,4 +1,5 @@
 @interface AMSDRefreshMultiUserTask
++ (id)_createGenerateMultiUserTokenTaskForAccount:(id)account withController:(id)controller home:(id)home multiUserTokenExists:(BOOL)exists;
 - (AMSDRefreshMultiUserTask)initWithMultiUserController:(id)controller homes:(id)homes options:(id)options;
 - (BOOL)_createMultiUserTokenForHome:(id)home error:(id *)error;
 - (id)_stringForStatusValue:(unint64_t)value;
@@ -38,6 +39,20 @@
   v2 = [(AMSDRefreshMultiUserTask *)self performTaskWithBlock:v4];
 
   return v2;
+}
+
++ (id)_createGenerateMultiUserTokenTaskForAccount:(id)account withController:(id)controller home:(id)home multiUserTokenExists:(BOOL)exists
+{
+  existsCopy = exists;
+  homeCopy = home;
+  controllerCopy = controller;
+  accountCopy = account;
+  v12 = [[AMSDGenerateMultiUserTokenTask alloc] initWithController:controllerCopy account:accountCopy home:homeCopy];
+
+  [(AMSDGenerateMultiUserTokenTask *)v12 setRunMode:1];
+  [(AMSDGenerateMultiUserTokenTask *)v12 setTokenNeedsRegeneration:existsCopy];
+
+  return v12;
 }
 
 - (BOOL)_createMultiUserTokenForHome:(id)home error:(id *)error

@@ -3,6 +3,7 @@
 - (id)_accessibilityControlsContainerView;
 - (id)accessibilityControlServiceName;
 - (void)_accessibilityMoveToActiveControl;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation HUQuickControlViewControllerAccessibility
@@ -17,6 +18,20 @@
   [validationsCopy validateClass:@"HUQuickControlColorViewAccessibility" hasInstanceMethod:@"_accessibilityFirstQuickControlElementForFocus" withFullSignature:{"@", 0}];
   [validationsCopy validateClass:@"HUQuickControlContainerViewController" hasInstanceMethod:@"controlContainerView" withFullSignature:{"@", 0}];
   [validationsCopy validateClass:@"HUQuickControlContainerView" hasInstanceMethod:@"activeControlView" withFullSignature:{"@", 0}];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = HUQuickControlViewControllerAccessibility;
+  [(HUQuickControlViewControllerAccessibility *)&v6 viewDidAppear:appear];
+  _accessibilityControlsContainerView = [(HUQuickControlViewControllerAccessibility *)self _accessibilityControlsContainerView];
+  v5 = [_accessibilityControlsContainerView safeValueForKey:@"activeControlView"];
+
+  if ([v5 _accessibilityViewIsVisible])
+  {
+    UIAccessibilityPostNotification(*MEMORY[0x29EDC7F10], v5);
+  }
 }
 
 - (id)_accessibilityControlsContainerView
@@ -67,10 +82,7 @@
 
 uint64_t __78__HUQuickControlViewControllerAccessibility__accessibilityMoveToActiveControl__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _accessibilityFirstQuickControlElementForFocus];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _accessibilityFirstQuickControlElementForFocus];
 
   return MEMORY[0x2A1C71028]();
 }

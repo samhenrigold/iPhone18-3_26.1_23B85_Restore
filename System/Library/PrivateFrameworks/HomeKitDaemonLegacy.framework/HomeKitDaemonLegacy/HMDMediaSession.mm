@@ -22,6 +22,7 @@
 - (void)_postNotificationOfMediaStateUpdateWithPayload:(id)payload;
 - (void)_postNotificationOfMediaStateUpdateWithRequestMessageInformation:(id)information;
 - (void)_queueSetPlaybackStateCompletion:(id)completion;
+- (void)_registerForSessionUpdates:(BOOL)updates;
 - (void)_setPlaybackState:(int64_t)state completion:(id)completion;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
@@ -55,7 +56,7 @@
 
 void __32__HMDMediaSession_timerDidFire___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) setPlaybackStateTimer];
 
@@ -69,7 +70,7 @@ void __32__HMDMediaSession_timerDidFire___block_invoke(uint64_t a1)
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v17 = v7;
+      v16 = v7;
       _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Timed out waiting for media playback state notification - reading the state explicitly...", buf, 0xCu);
     }
 
@@ -81,18 +82,16 @@ void __32__HMDMediaSession_timerDidFire___block_invoke(uint64_t a1)
 
     objc_initWeak(buf, *v8);
     v12 = *v8;
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __32__HMDMediaSession_timerDidFire___block_invoke_74;
-    v14[3] = &unk_279729900;
-    objc_copyWeak(v15, buf);
-    v15[1] = v11;
-    [v12 _getPlaybackStateWithCompletion:v14];
-    objc_destroyWeak(v15);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __32__HMDMediaSession_timerDidFire___block_invoke_74;
+    v13[3] = &unk_279729900;
+    objc_copyWeak(v14, buf);
+    v14[1] = v11;
+    [v12 _getPlaybackStateWithCompletion:v13];
+    objc_destroyWeak(v14);
     objc_destroyWeak(buf);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __32__HMDMediaSession_timerDidFire___block_invoke_74(uint64_t a1, void *a2, uint64_t a3)
@@ -174,95 +173,93 @@ void __32__HMDMediaSession_timerDidFire___block_invoke_74(uint64_t a1, void *a2,
 
 void __46__HMDMediaSession_writeProperties_completion___block_invoke(uint64_t a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   group = dispatch_group_create();
-  v28 = a1;
-  v25 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
-  v38 = 0u;
-  v39 = 0u;
+  v27 = a1;
+  v24 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
   v37 = 0u;
+  v38 = 0u;
   v36 = 0u;
+  v35 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
+  v2 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
   if (v2)
   {
-    v4 = *v37;
+    v4 = *v36;
     v5 = *MEMORY[0x277CD0938];
     *&v3 = 138543618;
-    v24 = v3;
+    v23 = v3;
     do
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v37 != v4)
+        if (*v36 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v36 + 1) + 8 * i);
+        v7 = *(*(&v35 + 1) + 8 * i);
         v8 = [v7 property];
         v9 = [v8 isEqual:v5];
 
         if (v9)
         {
           v10 = objc_autoreleasePoolPush();
-          v11 = *(v28 + 40);
+          v11 = *(v27 + 40);
           v12 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
           {
             v13 = HMFGetLogIdentifier();
             v14 = [v7 value];
-            *buf = v24;
-            v41 = v13;
-            v42 = 2112;
-            v43 = v14;
+            *buf = v23;
+            v40 = v13;
+            v41 = 2112;
+            v42 = v14;
             _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Setting playback state received from remote %@", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(v10);
-          v15 = [*(v28 + 40) state];
+          v15 = [*(v27 + 40) state];
           v16 = [v15 playbackState];
 
           v17 = [v7 value];
           v18 = [v17 unsignedIntegerValue];
 
           dispatch_group_enter(group);
-          objc_initWeak(buf, *(v28 + 40));
-          v19 = *(v28 + 40);
-          v32[0] = MEMORY[0x277D85DD0];
-          v32[1] = 3221225472;
-          v32[2] = __46__HMDMediaSession_writeProperties_completion___block_invoke_68;
-          v32[3] = &unk_2797299F0;
-          objc_copyWeak(v35, buf);
-          v32[4] = v7;
-          v35[1] = v16;
-          v33 = v25;
-          v34 = group;
-          [v19 _setPlaybackState:v18 completion:v32];
+          objc_initWeak(buf, *(v27 + 40));
+          v19 = *(v27 + 40);
+          v31[0] = MEMORY[0x277D85DD0];
+          v31[1] = 3221225472;
+          v31[2] = __46__HMDMediaSession_writeProperties_completion___block_invoke_68;
+          v31[3] = &unk_2797299F0;
+          objc_copyWeak(v34, buf);
+          v31[4] = v7;
+          v34[1] = v16;
+          v32 = v24;
+          v33 = group;
+          [v19 _setPlaybackState:v18 completion:v31];
 
-          objc_destroyWeak(v35);
+          objc_destroyWeak(v34);
           objc_destroyWeak(buf);
         }
       }
 
-      v2 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v2 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
     }
 
     while (v2);
   }
 
-  v20 = [*(v28 + 40) workQueue];
+  v20 = [*(v27 + 40) workQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __46__HMDMediaSession_writeProperties_completion___block_invoke_69;
   block[3] = &unk_279735738;
-  v21 = *(v28 + 48);
-  v30 = v25;
-  v31 = v21;
-  v22 = v25;
+  v21 = *(v27 + 48);
+  v29 = v24;
+  v30 = v21;
+  v22 = v24;
   dispatch_group_notify(group, v20, block);
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __46__HMDMediaSession_writeProperties_completion___block_invoke_68(uint64_t a1, void *a2)
@@ -304,7 +301,7 @@ uint64_t __46__HMDMediaSession_writeProperties_completion___block_invoke_69(uint
 
 void __46__HMDMediaSession_writeProperties_completion___block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = [HMDMediaPropertyResponse responseWithRequest:*(a1 + 40) error:?];
@@ -321,11 +318,11 @@ void __46__HMDMediaSession_writeProperties_completion___block_invoke_2(uint64_t 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v8;
-      v15 = 2048;
-      v16 = v4;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@responding to set playback with state %ld", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v8;
+      v14 = 2048;
+      v15 = v4;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@responding to set playback with state %ld", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -342,8 +339,6 @@ void __46__HMDMediaSession_writeProperties_completion___block_invoke_2(uint64_t 
 
   [*(a1 + 56) addObject:v2];
   dispatch_group_leave(*(a1 + 64));
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readProperties:(id)properties completion:(id)completion
@@ -365,36 +360,36 @@ void __46__HMDMediaSession_writeProperties_completion___block_invoke_2(uint64_t 
 
 void __45__HMDMediaSession_readProperties_completion___block_invoke(id *a1)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   group = dispatch_group_create();
-  v48 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(a1[4], "count")}];
-  v49 = [MEMORY[0x277CBEAA8] date];
+  v47 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(a1[4], "count")}];
+  v48 = [MEMORY[0x277CBEAA8] date];
   objc_initWeak(&location, a1[5]);
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
   v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   obj = a1[4];
-  v2 = [obj countByEnumeratingWithState:&v60 objects:v65 count:16];
+  v2 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
   if (v2)
   {
-    v3 = *v61;
+    v3 = *v60;
     v4 = *MEMORY[0x277CD0938];
-    v45 = *MEMORY[0x277CD0960];
-    v46 = *MEMORY[0x277CD0990];
-    v43 = *MEMORY[0x277CD0920];
-    v44 = *MEMORY[0x277CD09B0];
+    v44 = *MEMORY[0x277CD0960];
+    v45 = *MEMORY[0x277CD0990];
+    v42 = *MEMORY[0x277CD0920];
+    v43 = *MEMORY[0x277CD09B0];
     do
     {
       v5 = 0;
       do
       {
-        if (*v61 != v3)
+        if (*v60 != v3)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v60 + 1) + 8 * v5);
+        v6 = *(*(&v59 + 1) + 8 * v5);
         v7 = [v6 property];
         v8 = [v7 isEqual:v4];
 
@@ -408,12 +403,12 @@ void __45__HMDMediaSession_readProperties_completion___block_invoke(id *a1)
           aBlock[1] = 3221225472;
           aBlock[2] = __45__HMDMediaSession_readProperties_completion___block_invoke_2;
           aBlock[3] = &unk_2797299A0;
-          objc_copyWeak(v59, &location);
-          v55 = group;
-          v56 = v6;
-          v57 = v49;
-          v59[1] = v10;
-          v58 = v48;
+          objc_copyWeak(v58, &location);
+          v54 = group;
+          v55 = v6;
+          v56 = v48;
+          v58[1] = v10;
+          v57 = v47;
           v11 = _Block_copy(aBlock);
           if ([a1[5] isCurrentAccessorySession])
           {
@@ -425,43 +420,43 @@ void __45__HMDMediaSession_readProperties_completion___block_invoke(id *a1)
             v11[2](v11, 0, v10);
           }
 
-          objc_destroyWeak(v59);
+          objc_destroyWeak(v58);
         }
 
         else
         {
           v12 = [v6 property];
-          v13 = [v12 isEqual:v46];
+          v13 = [v12 isEqual:v45];
 
           if (v13)
           {
             v14 = MEMORY[0x277CCABB0];
             v15 = [a1[5] state];
             v16 = [v14 numberWithInteger:{objc_msgSend(v15, "shuffleState")}];
-            v17 = [HMDMediaPropertyResponse responseWithRequest:v6 value:v16 updatedTime:v49];
+            v17 = [HMDMediaPropertyResponse responseWithRequest:v6 value:v16 updatedTime:v48];
 
-            [v48 addObject:v17];
+            [v47 addObject:v17];
           }
 
           else
           {
             v18 = [v6 property];
-            v19 = [v18 isEqual:v45];
+            v19 = [v18 isEqual:v44];
 
             if (v19)
             {
               v20 = MEMORY[0x277CCABB0];
               v21 = [a1[5] state];
               v22 = [v20 numberWithInteger:{objc_msgSend(v21, "repeatState")}];
-              v23 = [HMDMediaPropertyResponse responseWithRequest:v6 value:v22 updatedTime:v49];
+              v23 = [HMDMediaPropertyResponse responseWithRequest:v6 value:v22 updatedTime:v48];
 
-              [v48 addObject:v23];
+              [v47 addObject:v23];
             }
 
             else
             {
               v24 = [v6 property];
-              v25 = [v24 isEqual:v44];
+              v25 = [v24 isEqual:v43];
 
               if (v25)
               {
@@ -472,16 +467,16 @@ void __45__HMDMediaSession_readProperties_completion___block_invoke(id *a1)
                 {
                   v28 = [a1[5] state];
                   v29 = [v28 volume];
-                  v30 = [HMDMediaPropertyResponse responseWithRequest:v6 value:v29 updatedTime:v49];
+                  v30 = [HMDMediaPropertyResponse responseWithRequest:v6 value:v29 updatedTime:v48];
 
-                  [v48 addObject:v30];
+                  [v47 addObject:v30];
                 }
               }
 
               else
               {
                 v31 = [v6 property];
-                v32 = [v31 isEqual:v43];
+                v32 = [v31 isEqual:v42];
 
                 if (v32)
                 {
@@ -492,9 +487,9 @@ void __45__HMDMediaSession_readProperties_completion___block_invoke(id *a1)
                   {
                     v35 = [a1[5] state];
                     v36 = [v35 mediaUniqueIdentifier];
-                    v37 = [HMDMediaPropertyResponse responseWithRequest:v6 value:v36 updatedTime:v49];
+                    v37 = [HMDMediaPropertyResponse responseWithRequest:v6 value:v36 updatedTime:v48];
 
-                    [v48 addObject:v37];
+                    [v47 addObject:v37];
                   }
                 }
               }
@@ -506,7 +501,7 @@ void __45__HMDMediaSession_readProperties_completion___block_invoke(id *a1)
       }
 
       while (v2 != v5);
-      v38 = [obj countByEnumeratingWithState:&v60 objects:v65 count:16];
+      v38 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
       v2 = v38;
     }
 
@@ -519,13 +514,12 @@ void __45__HMDMediaSession_readProperties_completion___block_invoke(id *a1)
   block[2] = __45__HMDMediaSession_readProperties_completion___block_invoke_3;
   block[3] = &unk_279735738;
   v40 = a1[6];
-  v52 = v48;
-  v53 = v40;
-  v41 = v48;
+  v51 = v47;
+  v52 = v40;
+  v41 = v47;
   dispatch_group_notify(group, v39, block);
 
   objc_destroyWeak(&location);
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __45__HMDMediaSession_readProperties_completion___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -583,7 +577,7 @@ uint64_t __45__HMDMediaSession_readProperties_completion___block_invoke_3(uint64
 
 - (void)updateEndpoint:(id)endpoint
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   endpointCopy = endpoint;
   os_unfair_lock_lock_with_options();
   v6 = self->_endpoint;
@@ -599,20 +593,19 @@ uint64_t __45__HMDMediaSession_readProperties_completion___block_invoke_3(uint64
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543874;
-      v15 = v12;
-      v16 = 2112;
-      v17 = v6;
-      v18 = 2112;
-      v19 = endpointCopy;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@MediaSession endpoint %@ changed to %@", &v14, 0x20u);
+      v13 = 138543874;
+      v14 = v12;
+      v15 = 2112;
+      v16 = v6;
+      v17 = 2112;
+      v18 = endpointCopy;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@MediaSession endpoint %@ changed to %@", &v13, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMediaEndpoint)endpoint
@@ -731,16 +724,16 @@ uint64_t __45__HMDMediaSession_readProperties_completion___block_invoke_3(uint64
 
 - (void)_notifyClientsOfUpdatedVolume:(id)volume muted:(id)muted inResponseToMessage:(id)message
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   volumeCopy = volume;
   mutedCopy = muted;
   messageCopy = message;
   v11 = MEMORY[0x277CBEB38];
-  v29 = *MEMORY[0x277CD09A8];
+  v28 = *MEMORY[0x277CD09A8];
   uuid = [(HMDMediaSession *)self uuid];
   uUIDString = [uuid UUIDString];
-  v30[0] = uUIDString;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+  v29[0] = uUIDString;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
   v15 = [v11 dictionaryWithDictionary:v14];
 
   if (messageCopy)
@@ -768,17 +761,16 @@ uint64_t __45__HMDMediaSession_readProperties_completion___block_invoke_3(uint64
   if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
     v21 = HMFGetLogIdentifier();
-    v23 = 138543874;
-    v24 = v21;
-    v25 = 2112;
-    v26 = @"HMDMediaSessionDidUpdateAudioControlNotification";
-    v27 = 2112;
-    v28 = v15;
-    _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@Sending internal notification %@ with payload %@", &v23, 0x20u);
+    v22 = 138543874;
+    v23 = v21;
+    v24 = 2112;
+    v25 = @"HMDMediaSessionDidUpdateAudioControlNotification";
+    v26 = 2112;
+    v27 = v15;
+    _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@Sending internal notification %@ with payload %@", &v22, 0x20u);
   }
 
   objc_autoreleasePoolPop(v18);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleSetPlayback:(id)playback
@@ -865,7 +857,7 @@ void __38__HMDMediaSession__handleSetPlayback___block_invoke(uint64_t a1, void *
 
 - (void)_setPlaybackState:(int64_t)state completion:(id)completion
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = completionCopy;
   if (state == 1)
@@ -884,8 +876,8 @@ LABEL_5:
     aBlock[1] = 3221225472;
     aBlock[2] = __48__HMDMediaSession__setPlaybackState_completion___block_invoke;
     aBlock[3] = &unk_279729928;
-    objc_copyWeak(v38, &location);
-    v38[1] = state;
+    objc_copyWeak(v37, &location);
+    v37[1] = state;
     v9 = _Block_copy(aBlock);
     if ([(HMDMediaSession *)self isCurrentAccessorySession])
     {
@@ -894,21 +886,21 @@ LABEL_5:
       selfCopy = self;
       if (v10)
       {
-        v26 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v25 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = HMFGetLogIdentifier();
+          v26 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v41 = v27;
-          _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot look up local origin for currentAccessory to set playback state", buf, 0xCu);
+          v40 = v26;
+          _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot look up local origin for currentAccessory to set playback state", buf, 0xCu);
         }
 
         objc_autoreleasePoolPop(v11);
         if (v7)
         {
-          v28 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2005];
-          v29 = [MEMORY[0x277CCA9B8] hmErrorWithCode:4 description:@"Cannot lookup origin" reason:@"Cannot lookup origin" suggestion:0 underlyingError:v28];
-          (v7)[2](v7, v29);
+          v27 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2005];
+          v28 = [MEMORY[0x277CCA9B8] hmErrorWithCode:4 description:@"Cannot lookup origin" reason:@"Cannot lookup origin" suggestion:0 underlyingError:v27];
+          (v7)[2](v7, v28);
         }
       }
 
@@ -919,17 +911,17 @@ LABEL_5:
         {
           v14 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v41 = v14;
+          v40 = v14;
           _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Attempting to set the playback state command with mediaRemote to local origin", buf, 0xCu);
         }
 
         objc_autoreleasePoolPop(v11);
         workQueue = [(HMDMediaSession *)selfCopy workQueue];
-        v32 = MEMORY[0x277D85DD0];
-        v33 = 3221225472;
-        v34 = __48__HMDMediaSession__setPlaybackState_completion___block_invoke_55;
-        v35 = &unk_279729950;
-        v36 = v9;
+        v31 = MEMORY[0x277D85DD0];
+        v32 = 3221225472;
+        v33 = __48__HMDMediaSession__setPlaybackState_completion___block_invoke_55;
+        v34 = &unk_279729950;
+        v35 = v9;
         v16 = MRMediaRemoteSendCommandForOriginWithReply() == 0;
 
         if (v16)
@@ -941,7 +933,7 @@ LABEL_5:
           {
             v20 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v41 = v20;
+            v40 = v20;
             _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Sending the command to mediaremote failed for mediaSession", buf, 0xCu);
           }
 
@@ -956,16 +948,16 @@ LABEL_5:
     else
     {
       endpoint = [(HMDMediaSession *)self endpoint];
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __48__HMDMediaSession__setPlaybackState_completion___block_invoke_63;
-      v30[3] = &unk_279729978;
-      v30[4] = self;
-      v31 = v9;
-      [endpoint setPlaybackState:v8 completionHandler:v30];
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __48__HMDMediaSession__setPlaybackState_completion___block_invoke_63;
+      v29[3] = &unk_279729978;
+      v29[4] = self;
+      v30 = v9;
+      [endpoint setPlaybackState:v8 completionHandler:v29];
     }
 
-    objc_destroyWeak(v38);
+    objc_destroyWeak(v37);
     objc_destroyWeak(&location);
     goto LABEL_18;
   }
@@ -977,25 +969,23 @@ LABEL_5:
   }
 
 LABEL_18:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HMDMediaSession__setPlaybackState_completion___block_invoke(uint64_t a1, void *a2, const __CFArray *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v7 = v5;
   v8 = v7;
-  v32 = WeakRetained;
+  v31 = WeakRetained;
   if (!WeakRetained)
   {
     v8 = [MEMORY[0x277CCA9B8] hmErrorWithCode:52];
   }
 
-  v30 = a1;
-  v31 = v7;
+  v29 = a1;
+  v30 = v7;
   if (!a3 || v8)
   {
 LABEL_15:
@@ -1014,7 +1004,7 @@ LABEL_15:
     v8 = 0;
     v12 = 0;
     *&v10 = 138543618;
-    v29 = v10;
+    v28 = v10;
     do
     {
       v13 = CFArrayGetValueAtIndex(a3, v12);
@@ -1023,15 +1013,15 @@ LABEL_15:
       if (v14 && v14 != 3)
       {
         v16 = objc_autoreleasePoolPush();
-        v17 = v32;
+        v17 = v31;
         v18 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           v19 = HMFGetLogIdentifier();
-          *buf = v29;
-          v34 = v19;
-          v35 = 2048;
-          v36 = v15;
+          *buf = v28;
+          v33 = v19;
+          v34 = 2048;
+          v35 = v15;
           _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Locally setting playback state failed with status: %ld", buf, 0x16u);
         }
 
@@ -1056,28 +1046,26 @@ LABEL_15:
 
 LABEL_16:
   v22 = objc_autoreleasePoolPush();
-  v23 = v32;
+  v23 = v31;
   v24 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
     v25 = HMFGetLogIdentifier();
-    v26 = *(v30 + 40);
+    v26 = *(v29 + 40);
     *buf = 138543618;
-    v34 = v25;
-    v35 = 2048;
-    v36 = v26;
+    v33 = v25;
+    v34 = 2048;
+    v35 = v26;
     _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_DEBUG, "%{public}@Set plaback state to %ld on successfully sending mediaremote command", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v22);
   v27 = [v23 state];
-  [v27 setPlaybackState:*(v30 + 40)];
+  [v27 setPlaybackState:*(v29 + 40)];
 
   v8 = 0;
 LABEL_19:
-  [v32 _invokePendingSetPlaybackStateBlocksOfError:{v8, v29}];
-
-  v28 = *MEMORY[0x277D85DE8];
+  [v31 _invokePendingSetPlaybackStateBlocksOfError:{v8, v28}];
 }
 
 void __48__HMDMediaSession__setPlaybackState_completion___block_invoke_63(uint64_t a1, void *a2, const void *a3)
@@ -1101,16 +1089,14 @@ void __48__HMDMediaSession__setPlaybackState_completion___block_invoke_63(uint64
   dispatch_async(v6, block);
 }
 
-void __48__HMDMediaSession__setPlaybackState_completion___block_invoke_2(void *a1)
+void __48__HMDMediaSession__setPlaybackState_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[6];
-  (*(a1[5] + 16))();
-  v4 = a1[6];
-  if (v4)
+  (*(*(a1 + 40) + 16))();
+  v2 = *(a1 + 48);
+  if (v2)
   {
 
-    CFRelease(v4);
+    CFRelease(v2);
   }
 }
 
@@ -1150,37 +1136,37 @@ void __48__HMDMediaSession__setPlaybackState_completion___block_invoke_2(void *a
 
 - (void)_invokePendingSetPlaybackStateBlocksOfError:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   setPlaybackStateTimer = [(HMDMediaSession *)self setPlaybackStateTimer];
   [setPlaybackStateTimer cancel];
 
   [(HMDMediaSession *)self setSetPlaybackStateTimer:0];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   setPlaybackStateCompletionHandlers = [(HMDMediaSession *)self setPlaybackStateCompletionHandlers];
-  v7 = [setPlaybackStateCompletionHandlers countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [setPlaybackStateCompletionHandlers countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(setPlaybackStateCompletionHandlers);
         }
 
-        (*(*(*(&v13 + 1) + 8 * v10++) + 16))();
+        (*(*(*(&v12 + 1) + 8 * v10++) + 16))();
       }
 
       while (v8 != v10);
-      v8 = [setPlaybackStateCompletionHandlers countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [setPlaybackStateCompletionHandlers countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
@@ -1188,8 +1174,6 @@ void __48__HMDMediaSession__setPlaybackState_completion___block_invoke_2(void *a
 
   setPlaybackStateCompletionHandlers2 = [(HMDMediaSession *)self setPlaybackStateCompletionHandlers];
   [setPlaybackStateCompletionHandlers2 removeAllObjects];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithResponses:(id)responses requestMessageInformation:(id)information
@@ -1211,7 +1195,7 @@ void __48__HMDMediaSession__setPlaybackState_completion___block_invoke_2(void *a
 
 void __65__HMDMediaSession_updateWithResponses_requestMessageInformation___block_invoke(uint64_t a1)
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1220,42 +1204,42 @@ void __65__HMDMediaSession_updateWithResponses_requestMessageInformation___block
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
     *buf = 138543618;
-    v72 = v5;
-    v73 = 2112;
-    v74 = v6;
+    v71 = v5;
+    v72 = 2112;
+    v73 = v6;
     _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Updating media session with responses %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
   v67 = 0u;
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
   v7 = *(a1 + 40);
-  v65 = [v7 countByEnumeratingWithState:&v66 objects:v70 count:16];
-  if (v65)
+  v64 = [v7 countByEnumeratingWithState:&v65 objects:v69 count:16];
+  if (v64)
   {
     v8 = 0;
-    v64 = *v67;
-    v63 = *MEMORY[0x277CD0938];
-    v62 = *MEMORY[0x277CD0990];
-    v61 = *MEMORY[0x277CD0960];
-    v60 = *MEMORY[0x277CD09B0];
+    v63 = *v66;
+    v62 = *MEMORY[0x277CD0938];
+    v61 = *MEMORY[0x277CD0990];
+    v60 = *MEMORY[0x277CD0960];
+    v59 = *MEMORY[0x277CD09B0];
     obj = v7;
-    v59 = *MEMORY[0x277CD0920];
+    v58 = *MEMORY[0x277CD0920];
     do
     {
-      for (i = 0; i != v65; ++i)
+      for (i = 0; i != v64; ++i)
       {
-        if (*v67 != v64)
+        if (*v66 != v63)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v66 + 1) + 8 * i);
+        v10 = *(*(&v65 + 1) + 8 * i);
         v11 = [v10 request];
         v12 = [v11 property];
-        if ([v12 isEqual:v63])
+        if ([v12 isEqual:v62])
         {
           v13 = [v10 value];
           objc_opt_class();
@@ -1298,7 +1282,7 @@ void __65__HMDMediaSession_updateWithResponses_requestMessageInformation___block
           }
         }
 
-        if ([v12 isEqual:v62])
+        if ([v12 isEqual:v61])
         {
           v23 = [v10 value];
           objc_opt_class();
@@ -1340,7 +1324,7 @@ void __65__HMDMediaSession_updateWithResponses_requestMessageInformation___block
           }
         }
 
-        if ([v12 isEqual:v61])
+        if ([v12 isEqual:v60])
         {
           v33 = [v10 value];
           objc_opt_class();
@@ -1382,7 +1366,7 @@ void __65__HMDMediaSession_updateWithResponses_requestMessageInformation___block
           }
         }
 
-        if ([v12 isEqual:v60])
+        if ([v12 isEqual:v59])
         {
           v43 = [v10 value];
           objc_opt_class();
@@ -1418,7 +1402,7 @@ void __65__HMDMediaSession_updateWithResponses_requestMessageInformation___block
           }
         }
 
-        if ([v12 isEqual:v59])
+        if ([v12 isEqual:v58])
         {
           v50 = [v10 value];
           objc_opt_class();
@@ -1455,10 +1439,10 @@ void __65__HMDMediaSession_updateWithResponses_requestMessageInformation___block
         }
       }
 
-      v65 = [obj countByEnumeratingWithState:&v66 objects:v70 count:16];
+      v64 = [obj countByEnumeratingWithState:&v65 objects:v69 count:16];
     }
 
-    while (v65);
+    while (v64);
 
     if (v8)
     {
@@ -1469,24 +1453,22 @@ void __65__HMDMediaSession_updateWithResponses_requestMessageInformation___block
   else
   {
   }
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postNotificationOfMediaStateUpdateWithPayload:(id)payload
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
-  v24[0] = *MEMORY[0x277CD0938];
+  v23[0] = *MEMORY[0x277CD0938];
   v5 = MEMORY[0x277CCABB0];
   state = [(HMDMediaSession *)self state];
   v7 = [v5 numberWithInteger:{objc_msgSend(state, "playbackState")}];
-  v25[0] = v7;
-  v24[1] = *MEMORY[0x277CD09A8];
+  v24[0] = v7;
+  v23[1] = *MEMORY[0x277CD09A8];
   uuid = [(HMDMediaSession *)self uuid];
   uUIDString = [uuid UUIDString];
-  v25[1] = uUIDString;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+  v24[1] = uUIDString;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
   v11 = [v10 mutableCopy];
 
   if (payloadCopy)
@@ -1500,32 +1482,30 @@ void __65__HMDMediaSession_updateWithResponses_requestMessageInformation___block
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     v15 = HMFGetLogIdentifier();
-    v18 = 138543874;
-    v19 = v15;
-    v20 = 2112;
-    v21 = @"HMDMediaSessionDidUpdatePlaybackStateNotification";
-    v22 = 2112;
-    v23 = v11;
-    _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Sending internal notification %@ with payload %@", &v18, 0x20u);
+    v17 = 138543874;
+    v18 = v15;
+    v19 = 2112;
+    v20 = @"HMDMediaSessionDidUpdatePlaybackStateNotification";
+    v21 = 2112;
+    v22 = v11;
+    _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Sending internal notification %@ with payload %@", &v17, 0x20u);
   }
 
   objc_autoreleasePoolPop(v12);
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"HMDMediaSessionDidUpdatePlaybackStateNotification" object:selfCopy userInfo:v11];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postNotificationOfMediaStateUpdateWithRequestMessageInformation:(id)information
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   if (information)
   {
-    v8 = *MEMORY[0x277CD0968];
-    v9[0] = information;
+    v7 = *MEMORY[0x277CD0968];
+    v8[0] = information;
     v4 = MEMORY[0x277CBEAC0];
     informationCopy = information;
-    v6 = [v4 dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v6 = [v4 dictionaryWithObjects:v8 forKeys:&v7 count:1];
   }
 
   else
@@ -1534,8 +1514,22 @@ void __65__HMDMediaSession_updateWithResponses_requestMessageInformation___block
   }
 
   [(HMDMediaSession *)self _postNotificationOfMediaStateUpdateWithPayload:v6];
+}
 
-  v7 = *MEMORY[0x277D85DE8];
+- (void)_registerForSessionUpdates:(BOOL)updates
+{
+  updatesCopy = updates;
+  if (![(HMDMediaSession *)self isCurrentAccessorySession])
+  {
+    endpoint = [(HMDMediaSession *)self endpoint];
+    [endpoint registerForNowPlayingUpdates:updatesCopy];
+  }
+
+  if (updatesCopy)
+  {
+
+    [(HMDMediaSession *)self _handleGetPlaybackState:0];
+  }
 }
 
 - (void)handleMediaPlaybackStateNotification:(id)notification
@@ -1554,7 +1548,7 @@ void __65__HMDMediaSession_updateWithResponses_requestMessageInformation___block
 
 void __56__HMDMediaSession_handleMediaPlaybackStateNotification___block_invoke(uint64_t a1)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) state];
   v3 = [v2 playbackState];
 
@@ -1580,9 +1574,9 @@ void __56__HMDMediaSession_handleMediaPlaybackStateNotification___block_invoke(u
     if (v3 != v7)
     {
       v10 = *(a1 + 32);
-      v16 = @"force-notify";
-      v17[0] = MEMORY[0x277CBEC38];
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+      v15 = @"force-notify";
+      v16[0] = MEMORY[0x277CBEC38];
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
       [v10 _postNotificationOfMediaStateUpdateWithPayload:v11];
     }
   }
@@ -1591,18 +1585,16 @@ void __56__HMDMediaSession_handleMediaPlaybackStateNotification___block_invoke(u
   {
     objc_initWeak(&location, *(a1 + 32));
     v8 = *(a1 + 32);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __56__HMDMediaSession_handleMediaPlaybackStateNotification___block_invoke_2;
-    v13[3] = &unk_279729900;
-    objc_copyWeak(v14, &location);
-    v14[1] = v3;
-    [v8 _getPlaybackStateWithCompletion:v13];
-    objc_destroyWeak(v14);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __56__HMDMediaSession_handleMediaPlaybackStateNotification___block_invoke_2;
+    v12[3] = &unk_279729900;
+    objc_copyWeak(v13, &location);
+    v13[1] = v3;
+    [v8 _getPlaybackStateWithCompletion:v12];
+    objc_destroyWeak(v13);
     objc_destroyWeak(&location);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __56__HMDMediaSession_handleMediaPlaybackStateNotification___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -1688,16 +1680,16 @@ LABEL_10:
 
 - (void)_getPlaybackStateWithCompletion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   objc_initWeak(&location, self);
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __51__HMDMediaSession__getPlaybackStateWithCompletion___block_invoke;
   aBlock[3] = &unk_279729838;
-  objc_copyWeak(&v28, &location);
+  objc_copyWeak(&v27, &location);
   v5 = completionCopy;
-  v27 = v5;
+  v26 = v5;
   v6 = _Block_copy(aBlock);
   if ([(HMDMediaSession *)self isCurrentAccessorySession])
   {
@@ -1706,21 +1698,21 @@ LABEL_10:
     selfCopy = self;
     if (v7)
     {
-      v15 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v14 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = HMFGetLogIdentifier();
+        v15 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v31 = v16;
-        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot look up local origin for currentAccessory to get playback state", buf, 0xCu);
+        v30 = v15;
+        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot look up local origin for currentAccessory to get playback state", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v8);
       if (v5)
       {
-        v17 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2005];
-        v18 = [MEMORY[0x277CCA9B8] hmErrorWithCode:4 description:@"Cannot lookup origin" reason:@"Cannot lookup origin" suggestion:0 underlyingError:v17];
-        (*(v5 + 2))(v5, v18, 0);
+        v16 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2005];
+        v17 = [MEMORY[0x277CCA9B8] hmErrorWithCode:4 description:@"Cannot lookup origin" reason:@"Cannot lookup origin" suggestion:0 underlyingError:v16];
+        (*(v5 + 2))(v5, v17, 0);
       }
     }
 
@@ -1731,17 +1723,17 @@ LABEL_10:
       {
         v11 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v31 = v11;
+        v30 = v11;
         _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Attempting to locally read the playback state from media remote", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v8);
       workQueue = [(HMDMediaSession *)selfCopy workQueue];
-      v21 = MEMORY[0x277D85DD0];
-      v22 = 3221225472;
-      v23 = __51__HMDMediaSession__getPlaybackStateWithCompletion___block_invoke_40;
-      v24 = &unk_279729860;
-      v25 = v6;
+      v20 = MEMORY[0x277D85DD0];
+      v21 = 3221225472;
+      v22 = __51__HMDMediaSession__getPlaybackStateWithCompletion___block_invoke_40;
+      v23 = &unk_279729860;
+      v24 = v6;
       MRMediaRemoteGetNowPlayingApplicationPlaybackStateForOrigin();
     }
   }
@@ -1749,24 +1741,22 @@ LABEL_10:
   else
   {
     endpoint = [(HMDMediaSession *)self endpoint];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __51__HMDMediaSession__getPlaybackStateWithCompletion___block_invoke_2;
-    v19[3] = &unk_2797298B0;
-    v19[4] = self;
-    v20 = v6;
-    [endpoint getPlaybackStateWithCompletionHandler:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __51__HMDMediaSession__getPlaybackStateWithCompletion___block_invoke_2;
+    v18[3] = &unk_2797298B0;
+    v18[4] = self;
+    v19 = v6;
+    [endpoint getPlaybackStateWithCompletionHandler:v18];
   }
 
-  objc_destroyWeak(&v28);
+  objc_destroyWeak(&v27);
   objc_destroyWeak(&location);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __51__HMDMediaSession__getPlaybackStateWithCompletion___block_invoke(uint64_t a1, void *a2, unsigned int a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v7 = WeakRetained;
@@ -1796,11 +1786,11 @@ void __51__HMDMediaSession__getPlaybackStateWithCompletion___block_invoke(uint64
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v13;
-      v18 = 2048;
-      v19 = v8;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Locally read the playback state as: %tu", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v13;
+      v17 = 2048;
+      v18 = v8;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Locally read the playback state as: %tu", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -1811,8 +1801,6 @@ void __51__HMDMediaSession__getPlaybackStateWithCompletion___block_invoke(uint64
   {
     (*(v14 + 16))(v14, v5, v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __51__HMDMediaSession__getPlaybackStateWithCompletion___block_invoke_2(uint64_t a1, void *a2, int a3)
@@ -1907,7 +1895,7 @@ void __51__HMDMediaSession__getPlaybackStateWithCompletion___block_invoke_2(uint
 
 - (id)_initWithEndpoint:(id)endpoint mediaProfiles:(id)profiles state:(id)state
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   endpointCopy = endpoint;
   profilesCopy = profiles;
   stateCopy = state;
@@ -1917,9 +1905,9 @@ void __51__HMDMediaSession__getPlaybackStateWithCompletion___block_invoke_2(uint
   }
 
   v12 = stateCopy;
-  v38.receiver = self;
-  v38.super_class = HMDMediaSession;
-  v13 = [(HMDMediaSession *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = HMDMediaSession;
+  v13 = [(HMDMediaSession *)&v37 init];
   if (v13)
   {
     v14 = [MEMORY[0x277CBEB58] setWithArray:profilesCopy];
@@ -1934,8 +1922,8 @@ void __51__HMDMediaSession__getPlaybackStateWithCompletion___block_invoke_2(uint
     v18 = MEMORY[0x277CCAD78];
     v19 = objc_alloc(MEMORY[0x277CCAD78]);
     v20 = [v19 initWithUUIDString:*MEMORY[0x277CD23C8]];
-    v39[0] = v13->_sessionIdentifier;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
+    v38[0] = v13->_sessionIdentifier;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
     v22 = [v18 hm_deriveUUIDFromBaseUUID:v20 withSalts:v21];
     uuid = v13->_uuid;
     v13->_uuid = v22;
@@ -1961,46 +1949,36 @@ void __51__HMDMediaSession__getPlaybackStateWithCompletion___block_invoke_2(uint
     objc_storeStrong(&v13->_endpoint, endpoint);
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 + (Class)mediaPropertyValueTypeWithMessageKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:*MEMORY[0x277CD0938]] & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", *MEMORY[0x277CD0990]) & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", *MEMORY[0x277CD0960]) & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", *MEMORY[0x277CD09B0]))
+  if (([keyCopy isEqualToString:*MEMORY[0x277CD0938]] & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", *MEMORY[0x277CD0990]) & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", *MEMORY[0x277CD0960]) & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", *MEMORY[0x277CD09B0]) & 1) != 0 || objc_msgSend(keyCopy, "isEqualToString:", *MEMORY[0x277CD0920]))
   {
-    v4 = 0x277CCABB0;
-LABEL_6:
-    v5 = *v4;
-    v6 = objc_opt_class();
-    goto LABEL_7;
+    v4 = objc_opt_class();
   }
 
-  if ([keyCopy isEqualToString:*MEMORY[0x277CD0920]])
+  else
   {
-    v4 = 0x277CCACA8;
-    goto LABEL_6;
+    v4 = 0;
   }
 
-  v6 = 0;
-LABEL_7:
-
-  return v6;
+  return v4;
 }
 
 + (NSArray)mediaPropertyMessageKeys
 {
-  v7[5] = *MEMORY[0x277D85DE8];
+  v6[5] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CD0990];
-  v7[0] = *MEMORY[0x277CD0938];
-  v7[1] = v2;
+  v6[0] = *MEMORY[0x277CD0938];
+  v6[1] = v2;
   v3 = *MEMORY[0x277CD09B0];
-  v7[2] = *MEMORY[0x277CD0960];
-  v7[3] = v3;
-  v7[4] = *MEMORY[0x277CD0920];
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:5];
-  v5 = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277CD0960];
+  v6[3] = v3;
+  v6[4] = *MEMORY[0x277CD0920];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:5];
 
   return v4;
 }
@@ -2019,12 +1997,11 @@ LABEL_7:
 
 uint64_t __30__HMDMediaSession_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_88408;
-  logCategory__hmf_once_v2_88408 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_88408;
+  logCategory__hmf_once_v2_88408 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)sessionForCurrentAccessoryWithSessionIdentifier:(id)identifier mediaProfile:(id)profile
@@ -2053,17 +2030,16 @@ uint64_t __30__HMDMediaSession_logCategory__block_invoke()
 
 void __80__HMDMediaSession_sessionForCurrentAccessoryWithSessionIdentifier_mediaProfile___block_invoke(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = [[HMDMediaSessionState alloc] initWithSessionIdentifier:*(a1 + 32)];
   v3 = [HMDMediaSession alloc];
-  v8[0] = *(a1 + 40);
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = *(a1 + 40);
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [(HMDMediaSession *)v3 _initWithMediaProfiles:v4 state:v2];
   v6 = sessionForCurrentAccessoryWithSessionIdentifier_mediaProfile__sessionForCurrentAccessory;
   sessionForCurrentAccessoryWithSessionIdentifier_mediaProfile__sessionForCurrentAccessory = v5;
 
   *(sessionForCurrentAccessoryWithSessionIdentifier_mediaProfile__sessionForCurrentAccessory + 25) = 1;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

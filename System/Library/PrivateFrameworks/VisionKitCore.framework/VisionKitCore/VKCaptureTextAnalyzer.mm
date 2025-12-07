@@ -304,7 +304,7 @@ LABEL_5:
   _Block_object_dispose(&v62, 8);
 }
 
-uint64_t __54__VKCaptureTextAnalyzer__enqueueProcessingForRequest___block_invoke_2(uint64_t a1)
+void *__54__VKCaptureTextAnalyzer__enqueueProcessingForRequest___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _isCanceledRequest:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;

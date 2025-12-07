@@ -4,6 +4,7 @@
 - (void)_setCenteredBadge:(id)badge andLabel:(id)label;
 - (void)_setCenteredText:(id)text;
 - (void)refreshCellContentsWithSpecifier:(id)specifier;
+- (void)setCellEnabled:(BOOL)enabled;
 @end
 
 @implementation PSUICellularPlanOptionTableCell
@@ -296,6 +297,36 @@
   }
 
   [(PSUICellularPlanOptionTableCell *)self setNeedsLayout];
+}
+
+- (void)setCellEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  [(PSUICellularPlanOptionTableCell *)self setUserInteractionEnabled:?];
+  badgeView = [(PSUICellularPlanOptionTableCell *)self badgeView];
+  [badgeView setEnabled:enabledCopy];
+
+  nameLabel = [(PSUICellularPlanOptionTableCell *)self nameLabel];
+  [nameLabel setEnabled:enabledCopy];
+
+  numberLabel = [(PSUICellularPlanOptionTableCell *)self numberLabel];
+  [numberLabel setEnabled:enabledCopy];
+
+  centeredBadgeView = [(PSUICellularPlanOptionTableCell *)self centeredBadgeView];
+  [centeredBadgeView setEnabled:enabledCopy];
+
+  centeredNameLabel = [(PSUICellularPlanOptionTableCell *)self centeredNameLabel];
+  [centeredNameLabel setEnabled:enabledCopy];
+
+  contentView = [(PSUICellularPlanOptionTableCell *)self contentView];
+  v12 = contentView;
+  v11 = 0.5;
+  if (enabledCopy)
+  {
+    v11 = 1.0;
+  }
+
+  [contentView setAlpha:v11];
 }
 
 @end

@@ -62,7 +62,7 @@
 
 void __112__AXSSDocumentTextRuleBullets_issuesForWord_atRange_previousWord_previousWordRange_inText_ignoreRuleUntilIndex___block_invoke(uint64_t a1, void *a2)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = [a2 range];
   if (v4 >= 2)
   {
@@ -81,16 +81,14 @@ void __112__AXSSDocumentTextRuleBullets_issuesForWord_atRange_previousWord_previ
 
         [v8 setKind:3];
         v10 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:@"\n"];
-        v13[0] = v10;
-        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+        v12[0] = v10;
+        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
         [v8 setSuggestions:v11];
 
         [*(a1 + 48) addObject:v8];
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

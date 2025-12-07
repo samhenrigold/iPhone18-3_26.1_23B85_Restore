@@ -43,7 +43,7 @@
 
 - (void)metalAnimationWillBeginWithContext:(id)context
 {
-  [(KNAnimationEffect *)self mvpMatrixWithContext:context];
+  objc_msgSend_mvpMatrixWithContext_(self, a2, context);
   v4 = vcvt_hight_f32_f64(vcvt_f32_f64(0), 0);
   v5 = &self->super._anon_40[32];
   v6 = &self->super._anon_130[32];

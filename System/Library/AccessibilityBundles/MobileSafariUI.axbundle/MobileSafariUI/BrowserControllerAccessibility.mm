@@ -11,6 +11,7 @@
 - (void)browserViewController:(id)controller didCreateUnifiedBar:(id)bar;
 - (void)dealloc;
 - (void)scrollViewDidScrollToTop:(id)top;
+- (void)setShowingReader:(BOOL)reader animated:(BOOL)animated;
 - (void)tabDocumentDidCompleteCheckForAppBanner:(id)banner;
 - (void)updateInsetsForBackgroundWebView:(id)view;
 @end
@@ -134,6 +135,14 @@ void __59__BrowserControllerAccessibility_scrollViewDidScrollToTop___block_invok
   UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], v1);
 }
 
+- (void)setShowingReader:(BOOL)reader animated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = BrowserControllerAccessibility;
+  [(BrowserControllerAccessibility *)&v4 setShowingReader:reader animated:animated];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7F10], 0);
+}
+
 - (void)_axUpdateVisibleContentInset
 {
   objc_opt_class();
@@ -206,45 +215,45 @@ void __59__BrowserControllerAccessibility_scrollViewDidScrollToTop___block_invok
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v23 = *MEMORY[0x29EDCA608];
-  v21.receiver = self;
-  v21.super_class = BrowserControllerAccessibility;
-  [(BrowserControllerAccessibility *)&v21 _accessibilityLoadAccessibilityInformation];
+  v22 = *MEMORY[0x29EDCA608];
+  v20.receiver = self;
+  v20.super_class = BrowserControllerAccessibility;
+  [(BrowserControllerAccessibility *)&v20 _accessibilityLoadAccessibilityInformation];
   [(BrowserControllerAccessibility *)self _axUpdateVisibleContentInset];
   v3 = [(BrowserControllerAccessibility *)self safeValueForKey:@"_rootViewController"];
   [v3 _accessibilityLoadAccessibilityInformation];
   v4 = [v3 safeValueForKey:@"documentAndTopBarsContainerView"];
   [v4 accessibilitySetIdentification:@"PageView"];
 
-  v20 = 0;
+  v19 = 0;
   objc_opt_class();
   v5 = [(BrowserControllerAccessibility *)self safeValueForKey:@"_barManager"];
   v6 = [v5 safeValueForKey:@"_barToRegistrationMap"];
   v7 = __UIAccessibilityCastAsClass();
 
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   objectEnumerator = [v7 objectEnumerator];
-  v9 = [objectEnumerator countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v9 = [objectEnumerator countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        [*(*(&v16 + 1) + 8 * i) _accessibilityLoadAccessibilityInformation];
+        [*(*(&v15 + 1) + 8 * i) _accessibilityLoadAccessibilityInformation];
       }
 
-      v10 = [objectEnumerator countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v10 = [objectEnumerator countByEnumeratingWithState:&v15 objects:v21 count:16];
     }
 
     while (v10);
@@ -255,8 +264,6 @@ void __59__BrowserControllerAccessibility_scrollViewDidScrollToTop___block_invok
 
   v14 = [v3 safeValueForKey:@"unifiedBar"];
   [v14 _accessibilitySetSortPriority:50];
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 - (void)dealloc

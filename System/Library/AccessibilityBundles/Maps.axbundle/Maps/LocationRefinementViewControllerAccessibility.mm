@@ -3,6 +3,7 @@
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_axAnnotateSnapToUserLocationButton;
 - (void)_triggerCrossHairLocationDecode;
+- (void)mapView:(id)view regionDidChangeAnimated:(BOOL)animated;
 - (void)viewDidLoad;
 @end
 
@@ -88,6 +89,14 @@ void __80__LocationRefinementViewControllerAccessibility__triggerCrossHairLocati
     [*(a1 + 32) setAccessibilityValue:v6];
     [*(a1 + 40) _accessibilityRemoveValueForKey:@"CLGeocoder"];
   }
+}
+
+- (void)mapView:(id)view regionDidChangeAnimated:(BOOL)animated
+{
+  v5.receiver = self;
+  v5.super_class = LocationRefinementViewControllerAccessibility;
+  [(LocationRefinementViewControllerAccessibility *)&v5 mapView:view regionDidChangeAnimated:animated];
+  [(LocationRefinementViewControllerAccessibility *)self _triggerCrossHairLocationDecode];
 }
 
 - (void)viewDidLoad

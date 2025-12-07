@@ -55,7 +55,7 @@ LABEL_10:
 
 - (id)loadTranscriptText
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"NOTIFY_ANYWAY_BUTTON_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
   v4 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v3 attributes:0];

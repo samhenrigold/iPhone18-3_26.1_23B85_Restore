@@ -44,21 +44,22 @@
 {
   if (objc_opt_class() == self)
   {
-    if (!GAXUserInterfaceIdiomIsPad())
+    IsPad = GAXUserInterfaceIdiomIsPad();
+    if (!IsPad)
     {
-      GAXIsWidescreenPhone();
+      GAXIsWidescreenPhone(IsPad, v7);
     }
 
-    v6 = objc_opt_class();
+    v8 = objc_opt_class();
 
-    return [v6 allocWithZone:zone];
+    return [v8 allocWithZone:zone];
   }
 
   else
   {
-    v7.receiver = self;
-    v7.super_class = &OBJC_METACLASS___GAXStyleProvider;
-    return objc_msgSendSuper2(&v7, "allocWithZone:", zone);
+    v9.receiver = self;
+    v9.super_class = &OBJC_METACLASS___GAXStyleProvider;
+    return objc_msgSendSuper2(&v9, "allocWithZone:", zone);
   }
 }
 
@@ -443,16 +444,16 @@
 - (BOOL)workspaceInstructionsLabelShouldBeDisplayed
 {
   sub_C4C4();
-  objc_opt_class();
-  sub_C4A8();
+  v2 = objc_opt_class();
+  sub_C4A8(v2);
   return 0;
 }
 
 - (UIEdgeInsets)hostedApplicationScaledFrameEdgeInsetsForInterfaceOrientation:(int64_t)orientation
 {
   sub_C4C4();
-  objc_opt_class();
-  sub_C4A8();
+  v3 = objc_opt_class();
+  sub_C4A8(v3);
   top = UIEdgeInsetsZero.top;
   left = UIEdgeInsetsZero.left;
   bottom = UIEdgeInsetsZero.bottom;
@@ -467,24 +468,24 @@
 - (double)featureViewMinimumHeight
 {
   sub_C4C4();
-  objc_opt_class();
-  sub_C4A8();
+  v2 = objc_opt_class();
+  sub_C4A8(v2);
   return 0.0;
 }
 
 - (UIFont)featureViewTextFont
 {
   sub_C4C4();
-  objc_opt_class();
-  sub_C4A8();
+  v2 = objc_opt_class();
+  sub_C4A8(v2);
   return 0;
 }
 
 - (UIOffset)featureViewToggleOffset
 {
   sub_C4C4();
-  objc_opt_class();
-  sub_C4A8();
+  v2 = objc_opt_class();
+  sub_C4A8(v2);
   horizontal = UIOffsetZero.horizontal;
   vertical = UIOffsetZero.vertical;
   result.vertical = vertical;

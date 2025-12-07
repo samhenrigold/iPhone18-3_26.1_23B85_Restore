@@ -9,9 +9,12 @@
 - (void)configureHomeControlServiceWithContext:(id)context;
 - (void)configureHomeControlServiceWithHomeUUID:(id)d;
 - (void)dashboardNavigationView:(id)view didTapHomeAppButton:(id)button;
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion;
 - (void)lockAuthenticationCompleted:(BOOL)completed;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
+- (void)quickControlsPresentationDidUpdate:(BOOL)update;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -30,6 +33,17 @@
   [v5 executionEnvironmentDidEnterBackground];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = HCSRemoteViewController;
+  [(HCSRemoteViewController *)&v7 viewWillAppear:appear];
+  v4 = +[UIColor hf_keyColor];
+  view = [(HCSRemoteViewController *)self view];
+  window = [view window];
+  [window setTintColor:v4];
+}
+
 - (void)viewWillLayoutSubviews
 {
   v14.receiver = self;
@@ -44,6 +58,48 @@
   v12 = v11;
   gradientLayer = [(HCSRemoteViewController *)self gradientLayer];
   [gradientLayer setFrame:{v6, v8, v10, v12}];
+}
+
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  _remoteViewControllerProxy = [(HCSRemoteViewController *)self _remoteViewControllerProxy];
+  if ([_remoteViewControllerProxy conformsToProtocol:&OBJC_PROTOCOL___HUHomeControlInterface])
+  {
+    v8 = _remoteViewControllerProxy;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v9 = v8;
+
+  if (v9)
+  {
+    v10 = HFLogForCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      selfCopy = self;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%@ Remote view controller requesting dismissal", buf, 0xCu);
+    }
+
+    [v9 requestDismissal];
+    if (completionCopy)
+    {
+      completionCopy[2](completionCopy);
+    }
+  }
+
+  else
+  {
+    v11.receiver = self;
+    v11.super_class = HCSRemoteViewController;
+    [(HCSRemoteViewController *)&v11 dismissViewControllerAnimated:animatedCopy completion:completionCopy];
+  }
 }
 
 - (void)_updateRunningState:(BOOL)state
@@ -126,6 +182,13 @@
   [_remoteViewControllerProxy authorizeIfLocked];
 
   return [(HCSRemoteViewController *)self lockAuthFuture];
+}
+
+- (void)quickControlsPresentationDidUpdate:(BOOL)update
+{
+  updateCopy = update;
+  _remoteViewControllerProxy = [(HCSRemoteViewController *)self _remoteViewControllerProxy];
+  [_remoteViewControllerProxy quickControlsPresentationDidUpdate:updateCopy];
 }
 
 - (void)lockAuthenticationCompleted:(BOOL)completed

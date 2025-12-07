@@ -69,7 +69,7 @@
 
 + (id)localIPAddress
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(HMDCameraNetworkConfig);
   if (!GetPrimaryIPAddress())
   {
@@ -78,7 +78,7 @@
     if (HIWORD(v8) != 43518 && (v8 & 0xFFFFFF00) != -536870912)
     {
       *buf = 0u;
-      memset(v25, 0, sizeof(v25));
+      memset(v24, 0, sizeof(v24));
       v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:{inet_ntop(2, p_s_addr, buf, 0x2Eu)}];
       [(HMDCameraNetworkConfig *)v2 setIpAddress:v13];
 
@@ -91,10 +91,10 @@
       }
 
       v11 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v11;
-      v22 = 2112;
-      v23 = v6;
+      v19 = 138543618;
+      v20 = v11;
+      v21 = 2112;
+      v22 = v6;
       v12 = "%{public}@Found IPv4 address: %@";
       goto LABEL_18;
     }
@@ -102,7 +102,7 @@
     if (v2->_ipv6SockAddress.v6.sin6_addr.__u6_addr8[0] == 254 && (v2->_ipv6SockAddress.sa.sa_data[7] & 0xC0) == 0x80)
     {
       *buf = 0u;
-      memset(v25, 0, sizeof(v25));
+      memset(v24, 0, sizeof(v24));
       v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:{inet_ntop(2, p_s_addr, buf, 0x2Eu)}];
       [(HMDCameraNetworkConfig *)v2 setIpAddress:v10];
 
@@ -112,20 +112,20 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         v11 = HMFGetLogIdentifier();
-        v20 = 138543618;
-        v21 = v11;
-        v22 = 2112;
-        v23 = v6;
+        v19 = 138543618;
+        v20 = v11;
+        v21 = 2112;
+        v22 = v6;
         v12 = "%{public}@Did not non-link-local IPv4 or IPv6, defaulting to IPv4: %@";
 LABEL_18:
-        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, v12, &v20, 0x16u);
+        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, v12, &v19, 0x16u);
       }
     }
 
     else
     {
       *buf = 0u;
-      memset(v25, 0, sizeof(v25));
+      memset(v24, 0, sizeof(v24));
       v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:{inet_ntop(30, &v2->_ipv6SockAddress.v6.sin6_addr, buf, 0x2Eu)}];
       [(HMDCameraNetworkConfig *)v2 setIpAddress:v17];
 
@@ -136,10 +136,10 @@ LABEL_18:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         v11 = HMFGetLogIdentifier();
-        v20 = 138543618;
-        v21 = v11;
-        v22 = 2112;
-        v23 = v6;
+        v19 = 138543618;
+        v20 = v11;
+        v21 = 2112;
+        v22 = v6;
         v12 = "%{public}@Found IPv6 address: %@";
         goto LABEL_18;
       }
@@ -164,8 +164,6 @@ LABEL_19:
   objc_autoreleasePoolPop(v3);
   v6 = 0;
 LABEL_20:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

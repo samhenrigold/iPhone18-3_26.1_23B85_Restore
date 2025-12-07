@@ -359,20 +359,18 @@ void __30__MIBUNWMessage_createContent__block_invoke()
 
 - (void)initWithContent:(uint64_t)a1 andContext:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_259B04000, a2, OS_LOG_TYPE_ERROR, "Failed to parse payload data: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_259B04000, a2, OS_LOG_TYPE_ERROR, "Failed to parse payload data: %{public}@", &v2, 0xCu);
 }
 
 - (void)createContent
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_259B04000, a2, OS_LOG_TYPE_ERROR, "Failed to create serialized payload data: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_259B04000, a2, OS_LOG_TYPE_ERROR, "Failed to create serialized payload data: %{public}@", &v2, 0xCu);
 }
 
 @end

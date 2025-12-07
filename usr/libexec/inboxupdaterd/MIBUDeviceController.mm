@@ -1569,15 +1569,15 @@ LABEL_16:
   readbackDataCopy = readbackData;
   if ([sub_10002FDF0() isKeySupported:?])
   {
-    v67 = 0;
+    v69 = 0;
     v18 = [sub_10002FDF0() readSMCKey:? error:?];
     v19 = 0;
     v21 = v19;
     if (v18 && !v19)
     {
-      v63 = 1;
+      v65 = 1;
       *&v20 = 138543874;
-      v62 = v20;
+      v64 = v20;
       while (1)
       {
 
@@ -1590,15 +1590,15 @@ LABEL_16:
         if (sub_10002FDB4())
         {
           *buf = 138543618;
-          v69 = dataCopy;
-          v70 = 2114;
-          v71 = keyCopy;
+          v71 = dataCopy;
+          v72 = 2114;
+          v73 = keyCopy;
           _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Writing %{public}@ to SMC key %{public}@", buf, 0x16u);
         }
 
-        v66 = 0;
+        v68 = 0;
         [sub_10002FDF0() writeSMCKey:? data:? error:?];
-        v23 = v66;
+        v23 = v68;
         if (v23)
         {
           v21 = v23;
@@ -1612,8 +1612,8 @@ LABEL_16:
           v33 = os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR);
           if (v33)
           {
-            sub_10002FDD0(v33, v34, v35, v36, v37, v38, v39, v40, v58, v59, v60, v61, v62, *(&v62 + 1), v41);
-            _os_log_error_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "Failed to write to SMC key %{public}@", v42, 0xCu);
+            sub_10002FDD0(v33, v34, v35, v36, v37, v38, v39, v40, v41, v60, v61, v62, v63, v64, *(&v64 + 1), v42);
+            _os_log_error_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "Failed to write to SMC key %{public}@", v43, 0xCu);
           }
         }
 
@@ -1650,16 +1650,16 @@ LABEL_16:
               v24 = v21;
               unsignedIntValue = [intervalCopy unsignedIntValue];
               *buf = 67109120;
-              LODWORD(v69) = unsignedIntValue;
+              LODWORD(v71) = unsignedIntValue;
               _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Waiting for %ds before reading back the value to verify...", buf, 8u);
             }
 
             sleep([intervalCopy unsignedIntValue]);
           }
 
-          v65 = 0;
+          v67 = 0;
           v26 = [sub_10002FDF0() readSMCKey:? error:?];
-          v21 = v65;
+          v21 = v67;
 
           if (!v26 || v21)
           {
@@ -1669,12 +1669,12 @@ LABEL_16:
               dispatch_once(qword_1000B84A8, &stru_10009D198);
             }
 
-            v43 = qword_1000B84A0;
-            v44 = os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR);
-            if (v44)
+            v44 = qword_1000B84A0;
+            v45 = os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR);
+            if (v45)
             {
-              sub_10002FDD0(v44, v45, v46, v47, v48, v49, v50, v51, v58, v59, v60, v61, v62, *(&v62 + 1), v52);
-              _os_log_error_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "Failed to write to SMC key %{public}@", v54, 0xCu);
+              sub_10002FDD0(v45, v46, v47, v48, v49, v50, v51, v52, v53, v60, v61, v62, v63, v64, *(&v64 + 1), v54);
+              _os_log_error_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "Failed to write to SMC key %{public}@", v56, 0xCu);
             }
           }
 
@@ -1696,18 +1696,18 @@ LABEL_16:
             v27 = qword_1000B84A0;
             if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR))
             {
-              sub_10002FD60(*&v62);
-              v71 = v26;
-              v72 = v55;
-              v73[0] = readbackDataCopy;
+              sub_10002FD60(*&v64);
+              v73 = v26;
+              v74 = v57;
+              v75[0] = readbackDataCopy;
               _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "SMC key %{public}@ : %{public}@ does not have expected val: %{public}@", buf, 0x20u);
             }
 
-            v64 = 0;
-            v59 = v26;
-            v60 = readbackDataCopy;
-            sub_100016130(&v64, 2684354564, 0, @"SMC key %@ : %@ does not have expected val: %@", v28, v29, v30, v31, keyCopy);
-            v21 = v64;
+            v66 = 0;
+            v61 = v26;
+            v62 = readbackDataCopy;
+            sub_100016130(&v66, 2684354564, 0, @"SMC key %@ : %@ does not have expected val: %@", v28, v29, v30, v31, keyCopy);
+            v21 = v66;
           }
 
           v18 = v26;
@@ -1719,19 +1719,19 @@ LABEL_16:
           dispatch_once(qword_1000B84A8, &stru_10009D1D8);
         }
 
-        v53 = qword_1000B84A0;
+        v55 = qword_1000B84A0;
         if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR))
         {
           sub_10002FD60(5.8384e-34);
-          v71 = v21;
-          v72 = 1024;
-          LODWORD(v73[0]) = v63;
-          WORD2(v73[0]) = 1024;
-          *(v73 + 6) = 3;
-          _os_log_error_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, "Failed to write SMC key %{public}@ with error: %{public}@, attempt %d/%d; retrying...", buf, 0x22u);
+          v73 = v21;
+          v74 = 1024;
+          LODWORD(v75[0]) = v65;
+          WORD2(v75[0]) = 1024;
+          *(v75 + 6) = 3;
+          _os_log_error_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "Failed to write SMC key %{public}@ with error: %{public}@, attempt %d/%d; retrying...", buf, 0x22u);
         }
 
-        if (++v63 == 4)
+        if (++v65 == 4)
         {
           goto LABEL_45;
         }
@@ -1744,12 +1744,12 @@ LABEL_16:
       dispatch_once(qword_1000B84A8, &stru_10009D0F8);
     }
 
-    v57 = qword_1000B84A0;
+    v59 = qword_1000B84A0;
     if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR))
     {
       sub_10002FD60(5.8382e-34);
-      v71 = v21;
-      _os_log_error_impl(&_mh_execute_header, v57, OS_LOG_TYPE_ERROR, "Failed to read %{public}@ key with error: %{public}@", buf, 0x16u);
+      v73 = v21;
+      _os_log_error_impl(&_mh_execute_header, v59, OS_LOG_TYPE_ERROR, "Failed to read %{public}@ key with error: %{public}@", buf, 0x16u);
     }
   }
 
@@ -1762,7 +1762,7 @@ LABEL_16:
 LABEL_45:
   if (error)
   {
-    v56 = v21;
+    v58 = v21;
     *error = v21;
   }
 }

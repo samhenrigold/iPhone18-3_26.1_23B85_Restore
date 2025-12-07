@@ -55,11 +55,9 @@
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  anchorType = self->_anchorType;
-  v5 = [v3 initWithFormat:@"Anchor type: %@\nCandidate type: %@\nCandidate id: %@\nDate interval: %@\nScore: %.2f\nOffset: %@", anchorType, self->_candidateType, self->_candidateId, self->_dateIntervalForPrediction, *&self->_score, self->_offsetFromAnchorToShowPrediction];
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Anchor type: %@\nCandidate type: %@\nCandidate id: %@\nDate interval: %@\nScore: %.2f\nOffset: %@", self->_anchorType, self->_candidateType, self->_candidateId, self->_dateIntervalForPrediction, *&self->_score, self->_offsetFromAnchorToShowPrediction];
 
-  return v5;
+  return v2;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -236,7 +234,7 @@ LABEL_32:
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForNSInteger:(int64_t)integer key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -253,11 +251,11 @@ LABEL_32:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v22 = *MEMORY[0x277CCA450];
-      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x277CCA450];
+      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -268,13 +266,12 @@ LABEL_32:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (BOOL)checkAndReportDecodingFailureIfNeededFordouble:(double)fordouble key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -291,11 +288,11 @@ LABEL_7:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v22 = *MEMORY[0x277CCA450];
-      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x277CCA450];
+      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -306,7 +303,6 @@ LABEL_7:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -335,99 +331,71 @@ LABEL_7:
   coderCopy = coder;
   v5 = MEMORY[0x277D42620];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_anchor();
+  v7 = __atxlog_handle_anchor(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"codingKeyForAnchorType" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.AnchorModelPrediction" errorCode:-1 logHandle:v7];
 
   if (v8)
   {
     v9 = MEMORY[0x277D42620];
     v10 = objc_opt_class();
-    v11 = __atxlog_handle_anchor();
+    v11 = __atxlog_handle_anchor(v10);
     v12 = [v9 robustDecodeObjectOfClass:v10 forKey:@"codingKeyForAnchorEvent" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.AnchorModelPrediction" errorCode:-1 logHandle:v11];
 
     if (v12)
     {
       v13 = MEMORY[0x277D42620];
       v14 = objc_opt_class();
-      v15 = __atxlog_handle_anchor();
+      v15 = __atxlog_handle_anchor(v14);
       v16 = [v13 robustDecodeObjectOfClass:v14 forKey:@"codingKeyForCandidateType" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.AnchorModelPrediction" errorCode:-1 logHandle:v15];
 
       if (v16)
       {
         v17 = MEMORY[0x277D42620];
         v18 = objc_opt_class();
-        v19 = __atxlog_handle_anchor();
+        v19 = __atxlog_handle_anchor(v18);
         v20 = [v17 robustDecodeObjectOfClass:v18 forKey:@"codingKeyForCandidateId" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.AnchorModelPrediction" errorCode:-1 logHandle:v19];
 
         if (v20)
         {
           v21 = MEMORY[0x277D42620];
           v22 = objc_opt_class();
-          v23 = __atxlog_handle_anchor();
+          v23 = __atxlog_handle_anchor(v22);
           v24 = [v21 robustDecodeObjectOfClass:v22 forKey:@"codingKeyForPredictionDateInterval" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.AnchorModelPrediction" errorCode:-1 logHandle:v23];
 
-          if (!v24)
+          if (!v24 || ([coderCopy decodeDoubleForKey:@"codingKeyForScore"], v26 = v25, -[ATXAnchorModelPrediction checkAndReportDecodingFailureIfNeededFordouble:key:coder:errorDomain:errorCode:](self, "checkAndReportDecodingFailureIfNeededFordouble:key:coder:errorDomain:errorCode:", @"codingKeyForScore", coderCopy, @"com.apple.proactive.AnchorModelPrediction", -1)) || (v27 = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"codingKeyForNumUniqueOccurrencesAfterAnchor"), -[ATXAnchorModelPrediction checkAndReportDecodingFailureIfNeededForNSInteger:key:coder:errorDomain:errorCode:](self, "checkAndReportDecodingFailureIfNeededForNSInteger:key:coder:errorDomain:errorCode:", v26, @"codingKeyForNumUniqueOccurrencesAfterAnchor", coderCopy, @"com.apple.proactive.AnchorModelPrediction", -1)) || (objc_msgSend(coderCopy, "decodeDoubleForKey:", @"codingKeyForPosteriorProbability"), v29 = v28, -[ATXAnchorModelPrediction checkAndReportDecodingFailureIfNeededFordouble:key:coder:errorDomain:errorCode:](self, "checkAndReportDecodingFailureIfNeededFordouble:key:coder:errorDomain:errorCode:", @"codingKeyForPosteriorProbability", coderCopy, @"com.apple.proactive.AnchorModelPrediction", -1, v26)) || (objc_msgSend(coderCopy, "decodeDoubleForKey:", @"codingKeyForClassConditionalProbability"), v31 = v30, -[ATXAnchorModelPrediction checkAndReportDecodingFailureIfNeededFordouble:key:coder:errorDomain:errorCode:](self, "checkAndReportDecodingFailureIfNeededFordouble:key:coder:errorDomain:errorCode:", @"codingKeyForClassConditionalProbability", coderCopy, @"com.apple.proactive.AnchorModelPrediction", -1, v26)) || (objc_msgSend(coderCopy, "decodeDoubleForKey:", @"codingKeyForStandardDeviationOfOffsetFromAnchor"), v33 = v32, -[ATXAnchorModelPrediction checkAndReportDecodingFailureIfNeededFordouble:key:coder:errorDomain:errorCode:](self, "checkAndReportDecodingFailureIfNeededFordouble:key:coder:errorDomain:errorCode:", @"codingKeyForStandardDeviationOfOffsetFromAnchor", coderCopy, @"com.apple.proactive.AnchorModelPrediction", -1, v26)) || (objc_msgSend(coderCopy, "decodeDoubleForKey:", @"codingKeyForAnchorPopularity"), v35 = v34, -[ATXAnchorModelPrediction checkAndReportDecodingFailureIfNeededFordouble:key:coder:errorDomain:errorCode:](self, "checkAndReportDecodingFailureIfNeededFordouble:key:coder:errorDomain:errorCode:", @"codingKeyForAnchorPopularity", coderCopy, @"com.apple.proactive.AnchorModelPrediction", -1, v26)) || (objc_msgSend(coderCopy, "decodeDoubleForKey:", @"codingKeyForGlobalPopularity"), v37 = v36, -[ATXAnchorModelPrediction checkAndReportDecodingFailureIfNeededFordouble:key:coder:errorDomain:errorCode:](self, "checkAndReportDecodingFailureIfNeededFordouble:key:coder:errorDomain:errorCode:", @"codingKeyForGlobalPopularity", coderCopy, @"com.apple.proactive.AnchorModelPrediction", -1, v26)))
           {
-            goto LABEL_13;
-          }
-
-          [coderCopy decodeDoubleForKey:@"codingKeyForScore"];
-          v26 = v25;
-          if ([(ATXAnchorModelPrediction *)self checkAndReportDecodingFailureIfNeededFordouble:@"codingKeyForScore" key:coderCopy coder:@"com.apple.proactive.AnchorModelPrediction" errorDomain:-1 errorCode:?])
-          {
-            goto LABEL_13;
-          }
-
-          v27 = [coderCopy decodeIntegerForKey:@"codingKeyForNumUniqueOccurrencesAfterAnchor"];
-          if ([(ATXAnchorModelPrediction *)self checkAndReportDecodingFailureIfNeededForNSInteger:v26 key:@"codingKeyForNumUniqueOccurrencesAfterAnchor" coder:coderCopy errorDomain:@"com.apple.proactive.AnchorModelPrediction" errorCode:-1])
-          {
-            goto LABEL_13;
-          }
-
-          [coderCopy decodeDoubleForKey:@"codingKeyForPosteriorProbability"];
-          v29 = v28;
-          if ([(ATXAnchorModelPrediction *)self checkAndReportDecodingFailureIfNeededFordouble:@"codingKeyForPosteriorProbability" key:coderCopy coder:@"com.apple.proactive.AnchorModelPrediction" errorDomain:-1 errorCode:v26])
-          {
-            goto LABEL_13;
-          }
-
-          [coderCopy decodeDoubleForKey:@"codingKeyForClassConditionalProbability"];
-          v31 = v30;
-          if (-[ATXAnchorModelPrediction checkAndReportDecodingFailureIfNeededFordouble:key:coder:errorDomain:errorCode:](self, "checkAndReportDecodingFailureIfNeededFordouble:key:coder:errorDomain:errorCode:", @"codingKeyForClassConditionalProbability", coderCopy, @"com.apple.proactive.AnchorModelPrediction", -1, v26) || ([coderCopy decodeDoubleForKey:@"codingKeyForStandardDeviationOfOffsetFromAnchor"], v33 = v32, -[ATXAnchorModelPrediction checkAndReportDecodingFailureIfNeededFordouble:key:coder:errorDomain:errorCode:](self, "checkAndReportDecodingFailureIfNeededFordouble:key:coder:errorDomain:errorCode:", @"codingKeyForStandardDeviationOfOffsetFromAnchor", coderCopy, @"com.apple.proactive.AnchorModelPrediction", -1, v26)) || (objc_msgSend(coderCopy, "decodeDoubleForKey:", @"codingKeyForAnchorPopularity"), v35 = v34, -[ATXAnchorModelPrediction checkAndReportDecodingFailureIfNeededFordouble:key:coder:errorDomain:errorCode:](self, "checkAndReportDecodingFailureIfNeededFordouble:key:coder:errorDomain:errorCode:", @"codingKeyForAnchorPopularity", coderCopy, @"com.apple.proactive.AnchorModelPrediction", -1, v26)) || (objc_msgSend(coderCopy, "decodeDoubleForKey:", @"codingKeyForGlobalPopularity"), v37 = v36, -[ATXAnchorModelPrediction checkAndReportDecodingFailureIfNeededFordouble:key:coder:errorDomain:errorCode:](self, "checkAndReportDecodingFailureIfNeededFordouble:key:coder:errorDomain:errorCode:", @"codingKeyForGlobalPopularity", coderCopy, @"com.apple.proactive.AnchorModelPrediction", -1, v26)))
-          {
-LABEL_13:
             selfCopy = 0;
           }
 
           else
           {
             v40 = MEMORY[0x277D42620];
-            v50 = objc_opt_class();
-            v52 = __atxlog_handle_anchor();
-            v41 = [v40 robustDecodeObjectOfClass:v50 forKey:@"codingKeyForAnchorOffset" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.AnchorModelPrediction" errorCode:-1 logHandle:v52];
+            v51 = objc_opt_class();
+            v53 = __atxlog_handle_anchor(v51);
+            v41 = [v40 robustDecodeObjectOfClass:v51 forKey:@"codingKeyForAnchorOffset" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.AnchorModelPrediction" errorCode:-1 logHandle:v53];
 
-            v53 = v41;
+            v54 = v41;
             if (v41)
             {
-              v51 = MEMORY[0x277D42620];
+              v52 = MEMORY[0x277D42620];
               context = objc_autoreleasePoolPush();
-              v47 = objc_alloc(MEMORY[0x277CBEB98]);
+              v48 = objc_alloc(MEMORY[0x277CBEB98]);
               v42 = objc_opt_class();
               v43 = objc_opt_class();
-              v48 = [v47 initWithObjects:{v42, v43, objc_opt_class(), 0}];
+              v49 = [v48 initWithObjects:{v42, v43, objc_opt_class(), 0}];
               objc_autoreleasePoolPop(context);
-              v44 = __atxlog_handle_anchor();
-              v45 = [v51 robustDecodeObjectOfClasses:v48 forKey:@"codingKeyForCandidateClassifier" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.AnchorModelPrediction" errorCode:-1 logHandle:v44];
+              v45 = __atxlog_handle_anchor(v44);
+              v46 = [v52 robustDecodeObjectOfClasses:v49 forKey:@"codingKeyForCandidateClassifier" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.AnchorModelPrediction" errorCode:-1 logHandle:v45];
 
-              self = [(ATXAnchorModelPrediction *)self initWithAnchorType:v8 anchorEvent:v12 candidateType:v16 candidateId:v20 dateIntervalForPrediction:v24 score:v27 numUniqueOccurrencesAfterAnchor:v26 posteriorProbability:v29 classConditionalProbability:v31 standardDeviationOfOffsetFromAnchor:v33 anchorPopularity:v35 globalPopularity:v37 offsetFromAnchorToShowPrediction:v53 candidateClassifier:v45];
+              self = [(ATXAnchorModelPrediction *)self initWithAnchorType:v8 anchorEvent:v12 candidateType:v16 candidateId:v20 dateIntervalForPrediction:v24 score:v27 numUniqueOccurrencesAfterAnchor:v26 posteriorProbability:v29 classConditionalProbability:v31 standardDeviationOfOffsetFromAnchor:v33 anchorPopularity:v35 globalPopularity:v37 offsetFromAnchorToShowPrediction:v54 candidateClassifier:v46];
               selfCopy = self;
-              v46 = v53;
+              v47 = v54;
             }
 
             else
             {
               selfCopy = 0;
-              v46 = 0;
+              v47 = 0;
             }
           }
         }

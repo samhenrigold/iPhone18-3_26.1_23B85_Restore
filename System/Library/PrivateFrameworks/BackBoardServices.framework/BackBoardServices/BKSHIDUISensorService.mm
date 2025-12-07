@@ -20,67 +20,66 @@ void __29__BKSHIDUISensorService_init__block_invoke_2(uint64_t a1)
 
 - (void)_lock_pushCurrentModeToServer
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (([(BSCompoundAssertion *)self->_suppressionAssertion isActive]& 1) == 0)
   {
     orderedContext = [(BSCompoundAssertion *)self->_modeAssertion orderedContext];
     array = [orderedContext array];
-    v5 = [BKSHIDUISensorMode _prevailingMode:array];
+    v5 = [BKSHIDUISensorMode _prevailingMode:?];
 
-    lock_prevailingMode = self->_lock_prevailingMode;
     p_lock_prevailingMode = &self->_lock_prevailingMode;
     if (BSEqualObjects())
     {
 LABEL_19:
 
-      goto LABEL_20;
+      return;
     }
 
     if ([orderedContext count] < 2)
     {
-      v8 = BKLogUISensor();
-      v10 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+      v7 = BKLogUISensor();
+      v9 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
       if (v5)
       {
-        if (!v10)
+        if (!v9)
         {
           goto LABEL_12;
         }
 
         *buf = 138543362;
-        v20 = v5;
-        v11 = "prevailing client request: %{public}@";
-        v12 = v8;
-        v13 = 12;
+        v17 = v5;
+        v10 = "prevailing client request: %{public}@";
+        v11 = v7;
+        v12 = 12;
       }
 
       else
       {
-        if (!v10)
+        if (!v9)
         {
           goto LABEL_12;
         }
 
         *buf = 0;
-        v11 = "prevailing client request: none!";
-        v12 = v8;
-        v13 = 2;
+        v10 = "prevailing client request: none!";
+        v11 = v7;
+        v12 = 2;
       }
 
-      _os_log_impl(&dword_186345000, v12, OS_LOG_TYPE_DEFAULT, v11, buf, v13);
+      _os_log_impl(&dword_186345000, v11, OS_LOG_TYPE_DEFAULT, v10, buf, v12);
     }
 
     else
     {
-      v8 = BKLogUISensor();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v7 = BKLogUISensor();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = [MEMORY[0x1E698E688] descriptionForRootObject:orderedContext];
+        v8 = [MEMORY[0x1E698E688] descriptionForRootObject:?];
         *buf = 138543618;
-        v20 = v5;
-        v21 = 2114;
-        v22 = v9;
-        _os_log_impl(&dword_186345000, v8, OS_LOG_TYPE_DEFAULT, "prevailing client request: %{public}@ all modes:%{public}@", buf, 0x16u);
+        v17 = v5;
+        v18 = 2114;
+        v19 = v8;
+        _os_log_impl(&dword_186345000, v7, OS_LOG_TYPE_DEFAULT, "prevailing client request: %{public}@ all modes:%{public}@", buf, 0x16u);
       }
     }
 
@@ -89,19 +88,18 @@ LABEL_12:
     objc_storeStrong(p_lock_prevailingMode, v5);
     if (v5)
     {
-      v18 = 0;
-      v14 = [MEMORY[0x1E698E750] encodeObject:v5 error:&v18];
-      v15 = v18;
-      if (!v14)
+      v13 = [MEMORY[0x1E698E750] encodeObject:? error:?];
+      v14 = 0;
+      if (!v13)
       {
-        v14 = BKLogUISensor();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v13 = BKLogUISensor();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v20 = v15;
-          v21 = 2114;
-          v22 = v5;
-          _os_log_error_impl(&dword_186345000, v14, OS_LOG_TYPE_ERROR, "error encoding BKSHIDUISensorMode: %{public}@ : %{public}@", buf, 0x16u);
+          v17 = v14;
+          v18 = 2114;
+          v19 = v5;
+          _os_log_error_impl(&dword_186345000, v13, OS_LOG_TYPE_ERROR, "error encoding BKSHIDUISensorMode: %{public}@ : %{public}@", buf, 0x16u);
         }
 
         goto LABEL_18;
@@ -110,19 +108,16 @@ LABEL_12:
 
     else
     {
+      v13 = 0;
       v14 = 0;
-      v15 = 0;
     }
 
-    v16 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-    _BKSHIDRequestUISensorMode(v16, [v14 bs_bytesForMIG], [v14 bs_lengthForMIG]);
+    v15 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
+    _BKSHIDRequestUISensorMode(v15, [v13 bs_bytesForMIG], [v13 bs_lengthForMIG]);
 LABEL_18:
 
     goto LABEL_19;
   }
-
-LABEL_20:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __29__BKSHIDUISensorService_init__block_invoke(uint64_t a1)
@@ -164,44 +159,43 @@ void __46__BKSHIDUISensorService_sensorCharacteristics__block_invoke()
   v11 = 0;
   v10 = 0;
   v0 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  v1 = _BKSHIDGetUISensorCharacteristics(v0, &v11, &v10);
-  if (v1)
+  v2 = _BKSHIDGetUISensorCharacteristics(v0, &v11, &v10, v1);
+  if (v2)
   {
-    v2 = v1;
-    v3 = BKLogCommon();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v3 = v2;
+    v4 = BKLogCommon();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v13) = v2;
-      _os_log_error_impl(&dword_186345000, v3, OS_LOG_TYPE_ERROR, "Mach IPC error getting UI sensor characteristics: 0x%x", buf, 8u);
+      LODWORD(v13) = v3;
+      _os_log_error_impl(&dword_186345000, v4, OS_LOG_TYPE_ERROR, "Mach IPC error getting UI sensor characteristics: 0x%x", buf, 8u);
     }
   }
 
   else
   {
-    v3 = [MEMORY[0x1E695DEF0] bs_dataWithVMAllocatedBytes:v11 length:v10];
-    if (v3)
+    v4 = [MEMORY[0x1E695DEF0] bs_dataWithVMAllocatedBytes:? length:?];
+    if (v4)
     {
-      v9 = 0;
-      v4 = [MEMORY[0x1E698E750] decodeObjectOfClass:objc_opt_class() fromData:v3 error:&v9];
-      v5 = v9;
-      v6 = sensorCharacteristics_sCharacteristics;
-      sensorCharacteristics_sCharacteristics = v4;
+      v5 = MEMORY[0x1E698E750];
+      objc_opt_class();
+      v6 = [v5 decodeObjectOfClass:? fromData:? error:?];
+      v7 = 0;
+      v8 = sensorCharacteristics_sCharacteristics;
+      sensorCharacteristics_sCharacteristics = v6;
 
       if (!sensorCharacteristics_sCharacteristics)
       {
-        v7 = BKLogCommon();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v9 = BKLogCommon();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v13 = v5;
-          _os_log_error_impl(&dword_186345000, v7, OS_LOG_TYPE_ERROR, "decoding characteristics failed: %{public}@", buf, 0xCu);
+          v13 = v7;
+          _os_log_error_impl(&dword_186345000, v9, OS_LOG_TYPE_ERROR, "decoding characteristics failed: %{public}@", buf, 0xCu);
         }
       }
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)proximityDidUnoccludeAfterWake
@@ -216,41 +210,32 @@ void __46__BKSHIDUISensorService_sensorCharacteristics__block_invoke()
   modeAssertion = self->_modeAssertion;
   modeCopy = mode;
   reason = [modeCopy reason];
-  v6 = [(BSCompoundAssertion *)modeAssertion acquireForReason:reason withContext:modeCopy];
+  v6 = [BSCompoundAssertion acquireForReason:"acquireForReason:withContext:" withContext:?];
 
   return v6;
 }
 
 - (BKSHIDUISensorService)init
 {
-  v17.receiver = self;
-  v17.super_class = BKSHIDUISensorService;
-  v2 = [(BKSHIDUISensorService *)&v17 init];
+  v14.receiver = self;
+  v14.super_class = BKSHIDUISensorService;
+  v2 = [(BKSHIDUISensorService *)&v14 init];
   v3 = v2;
   if (v2)
   {
     v2->_lock._os_unfair_lock_opaque = 0;
     v4 = MEMORY[0x1E698E658];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __29__BKSHIDUISensorService_init__block_invoke;
-    v15[3] = &unk_1E6F46D70;
-    v5 = v2;
-    v16 = v5;
-    v6 = [v4 assertionWithIdentifier:@"BKSHIDUISensorMode mode requests" stateDidChangeHandler:v15];
-    modeAssertion = v5->_modeAssertion;
-    v5->_modeAssertion = v6;
+    v13 = v2;
+    v5 = [v4 assertionWithIdentifier:? stateDidChangeHandler:?];
+    modeAssertion = v13->_modeAssertion;
+    v13->_modeAssertion = v5;
 
-    v8 = MEMORY[0x1E698E658];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __29__BKSHIDUISensorService_init__block_invoke_2;
-    v13[3] = &unk_1E6F46D70;
-    v9 = v5;
-    v14 = v9;
-    v10 = [v8 assertionWithIdentifier:@"BKSHIDUISensorMode suppress mode changes" stateDidChangeHandler:v13];
-    suppressionAssertion = v9->_suppressionAssertion;
-    v9->_suppressionAssertion = v10;
+    v7 = MEMORY[0x1E698E658];
+    v11 = MEMORY[0x1E69E9820];
+    v12 = v13;
+    v8 = [v7 assertionWithIdentifier:v11 stateDidChangeHandler:{3221225472, __29__BKSHIDUISensorService_init__block_invoke_2, &unk_1E6F46D70}];
+    suppressionAssertion = v12->_suppressionAssertion;
+    v12->_suppressionAssertion = v8;
   }
 
   return v3;
@@ -258,9 +243,11 @@ void __46__BKSHIDUISensorService_sensorCharacteristics__block_invoke()
 
 uint64_t __39__BKSHIDUISensorService_sharedInstance__block_invoke()
 {
-  sharedInstance_service_188 = objc_alloc_init(BKSHIDUISensorService);
+  v0 = objc_alloc_init(BKSHIDUISensorService);
+  v1 = sharedInstance_service_188;
+  sharedInstance_service_188 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

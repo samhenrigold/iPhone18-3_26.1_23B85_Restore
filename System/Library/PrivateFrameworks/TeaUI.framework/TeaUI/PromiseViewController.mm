@@ -21,7 +21,7 @@
 - (UINavigationItem)navigationItem
 {
   selfCopy = self;
-  v3 = sub_1D7F1B3D8();
+  v3 = sub_1D7F1B3D8(selfCopy);
 
   return v3;
 }
@@ -29,7 +29,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1D7F1B47C();
+  sub_1D7F1B47C(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change

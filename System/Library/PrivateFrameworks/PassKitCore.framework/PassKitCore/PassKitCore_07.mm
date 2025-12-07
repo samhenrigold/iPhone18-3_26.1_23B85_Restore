@@ -1,3 +1,1040 @@
+uint64_t sub_100155E54(uint64_t a1)
+{
+  if (*(a1 + 32))
+  {
+    v2 = [*(a1 + 40) identifier];
+    v165 = [*(a1 + 40) serviceIdentifier];
+    v164 = [*(a1 + 40) paymentHash];
+    v161 = [*(a1 + 40) transactionDate];
+    v3 = [*(a1 + 40) hasNotificationServiceData];
+    v4 = [*(a1 + 40) hasTransactionSource];
+    v158 = [*(a1 + 40) updateReasons];
+    v160 = [*(a1 + 48) _updateCameExclusivelyFromCloudStore:?];
+    v5 = [*(a1 + 48) passUniqueIdentifierForTransactionSourceIdentifier:*(a1 + 32)];
+    v6 = [*(a1 + 48) paymentApplicationForTransactionSourceIdentifier:*(a1 + 32)];
+
+    v162 = v5;
+    if (v6)
+    {
+      v163 = [NSSet setWithObject:*(a1 + 32)];
+    }
+
+    else
+    {
+      v10 = [*(a1 + 48) transactionSourceIdentifiersAssociatedWithPassUniqueIdentifier:v5];
+      v11 = [NSSet setWithObject:*(a1 + 32)];
+      v163 = [v11 setByAddingObjectsFromSet:v10];
+    }
+
+    v12 = [*(a1 + 40) accountIdentifier];
+    v13 = [*(a1 + 40) accountType];
+    v14 = [*(a1 + 48) transactionSourceTypeForTransactionSourceIdentifier:*(a1 + 32)];
+    v15 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = *(a1 + 72);
+      *buf = 134218754;
+      *v205 = v16;
+      *&v205[8] = 2114;
+      *&v205[10] = v2;
+      v206 = 2048;
+      *v207 = v14;
+      *&v207[8] = 2048;
+      v208 = v13;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "will insert or update (%lu) transaction: %{public}@ source: %lu, %ld", buf, 0x2Au);
+    }
+
+    if ([v2 length])
+    {
+      v17 = [PaymentTransaction anyInDatabase:*(*(a1 + 48) + 8) withIdentifier:v2];
+      v18 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+      if (v17)
+      {
+        if (v18)
+        {
+          *buf = 138543362;
+          *v205 = v2;
+          v19 = "Matched Transaction to Transaction with Identifier: %{public}@";
+          v20 = v15;
+          v21 = 12;
+LABEL_20:
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, v19, buf, v21);
+          goto LABEL_21;
+        }
+
+        goto LABEL_21;
+      }
+
+      if (v18)
+      {
+        *buf = 138543362;
+        *v205 = v2;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Could Not Match Transaction on Identifier: %{public}@", buf, 0xCu);
+      }
+    }
+
+    if ([v165 length])
+    {
+      v17 = [PaymentTransaction anyInDatabase:*(*(a1 + 48) + 8) withServiceIdentifier:v165 forTransactionSourceIdentifier:*(a1 + 32)];
+      v22 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+      if (v17)
+      {
+        if (v22)
+        {
+          v23 = *(a1 + 32);
+          *buf = 138543618;
+          *v205 = v165;
+          *&v205[8] = 2112;
+          *&v205[10] = v23;
+          v19 = "Matched Transaction to Transaction with Service Identifier: %{public}@, transactionSourceIdentifier: %@";
+          v20 = v15;
+          v21 = 22;
+          goto LABEL_20;
+        }
+
+LABEL_21:
+
+        v24 = v164;
+        goto LABEL_22;
+      }
+
+      if (v22)
+      {
+        v63 = *(a1 + 32);
+        *buf = 138543618;
+        *v205 = v165;
+        *&v205[8] = 2112;
+        *&v205[10] = v63;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Could Not Match Transaction on Service Identifier: %{public}@, transactionSourceIdentifier: %@", buf, 0x16u);
+      }
+    }
+
+    if ([v12 length] && v13)
+    {
+      v17 = [PaymentTransaction anyInDatabase:*(*(a1 + 48) + 8) withServiceIdentifier:v165 accountIdentifier:v12 accountType:v13];
+      v64 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+      if (v17)
+      {
+        if (v64)
+        {
+          v65 = PKPaymentTransactionAccountTypeToString();
+          *buf = 138543874;
+          *v205 = v165;
+          *&v205[8] = 2112;
+          *&v205[10] = v12;
+          v206 = 2114;
+          *v207 = v65;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Matched Transaction to Transaction with Service Identifier: %{public}@, accountIdentifier: %@, accountType %{public}@", buf, 0x20u);
+        }
+
+        goto LABEL_21;
+      }
+
+      if (v64)
+      {
+        v71 = PKPaymentTransactionAccountTypeToString();
+        *buf = 138543874;
+        *v205 = v165;
+        *&v205[8] = 2112;
+        *&v205[10] = v12;
+        v206 = 2114;
+        *v207 = v71;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Could Not Match Transaction on Service Identifier: %{public}@, accountIdentifier: %@, accountType %{public}@", buf, 0x20u);
+      }
+    }
+
+    v24 = v164;
+    if ([v164 length])
+    {
+      if (v4)
+      {
+        v72 = 2;
+      }
+
+      else
+      {
+        v72 = 1;
+      }
+
+      if (v3)
+      {
+        v73 = 2;
+      }
+
+      else
+      {
+        v73 = 1;
+      }
+
+      v17 = [PaymentTransaction anyInDatabase:*(*(a1 + 48) + 8) withPaymentHash:v164 withTransactionSource:v72 withNotificationServiceData:v73 transactionSourceIdentifiers:v163];
+      v74 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+      if (v17)
+      {
+        if (v74)
+        {
+          *buf = 138412290;
+          *v205 = v164;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Matched Transaction to Transaction with Payment Hash: %@", buf, 0xCu);
+        }
+
+LABEL_22:
+        v25 = *(a1 + 72);
+        if (v25 >= 2)
+        {
+          if (v25 == 2)
+          {
+            if (v17)
+            {
+              v157 = v12;
+              v50 = [v17 identifier];
+              v27 = [v17 serviceIdentifier];
+              v51 = [v17 paymentTransaction];
+              v52 = *(a1 + 48);
+              v173[0] = _NSConcreteStackBlock;
+              v173[1] = 3221225472;
+              v173[2] = sub_100158018;
+              v173[3] = &unk_100848738;
+              v174 = *(a1 + 32);
+              v30 = v51;
+              v175 = v30;
+              [v52 dispatchDelegateCallback:v173];
+              if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = 138543618;
+                *v205 = v50;
+                *&v205[8] = 2114;
+                *&v205[10] = v27;
+                _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Removing Existing Transaction with Identifier: %{public}@, serviceIdentifier: %{public}@", buf, 0x16u);
+              }
+
+              [v17 deleteFromDatabase];
+              if ((v160 & 1) == 0)
+              {
+                WeakRetained = objc_loadWeakRetained((*(a1 + 48) + 72));
+                v54 = [WeakRetained applePayContainer];
+                v55 = v27;
+                v56 = *(a1 + 32);
+                v169[0] = _NSConcreteStackBlock;
+                v169[1] = 3221225472;
+                v169[2] = sub_100158024;
+                v169[3] = &unk_10083DE10;
+                v169[4] = *(a1 + 48);
+                v170 = v30;
+                v171 = v55;
+                v172 = *(a1 + 32);
+                v57 = v56;
+                v27 = v55;
+                [v54 canSyncTransactionFromCloudKitForTransactionSourceIdentifier:v57 completion:v169];
+              }
+
+              v58 = *(a1 + 48);
+              v166[0] = _NSConcreteStackBlock;
+              v166[1] = 3221225472;
+              v166[2] = sub_10015812C;
+              v166[3] = &unk_100848738;
+              v167 = *(a1 + 32);
+              v168 = v50;
+              v42 = v50;
+              [v58 dispatchDelegateCallback:v166];
+
+              v7 = 0;
+              v24 = v164;
+              v43 = v162;
+              v12 = v157;
+              goto LABEL_173;
+            }
+          }
+
+          else if (v25 == 3)
+          {
+            if (!v17)
+            {
+              v26 = [*(a1 + 40) merchant];
+              v27 = [v26 name];
+
+              v28 = [PaymentTransaction closestPendingTransactionInDatabase:*(*(a1 + 48) + 8) fromTransactionDate:v161 withNotificationServiceData:1 forMerchantName:v27 forTransactionSourceIdentifiers:v163];
+              v17 = v28;
+              if (!v28)
+              {
+                v7 = 0;
+                v43 = v162;
+                goto LABEL_175;
+              }
+
+              v29 = [v28 identifier];
+              if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = 138543362;
+                *v205 = v29;
+                _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Soft-Matched Transaction to Transaction with Identifier: %{public}@", buf, 0xCu);
+              }
+            }
+
+            v27 = [v17 identifier];
+            v30 = [v17 paymentTransaction];
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+            {
+              v31 = *(a1 + 40);
+              *buf = 138543618;
+              *v205 = v27;
+              *&v205[8] = 2112;
+              *&v205[10] = v31;
+              _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Replacing Existing Transaction with Identifier: %{public}@ with Transaction: %@", buf, 0x16u);
+            }
+
+            [v17 replaceWithPaymentTransaction:*(a1 + 40)];
+            v32 = [v17 paymentTransaction];
+            v33 = *(*(a1 + 64) + 8);
+            v34 = *(v33 + 40);
+            *(v33 + 40) = v32;
+
+            [*(*(*(a1 + 64) + 8) + 40) addUpdateReasons:v158];
+            v35 = *(*(*(a1 + 64) + 8) + 40);
+            if (!v35)
+            {
+              v7 = 0;
+              v43 = v162;
+LABEL_174:
+
+LABEL_175:
+              goto LABEL_176;
+            }
+
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 138543618;
+              *v205 = v27;
+              *&v205[8] = 2112;
+              *&v205[10] = v35;
+              _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Resulting Transaction with identifier %{public}@: %@", buf, 0x16u);
+            }
+
+            if ((v160 & 1) == 0 && ([*(*(*(a1 + 64) + 8) + 40) updateReasonIsInitialDownload] & 1) == 0)
+            {
+              v36 = *(a1 + 48);
+              v202 = *(*(*(a1 + 64) + 8) + 40);
+              [NSArray arrayWithObjects:&v202 count:1];
+              v38 = v37 = v12;
+              [v36 _updateCloudStoreWithTransactions:v38 transactionSourceIdentifier:*(a1 + 32)];
+
+              v12 = v37;
+            }
+
+            v39 = *(a1 + 48);
+            v176[0] = _NSConcreteStackBlock;
+            v176[1] = 3221225472;
+            v176[2] = sub_100158000;
+            v176[3] = &unk_100848A20;
+            v40 = *(a1 + 32);
+            v41 = *(a1 + 64);
+            v177 = v40;
+            v179 = v41;
+            v30 = v30;
+            v178 = v30;
+            [v39 dispatchDelegateCallback:v176];
+
+            v7 = 0;
+            v42 = v177;
+            v43 = v162;
+LABEL_173:
+
+            goto LABEL_174;
+          }
+
+          v7 = 0;
+          v43 = v162;
+LABEL_176:
+
+          goto LABEL_177;
+        }
+
+        v155 = v2;
+        v156 = v12;
+        if (v17)
+        {
+          LODWORD(v44) = 0;
+          goto LABEL_41;
+        }
+
+        if (![*(a1 + 40) supportsFuzzyMatching])
+        {
+LABEL_197:
+          if (*(a1 + 72) == 1)
+          {
+            v146 = 0;
+            v153 = 0;
+            v30 = 0;
+            v27 = 0;
+            v17 = 0;
+            goto LABEL_150;
+          }
+
+          if (v3)
+          {
+            v124 = 1;
+          }
+
+          else
+          {
+            v124 = 2;
+          }
+
+          v99 = [Pass anyInDatabase:*(*(a1 + 48) + 8) withUniqueID:v162];
+          v100 = [*(a1 + 48) paymentApplicationIdentifierForTransactionSourceIdentifier:*(a1 + 32)];
+          v125 = *(a1 + 48);
+          v126 = *(v125 + 8);
+          v127 = [*(v125 + 64) secureElementIdentifiers];
+          v128 = [PaymentApplication anyInDatabase:v126 withApplicationIdentifier:v100 secureElementIdentifiers:v127];
+
+          v151 = v128;
+          [v128 paymentNetworkIdentifier];
+          v129 = PKMaxPaymentTransactionsForCredentialType();
+          if (([v99 hasAssociatedPeerPaymentAccount] & 1) == 0)
+          {
+            v12 = v156;
+            if ((PKDisableTransactionTableTruncation() & 1) == 0)
+            {
+              v130 = [v99 associatedAccountIdentifier];
+              if (!v130)
+              {
+                v131 = 0;
+                if ((PKTransactionsUnlimitedForCredentialType() & 1) == 0 && (v14 - 1) >= 3)
+                {
+                  if ([PaymentTransaction numberOfPaymentTransactionsInDatabase:*(*(a1 + 48) + 8) forTransactionSourceIdentifiers:v163 withNotificationServiceData:v124 newerThanDate:v161]>= v129)
+                  {
+                    v153 = 0;
+                    v27 = 0;
+                    v17 = 0;
+                    v24 = v164;
+LABEL_221:
+
+                    v146 = 0;
+                    v30 = 0;
+LABEL_149:
+
+                    v2 = v155;
+LABEL_150:
+                    v101 = *(*(*(a1 + 64) + 8) + 40);
+                    if (!v101)
+                    {
+                      v102 = [v17 paymentTransaction];
+                      v103 = *(*(a1 + 64) + 8);
+                      v104 = *(v103 + 40);
+                      *(v103 + 40) = v102;
+
+                      v101 = *(*(*(a1 + 64) + 8) + 40);
+                    }
+
+                    [v101 addUpdateReasons:v158];
+                    v7 = [v27 transactionArchive];
+                    if (!v7)
+                    {
+                      v105 = PKLogFacilityTypeGetObject();
+                      if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
+                      {
+                        v106 = *(*(*(a1 + 64) + 8) + 40);
+                        *buf = 138543618;
+                        *v205 = v2;
+                        *&v205[8] = 2112;
+                        *&v205[10] = v106;
+                        _os_log_impl(&_mh_execute_header, v105, OS_LOG_TYPE_DEFAULT, "Error: There is no transaction archive for transaction with identifier %{public}@ %@", buf, 0x16u);
+                      }
+                    }
+
+                    v107 = *(*(*(a1 + 64) + 8) + 40);
+                    if (v107)
+                    {
+                      v159 = v27;
+                      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+                      {
+                        *buf = 138543874;
+                        *v205 = v2;
+                        *&v205[8] = 2112;
+                        *&v205[10] = v107;
+                        v206 = 2112;
+                        *v207 = v7;
+                        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "resulting transaction for identifier %{public}@: %@ and archive: %@", buf, 0x20u);
+                      }
+
+                      if ((v146 | [*(*(*(a1 + 64) + 8) + 40) updateReasonIsInitialDownload] ^ 1) == 1)
+                      {
+                        v108 = [*(*(*(a1 + 64) + 8) + 40) hasCloudArchivableDeviceData];
+                        v150 = [v30 isCloudArchivableDeviceDataEqual:*(*(*(a1 + 64) + 8) + 40)] ^ 1;
+                        v109 = [v153 allArchiveLocationsWithType:0 areArchived:1];
+                        v110 = [v7 allArchiveLocationsWithType:0 areArchived:1];
+                        v111 = v110;
+                        v147 = v109 & v110;
+                        v112 = [*(*(*(a1 + 64) + 8) + 40) updateReasonIsInitialDownload];
+                        if (v112)
+                        {
+                          v113 = v108;
+                          v114 = 0;
+                        }
+
+                        else
+                        {
+                          v113 = v108;
+                          if (((v160 ^ 1) & v108) == 1 && (v30 == 0) | v150 & 1)
+                          {
+                            v114 = 1;
+                          }
+
+                          else
+                          {
+                            v114 = v160 & (v147 ^ 1);
+                          }
+                        }
+
+                        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+                        {
+                          *buf = 138545922;
+                          *v205 = v155;
+                          *&v205[8] = 2114;
+                          *&v205[10] = v165;
+                          v206 = 1024;
+                          *v207 = v114;
+                          *&v207[4] = 1024;
+                          *&v207[6] = v30 != 0;
+                          LOWORD(v208) = 1024;
+                          *(&v208 + 2) = v113;
+                          HIWORD(v208) = 1024;
+                          v209 = v150;
+                          v210 = 1024;
+                          v211 = v109;
+                          v212 = 1024;
+                          v213 = v111 & 1;
+                          v214 = 1024;
+                          v215 = v147;
+                          v216 = 1024;
+                          v217 = v160;
+                          v218 = 1024;
+                          v219 = v112;
+                          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "should update cloud store for id %{public}@ service id %{public}@: %d (%d, %d, %d, %d, %d, %d, %d, %d)", buf, 0x4Cu);
+                        }
+
+                        v2 = v155;
+                        v12 = v156;
+                        v24 = v164;
+                        if (v114)
+                        {
+                          v115 = *(a1 + 48);
+                          v203 = *(*(*(a1 + 64) + 8) + 40);
+                          v116 = [NSArray arrayWithObjects:&v203 count:1];
+                          [v115 _updateCloudStoreWithTransactions:v116 transactionSourceIdentifier:*(a1 + 32)];
+
+                          v12 = v156;
+                        }
+                      }
+
+                      v117 = *(a1 + 48);
+                      v180[0] = _NSConcreteStackBlock;
+                      v180[1] = 3221225472;
+                      v180[2] = sub_100157FE8;
+                      v180[3] = &unk_100848A20;
+                      v118 = *(a1 + 32);
+                      v119 = *(a1 + 64);
+                      v181 = v118;
+                      v183 = v119;
+                      v30 = v30;
+                      v182 = v30;
+                      [v117 dispatchDelegateCallback:v180];
+
+                      v43 = v162;
+                      v27 = v159;
+                    }
+
+                    else
+                    {
+                      v43 = v162;
+                    }
+
+                    v42 = v153;
+                    goto LABEL_173;
+                  }
+
+                  v131 = 1;
+                }
+
+LABEL_207:
+                if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+                {
+                  v132 = *(a1 + 40);
+                  *buf = 138543618;
+                  *v205 = v155;
+                  *&v205[8] = 2112;
+                  *&v205[10] = v132;
+                  _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Inserting New Transaction with identifier %{public}@: %@", buf, 0x16u);
+                }
+
+                v133 = v129;
+
+                v134 = *(a1 + 80);
+                if (v134)
+                {
+                  *v134 = 1;
+                }
+
+                v148 = [TransactionSource anyInDatabase:*(*(a1 + 48) + 8) withIdentifier:*(a1 + 32)];
+                v17 = [PaymentTransaction insertPaymentTransaction:"insertPaymentTransaction:withTransactionSource:inDatabase:" withTransactionSource:*(a1 + 40) inDatabase:?];
+                v27 = [v17 dbPaymentTransactionArchive];
+                v153 = [v27 transactionArchive];
+                [v27 updateWithTransactionArchive:*(a1 + 56)];
+                if ([v99 associatedAccountFeatureIdentifier] != 4 || +[PKPaymentMessage canArchiveWithTransaction:](PKPaymentMessage, "canArchiveWithTransaction:", *(a1 + 40)) && (+[PaymentMessage paymentMessagesInDatabase:forPaymentPassUniqueIdentifier:](PaymentMessage, "paymentMessagesInDatabase:forPaymentPassUniqueIdentifier:", *(*(a1 + 48) + 8), v162), v135 = objc_claimAutoreleasedReturnValue(), v192[0] = _NSConcreteStackBlock, v192[1] = 3221225472, v192[2] = sub_100157E4C, v192[3] = &unk_1008489D0, v193 = *(a1 + 40), v136 = objc_msgSend(v135, "pk_hasObjectPassingTest:", v192), v193, v135, v136))
+                {
+                  [PaymentMessage archiveMessagesOfType:1 forPass:v99 inDatabase:*(*(a1 + 48) + 8)];
+                }
+
+                if ((v131 & *(a1 + 88)) == 1)
+                {
+                  v137 = objc_alloc_init(NSMutableSet);
+                  v187[0] = _NSConcreteStackBlock;
+                  v187[1] = 3221225472;
+                  v187[2] = sub_100157E58;
+                  v187[3] = &unk_1008489F8;
+                  v138 = v163;
+                  v139 = *(a1 + 48);
+                  v188 = v138;
+                  v189 = v139;
+                  v191 = v133;
+                  v140 = v137;
+                  v190 = v140;
+                  v141 = objc_retainBlock(v187);
+                  (v141[2])(v141, 1, 1);
+                  (v141[2])(v141, 1, 2);
+                  (v141[2])(v141, 2, 0);
+                  v142 = *(a1 + 48);
+                  v184[0] = _NSConcreteStackBlock;
+                  v184[1] = 3221225472;
+                  v184[2] = sub_100157EDC;
+                  v184[3] = &unk_100848738;
+                  v185 = v140;
+                  v186 = *(a1 + 32);
+                  v143 = v140;
+                  [v142 dispatchDelegateCallback:v184];
+                  v24 = v164;
+                  if (([v17 existsInDatabase] & 1) == 0)
+                  {
+
+                    v17 = 0;
+                  }
+
+                  v12 = v156;
+                }
+
+                else
+                {
+                  v24 = v164;
+                  v12 = v156;
+                }
+
+                goto LABEL_221;
+              }
+            }
+          }
+
+          v131 = 0;
+          goto LABEL_207;
+        }
+
+        v59 = [*(a1 + 48) passWithUniqueIdentifier:v162];
+        v60 = [v59 paymentPass];
+
+        v61 = v12;
+        if ([v60 hasAssociatedPeerPaymentAccount])
+        {
+          v62 = [v24 length] == 0;
+        }
+
+        else
+        {
+          v75 = [v60 associatedAccountServiceAccountIdentifier];
+          if (v75)
+          {
+            v62 = [v24 length] == 0;
+          }
+
+          else
+          {
+            v62 = 1;
+          }
+        }
+
+        v121 = [*(a1 + 40) dpanIdentifier];
+        v122 = [*(a1 + 40) altDSID];
+        if (!v62)
+        {
+          LODWORD(v44) = 0;
+          v17 = 0;
+          v12 = v61;
+          goto LABEL_196;
+        }
+
+        v154 = v122;
+        if ([v121 length])
+        {
+          v44 = [*(a1 + 48) paymentApplicationWithDPANIdentifier:v121];
+
+          v12 = v61;
+          if (!v44)
+          {
+            goto LABEL_194;
+          }
+        }
+
+        else
+        {
+          v12 = v61;
+          if ([v154 length] && !PKAltDSIDIsCurrentUser())
+          {
+            LODWORD(v44) = 0;
+LABEL_194:
+            v17 = 0;
+LABEL_195:
+            v122 = v154;
+LABEL_196:
+
+            v2 = v155;
+            v24 = v164;
+            if (v17)
+            {
+LABEL_41:
+              v45 = [v17 paymentTransaction];
+              v46 = [PaymentTransactionArchive anyInDatabase:*(*(a1 + 48) + 8) forTransaction:v17];
+              v152 = [v46 transactionArchive];
+              v47 = PKLogFacilityTypeGetObject();
+              if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = 138412290;
+                *v205 = v152;
+                _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Existing transaction archive %@", buf, 0xCu);
+              }
+
+              v48 = *(a1 + 56);
+              if (v48)
+              {
+                if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+                {
+                  *buf = 138412290;
+                  *v205 = v48;
+                  _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Updating existing transaction archive with new archive %@", buf, 0xCu);
+                }
+
+                [v46 updateWithTransactionArchive:*(a1 + 56)];
+              }
+
+              v149 = [v46 transactionArchive];
+              if (v160 & 1) != 0 || ![*(a1 + 40) hasCloudArchivableDeviceData] || (objc_msgSend(*(a1 + 40), "isCloudArchivableDeviceDataEqual:", v45))
+              {
+                v49 = os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT);
+                if ((v158 & 0x10000) != 0)
+                {
+                  if (v49)
+                  {
+                    *buf = 138543618;
+                    *v205 = v165;
+                    *&v205[8] = 2114;
+                    *&v205[10] = v2;
+                    _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "setting isArchived to NO because of upload-after-reset for transaction: %{public}@ service: %{public}@", buf, 0x16u);
+                  }
+
+                  [v149 updateArchiveLocationsWithType:0 isArchived:0];
+                }
+
+                else
+                {
+                  if (v49)
+                  {
+                    *buf = 138543618;
+                    *v205 = v2;
+                    *&v205[8] = 2114;
+                    *&v205[10] = v165;
+                    _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "setting isArchived to YES on every matching location in the archive for transaction: %{public}@ service: %{public}@", buf, 0x16u);
+                  }
+
+                  [v149 updateTransactionArchiveLocationsWithArchive:v152 type:0 archived:1];
+                }
+
+                v146 = 0;
+                if (!v44)
+                {
+                  goto LABEL_79;
+                }
+              }
+
+              else
+              {
+                if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+                {
+                  *buf = 138543618;
+                  *v205 = v2;
+                  *&v205[8] = 2114;
+                  *&v205[10] = v165;
+                  _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "setting isArchived to NO because the local device data has changed for transaction: %{public}@ service: %{public}@", buf, 0x16u);
+                }
+
+                [v149 updateArchiveLocationsWithType:0 isArchived:0];
+                v146 = 1;
+                if (!v44)
+                {
+                  goto LABEL_79;
+                }
+              }
+
+              if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = 138543618;
+                *v205 = v2;
+                *&v205[8] = 2114;
+                *&v205[10] = v165;
+                _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "marking transaction as fuzzy matched: %{public}@ service: %{public}@", buf, 0x16u);
+              }
+
+              [*(a1 + 40) setFuzzyMatched:1];
+LABEL_79:
+              v145 = v46;
+              if (v45)
+              {
+                v66 = v160;
+              }
+
+              else
+              {
+                v66 = 0;
+              }
+
+              if (v66 == 1)
+              {
+                v67 = [v45 merchant];
+                v68 = [*(a1 + 40) merchant];
+                if ([v67 mapsDataIsFromLocalMatch] & 1) != 0 || (objc_msgSend(v67, "shouldIgnoreMapsMatches"))
+                {
+                  v69 = 0;
+                  v70 = 0;
+                }
+
+                else
+                {
+                  v76 = [v67 mapsBrand];
+                  v70 = [v76 identifier];
+
+                  v77 = [v67 mapsMerchant];
+                  v69 = [v77 identifier];
+                }
+
+                if ([v68 mapsDataIsFromLocalMatch] & 1) != 0 || (objc_msgSend(v68, "shouldIgnoreMapsMatches"))
+                {
+                  v78 = 0;
+                  v79 = 0;
+                }
+
+                else
+                {
+                  v80 = [v68 mapsBrand];
+                  v79 = [v80 identifier];
+
+                  [v68 mapsMerchant];
+                  v144 = v68;
+                  v82 = v81 = v67;
+                  v78 = [v82 identifier];
+
+                  v67 = v81;
+                  v68 = v144;
+                }
+
+                if (v70 == v79 && v69 == v78)
+                {
+                  if ([*(a1 + 40) requiresMerchantReprocessing])
+                  {
+                    v83 = 1;
+                  }
+
+                  else
+                  {
+                    v83 = [v45 requiresMerchantReprocessing];
+                  }
+
+                  v2 = v155;
+                  v24 = v164;
+                  [*(a1 + 40) setRequiresMerchantReprocessing:v83];
+                  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+                  {
+                    *buf = 67109378;
+                    *v205 = v83;
+                    *&v205[4] = 2114;
+                    *&v205[6] = v155;
+                    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "maps data did not change, setting last reprocessing date: %d for transaction: %{public}@", buf, 0x12u);
+                  }
+
+                  if (v83)
+                  {
+                    v84 = *(a1 + 40);
+                    v85 = [v45 lastMerchantReprocessingDate];
+                    [v84 setLastMerchantReprocessingDate:v85];
+                  }
+                }
+
+                else
+                {
+                  v2 = v155;
+                  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+                  {
+                    *buf = 138543362;
+                    *v205 = v155;
+                    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "maps data changed for transaction: %{public}@", buf, 0xCu);
+                  }
+
+                  [*(a1 + 40) setRequiresMerchantReprocessing:0];
+                  [*(a1 + 40) setLastMerchantReprocessingDate:0];
+                  v24 = v164;
+                }
+              }
+
+              v86 = [*(a1 + 40) transactionStatus];
+              v87 = [v45 transactionStatus];
+              if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = 134218498;
+                *v205 = v87;
+                *&v205[8] = 2048;
+                *&v205[10] = v86;
+                v206 = 2114;
+                *v207 = v2;
+                _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "updating state from %ld to %ld for transaction: %{public}@", buf, 0x20u);
+              }
+
+              if (v45 && (v86 & 0xFFFFFFFFFFFFFFFDLL) == 1 && !v87)
+              {
+                if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+                {
+                  *buf = 138543362;
+                  *v205 = v2;
+                  _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "stated changed, will require merchant reprocessing for transaction: %{public}@", buf, 0xCu);
+                }
+
+                v88 = [*(a1 + 40) dpanIdentifier];
+                if (!v88 || ([*(a1 + 48) paymentApplicationWithDPANIdentifier:v88], v89 = objc_claimAutoreleasedReturnValue(), v89, v89))
+                {
+                  [*(a1 + 40) setRequiresMerchantReprocessing:1];
+                }
+              }
+
+              if (v86 == 1)
+              {
+                v90 = [v45 amount];
+                if (v90)
+                {
+
+                  if ((v87 & 0xFFFFFFFFFFFFFFF7) == 0)
+                  {
+                    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+                    {
+                      *buf = 138543362;
+                      *v205 = v2;
+                      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "updating amount added to auth for transaction: %{public}@", buf, 0xCu);
+                    }
+
+                    v91 = *(a1 + 40);
+                    v92 = [v91 amount];
+                    v93 = [v45 amount];
+                    v94 = [v92 decimalNumberBySubtracting:v93];
+                    [v91 setAmountAddedToAuth:v94];
+                  }
+                }
+              }
+
+              v95 = [v45 fkPaymentTransaction];
+              v96 = [*(a1 + 40) fkPaymentTransaction];
+              v97 = PKEqualObjects();
+
+              if ((v97 & 1) == 0)
+              {
+                [*(a1 + 40) setNeedsSyncWithFinance:1];
+              }
+
+              [*(a1 + 40) setUpdateSequenceNumber:{objc_msgSend(v45, "updateSequenceNumber") + 1}];
+              [v17 updateWithPaymentTransactionSource:*(a1 + 32)];
+              v98 = *(*(a1 + 48) + 8);
+              v194[0] = _NSConcreteStackBlock;
+              v194[1] = 3221225472;
+              v194[2] = sub_100157D14;
+              v194[3] = &unk_1008489A8;
+              v30 = v45;
+              v195 = v30;
+              v196 = *(a1 + 40);
+              v197 = v2;
+              v17 = v17;
+              v198 = v17;
+              v153 = v152;
+              v199 = v153;
+              v99 = v149;
+              v200 = v99;
+              v27 = v145;
+              v201 = v27;
+              sub_1005D4424(v98, v194);
+
+              v100 = v195;
+              v12 = v156;
+              goto LABEL_149;
+            }
+
+            goto LABEL_197;
+          }
+        }
+
+        v123 = [PaymentTransaction closestTransactionInDatabase:*(*(a1 + 48) + 8) fromTransaction:*(a1 + 40) forTransactionSourceIdentifiers:v163];
+        v17 = v123;
+        if (v123)
+        {
+          v44 = [v123 identifier];
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138543362;
+            *v205 = v44;
+            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Fuzzy-Matched Transaction to Transaction with Identifier: %{public}@", buf, 0xCu);
+          }
+
+          LODWORD(v44) = 1;
+        }
+
+        else
+        {
+          LODWORD(v44) = 0;
+        }
+
+        goto LABEL_195;
+      }
+
+      if (v74)
+      {
+        *buf = 138412290;
+        *v205 = v164;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Could Not Match Transaction on Payment Hash: %@", buf, 0xCu);
+      }
+
+      PKAnalyticsSendEvent();
+    }
+
+    v17 = 0;
+    goto LABEL_22;
+  }
+
+  v7 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = [*(a1 + 40) serviceIdentifier];
+    v9 = *(a1 + 40);
+    *buf = 138543618;
+    *v205 = v8;
+    *&v205[8] = 2112;
+    *&v205[10] = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Error: Cannot insert transaction with service ID %{public}@ with a nil transactionSourceIdentifier %@", buf, 0x16u);
+  }
+
+LABEL_177:
+
+  return 1;
+}
+
 uint64_t sub_100157D14(uint64_t a1)
 {
   v2 = PKLogFacilityTypeGetObject();
@@ -100,9 +1137,9 @@ void sub_100158024(void *a1, int a2)
   }
 }
 
-void sub_1001582FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001582FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -322,9 +1359,9 @@ void sub_10015A640(uint64_t a1, void *a2)
   [v4 paymentPassWithUniqueIdentifier:v2 didUpdateDefaultPaymentApplication:v5];
 }
 
-void sub_10015B35C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10015B35C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -517,31 +1554,31 @@ int64_t sub_10015C360(id a1, PKPaymentTransactionGroup *a2, PKPaymentTransaction
 
 uint64_t sub_10015CEF8(uint64_t a1)
 {
-  v37 = [*(a1 + 32) merchant];
-  v46 = 0u;
+  v38 = [*(a1 + 32) merchant];
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
   obj = *(a1 + 40);
-  v2 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+  v2 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v47;
-    v36 = v43;
-    v38 = *v47;
+    v4 = *v48;
+    v37 = v44;
+    v39 = *v48;
     do
     {
       v5 = 0;
-      v39 = v3;
+      v40 = v3;
       do
       {
-        if (*v47 != v4)
+        if (*v48 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v46 + 1) + 8 * v5);
+        v6 = *(*(&v47 + 1) + 8 * v5);
         v7 = objc_autoreleasePoolPush();
         v8 = [v6 statementIdentifier];
         v9 = [v6 statementDate];
@@ -577,12 +1614,12 @@ uint64_t sub_10015CEF8(uint64_t a1)
             v16 = [v6 amountDue];
           }
 
-          v41 = v16;
+          v42 = v16;
 
           if (v9)
           {
             v17 = +[NSDecimalNumber zero];
-            v18 = [v41 isEqualToNumber:v17];
+            v18 = [v42 isEqualToNumber:v17];
 
             if ((v18 & 1) == 0)
             {
@@ -606,7 +1643,7 @@ uint64_t sub_10015CEF8(uint64_t a1)
               v22 = [*(a1 + 32) identifier];
               [v20 setReferenceIdentifier:v22];
 
-              [v20 setAmount:v41];
+              [v20 setAmount:v42];
               v23 = [v6 currencyCode];
               [v20 setCurrencyCode:v23];
 
@@ -615,53 +1652,54 @@ uint64_t sub_10015CEF8(uint64_t a1)
               v24 = [*(a1 + 32) accountUserAltDSID];
               [v20 setAltDSID:v24];
 
-              if (v37)
+              if (v38)
               {
                 v25 = [v20 merchant];
 
                 if (!v25)
                 {
                   v26 = objc_alloc_init(PKMerchant);
-                  v27 = [v37 name];
+                  v27 = [v38 name];
                   [v26 setName:v27];
 
-                  v28 = [v37 identifier];
+                  v28 = [v38 identifier];
                   [v26 setMerchantIdentifier:v28];
 
-                  [v26 setIndustryCode:{objc_msgSend(v37, "categoryCode")}];
-                  v29 = [v37 city];
+                  [v26 setIndustryCode:{objc_msgSend(v38, "categoryCode")}];
+                  v29 = [v38 city];
                   [v26 setCity:v29];
 
-                  v30 = [v37 state];
+                  v30 = [v38 state];
                   [v26 setState:v30];
 
-                  v31 = [v37 postalCode];
+                  v31 = [v38 postalCode];
                   [v26 setZip:v31];
 
-                  v32 = [v37 country];
+                  v32 = [v38 country];
                   [v26 setRawCountry:v32];
 
                   [v20 setMerchant:v26];
                 }
               }
 
-              v33 = [*(a1 + 48) _insertOrUpdatePaymentTransaction:v20 transactionSourceIdentifier:*(a1 + 64) transactionArchive:0 originDeviceID:0 insertionMode:0 performTruncation:0 insertedTransaction:{0, v36}];
+              v33 = [*(a1 + 48) _insertOrUpdatePaymentTransaction:v20 transactionSourceIdentifier:*(a1 + 64) transactionArchive:0 originDeviceID:0 insertionMode:0 performTruncation:0 insertedTransaction:{0, v37}];
+              v34 = v33;
               if (v33 && *(a1 + 72))
               {
-                v34 = PDUtilityQueue();
+                v35 = PDUtilityQueue(v33);
                 block[0] = _NSConcreteStackBlock;
                 block[1] = 3221225472;
-                v43[0] = sub_10015D3FC;
-                v43[1] = &unk_10083C820;
-                v45 = *(a1 + 72);
-                v44 = v33;
-                dispatch_async(v34, block);
+                v44[0] = sub_10015D3FC;
+                v44[1] = &unk_10083C820;
+                v46 = *(a1 + 72);
+                v45 = v34;
+                dispatch_async(v35, block);
               }
             }
           }
 
-          v4 = v38;
-          v3 = v39;
+          v4 = v39;
+          v3 = v40;
         }
 
         objc_autoreleasePoolPop(v7);
@@ -669,7 +1707,7 @@ uint64_t sub_10015CEF8(uint64_t a1)
       }
 
       while (v3 != v5);
-      v3 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+      v3 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
     }
 
     while (v3);
@@ -678,9 +1716,9 @@ uint64_t sub_10015CEF8(uint64_t a1)
   return 1;
 }
 
-void sub_10015DCB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10015DCB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -709,9 +1747,9 @@ uint64_t sub_10015DCD0(uint64_t a1)
   return 1;
 }
 
-void sub_10015E0D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10015E0D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -801,9 +1839,9 @@ id sub_10015F724(uint64_t a1, void *a2)
   return result;
 }
 
-void sub_10015F9A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10015F9A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -833,6 +1871,13 @@ void sub_10015FA18(uint64_t a1, uint64_t a2, uint64_t a3, id *a4)
   }
 }
 
+void sub_10015FE00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
+{
+  va_start(va, a29);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_10015FE3C(uint64_t a1, void *a2)
 {
   v3 = [a2 mutableCopy];
@@ -858,9 +1903,9 @@ void sub_10015FE84(uint64_t a1, uint64_t a2, uint64_t a3, id *a4)
   }
 }
 
-void sub_100160730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100160730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -896,9 +1941,9 @@ void sub_100160848(uint64_t a1)
   [WeakRetained handleDatabaseIntegrityProblem];
 }
 
-void sub_100161404(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100161404(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1020,6 +2065,13 @@ void sub_100163BC0(uint64_t a1)
   }
 }
 
+void sub_1001665D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
+{
+  va_start(va, a38);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void *sub_100166624(void *result, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   if (*(*(result[4] + 8) + 24) >= result[5])
@@ -1089,9 +2141,9 @@ void sub_100169EE0(void *a1, void *a2, uint64_t a3)
   [v9 addObject:v10];
 }
 
-void sub_10016A0C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10016A0C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1143,9 +2195,9 @@ uint64_t sub_10016A0E0(uint64_t a1)
   return 1;
 }
 
-void sub_10016A374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10016A374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1216,9 +2268,9 @@ uint64_t sub_10016A38C(uint64_t a1)
   return 1;
 }
 
-void sub_10016A650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10016A650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1381,9 +2433,9 @@ uint64_t sub_10016ABC0(uint64_t a1)
   return 1;
 }
 
-void sub_10016AF60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10016AF60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1421,9 +2473,9 @@ void sub_10016B044(void *a1, void *a2, uint64_t a3)
   [v9 addObject:v10];
 }
 
-void sub_10016B248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10016B248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1482,9 +2534,9 @@ uint64_t sub_10016B260(uint64_t a1)
   return 1;
 }
 
-void sub_10016B520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10016B520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1535,9 +2587,9 @@ uint64_t sub_10016B538(uint64_t a1)
   return 1;
 }
 
-void sub_10016B90C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10016B90C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1584,9 +2636,9 @@ uint64_t sub_10016B924(uint64_t a1)
   return 1;
 }
 
-void sub_10016BBE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10016BBE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1645,9 +2697,9 @@ uint64_t sub_10016BC00(uint64_t a1)
   return 1;
 }
 
-void sub_10016BEBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10016BEBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1698,9 +2750,9 @@ uint64_t sub_10016BED4(uint64_t a1)
   return 1;
 }
 
-void sub_10016C4D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10016C4D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1777,9 +2829,9 @@ uint64_t sub_10016C6A8(uint64_t a1)
   return 1;
 }
 
-void sub_10016C9E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10016C9E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1800,9 +2852,9 @@ uint64_t sub_10016C9FC(void *a1)
   return 1;
 }
 
-void sub_10016CB74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10016CB74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2064,9 +3116,9 @@ uint64_t sub_1001703F8(uint64_t a1, void *a2)
   return v7;
 }
 
-void sub_1001707A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001707A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2085,9 +3137,9 @@ uint64_t sub_1001707C0(uint64_t a1)
   return v4;
 }
 
-void sub_100170918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100170918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2103,9 +3155,9 @@ uint64_t sub_100170930(uint64_t a1)
   return 1;
 }
 
-void sub_100170A98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100170A98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2121,9 +3173,9 @@ uint64_t sub_100170AB0(uint64_t a1)
   return 1;
 }
 
-void sub_100170C30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100170C30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2143,9 +3195,9 @@ uint64_t sub_100170C48(uint64_t a1)
   return 1;
 }
 
-void sub_100170DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100170DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2164,9 +3216,9 @@ uint64_t sub_100170E00(uint64_t a1)
   return 1;
 }
 
-void sub_100170F44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100170F44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2184,9 +3236,9 @@ uint64_t sub_100170F5C(uint64_t a1)
   return v3;
 }
 
-void sub_1001710A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001710A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2204,9 +3256,9 @@ uint64_t sub_1001710B8(uint64_t a1)
   return v3;
 }
 
-void sub_10017122C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10017122C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2225,9 +3277,9 @@ uint64_t sub_100171244(void *a1)
   return v4;
 }
 
-void sub_1001713B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001713B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2247,9 +3299,9 @@ uint64_t sub_1001713CC(void *a1)
   return v5;
 }
 
-void sub_100171574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100171574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2269,9 +3321,9 @@ uint64_t sub_10017158C(void *a1)
   return v5;
 }
 
-void sub_100171734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100171734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2291,9 +3343,9 @@ uint64_t sub_10017174C(void *a1)
   return v5;
 }
 
-void sub_1001718CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001718CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2313,9 +3365,9 @@ uint64_t sub_1001718E4(void *a1)
   return v5;
 }
 
-void sub_100171A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100171A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2335,9 +3387,9 @@ uint64_t sub_100171A7C(void *a1)
   return v5;
 }
 
-void sub_100171BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100171BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2357,9 +3409,9 @@ uint64_t sub_100171C0C(void *a1)
   return v5;
 }
 
-void sub_100171D84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100171D84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2379,9 +3431,9 @@ uint64_t sub_100171D9C(void *a1)
   return v5;
 }
 
-void sub_100171F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100171F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2398,9 +3450,9 @@ uint64_t sub_100171F88(void *a1)
   return 1;
 }
 
-void sub_100172114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100172114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2417,11 +3469,11 @@ uint64_t sub_10017212C(void *a1)
   return 1;
 }
 
-void sub_100172320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100172320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2468,9 +3520,9 @@ void sub_1001724DC(uint64_t a1, void *a2)
   }
 }
 
-void sub_1001726D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001726D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2513,9 +3565,9 @@ uint64_t sub_1001727B0(uint64_t a1, sqlite3_stmt *a2)
   return result;
 }
 
-void sub_100172940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100172940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2574,9 +3626,9 @@ uint64_t sub_100172B20(uint64_t a1, sqlite3_stmt *a2)
   return result;
 }
 
-void sub_100172CF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100172CF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2597,9 +3649,9 @@ uint64_t sub_100172E20(uint64_t a1, sqlite3_stmt *a2)
   return sub_10035E090(SQLiteDatabase, a2);
 }
 
-void sub_100172F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100172F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2614,9 +3666,9 @@ void sub_100172F34(uint64_t a1, sqlite3_stmt *a2)
   }
 }
 
-void sub_100173078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100173078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2706,9 +3758,9 @@ uint64_t sub_10017370C(uint64_t a1)
   return 1;
 }
 
-void sub_10017508C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10017508C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2909,9 +3961,9 @@ void sub_100176B4C(uint64_t a1, uint64_t a2)
   [(SQLiteEntity *)v2 deleteFromDatabase];
 }
 
-void sub_100176E48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100176E48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3090,9 +4142,9 @@ void sub_10017C194(uint64_t a1, uint64_t a2, void *a3, id *a4)
   [*(a1 + 40) setObject:v9 forKey:v7];
 }
 
-void sub_10017C388(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10017C388(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3123,10 +4175,10 @@ uint64_t sub_10017C3A0(uint64_t a1)
   return 1;
 }
 
-void sub_10017C4D0(uint64_t a1, void *a2, uint64_t a3)
+void sub_10017C4D0(void *a1, void *a2, uint64_t a3)
 {
   v5 = a2;
-  [objc_opt_class() applyPropertySetters:*(a1 + 32) toObject:*(*(*(a1 + 40) + 8) + 40) withProperties:v5 values:a3];
+  [objc_opt_class() applyPropertySetters:a1[4] toObject:*(*(a1[5] + 8) + 40) withProperties:v5 values:a3];
 }
 
 unint64_t sub_10017C62C(uint64_t a1)
@@ -3270,16 +4322,16 @@ const __CFString *PKWatchExpressStatusToString(uint64_t a1)
   }
 }
 
-id PDExpressTransactionQueue()
+id PDExpressTransactionQueue(uint64_t a1)
 {
   if (qword_100924308 != -1)
   {
     sub_1005C6458();
   }
 
-  v1 = qword_100924310;
+  v2 = qword_100924310;
 
-  return v1;
+  return v2;
 }
 
 void sub_10017D3F0(id a1)
@@ -3292,14 +4344,14 @@ void sub_10017D3F0(id a1)
   qword_100924310 = v2;
 }
 
-void sub_10017D5D8(uint64_t a1)
+void sub_10017D5D8(uint64_t result)
 {
-  v1 = *(a1 + 40);
+  v1 = *(result + 40);
   if ((*(v1 + 89) & 1) == 0)
   {
     *(v1 + 89) = 1;
-    *(*(a1 + 40) + 168) = 1;
-    sub_1005C3040(*(a1 + 40));
+    *(*(result + 40) + 168) = 1;
+    sub_1005C3040(*(result + 40));
   }
 }
 
@@ -3402,17 +4454,18 @@ void sub_10017D600(uint64_t a1)
   }
 }
 
-void sub_10017DA28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_10017DA28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a21, 8);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 144), 8);
-  _Block_object_dispose((v29 - 112), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 144), 8);
+  _Block_object_dispose((v28 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10017DA8C(uint64_t *a1, void *a2, void *a3)
+void sub_10017DA8C(void *a1, void *a2, void *a3)
 {
   v17 = a2;
   v5 = a3;
@@ -3562,19 +4615,20 @@ LABEL_8:
   {
     if (([v3 isProcessing] & 1) == 0 && objc_msgSend(v4, "standaloneTransactionType"))
     {
-      if ([v4 isAssociated])
+      v5 = [v4 isAssociated];
+      if (v5)
       {
-        sub_1005C64F8(v4, &v8, a1);
+        sub_1005C64F8(v4, v9, a1);
       }
 
-      v5 = PDExpressTransactionQueue();
+      v6 = PDExpressTransactionQueue(v5);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_10017DF8C;
       block[3] = &unk_10083C420;
       block[4] = a1;
-      v7 = v4;
-      dispatch_async(v5, block);
+      v8 = v4;
+      dispatch_async(v6, block);
     }
 
     goto LABEL_8;
@@ -3583,8 +4637,9 @@ LABEL_8:
   __break(1u);
 }
 
-void sub_10017DF9C(uint64_t a1, void *a2, char a3)
+void sub_10017DF9C(uint64_t a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   v5 = a2;
   v6 = v5;
   if (a1)
@@ -3616,9 +4671,9 @@ void sub_10017DF9C(uint64_t a1, void *a2, char a3)
       v14[2] = sub_1001837F8;
       v14[3] = &unk_100849DA8;
       v15 = v12;
-      v16 = a3;
+      v16 = v3;
       v11 = v12;
-      sub_1001F5774(WeakRetained, v6, a3, v14);
+      sub_1001F5774(WeakRetained, v6, v3, v14);
     }
 
     else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -4321,12 +5376,12 @@ void sub_10017F5C4(uint64_t a1)
   dispatch_async(v3, v6);
 }
 
-void sub_10017F6A0(uint64_t a1)
+void sub_10017F6A0(void *a1)
 {
-  os_unfair_lock_lock((*(a1 + 32) + 104));
-  v2 = [*(*(a1 + 32) + 96) copy];
-  os_unfair_lock_unlock((*(a1 + 32) + 104));
-  sub_1005C4D50(*(a1 + 32), *(a1 + 40), v2, *(a1 + 48));
+  os_unfair_lock_lock((a1[4] + 104));
+  v2 = [*(a1[4] + 96) copy];
+  os_unfair_lock_unlock((a1[4] + 104));
+  sub_1005C4D50(a1[4], a1[5], v2, a1[6]);
 }
 
 void sub_10017F714(uint64_t a1, void *a2)
@@ -4387,7 +5442,7 @@ void *sub_10017F950(void *a1)
   v9 = 0x3032000000;
   v10 = sub_100005B60;
   v11 = sub_10000B1BC;
-  v12 = sub_100103CB4();
+  v12 = sub_100103CB4(PDSECredentialNode);
   v6[0] = _NSConcreteStackBlock;
   v6[1] = 3221225472;
   v6[2] = sub_100185F90;
@@ -4402,7 +5457,7 @@ void *sub_10017F950(void *a1)
 
   else
   {
-    v3 = sub_100103CB4();
+    v3 = sub_100103CB4(PDSECredentialNode);
   }
 
   v4 = v3;
@@ -4411,9 +5466,9 @@ void *sub_10017F950(void *a1)
   return v4;
 }
 
-void sub_10017FA60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10017FA60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4463,9 +5518,9 @@ uint64_t sub_10017FA78(void *a1, void *a2)
   return v9 & 1;
 }
 
-void sub_10017FBC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10017FBC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4707,9 +5762,9 @@ uint64_t sub_100180308(void *a1)
   return v3 & 1;
 }
 
-void sub_1001803C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001803C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4955,7 +6010,7 @@ LABEL_48:
   v36 = v33;
   v101 = v34;
   v37 = [v34 passUniqueIdentifier];
-  v38 = sub_100103CB4();
+  v38 = sub_100103CB4(PDSECredentialNode);
   v39 = sub_10017FA78(v38, v34);
   if (v39)
   {
@@ -5354,8 +6409,8 @@ LABEL_60:
 
 void sub_100181710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  _Block_object_dispose(&a69, 8);
-  _Block_object_dispose((v69 - 160), 8);
+  _Block_object_dispose(&a65, 8);
+  _Block_object_dispose((v65 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5404,9 +6459,9 @@ void sub_1001817C8(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_1001818F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001818F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5595,9 +6650,9 @@ id sub_100181CF0(uint64_t a1, void *a2, void *a3)
   return v7;
 }
 
-void sub_100181E78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100181E78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5628,9 +6683,9 @@ void sub_100181E94(uint64_t a1, void *a2, void *a3, _BYTE *a4)
   _Block_object_dispose(&v13, 8);
 }
 
-void sub_100181FB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100181FB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5780,7 +6835,7 @@ LABEL_4:
   __break(1u);
 }
 
-id sub_100182370(uint64_t a1, void **a2, void *a3)
+unsigned int (**sub_100182370(uint64_t a1, void **a2, void *a3))(void)
 {
   result = a3;
   v6 = result;
@@ -5798,7 +6853,7 @@ id sub_100182370(uint64_t a1, void **a2, void *a3)
     {
       if (result)
       {
-        if (!(*(result + 2))(result))
+        if (!result[2](result))
         {
 LABEL_6:
           v10 = 0;
@@ -5821,7 +6876,7 @@ LABEL_10:
   return result;
 }
 
-id sub_1001823F8(uint64_t a1, void *a2, void **a3)
+unsigned int (**sub_1001823F8(uint64_t a1, void *a2, void **a3))(void)
 {
   result = a2;
   v6 = result;
@@ -5834,7 +6889,7 @@ id sub_1001823F8(uint64_t a1, void *a2, void **a3)
   {
     v8 = *(a1 + 112);
     v7 = (a1 + 112);
-    if (v8 && (*(result + 2))(result))
+    if (v8 && result[2](result))
     {
       sub_1005C6BE8(a3, v7);
       v9 = 1;
@@ -5888,31 +6943,31 @@ void sub_100182500(uint64_t a1, void *a2)
     goto LABEL_23;
   }
 
-  v30 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
+  v30 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (!v6)
   {
     goto LABEL_22;
   }
 
   v7 = v6;
-  v21 = v4;
+  v22 = v4;
   v8 = 0;
-  v9 = *v29;
+  v9 = *v30;
   do
   {
     for (i = 0; i != v7; i = i + 1)
     {
-      if (*v29 != v9)
+      if (*v30 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v11 = *(*(&v28 + 1) + 8 * i);
+      v11 = *(*(&v29 + 1) + 8 * i);
       v12 = [v11 isExpress];
       v13 = [v11 isProcessing];
       v14 = v13;
@@ -5948,36 +7003,36 @@ void sub_100182500(uint64_t a1, void *a2)
       [v8 addObject:v11];
     }
 
-    v7 = [v5 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v29 objects:v33 count:16];
   }
 
   while (v7);
 
-  v4 = v21;
+  v4 = v22;
   if (v8)
   {
     v16 = PDOSTransactionCreate("PDExpressPassManager.express_transaction.resolved");
-    v17 = PDDefaultQueue();
+    v17 = PDDefaultQueue(v16);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100183484;
     block[3] = &unk_10083C4C0;
     block[4] = a1;
-    v26 = v16;
+    v27 = v16;
     v18 = v8;
-    v27 = v18;
+    v28 = v18;
     v19 = v16;
     dispatch_async(v17, block);
 
-    v20 = PDUtilityQueue();
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_100183658;
-    v22[3] = &unk_10083C420;
-    v23 = v18;
-    v24 = a1;
+    v21 = PDUtilityQueue(v20);
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_100183658;
+    v23[3] = &unk_10083C420;
+    v24 = v18;
+    v25 = a1;
     v5 = v18;
-    dispatch_async(v20, v22);
+    dispatch_async(v21, v23);
 
 LABEL_22:
   }
@@ -6069,7 +7124,7 @@ void *sub_100182A00(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5, v
   v13 = a6;
   if (!a1)
   {
-    v42 = 0;
+    v43 = 0;
     goto LABEL_64;
   }
 
@@ -6086,21 +7141,21 @@ void *sub_100182A00(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5, v
     v16 = result;
     if ([result operationSource] != 5)
     {
-      v52 = 0;
+      v53 = 0;
 
 LABEL_63:
-      v42 = v52;
+      v43 = v53;
 LABEL_64:
 
-      return v42;
+      return v43;
     }
 
     v17 = [v16 terminalReaderIdentifier];
 
 LABEL_7:
-    v51 = 0;
+    v52 = 0;
     os_unfair_lock_lock((a1 + 108));
-    sub_100182370(a1, &v51, &stru_100849D58);
+    sub_100182370(a1, &v52, &stru_100849D58);
     v18 = *(a1 + 112);
     if (!v18)
     {
@@ -6108,7 +7163,7 @@ LABEL_7:
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v54 = a3;
+        v55 = a3;
         _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "PKExpressPassManager: creating express transaction state for standalone transaction of type %ld.", buf, 0xCu);
       }
 
@@ -6125,16 +7180,16 @@ LABEL_7:
       v28 = *(a1 + 112);
       *(a1 + 112) = v26;
 
-      v29 = PDUtilityQueue();
+      v30 = PDUtilityQueue(v29);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_100182FD0;
       block[3] = &unk_10083C3F8;
       block[4] = a1;
-      v48 = v14;
-      v49 = v11;
-      v50 = a3;
-      dispatch_async(v29, block);
+      v49 = v14;
+      v50 = v11;
+      v51 = a3;
+      dispatch_async(v30, block);
 
       goto LABEL_24;
     }
@@ -6145,7 +7200,7 @@ LABEL_7:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v54 = a3;
+        v55 = a3;
         _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "PKExpressPassManager: associating existing express transaction state with target of standalone transaction of type %ld.", buf, 0xCu);
       }
 
@@ -6154,8 +7209,8 @@ LABEL_7:
       goto LABEL_24;
     }
 
-    v45 = a3;
-    v46 = v17;
+    v46 = a3;
+    v47 = v17;
     v19 = [*(a1 + 112) applicationIdentifier];
     v20 = v11;
     v21 = v20;
@@ -6187,127 +7242,127 @@ LABEL_7:
       }
     }
 
-    v44 = v13;
+    v45 = v13;
     v23 = [*(a1 + 112) keyIdentifier];
-    v33 = v12;
-    v34 = v33;
-    if (v23 == v33)
+    v34 = v12;
+    v35 = v34;
+    if (v23 == v34)
     {
     }
 
     else
     {
-      if (!v33 || !v23)
+      if (!v34 || !v23)
       {
         v22 = v23;
 LABEL_52:
 
 LABEL_53:
-        v13 = v44;
+        v13 = v45;
 LABEL_54:
 
         goto LABEL_55;
       }
 
-      v35 = [v23 isEqualToString:v33];
+      v36 = [v23 isEqualToString:v34];
 
-      if (!v35)
+      if (!v36)
       {
-        v13 = v44;
+        v13 = v45;
 LABEL_55:
 
 LABEL_56:
-        v41 = PKLogFacilityTypeGetObject();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+        v42 = PKLogFacilityTypeGetObject();
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218498;
-          v54 = v45;
-          v55 = 2114;
-          v56 = v21;
-          v57 = 2114;
-          v58 = v19;
-          _os_log_error_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "PKExpressPassManager: WARNING IGNORING STANDALONE TRANSACTION OF TYPE %ld: EXPECTED: %{public}@ ACTUAL: %{public}@! Please file a radar.", buf, 0x20u);
+          v55 = v46;
+          v56 = 2114;
+          v57 = v21;
+          v58 = 2114;
+          v59 = v19;
+          _os_log_error_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "PKExpressPassManager: WARNING IGNORING STANDALONE TRANSACTION OF TYPE %ld: EXPECTED: %{public}@ ACTUAL: %{public}@! Please file a radar.", buf, 0x20u);
         }
 
-        v32 = 0;
-        v17 = v46;
+        v33 = 0;
+        v17 = v47;
         goto LABEL_59;
       }
     }
 
     v22 = [*(a1 + 112) terminalReaderIdentifier];
-    v36 = v46;
-    v37 = v36;
-    if (v22 == v36)
+    v37 = v47;
+    v38 = v37;
+    if (v22 == v37)
     {
     }
 
     else
     {
-      if (!v36 || !v22)
+      if (!v37 || !v22)
       {
-        v34 = v22;
+        v35 = v22;
 LABEL_51:
 
         goto LABEL_52;
       }
 
-      v38 = [v22 isEqualToString:v36];
+      v39 = [v22 isEqualToString:v37];
 
-      if (!v38)
+      if (!v39)
       {
         goto LABEL_53;
       }
     }
 
-    v37 = [*(a1 + 112) passUniqueIdentifier];
-    v39 = v14;
-    v40 = v39;
-    if (v37 == v39)
+    v38 = [*(a1 + 112) passUniqueIdentifier];
+    v40 = v14;
+    v41 = v40;
+    if (v38 == v40)
     {
 
-      v13 = v44;
+      v13 = v45;
 LABEL_48:
 
-      v17 = v46;
-      if (![*(a1 + 112) receiveStandaloneTransaction:v45])
+      v17 = v47;
+      if (![*(a1 + 112) receiveStandaloneTransaction:v46])
       {
-        v32 = 1;
+        v33 = 1;
 LABEL_59:
-        v30 = v51;
+        v31 = v52;
 LABEL_60:
         os_unfair_lock_unlock((a1 + 108));
-        if (v30)
+        if (v31)
         {
-          sub_100182500(a1, v30);
+          sub_100182500(a1, v31);
         }
 
-        v52 = v32;
+        v53 = v33;
 
         goto LABEL_63;
       }
 
 LABEL_24:
-      v30 = v51;
-      if (!v51)
+      v31 = v52;
+      if (!v52)
       {
-        v30 = objc_alloc_init(NSMutableArray);
-        v51 = v30;
+        v31 = objc_alloc_init(NSMutableArray);
+        v52 = v31;
       }
 
-      v31 = [*(a1 + 112) copy];
-      [v30 addObject:v31];
+      v32 = [*(a1 + 112) copy];
+      [v31 addObject:v32];
 
-      v32 = 1;
+      v33 = 1;
       goto LABEL_60;
     }
 
-    if (v39 && v37)
+    if (v40 && v38)
     {
-      v43 = [v37 isEqualToString:v39];
+      v44 = [v38 isEqualToString:v40];
 
-      v13 = v44;
-      if ((v43 & 1) == 0)
+      v13 = v45;
+      if ((v44 & 1) == 0)
       {
         goto LABEL_56;
       }
@@ -6315,7 +7370,7 @@ LABEL_24:
       goto LABEL_48;
     }
 
-    v34 = v37;
+    v35 = v38;
     goto LABEL_51;
   }
 
@@ -6664,35 +7719,35 @@ void sub_100183CBC(uint64_t a1, void *a2)
     {
       if (v5 == 2)
       {
-        v24 = v4;
-        v25 = [v24 applicationIdentifier];
-        v26 = [v24 keyIdentifier];
-        if (v25)
+        v28 = v4;
+        v29 = [v28 applicationIdentifier];
+        v30 = [v28 keyIdentifier];
+        if (v29)
         {
-          v27 = sub_100181CF0(a1, v25, v26);
-          v28 = [v27 passUniqueIdentifier];
+          v31 = sub_100181CF0(a1, v29, v30);
+          v32 = [v31 passUniqueIdentifier];
         }
 
         else
         {
-          v28 = 0;
+          v32 = 0;
         }
 
-        v65[0] = _NSConcreteStackBlock;
-        v65[1] = 3221225472;
-        v65[2] = sub_100185008;
-        v65[3] = &unk_100849ED8;
-        v66 = v25;
-        v67 = v26;
-        v68 = v28;
-        v69 = a1;
-        v31 = v25;
-        v32 = v26;
-        v33 = v28;
-        if ((sub_10018335C(a1, v65) & 1) == 0)
+        v73[0] = _NSConcreteStackBlock;
+        v73[1] = 3221225472;
+        v73[2] = sub_100185008;
+        v73[3] = &unk_100849ED8;
+        v74 = v29;
+        v75 = v30;
+        v76 = v32;
+        v77 = a1;
+        v36 = v29;
+        v37 = v30;
+        v38 = v32;
+        if ((sub_10018335C(a1, v73) & 1) == 0)
         {
-          v34 = PKLogFacilityTypeGetObject();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+          v39 = PKLogFacilityTypeGetObject();
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
             sub_1005C76D8();
           }
@@ -6704,47 +7759,48 @@ void sub_100183CBC(uint64_t a1, void *a2)
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
-        v86 = sub_100005B60;
-        v87 = sub_10000B1BC;
-        v88 = 0;
-        v79 = 0;
-        v80 = &v79;
-        v81 = 0x3032000000;
-        v82 = sub_100005B60;
-        v83 = sub_10000B1BC;
-        v84 = 0;
-        v64[0] = _NSConcreteStackBlock;
-        v64[1] = 3221225472;
-        v64[2] = sub_10018515C;
-        v64[3] = &unk_100849F00;
-        v64[4] = buf;
-        v64[5] = &v79;
-        if (sub_10018335C(a1, v64))
+        v94 = sub_100005B60;
+        v95 = sub_10000B1BC;
+        v96 = 0;
+        v87 = 0;
+        v88 = &v87;
+        v89 = 0x3032000000;
+        v90 = sub_100005B60;
+        v91 = sub_10000B1BC;
+        v92 = 0;
+        v72[0] = _NSConcreteStackBlock;
+        v72[1] = 3221225472;
+        v72[2] = sub_10018515C;
+        v72[3] = &unk_100849F00;
+        v72[4] = buf;
+        v72[5] = &v87;
+        v15 = sub_10018335C(a1, v72);
+        if (v15)
         {
           if (*(*&buf[8] + 40))
           {
-            v14 = PDUtilityQueue();
-            v63[0] = _NSConcreteStackBlock;
-            v63[1] = 3221225472;
-            v63[2] = sub_1001851E4;
-            v63[3] = &unk_100849F28;
-            v63[4] = a1;
-            v63[5] = buf;
-            v63[6] = &v79;
-            dispatch_async(v14, v63);
+            v16 = PDUtilityQueue(v15);
+            v71[0] = _NSConcreteStackBlock;
+            v71[1] = 3221225472;
+            v71[2] = sub_1001851E4;
+            v71[3] = &unk_100849F28;
+            v71[4] = a1;
+            v71[5] = buf;
+            v71[6] = &v87;
+            dispatch_async(v16, v71);
           }
         }
 
         else
         {
-          v29 = PKLogFacilityTypeGetObject();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+          v33 = PKLogFacilityTypeGetObject();
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
             sub_1005C769C();
           }
         }
 
-        _Block_object_dispose(&v79, 8);
+        _Block_object_dispose(&v87, 8);
 
         _Block_object_dispose(buf, 8);
       }
@@ -6754,12 +7810,12 @@ void sub_100183CBC(uint64_t a1, void *a2)
     {
       if (v5 == 1)
       {
-        v71[0] = _NSConcreteStackBlock;
-        v71[1] = 3221225472;
-        v71[2] = sub_100184E88;
-        v71[3] = &unk_100849EB0;
-        v71[4] = a1;
-        if ((sub_10018335C(a1, v71) & 1) == 0)
+        v79[0] = _NSConcreteStackBlock;
+        v79[1] = 3221225472;
+        v79[2] = sub_100184E88;
+        v79[3] = &unk_100849EB0;
+        v79[4] = a1;
+        if ((sub_10018335C(a1, v79) & 1) == 0)
         {
           v6 = PKLogFacilityTypeGetObject();
           if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
@@ -6767,67 +7823,67 @@ void sub_100183CBC(uint64_t a1, void *a2)
             sub_1005C7714();
           }
 
-          v7 = PDUtilityQueue();
+          v8 = PDUtilityQueue(v7);
           block[0] = _NSConcreteStackBlock;
           block[1] = 3221225472;
           block[2] = sub_100184FF4;
           block[3] = &unk_10083C470;
           block[4] = a1;
-          dispatch_async(v7, block);
+          dispatch_async(v8, block);
         }
       }
     }
 
     else
     {
-      v20 = v4;
-      v21 = [v20 technologyType];
-      v22 = v21;
+      v24 = v4;
+      v25 = [v24 technologyType];
+      v26 = v25;
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v86 = sub_100005B60;
-      v87 = sub_10000B1BC;
-      v88 = 0;
-      v79 = 0;
-      v80 = &v79;
-      v81 = 0x3032000000;
-      v82 = sub_100005B60;
-      v83 = sub_10000B1BC;
-      v84 = 0;
-      v77[0] = 0;
-      v77[1] = v77;
-      v77[2] = 0x3032000000;
-      v77[3] = sub_100005B60;
-      v77[4] = sub_10000B1BC;
-      v78 = 0;
-      if (v21 <= 7 && ((1 << v21) & 0xEA) != 0)
+      v94 = sub_100005B60;
+      v95 = sub_10000B1BC;
+      v96 = 0;
+      v87 = 0;
+      v88 = &v87;
+      v89 = 0x3032000000;
+      v90 = sub_100005B60;
+      v91 = sub_10000B1BC;
+      v92 = 0;
+      v85[0] = 0;
+      v85[1] = v85;
+      v85[2] = 0x3032000000;
+      v85[3] = sub_100005B60;
+      v85[4] = sub_10000B1BC;
+      v86 = 0;
+      if (v25 <= 7 && ((1 << v25) & 0xEA) != 0)
       {
         os_unfair_lock_lock((a1 + 104));
-        v23 = [*(a1 + 96) copy];
+        v27 = [*(a1 + 96) copy];
         os_unfair_lock_unlock((a1 + 104));
-        v76[0] = _NSConcreteStackBlock;
-        v76[1] = 3221225472;
-        v76[2] = sub_100184B50;
-        v76[3] = &unk_100849E60;
-        v76[4] = buf;
-        v76[5] = &v79;
-        v76[7] = v22;
-        v76[6] = v77;
-        [v23 enumerateKeysAndObjectsUsingBlock:v76];
+        v84[0] = _NSConcreteStackBlock;
+        v84[1] = 3221225472;
+        v84[2] = sub_100184B50;
+        v84[3] = &unk_100849E60;
+        v84[4] = buf;
+        v84[5] = &v87;
+        v84[7] = v26;
+        v84[6] = v85;
+        [v27 enumerateKeysAndObjectsUsingBlock:v84];
       }
 
-      v75[0] = _NSConcreteStackBlock;
-      v75[1] = 3221225472;
-      v75[2] = sub_100184D84;
-      v75[3] = &unk_100849E88;
-      v75[4] = buf;
-      v75[5] = &v79;
-      v75[6] = v77;
-      sub_1005C3518(a1, v22, v75);
-      _Block_object_dispose(v77, 8);
+      v83[0] = _NSConcreteStackBlock;
+      v83[1] = 3221225472;
+      v83[2] = sub_100184D84;
+      v83[3] = &unk_100849E88;
+      v83[4] = buf;
+      v83[5] = &v87;
+      v83[6] = v85;
+      sub_1005C3518(a1, v26, v83);
+      _Block_object_dispose(v85, 8);
 
-      _Block_object_dispose(&v79, 8);
+      _Block_object_dispose(&v87, 8);
       _Block_object_dispose(buf, 8);
     }
 
@@ -6838,31 +7894,31 @@ void sub_100183CBC(uint64_t a1, void *a2)
   {
     if (v5 != 4)
     {
-      v8 = v4;
-      v9 = [v8 applicationIdentifier];
-      v10 = [v8 keyIdentifier];
-      if (v9)
+      v9 = v4;
+      v10 = [v9 applicationIdentifier];
+      v11 = [v9 keyIdentifier];
+      if (v10)
       {
-        v11 = [*(a1 + 8) passUniqueIdentifierWithPaymentApplicationIdentifier:v9 subcredentialIdentifier:v10];
-        v12 = PKLogFacilityTypeGetObject();
-        v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
-        if (v11)
+        v12 = [*(a1 + 8) passUniqueIdentifierWithPaymentApplicationIdentifier:v10 subcredentialIdentifier:v11];
+        v13 = PKLogFacilityTypeGetObject();
+        v14 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
+        if (v12)
         {
-          if (v10)
+          if (v11)
           {
-            if (v13)
+            if (v14)
             {
               *buf = 138412802;
-              *&buf[4] = v9;
+              *&buf[4] = v10;
               *&buf[12] = 2112;
-              *&buf[14] = v10;
+              *&buf[14] = v11;
               *&buf[22] = 2112;
-              v86 = v11;
-              _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "PKExpressPassManager: terminal requested non-express key (%@:%@) for pass %@.", buf, 0x20u);
+              v94 = v12;
+              _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "PKExpressPassManager: terminal requested non-express key (%@:%@) for pass %@.", buf, 0x20u);
             }
           }
 
-          else if (v13)
+          else if (v14)
           {
             sub_1005C73EC();
           }
@@ -6870,15 +7926,15 @@ void sub_100183CBC(uint64_t a1, void *a2)
           goto LABEL_83;
         }
 
-        if (v10)
+        if (v11)
         {
-          if (v13)
+          if (v14)
           {
             sub_1005C7458();
           }
         }
 
-        else if (v13)
+        else if (v14)
         {
           sub_1005C74C4();
         }
@@ -6886,89 +7942,90 @@ void sub_100183CBC(uint64_t a1, void *a2)
 
       else
       {
-        v12 = PKLogFacilityTypeGetObject();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = PKLogFacilityTypeGetObject();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           sub_1005C7534();
         }
       }
 
-      v11 = 0;
+      v12 = 0;
 LABEL_83:
 
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v86 = sub_100005B60;
-      v87 = sub_10000B1BC;
-      v88 = 0;
-      v51[0] = _NSConcreteStackBlock;
-      v51[1] = 3221225472;
-      v51[2] = sub_100185358;
-      v51[3] = &unk_100849F90;
-      v42 = v9;
-      v52 = v42;
-      v43 = v10;
-      v53 = v43;
-      v44 = v11;
-      v54 = v44;
-      v55 = buf;
-      sub_1001827C0(a1, v51);
-      v45 = *(*&buf[8] + 40);
-      if (v45)
+      v94 = sub_100005B60;
+      v95 = sub_10000B1BC;
+      v96 = 0;
+      v59[0] = _NSConcreteStackBlock;
+      v59[1] = 3221225472;
+      v59[2] = sub_100185358;
+      v59[3] = &unk_100849F90;
+      v49 = v10;
+      v60 = v49;
+      v50 = v11;
+      v61 = v50;
+      v51 = v12;
+      v62 = v51;
+      v63 = buf;
+      sub_1001827C0(a1, v59);
+      v52 = *(*&buf[8] + 40);
+      if (v52)
       {
-        v46 = [v45 passUniqueIdentifier];
+        v53 = [v52 passUniqueIdentifier];
 
-        if (*(*&buf[8] + 40) && v46)
+        if (*(*&buf[8] + 40) && v53)
         {
           WeakRetained = objc_loadWeakRetained((a1 + 32));
-          sub_1005CB414(WeakRetained, v46, 1, &stru_100849FB0);
+          sub_1005CB414(WeakRetained, v53, 1, &stru_100849FB0);
 
-          v48 = PDUtilityQueue();
-          sub_1005C778C(v48, &v50, a1, buf);
+          v56 = PDUtilityQueue(v55);
+          sub_1005C778C(v56, &v58, a1, buf);
         }
       }
 
       else
       {
-        v46 = v44;
+        v53 = v51;
       }
 
       _Block_object_dispose(buf, 8);
       goto LABEL_89;
     }
 
-    v17 = v4;
-    v18 = [v17 status];
-    if (v18 > 1)
+    v20 = v4;
+    v21 = [v20 status];
+    if (v21 > 1)
     {
-      if (v18 != 2)
+      if (v21 != 2)
       {
-        if (v18 == 3)
+        if (v21 == 3)
         {
-          v36 = sub_1005C6184(a1);
-          v37 = v36;
-          if (v36 && ([(os_unfair_lock_s *)v36 isProcessing]& 1) != 0)
+          v42 = sub_1005C6184(a1);
+          v43 = v42;
+          if (v42 && ([(os_unfair_lock_s *)v42 isProcessing]& 1) != 0)
           {
-            v38 = [(os_unfair_lock_s *)v37 TCIs];
-            if ([v38 count])
+            v44 = [(os_unfair_lock_s *)v43 TCIs];
+            v45 = [v44 count];
+            if (v45)
             {
-              v39 = PDDefaultQueue();
-              v56[0] = _NSConcreteStackBlock;
-              v56[1] = 3221225472;
-              v56[2] = sub_1001852F4;
-              v56[3] = &unk_10083C4C0;
-              v56[4] = a1;
-              v57 = v38;
-              v58 = v17;
-              v38 = v38;
-              dispatch_async(v39, v56);
+              v46 = PDDefaultQueue(v45);
+              v64[0] = _NSConcreteStackBlock;
+              v64[1] = 3221225472;
+              v64[2] = sub_1001852F4;
+              v64[3] = &unk_10083C4C0;
+              v64[4] = a1;
+              v65 = v44;
+              v66 = v20;
+              v44 = v44;
+              dispatch_async(v46, v64);
             }
 
             else
             {
-              v49 = PKLogFacilityTypeGetObject();
-              if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+              v57 = PKLogFacilityTypeGetObject();
+              if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
               {
                 sub_1005C7570();
               }
@@ -6977,8 +8034,8 @@ LABEL_83:
 
           else
           {
-            v38 = PKLogFacilityTypeGetObject();
-            if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+            v44 = PKLogFacilityTypeGetObject();
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
             {
               sub_1005C75AC();
             }
@@ -6988,21 +8045,22 @@ LABEL_83:
         goto LABEL_79;
       }
 
-      if (sub_10018335C(a1, &stru_100849F68))
+      v34 = sub_10018335C(a1, &stru_100849F68);
+      if (v34)
       {
-        v30 = PDUtilityQueue();
-        v59[0] = _NSConcreteStackBlock;
-        v59[1] = 3221225472;
-        v59[2] = sub_1001852E0;
-        v59[3] = &unk_10083C470;
-        v59[4] = a1;
-        dispatch_async(v30, v59);
+        v35 = PDUtilityQueue(v34);
+        v67[0] = _NSConcreteStackBlock;
+        v67[1] = 3221225472;
+        v67[2] = sub_1001852E0;
+        v67[3] = &unk_10083C470;
+        v67[4] = a1;
+        dispatch_async(v35, v67);
 
         goto LABEL_79;
       }
 
-      v40 = PKLogFacilityTypeGetObject();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v47 = PKLogFacilityTypeGetObject();
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
         sub_1005C75E8();
       }
@@ -7010,79 +8068,81 @@ LABEL_83:
 
     else
     {
-      if (!v18)
+      if (!v21)
       {
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
-        v86 = sub_100005B60;
-        v87 = sub_10000B1BC;
-        v88 = 0;
-        v79 = 0;
-        v80 = &v79;
-        v81 = 0x3032000000;
-        v82 = sub_100005B60;
-        v83 = sub_10000B1BC;
-        v84 = 0;
-        v62[0] = _NSConcreteStackBlock;
-        v62[1] = 3221225472;
-        v62[2] = sub_100185208;
-        v62[3] = &unk_100849F00;
-        v62[4] = buf;
-        v62[5] = &v79;
-        if (sub_10018335C(a1, v62))
+        v94 = sub_100005B60;
+        v95 = sub_10000B1BC;
+        v96 = 0;
+        v87 = 0;
+        v88 = &v87;
+        v89 = 0x3032000000;
+        v90 = sub_100005B60;
+        v91 = sub_10000B1BC;
+        v92 = 0;
+        v70[0] = _NSConcreteStackBlock;
+        v70[1] = 3221225472;
+        v70[2] = sub_100185208;
+        v70[3] = &unk_100849F00;
+        v70[4] = buf;
+        v70[5] = &v87;
+        v40 = sub_10018335C(a1, v70);
+        if (v40)
         {
           if (*(*&buf[8] + 40))
           {
-            v35 = PDUtilityQueue();
-            v61[0] = _NSConcreteStackBlock;
-            v61[1] = 3221225472;
-            v61[2] = sub_100185290;
-            v61[3] = &unk_100849F28;
-            v61[4] = a1;
-            v61[5] = buf;
-            v61[6] = &v79;
-            dispatch_async(v35, v61);
+            v41 = PDUtilityQueue(v40);
+            v69[0] = _NSConcreteStackBlock;
+            v69[1] = 3221225472;
+            v69[2] = sub_100185290;
+            v69[3] = &unk_100849F28;
+            v69[4] = a1;
+            v69[5] = buf;
+            v69[6] = &v87;
+            dispatch_async(v41, v69);
           }
         }
 
         else
         {
-          v41 = PKLogFacilityTypeGetObject();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+          v48 = PKLogFacilityTypeGetObject();
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
           {
             sub_1005C7660();
           }
         }
 
-        _Block_object_dispose(&v79, 8);
+        _Block_object_dispose(&v87, 8);
 
         _Block_object_dispose(buf, 8);
         goto LABEL_79;
       }
 
-      if (v18 != 1)
+      if (v21 != 1)
       {
 LABEL_79:
 
         goto LABEL_89;
       }
 
-      if (sub_10018335C(a1, &stru_100849F48))
+      v22 = sub_10018335C(a1, &stru_100849F48);
+      if (v22)
       {
-        v19 = PDUtilityQueue();
-        v60[0] = _NSConcreteStackBlock;
-        v60[1] = 3221225472;
-        v60[2] = sub_1001852C0;
-        v60[3] = &unk_10083C470;
-        v60[4] = a1;
-        dispatch_async(v19, v60);
+        v23 = PDUtilityQueue(v22);
+        v68[0] = _NSConcreteStackBlock;
+        v68[1] = 3221225472;
+        v68[2] = sub_1001852C0;
+        v68[3] = &unk_10083C470;
+        v68[4] = a1;
+        dispatch_async(v23, v68);
 
         goto LABEL_79;
       }
 
-      v40 = PKLogFacilityTypeGetObject();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v47 = PKLogFacilityTypeGetObject();
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
         sub_1005C7624();
       }
@@ -7094,26 +8154,26 @@ LABEL_79:
   switch(v5)
   {
     case 6:
-      v73[0] = _NSConcreteStackBlock;
-      v73[1] = 3221225472;
-      v73[2] = sub_100184E08;
-      v73[3] = &unk_100849EB0;
-      v74 = v4;
-      if ((sub_10018335C(a1, v73) & 1) == 0)
+      v81[0] = _NSConcreteStackBlock;
+      v81[1] = 3221225472;
+      v81[2] = sub_100184E08;
+      v81[3] = &unk_100849EB0;
+      v82 = v4;
+      if ((sub_10018335C(a1, v81) & 1) == 0)
       {
-        v15 = PKLogFacilityTypeGetObject();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v17 = PKLogFacilityTypeGetObject();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_1005C7750();
         }
 
-        v16 = PDUtilityQueue();
-        v72[0] = _NSConcreteStackBlock;
-        v72[1] = 3221225472;
-        v72[2] = sub_100184E74;
-        v72[3] = &unk_10083C470;
-        v72[4] = a1;
-        dispatch_async(v16, v72);
+        v19 = PDUtilityQueue(v18);
+        v80[0] = _NSConcreteStackBlock;
+        v80[1] = 3221225472;
+        v80[2] = sub_100184E74;
+        v80[3] = &unk_10083C470;
+        v80[4] = a1;
+        dispatch_async(v19, v80);
       }
 
       break;
@@ -7272,13 +8332,13 @@ uint64_t sub_100184E88(uint64_t a1, void *a2)
       sub_1005C77F8();
     }
 
-    v9 = PDUtilityQueue();
+    v10 = PDUtilityQueue(v9);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100184FE0;
     block[3] = &unk_10083C470;
     block[4] = *(a1 + 32);
-    dispatch_async(v9, block);
+    dispatch_async(v10, block);
   }
 
   [v3 resolve];
@@ -7303,13 +8363,13 @@ uint64_t sub_100185008(void *a1, void *a2)
           sub_1005C7870();
         }
 
-        v7 = PDUtilityQueue();
+        v8 = PDUtilityQueue(v7);
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_100185148;
         block[3] = &unk_10083C470;
         block[4] = a1[7];
-        dispatch_async(v7, block);
+        dispatch_async(v8, block);
       }
     }
 
@@ -7638,8 +8698,9 @@ void sub_100185D0C(uint64_t a1, void *a2, void *a3, _BYTE *a4)
   }
 }
 
-uint64_t sub_100185E20(void *a1, void *a2, void *a3, char a4)
+uint64_t sub_100185E20(void *a1, void *a2, void *a3, uint64_t a4)
 {
+  v4 = a4;
   v7 = a1;
   v8 = a2;
   v9 = a3;
@@ -7686,7 +8747,7 @@ uint64_t sub_100185E20(void *a1, void *a2, void *a3, char a4)
   if (v10)
   {
 LABEL_10:
-    v16 = sub_1005C13BC(v10, v9, a4);
+    v16 = sub_1005C13BC(v10, v9, v4);
   }
 
   else
@@ -7742,7 +8803,7 @@ void sub_1001860D4(uint64_t a1, uint64_t a2, char a3)
   [v4 enumerateObjectsUsingBlock:v5];
 }
 
-id sub_10018618C(uint64_t a1, void *a2)
+void *sub_10018618C(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [*(a1 + 32) objectForKeyedSubscript:v3];
@@ -7920,11 +8981,11 @@ uint64_t sub_10018659C(void *a1, void *a2, _BYTE *a3)
   return v9;
 }
 
-void sub_1001866F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001866F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7975,11 +9036,11 @@ uint64_t sub_10018671C(void *a1, void *a2, _BYTE *a3)
   return v11;
 }
 
-void sub_100186874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100186874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8280,959 +9341,4 @@ LABEL_59:
   }
 
 LABEL_62:
-}
-
-void sub_100186F90(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
-{
-  v6 = a2;
-  v23 = 0;
-  [PKExpressPassInformation extractApplicationIdentifier:&v23 subcredentialIdentifier:0 fromIdentifiers:v6];
-  if (!v23 || ([*(a1 + 32) appletWithIdentifier:?], (v7 = objc_claimAutoreleasedReturnValue()) == 0))
-  {
-    v20 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
-    {
-      sub_1005C7D24();
-    }
-
-    v8 = 0;
-    v17 = a1 + 48;
-    v19 = 1;
-    goto LABEL_19;
-  }
-
-  v8 = v7;
-  v9 = [v7 lifecycleState];
-  if (v9 != 15)
-  {
-    v10 = v9;
-    v11 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-    {
-      v12 = *(a1 + 40);
-      *buf = 138412802;
-      v25 = v12;
-      v26 = 2112;
-      v27 = v6;
-      v28 = 2048;
-      v29 = v10;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "PKExpressPassManager: suspending express pass (%@: %@) - lifecycle state %ld.", buf, 0x20u);
-    }
-
-    *(*(*(a1 + 48) + 8) + 24) = 1;
-  }
-
-  v13 = [v8 authTransientConfigurable];
-  v14 = [v8 authTransientSupport];
-  v15 = v14;
-  if ((v13 & 1) == 0 && v14)
-  {
-    v16 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
-    {
-      sub_1005C7C44();
-    }
-
-    *(*(*(a1 + 56) + 8) + 24) = 0;
-  }
-
-  v17 = a1 + 56;
-  if (*(*(*(a1 + 56) + 8) + 24) & v15)
-  {
-    v18 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
-    {
-      sub_1005C7CB4();
-    }
-
-    v19 = 0;
-LABEL_19:
-    *(*(*v17 + 8) + 24) = v19;
-  }
-
-  v21 = *(*(*(a1 + 56) + 8) + 24);
-  *a4 = v21 ^ 1;
-  if ((v21 & 1) == 0)
-  {
-    v22 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
-    {
-      sub_1005C7D94();
-    }
-  }
-}
-
-void sub_100187228(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a2;
-  v6 = [a3 passInformation];
-  v7 = [v6 cardType];
-  v8 = *(a1 + 40);
-
-  if (v7 == v8)
-  {
-    v9 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-    {
-      v10 = *(a1 + 40);
-      v11 = 138412546;
-      v12 = v5;
-      v13 = 2048;
-      v14 = v10;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "PKExpressPassManager: Removing pass %@ from express state due to card type %ld", &v11, 0x16u);
-    }
-
-    [*(a1 + 32) addObject:v5];
-  }
-}
-
-void sub_100187334(void *a1, void *a2)
-{
-  v19 = a1;
-  v16 = a2;
-  v17 = [v16 applicationIdentifier];
-  if (v17)
-  {
-    v3 = [v16 supportedRadioTechnologies];
-    v27[0] = 0;
-    v27[1] = v27;
-    v27[2] = 0x2020000000;
-    v28 = 0;
-    v4 = [[NSMutableArray alloc] initWithCapacity:2];
-    [v4 addObject:v17];
-    v24[0] = _NSConcreteStackBlock;
-    v24[1] = 3221225472;
-    v24[2] = sub_100187798;
-    v24[3] = &unk_10084A228;
-    v26 = v27;
-    v18 = v4;
-    v25 = v18;
-    v5 = objc_retainBlock(v24);
-    v15 = [v16 subcredentials];
-    if ([v15 count])
-    {
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
-      v21 = 0u;
-      v6 = v15;
-      v7 = [v6 countByEnumeratingWithState:&v20 objects:v29 count:16];
-      if (v7)
-      {
-        v8 = *v21;
-        v9 = (v3 >> 1) & 1;
-        do
-        {
-          for (i = 0; i != v7; i = i + 1)
-          {
-            if (*v21 != v8)
-            {
-              objc_enumerationMutation(v6);
-            }
-
-            v11 = *(*(&v20 + 1) + 8 * i);
-            v12 = [v11 identifier];
-            if (v12)
-            {
-              (v5[2])(v5, v12);
-              v13 = sub_10018784C(v19, v18);
-              sub_1005C0F74(v13, v9);
-              v14 = [[PassApplicationSubcredentialState alloc] initWithSubcredential:v11];
-              sub_1001879A8(v13, v14);
-            }
-          }
-
-          v7 = [v6 countByEnumeratingWithState:&v20 objects:v29 count:16];
-        }
-
-        while (v7);
-      }
-    }
-
-    else
-    {
-      v6 = sub_10018784C(v19, v18);
-      sub_1005C0F74(v6, (v3 >> 1) & 1);
-    }
-
-    _Block_object_dispose(v27, 8);
-  }
-}
-
-void sub_100187628(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a2;
-  v6 = a3;
-  if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0)
-  {
-    [*(a1 + 32) appendString:{@", "}];
-  }
-
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v8)
-  {
-    v9 = v8;
-    v10 = *v15;
-    v11 = 1;
-    do
-    {
-      v12 = 0;
-      do
-      {
-        if (*v15 != v10)
-        {
-          objc_enumerationMutation(v7);
-        }
-
-        v13 = *(*(&v14 + 1) + 8 * v12);
-        if ((v11 & 1) == 0)
-        {
-          [*(a1 + 32) appendString:{@":", v14}];
-        }
-
-        [*(a1 + 32) appendString:{v13, v14}];
-        v11 = 0;
-        v12 = v12 + 1;
-      }
-
-      while (v9 != v12);
-      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
-      v11 = 0;
-    }
-
-    while (v9);
-  }
-
-  *(*(*(a1 + 40) + 8) + 24) = 0;
-}
-
-uint64_t sub_100187798(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = v3;
-  if (v3)
-  {
-    v5 = *(a1 + 32);
-    v7 = v4;
-    if (*(*(*(a1 + 40) + 8) + 24))
-    {
-      v3 = [v5 setObject:v4 atIndexedSubscript:1];
-      v4 = v7;
-    }
-
-    else
-    {
-      v3 = [v5 addObject:v4];
-      v4 = v7;
-      *(*(*(a1 + 40) + 8) + 24) = 1;
-    }
-  }
-
-  else if (*(*(*(a1 + 40) + 8) + 24))
-  {
-    v3 = [*(a1 + 32) removeObjectAtIndex:1];
-    v4 = 0;
-    *(*(*(a1 + 40) + 8) + 24) = 0;
-  }
-
-  return _objc_release_x1(v3, v4);
-}
-
-id sub_10018784C(void *a1, void *a2)
-{
-  v3 = a1;
-  v4 = a2;
-  if (v3)
-  {
-    v5 = v3;
-    v13 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v6)
-    {
-      v7 = v6;
-      v8 = *v14;
-      do
-      {
-        v9 = 0;
-        v10 = v5;
-        do
-        {
-          if (*v14 != v8)
-          {
-            objc_enumerationMutation(v4);
-          }
-
-          v5 = sub_100103D04(v10, *(*(&v13 + 1) + 8 * v9), 0);
-
-          v9 = v9 + 1;
-          v10 = v5;
-        }
-
-        while (v7 != v9);
-        v7 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
-      }
-
-      while (v7);
-    }
-
-    v11 = sub_1005C1928(v5);
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  return v11;
-}
-
-void sub_1001879A8(void *a1, void *a2)
-{
-  v3 = a1;
-  v4 = [a2 aliroGroupResolvingKeys];
-  sub_1005C1048(v3, v4);
-}
-
-void sub_100187A0C(uint64_t a1, void *a2, void *a3, void *a4)
-{
-  v7 = a2;
-  v8 = a3;
-  v9 = a4;
-  if (v7 && (sub_100103C8C(v7) & 1) != 0)
-  {
-    goto LABEL_14;
-  }
-
-  *(*(*(a1 + 32) + 8) + 24) = 1;
-  v10 = v8;
-  v11 = v9;
-  v12 = v11;
-  if (v10 == v11)
-  {
-  }
-
-  else
-  {
-    if (!v10 || !v11)
-    {
-
-      goto LABEL_11;
-    }
-
-    v13 = [v10 isEqualToString:v11];
-
-    if (!v13)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  *(*(*(a1 + 40) + 8) + 24) = 1;
-LABEL_11:
-  v14 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-  {
-    v15 = 138412546;
-    v16 = v10;
-    v17 = 2112;
-    v18 = v12;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "PKExpressPassManager: detected conflict between passes %@ and %@.", &v15, 0x16u);
-  }
-
-LABEL_14:
-}
-
-uint64_t sub_100187B88(id *a1)
-{
-  [a1[4] deviceSecureElementPassUniqueIDs];
-  v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v2 = v33 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v30 objects:v35 count:16];
-  if (v3)
-  {
-    v4 = v3;
-    v5 = *v31;
-    v20 = *v31;
-    v21 = v2;
-    do
-    {
-      for (i = 0; i != v4; i = i + 1)
-      {
-        if (*v31 != v5)
-        {
-          objc_enumerationMutation(v2);
-        }
-
-        v7 = *(*(&v30 + 1) + 8 * i);
-        v8 = objc_autoreleasePoolPush();
-        v9 = [a1[4] passWithUniqueIdentifier:v7];
-        v10 = v9;
-        if (v9 && [v9 passType] == 1)
-        {
-          v11 = v10;
-          if ([a1[5] containsObject:v7])
-          {
-            v28 = 0u;
-            v29 = 0u;
-            v26 = 0u;
-            v27 = 0u;
-            v12 = [v11 devicePaymentApplications];
-            v13 = [v12 countByEnumeratingWithState:&v26 objects:v34 count:16];
-            if (v13)
-            {
-              v14 = v13;
-              v15 = *v27;
-              do
-              {
-                for (j = 0; j != v14; j = j + 1)
-                {
-                  if (*v27 != v15)
-                  {
-                    objc_enumerationMutation(v12);
-                  }
-
-                  sub_100187334(a1[6], *(*(&v26 + 1) + 8 * j));
-                }
-
-                v14 = [v12 countByEnumeratingWithState:&v26 objects:v34 count:16];
-              }
-
-              while (v14);
-              v5 = v20;
-              v2 = v21;
-            }
-
-LABEL_19:
-          }
-
-          else
-          {
-            v17 = [[PKExpressPassInformation alloc] initForPaymentPass:v11 withTechologyTest:0];
-            if (v17)
-            {
-              v18 = v17;
-              v22[0] = _NSConcreteStackBlock;
-              v22[1] = 3221225472;
-              v22[2] = sub_100187E38;
-              v22[3] = &unk_10084A278;
-              v22[4] = v7;
-              v23 = v17;
-              v24 = v11;
-              v25 = a1[6];
-              v12 = v18;
-              [v12 enumerateCredentialsUsingBlock:v22];
-
-              goto LABEL_19;
-            }
-          }
-        }
-
-        objc_autoreleasePoolPop(v8);
-      }
-
-      v4 = [v2 countByEnumeratingWithState:&v30 objects:v35 count:16];
-    }
-
-    while (v4);
-  }
-
-  return 1;
-}
-
-void sub_100187E38(void **a1, void *a2, void *a3, _BYTE *a4)
-{
-  v9 = a2;
-  v10 = a3;
-  v45 = 0;
-  v46 = 0;
-  if (([PKExpressPassInformation extractApplicationIdentifier:&v46 subcredentialIdentifier:&v45 fromIdentifiers:v9]& 1) == 0)
-  {
-    v21 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
-    {
-      sub_1005C7E20();
-    }
-
-    *a4 = 1;
-    goto LABEL_46;
-  }
-
-  v11 = [PDSECredentialEntry alloc];
-  v36 = v10;
-  v12 = sub_1005C0038(&v11->super.isa, a1[4], [a1[5] isUserChoice], v10);
-  if (!v12)
-  {
-    goto LABEL_42;
-  }
-
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v35 = a1;
-  v13 = [a1[6] devicePaymentApplications];
-  v14 = [v13 countByEnumeratingWithState:&v41 objects:v48 count:16];
-  if (!v14)
-  {
-    goto LABEL_36;
-  }
-
-  v15 = v14;
-  v16 = *v42;
-LABEL_5:
-  v17 = 0;
-  while (1)
-  {
-    if (*v42 != v16)
-    {
-      objc_enumerationMutation(v13);
-    }
-
-    v18 = *(*(&v41 + 1) + 8 * v17);
-    v19 = v46;
-    v11 = [v18 applicationIdentifier];
-    v5 = v19;
-    v20 = v11;
-    v4 = v20;
-    if (v5 == v20)
-    {
-      break;
-    }
-
-    if (v5 && v20)
-    {
-      v11 = [(PDSECredentialEntry *)v5 isEqualToString:v20];
-
-      if (v11)
-      {
-        goto LABEL_21;
-      }
-    }
-
-    else
-    {
-    }
-
-    if (v15 == ++v17)
-    {
-      v15 = [v13 countByEnumeratingWithState:&v41 objects:v48 count:16];
-      if (!v15)
-      {
-        goto LABEL_36;
-      }
-
-      goto LABEL_5;
-    }
-  }
-
-LABEL_21:
-  v22 = v18;
-
-  if (!v22)
-  {
-    goto LABEL_37;
-  }
-
-  sub_1005C0F74(v12, ([v22 supportedRadioTechnologies] >> 1) & 1);
-  sub_1005C0CB0(v12, 0);
-  sub_1005C0D50(v12, 0);
-  if (!v45)
-  {
-    goto LABEL_41;
-  }
-
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v34 = v22;
-  v13 = [v22 subcredentials];
-  v23 = [v13 countByEnumeratingWithState:&v37 objects:v47 count:16];
-  if (!v23)
-  {
-LABEL_36:
-
-    goto LABEL_37;
-  }
-
-  v24 = v23;
-  v25 = *v38;
-LABEL_25:
-  v26 = 0;
-  while (1)
-  {
-    if (*v38 != v25)
-    {
-      objc_enumerationMutation(v13);
-    }
-
-    v4 = *(*(&v37 + 1) + 8 * v26);
-    v27 = v45;
-    v28 = [(PDSECredentialEntry *)v4 identifier];
-    v11 = v27;
-    v29 = v28;
-    v5 = v29;
-    if (v11 == v29)
-    {
-      goto LABEL_38;
-    }
-
-    if (!v11 || !v29)
-    {
-
-      goto LABEL_34;
-    }
-
-    v30 = [(PDSECredentialEntry *)v11 isEqualToString:v29];
-
-    if (v30)
-    {
-      break;
-    }
-
-LABEL_34:
-    if (v24 == ++v26)
-    {
-      v24 = [v13 countByEnumeratingWithState:&v37 objects:v47 count:16];
-      if (!v24)
-      {
-        goto LABEL_36;
-      }
-
-      goto LABEL_25;
-    }
-  }
-
-  while (1)
-  {
-    v11 = v4;
-
-    if (v11)
-    {
-      break;
-    }
-
-LABEL_37:
-    __break(1u);
-LABEL_38:
-  }
-
-  v31 = [[PassApplicationSubcredentialState alloc] initWithSubcredential:v11];
-  sub_1001879A8(v12, v31);
-
-  v22 = v34;
-LABEL_41:
-  v32 = sub_100185E20(v35[7], v9, v12, 1);
-
-  if ((v32 & 1) == 0)
-  {
-LABEL_42:
-    v33 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
-    {
-      sub_1005C7E88();
-    }
-  }
-
-  v10 = v36;
-LABEL_46:
-}
-
-void sub_100188268(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
-{
-  v8 = 0;
-  v9 = 0;
-  if (([PKExpressPassInformation extractApplicationIdentifier:&v9 subcredentialIdentifier:&v8 fromIdentifiers:a2]& 1) != 0)
-  {
-    if (!v8)
-    {
-      goto LABEL_8;
-    }
-
-    v6 = *(a1 + 32);
-    if (v6)
-    {
-      v7 = [v6 objectForKeyedSubscript:v9];
-      if (!v7)
-      {
-        v7 = objc_alloc_init(NSMutableSet);
-        [*(a1 + 32) setObject:v7 forKeyedSubscript:v9];
-      }
-
-      [v7 addObject:v8];
-    }
-
-    if (*(a1 + 56) == 1)
-    {
-LABEL_8:
-      [*(a1 + 40) addObject:v9];
-    }
-  }
-
-  else
-  {
-    *(*(*(a1 + 48) + 8) + 24) = 0;
-    *a4 = 1;
-  }
-}
-
-void sub_100188398(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
-{
-
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, a5, 2u);
-}
-
-void sub_1001883B0(char a1@<W8>)
-{
-  *(v1 + 168) = a1;
-
-  sub_10017E164(v1, 0);
-}
-
-void sub_1001883EC(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char block)
-{
-
-  dispatch_async(v10, &block);
-}
-
-void sub_100188404(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
-}
-
-void sub_100188420(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
-{
-
-  dispatch_async(v9, &a9);
-}
-
-void sub_10018843C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
-{
-
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, a5, 0x16u);
-}
-
-void sub_100188478(uint64_t a1@<X8>)
-{
-  *(a1 + 4) = v1;
-  *(v3 - 180) = 2112;
-  *(a1 + 14) = v2;
-}
-
-void sub_1001884B8(void *a1, char *newValue)
-{
-
-  objc_setProperty_nonatomic_copy(a1, newValue, newValue, 16);
-}
-
-id sub_1001884D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-
-  return [v4 countByEnumeratingWithState:a3 objects:a4 count:16];
-}
-
-id sub_1001884F0()
-{
-
-  return [v0 setObject:v1 forKeyedSubscript:?];
-}
-
-void sub_100188874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-BOOL sub_10018888C(uint64_t a1)
-{
-  v2 = [objc_alloc(*(a1 + 64)) initWithValue:*(a1 + 32) forBaseValue:*(a1 + 40) inDatabase:*(a1 + 48)];
-  v3 = *(*(a1 + 56) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
-
-  return *(*(*(a1 + 56) + 8) + 40) != 0;
-}
-
-void sub_100188A64(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _BYTE *a6)
-{
-  v9 = *(a4 + 24);
-  v10 = *(a1 + 32);
-  v12 = v9;
-  if (v9)
-  {
-    v11 = PKCurrencyStorageNumberToCurrencyDecimal();
-    [v10 setContent:v11];
-
-    [*(a1 + 32) setCurrencyCode:v12];
-  }
-
-  else
-  {
-    [v10 setContent:*(a4 + 8)];
-  }
-
-  [*(a1 + 32) setNumberStyle:{_PKEnumValueFromString(), 1, 1, 3, 3, 4, 4, 5, 5}];
-  *a6 = 1;
-}
-
-uint64_t sub_100188D54(uint64_t a1)
-{
-  [*(a1 + 48) deleteFooterContentForInstallmentCriteriaPID:*(a1 + 56) type:*(a1 + 64) inDatabase:*(a1 + 32)];
-  if (*(a1 + 40))
-  {
-    v2 = [objc_opt_class() _commonDictionary:*(a1 + 40) type:*(a1 + 64)];
-    v3 = [NSNumber numberWithLongLong:*(a1 + 56)];
-    [v2 setObjectOrNull:v3 forKey:@"installment_criteria_pid"];
-
-    v4 = [objc_alloc(*(a1 + 48)) initWithPropertyValues:v2 inDatabase:*(a1 + 32)];
-    v5 = [*(a1 + 40) links];
-    +[ApplyFooterContentLink insertOrUpdateFooterContentLinks:tablePID:type:inDatabase:](ApplyFooterContentLink, "insertOrUpdateFooterContentLinks:tablePID:type:inDatabase:", v5, [v4 persistentID], *(a1 + 64), *(a1 + 32));
-  }
-
-  return 1;
-}
-
-uint64_t sub_100188F1C(uint64_t a1)
-{
-  [*(a1 + 48) deleteFooterContentForDynamicContentPagePID:*(a1 + 56) type:*(a1 + 64) inDatabase:*(a1 + 32)];
-  if (*(a1 + 40))
-  {
-    v2 = [objc_opt_class() _commonDictionary:*(a1 + 40) type:*(a1 + 64)];
-    v3 = [NSNumber numberWithLongLong:*(a1 + 56)];
-    [v2 setObjectOrNull:v3 forKey:@"dynamic_content_page_pid"];
-
-    v4 = [objc_alloc(*(a1 + 48)) initWithPropertyValues:v2 inDatabase:*(a1 + 32)];
-    v5 = [*(a1 + 40) links];
-    +[ApplyFooterContentLink insertOrUpdateFooterContentLinks:tablePID:type:inDatabase:](ApplyFooterContentLink, "insertOrUpdateFooterContentLinks:tablePID:type:inDatabase:", v5, [v4 persistentID], *(a1 + 64), *(a1 + 32));
-  }
-
-  return 1;
-}
-
-void sub_1001896DC(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = a2;
-  [objc_opt_class() applyPropertySetters:*(a1 + 40) toObject:*(a1 + 48) withProperties:v5 values:a3];
-}
-
-id sub_10018ACFC(uint64_t a1)
-{
-  os_unfair_lock_lock((*(a1 + 32) + 80));
-  [*(*(a1 + 32) + 88) setObject:0 forKeyedSubscript:*(a1 + 40)];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(a1 + 40);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Handle<%@> End Tracking", &v5, 0xCu);
-  }
-
-  [*(a1 + 32) _lock_removeAncillaryServiceForTracker:*(a1 + 48)];
-  os_unfair_lock_unlock((*(a1 + 32) + 80));
-  return [*(a1 + 32) _handleDidInvalidateForTransportIdentifier:*(a1 + 40)];
-}
-
-void sub_10018B818(uint64_t a1, void *a2)
-{
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v4 = a2;
-  v5 = [v3 transportIdentifier];
-  [v4 handleOutstandingShareMessage:v2 transportIdentifier:v5];
-}
-
-id sub_10018C95C(uint64_t a1, int a2, uint64_t a3)
-{
-  if (a3 || !a2)
-  {
-    v8 = *(*(a1 + 64) + 16);
-
-    return v8();
-  }
-
-  else
-  {
-    v4 = *(*(a1 + 32) + 16);
-    v9 = *(a1 + 40);
-    v5 = [NSArray arrayWithObjects:&v9 count:1];
-    v6 = [*(a1 + 48) transportIdentifier];
-    [v4 insertOrUpdateSharingMessages:v5 storePayloads:0 transportIdentifier:v6];
-
-    (*(*(a1 + 64) + 16))();
-    result = [*(a1 + 56) type];
-    if (result == 1)
-    {
-      return [*(*(a1 + 32) + 104) scheduleNextCheckIfNeeded];
-    }
-  }
-
-  return result;
-}
-
-void sub_10018CB90(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a2;
-  v6 = a3;
-  if (v6)
-  {
-    v7 = *(a1 + 48);
-    if (v7)
-    {
-      (*(v7 + 16))(v7, 0, v6);
-    }
-  }
-
-  else
-  {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    v8 = [v5 countByEnumeratingWithState:&v18 objects:v23 count:16];
-    if (v8)
-    {
-      v9 = v8;
-      v10 = *v19;
-      do
-      {
-        for (i = 0; i != v9; i = i + 1)
-        {
-          if (*v19 != v10)
-          {
-            objc_enumerationMutation(v5);
-          }
-
-          v12 = *(*(a1 + 32) + 16);
-          v22 = *(*(&v18 + 1) + 8 * i);
-          v13 = [NSArray arrayWithObjects:&v22 count:1];
-          v14 = [*(a1 + 40) transportIdentifier];
-          [v12 insertOrUpdateSharingMessages:v13 storePayloads:1 transportIdentifier:v14];
-        }
-
-        v9 = [v5 countByEnumeratingWithState:&v18 objects:v23 count:16];
-      }
-
-      while (v9);
-    }
-
-    v15 = *(*(a1 + 32) + 16);
-    v16 = [*(a1 + 40) transportIdentifier];
-    v17 = [v15 sharingMessagesForTransportIdentifier:v16];
-
-    [*(a1 + 40) didReceiveMessages:v17];
-    (*(*(a1 + 48) + 16))();
-  }
 }

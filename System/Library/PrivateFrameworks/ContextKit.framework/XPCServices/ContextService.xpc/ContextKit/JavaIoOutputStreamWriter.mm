@@ -132,6 +132,7 @@ LABEL_16:
 
 - (void)writeWithCharArray:(id)array withInt:(int)int withInt:(int)withInt
 {
+  v6 = *&int;
   lock = self->super.lock_;
   objc_sync_enter(lock);
   sub_100283D84(self);
@@ -140,8 +141,8 @@ LABEL_16:
     JreThrowNullPointerException();
   }
 
-  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), int, withInt);
-  v10 = JavaNioCharBuffer_wrapWithCharArray_withInt_withInt_(array, int, withInt);
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), v6, withInt);
+  v10 = JavaNioCharBuffer_wrapWithCharArray_withInt_withInt_(array, v6, withInt);
   sub_100283CC0(self, v10);
 
   objc_sync_exit(lock);

@@ -49,18 +49,18 @@
   }
 
   v14 = sessionCopy;
-  v55.receiver = self;
-  v55.super_class = MBPeerTransferDrive;
-  v15 = [(MBPeerTransferDrive *)&v55 init];
+  v54.receiver = self;
+  v54.super_class = MBPeerTransferDrive;
+  v15 = [(MBPeerTransferDrive *)&v54 init];
   v16 = v15;
   if (v15)
   {
     sizeCopy = size;
     countCopy = count;
     v15->_progressLock._os_unfair_lock_opaque = 0;
-    v53 = v14;
+    v52 = v14;
     [(MBPeerTransferDrive *)v15 setFileTransferSession:v14];
-    v54 = lCopy;
+    v53 = lCopy;
     [(MBPeerTransferDrive *)v16 setRootURL:lCopy];
     v17 = [[NSMutableArray alloc] initWithCapacity:batchCount];
     v18 = 0;
@@ -77,7 +77,7 @@
     }
 
     while (batchCount != v18);
-    v52 = v16;
+    v51 = v16;
     [(MBPeerTransferDrive *)v16 setBatchQueues:v17];
     v24 = [[NSMutableArray alloc] initWithCapacity:batchCount];
     v25 = 0;
@@ -94,59 +94,57 @@
     }
 
     while (batchCount != v25);
-    [(MBPeerTransferDrive *)v52 setMetadataQueues:v24];
+    [(MBPeerTransferDrive *)v51 setMetadataQueues:v24];
     v31 = objc_opt_class();
     [MBPeerMessenger registerRequestClass:v31 responseClass:objc_opt_class() forTask:@"MBPeerTaskMove"];
-    v16 = v52;
+    v16 = v51;
     v32 = objc_opt_class();
     [MBPeerMessenger registerRequestClass:v32 responseClass:objc_opt_class() forTask:@"MBPeerTaskRemove"];
-    v52->_uploadBatchSize = sizeCopy;
-    v52->_concurrentUploadBatchCount = countCopy;
+    v51->_uploadBatchSize = sizeCopy;
+    v51->_concurrentUploadBatchCount = countCopy;
     v33 = MBGetDefaultLog();
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       v34 = objc_opt_class();
-      uploadBatchSize = v52->_uploadBatchSize;
-      concurrentUploadBatchCount = v52->_concurrentUploadBatchCount;
+      uploadBatchSize = v51->_uploadBatchSize;
+      concurrentUploadBatchCount = v51->_concurrentUploadBatchCount;
       *buf = 138544130;
-      v57 = v34;
-      v58 = 2048;
-      v59 = uploadBatchSize;
-      v60 = 2048;
-      v61 = concurrentUploadBatchCount;
-      v62 = 2048;
+      v56 = v34;
+      v57 = 2048;
+      v58 = uploadBatchSize;
+      v59 = 2048;
+      v60 = concurrentUploadBatchCount;
+      v61 = 2048;
       batchCountCopy = batchCount;
       _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%{public}@, uploadBatchSize:%lu, concurrentUploadBatchCount:%lu, concurrentOpenBatchCount:%lu", buf, 0x2Au);
-      objc_opt_class();
-      v49 = v52->_concurrentUploadBatchCount;
-      v48 = v52->_uploadBatchSize;
-      _MBLog();
+      v37 = objc_opt_class();
+      _MBLog(@"Df", "%{public}@, uploadBatchSize:%lu, concurrentUploadBatchCount:%lu, concurrentOpenBatchCount:%lu", v37, v51->_uploadBatchSize, v51->_concurrentUploadBatchCount, batchCount);
     }
 
-    v37 = dispatch_semaphore_create(v52->_concurrentUploadBatchCount);
-    batchUploadSemaphore = v52->_batchUploadSemaphore;
-    v52->_batchUploadSemaphore = v37;
+    v38 = dispatch_semaphore_create(v51->_concurrentUploadBatchCount);
+    batchUploadSemaphore = v51->_batchUploadSemaphore;
+    v51->_batchUploadSemaphore = v38;
 
-    v39 = dispatch_semaphore_create(v52->_uploadBatchSize * batchCount);
-    openSQLiteFilesSemaphore = v52->_openSQLiteFilesSemaphore;
-    v52->_openSQLiteFilesSemaphore = v39;
+    v40 = dispatch_semaphore_create(v51->_uploadBatchSize * batchCount);
+    openSQLiteFilesSemaphore = v51->_openSQLiteFilesSemaphore;
+    v51->_openSQLiteFilesSemaphore = v40;
 
-    v41 = [MBError errorWithCode:202 format:@"Invalidated"];
-    invalidationError = v52->_invalidationError;
-    v52->_invalidationError = v41;
+    v42 = [MBError errorWithCode:202 format:@"Invalidated"];
+    invalidationError = v51->_invalidationError;
+    v51->_invalidationError = v42;
 
     if (_os_feature_enabled_impl())
     {
-      v43 = NSTemporaryDirectory();
-      v44 = [v43 stringByAppendingPathComponent:@"filehashes.db"];
+      v44 = NSTemporaryDirectory();
+      v45 = [v44 stringByAppendingPathComponent:@"filehashes.db"];
 
-      v45 = [[MBFileHashDB alloc] initWithPath:v44];
-      fileHashDB = v52->_fileHashDB;
-      v52->_fileHashDB = v45;
+      v46 = [[MBFileHashDB alloc] initWithPath:v45];
+      fileHashDB = v51->_fileHashDB;
+      v51->_fileHashDB = v46;
     }
 
-    v14 = v53;
-    lCopy = v54;
+    v14 = v52;
+    lCopy = v53;
   }
 
   return v16;
@@ -156,22 +154,20 @@
 {
   path = [(MBFileHashDB *)self->_fileHashDB path];
   fileHashDB = self->_fileHashDB;
-  v17 = 0;
-  v5 = [(MBFileHashDB *)fileHashDB close:&v17];
-  v6 = v17;
+  v15 = 0;
+  v5 = [(MBFileHashDB *)fileHashDB close:&v15];
+  v6 = v15;
   if ((v5 & 1) == 0)
   {
     v7 = MBGetDefaultLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v19 = path;
-      v20 = 2112;
-      v21 = v6;
+      v17 = path;
+      v18 = 2112;
+      v19 = v6;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to close the SQLite DB at %@: %@", buf, 0x16u);
-      v13 = path;
-      v14 = v6;
-      _MBLog();
+      _MBLog(@"E ", "Failed to close the SQLite DB at %@: %@", path, v6);
     }
   }
 
@@ -179,9 +175,9 @@
   {
     v8 = MBGetCacheDir();
     v9 = [v8 stringByAppendingPathComponent:@"filehashes.db"];
-    v16 = v6;
-    v10 = [MBSQLiteFileHandle copySQLiteFileAtPath:path toPath:v9 error:&v16];
-    v11 = v16;
+    v14 = v6;
+    v10 = [MBSQLiteFileHandle copySQLiteFileAtPath:path toPath:v9 error:&v14];
+    v11 = v14;
 
     if ((v10 & 1) == 0)
     {
@@ -189,13 +185,11 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v19 = path;
-        v20 = 2112;
-        v21 = v11;
+        v17 = path;
+        v18 = 2112;
+        v19 = v11;
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to copy the SQLite file at %@: %@", buf, 0x16u);
-        v13 = path;
-        v14 = v11;
-        _MBLog();
+        _MBLog(@"E ", "Failed to copy the SQLite file at %@: %@", path, v11);
       }
     }
   }
@@ -205,12 +199,12 @@
     v11 = v6;
   }
 
-  [MBSQLiteFileHandle removeAllSQLiteFilesAtPath:path, v13, v14];
+  [MBSQLiteFileHandle removeAllSQLiteFilesAtPath:path];
   [(MBPeerTransferDrive *)self stopListeningForFileTransfers];
 
-  v15.receiver = self;
-  v15.super_class = MBPeerTransferDrive;
-  [(MBPeerTransferDrive *)&v15 dealloc];
+  v13.receiver = self;
+  v13.super_class = MBPeerTransferDrive;
+  [(MBPeerTransferDrive *)&v13 dealloc];
 }
 
 - (void)invalidate
@@ -221,10 +215,10 @@
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v4 = objc_opt_class();
+      v5 = objc_opt_class();
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Invalidated %@", buf, 0xCu);
-      objc_opt_class();
-      _MBLog();
+      v3 = objc_opt_class();
+      _MBLog(@"Df", "Invalidated %@", v3);
     }
   }
 }
@@ -349,7 +343,7 @@
     __assert_rtn("[MBPeerTransferDrive _uploadBatch:options:completion:]", "MBPeerTransferDrive.m", 176, "batch");
   }
 
-  v69 = completionCopy;
+  v65 = completionCopy;
   if (!completionCopy)
   {
     __assert_rtn("[MBPeerTransferDrive _uploadBatch:options:completion:]", "MBPeerTransferDrive.m", 177, "completion");
@@ -363,8 +357,8 @@
 
   v11 = [optionsCopy objectForKeyedSubscript:@"FileHandleFactory"];
   paths = [batchCopy paths];
-  v75 = [paths count];
-  if (v75 > self->_uploadBatchSize)
+  v71 = [paths count];
+  if (v71 > self->_uploadBatchSize)
   {
     __assert_rtn("[MBPeerTransferDrive _uploadBatch:options:completion:]", "MBPeerTransferDrive.m", 183, "pathCount <= _uploadBatchSize");
   }
@@ -376,52 +370,48 @@
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109888;
-    *v105 = index;
-    *&v105[4] = 2048;
-    *&v105[6] = v75;
-    *&v105[14] = 2048;
-    *&v105[16] = v13;
-    *&v105[24] = 1024;
-    *&v105[26] = last;
+    *v101 = index;
+    *&v101[4] = 2048;
+    *&v101[6] = v71;
+    *&v101[14] = 2048;
+    *&v101[16] = v13;
+    *&v101[24] = 1024;
+    *&v101[26] = last;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Preparing batch i:%u, pc:%lu, s:%llu, l:%d", buf, 0x22u);
-    v61 = v13;
-    v62 = last;
-    v59 = index;
-    v60 = v75;
-    _MBLog();
+    _MBLog(@"Df", "Preparing batch i:%u, pc:%lu, s:%llu, l:%d", index, v71, v13, last);
   }
 
   v15 = dispatch_group_create();
   v16 = [[NSMutableDictionary alloc] initWithCapacity:0];
-  v17 = [[NSMutableArray alloc] initWithCapacity:v75];
-  v100 = 0;
-  v101 = &v100;
-  v102 = 0x2020000000;
-  v103 = 0;
-  v91[0] = _NSConcreteStackBlock;
-  v91[1] = 3221225472;
-  v91[2] = sub_10018A2D4;
-  v91[3] = &unk_1003C0400;
-  v91[4] = self;
-  v68 = v16;
-  v92 = v68;
-  v66 = v11;
-  v93 = v66;
-  v98 = &v100;
+  v17 = [[NSMutableArray alloc] initWithCapacity:v71];
+  v96 = 0;
+  v97 = &v96;
+  v98 = 0x2020000000;
+  v99 = 0;
+  v87[0] = _NSConcreteStackBlock;
+  v87[1] = 3221225472;
+  v87[2] = sub_10018A2D4;
+  v87[3] = &unk_1003C0400;
+  v87[4] = self;
+  v64 = v16;
+  v88 = v64;
+  v62 = v11;
+  v89 = v62;
+  v94 = &v96;
   v18 = batchCopy;
-  v94 = v18;
-  v99 = index;
-  v70 = fileTransferSession;
-  v95 = v70;
+  v90 = v18;
+  v95 = index;
+  v66 = fileTransferSession;
+  v91 = v66;
   group = v15;
-  v96 = group;
+  v92 = group;
   v19 = v17;
-  v97 = v19;
-  [paths enumerateKeysAndObjectsUsingBlock:v91];
+  v93 = v19;
+  [paths enumerateKeysAndObjectsUsingBlock:v87];
   [v18 setItems:v19];
 
   context = objc_autoreleasePoolPush();
-  if (last & 1) != 0 || (v101[3])
+  if (last & 1) != 0 || (v97[3])
   {
     invalidated = 1;
   }
@@ -472,7 +462,7 @@
     pendingUploadBatches = selfCopy->_pendingUploadBatches;
   }
 
-  if (![(NSMutableArray *)pendingUploadBatches count:v59]&& selfCopy->_pendingUploadSize)
+  if (![(NSMutableArray *)pendingUploadBatches count]&& selfCopy->_pendingUploadSize)
   {
     v57 = "_pendingUploadBatches.count || !_pendingUploadSize";
     v58 = 367;
@@ -481,8 +471,8 @@ LABEL_64:
   }
 
   [(NSMutableArray *)selfCopy->_pendingUploadBatches addObject:v18];
-  v72 = &v13[selfCopy->_pendingUploadSize];
-  selfCopy->_pendingUploadSize = v72;
+  v68 = &v13[selfCopy->_pendingUploadSize];
+  selfCopy->_pendingUploadSize = v68;
   if (v27)
   {
     v34 = selfCopy->_pendingUploadBatches;
@@ -527,35 +517,35 @@ LABEL_64:
   if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109632;
-    *v105 = index;
-    *&v105[4] = 1024;
-    *&v105[6] = v37;
-    *&v105[10] = 1024;
-    *&v105[12] = v38;
+    *v101 = index;
+    *&v101[4] = 1024;
+    *&v101[6] = v37;
+    *&v101[10] = 1024;
+    *&v101[12] = v38;
     _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Queued batch i:%u, o:%u(%u)", buf, 0x14u);
-    _MBLog();
+    _MBLog(@"Df", "Queued batch i:%u, o:%u(%u)", index, v37, v38);
   }
 
   if (v27)
   {
     v40 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
     dispatch_semaphore_wait(selfCopy->_batchUploadSemaphore, 0xFFFFFFFFFFFFFFFFLL);
-    v63 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+    v59 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
     v41 = [[NSMutableArray alloc] initWithCapacity:{self->_uploadBatchSize * -[NSMutableArray count](v34, "count")}];
     v42 = [[NSMutableArray alloc] initWithCapacity:{-[NSMutableArray count](v34, "count")}];
-    v87[0] = _NSConcreteStackBlock;
-    v87[1] = 3221225472;
-    v87[2] = sub_10018B3CC;
-    v87[3] = &unk_1003C0428;
-    v90 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+    v83[0] = _NSConcreteStackBlock;
+    v83[1] = 3221225472;
+    v83[2] = sub_10018B3CC;
+    v83[3] = &unk_1003C0428;
+    v86 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
     v43 = v41;
-    v88 = v43;
+    v84 = v43;
     v44 = v42;
-    v89 = v44;
-    [(NSMutableArray *)v34 enumerateObjectsUsingBlock:v87];
+    v85 = v44;
+    [(NSMutableArray *)v34 enumerateObjectsUsingBlock:v83];
     v45 = [v44 componentsJoinedByString:{@", "}];
     add_explicit = atomic_fetch_add_explicit(&dword_100421930, 1u, memory_order_relaxed);
-    v64 = atomic_fetch_add_explicit(&dword_100421934, [v43 count], memory_order_relaxed);
+    v60 = atomic_fetch_add_explicit(&dword_100421934, [v43 count], memory_order_relaxed);
     if ([(MBPeerTransferDrive *)selfCopy invalidated])
     {
       v46 = MBGetDefaultLog();
@@ -566,27 +556,26 @@ LABEL_64:
         {
           v48 = [v43 count];
           *buf = 134218754;
-          *v105 = v48;
-          *&v105[8] = 2114;
-          *&v105[10] = v45;
-          *&v105[18] = 1024;
-          *&v105[20] = add_explicit;
-          *&v105[24] = 1024;
-          *&v105[26] = v64;
+          *v101 = v48;
+          *&v101[8] = 2114;
+          *&v101[10] = v45;
+          *&v101[18] = 1024;
+          *&v101[20] = add_explicit;
+          *&v101[24] = 1024;
+          *&v101[26] = v60;
           _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "Invalidating %lu items for batches i:[%{public}@], o:%u(%u)", buf, 0x22u);
         }
 
-        [v43 count];
-        _MBLog();
+        _MBLog(@"E ", "Invalidating %lu items for batches i:[%{public}@], o:%u(%u)", [v43 count], v45, add_explicit, v60);
       }
 
-      dispatchQueue = [v70 dispatchQueue];
+      dispatchQueue = [v66 dispatchQueue];
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_10018B494;
       block[3] = &unk_1003BC060;
-      v85 = v43;
-      v86 = selfCopy;
+      v81 = v43;
+      v82 = selfCopy;
       dispatch_group_async(group, dispatchQueue, block);
     }
 
@@ -600,48 +589,47 @@ LABEL_64:
         {
           v52 = [v43 count];
           *buf = 138544642;
-          *v105 = v45;
-          *&v105[8] = 2048;
-          *&v105[10] = v52;
-          *&v105[18] = 2048;
-          *&v105[20] = v72;
-          *&v105[28] = 2048;
-          v106 = (v63 - v40) / 1000000000.0;
-          v107 = 1024;
-          v108 = add_explicit;
-          v109 = 1024;
-          v110 = v64;
+          *v101 = v45;
+          *&v101[8] = 2048;
+          *&v101[10] = v52;
+          *&v101[18] = 2048;
+          *&v101[20] = v68;
+          *&v101[28] = 2048;
+          v102 = (v59 - v40) / 1000000000.0;
+          v103 = 1024;
+          v104 = add_explicit;
+          v105 = 1024;
+          v106 = v60;
           _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "Uploading batches i:[%{public}@], c:%lu, s:%llu, tq:%.3f, o:%u(%u)", buf, 0x36u);
         }
 
-        [v43 count];
-        _MBLog();
+        _MBLog(@"Df", "Uploading batches i:[%{public}@], c:%lu, s:%llu, tq:%.3f, o:%u(%u)", v45, [v43 count], v68, (v59 - v40) / 1000000000.0, add_explicit, v60);
       }
 
-      [v70 addItems:v43];
+      [v66 addItems:v43];
     }
 
     v34 = 0;
   }
 
   v53 = dispatch_get_global_queue(17, 0);
-  v77[0] = _NSConcreteStackBlock;
-  v77[1] = 3221225472;
-  v77[2] = sub_10018B570;
-  v77[3] = &unk_1003C0478;
+  v73[0] = _NSConcreteStackBlock;
+  v73[1] = 3221225472;
+  v73[2] = sub_10018B570;
+  v73[3] = &unk_1003C0478;
   v54 = v18;
-  v83 = v27;
-  v78 = v54;
-  v79 = selfCopy;
-  v82 = v75;
-  v55 = v68;
-  v80 = v55;
-  v56 = v69;
-  v81 = v56;
-  dispatch_group_notify(group, v53, v77);
+  v79 = v27;
+  v74 = v54;
+  v75 = selfCopy;
+  v78 = v71;
+  v55 = v64;
+  v76 = v55;
+  v56 = v65;
+  v77 = v56;
+  dispatch_group_notify(group, v53, v73);
 
   objc_autoreleasePoolPop(context);
-  _Block_object_dispose(&v100, 8);
+  _Block_object_dispose(&v96, 8);
 }
 
 - (id)_queueWithBatch:(id)batch
@@ -926,7 +914,7 @@ LABEL_12:
     }
 
     selfPublicKey2 = [fileTransferSession selfPublicKey];
-    _MBLog();
+    _MBLog(@"Df", "Activated the FT session (selfPublicKey: %@)", selfPublicKey2);
   }
 
   objc_destroyWeak(&v11);
@@ -954,9 +942,9 @@ LABEL_12:
   if (relativePath)
   {
     protectionClass = [v10 protectionClass];
-    v94 = 0;
-    v15 = MBProtectionClassSupportedValue([protectionClass intValue], 1, &v94);
-    v16 = v94;
+    v92 = 0;
+    v15 = MBProtectionClassSupportedValue([protectionClass intValue], 1, &v92);
+    v16 = v92;
 
     errorCopy = error;
     if (v15 == 255)
@@ -970,23 +958,21 @@ LABEL_12:
 
       path = [v12 path];
       *buf = 138412546;
-      v96 = path;
-      v97 = 2112;
-      v98 = v16;
+      v94 = path;
+      v95 = 2112;
+      v96 = v16;
       _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "invalid protection class at %@: %@", buf, 0x16u);
 
       path2 = [v12 path];
-      v75 = path2;
-      v78 = v16;
-      _MBLog();
+      _MBLog(@"E ", "invalid protection class at %@: %@", path2, v16);
       v18 = v16;
     }
 
     else
     {
-      v93 = v16;
-      v17 = +[MBProtectionClassUtils setWithPathFSR:value:error:](MBProtectionClassUtils, "setWithPathFSR:value:error:", [v12 fileSystemRepresentation], v15, &v93);
-      v18 = v93;
+      v91 = v16;
+      v17 = +[MBProtectionClassUtils setWithPathFSR:value:error:](MBProtectionClassUtils, "setWithPathFSR:value:error:", [v12 fileSystemRepresentation], v15, &v91);
+      v18 = v91;
 
       if (v17)
       {
@@ -1000,8 +986,8 @@ LABEL_13:
 
         v18 = 0;
 LABEL_14:
-        v89 = relativePath;
-        v24 = [(MBPeerTransferDrive *)self fullURLForDriveRelativePath:relativePath, v75, v78];
+        v87 = relativePath;
+        v24 = [(MBPeerTransferDrive *)self fullURLForDriveRelativePath:relativePath];
         uRLByDeletingLastPathComponent = [v24 URLByDeletingLastPathComponent];
         v26 = +[NSFileManager defaultManager];
         [v26 createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:0];
@@ -1011,45 +997,45 @@ LABEL_14:
           goto LABEL_42;
         }
 
-        v86 = uRLByDeletingLastPathComponent;
-        v87 = itemCopy;
+        v84 = uRLByDeletingLastPathComponent;
+        v85 = itemCopy;
         sha256HashData = [itemCopy sha256HashData];
         fileHashDB = self->_fileHashDB;
-        v92 = v18;
-        path26 = [(MBFileHashDB *)fileHashDB filePathForHash:sha256HashData error:&v92];
-        v83 = v92;
+        v90 = v18;
+        path26 = [(MBFileHashDB *)fileHashDB filePathForHash:sha256HashData error:&v90];
+        v81 = v90;
 
-        v84 = sha256HashData;
+        v82 = sha256HashData;
         if (path26)
         {
-          v85 = v10;
+          v83 = v10;
           v30 = copyfile_state_alloc();
           v31 = copyfile([path26 fileSystemRepresentation], objc_msgSend(v24, "fileSystemRepresentation"), v30, 0x12C0000u);
           v32 = *__error();
           copyfile_state_free(v30);
           if (!v31)
           {
-            v46 = MBGetDefaultLog();
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+            v48 = MBGetDefaultLog();
+            if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
             {
               path3 = [v24 path];
               *buf = 138412546;
-              v96 = path26;
-              v97 = 2112;
-              v98 = path3;
-              _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEBUG, "Cloned %@ to %@", buf, 0x16u);
+              v94 = path26;
+              v95 = 2112;
+              v96 = path3;
+              _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEBUG, "Cloned %@ to %@", buf, 0x16u);
 
               path4 = [v24 path];
-              _MBLog();
+              _MBLog(@"Db", "Cloned %@ to %@", path26, path4);
             }
 
-            v48 = +[NSFileManager defaultManager];
-            v91 = v83;
-            v49 = [v48 removeItemAtURL:v12 error:&v91];
-            v18 = v91;
+            v51 = +[NSFileManager defaultManager];
+            v89 = v81;
+            v52 = [v51 removeItemAtURL:v12 error:&v89];
+            v18 = v89;
 
-            v50 = sha256HashData;
-            if (v49)
+            v53 = sha256HashData;
+            if (v52)
             {
               goto LABEL_49;
             }
@@ -1059,40 +1045,40 @@ LABEL_14:
             {
               path5 = [v12 path];
               *buf = 138412546;
-              v96 = path5;
-              v97 = 2112;
-              v98 = v18;
+              v94 = path5;
+              v95 = 2112;
+              v96 = v18;
               _os_log_impl(&_mh_execute_header, path27, OS_LOG_TYPE_ERROR, "Failed to remove received file %@: %@", buf, 0x16u);
 
               path6 = [v12 path];
-              _MBLog();
+              _MBLog(@"E ", "Failed to remove received file %@: %@", path6, v18);
             }
 
 LABEL_48:
 
 LABEL_49:
-            uRLByDeletingLastPathComponent = v86;
-            itemCopy = v87;
+            uRLByDeletingLastPathComponent = v84;
+            itemCopy = v85;
 LABEL_50:
 
             fileSize = [itemCopy fileSize];
             [(MBPeerTransferDrive *)self _updateProgressForReceivedItem:v24 size:fileSize];
-            v72 = MBGetDefaultLog();
-            if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
+            v77 = MBGetDefaultLog();
+            if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
             {
               path7 = [v24 path];
               *buf = 138412546;
-              v96 = path7;
-              v97 = 2048;
-              v98 = fileSize;
-              _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEBUG, "Downloaded %@ (%llu)", buf, 0x16u);
+              v94 = path7;
+              v95 = 2048;
+              v96 = fileSize;
+              _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEBUG, "Downloaded %@ (%llu)", buf, 0x16u);
 
               path8 = [v24 path];
-              _MBLog();
+              _MBLog(@"Db", "Downloaded %@ (%llu)", path8, fileSize);
             }
 
             v22 = 1;
-            v10 = v85;
+            v10 = v83;
             goto LABEL_53;
           }
 
@@ -1103,195 +1089,193 @@ LABEL_50:
             {
               path9 = [v24 path];
               *buf = 138412546;
-              v96 = path26;
-              v97 = 2112;
-              v98 = path9;
+              v94 = path26;
+              v95 = 2112;
+              v96 = path9;
               _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Failed to clone from %@ to %@. Destination is on a different volume. Will copy instead", buf, 0x16u);
 
               path10 = [v24 path];
-              _MBLog();
+              _MBLog(@"Df", "Failed to clone from %@ to %@. Destination is on a different volume. Will copy instead", path26, path10);
             }
 
-            v35 = copyfile_state_alloc();
-            v36 = copyfile([path26 fileSystemRepresentation], objc_msgSend(v24, "fileSystemRepresentation"), v35, 0x120000u);
-            v37 = *__error();
-            copyfile_state_free(v35);
-            v10 = v85;
-            if (v36)
+            v36 = copyfile_state_alloc();
+            v37 = copyfile([path26 fileSystemRepresentation], objc_msgSend(v24, "fileSystemRepresentation"), v36, 0x120000u);
+            v38 = *__error();
+            copyfile_state_free(v36);
+            v10 = v83;
+            if (v37)
             {
-              v38 = MBGetDefaultLog();
-              if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+              v39 = MBGetDefaultLog();
+              if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
               {
                 path11 = [v12 path];
                 path12 = [v24 path];
                 *buf = 138412802;
-                v96 = path11;
-                v97 = 2112;
-                v98 = path12;
-                v99 = 1024;
-                LODWORD(v100[0]) = v37;
-                _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "Failed to copy received file from %@ to %@: %{errno}d", buf, 0x1Cu);
+                v94 = path11;
+                v95 = 2112;
+                v96 = path12;
+                v97 = 1024;
+                LODWORD(v98[0]) = v38;
+                _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Failed to copy received file from %@ to %@: %{errno}d", buf, 0x1Cu);
 
                 path13 = [v12 path];
                 path14 = [v24 path];
-                _MBLog();
+                _MBLog(@"E ", "Failed to copy received file from %@ to %@: %{errno}d", path13, path14, v38);
               }
 
               path15 = [v24 path];
               v18 = [MBError posixErrorWithPath:path15 format:@"Failed to move transferred item into place"];
 
-              v43 = v18;
+              v45 = v18;
               *errorCopy = v18;
 
               v22 = 0;
-              uRLByDeletingLastPathComponent = v86;
-              itemCopy = v87;
-              relativePath = v89;
+              uRLByDeletingLastPathComponent = v84;
+              itemCopy = v85;
+              relativePath = v87;
 LABEL_53:
 
               goto LABEL_54;
             }
 
-            relativePath = v89;
-            v18 = v83;
-            v50 = sha256HashData;
+            relativePath = v87;
+            v18 = v81;
+            v53 = sha256HashData;
             goto LABEL_49;
           }
 
-          v51 = [MBError posixErrorWithPath:path26 format:@"copyfile failed"];
+          v54 = [MBError posixErrorWithPath:path26 format:@"copyfile failed"];
 
-          v52 = MBGetDefaultLog();
-          if (!os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+          v55 = MBGetDefaultLog();
+          if (!os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
           {
-            v10 = v85;
+            v10 = v83;
             goto LABEL_40;
           }
 
           path16 = [v24 path];
           *buf = 138413058;
-          v96 = path26;
-          v97 = 2112;
-          v98 = path16;
-          v99 = 1024;
-          LODWORD(v100[0]) = v31;
-          WORD2(v100[0]) = 1024;
-          *(v100 + 6) = v32;
-          _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "copyfile(%@, %@) failed (%d): %{errno}d", buf, 0x22u);
+          v94 = path26;
+          v95 = 2112;
+          v96 = path16;
+          v97 = 1024;
+          LODWORD(v98[0]) = v31;
+          WORD2(v98[0]) = 1024;
+          *(v98 + 6) = v32;
+          _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "copyfile(%@, %@) failed (%d): %{errno}d", buf, 0x22u);
 
           path17 = [v24 path];
-          _MBLog();
-          v10 = v85;
+          _MBLog(@"E ", "copyfile(%@, %@) failed (%d): %{errno}d", path26, path17, v31, v32);
+          v10 = v83;
         }
 
         else
         {
-          v44 = self->_fileHashDB;
+          v46 = self->_fileHashDB;
           path18 = [v24 path];
-          v90 = 0;
-          LOBYTE(v44) = [(MBFileHashDB *)v44 addFilePath:path18 forHash:sha256HashData error:&v90];
-          path26 = v90;
+          v88 = 0;
+          LOBYTE(v46) = [(MBFileHashDB *)v46 addFilePath:path18 forHash:sha256HashData error:&v88];
+          path26 = v88;
 
-          if (v44)
+          if (v46)
           {
-            v18 = v83;
+            v18 = v81;
 LABEL_41:
 
-            uRLByDeletingLastPathComponent = v86;
-            itemCopy = v87;
+            uRLByDeletingLastPathComponent = v84;
+            itemCopy = v85;
 LABEL_42:
             fileSystemRepresentation = [v12 fileSystemRepresentation];
             fileSystemRepresentation2 = [v24 fileSystemRepresentation];
-            rename(fileSystemRepresentation, fileSystemRepresentation2, v60);
-            if (v61)
+            rename(fileSystemRepresentation, fileSystemRepresentation2, v64);
+            if (v65)
             {
               path19 = [v24 path];
-              v63 = [MBError posixErrorWithPath:path19 format:@"Failed to move transferred item into place"];
+              v67 = [MBError posixErrorWithPath:path19 format:@"Failed to move transferred item into place"];
 
-              v64 = MBGetDefaultLog();
-              if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+              v68 = MBGetDefaultLog();
+              if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
               {
                 path20 = [v12 path];
                 path21 = [v24 path];
                 *buf = 138412802;
-                v96 = path20;
+                v94 = path20;
+                v95 = 2112;
+                v96 = path21;
                 v97 = 2112;
-                v98 = path21;
-                v99 = 2112;
-                v100[0] = v63;
-                _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_ERROR, "Failed to move received file from %@ to %@: %@", buf, 0x20u);
+                v98[0] = v67;
+                _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_ERROR, "Failed to move received file from %@ to %@: %@", buf, 0x20u);
 
                 path22 = [v12 path];
                 path23 = [v24 path];
-                _MBLog();
+                _MBLog(@"E ", "Failed to move received file from %@ to %@: %@", path22, path23, v67);
               }
 
-              v68 = v63;
+              v73 = v67;
               v22 = 0;
-              *errorCopy = v63;
-              v18 = v63;
+              *errorCopy = v67;
+              v18 = v67;
               goto LABEL_53;
             }
 
-            v85 = v10;
-            v50 = MBGetDefaultLog();
-            if (!os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+            v83 = v10;
+            v53 = MBGetDefaultLog();
+            if (!os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
             {
               goto LABEL_50;
             }
 
-            v86 = uRLByDeletingLastPathComponent;
-            v87 = itemCopy;
+            v84 = uRLByDeletingLastPathComponent;
+            v85 = itemCopy;
             path24 = [v12 path];
             path25 = [v24 path];
             *buf = 138412546;
-            v96 = path24;
-            v97 = 2112;
-            v98 = path25;
-            _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEBUG, "Moved %@ to %@", buf, 0x16u);
+            v94 = path24;
+            v95 = 2112;
+            v96 = path25;
+            _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEBUG, "Moved %@ to %@", buf, 0x16u);
 
             path26 = [v12 path];
             path27 = [v24 path];
-            _MBLog();
+            _MBLog(@"Db", "Moved %@ to %@", path26, path27);
             goto LABEL_48;
           }
 
-          v52 = MBGetDefaultLog();
-          if (!os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+          v55 = MBGetDefaultLog();
+          if (!os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
           {
-            v51 = v83;
+            v54 = v81;
             goto LABEL_40;
           }
 
           path28 = [v24 path];
           *buf = 138412802;
-          v96 = path28;
+          v94 = path28;
+          v95 = 2112;
+          v96 = sha256HashData;
           v97 = 2112;
-          v98 = sha256HashData;
-          v99 = 2112;
-          v100[0] = path26;
-          _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "Failed to add file path for hash %@ %@: %@", buf, 0x20u);
+          v98[0] = path26;
+          _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "Failed to add file path for hash %@ %@: %@", buf, 0x20u);
 
           path17 = [v24 path];
-          _MBLog();
-          v51 = v83;
+          _MBLog(@"E ", "Failed to add file path for hash %@ %@: %@", path17, sha256HashData, path26);
+          v54 = v81;
         }
 
 LABEL_40:
-        v18 = v51;
+        v18 = v54;
         goto LABEL_41;
       }
 
       path29 = [v12 path];
       *buf = 138412546;
-      v96 = path29;
-      v97 = 2112;
-      v98 = v18;
+      v94 = path29;
+      v95 = 2112;
+      v96 = v18;
       _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Failed to set the protection class at %@: %@", buf, 0x16u);
 
       path2 = [v12 path];
-      v75 = path2;
-      v78 = v18;
-      _MBLog();
+      _MBLog(@"E ", "Failed to set the protection class at %@: %@", path2, v18);
     }
 
     goto LABEL_13;
@@ -1345,7 +1329,7 @@ LABEL_54:
       itemURL4 = [itemCopy itemURL];
       path3 = [itemURL4 path];
       path4 = [v11 path];
-      _MBLog();
+      _MBLog(@"Db", "Moved %@ to %@", path3, path4);
     }
   }
 
@@ -1356,11 +1340,11 @@ LABEL_54:
       itemURL5 = [itemCopy itemURL];
       path5 = [itemURL5 path];
       [v11 path];
-      v28 = v35 = error;
+      v29 = v35 = error;
       *buf = 138412802;
       v38 = path5;
       v39 = 2112;
-      v40 = v28;
+      v40 = v29;
       v41 = 2112;
       v42 = v18;
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to move received file from %@ to %@: %@", buf, 0x20u);
@@ -1368,14 +1352,14 @@ LABEL_54:
       itemURL6 = [itemCopy itemURL];
       path6 = [itemURL6 path];
       path7 = [v11 path];
-      _MBLog();
+      _MBLog(@"E ", "Failed to move received file from %@ to %@: %@", path6, path7, v18);
 
       error = v35;
     }
 
     if (error)
     {
-      v31 = v18;
+      v33 = v18;
       *error = v18;
     }
   }
@@ -1397,18 +1381,17 @@ LABEL_54:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = path;
+      v19 = path;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Removing %@", buf, 0xCu);
-      v16 = path;
-      _MBLog();
+      _MBLog(@"Df", "Removing %@", path);
     }
 
     +[NSDate timeIntervalSinceReferenceDate];
     v8 = v7;
     v9 = +[NSFileManager defaultManager];
-    v18 = 0;
-    v10 = [v9 removeItemAtPath:path error:&v18];
-    v11 = COERCE_DOUBLE(v18);
+    v17 = 0;
+    v10 = [v9 removeItemAtPath:path error:&v17];
+    v11 = v17;
 
     if ((v10 & 1) == 0)
     {
@@ -1416,27 +1399,26 @@ LABEL_54:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v20 = path;
-        v21 = 2112;
-        v22 = v11;
+        v19 = path;
+        v20 = 2112;
+        v21 = *&v11;
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to remove %@: %@", buf, 0x16u);
-        v16 = path;
-        v17 = v11;
-        _MBLog();
+        _MBLog(@"E ", "Failed to remove %@: %@", path, v11);
       }
     }
 
-    [NSDate timeIntervalSinceReferenceDate:v16];
+    +[NSDate timeIntervalSinceReferenceDate];
     v14 = v13;
     v15 = MBGetDefaultLog();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
+      v16 = v14 - v8;
       *buf = 138412546;
-      v20 = path;
-      v21 = 2048;
-      v22 = v14 - v8;
+      v19 = path;
+      v20 = 2048;
+      v21 = v16;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Removed %@ in %.3fs", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"Df", "Removed %@ in %.3fs", path, *&v16);
     }
   }
 }
@@ -1512,7 +1494,7 @@ LABEL_4:
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to get file size of %@: %@", buf, 0x16u);
 
     path2 = [v7 path];
-    _MBLog();
+    _MBLog(@"E ", "Failed to get file size of %@: %@", path2, v10);
   }
 
 LABEL_9:
@@ -1569,7 +1551,7 @@ LABEL_4:
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to get file size of %@: %@", buf, 0x16u);
 
     path2 = [v7 path];
-    _MBLog();
+    _MBLog(@"E ", "Failed to get file size of %@: %@", path2, v10);
   }
 
 LABEL_9:

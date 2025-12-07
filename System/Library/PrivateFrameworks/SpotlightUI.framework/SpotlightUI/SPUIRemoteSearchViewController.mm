@@ -14,6 +14,10 @@
 - (void)setSource:(unint64_t)source;
 - (void)updateIntent:(unint64_t)intent;
 - (void)updateSceneSettingsWithBlock:(id)block;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation SPUIRemoteSearchViewController
@@ -246,6 +250,86 @@ void __52__SPUIRemoteSearchViewController_setRevealProgress___block_invoke(uint6
   [(SPUIRemoteSearchViewController *)self updateIntent:2];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  kdebug_trace();
+  willStartPresetingSpotlightHandler = [(SPUIRemoteSearchViewController *)self willStartPresetingSpotlightHandler];
+
+  if (willStartPresetingSpotlightHandler)
+  {
+    willStartPresetingSpotlightHandler2 = [(SPUIRemoteSearchViewController *)self willStartPresetingSpotlightHandler];
+    willStartPresetingSpotlightHandler2[2]();
+  }
+
+  v10.receiver = self;
+  v10.super_class = SPUIRemoteSearchViewController;
+  v7 = [(SPUISpotlightRemoteViewController *)&v10 viewWillAppear:appearCopy];
+  v9 = qword_280F8EFF0;
+  if (!qword_280F8EFF0)
+  {
+    SPUIInitLogging(v7, v8);
+    v9 = qword_280F8EFF0;
+  }
+
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  {
+    [(SPUIRemoteSearchViewController *)v9 viewWillAppear:?];
+  }
+
+  [(SPUIRemoteSearchViewController *)self updateIntent:1];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SPUIRemoteSearchViewController;
+  [(SPUIRemoteSearchViewController *)&v4 viewDidAppear:appear];
+  [(SPUIRemoteSearchViewController *)self updateIntent:2];
+  [(SPUIRemoteSearchViewController *)self finishCompletionHandlerIfNeeded];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  willBeginDismissingSpotlightHandler = [(SPUIRemoteSearchViewController *)self willBeginDismissingSpotlightHandler];
+
+  if (willBeginDismissingSpotlightHandler)
+  {
+    willBeginDismissingSpotlightHandler2 = [(SPUIRemoteSearchViewController *)self willBeginDismissingSpotlightHandler];
+    willBeginDismissingSpotlightHandler2[2]();
+  }
+
+  v7.receiver = self;
+  v7.super_class = SPUIRemoteSearchViewController;
+  [(SPUIRemoteSearchViewController *)&v7 viewWillDisappear:disappearCopy];
+  [(SPUIRemoteSearchViewController *)self updateIntent:3];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(SPUIRemoteSearchViewController *)self setRevealProgress:0.0];
+  v5 = +[SPUISpotlightSceneManager sharedManager];
+  [v5 spendMoreTimeReleasingMemory];
+
+  [(SPUIRemoteSearchViewController *)self updateIntent:4];
+  didFinishDismissingSpotlightHandler = [(SPUIRemoteSearchViewController *)self didFinishDismissingSpotlightHandler];
+
+  if (didFinishDismissingSpotlightHandler)
+  {
+    didFinishDismissingSpotlightHandler2 = [(SPUIRemoteSearchViewController *)self didFinishDismissingSpotlightHandler];
+    didFinishDismissingSpotlightHandler2[2]();
+  }
+
+  if ([(SPUISpotlightRemoteViewController *)self crashedWhileForeground])
+  {
+    v8.receiver = self;
+    v8.super_class = SPUIRemoteSearchViewController;
+    [(SPUISpotlightRemoteViewController *)&v8 viewDidDisappear:disappearCopy];
+  }
+}
+
 - (void)updateIntent:(unint64_t)intent
 {
   v3[0] = MEMORY[0x277D85DD0];
@@ -322,17 +406,15 @@ void __63__SPUIRemoteSearchViewController_updateSceneSettingsWithBlock___block_i
 
 - (void)viewWillAppear:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   v4 = a1;
   [a2 keyboardHeight];
   *&v5 = v5;
   v6 = [v3 numberWithFloat:v5];
-  v8 = 138412290;
-  v9 = v6;
-  _os_log_debug_impl(&dword_26B824000, v4, OS_LOG_TYPE_DEBUG, "Keyboard height %@", &v8, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412290;
+  v8 = v6;
+  _os_log_debug_impl(&dword_26B824000, v4, OS_LOG_TYPE_DEBUG, "Keyboard height %@", &v7, 0xCu);
 }
 
 @end

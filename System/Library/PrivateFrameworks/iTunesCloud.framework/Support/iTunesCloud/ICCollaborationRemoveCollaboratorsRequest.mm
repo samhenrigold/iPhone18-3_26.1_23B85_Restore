@@ -1,4 +1,5 @@
 @interface ICCollaborationRemoveCollaboratorsRequest
+- (ICCollaborationRemoveCollaboratorsRequest)initWithDatabaseID:(unsigned int)d globalPlaylistID:(id)iD socialProfileIDs:(id)ds;
 - (id)_requestBody;
 - (id)canonicalResponseForResponse:(id)response;
 @end
@@ -26,6 +27,28 @@
   }
 
   return v3;
+}
+
+- (ICCollaborationRemoveCollaboratorsRequest)initWithDatabaseID:(unsigned int)d globalPlaylistID:(id)iD socialProfileIDs:(id)ds
+{
+  v7 = *&d;
+  iDCopy = iD;
+  dsCopy = ds;
+  v11 = [NSString stringWithFormat:@"databases/%u/collaboration", v7];
+  v15.receiver = self;
+  v15.super_class = ICCollaborationRemoveCollaboratorsRequest;
+  v12 = [(ICDRequest *)&v15 initWithAction:v11];
+
+  if (v12)
+  {
+    [(ICDRequest *)v12 setMethod:1];
+    objc_storeStrong(&v12->_globalPlaylistID, iD);
+    objc_storeStrong(&v12->_socialProfileIDs, ds);
+    _requestBody = [(ICCollaborationRemoveCollaboratorsRequest *)v12 _requestBody];
+    [(ICDRequest *)v12 setBodyData:_requestBody];
+  }
+
+  return v12;
 }
 
 @end

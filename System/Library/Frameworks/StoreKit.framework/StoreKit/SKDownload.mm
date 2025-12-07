@@ -87,16 +87,22 @@
 
 - (void)_setDownloadID:(id)d
 {
-  *(self->_internal + 1) = [d copy];
+  v4 = [d copy];
+  internal = self->_internal;
+  v6 = internal[1];
+  internal[1] = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, v6);
 }
 
 - (void)_setContentIdentifier:(id)identifier
 {
-  *(self->_internal + 2) = [identifier copy];
+  v4 = [identifier copy];
+  internal = self->_internal;
+  v6 = internal[2];
+  internal[2] = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, v6);
 }
 
 - (void)_setContentLength:(id)length
@@ -107,16 +113,22 @@
 
 - (void)_setContentURL:(id)l
 {
-  *(self->_internal + 6) = [l copy];
+  v4 = [l copy];
+  internal = self->_internal;
+  v6 = internal[6];
+  internal[6] = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, v6);
 }
 
 - (void)_setError:(id)error
 {
-  *(self->_internal + 5) = [error copy];
+  v4 = [error copy];
+  internal = self->_internal;
+  v6 = internal[5];
+  internal[5] = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, v6);
 }
 
 - (void)_setTransaction:(id)transaction
@@ -132,9 +144,12 @@
 
 - (void)_setVersion:(id)version
 {
-  *(self->_internal + 9) = [version copy];
+  v4 = [version copy];
+  internal = self->_internal;
+  v6 = internal[9];
+  internal[9] = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, v6);
 }
 
 - (BOOL)isEqual:(id)equal

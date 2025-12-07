@@ -357,7 +357,7 @@ void __107__PLDeferredPhotoFinalizer__promoteProxyAndRecoverErrors_libraryServic
     [v4 setVideoDeferredProcessingNeeded:0];
     [*(a1 + 48) _transaction_fixVideoDurationIfNeededWithLibrary:*(a1 + 32) asset:v4];
     [*(a1 + 48) _repushOriginalVideoComplementIfNeeded:v4];
-    if ([*(a1 + 56) code] || (objc_msgSend(*(a1 + 56), "domain"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "isEqualToString:", *MEMORY[0x1E696A768]), v10, !v11))
+    if ([*(a1 + 56) code] || (objc_msgSend(*(a1 + 56), "domain"), v10 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v10), v10, !isEqualToString))
     {
       v12 = *(a1 + 56);
       if (v12)
@@ -424,8 +424,8 @@ void __107__PLDeferredPhotoFinalizer__promoteProxyAndRecoverErrors_libraryServic
     livePhotoPairingIdentifier = [v12 livePhotoPairingIdentifier];
     if (v12)
     {
-      [v12 duration];
-      [v12 stillImageDisplayTime];
+      objc_msgSend_duration(v12);
+      objc_msgSend_stillImageDisplayTime(v12);
     }
 
     else
@@ -1635,7 +1635,7 @@ void __115__PLDeferredPhotoFinalizer_deleteIntermediatesExcludingDeferredIdentif
   if (successCopy && !self->_useCase)
   {
     os_unfair_lock_lock(&self->_identifierToPendingRecordsLock);
-    v27 = [(NSMutableDictionary *)self->_identifierToPendingRecords count];
+    v27 = objc_msgSend_count(self->_identifierToPendingRecords);
     os_unfair_lock_unlock(&self->_identifierToPendingRecordsLock);
     if (!v27)
     {
@@ -2078,9 +2078,9 @@ void __85__PLDeferredPhotoFinalizer_processor_didFinishProcessingPhotoProxy_fina
     if ([v10 code]== -73199)
     {
       v11 = [v10 domain];
-      v12 = [v11 isEqualToString:*MEMORY[0x1E696A768]];
+      isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-      if (v12)
+      if (isEqualToString)
       {
         [*(a1 + 56) _createTTRForError:*(a1 + 64) assetDescription:*(a1 + 48) asset:v2 isCorruptImageError:1 finalizedPhotoData:*(a1 + 72) finalPhotoMetadata:*(a1 + 80)];
       }
@@ -2268,7 +2268,7 @@ void __85__PLDeferredPhotoFinalizer_processor_didFinishProcessingPhotoProxy_fina
           v12 = [v3 pathForDiagnosticFile];
           [v10 _writeDebugFileFromProxyMetadata:v11 withPath:v12];
 
-          if ([*(a1 + 80) count] && (objc_msgSend(v3, "originalImageOrientation"), objc_msgSend(*(a1 + 80), "objectAtIndexedSubscript:", 0), v13 = objc_claimAutoreleasedReturnValue(), v14 = PLCreateCGImageFromIOSurfaceWithOrientation(), v13, v14))
+          if (objc_msgSend_count(*(a1 + 80)) && ([v3 originalImageOrientation], objc_msgSend(*(a1 + 80), "objectAtIndexedSubscript:", 0), v13 = objc_claimAutoreleasedReturnValue(), v14 = PLCreateCGImageFromIOSurfaceWithOrientation(), v13, v14))
           {
             v15 = DCIM_newPLImageWithCGImage();
             CFRelease(v14);
@@ -2946,7 +2946,7 @@ LABEL_40:
   metadataCopy = metadata;
   pathCopy = path;
   v7 = [metadataCopy objectForKey:@"{Diagnostic}"];
-  if (![v7 count])
+  if (!objc_msgSend_count(v7))
   {
     XMPData = 0;
     goto LABEL_10;
@@ -3063,18 +3063,18 @@ LABEL_10:
 {
   recoverableCopy = recoverable;
   domain = [recoverableCopy domain];
-  v5 = [domain isEqualToString:*MEMORY[0x1E69BFF48]];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
 
   v6 = MEMORY[0x1E696AA08];
   v7 = recoverableCopy;
-  if (v5)
+  if (isEqualToString)
   {
     userInfo = [recoverableCopy userInfo];
     v7 = [userInfo objectForKeyedSubscript:*v6];
   }
 
   domain2 = [v7 domain];
-  v10 = [domain2 isEqualToString:*MEMORY[0x1E69874D8]];
+  v10 = objc_msgSend_isEqualToString_(domain2);
 
   if (v10)
   {

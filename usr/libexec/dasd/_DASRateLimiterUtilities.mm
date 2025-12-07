@@ -85,49 +85,8 @@
 {
   clientCopy = client;
   groupName = [clientCopy groupName];
-  if (groupName)
+  if (groupName && (v5 = groupName, [clientCopy groupName], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isEqualToString:", @"NSURLSessionBackgroundPoolName"), v6, v5, (v7 & 1) != 0) || (objc_msgSend(clientCopy, "groupName"), (v8 = objc_claimAutoreleasedReturnValue()) != 0) && (v9 = v8, objc_msgSend(clientCopy, "groupName"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "isEqualToString:", @"com.apple.ckdiscretionaryd"), v10, v9, (v11 & 1) != 0) || (objc_msgSend(clientCopy, "groupName"), (v12 = objc_claimAutoreleasedReturnValue()) != 0) && (v13 = v12, objc_msgSend(clientCopy, "groupName"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "containsString:", @"com.apple.mlhost"), v14, v13, (v15 & 1) != 0) || (objc_msgSend(clientCopy, "widgetID"), v16 = objc_claimAutoreleasedReturnValue(), v16, v16) || (objc_msgSend(clientCopy, "rateLimitConfigurationName"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "isEqualToString:", _DASCKRateLimitConfigurationName), v17, (v18 & 1) != 0))
   {
-    v5 = groupName;
-    groupName2 = [clientCopy groupName];
-    v7 = [groupName2 isEqualToString:@"NSURLSessionBackgroundPoolName"];
-
-    if (v7)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  groupName3 = [clientCopy groupName];
-  if (groupName3)
-  {
-    v9 = groupName3;
-    groupName4 = [clientCopy groupName];
-    v11 = [groupName4 isEqualToString:@"com.apple.ckdiscretionaryd"];
-
-    if (v11)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  groupName5 = [clientCopy groupName];
-  if (groupName5)
-  {
-    v13 = groupName5;
-    groupName6 = [clientCopy groupName];
-    v15 = [groupName6 containsString:@"com.apple.mlhost"];
-
-    if (v15)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  widgetID = [clientCopy widgetID];
-
-  if (widgetID || ([clientCopy rateLimitConfigurationName], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "isEqualToString:", _DASCKRateLimitConfigurationName), v17, (v18 & 1) != 0))
-  {
-LABEL_9:
     v19 = 1;
   }
 
@@ -161,7 +120,7 @@ LABEL_9:
     goto LABEL_11;
   }
 
-  if (![self isAggregateClient:activityCopy] || (objc_msgSend(activityCopy, "relatedApplications"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "count"), v8, !v9))
+  if (![self isAggregateClient:activityCopy] || (objc_msgSend(activityCopy, "relatedApplications"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend_count(v8), v8, !v9))
   {
     if (!rateLimitConfigurationName)
     {
@@ -183,7 +142,7 @@ LABEL_9:
       }
 
       involvedProcesses = [activityCopy involvedProcesses];
-      v19 = [involvedProcesses count];
+      v19 = objc_msgSend_count(involvedProcesses);
 
       if (v19)
       {
@@ -193,7 +152,7 @@ LABEL_9:
       else
       {
         relatedApplications = [activityCopy relatedApplications];
-        v22 = [relatedApplications count];
+        v22 = objc_msgSend_count(relatedApplications);
 
         if (!v22)
         {

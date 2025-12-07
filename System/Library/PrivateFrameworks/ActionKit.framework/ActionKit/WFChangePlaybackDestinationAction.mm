@@ -10,7 +10,7 @@
 
 - (id)errorUserInfoForRoutePickerErrorCode:(int64_t)code
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   if ((code - 4) >= 5)
   {
     if (code >= 3)
@@ -20,60 +20,59 @@
         goto LABEL_8;
       }
 
-      v20[0] = *MEMORY[0x277CCA470];
+      v19[0] = *MEMORY[0x277CCA470];
       v15 = MEMORY[0x277CCACA8];
       v6 = WFLocalizedString(@"Could Not Set Playback Destination to “%@”");
       routeDescriptor = [(WFChangePlaybackDestinationAction *)self routeDescriptor];
       routeName = [routeDescriptor routeName];
       v9 = [v15 localizedStringWithFormat:v6, routeName];
-      v21[0] = v9;
-      v20[1] = *MEMORY[0x277CCA450];
+      v20[0] = v9;
+      v19[1] = *MEMORY[0x277CCA450];
       v10 = WFLocalizedString(@"It took too long to set the destination to the specified device.");
-      v21[1] = v10;
+      v20[1] = v10;
       v11 = MEMORY[0x277CBEAC0];
-      v12 = v21;
-      v13 = v20;
+      v12 = v20;
+      v13 = v19;
     }
 
     else
     {
-      v22[0] = *MEMORY[0x277CCA470];
+      v21[0] = *MEMORY[0x277CCA470];
       v14 = MEMORY[0x277CCACA8];
       v6 = WFLocalizedString(@"Could Not Find “%@”");
       routeDescriptor = [(WFChangePlaybackDestinationAction *)self routeDescriptor];
       routeName = [routeDescriptor routeName];
       v9 = [v14 localizedStringWithFormat:v6, routeName];
-      v23[0] = v9;
-      v22[1] = *MEMORY[0x277CCA450];
+      v22[0] = v9;
+      v21[1] = *MEMORY[0x277CCA450];
       v10 = WFLocalizedString(@"Set Playback Destination failed because the device could not be found.");
-      v23[1] = v10;
+      v22[1] = v10;
       v11 = MEMORY[0x277CBEAC0];
-      v12 = v23;
-      v13 = v22;
+      v12 = v22;
+      v13 = v21;
     }
   }
 
   else
   {
-    v18[0] = *MEMORY[0x277CCA470];
+    v17[0] = *MEMORY[0x277CCA470];
     v5 = MEMORY[0x277CCACA8];
     v6 = WFLocalizedString(@"Failed to Set Playback Destination to “%@”");
     routeDescriptor = [(WFChangePlaybackDestinationAction *)self routeDescriptor];
     routeName = [routeDescriptor routeName];
-    v9 = [v5 localizedStringWithFormat:v6, routeName, v18[0]];
-    v19[0] = v9;
-    v18[1] = *MEMORY[0x277CCA450];
+    v9 = [v5 localizedStringWithFormat:v6, routeName, v17[0]];
+    v18[0] = v9;
+    v17[1] = *MEMORY[0x277CCA450];
     v10 = WFLocalizedString(@"The playback destination could not be set.");
-    v19[1] = v10;
+    v18[1] = v10;
     v11 = MEMORY[0x277CBEAC0];
-    v12 = v19;
-    v13 = v18;
+    v12 = v18;
+    v13 = v17;
   }
 
   v3 = [v11 dictionaryWithObjects:v12 forKeys:v13 count:2];
 
 LABEL_8:
-  v16 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

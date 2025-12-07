@@ -55,7 +55,7 @@ LABEL_8:
 
 - (id)parseWithContext:(id)context :(id)a4 :(int64_t)a5
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v9 = a4;
   parentNode = [v9 parentNode];
@@ -83,9 +83,9 @@ LABEL_8:
   else
   {
     objc_opt_class();
-    v36 = objc_opt_isKindOfClass();
+    v35 = objc_opt_isKindOfClass();
     v14 = a5 != 2;
-    if ((v36 & 1) == 0)
+    if ((v35 & 1) == 0)
     {
 LABEL_10:
       appContext = [(IKJSObject *)self appContext];
@@ -106,17 +106,17 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v24 = [objc_opt_class() _dataFromInput:contextCopy];
-  if (v24)
+  v23 = [objc_opt_class() _dataFromInput:contextCopy];
+  if (v23)
   {
-    v25 = v24;
+    v24 = v23;
     ownerDocument = [v9 ownerDocument];
     nodePtr = [ownerDocument nodePtr];
     lst = 0;
-    v28 = xmlNewDocNode(nodePtr, 0, "fake", 0);
+    v27 = xmlNewDocNode(nodePtr, 0, "fake", 0);
     xmlSetGenericErrorFunc(*MEMORY[0x277D85DF8], MEMORY[0x277D85E30]);
-    node = v28;
-    if (xmlParseInNodeContext(v28, [v25 bytes], objc_msgSend(v25, "length"), 4096, &lst) == XML_ERR_INVALID_CHAR)
+    node = v27;
+    if (xmlParseInNodeContext(v27, [v24 bytes], objc_msgSend(v24, "length"), 4096, &lst) == XML_ERR_INVALID_CHAR)
     {
       stringData = [contextCopy stringData];
 
@@ -125,11 +125,11 @@ LABEL_10:
         stringData2 = [contextCopy stringData];
         ik_stringByTrimmingControlChars = [stringData2 ik_stringByTrimmingControlChars];
         [ik_stringByTrimmingControlChars dataUsingEncoding:4];
-        v32 = v57 = ownerDocument;
+        v31 = v56 = ownerDocument;
 
-        xmlParseInNodeContext(node, [v32 bytes], objc_msgSend(v32, "length"), 4096, &lst);
-        v25 = v32;
-        ownerDocument = v57;
+        xmlParseInNodeContext(node, [v31 bytes], objc_msgSend(v31, "length"), 4096, &lst);
+        v24 = v31;
+        ownerDocument = v56;
       }
     }
 
@@ -138,8 +138,8 @@ LABEL_10:
     {
       appContext3 = [(IKJSObject *)self appContext];
       appContext4 = [(IKJSObject *)self appContext];
-      v35 = [IKDOMLSException exceptionWithAppContext:appContext4 code:81];
-      [appContext3 setException:v35 withErrorMessage:@"XML parse failure"];
+      v34 = [IKDOMLSException exceptionWithAppContext:appContext4 code:81];
+      [appContext3 setException:v34 withErrorMessage:@"XML parse failure"];
       v21 = 0;
 LABEL_56:
 
@@ -149,22 +149,22 @@ LABEL_56:
       goto LABEL_57;
     }
 
-    v58 = ownerDocument;
-    for (i = xmlNewDocFragment(nodePtr); ; xmlAddChild(i, v41))
+    v57 = ownerDocument;
+    for (i = xmlNewDocFragment(nodePtr); ; xmlAddChild(i, v40))
     {
-      v41 = lst;
+      v40 = lst;
       if (!lst)
       {
         break;
       }
 
       lst = lst->next;
-      xmlUnlinkNode(v41);
+      xmlUnlinkNode(v40);
     }
 
     IKXMLStripSpaces(i);
     appContext5 = [(IKJSObject *)self appContext];
-    v56 = [IKDOMNode nodeWithAppContext:appContext5 nodePtr:i];
+    v55 = [IKDOMNode nodeWithAppContext:appContext5 nodePtr:i];
 
     if (i->children)
     {
@@ -179,116 +179,115 @@ LABEL_56:
 
     if ((a5 - 1) >= 2)
     {
-      v44 = parentNode;
+      v43 = parentNode;
     }
 
     else
     {
-      v44 = v9;
+      v43 = v9;
     }
 
-    appContext4 = v44;
-    v35 = 0;
+    appContext4 = v43;
+    v34 = 0;
     if (a5 <= 2)
     {
       if (a5 != 1)
       {
-        v45 = a5 == 2;
-        appContext3 = v56;
-        if (v45)
+        v44 = a5 == 2;
+        appContext3 = v55;
+        if (v44)
         {
-          v62 = 0u;
-          v63 = 0u;
-          v60 = 0u;
           v61 = 0u;
+          v62 = 0u;
+          v59 = 0u;
+          v60 = 0u;
           childNodesAsArray = [v9 childNodesAsArray];
-          v49 = [childNodesAsArray countByEnumeratingWithState:&v60 objects:v65 count:16];
-          if (v49)
+          v48 = [childNodesAsArray countByEnumeratingWithState:&v59 objects:v64 count:16];
+          if (v48)
           {
-            v50 = v49;
-            v51 = *v61;
+            v49 = v48;
+            v50 = *v60;
             do
             {
-              for (j = 0; j != v50; ++j)
+              for (j = 0; j != v49; ++j)
               {
-                if (*v61 != v51)
+                if (*v60 != v50)
                 {
                   objc_enumerationMutation(childNodesAsArray);
                 }
 
-                v53 = [appContext4 performDOMOperation:2 newNode:0 refNode:*(*(&v60 + 1) + 8 * j)];
+                v52 = [appContext4 performDOMOperation:2 newNode:0 refNode:*(*(&v59 + 1) + 8 * j)];
               }
 
-              v50 = [childNodesAsArray countByEnumeratingWithState:&v60 objects:v65 count:16];
+              v49 = [childNodesAsArray countByEnumeratingWithState:&v59 objects:v64 count:16];
             }
 
-            while (v50);
+            while (v49);
           }
 
-          appContext3 = v56;
-          v35 = [appContext4 performDOMOperation:0 newNode:v56 refNode:0];
-          ownerDocument = v58;
+          appContext3 = v55;
+          v34 = [appContext4 performDOMOperation:0 newNode:v55 refNode:0];
+          ownerDocument = v57;
         }
 
         goto LABEL_55;
       }
 
-      v46 = v9;
-      v47 = 0;
-      appContext3 = v56;
-      v54 = v56;
-      v55 = 0;
+      v45 = v9;
+      v46 = 0;
+      appContext3 = v55;
+      v53 = v55;
+      v54 = 0;
       goto LABEL_54;
     }
 
     if (a5 == 3)
     {
-      v46 = parentNode;
-      v47 = 1;
+      v45 = parentNode;
+      v46 = 1;
     }
 
     else
     {
       if (a5 != 4)
       {
-        v45 = a5 == 5;
-        appContext3 = v56;
-        if (!v45)
+        v44 = a5 == 5;
+        appContext3 = v55;
+        if (!v44)
         {
           goto LABEL_55;
         }
 
-        v46 = parentNode;
-        v47 = 2;
+        v45 = parentNode;
+        v46 = 2;
         goto LABEL_52;
       }
 
-      v46 = parentNode;
-      v47 = 0;
+      v45 = parentNode;
+      v46 = 0;
     }
 
-    appContext3 = v56;
+    appContext3 = v55;
 LABEL_52:
-    v54 = appContext3;
-    v55 = v9;
+    v53 = appContext3;
+    v54 = v9;
 LABEL_54:
-    v35 = [v46 performDOMOperation:v47 newNode:v54 refNode:v55];
+    v34 = [v45 performDOMOperation:v46 newNode:v53 refNode:v54];
 LABEL_55:
-    [appContext4 childrenUpdatedWithUpdatedChildNodes:v35 notify:1];
+    [appContext4 childrenUpdatedWithUpdatedChildNodes:v34 notify:1];
     goto LABEL_56;
   }
 
   appContext7 = [(IKJSObject *)self appContext];
   appContext8 = [(IKJSObject *)self appContext];
-  v39 = [IKDOMLSException exceptionWithAppContext:appContext8 code:81];
-  [appContext7 setException:v39 withErrorMessage:@"Input not specified"];
+  v38 = [IKDOMLSException exceptionWithAppContext:appContext8 code:81];
+  [appContext7 setException:v38 withErrorMessage:@"Input not specified"];
 
   v21 = 0;
-  v25 = 0;
+  v24 = 0;
 LABEL_57:
 
 LABEL_11:
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

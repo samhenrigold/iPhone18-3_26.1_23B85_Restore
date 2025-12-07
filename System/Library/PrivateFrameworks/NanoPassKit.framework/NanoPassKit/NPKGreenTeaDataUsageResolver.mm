@@ -60,48 +60,52 @@ void __46__NPKGreenTeaDataUsageResolver_sharedInstance__block_invoke()
 
 void __67__NPKGreenTeaDataUsageResolver_resolveGreenTeaDataUsageIfNecessary__block_invoke(uint64_t a1)
 {
-  if (MGGetBoolAnswer() && MGGetBoolAnswer())
+  if (MGGetBoolAnswer())
   {
-    v2 = pk_Payment_log();
-    v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
-
-    if (v3)
+    v2 = MGGetBoolAnswer();
+    if (v2)
     {
-      v4 = pk_Payment_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: Device may need data usage resolution", buf, 2u);
-      }
-    }
+      v3 = pk_Payment_log(v2);
+      v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
-    v5 = *(a1 + 32);
-    if (*(v5 + 8) == 1)
-    {
-      v6 = pk_Payment_log();
-      v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-
-      if (v7)
+      if (v4)
       {
-        v8 = pk_Payment_log();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v6 = pk_Payment_log(v5);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Currently resolving data usage", buf, 2u);
+          _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Device may need data usage resolution", buf, 2u);
         }
       }
-    }
 
-    else
-    {
-      *(v5 + 8) = 1;
-      v9 = *(a1 + 32);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __67__NPKGreenTeaDataUsageResolver_resolveGreenTeaDataUsageIfNecessary__block_invoke_6;
-      v10[3] = &unk_279944F98;
-      v10[4] = v9;
-      [v9 _resolveGreenTeaDataUsageIfNecessaryWithCompletion:v10];
+      v7 = *(a1 + 32);
+      if (*(v7 + 8) == 1)
+      {
+        v8 = pk_Payment_log(v5);
+        v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+
+        if (v9)
+        {
+          v11 = pk_Payment_log(v10);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 0;
+            _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Currently resolving data usage", buf, 2u);
+          }
+        }
+      }
+
+      else
+      {
+        *(v7 + 8) = 1;
+        v12 = *(a1 + 32);
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v13[2] = __67__NPKGreenTeaDataUsageResolver_resolveGreenTeaDataUsageIfNecessary__block_invoke_6;
+        v13[3] = &unk_279944F98;
+        v13[4] = v12;
+        [v12 _resolveGreenTeaDataUsageIfNecessaryWithCompletion:v13];
+      }
     }
   }
 }

@@ -109,7 +109,7 @@
   [(NDAnalyticsEnvelopeStore *)self _reportEnvelopesToNewsAutomationIfNeeded:envelopesCopy, v13, v14, v15, v16];
 }
 
-id __42__NDAnalyticsEnvelopeStore_copyEnvelopes___block_invoke(uint64_t a1, void *a2)
+NDAnalyticsEnvelopeStoreEntry *__42__NDAnalyticsEnvelopeStore_copyEnvelopes___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = objc_opt_new();
@@ -220,10 +220,7 @@ void __54__NDAnalyticsEnvelopeStore_deleteEnvelopesForEntries___block_invoke(voi
 
 uint64_t __36__NDAnalyticsEnvelopeStore_observer__block_invoke(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = WeakRetained;
+  *(*(*(a1 + 40) + 8) + 40) = objc_loadWeakRetained((*(a1 + 32) + 8));
 
   return MEMORY[0x2821F96F8]();
 }
@@ -427,7 +424,7 @@ id __48__NDAnalyticsEnvelopeStore_envelopesForEntries___block_invoke_2(uint64_t 
 
 - (void)_deleteEnvelopesForKeysFromStore:(id)store
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   if (!storeCopy && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
@@ -435,40 +432,38 @@ id __48__NDAnalyticsEnvelopeStore_envelopesForEntries___block_invoke_2(uint64_t 
   }
 
   assetStore = [(NDAnalyticsEnvelopeStore *)self assetStore];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = storeCopy;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [assetStore removeFileWithKey:{*(*(&v12 + 1) + 8 * i), v12}];
+        [assetStore removeFileWithKey:{*(*(&v11 + 1) + 8 * i), v11}];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportEnvelopesToNewsAutomationIfNeeded:(id)needed
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
   if (NFInternalBuild())
   {
@@ -478,53 +473,53 @@ id __48__NDAnalyticsEnvelopeStore_envelopesForEntries___block_invoke_2(uint64_t 
     if (v5)
     {
       v6 = FCURLForFeldsparUserAccountHomeDirectory();
-      v27 = [v6 URLByAppendingPathComponent:@"envelopes" isDirectory:1];
+      v26 = [v6 URLByAppendingPathComponent:@"envelopes" isDirectory:1];
 
-      v34 = 0u;
-      v35 = 0u;
-      v32 = 0u;
       v33 = 0u;
-      v24 = neededCopy;
+      v34 = 0u;
+      v31 = 0u;
+      v32 = 0u;
+      v23 = neededCopy;
       obj = neededCopy;
-      v28 = [obj countByEnumeratingWithState:&v32 objects:v44 count:16];
-      if (v28)
+      v27 = [obj countByEnumeratingWithState:&v31 objects:v43 count:16];
+      if (v27)
       {
-        v26 = *v33;
+        v25 = *v32;
         do
         {
-          for (i = 0; i != v28; ++i)
+          for (i = 0; i != v27; ++i)
           {
-            if (*v33 != v26)
+            if (*v32 != v25)
             {
               objc_enumerationMutation(obj);
             }
 
-            v8 = *(*(&v32 + 1) + 8 * i);
+            v8 = *(*(&v31 + 1) + 8 * i);
             v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"contentType-%d", objc_msgSend(v8, "contentType")];
-            v10 = [v27 URLByAppendingPathComponent:v9 isDirectory:1];
+            v10 = [v26 URLByAppendingPathComponent:v9 isDirectory:1];
             defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-            v31 = 0;
-            [defaultManager createDirectoryAtURL:v10 withIntermediateDirectories:1 attributes:0 error:&v31];
-            v29 = v31;
+            v30 = 0;
+            [defaultManager createDirectoryAtURL:v10 withIntermediateDirectories:1 attributes:0 error:&v30];
+            v28 = v30;
 
             defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
             path = [v10 path];
-            v30 = 0;
-            v14 = [defaultManager2 contentsOfDirectoryAtPath:path error:&v30];
-            v15 = v30;
+            v29 = 0;
+            v14 = [defaultManager2 contentsOfDirectoryAtPath:path error:&v29];
+            v15 = v29;
             v16 = [v14 count];
 
             if (v15 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
               v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"expected nil value for '%s'", "error2"];
               *buf = 136315906;
-              v37 = "[NDAnalyticsEnvelopeStore _reportEnvelopesToNewsAutomationIfNeeded:]";
-              v38 = 2080;
-              v39 = "NDAnalyticsEnvelopeStore.m";
-              v40 = 1024;
-              v41 = 256;
-              v42 = 2114;
-              v43 = v22;
+              v36 = "[NDAnalyticsEnvelopeStore _reportEnvelopesToNewsAutomationIfNeeded:]";
+              v37 = 2080;
+              v38 = "NDAnalyticsEnvelopeStore.m";
+              v39 = 1024;
+              v40 = 256;
+              v41 = 2114;
+              v42 = v22;
               _os_log_error_impl(&dword_25BDF7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
             }
 
@@ -537,89 +532,69 @@ id __48__NDAnalyticsEnvelopeStore_envelopesForEntries___block_invoke_2(uint64_t 
             [data writeToURL:v20 atomically:1];
           }
 
-          v28 = [obj countByEnumeratingWithState:&v32 objects:v44 count:16];
+          v27 = [obj countByEnumeratingWithState:&v31 objects:v43 count:16];
         }
 
-        while (v28);
+        while (v27);
       }
 
-      neededCopy = v24;
+      neededCopy = v23;
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithStoreDirectoryFileURL:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "storeDirectoryFileURL"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "storeDirectoryFileURL", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)copyEnvelopes:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "envelopes"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "envelopes", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)deleteEnvelopesForEntries:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "entries"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "entries", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)sizesOfEnvelopesWithEntries:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "entries"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "entries", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)envelopesForEntries:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "entries"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "entries", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_deleteEnvelopesForKeysFromStore:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "keys"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "keys", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 @end

@@ -165,7 +165,7 @@
     swift_unknownObjectRelease();
     if (v8)
     {
-      sub_21D0D8CF0(0, qword_27CE58B18);
+      sub_21D0D8CF0(0, qword_27CE58B18, 0x277D75088);
       v9 = sub_21DBFA5DC();
 
       Strong = v9;

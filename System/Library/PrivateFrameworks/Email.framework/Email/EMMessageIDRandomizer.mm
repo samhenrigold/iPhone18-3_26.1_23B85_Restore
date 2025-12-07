@@ -45,7 +45,7 @@ void __28__EMMessageIDRandomizer_log__block_invoke(uint64_t a1)
 
 + (id)randomizedStringForGlobalMessageID:(int64_t)d
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   lock._os_unfair_lock_opaque = 0;
   os_unfair_lock_lock(&lock);
   v5 = [self _findOrCreateRandomizedStringForMessageID:d];
@@ -59,8 +59,6 @@ void __28__EMMessageIDRandomizer_log__block_invoke(uint64_t a1)
       [(EMMessageIDRandomizer *)v7 randomizedStringForGlobalMessageID:buf, v6];
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -87,21 +85,21 @@ void __28__EMMessageIDRandomizer_log__block_invoke(uint64_t a1)
 
 + (id)_queryKeychainError:(id *)error messageID:(int64_t)d
 {
-  v25[5] = *MEMORY[0x1E69E9840];
-  v25[0] = *MEMORY[0x1E697B008];
+  v24[5] = *MEMORY[0x1E69E9840];
+  v24[0] = *MEMORY[0x1E697B008];
   v5 = *MEMORY[0x1E697AE88];
-  v24[0] = *MEMORY[0x1E697AFF8];
-  v24[1] = v5;
+  v23[0] = *MEMORY[0x1E697AFF8];
+  v23[1] = v5;
   v6 = [MEMORY[0x1E696AD98] numberWithLongLong:d];
-  v25[1] = v6;
+  v24[1] = v6;
   v7 = *MEMORY[0x1E697B310];
-  v24[2] = *MEMORY[0x1E697B318];
-  v24[3] = v7;
-  v25[2] = MEMORY[0x1E695E118];
-  v25[3] = MEMORY[0x1E695E118];
-  v24[4] = *MEMORY[0x1E697B260];
-  v25[4] = &unk_1F461CCA8;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:5];
+  v23[2] = *MEMORY[0x1E697B318];
+  v23[3] = v7;
+  v24[2] = MEMORY[0x1E695E118];
+  v24[3] = MEMORY[0x1E695E118];
+  v23[4] = *MEMORY[0x1E697B260];
+  v24[4] = &unk_1F461CCA8;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:5];
 
   result = 0;
   v9 = SecItemCopyMatching(v8, &result);
@@ -113,8 +111,8 @@ void __28__EMMessageIDRandomizer_log__block_invoke(uint64_t a1)
       v11 = [objc_opt_class() log];
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        *v22 = 0;
-        _os_log_impl(&dword_1C6655000, v11, OS_LOG_TYPE_DEFAULT, "No randomized string found", v22, 2u);
+        *v21 = 0;
+        _os_log_impl(&dword_1C6655000, v11, OS_LOG_TYPE_DEFAULT, "No randomized string found", v21, 2u);
       }
     }
 
@@ -144,8 +142,6 @@ void __28__EMMessageIDRandomizer_log__block_invoke(uint64_t a1)
 
   v12 = 0;
 LABEL_13:
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -184,7 +180,7 @@ LABEL_13:
 
 + (id)_createRandomizedStringForMessageID:(int64_t)d
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v4 = [objc_opt_class() log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -196,23 +192,23 @@ LABEL_13:
   ef_UUID = [MEMORY[0x1E696AEC0] ef_UUID];
   v6 = [ef_UUID dataUsingEncoding:4];
   v7 = *MEMORY[0x1E697AFF8];
-  v26[0] = *MEMORY[0x1E697B3C0];
-  v26[1] = v7;
+  v25[0] = *MEMORY[0x1E697B3C0];
+  v25[1] = v7;
   v8 = *MEMORY[0x1E697B008];
-  v27[0] = v6;
-  v27[1] = v8;
-  v27[2] = @"com.apple.mail.categories";
-  v9 = [MEMORY[0x1E696AD98] numberWithLongLong:{d, v26[0], v7, *MEMORY[0x1E697ABD0], *MEMORY[0x1E697AE88]}];
-  v27[3] = v9;
-  v26[4] = *MEMORY[0x1E697AD00];
+  v26[0] = v6;
+  v26[1] = v8;
+  v26[2] = @"com.apple.mail.categories";
+  v9 = [MEMORY[0x1E696AD98] numberWithLongLong:{d, v25[0], v7, *MEMORY[0x1E697ABD0], *MEMORY[0x1E697AE88]}];
+  v26[3] = v9;
+  v25[4] = *MEMORY[0x1E697AD00];
   v10 = MEMORY[0x1E696AD98];
   currentDevice = [MEMORY[0x1E699B7B0] currentDevice];
   v12 = [v10 numberWithInt:{objc_msgSend(currentDevice, "isInternal") ^ 1}];
-  v26[5] = *MEMORY[0x1E697ABD8];
+  v25[5] = *MEMORY[0x1E697ABD8];
   v13 = *MEMORY[0x1E697ABE0];
-  v27[4] = v12;
-  v27[5] = v13;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:6];
+  v26[4] = v12;
+  v26[5] = v13;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:6];
 
   v15 = SecItemAdd(v14, 0);
   if (v15)
@@ -231,31 +227,29 @@ LABEL_13:
     v23 = ef_UUID;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return v23;
 }
 
 + (void)_deleteExpiredStringForMessageID:(int64_t)d
 {
-  v20[3] = *MEMORY[0x1E69E9840];
+  v19[3] = *MEMORY[0x1E69E9840];
   v4 = [objc_opt_class() log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v18 = 0;
-    _os_log_impl(&dword_1C6655000, v4, OS_LOG_TYPE_DEFAULT, "Will delete expired randomized string", v18, 2u);
+    *v17 = 0;
+    _os_log_impl(&dword_1C6655000, v4, OS_LOG_TYPE_DEFAULT, "Will delete expired randomized string", v17, 2u);
   }
 
   v5 = *MEMORY[0x1E697B008];
   v6 = *MEMORY[0x1E697ABD0];
-  v19[0] = *MEMORY[0x1E697AFF8];
-  v19[1] = v6;
-  v20[0] = v5;
-  v20[1] = @"com.apple.mail.categories";
-  v19[2] = *MEMORY[0x1E697AE88];
+  v18[0] = *MEMORY[0x1E697AFF8];
+  v18[1] = v6;
+  v19[0] = v5;
+  v19[1] = @"com.apple.mail.categories";
+  v18[2] = *MEMORY[0x1E697AE88];
   v7 = [MEMORY[0x1E696AD98] numberWithLongLong:d];
-  v20[2] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:3];
+  v19[2] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:3];
 
   v9 = SecItemDelete(v8);
   if (v9)
@@ -266,8 +260,6 @@ LABEL_13:
       [(EMMessageIDRandomizer *)v9 _deleteExpiredStringForMessageID:v10, v11, v12, v13, v14, v15, v16];
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 + (void)randomizedStringForGlobalMessageID:(os_log_t)log .cold.1(char a1, uint8_t *buf, os_log_t log)
@@ -285,23 +277,23 @@ LABEL_13:
 
 + (void)_queryKeychainError:(uint64_t)a3 messageID:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_5(&dword_1C6655000, a2, a3, "Error finding existing randomized string: %d", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0_5(&dword_1C6655000, a2, a3, "Error finding existing randomized string: %d", a5, a6, a7, a8, v8);
 }
 
 + (void)_createRandomizedStringForMessageID:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_5(&dword_1C6655000, a2, a3, "Error creating new randomized string: %d", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0_5(&dword_1C6655000, a2, a3, "Error creating new randomized string: %d", a5, a6, a7, a8, v8);
 }
 
 + (void)_deleteExpiredStringForMessageID:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_5(&dword_1C6655000, a2, a3, "Error deleting expired randomized string: %d", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0_5(&dword_1C6655000, a2, a3, "Error deleting expired randomized string: %d", a5, a6, a7, a8, v8);
 }
 
 @end

@@ -38,8 +38,6 @@
     if (**MEMORY[0x1E69A8488])
     {
       [(__IOSurface *)p_res[1].info.iosurface deviceRef];
-      v7 = p_res[2].vendor.reserved[0];
-      v8 = p_res[2].vendor.reserved[1];
       [label cStringUsingEncoding:1];
       p_res[2].vendor.reserved[1] = IOAccelDeviceTraceObjectLabel();
     }
@@ -120,9 +118,9 @@
 
 - (MTLIOAccelResource)initWithDevice:(id)device options:(unint64_t)options args:(IOAccelNewResourceArgs *)args argsSize:(unsigned int)size
 {
-  v22.receiver = self;
-  v22.super_class = MTLIOAccelResource;
-  v9 = [(_MTLResource *)&v22 init];
+  v15.receiver = self;
+  v15.super_class = MTLIOAccelResource;
+  v9 = [(_MTLResource *)&v15 init];
   if (v9)
   {
     *(v9 + 14) = device;
@@ -182,31 +180,26 @@
       }
 
       *(v9 + 20) = *(ClientShared + 256);
-      v12 = *(v9 + 18);
       *(v9 + 16) = IOAccelResourceGetGlobalTraceObjectID();
-      v13 = *(v9 + 18);
       *(v9 + 9) = IOAccelResourceGetResidentDataSize() & 0xFFFFFFFFFFFFFFLL | (v9[79] << 56);
-      v14 = *(*(v9 + 19) + 260);
-      if (v14 == 130)
+      v12 = *(*(v9 + 19) + 260);
+      if (v12 == 130)
       {
         var0 = 0;
       }
 
-      else if ((v14 & 0x80) != 0)
+      else if ((v12 & 0x80) != 0)
       {
         var0 = args->var0.var16.var0.var0;
       }
 
       else
       {
-        v16 = *(v9 + 18);
         var0 = IOAccelResourceGetDataBytes();
       }
 
       *(v9 + 21) = var0;
-      v17 = *(v9 + 18);
       *(v9 + 13) = IOAccelResourceGetGPUVirtualAddress();
-      v18 = *(v9 + 18);
       IOAccelResourceCreateAllocationIdentifierSet();
       [_memoryInfo addResourceToList:v9];
       [device _addResource:v9];
@@ -214,8 +207,6 @@
 
     if (**MEMORY[0x1E69A8488])
     {
-      v19 = *(v9 + 16);
-      v20 = *(v9 + 9);
       [device registryID];
       [device currentAllocatedSize];
       IOAccelDeviceTraceEvent();
@@ -259,9 +250,9 @@
 
 - (MTLIOAccelResource)initWithResource:(id)resource
 {
-  v9.receiver = self;
-  v9.super_class = MTLIOAccelResource;
-  v4 = [(_MTLResource *)&v9 init];
+  v8.receiver = self;
+  v8.super_class = MTLIOAccelResource;
+  v4 = [(_MTLResource *)&v8 init];
   if (v4)
   {
     *(v4 + 14) = [resource device];
@@ -274,7 +265,6 @@
     *(v4 + 10) = *(v5 + 6);
     *(v4 + 4) = v6;
     *(v4 + 21) = *(v5 + 17);
-    v7 = *(v4 + 18);
     *(v4 + 13) = IOAccelResourceGetGPUVirtualAddress();
     *(v4 + 24) = *(v5 + 20);
     *(v4 + 11) = *(v5 + 9);
@@ -293,8 +283,6 @@
 {
   if (**MEMORY[0x1E69A8488])
   {
-    v3 = *&self->_anon_50[48];
-    v4 = *&self->_res.var0;
     [*&self->_anon_50[32] registryID];
     [*&self->_anon_50[32] currentAllocatedSize];
     IOAccelDeviceTraceEvent();
@@ -304,16 +292,15 @@
   {
     [_memoryInfo removeResourceFromList:self];
     [*&self->_anon_50[32] _removeResource:self];
-    v5 = *&self->_anon_50[64];
     IOAccelResourceRelease();
     *&self->_anon_50[64] = 0;
   }
 
   *&self->_anon_50[32] = 0;
   *&self->_anon_50[40] = 0;
-  v6.receiver = self;
-  v6.super_class = MTLIOAccelResource;
-  [(_MTLObjectWithLabel *)&v6 dealloc];
+  v3.receiver = self;
+  v3.super_class = MTLIOAccelResource;
+  [(_MTLObjectWithLabel *)&v3 dealloc];
 }
 
 - (unint64_t)protectionOptions
@@ -329,7 +316,6 @@
 
 - (unint64_t)setPurgeableState:(unint64_t)state
 {
-  p_res = &self->_res;
   if (self->_anon_50[136] != 1)
   {
     return 2;
@@ -345,37 +331,36 @@
     *&self->_anon_50[128] = state;
   }
 
-  v11 = v3;
-  v12 = v4;
+  v9 = v3;
+  v10 = v4;
   iosurface = self->_res.info.iosurface;
   if (iosurface)
   {
-    v10 = 0;
+    v8 = 0;
     if (state - 2 >= 3)
     {
-      v8 = 3;
+      v7 = 3;
     }
 
     else
     {
-      v8 = state - 2;
+      v7 = state - 2;
     }
 
-    IOSurfaceSetPurgeable(iosurface, v8, &v10);
-    if (v10 > 3)
+    IOSurfaceSetPurgeable(iosurface, v7, &v8);
+    if (v8 > 3)
     {
       return 4;
     }
 
     else
     {
-      return qword_185DE2080[v10];
+      return qword_185DE2080[v8];
     }
   }
 
   else
   {
-    v9 = p_res[2].vendor.reserved[2];
     IOAccelResourceSetPurgeable();
     return 1;
   }

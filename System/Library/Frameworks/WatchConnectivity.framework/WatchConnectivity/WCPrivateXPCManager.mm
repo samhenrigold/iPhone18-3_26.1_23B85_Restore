@@ -46,7 +46,6 @@
 
 uint64_t __36__WCPrivateXPCManager_sharedManager__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedManager_manager = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -87,13 +86,13 @@ uint64_t __36__WCPrivateXPCManager_sharedManager__block_invoke(uint64_t a1)
 
 void __27__WCPrivateXPCManager_init__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = wc_log();
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = wc_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136446210;
-    v10 = "[WCPrivateXPCManager init]_block_invoke";
-    _os_log_impl(&dword_23B2FA000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s service listener resumed, attempting to re-establish XPC connection", &v9, 0xCu);
+    v8 = 136446210;
+    v9 = "[WCPrivateXPCManager init]_block_invoke";
+    _os_log_impl(&dword_23B2FA000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s service listener resumed, attempting to re-establish XPC connection", &v8, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -104,13 +103,12 @@ void __27__WCPrivateXPCManager_init__block_invoke(uint64_t a1)
   v7 = [v6 remoteObjectProxyWithErrorHandler:&__block_literal_global_1];
 
   [v7 reconnect];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __27__WCPrivateXPCManager_init__block_invoke_60(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = wc_log();
+  v3 = wc_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __27__WCPrivateXPCManager_init__block_invoke_60_cold_1(v2);
@@ -141,18 +139,18 @@ void __27__WCPrivateXPCManager_init__block_invoke_60(uint64_t a1, void *a2)
 - (void)setupConnection
 {
   v13 = *MEMORY[0x277D85DE8];
-  objc_initWeak(&location, self);
-  v3 = wc_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v4 = wc_log(inited);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
     v12 = "[WCPrivateXPCManager setupConnection]";
-    _os_log_impl(&dword_23B2FA000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s setting up private xpc connection", buf, 0xCu);
+    _os_log_impl(&dword_23B2FA000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s setting up private xpc connection", buf, 0xCu);
   }
 
-  v4 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.wcd.private" options:0];
+  v5 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.wcd.private" options:0];
   connection = self->_connection;
-  self->_connection = v4;
+  self->_connection = v5;
 
   [(NSXPCConnection *)self->_connection setDelegate:self];
   [(NSXPCConnection *)self->_connection setExportedInterface:sXPCPrivateManagerClientInterface];
@@ -173,12 +171,11 @@ void __27__WCPrivateXPCManager_init__block_invoke_60(uint64_t a1, void *a2)
   [(NSXPCConnection *)self->_connection resume];
   objc_destroyWeak(&v9);
   objc_destroyWeak(&location);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __38__WCPrivateXPCManager_setupConnection__block_invoke(uint64_t a1)
 {
-  v2 = wc_log();
+  v2 = wc_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __38__WCPrivateXPCManager_setupConnection__block_invoke_cold_1(v2);
@@ -212,14 +209,14 @@ void __38__WCPrivateXPCManager_setupConnection__block_invoke_68(uint64_t a1)
 
 - (void)fakeIncomingPayloadOnSubService:(id)service ofType:(id)type clientData:(id)data resource:(id)resource resourceSandboxToken:(id)token completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   typeCopy = type;
   resourceCopy = resource;
   handlerCopy = handler;
   tokenCopy = token;
   dataCopy = data;
-  v20 = wc_log();
+  v20 = wc_log(dataCopy);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     if (dataCopy)
@@ -233,30 +230,29 @@ void __38__WCPrivateXPCManager_setupConnection__block_invoke_68(uint64_t a1)
     }
 
     path = [resourceCopy path];
-    v26 = 136447234;
-    v27 = "[WCPrivateXPCManager fakeIncomingPayloadOnSubService:ofType:clientData:resource:resourceSandboxToken:completionHandler:]";
-    v28 = 2114;
-    v29 = serviceCopy;
-    v30 = 2114;
-    v31 = typeCopy;
-    v32 = 2080;
-    v33 = v21;
-    v34 = 2114;
-    v35 = path;
-    _os_log_impl(&dword_23B2FA000, v20, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@, transferType: %{public}@, clientData: %s, URL: %{public}@", &v26, 0x34u);
+    v25 = 136447234;
+    v26 = "[WCPrivateXPCManager fakeIncomingPayloadOnSubService:ofType:clientData:resource:resourceSandboxToken:completionHandler:]";
+    v27 = 2114;
+    v28 = serviceCopy;
+    v29 = 2114;
+    v30 = typeCopy;
+    v31 = 2080;
+    v32 = v21;
+    v33 = 2114;
+    v34 = path;
+    _os_log_impl(&dword_23B2FA000, v20, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@, transferType: %{public}@, clientData: %s, URL: %{public}@", &v25, 0x34u);
   }
 
   connection = [(WCPrivateXPCManager *)self connection];
   v24 = [connection remoteObjectProxyWithErrorHandler:&__block_literal_global_72];
 
   [v24 fakeIncomingPayloadOnSubService:serviceCopy ofType:typeCopy clientData:dataCopy resource:resourceCopy resourceSandboxToken:tokenCopy completionHandler:handlerCopy];
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __121__WCPrivateXPCManager_fakeIncomingPayloadOnSubService_ofType_clientData_resource_resourceSandboxToken_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = wc_log();
+  v3 = wc_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __121__WCPrivateXPCManager_fakeIncomingPayloadOnSubService_ofType_clientData_resource_resourceSandboxToken_completionHandler___block_invoke_cold_1(v2);
@@ -302,22 +298,16 @@ void __121__WCPrivateXPCManager_fakeIncomingPayloadOnSubService_ofType_clientDat
 
 void __27__WCPrivateXPCManager_init__block_invoke_60_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v1 = NSPrintF();
+  v1 = NSPrintF("%{error}", a1);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_1_1(&dword_23B2FA000, v2, v3, "%{public}s failed to retrieve remote object proxy %{public}@", v4, v5, v6, v7, a1, v10, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_23B2FA000, v2, v3, "%{public}s failed to retrieve remote object proxy %{public}@", v4, v5, v6, v7, v8, v9);
 }
 
 void __121__WCPrivateXPCManager_fakeIncomingPayloadOnSubService_ofType_clientData_resource_resourceSandboxToken_completionHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v1 = NSPrintF();
+  v1 = NSPrintF("%{error}", a1);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_1_1(&dword_23B2FA000, v2, v3, "%{public}s failed to retrieve remote object proxy %{public}@", v4, v5, v6, v7, a1, v10, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_23B2FA000, v2, v3, "%{public}s failed to retrieve remote object proxy %{public}@", v4, v5, v6, v7, v8, v9);
 }
 
 @end

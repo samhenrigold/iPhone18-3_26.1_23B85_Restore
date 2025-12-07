@@ -16,7 +16,7 @@
 - (UIColor)shadowColor;
 - (double)minFillHeight;
 - (double)shadowSettings;
-- (id)initWithLegibilitySettings:(char)settings ignoreFeatureFlags:;
+- (id)initWithLegibilitySettings:(uint64_t)settings ignoreFeatureFlags:;
 - (unint64_t)hash;
 - (unint64_t)style;
 - (void)initWithLegibilitySettings:(void *)settings;
@@ -127,6 +127,7 @@ LABEL_5:
 
 + (id)legibilitySettingsForLegibilitySettings:(id)settings ignoreFeatureFlags:(BOOL)flags
 {
+  flagsCopy = flags;
   settingsCopy = settings;
   if ([settingsCopy sbh_isSBHLegibilitySettings])
   {
@@ -142,7 +143,7 @@ LABEL_5:
 
     else if ([settingsCopy sbh_isUILegibilitySettings])
     {
-      v7 = [(SBHLegibilitySettings *)[self alloc] initWithLegibilitySettings:settingsCopy ignoreFeatureFlags:flags];
+      v7 = [(SBHLegibilitySettings *)[self alloc] initWithLegibilitySettings:settingsCopy ignoreFeatureFlags:flagsCopy];
     }
 
     else
@@ -153,7 +154,7 @@ LABEL_5:
         if (_UILegibilitySettings)
         {
           v9 = _UILegibilitySettings;
-          v10 = [(SBHLegibilitySettings *)[self alloc] initWithLegibilitySettings:_UILegibilitySettings ignoreFeatureFlags:flags];
+          v10 = [(SBHLegibilitySettings *)[self alloc] initWithLegibilitySettings:_UILegibilitySettings ignoreFeatureFlags:flagsCopy];
 
           goto LABEL_14;
         }
@@ -174,15 +175,16 @@ LABEL_14:
   return v10;
 }
 
-- (id)initWithLegibilitySettings:(char)settings ignoreFeatureFlags:
+- (id)initWithLegibilitySettings:(uint64_t)settings ignoreFeatureFlags:
 {
+  settingsCopy = settings;
   v5 = a2;
   v6 = v5;
   if (self)
   {
     if (([v5 sbh_isUILegibilitySettings] & 1) == 0 && !objc_msgSend(v6, "sbh_isSBUILegibilitySettings") || objc_msgSend(v6, "sbh_isSBHLegibilitySettings"))
     {
-      [SBHLegibilitySettings initWithLegibilitySettings:? ignoreFeatureFlags:?];
+      [SBHLegibilitySettings initWithLegibilitySettings:self ignoreFeatureFlags:?];
     }
 
     v8.receiver = self;
@@ -190,7 +192,7 @@ LABEL_14:
     self = objc_msgSendSuper2(&v8, sel_init);
     if (self)
     {
-      [(SBHLegibilitySettings *)settings initWithLegibilitySettings:self ignoreFeatureFlags:v6];
+      [(SBHLegibilitySettings *)settingsCopy initWithLegibilitySettings:self ignoreFeatureFlags:v6];
     }
   }
 
@@ -295,7 +297,7 @@ void __48__SBHLegibilitySettings_sharedInstanceForStyle___block_invoke()
   {
     if (([v3 sbh_isUILegibilitySettings] & 1) == 0 && !objc_msgSend(v4, "sbh_isSBUILegibilitySettings") || objc_msgSend(v4, "sbh_isSBHLegibilitySettings"))
     {
-      [SBHLegibilitySettings initWithLegibilitySettings:?];
+      [(SBHLegibilitySettings *)sel_initWithLegibilitySettings_ initWithLegibilitySettings:settings];
     }
 
     v7.receiver = settings;
@@ -633,24 +635,24 @@ uint64_t __33__SBHLegibilitySettings_isEqual___block_invoke_2(uint64_t a1)
   return result;
 }
 
-- (void)initWithLegibilitySettings:(const char *)a1 ignoreFeatureFlags:.cold.1(const char *a1)
+- (void)initWithLegibilitySettings:(const char *)a1 ignoreFeatureFlags:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"([legibilitySettings sbh_isUILegibilitySettings]||[legibilitySettings sbh_isSBUILegibilitySettings]) && __objc_no == [legibilitySettings sbh_isSBHLegibilitySettings]"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"([legibilitySettings sbh_isUILegibilitySettings]||[legibilitySettings sbh_isSBUILegibilitySettings]) && __objc_no == [legibilitySettings sbh_isSBHLegibilitySettings]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_1();
-    v8 = @"SBHLegibility.m";
-    v9 = 1024;
-    v10 = 268;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"SBHLegibility.m";
+    v10 = 1024;
+    v11 = 268;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_1BEB18000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -675,24 +677,24 @@ uint64_t __33__SBHLegibilitySettings_isEqual___block_invoke_2(uint64_t a1)
   *(a2 + v7) = v6;
 }
 
-- (void)initWithLegibilitySettings:(const char *)a1 .cold.1(const char *a1)
+- (void)initWithLegibilitySettings:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"([legibilitySettings sbh_isUILegibilitySettings]||[legibilitySettings sbh_isSBUILegibilitySettings]) && __objc_no == [legibilitySettings sbh_isSBHLegibilitySettings]"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"([legibilitySettings sbh_isUILegibilitySettings]||[legibilitySettings sbh_isSBUILegibilitySettings]) && __objc_no == [legibilitySettings sbh_isSBHLegibilitySettings]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_1();
-    v8 = @"SBHLegibility.m";
-    v9 = 1024;
-    v10 = 244;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"SBHLegibility.m";
+    v10 = 1024;
+    v11 = 244;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_1BEB18000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

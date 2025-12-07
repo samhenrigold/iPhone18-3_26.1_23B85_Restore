@@ -62,13 +62,13 @@ void *__63__ArbitratorExpertSystemHandler_disableResourceNotifyDampening__block_
 
 - (void)_removeAllReportRecords
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = @"com.apple.symptomsd.ResourceNotify";
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Preparing to clean out all records for suite %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = @"com.apple.symptomsd.ResourceNotify";
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Preparing to clean out all records for suite %@", &v6, 0xCu);
   }
 
   v3 = objc_autoreleasePoolPush();
@@ -78,9 +78,9 @@ void *__63__ArbitratorExpertSystemHandler_disableResourceNotifyDampening__block_
   {
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
     {
-      v7 = 138412290;
-      v8 = @"com.apple.symptomsd.ResourceNotify";
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "Removing all records for suite %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = @"com.apple.symptomsd.ResourceNotify";
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "Removing all records for suite %@", &v6, 0xCu);
     }
 
     [v4 removePersistentDomainForName:@"com.apple.symptomsd.ResourceNotify"];
@@ -88,13 +88,12 @@ void *__63__ArbitratorExpertSystemHandler_disableResourceNotifyDampening__block_
 
   else if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
-    v8 = @"com.apple.symptomsd.ResourceNotify";
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "Unable to initialize user defaults for %@!", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = @"com.apple.symptomsd.ResourceNotify";
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "Unable to initialize user defaults for %@!", &v6, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (ArbitratorExpertSystemHandler)init
@@ -318,7 +317,7 @@ void __37__ArbitratorExpertSystemHandler_init__block_invoke_2(uint64_t a1)
 
 - (void)_dumpState
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -326,34 +325,34 @@ void __37__ArbitratorExpertSystemHandler_init__block_invoke_2(uint64_t a1)
     v5 = v3;
     label = [(ExpertSystemStateCore *)currentState label];
     *buf = 138412290;
-    v27 = label;
+    v26 = label;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "AFSM Current state: %@", buf, 0xCu);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v7 = self->states;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v23;
+    v11 = *v22;
     *&v9 = 138412546;
-    v21 = v9;
+    v20 = v9;
     do
     {
       v12 = 0;
       do
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * v12);
-        v14 = [(NSArray *)self->states objectAtIndexedSubscript:0, v21, v22];
+        v13 = *(*(&v21 + 1) + 8 * v12);
+        v14 = [(NSArray *)self->states objectAtIndexedSubscript:0, v20, v21];
 
         if (v13 != v14)
         {
@@ -364,10 +363,10 @@ void __37__ArbitratorExpertSystemHandler_init__block_invoke_2(uint64_t a1)
             label2 = [v13 label];
             sojournTime = [v13 sojournTime];
             [sojournTime total];
-            *buf = v21;
-            v27 = label2;
-            v28 = 2048;
-            v29 = v19;
+            *buf = v20;
+            v26 = label2;
+            v27 = 2048;
+            v28 = v19;
             _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "AFSM Cumulative time on state %@: %f", buf, 0x16u);
           }
         }
@@ -376,13 +375,11 @@ void __37__ArbitratorExpertSystemHandler_init__block_invoke_2(uint64_t a1)
       }
 
       while (v10 != v12);
-      v10 = [(NSArray *)v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v10 = [(NSArray *)v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v10);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -435,7 +432,7 @@ void __37__ArbitratorExpertSystemHandler_init__block_invoke_2(uint64_t a1)
 
 void __80__ArbitratorExpertSystemHandler_observeValueForKeyPath_ofObject_change_context___block_invoke_3(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -444,16 +441,14 @@ void __80__ArbitratorExpertSystemHandler_observeValueForKeyPath_ofObject_change_
     v5 = [v3 label];
     v6 = *(a1 + 40);
     v7 = [*(a1 + 48) objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
-    v9 = 138412802;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    v13 = 2112;
-    v14 = v7;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "AFSM Current state: %@, changed: %@ to %@", &v9, 0x20u);
+    v8 = 138412802;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v7;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "AFSM Current state: %@, changed: %@ to %@", &v8, 0x20u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedInstance
@@ -496,14 +491,14 @@ void __47__ArbitratorExpertSystemHandler_sharedInstance__block_invoke(uint64_t a
 
 - (BOOL)noteSymptom:(id)symptom
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   symptomCopy = symptom;
   eventKey = [symptomCopy eventKey];
   v6 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v37 = eventKey;
+    v36 = eventKey;
     _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "AFSM: receiving symptom with key: %@", buf, 0xCu);
   }
 
@@ -530,10 +525,10 @@ void __47__ArbitratorExpertSystemHandler_sharedInstance__block_invoke(uint64_t a
     block[2] = __45__ArbitratorExpertSystemHandler_noteSymptom___block_invoke;
     block[3] = &unk_27898A7D0;
     block[4] = self;
-    v35 = symptomCopy;
+    v34 = symptomCopy;
     dispatch_async(queue, block);
 
-    v11 = v35;
+    v11 = v34;
 LABEL_18:
 
     goto LABEL_19;
@@ -542,122 +537,121 @@ LABEL_18:
   if ([kResourceNotifyEventIOLocalWritesTrigger isEqualToString:eventKey])
   {
     queue2 = [(ExpertSystemHandlerCore *)self queue];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __45__ArbitratorExpertSystemHandler_noteSymptom___block_invoke_2;
-    v32[3] = &unk_27898A7D0;
-    v32[4] = self;
-    v33 = symptomCopy;
-    dispatch_async(queue2, v32);
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __45__ArbitratorExpertSystemHandler_noteSymptom___block_invoke_2;
+    v31[3] = &unk_27898A7D0;
+    v31[4] = self;
+    v32 = symptomCopy;
+    dispatch_async(queue2, v31);
 
-    v11 = v33;
+    v11 = v32;
     goto LABEL_18;
   }
 
   if ([kResourceNotifyEventCPUWakesTrigger isEqualToString:eventKey])
   {
     queue3 = [(ExpertSystemHandlerCore *)self queue];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __45__ArbitratorExpertSystemHandler_noteSymptom___block_invoke_3;
-    v30[3] = &unk_27898A7D0;
-    v30[4] = self;
-    v31 = symptomCopy;
-    dispatch_async(queue3, v30);
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __45__ArbitratorExpertSystemHandler_noteSymptom___block_invoke_3;
+    v29[3] = &unk_27898A7D0;
+    v29[4] = self;
+    v30 = symptomCopy;
+    dispatch_async(queue3, v29);
 
-    v11 = v31;
+    v11 = v30;
     goto LABEL_18;
   }
 
   if ([kResourceNotifyEventPortSpaceExhaustionTrigger isEqualToString:eventKey])
   {
     queue4 = [(ExpertSystemHandlerCore *)self queue];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __45__ArbitratorExpertSystemHandler_noteSymptom___block_invoke_4;
-    v28[3] = &unk_27898A7D0;
-    v28[4] = self;
-    v29 = symptomCopy;
-    dispatch_async(queue4, v28);
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __45__ArbitratorExpertSystemHandler_noteSymptom___block_invoke_4;
+    v27[3] = &unk_27898A7D0;
+    v27[4] = self;
+    v28 = symptomCopy;
+    dispatch_async(queue4, v27);
 
-    v11 = v29;
+    v11 = v28;
     goto LABEL_18;
   }
 
   if ([kResourceNotifyEventFileDescriptorExhaustionTrigger isEqualToString:eventKey])
   {
     queue5 = [(ExpertSystemHandlerCore *)self queue];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __45__ArbitratorExpertSystemHandler_noteSymptom___block_invoke_5;
-    v26[3] = &unk_27898A7D0;
-    v26[4] = self;
-    v27 = symptomCopy;
-    dispatch_async(queue5, v26);
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __45__ArbitratorExpertSystemHandler_noteSymptom___block_invoke_5;
+    v25[3] = &unk_27898A7D0;
+    v25[4] = self;
+    v26 = symptomCopy;
+    dispatch_async(queue5, v25);
 
-    v11 = v27;
+    v11 = v26;
     goto LABEL_18;
   }
 
   if ([kResourceNotifyEventKQWorkloopsExhaustionTrigger isEqualToString:eventKey])
   {
     queue6 = [(ExpertSystemHandlerCore *)self queue];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __45__ArbitratorExpertSystemHandler_noteSymptom___block_invoke_6;
-    v24[3] = &unk_27898A7D0;
-    v24[4] = self;
-    v25 = symptomCopy;
-    dispatch_async(queue6, v24);
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __45__ArbitratorExpertSystemHandler_noteSymptom___block_invoke_6;
+    v23[3] = &unk_27898A7D0;
+    v23[4] = self;
+    v24 = symptomCopy;
+    dispatch_async(queue6, v23);
 
-    v11 = v25;
+    v11 = v24;
     goto LABEL_18;
   }
 
   if ([eventKey isEqualToString:@"com.apple.symptoms.IOPMAssertion.duration"])
   {
-    v19 = @"LongAssertion";
+    v18 = @"LongAssertion";
 LABEL_26:
-    [(ArbitratorExpertSystemHandler *)self handleAssertionExceptionTriggerWithEvent:symptomCopy signatureSubType:v19];
+    [(ArbitratorExpertSystemHandler *)self handleAssertionExceptionTriggerWithEvent:symptomCopy signatureSubType:v18];
     goto LABEL_19;
   }
 
   if ([eventKey isEqualToString:@"com.apple.symptoms.IOPMAssertion.aggregate"])
   {
-    v19 = @"TotalAssertion";
+    v18 = @"TotalAssertion";
     goto LABEL_26;
   }
 
   if ([eventKey isEqualToString:@"com.apple.symptoms.IOPMAssertion.timeout"])
   {
-    v19 = @"SystemTimeoutAssertion";
+    v18 = @"SystemTimeoutAssertion";
     goto LABEL_26;
   }
 
-  v20 = debuggabilityLogHandle;
+  v19 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v21 = eventKey;
-    v22 = v20;
+    v20 = eventKey;
+    v21 = v19;
     uTF8String = [eventKey UTF8String];
     *buf = 136315138;
-    v37 = uTF8String;
-    _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_ERROR, "AFSM: Unable to process symptom: %s", buf, 0xCu);
+    v36 = uTF8String;
+    _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, "AFSM: Unable to process symptom: %s", buf, 0xCu);
   }
 
 LABEL_19:
 
-  v17 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (void)handleAssertionExceptionTriggerWithEvent:(id)event signatureSubType:(id)type
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   typeCopy = type;
   eventQualifiers = [eventCopy eventQualifiers];
-  v30 = [eventQualifiers objectForKeyedSubscript:@"UUID"];
+  v29 = [eventQualifiers objectForKeyedSubscript:@"UUID"];
 
   eventQualifiers2 = [eventCopy eventQualifiers];
   v10 = [eventQualifiers2 objectForKeyedSubscript:@"events"];
@@ -670,8 +664,8 @@ LABEL_19:
 
     if ([v13 count])
     {
-      v36[0] = v13;
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
+      v35[0] = v13;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
     }
 
     else
@@ -732,22 +726,20 @@ LABEL_16:
   block[2] = __91__ArbitratorExpertSystemHandler_handleAssertionExceptionTriggerWithEvent_signatureSubType___block_invoke;
   block[3] = &unk_27898C108;
   block[4] = self;
-  v32 = v22;
-  v33 = v10;
-  v34 = v30;
-  v35 = v21;
+  v31 = v22;
+  v32 = v10;
+  v33 = v29;
+  v34 = v21;
   v24 = v21;
-  v25 = v30;
+  v25 = v29;
   v26 = v10;
   v27 = v22;
   dispatch_async(queue, block);
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleResourceNotifyOfType:(unint64_t)type event:(id)event
 {
-  v130 = *MEMORY[0x277D85DE8];
+  v129 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v6 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEBUG))
@@ -819,7 +811,7 @@ LABEL_16:
   if (longLongValue >= 1 && [eventCopy processName])
   {
     selfCopy2 = self;
-    v101 = v12;
+    v100 = v12;
     if (self->administrativeState == 1)
     {
       v39 = +[SystemProperties sharedInstance];
@@ -834,12 +826,12 @@ LABEL_16:
         v41 = 0;
       }
 
-      v100 = v41 & (bOOLValue ^ 1);
+      v99 = v41 & (bOOLValue ^ 1);
       v42 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEBUG))
       {
         v43 = @"no";
-        if (v100)
+        if (v99)
         {
           v43 = @"YES";
         }
@@ -849,45 +841,45 @@ LABEL_16:
         _os_log_impl(&dword_23255B000, v42, OS_LOG_TYPE_DEBUG, "Create an ABC case for this ResourceNotify trigger? => %@", buf, 0xCu);
       }
 
-      v12 = v101;
+      v12 = v100;
     }
 
     else
     {
-      v100 = 0;
+      v99 = 0;
     }
 
-    v103 = v37;
-    v104 = v35;
+    v102 = v37;
+    v103 = v35;
     if (type > 3)
     {
       switch(type)
       {
         case 4uLL:
-          v98 = v10;
-          v99 = 0;
+          v97 = v10;
+          v98 = 0;
+          v94 = 0;
           v95 = 0;
-          v96 = 0;
           v47 = @"PORT_SPACE_EXHAUSTION";
-          v97 = 1;
+          v96 = 1;
           v48 = @"Port Space Exhaustion";
           break;
         case 5uLL:
-          v98 = v10;
-          v99 = 0;
+          v97 = v10;
+          v98 = 0;
+          v94 = 0;
           v95 = 0;
-          v96 = 0;
           v47 = @"FILE_DESCRIPTOR_EXHAUSTION";
-          v97 = 1;
+          v96 = 1;
           v48 = @"File Descriptor Exhaustion";
           break;
         case 6uLL:
-          v98 = v10;
-          v99 = 0;
+          v97 = v10;
+          v98 = 0;
+          v94 = 0;
           v95 = 0;
-          v96 = 0;
           v47 = @"KQWORKLOOP_EXHAUSTION";
-          v97 = 1;
+          v96 = 1;
           v48 = @"kqworkloop Exhaustion";
           break;
         default:
@@ -909,43 +901,43 @@ LABEL_33:
       switch(type)
       {
         case 1uLL:
-          v98 = v10;
-          if (v100)
+          v97 = v10;
+          if (v99)
           {
-            v99 = *MEMORY[0x277D6B018];
-            v97 = 0;
+            v98 = *MEMORY[0x277D6B018];
+            v96 = 0;
             v47 = @"EXC_CPU_USAGE";
-            v95 = @"CPU";
-            v96 = @"ShortTerm";
+            v94 = @"CPU";
+            v95 = @"ShortTerm";
           }
 
           else
           {
+            v94 = 0;
             v95 = 0;
-            v96 = 0;
-            v99 = 0;
+            v98 = 0;
             v47 = @"EXC_CPU_USAGE";
-            v97 = 1;
+            v96 = 1;
           }
 
           v48 = @"nanoseconds of CPU usage";
           break;
         case 2uLL:
-          v98 = v10;
-          v99 = 0;
+          v97 = v10;
+          v98 = 0;
+          v94 = 0;
           v95 = 0;
-          v96 = 0;
           v47 = @"EXC_IO_WRITE";
-          v97 = 1;
+          v96 = 1;
           v48 = @"dirty bytes written";
           break;
         case 3uLL:
-          v98 = v10;
-          v99 = 0;
+          v97 = v10;
+          v98 = 0;
+          v94 = 0;
           v95 = 0;
-          v96 = 0;
           v47 = @"EXC_CPU_WAKE";
-          v97 = 1;
+          v96 = 1;
           v48 = @"CPU wakes";
           break;
         default:
@@ -953,7 +945,7 @@ LABEL_33:
       }
     }
 
-    v102 = *MEMORY[0x277D6B028];
+    v101 = *MEMORY[0x277D6B028];
     v50 = objc_alloc(MEMORY[0x277CCACA8]);
     if (longLongValue2)
     {
@@ -962,10 +954,10 @@ LABEL_33:
 
     else
     {
-      v51 = [v50 initWithFormat:@"%lld %@", longLongValue, v48, v90];
+      v51 = [v50 initWithFormat:@"%lld %@", longLongValue, v48, v89];
     }
 
-    v107 = v51;
+    v106 = v51;
     v52 = debuggabilityLogHandle;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEFAULT))
     {
@@ -984,34 +976,34 @@ LABEL_33:
       *buf = 138413826;
       typeCopy = v53;
       selfCopy2 = self;
-      v118 = 2080;
-      v119 = processName;
-      v120 = 2048;
-      v121 = processId;
-      v122 = 2112;
-      v123 = v107;
-      v124 = 2048;
-      v125 = longLongValue3;
-      v126 = 2112;
-      v127 = v48;
-      v128 = 2048;
-      v129 = (longLongValue4 / 0x3B9ACA00);
+      v117 = 2080;
+      v118 = processName;
+      v119 = 2048;
+      v120 = processId;
+      v121 = 2112;
+      v122 = v106;
+      v123 = 2048;
+      v124 = longLongValue3;
+      v125 = 2112;
+      v126 = v48;
+      v127 = 2048;
+      v128 = (longLongValue4 / 0x3B9ACA00);
       _os_log_impl(&dword_23255B000, v54, OS_LOG_TYPE_DEFAULT, "%@RESOURCE_NOTIFY trigger for %s [%ld] (%@, violating limit of %lld %@ over %.2fs seconds)", buf, 0x48u);
     }
 
     v56 = *MEMORY[0x277D6B1E8];
-    v93 = *MEMORY[0x277D6B208];
-    v114 = *MEMORY[0x277D6B1C8];
-    v57 = [MEMORY[0x277CBEB38] dictionaryWithObjectsAndKeys:{v102, *MEMORY[0x277D6B1C8], v47, *MEMORY[0x277D6B208], v35, *MEMORY[0x277D6B1E8], v107, *MEMORY[0x277D6B200], 0}];
-    v94 = v56;
+    v92 = *MEMORY[0x277D6B208];
+    v113 = *MEMORY[0x277D6B1C8];
+    v57 = [MEMORY[0x277CBEB38] dictionaryWithObjectsAndKeys:{v101, *MEMORY[0x277D6B1C8], v47, *MEMORY[0x277D6B208], v35, *MEMORY[0x277D6B1E8], v106, *MEMORY[0x277D6B200], 0}];
+    v93 = v56;
     if (![eventCopy processName])
     {
-      v59 = v98;
+      v59 = v97;
       goto LABEL_55;
     }
 
     v58 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:{objc_msgSend(eventCopy, "processName")}];
-    v59 = v98;
+    v59 = v97;
     if (v58)
     {
       v60 = v58;
@@ -1026,9 +1018,9 @@ LABEL_54:
 
 LABEL_55:
         v61 = v59;
-        if ([(__CFString *)v103 length])
+        if ([(__CFString *)v102 length])
         {
-          [v57 setObject:v103 forKeyedSubscript:*MEMORY[0x277D6B1F0]];
+          [v57 setObject:v102 forKeyedSubscript:*MEMORY[0x277D6B1F0]];
         }
 
         v62 = [(ArbitratorExpertSystemHandler *)selfCopy2 shouldGenerateReportForSignature:v57 trigger:type];
@@ -1042,8 +1034,8 @@ LABEL_55:
             processName2 = [eventCopy processName];
             *buf = 136315394;
             typeCopy = processName2;
-            v118 = 2048;
-            v119 = processId;
+            v117 = 2048;
+            v118 = processId;
             _os_log_impl(&dword_23255B000, v65, OS_LOG_TYPE_INFO, "  Will capture micro-stackshot for %s [%ld]", buf, 0x16u);
           }
 
@@ -1061,10 +1053,10 @@ LABEL_55:
               }
 
               [v61 UTF8String];
-              v91 = longLongValue3;
-              v92 = longLongValue4;
-              v88 = longValue;
-              v89 = longValue2;
+              v90 = longLongValue3;
+              v91 = longLongValue4;
+              v87 = longValue;
+              v88 = longValue2;
               SPReportCPUUsageResource();
             }
 
@@ -1077,8 +1069,8 @@ LABEL_55:
               }
 
               [v61 UTF8String];
-              v88 = longLongValue3;
-              v89 = longLongValue4;
+              v87 = longLongValue3;
+              v88 = longLongValue4;
               SPReportDiskWritesResource();
             }
 
@@ -1091,12 +1083,12 @@ LABEL_55:
               }
 
               [v61 UTF8String];
-              v88 = longLongValue3;
-              v89 = longLongValue4;
+              v87 = longLongValue3;
+              v88 = longLongValue4;
               SPReportCPUWakeupsResource();
             }
 
-            v71 = v99;
+            v71 = v98;
             goto LABEL_101;
           }
 
@@ -1170,7 +1162,7 @@ LABEL_55:
             MEMORY[0x2383871F0](processId, uTF8String3, bOOLValue, v80, longLongValue, longLongValue3, unsignedIntValue);
           }
 
-          v71 = v99;
+          v71 = v98;
           if (v76 - 1 > 0xFFFFFFFD)
           {
             goto LABEL_101;
@@ -1188,13 +1180,13 @@ LABEL_55:
             processName3 = [eventCopy processName];
             *buf = 136315394;
             typeCopy = processName3;
-            v118 = 2048;
-            v119 = processId;
+            v117 = 2048;
+            v118 = processId;
             _os_log_impl(&dword_23255B000, v69, OS_LOG_TYPE_INFO, "  Will NOT capture micro-stackshot for %s [%ld]", buf, 0x16u);
           }
 
           v10 = v61;
-          v71 = v99;
+          v71 = v98;
           v72 = unsignedIntValue;
           if ((type & 0xFFFFFFFFFFFFFFFELL) != 4 || unsignedIntValue - 1 > 0xFFFFFFFD)
           {
@@ -1206,18 +1198,18 @@ LABEL_55:
 
         mach_port_deallocate(v73, v72);
 LABEL_101:
-        v12 = v101;
-        if (v100)
+        v12 = v100;
+        if (v99)
         {
           if (v71)
           {
-            [v57 setObject:v71 forKeyedSubscript:v114];
+            [v57 setObject:v71 forKeyedSubscript:v113];
           }
 
-          if ((v97 & 1) == 0)
+          if ((v96 & 1) == 0)
           {
+            [v57 setObject:v94 forKeyedSubscript:v92];
             [v57 setObject:v95 forKeyedSubscript:v93];
-            [v57 setObject:v96 forKeyedSubscript:v94];
           }
 
           eventQualifiers12 = [eventCopy eventQualifiers];
@@ -1230,8 +1222,8 @@ LABEL_101:
 
             if ([v84 count])
             {
-              v115 = v84;
-              v82 = [MEMORY[0x277CBEA60] arrayWithObjects:&v115 count:1];
+              v114 = v84;
+              v82 = [MEMORY[0x277CBEA60] arrayWithObjects:&v114 count:1];
             }
 
             else
@@ -1239,7 +1231,7 @@ LABEL_101:
               v82 = 0;
             }
 
-            v12 = v101;
+            v12 = v100;
           }
 
           v86 = [(ArbitratorExpertSystemHandler *)selfCopy2 setupParametersForDESysLogFilterProcess:eventCopy];
@@ -1258,14 +1250,14 @@ LABEL_101:
           }
         }
 
-        v37 = v103;
-        v35 = v104;
+        v37 = v102;
+        v35 = v103;
         goto LABEL_115;
       }
     }
 
     [v57 setObject:v60 forKeyedSubscript:*MEMORY[0x277D6B1C0]];
-    if (![v98 length])
+    if (![v97 length])
     {
       v60 = v60;
 
@@ -1282,19 +1274,17 @@ LABEL_101:
     processName4 = [eventCopy processName];
     *buf = 134218242;
     typeCopy = longLongValue;
-    v118 = 2080;
-    v119 = processName4;
+    v117 = 2080;
+    v118 = processName4;
     _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_ERROR, "Invalid parameters - observed value: %lld (must be positive), process name: %s (must not be empty)", buf, 0x16u);
   }
 
 LABEL_115:
-
-  v87 = *MEMORY[0x277D85DE8];
 }
 
 void __63__ArbitratorExpertSystemHandler_disableResourceNotifyDampening__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = v3;
   if (v3 && MEMORY[0x238389170](v3) == MEMORY[0x277D86448])
@@ -1306,14 +1296,14 @@ void __63__ArbitratorExpertSystemHandler_disableResourceNotifyDampening__block_i
     }
 
     v6 = value;
-    v9 = debuggabilityLogHandle;
+    v8 = debuggabilityLogHandle;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v10[0] = 67109376;
-      v10[1] = v6;
-      v11 = 1024;
-      v12 = disableResourceNotifyDampening_disableDampening;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "prefs_store: Set resource notify dampening disabled from %d => %d", v10, 0xEu);
+      v9[0] = 67109376;
+      v9[1] = v6;
+      v10 = 1024;
+      v11 = disableResourceNotifyDampening_disableDampening;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "prefs_store: Set resource notify dampening disabled from %d => %d", v9, 0xEu);
     }
 
     goto LABEL_7;
@@ -1324,8 +1314,8 @@ void __63__ArbitratorExpertSystemHandler_disableResourceNotifyDampening__block_i
     v5 = debuggabilityLogHandle;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v10[0]) = 0;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "prefs_store: Using default resource notify dampening setting (enabled).", v10, 2u);
+      LOWORD(v9[0]) = 0;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "prefs_store: Using default resource notify dampening setting (enabled).", v9, 2u);
     }
 
     LOBYTE(v6) = 0;
@@ -1334,13 +1324,11 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldGenerateReportForSignature:(id)signature trigger:(unint64_t)trigger
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   signatureCopy = signature;
   if (!+[ArbitratorExpertSystemHandler disableResourceNotifyDampening])
   {
@@ -1355,8 +1343,8 @@ LABEL_8:
       v21 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v47) = 0;
-        _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEBUG, "  No aggregated RESOURCE_NOTIFY stats found. Allowing report.", &v47, 2u);
+        LOWORD(v46) = 0;
+        _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEBUG, "  No aggregated RESOURCE_NOTIFY stats found. Allowing report.", &v46, 2u);
       }
 
       [(ArbitratorExpertSystemHandler *)self recordReportForSignature:signatureCopy aggregateReport:0 specificReport:0];
@@ -1376,8 +1364,8 @@ LABEL_8:
     {
       if (v20)
       {
-        LOWORD(v47) = 0;
-        _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "  Crossed day boundary. Reset daily RESOURCE_NOTIFY reporting limits.", &v47, 2u);
+        LOWORD(v46) = 0;
+        _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "  Crossed day boundary. Reset daily RESOURCE_NOTIFY reporting limits.", &v46, 2u);
       }
 
       [(ArbitratorExpertSystemHandler *)self _removeAllReportRecords];
@@ -1389,9 +1377,9 @@ LABEL_8:
     if (v20)
     {
       v22 = v19;
-      v47 = 134217984;
-      v48 = [v13 count];
-      _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEBUG, "  %ld total reports for the day.", &v47, 0xCu);
+      v46 = 134217984;
+      v47 = [v13 count];
+      _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEBUG, "  %ld total reports for the day.", &v46, 0xCu);
     }
 
     v23 = [(ArbitratorExpertSystemHandler *)self _retrieveReportRecordForDomain:v8 type:v9 subType:v10 process:v11];
@@ -1401,17 +1389,17 @@ LABEL_8:
     {
       if (v25)
       {
-        v47 = 138413314;
-        v48 = v8;
-        v49 = 2112;
-        *v50 = v9;
-        *&v50[8] = 2112;
-        *&v50[10] = v10;
-        v51 = 2112;
-        v52 = v11;
-        v53 = 2112;
-        v54 = v23;
-        _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEBUG, "  Found report record for %@ : %@ : %@ (%@) - %@", &v47, 0x34u);
+        v46 = 138413314;
+        v47 = v8;
+        v48 = 2112;
+        *v49 = v9;
+        *&v49[8] = 2112;
+        *&v49[10] = v10;
+        v50 = 2112;
+        v51 = v11;
+        v52 = 2112;
+        v53 = v23;
+        _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEBUG, "  Found report record for %@ : %@ : %@ (%@) - %@", &v46, 0x34u);
       }
 
       if ([v23 count] >= 5)
@@ -1421,15 +1409,15 @@ LABEL_8:
         {
           v27 = v26;
           v28 = [v23 count];
-          v47 = 134218242;
-          v48 = v28;
-          v49 = 2112;
-          *v50 = v11;
+          v46 = 134218242;
+          v47 = v28;
+          v48 = 2112;
+          *v49 = v11;
           v29 = "  Reached limit of %ld RESOURCE_NOTIFY reports for %@. Disallow report.";
           v30 = v27;
           v31 = 22;
 LABEL_26:
-          _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_DEFAULT, v29, &v47, v31);
+          _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_DEFAULT, v29, &v46, v31);
 
           goto LABEL_27;
         }
@@ -1450,12 +1438,12 @@ LABEL_26:
         {
           v27 = v41;
           [v23 lastSeen];
-          v47 = 138412802;
-          v48 = v11;
-          v49 = 1024;
-          *v50 = 300;
-          *&v50[4] = 2048;
-          *&v50[6] = v42;
+          v46 = 138412802;
+          v47 = v11;
+          v48 = 1024;
+          *v49 = 300;
+          *&v49[4] = 2048;
+          *&v49[6] = v42;
           v29 = "  Generated RESOURCE_NOTIFY report for %@ within the past %d seconds (%.4lf). Disallow report.";
           v30 = v27;
           v31 = 28;
@@ -1474,13 +1462,13 @@ LABEL_33:
       {
         v43 = v41;
         v44 = [v23 count];
-        v47 = 134218498;
-        v48 = v44;
-        v49 = 2112;
-        *v50 = v11;
-        *&v50[8] = 1024;
-        *&v50[10] = 5;
-        _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_DEBUG, "  %ld reports for %@ is still under the limit of %d. Allowing report.", &v47, 0x1Cu);
+        v46 = 134218498;
+        v47 = v44;
+        v48 = 2112;
+        *v49 = v11;
+        *&v49[8] = 1024;
+        *&v49[10] = 5;
+        _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_DEBUG, "  %ld reports for %@ is still under the limit of %d. Allowing report.", &v46, 0x1Cu);
       }
 
       selfCopy2 = self;
@@ -1493,15 +1481,15 @@ LABEL_33:
     {
       if (v25)
       {
-        v47 = 138413058;
-        v48 = v8;
-        v49 = 2112;
-        *v50 = v9;
-        *&v50[8] = 2112;
-        *&v50[10] = v10;
-        v51 = 2112;
-        v52 = v11;
-        _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEBUG, "  No report record for %@ : %@ : %@ (%@). Allowing report.", &v47, 0x2Au);
+        v46 = 138413058;
+        v47 = v8;
+        v48 = 2112;
+        *v49 = v9;
+        *&v49[8] = 2112;
+        *&v49[10] = v10;
+        v50 = 2112;
+        v51 = v11;
+        _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEBUG, "  No report record for %@ : %@ : %@ (%@). Allowing report.", &v46, 0x2Au);
       }
 
       selfCopy2 = self;
@@ -1519,19 +1507,18 @@ LABEL_33:
   v7 = 1;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v47) = 0;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "Resource notify microstackshot log dampening is disabled - allowing.", &v47, 2u);
+    LOWORD(v46) = 0;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "Resource notify microstackshot log dampening is disabled - allowing.", &v46, 2u);
   }
 
 LABEL_34:
 
-  v45 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)recordReportForSignature:(id)signature aggregateReport:(id)report specificReport:(id)specificReport
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   reportCopy = report;
   specificReportCopy = specificReport;
   v10 = *MEMORY[0x277D6B1C8];
@@ -1545,8 +1532,8 @@ LABEL_34:
   v17 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v22) = 0;
-    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEBUG, "Updating RESOURCE_NOTIFY aggregate report statistics.", &v22, 2u);
+    LOWORD(v21) = 0;
+    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEBUG, "Updating RESOURCE_NOTIFY aggregate report statistics.", &v21, 2u);
   }
 
   if (reportCopy)
@@ -1567,15 +1554,15 @@ LABEL_34:
   v19 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v22 = 138413058;
-    v23 = v12;
-    v24 = 2112;
-    v25 = v13;
-    v26 = 2112;
-    v27 = v14;
-    v28 = 2112;
-    v29 = v15;
-    _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "Updating RESOURCE_NOTIFY report statistics for %@ : %@ : %@ : %@", &v22, 0x2Au);
+    v21 = 138413058;
+    v22 = v12;
+    v23 = 2112;
+    v24 = v13;
+    v25 = 2112;
+    v26 = v14;
+    v27 = 2112;
+    v28 = v15;
+    _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "Updating RESOURCE_NOTIFY report statistics for %@ : %@ : %@ : %@", &v21, 0x2Au);
   }
 
   if (specificReportCopy)
@@ -1592,13 +1579,11 @@ LABEL_34:
     [date timeIntervalSince1970];
     [(ArbitratorExpertSystemHandler *)self _addReportRecordWithKey:v20 count:1 lastSeen:?];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)triggerABCSnapshotWithSignature:(id)signature events:(id)events uuid:(id)uuid parameters:(id)parameters
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   signatureCopy = signature;
   eventsCopy = events;
   uuidCopy = uuid;
@@ -1613,11 +1598,11 @@ LABEL_34:
       v15 = uuidCopy;
     }
 
-    v28 = v15;
-    v29 = 2112;
-    v30 = signatureCopy;
-    v31 = 2112;
-    v32 = eventsCopy;
+    v27 = v15;
+    v28 = 2112;
+    v29 = signatureCopy;
+    v30 = 2112;
+    v31 = eventsCopy;
     _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "Triggering a case for (%@) via SPI with signature: %@ events: %@", buf, 0x20u);
   }
 
@@ -1625,17 +1610,17 @@ LABEL_34:
   {
     v16 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:uuidCopy];
     queue = [(ExpertSystemHandlerCore *)self queue];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_uuid_parameters___block_invoke;
-    v22[3] = &unk_27898EF98;
-    v23 = signatureCopy;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_uuid_parameters___block_invoke;
+    v21[3] = &unk_27898EF98;
+    v22 = signatureCopy;
     selfCopy = self;
-    v25 = eventsCopy;
-    v26 = parametersCopy;
-    [FlowAnalyticsEngine identifierForUUID:v16 replyQueue:queue reply:v22];
+    v24 = eventsCopy;
+    v25 = parametersCopy;
+    [FlowAnalyticsEngine identifierForUUID:v16 replyQueue:queue reply:v21];
 
-    v18 = v23;
+    v18 = v22;
   }
 
   else
@@ -1646,8 +1631,6 @@ LABEL_34:
 
     [v18 snapshotWithSignature:signatureCopy duration:eventsCopy events:parametersCopy payload:&__block_literal_global_221 reply:0.0];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_uuid_parameters___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1704,74 +1687,68 @@ void __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_
 
 void __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_uuid_parameters___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "ABC response was %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "ABC response was %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_uuid_parameters___block_invoke_219(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "ABC response was %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "ABC response was %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)setupParametersForDESysLogFilterProcess:(id)process
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   processCopy = process;
   if ([processCopy processName])
   {
     v4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:{objc_msgSend(processCopy, "processName")}];
     v5 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:{v4, 0}];
-    v24 = *MEMORY[0x277D6B130];
-    v22 = @"com.apple.PowerlogCore.DESysLogFilterProcess";
-    v20[0] = @"processNames";
-    v20[1] = @"loggingTimeframe";
-    v21[0] = v5;
+    v23 = *MEMORY[0x277D6B130];
+    v21 = @"com.apple.PowerlogCore.DESysLogFilterProcess";
+    v19[0] = @"processNames";
+    v19[1] = @"loggingTimeframe";
+    v20[0] = v5;
     v6 = [MEMORY[0x277CCABB0] numberWithInteger:3660];
-    v21[1] = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-    v23 = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-    v25[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v20[1] = v6;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+    v22 = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v24[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
   }
 
   else
   {
     processId = [processCopy processId];
-    v18 = *MEMORY[0x277D6B130];
-    v16 = @"com.apple.PowerlogCore.DESysLogFilterProcess";
-    v14 = @"processIDs";
+    v17 = *MEMORY[0x277D6B130];
+    v15 = @"com.apple.PowerlogCore.DESysLogFilterProcess";
+    v13 = @"processIDs";
     v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:processId];
-    v13 = v4;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
-    v15 = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-    v17 = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-    v19 = v7;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v12 = v4;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+    v14 = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+    v16 = v6;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+    v18 = v7;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1869,7 +1846,7 @@ void __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_
 
 - (id)_retrieveReportRecordForDomain:(id)domain type:(id)type subType:(id)subType process:(id)process
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   domainCopy = domain;
   typeCopy = type;
   subTypeCopy = subType;
@@ -1885,7 +1862,7 @@ void __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v32 = v15;
+        v31 = v15;
         _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEBUG, "Attempting to retrieve record for key %@", buf, 0xCu);
       }
 
@@ -1898,7 +1875,7 @@ void __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_
         if (v20)
         {
           [v20 objectForKeyedSubscript:@"count"];
-          v22 = v30 = v14;
+          v22 = v29 = v14;
           v23 = [v21 objectForKeyedSubscript:@"lastSeen"];
           v24 = objc_alloc_init(RNReportRecord);
           -[RNReportRecord setCount:](v24, "setCount:", [v22 integerValue]);
@@ -1906,7 +1883,7 @@ void __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_
           [(RNReportRecord *)v24 setLastSeen:?];
           [(RNReportRecord *)v24 setKeyString:v15];
 
-          v14 = v30;
+          v14 = v29;
         }
 
         else
@@ -1915,7 +1892,7 @@ void __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_
           if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v32 = v15;
+            v31 = v15;
             _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_INFO, "Could not find a record for key %@", buf, 0xCu);
           }
 
@@ -1929,7 +1906,7 @@ void __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_
         if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v32 = @"com.apple.symptomsd.ResourceNotify";
+          v31 = @"com.apple.symptomsd.ResourceNotify";
           _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_ERROR, "Unable to initialize user defaults for %@!", buf, 0xCu);
         }
 
@@ -1963,14 +1940,12 @@ void __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_
     v24 = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v24;
 }
 
 - (void)_addReportRecordWithKey:(id)key count:(int64_t)count lastSeen:(double)seen
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if ([(__CFString *)keyCopy length])
   {
@@ -1979,23 +1954,23 @@ void __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_
     if (v9)
     {
       v10 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSince1970:seen];
-      v23[0] = @"count";
+      v22[0] = @"count";
       v11 = [MEMORY[0x277CCABB0] numberWithInteger:count];
-      v23[1] = @"lastSeen";
-      v24[0] = v11;
-      v24[1] = v10;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+      v22[1] = @"lastSeen";
+      v23[0] = v11;
+      v23[1] = v10;
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
 
       v13 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
       {
-        v17 = 138412802;
-        v18 = keyCopy;
-        v19 = 2048;
+        v16 = 138412802;
+        v17 = keyCopy;
+        v18 = 2048;
         seenCopy = seen;
-        v21 = 2048;
+        v20 = 2048;
         countCopy = count;
-        _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_INFO, "Creating record for %@ (lastSeen: %.0lf, count: %ld)", &v17, 0x20u);
+        _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_INFO, "Creating record for %@ (lastSeen: %.0lf, count: %ld)", &v16, 0x20u);
       }
 
       [v9 setObject:v12 forKey:keyCopy];
@@ -2006,9 +1981,9 @@ void __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_
       v15 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v17 = 138412290;
-        v18 = @"com.apple.symptomsd.ResourceNotify";
-        _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "Unable to initialize user defaults for %@!", &v17, 0xCu);
+        v16 = 138412290;
+        v17 = @"com.apple.symptomsd.ResourceNotify";
+        _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "Unable to initialize user defaults for %@!", &v16, 0xCu);
       }
     }
 
@@ -2020,17 +1995,15 @@ void __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_
     v14 = debuggabilityLogHandle;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "A valid record key is required", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "A valid record key is required", &v16, 2u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_saveReportRecord:(id)record
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   recordCopy = record;
   if (recordCopy)
   {
@@ -2044,25 +2017,25 @@ void __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_
         v7 = objc_alloc(MEMORY[0x277CBEAA8]);
         [recordCopy lastSeen];
         v8 = [v7 initWithTimeIntervalSince1970:?];
-        v24[0] = @"count";
+        v23[0] = @"count";
         v9 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(recordCopy, "count")}];
-        v24[1] = @"lastSeen";
-        v25[0] = v9;
-        v25[1] = v8;
-        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+        v23[1] = @"lastSeen";
+        v24[0] = v9;
+        v24[1] = v8;
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
 
         v11 = debuggabilityLogHandle;
         if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
         {
           v12 = v11;
           [recordCopy lastSeen];
-          v18 = 138412802;
-          v19 = keyString;
-          v20 = 2048;
-          v21 = v13;
-          v22 = 2048;
-          v23 = [recordCopy count];
-          _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_INFO, "Upating record for %@ to (lastSeen: %.0lf, count: %ld)", &v18, 0x20u);
+          v17 = 138412802;
+          v18 = keyString;
+          v19 = 2048;
+          v20 = v13;
+          v21 = 2048;
+          v22 = [recordCopy count];
+          _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_INFO, "Upating record for %@ to (lastSeen: %.0lf, count: %ld)", &v17, 0x20u);
         }
 
         [v6 setObject:v10 forKey:keyString];
@@ -2073,9 +2046,9 @@ void __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_
         v16 = debuggabilityLogHandle;
         if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
         {
-          v18 = 138412290;
-          v19 = @"com.apple.symptomsd.ResourceNotify";
-          _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "Unable to initialize user defaults for %@!", &v18, 0xCu);
+          v17 = 138412290;
+          v18 = @"com.apple.symptomsd.ResourceNotify";
+          _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "Unable to initialize user defaults for %@!", &v17, 0xCu);
         }
       }
     }
@@ -2085,8 +2058,8 @@ void __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_
       v15 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v18) = 0;
-        _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "ReportRecord has a nil key string!", &v18, 2u);
+        LOWORD(v17) = 0;
+        _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "ReportRecord has a nil key string!", &v17, 2u);
       }
     }
 
@@ -2098,17 +2071,15 @@ void __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_
     v14 = debuggabilityLogHandle;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "A valid report record is required when updating", &v18, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "A valid report record is required when updating", &v17, 2u);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeReportRecordForKey:(id)key
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if ([(__CFString *)keyCopy length])
   {
@@ -2119,9 +2090,9 @@ void __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_
     {
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
       {
-        v9 = 138412290;
-        v10 = keyCopy;
-        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "Removing record for %@", &v9, 0xCu);
+        v8 = 138412290;
+        v9 = keyCopy;
+        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "Removing record for %@", &v8, 0xCu);
       }
 
       [v5 removeObjectForKey:keyCopy];
@@ -2129,9 +2100,9 @@ void __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_
 
     else if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412290;
-      v10 = @"com.apple.symptomsd.ResourceNotify";
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Unable to initialize user defaults for %@!", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = @"com.apple.symptomsd.ResourceNotify";
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Unable to initialize user defaults for %@!", &v8, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -2142,12 +2113,10 @@ void __88__ArbitratorExpertSystemHandler_triggerABCSnapshotWithSignature_events_
     v7 = debuggabilityLogHandle;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "A valid record key is required for removing", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "A valid record key is required for removing", &v8, 2u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeSetupAssistantFinished

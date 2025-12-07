@@ -12,32 +12,32 @@
 
 - (void)_getCacheIds
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   allValues = [(NSDictionary *)self->_fileRequests allValues];
   allFileRequests = self->_allFileRequests;
   self->_allFileRequests = allValues;
 
   strongToStrongObjectsMapTable = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v6 = self->_allFileRequests;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v26;
+    v9 = *v25;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v26 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * i);
+        v11 = *(*(&v24 + 1) + 8 * i);
         fileIdentifier = [v11 fileIdentifier];
         v13 = [strongToStrongObjectsMapTable objectForKey:objc_opt_class()];
 
@@ -51,47 +51,45 @@
         [v13 addObject:v11];
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v8);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   objectEnumerator = [strongToStrongObjectsMapTable objectEnumerator];
-  v16 = [objectEnumerator countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v16 = [objectEnumerator countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v22;
+    v18 = *v21;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v22 != v18)
+        if (*v21 != v18)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        [(QLCacheIndexDatabaseQueryEnumerator *)self _getCacheIdsForHomogeneousArrayOfRequests:*(*(&v21 + 1) + 8 * j)];
+        [(QLCacheIndexDatabaseQueryEnumerator *)self _getCacheIdsForHomogeneousArrayOfRequests:*(*(&v20 + 1) + 8 * j)];
       }
 
-      v17 = [objectEnumerator countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v17 = [objectEnumerator countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v17);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)nextThumbnailInfo
 {
   selfCopy = self;
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   p_stmt = &self->super._stmt;
   if (self->super._stmt)
   {
@@ -102,29 +100,29 @@
   {
     array = [MEMORY[0x277CBEB18] array];
     v5 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:{@"SELECT file_id, size, icon_mode, bitmapFormat, bitmapdata_location, bitmapdata_length, plistbuffer_location, plistbuffer_length, flavor, content_rect, hit_count, last_hit_date, badge_type, icon_variant, interpolation, externalGeneratorDataHash FROM thumbnails WHERE "}];
+    v85 = 0u;
     v86 = 0u;
     v87 = 0u;
     v88 = 0u;
-    v89 = 0u;
     v6 = selfCopy->_allFileRequests;
-    v66 = [(NSArray *)v6 countByEnumeratingWithState:&v86 objects:v90 count:16];
-    if (v66)
+    v65 = [(NSArray *)v6 countByEnumeratingWithState:&v85 objects:v89 count:16];
+    if (v65)
     {
-      v62 = selfCopy;
+      v61 = selfCopy;
       hasAtLeastOneLowQuality = 0;
       v7 = 0;
-      v65 = *v87;
-      v63 = v6;
+      v64 = *v86;
+      v62 = v6;
       do
       {
-        for (i = 0; i != v66; ++i)
+        for (i = 0; i != v65; ++i)
         {
-          if (*v87 != v65)
+          if (*v86 != v64)
           {
             objc_enumerationMutation(v6);
           }
 
-          v9 = *(*(&v86 + 1) + 8 * i);
+          v9 = *(*(&v85 + 1) + 8 * i);
           if ([v9 cacheId])
           {
             if (v7 >= 1)
@@ -154,7 +152,7 @@
 
             if (([v9 allSizes] & 1) == 0 && (objc_msgSend(v9, "hasAtLeastOneLowQuality") & 1) == 0)
             {
-              v64 = v7;
+              v63 = v7;
               objc_msgSend(v5, "appendFormat:", @" AND (");
               sizeAndIconModeCount = [v9 sizeAndIconModeCount];
               if (sizeAndIconModeCount >= 1)
@@ -177,102 +175,102 @@
                   [v9 sizeAtIndex:j];
                   v18 = v17;
                   [v5 appendFormat:@"(size=? AND icon_mode=? AND badge_type=? AND icon_variant=? AND interpolation=? AND externalGeneratorDataHash=?)"];
-                  v83[0] = MEMORY[0x277D85DD0];
-                  v83[1] = 3221225472;
-                  v83[2] = __56__QLCacheIndexDatabaseQueryEnumerator_nextThumbnailInfo__block_invoke_2;
-                  v83[3] = &__block_descriptor_36_e47_v28__0i8__sqlite3_stmt__12__QLSqliteDatabase_20l;
-                  v84 = v18;
-                  v19 = _Block_copy(v83);
-                  [array addObject:v19];
-
                   v82[0] = MEMORY[0x277D85DD0];
                   v82[1] = 3221225472;
-                  v82[2] = __56__QLCacheIndexDatabaseQueryEnumerator_nextThumbnailInfo__block_invoke_3;
-                  v82[3] = &unk_279ADD630;
-                  v82[4] = v9;
-                  v82[5] = j;
-                  v20 = _Block_copy(v82);
-                  [array addObject:v20];
+                  v82[2] = __56__QLCacheIndexDatabaseQueryEnumerator_nextThumbnailInfo__block_invoke_2;
+                  v82[3] = &__block_descriptor_36_e47_v28__0i8__sqlite3_stmt__12__QLSqliteDatabase_20l;
+                  v83 = v18;
+                  v19 = _Block_copy(v82);
+                  [array addObject:v19];
 
                   v81[0] = MEMORY[0x277D85DD0];
                   v81[1] = 3221225472;
-                  v81[2] = __56__QLCacheIndexDatabaseQueryEnumerator_nextThumbnailInfo__block_invoke_4;
+                  v81[2] = __56__QLCacheIndexDatabaseQueryEnumerator_nextThumbnailInfo__block_invoke_3;
                   v81[3] = &unk_279ADD630;
                   v81[4] = v9;
                   v81[5] = j;
-                  v21 = _Block_copy(v81);
-                  [array addObject:v21];
+                  v20 = _Block_copy(v81);
+                  [array addObject:v20];
 
                   v80[0] = MEMORY[0x277D85DD0];
                   v80[1] = 3221225472;
-                  v80[2] = __56__QLCacheIndexDatabaseQueryEnumerator_nextThumbnailInfo__block_invoke_5;
+                  v80[2] = __56__QLCacheIndexDatabaseQueryEnumerator_nextThumbnailInfo__block_invoke_4;
                   v80[3] = &unk_279ADD630;
                   v80[4] = v9;
                   v80[5] = j;
-                  v22 = _Block_copy(v80);
-                  [array addObject:v22];
+                  v21 = _Block_copy(v80);
+                  [array addObject:v21];
 
                   v79[0] = MEMORY[0x277D85DD0];
                   v79[1] = 3221225472;
-                  v79[2] = __56__QLCacheIndexDatabaseQueryEnumerator_nextThumbnailInfo__block_invoke_6;
+                  v79[2] = __56__QLCacheIndexDatabaseQueryEnumerator_nextThumbnailInfo__block_invoke_5;
                   v79[3] = &unk_279ADD630;
                   v79[4] = v9;
                   v79[5] = j;
-                  v23 = _Block_copy(v79);
-                  [array addObject:v23];
+                  v22 = _Block_copy(v79);
+                  [array addObject:v22];
 
                   v78[0] = MEMORY[0x277D85DD0];
                   v78[1] = 3221225472;
-                  v78[2] = __56__QLCacheIndexDatabaseQueryEnumerator_nextThumbnailInfo__block_invoke_7;
+                  v78[2] = __56__QLCacheIndexDatabaseQueryEnumerator_nextThumbnailInfo__block_invoke_6;
                   v78[3] = &unk_279ADD630;
                   v78[4] = v9;
                   v78[5] = j;
-                  v24 = _Block_copy(v78);
+                  v23 = _Block_copy(v78);
+                  [array addObject:v23];
+
+                  v77[0] = MEMORY[0x277D85DD0];
+                  v77[1] = 3221225472;
+                  v77[2] = __56__QLCacheIndexDatabaseQueryEnumerator_nextThumbnailInfo__block_invoke_7;
+                  v77[3] = &unk_279ADD630;
+                  v77[4] = v9;
+                  v77[5] = j;
+                  v24 = _Block_copy(v77);
                   [array addObject:v24];
 
                   v25 = fmaxf(v18 + v18, 1024.0);
                   [v5 appendFormat:@" AND (width<=? OR height<=?)"];
-                  v76[0] = MEMORY[0x277D85DD0];
-                  v76[1] = 3221225472;
-                  v76[2] = __56__QLCacheIndexDatabaseQueryEnumerator_nextThumbnailInfo__block_invoke_8;
-                  v76[3] = &__block_descriptor_36_e47_v28__0i8__sqlite3_stmt__12__QLSqliteDatabase_20l;
-                  v77 = v25;
-                  v26 = _Block_copy(v76);
+                  v75[0] = MEMORY[0x277D85DD0];
+                  v75[1] = 3221225472;
+                  v75[2] = __56__QLCacheIndexDatabaseQueryEnumerator_nextThumbnailInfo__block_invoke_8;
+                  v75[3] = &__block_descriptor_36_e47_v28__0i8__sqlite3_stmt__12__QLSqliteDatabase_20l;
+                  v76 = v25;
+                  v26 = _Block_copy(v75);
                   [array addObject:v26];
 
-                  v74[0] = MEMORY[0x277D85DD0];
-                  v74[1] = 3221225472;
-                  v74[2] = __56__QLCacheIndexDatabaseQueryEnumerator_nextThumbnailInfo__block_invoke_9;
-                  v74[3] = &__block_descriptor_36_e47_v28__0i8__sqlite3_stmt__12__QLSqliteDatabase_20l;
-                  v75 = v25;
-                  v27 = _Block_copy(v74);
+                  v73[0] = MEMORY[0x277D85DD0];
+                  v73[1] = 3221225472;
+                  v73[2] = __56__QLCacheIndexDatabaseQueryEnumerator_nextThumbnailInfo__block_invoke_9;
+                  v73[3] = &__block_descriptor_36_e47_v28__0i8__sqlite3_stmt__12__QLSqliteDatabase_20l;
+                  v74 = v25;
+                  v27 = _Block_copy(v73);
                   [array addObject:v27];
 
                   if (v16 > 0.0)
                   {
                     [v5 appendFormat:@" AND width>=? AND height>=?"]);
-                    v72[0] = MEMORY[0x277D85DD0];
-                    v72[1] = 3221225472;
-                    v72[2] = __56__QLCacheIndexDatabaseQueryEnumerator_nextThumbnailInfo__block_invoke_10;
-                    v72[3] = &__block_descriptor_36_e47_v28__0i8__sqlite3_stmt__12__QLSqliteDatabase_20l;
-                    v73 = v16;
-                    v28 = _Block_copy(v72);
+                    v71[0] = MEMORY[0x277D85DD0];
+                    v71[1] = 3221225472;
+                    v71[2] = __56__QLCacheIndexDatabaseQueryEnumerator_nextThumbnailInfo__block_invoke_10;
+                    v71[3] = &__block_descriptor_36_e47_v28__0i8__sqlite3_stmt__12__QLSqliteDatabase_20l;
+                    v72 = v16;
+                    v28 = _Block_copy(v71);
                     [array addObject:v28];
 
-                    v70[0] = MEMORY[0x277D85DD0];
-                    v70[1] = 3221225472;
-                    v70[2] = __56__QLCacheIndexDatabaseQueryEnumerator_nextThumbnailInfo__block_invoke_11;
-                    v70[3] = &__block_descriptor_36_e47_v28__0i8__sqlite3_stmt__12__QLSqliteDatabase_20l;
-                    v71 = v16;
-                    v29 = _Block_copy(v70);
+                    v69[0] = MEMORY[0x277D85DD0];
+                    v69[1] = 3221225472;
+                    v69[2] = __56__QLCacheIndexDatabaseQueryEnumerator_nextThumbnailInfo__block_invoke_11;
+                    v69[3] = &__block_descriptor_36_e47_v28__0i8__sqlite3_stmt__12__QLSqliteDatabase_20l;
+                    v70 = v16;
+                    v29 = _Block_copy(v69);
                     [array addObject:v29];
                   }
                 }
               }
 
               [v5 appendString:@""]);
-              v6 = v63;
-              v7 = v64;
+              v6 = v62;
+              v7 = v63;
             }
 
             ++v7;
@@ -280,20 +278,20 @@
           }
         }
 
-        v66 = [(NSArray *)v6 countByEnumeratingWithState:&v86 objects:v90 count:16];
+        v65 = [(NSArray *)v6 countByEnumeratingWithState:&v85 objects:v89 count:16];
       }
 
-      while (v66);
+      while (v65);
 
       if (hasAtLeastOneLowQuality)
       {
         [v5 appendString:{@" ORDER BY file_id, icon_mode ASC, size ASC"}];
       }
 
-      selfCopy = v62;
+      selfCopy = v61;
       if (v7 >= 1)
       {
-        v62->super._stmt = -[QLSqliteDatabase prepareStatement:](v62->super._sqliteDatabase, "prepareStatement:", [v5 UTF8String]);
+        v61->super._stmt = -[QLSqliteDatabase prepareStatement:](v61->super._sqliteDatabase, "prepareStatement:", [v5 UTF8String]);
       }
     }
 
@@ -331,11 +329,11 @@ LABEL_49:
     while (v32 < v34);
   }
 
-  v69 = 0;
+  v68 = 0;
   do
   {
 LABEL_41:
-    if (![(QLSqliteDatabase *)selfCopy->super._sqliteDatabase stepStatement:selfCopy->super._stmt didReturnData:&v69]|| v69 != 1)
+    if (![(QLSqliteDatabase *)selfCopy->super._sqliteDatabase stepStatement:selfCopy->super._stmt didReturnData:&v68]|| v68 != 1)
     {
       [(QLSqliteDatabase *)selfCopy->super._sqliteDatabase finalizeStatement:p_stmt];
       goto LABEL_49;
@@ -377,9 +375,9 @@ LABEL_41:
   v39->_size = v46;
   v39->_iconMode = [(QLSqliteDatabase *)v39->super._sqliteDatabase intFromColumn:2 inStatement:v39->super._stmt];
   v47 = [(QLSqliteDatabase *)v39->super._sqliteDatabase newDataFromColumn:3 inStatement:v39->super._stmt copyBytes:0];
-  v68 = 0;
-  v48 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v47 error:&v68];
-  v49 = v68;
+  v67 = 0;
+  v48 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v47 error:&v67];
+  v49 = v67;
   bitmapFormat = v39->_bitmapFormat;
   v39->_bitmapFormat = v48;
 
@@ -426,7 +424,6 @@ LABEL_41:
   v42 = 1;
 LABEL_56:
 
-  v60 = *MEMORY[0x277D85DE8];
   return v42;
 }
 
@@ -461,29 +458,29 @@ LABEL_56:
 
 - (void)_getCacheIdsForHomogeneousArrayOfRequests:(id)requests
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
-  v5 = [requestsCopy countByEnumeratingWithState:&v46 objects:v51 count:16];
+  v5 = [requestsCopy countByEnumeratingWithState:&v45 objects:v50 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
     v8 = 0;
-    v9 = *v47;
+    v9 = *v46;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v47 != v9)
+        if (*v46 != v9)
         {
           objc_enumerationMutation(requestsCopy);
         }
 
-        v11 = *(*(&v46 + 1) + 8 * i);
+        v11 = *(*(&v45 + 1) + 8 * i);
         if (v8)
         {
           [v8 appendString:@" OR "];
@@ -491,7 +488,7 @@ LABEL_56:
 
         else
         {
-          fileIdentifier = [*(*(&v46 + 1) + 8 * i) fileIdentifier];
+          fileIdentifier = [*(*(&v45 + 1) + 8 * i) fileIdentifier];
           v7 = objc_opt_class();
 
           queryStringToFindCacheIds = [v7 queryStringToFindCacheIds];
@@ -503,7 +500,7 @@ LABEL_56:
         [v8 appendString:whereClauseToFindCacheId];
       }
 
-      v6 = [requestsCopy countByEnumeratingWithState:&v46 objects:v51 count:16];
+      v6 = [requestsCopy countByEnumeratingWithState:&v45 objects:v50 count:16];
     }
 
     while (v6);
@@ -515,52 +512,52 @@ LABEL_56:
     v8 = 0;
   }
 
-  v45 = 0;
+  v44 = 0;
   v16 = -[QLSqliteDatabase prepareStatement:](self->super._sqliteDatabase, "prepareStatement:", [v8 UTF8String]);
-  v45 = v16;
+  v44 = v16;
   if (v16)
   {
     v17 = v16;
-    v44 = 1;
+    v43 = 1;
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v18 = requestsCopy;
-    v19 = [v18 countByEnumeratingWithState:&v40 objects:v50 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v39 objects:v49 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v41;
+      v21 = *v40;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v41 != v21)
+          if (*v40 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          fileIdentifier3 = [*(*(&v40 + 1) + 8 * j) fileIdentifier];
-          [fileIdentifier3 bindInFindCacheIdStatement:v17 database:self->super._sqliteDatabase startingAtIndex:v44 gettingNextIndex:&v44];
+          fileIdentifier3 = [*(*(&v39 + 1) + 8 * j) fileIdentifier];
+          [fileIdentifier3 bindInFindCacheIdStatement:v17 database:self->super._sqliteDatabase startingAtIndex:v43 gettingNextIndex:&v43];
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v40 objects:v50 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v39 objects:v49 count:16];
       }
 
       while (v20);
     }
 
-    v39 = 0;
-    if ([(QLSqliteDatabase *)self->super._sqliteDatabase stepStatement:v17 didReturnData:&v39]&& (v39 & 1) != 0)
+    v38 = 0;
+    if ([(QLSqliteDatabase *)self->super._sqliteDatabase stepStatement:v17 didReturnData:&v38]&& (v38 & 1) != 0)
     {
       v24 = 0x27FEB4000uLL;
       do
       {
         v25 = [v7 cacheIdFromRowId:{-[QLSqliteDatabase unsignedLongLongFromColumn:inStatement:](self->super._sqliteDatabase, "unsignedLongLongFromColumn:inStatement:", 0, v17)}];
         v26 = objc_alloc([v7 versionedFileIdentifierClass]);
-        v17 = v45;
-        v27 = [v26 initWithSteppedStatement:v45 database:self->super._sqliteDatabase];
+        v17 = v44;
+        v27 = [v26 initWithSteppedStatement:v44 database:self->super._sqliteDatabase];
         fileIdentifier4 = [v27 fileIdentifier];
         if (fileIdentifier4)
         {
@@ -568,28 +565,12 @@ LABEL_56:
           v30 = v29;
           if (v29)
           {
-            v38 = v25;
+            v37 = v25;
             version = [v29 version];
 
-            if (!version)
+            if (!version || ([v27 version], (v32 = objc_claimAutoreleasedReturnValue()) != 0) && (v36 = v32, objc_msgSend(v27, "version"), v33 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v30, "version"), v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v33, "isEqual:", v34), v34, v24 = 0x27FEB4000, v33, v36, v35))
             {
-              goto LABEL_29;
-            }
-
-            version2 = [v27 version];
-            if (version2)
-            {
-              v37 = version2;
-              version3 = [v27 version];
-              version4 = [v30 version];
-              v36 = [version3 isEqual:version4];
-
-              v24 = 0x27FEB4000;
-              if (v36)
-              {
-LABEL_29:
-                [v30 _setCacheId:v38];
-              }
+              [v30 _setCacheId:v37];
             }
           }
         }
@@ -600,13 +581,11 @@ LABEL_29:
         }
       }
 
-      while ([(QLSqliteDatabase *)self->super._sqliteDatabase stepStatement:v17 didReturnData:&v39]&& (v39 & 1) != 0);
+      while ([(QLSqliteDatabase *)self->super._sqliteDatabase stepStatement:v17 didReturnData:&v38]&& (v38 & 1) != 0);
     }
 
-    [(QLSqliteDatabase *)self->super._sqliteDatabase finalizeStatement:&v45];
+    [(QLSqliteDatabase *)self->super._sqliteDatabase finalizeStatement:&v44];
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __56__QLCacheIndexDatabaseQueryEnumerator_nextThumbnailInfo__block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -664,13 +643,12 @@ void __56__QLCacheIndexDatabaseQueryEnumerator_nextThumbnailInfo__block_invoke_7
 
 - (void)nextThumbnailInfo
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_2615D3000, log, OS_LOG_TYPE_ERROR, "cannot create the bitmap format based on data %@ : %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_2615D3000, log, OS_LOG_TYPE_ERROR, "cannot create the bitmap format based on data %@ : %@", &v3, 0x16u);
 }
 
 @end

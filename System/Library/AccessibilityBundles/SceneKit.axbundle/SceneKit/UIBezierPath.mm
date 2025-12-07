@@ -3,11 +3,11 @@
 
 @implementation UIBezierPath
 
-uint64_t __73__UIBezierPath_AXAdditions__accessibilityBezierPathWithSCNVector3Points___block_invoke(uint64_t result, void *a2, uint64_t a3)
+void *__73__UIBezierPath_AXAdditions__accessibilityBezierPathWithSCNVector3Points___block_invoke(void *result, void *a2, uint64_t a3)
 {
   if (a3)
   {
-    v3 = *(result + 32);
+    v3 = result[4];
     v4 = a2;
     [v4 SCNVector3Value];
     v6 = v5;

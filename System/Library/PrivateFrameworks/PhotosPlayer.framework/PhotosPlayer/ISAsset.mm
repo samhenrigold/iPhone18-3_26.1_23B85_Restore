@@ -1,6 +1,7 @@
 @interface ISAsset
 + (id)assetForURL:(id)l error:(id *)error;
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)photoCMTime;
+- (ISAsset)initWithVideoAsset:(id)asset UIImage:(id)image photoTime:(double)time photoEXIFOrientation:(int)orientation options:(unint64_t)options;
 - (ISAsset)initWithVideoAsset:(id)asset photo:(CGImage *)photo photoTime:(double)time photoEXIFOrientation:(int)orientation options:(unint64_t)options;
 - (id)description;
 - (void)dealloc;
@@ -24,9 +25,25 @@
 
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)photoCMTime
 {
-  [(ISAsset *)self photoTime];
+  objc_msgSend_photoTime(self, a3);
 
   return CMTimeMakeWithSeconds(retstr, v4, 1000);
+}
+
+- (ISAsset)initWithVideoAsset:(id)asset UIImage:(id)image photoTime:(double)time photoEXIFOrientation:(int)orientation options:(unint64_t)options
+{
+  v8 = *&orientation;
+  imageCopy = image;
+  v14 = imageCopy;
+  assetCopy = asset;
+  v16 = -[ISAsset initWithVideoAsset:photo:photoTime:photoEXIFOrientation:options:](self, "initWithVideoAsset:photo:photoTime:photoEXIFOrientation:options:", assetCopy, [imageCopy CGImage], v8, options, time);
+
+  if (v16)
+  {
+    objc_storeStrong(&v16->_UIImage, image);
+  }
+
+  return v16;
 }
 
 - (ISAsset)initWithVideoAsset:(id)asset photo:(CGImage *)photo photoTime:(double)time photoEXIFOrientation:(int)orientation options:(unint64_t)options
@@ -80,7 +97,7 @@
 
 + (id)assetForURL:(id)l error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (l)
   {
     v6 = MEMORY[0x277D3B520];
@@ -91,20 +108,20 @@
     videoPath = [v8 videoPath];
     if (v8)
     {
-      [v8 imageDisplayTime];
-      flags = v24.flags;
-      epoch = v24.epoch;
+      objc_msgSend_imageDisplayTime(v8);
+      flags = v23.flags;
+      epoch = v23.epoch;
     }
 
     else
     {
       epoch = 0;
       flags = 0;
-      memset(&v24, 0, sizeof(v24));
+      memset(&v23, 0, sizeof(v23));
     }
 
-    value = v24.value;
-    timescale = v24.timescale;
+    value = v23.value;
+    timescale = v23.timescale;
     if (imagePath)
     {
       v14 = [objc_alloc(MEMORY[0x277D755B8]) initWithContentsOfFile:imagePath];
@@ -119,11 +136,11 @@
           Seconds = 0.0;
           if (flags)
           {
-            v24.value = value;
-            v24.timescale = timescale;
-            v24.flags = flags;
-            v24.epoch = epoch;
-            Seconds = CMTimeGetSeconds(&v24);
+            v23.value = value;
+            v23.timescale = timescale;
+            v23.flags = flags;
+            v23.epoch = epoch;
+            Seconds = CMTimeGetSeconds(&v23);
           }
         }
 
@@ -175,8 +192,6 @@
       *error = 0;
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

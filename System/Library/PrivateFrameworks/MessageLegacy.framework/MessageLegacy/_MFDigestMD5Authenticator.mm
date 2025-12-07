@@ -41,21 +41,21 @@
 
 - (id)responseForServerData:(id)data
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   if ([(MFSASLAuthenticator *)self authenticationState]== 1)
   {
     bytes = [data bytes];
     v5 = [data length];
-    v76 = &bytes[v5];
-    v77 = 1;
-    v78 = 0u;
-    v79 = 0u;
-    v80 = 0;
+    v73 = &bytes[v5];
+    v74 = 1;
+    v75 = 0u;
+    v76 = 0u;
+    v77 = 0;
     if (v5 >= 1)
     {
       while (1)
       {
-        if (!v77)
+        if (!v74)
         {
           goto LABEL_142;
         }
@@ -63,8 +63,8 @@
         v6 = copyToken(&bytes);
         v7 = v6;
         v8 = bytes;
-        v9 = v76;
-        if (bytes >= v76)
+        v9 = v73;
+        if (bytes >= v73)
         {
           v10 = 0;
         }
@@ -96,7 +96,7 @@ LABEL_5:
             v10 = 0;
             v8 = v11 + 1;
             v11 = v8;
-            if (v8 < v76)
+            if (v8 < v73)
             {
               bytes = v8;
               goto LABEL_5;
@@ -108,7 +108,7 @@ LABEL_5:
         bytes = v8;
         if (v6)
         {
-          if (v11 >= v76 || *v11 != 61)
+          if (v11 >= v73 || *v11 != 61)
           {
             v15 = MFLogGeneral();
             if (!os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
@@ -131,7 +131,7 @@ LABEL_5:
 
           v13 = v11 + 1;
           bytes = v11 + 1;
-          if (v11 + 1 >= v76)
+          if (v11 + 1 >= v73)
           {
             v14 = 0;
           }
@@ -163,7 +163,7 @@ LABEL_18:
               v14 = 0;
               v13 = v17 + 1;
               v17 = v13;
-              if (v13 < v76)
+              if (v13 < v73)
               {
                 bytes = v13;
                 goto LABEL_18;
@@ -193,9 +193,9 @@ LABEL_18:
                           v21 = v53;
                           if (v53)
                           {
-                            if (!v79)
+                            if (!v76)
                             {
-                              *&v79 = [(__CFData *)v53 copy];
+                              *&v76 = [(__CFData *)v53 copy];
                             }
 
                             goto LABEL_118;
@@ -248,9 +248,9 @@ LABEL_60:
 
                         if (v20)
                         {
-                          if (!*(&v79 + 1))
+                          if (!*(&v76 + 1))
                           {
-                            *(&v79 + 1) = MFCreateDataWithString();
+                            *(&v76 + 1) = MFCreateDataWithString();
                           }
 
                           goto LABEL_118;
@@ -285,12 +285,12 @@ LABEL_102:
                               _os_log_impl(&dword_258BDA000, v52, OS_LOG_TYPE_INFO, "*** Unexpected value %@ for %@. Ignoring", &buf, 0x16u);
                             }
 
-                            LODWORD(v77) = 0;
+                            LODWORD(v74) = 0;
                           }
 
                           else
                           {
-                            LODWORD(v80) = v80 | 0x20;
+                            LODWORD(v77) = v77 | 0x20;
                           }
 
 LABEL_77:
@@ -345,9 +345,9 @@ LABEL_118:
                           goto LABEL_54;
                         }
 
-                        v46 = v80 | 0x10;
+                        v46 = v77 | 0x10;
 LABEL_117:
-                        LODWORD(v80) = v46;
+                        LODWORD(v77) = v46;
                         goto LABEL_118;
                       }
 
@@ -371,7 +371,7 @@ LABEL_117:
                         goto LABEL_118;
                       }
 
-                      v46 = v80 & 0xFFC0003F | (intValue << 6);
+                      v46 = v77 & 0xFFC0003F | (intValue << 6);
                       goto LABEL_117;
                     }
 
@@ -399,7 +399,7 @@ LABEL_117:
                       v45 = 0;
                     }
 
-                    v46 = v80 & 0xFFFFFFF7 | v45;
+                    v46 = v77 & 0xFFFFFFF7 | v45;
                     goto LABEL_117;
                   }
 
@@ -421,7 +421,7 @@ LABEL_117:
                   if (v35)
                   {
                     v36 = v35;
-                    v37 = v80;
+                    v37 = v77;
                     do
                     {
                       v38 = [(__CFString *)v34 objectAtIndex:--v36];
@@ -444,7 +444,7 @@ LABEL_117:
                     }
 
                     while (v36);
-                    LODWORD(v80) = v37;
+                    LODWORD(v77) = v37;
                   }
 
                   goto LABEL_77;
@@ -464,7 +464,7 @@ LABEL_117:
               if (v31)
               {
                 v21 = v31;
-                if (*(&v78 + 1))
+                if (*(&v75 + 1))
                 {
                   v32 = MFLogGeneral();
                   if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
@@ -474,11 +474,11 @@ LABEL_117:
                     _os_log_impl(&dword_258BDA000, v32, OS_LOG_TYPE_INFO, "*** Duplicate value for %@. Ignoring", &buf, 0xCu);
                   }
 
-                  LODWORD(v77) = 0;
+                  LODWORD(v74) = 0;
                   goto LABEL_118;
                 }
 
-                *(&v78 + 1) = v31;
+                *(&v75 + 1) = v31;
               }
 
               else
@@ -498,7 +498,7 @@ LABEL_117:
             if (v26)
             {
               v21 = v26;
-              if (v78)
+              if (v75)
               {
                 v27 = MFLogGeneral();
                 if (!os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
@@ -513,7 +513,7 @@ LABEL_117:
                 goto LABEL_60;
               }
 
-              *&v78 = v26;
+              *&v75 = v26;
             }
 
             else
@@ -529,7 +529,7 @@ LABEL_117:
 
         else
         {
-          if (v11 >= v76 || *v11 != 44)
+          if (v11 >= v73 || *v11 != 44)
           {
             v15 = MFLogGeneral();
             if (!os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
@@ -556,7 +556,7 @@ LABEL_51:
 LABEL_52:
             _os_log_impl(&dword_258BDA000, v23, OS_LOG_TYPE_INFO, v24, &buf, v25);
 LABEL_53:
-            LODWORD(v77) = 0;
+            LODWORD(v74) = 0;
             goto LABEL_54;
           }
 
@@ -565,9 +565,9 @@ LABEL_53:
 
 LABEL_54:
 
-        if (bytes >= v76)
+        if (bytes >= v73)
         {
-          if (!v77)
+          if (!v74)
           {
             goto LABEL_142;
           }
@@ -579,15 +579,15 @@ LABEL_54:
 
     if (*(self + 5))
     {
-      if (*(&v79 + 1))
+      if (*(&v76 + 1))
       {
-        if ([*(&v79 + 1) isEqual:?])
+        if ([*(&v76 + 1) isEqual:?])
         {
           [(_MFDigestMD5Authenticator *)self setAuthenticationState:4];
           data = [MEMORY[0x277CBEA90] data];
 LABEL_143:
 
-          goto LABEL_144;
+          return data;
         }
 
         v60 = MFLogGeneral();
@@ -617,21 +617,21 @@ LABEL_142:
       goto LABEL_143;
     }
 
-    v84 = 0u;
-    v85 = 0u;
-    v82 = 0u;
-    v83 = 0u;
     v81 = 0u;
-    v58 = v80;
-    if ((v80 & 0x20) != 0)
+    v82 = 0u;
+    v79 = 0u;
+    v80 = 0u;
+    v78 = 0u;
+    v58 = v77;
+    if ((v77 & 0x20) != 0)
     {
       if (MFGetRandomBytes())
       {
-        v64 = CFDataCreateWithBytesNoCopy(0, &buf, 16, *MEMORY[0x277CBED00]);
-        *&v81 = [(__CFData *)v64 mf_encodeBase64WithoutLineBreaks];
-        CFRelease(v64);
+        v63 = CFDataCreateWithBytesNoCopy(0, &buf, 16, *MEMORY[0x277CBED00]);
+        *&v78 = [(__CFData *)v63 mf_encodeBase64WithoutLineBreaks];
+        CFRelease(v63);
         [MEMORY[0x277CCACA8] stringWithFormat:@"%08x", 1];
-        *(&v81 + 1) = MFCreateDataWithString();
+        *(&v78 + 1) = MFCreateDataWithString();
         if ((v58 & 4) != 0)
         {
           [(_MFDigestMD5Authenticator *)self setSecurityLevel:2];
@@ -643,24 +643,19 @@ LABEL_142:
           [(_MFDigestMD5Authenticator *)self setSecurityLevel:1];
         }
 
-        v65 = [(_MFDigestMD5Authenticator *)self securityLevel]- 1;
-        if (v65 <= 2)
-        {
-          v66 = QOP_NAMES[v65];
-        }
-
-        *&v82 = MFCreateDataWithString();
+        [(_MFDigestMD5Authenticator *)self securityLevel];
+        *&v79 = MFCreateDataWithString();
         account = [(MFSASLAuthenticator *)self account];
         [MEMORY[0x277CCACA8] stringWithFormat:@"%@/%@", objc_msgSend(objc_opt_class(), "saslProfileName"), objc_msgSend(account, "hostname")];
         [account username];
-        *(&v82 + 1) = MFCreateDataWithString();
+        *(&v79 + 1) = MFCreateDataWithString();
         [account password];
-        *&v83 = MFCreateDataWithString();
-        *(&v83 + 1) = MFCreateDataWithString();
-        v68 = v78;
-        *&v84 = [v78 copy];
-        *(&v84 + 1) = _createResponseData(self, &v78, &v81, 1);
-        if (*(&v84 + 1))
+        *&v80 = MFCreateDataWithString();
+        *(&v80 + 1) = MFCreateDataWithString();
+        v65 = v75;
+        *&v81 = [v75 copy];
+        *(&v81 + 1) = _createResponseData(self, &v75, &v78, 1);
+        if (*(&v81 + 1))
         {
           securityLevel = [(_MFDigestMD5Authenticator *)self securityLevel];
           if (securityLevel == 2)
@@ -668,64 +663,64 @@ LABEL_142:
             memset(&buf, 0, sizeof(buf));
             [(_MFDigestMD5Authenticator *)self setCryptInfo:NSZoneCalloc([(_MFDigestMD5Authenticator *)self zone], 1uLL, 0x28uLL)];
             CC_MD5_Init(&buf);
-            CC_MD5_Update(&buf, &v85, 0x10u);
+            CC_MD5_Update(&buf, &v82, 0x10u);
             CC_MD5_Update(&buf, "Digest session key to server-to-client signing key magic constant", 0x41u);
             CC_MD5_Final(&self->_expectedResponse[3], &buf);
             CC_MD5_Init(&buf);
-            CC_MD5_Update(&buf, &v85, 0x10u);
+            CC_MD5_Update(&buf, &v82, 0x10u);
             CC_MD5_Update(&buf, "Digest session key to client-to-server signing key magic constant", 0x41u);
             CC_MD5_Final(&self->_expectedResponse[1], &buf);
           }
 
           else if (securityLevel == 3)
           {
-            v70 = MFLogGeneral();
-            if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
+            v67 = MFLogGeneral();
+            if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
             {
               LOWORD(buf.A) = 0;
-              _os_log_impl(&dword_258BDA000, v70, OS_LOG_TYPE_INFO, "*** SASLPrivacySecurityLevel is not supported.", &buf, 2u);
+              _os_log_impl(&dword_258BDA000, v67, OS_LOG_TYPE_INFO, "*** SASLPrivacySecurityLevel is not supported.", &buf, 2u);
             }
           }
 
-          ResponseData = _createResponseData(self, &v78, &v81, 0);
+          ResponseData = _createResponseData(self, &v75, &v78, 0);
           [(_MFDigestMD5Authenticator *)self setExpectedResponse:ResponseData];
 
-          v72 = [objc_allocWithZone(MEMORY[0x277CBEB28]) init];
-          v73 = v72;
-          if (*(&v82 + 1))
+          v69 = [objc_allocWithZone(MEMORY[0x277CBEB28]) init];
+          v70 = v69;
+          if (*(&v79 + 1))
           {
-            _appendQuotedString(v72, "username", *(&v82 + 1));
+            _appendQuotedString(v69, "username", *(&v79 + 1));
           }
 
-          if (v68)
+          if (v65)
           {
-            _appendQuotedString(v73, "realm", v68);
+            _appendQuotedString(v70, "realm", v65);
           }
 
-          if (*(&v78 + 1))
+          if (*(&v75 + 1))
           {
-            _appendQuotedString(v73, "nonce", *(&v78 + 1));
+            _appendQuotedString(v70, "nonce", *(&v75 + 1));
           }
 
-          _appendQuotedString(v73, "cnonce", v81);
-          _appendValue(v73, "nc", *(&v81 + 1));
-          _appendValue(v73, "qop", v82);
-          _appendQuotedString(v73, "digest-uri", *(&v83 + 1));
-          _appendValue(v73, "response", *(&v84 + 1));
+          _appendQuotedString(v70, "cnonce", v78);
+          _appendValue(v70, "nc", *(&v78 + 1));
+          _appendValue(v70, "qop", v79);
+          _appendQuotedString(v70, "digest-uri", *(&v80 + 1));
+          _appendValue(v70, "response", *(&v81 + 1));
           if (*(&self->super._authenticationState + 2))
           {
             EFStringWithInt();
-            v74 = MFCreateDataWithString();
-            _appendValue(v73, "maxbuf", v74);
+            v71 = MFCreateDataWithString();
+            _appendValue(v70, "maxbuf", v71);
           }
 
           if ((v58 & 0x10) != 0)
           {
-            _appendValue(v73, "charset", [@"utf-8" dataUsingEncoding:1]);
+            _appendValue(v70, "charset", [@"utf-8" dataUsingEncoding:1]);
           }
 
-          data = v73;
-          goto LABEL_157;
+          data = v70;
+          goto LABEL_155;
         }
       }
     }
@@ -742,12 +737,32 @@ LABEL_142:
 
     [(_MFDigestMD5Authenticator *)self setAuthenticationState:3];
     data = 0;
-LABEL_157:
-    if (v81)
+LABEL_155:
+    if (v78)
     {
     }
 
-    if (v82)
+    if (v79)
+    {
+    }
+
+    if (*(&v78 + 1))
+    {
+    }
+
+    if (*(&v79 + 1))
+    {
+    }
+
+    if (v80)
+    {
+    }
+
+    if (*(&v80 + 1))
+    {
+    }
+
+    if (v81)
     {
     }
 
@@ -755,33 +770,10 @@ LABEL_157:
     {
     }
 
-    if (*(&v82 + 1))
-    {
-    }
-
-    if (v83)
-    {
-    }
-
-    if (*(&v83 + 1))
-    {
-    }
-
-    if (v84)
-    {
-    }
-
-    if (*(&v84 + 1))
-    {
-    }
-
     goto LABEL_143;
   }
 
-  data = 0;
-LABEL_144:
-  v62 = *MEMORY[0x277D85DE8];
-  return data;
+  return 0;
 }
 
 - (void)setCryptInfo:(void *)info

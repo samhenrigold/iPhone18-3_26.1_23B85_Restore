@@ -52,163 +52,160 @@ uint64_t __37__CPLTransportUpdateScopeTask_cancel__block_invoke(uint64_t a1)
 
 void __37__CPLTransportUpdateScopeTask_launch__block_invoke(id *a1, uint64_t a2)
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   if (![a1[4] checkScopeIsValidInTransaction:a2])
   {
-    goto LABEL_28;
+    return;
   }
 
   if (![a1[4] isCancelled])
   {
-    v5 = [a1[5] transportUpdateTaskForScope:a1[6]];
-    v6 = [a1[5] flagsForScope:a1[6]];
-    if ([v6 valueForFlag:32])
+    v4 = [a1[5] transportUpdateTaskForScope:a1[6]];
+    v5 = [a1[5] flagsForScope:a1[6]];
+    if ([v5 valueForFlag:32])
     {
       if ([a1[6] scopeType] != 1)
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v7 = __CPLTaskOSLogDomain();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+          v6 = __CPLTaskOSLogDomain();
+          if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
           {
-            v8 = [a1[6] scopeIdentifier];
+            v7 = [a1[6] scopeIdentifier];
             *buf = 138412290;
-            v65 = v8;
-            _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Deleting transport scope for %@", buf, 0xCu);
+            v63 = v7;
+            _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEFAULT, "Deleting transport scope for %@", buf, 0xCu);
           }
         }
 
-        v9 = [a1[4] engineLibrary];
-        v10 = [v9 transport];
+        v8 = [a1[4] engineLibrary];
+        v9 = [v8 transport];
 
-        v11 = [a1[4] transportScope];
-        v60[0] = MEMORY[0x1E69E9820];
-        v60[1] = 3221225472;
-        v60[2] = __37__CPLTransportUpdateScopeTask_launch__block_invoke_9;
-        v60[3] = &unk_1E861B920;
-        v12 = a1[6];
-        v49 = a1[4];
-        v13 = a1[7];
-        v14 = a1[5];
-        v15 = a1[6];
-        *&v16 = v14;
-        *(&v16 + 1) = v15;
-        *&v17 = v49;
-        *(&v17 + 1) = v13;
-        v61 = v17;
-        v62 = v16;
-        v63 = v5;
-        v18 = [v10 deleteTransportScope:v11 scope:v12 completionHandler:v60];
-        v19 = a1[4];
-        v20 = v19[15];
-        v19[15] = v18;
+        v10 = [a1[4] transportScope];
+        v58[0] = MEMORY[0x1E69E9820];
+        v58[1] = 3221225472;
+        v58[2] = __37__CPLTransportUpdateScopeTask_launch__block_invoke_9;
+        v58[3] = &unk_1E861B920;
+        v11 = a1[6];
+        v47 = a1[4];
+        v12 = a1[7];
+        v13 = a1[5];
+        v14 = a1[6];
+        *&v15 = v13;
+        *(&v15 + 1) = v14;
+        *&v16 = v47;
+        *(&v16 + 1) = v12;
+        v59 = v16;
+        v60 = v15;
+        v61 = v4;
+        v17 = [v9 deleteTransportScope:v10 scope:v11 completionHandler:v58];
+        v18 = a1[4];
+        v19 = v18[15];
+        v18[15] = v17;
 
-        v21 = a1[4];
-        v22 = v21[15];
-        v23 = [v10 createGroupForTransportScopeDelete];
-        [v21 launchTransportTask:v22 withTransportGroup:v23];
+        v20 = a1[4];
+        v21 = v20[15];
+        v22 = [v9 createGroupForTransportScopeDelete];
+        [v20 launchTransportTask:v21 withTransportGroup:v22];
 
-        v24 = *(&v61 + 1);
+        v23 = *(&v59 + 1);
 LABEL_20:
 
 LABEL_27:
-LABEL_28:
-        v47 = *MEMORY[0x1E69E9840];
         return;
       }
     }
 
-    else if (([v6 valueForFlag:20] & 1) == 0)
+    else if (([v5 valueForFlag:20] & 1) == 0)
     {
-      v25 = [a1[4] engineLibrary];
-      v10 = [v25 transport];
+      v24 = [a1[4] engineLibrary];
+      v9 = [v24 transport];
 
-      v26 = [a1[4] transportScope];
-      v27 = [a1[4] scope];
-      v28 = [a1[5] scopeChangeForScope:a1[6]];
-      v56[0] = MEMORY[0x1E69E9820];
-      v56[1] = 3221225472;
-      v56[2] = __37__CPLTransportUpdateScopeTask_launch__block_invoke_5;
-      v56[3] = &unk_1E861B920;
-      *&v29 = a1[4];
-      *v50 = v29;
-      v30 = a1[7];
-      v31 = a1[5];
-      v32 = a1[6];
-      *&v33 = v31;
-      *(&v33 + 1) = v32;
-      *&v34 = v50[0];
-      *(&v34 + 1) = v30;
-      v57 = v34;
-      v58 = v33;
-      v59 = v5;
-      v35 = [v10 updateTransportScope:v26 scope:v27 scopeChange:v28 completionHandler:v56];
-      v36 = a1[4];
-      v37 = v36[16];
-      v36[16] = v35;
+      v25 = [a1[4] transportScope];
+      v26 = [a1[4] scope];
+      v27 = [a1[5] scopeChangeForScope:a1[6]];
+      v54[0] = MEMORY[0x1E69E9820];
+      v54[1] = 3221225472;
+      v54[2] = __37__CPLTransportUpdateScopeTask_launch__block_invoke_5;
+      v54[3] = &unk_1E861B920;
+      *&v28 = a1[4];
+      *v48 = v28;
+      v29 = a1[7];
+      v30 = a1[5];
+      v31 = a1[6];
+      *&v32 = v30;
+      *(&v32 + 1) = v31;
+      *&v33 = v48[0];
+      *(&v33 + 1) = v29;
+      v55 = v33;
+      v56 = v32;
+      v57 = v4;
+      v34 = [v9 updateTransportScope:v25 scope:v26 scopeChange:v27 completionHandler:v54];
+      v35 = a1[4];
+      v36 = v35[16];
+      v35[16] = v34;
 
-      v38 = a1[4];
-      v39 = v38[16];
-      if (v39)
+      v37 = a1[4];
+      v38 = v37[16];
+      if (v38)
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v40 = __CPLTaskOSLogDomain();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          v39 = __CPLTaskOSLogDomain();
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
           {
-            v41 = [a1[6] scopeIdentifier];
+            v40 = [a1[6] scopeIdentifier];
             *buf = 138412290;
-            v65 = v41;
-            _os_log_impl(&dword_1DC05A000, v40, OS_LOG_TYPE_DEFAULT, "Dispatching update transport for %@", buf, 0xCu);
+            v63 = v40;
+            _os_log_impl(&dword_1DC05A000, v39, OS_LOG_TYPE_DEFAULT, "Dispatching update transport for %@", buf, 0xCu);
           }
 
-          v38 = a1[4];
-          v39 = v38[16];
+          v37 = a1[4];
+          v38 = v37[16];
         }
 
-        v42 = [v10 createGroupForTransportScopeUpdate];
-        [v38 launchTransportTask:v39 withTransportGroup:v42];
+        v41 = [v9 createGroupForTransportScopeUpdate];
+        [v37 launchTransportTask:v38 withTransportGroup:v41];
 
-        v24 = *(&v57 + 1);
+        v23 = *(&v55 + 1);
         goto LABEL_20;
       }
     }
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v43 = __CPLTaskOSLogDomain();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      v42 = __CPLTaskOSLogDomain();
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
-        v44 = [a1[6] scopeIdentifier];
+        v43 = [a1[6] scopeIdentifier];
         *buf = 138412290;
-        v65 = v44;
-        _os_log_impl(&dword_1DC05A000, v43, OS_LOG_TYPE_DEFAULT, "Ignoring transport update for %@", buf, 0xCu);
+        v63 = v43;
+        _os_log_impl(&dword_1DC05A000, v42, OS_LOG_TYPE_DEFAULT, "Ignoring transport update for %@", buf, 0xCu);
       }
     }
 
-    v45 = a1[7];
-    v52[0] = MEMORY[0x1E69E9820];
-    v52[1] = 3221225472;
-    v52[2] = __37__CPLTransportUpdateScopeTask_launch__block_invoke_13;
-    v52[3] = &unk_1E861B8F8;
-    v53 = a1[5];
-    v54 = a1[6];
-    v55 = v5;
-    v51[0] = MEMORY[0x1E69E9820];
-    v51[1] = 3221225472;
-    v51[2] = __37__CPLTransportUpdateScopeTask_launch__block_invoke_3_15;
-    v51[3] = &unk_1E86205E0;
-    v51[4] = a1[4];
-    v46 = [v45 performWriteTransactionWithBlock:v52 completionHandler:v51];
+    v44 = a1[7];
+    v50[0] = MEMORY[0x1E69E9820];
+    v50[1] = 3221225472;
+    v50[2] = __37__CPLTransportUpdateScopeTask_launch__block_invoke_13;
+    v50[3] = &unk_1E861B8F8;
+    v51 = a1[5];
+    v52 = a1[6];
+    v53 = v4;
+    v49[0] = MEMORY[0x1E69E9820];
+    v49[1] = 3221225472;
+    v49[2] = __37__CPLTransportUpdateScopeTask_launch__block_invoke_3_15;
+    v49[3] = &unk_1E86205E0;
+    v49[4] = a1[4];
+    v45 = [v44 performWriteTransactionWithBlock:v50 completionHandler:v49];
 
-    v10 = v53;
+    v9 = v51;
     goto LABEL_27;
   }
 
   v3 = a1[4];
-  v48 = +[CPLErrors operationCancelledError];
+  v46 = +[CPLErrors operationCancelledError];
   [v3 taskDidFinishWithError:?];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __37__CPLTransportUpdateScopeTask_launch__block_invoke_9(uint64_t a1, void *a2)
@@ -333,7 +330,7 @@ void __37__CPLTransportUpdateScopeTask_launch__block_invoke_8(uint64_t a1, void 
   *(v5 + 128) = 0;
 }
 
-uint64_t __37__CPLTransportUpdateScopeTask_launch__block_invoke_7(uint64_t a1, uint64_t a2)
+void *__37__CPLTransportUpdateScopeTask_launch__block_invoke_7(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) setScope:*(a1 + 40) hasCompletedTransportUpdate:*(a1 + 48) error:a2];
   if (result)
@@ -372,7 +369,7 @@ void __37__CPLTransportUpdateScopeTask_launch__block_invoke_4(uint64_t a1, void 
   *(v5 + 120) = 0;
 }
 
-uint64_t __37__CPLTransportUpdateScopeTask_launch__block_invoke_3(uint64_t a1, uint64_t a2)
+void *__37__CPLTransportUpdateScopeTask_launch__block_invoke_3(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) setScope:*(a1 + 40) hasCompletedTransportUpdate:*(a1 + 48) error:a2];
   if (result)
@@ -398,7 +395,7 @@ uint64_t __37__CPLTransportUpdateScopeTask_launch__block_invoke_3(uint64_t a1, u
 
 - (BOOL)checkScopeIsValidInTransaction:(id)transaction
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   transactionCopy = transaction;
   session = [(CPLEngineSyncTask *)self session];
   shouldDefer = [session shouldDefer];
@@ -410,14 +407,14 @@ uint64_t __37__CPLTransportUpdateScopeTask_launch__block_invoke_3(uint64_t a1, u
       v7 = __CPLTaskOSLogDomain();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v14 = 138412290;
-        *&v14[4] = objc_opt_class();
-        v8 = *&v14[4];
-        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Session for %@ has been deferred", v14, 0xCu);
+        *v13 = 138412290;
+        *&v13[4] = objc_opt_class();
+        v8 = *&v13[4];
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Session for %@ has been deferred", v13, 0xCu);
       }
     }
 
-    v9 = +[CPLErrors sessionHasBeenDeferredError];
+    v9 = [CPLErrors sessionHasBeenDeferredError:*v13];
     [transactionCopy setError:v9];
 
     v10 = 0;
@@ -429,7 +426,6 @@ uint64_t __37__CPLTransportUpdateScopeTask_launch__block_invoke_3(uint64_t a1, u
     v10 = error == 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

@@ -58,11 +58,11 @@ LABEL_7:
   }
 }
 
-uint64_t __33__BRCDeadlineScheduler__schedule__block_invoke(uint64_t result)
+void *__33__BRCDeadlineScheduler__schedule__block_invoke(void *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(*(result + 32) + 32) signal];
+    return [*(result[4] + 32) signal];
   }
 
   return result;

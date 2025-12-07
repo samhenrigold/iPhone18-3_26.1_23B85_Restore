@@ -23,10 +23,10 @@
 
 - (id)runAction
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v21.receiver = self;
-  v21.super_class = AMSUIWebCheckDownloadQueueAction;
-  runAction = [(AMSUIWebAction *)&v21 runAction];
+  v28 = *MEMORY[0x1E69E9840];
+  v20.receiver = self;
+  v20.super_class = AMSUIWebCheckDownloadQueueAction;
+  runAction = [(AMSUIWebAction *)&v20 runAction];
   contentType = [(AMSUIWebCheckDownloadQueueAction *)self contentType];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   mEMORY[0x1E698C968]2 = mEMORY[0x1E698C968];
@@ -49,24 +49,24 @@
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Checking download queue", buf, 0x16u);
     }
 
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2050000000;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2050000000;
     v10 = getAPRequestHandlerClass_softClass;
-    v25 = getAPRequestHandlerClass_softClass;
+    v24 = getAPRequestHandlerClass_softClass;
     if (!getAPRequestHandlerClass_softClass)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getAPRequestHandlerClass_block_invoke;
-      v27 = &unk_1E7F241B0;
-      v28 = &v22;
+      v26 = &unk_1E7F241B0;
+      v27 = &v21;
       __getAPRequestHandlerClass_block_invoke(buf);
-      v10 = v23[3];
+      v10 = v22[3];
     }
 
     v11 = v10;
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v21, 8);
     if (objc_opt_respondsToSelector())
     {
       longLongValue = [contentType longLongValue];
@@ -104,8 +104,6 @@
     v17 = AMSError();
     v18 = [v16 promiseWithError:v17];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

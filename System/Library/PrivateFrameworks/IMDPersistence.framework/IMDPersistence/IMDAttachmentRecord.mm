@@ -28,7 +28,6 @@
 
 + (id)allocWithZone:(_NSZone *)zone
 {
-  v3 = *MEMORY[0x1E695E480];
   IMDAttachmentRecordGetTypeID();
 
   return _CFRuntimeCreateInstance();
@@ -50,18 +49,18 @@
 
 - (void)_copyUpdatedRecord
 {
-  v3 = objc_msgSend_rowID(self, a2, v2);
+  v4 = objc_msgSend_rowID(self, a2, v2, v3);
 
-  return IMDAttachmentRecordCopyAttachmentRecordUnlocked(v3);
+  return IMDAttachmentRecordCopyAttachmentRecordUnlocked(v4);
 }
 
 - (NSString)path
 {
-  v3 = objc_msgSend_filename(self, a2, v2);
-  v6 = objc_msgSend_stringByExpandingTildeInPath(v3, v4, v5);
-  v9 = objc_msgSend___im_apfsCompatibleFilename(v6, v7, v8);
+  v4 = objc_msgSend_filename(self, a2, v2, v3);
+  v8 = objc_msgSend_stringByExpandingTildeInPath(v4, v5, v6, v7);
+  v12 = objc_msgSend___im_apfsCompatibleFilename(v8, v9, v10, v11);
 
-  return v9;
+  return v12;
 }
 
 - (NSString)utiString
@@ -73,10 +72,10 @@
 
 - (BOOL)isAdaptiveImageGlyph
 {
-  v3 = objc_msgSend_emojiImageContentIdentifier(self, a2, v2);
-  v6 = objc_msgSend_length(v3, v4, v5) != 0;
+  v4 = objc_msgSend_emojiImageContentIdentifier(self, a2, v2, v3);
+  v8 = objc_msgSend_length(v4, v5, v6, v7) != 0;
 
-  return v6;
+  return v8;
 }
 
 - (NSString)emojiImageContentIdentifier
@@ -96,121 +95,119 @@
 - (NSDictionary)transferUserInfo
 {
   v2 = IMDBridgedRecordCopyPropertyValue(self, 8);
-  if (objc_msgSend_length(v2, v3, v4))
+  if (objc_msgSend_length(v2, v3, v4, v5))
   {
-    v5 = JWDecodeDictionary();
+    v6 = JWDecodeDictionary();
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (NSDictionary)stickerUserInfo
 {
   v2 = IMDBridgedRecordCopyPropertyValue(self, 12);
-  if (objc_msgSend_length(v2, v3, v4))
+  if (objc_msgSend_length(v2, v3, v4, v5))
   {
-    v5 = JWDecodeDictionary();
+    v6 = JWDecodeDictionary();
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (NSDictionary)attributionInfo
 {
   v2 = IMDBridgedRecordCopyPropertyValue(self, 13);
-  if (objc_msgSend_length(v2, v3, v4))
+  if (objc_msgSend_length(v2, v3, v4, v5))
   {
-    v5 = JWDecodeDictionary();
+    v6 = JWDecodeDictionary();
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (IMDMessageRecord)messageRecord
 {
-  v3 = objc_msgSend_guid(self, a2, v2);
-  v4 = IMDAttachmentRecordCopyMessageForAttachmentGUID(v3);
+  v4 = objc_msgSend_guid(self, a2, v2, v3);
+  v5 = IMDAttachmentRecordCopyMessageForAttachmentGUID(v4);
 
-  return v4;
+  return v5;
 }
 
 - (void)_write
 {
-  v78 = objc_msgSend_guid(self, a2, v2);
-  v77 = objc_msgSend_createdDate(self, v4, v5);
-  objc_msgSend_timeIntervalSinceReferenceDate(v77, v6, v7);
-  v75 = v8;
-  v76 = objc_msgSend_startDate(self, v9, v10);
-  objc_msgSend_timeIntervalSinceReferenceDate(v76, v11, v12);
-  v74 = v13;
-  v73 = objc_msgSend_transferName(self, v14, v15);
-  v72 = objc_msgSend_filename(self, v16, v17);
-  v71 = objc_msgSend_utiString(self, v18, v19);
-  v70 = objc_msgSend_mimeType(self, v20, v21);
-  v69 = objc_msgSend_transferState(self, v22, v23);
-  isOutgoing = objc_msgSend_isOutgoing(self, v24, v25);
-  v67 = objc_msgSend_totalBytes(self, v26, v27);
-  v66 = objc_msgSend_transferUserInfo(self, v28, v29);
-  isSticker = objc_msgSend_isSticker(self, v30, v31);
-  v63 = objc_msgSend_stickerUserInfo(self, v32, v33);
-  v36 = objc_msgSend_attributionInfo(self, v34, v35);
-  isHidden = objc_msgSend_isHidden(self, v37, v38);
-  v41 = objc_msgSend_cloudSyncState(self, v39, v40);
-  v62 = objc_msgSend_cloudServerChangeToken(self, v42, v43);
-  v46 = objc_msgSend_cloudRecordID(self, v44, v45);
-  v49 = objc_msgSend_originalGUID(self, v47, v48);
-  isCommSafetySensitive = objc_msgSend_isCommSafetySensitive(self, v50, v51);
-  v55 = objc_msgSend_emojiImageContentIdentifier(self, v53, v54);
-  v58 = objc_msgSend_emojiImageShortDescription(self, v56, v57);
-  v61 = objc_msgSend_previewGenerationState(self, v59, v60);
-  IMDAttachmentRecordBulkUpdate(self, v78, v75, v74, v73, v72, v71, v70, v69, isOutgoing, v67, v66, isSticker, v63, v36, isHidden, v41, v62, v46, v49, isCommSafetySensitive, v55, v58, v61);
+  v103 = objc_msgSend_guid(self, a2, v2, v3);
+  v102 = objc_msgSend_createdDate(self, v5, v6, v7);
+  objc_msgSend_timeIntervalSinceReferenceDate(v102, v8, v9, v10);
+  v100 = v11;
+  v101 = objc_msgSend_startDate(self, v12, v13, v14);
+  objc_msgSend_timeIntervalSinceReferenceDate(v101, v15, v16, v17);
+  v99 = v18;
+  v98 = objc_msgSend_transferName(self, v19, v20, v21);
+  v97 = objc_msgSend_filename(self, v22, v23, v24);
+  v96 = objc_msgSend_utiString(self, v25, v26, v27);
+  v95 = objc_msgSend_mimeType(self, v28, v29, v30);
+  v94 = objc_msgSend_transferState(self, v31, v32, v33);
+  isOutgoing = objc_msgSend_isOutgoing(self, v34, v35, v36);
+  v92 = objc_msgSend_totalBytes(self, v37, v38, v39);
+  v91 = objc_msgSend_transferUserInfo(self, v40, v41, v42);
+  isSticker = objc_msgSend_isSticker(self, v43, v44, v45);
+  v88 = objc_msgSend_stickerUserInfo(self, v46, v47, v48);
+  v52 = objc_msgSend_attributionInfo(self, v49, v50, v51);
+  isHidden = objc_msgSend_isHidden(self, v53, v54, v55);
+  v59 = objc_msgSend_cloudSyncState(self, v56, v57, v58);
+  v87 = objc_msgSend_cloudServerChangeToken(self, v60, v61, v62);
+  v66 = objc_msgSend_cloudRecordID(self, v63, v64, v65);
+  v70 = objc_msgSend_originalGUID(self, v67, v68, v69);
+  isCommSafetySensitive = objc_msgSend_isCommSafetySensitive(self, v71, v72, v73);
+  v78 = objc_msgSend_emojiImageContentIdentifier(self, v75, v76, v77);
+  v82 = objc_msgSend_emojiImageShortDescription(self, v79, v80, v81);
+  v86 = objc_msgSend_previewGenerationState(self, v83, v84, v85);
+  IMDAttachmentRecordBulkUpdate(self, v103, v100, v99, v98, v97, v96, v95, v94, isOutgoing, v92, v91, isSticker, v88, v52, isHidden, v59, v87, v66, v70, isCommSafetySensitive, v78, v82, v86);
 }
 
 - (void)_writeIfNeededForPreviewGenerationStateMigration
 {
-  v22 = *MEMORY[0x1E69E9840];
-  if (objc_msgSend_previewGenerationState(self, a2, v2) == 3)
+  v27 = *MEMORY[0x1E69E9840];
+  if (objc_msgSend_previewGenerationState(self, a2, v2, v3) == 3)
   {
-    v6 = objc_msgSend_utiString(self, v4, v5);
-    v7 = IMIsSupportedUTIType();
+    v8 = objc_msgSend_utiString(self, v5, v6, v7);
+    v9 = IMIsSupportedUTIType();
 
-    if (v7)
+    if (v9)
     {
-      v10 = objc_msgSend_attributionInfo(self, v8, v9);
-      v12 = objc_msgSend_objectForKeyedSubscript_(v10, v11, *MEMORY[0x1E69A6FE0]);
+      v13 = objc_msgSend_attributionInfo(self, v10, v11, v12);
+      v16 = objc_msgSend_objectForKeyedSubscript_(v13, v14, *MEMORY[0x1E69A6FE0], v15);
 
-      if (v12)
+      if (v16)
       {
-        v13 = IMDatabaseLogHandle();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v17 = IMDatabaseLogHandle();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          v16 = objc_msgSend_guid(self, v14, v15);
-          v20 = 138412290;
-          v21 = v16;
-          _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_DEFAULT, "Migrating attachment GUID %@ to new preview generation state", &v20, 0xCu);
+          v21 = objc_msgSend_guid(self, v18, v19, v20);
+          v25 = 138412290;
+          v26 = v21;
+          _os_log_impl(&dword_1B7AD5000, v17, OS_LOG_TYPE_DEFAULT, "Migrating attachment GUID %@ to new preview generation state", &v25, 0xCu);
         }
 
-        objc_msgSend__write(self, v17, v18);
+        objc_msgSend__write(self, v22, v23, v24);
       }
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 + (id)keyPathsToColumns

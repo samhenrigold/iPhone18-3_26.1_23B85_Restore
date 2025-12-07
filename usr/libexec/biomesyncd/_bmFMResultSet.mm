@@ -1,19 +1,26 @@
 @interface _bmFMResultSet
++ (id)resultSetWithStatement:(id)statement usingParentDatabase:(id)database shouldAutoClose:(BOOL)close;
 - (BOOL)BOOLForColumn:(id)column;
 - (BOOL)bindWithArray:(id)array orDictionary:(id)dictionary orVAList:(char *)list;
 - (BOOL)columnIsNull:(id)null;
 - (NSDictionary)resultDictionary;
 - (NSMutableDictionary)columnNameToIndexMap;
 - (const)UTF8StringForColumn:(id)column;
+- (const)UTF8StringForColumnIndex:(int)index;
 - (double)doubleForColumn:(id)column;
 - (double)doubleForColumnIndex:(int)index;
 - (id)columnNameForIndex:(int)index;
 - (id)dataForColumn:(id)column;
+- (id)dataForColumnIndex:(int)index;
 - (id)dataNoCopyForColumn:(id)column;
+- (id)dataNoCopyForColumnIndex:(int)index;
 - (id)dateForColumn:(id)column;
+- (id)dateForColumnIndex:(int)index;
 - (id)objectForColumn:(id)column;
+- (id)objectForColumnIndex:(int)index;
 - (id)resultDict;
 - (id)stringForColumn:(id)column;
+- (id)stringForColumnIndex:(int)index;
 - (int)columnCount;
 - (int)columnIndexForName:(id)name;
 - (int)intForColumn:(id)column;
@@ -113,6 +120,26 @@ LABEL_2:
   }
 
   objc_autoreleasePoolPop(v5);
+}
+
++ (id)resultSetWithStatement:(id)statement usingParentDatabase:(id)database shouldAutoClose:(BOOL)close
+{
+  closeCopy = close;
+  statementCopy = statement;
+  databaseCopy = database;
+  v11 = objc_alloc_init(_bmFMResultSet);
+  [(_bmFMResultSet *)v11 setStatement:statementCopy];
+  [(_bmFMResultSet *)v11 setParentDB:databaseCopy];
+
+  [(_bmFMResultSet *)v11 setShouldAutoClose:closeCopy];
+  if ([statementCopy inUse])
+  {
+    sub_10004544C(a2, self);
+  }
+
+  [statementCopy setInUse:1];
+
+  return v11;
 }
 
 - (int)columnCount
@@ -387,6 +414,33 @@ LABEL_8:
   return sqlite3_column_double(statement, index);
 }
 
+- (id)stringForColumnIndex:(int)index
+{
+  v3 = *&index;
+  v5 = sqlite3_column_type([(_bmFMStatement *)self->_statement statement], index);
+  v6 = 0;
+  if ((v3 & 0x80000000) == 0 && v5 != 5)
+  {
+    if (sqlite3_column_count([(_bmFMStatement *)self->_statement statement]) > v3)
+    {
+      v7 = sqlite3_column_text([(_bmFMStatement *)self->_statement statement], v3);
+      if (v7)
+      {
+        v6 = [NSString stringWithUTF8String:v7];
+        goto LABEL_8;
+      }
+
+      [(_bmFMResultSet *)self _tryLogSqliteColumnError:v3];
+    }
+
+    v6 = 0;
+  }
+
+LABEL_8:
+
+  return v6;
+}
+
 - (id)stringForColumn:(id)column
 {
   v4 = [(_bmFMResultSet *)self columnIndexForName:column];
@@ -401,11 +455,68 @@ LABEL_8:
   return [(_bmFMResultSet *)self dateForColumnIndex:v4];
 }
 
+- (id)dateForColumnIndex:(int)index
+{
+  v3 = *&index;
+  v5 = sqlite3_column_type([(_bmFMStatement *)self->_statement statement], index);
+  v6 = 0;
+  if ((v3 & 0x80000000) == 0 && v5 != 5)
+  {
+    if (sqlite3_column_count([(_bmFMStatement *)self->_statement statement]) <= v3)
+    {
+      v6 = 0;
+    }
+
+    else if ([(_bmFMDatabase *)self->_parentDB hasDateFormatter])
+    {
+      parentDB = self->_parentDB;
+      v8 = [(_bmFMResultSet *)self stringForColumnIndex:v3];
+      v6 = [(_bmFMDatabase *)parentDB dateFromString:v8];
+    }
+
+    else
+    {
+      [(_bmFMResultSet *)self doubleForColumnIndex:v3];
+      v6 = [NSDate dateWithTimeIntervalSince1970:?];
+    }
+  }
+
+  return v6;
+}
+
 - (id)dataForColumn:(id)column
 {
   v4 = [(_bmFMResultSet *)self columnIndexForName:column];
 
   return [(_bmFMResultSet *)self dataForColumnIndex:v4];
+}
+
+- (id)dataForColumnIndex:(int)index
+{
+  v3 = *&index;
+  v5 = sqlite3_column_type([(_bmFMStatement *)self->_statement statement], index);
+  v6 = 0;
+  if ((v3 & 0x80000000) == 0 && v5 != 5)
+  {
+    if (sqlite3_column_count([(_bmFMStatement *)self->_statement statement]) > v3)
+    {
+      v7 = sqlite3_column_blob([(_bmFMStatement *)self->_statement statement], v3);
+      v8 = sqlite3_column_bytes([(_bmFMStatement *)self->_statement statement], v3);
+      if (v7)
+      {
+        v6 = [NSData dataWithBytes:v7 length:v8];
+        goto LABEL_8;
+      }
+
+      [(_bmFMResultSet *)self _tryLogSqliteColumnError:v3];
+    }
+
+    v6 = 0;
+  }
+
+LABEL_8:
+
+  return v6;
 }
 
 - (id)dataNoCopyForColumn:(id)column
@@ -415,6 +526,34 @@ LABEL_8:
   return [(_bmFMResultSet *)self dataNoCopyForColumnIndex:v4];
 }
 
+- (id)dataNoCopyForColumnIndex:(int)index
+{
+  v3 = *&index;
+  v5 = sqlite3_column_type([(_bmFMStatement *)self->_statement statement], index);
+  v6 = 0;
+  if ((v3 & 0x80000000) == 0 && v5 != 5)
+  {
+    if (sqlite3_column_count([(_bmFMStatement *)self->_statement statement]) > v3)
+    {
+      v7 = sqlite3_column_blob([(_bmFMStatement *)self->_statement statement], v3);
+      v8 = sqlite3_column_bytes([(_bmFMStatement *)self->_statement statement], v3);
+      if (v7)
+      {
+        v6 = [NSData dataWithBytesNoCopy:v7 length:v8 freeWhenDone:0];
+        goto LABEL_8;
+      }
+
+      [(_bmFMResultSet *)self _tryLogSqliteColumnError:v3];
+    }
+
+    v6 = 0;
+  }
+
+LABEL_8:
+
+  return v6;
+}
+
 - (BOOL)columnIsNull:(id)null
 {
   v4 = [(_bmFMResultSet *)self columnIndexForName:null];
@@ -422,11 +561,95 @@ LABEL_8:
   return [(_bmFMResultSet *)self columnIndexIsNull:v4];
 }
 
+- (const)UTF8StringForColumnIndex:(int)index
+{
+  v3 = *&index;
+  v5 = sqlite3_column_type([(_bmFMStatement *)self->_statement statement], index);
+  result = 0;
+  if ((v3 & 0x80000000) == 0 && v5 != 5)
+  {
+    if (sqlite3_column_count([(_bmFMStatement *)self->_statement statement]) > v3)
+    {
+      result = sqlite3_column_text([(_bmFMStatement *)self->_statement statement], v3);
+      if (result)
+      {
+        return result;
+      }
+
+      [(_bmFMResultSet *)self _tryLogSqliteColumnError:v3];
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
 - (const)UTF8StringForColumn:(id)column
 {
   v4 = [(_bmFMResultSet *)self columnIndexForName:column];
 
   return [(_bmFMResultSet *)self UTF8StringForColumnIndex:v4];
+}
+
+- (id)objectForColumnIndex:(int)index
+{
+  if ((index & 0x80000000) == 0)
+  {
+    v4 = *&index;
+    if (sqlite3_column_count([(_bmFMStatement *)self->_statement statement]) <= index)
+    {
+      v7 = 0;
+      goto LABEL_16;
+    }
+
+    v6 = sqlite3_column_type([(_bmFMStatement *)self->_statement statement], v4);
+    switch(v6)
+    {
+      case 4:
+        v7 = [(_bmFMResultSet *)self dataForColumnIndex:v4];
+        if (v7)
+        {
+          goto LABEL_16;
+        }
+
+        break;
+      case 2:
+        [(_bmFMResultSet *)self doubleForColumnIndex:v4];
+        v7 = [NSNumber numberWithDouble:?];
+        if (v7)
+        {
+          goto LABEL_16;
+        }
+
+        break;
+      case 1:
+        v7 = [NSNumber numberWithLongLong:[(_bmFMResultSet *)self longLongIntForColumnIndex:v4]];
+        if (v7)
+        {
+          goto LABEL_16;
+        }
+
+        break;
+      default:
+        v7 = [(_bmFMResultSet *)self stringForColumnIndex:v4];
+        if (v7)
+        {
+LABEL_16:
+
+          return v7;
+        }
+
+        break;
+    }
+
+    v7 = +[NSNull null];
+    goto LABEL_16;
+  }
+
+  v7 = 0;
+
+  return v7;
 }
 
 - (id)objectForColumn:(id)column

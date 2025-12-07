@@ -2001,7 +2001,7 @@ LABEL_10:
     if (button)
     {
       v5 = objc_alloc(MEMORY[0x1E69DC708]);
-      v6 = +[UIImage _pk_plusButtonImage];
+      v6 = +[(UIImage *)MEMORY[0x1E69DCAB8]];
       v7 = [v5 initWithImage:v6 menu:self->__plusButtonMenu];
     }
 
@@ -4720,15 +4720,15 @@ LABEL_15:
           if (v24)
           {
             v25 = [v19 ink];
-            version = [v25 version];
+            v26 = objc_msgSend_version(v25);
           }
 
           else
           {
-            version = -1;
+            v26 = -1;
           }
 
-          v27 = [PKInk inkWithIdentifier:identifier2 properties:v22 inkVersion:version];
+          v27 = [PKInk inkWithIdentifier:identifier2 properties:v22 inkVersion:v26];
           v28 = objc_opt_class();
           v29 = PKDynamicCast(v28, v19);
           if (v29)

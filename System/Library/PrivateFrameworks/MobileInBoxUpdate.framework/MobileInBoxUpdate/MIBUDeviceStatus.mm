@@ -30,76 +30,7 @@
 {
   equalCopy = equal;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_11;
-  }
-
-  state = [equalCopy state];
-  if (state != [(MIBUDeviceStatus *)self state])
-  {
-    goto LABEL_11;
-  }
-
-  operation = [equalCopy operation];
-  if (operation != [(MIBUDeviceStatus *)self operation])
-  {
-    goto LABEL_11;
-  }
-
-  operationError = [equalCopy operationError];
-  domain = [operationError domain];
-  operationError2 = [(MIBUDeviceStatus *)self operationError];
-  domain2 = [operationError2 domain];
-  v11 = [domain isEqualToString:domain2];
-
-  if (!v11)
-  {
-    goto LABEL_11;
-  }
-
-  operationError3 = [equalCopy operationError];
-  code = [operationError3 code];
-  operationError4 = [(MIBUDeviceStatus *)self operationError];
-  code2 = [operationError4 code];
-
-  if (code != code2)
-  {
-    goto LABEL_11;
-  }
-
-  batteryLevel = [equalCopy batteryLevel];
-  batteryLevel2 = [(MIBUDeviceStatus *)self batteryLevel];
-  v18 = [batteryLevel isEqualToNumber:batteryLevel2];
-
-  if (!v18)
-  {
-    goto LABEL_11;
-  }
-
-  operationDetails = [equalCopy operationDetails];
-  operationDetails2 = [(MIBUDeviceStatus *)self operationDetails];
-  v21 = [operationDetails isEqualToDictionary:operationDetails2];
-
-  if (!v21)
-  {
-    goto LABEL_11;
-  }
-
-  thermalDetails = [equalCopy thermalDetails];
-  thermalDetails2 = [(MIBUDeviceStatus *)self thermalDetails];
-  v24 = [thermalDetails isEqualToDictionary:thermalDetails2];
-
-  if (!v24)
-  {
-    goto LABEL_11;
-  }
-
-  batteryDetails = [equalCopy batteryDetails];
-  batteryDetails2 = [(MIBUDeviceStatus *)self batteryDetails];
-  v27 = [batteryDetails isEqualToDictionary:batteryDetails2];
-
-  if (v27)
+  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [equalCopy state], v5 == -[MIBUDeviceStatus state](self, "state")) && (v6 = objc_msgSend(equalCopy, "operation"), v6 == -[MIBUDeviceStatus operation](self, "operation")) && (objc_msgSend(equalCopy, "operationError"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "domain"), v8 = objc_claimAutoreleasedReturnValue(), -[MIBUDeviceStatus operationError](self, "operationError"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "domain"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v8, "isEqualToString:", v10), v10, v9, v8, v7, v11) && (objc_msgSend(equalCopy, "operationError"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "code"), -[MIBUDeviceStatus operationError](self, "operationError"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "code"), v14, v12, v13 == v15) && (objc_msgSend(equalCopy, "batteryLevel"), v16 = objc_claimAutoreleasedReturnValue(), -[MIBUDeviceStatus batteryLevel](self, "batteryLevel"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v16, "isEqualToNumber:", v17), v17, v16, v18) && (objc_msgSend(equalCopy, "operationDetails"), v19 = objc_claimAutoreleasedReturnValue(), -[MIBUDeviceStatus operationDetails](self, "operationDetails"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v19, "isEqualToDictionary:", v20), v20, v19, v21) && (objc_msgSend(equalCopy, "thermalDetails"), v22 = objc_claimAutoreleasedReturnValue(), -[MIBUDeviceStatus thermalDetails](self, "thermalDetails"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v22, "isEqualToDictionary:", v23), v23, v22, v24) && (objc_msgSend(equalCopy, "batteryDetails"), v25 = objc_claimAutoreleasedReturnValue(), -[MIBUDeviceStatus batteryDetails](self, "batteryDetails"), v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(v25, "isEqualToDictionary:", v26), v26, v25, v27))
   {
     updateSummary = [equalCopy updateSummary];
     updateSummary2 = [(MIBUDeviceStatus *)self updateSummary];
@@ -108,7 +39,6 @@
 
   else
   {
-LABEL_11:
     v30 = 0;
   }
 

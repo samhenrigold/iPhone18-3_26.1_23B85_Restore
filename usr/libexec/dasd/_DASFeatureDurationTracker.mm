@@ -84,7 +84,7 @@
 + (BOOL)shouldTrackActivity:(id)activity
 {
   featureCodes = [activity featureCodes];
-  v4 = [featureCodes count] != 0;
+  v4 = objc_msgSend_count(featureCodes) != 0;
 
   return v4;
 }
@@ -169,7 +169,7 @@
   v4 = v3;
   if (v3)
   {
-    [v3 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(v3);
   }
 
   else
@@ -209,7 +209,7 @@
   featuresDict = selfCopy->_featuresDict;
   selfCopy->_featuresDict = v4;
 
-  if ([(NSDictionary *)selfCopy->_featuresDict count])
+  if (objc_msgSend_count(selfCopy->_featuresDict))
   {
     [(NSMutableDictionary *)selfCopy->_featureDurationDict removeAllObjects];
     v13 = 0u;
@@ -242,7 +242,7 @@
     [(_DASFeatureDurationTracker *)selfCopy saveState];
     if (os_log_type_enabled(selfCopy->_log, OS_LOG_TYPE_DEBUG))
     {
-      sub_10011FE94(&selfCopy->_featureDurationDict);
+      sub_10011FE94();
     }
   }
 
@@ -316,7 +316,7 @@
   featureCopy = feature;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  if (![(NSDictionary *)selfCopy->_maximumFeatureDurationDict count])
+  if (!objc_msgSend_count(selfCopy->_maximumFeatureDurationDict))
   {
     [(_DASFeatureDurationTracker *)selfCopy loadMaximumDurations];
   }
@@ -349,7 +349,7 @@
   featureCopy = feature;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  if (![(NSMutableDictionary *)selfCopy->_featureDurationDict count])
+  if (!objc_msgSend_count(selfCopy->_featureDurationDict))
   {
     [(_DASFeatureDurationTracker *)selfCopy loadState];
   }
@@ -480,7 +480,7 @@
 
       if (os_log_type_enabled(selfCopy->_log, OS_LOG_TYPE_DEBUG))
       {
-        sub_10011FFA8(selfCopy);
+        sub_10011FFA8();
       }
 
       [(_DASFeatureDurationTracker *)selfCopy saveState];

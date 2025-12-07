@@ -40,7 +40,7 @@
     v11[3] = &unk_2783AD4A0;
     objc_copyWeak(&v12, &location);
     v6 = [(SBTimerEventSwitcherEventResponse *)v4 initWithDelay:v11 validator:@"kSBTransitionModifierInvalidateAsyncRenderingReason" reason:v5];
-    v7 = SBAppendSwitcherModifierResponse(v6, 0);
+    v7 = SBAppendSwitcherModifierResponse();
 
     objc_destroyWeak(&v12);
     objc_destroyWeak(&location);
@@ -204,7 +204,7 @@ BOOL __51__SBTransitionSwitcherModifier_transitionWillBegin__block_invoke(uint64
           }
 
           v9 = *(*(&v30 + 1) + 8 * v8);
-          if (([v4 containsObject:v9] & 1) == 0)
+          if ((objc_msgSend_containsObject_(v4) & 1) == 0)
           {
             v24 = v8;
             v28 = 0u;
@@ -279,7 +279,7 @@ uint64_t __64__SBTransitionSwitcherModifier_adjustedAppLayoutsForAppLayouts___bl
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 allItems];
-  v5 = [v4 containsObject:v3];
+  v5 = objc_msgSend_containsObject_(v4);
 
   return v5 ^ 1u;
 }
@@ -388,7 +388,7 @@ void __56__SBTransitionSwitcherModifier_appLayoutsToResignActive__block_invoke(u
         if (toEnvironmentMode2 == 3)
         {
           v25 = [[SBPreemptAnimationSwitcherEventResponse alloc] initWithOptions:2];
-          v26 = SBAppendSwitcherModifierResponse(v25, v6);
+          v26 = SBAppendSwitcherModifierResponse();
 
           v6 = v26;
         }
@@ -425,7 +425,7 @@ void __56__SBTransitionSwitcherModifier_appLayoutsToResignActive__block_invoke(u
   }
 
   v21 = transitionDidEnd;
-  v22 = SBAppendSwitcherModifierResponse(transitionDidEnd, v6);
+  v22 = SBAppendSwitcherModifierResponse();
 
   v6 = v22;
 LABEL_23:
@@ -447,7 +447,7 @@ LABEL_23:
     self->_transitionPhase = 3;
     [(SBChainableModifier *)self setState:1];
     transitionDidEnd = [(SBTransitionSwitcherModifier *)self transitionDidEnd];
-    v8 = SBAppendSwitcherModifierResponse(transitionDidEnd, v5);
+    v8 = SBAppendSwitcherModifierResponse();
 
     v5 = v8;
   }

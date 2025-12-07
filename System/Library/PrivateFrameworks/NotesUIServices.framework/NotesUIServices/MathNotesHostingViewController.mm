@@ -63,42 +63,41 @@
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_25C79EDE0(disappear);
+  sub_25C79EDE0(disappearCopy, selfCopy);
 }
 
 - (void)sceneDidEnterBackground:(id)background
 {
   v4 = sub_25C7AA45C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_25C7AA44C();
   selfCopy = self;
   sub_25C79EF78();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)sceneWillEnterForeground:(id)foreground
 {
   v4 = sub_25C7AA45C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_25C7AA44C();
-  v9 = qword_27FC15050;
+  v8 = qword_27FC15050;
   selfCopy = self;
-  if (v9 != -1)
+  if (v8 != -1)
   {
     swift_once();
   }
 
   sub_25C79F238([qword_27FC15100 isLocked], 1);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (_TtC15NotesUIServices30MathNotesHostingViewController)initWithNibName:(id)name bundle:(id)bundle

@@ -215,7 +215,7 @@
   return v2;
 }
 
-uint64_t __62__CARInputDeviceManager_touchpadCharacterRecognitionSupported__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__62__CARInputDeviceManager_touchpadCharacterRecognitionSupported__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 characterRecognitionSupported];
   *(*(*(a1 + 32) + 8) + 24) = result;

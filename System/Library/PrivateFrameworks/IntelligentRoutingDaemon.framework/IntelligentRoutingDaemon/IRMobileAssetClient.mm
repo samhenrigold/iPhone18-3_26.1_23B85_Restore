@@ -30,7 +30,7 @@
 
 - (BOOL)_createInterestInAssetType:(id)type withAssetSpecifier:(id)specifier
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277D289F8];
   specifierCopy = specifier;
   typeCopy = type;
@@ -39,9 +39,9 @@
   [(IRMobileAssetClient *)self setCurrentAssetSelector:v9];
   v10 = objc_alloc(MEMORY[0x277D289E0]);
   currentAssetSelector = [(IRMobileAssetClient *)self currentAssetSelector];
-  v23 = 0;
-  v12 = [v10 initForClientName:@"IntelligentRoutingDaemon" selectingAsset:currentAssetSelector error:&v23];
-  v13 = v23;
+  v22 = 0;
+  v12 = [v10 initForClientName:@"IntelligentRoutingDaemon" selectingAsset:currentAssetSelector error:&v22];
+  v13 = v22;
 
   if (v13)
   {
@@ -81,23 +81,22 @@
         v19 = v18;
         v20 = [v12 description];
         *buf = 138412290;
-        v25 = v20;
+        v24 = v20;
         _os_log_impl(&dword_25543D000, v19, OS_LOG_TYPE_INFO, "#mobile-asset-client, %@", buf, 0xCu);
       }
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (id)lockAssetContent
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277D289F8]) initForAssetType:@"com.apple.MobileAsset.IntelligentRouting" withAssetSpecifier:@"IntelligentRoutingSettingsAsset"];
-  v29 = 0;
-  v4 = [objc_alloc(MEMORY[0x277D289E0]) initForClientName:@"IntelligentRoutingDaemon" selectingAsset:v3 error:&v29];
-  v5 = v29;
+  v28 = 0;
+  v4 = [objc_alloc(MEMORY[0x277D289E0]) initForClientName:@"IntelligentRoutingDaemon" selectingAsset:v3 error:&v28];
+  v5 = v28;
   if (v5)
   {
     v6 = *MEMORY[0x277D21260];
@@ -112,13 +111,13 @@
   else
   {
     v8 = objc_opt_new();
-    v27 = 0;
-    v28 = 0;
     v26 = 0;
-    v9 = [v4 lockContentSync:@"Adapting IntelligentRouting performance" withUsagePolicy:v8 withTimeout:0 lockedAssetSelector:&v28 newerInProgress:&v27 error:&v26];
-    v10 = v28;
-    v11 = v27;
-    v12 = v26;
+    v27 = 0;
+    v25 = 0;
+    v9 = [v4 lockContentSync:@"Adapting IntelligentRouting performance" withUsagePolicy:v8 withTimeout:0 lockedAssetSelector:&v27 newerInProgress:&v26 error:&v25];
+    v10 = v27;
+    v11 = v26;
+    v12 = v25;
     v13 = *MEMORY[0x277D21260];
     v14 = os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO);
     if (v12)
@@ -128,7 +127,7 @@
         v15 = v13;
         v16 = [v12 description];
         *buf = 138412290;
-        v31 = v16;
+        v30 = v16;
         _os_log_impl(&dword_25543D000, v15, OS_LOG_TYPE_INFO, "#mobile-asset-client, Unable to lock any version of auto-asset content: %@", buf, 0xCu);
       }
 
@@ -137,16 +136,16 @@
 
     else
     {
-      v25 = v11;
+      v24 = v11;
       if (v14)
       {
         v17 = v13;
         assetVersion = [v10 assetVersion];
         *buf = 138412290;
-        v31 = assetVersion;
+        v30 = assetVersion;
         _os_log_impl(&dword_25543D000, v17, OS_LOG_TYPE_INFO, "#mobile-asset-client, MobileAsset Locked. Version %@", buf, 0xCu);
 
-        v11 = v25;
+        v11 = v24;
       }
 
       v19 = *MEMORY[0x277D21260];
@@ -155,10 +154,10 @@
         v20 = v19;
         v21 = [v4 description];
         *buf = 138412290;
-        v31 = v21;
+        v30 = v21;
         _os_log_impl(&dword_25543D000, v20, OS_LOG_TYPE_INFO, "#mobile-asset-client, %@", buf, 0xCu);
 
-        v11 = v25;
+        v11 = v24;
       }
 
       if (v10)
@@ -179,17 +178,30 @@
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return path;
 }
 
 - (void)unlockAssetContent
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0_3(&dword_25543D000, v0, v1, "#mobile-asset-client, [ErrorId - AutoAsset end lock error] Failed to end asset locks: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277D289E0];
+  currentAssetSelector = [(IRMobileAssetClient *)self currentAssetSelector];
+  v4 = [v2 endAllPreviousLocksOfSelectorSync:currentAssetSelector forClientName:@"IntelligentRoutingDaemon"];
+
+  v5 = *MEMORY[0x277D21260];
+  v6 = *MEMORY[0x277D21260];
+  if (v4)
+  {
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      [IRMobileAssetClient unlockAssetContent];
+    }
+  }
+
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    *v7 = 0;
+    _os_log_impl(&dword_25543D000, v5, OS_LOG_TYPE_INFO, "#mobile-asset-client, MobileAsset Unlocked", v7, 2u);
+  }
 }
 
 - (id)getLockedAssetVersion
@@ -200,31 +212,13 @@
   return assetVersion;
 }
 
-- (void)_createInterestInAssetType:withAssetSpecifier:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0_3(&dword_25543D000, v0, v1, "#mobile-asset-client, [ErrorId - AutoAsset init error] Unable to create auto-asset instance: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_createInterestInAssetType:withAssetSpecifier:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0_3(&dword_25543D000, v0, v1, "#mobile-asset-client, [ErrorId - AutoAsset set interest error] Failed to set interest in content: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)lockAssetContent
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v4 = [a2 description];
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_25543D000, selfCopy, OS_LOG_TYPE_ERROR, "#mobile-asset-client, [ErrorId - AutoAsset init error] Unable to create auto-asset instance for locking: %@", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25543D000, selfCopy, OS_LOG_TYPE_ERROR, "#mobile-asset-client, [ErrorId - AutoAsset init error] Unable to create auto-asset instance for locking: %@", v5, 0xCu);
 }
 
 @end

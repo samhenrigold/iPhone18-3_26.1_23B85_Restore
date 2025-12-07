@@ -26,92 +26,92 @@ void protocol witness for SignedNumeric.negate() in conformance Int32()
   }
 }
 
-uint64_t protocol witness for Numeric.init<A>(exactly:) in conformance Int32@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, _DWORD *a5@<X8>)
+uint64_t protocol witness for Numeric.init<A>(exactly:) in conformance Int32@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, _DWORD *a5@<X8>)
 {
-  v49 = a4;
-  v51 = a5;
+  v51 = a4;
+  v53 = a5;
   v8 = *(*(a3 + 24) + 16);
   swift_getAssociatedTypeWitness(0, v8, a2, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
   v10 = v9;
-  v11 = MEMORY[0x1EEE9AC00](v9);
-  v13 = &v46[-v12];
-  v52 = *(a2 - 1);
-  MEMORY[0x1EEE9AC00](v11);
-  v50 = &v46[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v53 = *(a3 + 64);
-  v15 = v53(a2, a3);
-  v16 = *(a3 + 128);
-  if ((v15 & 1) == 0 || v16(a2, a3) < 33)
+  v12 = MEMORY[0x1EEE9AC00](v9, v11);
+  v14 = &v48[-v13];
+  v54 = *(a2 - 1);
+  MEMORY[0x1EEE9AC00](v12, v15);
+  v52 = &v48[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v55 = *(a3 + 64);
+  v17 = v55(a2, a3);
+  v18 = *(a3 + 128);
+  if ((v17 & 1) == 0 || v18(a2, a3) < 33)
   {
     goto LABEL_15;
   }
 
-  v48 = a1;
-  v54 = 0x80000000;
-  v17 = v53;
-  if (v53(a2, a3))
+  v50 = a1;
+  v56 = 0x80000000;
+  v19 = v55;
+  if (v55(a2, a3))
   {
-    a1 = v48;
-    v18 = v16(a2, a3);
-    if (v18 < 32)
+    a1 = v50;
+    v20 = v18(a2, a3);
+    if (v20 < 32)
     {
       goto LABEL_14;
     }
 
 LABEL_8:
-    v21 = *(a3 + 96);
-    v22 = lazy protocol witness table accessor for type Int32 and conformance Int32(v18, v19, v20);
-    v23 = v50;
-    v21(&v54, v49, v22, a2, a3);
-    v24 = (*(*(*(a3 + 32) + 8) + 16))(a1, v23, a2);
-    v25 = *(v52 + 8);
-    v25(v23, a2);
-    if (v24)
+    v23 = *(a3 + 96);
+    v24 = lazy protocol witness table accessor for type Int32 and conformance Int32(v20, v21, v22);
+    v25 = v52;
+    v23(&v56, v51, v24, a2, a3);
+    v26 = (*(*(*(a3 + 32) + 8) + 16))(a1, v25, a2);
+    v27 = *(v54 + 8);
+    v27(v25, a2);
+    if (v26)
     {
-      result = v25(a1, a2);
+      result = v27(a1, a2);
       goto LABEL_20;
     }
 
 LABEL_15:
-    v31 = v16(a2, a3);
-    v32 = v52;
-    v33 = v53;
-    if (v31 <= 32 && (v16(a2, a3) != 32 || (v33(a2, a3) & 1) != 0))
+    v33 = v18(a2, a3);
+    v34 = v54;
+    v35 = v55;
+    if (v33 <= 32 && (v18(a2, a3) != 32 || (v35(a2, a3) & 1) != 0))
     {
       goto LABEL_26;
     }
 
-    v55 = 0x7FFFFFFF;
-    v34 = v33(a2, a3);
-    v35 = v16(a2, a3);
-    if (v34)
+    v57 = 0x7FFFFFFF;
+    v36 = v35(a2, a3);
+    v37 = v18(a2, a3);
+    if (v36)
     {
-      if (v35 > 32)
+      if (v37 > 32)
       {
         goto LABEL_18;
       }
     }
 
-    else if (v35 > 31)
+    else if (v37 > 31)
     {
 LABEL_18:
-      v38 = *(a3 + 96);
-      v39 = lazy protocol witness table accessor for type Int32 and conformance Int32(v35, v36, v37);
-      v40 = v50;
-      v38(&v55, v49, v39, a2, a3);
-      v41 = (*(*(*(a3 + 32) + 8) + 16))(v40, a1, a2);
-      v42 = *(v32 + 8);
-      v42(v40, a2);
-      if (v41)
+      v40 = *(a3 + 96);
+      v41 = lazy protocol witness table accessor for type Int32 and conformance Int32(v37, v38, v39);
+      v42 = v52;
+      v40(&v57, v51, v41, a2, a3);
+      v43 = (*(*(*(a3 + 32) + 8) + 16))(v42, a1, a2);
+      v44 = *(v34 + 8);
+      v44(v42, a2);
+      if (v43)
       {
-        result = v42(a1, a2);
+        result = v44(a1, a2);
         goto LABEL_20;
       }
 
 LABEL_26:
-      v43 = (*(a3 + 120))(a2, a3);
-      result = (*(v32 + 8))(a1, a2);
-      v44 = 0;
+      v45 = (*(a3 + 120))(a2, a3);
+      result = (*(v34 + 8))(a1, a2);
+      v46 = 0;
       goto LABEL_27;
     }
 
@@ -119,12 +119,12 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v47 = v17(a2, a3);
-  a1 = v48;
-  v18 = v16(a2, a3);
-  if ((v47 & 1) == 0)
+  v49 = v19(a2, a3);
+  a1 = v50;
+  v20 = v18(a2, a3);
+  if ((v49 & 1) == 0)
   {
-    if (v18 >= 32)
+    if (v20 >= 32)
     {
       goto LABEL_15;
     }
@@ -132,33 +132,33 @@ LABEL_26:
     goto LABEL_14;
   }
 
-  if (v18 > 32)
+  if (v20 > 32)
   {
     goto LABEL_8;
   }
 
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v8, a2, v10, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
   (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v10, AssociatedConformanceWitness);
-  v28 = v50;
-  (*(v8 + 24))(v13, a2, v8);
-  v29 = (*(*(*(a3 + 32) + 8) + 16))(a1, v28, a2);
-  v30 = *(v52 + 8);
-  v30(v28, a2);
-  if ((v29 & 1) == 0)
+  v30 = v52;
+  (*(v8 + 24))(v14, a2, v8);
+  v31 = (*(*(*(a3 + 32) + 8) + 16))(a1, v30, a2);
+  v32 = *(v54 + 8);
+  v32(v30, a2);
+  if ((v31 & 1) == 0)
   {
 LABEL_14:
     (*(a3 + 120))(a2, a3);
     goto LABEL_15;
   }
 
-  result = v30(a1, a2);
+  result = v32(a1, a2);
 LABEL_20:
-  v43 = 0;
-  v44 = 1;
+  v45 = 0;
+  v46 = 1;
 LABEL_27:
-  v45 = v51;
-  *v51 = v43;
-  *(v45 + 4) = v44;
+  v47 = v53;
+  *v53 = v45;
+  *(v47 + 4) = v46;
   return result;
 }
 
@@ -469,7 +469,7 @@ uint64_t (*protocol witness for Collection.subscript.read in conformance UInt64.
   return protocol witness for Collection.subscript.read in conformance UInt8.Words;
 }
 
-uint64_t (*UInt64.Words.subscript.read(uint64_t a1, uint64_t a2))()
+void (*UInt64.Words.subscript.read(uint64_t a1, uint64_t a2))()
 {
   if (a2 < 0 || a2)
   {
@@ -560,24 +560,6 @@ void *protocol witness for static BinaryInteger.%= infix(_:_:) in conformance UI
   return result;
 }
 
-unint64_t *protocol witness for BinaryInteger.quotientAndRemainder(dividingBy:) in conformance UInt64(unint64_t *result, unint64_t *a2, unint64_t *a3)
-{
-  return protocol witness for BinaryInteger.quotientAndRemainder(dividingBy:) in conformance UInt64(result, a2, a3);
-}
-
-{
-  v4 = *a3;
-  if (!*a3)
-  {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
-  }
-
-  v5 = *v3 / v4;
-  *a2 = *v3 % v4;
-  *result = v5;
-  return result;
-}
-
 uint64_t UInt64._toCustomAnyHashable()@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22_IntegerAnyHashableBoxVys6UInt64VGMd, _ss22_IntegerAnyHashableBoxVys6UInt64VGMR);
@@ -627,36 +609,6 @@ Swift::Int64 __swiftcall Int64.init(_:)(Swift::Double a1)
   return a1;
 }
 
-uint64_t *static Int64./= infix(_:_:)(uint64_t *result, uint64_t a2)
-{
-  return static Int64./= infix(_:_:)(result, a2);
-}
-
-{
-  if (!a2 || (v2 = *result, a2 == -1) && v2 == 0x8000000000000000)
-  {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
-  }
-
-  *result = v2 / a2;
-  return result;
-}
-
-uint64_t *static Int64.%= infix(_:_:)(uint64_t *result, uint64_t a2)
-{
-  return static Int64.%= infix(_:_:)(result, a2);
-}
-
-{
-  if (!a2 || (v2 = *result, a2 == -1) && v2 == 0x8000000000000000)
-  {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
-  }
-
-  *result = v2 % a2;
-  return result;
-}
-
 uint64_t (*protocol witness for Collection.subscript.read in conformance Int64.Words(void *a1, uint64_t *a2))()
 {
   if (swift_coroFrameAlloc)
@@ -677,7 +629,7 @@ uint64_t (*protocol witness for Collection.subscript.read in conformance Int64.W
   return protocol witness for Collection.subscript.read in conformance UInt8.Words;
 }
 
-uint64_t (*Int64.Words.subscript.read(uint64_t a1, uint64_t a2))()
+void (*Int64.Words.subscript.read(uint64_t a1, uint64_t a2))()
 {
   if (a2 < 0 || a2)
   {
@@ -704,7 +656,7 @@ Swift::Int64 protocol witness for FixedWidthInteger.dividingFullWidth(_:) in con
   return result;
 }
 
-uint64_t protocol witness for BinaryInteger.init<A>(_:) in conformance UInt64@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, const char *a4@<X3>, uint64_t (*a5)(void)@<X5>, uint64_t *a6@<X8>)
+uint64_t protocol witness for BinaryInteger.init<A>(_:) in conformance UInt64@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, uint64_t a3@<X2>, Class *a4@<X3>, uint64_t (*a5)(void)@<X5>, uint64_t *a6@<X8>)
 {
   v12 = a5();
   static FixedWidthInteger._convert<A>(from:)(&v41, a1, a4, a2, v12, a3);
@@ -719,7 +671,7 @@ uint64_t protocol witness for BinaryInteger.init<A>(_:) in conformance UInt64@<X
       v18 = TypeName;
       v19 = v17;
       v20 = validateUTF8(_:)(TypeName, v17);
-      v24 = v20 < 0 ? repairUTF8(_:firstKnownBrokenRange:)(v18, v19, v21, v22) : specialized static String._uncheckedFromUTF8(_:isASCII:)(v18, v19, v20 & 1, v23);
+      v24 = (v20 & 0x8000000000000000) != 0 ? repairUTF8(_:firstKnownBrokenRange:)(v18, v19, v21, v22) : specialized static String._uncheckedFromUTF8(_:isASCII:)(v18, v19, v20 & 1, v23);
       v26 = v25;
       String.write(_:)(*&v24);
       v26;
@@ -732,7 +684,7 @@ uint64_t protocol witness for BinaryInteger.init<A>(_:) in conformance UInt64@<X
         v30 = v28;
         v31 = v29;
         v32 = validateUTF8(_:)(v28, v29);
-        if (v32 < 0)
+        if ((v32 & 0x8000000000000000) != 0)
         {
           v36 = repairUTF8(_:firstKnownBrokenRange:)(v30, v31, v33, v34);
         }
@@ -748,7 +700,7 @@ uint64_t protocol witness for BinaryInteger.init<A>(_:) in conformance UInt64@<X
         v39._countAndFlagsBits = 0xD00000000000002ELL;
         v39._object = 0x800000018066D460;
         String.write(_:)(v39);
-        _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, v41, v42, "Swift/Integers.swift", 0x14uLL, 2, 0xAB4uLL);
+        _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, v41, v42, "Swift/Integers.swift", 0x14uLL, 2, 0xAB4uLL, 0);
       }
     }
 
@@ -756,119 +708,55 @@ uint64_t protocol witness for BinaryInteger.init<A>(_:) in conformance UInt64@<X
   }
 
   v13 = v41;
-  result = (*(*(a2 - 1) + 8))(a1, a2);
+  result = (*(*(a2 - 1) + 1))(a1, a2);
   *a6 = v13;
   return result;
 }
 
-void *protocol witness for static BinaryInteger./ infix(_:_:) in conformance Int64@<X0>(void *result@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
+uint64_t protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conformance Int64@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
-  return protocol witness for static BinaryInteger./ infix(_:_:) in conformance Int64(result, a2, a3);
-}
-
-{
-  v3 = *a2;
-  if (!*a2 || (*result == 0x8000000000000000 ? (v4 = v3 == -1) : (v4 = 0), v4))
+  v106 = a5;
+  v101 = *(*(a4 + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v101, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v100 = v9;
+  v11 = MEMORY[0x1EEE9AC00](v9, v10);
+  v99 = &v98 - v12;
+  v13 = *(a3 - 1);
+  v15 = MEMORY[0x1EEE9AC00](v11, v14);
+  v17 = &v98 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15, v18);
+  v104 = &v98 - v19;
+  v20 = *a1;
+  v22 = a4 + 64;
+  v21 = *(a4 + 64);
+  if ((v21(a3, a4) & 1) == 0)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
-  }
-
-  *a3 = *result / v3;
-  return result;
-}
-
-uint64_t *protocol witness for static BinaryInteger./= infix(_:_:) in conformance Int64(uint64_t *result, uint64_t *a2)
-{
-  return protocol witness for static BinaryInteger./= infix(_:_:) in conformance Int64(result, a2);
-}
-
-{
-  v2 = *a2;
-  if (!*a2 || ((v3 = *result, v2 == -1) ? (v4 = v3 == 0x8000000000000000) : (v4 = 0), v4))
-  {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
-  }
-
-  *result = v3 / v2;
-  return result;
-}
-
-uint64_t *protocol witness for static BinaryInteger.% infix(_:_:) in conformance Int64@<X0>(uint64_t *result@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
-{
-  return protocol witness for static BinaryInteger.% infix(_:_:) in conformance Int64(result, a2, a3);
-}
-
-{
-  v3 = *a2;
-  if (!*a2 || (*result == 0x8000000000000000 ? (v4 = v3 == -1) : (v4 = 0), v4))
-  {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
-  }
-
-  *a3 = *result % v3;
-  return result;
-}
-
-uint64_t *protocol witness for static BinaryInteger.%= infix(_:_:) in conformance Int64(uint64_t *result, uint64_t *a2)
-{
-  return protocol witness for static BinaryInteger.%= infix(_:_:) in conformance Int64(result, a2);
-}
-
-{
-  v2 = *a2;
-  if (!*a2 || ((v3 = *result, v2 == -1) ? (v4 = v3 == 0x8000000000000000) : (v4 = 0), v4))
-  {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
-  }
-
-  *result = v3 % v2;
-  return result;
-}
-
-uint64_t protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conformance Int64@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
-{
-  v103 = a5;
-  v98 = *(*(a4 + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v98, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v97 = v9;
-  v10 = MEMORY[0x1EEE9AC00](v9);
-  v96 = &v95 - v11;
-  v12 = *(a3 - 1);
-  v13 = MEMORY[0x1EEE9AC00](v10);
-  v15 = &v95 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v101 = &v95 - v16;
-  v17 = *a1;
-  v19 = a4 + 64;
-  v18 = *(a4 + 64);
-  if ((v18(a3, a4) & 1) == 0)
-  {
-    v33 = v18(a3, a4);
-    v102 = *(a4 + 128);
-    v34 = v102(a3, a4);
-    if (v33)
+    v36 = v21(a3, a4);
+    v105 = *(a4 + 128);
+    v37 = v105(a3, a4);
+    if (v36)
     {
-      v95 = a2;
-      v100 = v18;
-      if (v34 <= 64)
+      v98 = a2;
+      v103 = v21;
+      if (v37 <= 64)
       {
-        v64 = v97;
-        v63 = v98;
-        AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v98, a3, v97, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-        v66 = v96;
-        (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v64, AssociatedConformanceWitness);
-        v67 = v101;
-        (v63[3])(v66, a3, v63);
-        a2 = v95;
-        LOBYTE(v63) = (*(*(*(a4 + 32) + 8) + 16))(v95, v67, a3);
-        result = (*(v12 + 8))(v67, a3);
-        if (v63)
+        v67 = v100;
+        v66 = v101;
+        AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v101, a3, v100, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+        v69 = v99;
+        (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v67, AssociatedConformanceWitness);
+        v70 = v104;
+        (v66[3])(v69, a3, v66);
+        a2 = v98;
+        LOBYTE(v66) = (*(*(*(a4 + 32) + 8) + 16))(v98, v70, a3);
+        result = (*(v13 + 8))(v70, a3);
+        if (v66)
         {
           goto LABEL_26;
         }
 
         result = (*(a4 + 120))(a3, a4);
-        v18 = v100;
+        v21 = v103;
         if (result < -64)
         {
           goto LABEL_26;
@@ -877,29 +765,29 @@ uint64_t protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conforma
         goto LABEL_11;
       }
 
-      v104 = -64;
-      v37 = *(a4 + 96);
-      v38 = lazy protocol witness table accessor for type Int and conformance Int(v34, v35, v36);
-      v99 = a4 + 64;
-      v39 = v101;
-      v37(&v104, &type metadata for Int, v38, a3, a4);
-      a2 = v95;
-      v40 = (*(*(*(a4 + 32) + 8) + 16))(v95, v39, a3);
-      v41 = v39;
-      v19 = v99;
-      result = (*(v12 + 8))(v41, a3);
-      v18 = v100;
-      if ((v40 & 1) == 0)
+      v107 = -64;
+      v40 = *(a4 + 96);
+      v41 = lazy protocol witness table accessor for type Int and conformance Int(v37, v38, v39);
+      v102 = a4 + 64;
+      v42 = v104;
+      v40(&v107, &type metadata for Int, v41, a3, a4);
+      a2 = v98;
+      v43 = (*(*(*(a4 + 32) + 8) + 16))(v98, v42, a3);
+      v44 = v42;
+      v22 = v102;
+      result = (*(v13 + 8))(v44, a3);
+      v21 = v103;
+      if ((v43 & 1) == 0)
       {
         goto LABEL_11;
       }
 
 LABEL_26:
-      v55 = 0;
+      v58 = 0;
       goto LABEL_48;
     }
 
-    if (v34 >= 64)
+    if (v37 >= 64)
     {
       goto LABEL_11;
     }
@@ -914,45 +802,45 @@ LABEL_10:
     goto LABEL_26;
   }
 
-  v102 = *(a4 + 128);
-  v20 = v102(a3, a4);
-  if (v20 < 64)
+  v105 = *(a4 + 128);
+  v23 = v105(a3, a4);
+  if (v23 < 64)
   {
     goto LABEL_10;
   }
 
-  v104 = -64;
-  v100 = v18;
-  v23 = v15;
-  v24 = v17;
-  v25 = v12;
-  v26 = a2;
-  v27 = *(a4 + 96);
-  v28 = lazy protocol witness table accessor for type Int and conformance Int(v20, v21, v22);
-  v99 = a4 + 64;
-  v29 = v101;
-  v27(&v104, &type metadata for Int, v28, a3, a4);
-  a2 = v26;
-  v12 = v25;
-  v17 = v24;
-  v15 = v23;
-  v18 = v100;
-  v30 = (*(*(*(a4 + 32) + 8) + 16))(a2, v29, a3);
-  v31 = v29;
-  v19 = v99;
-  result = (*(v12 + 8))(v31, a3);
-  if (v30)
+  v107 = -64;
+  v103 = v21;
+  v26 = v17;
+  v27 = v20;
+  v28 = v13;
+  v29 = a2;
+  v30 = *(a4 + 96);
+  v31 = lazy protocol witness table accessor for type Int and conformance Int(v23, v24, v25);
+  v102 = a4 + 64;
+  v32 = v104;
+  v30(&v107, &type metadata for Int, v31, a3, a4);
+  a2 = v29;
+  v13 = v28;
+  v20 = v27;
+  v17 = v26;
+  v21 = v103;
+  v33 = (*(*(*(a4 + 32) + 8) + 16))(a2, v32, a3);
+  v34 = v32;
+  v22 = v102;
+  result = (*(v13 + 8))(v34, a3);
+  if (v33)
   {
     goto LABEL_26;
   }
 
 LABEL_11:
-  v42 = v18(a3, a4);
-  v95 = a4 + 128;
-  v43 = v102(a3, a4);
-  if (v42)
+  v45 = v21(a3, a4);
+  v98 = a4 + 128;
+  v46 = v105(a3, a4);
+  if (v45)
   {
-    if (v43 > 64)
+    if (v46 > 64)
     {
       goto LABEL_13;
     }
@@ -967,51 +855,51 @@ LABEL_16:
     goto LABEL_18;
   }
 
-  if (v43 < 64)
+  if (v46 < 64)
   {
     goto LABEL_16;
   }
 
 LABEL_13:
-  v104 = 64;
-  v100 = v18;
-  v46 = v15;
-  v47 = v17;
-  v48 = v12;
-  v49 = a2;
-  v50 = *(a4 + 96);
-  v51 = lazy protocol witness table accessor for type Int and conformance Int(v43, v44, v45);
-  v99 = v19;
-  v52 = v101;
-  v50(&v104, &type metadata for Int, v51, a3, a4);
-  a2 = v49;
-  v12 = v48;
-  v17 = v47;
-  v15 = v46;
-  v18 = v100;
-  v53 = (*(*(*(a4 + 32) + 8) + 16))(v52, a2, a3);
-  v54 = v52;
-  v19 = v99;
-  result = (*(v12 + 8))(v54, a3);
-  if (v53)
+  v107 = 64;
+  v103 = v21;
+  v49 = v17;
+  v50 = v20;
+  v51 = v13;
+  v52 = a2;
+  v53 = *(a4 + 96);
+  v54 = lazy protocol witness table accessor for type Int and conformance Int(v46, v47, v48);
+  v102 = v22;
+  v55 = v104;
+  v53(&v107, &type metadata for Int, v54, a3, a4);
+  a2 = v52;
+  v13 = v51;
+  v20 = v50;
+  v17 = v49;
+  v21 = v103;
+  v56 = (*(*(*(a4 + 32) + 8) + 16))(v55, a2, a3);
+  v57 = v55;
+  v22 = v102;
+  result = (*(v13 + 8))(v57, a3);
+  if (v56)
   {
     goto LABEL_17;
   }
 
 LABEL_18:
-  (*(v12 + 16))(v15, a2, a3);
-  if ((v18(a3, a4) & 1) == 0 || v102(a3, a4) < 65)
+  (*(v13 + 16))(v17, a2, a3);
+  if ((v21(a3, a4) & 1) == 0 || v105(a3, a4) < 65)
   {
     goto LABEL_35;
   }
 
-  if ((v18(a3, a4) & 1) == 0)
+  if ((v21(a3, a4) & 1) == 0)
   {
-    v68 = v18(a3, a4);
-    v69 = v102(a3, a4);
-    if ((v68 & 1) == 0)
+    v71 = v21(a3, a4);
+    v72 = v105(a3, a4);
+    if ((v71 & 1) == 0)
     {
-      if (v69 >= 64)
+      if (v72 >= 64)
       {
         goto LABEL_35;
       }
@@ -1019,22 +907,22 @@ LABEL_18:
       goto LABEL_34;
     }
 
-    v100 = v18;
-    if (v69 <= 64)
+    v103 = v21;
+    if (v72 <= 64)
     {
-      v76 = v97;
-      v77 = v98;
-      v78 = swift_getAssociatedConformanceWitness(v98, a3, v97, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v79 = v96;
-      (*(v78 + 8))(&qword_18071E0A8, 256, v76, v78);
-      v80 = v77;
-      v81 = v77[3];
-      v82 = v101;
-      (v81)(v79, a3, v80);
-      LOBYTE(v79) = (*(*(*(a4 + 32) + 8) + 16))(v15, v82, a3);
-      (*(v12 + 8))(v82, a3);
-      v18 = v100;
-      if ((v79 & 1) == 0)
+      v79 = v100;
+      v80 = v101;
+      v81 = swift_getAssociatedConformanceWitness(v101, a3, v100, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v82 = v99;
+      (*(v81 + 8))(&qword_18071E0A8, 256, v79, v81);
+      v83 = v80;
+      v84 = v80[3];
+      v85 = v104;
+      (v84)(v82, a3, v83);
+      LOBYTE(v82) = (*(*(*(a4 + 32) + 8) + 16))(v17, v85, a3);
+      (*(v13 + 8))(v85, a3);
+      v21 = v103;
+      if ((v82 & 1) == 0)
       {
         goto LABEL_34;
       }
@@ -1042,16 +930,16 @@ LABEL_18:
 
     else
     {
-      v104 = 0x8000000000000000;
-      v72 = *(a4 + 96);
-      v73 = lazy protocol witness table accessor for type Int and conformance Int(v69, v70, v71);
-      v99 = v19;
-      v74 = v101;
-      v72(&v104, &type metadata for Int, v73, a3, a4);
-      v75 = (*(*(*(a4 + 32) + 8) + 16))(v15, v74, a3);
-      (*(v12 + 8))(v74, a3);
-      v18 = v100;
-      if ((v75 & 1) == 0)
+      v107 = 0x8000000000000000;
+      v75 = *(a4 + 96);
+      v76 = lazy protocol witness table accessor for type Int and conformance Int(v72, v73, v74);
+      v102 = v22;
+      v77 = v104;
+      v75(&v107, &type metadata for Int, v76, a3, a4);
+      v78 = (*(*(*(a4 + 32) + 8) + 16))(v17, v77, a3);
+      (*(v13 + 8))(v77, a3);
+      v21 = v103;
+      if ((v78 & 1) == 0)
       {
         goto LABEL_35;
       }
@@ -1061,59 +949,59 @@ LABEL_39:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  v56 = v102(a3, a4);
-  if (v56 < 64)
+  v59 = v105(a3, a4);
+  if (v59 < 64)
   {
 LABEL_34:
     (*(a4 + 120))(a3, a4);
     goto LABEL_35;
   }
 
-  v104 = 0x8000000000000000;
-  v100 = v18;
-  v59 = *(a4 + 96);
-  v60 = lazy protocol witness table accessor for type Int and conformance Int(v56, v57, v58);
-  v99 = v19;
-  v61 = v101;
-  v59(&v104, &type metadata for Int, v60, a3, a4);
-  v18 = v100;
-  v62 = (*(*(*(a4 + 32) + 8) + 16))(v15, v61, a3);
-  (*(v12 + 8))(v61, a3);
-  if (v62)
+  v107 = 0x8000000000000000;
+  v103 = v21;
+  v62 = *(a4 + 96);
+  v63 = lazy protocol witness table accessor for type Int and conformance Int(v59, v60, v61);
+  v102 = v22;
+  v64 = v104;
+  v62(&v107, &type metadata for Int, v63, a3, a4);
+  v21 = v103;
+  v65 = (*(*(*(a4 + 32) + 8) + 16))(v17, v64, a3);
+  (*(v13 + 8))(v64, a3);
+  if (v65)
   {
     goto LABEL_39;
   }
 
 LABEL_35:
-  v83 = v102;
-  if (v102(a3, a4) <= 64 && (v83(a3, a4) != 64 || (v18(a3, a4) & 1) != 0))
+  v86 = v105;
+  if (v105(a3, a4) <= 64 && (v86(a3, a4) != 64 || (v21(a3, a4) & 1) != 0))
   {
     goto LABEL_45;
   }
 
-  v84 = v18(a3, a4);
-  v85 = v83;
-  v86 = v84;
-  v87 = v85(a3, a4);
-  if (v86)
+  v87 = v21(a3, a4);
+  v88 = v86;
+  v89 = v87;
+  v90 = v88(a3, a4);
+  if (v89)
   {
-    if (v87 > 64)
+    if (v90 > 64)
     {
       goto LABEL_38;
     }
   }
 
-  else if (v87 >= 64)
+  else if (v90 >= 64)
   {
 LABEL_38:
-    v104 = 0x7FFFFFFFFFFFFFFFLL;
-    v90 = *(a4 + 96);
-    v91 = lazy protocol witness table accessor for type Int and conformance Int(v87, v88, v89);
-    v92 = v101;
-    v90(&v104, &type metadata for Int, v91, a3, a4);
-    v93 = (*(*(*(a4 + 32) + 8) + 16))(v92, v15, a3);
-    (*(v12 + 8))(v92, a3);
-    if (v93)
+    v107 = 0x7FFFFFFFFFFFFFFFLL;
+    v93 = *(a4 + 96);
+    v94 = lazy protocol witness table accessor for type Int and conformance Int(v90, v91, v92);
+    v95 = v104;
+    v93(&v107, &type metadata for Int, v94, a3, a4);
+    v96 = (*(*(*(a4 + 32) + 8) + 16))(v95, v17, a3);
+    (*(v13 + 8))(v95, a3);
+    if (v96)
     {
       goto LABEL_39;
     }
@@ -1123,74 +1011,74 @@ LABEL_38:
 
   (*(a4 + 120))(a3, a4);
 LABEL_45:
-  v94 = (*(a4 + 120))(a3, a4);
-  result = (*(v12 + 8))(v15, a3);
-  if ((v94 & 0x8000000000000000) != 0)
+  v97 = (*(a4 + 120))(a3, a4);
+  result = (*(v13 + 8))(v17, a3);
+  if ((v97 & 0x8000000000000000) != 0)
   {
-    if (v94 > 0xFFFFFFFFFFFFFFC0)
+    if (v97 > 0xFFFFFFFFFFFFFFC0)
     {
-      v55 = v17 << -v94;
+      v58 = v20 << -v97;
       goto LABEL_48;
     }
 
     goto LABEL_26;
   }
 
-  if (v94 < 0x40)
+  if (v97 < 0x40)
   {
-    v55 = v17 >> v94;
+    v58 = v20 >> v97;
     goto LABEL_48;
   }
 
 LABEL_17:
-  v55 = v17 >> 63;
+  v58 = v20 >> 63;
 LABEL_48:
-  *v103 = v55;
+  *v106 = v58;
   return result;
 }
 
-uint64_t protocol witness for static BinaryInteger.>>= infix<A>(_:_:) in conformance Int64(uint64_t *a1, uint64_t a2, const char *a3, uint64_t a4)
+uint64_t protocol witness for static BinaryInteger.>>= infix<A>(_:_:) in conformance Int64(uint64_t *a1, uint64_t a2, Class *a3, uint64_t a4)
 {
-  v106 = *(*(a4 + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v106, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v105 = v8;
-  v9 = MEMORY[0x1EEE9AC00](v8);
-  v104 = v102 - v10;
-  v11 = *(a3 - 1);
-  v12 = MEMORY[0x1EEE9AC00](v9);
-  v14 = v102 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v108 = v102 - v15;
-  v16 = (a4 + 64);
-  v109 = *(a4 + 64);
-  if ((v109(a3, a4) & 1) == 0)
+  v109 = *(*(a4 + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v109, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v108 = v8;
+  v10 = MEMORY[0x1EEE9AC00](v8, v9);
+  v107 = v105 - v11;
+  v12 = *(a3 - 1);
+  v14 = MEMORY[0x1EEE9AC00](v10, v13);
+  v16 = v105 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14, v17);
+  v111 = v105 - v18;
+  v19 = (a4 + 64);
+  v112 = *(a4 + 64);
+  if ((v112(a3, a4) & 1) == 0)
   {
-    v31 = v109(a3, a4);
-    v17 = *(a4 + 128);
-    v32 = v17(a3, a4);
-    if (v31)
+    v34 = v112(a3, a4);
+    v20 = *(a4 + 128);
+    v35 = v20(a3, a4);
+    if (v34)
     {
-      v107 = a2;
-      v103 = v17;
-      if (v32 <= 64)
+      v110 = a2;
+      v106 = v20;
+      if (v35 <= 64)
       {
-        v70 = v105;
-        v69 = v106;
-        AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v106, a3, v105, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-        v72 = v104;
-        (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v70, AssociatedConformanceWitness);
         v73 = v108;
-        (v69[3])(v72, a3, v69);
-        a2 = v107;
-        LOBYTE(v69) = (*(*(*(a4 + 32) + 8) + 16))(v107, v73, a3);
-        result = (*(v11 + 8))(v73, a3);
-        if (v69)
+        v72 = v109;
+        AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v109, a3, v108, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+        v75 = v107;
+        (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v73, AssociatedConformanceWitness);
+        v76 = v111;
+        (v72[3])(v75, a3, v72);
+        a2 = v110;
+        LOBYTE(v72) = (*(*(*(a4 + 32) + 8) + 16))(v110, v76, a3);
+        result = (*(v12 + 8))(v76, a3);
+        if (v72)
         {
           goto LABEL_25;
         }
 
         result = (*(a4 + 120))(a3, a4);
-        v17 = v103;
+        v20 = v106;
         if (result < -64)
         {
           goto LABEL_25;
@@ -1199,35 +1087,35 @@ uint64_t protocol witness for static BinaryInteger.>>= infix<A>(_:_:) in conform
         goto LABEL_11;
       }
 
-      v110 = -64;
-      v35 = v14;
-      v36 = v11;
-      v37 = a1;
-      v38 = *(a4 + 96);
-      v39 = lazy protocol witness table accessor for type Int and conformance Int(v32, v33, v34);
-      v40 = v108;
-      v38(&v110, &type metadata for Int, v39, a3, a4);
-      a1 = v37;
-      v11 = v36;
-      v14 = v35;
-      v41 = v107;
-      v42 = (*(*(*(a4 + 32) + 8) + 16))(v107, v40, a3);
-      v43 = v40;
-      v16 = (a4 + 64);
-      a2 = v41;
-      result = (*(v11 + 8))(v43, a3);
-      v17 = v103;
-      if ((v42 & 1) == 0)
+      v113 = -64;
+      v38 = v16;
+      v39 = v12;
+      v40 = a1;
+      v41 = *(a4 + 96);
+      v42 = lazy protocol witness table accessor for type Int and conformance Int(v35, v36, v37);
+      v43 = v111;
+      v41(&v113, &type metadata for Int, v42, a3, a4);
+      a1 = v40;
+      v12 = v39;
+      v16 = v38;
+      v44 = v110;
+      v45 = (*(*(*(a4 + 32) + 8) + 16))(v110, v43, a3);
+      v46 = v43;
+      v19 = (a4 + 64);
+      a2 = v44;
+      result = (*(v12 + 8))(v46, a3);
+      v20 = v106;
+      if ((v45 & 1) == 0)
       {
         goto LABEL_11;
       }
 
 LABEL_25:
-      v68 = 0;
+      v71 = 0;
       goto LABEL_47;
     }
 
-    if (v32 >= 64)
+    if (v35 >= 64)
     {
       goto LABEL_11;
     }
@@ -1242,45 +1130,45 @@ LABEL_10:
     goto LABEL_25;
   }
 
-  v17 = *(a4 + 128);
-  v18 = v17(a3, a4);
-  if (v18 < 64)
+  v20 = *(a4 + 128);
+  v21 = v20(a3, a4);
+  if (v21 < 64)
   {
     goto LABEL_10;
   }
 
-  v110 = -64;
-  v107 = a2;
-  v21 = v17;
-  v22 = v14;
-  v23 = v11;
-  v24 = a1;
-  v25 = *(a4 + 96);
-  v26 = lazy protocol witness table accessor for type Int and conformance Int(v18, v19, v20);
-  v103 = (a4 + 64);
-  v27 = v108;
-  v25(&v110, &type metadata for Int, v26, a3, a4);
-  a1 = v24;
-  v11 = v23;
-  v14 = v22;
-  v17 = v21;
-  a2 = v107;
-  v28 = (*(*(*(a4 + 32) + 8) + 16))(v107, v27, a3);
-  v29 = v27;
-  v16 = v103;
-  result = (*(v11 + 8))(v29, a3);
-  if (v28)
+  v113 = -64;
+  v110 = a2;
+  v24 = v20;
+  v25 = v16;
+  v26 = v12;
+  v27 = a1;
+  v28 = *(a4 + 96);
+  v29 = lazy protocol witness table accessor for type Int and conformance Int(v21, v22, v23);
+  v106 = (a4 + 64);
+  v30 = v111;
+  v28(&v113, &type metadata for Int, v29, a3, a4);
+  a1 = v27;
+  v12 = v26;
+  v16 = v25;
+  v20 = v24;
+  a2 = v110;
+  v31 = (*(*(*(a4 + 32) + 8) + 16))(v110, v30, a3);
+  v32 = v30;
+  v19 = v106;
+  result = (*(v12 + 8))(v32, a3);
+  if (v31)
   {
     goto LABEL_25;
   }
 
 LABEL_11:
-  v44 = v109(a3, a4);
-  v102[1] = a4 + 128;
-  v45 = v17(a3, a4);
-  if (v44)
+  v47 = v112(a3, a4);
+  v105[1] = a4 + 128;
+  v48 = v20(a3, a4);
+  if (v47)
   {
-    if (v45 > 64)
+    if (v48 > 64)
     {
       goto LABEL_13;
     }
@@ -1293,55 +1181,55 @@ LABEL_21:
     }
 
 LABEL_22:
-    v68 = *a1 >> 63;
+    v71 = *a1 >> 63;
     goto LABEL_47;
   }
 
-  if (v45 < 64)
+  if (v48 < 64)
   {
     goto LABEL_21;
   }
 
 LABEL_13:
-  v110 = 64;
-  v107 = a2;
-  v48 = v17;
-  v49 = v14;
-  v50 = v11;
-  v51 = a1;
-  v52 = *(a4 + 96);
-  v53 = lazy protocol witness table accessor for type Int and conformance Int(v45, v46, v47);
-  v103 = v16;
-  v54 = v108;
-  v52(&v110, &type metadata for Int, v53, a3, a4);
-  a1 = v51;
-  v11 = v50;
-  v14 = v49;
-  v17 = v48;
-  a2 = v107;
-  v55 = (*(*(*(a4 + 32) + 8) + 16))(v54, v107, a3);
-  v56 = v54;
-  v16 = v103;
-  result = (*(v11 + 8))(v56, a3);
-  if (v55)
+  v113 = 64;
+  v110 = a2;
+  v51 = v20;
+  v52 = v16;
+  v53 = v12;
+  v54 = a1;
+  v55 = *(a4 + 96);
+  v56 = lazy protocol witness table accessor for type Int and conformance Int(v48, v49, v50);
+  v106 = v19;
+  v57 = v111;
+  v55(&v113, &type metadata for Int, v56, a3, a4);
+  a1 = v54;
+  v12 = v53;
+  v16 = v52;
+  v20 = v51;
+  a2 = v110;
+  v58 = (*(*(*(a4 + 32) + 8) + 16))(v57, v110, a3);
+  v59 = v57;
+  v19 = v106;
+  result = (*(v12 + 8))(v59, a3);
+  if (v58)
   {
     goto LABEL_22;
   }
 
 LABEL_14:
-  (*(v11 + 16))(v14, a2, a3);
-  if ((v109(a3, a4) & 1) == 0 || v17(a3, a4) < 65)
+  (*(v12 + 16))(v16, a2, a3);
+  if ((v112(a3, a4) & 1) == 0 || v20(a3, a4) < 65)
   {
     goto LABEL_34;
   }
 
-  if ((v109(a3, a4) & 1) == 0)
+  if ((v112(a3, a4) & 1) == 0)
   {
-    v74 = v109(a3, a4);
-    v75 = v17(a3, a4);
-    if ((v74 & 1) == 0)
+    v77 = v112(a3, a4);
+    v78 = v20(a3, a4);
+    if ((v77 & 1) == 0)
     {
-      if (v75 >= 64)
+      if (v78 >= 64)
       {
         goto LABEL_34;
       }
@@ -1349,20 +1237,20 @@ LABEL_14:
       goto LABEL_33;
     }
 
-    v103 = v17;
-    if (v75 <= 64)
+    v106 = v20;
+    if (v78 <= 64)
     {
-      v86 = v105;
-      v85 = v106;
-      v87 = swift_getAssociatedConformanceWitness(v106, a3, v105, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v88 = v104;
-      (*(v87 + 8))(&qword_18071E0A8, 256, v86, v87);
       v89 = v108;
-      (v85[3])(v88, a3, v85);
-      LOBYTE(v85) = (*(*(*(a4 + 32) + 8) + 16))(v14, v89, a3);
-      (*(v11 + 8))(v89, a3);
-      v17 = v103;
-      if ((v85 & 1) == 0)
+      v88 = v109;
+      v90 = swift_getAssociatedConformanceWitness(v109, a3, v108, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v91 = v107;
+      (*(v90 + 8))(&qword_18071E0A8, 256, v89, v90);
+      v92 = v111;
+      (v88[3])(v91, a3, v88);
+      LOBYTE(v88) = (*(*(*(a4 + 32) + 8) + 16))(v16, v92, a3);
+      (*(v12 + 8))(v92, a3);
+      v20 = v106;
+      if ((v88 & 1) == 0)
       {
         goto LABEL_33;
       }
@@ -1370,21 +1258,21 @@ LABEL_14:
 
     else
     {
-      v110 = 0x8000000000000000;
-      v78 = v14;
-      v79 = v11;
-      v80 = a1;
-      v81 = *(a4 + 96);
-      v82 = lazy protocol witness table accessor for type Int and conformance Int(v75, v76, v77);
-      v83 = v108;
-      v81(&v110, &type metadata for Int, v82, a3, a4);
-      a1 = v80;
-      v11 = v79;
-      v14 = v78;
-      v84 = (*(*(*(a4 + 32) + 8) + 16))(v78, v83, a3);
-      (*(v11 + 8))(v83, a3);
-      v17 = v103;
-      if ((v84 & 1) == 0)
+      v113 = 0x8000000000000000;
+      v81 = v16;
+      v82 = v12;
+      v83 = a1;
+      v84 = *(a4 + 96);
+      v85 = lazy protocol witness table accessor for type Int and conformance Int(v78, v79, v80);
+      v86 = v111;
+      v84(&v113, &type metadata for Int, v85, a3, a4);
+      a1 = v83;
+      v12 = v82;
+      v16 = v81;
+      v87 = (*(*(*(a4 + 32) + 8) + 16))(v81, v86, a3);
+      (*(v12 + 8))(v86, a3);
+      v20 = v106;
+      if ((v87 & 1) == 0)
       {
         goto LABEL_34;
       }
@@ -1394,66 +1282,66 @@ LABEL_38:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  v57 = v17(a3, a4);
-  if (v57 < 64)
+  v60 = v20(a3, a4);
+  if (v60 < 64)
   {
 LABEL_33:
     (*(a4 + 120))(a3, a4);
     goto LABEL_34;
   }
 
-  v110 = 0x8000000000000000;
-  v60 = v17;
-  v61 = v14;
-  v62 = v11;
-  v63 = a1;
-  v64 = *(a4 + 96);
-  v65 = lazy protocol witness table accessor for type Int and conformance Int(v57, v58, v59);
-  v103 = v16;
-  v66 = v108;
-  v64(&v110, &type metadata for Int, v65, a3, a4);
-  a1 = v63;
-  v11 = v62;
-  v14 = v61;
-  v17 = v60;
-  v67 = (*(*(*(a4 + 32) + 8) + 16))(v14, v66, a3);
-  (*(v11 + 8))(v66, a3);
-  if (v67)
+  v113 = 0x8000000000000000;
+  v63 = v20;
+  v64 = v16;
+  v65 = v12;
+  v66 = a1;
+  v67 = *(a4 + 96);
+  v68 = lazy protocol witness table accessor for type Int and conformance Int(v60, v61, v62);
+  v106 = v19;
+  v69 = v111;
+  v67(&v113, &type metadata for Int, v68, a3, a4);
+  a1 = v66;
+  v12 = v65;
+  v16 = v64;
+  v20 = v63;
+  v70 = (*(*(*(a4 + 32) + 8) + 16))(v16, v69, a3);
+  (*(v12 + 8))(v69, a3);
+  if (v70)
   {
     goto LABEL_38;
   }
 
 LABEL_34:
-  if (v17(a3, a4) <= 64 && (v17(a3, a4) != 64 || (v109(a3, a4) & 1) != 0))
+  if (v20(a3, a4) <= 64 && (v20(a3, a4) != 64 || (v112(a3, a4) & 1) != 0))
   {
     goto LABEL_44;
   }
 
-  v90 = v109(a3, a4);
-  v91 = v17(a3, a4);
-  if (v90)
+  v93 = v112(a3, a4);
+  v94 = v20(a3, a4);
+  if (v93)
   {
-    if (v91 > 64)
+    if (v94 > 64)
     {
       goto LABEL_37;
     }
   }
 
-  else if (v91 >= 64)
+  else if (v94 >= 64)
   {
 LABEL_37:
-    v110 = 0x7FFFFFFFFFFFFFFFLL;
-    v94 = v14;
-    v95 = a1;
-    v96 = *(a4 + 96);
-    v97 = lazy protocol witness table accessor for type Int and conformance Int(v91, v92, v93);
-    v98 = v108;
-    v96(&v110, &type metadata for Int, v97, a3, a4);
-    a1 = v95;
-    v14 = v94;
-    v99 = (*(*(*(a4 + 32) + 8) + 16))(v98, v94, a3);
-    (*(v11 + 8))(v98, a3);
-    if (v99)
+    v113 = 0x7FFFFFFFFFFFFFFFLL;
+    v97 = v16;
+    v98 = a1;
+    v99 = *(a4 + 96);
+    v100 = lazy protocol witness table accessor for type Int and conformance Int(v94, v95, v96);
+    v101 = v111;
+    v99(&v113, &type metadata for Int, v100, a3, a4);
+    a1 = v98;
+    v16 = v97;
+    v102 = (*(*(*(a4 + 32) + 8) + 16))(v101, v97, a3);
+    (*(v12 + 8))(v101, a3);
+    if (v102)
     {
       goto LABEL_38;
     }
@@ -1463,56 +1351,56 @@ LABEL_37:
 
   (*(a4 + 120))(a3, a4);
 LABEL_44:
-  v100 = (*(a4 + 120))(a3, a4);
-  result = (*(v11 + 8))(v14, a3);
-  v101 = *a1;
-  if ((v100 & 0x8000000000000000) != 0)
+  v103 = (*(a4 + 120))(a3, a4);
+  result = (*(v12 + 8))(v16, a3);
+  v104 = *a1;
+  if ((v103 & 0x8000000000000000) != 0)
   {
-    if (v100 > 0xFFFFFFFFFFFFFFC0)
+    if (v103 > 0xFFFFFFFFFFFFFFC0)
     {
-      v68 = v101 << -v100;
+      v71 = v104 << -v103;
       goto LABEL_47;
     }
 
     goto LABEL_25;
   }
 
-  if (v100 >= 0x40)
+  if (v103 >= 0x40)
   {
-    v68 = v101 >> 63;
+    v71 = v104 >> 63;
   }
 
   else
   {
-    v68 = v101 >> v100;
+    v71 = v104 >> v103;
   }
 
 LABEL_47:
-  *a1 = v68;
+  *a1 = v71;
   return result;
 }
 
-uint64_t protocol witness for static BinaryInteger.<< infix<A>(_:_:) in conformance Int64@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
+uint64_t protocol witness for static BinaryInteger.<< infix<A>(_:_:) in conformance Int64@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
-  v103 = a5;
-  v98 = *(*(a4 + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v98, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v97 = v9;
-  v10 = MEMORY[0x1EEE9AC00](v9);
-  v96 = &v95 - v11;
-  v12 = *(a3 - 1);
-  v13 = MEMORY[0x1EEE9AC00](v10);
-  v15 = &v95 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v101 = &v95 - v16;
-  v17 = *a1;
-  v19 = a4 + 64;
-  v18 = *(a4 + 64);
-  if (v18(a3, a4))
+  v106 = a5;
+  v101 = *(*(a4 + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v101, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v100 = v9;
+  v11 = MEMORY[0x1EEE9AC00](v9, v10);
+  v99 = &v98 - v12;
+  v13 = *(a3 - 1);
+  v15 = MEMORY[0x1EEE9AC00](v11, v14);
+  v17 = &v98 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15, v18);
+  v104 = &v98 - v19;
+  v20 = *a1;
+  v22 = a4 + 64;
+  v21 = *(a4 + 64);
+  if (v21(a3, a4))
   {
-    v102 = *(a4 + 128);
-    v20 = v102(a3, a4);
-    if (v20 < 64)
+    v105 = *(a4 + 128);
+    v23 = v105(a3, a4);
+    if (v23 < 64)
     {
       result = (*(a4 + 120))(a3, a4);
       if (result > -65)
@@ -1521,31 +1409,31 @@ uint64_t protocol witness for static BinaryInteger.<< infix<A>(_:_:) in conforma
       }
 
 LABEL_16:
-      v47 = v17 >> 63;
+      v50 = v20 >> 63;
       goto LABEL_50;
     }
 
-    v104 = -64;
-    v100 = v18;
-    v33 = v15;
-    v34 = v17;
-    v35 = v12;
-    v36 = a2;
-    v37 = *(a4 + 96);
-    v38 = lazy protocol witness table accessor for type Int and conformance Int(v20, v21, v22);
-    v99 = a4 + 64;
-    v39 = v101;
-    v37(&v104, &type metadata for Int, v38, a3, a4);
-    a2 = v36;
-    v12 = v35;
-    v17 = v34;
-    v15 = v33;
-    v18 = v100;
-    v40 = (*(*(*(a4 + 32) + 8) + 16))(a2, v39, a3);
-    v41 = v39;
-    v19 = v99;
-    result = (*(v12 + 8))(v41, a3);
-    if (v40)
+    v107 = -64;
+    v103 = v21;
+    v36 = v17;
+    v37 = v20;
+    v38 = v13;
+    v39 = a2;
+    v40 = *(a4 + 96);
+    v41 = lazy protocol witness table accessor for type Int and conformance Int(v23, v24, v25);
+    v102 = a4 + 64;
+    v42 = v104;
+    v40(&v107, &type metadata for Int, v41, a3, a4);
+    a2 = v39;
+    v13 = v38;
+    v20 = v37;
+    v17 = v36;
+    v21 = v103;
+    v43 = (*(*(*(a4 + 32) + 8) + 16))(a2, v42, a3);
+    v44 = v42;
+    v22 = v102;
+    result = (*(v13 + 8))(v44, a3);
+    if (v43)
     {
       goto LABEL_16;
     }
@@ -1553,32 +1441,32 @@ LABEL_16:
 
   else
   {
-    v24 = v18(a3, a4);
-    v102 = *(a4 + 128);
-    v25 = v102(a3, a4);
-    if (v24)
+    v27 = v21(a3, a4);
+    v105 = *(a4 + 128);
+    v28 = v105(a3, a4);
+    if (v27)
     {
-      v95 = a2;
-      v100 = v18;
-      if (v25 <= 64)
+      v98 = a2;
+      v103 = v21;
+      if (v28 <= 64)
       {
-        v43 = v97;
-        v42 = v98;
-        AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v98, a3, v97, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-        v45 = v96;
-        (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v43, AssociatedConformanceWitness);
-        v46 = v101;
-        (v42[3])(v45, a3, v42);
-        a2 = v95;
-        LOBYTE(v42) = (*(*(*(a4 + 32) + 8) + 16))(v95, v46, a3);
-        result = (*(v12 + 8))(v46, a3);
-        if (v42)
+        v46 = v100;
+        v45 = v101;
+        AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v101, a3, v100, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+        v48 = v99;
+        (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v46, AssociatedConformanceWitness);
+        v49 = v104;
+        (v45[3])(v48, a3, v45);
+        a2 = v98;
+        LOBYTE(v45) = (*(*(*(a4 + 32) + 8) + 16))(v98, v49, a3);
+        result = (*(v13 + 8))(v49, a3);
+        if (v45)
         {
           goto LABEL_16;
         }
 
         result = (*(a4 + 120))(a3, a4);
-        v18 = v100;
+        v21 = v103;
         if (result < -64)
         {
           goto LABEL_16;
@@ -1587,26 +1475,26 @@ LABEL_16:
 
       else
       {
-        v104 = -64;
-        v28 = *(a4 + 96);
-        v29 = lazy protocol witness table accessor for type Int and conformance Int(v25, v26, v27);
-        v99 = a4 + 64;
-        v30 = v101;
-        v28(&v104, &type metadata for Int, v29, a3, a4);
-        a2 = v95;
-        v31 = (*(*(*(a4 + 32) + 8) + 16))(v95, v30, a3);
-        v32 = v30;
-        v19 = v99;
-        result = (*(v12 + 8))(v32, a3);
-        v18 = v100;
-        if (v31)
+        v107 = -64;
+        v31 = *(a4 + 96);
+        v32 = lazy protocol witness table accessor for type Int and conformance Int(v28, v29, v30);
+        v102 = a4 + 64;
+        v33 = v104;
+        v31(&v107, &type metadata for Int, v32, a3, a4);
+        a2 = v98;
+        v34 = (*(*(*(a4 + 32) + 8) + 16))(v98, v33, a3);
+        v35 = v33;
+        v22 = v102;
+        result = (*(v13 + 8))(v35, a3);
+        v21 = v103;
+        if (v34)
         {
           goto LABEL_16;
         }
       }
     }
 
-    else if (v25 < 64)
+    else if (v28 < 64)
     {
       result = (*(a4 + 120))(a3, a4);
       if (result < -64)
@@ -1617,12 +1505,12 @@ LABEL_16:
   }
 
 LABEL_17:
-  v48 = v18(a3, a4);
-  v95 = a4 + 128;
-  v49 = v102(a3, a4);
-  if (v48)
+  v51 = v21(a3, a4);
+  v98 = a4 + 128;
+  v52 = v105(a3, a4);
+  if (v51)
   {
-    if (v49 > 64)
+    if (v52 > 64)
     {
       goto LABEL_19;
     }
@@ -1635,55 +1523,55 @@ LABEL_27:
     }
 
 LABEL_28:
-    v47 = 0;
+    v50 = 0;
     goto LABEL_50;
   }
 
-  if (v49 < 64)
+  if (v52 < 64)
   {
     goto LABEL_27;
   }
 
 LABEL_19:
-  v104 = 64;
-  v100 = v18;
-  v52 = v15;
-  v53 = v17;
-  v54 = v12;
-  v55 = a2;
-  v56 = *(a4 + 96);
-  v57 = lazy protocol witness table accessor for type Int and conformance Int(v49, v50, v51);
-  v99 = v19;
-  v58 = v101;
-  v56(&v104, &type metadata for Int, v57, a3, a4);
-  a2 = v55;
-  v12 = v54;
-  v17 = v53;
-  v15 = v52;
-  v18 = v100;
-  v59 = (*(*(*(a4 + 32) + 8) + 16))(v58, a2, a3);
-  v60 = v58;
-  v19 = v99;
-  result = (*(v12 + 8))(v60, a3);
-  if (v59)
+  v107 = 64;
+  v103 = v21;
+  v55 = v17;
+  v56 = v20;
+  v57 = v13;
+  v58 = a2;
+  v59 = *(a4 + 96);
+  v60 = lazy protocol witness table accessor for type Int and conformance Int(v52, v53, v54);
+  v102 = v22;
+  v61 = v104;
+  v59(&v107, &type metadata for Int, v60, a3, a4);
+  a2 = v58;
+  v13 = v57;
+  v20 = v56;
+  v17 = v55;
+  v21 = v103;
+  v62 = (*(*(*(a4 + 32) + 8) + 16))(v61, a2, a3);
+  v63 = v61;
+  v22 = v102;
+  result = (*(v13 + 8))(v63, a3);
+  if (v62)
   {
     goto LABEL_28;
   }
 
 LABEL_20:
-  (*(v12 + 16))(v15, a2, a3);
-  if ((v18(a3, a4) & 1) == 0 || v102(a3, a4) < 65)
+  (*(v13 + 16))(v17, a2, a3);
+  if ((v21(a3, a4) & 1) == 0 || v105(a3, a4) < 65)
   {
     goto LABEL_37;
   }
 
-  if ((v18(a3, a4) & 1) == 0)
+  if ((v21(a3, a4) & 1) == 0)
   {
-    v68 = v18(a3, a4);
-    v69 = v102(a3, a4);
-    if ((v68 & 1) == 0)
+    v71 = v21(a3, a4);
+    v72 = v105(a3, a4);
+    if ((v71 & 1) == 0)
     {
-      if (v69 >= 64)
+      if (v72 >= 64)
       {
         goto LABEL_37;
       }
@@ -1691,22 +1579,22 @@ LABEL_20:
       goto LABEL_36;
     }
 
-    v100 = v18;
-    if (v69 <= 64)
+    v103 = v21;
+    if (v72 <= 64)
     {
-      v76 = v97;
-      v77 = v98;
-      v78 = swift_getAssociatedConformanceWitness(v98, a3, v97, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v79 = v96;
-      (*(v78 + 8))(&qword_18071E0A8, 256, v76, v78);
-      v80 = v77;
-      v81 = v77[3];
-      v82 = v101;
-      (v81)(v79, a3, v80);
-      LOBYTE(v79) = (*(*(*(a4 + 32) + 8) + 16))(v15, v82, a3);
-      (*(v12 + 8))(v82, a3);
-      v18 = v100;
-      if ((v79 & 1) == 0)
+      v79 = v100;
+      v80 = v101;
+      v81 = swift_getAssociatedConformanceWitness(v101, a3, v100, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v82 = v99;
+      (*(v81 + 8))(&qword_18071E0A8, 256, v79, v81);
+      v83 = v80;
+      v84 = v80[3];
+      v85 = v104;
+      (v84)(v82, a3, v83);
+      LOBYTE(v82) = (*(*(*(a4 + 32) + 8) + 16))(v17, v85, a3);
+      (*(v13 + 8))(v85, a3);
+      v21 = v103;
+      if ((v82 & 1) == 0)
       {
         goto LABEL_36;
       }
@@ -1714,16 +1602,16 @@ LABEL_20:
 
     else
     {
-      v104 = 0x8000000000000000;
-      v72 = *(a4 + 96);
-      v73 = lazy protocol witness table accessor for type Int and conformance Int(v69, v70, v71);
-      v99 = v19;
-      v74 = v101;
-      v72(&v104, &type metadata for Int, v73, a3, a4);
-      v75 = (*(*(*(a4 + 32) + 8) + 16))(v15, v74, a3);
-      (*(v12 + 8))(v74, a3);
-      v18 = v100;
-      if ((v75 & 1) == 0)
+      v107 = 0x8000000000000000;
+      v75 = *(a4 + 96);
+      v76 = lazy protocol witness table accessor for type Int and conformance Int(v72, v73, v74);
+      v102 = v22;
+      v77 = v104;
+      v75(&v107, &type metadata for Int, v76, a3, a4);
+      v78 = (*(*(*(a4 + 32) + 8) + 16))(v17, v77, a3);
+      (*(v13 + 8))(v77, a3);
+      v21 = v103;
+      if ((v78 & 1) == 0)
       {
         goto LABEL_37;
       }
@@ -1733,43 +1621,43 @@ LABEL_41:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  v61 = v102(a3, a4);
-  if (v61 < 64)
+  v64 = v105(a3, a4);
+  if (v64 < 64)
   {
 LABEL_36:
     (*(a4 + 120))(a3, a4);
     goto LABEL_37;
   }
 
-  v104 = 0x8000000000000000;
-  v100 = v18;
-  v64 = *(a4 + 96);
-  v65 = lazy protocol witness table accessor for type Int and conformance Int(v61, v62, v63);
-  v99 = v19;
-  v66 = v101;
-  v64(&v104, &type metadata for Int, v65, a3, a4);
-  v18 = v100;
-  v67 = (*(*(*(a4 + 32) + 8) + 16))(v15, v66, a3);
-  (*(v12 + 8))(v66, a3);
-  if (v67)
+  v107 = 0x8000000000000000;
+  v103 = v21;
+  v67 = *(a4 + 96);
+  v68 = lazy protocol witness table accessor for type Int and conformance Int(v64, v65, v66);
+  v102 = v22;
+  v69 = v104;
+  v67(&v107, &type metadata for Int, v68, a3, a4);
+  v21 = v103;
+  v70 = (*(*(*(a4 + 32) + 8) + 16))(v17, v69, a3);
+  (*(v13 + 8))(v69, a3);
+  if (v70)
   {
     goto LABEL_41;
   }
 
 LABEL_37:
-  v83 = v102;
-  if (v102(a3, a4) <= 64 && (v83(a3, a4) != 64 || (v18(a3, a4) & 1) != 0))
+  v86 = v105;
+  if (v105(a3, a4) <= 64 && (v86(a3, a4) != 64 || (v21(a3, a4) & 1) != 0))
   {
     goto LABEL_47;
   }
 
-  v84 = v18(a3, a4);
-  v85 = v83;
-  v86 = v84;
-  v87 = v85(a3, a4);
-  if (v86)
+  v87 = v21(a3, a4);
+  v88 = v86;
+  v89 = v87;
+  v90 = v88(a3, a4);
+  if (v89)
   {
-    if (v87 > 64)
+    if (v90 > 64)
     {
       goto LABEL_40;
     }
@@ -1779,96 +1667,96 @@ LABEL_46:
     goto LABEL_47;
   }
 
-  if (v87 < 64)
+  if (v90 < 64)
   {
     goto LABEL_46;
   }
 
 LABEL_40:
-  v104 = 0x7FFFFFFFFFFFFFFFLL;
-  v90 = *(a4 + 96);
-  v91 = lazy protocol witness table accessor for type Int and conformance Int(v87, v88, v89);
-  v92 = v101;
-  v90(&v104, &type metadata for Int, v91, a3, a4);
-  v93 = (*(*(*(a4 + 32) + 8) + 16))(v92, v15, a3);
-  (*(v12 + 8))(v92, a3);
-  if (v93)
+  v107 = 0x7FFFFFFFFFFFFFFFLL;
+  v93 = *(a4 + 96);
+  v94 = lazy protocol witness table accessor for type Int and conformance Int(v90, v91, v92);
+  v95 = v104;
+  v93(&v107, &type metadata for Int, v94, a3, a4);
+  v96 = (*(*(*(a4 + 32) + 8) + 16))(v95, v17, a3);
+  (*(v13 + 8))(v95, a3);
+  if (v96)
   {
     goto LABEL_41;
   }
 
 LABEL_47:
-  v94 = (*(a4 + 120))(a3, a4);
-  result = (*(v12 + 8))(v15, a3);
-  if ((v94 & 0x8000000000000000) != 0)
+  v97 = (*(a4 + 120))(a3, a4);
+  result = (*(v13 + 8))(v17, a3);
+  if ((v97 & 0x8000000000000000) != 0)
   {
-    if (v94 > 0xFFFFFFFFFFFFFFC0)
+    if (v97 > 0xFFFFFFFFFFFFFFC0)
     {
-      v47 = v17 >> -v94;
+      v50 = v20 >> -v97;
       goto LABEL_50;
     }
 
     goto LABEL_16;
   }
 
-  v47 = v17 << v94;
-  if (v94 >= 0x40)
+  v50 = v20 << v97;
+  if (v97 >= 0x40)
   {
-    v47 = 0;
+    v50 = 0;
   }
 
 LABEL_50:
-  *v103 = v47;
+  *v106 = v50;
   return result;
 }
 
-uint64_t protocol witness for static BinaryInteger.<<= infix<A>(_:_:) in conformance Int64(uint64_t *a1, uint64_t a2, const char *a3, uint64_t a4)
+uint64_t protocol witness for static BinaryInteger.<<= infix<A>(_:_:) in conformance Int64(uint64_t *a1, uint64_t a2, Class *a3, uint64_t a4)
 {
-  v106 = *(*(a4 + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v106, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v105 = v8;
-  v9 = MEMORY[0x1EEE9AC00](v8);
-  v104 = v102 - v10;
-  v11 = *(a3 - 1);
-  v12 = MEMORY[0x1EEE9AC00](v9);
-  v14 = v102 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v108 = v102 - v15;
-  v16 = (a4 + 64);
-  v109 = *(a4 + 64);
-  if (v109(a3, a4))
+  v109 = *(*(a4 + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v109, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v108 = v8;
+  v10 = MEMORY[0x1EEE9AC00](v8, v9);
+  v107 = v105 - v11;
+  v12 = *(a3 - 1);
+  v14 = MEMORY[0x1EEE9AC00](v10, v13);
+  v16 = v105 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14, v17);
+  v111 = v105 - v18;
+  v19 = (a4 + 64);
+  v112 = *(a4 + 64);
+  if (v112(a3, a4))
   {
-    v17 = *(a4 + 128);
-    v18 = v17(a3, a4);
-    if (v18 >= 64)
+    v20 = *(a4 + 128);
+    v21 = v20(a3, a4);
+    if (v21 >= 64)
     {
-      v110 = -64;
-      v107 = a2;
-      v21 = v17;
-      v22 = v14;
-      v23 = v11;
-      v24 = a1;
-      v25 = *(a4 + 96);
-      v26 = lazy protocol witness table accessor for type Int and conformance Int(v18, v19, v20);
-      v103 = (a4 + 64);
-      v27 = v108;
-      v25(&v110, &type metadata for Int, v26, a3, a4);
-      a1 = v24;
-      v11 = v23;
-      v14 = v22;
-      v17 = v21;
-      a2 = v107;
-      v28 = (*(*(*(a4 + 32) + 8) + 16))(v107, v27, a3);
-      v29 = v27;
-      v16 = v103;
-      result = (*(v11 + 8))(v29, a3);
-      if ((v28 & 1) == 0)
+      v113 = -64;
+      v110 = a2;
+      v24 = v20;
+      v25 = v16;
+      v26 = v12;
+      v27 = a1;
+      v28 = *(a4 + 96);
+      v29 = lazy protocol witness table accessor for type Int and conformance Int(v21, v22, v23);
+      v106 = (a4 + 64);
+      v30 = v111;
+      v28(&v113, &type metadata for Int, v29, a3, a4);
+      a1 = v27;
+      v12 = v26;
+      v16 = v25;
+      v20 = v24;
+      a2 = v110;
+      v31 = (*(*(*(a4 + 32) + 8) + 16))(v110, v30, a3);
+      v32 = v30;
+      v19 = v106;
+      result = (*(v12 + 8))(v32, a3);
+      if ((v31 & 1) == 0)
       {
         goto LABEL_14;
       }
 
 LABEL_13:
-      v49 = *a1 >> 63;
+      v52 = *a1 >> 63;
       goto LABEL_47;
     }
 
@@ -1882,27 +1770,27 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v31 = v109(a3, a4);
-  v17 = *(a4 + 128);
-  v32 = v17(a3, a4);
-  if (v31)
+  v34 = v112(a3, a4);
+  v20 = *(a4 + 128);
+  v35 = v20(a3, a4);
+  if (v34)
   {
-    v107 = a2;
-    v103 = v17;
-    if (v32 <= 64)
+    v110 = a2;
+    v106 = v20;
+    if (v35 <= 64)
     {
-      v45 = v105;
-      v44 = v106;
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v106, a3, v105, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v47 = v104;
-      (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v45, AssociatedConformanceWitness);
       v48 = v108;
-      (v44[3])(v47, a3, v44);
-      a2 = v107;
-      LOBYTE(v44) = (*(*(*(a4 + 32) + 8) + 16))(v107, v48, a3);
-      result = (*(v11 + 8))(v48, a3);
-      v17 = v103;
-      if (v44)
+      v47 = v109;
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v109, a3, v108, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v50 = v107;
+      (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v48, AssociatedConformanceWitness);
+      v51 = v111;
+      (v47[3])(v50, a3, v47);
+      a2 = v110;
+      LOBYTE(v47) = (*(*(*(a4 + 32) + 8) + 16))(v110, v51, a3);
+      result = (*(v12 + 8))(v51, a3);
+      v20 = v106;
+      if (v47)
       {
         goto LABEL_13;
       }
@@ -1910,42 +1798,42 @@ LABEL_12:
       goto LABEL_12;
     }
 
-    v110 = -64;
-    v35 = v14;
-    v36 = v11;
-    v37 = a1;
-    v38 = *(a4 + 96);
-    v39 = lazy protocol witness table accessor for type Int and conformance Int(v32, v33, v34);
-    v40 = v108;
-    v38(&v110, &type metadata for Int, v39, a3, a4);
-    a1 = v37;
-    v11 = v36;
-    v14 = v35;
-    v41 = v107;
-    v42 = (*(*(*(a4 + 32) + 8) + 16))(v107, v40, a3);
-    v43 = v40;
-    v16 = (a4 + 64);
-    a2 = v41;
-    result = (*(v11 + 8))(v43, a3);
-    v17 = v103;
-    if (v42)
+    v113 = -64;
+    v38 = v16;
+    v39 = v12;
+    v40 = a1;
+    v41 = *(a4 + 96);
+    v42 = lazy protocol witness table accessor for type Int and conformance Int(v35, v36, v37);
+    v43 = v111;
+    v41(&v113, &type metadata for Int, v42, a3, a4);
+    a1 = v40;
+    v12 = v39;
+    v16 = v38;
+    v44 = v110;
+    v45 = (*(*(*(a4 + 32) + 8) + 16))(v110, v43, a3);
+    v46 = v43;
+    v19 = (a4 + 64);
+    a2 = v44;
+    result = (*(v12 + 8))(v46, a3);
+    v20 = v106;
+    if (v45)
     {
       goto LABEL_13;
     }
   }
 
-  else if (v32 < 64)
+  else if (v35 < 64)
   {
     goto LABEL_12;
   }
 
 LABEL_14:
-  v50 = v109(a3, a4);
-  v102[1] = a4 + 128;
-  v51 = v17(a3, a4);
-  if (v50)
+  v53 = v112(a3, a4);
+  v105[1] = a4 + 128;
+  v54 = v20(a3, a4);
+  if (v53)
   {
-    if (v51 > 64)
+    if (v54 > 64)
     {
       goto LABEL_16;
     }
@@ -1960,53 +1848,53 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  if (v51 < 64)
+  if (v54 < 64)
   {
     goto LABEL_19;
   }
 
 LABEL_16:
-  v110 = 64;
-  v107 = a2;
-  v54 = v17;
-  v55 = v14;
-  v56 = v11;
-  v57 = a1;
-  v58 = *(a4 + 96);
-  v59 = lazy protocol witness table accessor for type Int and conformance Int(v51, v52, v53);
-  v103 = v16;
-  v60 = v108;
-  v58(&v110, &type metadata for Int, v59, a3, a4);
-  a1 = v57;
-  v11 = v56;
-  v14 = v55;
-  v17 = v54;
-  a2 = v107;
-  v61 = (*(*(*(a4 + 32) + 8) + 16))(v60, v107, a3);
-  v62 = v60;
-  v16 = v103;
-  result = (*(v11 + 8))(v62, a3);
-  if (v61)
+  v113 = 64;
+  v110 = a2;
+  v57 = v20;
+  v58 = v16;
+  v59 = v12;
+  v60 = a1;
+  v61 = *(a4 + 96);
+  v62 = lazy protocol witness table accessor for type Int and conformance Int(v54, v55, v56);
+  v106 = v19;
+  v63 = v111;
+  v61(&v113, &type metadata for Int, v62, a3, a4);
+  a1 = v60;
+  v12 = v59;
+  v16 = v58;
+  v20 = v57;
+  a2 = v110;
+  v64 = (*(*(*(a4 + 32) + 8) + 16))(v63, v110, a3);
+  v65 = v63;
+  v19 = v106;
+  result = (*(v12 + 8))(v65, a3);
+  if (v64)
   {
 LABEL_17:
-    v49 = 0;
+    v52 = 0;
     goto LABEL_47;
   }
 
 LABEL_20:
-  (*(v11 + 16))(v14, a2, a3);
-  if ((v109(a3, a4) & 1) == 0 || v17(a3, a4) < 65)
+  (*(v12 + 16))(v16, a2, a3);
+  if ((v112(a3, a4) & 1) == 0 || v20(a3, a4) < 65)
   {
     goto LABEL_34;
   }
 
-  if ((v109(a3, a4) & 1) == 0)
+  if ((v112(a3, a4) & 1) == 0)
   {
-    v74 = v109(a3, a4);
-    v75 = v17(a3, a4);
-    if ((v74 & 1) == 0)
+    v77 = v112(a3, a4);
+    v78 = v20(a3, a4);
+    if ((v77 & 1) == 0)
     {
-      if (v75 >= 64)
+      if (v78 >= 64)
       {
         goto LABEL_34;
       }
@@ -2014,20 +1902,20 @@ LABEL_20:
       goto LABEL_33;
     }
 
-    v103 = v17;
-    if (v75 <= 64)
+    v106 = v20;
+    if (v78 <= 64)
     {
-      v86 = v105;
-      v85 = v106;
-      v87 = swift_getAssociatedConformanceWitness(v106, a3, v105, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v88 = v104;
-      (*(v87 + 8))(&qword_18071E0A8, 256, v86, v87);
       v89 = v108;
-      (v85[3])(v88, a3, v85);
-      LOBYTE(v85) = (*(*(*(a4 + 32) + 8) + 16))(v14, v89, a3);
-      (*(v11 + 8))(v89, a3);
-      v17 = v103;
-      if ((v85 & 1) == 0)
+      v88 = v109;
+      v90 = swift_getAssociatedConformanceWitness(v109, a3, v108, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v91 = v107;
+      (*(v90 + 8))(&qword_18071E0A8, 256, v89, v90);
+      v92 = v111;
+      (v88[3])(v91, a3, v88);
+      LOBYTE(v88) = (*(*(*(a4 + 32) + 8) + 16))(v16, v92, a3);
+      (*(v12 + 8))(v92, a3);
+      v20 = v106;
+      if ((v88 & 1) == 0)
       {
         goto LABEL_33;
       }
@@ -2035,21 +1923,21 @@ LABEL_20:
 
     else
     {
-      v110 = 0x8000000000000000;
-      v78 = v14;
-      v79 = v11;
-      v80 = a1;
-      v81 = *(a4 + 96);
-      v82 = lazy protocol witness table accessor for type Int and conformance Int(v75, v76, v77);
-      v83 = v108;
-      v81(&v110, &type metadata for Int, v82, a3, a4);
-      a1 = v80;
-      v11 = v79;
-      v14 = v78;
-      v84 = (*(*(*(a4 + 32) + 8) + 16))(v78, v83, a3);
-      (*(v11 + 8))(v83, a3);
-      v17 = v103;
-      if ((v84 & 1) == 0)
+      v113 = 0x8000000000000000;
+      v81 = v16;
+      v82 = v12;
+      v83 = a1;
+      v84 = *(a4 + 96);
+      v85 = lazy protocol witness table accessor for type Int and conformance Int(v78, v79, v80);
+      v86 = v111;
+      v84(&v113, &type metadata for Int, v85, a3, a4);
+      a1 = v83;
+      v12 = v82;
+      v16 = v81;
+      v87 = (*(*(*(a4 + 32) + 8) + 16))(v81, v86, a3);
+      (*(v12 + 8))(v86, a3);
+      v20 = v106;
+      if ((v87 & 1) == 0)
       {
         goto LABEL_34;
       }
@@ -2059,63 +1947,63 @@ LABEL_38:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  v63 = v17(a3, a4);
-  if (v63 < 64)
+  v66 = v20(a3, a4);
+  if (v66 < 64)
   {
 LABEL_33:
     (*(a4 + 120))(a3, a4);
     goto LABEL_34;
   }
 
-  v110 = 0x8000000000000000;
-  v66 = v17;
-  v67 = v14;
-  v68 = v11;
-  v69 = a1;
-  v70 = *(a4 + 96);
-  v71 = lazy protocol witness table accessor for type Int and conformance Int(v63, v64, v65);
-  v103 = v16;
-  v72 = v108;
-  v70(&v110, &type metadata for Int, v71, a3, a4);
-  a1 = v69;
-  v11 = v68;
-  v14 = v67;
-  v17 = v66;
-  v73 = (*(*(*(a4 + 32) + 8) + 16))(v14, v72, a3);
-  (*(v11 + 8))(v72, a3);
-  if (v73)
+  v113 = 0x8000000000000000;
+  v69 = v20;
+  v70 = v16;
+  v71 = v12;
+  v72 = a1;
+  v73 = *(a4 + 96);
+  v74 = lazy protocol witness table accessor for type Int and conformance Int(v66, v67, v68);
+  v106 = v19;
+  v75 = v111;
+  v73(&v113, &type metadata for Int, v74, a3, a4);
+  a1 = v72;
+  v12 = v71;
+  v16 = v70;
+  v20 = v69;
+  v76 = (*(*(*(a4 + 32) + 8) + 16))(v16, v75, a3);
+  (*(v12 + 8))(v75, a3);
+  if (v76)
   {
     goto LABEL_38;
   }
 
 LABEL_34:
-  if (v17(a3, a4) > 64 || v17(a3, a4) == 64 && (v109(a3, a4) & 1) == 0)
+  if (v20(a3, a4) > 64 || v20(a3, a4) == 64 && (v112(a3, a4) & 1) == 0)
   {
-    v90 = v109(a3, a4);
-    v91 = v17(a3, a4);
-    if (v90)
+    v93 = v112(a3, a4);
+    v94 = v20(a3, a4);
+    if (v93)
     {
-      if (v91 > 64)
+      if (v94 > 64)
       {
         goto LABEL_37;
       }
     }
 
-    else if (v91 >= 64)
+    else if (v94 >= 64)
     {
 LABEL_37:
-      v110 = 0x7FFFFFFFFFFFFFFFLL;
-      v94 = v14;
-      v95 = a1;
-      v96 = *(a4 + 96);
-      v97 = lazy protocol witness table accessor for type Int and conformance Int(v91, v92, v93);
-      v98 = v108;
-      v96(&v110, &type metadata for Int, v97, a3, a4);
-      a1 = v95;
-      v14 = v94;
-      v99 = (*(*(*(a4 + 32) + 8) + 16))(v98, v94, a3);
-      (*(v11 + 8))(v98, a3);
-      if (v99)
+      v113 = 0x7FFFFFFFFFFFFFFFLL;
+      v97 = v16;
+      v98 = a1;
+      v99 = *(a4 + 96);
+      v100 = lazy protocol witness table accessor for type Int and conformance Int(v94, v95, v96);
+      v101 = v111;
+      v99(&v113, &type metadata for Int, v100, a3, a4);
+      a1 = v98;
+      v16 = v97;
+      v102 = (*(*(*(a4 + 32) + 8) + 16))(v101, v97, a3);
+      (*(v12 + 8))(v101, a3);
+      if (v102)
       {
         goto LABEL_38;
       }
@@ -2127,33 +2015,33 @@ LABEL_37:
   }
 
 LABEL_44:
-  v100 = (*(a4 + 120))(a3, a4);
-  result = (*(v11 + 8))(v14, a3);
-  v101 = *a1;
-  if ((v100 & 0x8000000000000000) != 0)
+  v103 = (*(a4 + 120))(a3, a4);
+  result = (*(v12 + 8))(v16, a3);
+  v104 = *a1;
+  if ((v103 & 0x8000000000000000) != 0)
   {
-    if (v100 <= 0xFFFFFFFFFFFFFFC0)
+    if (v103 <= 0xFFFFFFFFFFFFFFC0)
     {
-      v49 = v101 >> 63;
+      v52 = v104 >> 63;
     }
 
     else
     {
-      v49 = v101 >> -v100;
+      v52 = v104 >> -v103;
     }
   }
 
   else
   {
-    v49 = v101 << v100;
-    if (v100 >= 0x40)
+    v52 = v104 << v103;
+    if (v103 >= 0x40)
     {
-      v49 = 0;
+      v52 = 0;
     }
   }
 
 LABEL_47:
-  *a1 = v49;
+  *a1 = v52;
   return result;
 }
 
@@ -2442,7 +2330,7 @@ uint64_t (*protocol witness for Collection.subscript.read in conformance UInt.Wo
   return protocol witness for Collection.subscript.read in conformance UInt8.Words;
 }
 
-uint64_t (*UInt.Words.subscript.read(uint64_t a1, uint64_t a2))()
+void (*UInt.Words.subscript.read(uint64_t a1, uint64_t a2))()
 {
   if (a2 < 0 || a2)
   {
@@ -2556,51 +2444,51 @@ uint64_t *_ss6UInt64Vs35_ExpressibleByBuiltinIntegerLiteralssACP08_builtineF0xBI
   return result;
 }
 
-uint64_t _ss6UInt64VSzsSzyxqd__cSzRd__lufCTW_0@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t *a6@<X8>)
+uint64_t _ss6UInt64VSzsSzyxqd__cSzRd__lufCTW_0@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t *a6@<X8>)
 {
-  v33 = a4;
-  v34 = a5;
-  v37 = a1;
-  v35 = a6;
+  v34 = a4;
+  v35 = a5;
+  v38 = a1;
+  v36 = a6;
   v8 = *(a2 - 1);
-  MEMORY[0x1EEE9AC00](a1);
-  v10 = &v31 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](a1, a2);
+  v10 = &v32 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = *(*(v11 + 24) + 16);
   swift_getAssociatedTypeWitness(0, v12, a2, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
   v14 = v13;
-  MEMORY[0x1EEE9AC00](v13);
-  v16 = &v31 - v15;
-  v17 = *(a3 + 64);
-  if (v17(a2, a3))
+  MEMORY[0x1EEE9AC00](v13, v15);
+  v17 = &v32 - v16;
+  v18 = *(a3 + 64);
+  if (v18(a2, a3))
   {
     AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v12, a2, v14, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
     (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v14, AssociatedConformanceWitness);
-    (*(v12 + 24))(v16, a2, v12);
-    v19 = (*(*(*(a3 + 32) + 8) + 32))(v37, v10, a2);
+    (*(v12 + 24))(v17, a2, v12);
+    v20 = (*(*(*(a3 + 32) + 8) + 32))(v38, v10, a2);
     (*(v8 + 8))(v10, a2);
-    if ((v19 & 1) == 0)
+    if ((v20 & 1) == 0)
     {
       goto LABEL_13;
     }
   }
 
-  v31 = v16;
-  v32 = v12;
-  v36 = v8;
-  v20 = v37;
-  v21 = *(a3 + 128);
-  if (v21(a2, a3) <= 63)
+  v32 = v17;
+  v33 = v12;
+  v37 = v8;
+  v21 = v38;
+  v22 = *(a3 + 128);
+  if (v22(a2, a3) <= 63)
   {
     goto LABEL_12;
   }
 
-  v38 = -1;
-  v22 = v17(a2, a3);
-  v23 = v20;
-  v24 = v21(a2, a3);
-  if ((v22 & 1) == 0)
+  v39 = -1;
+  v23 = v18(a2, a3);
+  v24 = v21;
+  v25 = v22(a2, a3);
+  if ((v23 & 1) == 0)
   {
-    if (v24 < 65)
+    if (v25 < 65)
     {
 LABEL_11:
       (*(a3 + 120))(a2, a3);
@@ -2608,10 +2496,10 @@ LABEL_11:
     }
 
 LABEL_9:
-    (*(a3 + 96))(&v38, v33, v34, a2, a3);
-    v28 = (*(*(*(a3 + 32) + 8) + 16))(v10, v20, a2);
-    (*(v36 + 8))(v10, a2);
-    if ((v28 & 1) == 0)
+    (*(a3 + 96))(&v39, v34, v35, a2, a3);
+    v29 = (*(*(*(a3 + 32) + 8) + 16))(v10, v21, a2);
+    (*(v37 + 8))(v10, a2);
+    if ((v29 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -2620,28 +2508,28 @@ LABEL_13:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  if (v24 > 64)
+  if (v25 > 64)
   {
     goto LABEL_9;
   }
 
-  v25 = v32;
-  v26 = swift_getAssociatedConformanceWitness(v32, a2, v14, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-  v27 = v31;
-  (*(v26 + 8))(&qword_18071E0A8, 256, v14, v26);
-  v25[3](v27, a2, v25);
-  v20 = v23;
-  LOBYTE(v25) = (*(*(*(a3 + 32) + 8) + 40))(v23, v10, a2);
-  (*(v36 + 8))(v10, a2);
-  if (v25)
+  v26 = v33;
+  v27 = swift_getAssociatedConformanceWitness(v33, a2, v14, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+  v28 = v32;
+  (*(v27 + 8))(&qword_18071E0A8, 256, v14, v27);
+  v26[3](v28, a2, v26);
+  v21 = v24;
+  LOBYTE(v26) = (*(*(*(a3 + 32) + 8) + 40))(v24, v10, a2);
+  (*(v37 + 8))(v10, a2);
+  if (v26)
   {
     goto LABEL_11;
   }
 
 LABEL_12:
-  v29 = (*(a3 + 120))(a2, a3);
-  result = (*(v36 + 8))(v20, a2);
-  *v35 = v29;
+  v30 = (*(a3 + 120))(a2, a3);
+  result = (*(v37 + 8))(v21, a2);
+  *v36 = v30;
   return result;
 }
 
@@ -2699,48 +2587,48 @@ void *protocol witness for static BinaryInteger.%= infix(_:_:) in conformance UI
   return result;
 }
 
-uint64_t protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conformance UInt64@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, unint64_t *a5@<X8>)
+uint64_t protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conformance UInt64@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, unint64_t *a5@<X8>)
 {
-  v107 = *(*(a4 + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v107, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v106 = v10;
-  v11 = MEMORY[0x1EEE9AC00](v10);
-  v105 = &v103 - v12;
-  v13 = *(a3 - 1);
-  v14 = MEMORY[0x1EEE9AC00](v11);
-  v16 = &v103 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v110 = &v103 - v17;
-  v108 = *a1;
-  v18 = (a4 + 64);
-  v111 = *(a4 + 64);
-  if (v111(a3, a4))
+  v110 = *(*(a4 + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v110, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v109 = v10;
+  v12 = MEMORY[0x1EEE9AC00](v10, v11);
+  v108 = &v106 - v13;
+  v14 = *(a3 - 1);
+  v16 = MEMORY[0x1EEE9AC00](v12, v15);
+  v18 = &v106 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16, v19);
+  v113 = &v106 - v20;
+  v111 = *a1;
+  v21 = (a4 + 64);
+  v114 = *(a4 + 64);
+  if (v114(a3, a4))
   {
-    v19 = *(a4 + 128);
-    v20 = v19(a3, a4);
-    if (v20 >= 64)
+    v22 = *(a4 + 128);
+    v23 = v22(a3, a4);
+    if (v23 >= 64)
     {
-      v112 = -64;
-      v109 = a2;
-      v23 = v19;
-      v24 = v16;
-      v25 = v13;
-      v26 = a5;
-      v27 = *(a4 + 96);
-      v28 = lazy protocol witness table accessor for type Int and conformance Int(v20, v21, v22);
-      v104 = (a4 + 64);
-      v29 = v110;
-      v27(&v112, &type metadata for Int, v28, a3, a4);
-      a5 = v26;
-      v13 = v25;
-      v16 = v24;
-      v19 = v23;
-      a2 = v109;
-      v30 = (*(*(*(a4 + 32) + 8) + 16))(v109, v29, a3);
-      v31 = v29;
-      v18 = v104;
-      result = (*(v13 + 8))(v31, a3);
-      if (v30)
+      v115 = -64;
+      v112 = a2;
+      v26 = v22;
+      v27 = v18;
+      v28 = v14;
+      v29 = a5;
+      v30 = *(a4 + 96);
+      v31 = lazy protocol witness table accessor for type Int and conformance Int(v23, v24, v25);
+      v107 = (a4 + 64);
+      v32 = v113;
+      v30(&v115, &type metadata for Int, v31, a3, a4);
+      a5 = v29;
+      v14 = v28;
+      v18 = v27;
+      v22 = v26;
+      a2 = v112;
+      v33 = (*(*(*(a4 + 32) + 8) + 16))(v112, v32, a3);
+      v34 = v32;
+      v21 = v107;
+      result = (*(v14 + 8))(v34, a3);
+      if (v33)
       {
         goto LABEL_25;
       }
@@ -2751,32 +2639,32 @@ uint64_t protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conforma
 
   else
   {
-    v33 = v111(a3, a4);
-    v19 = *(a4 + 128);
-    v34 = v19(a3, a4);
-    if (v33)
+    v36 = v114(a3, a4);
+    v22 = *(a4 + 128);
+    v37 = v22(a3, a4);
+    if (v36)
     {
-      v109 = a2;
-      v104 = v19;
-      if (v34 <= 64)
+      v112 = a2;
+      v107 = v22;
+      if (v37 <= 64)
       {
-        v71 = v106;
-        v70 = v107;
-        AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v107, a3, v106, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-        v73 = v105;
-        (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v71, AssociatedConformanceWitness);
-        v74 = v110;
-        (v70[3])(v73, a3, v70);
-        a2 = v109;
-        LOBYTE(v70) = (*(*(*(a4 + 32) + 8) + 16))(v109, v74, a3);
-        result = (*(v13 + 8))(v74, a3);
-        if (v70)
+        v74 = v109;
+        v73 = v110;
+        AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v110, a3, v109, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+        v76 = v108;
+        (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v74, AssociatedConformanceWitness);
+        v77 = v113;
+        (v73[3])(v76, a3, v73);
+        a2 = v112;
+        LOBYTE(v73) = (*(*(*(a4 + 32) + 8) + 16))(v112, v77, a3);
+        result = (*(v14 + 8))(v77, a3);
+        if (v73)
         {
           goto LABEL_25;
         }
 
         result = (*(a4 + 120))(a3, a4);
-        v19 = v104;
+        v22 = v107;
         if (result < -64)
         {
           goto LABEL_25;
@@ -2785,25 +2673,25 @@ uint64_t protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conforma
 
       else
       {
-        v112 = -64;
-        v37 = v16;
-        v38 = v13;
-        v39 = a5;
-        v40 = *(a4 + 96);
-        v41 = lazy protocol witness table accessor for type Int and conformance Int(v34, v35, v36);
-        v42 = v110;
-        v40(&v112, &type metadata for Int, v41, a3, a4);
-        a5 = v39;
-        v13 = v38;
-        v16 = v37;
-        v43 = v109;
-        v44 = (*(*(*(a4 + 32) + 8) + 16))(v109, v42, a3);
-        v45 = v42;
-        v18 = (a4 + 64);
-        a2 = v43;
-        result = (*(v13 + 8))(v45, a3);
-        v19 = v104;
-        if (v44)
+        v115 = -64;
+        v40 = v18;
+        v41 = v14;
+        v42 = a5;
+        v43 = *(a4 + 96);
+        v44 = lazy protocol witness table accessor for type Int and conformance Int(v37, v38, v39);
+        v45 = v113;
+        v43(&v115, &type metadata for Int, v44, a3, a4);
+        a5 = v42;
+        v14 = v41;
+        v18 = v40;
+        v46 = v112;
+        v47 = (*(*(*(a4 + 32) + 8) + 16))(v112, v45, a3);
+        v48 = v45;
+        v21 = (a4 + 64);
+        a2 = v46;
+        result = (*(v14 + 8))(v48, a3);
+        v22 = v107;
+        if (v47)
         {
           goto LABEL_25;
         }
@@ -2812,7 +2700,7 @@ uint64_t protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conforma
       goto LABEL_11;
     }
 
-    if (v34 >= 64)
+    if (v37 >= 64)
     {
       goto LABEL_11;
     }
@@ -2825,12 +2713,12 @@ uint64_t protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conforma
   }
 
 LABEL_11:
-  v46 = v111(a3, a4);
-  v103 = a4 + 128;
-  v47 = v19(a3, a4);
-  if (v46)
+  v49 = v114(a3, a4);
+  v106 = a4 + 128;
+  v50 = v22(a3, a4);
+  if (v49)
   {
-    if (v47 > 64)
+    if (v50 > 64)
     {
       goto LABEL_13;
     }
@@ -2838,7 +2726,7 @@ LABEL_11:
     goto LABEL_16;
   }
 
-  if (v47 < 64)
+  if (v50 < 64)
   {
 LABEL_16:
     result = (*(a4 + 120))(a3, a4);
@@ -2848,50 +2736,50 @@ LABEL_16:
     }
 
 LABEL_25:
-    v75 = 0;
+    v78 = 0;
     goto LABEL_47;
   }
 
 LABEL_13:
-  v112 = 64;
-  v109 = a2;
-  v50 = v19;
-  v51 = v16;
-  v52 = v13;
-  v53 = a5;
-  v54 = *(a4 + 96);
-  v55 = lazy protocol witness table accessor for type Int and conformance Int(v47, v48, v49);
-  v104 = v18;
-  v56 = v110;
-  v54(&v112, &type metadata for Int, v55, a3, a4);
-  a5 = v53;
-  v13 = v52;
-  v16 = v51;
-  v19 = v50;
-  a2 = v109;
-  v57 = (*(*(*(a4 + 32) + 8) + 16))(v56, v109, a3);
-  v58 = v56;
-  v18 = v104;
-  result = (*(v13 + 8))(v58, a3);
-  if (v57)
+  v115 = 64;
+  v112 = a2;
+  v53 = v22;
+  v54 = v18;
+  v55 = v14;
+  v56 = a5;
+  v57 = *(a4 + 96);
+  v58 = lazy protocol witness table accessor for type Int and conformance Int(v50, v51, v52);
+  v107 = v21;
+  v59 = v113;
+  v57(&v115, &type metadata for Int, v58, a3, a4);
+  a5 = v56;
+  v14 = v55;
+  v18 = v54;
+  v22 = v53;
+  a2 = v112;
+  v60 = (*(*(*(a4 + 32) + 8) + 16))(v59, v112, a3);
+  v61 = v59;
+  v21 = v107;
+  result = (*(v14 + 8))(v61, a3);
+  if (v60)
   {
     goto LABEL_25;
   }
 
 LABEL_17:
-  (*(v13 + 16))(v16, a2, a3);
-  if ((v111(a3, a4) & 1) == 0 || v19(a3, a4) < 65)
+  (*(v14 + 16))(v18, a2, a3);
+  if ((v114(a3, a4) & 1) == 0 || v22(a3, a4) < 65)
   {
     goto LABEL_34;
   }
 
-  if ((v111(a3, a4) & 1) == 0)
+  if ((v114(a3, a4) & 1) == 0)
   {
-    v76 = v111(a3, a4);
-    v77 = v19(a3, a4);
-    if ((v76 & 1) == 0)
+    v79 = v114(a3, a4);
+    v80 = v22(a3, a4);
+    if ((v79 & 1) == 0)
     {
-      if (v77 >= 64)
+      if (v80 >= 64)
       {
         goto LABEL_34;
       }
@@ -2899,43 +2787,380 @@ LABEL_17:
       goto LABEL_33;
     }
 
-    v104 = v19;
-    if (v77 <= 64)
+    v107 = v22;
+    if (v80 <= 64)
     {
-      v88 = v106;
-      v87 = v107;
-      v89 = swift_getAssociatedConformanceWitness(v107, a3, v106, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v90 = v105;
-      (*(v89 + 8))(&qword_18071E0A8, 256, v88, v89);
-      v91 = v110;
-      (v87[3])(v90, a3, v87);
-      LOBYTE(v87) = (*(*(*(a4 + 32) + 8) + 16))(v16, v91, a3);
-      (*(v13 + 8))(v91, a3);
-      v19 = v104;
+      v91 = v109;
+      v90 = v110;
+      v92 = swift_getAssociatedConformanceWitness(v110, a3, v109, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v93 = v108;
+      (*(v92 + 8))(&qword_18071E0A8, 256, v91, v92);
+      v94 = v113;
+      (v90[3])(v93, a3, v90);
+      LOBYTE(v90) = (*(*(*(a4 + 32) + 8) + 16))(v18, v94, a3);
+      (*(v14 + 8))(v94, a3);
+      v22 = v107;
+      if ((v90 & 1) == 0)
+      {
+        goto LABEL_33;
+      }
+    }
+
+    else
+    {
+      v115 = 0x8000000000000000;
+      v83 = v18;
+      v84 = v14;
+      v85 = a5;
+      v86 = *(a4 + 96);
+      v87 = lazy protocol witness table accessor for type Int and conformance Int(v80, v81, v82);
+      v88 = v113;
+      v86(&v115, &type metadata for Int, v87, a3, a4);
+      a5 = v85;
+      v14 = v84;
+      v18 = v83;
+      v89 = (*(*(*(a4 + 32) + 8) + 16))(v83, v88, a3);
+      (*(v14 + 8))(v88, a3);
+      v22 = v107;
+      if ((v89 & 1) == 0)
+      {
+        goto LABEL_34;
+      }
+    }
+
+LABEL_38:
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
+  }
+
+  v62 = v22(a3, a4);
+  if (v62 < 64)
+  {
+LABEL_33:
+    (*(a4 + 120))(a3, a4);
+    goto LABEL_34;
+  }
+
+  v115 = 0x8000000000000000;
+  v65 = v22;
+  v66 = v18;
+  v67 = v14;
+  v68 = a5;
+  v69 = *(a4 + 96);
+  v70 = lazy protocol witness table accessor for type Int and conformance Int(v62, v63, v64);
+  v107 = v21;
+  v71 = v113;
+  v69(&v115, &type metadata for Int, v70, a3, a4);
+  a5 = v68;
+  v14 = v67;
+  v18 = v66;
+  v22 = v65;
+  v72 = (*(*(*(a4 + 32) + 8) + 16))(v18, v71, a3);
+  (*(v14 + 8))(v71, a3);
+  if (v72)
+  {
+    goto LABEL_38;
+  }
+
+LABEL_34:
+  if (v22(a3, a4) <= 64 && (v22(a3, a4) != 64 || (v114(a3, a4) & 1) != 0))
+  {
+    goto LABEL_44;
+  }
+
+  v95 = v114(a3, a4);
+  v96 = v22(a3, a4);
+  if (v95)
+  {
+    if (v96 > 64)
+    {
+      goto LABEL_37;
+    }
+
+LABEL_43:
+    (*(a4 + 120))(a3, a4);
+    goto LABEL_44;
+  }
+
+  if (v96 < 64)
+  {
+    goto LABEL_43;
+  }
+
+LABEL_37:
+  v115 = 0x7FFFFFFFFFFFFFFFLL;
+  v99 = v18;
+  v100 = a5;
+  v101 = *(a4 + 96);
+  v102 = lazy protocol witness table accessor for type Int and conformance Int(v96, v97, v98);
+  v103 = v113;
+  v101(&v115, &type metadata for Int, v102, a3, a4);
+  a5 = v100;
+  v18 = v99;
+  v104 = (*(*(*(a4 + 32) + 8) + 16))(v103, v99, a3);
+  (*(v14 + 8))(v103, a3);
+  if (v104)
+  {
+    goto LABEL_38;
+  }
+
+LABEL_44:
+  v105 = (*(a4 + 120))(a3, a4);
+  result = (*(v14 + 8))(v18, a3);
+  if ((v105 & 0x8000000000000000) != 0)
+  {
+    if (v105 > 0xFFFFFFFFFFFFFFC0)
+    {
+      v78 = v111 << -v105;
+      goto LABEL_47;
+    }
+
+    goto LABEL_25;
+  }
+
+  v78 = v111 >> v105;
+  if (v105 >= 0x40)
+  {
+    v78 = 0;
+  }
+
+LABEL_47:
+  *a5 = v78;
+  return result;
+}
+
+uint64_t protocol witness for static BinaryInteger.>>= infix<A>(_:_:) in conformance UInt64(unint64_t *a1, uint64_t a2, Class *a3, uint64_t a4)
+{
+  v109 = *(*(a4 + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v109, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v108 = v8;
+  v10 = MEMORY[0x1EEE9AC00](v8, v9);
+  v107 = v105 - v11;
+  v12 = *(a3 - 1);
+  v14 = MEMORY[0x1EEE9AC00](v10, v13);
+  v16 = v105 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14, v17);
+  v111 = v105 - v18;
+  v19 = (a4 + 64);
+  v112 = *(a4 + 64);
+  if (v112(a3, a4))
+  {
+    v20 = *(a4 + 128);
+    v21 = v20(a3, a4);
+    if (v21 >= 64)
+    {
+      v113 = -64;
+      v110 = a2;
+      v24 = v20;
+      v25 = v16;
+      v26 = v12;
+      v27 = a1;
+      v28 = *(a4 + 96);
+      v29 = lazy protocol witness table accessor for type Int and conformance Int(v21, v22, v23);
+      v106 = (a4 + 64);
+      v30 = v111;
+      v28(&v113, &type metadata for Int, v29, a3, a4);
+      a1 = v27;
+      v12 = v26;
+      v16 = v25;
+      v20 = v24;
+      a2 = v110;
+      v31 = (*(*(*(a4 + 32) + 8) + 16))(v110, v30, a3);
+      v32 = v30;
+      v19 = v106;
+      result = (*(v12 + 8))(v32, a3);
+      if (v31)
+      {
+        goto LABEL_25;
+      }
+
+      goto LABEL_11;
+    }
+
+    goto LABEL_10;
+  }
+
+  v34 = v112(a3, a4);
+  v20 = *(a4 + 128);
+  v35 = v20(a3, a4);
+  if ((v34 & 1) == 0)
+  {
+    if (v35 >= 64)
+    {
+      goto LABEL_11;
+    }
+
+LABEL_10:
+    result = (*(a4 + 120))(a3, a4);
+    if (result < -64)
+    {
+      goto LABEL_25;
+    }
+
+    goto LABEL_11;
+  }
+
+  v110 = a2;
+  v106 = v20;
+  if (v35 <= 64)
+  {
+    v72 = v108;
+    v71 = v109;
+    AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v109, a3, v108, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+    v74 = v107;
+    (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v72, AssociatedConformanceWitness);
+    v75 = v111;
+    (v71[3])(v74, a3, v71);
+    a2 = v110;
+    LOBYTE(v71) = (*(*(*(a4 + 32) + 8) + 16))(v110, v75, a3);
+    result = (*(v12 + 8))(v75, a3);
+    if (v71)
+    {
+      goto LABEL_25;
+    }
+
+    result = (*(a4 + 120))(a3, a4);
+    v20 = v106;
+    if (result < -64)
+    {
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+    v113 = -64;
+    v38 = v16;
+    v39 = v12;
+    v40 = a1;
+    v41 = *(a4 + 96);
+    v42 = lazy protocol witness table accessor for type Int and conformance Int(v35, v36, v37);
+    v43 = v111;
+    v41(&v113, &type metadata for Int, v42, a3, a4);
+    a1 = v40;
+    v12 = v39;
+    v16 = v38;
+    v44 = v110;
+    v45 = (*(*(*(a4 + 32) + 8) + 16))(v110, v43, a3);
+    v46 = v43;
+    v19 = (a4 + 64);
+    a2 = v44;
+    result = (*(v12 + 8))(v46, a3);
+    v20 = v106;
+    if (v45)
+    {
+      goto LABEL_25;
+    }
+  }
+
+LABEL_11:
+  v47 = v112(a3, a4);
+  v105[1] = a4 + 128;
+  v48 = v20(a3, a4);
+  if (v47)
+  {
+    if (v48 > 64)
+    {
+      goto LABEL_13;
+    }
+  }
+
+  else if (v48 >= 64)
+  {
+LABEL_13:
+    v113 = 64;
+    v110 = a2;
+    v51 = v20;
+    v52 = v16;
+    v53 = v12;
+    v54 = a1;
+    v55 = *(a4 + 96);
+    v56 = lazy protocol witness table accessor for type Int and conformance Int(v48, v49, v50);
+    v106 = v19;
+    v57 = v111;
+    v55(&v113, &type metadata for Int, v56, a3, a4);
+    a1 = v54;
+    v12 = v53;
+    v16 = v52;
+    v20 = v51;
+    a2 = v110;
+    v58 = (*(*(*(a4 + 32) + 8) + 16))(v57, v110, a3);
+    v59 = v57;
+    v19 = v106;
+    result = (*(v12 + 8))(v59, a3);
+    if ((v58 & 1) == 0)
+    {
+      goto LABEL_17;
+    }
+
+LABEL_25:
+    v76 = 0;
+    goto LABEL_47;
+  }
+
+  result = (*(a4 + 120))(a3, a4);
+  if (result > 64)
+  {
+    goto LABEL_25;
+  }
+
+LABEL_17:
+  (*(v12 + 16))(v16, a2, a3);
+  if ((v112(a3, a4) & 1) == 0 || v20(a3, a4) < 65)
+  {
+    goto LABEL_34;
+  }
+
+  if ((v112(a3, a4) & 1) == 0)
+  {
+    v77 = v112(a3, a4);
+    v78 = v20(a3, a4);
+    if ((v77 & 1) == 0)
+    {
+      if (v78 >= 64)
+      {
+        goto LABEL_34;
+      }
+
+      goto LABEL_33;
+    }
+
+    v106 = v20;
+    if (v78 <= 64)
+    {
+      v89 = v108;
+      v88 = v109;
+      v90 = swift_getAssociatedConformanceWitness(v109, a3, v108, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v91 = v107;
+      (*(v90 + 8))(&qword_18071E0A8, 256, v89, v90);
+      v92 = v111;
+      (v88[3])(v91, a3, v88);
+      LOBYTE(v88) = (*(*(*(a4 + 32) + 8) + 16))(v16, v92, a3);
+      (*(v12 + 8))(v92, a3);
+      v20 = v106;
+      if ((v88 & 1) == 0)
+      {
+        goto LABEL_33;
+      }
+    }
+
+    else
+    {
+      v113 = 0x8000000000000000;
+      v81 = v16;
+      v82 = v12;
+      v83 = a1;
+      v84 = *(a4 + 96);
+      v85 = lazy protocol witness table accessor for type Int and conformance Int(v78, v79, v80);
+      v86 = v111;
+      v84(&v113, &type metadata for Int, v85, a3, a4);
+      a1 = v83;
+      v12 = v82;
+      v16 = v81;
+      v87 = (*(*(*(a4 + 32) + 8) + 16))(v81, v86, a3);
+      (*(v12 + 8))(v86, a3);
+      v20 = v106;
       if ((v87 & 1) == 0)
       {
-        goto LABEL_33;
-      }
-    }
-
-    else
-    {
-      v112 = 0x8000000000000000;
-      v80 = v16;
-      v81 = v13;
-      v82 = a5;
-      v83 = *(a4 + 96);
-      v84 = lazy protocol witness table accessor for type Int and conformance Int(v77, v78, v79);
-      v85 = v110;
-      v83(&v112, &type metadata for Int, v84, a3, a4);
-      a5 = v82;
-      v13 = v81;
-      v16 = v80;
-      v86 = (*(*(*(a4 + 32) + 8) + 16))(v80, v85, a3);
-      (*(v13 + 8))(v85, a3);
-      v19 = v104;
-      if ((v86 & 1) == 0)
-      {
         goto LABEL_34;
       }
     }
@@ -2944,46 +3169,46 @@ LABEL_38:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  v59 = v19(a3, a4);
-  if (v59 < 64)
+  v60 = v20(a3, a4);
+  if (v60 < 64)
   {
 LABEL_33:
     (*(a4 + 120))(a3, a4);
     goto LABEL_34;
   }
 
-  v112 = 0x8000000000000000;
-  v62 = v19;
-  v63 = v16;
-  v64 = v13;
-  v65 = a5;
-  v66 = *(a4 + 96);
-  v67 = lazy protocol witness table accessor for type Int and conformance Int(v59, v60, v61);
-  v104 = v18;
-  v68 = v110;
-  v66(&v112, &type metadata for Int, v67, a3, a4);
-  a5 = v65;
-  v13 = v64;
-  v16 = v63;
-  v19 = v62;
-  v69 = (*(*(*(a4 + 32) + 8) + 16))(v16, v68, a3);
-  (*(v13 + 8))(v68, a3);
-  if (v69)
+  v113 = 0x8000000000000000;
+  v63 = v20;
+  v64 = v16;
+  v65 = v12;
+  v66 = a1;
+  v67 = *(a4 + 96);
+  v68 = lazy protocol witness table accessor for type Int and conformance Int(v60, v61, v62);
+  v106 = v19;
+  v69 = v111;
+  v67(&v113, &type metadata for Int, v68, a3, a4);
+  a1 = v66;
+  v12 = v65;
+  v16 = v64;
+  v20 = v63;
+  v70 = (*(*(*(a4 + 32) + 8) + 16))(v16, v69, a3);
+  (*(v12 + 8))(v69, a3);
+  if (v70)
   {
     goto LABEL_38;
   }
 
 LABEL_34:
-  if (v19(a3, a4) <= 64 && (v19(a3, a4) != 64 || (v111(a3, a4) & 1) != 0))
+  if (v20(a3, a4) <= 64 && (v20(a3, a4) != 64 || (v112(a3, a4) & 1) != 0))
   {
     goto LABEL_44;
   }
 
-  v92 = v111(a3, a4);
-  v93 = v19(a3, a4);
-  if (v92)
+  v93 = v112(a3, a4);
+  v94 = v20(a3, a4);
+  if (v93)
   {
-    if (v93 > 64)
+    if (v94 > 64)
     {
       goto LABEL_37;
     }
@@ -2993,94 +3218,96 @@ LABEL_43:
     goto LABEL_44;
   }
 
-  if (v93 < 64)
+  if (v94 < 64)
   {
     goto LABEL_43;
   }
 
 LABEL_37:
-  v112 = 0x7FFFFFFFFFFFFFFFLL;
-  v96 = v16;
-  v97 = a5;
-  v98 = *(a4 + 96);
-  v99 = lazy protocol witness table accessor for type Int and conformance Int(v93, v94, v95);
-  v100 = v110;
-  v98(&v112, &type metadata for Int, v99, a3, a4);
-  a5 = v97;
-  v16 = v96;
-  v101 = (*(*(*(a4 + 32) + 8) + 16))(v100, v96, a3);
-  (*(v13 + 8))(v100, a3);
-  if (v101)
+  v113 = 0x7FFFFFFFFFFFFFFFLL;
+  v97 = v16;
+  v98 = a1;
+  v99 = *(a4 + 96);
+  v100 = lazy protocol witness table accessor for type Int and conformance Int(v94, v95, v96);
+  v101 = v111;
+  v99(&v113, &type metadata for Int, v100, a3, a4);
+  a1 = v98;
+  v16 = v97;
+  v102 = (*(*(*(a4 + 32) + 8) + 16))(v101, v97, a3);
+  (*(v12 + 8))(v101, a3);
+  if (v102)
   {
     goto LABEL_38;
   }
 
 LABEL_44:
-  v102 = (*(a4 + 120))(a3, a4);
-  result = (*(v13 + 8))(v16, a3);
-  if ((v102 & 0x8000000000000000) != 0)
+  v103 = (*(a4 + 120))(a3, a4);
+  result = (*(v12 + 8))(v16, a3);
+  v104 = *a1;
+  if ((v103 & 0x8000000000000000) != 0)
   {
-    if (v102 > 0xFFFFFFFFFFFFFFC0)
+    if (v103 >= 0xFFFFFFFFFFFFFFC1)
     {
-      v75 = v108 << -v102;
+      v76 = v104 << -v103;
       goto LABEL_47;
     }
 
     goto LABEL_25;
   }
 
-  v75 = v108 >> v102;
-  if (v102 >= 0x40)
+  v76 = v104 >> v103;
+  if (v103 >= 0x40)
   {
-    v75 = 0;
+    v76 = 0;
   }
 
 LABEL_47:
-  *a5 = v75;
+  *a1 = v76;
   return result;
 }
 
-uint64_t protocol witness for static BinaryInteger.>>= infix<A>(_:_:) in conformance UInt64(unint64_t *a1, uint64_t a2, const char *a3, uint64_t a4)
+uint64_t protocol witness for static BinaryInteger.<< infix<A>(_:_:) in conformance UInt64@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, unint64_t *a5@<X8>)
 {
-  v106 = *(*(a4 + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v106, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v105 = v8;
-  v9 = MEMORY[0x1EEE9AC00](v8);
-  v104 = v102 - v10;
-  v11 = *(a3 - 1);
-  v12 = MEMORY[0x1EEE9AC00](v9);
-  v14 = v102 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v108 = v102 - v15;
-  v16 = (a4 + 64);
-  v109 = *(a4 + 64);
-  if (v109(a3, a4))
+  v110 = *(*(a4 + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v110, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v109 = v10;
+  v12 = MEMORY[0x1EEE9AC00](v10, v11);
+  v108 = &v106 - v13;
+  v14 = *(a3 - 1);
+  v16 = MEMORY[0x1EEE9AC00](v12, v15);
+  v18 = &v106 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16, v19);
+  v113 = &v106 - v20;
+  v111 = *a1;
+  v21 = (a4 + 64);
+  v114 = *(a4 + 64);
+  if (v114(a3, a4))
   {
-    v17 = *(a4 + 128);
-    v18 = v17(a3, a4);
-    if (v18 >= 64)
+    v22 = *(a4 + 128);
+    v23 = v22(a3, a4);
+    if (v23 >= 64)
     {
-      v110 = -64;
-      v107 = a2;
-      v21 = v17;
-      v22 = v14;
-      v23 = v11;
-      v24 = a1;
-      v25 = *(a4 + 96);
-      v26 = lazy protocol witness table accessor for type Int and conformance Int(v18, v19, v20);
-      v103 = (a4 + 64);
-      v27 = v108;
-      v25(&v110, &type metadata for Int, v26, a3, a4);
-      a1 = v24;
-      v11 = v23;
-      v14 = v22;
-      v17 = v21;
-      a2 = v107;
-      v28 = (*(*(*(a4 + 32) + 8) + 16))(v107, v27, a3);
-      v29 = v27;
-      v16 = v103;
-      result = (*(v11 + 8))(v29, a3);
-      if (v28)
+      v115 = -64;
+      v112 = a2;
+      v26 = v22;
+      v27 = v18;
+      v28 = v14;
+      v29 = a5;
+      v30 = *(a4 + 96);
+      v31 = lazy protocol witness table accessor for type Int and conformance Int(v23, v24, v25);
+      v107 = (a4 + 64);
+      v32 = v113;
+      v30(&v115, &type metadata for Int, v31, a3, a4);
+      a5 = v29;
+      v14 = v28;
+      v18 = v27;
+      v22 = v26;
+      a2 = v112;
+      v33 = (*(*(*(a4 + 32) + 8) + 16))(v112, v32, a3);
+      v34 = v32;
+      v21 = v107;
+      result = (*(v14 + 8))(v34, a3);
+      if (v33)
       {
         goto LABEL_25;
       }
@@ -3091,12 +3318,12 @@ uint64_t protocol witness for static BinaryInteger.>>= infix<A>(_:_:) in conform
     goto LABEL_10;
   }
 
-  v31 = v109(a3, a4);
-  v17 = *(a4 + 128);
-  v32 = v17(a3, a4);
-  if ((v31 & 1) == 0)
+  v36 = v114(a3, a4);
+  v22 = *(a4 + 128);
+  v37 = v22(a3, a4);
+  if ((v36 & 1) == 0)
   {
-    if (v32 >= 64)
+    if (v37 >= 64)
     {
       goto LABEL_11;
     }
@@ -3111,27 +3338,364 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v107 = a2;
-  v103 = v17;
-  if (v32 <= 64)
+  v112 = a2;
+  v107 = v22;
+  if (v37 <= 64)
   {
-    v69 = v105;
-    v68 = v106;
-    AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v106, a3, v105, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-    v71 = v104;
-    (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v69, AssociatedConformanceWitness);
+    v74 = v109;
+    v73 = v110;
+    AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v110, a3, v109, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+    v76 = v108;
+    (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v74, AssociatedConformanceWitness);
+    v77 = v113;
+    (v73[3])(v76, a3, v73);
+    a2 = v112;
+    LOBYTE(v73) = (*(*(*(a4 + 32) + 8) + 16))(v112, v77, a3);
+    result = (*(v14 + 8))(v77, a3);
+    if (v73)
+    {
+      goto LABEL_25;
+    }
+
+    result = (*(a4 + 120))(a3, a4);
+    v22 = v107;
+    if (result < -64)
+    {
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+    v115 = -64;
+    v40 = v18;
+    v41 = v14;
+    v42 = a5;
+    v43 = *(a4 + 96);
+    v44 = lazy protocol witness table accessor for type Int and conformance Int(v37, v38, v39);
+    v45 = v113;
+    v43(&v115, &type metadata for Int, v44, a3, a4);
+    a5 = v42;
+    v14 = v41;
+    v18 = v40;
+    v46 = v112;
+    v47 = (*(*(*(a4 + 32) + 8) + 16))(v112, v45, a3);
+    v48 = v45;
+    v21 = (a4 + 64);
+    a2 = v46;
+    result = (*(v14 + 8))(v48, a3);
+    v22 = v107;
+    if (v47)
+    {
+      goto LABEL_25;
+    }
+  }
+
+LABEL_11:
+  v49 = v114(a3, a4);
+  v106 = a4 + 128;
+  v50 = v22(a3, a4);
+  if (v49)
+  {
+    if (v50 > 64)
+    {
+      goto LABEL_13;
+    }
+  }
+
+  else if (v50 >= 64)
+  {
+LABEL_13:
+    v115 = 64;
+    v112 = a2;
+    v53 = v22;
+    v54 = v18;
+    v55 = v14;
+    v56 = a5;
+    v57 = *(a4 + 96);
+    v58 = lazy protocol witness table accessor for type Int and conformance Int(v50, v51, v52);
+    v107 = v21;
+    v59 = v113;
+    v57(&v115, &type metadata for Int, v58, a3, a4);
+    a5 = v56;
+    v14 = v55;
+    v18 = v54;
+    v22 = v53;
+    a2 = v112;
+    v60 = (*(*(*(a4 + 32) + 8) + 16))(v59, v112, a3);
+    v61 = v59;
+    v21 = v107;
+    result = (*(v14 + 8))(v61, a3);
+    if ((v60 & 1) == 0)
+    {
+      goto LABEL_17;
+    }
+
+LABEL_25:
+    v78 = 0;
+    goto LABEL_47;
+  }
+
+  result = (*(a4 + 120))(a3, a4);
+  if (result > 64)
+  {
+    goto LABEL_25;
+  }
+
+LABEL_17:
+  (*(v14 + 16))(v18, a2, a3);
+  if ((v114(a3, a4) & 1) == 0 || v22(a3, a4) < 65)
+  {
+    goto LABEL_34;
+  }
+
+  if ((v114(a3, a4) & 1) == 0)
+  {
+    v79 = v114(a3, a4);
+    v80 = v22(a3, a4);
+    if ((v79 & 1) == 0)
+    {
+      if (v80 >= 64)
+      {
+        goto LABEL_34;
+      }
+
+      goto LABEL_33;
+    }
+
+    v107 = v22;
+    if (v80 <= 64)
+    {
+      v91 = v109;
+      v90 = v110;
+      v92 = swift_getAssociatedConformanceWitness(v110, a3, v109, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v93 = v108;
+      (*(v92 + 8))(&qword_18071E0A8, 256, v91, v92);
+      v94 = v113;
+      (v90[3])(v93, a3, v90);
+      LOBYTE(v90) = (*(*(*(a4 + 32) + 8) + 16))(v18, v94, a3);
+      (*(v14 + 8))(v94, a3);
+      v22 = v107;
+      if ((v90 & 1) == 0)
+      {
+        goto LABEL_33;
+      }
+    }
+
+    else
+    {
+      v115 = 0x8000000000000000;
+      v83 = v18;
+      v84 = v14;
+      v85 = a5;
+      v86 = *(a4 + 96);
+      v87 = lazy protocol witness table accessor for type Int and conformance Int(v80, v81, v82);
+      v88 = v113;
+      v86(&v115, &type metadata for Int, v87, a3, a4);
+      a5 = v85;
+      v14 = v84;
+      v18 = v83;
+      v89 = (*(*(*(a4 + 32) + 8) + 16))(v83, v88, a3);
+      (*(v14 + 8))(v88, a3);
+      v22 = v107;
+      if ((v89 & 1) == 0)
+      {
+        goto LABEL_34;
+      }
+    }
+
+LABEL_38:
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
+  }
+
+  v62 = v22(a3, a4);
+  if (v62 < 64)
+  {
+LABEL_33:
+    (*(a4 + 120))(a3, a4);
+    goto LABEL_34;
+  }
+
+  v115 = 0x8000000000000000;
+  v65 = v22;
+  v66 = v18;
+  v67 = v14;
+  v68 = a5;
+  v69 = *(a4 + 96);
+  v70 = lazy protocol witness table accessor for type Int and conformance Int(v62, v63, v64);
+  v107 = v21;
+  v71 = v113;
+  v69(&v115, &type metadata for Int, v70, a3, a4);
+  a5 = v68;
+  v14 = v67;
+  v18 = v66;
+  v22 = v65;
+  v72 = (*(*(*(a4 + 32) + 8) + 16))(v18, v71, a3);
+  (*(v14 + 8))(v71, a3);
+  if (v72)
+  {
+    goto LABEL_38;
+  }
+
+LABEL_34:
+  if (v22(a3, a4) <= 64 && (v22(a3, a4) != 64 || (v114(a3, a4) & 1) != 0))
+  {
+    goto LABEL_44;
+  }
+
+  v95 = v114(a3, a4);
+  v96 = v22(a3, a4);
+  if (v95)
+  {
+    if (v96 > 64)
+    {
+      goto LABEL_37;
+    }
+
+LABEL_43:
+    (*(a4 + 120))(a3, a4);
+    goto LABEL_44;
+  }
+
+  if (v96 < 64)
+  {
+    goto LABEL_43;
+  }
+
+LABEL_37:
+  v115 = 0x7FFFFFFFFFFFFFFFLL;
+  v99 = v18;
+  v100 = a5;
+  v101 = *(a4 + 96);
+  v102 = lazy protocol witness table accessor for type Int and conformance Int(v96, v97, v98);
+  v103 = v113;
+  v101(&v115, &type metadata for Int, v102, a3, a4);
+  a5 = v100;
+  v18 = v99;
+  v104 = (*(*(*(a4 + 32) + 8) + 16))(v103, v99, a3);
+  (*(v14 + 8))(v103, a3);
+  if (v104)
+  {
+    goto LABEL_38;
+  }
+
+LABEL_44:
+  v105 = (*(a4 + 120))(a3, a4);
+  result = (*(v14 + 8))(v18, a3);
+  if ((v105 & 0x8000000000000000) != 0)
+  {
+    if (v105 > 0xFFFFFFFFFFFFFFC0)
+    {
+      v78 = v111 >> -v105;
+      goto LABEL_47;
+    }
+
+    goto LABEL_25;
+  }
+
+  v78 = v111 << v105;
+  if (v105 >= 0x40)
+  {
+    v78 = 0;
+  }
+
+LABEL_47:
+  *a5 = v78;
+  return result;
+}
+
+uint64_t protocol witness for static BinaryInteger.<<= infix<A>(_:_:) in conformance UInt64(unint64_t *a1, uint64_t a2, Class *a3, uint64_t a4)
+{
+  v109 = *(*(a4 + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v109, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v108 = v8;
+  v10 = MEMORY[0x1EEE9AC00](v8, v9);
+  v107 = v105 - v11;
+  v12 = *(a3 - 1);
+  v14 = MEMORY[0x1EEE9AC00](v10, v13);
+  v16 = v105 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14, v17);
+  v111 = v105 - v18;
+  v19 = (a4 + 64);
+  v112 = *(a4 + 64);
+  if (v112(a3, a4))
+  {
+    v20 = *(a4 + 128);
+    v21 = v20(a3, a4);
+    if (v21 >= 64)
+    {
+      v113 = -64;
+      v110 = a2;
+      v24 = v20;
+      v25 = v16;
+      v26 = v12;
+      v27 = a1;
+      v28 = *(a4 + 96);
+      v29 = lazy protocol witness table accessor for type Int and conformance Int(v21, v22, v23);
+      v106 = (a4 + 64);
+      v30 = v111;
+      v28(&v113, &type metadata for Int, v29, a3, a4);
+      a1 = v27;
+      v12 = v26;
+      v16 = v25;
+      v20 = v24;
+      a2 = v110;
+      v31 = (*(*(*(a4 + 32) + 8) + 16))(v110, v30, a3);
+      v32 = v30;
+      v19 = v106;
+      result = (*(v12 + 8))(v32, a3);
+      if (v31)
+      {
+        goto LABEL_25;
+      }
+
+      goto LABEL_11;
+    }
+
+    goto LABEL_10;
+  }
+
+  v34 = v112(a3, a4);
+  v20 = *(a4 + 128);
+  v35 = v20(a3, a4);
+  if ((v34 & 1) == 0)
+  {
+    if (v35 >= 64)
+    {
+      goto LABEL_11;
+    }
+
+LABEL_10:
+    result = (*(a4 + 120))(a3, a4);
+    if (result < -64)
+    {
+      goto LABEL_25;
+    }
+
+    goto LABEL_11;
+  }
+
+  v110 = a2;
+  v106 = v20;
+  if (v35 <= 64)
+  {
     v72 = v108;
-    (v68[3])(v71, a3, v68);
-    a2 = v107;
-    LOBYTE(v68) = (*(*(*(a4 + 32) + 8) + 16))(v107, v72, a3);
-    result = (*(v11 + 8))(v72, a3);
-    if (v68)
+    v71 = v109;
+    AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v109, a3, v108, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+    v74 = v107;
+    (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v72, AssociatedConformanceWitness);
+    v75 = v111;
+    (v71[3])(v74, a3, v71);
+    a2 = v110;
+    LOBYTE(v71) = (*(*(*(a4 + 32) + 8) + 16))(v110, v75, a3);
+    result = (*(v12 + 8))(v75, a3);
+    if (v71)
     {
       goto LABEL_25;
     }
 
     result = (*(a4 + 120))(a3, a4);
-    v17 = v103;
+    v20 = v106;
     if (result < -64)
     {
       goto LABEL_25;
@@ -3140,72 +3704,72 @@ LABEL_10:
 
   else
   {
-    v110 = -64;
-    v35 = v14;
-    v36 = v11;
-    v37 = a1;
-    v38 = *(a4 + 96);
-    v39 = lazy protocol witness table accessor for type Int and conformance Int(v32, v33, v34);
-    v40 = v108;
-    v38(&v110, &type metadata for Int, v39, a3, a4);
-    a1 = v37;
-    v11 = v36;
-    v14 = v35;
-    v41 = v107;
-    v42 = (*(*(*(a4 + 32) + 8) + 16))(v107, v40, a3);
-    v43 = v40;
-    v16 = (a4 + 64);
-    a2 = v41;
-    result = (*(v11 + 8))(v43, a3);
-    v17 = v103;
-    if (v42)
+    v113 = -64;
+    v38 = v16;
+    v39 = v12;
+    v40 = a1;
+    v41 = *(a4 + 96);
+    v42 = lazy protocol witness table accessor for type Int and conformance Int(v35, v36, v37);
+    v43 = v111;
+    v41(&v113, &type metadata for Int, v42, a3, a4);
+    a1 = v40;
+    v12 = v39;
+    v16 = v38;
+    v44 = v110;
+    v45 = (*(*(*(a4 + 32) + 8) + 16))(v110, v43, a3);
+    v46 = v43;
+    v19 = (a4 + 64);
+    a2 = v44;
+    result = (*(v12 + 8))(v46, a3);
+    v20 = v106;
+    if (v45)
     {
       goto LABEL_25;
     }
   }
 
 LABEL_11:
-  v44 = v109(a3, a4);
-  v102[1] = a4 + 128;
-  v45 = v17(a3, a4);
-  if (v44)
+  v47 = v112(a3, a4);
+  v105[1] = a4 + 128;
+  v48 = v20(a3, a4);
+  if (v47)
   {
-    if (v45 > 64)
+    if (v48 > 64)
     {
       goto LABEL_13;
     }
   }
 
-  else if (v45 >= 64)
+  else if (v48 >= 64)
   {
 LABEL_13:
-    v110 = 64;
-    v107 = a2;
-    v48 = v17;
-    v49 = v14;
-    v50 = v11;
-    v51 = a1;
-    v52 = *(a4 + 96);
-    v53 = lazy protocol witness table accessor for type Int and conformance Int(v45, v46, v47);
-    v103 = v16;
-    v54 = v108;
-    v52(&v110, &type metadata for Int, v53, a3, a4);
-    a1 = v51;
-    v11 = v50;
-    v14 = v49;
-    v17 = v48;
-    a2 = v107;
-    v55 = (*(*(*(a4 + 32) + 8) + 16))(v54, v107, a3);
-    v56 = v54;
-    v16 = v103;
-    result = (*(v11 + 8))(v56, a3);
-    if ((v55 & 1) == 0)
+    v113 = 64;
+    v110 = a2;
+    v51 = v20;
+    v52 = v16;
+    v53 = v12;
+    v54 = a1;
+    v55 = *(a4 + 96);
+    v56 = lazy protocol witness table accessor for type Int and conformance Int(v48, v49, v50);
+    v106 = v19;
+    v57 = v111;
+    v55(&v113, &type metadata for Int, v56, a3, a4);
+    a1 = v54;
+    v12 = v53;
+    v16 = v52;
+    v20 = v51;
+    a2 = v110;
+    v58 = (*(*(*(a4 + 32) + 8) + 16))(v57, v110, a3);
+    v59 = v57;
+    v19 = v106;
+    result = (*(v12 + 8))(v59, a3);
+    if ((v58 & 1) == 0)
     {
       goto LABEL_17;
     }
 
 LABEL_25:
-    v73 = 0;
+    v76 = 0;
     goto LABEL_47;
   }
 
@@ -3216,19 +3780,19 @@ LABEL_25:
   }
 
 LABEL_17:
-  (*(v11 + 16))(v14, a2, a3);
-  if ((v109(a3, a4) & 1) == 0 || v17(a3, a4) < 65)
+  (*(v12 + 16))(v16, a2, a3);
+  if ((v112(a3, a4) & 1) == 0 || v20(a3, a4) < 65)
   {
     goto LABEL_34;
   }
 
-  if ((v109(a3, a4) & 1) == 0)
+  if ((v112(a3, a4) & 1) == 0)
   {
-    v74 = v109(a3, a4);
-    v75 = v17(a3, a4);
-    if ((v74 & 1) == 0)
+    v77 = v112(a3, a4);
+    v78 = v20(a3, a4);
+    if ((v77 & 1) == 0)
     {
-      if (v75 >= 64)
+      if (v78 >= 64)
       {
         goto LABEL_34;
       }
@@ -3236,20 +3800,20 @@ LABEL_17:
       goto LABEL_33;
     }
 
-    v103 = v17;
-    if (v75 <= 64)
+    v106 = v20;
+    if (v78 <= 64)
     {
-      v86 = v105;
-      v85 = v106;
-      v87 = swift_getAssociatedConformanceWitness(v106, a3, v105, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v88 = v104;
-      (*(v87 + 8))(&qword_18071E0A8, 256, v86, v87);
       v89 = v108;
-      (v85[3])(v88, a3, v85);
-      LOBYTE(v85) = (*(*(*(a4 + 32) + 8) + 16))(v14, v89, a3);
-      (*(v11 + 8))(v89, a3);
-      v17 = v103;
-      if ((v85 & 1) == 0)
+      v88 = v109;
+      v90 = swift_getAssociatedConformanceWitness(v109, a3, v108, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v91 = v107;
+      (*(v90 + 8))(&qword_18071E0A8, 256, v89, v90);
+      v92 = v111;
+      (v88[3])(v91, a3, v88);
+      LOBYTE(v88) = (*(*(*(a4 + 32) + 8) + 16))(v16, v92, a3);
+      (*(v12 + 8))(v92, a3);
+      v20 = v106;
+      if ((v88 & 1) == 0)
       {
         goto LABEL_33;
       }
@@ -3257,361 +3821,22 @@ LABEL_17:
 
     else
     {
-      v110 = 0x8000000000000000;
-      v78 = v14;
-      v79 = v11;
-      v80 = a1;
-      v81 = *(a4 + 96);
-      v82 = lazy protocol witness table accessor for type Int and conformance Int(v75, v76, v77);
-      v83 = v108;
-      v81(&v110, &type metadata for Int, v82, a3, a4);
-      a1 = v80;
-      v11 = v79;
-      v14 = v78;
-      v84 = (*(*(*(a4 + 32) + 8) + 16))(v78, v83, a3);
-      (*(v11 + 8))(v83, a3);
-      v17 = v103;
-      if ((v84 & 1) == 0)
-      {
-        goto LABEL_34;
-      }
-    }
-
-LABEL_38:
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
-  }
-
-  v57 = v17(a3, a4);
-  if (v57 < 64)
-  {
-LABEL_33:
-    (*(a4 + 120))(a3, a4);
-    goto LABEL_34;
-  }
-
-  v110 = 0x8000000000000000;
-  v60 = v17;
-  v61 = v14;
-  v62 = v11;
-  v63 = a1;
-  v64 = *(a4 + 96);
-  v65 = lazy protocol witness table accessor for type Int and conformance Int(v57, v58, v59);
-  v103 = v16;
-  v66 = v108;
-  v64(&v110, &type metadata for Int, v65, a3, a4);
-  a1 = v63;
-  v11 = v62;
-  v14 = v61;
-  v17 = v60;
-  v67 = (*(*(*(a4 + 32) + 8) + 16))(v14, v66, a3);
-  (*(v11 + 8))(v66, a3);
-  if (v67)
-  {
-    goto LABEL_38;
-  }
-
-LABEL_34:
-  if (v17(a3, a4) <= 64 && (v17(a3, a4) != 64 || (v109(a3, a4) & 1) != 0))
-  {
-    goto LABEL_44;
-  }
-
-  v90 = v109(a3, a4);
-  v91 = v17(a3, a4);
-  if (v90)
-  {
-    if (v91 > 64)
-    {
-      goto LABEL_37;
-    }
-
-LABEL_43:
-    (*(a4 + 120))(a3, a4);
-    goto LABEL_44;
-  }
-
-  if (v91 < 64)
-  {
-    goto LABEL_43;
-  }
-
-LABEL_37:
-  v110 = 0x7FFFFFFFFFFFFFFFLL;
-  v94 = v14;
-  v95 = a1;
-  v96 = *(a4 + 96);
-  v97 = lazy protocol witness table accessor for type Int and conformance Int(v91, v92, v93);
-  v98 = v108;
-  v96(&v110, &type metadata for Int, v97, a3, a4);
-  a1 = v95;
-  v14 = v94;
-  v99 = (*(*(*(a4 + 32) + 8) + 16))(v98, v94, a3);
-  (*(v11 + 8))(v98, a3);
-  if (v99)
-  {
-    goto LABEL_38;
-  }
-
-LABEL_44:
-  v100 = (*(a4 + 120))(a3, a4);
-  result = (*(v11 + 8))(v14, a3);
-  v101 = *a1;
-  if ((v100 & 0x8000000000000000) != 0)
-  {
-    if (v100 >= 0xFFFFFFFFFFFFFFC1)
-    {
-      v73 = v101 << -v100;
-      goto LABEL_47;
-    }
-
-    goto LABEL_25;
-  }
-
-  v73 = v101 >> v100;
-  if (v100 >= 0x40)
-  {
-    v73 = 0;
-  }
-
-LABEL_47:
-  *a1 = v73;
-  return result;
-}
-
-uint64_t protocol witness for static BinaryInteger.<< infix<A>(_:_:) in conformance UInt64@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, unint64_t *a5@<X8>)
-{
-  v107 = *(*(a4 + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v107, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v106 = v10;
-  v11 = MEMORY[0x1EEE9AC00](v10);
-  v105 = &v103 - v12;
-  v13 = *(a3 - 1);
-  v14 = MEMORY[0x1EEE9AC00](v11);
-  v16 = &v103 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v110 = &v103 - v17;
-  v108 = *a1;
-  v18 = (a4 + 64);
-  v111 = *(a4 + 64);
-  if (v111(a3, a4))
-  {
-    v19 = *(a4 + 128);
-    v20 = v19(a3, a4);
-    if (v20 >= 64)
-    {
-      v112 = -64;
-      v109 = a2;
-      v23 = v19;
-      v24 = v16;
-      v25 = v13;
-      v26 = a5;
-      v27 = *(a4 + 96);
-      v28 = lazy protocol witness table accessor for type Int and conformance Int(v20, v21, v22);
-      v104 = (a4 + 64);
-      v29 = v110;
-      v27(&v112, &type metadata for Int, v28, a3, a4);
-      a5 = v26;
-      v13 = v25;
-      v16 = v24;
-      v19 = v23;
-      a2 = v109;
-      v30 = (*(*(*(a4 + 32) + 8) + 16))(v109, v29, a3);
-      v31 = v29;
-      v18 = v104;
-      result = (*(v13 + 8))(v31, a3);
-      if (v30)
-      {
-        goto LABEL_25;
-      }
-
-      goto LABEL_11;
-    }
-
-    goto LABEL_10;
-  }
-
-  v33 = v111(a3, a4);
-  v19 = *(a4 + 128);
-  v34 = v19(a3, a4);
-  if ((v33 & 1) == 0)
-  {
-    if (v34 >= 64)
-    {
-      goto LABEL_11;
-    }
-
-LABEL_10:
-    result = (*(a4 + 120))(a3, a4);
-    if (result < -64)
-    {
-      goto LABEL_25;
-    }
-
-    goto LABEL_11;
-  }
-
-  v109 = a2;
-  v104 = v19;
-  if (v34 <= 64)
-  {
-    v71 = v106;
-    v70 = v107;
-    AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v107, a3, v106, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-    v73 = v105;
-    (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v71, AssociatedConformanceWitness);
-    v74 = v110;
-    (v70[3])(v73, a3, v70);
-    a2 = v109;
-    LOBYTE(v70) = (*(*(*(a4 + 32) + 8) + 16))(v109, v74, a3);
-    result = (*(v13 + 8))(v74, a3);
-    if (v70)
-    {
-      goto LABEL_25;
-    }
-
-    result = (*(a4 + 120))(a3, a4);
-    v19 = v104;
-    if (result < -64)
-    {
-      goto LABEL_25;
-    }
-  }
-
-  else
-  {
-    v112 = -64;
-    v37 = v16;
-    v38 = v13;
-    v39 = a5;
-    v40 = *(a4 + 96);
-    v41 = lazy protocol witness table accessor for type Int and conformance Int(v34, v35, v36);
-    v42 = v110;
-    v40(&v112, &type metadata for Int, v41, a3, a4);
-    a5 = v39;
-    v13 = v38;
-    v16 = v37;
-    v43 = v109;
-    v44 = (*(*(*(a4 + 32) + 8) + 16))(v109, v42, a3);
-    v45 = v42;
-    v18 = (a4 + 64);
-    a2 = v43;
-    result = (*(v13 + 8))(v45, a3);
-    v19 = v104;
-    if (v44)
-    {
-      goto LABEL_25;
-    }
-  }
-
-LABEL_11:
-  v46 = v111(a3, a4);
-  v103 = a4 + 128;
-  v47 = v19(a3, a4);
-  if (v46)
-  {
-    if (v47 > 64)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  else if (v47 >= 64)
-  {
-LABEL_13:
-    v112 = 64;
-    v109 = a2;
-    v50 = v19;
-    v51 = v16;
-    v52 = v13;
-    v53 = a5;
-    v54 = *(a4 + 96);
-    v55 = lazy protocol witness table accessor for type Int and conformance Int(v47, v48, v49);
-    v104 = v18;
-    v56 = v110;
-    v54(&v112, &type metadata for Int, v55, a3, a4);
-    a5 = v53;
-    v13 = v52;
-    v16 = v51;
-    v19 = v50;
-    a2 = v109;
-    v57 = (*(*(*(a4 + 32) + 8) + 16))(v56, v109, a3);
-    v58 = v56;
-    v18 = v104;
-    result = (*(v13 + 8))(v58, a3);
-    if ((v57 & 1) == 0)
-    {
-      goto LABEL_17;
-    }
-
-LABEL_25:
-    v75 = 0;
-    goto LABEL_47;
-  }
-
-  result = (*(a4 + 120))(a3, a4);
-  if (result > 64)
-  {
-    goto LABEL_25;
-  }
-
-LABEL_17:
-  (*(v13 + 16))(v16, a2, a3);
-  if ((v111(a3, a4) & 1) == 0 || v19(a3, a4) < 65)
-  {
-    goto LABEL_34;
-  }
-
-  if ((v111(a3, a4) & 1) == 0)
-  {
-    v76 = v111(a3, a4);
-    v77 = v19(a3, a4);
-    if ((v76 & 1) == 0)
-    {
-      if (v77 >= 64)
-      {
-        goto LABEL_34;
-      }
-
-      goto LABEL_33;
-    }
-
-    v104 = v19;
-    if (v77 <= 64)
-    {
-      v88 = v106;
-      v87 = v107;
-      v89 = swift_getAssociatedConformanceWitness(v107, a3, v106, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v90 = v105;
-      (*(v89 + 8))(&qword_18071E0A8, 256, v88, v89);
-      v91 = v110;
-      (v87[3])(v90, a3, v87);
-      LOBYTE(v87) = (*(*(*(a4 + 32) + 8) + 16))(v16, v91, a3);
-      (*(v13 + 8))(v91, a3);
-      v19 = v104;
+      v113 = 0x8000000000000000;
+      v81 = v16;
+      v82 = v12;
+      v83 = a1;
+      v84 = *(a4 + 96);
+      v85 = lazy protocol witness table accessor for type Int and conformance Int(v78, v79, v80);
+      v86 = v111;
+      v84(&v113, &type metadata for Int, v85, a3, a4);
+      a1 = v83;
+      v12 = v82;
+      v16 = v81;
+      v87 = (*(*(*(a4 + 32) + 8) + 16))(v81, v86, a3);
+      (*(v12 + 8))(v86, a3);
+      v20 = v106;
       if ((v87 & 1) == 0)
       {
-        goto LABEL_33;
-      }
-    }
-
-    else
-    {
-      v112 = 0x8000000000000000;
-      v80 = v16;
-      v81 = v13;
-      v82 = a5;
-      v83 = *(a4 + 96);
-      v84 = lazy protocol witness table accessor for type Int and conformance Int(v77, v78, v79);
-      v85 = v110;
-      v83(&v112, &type metadata for Int, v84, a3, a4);
-      a5 = v82;
-      v13 = v81;
-      v16 = v80;
-      v86 = (*(*(*(a4 + 32) + 8) + 16))(v80, v85, a3);
-      (*(v13 + 8))(v85, a3);
-      v19 = v104;
-      if ((v86 & 1) == 0)
-      {
         goto LABEL_34;
       }
     }
@@ -3620,46 +3845,46 @@ LABEL_38:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  v59 = v19(a3, a4);
-  if (v59 < 64)
+  v60 = v20(a3, a4);
+  if (v60 < 64)
   {
 LABEL_33:
     (*(a4 + 120))(a3, a4);
     goto LABEL_34;
   }
 
-  v112 = 0x8000000000000000;
-  v62 = v19;
-  v63 = v16;
-  v64 = v13;
-  v65 = a5;
-  v66 = *(a4 + 96);
-  v67 = lazy protocol witness table accessor for type Int and conformance Int(v59, v60, v61);
-  v104 = v18;
-  v68 = v110;
-  v66(&v112, &type metadata for Int, v67, a3, a4);
-  a5 = v65;
-  v13 = v64;
-  v16 = v63;
-  v19 = v62;
-  v69 = (*(*(*(a4 + 32) + 8) + 16))(v16, v68, a3);
-  (*(v13 + 8))(v68, a3);
-  if (v69)
+  v113 = 0x8000000000000000;
+  v63 = v20;
+  v64 = v16;
+  v65 = v12;
+  v66 = a1;
+  v67 = *(a4 + 96);
+  v68 = lazy protocol witness table accessor for type Int and conformance Int(v60, v61, v62);
+  v106 = v19;
+  v69 = v111;
+  v67(&v113, &type metadata for Int, v68, a3, a4);
+  a1 = v66;
+  v12 = v65;
+  v16 = v64;
+  v20 = v63;
+  v70 = (*(*(*(a4 + 32) + 8) + 16))(v16, v69, a3);
+  (*(v12 + 8))(v69, a3);
+  if (v70)
   {
     goto LABEL_38;
   }
 
 LABEL_34:
-  if (v19(a3, a4) <= 64 && (v19(a3, a4) != 64 || (v111(a3, a4) & 1) != 0))
+  if (v20(a3, a4) <= 64 && (v20(a3, a4) != 64 || (v112(a3, a4) & 1) != 0))
   {
     goto LABEL_44;
   }
 
-  v92 = v111(a3, a4);
-  v93 = v19(a3, a4);
-  if (v92)
+  v93 = v112(a3, a4);
+  v94 = v20(a3, a4);
+  if (v93)
   {
-    if (v93 > 64)
+    if (v94 > 64)
     {
       goto LABEL_37;
     }
@@ -3669,388 +3894,65 @@ LABEL_43:
     goto LABEL_44;
   }
 
-  if (v93 < 64)
+  if (v94 < 64)
   {
     goto LABEL_43;
   }
 
 LABEL_37:
-  v112 = 0x7FFFFFFFFFFFFFFFLL;
-  v96 = v16;
-  v97 = a5;
-  v98 = *(a4 + 96);
-  v99 = lazy protocol witness table accessor for type Int and conformance Int(v93, v94, v95);
-  v100 = v110;
-  v98(&v112, &type metadata for Int, v99, a3, a4);
-  a5 = v97;
-  v16 = v96;
-  v101 = (*(*(*(a4 + 32) + 8) + 16))(v100, v96, a3);
-  (*(v13 + 8))(v100, a3);
-  if (v101)
+  v113 = 0x7FFFFFFFFFFFFFFFLL;
+  v97 = v16;
+  v98 = a1;
+  v99 = *(a4 + 96);
+  v100 = lazy protocol witness table accessor for type Int and conformance Int(v94, v95, v96);
+  v101 = v111;
+  v99(&v113, &type metadata for Int, v100, a3, a4);
+  a1 = v98;
+  v16 = v97;
+  v102 = (*(*(*(a4 + 32) + 8) + 16))(v101, v97, a3);
+  (*(v12 + 8))(v101, a3);
+  if (v102)
   {
     goto LABEL_38;
   }
 
 LABEL_44:
-  v102 = (*(a4 + 120))(a3, a4);
-  result = (*(v13 + 8))(v16, a3);
-  if ((v102 & 0x8000000000000000) != 0)
+  v103 = (*(a4 + 120))(a3, a4);
+  result = (*(v12 + 8))(v16, a3);
+  v104 = *a1;
+  if ((v103 & 0x8000000000000000) != 0)
   {
-    if (v102 > 0xFFFFFFFFFFFFFFC0)
+    if (v103 > 0xFFFFFFFFFFFFFFC0)
     {
-      v75 = v108 >> -v102;
+      v76 = v104 >> -v103;
       goto LABEL_47;
     }
 
     goto LABEL_25;
   }
 
-  v75 = v108 << v102;
-  if (v102 >= 0x40)
+  v76 = v104 << v103;
+  if (v103 >= 0x40)
   {
-    v75 = 0;
+    v76 = 0;
   }
 
 LABEL_47:
-  *a5 = v75;
+  *a1 = v76;
   return result;
 }
 
-uint64_t protocol witness for static BinaryInteger.<<= infix<A>(_:_:) in conformance UInt64(unint64_t *a1, uint64_t a2, const char *a3, uint64_t a4)
+unint64_t *protocol witness for BinaryInteger.quotientAndRemainder(dividingBy:) in conformance UInt64(unint64_t *result, unint64_t *a2, unint64_t *a3)
 {
-  v106 = *(*(a4 + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v106, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v105 = v8;
-  v9 = MEMORY[0x1EEE9AC00](v8);
-  v104 = v102 - v10;
-  v11 = *(a3 - 1);
-  v12 = MEMORY[0x1EEE9AC00](v9);
-  v14 = v102 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v108 = v102 - v15;
-  v16 = (a4 + 64);
-  v109 = *(a4 + 64);
-  if (v109(a3, a4))
+  v4 = *a3;
+  if (!*a3)
   {
-    v17 = *(a4 + 128);
-    v18 = v17(a3, a4);
-    if (v18 >= 64)
-    {
-      v110 = -64;
-      v107 = a2;
-      v21 = v17;
-      v22 = v14;
-      v23 = v11;
-      v24 = a1;
-      v25 = *(a4 + 96);
-      v26 = lazy protocol witness table accessor for type Int and conformance Int(v18, v19, v20);
-      v103 = (a4 + 64);
-      v27 = v108;
-      v25(&v110, &type metadata for Int, v26, a3, a4);
-      a1 = v24;
-      v11 = v23;
-      v14 = v22;
-      v17 = v21;
-      a2 = v107;
-      v28 = (*(*(*(a4 + 32) + 8) + 16))(v107, v27, a3);
-      v29 = v27;
-      v16 = v103;
-      result = (*(v11 + 8))(v29, a3);
-      if (v28)
-      {
-        goto LABEL_25;
-      }
-
-      goto LABEL_11;
-    }
-
-    goto LABEL_10;
-  }
-
-  v31 = v109(a3, a4);
-  v17 = *(a4 + 128);
-  v32 = v17(a3, a4);
-  if ((v31 & 1) == 0)
-  {
-    if (v32 >= 64)
-    {
-      goto LABEL_11;
-    }
-
-LABEL_10:
-    result = (*(a4 + 120))(a3, a4);
-    if (result < -64)
-    {
-      goto LABEL_25;
-    }
-
-    goto LABEL_11;
-  }
-
-  v107 = a2;
-  v103 = v17;
-  if (v32 <= 64)
-  {
-    v69 = v105;
-    v68 = v106;
-    AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v106, a3, v105, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-    v71 = v104;
-    (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v69, AssociatedConformanceWitness);
-    v72 = v108;
-    (v68[3])(v71, a3, v68);
-    a2 = v107;
-    LOBYTE(v68) = (*(*(*(a4 + 32) + 8) + 16))(v107, v72, a3);
-    result = (*(v11 + 8))(v72, a3);
-    if (v68)
-    {
-      goto LABEL_25;
-    }
-
-    result = (*(a4 + 120))(a3, a4);
-    v17 = v103;
-    if (result < -64)
-    {
-      goto LABEL_25;
-    }
-  }
-
-  else
-  {
-    v110 = -64;
-    v35 = v14;
-    v36 = v11;
-    v37 = a1;
-    v38 = *(a4 + 96);
-    v39 = lazy protocol witness table accessor for type Int and conformance Int(v32, v33, v34);
-    v40 = v108;
-    v38(&v110, &type metadata for Int, v39, a3, a4);
-    a1 = v37;
-    v11 = v36;
-    v14 = v35;
-    v41 = v107;
-    v42 = (*(*(*(a4 + 32) + 8) + 16))(v107, v40, a3);
-    v43 = v40;
-    v16 = (a4 + 64);
-    a2 = v41;
-    result = (*(v11 + 8))(v43, a3);
-    v17 = v103;
-    if (v42)
-    {
-      goto LABEL_25;
-    }
-  }
-
-LABEL_11:
-  v44 = v109(a3, a4);
-  v102[1] = a4 + 128;
-  v45 = v17(a3, a4);
-  if (v44)
-  {
-    if (v45 > 64)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  else if (v45 >= 64)
-  {
-LABEL_13:
-    v110 = 64;
-    v107 = a2;
-    v48 = v17;
-    v49 = v14;
-    v50 = v11;
-    v51 = a1;
-    v52 = *(a4 + 96);
-    v53 = lazy protocol witness table accessor for type Int and conformance Int(v45, v46, v47);
-    v103 = v16;
-    v54 = v108;
-    v52(&v110, &type metadata for Int, v53, a3, a4);
-    a1 = v51;
-    v11 = v50;
-    v14 = v49;
-    v17 = v48;
-    a2 = v107;
-    v55 = (*(*(*(a4 + 32) + 8) + 16))(v54, v107, a3);
-    v56 = v54;
-    v16 = v103;
-    result = (*(v11 + 8))(v56, a3);
-    if ((v55 & 1) == 0)
-    {
-      goto LABEL_17;
-    }
-
-LABEL_25:
-    v73 = 0;
-    goto LABEL_47;
-  }
-
-  result = (*(a4 + 120))(a3, a4);
-  if (result > 64)
-  {
-    goto LABEL_25;
-  }
-
-LABEL_17:
-  (*(v11 + 16))(v14, a2, a3);
-  if ((v109(a3, a4) & 1) == 0 || v17(a3, a4) < 65)
-  {
-    goto LABEL_34;
-  }
-
-  if ((v109(a3, a4) & 1) == 0)
-  {
-    v74 = v109(a3, a4);
-    v75 = v17(a3, a4);
-    if ((v74 & 1) == 0)
-    {
-      if (v75 >= 64)
-      {
-        goto LABEL_34;
-      }
-
-      goto LABEL_33;
-    }
-
-    v103 = v17;
-    if (v75 <= 64)
-    {
-      v86 = v105;
-      v85 = v106;
-      v87 = swift_getAssociatedConformanceWitness(v106, a3, v105, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v88 = v104;
-      (*(v87 + 8))(&qword_18071E0A8, 256, v86, v87);
-      v89 = v108;
-      (v85[3])(v88, a3, v85);
-      LOBYTE(v85) = (*(*(*(a4 + 32) + 8) + 16))(v14, v89, a3);
-      (*(v11 + 8))(v89, a3);
-      v17 = v103;
-      if ((v85 & 1) == 0)
-      {
-        goto LABEL_33;
-      }
-    }
-
-    else
-    {
-      v110 = 0x8000000000000000;
-      v78 = v14;
-      v79 = v11;
-      v80 = a1;
-      v81 = *(a4 + 96);
-      v82 = lazy protocol witness table accessor for type Int and conformance Int(v75, v76, v77);
-      v83 = v108;
-      v81(&v110, &type metadata for Int, v82, a3, a4);
-      a1 = v80;
-      v11 = v79;
-      v14 = v78;
-      v84 = (*(*(*(a4 + 32) + 8) + 16))(v78, v83, a3);
-      (*(v11 + 8))(v83, a3);
-      v17 = v103;
-      if ((v84 & 1) == 0)
-      {
-        goto LABEL_34;
-      }
-    }
-
-LABEL_38:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  v57 = v17(a3, a4);
-  if (v57 < 64)
-  {
-LABEL_33:
-    (*(a4 + 120))(a3, a4);
-    goto LABEL_34;
-  }
-
-  v110 = 0x8000000000000000;
-  v60 = v17;
-  v61 = v14;
-  v62 = v11;
-  v63 = a1;
-  v64 = *(a4 + 96);
-  v65 = lazy protocol witness table accessor for type Int and conformance Int(v57, v58, v59);
-  v103 = v16;
-  v66 = v108;
-  v64(&v110, &type metadata for Int, v65, a3, a4);
-  a1 = v63;
-  v11 = v62;
-  v14 = v61;
-  v17 = v60;
-  v67 = (*(*(*(a4 + 32) + 8) + 16))(v14, v66, a3);
-  (*(v11 + 8))(v66, a3);
-  if (v67)
-  {
-    goto LABEL_38;
-  }
-
-LABEL_34:
-  if (v17(a3, a4) <= 64 && (v17(a3, a4) != 64 || (v109(a3, a4) & 1) != 0))
-  {
-    goto LABEL_44;
-  }
-
-  v90 = v109(a3, a4);
-  v91 = v17(a3, a4);
-  if (v90)
-  {
-    if (v91 > 64)
-    {
-      goto LABEL_37;
-    }
-
-LABEL_43:
-    (*(a4 + 120))(a3, a4);
-    goto LABEL_44;
-  }
-
-  if (v91 < 64)
-  {
-    goto LABEL_43;
-  }
-
-LABEL_37:
-  v110 = 0x7FFFFFFFFFFFFFFFLL;
-  v94 = v14;
-  v95 = a1;
-  v96 = *(a4 + 96);
-  v97 = lazy protocol witness table accessor for type Int and conformance Int(v91, v92, v93);
-  v98 = v108;
-  v96(&v110, &type metadata for Int, v97, a3, a4);
-  a1 = v95;
-  v14 = v94;
-  v99 = (*(*(*(a4 + 32) + 8) + 16))(v98, v94, a3);
-  (*(v11 + 8))(v98, a3);
-  if (v99)
-  {
-    goto LABEL_38;
-  }
-
-LABEL_44:
-  v100 = (*(a4 + 120))(a3, a4);
-  result = (*(v11 + 8))(v14, a3);
-  v101 = *a1;
-  if ((v100 & 0x8000000000000000) != 0)
-  {
-    if (v100 > 0xFFFFFFFFFFFFFFC0)
-    {
-      v73 = v101 >> -v100;
-      goto LABEL_47;
-    }
-
-    goto LABEL_25;
-  }
-
-  v73 = v101 << v100;
-  if (v100 >= 0x40)
-  {
-    v73 = 0;
-  }
-
-LABEL_47:
-  *a1 = v73;
+  v5 = *v3 / v4;
+  *a2 = *v3 % v4;
+  *result = v5;
   return result;
 }
 
@@ -4259,43 +4161,43 @@ LABEL_47:
   *(a3 + 8) = v35 & 1;
 }
 
-uint64_t protocol witness for Numeric.init<A>(exactly:) in conformance UInt64@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t (*a5)(void)@<X5>, uint64_t *a6@<X8>)
+uint64_t protocol witness for Numeric.init<A>(exactly:) in conformance UInt64@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t (*a5)(void)@<X5>, uint64_t *a6@<X8>)
 {
-  v34 = a5;
-  v35 = a4;
-  v37 = a6;
-  v38 = *(a2 - 1);
-  v39 = a1;
-  MEMORY[0x1EEE9AC00](a1);
-  v9 = &v33 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35 = a5;
+  v36 = a4;
+  v38 = a6;
+  v39 = *(a2 - 1);
+  v40 = a1;
+  MEMORY[0x1EEE9AC00](a1, a2);
+  v9 = &v34 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = *(*(v10 + 24) + 16);
   swift_getAssociatedTypeWitness(0, v11, a2, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
   v13 = v12;
-  MEMORY[0x1EEE9AC00](v12);
-  v15 = &v33 - v14;
-  v36 = *(a3 + 64);
-  if ((v36(a2, a3) & 1) == 0 || (v16 = swift_getAssociatedConformanceWitness(v11, a2, v13, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral), (*(v16 + 8))(&qword_18071E0A8, 256, v13, v16), (*(v11 + 24))(v15, a2, v11), v17 = (*(*(*(a3 + 32) + 8) + 16))(v39, v9, a2), v18 = *(v38 + 8), v18(v9, a2), (v17 & 1) == 0))
+  MEMORY[0x1EEE9AC00](v12, v14);
+  v16 = &v34 - v15;
+  v37 = *(a3 + 64);
+  if ((v37(a2, a3) & 1) == 0 || (v17 = swift_getAssociatedConformanceWitness(v11, a2, v13, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral), (*(v17 + 8))(&qword_18071E0A8, 256, v13, v17), (*(v11 + 24))(v16, a2, v11), v18 = (*(*(*(a3 + 32) + 8) + 16))(v40, v9, a2), v19 = *(v39 + 8), v19(v9, a2), (v18 & 1) == 0))
   {
-    v19 = *(a3 + 128);
-    if (v19(a2, a3) < 64)
+    v20 = *(a3 + 128);
+    if (v20(a2, a3) < 64)
     {
       goto LABEL_12;
     }
 
-    v40 = -1;
-    v20 = v36(a2, a3);
-    v21 = v39;
-    v22 = v19(a2, a3);
-    if (v20)
+    v41 = -1;
+    v21 = v37(a2, a3);
+    v22 = v40;
+    v23 = v20(a2, a3);
+    if (v21)
     {
-      if (v22 <= 64)
+      if (v23 <= 64)
       {
         AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v11, a2, v13, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
         (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v13, AssociatedConformanceWitness);
-        (*(v11 + 24))(v15, a2, v11);
-        v24 = (*(*(*(a3 + 32) + 8) + 40))(v21, v9, a2);
-        (*(v38 + 8))(v9, a2);
-        if ((v24 & 1) == 0)
+        (*(v11 + 24))(v16, a2, v11);
+        v25 = (*(*(*(a3 + 32) + 8) + 40))(v22, v9, a2);
+        (*(v39 + 8))(v9, a2);
+        if ((v25 & 1) == 0)
         {
           goto LABEL_12;
         }
@@ -4304,37 +4206,37 @@ uint64_t protocol witness for Numeric.init<A>(exactly:) in conformance UInt64@<X
       }
     }
 
-    else if (v22 < 65)
+    else if (v23 < 65)
     {
 LABEL_11:
       (*(a3 + 120))(a2, a3);
       goto LABEL_12;
     }
 
-    v25 = *(a3 + 96);
-    v26 = v34();
-    v25(&v40, v35, v26, a2, a3);
-    v27 = (*(*(*(a3 + 32) + 8) + 16))(v9, v21, a2);
-    v18 = *(v38 + 8);
-    v18(v9, a2);
-    if ((v27 & 1) == 0)
+    v26 = *(a3 + 96);
+    v27 = v35();
+    v26(&v41, v36, v27, a2, a3);
+    v28 = (*(*(*(a3 + 32) + 8) + 16))(v9, v22, a2);
+    v19 = *(v39 + 8);
+    v19(v9, a2);
+    if ((v28 & 1) == 0)
     {
 LABEL_12:
-      v31 = v39;
-      v29 = (*(a3 + 120))(a2, a3);
-      result = (*(v38 + 8))(v31, a2);
-      v30 = 0;
+      v32 = v40;
+      v30 = (*(a3 + 120))(a2, a3);
+      result = (*(v39 + 8))(v32, a2);
+      v31 = 0;
       goto LABEL_13;
     }
   }
 
-  result = (v18)(v39, a2);
-  v29 = 0;
-  v30 = 1;
+  result = (v19)(v40, a2);
+  v30 = 0;
+  v31 = 1;
 LABEL_13:
-  v32 = v37;
-  *v37 = v29;
-  *(v32 + 8) = v30;
+  v33 = v38;
+  *v38 = v30;
+  *(v33 + 8) = v31;
   return result;
 }
 
@@ -4368,14 +4270,14 @@ unint64_t *protocol witness for static Numeric.*= infix(_:_:) in conformance UIn
   return result;
 }
 
-uint64_t *protocol witness for Strideable.distance(to:) in conformance UInt64@<X0>(uint64_t *result@<X0>, void *a2@<X8>)
+unint64_t *protocol witness for Strideable.distance(to:) in conformance UInt64@<X0>(unint64_t *result@<X0>, uint64_t *a2@<X8>)
 {
   v3 = *result;
   v4 = *v2;
   v5 = *result - *v2;
   if (*result >= *v2)
   {
-    if (*result - *v2 >= 0)
+    if ((*result - *v2) >= 0)
     {
       goto LABEL_5;
     }
@@ -4384,7 +4286,7 @@ LABEL_6:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  if (v4 - v3 < 0)
+  if ((v4 - v3) < 0)
   {
     goto LABEL_6;
   }
@@ -4395,7 +4297,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t *protocol witness for Strideable.advanced(by:) in conformance UInt64@<X0>(uint64_t *result@<X0>, unint64_t *a2@<X8>)
+unint64_t *protocol witness for Strideable.advanced(by:) in conformance UInt64@<X0>(unint64_t *result@<X0>, unint64_t *a2@<X8>)
 {
   v3 = *result;
   v4 = *v2;
@@ -4557,6 +4459,17 @@ uint64_t *static Int.*= infix(_:_:)(uint64_t *result, uint64_t a2)
   return result;
 }
 
+uint64_t *static Int64./= infix(_:_:)(uint64_t *result, uint64_t a2)
+{
+  if (!a2 || (v2 = *result, a2 == -1) && v2 == 0x8000000000000000)
+  {
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
+  }
+
+  *result = v2 / a2;
+  return result;
+}
+
 Swift::tuple_partialValue_Int_overflow_Bool __swiftcall Int.addingReportingOverflow(_:)(Swift::Int a1)
 {
   v2 = __OFADD__(v1, a1);
@@ -4635,6 +4548,17 @@ Swift::tuple_partialValue_Int_overflow_Bool __swiftcall Int.remainderReportingOv
   return result;
 }
 
+uint64_t *static Int64.%= infix(_:_:)(uint64_t *result, uint64_t a2)
+{
+  if (!a2 || (v2 = *result, a2 == -1) && v2 == 0x8000000000000000)
+  {
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
+  }
+
+  *result = v2 % a2;
+  return result;
+}
+
 Swift::Int __swiftcall Int.Words.index(after:)(Swift::Int after)
 {
   v1 = __OFADD__(after, 1);
@@ -4687,7 +4611,7 @@ void protocol witness for Collection.subscript.read in conformance UInt8.Words(v
   free(v1);
 }
 
-uint64_t (*Int.Words.subscript.read(uint64_t a1, uint64_t a2))()
+void (*Int.Words.subscript.read(uint64_t a1, uint64_t a2))()
 {
   if (a2 < 0 || a2)
   {
@@ -4845,30 +4769,30 @@ void *_ss5Int64Vs35_ExpressibleByBuiltinIntegerLiteralssACP08_builtineF0xBI_tcfC
   return result;
 }
 
-uint64_t protocol witness for BinaryInteger.init<A>(_:) in conformance Int64@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t *a6@<X8>)
+uint64_t protocol witness for BinaryInteger.init<A>(_:) in conformance Int64@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t *a6@<X8>)
 {
-  v37 = a4;
-  v38 = a5;
-  v40 = a6;
+  v39 = a4;
+  v40 = a5;
+  v42 = a6;
   v9 = *(*(a3 + 24) + 16);
   swift_getAssociatedTypeWitness(0, v9, a2, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
   v11 = v10;
-  v12 = MEMORY[0x1EEE9AC00](v10);
-  v14 = &v36 - v13;
-  v41 = *(a2 - 1);
-  MEMORY[0x1EEE9AC00](v12);
-  v39 = &v36 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v42 = *(a3 + 64);
-  v16 = v42(a2, a3);
-  v17 = *(a3 + 128);
-  if ((v16 & 1) != 0 && v17(a2, a3) >= 65)
+  v13 = MEMORY[0x1EEE9AC00](v10, v12);
+  v15 = &v38 - v14;
+  v43 = *(a2 - 1);
+  MEMORY[0x1EEE9AC00](v13, v16);
+  v41 = &v38 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v44 = *(a3 + 64);
+  v18 = v44(a2, a3);
+  v19 = *(a3 + 128);
+  if ((v18 & 1) != 0 && v19(a2, a3) >= 65)
   {
-    v36 = v9;
-    v43 = 0x8000000000000000;
-    v18 = v42;
-    if (v42(a2, a3))
+    v38 = v9;
+    v45 = 0x8000000000000000;
+    v20 = v44;
+    if (v44(a2, a3))
     {
-      if (v17(a2, a3) < 64)
+      if (v19(a2, a3) < 64)
       {
 LABEL_13:
         (*(a3 + 120))(a2, a3);
@@ -4878,11 +4802,11 @@ LABEL_13:
 
     else
     {
-      v19 = v18(a2, a3);
-      v20 = v17(a2, a3);
-      if ((v19 & 1) == 0)
+      v21 = v20(a2, a3);
+      v22 = v19(a2, a3);
+      if ((v21 & 1) == 0)
       {
-        if (v20 >= 64)
+        if (v22 >= 64)
         {
           goto LABEL_14;
         }
@@ -4890,16 +4814,16 @@ LABEL_13:
         goto LABEL_13;
       }
 
-      if (v20 <= 64)
+      if (v22 <= 64)
       {
-        v23 = v36;
-        AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v36, a2, v11, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+        v25 = v38;
+        AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v38, a2, v11, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
         (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v11, AssociatedConformanceWitness);
-        v25 = v39;
-        (*(v23 + 3))(v14, a2, v23);
-        v26 = (*(*(*(a3 + 32) + 8) + 16))(a1, v25, a2);
-        (*(v41 + 8))(v25, a2);
-        if (v26)
+        v27 = v41;
+        (*(v25 + 3))(v15, a2, v25);
+        v28 = (*(*(*(a3 + 32) + 8) + 16))(a1, v27, a2);
+        (*(v43 + 8))(v27, a2);
+        if (v28)
         {
           goto LABEL_18;
         }
@@ -4908,41 +4832,41 @@ LABEL_13:
       }
     }
 
-    v21 = v39;
-    (*(a3 + 96))(&v43, v37, v38, a2, a3);
-    v22 = (*(*(*(a3 + 32) + 8) + 16))(a1, v21, a2);
-    (*(v41 + 8))(v21, a2);
-    if (v22)
+    v23 = v41;
+    (*(a3 + 96))(&v45, v39, v40, a2, a3);
+    v24 = (*(*(*(a3 + 32) + 8) + 16))(a1, v23, a2);
+    (*(v43 + 8))(v23, a2);
+    if (v24)
     {
       goto LABEL_18;
     }
   }
 
 LABEL_14:
-  v27 = v17(a2, a3);
-  v29 = v41;
-  v28 = v42;
-  if (v27 > 64 || v17(a2, a3) == 64 && (v28(a2, a3) & 1) == 0)
+  v29 = v19(a2, a3);
+  v31 = v43;
+  v30 = v44;
+  if (v29 > 64 || v19(a2, a3) == 64 && (v30(a2, a3) & 1) == 0)
   {
-    v43 = 0x7FFFFFFFFFFFFFFFLL;
-    v30 = v28(a2, a3);
-    v31 = v17(a2, a3);
-    if (v30)
+    v45 = 0x7FFFFFFFFFFFFFFFLL;
+    v32 = v30(a2, a3);
+    v33 = v19(a2, a3);
+    if (v32)
     {
-      if (v31 > 64)
+      if (v33 > 64)
       {
         goto LABEL_17;
       }
     }
 
-    else if (v31 > 63)
+    else if (v33 > 63)
     {
 LABEL_17:
-      v32 = v39;
-      (*(a3 + 96))(&v43, v37, v38, a2, a3);
-      v33 = (*(*(*(a3 + 32) + 8) + 16))(v32, a1, a2);
-      (*(v29 + 8))(v32, a2);
-      if ((v33 & 1) == 0)
+      v34 = v41;
+      (*(a3 + 96))(&v45, v39, v40, a2, a3);
+      v35 = (*(*(*(a3 + 32) + 8) + 16))(v34, a1, a2);
+      (*(v31 + 8))(v34, a2);
+      if ((v35 & 1) == 0)
       {
         goto LABEL_24;
       }
@@ -4955,9 +4879,9 @@ LABEL_18:
   }
 
 LABEL_24:
-  v34 = (*(a3 + 120))(a2, a3);
-  result = (*(v29 + 8))(a1, a2);
-  *v40 = v34;
+  v36 = (*(a3 + 120))(a2, a3);
+  result = (*(v31 + 8))(a1, a2);
+  *v42 = v36;
   return result;
 }
 
@@ -4979,29 +4903,77 @@ unint64_t _ss5Int64VSzsSz16_binaryLogarithmSiyFTW_0()
   return __clz(*v0) ^ 0x3F;
 }
 
-uint64_t protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conformance Int@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t *a7@<X8>)
+void *protocol witness for static BinaryInteger./ infix(_:_:) in conformance Int64@<X0>(void *result@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v58 = a5;
-  v59 = a6;
-  v60 = a7;
-  v55 = *(*(a4 + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v55, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v54 = v11;
-  v12 = MEMORY[0x1EEE9AC00](v11);
-  v53 = &v52 - v13;
-  v14 = *(a3 - 1);
-  v15 = MEMORY[0x1EEE9AC00](v12);
-  v17 = &v52 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v19 = &v52 - v18;
-  v57 = *a1;
-  v20 = *(a4 + 64);
-  v21 = v20(a3, a4);
-  v56 = v17;
-  if (v21)
+  v3 = *a2;
+  if (!*a2 || (*result == 0x8000000000000000 ? (v4 = v3 == -1) : (v4 = 0), v4))
   {
-    v22 = *(a4 + 128);
-    if (v22(a3, a4) < 64)
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
+  }
+
+  *a3 = *result / v3;
+  return result;
+}
+
+uint64_t *protocol witness for static BinaryInteger./= infix(_:_:) in conformance Int64(uint64_t *result, uint64_t *a2)
+{
+  v2 = *a2;
+  if (!*a2 || ((v3 = *result, v2 == -1) ? (v4 = v3 == 0x8000000000000000) : (v4 = 0), v4))
+  {
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
+  }
+
+  *result = v3 / v2;
+  return result;
+}
+
+uint64_t *protocol witness for static BinaryInteger.% infix(_:_:) in conformance Int64@<X0>(uint64_t *result@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
+{
+  v3 = *a2;
+  if (!*a2 || (*result == 0x8000000000000000 ? (v4 = v3 == -1) : (v4 = 0), v4))
+  {
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
+  }
+
+  *a3 = *result % v3;
+  return result;
+}
+
+uint64_t *protocol witness for static BinaryInteger.%= infix(_:_:) in conformance Int64(uint64_t *result, uint64_t *a2)
+{
+  v2 = *a2;
+  if (!*a2 || ((v3 = *result, v2 == -1) ? (v4 = v3 == 0x8000000000000000) : (v4 = 0), v4))
+  {
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
+  }
+
+  *result = v3 % v2;
+  return result;
+}
+
+uint64_t protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conformance Int@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t *a7@<X8>)
+{
+  v61 = a5;
+  v62 = a6;
+  v63 = a7;
+  v58 = *(*(a4 + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v58, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v57 = v11;
+  v13 = MEMORY[0x1EEE9AC00](v11, v12);
+  v56 = &v55 - v14;
+  v15 = *(a3 - 1);
+  v17 = MEMORY[0x1EEE9AC00](v13, v16);
+  v19 = &v55 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17, v20);
+  v22 = &v55 - v21;
+  v60 = *a1;
+  v23 = *(a4 + 64);
+  v24 = v23(a3, a4);
+  v59 = v19;
+  if (v24)
+  {
+    v25 = *(a4 + 128);
+    if (v25(a3, a4) < 64)
     {
       result = (*(a4 + 120))(a3, a4);
       if (result >= -64)
@@ -5010,18 +4982,18 @@ uint64_t protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conforma
       }
 
 LABEL_17:
-      v33 = 0;
-      v34 = v60;
+      v36 = 0;
+      v37 = v63;
       goto LABEL_51;
     }
 
-    v61 = -64;
-    (*(a4 + 96))(&v61, v58, v59, a3, a4);
-    v27 = (*(*(*(a4 + 32) + 8) + 16))(a2, v19, a3);
-    v28 = v14;
+    v64 = -64;
+    (*(a4 + 96))(&v64, v61, v62, a3, a4);
+    v30 = (*(*(*(a4 + 32) + 8) + 16))(a2, v22, a3);
+    v31 = v15;
 LABEL_9:
-    result = (*(v28 + 8))(v19, a3);
-    if (v27)
+    result = (*(v31 + 8))(v22, a3);
+    if (v30)
     {
       goto LABEL_17;
     }
@@ -5029,31 +5001,31 @@ LABEL_9:
     goto LABEL_18;
   }
 
-  v24 = v14;
-  v25 = v20(a3, a4);
-  v22 = *(a4 + 128);
-  v26 = v22(a3, a4);
-  if (v25)
+  v27 = v15;
+  v28 = v23(a3, a4);
+  v25 = *(a4 + 128);
+  v29 = v25(a3, a4);
+  if (v28)
   {
-    if (v26 <= 64)
+    if (v29 <= 64)
     {
-      v52 = v22;
-      v29 = v54;
-      v30 = v55;
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v55, a3, v54, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v32 = v53;
-      (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v29, AssociatedConformanceWitness);
-      (v30[3])(v32, a3, v30);
-      LOBYTE(v29) = (*(*(*(a4 + 32) + 8) + 16))(a2, v19, a3);
-      v14 = v24;
-      result = (*(v24 + 8))(v19, a3);
-      if (v29)
+      v55 = v25;
+      v32 = v57;
+      v33 = v58;
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v58, a3, v57, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v35 = v56;
+      (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v32, AssociatedConformanceWitness);
+      (v33[3])(v35, a3, v33);
+      LOBYTE(v32) = (*(*(*(a4 + 32) + 8) + 16))(a2, v22, a3);
+      v15 = v27;
+      result = (*(v27 + 8))(v22, a3);
+      if (v32)
       {
         goto LABEL_17;
       }
 
       result = (*(a4 + 120))(a3, a4);
-      v22 = v52;
+      v25 = v55;
       if (result < -64)
       {
         goto LABEL_17;
@@ -5062,84 +5034,84 @@ LABEL_9:
       goto LABEL_18;
     }
 
-    v61 = -64;
-    (*(a4 + 96))(&v61, v58, v59, a3, a4);
-    v27 = (*(*(*(a4 + 32) + 8) + 16))(a2, v19, a3);
-    v14 = v24;
-    v28 = v24;
+    v64 = -64;
+    (*(a4 + 96))(&v64, v61, v62, a3, a4);
+    v30 = (*(*(*(a4 + 32) + 8) + 16))(a2, v22, a3);
+    v15 = v27;
+    v31 = v27;
     goto LABEL_9;
   }
 
-  if (v26 >= 64)
+  if (v29 >= 64)
   {
-    v14 = v24;
+    v15 = v27;
     goto LABEL_18;
   }
 
   result = (*(a4 + 120))(a3, a4);
-  v14 = v24;
+  v15 = v27;
   if (result < -64)
   {
     goto LABEL_17;
   }
 
 LABEL_18:
-  v35 = v14;
-  v36 = v20(a3, a4);
-  v52 = (a4 + 128);
-  v37 = v22(a3, a4);
-  if (v36)
+  v38 = v15;
+  v39 = v23(a3, a4);
+  v55 = (a4 + 128);
+  v40 = v25(a3, a4);
+  if (v39)
   {
-    if (v37 > 64)
+    if (v40 > 64)
     {
       goto LABEL_20;
     }
 
 LABEL_28:
     result = (*(a4 + 120))(a3, a4);
-    v39 = v35;
+    v42 = v38;
     if (result <= 64)
     {
       goto LABEL_21;
     }
 
 LABEL_29:
-    v33 = v57 >> 63;
-    v34 = v60;
+    v36 = v60 >> 63;
+    v37 = v63;
     goto LABEL_51;
   }
 
-  if (v37 < 64)
+  if (v40 < 64)
   {
     goto LABEL_28;
   }
 
 LABEL_20:
-  v61 = 64;
-  (*(a4 + 96))(&v61, v58, v59, a3, a4);
-  v38 = (*(*(*(a4 + 32) + 8) + 16))(v19, a2, a3);
-  v39 = v35;
-  result = (*(v35 + 8))(v19, a3);
-  if (v38)
+  v64 = 64;
+  (*(a4 + 96))(&v64, v61, v62, a3, a4);
+  v41 = (*(*(*(a4 + 32) + 8) + 16))(v22, a2, a3);
+  v42 = v38;
+  result = (*(v38 + 8))(v22, a3);
+  if (v41)
   {
     goto LABEL_29;
   }
 
 LABEL_21:
-  v40 = v56;
-  (*(v39 + 16))(v56, a2, a3);
-  if ((v20(a3, a4) & 1) == 0 || v22(a3, a4) < 65)
+  v43 = v59;
+  (*(v42 + 16))(v59, a2, a3);
+  if ((v23(a3, a4) & 1) == 0 || v25(a3, a4) < 65)
   {
     goto LABEL_38;
   }
 
-  if ((v20(a3, a4) & 1) == 0)
+  if ((v23(a3, a4) & 1) == 0)
   {
-    v42 = v20(a3, a4);
-    v43 = v22(a3, a4);
-    if ((v42 & 1) == 0)
+    v45 = v23(a3, a4);
+    v46 = v25(a3, a4);
+    if ((v45 & 1) == 0)
     {
-      if (v43 >= 64)
+      if (v46 >= 64)
       {
         goto LABEL_38;
       }
@@ -5147,16 +5119,16 @@ LABEL_21:
       goto LABEL_37;
     }
 
-    if (v43 <= 64)
+    if (v46 <= 64)
     {
-      v45 = v54;
-      v46 = swift_getAssociatedConformanceWitness(v55, a3, v54, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v47 = v53;
-      (*(v46 + 8))(&qword_18071E0A8, 256, v45, v46);
-      (v55[3])(v47, a3);
-      LOBYTE(v45) = (*(*(*(a4 + 32) + 8) + 16))(v40, v19, a3);
-      (*(v39 + 8))(v19, a3);
-      if ((v45 & 1) == 0)
+      v48 = v57;
+      v49 = swift_getAssociatedConformanceWitness(v58, a3, v57, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v50 = v56;
+      (*(v49 + 8))(&qword_18071E0A8, 256, v48, v49);
+      (v58[3])(v50, a3);
+      LOBYTE(v48) = (*(*(*(a4 + 32) + 8) + 16))(v43, v22, a3);
+      (*(v42 + 8))(v22, a3);
+      if ((v48 & 1) == 0)
       {
         goto LABEL_37;
       }
@@ -5164,11 +5136,11 @@ LABEL_21:
 
     else
     {
-      v61 = 0x8000000000000000;
-      (*(a4 + 96))(&v61, v58, v59, a3, a4);
-      v44 = (*(*(*(a4 + 32) + 8) + 16))(v40, v19, a3);
-      (*(v39 + 8))(v19, a3);
-      if ((v44 & 1) == 0)
+      v64 = 0x8000000000000000;
+      (*(a4 + 96))(&v64, v61, v62, a3, a4);
+      v47 = (*(*(*(a4 + 32) + 8) + 16))(v43, v22, a3);
+      (*(v42 + 8))(v22, a3);
+      if ((v47 & 1) == 0)
       {
         goto LABEL_38;
       }
@@ -5178,46 +5150,46 @@ LABEL_42:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  if (v22(a3, a4) < 64)
+  if (v25(a3, a4) < 64)
   {
 LABEL_37:
     (*(a4 + 120))(a3, a4);
     goto LABEL_38;
   }
 
-  v61 = 0x8000000000000000;
-  (*(a4 + 96))(&v61, v58, v59, a3, a4);
-  v41 = (*(*(*(a4 + 32) + 8) + 16))(v40, v19, a3);
-  (*(v39 + 8))(v19, a3);
-  if (v41)
+  v64 = 0x8000000000000000;
+  (*(a4 + 96))(&v64, v61, v62, a3, a4);
+  v44 = (*(*(*(a4 + 32) + 8) + 16))(v43, v22, a3);
+  (*(v42 + 8))(v22, a3);
+  if (v44)
   {
     goto LABEL_42;
   }
 
 LABEL_38:
-  if (v22(a3, a4) <= 64 && (v22(a3, a4) != 64 || (v20(a3, a4) & 1) != 0))
+  if (v25(a3, a4) <= 64 && (v25(a3, a4) != 64 || (v23(a3, a4) & 1) != 0))
   {
     goto LABEL_48;
   }
 
-  v48 = v20(a3, a4);
-  v49 = v22(a3, a4);
-  if (v48)
+  v51 = v23(a3, a4);
+  v52 = v25(a3, a4);
+  if (v51)
   {
-    if (v49 > 64)
+    if (v52 > 64)
     {
       goto LABEL_41;
     }
   }
 
-  else if (v49 >= 64)
+  else if (v52 >= 64)
   {
 LABEL_41:
-    v61 = 0x7FFFFFFFFFFFFFFFLL;
-    (*(a4 + 96))(&v61, v58, v59, a3, a4);
-    v50 = (*(*(*(a4 + 32) + 8) + 16))(v19, v40, a3);
-    (*(v39 + 8))(v19, a3);
-    if (v50)
+    v64 = 0x7FFFFFFFFFFFFFFFLL;
+    (*(a4 + 96))(&v64, v61, v62, a3, a4);
+    v53 = (*(*(*(a4 + 32) + 8) + 16))(v22, v43, a3);
+    (*(v42 + 8))(v22, a3);
+    if (v53)
     {
       goto LABEL_42;
     }
@@ -5227,65 +5199,65 @@ LABEL_41:
 
   (*(a4 + 120))(a3, a4);
 LABEL_48:
-  v51 = (*(a4 + 120))(a3, a4);
-  result = (*(v39 + 8))(v40, a3);
-  if ((v51 & 0x8000000000000000) != 0)
+  v54 = (*(a4 + 120))(a3, a4);
+  result = (*(v42 + 8))(v43, a3);
+  if ((v54 & 0x8000000000000000) != 0)
   {
-    v34 = v60;
-    if (v51 <= 0xFFFFFFFFFFFFFFC0)
+    v37 = v63;
+    if (v54 <= 0xFFFFFFFFFFFFFFC0)
     {
-      v33 = 0;
+      v36 = 0;
     }
 
     else
     {
-      v33 = v57 << -v51;
+      v36 = v60 << -v54;
     }
   }
 
   else
   {
-    v34 = v60;
-    if (v51 >= 0x40)
+    v37 = v63;
+    if (v54 >= 0x40)
     {
-      v33 = v57 >> 63;
+      v36 = v60 >> 63;
     }
 
     else
     {
-      v33 = v57 >> v51;
+      v36 = v60 >> v54;
     }
   }
 
 LABEL_51:
-  *v34 = v33;
+  *v37 = v36;
   return result;
 }
 
-uint64_t protocol witness for static BinaryInteger.>>= infix<A>(_:_:) in conformance Int(uint64_t *a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t protocol witness for static BinaryInteger.>>= infix<A>(_:_:) in conformance Int(uint64_t *a1, uint64_t a2, Class *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v49 = a5;
-  v50 = a6;
-  v51 = a1;
-  v48 = *(*(a4 + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v48, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v47 = v9;
-  v10 = MEMORY[0x1EEE9AC00](v9);
-  v46 = &v44 - v11;
-  v52 = *(a3 - 1);
-  v12 = MEMORY[0x1EEE9AC00](v10);
-  v14 = &v44 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v16 = &v44 - v15;
-  v17 = *(a4 + 64);
-  if ((v17(a3, a4) & 1) == 0)
+  v52 = a5;
+  v53 = a6;
+  v54 = a1;
+  v51 = *(*(a4 + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v51, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v50 = v9;
+  v11 = MEMORY[0x1EEE9AC00](v9, v10);
+  v49 = &v47 - v12;
+  v55 = *(a3 - 1);
+  v14 = MEMORY[0x1EEE9AC00](v11, v13);
+  v16 = &v47 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14, v17);
+  v19 = &v47 - v18;
+  v20 = *(a4 + 64);
+  if ((v20(a3, a4) & 1) == 0)
   {
-    v19 = v17(a3, a4);
-    v18 = *(a4 + 128);
-    v20 = v18(a3, a4);
-    if ((v19 & 1) == 0)
+    v22 = v20(a3, a4);
+    v21 = *(a4 + 128);
+    v23 = v21(a3, a4);
+    if ((v22 & 1) == 0)
     {
-      if (v20 >= 64)
+      if (v23 >= 64)
       {
         goto LABEL_10;
       }
@@ -5293,24 +5265,24 @@ uint64_t protocol witness for static BinaryInteger.>>= infix<A>(_:_:) in conform
       goto LABEL_9;
     }
 
-    if (v20 <= 64)
+    if (v23 <= 64)
     {
-      v45 = v14;
-      v30 = v47;
-      v29 = v48;
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v48, a3, v47, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v32 = v46;
-      (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v30, AssociatedConformanceWitness);
-      (v29[3])(v32, a3, v29);
-      LOBYTE(v29) = (*(*(*(a4 + 32) + 8) + 16))(a2, v16, a3);
-      result = (*(v52 + 8))(v16, a3);
-      if (v29)
+      v48 = v16;
+      v33 = v50;
+      v32 = v51;
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v51, a3, v50, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v35 = v49;
+      (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v33, AssociatedConformanceWitness);
+      (v32[3])(v35, a3, v32);
+      LOBYTE(v32) = (*(*(*(a4 + 32) + 8) + 16))(a2, v19, a3);
+      result = (*(v55 + 8))(v19, a3);
+      if (v32)
       {
         goto LABEL_24;
       }
 
       result = (*(a4 + 120))(a3, a4);
-      v14 = v45;
+      v16 = v48;
       if (result < -64)
       {
         goto LABEL_24;
@@ -5320,11 +5292,11 @@ uint64_t protocol witness for static BinaryInteger.>>= infix<A>(_:_:) in conform
     }
 
 LABEL_6:
-    v53 = -64;
-    (*(a4 + 96))(&v53, v49, v50, a3, a4);
-    v21 = (*(*(*(a4 + 32) + 8) + 16))(a2, v16, a3);
-    result = (*(v52 + 8))(v16, a3);
-    if (v21)
+    v56 = -64;
+    (*(a4 + 96))(&v56, v52, v53, a3, a4);
+    v24 = (*(*(*(a4 + 32) + 8) + 16))(a2, v19, a3);
+    result = (*(v55 + 8))(v19, a3);
+    if (v24)
     {
       goto LABEL_24;
     }
@@ -5332,8 +5304,8 @@ LABEL_6:
     goto LABEL_10;
   }
 
-  v18 = *(a4 + 128);
-  if (v18(a3, a4) >= 64)
+  v21 = *(a4 + 128);
+  if (v21(a3, a4) >= 64)
   {
     goto LABEL_6;
   }
@@ -5346,12 +5318,12 @@ LABEL_9:
   }
 
 LABEL_10:
-  v23 = v17(a3, a4);
-  v45 = (a4 + 128);
-  v24 = v18(a3, a4);
-  if (v23)
+  v26 = v20(a3, a4);
+  v48 = (a4 + 128);
+  v27 = v21(a3, a4);
+  if (v26)
   {
-    if (v24 > 64)
+    if (v27 > 64)
     {
       goto LABEL_12;
     }
@@ -5366,25 +5338,25 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  if (v24 < 64)
+  if (v27 < 64)
   {
     goto LABEL_19;
   }
 
 LABEL_12:
-  v53 = 64;
-  (*(a4 + 96))(&v53, v49, v50, a3, a4);
-  v25 = (*(*(*(a4 + 32) + 8) + 16))(v16, a2, a3);
-  result = (*(v52 + 8))(v16, a3);
-  if ((v25 & 1) == 0)
+  v56 = 64;
+  (*(a4 + 96))(&v56, v52, v53, a3, a4);
+  v28 = (*(*(*(a4 + 32) + 8) + 16))(v19, a2, a3);
+  result = (*(v55 + 8))(v19, a3);
+  if ((v28 & 1) == 0)
   {
 LABEL_13:
-    (*(v52 + 16))(v14, a2, a3);
-    if ((v17(a3, a4) & 1) != 0 && v18(a3, a4) >= 65)
+    (*(v55 + 16))(v16, a2, a3);
+    if ((v20(a3, a4) & 1) != 0 && v21(a3, a4) >= 65)
     {
-      if (v17(a3, a4))
+      if (v20(a3, a4))
       {
-        if (v18(a3, a4) < 64)
+        if (v21(a3, a4) < 64)
         {
           goto LABEL_32;
         }
@@ -5392,11 +5364,11 @@ LABEL_13:
 
       else
       {
-        v33 = v17(a3, a4);
-        v34 = v18(a3, a4);
-        if ((v33 & 1) == 0)
+        v36 = v20(a3, a4);
+        v37 = v21(a3, a4);
+        if ((v36 & 1) == 0)
         {
-          if (v34 >= 64)
+          if (v37 >= 64)
           {
             goto LABEL_33;
           }
@@ -5404,17 +5376,17 @@ LABEL_13:
           goto LABEL_32;
         }
 
-        if (v34 <= 64)
+        if (v37 <= 64)
         {
-          v37 = v47;
-          v36 = v48;
-          v38 = swift_getAssociatedConformanceWitness(v48, a3, v47, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-          v39 = v46;
-          (*(v38 + 8))(&qword_18071E0A8, 256, v37, v38);
-          (v36[3])(v39, a3, v36);
-          LOBYTE(v36) = (*(*(*(a4 + 32) + 8) + 16))(v14, v16, a3);
-          (*(v52 + 8))(v16, a3);
-          if ((v36 & 1) == 0)
+          v40 = v50;
+          v39 = v51;
+          v41 = swift_getAssociatedConformanceWitness(v51, a3, v50, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+          v42 = v49;
+          (*(v41 + 8))(&qword_18071E0A8, 256, v40, v41);
+          (v39[3])(v42, a3, v39);
+          LOBYTE(v39) = (*(*(*(a4 + 32) + 8) + 16))(v16, v19, a3);
+          (*(v55 + 8))(v19, a3);
+          if ((v39 & 1) == 0)
           {
 LABEL_32:
             (*(a4 + 120))(a3, a4);
@@ -5426,70 +5398,70 @@ LABEL_37:
         }
       }
 
-      v53 = 0x8000000000000000;
-      (*(a4 + 96))(&v53, v49, v50, a3, a4);
-      v35 = (*(*(*(a4 + 32) + 8) + 16))(v14, v16, a3);
-      (*(v52 + 8))(v16, a3);
-      if (v35)
+      v56 = 0x8000000000000000;
+      (*(a4 + 96))(&v56, v52, v53, a3, a4);
+      v38 = (*(*(*(a4 + 32) + 8) + 16))(v16, v19, a3);
+      (*(v55 + 8))(v19, a3);
+      if (v38)
       {
         goto LABEL_37;
       }
     }
 
 LABEL_33:
-    if (v18(a3, a4) <= 64 && (v18(a3, a4) != 64 || (v17(a3, a4) & 1) != 0))
+    if (v21(a3, a4) <= 64 && (v21(a3, a4) != 64 || (v20(a3, a4) & 1) != 0))
     {
       goto LABEL_43;
     }
 
-    v40 = v17(a3, a4);
-    v41 = v18(a3, a4);
-    if (v40)
+    v43 = v20(a3, a4);
+    v44 = v21(a3, a4);
+    if (v43)
     {
-      if (v41 > 64)
+      if (v44 > 64)
       {
         goto LABEL_36;
       }
     }
 
-    else if (v41 >= 64)
+    else if (v44 >= 64)
     {
 LABEL_36:
-      v53 = 0x7FFFFFFFFFFFFFFFLL;
-      (*(a4 + 96))(&v53, v49, v50, a3, a4);
-      v42 = (*(*(*(a4 + 32) + 8) + 16))(v16, v14, a3);
-      (*(v52 + 8))(v16, a3);
-      if (v42)
+      v56 = 0x7FFFFFFFFFFFFFFFLL;
+      (*(a4 + 96))(&v56, v52, v53, a3, a4);
+      v45 = (*(*(*(a4 + 32) + 8) + 16))(v19, v16, a3);
+      (*(v55 + 8))(v19, a3);
+      if (v45)
       {
         goto LABEL_37;
       }
 
 LABEL_43:
-      v43 = (*(a4 + 120))(a3, a4);
-      result = (*(v52 + 8))(v14, a3);
-      v26 = v51;
-      v27 = *v51;
-      if ((v43 & 0x8000000000000000) == 0)
+      v46 = (*(a4 + 120))(a3, a4);
+      result = (*(v55 + 8))(v16, a3);
+      v29 = v54;
+      v30 = *v54;
+      if ((v46 & 0x8000000000000000) == 0)
       {
-        if (v43 < 0x40)
+        if (v46 < 0x40)
         {
-          v28 = v27 >> v43;
+          v31 = v30 >> v46;
           goto LABEL_46;
         }
 
         goto LABEL_21;
       }
 
-      if (v43 > 0xFFFFFFFFFFFFFFC0)
+      if (v46 > 0xFFFFFFFFFFFFFFC0)
       {
-        v28 = v27 << -v43;
-        v26 = v51;
+        v31 = v30 << -v46;
+        v29 = v54;
         goto LABEL_46;
       }
 
 LABEL_24:
-      v28 = 0;
-      v26 = v51;
+      v31 = 0;
+      v29 = v54;
       goto LABEL_46;
     }
 
@@ -5498,38 +5470,38 @@ LABEL_24:
   }
 
 LABEL_20:
-  v26 = v51;
-  v27 = *v51;
+  v29 = v54;
+  v30 = *v54;
 LABEL_21:
-  v28 = v27 >> 63;
+  v31 = v30 >> 63;
 LABEL_46:
-  *v26 = v28;
+  *v29 = v31;
   return result;
 }
 
-uint64_t protocol witness for static BinaryInteger.<< infix<A>(_:_:) in conformance Int@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t *a7@<X8>)
+uint64_t protocol witness for static BinaryInteger.<< infix<A>(_:_:) in conformance Int@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t *a7@<X8>)
 {
-  v58 = a5;
-  v59 = a6;
-  v60 = a7;
-  v55 = *(*(a4 + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v55, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v54 = v11;
-  v12 = MEMORY[0x1EEE9AC00](v11);
-  v53 = &v52 - v13;
-  v14 = *(a3 - 1);
-  v15 = MEMORY[0x1EEE9AC00](v12);
-  v17 = &v52 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v19 = &v52 - v18;
-  v57 = *a1;
-  v20 = *(a4 + 64);
-  v21 = v20(a3, a4);
-  v56 = v17;
-  if (v21)
+  v61 = a5;
+  v62 = a6;
+  v63 = a7;
+  v58 = *(*(a4 + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v58, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v57 = v11;
+  v13 = MEMORY[0x1EEE9AC00](v11, v12);
+  v56 = &v55 - v14;
+  v15 = *(a3 - 1);
+  v17 = MEMORY[0x1EEE9AC00](v13, v16);
+  v19 = &v55 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17, v20);
+  v22 = &v55 - v21;
+  v60 = *a1;
+  v23 = *(a4 + 64);
+  v24 = v23(a3, a4);
+  v59 = v19;
+  if (v24)
   {
-    v22 = *(a4 + 128);
-    if (v22(a3, a4) < 64)
+    v25 = *(a4 + 128);
+    if (v25(a3, a4) < 64)
     {
       result = (*(a4 + 120))(a3, a4);
       if (result > -65)
@@ -5538,19 +5510,19 @@ uint64_t protocol witness for static BinaryInteger.<< infix<A>(_:_:) in conforma
       }
 
 LABEL_17:
-      v33 = v57 >> 63;
+      v36 = v60 >> 63;
 LABEL_51:
-      v51 = v60;
+      v54 = v63;
       goto LABEL_52;
     }
 
-    v61 = -64;
-    (*(a4 + 96))(&v61, v58, v59, a3, a4);
-    v27 = (*(*(*(a4 + 32) + 8) + 16))(a2, v19, a3);
-    v28 = v14;
+    v64 = -64;
+    (*(a4 + 96))(&v64, v61, v62, a3, a4);
+    v30 = (*(*(*(a4 + 32) + 8) + 16))(a2, v22, a3);
+    v31 = v15;
 LABEL_9:
-    result = (*(v28 + 8))(v19, a3);
-    if (v27)
+    result = (*(v31 + 8))(v22, a3);
+    if (v30)
     {
       goto LABEL_17;
     }
@@ -5558,31 +5530,31 @@ LABEL_9:
     goto LABEL_18;
   }
 
-  v24 = v14;
-  v25 = v20(a3, a4);
-  v22 = *(a4 + 128);
-  v26 = v22(a3, a4);
-  if (v25)
+  v27 = v15;
+  v28 = v23(a3, a4);
+  v25 = *(a4 + 128);
+  v29 = v25(a3, a4);
+  if (v28)
   {
-    if (v26 <= 64)
+    if (v29 <= 64)
     {
-      v52 = v22;
-      v29 = v54;
-      v30 = v55;
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v55, a3, v54, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v32 = v53;
-      (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v29, AssociatedConformanceWitness);
-      (v30[3])(v32, a3, v30);
-      LOBYTE(v29) = (*(*(*(a4 + 32) + 8) + 16))(a2, v19, a3);
-      v14 = v24;
-      result = (*(v24 + 8))(v19, a3);
-      if (v29)
+      v55 = v25;
+      v32 = v57;
+      v33 = v58;
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v58, a3, v57, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v35 = v56;
+      (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v32, AssociatedConformanceWitness);
+      (v33[3])(v35, a3, v33);
+      LOBYTE(v32) = (*(*(*(a4 + 32) + 8) + 16))(a2, v22, a3);
+      v15 = v27;
+      result = (*(v27 + 8))(v22, a3);
+      if (v32)
       {
         goto LABEL_17;
       }
 
       result = (*(a4 + 120))(a3, a4);
-      v22 = v52;
+      v25 = v55;
       if (result < -64)
       {
         goto LABEL_17;
@@ -5591,42 +5563,42 @@ LABEL_9:
       goto LABEL_18;
     }
 
-    v61 = -64;
-    (*(a4 + 96))(&v61, v58, v59, a3, a4);
-    v27 = (*(*(*(a4 + 32) + 8) + 16))(a2, v19, a3);
-    v14 = v24;
-    v28 = v24;
+    v64 = -64;
+    (*(a4 + 96))(&v64, v61, v62, a3, a4);
+    v30 = (*(*(*(a4 + 32) + 8) + 16))(a2, v22, a3);
+    v15 = v27;
+    v31 = v27;
     goto LABEL_9;
   }
 
-  if (v26 >= 64)
+  if (v29 >= 64)
   {
-    v14 = v24;
+    v15 = v27;
     goto LABEL_18;
   }
 
   result = (*(a4 + 120))(a3, a4);
-  v14 = v24;
+  v15 = v27;
   if (result < -64)
   {
     goto LABEL_17;
   }
 
 LABEL_18:
-  v34 = v14;
-  v35 = v20(a3, a4);
-  v52 = (a4 + 128);
-  v36 = v22(a3, a4);
-  if (v35)
+  v37 = v15;
+  v38 = v23(a3, a4);
+  v55 = (a4 + 128);
+  v39 = v25(a3, a4);
+  if (v38)
   {
-    if (v36 > 64)
+    if (v39 > 64)
     {
       goto LABEL_20;
     }
 
 LABEL_28:
     result = (*(a4 + 120))(a3, a4);
-    v38 = v34;
+    v41 = v37;
     if (result <= 64)
     {
       goto LABEL_21;
@@ -5635,39 +5607,39 @@ LABEL_28:
     goto LABEL_29;
   }
 
-  if (v36 < 64)
+  if (v39 < 64)
   {
     goto LABEL_28;
   }
 
 LABEL_20:
-  v61 = 64;
-  (*(a4 + 96))(&v61, v58, v59, a3, a4);
-  v37 = (*(*(*(a4 + 32) + 8) + 16))(v19, a2, a3);
-  v38 = v34;
-  result = (*(v34 + 8))(v19, a3);
-  if (v37)
+  v64 = 64;
+  (*(a4 + 96))(&v64, v61, v62, a3, a4);
+  v40 = (*(*(*(a4 + 32) + 8) + 16))(v22, a2, a3);
+  v41 = v37;
+  result = (*(v37 + 8))(v22, a3);
+  if (v40)
   {
 LABEL_29:
-    v33 = 0;
+    v36 = 0;
     goto LABEL_51;
   }
 
 LABEL_21:
-  v39 = v56;
-  (*(v38 + 16))(v56, a2, a3);
-  if ((v20(a3, a4) & 1) == 0 || v22(a3, a4) < 65)
+  v42 = v59;
+  (*(v41 + 16))(v59, a2, a3);
+  if ((v23(a3, a4) & 1) == 0 || v25(a3, a4) < 65)
   {
     goto LABEL_38;
   }
 
-  if ((v20(a3, a4) & 1) == 0)
+  if ((v23(a3, a4) & 1) == 0)
   {
-    v41 = v20(a3, a4);
-    v42 = v22(a3, a4);
-    if ((v41 & 1) == 0)
+    v44 = v23(a3, a4);
+    v45 = v25(a3, a4);
+    if ((v44 & 1) == 0)
     {
-      if (v42 >= 64)
+      if (v45 >= 64)
       {
         goto LABEL_38;
       }
@@ -5675,16 +5647,16 @@ LABEL_21:
       goto LABEL_37;
     }
 
-    if (v42 <= 64)
+    if (v45 <= 64)
     {
-      v44 = v54;
-      v45 = swift_getAssociatedConformanceWitness(v55, a3, v54, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v46 = v53;
-      (*(v45 + 8))(&qword_18071E0A8, 256, v44, v45);
-      (v55[3])(v46, a3);
-      LOBYTE(v44) = (*(*(*(a4 + 32) + 8) + 16))(v39, v19, a3);
-      (*(v38 + 8))(v19, a3);
-      if ((v44 & 1) == 0)
+      v47 = v57;
+      v48 = swift_getAssociatedConformanceWitness(v58, a3, v57, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v49 = v56;
+      (*(v48 + 8))(&qword_18071E0A8, 256, v47, v48);
+      (v58[3])(v49, a3);
+      LOBYTE(v47) = (*(*(*(a4 + 32) + 8) + 16))(v42, v22, a3);
+      (*(v41 + 8))(v22, a3);
+      if ((v47 & 1) == 0)
       {
         goto LABEL_37;
       }
@@ -5692,11 +5664,11 @@ LABEL_21:
 
     else
     {
-      v61 = 0x8000000000000000;
-      (*(a4 + 96))(&v61, v58, v59, a3, a4);
-      v43 = (*(*(*(a4 + 32) + 8) + 16))(v39, v19, a3);
-      (*(v38 + 8))(v19, a3);
-      if ((v43 & 1) == 0)
+      v64 = 0x8000000000000000;
+      (*(a4 + 96))(&v64, v61, v62, a3, a4);
+      v46 = (*(*(*(a4 + 32) + 8) + 16))(v42, v22, a3);
+      (*(v41 + 8))(v22, a3);
+      if ((v46 & 1) == 0)
       {
         goto LABEL_38;
       }
@@ -5706,33 +5678,33 @@ LABEL_42:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  if (v22(a3, a4) < 64)
+  if (v25(a3, a4) < 64)
   {
 LABEL_37:
     (*(a4 + 120))(a3, a4);
     goto LABEL_38;
   }
 
-  v61 = 0x8000000000000000;
-  (*(a4 + 96))(&v61, v58, v59, a3, a4);
-  v40 = (*(*(*(a4 + 32) + 8) + 16))(v39, v19, a3);
-  (*(v38 + 8))(v19, a3);
-  if (v40)
+  v64 = 0x8000000000000000;
+  (*(a4 + 96))(&v64, v61, v62, a3, a4);
+  v43 = (*(*(*(a4 + 32) + 8) + 16))(v42, v22, a3);
+  (*(v41 + 8))(v22, a3);
+  if (v43)
   {
     goto LABEL_42;
   }
 
 LABEL_38:
-  if (v22(a3, a4) <= 64 && (v22(a3, a4) != 64 || (v20(a3, a4) & 1) != 0))
+  if (v25(a3, a4) <= 64 && (v25(a3, a4) != 64 || (v23(a3, a4) & 1) != 0))
   {
     goto LABEL_48;
   }
 
-  v47 = v20(a3, a4);
-  v48 = v22(a3, a4);
-  if (v47)
+  v50 = v23(a3, a4);
+  v51 = v25(a3, a4);
+  if (v50)
   {
-    if (v48 > 64)
+    if (v51 > 64)
     {
       goto LABEL_41;
     }
@@ -5742,75 +5714,75 @@ LABEL_47:
     goto LABEL_48;
   }
 
-  if (v48 < 64)
+  if (v51 < 64)
   {
     goto LABEL_47;
   }
 
 LABEL_41:
-  v61 = 0x7FFFFFFFFFFFFFFFLL;
-  (*(a4 + 96))(&v61, v58, v59, a3, a4);
-  v49 = (*(*(*(a4 + 32) + 8) + 16))(v19, v39, a3);
-  (*(v38 + 8))(v19, a3);
-  if (v49)
+  v64 = 0x7FFFFFFFFFFFFFFFLL;
+  (*(a4 + 96))(&v64, v61, v62, a3, a4);
+  v52 = (*(*(*(a4 + 32) + 8) + 16))(v22, v42, a3);
+  (*(v41 + 8))(v22, a3);
+  if (v52)
   {
     goto LABEL_42;
   }
 
 LABEL_48:
-  v50 = (*(a4 + 120))(a3, a4);
-  result = (*(v38 + 8))(v39, a3);
-  if ((v50 & 0x8000000000000000) == 0)
+  v53 = (*(a4 + 120))(a3, a4);
+  result = (*(v41 + 8))(v42, a3);
+  if ((v53 & 0x8000000000000000) == 0)
   {
-    v33 = v57 << v50;
-    if (v50 >= 0x40)
+    v36 = v60 << v53;
+    if (v53 >= 0x40)
     {
-      v33 = 0;
+      v36 = 0;
     }
 
     goto LABEL_51;
   }
 
-  v51 = v60;
-  if (v50 <= 0xFFFFFFFFFFFFFFC0)
+  v54 = v63;
+  if (v53 <= 0xFFFFFFFFFFFFFFC0)
   {
-    v33 = v57 >> 63;
+    v36 = v60 >> 63;
   }
 
   else
   {
-    v33 = v57 >> -v50;
+    v36 = v60 >> -v53;
   }
 
 LABEL_52:
-  *v51 = v33;
+  *v54 = v36;
   return result;
 }
 
-uint64_t protocol witness for static BinaryInteger.<<= infix<A>(_:_:) in conformance Int(uint64_t *a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t protocol witness for static BinaryInteger.<<= infix<A>(_:_:) in conformance Int(uint64_t *a1, uint64_t a2, Class *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v53 = a5;
-  v54 = a6;
-  v55 = a1;
-  v52 = *(*(a4 + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v52, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v51 = v9;
-  v10 = MEMORY[0x1EEE9AC00](v9);
-  v50 = &v48 - v11;
-  v56 = *(a3 - 1);
-  v12 = MEMORY[0x1EEE9AC00](v10);
-  v14 = &v48 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v16 = &v48 - v15;
-  v17 = *(a4 + 64);
-  if ((v17(a3, a4) & 1) == 0)
+  v56 = a5;
+  v57 = a6;
+  v58 = a1;
+  v55 = *(*(a4 + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v55, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v54 = v9;
+  v11 = MEMORY[0x1EEE9AC00](v9, v10);
+  v53 = &v51 - v12;
+  v59 = *(a3 - 1);
+  v14 = MEMORY[0x1EEE9AC00](v11, v13);
+  v16 = &v51 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14, v17);
+  v19 = &v51 - v18;
+  v20 = *(a4 + 64);
+  if ((v20(a3, a4) & 1) == 0)
   {
-    v19 = v17(a3, a4);
-    v18 = *(a4 + 128);
-    v20 = v18(a3, a4);
-    if ((v19 & 1) == 0)
+    v22 = v20(a3, a4);
+    v21 = *(a4 + 128);
+    v23 = v21(a3, a4);
+    if ((v22 & 1) == 0)
     {
-      if (v20 >= 64)
+      if (v23 >= 64)
       {
         goto LABEL_13;
       }
@@ -5818,41 +5790,41 @@ uint64_t protocol witness for static BinaryInteger.<<= infix<A>(_:_:) in conform
       goto LABEL_11;
     }
 
-    if (v20 <= 64)
+    if (v23 <= 64)
     {
-      v24 = v51;
-      v23 = v52;
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v52, a3, v51, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v26 = *(AssociatedConformanceWitness + 8);
-      v49 = v17;
-      v27 = v18;
-      v28 = v14;
-      v29 = v50;
-      v26(&qword_18071E0A8, 256, v24, AssociatedConformanceWitness);
-      v30 = v29;
-      v14 = v28;
-      v18 = v27;
-      v17 = v49;
-      (v23[3])(v30, a3, v23);
-      LOBYTE(v23) = (*(*(*(a4 + 32) + 8) + 16))(a2, v16, a3);
-      result = (*(v56 + 8))(v16, a3);
-      if ((v23 & 1) == 0)
+      v27 = v54;
+      v26 = v55;
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v55, a3, v54, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v29 = *(AssociatedConformanceWitness + 8);
+      v52 = v20;
+      v30 = v21;
+      v31 = v16;
+      v32 = v53;
+      v29(&qword_18071E0A8, 256, v27, AssociatedConformanceWitness);
+      v33 = v32;
+      v16 = v31;
+      v21 = v30;
+      v20 = v52;
+      (v26[3])(v33, a3, v26);
+      LOBYTE(v26) = (*(*(*(a4 + 32) + 8) + 16))(a2, v19, a3);
+      result = (*(v59 + 8))(v19, a3);
+      if ((v26 & 1) == 0)
       {
         goto LABEL_11;
       }
 
 LABEL_12:
-      v31 = v55;
-      v32 = *v55 >> 63;
+      v34 = v58;
+      v35 = *v58 >> 63;
       goto LABEL_46;
     }
 
 LABEL_6:
-    v57 = -64;
-    (*(a4 + 96))(&v57, v53, v54, a3, a4);
-    v21 = (*(*(*(a4 + 32) + 8) + 16))(a2, v16, a3);
-    result = (*(v56 + 8))(v16, a3);
-    if ((v21 & 1) == 0)
+    v60 = -64;
+    (*(a4 + 96))(&v60, v56, v57, a3, a4);
+    v24 = (*(*(*(a4 + 32) + 8) + 16))(a2, v19, a3);
+    result = (*(v59 + 8))(v19, a3);
+    if ((v24 & 1) == 0)
     {
       goto LABEL_13;
     }
@@ -5860,8 +5832,8 @@ LABEL_6:
     goto LABEL_12;
   }
 
-  v18 = *(a4 + 128);
-  if (v18(a3, a4) >= 64)
+  v21 = *(a4 + 128);
+  if (v21(a3, a4) >= 64)
   {
     goto LABEL_6;
   }
@@ -5874,12 +5846,12 @@ LABEL_11:
   }
 
 LABEL_13:
-  v33 = v17(a3, a4);
-  v49 = (a4 + 128);
-  v34 = v18(a3, a4);
-  if (v33)
+  v36 = v20(a3, a4);
+  v52 = (a4 + 128);
+  v37 = v21(a3, a4);
+  if (v36)
   {
-    if (v34 > 64)
+    if (v37 > 64)
     {
       goto LABEL_15;
     }
@@ -5892,34 +5864,34 @@ LABEL_22:
     }
 
 LABEL_23:
-    v32 = 0;
+    v35 = 0;
 LABEL_24:
-    v31 = v55;
+    v34 = v58;
     goto LABEL_46;
   }
 
-  if (v34 < 64)
+  if (v37 < 64)
   {
     goto LABEL_22;
   }
 
 LABEL_15:
-  v57 = 64;
-  (*(a4 + 96))(&v57, v53, v54, a3, a4);
-  v35 = (*(*(*(a4 + 32) + 8) + 16))(v16, a2, a3);
-  result = (*(v56 + 8))(v16, a3);
-  if (v35)
+  v60 = 64;
+  (*(a4 + 96))(&v60, v56, v57, a3, a4);
+  v38 = (*(*(*(a4 + 32) + 8) + 16))(v19, a2, a3);
+  result = (*(v59 + 8))(v19, a3);
+  if (v38)
   {
     goto LABEL_23;
   }
 
 LABEL_16:
-  (*(v56 + 16))(v14, a2, a3);
-  if ((v17(a3, a4) & 1) != 0 && v18(a3, a4) >= 65)
+  (*(v59 + 16))(v16, a2, a3);
+  if ((v20(a3, a4) & 1) != 0 && v21(a3, a4) >= 65)
   {
-    if (v17(a3, a4))
+    if (v20(a3, a4))
     {
-      if (v18(a3, a4) < 64)
+      if (v21(a3, a4) < 64)
       {
 LABEL_32:
         (*(a4 + 120))(a3, a4);
@@ -5929,11 +5901,11 @@ LABEL_32:
 
     else
     {
-      v36 = v17(a3, a4);
-      v37 = v18(a3, a4);
-      if ((v36 & 1) == 0)
+      v39 = v20(a3, a4);
+      v40 = v21(a3, a4);
+      if ((v39 & 1) == 0)
       {
-        if (v37 >= 64)
+        if (v40 >= 64)
         {
           goto LABEL_33;
         }
@@ -5941,17 +5913,17 @@ LABEL_32:
         goto LABEL_32;
       }
 
-      if (v37 <= 64)
+      if (v40 <= 64)
       {
-        v40 = v51;
-        v39 = v52;
-        v41 = swift_getAssociatedConformanceWitness(v52, a3, v51, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-        v42 = v50;
-        (*(v41 + 8))(&qword_18071E0A8, 256, v40, v41);
-        (v39[3])(v42, a3, v39);
-        LOBYTE(v39) = (*(*(*(a4 + 32) + 8) + 16))(v14, v16, a3);
-        (*(v56 + 8))(v16, a3);
-        if (v39)
+        v43 = v54;
+        v42 = v55;
+        v44 = swift_getAssociatedConformanceWitness(v55, a3, v54, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+        v45 = v53;
+        (*(v44 + 8))(&qword_18071E0A8, 256, v43, v44);
+        (v42[3])(v45, a3, v42);
+        LOBYTE(v42) = (*(*(*(a4 + 32) + 8) + 16))(v16, v19, a3);
+        (*(v59 + 8))(v19, a3);
+        if (v42)
         {
           goto LABEL_37;
         }
@@ -5960,37 +5932,37 @@ LABEL_32:
       }
     }
 
-    v57 = 0x8000000000000000;
-    (*(a4 + 96))(&v57, v53, v54, a3, a4);
-    v38 = (*(*(*(a4 + 32) + 8) + 16))(v14, v16, a3);
-    (*(v56 + 8))(v16, a3);
-    if (v38)
+    v60 = 0x8000000000000000;
+    (*(a4 + 96))(&v60, v56, v57, a3, a4);
+    v41 = (*(*(*(a4 + 32) + 8) + 16))(v16, v19, a3);
+    (*(v59 + 8))(v19, a3);
+    if (v41)
     {
       goto LABEL_37;
     }
   }
 
 LABEL_33:
-  if (v18(a3, a4) > 64 || v18(a3, a4) == 64 && (v17(a3, a4) & 1) == 0)
+  if (v21(a3, a4) > 64 || v21(a3, a4) == 64 && (v20(a3, a4) & 1) == 0)
   {
-    v43 = v17(a3, a4);
-    v44 = v18(a3, a4);
-    if (v43)
+    v46 = v20(a3, a4);
+    v47 = v21(a3, a4);
+    if (v46)
     {
-      if (v44 > 64)
+      if (v47 > 64)
       {
         goto LABEL_36;
       }
     }
 
-    else if (v44 >= 64)
+    else if (v47 >= 64)
     {
 LABEL_36:
-      v57 = 0x7FFFFFFFFFFFFFFFLL;
-      (*(a4 + 96))(&v57, v53, v54, a3, a4);
-      v45 = (*(*(*(a4 + 32) + 8) + 16))(v16, v14, a3);
-      (*(v56 + 8))(v16, a3);
-      if ((v45 & 1) == 0)
+      v60 = 0x7FFFFFFFFFFFFFFFLL;
+      (*(a4 + 96))(&v60, v56, v57, a3, a4);
+      v48 = (*(*(*(a4 + 32) + 8) + 16))(v19, v16, a3);
+      (*(v59 + 8))(v19, a3);
+      if ((v48 & 1) == 0)
       {
         goto LABEL_43;
       }
@@ -6003,31 +5975,31 @@ LABEL_37:
   }
 
 LABEL_43:
-  v46 = (*(a4 + 120))(a3, a4);
-  result = (*(v56 + 8))(v14, a3);
-  v31 = v55;
-  v47 = *v55;
-  if ((v46 & 0x8000000000000000) != 0)
+  v49 = (*(a4 + 120))(a3, a4);
+  result = (*(v59 + 8))(v16, a3);
+  v34 = v58;
+  v50 = *v58;
+  if ((v49 & 0x8000000000000000) != 0)
   {
-    if (v46 <= 0xFFFFFFFFFFFFFFC0)
+    if (v49 <= 0xFFFFFFFFFFFFFFC0)
     {
-      v31 = v55;
-      v32 = v47 >> 63;
+      v34 = v58;
+      v35 = v50 >> 63;
       goto LABEL_46;
     }
 
-    v32 = v47 >> -v46;
+    v35 = v50 >> -v49;
     goto LABEL_24;
   }
 
-  v32 = v47 << v46;
-  if (v46 >= 0x40)
+  v35 = v50 << v49;
+  if (v49 >= 0x40)
   {
-    v32 = 0;
+    v35 = 0;
   }
 
 LABEL_46:
-  *v31 = v32;
+  *v34 = v35;
   return result;
 }
 
@@ -6038,7 +6010,7 @@ uint64_t protocol witness for BinaryInteger.quotientAndRemainder(dividingBy:) in
   return result;
 }
 
-uint64_t _ss5Int64VSzsSz10isMultiple2ofSbx_tFTW_0(uint64_t *a1)
+BOOL _ss5Int64VSzsSz10isMultiple2ofSbx_tFTW_0(uint64_t *a1)
 {
   v2 = *a1;
   if (*a1 == -1)
@@ -6280,91 +6252,91 @@ void _ss5Int64Vs13SignedNumericssACP6negateyyFTW_0()
   }
 }
 
-uint64_t protocol witness for Numeric.init<A>(exactly:) in conformance Int64@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t (*a5)(void)@<X5>, uint64_t *a6@<X8>)
+uint64_t protocol witness for Numeric.init<A>(exactly:) in conformance Int64@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t (*a5)(void)@<X5>, uint64_t *a6@<X8>)
 {
-  v45 = a5;
-  v46 = a4;
-  v48 = a6;
+  v47 = a5;
+  v48 = a4;
+  v50 = a6;
   v9 = *(*(a3 + 24) + 16);
   swift_getAssociatedTypeWitness(0, v9, a2, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
   v11 = v10;
-  v12 = MEMORY[0x1EEE9AC00](v10);
-  v14 = &v42[-v13];
-  v49 = *(a2 - 1);
-  MEMORY[0x1EEE9AC00](v12);
-  v47 = &v42[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v50 = *(a3 + 64);
-  v16 = v50(a2, a3);
-  v17 = *(a3 + 128);
-  if ((v16 & 1) == 0 || v17(a2, a3) < 65)
+  v13 = MEMORY[0x1EEE9AC00](v10, v12);
+  v15 = &v44[-v14];
+  v51 = *(a2 - 1);
+  MEMORY[0x1EEE9AC00](v13, v16);
+  v49 = &v44[-((v17 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v52 = *(a3 + 64);
+  v18 = v52(a2, a3);
+  v19 = *(a3 + 128);
+  if ((v18 & 1) == 0 || v19(a2, a3) < 65)
   {
     goto LABEL_14;
   }
 
-  v44 = a1;
-  v51 = 0x8000000000000000;
-  v18 = v50;
-  if (v50(a2, a3))
+  v46 = a1;
+  v53 = 0x8000000000000000;
+  v20 = v52;
+  if (v52(a2, a3))
   {
-    a1 = v44;
-    if (v17(a2, a3) < 64)
+    a1 = v46;
+    if (v19(a2, a3) < 64)
     {
       goto LABEL_13;
     }
 
 LABEL_8:
-    v20 = *(a3 + 96);
-    v21 = v45();
-    v22 = v47;
-    v20(&v51, v46, v21, a2, a3);
-    v23 = (*(*(*(a3 + 32) + 8) + 16))(a1, v22, a2);
-    v24 = *(v49 + 8);
-    v24(v22, a2);
-    if (v23)
+    v22 = *(a3 + 96);
+    v23 = v47();
+    v24 = v49;
+    v22(&v53, v48, v23, a2, a3);
+    v25 = (*(*(*(a3 + 32) + 8) + 16))(a1, v24, a2);
+    v26 = *(v51 + 8);
+    v26(v24, a2);
+    if (v25)
     {
       goto LABEL_9;
     }
 
 LABEL_14:
-    v29 = v17(a2, a3);
-    v31 = v49;
-    v30 = v50;
-    if (v29 <= 64 && (v17(a2, a3) != 64 || (v30(a2, a3) & 1) != 0))
+    v31 = v19(a2, a3);
+    v33 = v51;
+    v32 = v52;
+    if (v31 <= 64 && (v19(a2, a3) != 64 || (v32(a2, a3) & 1) != 0))
     {
       goto LABEL_25;
     }
 
-    v51 = 0x7FFFFFFFFFFFFFFFLL;
-    v32 = v30(a2, a3);
-    v33 = v17(a2, a3);
-    if (v32)
+    v53 = 0x7FFFFFFFFFFFFFFFLL;
+    v34 = v32(a2, a3);
+    v35 = v19(a2, a3);
+    if (v34)
     {
-      if (v33 > 64)
+      if (v35 > 64)
       {
         goto LABEL_17;
       }
     }
 
-    else if (v33 > 63)
+    else if (v35 > 63)
     {
 LABEL_17:
-      v34 = *(a3 + 96);
-      v35 = v45();
-      v36 = v47;
-      v34(&v51, v46, v35, a2, a3);
-      v37 = (*(*(*(a3 + 32) + 8) + 16))(v36, a1, a2);
-      v38 = *(v31 + 8);
-      v38(v36, a2);
-      if (v37)
+      v36 = *(a3 + 96);
+      v37 = v47();
+      v38 = v49;
+      v36(&v53, v48, v37, a2, a3);
+      v39 = (*(*(*(a3 + 32) + 8) + 16))(v38, a1, a2);
+      v40 = *(v33 + 8);
+      v40(v38, a2);
+      if (v39)
       {
-        result = v38(a1, a2);
+        result = v40(a1, a2);
         goto LABEL_19;
       }
 
 LABEL_25:
-      v39 = (*(a3 + 120))(a2, a3);
-      result = (*(v31 + 8))(a1, a2);
-      v40 = 0;
+      v41 = (*(a3 + 120))(a2, a3);
+      result = (*(v33 + 8))(a1, a2);
+      v42 = 0;
       goto LABEL_26;
     }
 
@@ -6372,12 +6344,12 @@ LABEL_25:
     goto LABEL_25;
   }
 
-  v43 = v18(a2, a3);
-  a1 = v44;
-  v19 = v17(a2, a3);
-  if ((v43 & 1) == 0)
+  v45 = v20(a2, a3);
+  a1 = v46;
+  v21 = v19(a2, a3);
+  if ((v45 & 1) == 0)
   {
-    if (v19 >= 64)
+    if (v21 >= 64)
     {
       goto LABEL_14;
     }
@@ -6385,19 +6357,19 @@ LABEL_25:
     goto LABEL_13;
   }
 
-  if (v19 > 64)
+  if (v21 > 64)
   {
     goto LABEL_8;
   }
 
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v9, a2, v11, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
   (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v11, AssociatedConformanceWitness);
-  v27 = v47;
-  (*(v9 + 24))(v14, a2, v9);
-  v28 = (*(*(*(a3 + 32) + 8) + 16))(a1, v27, a2);
-  v24 = *(v49 + 8);
-  v24(v27, a2);
-  if ((v28 & 1) == 0)
+  v29 = v49;
+  (*(v9 + 24))(v15, a2, v9);
+  v30 = (*(*(*(a3 + 32) + 8) + 16))(a1, v29, a2);
+  v26 = *(v51 + 8);
+  v26(v29, a2);
+  if ((v30 & 1) == 0)
   {
 LABEL_13:
     (*(a3 + 120))(a2, a3);
@@ -6405,14 +6377,14 @@ LABEL_13:
   }
 
 LABEL_9:
-  result = v24(a1, a2);
+  result = v26(a1, a2);
 LABEL_19:
-  v39 = 0;
-  v40 = 1;
+  v41 = 0;
+  v42 = 1;
 LABEL_26:
-  v41 = v48;
-  *v48 = v39;
-  *(v41 + 8) = v40;
+  v43 = v50;
+  *v50 = v41;
+  *(v43 + 8) = v42;
   return result;
 }
 
@@ -6588,57 +6560,57 @@ uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHa
 
 uint64_t _IntegerAnyHashableBox._canonicalBox.getter@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
-  v39 = a2;
+  v42 = a2;
   v3 = *(a1 + 16);
   v4 = *(*(a1 + 24) + 8);
-  v37 = *(*(v4 + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v37, v3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v40 = *(*(v4 + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v40, v3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
   v6 = v5;
-  v7 = MEMORY[0x1EEE9AC00](v5);
-  v9 = &v37 - v8;
-  v10 = *(v3 - 1);
-  v11 = MEMORY[0x1EEE9AC00](v7);
-  v13 = &v37 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v15 = &v37 - v14;
-  v16 = *(v10 + 16);
-  v38 = v2;
-  v16(&v37 - v14, v2, v3);
-  v17 = *(v4 + 64);
-  if ((v17(v3, v4) & 1) == 0)
+  v8 = MEMORY[0x1EEE9AC00](v5, v7);
+  v10 = &v40 - v9;
+  v11 = *(v3 - 1);
+  v13 = MEMORY[0x1EEE9AC00](v8, v12);
+  v15 = &v40 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13, v16);
+  v18 = &v40 - v17;
+  v19 = *(v11 + 16);
+  v41 = v2;
+  v19(&v40 - v17, v2, v3);
+  v20 = *(v4 + 64);
+  if ((v20(v3, v4) & 1) == 0)
   {
-    v21 = v17(v3, v4);
-    v18 = (*(v4 + 128))(v3, v4);
-    if ((v21 & 1) == 0)
+    v24 = v20(v3, v4);
+    v21 = (*(v4 + 128))(v3, v4);
+    if ((v24 & 1) == 0)
     {
-      if (v18 >= 64)
+      if (v21 >= 64)
       {
-        (*(v10 + 8))(v15, v3);
+        (*(v11 + 8))(v18, v3);
         goto LABEL_15;
       }
 
       goto LABEL_10;
     }
 
-    if (v18 <= 64)
+    if (v21 <= 64)
     {
-      v27 = v37;
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v37, v3, v6, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v30 = v40;
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v40, v3, v6, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
       (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v6, AssociatedConformanceWitness);
-      (v27[3])(v9, v3, v27);
-      v29 = (*(*(*(v4 + 32) + 8) + 16))(v15, v13, v3);
-      v30 = *(v10 + 8);
-      v30(v13, v3);
-      if (v29)
+      (v30[3])(v10, v3, v30);
+      v32 = (*(*(*(v4 + 32) + 8) + 16))(v18, v15, v3);
+      v33 = *(v11 + 8);
+      v33(v15, v3);
+      if (v32)
       {
-        v30(v15, v3);
+        v33(v18, v3);
       }
 
       else
       {
-        v31 = (*(v4 + 120))(v3, v4);
-        v30(v15, v3);
-        if ((v31 & 0x8000000000000000) == 0)
+        v34 = (*(v4 + 120))(v3, v4);
+        v33(v18, v3);
+        if ((v34 & 0x8000000000000000) == 0)
         {
           goto LABEL_15;
         }
@@ -6648,50 +6620,50 @@ uint64_t _IntegerAnyHashableBox._canonicalBox.getter@<X0>(uint64_t a1@<X0>, uint
     }
 
 LABEL_6:
-    v40 = 0;
-    v22 = *(v4 + 96);
-    v23 = lazy protocol witness table accessor for type Int and conformance Int(v18, v19, v20);
-    v22(&v40, &type metadata for Int, v23, v3, v4);
-    v24 = (*(*(*(v4 + 32) + 8) + 16))(v15, v13, v3);
-    v25 = *(v10 + 8);
-    v25(v13, v3);
-    v25(v15, v3);
-    if ((v24 & 1) == 0)
+    v43 = 0;
+    v25 = *(v4 + 96);
+    v26 = lazy protocol witness table accessor for type Int and conformance Int(v21, v22, v23);
+    v25(&v43, &type metadata for Int, v26, v3, v4);
+    v27 = (*(*(*(v4 + 32) + 8) + 16))(v18, v15, v3);
+    v28 = *(v11 + 8);
+    v28(v15, v3);
+    v28(v18, v3);
+    if ((v27 & 1) == 0)
     {
       goto LABEL_15;
     }
 
 LABEL_16:
-    v32 = (*(v4 + 120))(v3, v4);
-    v33 = &_ss22_IntegerAnyHashableBoxVys5Int64VGMd;
-    v34 = _ss22_IntegerAnyHashableBoxVys5Int64VGMR;
+    v35 = (*(v4 + 120))(v3, v4);
+    v36 = &_ss22_IntegerAnyHashableBoxVys5Int64VGMd;
+    v37 = _ss22_IntegerAnyHashableBoxVys5Int64VGMR;
     goto LABEL_17;
   }
 
-  v18 = (*(v4 + 128))(v3, v4);
-  if (v18 >= 64)
+  v21 = (*(v4 + 128))(v3, v4);
+  if (v21 >= 64)
   {
     goto LABEL_6;
   }
 
 LABEL_10:
-  v26 = (*(v4 + 120))(v3, v4);
-  (*(v10 + 8))(v15, v3);
-  if (v26 < 0)
+  v29 = (*(v4 + 120))(v3, v4);
+  (*(v11 + 8))(v18, v3);
+  if (v29 < 0)
   {
     goto LABEL_16;
   }
 
 LABEL_15:
-  v32 = (*(v4 + 120))(v3, v4);
-  v33 = &_ss22_IntegerAnyHashableBoxVys6UInt64VGMd;
-  v34 = _ss22_IntegerAnyHashableBoxVys6UInt64VGMR;
+  v35 = (*(v4 + 120))(v3, v4);
+  v36 = &_ss22_IntegerAnyHashableBoxVys6UInt64VGMd;
+  v37 = _ss22_IntegerAnyHashableBoxVys6UInt64VGMR;
 LABEL_17:
-  result = __swift_instantiateConcreteTypeFromMangledNameV2(v33, v34);
-  v36 = v39;
-  v39[3] = result;
-  v36[4] = &protocol witness table for _IntegerAnyHashableBox<A>;
-  *v36 = v32;
+  result = __swift_instantiateConcreteTypeFromMangledNameV2(v36, v37);
+  v39 = v42;
+  v42[3] = result;
+  v39[4] = &protocol witness table for _IntegerAnyHashableBox<A>;
+  *v39 = v35;
   return result;
 }
 
@@ -6702,70 +6674,70 @@ uint64_t _IntegerAnyHashableBox._isEqual(to:)(uint64_t a1, uint64_t a2)
   v6 = *(*(v5 + 24) + 16);
   swift_getAssociatedTypeWitness(0, v6, v4, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
   v8 = v7;
-  v9 = MEMORY[0x1EEE9AC00](v7);
-  v11 = &v58 - v10;
-  Description = v4[-1].Description;
-  v12 = MEMORY[0x1EEE9AC00](v9);
-  v14 = &v58 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = MEMORY[0x1EEE9AC00](v12);
-  v17 = &v58 - v16;
-  MEMORY[0x1EEE9AC00](v15);
-  v19 = &v58 - v18;
+  v10 = MEMORY[0x1EEE9AC00](v7, v9);
+  v12 = &v68 - v11;
+  v69 = *(v4 - 1);
+  v14 = MEMORY[0x1EEE9AC00](v10, v13);
+  v16 = &v68 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = MEMORY[0x1EEE9AC00](v14, v17);
+  v20 = &v68 - v19;
+  MEMORY[0x1EEE9AC00](v18, v21);
+  v23 = &v68 - v22;
   if (v4 == &type metadata for UInt64)
   {
-    outlined init with copy of MirrorPath(a1, v61);
-    v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15_AnyHashableBox_pMd, _ss15_AnyHashableBox_pMR);
-    v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22_IntegerAnyHashableBoxVys6UInt64VGMd, _ss22_IntegerAnyHashableBoxVys6UInt64VGMR);
-    if (!swift_dynamicCast(&v60, v61, v26, v27, 6uLL))
+    outlined init with copy of MirrorPath(a1, v71);
+    v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15_AnyHashableBox_pMd, _ss15_AnyHashableBox_pMR);
+    v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22_IntegerAnyHashableBoxVys6UInt64VGMd, _ss22_IntegerAnyHashableBoxVys6UInt64VGMR);
+    if (!swift_dynamicCast(&v70, v71, v33, v34, 6uLL, v35, v36, v37, v68))
     {
       return 2;
     }
 
-    v58 = v60;
-    Description[2](v19, v2, &type metadata for UInt64);
-    v28 = *(v5 + 64);
-    if (v28(&type metadata for UInt64, v5))
+    v68 = v70;
+    (*(v69 + 16))(v23, v2, &type metadata for UInt64);
+    v38 = *(v5 + 64);
+    if (v38(&type metadata for UInt64, v5))
     {
-      v29 = v28(&type metadata for UInt64, v5);
-      v30 = (*(v5 + 128))(&type metadata for UInt64, v5);
-      if (v29)
+      v39 = v38(&type metadata for UInt64, v5);
+      v40 = (*(v5 + 128))(&type metadata for UInt64, v5);
+      if (v39)
       {
-        if (v30 <= 64)
+        if (v40 <= 64)
         {
           AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v6, &type metadata for UInt64, v8, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
           (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v8, AssociatedConformanceWitness);
-          (*(v6 + 24))(v11, &type metadata for UInt64, v6);
-          v34 = (*(*(*(v5 + 32) + 8) + 32))(v19, v17, &type metadata for UInt64);
-          v35 = Description[1];
-          v35(v17, &type metadata for UInt64);
-          if (v34)
+          (*(v6 + 24))(v12, &type metadata for UInt64, v6);
+          v44 = (*(*(*(v5 + 32) + 8) + 32))(v23, v20, &type metadata for UInt64);
+          v45 = *(v69 + 8);
+          v45(v20, &type metadata for UInt64);
+          if (v44)
           {
-            v36 = &type metadata for UInt64;
-            v37 = (*(v5 + 120))(&type metadata for UInt64, v5);
-            v38 = v19;
+            v46 = &type metadata for UInt64;
+            v47 = (*(v5 + 120))(&type metadata for UInt64, v5);
+            v48 = v23;
 LABEL_26:
-            v35(v38, v36);
-            return v37 == v58;
+            v45(v48, v46);
+            return v47 == v68;
           }
 
-          v56 = &type metadata for UInt64;
-          v57 = v19;
+          v66 = &type metadata for UInt64;
+          v67 = v23;
           goto LABEL_32;
         }
 
 LABEL_23:
-        v61[0] = v58;
-        v45 = *(v5 + 96);
-        v46 = lazy protocol witness table accessor for type UInt64 and conformance UInt64(v30, v31, v32);
-        v45(v61, &type metadata for UInt64, v46, &type metadata for UInt64, v5);
-        v47 = (*(*(*(v5 + 16) + 8) + 8))(v19, v17, &type metadata for UInt64);
-        v48 = Description[1];
-        v48(v17, &type metadata for UInt64);
-        v48(v19, &type metadata for UInt64);
-        return v47 & 1;
+        v71[0] = v68;
+        v55 = *(v5 + 96);
+        v56 = lazy protocol witness table accessor for type UInt64 and conformance UInt64(v40, v41, v42);
+        v55(v71, &type metadata for UInt64, v56, &type metadata for UInt64, v5);
+        v57 = (*(*(*(v5 + 16) + 8) + 8))(v23, v20, &type metadata for UInt64);
+        v58 = *(v69 + 8);
+        v58(v20, &type metadata for UInt64);
+        v58(v23, &type metadata for UInt64);
+        return v57 & 1;
       }
 
-      if (v30 >= 64)
+      if (v40 >= 64)
       {
         goto LABEL_23;
       }
@@ -6773,16 +6745,16 @@ LABEL_23:
 
     else
     {
-      v30 = (*(v5 + 128))(&type metadata for UInt64, v5);
-      if (v30 >= 64)
+      v40 = (*(v5 + 128))(&type metadata for UInt64, v5);
+      if (v40 >= 64)
       {
         goto LABEL_23;
       }
     }
 
-    v37 = (*(v5 + 120))(&type metadata for UInt64, v5);
-    (Description[1])(v19, &type metadata for UInt64);
-    return v37 == v58;
+    v47 = (*(v5 + 120))(&type metadata for UInt64, v5);
+    (*(v69 + 8))(v23, &type metadata for UInt64);
+    return v47 == v68;
   }
 
   if (v4 != &type metadata for Int64)
@@ -6790,101 +6762,101 @@ LABEL_23:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  outlined init with copy of MirrorPath(a1, v61);
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15_AnyHashableBox_pMd, _ss15_AnyHashableBox_pMR);
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22_IntegerAnyHashableBoxVys5Int64VGMd, _ss22_IntegerAnyHashableBoxVys5Int64VGMR);
-  if (!swift_dynamicCast(&v60, v61, v20, v21, 6uLL))
+  outlined init with copy of MirrorPath(a1, v71);
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15_AnyHashableBox_pMd, _ss15_AnyHashableBox_pMR);
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22_IntegerAnyHashableBoxVys5Int64VGMd, _ss22_IntegerAnyHashableBoxVys5Int64VGMR);
+  if (!swift_dynamicCast(&v70, v71, v24, v25, 6uLL, v26, v27, v28, v68))
   {
     return 2;
   }
 
-  v58 = v60;
-  Description[2](v14, v2, &type metadata for Int64);
-  v22 = *(v5 + 64);
-  if (v22(&type metadata for Int64, v5))
+  v68 = v70;
+  (*(v69 + 16))(v16, v2, &type metadata for Int64);
+  v29 = *(v5 + 64);
+  if (v29(&type metadata for Int64, v5))
   {
-    v23 = (*(v5 + 128))(&type metadata for Int64, v5);
-    if (v23 < 64)
+    v30 = (*(v5 + 128))(&type metadata for Int64, v5);
+    if (v30 < 64)
     {
       goto LABEL_20;
     }
 
 LABEL_16:
-    v61[0] = v58;
-    v41 = *(v5 + 96);
-    v42 = lazy protocol witness table accessor for type Int64 and conformance Int64(v23, v24, v25);
-    v41(v61, &type metadata for Int64, v42, &type metadata for Int64, v5);
-    v43 = (*(*(*(v5 + 16) + 8) + 8))(v14, v17, &type metadata for Int64);
-    v44 = Description[1];
-    v44(v17, &type metadata for Int64);
-    v44(v14, &type metadata for Int64);
-    return v43 & 1;
+    v71[0] = v68;
+    v51 = *(v5 + 96);
+    v52 = lazy protocol witness table accessor for type Int64 and conformance Int64(v30, v31, v32);
+    v51(v71, &type metadata for Int64, v52, &type metadata for Int64, v5);
+    v53 = (*(*(*(v5 + 16) + 8) + 8))(v16, v20, &type metadata for Int64);
+    v54 = *(v69 + 8);
+    v54(v20, &type metadata for Int64);
+    v54(v16, &type metadata for Int64);
+    return v53 & 1;
   }
 
-  v40 = v22(&type metadata for Int64, v5);
-  v23 = (*(v5 + 128))(&type metadata for Int64, v5);
-  if (v40)
+  v50 = v29(&type metadata for Int64, v5);
+  v30 = (*(v5 + 128))(&type metadata for Int64, v5);
+  if (v50)
   {
-    if (v23 > 64)
+    if (v30 > 64)
     {
       goto LABEL_16;
     }
 
-    v49 = swift_getAssociatedConformanceWitness(v6, &type metadata for Int64, v8, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-    (*(v49 + 8))(&qword_18071E0A8, 256, v8, v49);
-    (*(v6 + 24))(v11, &type metadata for Int64, v6);
-    v50 = (*(*(*(v5 + 32) + 8) + 32))(v14, v17, &type metadata for Int64);
-    v35 = Description[1];
-    v35(v17, &type metadata for Int64);
-    if (v50)
+    v59 = swift_getAssociatedConformanceWitness(v6, &type metadata for Int64, v8, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+    (*(v59 + 8))(&qword_18071E0A8, 256, v8, v59);
+    (*(v6 + 24))(v12, &type metadata for Int64, v6);
+    v60 = (*(*(*(v5 + 32) + 8) + 32))(v16, v20, &type metadata for Int64);
+    v45 = *(v69 + 8);
+    v45(v20, &type metadata for Int64);
+    if (v60)
     {
-      v36 = &type metadata for Int64;
-      v37 = (*(v5 + 120))(&type metadata for Int64, v5);
-      v38 = v14;
+      v46 = &type metadata for Int64;
+      v47 = (*(v5 + 120))(&type metadata for Int64, v5);
+      v48 = v16;
       goto LABEL_26;
     }
 
-    v56 = &type metadata for Int64;
-    v57 = v14;
+    v66 = &type metadata for Int64;
+    v67 = v16;
 LABEL_32:
-    v35(v57, v56);
+    v45(v67, v66);
     return 0;
   }
 
-  if (v23 < 64)
+  if (v30 < 64)
   {
 LABEL_20:
-    v37 = (*(v5 + 120))(&type metadata for Int64, v5);
-    (Description[1])(v14, &type metadata for Int64);
-    return v37 == v58;
+    v47 = (*(v5 + 120))(&type metadata for Int64, v5);
+    (*(v69 + 8))(v16, &type metadata for Int64);
+    return v47 == v68;
   }
 
-  v51 = Description;
-  if ((v58 & 0x8000000000000000) == 0)
+  v61 = v69;
+  if ((v68 & 0x8000000000000000) == 0)
   {
-    v61[0] = v58;
-    v52 = *(v5 + 96);
-    v53 = lazy protocol witness table accessor for type Int64 and conformance Int64(v23, v24, v25);
-    v52(v61, &type metadata for Int64, v53, &type metadata for Int64, v5);
-    v54 = (*(*(*(v5 + 16) + 8) + 8))(v14, v17, &type metadata for Int64);
-    v55 = v51[1];
-    v55(v17, &type metadata for Int64);
-    v55(v14, &type metadata for Int64);
-    return v54 & 1;
+    v71[0] = v68;
+    v62 = *(v5 + 96);
+    v63 = lazy protocol witness table accessor for type Int64 and conformance Int64(v30, v31, v32);
+    v62(v71, &type metadata for Int64, v63, &type metadata for Int64, v5);
+    v64 = (*(*(*(v5 + 16) + 8) + 8))(v16, v20, &type metadata for Int64);
+    v65 = *(v61 + 8);
+    v65(v20, &type metadata for Int64);
+    v65(v16, &type metadata for Int64);
+    return v64 & 1;
   }
 
-  (Description[1])(v14, &type metadata for Int64);
+  (*(v69 + 8))(v16, &type metadata for Int64);
   return 0;
 }
 
 uint64_t _IntegerAnyHashableBox._unbox<A>()@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, swift *a3@<X8>)
 {
   v6 = *(a1 + 16);
-  MEMORY[0x1EEE9AC00](a1);
-  v8 = (&v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](a1, a2);
+  v8 = (&v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
   (*(v9 + 16))(v8, v3, v6);
-  v10 = swift_dynamicCast(a3, v8, v6, a2, 6uLL);
-  return (*(*(a2 - 1) + 7))(a3, v10 ^ 1u, 1, a2);
+  v13 = swift_dynamicCast(a3, v8, v6, a2, 6uLL, v10, v11, v12, v15);
+  return (*(*(a2 - 1) + 7))(a3, v13 ^ 1u, 1, a2);
 }
 
 uint64_t _ConcreteHashableBox._downCastConditional<A>(into:)(char *a1, uint64_t a2, Class *a3, uint64_t a4)
@@ -6892,72 +6864,72 @@ uint64_t _ConcreteHashableBox._downCastConditional<A>(into:)(char *a1, uint64_t 
   v5 = v4;
   v9 = type metadata accessor for Optional(0, a3, a3, a4);
   v10 = *(v9 - 8);
-  v11 = MEMORY[0x1EEE9AC00](v9);
-  v13 = (&v26 - v12);
-  v14 = *(a2 + 16);
-  v15 = MEMORY[0x1EEE9AC00](v11);
-  v17 = (&v26 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v18 = *(a3 - 1);
-  MEMORY[0x1EEE9AC00](v15);
-  v20 = &v26 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v21 + 16))(v17, v5, v14);
-  v22 = swift_dynamicCast(v13, v17, v14, a3, 6uLL);
-  v23 = *(v18 + 56);
-  if (v22)
+  v12 = MEMORY[0x1EEE9AC00](v9, v11);
+  v14 = (&v32 - v13);
+  v15 = *(a2 + 16);
+  v17 = MEMORY[0x1EEE9AC00](v12, v16);
+  v19 = (&v32 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v20 = *(a3 - 1);
+  MEMORY[0x1EEE9AC00](v17, v21);
+  v23 = &v32 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v24 + 16))(v19, v5, v15);
+  v28 = swift_dynamicCast(v14, v19, v15, a3, 6uLL, v25, v26, v27, v32);
+  v29 = *(v20 + 56);
+  if (v28)
   {
-    v23(v13, 0, 1, a3);
-    v24 = *(v18 + 32);
-    v24(v20, v13, a3);
-    v24(a1, v20, a3);
+    v29(v14, 0, 1, a3);
+    v30 = *(v20 + 32);
+    v30(v23, v14, a3);
+    v30(a1, v23, a3);
   }
 
   else
   {
-    v23(v13, 1, 1, a3);
-    (*(v10 + 8))(v13, v9);
+    v29(v14, 1, 1, a3);
+    (*(v10 + 8))(v14, v9);
   }
 
-  return v22;
+  return v28;
 }
 
-uint64_t < infix<A, B>(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t < infix<A, B>(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char *a5, char *a6, uint64_t a7, uint64_t a8)
 {
-  v27 = a8;
-  v28 = a2;
-  v30 = a7;
-  v31 = a4;
-  v29 = a3;
+  v29 = a8;
+  v30 = a2;
+  v32 = a7;
+  v33 = a4;
+  v31 = a3;
   swift_getTupleTypeMetadata2(0, a5, a6, 0, 0);
   v12 = v11;
-  v32 = *(v11 - 8);
-  v13 = MEMORY[0x1EEE9AC00](v11);
-  v15 = &v27 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v17 = &v27 - v16;
-  v18 = *(*(a5 - 8) + 16);
-  v18(&v27 - v16, a1, a5);
-  v19 = *(v12 + 48);
-  v20 = *(*(a6 - 8) + 16);
-  v20(&v17[v19], v28, a6);
-  v18(v15, v29, a5);
-  v21 = v30;
-  v22 = *(v12 + 48);
-  v20(&v15[v22], v31, a6);
-  if ((*(*(v21 + 8) + 8))(v17, v15, a5))
+  v34 = *(v11 - 8);
+  v14 = MEMORY[0x1EEE9AC00](v11, v13);
+  v16 = &v29 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14, v17);
+  v19 = &v29 - v18;
+  v20 = *(*(a5 - 1) + 16);
+  v20(&v29 - v18, a1, a5);
+  v21 = *(v12 + 48);
+  v22 = *(*(a6 - 1) + 16);
+  v22(&v19[v21], v30, a6);
+  v20(v16, v31, a5);
+  v23 = v32;
+  v24 = *(v12 + 48);
+  v22(&v16[v24], v33, a6);
+  if ((*(*(v23 + 8) + 8))(v19, v16, a5))
   {
-    v23 = (*(v27 + 16))(&v17[v19], &v15[v22], a6);
+    v25 = (*(v29 + 16))(&v19[v21], &v16[v24], a6);
   }
 
   else
   {
-    v23 = (*(v21 + 16))(v17, v15, a5);
+    v25 = (*(v23 + 16))(v19, v16, a5);
   }
 
-  v24 = v23;
-  v25 = *(v32 + 8);
-  v25(v15, v12);
-  v25(v17, v12);
-  return v24 & 1;
+  v26 = v25;
+  v27 = *(v34 + 8);
+  v27(v16, v12);
+  v27(v19, v12);
+  return v26 & 1;
 }
 
 BOOL protocol witness for static Comparable.< infix(_:_:) in conformance _UInt128(void *a1, void *a2)
@@ -7036,121 +7008,121 @@ uint64_t protocol witness for static AdditiveArithmetic.+ infix(_:_:) in conform
   return result;
 }
 
-char *_UInt128.init<A>(exactly:)(uint64_t (*a1)(void, void), const char *a2, uint64_t a3)
+char *_UInt128.init<A>(exactly:)(uint64_t (*a1)(void, void), Class *a2, uint64_t a3)
 {
   v6 = *(a3 + 24);
   swift_getAssociatedTypeWitness(255, v6, a2, &protocol requirements base descriptor for Numeric, associated type descriptor for Numeric.Magnitude);
   v8 = v7;
-  v148 = *(swift_getAssociatedConformanceWitness(v6, a2, v7, &protocol requirements base descriptor for Numeric, associated conformance descriptor for Numeric.Numeric.Magnitude: Numeric) + 16);
-  swift_getAssociatedTypeWitness(0, v148, v8, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v147 = v9;
-  MEMORY[0x1EEE9AC00](v9);
-  v146 = v139 - v10;
-  v11 = swift_checkMetadataState(0, v8);
-  v157 = *(v11 - 1);
-  v12 = MEMORY[0x1EEE9AC00](v11);
-  v154 = v139 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v158 = v139 - v14;
-  v151 = *(v6 + 16);
-  swift_getAssociatedTypeWitness(0, v151, a2, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v150 = v15;
-  v16 = MEMORY[0x1EEE9AC00](v15);
-  v149 = v139 - v17;
-  v18 = *(a2 - 1);
-  v19 = MEMORY[0x1EEE9AC00](v16);
-  v144 = v139 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = MEMORY[0x1EEE9AC00](v19);
-  v142 = v139 - v22;
-  v23 = MEMORY[0x1EEE9AC00](v21);
-  v153 = v139 - v24;
-  v25 = MEMORY[0x1EEE9AC00](v23);
-  v152 = v139 - v26;
-  MEMORY[0x1EEE9AC00](v25);
-  v28 = v139 - v27;
-  v30 = a3 + 64;
-  v29 = *(a3 + 64);
-  v31 = v29(a2, a3);
-  v145 = v29;
-  v159 = a1;
-  if ((v31 & 1) == 0)
+  v157 = *(swift_getAssociatedConformanceWitness(v6, a2, v7, &protocol requirements base descriptor for Numeric, associated conformance descriptor for Numeric.Numeric.Magnitude: Numeric) + 16);
+  swift_getAssociatedTypeWitness(0, v157, v8, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v156 = v9;
+  MEMORY[0x1EEE9AC00](v9, v10);
+  v155 = v148 - v11;
+  v12 = swift_checkMetadataState(0, v8);
+  v166 = *(v12 - 1);
+  v14 = MEMORY[0x1EEE9AC00](v12, v13);
+  v163 = v148 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14, v16);
+  v167 = v148 - v17;
+  v160 = *(v6 + 16);
+  swift_getAssociatedTypeWitness(0, v160, a2, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v159 = v18;
+  v20 = MEMORY[0x1EEE9AC00](v18, v19);
+  v158 = v148 - v21;
+  v22 = *(a2 - 1);
+  v24 = MEMORY[0x1EEE9AC00](v20, v23);
+  v153 = v148 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = MEMORY[0x1EEE9AC00](v24, v26);
+  v151 = v148 - v28;
+  v30 = MEMORY[0x1EEE9AC00](v27, v29);
+  v162 = v148 - v31;
+  v33 = MEMORY[0x1EEE9AC00](v30, v32);
+  v161 = v148 - v34;
+  MEMORY[0x1EEE9AC00](v33, v35);
+  v37 = v148 - v36;
+  v39 = a3 + 64;
+  v38 = *(a3 + 64);
+  v40 = v38(a2, a3);
+  v154 = v38;
+  v168 = a1;
+  if ((v40 & 1) == 0)
   {
-    v38 = v29(a2, a3);
-    v155 = *(a3 + 128);
-    v39 = v155(a2, a3);
-    if (v38)
+    v47 = v38(a2, a3);
+    v164 = *(a3 + 128);
+    v48 = v164(a2, a3);
+    if (v47)
     {
-      v156 = v18;
-      v37 = v158;
-      if (v39 > 64)
+      v165 = v22;
+      v46 = v167;
+      if (v48 > 64)
       {
-        v160[0] = 0;
-        v42 = *(a3 + 96);
-        v43 = lazy protocol witness table accessor for type Int and conformance Int(v39, v40, v41);
-        v42(v160, &type metadata for Int, v43, a2, a3);
-        v35 = v159;
-        v44 = (*(*(*(a3 + 32) + 8) + 16))(v159, v28, a2);
-        v18 = v156;
+        v169[0] = 0;
+        v51 = *(a3 + 96);
+        v52 = lazy protocol witness table accessor for type Int and conformance Int(v48, v49, v50);
+        v51(v169, &type metadata for Int, v52, a2, a3);
+        v44 = v168;
+        v53 = (*(*(*(a3 + 32) + 8) + 16))(v168, v37, a2);
+        v22 = v165;
         goto LABEL_9;
       }
 
-      v49 = v150;
-      v50 = v151;
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v151, a2, v150, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v52 = v149;
-      (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v49, AssociatedConformanceWitness);
-      (v50[3])(v52, a2, v50);
-      v35 = v159;
-      LOBYTE(v49) = (*(*(*(a3 + 32) + 8) + 16))(v159, v28, a2);
-      v18 = v156;
-      (*(v156 + 8))(v28, a2);
-      if (v49)
+      v58 = v159;
+      v59 = v160;
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v160, a2, v159, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v61 = v158;
+      (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v58, AssociatedConformanceWitness);
+      (v59[3])(v61, a2, v59);
+      v44 = v168;
+      LOBYTE(v58) = (*(*(*(a3 + 32) + 8) + 16))(v168, v37, a2);
+      v22 = v165;
+      (*(v165 + 8))(v37, a2);
+      if (v58)
       {
         goto LABEL_16;
       }
 
-      v48 = (*(a3 + 120))(a2, a3);
+      v57 = (*(a3 + 120))(a2, a3);
     }
 
     else
     {
-      v37 = v158;
-      if (v39 >= 64)
+      v46 = v167;
+      if (v48 >= 64)
       {
         goto LABEL_18;
       }
 
-      v35 = v159;
-      v48 = (*(a3 + 120))(a2, a3);
+      v44 = v168;
+      v57 = (*(a3 + 120))(a2, a3);
     }
 
-    if ((v48 & 0x8000000000000000) == 0)
+    if ((v57 & 0x8000000000000000) == 0)
     {
       goto LABEL_18;
     }
 
 LABEL_16:
-    (*(v18 + 8))(v35, a2);
+    (*(v22 + 8))(v44, a2);
     return 0;
   }
 
-  v155 = *(a3 + 128);
-  v32 = v155(a2, a3);
-  if (v32 >= 64)
+  v164 = *(a3 + 128);
+  v41 = v164(a2, a3);
+  if (v41 >= 64)
   {
-    v160[0] = 0;
-    v45 = v18;
-    v46 = *(a3 + 96);
-    v47 = lazy protocol witness table accessor for type Int and conformance Int(v32, v33, v34);
-    v46(v160, &type metadata for Int, v47, a2, a3);
-    v18 = v45;
-    v30 = a3 + 64;
-    v37 = v158;
-    v35 = v159;
-    v44 = (*(*(*(a3 + 32) + 8) + 16))(v159, v28, a2);
+    v169[0] = 0;
+    v54 = v22;
+    v55 = *(a3 + 96);
+    v56 = lazy protocol witness table accessor for type Int and conformance Int(v41, v42, v43);
+    v55(v169, &type metadata for Int, v56, a2, a3);
+    v22 = v54;
+    v39 = a3 + 64;
+    v46 = v167;
+    v44 = v168;
+    v53 = (*(*(*(a3 + 32) + 8) + 16))(v168, v37, a2);
 LABEL_9:
-    (*(v18 + 8))(v28, a2);
-    if ((v44 & 1) == 0)
+    (*(v22 + 8))(v37, a2);
+    if ((v53 & 1) == 0)
     {
       goto LABEL_18;
     }
@@ -7158,79 +7130,79 @@ LABEL_9:
     goto LABEL_16;
   }
 
-  v35 = a1;
-  v36 = (*(a3 + 120))(a2, a3);
-  v37 = v158;
-  if (v36 < 0)
+  v44 = a1;
+  v45 = (*(a3 + 120))(a2, a3);
+  v46 = v167;
+  if (v45 < 0)
   {
     goto LABEL_16;
   }
 
 LABEL_18:
-  v139[1] = v30;
-  v156 = v18;
-  v143 = v28;
+  v148[1] = v39;
+  v165 = v22;
+  v152 = v37;
   (*(v6 + 56))(a2, v6);
-  v141 = a3;
-  v54 = swift_getAssociatedConformanceWitness(a3, a2, v11, &protocol requirements base descriptor for BinaryInteger, associated conformance descriptor for BinaryInteger.Numeric.Magnitude: BinaryInteger);
-  v55 = v37;
-  v56 = *(v54 + 64);
-  if ((v56)(v11, v54))
+  v150 = a3;
+  v63 = swift_getAssociatedConformanceWitness(a3, a2, v12, &protocol requirements base descriptor for BinaryInteger, associated conformance descriptor for BinaryInteger.Numeric.Magnitude: BinaryInteger);
+  v64 = v46;
+  v65 = *(v63 + 64);
+  if ((v65)(v12, v63))
   {
-    v57 = v147;
-    v58 = v148;
-    v59 = swift_getAssociatedConformanceWitness(v148, v11, v147, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-    v60 = v146;
-    (*(v59 + 8))(&qword_18071E0A8, 256, v57, v59);
-    v61 = v58[3];
-    v140 = v56;
-    v62 = v154;
-    (v61)(v60, v11, v58);
-    v63 = swift_getAssociatedConformanceWitness(v6, a2, v11, &protocol requirements base descriptor for Numeric, associated conformance descriptor for Numeric.Numeric.Magnitude: Comparable);
-    LOBYTE(v57) = (*(v63 + 16))(v37, v62, v11, v63);
-    v64 = *(v157 + 8);
-    v65 = v62;
-    v56 = v140;
-    v64(v65, v11);
-    if (v57)
+    v66 = v156;
+    v67 = v157;
+    v68 = swift_getAssociatedConformanceWitness(v157, v12, v156, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+    v69 = v155;
+    (*(v68 + 8))(&qword_18071E0A8, 256, v66, v68);
+    v70 = v67[3];
+    v149 = v65;
+    v71 = v163;
+    (v70)(v69, v12, v67);
+    v72 = swift_getAssociatedConformanceWitness(v6, a2, v12, &protocol requirements base descriptor for Numeric, associated conformance descriptor for Numeric.Numeric.Magnitude: Comparable);
+    LOBYTE(v66) = (*(v72 + 16))(v46, v71, v12, v72);
+    v73 = *(v166 + 8);
+    v74 = v71;
+    v65 = v149;
+    v73(v74, v12);
+    if (v66)
     {
       goto LABEL_27;
     }
   }
 
-  v140 = v6;
-  v66 = *(v54 + 128);
-  if (v66(v11, v54) >= 64)
+  v149 = v6;
+  v75 = *(v63 + 128);
+  if (v75(v12, v63) >= 64)
   {
-    v67 = (v56)(v11, v54);
-    v68 = v66(v11, v54);
-    if (v67)
+    v76 = (v65)(v12, v63);
+    v77 = v75(v12, v63);
+    if (v76)
     {
-      if (v68 > 64)
+      if (v77 > 64)
       {
-        v160[0] = -1;
-        v71 = *(v54 + 96);
-        v72 = lazy protocol witness table accessor for type UInt64 and conformance UInt64(v68, v69, v70);
-        v73 = v154;
-        v71(v160, &type metadata for UInt64, v72, v11, v54);
-        v74 = swift_getAssociatedConformanceWitness(v140, a2, v11, &protocol requirements base descriptor for Numeric, associated conformance descriptor for Numeric.Numeric.Magnitude: Comparable);
-        v55 = v158;
-        v75 = (*(v74 + 16))(v73, v158, v11, v74);
+        v169[0] = -1;
+        v80 = *(v63 + 96);
+        v81 = lazy protocol witness table accessor for type UInt64 and conformance UInt64(v77, v78, v79);
+        v82 = v163;
+        v80(v169, &type metadata for UInt64, v81, v12, v63);
+        v83 = swift_getAssociatedConformanceWitness(v149, a2, v12, &protocol requirements base descriptor for Numeric, associated conformance descriptor for Numeric.Numeric.Magnitude: Comparable);
+        v64 = v167;
+        v84 = (*(v83 + 16))(v82, v167, v12, v83);
         goto LABEL_26;
       }
 
-      v111 = v147;
-      v112 = v148;
-      v113 = swift_getAssociatedConformanceWitness(v148, v11, v147, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v114 = v146;
-      (*(v113 + 8))(&qword_18071E0A8, 256, v111, v113);
-      v115 = v154;
-      (v112[3])(v114, v11, v112);
-      v116 = swift_getAssociatedConformanceWitness(v140, a2, v11, &protocol requirements base descriptor for Numeric, associated conformance descriptor for Numeric.Numeric.Magnitude: Comparable);
-      v55 = v158;
-      LOBYTE(v111) = (*(v116 + 40))(v158, v115, v11, v116);
-      (*(v157 + 8))(v115, v11);
-      if ((v111 & 1) == 0)
+      v120 = v156;
+      v121 = v157;
+      v122 = swift_getAssociatedConformanceWitness(v157, v12, v156, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v123 = v155;
+      (*(v122 + 8))(&qword_18071E0A8, 256, v120, v122);
+      v124 = v163;
+      (v121[3])(v123, v12, v121);
+      v125 = swift_getAssociatedConformanceWitness(v149, a2, v12, &protocol requirements base descriptor for Numeric, associated conformance descriptor for Numeric.Numeric.Magnitude: Comparable);
+      v64 = v167;
+      LOBYTE(v120) = (*(v125 + 40))(v167, v124, v12, v125);
+      (*(v166 + 8))(v124, v12);
+      if ((v120 & 1) == 0)
       {
         goto LABEL_36;
       }
@@ -7238,84 +7210,84 @@ LABEL_18:
 
     else
     {
-      v55 = v158;
-      if (v68 >= 65)
+      v64 = v167;
+      if (v77 >= 65)
       {
-        v160[0] = -1;
-        v76 = *(v54 + 96);
-        v77 = lazy protocol witness table accessor for type UInt64 and conformance UInt64(v68, v69, v70);
-        v73 = v154;
-        v76(v160, &type metadata for UInt64, v77, v11, v54);
-        v78 = swift_getAssociatedConformanceWitness(v140, a2, v11, &protocol requirements base descriptor for Numeric, associated conformance descriptor for Numeric.Numeric.Magnitude: Comparable);
-        v75 = (*(v78 + 16))(v73, v55, v11, v78);
+        v169[0] = -1;
+        v85 = *(v63 + 96);
+        v86 = lazy protocol witness table accessor for type UInt64 and conformance UInt64(v77, v78, v79);
+        v82 = v163;
+        v85(v169, &type metadata for UInt64, v86, v12, v63);
+        v87 = swift_getAssociatedConformanceWitness(v149, a2, v12, &protocol requirements base descriptor for Numeric, associated conformance descriptor for Numeric.Numeric.Magnitude: Comparable);
+        v84 = (*(v87 + 16))(v82, v64, v12, v87);
 LABEL_26:
-        v79 = v75;
-        v64 = *(v157 + 8);
-        v64(v73, v11);
-        if (v79)
+        v88 = v84;
+        v73 = *(v166 + 8);
+        v73(v82, v12);
+        if (v88)
         {
 LABEL_27:
-          v80 = (v64)(v158, v11);
-          v160[0] = -1;
-          v81 = v141;
-          v82 = *(v141 + 88);
-          v85 = lazy protocol witness table accessor for type UInt64 and conformance UInt64(v80, v83, v84);
-          v86 = v143;
-          v148 = v85;
-          v82(v160, &type metadata for UInt64);
-          v87 = v152;
-          v88 = v159;
-          (*(v81 + 192))(v159, v86, a2, v81);
-          v89 = v156;
-          v158 = *(v156 + 8);
-          v90 = (v158)(v86, a2);
-          v160[0] = 64;
-          v91 = *(v81 + 240);
-          v94 = lazy protocol witness table accessor for type Int and conformance Int(v90, v92, v93);
-          v91(v88, v160, &type metadata for Int, v94, a2, v81);
-          v95 = v89;
-          v96 = *(v89 + 16);
-          v97 = v142;
-          v96(v142, v87, a2);
-          v98 = v145;
-          if (v145(a2, v81))
+          v89 = (v73)(v167, v12);
+          v169[0] = -1;
+          v90 = v150;
+          v91 = *(v150 + 88);
+          v94 = lazy protocol witness table accessor for type UInt64 and conformance UInt64(v89, v92, v93);
+          v95 = v152;
+          v157 = v94;
+          v91(v169, &type metadata for UInt64);
+          v96 = v161;
+          v97 = v168;
+          (*(v90 + 192))(v168, v95, a2, v90);
+          v98 = v165;
+          v167 = *(v165 + 8);
+          v99 = (v167)(v95, a2);
+          v169[0] = 64;
+          v100 = *(v90 + 240);
+          v103 = lazy protocol witness table accessor for type Int and conformance Int(v99, v101, v102);
+          v100(v97, v169, &type metadata for Int, v103, a2, v90);
+          v104 = v98;
+          v105 = *(v98 + 16);
+          v106 = v151;
+          v105(v151, v96, a2);
+          v107 = v154;
+          if (v154(a2, v90))
           {
-            v99 = v150;
-            v100 = v151;
-            v101 = swift_getAssociatedConformanceWitness(v151, a2, v150, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-            v102 = v149;
-            (*(v101 + 8))(&qword_18071E0A8, 256, v99, v101);
-            v103 = v102;
-            v95 = v156;
-            (v100[3])(v103, a2, v100);
-            LOBYTE(v99) = (*(*(*(v81 + 32) + 8) + 32))(v97, v86, a2);
-            (v158)(v86, a2);
-            if ((v99 & 1) == 0)
+            v108 = v159;
+            v109 = v160;
+            v110 = swift_getAssociatedConformanceWitness(v160, a2, v159, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+            v111 = v158;
+            (*(v110 + 8))(&qword_18071E0A8, 256, v108, v110);
+            v112 = v111;
+            v104 = v165;
+            (v109[3])(v112, a2, v109);
+            LOBYTE(v108) = (*(*(*(v90 + 32) + 8) + 32))(v106, v95, a2);
+            (v167)(v95, a2);
+            if ((v108 & 1) == 0)
             {
               goto LABEL_56;
             }
           }
 
-          v157 = v81 + 128;
-          if (v155(a2, v81) >= 64)
+          v166 = v90 + 128;
+          if (v164(a2, v90) >= 64)
           {
-            v104 = v98(a2, v81);
-            v105 = v155(a2, v81);
-            if (v104)
+            v113 = v107(a2, v90);
+            v114 = v164(a2, v90);
+            if (v113)
             {
-              if (v105 <= 64)
+              if (v114 <= 64)
               {
-                v106 = v150;
-                v107 = v151;
-                v108 = swift_getAssociatedConformanceWitness(v151, a2, v150, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-                v109 = v149;
-                (*(v108 + 8))(&qword_18071E0A8, 256, v106, v108);
-                v110 = v109;
-                v95 = v156;
-                (v107[3])(v110, a2, v107);
-                LOBYTE(v106) = (*(*(*(v81 + 32) + 8) + 40))(v97, v86, a2);
-                (v158)(v86, a2);
-                if ((v106 & 1) == 0)
+                v115 = v159;
+                v116 = v160;
+                v117 = swift_getAssociatedConformanceWitness(v160, a2, v159, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+                v118 = v158;
+                (*(v117 + 8))(&qword_18071E0A8, 256, v115, v117);
+                v119 = v118;
+                v104 = v165;
+                (v116[3])(v119, a2, v116);
+                LOBYTE(v115) = (*(*(*(v90 + 32) + 8) + 40))(v106, v95, a2);
+                (v167)(v95, a2);
+                if ((v115 & 1) == 0)
                 {
                   goto LABEL_43;
                 }
@@ -7324,18 +7296,18 @@ LABEL_27:
               }
             }
 
-            else if (v105 < 65)
+            else if (v114 < 65)
             {
 LABEL_42:
-              (*(v81 + 120))(a2, v81);
+              (*(v90 + 120))(a2, v90);
               goto LABEL_43;
             }
 
-            v160[0] = -1;
-            (*(v81 + 96))(v160, &type metadata for UInt64, v148, a2, v81);
-            v122 = (*(*(*(v81 + 32) + 8) + 16))(v86, v97, a2);
-            (v158)(v86, a2);
-            if (v122)
+            v169[0] = -1;
+            (*(v90 + 96))(v169, &type metadata for UInt64, v157, a2, v90);
+            v131 = (*(*(*(v90 + 32) + 8) + 16))(v95, v106, a2);
+            (v167)(v95, a2);
+            if (v131)
             {
 LABEL_56:
               _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
@@ -7343,84 +7315,84 @@ LABEL_56:
           }
 
 LABEL_43:
-          v123 = v158;
-          (v158)(v159, a2);
-          (v123)(v152, a2);
-          v159 = *(v81 + 120);
-          v154 = v159(a2, v81);
-          (v123)(v97, a2);
-          v124 = v144;
-          (*(v95 + 32))(v144, v153, a2);
-          if (v98(a2, v81))
+          v132 = v167;
+          (v167)(v168, a2);
+          (v132)(v161, a2);
+          v168 = *(v90 + 120);
+          v163 = v168(a2, v90);
+          (v132)(v106, a2);
+          v133 = v153;
+          (*(v104 + 32))(v153, v162, a2);
+          if (v107(a2, v90))
           {
-            v125 = v150;
-            v126 = v151;
-            v127 = swift_getAssociatedConformanceWitness(v151, a2, v150, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-            v128 = v149;
-            (*(v127 + 8))(&qword_18071E0A8, 256, v125, v127);
-            (v126[3])(v128, a2, v126);
-            LOBYTE(v125) = (*(*(*(v81 + 32) + 8) + 16))(v124, v86, a2);
-            (v158)(v86, a2);
-            if (v125)
+            v134 = v159;
+            v135 = v160;
+            v136 = swift_getAssociatedConformanceWitness(v160, a2, v159, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+            v137 = v158;
+            (*(v136 + 8))(&qword_18071E0A8, 256, v134, v136);
+            (v135[3])(v137, a2, v135);
+            LOBYTE(v134) = (*(*(*(v90 + 32) + 8) + 16))(v133, v95, a2);
+            (v167)(v95, a2);
+            if (v134)
             {
               goto LABEL_52;
             }
           }
 
-          if (v155(a2, v81) < 64)
+          if (v164(a2, v90) < 64)
           {
             goto LABEL_55;
           }
 
-          v129 = v145(a2, v81);
-          v130 = v155(a2, v81);
-          if (v129)
+          v138 = v154(a2, v90);
+          v139 = v164(a2, v90);
+          if (v138)
           {
-            if (v130 > 64)
+            if (v139 > 64)
             {
-              v160[0] = -1;
-              v131 = v143;
-              (*(v81 + 96))(v160, &type metadata for UInt64, v148, a2, v81);
-              v124 = v144;
-              v132 = (*(*(*(v81 + 32) + 8) + 16))(v131, v144, a2);
+              v169[0] = -1;
+              v140 = v152;
+              (*(v90 + 96))(v169, &type metadata for UInt64, v157, a2, v90);
+              v133 = v153;
+              v141 = (*(*(*(v90 + 32) + 8) + 16))(v140, v153, a2);
               goto LABEL_51;
             }
 
-            v134 = v150;
-            v135 = v151;
-            v136 = swift_getAssociatedConformanceWitness(v151, a2, v150, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-            v137 = v149;
-            (*(v136 + 8))(&qword_18071E0A8, 256, v134, v136);
-            v138 = v143;
-            (v135[3])(v137, a2, v135);
-            v124 = v144;
-            LOBYTE(v134) = (*(*(*(v81 + 32) + 8) + 40))(v144, v138, a2);
-            (v158)(v138, a2);
-            if ((v134 & 1) == 0)
+            v143 = v159;
+            v144 = v160;
+            v145 = swift_getAssociatedConformanceWitness(v160, a2, v159, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+            v146 = v158;
+            (*(v145 + 8))(&qword_18071E0A8, 256, v143, v145);
+            v147 = v152;
+            (v144[3])(v146, a2, v144);
+            v133 = v153;
+            LOBYTE(v143) = (*(*(*(v90 + 32) + 8) + 40))(v153, v147, a2);
+            (v167)(v147, a2);
+            if ((v143 & 1) == 0)
             {
 LABEL_55:
-              v159(a2, v81);
-              (v158)(v124, a2);
-              return v154;
+              v168(a2, v90);
+              (v167)(v133, a2);
+              return v163;
             }
           }
 
           else
           {
-            v131 = v143;
-            v124 = v144;
-            if (v130 >= 65)
+            v140 = v152;
+            v133 = v153;
+            if (v139 >= 65)
             {
-              v160[0] = -1;
-              (*(v81 + 96))(v160, &type metadata for UInt64, v148, a2, v81);
-              v132 = (*(*(*(v81 + 32) + 8) + 16))(v131, v124, a2);
+              v169[0] = -1;
+              (*(v90 + 96))(v169, &type metadata for UInt64, v157, a2, v90);
+              v141 = (*(*(*(v90 + 32) + 8) + 16))(v140, v133, a2);
 LABEL_51:
-              v133 = v132;
-              (v158)(v131, a2);
-              if (v133)
+              v142 = v141;
+              (v167)(v140, a2);
+              if (v142)
               {
 LABEL_52:
-                (v158)(v124, a2);
+                (v167)(v133, a2);
                 return 0;
               }
 
@@ -7428,7 +7400,7 @@ LABEL_52:
             }
           }
 
-          v159(a2, v81);
+          v168(a2, v90);
           goto LABEL_55;
         }
 
@@ -7436,27 +7408,27 @@ LABEL_52:
       }
     }
 
-    (*(v54 + 120))(v11, v54);
+    (*(v63 + 120))(v12, v63);
   }
 
 LABEL_36:
-  v117 = (*(v54 + 120))(v11, v54);
-  (*(v157 + 8))(v55, v11);
-  v118 = v143;
-  (*(*(v140 + 1) + 16))(a2);
-  v119 = v159;
-  v120 = (*(*(*(v141 + 32) + 8) + 16))(v159, v118, a2);
-  v121 = *(v156 + 8);
-  v121(v119, a2);
-  v121(v118, a2);
-  if (v120)
+  v126 = (*(v63 + 120))(v12, v63);
+  (*(v166 + 8))(v64, v12);
+  v127 = v152;
+  (*(*(v149 + 1) + 16))(a2);
+  v128 = v168;
+  v129 = (*(*(*(v150 + 32) + 8) + 16))(v168, v127, a2);
+  v130 = *(v165 + 8);
+  v130(v128, a2);
+  v130(v127, a2);
+  if (v129)
   {
-    return -v117;
+    return -v126;
   }
 
   else
   {
-    return v117;
+    return v126;
   }
 }
 
@@ -7464,7 +7436,7 @@ void *protocol witness for ExpressibleByIntegerLiteral.init(integerLiteral:) in 
 {
   if ((*result & 0x8000000000000000) != 0)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000028, 0x800000018066E8B0, "Swift/LegacyInt128.swift", 0x18uLL, 2, 0x83uLL);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000028, 0x800000018066E8B0, "Swift/LegacyInt128.swift", 0x18uLL, 2, 0x83uLL, 0);
   }
 
   *a2 = *result;
@@ -7532,11 +7504,11 @@ uint64_t specialized _wideMaskedShiftRight<A>(_:_:)(uint64_t *a1, uint64_t a2, u
   }
 }
 
-Swift::UInt64 specialized _wideDivide22<A>(_:by:)(void *a1, Swift::UInt64 *a2, Swift::UInt64 *a3, Swift::UInt64 a4, Swift::tuple_high_UInt64_low_UInt64 a5, Swift::UInt64 a6)
+Swift::UInt64 specialized _wideDivide22<A>(_:by:)(Swift::UInt64 *a1, Swift::UInt64 *a2, Swift::UInt64 *a3, Swift::UInt64 a4, Swift::tuple_high_UInt64_low_UInt64 a5, Swift::UInt64 a6)
 {
   if (!(a5.low | a6))
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000010, 0x800000018066AEF0 | 0x8000000000000000, "Swift/LegacyInt128.swift", 0x18uLL, 2, 0x4CBuLL);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000010, 0x800000018066AEF0 | 0x8000000000000000, "Swift/LegacyInt128.swift", 0x18uLL, 2, 0x4CBuLL, 0);
   }
 
   v6 = a6 < a5.high;
@@ -7830,7 +7802,7 @@ unint64_t specialized _wideDivide42<A>(_:by:)(Swift::UInt64 *a1, Swift::UInt64 *
   v8 = a8;
   if (!(a7.low | a8))
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000010, 0x800000018066AEF0 | 0x8000000000000000, "Swift/LegacyInt128.swift", 0x18uLL, 2, 0x4F3uLL);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000010, 0x800000018066AEF0 | 0x8000000000000000, "Swift/LegacyInt128.swift", 0x18uLL, 2, 0x4F3uLL, 0);
   }
 
   v9 = a8 >= a5;
@@ -7841,7 +7813,7 @@ unint64_t specialized _wideDivide42<A>(_:by:)(Swift::UInt64 *a1, Swift::UInt64 *
 
   if (!v9)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000001FLL, 0x800000018066AEB0 | 0x8000000000000000, "Swift/LegacyInt128.swift", 0x18uLL, 2, 0x4F6uLL);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000001FLL, 0x800000018066AEB0 | 0x8000000000000000, "Swift/LegacyInt128.swift", 0x18uLL, 2, 0x4F6uLL, 0);
   }
 
   high = a7.high;
@@ -8359,7 +8331,7 @@ LABEL_117:
   return result;
 }
 
-uint64_t specialized _wideMaskedShiftLeft<A>(_:_:)(uint64_t *a1, unint64_t a2, unint64_t a3, char a4)
+unint64_t specialized _wideMaskedShiftLeft<A>(_:_:)(unint64_t *a1, unint64_t a2, unint64_t a3, char a4)
 {
   v4 = (a2 << a4) | (a3 >> -a4);
   if ((a4 & 0x7F) != 0)
@@ -8573,7 +8545,7 @@ unint64_t protocol witness for FixedWidthInteger.dividingFullWidth(_:) in confor
   return result;
 }
 
-uint64_t *protocol witness for static FixedWidthInteger.&>> infix(_:_:) in conformance _UInt128@<X0>(uint64_t *result@<X0>, void *a2@<X1>, unint64_t *a3@<X8>)
+unint64_t *protocol witness for static FixedWidthInteger.&>> infix(_:_:) in conformance _UInt128@<X0>(unint64_t *result@<X0>, void *a2@<X1>, unint64_t *a3@<X8>)
 {
   v3 = *result;
   v4 = result[1];
@@ -8597,7 +8569,7 @@ uint64_t *protocol witness for static FixedWidthInteger.&>> infix(_:_:) in confo
   return result;
 }
 
-uint64_t *protocol witness for static FixedWidthInteger.&<< infix(_:_:) in conformance _UInt128@<X0>(uint64_t *result@<X0>, void *a2@<X1>, void *a3@<X8>)
+uint64_t *protocol witness for static FixedWidthInteger.&<< infix(_:_:) in conformance _UInt128@<X0>(uint64_t *result@<X0>, void *a2@<X1>, uint64_t *a3@<X8>)
 {
   v3 = *result;
   v4 = result[1];
@@ -8637,50 +8609,50 @@ uint64_t protocol witness for BinaryInteger.init<A>(truncatingIfNeeded:) in conf
   return result;
 }
 
-uint64_t protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conformance _UInt128@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, unint64_t *a5@<X8>)
+uint64_t protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conformance _UInt128@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, unint64_t *a5@<X8>)
 {
-  v110 = *(*(a4 + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v110, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v109 = v10;
-  v11 = MEMORY[0x1EEE9AC00](v10);
-  v108 = v106 - v12;
-  v13 = *(a3 - 1);
-  v14 = MEMORY[0x1EEE9AC00](v11);
-  v16 = v106 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v114 = v106 - v17;
-  v18 = *a1;
-  v111 = a1[1];
-  v112 = v18;
-  v19 = (a4 + 64);
-  v115 = *(a4 + 64);
-  if (v115(a3, a4))
+  v113 = *(*(a4 + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v113, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v112 = v10;
+  v12 = MEMORY[0x1EEE9AC00](v10, v11);
+  v111 = v109 - v13;
+  v14 = *(a3 - 1);
+  v16 = MEMORY[0x1EEE9AC00](v12, v15);
+  v18 = v109 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16, v19);
+  v117 = v109 - v20;
+  v21 = *a1;
+  v114 = a1[1];
+  v115 = v21;
+  v22 = (a4 + 64);
+  v118 = *(a4 + 64);
+  if (v118(a3, a4))
   {
-    v20 = *(a4 + 128);
-    v21 = v20(a3, a4);
-    if (v21 >= 64)
+    v23 = *(a4 + 128);
+    v24 = v23(a3, a4);
+    if (v24 >= 64)
     {
-      v116 = -128;
-      v113 = a2;
-      v24 = v20;
-      v25 = v16;
-      v26 = v13;
-      v27 = a5;
-      v28 = *(a4 + 96);
-      v29 = lazy protocol witness table accessor for type Int and conformance Int(v21, v22, v23);
-      v107 = (a4 + 64);
-      v30 = v114;
-      v28(&v116, &type metadata for Int, v29, a3, a4);
-      a5 = v27;
-      v13 = v26;
-      v16 = v25;
-      v20 = v24;
-      a2 = v113;
-      v31 = (*(*(*(a4 + 32) + 8) + 16))(v113, v30, a3);
-      v32 = v30;
-      v19 = v107;
-      result = (*(v13 + 8))(v32, a3);
-      if (v31)
+      v119 = -128;
+      v116 = a2;
+      v27 = v23;
+      v28 = v18;
+      v29 = v14;
+      v30 = a5;
+      v31 = *(a4 + 96);
+      v32 = lazy protocol witness table accessor for type Int and conformance Int(v24, v25, v26);
+      v110 = (a4 + 64);
+      v33 = v117;
+      v31(&v119, &type metadata for Int, v32, a3, a4);
+      a5 = v30;
+      v14 = v29;
+      v18 = v28;
+      v23 = v27;
+      a2 = v116;
+      v34 = (*(*(*(a4 + 32) + 8) + 16))(v116, v33, a3);
+      v35 = v33;
+      v22 = v110;
+      result = (*(v14 + 8))(v35, a3);
+      if (v34)
       {
         goto LABEL_25;
       }
@@ -8691,32 +8663,32 @@ uint64_t protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conforma
 
   else
   {
-    v34 = v115(a3, a4);
-    v20 = *(a4 + 128);
-    v35 = v20(a3, a4);
-    if (v34)
+    v37 = v118(a3, a4);
+    v23 = *(a4 + 128);
+    v38 = v23(a3, a4);
+    if (v37)
     {
-      v113 = a2;
-      v107 = v20;
-      if (v35 <= 64)
+      v116 = a2;
+      v110 = v23;
+      if (v38 <= 64)
       {
-        v72 = v109;
-        v71 = v110;
-        AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v110, a3, v109, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-        v74 = v108;
-        (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v72, AssociatedConformanceWitness);
-        v75 = v114;
-        (v71[3])(v74, a3, v71);
-        a2 = v113;
-        LOBYTE(v71) = (*(*(*(a4 + 32) + 8) + 16))(v113, v75, a3);
-        result = (*(v13 + 8))(v75, a3);
-        if (v71)
+        v75 = v112;
+        v74 = v113;
+        AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v113, a3, v112, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+        v77 = v111;
+        (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v75, AssociatedConformanceWitness);
+        v78 = v117;
+        (v74[3])(v77, a3, v74);
+        a2 = v116;
+        LOBYTE(v74) = (*(*(*(a4 + 32) + 8) + 16))(v116, v78, a3);
+        result = (*(v14 + 8))(v78, a3);
+        if (v74)
         {
           goto LABEL_25;
         }
 
         result = (*(a4 + 120))(a3, a4);
-        v20 = v107;
+        v23 = v110;
         if (result < -128)
         {
           goto LABEL_25;
@@ -8725,25 +8697,25 @@ uint64_t protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conforma
 
       else
       {
-        v116 = -128;
-        v38 = v16;
-        v39 = v13;
-        v40 = a5;
-        v41 = *(a4 + 96);
-        v42 = lazy protocol witness table accessor for type Int and conformance Int(v35, v36, v37);
-        v43 = v114;
-        v41(&v116, &type metadata for Int, v42, a3, a4);
-        a5 = v40;
-        v13 = v39;
-        v16 = v38;
-        v44 = v113;
-        v45 = (*(*(*(a4 + 32) + 8) + 16))(v113, v43, a3);
-        v46 = v43;
-        v19 = (a4 + 64);
-        a2 = v44;
-        result = (*(v13 + 8))(v46, a3);
-        v20 = v107;
-        if (v45)
+        v119 = -128;
+        v41 = v18;
+        v42 = v14;
+        v43 = a5;
+        v44 = *(a4 + 96);
+        v45 = lazy protocol witness table accessor for type Int and conformance Int(v38, v39, v40);
+        v46 = v117;
+        v44(&v119, &type metadata for Int, v45, a3, a4);
+        a5 = v43;
+        v14 = v42;
+        v18 = v41;
+        v47 = v116;
+        v48 = (*(*(*(a4 + 32) + 8) + 16))(v116, v46, a3);
+        v49 = v46;
+        v22 = (a4 + 64);
+        a2 = v47;
+        result = (*(v14 + 8))(v49, a3);
+        v23 = v110;
+        if (v48)
         {
           goto LABEL_25;
         }
@@ -8752,7 +8724,7 @@ uint64_t protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conforma
       goto LABEL_11;
     }
 
-    if (v35 >= 64)
+    if (v38 >= 64)
     {
       goto LABEL_11;
     }
@@ -8765,41 +8737,41 @@ uint64_t protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conforma
   }
 
 LABEL_11:
-  v47 = v115(a3, a4);
-  v106[1] = a4 + 128;
-  v48 = v20(a3, a4);
-  if (v47)
+  v50 = v118(a3, a4);
+  v109[1] = a4 + 128;
+  v51 = v23(a3, a4);
+  if (v50)
   {
-    if (v48 > 64)
+    if (v51 > 64)
     {
       goto LABEL_13;
     }
   }
 
-  else if (v48 >= 64)
+  else if (v51 >= 64)
   {
 LABEL_13:
-    v116 = 128;
-    v113 = a2;
-    v51 = v20;
-    v52 = v16;
-    v53 = v13;
-    v54 = a5;
-    v55 = *(a4 + 96);
-    v56 = lazy protocol witness table accessor for type Int and conformance Int(v48, v49, v50);
-    v107 = v19;
-    v57 = v114;
-    v55(&v116, &type metadata for Int, v56, a3, a4);
-    a5 = v54;
-    v13 = v53;
-    v16 = v52;
-    v20 = v51;
-    a2 = v113;
-    v58 = (*(*(*(a4 + 32) + 8) + 16))(v57, v113, a3);
-    v59 = v57;
-    v19 = v107;
-    result = (*(v13 + 8))(v59, a3);
-    if (v58)
+    v119 = 128;
+    v116 = a2;
+    v54 = v23;
+    v55 = v18;
+    v56 = v14;
+    v57 = a5;
+    v58 = *(a4 + 96);
+    v59 = lazy protocol witness table accessor for type Int and conformance Int(v51, v52, v53);
+    v110 = v22;
+    v60 = v117;
+    v58(&v119, &type metadata for Int, v59, a3, a4);
+    a5 = v57;
+    v14 = v56;
+    v18 = v55;
+    v23 = v54;
+    a2 = v116;
+    v61 = (*(*(*(a4 + 32) + 8) + 16))(v60, v116, a3);
+    v62 = v60;
+    v22 = v110;
+    result = (*(v14 + 8))(v62, a3);
+    if (v61)
     {
       goto LABEL_25;
     }
@@ -8814,19 +8786,19 @@ LABEL_13:
   }
 
 LABEL_17:
-  (*(v13 + 16))(v16, a2, a3);
-  if ((v115(a3, a4) & 1) == 0 || v20(a3, a4) < 65)
+  (*(v14 + 16))(v18, a2, a3);
+  if ((v118(a3, a4) & 1) == 0 || v23(a3, a4) < 65)
   {
     goto LABEL_36;
   }
 
-  if ((v115(a3, a4) & 1) == 0)
+  if ((v118(a3, a4) & 1) == 0)
   {
-    v78 = v115(a3, a4);
-    v79 = v20(a3, a4);
-    if ((v78 & 1) == 0)
+    v81 = v118(a3, a4);
+    v82 = v23(a3, a4);
+    if ((v81 & 1) == 0)
     {
-      if (v79 >= 64)
+      if (v82 >= 64)
       {
         goto LABEL_36;
       }
@@ -8834,20 +8806,20 @@ LABEL_17:
       goto LABEL_35;
     }
 
-    v107 = v20;
-    if (v79 <= 64)
+    v110 = v23;
+    if (v82 <= 64)
     {
-      v90 = v109;
-      v89 = v110;
-      v91 = swift_getAssociatedConformanceWitness(v110, a3, v109, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v92 = v108;
-      (*(v91 + 8))(&qword_18071E0A8, 256, v90, v91);
-      v93 = v114;
-      (v89[3])(v92, a3, v89);
-      LOBYTE(v89) = (*(*(*(a4 + 32) + 8) + 16))(v16, v93, a3);
-      (*(v13 + 8))(v93, a3);
-      v20 = v107;
-      if ((v89 & 1) == 0)
+      v93 = v112;
+      v92 = v113;
+      v94 = swift_getAssociatedConformanceWitness(v113, a3, v112, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v95 = v111;
+      (*(v94 + 8))(&qword_18071E0A8, 256, v93, v94);
+      v96 = v117;
+      (v92[3])(v95, a3, v92);
+      LOBYTE(v92) = (*(*(*(a4 + 32) + 8) + 16))(v18, v96, a3);
+      (*(v14 + 8))(v96, a3);
+      v23 = v110;
+      if ((v92 & 1) == 0)
       {
         goto LABEL_35;
       }
@@ -8855,21 +8827,21 @@ LABEL_17:
 
     else
     {
-      v116 = 0x8000000000000000;
-      v82 = v16;
-      v83 = v13;
-      v84 = a5;
-      v85 = *(a4 + 96);
-      v86 = lazy protocol witness table accessor for type Int and conformance Int(v79, v80, v81);
-      v87 = v114;
-      v85(&v116, &type metadata for Int, v86, a3, a4);
-      a5 = v84;
-      v13 = v83;
-      v16 = v82;
-      v88 = (*(*(*(a4 + 32) + 8) + 16))(v82, v87, a3);
-      (*(v13 + 8))(v87, a3);
-      v20 = v107;
-      if ((v88 & 1) == 0)
+      v119 = 0x8000000000000000;
+      v85 = v18;
+      v86 = v14;
+      v87 = a5;
+      v88 = *(a4 + 96);
+      v89 = lazy protocol witness table accessor for type Int and conformance Int(v82, v83, v84);
+      v90 = v117;
+      v88(&v119, &type metadata for Int, v89, a3, a4);
+      a5 = v87;
+      v14 = v86;
+      v18 = v85;
+      v91 = (*(*(*(a4 + 32) + 8) + 16))(v85, v90, a3);
+      (*(v14 + 8))(v90, a3);
+      v23 = v110;
+      if ((v91 & 1) == 0)
       {
         goto LABEL_36;
       }
@@ -8879,46 +8851,46 @@ LABEL_40:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  v60 = v20(a3, a4);
-  if (v60 < 64)
+  v63 = v23(a3, a4);
+  if (v63 < 64)
   {
 LABEL_35:
     (*(a4 + 120))(a3, a4);
     goto LABEL_36;
   }
 
-  v116 = 0x8000000000000000;
-  v63 = v20;
-  v64 = v16;
-  v65 = v13;
-  v66 = a5;
-  v67 = *(a4 + 96);
-  v68 = lazy protocol witness table accessor for type Int and conformance Int(v60, v61, v62);
-  v107 = v19;
-  v69 = v114;
-  v67(&v116, &type metadata for Int, v68, a3, a4);
-  a5 = v66;
-  v13 = v65;
-  v16 = v64;
-  v20 = v63;
-  v70 = (*(*(*(a4 + 32) + 8) + 16))(v16, v69, a3);
-  (*(v13 + 8))(v69, a3);
-  if (v70)
+  v119 = 0x8000000000000000;
+  v66 = v23;
+  v67 = v18;
+  v68 = v14;
+  v69 = a5;
+  v70 = *(a4 + 96);
+  v71 = lazy protocol witness table accessor for type Int and conformance Int(v63, v64, v65);
+  v110 = v22;
+  v72 = v117;
+  v70(&v119, &type metadata for Int, v71, a3, a4);
+  a5 = v69;
+  v14 = v68;
+  v18 = v67;
+  v23 = v66;
+  v73 = (*(*(*(a4 + 32) + 8) + 16))(v18, v72, a3);
+  (*(v14 + 8))(v72, a3);
+  if (v73)
   {
     goto LABEL_40;
   }
 
 LABEL_36:
-  if (v20(a3, a4) <= 64 && (v20(a3, a4) != 64 || (v115(a3, a4) & 1) != 0))
+  if (v23(a3, a4) <= 64 && (v23(a3, a4) != 64 || (v118(a3, a4) & 1) != 0))
   {
     goto LABEL_46;
   }
 
-  v94 = v115(a3, a4);
-  v95 = v20(a3, a4);
-  if (v94)
+  v97 = v118(a3, a4);
+  v98 = v23(a3, a4);
+  if (v97)
   {
-    if (v95 > 64)
+    if (v98 > 64)
     {
       goto LABEL_39;
     }
@@ -8928,120 +8900,120 @@ LABEL_45:
     goto LABEL_46;
   }
 
-  if (v95 < 64)
+  if (v98 < 64)
   {
     goto LABEL_45;
   }
 
 LABEL_39:
-  v116 = 0x7FFFFFFFFFFFFFFFLL;
-  v98 = v16;
-  v99 = a5;
-  v100 = *(a4 + 96);
-  v101 = lazy protocol witness table accessor for type Int and conformance Int(v95, v96, v97);
-  v102 = v114;
-  v100(&v116, &type metadata for Int, v101, a3, a4);
-  a5 = v99;
-  v16 = v98;
-  v103 = (*(*(*(a4 + 32) + 8) + 16))(v102, v98, a3);
-  (*(v13 + 8))(v102, a3);
-  if (v103)
+  v119 = 0x7FFFFFFFFFFFFFFFLL;
+  v101 = v18;
+  v102 = a5;
+  v103 = *(a4 + 96);
+  v104 = lazy protocol witness table accessor for type Int and conformance Int(v98, v99, v100);
+  v105 = v117;
+  v103(&v119, &type metadata for Int, v104, a3, a4);
+  a5 = v102;
+  v18 = v101;
+  v106 = (*(*(*(a4 + 32) + 8) + 16))(v105, v101, a3);
+  (*(v14 + 8))(v105, a3);
+  if (v106)
   {
     goto LABEL_40;
   }
 
 LABEL_46:
-  v104 = (*(a4 + 120))(a3, a4);
-  result = (*(v13 + 8))(v16, a3);
-  if ((v104 & 0x8000000000000000) != 0)
+  v107 = (*(a4 + 120))(a3, a4);
+  result = (*(v14 + 8))(v18, a3);
+  if ((v107 & 0x8000000000000000) != 0)
   {
-    if (v104 > 0xFFFFFFFFFFFFFF80)
+    if (v107 > 0xFFFFFFFFFFFFFF80)
     {
-      v105 = -v104;
-      if (-v104 < 0x40)
+      v108 = -v107;
+      if (-v107 < 0x40)
       {
-        v76 = (v112 >> v104) | (v111 << v105);
-        v77 = v112 << v105;
+        v79 = (v115 >> v107) | (v114 << v108);
+        v80 = v115 << v108;
         goto LABEL_27;
       }
 
-      v76 = v112 << v105;
+      v79 = v115 << v108;
       goto LABEL_26;
     }
 
 LABEL_25:
-    v76 = 0;
+    v79 = 0;
 LABEL_26:
-    v77 = 0;
+    v80 = 0;
     goto LABEL_27;
   }
 
-  v76 = v111;
-  v77 = v112;
-  if (v104 >= 0x80)
+  v79 = v114;
+  v80 = v115;
+  if (v107 >= 0x80)
   {
     goto LABEL_25;
   }
 
-  if (v104 > 0x3F)
+  if (v107 > 0x3F)
   {
-    v77 = v111 >> v104;
-    v76 = 0;
+    v80 = v114 >> v107;
+    v79 = 0;
   }
 
-  else if (v104)
+  else if (v107)
   {
-    v77 = (v111 << -v104) | (v112 >> v104);
-    v76 = v111 >> v104;
+    v80 = (v114 << -v107) | (v115 >> v107);
+    v79 = v114 >> v107;
   }
 
 LABEL_27:
-  *a5 = v77;
-  a5[1] = v76;
+  *a5 = v80;
+  a5[1] = v79;
   return result;
 }
 
-uint64_t protocol witness for static BinaryInteger.>>= infix<A>(_:_:) in conformance _UInt128(unint64_t *a1, uint64_t a2, const char *a3, uint64_t a4)
+uint64_t protocol witness for static BinaryInteger.>>= infix<A>(_:_:) in conformance _UInt128(unint64_t *a1, uint64_t a2, Class *a3, uint64_t a4)
 {
-  v107 = *(*(a4 + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v107, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v106 = v8;
-  v9 = MEMORY[0x1EEE9AC00](v8);
-  v105 = v103 - v10;
-  v11 = *(a3 - 1);
-  v12 = MEMORY[0x1EEE9AC00](v9);
-  v14 = v103 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v109 = v103 - v15;
-  v16 = (a4 + 64);
-  v110 = *(a4 + 64);
-  if (v110(a3, a4))
+  v110 = *(*(a4 + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v110, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v109 = v8;
+  v10 = MEMORY[0x1EEE9AC00](v8, v9);
+  v108 = v106 - v11;
+  v12 = *(a3 - 1);
+  v14 = MEMORY[0x1EEE9AC00](v10, v13);
+  v16 = v106 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14, v17);
+  v112 = v106 - v18;
+  v19 = (a4 + 64);
+  v113 = *(a4 + 64);
+  if (v113(a3, a4))
   {
-    v17 = *(a4 + 128);
-    v18 = v17(a3, a4);
-    if (v18 >= 64)
+    v20 = *(a4 + 128);
+    v21 = v20(a3, a4);
+    if (v21 >= 64)
     {
-      v111 = -128;
-      v108 = a2;
-      v35 = v17;
-      v36 = v14;
-      v37 = v11;
-      v38 = a1;
-      v39 = *(a4 + 96);
-      v40 = lazy protocol witness table accessor for type Int and conformance Int(v18, v19, v20);
-      v104 = (a4 + 64);
-      v41 = v109;
-      v39(&v111, &type metadata for Int, v40, a3, a4);
-      a1 = v38;
-      v11 = v37;
-      v14 = v36;
-      v17 = v35;
-      a2 = v108;
-      v42 = (*(*(*(a4 + 32) + 8) + 16))(v108, v41, a3);
-      v43 = v41;
-      v16 = v104;
-      result = (*(v11 + 8))(v43, a3);
-      if (v42)
+      v114 = -128;
+      v111 = a2;
+      v38 = v20;
+      v39 = v16;
+      v40 = v12;
+      v41 = a1;
+      v42 = *(a4 + 96);
+      v43 = lazy protocol witness table accessor for type Int and conformance Int(v21, v22, v23);
+      v107 = (a4 + 64);
+      v44 = v112;
+      v42(&v114, &type metadata for Int, v43, a3, a4);
+      a1 = v41;
+      v12 = v40;
+      v16 = v39;
+      v20 = v38;
+      a2 = v111;
+      v45 = (*(*(*(a4 + 32) + 8) + 16))(v111, v44, a3);
+      v46 = v44;
+      v19 = v107;
+      result = (*(v12 + 8))(v46, a3);
+      if (v45)
       {
         goto LABEL_21;
       }
@@ -9059,34 +9031,34 @@ uint64_t protocol witness for static BinaryInteger.>>= infix<A>(_:_:) in conform
 
   else
   {
-    v22 = v110(a3, a4);
-    v17 = *(a4 + 128);
-    v23 = v17(a3, a4);
-    if (v22)
+    v25 = v113(a3, a4);
+    v20 = *(a4 + 128);
+    v26 = v20(a3, a4);
+    if (v25)
     {
-      v108 = a2;
-      v104 = v17;
-      if (v23 > 64)
+      v111 = a2;
+      v107 = v20;
+      if (v26 > 64)
       {
-        v111 = -128;
-        v26 = v14;
-        v27 = v11;
-        v28 = a1;
-        v29 = *(a4 + 96);
-        v30 = lazy protocol witness table accessor for type Int and conformance Int(v23, v24, v25);
-        v31 = v109;
-        v29(&v111, &type metadata for Int, v30, a3, a4);
-        a1 = v28;
-        v11 = v27;
-        v14 = v26;
-        v32 = v108;
-        v33 = (*(*(*(a4 + 32) + 8) + 16))(v108, v31, a3);
-        v34 = v31;
-        v16 = (a4 + 64);
-        a2 = v32;
-        result = (*(v11 + 8))(v34, a3);
-        v17 = v104;
-        if (v33)
+        v114 = -128;
+        v29 = v16;
+        v30 = v12;
+        v31 = a1;
+        v32 = *(a4 + 96);
+        v33 = lazy protocol witness table accessor for type Int and conformance Int(v26, v27, v28);
+        v34 = v112;
+        v32(&v114, &type metadata for Int, v33, a3, a4);
+        a1 = v31;
+        v12 = v30;
+        v16 = v29;
+        v35 = v111;
+        v36 = (*(*(*(a4 + 32) + 8) + 16))(v111, v34, a3);
+        v37 = v34;
+        v19 = (a4 + 64);
+        a2 = v35;
+        result = (*(v12 + 8))(v37, a3);
+        v20 = v107;
+        if (v36)
         {
           goto LABEL_21;
         }
@@ -9094,24 +9066,24 @@ uint64_t protocol witness for static BinaryInteger.>>= infix<A>(_:_:) in conform
         goto LABEL_15;
       }
 
-      v45 = v106;
-      v44 = v107;
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v107, a3, v106, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v47 = v105;
-      (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v45, AssociatedConformanceWitness);
       v48 = v109;
-      (v44[3])(v47, a3, v44);
-      a2 = v108;
-      LOBYTE(v44) = (*(*(*(a4 + 32) + 8) + 16))(v108, v48, a3);
-      result = (*(v11 + 8))(v48, a3);
-      v17 = v104;
-      if (v44)
+      v47 = v110;
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v110, a3, v109, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v50 = v108;
+      (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v48, AssociatedConformanceWitness);
+      v51 = v112;
+      (v47[3])(v50, a3, v47);
+      a2 = v111;
+      LOBYTE(v47) = (*(*(*(a4 + 32) + 8) + 16))(v111, v51, a3);
+      result = (*(v12 + 8))(v51, a3);
+      v20 = v107;
+      if (v47)
       {
         goto LABEL_21;
       }
     }
 
-    else if (v23 >= 64)
+    else if (v26 >= 64)
     {
       goto LABEL_15;
     }
@@ -9124,12 +9096,12 @@ uint64_t protocol witness for static BinaryInteger.>>= infix<A>(_:_:) in conform
   }
 
 LABEL_15:
-  v49 = v110(a3, a4);
-  v103[1] = a4 + 128;
-  v50 = v17(a3, a4);
-  if (v49)
+  v52 = v113(a3, a4);
+  v106[1] = a4 + 128;
+  v53 = v20(a3, a4);
+  if (v52)
   {
-    if (v50 > 64)
+    if (v53 > 64)
     {
       goto LABEL_17;
     }
@@ -9144,51 +9116,51 @@ LABEL_20:
     goto LABEL_24;
   }
 
-  if (v50 < 64)
+  if (v53 < 64)
   {
     goto LABEL_20;
   }
 
 LABEL_17:
-  v111 = 128;
-  v108 = a2;
-  v53 = v17;
-  v54 = v14;
-  v55 = v11;
-  v56 = a1;
-  v57 = *(a4 + 96);
-  v58 = lazy protocol witness table accessor for type Int and conformance Int(v50, v51, v52);
-  v104 = v16;
-  v59 = v109;
-  v57(&v111, &type metadata for Int, v58, a3, a4);
-  a1 = v56;
-  v11 = v55;
-  v14 = v54;
-  v17 = v53;
-  a2 = v108;
-  v60 = (*(*(*(a4 + 32) + 8) + 16))(v59, v108, a3);
-  v61 = v59;
-  v16 = v104;
-  result = (*(v11 + 8))(v61, a3);
-  if (v60)
+  v114 = 128;
+  v111 = a2;
+  v56 = v20;
+  v57 = v16;
+  v58 = v12;
+  v59 = a1;
+  v60 = *(a4 + 96);
+  v61 = lazy protocol witness table accessor for type Int and conformance Int(v53, v54, v55);
+  v107 = v19;
+  v62 = v112;
+  v60(&v114, &type metadata for Int, v61, a3, a4);
+  a1 = v59;
+  v12 = v58;
+  v16 = v57;
+  v20 = v56;
+  a2 = v111;
+  v63 = (*(*(*(a4 + 32) + 8) + 16))(v62, v111, a3);
+  v64 = v62;
+  v19 = v107;
+  result = (*(v12 + 8))(v64, a3);
+  if (v63)
   {
     goto LABEL_21;
   }
 
 LABEL_24:
-  (*(v11 + 16))(v14, a2, a3);
-  if ((v110(a3, a4) & 1) == 0 || v17(a3, a4) < 65)
+  (*(v12 + 16))(v16, a2, a3);
+  if ((v113(a3, a4) & 1) == 0 || v20(a3, a4) < 65)
   {
     goto LABEL_38;
   }
 
-  if ((v110(a3, a4) & 1) == 0)
+  if ((v113(a3, a4) & 1) == 0)
   {
-    v75 = v110(a3, a4);
-    v76 = v17(a3, a4);
-    if ((v75 & 1) == 0)
+    v78 = v113(a3, a4);
+    v79 = v20(a3, a4);
+    if ((v78 & 1) == 0)
     {
-      if (v76 >= 64)
+      if (v79 >= 64)
       {
         goto LABEL_38;
       }
@@ -9196,20 +9168,20 @@ LABEL_24:
       goto LABEL_37;
     }
 
-    v104 = v17;
-    if (v76 <= 64)
+    v107 = v20;
+    if (v79 <= 64)
     {
-      v87 = v106;
-      v86 = v107;
-      v88 = swift_getAssociatedConformanceWitness(v107, a3, v106, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v89 = v105;
-      (*(v88 + 8))(&qword_18071E0A8, 256, v87, v88);
       v90 = v109;
-      (v86[3])(v89, a3, v86);
-      LOBYTE(v86) = (*(*(*(a4 + 32) + 8) + 16))(v14, v90, a3);
-      (*(v11 + 8))(v90, a3);
-      v17 = v104;
-      if ((v86 & 1) == 0)
+      v89 = v110;
+      v91 = swift_getAssociatedConformanceWitness(v110, a3, v109, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v92 = v108;
+      (*(v91 + 8))(&qword_18071E0A8, 256, v90, v91);
+      v93 = v112;
+      (v89[3])(v92, a3, v89);
+      LOBYTE(v89) = (*(*(*(a4 + 32) + 8) + 16))(v16, v93, a3);
+      (*(v12 + 8))(v93, a3);
+      v20 = v107;
+      if ((v89 & 1) == 0)
       {
         goto LABEL_37;
       }
@@ -9217,21 +9189,21 @@ LABEL_24:
 
     else
     {
-      v111 = 0x8000000000000000;
-      v79 = v14;
-      v80 = v11;
-      v81 = a1;
-      v82 = *(a4 + 96);
-      v83 = lazy protocol witness table accessor for type Int and conformance Int(v76, v77, v78);
-      v84 = v109;
-      v82(&v111, &type metadata for Int, v83, a3, a4);
-      a1 = v81;
-      v11 = v80;
-      v14 = v79;
-      v85 = (*(*(*(a4 + 32) + 8) + 16))(v79, v84, a3);
-      (*(v11 + 8))(v84, a3);
-      v17 = v104;
-      if ((v85 & 1) == 0)
+      v114 = 0x8000000000000000;
+      v82 = v16;
+      v83 = v12;
+      v84 = a1;
+      v85 = *(a4 + 96);
+      v86 = lazy protocol witness table accessor for type Int and conformance Int(v79, v80, v81);
+      v87 = v112;
+      v85(&v114, &type metadata for Int, v86, a3, a4);
+      a1 = v84;
+      v12 = v83;
+      v16 = v82;
+      v88 = (*(*(*(a4 + 32) + 8) + 16))(v82, v87, a3);
+      (*(v12 + 8))(v87, a3);
+      v20 = v107;
+      if ((v88 & 1) == 0)
       {
         goto LABEL_38;
       }
@@ -9241,46 +9213,46 @@ LABEL_42:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  v64 = v17(a3, a4);
-  if (v64 < 64)
+  v67 = v20(a3, a4);
+  if (v67 < 64)
   {
 LABEL_37:
     (*(a4 + 120))(a3, a4);
     goto LABEL_38;
   }
 
-  v111 = 0x8000000000000000;
-  v67 = v17;
-  v68 = v14;
-  v69 = v11;
-  v70 = a1;
-  v71 = *(a4 + 96);
-  v72 = lazy protocol witness table accessor for type Int and conformance Int(v64, v65, v66);
-  v104 = v16;
-  v73 = v109;
-  v71(&v111, &type metadata for Int, v72, a3, a4);
-  a1 = v70;
-  v11 = v69;
-  v14 = v68;
-  v17 = v67;
-  v74 = (*(*(*(a4 + 32) + 8) + 16))(v14, v73, a3);
-  (*(v11 + 8))(v73, a3);
-  if (v74)
+  v114 = 0x8000000000000000;
+  v70 = v20;
+  v71 = v16;
+  v72 = v12;
+  v73 = a1;
+  v74 = *(a4 + 96);
+  v75 = lazy protocol witness table accessor for type Int and conformance Int(v67, v68, v69);
+  v107 = v19;
+  v76 = v112;
+  v74(&v114, &type metadata for Int, v75, a3, a4);
+  a1 = v73;
+  v12 = v72;
+  v16 = v71;
+  v20 = v70;
+  v77 = (*(*(*(a4 + 32) + 8) + 16))(v16, v76, a3);
+  (*(v12 + 8))(v76, a3);
+  if (v77)
   {
     goto LABEL_42;
   }
 
 LABEL_38:
-  if (v17(a3, a4) <= 64 && (v17(a3, a4) != 64 || (v110(a3, a4) & 1) != 0))
+  if (v20(a3, a4) <= 64 && (v20(a3, a4) != 64 || (v113(a3, a4) & 1) != 0))
   {
     goto LABEL_48;
   }
 
-  v91 = v110(a3, a4);
-  v92 = v17(a3, a4);
-  if (v91)
+  v94 = v113(a3, a4);
+  v95 = v20(a3, a4);
+  if (v94)
   {
-    if (v92 > 64)
+    if (v95 > 64)
     {
       goto LABEL_41;
     }
@@ -9290,121 +9262,121 @@ LABEL_47:
     goto LABEL_48;
   }
 
-  if (v92 < 64)
+  if (v95 < 64)
   {
     goto LABEL_47;
   }
 
 LABEL_41:
-  v111 = 0x7FFFFFFFFFFFFFFFLL;
-  v95 = v14;
-  v96 = a1;
-  v97 = *(a4 + 96);
-  v98 = lazy protocol witness table accessor for type Int and conformance Int(v92, v93, v94);
-  v99 = v109;
-  v97(&v111, &type metadata for Int, v98, a3, a4);
-  a1 = v96;
-  v14 = v95;
-  v100 = (*(*(*(a4 + 32) + 8) + 16))(v99, v95, a3);
-  (*(v11 + 8))(v99, a3);
-  if (v100)
+  v114 = 0x7FFFFFFFFFFFFFFFLL;
+  v98 = v16;
+  v99 = a1;
+  v100 = *(a4 + 96);
+  v101 = lazy protocol witness table accessor for type Int and conformance Int(v95, v96, v97);
+  v102 = v112;
+  v100(&v114, &type metadata for Int, v101, a3, a4);
+  a1 = v99;
+  v16 = v98;
+  v103 = (*(*(*(a4 + 32) + 8) + 16))(v102, v98, a3);
+  (*(v12 + 8))(v102, a3);
+  if (v103)
   {
     goto LABEL_42;
   }
 
 LABEL_48:
-  v101 = (*(a4 + 120))(a3, a4);
-  result = (*(v11 + 8))(v14, a3);
-  v63 = *a1;
-  v62 = a1[1];
-  if ((v101 & 0x8000000000000000) != 0)
+  v104 = (*(a4 + 120))(a3, a4);
+  result = (*(v12 + 8))(v16, a3);
+  v66 = *a1;
+  v65 = a1[1];
+  if ((v104 & 0x8000000000000000) != 0)
   {
-    if (v101 > 0xFFFFFFFFFFFFFF80)
+    if (v104 > 0xFFFFFFFFFFFFFF80)
     {
-      v102 = -v101;
-      if (-v101 < 0x40)
+      v105 = -v104;
+      if (-v104 < 0x40)
       {
-        v62 = (v62 << v102) | (v63 >> v101);
-        v63 <<= v102;
+        v65 = (v65 << v105) | (v66 >> v104);
+        v66 <<= v105;
         goto LABEL_23;
       }
 
-      v62 = v63 << v102;
+      v65 = v66 << v105;
       goto LABEL_22;
     }
 
 LABEL_21:
-    v62 = 0;
+    v65 = 0;
 LABEL_22:
-    v63 = 0;
+    v66 = 0;
     goto LABEL_23;
   }
 
-  if (v101 >= 0x80)
+  if (v104 >= 0x80)
   {
     goto LABEL_21;
   }
 
-  if (v101 > 0x3F)
+  if (v104 > 0x3F)
   {
-    v63 = v62 >> v101;
-    v62 = 0;
+    v66 = v65 >> v104;
+    v65 = 0;
   }
 
-  else if (v101)
+  else if (v104)
   {
-    v63 = (v62 << -v101) | (v63 >> v101);
-    v62 >>= v101;
+    v66 = (v65 << -v104) | (v66 >> v104);
+    v65 >>= v104;
   }
 
 LABEL_23:
-  *a1 = v63;
-  a1[1] = v62;
+  *a1 = v66;
+  a1[1] = v65;
   return result;
 }
 
-unint64_t protocol witness for static BinaryInteger.<< infix<A>(_:_:) in conformance _UInt128@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
+unint64_t protocol witness for static BinaryInteger.<< infix<A>(_:_:) in conformance _UInt128@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
-  v102 = a5;
-  v96 = *(*(a4 + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v96, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v95 = v9;
-  v10 = MEMORY[0x1EEE9AC00](v9);
-  v94 = &v92 - v11;
-  v12 = *(a3 - 1);
-  v13 = MEMORY[0x1EEE9AC00](v10);
-  v15 = &v92 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v101 = &v92 - v16;
-  v17 = *a1;
-  v97 = a1[1];
-  v98 = v17;
-  v18 = *(a4 + 64);
-  if (v18(a3, a4))
+  v105 = a5;
+  v99 = *(*(a4 + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v99, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v98 = v9;
+  v11 = MEMORY[0x1EEE9AC00](v9, v10);
+  v97 = &v95 - v12;
+  v13 = *(a3 - 1);
+  v15 = MEMORY[0x1EEE9AC00](v11, v14);
+  v17 = &v95 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15, v18);
+  v104 = &v95 - v19;
+  v20 = *a1;
+  v100 = a1[1];
+  v101 = v20;
+  v21 = *(a4 + 64);
+  if (v21(a3, a4))
   {
-    v19 = *(a4 + 128);
-    v20 = v19(a3, a4);
-    if (v20 >= 64)
+    v22 = *(a4 + 128);
+    v23 = v22(a3, a4);
+    if (v23 >= 64)
     {
-      v103 = -128;
-      v99 = v18;
-      v23 = v15;
-      v24 = v12;
-      v25 = a2;
-      v26 = *(a4 + 96);
-      v27 = lazy protocol witness table accessor for type Int and conformance Int(v20, v21, v22);
-      v100 = v19;
-      v28 = v101;
-      v26(&v103, &type metadata for Int, v27, a3, a4);
-      a2 = v25;
-      v12 = v24;
-      v15 = v23;
-      v18 = v99;
-      v29 = (*(*(*(a4 + 32) + 8) + 16))(a2, v28, a3);
-      v30 = v28;
-      v19 = v100;
-      (*(v12 + 8))(v30, a3);
-      if (v29)
+      v106 = -128;
+      v102 = v21;
+      v26 = v17;
+      v27 = v13;
+      v28 = a2;
+      v29 = *(a4 + 96);
+      v30 = lazy protocol witness table accessor for type Int and conformance Int(v23, v24, v25);
+      v103 = v22;
+      v31 = v104;
+      v29(&v106, &type metadata for Int, v30, a3, a4);
+      a2 = v28;
+      v13 = v27;
+      v17 = v26;
+      v21 = v102;
+      v32 = (*(*(*(a4 + 32) + 8) + 16))(a2, v31, a3);
+      v33 = v31;
+      v22 = v103;
+      (*(v13 + 8))(v33, a3);
+      if (v32)
       {
         goto LABEL_25;
       }
@@ -9415,33 +9387,33 @@ unint64_t protocol witness for static BinaryInteger.<< infix<A>(_:_:) in conform
 
   else
   {
-    v31 = v18(a3, a4);
-    v19 = *(a4 + 128);
-    v32 = v19(a3, a4);
-    if (v31)
+    v34 = v21(a3, a4);
+    v22 = *(a4 + 128);
+    v35 = v22(a3, a4);
+    if (v34)
     {
-      v93 = a2;
-      v100 = v19;
-      if (v32 <= 64)
+      v96 = a2;
+      v103 = v22;
+      if (v35 <= 64)
       {
-        v60 = v95;
-        v59 = v96;
-        AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v96, a3, v95, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-        v62 = v94;
-        (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v60, AssociatedConformanceWitness);
-        v63 = v101;
-        (v59[3])(v62, a3, v59);
-        a2 = v93;
-        LOBYTE(v59) = (*(*(*(a4 + 32) + 8) + 16))(v93, v63, a3);
-        (*(v12 + 8))(v63, a3);
-        if (v59)
+        v63 = v98;
+        v62 = v99;
+        AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v99, a3, v98, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+        v65 = v97;
+        (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v63, AssociatedConformanceWitness);
+        v66 = v104;
+        (v62[3])(v65, a3, v62);
+        a2 = v96;
+        LOBYTE(v62) = (*(*(*(a4 + 32) + 8) + 16))(v96, v66, a3);
+        (*(v13 + 8))(v66, a3);
+        if (v62)
         {
           goto LABEL_25;
         }
 
-        v64 = (*(a4 + 120))(a3, a4);
-        v19 = v100;
-        if (v64 < -128)
+        v67 = (*(a4 + 120))(a3, a4);
+        v22 = v103;
+        if (v67 < -128)
         {
           goto LABEL_25;
         }
@@ -9449,18 +9421,18 @@ unint64_t protocol witness for static BinaryInteger.<< infix<A>(_:_:) in conform
 
       else
       {
-        v103 = -128;
-        v99 = v18;
-        v35 = *(a4 + 96);
-        v36 = lazy protocol witness table accessor for type Int and conformance Int(v32, v33, v34);
-        v37 = v101;
-        v35(&v103, &type metadata for Int, v36, a3, a4);
-        v18 = v99;
-        a2 = v93;
-        v38 = (*(*(*(a4 + 32) + 8) + 16))(v93, v37, a3);
-        (*(v12 + 8))(v37, a3);
-        v19 = v100;
-        if (v38)
+        v106 = -128;
+        v102 = v21;
+        v38 = *(a4 + 96);
+        v39 = lazy protocol witness table accessor for type Int and conformance Int(v35, v36, v37);
+        v40 = v104;
+        v38(&v106, &type metadata for Int, v39, a3, a4);
+        v21 = v102;
+        a2 = v96;
+        v41 = (*(*(*(a4 + 32) + 8) + 16))(v96, v40, a3);
+        (*(v13 + 8))(v40, a3);
+        v22 = v103;
+        if (v41)
         {
           goto LABEL_25;
         }
@@ -9469,7 +9441,7 @@ unint64_t protocol witness for static BinaryInteger.<< infix<A>(_:_:) in conform
       goto LABEL_11;
     }
 
-    if (v32 >= 64)
+    if (v35 >= 64)
     {
       goto LABEL_11;
     }
@@ -9481,39 +9453,39 @@ unint64_t protocol witness for static BinaryInteger.<< infix<A>(_:_:) in conform
   }
 
 LABEL_11:
-  v39 = v18(a3, a4);
-  v93 = a4 + 128;
-  v40 = v19(a3, a4);
-  if (v39)
+  v42 = v21(a3, a4);
+  v96 = a4 + 128;
+  v43 = v22(a3, a4);
+  if (v42)
   {
-    if (v40 > 64)
+    if (v43 > 64)
     {
       goto LABEL_13;
     }
   }
 
-  else if (v40 >= 64)
+  else if (v43 >= 64)
   {
 LABEL_13:
-    v103 = 128;
-    v99 = v18;
-    v43 = v15;
-    v44 = v12;
-    v45 = a2;
-    v46 = *(a4 + 96);
-    v47 = lazy protocol witness table accessor for type Int and conformance Int(v40, v41, v42);
-    v100 = v19;
-    v48 = v101;
-    v46(&v103, &type metadata for Int, v47, a3, a4);
-    a2 = v45;
-    v12 = v44;
-    v15 = v43;
-    v18 = v99;
-    v49 = (*(*(*(a4 + 32) + 8) + 16))(v48, a2, a3);
-    v50 = v48;
-    v19 = v100;
-    (*(v12 + 8))(v50, a3);
-    if (v49)
+    v106 = 128;
+    v102 = v21;
+    v46 = v17;
+    v47 = v13;
+    v48 = a2;
+    v49 = *(a4 + 96);
+    v50 = lazy protocol witness table accessor for type Int and conformance Int(v43, v44, v45);
+    v103 = v22;
+    v51 = v104;
+    v49(&v106, &type metadata for Int, v50, a3, a4);
+    a2 = v48;
+    v13 = v47;
+    v17 = v46;
+    v21 = v102;
+    v52 = (*(*(*(a4 + 32) + 8) + 16))(v51, a2, a3);
+    v53 = v51;
+    v22 = v103;
+    (*(v13 + 8))(v53, a3);
+    if (v52)
     {
       goto LABEL_25;
     }
@@ -9527,19 +9499,19 @@ LABEL_13:
   }
 
 LABEL_17:
-  (*(v12 + 16))(v15, a2, a3);
-  if ((v18(a3, a4) & 1) == 0 || v19(a3, a4) < 65)
+  (*(v13 + 16))(v17, a2, a3);
+  if ((v21(a3, a4) & 1) == 0 || v22(a3, a4) < 65)
   {
     goto LABEL_34;
   }
 
-  if ((v18(a3, a4) & 1) == 0)
+  if ((v21(a3, a4) & 1) == 0)
   {
-    v67 = v18(a3, a4);
-    v68 = v19(a3, a4);
-    if ((v67 & 1) == 0)
+    v70 = v21(a3, a4);
+    v71 = v22(a3, a4);
+    if ((v70 & 1) == 0)
     {
-      if (v68 >= 64)
+      if (v71 >= 64)
       {
         goto LABEL_34;
       }
@@ -9547,22 +9519,22 @@ LABEL_17:
       goto LABEL_33;
     }
 
-    v100 = v19;
-    if (v68 <= 64)
+    v103 = v22;
+    if (v71 <= 64)
     {
-      v75 = v95;
-      v76 = v96;
-      v77 = swift_getAssociatedConformanceWitness(v96, a3, v95, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v78 = v94;
-      (*(v77 + 8))(&qword_18071E0A8, 256, v75, v77);
-      v79 = v76;
-      v80 = v76[3];
-      v81 = v101;
-      (v80)(v78, a3, v79);
-      LOBYTE(v78) = (*(*(*(a4 + 32) + 8) + 16))(v15, v81, a3);
-      (*(v12 + 8))(v81, a3);
-      v19 = v100;
-      if ((v78 & 1) == 0)
+      v78 = v98;
+      v79 = v99;
+      v80 = swift_getAssociatedConformanceWitness(v99, a3, v98, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v81 = v97;
+      (*(v80 + 8))(&qword_18071E0A8, 256, v78, v80);
+      v82 = v79;
+      v83 = v79[3];
+      v84 = v104;
+      (v83)(v81, a3, v82);
+      LOBYTE(v81) = (*(*(*(a4 + 32) + 8) + 16))(v17, v84, a3);
+      (*(v13 + 8))(v84, a3);
+      v22 = v103;
+      if ((v81 & 1) == 0)
       {
         goto LABEL_33;
       }
@@ -9570,17 +9542,17 @@ LABEL_17:
 
     else
     {
-      v103 = 0x8000000000000000;
-      v99 = v18;
-      v71 = *(a4 + 96);
-      v72 = lazy protocol witness table accessor for type Int and conformance Int(v68, v69, v70);
-      v73 = v101;
-      v71(&v103, &type metadata for Int, v72, a3, a4);
-      v18 = v99;
-      v74 = (*(*(*(a4 + 32) + 8) + 16))(v15, v73, a3);
-      (*(v12 + 8))(v73, a3);
-      v19 = v100;
-      if ((v74 & 1) == 0)
+      v106 = 0x8000000000000000;
+      v102 = v21;
+      v74 = *(a4 + 96);
+      v75 = lazy protocol witness table accessor for type Int and conformance Int(v71, v72, v73);
+      v76 = v104;
+      v74(&v106, &type metadata for Int, v75, a3, a4);
+      v21 = v102;
+      v77 = (*(*(*(a4 + 32) + 8) + 16))(v17, v76, a3);
+      (*(v13 + 8))(v76, a3);
+      v22 = v103;
+      if ((v77 & 1) == 0)
       {
         goto LABEL_34;
       }
@@ -9590,42 +9562,42 @@ LABEL_38:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  v51 = v19(a3, a4);
-  if (v51 < 64)
+  v54 = v22(a3, a4);
+  if (v54 < 64)
   {
 LABEL_33:
     (*(a4 + 120))(a3, a4);
     goto LABEL_34;
   }
 
-  v103 = 0x8000000000000000;
-  v99 = v18;
-  v54 = *(a4 + 96);
-  v55 = lazy protocol witness table accessor for type Int and conformance Int(v51, v52, v53);
-  v100 = v19;
-  v56 = v101;
-  v54(&v103, &type metadata for Int, v55, a3, a4);
-  v18 = v99;
-  v57 = (*(*(*(a4 + 32) + 8) + 16))(v15, v56, a3);
-  v58 = v56;
-  v19 = v100;
-  (*(v12 + 8))(v58, a3);
-  if (v57)
+  v106 = 0x8000000000000000;
+  v102 = v21;
+  v57 = *(a4 + 96);
+  v58 = lazy protocol witness table accessor for type Int and conformance Int(v54, v55, v56);
+  v103 = v22;
+  v59 = v104;
+  v57(&v106, &type metadata for Int, v58, a3, a4);
+  v21 = v102;
+  v60 = (*(*(*(a4 + 32) + 8) + 16))(v17, v59, a3);
+  v61 = v59;
+  v22 = v103;
+  (*(v13 + 8))(v61, a3);
+  if (v60)
   {
     goto LABEL_38;
   }
 
 LABEL_34:
-  if (v19(a3, a4) <= 64 && (v19(a3, a4) != 64 || (v18(a3, a4) & 1) != 0))
+  if (v22(a3, a4) <= 64 && (v22(a3, a4) != 64 || (v21(a3, a4) & 1) != 0))
   {
     goto LABEL_44;
   }
 
-  v82 = v18(a3, a4);
-  v83 = v19(a3, a4);
-  if (v82)
+  v85 = v21(a3, a4);
+  v86 = v22(a3, a4);
+  if (v85)
   {
-    if (v83 > 64)
+    if (v86 > 64)
     {
       goto LABEL_37;
     }
@@ -9635,95 +9607,95 @@ LABEL_43:
     goto LABEL_44;
   }
 
-  if (v83 < 64)
+  if (v86 < 64)
   {
     goto LABEL_43;
   }
 
 LABEL_37:
-  v103 = 0x7FFFFFFFFFFFFFFFLL;
-  v86 = *(a4 + 96);
-  v87 = lazy protocol witness table accessor for type Int and conformance Int(v83, v84, v85);
-  v88 = v101;
-  v86(&v103, &type metadata for Int, v87, a3, a4);
-  v89 = (*(*(*(a4 + 32) + 8) + 16))(v88, v15, a3);
-  (*(v12 + 8))(v88, a3);
-  if (v89)
+  v106 = 0x7FFFFFFFFFFFFFFFLL;
+  v89 = *(a4 + 96);
+  v90 = lazy protocol witness table accessor for type Int and conformance Int(v86, v87, v88);
+  v91 = v104;
+  v89(&v106, &type metadata for Int, v90, a3, a4);
+  v92 = (*(*(*(a4 + 32) + 8) + 16))(v91, v17, a3);
+  (*(v13 + 8))(v91, a3);
+  if (v92)
   {
     goto LABEL_38;
   }
 
 LABEL_44:
-  v90 = (*(a4 + 120))(a3, a4);
-  (*(v12 + 8))(v15, a3);
-  if ((v90 & 0x8000000000000000) != 0)
+  v93 = (*(a4 + 120))(a3, a4);
+  (*(v13 + 8))(v17, a3);
+  if ((v93 & 0x8000000000000000) != 0)
   {
-    if (v90 > 0xFFFFFFFFFFFFFF80)
+    if (v93 > 0xFFFFFFFFFFFFFF80)
     {
-      result = specialized _wideMaskedShiftRight<A>(_:_:)(&v103, v97, v98, -v90);
+      result = specialized _wideMaskedShiftRight<A>(_:_:)(&v106, v100, v101, -v93);
       goto LABEL_47;
     }
   }
 
-  else if (v90 < 0x80)
+  else if (v93 < 0x80)
   {
-    result = specialized _wideMaskedShiftLeft<A>(_:_:)(&v103, v97, v98, v90);
+    result = specialized _wideMaskedShiftLeft<A>(_:_:)(&v106, v100, v101, v93);
 LABEL_47:
-    v65 = v103;
+    v68 = v106;
     goto LABEL_48;
   }
 
 LABEL_25:
-  v65 = 0;
+  v68 = 0;
   result = 0;
 LABEL_48:
-  v91 = v102;
-  *v102 = v65;
-  v91[1] = result;
+  v94 = v105;
+  *v105 = v68;
+  v94[1] = result;
   return result;
 }
 
-uint64_t protocol witness for static BinaryInteger.<<= infix<A>(_:_:) in conformance _UInt128(unint64_t *a1, uint64_t a2, const char *a3, uint64_t a4)
+uint64_t protocol witness for static BinaryInteger.<<= infix<A>(_:_:) in conformance _UInt128(unint64_t *a1, uint64_t a2, Class *a3, uint64_t a4)
 {
-  v107 = *(*(a4 + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v107, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v106 = v8;
-  v9 = MEMORY[0x1EEE9AC00](v8);
-  v105 = v103 - v10;
-  v11 = *(a3 - 1);
-  v12 = MEMORY[0x1EEE9AC00](v9);
-  v14 = v103 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v109 = v103 - v15;
-  v16 = (a4 + 64);
-  v110 = *(a4 + 64);
-  if (v110(a3, a4))
+  v110 = *(*(a4 + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v110, a3, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v109 = v8;
+  v10 = MEMORY[0x1EEE9AC00](v8, v9);
+  v108 = v106 - v11;
+  v12 = *(a3 - 1);
+  v14 = MEMORY[0x1EEE9AC00](v10, v13);
+  v16 = v106 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14, v17);
+  v112 = v106 - v18;
+  v19 = (a4 + 64);
+  v113 = *(a4 + 64);
+  if (v113(a3, a4))
   {
-    v17 = *(a4 + 128);
-    v18 = v17(a3, a4);
-    if (v18 >= 64)
+    v20 = *(a4 + 128);
+    v21 = v20(a3, a4);
+    if (v21 >= 64)
     {
-      v111 = -128;
-      v108 = a2;
-      v35 = v17;
-      v36 = v14;
-      v37 = v11;
-      v38 = a1;
-      v39 = *(a4 + 96);
-      v40 = lazy protocol witness table accessor for type Int and conformance Int(v18, v19, v20);
-      v104 = (a4 + 64);
-      v41 = v109;
-      v39(&v111, &type metadata for Int, v40, a3, a4);
-      a1 = v38;
-      v11 = v37;
-      v14 = v36;
-      v17 = v35;
-      a2 = v108;
-      v42 = (*(*(*(a4 + 32) + 8) + 16))(v108, v41, a3);
-      v43 = v41;
-      v16 = v104;
-      result = (*(v11 + 8))(v43, a3);
-      if (v42)
+      v114 = -128;
+      v111 = a2;
+      v38 = v20;
+      v39 = v16;
+      v40 = v12;
+      v41 = a1;
+      v42 = *(a4 + 96);
+      v43 = lazy protocol witness table accessor for type Int and conformance Int(v21, v22, v23);
+      v107 = (a4 + 64);
+      v44 = v112;
+      v42(&v114, &type metadata for Int, v43, a3, a4);
+      a1 = v41;
+      v12 = v40;
+      v16 = v39;
+      v20 = v38;
+      a2 = v111;
+      v45 = (*(*(*(a4 + 32) + 8) + 16))(v111, v44, a3);
+      v46 = v44;
+      v19 = v107;
+      result = (*(v12 + 8))(v46, a3);
+      if (v45)
       {
         goto LABEL_21;
       }
@@ -9741,34 +9713,34 @@ uint64_t protocol witness for static BinaryInteger.<<= infix<A>(_:_:) in conform
 
   else
   {
-    v22 = v110(a3, a4);
-    v17 = *(a4 + 128);
-    v23 = v17(a3, a4);
-    if (v22)
+    v25 = v113(a3, a4);
+    v20 = *(a4 + 128);
+    v26 = v20(a3, a4);
+    if (v25)
     {
-      v108 = a2;
-      v104 = v17;
-      if (v23 > 64)
+      v111 = a2;
+      v107 = v20;
+      if (v26 > 64)
       {
-        v111 = -128;
-        v26 = v14;
-        v27 = v11;
-        v28 = a1;
-        v29 = *(a4 + 96);
-        v30 = lazy protocol witness table accessor for type Int and conformance Int(v23, v24, v25);
-        v31 = v109;
-        v29(&v111, &type metadata for Int, v30, a3, a4);
-        a1 = v28;
-        v11 = v27;
-        v14 = v26;
-        v32 = v108;
-        v33 = (*(*(*(a4 + 32) + 8) + 16))(v108, v31, a3);
-        v34 = v31;
-        v16 = (a4 + 64);
-        a2 = v32;
-        result = (*(v11 + 8))(v34, a3);
-        v17 = v104;
-        if (v33)
+        v114 = -128;
+        v29 = v16;
+        v30 = v12;
+        v31 = a1;
+        v32 = *(a4 + 96);
+        v33 = lazy protocol witness table accessor for type Int and conformance Int(v26, v27, v28);
+        v34 = v112;
+        v32(&v114, &type metadata for Int, v33, a3, a4);
+        a1 = v31;
+        v12 = v30;
+        v16 = v29;
+        v35 = v111;
+        v36 = (*(*(*(a4 + 32) + 8) + 16))(v111, v34, a3);
+        v37 = v34;
+        v19 = (a4 + 64);
+        a2 = v35;
+        result = (*(v12 + 8))(v37, a3);
+        v20 = v107;
+        if (v36)
         {
           goto LABEL_21;
         }
@@ -9776,24 +9748,24 @@ uint64_t protocol witness for static BinaryInteger.<<= infix<A>(_:_:) in conform
         goto LABEL_15;
       }
 
-      v45 = v106;
-      v44 = v107;
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v107, a3, v106, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v47 = v105;
-      (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v45, AssociatedConformanceWitness);
       v48 = v109;
-      (v44[3])(v47, a3, v44);
-      a2 = v108;
-      LOBYTE(v44) = (*(*(*(a4 + 32) + 8) + 16))(v108, v48, a3);
-      result = (*(v11 + 8))(v48, a3);
-      v17 = v104;
-      if (v44)
+      v47 = v110;
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v110, a3, v109, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v50 = v108;
+      (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v48, AssociatedConformanceWitness);
+      v51 = v112;
+      (v47[3])(v50, a3, v47);
+      a2 = v111;
+      LOBYTE(v47) = (*(*(*(a4 + 32) + 8) + 16))(v111, v51, a3);
+      result = (*(v12 + 8))(v51, a3);
+      v20 = v107;
+      if (v47)
       {
         goto LABEL_21;
       }
     }
 
-    else if (v23 >= 64)
+    else if (v26 >= 64)
     {
       goto LABEL_15;
     }
@@ -9806,12 +9778,12 @@ uint64_t protocol witness for static BinaryInteger.<<= infix<A>(_:_:) in conform
   }
 
 LABEL_15:
-  v49 = v110(a3, a4);
-  v103[1] = a4 + 128;
-  v50 = v17(a3, a4);
-  if (v49)
+  v52 = v113(a3, a4);
+  v106[1] = a4 + 128;
+  v53 = v20(a3, a4);
+  if (v52)
   {
-    if (v50 > 64)
+    if (v53 > 64)
     {
       goto LABEL_17;
     }
@@ -9826,51 +9798,51 @@ LABEL_20:
     goto LABEL_24;
   }
 
-  if (v50 < 64)
+  if (v53 < 64)
   {
     goto LABEL_20;
   }
 
 LABEL_17:
-  v111 = 128;
-  v108 = a2;
-  v53 = v17;
-  v54 = v14;
-  v55 = v11;
-  v56 = a1;
-  v57 = *(a4 + 96);
-  v58 = lazy protocol witness table accessor for type Int and conformance Int(v50, v51, v52);
-  v104 = v16;
-  v59 = v109;
-  v57(&v111, &type metadata for Int, v58, a3, a4);
-  a1 = v56;
-  v11 = v55;
-  v14 = v54;
-  v17 = v53;
-  a2 = v108;
-  v60 = (*(*(*(a4 + 32) + 8) + 16))(v59, v108, a3);
-  v61 = v59;
-  v16 = v104;
-  result = (*(v11 + 8))(v61, a3);
-  if (v60)
+  v114 = 128;
+  v111 = a2;
+  v56 = v20;
+  v57 = v16;
+  v58 = v12;
+  v59 = a1;
+  v60 = *(a4 + 96);
+  v61 = lazy protocol witness table accessor for type Int and conformance Int(v53, v54, v55);
+  v107 = v19;
+  v62 = v112;
+  v60(&v114, &type metadata for Int, v61, a3, a4);
+  a1 = v59;
+  v12 = v58;
+  v16 = v57;
+  v20 = v56;
+  a2 = v111;
+  v63 = (*(*(*(a4 + 32) + 8) + 16))(v62, v111, a3);
+  v64 = v62;
+  v19 = v107;
+  result = (*(v12 + 8))(v64, a3);
+  if (v63)
   {
     goto LABEL_21;
   }
 
 LABEL_24:
-  (*(v11 + 16))(v14, a2, a3);
-  if ((v110(a3, a4) & 1) == 0 || v17(a3, a4) < 65)
+  (*(v12 + 16))(v16, a2, a3);
+  if ((v113(a3, a4) & 1) == 0 || v20(a3, a4) < 65)
   {
     goto LABEL_38;
   }
 
-  if ((v110(a3, a4) & 1) == 0)
+  if ((v113(a3, a4) & 1) == 0)
   {
-    v75 = v110(a3, a4);
-    v76 = v17(a3, a4);
-    if ((v75 & 1) == 0)
+    v78 = v113(a3, a4);
+    v79 = v20(a3, a4);
+    if ((v78 & 1) == 0)
     {
-      if (v76 >= 64)
+      if (v79 >= 64)
       {
         goto LABEL_38;
       }
@@ -9878,20 +9850,20 @@ LABEL_24:
       goto LABEL_37;
     }
 
-    v104 = v17;
-    if (v76 <= 64)
+    v107 = v20;
+    if (v79 <= 64)
     {
-      v87 = v106;
-      v86 = v107;
-      v88 = swift_getAssociatedConformanceWitness(v107, a3, v106, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v89 = v105;
-      (*(v88 + 8))(&qword_18071E0A8, 256, v87, v88);
       v90 = v109;
-      (v86[3])(v89, a3, v86);
-      LOBYTE(v86) = (*(*(*(a4 + 32) + 8) + 16))(v14, v90, a3);
-      (*(v11 + 8))(v90, a3);
-      v17 = v104;
-      if ((v86 & 1) == 0)
+      v89 = v110;
+      v91 = swift_getAssociatedConformanceWitness(v110, a3, v109, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v92 = v108;
+      (*(v91 + 8))(&qword_18071E0A8, 256, v90, v91);
+      v93 = v112;
+      (v89[3])(v92, a3, v89);
+      LOBYTE(v89) = (*(*(*(a4 + 32) + 8) + 16))(v16, v93, a3);
+      (*(v12 + 8))(v93, a3);
+      v20 = v107;
+      if ((v89 & 1) == 0)
       {
         goto LABEL_37;
       }
@@ -9899,21 +9871,21 @@ LABEL_24:
 
     else
     {
-      v111 = 0x8000000000000000;
-      v79 = v14;
-      v80 = v11;
-      v81 = a1;
-      v82 = *(a4 + 96);
-      v83 = lazy protocol witness table accessor for type Int and conformance Int(v76, v77, v78);
-      v84 = v109;
-      v82(&v111, &type metadata for Int, v83, a3, a4);
-      a1 = v81;
-      v11 = v80;
-      v14 = v79;
-      v85 = (*(*(*(a4 + 32) + 8) + 16))(v79, v84, a3);
-      (*(v11 + 8))(v84, a3);
-      v17 = v104;
-      if ((v85 & 1) == 0)
+      v114 = 0x8000000000000000;
+      v82 = v16;
+      v83 = v12;
+      v84 = a1;
+      v85 = *(a4 + 96);
+      v86 = lazy protocol witness table accessor for type Int and conformance Int(v79, v80, v81);
+      v87 = v112;
+      v85(&v114, &type metadata for Int, v86, a3, a4);
+      a1 = v84;
+      v12 = v83;
+      v16 = v82;
+      v88 = (*(*(*(a4 + 32) + 8) + 16))(v82, v87, a3);
+      (*(v12 + 8))(v87, a3);
+      v20 = v107;
+      if ((v88 & 1) == 0)
       {
         goto LABEL_38;
       }
@@ -9923,46 +9895,46 @@ LABEL_42:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  v64 = v17(a3, a4);
-  if (v64 < 64)
+  v67 = v20(a3, a4);
+  if (v67 < 64)
   {
 LABEL_37:
     (*(a4 + 120))(a3, a4);
     goto LABEL_38;
   }
 
-  v111 = 0x8000000000000000;
-  v67 = v17;
-  v68 = v14;
-  v69 = v11;
-  v70 = a1;
-  v71 = *(a4 + 96);
-  v72 = lazy protocol witness table accessor for type Int and conformance Int(v64, v65, v66);
-  v104 = v16;
-  v73 = v109;
-  v71(&v111, &type metadata for Int, v72, a3, a4);
-  a1 = v70;
-  v11 = v69;
-  v14 = v68;
-  v17 = v67;
-  v74 = (*(*(*(a4 + 32) + 8) + 16))(v14, v73, a3);
-  (*(v11 + 8))(v73, a3);
-  if (v74)
+  v114 = 0x8000000000000000;
+  v70 = v20;
+  v71 = v16;
+  v72 = v12;
+  v73 = a1;
+  v74 = *(a4 + 96);
+  v75 = lazy protocol witness table accessor for type Int and conformance Int(v67, v68, v69);
+  v107 = v19;
+  v76 = v112;
+  v74(&v114, &type metadata for Int, v75, a3, a4);
+  a1 = v73;
+  v12 = v72;
+  v16 = v71;
+  v20 = v70;
+  v77 = (*(*(*(a4 + 32) + 8) + 16))(v16, v76, a3);
+  (*(v12 + 8))(v76, a3);
+  if (v77)
   {
     goto LABEL_42;
   }
 
 LABEL_38:
-  if (v17(a3, a4) <= 64 && (v17(a3, a4) != 64 || (v110(a3, a4) & 1) != 0))
+  if (v20(a3, a4) <= 64 && (v20(a3, a4) != 64 || (v113(a3, a4) & 1) != 0))
   {
     goto LABEL_48;
   }
 
-  v91 = v110(a3, a4);
-  v92 = v17(a3, a4);
-  if (v91)
+  v94 = v113(a3, a4);
+  v95 = v20(a3, a4);
+  if (v94)
   {
-    if (v92 > 64)
+    if (v95 > 64)
     {
       goto LABEL_41;
     }
@@ -9972,79 +9944,79 @@ LABEL_47:
     goto LABEL_48;
   }
 
-  if (v92 < 64)
+  if (v95 < 64)
   {
     goto LABEL_47;
   }
 
 LABEL_41:
-  v111 = 0x7FFFFFFFFFFFFFFFLL;
-  v95 = v14;
-  v96 = a1;
-  v97 = *(a4 + 96);
-  v98 = lazy protocol witness table accessor for type Int and conformance Int(v92, v93, v94);
-  v99 = v109;
-  v97(&v111, &type metadata for Int, v98, a3, a4);
-  a1 = v96;
-  v14 = v95;
-  v100 = (*(*(*(a4 + 32) + 8) + 16))(v99, v95, a3);
-  (*(v11 + 8))(v99, a3);
-  if (v100)
+  v114 = 0x7FFFFFFFFFFFFFFFLL;
+  v98 = v16;
+  v99 = a1;
+  v100 = *(a4 + 96);
+  v101 = lazy protocol witness table accessor for type Int and conformance Int(v95, v96, v97);
+  v102 = v112;
+  v100(&v114, &type metadata for Int, v101, a3, a4);
+  a1 = v99;
+  v16 = v98;
+  v103 = (*(*(*(a4 + 32) + 8) + 16))(v102, v98, a3);
+  (*(v12 + 8))(v102, a3);
+  if (v103)
   {
     goto LABEL_42;
   }
 
 LABEL_48:
-  v101 = (*(a4 + 120))(a3, a4);
-  result = (*(v11 + 8))(v14, a3);
-  v63 = *a1;
-  v62 = a1[1];
-  if ((v101 & 0x8000000000000000) != 0)
+  v104 = (*(a4 + 120))(a3, a4);
+  result = (*(v12 + 8))(v16, a3);
+  v66 = *a1;
+  v65 = a1[1];
+  if ((v104 & 0x8000000000000000) != 0)
   {
-    if (v101 > 0xFFFFFFFFFFFFFF80)
+    if (v104 > 0xFFFFFFFFFFFFFF80)
     {
-      v102 = -v101;
-      if (-v101 >= 0x40)
+      v105 = -v104;
+      if (-v104 >= 0x40)
       {
-        v63 = v62 >> v102;
-        v62 = 0;
+        v66 = v65 >> v105;
+        v65 = 0;
       }
 
       else
       {
-        v63 = (v62 << v101) | (v63 >> v102);
-        v62 >>= v102;
+        v66 = (v65 << v104) | (v66 >> v105);
+        v65 >>= v105;
       }
 
       goto LABEL_23;
     }
 
 LABEL_21:
-    v62 = 0;
+    v65 = 0;
 LABEL_22:
-    v63 = 0;
+    v66 = 0;
     goto LABEL_23;
   }
 
-  if (v101 >= 0x80)
+  if (v104 >= 0x80)
   {
     goto LABEL_21;
   }
 
-  if (v101 > 0x3F)
+  if (v104 > 0x3F)
   {
-    v62 = v63 << v101;
+    v65 = v66 << v104;
     goto LABEL_22;
   }
 
-  if (v101)
+  if (v104)
   {
-    v62 = (v62 << v101) | (v63 >> -v101);
-    v63 <<= v101;
+    v65 = (v65 << v104) | (v66 >> -v104);
+    v66 <<= v104;
   }
 
 LABEL_23:
-  *a1 = v63;
-  a1[1] = v62;
+  *a1 = v66;
+  a1[1] = v65;
   return result;
 }

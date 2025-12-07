@@ -28,27 +28,27 @@
 - (WBSPasswordBreachResultRecord)initWithDictionaryRepresentation:(id)representation
 {
   representationCopy = representation;
-  v5 = [representationCopy safari_dataForKey:@"PersistentIdentifier"];
-  if (v5)
+  v6 = [representationCopy safari_dataForKey:@"PersistentIdentifier"];
+  if (v6)
   {
-    v6 = [representationCopy safari_numberForKey:@"Result"];
-    v7 = v6;
-    if (v6)
+    v7 = [representationCopy safari_numberForKey:@"Result"];
+    v9 = v7;
+    if (v7)
     {
-      unsignedIntegerValue = [v6 unsignedIntegerValue];
-      v9 = [representationCopy safari_dateForKey:@"DateLastModified"];
-      if (v9)
+      unsignedIntegerValue = [v7 unsignedIntegerValue];
+      v12 = [representationCopy safari_dateForKey:@"DateLastModified"];
+      if (v12)
       {
-        self = [(WBSPasswordBreachResultRecord *)self initWithPersistentIdentifier:v5 result:unsignedIntegerValue dateLastModified:v9];
+        self = [(WBSPasswordBreachResultRecord *)self initWithPersistentIdentifier:v6 result:unsignedIntegerValue dateLastModified:v12];
         selfCopy = self;
       }
 
       else
       {
-        v27 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v30 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v11);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
-          [(WBSPasswordBreachResultRecord *)v27 initWithDictionaryRepresentation:v28, v29, v30, v31, v32, v33, v34];
+          [(WBSPasswordBreachResultRecord *)v30 initWithDictionaryRepresentation:v31, v32, v33, v34, v35, v36, v37];
         }
 
         selfCopy = 0;
@@ -57,10 +57,10 @@
 
     else
     {
-      v19 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v22 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v8);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        [(WBSPasswordBreachResultRecord *)v19 initWithDictionaryRepresentation:v20, v21, v22, v23, v24, v25, v26];
+        [(WBSPasswordBreachResultRecord *)v22 initWithDictionaryRepresentation:v23, v24, v25, v26, v27, v28, v29];
       }
 
       selfCopy = 0;
@@ -69,10 +69,10 @@
 
   else
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v5);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [(WBSPasswordBreachResultRecord *)v11 initWithDictionaryRepresentation:v12, v13, v14, v15, v16, v17, v18];
+      [(WBSPasswordBreachResultRecord *)v14 initWithDictionaryRepresentation:v15, v16, v17, v18, v19, v20, v21];
     }
 
     selfCopy = 0;
@@ -83,19 +83,17 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v9[3] = *MEMORY[0x1E69E9840];
   v3 = self->_result;
-  v10[0] = self->_persistentIdentifier;
-  v9[0] = @"PersistentIdentifier";
-  v9[1] = @"Result";
+  v9[0] = self->_persistentIdentifier;
+  v8[0] = @"PersistentIdentifier";
+  v8[1] = @"Result";
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v3];
-  v9[2] = @"DateLastModified";
+  v8[2] = @"DateLastModified";
   dateLastModified = self->_dateLastModified;
-  v10[1] = v4;
-  v10[2] = dateLastModified;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[1] = v4;
+  v9[2] = dateLastModified;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }

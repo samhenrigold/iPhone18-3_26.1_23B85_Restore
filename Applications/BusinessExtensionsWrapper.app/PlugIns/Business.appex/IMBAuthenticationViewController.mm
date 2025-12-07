@@ -5,6 +5,7 @@
 - (void)didChangeSecureStatus:(BOOL)status;
 - (void)didReceiveCallbackRequest:(id)request;
 - (void)dismiss;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -28,33 +29,45 @@
   return result;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for IMBAuthenticationViewController();
+  v4 = v5.receiver;
+  [(IMBAuthenticationViewController *)&v5 viewDidAppear:appearCopy];
+  if ((v4[OBJC_IVAR____TtC8Business31IMBAuthenticationViewController_didShowAuth] & 1) == 0)
+  {
+    v4[OBJC_IVAR____TtC8Business31IMBAuthenticationViewController_didShowAuth] = 1;
+    sub_100049558();
+  }
+}
+
 - (BOOL)shouldHandleRedirectURI:(id)i
 {
   v4 = sub_1000AB6EC();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4, v7);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1000AB6AC();
   selfCopy = self;
-  v11 = sub_10004ACFC();
+  v9 = sub_10004ACFC();
 
-  (*(v5 + 8))(v9, v4);
-  return v11 & 1;
+  (*(v5 + 8))(v7, v4);
+  return v9 & 1;
 }
 
 - (void)didReceiveCallbackRequest:(id)request
 {
   v4 = sub_1000AB57C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4, v7);
-  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1000AB54C();
   selfCopy = self;
   sub_10004AE98();
 
-  (*(v5 + 8))(v9, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)didChangeSecureStatus:(BOOL)status
@@ -69,16 +82,15 @@
 {
   v4 = sub_1000AB6EC();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4, v7);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1000AB6AC();
-  v10 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8Business31IMBAuthenticationViewController_webViewController);
+  v8 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8Business31IMBAuthenticationViewController_webViewController);
   selfCopy = self;
-  v12 = v10;
+  v10 = v8;
   sub_100072924();
 
-  (*(v5 + 8))(v9, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)dismiss

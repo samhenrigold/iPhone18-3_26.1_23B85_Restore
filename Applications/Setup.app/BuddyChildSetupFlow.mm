@@ -69,12 +69,12 @@
 
 + (id)allowedFlowItems
 {
-  sub_100006410(&qword_1003A2350);
+  sub_100006410(&qword_1003A2350, &qword_100299208);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_100297E80;
-  *(v2 + 32) = sub_1000648DC(0, &qword_1003A2338);
-  *(v2 + 40) = sub_1000648DC(0, &qword_1003A2348);
-  sub_100006410(&qword_1003A2358);
+  *(v2 + 32) = sub_1000648DC(0, &qword_1003A2338, off_1003256D0);
+  *(v2 + 40) = sub_1000648DC(0, &qword_1003A2348, off_100325880);
+  sub_100006410(&qword_1003A2358, &unk_100299210);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -114,7 +114,7 @@
 
 - (void)setupPasscodeWithNextTaskInfo:(BuddyAISFlowTaskInfo *)info completion:(id)completion
 {
-  v7 = sub_100006410(&qword_1003A0110);
+  v7 = sub_100006410(&qword_1003A0110, &qword_100297980);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -141,7 +141,7 @@
 
 - (void)setupLocationServicesWithNextTaskInfo:(BuddyAISFlowTaskInfo *)info completion:(id)completion
 {
-  v7 = sub_100006410(&qword_1003A0110);
+  v7 = sub_100006410(&qword_1003A0110, &qword_100297980);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -168,7 +168,7 @@
 
 - (void)setupPerformAIDASignInWith:(NSDictionary *)with completion:(id)completion
 {
-  v7 = sub_100006410(&qword_1003A0110);
+  v7 = sub_100006410(&qword_1003A0110, &qword_100297980);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -205,7 +205,7 @@
   presenterCopy = presenter;
   failCopy = fail;
   selfCopy = self;
-  sub_100064E60();
+  sub_100064E60(failCopy);
 }
 
 @end

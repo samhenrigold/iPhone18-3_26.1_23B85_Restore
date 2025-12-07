@@ -358,16 +358,15 @@ LABEL_18:
   languageModel = [(NLLanguageModelSession *)self languageModel];
   lexicon = [languageModel lexicon];
 
-  v14[0] = 0;
-  v14[1] = v14;
-  v14[2] = 0x2020000000;
-  v14[3] = 0;
-  model = self->_model;
-  v12 = lexicon;
-  v13 = blockCopy;
+  v13[0] = 0;
+  v13[1] = v13;
+  v13[2] = 0x2020000000;
+  v13[3] = 0;
+  v11 = lexicon;
+  v12 = blockCopy;
   LMLanguageModelEnumeratePredictionsWithBlock();
 
-  _Block_object_dispose(v14, 8);
+  _Block_object_dispose(v13, 8);
 }
 
 void __130__NLLMLanguageModelSession_enumeratePredictionsForContextTokenIDs_length_maximumPredictions_maximumTokensPerPrediction_withBlock___block_invoke(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, _BYTE *a5, double a6)

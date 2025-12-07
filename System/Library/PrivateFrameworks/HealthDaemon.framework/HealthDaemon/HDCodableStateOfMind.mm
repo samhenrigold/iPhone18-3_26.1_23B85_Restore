@@ -127,61 +127,57 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v12 = toCopy;
+  v8 = toCopy;
   if (self->_sample)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v8;
   }
 
   has = self->_has;
   if (has)
   {
-    reflectiveInterval = self->_reflectiveInterval;
     PBDataWriterWriteInt64Field();
-    toCopy = v12;
+    toCopy = v8;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    valence = self->_valence;
     PBDataWriterWriteDoubleField();
-    toCopy = v12;
+    toCopy = v8;
   }
 
   if (self->_labels.count)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      v9 = self->_labels.list[v8];
       PBDataWriterWriteInt64Field();
-      toCopy = v12;
-      ++v8;
+      toCopy = v8;
+      ++v6;
     }
 
-    while (v8 < self->_labels.count);
+    while (v6 < self->_labels.count);
   }
 
   if (self->_domains.count)
   {
-    v10 = 0;
+    v7 = 0;
     do
     {
-      v11 = self->_domains.list[v10];
       PBDataWriterWriteInt64Field();
-      toCopy = v12;
-      ++v10;
+      toCopy = v8;
+      ++v7;
     }
 
-    while (v10 < self->_domains.count);
+    while (v7 < self->_domains.count);
   }
 
   if (self->_context)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v8;
   }
 }
 
@@ -290,7 +286,6 @@
     }
   }
 
-  v6 = *(equalCopy + 88);
   if (*&self->_has)
   {
     if ((*(equalCopy + 88) & 1) == 0 || self->_reflectiveInterval != *(equalCopy + 7))
@@ -302,7 +297,7 @@
   else if (*(equalCopy + 88))
   {
 LABEL_18:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_19;
   }
 
@@ -327,17 +322,17 @@ LABEL_18:
   context = self->_context;
   if (context | *(equalCopy + 9))
   {
-    v8 = [(NSString *)context isEqual:?];
+    v7 = [(NSString *)context isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_19:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash
@@ -490,7 +485,7 @@ LABEL_7:
       while (v8 < [(HDCodableStateOfMind *)self labelsCount]);
     }
 
-    v10 = [array copy];
+    v10 = objc_msgSend_copy(array);
     [objectCopy _setLabels:v10];
 
     array2 = [MEMORY[0x277CBEB18] array];
@@ -500,9 +495,9 @@ LABEL_7:
       do
       {
         v13 = MEMORY[0x277CCABB0];
-        v14 = [(HDCodableStateOfMind *)self domains][8 * v12];
-        v15 = [v13 numberWithInteger:HKStateOfMindAssociationFromDomain()];
-        [array2 addObject:v15];
+        [(HDCodableStateOfMind *)self domains];
+        v14 = [v13 numberWithInteger:HKStateOfMindAssociationFromDomain()];
+        [array2 addObject:v14];
 
         ++v12;
       }
@@ -510,21 +505,21 @@ LABEL_7:
       while (v12 < [(HDCodableStateOfMind *)self domainsCount]);
     }
 
-    v16 = [array2 copy];
-    [objectCopy _setAssociations:v16];
+    v15 = objc_msgSend_copy(array2);
+    [objectCopy _setAssociations:v15];
 
     context = [(HDCodableStateOfMind *)self context];
     [objectCopy _setContext:context];
 
-    v18 = 1;
+    v17 = 1;
   }
 
   else
   {
-    v18 = 0;
+    v17 = 0;
   }
 
-  return v18;
+  return v17;
 }
 
 @end

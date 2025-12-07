@@ -29,94 +29,103 @@
 
 - (id)_readConfiguration
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v10 = 0;
+  v17 = *MEMORY[0x277D85DE8];
+  v14 = 0;
   sharedConnection = [getMCProfileConnectionClass() sharedConnection];
-  v3 = [sharedConnection unlockScreenTypeWithOutSimplePasscodeType:&v10];
+  v3 = [sharedConnection unlockScreenTypeWithOutSimplePasscodeType:&v14];
 
   if (v3)
   {
     if (v3 == 1 || v3 == 2)
     {
-      v4 = +[RUILocalPasscodeConfiguration alphanumeric];
+      v6 = +[RUILocalPasscodeConfiguration alphanumeric];
       goto LABEL_17;
     }
 
-    if (!_isInternalInstall())
+    isInternalInstall = _isInternalInstall(v4, v5);
+    if (!isInternalInstall)
     {
       goto LABEL_15;
     }
 
-    v5 = _RUILoggingFacility();
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v8 = _RUILoggingFacility(isInternalInstall);
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_14;
     }
 
     *buf = 67109120;
-    v12 = v3;
-    v6 = "Error! Unexpected unlock type: %d";
+    v16 = v3;
+    v9 = "Error! Unexpected unlock type: %d";
     goto LABEL_13;
   }
 
-  if (v10 == 1)
+  if (v14 == 1)
   {
-    v7 = [RUILocalPasscodeConfiguration alloc];
-    v8 = 6;
+    v11 = [RUILocalPasscodeConfiguration alloc];
+    v12 = 6;
     goto LABEL_16;
   }
 
-  if (v10 && _isInternalInstall())
+  if (v14)
   {
-    v5 = _RUILoggingFacility();
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = _isInternalInstall(v4, v5);
+    if (v7)
     {
+      v8 = _RUILoggingFacility(v7);
+      if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
 LABEL_14:
 
-      goto LABEL_15;
-    }
+        goto LABEL_15;
+      }
 
-    *buf = 67109120;
-    v12 = v10;
-    v6 = "Error! Unlock type is MCUnlockScreenSimple, but value for MCSimplePasscodeType (%d) is invalid.";
+      *buf = 67109120;
+      v16 = v14;
+      v9 = "Error! Unlock type is MCUnlockScreenSimple, but value for MCSimplePasscodeType (%d) is invalid.";
 LABEL_13:
-    _os_log_impl(&dword_21B93D000, v5, OS_LOG_TYPE_DEFAULT, v6, buf, 8u);
-    goto LABEL_14;
+      _os_log_impl(&dword_21B93D000, v8, OS_LOG_TYPE_DEFAULT, v9, buf, 8u);
+      goto LABEL_14;
+    }
   }
 
 LABEL_15:
-  v7 = [RUILocalPasscodeConfiguration alloc];
-  v8 = 4;
+  v11 = [RUILocalPasscodeConfiguration alloc];
+  v12 = 4;
 LABEL_16:
-  v4 = [(RUILocalPasscodeConfiguration *)v7 initWithNumberOfDigits:v8];
+  v6 = [(RUILocalPasscodeConfiguration *)v11 initWithNumberOfDigits:v12];
 LABEL_17:
 
-  return v4;
+  return v6;
 }
 
 - (BOOL)isCorrectPasscode:(id)passcode error:(id *)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   passcodeCopy = passcode;
   sharedConnection = [getMCProfileConnectionClass() sharedConnection];
-  v12 = 0;
-  v7 = [sharedConnection unlockDeviceWithPasscode:passcodeCopy outError:&v12];
+  v15 = 0;
+  v7 = [sharedConnection unlockDeviceWithPasscode:passcodeCopy outError:&v15];
 
-  v8 = v12;
-  if (v8 && _isInternalInstall())
+  v8 = v15;
+  if (v8)
   {
-    v9 = _RUILoggingFacility();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    isInternalInstall = _isInternalInstall(v9, v10);
+    if (isInternalInstall)
     {
-      *buf = 138412290;
-      v14 = v8;
-      _os_log_impl(&dword_21B93D000, v9, OS_LOG_TYPE_DEFAULT, "Error! Entered passcode does not validate: %@", buf, 0xCu);
+      v12 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v17 = v8;
+        _os_log_impl(&dword_21B93D000, v12, OS_LOG_TYPE_DEFAULT, "Error! Entered passcode does not validate: %@", buf, 0xCu);
+      }
     }
   }
 
   if (error)
   {
-    v10 = v8;
+    v13 = v8;
     *error = v8;
   }
 

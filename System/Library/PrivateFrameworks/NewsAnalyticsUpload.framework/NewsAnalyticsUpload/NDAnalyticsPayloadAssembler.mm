@@ -100,8 +100,8 @@ LABEL_6:
 
 void __116__NDAnalyticsPayloadAssembler_determinePayloadDeliveryWindowForEntries_withLastUploadDatesByContentType_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v45 = *MEMORY[0x277D85DE8];
-  v22 = a2;
+  v44 = *MEMORY[0x277D85DE8];
+  v21 = a2;
   v6 = a4;
   if (v6)
   {
@@ -111,25 +111,25 @@ void __116__NDAnalyticsPayloadAssembler_determinePayloadDeliveryWindowForEntries
   else
   {
     v7 = objc_opt_new();
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v8 = *(a1 + 32);
-    v9 = [v8 countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v39 objects:v43 count:16];
     if (v9)
     {
-      v10 = *v41;
+      v10 = *v40;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v41 != v10)
+          if (*v40 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v40 + 1) + 8 * i);
+          v12 = *(*(&v39 + 1) + 8 * i);
           v13 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v12, "envelopeContentType")}];
           v14 = [v7 objectForKeyedSubscript:v13];
           v15 = [v12 envelopeSubmissionDate];
@@ -148,37 +148,37 @@ void __116__NDAnalyticsPayloadAssembler_determinePayloadDeliveryWindowForEntries
           [v7 setObject:v17 forKeyedSubscript:v13];
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v39 objects:v43 count:16];
       }
 
       while (v9);
     }
 
-    v34 = 0;
-    v35 = &v34;
-    v36 = 0x3032000000;
-    v37 = __Block_byref_object_copy__1;
-    v38 = __Block_byref_object_dispose__1;
-    v39 = 0;
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x3032000000;
-    v31 = __Block_byref_object_copy__1;
-    v32 = __Block_byref_object_dispose__1;
     v33 = 0;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __116__NDAnalyticsPayloadAssembler_determinePayloadDeliveryWindowForEntries_withLastUploadDatesByContentType_completion___block_invoke_18;
-    v23[3] = &unk_27997A958;
-    v24 = v22;
-    v25 = *(a1 + 40);
-    v26 = &v34;
-    v27 = &v28;
-    [v7 enumerateKeysAndObjectsUsingBlock:v23];
-    v19 = v35[5];
+    v34 = &v33;
+    v35 = 0x3032000000;
+    v36 = __Block_byref_object_copy__1;
+    v37 = __Block_byref_object_dispose__1;
+    v38 = 0;
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x3032000000;
+    v30 = __Block_byref_object_copy__1;
+    v31 = __Block_byref_object_dispose__1;
+    v32 = 0;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __116__NDAnalyticsPayloadAssembler_determinePayloadDeliveryWindowForEntries_withLastUploadDatesByContentType_completion___block_invoke_18;
+    v22[3] = &unk_27997A958;
+    v23 = v21;
+    v24 = *(a1 + 40);
+    v25 = &v33;
+    v26 = &v27;
+    [v7 enumerateKeysAndObjectsUsingBlock:v22];
+    v19 = v34[5];
     if (v19)
     {
-      v20 = [MEMORY[0x277D30F38] dateRangeWithEarlierDate:v19 laterDate:v29[5]];
+      v20 = [MEMORY[0x277D30F38] dateRangeWithEarlierDate:v19 laterDate:v28[5]];
     }
 
     else
@@ -188,13 +188,11 @@ void __116__NDAnalyticsPayloadAssembler_determinePayloadDeliveryWindowForEntries
 
     (*(*(a1 + 48) + 16))();
 
-    _Block_object_dispose(&v28, 8);
-    _Block_object_dispose(&v34, 8);
+    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v33, 8);
 
     v6 = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __116__NDAnalyticsPayloadAssembler_determinePayloadDeliveryWindowForEntries_withLastUploadDatesByContentType_completion___block_invoke_18(uint64_t a1, void *a2, void *a3)
@@ -321,7 +319,7 @@ LABEL_14:
 
 void __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDatesByContentType_droppedEnvelopeReasonsToUpload_envelopeSizeByEntry_completion___block_invoke(uint64_t a1, void *a2, unint64_t a3, void *a4)
 {
-  v64[1] = *MEMORY[0x277D85DE8];
+  v63[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a4;
   if (v8)
@@ -334,9 +332,9 @@ void __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDa
     else
     {
       v34 = *(a1 + 40);
-      v63 = &unk_286D791F8;
-      v64[0] = v34;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:&v63 count:1];
+      v62 = &unk_286D791F8;
+      v63[0] = v34;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:&v62 count:1];
     }
 
     (*(*(a1 + 72) + 16))();
@@ -346,36 +344,36 @@ void __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDa
   {
     v10 = [MEMORY[0x277CBEAA8] date];
     v11 = *(a1 + 40);
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDatesByContentType_droppedEnvelopeReasonsToUpload_envelopeSizeByEntry_completion___block_invoke_2;
-    v59[3] = &unk_27997A9A8;
-    v41 = v7;
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDatesByContentType_droppedEnvelopeReasonsToUpload_envelopeSizeByEntry_completion___block_invoke_2;
+    v58[3] = &unk_27997A9A8;
+    v40 = v7;
     v12 = v7;
-    v60 = v12;
-    v38 = v10;
-    v61 = v38;
-    v62 = *(a1 + 48);
-    v40 = [v11 fc_arrayOfObjectsPassingTest:v59];
-    v13 = [v40 fc_dictionaryOfSortedObjectsWithKeyBlock:&__block_literal_global_3];
+    v59 = v12;
+    v37 = v10;
+    v60 = v37;
+    v61 = *(a1 + 48);
+    v39 = [v11 fc_arrayOfObjectsPassingTest:v58];
+    v13 = [v39 fc_dictionaryOfSortedObjectsWithKeyBlock:&__block_literal_global_3];
     v14 = objc_opt_new();
     v15 = [v13 allKeys];
-    v57[0] = MEMORY[0x277D85DD0];
-    v57[1] = 3221225472;
-    v57[2] = __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDatesByContentType_droppedEnvelopeReasonsToUpload_envelopeSizeByEntry_completion___block_invoke_4;
-    v57[3] = &unk_27997A9D0;
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDatesByContentType_droppedEnvelopeReasonsToUpload_envelopeSizeByEntry_completion___block_invoke_4;
+    v56[3] = &unk_27997A9D0;
     v16 = v12;
-    v58 = v16;
-    v17 = [v15 fc_setOfObjectsPassingTest:v57];
+    v57 = v16;
+    v17 = [v15 fc_setOfObjectsPassingTest:v56];
 
-    v55[0] = MEMORY[0x277D85DD0];
-    v55[1] = 3221225472;
-    v55[2] = __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDatesByContentType_droppedEnvelopeReasonsToUpload_envelopeSizeByEntry_completion___block_invoke_5;
-    v55[3] = &unk_27997A9F8;
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDatesByContentType_droppedEnvelopeReasonsToUpload_envelopeSizeByEntry_completion___block_invoke_5;
+    v54[3] = &unk_27997A9F8;
     v18 = v13;
-    v56 = v18;
-    v39 = v17;
-    v19 = [v17 fc_arrayByTransformingWithBlock:v55];
+    v55 = v18;
+    v38 = v17;
+    v19 = [v17 fc_arrayByTransformingWithBlock:v54];
     v20 = [v19 fc_arrayByFlattening];
 
     if ([v20 count])
@@ -386,17 +384,17 @@ void __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDa
 
     v22 = objc_opt_new();
     v23 = objc_opt_new();
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDatesByContentType_droppedEnvelopeReasonsToUpload_envelopeSizeByEntry_completion___block_invoke_6;
-    v51[3] = &unk_27997AA20;
-    v52 = v18;
-    v53 = v22;
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDatesByContentType_droppedEnvelopeReasonsToUpload_envelopeSizeByEntry_completion___block_invoke_6;
+    v50[3] = &unk_27997AA20;
+    v51 = v18;
+    v52 = v22;
     v24 = v23;
-    v54 = v24;
+    v53 = v24;
     v25 = v22;
-    v37 = v18;
-    [v16 enumerateKeysAndObjectsUsingBlock:v51];
+    v36 = v18;
+    [v16 enumerateKeysAndObjectsUsingBlock:v50];
     v26 = objc_opt_new();
     v27 = [*(a1 + 56) maxPayloadSize];
     if (v27 >= a3)
@@ -410,32 +408,30 @@ void __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDa
     }
 
     v29 = FCDeviceIdentifierForVendor();
-    v36 = v20;
+    v35 = v20;
     v30 = [v29 hash] % 0x64uLL;
 
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDatesByContentType_droppedEnvelopeReasonsToUpload_envelopeSizeByEntry_completion___block_invoke_7;
-    v42[3] = &unk_27997AAF8;
-    v43 = v24;
-    v44 = *(a1 + 32);
-    v45 = v14;
-    v46 = v16;
-    v49 = v30;
-    v50 = v28;
-    v47 = *(a1 + 64);
-    v48 = v26;
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDatesByContentType_droppedEnvelopeReasonsToUpload_envelopeSizeByEntry_completion___block_invoke_7;
+    v41[3] = &unk_27997AAF8;
+    v42 = v24;
+    v43 = *(a1 + 32);
+    v44 = v14;
+    v45 = v16;
+    v48 = v30;
+    v49 = v28;
+    v46 = *(a1 + 64);
+    v47 = v26;
     v31 = v26;
     v32 = v14;
     v33 = v24;
-    [v25 enumerateKeysAndObjectsUsingBlock:v42];
+    [v25 enumerateKeysAndObjectsUsingBlock:v41];
     (*(*(a1 + 72) + 16))();
 
-    v7 = v41;
-    v9 = v38;
+    v7 = v40;
+    v9 = v37;
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDatesByContentType_droppedEnvelopeReasonsToUpload_envelopeSizeByEntry_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -510,29 +506,29 @@ void __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDa
 
 void __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDatesByContentType_droppedEnvelopeReasonsToUpload_envelopeSizeByEntry_completion___block_invoke_7(uint64_t a1, uint64_t a2, void *a3)
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v54 = [*(a1 + 32) objectForKeyedSubscript:a2];
+  v53 = [*(a1 + 32) objectForKeyedSubscript:a2];
   v6 = objc_opt_new();
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDatesByContentType_droppedEnvelopeReasonsToUpload_envelopeSizeByEntry_completion___block_invoke_8;
   aBlock[3] = &unk_27997AA48;
-  v67 = *(a1 + 40);
+  v66 = *(a1 + 40);
   v7 = v6;
-  v68 = v7;
-  v69 = *(a1 + 48);
+  v67 = v7;
+  v68 = *(a1 + 48);
   v8 = _Block_copy(aBlock);
-  v63[0] = MEMORY[0x277D85DD0];
-  v63[1] = 3221225472;
-  v63[2] = __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDatesByContentType_droppedEnvelopeReasonsToUpload_envelopeSizeByEntry_completion___block_invoke_9;
-  v63[3] = &unk_27997AA70;
+  v62[0] = MEMORY[0x277D85DD0];
+  v62[1] = 3221225472;
+  v62[2] = __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDatesByContentType_droppedEnvelopeReasonsToUpload_envelopeSizeByEntry_completion___block_invoke_9;
+  v62[3] = &unk_27997AA70;
   v9 = *(a1 + 56);
   v10 = *(a1 + 80);
-  v64 = v9;
-  v65 = v10;
-  v55 = v5;
-  v11 = [v5 fc_dictionaryOfSortedObjectsWithKeyBlock:v63];
+  v63 = v9;
+  v64 = v10;
+  v54 = v5;
+  v11 = [v5 fc_dictionaryOfSortedObjectsWithKeyBlock:v62];
   v12 = [v11 objectForKeyedSubscript:MEMORY[0x277CBEC28]];
   v8[2](v8, 2, v12);
 
@@ -548,59 +544,59 @@ void __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDa
 
   v17 = [v16 sortedArrayUsingComparator:&__block_literal_global_38];
   v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 88)];
-  v62 = 0;
-  v60[0] = MEMORY[0x277D85DD0];
-  v60[1] = 3221225472;
-  v60[2] = __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDatesByContentType_droppedEnvelopeReasonsToUpload_envelopeSizeByEntry_completion___block_invoke_11;
-  v60[3] = &unk_27997A820;
-  v61 = *(a1 + 64);
-  v19 = [v17 fc_arraysByPartitioningWithBudget:v18 indicesOfOverBudgetObjects:&v62 appraiser:v60 accumulator:&__block_literal_global_41 comparator:&__block_literal_global_44];
-  v20 = v62;
+  v61 = 0;
+  v59[0] = MEMORY[0x277D85DD0];
+  v59[1] = 3221225472;
+  v59[2] = __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDatesByContentType_droppedEnvelopeReasonsToUpload_envelopeSizeByEntry_completion___block_invoke_11;
+  v59[3] = &unk_27997A820;
+  v60 = *(a1 + 64);
+  v19 = [v17 fc_arraysByPartitioningWithBudget:v18 indicesOfOverBudgetObjects:&v61 appraiser:v59 accumulator:&__block_literal_global_41 comparator:&__block_literal_global_44];
+  v20 = v61;
 
-  v52 = v20;
-  v53 = v17;
+  v51 = v20;
+  v52 = v17;
   v21 = [v17 objectsAtIndexes:v20];
   v8[2](v8, 1, v21);
 
-  v51 = v19;
+  v50 = v19;
   v22 = [v19 firstObject];
   if ([v22 count])
   {
-    v46 = v16;
-    v47 = v11;
-    v48 = v8;
-    v50 = v7;
+    v45 = v16;
+    v46 = v11;
+    v47 = v8;
+    v49 = v7;
     v23 = MEMORY[0x277CBEB98];
-    v45 = v22;
+    v44 = v22;
     v24 = NDAnalyticsEnvelopeContentTypesFromEntries(v22);
     v25 = [v23 setWithArray:v24];
 
     v26 = objc_opt_new();
+    v55 = 0u;
     v56 = 0u;
     v57 = 0u;
     v58 = 0u;
-    v59 = 0u;
-    v49 = a1;
+    v48 = a1;
     v27 = *(a1 + 56);
-    v44 = v25;
+    v43 = v25;
     v28 = [v25 allObjects];
     v29 = [v27 nf_objectsForKeysWithoutMarker:v28];
 
-    v30 = [v29 countByEnumeratingWithState:&v56 objects:v70 count:16];
+    v30 = [v29 countByEnumeratingWithState:&v55 objects:v69 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v57;
+      v32 = *v56;
       do
       {
         for (i = 0; i != v31; ++i)
         {
-          if (*v57 != v32)
+          if (*v56 != v32)
           {
             objc_enumerationMutation(v29);
           }
 
-          v34 = *(*(&v56 + 1) + 8 * i);
+          v34 = *(*(&v55 + 1) + 8 * i);
           v35 = [v34 contentHeaderName];
           if (v35)
           {
@@ -622,27 +618,27 @@ void __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDa
           }
         }
 
-        v31 = [v29 countByEnumeratingWithState:&v56 objects:v70 count:16];
+        v31 = [v29 countByEnumeratingWithState:&v55 objects:v69 count:16];
       }
 
       while (v31);
     }
 
     v40 = objc_opt_new();
-    v41 = v54;
-    [v40 setEndpointURL:v54];
+    v41 = v53;
+    [v40 setEndpointURL:v53];
     [v40 setValuesByHTTPHeaderField:v26];
-    v22 = v45;
-    [v40 setEntriesToUpload:v45];
+    v22 = v44;
+    [v40 setEntriesToUpload:v44];
 
-    v7 = v50;
-    v42 = v55;
-    if (![v50 count])
+    v7 = v49;
+    v42 = v54;
+    if (![v49 count])
     {
-      v8 = v48;
-      a1 = v49;
-      v16 = v46;
-      v11 = v47;
+      v8 = v47;
+      a1 = v48;
+      v16 = v45;
+      v11 = v46;
       if (!v40)
       {
         goto LABEL_22;
@@ -651,13 +647,13 @@ void __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDa
       goto LABEL_21;
     }
 
-    v8 = v48;
-    a1 = v49;
-    v16 = v46;
-    v11 = v47;
+    v8 = v47;
+    a1 = v48;
+    v16 = v45;
+    v11 = v46;
     if (v40)
     {
-      [v40 setDroppedEntriesByReason:v50];
+      [v40 setDroppedEntriesByReason:v49];
 LABEL_21:
       [*(a1 + 72) addObject:v40];
 
@@ -667,7 +663,7 @@ LABEL_21:
 
   else
   {
-    v41 = v54;
+    v41 = v53;
     v42 = v5;
     if (![v7 count])
     {
@@ -685,8 +681,6 @@ LABEL_21:
   }
 
 LABEL_22:
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUploadDatesByContentType_droppedEnvelopeReasonsToUpload_envelopeSizeByEntry_completion___block_invoke_8(uint64_t a1, uint64_t a2, void *a3)
@@ -795,134 +789,101 @@ uint64_t __150__NDAnalyticsPayloadAssembler_assemblePayloadsWithEntries_lastUplo
 
 - (void)initWithConfigProvider:maxPayloadSize:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "configProvider"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "configProvider", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)determinePayloadDeliveryWindowForEntries:withLastUploadDatesByContentType:completion:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "entries"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "entries", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)determinePayloadDeliveryWindowForEntries:withLastUploadDatesByContentType:completion:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "lastUploadDatesByContentType"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "lastUploadDatesByContentType", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)determinePayloadDeliveryWindowForEntries:withLastUploadDatesByContentType:completion:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "completion", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)assemblePayloadsWithEntries:lastUploadDatesByContentType:droppedEnvelopeReasonsToUpload:envelopeSizeByEntry:completion:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "entries"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "entries", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)assemblePayloadsWithEntries:lastUploadDatesByContentType:droppedEnvelopeReasonsToUpload:envelopeSizeByEntry:completion:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "lastUploadDatesByContentType"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "lastUploadDatesByContentType", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)assemblePayloadsWithEntries:lastUploadDatesByContentType:droppedEnvelopeReasonsToUpload:envelopeSizeByEntry:completion:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "droppedEnvelopeReasonsToUpload"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "droppedEnvelopeReasonsToUpload", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)assemblePayloadsWithEntries:lastUploadDatesByContentType:droppedEnvelopeReasonsToUpload:envelopeSizeByEntry:completion:.cold.4()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "![droppedEnvelopeReasonsToUpload containsObject:@(NDAnalyticsPayloadAssemblerDroppedEnvelopeReasonMissingConfigForContentType)]"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "![droppedEnvelopeReasonsToUpload containsObject:@(NDAnalyticsPayloadAssemblerDroppedEnvelopeReasonMissingConfigForContentType)]", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)assemblePayloadsWithEntries:lastUploadDatesByContentType:droppedEnvelopeReasonsToUpload:envelopeSizeByEntry:completion:.cold.5()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "envelopeSizeByEntry"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "envelopeSizeByEntry", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)assemblePayloadsWithEntries:lastUploadDatesByContentType:droppedEnvelopeReasonsToUpload:envelopeSizeByEntry:completion:.cold.6()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "completion", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_fetchAnalyticsEnvelopeContentTypeConfigsWithCompletion:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "completion", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 @end

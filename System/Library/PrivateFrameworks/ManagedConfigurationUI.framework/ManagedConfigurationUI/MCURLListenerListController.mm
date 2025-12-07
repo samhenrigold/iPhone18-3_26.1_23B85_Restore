@@ -55,7 +55,7 @@
 
 - (void)_pushProfileDetailsForProfileWithID:(id)d withCompletion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   if (dCopy)
@@ -66,26 +66,26 @@
 
     if (!v10)
     {
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       specifiers = [(MCURLListenerListController *)self specifiers];
-      v12 = [specifiers countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v12 = [specifiers countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v26;
+        v14 = *v25;
         while (2)
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v26 != v14)
+            if (*v25 != v14)
             {
               objc_enumerationMutation(specifiers);
             }
 
-            v16 = *(*(&v25 + 1) + 8 * i);
+            v16 = *(*(&v24 + 1) + 8 * i);
             name2 = [v16 name];
             v18 = [name2 isEqualToString:dCopy];
 
@@ -116,7 +116,7 @@
             }
           }
 
-          v13 = [specifiers countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v13 = [specifiers countByEnumeratingWithState:&v24 objects:v28 count:16];
           if (v13)
           {
             continue;
@@ -135,8 +135,6 @@ LABEL_16:
   {
     completionCopy[2](completionCopy);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_presentMDMMigrationAlert

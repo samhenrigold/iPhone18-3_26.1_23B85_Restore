@@ -42,28 +42,29 @@
 
 - (void)_removeEngagedSuggestionsIfPossibleNoSync
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   [(ATXExecutableReferenceManager *)self->_referenceManager purgeReferencesIfPossible];
   v3 = [(ATXEngagementRecordManager *)self _engagedEntriesNoSyncOfType:1021 queryOptions:0];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __71__ATXEngagementRecordManager__removeEngagedSuggestionsIfPossibleNoSync__block_invoke;
-  v8[3] = &unk_1E80C2DE8;
-  v8[4] = self;
-  v4 = [v3 objectsPassingTest:v8];
-  if ([v4 count])
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __71__ATXEngagementRecordManager__removeEngagedSuggestionsIfPossibleNoSync__block_invoke;
+  v9[3] = &unk_1E80C2DE8;
+  v9[4] = self;
+  v4 = [v3 objectsPassingTest:v9];
+  v5 = [v4 count];
+  if (v5)
   {
-    v5 = __atxlog_handle_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
       *buf = 138412546;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v4;
-      _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_DEFAULT, "%@ - removing executables with ref count of zero: %@", buf, 0x16u);
+      v11 = v8;
+      v12 = 2112;
+      v13 = v4;
+      _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "%@ - removing executables with ref count of zero: %@", buf, 0x16u);
     }
 
     [v3 minusSet:v4];
@@ -74,115 +75,119 @@
 - (id)_engagedEntriesNoSync
 {
   dispatch_assert_queue_V2(self->_queue);
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__7;
-  v21 = __Block_byref_object_dispose__7;
-  v22 = 0;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __51__ATXEngagementRecordManager__engagedEntriesNoSync__block_invoke;
-  v16[3] = &unk_1E80C29A0;
-  v16[4] = self;
-  v16[5] = &v17;
-  [ATXRunningBoardAssertion performWorkWithFinishTaskAssertionName:@"ATXEngagementRecordManager" block:v16];
-  if (v18[5])
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__7;
+  v22 = __Block_byref_object_dispose__7;
+  v23 = 0;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __51__ATXEngagementRecordManager__engagedEntriesNoSync__block_invoke;
+  v17[3] = &unk_1E80C29A0;
+  v17[4] = self;
+  v17[5] = &v18;
+  [ATXRunningBoardAssertion performWorkWithFinishTaskAssertionName:@"ATXEngagementRecordManager" block:v17];
+  if (v19[5])
   {
     v3 = objc_autoreleasePoolPush();
     v4 = MEMORY[0x1E696ACD0];
     v5 = MEMORY[0x1E695DFD8];
     v6 = objc_opt_class();
     v7 = [v5 setWithObjects:{v6, objc_opt_class(), 0}];
-    v8 = v18[5];
-    v15 = 0;
-    v9 = [v4 unarchivedObjectOfClasses:v7 fromData:v8 error:&v15];
-    v10 = v15;
+    v8 = v19[5];
+    v16 = 0;
+    v9 = [v4 unarchivedObjectOfClasses:v7 fromData:v8 error:&v16];
+    v10 = v16;
 
     objc_autoreleasePoolPop(v3);
     if (v9)
     {
-      v11 = v9;
+      v12 = v9;
     }
 
     else
     {
-      v13 = __atxlog_handle_default();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = __atxlog_handle_default(v11);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [(ATXEngagementRecordManager *)v10 _engagedEntriesNoSync];
       }
 
-      v11 = objc_opt_new();
+      v12 = objc_opt_new();
     }
 
-    v12 = v11;
+    v13 = v12;
   }
 
   else
   {
-    v12 = objc_opt_new();
+    v13 = objc_opt_new();
   }
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v18, 8);
 
-  return v12;
+  return v13;
 }
 
 uint64_t __51__ATXEngagementRecordManager__engagedEntriesNoSync__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _readData];
+  v2 = [*(a1 + 32) _readData];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (id)_readData
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = open([(NSString *)self->_path fileSystemRepresentation], 0);
   if (v2 == -1)
   {
-    v6 = *__error();
-    v7 = __atxlog_handle_default();
-    v8 = v7;
-    if (v6 == 2)
+    v7 = __error();
+    v8 = *v7;
+    v9 = __atxlog_handle_default(v7);
+    v10 = v9;
+    if (v8 == 2)
     {
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "No recently engaged cache file found.", buf, 2u);
+        _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "No recently engaged cache file found.", buf, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [ATXEngagementRecordManager _readData];
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
     v3 = v2;
-    ATXCacheFileRead();
+    v4 = ATXCacheFileRead();
     if ((v3 & 0x80000000) == 0)
     {
-      close(v3);
+      v4 = close(v3);
     }
 
-    v4 = __atxlog_handle_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = __atxlog_handle_default(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = @"ATXEngagementRecords.pb";
-      _os_log_impl(&dword_1BF549000, v4, OS_LOG_TYPE_DEFAULT, "Successfully read data from cache file: %@", buf, 0xCu);
+      v13 = @"ATXEngagementRecords.pb";
+      _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_DEFAULT, "Successfully read data from cache file: %@", buf, 0xCu);
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 + (ATXEngagementRecordManager)sharedInstance
@@ -391,7 +396,7 @@ void __76__ATXEngagementRecordManager_updateForClientModelCacheUpdate_clientMode
 {
   v15 = *MEMORY[0x1E69E9840];
   v2 = os_transaction_create();
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
@@ -410,8 +415,7 @@ void __76__ATXEngagementRecordManager_updateForClientModelCacheUpdate_clientMode
   v10[4] = v6;
   v11 = v5;
   v12 = *(a1 + 32);
-  [v7 performBatchUpdateOfReferencesWithBlock:v10];
-  v8 = __atxlog_handle_default();
+  v8 = __atxlog_handle_default([v7 performBatchUpdateOfReferencesWithBlock:v10]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(a1 + 32);
@@ -514,12 +518,12 @@ void __76__ATXEngagementRecordManager_hasEngagedWithSuggestion_engagementRecordT
   v7 = ATXAllowedEngagementRecordManagerClasses();
   executableSpecification = [suggestionCopy executableSpecification];
   executableClassString = [executableSpecification executableClassString];
-  v10 = [v7 containsObject:executableClassString];
+  v10 = objc_msgSend_containsObject_(v7);
 
   if (v10)
   {
     v11 = ATXExecutableIdentifierForSuggestion(suggestionCopy);
-    v12 = [executablesCopy containsObject:v11];
+    v12 = objc_msgSend_containsObject_(executablesCopy);
   }
 
   else
@@ -586,7 +590,7 @@ void __76__ATXEngagementRecordManager_hasEngagedWithExecutable_engagementRecordT
   executableCopy = executable;
   v7 = [[ATXExecutableIdentifier alloc] initWithString:executableCopy];
 
-  LOBYTE(executableCopy) = [executablesCopy containsObject:v7];
+  LOBYTE(executableCopy) = objc_msgSend_containsObject_(executablesCopy);
   return executableCopy;
 }
 
@@ -715,7 +719,7 @@ uint64_t __72__ATXEngagementRecordManager_addEngagedSuggestion_engagementRecordT
 
   else
   {
-    v11 = __atxlog_handle_context_heuristic();
+    v11 = __atxlog_handle_context_heuristic(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       [ATXEngagementRecordManager addEngagedExecutable:type clientModelId:v11 engagementRecordType:?];
@@ -830,7 +834,7 @@ uint64_t __64__ATXEngagementRecordManager_removeAllEngagementsForSuggestion___bl
 
 uint64_t __128__ATXEngagementRecordManager_removeEngagementForExecutableIdentifier_recordType_abortingRemovalIfEngagementDateIsLaterThanDate___block_invoke(void *a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 executable];
   if (![v4 isEqual:a1[4]])
@@ -846,7 +850,7 @@ LABEL_6:
   if (v5 != v6)
   {
 LABEL_7:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_8;
   }
 
@@ -855,39 +859,39 @@ LABEL_7:
   v9 = [v7 laterDate:v8];
   v10 = a1[5];
 
-  v4 = __atxlog_handle_home_screen();
-  v11 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v4 = __atxlog_handle_home_screen(v11);
+  v12 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (v9 != v10)
   {
-    if (v11)
+    if (v12)
     {
-      v12 = a1[6];
-      v13 = a1[4];
-      v18 = 134218242;
-      v19 = v12;
-      v20 = 2112;
-      v21 = v13;
-      _os_log_impl(&dword_1BF549000, v4, OS_LOG_TYPE_DEFAULT, "EngagementRecordManager: not removing engagement (type %lu) for executable identifier %@ because it was engaged too recently", &v18, 0x16u);
+      v13 = a1[6];
+      v14 = a1[4];
+      v19 = 134218242;
+      v20 = v13;
+      v21 = 2112;
+      v22 = v14;
+      _os_log_impl(&dword_1BF549000, v4, OS_LOG_TYPE_DEFAULT, "EngagementRecordManager: not removing engagement (type %lu) for executable identifier %@ because it was engaged too recently", &v19, 0x16u);
     }
 
     goto LABEL_6;
   }
 
-  if (v11)
+  if (v12)
   {
-    v16 = a1[6];
-    v17 = a1[4];
-    v18 = 134218242;
-    v19 = v16;
-    v20 = 2112;
-    v21 = v17;
-    _os_log_impl(&dword_1BF549000, v4, OS_LOG_TYPE_DEFAULT, "EngagementRecordManager: removing engagement (type %lu) for executable identifier %@", &v18, 0x16u);
+    v17 = a1[6];
+    v18 = a1[4];
+    v19 = 134218242;
+    v20 = v17;
+    v21 = 2112;
+    v22 = v18;
+    _os_log_impl(&dword_1BF549000, v4, OS_LOG_TYPE_DEFAULT, "EngagementRecordManager: removing engagement (type %lu) for executable identifier %@", &v19, 0x16u);
   }
 
-  v14 = 1;
+  v15 = 1;
 LABEL_8:
 
-  return v14;
+  return v15;
 }
 
 - (void)_removeEngagementsOnQueuePassingTest:(id)test
@@ -1107,13 +1111,13 @@ void __71__ATXEngagementRecordManager_fetchEngagedEntriesWithCompletionHandler__
 
 - (void)_addEngagedSuggestionNoSync:(id)sync type:(unint64_t)type
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   syncCopy = sync;
   dispatch_assert_queue_V2(self->_queue);
   v7 = ATXAllowedEngagementRecordManagerClasses();
   executableSpecification = [syncCopy executableSpecification];
   executableClassString = [executableSpecification executableClassString];
-  v10 = [v7 containsObject:executableClassString];
+  v10 = objc_msgSend_containsObject_(v7);
 
   if (v10)
   {
@@ -1121,29 +1125,28 @@ void __71__ATXEngagementRecordManager_fetchEngagedEntriesWithCompletionHandler__
     clientModelSpecification = [syncCopy clientModelSpecification];
     clientModelId = [clientModelSpecification clientModelId];
 
-    [(ATXEngagementRecordManager *)self _addEngagedExcutableNoSync:v11 clientModelId:clientModelId type:type];
-    v14 = __atxlog_handle_default();
+    v14 = __atxlog_handle_default([(ATXEngagementRecordManager *)self _addEngagedExcutableNoSync:v11 clientModelId:clientModelId type:type]);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v15 = objc_opt_class();
       v16 = NSStringFromClass(v15);
-      v20 = 138412546;
-      v21 = v16;
-      v22 = 2112;
-      v23 = syncCopy;
-      _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, "%@ - adding engaged suggestion to engagement record manager: %@", &v20, 0x16u);
+      v21 = 138412546;
+      v22 = v16;
+      v23 = 2112;
+      v24 = syncCopy;
+      _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, "%@ - adding engaged suggestion to engagement record manager: %@", &v21, 0x16u);
     }
 
     if (type == 4)
     {
-      v17 = __atxlog_handle_home_screen();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = __atxlog_handle_home_screen(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         executableSpecification2 = [syncCopy executableSpecification];
         executableIdentifier = [executableSpecification2 executableIdentifier];
-        v20 = 138412290;
-        v21 = executableIdentifier;
-        _os_log_impl(&dword_1BF549000, v17, OS_LOG_TYPE_DEFAULT, "EngagementRecordManager: adding inferred engagement for suggestion with executable spec ID %@", &v20, 0xCu);
+        v21 = 138412290;
+        v22 = executableIdentifier;
+        _os_log_impl(&dword_1BF549000, v18, OS_LOG_TYPE_DEFAULT, "EngagementRecordManager: adding inferred engagement for suggestion with executable spec ID %@", &v21, 0xCu);
       }
     }
   }
@@ -1190,7 +1193,7 @@ void __76__ATXEngagementRecordManager__addEngagedExcutableNoSync_clientModelId_t
   v9 = ATXAllowedEngagementRecordManagerClasses();
   executableSpecification = [syncCopy executableSpecification];
   executableClassString = [executableSpecification executableClassString];
-  v12 = [v9 containsObject:executableClassString];
+  v12 = objc_msgSend_containsObject_(v9);
 
   if (v12)
   {
@@ -1207,8 +1210,7 @@ void __76__ATXEngagementRecordManager__addEngagedExcutableNoSync_clientModelId_t
     v22 = v15;
     typeCopy = type;
     v16 = v13;
-    [(ATXExecutableReferenceManager *)referenceManager performBatchUpdateOfReferencesWithBlock:v20];
-    v17 = __atxlog_handle_default();
+    v17 = __atxlog_handle_default([(ATXExecutableReferenceManager *)referenceManager performBatchUpdateOfReferencesWithBlock:v20]);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       v18 = objc_opt_class();
@@ -1279,24 +1281,23 @@ void __87__ATXEngagementRecordManager__addHiddenSuggestionNoSync_duration_engage
   dispatch_assert_queue_V2(self->_queue);
   v5 = objc_autoreleasePoolPush();
   v6 = objc_autoreleasePoolPush();
-  v14 = 0;
-  v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:setCopy requiringSecureCoding:1 error:&v14];
-  v8 = v14;
+  v15 = 0;
+  v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:setCopy requiringSecureCoding:1 error:&v15];
+  v8 = v15;
   objc_autoreleasePoolPop(v6);
   if (v7)
   {
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __58__ATXEngagementRecordManager__serializeAndWriteNoSyncSet___block_invoke;
-    v12[3] = &unk_1E80C0958;
-    v12[4] = self;
-    v13 = v7;
-    [ATXRunningBoardAssertion performWorkWithFinishTaskAssertionName:@"ATXEngagementRecordManager" block:v12];
-    v9 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __58__ATXEngagementRecordManager__serializeAndWriteNoSyncSet___block_invoke;
+    v13[3] = &unk_1E80C0958;
+    v13[4] = self;
+    v14 = v7;
+    v10 = __atxlog_handle_blending([ATXRunningBoardAssertion performWorkWithFinishTaskAssertionName:@"ATXEngagementRecordManager" block:v13]);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "Refreshing blending after engagement record manager update", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "Refreshing blending after engagement record manager update", v12, 2u);
     }
 
     [MEMORY[0x1E69C5BB8] refreshBlendingLayerWithReason:@"ERM change"];
@@ -1304,10 +1305,10 @@ void __87__ATXEngagementRecordManager__addHiddenSuggestionNoSync_duration_engage
 
   else
   {
-    v10 = __atxlog_handle_default();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = __atxlog_handle_default(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      [(ATXEngagementRecordManager *)v8 _serializeAndWriteNoSyncSet:v10];
+      [(ATXEngagementRecordManager *)v8 _serializeAndWriteNoSyncSet:v11];
     }
   }
 
@@ -1316,39 +1317,40 @@ void __87__ATXEngagementRecordManager__addHiddenSuggestionNoSync_duration_engage
 
 - (BOOL)_writeData:(id)data
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = open([(NSString *)self->_path fileSystemRepresentation], 514, 384);
   if (v5 == -1)
   {
-    v8 = __atxlog_handle_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [ATXEngagementRecordManager _writeData:];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
     v6 = v5;
     v7 = ATXCacheFileWrite();
+    v8 = v7;
     if ((v6 & 0x80000000) == 0)
     {
-      close(v6);
+      v7 = close(v6);
     }
 
-    v8 = __atxlog_handle_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = __atxlog_handle_default(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = @"ATXEngagementRecords.pb";
-      _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "Successfully wrote data to cache file: %@", buf, 0xCu);
+      v12 = @"ATXEngagementRecords.pb";
+      _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "Successfully wrote data to cache file: %@", buf, 0xCu);
     }
   }
 
-  return v7;
+  return v8;
 }
 
 - (unint64_t)_referenceCountForExecutable:(id)executable
@@ -1374,7 +1376,7 @@ void __87__ATXEngagementRecordManager__addHiddenSuggestionNoSync_duration_engage
   return v7;
 }
 
-uint64_t __59__ATXEngagementRecordManager__referenceCountForExecutable___block_invoke(void *a1)
+void *__59__ATXEngagementRecordManager__referenceCountForExecutable___block_invoke(void *a1)
 {
   result = [*(a1[4] + 8) referenceCountForExecutable:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -1411,7 +1413,7 @@ uint64_t __59__ATXEngagementRecordManager__referenceCountForExecutable___block_i
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_0_19();
-  OUTLINED_FUNCTION_1_15(&dword_1BF549000, v1, v2, "Couldn't create cache file: [%i] %s", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_1_15(&dword_1BF549000, v1, v2, "Couldn't create cache file: [%i] %s", v3, v4, v5, v6);
 }
 
 - (void)_readData
@@ -1420,7 +1422,7 @@ uint64_t __59__ATXEngagementRecordManager__referenceCountForExecutable___block_i
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_0_19();
-  OUTLINED_FUNCTION_1_15(&dword_1BF549000, v1, v2, "Couldn't open recently engaged cache file: [%i] %s", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_1_15(&dword_1BF549000, v1, v2, "Couldn't open recently engaged cache file: [%i] %s", v3, v4, v5, v6);
 }
 
 @end

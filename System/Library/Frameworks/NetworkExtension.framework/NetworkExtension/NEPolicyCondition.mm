@@ -41,9 +41,135 @@
 + (id)url:(id)url;
 + (id)usesModernNetworkAPI;
 - (NEPolicyCondition)init;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 @end
 
 @implementation NEPolicyCondition
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  if (self)
+  {
+    v8 = self->_conditionType - 1;
+    if (v8 > 0x2A)
+    {
+      v9 = @"unknown";
+    }
+
+    else
+    {
+      v9 = *(&off_1E7F0A3B8 + v8);
+    }
+
+    if (self->_negative || self->_exactMatch)
+    {
+      v10 = [(__CFString *)v9 mutableCopy];
+      v9 = v10;
+      v11 = "";
+      v12 = "not";
+      if (!self->_negative)
+      {
+        v12 = "";
+      }
+
+      if (self->_negative && self->_exactMatch)
+      {
+        v13 = ", ";
+      }
+
+      else
+      {
+        v13 = "";
+      }
+
+      if (self->_exactMatch)
+      {
+        v11 = "exact";
+      }
+
+      [(__CFString *)v10 appendFormat:@" (%s%s%s)", v12, v13, v11];
+    }
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  [v7 appendPrettyObject:v9 withName:@"condition-type" andIndent:v5 options:options];
+
+  [v7 appendPrettyObject:self->_applicationUUID withName:@"application-uuid" andIndent:v5 options:options];
+  [v7 appendPrettyObject:self->_startAddress withName:@"address" andIndent:v5 options:options | 1];
+  [v7 appendPrettyObject:self->_endAddress withName:@"end-address" andIndent:v5 options:options | 1];
+  [v7 appendPrettyObject:self->_domain withName:@"domain" andIndent:v5 options:options | 1];
+  domainFilter = self->_domainFilter;
+  if (domainFilter)
+  {
+    [v7 appendPrettyInt:domainFilter withName:@"domain-filter" andIndent:v5 options:options];
+  }
+
+  [v7 appendPrettyObject:self->_accountIdentifier withName:@"account-identifier" andIndent:v5 options:options];
+  [v7 appendPrettyObject:self->_interfaceName withName:@"interface-name" andIndent:v5 options:options];
+  [v7 appendPrettyObject:self->_customEntitlement withName:@"custom-entitlement" andIndent:v5 options:options];
+  [v7 appendPrettyObject:self->_agentDomain withName:@"agent-domain" andIndent:v5 options:options];
+  [v7 appendPrettyObject:self->_agentType withName:@"agent-type" andIndent:v5 options:options];
+  [v7 appendPrettyObject:self->_signingIdentifier withName:@"signing-identifier" andIndent:v5 options:options];
+  if (self->_trafficClassStart || self->_trafficClassEnd)
+  {
+    [v7 appendPrettyInt:? withName:? andIndent:? options:?];
+    [v7 appendPrettyInt:self->_trafficClassEnd withName:@"traffic-class-end" andIndent:v5 options:options];
+  }
+
+  pid = self->_pid;
+  if (pid)
+  {
+    [v7 appendPrettyInt:pid withName:@"pid" andIndent:v5 options:options];
+  }
+
+  pid_version = self->_pid_version;
+  if (pid_version)
+  {
+    [v7 appendPrettyInt:pid_version withName:@"version" andIndent:v5 options:options];
+  }
+
+  uid = self->_uid;
+  if (uid)
+  {
+    [v7 appendPrettyInt:uid withName:@"uid" andIndent:v5 options:options];
+  }
+
+  if (self->_ipProtocol)
+  {
+    [v7 appendPrettyInt:? withName:? andIndent:? options:?];
+  }
+
+  if (self->_prefix)
+  {
+    [v7 appendPrettyInt:? withName:? andIndent:? options:?];
+  }
+
+  interfaceFlags = self->_interfaceFlags;
+  if (interfaceFlags)
+  {
+    [v7 appendPrettyHex:interfaceFlags withName:@"flags" andIndent:v5 options:options];
+  }
+
+  interfaceEflags = self->_interfaceEflags;
+  if (interfaceEflags)
+  {
+    [v7 appendPrettyHex:interfaceEflags withName:@"eflags" andIndent:v5 options:options];
+  }
+
+  interfaceXflags = self->_interfaceXflags;
+  if (interfaceXflags)
+  {
+    [v7 appendPrettyHex:interfaceXflags withName:@"flags" andIndent:v5 options:options];
+  }
+
+  return v7;
+}
 
 - (NEPolicyCondition)init
 {

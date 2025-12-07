@@ -231,7 +231,6 @@ LABEL_10:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -251,7 +250,6 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  connectDuration = self->_connectDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -266,7 +264,6 @@ LABEL_6:
   }
 
 LABEL_13:
-  connectionType = self->_connectionType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -281,7 +278,6 @@ LABEL_7:
   }
 
 LABEL_14:
-  linkQuality = self->_linkQuality;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -293,7 +289,6 @@ LABEL_8:
     }
 
 LABEL_16:
-    dnsDuration = self->_dnsDuration;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 0x40) == 0)
     {
@@ -304,7 +299,6 @@ LABEL_16:
   }
 
 LABEL_15:
-  dualChannelState = self->_dualChannelState;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) != 0)
@@ -319,7 +313,6 @@ LABEL_9:
   }
 
 LABEL_17:
-  tlsDuration = self->_tlsDuration;
 
   PBDataWriterWriteUint32Field();
 }

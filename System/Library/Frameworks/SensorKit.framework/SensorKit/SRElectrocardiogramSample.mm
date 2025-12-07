@@ -23,7 +23,7 @@
 
 - (SRElectrocardiogramSample)initWithHAECGSample:(id)sample
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if ([sample flags])
   {
     v4 = 1;
@@ -49,32 +49,32 @@
     v5 = 2;
   }
 
-  v25 = -[SRElectrocardiogramSession initWithState:sessionGuidance:identifier:]([SRElectrocardiogramSession alloc], "initWithState:sessionGuidance:identifier:", v4, v5, [sample sessionIdentifier]);
+  v24 = -[SRElectrocardiogramSession initWithState:sessionGuidance:identifier:]([SRElectrocardiogramSession alloc], "initWithState:sessionGuidance:identifier:", v4, v5, [sample sessionIdentifier]);
   [objc_msgSend(sample "timestamp")];
   v7 = v6;
   [sample frequency];
   v9 = v8;
   v10 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(objc_msgSend(sample, "ecgData"), "count")}];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   ecgData = [sample ecgData];
-  v12 = [ecgData countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v12 = [ecgData countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v28;
+    v14 = *v27;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v28 != v14)
+        if (*v27 != v14)
         {
           objc_enumerationMutation(ecgData);
         }
 
-        v16 = *(*(&v27 + 1) + 8 * i);
+        v16 = *(*(&v26 + 1) + 8 * i);
         v17 = [SRElectrocardiogramData alloc];
         flags = [v16 flags];
         [v16 value];
@@ -82,7 +82,7 @@
         [v10 addObject:v20];
       }
 
-      v13 = [ecgData countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v13 = [ecgData countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v13);
@@ -98,9 +98,8 @@
     v21 = 2;
   }
 
-  v22 = [(SRElectrocardiogramSample *)self initWithTimestamp:v25 frequency:v21 session:v10 lead:v7 data:v9];
+  v22 = [(SRElectrocardiogramSample *)self initWithTimestamp:v24 frequency:v21 session:v10 lead:v7 data:v9];
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 

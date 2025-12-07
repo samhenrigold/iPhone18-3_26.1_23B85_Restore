@@ -53,7 +53,7 @@
 
 - (void)_setHeadersOnRequest:(id)request
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = DAUserAgent();
   [requestCopy setValue:v5 forHTTPHeaderField:@"User-Agent"];
@@ -79,7 +79,7 @@
     if (os_log_type_enabled(v14, v15))
     {
       *buf = 138412290;
-      v21 = v13;
+      v20 = v13;
       _os_log_impl(&dword_248587000, v14, v15, "Setting If-Modified-Since: %@", buf, 0xCu);
     }
 
@@ -92,11 +92,9 @@
   {
     allHTTPHeaderFields = [requestCopy allHTTPHeaderFields];
     *buf = 138412290;
-    v21 = allHTTPHeaderFields;
+    v20 = allHTTPHeaderFields;
     _os_log_impl(&dword_248587000, v16, v17, "Request Headers %@", buf, 0xCu);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_markStartTime
@@ -123,27 +121,27 @@
 
 - (void)_idleTimerFired
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = DALoggingwithCategory();
   v4 = *(MEMORY[0x277D03988] + 3);
   if (os_log_type_enabled(v3, v4))
   {
     startTime = [(SubCalURLRequest *)self startTime];
     [startTime timeIntervalSinceNow];
-    v15 = 138412546;
+    v14 = 138412546;
     selfCopy = self;
-    v17 = 2048;
-    v18 = -v6;
-    _os_log_impl(&dword_248587000, v3, v4, "Idle Timer fired for request %@ after %lf seconds", &v15, 0x16u);
+    v16 = 2048;
+    v17 = -v6;
+    _os_log_impl(&dword_248587000, v3, v4, "Idle Timer fired for request %@ after %lf seconds", &v14, 0x16u);
   }
 
   v7 = DALoggingwithCategory();
   if (os_log_type_enabled(v7, v4))
   {
     currentRunLoop = [MEMORY[0x277CBEB88] currentRunLoop];
-    v15 = 138412290;
+    v14 = 138412290;
     selfCopy = currentRunLoop;
-    _os_log_impl(&dword_248587000, v7, v4, "Current RunLoop: %@", &v15, 0xCu);
+    _os_log_impl(&dword_248587000, v7, v4, "Current RunLoop: %@", &v14, 0xCu);
   }
 
   v9 = DALoggingwithCategory();
@@ -151,22 +149,21 @@
   {
     currentRunLoop2 = [MEMORY[0x277CBEB88] currentRunLoop];
     currentMode = [currentRunLoop2 currentMode];
-    v15 = 138412290;
+    v14 = 138412290;
     selfCopy = currentMode;
-    _os_log_impl(&dword_248587000, v9, v4, "Current Mode: %@", &v15, 0xCu);
+    _os_log_impl(&dword_248587000, v9, v4, "Current Mode: %@", &v14, 0xCu);
   }
 
   v12 = DALoggingwithCategory();
   if (os_log_type_enabled(v12, v4))
   {
     startRunloopDescriptionString = [(SubCalURLRequest *)self startRunloopDescriptionString];
-    v15 = 138412290;
+    v14 = 138412290;
     selfCopy = startRunloopDescriptionString;
-    _os_log_impl(&dword_248587000, v12, v4, "Starting runloop %@", &v15, 0xCu);
+    _os_log_impl(&dword_248587000, v12, v4, "Starting runloop %@", &v14, 0xCu);
   }
 
   [(SubCalURLRequest *)self cancel];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createIdleTimer
@@ -202,16 +199,16 @@
 
 - (void)startConnection
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   [(SubCalURLRequest *)self setFinished:0];
   v3 = DALoggingwithCategory();
   v4 = *(MEMORY[0x277D03988] + 6);
   if (os_log_type_enabled(v3, v4))
   {
     v5 = [(SubCalURLRequest *)self url];
-    v20 = 138412290;
-    v21 = v5;
-    _os_log_impl(&dword_248587000, v3, v4, "Starting connection to %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = v5;
+    _os_log_impl(&dword_248587000, v3, v4, "Starting connection to %@", &v19, 0xCu);
   }
 
   [(SubCalURLRequest *)self timestamp];
@@ -261,12 +258,11 @@
   [task resume];
 
   [(SubCalURLRequest *)self _markStartTime];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancel
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   session = [(SubCalURLRequest *)self session];
   [session invalidateAndCancel];
 
@@ -281,9 +277,9 @@
     [(SubCalURLRequest *)self setFileHandle:0];
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     filePath = [(SubCalURLRequest *)self filePath];
-    v13 = 0;
-    [defaultManager removeItemAtPath:filePath error:&v13];
-    v8 = v13;
+    v12 = 0;
+    [defaultManager removeItemAtPath:filePath error:&v12];
+    v8 = v12;
 
     if (v8)
     {
@@ -293,7 +289,7 @@
       {
         filePath2 = [(SubCalURLRequest *)self filePath];
         *buf = 138412290;
-        v15 = filePath2;
+        v14 = filePath2;
         _os_log_impl(&dword_248587000, v9, v10, "Couldn't remove item at path %@", buf, 0xCu);
       }
     }
@@ -302,7 +298,6 @@
   [(SubCalURLRequest *)self setFilePath:0];
   [(SubCalURLRequest *)self _markEndTime];
   [(SubCalURLRequest *)self _cancelIdleTimer];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishWithError:(id)error
@@ -441,146 +436,138 @@
   dispatch_async(v18, block);
 }
 
-void __92__SubCalURLRequest_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler___block_invoke(uint64_t a1)
+void __92__SubCalURLRequest_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v50 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 32))
+  v46 = *MEMORY[0x277D85DE8];
+  if (!*(a1 + 32))
   {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v2 = DALoggingwithCategory();
-      v3 = MEMORY[0x277D03988];
-      v4 = *(MEMORY[0x277D03988] + 6);
-      if (os_log_type_enabled(v2, v4))
-      {
-        v5 = *(a1 + 32);
-        v40 = 138412290;
-        v41 = v5;
-        _os_log_impl(&dword_248587000, v2, v4, "Connection will send a request with a redirect response: %@", &v40, 0xCu);
-      }
+    v12 = *(*(a1 + 72) + 16);
+LABEL_10:
 
-      v6 = [*(a1 + 48) url];
-      v7 = [v6 scheme];
-      if ([v7 hasPrefix:@"https"])
-      {
-        v8 = [*(a1 + 40) URL];
-        v9 = [v8 scheme];
-        v10 = [v9 hasPrefix:@"https"];
+    v12();
+    return;
+  }
 
-        if ((v10 & 1) == 0)
-        {
-          (*(*(a1 + 72) + 16))();
-LABEL_26:
-          v39 = *MEMORY[0x277D85DE8];
-          return;
-        }
-      }
-
-      else
-      {
-      }
-
-      v18 = [*(a1 + 40) mutableCopy];
-      v19 = [*(a1 + 40) URL];
-      v20 = [v19 host];
-      v21 = [v20 length];
-
-      if (v21)
-      {
-        v22 = [v19 CDVURLWithUser:*(*(a1 + 48) + 32)];
-        v23 = [v22 CDVURLWithPassword:0];
-
-        [v18 setURL:v23];
-      }
-
-      else
-      {
-        v24 = DALoggingwithCategory();
-        v25 = *(v3 + 3);
-        if (os_log_type_enabled(v24, *(v3 + 3)))
-        {
-          Name = sel_getName(*(a1 + 80));
-          v27 = [*(a1 + 48) url];
-          v40 = 136315650;
-          v41 = Name;
-          v42 = 2112;
-          v43 = v27;
-          v44 = 2112;
-          v45 = v19;
-          _os_log_impl(&dword_248587000, v24, v25, "%s: Received redirect where request.url.host is empty, not setting user on the redirected URL. \nOriginal URL: %@\nRedirected to:%@  ", &v40, 0x20u);
-        }
-
-        v23 = v19;
-      }
-
-      v28 = [*(a1 + 40) HTTPBody];
-      [v18 setHTTPBody:v28];
-
-      v29 = [*(a1 + 40) HTTPMethod];
-      [v18 setHTTPMethod:v29];
-
-      v30 = [*(a1 + 40) allHTTPHeaderFields];
-      [v18 setAllHTTPHeaderFields:v30];
-
-      if (*(a1 + 32))
-      {
-        v31 = DALoggingwithCategory();
-        if (os_log_type_enabled(v31, v4))
-        {
-          v32 = *(a1 + 56);
-          v33 = *(a1 + 64);
-          v35 = *(a1 + 32);
-          v34 = *(a1 + 40);
-          v40 = 134219010;
-          v41 = v32;
-          v42 = 2048;
-          v43 = v33;
-          v44 = 2112;
-          v45 = v34;
-          v46 = 2112;
-          v47 = v18;
-          v48 = 2112;
-          v49 = v35;
-          _os_log_impl(&dword_248587000, v31, v4, "Session %p task %p is getting redirected\nProposed request: [%@]\nReconstructed request: [%@]\nRedirect response: [%@]", &v40, 0x34u);
-        }
-
-        if ([*(a1 + 32) statusCode] == 301)
-        {
-          v36 = [*(a1 + 48) delegate];
-          v37 = objc_opt_respondsToSelector();
-
-          if (v37)
-          {
-            v38 = [*(a1 + 48) delegate];
-            [v38 subCalURLRequest:*(a1 + 48) didRedirectToURL:v23];
-          }
-        }
-      }
-
-      (*(*(a1 + 72) + 16))();
-
-      goto LABEL_26;
-    }
-
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
     [*(a1 + 48) cancel];
-    v15 = *(a1 + 48);
-    v16 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D03F90] code:4 userInfo:0];
-    [v15 _finishWithError:v16];
+    v13 = *(a1 + 48);
+    v14 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D03F90] code:4 userInfo:0];
+    [v13 _finishWithError:v14];
 
-    v13 = *(*(a1 + 72) + 16);
-    v17 = *MEMORY[0x277D85DE8];
+    v12 = *(*(a1 + 72) + 16);
+    goto LABEL_10;
+  }
+
+  v3 = DALoggingwithCategory();
+  v4 = MEMORY[0x277D03988];
+  v5 = *(MEMORY[0x277D03988] + 6);
+  if (os_log_type_enabled(v3, v5))
+  {
+    v6 = *(a1 + 32);
+    v36 = 138412290;
+    v37 = v6;
+    _os_log_impl(&dword_248587000, v3, v5, "Connection will send a request with a redirect response: %@", &v36, 0xCu);
+  }
+
+  v7 = [*(a1 + 48) url];
+  v8 = [v7 scheme];
+  if ([v8 hasPrefix:@"https"])
+  {
+    v9 = [*(a1 + 40) URL];
+    v10 = [v9 scheme];
+    v11 = [v10 hasPrefix:@"https"];
+
+    if ((v11 & 1) == 0)
+    {
+      (*(*(a1 + 72) + 16))();
+      return;
+    }
   }
 
   else
   {
-    v11 = *(a1 + 72);
-    v12 = *(a1 + 40);
-    v13 = *(*(a1 + 72) + 16);
-    v14 = *MEMORY[0x277D85DE8];
   }
 
-  v13();
+  v15 = [*(a1 + 40) mutableCopy];
+  v16 = [*(a1 + 40) URL];
+  v17 = [v16 host];
+  v18 = [v17 length];
+
+  if (v18)
+  {
+    v19 = [v16 CDVURLWithUser:*(*(a1 + 48) + 32)];
+    v20 = [v19 CDVURLWithPassword:0];
+
+    [v15 setURL:v20];
+  }
+
+  else
+  {
+    v21 = DALoggingwithCategory();
+    v22 = *(v4 + 3);
+    if (os_log_type_enabled(v21, *(v4 + 3)))
+    {
+      Name = sel_getName(*(a1 + 80));
+      v24 = [*(a1 + 48) url];
+      v36 = 136315650;
+      v37 = Name;
+      v38 = 2112;
+      v39 = v24;
+      v40 = 2112;
+      v41 = v16;
+      _os_log_impl(&dword_248587000, v21, v22, "%s: Received redirect where request.url.host is empty, not setting user on the redirected URL. \nOriginal URL: %@\nRedirected to:%@  ", &v36, 0x20u);
+    }
+
+    v20 = v16;
+  }
+
+  v25 = [*(a1 + 40) HTTPBody];
+  [v15 setHTTPBody:v25];
+
+  v26 = [*(a1 + 40) HTTPMethod];
+  [v15 setHTTPMethod:v26];
+
+  v27 = [*(a1 + 40) allHTTPHeaderFields];
+  [v15 setAllHTTPHeaderFields:v27];
+
+  if (*(a1 + 32))
+  {
+    v28 = DALoggingwithCategory();
+    if (os_log_type_enabled(v28, v5))
+    {
+      v29 = *(a1 + 56);
+      v30 = *(a1 + 64);
+      v32 = *(a1 + 32);
+      v31 = *(a1 + 40);
+      v36 = 134219010;
+      v37 = v29;
+      v38 = 2048;
+      v39 = v30;
+      v40 = 2112;
+      v41 = v31;
+      v42 = 2112;
+      v43 = v15;
+      v44 = 2112;
+      v45 = v32;
+      _os_log_impl(&dword_248587000, v28, v5, "Session %p task %p is getting redirected\nProposed request: [%@]\nReconstructed request: [%@]\nRedirect response: [%@]", &v36, 0x34u);
+    }
+
+    if ([*(a1 + 32) statusCode] == 301)
+    {
+      v33 = [*(a1 + 48) delegate];
+      v34 = objc_opt_respondsToSelector();
+
+      if (v34)
+      {
+        v35 = [*(a1 + 48) delegate];
+        [v35 subCalURLRequest:*(a1 + 48) didRedirectToURL:v20];
+      }
+    }
+  }
+
+  (*(*(a1 + 72) + 16))();
 }
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
@@ -599,43 +586,42 @@ LABEL_26:
 
 void __57__SubCalURLRequest_URLSession_task_didCompleteWithError___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 32))
   {
-    v9 = [*(a1 + 40) fileHandle];
-    [v9 closeFile];
+    v8 = [*(a1 + 40) fileHandle];
+    [v8 closeFile];
 
     [*(a1 + 40) setFileHandle:0];
-    v10 = [*(a1 + 40) filePath];
-    if (v10)
+    v9 = [*(a1 + 40) filePath];
+    if (v9)
     {
     }
 
     else
     {
-      v15 = [*(a1 + 40) connectionData];
+      v14 = [*(a1 + 40) connectionData];
 
-      if (!v15)
+      if (!v14)
       {
-        v17 = DALoggingwithCategory();
-        v18 = *(MEMORY[0x277D03988] + 3);
-        if (os_log_type_enabled(v17, v18))
+        v15 = DALoggingwithCategory();
+        v16 = *(MEMORY[0x277D03988] + 3);
+        if (os_log_type_enabled(v15, v16))
         {
-          v19 = *(a1 + 40);
-          *v21 = 138412290;
-          *&v21[4] = objc_opt_class();
-          v20 = *&v21[4];
-          _os_log_impl(&dword_248587000, v17, v18, "%@ connection finished, but no data?", v21, 0xCu);
+          *v18 = 138412290;
+          *&v18[4] = objc_opt_class();
+          v17 = *&v18[4];
+          _os_log_impl(&dword_248587000, v15, v16, "%@ connection finished, but no data?", v18, 0xCu);
         }
 
-        v13 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D03F90] code:0 userInfo:0];
+        v12 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D03F90] code:0 userInfo:0];
         goto LABEL_15;
       }
     }
 
-    v13 = 0;
+    v12 = 0;
 LABEL_15:
-    v14 = *(a1 + 40);
+    v13 = *(a1 + 40);
     goto LABEL_16;
   }
 
@@ -643,48 +629,43 @@ LABEL_15:
   v3 = *(MEMORY[0x277D03988] + 3);
   if (os_log_type_enabled(v2, v3))
   {
-    v4 = *(a1 + 40);
-    v5 = objc_opt_class();
-    v6 = *(a1 + 32);
-    *v21 = 138412546;
-    *&v21[4] = v5;
-    *&v21[12] = 2112;
-    *&v21[14] = v6;
-    v7 = v5;
-    _os_log_impl(&dword_248587000, v2, v3, "%@ connection failed with error %@", v21, 0x16u);
+    v4 = objc_opt_class();
+    v5 = *(a1 + 32);
+    *v18 = 138412546;
+    *&v18[4] = v4;
+    *&v18[12] = 2112;
+    *&v18[14] = v5;
+    v6 = v4;
+    _os_log_impl(&dword_248587000, v2, v3, "%@ connection failed with error %@", v18, 0x16u);
   }
 
-  v8 = [*(a1 + 32) domain];
-  if ([v8 isEqualToString:*MEMORY[0x277CCA738]])
+  v7 = [*(a1 + 32) domain];
+  if (![v7 isEqualToString:*MEMORY[0x277CCA738]])
   {
-    if ([*(a1 + 32) code] == -1012)
-    {
 
-LABEL_12:
-      v12 = *(a1 + 40);
-      v13 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D03F90] code:5 userInfo:{0, *v21, *&v21[8], v22}];
-      v14 = v12;
-LABEL_16:
-      [v14 _finishWithError:{v13, *v21, *&v21[8]}];
+    goto LABEL_10;
+  }
 
-      goto LABEL_17;
-    }
+  if ([*(a1 + 32) code] != -1012)
+  {
+    v10 = [*(a1 + 32) code];
 
-    v11 = [*(a1 + 32) code];
-
-    if (v11 == -1013)
+    if (v10 == -1013)
     {
       goto LABEL_12;
     }
+
+LABEL_10:
+    [*(a1 + 40) _finishWithError:{*(a1 + 32), *v18, *&v18[8], v19}];
+    return;
   }
 
-  else
-  {
-  }
-
-  [*(a1 + 40) _finishWithError:{*(a1 + 32), *v21, *&v21[16], v22}];
-LABEL_17:
-  v16 = *MEMORY[0x277D85DE8];
+LABEL_12:
+  v11 = *(a1 + 40);
+  v12 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D03F90] code:5 userInfo:{0, *v18, *&v18[8], v19}];
+  v13 = v11;
+LABEL_16:
+  [v13 _finishWithError:{v12, *v18, *&v18[8]}];
 }
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveResponse:(id)response completionHandler:(id)handler
@@ -704,114 +685,107 @@ LABEL_17:
   dispatch_async(v10, block);
 }
 
-void __77__SubCalURLRequest_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke(uint64_t a1)
+void __77__SubCalURLRequest_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
+  v19 = *MEMORY[0x277D85DE8];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if (objc_opt_isKindOfClass())
   {
-    v10 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D03F90] code:4 userInfo:0];
-LABEL_24:
-    [*(a1 + 40) cancel];
-    [*(a1 + 40) _finishWithError:v10];
-    (*(*(a1 + 48) + 16))();
-
-    goto LABEL_25;
-  }
-
-  v3 = *(a1 + 32);
-  v4 = DALoggingwithCategory();
-  v5 = MEMORY[0x277D03988];
-  v6 = *(MEMORY[0x277D03988] + 6);
-  if (os_log_type_enabled(v4, v6))
-  {
-    v18 = 134217984;
-    v19 = [v3 statusCode];
-    _os_log_impl(&dword_248587000, v4, v6, "Connection got response of %ld", &v18, 0xCu);
-  }
-
-  v7 = [v3 statusCode];
-  v8 = v7;
-  if (v7 > 400)
-  {
-    if (v7 != 401)
+    v3 = *(a1 + 32);
+    v4 = DALoggingwithCategory();
+    v5 = MEMORY[0x277D03988];
+    v6 = *(MEMORY[0x277D03988] + 6);
+    if (os_log_type_enabled(v4, v6))
     {
-      if (v7 == 403)
-      {
-        v11 = MEMORY[0x277CCA9B8];
-        v12 = *MEMORY[0x277D03F90];
-        v13 = 9;
-      }
+      v17 = 134217984;
+      v18 = [v3 statusCode];
+      _os_log_impl(&dword_248587000, v4, v6, "Connection got response of %ld", &v17, 0xCu);
+    }
 
-      else
+    v7 = [v3 statusCode];
+    v8 = v7;
+    if (v7 > 400)
+    {
+      if (v7 != 401)
       {
-        if (v7 != 404)
+        if (v7 == 403)
         {
-LABEL_17:
-          v14 = DALoggingwithCategory();
-          v15 = *(v5 + 3);
-          if (os_log_type_enabled(v14, v15))
+          v11 = MEMORY[0x277CCA9B8];
+          v12 = *MEMORY[0x277D03F90];
+          v13 = 9;
+        }
+
+        else
+        {
+          if (v7 != 404)
           {
-            v18 = 134217984;
-            v19 = v8;
-            _os_log_impl(&dword_248587000, v14, v15, "Connection failed with error %ld", &v18, 0xCu);
+LABEL_17:
+            v14 = DALoggingwithCategory();
+            v15 = *(v5 + 3);
+            if (os_log_type_enabled(v14, v15))
+            {
+              v17 = 134217984;
+              v18 = v8;
+              _os_log_impl(&dword_248587000, v14, v15, "Connection failed with error %ld", &v17, 0xCu);
+            }
+
+            v11 = MEMORY[0x277CCA9B8];
+            v12 = *MEMORY[0x277D03F90];
+            v13 = v8;
+            goto LABEL_22;
           }
 
           v11 = MEMORY[0x277CCA9B8];
           v12 = *MEMORY[0x277D03F90];
-          v13 = v8;
-          goto LABEL_22;
+          v13 = 8;
         }
 
-        v11 = MEMORY[0x277CCA9B8];
-        v12 = *MEMORY[0x277D03F90];
-        v13 = 8;
-      }
-
 LABEL_22:
-      v10 = [v11 errorWithDomain:v12 code:v13 userInfo:0];
+        v10 = [v11 errorWithDomain:v12 code:v13 userInfo:0];
 LABEL_23:
 
-      goto LABEL_24;
+        goto LABEL_24;
+      }
     }
 
-LABEL_16:
+    else if ((v7 + 1013) >= 2)
+    {
+      if (v7 == 200)
+      {
+        v16 = [v3 valueForHTTPHeaderField:@"Content-Length"];
+        *(*(a1 + 40) + 72) = [v16 longLongValue];
+
+        (*(*(a1 + 48) + 16))();
+        return;
+      }
+
+      if (v7 == 304)
+      {
+        v9 = DALoggingwithCategory();
+        if (os_log_type_enabled(v9, v6))
+        {
+          LOWORD(v17) = 0;
+          _os_log_impl(&dword_248587000, v9, v6, "Calendar doesn't need to be updated", &v17, 2u);
+        }
+
+        v10 = 0;
+        goto LABEL_23;
+      }
+
+      goto LABEL_17;
+    }
+
     v11 = MEMORY[0x277CCA9B8];
     v12 = *MEMORY[0x277D03F90];
     v13 = 5;
     goto LABEL_22;
   }
 
-  if ((v7 + 1013) < 2)
-  {
-    goto LABEL_16;
-  }
-
-  if (v7 != 200)
-  {
-    if (v7 == 304)
-    {
-      v9 = DALoggingwithCategory();
-      if (os_log_type_enabled(v9, v6))
-      {
-        LOWORD(v18) = 0;
-        _os_log_impl(&dword_248587000, v9, v6, "Calendar doesn't need to be updated", &v18, 2u);
-      }
-
-      v10 = 0;
-      goto LABEL_23;
-    }
-
-    goto LABEL_17;
-  }
-
-  v16 = [v3 valueForHTTPHeaderField:@"Content-Length"];
-  *(*(a1 + 40) + 72) = [v16 longLongValue];
-
+  v10 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D03F90] code:4 userInfo:0];
+LABEL_24:
+  [*(a1 + 40) cancel];
+  [*(a1 + 40) _finishWithError:v10];
   (*(*(a1 + 48) + 16))();
-LABEL_25:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveData:(id)data
@@ -868,7 +842,7 @@ void __55__SubCalURLRequest_URLSession_dataTask_didReceiveData___block_invoke(ui
 
 - (BOOL)_canAuthenticateAgainstProtectionSpace:(id)space
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   spaceCopy = space;
   [(SubCalURLRequest *)self _extendIdleTimer];
   authenticationMethod = [spaceCopy authenticationMethod];
@@ -893,20 +867,19 @@ void __55__SubCalURLRequest_URLSession_dataTask_didReceiveData___block_invoke(ui
       v9 = @"YES";
     }
 
-    v12 = 138412546;
-    v13 = authenticationMethod;
-    v14 = 2112;
-    v15 = v9;
-    _os_log_impl(&dword_248587000, v7, v8, "Can authenticate against protection space %@? %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = authenticationMethod;
+    v13 = 2112;
+    v14 = v9;
+    _os_log_impl(&dword_248587000, v7, v8, "Can authenticate against protection space %@? %@", &v11, 0x16u);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (void)_respondToChallenge:(id)challenge withCredential:(id)credential noCredentialBehavior:(int)behavior completionHandler:(id)handler
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   challengeCopy = challenge;
   credentialCopy = credential;
   handlerCopy = handler;
@@ -917,9 +890,9 @@ void __55__SubCalURLRequest_URLSession_dataTask_didReceiveData___block_invoke(ui
   {
     if (v14)
     {
-      v19 = 138412290;
-      v20 = credentialCopy;
-      _os_log_impl(&dword_248587000, v12, v13, "Using credential %@ for challenge", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = credentialCopy;
+      _os_log_impl(&dword_248587000, v12, v13, "Using credential %@ for challenge", &v18, 0xCu);
     }
 
     handlerCopy[2](handlerCopy, 0, credentialCopy);
@@ -930,8 +903,8 @@ void __55__SubCalURLRequest_URLSession_dataTask_didReceiveData___block_invoke(ui
   {
     if (v14)
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_248587000, v12, v13, "continuing without credential for challenge", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_248587000, v12, v13, "continuing without credential for challenge", &v18, 2u);
     }
 
     v15 = handlerCopy[2];
@@ -944,8 +917,8 @@ void __55__SubCalURLRequest_URLSession_dataTask_didReceiveData___block_invoke(ui
   {
     if (v14)
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_248587000, v12, v13, "Cancelling auth challenge", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_248587000, v12, v13, "Cancelling auth challenge", &v18, 2u);
     }
 
     v15 = handlerCopy[2];
@@ -958,17 +931,16 @@ LABEL_13:
 
   if (v14)
   {
-    LOWORD(v19) = 0;
-    _os_log_impl(&dword_248587000, v12, v13, "Waiting for runloop callback to decide what to do", &v19, 2u);
+    LOWORD(v18) = 0;
+    _os_log_impl(&dword_248587000, v12, v13, "Waiting for runloop callback to decide what to do", &v18, 2u);
   }
 
 LABEL_14:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleAuthenticationChallenge:(id)challenge completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   challengeCopy = challenge;
   handlerCopy = handler;
   protectionSpace = [challengeCopy protectionSpace];
@@ -983,7 +955,7 @@ LABEL_14:
     if (v14)
     {
       *buf = 138412290;
-      v35 = authenticationMethod;
+      v34 = authenticationMethod;
       _os_log_impl(&dword_248587000, v11, v13, "Received authentication challenge for method %@", buf, 0xCu);
     }
 
@@ -997,16 +969,16 @@ LABEL_14:
 
     if (([authenticationMethod isEqualToString:*MEMORY[0x277CBAAE0]] & 1) != 0 || objc_msgSend(authenticationMethod, "isEqualToString:", *MEMORY[0x277CBAAE8]))
     {
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __69__SubCalURLRequest__handleAuthenticationChallenge_completionHandler___block_invoke;
-      v31[3] = &unk_278F20710;
-      v31[4] = self;
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __69__SubCalURLRequest__handleAuthenticationChallenge_completionHandler___block_invoke;
+      v30[3] = &unk_278F20710;
+      v30[4] = self;
       v16 = challengeCopy;
-      v32 = v16;
+      v31 = v16;
       v17 = handlerCopy;
-      v33 = v17;
-      v18 = MEMORY[0x24C1D2310](v31);
+      v32 = v17;
+      v18 = MEMORY[0x24C1D2310](v30);
       proposedCredential = [v16 proposedCredential];
       if (proposedCredential)
       {
@@ -1046,13 +1018,13 @@ LABEL_19:
       goto LABEL_19;
     }
 
-    v29 = DALoggingwithCategory();
-    v30 = *(v12 + 3);
-    if (os_log_type_enabled(v29, v30))
+    v28 = DALoggingwithCategory();
+    v29 = *(v12 + 3);
+    if (os_log_type_enabled(v28, v29))
     {
       *buf = 138412290;
-      v35 = authenticationMethod;
-      _os_log_impl(&dword_248587000, v29, v30, "Try default handling for authentication method %@", buf, 0xCu);
+      v34 = authenticationMethod;
+      _os_log_impl(&dword_248587000, v28, v29, "Try default handling for authentication method %@", buf, 0xCu);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 1, 0);
@@ -1063,7 +1035,7 @@ LABEL_19:
     if (v14)
     {
       *buf = 138412290;
-      v35 = authenticationMethod;
+      v34 = authenticationMethod;
       _os_log_impl(&dword_248587000, v11, v13, "Rejecting authentication challenge for method %@", buf, 0xCu);
     }
 
@@ -1071,8 +1043,6 @@ LABEL_19:
   }
 
 LABEL_20:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __69__SubCalURLRequest__handleAuthenticationChallenge_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1096,15 +1066,15 @@ void __69__SubCalURLRequest__handleAuthenticationChallenge_completionHandler___b
 
 - (void)_openFileHandle
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   +[SubCalURLRequest _initializeFileCache];
   v3 = DALoggingwithCategory();
   v4 = MEMORY[0x277D03988];
   v5 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v3, v5))
   {
-    LOWORD(v16) = 0;
-    _os_log_impl(&dword_248587000, v3, v5, "opening file handle", &v16, 2u);
+    LOWORD(v15) = 0;
+    _os_log_impl(&dword_248587000, v3, v5, "opening file handle", &v15, 2u);
   }
 
   v6 = +[SubCalURLRequest _cachedICSFilesDirectory];
@@ -1121,9 +1091,9 @@ void __69__SubCalURLRequest__handleAuthenticationChallenge_completionHandler___b
       v14 = *(v4 + 3);
       if (os_log_type_enabled(v13, v14))
       {
-        v16 = 136315138;
-        v17 = v9;
-        _os_log_impl(&dword_248587000, v13, v14, "Couldn't create file at path %s", &v16, 0xCu);
+        v15 = 136315138;
+        v16 = v9;
+        _os_log_impl(&dword_248587000, v13, v14, "Couldn't create file at path %s", &v15, 0xCu);
       }
     }
 
@@ -1142,13 +1112,11 @@ void __69__SubCalURLRequest__handleAuthenticationChallenge_completionHandler___b
       free(v9);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_receivedDataForFile:(id)file
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   fileHandle = [(SubCalURLRequest *)self fileHandle];
 
@@ -1159,17 +1127,17 @@ void __69__SubCalURLRequest__handleAuthenticationChallenge_completionHandler___b
     if (connectionData)
     {
       connectionData2 = [(SubCalURLRequest *)self connectionData];
-      v12 = [connectionData2 length];
-      v13 = (*MEMORY[0x277D85FA0] + 5242879) & -*MEMORY[0x277D85FA0];
+      v11 = [connectionData2 length];
+      v12 = (*MEMORY[0x277D85FA0] + 5242879) & -*MEMORY[0x277D85FA0];
 
-      if (v12 < v13)
+      if (v11 < v12)
       {
-        v14 = DALoggingwithCategory();
-        v15 = *(MEMORY[0x277D03988] + 7);
-        if (os_log_type_enabled(v14, v15))
+        v13 = DALoggingwithCategory();
+        v14 = *(MEMORY[0x277D03988] + 7);
+        if (os_log_type_enabled(v13, v14))
         {
-          LOWORD(v24) = 0;
-          _os_log_impl(&dword_248587000, v14, v15, "Data is smaller than 5MB caching in memory", &v24, 2u);
+          LOWORD(v23) = 0;
+          _os_log_impl(&dword_248587000, v13, v14, "Data is smaller than 5MB caching in memory", &v23, 2u);
         }
 
         connectionData3 = [(SubCalURLRequest *)self connectionData];
@@ -1196,22 +1164,22 @@ void __69__SubCalURLRequest__handleAuthenticationChallenge_completionHandler___b
         goto LABEL_5;
       }
 
-      v20 = DALoggingwithCategory();
-      v21 = *(MEMORY[0x277D03988] + 3);
-      if (os_log_type_enabled(v20, v21))
+      v19 = DALoggingwithCategory();
+      v20 = *(MEMORY[0x277D03988] + 3);
+      if (os_log_type_enabled(v19, v20))
       {
         filePath = [(SubCalURLRequest *)self filePath];
-        v24 = 138412290;
-        v25 = filePath;
-        _os_log_impl(&dword_248587000, v20, v21, "Couldn't open file handle at path %@. Will try downloading in memory", &v24, 0xCu);
+        v23 = 138412290;
+        v24 = filePath;
+        _os_log_impl(&dword_248587000, v19, v20, "Couldn't open file handle at path %@. Will try downloading in memory", &v23, 0xCu);
       }
 
       [(SubCalURLRequest *)self setUseFileCache:0];
       [(SubCalURLRequest *)self setFilePath:0];
     }
 
-    v23 = [fileCopy mutableCopy];
-    [(SubCalURLRequest *)self setConnectionData:v23];
+    v22 = [fileCopy mutableCopy];
+    [(SubCalURLRequest *)self setConnectionData:v22];
 
     goto LABEL_7;
   }
@@ -1220,8 +1188,8 @@ void __69__SubCalURLRequest__handleAuthenticationChallenge_completionHandler___b
   v7 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v6, v7))
   {
-    LOWORD(v24) = 0;
-    _os_log_impl(&dword_248587000, v6, v7, "Already have file handle writing to file", &v24, 2u);
+    LOWORD(v23) = 0;
+    _os_log_impl(&dword_248587000, v6, v7, "Already have file handle writing to file", &v23, 2u);
   }
 
 LABEL_5:
@@ -1230,7 +1198,6 @@ LABEL_5:
 LABEL_6:
 
 LABEL_7:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_cachedICSFilesDirectory
@@ -1272,7 +1239,7 @@ void __44__SubCalURLRequest__cachedICSFilesDirectory__block_invoke()
 
 void __40__SubCalURLRequest__initializeFileCache__block_invoke(uint64_t a1)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) _cachedICSFilesDirectory];
   v2 = DALoggingwithCategory();
   v3 = MEMORY[0x277D03988];
@@ -1280,48 +1247,48 @@ void __40__SubCalURLRequest__initializeFileCache__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v2, v4))
   {
     *buf = 138412290;
-    v37 = v1;
+    v36 = v1;
     _os_log_impl(&dword_248587000, v2, v4, "Initializing file cache at %@", buf, 0xCu);
   }
 
   if (v1)
   {
     v5 = [MEMORY[0x277CCAA00] defaultManager];
-    v35 = 0;
-    v28 = v1;
-    v6 = [v5 contentsOfDirectoryAtPath:v1 error:&v35];
-    v7 = v35;
+    v34 = 0;
+    v27 = v1;
+    v6 = [v5 contentsOfDirectoryAtPath:v1 error:&v34];
+    v7 = v34;
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v31 objects:v42 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v30 objects:v41 count:16];
     if (!v9)
     {
       goto LABEL_19;
     }
 
     v10 = v9;
-    v11 = *v32;
+    v11 = *v31;
     v12 = *MEMORY[0x277CCA050];
     v13 = *(v3 + 4);
     while (1)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v32 != v11)
+        if (*v31 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v15 = *(*(&v31 + 1) + 8 * i);
+        v15 = *(*(&v30 + 1) + 8 * i);
 
         v16 = [MEMORY[0x277CCAA00] defaultManager];
-        v30 = 0;
-        [v16 removeItemAtPath:v15 error:&v30];
-        v7 = v30;
+        v29 = 0;
+        [v16 removeItemAtPath:v15 error:&v29];
+        v7 = v29;
 
         if (v7)
         {
@@ -1345,26 +1312,26 @@ void __40__SubCalURLRequest__initializeFileCache__block_invoke(uint64_t a1)
           {
             v20 = [v7 userInfo];
             *buf = 138412802;
-            v37 = v28;
-            v38 = 2112;
-            v39 = v7;
-            v40 = 2112;
-            v41 = v20;
+            v36 = v27;
+            v37 = 2112;
+            v38 = v7;
+            v39 = 2112;
+            v40 = v20;
             _os_log_impl(&dword_248587000, v19, v13, "Couldn't clean up ics file cache at path %@ %@ %@", buf, 0x20u);
           }
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v31 objects:v42 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v30 objects:v41 count:16];
       if (!v10)
       {
 LABEL_19:
 
         v21 = [MEMORY[0x277CCAA00] defaultManager];
-        v29 = 0;
-        v1 = v28;
-        [v21 createDirectoryAtPath:v28 withIntermediateDirectories:1 attributes:0 error:&v29];
-        v22 = v29;
+        v28 = 0;
+        v1 = v27;
+        [v21 createDirectoryAtPath:v27 withIntermediateDirectories:1 attributes:0 error:&v28];
+        v22 = v28;
 
         if (v22)
         {
@@ -1374,11 +1341,11 @@ LABEL_19:
           {
             v25 = [v22 userInfo];
             *buf = 138412802;
-            v37 = v28;
-            v38 = 2112;
-            v39 = v22;
-            v40 = 2112;
-            v41 = v25;
+            v36 = v27;
+            v37 = 2112;
+            v38 = v22;
+            v39 = 2112;
+            v40 = v25;
             _os_log_impl(&dword_248587000, v23, v24, "Couldn't create ics cache at path %@ %@ %@", buf, 0x20u);
           }
         }
@@ -1397,8 +1364,6 @@ LABEL_19:
   }
 
 LABEL_26:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (SubCalURLRequestDelegate)delegate

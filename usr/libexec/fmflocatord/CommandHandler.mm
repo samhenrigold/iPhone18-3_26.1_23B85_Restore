@@ -35,7 +35,7 @@
 
 - (void)executeCommand
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_100036B10(self, v3);
@@ -45,12 +45,13 @@
   v4 = +[StartupRegisterManager sharedInstance];
   [v4 eventDidOccur:9];
 
-  if ([(CommandHandler *)self isPreviouslyHandledCommand])
+  isPreviouslyHandledCommand = [(CommandHandler *)self isPreviouslyHandledCommand];
+  if (isPreviouslyHandledCommand)
   {
-    v5 = sub_100002830();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = sub_100002830(isPreviouslyHandledCommand);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      sub_100036BD4(self, v5);
+      sub_100036BD4(self, v6);
     }
   }
 

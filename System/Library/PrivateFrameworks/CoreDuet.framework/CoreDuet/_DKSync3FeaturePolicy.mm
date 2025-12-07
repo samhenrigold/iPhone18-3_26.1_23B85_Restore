@@ -21,14 +21,14 @@
 
 - (id)initWithName:(void *)name properties:
 {
-  v92[4] = *MEMORY[0x1E69E9840];
+  v91[4] = *MEMORY[0x1E69E9840];
   v6 = a2;
   nameCopy = name;
   if (self)
   {
-    v91.receiver = self;
-    v91.super_class = _DKSync3FeaturePolicy;
-    v8 = objc_msgSendSuper2(&v91, sel_init);
+    v90.receiver = self;
+    v90.super_class = _DKSync3FeaturePolicy;
+    v8 = objc_msgSendSuper2(&v90, sel_init);
     self = v8;
     if (v8)
     {
@@ -79,11 +79,11 @@
           *(self + 8) = bOOLValue;
           if ((bOOLValue & 1) == 0)
           {
-            v92[0] = @"Feature";
-            v92[1] = @"StreamNames";
-            v92[2] = @"Transport";
-            v92[3] = @"OldestEventToSyncInDays";
-            v63 = [MEMORY[0x1E695DEC8] arrayWithObjects:v92 count:4];
+            v91[0] = @"Feature";
+            v91[1] = @"StreamNames";
+            v91[2] = @"Transport";
+            v91[3] = @"OldestEventToSyncInDays";
+            v63 = [MEMORY[0x1E695DEC8] arrayWithObjects:v91 count:4];
             v64 = OUTLINED_FUNCTION_28_1(v63);
 
             if (v64)
@@ -160,7 +160,6 @@
     }
   }
 
-  v89 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -192,38 +191,26 @@
   }
 
   [v2 appendFormat:@"                                 feature: %@\n", feature];
+  OUTLINED_FUNCTION_13();
+  _CDPrettyPrintCollection(v8, v9, v10, v11);
+  objc_claimAutoreleasedReturnValue();
+  OUTLINED_FUNCTION_4_0();
+  [v2 appendFormat:@"                             streamNames: %@\n"];
+
   if (self)
   {
-    streamNames = self->_streamNames;
-    OUTLINED_FUNCTION_13();
-    _CDPrettyPrintCollection(v9, v10, v11, v12);
-    objc_claimAutoreleasedReturnValue();
-    OUTLINED_FUNCTION_4_0();
-    [v2 appendFormat:@"                             streamNames: %@\n"];
-
     sources = self->_sources;
   }
 
   else
   {
-    OUTLINED_FUNCTION_13();
-    _CDPrettyPrintCollection(v33, v34, v35, v36);
-    objc_claimAutoreleasedReturnValue();
-    OUTLINED_FUNCTION_4_0();
-    [v2 appendFormat:@"                             streamNames: %@\n"];
-
     sources = 0;
   }
 
   if ([(NSArray *)sources count])
   {
-    if (self)
-    {
-      v14 = self->_sources;
-    }
-
     OUTLINED_FUNCTION_13();
-    _CDPrettyPrintCollection(v15, v16, v17, v18);
+    _CDPrettyPrintCollection(v13, v14, v15, v16);
     objc_claimAutoreleasedReturnValue();
     OUTLINED_FUNCTION_4_0();
     [v2 appendFormat:@"                                 sources: %@\n"];
@@ -241,13 +228,8 @@
 
   if ([(NSArray *)destinations count])
   {
-    if (self)
-    {
-      v20 = self->_destinations;
-    }
-
     OUTLINED_FUNCTION_13();
-    _CDPrettyPrintCollection(v21, v22, v23, v24);
+    _CDPrettyPrintCollection(v18, v19, v20, v21);
     objc_claimAutoreleasedReturnValue();
     OUTLINED_FUNCTION_4_0();
     [v2 appendFormat:@"                            destinations: %@\n"];
@@ -276,16 +258,15 @@
 
     if (self->_requiresCharging)
     {
-      v25 = @"YES";
+      v22 = @"YES";
     }
 
     else
     {
-      v25 = @"NO";
+      v22 = @"NO";
     }
 
-    [v2 appendFormat:@"                        requiresCharging: %@\n", v25];
-    requiresCompanions = self->_requiresCompanions;
+    [v2 appendFormat:@"                        requiresCharging: %@\n", v22];
   }
 
   else
@@ -295,7 +276,7 @@
   }
 
   OUTLINED_FUNCTION_13();
-  _CDPrettyPrintCollection(v27, v28, v29, v30);
+  _CDPrettyPrintCollection(v23, v24, v25, v26);
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_4_0();
   [v2 appendFormat:@"                      requiresCompanions: %@\n"];
@@ -304,15 +285,15 @@
   {
     if (self->_pushTriggersSync)
     {
-      v31 = @"YES";
+      v27 = @"YES";
     }
 
     else
     {
-      v31 = @"NO";
+      v27 = @"NO";
     }
 
-    [v2 appendFormat:@"                        pushTriggersSync: %@\n", v31];
+    [v2 appendFormat:@"                        pushTriggersSync: %@\n", v27];
     if (self->_additionsCountTowardTriggeredSyncBucket)
     {
       [v2 appendFormat:@" additionsCountTowardTriggeredSyncBucket: %@\n", @"YES"];

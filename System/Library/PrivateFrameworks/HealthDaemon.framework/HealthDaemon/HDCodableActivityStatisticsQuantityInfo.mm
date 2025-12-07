@@ -94,14 +94,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    startDate = self->_startDate;
     PBDataWriterWriteDoubleField();
     has = self->_has;
   }
 
   if (has)
   {
-    endDate = self->_endDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -112,7 +110,6 @@
 
   if ((*&self->_has & 4) != 0)
   {
-    value = self->_value;
     PBDataWriterWriteDoubleField();
   }
 }

@@ -41,25 +41,25 @@
 
 - (FCVanityURLMapper)initWithVanityURLMapping:(id)mapping
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   mappingCopy = mapping;
   if (!mappingCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "vanityURLMapping"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "vanityURLMapping"];
     *buf = 136315906;
-    v13 = "[FCVanityURLMapper initWithVanityURLMapping:]";
-    v14 = 2080;
-    v15 = "FCVanityURLMapper.m";
-    v16 = 1024;
-    v17 = 31;
-    v18 = 2114;
-    v19 = v10;
+    v12 = "[FCVanityURLMapper initWithVanityURLMapping:]";
+    v13 = 2080;
+    v14 = "FCVanityURLMapper.m";
+    v15 = 1024;
+    v16 = 31;
+    v17 = 2114;
+    v18 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v11.receiver = self;
-  v11.super_class = FCVanityURLMapper;
-  v5 = [(FCVanityURLMapper *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = FCVanityURLMapper;
+  v5 = [(FCVanityURLMapper *)&v10 init];
   if (v5)
   {
     v6 = [mappingCopy copy];
@@ -67,56 +67,53 @@
     v5->_vanityURLMapping = v6;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (id)URLForVanityURL:(id)l
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   lCopy = l;
   if (!lCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "vanityURL"];
+    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "vanityURL"];
     *buf = 136315906;
     *&buf[4] = "[FCVanityURLMapper URLForVanityURL:]";
     *&buf[12] = 2080;
     *&buf[14] = "FCVanityURLMapper.m";
     *&buf[22] = 1024;
-    LODWORD(v21) = 43;
-    WORD2(v21) = 2114;
-    *(&v21 + 6) = v15;
+    LODWORD(v20) = 43;
+    WORD2(v20) = 2114;
+    *(&v20 + 6) = v14;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  *&v21 = __Block_byref_object_copy__92;
-  *(&v21 + 1) = __Block_byref_object_dispose__92;
-  v22 = 0;
+  *&v20 = __Block_byref_object_copy__92;
+  *(&v20 + 1) = __Block_byref_object_dispose__92;
+  v21 = 0;
   v5 = [objc_alloc(MEMORY[0x1E696AF20]) initWithURL:lCopy resolvingAgainstBaseURL:0];
   path = [v5 path];
   v7 = [(FCVanityURLMapper *)self _standardizedInputPathWithPath:path];
 
   vanityURLMapping = [(FCVanityURLMapper *)self vanityURLMapping];
   paths = [vanityURLMapping paths];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __37__FCVanityURLMapper_URLForVanityURL___block_invoke;
-  v16[3] = &unk_1E7C47810;
-  v16[4] = self;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __37__FCVanityURLMapper_URLForVanityURL___block_invoke;
+  v15[3] = &unk_1E7C47810;
+  v15[4] = self;
   v10 = v7;
-  v17 = v10;
+  v16 = v10;
   v11 = v5;
-  v18 = v11;
-  v19 = buf;
-  [paths enumerateObjectsUsingBlock:v16];
+  v17 = v11;
+  v18 = buf;
+  [paths enumerateObjectsUsingBlock:v15];
 
   v12 = *(*&buf[8] + 40);
   _Block_object_dispose(buf, 8);
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -167,95 +164,89 @@ void __37__FCVanityURLMapper_URLForVanityURL___block_invoke(uint64_t a1, void *a
 
 - (id)_standardizedInputPathWithPath:(id)path
 {
-  v17 = *MEMORY[0x1E69E9840];
-  pathCopy = path;
-  if (!pathCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-  {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "path"];
-    *buf = 136315906;
-    v10 = "[FCVanityURLMapper _standardizedInputPathWithPath:]";
-    v11 = 2080;
-    v12 = "FCVanityURLMapper.m";
-    v13 = 1024;
-    v14 = 79;
-    v15 = 2114;
-    v16 = v8;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-  }
-
-  v5 = [(FCVanityURLMapper *)self _pathWithTrailingForwardSlashWithPath:pathCopy];
-
-  v6 = *MEMORY[0x1E69E9840];
-
-  return v5;
-}
-
-- (id)_standardizedMappingPathWithPath:(id)path
-{
-  v18 = *MEMORY[0x1E69E9840];
-  pathCopy = path;
-  if (!pathCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-  {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "path"];
-    *buf = 136315906;
-    v11 = "[FCVanityURLMapper _standardizedMappingPathWithPath:]";
-    v12 = 2080;
-    v13 = "FCVanityURLMapper.m";
-    v14 = 1024;
-    v15 = 89;
-    v16 = 2114;
-    v17 = v9;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-  }
-
-  pathCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"/%@", pathCopy];
-  v6 = [(FCVanityURLMapper *)self _pathWithTrailingForwardSlashWithPath:pathCopy];
-
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v6;
-}
-
-- (id)_pathWithTrailingForwardSlashWithPath:(id)path
-{
   v16 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (!pathCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "path"];
     *buf = 136315906;
-    v9 = "[FCVanityURLMapper _pathWithTrailingForwardSlashWithPath:]";
+    v9 = "[FCVanityURLMapper _standardizedInputPathWithPath:]";
     v10 = 2080;
     v11 = "FCVanityURLMapper.m";
     v12 = 1024;
-    v13 = 100;
+    v13 = 79;
     v14 = 2114;
     v15 = v7;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v4 = [pathCopy fc_stringByAppendingStringIfNeeded:@"/"];
+  v5 = [(FCVanityURLMapper *)self _pathWithTrailingForwardSlashWithPath:pathCopy];
 
-  v5 = *MEMORY[0x1E69E9840];
+  return v5;
+}
+
+- (id)_standardizedMappingPathWithPath:(id)path
+{
+  v17 = *MEMORY[0x1E69E9840];
+  pathCopy = path;
+  if (!pathCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "path"];
+    *buf = 136315906;
+    v10 = "[FCVanityURLMapper _standardizedMappingPathWithPath:]";
+    v11 = 2080;
+    v12 = "FCVanityURLMapper.m";
+    v13 = 1024;
+    v14 = 89;
+    v15 = 2114;
+    v16 = v8;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+  }
+
+  pathCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"/%@", pathCopy];
+  v6 = [(FCVanityURLMapper *)self _pathWithTrailingForwardSlashWithPath:pathCopy];
+
+  return v6;
+}
+
+- (id)_pathWithTrailingForwardSlashWithPath:(id)path
+{
+  v15 = *MEMORY[0x1E69E9840];
+  pathCopy = path;
+  if (!pathCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "path"];
+    *buf = 136315906;
+    v8 = "[FCVanityURLMapper _pathWithTrailingForwardSlashWithPath:]";
+    v9 = 2080;
+    v10 = "FCVanityURLMapper.m";
+    v11 = 1024;
+    v12 = 100;
+    v13 = 2114;
+    v14 = v6;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+  }
+
+  v4 = [pathCopy fc_stringByAppendingStringIfNeeded:@"/"];
 
   return v4;
 }
 
 - (void)_standardizeResultPath:(id)path
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (!pathCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "path"];
     *buf = 136315906;
-    v7 = "[FCVanityURLMapper _standardizeResultPath:]";
-    v8 = 2080;
-    v9 = "FCVanityURLMapper.m";
-    v10 = 1024;
-    v11 = 107;
-    v12 = 2114;
-    v13 = v4;
+    v6 = "[FCVanityURLMapper _standardizeResultPath:]";
+    v7 = 2080;
+    v8 = "FCVanityURLMapper.m";
+    v9 = 1024;
+    v10 = 107;
+    v11 = 2114;
+    v12 = v4;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -263,8 +254,6 @@ void __37__FCVanityURLMapper_URLForVanityURL___block_invoke(uint64_t a1, void *a
   {
     [pathCopy deleteCharactersInRange:{objc_msgSend(pathCopy, "length") - 1, 1}];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setParametersIfNeededWithComponents:(id)components parameters:(id)parameters
@@ -306,20 +295,20 @@ LABEL_7:
 
 - (id)_standardizedQueryWithParameters:(id)parameters query:(id)query
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   queryCopy = query;
   if (!parametersCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "parameters"];
     *buf = 136315906;
-    v15 = "[FCVanityURLMapper _standardizedQueryWithParameters:query:]";
-    v16 = 2080;
-    v17 = "FCVanityURLMapper.m";
-    v18 = 1024;
-    v19 = 136;
-    v20 = 2114;
-    v21 = v9;
+    v14 = "[FCVanityURLMapper _standardizedQueryWithParameters:query:]";
+    v15 = 2080;
+    v16 = "FCVanityURLMapper.m";
+    v17 = 1024;
+    v18 = 136;
+    v19 = 2114;
+    v20 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (queryCopy)
@@ -342,27 +331,25 @@ LABEL_7:
   v10 = [parametersCopy fc_stringByReplacingPrefix:@"?" withString:v8];
   v11 = [(__CFString *)v7 stringByAppendingString:v10];
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (id)_standardizedFragmentWithParameters:(id)parameters fragment:(id)fragment
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   fragmentCopy = fragment;
   if (!parametersCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "parameters"];
     *buf = 136315906;
-    v15 = "[FCVanityURLMapper _standardizedFragmentWithParameters:fragment:]";
-    v16 = 2080;
-    v17 = "FCVanityURLMapper.m";
-    v18 = 1024;
-    v19 = 155;
-    v20 = 2114;
-    v21 = v9;
+    v14 = "[FCVanityURLMapper _standardizedFragmentWithParameters:fragment:]";
+    v15 = 2080;
+    v16 = "FCVanityURLMapper.m";
+    v17 = 1024;
+    v18 = 155;
+    v19 = 2114;
+    v20 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (fragmentCopy)
@@ -384,8 +371,6 @@ LABEL_4:
 LABEL_7:
   v10 = [parametersCopy fc_stringByReplacingPrefix:@"#" withString:v8];
   v11 = [(__CFString *)v7 stringByAppendingString:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

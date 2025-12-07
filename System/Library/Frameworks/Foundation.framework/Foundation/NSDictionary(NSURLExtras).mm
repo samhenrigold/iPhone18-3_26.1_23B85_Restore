@@ -1,8 +1,8 @@
 @interface NSDictionary(NSURLExtras)
 - (uint64_t)_web_numberForKey:()NSURLExtras;
-- (uint64_t)_web_objectForMIMEType:()NSURLExtras;
 - (uint64_t)_web_stringForKey:()NSURLExtras;
 - (void)_web_intForKey:()NSURLExtras;
+- (void)_web_objectForMIMEType:()NSURLExtras;
 @end
 
 @implementation NSDictionary(NSURLExtras)
@@ -47,7 +47,7 @@
   }
 }
 
-- (uint64_t)_web_objectForMIMEType:()NSURLExtras
+- (void)_web_objectForMIMEType:()NSURLExtras
 {
   result = [self objectForKey:?];
   if (!result)

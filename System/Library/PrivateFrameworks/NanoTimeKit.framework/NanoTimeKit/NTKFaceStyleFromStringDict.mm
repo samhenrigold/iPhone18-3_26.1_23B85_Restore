@@ -3,12 +3,12 @@
 
 @implementation NTKFaceStyleFromStringDict
 
-void ___NTKFaceStyleFromStringDict_block_invoke()
+void ___NTKFaceStyleFromStringDict_block_invoke(uint64_t a1)
 {
-  v2 = _NTKStringFromFaceStyleDict();
-  v0 = _DictionaryByReversingDictionary(v2);
-  v1 = _NTKFaceStyleFromStringDict_dictionary;
-  _NTKFaceStyleFromStringDict_dictionary = v0;
+  v3 = _NTKStringFromFaceStyleDict(a1);
+  v1 = _DictionaryByReversingDictionary(v3);
+  v2 = _NTKFaceStyleFromStringDict_dictionary;
+  _NTKFaceStyleFromStringDict_dictionary = v1;
 }
 
 @end

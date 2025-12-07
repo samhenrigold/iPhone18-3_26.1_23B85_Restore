@@ -1,9 +1,13 @@
 @interface SGM2ContactConfirmed
 - (BOOL)isEqual:(id)equal;
 - (NSString)key;
+- (id)appAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)extractedAsString:(int)string;
+- (id)typeAsString:(int)string;
+- (id)uiTypeAsString:(int)string;
 - (int)StringAsApp:(id)app;
 - (int)StringAsExtracted:(id)extracted;
 - (int)StringAsType:(id)type;
@@ -358,7 +362,6 @@ LABEL_11:
       goto LABEL_69;
     }
 
-    v8 = *(equalCopy + 40);
     if (self->_firstNameAdj)
     {
       if ((*(equalCopy + 40) & 1) == 0)
@@ -385,7 +388,6 @@ LABEL_11:
       goto LABEL_69;
     }
 
-    v9 = *(equalCopy + 42);
     if (self->_lastNameAdj)
     {
       if ((*(equalCopy + 42) & 1) == 0)
@@ -412,7 +414,6 @@ LABEL_11:
       goto LABEL_69;
     }
 
-    v10 = *(equalCopy + 43);
     if (self->_middleNameAdj)
     {
       if ((*(equalCopy + 43) & 1) == 0)
@@ -439,7 +440,6 @@ LABEL_11:
       goto LABEL_69;
     }
 
-    v11 = *(equalCopy + 41);
     if (self->_isUpdate)
     {
       if ((*(equalCopy + 41) & 1) == 0)
@@ -493,7 +493,7 @@ LABEL_11:
     }
 
 LABEL_69:
-    v13 = 0;
+    v8 = 0;
     goto LABEL_70;
   }
 
@@ -502,7 +502,6 @@ LABEL_69:
     goto LABEL_69;
   }
 
-  v12 = *(equalCopy + 44);
   if (self->_selfId)
   {
     if ((*(equalCopy + 44) & 1) == 0)
@@ -537,17 +536,17 @@ LABEL_53:
       goto LABEL_69;
     }
 
-    v13 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v13 = (v7 & 0x10) == 0;
+    v8 = (v7 & 0x10) == 0;
   }
 
 LABEL_70:
 
-  return v13;
+  return v8;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -850,19 +849,18 @@ LABEL_14:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v16 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v16;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    app = self->_app;
     PBDataWriterWriteInt32Field();
-    toCopy = v16;
+    toCopy = v6;
     has = self->_has;
     if ((has & 0x20) == 0)
     {
@@ -881,9 +879,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  firstNameAdj = self->_firstNameAdj;
   PBDataWriterWriteBOOLField();
-  toCopy = v16;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x80) == 0)
   {
@@ -897,9 +894,8 @@ LABEL_6:
   }
 
 LABEL_19:
-  lastNameAdj = self->_lastNameAdj;
   PBDataWriterWriteBOOLField();
-  toCopy = v16;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x100) == 0)
   {
@@ -913,9 +909,8 @@ LABEL_7:
   }
 
 LABEL_20:
-  middleNameAdj = self->_middleNameAdj;
   PBDataWriterWriteBOOLField();
-  toCopy = v16;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x40) == 0)
   {
@@ -929,9 +924,8 @@ LABEL_8:
   }
 
 LABEL_21:
-  isUpdate = self->_isUpdate;
   PBDataWriterWriteBOOLField();
-  toCopy = v16;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -945,9 +939,8 @@ LABEL_9:
   }
 
 LABEL_22:
-  extracted = self->_extracted;
   PBDataWriterWriteInt32Field();
-  toCopy = v16;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -961,9 +954,8 @@ LABEL_10:
   }
 
 LABEL_23:
-  extractionModelVersion = self->_extractionModelVersion;
   PBDataWriterWriteUint32Field();
-  toCopy = v16;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x200) == 0)
   {
@@ -977,9 +969,8 @@ LABEL_11:
   }
 
 LABEL_24:
-  selfId = self->_selfId;
   PBDataWriterWriteBOOLField();
-  toCopy = v16;
+  toCopy = v6;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -993,15 +984,13 @@ LABEL_12:
   }
 
 LABEL_25:
-  type = self->_type;
   PBDataWriterWriteInt32Field();
-  toCopy = v16;
+  toCopy = v6;
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_13:
-    uiType = self->_uiType;
     PBDataWriterWriteInt32Field();
-    toCopy = v16;
+    toCopy = v6;
   }
 
 LABEL_14:
@@ -1243,6 +1232,21 @@ LABEL_36:
   return v4;
 }
 
+- (id)uiTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFAD10[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasUiType:(BOOL)type
 {
   if (type)
@@ -1302,6 +1306,21 @@ LABEL_36:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFACE8[string];
   }
 
   return v4;
@@ -1391,6 +1410,21 @@ LABEL_36:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)extractedAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFACC8[string];
   }
 
   return v4;
@@ -1505,6 +1539,21 @@ LABEL_36:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)appAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFACB0[string];
   }
 
   return v4;

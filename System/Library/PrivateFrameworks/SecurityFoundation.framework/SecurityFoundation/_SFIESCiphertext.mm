@@ -62,11 +62,11 @@ LABEL_4:
 
 - (_SFIESCiphertext)initWithCoder:(id)coder
 {
-  v31[2] = *MEMORY[0x277D85DE8];
+  v30[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v27.receiver = self;
-  v27.super_class = _SFIESCiphertext;
-  v5 = [(_SFCiphertext *)&v27 initWithCoder:coderCopy];
+  v26.receiver = self;
+  v26.super_class = _SFIESCiphertext;
+  v5 = [(_SFCiphertext *)&v26 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = objc_alloc_init(SFIESCiphertext_Ivars);
@@ -75,12 +75,12 @@ LABEL_4:
 
     v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"SFEphemeralSenderPublicKeyExternaRepresentation"];
     v9 = *MEMORY[0x277CDBFE0];
-    v30[0] = *MEMORY[0x277CDC028];
-    v30[1] = v9;
+    v29[0] = *MEMORY[0x277CDC028];
+    v29[1] = v9;
     v10 = *MEMORY[0x277CDC000];
-    v31[0] = *MEMORY[0x277CDC030];
-    v31[1] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
+    v30[0] = *MEMORY[0x277CDC030];
+    v30[1] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
     v12 = SecKeyCreateWithData(v8, v11, 0);
     if (v12)
     {
@@ -102,17 +102,16 @@ LABEL_4:
     if (!v20[1] || !v20[2])
     {
       v21 = MEMORY[0x277CCA9B8];
-      v28 = *MEMORY[0x277CCA450];
+      v27 = *MEMORY[0x277CCA450];
       v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to deserialize object of type %@", objc_opt_class()];
-      v29 = v22;
-      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+      v28 = v22;
+      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
       v24 = [v21 errorWithDomain:@"SFCryptoServicesErrorDomain" code:8 userInfo:v23];
 
       [coderCopy failWithError:v24];
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

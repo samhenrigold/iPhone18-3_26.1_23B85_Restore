@@ -1,6 +1,7 @@
 @interface SUDocumentationAssetMatcher
 + (id)matcherDocumentationFromAsset:(id)asset;
 + (id)matcherForInstalledDocumentationFromAsset:(id)asset;
+- (SUDocumentationAssetMatcher)initWithSoftwareUpdateAsset:(id)asset limitingToStates:(int)states;
 - (id)_findMatchFromCandidates:(id)candidates error:(id *)error;
 - (id)_queryPredicateForProperties:(id)properties;
 - (id)_sortedMatcherPredicatesFromSoftwareUpdateAsset:(id)asset;
@@ -24,6 +25,19 @@
   return v3;
 }
 
+- (SUDocumentationAssetMatcher)initWithSoftwareUpdateAsset:(id)asset limitingToStates:(int)states
+{
+  v7.receiver = self;
+  v7.super_class = SUDocumentationAssetMatcher;
+  v5 = [(SUAssetStateMatcher *)&v7 initWithType:@"com.apple.MobileAsset.SoftwareUpdateDocumentation" interestedStates:*&states];
+  if (v5)
+  {
+    v5->_suAsset = asset;
+  }
+
+  return v5;
+}
+
 - (void)dealloc
 {
   v3.receiver = self;
@@ -33,34 +47,34 @@
 
 - (id)_findMatchFromCandidates:(id)candidates error:(id *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v23 = [(SUDocumentationAssetMatcher *)self _sortedMatcherPredicatesFromSoftwareUpdateAsset:self->_suAsset];
-  v6 = [v23 count];
+  v28 = *MEMORY[0x277D85DE8];
+  v22 = [(SUDocumentationAssetMatcher *)self _sortedMatcherPredicatesFromSoftwareUpdateAsset:self->_suAsset];
+  v6 = [v22 count];
   if (v6)
   {
     v7 = v6;
     for (i = 0; i < v7; ++i)
     {
-      v9 = [v23 objectAtIndex:i];
+      v9 = [v22 objectAtIndex:i];
+      v23 = 0u;
       v24 = 0u;
       v25 = 0u;
       v26 = 0u;
-      v27 = 0u;
-      v10 = [candidates countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v10 = [candidates countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v25;
+        v12 = *v24;
 LABEL_5:
         v13 = 0;
         while (1)
         {
-          if (*v25 != v12)
+          if (*v24 != v12)
           {
             objc_enumerationMutation(candidates);
           }
 
-          v14 = *(*(&v24 + 1) + 8 * v13);
+          v14 = *(*(&v23 + 1) + 8 * v13);
           v15 = objc_autoreleasePoolPush();
           if ([v9 evaluateWithObject:{objc_msgSend(v14, "attributes")}])
           {
@@ -70,7 +84,7 @@ LABEL_5:
           objc_autoreleasePoolPop(v15);
           if (v11 == ++v13)
           {
-            v11 = [candidates countByEnumeratingWithState:&v24 objects:v28 count:16];
+            v11 = [candidates countByEnumeratingWithState:&v23 objects:v27 count:16];
             if (v11)
             {
               goto LABEL_5;
@@ -84,7 +98,7 @@ LABEL_5:
         objc_autoreleasePoolPop(v15);
         if (v16)
         {
-          goto LABEL_16;
+          return v16;
         }
       }
 
@@ -103,10 +117,7 @@ LABEL_13:
     *error = [SUUtility errorWithCode:38];
   }
 
-LABEL_16:
-  result = v16;
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
+  return v16;
 }
 
 - (void)_modifyMADownloadOptions:(id)options

@@ -4,6 +4,7 @@
 - (id)answeringMachineAggregatedReport;
 - (id)dispatchedAggregatedCallReport;
 - (void)dealloc;
+- (void)dispatchedProcessEventWithCategory:(unsigned __int16)category type:(unsigned __int16)type payload:(id)payload;
 - (void)processAnsweringMachineDidStopWithCurrentTime:(double)time;
 - (void)processAnsweringMachineInitWithPayload:(id)payload currentTime:(double)time;
 - (void)processAnsweringMachineRecordingStartWithCurrentTime:(double)time;
@@ -97,6 +98,74 @@ LABEL_5:
   self->_answeringMachineTotalScreeningTime = time - self->_answeringMachineCreatedTime - self->_answeringMachineEnteredScreeningTime;
 }
 
+- (void)dispatchedProcessEventWithCategory:(unsigned __int16)category type:(unsigned __int16)type payload:(id)payload
+{
+  typeCopy = type;
+  categoryCopy = category;
+  dispatch_assert_queue_V2(self->super.super._stateQueue);
+  [(VCAggregator *)self microFromPayload:payload];
+  if (categoryCopy <= 342)
+  {
+    switch(categoryCopy)
+    {
+      case 0x154:
+
+        [(VCAggregatorAnsweringMachine *)self processAnsweringMachineInitWithPayload:payload currentTime:?];
+        break;
+      case 0x155:
+
+        [(VCAggregatorAnsweringMachine *)self processAnsweringMachineStartWithCurrentTime:?];
+        break;
+      case 0x156:
+
+        [(VCAggregatorAnsweringMachine *)self processAnsweringMachineAssetStartWithCurrentTime:?];
+        break;
+      default:
+        goto LABEL_22;
+    }
+  }
+
+  else
+  {
+    if (categoryCopy <= 345)
+    {
+      if (categoryCopy == 343)
+      {
+        return;
+      }
+
+      if (categoryCopy == 344)
+      {
+
+        [(VCAggregatorAnsweringMachine *)self processAnsweringMachineRecordingStartWithCurrentTime:?];
+        return;
+      }
+
+LABEL_22:
+      v9.receiver = self;
+      v9.super_class = VCAggregatorAnsweringMachine;
+      [(VCAggregatorRecordingAndTranscriptionService *)&v9 dispatchedProcessEventWithCategory:categoryCopy type:typeCopy payload:payload];
+      return;
+    }
+
+    if (categoryCopy == 346)
+    {
+
+      [(VCAggregatorAnsweringMachine *)self processAnsweringMachineRecordingStopWithCurrentTime:?];
+    }
+
+    else
+    {
+      if (categoryCopy != 347)
+      {
+        goto LABEL_22;
+      }
+
+      [(VCAggregatorAnsweringMachine *)self processAnsweringMachineDidStopWithCurrentTime:?];
+    }
+  }
+}
+
 - (void)processEventWithCategory:(unsigned __int16)category type:(unsigned __int16)type payload:(id)payload
 {
   stateQueue = self->super.super._stateQueue;
@@ -113,26 +182,24 @@ LABEL_5:
 
 - (id)answeringMachineAggregatedReport
 {
-  v7[7] = *MEMORY[0x277D85DE8];
+  v6[7] = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->super.super._stateQueue);
   v3 = MEMORY[0x277CBEB38];
-  v6[0] = @"AAMCS";
-  v7[0] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:self->_answeringMachineSource];
-  v6[1] = @"AAMC";
-  v7[1] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:self->_answeringMachineCapabilities];
-  v6[2] = @"AAMTTES";
-  v7[2] = [MEMORY[0x277CCABA8] numberWithDouble:self->_answeringMachineEnteredScreeningTime];
-  v6[3] = @"AAMTTBUA";
-  v7[3] = [MEMORY[0x277CCABA8] numberWithDouble:self->_answeringMachineAudioBringUpTime];
-  v6[4] = @"AAMTTFR";
-  v7[4] = [MEMORY[0x277CCABA8] numberWithDouble:self->_answeringMachineRecordingFinalizationTime];
-  v6[5] = @"AAMTST";
-  v7[5] = [MEMORY[0x277CCABA8] numberWithDouble:self->_answeringMachineTotalScreeningTime];
-  v6[6] = @"AAMU";
-  v7[6] = [(VCHistogram *)self->_answeringMachineUsageHistogram description];
-  result = [v3 dictionaryWithDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v7, v6, 7)}];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = @"AAMCS";
+  v6[0] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:self->_answeringMachineSource];
+  v5[1] = @"AAMC";
+  v6[1] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:self->_answeringMachineCapabilities];
+  v5[2] = @"AAMTTES";
+  v6[2] = [MEMORY[0x277CCABA8] numberWithDouble:self->_answeringMachineEnteredScreeningTime];
+  v5[3] = @"AAMTTBUA";
+  v6[3] = [MEMORY[0x277CCABA8] numberWithDouble:self->_answeringMachineAudioBringUpTime];
+  v5[4] = @"AAMTTFR";
+  v6[4] = [MEMORY[0x277CCABA8] numberWithDouble:self->_answeringMachineRecordingFinalizationTime];
+  v5[5] = @"AAMTST";
+  v6[5] = [MEMORY[0x277CCABA8] numberWithDouble:self->_answeringMachineTotalScreeningTime];
+  v5[6] = @"AAMU";
+  v6[6] = [(VCHistogram *)self->_answeringMachineUsageHistogram description];
+  return [v3 dictionaryWithDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v6, v5, 7)}];
 }
 
 - (id)dispatchedAggregatedCallReport
@@ -148,25 +215,25 @@ LABEL_5:
 
 - (id)aggregatedCallReports
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x3052000000;
-  v10 = __Block_byref_object_copy__8;
-  v11 = __Block_byref_object_dispose__8;
-  v12 = 0;
+  v12[1] = *MEMORY[0x277D85DE8];
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3052000000;
+  v9 = __Block_byref_object_copy__8;
+  v10 = __Block_byref_object_dispose__8;
+  v11 = 0;
   stateQueue = self->super.super._stateQueue;
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __53__VCAggregatorAnsweringMachine_aggregatedCallReports__block_invoke;
-  v6[3] = &unk_278BD4C10;
-  v6[4] = self;
-  v6[5] = &v7;
-  dispatch_sync(stateQueue, v6);
-  if (v8[5])
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __53__VCAggregatorAnsweringMachine_aggregatedCallReports__block_invoke;
+  v5[3] = &unk_278BD4C10;
+  v5[4] = self;
+  v5[5] = &v6;
+  dispatch_sync(stateQueue, v5);
+  if (v7[5])
   {
-    v13[0] = v8[5];
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = v7[5];
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   }
 
   else
@@ -174,12 +241,11 @@ LABEL_5:
     v3 = 0;
   }
 
-  _Block_object_dispose(&v7, 8);
-  v4 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v6, 8);
   return v3;
 }
 
-uint64_t __53__VCAggregatorAnsweringMachine_aggregatedCallReports__block_invoke(uint64_t a1)
+void *__53__VCAggregatorAnsweringMachine_aggregatedCallReports__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dispatchedAggregatedCallReport];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -188,24 +254,22 @@ uint64_t __53__VCAggregatorAnsweringMachine_aggregatedCallReports__block_invoke(
 
 - (void)initWithDelegate:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     v0 = VRTraceErrorLogLevelToCSTR(3u);
     v1 = gVRTraceOSLog;
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
-      v3 = 136315650;
-      v4 = v0;
-      v5 = 2080;
-      v6 = "[VCAggregatorAnsweringMachine initWithDelegate:]";
-      v7 = 1024;
-      v8 = 42;
-      _os_log_error_impl(&dword_23D4DF000, v1, OS_LOG_TYPE_ERROR, " [%s] %s:%d failed to super initialize", &v3, 0x1Cu);
+      v2 = 136315650;
+      v3 = v0;
+      v4 = 2080;
+      v5 = "[VCAggregatorAnsweringMachine initWithDelegate:]";
+      v6 = 1024;
+      v7 = 42;
+      _os_log_error_impl(&dword_23D4DF000, v1, OS_LOG_TYPE_ERROR, " [%s] %s:%d failed to super initialize", &v2, 0x1Cu);
     }
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

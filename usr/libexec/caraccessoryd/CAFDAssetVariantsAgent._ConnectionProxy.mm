@@ -10,10 +10,9 @@
 
 - (NSString)description
 {
-  v3 = *(&self->super.isa + OBJC_IVAR____TtCC13caraccessoryd22CAFDAssetVariantsAgentP33_AD8EB03328B3296C924C05733247A05A16_ConnectionProxy_connection);
-  swift_getObjectType();
+  ObjectType = swift_getObjectType();
   selfCopy = self;
-  BSServiceConnectionHost.CAFDDescription.getter();
+  BSServiceConnectionHost.CAFDDescription.getter(ObjectType);
 
   v5 = String._bridgeToObjectiveC()();
 

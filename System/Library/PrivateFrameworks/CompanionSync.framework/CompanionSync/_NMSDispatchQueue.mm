@@ -48,7 +48,7 @@
 
 - (void)suspend
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = 1;
   atomic_compare_exchange_strong(&self->_r, &v2, 0);
   if (v2 == 1)
@@ -62,21 +62,19 @@
     if (os_log_type_enabled(qword_1EDE73428, OS_LOG_TYPE_DEFAULT))
     {
       label = dispatch_queue_get_label(self->_q);
-      v7 = 136446210;
-      v8 = label;
-      _os_log_impl(&dword_1DF835000, v4, OS_LOG_TYPE_DEFAULT, "Suspending %{public}s", &v7, 0xCu);
+      v6 = 136446210;
+      v7 = label;
+      _os_log_impl(&dword_1DF835000, v4, OS_LOG_TYPE_DEFAULT, "Suspending %{public}s", &v6, 0xCu);
     }
 
     dispatch_suspend(self->_q);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resume
 {
   v2 = 0;
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   atomic_compare_exchange_strong(&self->_r, &v2, 1u);
   if (!v2)
   {
@@ -89,15 +87,13 @@
     if (os_log_type_enabled(qword_1EDE73428, OS_LOG_TYPE_DEFAULT))
     {
       label = dispatch_queue_get_label(self->_q);
-      v7 = 136446210;
-      v8 = label;
-      _os_log_impl(&dword_1DF835000, v4, OS_LOG_TYPE_DEFAULT, "Resuming %{public}s", &v7, 0xCu);
+      v6 = 136446210;
+      v7 = label;
+      _os_log_impl(&dword_1DF835000, v4, OS_LOG_TYPE_DEFAULT, "Resuming %{public}s", &v6, 0xCu);
     }
 
     dispatch_resume(self->_q);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -64,7 +64,7 @@
 void __42__CSPairingServer_activateWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = ContinuitySingLog();
+  v3 = ContinuitySingLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136315394;
@@ -79,7 +79,7 @@ void __42__CSPairingServer_activateWithCompletion___block_invoke_18(uint64_t a1,
 {
   v4 = a2;
   v5 = a3;
-  v6 = ContinuitySingLog();
+  v6 = ContinuitySingLog(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315394;
@@ -92,21 +92,21 @@ void __42__CSPairingServer_activateWithCompletion___block_invoke_18(uint64_t a1,
   v5[2](v5, 0);
 }
 
-void __42__CSPairingServer_activateWithCompletion___block_invoke_22()
+void __42__CSPairingServer_activateWithCompletion___block_invoke_22(uint64_t a1)
 {
-  v0 = ContinuitySingLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = ContinuitySingLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v1 = 136315138;
-    v2 = "[CSPairingServer activateWithCompletion:]_block_invoke";
-    _os_log_impl(&dword_2441FB000, v0, OS_LOG_TYPE_DEFAULT, "%s: Show password requested. Password should be shown in a QR code, so no implementation here.", &v1, 0xCu);
+    v2 = 136315138;
+    v3 = "[CSPairingServer activateWithCompletion:]_block_invoke";
+    _os_log_impl(&dword_2441FB000, v1, OS_LOG_TYPE_DEFAULT, "%s: Show password requested. Password should be shown in a QR code, so no implementation here.", &v2, 0xCu);
   }
 }
 
 void __42__CSPairingServer_activateWithCompletion___block_invoke_27(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ContinuitySingLog();
+  v4 = ContinuitySingLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = 136315394;
@@ -140,21 +140,21 @@ void __42__CSPairingServer_activateWithCompletion___block_invoke_27(uint64_t a1,
   v3 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.ContinuitySing"];
   v4 = [v3 objectForKey:@"overridePairingCode"];
 
-  v5 = ContinuitySingLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = ContinuitySingLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315394;
-    v15 = "[CSPairingServer createNewPassword]";
-    v16 = 2112;
-    v17 = v4;
-    _os_log_impl(&dword_2441FB000, v5, OS_LOG_TYPE_DEFAULT, "%s: Override password set through internal defaults: %@", &v14, 0x16u);
+    v15 = 136315394;
+    v16 = "[CSPairingServer createNewPassword]";
+    v17 = 2112;
+    v18 = v4;
+    _os_log_impl(&dword_2441FB000, v6, OS_LOG_TYPE_DEFAULT, "%s: Override password set through internal defaults: %@", &v15, 0x16u);
   }
 
   if (v4)
   {
-    v6 = v4;
+    v7 = v4;
     password = self->_password;
-    self->_password = v6;
+    self->_password = v7;
   }
 
   else
@@ -162,18 +162,18 @@ void __42__CSPairingServer_activateWithCompletion___block_invoke_27(uint64_t a1,
 LABEL_6:
     password = [MEMORY[0x277CCAD78] UUID];
     uUIDString = [password UUIDString];
-    v9 = [uUIDString substringToIndex:8];
-    v10 = self->_password;
-    self->_password = v9;
+    v10 = [uUIDString substringToIndex:8];
+    v11 = self->_password;
+    self->_password = v10;
 
-    v6 = 0;
+    v7 = 0;
   }
 
   [(RPServer *)self->_rpServer setPassword:self->_password];
-  v11 = self->_password;
-  v12 = v11;
+  v12 = self->_password;
+  v13 = v12;
 
-  return v11;
+  return v12;
 }
 
 - (id)appendPairingCodeToURL:(id)l

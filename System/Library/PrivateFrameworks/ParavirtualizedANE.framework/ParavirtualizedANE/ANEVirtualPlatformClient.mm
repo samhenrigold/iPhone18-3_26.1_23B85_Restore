@@ -5,7 +5,6 @@
 
 void __46___ANEVirtualPlatformClient_sharedConnection___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
   v2 = gLogger;
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
@@ -17,13 +16,11 @@ void __46___ANEVirtualPlatformClient_sharedConnection___block_invoke(uint64_t a1
   v3 = [[_ANEVirtualPlatformClient alloc] init:*(a1 + 32)];
   v4 = +[_ANEVirtualPlatformClient sharedConnection:]::client;
   +[_ANEVirtualPlatformClient sharedConnection:]::client = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __59___ANEVirtualPlatformClient_modelAction_buffer_bufferSize___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   if (v2)
   {
@@ -41,11 +38,11 @@ void __59___ANEVirtualPlatformClient_modelAction_buffer_bufferSize___block_invok
         v8 = NSStringFromSelector(*(a1 + 48));
         v9 = *(a1 + 64);
         *buf = 138412802;
-        v15 = v8;
-        v16 = 1024;
-        v17 = v9;
-        v18 = 1024;
-        LODWORD(v19) = v3;
+        v14 = v8;
+        v15 = 1024;
+        v16 = v9;
+        v17 = 1024;
+        LODWORD(v18) = v3;
         _os_log_debug_impl(&dword_25DF54000, v4, OS_LOG_TYPE_DEBUG, "%@: ANEVirtualPlatformClient Begin1 %d - %d!", buf, 0x18u);
       }
 
@@ -119,14 +116,14 @@ void __59___ANEVirtualPlatformClient_modelAction_buffer_bufferSize___block_invok
       v5 = gLogger;
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
-        v12 = NSStringFromSelector(*(a1 + 48));
-        v13 = *(a1 + 64);
+        v11 = NSStringFromSelector(*(a1 + 48));
+        v12 = *(a1 + 64);
         *buf = 138412802;
-        v15 = v12;
-        v16 = 1024;
-        v17 = v3;
-        v18 = 1024;
-        LODWORD(v19) = v13;
+        v14 = v11;
+        v15 = 1024;
+        v16 = v3;
+        v17 = 1024;
+        LODWORD(v18) = v12;
         _os_log_debug_impl(&dword_25DF54000, v5, OS_LOG_TYPE_DEBUG, "%@: ANEVirtualPlatformClient %u queueIndex %d End!", buf, 0x18u);
       }
     }
@@ -139,11 +136,11 @@ void __59___ANEVirtualPlatformClient_modelAction_buffer_bufferSize___block_invok
         v6 = NSStringFromSelector(*(a1 + 48));
         v7 = *(a1 + 56);
         *buf = 138412802;
-        v15 = v6;
-        v16 = 1024;
-        v17 = v3;
-        v18 = 2048;
-        v19 = v7;
+        v14 = v6;
+        v15 = 1024;
+        v16 = v3;
+        v17 = 2048;
+        v18 = v7;
         _os_log_error_impl(&dword_25DF54000, v5, OS_LOG_TYPE_ERROR, "%@: ANEVirtualPlatformClient command=%u, unknown buffer size=%lu, exiting", buf, 0x1Cu);
       }
     }
@@ -159,8 +156,6 @@ void __59___ANEVirtualPlatformClient_modelAction_buffer_bufferSize___block_invok
       __59___ANEVirtualPlatformClient_modelAction_buffer_bufferSize___block_invoke_cold_2();
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __46___ANEVirtualPlatformClient_sharedConnection___block_invoke_cold_1()
@@ -173,11 +168,10 @@ void __46___ANEVirtualPlatformClient_sharedConnection___block_invoke_cold_1()
 void __59___ANEVirtualPlatformClient_modelAction_buffer_bufferSize___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v2 = *(v1 + 64);
-  v5 = OUTLINED_FUNCTION_12(v3, 5.778e-34, v1, v4);
-  OUTLINED_FUNCTION_24(v5, v6, v7);
+  v4 = OUTLINED_FUNCTION_12(v1, 5.778e-34, v2, v3);
+  OUTLINED_FUNCTION_24(v4, v5, v6);
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0x12u);
+  _os_log_error_impl(v7, v8, v9, v10, v11, 0x12u);
 }
 
 void __59___ANEVirtualPlatformClient_modelAction_buffer_bufferSize___block_invoke_cold_2()

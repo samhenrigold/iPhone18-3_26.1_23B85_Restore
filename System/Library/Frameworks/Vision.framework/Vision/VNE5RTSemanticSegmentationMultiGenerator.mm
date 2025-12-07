@@ -300,7 +300,7 @@ LABEL_12:
   {
     v12 = *(*(a1 + 40) + 8);
     v18 = *v11 > COERCE_SHORT_FLOAT(5145);
-    std::vector<BOOL>::push_back(v12 + 48, &v18);
+    std::vector<BOOL>::push_back((v12 + 48), &v18);
     ++v11;
     --v7;
   }

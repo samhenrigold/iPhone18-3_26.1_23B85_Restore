@@ -1,5 +1,6 @@
 @interface MLCSGDOptimizer
 + (MLCSGDOptimizer)optimizerWithDescriptor:(MLCOptimizerDescriptor *)optimizerDescriptor;
++ (MLCSGDOptimizer)optimizerWithDescriptor:(MLCOptimizerDescriptor *)optimizerDescriptor momentumScale:(float)momentumScale usesNesterovMomentum:(BOOL)usesNesterovMomentum;
 - (BOOL)compileForDevice:(id)device;
 - (MLCSGDOptimizer)initWithMomentumScale:(float)scale useNesterovMomentum:(BOOL)momentum optimizerDescriptor:(id)descriptor;
 - (NSString)description;
@@ -14,6 +15,17 @@
   v5 = [[self alloc] initWithMomentumScale:0 useNesterovMomentum:v4 optimizerDescriptor:0.0];
 
   return v5;
+}
+
++ (MLCSGDOptimizer)optimizerWithDescriptor:(MLCOptimizerDescriptor *)optimizerDescriptor momentumScale:(float)momentumScale usesNesterovMomentum:(BOOL)usesNesterovMomentum
+{
+  v5 = usesNesterovMomentum;
+  v8 = optimizerDescriptor;
+  v9 = [self alloc];
+  *&v10 = momentumScale;
+  v11 = [v9 initWithMomentumScale:v5 useNesterovMomentum:v8 optimizerDescriptor:v10];
+
+  return v11;
 }
 
 - (MLCSGDOptimizer)initWithMomentumScale:(float)scale useNesterovMomentum:(BOOL)momentum optimizerDescriptor:(id)descriptor

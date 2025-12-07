@@ -21,7 +21,7 @@
 
 - (BWStereoVideoMetadataNode)initWithPorts:(id)ports secondaryPort:(id)port cameraInfoByPortType:(id)type errStatus:(int *)status
 {
-  if ([ports isEqualToString:port])
+  if (objc_msgSend_isEqualToString_(ports, a2, port))
   {
     [BWStereoVideoMetadataNode initWithPorts:? secondaryPort:? cameraInfoByPortType:? errStatus:?];
     v17 = v19.i32[0];
@@ -220,67 +220,71 @@
 {
   if (self)
   {
-    v15 = 0;
+    v24 = 0;
     memcpy(&__dst, MEMORY[0x1E6960CF0], sizeof(__dst));
     __dst.presentationTimeStamp = *a2;
-    if (CMSampleBufferCreate(*MEMORY[0x1E695E480], 0, 1u, 0, 0, 0, 0, 1, &__dst, 0, 0, &v15))
+    v7 = CMSampleBufferCreate(*MEMORY[0x1E695E480], 0, 1u, 0, 0, 0, 0, 1, &__dst, 0, 0, &v24);
+    if (v7)
     {
-      FigDebugAssert3();
+      LODWORD(sampleTimingArray) = v7;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", sampleTimingArray, v3, sampleSizeArray, v16, v17, v18, v19, v20);
     }
 
     else
     {
-      v6 = *(self + 140);
-      if (v6 < 1)
+      v8 = *(self + 140);
+      if (v8 < 1)
       {
-        v8 = 0.0;
-        v7 = 0.0;
+        v10 = 0.0;
+        v9 = 0.0;
       }
 
       else
       {
-        v7 = *(self + 148) / v6;
-        v8 = *(self + 156) / v6;
+        v9 = *(self + 148) / v8;
+        v10 = *(self + 156) / v8;
       }
 
       if (dword_1EB58E840)
       {
-        v13 = 0;
-        v12 = 0;
+        v22 = 0;
+        v21 = 0;
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      CMSetAttachment(v15, @"FileWriterAction", @"SpatialAggressorsSeen", 1u);
+      CMSetAttachment(v24, @"FileWriterAction", @"SpatialAggressorsSeen", 1u);
       OUTLINED_FUNCTION_23_0([MEMORY[0x1E696AD98] numberWithInt:*(self + 184)]);
       OUTLINED_FUNCTION_23_0([MEMORY[0x1E696AD98] numberWithDouble:s]);
-      *&v10 = v7;
-      OUTLINED_FUNCTION_23_0([MEMORY[0x1E696AD98] numberWithFloat:v10]);
-      *&v11 = v8;
-      OUTLINED_FUNCTION_23_0([MEMORY[0x1E696AD98] numberWithFloat:v11]);
-      [*(self + 16) emitSampleBuffer:v15];
+      *&v12 = v9;
+      OUTLINED_FUNCTION_23_0([MEMORY[0x1E696AD98] numberWithFloat:v12]);
+      *&v13 = v10;
+      OUTLINED_FUNCTION_23_0([MEMORY[0x1E696AD98] numberWithFloat:v13]);
+      [*(self + 16) emitSampleBuffer:v24];
     }
 
-    if (v15)
+    if (v24)
     {
-      CFRelease(v15);
+      CFRelease(v24);
     }
   }
 }
 
 - (uint64_t)initWithPorts:(_DWORD *)a1 secondaryPort:cameraInfoByPortType:errStatus:.cold.2(_DWORD *a1)
 {
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  v6 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v1, v8, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EB58E838, 0xFFFFCE0ELL, "<<<< BWStereoVideoMetadataNode >>>>", 0x63, v1, v3, v4, v7);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)initWithPorts:(_DWORD *)a1 secondaryPort:cameraInfoByPortType:errStatus:.cold.3(_DWORD *a1)
 {
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  v6 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v1, v8, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EB58E838, 0xFFFFCE14, "<<<< BWStereoVideoMetadataNode >>>>", 0x48, v1, v3, v4, v7);
   *a1 = result;
   return result;
 }

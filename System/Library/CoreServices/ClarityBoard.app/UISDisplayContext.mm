@@ -18,19 +18,19 @@
   v8 = +[UISDisplaySingleRectShape clb_thisDeviceDisplayShape];
   [v4 setExclusionArea:v8];
 
-  [v4 setArtworkSubtype:sub_100022538()];
+  [v4 setArtworkSubtype:{sub_100022538(v9, v10)}];
   if (style == 1)
   {
     displayConfiguration = [v4 displayConfiguration];
     clb_displayConfigurationForNonClarityUIApp = [displayConfiguration clb_displayConfigurationForNonClarityUIApp];
     [v4 setDisplayConfiguration:clb_displayConfigurationForNonClarityUIApp];
 
-    v11 = sub_100006370();
-    v12 = [UISApplicationSupportDisplayEdgeInfo clb_displayEdgeInfoForScreenType:v11];
-    [v4 setDisplayEdgeInfo:v12];
+    v13 = sub_100006370();
+    v14 = [UISApplicationSupportDisplayEdgeInfo clb_displayEdgeInfoForScreenType:v13];
+    [v4 setDisplayEdgeInfo:v14];
 
-    v13 = [UISDisplaySingleRectShape clb_displayShapeForScreenType:v11];
-    [v4 setExclusionArea:v13];
+    v15 = [UISDisplaySingleRectShape clb_displayShapeForScreenType:v13];
+    [v4 setExclusionArea:v15];
   }
 
   return v4;

@@ -13,6 +13,7 @@
 - (void)emitNavigationEvent;
 - (void)setiPhoneCellularSwitchActive:(id)active specifier:(id)specifier;
 - (void)thumperProvisioningURLChanged:(id)changed;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PHSettingsSecondaryCloudCallingController
@@ -48,6 +49,30 @@
   v4.receiver = self;
   v4.super_class = PHSettingsSecondaryCloudCallingController;
   [(PHSettingsSecondaryCloudCallingController *)&v4 dealloc];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v10.receiver = self;
+  v10.super_class = PHSettingsSecondaryCloudCallingController;
+  v4 = [(PHSettingsSecondaryCloudCallingController *)&v10 viewWillAppear:appear];
+  v5 = PHDefaultLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *v9 = 0;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "viewWillAppear: reloading specifiers", v9, 2u);
+  }
+
+  [(PHSettingsSecondaryCloudCallingController *)self reloadSpecifiers];
+  specifier = [(PHSettingsSecondaryCloudCallingController *)self specifier];
+  target = [specifier target];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    [(PHSettingsSecondaryCloudCallingController *)self emitNavigationEvent];
+  }
 }
 
 - (void)emitNavigationEvent
@@ -89,14 +114,14 @@
 
 - (void)applicationDidResume
 {
-  v5.receiver = self;
-  v5.super_class = PHSettingsSecondaryCloudCallingController;
-  [(PHSettingsSecondaryCloudCallingController *)&v5 applicationDidResume];
-  v3 = PHDefaultLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v6.receiver = self;
+  v6.super_class = PHSettingsSecondaryCloudCallingController;
+  applicationDidResume = [(PHSettingsSecondaryCloudCallingController *)&v6 applicationDidResume];
+  v4 = PHDefaultLog(applicationDidResume);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "applicationDidResume: reloading specifiers", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "applicationDidResume: reloading specifiers", v5, 2u);
   }
 
   [(PHSettingsSecondaryCloudCallingController *)self reloadSpecifiers];
@@ -261,7 +286,7 @@
 - (void)setiPhoneCellularSwitchActive:(id)active specifier:(id)specifier
 {
   activeCopy = active;
-  v6 = PHDefaultLog();
+  v6 = PHDefaultLog(activeCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -269,30 +294,33 @@
     _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "setiPhoneCellularSwitchActive: value is %d ... ", buf, 8u);
   }
 
-  if (![activeCopy BOOLValue])
+  bOOLValue2 = [activeCopy BOOLValue];
+  if (!bOOLValue2)
   {
-    v10 = PHDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v13 = PHDefaultLog(bOOLValue2);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Disabling Thumper and relay", buf, 2u);
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Disabling Thumper and relay", buf, 2u);
     }
 
-    v11 = 0;
+    v14 = 0;
     goto LABEL_22;
   }
 
-  if ((+[TUCallCapabilities accountsSupportSecondaryCalling]& 1) != 0)
+  v8 = +[TUCallCapabilities accountsSupportSecondaryCalling];
+  if (v8)
   {
-    v7 = +[TUCallCapabilities isThumperCallingAllowedForCurrentDevice];
-    v8 = PHDefaultLog();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-    if (v7)
+    v9 = +[TUCallCapabilities isThumperCallingAllowedForCurrentDevice];
+    v10 = v9;
+    v11 = PHDefaultLog(v9);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    if (v10)
     {
-      if (v9)
+      if (v12)
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "... and thumper calling is allowed for current device", buf, 2u);
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "... and thumper calling is allowed for current device", buf, 2u);
       }
 
       [TUCallCapabilities setThumperCallingEnabled:1];
@@ -300,61 +328,61 @@
 
     else
     {
-      if (v9)
+      if (v12)
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "... and thumper calling is not allowed for current device", buf, 2u);
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "... and thumper calling is not allowed for current device", buf, 2u);
       }
     }
 
-    v11 = 1;
+    v14 = 1;
 LABEL_22:
-    [TUCallCapabilities setRelayCallingEnabled:v11];
+    [TUCallCapabilities setRelayCallingEnabled:v14];
     goto LABEL_23;
   }
 
-  v12 = PHDefaultLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v15 = PHDefaultLog(v8);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = +[TUCallCapabilities accountsSupportSecondaryCalling];
+    v16 = +[TUCallCapabilities accountsSupportSecondaryCalling];
     *buf = 67109120;
-    bOOLValue = v13;
-    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "... but not allowing Calls from iPhone to be enabled because accountsSupportSecondaryCalling = %d", buf, 8u);
+    bOOLValue = v16;
+    _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "... but not allowing Calls from iPhone to be enabled because accountsSupportSecondaryCalling = %d", buf, 8u);
   }
 
-  v14 = [NSBundle bundleForClass:objc_opt_class()];
+  v17 = [NSBundle bundleForClass:objc_opt_class()];
   bundleDescriptor = [(PHSettingsSecondaryCloudCallingController *)self bundleDescriptor];
-  v16 = [v14 localizedStringForKey:@"SECONDARY_CLOUD_CALLING_ACCOUNT_ALERT_TITLE" value:&stru_C760 table:bundleDescriptor];
+  v19 = [v17 localizedStringForKey:@"SECONDARY_CLOUD_CALLING_ACCOUNT_ALERT_TITLE" value:&stru_C760 table:bundleDescriptor];
 
-  v17 = objc_alloc_init(TUFeatureFlags);
-  LODWORD(bundleDescriptor) = [v17 appleAccountRebrandEnabled];
-  v18 = [NSBundle bundleForClass:objc_opt_class()];
+  v20 = objc_alloc_init(TUFeatureFlags);
+  LODWORD(bundleDescriptor) = [v20 appleAccountRebrandEnabled];
+  v21 = [NSBundle bundleForClass:objc_opt_class()];
   bundleDescriptor2 = [(PHSettingsSecondaryCloudCallingController *)self bundleDescriptor];
   if (bundleDescriptor)
   {
-    v20 = @"SECONDARY_CLOUD_CALLING_ACCOUNT_ALERT_MESSAGE_APPLEACCOUNT";
+    v23 = @"SECONDARY_CLOUD_CALLING_ACCOUNT_ALERT_MESSAGE_APPLEACCOUNT";
   }
 
   else
   {
-    v20 = @"SECONDARY_CLOUD_CALLING_ACCOUNT_ALERT_MESSAGE";
+    v23 = @"SECONDARY_CLOUD_CALLING_ACCOUNT_ALERT_MESSAGE";
   }
 
-  v21 = [v18 localizedStringForKey:v20 value:&stru_C760 table:bundleDescriptor2];
+  v24 = [v21 localizedStringForKey:v23 value:&stru_C760 table:bundleDescriptor2];
 
-  v22 = [UIAlertController alertControllerWithTitle:v16 message:v21 preferredStyle:1];
-  v23 = [NSBundle bundleForClass:objc_opt_class()];
+  v25 = [UIAlertController alertControllerWithTitle:v19 message:v24 preferredStyle:1];
+  v26 = [NSBundle bundleForClass:objc_opt_class()];
   bundleDescriptor3 = [(PHSettingsSecondaryCloudCallingController *)self bundleDescriptor];
-  v25 = [v23 localizedStringForKey:@"OK" value:&stru_C760 table:bundleDescriptor3];
-  v27[0] = _NSConcreteStackBlock;
-  v27[1] = 3221225472;
-  v27[2] = sub_3F5C;
-  v27[3] = &unk_C590;
-  v27[4] = self;
-  v26 = [UIAlertAction actionWithTitle:v25 style:0 handler:v27];
-  [v22 addAction:v26];
+  v28 = [v26 localizedStringForKey:@"OK" value:&stru_C760 table:bundleDescriptor3];
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_3F5C;
+  v30[3] = &unk_C590;
+  v30[4] = self;
+  v29 = [UIAlertAction actionWithTitle:v28 style:0 handler:v30];
+  [v25 addAction:v29];
 
-  [(PHSettingsSecondaryCloudCallingController *)self presentViewController:v22 animated:1 completion:0];
+  [(PHSettingsSecondaryCloudCallingController *)self presentViewController:v25 animated:1 completion:0];
 LABEL_23:
   [(PHSettingsSecondaryCloudCallingController *)self reloadSpecifiers];
 }
@@ -376,7 +404,7 @@ LABEL_23:
 
 - (void)activateThumperForThisDevice:(id)device
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -384,14 +412,15 @@ LABEL_23:
   }
 
   v4 = +[TUCallCapabilities isThumperCallingAllowedForCurrentDevice];
-  v5 = PHDefaultLog();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-  if (v4)
+  v5 = v4;
+  v6 = PHDefaultLog(v4);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  if (v5)
   {
-    if (v6)
+    if (v7)
     {
-      *v8 = 0;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Thumper calling is already allowed for current device. Enabling Thumper directly", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Thumper calling is already allowed for current device. Enabling Thumper directly", v9, 2u);
     }
 
     [TUCallCapabilities setThumperCallingEnabled:1];
@@ -399,10 +428,10 @@ LABEL_23:
 
   else
   {
-    if (v6)
+    if (v7)
     {
-      *v7 = 0;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Thumper calling is not allowed for current device. Starting PIN pairing", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Thumper calling is not allowed for current device. Starting PIN pairing", v8, 2u);
     }
 
     +[TUCallCapabilities requestPinFromPrimaryDevice];
@@ -412,7 +441,7 @@ LABEL_23:
 - (void)capabilitiesChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -431,29 +460,33 @@ LABEL_23:
 - (void)thumperProvisioningURLChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = changedCopy;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Received Thumper provisioning URL changed notification: %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = changedCopy;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Received Thumper provisioning URL changed notification: %@", &v12, 0xCu);
   }
 
   v6 = +[TUCallCapabilities thumperCallingCapabilityInfo];
   presentedViewController = [(PHSettingsSecondaryCloudCallingController *)self presentedViewController];
 
-  if (presentedViewController && ![v6 provisioningStatus])
+  if (presentedViewController)
   {
-    v8 = PHDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    provisioningStatus = [v6 provisioningStatus];
+    if (!provisioningStatus)
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "We have a presented view controller and Thumper provisioning status is not-allowed, so updating our presented controller", &v11, 2u);
-    }
+      v9 = PHDefaultLog(provisioningStatus);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(v12) = 0;
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "We have a presented view controller and Thumper provisioning status is not-allowed, so updating our presented controller", &v12, 2u);
+      }
 
-    thumperProvisioningController = [(PHSettingsSecondaryCloudCallingController *)self thumperProvisioningController];
-    provisionCapabilityController = [thumperProvisioningController provisionCapabilityController];
-    [(PHSettingsCloudCallingListController *)self presentOrUpdateViewController:provisionCapabilityController];
+      thumperProvisioningController = [(PHSettingsSecondaryCloudCallingController *)self thumperProvisioningController];
+      provisionCapabilityController = [thumperProvisioningController provisionCapabilityController];
+      [(PHSettingsCloudCallingListController *)self presentOrUpdateViewController:provisionCapabilityController];
+    }
   }
 }
 

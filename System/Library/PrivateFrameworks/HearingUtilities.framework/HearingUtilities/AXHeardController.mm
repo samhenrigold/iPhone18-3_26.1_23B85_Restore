@@ -189,7 +189,7 @@ void __34__AXHeardController_continueSetup__block_invoke(uint64_t a1)
 
 - (void)updatePersonalAudioSettingsOnAccessories
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (!self->_transparencyHysteresisTimer)
   {
     v3 = objc_alloc_init(MEMORY[0x1E6988780]);
@@ -212,11 +212,11 @@ void __34__AXHeardController_continueSetup__block_invoke(uint64_t a1)
         shouldUpdateAccessory = [sharedInstance3 shouldUpdateAccessory];
         sharedInstance4 = [getPASettingsClass_0() sharedInstance];
         personalMediaConfiguration2 = [sharedInstance4 personalMediaConfiguration];
-        v19 = 67109376;
-        v20 = shouldUpdateAccessory;
-        v21 = 1024;
-        v22 = personalMediaConfiguration2 != 0;
-        _os_log_impl(&dword_1DA5E2000, v8, OS_LOG_TYPE_DEFAULT, "Sending accessory update %d, %d", &v19, 0xEu);
+        v18 = 67109376;
+        v19 = shouldUpdateAccessory;
+        v20 = 1024;
+        v21 = personalMediaConfiguration2 != 0;
+        _os_log_impl(&dword_1DA5E2000, v8, OS_LOG_TYPE_DEFAULT, "Sending accessory update %d, %d", &v18, 0xEu);
       }
 
       if (([(AXDispatchTimer *)self->_transparencyHysteresisTimer isPending]& 1) == 0)
@@ -224,7 +224,7 @@ void __34__AXHeardController_continueSetup__block_invoke(uint64_t a1)
         [(AXDispatchTimer *)self->_transparencyHysteresisTimer afterDelay:&__block_literal_global_199 processBlock:0.1];
       }
 
-      goto LABEL_13;
+      return;
     }
   }
 
@@ -239,20 +239,17 @@ void __34__AXHeardController_continueSetup__block_invoke(uint64_t a1)
     shouldUpdateAccessory2 = [sharedInstance5 shouldUpdateAccessory];
     sharedInstance6 = [getPASettingsClass_0() sharedInstance];
     personalMediaConfiguration3 = [sharedInstance6 personalMediaConfiguration];
-    v19 = 67109376;
-    v20 = shouldUpdateAccessory2;
-    v21 = 1024;
-    v22 = personalMediaConfiguration3 != 0;
-    _os_log_impl(&dword_1DA5E2000, v13, OS_LOG_TYPE_DEFAULT, "Skipping accessory update %d, %d", &v19, 0xEu);
+    v18 = 67109376;
+    v19 = shouldUpdateAccessory2;
+    v20 = 1024;
+    v21 = personalMediaConfiguration3 != 0;
+    _os_log_impl(&dword_1DA5E2000, v13, OS_LOG_TYPE_DEFAULT, "Skipping accessory update %d, %d", &v18, 0xEu);
   }
-
-LABEL_13:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateHearingControlCenterModule
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = +[HUHearingAidSettings sharedInstance];
   usedHearingFeatures = [v2 usedHearingFeatures];
 
@@ -270,10 +267,10 @@ LABEL_13:
     *&buf[14] = compoundAttributeContainsAttribute(usedHearingFeatures, 2);
     *&buf[18] = 1024;
     *&buf[20] = compoundAttributeContainsAttribute(usedHearingFeatures, 8);
-    LOWORD(v22) = 1024;
-    *(&v22 + 2) = compoundAttributeContainsAttribute(usedHearingFeatures, 1024);
-    HIWORD(v22) = 1024;
-    LODWORD(v23) = compoundAttributeContainsAttribute(usedHearingFeatures, 2048);
+    LOWORD(v21) = 1024;
+    *(&v21 + 2) = compoundAttributeContainsAttribute(usedHearingFeatures, 1024);
+    HIWORD(v21) = 1024;
+    LODWORD(v22) = compoundAttributeContainsAttribute(usedHearingFeatures, 2048);
     v7 = "Not adding hearing module %lu - %d, %d, %d, %d";
     v8 = v6;
     v9 = 36;
@@ -299,38 +296,36 @@ LABEL_8:
 
   else
   {
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2050000000;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2050000000;
     v10 = getCCSIconElementRequestClass_softClass;
-    v20 = getCCSIconElementRequestClass_softClass;
+    v19 = getCCSIconElementRequestClass_softClass;
     if (!getCCSIconElementRequestClass_softClass)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getCCSIconElementRequestClass_block_invoke;
-      v22 = &unk_1E85C9FB0;
-      v23 = &v17;
+      v21 = &unk_1E85C9FB0;
+      v22 = &v16;
       __getCCSIconElementRequestClass_block_invoke(buf);
-      v10 = v18[3];
+      v10 = v17[3];
     }
 
     v11 = v10;
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v16, 8);
     v12 = [[v10 alloc] initWithIntent:2 moduleIdentifier:@"com.apple.accessibility.controlcenter.hearingdevices" containerBundleIdentifier:@"com.apple.accessibility.controlcenter.hearingdevices" moduleSize:0];
     sharedInstance = [getCCSControlCenterServiceClass() sharedInstance];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __53__AXHeardController_updateHearingControlCenterModule__block_invoke;
-    v15[3] = &unk_1E85CCAE8;
-    v16 = v12;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __53__AXHeardController_updateHearingControlCenterModule__block_invoke;
+    v14[3] = &unk_1E85CCAE8;
+    v15 = v12;
     v6 = v12;
-    [sharedInstance requestIconElementState:v6 completionHandler:v15];
+    [sharedInstance requestIconElementState:v6 completionHandler:v14];
   }
 
 LABEL_12:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __34__AXHeardController_continueSetup__block_invoke_2(uint64_t a1)
@@ -897,14 +892,14 @@ LABEL_17:
 
 void __53__AXHeardController_updateHearingControlCenterModule__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = HCLogHearingAids();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a2];
-    v9 = 138412290;
-    v10 = v5;
-    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "Hearing control status: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v5;
+    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "Hearing control status: %@", &v8, 0xCu);
   }
 
   if (a2 == 2)
@@ -915,29 +910,25 @@ void __53__AXHeardController_updateHearingControlCenterModule__block_invoke(uint
 
   v7 = [MEMORY[0x1E695E000] standardUserDefaults];
   [v7 setBool:1 forKey:@"HUHearingControlCenterAddedKey"];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __53__AXHeardController_updateHearingControlCenterModule__block_invoke_101(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = HCLogHearingAids();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [MEMORY[0x1E695E000] standardUserDefaults];
     v7 = [v6 dictionaryRepresentation];
-    v9 = 138412802;
-    v10 = v4;
-    v11 = 1024;
-    v12 = a2;
-    v13 = 2112;
-    v14 = v7;
-    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "Added hearing to control center: %@ success: %d %@", &v9, 0x1Cu);
+    v8 = 138412802;
+    v9 = v4;
+    v10 = 1024;
+    v11 = a2;
+    v12 = 2112;
+    v13 = v7;
+    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "Added hearing to control center: %@ success: %d %@", &v8, 0x1Cu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __34__AXHeardController_continueSetup__block_invoke_3()
@@ -952,24 +943,22 @@ void __34__AXHeardController_continueSetup__block_invoke_3()
 
 void __34__AXHeardController_continueSetup__block_invoke_4(uint64_t a1, int a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = HCLogHearingAids();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
-    v8 = v4;
-    v9 = 1024;
-    v10 = a2;
-    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "Aids hearing aids module control center gallery: %@ success: %d", &v7, 0x12u);
+    v6 = 138412546;
+    v7 = v4;
+    v8 = 1024;
+    v9 = a2;
+    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "Aids hearing aids module control center gallery: %@ success: %d", &v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __34__AXHeardController_continueSetup__block_invoke_115(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = [getPASettingsClass_0() sharedInstance];
   v3 = [v2 personalMediaConfiguration];
 
@@ -977,7 +966,7 @@ void __34__AXHeardController_continueSetup__block_invoke_115(uint64_t a1)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = v3;
+    v15 = v3;
     _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "AA changed %@", buf, 0xCu);
   }
 
@@ -990,7 +979,7 @@ void __34__AXHeardController_continueSetup__block_invoke_115(uint64_t a1)
     block[1] = 3221225472;
     block[2] = __34__AXHeardController_continueSetup__block_invoke_116;
     block[3] = &unk_1E85C9F60;
-    v14 = v3;
+    v13 = v3;
     dispatch_async(v7, block);
   }
 
@@ -1004,8 +993,6 @@ void __34__AXHeardController_continueSetup__block_invoke_115(uint64_t a1)
   CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.accessibility.hearing.ui.availability", 0, 0, 1u);
   v11 = +[HUUtilities sharedUtilities];
   [v11 updateHearingFeatureUsage];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __34__AXHeardController_continueSetup__block_invoke_116(uint64_t a1)
@@ -1028,19 +1015,18 @@ void __34__AXHeardController_continueSetup__block_invoke_2_119(uint64_t a1)
 
 void __34__AXHeardController_continueSetup__block_invoke_147(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = HCLogHearing();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x1E696AD98] numberWithBool:a2];
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "AXHeardController: BT state updated %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "AXHeardController: BT state updated %@", &v6, 0xCu);
   }
 
   WeakRetained[41] = a2;
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_shouldBeRunning:(id)running
@@ -1150,15 +1136,16 @@ uint64_t __40__AXHeardController__shutdownIfPossible__block_invoke_152(uint64_t 
   return [v1 _shouldBeRunning:v3];
 }
 
-uint64_t __40__AXHeardController__shutdownIfPossible__block_invoke_2(uint64_t a1, int a2)
+uint64_t __40__AXHeardController__shutdownIfPossible__block_invoke_2(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = HCLogHearingNearbyIDS();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    __40__AXHeardController__shutdownIfPossible__block_invoke_2_cold_1(a2, v4);
+    __40__AXHeardController__shutdownIfPossible__block_invoke_2_cold_1(v2, v4);
   }
 
-  if (!a2)
+  if (!v2)
   {
     v6 = +[AXHAController sharedController];
     [v6 cleanUp];
@@ -1179,7 +1166,7 @@ uint64_t __40__AXHeardController__shutdownIfPossible__block_invoke_2(uint64_t a1
 
 - (void)updateAnalytics
 {
-  v21[4] = *MEMORY[0x1E69E9840];
+  v20[4] = *MEMORY[0x1E69E9840];
   sharedInstance = [getPASettingsClass_0() sharedInstance];
   personalMediaConfiguration = [sharedInstance personalMediaConfiguration];
 
@@ -1196,95 +1183,91 @@ uint64_t __40__AXHeardController__shutdownIfPossible__block_invoke_2(uint64_t a1
   sharedInstance2 = [getPASettingsClass_0() sharedInstance];
   personalAudioAccommodationTypes = [sharedInstance2 personalAudioAccommodationTypes];
 
-  v20[0] = @"enabled";
+  v19[0] = @"enabled";
   v7 = MEMORY[0x1E696AD98];
   sharedInstance3 = [getPASettingsClass_0() sharedInstance];
   v9 = [v7 numberWithBool:{objc_msgSend(sharedInstance3, "personalMediaEnabled")}];
-  v21[0] = v9;
-  v20[1] = @"mediaEnabled";
+  v20[0] = v9;
+  v19[1] = @"mediaEnabled";
   v10 = [MEMORY[0x1E696AD98] numberWithBool:{compoundAttributeContainsAttribute(personalAudioAccommodationTypes, 4)}];
-  v21[1] = v10;
-  v20[2] = @"phoneEnabled";
+  v20[1] = v10;
+  v19[2] = @"phoneEnabled";
   v11 = [MEMORY[0x1E696AD98] numberWithBool:{compoundAttributeContainsAttribute(personalAudioAccommodationTypes, 2)}];
-  v20[3] = @"profile";
-  v21[2] = v11;
-  v21[3] = v4;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:4];
+  v19[3] = @"profile";
+  v20[2] = v11;
+  v20[3] = v4;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:4];
 
   v13 = HCLogAudioAccommodations();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = v12;
+    v18 = v12;
     _os_log_impl(&dword_1DA5E2000, v13, OS_LOG_TYPE_DEFAULT, "Updating PME analytics %@", buf, 0xCu);
   }
 
-  v17 = v12;
+  v16 = v12;
   v14 = v12;
   AnalyticsSendEventLazy();
   v15 = +[HUAccessoryManager sharedInstance];
   [v15 getCurrentRouteSupportingHeadphoneAccommodationsWithCompletion:&__block_literal_global_178];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __36__AXHeardController_updateAnalytics__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v32[6] = *MEMORY[0x1E69E9840];
+  v31[6] = *MEMORY[0x1E69E9840];
   if (a3)
   {
-    v31[0] = @"enabled";
+    v30[0] = @"enabled";
     v4 = MEMORY[0x1E696AD98];
     v5 = a4;
-    v28 = [getPASettingsClass_0() sharedInstance];
-    v27 = [v4 numberWithBool:{objc_msgSend(v28, "transparencyCustomizedForAddress:", v5)}];
-    v32[0] = v27;
-    v31[1] = @"amplification";
+    v27 = [getPASettingsClass_0() sharedInstance];
+    v26 = [v4 numberWithBool:{objc_msgSend(v27, "transparencyCustomizedForAddress:", v5)}];
+    v31[0] = v26;
+    v30[1] = @"amplification";
     v6 = MEMORY[0x1E696AD98];
-    v26 = [getPASettingsClass_0() sharedInstance];
-    [v26 transparencyAmplificationForAddress:v5];
+    v25 = [getPASettingsClass_0() sharedInstance];
+    [v25 transparencyAmplificationForAddress:v5];
     v7 = [v6 numberWithDouble:?];
-    v32[1] = v7;
-    v31[2] = @"balance";
+    v31[1] = v7;
+    v30[2] = @"balance";
     v8 = MEMORY[0x1E696AD98];
     v9 = [getPASettingsClass_0() sharedInstance];
     [v9 transparencyBalanceForAddress:v5];
     v10 = [v8 numberWithDouble:?];
-    v32[2] = v10;
-    v31[3] = @"beamformerEnabled";
+    v31[2] = v10;
+    v30[3] = @"beamformerEnabled";
     v11 = MEMORY[0x1E696AD98];
     v12 = [getPASettingsClass_0() sharedInstance];
     v13 = [v11 numberWithBool:{objc_msgSend(v12, "transparencyBeamformingForAddress:", v5)}];
-    v32[3] = v13;
-    v31[4] = @"noiseSuppressorValue";
+    v31[3] = v13;
+    v30[4] = @"noiseSuppressorValue";
     v14 = MEMORY[0x1E696AD98];
     v15 = [getPASettingsClass_0() sharedInstance];
     [v15 transparencyNoiseSupressorForAddress:v5];
     v16 = [v14 numberWithDouble:?];
-    v32[4] = v16;
-    v31[5] = @"tone";
+    v31[4] = v16;
+    v30[5] = @"tone";
     v17 = MEMORY[0x1E696AD98];
     v18 = [getPASettingsClass_0() sharedInstance];
     [v18 transparencyToneForAddress:v5];
     v20 = v19;
 
     v21 = [v17 numberWithDouble:v20];
-    v32[5] = v21;
-    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:6];
+    v31[5] = v21;
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:6];
 
     v23 = HCLogAudioAccommodations();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v30 = v22;
+      v29 = v22;
       _os_log_impl(&dword_1DA5E2000, v23, OS_LOG_TYPE_DEFAULT, "Updating PSE analytics %@", buf, 0xCu);
     }
 
     v24 = v22;
     AnalyticsSendEventLazy();
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __61__AXHeardController_updatePersonalAudioSettingsOnAccessories__block_invoke()
@@ -1528,7 +1511,7 @@ void __41__AXHeardController_handleNewConnection___block_invoke(uint64_t a1)
 
 void __41__AXHeardController_handleNewConnection___block_invoke_2(id *a1, void *a2)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = MEMORY[0x1DA751E20](v3);
@@ -1555,21 +1538,21 @@ void __41__AXHeardController_handleNewConnection___block_invoke_2(id *a1, void *
     v25 = objc_loadWeakRetained(a1 + 5);
     [v25 teardownConnection];
 
-    v39[1] = MEMORY[0x1E69E9820];
-    v39[2] = 3221225472;
-    v39[3] = __41__AXHeardController_handleNewConnection___block_invoke_224;
-    v39[4] = &unk_1E85CAA40;
-    v39[5] = a1[4];
-    objc_copyWeak(&v40, a1 + 5);
+    v38[1] = MEMORY[0x1E69E9820];
+    v38[2] = 3221225472;
+    v38[3] = __41__AXHeardController_handleNewConnection___block_invoke_224;
+    v38[4] = &unk_1E85CAA40;
+    v38[5] = a1[4];
+    objc_copyWeak(&v39, a1 + 5);
     AXPerformBlockSynchronouslyOnMainThread();
-    objc_destroyWeak(&v40);
+    objc_destroyWeak(&v39);
   }
 
   else if (v5 == MEMORY[0x1E69E9E80])
   {
-    v39[0] = 0;
-    v6 = [MEMORY[0x1E6988810] dictionaryFromXPCMessage:v3 error:v39];
-    v7 = v39[0];
+    v38[0] = 0;
+    v6 = [MEMORY[0x1E6988810] dictionaryFromXPCMessage:v3 error:v38];
+    v7 = v38[0];
     v8 = [v6 objectForKey:*MEMORY[0x1E69A4528]];
     v9 = [v8 unsignedLongLongValue];
 
@@ -1577,8 +1560,8 @@ void __41__AXHeardController_handleNewConnection___block_invoke_2(id *a1, void *
     block[1] = 3221225472;
     block[2] = __41__AXHeardController_handleNewConnection___block_invoke_4;
     block[3] = &unk_1E85CCC60;
-    v38[1] = v9;
-    objc_copyWeak(v38, a1 + 5);
+    v37[1] = v9;
+    objc_copyWeak(v37, a1 + 5);
     if (CCSIconElementRequestErrorDomain_block_invoke_token == -1)
     {
       if (v9)
@@ -1622,17 +1605,17 @@ LABEL_5:
           {
             connectiona = objc_loadWeakRetained(a1 + 7);
             pid = xpc_connection_get_pid(connectiona);
-            v34 = objc_loadWeakRetained(a1 + 7);
-            name = xpc_connection_get_name(v34);
+            v33 = objc_loadWeakRetained(a1 + 7);
+            name = xpc_connection_get_name(v33);
             v29 = objc_loadWeakRetained(a1 + 5);
             *buf = 67109890;
-            v42 = pid;
-            v43 = 2080;
-            v44 = name;
-            v45 = 2048;
-            v46 = v9;
-            v47 = 2112;
-            v48 = v29;
+            v41 = pid;
+            v42 = 2080;
+            v43 = name;
+            v44 = 2048;
+            v45 = v9;
+            v46 = 2112;
+            v47 = v29;
             _os_log_error_impl(&dword_1DA5E2000, v13, OS_LOG_TYPE_ERROR, "Message missing entitlement %d - %s, message: %llu: %@", buf, 0x26u);
           }
         }
@@ -1643,25 +1626,25 @@ LABEL_5:
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             connection = objc_loadWeakRetained(a1 + 7);
-            v31 = xpc_connection_get_pid(connection);
-            v33 = objc_loadWeakRetained(a1 + 7);
-            v26 = xpc_connection_get_name(v33);
+            v30 = xpc_connection_get_pid(connection);
+            v32 = objc_loadWeakRetained(a1 + 7);
+            v26 = xpc_connection_get_name(v32);
             v27 = objc_loadWeakRetained(a1 + 5);
             *buf = 67109890;
-            v42 = v31;
-            v43 = 2048;
-            v44 = v9;
-            v45 = 2080;
-            v46 = v26;
-            v47 = 2112;
-            v48 = v27;
+            v41 = v30;
+            v42 = 2048;
+            v43 = v9;
+            v44 = 2080;
+            v45 = v26;
+            v46 = 2112;
+            v47 = v27;
             _os_log_error_impl(&dword_1DA5E2000, v13, OS_LOG_TYPE_ERROR, "Message missing entitlement %d - %llu - %s: %@", buf, 0x26u);
           }
         }
 
 LABEL_21:
 
-        objc_destroyWeak(v38);
+        objc_destroyWeak(v37);
         goto LABEL_22;
       }
     }
@@ -1677,8 +1660,6 @@ LABEL_21:
 
 LABEL_22:
   objc_autoreleasePoolPop(v4);
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __41__AXHeardController_handleNewConnection___block_invoke_224(uint64_t a1)
@@ -1713,7 +1694,7 @@ void __41__AXHeardController_handleNewConnection___block_invoke_224(uint64_t a1)
   _Block_object_dispose(v9, 8);
 }
 
-uint64_t __41__AXHeardController_handleNewConnection___block_invoke_2_225(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__41__AXHeardController_handleNewConnection___block_invoke_2_225(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 wantsUpdatesForIdentifier:32];
   if (result)
@@ -1849,14 +1830,14 @@ void __61__AXHeardController_sendClientsMessageWithPayload_excluding___block_inv
 
 - (unint64_t)countOfClientsListeningForIdentifier:(unint64_t)identifier
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   clients = [(AXHeardController *)self clients];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __58__AXHeardController_countOfClientsListeningForIdentifier___block_invoke;
-  v13[3] = &__block_descriptor_40_e28_B32__0__HCXPCClient_8Q16_B24l;
-  v13[4] = identifier;
-  v6 = [clients indexesOfObjectsPassingTest:v13];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __58__AXHeardController_countOfClientsListeningForIdentifier___block_invoke;
+  v12[3] = &__block_descriptor_40_e28_B32__0__HCXPCClient_8Q16_B24l;
+  v12[4] = identifier;
+  v6 = [clients indexesOfObjectsPassingTest:v12];
 
   v7 = HCLogHearingAids();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -1865,13 +1846,12 @@ void __61__AXHeardController_sendClientsMessageWithPayload_excluding___block_inv
     v9 = [clients2 objectsAtIndexes:v6];
     *buf = 134218242;
     identifierCopy = identifier;
-    v16 = 2112;
-    v17 = v9;
+    v15 = 2112;
+    v16 = v9;
     _os_log_impl(&dword_1DA5E2000, v7, OS_LOG_TYPE_DEFAULT, "AXHeardController: Found clients %llu = %@", buf, 0x16u);
   }
 
   v10 = [v6 count];
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -1895,7 +1875,7 @@ void __61__AXHeardController_sendClientsMessageWithPayload_excluding___block_inv
 
 - (void)handleMessage:(id)message forIdentifier:(unint64_t)identifier
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   v7 = HCLogHearingXPC();
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
@@ -1903,26 +1883,26 @@ void __61__AXHeardController_sendClientsMessageWithPayload_excluding___block_inv
   {
     if (v8)
     {
-      v19 = 134218498;
+      v18 = 134218498;
       identifierCopy = 0x800000000;
-      v21 = 2160;
-      v22 = 1752392040;
-      v23 = 2112;
-      v24 = messageCopy;
+      v20 = 2160;
+      v21 = 1752392040;
+      v22 = 2112;
+      v23 = messageCopy;
       v9 = "AXHeardController: handleMessage %llu - %{mask.hash}@";
       v10 = v7;
       v11 = 32;
 LABEL_6:
-      _os_log_impl(&dword_1DA5E2000, v10, OS_LOG_TYPE_DEFAULT, v9, &v19, v11);
+      _os_log_impl(&dword_1DA5E2000, v10, OS_LOG_TYPE_DEFAULT, v9, &v18, v11);
     }
   }
 
   else if (v8)
   {
-    v19 = 134218242;
+    v18 = 134218242;
     identifierCopy = identifier;
-    v21 = 2112;
-    v22 = messageCopy;
+    v20 = 2112;
+    v21 = messageCopy;
     v9 = "AXHeardController: handleMessage %llu - %@";
     v10 = v7;
     v11 = 22;
@@ -1946,12 +1926,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v12);
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)boostPriority:(id)priority
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   priorityCopy = priority;
   payload = [priorityCopy payload];
   v6 = [payload objectForKey:@"ax_hearing_should_register_client_key"];
@@ -1978,12 +1957,11 @@ LABEL_6:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     boostMessage = [(AXHeardController *)self boostMessage];
-    v16 = 138412290;
-    v17 = boostMessage;
-    _os_log_impl(&dword_1DA5E2000, v12, OS_LOG_TYPE_DEFAULT, "AXHeardController: Setting boost %@", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = boostMessage;
+    _os_log_impl(&dword_1DA5E2000, v12, OS_LOG_TYPE_DEFAULT, "AXHeardController: Setting boost %@", &v15, 0xCu);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -2002,36 +1980,18 @@ LABEL_6:
 
 void __40__AXHeardController__shutdownIfPossible__block_invoke_2_cold_1(char a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1 & 1;
-  _os_log_debug_impl(&dword_1DA5E2000, a2, OS_LOG_TYPE_DEBUG, "AXHeardController: IDS stats is saved, should be running: %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1 & 1;
+  _os_log_debug_impl(&dword_1DA5E2000, a2, OS_LOG_TYPE_DEBUG, "AXHeardController: IDS stats is saved, should be running: %d", v2, 8u);
 }
 
 void __32__AXHeardController_startServer__block_invoke_35_cold_1(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   xpc_dictionary_get_string(a1, *MEMORY[0x1E69E9E28]);
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_1DA5E2000, a2, OS_LOG_TYPE_ERROR, "XPC error: %s", v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void __41__AXHeardController_handleNewConnection___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1DA5E2000, v0, v1, "Malformed message %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __43__AXHeardController_sendMessage_withError___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1DA5E2000, v0, v1, "Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DA5E2000, a2, OS_LOG_TYPE_ERROR, "XPC error: %s", v3, 0xCu);
 }
 
 @end

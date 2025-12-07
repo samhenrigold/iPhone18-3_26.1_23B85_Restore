@@ -46,45 +46,45 @@
 {
   v8 = objc_msgSend_chartTransform(self, a2, v3, v4, v5);
   v13 = objc_msgSend_chartTransform(self, v9, v10, v11, v12);
-  v18 = v13;
+  v17 = v13;
   if (v13)
   {
-    objc_msgSend_asTSCH3DCPPTransform(v13, v14, v15, v16, v17);
+    objc_msgSend_asTSCH3DCPPTransform(v13, v14, v15, v16);
   }
 
   else
   {
-    v42 = 0;
-    v40 = 0u;
-    v41 = 0u;
+    v40 = 0;
+    v38 = 0u;
     v39 = 0u;
+    v37 = 0u;
   }
 
-  sub_276169788(v8, &v39, v43);
-  sub_276168C80(transform + 6, v43);
+  sub_276169788(v8, &v37, v41);
+  sub_276168C80(transform + 6, v41);
 
-  v23 = objc_msgSend_elementsTransform(self, v19, v20, v21, v22);
+  v22 = objc_msgSend_elementsTransform(self, v18, v19, v20, v21);
 
-  if (v23)
+  if (v22)
   {
-    v28 = objc_msgSend_elementsTransform(self, v24, v25, v26, v27);
-    v33 = objc_msgSend_elementsTransform(self, v29, v30, v31, v32);
-    v38 = v33;
-    if (v33)
+    v27 = objc_msgSend_elementsTransform(self, v23, v24, v25, v26);
+    v32 = objc_msgSend_elementsTransform(self, v28, v29, v30, v31);
+    v36 = v32;
+    if (v32)
     {
-      objc_msgSend_asTSCH3DCPPTransform(v33, v34, v35, v36, v37);
+      objc_msgSend_asTSCH3DCPPTransform(v32, v33, v34, v35);
     }
 
     else
     {
-      v42 = 0;
-      v40 = 0u;
-      v41 = 0u;
+      v40 = 0;
+      v38 = 0u;
       v39 = 0u;
+      v37 = 0u;
     }
 
-    sub_276169788(v28, &v39, v43);
-    sub_27616AC4C(transform + 3, v43);
+    sub_276169788(v27, &v37, v41);
+    sub_27616AC4C(transform + 3, v41);
   }
 }
 

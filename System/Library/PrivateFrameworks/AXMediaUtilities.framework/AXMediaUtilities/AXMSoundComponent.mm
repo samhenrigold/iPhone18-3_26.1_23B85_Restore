@@ -373,4 +373,25 @@ uint64_t __54__AXMSoundComponent__scheduleOneShotSound_completion___block_invoke
   _os_log_error_impl(&dword_1AE37B000, a3, OS_LOG_TYPE_ERROR, "Unexpected state change. from %@. to %@", &v7, 0x16u);
 }
 
+- (void)transitionToState:(uint64_t)a3 completion:(uint64_t)a4 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_1AE37B000, a2, a3, "Error starting audio engine: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_scheduleActiveSound:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_1AE37B000, a2, a3, "Could not begin active sound playback: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_startEngineIfNeeded:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_1AE37B000, a2, a3, "Could not start engine: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 @end

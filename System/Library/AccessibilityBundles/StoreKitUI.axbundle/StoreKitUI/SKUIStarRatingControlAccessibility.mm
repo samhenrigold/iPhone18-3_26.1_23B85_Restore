@@ -27,9 +27,8 @@ void __51__SKUIStarRatingControlAccessibility__axSetRating___block_invoke(uint64
 {
   [*(a1 + 32) setUserRating:*(a1 + 40)];
   objc_opt_class();
-  v2 = *(a1 + 32);
-  v3 = __UIAccessibilityCastAsClass();
-  [v3 sendActionsForControlEvents:4096];
+  v1 = __UIAccessibilityCastAsClass();
+  [v1 sendActionsForControlEvents:4096];
 }
 
 - (id)accessibilityValue

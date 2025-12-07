@@ -339,8 +339,8 @@
     sub_100188938(@"video/x-sgi-movie", @"movie");
     sub_100188938(@"video/x-webex", @"wrf");
     sub_100188938(@"x-conference/x-cooltalk", @"ice");
-    sub_100188938(@"x-epoc/x-sisx-app", @"sisx");
-    +[LibcoreNetMimeUtils applyOverrides]_0();
+    v4 = sub_100188938(@"x-epoc/x-sisx-app", @"sisx");
+    +[LibcoreNetMimeUtils applyOverrides]_0(v4, v5);
     atomic_store(1u, LibcoreNetMimeUtils__initialized);
   }
 }
@@ -352,27 +352,27 @@
     sub_10018A8D8();
   }
 
-  PropertyWithNSString = JavaLangSystem_getPropertyWithNSString_(@"content.types.user.table");
+  PropertyWithNSString = JavaLangSystem_getPropertyWithNSString_(@"content.types.user.table", a2);
   if (PropertyWithNSString)
   {
-    v1 = new_JavaIoFile_initWithNSString_(PropertyWithNSString);
-    if ([(JavaIoFile *)v1 exists])
+    v4 = new_JavaIoFile_initWithNSString_(PropertyWithNSString);
+    if ([(JavaIoFile *)v4 exists])
     {
-      return new_JavaIoFileInputStream_initWithJavaIoFile_(v1);
+      return new_JavaIoFileInputStream_initWithJavaIoFile_(v4);
     }
   }
 
-  v10 = JavaLangSystem_getPropertyWithNSString_(@"java.home");
+  v13 = JavaLangSystem_getPropertyWithNSString_(@"java.home", v3);
   if ((atomic_load_explicit(JavaIoFile__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_10018A8E4();
   }
 
-  v11 = JreStrcat("$$$", v3, v4, v5, v6, v7, v8, v9, @"lib");
-  v1 = new_JavaIoFile_initWithNSString_withNSString_(v10, v11);
-  if ([(JavaIoFile *)v1 exists])
+  v14 = JreStrcat("$$$", v6, v7, v8, v9, v10, v11, v12, @"lib");
+  v4 = new_JavaIoFile_initWithNSString_withNSString_(v13, v14);
+  if ([(JavaIoFile *)v4 exists])
   {
-    return new_JavaIoFileInputStream_initWithJavaIoFile_(v1);
+    return new_JavaIoFileInputStream_initWithJavaIoFile_(v4);
   }
 
   else
@@ -385,53 +385,53 @@
 {
   if ((atomic_load_explicit(LibcoreNetMimeUtils__initialized, memory_order_acquire) & 1) == 0)
   {
-    sub_10018A8D8();
+    self = sub_10018A8D8();
   }
 
-  result = +[LibcoreNetMimeUtils getContentTypesPropertiesStream]_0();
+  result = +[LibcoreNetMimeUtils getContentTypesPropertiesStream]_0(self, a2);
   if (result)
   {
-    v1 = result;
-    v2 = new_JavaUtilProperties_init();
-    [(JavaUtilProperties *)v2 load__WithJavaIoInputStream:v1];
+    v3 = result;
+    v4 = new_JavaUtilProperties_init();
+    [(JavaUtilProperties *)v4 load__WithJavaIoInputStream:v3];
+    v15 = 0u;
+    v16 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v11 = 0u;
-    v12 = 0u;
-    entrySet = [(JavaUtilHashtable *)v2 entrySet];
-    v4 = entrySet;
+    entrySet = [(JavaUtilHashtable *)v4 entrySet];
+    v6 = entrySet;
     if (!entrySet)
     {
       JreThrowNullPointerException();
     }
 
-    v5 = [entrySet countByEnumeratingWithState:&v11 objects:v15 count:16];
-    if (v5)
+    v7 = [entrySet countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v7)
     {
-      v6 = *v12;
+      v8 = *v14;
       do
       {
-        for (i = 0; i != v5; i = i + 1)
+        for (i = 0; i != v7; i = i + 1)
         {
-          if (*v12 != v6)
+          if (*v14 != v8)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v6);
           }
 
-          v8 = *(*(&v11 + 1) + 8 * i);
-          if (!v8)
+          v10 = *(*(&v13 + 1) + 8 * i);
+          if (!v10)
           {
             JreThrowNullPointerException();
           }
 
-          getKey = [*(*(&v11 + 1) + 8 * i) getKey];
+          getKey = [*(*(&v13 + 1) + 8 * i) getKey];
           objc_opt_class();
           if (getKey && (objc_opt_isKindOfClass() & 1) == 0)
           {
             JreThrowClassCastException();
           }
 
-          getValue = [v8 getValue];
+          getValue = [v10 getValue];
           objc_opt_class();
           if (getValue)
           {
@@ -444,13 +444,13 @@
           sub_100188938(getValue, getKey);
         }
 
-        v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
-      while (v5);
+      while (v7);
     }
 
-    return [(JavaIoFileInputStream *)v1 close];
+    return [(JavaIoFileInputStream *)v3 close];
   }
 
   return result;

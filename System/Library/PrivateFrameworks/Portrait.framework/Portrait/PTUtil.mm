@@ -29,11 +29,11 @@
 
 - (PTUtil)initWithMetalContext:(id)context
 {
-  v126 = *MEMORY[0x277D85DE8];
+  v137 = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v124.receiver = self;
-  v124.super_class = PTUtil;
-  v6 = [(PTUtil *)&v124 init];
+  v135.receiver = self;
+  v135.super_class = PTUtil;
+  v6 = [(PTUtil *)&v135 init];
   v7 = v6;
   if (!v6)
   {
@@ -47,204 +47,204 @@
 
   if (!v7->_renderDisparity)
   {
-    v42 = _PTLogSystem();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    v53 = _PTLogSystem(v10);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
-      [(PTUtil *)v42 initWithMetalContext:v43, v44, v45, v46, v47, v48, v49];
+      [(PTUtil *)v53 initWithMetalContext:v54, v55, v56, v57, v58, v59, v60];
     }
 
     goto LABEL_34;
   }
 
-  v10 = [contextCopy computePipelineStateFor:@"reciprocal" withConstants:0];
+  v11 = [contextCopy computePipelineStateFor:@"reciprocal" withConstants:0];
   reciprocal = v7->_reciprocal;
-  v7->_reciprocal = v10;
+  v7->_reciprocal = v11;
 
   if (!v7->_reciprocal)
   {
-    v42 = _PTLogSystem();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    v53 = _PTLogSystem(v13);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
-      [(PTUtil *)v42 initWithMetalContext:v50, v51, v52, v53, v54, v55, v56];
+      [(PTUtil *)v53 initWithMetalContext:v61, v62, v63, v64, v65, v66, v67];
     }
 
     goto LABEL_34;
   }
 
-  v12 = [contextCopy computePipelineStateFor:@"sobelFilter" withConstants:0];
+  v14 = [contextCopy computePipelineStateFor:@"sobelFilter" withConstants:0];
   sobelFilter = v7->_sobelFilter;
-  v7->_sobelFilter = v12;
+  v7->_sobelFilter = v14;
 
   if (!v7->_sobelFilter)
   {
-    v42 = _PTLogSystem();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    v53 = _PTLogSystem(v16);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
-      [(PTUtil *)v42 initWithMetalContext:v57, v58, v59, v60, v61, v62, v63];
+      [(PTUtil *)v53 initWithMetalContext:v68, v69, v70, v71, v72, v73, v74];
     }
 
     goto LABEL_34;
   }
 
-  v14 = [contextCopy computePipelineStateFor:@"gaussianNoise" withConstants:0];
+  v17 = [contextCopy computePipelineStateFor:@"gaussianNoise" withConstants:0];
   gaussianNoise = v7->_gaussianNoise;
-  v7->_gaussianNoise = v14;
+  v7->_gaussianNoise = v17;
 
   if (!v7->_gaussianNoise)
   {
-    v42 = _PTLogSystem();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    v53 = _PTLogSystem(v19);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
-      [(PTUtil *)v42 initWithMetalContext:v64, v65, v66, v67, v68, v69, v70];
+      [(PTUtil *)v53 initWithMetalContext:v75, v76, v77, v78, v79, v80, v81];
     }
 
     goto LABEL_34;
   }
 
-  v16 = [contextCopy computePipelineStateFor:@"renderRect" withConstants:0];
+  v20 = [contextCopy computePipelineStateFor:@"renderRect" withConstants:0];
   renderRect = v7->_renderRect;
-  v7->_renderRect = v16;
+  v7->_renderRect = v20;
 
   if (!v7->_renderRect)
   {
-    v42 = _PTLogSystem();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    v53 = _PTLogSystem(v22);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
-      [(PTUtil *)v42 initWithMetalContext:v71, v72, v73, v74, v75, v76, v77];
+      [(PTUtil *)v53 initWithMetalContext:v82, v83, v84, v85, v86, v87, v88];
     }
 
     goto LABEL_34;
   }
 
-  v18 = [contextCopy computePipelineStateFor:@"renderLine" withConstants:0];
+  v23 = [contextCopy computePipelineStateFor:@"renderLine" withConstants:0];
   renderLine = v7->_renderLine;
-  v7->_renderLine = v18;
+  v7->_renderLine = v23;
 
   if (!v7->_renderLine)
   {
-    v42 = _PTLogSystem();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    v53 = _PTLogSystem(v25);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
-      [(PTUtil *)v42 initWithMetalContext:v78, v79, v80, v81, v82, v83, v84];
+      [(PTUtil *)v53 initWithMetalContext:v89, v90, v91, v92, v93, v94, v95];
     }
 
     goto LABEL_34;
   }
 
-  v20 = [contextCopy computePipelineStateFor:@"visualizeCircleUsingRect" withConstants:0];
+  v26 = [contextCopy computePipelineStateFor:@"visualizeCircleUsingRect" withConstants:0];
   visualizeCircleUsingRect = v7->_visualizeCircleUsingRect;
-  v7->_visualizeCircleUsingRect = v20;
+  v7->_visualizeCircleUsingRect = v26;
 
   if (!v7->_visualizeCircleUsingRect)
   {
-    v42 = _PTLogSystem();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    v53 = _PTLogSystem(v28);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
-      [(PTUtil *)v42 initWithMetalContext:v85, v86, v87, v88, v89, v90, v91];
+      [(PTUtil *)v53 initWithMetalContext:v96, v97, v98, v99, v100, v101, v102];
     }
 
     goto LABEL_34;
   }
 
-  v22 = [contextCopy computePipelineStateFor:@"drawTurboLegend" withConstants:0];
+  v29 = [contextCopy computePipelineStateFor:@"drawTurboLegend" withConstants:0];
   drawTurboLegend = v7->_drawTurboLegend;
-  v7->_drawTurboLegend = v22;
+  v7->_drawTurboLegend = v29;
 
   if (!v7->_drawTurboLegend)
   {
-    v42 = _PTLogSystem();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    v53 = _PTLogSystem(v31);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
-      [(PTUtil *)v42 initWithMetalContext:v92, v93, v94, v95, v96, v97, v98];
+      [(PTUtil *)v53 initWithMetalContext:v103, v104, v105, v106, v107, v108, v109];
     }
 
     goto LABEL_34;
   }
 
-  v24 = [contextCopy computePipelineStateFor:@"drawTurboLegendYUV" withConstants:0];
+  v32 = [contextCopy computePipelineStateFor:@"drawTurboLegendYUV" withConstants:0];
   drawTurboLegendYUV = v7->_drawTurboLegendYUV;
-  v7->_drawTurboLegendYUV = v24;
+  v7->_drawTurboLegendYUV = v32;
 
   if (!v7->_drawTurboLegendYUV)
   {
-    v42 = _PTLogSystem();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    v53 = _PTLogSystem(v34);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
-      [(PTUtil *)v42 initWithMetalContext:v99, v100, v101, v102, v103, v104, v105];
+      [(PTUtil *)v53 initWithMetalContext:v110, v111, v112, v113, v114, v115, v116];
     }
 
     goto LABEL_34;
   }
 
-  v26 = [contextCopy computePipelineStateFor:@"rotateTexture" withConstants:0];
+  v35 = [contextCopy computePipelineStateFor:@"rotateTexture" withConstants:0];
   rotateTexture = v7->_rotateTexture;
-  v7->_rotateTexture = v26;
+  v7->_rotateTexture = v35;
 
   if (!v7->_rotateTexture)
   {
-    v42 = _PTLogSystem();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    v53 = _PTLogSystem(v37);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
-      [(PTUtil *)v42 initWithMetalContext:v106, v107, v108, v109, v110, v111, v112];
+      [(PTUtil *)v53 initWithMetalContext:v117, v118, v119, v120, v121, v122, v123];
     }
 
 LABEL_34:
 
 LABEL_35:
-    v41 = 0;
+    v52 = 0;
     goto LABEL_36;
   }
 
-  computeGaussianKernel2D(v125);
-  _S0 = v125[0];
-  _S1 = v125[1];
+  computeGaussianKernel2D(v136);
+  _S0 = v136[0];
+  _S1 = v136[1];
   __asm { FCVT            H0, S0 }
 
-  v123[0] = _S0;
+  v134[0] = _S0;
   __asm { FCVT            H0, S1 }
 
-  v123[1] = _S0;
-  _S0 = v125[2];
-  _S1 = v125[3];
+  v134[1] = _S0;
+  _S0 = v136[2];
+  _S1 = v136[3];
   __asm { FCVT            H0, S0 }
 
-  v123[2] = _S0;
+  v134[2] = _S0;
   __asm { FCVT            H0, S1 }
 
-  v122[0] = _S0;
-  _S0 = v125[4];
-  _S1 = v125[5];
+  v133[0] = _S0;
+  _S0 = v136[4];
+  _S1 = v136[5];
   __asm { FCVT            H0, S0 }
 
-  v122[1] = _S0;
+  v133[1] = _S0;
   __asm { FCVT            H0, S1 }
 
-  v122[2] = _S0;
-  v38 = objc_opt_new();
-  [v38 setConstantHalf3:v123 withName:@"kWeights2DRow0_half3"];
-  [v38 setConstantHalf3:v122 withName:@"kWeights2DRow1_half3"];
-  v39 = [contextCopy computePipelineStateFor:@"gaussianFilter3x3" withConstants:v38];
+  v133[2] = _S0;
+  v48 = objc_opt_new();
+  [v48 setConstantHalf3:v134 withName:@"kWeights2DRow0_half3"];
+  [v48 setConstantHalf3:v133 withName:@"kWeights2DRow1_half3"];
+  v49 = [contextCopy computePipelineStateFor:@"gaussianFilter3x3" withConstants:v48];
   gaussianFilter3x3 = v7->_gaussianFilter3x3;
-  v7->_gaussianFilter3x3 = v39;
+  v7->_gaussianFilter3x3 = v49;
 
   if (v7->_gaussianFilter3x3)
   {
-    v41 = v7;
+    v52 = v7;
   }
 
   else
   {
-    v114 = _PTLogSystem();
-    if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
+    v125 = _PTLogSystem(v51);
+    if (os_log_type_enabled(v125, OS_LOG_TYPE_ERROR))
     {
-      [(PTUtil *)v114 initWithMetalContext:v115, v116, v117, v118, v119, v120, v121];
+      [(PTUtil *)v125 initWithMetalContext:v126, v127, v128, v129, v130, v131, v132];
     }
 
-    v41 = 0;
+    v52 = 0;
   }
 
 LABEL_36:
-  return v41;
+  return v52;
 }
 
 + (id)temporaryDirectory:(id)directory
@@ -313,7 +313,7 @@ LABEL_10:
   computeCommandEncoder = [tex computeCommandEncoder];
   if (!computeCommandEncoder)
   {
-    v12 = _PTLogSystem();
+    v12 = _PTLogSystem(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(PTRaytracingUtils *)v12 disparityApplyPostModifier:v13 inDisparity:v14 outDisparity:v15 postModifier:v16, v17, v18, v19];
@@ -369,7 +369,7 @@ LABEL_10:
   computeCommandEncoder = [legendCopy computeCommandEncoder];
   if (!computeCommandEncoder)
   {
-    v16 = _PTLogSystem();
+    v16 = _PTLogSystem(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [(PTRaytracingUtils *)v16 disparityApplyPostModifier:v17 inDisparity:v18 outDisparity:v19 postModifier:v20, v21, v22, v23];
@@ -411,7 +411,7 @@ LABEL_10:
   computeCommandEncoder = [legendCopy computeCommandEncoder];
   if (!computeCommandEncoder)
   {
-    v13 = _PTLogSystem();
+    v13 = _PTLogSystem(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [(PTRaytracingUtils *)v13 disparityApplyPostModifier:v14 inDisparity:v15 outDisparity:v16 postModifier:v17, v18, v19, v20];
@@ -452,7 +452,7 @@ LABEL_10:
   computeCommandEncoder = [noise computeCommandEncoder];
   if (!computeCommandEncoder)
   {
-    v11 = _PTLogSystem();
+    v11 = _PTLogSystem(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(PTRaytracingUtils *)v11 disparityApplyPostModifier:v12 inDisparity:v13 outDisparity:v14 postModifier:v15, v16, v17, v18];
@@ -485,7 +485,7 @@ LABEL_10:
   computeCommandEncoder = [color computeCommandEncoder];
   if (!computeCommandEncoder)
   {
-    v12 = _PTLogSystem();
+    v12 = _PTLogSystem(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(PTRaytracingUtils *)v12 disparityApplyPostModifier:v13 inDisparity:v14 outDisparity:v15 postModifier:v16, v17, v18, v19];
@@ -523,8 +523,8 @@ LABEL_10:
   [v15 setNormalizedCoordinates:1];
   [v15 setMinFilter:0];
   [v15 setMagFilter:0];
-  device = [(PTMetalContext *)self->_metalContext device];
-  v17 = [device newSamplerStateWithDescriptor:v15];
+  v16 = objc_msgSend_device(self->_metalContext);
+  v17 = [v16 newSamplerStateWithDescriptor:v15];
 
   v18 = WORD2(v8);
   v19 = HIWORD(v8);
@@ -570,7 +570,7 @@ LABEL_10:
   computeCommandEncoder = [rect computeCommandEncoder];
   if (!computeCommandEncoder)
   {
-    v10 = _PTLogSystem();
+    v10 = _PTLogSystem(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(PTRaytracingUtils *)v10 disparityApplyPostModifier:v11 inDisparity:v12 outDisparity:v13 postModifier:v14, v15, v16, v17];
@@ -604,7 +604,7 @@ LABEL_10:
   computeCommandEncoder = [color computeCommandEncoder];
   if (!computeCommandEncoder)
   {
-    v11 = _PTLogSystem();
+    v11 = _PTLogSystem(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(PTRaytracingUtils *)v11 disparityApplyPostModifier:v12 inDisparity:v13 outDisparity:v14 postModifier:v15, v16, v17, v18];
@@ -661,7 +661,7 @@ LABEL_10:
     computeCommandEncoder = [color computeCommandEncoder];
     if (!computeCommandEncoder)
     {
-      v13 = _PTLogSystem();
+      v13 = _PTLogSystem(0);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [(PTRaytracingUtils *)v13 disparityApplyPostModifier:v14 inDisparity:v15 outDisparity:v16 postModifier:v17, v18, v19, v20];
@@ -751,7 +751,7 @@ LABEL_10:
     return dword_2244C6190[v5];
   }
 
-  v7 = _PTLogSystem();
+  v7 = _PTLogSystem(v5);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [PTUtil orientationFromTransform:v7 inverse:?];
@@ -810,7 +810,7 @@ LABEL_10:
     return dword_2244C6380[v5];
   }
 
-  v8 = _PTLogSystem();
+  v8 = _PTLogSystem(v5);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [(PTUtil *)transform getRotationDegreesFromAffineTransform:v6, v8];
@@ -851,7 +851,7 @@ LABEL_10:
   *&v7 = *&orientation + 0.5;
   v8 = size - (*(&orientation + 1) + 0.5);
   *(&v7 + 1) = v8;
-  [PTUtil adjustIntrinsics:self fromImageSize:a2 toViewPortSize:v7, *&viewportSize];
+  [PTUtil adjustIntrinsics:self fromImageSize:a2 toViewPortSize:v7, intrinsics, *&viewportSize];
   v9.f64[0] = v17;
   v9.f64[1] = z;
   __asm { FMOV            V3.2S, #1.0 }
@@ -966,6 +966,83 @@ LABEL_11:
 
   while (v8 != 64);
   return *v18.i64;
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_gaussianFilter3x3";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_rotateTexture";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_drawTurboLegendYUV";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_drawTurboLegend";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_visualizeCircleUsingRect";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_renderLine";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.7(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_renderRect";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_gaussianNoise";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.9(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_sobelFilter";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.10(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_reciprocal";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.11(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_renderDisparity";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)getRotationDegreesFromAffineTransform:(os_log_t)log .cold.1(uint64_t *a1, int a2, os_log_t log)

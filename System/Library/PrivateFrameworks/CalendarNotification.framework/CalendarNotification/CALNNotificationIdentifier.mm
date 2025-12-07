@@ -15,7 +15,7 @@
 
 + (id)_constructNotificationIdentifierStringRepresentationFromComponents:(id)components
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   componentsCopy = components;
   v5 = +[CALNLogSubsystem defaultCategory];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -54,9 +54,9 @@ LABEL_13:
   if (v9)
   {
     v10 = [sourceClientIdentifier stringByAddingPercentEncodingWithAllowedCharacters:_allowedCharacterSetForEncodingNotificationIdentifierComponents];
-    v16[0] = v9;
-    v16[1] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+    v15[0] = v9;
+    v15[1] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
     v12 = [v11 componentsJoinedByString:@"/"];
     v13 = +[CALNLogSubsystem defaultCategory];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
@@ -77,14 +77,13 @@ LABEL_13:
   }
 
 LABEL_18:
-  v14 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 + (id)_deconstructNotificationIdentifierStringRepresentationIntoComponents:(id)components
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   componentsCopy = components;
   v4 = +[CALNLogSubsystem defaultCategory];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -139,21 +138,19 @@ LABEL_16:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "count")}];
-    v15 = 138544130;
-    v16 = &unk_2855308A8;
-    v17 = 2114;
-    v18 = v12;
-    v19 = 2114;
-    v20 = v5;
-    v21 = 2114;
-    v22 = componentsCopy;
-    _os_log_impl(&dword_242909000, v6, OS_LOG_TYPE_DEFAULT, "Cannot deconstruct notification identifier string representation into components since there are an unexpected number of encoded components. Expected encoded component count: %{public}@. Actual encoded component count: %{public}@. Encoded components: %{public}@. String representation: %{public}@.", &v15, 0x2Au);
+    v14 = 138544130;
+    v15 = &unk_2855308A8;
+    v16 = 2114;
+    v17 = v12;
+    v18 = 2114;
+    v19 = v5;
+    v20 = 2114;
+    v21 = componentsCopy;
+    _os_log_impl(&dword_242909000, v6, OS_LOG_TYPE_DEFAULT, "Cannot deconstruct notification identifier string representation into components since there are an unexpected number of encoded components. Expected encoded component count: %{public}@. Actual encoded component count: %{public}@. Encoded components: %{public}@. String representation: %{public}@.", &v14, 0x2Au);
   }
 
   v10 = 0;
 LABEL_17:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -325,90 +322,23 @@ void __93__CALNNotificationIdentifier__allowedCharacterSetForEncodingNotificatio
 
 + (void)_constructNotificationIdentifierStringRepresentationFromComponents:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_242909000, v0, OS_LOG_TYPE_DEBUG, "Constructing notification identifier string representation from components: %{public}@.", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_constructNotificationIdentifierStringRepresentationFromComponents:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_3(&dword_242909000, v0, v1, "Constructed notification identifier string representation from components. String representation: %{public}@. Components: %{public}@.");
   v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_constructNotificationIdentifierStringRepresentationFromComponents:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_242909000, v0, v1, "Cannot construct notification identifier string representation from components since source identifier could not be encoded. Components: %{public}@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_constructNotificationIdentifierStringRepresentationFromComponents:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_242909000, v0, v1, "Cannot construct notification identifier string representation from components since source client identifier is an empty string. Components: %{public}@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_constructNotificationIdentifierStringRepresentationFromComponents:.cold.5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_242909000, v0, v1, "Cannot construct notification identifier string representation from components since source identifier is an empty string. Components: %{public}@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_242909000, v0, OS_LOG_TYPE_DEBUG, "Constructing notification identifier string representation from components: %{public}@.", v1, 0xCu);
 }
 
 + (void)_deconstructNotificationIdentifierStringRepresentationIntoComponents:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_242909000, v0, OS_LOG_TYPE_DEBUG, "Deconstructing notification identifier string representation into components. String representation: %{public}@.", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_deconstructNotificationIdentifierStringRepresentationIntoComponents:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_3(&dword_242909000, v0, v1, "Deconstructed notification identifier string representation into components. String representation: %{public}@. Components: %{public}@.");
   v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_deconstructNotificationIdentifierStringRepresentationIntoComponents:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_242909000, v0, v1, "Cannot deconstruct notification identifier string representation into components since source client identifier is an empty string. String representation: %{public}@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_deconstructNotificationIdentifierStringRepresentationIntoComponents:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_242909000, v0, v1, "Cannot deconstruct notification identifier string representation into components since source identifier is an empty string. String representation: %{public}@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_242909000, v0, OS_LOG_TYPE_DEBUG, "Deconstructing notification identifier string representation into components. String representation: %{public}@.", v1, 0xCu);
 }
 
 - (void)initWithSourceIdentifier:sourceClientIdentifier:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(&dword_242909000, v0, OS_LOG_TYPE_ERROR, "Cannot initialize notification identifier with source client identifier and source client identifier because a string representation could not be constructed. Source identifier: %{public}@. Source Client identifier: %{public}@.", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithStringRepresentation:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_242909000, v0, v1, "Cannot initialize notification identifier with string representation because string representation could not be deconstructed into components. String representation: %{public}@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_242909000, v0, OS_LOG_TYPE_ERROR, "Cannot initialize notification identifier with source client identifier and source client identifier because a string representation could not be constructed. Source identifier: %{public}@. Source Client identifier: %{public}@.", v1, 0x16u);
 }
 
 @end

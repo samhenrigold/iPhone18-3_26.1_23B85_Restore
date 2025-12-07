@@ -25,14 +25,15 @@
 
 - (DeepLaunchIntent)initWithDomain:(id)domain verb:(id)verb parametersByName:(id)name
 {
-  sub_26618C8B0();
+  v6 = sub_26618C8B0();
+  v8 = v7;
   sub_26618C8B0();
   if (name)
   {
     sub_26618C840();
   }
 
-  return DeepLaunchIntent.init(domain:verb:parametersByName:)();
+  return DeepLaunchIntent.init(domain:verb:parametersByName:)(v6, v8);
 }
 
 @end

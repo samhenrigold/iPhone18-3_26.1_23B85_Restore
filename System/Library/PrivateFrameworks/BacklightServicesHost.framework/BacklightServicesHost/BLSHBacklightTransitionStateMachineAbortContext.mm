@@ -211,19 +211,17 @@ void __105__BLSHBacklightTransitionStateMachineAbortContext_backlightChangeReque
   v4 = [(SWSystemSleepMonitorAggregateState *)self->_sleepMonitorAggregateState descriptionForTimestamp:self->_abortTimestamp];
   v5 = [v3 appendObject:v4 withName:@"sleepState"];
 
-  activeEvents = self->_activeEvents;
-  abortedEvents = self->_abortedEvents;
-  v8 = NSStringFromBLSBacklightChangeEvents();
-  v9 = [v3 appendObject:v8 withName:@"events"];
+  v6 = NSStringFromBLSBacklightChangeEvents();
+  v7 = [v3 appendObject:v6 withName:@"events"];
 
-  v10 = [v3 appendObject:self->_ensureFlipbookCurrentOperation withName:@"ensureFlipbookCurrentOperation"];
-  v11 = [v3 appendObject:self->_currentState withName:@"currentState"];
-  v12 = [v3 appendObject:self->_targetState withName:@"targetState"];
-  v13 = [v3 appendObject:self->_pendingEnvironmentUpdate withName:@"pendingEnvironmentUpdate"];
-  v14 = [v3 appendObject:self->_pendingUpdatePresentation withName:@"pendingUpdatePresentation"];
-  v15 = [v3 appendObject:self->_pendingUpdateToSpecifier withName:@"pendingUpdateToSpecifier"];
-  v16 = [v3 appendObject:self->_queuedEventsToPerform withName:@"queuedEventsToPerform"];
-  v17 = [v3 appendObject:self->_pendingPrewarmedEvent withName:@"pendingPrewarmedEvent"];
+  v8 = [v3 appendObject:self->_ensureFlipbookCurrentOperation withName:@"ensureFlipbookCurrentOperation"];
+  v9 = [v3 appendObject:self->_currentState withName:@"currentState"];
+  v10 = [v3 appendObject:self->_targetState withName:@"targetState"];
+  v11 = [v3 appendObject:self->_pendingEnvironmentUpdate withName:@"pendingEnvironmentUpdate"];
+  v12 = [v3 appendObject:self->_pendingUpdatePresentation withName:@"pendingUpdatePresentation"];
+  v13 = [v3 appendObject:self->_pendingUpdateToSpecifier withName:@"pendingUpdateToSpecifier"];
+  v14 = [v3 appendObject:self->_queuedEventsToPerform withName:@"queuedEventsToPerform"];
+  v15 = [v3 appendObject:self->_pendingPrewarmedEvent withName:@"pendingPrewarmedEvent"];
   build = [v3 build];
 
   return build;

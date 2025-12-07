@@ -19,7 +19,7 @@
   *(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC21JournalShareExtension14VideoAssetView_playerView) = 0;
 
   v5.receiver = selfCopy;
-  v5.super_class = type metadata accessor for VideoAssetView();
+  v5.super_class = type metadata accessor for VideoAssetView(0);
   [(VideoAssetView *)&v5 dealloc];
 }
 
@@ -41,11 +41,12 @@
   v3 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC21JournalShareExtension14VideoAssetView_finishPlayingAction);
   if (v3)
   {
+    v4 = *&self->super.fallbackView[OBJC_IVAR____TtC21JournalShareExtension14VideoAssetView_finishPlayingAction];
     selfCopy = self;
-    v5 = sub_100030340(v3);
-    v3(v5);
+    v6 = sub_100030340(v3, v4);
+    v3(v6);
 
-    sub_10002FB80(v3);
+    sub_10002FB80(v3, v4);
   }
 }
 

@@ -77,7 +77,7 @@
       v5 = [collections objectAtIndexedSubscript:0];
       if (v5)
       {
-        [v5 time];
+        objc_msgSend_time(v5);
       }
 
       else

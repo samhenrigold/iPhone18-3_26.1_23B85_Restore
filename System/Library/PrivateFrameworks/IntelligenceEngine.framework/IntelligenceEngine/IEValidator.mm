@@ -27,21 +27,21 @@
   v8 = v7;
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "validate(filename:srcFilename:)", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "validate(filename:srcFilename:)", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "validate(filename:srcFilename:)");
-  siri::intelligence::Timer::Timer(&v11);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "validate(filename:srcFilename:)");
+  siri::intelligence::Timer::Timer(&v11, &buf);
 }
 
-void __36__IEValidator_validate_srcFilename___block_invoke(siri::intelligence::Utils *a1)
+void __36__IEValidator_validate_srcFilename___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'validate(filename:srcFilename:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'validate(filename:srcFilename:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = _MergedGlobals_19;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;

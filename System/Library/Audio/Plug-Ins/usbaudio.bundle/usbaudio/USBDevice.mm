@@ -15,8 +15,6 @@
     selfCopy = self;
 
     sub_100022C14();
-
-    v5 = *&self->speed[v3];
   }
 
   else
@@ -26,9 +24,9 @@
 
   *&self->speed[v3] = 0;
 
-  v7.receiver = self;
-  v7.super_class = type metadata accessor for USBDevice();
-  [(USBDevice *)&v7 dealloc];
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for USBDevice(0);
+  [(USBDevice *)&v6 dealloc];
 }
 
 - (BOOL)acquireBox:(BOOL)box fromHAL:(BOOL)l

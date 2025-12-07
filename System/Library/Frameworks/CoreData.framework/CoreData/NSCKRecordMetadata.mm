@@ -6,10 +6,10 @@
 + (id)encodeRecord:(id)record error:(id *)error;
 + (id)insertMetadataForObject:(id)object setRecordName:(BOOL)name inZoneWithID:(id)d recordNamePrefix:(id)prefix error:(id *)error;
 + (id)metadataForObjectIDs:(uint64_t)ds inStore:(void *)store withManagedObjectContext:(void *)context error:;
-+ (id)metadataForRecordIDs:(void *)ds fromStore:(void *)store inManagedObjectContext:(id *)context error:;
++ (id)metadataForRecordIDs:(char *)ds fromStore:(void *)store inManagedObjectContext:(id *)context error:;
 + (id)recordFromEncodedData:(id)data error:(id *)error;
-+ (uint64_t)countRecordMetadataInStore:(uint64_t)store matchingPredicate:(uint64_t)predicate withManagedObjectContext:(id *)context error:;
-+ (uint64_t)createMapOfMetadataMatchingRecords:(void *)records andRecordIDs:(void *)ds inStore:(void *)store withManagedObjectContext:(id *)context error:;
++ (uint64_t)countRecordMetadataInStore:(uint64_t)store matchingPredicate:(unint64_t)predicate withManagedObjectContext:(id *)context error:;
++ (uint64_t)createMapOfMetadataMatchingRecords:(void *)records andRecordIDs:(char *)ds inStore:(void *)store withManagedObjectContext:(id *)context error:;
 + (uint64_t)createObjectIDForEntityID:(void *)d primaryKey:(void *)key inSQLCore:;
 + (uint64_t)createObjectIDFromMetadataDictionary:(void *)dictionary inSQLCore:;
 + (uint64_t)metadataForObject:(void *)object inManagedObjectContext:(void *)context error:;
@@ -34,17 +34,16 @@
   v2 = MEMORY[0x1E696AEC0];
   v3 = +[PFCloudKitMetadataModel ancillaryModelNamespace];
   v4 = objc_opt_class();
-  return [v2 stringWithFormat:@"%@/%@", v3, NSStringFromClass(v4)];
+  v5 = NSStringFromClass(v4);
+  return objc_msgSend_stringWithFormat_(v2, v3, v5);
 }
 
 - (uint64_t)createRecordID
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-LABEL_12:
-    v3 = 0;
-    goto LABEL_13;
+    return 0;
   }
 
   if (![self recordZone])
@@ -53,20 +52,20 @@ LABEL_8:
     LogStream = _PFLogGetLogStream(17);
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138412290;
+      v7 = 138412290;
       selfCopy2 = self;
-      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: createRecordID called before the record has the necessary properties: %@\n", &v8, 0xCu);
+      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: createRecordID called before the record has the necessary properties: %@\n", &v7, 0xCu);
     }
 
     v5 = _PFLogGetLogStream(17);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      v8 = 138412290;
+      v7 = 138412290;
       selfCopy2 = self;
-      _os_log_fault_impl(&dword_18565F000, v5, OS_LOG_TYPE_FAULT, "CoreData: createRecordID called before the record has the necessary properties: %@", &v8, 0xCu);
+      _os_log_fault_impl(&dword_18565F000, v5, OS_LOG_TYPE_FAULT, "CoreData: createRecordID called before the record has the necessary properties: %@", &v7, 0xCu);
     }
 
-    goto LABEL_12;
+    return 0;
   }
 
   v2 = -[NSCKRecordZoneMetadata createRecordZoneID]([self recordZone]);
@@ -76,21 +75,19 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v3 = [objc_alloc(getCloudKitCKRecordIDClass[0]()) initWithRecordName:objc_msgSend(self zoneID:{"ckRecordName"), v2}];
+  v3 = [objc_alloc(getCloudKitCKRecordIDClass()) initWithRecordName:objc_msgSend(self zoneID:{"ckRecordName"), v2}];
 
   if (!v3)
   {
     goto LABEL_8;
   }
 
-LABEL_13:
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (id)createRecordFromSystemFields
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   systemFieldsAsset = [(NSCKRecordMetadata *)self systemFieldsAsset];
   if (systemFieldsAsset)
   {
@@ -110,13 +107,13 @@ LABEL_13:
         LogStream = _PFLogGetLogStream(17);
         if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
         {
-          *v18 = 138412802;
-          *&v18[4] = [(NSCKRecordMetadata *)self ckRecordName];
-          *&v18[12] = 2112;
-          *&v18[14] = [v7 recordID];
-          *&v18[22] = 2112;
+          *v17 = 138412802;
+          *&v17[4] = [(NSCKRecordMetadata *)self ckRecordName];
+          *&v17[12] = 2112;
+          *&v17[14] = [v7 recordID];
+          *&v17[22] = 2112;
           selfCopy4 = self;
-          _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: NSCKRecordMetadata: System fields record type doesn't match new schema: %@\n%@\n%@\n", v18, 0x20u);
+          _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: NSCKRecordMetadata: System fields record type doesn't match new schema: %@\n%@\n%@\n", v17, 0x20u);
         }
 
         v9 = _PFLogGetLogStream(17);
@@ -128,16 +125,16 @@ LABEL_17:
 LABEL_18:
           [v6 finishDecoding];
 
-          goto LABEL_19;
+          return v7;
         }
 
         ckRecordName = [(NSCKRecordMetadata *)self ckRecordName];
         recordID = [v7 recordID];
-        *v18 = 138412802;
-        *&v18[4] = ckRecordName;
-        *&v18[12] = 2112;
-        *&v18[14] = recordID;
-        *&v18[22] = 2112;
+        *v17 = 138412802;
+        *&v17[4] = ckRecordName;
+        *&v17[12] = 2112;
+        *&v17[14] = recordID;
+        *&v17[22] = 2112;
         selfCopy4 = self;
         v12 = "CoreData: NSCKRecordMetadata: System fields record type doesn't match new schema: %@\n%@\n%@";
       }
@@ -147,13 +144,13 @@ LABEL_18:
         v8 = _PFLogGetLogStream(17);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          *v18 = 138412802;
-          *&v18[4] = [(NSCKRecordMetadata *)self ckRecordName];
-          *&v18[12] = 2112;
-          *&v18[14] = [v7 recordID];
-          *&v18[22] = 2112;
+          *v17 = 138412802;
+          *&v17[4] = [(NSCKRecordMetadata *)self ckRecordName];
+          *&v17[12] = 2112;
+          *&v17[14] = [v7 recordID];
+          *&v17[22] = 2112;
           selfCopy4 = self;
-          _os_log_error_impl(&dword_18565F000, v8, OS_LOG_TYPE_ERROR, "CoreData: fault: NCKRecordMetadata: System fields record name doesn't match row: %@\n%@\n%@\n", v18, 0x20u);
+          _os_log_error_impl(&dword_18565F000, v8, OS_LOG_TYPE_ERROR, "CoreData: fault: NCKRecordMetadata: System fields record name doesn't match row: %@\n%@\n%@\n", v17, 0x20u);
         }
 
         v9 = _PFLogGetLogStream(17);
@@ -164,24 +161,21 @@ LABEL_18:
 
         ckRecordName2 = [(NSCKRecordMetadata *)self ckRecordName];
         recordID2 = [v7 recordID];
-        *v18 = 138412802;
-        *&v18[4] = ckRecordName2;
-        *&v18[12] = 2112;
-        *&v18[14] = recordID2;
-        *&v18[22] = 2112;
+        *v17 = 138412802;
+        *&v17[4] = ckRecordName2;
+        *&v17[12] = 2112;
+        *&v17[14] = recordID2;
+        *&v17[22] = 2112;
         selfCopy4 = self;
         v12 = "CoreData: NCKRecordMetadata: System fields record name doesn't match row: %@\n%@\n%@";
       }
 
-      _os_log_fault_impl(&dword_18565F000, v9, OS_LOG_TYPE_FAULT, v12, v18, 0x20u);
+      _os_log_fault_impl(&dword_18565F000, v9, OS_LOG_TYPE_FAULT, v12, v17, 0x20u);
       goto LABEL_17;
     }
   }
 
-  v7 = 0;
-LABEL_19:
-  v14 = *MEMORY[0x1E69E9840];
-  return v7;
+  return 0;
 }
 
 - (void)createObjectIDForLinkedRow
@@ -201,7 +195,7 @@ LABEL_19:
 
 + (uint64_t)createObjectIDForEntityID:(void *)d primaryKey:(void *)key inSQLCore:
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   unsignedLongValue = [a2 unsignedLongValue];
   integerValue = [d integerValue];
@@ -210,22 +204,22 @@ LABEL_19:
     LogStream = _PFLogGetLogStream(17);
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
-      v22 = 138412290;
+      v20 = 138412290;
       keyCopy2 = key;
-      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Cannot create objectID: called before the record has the necessary properties (entityID): %@\n", &v22, 0xCu);
+      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Cannot create objectID: called before the record has the necessary properties (entityID): %@\n", &v20, 0xCu);
     }
 
-    v14 = _PFLogGetLogStream(17);
-    if (!os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v13 = _PFLogGetLogStream(17);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      goto LABEL_21;
+      return 0;
     }
 
-    v22 = 138412290;
+    v20 = 138412290;
     keyCopy2 = key;
-    v15 = "CoreData: Cannot create objectID: called before the record has the necessary properties (entityID): %@";
-    v16 = v14;
-    v17 = 12;
+    v14 = "CoreData: Cannot create objectID: called before the record has the necessary properties (entityID): %@";
+    v15 = v13;
+    v16 = 12;
     goto LABEL_20;
   }
 
@@ -233,64 +227,60 @@ LABEL_19:
   v10 = _sqlCoreLookupSQLEntityForEntityID(key, unsignedLongValue);
   if (!v10)
   {
-    v18 = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = _PFLogGetLogStream(17);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v22 = 138412546;
+      v20 = 138412546;
       keyCopy2 = a2;
-      v24 = 2112;
+      v22 = 2112;
       keyCopy6 = key;
-      _os_log_error_impl(&dword_18565F000, v18, OS_LOG_TYPE_ERROR, "CoreData: fault: Cannot create objectID. Unable to find entity with id '%@' in store '%@'\n", &v22, 0x16u);
+      _os_log_error_impl(&dword_18565F000, v17, OS_LOG_TYPE_ERROR, "CoreData: fault: Cannot create objectID. Unable to find entity with id '%@' in store '%@'\n", &v20, 0x16u);
     }
 
-    v19 = _PFLogGetLogStream(17);
-    if (!os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+    v18 = _PFLogGetLogStream(17);
+    if (!os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
-      goto LABEL_21;
+      return 0;
     }
 
-    v22 = 138412546;
+    v20 = 138412546;
     keyCopy2 = a2;
-    v24 = 2112;
+    v22 = 2112;
     keyCopy6 = key;
-    v15 = "CoreData: Cannot create objectID. Unable to find entity with id '%@' in store '%@'";
+    v14 = "CoreData: Cannot create objectID. Unable to find entity with id '%@' in store '%@'";
 LABEL_19:
-    v16 = v19;
-    v17 = 22;
+    v15 = v18;
+    v16 = 22;
 LABEL_20:
-    _os_log_fault_impl(&dword_18565F000, v16, OS_LOG_TYPE_FAULT, v15, &v22, v17);
-LABEL_21:
-    v21 = *MEMORY[0x1E69E9840];
+    _os_log_fault_impl(&dword_18565F000, v15, OS_LOG_TYPE_FAULT, v14, &v20, v16);
     return 0;
   }
 
   if (v9 < 1)
   {
-    v20 = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-    {
-      v22 = 138412546;
-      keyCopy2 = a2;
-      v24 = 2112;
-      keyCopy6 = key;
-      _os_log_error_impl(&dword_18565F000, v20, OS_LOG_TYPE_ERROR, "CoreData: fault: Cannot create objectID: called before the record has the necessary properties (primaryKey): %@ / %@\n", &v22, 0x16u);
-    }
-
     v19 = _PFLogGetLogStream(17);
-    if (!os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_21;
+      v20 = 138412546;
+      keyCopy2 = a2;
+      v22 = 2112;
+      keyCopy6 = key;
+      _os_log_error_impl(&dword_18565F000, v19, OS_LOG_TYPE_ERROR, "CoreData: fault: Cannot create objectID: called before the record has the necessary properties (primaryKey): %@ / %@\n", &v20, 0x16u);
     }
 
-    v22 = 138412546;
+    v18 = _PFLogGetLogStream(17);
+    if (!os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+    {
+      return 0;
+    }
+
+    v20 = 138412546;
     keyCopy2 = a2;
-    v24 = 2112;
+    v22 = 2112;
     keyCopy6 = key;
-    v15 = "CoreData: Cannot create objectID: called before the record has the necessary properties (primaryKey): %@ / %@";
+    v14 = "CoreData: Cannot create objectID: called before the record has the necessary properties (primaryKey): %@ / %@";
     goto LABEL_19;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return [key newObjectIDForEntity:v10 pk:v9];
 }
@@ -306,11 +296,11 @@ LABEL_21:
 
 + (uint64_t)metadataForObject:(void *)object inManagedObjectContext:(void *)context error:
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
-  v18 = 0;
-  v23[0] = [a2 objectID];
-  v7 = +[NSCKRecordMetadata metadataForObjectIDs:inStore:withManagedObjectContext:error:](NSCKRecordMetadata, [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1], objc_msgSend(objc_msgSend(a2, "objectID"), "persistentStore"), object, &v18);
+  v17 = 0;
+  v22[0] = [a2 objectID];
+  v7 = +[NSCKRecordMetadata metadataForObjectIDs:inStore:withManagedObjectContext:error:](NSCKRecordMetadata, [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1], objc_msgSend(objc_msgSend(a2, "objectID"), "persistentStore"), object, &v17);
   if (v7)
   {
     v8 = v7;
@@ -320,12 +310,12 @@ LABEL_21:
       LogStream = _PFLogGetLogStream(17);
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
-        v16 = [objc_msgSend(a2 "description")];
-        v17 = [objc_msgSend(v8 "description")];
+        v15 = [objc_msgSend(a2 "description")];
+        v16 = [objc_msgSend(v8 "description")];
         *buf = 136315394;
-        v20 = v16;
-        v21 = 2080;
-        v22 = v17;
+        v19 = v15;
+        v20 = 2080;
+        v21 = v16;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Found more than one instance of NSCKRecordMetadata for object: %s\n%s\n", buf, 0x16u);
       }
 
@@ -335,9 +325,9 @@ LABEL_21:
         v12 = [objc_msgSend(a2 "description")];
         v13 = [objc_msgSend(v8 "description")];
         *buf = 136315394;
-        v20 = v12;
-        v21 = 2080;
-        v22 = v13;
+        v19 = v12;
+        v20 = 2080;
+        v21 = v13;
         _os_log_fault_impl(&dword_18565F000, v11, OS_LOG_TYPE_FAULT, "CoreData: Found more than one instance of NSCKRecordMetadata for object: %s\n%s", buf, 0x16u);
       }
     }
@@ -348,49 +338,48 @@ LABEL_21:
     lastObject = 0;
   }
 
-  if (context && v18)
+  if (context && v17)
   {
-    *context = v18;
+    *context = v17;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return lastObject;
 }
 
 + (id)metadataForObjectIDs:(uint64_t)ds inStore:(void *)store withManagedObjectContext:(void *)context error:
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
-  v30 = 0;
-  v25 = [PFCloudKitMetadataModel createMapOfEntityIDToPrimaryKeySetForObjectIDs:a2];
+  v29 = 0;
+  v24 = [PFCloudKitMetadataModel createMapOfEntityIDToPrimaryKeySetForObjectIDs:a2];
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v9 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKRecordMetadata entityPath]);
-  v36[0] = ds;
-  -[NSFetchRequest setAffectedStores:](v9, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1]);
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
+  v35[0] = ds;
+  -[NSFetchRequest setAffectedStores:](v9, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1]);
   v27 = 0u;
-  allKeys = [v25 allKeys];
-  v11 = [allKeys countByEnumeratingWithState:&v26 objects:v35 count:16];
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  allKeys = [v24 allKeys];
+  v11 = [allKeys countByEnumeratingWithState:&v25 objects:v34 count:16];
   if (v11)
   {
-    v12 = *v27;
+    v12 = *v26;
 LABEL_3:
     v13 = 0;
     while (1)
     {
-      if (*v27 != v12)
+      if (*v26 != v12)
       {
         objc_enumerationMutation(allKeys);
       }
 
-      v14 = *(*(&v26 + 1) + 8 * v13);
+      v14 = *(*(&v25 + 1) + 8 * v13);
       v15 = objc_autoreleasePoolPush();
-      v16 = [v25 objectForKey:v14];
+      v16 = [v24 objectForKey:v14];
       -[NSFetchRequest setPredicate:](v9, "setPredicate:", [MEMORY[0x1E696AE18] predicateWithFormat:@"entityId = %@ and entityPK in %@", v14, v16]);
       [(NSFetchRequest *)v9 setFetchBatchSize:500];
-      v17 = [store executeFetchRequest:v9 error:&v30];
+      v17 = [store executeFetchRequest:v9 error:&v29];
       if (v17)
       {
         [v8 addObjectsFromArray:v17];
@@ -398,7 +387,7 @@ LABEL_3:
 
       else
       {
-        v18 = v30;
+        v18 = v29;
 
         v8 = 0;
       }
@@ -411,7 +400,7 @@ LABEL_3:
 
       if (v11 == ++v13)
       {
-        v11 = [allKeys countByEnumeratingWithState:&v26 objects:v35 count:16];
+        v11 = [allKeys countByEnumeratingWithState:&v25 objects:v34 count:16];
         if (v11)
         {
           goto LABEL_3;
@@ -424,12 +413,12 @@ LABEL_3:
 
   if (!v8)
   {
-    v21 = v30;
-    if (v21)
+    v20 = v29;
+    if (v20)
     {
       if (context)
       {
-        *context = v21;
+        *context = v20;
       }
     }
 
@@ -439,63 +428,61 @@ LABEL_3:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v32 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v33 = 1024;
-        v34 = 178;
+        v31 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
+        v32 = 1024;
+        v33 = 178;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
-      v23 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+      v22 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v32 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v33 = 1024;
-        v34 = 178;
-        _os_log_fault_impl(&dword_18565F000, v23, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+        v31 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
+        v32 = 1024;
+        v33 = 178;
+        _os_log_fault_impl(&dword_18565F000, v22, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
   }
 
-  v30 = 0;
-  result = v8;
-  v20 = *MEMORY[0x1E69E9840];
-  return result;
+  v29 = 0;
+  return v8;
 }
 
 + (id)createMapOfMetadataMatchingObjectIDs:(void *)ds inStore:(void *)store inManagedObjectContext:(void *)context error:
 {
-  v79[1] = *MEMORY[0x1E69E9840];
+  v78[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
   v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v71 = 0;
+  v70 = 0;
   v8 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKRecordMetadata entityPath]);
   context = ds;
-  v79[0] = ds;
-  -[NSFetchRequest setAffectedStores:](v8, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v79 count:1]);
+  v78[0] = ds;
+  -[NSFetchRequest setAffectedStores:](v8, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v78 count:1]);
   v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v58 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v51 = v8;
+  v57 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v50 = v8;
   storeCopy = store;
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
-  v10 = [a2 countByEnumeratingWithState:&v67 objects:v78 count:16];
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v10 = [a2 countByEnumeratingWithState:&v66 objects:v77 count:16];
   if (v10)
   {
-    v11 = *v68;
+    v11 = *v67;
     do
     {
       v12 = 0;
       do
       {
-        if (*v68 != v11)
+        if (*v67 != v11)
         {
           objc_enumerationMutation(a2);
         }
 
-        v13 = *(*(&v67 + 1) + 8 * v12);
+        v13 = *(*(&v66 + 1) + 8 * v12);
         if ([v13 isTemporaryID])
         {
           LogStream = _PFLogGetLogStream(17);
@@ -503,7 +490,7 @@ LABEL_3:
           {
             v23 = [objc_msgSend(v13 "description")];
             *buf = 136315138;
-            v73 = v23;
+            v72 = v23;
             _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Somehow got a temporary objectID for export: %s\n", buf, 0xCu);
           }
 
@@ -512,7 +499,7 @@ LABEL_3:
           {
             v16 = [objc_msgSend(v13 "description")];
             *buf = 136315138;
-            v73 = v16;
+            v72 = v16;
             _os_log_fault_impl(&dword_18565F000, v15, OS_LOG_TYPE_FAULT, "CoreData: Somehow got a temporary objectID for export: %s", buf, 0xCu);
           }
         }
@@ -532,11 +519,11 @@ LABEL_3:
 
           v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v18];
           v20 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v13, "_referenceData64")}];
-          v21 = [v58 objectForKey:v19];
+          v21 = [v57 objectForKey:v19];
           if (!v21)
           {
             v21 = objc_alloc_init(MEMORY[0x1E695DF70]);
-            [v58 setObject:v21 forKey:v19];
+            [v57 setObject:v21 forKey:v19];
           }
 
           [v21 addObject:v20];
@@ -555,62 +542,62 @@ LABEL_3:
       }
 
       while (v10 != v12);
-      v24 = [a2 countByEnumeratingWithState:&v67 objects:v78 count:16];
+      v24 = [a2 countByEnumeratingWithState:&v66 objects:v77 count:16];
       v10 = v24;
     }
 
     while (v24);
   }
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
-  allKeys = [v58 allKeys];
-  v26 = [allKeys countByEnumeratingWithState:&v63 objects:v77 count:16];
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  allKeys = [v57 allKeys];
+  v26 = [allKeys countByEnumeratingWithState:&v62 objects:v76 count:16];
   if (v26)
   {
-    v54 = *v64;
-    v28 = v51;
+    v53 = *v63;
+    v28 = v50;
     v27 = storeCopy;
-    v50 = allKeys;
+    v49 = allKeys;
 LABEL_24:
     v29 = 0;
-    v53 = v26;
+    v52 = v26;
     while (1)
     {
-      if (*v64 != v54)
+      if (*v63 != v53)
       {
         objc_enumerationMutation(allKeys);
       }
 
-      v30 = *(*(&v63 + 1) + 8 * v29);
+      v30 = *(*(&v62 + 1) + 8 * v29);
       contexta = objc_autoreleasePoolPush();
-      v31 = [v58 objectForKey:v30];
+      v31 = [v57 objectForKey:v30];
       -[NSFetchRequest setPredicate:](v28, "setPredicate:", [MEMORY[0x1E696AE18] predicateWithFormat:@"entityId = %@ and entityPK in %@", v30, v31]);
       [(NSFetchRequest *)v28 setFetchBatchSize:500];
-      v32 = [v27 executeFetchRequest:v28 error:&v71];
+      v32 = [v27 executeFetchRequest:v28 error:&v70];
       v33 = v32;
       if (v32)
       {
-        v61 = 0u;
-        v62 = 0u;
-        v59 = 0u;
         v60 = 0u;
-        v34 = [v32 countByEnumeratingWithState:&v59 objects:v76 count:16];
+        v61 = 0u;
+        v58 = 0u;
+        v59 = 0u;
+        v34 = [v32 countByEnumeratingWithState:&v58 objects:v75 count:16];
         if (v34)
         {
-          v35 = *v60;
+          v35 = *v59;
           do
           {
             for (i = 0; i != v34; ++i)
             {
-              if (*v60 != v35)
+              if (*v59 != v35)
               {
                 objc_enumerationMutation(v33);
               }
 
-              v37 = *(*(&v59 + 1) + 8 * i);
+              v37 = *(*(&v58 + 1) + 8 * i);
               v38 = [objc_msgSend(v9 objectForKey:{objc_msgSend(v37, "entityId")), "objectForKey:", objc_msgSend(v37, "entityPK")}];
               if (v38)
               {
@@ -624,7 +611,7 @@ LABEL_24:
                 {
                   v41 = [objc_msgSend(v37 "description")];
                   *buf = 136315138;
-                  v73 = v41;
+                  v72 = v41;
                   _os_log_error_impl(&dword_18565F000, v39, OS_LOG_TYPE_ERROR, "CoreData: fault: Exporter got record metadata back but doesn't have a corresponding objectID: %s\n", buf, 0xCu);
                 }
 
@@ -633,27 +620,27 @@ LABEL_24:
                 {
                   v42 = [objc_msgSend(v37 "description")];
                   *buf = 136315138;
-                  v73 = v42;
+                  v72 = v42;
                   _os_log_fault_impl(&dword_18565F000, v40, OS_LOG_TYPE_FAULT, "CoreData: Exporter got record metadata back but doesn't have a corresponding objectID: %s", buf, 0xCu);
                 }
               }
             }
 
-            v34 = [v33 countByEnumeratingWithState:&v59 objects:v76 count:16];
+            v34 = [v33 countByEnumeratingWithState:&v58 objects:v75 count:16];
           }
 
           while (v34);
-          v28 = v51;
+          v28 = v50;
           v27 = storeCopy;
-          allKeys = v50;
+          allKeys = v49;
         }
 
-        v26 = v53;
+        v26 = v52;
       }
 
       else
       {
-        v43 = v71;
+        v43 = v70;
 
         v7 = 0;
       }
@@ -666,7 +653,7 @@ LABEL_24:
 
       if (++v29 == v26)
       {
-        v26 = [allKeys countByEnumeratingWithState:&v63 objects:v77 count:16];
+        v26 = [allKeys countByEnumeratingWithState:&v62 objects:v76 count:16];
         if (v26)
         {
           goto LABEL_24;
@@ -679,7 +666,7 @@ LABEL_24:
 
   if (!v7)
   {
-    v44 = v71;
+    v44 = v70;
     if (v44)
     {
       if (context)
@@ -696,9 +683,9 @@ LABEL_24:
       if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v73 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v74 = 1024;
-        v75 = 248;
+        v72 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
+        v73 = 1024;
+        v74 = 248;
         _os_log_error_impl(&dword_18565F000, v45, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
@@ -706,9 +693,9 @@ LABEL_24:
       if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v73 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v74 = 1024;
-        v75 = 248;
+        v72 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
+        v73 = 1024;
+        v74 = 248;
         _os_log_fault_impl(&dword_18565F000, v46, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
@@ -718,22 +705,20 @@ LABEL_24:
 
 LABEL_56:
 
-  v71 = 0;
-  v47 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 + (NSManagedObject)metadataForRecord:(void *)record inManagedObjectContext:(uint64_t)context fromStore:(void *)store error:
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
-  v27 = 0;
+  v26 = 0;
   v9 = objc_autoreleasePoolPush();
   v10 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKRecordMetadata entityPath]);
   -[NSFetchRequest setPredicate:](v10, "setPredicate:", [MEMORY[0x1E696AE18] predicateWithFormat:@"ckRecordName = %@ and recordZone.ckRecordZoneName = %@ and recordZone.ckOwnerName = %@", objc_msgSend(objc_msgSend(a2, "recordID"), "recordName"), objc_msgSend(objc_msgSend(objc_msgSend(a2, "recordID"), "zoneID"), "zoneName"), objc_msgSend(objc_msgSend(objc_msgSend(a2, "recordID"), "zoneID"), "ownerName")]);
-  v32[0] = context;
-  -[NSFetchRequest setAffectedStores:](v10, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1]);
-  v11 = [record executeFetchRequest:v10 error:&v27];
+  v31[0] = context;
+  -[NSFetchRequest setAffectedStores:](v10, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1]);
+  v11 = [record executeFetchRequest:v10 error:&v26];
   if (v11)
   {
     v12 = v11;
@@ -746,12 +731,12 @@ LABEL_56:
     LogStream = _PFLogGetLogStream(17);
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
-      v23 = [objc_msgSend(a2 "description")];
-      v24 = [objc_msgSend(v12 "description")];
+      v22 = [objc_msgSend(a2 "description")];
+      v23 = [objc_msgSend(v12 "description")];
       *buf = 136315394;
-      v29 = v23;
-      v30 = 2080;
-      v31 = v24;
+      v28 = v22;
+      v29 = 2080;
+      v30 = v23;
       _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Found more than one instance of NSCKRecordMetadata for record: %s\n%s\n", buf, 0x16u);
     }
 
@@ -767,12 +752,12 @@ LABEL_6:
       goto LABEL_7;
     }
 
-    v25 = [objc_msgSend(a2 "description")];
-    v26 = [objc_msgSend(v12 "description")];
+    v24 = [objc_msgSend(a2 "description")];
+    v25 = [objc_msgSend(v12 "description")];
     *buf = 136315394;
-    v29 = v25;
-    v30 = 2080;
-    v31 = v26;
+    v28 = v24;
+    v29 = 2080;
+    v30 = v25;
     _os_log_fault_impl(&dword_18565F000, v15, OS_LOG_TYPE_FAULT, "CoreData: Found more than one instance of NSCKRecordMetadata for record: %s\n%s", buf, 0x16u);
     if (!lastObject)
     {
@@ -790,11 +775,11 @@ LABEL_7:
   }
 
 LABEL_9:
-  v17 = v27;
+  v17 = v26;
   objc_autoreleasePoolPop(v9);
-  if (v27)
+  if (v26)
   {
-    v18 = v27;
+    v18 = v26;
     if (v18)
     {
       if (store)
@@ -809,9 +794,9 @@ LABEL_9:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v29 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v30 = 1024;
-        LODWORD(v31) = 294;
+        v28 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
+        v29 = 1024;
+        LODWORD(v30) = 294;
         _os_log_error_impl(&dword_18565F000, v19, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
@@ -819,22 +804,20 @@ LABEL_9:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v29 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v30 = 1024;
-        LODWORD(v31) = 294;
+        v28 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
+        v29 = 1024;
+        LODWORD(v30) = 294;
         _os_log_fault_impl(&dword_18565F000, v20, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
   }
 
-  result = lastObject;
-  v22 = *MEMORY[0x1E69E9840];
-  return result;
+  return lastObject;
 }
 
-+ (id)metadataForRecordIDs:(void *)ds fromStore:(void *)store inManagedObjectContext:(id *)context error:
++ (id)metadataForRecordIDs:(char *)ds fromStore:(void *)store inManagedObjectContext:(id *)context error:
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   dsCopy = ds;
   mirroringDelegate = [ds mirroringDelegate];
@@ -844,7 +827,7 @@ LABEL_9:
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v67 = dsCopy;
+      v66 = dsCopy;
       _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Attempting to query cloudkit metadata without a mirroring delegate: %@\n", buf, 0xCu);
     }
 
@@ -852,38 +835,38 @@ LABEL_9:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v67 = dsCopy;
+      v66 = dsCopy;
       _os_log_fault_impl(&dword_18565F000, v8, OS_LOG_TYPE_FAULT, "CoreData: Attempting to query cloudkit metadata without a mirroring delegate: %@", buf, 0xCu);
     }
   }
 
-  v65 = 0;
+  v64 = 0;
   v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
-  v11 = [a2 countByEnumeratingWithState:&v61 objects:v72 count:16];
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
+  v11 = [a2 countByEnumeratingWithState:&v60 objects:v71 count:16];
   if (!v11)
   {
-    v50 = 1;
+    v49 = 1;
     goto LABEL_27;
   }
 
-  v12 = *v62;
-  v50 = 1;
+  v12 = *v61;
+  v49 = 1;
   do
   {
     v13 = 0;
     do
     {
-      if (*v62 != v12)
+      if (*v61 != v12)
       {
         objc_enumerationMutation(a2);
       }
 
-      v14 = *(*(&v61 + 1) + 8 * v13);
+      v14 = *(*(&v60 + 1) + 8 * v13);
       v15 = objc_autoreleasePoolPush();
       zoneID = [v14 zoneID];
       v17 = [v9 objectForKey:zoneID];
@@ -910,19 +893,19 @@ LABEL_9:
         v18 = 0;
       }
 
-      v19 = +[NSCKRecordZoneMetadata zoneMetadataForZoneID:inDatabaseWithScope:forStore:inContext:error:](NSCKRecordZoneMetadata, zoneID, [v18 databaseScope], dsCopy, store, &v65);
+      v19 = +[NSCKRecordZoneMetadata zoneMetadataForZoneID:inDatabaseWithScope:forStore:inContext:error:](NSCKRecordZoneMetadata, zoneID, [v18 databaseScope], dsCopy, store, &v64);
       if (v19)
       {
-        v65 = 0;
+        v64 = 0;
         [v10 setObject:-[NSManagedObject objectID](v19 forKey:{"objectID"), zoneID}];
 LABEL_18:
         v20 = 1;
         goto LABEL_19;
       }
 
-      v21 = v65;
+      v21 = v64;
       v20 = 0;
-      v50 = 0;
+      v49 = 0;
 LABEL_19:
       objc_autoreleasePoolPop(v15);
       if (!v20)
@@ -934,39 +917,39 @@ LABEL_19:
     }
 
     while (v11 != v13);
-    v22 = [a2 countByEnumeratingWithState:&v61 objects:v72 count:16];
+    v22 = [a2 countByEnumeratingWithState:&v60 objects:v71 count:16];
     v11 = v22;
   }
 
   while (v22);
 LABEL_27:
-  v23 = v65;
-  if (v50)
+  v23 = v64;
+  if (v49)
   {
     v24 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(a2, "count")}];
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
     v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
     allKeys = [v9 allKeys];
-    v26 = [allKeys countByEnumeratingWithState:&v57 objects:v71 count:16];
+    v26 = [allKeys countByEnumeratingWithState:&v56 objects:v70 count:16];
     obja = v24;
     if (v26)
     {
-      v49 = allKeys;
-      v27 = *v58;
+      v48 = allKeys;
+      v27 = *v57;
       v28 = 1;
       while (2)
       {
-        v51 = v28;
+        v50 = v28;
         for (i = 0; i != v26; ++i)
         {
-          if (*v58 != v27)
+          if (*v57 != v27)
           {
-            objc_enumerationMutation(v49);
+            objc_enumerationMutation(v48);
           }
 
-          v30 = *(*(&v57 + 1) + 8 * i);
+          v30 = *(*(&v56 + 1) + 8 * i);
           v31 = objc_autoreleasePoolPush();
           v32 = [v10 objectForKey:v30];
           v33 = [v9 objectForKey:v30];
@@ -987,7 +970,7 @@ LABEL_27:
             if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v67 = v30;
+              v66 = v30;
               _os_log_error_impl(&dword_18565F000, v36, OS_LOG_TYPE_ERROR, "CoreData: fault: Invalid query for record metadata (by recordIDs): %@ returned no metadata or record names\n", buf, 0xCu);
             }
 
@@ -995,38 +978,38 @@ LABEL_27:
             if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412290;
-              v67 = v30;
+              v66 = v30;
               _os_log_fault_impl(&dword_18565F000, v37, OS_LOG_TYPE_FAULT, "CoreData: Invalid query for record metadata (by recordIDs): %@ returned no metadata or record names", buf, 0xCu);
             }
           }
 
           v38 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKRecordMetadata entityPath]);
-          v70 = dsCopy;
-          -[NSFetchRequest setAffectedStores:](v38, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v70 count:1]);
+          v69 = dsCopy;
+          -[NSFetchRequest setAffectedStores:](v38, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v69 count:1]);
           -[NSFetchRequest setPredicate:](v38, "setPredicate:", [MEMORY[0x1E696AE18] predicateWithFormat:@"recordZone = %@ AND ckRecordName in %@", v32, v34]);
-          v39 = [store executeFetchRequest:v38 error:&v65];
+          v39 = [store executeFetchRequest:v38 error:&v64];
           if (v39)
           {
-            v65 = 0;
+            v64 = 0;
             [obja addObjectsFromArray:v39];
           }
 
           else
           {
-            v40 = v65;
-            v51 = 0;
+            v40 = v64;
+            v50 = 0;
           }
 
           objc_autoreleasePoolPop(v31);
           if (!v39)
           {
-            LOBYTE(v28) = v51;
+            LOBYTE(v28) = v50;
             goto LABEL_52;
           }
         }
 
-        v26 = [v49 countByEnumeratingWithState:&v57 objects:v71 count:16];
-        v28 = v51;
+        v26 = [v48 countByEnumeratingWithState:&v56 objects:v70 count:16];
+        v28 = v50;
         if (v26)
         {
           continue;
@@ -1043,11 +1026,11 @@ LABEL_27:
 
 LABEL_52:
     v41 = obja;
-    v42 = v65;
+    v42 = v64;
     if (v28)
     {
       v43 = [obja copy];
-      v52 = 1;
+      v51 = 1;
       goto LABEL_55;
     }
   }
@@ -1058,16 +1041,16 @@ LABEL_52:
   }
 
   v43 = 0;
-  v52 = 0;
+  v51 = 0;
 LABEL_55:
 
-  if ((v52 & 1) == 0)
+  if ((v51 & 1) == 0)
   {
-    if (v65)
+    if (v64)
     {
       if (context)
       {
-        *context = v65;
+        *context = v64;
       }
     }
 
@@ -1077,9 +1060,9 @@ LABEL_55:
       if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v67 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v68 = 1024;
-        v69 = 385;
+        v66 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
+        v67 = 1024;
+        v68 = 385;
         _os_log_error_impl(&dword_18565F000, v44, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
@@ -1087,22 +1070,20 @@ LABEL_55:
       if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v67 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v68 = 1024;
-        v69 = 385;
+        v66 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
+        v67 = 1024;
+        v68 = 385;
         _os_log_fault_impl(&dword_18565F000, v45, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
   }
 
-  result = v43;
-  v47 = *MEMORY[0x1E69E9840];
-  return result;
+  return v43;
 }
 
-+ (uint64_t)createMapOfMetadataMatchingRecords:(void *)records andRecordIDs:(void *)ds inStore:(void *)store withManagedObjectContext:(id *)context error:
++ (uint64_t)createMapOfMetadataMatchingRecords:(void *)records andRecordIDs:(char *)ds inStore:(void *)store withManagedObjectContext:(id *)context error:
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   dsCopy = ds;
   mirroringDelegate = [ds mirroringDelegate];
@@ -1117,7 +1098,7 @@ LABEL_55:
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v83 = dsCopy;
+      v82 = dsCopy;
       _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Attempting to query cloudkit metadata without a mirroring delegate: %@\n", buf, 0xCu);
     }
 
@@ -1125,7 +1106,7 @@ LABEL_55:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v83 = dsCopy;
+      v82 = dsCopy;
       _os_log_fault_impl(&dword_18565F000, v11, OS_LOG_TYPE_FAULT, "CoreData: Attempting to query cloudkit metadata without a mirroring delegate: %@", buf, 0xCu);
     }
 
@@ -1133,28 +1114,28 @@ LABEL_55:
   }
 
   context = [v9 databaseScope];
-  v81 = 0;
+  v80 = 0;
   v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v13 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v79 = 0u;
-  v80 = 0u;
-  v77 = 0u;
   v78 = 0u;
-  v15 = [records countByEnumeratingWithState:&v77 objects:v90 count:16];
+  v79 = 0u;
+  v76 = 0u;
+  v77 = 0u;
+  v15 = [records countByEnumeratingWithState:&v76 objects:v89 count:16];
   if (v15)
   {
-    v16 = *v78;
+    v16 = *v77;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v78 != v16)
+        if (*v77 != v16)
         {
           objc_enumerationMutation(records);
         }
 
-        v18 = *(*(&v77 + 1) + 8 * i);
+        v18 = *(*(&v76 + 1) + 8 * i);
         zoneID = [v18 zoneID];
         v20 = [v13 objectForKey:zoneID];
         if (!v20)
@@ -1167,7 +1148,7 @@ LABEL_55:
 
         if (![v14 objectForKey:zoneID])
         {
-          v21 = [NSCKRecordZoneMetadata zoneMetadataForZoneID:zoneID inDatabaseWithScope:context forStore:dsCopy inContext:store error:&v81];
+          v21 = [NSCKRecordZoneMetadata zoneMetadataForZoneID:zoneID inDatabaseWithScope:context forStore:dsCopy inContext:store error:&v80];
           if (!v21)
           {
             goto LABEL_63;
@@ -1177,30 +1158,30 @@ LABEL_55:
         }
       }
 
-      v15 = [records countByEnumeratingWithState:&v77 objects:v90 count:16];
+      v15 = [records countByEnumeratingWithState:&v76 objects:v89 count:16];
     }
 
     while (v15);
   }
 
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
   v74 = 0u;
-  v22 = [a2 countByEnumeratingWithState:&v73 objects:v89 count:16];
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
+  v22 = [a2 countByEnumeratingWithState:&v72 objects:v88 count:16];
   if (v22)
   {
-    v23 = *v74;
+    v23 = *v73;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v74 != v23)
+        if (*v73 != v23)
         {
           objc_enumerationMutation(a2);
         }
 
-        v25 = *(*(&v73 + 1) + 8 * j);
+        v25 = *(*(&v72 + 1) + 8 * j);
         v26 = [objc_msgSend(v25 "recordID")];
         v27 = [v13 objectForKey:v26];
         if (!v27)
@@ -1213,7 +1194,7 @@ LABEL_55:
 
         if (![v14 objectForKey:v26])
         {
-          v28 = [NSCKRecordZoneMetadata zoneMetadataForZoneID:v26 inDatabaseWithScope:context forStore:dsCopy inContext:store error:&v81];
+          v28 = [NSCKRecordZoneMetadata zoneMetadataForZoneID:v26 inDatabaseWithScope:context forStore:dsCopy inContext:store error:&v80];
           if (!v28)
           {
             goto LABEL_63;
@@ -1223,35 +1204,35 @@ LABEL_55:
         }
       }
 
-      v22 = [a2 countByEnumeratingWithState:&v73 objects:v89 count:16];
+      v22 = [a2 countByEnumeratingWithState:&v72 objects:v88 count:16];
     }
 
     while (v22);
   }
 
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
   v70 = 0u;
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
   allKeys = [v13 allKeys];
-  v30 = [allKeys countByEnumeratingWithState:&v69 objects:v88 count:16];
+  v30 = [allKeys countByEnumeratingWithState:&v68 objects:v87 count:16];
   if (v30)
   {
-    v31 = *v70;
-    v58 = 1;
-    v55 = *v70;
-    v56 = allKeys;
+    v31 = *v69;
+    v57 = 1;
+    v54 = *v69;
+    v55 = allKeys;
 LABEL_34:
     v32 = 0;
     obja = v30;
     while (1)
     {
-      if (*v70 != v31)
+      if (*v69 != v31)
       {
         objc_enumerationMutation(allKeys);
       }
 
-      v33 = *(*(&v69 + 1) + 8 * v32);
+      v33 = *(*(&v68 + 1) + 8 * v32);
       contexta = objc_autoreleasePoolPush();
       v34 = [v14 objectForKey:v33];
       v35 = [v13 objectForKey:v33];
@@ -1272,7 +1253,7 @@ LABEL_34:
         if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v83 = v33;
+          v82 = v33;
           _os_log_error_impl(&dword_18565F000, v38, OS_LOG_TYPE_ERROR, "CoreData: fault: Invalid query for record metadata (by recordIDs): %@ returned no metadata or record names\n", buf, 0xCu);
         }
 
@@ -1280,55 +1261,55 @@ LABEL_34:
         if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412290;
-          v83 = v33;
+          v82 = v33;
           _os_log_fault_impl(&dword_18565F000, v39, OS_LOG_TYPE_FAULT, "CoreData: Invalid query for record metadata (by recordIDs): %@ returned no metadata or record names", buf, 0xCu);
         }
       }
 
       v40 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKRecordMetadata entityPath]);
-      v87 = dsCopy;
-      -[NSFetchRequest setAffectedStores:](v40, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v87 count:1]);
+      v86 = dsCopy;
+      -[NSFetchRequest setAffectedStores:](v40, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v86 count:1]);
       -[NSFetchRequest setPredicate:](v40, "setPredicate:", [MEMORY[0x1E696AE18] predicateWithFormat:@"recordZone = %@ AND ckRecordName in %@", v34, v36]);
-      v41 = [store executeFetchRequest:v40 error:&v81];
+      v41 = [store executeFetchRequest:v40 error:&v80];
       v42 = v41;
       if (v41)
       {
-        v81 = 0;
+        v80 = 0;
+        v64 = 0u;
         v65 = 0u;
         v66 = 0u;
         v67 = 0u;
-        v68 = 0u;
-        v43 = [v41 countByEnumeratingWithState:&v65 objects:v86 count:16];
+        v43 = [v41 countByEnumeratingWithState:&v64 objects:v85 count:16];
         if (v43)
         {
-          v44 = *v66;
+          v44 = *v65;
           do
           {
             for (k = 0; k != v43; ++k)
             {
-              if (*v66 != v44)
+              if (*v65 != v44)
               {
                 objc_enumerationMutation(v42);
               }
 
-              v46 = *(*(&v65 + 1) + 8 * k);
+              v46 = *(*(&v64 + 1) + 8 * k);
               createRecordID = [(NSCKRecordMetadata *)v46 createRecordID];
               [v12 setObject:v46 forKey:createRecordID];
             }
 
-            v43 = [v42 countByEnumeratingWithState:&v65 objects:v86 count:16];
+            v43 = [v42 countByEnumeratingWithState:&v64 objects:v85 count:16];
           }
 
           while (v43);
-          v31 = v55;
-          allKeys = v56;
+          v31 = v54;
+          allKeys = v55;
         }
       }
 
       else
       {
-        v48 = v81;
-        v58 = 0;
+        v48 = v80;
+        v57 = 0;
       }
 
       objc_autoreleasePoolPop(contexta);
@@ -1339,7 +1320,7 @@ LABEL_34:
 
       if (++v32 == obja)
       {
-        v30 = [allKeys countByEnumeratingWithState:&v69 objects:v88 count:16];
+        v30 = [allKeys countByEnumeratingWithState:&v68 objects:v87 count:16];
         if (v30)
         {
           goto LABEL_34;
@@ -1352,19 +1333,19 @@ LABEL_34:
 
   else
   {
-    v58 = 1;
+    v57 = 1;
   }
 
-  v49 = v81;
-  if ((v58 & 1) == 0)
+  v49 = v80;
+  if ((v57 & 1) == 0)
   {
 LABEL_63:
-    if (v81)
+    if (v80)
     {
       if (context)
       {
         v50 = 0;
-        *context = v81;
+        *context = v80;
         goto LABEL_71;
       }
     }
@@ -1375,9 +1356,9 @@ LABEL_63:
       if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v83 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v84 = 1024;
-        v85 = 499;
+        v82 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
+        v83 = 1024;
+        v84 = 499;
         _os_log_error_impl(&dword_18565F000, v51, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
@@ -1385,9 +1366,9 @@ LABEL_63:
       if (os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v83 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v84 = 1024;
-        v85 = 499;
+        v82 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
+        v83 = 1024;
+        v84 = 499;
         _os_log_fault_impl(&dword_18565F000, v52, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
@@ -1399,22 +1380,21 @@ LABEL_63:
   v50 = [v12 copy];
 LABEL_71:
 
-  v53 = *MEMORY[0x1E69E9840];
   return v50;
 }
 
 + (id)insertMetadataForObject:(id)object setRecordName:(BOOL)name inZoneWithID:(id)d recordNamePrefix:(id)prefix error:(id *)error
 {
   nameCopy = name;
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   objc_opt_self();
+  v42 = 0;
   v43 = 0;
-  v44 = 0;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3052000000;
-  v41 = __Block_byref_object_copy__4;
-  v42 = __Block_byref_object_dispose__4;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3052000000;
+  v40 = __Block_byref_object_copy__4;
+  v41 = __Block_byref_object_dispose__4;
   managedObjectContext = [object managedObjectContext];
   v12 = [objc_msgSend(object "objectID")];
   mirroringDelegate = [v12 mirroringDelegate];
@@ -1428,17 +1408,17 @@ LABEL_71:
     LogStream = _PFLogGetLogStream(17);
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(v53) = 138412290;
-      *(&v53 + 4) = v12;
-      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Attempting to query cloudkit metadata without a mirroring delegate: %@\n", &v53, 0xCu);
+      LODWORD(v52) = 138412290;
+      *(&v52 + 4) = v12;
+      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Attempting to query cloudkit metadata without a mirroring delegate: %@\n", &v52, 0xCu);
     }
 
     v16 = _PFLogGetLogStream(17);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
-      LODWORD(v53) = 138412290;
-      *(&v53 + 4) = v12;
-      _os_log_fault_impl(&dword_18565F000, v16, OS_LOG_TYPE_FAULT, "CoreData: Attempting to query cloudkit metadata without a mirroring delegate: %@", &v53, 0xCu);
+      LODWORD(v52) = 138412290;
+      *(&v52 + 4) = v12;
+      _os_log_fault_impl(&dword_18565F000, v16, OS_LOG_TYPE_FAULT, "CoreData: Attempting to query cloudkit metadata without a mirroring delegate: %@", &v52, 0xCu);
     }
 
     v14 = 0;
@@ -1450,16 +1430,16 @@ LABEL_71:
   if (v19)
   {
     managedObjectContext2 = [object managedObjectContext];
-    *&v53 = MEMORY[0x1E69E9820];
-    *(&v53 + 1) = 3221225472;
-    v54 = __117__NSCKRecordMetadata_insertMetadataForObject_usingMetadataContext_setRecordName_inZoneWithID_recordNamePrefix_error___block_invoke;
-    v55 = &unk_1E6EC1860;
+    *&v52 = MEMORY[0x1E69E9820];
+    *(&v52 + 1) = 3221225472;
+    v53 = __117__NSCKRecordMetadata_insertMetadataForObject_usingMetadataContext_setRecordName_inZoneWithID_recordNamePrefix_error___block_invoke;
+    v54 = &unk_1E6EC1860;
     objectCopy = object;
-    v57 = &v38;
-    [managedObjectContext2 performBlockAndWait:&v53];
+    v56 = &v37;
+    [managedObjectContext2 performBlockAndWait:&v52];
   }
 
-  if (!v39[5])
+  if (!v38[5])
   {
     if ([prefix length])
     {
@@ -1473,25 +1453,25 @@ LABEL_71:
     }
 
     v23 = v22;
-    v39[5] = v23;
+    v38[5] = v23;
     if (v19)
     {
       if (nameCopy)
       {
         managedObjectContext3 = [object managedObjectContext];
-        v37[0] = MEMORY[0x1E69E9820];
-        v37[1] = 3221225472;
-        v37[2] = __117__NSCKRecordMetadata_insertMetadataForObject_usingMetadataContext_setRecordName_inZoneWithID_recordNamePrefix_error___block_invoke_2;
-        v37[3] = &unk_1E6EC1330;
-        v37[4] = object;
-        v37[5] = &v38;
-        [managedObjectContext3 performBlockAndWait:v37];
+        v36[0] = MEMORY[0x1E69E9820];
+        v36[1] = 3221225472;
+        v36[2] = __117__NSCKRecordMetadata_insertMetadataForObject_usingMetadataContext_setRecordName_inZoneWithID_recordNamePrefix_error___block_invoke_2;
+        v36[3] = &unk_1E6EC1330;
+        v36[4] = object;
+        v36[5] = &v37;
+        [managedObjectContext3 performBlockAndWait:v36];
       }
     }
   }
 
   [managedObjectContext assignObject:v18 toPersistentStore:v12];
-  [(NSManagedObject *)v18 setCkRecordName:v39[5]];
+  [(NSManagedObject *)v18 setCkRecordName:v38[5]];
   v25 = MEMORY[0x1E696AD98];
   v26 = _sqlEntityForEntityDescription([v12 model], objc_msgSend(objc_msgSend(object, "objectID"), "entity"));
   if (v26)
@@ -1506,7 +1486,7 @@ LABEL_71:
 
   -[NSManagedObject setEntityId:](v18, "setEntityId:", [v25 numberWithUnsignedInt:v27]);
   -[NSManagedObject setEntityPK:](v18, "setEntityPK:", [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(objc_msgSend(object, "objectID"), "_referenceData64")}]);
-  [(NSManagedObject *)v18 setRecordZone:[NSCKRecordZoneMetadata zoneMetadataForZoneID:d inDatabaseWithScope:databaseScope forStore:v12 inContext:managedObjectContext error:&v44]];
+  [(NSManagedObject *)v18 setRecordZone:[NSCKRecordZoneMetadata zoneMetadataForZoneID:d inDatabaseWithScope:databaseScope forStore:v12 inContext:managedObjectContext error:&v43]];
   if (![(NSManagedObject *)v18 recordZone])
   {
     [managedObjectContext deleteObject:v18];
@@ -1526,13 +1506,13 @@ LABEL_71:
     if (os_log_type_enabled(Stream, v31))
     {
       *buf = 136315906;
-      v46 = "+[NSCKRecordMetadata insertMetadataForObject:usingMetadataContext:setRecordName:inZoneWithID:recordNamePrefix:error:]";
-      v47 = 1024;
-      v48 = 579;
-      v49 = 2112;
+      v45 = "+[NSCKRecordMetadata insertMetadataForObject:usingMetadataContext:setRecordName:inZoneWithID:recordNamePrefix:error:]";
+      v46 = 1024;
+      v47 = 579;
+      v48 = 2112;
       objectCopy2 = object;
-      v51 = 2112;
-      v52 = v44;
+      v50 = 2112;
+      v51 = v43;
       _os_log_impl(&dword_18565F000, v30, v31, "CoreData+CloudKit: %s(%d): Failed to get a metadata zone while creating metadata for object: %@\n%@", buf, 0x26u);
     }
 
@@ -1540,77 +1520,76 @@ LABEL_71:
     objc_autoreleasePoolPop(v28);
   }
 
-  v39[5] = 0;
+  v38[5] = 0;
   if (!v18)
   {
-    if (v44)
+    if (v43)
     {
       if (error)
       {
-        *error = v44;
+        *error = v43;
       }
     }
 
     else
     {
-      v34 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v33 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v46 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v47 = 1024;
-        v48 = 586;
-        _os_log_error_impl(&dword_18565F000, v34, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
+        v45 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
+        v46 = 1024;
+        v47 = 586;
+        _os_log_error_impl(&dword_18565F000, v33, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
-      v35 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
+      v34 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v46 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v47 = 1024;
-        v48 = 586;
-        _os_log_fault_impl(&dword_18565F000, v35, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+        v45 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
+        v46 = 1024;
+        v47 = 586;
+        _os_log_fault_impl(&dword_18565F000, v34, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
   }
 
-  _Block_object_dispose(&v38, 8);
-  v32 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v37, 8);
   return v18;
 }
 
-id __117__NSCKRecordMetadata_insertMetadataForObject_usingMetadataContext_setRecordName_inZoneWithID_recordNamePrefix_error___block_invoke(uint64_t a1)
+id __117__NSCKRecordMetadata_insertMetadataForObject_usingMetadataContext_setRecordName_inZoneWithID_recordNamePrefix_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = [*(a1 + 32) valueForKey:@"ckRecordID"];
+  result = objc_msgSend_valueForKey_(*(a1 + 32), a2, @"ckRecordID");
   *(*(*(a1 + 40) + 8) + 40) = result;
   return result;
 }
 
 + (uint64_t)purgeRecordMetadataWithRecordIDs:(uint64_t)ds inStore:(void *)store withManagedObjectContext:(id *)context error:
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   objc_opt_self();
-  v46 = 0;
+  v45 = 0;
   v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
-  v9 = [a2 countByEnumeratingWithState:&v42 objects:v54 count:16];
+  v9 = [a2 countByEnumeratingWithState:&v41 objects:v53 count:16];
   if (v9)
   {
-    v10 = *v43;
+    v10 = *v42;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v43 != v10)
+        if (*v42 != v10)
         {
           objc_enumerationMutation(a2);
         }
 
-        v12 = *(*(&v42 + 1) + 8 * i);
+        v12 = *(*(&v41 + 1) + 8 * i);
         v13 = [v8 objectForKey:{objc_msgSend(v12, "zoneID")}];
         if (!v13)
         {
@@ -1621,7 +1600,7 @@ id __117__NSCKRecordMetadata_insertMetadataForObject_usingMetadataContext_setRec
         [v13 addObject:{objc_msgSend(v12, "recordName")}];
       }
 
-      v9 = [a2 countByEnumeratingWithState:&v42 objects:v54 count:16];
+      v9 = [a2 countByEnumeratingWithState:&v41 objects:v53 count:16];
     }
 
     while (v9);
@@ -1630,54 +1609,54 @@ id __117__NSCKRecordMetadata_insertMetadataForObject_usingMetadataContext_setRec
   v14 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKRecordMetadata entityPath]);
   dsCopy = ds;
   -[NSFetchRequest setAffectedStores:](v14, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:&dsCopy count:1]);
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
-  v15 = [v8 countByEnumeratingWithState:&v38 objects:v52 count:16];
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v15 = [v8 countByEnumeratingWithState:&v37 objects:v51 count:16];
   if (v15)
   {
-    v32 = 1;
-    v33 = *v39;
+    v31 = 1;
+    v32 = *v38;
 LABEL_12:
     v16 = 0;
     while (1)
     {
-      if (*v39 != v33)
+      if (*v38 != v32)
       {
         objc_enumerationMutation(v8);
       }
 
-      v17 = *(*(&v38 + 1) + 8 * v16);
+      v17 = *(*(&v37 + 1) + 8 * v16);
       v18 = objc_autoreleasePoolPush();
       v19 = [v8 objectForKey:v17];
       -[NSFetchRequest setPredicate:](v14, "setPredicate:", [MEMORY[0x1E696AE18] predicateWithFormat:@"((recordZone.ckRecordZoneName = %@) AND (recordZone.ckOwnerName = %@) AND (ckRecordName IN %@)) OR (needsCloudDelete = 1 AND needsUpload = 0)", objc_msgSend(v17, "zoneName"), objc_msgSend(v17, "ownerName"), v19]);
-      v20 = [store executeFetchRequest:v14 error:&v46];
+      v20 = [store executeFetchRequest:v14 error:&v45];
       v21 = v20;
       if (v20)
       {
-        v46 = 0;
+        v45 = 0;
+        v33 = 0u;
         v34 = 0u;
         v35 = 0u;
         v36 = 0u;
-        v37 = 0u;
-        v22 = [v20 countByEnumeratingWithState:&v34 objects:v51 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v33 objects:v50 count:16];
         if (v22)
         {
-          v23 = *v35;
+          v23 = *v34;
           do
           {
             for (j = 0; j != v22; ++j)
             {
-              if (*v35 != v23)
+              if (*v34 != v23)
               {
                 objc_enumerationMutation(v21);
               }
 
-              [store deleteObject:*(*(&v34 + 1) + 8 * j)];
+              [store deleteObject:*(*(&v33 + 1) + 8 * j)];
             }
 
-            v22 = [v21 countByEnumeratingWithState:&v34 objects:v51 count:16];
+            v22 = [v21 countByEnumeratingWithState:&v33 objects:v50 count:16];
           }
 
           while (v22);
@@ -1686,8 +1665,8 @@ LABEL_12:
 
       else
       {
-        v25 = v46;
-        v32 = 0;
+        v25 = v45;
+        v31 = 0;
       }
 
       objc_autoreleasePoolPop(v18);
@@ -1698,7 +1677,7 @@ LABEL_12:
 
       if (++v16 == v15)
       {
-        v15 = [v8 countByEnumeratingWithState:&v38 objects:v52 count:16];
+        v15 = [v8 countByEnumeratingWithState:&v37 objects:v51 count:16];
         if (v15)
         {
           goto LABEL_12;
@@ -1711,18 +1690,18 @@ LABEL_12:
 
   else
   {
-    v32 = 1;
+    v31 = 1;
   }
 
-  v26 = v46;
+  v26 = v45;
 
-  if ((v32 & 1) == 0)
+  if ((v31 & 1) == 0)
   {
-    if (v46)
+    if (v45)
     {
       if (context)
       {
-        *context = v46;
+        *context = v45;
       }
     }
 
@@ -1732,9 +1711,9 @@ LABEL_12:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v48 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v49 = 1024;
-        v50 = 635;
+        v47 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
+        v48 = 1024;
+        v49 = 635;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
@@ -1742,82 +1721,78 @@ LABEL_12:
       if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v48 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v49 = 1024;
-        v50 = 635;
+        v47 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
+        v48 = 1024;
+        v49 = 635;
         _os_log_fault_impl(&dword_18565F000, v28, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-  return v32 & 1;
+  return v31 & 1;
 }
 
-+ (uint64_t)countRecordMetadataInStore:(uint64_t)store matchingPredicate:(uint64_t)predicate withManagedObjectContext:(id *)context error:
++ (uint64_t)countRecordMetadataInStore:(uint64_t)store matchingPredicate:(unint64_t)predicate withManagedObjectContext:(id *)context error:
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
   v9 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKRecordMetadata entityPath]);
   [(NSFetchRequest *)v9 setPredicate:store];
   [(NSFetchRequest *)v9 setResultType:4];
-  v13[0] = a2;
-  -[NSFetchRequest setAffectedStores:](v9, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1]);
-  if (!predicate)
+  v12[0] = a2;
+  -[NSFetchRequest setAffectedStores:](v9, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1]);
+  if (predicate)
+  {
+    v10 = [(NSManagedObjectContext *)predicate _countForFetchRequest_:v9 error:context];
+    if (v10 == 0x7FFFFFFFFFFFFFFFLL)
+    {
+      return 0;
+    }
+  }
+
+  else
   {
     v10 = 0;
-    goto LABEL_5;
   }
 
-  v10 = [(NSManagedObjectContext *)predicate _countForFetchRequest_:v9 error:context];
-  if (v10 != 0x7FFFFFFFFFFFFFFFLL)
-  {
-LABEL_5:
-    result = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v10];
-    goto LABEL_6;
-  }
-
-  result = 0;
-LABEL_6:
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v10];
 }
 
 + (id)batchUpdateMetadataMatchingEntityIdsAndPKs:(uint64_t)ks withUpdates:(uint64_t)updates inStore:(uint64_t)store withManagedObjectContext:(void *)context error:
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 1;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3052000000;
-  v23 = __Block_byref_object_copy__4;
-  v24 = __Block_byref_object_dispose__4;
   v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 1;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3052000000;
+  v22 = __Block_byref_object_copy__4;
+  v23 = __Block_byref_object_dispose__4;
+  v24 = 0;
   v11 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v12 = [[NSBatchUpdateRequest alloc] initWithEntityName:+[NSCKRecordMetadata entityPath]];
-  v34[0] = updates;
-  -[NSPersistentStoreRequest setAffectedStores:](v12, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1]);
+  v33[0] = updates;
+  -[NSPersistentStoreRequest setAffectedStores:](v12, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1]);
   [(NSBatchUpdateRequest *)v12 setPropertiesToUpdate:ks];
   [(NSBatchUpdateRequest *)v12 setResultType:1];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __116__NSCKRecordMetadata_batchUpdateMetadataMatchingEntityIdsAndPKs_withUpdates_inStore_withManagedObjectContext_error___block_invoke;
-  v19[3] = &unk_1E6EC1810;
-  v19[4] = v12;
-  v19[5] = store;
-  v19[6] = updates;
-  v19[7] = v11;
-  v19[8] = &v20;
-  v19[9] = &v26;
-  [a2 enumerateKeysAndObjectsUsingBlock:v19];
-  if ((v27[3] & 1) == 0)
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __116__NSCKRecordMetadata_batchUpdateMetadataMatchingEntityIdsAndPKs_withUpdates_inStore_withManagedObjectContext_error___block_invoke;
+  v18[3] = &unk_1E6EC1810;
+  v18[4] = v12;
+  v18[5] = store;
+  v18[6] = updates;
+  v18[7] = v11;
+  v18[8] = &v19;
+  v18[9] = &v25;
+  [a2 enumerateKeysAndObjectsUsingBlock:v18];
+  if ((v26[3] & 1) == 0)
   {
 
-    v13 = v21[5];
+    v13 = v20[5];
     if (v13)
     {
       if (context)
@@ -1834,9 +1809,9 @@ LABEL_6:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v31 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v32 = 1024;
-        v33 = 792;
+        v30 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
+        v31 = 1024;
+        v32 = 792;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
@@ -1844,9 +1819,9 @@ LABEL_6:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v31 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v32 = 1024;
-        v33 = 792;
+        v30 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
+        v31 = 1024;
+        v32 = 792;
         _os_log_fault_impl(&dword_18565F000, v15, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
@@ -1856,17 +1831,16 @@ LABEL_6:
 
 LABEL_10:
 
-  v21[5] = 0;
+  v20[5] = 0;
   v16 = v11;
-  _Block_object_dispose(&v20, 8);
-  _Block_object_dispose(&v26, 8);
-  v17 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v25, 8);
   return v16;
 }
 
 void __116__NSCKRecordMetadata_batchUpdateMetadataMatchingEntityIdsAndPKs_withUpdates_inStore_withManagedObjectContext_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v8 = objc_autoreleasePoolPush();
   [*(a1 + 32) setPredicate:{objc_msgSend(MEMORY[0x1E696AE18], "predicateWithFormat:", @"entityId = %@ AND entityPK IN %@", a2, a3)}];
   v9 = [objc_msgSend(*(a1 + 40) executeRequest:*(a1 + 32) error:{*(*(a1 + 64) + 8) + 40), "result"}];
@@ -1883,8 +1857,8 @@ LABEL_13:
   v11 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKRecordMetadata entityPath]);
   -[NSFetchRequest setPredicate:](v11, "setPredicate:", [MEMORY[0x1E696AE18] predicateWithFormat:@"SELF IN %@", v10]);
   [(NSFetchRequest *)v11 setPropertiesToFetch:&unk_1EF43D3F0];
-  v26[0] = *(a1 + 48);
-  -[NSFetchRequest setAffectedStores:](v11, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1]);
+  v25[0] = *(a1 + 48);
+  -[NSFetchRequest setAffectedStores:](v11, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1]);
   [(NSFetchRequest *)v11 setReturnsObjectsAsFaults:0];
   v12 = [*(a1 + 40) executeFetchRequest:v11 error:*(*(a1 + 64) + 8) + 40];
   if (!v12)
@@ -1894,29 +1868,29 @@ LABEL_13:
   }
 
   v13 = v12;
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
-  v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v14 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [(NSCKRecordMetadata *)*(*(&v21 + 1) + 8 * i) createObjectIDForLinkedRow];
+        v18 = [(NSCKRecordMetadata *)*(*(&v20 + 1) + 8 * i) createObjectIDForLinkedRow];
         [*(a1 + 56) addObject:v18];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v15);
@@ -1924,36 +1898,35 @@ LABEL_13:
 
 LABEL_14:
   objc_autoreleasePoolPop(v8);
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 + (void)enumerateRecordMetadataDictionariesMatchingObjectIDs:(void *)ds withProperties:(void *)properties inStore:(void *)store withManagedObjectContext:(uint64_t)context block:
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   objc_opt_self();
   v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v61 = 0u;
   v62 = 0u;
   v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
   obj = a2;
-  v10 = [a2 countByEnumeratingWithState:&v62 objects:v69 count:16];
+  v10 = [a2 countByEnumeratingWithState:&v61 objects:v68 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v63;
+    v12 = *v62;
     do
     {
       v13 = 0;
       do
       {
-        if (*v63 != v12)
+        if (*v62 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v62 + 1) + 8 * v13);
+        v14 = *(*(&v61 + 1) + 8 * v13);
         v15 = MEMORY[0x1E696AD98];
         v16 = _sqlEntityForEntityDescription([properties model], objc_msgSend(v14, "entity"));
         if (v16)
@@ -1981,7 +1954,7 @@ LABEL_14:
       }
 
       while (v11 != v13);
-      v21 = [obj countByEnumeratingWithState:&v62 objects:v69 count:16];
+      v21 = [obj countByEnumeratingWithState:&v61 objects:v68 count:16];
       v11 = v21;
     }
 
@@ -1989,11 +1962,11 @@ LABEL_14:
   }
 
   v22 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v57 = 0u;
   v58 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v61 = 0u;
-  v23 = [ds countByEnumeratingWithState:&v58 objects:v68 count:16];
+  v23 = [ds countByEnumeratingWithState:&v57 objects:v67 count:16];
   if (!v23)
   {
     goto LABEL_22;
@@ -2001,22 +1974,22 @@ LABEL_14:
 
   v24 = v23;
   v25 = 0;
-  v26 = *v59;
+  v26 = *v58;
   do
   {
     for (i = 0; i != v24; ++i)
     {
-      if (*v59 != v26)
+      if (*v58 != v26)
       {
         objc_enumerationMutation(ds);
       }
 
-      v28 = *(*(&v58 + 1) + 8 * i);
+      v28 = *(*(&v57 + 1) + 8 * i);
       [v22 addObject:v28];
       v25 |= [v28 isEqualToString:@"objectID"];
     }
 
-    v24 = [ds countByEnumeratingWithState:&v58 objects:v68 count:16];
+    v24 = [ds countByEnumeratingWithState:&v57 objects:v67 count:16];
   }
 
   while (v24);
@@ -2026,25 +1999,25 @@ LABEL_22:
     [v22 addObject:@"objectID"];
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
-  obja = [v9 countByEnumeratingWithState:&v54 objects:v67 count:16];
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  obja = [v9 countByEnumeratingWithState:&v53 objects:v66 count:16];
   if (obja)
   {
-    v42 = 0;
-    v44 = *v55;
+    v41 = 0;
+    v43 = *v54;
     do
     {
       for (j = 0; j != obja; j = j + 1)
       {
-        if (*v55 != v44)
+        if (*v54 != v43)
         {
           objc_enumerationMutation(v9);
         }
 
-        v30 = *(*(&v54 + 1) + 8 * j);
+        v30 = *(*(&v53 + 1) + 8 * j);
         v31 = objc_autoreleasePoolPush();
         v32 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKRecordMetadata entityPath]);
         [(NSFetchRequest *)v32 setResultType:2];
@@ -2052,40 +2025,40 @@ LABEL_22:
         [(NSFetchRequest *)v32 setPropertiesToFetch:v22];
         v33 = [v9 objectForKey:v30];
         -[NSFetchRequest setPredicate:](v32, "setPredicate:", [MEMORY[0x1E696AE18] predicateWithFormat:@"entityId = %@ AND entityPK IN %@", v30, v33]);
-        v53 = 0;
-        v34 = [store executeFetchRequest:v32 error:&v53];
+        v52 = 0;
+        v34 = [store executeFetchRequest:v32 error:&v52];
         if (v34)
         {
           v35 = v34;
-          v53 = 0;
           v52 = 0;
+          v51 = 0;
+          v47 = 0u;
           v48 = 0u;
           v49 = 0u;
           v50 = 0u;
-          v51 = 0u;
-          v36 = [v34 countByEnumeratingWithState:&v48 objects:v66 count:16];
+          v36 = [v34 countByEnumeratingWithState:&v47 objects:v65 count:16];
           if (v36)
           {
             v37 = v36;
-            v38 = *v49;
+            v38 = *v48;
 LABEL_31:
             v39 = 0;
             while (1)
             {
-              if (*v49 != v38)
+              if (*v48 != v38)
               {
                 objc_enumerationMutation(v35);
               }
 
-              (*(context + 16))(context, *(*(&v48 + 1) + 8 * v39), 0, &v52);
-              if (v52)
+              (*(context + 16))(context, *(*(&v47 + 1) + 8 * v39), 0, &v51);
+              if (v51)
               {
                 break;
               }
 
               if (v37 == ++v39)
               {
-                v37 = [v35 countByEnumeratingWithState:&v48 objects:v66 count:16];
+                v37 = [v35 countByEnumeratingWithState:&v47 objects:v65 count:16];
                 if (v37)
                 {
                   goto LABEL_31;
@@ -2097,15 +2070,15 @@ LABEL_31:
           }
         }
 
-        else if (!v42)
+        else if (!v41)
         {
-          v42 = v53;
+          v41 = v52;
         }
 
         objc_autoreleasePoolPop(v31);
       }
 
-      obja = [v9 countByEnumeratingWithState:&v54 objects:v67 count:16];
+      obja = [v9 countByEnumeratingWithState:&v53 objects:v66 count:16];
     }
 
     while (obja);
@@ -2113,21 +2086,19 @@ LABEL_31:
 
   else
   {
-    v42 = 0;
+    v41 = 0;
   }
 
-  v40 = v42;
-
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = v41;
 }
 
 - (id)createEncodedMoveReceiptData:(id *)data
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v14 = 0;
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0;
   v5 = objc_autoreleasePoolPush();
   v6 = [[NSCKRecordMetadataReceiptArchive alloc] initWithReceiptsToEncode:[(NSCKRecordMetadata *)self moveReceipts]];
-  v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v6 requiringSecureCoding:1 error:&v14];
+  v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v6 requiringSecureCoding:1 error:&v13];
   if (v7)
   {
 
@@ -2136,15 +2107,15 @@ LABEL_31:
 
   else
   {
-    v10 = v14;
+    v9 = v13;
 
     objc_autoreleasePoolPop(v5);
-    v11 = v14;
-    if (v11)
+    v10 = v13;
+    if (v10)
     {
       if (data)
       {
-        *data = v11;
+        *data = v10;
       }
     }
 
@@ -2154,32 +2125,31 @@ LABEL_31:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v16 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v17 = 1024;
-        v18 = 902;
+        v15 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
+        v16 = 1024;
+        v17 = 902;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
-      v13 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      v12 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v16 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v17 = 1024;
-        v18 = 902;
-        _os_log_fault_impl(&dword_18565F000, v13, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+        v15 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
+        v16 = 1024;
+        v17 = 902;
+        _os_log_fault_impl(&dword_18565F000, v12, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (BOOL)mergeMoveReceiptsWithData:(id)data error:(id *)error
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v33 = 0;
+  v38 = *MEMORY[0x1E69E9840];
+  v32 = 0;
   persistentStore = [(NSManagedObjectID *)[(NSManagedObject *)self objectID] persistentStore];
   managedObjectContext = [(NSManagedObject *)self managedObjectContext];
   if (!persistentStore)
@@ -2202,99 +2172,98 @@ LABEL_31:
   }
 
   v11 = objc_autoreleasePoolPush();
-  v12 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:data error:&v33];
+  v12 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:data error:&v32];
   if (v12)
   {
-    v27 = persistentStore;
+    v26 = persistentStore;
     v13 = managedObjectContext;
     v14 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     moveReceipts = [(NSCKRecordMetadata *)self moveReceipts];
-    v16 = [moveReceipts countByEnumeratingWithState:&v29 objects:v38 count:16];
+    v16 = [moveReceipts countByEnumeratingWithState:&v28 objects:v37 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v30;
+      v18 = *v29;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v30 != v18)
+          if (*v29 != v18)
           {
             objc_enumerationMutation(moveReceipts);
           }
 
-          createRecordIDForMovedRecord = [*(*(&v29 + 1) + 8 * i) createRecordIDForMovedRecord];
+          createRecordIDForMovedRecord = [*(*(&v28 + 1) + 8 * i) createRecordIDForMovedRecord];
           [v14 addObject:createRecordIDForMovedRecord];
         }
 
-        v17 = [moveReceipts countByEnumeratingWithState:&v29 objects:v38 count:16];
+        v17 = [moveReceipts countByEnumeratingWithState:&v28 objects:v37 count:16];
       }
 
       while (v17);
     }
 
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __54__NSCKRecordMetadata_mergeMoveReceiptsWithData_error___block_invoke;
-    v28[3] = &unk_1E6EC1838;
-    v28[4] = v14;
-    v28[5] = v13;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __54__NSCKRecordMetadata_mergeMoveReceiptsWithData_error___block_invoke;
+    v27[3] = &unk_1E6EC1838;
+    v27[4] = v14;
+    v27[5] = v13;
     managedObjectContext = v13;
-    persistentStore = v27;
-    v28[6] = self;
-    v28[7] = v27;
-    [v12 enumerateArchivedRecordIDsUsingBlock:v28];
+    persistentStore = v26;
+    v27[6] = self;
+    v27[7] = v26;
+    [v12 enumerateArchivedRecordIDsUsingBlock:v27];
 
     objc_autoreleasePoolPop(v11);
   }
 
   else
   {
-    v23 = v33;
+    v22 = v32;
     objc_autoreleasePoolPop(v11);
-    v24 = v33;
-    if (v24)
+    v23 = v32;
+    if (v23)
     {
       if (error)
       {
-        *error = v24;
+        *error = v23;
       }
     }
 
     else
     {
-      v25 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v24 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
         selfCopy2 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v36 = 1024;
-        v37 = 956;
-        _os_log_error_impl(&dword_18565F000, v25, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
+        v35 = 1024;
+        v36 = 956;
+        _os_log_error_impl(&dword_18565F000, v24, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
-      v26 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+      v25 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
         selfCopy2 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v36 = 1024;
-        v37 = 956;
-        _os_log_fault_impl(&dword_18565F000, v26, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+        v35 = 1024;
+        v36 = 956;
+        _os_log_fault_impl(&dword_18565F000, v25, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
   }
 
-  v33 = 0;
-  v21 = *MEMORY[0x1E69E9840];
+  v32 = 0;
   return v12 != 0;
 }
 
-uint64_t __54__NSCKRecordMetadata_mergeMoveReceiptsWithData_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__54__NSCKRecordMetadata_mergeMoveReceiptsWithData_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [*(a1 + 32) containsObject:a2];
   if ((result & 1) == 0)
@@ -2317,15 +2286,15 @@ uint64_t __54__NSCKRecordMetadata_mergeMoveReceiptsWithData_error___block_invoke
 
 + (id)encodeRecord:(id)record error:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v16 = 0;
+  v20 = *MEMORY[0x1E69E9840];
+  v15 = 0;
   v6 = objc_autoreleasePoolPush();
-  v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:record requiringSecureCoding:1 error:&v16];
-  if (!v7 || (v8 = [v7 compressedDataUsingAlgorithm:0 error:&v16]) == 0)
+  v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:record requiringSecureCoding:1 error:&v15];
+  if (!v7 || (v8 = [v7 compressedDataUsingAlgorithm:0 error:&v15]) == 0)
   {
-    v10 = v16;
+    v10 = v15;
     objc_autoreleasePoolPop(v6);
-    v11 = v16;
+    v11 = v15;
     if (v11)
     {
       if (error)
@@ -2342,9 +2311,9 @@ uint64_t __54__NSCKRecordMetadata_mergeMoveReceiptsWithData_error___block_invoke
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v18 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v19 = 1024;
-        v20 = 986;
+        v17 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
+        v18 = 1024;
+        v19 = 986;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
@@ -2352,9 +2321,9 @@ uint64_t __54__NSCKRecordMetadata_mergeMoveReceiptsWithData_error___block_invoke
       if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v18 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v19 = 1024;
-        v20 = 986;
+        v17 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
+        v18 = 1024;
+        v19 = 986;
         _os_log_fault_impl(&dword_18565F000, v13, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
@@ -2367,21 +2336,20 @@ uint64_t __54__NSCKRecordMetadata_mergeMoveReceiptsWithData_error___block_invoke
   objc_autoreleasePoolPop(v6);
 LABEL_12:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 + (id)recordFromEncodedData:(id)data error:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v18 = 0;
+  v22 = *MEMORY[0x1E69E9840];
+  v17 = 0;
   v6 = objc_autoreleasePoolPush();
-  v7 = [data decompressedDataUsingAlgorithm:0 error:&v18];
-  if (!v7 || (v8 = v7, v9 = MEMORY[0x1E696ACD0], getCloudKitCKRecordClass[0](), (v10 = [v9 unarchivedObjectOfClass:objc_opt_class() fromData:v8 error:&v18]) == 0))
+  v7 = [data decompressedDataUsingAlgorithm:0 error:&v17];
+  if (!v7 || (v8 = v7, v9 = MEMORY[0x1E696ACD0], getCloudKitCKRecordClass[0](), (v10 = [v9 unarchivedObjectOfClass:objc_opt_class() fromData:v8 error:&v17]) == 0))
   {
-    v12 = v18;
+    v12 = v17;
     objc_autoreleasePoolPop(v6);
-    v13 = v18;
+    v13 = v17;
     if (v13)
     {
       if (error)
@@ -2398,9 +2366,9 @@ LABEL_12:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v20 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v21 = 1024;
-        v22 = 1012;
+        v19 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
+        v20 = 1024;
+        v21 = 1012;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
@@ -2408,9 +2376,9 @@ LABEL_12:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v20 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
-        v21 = 1024;
-        v22 = 1012;
+        v19 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordMetadata.m";
+        v20 = 1024;
+        v21 = 1012;
         _os_log_fault_impl(&dword_18565F000, v15, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
@@ -2423,7 +2391,6 @@ LABEL_12:
   objc_autoreleasePoolPop(v6);
 LABEL_12:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

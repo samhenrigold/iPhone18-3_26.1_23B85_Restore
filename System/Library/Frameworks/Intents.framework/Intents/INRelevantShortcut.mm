@@ -125,70 +125,70 @@
 
 - (void)setRelevanceProviders:(NSArray *)relevanceProviders
 {
-  v35[2] = *MEMORY[0x1E69E9840];
+  v34[2] = *MEMORY[0x1E69E9840];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v3 = relevanceProviders;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v26;
+    v6 = *v25;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v26 != v6)
+        if (*v25 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v25 + 1) + 8 * i);
-        v35[0] = objc_opt_class();
-        v35[1] = objc_opt_class();
-        v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
+        v8 = *(*(&v24 + 1) + 8 * i);
+        v34[0] = objc_opt_class();
+        v34[1] = objc_opt_class();
+        v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
         v10 = [v9 arrayByAddingObject:objc_opt_class()];
 
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
         v30 = 0u;
+        v31 = 0u;
+        v28 = 0u;
+        v29 = 0u;
         v11 = v10;
-        v12 = [v11 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v28 objects:v33 count:16];
         if (!v12)
         {
 LABEL_18:
 
-          v19 = MEMORY[0x1E696AEC0];
-          v20 = objc_opt_class();
-          v21 = NSStringFromClass(v20);
-          v22 = [v19 stringWithFormat:@"%@ is not a valid relevance provider class", v21];
+          v18 = MEMORY[0x1E696AEC0];
+          v19 = objc_opt_class();
+          v20 = NSStringFromClass(v19);
+          v21 = [v18 stringWithFormat:@"%@ is not a valid relevance provider class", v20];
 
-          v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v22 userInfo:0];
-          objc_exception_throw(v23);
+          v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v21 userInfo:0];
+          objc_exception_throw(v22);
         }
 
         v13 = v12;
-        v14 = *v30;
+        v14 = *v29;
 LABEL_8:
         v15 = 0;
         while (1)
         {
-          if (*v30 != v14)
+          if (*v29 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          if ([v8 isMemberOfClass:*(*(&v29 + 1) + 8 * v15)])
+          if ([v8 isMemberOfClass:*(*(&v28 + 1) + 8 * v15)])
           {
             break;
           }
 
           if (v13 == ++v15)
           {
-            v13 = [v11 countByEnumeratingWithState:&v29 objects:v34 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v28 objects:v33 count:16];
             if (!v13)
             {
               goto LABEL_18;
@@ -199,7 +199,7 @@ LABEL_8:
         }
       }
 
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v5);
@@ -208,8 +208,6 @@ LABEL_8:
   v16 = [(NSArray *)v3 copy];
   v17 = self->_relevanceProviders;
   self->_relevanceProviders = v16;
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (INRelevantShortcut)initWithShortcut:(INShortcut *)shortcut
@@ -322,21 +320,21 @@ LABEL_8:
   }
 }
 
-uint64_t __80__INRelevantShortcut_INImageProxyInjecting___injectProxiesForImages_completion___block_invoke_2(uint64_t result, uint64_t a2)
+id *__80__INRelevantShortcut_INImageProxyInjecting___injectProxiesForImages_completion___block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) setShortcut:a2];
+    return [result[4] setShortcut:a2];
   }
 
   return result;
 }
 
-uint64_t __80__INRelevantShortcut_INImageProxyInjecting___injectProxiesForImages_completion___block_invoke_3(uint64_t result, uint64_t a2)
+id *__80__INRelevantShortcut_INImageProxyInjecting___injectProxiesForImages_completion___block_invoke_3(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) setWatchTemplate:a2];
+    return [result[4] setWatchTemplate:a2];
   }
 
   return result;

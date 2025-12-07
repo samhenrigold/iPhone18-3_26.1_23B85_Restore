@@ -37,20 +37,20 @@
 
 - (FCTodayMarkAsSeenTransaction)initWithArticleID:(id)d articleVersion:(int64_t)version seenDate:(id)date
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dateCopy = date;
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "articleID"];
+    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "articleID"];
     *buf = 136315906;
-    v21 = "[FCTodayMarkAsSeenTransaction initWithArticleID:articleVersion:seenDate:]";
-    v22 = 2080;
-    v23 = "FCTodayMarkAsSeenTransaction.m";
-    v24 = 1024;
-    v25 = 35;
-    v26 = 2114;
-    v27 = v17;
+    v20 = "[FCTodayMarkAsSeenTransaction initWithArticleID:articleVersion:seenDate:]";
+    v21 = 2080;
+    v22 = "FCTodayMarkAsSeenTransaction.m";
+    v23 = 1024;
+    v24 = 35;
+    v25 = 2114;
+    v26 = v16;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (dateCopy)
@@ -66,22 +66,22 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "seenDate"];
+    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "seenDate"];
     *buf = 136315906;
-    v21 = "[FCTodayMarkAsSeenTransaction initWithArticleID:articleVersion:seenDate:]";
-    v22 = 2080;
-    v23 = "FCTodayMarkAsSeenTransaction.m";
-    v24 = 1024;
-    v25 = 36;
-    v26 = 2114;
-    v27 = v18;
+    v20 = "[FCTodayMarkAsSeenTransaction initWithArticleID:articleVersion:seenDate:]";
+    v21 = 2080;
+    v22 = "FCTodayMarkAsSeenTransaction.m";
+    v23 = 1024;
+    v24 = 36;
+    v25 = 2114;
+    v26 = v17;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v19.receiver = self;
-  v19.super_class = FCTodayMarkAsSeenTransaction;
-  v10 = [(FCTodayMarkAsSeenTransaction *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = FCTodayMarkAsSeenTransaction;
+  v10 = [(FCTodayMarkAsSeenTransaction *)&v18 init];
   if (v10)
   {
     v11 = [dCopy copy];
@@ -94,13 +94,12 @@ LABEL_6:
     v10->_seenDate = v13;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (void)performWithPrivateDataContext:(id)context
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696AF00];
   contextCopy = context;
   [v4 isMainThread];
@@ -110,11 +109,11 @@ LABEL_6:
     v7 = v6;
     articleID = [(FCTodayMarkAsSeenTransaction *)self articleID];
     seenDate = [(FCTodayMarkAsSeenTransaction *)self seenDate];
-    v15 = 138543618;
-    v16 = articleID;
-    v17 = 2114;
-    v18 = seenDate;
-    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "Will apply mark-as-seen transaction to reading history, articleID=%{public}@, seenDate=%{public}@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = articleID;
+    v16 = 2114;
+    v17 = seenDate;
+    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "Will apply mark-as-seen transaction to reading history, articleID=%{public}@, seenDate=%{public}@", &v14, 0x16u);
   }
 
   readingHistory = [contextCopy readingHistory];
@@ -123,8 +122,6 @@ LABEL_6:
   articleVersion = [(FCTodayMarkAsSeenTransaction *)self articleVersion];
   seenDate2 = [(FCTodayMarkAsSeenTransaction *)self seenDate];
   [readingHistory markArticleAsSeenWithArticleID:articleID2 articleVersion:articleVersion seenDate:seenDate2];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performWithTodayPrivateData:(id)data

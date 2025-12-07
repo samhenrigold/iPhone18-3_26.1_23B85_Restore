@@ -1,5 +1,6 @@
 @interface TransparencyGPBFieldDescriptor
 - ($BAE6C72A7C2DD05A9166108BDE5A7672)defaultValue;
+- (BOOL)isValidEnumValue:(int)value;
 - (TransparencyGPBFieldDescriptor)initWithFieldDescription:(void *)description descriptorFlags:(unsigned int)flags;
 - (id)textFormatName;
 - (unsigned)fieldType;
@@ -175,6 +176,14 @@ LABEL_24:
   }
 }
 
+- (BOOL)isValidEnumValue:(int)value
+{
+  v3 = *&value;
+  enumVerifier = [(TransparencyGPBEnumDescriptor *)self->enumDescriptor_ enumVerifier];
+
+  return enumVerifier(v3);
+}
+
 - ($BAE6C72A7C2DD05A9166108BDE5A7672)defaultValue
 {
   valueInt64 = self->defaultValue_.valueInt64;
@@ -184,7 +193,7 @@ LABEL_24:
     var6 = description->var6;
     if (var6 == 13 && valueInt64 == 0)
     {
-      return sub_1000EE0C0();
+      return sub_1000EE0C0(valueInt64, a2);
     }
 
     else

@@ -17,8 +17,10 @@
 - (double)_presentedViewFrameForViewWithSize:(uint64_t)size;
 - (double)groupViewModalReferenceScale:(id)scale isValid:(BOOL *)valid;
 - (id)_initWithPassGroupView:(void *)view groupsController:(void *)controller sizeProvider:(void *)provider context:;
+- (id)_initWithPassGroupView:(void *)view groupsController:(void *)controller sizeProvider:(void *)provider context:(char)context coordinated:;
 - (id)_passGroupsViewNavigationController;
 - (id)_passcodeButtonTitle;
+- (id)_trailingItemGroups;
 - (id)_updateEffectiveNavigationItems;
 - (id)configurationForNavigationItemHandle:(id)handle;
 - (id)connectTransitionCoordinatorToReceiver:(id)receiver;
@@ -28,16 +30,14 @@
 - (id)transitionCoordinatorWillInvertSender:(id)sender;
 - (int64_t)groupViewContentModeForFrontmostPassWhenPiled:(id)piled withDefaultContentMode:(int64_t)mode;
 - (int64_t)visibilityBackdropView:(id)view preferredStyleForTraitCollection:(id)collection;
-- (uint64_t)_initWithPassGroupView:(void *)view groupsController:(void *)controller sizeProvider:(void *)provider context:(char)context coordinated:;
 - (uint64_t)_isForegroundActive;
 - (uint64_t)_leadingItemGroups;
 - (uint64_t)_passFooterAlphaForPass:(char)pass postTransaction:;
 - (uint64_t)_passGroupsViewController;
-- (uint64_t)_trailingItemGroups;
-- (uint64_t)_updatePausedState;
 - (uint64_t)_visibilityDidChange;
 - (uint64_t)shouldOfferManualArchivalForPassWithUniqueID:(uint64_t)d;
 - (unint64_t)groupViewPassesSuppressedContent:(id)content;
+- (unsigned)_updatePausedState;
 - (void)_afterDataSourceContentLoadedUpdateNavigationItems;
 - (void)_applyNavigationItemConfiguration:(void *)configuration;
 - (void)_canPresentCreditDetailsViewControllerWithCompletion:(uint64_t)completion;
@@ -59,7 +59,7 @@
 - (void)_presentRewardsHubWithCompletion:(void *)completion;
 - (void)_pushViewControllerWhenNavigationAvailable:(char)available animated:(void *)animated completion:;
 - (void)_relinquishGroupView;
-- (void)_reloadNavigationItemsAnimated:(unsigned __int8 *)animated;
+- (void)_reloadNavigationItemsAnimated:(unsigned __int8 *)result;
 - (void)_requestModalPresentationFromButton:(uint64_t)button;
 - (void)_setFrontmostPass:(uint64_t)pass;
 - (void)_startReportingSessionForPassIfNecessary;
@@ -68,7 +68,7 @@
 - (void)_updateFingerDetection;
 - (void)_updateFooterAnimated:(uint64_t)animated;
 - (void)_updateNavigationItemAnimated:(uint64_t)animated;
-- (void)_updatePassFooterViewWithReload:(char)reload postTransaction:;
+- (void)_updatePassFooterViewWithReload:(uint64_t)reload postTransaction:;
 - (void)_updateTitlePassView;
 - (void)accountAutomaticPaymentsController:(id)controller didSchedulePayment:(id)payment;
 - (void)accountDidUpdate:(id)update;
@@ -180,7 +180,7 @@
   return result;
 }
 
-- (uint64_t)_initWithPassGroupView:(void *)view groupsController:(void *)controller sizeProvider:(void *)provider context:(char)context coordinated:
+- (id)_initWithPassGroupView:(void *)view groupsController:(void *)controller sizeProvider:(void *)provider context:(char)context coordinated:
 {
   v142[4] = *MEMORY[0x1E69E9840];
   v12 = a2;
@@ -237,7 +237,7 @@ LABEL_17:
       goto LABEL_41;
     }
 
-    ++v16;
+    v16 = (v16 + 1);
   }
 
   while (selfCopy != v16);
@@ -321,7 +321,7 @@ LABEL_39:
         goto LABEL_40;
       }
 
-      v27[385] = 0;
+      *(v27 + 385) = 0;
       v29 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
       v30 = dispatch_queue_create("com.apple.passkit.dashboard.session", v29);
       v31 = *(v28 + 1544);
@@ -750,7 +750,7 @@ void __111__PKDashboardPassGroupViewController__initWithPassGroupView_groupsCont
         [(PKPassGroupView *)v10 presentPassWithUniqueID:dCopy];
         if (self)
         {
-          v12 = [(PKDashboardPassGroupViewController *)self _initWithPassGroupView:v11 groupsController:v8 sizeProvider:0 context:0 coordinated:0];
+          v12 = [(PKDashboardPassGroupViewController *)&self->super.super.super.super.super.isa _initWithPassGroupView:v11 groupsController:v8 sizeProvider:0 context:0 coordinated:0];
           self = v12;
           if (v12)
           {
@@ -1106,6 +1106,7 @@ LABEL_20:
   v30[1] = *MEMORY[0x1E69E9840];
   if (animated)
   {
+    v2 = a2;
     viewIfLoaded = [animated viewIfLoaded];
     if (!viewIfLoaded)
     {
@@ -1228,7 +1229,7 @@ LABEL_28:
             *(animated + 1440) = 0;
           }
 
-          [(PKDashboardPassGroupViewController *)animated _updateNavigationItemAnimated:a2];
+          [(PKDashboardPassGroupViewController *)animated _updateNavigationItemAnimated:v2];
         }
 
         goto LABEL_35;
@@ -1269,9 +1270,9 @@ LABEL_17:
 
 - (void)viewWillLayoutSubviews
 {
-  v46.receiver = self;
-  v46.super_class = PKDashboardPassGroupViewController;
-  [(PKDashboardPassGroupViewController *)&v46 viewWillLayoutSubviews];
+  v51.receiver = self;
+  v51.super_class = PKDashboardPassGroupViewController;
+  [(PKDashboardPassGroupViewController *)&v51 viewWillLayoutSubviews];
   view = [(PKDashboardPassGroupViewController *)self view];
   [view safeAreaInsets];
   v5 = v4;
@@ -1287,11 +1288,12 @@ LABEL_17:
   v14 = *MEMORY[0x1E69DDCE0];
   v15 = *(MEMORY[0x1E69DDCE0] + 8);
   v16 = *(MEMORY[0x1E69DDCE0] + 16);
-  v43 = *(MEMORY[0x1E69DDCE0] + 24);
+  v48 = *(MEMORY[0x1E69DDCE0] + 24);
   if (self->_footerBackground)
   {
-    v41 = *(MEMORY[0x1E69DDCE0] + 8);
-    v42 = *MEMORY[0x1E69DDCE0];
+    v46 = *(MEMORY[0x1E69DDCE0] + 8);
+    v47 = *MEMORY[0x1E69DDCE0];
+    v44 = fmin(self->_defaultPasscodeButtonSize.width, v11 + -24.0);
     height = self->_defaultPasscodeButtonSize.height;
     remainder.origin.x = x;
     remainder.origin.y = v9;
@@ -1330,35 +1332,41 @@ LABEL_17:
     }
 
     [(_PKVisibilityBackdropView *)self->_footerBackground bounds];
-    remainder = v47;
-    CGRectDivide(v47, &remainder, &slice, v5, CGRectMaxYEdge);
+    remainder = v52;
+    CGRectDivide(v52, &remainder, &slice, v5, CGRectMaxYEdge);
     __asm { FMOV            V0.2D, #12.0 }
 
-    v29 = vaddq_f64(slice.origin, _Q0);
+    v29.n128_u64[1] = *&slice.origin.y;
+    v30.n128_u64[1] = *&slice.size.height;
+    v31 = vaddq_f64(slice.origin, _Q0);
     __asm { FMOV            V0.2D, #-24.0 }
 
     passcodeButton = self->_passcodeButton;
-    slice.origin = v29;
+    slice.origin = v31;
     slice.size = vaddq_f64(slice.size, _Q0);
-    PKSizeAlignedInRect();
+    v30.n128_u64[0] = *&v31.y;
+    v34.n128_u64[0] = *&slice.size.height;
+    _Q0.n128_f64[0] = v44;
+    v29.n128_f64[0] = height;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], _Q0, v29, v31, v30, slice.size, v34, v35);
     [(UIButton *)passcodeButton setFrame:?];
-    v15 = v41;
-    v14 = v42;
+    v15 = v46;
+    v14 = v47;
   }
 
   collectionView = [(PKDashboardPassGroupViewController *)self collectionView];
   [collectionView contentInset];
-  if (v15 != v36 || v14 != v33 || v43 != v35 || v16 != v34)
+  if (v15 != v40 || v14 != v37 || v48 != v39 || v16 != v38)
   {
-    [collectionView setContentInset:{v14, v15, v16, v43}];
+    [collectionView setContentInset:{v14, v15, v16, v48}];
   }
 }
 
 - (void)viewDidLayoutSubviews
 {
-  v18.receiver = self;
-  v18.super_class = PKDashboardPassGroupViewController;
-  [(PKDashboardPassGroupViewController *)&v18 viewDidLayoutSubviews];
+  v33.receiver = self;
+  v33.super_class = PKDashboardPassGroupViewController;
+  [(PKDashboardPassGroupViewController *)&v33 viewDidLayoutSubviews];
   collectionView = [(PKDashboardPassGroupViewController *)self collectionView];
   [collectionView safeAreaInsets];
   v5 = v4;
@@ -1367,16 +1375,22 @@ LABEL_17:
   superview = [(PKPassGroupView *)self->_passGroupView superview];
   [frontmostPassView frameOfVisibleFace];
   [superview convertRect:frontmostPassView fromView:?];
-
-  PKSizeRoundToPixel();
   v11 = v10;
+  v13 = v12;
+
+  PKSizeRoundToPixel(v11, v13);
+  v15 = v14;
   memset(&slice, 0, sizeof(slice));
   [(PKPassthroughView *)self->_portalledPassthroughView bounds];
-  v16 = v19;
-  CGRectDivide(v19, &slice, &v16, v5, CGRectMinYEdge);
+  v31 = v34;
+  CGRectDivide(v34, &slice, &v31, v5, CGRectMinYEdge);
   +[PKDashboardPassFlowLayout topMarginInFirstSection];
-  CGRectDivide(v16, &slice, &v16, v11 + v12, CGRectMinYEdge);
-  CGRectDivide(v16, &v16, &slice, v7, CGRectMaxYEdge);
+  CGRectDivide(v31, &slice, &v31, v15 + v16, CGRectMinYEdge);
+  CGRectDivide(v31, &v31, &slice, v7, CGRectMaxYEdge);
+  x = slice.origin.x;
+  y = slice.origin.y;
+  width = slice.size.width;
+  height = slice.size.height;
   configuration = [(PKPassFooterView *)self->_passFooterView configuration];
   pass = [configuration pass];
 
@@ -1386,8 +1400,13 @@ LABEL_17:
   }
 
   PKPassFrontFaceContentSize();
+  v23.n128_u64[0] = *&slice.size.height;
   passFooterView = self->_passFooterView;
-  PKSizeAlignedInRect();
+  v25.n128_f64[0] = x;
+  v26.n128_f64[0] = y;
+  v27.n128_f64[0] = width;
+  v28.n128_f64[0] = height;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v29, v23, v25, v26, v27, v28, v30);
   [(PKPassFooterView *)passFooterView setFrame:?];
 }
 
@@ -1847,7 +1866,7 @@ void __78__PKDashboardPassGroupViewController__adjustFrozenOffsetForDismissalToO
 
 - (void)_insertGroupView
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = atomic_load((self + 1552));
@@ -1856,7 +1875,7 @@ void __78__PKDashboardPassGroupViewController__adjustFrozenOffsetForDismissalToO
       collectionView = [self collectionView];
       v4 = [MEMORY[0x1E696AC88] indexPathForRow:0 inSection:0];
       v5 = [collectionView cellForItemAtIndexPath:v4];
-      if (v5 || (v20[0] = v4, [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(collectionView, "reloadItemsAtIndexPaths:", v6), v6, objc_msgSend(collectionView, "cellForItemAtIndexPath:", v4), (v5 = objc_claimAutoreleasedReturnValue()) != 0))
+      if (v5 || (v38[0] = v4, [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:1], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(collectionView, "reloadItemsAtIndexPaths:", v6), v6, objc_msgSend(collectionView, "cellForItemAtIndexPath:", v4), (v5 = objc_claimAutoreleasedReturnValue()) != 0))
       {
         v7 = v5;
         *(self + 1458) = 1;
@@ -1869,12 +1888,24 @@ void __78__PKDashboardPassGroupViewController__adjustFrozenOffsetForDismissalToO
           {
             [contentView addSubview:*(self + 1248)];
             [*(self + 1248) bounds];
-            [*(self + 1248) anchorPoint];
             v12 = v11;
             v14 = v13;
+            [*(self + 1248) anchorPoint];
+            v16 = v15;
+            v18 = v17;
             [contentView bounds];
-            PKSizeAlignedInRect();
-            [*(self + 1248) setCenter:{v15 + v12 * v16, v17 + v14 * v18}];
+            v20 = v19;
+            v22 = v21;
+            v24.n128_u64[0] = v23;
+            v26 = v25;
+            v27.n128_u64[0] = v12;
+            v28.n128_u64[0] = v14;
+            v29.n128_u64[0] = v20;
+            v30.n128_u64[0] = v22;
+            v31.n128_u64[0] = v24.n128_u64[0];
+            v32.n128_u64[0] = v26;
+            PKSizeAlignedInRect(1, v27, v28, v29, v30, v31, v32, v24);
+            [*(self + 1248) setCenter:{v33 + v16 * v34, v35 + v18 * v36}];
             layer = [*(self + 1248) layer];
             [layer removeAllAnimations];
 
@@ -2769,14 +2800,14 @@ LABEL_22:
 LABEL_19:
 }
 
-- (uint64_t)_updatePausedState
+- (unsigned)_updatePausedState
 {
   if (result)
   {
     v1 = result;
-    if (*(result + 1576) && *(result + 1459) == 1)
+    if (result[1576] && result[1459] == 1)
     {
-      v2 = atomic_load((result + 1552));
+      v2 = atomic_load(result + 1552);
     }
 
     else
@@ -2785,14 +2816,14 @@ LABEL_19:
     }
 
     v3 = v2 & 1;
-    if (*(result + 1578) != v3)
+    if (result[1578] != v3)
     {
-      *(result + 1578) = v3;
-      result = [*(result + 1248) isLoaned];
+      result[1578] = v3;
+      result = [*(result + 156) isLoaned];
       if (result)
       {
-        v4 = *(v1 + 1248);
-        v5 = *(v1 + 1578);
+        v4 = *(v1 + 156);
+        v5 = v1[1578];
 
         return [v4 setPaused:v5];
       }
@@ -2992,38 +3023,54 @@ LABEL_19:
   {
     v5 = *(a2 + 1832);
     v6 = [MEMORY[0x1E696AC88] indexPathForRow:0 inSection:0];
-    v22 = [v5 layoutAttributesForItemAtIndexPath:v6];
+    v40 = [v5 layoutAttributesForItemAtIndexPath:v6];
 
-    v7 = *(size + 80);
-    v8 = *(size + 88);
-    v10 = *(size + 96);
-    v9 = *(size + 104);
-    v11 = *(size + 112);
-    if (v11 != 1.0)
+    v8 = *(size + 16);
+    v7 = *(size + 24);
+    v9 = *(size + 80);
+    v10 = *(size + 88);
+    v12 = *(size + 96);
+    v11 = *(size + 104);
+    v13 = *(size + 112);
+    if (v13 != 1.0)
     {
-      v7 = v7 * v11;
-      v8 = v8 * v11;
-      v10 = v10 * v11;
-      v9 = v9 * v11;
+      v8 = v8 * v13;
+      v7 = v7 * v13;
+      v9 = v9 * v13;
+      v10 = v10 * v13;
+      v12 = v12 * v13;
+      v11 = v11 * v13;
     }
 
-    [v22 frame];
-    PKSizeAlignedInRect();
-    v16 = *(size + 80);
-    v17 = *(size + 96);
-    v18 = *(size + 48);
+    v14 = v8 - (v11 + v10);
+    v15 = v7 - (v12 + v9);
+    [v40 frame];
+    v17 = v16;
+    v19 = v18;
+    v21.n128_u64[0] = v20;
+    v23 = v22;
+    v24.n128_f64[0] = v14;
+    v25.n128_f64[0] = v15;
+    v26.n128_u64[0] = v17;
+    v27.n128_u64[0] = v19;
+    v28.n128_u64[0] = v21.n128_u64[0];
+    v29.n128_u64[0] = v23;
+    PKSizeAlignedInRect(1, v24, v25, v26, v27, v28, v29, v21);
+    v34 = *(size + 80);
+    v35 = *(size + 96);
+    v36 = *(size + 48);
     *(self + 64) = *(size + 64);
-    *(self + 80) = v16;
-    *(self + 96) = v17;
+    *(self + 80) = v34;
+    *(self + 96) = v35;
     *(self + 112) = *(size + 112);
-    v19 = *(size + 16);
+    v37 = *(size + 16);
     *self = *size;
-    *(self + 16) = v19;
+    *(self + 16) = v37;
     *(self + 32) = *(size + 32);
-    *(self + 48) = v18;
-    v20 = v13 - v7 + *(size + 40) * (v15 - (-v10 - v7));
-    *(self + 120) = v12 - v8 + *(size + 32) * (v14 - (-v9 - v8));
-    *(self + 128) = v20;
+    *(self + 48) = v36;
+    v38 = v31 - v9 + *(size + 40) * (v33 - (-v12 - v9));
+    *(self + 120) = v30 - v10 + *(size + 32) * (v32 - (-v11 - v10));
+    *(self + 128) = v38;
   }
 
   else
@@ -3281,11 +3328,12 @@ LABEL_19:
   }
 }
 
-- (void)_updatePassFooterViewWithReload:(char)reload postTransaction:
+- (void)_updatePassFooterViewWithReload:(uint64_t)reload postTransaction:
 {
   v47 = *MEMORY[0x1E69E9840];
   if (self)
   {
+    reloadCopy = reload;
     if ((reload & 1) == 0)
     {
       v6 = *(self + 1592);
@@ -3339,7 +3387,7 @@ LABEL_19:
     else
     {
       pass2 = [v9 pass];
-      v15 = [(PKDashboardPassGroupViewController *)self _passFooterAlphaForPass:pass2 postTransaction:reload];
+      v15 = [(PKDashboardPassGroupViewController *)self _passFooterAlphaForPass:pass2 postTransaction:reloadCopy];
       v16 = 1;
       v17 = 1;
     }
@@ -3555,21 +3603,18 @@ void __86__PKDashboardPassGroupViewController__updatePassFooterViewWithReload_po
   }
 }
 
-uint64_t __76__PKDashboardPassGroupViewController__startPostTransactionTimerIfNeccessary__block_invoke(uint64_t result)
+void __76__PKDashboardPassGroupViewController__startPostTransactionTimerIfNeccessary__block_invoke(uint64_t result)
 {
   v1 = *(result + 32);
   v2 = *(v1 + 1592);
   if (v2)
   {
-    v3 = result;
     *(v1 + 1592) = 0;
 
-    v4 = *(v3 + 32);
+    v4 = *(result + 32);
 
-    return [(PKDashboardPassGroupViewController *)v4 _updateDashboardAndFooterContentPostTransaction:?];
+    [(PKDashboardPassGroupViewController *)v4 _updateDashboardAndFooterContentPostTransaction:?];
   }
-
-  return result;
 }
 
 - (void)_updateDashboardAndFooterContentPostTransaction:(uint64_t)transaction
@@ -3642,19 +3687,19 @@ void __76__PKDashboardPassGroupViewController__startPostTransactionTimerIfNecces
   return paymentPassDataSource;
 }
 
-- (void)_reloadNavigationItemsAnimated:(unsigned __int8 *)animated
+- (void)_reloadNavigationItemsAnimated:(unsigned __int8 *)result
 {
-  if (animated)
+  if (result)
   {
-    v3 = atomic_load(animated + 1552);
+    v3 = atomic_load(result + 1552);
     if ((v3 & 1) == 0)
     {
-      if ([(PKDashboardPassGroupViewController *)animated _updateEffectiveNavigationItems])
+      if ([(PKDashboardPassGroupViewController *)result _updateEffectiveNavigationItems])
       {
-        [(PKDashboardPassGroupViewController *)animated _updateNavigationItemAnimated:a2];
+        [(PKDashboardPassGroupViewController *)result _updateNavigationItemAnimated:a2];
       }
 
-      [(PKDashboardPassGroupViewController *)animated _afterDataSourceContentLoadedUpdateNavigationItems];
+      [(PKDashboardPassGroupViewController *)result _afterDataSourceContentLoadedUpdateNavigationItems];
     }
   }
 }
@@ -3693,21 +3738,21 @@ void __62__PKDashboardPassGroupViewController__createLeadingItemGroups__block_in
 
 - (void)_dismiss
 {
-  if (self)
+  if (result)
   {
-    v2 = atomic_load((self + 1552));
-    if ((v2 & 1) == 0 && *(self + 1248) && (*(self + 1456) & 1) == 0)
+    v2 = atomic_load((result + 1552));
+    if ((v2 & 1) == 0 && *(result + 1248) && (*(result + 1456) & 1) == 0)
     {
       if (PKRunningInRemoteContext())
       {
 
-        [(PKDashboardPassGroupViewController *)self _requestModalPresentationFromButton:?];
+        [(PKDashboardPassGroupViewController *)result _requestModalPresentationFromButton:?];
       }
 
       else
       {
 
-        [(PKDashboardPassGroupViewController *)self _dismissWithVelocity:0.0 byDragging:?];
+        [(PKDashboardPassGroupViewController *)result _dismissWithVelocity:0.0 byDragging:?];
       }
     }
   }
@@ -3807,14 +3852,14 @@ void __63__PKDashboardPassGroupViewController__createTrailingItemGroups__block_i
   [(PKDashboardPassGroupViewController *)v2 reportEventForPassIfNecessary:v6];
 }
 
-- (uint64_t)_trailingItemGroups
+- (id)_trailingItemGroups
 {
-  if (*(result + 1432))
+  if (result[179])
   {
     v1 = result;
-    v2 = *(result + 1376);
+    v2 = result[172];
     v3 = [v2 count];
-    v4 = *(v1 + 1336);
+    v4 = v1[167];
     if (v3)
     {
       if (v4)
@@ -3824,26 +3869,26 @@ void __63__PKDashboardPassGroupViewController__createTrailingItemGroups__block_i
 
         if (!v6)
         {
-          [*(v1 + 1336) setBarButtonItems:v2];
+          [v1[167] setBarButtonItems:v2];
         }
       }
 
       else
       {
-        v7 = [objc_alloc(MEMORY[0x1E69DC720]) initWithBarButtonItems:v2 representativeItem:*(v1 + 1344)];
-        v8 = *(v1 + 1336);
-        *(v1 + 1336) = v7;
+        v7 = [objc_alloc(MEMORY[0x1E69DC720]) initWithBarButtonItems:v2 representativeItem:v1[168]];
+        v8 = v1[167];
+        v1[167] = v7;
       }
     }
 
     else
     {
-      *(v1 + 1336) = 0;
+      v1[167] = 0;
     }
 
-    v9 = *(v1 + 1424);
+    v9 = v1[178];
     v10 = [v9 count];
-    v11 = *(v1 + 1384);
+    v11 = v1[173];
     if (v10)
     {
       if (v11)
@@ -3853,21 +3898,21 @@ void __63__PKDashboardPassGroupViewController__createTrailingItemGroups__block_i
 
         if (!v13)
         {
-          [*(v1 + 1384) setBarButtonItems:v9];
+          [v1[173] setBarButtonItems:v9];
         }
       }
 
       else
       {
-        v14 = [objc_alloc(MEMORY[0x1E69DC720]) initWithBarButtonItems:v9 representativeItem:*(v1 + 1392)];
-        v15 = *(v1 + 1384);
-        *(v1 + 1384) = v14;
+        v14 = [objc_alloc(MEMORY[0x1E69DC720]) initWithBarButtonItems:v9 representativeItem:v1[174]];
+        v15 = v1[173];
+        v1[173] = v14;
       }
     }
 
     else
     {
-      *(v1 + 1384) = 0;
+      v1[173] = 0;
     }
 
     v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -3878,8 +3923,8 @@ void __63__PKDashboardPassGroupViewController__createTrailingItemGroups__block_i
     v21 = v16;
     v17 = v16;
     v18 = _Block_copy(aBlock);
-    v18[2](v18, *(v1 + 1384));
-    v18[2](v18, *(v1 + 1336));
+    (v18)[2](v18, v1[173]);
+    (v18)[2](v18, v1[167]);
     v19 = [v17 copy];
 
     return v19;
@@ -3893,11 +3938,11 @@ void __63__PKDashboardPassGroupViewController__createTrailingItemGroups__block_i
   return result;
 }
 
-uint64_t __57__PKDashboardPassGroupViewController__trailingItemGroups__block_invoke(uint64_t result, uint64_t a2)
+id *__57__PKDashboardPassGroupViewController__trailingItemGroups__block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;
@@ -4331,7 +4376,7 @@ LABEL_13:
 
   if (velocity > 0.0 && (a2 & 1) != 0)
   {
-    v5 = [(PKPGVTransitionContext *)velocity createForPanGestureWithPassContext:0 velocity:?];
+    v5 = [PKPGVTransitionContext createForPanGestureWithPassContext:velocity velocity:?];
   }
 
   else
@@ -4374,14 +4419,14 @@ LABEL_14:
 
 - (void)_presentPassDetailsAnimated:(uint64_t)animated action:
 {
-  if (self)
+  if (result)
   {
     if ((animated - 1) >= 0xB)
     {
       if (!animated)
       {
 
-        [(PKDashboardPassGroupViewController *)self presentPassDetailsAnimated:a2 completion:0];
+        [(PKDashboardPassGroupViewController *)result presentPassDetailsAnimated:a2 completion:0];
       }
     }
 
@@ -4394,7 +4439,7 @@ LABEL_14:
       v5[2] = __73__PKDashboardPassGroupViewController__presentPassDetailsAnimated_action___block_invoke;
       v5[3] = &__block_descriptor_40_e43_v16__0__PKPaymentPassDetailViewController_8l;
       v5[4] = animated;
-      [(PKDashboardPassGroupViewController *)self _presentPaymentPassDetailsAnimated:a2 completion:v5];
+      [(PKDashboardPassGroupViewController *)result _presentPaymentPassDetailsAnimated:a2 completion:v5];
     }
   }
 }
@@ -4623,7 +4668,7 @@ void __66__PKDashboardPassGroupViewController__displayPassAlertIfNecessary__bloc
 
 void __66__PKDashboardPassGroupViewController__displayPassAlertIfNecessary__block_invoke_3(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained && *(a1 + 48) == 1 && PKCanShowPaymentOfferCardBenefitInstallmentsEnablementAlert())
   {
@@ -4632,17 +4677,17 @@ void __66__PKDashboardPassGroupViewController__displayPassAlertIfNecessary__bloc
     {
       v4 = *(a1 + 32);
       *buf = 138412290;
-      v9 = v4;
+      v11 = v4;
       _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Presenting card benefit pay later enablement alert for pass %@", buf, 0xCu);
     }
 
-    v5 = PKCreateAlertCardBenefitPayLaterEnablement();
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __66__PKDashboardPassGroupViewController__displayPassAlertIfNecessary__block_invoke_237;
-    v6[3] = &unk_1E8010970;
-    v7 = *(a1 + 32);
-    [WeakRetained presentViewController:v5 animated:1 completion:v6];
+    v7 = PKCreateAlertCardBenefitPayLaterEnablement(v5, v6);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __66__PKDashboardPassGroupViewController__displayPassAlertIfNecessary__block_invoke_237;
+    v8[3] = &unk_1E8010970;
+    v9 = *(a1 + 32);
+    [WeakRetained presentViewController:v7 animated:1 completion:v8];
   }
 }
 
@@ -6229,11 +6274,11 @@ void __113__PKDashboardPassGroupViewController_presentCombinedActionsWithPayment
   }
 }
 
-uint64_t __113__PKDashboardPassGroupViewController_presentCombinedActionsWithPaymentDataProvider_webService_balanceModel_mode___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3)
+id *__113__PKDashboardPassGroupViewController_presentCombinedActionsWithPaymentDataProvider_webService_balanceModel_mode___block_invoke_2(id *result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    return [*(result + 32) presentViewController:a3 animated:1 completion:0];
+    return [result[4] presentViewController:a3 animated:1 completion:0];
   }
 
   return result;
@@ -6360,11 +6405,11 @@ void __105__PKDashboardPassGroupViewController_presentActionGroupsWithPaymentDat
   }
 }
 
-uint64_t __105__PKDashboardPassGroupViewController_presentActionGroupsWithPaymentDataProvider_balanceModel_webService___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3)
+id *__105__PKDashboardPassGroupViewController_presentActionGroupsWithPaymentDataProvider_balanceModel_webService___block_invoke_2(id *result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    return [*(result + 32) presentViewController:a3 animated:1 completion:0];
+    return [result[4] presentViewController:a3 animated:1 completion:0];
   }
 
   return result;
@@ -6804,7 +6849,7 @@ void __148__PKDashboardPassGroupViewController_presentManagePaymentPassNotificat
 
 - (void)presentCardNumbers
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = PKLogFacilityTypeGetObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -6812,55 +6857,56 @@ void __148__PKDashboardPassGroupViewController_presentManagePaymentPassNotificat
     _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Attempting to present virtual card and card numbers", buf, 2u);
   }
 
-  if (PKStoreDemoModeEnabled())
+  v4 = PKStoreDemoModeEnabled();
+  if (v4)
   {
-    v4 = PKUIStoreDemoGatewayViewController();
-    [(PKDashboardPassGroupViewController *)self presentViewController:v4 animated:1 completion:0];
+    v7 = PKUIStoreDemoGatewayViewController(v4, v5, v6);
+    [(PKDashboardPassGroupViewController *)self presentViewController:v7 animated:1 completion:0];
   }
 
   else
   {
-    v4 = self->_paymentPassDataSource;
-    if (!v4)
+    v7 = self->_paymentPassDataSource;
+    if (!v7)
     {
-      v5 = PKLogFacilityTypeGetObject();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v8 = PKLogFacilityTypeGetObject();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134349314;
         selfCopy2 = self;
-        v14 = 2080;
-        v15 = "[PKDashboardPassGroupViewController presentCardNumbers]";
-        _os_log_impl(&dword_1BD026000, v5, OS_LOG_TYPE_DEFAULT, "PKNavigationDashboardPassViewController (%{public}p): %s: Data source is nil", buf, 0x16u);
+        v17 = 2080;
+        v18 = "[PKDashboardPassGroupViewController presentCardNumbers]";
+        _os_log_impl(&dword_1BD026000, v8, OS_LOG_TYPE_DEFAULT, "PKNavigationDashboardPassViewController (%{public}p): %s: Data source is nil", buf, 0x16u);
       }
     }
 
-    v6 = self->_frontmostPaymentPass;
-    if (v6)
+    v9 = self->_frontmostPaymentPass;
+    if (v9)
     {
       objc_initWeak(buf, self);
-      v8[0] = MEMORY[0x1E69E9820];
-      v8[1] = 3221225472;
-      v8[2] = __56__PKDashboardPassGroupViewController_presentCardNumbers__block_invoke;
-      v8[3] = &unk_1E8011828;
-      objc_copyWeak(&v11, buf);
-      v9 = v4;
-      v10 = v6;
-      [(PKDashboardPaymentPassDataSource *)v9 executeAfterContentIsLoaded:v8];
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = __56__PKDashboardPassGroupViewController_presentCardNumbers__block_invoke;
+      v11[3] = &unk_1E8011828;
+      objc_copyWeak(&v14, buf);
+      v12 = v7;
+      v13 = v9;
+      [(PKDashboardPaymentPassDataSource *)v12 executeAfterContentIsLoaded:v11];
 
-      objc_destroyWeak(&v11);
+      objc_destroyWeak(&v14);
       objc_destroyWeak(buf);
     }
 
     else
     {
-      v7 = PKLogFacilityTypeGetObject();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v10 = PKLogFacilityTypeGetObject();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134349314;
         selfCopy2 = self;
-        v14 = 2080;
-        v15 = "[PKDashboardPassGroupViewController presentCardNumbers]";
-        _os_log_impl(&dword_1BD026000, v7, OS_LOG_TYPE_DEFAULT, "PKNavigationDashboardPassViewController (%{public}p): %s: Frontmost pass is nil", buf, 0x16u);
+        v17 = 2080;
+        v18 = "[PKDashboardPassGroupViewController presentCardNumbers]";
+        _os_log_impl(&dword_1BD026000, v10, OS_LOG_TYPE_DEFAULT, "PKNavigationDashboardPassViewController (%{public}p): %s: Frontmost pass is nil", buf, 0x16u);
       }
     }
   }
@@ -7501,7 +7547,7 @@ void __74__PKDashboardPassGroupViewController_presentBalanceDetailsWithCompletio
 
     else if (statementCopy)
     {
-      (*(statementCopy + 2))(statementCopy);
+      statementCopy[2](statementCopy);
     }
   }
 }
@@ -7758,7 +7804,7 @@ void __91__PKDashboardPassGroupViewController__canPresentCreditDetailsViewContro
 
     else if (typeCopy)
     {
-      (*(typeCopy + 2))(typeCopy);
+      typeCopy[2](typeCopy);
     }
   }
 }
@@ -8030,23 +8076,23 @@ void __87__PKDashboardPassGroupViewController_presentTransaction_forPaymentPass_
   dispatch_async(MEMORY[0x1E69E96A0], v11);
 }
 
-uint64_t __87__PKDashboardPassGroupViewController_presentTransaction_forPaymentPass_presentingView___block_invoke_4(uint64_t a1)
+uint64_t __87__PKDashboardPassGroupViewController_presentTransaction_forPaymentPass_presentingView___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  if (v2)
+  v17 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    v3 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 40);
-      v10 = 134349570;
-      v11 = v4;
-      v12 = 2080;
-      v13 = "[PKDashboardPassGroupViewController presentTransaction:forPaymentPass:presentingView:]_block_invoke_4";
-      v14 = 2112;
-      v15 = v2;
-      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "PKNavigationDashboardPassViewController (%{public}p): %s: Failed to fetch Bank Connect account: %@", &v10, 0x20u);
+      v5 = *(a1 + 40);
+      v11 = 134349570;
+      v12 = v5;
+      v13 = 2080;
+      v14 = "[PKDashboardPassGroupViewController presentTransaction:forPaymentPass:presentingView:]_block_invoke_4";
+      v15 = 2112;
+      v16 = v3;
+      _os_log_impl(&dword_1BD026000, v4, OS_LOG_TYPE_DEFAULT, "PKNavigationDashboardPassViewController (%{public}p): %s: Failed to fetch Bank Connect account: %@", &v11, 0x20u);
     }
 
     return (*(*(a1 + 64) + 16))();
@@ -8054,14 +8100,14 @@ uint64_t __87__PKDashboardPassGroupViewController_presentTransaction_forPaymentP
 
   else
   {
-    v6 = [*(a1 + 56) institution];
-    v7 = *(*(a1 + 72) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = v6;
+    v7 = [*(a1 + 56) institution];
+    v8 = *(*(a1 + 72) + 8);
+    v9 = *(v8 + 40);
+    *(v8 + 40) = v7;
 
-    v9 = *(*(a1 + 64) + 16);
+    v10 = *(*(a1 + 64) + 16);
 
-    return v9();
+    return v10();
   }
 }
 
@@ -9436,7 +9482,7 @@ uint64_t __72__PKDashboardPassGroupViewController_presentSearchWithQuery_complet
 
     else if (identifierCopy)
     {
-      (*(identifierCopy + 2))(identifierCopy);
+      identifierCopy[2](identifierCopy);
     }
   }
 }

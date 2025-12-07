@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)roamStatusAsString:(int)string;
 - (int)StringAsRoamStatus:(id)status;
 - (int)roamStatus;
 - (unint64_t)hash;
@@ -52,6 +53,83 @@
   }
 
   *&self->_has = *&self->_has & 0xFDFF | v3;
+}
+
+- (id)roamStatusAsString:(int)string
+{
+  v4 = @"SYS_ROAM_STATUS_NONE";
+  switch(string)
+  {
+    case -1:
+      goto LABEL_28;
+    case 0:
+      v4 = @"SYS_ROAM_STATUS_OFF";
+
+      break;
+    case 1:
+      v4 = @"SYS_ROAM_STATUS_ON";
+
+      break;
+    case 2:
+      v4 = @"SYS_ROAM_STATUS_BLINK";
+
+      break;
+    case 3:
+      v4 = @"SYS_ROAM_STATUS_OUT_OF_NEIGHBORHOOD";
+
+      break;
+    case 4:
+      v4 = @"SYS_ROAM_STATUS_OUT_OF_BLDG";
+
+      break;
+    case 5:
+      v4 = @"SYS_ROAM_STATUS_PREF_SYS";
+
+      break;
+    case 6:
+      v4 = @"SYS_ROAM_STATUS_AVAIL_SYS";
+
+      break;
+    case 7:
+      v4 = @"SYS_ROAM_STATUS_ALLIANCE_PARTNER";
+
+      break;
+    case 8:
+      v4 = @"SYS_ROAM_STATUS_PREMIUM_PARTNER";
+
+      break;
+    case 9:
+      v4 = @"SYS_ROAM_STATUS_FULL_SVC";
+
+      break;
+    case 10:
+      v4 = @"SYS_ROAM_STATUS_PARTIAL_SVC";
+
+      break;
+    case 11:
+      v4 = @"SYS_ROAM_STATUS_BANNER_ON";
+
+      break;
+    case 12:
+      v4 = @"SYS_ROAM_STATUS_BANNER_OFF";
+
+      break;
+    default:
+      if (string == 64)
+      {
+        v4 = @"SYS_ROAM_STATUS_HOME_SYSTEM";
+      }
+
+      else
+      {
+        v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_28:
+      }
+
+      break;
+  }
+
+  return v4;
 }
 
 - (int)StringAsRoamStatus:(id)status
@@ -671,7 +749,6 @@ LABEL_41:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x200) == 0)
@@ -691,7 +768,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  roamStatus = self->_roamStatus;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -706,7 +782,6 @@ LABEL_4:
   }
 
 LABEL_40:
-  hMCC = self->_hMCC;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -721,7 +796,6 @@ LABEL_5:
   }
 
 LABEL_41:
-  hMNC = self->_hMNC;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -736,7 +810,6 @@ LABEL_6:
   }
 
 LABEL_42:
-  rMCC = self->_rMCC;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -751,7 +824,6 @@ LABEL_7:
   }
 
 LABEL_43:
-  rMNC = self->_rMNC;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -766,113 +838,107 @@ LABEL_8:
   }
 
 LABEL_44:
-  rSID = self->_rSID;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_9:
-    rNID = self->_rNID;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_10:
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  v7 = self->_homeSidNidLists;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v44 objects:v50 count:16];
-  if (v8)
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v6 = self->_homeSidNidLists;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v30 objects:v36 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v45;
+    v8 = v7;
+    v9 = *v31;
     do
     {
-      for (i = 0; i != v9; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v45 != v10)
+        if (*v31 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v44 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v44 objects:v50 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v30 objects:v36 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v13 = self->_eplmnLists;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v40 objects:v49 count:16];
-  if (v14)
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v11 = self->_eplmnLists;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v26 objects:v35 count:16];
+  if (v12)
   {
-    v15 = v14;
-    v16 = *v41;
+    v13 = v12;
+    v14 = *v27;
     do
     {
-      for (j = 0; j != v15; j = j + 1)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v41 != v16)
+        if (*v27 != v14)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v11);
         }
 
-        v18 = *(*(&v40 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v40 objects:v49 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v26 objects:v35 count:16];
     }
 
-    while (v15);
+    while (v13);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v19 = self->_ehplmnLists;
-  v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v36 objects:v48 count:16];
-  if (v20)
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v16 = self->_ehplmnLists;
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v22 objects:v34 count:16];
+  if (v17)
   {
-    v21 = v20;
-    v22 = *v37;
+    v18 = v17;
+    v19 = *v23;
     do
     {
-      for (k = 0; k != v21; k = k + 1)
+      for (k = 0; k != v18; ++k)
       {
-        if (*v37 != v22)
+        if (*v23 != v19)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v16);
         }
 
-        v24 = *(*(&v36 + 1) + 8 * k);
         PBDataWriterWriteSubmessage();
       }
 
-      v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v36 objects:v48 count:16];
+      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v22 objects:v34 count:16];
     }
 
-    while (v21);
+    while (v18);
   }
 
-  v25 = self->_has;
-  if ((v25 & 0x400) != 0)
+  v21 = self->_has;
+  if ((v21 & 0x400) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
-    v25 = self->_has;
-    if ((v25 & 8) == 0)
+    v21 = self->_has;
+    if ((v21 & 8) == 0)
     {
 LABEL_33:
-      if ((v25 & 0x10) == 0)
+      if ((v21 & 0x10) == 0)
       {
         goto LABEL_35;
       }
@@ -881,17 +947,15 @@ LABEL_33:
     }
   }
 
-  else if ((v25 & 8) == 0)
+  else if ((v21 & 8) == 0)
   {
     goto LABEL_33;
   }
 
-  numSubs = self->_numSubs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_34:
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
   }
 

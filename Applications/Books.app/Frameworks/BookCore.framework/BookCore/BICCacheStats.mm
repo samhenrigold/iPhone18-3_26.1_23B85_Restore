@@ -28,7 +28,7 @@
     v9 = v8;
     v11 = dword_3427F0;
     v10 = *algn_3427F4;
-    v12 = BCImageCacheLog();
+    v12 = BCImageCacheLog(v8);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = v9 * v11 / v10 / 0x186A0;
@@ -66,18 +66,19 @@
   if (qword_3427F8)
   {
     identifier = [imageCopy identifier];
-    if (![identifier isEqualToString:qword_3427F8])
+    v8 = [identifier isEqualToString:qword_3427F8];
+    if (!v8)
     {
       if (!identifier || !qword_3427F8)
       {
         goto LABEL_16;
       }
 
-      commentCopy = BCImageCacheLog();
+      commentCopy = BCImageCacheLog(v8);
       if (os_log_type_enabled(commentCopy, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v22 = identifier;
+        v23 = identifier;
         _os_log_impl(&dword_0, commentCopy, OS_LOG_TYPE_INFO, "BICCacheStats: Skip %@", buf, 0xCu);
       }
 
@@ -95,41 +96,41 @@ LABEL_16:
     }
 
     commentCopy = [NSString stringWithFormat:@"ID_%@-Timestamp_%llu-%@.png", identifier, mach_absolute_time() * dword_3427F0 / *algn_3427F4 / 0xF4240, commentCopy];
-    v11 = objc_alloc_init(CIContext);
-    v12 = [[CIImage alloc] initWithCGImage:cGImage];
-    v13 = NSTemporaryDirectory();
-    v14 = [v13 stringByAppendingPathComponent:commentCopy];
-    v15 = [NSURL fileURLWithPath:v14];
+    v12 = objc_alloc_init(CIContext);
+    v13 = [[CIImage alloc] initWithCGImage:cGImage];
+    v14 = NSTemporaryDirectory();
+    v15 = [v14 stringByAppendingPathComponent:commentCopy];
+    v16 = [NSURL fileURLWithPath:v15];
 
-    v20 = 0;
-    [v11 writePNGRepresentationOfImage:v12 toURL:v15 format:kCIFormatRGBA8 colorSpace:objc_msgSend(v12 options:"colorSpace") error:{&__NSDictionary0__struct, &v20}];
-    v16 = v20;
-    v17 = BCImageCacheLog();
-    v18 = v17;
-    if (v16)
+    v21 = 0;
+    [v12 writePNGRepresentationOfImage:v13 toURL:v16 format:kCIFormatRGBA8 colorSpace:objc_msgSend(v13 options:"colorSpace") error:{&__NSDictionary0__struct, &v21}];
+    v17 = v21;
+    v18 = BCImageCacheLog(v17);
+    v19 = v18;
+    if (v17)
     {
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        absoluteString = [v15 absoluteString];
+        absoluteString = [v16 absoluteString];
         *buf = 138412802;
-        v22 = absoluteString;
-        v23 = 2112;
-        v24 = commentCopy;
-        v25 = 2112;
-        v26 = v16;
-        _os_log_error_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "BICCacheStats: Failed to %@ for %@, %@", buf, 0x20u);
+        v23 = absoluteString;
+        v24 = 2112;
+        v25 = commentCopy;
+        v26 = 2112;
+        v27 = v17;
+        _os_log_error_impl(&dword_0, v19, OS_LOG_TYPE_ERROR, "BICCacheStats: Failed to %@ for %@, %@", buf, 0x20u);
 LABEL_13:
       }
     }
 
-    else if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      absoluteString = [v15 absoluteString];
+      absoluteString = [v16 absoluteString];
       *buf = 138412546;
-      v22 = absoluteString;
-      v23 = 2112;
-      v24 = commentCopy;
-      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_INFO, "BICCacheStats: %@ for %@", buf, 0x16u);
+      v23 = absoluteString;
+      v24 = 2112;
+      v25 = commentCopy;
+      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_INFO, "BICCacheStats: %@ for %@", buf, 0x16u);
       goto LABEL_13;
     }
 
@@ -143,14 +144,15 @@ LABEL_17:
 + (void)incrementCounter:(id)counter
 {
   counterCopy = counter;
+  v4 = counterCopy;
   if (qword_3427F8)
   {
-    v4 = BCImageCacheLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = BCImageCacheLog(counterCopy);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v5 = 138412290;
-      v6 = counterCopy;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "BICCacheStats: Counter$%@,1", &v5, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "BICCacheStats: Counter$%@,1", &v6, 0xCu);
     }
   }
 }
@@ -158,16 +160,17 @@ LABEL_17:
 + (void)addToCounter:(id)counter amount:(unint64_t)amount
 {
   counterCopy = counter;
+  v6 = counterCopy;
   if (qword_3427F8)
   {
-    v6 = BCImageCacheLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = BCImageCacheLog(counterCopy);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = 138412546;
-      v8 = counterCopy;
-      v9 = 2048;
+      v8 = 138412546;
+      v9 = v6;
+      v10 = 2048;
       amountCopy = amount;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "BICCacheStats: Counter$%@,%llu", &v7, 0x16u);
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "BICCacheStats: Counter$%@,%llu", &v8, 0x16u);
     }
   }
 }
@@ -175,16 +178,17 @@ LABEL_17:
 + (void)logCounter:(id)counter amount:(unint64_t)amount
 {
   counterCopy = counter;
+  v6 = counterCopy;
   if (qword_3427F8)
   {
-    v6 = BCImageCacheLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = BCImageCacheLog(counterCopy);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = 138412546;
-      v8 = counterCopy;
-      v9 = 2048;
+      v8 = 138412546;
+      v9 = v6;
+      v10 = 2048;
       amountCopy = amount;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "BICCacheStats: Value$%@,%llu", &v7, 0x16u);
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "BICCacheStats: Value$%@,%llu", &v8, 0x16u);
     }
   }
 }

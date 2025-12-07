@@ -193,7 +193,6 @@
     objc_storeStrong(&mostRecentQuantity, 0);
   }
 
-  *MEMORY[0x277D85DE8];
   v7 = v34;
 
   return v7;
@@ -480,7 +479,6 @@
     v85 = 0;
   }
 
-  *MEMORY[0x277D85DE8];
   v11 = v85;
 
   return v11;
@@ -536,7 +534,6 @@
   MEMORY[0x277D82BD8](eventPersistenceDelegate);
   objc_storeStrong(&location, 0);
   objc_storeStrong(&array, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithStatistics:(id)statistics elapsedTime:(double)time
@@ -610,7 +607,6 @@
 
   [(NLSessionActivitySplitsAccumulator *)selfCopy _generateSplitsEventsIncludingPartials:1, v4];
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAccumulatingWithActivity:(id)activity elapsedTime:(double)time
@@ -790,7 +786,6 @@
 
   objc_storeStrong(&nl_currentActivityStartDate, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 uint64_t __50__NLSessionActivitySplitsAccumulator_recoverFrom___block_invoke(void *a1, void *a2, void *a3)

@@ -59,19 +59,19 @@
 
       if (!v17)
       {
-        v17 = SRLogCategoryAssets();
+        v17 = SRLogCategoryAssets(v18);
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           [SRAssetBundleVersion compare:];
         }
 
-        v18 = 1;
+        v19 = 1;
         goto LABEL_21;
       }
 
-      v18 = [v15 compare:v17];
+      v19 = [v15 compare:v17];
 
-      if (v18)
+      if (v19)
       {
         goto LABEL_22;
       }
@@ -82,59 +82,50 @@
       }
     }
 
-    v21 = SRLogCategoryAssets();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = SRLogCategoryAssets(v18);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [(SRAssetBundleVersion *)p_version compare:v21, v22, v23, v24, v25, v26, v27];
+      [(SRAssetBundleVersion *)p_version compare:v22, v23, v24, v25, v26, v27, v28];
     }
 
-    v18 = -1;
+    v19 = -1;
 LABEL_21:
   }
 
   else
   {
 LABEL_10:
-    v19 = [v7 count];
-    if (v19 == [v8 count])
+    v20 = [v7 count];
+    if (v20 == [v8 count])
     {
-      v18 = 0;
+      v19 = 0;
     }
 
     else
     {
-      v20 = [v7 count];
-      if (v20 < [v8 count])
+      v21 = [v7 count];
+      if (v21 < [v8 count])
       {
-        v18 = -1;
+        v19 = -1;
       }
 
       else
       {
-        v18 = 1;
+        v19 = 1;
       }
     }
   }
 
 LABEL_22:
 
-  return v18;
-}
-
-- (void)compare:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "malformed bundle version %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  return v19;
 }
 
 - (void)compare:(uint64_t)a3 .cold.2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, a2, a3, "Malformed bundle version %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_1(&dword_1AE58E000, a2, a3, "Malformed bundle version %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

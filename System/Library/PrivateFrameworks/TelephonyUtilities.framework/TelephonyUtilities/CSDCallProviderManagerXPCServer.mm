@@ -9,6 +9,7 @@
 - (void)invalidate;
 - (void)launchAppForDialRequest:(id)request reply:(id)reply;
 - (void)providersByIdentifier:(id)identifier;
+- (void)providersChangedForProviderManager:(id)manager withValidKeychain:(BOOL)keychain;
 - (void)registerClient:(id)client;
 - (void)sortedProviders:(id)providers;
 - (void)unregisterClient:(id)client;
@@ -128,12 +129,12 @@
   queue = [(CSDCallProviderManagerXPCServer *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = identifierCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "callProviderIdentifier: %@", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "callProviderIdentifier: %@", &v9, 0xCu);
   }
 
   providerManager = [(CSDCallProviderManagerXPCServer *)self providerManager];
@@ -146,12 +147,12 @@
   queue = [(CSDCallProviderManagerXPCServer *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = identifierCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "callProviderIdentifier: %@", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "callProviderIdentifier: %@", &v9, 0xCu);
   }
 
   providerManager = [(CSDCallProviderManagerXPCServer *)self providerManager];
@@ -165,12 +166,12 @@
   queue = [(CSDCallProviderManagerXPCServer *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100004778(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = requestCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "dialRequest: %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = requestCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "dialRequest: %@", &v12, 0xCu);
   }
 
   providerManager = [(CSDCallProviderManagerXPCServer *)self providerManager];
@@ -183,18 +184,18 @@
   queue = [(CSDCallProviderManagerXPCServer *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Fetching sortedProviders", v11, 2u);
+    *v12 = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Fetching sortedProviders", v12, 2u);
   }
 
   providerManager = [(CSDCallProviderManagerXPCServer *)self providerManager];
   clientManager = [(CSDCallProviderManagerXPCServer *)self clientManager];
   currentClient = [clientManager currentClient];
-  v10 = [providerManager sortedProvidersForRemoteClients:currentClient != 0];
-  providersCopy[2](providersCopy, v10);
+  v11 = [providerManager sortedProvidersForRemoteClients:currentClient != 0];
+  providersCopy[2](providersCopy, v11);
 }
 
 - (void)defaultAppProvider:(id)provider
@@ -203,18 +204,18 @@
   queue = [(CSDCallProviderManagerXPCServer *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Fetching default app provider", v11, 2u);
+    *v12 = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Fetching default app provider", v12, 2u);
   }
 
   providerManager = [(CSDCallProviderManagerXPCServer *)self providerManager];
   clientManager = [(CSDCallProviderManagerXPCServer *)self clientManager];
   currentClient = [clientManager currentClient];
-  v10 = [providerManager defaultAppProviderForRemoteClients:currentClient != 0];
-  providerCopy[2](providerCopy, v10);
+  v11 = [providerManager defaultAppProviderForRemoteClients:currentClient != 0];
+  providerCopy[2](providerCopy, v11);
 }
 
 - (void)registerClient:(id)client
@@ -243,6 +244,21 @@
   v8 = clientCopy;
   v6 = clientCopy;
   dispatch_async(queue, v7);
+}
+
+- (void)providersChangedForProviderManager:(id)manager withValidKeychain:(BOOL)keychain
+{
+  v5 = [(CSDCallProviderManagerXPCServer *)self queue:manager];
+  dispatch_assert_queue_V2(v5);
+
+  clientManager = [(CSDCallProviderManagerXPCServer *)self clientManager];
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_1000D7BD4;
+  v8[3] = &unk_10061B098;
+  v8[4] = self;
+  v7 = NSStringFromSelector("updateProvidersByIdentifier:localProvidersByIdentifier:pairedHostDeviceProvidersByIdentifier:");
+  [clientManager performBlockOnClients:v8 coalescedByIdentifier:v7];
 }
 
 @end

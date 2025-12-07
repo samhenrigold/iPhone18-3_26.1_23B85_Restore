@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)motionStateAsString:(int)string;
 - (int)StringAsMotionState:(id)state;
 - (int)motionState;
 - (unint64_t)hash;
@@ -99,6 +100,21 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)motionStateAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100318948 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsMotionState:(id)state
@@ -419,85 +435,80 @@ LABEL_30:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 8) != 0)
   {
-    durationBeforeSwitch = self->_durationBeforeSwitch;
     PBDataWriterWriteUint32Field();
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v8 = self->_oldBeamInfos;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
-  if (v9)
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v6 = self->_oldBeamInfos;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v32;
+    v8 = v7;
+    v9 = *v22;
     do
     {
-      for (i = 0; i != v10; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v32 != v11)
+        if (*v22 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v31 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v14 = self->_thenewBeamInfos;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v27 objects:v35 count:16];
-  if (v15)
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v11 = self->_thenewBeamInfos;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  if (v12)
   {
-    v16 = v15;
-    v17 = *v28;
+    v13 = v12;
+    v14 = *v18;
     do
     {
-      for (j = 0; j != v16; j = j + 1)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v28 != v17)
+        if (*v18 != v14)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v11);
         }
 
-        v19 = *(*(&v27 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
-    while (v16);
+    while (v13);
   }
 
-  v20 = self->_has;
-  if ((v20 & 0x10) != 0)
+  v16 = self->_has;
+  if ((v16 & 0x10) != 0)
   {
-    motionState = self->_motionState;
     PBDataWriterWriteInt32Field();
-    v20 = self->_has;
-    if ((v20 & 4) == 0)
+    v16 = self->_has;
+    if ((v16 & 4) == 0)
     {
 LABEL_21:
-      if ((v20 & 2) == 0)
+      if ((v16 & 2) == 0)
       {
         goto LABEL_22;
       }
@@ -511,13 +522,12 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  dopplerEstimate = self->_dopplerEstimate;
   PBDataWriterWriteUint32Field();
-  v20 = self->_has;
-  if ((v20 & 2) == 0)
+  v16 = self->_has;
+  if ((v16 & 2) == 0)
   {
 LABEL_22:
-    if ((v20 & 0x20) == 0)
+    if ((v16 & 0x20) == 0)
     {
       goto LABEL_23;
     }
@@ -526,13 +536,12 @@ LABEL_22:
   }
 
 LABEL_32:
-  bandInd = self->_bandInd;
   PBDataWriterWriteUint32Field();
-  v20 = self->_has;
-  if ((v20 & 0x20) == 0)
+  v16 = self->_has;
+  if ((v16 & 0x20) == 0)
   {
 LABEL_23:
-    if ((v20 & 0x40) == 0)
+    if ((v16 & 0x40) == 0)
     {
       goto LABEL_25;
     }
@@ -541,12 +550,10 @@ LABEL_23:
   }
 
 LABEL_33:
-  numSubs = self->_numSubs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_24:
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
   }
 
@@ -558,7 +565,6 @@ LABEL_25:
 
   if ((*&self->_has & 0x80000000) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -848,7 +854,6 @@ LABEL_25:
     goto LABEL_49;
   }
 
-  v5 = equalCopy[72];
   if (*&self->_has)
   {
     if ((equalCopy[72] & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -891,7 +896,6 @@ LABEL_25:
   }
 
   has = self->_has;
-  v9 = equalCopy[72];
   if ((has & 0x10) != 0)
   {
     if ((equalCopy[72] & 0x10) == 0 || self->_motionState != *(equalCopy + 7))
@@ -963,32 +967,32 @@ LABEL_25:
     if (![(NSData *)plmn isEqual:?])
     {
 LABEL_49:
-      v12 = 0;
+      v10 = 0;
       goto LABEL_50;
     }
 
     has = self->_has;
   }
 
-  v11 = equalCopy[72];
+  v9 = equalCopy[72];
   if (has < 0)
   {
-    if ((v11 & 0x80000000) == 0 || self->_subsId != *(equalCopy + 17))
+    if ((v9 & 0x80000000) == 0 || self->_subsId != *(equalCopy + 17))
     {
       goto LABEL_49;
     }
 
-    v12 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v12 = v11 >= 0;
+    v10 = v9 >= 0;
   }
 
 LABEL_50:
 
-  return v12;
+  return v10;
 }
 
 - (unint64_t)hash

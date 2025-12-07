@@ -22,7 +22,7 @@
   swift_unknownObjectRelease();
   sub_29E08EDD4();
 
-  sub_29DE93B3C(&v5);
+  sub_29DE93B3C(v5);
 }
 
 - (void)cancelButtonTapped:(id)tapped
@@ -45,7 +45,7 @@
   {
   }
 
-  sub_29DE93B3C(&v8);
+  sub_29DE93B3C(v8);
 }
 
 - (_TtC24MenstrualCyclesAppPlugin46MenstrualCyclesOnboardingWelcomeViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

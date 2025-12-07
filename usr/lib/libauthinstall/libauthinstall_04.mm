@@ -1,7 +1,7 @@
 id MantaMCURestoreInfoCoreCreateRequest(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v5 = 0;
-  v77 = *MEMORY[0x29EDCA608];
+  v76 = *MEMORY[0x29EDCA608];
   if (!a1)
   {
     v7 = 0;
@@ -10,7 +10,7 @@ id MantaMCURestoreInfoCoreCreateRequest(void *a1, uint64_t a2, uint64_t a3, void
     v10 = 0;
     v11 = 0;
     v12 = 0;
-    v72 = 0;
+    v71 = 0;
     v13 = 0;
     v14 = 0;
     goto LABEL_18;
@@ -22,7 +22,7 @@ id MantaMCURestoreInfoCoreCreateRequest(void *a1, uint64_t a2, uint64_t a3, void
   v10 = 0;
   v11 = 0;
   v12 = 0;
-  v72 = 0;
+  v71 = 0;
   v13 = 0;
   v14 = 0;
   if (!a2)
@@ -33,7 +33,7 @@ id MantaMCURestoreInfoCoreCreateRequest(void *a1, uint64_t a2, uint64_t a3, void
   v5 = a1;
   v16 = [[MRULogHelper alloc] initWithOptions:v5 logFunction:a2 logContext:a3];
   v7 = [v5 objectForKeyedSubscript:@"DeviceInfo"];
-  v72 = v16;
+  v71 = v16;
   if (!v7)
   {
     v8 = 0;
@@ -69,19 +69,19 @@ LABEL_16:
   }
 
   [v17 firstObject];
-  v71 = v73 = 0;
-  v9 = [[MRUPersonalizationInfo alloc] initWithOptions:v71 error:&v73];
-  v18 = v73;
+  v70 = v72 = 0;
+  v9 = [[MRUPersonalizationInfo alloc] initWithOptions:v70 error:&v72];
+  v18 = v72;
   v14 = v18;
   if (!v9)
   {
     v11 = 0;
     v12 = 0;
-    v8 = v71;
+    v8 = v70;
     goto LABEL_18;
   }
 
-  v70 = v18;
+  v69 = v18;
   v19 = [v7 objectForKeyedSubscript:@"LocalSigningID"];
   if (v19)
   {
@@ -96,157 +96,157 @@ LABEL_16:
   if (([v12 BOOLValue] & 1) == 0)
   {
     v11 = [MEMORY[0x29EDB8E00] dictionary];
-    v23 = [(MRUPersonalizationInfo *)v9 ticketName];
-    v24 = [@"@" stringByAppendingString:v23];
-    [v11 setObject:MEMORY[0x29EDB8EB0] forKeyedSubscript:v24];
+    v22 = [(MRUPersonalizationInfo *)v9 ticketName];
+    v23 = [@"@" stringByAppendingString:v22];
+    [v11 setObject:MEMORY[0x29EDB8EB0] forKeyedSubscript:v23];
 
-    v25 = MEMORY[0x29EDBA070];
+    v24 = MEMORY[0x29EDBA070];
+    v62 = [(MRUPersonalizationInfo *)v9 hardwareInfo];
+    v25 = [v24 numberWithUnsignedInt:{objc_msgSend(v62, "boardID")}];
+    v26 = [(MRUPersonalizationInfo *)v9 boardIDPropertyName];
+    [v11 setObject:v25 forKeyedSubscript:v26];
+
+    v27 = MEMORY[0x29EDBA070];
     v63 = [(MRUPersonalizationInfo *)v9 hardwareInfo];
-    v26 = [v25 numberWithUnsignedInt:{objc_msgSend(v63, "boardID")}];
-    v27 = [(MRUPersonalizationInfo *)v9 boardIDPropertyName];
-    [v11 setObject:v26 forKeyedSubscript:v27];
+    v28 = [v27 numberWithUnsignedInt:{objc_msgSend(v63, "chipID")}];
+    v29 = [(MRUPersonalizationInfo *)v9 chipIDPropertyName];
+    [v11 setObject:v28 forKeyedSubscript:v29];
 
-    v28 = MEMORY[0x29EDBA070];
+    v30 = MEMORY[0x29EDBA070];
     v64 = [(MRUPersonalizationInfo *)v9 hardwareInfo];
-    v29 = [v28 numberWithUnsignedInt:{objc_msgSend(v64, "chipID")}];
-    v30 = [(MRUPersonalizationInfo *)v9 chipIDPropertyName];
-    [v11 setObject:v29 forKeyedSubscript:v30];
+    v31 = [v30 numberWithUnsignedLongLong:{objc_msgSend(v64, "ecid")}];
+    v32 = [(MRUPersonalizationInfo *)v9 ecidPropertyName];
+    [v11 setObject:v31 forKeyedSubscript:v32];
 
-    v31 = MEMORY[0x29EDBA070];
+    v33 = [(MRUPersonalizationInfo *)v9 nonce];
+    v34 = [(MRUPersonalizationInfo *)v9 noncePropertyName];
+    [v11 setObject:v33 forKeyedSubscript:v34];
+
     v65 = [(MRUPersonalizationInfo *)v9 hardwareInfo];
-    v32 = [v31 numberWithUnsignedLongLong:{objc_msgSend(v65, "ecid")}];
-    v33 = [(MRUPersonalizationInfo *)v9 ecidPropertyName];
-    [v11 setObject:v32 forKeyedSubscript:v33];
+    if ([v65 productionStatus])
+    {
+      v35 = MEMORY[0x29EDB8EB0];
+    }
 
-    v34 = [(MRUPersonalizationInfo *)v9 nonce];
-    v35 = [(MRUPersonalizationInfo *)v9 noncePropertyName];
-    [v11 setObject:v34 forKeyedSubscript:v35];
+    else
+    {
+      v35 = MEMORY[0x29EDB8EA8];
+    }
 
+    v36 = [(MRUPersonalizationInfo *)v9 productionModePropertyName];
+    [v11 setObject:v35 forKeyedSubscript:v36];
+
+    v37 = MEMORY[0x29EDBA070];
     v66 = [(MRUPersonalizationInfo *)v9 hardwareInfo];
-    if ([v66 productionStatus])
-    {
-      v36 = MEMORY[0x29EDB8EB0];
-    }
+    v38 = [v37 numberWithUnsignedInt:{objc_msgSend(v66, "securityDomain")}];
+    v39 = [(MRUPersonalizationInfo *)v9 securityDomainPropertyName];
+    [v11 setObject:v38 forKeyedSubscript:v39];
 
-    else
-    {
-      v36 = MEMORY[0x29EDB8EA8];
-    }
-
-    v37 = [(MRUPersonalizationInfo *)v9 productionModePropertyName];
-    [v11 setObject:v36 forKeyedSubscript:v37];
-
-    v38 = MEMORY[0x29EDBA070];
     v67 = [(MRUPersonalizationInfo *)v9 hardwareInfo];
-    v39 = [v38 numberWithUnsignedInt:{objc_msgSend(v67, "securityDomain")}];
-    v40 = [(MRUPersonalizationInfo *)v9 securityDomainPropertyName];
-    [v11 setObject:v39 forKeyedSubscript:v40];
-
-    v68 = [(MRUPersonalizationInfo *)v9 hardwareInfo];
-    if ([v68 securityMode])
+    if ([v67 securityMode])
     {
-      v41 = MEMORY[0x29EDB8EB0];
+      v40 = MEMORY[0x29EDB8EB0];
     }
 
     else
     {
-      v41 = MEMORY[0x29EDB8EA8];
+      v40 = MEMORY[0x29EDB8EA8];
     }
 
-    v42 = [(MRUPersonalizationInfo *)v9 securityModePropertyName];
-    [v11 setObject:v41 forKeyedSubscript:v42];
+    v41 = [(MRUPersonalizationInfo *)v9 securityModePropertyName];
+    [v11 setObject:v40 forKeyedSubscript:v41];
 
-    v43 = [(MRUPersonalizationInfo *)v9 objectName];
-    v69 = v43;
-    if ([v43 isEqualToString:@"RestoreRTKitOS"])
+    v42 = [(MRUPersonalizationInfo *)v9 objectName];
+    v68 = v42;
+    if ([v42 isEqualToString:@"RestoreRTKitOS"])
     {
-      v44 = &kMantaFTABSubfileRRKO;
+      v43 = &kMantaFTABSubfileRRKO;
     }
 
     else
     {
-      if (![v43 isEqualToString:@"RTKitOS"])
+      if (![v42 isEqualToString:@"RTKitOS"])
       {
         goto LABEL_37;
       }
 
-      v44 = &kMantaFTABSubfileRKOS;
+      v43 = &kMantaFTABSubfileRKOS;
     }
 
-    v45 = *v44;
-    if (v45)
+    v44 = *v43;
+    if (v44)
     {
-      v46 = v45;
-      [(MRULogHelper *)v72 verboseLog:@"[%@]: %@ is FTAB subfile with tag '%@', extracting\n", @"MantaMRI", v43, v45];
-      v47 = [[MantaFTABFile alloc] initWithData:v13];
-      if (v47)
+      v45 = v44;
+      [(MRULogHelper *)v71 verboseLog:@"[%@]: %@ is FTAB subfile with tag '%@', extracting\n", @"MantaMRI", v42, v44];
+      v46 = [[MantaFTABFile alloc] initWithData:v13];
+      if (v46)
       {
-        v48 = v47;
-        v62 = v46;
-        v49 = [(MantaFTABFile *)v47 subfileWithTag:v46];
-        if (v49)
+        v47 = v46;
+        v61 = v45;
+        v48 = [(MantaFTABFile *)v46 subfileWithTag:v45];
+        if (v48)
         {
-          v50 = v49;
-          v51 = [MEMORY[0x29EDB8DA0] dataWithBytes:objc_msgSend(v49 length:{"dataPointer"), objc_msgSend(v49, "dataLength")}];
+          v49 = v48;
+          v50 = [MEMORY[0x29EDB8DA0] dataWithBytes:objc_msgSend(v48 length:{"dataPointer"), objc_msgSend(v48, "dataLength")}];
 
-          [(MRULogHelper *)v72 verboseLog:@"[%@]: Extracted %@ from FTAB", @"MantaMRI", v69];
-          v13 = v51;
+          [(MRULogHelper *)v71 verboseLog:@"[%@]: Extracted %@ from FTAB", @"MantaMRI", v68];
+          v13 = v50;
 LABEL_38:
           ccsha384_di();
           [v13 length];
           [v13 bytes];
           ccdigest();
-          v74[0] = @"Digest";
-          v61 = [MEMORY[0x29EDB8DA0] dataWithBytes:v76 length:48];
-          v75[0] = v61;
-          v74[1] = @"EPRO";
-          v60 = [(MRUPersonalizationInfo *)v9 hardwareInfo];
-          v52 = [v60 productionStatus];
-          v53 = MEMORY[0x29EDB8EA8];
-          v54 = MEMORY[0x29EDB8EB0];
-          if (v52)
+          v73[0] = @"Digest";
+          v60 = [MEMORY[0x29EDB8DA0] dataWithBytes:v75 length:48];
+          v74[0] = v60;
+          v73[1] = @"EPRO";
+          v59 = [(MRUPersonalizationInfo *)v9 hardwareInfo];
+          v51 = [v59 productionStatus];
+          v52 = MEMORY[0x29EDB8EA8];
+          v53 = MEMORY[0x29EDB8EB0];
+          if (v51)
           {
-            v55 = MEMORY[0x29EDB8EB0];
+            v54 = MEMORY[0x29EDB8EB0];
           }
 
           else
           {
-            v55 = MEMORY[0x29EDB8EA8];
+            v54 = MEMORY[0x29EDB8EA8];
           }
 
-          v75[1] = v55;
-          v74[2] = @"ESEC";
-          v56 = [(MRUPersonalizationInfo *)v9 hardwareInfo];
-          if ([v56 securityMode])
+          v74[1] = v54;
+          v73[2] = @"ESEC";
+          v55 = [(MRUPersonalizationInfo *)v9 hardwareInfo];
+          if ([v55 securityMode])
           {
-            v57 = v54;
+            v56 = v53;
           }
 
           else
           {
-            v57 = v53;
+            v56 = v52;
           }
 
-          v74[3] = @"Trusted";
-          v75[2] = v57;
-          v75[3] = v54;
-          v58 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v75 forKeys:v74 count:4];
-          v59 = [(MRUPersonalizationInfo *)v9 tag];
-          [v11 setObject:v58 forKeyedSubscript:v59];
+          v73[3] = @"Trusted";
+          v74[2] = v56;
+          v74[3] = v53;
+          v57 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v74 forKeys:v73 count:4];
+          v58 = [(MRUPersonalizationInfo *)v9 tag];
+          [v11 setObject:v57 forKeyedSubscript:v58];
 
           v11 = v11;
           v20 = v11;
 LABEL_20:
-          v16 = v72;
+          v16 = v71;
           goto LABEL_21;
         }
       }
 
-      v14 = v70;
-      v8 = v71;
+      v14 = v69;
+      v8 = v70;
 LABEL_18:
-      v70 = v14;
-      v71 = v8;
+      v69 = v14;
+      v70 = v8;
       v20 = 0;
       if (a4)
       {
@@ -257,7 +257,7 @@ LABEL_18:
     }
 
 LABEL_37:
-    v62 = 0;
+    v61 = 0;
     goto LABEL_38;
   }
 
@@ -265,27 +265,26 @@ LABEL_37:
   v20 = MEMORY[0x29EDB8EA0];
 LABEL_21:
 
-  v21 = *MEMORY[0x29EDCA608];
   return v20;
 }
 
 uint64_t RoseRestoreHost::create@<X0>(RoseRestoreHost *this@<X0>, const __CFString *a2@<X1>, ACFURestoreHost **a3@<X8>)
 {
   LogInstance = ACFULogging::getLogInstance(this);
-  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: RoseUpdater Version: %s\n", v8, v9, v10, v11, v12, "RoseRestoreHost");
-  v13 = operator new(0xF8uLL);
-  ACFURestoreHost::ACFURestoreHost(v13);
-  *v13 = &unk_2A1EE8AD0;
-  *(v13 + 29) = 0;
-  *(v13 + 30) = 0;
-  *a3 = v13;
-  result = RoseRestoreHost::init(v13, this, a2);
+  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: RoseUpdater Version: %s\n", "RoseRestoreHost", "create", "RoseUpdater-115~31852");
+  v7 = operator new(0xF8uLL);
+  ACFURestoreHost::ACFURestoreHost(v7);
+  *v7 = &unk_2A1EE8AD0;
+  *(v7 + 29) = 0;
+  *(v7 + 30) = 0;
+  *a3 = v7;
+  result = RoseRestoreHost::init(v7, this, a2);
   if ((result & 1) == 0)
   {
     *a3 = 0;
-    v15 = *(*v13 + 24);
+    v9 = *(*v7 + 24);
 
-    return v15(v13);
+    return v9(v7);
   }
 
   return result;
@@ -370,38 +369,38 @@ void RoseRestoreHost::~RoseRestoreHost(RoseRestoreHost *this)
 
 uint64_t RoseRestoreHost::init(RoseRestoreHost *this, CFTypeRef cf, const __CFString *a3)
 {
-  v48[1] = *MEMORY[0x29EDCA608];
+  v47[1] = *MEMORY[0x29EDCA608];
   if (!cf || (v5 = this, v6 = CFGetTypeID(cf), this = CFDictionaryGetTypeID(), v6 != this))
   {
     RoseRestoreHost::init(this);
-    goto LABEL_45;
+    return 0;
   }
 
   Value = CFDictionaryGetValue(cf, @"DeviceInfo");
   if (!Value || (v8 = Value, v9 = CFGetTypeID(Value), Value = CFDictionaryGetTypeID(), v9 != Value))
   {
     RoseRestoreHost::init(Value);
-    goto LABEL_45;
+    return 0;
   }
 
   TypeID = CFDictionaryGetValue(v8, @"Rap,ChipID");
   if (!TypeID || (v11 = TypeID, v12 = CFGetTypeID(TypeID), TypeID = CFDataGetTypeID(), v12 != TypeID))
   {
     RoseRestoreHost::init(TypeID);
-    goto LABEL_45;
+    return 0;
   }
 
   Length = CFDataGetLength(v11);
   if (Length != 2)
   {
     RoseRestoreHost::init(Length);
-    goto LABEL_45;
+    return 0;
   }
 
   BytePtr = CFDataGetBytePtr(v11);
-  RoseCapabilities::create(*BytePtr, &v42);
-  v15 = v42;
-  v42 = 0uLL;
+  RoseCapabilities::create(&v41, *BytePtr);
+  v15 = v41;
+  v41 = 0uLL;
   v16 = *(v5 + 30);
   *(v5 + 232) = v15;
   if (!v16)
@@ -415,25 +414,23 @@ uint64_t RoseRestoreHost::init(RoseRestoreHost *this, CFTypeRef cf, const __CFSt
   }
 
   std::__shared_weak_count::__release_shared[abi:ne200100](v16);
-  v16 = *(&v42 + 1);
-  if (*(&v42 + 1))
+  v16 = *(&v41 + 1);
+  if (*(&v41 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v42 + 1));
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v41 + 1));
   }
 
   if (!*(v5 + 29))
   {
 LABEL_20:
     RoseRestoreHost::init(v16);
-LABEL_45:
-    result = 0;
-    goto LABEL_39;
+    return 0;
   }
 
 LABEL_12:
-  v42 = xmmword_29EE9C0B8;
-  v43 = *&off_29EE9C0C8;
-  std::vector<__CFString const*>::__assign_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(v5 + 5, &v42, &v44, 4uLL);
+  v41 = xmmword_29EE9C0B8;
+  v42 = *&off_29EE9C0C8;
+  std::vector<__CFString const*>::__assign_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(v5 + 5, &v41, &v43, 4uLL);
   if (RoseCapabilities::supportsRTKitIOConfig(*(v5 + 29)))
   {
     std::vector<__CFString const*>::push_back[abi:ne200100](v5 + 40, &kRoseRtkitosICNF);
@@ -444,19 +441,19 @@ LABEL_12:
     std::vector<__CFString const*>::push_back[abi:ne200100](v5 + 40, &kRoseRestoreRtkitos);
   }
 
-  v42 = xmmword_29EE9C0E8;
-  v43 = *&off_29EE9C0F8;
-  v44 = xmmword_29EE9C108;
-  v45 = @"Rap,SecurityDomain";
-  std::vector<__CFString const*>::__assign_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(v5 + 8, &v42, &v46, 7uLL);
-  *&v42 = @"@Rap,Ticket";
-  std::vector<__CFString const*>::__assign_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(v5 + 11, &v42, &v42 + 8, 1uLL);
-  *&v42 = @"Rap,Ticket";
-  std::vector<__CFString const*>::__assign_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(v5 + 14, &v42, &v42 + 8, 1uLL);
-  v42 = xmmword_29EE9C120;
-  v43 = *&off_29EE9C130;
-  v44 = xmmword_29EE9C140;
-  std::vector<ACFURestoreHost::FileList>::__assign_with_size[abi:ne200100]<ACFURestoreHost::FileList const*,ACFURestoreHost::FileList const*>(v5 + 17, &v42, &v45, 3uLL);
+  v41 = xmmword_29EE9C0E8;
+  v42 = *&off_29EE9C0F8;
+  v43 = xmmword_29EE9C108;
+  v44 = @"Rap,SecurityDomain";
+  std::vector<__CFString const*>::__assign_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(v5 + 8, &v41, &v45, 7uLL);
+  *&v41 = @"@Rap,Ticket";
+  std::vector<__CFString const*>::__assign_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(v5 + 11, &v41, &v41 + 8, 1uLL);
+  *&v41 = @"Rap,Ticket";
+  std::vector<__CFString const*>::__assign_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(v5 + 14, &v41, &v41 + 8, 1uLL);
+  v41 = xmmword_29EE9C120;
+  v42 = *&off_29EE9C130;
+  v43 = xmmword_29EE9C140;
+  std::vector<ACFURestoreHost::FileList>::__assign_with_size[abi:ne200100]<ACFURestoreHost::FileList const*,ACFURestoreHost::FileList const*>(v5 + 17, &v41, &v44, 3uLL);
   if (RoseCapabilities::supportsRTKitIOConfig(*(v5 + 29)))
   {
     v18 = *(v5 + 18);
@@ -527,27 +524,27 @@ LABEL_12:
   }
 
   v32 = CFNumberGetTypeID();
-  *&v42 = @"Rap,ChipID";
-  *(&v42 + 1) = v32;
+  *&v41 = @"Rap,ChipID";
+  *(&v41 + 1) = v32;
   v33 = CFNumberGetTypeID();
-  *&v43 = @"Rap,BoardID";
-  *(&v43 + 1) = v33;
+  *&v42 = @"Rap,BoardID";
+  *(&v42 + 1) = v33;
   v34 = CFNumberGetTypeID();
-  *&v44 = @"Rap,SecurityDomain";
-  *(&v44 + 1) = v34;
+  *&v43 = @"Rap,SecurityDomain";
+  *(&v43 + 1) = v34;
   v35 = CFBooleanGetTypeID();
-  v45 = @"Rap,ProductionMode";
-  v46 = v35;
+  v44 = @"Rap,ProductionMode";
+  v45 = v35;
   v36 = CFBooleanGetTypeID();
-  v47[0] = @"Rap,SecurityMode";
-  v47[1] = v36;
+  v46[0] = @"Rap,SecurityMode";
+  v46[1] = v36;
   v37 = CFNumberGetTypeID();
-  v47[2] = @"Rap,ECID";
-  v47[3] = v37;
+  v46[2] = @"Rap,ECID";
+  v46[3] = v37;
   v38 = CFDataGetTypeID();
-  v47[4] = @"Rap,Nonce";
-  v47[5] = v38;
-  std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::__assign_unique<std::pair<__CFString const* const,unsigned long> const*>(v5 + 20, &v42, v48);
+  v46[4] = @"Rap,Nonce";
+  v46[5] = v38;
+  std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::__assign_unique<std::pair<__CFString const* const,unsigned long> const*>(v5 + 20, &v41, v47);
   if (RoseCapabilities::supportsRTKitIOConfig(*(v5 + 29)))
   {
     *(v5 + 23) = @"Rap,FdrRootCaDigest";
@@ -558,27 +555,24 @@ LABEL_12:
     *(v5 + 24) = @"Rap,FDRAllowUnsealed";
   }
 
-  *&v42 = @"Rap,RTKitOS";
+  *&v41 = @"Rap,RTKitOS";
+  WORD4(v41) = 1;
+  *&v42 = @"Rap,RestoreRTKitOS";
   WORD4(v42) = 1;
-  *&v43 = @"Rap,RestoreRTKitOS";
-  WORD4(v43) = 1;
-  *&v44 = @"Rap,SoftwareBinaryDsp1";
-  WORD4(v44) = 0;
-  v45 = @"Rap,RTKitIOConfig";
-  LOWORD(v46) = 0;
-  std::__tree<std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>>>::__assign_unique<std::pair<__CFString const* const,ACFURestoreHost::DemoteConfig> const*>(v5 + 25, &v42, v47);
+  *&v43 = @"Rap,SoftwareBinaryDsp1";
+  WORD4(v43) = 0;
+  v44 = @"Rap,RTKitIOConfig";
+  LOWORD(v45) = 0;
+  std::__tree<std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>>>::__assign_unique<std::pair<__CFString const* const,ACFURestoreHost::DemoteConfig> const*>(v5 + 25, &v41, v46);
   *(v5 + 28) = @"Rose";
   v39 = ACFURestoreHost::init(v5, cf, a3);
   if ((v39 & 1) == 0)
   {
     RoseRestoreHost::init(v39);
-    goto LABEL_45;
+    return 0;
   }
 
-  result = 1;
-LABEL_39:
-  v41 = *MEMORY[0x29EDCA608];
-  return result;
+  return 1;
 }
 
 void std::vector<__CFString const*>::push_back[abi:ne200100](uint64_t a1, void *a2)
@@ -648,79 +642,79 @@ void std::vector<__CFString const*>::push_back[abi:ne200100](uint64_t a1, void *
 
 const void *RoseRestoreHost::copyFirmwareUpdater(uint64_t a1, const __CFDictionary *a2, int a3)
 {
-  GetRoseTatsuTagToFileNameMap(&v202);
-  v5 = std::map<__CFString const*,std::string>::at(&v202, &kRoseRestoreRtkitos);
+  GetRoseTatsuTagToFileNameMap(&v132);
+  v5 = std::map<__CFString const*,std::string>::at(&v132, &kRoseRestoreRtkitos);
   if (*(v5 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v203, *v5, v5[1]);
+    std::string::__init_copy_ctor_external(&v133, *v5, v5[1]);
   }
 
   else
   {
     v6 = *v5;
-    v203.__r_.__value_.__r.__words[2] = v5[2];
-    *&v203.__r_.__value_.__l.__data_ = v6;
+    v133.__r_.__value_.__r.__words[2] = v5[2];
+    *&v133.__r_.__value_.__l.__data_ = v6;
   }
 
-  std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(&v202, v202.__r_.__value_.__l.__size_);
-  GetRoseTatsuTagToFileNameMap(&v201);
-  v7 = std::map<__CFString const*,std::string>::at(&v201, &kRoseRtkitos);
+  std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(&v132, v132.__r_.__value_.__l.__size_);
+  GetRoseTatsuTagToFileNameMap(&v131);
+  v7 = std::map<__CFString const*,std::string>::at(&v131, &kRoseRtkitos);
   if (*(v7 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v202, *v7, v7[1]);
+    std::string::__init_copy_ctor_external(&v132, *v7, v7[1]);
   }
 
   else
   {
     v8 = *v7;
-    v202.__r_.__value_.__r.__words[2] = v7[2];
-    *&v202.__r_.__value_.__l.__data_ = v8;
+    v132.__r_.__value_.__r.__words[2] = v7[2];
+    *&v132.__r_.__value_.__l.__data_ = v8;
   }
 
-  std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(&v201, v201.__r_.__value_.__l.__size_);
-  GetRoseTatsuTagToFileNameMap(&v200);
-  v9 = std::map<__CFString const*,std::string>::at(&v200, &kRoseSwDsp1);
+  std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(&v131, v131.__r_.__value_.__l.__size_);
+  GetRoseTatsuTagToFileNameMap(&v130);
+  v9 = std::map<__CFString const*,std::string>::at(&v130, &kRoseSwDsp1);
   if (*(v9 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v201, *v9, v9[1]);
+    std::string::__init_copy_ctor_external(&v131, *v9, v9[1]);
   }
 
   else
   {
     v10 = *v9;
-    v201.__r_.__value_.__r.__words[2] = v9[2];
-    *&v201.__r_.__value_.__l.__data_ = v10;
+    v131.__r_.__value_.__r.__words[2] = v9[2];
+    *&v131.__r_.__value_.__l.__data_ = v10;
   }
 
-  std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(&v200, v200.__r_.__value_.__l.__size_);
-  GetRoseTatsuTagToFileNameMap(&v198);
-  v11 = std::map<__CFString const*,std::string>::at(&v198, &kRoseRtkitosICNF);
+  std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(&v130, v130.__r_.__value_.__l.__size_);
+  GetRoseTatsuTagToFileNameMap(&v128);
+  v11 = std::map<__CFString const*,std::string>::at(&v128, &kRoseRtkitosICNF);
   if (*(v11 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v200, *v11, v11[1]);
+    std::string::__init_copy_ctor_external(&v130, *v11, v11[1]);
   }
 
   else
   {
     v12 = *v11;
-    v200.__r_.__value_.__r.__words[2] = v11[2];
-    *&v200.__r_.__value_.__l.__data_ = v12;
+    v130.__r_.__value_.__r.__words[2] = v11[2];
+    *&v130.__r_.__value_.__l.__data_ = v12;
   }
 
-  std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(&v198, *(&v198 + 1));
+  std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(&v128, *(&v128 + 1));
   Value = CFDictionaryGetValue(*(a1 + 16), @"DeviceInfo");
   v14 = Value;
   if (!Value || (v15 = CFGetTypeID(Value), v15 != CFDictionaryGetTypeID()))
   {
-    std::string::basic_string[abi:ne200100]<0>(v196, "copyFirmwareUpdater: failed to get device info list");
-    v102 = ACFUError::addError(a1 + 24, v196, 0xFA1uLL, 0);
-    if (v197 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v126, "copyFirmwareUpdater: failed to get device info list");
+    v72 = ACFUError::addError(a1 + 24, v126, 0xFA1uLL, 0);
+    if (v127 < 0)
     {
-      operator delete(v196[0]);
+      operator delete(v126[0]);
     }
 
-    LogInstance = ACFULogging::getLogInstance(v102);
-    v101 = "%s::%s: failed to get device info list\n";
+    LogInstance = ACFULogging::getLogInstance(v72);
+    v71 = "%s::%s: failed to get device info list\n";
     goto LABEL_110;
   }
 
@@ -732,18 +726,18 @@ const void *RoseRestoreHost::copyFirmwareUpdater(uint64_t a1, const __CFDictiona
     if (TypeID == v18)
     {
       v19 = ACFULogging::getLogInstance(v18);
-      ACFULogging::handleMessage(v19, 0, "%s::%s: Restore boot nonce present!\n", v20, v21, v22, v23, v24, "RoseRestoreHost");
+      ACFULogging::handleMessage(v19, 0, "%s::%s: Restore boot nonce present!\n", "RoseRestoreHost", "copyFirmwareUpdater");
       if (CFDataGetLength(v16) != 8)
       {
-        std::string::basic_string[abi:ne200100]<0>(v194, "copyFirmwareUpdater: nonce is of unexpected size");
-        v163 = ACFUError::addError(a1 + 24, v194, 0x3EDuLL, 0);
-        if (v195 < 0)
+        std::string::basic_string[abi:ne200100]<0>(v124, "copyFirmwareUpdater: nonce is of unexpected size");
+        v93 = ACFUError::addError(a1 + 24, v124, 0x3EDuLL, 0);
+        if (v125 < 0)
         {
-          operator delete(v194[0]);
+          operator delete(v124[0]);
         }
 
-        LogInstance = ACFULogging::getLogInstance(v163);
-        v101 = "%s::%s: nonce is of unexpected size\n";
+        LogInstance = ACFULogging::getLogInstance(v93);
+        v71 = "%s::%s: nonce is of unexpected size\n";
         goto LABEL_110;
       }
 
@@ -756,193 +750,193 @@ const void *RoseRestoreHost::copyFirmwareUpdater(uint64_t a1, const __CFDictiona
     }
   }
 
-  v25 = CFDictionaryGetValue(v14, @"Rap,ChipRev");
-  v26 = CFDictionaryGetValue(v14, @"Rap,BoardID");
-  if (!v25 || (v27 = v26) == 0 || (v28 = CFDataGetTypeID(), v28 != CFGetTypeID(v25)) || (v29 = CFDataGetTypeID(), v29 != CFGetTypeID(v27)))
+  v20 = CFDictionaryGetValue(v14, @"Rap,ChipRev");
+  v21 = CFDictionaryGetValue(v14, @"Rap,BoardID");
+  if (!v20 || (v22 = v21) == 0 || (v23 = CFDataGetTypeID(), v23 != CFGetTypeID(v20)) || (v24 = CFDataGetTypeID(), v24 != CFGetTypeID(v22)))
   {
-    std::string::basic_string[abi:ne200100]<0>(v192, "copyFirmwareUpdater: unexpected device info parameters");
-    v94 = ACFUError::addError(a1 + 24, v192, 0x3EDuLL, 0);
-    if (v193 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v122, "copyFirmwareUpdater: unexpected device info parameters");
+    v69 = ACFUError::addError(a1 + 24, v122, 0x3EDuLL, 0);
+    if (v123 < 0)
     {
-      operator delete(v192[0]);
+      operator delete(v122[0]);
     }
 
-    LogInstance = ACFULogging::getLogInstance(v94);
-    v101 = "%s::%s: unexpected device info parameters\n";
+    LogInstance = ACFULogging::getLogInstance(v69);
+    v71 = "%s::%s: unexpected device info parameters\n";
     goto LABEL_110;
   }
 
-  if (CFDataGetLength(v25) != 2 || CFDataGetLength(v27) != 2)
+  if (CFDataGetLength(v20) != 2 || CFDataGetLength(v22) != 2)
   {
-    std::string::basic_string[abi:ne200100]<0>(v190, "copyFirmwareUpdater: bad device info parameters");
-    v103 = ACFUError::addError(a1 + 24, v190, 0x3EDuLL, 0);
-    if (v191 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v120, "copyFirmwareUpdater: bad device info parameters");
+    v73 = ACFUError::addError(a1 + 24, v120, 0x3EDuLL, 0);
+    if (v121 < 0)
     {
-      operator delete(v190[0]);
+      operator delete(v120[0]);
     }
 
-    LogInstance = ACFULogging::getLogInstance(v103);
-    v101 = "%s::%s: bad device info parameters\n";
+    LogInstance = ACFULogging::getLogInstance(v73);
+    v71 = "%s::%s: bad device info parameters\n";
 LABEL_110:
-    v47 = 0;
-    v77 = 0;
-    v59 = 0;
-    ACFULogging::handleMessage(LogInstance, 2u, v101, v96, v97, v98, v99, v100, "RoseRestoreHost");
-    v85 = 0;
+    v37 = 0;
+    v52 = 0;
+    v44 = 0;
+    ACFULogging::handleMessage(LogInstance, 2, v71, "RoseRestoreHost", "copyFirmwareUpdater");
+    v60 = 0;
     goto LABEL_86;
   }
 
-  v30 = *CFDataGetBytePtr(v25);
-  BytePtr = CFDataGetBytePtr(v27);
-  v32 = *BytePtr;
-  v33 = ACFULogging::getLogInstance(BytePtr);
-  ACFULogging::handleMessage(v33, 0, "%s::%s: Rose Hardware Info (Board ID: 0x%04x, Chip Revision: 0x%04x)\n", v34, v35, v36, v37, v38, "RoseRestoreHost");
-  v40 = ACFULogging::getLogInstance(v39);
-  std::string::basic_string[abi:ne200100]<0>(&v188, "RoseRestoreHost");
-  v41 = std::string::append(&v188, "::");
-  v42 = *&v41->__r_.__value_.__l.__data_;
-  v189.__r_.__value_.__r.__words[2] = v41->__r_.__value_.__r.__words[2];
-  *&v189.__r_.__value_.__l.__data_ = v42;
-  v41->__r_.__value_.__l.__size_ = 0;
-  v41->__r_.__value_.__r.__words[2] = 0;
-  v41->__r_.__value_.__r.__words[0] = 0;
-  v43 = std::string::append(&v189, "copyFirmwareUpdater");
-  v44 = *&v43->__r_.__value_.__l.__data_;
-  v199 = v43->__r_.__value_.__r.__words[2];
-  v198 = v44;
-  v43->__r_.__value_.__l.__size_ = 0;
-  v43->__r_.__value_.__r.__words[2] = 0;
-  v43->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v40, &v198, 0, "Firmware File Dictionary: ", a2);
-  if (SHIBYTE(v199) < 0)
+  v25 = *CFDataGetBytePtr(v20);
+  BytePtr = CFDataGetBytePtr(v22);
+  v27 = *BytePtr;
+  v28 = ACFULogging::getLogInstance(BytePtr);
+  ACFULogging::handleMessage(v28, 0, "%s::%s: Rose Hardware Info (Board ID: 0x%04x, Chip Revision: 0x%04x)\n", "RoseRestoreHost", "copyFirmwareUpdater", v27, v25);
+  v30 = ACFULogging::getLogInstance(v29);
+  std::string::basic_string[abi:ne200100]<0>(&v118, "RoseRestoreHost");
+  v31 = std::string::append(&v118, "::");
+  v32 = *&v31->__r_.__value_.__l.__data_;
+  v119.__r_.__value_.__r.__words[2] = v31->__r_.__value_.__r.__words[2];
+  *&v119.__r_.__value_.__l.__data_ = v32;
+  v31->__r_.__value_.__l.__size_ = 0;
+  v31->__r_.__value_.__r.__words[2] = 0;
+  v31->__r_.__value_.__r.__words[0] = 0;
+  v33 = std::string::append(&v119, "copyFirmwareUpdater");
+  v34 = *&v33->__r_.__value_.__l.__data_;
+  v129 = v33->__r_.__value_.__r.__words[2];
+  v128 = v34;
+  v33->__r_.__value_.__l.__size_ = 0;
+  v33->__r_.__value_.__r.__words[2] = 0;
+  v33->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v30, &v128, 0, "Firmware File Dictionary: ", a2);
+  if (SHIBYTE(v129) < 0)
   {
-    operator delete(v198);
+    operator delete(v128);
   }
 
-  if (SHIBYTE(v189.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v189.__r_.__value_.__l.__data_);
+    operator delete(v119.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v188.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v118.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v188.__r_.__value_.__l.__data_);
+    operator delete(v118.__r_.__value_.__l.__data_);
   }
 
-  v45 = ACFURestoreHost::copyDataFromFileDictionary(@"Rap,RTKitOS", a2, a3);
-  cf = v45;
-  if (v45)
+  v35 = ACFURestoreHost::copyDataFromFileDictionary(@"Rap,RTKitOS", a2, a3);
+  cf = v35;
+  if (v35)
   {
-    v46 = CFGetTypeID(v45);
-    if (v46 == CFDataGetTypeID())
+    v36 = CFGetTypeID(v35);
+    if (v36 == CFDataGetTypeID())
     {
-      ACFUFTABFile::create(cf, 0, v30, &v198);
-      v47 = v198;
-      if (!v198)
+      ACFUFTABFile::create(cf, 0, v25, &v128);
+      v37 = v128;
+      if (!v128)
       {
-        std::string::basic_string[abi:ne200100]<0>(v184, "copyFirmware: failed to init bundle firmware");
-        v134 = ACFUError::addError(a1 + 24, v184, 0xFA0uLL, 0);
-        if (v185 < 0)
+        std::string::basic_string[abi:ne200100]<0>(v114, "copyFirmware: failed to init bundle firmware");
+        v84 = ACFUError::addError(a1 + 24, v114, 0xFA0uLL, 0);
+        if (v115 < 0)
         {
-          operator delete(v184[0]);
+          operator delete(v114[0]);
         }
 
-        v135 = ACFULogging::getLogInstance(v134);
-        v47 = 0;
-        v77 = 0;
+        v85 = ACFULogging::getLogInstance(v84);
+        v37 = 0;
+        v52 = 0;
+        v44 = 0;
+        ACFULogging::handleMessage(v85, 2, "%s::%s: failed to init bundle firmware\n", "RoseRestoreHost", "copyFirmwareUpdater");
         v59 = 0;
-        ACFULogging::handleMessage(v135, 2u, "%s::%s: failed to init bundle firmware\n", v136, v137, v138, v139, v140, "RoseRestoreHost");
-        v84 = 0;
-        v57 = 0;
-        v75 = 0;
-        v85 = 0;
+        v42 = 0;
+        v50 = 0;
+        v60 = 0;
         goto LABEL_80;
       }
 
-      if (!(*(*v198 + 16))(v198, &v201) || ((*(*v47 + 16))(v47, &v202) & 1) == 0)
+      if (!(*(*v128 + 16))(v128, &v131) || ((*(*v37 + 16))(v37, &v132) & 1) == 0)
       {
-        std::string::basic_string[abi:ne200100]<0>(v182, "copyFirmware: bundle firmware specified is invalid");
-        v111 = ACFUError::addError(a1 + 24, v182, 0x3E8uLL, 0);
-        if (v183 < 0)
+        std::string::basic_string[abi:ne200100]<0>(v112, "copyFirmware: bundle firmware specified is invalid");
+        v76 = ACFUError::addError(a1 + 24, v112, 0x3E8uLL, 0);
+        if (v113 < 0)
         {
-          operator delete(v182[0]);
+          operator delete(v112[0]);
         }
 
-        v112 = ACFULogging::getLogInstance(v111);
-        v77 = 0;
+        v77 = ACFULogging::getLogInstance(v76);
+        v52 = 0;
+        v44 = 0;
+        ACFULogging::handleMessage(v77, 2, "%s::%s: bundle firmware specified is invalid\n", "RoseRestoreHost", "copyFirmwareUpdater");
         v59 = 0;
-        ACFULogging::handleMessage(v112, 2u, "%s::%s: bundle firmware specified is invalid\n", v113, v114, v115, v116, v117, "RoseRestoreHost");
-        v84 = 0;
-        v57 = 0;
-        v75 = 0;
-        v85 = 0;
+        v42 = 0;
+        v50 = 0;
+        v60 = 0;
         goto LABEL_80;
       }
 
       if (RoseCapabilities::supportsRTKitIOConfig(*(a1 + 232)))
       {
-        v48 = (*(*v47 + 16))(v47, &v200);
-        if ((v48 & 1) == 0)
+        v38 = (*(*v37 + 16))(v37, &v130);
+        if ((v38 & 1) == 0)
         {
-          v49 = ACFULogging::getLogInstance(v48);
-          ACFULogging::handleMessage(v49, 3u, "%s::%s: copyfirmware: ICNF missing in bundle firmware\n", v50, v51, v52, v53, v54, "RoseRestoreHost");
+          v39 = ACFULogging::getLogInstance(v38);
+          ACFULogging::handleMessage(v39, 3, "%s::%s: copyfirmware: ICNF missing in bundle firmware\n", "RoseRestoreHost", "copyFirmwareUpdater");
         }
       }
 
-      v55 = CFDictionaryContainsKey(a2, *(a1 + 8));
-      if (v55)
+      v40 = CFDictionaryContainsKey(a2, *(a1 + 8));
+      if (v40)
       {
-        v56 = ACFURestoreHost::copyDataFromFileDictionary(*(a1 + 8), a2, a3);
-        v57 = v56;
-        if (!v56 || (v58 = CFGetTypeID(v56), v58 != CFDataGetTypeID()))
+        v41 = ACFURestoreHost::copyDataFromFileDictionary(*(a1 + 8), a2, a3);
+        v42 = v41;
+        if (!v41 || (v43 = CFGetTypeID(v41), v43 != CFDataGetTypeID()))
         {
-          std::string::basic_string[abi:ne200100]<0>(v180, "copyFirmware: rooted override data unavailable");
-          v125 = ACFUError::addError(a1 + 24, v180, 0x3E8uLL, 0);
-          if (v181 < 0)
+          std::string::basic_string[abi:ne200100]<0>(v110, "copyFirmware: rooted override data unavailable");
+          v80 = ACFUError::addError(a1 + 24, v110, 0x3E8uLL, 0);
+          if (v111 < 0)
           {
-            operator delete(v180[0]);
+            operator delete(v110[0]);
           }
 
-          v61 = ACFULogging::getLogInstance(v125);
-          v67 = "%s::%s: rooted override data unavailable\n";
+          v46 = ACFULogging::getLogInstance(v80);
+          v47 = "%s::%s: rooted override data unavailable\n";
           goto LABEL_124;
         }
 
-        ACFUFTABFile::create(v57, 0, v30, &v198);
-        v59 = v198;
-        if (!v198)
+        ACFUFTABFile::create(v42, 0, v25, &v128);
+        v44 = v128;
+        if (!v128)
         {
           std::string::basic_string[abi:ne200100]<0>(__p, "copyFirmware: failed to init ftab file object");
-          v60 = ACFUError::addError(a1 + 24, __p, 0xFA0uLL, 0);
-          if (v179 < 0)
+          v45 = ACFUError::addError(a1 + 24, __p, 0xFA0uLL, 0);
+          if (v109 < 0)
           {
             operator delete(__p[0]);
           }
 
-          v61 = ACFULogging::getLogInstance(v60);
-          v67 = "%s::%s: failed to init ftab file object\n";
+          v46 = ACFULogging::getLogInstance(v45);
+          v47 = "%s::%s: failed to init ftab file object\n";
 LABEL_124:
-          v77 = 0;
+          v52 = 0;
+          v44 = 0;
+          ACFULogging::handleMessage(v46, 2, v47, "RoseRestoreHost", "copyFirmwareUpdater");
           v59 = 0;
-          ACFULogging::handleMessage(v61, 2u, v67, v62, v63, v64, v65, v66, "RoseRestoreHost");
-          v84 = 0;
-          v75 = 0;
-          v85 = 0;
+          v50 = 0;
+          v60 = 0;
 LABEL_80:
           CFRelease(cf);
-          if (v75)
+          if (v50)
           {
-            CFRelease(v75);
+            CFRelease(v50);
           }
 
-          if (v57)
+          if (v42)
           {
-            CFRelease(v57);
+            CFRelease(v42);
           }
 
-          if (v84)
+          if (v59)
           {
-            CFRelease(v84);
+            CFRelease(v59);
           }
 
           goto LABEL_86;
@@ -951,37 +945,37 @@ LABEL_80:
 
       else
       {
-        v68 = ACFULogging::getLogInstance(v55);
-        v59 = 0;
-        ACFULogging::handleMessage(v68, 0, "%s::%s: no firmware override specified\n", v69, v70, v71, v72, v73, "RoseRestoreHost");
-        v57 = 0;
+        v48 = ACFULogging::getLogInstance(v40);
+        v44 = 0;
+        ACFULogging::handleMessage(v48, 0, "%s::%s: no firmware override specified\n", "RoseRestoreHost", "copyFirmwareUpdater");
+        v42 = 0;
       }
 
       if (CFDictionaryContainsKey(a2, @"Rap,RestoreRTKitOS"))
       {
-        v74 = ACFURestoreHost::copyDataFromFileDictionary(@"Rap,RestoreRTKitOS", a2, a3);
-        v75 = v74;
-        if (v74 && (v76 = CFGetTypeID(v74), v76 == CFDataGetTypeID()))
+        v49 = ACFURestoreHost::copyDataFromFileDictionary(@"Rap,RestoreRTKitOS", a2, a3);
+        v50 = v49;
+        if (v49 && (v51 = CFGetTypeID(v49), v51 == CFDataGetTypeID()))
         {
-          ACFUFTABFile::create(v75, 0, v30, &v198);
-          v77 = v198;
-          if (v198)
+          ACFUFTABFile::create(v50, 0, v25, &v128);
+          v52 = v128;
+          if (v128)
           {
-            if (((*(*v198 + 16))(v198, &v203) & 1) == 0)
+            if (((*(*v128 + 16))(v128, &v133) & 1) == 0)
             {
-              std::string::basic_string[abi:ne200100]<0>(v172, "copyFirmware: bundle cert firmware doesn't have rrko");
-              v142 = ACFUError::addError(a1 + 24, v172, 0x3E8uLL, 0);
-              if (v173 < 0)
+              std::string::basic_string[abi:ne200100]<0>(v102, "copyFirmware: bundle cert firmware doesn't have rrko");
+              v87 = ACFUError::addError(a1 + 24, v102, 0x3E8uLL, 0);
+              if (v103 < 0)
               {
-                operator delete(v172[0]);
+                operator delete(v102[0]);
               }
 
-              v143 = ACFULogging::getLogInstance(v142);
-              ACFULogging::handleMessage(v143, 2u, "%s::%s: bundle cert firmware doesn't have 'rrko'\n", v144, v145, v146, v147, v148, "RoseRestoreHost");
+              v88 = ACFULogging::getLogInstance(v87);
+              ACFULogging::handleMessage(v88, 2, "%s::%s: bundle cert firmware doesn't have 'rrko'\n", "RoseRestoreHost", "copyFirmwareUpdater");
               goto LABEL_141;
             }
 
-            if (v59)
+            if (v44)
             {
               goto LABEL_54;
             }
@@ -989,273 +983,273 @@ LABEL_80:
             goto LABEL_61;
           }
 
-          std::string::basic_string[abi:ne200100]<0>(v174, "copyFirmware: failed to init certification firmware");
-          v141 = ACFUError::addError(a1 + 24, v174, 0xFA0uLL, 0);
-          if (v175 < 0)
+          std::string::basic_string[abi:ne200100]<0>(v104, "copyFirmware: failed to init certification firmware");
+          v86 = ACFUError::addError(a1 + 24, v104, 0xFA0uLL, 0);
+          if (v105 < 0)
           {
-            operator delete(v174[0]);
+            operator delete(v104[0]);
           }
 
-          v127 = ACFULogging::getLogInstance(v141);
-          v133 = "%s::%s: failed to init certification firmware\n";
+          v82 = ACFULogging::getLogInstance(v86);
+          v83 = "%s::%s: failed to init certification firmware\n";
         }
 
         else
         {
-          std::string::basic_string[abi:ne200100]<0>(v176, "copyFirmware: rrko bundle data unavailable");
-          v126 = ACFUError::addError(a1 + 24, v176, 0x3E8uLL, 0);
-          if (v177 < 0)
+          std::string::basic_string[abi:ne200100]<0>(v106, "copyFirmware: rrko bundle data unavailable");
+          v81 = ACFUError::addError(a1 + 24, v106, 0x3E8uLL, 0);
+          if (v107 < 0)
           {
-            operator delete(v176[0]);
+            operator delete(v106[0]);
           }
 
-          v127 = ACFULogging::getLogInstance(v126);
-          v133 = "%s::%s: rrko bundle data unavailable\n";
+          v82 = ACFULogging::getLogInstance(v81);
+          v83 = "%s::%s: rrko bundle data unavailable\n";
         }
 
-        v77 = 0;
-        ACFULogging::handleMessage(v127, 2u, v133, v128, v129, v130, v131, v132, "RoseRestoreHost");
-        v84 = 0;
-        v85 = 0;
+        v52 = 0;
+        ACFULogging::handleMessage(v82, 2, v83, "RoseRestoreHost", "copyFirmwareUpdater");
+        v59 = 0;
+        v60 = 0;
         goto LABEL_80;
       }
 
-      v77 = 0;
-      v75 = 0;
-      if (v59)
+      v52 = 0;
+      v50 = 0;
+      if (v44)
       {
 LABEL_54:
-        v78 = (*v59)[2](v59, &v203);
-        v79 = (*v59)[2](v59, &v202);
-        if (v78)
+        v53 = (*v44)[2](v44, &v133);
+        v54 = (*v44)[2](v44, &v132);
+        if (v53)
         {
-          v80 = v59;
+          v55 = v44;
         }
 
         else
         {
-          v80 = v77;
+          v55 = v52;
         }
 
-        if (v79)
+        if (v54)
         {
-          v81 = v59;
+          v56 = v44;
         }
 
         else
         {
-          v81 = v47;
+          v56 = v37;
         }
 
         goto LABEL_62;
       }
 
 LABEL_61:
-      v80 = v77;
-      v81 = v47;
+      v55 = v52;
+      v56 = v37;
 LABEL_62:
-      v82 = (*(*v81 + 16))(v81, &v203);
-      if (v80)
+      v57 = (*(*v56 + 16))(v56, &v133);
+      if (v55)
       {
-        v83 = v82;
+        v58 = v57;
       }
 
       else
       {
-        v83 = 1;
+        v58 = 1;
       }
 
-      if (v83)
+      if (v58)
       {
-        v84 = 0;
+        v59 = 0;
 LABEL_69:
         if (v16)
         {
-          ACFUFTABFile::setBootNonce(v81, v16);
+          ACFUFTABFile::setBootNonce(v56, v16);
         }
 
-        v85 = (*(*v81 + 40))(v81);
-        if (v85 && (v86 = CFDataGetTypeID(), v87 = CFGetTypeID(v85), v86 == v87))
+        v60 = (*(*v56 + 40))(v56);
+        if (v60 && (v61 = CFDataGetTypeID(), v62 = CFGetTypeID(v60), v61 == v62))
         {
-          v88 = ACFULogging::getLogInstance(v87);
-          std::string::basic_string[abi:ne200100]<0>(&v188, "RoseRestoreHost");
-          v89 = std::string::append(&v188, "::");
-          v90 = *&v89->__r_.__value_.__l.__data_;
-          v189.__r_.__value_.__r.__words[2] = v89->__r_.__value_.__r.__words[2];
-          *&v189.__r_.__value_.__l.__data_ = v90;
-          v89->__r_.__value_.__l.__size_ = 0;
-          v89->__r_.__value_.__r.__words[2] = 0;
-          v89->__r_.__value_.__r.__words[0] = 0;
-          v91 = std::string::append(&v189, "copyFirmwareUpdater");
-          v92 = *&v91->__r_.__value_.__l.__data_;
-          v199 = v91->__r_.__value_.__r.__words[2];
-          v198 = v92;
-          v91->__r_.__value_.__l.__size_ = 0;
-          v91->__r_.__value_.__r.__words[2] = 0;
-          v91->__r_.__value_.__r.__words[0] = 0;
-          ACFULogging::handleMessageCFType(v88, &v198, 3, "outData", v85);
-          if (SHIBYTE(v199) < 0)
+          v63 = ACFULogging::getLogInstance(v62);
+          std::string::basic_string[abi:ne200100]<0>(&v118, "RoseRestoreHost");
+          v64 = std::string::append(&v118, "::");
+          v65 = *&v64->__r_.__value_.__l.__data_;
+          v119.__r_.__value_.__r.__words[2] = v64->__r_.__value_.__r.__words[2];
+          *&v119.__r_.__value_.__l.__data_ = v65;
+          v64->__r_.__value_.__l.__size_ = 0;
+          v64->__r_.__value_.__r.__words[2] = 0;
+          v64->__r_.__value_.__r.__words[0] = 0;
+          v66 = std::string::append(&v119, "copyFirmwareUpdater");
+          v67 = *&v66->__r_.__value_.__l.__data_;
+          v129 = v66->__r_.__value_.__r.__words[2];
+          v128 = v67;
+          v66->__r_.__value_.__l.__size_ = 0;
+          v66->__r_.__value_.__r.__words[2] = 0;
+          v66->__r_.__value_.__r.__words[0] = 0;
+          ACFULogging::handleMessageCFType(v63, &v128, 3, "outData", v60);
+          if (SHIBYTE(v129) < 0)
           {
-            operator delete(v198);
+            operator delete(v128);
           }
 
-          if (SHIBYTE(v189.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v189.__r_.__value_.__l.__data_);
+            operator delete(v119.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v188.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v118.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v188.__r_.__value_.__l.__data_);
+            operator delete(v118.__r_.__value_.__l.__data_);
           }
 
-          (*(*v81 + 24))(v81);
+          (*(*v56 + 24))(v56);
         }
 
         else
         {
-          std::string::basic_string[abi:ne200100]<0>(v166, "copyFirmware: could not create output data");
-          v118 = ACFUError::addError(a1 + 24, v166, 0x3E8uLL, 0);
-          if (v167 < 0)
+          std::string::basic_string[abi:ne200100]<0>(v96, "copyFirmware: could not create output data");
+          v78 = ACFUError::addError(a1 + 24, v96, 0x3E8uLL, 0);
+          if (v97 < 0)
           {
-            operator delete(v166[0]);
+            operator delete(v96[0]);
           }
 
-          v119 = ACFULogging::getLogInstance(v118);
-          ACFULogging::handleMessage(v119, 2u, "%s::%s: could not create output data\n", v120, v121, v122, v123, v124, "RoseRestoreHost");
+          v79 = ACFULogging::getLogInstance(v78);
+          ACFULogging::handleMessage(v79, 2, "%s::%s: could not create output data\n", "RoseRestoreHost", "copyFirmwareUpdater");
         }
 
         goto LABEL_80;
       }
 
-      v84 = (**v80)(v80, &v203);
-      if (v84)
+      v59 = (**v55)(v55, &v133);
+      if (v59)
       {
-        if (ACFUFTABFile::addNewFileToFTAB(v81, &v203, v84))
+        if (ACFUFTABFile::addNewFileToFTAB(v56, &v133, v59))
         {
           goto LABEL_69;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(v168, "copyFirmware: could not add 'rrko' object to final ftab");
-        v156 = ACFUError::addError(a1 + 24, v168, 0x3E8uLL, 0);
-        if (v169 < 0)
+        std::string::basic_string[abi:ne200100]<0>(v98, "copyFirmware: could not add 'rrko' object to final ftab");
+        v91 = ACFUError::addError(a1 + 24, v98, 0x3E8uLL, 0);
+        if (v99 < 0)
         {
-          operator delete(v168[0]);
+          operator delete(v98[0]);
         }
 
-        v157 = ACFULogging::getLogInstance(v156);
-        ACFULogging::handleMessage(v157, 2u, "%s::%s: could not add 'rrko' object to final ftab\n", v158, v159, v160, v161, v162, "RoseRestoreHost");
+        v92 = ACFULogging::getLogInstance(v91);
+        ACFULogging::handleMessage(v92, 2, "%s::%s: could not add 'rrko' object to final ftab\n", "RoseRestoreHost", "copyFirmwareUpdater");
 LABEL_145:
-        v85 = 0;
+        v60 = 0;
         goto LABEL_80;
       }
 
-      std::string::basic_string[abi:ne200100]<0>(v170, "copyFirmware: could not get 'rrko' object from ftab");
-      v149 = ACFUError::addError(a1 + 24, v170, 0x3E8uLL, 0);
-      if (v171 < 0)
+      std::string::basic_string[abi:ne200100]<0>(v100, "copyFirmware: could not get 'rrko' object from ftab");
+      v89 = ACFUError::addError(a1 + 24, v100, 0x3E8uLL, 0);
+      if (v101 < 0)
       {
-        operator delete(v170[0]);
+        operator delete(v100[0]);
       }
 
-      v150 = ACFULogging::getLogInstance(v149);
-      ACFULogging::handleMessage(v150, 2u, "%s::%s: could not get 'rrko' object from ftab\n", v151, v152, v153, v154, v155, "RoseRestoreHost");
+      v90 = ACFULogging::getLogInstance(v89);
+      ACFULogging::handleMessage(v90, 2, "%s::%s: could not get 'rrko' object from ftab\n", "RoseRestoreHost", "copyFirmwareUpdater");
 LABEL_141:
-      v84 = 0;
+      v59 = 0;
       goto LABEL_145;
     }
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v186, "copyFirmware: rkos bundle data unavailable");
-  v104 = ACFUError::addError(a1 + 24, v186, 0x3E8uLL, 0);
-  if (v187 < 0)
+  std::string::basic_string[abi:ne200100]<0>(v116, "copyFirmware: rkos bundle data unavailable");
+  v74 = ACFUError::addError(a1 + 24, v116, 0x3E8uLL, 0);
+  if (v117 < 0)
   {
-    operator delete(v186[0]);
+    operator delete(v116[0]);
   }
 
-  v105 = ACFULogging::getLogInstance(v104);
-  ACFULogging::handleMessage(v105, 2u, "%s::%s: rkos bundle data unavailable\n", v106, v107, v108, v109, v110, "RoseRestoreHost");
-  v84 = 0;
-  v57 = 0;
-  v75 = 0;
-  v85 = 0;
+  v75 = ACFULogging::getLogInstance(v74);
+  ACFULogging::handleMessage(v75, 2, "%s::%s: rkos bundle data unavailable\n", "RoseRestoreHost", "copyFirmwareUpdater");
   v59 = 0;
-  v77 = 0;
-  v47 = 0;
+  v42 = 0;
+  v50 = 0;
+  v60 = 0;
+  v44 = 0;
+  v52 = 0;
+  v37 = 0;
   if (cf)
   {
     goto LABEL_80;
   }
 
 LABEL_86:
-  if (SHIBYTE(v200.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v130.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v200.__r_.__value_.__l.__data_);
+    operator delete(v130.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v201.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v131.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v201.__r_.__value_.__l.__data_);
+    operator delete(v131.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v202.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v132.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v202.__r_.__value_.__l.__data_);
+    operator delete(v132.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v203.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v133.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v203.__r_.__value_.__l.__data_);
+    operator delete(v133.__r_.__value_.__l.__data_);
   }
 
-  if (v59)
+  if (v44)
   {
-    ((*v59)[7])(v59);
+    ((*v44)[7])(v44);
   }
 
-  if (v77)
+  if (v52)
   {
-    ((*v77)[7])(v77);
+    ((*v52)[7])(v52);
   }
 
-  if (v47)
+  if (v37)
   {
-    (*(*v47 + 56))(v47);
+    (*(*v37 + 56))(v37);
   }
 
-  return v85;
+  return v60;
 }
 
 void sub_2984F4C9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, void *a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, void *__p, uint64_t a62, int a63)
 {
-  if (a66 < 0)
+  if (a65 < 0)
   {
     operator delete(__p);
   }
 
-  if (*(v66 - 185) < 0)
+  if (*(v65 - 185) < 0)
   {
-    operator delete(*(v66 - 208));
+    operator delete(*(v65 - 208));
   }
 
-  if (*(v66 - 153) < 0)
+  if (*(v65 - 153) < 0)
   {
-    operator delete(*(v66 - 176));
+    operator delete(*(v65 - 176));
   }
 
-  if (*(v66 - 121) < 0)
+  if (*(v65 - 121) < 0)
   {
-    operator delete(*(v66 - 144));
+    operator delete(*(v65 - 144));
   }
 
-  if (*(v66 - 89) < 0)
+  if (*(v65 - 89) < 0)
   {
-    operator delete(*(v66 - 112));
+    operator delete(*(v65 - 112));
   }
 
   _Unwind_Resume(a1);
 }
 
-void *std::vector<ACFURestoreHost::FileList>::__assign_with_size[abi:ne200100]<ACFURestoreHost::FileList const*,ACFURestoreHost::FileList const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<ACFURestoreHost::FileList>::__assign_with_size[abi:ne200100]<ACFURestoreHost::FileList const*,ACFURestoreHost::FileList const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = __src;
   v7 = result;
@@ -1294,8 +1288,7 @@ void *std::vector<ACFURestoreHost::FileList>::__assign_with_size[abi:ne200100]<A
         {
           v19 = *v16;
           v16 += 16;
-          *v18 = v19;
-          v18 += 16;
+          *v18++ = v19;
           v17 += 16;
         }
 
@@ -1354,15 +1347,15 @@ void *std::vector<ACFURestoreHost::FileList>::__assign_with_size[abi:ne200100]<A
   return result;
 }
 
-uint64_t **std::__tree<std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>>>::__assign_unique<std::pair<__CFString const* const,ACFURestoreHost::DemoteConfig> const*>(uint64_t **result, unint64_t *a2, unint64_t *a3)
+void *std::__tree<std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>>>::__assign_unique<std::pair<__CFString const* const,ACFURestoreHost::DemoteConfig> const*>(void *result, unint64_t *a2, unint64_t *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -1422,17 +1415,17 @@ uint64_t **std::__tree<std::__value_type<__CFString const*,ACFURestoreHost::Demo
   return result;
 }
 
-void sub_2984F5230(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2984F5230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t **std::__tree<std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>>>::__node_assign_unique(uint64_t **a1, unint64_t *a2, uint64_t a3)
+uint64_t **std::__tree<std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>>>::__node_assign_unique(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
-  v4 = a1 + 1;
-  v5 = a1[1];
+  v4 = (a1 + 8);
+  v5 = *(a1 + 8);
   v6 = *a2;
   if (v5)
   {
@@ -1471,7 +1464,7 @@ uint64_t **std::__tree<std::__value_type<__CFString const*,ACFURestoreHost::Demo
 
   else
   {
-    v7 = a1 + 1;
+    v7 = (a1 + 8);
 LABEL_9:
     *(a3 + 32) = v6;
     *(a3 + 40) = *(a2 + 4);
@@ -1484,43 +1477,43 @@ LABEL_9:
 void RoseRestoreHost::createRequest(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: security mode demotion disallowed for Rose\n", v2, v3, v4, v5, v6, "RoseRestoreHost");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: security mode demotion disallowed for Rose\n", "RoseRestoreHost", "createRequest");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create output request dictionary\n", v2, v3, v4, v5, v6, "RoseRestoreHost");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create output request dictionary\n", "RoseRestoreHost", "createRequest");
 }
 
 void RoseRestoreHost::init(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Bad chip ID size\n", v2, v3, v4, v5, v6, "RoseRestoreHost");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Bad chip ID size\n", "RoseRestoreHost", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to initialize base class\n", v2, v3, v4, v5, v6, "RoseRestoreHost");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to initialize base class\n", "RoseRestoreHost", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create capabilities\n", v2, v3, v4, v5, v6, "RoseRestoreHost");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create capabilities\n", "RoseRestoreHost", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: No chip ID\n", v2, v3, v4, v5, v6, "RoseRestoreHost");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: No chip ID\n", "RoseRestoreHost", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: No device info\n", v2, v3, v4, v5, v6, "RoseRestoreHost");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: No device info\n", "RoseRestoreHost", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Bad options\n", v2, v3, v4, v5, v6, "RoseRestoreHost");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Bad options\n", "RoseRestoreHost", "init");
 }
 
 uint64_t RoseUpdaterGetTags(ACFULogging *a1, void (*a2)(void *, const char *), void *a3, CFErrorRef *a4)
@@ -1533,19 +1526,19 @@ uint64_t RoseUpdaterGetTags(ACFULogging *a1, void (*a2)(void *, const char *), v
     return 0;
   }
 
-  RoseRestoreHost::create(a1, @"RoseRestoreInfo", &v19);
-  v10 = v19;
-  if (!v19)
+  RoseRestoreHost::create(a1, @"RoseRestoreInfo", &v14);
+  v10 = v14;
+  if (!v14)
   {
     RoseUpdaterGetTags_cold_2(a4);
     return 0;
   }
 
-  v11 = (**v19)(v19);
+  v11 = (**v14)(v14);
   if (!v11)
   {
     v13 = ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage(v13, 2u, "%s::%s: failed to get tags\n", v14, v15, v16, v17, v18, "RoseRestoreInfo");
+    ACFULogging::handleMessage(v13, 2, "%s::%s: failed to get tags\n", "RoseRestoreInfo", "RoseUpdaterGetTags");
     *a4 = ACFURestoreHost::getError(v10);
   }
 
@@ -1563,19 +1556,19 @@ const __CFData *RoseUpdaterCopyFirmware(ACFULogging *a1, void (*a2)(void *, cons
     return 0;
   }
 
-  RoseRestoreHost::create(a1, @"RoseRestoreInfo", &v19);
-  v10 = v19;
-  if (!v19)
+  RoseRestoreHost::create(a1, @"RoseRestoreInfo", &v14);
+  v10 = v14;
+  if (!v14)
   {
     RoseUpdaterCopyFirmware_cold_2(a4);
     return 0;
   }
 
-  v11 = ACFURestoreHost::copyFirmware(v19);
+  v11 = ACFURestoreHost::copyFirmware(v14);
   if (!v11)
   {
     v13 = ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage(v13, 2u, "%s::%s: failed to copy firmware\n", v14, v15, v16, v17, v18, "RoseRestoreInfo");
+    ACFULogging::handleMessage(v13, 2, "%s::%s: failed to copy firmware\n", "RoseRestoreInfo", "RoseUpdaterCopyFirmware");
     *a4 = ACFURestoreHost::getError(v10);
   }
 
@@ -1585,72 +1578,72 @@ const __CFData *RoseUpdaterCopyFirmware(ACFULogging *a1, void (*a2)(void *, cons
 
 uint64_t RoseUpdaterCreateRequest(const __CFDictionary *a1, void (*a2)(void *, const char *), void *a3, CFErrorRef *a4)
 {
-  v8 = ACFUError::ACFUError(v75, @"RoseRestoreInfo");
-  v73 = 0;
-  v74 = 0;
-  v72 = 0;
-  v71[0] = @"Rap,ProductionMode";
-  v71[1] = @"Rap,SecurityMode";
+  ACFUError::ACFUError(v44, @"RoseRestoreInfo");
+  v42 = 0;
+  v43 = 0;
+  v41 = 0;
+  v40[0] = @"Rap,ProductionMode";
+  v40[1] = @"Rap,SecurityMode";
   LogInstance = ACFULogging::getLogInstance(v8);
   inited = ACFULogging::initLog(LogInstance, a1, a2, a3);
   v11 = inited;
   if (inited)
   {
-    v43 = ACFULogging::getLogInstance(inited);
-    ACFULogging::handleMessage(v43, 2u, "%s::%s: failed to init logging\n", v44, v45, v46, v47, v48, "RoseRestoreInfo");
-    v49 = v11;
+    v28 = ACFULogging::getLogInstance(inited);
+    ACFULogging::handleMessage(v28, 2, "%s::%s: failed to init logging\n", "RoseRestoreInfo", "RoseUpdaterCreateRequest");
+    v29 = v11;
   }
 
   else
   {
-    ACFUCommon::parseDebugArgs(a1, "demoteProd", &v70);
-    v13 = v70;
-    if (HIDWORD(v70) != 4006)
+    ACFUCommon::parseDebugArgs(&v39, a1, "demoteProd");
+    v13 = v39;
+    if (HIDWORD(v39) != 4006)
     {
-      if (HIDWORD(v70))
+      if (HIDWORD(v39))
       {
-        v56 = ACFULogging::getLogInstance(v12);
-        ACFULogging::handleMessage(v56, 2u, "%s::%s: failed to parse debug arguments\n", v57, v58, v59, v60, v61, "RoseRestoreInfo");
-        v49 = v13 >> 32;
+        v31 = ACFULogging::getLogInstance(v12);
+        ACFULogging::handleMessage(v31, 2, "%s::%s: failed to parse debug arguments\n", "RoseRestoreInfo", "RoseUpdaterCreateRequest");
+        v29 = v13 >> 32;
         goto LABEL_31;
       }
 
-      LOBYTE(v72) = v70 == 1;
+      LOBYTE(v41) = v39 == 1;
     }
 
-    v14 = RoseRestoreHost::create(a1, @"RoseRestoreInfo", &v70);
-    v15 = v70;
-    if (v70)
+    v14 = RoseRestoreHost::create(a1, @"RoseRestoreInfo", &v39);
+    v15 = v39;
+    if (v39)
     {
       Value = CFDictionaryGetValue(a1, @"FirmwareData");
       v17 = Value;
       if (Value && (TypeID = CFDataGetTypeID(), Value = CFGetTypeID(v17), TypeID == Value))
       {
-        GetRoseTatsuTagToFileNameMap(v68);
-        RTKitFirmware::create(v68, v17, 0, &v70);
-        std::shared_ptr<RTKitFirmware>::operator=[abi:ne200100]<RTKitFirmware,std::default_delete<RTKitFirmware>,0>(&v73, &v70);
-        v19 = v70;
-        v70 = 0;
+        GetRoseTatsuTagToFileNameMap(v38);
+        RTKitFirmware::create(v38, v17, 0, &v39);
+        std::shared_ptr<RTKitFirmware>::operator=[abi:ne200100]<RTKitFirmware,std::default_delete<RTKitFirmware>,0>(&v42, &v39);
+        v19 = v39;
+        v39 = 0;
         if (v19)
         {
           (*(*v19 + 56))(v19);
         }
 
-        std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(v68, v69);
-        if (v73)
+        std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(v38, v38[1]);
+        if (v42)
         {
-          v64 = v73;
-          v65 = v74;
-          if (v74)
+          v34 = v42;
+          v35 = v43;
+          if (v43)
           {
-            atomic_fetch_add_explicit(&v74->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v43->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v21 = (*(*v15 + 8))(v15, &v64, v71);
-          v22 = v65;
-          if (v65)
+          v21 = (*(*v15 + 8))(v15, &v34, v40);
+          v22 = v35;
+          if (v35)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v65);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v35);
           }
 
           if (v21)
@@ -1659,10 +1652,10 @@ uint64_t RoseUpdaterCreateRequest(const __CFDictionary *a1, void (*a2)(void *, c
           }
 
           v23 = ACFULogging::getLogInstance(v22);
-          ACFULogging::handleMessage(v23, 2u, "%s::%s: failed to create request dict\n", v24, v25, v26, v27, v28, "RoseRestoreInfo");
+          ACFULogging::handleMessage(v23, 2, "%s::%s: failed to create request dict\n", "RoseRestoreInfo", "RoseUpdaterCreateRequest");
           std::string::basic_string[abi:ne200100]<0>(__p, "RoseUpdaterCreateRequest: failed to create request dict");
-          ACFUError::addError(v75, __p, 0xFA1uLL, 0);
-          if (v63 < 0)
+          ACFUError::addError(v44, __p, 0xFA1uLL, 0);
+          if (v33 < 0)
           {
             operator delete(__p[0]);
           }
@@ -1672,16 +1665,16 @@ uint64_t RoseUpdaterCreateRequest(const __CFDictionary *a1, void (*a2)(void *, c
 
         else
         {
-          v30 = ACFULogging::getLogInstance(v20);
-          ACFULogging::handleMessage(v30, 2u, "%s::%s: Failed to find firmware\n", v31, v32, v33, v34, v35, "RoseRestoreInfo");
-          std::string::basic_string[abi:ne200100]<0>(v66, "RoseUpdaterCreateRequest: failed to open firmware");
-          ACFUError::addError(v75, v66, 0x3E8uLL, 0);
-          if (v67 < 0)
+          v25 = ACFULogging::getLogInstance(v20);
+          ACFULogging::handleMessage(v25, 2, "%s::%s: Failed to find firmware\n", "RoseRestoreInfo", "RoseUpdaterCreateRequest");
+          std::string::basic_string[abi:ne200100]<0>(v36, "RoseUpdaterCreateRequest: failed to open firmware");
+          ACFUError::addError(v44, v36, 0x3E8uLL, 0);
+          if (v37 < 0)
           {
-            operator delete(v66[0]);
+            operator delete(v36[0]);
           }
 
-          Error = ACFUError::getCFError(v75);
+          Error = ACFUError::getCFError(v44);
         }
 
         v21 = 0;
@@ -1690,8 +1683,8 @@ uint64_t RoseUpdaterCreateRequest(const __CFDictionary *a1, void (*a2)(void *, c
 
       else
       {
-        v37 = ACFULogging::getLogInstance(Value);
-        ACFULogging::handleMessage(v37, 0, "%s::%s: Invalid or no firmware file present in restore options\n", v38, v39, v40, v41, v42, "RoseRestoreInfo");
+        v27 = ACFULogging::getLogInstance(Value);
+        ACFULogging::handleMessage(v27, 0, "%s::%s: Invalid or no firmware file present in restore options\n", "RoseRestoreInfo", "RoseUpdaterCreateRequest");
         v21 = 0;
       }
 
@@ -1700,32 +1693,32 @@ LABEL_23:
       goto LABEL_24;
     }
 
-    v50 = ACFULogging::getLogInstance(v14);
-    ACFULogging::handleMessage(v50, 2u, "%s::%s: failed to create host object\n", v51, v52, v53, v54, v55, "RoseRestoreInfo");
-    v49 = 4000;
+    v30 = ACFULogging::getLogInstance(v14);
+    ACFULogging::handleMessage(v30, 2, "%s::%s: failed to create host object\n", "RoseRestoreInfo", "RoseUpdaterCreateRequest");
+    v29 = 4000;
   }
 
 LABEL_31:
   v21 = 0;
-  *a4 = CFErrorCreate(*MEMORY[0x29EDB8ED8], @"RoseRestoreInfo", v49, 0);
+  *a4 = CFErrorCreate(*MEMORY[0x29EDB8ED8], @"RoseRestoreInfo", v29, 0);
 LABEL_24:
-  if (v74)
+  if (v43)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v74);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v43);
   }
 
-  ACFUError::~ACFUError(v75);
+  ACFUError::~ACFUError(v44);
   return v21;
 }
 
-void sub_2984F5B48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, char a26, uint64_t a27)
+void sub_2984F5B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, char a26, uint64_t a27)
 {
   if (a17 < 0)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 24))(v27);
+  (*(*v27 + 24))(v27, a2, a3, a4, a5, a6, a7, a8);
   v30 = *(v28 - 56);
   if (v30)
   {
@@ -1738,339 +1731,340 @@ void sub_2984F5B48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 __CFDictionary *RoseUpdaterGetSharedInfo(const __CFDictionary *a1, void (*a2)(void *, const char *), void *a3, CFErrorRef *a4)
 {
-  v8 = ACFUError::ACFUError(v161, @"RoseRestoreInfo");
+  ACFUError::ACFUError(v107, @"RoseRestoreInfo");
   LogInstance = ACFULogging::getLogInstance(v8);
   inited = ACFULogging::initLog(LogInstance, a1, a2, a3);
   v11 = inited;
   if (inited)
   {
-    v79 = ACFULogging::getLogInstance(inited);
-    ACFULogging::handleMessage(v79, 2u, "%s::%s: failed to init logging\n", v80, v81, v82, v83, v84, "RoseRestoreInfo");
-    v85 = CFErrorCreate(*MEMORY[0x29EDB8ED8], @"RoseRestoreInfo", v11, 0);
-    v69 = 0;
+    v55 = ACFULogging::getLogInstance(inited);
+    ACFULogging::handleMessage(v55, 2, "%s::%s: failed to init logging\n", "RoseRestoreInfo", "RoseUpdaterGetSharedInfo");
+    v56 = CFErrorCreate(*MEMORY[0x29EDB8ED8], @"RoseRestoreInfo", v11, 0);
+    v45 = 0;
     Mutable = 0;
-    *a4 = v85;
-    goto LABEL_38;
-  }
-
-  v12 = ACFULogging::getLogInstance(inited);
-  ACFULogging::handleMessage(v12, 0, "%s::%s: performing Rose pairing operation -- sharing digest dictionary\n", v13, v14, v15, v16, v17, "RoseRestoreInfo");
-  v18 = *MEMORY[0x29EDB8ED8];
-  Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-  if (!Mutable)
-  {
-    std::string::basic_string[abi:ne200100]<0>(v159, "RoseUpdaterGetSharedInfo: Failed to allocate shared info dict");
-    v86 = ACFUError::addError(v161, v159, 0xFA0uLL, 0);
-    if (v160 < 0)
-    {
-      operator delete(v159[0]);
-    }
-
-    v87 = ACFULogging::getLogInstance(v86);
-    v69 = 0;
-    ACFULogging::handleMessage(v87, 2u, "%s::%s: Failed to allocate shared info dictionary\n", v88, v89, v90, v91, v92, "RoseRestoreInfo");
-    Mutable = 0;
-    goto LABEL_38;
-  }
-
-  LOWORD(__dst.__r_.__value_.__l.__data_) = 0;
-  LOWORD(v135.__r_.__value_.__l.__data_) = 0;
-  Value = CFDictionaryGetValue(a1, @"DeviceInfo");
-  v21 = Value;
-  if (!Value || (v22 = CFGetTypeID(Value), Value = CFDictionaryGetTypeID(), v22 != Value))
-  {
-    v44 = ACFULogging::getLogInstance(Value);
-    ACFULogging::handleMessage(v44, 0, "%s::%s: Could not obtain deviceInfo dictionary. Sharing all digest information.\n", v45, v46, v47, v48, v49, "RoseRestoreInfo");
-    goto LABEL_17;
-  }
-
-  TypeID = CFDictionaryGetValue(v21, @"Rap,ChipID");
-  v24 = TypeID;
-  if (!TypeID || (v25 = CFGetTypeID(TypeID), TypeID = CFDataGetTypeID(), v25 != TypeID))
-  {
-    v108 = ACFULogging::getLogInstance(TypeID);
-    v114 = "%s::%s: chipID is empty or isn't data type\n";
-LABEL_81:
-    ACFULogging::handleMessage(v108, 2u, v114, v109, v110, v111, v112, v113, "RoseRestoreInfo");
-    goto LABEL_15;
-  }
-
-  Length = CFDataGetLength(v24);
-  if (Length != 2)
-  {
-    v108 = ACFULogging::getLogInstance(Length);
-    v114 = "%s::%s: chipID is not 2 bytes in length. Assuming Rose-SE pairing is not supported.\n";
-    goto LABEL_81;
-  }
-
-  BytePtr = CFDataGetBytePtr(v24);
-  v28 = CFDataGetLength(v24);
-  memcpy(&__dst, BytePtr, v28);
-  v29 = CFDictionaryGetValue(v21, @"Rap,BoardID");
-  v30 = v29;
-  if (!v29 || (v31 = CFGetTypeID(v29), v29 = CFDataGetTypeID(), v31 != v29))
-  {
-    v108 = ACFULogging::getLogInstance(v29);
-    v114 = "%s::%s: boardID is empty or isn't data type\n";
-    goto LABEL_81;
-  }
-
-  v32 = CFDataGetLength(v30);
-  if (v32 != 2)
-  {
-    v108 = ACFULogging::getLogInstance(v32);
-    v114 = "%s::%s: boardID is not 2 bytes in length. Assuming Rose-SE pairing is not supported.\n";
-    goto LABEL_81;
-  }
-
-  v33 = CFDataGetBytePtr(v30);
-  v34 = CFDataGetLength(v30);
-  memcpy(&v135, v33, v34);
-  RoseCapabilities::create(LOWORD(__dst.__r_.__value_.__l.__data_), __p);
-  v35 = __p[1];
-  if (!__p[0])
-  {
-    v129 = ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage(v129, 2u, "%s::%s: failed to create capabilities\n", v130, v131, v132, v133, v134, "RoseRestoreInfo");
-    if (v35)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v35);
-    }
-
-    goto LABEL_15;
-  }
-
-  v36 = RoseCapabilities::supportsRoseSEPairing(__p[0], LOWORD(v135.__r_.__value_.__l.__data_));
-  v37 = v36;
-  if (v35)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v35);
-  }
-
-  if ((v37 & 1) == 0)
-  {
-LABEL_15:
-    v38 = ACFULogging::getLogInstance(v36);
-    ACFULogging::handleMessage(v38, 0, "%s::%s: Returning empty sharing digest dictionary -- Rose-SE pairing not supported for this device.\n", v39, v40, v41, v42, v43, "RoseRestoreInfo");
-    goto LABEL_43;
-  }
-
-LABEL_17:
-  v50 = ACFULogging::getLogInstance(v36);
-  ACFULogging::handleMessage(v50, 0, "%s::%s: Rose-SE pairing is supported for this device\n", v51, v52, v53, v54, v55, "RoseRestoreInfo");
-  ACFUCommon::parseDebugArgs(a1, "buildIDRoseSEPair", __p);
-  if (__p[0] >> 32 || !LODWORD(__p[0]))
-  {
-    v70 = CFDictionaryGetValue(a1, @"FirmwareData");
-    if (v70 && (v71 = CFDataGetTypeID(), v71 == CFGetTypeID(v70)))
-    {
-      GetRoseTatsuTagToFileNameMap(v143);
-      RTKitFirmware::create(v143, v70, 0, __p);
-      v69 = __p[0];
-      __p[0] = 0;
-      std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(v143, v144);
-      if (v69)
-      {
-        MeasureDataWithTag = ACFUFirmware::getMeasureDataWithTag(v69, @"Rap,RTKitOS");
-        ValueForKeyPathInDict = ACFUFirmware::getMeasureDataWithTag(v69, @"Rap,SoftwareBinaryDsp1");
-        goto LABEL_30;
-      }
-
-      std::string::basic_string[abi:ne200100]<0>(v141, "RoseUpdaterGetSharedInfo: Failed to open firmware");
-      v124 = ACFUError::addError(v161, v141, 0x3E8uLL, 0);
-      if (v142 < 0)
-      {
-        operator delete(v141[0]);
-      }
-
-      v94 = ACFULogging::getLogInstance(v124);
-      v100 = "%s::%s: Failed to open firmware\n";
-    }
-
-    else
-    {
-      std::string::basic_string[abi:ne200100]<0>(v145, "RoseUpdaterGetSharedInfo: Invalid or no firmware file present in restore options");
-      v93 = ACFUError::addError(v161, v145, 0x3E8uLL, 0);
-      if (v146 < 0)
-      {
-        operator delete(v145[0]);
-      }
-
-      v94 = ACFULogging::getLogInstance(v93);
-      v100 = "%s::%s: Invalid or no firmware file present in restore options\n";
-    }
-
-    v69 = 0;
-    ACFULogging::handleMessage(v94, 2u, v100, v95, v96, v97, v98, v99, "RoseRestoreInfo");
+    *a4 = v56;
   }
 
   else
   {
-    v57 = ACFULogging::getLogInstance(v56);
-    ACFULogging::handleMessage(v57, 0, "%s::%s: forcing pairing with build ID: %u\n", v58, v59, v60, v61, v62, "RoseRestoreInfo");
-    v63 = CFStringCreateWithFormat(v18, 0, @"%@.%@.%@", @"BuildIdentity", @"Rap,RTKitOS", @"Digest", v135.__r_.__value_.__r.__words[0]);
-    if (v63)
+    v12 = ACFULogging::getLogInstance(inited);
+    ACFULogging::handleMessage(v12, 0, "%s::%s: performing Rose pairing operation -- sharing digest dictionary\n", "RoseRestoreInfo", "RoseUpdaterGetSharedInfo");
+    v13 = *MEMORY[0x29EDB8ED8];
+    Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
+    if (!Mutable)
     {
-      MeasureDataWithTag = AMSupportGetValueForKeyPathInDict();
-      CFRelease(v63);
-      if (MeasureDataWithTag)
+      std::string::basic_string[abi:ne200100]<0>(v105, "RoseUpdaterGetSharedInfo: Failed to allocate shared info dict");
+      v57 = ACFUError::addError(v107, v105, 0xFA0uLL, 0);
+      if (v106 < 0)
       {
-        v65 = CFDataGetTypeID();
-        if (v65 == CFGetTypeID(MeasureDataWithTag))
+        operator delete(v105[0]);
+      }
+
+      v58 = ACFULogging::getLogInstance(v57);
+      v45 = 0;
+      ACFULogging::handleMessage(v58, 2, "%s::%s: Failed to allocate shared info dictionary\n", "RoseRestoreInfo", "RoseUpdaterGetSharedInfo");
+      Mutable = 0;
+      goto LABEL_38;
+    }
+
+    LOWORD(__dst.__r_.__value_.__l.__data_) = 0;
+    LOWORD(v82.__r_.__value_.__l.__data_) = 0;
+    Value = CFDictionaryGetValue(a1, @"DeviceInfo");
+    v16 = Value;
+    if (Value && (v17 = CFGetTypeID(Value), Value = CFDictionaryGetTypeID(), v17 == Value))
+    {
+      TypeID = CFDictionaryGetValue(v16, @"Rap,ChipID");
+      v19 = TypeID;
+      if (!TypeID || (v20 = CFGetTypeID(TypeID), TypeID = CFDataGetTypeID(), v20 != TypeID))
+      {
+        v64 = ACFULogging::getLogInstance(TypeID);
+        ACFULogging::handleMessage(v64, 2, "%s::%s: chipID is empty or isn't data type\n");
+        goto LABEL_15;
+      }
+
+      Length = CFDataGetLength(v19);
+      if (Length != 2)
+      {
+        v79 = ACFULogging::getLogInstance(Length);
+        ACFULogging::handleMessage(v79, 2, "%s::%s: chipID is not 2 bytes in length. Assuming Rose-SE pairing is not supported.\n");
+        goto LABEL_15;
+      }
+
+      BytePtr = CFDataGetBytePtr(v19);
+      v23 = CFDataGetLength(v19);
+      memcpy(&__dst, BytePtr, v23);
+      v24 = CFDictionaryGetValue(v16, @"Rap,BoardID");
+      v25 = v24;
+      if (!v24 || (v26 = CFGetTypeID(v24), v24 = CFDataGetTypeID(), v26 != v24))
+      {
+        v65 = ACFULogging::getLogInstance(v24);
+        ACFULogging::handleMessage(v65, 2, "%s::%s: boardID is empty or isn't data type\n");
+        goto LABEL_15;
+      }
+
+      v27 = CFDataGetLength(v25);
+      if (v27 != 2)
+      {
+        v80 = ACFULogging::getLogInstance(v27);
+        ACFULogging::handleMessage(v80, 2, "%s::%s: boardID is not 2 bytes in length. Assuming Rose-SE pairing is not supported.\n");
+        goto LABEL_15;
+      }
+
+      v28 = CFDataGetBytePtr(v25);
+      v29 = CFDataGetLength(v25);
+      memcpy(&v82, v28, v29);
+      RoseCapabilities::create(__p, LOWORD(__dst.__r_.__value_.__l.__data_));
+      v30 = __p[1];
+      if (!__p[0])
+      {
+        v81 = ACFULogging::getLogInstance(0);
+        ACFULogging::handleMessage(v81, 2, "%s::%s: failed to create capabilities\n", "RoseRestoreInfo", "supportsRoseSEPairing");
+        if (v30)
         {
-          v66 = CFStringCreateWithFormat(v18, 0, @"%@.%@.%@", @"BuildIdentity", @"Rap,SoftwareBinaryDsp1", @"Digest");
-          if (v66)
+          std::__shared_weak_count::__release_shared[abi:ne200100](v30);
+        }
+
+        goto LABEL_15;
+      }
+
+      v31 = RoseCapabilities::supportsRoseSEPairing(__p[0], LOWORD(v82.__r_.__value_.__l.__data_));
+      v32 = v31;
+      if (v30)
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](v30);
+      }
+
+      if ((v32 & 1) == 0)
+      {
+LABEL_15:
+        v33 = ACFULogging::getLogInstance(v31);
+        ACFULogging::handleMessage(v33, 0, "%s::%s: Returning empty sharing digest dictionary -- Rose-SE pairing not supported for this device.\n", "RoseRestoreInfo", "RoseUpdaterGetSharedInfo");
+        goto LABEL_43;
+      }
+    }
+
+    else
+    {
+      v34 = ACFULogging::getLogInstance(Value);
+      ACFULogging::handleMessage(v34, 0, "%s::%s: Could not obtain deviceInfo dictionary. Sharing all digest information.\n", "RoseRestoreInfo", "supportsRoseSEPairing");
+    }
+
+    v35 = ACFULogging::getLogInstance(v31);
+    ACFULogging::handleMessage(v35, 0, "%s::%s: Rose-SE pairing is supported for this device\n", "RoseRestoreInfo", "RoseUpdaterGetSharedInfo");
+    ACFUCommon::parseDebugArgs(__p, a1, "buildIDRoseSEPair");
+    v37 = __p[0];
+    if (__p[0] >> 32 || !LODWORD(__p[0]))
+    {
+      v46 = CFDictionaryGetValue(a1, @"FirmwareData");
+      if (v46 && (v47 = CFDataGetTypeID(), v47 == CFGetTypeID(v46)))
+      {
+        GetRoseTatsuTagToFileNameMap(v90);
+        RTKitFirmware::create(v90, v46, 0, __p);
+        v45 = __p[0];
+        __p[0] = 0;
+        std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(v90, v90[1]);
+        if (v45)
+        {
+          MeasureDataWithTag = ACFUFirmware::getMeasureDataWithTag(v45, @"Rap,RTKitOS");
+          ValueForKeyPathInDict = ACFUFirmware::getMeasureDataWithTag(v45, @"Rap,SoftwareBinaryDsp1");
+          goto LABEL_30;
+        }
+
+        std::string::basic_string[abi:ne200100]<0>(v88, "RoseUpdaterGetSharedInfo: Failed to open firmware");
+        v70 = ACFUError::addError(v107, v88, 0x3E8uLL, 0);
+        if (v89 < 0)
+        {
+          operator delete(v88[0]);
+        }
+
+        v60 = ACFULogging::getLogInstance(v70);
+        v61 = "%s::%s: Failed to open firmware\n";
+      }
+
+      else
+      {
+        std::string::basic_string[abi:ne200100]<0>(v91, "RoseUpdaterGetSharedInfo: Invalid or no firmware file present in restore options");
+        v59 = ACFUError::addError(v107, v91, 0x3E8uLL, 0);
+        if (v92 < 0)
+        {
+          operator delete(v91[0]);
+        }
+
+        v60 = ACFULogging::getLogInstance(v59);
+        v61 = "%s::%s: Invalid or no firmware file present in restore options\n";
+      }
+
+      v45 = 0;
+      ACFULogging::handleMessage(v60, 2, v61, "RoseRestoreInfo", "RoseUpdaterGetSharedInfo");
+    }
+
+    else
+    {
+      v38 = ACFULogging::getLogInstance(v36);
+      ACFULogging::handleMessage(v38, 0, "%s::%s: forcing pairing with build ID: %u\n", "RoseRestoreInfo", "RoseUpdaterGetSharedInfo", v37);
+      v39 = CFStringCreateWithFormat(v13, 0, @"%@.%@.%@", @"BuildIdentity", @"Rap,RTKitOS", @"Digest", v82.__r_.__value_.__r.__words[0]);
+      if (v39)
+      {
+        MeasureDataWithTag = AMSupportGetValueForKeyPathInDict();
+        CFRelease(v39);
+        if (MeasureDataWithTag)
+        {
+          v41 = CFDataGetTypeID();
+          if (v41 == CFGetTypeID(MeasureDataWithTag))
           {
-            ValueForKeyPathInDict = AMSupportGetValueForKeyPathInDict();
-            CFRelease(v66);
-            if (ValueForKeyPathInDict)
+            v42 = CFStringCreateWithFormat(v13, 0, @"%@.%@.%@", @"BuildIdentity", @"Rap,SoftwareBinaryDsp1", @"Digest");
+            if (v42)
             {
-              v68 = CFDataGetTypeID();
-              if (v68 == CFGetTypeID(ValueForKeyPathInDict))
+              ValueForKeyPathInDict = AMSupportGetValueForKeyPathInDict();
+              CFRelease(v42);
+              if (ValueForKeyPathInDict)
               {
-                v69 = 0;
+                v44 = CFDataGetTypeID();
+                if (v44 == CFGetTypeID(ValueForKeyPathInDict))
+                {
+                  v45 = 0;
 LABEL_30:
-                if (MeasureDataWithTag && ValueForKeyPathInDict)
-                {
-                  CFDictionarySetValue(Mutable, @"SE,RapSwBinDsp", ValueForKeyPathInDict);
-                  CFDictionarySetValue(Mutable, @"SE,RapRTKitOS", MeasureDataWithTag);
-                  v73 = ACFULogging::getLogInstance(v72);
-                  std::string::basic_string[abi:ne200100]<0>(&v135, "RoseRestoreInfo");
-                  v74 = std::string::append(&v135, "::");
-                  v75 = *&v74->__r_.__value_.__l.__data_;
-                  __dst.__r_.__value_.__r.__words[2] = v74->__r_.__value_.__r.__words[2];
-                  *&__dst.__r_.__value_.__l.__data_ = v75;
-                  v74->__r_.__value_.__l.__size_ = 0;
-                  v74->__r_.__value_.__r.__words[2] = 0;
-                  v74->__r_.__value_.__r.__words[0] = 0;
-                  v76 = std::string::append(&__dst, "RoseUpdaterGetSharedInfo");
-                  v77 = *&v76->__r_.__value_.__l.__data_;
-                  v138 = v76->__r_.__value_.__r.__words[2];
-                  *__p = v77;
-                  v76->__r_.__value_.__l.__size_ = 0;
-                  v76->__r_.__value_.__r.__words[2] = 0;
-                  v76->__r_.__value_.__r.__words[0] = 0;
-                  ACFULogging::handleMessageCFType(v73, __p, 0, "Rose-SE Shared Info: ", Mutable);
-                  if (SHIBYTE(v138) < 0)
+                  if (MeasureDataWithTag && ValueForKeyPathInDict)
                   {
-                    operator delete(__p[0]);
+                    CFDictionarySetValue(Mutable, @"SE,RapSwBinDsp", ValueForKeyPathInDict);
+                    CFDictionarySetValue(Mutable, @"SE,RapRTKitOS", MeasureDataWithTag);
+                    v49 = ACFULogging::getLogInstance(v48);
+                    std::string::basic_string[abi:ne200100]<0>(&v82, "RoseRestoreInfo");
+                    v50 = std::string::append(&v82, "::");
+                    v51 = *&v50->__r_.__value_.__l.__data_;
+                    __dst.__r_.__value_.__r.__words[2] = v50->__r_.__value_.__r.__words[2];
+                    *&__dst.__r_.__value_.__l.__data_ = v51;
+                    v50->__r_.__value_.__l.__size_ = 0;
+                    v50->__r_.__value_.__r.__words[2] = 0;
+                    v50->__r_.__value_.__r.__words[0] = 0;
+                    v52 = std::string::append(&__dst, "RoseUpdaterGetSharedInfo");
+                    v53 = *&v52->__r_.__value_.__l.__data_;
+                    v85 = v52->__r_.__value_.__r.__words[2];
+                    *__p = v53;
+                    v52->__r_.__value_.__l.__size_ = 0;
+                    v52->__r_.__value_.__r.__words[2] = 0;
+                    v52->__r_.__value_.__r.__words[0] = 0;
+                    ACFULogging::handleMessageCFType(v49, __p, 0, "Rose-SE Shared Info: ", Mutable);
+                    if (SHIBYTE(v85) < 0)
+                    {
+                      operator delete(__p[0]);
+                    }
+
+                    if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+                    {
+                      operator delete(__dst.__r_.__value_.__l.__data_);
+                    }
+
+                    if (SHIBYTE(v82.__r_.__value_.__r.__words[2]) < 0)
+                    {
+                      operator delete(v82.__r_.__value_.__l.__data_);
+                    }
                   }
 
-                  if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+                  else
                   {
-                    operator delete(__dst.__r_.__value_.__l.__data_);
+                    std::string::basic_string[abi:ne200100]<0>(v86, "RoseUpdaterGetSharedInfo: Missing required firmware measurements");
+                    v62 = ACFUError::addError(v107, v86, 0xFA1uLL, 0);
+                    if (v87 < 0)
+                    {
+                      operator delete(v86[0]);
+                    }
+
+                    v63 = ACFULogging::getLogInstance(v62);
+                    ACFULogging::handleMessage(v63, 2, "%s::%s: Missing required firmware measurements\n", "RoseRestoreInfo", "RoseUpdaterGetSharedInfo");
                   }
 
-                  if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
-                  {
-                    operator delete(v135.__r_.__value_.__l.__data_);
-                  }
+                  goto LABEL_38;
                 }
 
-                else
+                std::string::basic_string[abi:ne200100]<0>(v93, "RoseUpdaterGetSharedInfo: sbd1 digest is of an unexpected type");
+                v77 = ACFUError::addError(v107, v93, 0x3EDuLL, 0);
+                if (v94 < 0)
                 {
-                  std::string::basic_string[abi:ne200100]<0>(v139, "RoseUpdaterGetSharedInfo: Missing required firmware measurements");
-                  v101 = ACFUError::addError(v161, v139, 0xFA1uLL, 0);
-                  if (v140 < 0)
-                  {
-                    operator delete(v139[0]);
-                  }
-
-                  v102 = ACFULogging::getLogInstance(v101);
-                  ACFULogging::handleMessage(v102, 2u, "%s::%s: Missing required firmware measurements\n", v103, v104, v105, v106, v107, "RoseRestoreInfo");
+                  operator delete(v93[0]);
                 }
 
-                goto LABEL_38;
+                v78 = ACFULogging::getLogInstance(v77);
+                ACFULogging::handleMessage(v78, 2, "%s::%s: sbd1 digest is of an unexpected type\n");
               }
 
-              std::string::basic_string[abi:ne200100]<0>(v147, "RoseUpdaterGetSharedInfo: sbd1 digest is of an unexpected type");
-              v128 = ACFUError::addError(v161, v147, 0x3EDuLL, 0);
-              if (v148 < 0)
+              else
               {
-                operator delete(v147[0]);
-              }
+                std::string::basic_string[abi:ne200100]<0>(v95, "RoseUpdaterGetSharedInfo: failed to get dict entry for sbd1 digest");
+                v75 = ACFUError::addError(v107, v95, 0x3EDuLL, 0);
+                if (v96 < 0)
+                {
+                  operator delete(v95[0]);
+                }
 
-              v116 = ACFULogging::getLogInstance(v128);
-              v122 = "%s::%s: sbd1 digest is of an unexpected type\n";
+                v76 = ACFULogging::getLogInstance(v75);
+                ACFULogging::handleMessage(v76, 2, "%s::%s: failed to get dict entry for sbd1 digest\n");
+              }
             }
 
             else
             {
-              std::string::basic_string[abi:ne200100]<0>(v149, "RoseUpdaterGetSharedInfo: failed to get dict entry for sbd1 digest");
-              v127 = ACFUError::addError(v161, v149, 0x3EDuLL, 0);
-              if (v150 < 0)
+              std::string::basic_string[abi:ne200100]<0>(v97, "RoseUpdaterGetSharedInfo: failed to create build ID key path for sdb1");
+              v73 = ACFUError::addError(v107, v97, 0x3EDuLL, 0);
+              if (v98 < 0)
               {
-                operator delete(v149[0]);
+                operator delete(v97[0]);
               }
 
-              v116 = ACFULogging::getLogInstance(v127);
-              v122 = "%s::%s: failed to get dict entry for sbd1 digest\n";
+              v74 = ACFULogging::getLogInstance(v73);
+              ACFULogging::handleMessage(v74, 2, "%s::%s: failed to create build ID key path for sdb1\n");
             }
           }
 
           else
           {
-            std::string::basic_string[abi:ne200100]<0>(v151, "RoseUpdaterGetSharedInfo: failed to create build ID key path for sdb1");
-            v126 = ACFUError::addError(v161, v151, 0x3EDuLL, 0);
-            if (v152 < 0)
+            std::string::basic_string[abi:ne200100]<0>(v99, "RoseUpdaterGetSharedInfo: rkos digest is of an unexpected type");
+            v71 = ACFUError::addError(v107, v99, 0x3EDuLL, 0);
+            if (v100 < 0)
             {
-              operator delete(v151[0]);
+              operator delete(v99[0]);
             }
 
-            v116 = ACFULogging::getLogInstance(v126);
-            v122 = "%s::%s: failed to create build ID key path for sdb1\n";
+            v72 = ACFULogging::getLogInstance(v71);
+            ACFULogging::handleMessage(v72, 2, "%s::%s: rkos digest is of an unexpected type\n");
           }
         }
 
         else
         {
-          std::string::basic_string[abi:ne200100]<0>(v153, "RoseUpdaterGetSharedInfo: rkos digest is of an unexpected type");
-          v125 = ACFUError::addError(v161, v153, 0x3EDuLL, 0);
-          if (v154 < 0)
+          std::string::basic_string[abi:ne200100]<0>(v101, "RoseUpdaterGetSharedInfo: failed to get dict entry rkos digest");
+          v68 = ACFUError::addError(v107, v101, 0xFA0uLL, 0);
+          if (v102 < 0)
           {
-            operator delete(v153[0]);
+            operator delete(v101[0]);
           }
 
-          v116 = ACFULogging::getLogInstance(v125);
-          v122 = "%s::%s: rkos digest is of an unexpected type\n";
+          v69 = ACFULogging::getLogInstance(v68);
+          ACFULogging::handleMessage(v69, 2, "%s::%s: failed to get dict entry rkos digest\n");
         }
       }
 
       else
       {
-        std::string::basic_string[abi:ne200100]<0>(v155, "RoseUpdaterGetSharedInfo: failed to get dict entry rkos digest");
-        v123 = ACFUError::addError(v161, v155, 0xFA0uLL, 0);
-        if (v156 < 0)
+        std::string::basic_string[abi:ne200100]<0>(v103, "RoseUpdaterGetSharedInfo: failed to create build ID key path for rkos");
+        v66 = ACFUError::addError(v107, v103, 0x3EDuLL, 0);
+        if (v104 < 0)
         {
-          operator delete(v155[0]);
+          operator delete(v103[0]);
         }
 
-        v116 = ACFULogging::getLogInstance(v123);
-        v122 = "%s::%s: failed to get dict entry rkos digest\n";
-      }
-    }
-
-    else
-    {
-      std::string::basic_string[abi:ne200100]<0>(v157, "RoseUpdaterGetSharedInfo: failed to create build ID key path for rkos");
-      v115 = ACFUError::addError(v161, v157, 0x3EDuLL, 0);
-      if (v158 < 0)
-      {
-        operator delete(v157[0]);
+        v67 = ACFULogging::getLogInstance(v66);
+        ACFULogging::handleMessage(v67, 2, "%s::%s: failed to create build ID key path for rkos\n");
       }
 
-      v116 = ACFULogging::getLogInstance(v115);
-      v122 = "%s::%s: failed to create build ID key path for rkos\n";
+      v45 = 0;
     }
-
-    ACFULogging::handleMessage(v116, 2u, v122, v117, v118, v119, v120, v121, "RoseRestoreInfo");
-    v69 = 0;
   }
 
 LABEL_38:
-  if (ACFUError::hasError(v161))
+  if (ACFUError::hasError(v107))
   {
-    *a4 = ACFUError::getCFError(v161);
+    *a4 = ACFUError::getCFError(v107);
     if (Mutable)
     {
       CFRelease(Mutable);
@@ -2078,13 +2072,13 @@ LABEL_38:
     }
   }
 
-  if (v69)
+  if (v45)
   {
-    (*(*v69 + 7))(v69);
+    (*(*v45 + 7))(v45);
   }
 
 LABEL_43:
-  ACFUError::~ACFUError(v161);
+  ACFUError::~ACFUError(v107);
   return Mutable;
 }
 
@@ -2103,7 +2097,7 @@ CFErrorRef RoseUpdaterGetTags_cold_1(ACFULogging *a1, CFErrorRef *a2)
 {
   v3 = a1;
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to init logging\n", v5, v6, v7, v8, v9, "RoseRestoreInfo");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to init logging\n", "RoseRestoreInfo", "RoseUpdaterGetTags");
   result = CFErrorCreate(*MEMORY[0x29EDB8ED8], @"RoseRestoreInfo", v3, 0);
   *a2 = result;
   return result;
@@ -2112,7 +2106,7 @@ CFErrorRef RoseUpdaterGetTags_cold_1(ACFULogging *a1, CFErrorRef *a2)
 CFErrorRef RoseUpdaterGetTags_cold_2(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create host object\n", v3, v4, v5, v6, v7, "RoseRestoreInfo");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create host object\n", "RoseRestoreInfo", "RoseUpdaterGetTags");
   result = CFErrorCreate(*MEMORY[0x29EDB8ED8], @"RoseRestoreInfo", 4000, 0);
   *a1 = result;
   return result;
@@ -2122,7 +2116,7 @@ CFErrorRef RoseUpdaterCopyFirmware_cold_1(ACFULogging *a1, CFErrorRef *a2)
 {
   v3 = a1;
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to init logging\n", v5, v6, v7, v8, v9, "RoseRestoreInfo");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to init logging\n", "RoseRestoreInfo", "RoseUpdaterCopyFirmware");
   result = CFErrorCreate(*MEMORY[0x29EDB8ED8], @"RoseRestoreInfo", v3, 0);
   *a2 = result;
   return result;
@@ -2131,31 +2125,31 @@ CFErrorRef RoseUpdaterCopyFirmware_cold_1(ACFULogging *a1, CFErrorRef *a2)
 CFErrorRef RoseUpdaterCopyFirmware_cold_2(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create host object\n", v3, v4, v5, v6, v7, "RoseRestoreInfo");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create host object\n", "RoseRestoreInfo", "RoseUpdaterCopyFirmware");
   result = CFErrorCreate(*MEMORY[0x29EDB8ED8], @"RoseRestoreInfo", 4000, 0);
   *a1 = result;
   return result;
 }
 
-void RoseCapabilities::create(RoseCapabilities *this@<X0>, RoseCapabilities **a2@<X8>)
+void RoseCapabilities::create(RoseCapabilities **__return_ptr a1@<X8>, RoseCapabilities *this@<X0>)
 {
   v2 = this;
   v4 = operator new(4uLL);
-  std::shared_ptr<RoseCapabilities>::shared_ptr[abi:ne200100]<RoseCapabilities,0>(a2, v4);
-  if (*a2)
+  std::shared_ptr<RoseCapabilities>::shared_ptr[abi:ne200100]<RoseCapabilities,0>(a1, v4);
+  if (*a1)
   {
-    v5 = RoseCapabilities::init(*a2, v2);
+    v5 = RoseCapabilities::init(*a1, v2);
     if ((v5 & 1) == 0)
     {
       LogInstance = ACFULogging::getLogInstance(v5);
-      ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to initialize object\n", v13, v14, v15, v16, v17, "RoseCapabilities");
-      v18 = a2[1];
-      *a2 = 0;
-      a2[1] = 0;
-      if (v18)
+      ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to initialize object\n", "RoseCapabilities", "create");
+      v8 = a1[1];
+      *a1 = 0;
+      a1[1] = 0;
+      if (v8)
       {
 
-        std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v8);
       }
     }
   }
@@ -2163,7 +2157,7 @@ void RoseCapabilities::create(RoseCapabilities *this@<X0>, RoseCapabilities **a2
   else
   {
     v6 = ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage(v6, 2u, "%s::%s: failed to create capabilities object\n", v7, v8, v9, v10, v11, "RoseCapabilities");
+    ACFULogging::handleMessage(v6, 2, "%s::%s: failed to create capabilities object\n", "RoseCapabilities", "create");
   }
 }
 
@@ -2183,23 +2177,23 @@ uint64_t RoseCapabilities::init(RoseCapabilities *this, int a2)
   if (a2 == 8228)
   {
     LogInstance = ACFULogging::getLogInstance(this);
-    ACFULogging::handleMessage(LogInstance, 0, "%s::%s: Identified chip as R2\n", v11, v12, v13, v14, v15, "RoseCapabilities");
+    ACFULogging::handleMessage(LogInstance, 0, "%s::%s: Identified chip as R2\n", "RoseCapabilities", "init");
     result = 1;
     *this = 1;
   }
 
   else if (a2 == 8198)
   {
-    v3 = ACFULogging::getLogInstance(this);
-    ACFULogging::handleMessage(v3, 0, "%s::%s: Identified chip as R1\n", v4, v5, v6, v7, v8, "RoseCapabilities");
+    v4 = ACFULogging::getLogInstance(this);
+    ACFULogging::handleMessage(v4, 0, "%s::%s: Identified chip as R1\n", "RoseCapabilities", "init");
     *this = 0;
     return 1;
   }
 
   else
   {
-    v16 = ACFULogging::getLogInstance(this);
-    ACFULogging::handleMessage(v16, 2u, "%s::%s: Unrecognized chipID 0x%x\n", v17, v18, v19, v20, v21, "RoseCapabilities");
+    v7 = ACFULogging::getLogInstance(this);
+    ACFULogging::handleMessage(v7, 2, "%s::%s: Unrecognized chipID 0x%x\n", "RoseCapabilities", "init", a2);
     return 0;
   }
 
@@ -2288,23 +2282,21 @@ uint64_t std::__shared_ptr_pointer<RoseCapabilities *,std::shared_ptr<RoseCapabi
   }
 }
 
-void GetRoseTatsuTagToFileNameMap(uint64_t a1@<X8>)
+void GetRoseTatsuTagToFileNameMap(uint64_t ***a1@<X8>)
 {
-  v7[4] = *MEMORY[0x29EDCA608];
-  std::pair<__CFString const* const,std::string>::pair[abi:ne200100]<__CFString const* const&,char const(&)[5],0>(v4, &kRoseSwDsp1, "sbd1");
-  std::pair<__CFString const* const,std::string>::pair[abi:ne200100]<__CFString const* const&,char const(&)[5],0>(&v5, &kRoseRtkitos, "rkos");
-  std::pair<__CFString const* const,std::string>::pair[abi:ne200100]<__CFString const* const&,char const(&)[5],0>(&v6, &kRoseRestoreRtkitos, "rrko");
-  std::pair<__CFString const* const,std::string>::pair[abi:ne200100]<__CFString const* const&,char const(&)[5],0>(v7, &kRoseRtkitosICNF, "icnf");
-  std::map<__CFString const*,std::string>::map[abi:ne200100](a1, v4, 4);
+  v6[4] = *MEMORY[0x29EDCA608];
+  std::pair<__CFString const* const,std::string>::pair[abi:ne200100]<__CFString const* const&,char const(&)[5],0>(v3, &kRoseSwDsp1, "sbd1");
+  std::pair<__CFString const* const,std::string>::pair[abi:ne200100]<__CFString const* const&,char const(&)[5],0>(&v4, &kRoseRtkitos, "rkos");
+  std::pair<__CFString const* const,std::string>::pair[abi:ne200100]<__CFString const* const&,char const(&)[5],0>(&v5, &kRoseRestoreRtkitos, "rrko");
+  std::pair<__CFString const* const,std::string>::pair[abi:ne200100]<__CFString const* const&,char const(&)[5],0>(v6, &kRoseRtkitosICNF, "icnf");
+  std::map<__CFString const*,std::string>::map[abi:ne200100](a1, v3, 4);
   for (i = 0; i != -16; i -= 4)
   {
-    if (SHIBYTE(v7[i + 3]) < 0)
+    if (SHIBYTE(v6[i + 3]) < 0)
     {
-      operator delete(v7[i + 1]);
+      operator delete(v6[i + 1]);
     }
   }
-
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2984F6D60(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
@@ -2581,14 +2573,14 @@ void *std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *
   {
     v6 = result;
     result = std::vector<unsigned char>::__vallocate[abi:ne200100](result, __sz);
-    v7 = v6[1];
+    v7 = *(v6 + 1);
     v8 = a3 - a2;
     if (v8)
     {
-      result = memmove(v6[1], a2, v8);
+      result = memmove(*(v6 + 1), a2, v8);
     }
 
-    v6[1] = v7 + v8;
+    *(v6 + 1) = v7 + v8;
   }
 
   return result;
@@ -2886,30 +2878,30 @@ void sub_2984F7958(_Unwind_Exception *exception_object)
 
 void SERestoreInfo::P73BaseDeviceInfo::parseManifest(SERestoreInfo::P73BaseDeviceInfo *this@<X0>, unsigned __int8 **a2@<X8>)
 {
-  v4 = *(this + 2);
-  v29[0] = *(this + 1);
-  v29[1] = v4;
-  v5 = DERDecodeItem(v29, &v30);
-  std::string::basic_string[abi:ne200100]<0>(v27, "Fail to parse MQR: cannot decode top level tag");
-  SERestoreInfo::CallAndThrow<DERReturn>(v5, v27);
-  if (v28 < 0)
+  v3 = *(this + 2);
+  v28[0] = *(this + 1);
+  v28[1] = v3;
+  v4 = DERDecodeItem(v28, &v29);
+  std::string::basic_string[abi:ne200100]<0>(&v26, "Fail to parse MQR: cannot decode top level tag");
+  SERestoreInfo::CallAndThrow<DERReturn>(v4, &v26);
+  if (v27 < 0)
   {
-    operator delete(v27[0]);
+    operator delete(v26);
   }
 
-  if (v30 != P73BaseManifestQueryResponseDerSpec::ManifestResponseSequenceTag)
+  if (v29 != P73BaseManifestQueryResponseDerSpec::ManifestResponseSequenceTag)
   {
     exception = __cxa_allocate_exception(0x48uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v25, "Fail to parse MQR: wrong top level tag");
-    v11 = SERestoreInfo::SEException::SEException(exception, &v25, 2, @"SEUpdaterErrorDomain");
+    std::string::basic_string[abi:ne200100]<0>(&v24, "Fail to parse MQR: wrong top level tag");
+    v10 = SERestoreInfo::SEException::SEException(exception, &v24, 2, @"SEUpdaterErrorDomain");
   }
 
-  v24[0] = 0;
-  v24[1] = 0;
-  v6 = DERParseSequenceContent(&v31, 1u, &P73BaseManifestQueryResponseDerSpec::ManifestResponseItemSpec, v24, 0x10uLL);
+  v23[0] = 0;
+  v23[1] = 0;
+  v5 = DERParseSequenceContent(&v30, 1u, &P73BaseManifestQueryResponseDerSpec::ManifestResponseItemSpec, v23, 0x10uLL);
   std::string::basic_string[abi:ne200100]<0>(__p, "Fail to parse MQR");
-  SERestoreInfo::CallAndThrow<DERReturn>(v6, __p);
-  if (v23 < 0)
+  SERestoreInfo::CallAndThrow<DERReturn>(v5, __p);
+  if (v22 < 0)
   {
     operator delete(__p[0]);
   }
@@ -2929,19 +2921,19 @@ void SERestoreInfo::P73BaseDeviceInfo::parseManifest(SERestoreInfo::P73BaseDevic
   *(a2 + 1) = 0u;
   *(a2 + 2) = 0u;
   *a2 = 0u;
-  v7 = DERParseSequenceContent(v24, 0xFu, &P73BaseManifestQueryResponseDerSpec::ManifestResponseDataItemSpec, a2, 0xF0uLL);
-  std::string::basic_string[abi:ne200100]<0>(v20, "Fail to parse MQR.data");
-  SERestoreInfo::CallAndThrow<DERReturn>(v7, v20);
-  if (v21 < 0)
+  v6 = DERParseSequenceContent(v23, 0xFu, &P73BaseManifestQueryResponseDerSpec::ManifestResponseDataItemSpec, a2, 0xF0uLL);
+  std::string::basic_string[abi:ne200100]<0>(v19, "Fail to parse MQR.data");
+  SERestoreInfo::CallAndThrow<DERReturn>(v6, v19);
+  if (v20 < 0)
   {
-    operator delete(v20[0]);
+    operator delete(v19[0]);
   }
 
   if (a2[1] != 1 || a2[3] > 2 || a2[5] > 2 || a2[7] > 2 || a2[9] > 2 || a2[15] != 1 || a2[25] > 2 || a2[13] != 24 || a2[17] != 20 || a2[19] != 32 || a2[21] != 32 || a2[11] != 2 || a2[23] != 1)
   {
-    v8 = __cxa_allocate_exception(0x48uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v25, "size of MQRD doesn't match");
-    v9 = SERestoreInfo::SEException::SEException(v8, &v25, 2, @"SEUpdaterErrorDomain");
+    v7 = __cxa_allocate_exception(0x48uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v24, "size of MQRD doesn't match");
+    v8 = SERestoreInfo::SEException::SEException(v7, &v24, 2, @"SEUpdaterErrorDomain");
   }
 
   if (**a2 == 1)
@@ -2956,25 +2948,25 @@ void SERestoreInfo::P73BaseDeviceInfo::parseManifest(SERestoreInfo::P73BaseDevic
   {
     if (**a2)
     {
-      v14 = **a2;
-      v15 = __cxa_allocate_exception(0x48uLL);
-      std::to_string(&v19, v14);
-      v16 = std::string::insert(&v19, 0, "Unsupported manifest query version: ");
-      v17 = *&v16->__r_.__value_.__l.__data_;
-      v26 = v16->__r_.__value_.__r.__words[2];
-      v25 = v17;
-      v16->__r_.__value_.__l.__size_ = 0;
-      v16->__r_.__value_.__r.__words[2] = 0;
-      v16->__r_.__value_.__r.__words[0] = 0;
-      v18 = SERestoreInfo::SEException::SEException(v15, &v25, 7, @"SEUpdaterErrorDomain");
+      v13 = **a2;
+      v14 = __cxa_allocate_exception(0x48uLL);
+      std::to_string(&v18, v13);
+      v15 = std::string::insert(&v18, 0, "Unsupported manifest query version: ");
+      v16 = *&v15->__r_.__value_.__l.__data_;
+      v25 = v15->__r_.__value_.__r.__words[2];
+      v24 = v16;
+      v15->__r_.__value_.__l.__size_ = 0;
+      v15->__r_.__value_.__r.__words[2] = 0;
+      v15->__r_.__value_.__r.__words[0] = 0;
+      v17 = SERestoreInfo::SEException::SEException(v14, &v24, 7, @"SEUpdaterErrorDomain");
     }
 
     if (a2[27] | a2[29])
     {
 LABEL_30:
-      v12 = __cxa_allocate_exception(0x48uLL);
-      std::string::basic_string[abi:ne200100]<0>(&v25, "size of factoryPostflightState or cometRootKeyId doesn't match");
-      v13 = SERestoreInfo::SEException::SEException(v12, &v25, 2, @"SEUpdaterErrorDomain");
+      v11 = __cxa_allocate_exception(0x48uLL);
+      std::string::basic_string[abi:ne200100]<0>(&v24, "size of factoryPostflightState or cometRootKeyId doesn't match");
+      v12 = SERestoreInfo::SEException::SEException(v11, &v24, 2, @"SEUpdaterErrorDomain");
     }
   }
 }
@@ -2994,7 +2986,7 @@ void sub_2984F7D20(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t SERestoreInfo::CallAndThrow<DERReturn>(uint64_t result, uint64_t a2)
+uint64_t SERestoreInfo::CallAndThrow<DERReturn>(uint64_t result, __int128 *a2)
 {
   if (result)
   {
@@ -3100,9 +3092,9 @@ void sub_2984F7FCC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *SERestoreInfo::P73BaseDeviceInfo::updateDeviceInfo(uint64_t a1, unsigned __int8 **a2)
+void **SERestoreInfo::P73BaseDeviceInfo::updateDeviceInfo(void **a1, unsigned __int8 **a2)
 {
-  v79[3] = *MEMORY[0x29EDCA608];
+  v77[3] = *MEMORY[0x29EDCA608];
   v4 = a2[1];
   if (v4)
   {
@@ -3123,7 +3115,7 @@ void *SERestoreInfo::P73BaseDeviceInfo::updateDeviceInfo(uint64_t a1, unsigned _
     v5 = 0;
   }
 
-  *(a1 + 8) = v5;
+  *(a1 + 2) = v5;
   v8 = a2[3];
   if (v8)
   {
@@ -3144,7 +3136,7 @@ void *SERestoreInfo::P73BaseDeviceInfo::updateDeviceInfo(uint64_t a1, unsigned _
     v9 = 0;
   }
 
-  *(a1 + 12) = v9;
+  *(a1 + 3) = v9;
   v12 = a2[5];
   if (v12)
   {
@@ -3165,7 +3157,7 @@ void *SERestoreInfo::P73BaseDeviceInfo::updateDeviceInfo(uint64_t a1, unsigned _
     v13 = 0;
   }
 
-  *(a1 + 16) = v13;
+  *(a1 + 4) = v13;
   v16 = a2[7];
   if (v16)
   {
@@ -3186,7 +3178,7 @@ void *SERestoreInfo::P73BaseDeviceInfo::updateDeviceInfo(uint64_t a1, unsigned _
     v17 = 0;
   }
 
-  *(a1 + 20) = v17;
+  *(a1 + 5) = v17;
   v20 = a2[9];
   if (v20)
   {
@@ -3207,11 +3199,11 @@ void *SERestoreInfo::P73BaseDeviceInfo::updateDeviceInfo(uint64_t a1, unsigned _
     v21 = 0;
   }
 
-  *(a1 + 24) = v21;
+  *(a1 + 6) = v21;
   v24 = a2[15];
   if (!v24)
   {
-    *(a1 + 56) = 0;
+    *(a1 + 14) = 0;
     goto LABEL_83;
   }
 
@@ -3225,7 +3217,7 @@ void *SERestoreInfo::P73BaseDeviceInfo::updateDeviceInfo(uint64_t a1, unsigned _
   }
 
   while (v24);
-  *(a1 + 56) = v25;
+  *(a1 + 14) = v25;
   if (v25 > 99)
   {
     if (v25 > 199)
@@ -3246,8 +3238,8 @@ void *SERestoreInfo::P73BaseDeviceInfo::updateDeviceInfo(uint64_t a1, unsigned _
 
 LABEL_83:
       exception = __cxa_allocate_exception(0x48uLL);
-      std::string::basic_string[abi:ne200100]<0>(&v72, "Unsupported chip ID");
-      v57 = SERestoreInfo::SEException::SEException(exception, &v72, 2, @"SEUpdaterErrorDomain");
+      std::string::basic_string[abi:ne200100]<0>(v71, "Unsupported chip ID");
+      v56 = SERestoreInfo::SEException::SEException(exception, v71, 2, @"SEUpdaterErrorDomain");
     }
 
     v28 = 3;
@@ -3273,35 +3265,35 @@ LABEL_83:
 
   v28 = 6;
 LABEL_43:
-  *(a1 + 180) = v28;
-  v67 = v28;
+  *(a1 + 45) = v28;
+  v66 = v28;
   {
-    v71 = xmmword_298561C10;
-    std::map<unsigned int,unsigned int>::map[abi:ne200100](v65, &v71, 2);
-    LODWORD(v72) = 3;
-    std::map<unsigned int,unsigned int>::map[abi:ne200100](v73, v65);
-    v70 = xmmword_298561C20;
-    std::map<unsigned int,unsigned int>::map[abi:ne200100](v63, &v70, 2);
-    v74 = 4;
-    std::map<unsigned int,unsigned int>::map[abi:ne200100](v75, v63);
-    v69 = xmmword_298561C30;
-    std::map<unsigned int,unsigned int>::map[abi:ne200100](v61, &v69, 2);
-    v76 = 5;
-    std::map<unsigned int,unsigned int>::map[abi:ne200100](v77, v61);
-    v68 = xmmword_298561C40;
-    std::map<unsigned int,unsigned int>::map[abi:ne200100](v59, &v68, 2);
-    v78 = 6;
-    std::map<unsigned int,unsigned int>::map[abi:ne200100](v79, v59);
-    std::map<unsigned int,std::map<unsigned int,unsigned int>>::map[abi:ne200100](&SERestoreInfo::getJCOPTrain(unsigned int,unsigned int)::JCOP_TRAIN, &v72, 4);
+    v70 = xmmword_298561C10;
+    std::map<unsigned int,unsigned int>::map[abi:ne200100](v64, &v70, 2);
+    LODWORD(v71[0]) = 3;
+    std::map<unsigned int,unsigned int>::map[abi:ne200100](v71 + 1, v64);
+    v69 = xmmword_298561C20;
+    std::map<unsigned int,unsigned int>::map[abi:ne200100](v62, &v69, 2);
+    v72 = 4;
+    std::map<unsigned int,unsigned int>::map[abi:ne200100](&v73, v62);
+    v68 = xmmword_298561C30;
+    std::map<unsigned int,unsigned int>::map[abi:ne200100](v60, &v68, 2);
+    v74 = 5;
+    std::map<unsigned int,unsigned int>::map[abi:ne200100](&v75, v60);
+    v67 = xmmword_298561C40;
+    std::map<unsigned int,unsigned int>::map[abi:ne200100](v58, &v67, 2);
+    v76 = 6;
+    std::map<unsigned int,unsigned int>::map[abi:ne200100](v77, v58);
+    std::map<unsigned int,std::map<unsigned int,unsigned int>>::map[abi:ne200100](&SERestoreInfo::getJCOPTrain(unsigned int,unsigned int)::JCOP_TRAIN, v71, 4);
     for (i = 0; i != -16; i -= 4)
     {
-      std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::destroy(&v79[i], v79[i + 1]);
+      std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::destroy(&v77[i], v77[i + 1]);
     }
 
-    std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::destroy(v59, v60);
-    std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::destroy(v61, v62);
-    std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::destroy(v63, v64);
-    std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::destroy(v65, v66);
+    std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::destroy(v58, v59);
+    std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::destroy(v60, v61);
+    std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::destroy(v62, v63);
+    std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::destroy(v64, v65);
   }
 
   v29 = qword_2A13BA240;
@@ -3315,7 +3307,7 @@ LABEL_49:
   while (1)
   {
     v30 = *(v29 + 32);
-    if (v67 >= v30)
+    if (v66 >= v30)
     {
       break;
     }
@@ -3328,17 +3320,17 @@ LABEL_48:
     }
   }
 
-  if (v30 < v67)
+  if (v30 < v66)
   {
     v29 += 8;
     goto LABEL_48;
   }
 
-  v32 = std::map<unsigned int,std::map<unsigned int,unsigned int>>::at(&SERestoreInfo::getJCOPTrain(unsigned int,unsigned int)::JCOP_TRAIN, &v67);
-  std::map<unsigned int,unsigned int>::map[abi:ne200100](&v72, v32);
-  v33 = v72;
+  v32 = std::map<unsigned int,std::map<unsigned int,unsigned int>>::at(&SERestoreInfo::getJCOPTrain(unsigned int,unsigned int)::JCOP_TRAIN, &v66);
+  std::map<unsigned int,unsigned int>::map[abi:ne200100](v71, v32);
+  v33 = *&v71[0];
   v31 = -1;
-  if (v72 != v73)
+  if (*&v71[0] != (v71 + 8))
   {
     do
     {
@@ -3347,7 +3339,7 @@ LABEL_48:
         v31 = *(v33 + 8);
       }
 
-      v34 = v33[1];
+      v34 = *(v33 + 1);
       if (v34)
       {
         do
@@ -3363,7 +3355,7 @@ LABEL_48:
       {
         do
         {
-          v35 = v33[2];
+          v35 = *(v33 + 2);
           v36 = *v35 == v33;
           v33 = v35;
         }
@@ -3374,12 +3366,12 @@ LABEL_48:
       v33 = v35;
     }
 
-    while (v35 != v73);
+    while (v35 != (v71 + 8));
   }
 
-  std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::destroy(&v72, v73[0]);
+  std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::destroy(v71, *(&v71[0] + 1));
 LABEL_60:
-  *(a1 + 184) = v31;
+  *(a1 + 46) = v31;
   v37 = a2[25];
   if (v37)
   {
@@ -3400,7 +3392,7 @@ LABEL_60:
     v38 = 0;
   }
 
-  *(a1 + 140) = v38;
+  *(a1 + 35) = v38;
   v41 = a2[23];
   if (v41)
   {
@@ -3421,7 +3413,7 @@ LABEL_60:
     v42 = 0;
   }
 
-  *(a1 + 136) = v42;
+  *(a1 + 34) = v42;
   v45 = a2[27];
   if (v45)
   {
@@ -3435,17 +3427,17 @@ LABEL_60:
     }
 
     while (v45);
-    *(a1 + 144) = v46;
+    *(a1 + 36) = v46;
   }
 
-  std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>((a1 + 32), a2[12], &a2[13][a2[12]], a2[13]);
-  std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>((a1 + 64), a2[16], &a2[17][a2[16]], a2[17]);
-  std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>((a1 + 88), a2[18], &a2[19][a2[18]], a2[19]);
-  result = std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>((a1 + 112), a2[20], &a2[21][a2[20]], a2[21]);
+  std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1 + 4, a2[12], &a2[13][a2[12]], a2[13]);
+  std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1 + 8, a2[16], &a2[17][a2[16]], a2[17]);
+  std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1 + 11, a2[18], &a2[19][a2[18]], a2[19]);
+  result = std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1 + 14, a2[20], &a2[21][a2[20]], a2[21]);
   v50 = a2[29];
   if (v50)
   {
-    result = std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>((a1 + 152), a2[28], &a2[28][v50], v50);
+    result = std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1 + 19, a2[28], &a2[28][v50], v50);
   }
 
   v51 = a2[11];
@@ -3468,12 +3460,11 @@ LABEL_60:
     v52 = 0;
   }
 
-  *(a1 + 28) = v52;
-  v55 = *MEMORY[0x29EDCA608];
+  *(a1 + 7) = v52;
   return result;
 }
 
-void sub_2984F85C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, void *a12, uint64_t a13, uint64_t a14, char a15, void *a16, uint64_t a17, uint64_t a18, char a19, void *a20, uint64_t a21, uint64_t a22, char a23, void *a24)
+void sub_2984F85C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24)
 {
   v26 = v24 + 104;
   v27 = -128;
@@ -3494,7 +3485,7 @@ void sub_2984F85C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 SERestoreInfo::P73BaseDeviceInfo *SERestoreInfo::P73BaseDeviceInfo::P73BaseDeviceInfo(SERestoreInfo::P73BaseDeviceInfo *this, SERestoreInfo **a2)
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   *this = &unk_2A1EE8CD0;
   *(this + 4) = 0;
   v4 = this + 32;
@@ -3513,33 +3504,32 @@ SERestoreInfo::P73BaseDeviceInfo *SERestoreInfo::P73BaseDeviceInfo::P73BaseDevic
   *(this + 5) = 0u;
   *(this + 6) = 0u;
   *(this + 16) = 0;
-  v11[0] = @"SE,ChipID";
-  v11[1] = CFNumberGetTypeID();
-  v11[2] = this + 56;
-  v12 = 4;
-  v13 = @"SE,ID";
+  v10[0] = @"SE,ChipID";
+  v10[1] = CFNumberGetTypeID();
+  v10[2] = this + 56;
+  v11 = 4;
+  v12 = @"SE,ID";
   TypeID = CFDataGetTypeID();
-  v15 = v4;
-  v16 = 24;
-  v17 = @"SE,Nonce";
-  v18 = CFDataGetTypeID();
-  v19 = v5;
-  v20 = 20;
-  v21 = @"SE,RootKeyIdentifier";
-  v22 = CFDataGetTypeID();
-  v23 = v7;
-  v24 = 32;
-  v25 = @"SE,OSUPubKeyID";
-  v26 = CFDataGetTypeID();
-  v27 = v6;
-  v28 = 32;
+  v14 = v4;
+  v15 = 24;
+  v16 = @"SE,Nonce";
+  v17 = CFDataGetTypeID();
+  v18 = v5;
+  v19 = 20;
+  v20 = @"SE,RootKeyIdentifier";
+  v21 = CFDataGetTypeID();
+  v22 = v7;
+  v23 = 32;
+  v24 = @"SE,OSUPubKeyID";
+  v25 = CFDataGetTypeID();
+  v26 = v6;
+  v27 = 32;
   SERestoreInfo::P73BaseDeviceInfo::init(this);
   for (i = 0; i != 20; i += 4)
   {
-    SERestoreInfo::getValueFromCFDict(*a2, v11[i], v11[i + 1], v11[i + 2], LODWORD(v11[i + 3]));
+    SERestoreInfo::getValueFromCFDict(*a2, v10[i], v10[i + 1], v10[i + 2], LODWORD(v10[i + 3]));
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return this;
 }
 
@@ -3644,35 +3634,35 @@ void SERestoreInfo::P73BaseDeviceInfo::updateDict(SERestoreInfo::P73BaseDeviceIn
 
 void SERestoreInfo::P73BaseDeviceInfo::getStateName(int a1@<W0>, std::string *a2@<X8>)
 {
-  v28[3] = *MEMORY[0x29EDCA608];
-  v12 = a1;
-  v13 = 23195;
-  std::string::basic_string[abi:ne200100]<0>(v14, "EXPORT_REQUIRED");
-  v15 = 47411;
-  std::string::basic_string[abi:ne200100]<0>(v16, "IMPORT_REQUIRED");
-  v17 = 47361;
-  std::string::basic_string[abi:ne200100]<0>(v18, "UOS1");
-  v19 = 47362;
-  std::string::basic_string[abi:ne200100]<0>(v20, "UOS2");
-  v21 = 42241;
-  std::string::basic_string[abi:ne200100]<0>(v22, "UOS1_ERROR");
-  v23 = 42242;
-  std::string::basic_string[abi:ne200100]<0>(v24, "UOS2_ERROR");
-  v25 = 47545;
-  std::string::basic_string[abi:ne200100]<0>(v26, "EXPORT_FINISHED");
-  v27 = 47377;
-  std::string::basic_string[abi:ne200100]<0>(v28, "UOS1_KTP");
-  std::map<SERestoreInfo::AMS_UOS_ID,std::string>::map[abi:ne200100](v10, &v13, 8);
+  v27[3] = *MEMORY[0x29EDCA608];
+  v11 = a1;
+  v12 = 23195;
+  std::string::basic_string[abi:ne200100]<0>(v13, "EXPORT_REQUIRED");
+  v14 = 47411;
+  std::string::basic_string[abi:ne200100]<0>(v15, "IMPORT_REQUIRED");
+  v16 = 47361;
+  std::string::basic_string[abi:ne200100]<0>(v17, "UOS1");
+  v18 = 47362;
+  std::string::basic_string[abi:ne200100]<0>(v19, "UOS2");
+  v20 = 42241;
+  std::string::basic_string[abi:ne200100]<0>(v21, "UOS1_ERROR");
+  v22 = 42242;
+  std::string::basic_string[abi:ne200100]<0>(v23, "UOS2_ERROR");
+  v24 = 47545;
+  std::string::basic_string[abi:ne200100]<0>(v25, "EXPORT_FINISHED");
+  v26 = 47377;
+  std::string::basic_string[abi:ne200100]<0>(v27, "UOS1_KTP");
+  std::map<SERestoreInfo::AMS_UOS_ID,std::string>::map[abi:ne200100](&v9, &v12, 8);
   for (i = 0; i != -32; i -= 4)
   {
-    if (SHIBYTE(v28[i + 2]) < 0)
+    if (SHIBYTE(v27[i + 2]) < 0)
     {
-      operator delete(v28[i]);
+      operator delete(v27[i]);
     }
   }
 
-  v5 = v11;
-  if (!v11)
+  v5 = v10;
+  if (!v10)
   {
 LABEL_11:
     std::string::basic_string[abi:ne200100]<0>(a2, "UNK_STATE");
@@ -3701,22 +3691,21 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v8 = std::map<SERestoreInfo::AMS_UOS_ID,std::string>::at(v10, &v12);
-  if (*(v8 + 23) < 0)
+  v7 = std::map<SERestoreInfo::AMS_UOS_ID,std::string>::at(&v9, &v11);
+  if (*(v7 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(a2, *v8, v8[1]);
+    std::string::__init_copy_ctor_external(a2, *v7, v7[1]);
   }
 
   else
   {
-    v9 = *v8;
-    a2->__r_.__value_.__r.__words[2] = v8[2];
-    *&a2->__r_.__value_.__l.__data_ = v9;
+    v8 = *v7;
+    a2->__r_.__value_.__r.__words[2] = v7[2];
+    *&a2->__r_.__value_.__l.__data_ = v8;
   }
 
 LABEL_12:
-  std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(v10, v11);
-  v7 = *MEMORY[0x29EDCA608];
+  std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(&v9, v10);
 }
 
 void sub_2984F8C80(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
@@ -3949,12 +3938,12 @@ LABEL_8:
   }
 }
 
-uint64_t std::map<unsigned int,unsigned int>::map[abi:ne200100](uint64_t a1, unsigned int *a2, uint64_t a3)
+uint64_t **std::map<unsigned int,unsigned int>::map[abi:ne200100](uint64_t **a1, unsigned int *a2, uint64_t a3)
 {
-  *(a1 + 8) = 0;
-  v4 = (a1 + 8);
-  *(a1 + 16) = 0;
-  *a1 = a1 + 8;
+  a1[1] = 0;
+  v4 = (a1 + 1);
+  a1[2] = 0;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 8 * a3;
@@ -3986,9 +3975,9 @@ uint64_t *std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_va
   return v7;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__find_equal<unsigned int>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned int *a5)
+uint64_t *std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__find_equal<unsigned int>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 7), *a5 < v7))
   {
     v8 = *a2;
@@ -4015,7 +4004,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -4076,7 +4065,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -4155,7 +4144,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -4177,12 +4166,12 @@ LABEL_48:
   return a4;
 }
 
-uint64_t std::map<unsigned int,std::map<unsigned int,unsigned int>>::map[abi:ne200100](uint64_t a1, unsigned int *a2, uint64_t a3)
+uint64_t **std::map<unsigned int,std::map<unsigned int,unsigned int>>::map[abi:ne200100](uint64_t **a1, unsigned int *a2, uint64_t a3)
 {
-  *(a1 + 8) = 0;
-  v4 = (a1 + 8);
-  *(a1 + 16) = 0;
-  *a1 = a1 + 8;
+  a1[1] = 0;
+  v4 = (a1 + 1);
+  a1[2] = 0;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 32 * a3;
@@ -4213,9 +4202,9 @@ uint64_t *std::__tree<std::__value_type<unsigned int,std::map<unsigned int,unsig
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,std::map<unsigned int,unsigned int>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::map<unsigned int,unsigned int>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::map<unsigned int,unsigned int>>>>::__find_equal<unsigned int>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned int *a5)
+uint64_t *std::__tree<std::__value_type<unsigned int,std::map<unsigned int,unsigned int>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::map<unsigned int,unsigned int>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::map<unsigned int,unsigned int>>>>::__find_equal<unsigned int>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 8), *a5 < v7))
   {
     v8 = *a2;
@@ -4242,7 +4231,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -4303,7 +4292,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -4382,7 +4371,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -4404,7 +4393,7 @@ LABEL_48:
   return a4;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,std::map<unsigned int,unsigned int>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::map<unsigned int,unsigned int>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::map<unsigned int,unsigned int>>>>::__construct_node<std::pair<unsigned int const,std::map<unsigned int,unsigned int>> const&>@<X0>(uint64_t a1@<X0>, _DWORD *a2@<X1>, void *a3@<X8>)
+uint64_t **std::__tree<std::__value_type<unsigned int,std::map<unsigned int,unsigned int>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::map<unsigned int,unsigned int>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::map<unsigned int,unsigned int>>>>::__construct_node<std::pair<unsigned int const,std::map<unsigned int,unsigned int>> const&>@<X0>(uint64_t a1@<X0>, _DWORD *a2@<X1>, void *a3@<X8>)
 {
   v6 = operator new(0x40uLL);
   *a3 = v6;
@@ -4450,7 +4439,7 @@ void std::__tree<std::__value_type<unsigned int,std::map<unsigned int,unsigned i
   }
 }
 
-uint64_t *std::map<unsigned int,unsigned int>::map[abi:ne200100](uint64_t *a1, uint64_t a2)
+uint64_t **std::map<unsigned int,unsigned int>::map[abi:ne200100](uint64_t **a1, uint64_t a2)
 {
   a1[2] = 0;
   a1[1] = 0;
@@ -4459,7 +4448,7 @@ uint64_t *std::map<unsigned int,unsigned int>::map[abi:ne200100](uint64_t *a1, u
   return a1;
 }
 
-uint64_t *std::map<unsigned int,unsigned int>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned int,unsigned int>,std::__tree_node<std::__value_type<unsigned int,unsigned int>,void *> *,long>>>(uint64_t *result, unsigned int *a2, unsigned int *a3)
+uint64_t **std::map<unsigned int,unsigned int>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned int,unsigned int>,std::__tree_node<std::__value_type<unsigned int,unsigned int>,void *> *,long>>>(uint64_t **result, unsigned int *a2, unsigned int *a3)
 {
   if (a2 != a3)
   {
@@ -4501,7 +4490,7 @@ uint64_t *std::map<unsigned int,unsigned int>::insert[abi:ne200100]<std::__map_c
   return result;
 }
 
-void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -4527,7 +4516,7 @@ void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char
       if (v15 != v9)
       {
         result = memmove(*result, __src, v16);
-        v15 = *(v7 + 8);
+        v15 = v7[1];
       }
 
       if (a3 != v17)
@@ -4547,8 +4536,8 @@ void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char
       operator delete(v9);
       v8 = 0;
       *v7 = 0;
-      *(v7 + 8) = 0;
-      *(v7 + 16) = 0;
+      v7[1] = 0;
+      v7[2] = 0;
     }
 
     if ((a4 & 0x8000000000000000) != 0)
@@ -4573,26 +4562,26 @@ void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char
     }
 
     result = std::vector<unsigned char>::__vallocate[abi:ne200100](v7, v11);
-    v12 = *(v7 + 8);
+    v12 = v7[1];
     v13 = a3 - __src;
     if (v13)
     {
-      result = memmove(*(v7 + 8), __src, v13);
+      result = memmove(v7[1], __src, v13);
     }
 
-    v14 = (v12 + v13);
+    v14 = &v12[v13];
   }
 
-  *(v7 + 8) = v14;
+  v7[1] = v14;
   return result;
 }
 
-uint64_t std::map<SERestoreInfo::AMS_UOS_ID,std::string>::map[abi:ne200100](uint64_t a1, int *a2, uint64_t a3)
+uint64_t **std::map<SERestoreInfo::AMS_UOS_ID,std::string>::map[abi:ne200100](uint64_t **a1, int *a2, uint64_t a3)
 {
-  *(a1 + 8) = 0;
-  v4 = (a1 + 8);
-  *(a1 + 16) = 0;
-  *a1 = a1 + 8;
+  a1[1] = 0;
+  v4 = (a1 + 1);
+  a1[2] = 0;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 32 * a3;
@@ -4623,9 +4612,9 @@ uint64_t *std::__tree<std::__value_type<SERestoreInfo::AMS_UOS_ID,std::string>,s
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<SERestoreInfo::AMS_UOS_ID,std::string>,std::__map_value_compare<SERestoreInfo::AMS_UOS_ID,std::__value_type<SERestoreInfo::AMS_UOS_ID,std::string>,std::less<SERestoreInfo::AMS_UOS_ID>,true>,std::allocator<std::__value_type<SERestoreInfo::AMS_UOS_ID,std::string>>>::__find_equal<SERestoreInfo::AMS_UOS_ID>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
+uint64_t *std::__tree<std::__value_type<SERestoreInfo::AMS_UOS_ID,std::string>,std::__map_value_compare<SERestoreInfo::AMS_UOS_ID,std::__value_type<SERestoreInfo::AMS_UOS_ID,std::string>,std::less<SERestoreInfo::AMS_UOS_ID>,true>,std::allocator<std::__value_type<SERestoreInfo::AMS_UOS_ID,std::string>>>::__find_equal<SERestoreInfo::AMS_UOS_ID>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 8), *a5 < v7))
   {
     v8 = *a2;
@@ -4652,7 +4641,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -4713,7 +4702,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -4792,7 +4781,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -4853,7 +4842,7 @@ void SERestoreInfo::P73BaseDeviceInfo::updateDict()
 
 SERestoreInfo::IcefallDeviceInfo *SERestoreInfo::IcefallDeviceInfo::IcefallDeviceInfo(SERestoreInfo::IcefallDeviceInfo *this, SERestoreInfo **a2)
 {
-  v44 = *MEMORY[0x29EDCA608];
+  v43 = *MEMORY[0x29EDCA608];
   *(this + 1) = 0u;
   v4 = this + 16;
   *this = &unk_2A1EE8D30;
@@ -4868,45 +4857,45 @@ SERestoreInfo::IcefallDeviceInfo *SERestoreInfo::IcefallDeviceInfo::IcefallDevic
   *(this + 5) = 0u;
   *(this + 6) = 0u;
   *(this + 16) = 0;
-  v14[0] = @"SE,ChipID";
+  v13[0] = @"SE,ChipID";
   v9 = (this + 144);
-  v14[1] = CFNumberGetTypeID();
-  v14[2] = v9;
-  v15 = 4;
-  v16 = @"SE,FactoryMode";
+  v13[1] = CFNumberGetTypeID();
+  v13[2] = v9;
+  v14 = 4;
+  v15 = @"SE,FactoryMode";
   TypeID = CFBooleanGetTypeID();
-  v18 = this + 153;
-  v19 = 1;
-  v20 = @"SE,ID";
-  v21 = CFDataGetTypeID();
-  v22 = v4;
-  v23 = 24;
-  v24 = @"SE,Nonce";
-  v25 = CFDataGetTypeID();
-  v26 = v5;
-  v27 = 20;
-  v28 = @"SE,RootKeyIdentifier";
-  v29 = CFDataGetTypeID();
-  v30 = v6;
-  v31 = 32;
-  v32 = @"SE,OsKeysIdentifier";
-  v33 = CFDataGetTypeID();
-  v34 = v7;
-  v35 = 32;
-  v36 = @"SE,BLFWKeysIdentifier";
-  v37 = CFDataGetTypeID();
-  v38 = v8;
-  v39 = 32;
-  v40 = @"SE,IsDev";
+  v17 = this + 153;
+  v18 = 1;
+  v19 = @"SE,ID";
+  v20 = CFDataGetTypeID();
+  v21 = v4;
+  v22 = 24;
+  v23 = @"SE,Nonce";
+  v24 = CFDataGetTypeID();
+  v25 = v5;
+  v26 = 20;
+  v27 = @"SE,RootKeyIdentifier";
+  v28 = CFDataGetTypeID();
+  v29 = v6;
+  v30 = 32;
+  v31 = @"SE,OsKeysIdentifier";
+  v32 = CFDataGetTypeID();
+  v33 = v7;
+  v34 = 32;
+  v35 = @"SE,BLFWKeysIdentifier";
+  v36 = CFDataGetTypeID();
+  v37 = v8;
+  v38 = 32;
+  v39 = @"SE,IsDev";
   v10 = 0;
-  v41 = CFBooleanGetTypeID();
-  v42 = this + 10;
-  v43 = 1;
+  v40 = CFBooleanGetTypeID();
+  v41 = this + 10;
+  v42 = 1;
   *(this + 37) = 6;
   *(this + 76) = 7;
   do
   {
-    SERestoreInfo::getValueFromCFDict(*a2, v14[v10], v14[v10 + 1], v14[v10 + 2], LODWORD(v14[v10 + 3]));
+    SERestoreInfo::getValueFromCFDict(*a2, v13[v10], v13[v10 + 1], v13[v10 + 2], LODWORD(v13[v10 + 3]));
     v10 += 4;
   }
 
@@ -4917,7 +4906,6 @@ SERestoreInfo::IcefallDeviceInfo *SERestoreInfo::IcefallDeviceInfo::IcefallDevic
     SERestoreInfo::SEWrongDeviceInfo::SEWrongDeviceInfo(exception);
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return this;
 }
 
@@ -5176,7 +5164,7 @@ void *SERestoreInfo::IcefallDeviceInfo::getOsKeyId@<X0>(SERestoreInfo::IcefallDe
   return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a2, *(this + 11), *(this + 12), *(this + 12) - *(this + 11));
 }
 
-void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = __src;
   v7 = result;
@@ -5280,7 +5268,7 @@ void *std::vector<unsigned char>::vector[abi:ne200100](void *a1, size_t a2)
   {
     std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
     v4 = a1[1];
-    v5 = &v4[a2];
+    v5 = v4 + a2;
     bzero(v4, a2);
     a1[1] = v5;
   }
@@ -5637,7 +5625,7 @@ void SERestoreInfo::UpdateTableEntry::~UpdateTableEntry(SERestoreInfo::UpdateTab
   std::vector<std::vector<unsigned short>>::__destroy_vector::operator()[abi:ne200100](&v3);
 }
 
-uint64_t SERestoreInfo::ImageBinary::print(int *a1, uint64_t a2)
+uint64_t SERestoreInfo::ImageBinary::print(int *a1, uint64_t **a2)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v22);
   v4 = *(a2 + 23);
@@ -5658,7 +5646,7 @@ uint64_t SERestoreInfo::ImageBinary::print(int *a1, uint64_t a2)
 
   else
   {
-    v6 = *(a2 + 8);
+    v6 = a2[1];
   }
 
   v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v22, v5, v6);
@@ -5736,10 +5724,10 @@ uint64_t std::ostringstream::~ostringstream(uint64_t a1)
   return a1;
 }
 
-uint64_t SERestoreInfo::UpdateTableEntry::print(unsigned __int16 ***a1, uint64_t a2)
+uint64_t SERestoreInfo::UpdateTableEntry::print(unsigned __int16 ***a1, uint64_t **a2)
 {
-  v45[4] = *MEMORY[0x29EDCA608];
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v36);
+  v44[4] = *MEMORY[0x29EDCA608];
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v35);
   v3 = *(a2 + 23);
   if (v3 >= 0)
   {
@@ -5758,66 +5746,66 @@ uint64_t SERestoreInfo::UpdateTableEntry::print(unsigned __int16 ***a1, uint64_t
 
   else
   {
-    v5 = *(a2 + 8);
+    v5 = a2[1];
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, v4, v5);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, v4, v5);
   if (a1[1] == *a1)
   {
     std::vector<std::vector<unsigned short>>::__throw_out_of_range[abi:ne200100]();
   }
 
   v6 = ***a1;
-  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, "|", 1);
-  SERestoreInfo::P73BaseDeviceInfo::getStateName(v6, &v41);
-  if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, "|", 1);
+  SERestoreInfo::P73BaseDeviceInfo::getStateName(v6, &v40);
+  if ((v40.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v8 = &v41;
+    v8 = &v40;
   }
 
   else
   {
-    v8 = v41.__r_.__value_.__r.__words[0];
+    v8 = v40.__r_.__value_.__r.__words[0];
   }
 
-  if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v40.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v41.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v40.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v41.__r_.__value_.__l.__size_;
+    size = v40.__r_.__value_.__l.__size_;
   }
 
   v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, v8, size);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "| ", 2);
-  if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v41.__r_.__value_.__l.__data_);
+    operator delete(v40.__r_.__value_.__l.__data_);
   }
 
-  *&v41.__r_.__value_.__l.__data_ = xmmword_298561E40;
-  v34 = 0;
-  v35 = 0;
+  *&v40.__r_.__value_.__l.__data_ = xmmword_298561E40;
   v33 = 0;
-  std::vector<SERestoreInfo::UT>::__init_with_size[abi:ne200100]<SERestoreInfo::UT const*,SERestoreInfo::UT const*>(&v33, &v41, &v41.__r_.__value_.__r.__words[2], 4uLL);
-  std::string::basic_string[abi:ne200100]<0>(&v41, "AMS");
-  std::string::basic_string[abi:ne200100]<0>(v42, "RSN");
-  std::string::basic_string[abi:ne200100]<0>(v43, "CSN");
-  std::string::basic_string[abi:ne200100]<0>(v44, "FSN");
-  std::string::basic_string[abi:ne200100]<0>(v45, "ACTION");
-  v11 = v33;
-  v28 = v34;
-  if (v33 != v34)
+  v34 = 0;
+  v32 = 0;
+  std::vector<SERestoreInfo::UT>::__init_with_size[abi:ne200100]<SERestoreInfo::UT const*,SERestoreInfo::UT const*>(&v32, &v40, &v40.__r_.__value_.__r.__words[2], 4uLL);
+  std::string::basic_string[abi:ne200100]<0>(&v40, "AMS");
+  std::string::basic_string[abi:ne200100]<0>(v41, "RSN");
+  std::string::basic_string[abi:ne200100]<0>(v42, "CSN");
+  std::string::basic_string[abi:ne200100]<0>(v43, "FSN");
+  std::string::basic_string[abi:ne200100]<0>(v44, "ACTION");
+  v11 = v32;
+  v27 = v33;
+  if (v32 != v33)
   {
     do
     {
-      v12 = &v41 + *v11;
+      v12 = &v40 + *v11;
       v13 = SHIBYTE(v12->__r_.__value_.__r.__words[2]);
       if (v13 >= 0)
       {
-        v14 = &v41 + *v11;
+        v14 = &v40 + *v11;
       }
 
       else
@@ -5835,7 +5823,7 @@ uint64_t SERestoreInfo::UpdateTableEntry::print(unsigned __int16 ***a1, uint64_t
         v15 = v12->__r_.__value_.__l.__size_;
       }
 
-      v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, v14, v15);
+      v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, v14, v15);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, " { ", 3);
       v17 = *v11;
       if (0xAAAAAAAAAAAAAAABLL * (a1[1] - *a1) <= v17)
@@ -5845,23 +5833,23 @@ uint64_t SERestoreInfo::UpdateTableEntry::print(unsigned __int16 ***a1, uint64_t
 
       v18 = &(*a1)[3 * v17];
       __p = 0;
+      v30 = 0;
       v31 = 0;
-      v32 = 0;
-      std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(&__p, *v18, *(v18 + 8), (*(v18 + 8) - *v18) >> 1);
+      std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(&__p, *v18, v18[1], v18[1] - *v18);
       v19 = __p;
-      v20 = v31;
-      if (__p != v31)
+      v20 = v30;
+      if (__p != v30)
       {
         v21 = 0;
         do
         {
           if (v21)
           {
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, ",", 1);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, ",", 1);
           }
 
-          *(&v38[-1].__locale_ + *(v36 - 24)) = *(&v38[-1].__locale_ + *(v36 - 24)) & 0xFFFFFFB5 | 8;
-          v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, "0x", 2);
+          *(&v37[-1].__locale_ + *(v35 - 24)) = *(&v37[-1].__locale_ + *(v35 - 24)) & 0xFFFFFFB5 | 8;
+          v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, "0x", 2);
           v23 = MEMORY[0x29C28BC00](v22, *v19);
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, " ", 1);
           ++v19;
@@ -5871,20 +5859,20 @@ uint64_t SERestoreInfo::UpdateTableEntry::print(unsigned __int16 ***a1, uint64_t
         while (v19 != v20);
       }
 
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, "} ", 2);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, "} ", 2);
       if (__p)
       {
-        v31 = __p;
+        v30 = __p;
         operator delete(__p);
       }
 
       ++v11;
     }
 
-    while (v11 != v28);
+    while (v11 != v27);
   }
 
-  std::ios_base::getloc((&v36 + *(v36 - 24)));
+  std::ios_base::getloc((&v35 + *(v35 - 24)));
   v24 = std::locale::use_facet(&__p, MEMORY[0x29EDC93D0]);
   (v24->__vftable[2].~facet_0)(v24, 10);
   std::locale::~locale(&__p);
@@ -5893,42 +5881,41 @@ uint64_t SERestoreInfo::UpdateTableEntry::print(unsigned __int16 ***a1, uint64_t
   std::stringbuf::str();
   for (i = 0; i != -15; i -= 3)
   {
-    if (SHIBYTE(v45[i + 2]) < 0)
+    if (SHIBYTE(v44[i + 2]) < 0)
     {
-      operator delete(v45[i]);
+      operator delete(v44[i]);
     }
   }
 
-  if (v33)
+  if (v32)
   {
-    v34 = v33;
-    operator delete(v33);
+    v33 = v32;
+    operator delete(v32);
   }
 
-  v36 = *MEMORY[0x29EDC9538];
-  *(&v36 + *(v36 - 24)) = *(MEMORY[0x29EDC9538] + 24);
-  v37 = MEMORY[0x29EDC9570] + 16;
-  if (v39 < 0)
+  v35 = *MEMORY[0x29EDC9538];
+  *(&v35 + *(v35 - 24)) = *(MEMORY[0x29EDC9538] + 24);
+  v36 = MEMORY[0x29EDC9570] + 16;
+  if (v38 < 0)
   {
-    operator delete(v38[7].__locale_);
+    operator delete(v37[7].__locale_);
   }
 
-  v37 = MEMORY[0x29EDC9568] + 16;
-  std::locale::~locale(v38);
+  v36 = MEMORY[0x29EDC9568] + 16;
+  std::locale::~locale(v37);
   std::ostream::~ostream();
-  result = MEMORY[0x29C28BCE0](&v40);
-  v27 = *MEMORY[0x29EDCA608];
-  return result;
+  return MEMORY[0x29C28BCE0](&v39);
 }
 
-void sub_2984FB978(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, char a18)
+void sub_2984FB978(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, ...)
 {
+  va_start(va, a17);
   if (__p)
   {
     operator delete(__p);
   }
 
-  std::ostringstream::~ostringstream(&a18);
+  std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
 
@@ -6041,13 +6028,13 @@ uint64_t SERestoreInfo::P73BaseDeliveryObject::updateMeasurement(SERestoreInfo::
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::string::basic_string[abi:ne200100]<0>(&value, "Assertion: ");
-    v21 = std::string::append(&value, "outError && outMeasurementDict");
-    v22 = *&v21->__r_.__value_.__l.__data_;
-    v29 = v21->__r_.__value_.__r.__words[2];
-    *__p = v22;
-    v21->__r_.__value_.__l.__size_ = 0;
-    v21->__r_.__value_.__r.__words[2] = 0;
-    v21->__r_.__value_.__r.__words[0] = 0;
+    v19 = std::string::append(&value, "outError && outMeasurementDict");
+    v20 = *&v19->__r_.__value_.__l.__data_;
+    v27 = v19->__r_.__value_.__r.__words[2];
+    *__p = v20;
+    v19->__r_.__value_.__l.__size_ = 0;
+    v19->__r_.__value_.__r.__words[2] = 0;
+    v19->__r_.__value_.__r.__words[0] = 0;
     MEMORY[0x29C28BB00](exception, __p);
     __cxa_throw(exception, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
   }
@@ -6082,41 +6069,39 @@ LABEL_12:
       v10 = ccsha256_di();
       __p[0] = 0;
       __p[1] = 0;
-      v29 = 0;
+      v27 = 0;
       v11 = *v10;
-      v30 = 0;
+      v28 = 0;
       if (v11)
       {
-        std::vector<unsigned char>::__append(__p, v11, &v30);
+        std::vector<unsigned char>::__append(__p, v11, &v28);
       }
 
-      v13 = *(this + 5);
-      v12 = *(this + 6);
       ccdigest();
-      v14 = CFDataCreate(0, __p[0], __p[1] - __p[0]);
-      if (v14)
+      v12 = CFDataCreate(0, __p[0], __p[1] - __p[0]);
+      if (v12)
       {
         isDev = SERestoreInfo::P73BaseDeliveryObject::isDev(this);
-        v16 = kSETagMeasurementDevHash;
+        v14 = kSETagMeasurementDevHash;
         if (!isDev)
         {
-          v16 = kSETagMeasurementProdHash;
+          v14 = kSETagMeasurementProdHash;
         }
 
-        CFDictionarySetValue(v8, *v16, v14);
-        v17 = 0;
+        CFDictionarySetValue(v8, *v14, v12);
+        v15 = 0;
       }
 
       else
       {
-        std::string::basic_string[abi:ne200100]<0>(v23, "Fail to allocate tmpData");
-        *a3 = SERestoreInfo::CreateCFError(v23, 3, 0, @"SEUpdaterErrorDomain");
-        if (v24 < 0)
+        std::string::basic_string[abi:ne200100]<0>(v21, "Fail to allocate tmpData");
+        *a3 = SERestoreInfo::CreateCFError(v21, 3, 0, @"SEUpdaterErrorDomain");
+        if (v22 < 0)
         {
-          operator delete(v23[0]);
+          operator delete(v21[0]);
         }
 
-        v17 = 6;
+        v15 = 6;
       }
 
       if (__p[0])
@@ -6125,24 +6110,24 @@ LABEL_12:
         operator delete(__p[0]);
       }
 
-      if (v17 == 6)
+      if (v15 == 6)
       {
-        v18 = 0;
+        v16 = 0;
         if (!v8)
         {
 LABEL_23:
-          if (v14)
+          if (v12)
           {
-            CFRelease(v14);
+            CFRelease(v12);
           }
 
-          return v18 & 1;
+          return v16 & 1;
         }
       }
 
       else
       {
-        v18 = 1;
+        v16 = 1;
         if (!v8)
         {
           goto LABEL_23;
@@ -6162,15 +6147,15 @@ LABEL_23:
     goto LABEL_12;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v25, "Fail to allocate imageProps");
-  *a3 = SERestoreInfo::CreateCFError(v25, 3, 0, @"SEUpdaterErrorDomain");
-  if (v26 < 0)
+  std::string::basic_string[abi:ne200100]<0>(v23, "Fail to allocate imageProps");
+  *a3 = SERestoreInfo::CreateCFError(v23, 3, 0, @"SEUpdaterErrorDomain");
+  if (v24 < 0)
   {
-    operator delete(v25[0]);
+    operator delete(v23[0]);
   }
 
-  v18 = 0;
-  return v18 & 1;
+  v16 = 0;
+  return v16 & 1;
 }
 
 void sub_2984FC050(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33)
@@ -6641,52 +6626,51 @@ void sub_2984FCE30(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void SERestoreInfo::P73BaseFirmware::updateMeasurementDict(__CFError *a1, uint64_t a2, uint64_t a3)
 {
-  v46 = *MEMORY[0x29EDCA608];
-  v41 = 0;
+  v45 = *MEMORY[0x29EDCA608];
+  v39 = 0;
   if (!*a3)
   {
     goto LABEL_24;
   }
 
-  (*(**a3 + 16))(&v43);
+  (*(**a3 + 16))(&v42);
   v6 = operator new(0x18uLL);
   *v6 = 0;
   v6[1] = 0;
   v6[2] = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v6, v43, *(&v43 + 1), *(&v43 + 1) - v43);
-  v38 = 0;
-  v7 = v41;
-  v41 = v6;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v6, v42, *(&v42 + 1), *(&v42 + 1) - v42);
+  *&v37 = 0;
+  v7 = v39;
+  v39 = v6;
   if (v7)
   {
-    std::default_delete<std::vector<unsigned char>>::operator()[abi:ne200100](&v41, v7);
-    v38 = 0;
+    std::default_delete<std::vector<unsigned char>>::operator()[abi:ne200100](&v39, v7);
+    *&v37 = 0;
   }
 
-  if (v43)
+  if (v42)
   {
-    *(&v43 + 1) = v43;
-    operator delete(v43);
+    *(&v42 + 1) = v42;
+    operator delete(v42);
   }
 
   if ((*(**a3 + 32))() == 54)
   {
-    v43 = xmmword_298561E98;
-    v44 = unk_298561EA8;
-    v39 = 0;
-    v40 = 0;
+    v42 = xmmword_298561E98;
+    v43 = unk_298561EA8;
     v38 = 0;
-    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&v38, &v43, v45, 0x20uLL);
-    v43 = xmmword_298561EB8;
-    v44 = unk_298561EC8;
-    v37 = 0;
+    v37 = 0uLL;
+    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&v37, &v42, v44, 0x20uLL);
+    v42 = xmmword_298561EB8;
+    v43 = unk_298561EC8;
+    v36 = 0;
     __p = 0uLL;
-    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&__p, &v43, v45, 0x20uLL);
-    v8 = *v41;
-    v9 = *(v41 + 1) - *v41;
-    if (v9 == v39 - v38)
+    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&__p, &v42, v44, 0x20uLL);
+    v8 = *v39;
+    v9 = *(v39 + 1) - *v39;
+    if (v9 == *(&v37 + 1) - v37)
     {
-      v8 = memcmp(v8, v38, v9);
+      v8 = memcmp(v8, v37, v9);
       v10 = v8 == 0;
     }
 
@@ -6696,14 +6680,14 @@ void SERestoreInfo::P73BaseFirmware::updateMeasurementDict(__CFError *a1, uint64
     }
 
     v14 = SERestoreInfo::SERestoreInfoLog::get(v8);
-    SERestoreInfo::SERestoreInfoLog::printLog(v14, 2, "updateMeasurementDict", "KeyID 0x%X, overwriting with dev %d", bswap32(**v41), v10);
+    SERestoreInfo::SERestoreInfoLog::printLog(v14, 2, "updateMeasurementDict", "KeyID 0x%X, overwriting with dev %d", bswap32(**v39), v10);
     if (!v10)
     {
       goto LABEL_20;
     }
 
-    v15 = v41;
-    if (v41 == &__p)
+    v15 = v39;
+    if (v39 == &__p)
     {
       goto LABEL_20;
     }
@@ -6716,22 +6700,21 @@ void SERestoreInfo::P73BaseFirmware::updateMeasurementDict(__CFError *a1, uint64
     goto LABEL_24;
   }
 
-  v43 = xmmword_298561ED8;
-  v44 = unk_298561EE8;
-  v39 = 0;
-  v40 = 0;
+  v42 = xmmword_298561ED8;
+  v43 = unk_298561EE8;
   v38 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&v38, &v43, v45, 0x20uLL);
-  v43 = xmmword_298561EF8;
-  v44 = unk_298561F08;
-  v37 = 0;
+  v37 = 0uLL;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&v37, &v42, v44, 0x20uLL);
+  v42 = xmmword_298561EF8;
+  v43 = unk_298561F08;
+  v36 = 0;
   __p = 0uLL;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&__p, &v43, v45, 0x20uLL);
-  v11 = *v41;
-  v12 = *(v41 + 1) - *v41;
-  if (v12 == v39 - v38)
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&__p, &v42, v44, 0x20uLL);
+  v11 = *v39;
+  v12 = *(v39 + 1) - *v39;
+  if (v12 == *(&v37 + 1) - v37)
   {
-    v11 = memcmp(v11, v38, v12);
+    v11 = memcmp(v11, v37, v12);
     v13 = v11 == 0;
   }
 
@@ -6741,11 +6724,11 @@ void SERestoreInfo::P73BaseFirmware::updateMeasurementDict(__CFError *a1, uint64
   }
 
   v16 = SERestoreInfo::SERestoreInfoLog::get(v11);
-  SERestoreInfo::SERestoreInfoLog::printLog(v16, 2, "updateMeasurementDict", "KeyID 0x%X, overwriting with dev %d", bswap32(**v41), v13);
+  SERestoreInfo::SERestoreInfoLog::printLog(v16, 2, "updateMeasurementDict", "KeyID 0x%X, overwriting with dev %d", bswap32(**v39), v13);
   if (v13)
   {
-    v15 = v41;
-    if (v41 != &__p)
+    v15 = v39;
+    if (v39 != &__p)
     {
 LABEL_19:
       std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v15, __p.n128_u64[0], __p.n128_u64[1], __p.n128_u64[1] - __p.n128_u64[0]);
@@ -6759,18 +6742,18 @@ LABEL_20:
     operator delete(__p.n128_u64[0]);
   }
 
-  if (v38)
+  if (v37)
   {
-    v39 = v38;
-    operator delete(v38);
+    *(&v37 + 1) = v37;
+    operator delete(v37);
   }
 
 LABEL_24:
-  *(&v43 + 1) = 0;
-  *&v44 = 0;
-  *&v43 = &v43 + 8;
-  v38 = 0;
-  v39 = a1;
+  *(&v42 + 1) = 0;
+  *&v43 = 0;
+  *&v42 = &v42 + 8;
+  *&v37 = 0;
+  *(&v37 + 1) = a1;
   v17 = (*(a1 + 3) - *(a1 + 2)) >> 5;
   if (!v17)
   {
@@ -6779,28 +6762,28 @@ LABEL_24:
 
   do
   {
-    SERestoreInfo::SEFirmwareIter::operator*(&v38);
+    SERestoreInfo::SEFirmwareIter::operator*(&v37);
     v18 = __p.n128_u64[0];
-    v35 = __p;
+    v34 = __p;
     if (__p.n128_u64[1])
     {
       atomic_fetch_add_explicit((__p.n128_u64[1] + 8), 1uLL, memory_order_relaxed);
     }
 
-    if (!v41 || (v19 = *(v18 + 64), v20 = *(v18 + 72) - v19, v20 == *(v41 + 1) - *v41) && !memcmp(v19, *v41, v20))
+    if (!v39 || (v19 = *(v18 + 64), v20 = *(v18 + 72) - v19, v20 == *(v39 + 1) - *v39) && !memcmp(v19, *v39, v20))
     {
-      v21 = std::__tree<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::__map_value_compare<std::vector<unsigned char>,std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::less<std::vector<unsigned char>>,true>,std::allocator<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>>>::find<std::vector<unsigned char>>(&v43, (v18 + 64));
-      if ((&v43 + 8) == v21)
+      v21 = std::__tree<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::__map_value_compare<std::vector<unsigned char>,std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::less<std::vector<unsigned char>>,true>,std::allocator<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>>>::find<std::vector<unsigned char>>(&v42, (v18 + 64));
+      if ((&v42 + 8) == v21)
       {
-        std::__tree<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::__map_value_compare<std::vector<unsigned char>,std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::less<std::vector<unsigned char>>,true>,std::allocator<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>>>::__emplace_unique_key_args<std::vector<unsigned char>,std::vector<unsigned char> const&,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>(&v43, v35.n128_u64[0] + 64, v35.n128_u64[0] + 64, &v35);
+        std::__tree<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::__map_value_compare<std::vector<unsigned char>,std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::less<std::vector<unsigned char>>,true>,std::allocator<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>>>::__emplace_unique_key_args<std::vector<unsigned char>,std::vector<unsigned char> const&,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>(&v42, v34.n128_u64[0] + 64, v34.n128_u64[0] + 64, &v34);
       }
 
-      else if (*(v35.n128_u64[0] + 160) > *(*(v21 + 56) + 160))
+      else if (*(v34.n128_u64[0] + 160) > *(*(v21 + 56) + 160))
       {
-        v42 = v35.n128_u64[0] + 64;
-        v22 = std::__tree<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::__map_value_compare<std::vector<unsigned char>,std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::less<std::vector<unsigned char>>,true>,std::allocator<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>>>::__emplace_unique_key_args<std::vector<unsigned char>,std::piecewise_construct_t const&,std::tuple<std::vector<unsigned char> const&>,std::tuple<>>(&v43, v35.n128_u64[0] + 64, &std::piecewise_construct, &v42);
-        v23 = v35;
-        v35 = 0uLL;
+        v41 = v34.n128_u64[0] + 64;
+        v22 = std::__tree<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::__map_value_compare<std::vector<unsigned char>,std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::less<std::vector<unsigned char>>,true>,std::allocator<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>>>::__emplace_unique_key_args<std::vector<unsigned char>,std::piecewise_construct_t const&,std::tuple<std::vector<unsigned char> const&>,std::tuple<>>(&v42, v34.n128_u64[0] + 64, &std::piecewise_construct, &v41, &v40);
+        v23 = v34;
+        v34 = 0uLL;
         v24 = v22[8];
         *(v22 + 7) = v23;
         if (v24)
@@ -6810,9 +6793,9 @@ LABEL_24:
       }
     }
 
-    if (v35.n128_u64[1])
+    if (v34.n128_u64[1])
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v35.n128_u64[1]);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v34.n128_u64[1]);
     }
 
     if (__p.n128_u64[1])
@@ -6820,29 +6803,29 @@ LABEL_24:
       std::__shared_weak_count::__release_shared[abi:ne200100](__p.n128_u64[1]);
     }
 
-    LODWORD(v38) = v38 + 1;
+    LODWORD(v37) = v37 + 1;
   }
 
-  while (v38 != v17);
-  if (!v44)
+  while (v37 != v17);
+  if (!v43)
   {
 LABEL_53:
     exception = __cxa_allocate_exception(0x48uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v38, "No matching delivery object found.");
-    v34 = SERestoreInfo::SEException::SEException(exception, &v38, 24, @"SEUpdaterErrorDomain");
+    std::string::basic_string[abi:ne200100]<0>(&v37, "No matching delivery object found.");
+    v33 = SERestoreInfo::SEException::SEException(exception, &v37, 24, @"SEUpdaterErrorDomain");
   }
 
-  v25 = v43;
-  if (v43 != (&v43 + 8))
+  v25 = v42;
+  if (v42 != (&v42 + 8))
   {
     do
     {
-      v38 = 0;
-      (*(**(v25 + 7) + 16))(*(v25 + 7), a2, &v38);
-      if (v38)
+      *&v37 = 0;
+      (*(**(v25 + 7) + 16))(*(v25 + 7), a2, &v37);
+      if (v37)
       {
-        v31 = __cxa_allocate_exception(0x48uLL);
-        v32 = SERestoreInfo::SEException::SEException(v31, v38);
+        v30 = __cxa_allocate_exception(0x48uLL);
+        v31 = SERestoreInfo::SEException::SEException(v30, v37);
       }
 
       v26 = *(v25 + 1);
@@ -6872,18 +6855,16 @@ LABEL_53:
       v25 = v27;
     }
 
-    while (v27 != (&v43 + 8));
+    while (v27 != (&v42 + 8));
   }
 
-  std::__tree<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::__map_value_compare<std::vector<unsigned char>,std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::less<std::vector<unsigned char>>,true>,std::allocator<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>>>::destroy(&v43, *(&v43 + 1));
-  v29 = v41;
-  v41 = 0;
+  std::__tree<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::__map_value_compare<std::vector<unsigned char>,std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::less<std::vector<unsigned char>>,true>,std::allocator<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>>>::destroy(&v42, *(&v42 + 1));
+  v29 = v39;
+  v39 = 0;
   if (v29)
   {
-    std::default_delete<std::vector<unsigned char>>::operator()[abi:ne200100](&v41, v29);
+    std::default_delete<std::vector<unsigned char>>::operator()[abi:ne200100](&v39, v29);
   }
-
-  v30 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2984FD434(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, void **a23)
@@ -6907,346 +6888,346 @@ double SERestoreInfo::P73BaseFirmware::makeDeliveryObject@<D0>(DERItem *a1@<X1>,
 {
   if (a1->data)
   {
-    v4 = a1->length == 0;
+    v3 = a1->length == 0;
   }
 
   else
   {
-    v4 = 1;
+    v3 = 1;
   }
 
-  if (v4)
+  if (v3)
   {
     exception = __cxa_allocate_exception(0x10uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v107, "Assertion: ");
-    v41 = std::string::append(&v107, "input.data && input.length");
-    v42 = *&v41->__r_.__value_.__l.__data_;
-    v95 = v41->__r_.__value_.__r.__words[2];
-    v94 = v42;
-    v41->__r_.__value_.__l.__size_ = 0;
-    v41->__r_.__value_.__r.__words[2] = 0;
-    v41->__r_.__value_.__r.__words[0] = 0;
-    MEMORY[0x29C28BB00](exception, &v94);
+    std::string::basic_string[abi:ne200100]<0>(&v106, "Assertion: ");
+    v40 = std::string::append(&v106, "input.data && input.length");
+    v41 = *&v40->__r_.__value_.__l.__data_;
+    v94 = v40->__r_.__value_.__r.__words[2];
+    v93 = v41;
+    v40->__r_.__value_.__l.__size_ = 0;
+    v40->__r_.__value_.__r.__words[2] = 0;
+    v40->__r_.__value_.__r.__words[0] = 0;
+    MEMORY[0x29C28BB00](exception, &v93);
     __cxa_throw(exception, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
   }
 
-  v5 = DERParseSequenceContent(a1, 5u, &P73BaseFirmwareDERSpec::DeliveryObjectItemSpec, &v94, 0x50uLL);
-  if (v5)
+  v4 = DERParseSequenceContent(a1, 5u, &P73BaseFirmwareDERSpec::DeliveryObjectItemSpec, &v93, 0x50uLL);
+  if (v4)
   {
-    v67 = v5;
-    v68 = __cxa_allocate_exception(0x48uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v107, "Failed to parse as per DeliveryObjectItemSpec");
-    v69 = SERestoreInfo::SEException::SEException(v68, &v107, v67, @"libDERErrorDomain");
+    v66 = v4;
+    v67 = __cxa_allocate_exception(0x48uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v106, "Failed to parse as per DeliveryObjectItemSpec");
+    v68 = SERestoreInfo::SEException::SEException(v67, &v106, v66, @"libDERErrorDomain");
   }
 
-  LODWORD(v107.__r_.__value_.__l.__data_) = 0;
-  if (DERParseInteger(&v94, &v107) || LODWORD(v107.__r_.__value_.__l.__data_) || v96 != 32)
+  LODWORD(v106.__r_.__value_.__l.__data_) = 0;
+  if (DERParseInteger(&v93, &v106) || LODWORD(v106.__r_.__value_.__l.__data_) || v95 != 32)
   {
-    v70 = __cxa_allocate_exception(0x48uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v107, "Failed to validate delivery object");
-    v71 = SERestoreInfo::SEException::SEException(v70, &v107, 15, @"SEUpdaterErrorDomain");
+    v69 = __cxa_allocate_exception(0x48uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v106, "Failed to validate delivery object");
+    v70 = SERestoreInfo::SEException::SEException(v69, &v106, 15, @"SEUpdaterErrorDomain");
   }
 
-  _ZNSt3__115allocate_sharedB8ne200100IN13SERestoreInfo21P73BaseDeliveryObjectENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(&v85);
-  std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>((v85 + 64), v95, &v95[v96], v96);
-  v107.__r_.__value_.__r.__words[0] = &unk_2A1EE8E30;
-  *&v107.__r_.__value_.__r.__words[1] = v97;
-  v108 = 0;
-  SERestoreInfo::BLOB::operator=((v85 + 88), &v107);
-  SERestoreInfo::BLOB::~BLOB(&v107);
-  v82 = &unk_2A1EE8E30;
-  v83 = *(v85 + 96);
-  v84 = *(v85 + 112);
-  v6 = SERestoreInfo::P73BaseDeliveryObject::parseFPRev(&v82);
-  *(v85 + 152) = v6;
-  SERestoreInfo::BLOB::~BLOB(&v82);
-  v7 = DERParseSequence(&v98, 3u, &P73BaseFirmwareDERSpec::UpdatePayloadItemSpec, v92, 0x30uLL);
+  _ZNSt3__115allocate_sharedB8ne200100IN13SERestoreInfo21P73BaseDeliveryObjectENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(&v84);
+  std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>((v84 + 64), v94, &v94[v95], v95);
+  v106.__r_.__value_.__r.__words[0] = &unk_2A1EE8E30;
+  *&v106.__r_.__value_.__r.__words[1] = v96;
+  v107 = 0;
+  SERestoreInfo::BLOB::operator=((v84 + 88), &v106);
+  SERestoreInfo::BLOB::~BLOB(&v106);
+  v81 = &unk_2A1EE8E30;
+  v82 = *(v84 + 96);
+  v83 = *(v84 + 112);
+  v5 = SERestoreInfo::P73BaseDeliveryObject::parseFPRev(&v81);
+  *(v84 + 152) = v5;
+  SERestoreInfo::BLOB::~BLOB(&v81);
+  v6 = DERParseSequence(&v97, 3u, &P73BaseFirmwareDERSpec::UpdatePayloadItemSpec, v91, 0x30uLL);
+  if (v6)
+  {
+    v71 = __cxa_allocate_exception(0x48uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v106, "Failed to parse updatePayload as per UpdatePayloadItemSpec");
+    v72 = SERestoreInfo::SEException::SEException(v71, &v106, v6, @"libDERErrorDomain");
+  }
+
+  v7 = DERParseSequenceContent(v92, 2u, &P73BaseFirmwareDERSpec::SignedSectionItemSpec, &v89, 0x20uLL);
   if (v7)
   {
-    v72 = __cxa_allocate_exception(0x48uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v107, "Failed to parse updatePayload as per UpdatePayloadItemSpec");
-    v73 = SERestoreInfo::SEException::SEException(v72, &v107, v7, @"libDERErrorDomain");
+    v73 = __cxa_allocate_exception(0x48uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v106, "Failed to parse signedSection as per SignedSectionItemSpec");
+    v74 = SERestoreInfo::SEException::SEException(v73, &v106, v7, @"libDERErrorDomain");
   }
 
-  v8 = DERParseSequenceContent(v93, 2u, &P73BaseFirmwareDERSpec::SignedSectionItemSpec, &v90, 0x20uLL);
-  if (v8)
+  SERestoreInfo::UpdateTable::UpdateTable(&v106, &v89);
+  v8 = v84;
+  *(v84 + 120) = v106.__r_.__value_.__l.__data_;
+  std::vector<SERestoreInfo::UpdateTableEntry>::__vdeallocate((v8 + 128));
+  *(v8 + 128) = *&v106.__r_.__value_.__r.__words[1];
+  *(v8 + 144) = v107;
+  v107 = 0;
+  *&v106.__r_.__value_.__r.__words[1] = 0uLL;
+  *&v113 = &v106.__r_.__value_.__l.__size_;
+  std::vector<SERestoreInfo::UpdateTableEntry>::__destroy_vector::operator()[abi:ne200100](&v113);
+  if (!v98[0] || !v98[1])
   {
-    v74 = __cxa_allocate_exception(0x48uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v107, "Failed to parse signedSection as per SignedSectionItemSpec");
-    v75 = SERestoreInfo::SEException::SEException(v74, &v107, v8, @"libDERErrorDomain");
+    v42 = __cxa_allocate_exception(0x10uLL);
+    v43 = std::string::basic_string[abi:ne200100]<0>(&v113, "Assertion: ");
+    v44 = std::string::append(v43, "binaryItem.data && binaryItem.length");
+    v45 = *&v44->__r_.__value_.__l.__data_;
+    v106.__r_.__value_.__r.__words[2] = v44->__r_.__value_.__r.__words[2];
+    *&v106.__r_.__value_.__l.__data_ = v45;
+    v44->__r_.__value_.__l.__size_ = 0;
+    v44->__r_.__value_.__r.__words[2] = 0;
+    v44->__r_.__value_.__r.__words[0] = 0;
+    MEMORY[0x29C28BB00](v42, &v106);
+    __cxa_throw(v42, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
   }
 
-  SERestoreInfo::UpdateTable::UpdateTable(&v107, &v90);
-  v9 = v85;
-  *(v85 + 120) = v107.__r_.__value_.__l.__data_;
-  std::vector<SERestoreInfo::UpdateTableEntry>::__vdeallocate((v9 + 128));
-  *(v9 + 128) = *&v107.__r_.__value_.__r.__words[1];
-  *(v9 + 144) = v108;
-  v108 = 0;
-  *&v107.__r_.__value_.__r.__words[1] = 0uLL;
-  v114[0] = &v107.__r_.__value_.__l.__size_;
-  std::vector<SERestoreInfo::UpdateTableEntry>::__destroy_vector::operator()[abi:ne200100](v114);
-  if (!v99[0] || !v99[1])
+  v9 = v84;
+  v10 = DERDecodeSeqContentInit(v98, v120);
+  if (v10)
   {
-    v43 = __cxa_allocate_exception(0x10uLL);
-    v44 = std::string::basic_string[abi:ne200100]<0>(v114, "Assertion: ");
-    v45 = std::string::append(v44, "binaryItem.data && binaryItem.length");
-    v46 = *&v45->__r_.__value_.__l.__data_;
-    v107.__r_.__value_.__r.__words[2] = v45->__r_.__value_.__r.__words[2];
-    *&v107.__r_.__value_.__l.__data_ = v46;
-    v45->__r_.__value_.__l.__size_ = 0;
-    v45->__r_.__value_.__r.__words[2] = 0;
-    v45->__r_.__value_.__r.__words[0] = 0;
-    MEMORY[0x29C28BB00](v43, &v107);
-    __cxa_throw(v43, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
-  }
-
-  v10 = v85;
-  v11 = DERDecodeSeqContentInit(v99, v119);
-  if (v11)
-  {
-    v76 = __cxa_allocate_exception(0x48uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v107, "Cannot init sequence for DeliveryObject.binaries");
-    v77 = SERestoreInfo::SEException::SEException(v76, &v107, v11, @"libDERErrorDomain");
+    v75 = __cxa_allocate_exception(0x48uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v106, "Cannot init sequence for DeliveryObject.binaries");
+    v76 = SERestoreInfo::SEException::SEException(v75, &v106, v10, @"libDERErrorDomain");
   }
 
   while (1)
   {
-    v12 = DERDecodeSeqNext(v119, &v117);
-    if (v12)
+    v11 = DERDecodeSeqNext(v120, &v118);
+    if (v11)
     {
       break;
     }
 
-    LODWORD(v107.__r_.__value_.__l.__data_) = 0;
-    v107.__r_.__value_.__l.__size_ = &unk_2A1EE8E30;
+    LODWORD(v106.__r_.__value_.__l.__data_) = 0;
+    v106.__r_.__value_.__l.__size_ = &unk_2A1EE8E30;
+    v108 = 0;
     v109 = 0;
-    v110 = 0;
-    v112 = 0;
-    v113 = 0;
     v111 = 0;
-    v106 = 0;
-    v13 = DERParseSequenceContent(&v118, 4u, &P73BaseFirmwareDERSpec::ImageBinaryItemSpec, v114, 0x40uLL);
-    if (v13)
+    v112 = 0;
+    v110 = 0;
+    v105 = 0;
+    v12 = DERParseSequenceContent(&v119, 4u, &P73BaseFirmwareDERSpec::ImageBinaryItemSpec, &v113, 0x40uLL);
+    if (v12)
     {
-      v52 = __cxa_allocate_exception(0x48uLL);
-      std::string::basic_string[abi:ne200100]<0>(&v120, "Cannot parse ImageBinary.");
-      v53 = SERestoreInfo::SEException::SEException(v52, &v120, v13, @"libDERErrorDomain");
+      v51 = __cxa_allocate_exception(0x48uLL);
+      std::string::basic_string[abi:ne200100]<0>(&v121, "Cannot parse ImageBinary.");
+      v52 = SERestoreInfo::SEException::SEException(v51, &v121, v12, @"libDERErrorDomain");
     }
 
-    v14 = DERParseInteger(v114, &v106);
-    if (v14 || v106 >= 5)
+    v13 = DERParseInteger(&v113, &v105);
+    if (v13 || v105 >= 5)
     {
-      v47 = v14;
-      v48 = __cxa_allocate_exception(0x48uLL);
-      std::string::basic_string[abi:ne200100]<0>(&v120, "ImageBinary.type is out of range.");
-      v49 = SERestoreInfo::SEException::SEException(v48, &v120, v47, @"libDERErrorDomain");
+      v46 = v13;
+      v47 = __cxa_allocate_exception(0x48uLL);
+      std::string::basic_string[abi:ne200100]<0>(&v121, "ImageBinary.type is out of range.");
+      v48 = SERestoreInfo::SEException::SEException(v47, &v121, v46, @"libDERErrorDomain");
     }
 
-    LODWORD(v107.__r_.__value_.__l.__data_) = v106;
-    v120 = &unk_2A1EE8E30;
-    v121 = v114[2];
-    v122 = v114[3];
+    LODWORD(v106.__r_.__value_.__l.__data_) = v105;
+    *&v121 = &unk_2A1EE8E30;
+    *(&v121 + 1) = v114;
+    v122 = v115;
     v123 = 0;
-    SERestoreInfo::BLOB::operator=(&v107.__r_.__value_.__l.__size_, &v120);
-    SERestoreInfo::BLOB::~BLOB(&v120);
-    v15 = DERParseInteger(&v115, &v110);
+    SERestoreInfo::BLOB::operator=(&v106.__r_.__value_.__l.__size_, &v121);
+    SERestoreInfo::BLOB::~BLOB(&v121);
+    v14 = DERParseInteger(&v116, &v109);
+    if (v14)
+    {
+      v49 = __cxa_allocate_exception(0x48uLL);
+      std::string::basic_string[abi:ne200100]<0>(&v121, "Cannot parse ImageBinary.index.");
+      v50 = SERestoreInfo::SEException::SEException(v49, &v121, v14, @"libDERErrorDomain");
+    }
+
+    v15 = DERDecodeSeqContentInit(&v117, v104);
     if (v15)
     {
-      v50 = __cxa_allocate_exception(0x48uLL);
-      std::string::basic_string[abi:ne200100]<0>(&v120, "Cannot parse ImageBinary.index.");
-      v51 = SERestoreInfo::SEException::SEException(v50, &v120, v15, @"libDERErrorDomain");
-    }
-
-    v16 = DERDecodeSeqContentInit(&v116, v105);
-    if (v16)
-    {
-      v54 = __cxa_allocate_exception(0x48uLL);
-      std::string::basic_string[abi:ne200100]<0>(&v120, "Cannot init sequence for ImageBinary.apdus");
-      v55 = SERestoreInfo::SEException::SEException(v54, &v120, v16, @"libDERErrorDomain");
+      v53 = __cxa_allocate_exception(0x48uLL);
+      std::string::basic_string[abi:ne200100]<0>(&v121, "Cannot init sequence for ImageBinary.apdus");
+      v54 = SERestoreInfo::SEException::SEException(v53, &v121, v15, @"libDERErrorDomain");
     }
 
     while (1)
     {
-      v17 = DERDecodeSeqNext(v105, &v103);
-      v18 = v17;
-      if (v17)
+      v16 = DERDecodeSeqNext(v104, &v102);
+      v17 = v16;
+      if (v16)
       {
         break;
       }
 
-      v100 = &unk_2A1EE8E30;
-      v101 = v104;
-      v102 = 0;
-      v19 = v112;
-      if (v112 >= v113)
+      v99 = &unk_2A1EE8E30;
+      v100 = v103;
+      v101 = 0;
+      v18 = v111;
+      if (v111 >= v112)
       {
-        v22 = (v112 - v111) >> 5;
-        v23 = v22 + 1;
-        if ((v22 + 1) >> 59)
+        v21 = (v111 - v110) >> 5;
+        v22 = v21 + 1;
+        if ((v21 + 1) >> 59)
         {
           std::vector<__CFString const*>::__throw_length_error[abi:ne200100]();
         }
 
-        v24 = v113 - v111;
-        if ((v113 - v111) >> 4 > v23)
+        v23 = v112 - v110;
+        if ((v112 - v110) >> 4 > v22)
         {
-          v23 = v24 >> 4;
+          v22 = v23 >> 4;
         }
 
-        if (v24 >= 0x7FFFFFFFFFFFFFE0)
+        if (v23 >= 0x7FFFFFFFFFFFFFE0)
         {
-          v25 = 0x7FFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v25 = v23;
-        }
-
-        v124 = &v111;
-        if (v25)
-        {
-          v26 = std::__allocate_at_least[abi:ne200100]<std::allocator<SERestoreInfo::BLOB>>(&v111, v25);
+          v24 = 0x7FFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v26 = 0;
+          v24 = v22;
         }
 
-        v27 = &v26[4 * v22];
-        v120 = v26;
-        v121 = v27;
-        v123 = &v26[4 * v25];
-        *v27 = &unk_2A1EE8E30;
-        v28 = v101;
-        v27[3] = v102;
-        *(v27 + 1) = v28;
-        v122 = v27 + 4;
-        std::vector<SERestoreInfo::BLOB>::__swap_out_circular_buffer(&v111, &v120);
-        v21 = v112;
-        std::__split_buffer<SERestoreInfo::BLOB>::~__split_buffer(&v120);
+        v124 = &v110;
+        if (v24)
+        {
+          v25 = std::__allocate_at_least[abi:ne200100]<std::allocator<SERestoreInfo::BLOB>>(&v110, v24);
+        }
+
+        else
+        {
+          v25 = 0;
+        }
+
+        v26 = &v25[32 * v21];
+        *&v121 = v25;
+        *(&v121 + 1) = v26;
+        v123 = &v25[32 * v24];
+        *v26 = &unk_2A1EE8E30;
+        v27 = v100;
+        *(v26 + 3) = v101;
+        *(v26 + 8) = v27;
+        v122 = v26 + 32;
+        std::vector<SERestoreInfo::BLOB>::__swap_out_circular_buffer(&v110, &v121);
+        v20 = v111;
+        std::__split_buffer<SERestoreInfo::BLOB>::~__split_buffer(&v121);
       }
 
       else
       {
-        *v112 = &unk_2A1EE8E30;
-        v20 = v101;
-        *(v19 + 3) = v102;
-        *(v19 + 8) = v20;
-        v21 = v19 + 32;
+        *v111 = &unk_2A1EE8E30;
+        v19 = v100;
+        *(v18 + 3) = v101;
+        *(v18 + 8) = v19;
+        v20 = v18 + 32;
       }
 
-      v112 = v21;
-      SERestoreInfo::BLOB::~BLOB(&v100);
+      v111 = v20;
+      SERestoreInfo::BLOB::~BLOB(&v99);
     }
 
-    if (v17 != 1)
+    if (v16 != 1)
     {
-      v38 = __cxa_allocate_exception(0x48uLL);
-      std::string::basic_string[abi:ne200100]<0>(&v120, "Cannot parse ImageBinary.apdus");
-      v39 = SERestoreInfo::SEException::SEException(v38, &v120, v18, @"libDERErrorDomain");
+      v37 = __cxa_allocate_exception(0x48uLL);
+      std::string::basic_string[abi:ne200100]<0>(&v121, "Cannot parse ImageBinary.apdus");
+      v38 = SERestoreInfo::SEException::SEException(v37, &v121, v17, @"libDERErrorDomain");
     }
 
-    std::__tree<std::__value_type<unsigned short,SERestoreInfo::ImageBinary>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,SERestoreInfo::ImageBinary>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,SERestoreInfo::ImageBinary>>>::__emplace_unique_impl<unsigned int &,SERestoreInfo::ImageBinary&>(v10 + 8, &v110, &v107);
-    v120 = &v111;
-    std::vector<SERestoreInfo::BLOB>::__destroy_vector::operator()[abi:ne200100](&v120);
-    SERestoreInfo::BLOB::~BLOB(&v107.__r_.__value_.__r.__words[1]);
+    std::__tree<std::__value_type<unsigned short,SERestoreInfo::ImageBinary>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,SERestoreInfo::ImageBinary>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,SERestoreInfo::ImageBinary>>>::__emplace_unique_impl<unsigned int &,SERestoreInfo::ImageBinary&>(v9 + 8, &v109, &v106);
+    *&v121 = &v110;
+    std::vector<SERestoreInfo::BLOB>::__destroy_vector::operator()[abi:ne200100](&v121);
+    SERestoreInfo::BLOB::~BLOB(&v106.__r_.__value_.__r.__words[1]);
   }
 
-  if (v12 != 1)
+  if (v11 != 1)
   {
-    v56 = v12;
-    v57 = __cxa_allocate_exception(0x48uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v107, "Cannot parse DeliveryObject.binaries");
-    v58 = SERestoreInfo::SEException::SEException(v57, &v107, v56, @"libDERErrorDomain");
+    v55 = v11;
+    v56 = __cxa_allocate_exception(0x48uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v106, "Cannot parse DeliveryObject.binaries");
+    v57 = SERestoreInfo::SEException::SEException(v56, &v106, v55, @"libDERErrorDomain");
   }
 
-  v107.__r_.__value_.__r.__words[0] = &unk_2A1EE8E30;
-  *&v107.__r_.__value_.__r.__words[1] = v98;
-  v108 = 0;
-  SERestoreInfo::BLOB::operator=((v85 + 32), &v107);
-  SERestoreInfo::BLOB::~BLOB(&v107);
-  v29 = v85;
-  *(v85 + 156) = 0;
-  *(v29 + 160) = 0;
-  v30 = DERParseSequenceContent(&v91, 2u, &P73BaseFirmwareDERSpec::UpdatePropertiesItemSpec, v88, 0x20uLL);
-  v31 = v30;
-  if (v30)
+  v106.__r_.__value_.__r.__words[0] = &unk_2A1EE8E30;
+  *&v106.__r_.__value_.__r.__words[1] = v97;
+  v107 = 0;
+  SERestoreInfo::BLOB::operator=((v84 + 32), &v106);
+  SERestoreInfo::BLOB::~BLOB(&v106);
+  v28 = v84;
+  *(v84 + 156) = 0;
+  *(v28 + 160) = 0;
+  v29 = DERParseSequenceContent(&v90, 2u, &P73BaseFirmwareDERSpec::UpdatePropertiesItemSpec, v87, 0x20uLL);
+  v30 = v29;
+  if (v29)
   {
-    if (v30 != 5)
+    if (v29 != 5)
     {
-      v78 = __cxa_allocate_exception(0x48uLL);
-      std::string::basic_string[abi:ne200100]<0>(&v107, "Failed to parse updateProperties as per UpdatePropertiesItemSpec.");
-      v79 = SERestoreInfo::SEException::SEException(v78, &v107, v31, @"libDERErrorDomain");
+      v77 = __cxa_allocate_exception(0x48uLL);
+      std::string::basic_string[abi:ne200100]<0>(&v106, "Failed to parse updateProperties as per UpdatePropertiesItemSpec.");
+      v78 = SERestoreInfo::SEException::SEException(v77, &v106, v30, @"libDERErrorDomain");
     }
   }
 
   else
   {
-    v100 = 0;
-    v33 = DERDecodeSeqInit(&v89, &v100, &v120);
-    if (v33)
+    v99 = 0;
+    v32 = DERDecodeSeqInit(&v88, &v99, &v121);
+    if (v32)
     {
-      v80 = __cxa_allocate_exception(0x48uLL);
-      std::string::basic_string[abi:ne200100]<0>(&v107, "Cannot parse properties entries");
-      v81 = SERestoreInfo::SEException::SEException(v80, &v107, v33, @"libDERErrorDomain");
+      v79 = __cxa_allocate_exception(0x48uLL);
+      std::string::basic_string[abi:ne200100]<0>(&v106, "Cannot parse properties entries");
+      v80 = SERestoreInfo::SEException::SEException(v79, &v106, v32, @"libDERErrorDomain");
     }
 
-    while (!DERDecodeSeqNext(&v120, &v107))
+    while (!DERDecodeSeqNext(&v121, &v106))
     {
-      v34 = DERDecodeItem(&v107.__r_.__value_.__l.__size_, &v107);
+      v33 = DERDecodeItem(&v106.__r_.__value_.__l.__size_, &v106);
+      if (v33)
+      {
+        v58 = __cxa_allocate_exception(0x48uLL);
+        std::string::basic_string[abi:ne200100]<0>(&v113, "Cannot parse property");
+        v59 = SERestoreInfo::SEException::SEException(v58, &v113, v33, @"libDERErrorDomain");
+      }
+
+      v34 = DERParseSequenceContent(&v106.__r_.__value_.__l.__size_, 2u, &P73BaseFirmwareDERSpec::PropertyItemSpec, v85, 0x20uLL);
       if (v34)
       {
-        v59 = __cxa_allocate_exception(0x48uLL);
-        std::string::basic_string[abi:ne200100]<0>(v114, "Cannot parse property");
-        v60 = SERestoreInfo::SEException::SEException(v59, v114, v34, @"libDERErrorDomain");
+        v60 = __cxa_allocate_exception(0x48uLL);
+        std::string::basic_string[abi:ne200100]<0>(&v113, "Failed to parse as per PropertyItemSpec");
+        v61 = SERestoreInfo::SEException::SEException(v60, &v113, v34, @"libDERErrorDomain");
       }
 
-      v35 = DERParseSequenceContent(&v107.__r_.__value_.__l.__size_, 2u, &P73BaseFirmwareDERSpec::PropertyItemSpec, v86, 0x20uLL);
-      if (v35)
+      if (v85[1] == 4)
       {
-        v61 = __cxa_allocate_exception(0x48uLL);
-        std::string::basic_string[abi:ne200100]<0>(v114, "Failed to parse as per PropertyItemSpec");
-        v62 = SERestoreInfo::SEException::SEException(v61, v114, v35, @"libDERErrorDomain");
-      }
-
-      if (v86[1] == 4)
-      {
-        if (*v86[0] == 1768121715)
+        if (*v85[0] == 1768121715)
         {
-          LODWORD(v117) = 0;
-          v37 = DERParseInteger(v87, &v117);
-          if (v37)
-          {
-            v63 = __cxa_allocate_exception(0x48uLL);
-            std::string::basic_string[abi:ne200100]<0>(v114, "Failed to parse 'seci' value");
-            v64 = SERestoreInfo::SEException::SEException(v63, v114, v37, @"libDERErrorDomain");
-          }
-
-          *(v85 + 156) = v117;
-        }
-
-        else if (*v86[0] == 1986553203)
-        {
-          LODWORD(v117) = 0;
-          v36 = DERParseInteger(v87, &v117);
+          LODWORD(v118) = 0;
+          v36 = DERParseInteger(v86, &v118);
           if (v36)
           {
-            v65 = __cxa_allocate_exception(0x48uLL);
-            std::string::basic_string[abi:ne200100]<0>(v114, "Failed to parse 'sehv' value");
-            v66 = SERestoreInfo::SEException::SEException(v65, v114, v36, @"libDERErrorDomain");
+            v62 = __cxa_allocate_exception(0x48uLL);
+            std::string::basic_string[abi:ne200100]<0>(&v113, "Failed to parse 'seci' value");
+            v63 = SERestoreInfo::SEException::SEException(v62, &v113, v36, @"libDERErrorDomain");
           }
 
-          *(v85 + 160) = v117;
+          *(v84 + 156) = v118;
+        }
+
+        else if (*v85[0] == 1986553203)
+        {
+          LODWORD(v118) = 0;
+          v35 = DERParseInteger(v86, &v118);
+          if (v35)
+          {
+            v64 = __cxa_allocate_exception(0x48uLL);
+            std::string::basic_string[abi:ne200100]<0>(&v113, "Failed to parse 'sehv' value");
+            v65 = SERestoreInfo::SEException::SEException(v64, &v113, v35, @"libDERErrorDomain");
+          }
+
+          *(v84 + 160) = v118;
         }
       }
     }
   }
 
-  result = *&v85;
-  *a2 = v85;
+  result = *&v84;
+  *a2 = v84;
   return result;
 }
 
@@ -7401,9 +7382,9 @@ void *std::vector<std::vector<unsigned short>>::__emplace_back_slow_path<std::ve
   return v9;
 }
 
-void sub_2984FE724(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2984FE724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<unsigned short>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7562,7 +7543,7 @@ void SERestoreInfo::BLOB::~BLOB(SERestoreInfo::BLOB *this)
   }
 }
 
-void std::vector<SERestoreInfo::UpdateTableEntry>::__vdeallocate(void **a1)
+void std::vector<SERestoreInfo::UpdateTableEntry>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -7830,15 +7811,15 @@ void std::vector<SERestoreInfo::BLOB>::__destroy_vector::operator()[abi:ne200100
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 32;
-      v7 = v4 - 32;
-      v8 = v4 - 32;
+      v6 = v4 - 4;
+      v7 = v4 - 4;
+      v8 = v4 - 4;
       do
       {
         v9 = *v8;
-        v8 -= 32;
+        v8 -= 4;
         (*v9)(v7);
-        v6 -= 32;
+        v6 -= 4;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -7936,15 +7917,15 @@ void *std::vector<SERestoreInfo::UpdateTableEntry>::__construct_one_at_end[abi:n
   return result;
 }
 
-void sub_2984FF244(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2984FF244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::vector<unsigned short>>::__destroy_vector::operator()[abi:ne200100](va);
-  *(v2 + 8) = v3;
+  *(v3 + 8) = v4;
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<SERestoreInfo::UpdateTableEntry>::__emplace_back_slow_path<SERestoreInfo::UpdateTableEntry&>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<SERestoreInfo::UpdateTableEntry>::__emplace_back_slow_path<SERestoreInfo::UpdateTableEntry&>(void *a1, uint64_t a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
@@ -8009,11 +7990,11 @@ uint64_t std::vector<SERestoreInfo::UpdateTableEntry>::__emplace_back_slow_path<
   return v14;
 }
 
-void sub_2984FF3B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2984FF3B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  *(v4 - 40) = v3;
-  std::vector<std::vector<unsigned short>>::__destroy_vector::operator()[abi:ne200100]((v4 - 40));
+  va_start(va, a5);
+  *(v6 - 40) = v5;
+  std::vector<std::vector<unsigned short>>::__destroy_vector::operator()[abi:ne200100]((v6 - 40));
   std::__split_buffer<SERestoreInfo::UpdateTableEntry>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8273,20 +8254,20 @@ void *std::string::__init_with_size[abi:ne200100]<unsigned char const*,unsigned 
   return result;
 }
 
-char *std::vector<SERestoreInfo::UT>::__init_with_size[abi:ne200100]<SERestoreInfo::UT const*,SERestoreInfo::UT const*>(char *result, int *a2, int *a3, unint64_t a4)
+uint64_t *std::vector<SERestoreInfo::UT>::__init_with_size[abi:ne200100]<SERestoreInfo::UT const*,SERestoreInfo::UT const*>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
     v6 = result;
     result = std::vector<SERestoreInfo::UT>::__vallocate[abi:ne200100](result, a4);
-    v7 = *(v6 + 1);
+    v7 = v6[1];
     while (a2 != a3)
     {
       v8 = *a2++;
       *v7++ = v8;
     }
 
-    *(v6 + 1) = v7;
+    v6[1] = v7;
   }
 
   return result;
@@ -8304,7 +8285,7 @@ void sub_2984FF92C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-char *std::vector<SERestoreInfo::UT>::__vallocate[abi:ne200100](void *a1, unint64_t a2)
+void *std::vector<SERestoreInfo::UT>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 >> 62)
   {
@@ -8314,7 +8295,7 @@ char *std::vector<SERestoreInfo::UT>::__vallocate[abi:ne200100](void *a1, unint6
   result = std::__allocate_at_least[abi:ne200100]<std::allocator<SERestoreInfo::UT>>(a1, a2);
   *a1 = result;
   a1[1] = result;
-  a1[2] = &result[4 * v4];
+  a1[2] = result + 4 * v4;
   return result;
 }
 
@@ -8334,14 +8315,14 @@ void *std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short
   {
     v6 = result;
     result = std::vector<unsigned short>::__vallocate[abi:ne200100](result, a4);
-    v7 = v6[1];
+    v7 = *(v6 + 1);
     v8 = a3 - a2;
     if (v8)
     {
-      result = memmove(v6[1], a2, v8);
+      result = memmove(*(v6 + 1), a2, v8);
     }
 
-    v6[1] = v7 + v8;
+    *(v6 + 1) = v7 + v8;
   }
 
   return result;
@@ -8502,21 +8483,21 @@ uint64_t std::__tree<std::__value_type<std::vector<unsigned char>,std::shared_pt
   return a4;
 }
 
-uint64_t *std::__tree<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::__map_value_compare<std::vector<unsigned char>,std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::less<std::vector<unsigned char>>,true>,std::allocator<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>>>::__emplace_unique_key_args<std::vector<unsigned char>,std::piecewise_construct_t const&,std::tuple<std::vector<unsigned char> const&>,std::tuple<>>(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::__map_value_compare<std::vector<unsigned char>,std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::less<std::vector<unsigned char>>,true>,std::allocator<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>>>::__emplace_unique_key_args<std::vector<unsigned char>,std::piecewise_construct_t const&,std::tuple<std::vector<unsigned char> const&>,std::tuple<>>(uint64_t ***a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5)
 {
-  v6 = std::__tree<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::__map_value_compare<std::vector<unsigned char>,std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::less<std::vector<unsigned char>>,true>,std::allocator<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>>>::__find_equal<std::vector<unsigned char>>(a1, &v11, a2);
-  v7 = *v6;
-  if (!*v6)
+  v7 = std::__tree<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::__map_value_compare<std::vector<unsigned char>,std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::less<std::vector<unsigned char>>,true>,std::allocator<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>>>::__find_equal<std::vector<unsigned char>>(a1, &v12, a2);
+  v8 = *v7;
+  if (!*v7)
   {
-    v8 = v6;
-    std::__tree<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::__map_value_compare<std::vector<unsigned char>,std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::less<std::vector<unsigned char>>,true>,std::allocator<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::vector<unsigned char> const&>,std::tuple<>>(a1, a4, v10);
-    std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::__insert_node_at(a1, v11, v8, v10[0]);
-    v7 = v10[0];
-    v10[0] = 0;
-    std::unique_ptr<std::__tree_node<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,void *>>>>::~unique_ptr[abi:ne200100](v10);
+    v9 = v7;
+    std::__tree<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::__map_value_compare<std::vector<unsigned char>,std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::less<std::vector<unsigned char>>,true>,std::allocator<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::vector<unsigned char> const&>,std::tuple<>>(a1, a4, v11);
+    std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::__insert_node_at(a1, v12, v9, v11[0]);
+    v8 = v11[0];
+    v11[0] = 0;
+    std::unique_ptr<std::__tree_node<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,void *>>>>::~unique_ptr[abi:ne200100](v11);
   }
 
-  return v7;
+  return v8;
 }
 
 void *std::__tree<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::__map_value_compare<std::vector<unsigned char>,std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::less<std::vector<unsigned char>>,true>,std::allocator<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>>>::__find_equal<std::vector<unsigned char>>(uint64_t a1, void *a2, uint64_t a3)
@@ -8628,7 +8609,7 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::vector<unsigned
   return a1;
 }
 
-uint64_t *std::__tree<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::__map_value_compare<std::vector<unsigned char>,std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::less<std::vector<unsigned char>>,true>,std::allocator<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>>>::__emplace_unique_key_args<std::vector<unsigned char>,std::vector<unsigned char> const&,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>(uint64_t **a1, uint64_t a2, uint64_t a3, __n128 *a4)
+uint64_t *std::__tree<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::__map_value_compare<std::vector<unsigned char>,std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::less<std::vector<unsigned char>>,true>,std::allocator<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>>>::__emplace_unique_key_args<std::vector<unsigned char>,std::vector<unsigned char> const&,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>(uint64_t ***a1, uint64_t a2, uint64_t a3, __n128 *a4)
 {
   v7 = std::__tree<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::__map_value_compare<std::vector<unsigned char>,std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>,std::less<std::vector<unsigned char>>,true>,std::allocator<std::__value_type<std::vector<unsigned char>,std::shared_ptr<SERestoreInfo::P73BaseDeliveryObject const>>>>::__find_equal<std::vector<unsigned char>>(a1, &v12, a2);
   v8 = *v7;
@@ -8700,36 +8681,36 @@ void std::__shared_ptr_emplace<SERestoreInfo::P73BaseDeliveryObject>::~__shared_
   operator delete(v1);
 }
 
-char *SERestoreInfo::P73BaseRestoreInfo::getImageTag@<X0>(uint64_t a1@<X8>)
+uint64_t *SERestoreInfo::P73BaseRestoreInfo::getImageTag@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = a1;
-  if ((atomic_load_explicit(&qword_2A13BA260, memory_order_acquire) & 1) == 0)
+  v2 = a1;
+  if ((atomic_load_explicit(byte_2A13BA260, memory_order_acquire) & 1) == 0)
   {
     SERestoreInfo::P73BaseRestoreInfo::getImageTag();
-    v3 = a1;
+    v2 = a1;
   }
 
-  *v3 = 0;
-  *(v3 + 8) = 0;
-  *(v3 + 16) = 0;
+  *v2 = 0;
+  v2[1] = 0;
+  v2[2] = 0;
 
-  return std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(v3, &_MergedGlobals_0, &qword_2A13BA260, 1uLL);
+  return std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(v2, &_MergedGlobals_0, byte_2A13BA260, 1uLL);
 }
 
-char *SERestoreInfo::P73BaseRestoreInfo::getTagsInBI@<X0>(uint64_t a1@<X8>)
+uint64_t *SERestoreInfo::P73BaseRestoreInfo::getTagsInBI@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = a1;
-  if ((atomic_load_explicit(&qword_2A13BA268, memory_order_acquire) & 1) == 0)
+  v2 = a1;
+  if ((atomic_load_explicit(byte_2A13BA268, memory_order_acquire) & 1) == 0)
   {
     SERestoreInfo::P73BaseRestoreInfo::getTagsInBI();
-    v3 = a1;
+    v2 = a1;
   }
 
-  *v3 = 0;
-  *(v3 + 8) = 0;
-  *(v3 + 16) = 0;
+  *v2 = 0;
+  v2[1] = 0;
+  v2[2] = 0;
 
-  return std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(v3, &qword_2A13BA270, &_MergedGlobals_1, 2uLL);
+  return std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(v2, &qword_2A13BA270, _MergedGlobals_1, 2uLL);
 }
 
 void SERestoreInfo::P73BaseRestoreInfo::~P73BaseRestoreInfo(SERestoreInfo::P73BaseRestoreInfo *this)
@@ -8775,20 +8756,20 @@ void sub_2985002C8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-char *std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(char *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
+uint64_t *std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
     v6 = result;
     result = std::vector<__CFString const*>::__vallocate[abi:ne200100](result, a4);
-    v7 = *(v6 + 1);
+    v7 = v6[1];
     while (a2 != a3)
     {
       v8 = *a2++;
       *v7++ = v8;
     }
 
-    *(v6 + 1) = v7;
+    v6[1] = v7;
   }
 
   return result;
@@ -8808,55 +8789,55 @@ void sub_298500338(_Unwind_Exception *exception_object)
 
 void SERestoreInfo::P73BaseRestoreInfo::getImageTag()
 {
-  if (__cxa_guard_acquire(&qword_2A13BA260))
+  if (__cxa_guard_acquire(byte_2A13BA260))
   {
     _MergedGlobals_0 = @"SE,UpdatePayload";
 
-    __cxa_guard_release(&qword_2A13BA260);
+    __cxa_guard_release(byte_2A13BA260);
   }
 }
 
 void SERestoreInfo::P73BaseRestoreInfo::getTagsInBI()
 {
-  if (__cxa_guard_acquire(&qword_2A13BA268))
+  if (__cxa_guard_acquire(byte_2A13BA268))
   {
     qword_2A13BA270 = @"SE,ChipID";
     unk_2A13BA278 = @"SE,UpdatePayload";
 
-    __cxa_guard_release(&qword_2A13BA268);
+    __cxa_guard_release(byte_2A13BA268);
   }
 }
 
-char *SERestoreInfo::IcefallRestoreInfo::getImageTag@<X0>(uint64_t a1@<X8>)
+uint64_t *SERestoreInfo::IcefallRestoreInfo::getImageTag@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = a1;
-  if ((atomic_load_explicit(&_MergedGlobals_1, memory_order_acquire) & 1) == 0)
+  v2 = a1;
+  if ((atomic_load_explicit(_MergedGlobals_1, memory_order_acquire) & 1) == 0)
   {
     SERestoreInfo::IcefallRestoreInfo::getImageTag();
-    v3 = a1;
+    v2 = a1;
   }
 
-  *v3 = 0;
-  *(v3 + 8) = 0;
-  *(v3 + 16) = 0;
+  *v2 = 0;
+  v2[1] = 0;
+  v2[2] = 0;
 
-  return std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(v3, &qword_2A13BA290, &qword_2A13BA2B0, 4uLL);
+  return std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(v2, &qword_2A13BA290, &qword_2A13BA2B0, 4uLL);
 }
 
-char *SERestoreInfo::IcefallRestoreInfo::getTagsInBI@<X0>(uint64_t a1@<X8>)
+uint64_t *SERestoreInfo::IcefallRestoreInfo::getTagsInBI@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = a1;
-  if ((atomic_load_explicit(&qword_2A13BA288, memory_order_acquire) & 1) == 0)
+  v2 = a1;
+  if ((atomic_load_explicit(byte_2A13BA288, memory_order_acquire) & 1) == 0)
   {
     SERestoreInfo::IcefallRestoreInfo::getTagsInBI();
-    v3 = a1;
+    v2 = a1;
   }
 
-  *v3 = 0;
-  *(v3 + 8) = 0;
-  *(v3 + 16) = 0;
+  *v2 = 0;
+  v2[1] = 0;
+  v2[2] = 0;
 
-  return std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(v3, &qword_2A13BA2B0, &SERestoreInfo::SERestoreInfoLog::get(void)::onceToken, 5uLL);
+  return std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(v2, &qword_2A13BA2B0, &SERestoreInfo::SERestoreInfoLog::get(void)::onceToken, 5uLL);
 }
 
 __CFString *SERestoreInfo::IcefallRestoreInfo::getImagePropertyTag(SERestoreInfo::IcefallRestoreInfo *this)
@@ -8900,20 +8881,20 @@ __CFString *SERestoreInfo::IcefallRestoreInfo::getImagePropertyTag(SERestoreInfo
 
 void SERestoreInfo::IcefallRestoreInfo::getImageTag()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_1))
+  if (__cxa_guard_acquire(_MergedGlobals_1))
   {
     qword_2A13BA290 = @"SE,Bootloader";
     unk_2A13BA298 = @"SE,Firmware";
     qword_2A13BA2A0 = @"SE,MigrationOS";
     unk_2A13BA2A8 = @"SE,OS";
 
-    __cxa_guard_release(&_MergedGlobals_1);
+    __cxa_guard_release(_MergedGlobals_1);
   }
 }
 
 void SERestoreInfo::IcefallRestoreInfo::getTagsInBI()
 {
-  if (__cxa_guard_acquire(&qword_2A13BA288))
+  if (__cxa_guard_acquire(byte_2A13BA288))
   {
     qword_2A13BA2B0 = @"SE,ChipID";
     unk_2A13BA2B8 = @"SE,Bootloader";
@@ -8921,7 +8902,7 @@ void SERestoreInfo::IcefallRestoreInfo::getTagsInBI()
     unk_2A13BA2C8 = @"SE,MigrationOS";
     qword_2A13BA2D0 = @"SE,OS";
 
-    __cxa_guard_release(&qword_2A13BA288);
+    __cxa_guard_release(byte_2A13BA288);
   }
 }
 
@@ -9060,7 +9041,7 @@ void sub_298500970(_Unwind_Exception *a1)
 
 uint64_t SERestoreInfo::SEException::SEException(uint64_t a1, __int128 *a2, int a3, CFTypeRef cf)
 {
-  v27[2] = *MEMORY[0x29EDCA608];
+  v26[2] = *MEMORY[0x29EDCA608];
   *a1 = &unk_2A1EE8FA0;
   *(a1 + 8) = 0;
   v7 = (a1 + 8);
@@ -9092,18 +9073,18 @@ uint64_t SERestoreInfo::SEException::SEException(uint64_t a1, __int128 *a2, int 
   }
 
   *(a1 + 56) = v10;
-  std::to_string(&v24, a3);
-  v11 = std::string::insert(&v24, 0, "(");
+  std::to_string(&v23, a3);
+  v11 = std::string::insert(&v23, 0, "(");
   v12 = *&v11->__r_.__value_.__l.__data_;
-  v25.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
-  *&v25.__r_.__value_.__l.__data_ = v12;
+  v24.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
+  *&v24.__r_.__value_.__l.__data_ = v12;
   v11->__r_.__value_.__l.__size_ = 0;
   v11->__r_.__value_.__r.__words[2] = 0;
   v11->__r_.__value_.__r.__words[0] = 0;
-  v13 = std::string::append(&v25, ") ");
+  v13 = std::string::append(&v24, ") ");
   v14 = *&v13->__r_.__value_.__l.__data_;
-  v26.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
-  *&v26.__r_.__value_.__l.__data_ = v14;
+  v25.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
+  *&v25.__r_.__value_.__l.__data_ = v14;
   v13->__r_.__value_.__l.__size_ = 0;
   v13->__r_.__value_.__r.__words[2] = 0;
   v13->__r_.__value_.__r.__words[0] = 0;
@@ -9128,10 +9109,10 @@ uint64_t SERestoreInfo::SEException::SEException(uint64_t a1, __int128 *a2, int 
     v17 = *(a1 + 40);
   }
 
-  v18 = std::string::append(&v26, v16, v17);
+  v18 = std::string::append(&v25, v16, v17);
   v19 = v18->__r_.__value_.__r.__words[0];
-  v27[0] = v18->__r_.__value_.__l.__size_;
-  *(v27 + 7) = *(&v18->__r_.__value_.__r.__words[1] + 7);
+  v26[0] = v18->__r_.__value_.__l.__size_;
+  *(v26 + 7) = *(&v18->__r_.__value_.__r.__words[1] + 7);
   v20 = HIBYTE(v18->__r_.__value_.__r.__words[2]);
   v18->__r_.__value_.__l.__size_ = 0;
   v18->__r_.__value_.__r.__words[2] = 0;
@@ -9141,16 +9122,11 @@ uint64_t SERestoreInfo::SEException::SEException(uint64_t a1, __int128 *a2, int 
     operator delete(*v7);
   }
 
-  v21 = v27[0];
+  v21 = v26[0];
   *(a1 + 8) = v19;
   *(a1 + 16) = v21;
-  *(a1 + 23) = *(v27 + 7);
+  *(a1 + 23) = *(v26 + 7);
   *(a1 + 31) = v20;
-  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v26.__r_.__value_.__l.__data_);
-  }
-
   if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v25.__r_.__value_.__l.__data_);
@@ -9161,7 +9137,11 @@ uint64_t SERestoreInfo::SEException::SEException(uint64_t a1, __int128 *a2, int 
     operator delete(v24.__r_.__value_.__l.__data_);
   }
 
-  v22 = *MEMORY[0x29EDCA608];
+  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v23.__r_.__value_.__l.__data_);
+  }
+
   return a1;
 }
 
@@ -9177,7 +9157,7 @@ void sub_298500B70(_Unwind_Exception *a1, int a2)
 
 SERestoreInfo::SEException *SERestoreInfo::SEException::SEException(SERestoreInfo::SEException *this, CFErrorRef err)
 {
-  v26[2] = *MEMORY[0x29EDCA608];
+  v25[2] = *MEMORY[0x29EDCA608];
   *this = &unk_2A1EE8FA0;
   *(this + 8) = 0u;
   v4 = (this + 8);
@@ -9189,15 +9169,15 @@ SERestoreInfo::SEException *SERestoreInfo::SEException::SEException(SERestoreInf
   {
     Length = CFStringGetLength(v5);
     usedBufLen.__r_.__value_.__r.__words[0] = 0;
-    v27.location = 0;
-    v27.length = Length;
-    Bytes = CFStringGetBytes(v6, v27, 0x8000100u, 0, 0, 0, 0, &usedBufLen);
+    v26.location = 0;
+    v26.length = Length;
+    Bytes = CFStringGetBytes(v6, v26, 0x8000100u, 0, 0, 0, 0, &usedBufLen);
     if (usedBufLen.__r_.__value_.__r.__words[0] && Bytes)
     {
       std::vector<unsigned char>::vector[abi:ne200100](&__p, usedBufLen.__r_.__value_.__r.__words[0]);
-      v28.location = 0;
-      v28.length = Length;
-      if (CFStringGetBytes(v6, v28, 0x8000100u, 0, 0, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0], 0))
+      v27.location = 0;
+      v27.length = Length;
+      if (CFStringGetBytes(v6, v27, 0x8000100u, 0, 0, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0], 0))
       {
         std::string::__assign_trivial[abi:ne200100]<unsigned char *,unsigned char *>((this + 32), __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_, __p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0]);
       }
@@ -9220,8 +9200,8 @@ SERestoreInfo::SEException *SERestoreInfo::SEException::SEException(SERestoreInf
   }
 
   *(this + 7) = Domain;
-  std::to_string(&v23, *(this + 16));
-  v10 = std::string::insert(&v23, 0, "CF=(");
+  std::to_string(&v22, *(this + 16));
+  v10 = std::string::insert(&v22, 0, "CF=(");
   v11 = *&v10->__r_.__value_.__l.__data_;
   usedBufLen.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
   *&usedBufLen.__r_.__value_.__l.__data_ = v11;
@@ -9258,8 +9238,8 @@ SERestoreInfo::SEException *SERestoreInfo::SEException::SEException(SERestoreInf
 
   v17 = std::string::append(&__p, v15, v16);
   v18 = v17->__r_.__value_.__r.__words[0];
-  v26[0] = v17->__r_.__value_.__l.__size_;
-  *(v26 + 7) = *(&v17->__r_.__value_.__r.__words[1] + 7);
+  v25[0] = v17->__r_.__value_.__l.__size_;
+  *(v25 + 7) = *(&v17->__r_.__value_.__r.__words[1] + 7);
   v19 = HIBYTE(v17->__r_.__value_.__r.__words[2]);
   v17->__r_.__value_.__l.__size_ = 0;
   v17->__r_.__value_.__r.__words[2] = 0;
@@ -9269,10 +9249,10 @@ SERestoreInfo::SEException *SERestoreInfo::SEException::SEException(SERestoreInf
     operator delete(*v4);
   }
 
-  v20 = v26[0];
+  v20 = v25[0];
   *(this + 1) = v18;
   *(this + 2) = v20;
-  *(this + 23) = *(v26 + 7);
+  *(this + 23) = *(v25 + 7);
   *(this + 31) = v19;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -9284,12 +9264,11 @@ SERestoreInfo::SEException *SERestoreInfo::SEException::SEException(SERestoreInf
     operator delete(usedBufLen.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v23.__r_.__value_.__l.__data_);
+    operator delete(v22.__r_.__value_.__l.__data_);
   }
 
-  v21 = *MEMORY[0x29EDCA608];
   return this;
 }
 
@@ -9505,7 +9484,7 @@ void SERestoreInfo::IcefallDeliveryObject::addApdu(uint64_t a1, int a2, unint64_
       }
 
       v23 = &v34;
-      v6 = std::__tree<std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>,std::__map_value_compare<SERestoreInfo::ApduType_t,std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>,std::less<SERestoreInfo::ApduType_t>,true>,std::allocator<std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>>>::__emplace_unique_key_args<SERestoreInfo::ApduType_t,std::piecewise_construct_t const&,std::tuple<SERestoreInfo::ApduType_t const&>,std::tuple<>>((a1 + 8), &v34, &std::piecewise_construct, &v23);
+      v6 = std::__tree<std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>,std::__map_value_compare<SERestoreInfo::ApduType_t,std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>,std::less<SERestoreInfo::ApduType_t>,true>,std::allocator<std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>>>::__emplace_unique_key_args<SERestoreInfo::ApduType_t,std::piecewise_construct_t const&,std::tuple<SERestoreInfo::ApduType_t const&>,std::tuple<>>(a1 + 8, &v34, &std::piecewise_construct, &v23);
       v7 = v6;
       v23 = &unk_2A1EE8E30;
       v24 = v29;
@@ -9558,7 +9537,7 @@ void sub_298501564(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void SERestoreInfo::IcefallDeliveryObject::addMac(uint64_t a1, int a2, uint64_t *a3)
 {
-  v11 = a2;
+  v13 = a2;
   for (i = *(a1 + 40); i; i = *i)
   {
     v4 = *(i + 8);
@@ -9567,8 +9546,8 @@ void SERestoreInfo::IcefallDeliveryObject::addMac(uint64_t a1, int a2, uint64_t 
       if (v4 >= a2)
       {
         exception = __cxa_allocate_exception(0x48uLL);
-        std::string::basic_string[abi:ne200100]<0>(v10, "Fail to addMac");
-        v9 = SERestoreInfo::SEException::SEException(exception, v10, 15, @"SEUpdaterErrorDomain");
+        std::string::basic_string[abi:ne200100]<0>(&v10, "Fail to addMac");
+        v9 = SERestoreInfo::SEException::SEException(exception, &v10, 15, @"SEUpdaterErrorDomain");
       }
 
       ++i;
@@ -9577,14 +9556,14 @@ void SERestoreInfo::IcefallDeliveryObject::addMac(uint64_t a1, int a2, uint64_t 
 
   v5 = *a3;
   v6 = a3[1];
-  v10[0] = &unk_2A1EE8E30;
-  v10[1] = v5;
-  v10[2] = v6;
-  v10[3] = 0;
-  v12 = &v11;
-  v7 = std::__tree<std::__value_type<ImageType_t,SERestoreInfo::BLOB>,std::__map_value_compare<ImageType_t,std::__value_type<ImageType_t,SERestoreInfo::BLOB>,std::less<ImageType_t>,true>,std::allocator<std::__value_type<ImageType_t,SERestoreInfo::BLOB>>>::__emplace_unique_key_args<ImageType_t,std::piecewise_construct_t const&,std::tuple<ImageType_t const&>,std::tuple<>>(a1 + 32, &v11, &std::piecewise_construct, &v12);
-  SERestoreInfo::BLOB::operator=(v7 + 5, v10);
-  SERestoreInfo::BLOB::~BLOB(v10);
+  *&v10 = &unk_2A1EE8E30;
+  *(&v10 + 1) = v5;
+  v11 = v6;
+  v12 = 0;
+  v14 = &v13;
+  v7 = std::__tree<std::__value_type<ImageType_t,SERestoreInfo::BLOB>,std::__map_value_compare<ImageType_t,std::__value_type<ImageType_t,SERestoreInfo::BLOB>,std::less<ImageType_t>,true>,std::allocator<std::__value_type<ImageType_t,SERestoreInfo::BLOB>>>::__emplace_unique_key_args<ImageType_t,std::piecewise_construct_t const&,std::tuple<ImageType_t const&>,std::tuple<>>(a1 + 32, &v13, &std::piecewise_construct, &v14);
+  SERestoreInfo::BLOB::operator=(v7 + 5, &v10);
+  SERestoreInfo::BLOB::~BLOB(&v10);
 }
 
 uint64_t SERestoreInfo::IcefallDeliveryObject::updateMeasurement(SERestoreInfo::IcefallDeliveryObject *this, CFDictionaryRef theDict, __CFError **a3)
@@ -9850,4 +9829,30 @@ uint64_t SERestoreInfo::IcefallDeliveryObject::updateVersionDict(SERestoreInfo::
   }
 
   return 1;
+}
+
+void sub_298501EC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+{
+  if (a23 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a17 < 0)
+  {
+    operator delete(a12);
+    if ((v24 & 1) == 0)
+    {
+LABEL_8:
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if (!v24)
+  {
+    goto LABEL_8;
+  }
+
+  __cxa_free_exception(v23);
+  goto LABEL_8;
 }

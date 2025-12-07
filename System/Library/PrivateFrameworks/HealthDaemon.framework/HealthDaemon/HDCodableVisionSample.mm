@@ -753,19 +753,18 @@ LABEL_30:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v30 = toCopy;
+  v7 = toCopy;
   if (self->_sample)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v30;
+    toCopy = v7;
   }
 
   has = self->_has;
   if ((*&has & 0x800) != 0)
   {
-    prescriptionType = self->_prescriptionType;
     PBDataWriterWriteInt64Field();
-    toCopy = v30;
+    toCopy = v7;
     has = self->_has;
     if ((*&has & 0x200) == 0)
     {
@@ -784,9 +783,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  leftSphere = self->_leftSphere;
   PBDataWriterWriteDoubleField();
-  toCopy = v30;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x200000) == 0)
   {
@@ -800,9 +798,8 @@ LABEL_6:
   }
 
 LABEL_39:
-  rightSphere = self->_rightSphere;
   PBDataWriterWriteDoubleField();
-  toCopy = v30;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x10) == 0)
   {
@@ -816,9 +813,8 @@ LABEL_7:
   }
 
 LABEL_40:
-  leftCylinder = self->_leftCylinder;
   PBDataWriterWriteDoubleField();
-  toCopy = v30;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x10000) == 0)
   {
@@ -832,9 +828,8 @@ LABEL_8:
   }
 
 LABEL_41:
-  rightCylinder = self->_rightCylinder;
   PBDataWriterWriteDoubleField();
-  toCopy = v30;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 2) == 0)
   {
@@ -848,9 +843,8 @@ LABEL_9:
   }
 
 LABEL_42:
-  leftAxis = self->_leftAxis;
   PBDataWriterWriteDoubleField();
-  toCopy = v30;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x2000) == 0)
   {
@@ -864,9 +858,8 @@ LABEL_10:
   }
 
 LABEL_43:
-  rightAxis = self->_rightAxis;
   PBDataWriterWriteDoubleField();
-  toCopy = v30;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 1) == 0)
   {
@@ -880,9 +873,8 @@ LABEL_11:
   }
 
 LABEL_44:
-  leftAddPower = self->_leftAddPower;
   PBDataWriterWriteDoubleField();
-  toCopy = v30;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x1000) == 0)
   {
@@ -896,9 +888,8 @@ LABEL_12:
   }
 
 LABEL_45:
-  rightAddPower = self->_rightAddPower;
   PBDataWriterWriteDoubleField();
-  toCopy = v30;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x400) == 0)
   {
@@ -912,9 +903,8 @@ LABEL_13:
   }
 
 LABEL_46:
-  leftVertexDistance = self->_leftVertexDistance;
   PBDataWriterWriteDoubleField();
-  toCopy = v30;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x400000) == 0)
   {
@@ -928,9 +918,8 @@ LABEL_14:
   }
 
 LABEL_47:
-  rightVertexDistance = self->_rightVertexDistance;
   PBDataWriterWriteDoubleField();
-  toCopy = v30;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x80) == 0)
   {
@@ -944,9 +933,8 @@ LABEL_15:
   }
 
 LABEL_48:
-  leftPrismAmount = self->_leftPrismAmount;
   PBDataWriterWriteDoubleField();
-  toCopy = v30;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x80000) == 0)
   {
@@ -960,9 +948,8 @@ LABEL_16:
   }
 
 LABEL_49:
-  rightPrismAmount = self->_rightPrismAmount;
   PBDataWriterWriteDoubleField();
-  toCopy = v30;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x100) == 0)
   {
@@ -976,9 +963,8 @@ LABEL_17:
   }
 
 LABEL_50:
-  leftPrismAngle = self->_leftPrismAngle;
   PBDataWriterWriteDoubleField();
-  toCopy = v30;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x100000) == 0)
   {
@@ -992,9 +978,8 @@ LABEL_18:
   }
 
 LABEL_51:
-  rightPrismAngle = self->_rightPrismAngle;
   PBDataWriterWriteDoubleField();
-  toCopy = v30;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x20) == 0)
   {
@@ -1008,9 +993,8 @@ LABEL_19:
   }
 
 LABEL_52:
-  leftFarPupillaryDistance = self->_leftFarPupillaryDistance;
   PBDataWriterWriteDoubleField();
-  toCopy = v30;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x20000) == 0)
   {
@@ -1024,9 +1008,8 @@ LABEL_20:
   }
 
 LABEL_53:
-  rightFarPupillaryDistance = self->_rightFarPupillaryDistance;
   PBDataWriterWriteDoubleField();
-  toCopy = v30;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x40) == 0)
   {
@@ -1040,35 +1023,32 @@ LABEL_21:
   }
 
 LABEL_54:
-  leftNearPupillaryDistance = self->_leftNearPupillaryDistance;
   PBDataWriterWriteDoubleField();
-  toCopy = v30;
+  toCopy = v7;
   if ((*&self->_has & 0x40000) != 0)
   {
 LABEL_22:
-    rightNearPupillaryDistance = self->_rightNearPupillaryDistance;
     PBDataWriterWriteDoubleField();
-    toCopy = v30;
+    toCopy = v7;
   }
 
 LABEL_23:
   if (self->_glassesDescription)
   {
     PBDataWriterWriteStringField();
-    toCopy = v30;
+    toCopy = v7;
   }
 
-  v7 = self->_has;
-  if ((*&v7 & 4) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 4) != 0)
   {
-    leftBaseCurve = self->_leftBaseCurve;
     PBDataWriterWriteDoubleField();
-    toCopy = v30;
-    v7 = self->_has;
-    if ((*&v7 & 0x4000) == 0)
+    toCopy = v7;
+    v6 = self->_has;
+    if ((*&v6 & 0x4000) == 0)
     {
 LABEL_27:
-      if ((*&v7 & 8) == 0)
+      if ((*&v6 & 8) == 0)
       {
         goto LABEL_28;
       }
@@ -1077,19 +1057,18 @@ LABEL_27:
     }
   }
 
-  else if ((*&v7 & 0x4000) == 0)
+  else if ((*&v6 & 0x4000) == 0)
   {
     goto LABEL_27;
   }
 
-  rightBaseCurve = self->_rightBaseCurve;
   PBDataWriterWriteDoubleField();
-  toCopy = v30;
-  v7 = self->_has;
-  if ((*&v7 & 8) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 8) == 0)
   {
 LABEL_28:
-    if ((*&v7 & 0x8000) == 0)
+    if ((*&v6 & 0x8000) == 0)
     {
       goto LABEL_30;
     }
@@ -1098,28 +1077,26 @@ LABEL_28:
   }
 
 LABEL_58:
-  leftContactDiameter = self->_leftContactDiameter;
   PBDataWriterWriteDoubleField();
-  toCopy = v30;
+  toCopy = v7;
   if ((*&self->_has & 0x8000) != 0)
   {
 LABEL_29:
-    rightContactDiameter = self->_rightContactDiameter;
     PBDataWriterWriteDoubleField();
-    toCopy = v30;
+    toCopy = v7;
   }
 
 LABEL_30:
   if (self->_brand)
   {
     PBDataWriterWriteStringField();
-    toCopy = v30;
+    toCopy = v7;
   }
 
   if (self->_verifiableData)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v30;
+    toCopy = v7;
   }
 }
 
@@ -3315,18 +3292,28 @@ LABEL_34:
   v10 = *(fromCopy + 27);
   if (verifiableData)
   {
-    if (v10)
+    if (!v10)
     {
-      [(HDCodableVerifiableData *)verifiableData mergeFrom:?];
+      goto LABEL_65;
     }
+
+    verifiableData = [(HDCodableVerifiableData *)verifiableData mergeFrom:?];
   }
 
-  else if (v10)
+  else
   {
-    [(HDCodableVisionSample *)self setVerifiableData:?];
+    if (!v10)
+    {
+      goto LABEL_65;
+    }
+
+    verifiableData = [(HDCodableVisionSample *)self setVerifiableData:?];
   }
 
-  MEMORY[0x2821F96F8]();
+  fromCopy = v11;
+LABEL_65:
+
+  MEMORY[0x2821F96F8](verifiableData, fromCopy);
 }
 
 - (BOOL)applyToObject:(id)object

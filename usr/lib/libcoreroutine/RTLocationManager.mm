@@ -268,14 +268,14 @@ void __62__RTLocationManager__activeLocationRequestsMinDesiredAccuracy__block_in
     }
   }
 
-  locationManager = [(RTLocationManager *)self locationManager];
-  [locationManager desiredAccuracy];
+  v16 = [(RTLocationManager *)self locationManager:*v29];
+  [v16 desiredAccuracy];
   v18 = v17;
 
   if (v5 != v18)
   {
-    locationManager2 = [(RTLocationManager *)self locationManager];
-    [locationManager2 setDesiredAccuracy:v5];
+    locationManager = [(RTLocationManager *)self locationManager];
+    [locationManager setDesiredAccuracy:v5];
   }
 
   powerAssertion = [(RTLocationManager *)self powerAssertion];
@@ -324,13 +324,13 @@ LABEL_25:
     }
   }
 
-  locationManager3 = [(RTLocationManager *)self locationManager];
-  activityType = [locationManager3 activityType];
+  locationManager2 = [(RTLocationManager *)self locationManager];
+  activityType = [locationManager2 activityType];
 
   if (v7 != activityType)
   {
-    locationManager4 = [(RTLocationManager *)self locationManager];
-    [locationManager4 setActivityType:v7];
+    locationManager3 = [(RTLocationManager *)self locationManager];
+    [locationManager3 setActivityType:v7];
   }
 
   [(RTLocationManager *)self setMonitoringLocations:v6];
@@ -1258,7 +1258,7 @@ LABEL_30:
           self = selfCopy;
           if (v27)
           {
-            [v27 clientLocation];
+            objc_msgSend_clientLocation(v27);
           }
 
           LODWORD(v86[0]) = v63;
@@ -1455,36 +1455,36 @@ LABEL_14:
   }
 }
 
-void __45__RTLocationManager__storeLocations_handler___block_invoke_2(uint64_t a1)
+void __45__RTLocationManager__storeLocations_handler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = MEMORY[0x277CCACA8];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = NSStringFromSelector(*(a1 + 48));
-  v6 = [v2 stringWithFormat:@"%@, %@, failed invoking pending invocation", v4, v5];
+  v21 = *MEMORY[0x277D85DE8];
+  v3 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = NSStringFromSelector(*(a1 + 48));
+  v7 = [v3 stringWithFormat:@"%@, %@, failed invoking pending invocation", v5, v6];
 
-  v7 = _rt_log_facility_get_os_log(RTLogFacilityLocation);
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = _rt_log_facility_get_os_log(RTLogFacilityLocation);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v13 = *(*(a1 + 32) + 56);
+    v14 = *(*(a1 + 32) + 56);
     *buf = 138412546;
-    v17 = v13;
-    v18 = 2112;
-    v19 = v6;
-    _os_log_error_impl(&dword_2304B3000, v7, OS_LOG_TYPE_ERROR, "%@, %@", buf, 0x16u);
+    v18 = v14;
+    v19 = 2112;
+    v20 = v7;
+    _os_log_error_impl(&dword_2304B3000, v8, OS_LOG_TYPE_ERROR, "%@, %@", buf, 0x16u);
   }
 
-  v8 = *(a1 + 40);
-  if (v8)
+  v9 = *(a1 + 40);
+  if (v9)
   {
-    v9 = MEMORY[0x277CCA9B8];
-    v10 = *MEMORY[0x277D01448];
-    v14 = *MEMORY[0x277CCA450];
-    v15 = v6;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-    v12 = [v9 errorWithDomain:v10 code:0 userInfo:v11];
-    (*(v8 + 16))(v8, v12);
+    v10 = MEMORY[0x277CCA9B8];
+    v11 = *MEMORY[0x277D01448];
+    v15 = *MEMORY[0x277CCA450];
+    v16 = v7;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+    v13 = [v10 errorWithDomain:v11 code:0 userInfo:v12];
+    (*(v9 + 16))(v9, v13);
   }
 }
 
@@ -3410,7 +3410,7 @@ void __67__RTLocationManager__fetchEstimatedLocationAtDate_options_handler___blo
   v14 = 0u;
   if (v5)
   {
-    [v5 clientLocation];
+    objc_msgSend_clientLocation(v5);
   }
 
   LODWORD(v14) = v8;
@@ -4517,36 +4517,36 @@ LABEL_15:
   }
 }
 
-void __55__RTLocationManager__removeLocationsPredating_handler___block_invoke_2(uint64_t a1)
+void __55__RTLocationManager__removeLocationsPredating_handler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = MEMORY[0x277CCACA8];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = NSStringFromSelector(*(a1 + 48));
-  v6 = [v2 stringWithFormat:@"%@, %@, failed invoking pending invocation", v4, v5];
+  v21 = *MEMORY[0x277D85DE8];
+  v3 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = NSStringFromSelector(*(a1 + 48));
+  v7 = [v3 stringWithFormat:@"%@, %@, failed invoking pending invocation", v5, v6];
 
-  v7 = _rt_log_facility_get_os_log(RTLogFacilityLocation);
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = _rt_log_facility_get_os_log(RTLogFacilityLocation);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v13 = *(*(a1 + 32) + 56);
+    v14 = *(*(a1 + 32) + 56);
     *buf = 138412546;
-    v17 = v13;
-    v18 = 2112;
-    v19 = v6;
-    _os_log_error_impl(&dword_2304B3000, v7, OS_LOG_TYPE_ERROR, "%@, %@", buf, 0x16u);
+    v18 = v14;
+    v19 = 2112;
+    v20 = v7;
+    _os_log_error_impl(&dword_2304B3000, v8, OS_LOG_TYPE_ERROR, "%@, %@", buf, 0x16u);
   }
 
-  v8 = *(a1 + 40);
-  if (v8)
+  v9 = *(a1 + 40);
+  if (v9)
   {
-    v9 = MEMORY[0x277CCA9B8];
-    v10 = *MEMORY[0x277D01448];
-    v14 = *MEMORY[0x277CCA450];
-    v15 = v6;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-    v12 = [v9 errorWithDomain:v10 code:0 userInfo:v11];
-    (*(v8 + 16))(v8, v12);
+    v10 = MEMORY[0x277CCA9B8];
+    v11 = *MEMORY[0x277D01448];
+    v15 = *MEMORY[0x277CCA450];
+    v16 = v7;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+    v13 = [v10 errorWithDomain:v11 code:0 userInfo:v12];
+    (*(v9 + 16))(v9, v13);
   }
 }
 
@@ -4830,14 +4830,14 @@ void __49__RTLocationManager_onAuthorizationNotification___block_invoke(uint64_t
   dispatch_async(queue, v11);
 }
 
-void __49__RTLocationManager_submitHarvestSample_handler___block_invoke(uint64_t a1)
+void __49__RTLocationManager_submitHarvestSample_handler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = objc_opt_new();
-  [v3 submitSample:*(a1 + 32)];
-  v2 = *(a1 + 40);
-  if (v2)
+  v4 = objc_opt_new();
+  [v4 submitSample:*(a1 + 32)];
+  v3 = *(a1 + 40);
+  if (v3)
   {
-    (*(v2 + 16))(v2, 0);
+    (*(v3 + 16))(v3, 0);
   }
 }
 
@@ -5456,33 +5456,33 @@ void __81__RTLocationManager__performCallbackForRegion_regionEvent_callbackError
   [WeakRetained _performCallbackForRegion:*(a1 + 32) regionEvent:*(a1 + 64) callbackError:*(a1 + 40) handler:*(a1 + 48)];
 }
 
-void __81__RTLocationManager__performCallbackForRegion_regionEvent_callbackError_handler___block_invoke_2(uint64_t a1)
+void __81__RTLocationManager__performCallbackForRegion_regionEvent_callbackError_handler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = MEMORY[0x277CCACA8];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = NSStringFromSelector(*(a1 + 48));
-  v6 = [v2 stringWithFormat:@"%@, %@, failed invoking pending invocation", v4, v5];
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = NSStringFromSelector(*(a1 + 48));
+  v7 = [v3 stringWithFormat:@"%@, %@, failed invoking pending invocation", v5, v6];
 
-  v7 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v16 = v6;
-    _os_log_error_impl(&dword_2304B3000, v7, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+    v17 = v7;
+    _os_log_error_impl(&dword_2304B3000, v8, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
   }
 
-  v8 = *(a1 + 40);
-  if (v8)
+  v9 = *(a1 + 40);
+  if (v9)
   {
-    v9 = MEMORY[0x277CCA9B8];
-    v10 = *MEMORY[0x277D01448];
-    v13 = *MEMORY[0x277CCA450];
-    v14 = v6;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-    v12 = [v9 errorWithDomain:v10 code:5 userInfo:v11];
-    (*(v8 + 16))(v8, v12);
+    v10 = MEMORY[0x277CCA9B8];
+    v11 = *MEMORY[0x277D01448];
+    v14 = *MEMORY[0x277CCA450];
+    v15 = v7;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v13 = [v10 errorWithDomain:v11 code:5 userInfo:v12];
+    (*(v9 + 16))(v9, v13);
   }
 }
 
@@ -6163,7 +6163,7 @@ LABEL_8:
   return v10 & 1;
 }
 
-uint64_t __80__RTLocationManager_isMonitoringForRegionWithClientIdentifier_regionIdentifier___block_invoke(uint64_t a1)
+void *__80__RTLocationManager_isMonitoringForRegionWithClientIdentifier_regionIdentifier___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isMonitoringForRegionWithClientIdentifier:*(a1 + 40) regionIdentifier:*(a1 + 48)];
   *(*(*(a1 + 56) + 8) + 24) = result;

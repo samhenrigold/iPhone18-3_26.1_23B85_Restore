@@ -73,7 +73,7 @@ LABEL_8:
 
 - (id)codableObjectOfClass:(Class)class forKey:(id)key
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if (!keyCopy)
   {
@@ -84,20 +84,20 @@ LABEL_8:
   v8 = [(VCUserDefaults *)self objectForKey:keyCopy];
   if (v8)
   {
-    v15 = 0;
-    v9 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:class fromData:v8 error:&v15];
-    v10 = v15;
+    v14 = 0;
+    v9 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:class fromData:v8 error:&v14];
+    v10 = v14;
     if (!v9)
     {
       v11 = getWFGeneralLogObject();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v17 = "[VCUserDefaults codableObjectOfClass:forKey:]";
-        v18 = 2112;
-        v19 = keyCopy;
-        v20 = 2112;
-        v21 = v10;
+        v16 = "[VCUserDefaults codableObjectOfClass:forKey:]";
+        v17 = 2112;
+        v18 = keyCopy;
+        v19 = 2112;
+        v20 = v10;
         _os_log_impl(&dword_23103C000, v11, OS_LOG_TYPE_ERROR, "%s Failed to unarchive object for key (%@) with Error: %@", buf, 0x20u);
       }
     }
@@ -107,8 +107,6 @@ LABEL_8:
   {
     v9 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

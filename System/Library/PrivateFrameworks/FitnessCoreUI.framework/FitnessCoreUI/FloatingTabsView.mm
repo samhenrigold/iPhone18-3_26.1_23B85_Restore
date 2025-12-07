@@ -112,7 +112,7 @@
   viewCopy = view;
   layoutCopy = layout;
   selfCopy = self;
-  sub_20C3BAAA8(viewCopy);
+  sub_20C3BAAA8(viewCopy, v11);
   v16 = v15;
   v18 = v17;
 

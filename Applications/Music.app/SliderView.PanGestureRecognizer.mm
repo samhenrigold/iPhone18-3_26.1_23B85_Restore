@@ -7,7 +7,7 @@
 
 - (void)touchesBegan:(id)began withEvent:(id)event
 {
-  sub_100009F78(0, &qword_1011B76A0);
+  sub_100009F78(0, &qword_1011B76A0, UITouch_ptr);
   sub_100BE3E08();
   static Set._unconditionallyBridgeFromObjectiveC(_:)();
   eventCopy = event;

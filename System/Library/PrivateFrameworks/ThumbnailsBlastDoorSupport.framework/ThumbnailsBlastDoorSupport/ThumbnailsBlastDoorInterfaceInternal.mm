@@ -9,32 +9,32 @@
 {
   v9 = sub_29EC29BEC();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
   MEMORY[0x2A1C7C4A8]();
-  v13 = &v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_29EC29BCC();
   selfCopy = self;
-  v15 = sub_29EC289D0(v13, dimension, scale);
-  (*(v10 + 8))(v13, v9);
+  v14 = sub_29EC289D0(v12, dimension, scale);
+  (*(v10 + 8))(v12, v9);
 
-  return v15;
+  return v14;
 }
 
 - (void)generateMovieThumbnailForAttachmentWithFileURL:(id)l maxPixelDimension:(float)dimension minThumbnailPxSize:(CGSize)size scale:(float)scale resultHandler:(id)handler
 {
-  v10 = sub_29EC29BEC();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
+  height = size.height;
+  width = size.width;
+  v13 = sub_29EC29BEC();
+  v14 = *(v13 - 8);
   MEMORY[0x2A1C7C4A8]();
-  v14 = &v18 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = _Block_copy(handler);
+  v16 = &v20 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = _Block_copy(handler);
   sub_29EC29BCC();
-  v16 = swift_allocObject();
-  *(v16 + 16) = v15;
+  v18 = swift_allocObject();
+  *(v18 + 16) = v17;
   selfCopy = self;
-  sub_29EC291AC(dimension, v14, sub_29EC29B44, v16);
+  sub_29EC291AC(dimension, width, height, scale, v16, sub_29EC29B44, v18);
 
-  (*(v11 + 8))(v14, v10);
+  (*(v14 + 8))(v16, v13);
 }
 
 @end

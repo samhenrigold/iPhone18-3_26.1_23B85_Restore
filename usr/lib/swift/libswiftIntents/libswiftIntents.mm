@@ -5,6 +5,111 @@ id sub_299AE7EE8@<X0>(id *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
+INMediaSearch __swiftcall INMediaSearch.init(mediaType:sortOrder:mediaName:artistName:albumName:genreNames:moodNames:releaseDate:reference:mediaIdentifier:)(INMediaItemType mediaType, INMediaSortOrder sortOrder, Swift::String_optional mediaName, Swift::String_optional artistName, Swift::String_optional albumName, Swift::OpaquePointer_optional genreNames, Swift::OpaquePointer_optional moodNames, INDateComponentsRange_optional releaseDate, INMediaReference reference, Swift::String_optional mediaIdentifier)
+{
+  object = albumName.value._object;
+  countAndFlagsBits = albumName.value._countAndFlagsBits;
+  v12 = artistName.value._object;
+  v13 = artistName.value._countAndFlagsBits;
+  if (mediaName.value._object)
+  {
+    v14 = MEMORY[0x29C2AAC80](mediaName.value._countAndFlagsBits, mediaName.value._object);
+
+    if (v12)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    v14 = 0;
+    if (artistName.value._object)
+    {
+LABEL_3:
+      v15 = MEMORY[0x29C2AAC80](v13, v12);
+
+      rawValue = genreNames.value._rawValue;
+      if (object)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_10;
+    }
+  }
+
+  v15 = 0;
+  rawValue = genreNames.value._rawValue;
+  if (object)
+  {
+LABEL_4:
+    v17 = MEMORY[0x29C2AAC80](countAndFlagsBits, object);
+
+    v18 = *&genreNames.is_nil;
+    if (rawValue)
+    {
+      goto LABEL_5;
+    }
+
+    goto LABEL_11;
+  }
+
+LABEL_10:
+  v17 = 0;
+  v18 = *&genreNames.is_nil;
+  if (rawValue)
+  {
+LABEL_5:
+    v19.super.isa = Array._bridgeToObjectiveC()().super.isa;
+
+    v20 = *&releaseDate.is_nil;
+    if (v18)
+    {
+      goto LABEL_6;
+    }
+
+LABEL_12:
+    v21.super.isa = 0;
+    v23 = moodNames.value._rawValue;
+    v22 = *&moodNames.is_nil;
+    if (v20)
+    {
+      goto LABEL_7;
+    }
+
+LABEL_13:
+    v24 = 0;
+    goto LABEL_14;
+  }
+
+LABEL_11:
+  v19.super.isa = 0;
+  v20 = *&releaseDate.is_nil;
+  if (!v18)
+  {
+    goto LABEL_12;
+  }
+
+LABEL_6:
+  v21.super.isa = Array._bridgeToObjectiveC()().super.isa;
+
+  v23 = moodNames.value._rawValue;
+  v22 = *&moodNames.is_nil;
+  if (!v20)
+  {
+    goto LABEL_13;
+  }
+
+LABEL_7:
+  v24 = MEMORY[0x29C2AAC80](releaseDate.value.super.isa, v20);
+
+LABEL_14:
+  v25 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) initWithMediaType:mediaType sortOrder:sortOrder mediaName:v14 artistName:v15 albumName:v17 genreNames:v19.super.isa moodNames:v21.super.isa releaseDate:v23 reference:v22 mediaIdentifier:v24];
+
+  return v25;
+}
+
 id INParameter.init<A, B>(keyPath:)(void *a1)
 {
   v1 = *(*a1 + *MEMORY[0x29EDCA118]);
@@ -70,6 +175,28 @@ uint64_t INSetCarLockStatusIntent.locked.getter()
   return v3;
 }
 
+INRequestRideIntent __swiftcall INRequestRideIntent.init(pickupLocation:dropOffLocation:rideOptionName:partySize:paymentMethod:scheduledPickupTime:)(CLPlacemark_optional pickupLocation, CLPlacemark_optional dropOffLocation, INSpeakableString_optional rideOptionName, Swift::Int_optional partySize, INPaymentMethod_optional paymentMethod, INDateComponentsRange_optional scheduledPickupTime)
+{
+  isa = rideOptionName.value.super.isa;
+  v7 = *&dropOffLocation.is_nil;
+  v8 = *&pickupLocation.is_nil;
+  internal = pickupLocation.value._internal;
+  v10 = pickupLocation.value.super.isa;
+  if (dropOffLocation.value._internal)
+  {
+    v11 = 0;
+  }
+
+  else
+  {
+    v11 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithInteger_];
+  }
+
+  v12 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) initWithPickupLocation:v10 dropOffLocation:internal rideOptionName:v8 partySize:v11 paymentMethod:v7 scheduledPickupTime:isa];
+
+  return v12;
+}
+
 id INRequestRideIntent.partySize.getter()
 {
   v1 = [v0 partySize];
@@ -89,7 +216,6 @@ id static INNotebookItemTypeResolutionResult.disambiguation(with:)(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    v10 = MEMORY[0x29EDCA190];
     specialized ContiguousArray.reserveCapacity(_:)();
     v3 = (a1 + 32);
     do
@@ -97,7 +223,6 @@ id static INNotebookItemTypeResolutionResult.disambiguation(with:)(uint64_t a1)
       v4 = *v3++;
       [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithInteger_];
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-      v5 = *(v10 + 16);
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
@@ -111,9 +236,9 @@ id static INNotebookItemTypeResolutionResult.disambiguation(with:)(uint64_t a1)
   type metadata accessor for NSNumber();
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  v8 = [ObjCClassFromMetadata disambiguationWithNotebookItemTypesToDisambiguate_];
+  v7 = [ObjCClassFromMetadata disambiguationWithNotebookItemTypesToDisambiguate_];
 
-  return v8;
+  return v7;
 }
 
 unint64_t type metadata accessor for NSNumber()
@@ -273,6 +398,47 @@ id static INIntegerResolutionResult.confirmationRequired(with:)(uint64_t a1, cha
   return v3;
 }
 
+INPlayMediaIntent __swiftcall INPlayMediaIntent.init(mediaItems:mediaContainer:playShuffled:playbackRepeatMode:resumePlayback:)(Swift::OpaquePointer_optional mediaItems, INMediaItem_optional mediaContainer, Swift::Bool_optional playShuffled, INPlaybackRepeatMode playbackRepeatMode, Swift::Bool_optional resumePlayback)
+{
+  v6 = *&mediaContainer.is_nil;
+  isa = mediaContainer.value.super.isa;
+  v8 = *&mediaItems.is_nil;
+  if (mediaItems.value._rawValue)
+  {
+    type metadata accessor for INMediaItem();
+    v9.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  }
+
+  else
+  {
+    v9.super.isa = 0;
+  }
+
+  if (isa == 2)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v10 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithBool_];
+  }
+
+  if (playShuffled.value == 2)
+  {
+    v11 = 0;
+  }
+
+  else
+  {
+    v11 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithBool_];
+  }
+
+  v12 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) initWithMediaItems:v9.super.isa mediaContainer:v8 playShuffled:v10 playbackRepeatMode:v6 resumePlayback:v11];
+
+  return v12;
+}
+
 unint64_t type metadata accessor for INMediaItem()
 {
   result = lazy cache variable for type metadata for INMediaItem;
@@ -284,6 +450,63 @@ unint64_t type metadata accessor for INMediaItem()
   }
 
   return result;
+}
+
+INPlayMediaIntent __swiftcall INPlayMediaIntent.init(mediaItems:mediaContainer:playShuffled:playbackRepeatMode:resumePlayback:playbackQueueLocation:playbackSpeed:mediaSearch:)(Swift::OpaquePointer_optional mediaItems, INMediaItem_optional mediaContainer, Swift::Bool_optional playShuffled, INPlaybackRepeatMode playbackRepeatMode, Swift::Bool_optional resumePlayback, INPlaybackQueueLocation playbackQueueLocation, Swift::Double_optional playbackSpeed, INMediaSearch_optional mediaSearch)
+{
+  v8 = playbackQueueLocation;
+  v9 = *&resumePlayback.value;
+  v11 = *&mediaContainer.is_nil;
+  isa = mediaContainer.value.super.isa;
+  v13 = *&mediaItems.is_nil;
+  if (mediaItems.value._rawValue)
+  {
+    type metadata accessor for INMediaItem();
+    v14.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  }
+
+  else
+  {
+    v14.super.isa = 0;
+  }
+
+  if (isa == 2)
+  {
+    v15 = 0;
+  }
+
+  else
+  {
+    v15 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithBool_];
+  }
+
+  if (playShuffled.value != 2)
+  {
+    v16 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithBool_];
+    v17 = *&playbackSpeed.is_nil;
+    if ((v8 & 1) == 0)
+    {
+      goto LABEL_9;
+    }
+
+LABEL_11:
+    v18 = 0;
+    goto LABEL_12;
+  }
+
+  v16 = 0;
+  v17 = *&playbackSpeed.is_nil;
+  if (v8)
+  {
+    goto LABEL_11;
+  }
+
+LABEL_9:
+  v18 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithDouble_];
+LABEL_12:
+  v19 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) initWithMediaItems:v14.super.isa mediaContainer:v13 playShuffled:v15 playbackRepeatMode:v11 resumePlayback:v16 playbackQueueLocation:playbackRepeatMode playbackSpeed:v18 mediaSearch:v17];
+
+  return v19;
 }
 
 uint64_t INPlayMediaIntent.playShuffled.getter(SEL *a1)
@@ -313,6 +536,27 @@ id INPlayMediaIntent.playbackSpeed.getter()
   }
 
   return result;
+}
+
+INSearchCallHistoryIntent __swiftcall INSearchCallHistoryIntent.init(dateCreated:recipient:callCapabilities:callTypes:unseen:)(INDateComponentsRange_optional dateCreated, INPerson_optional recipient, INCallCapabilityOptions callCapabilities, INCallRecordTypeOptions callTypes, Swift::Bool_optional unseen)
+{
+  v5 = *&recipient.is_nil;
+  isa = recipient.value.super.isa;
+  v7 = *&dateCreated.is_nil;
+  v8 = dateCreated.value.super.isa;
+  if (callCapabilities == 2)
+  {
+    v9 = 0;
+  }
+
+  else
+  {
+    v9 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithBool_];
+  }
+
+  v10 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) initWithDateCreated:v8 recipient:v7 callCapabilities:isa callTypes:v5 unseen:v9];
+
+  return v10;
 }
 
 uint64_t INSearchCallHistoryIntent.unseen.getter()
@@ -378,12 +622,108 @@ uint64_t INSetDefrosterSettingsInCarIntent.enable.getter()
   return v3;
 }
 
+id INSetClimateSettingsInCarIntent.init(enableFan:enableAirConditioner:enableClimateControl:enableAutoMode:airCirculationMode:fanSpeedIndex:fanSpeedPercentage:relativeFanSpeedSetting:temperature:relativeTemperatureSetting:climateZone:carName:)(unsigned __int8 a1, char a2, char a3, char a4, uint64_t a5, uint64_t a6, char a7, uint64_t a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22)
+{
+  v49 = a5;
+  v45 = a8;
+  v28 = a1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMR);
+  MEMORY[0x2A1C7C4A8]();
+  v30 = &v43 - v29;
+  if (v28 == 2)
+  {
+    v48 = 0;
+  }
+
+  else
+  {
+    v48 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithBool_];
+  }
+
+  if (a2 == 2)
+  {
+    v47 = 0;
+  }
+
+  else
+  {
+    v47 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithBool_];
+  }
+
+  if (a3 == 2)
+  {
+    v46 = 0;
+  }
+
+  else
+  {
+    v46 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithBool_];
+  }
+
+  if (a4 == 2)
+  {
+    v44 = 0;
+  }
+
+  else
+  {
+    v44 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithBool_];
+  }
+
+  if (a7)
+  {
+    v31 = 0;
+    if ((a17 & 1) == 0)
+    {
+LABEL_15:
+      v32 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithDouble_];
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+    v31 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithInteger_];
+    if ((a17 & 1) == 0)
+    {
+      goto LABEL_15;
+    }
+  }
+
+  v32 = 0;
+LABEL_18:
+  v45 = a19;
+  outlined init with copy of Measurement<NSUnitTemperature>?(a19, v30);
+  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMR);
+  v34 = *(v33 - 8);
+  if ((*(v34 + 48))(v30, 1, v33) == 1)
+  {
+    isa = 0;
+  }
+
+  else
+  {
+    v50 = Measurement._bridgeToObjectiveC()();
+    isa = v50.super.isa;
+    (*(v34 + 8))(v30, v33, *&v50._doubleValue);
+  }
+
+  v36 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+  v38 = v47;
+  v37 = v48;
+  v39 = v46;
+  v40 = v44;
+  v41 = [v36 initWithEnableFan:v48 enableAirConditioner:v47 enableClimateControl:v46 enableAutoMode:v44 airCirculationMode:v49 fanSpeedIndex:v31 fanSpeedPercentage:v32 relativeFanSpeedSetting:a18 temperature:isa relativeTemperatureSetting:a20 climateZone:a21 carName:a22];
+
+  outlined destroy of Measurement<NSUnitTemperature>?(v45);
+  return v41;
+}
+
 uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -403,6 +743,102 @@ uint64_t outlined destroy of Measurement<NSUnitTemperature>?(uint64_t a1)
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
+}
+
+id INSetClimateSettingsInCarIntent.init(enableFan:enableAirConditioner:enableClimateControl:enableAutoMode:airCirculationMode:fanSpeedIndex:fanSpeedPercentage:relativeFanSpeedSetting:temperature:relativeTemperatureSetting:climateZone:)(unsigned __int8 a1, char a2, char a3, char a4, uint64_t a5, uint64_t a6, char a7, uint64_t a8, char a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+{
+  v38 = a5;
+  v34 = a8;
+  v19 = a1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMR);
+  MEMORY[0x2A1C7C4A8]();
+  v21 = &v34 - v20;
+  if (v19 == 2)
+  {
+    v37 = 0;
+  }
+
+  else
+  {
+    v37 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithBool_];
+  }
+
+  if (a2 == 2)
+  {
+    v36 = 0;
+  }
+
+  else
+  {
+    v36 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithBool_];
+  }
+
+  if (a3 == 2)
+  {
+    v35 = 0;
+  }
+
+  else
+  {
+    v35 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithBool_];
+  }
+
+  if (a4 == 2)
+  {
+    v22 = 0;
+  }
+
+  else
+  {
+    v22 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithBool_];
+  }
+
+  if (a7)
+  {
+    v23 = 0;
+    if ((a9 & 1) == 0)
+    {
+LABEL_15:
+      v24 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithDouble_];
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+    v23 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithInteger_];
+    if ((a9 & 1) == 0)
+    {
+      goto LABEL_15;
+    }
+  }
+
+  v24 = 0;
+LABEL_18:
+  v34 = a11;
+  outlined init with copy of Measurement<NSUnitTemperature>?(a11, v21);
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMR);
+  v26 = *(v25 - 8);
+  if ((*(v26 + 48))(v21, 1, v25) == 1)
+  {
+    isa = 0;
+  }
+
+  else
+  {
+    v39 = Measurement._bridgeToObjectiveC()();
+    isa = v39.super.isa;
+    (*(v26 + 8))(v21, v25, *&v39._doubleValue);
+  }
+
+  v28 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+  v30 = v36;
+  v29 = v37;
+  v31 = v35;
+  v32 = [v28 initWithEnableFan:v37 enableAirConditioner:v36 enableClimateControl:v35 enableAutoMode:v22 airCirculationMode:v38 fanSpeedIndex:v23 fanSpeedPercentage:v24 relativeFanSpeedSetting:a10 temperature:isa relativeTemperatureSetting:a12 climateZone:a13];
+
+  outlined destroy of Measurement<NSUnitTemperature>?(v34);
+  return v32;
 }
 
 id INSetClimateSettingsInCarIntent.fanSpeedIndex.getter()
@@ -553,7 +989,7 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  v6 = MEMORY[0x29C2AAC80]();
+  v6 = MEMORY[0x29C2AAC80](a1);
 
   if ((a4 & 1) == 0)
   {
@@ -907,15 +1343,13 @@ void specialized withVaList<A>(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint
     v9 = a1 + 32;
     while (1)
     {
-      v10 = (v9 + 40 * v8);
-      v11 = v10[4];
-      __swift_project_boxed_opaque_existential_1(v10, v10[3]);
-      v12 = dispatch thunk of CVarArg._cVarArgEncoding.getter();
-      v13 = *v6;
-      v14 = *(v12 + 16);
-      v15 = __OFADD__(*v6, v14);
-      v16 = *v6 + v14;
-      if (v15)
+      __swift_project_boxed_opaque_existential_1((v9 + 40 * v8), *(v9 + 40 * v8 + 24));
+      v10 = dispatch thunk of CVarArg._cVarArgEncoding.getter();
+      v11 = *v6;
+      v12 = *(v10 + 16);
+      v13 = __OFADD__(*v6, v12);
+      v14 = *v6 + v12;
+      if (v13)
       {
 LABEL_29:
         __break(1u);
@@ -928,40 +1362,40 @@ LABEL_32:
         return;
       }
 
-      v17 = v5[4];
-      if (v17 >= v16)
+      v15 = v5[4];
+      if (v15 >= v14)
       {
         goto LABEL_18;
       }
 
-      if (v17 + 0x4000000000000000 < 0)
+      if (v15 + 0x4000000000000000 < 0)
       {
         goto LABEL_30;
       }
 
-      v18 = v5[5];
-      if (2 * v17 > v16)
+      v16 = v5[5];
+      if (2 * v15 > v14)
       {
-        v16 = 2 * v17;
+        v14 = 2 * v15;
       }
 
-      v5[4] = v16;
-      if ((v16 - 0x1000000000000000) >> 61 != 7)
+      v5[4] = v14;
+      if ((v14 - 0x1000000000000000) >> 61 != 7)
       {
         goto LABEL_31;
       }
 
-      v19 = v12;
-      v20 = swift_slowAlloc();
-      v21 = v20;
-      v5[5] = v20;
-      if (v18)
+      v17 = v10;
+      v18 = swift_slowAlloc();
+      v19 = v18;
+      v5[5] = v18;
+      if (v16)
       {
         break;
       }
 
-      v12 = v19;
-      if (!v21)
+      v10 = v17;
+      if (!v19)
       {
 LABEL_25:
         __break(1u);
@@ -969,23 +1403,23 @@ LABEL_25:
       }
 
 LABEL_19:
-      v23 = *(v12 + 16);
-      if (v23)
+      v21 = *(v10 + 16);
+      if (v21)
       {
-        v24 = (v12 + 32);
-        v25 = *v6;
+        v22 = (v10 + 32);
+        v23 = *v6;
         while (1)
         {
-          v26 = *v24++;
-          *&v21[8 * v25] = v26;
-          v25 = *v6 + 1;
+          v24 = *v22++;
+          *&v19[8 * v23] = v24;
+          v23 = *v6 + 1;
           if (__OFADD__(*v6, 1))
           {
             break;
           }
 
-          *v6 = v25;
-          if (!--v23)
+          *v6 = v23;
+          if (!--v21)
           {
             goto LABEL_3;
           }
@@ -1003,16 +1437,16 @@ LABEL_3:
       }
     }
 
-    if (v20 != v18 || v20 >= &v18[8 * v13])
+    if (v18 != v16 || v18 >= &v16[8 * v11])
     {
-      memmove(v20, v18, 8 * v13);
+      memmove(v18, v16, 8 * v11);
     }
 
     __VaListBuilder.deallocStorage(wordCount:storage:)();
-    v12 = v19;
+    v10 = v17;
 LABEL_18:
-    v21 = v5[5];
-    if (!v21)
+    v19 = v5[5];
+    if (!v19)
     {
       goto LABEL_25;
     }
@@ -1021,12 +1455,12 @@ LABEL_18:
   }
 
 LABEL_26:
-  v27 = __VaListBuilder.va_list()();
+  v25 = __VaListBuilder.va_list()();
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v29 = MEMORY[0x29C2AAC80](a3, a4);
-  v30 = [ObjCClassFromMetadata deferredLocalizedIntentsStringWithFormat:v29 fromTable:0 arguments:v27];
+  v27 = MEMORY[0x29C2AAC80](a3, a4);
+  v28 = [ObjCClassFromMetadata deferredLocalizedIntentsStringWithFormat:v27 fromTable:0 arguments:v25];
 
-  if (!v30)
+  if (!v28)
   {
     goto LABEL_32;
   }
@@ -1048,15 +1482,13 @@ void specialized withVaList<A>(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint
     v11 = a1 + 32;
     while (1)
     {
-      v12 = (v11 + 40 * v10);
-      v13 = v12[4];
-      __swift_project_boxed_opaque_existential_1(v12, v12[3]);
-      v14 = dispatch thunk of CVarArg._cVarArgEncoding.getter();
-      v15 = *v8;
-      v16 = *(v14 + 16);
-      v17 = __OFADD__(*v8, v16);
-      v18 = *v8 + v16;
-      if (v17)
+      __swift_project_boxed_opaque_existential_1((v11 + 40 * v10), *(v11 + 40 * v10 + 24));
+      v12 = dispatch thunk of CVarArg._cVarArgEncoding.getter();
+      v13 = *v8;
+      v14 = *(v12 + 16);
+      v15 = __OFADD__(*v8, v14);
+      v16 = *v8 + v14;
+      if (v15)
       {
 LABEL_29:
         __break(1u);
@@ -1069,40 +1501,40 @@ LABEL_32:
         return;
       }
 
-      v19 = v7[4];
-      if (v19 >= v18)
+      v17 = v7[4];
+      if (v17 >= v16)
       {
         goto LABEL_18;
       }
 
-      if (v19 + 0x4000000000000000 < 0)
+      if (v17 + 0x4000000000000000 < 0)
       {
         goto LABEL_30;
       }
 
-      v20 = v7[5];
-      if (2 * v19 > v18)
+      v18 = v7[5];
+      if (2 * v17 > v16)
       {
-        v18 = 2 * v19;
+        v16 = 2 * v17;
       }
 
-      v7[4] = v18;
-      if ((v18 - 0x1000000000000000) >> 61 != 7)
+      v7[4] = v16;
+      if ((v16 - 0x1000000000000000) >> 61 != 7)
       {
         goto LABEL_31;
       }
 
-      v21 = v14;
-      v22 = swift_slowAlloc();
-      v23 = v22;
-      v7[5] = v22;
-      if (v20)
+      v19 = v12;
+      v20 = swift_slowAlloc();
+      v21 = v20;
+      v7[5] = v20;
+      if (v18)
       {
         break;
       }
 
-      v14 = v21;
-      if (!v23)
+      v12 = v19;
+      if (!v21)
       {
 LABEL_25:
         __break(1u);
@@ -1110,23 +1542,23 @@ LABEL_25:
       }
 
 LABEL_19:
-      v25 = *(v14 + 16);
-      if (v25)
+      v23 = *(v12 + 16);
+      if (v23)
       {
-        v26 = (v14 + 32);
-        v27 = *v8;
+        v24 = (v12 + 32);
+        v25 = *v8;
         while (1)
         {
-          v28 = *v26++;
-          *&v23[8 * v27] = v28;
-          v27 = *v8 + 1;
+          v26 = *v24++;
+          *&v21[8 * v25] = v26;
+          v25 = *v8 + 1;
           if (__OFADD__(*v8, 1))
           {
             break;
           }
 
-          *v8 = v27;
-          if (!--v25)
+          *v8 = v25;
+          if (!--v23)
           {
             goto LABEL_3;
           }
@@ -1144,16 +1576,16 @@ LABEL_3:
       }
     }
 
-    if (v22 != v20 || v22 >= &v20[8 * v15])
+    if (v20 != v18 || v20 >= &v18[8 * v13])
     {
-      memmove(v22, v20, 8 * v15);
+      memmove(v20, v18, 8 * v13);
     }
 
     __VaListBuilder.deallocStorage(wordCount:storage:)();
-    v14 = v21;
+    v12 = v19;
 LABEL_18:
-    v23 = v7[5];
-    if (!v23)
+    v21 = v7[5];
+    if (!v21)
     {
       goto LABEL_25;
     }
@@ -1162,13 +1594,13 @@ LABEL_18:
   }
 
 LABEL_26:
-  v29 = __VaListBuilder.va_list()();
+  v27 = __VaListBuilder.va_list()();
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v31 = MEMORY[0x29C2AAC80](a3, a4);
-  v32 = MEMORY[0x29C2AAC80](a5, a6);
-  v33 = [ObjCClassFromMetadata deferredLocalizedIntentsStringWithFormat:v31 fromTable:v32 arguments:v29];
+  v29 = MEMORY[0x29C2AAC80](a3, a4);
+  v30 = MEMORY[0x29C2AAC80](a5, a6);
+  v31 = [ObjCClassFromMetadata deferredLocalizedIntentsStringWithFormat:v29 fromTable:v30 arguments:v27];
 
-  if (!v33)
+  if (!v31)
   {
     goto LABEL_32;
   }
@@ -1186,60 +1618,60 @@ void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
 
 id INCallRecord.init(identifier:dateCreated:caller:callRecordType:callCapability:callDuration:unseen:numberOfCalls:)(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, char a8, char a9, uint64_t a10, char a11)
 {
-  v30 = a5;
-  v31 = a6;
-  v17 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v29 = a5;
+  v30 = a6;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   MEMORY[0x2A1C7C4A8]();
-  v19 = &v30 - v18;
-  v20 = MEMORY[0x29C2AAC80](a1, a2);
+  v18 = &v29 - v17;
+  v19 = MEMORY[0x29C2AAC80](a1, a2);
 
-  outlined init with copy of Date?(a3, v19);
-  v21 = type metadata accessor for Date();
-  v22 = *(v21 - 8);
+  outlined init with copy of Date?(a3, v18);
+  v20 = type metadata accessor for Date();
+  v21 = *(v20 - 8);
   isa = 0;
-  if ((*(v22 + 48))(v19, 1, v21) != 1)
+  if ((*(v21 + 48))(v18, 1, v20) != 1)
   {
     isa = Date._bridgeToObjectiveC()().super.isa;
-    (*(v22 + 8))(v19, v21);
+    (*(v21 + 8))(v18, v20);
   }
 
   if (a8)
   {
-    v24 = 0;
+    v23 = 0;
   }
 
   else
   {
-    v24 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithDouble_];
+    v23 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithDouble_];
   }
 
   if (a9 != 2)
   {
-    v25 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithBool_];
+    v24 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithBool_];
     if ((a11 & 1) == 0)
     {
       goto LABEL_8;
     }
 
 LABEL_10:
-    v26 = 0;
+    v25 = 0;
     goto LABEL_11;
   }
 
-  v25 = 0;
+  v24 = 0;
   if (a11)
   {
     goto LABEL_10;
   }
 
 LABEL_8:
-  v26 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithInteger_];
+  v25 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithInteger_];
 LABEL_11:
-  v27 = objc_allocWithZone(swift_getObjCClassFromMetadata());
-  v28 = [v27 initWithIdentifier:v20 dateCreated:isa caller:a4 callRecordType:v30 callCapability:v31 callDuration:v24 unseen:v25 numberOfCalls:v26];
+  v26 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+  v27 = [v26 initWithIdentifier:v19 dateCreated:isa caller:a4 callRecordType:v29 callCapability:v30 callDuration:v23 unseen:v24 numberOfCalls:v25];
 
   outlined destroy of Date?(a3);
-  return v28;
+  return v27;
 }
 
 uint64_t outlined init with copy of Date?(uint64_t a1, uint64_t a2)
@@ -1258,48 +1690,48 @@ uint64_t outlined destroy of Date?(uint64_t a1)
 
 id INCallRecord.init(identifier:dateCreated:caller:callRecordType:callCapability:callDuration:unseen:)(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, char a8, char a9)
 {
-  v27 = a5;
-  v28 = a6;
-  v15 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v26 = a5;
+  v27 = a6;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   MEMORY[0x2A1C7C4A8]();
-  v17 = &v27 - v16;
-  v18 = MEMORY[0x29C2AAC80](a1, a2);
+  v16 = &v26 - v15;
+  v17 = MEMORY[0x29C2AAC80](a1, a2);
 
-  outlined init with copy of Date?(a3, v17);
-  v19 = type metadata accessor for Date();
-  v20 = *(v19 - 8);
+  outlined init with copy of Date?(a3, v16);
+  v18 = type metadata accessor for Date();
+  v19 = *(v18 - 8);
   isa = 0;
-  if ((*(v20 + 48))(v17, 1, v19) != 1)
+  if ((*(v19 + 48))(v16, 1, v18) != 1)
   {
     isa = Date._bridgeToObjectiveC()().super.isa;
-    (*(v20 + 8))(v17, v19);
+    (*(v19 + 8))(v16, v18);
   }
 
   if (a8)
+  {
+    v21 = 0;
+  }
+
+  else
+  {
+    v21 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithDouble_];
+  }
+
+  if (a9 == 2)
   {
     v22 = 0;
   }
 
   else
   {
-    v22 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithDouble_];
+    v22 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithBool_];
   }
 
-  if (a9 == 2)
-  {
-    v23 = 0;
-  }
-
-  else
-  {
-    v23 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithBool_];
-  }
-
-  v24 = objc_allocWithZone(swift_getObjCClassFromMetadata());
-  v25 = [v24 initWithIdentifier:v18 dateCreated:isa caller:a4 callRecordType:v27 callCapability:v28 callDuration:v22 unseen:v23];
+  v23 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+  v24 = [v23 initWithIdentifier:v17 dateCreated:isa caller:a4 callRecordType:v26 callCapability:v27 callDuration:v21 unseen:v22];
 
   outlined destroy of Date?(a3);
-  return v25;
+  return v24;
 }
 
 id INCallRecord.callDuration.getter()
@@ -1394,21 +1826,20 @@ void key path getter for INMediaUserContext.numberOfLibraryItems : INMediaUserCo
   *(a2 + 8) = v4 == 0;
 }
 
-void key path setter for INMediaUserContext.numberOfLibraryItems : INMediaUserContext(uint64_t *a1, void **a2)
+void key path setter for INMediaUserContext.numberOfLibraryItems : INMediaUserContext(uint64_t a1, void **a2)
 {
   v2 = *a2;
-  if (a1[1])
+  if (*(a1 + 8))
   {
     isa = 0;
   }
 
   else
   {
-    v4 = *a1;
     isa = Int._bridgeToObjectiveC()().super.super.isa;
   }
 
-  v5 = isa;
+  v4 = isa;
   [v2 setNumberOfLibraryItems_];
 }
 
@@ -1428,7 +1859,7 @@ void INMediaUserContext.numberOfLibraryItems.setter(uint64_t a1, char a2)
   [v2 setNumberOfLibraryItems_];
 }
 
-void (*INMediaUserContext.numberOfLibraryItems.modify(uint64_t a1))(uint64_t *a1)
+void (*INMediaUserContext.numberOfLibraryItems.modify(uint64_t a1))(uint64_t a1)
 {
   *(a1 + 16) = v1;
   v3 = [v1 numberOfLibraryItems];
@@ -1448,21 +1879,20 @@ void (*INMediaUserContext.numberOfLibraryItems.modify(uint64_t a1))(uint64_t *a1
   return INMediaUserContext.numberOfLibraryItems.modify;
 }
 
-void INMediaUserContext.numberOfLibraryItems.modify(uint64_t *a1)
+void INMediaUserContext.numberOfLibraryItems.modify(uint64_t a1)
 {
-  if (a1[1])
+  if (*(a1 + 8))
   {
     isa = 0;
   }
 
   else
   {
-    v3 = *a1;
     isa = Int._bridgeToObjectiveC()().super.super.isa;
   }
 
-  v4 = isa;
-  [a1[2] setNumberOfLibraryItems_];
+  v3 = isa;
+  [*(a1 + 16) setNumberOfLibraryItems_];
 }
 
 void _INIntentSetImageKeyPath.setImage<A>(_:forParameterNamed:)(uint64_t a1, void *a2)
@@ -1470,21 +1900,20 @@ void _INIntentSetImageKeyPath.setImage<A>(_:forParameterNamed:)(uint64_t a1, voi
   v3 = v2;
   v5 = *(*a2 + *MEMORY[0x29EDCA118]);
   v6 = *(v5 - 8);
-  v7 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   MEMORY[0x2A1C7C4A8]();
-  v9 = v16 - v8;
-  v10 = dispatch thunk of AnyKeyPath._kvcKeyPathString.getter();
-  if (v11)
+  v8 = v15 - v7;
+  v9 = dispatch thunk of AnyKeyPath._kvcKeyPathString.getter();
+  if (v10)
   {
+    v11 = v9;
     v12 = v10;
-    v13 = v11;
-    (*(v6 + 16))(v9, v3, v5);
+    (*(v6 + 16))(v8, v3, v5);
     type metadata accessor for INIntent();
     swift_dynamicCast();
-    v14 = v16[1];
-    v15 = MEMORY[0x29C2AAC80](v12, v13);
+    v13 = v15[1];
+    v14 = MEMORY[0x29C2AAC80](v11, v12);
 
-    [v14 setImage:a1 forParameterNamed:v15];
+    [v13 setImage:a1 forParameterNamed:v14];
   }
 }
 
@@ -1506,26 +1935,55 @@ id _INIntentSetImageKeyPath.image<A>(forParameterNamed:)(void *a1)
   v2 = v1;
   v3 = *(*a1 + *MEMORY[0x29EDCA118]);
   v4 = *(v3 - 8);
-  v5 = (*(v4 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   MEMORY[0x2A1C7C4A8]();
-  v7 = v16 - v6;
-  v8 = dispatch thunk of AnyKeyPath._kvcKeyPathString.getter();
-  if (!v9)
+  v6 = v15 - v5;
+  v7 = dispatch thunk of AnyKeyPath._kvcKeyPathString.getter();
+  if (!v8)
   {
     return 0;
   }
 
+  v9 = v7;
   v10 = v8;
-  v11 = v9;
-  (*(v4 + 16))(v7, v2, v3);
+  (*(v4 + 16))(v6, v2, v3);
   type metadata accessor for INIntent();
   swift_dynamicCast();
-  v12 = v16[1];
-  v13 = MEMORY[0x29C2AAC80](v10, v11);
+  v11 = v15[1];
+  v12 = MEMORY[0x29C2AAC80](v9, v10);
 
-  v14 = [v12 imageForParameterNamed_];
+  v13 = [v11 imageForParameterNamed_];
 
-  return v14;
+  return v13;
+}
+
+INDeleteTasksIntent __swiftcall INDeleteTasksIntent.init(taskList:tasks:all:)(INTaskList_optional taskList, Swift::OpaquePointer_optional tasks, Swift::Bool_optional all)
+{
+  rawValue = tasks.value._rawValue;
+  isa = taskList.value.super.isa;
+  if (*&taskList.is_nil)
+  {
+    type metadata accessor for INTask();
+    v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  }
+
+  else
+  {
+    v5.super.isa = 0;
+  }
+
+  if (rawValue == 2)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v6 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithBool_];
+  }
+
+  v7 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) initWithTaskList:isa tasks:v5.super.isa all:v6];
+
+  return v7;
 }
 
 unint64_t type metadata accessor for INTask()
@@ -2000,6 +2458,36 @@ void INSearchForPhotosIntentResponse.searchResultsCount.modify(uint64_t a1)
   [*(a1 + 16) setSearchResultsCount_];
 }
 
+INSnoozeTasksIntent __swiftcall INSnoozeTasksIntent.init(tasks:nextTriggerTime:all:)(Swift::OpaquePointer_optional tasks, INDateComponentsRange_optional nextTriggerTime, Swift::Bool_optional all)
+{
+  isa = nextTriggerTime.value.super.isa;
+  v4 = *&tasks.is_nil;
+  if (tasks.value._rawValue)
+  {
+    type metadata accessor for INTask();
+    v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  }
+
+  else
+  {
+    v5.super.isa = 0;
+  }
+
+  if (isa == 2)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v6 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithBool_];
+  }
+
+  v7 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) initWithTasks:v5.super.isa nextTriggerTime:v4 all:v6];
+
+  return v7;
+}
+
 uint64_t INSnoozeTasksIntent.all.getter()
 {
   v1 = [v0 all];
@@ -2062,18 +2550,17 @@ id INSaveProfileInCarIntent.profileNumber.getter()
 
 uint64_t INMediaDestination.playlistName.getter()
 {
-  v1 = *v0;
   if (v0[1])
   {
-    v2 = *v0;
+    v1 = *v0;
   }
 
   else
   {
-    v2 = 0;
+    v1 = 0;
   }
 
-  return v2;
+  return v1;
 }
 
 uint64_t INMediaDestination.description.getter(SEL *a1)
@@ -2120,20 +2607,20 @@ uint64_t protocol witness for CustomStringConvertible.description.getter in conf
   return v11;
 }
 
-void INMediaDestination.hash(into:)()
+void INMediaDestination.hash(into:)(uint64_t a1)
 {
-  v1 = v0[1];
-  if (v1)
+  v2 = v1[1];
+  if (v2)
   {
-    v2 = *v0;
-    v3 = objc_opt_self();
-    v4 = MEMORY[0x29C2AAC80](v2, v1);
-    v5 = [v3 playlistDestinationWithName_];
+    v3 = *v1;
+    v4 = objc_opt_self();
+    v5 = MEMORY[0x29C2AAC80](v3, v2);
+    v6 = [v4 playlistDestinationWithName_];
   }
 
   else
   {
-    v5 = [objc_opt_self() libraryDestination];
+    v6 = [objc_opt_self() libraryDestination];
   }
 
   NSObject.hash(into:)();
@@ -2161,40 +2648,40 @@ Swift::Int INMediaDestination.hashValue.getter()
   return Hasher._finalize()();
 }
 
-void protocol witness for Hashable.hash(into:) in conformance INMediaDestination()
+void protocol witness for Hashable.hash(into:) in conformance INMediaDestination(uint64_t a1)
 {
-  v1 = v0[1];
-  if (v1)
+  v2 = v1[1];
+  if (v2)
   {
-    v2 = *v0;
-    v3 = objc_opt_self();
-    v4 = MEMORY[0x29C2AAC80](v2, v1);
-    v5 = [v3 playlistDestinationWithName_];
+    v3 = *v1;
+    v4 = objc_opt_self();
+    v5 = MEMORY[0x29C2AAC80](v3, v2);
+    v6 = [v4 playlistDestinationWithName_];
   }
 
   else
   {
-    v5 = [objc_opt_self() libraryDestination];
+    v6 = [objc_opt_self() libraryDestination];
   }
 
   NSObject.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance INMediaDestination()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance INMediaDestination(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
+  v2 = *v1;
+  v3 = v1[1];
   Hasher.init(_seed:)();
-  if (v2)
+  if (v3)
   {
-    v3 = objc_opt_self();
-    v4 = MEMORY[0x29C2AAC80](v1, v2);
-    v5 = [v3 playlistDestinationWithName_];
+    v4 = objc_opt_self();
+    v5 = MEMORY[0x29C2AAC80](v2, v3);
+    v6 = [v4 playlistDestinationWithName_];
   }
 
   else
   {
-    v5 = [objc_opt_self() libraryDestination];
+    v6 = [objc_opt_self() libraryDestination];
   }
 
   NSObject.hash(into:)();
@@ -2546,6 +3033,34 @@ void *destructiveInjectEnumTag for INMediaDestination(void *result, int a2)
   return result;
 }
 
+INStartWorkoutIntent __swiftcall INStartWorkoutIntent.init(workoutName:goalValue:workoutGoalUnitType:workoutLocationType:isOpenEnded:)(INSpeakableString_optional workoutName, Swift::Double_optional goalValue, INWorkoutGoalUnitType workoutGoalUnitType, INWorkoutLocationType workoutLocationType, Swift::Bool_optional isOpenEnded)
+{
+  isa = workoutName.value.super.isa;
+  if (goalValue.is_nil)
+  {
+    v9 = 0;
+  }
+
+  else
+  {
+    v9 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithDouble_];
+  }
+
+  if (isOpenEnded.value == 2)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v10 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithBool_];
+  }
+
+  v11 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) initWithWorkoutName:isa goalValue:v9 workoutGoalUnitType:workoutGoalUnitType workoutLocationType:workoutLocationType isOpenEnded:v10];
+
+  return v11;
+}
+
 id INStartWorkoutIntent.goalValue.getter()
 {
   result = [v0 goalValue];
@@ -2577,40 +3092,40 @@ uint64_t INStartWorkoutIntent.isOpenEnded.getter()
 
 id INRestaurantReservation.init(itemReference:reservationNumber:bookingTime:reservationStatus:reservationHolderName:actions:reservationDuration:partySize:restaurantLocation:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, char a11, void *a12)
 {
-  v34 = a5;
-  v19 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v33 = a5;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   MEMORY[0x2A1C7C4A8]();
-  v21 = &v33 - v20;
+  v20 = &v32 - v19;
   if (a3)
   {
-    v22 = MEMORY[0x29C2AAC80](a2, a3);
+    v21 = MEMORY[0x29C2AAC80](a2, a3);
   }
 
   else
   {
-    v22 = 0;
+    v21 = 0;
   }
 
-  outlined init with copy of Date?(a4, v21, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v23 = type metadata accessor for Date();
-  v24 = *(v23 - 8);
+  outlined init with copy of Date?(a4, v20, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v22 = type metadata accessor for Date();
+  v23 = *(v22 - 8);
   isa = 0;
-  if ((*(v24 + 48))(v21, 1, v23) != 1)
+  if ((*(v23 + 48))(v20, 1, v22) != 1)
   {
     isa = Date._bridgeToObjectiveC()().super.isa;
-    (*(v24 + 8))(v21, v23);
+    (*(v23 + 8))(v20, v22);
   }
 
   if (a7)
   {
-    v26 = MEMORY[0x29C2AAC80](a6, a7);
+    v25 = MEMORY[0x29C2AAC80](a6, a7);
 
-    v27 = a11;
+    v26 = a11;
     if (a8)
     {
 LABEL_8:
       type metadata accessor for INReservationAction();
-      v28.super.isa = Array._bridgeToObjectiveC()().super.isa;
+      v27.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
       goto LABEL_11;
     }
@@ -2618,31 +3133,31 @@ LABEL_8:
 
   else
   {
-    v26 = 0;
-    v27 = a11;
+    v25 = 0;
+    v26 = a11;
     if (a8)
     {
       goto LABEL_8;
     }
   }
 
-  v28.super.isa = 0;
+  v27.super.isa = 0;
 LABEL_11:
-  if (v27)
+  if (v26)
   {
-    v29 = 0;
+    v28 = 0;
   }
 
   else
   {
-    v29 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithInteger_];
+    v28 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithInteger_];
   }
 
-  v30 = objc_allocWithZone(swift_getObjCClassFromMetadata());
-  v31 = [v30 initWithItemReference:a1 reservationNumber:v22 bookingTime:isa reservationStatus:v34 reservationHolderName:v26 actions:v28.super.isa reservationDuration:a9 partySize:v29 restaurantLocation:a12];
+  v29 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+  v30 = [v29 initWithItemReference:a1 reservationNumber:v21 bookingTime:isa reservationStatus:v33 reservationHolderName:v25 actions:v27.super.isa reservationDuration:a9 partySize:v28 restaurantLocation:a12];
 
   outlined destroy of Date?(a4, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  return v31;
+  return v30;
 }
 
 unint64_t type metadata accessor for INReservationAction()
@@ -2660,44 +3175,44 @@ unint64_t type metadata accessor for INReservationAction()
 
 id INRestaurantReservation.init(itemReference:reservationNumber:bookingTime:reservationStatus:reservationHolderName:actions:url:reservationDuration:partySize:restaurantLocation:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, char a12, void *a13)
 {
-  v43 = a5;
-  v44 = a1;
-  v19 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v41 = a5;
+  v42 = a1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   MEMORY[0x2A1C7C4A8]();
-  v21 = &v41 - v20;
-  v22 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v20 = &v39 - v19;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   MEMORY[0x2A1C7C4A8]();
-  v24 = &v41 - v23;
+  v22 = &v39 - v21;
   if (a3)
   {
-    v42 = MEMORY[0x29C2AAC80](a2, a3);
+    v40 = MEMORY[0x29C2AAC80](a2, a3);
   }
 
   else
   {
-    v42 = 0;
+    v40 = 0;
   }
 
-  v45 = a4;
-  outlined init with copy of Date?(a4, v24, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v25 = type metadata accessor for Date();
-  v26 = *(v25 - 8);
+  v43 = a4;
+  outlined init with copy of Date?(a4, v22, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v23 = type metadata accessor for Date();
+  v24 = *(v23 - 8);
   isa = 0;
-  if ((*(v26 + 48))(v24, 1, v25) != 1)
+  if ((*(v24 + 48))(v22, 1, v23) != 1)
   {
     isa = Date._bridgeToObjectiveC()().super.isa;
-    (*(v26 + 8))(v24, v25);
+    (*(v24 + 8))(v22, v23);
   }
 
   if (a7)
   {
-    v28 = MEMORY[0x29C2AAC80](a6, a7);
+    v26 = MEMORY[0x29C2AAC80](a6, a7);
 
     if (a8)
     {
 LABEL_8:
       type metadata accessor for INReservationAction();
-      v29.super.isa = Array._bridgeToObjectiveC()().super.isa;
+      v27.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
       goto LABEL_11;
     }
@@ -2705,45 +3220,45 @@ LABEL_8:
 
   else
   {
-    v28 = 0;
+    v26 = 0;
     if (a8)
     {
       goto LABEL_8;
     }
   }
 
-  v29.super.isa = 0;
+  v27.super.isa = 0;
 LABEL_11:
-  v41 = a9;
-  outlined init with copy of Date?(a9, v21, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v30 = type metadata accessor for URL();
-  v31 = *(v30 - 8);
-  v33 = 0;
-  if ((*(v31 + 48))(v21, 1, v30) != 1)
+  v39 = a9;
+  outlined init with copy of Date?(a9, v20, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v28 = type metadata accessor for URL();
+  v29 = *(v28 - 8);
+  v31 = 0;
+  if ((*(v29 + 48))(v20, 1, v28) != 1)
   {
-    URL._bridgeToObjectiveC()(v32);
-    v33 = v34;
-    (*(v31 + 8))(v21, v30);
+    URL._bridgeToObjectiveC()(v30);
+    v31 = v32;
+    (*(v29 + 8))(v20, v28);
   }
 
   if (a12)
   {
-    v35 = 0;
+    v33 = 0;
   }
 
   else
   {
-    v35 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithInteger_];
+    v33 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithInteger_];
   }
 
-  v36 = objc_allocWithZone(swift_getObjCClassFromMetadata());
-  v37 = v44;
-  v38 = v42;
-  v39 = [v36 initWithItemReference:v44 reservationNumber:v42 bookingTime:isa reservationStatus:v43 reservationHolderName:v28 actions:v29.super.isa URL:v33 reservationDuration:a10 partySize:v35 restaurantLocation:a13];
+  v34 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+  v35 = v42;
+  v36 = v40;
+  v37 = [v34 initWithItemReference:v42 reservationNumber:v40 bookingTime:isa reservationStatus:v41 reservationHolderName:v26 actions:v27.super.isa URL:v31 reservationDuration:a10 partySize:v33 restaurantLocation:a13];
 
-  outlined destroy of Date?(v41, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  outlined destroy of Date?(v45, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  return v39;
+  outlined destroy of Date?(v39, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  outlined destroy of Date?(v43, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  return v37;
 }
 
 uint64_t outlined init with copy of Date?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
@@ -2910,27 +3425,27 @@ LABEL_4:
   return result;
 }
 
-void INShortcut.hash(into:)()
+void INShortcut.hash(into:)(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
-  v3 = objc_allocWithZone(MEMORY[0x29EDBB228]);
-  if (v2)
+  v2 = *v1;
+  v3 = *(v1 + 8);
+  v4 = objc_allocWithZone(MEMORY[0x29EDBB228]);
+  if (v3)
   {
-    v4 = [v3 initWithUserActivity_];
+    v5 = [v4 initWithUserActivity_];
   }
 
   else
   {
-    v4 = [v3 initWithIntent_];
-    if (!v4)
+    v5 = [v4 initWithIntent_];
+    if (!v5)
     {
       __break(1u);
       return;
     }
   }
 
-  v5 = v4;
+  v6 = v5;
   NSObject.hash(into:)();
 }
 
@@ -2986,47 +3501,47 @@ LABEL_4:
   return result;
 }
 
-void protocol witness for Hashable.hash(into:) in conformance INShortcut()
+void protocol witness for Hashable.hash(into:) in conformance INShortcut(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
-  v3 = objc_allocWithZone(MEMORY[0x29EDBB228]);
-  if (v2)
+  v2 = *v1;
+  v3 = *(v1 + 8);
+  v4 = objc_allocWithZone(MEMORY[0x29EDBB228]);
+  if (v3)
   {
-    v4 = [v3 initWithUserActivity_];
+    v5 = [v4 initWithUserActivity_];
   }
 
   else
   {
-    v4 = [v3 initWithIntent_];
-    if (!v4)
+    v5 = [v4 initWithIntent_];
+    if (!v5)
     {
       __break(1u);
       return;
     }
   }
 
-  v5 = v4;
+  v6 = v5;
   NSObject.hash(into:)();
 }
 
-id protocol witness for Hashable._rawHashValue(seed:) in conformance INShortcut()
+id protocol witness for Hashable._rawHashValue(seed:) in conformance INShortcut(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
+  v2 = *v1;
+  v3 = *(v1 + 8);
   Hasher.init(_seed:)();
-  v3 = objc_allocWithZone(MEMORY[0x29EDBB228]);
-  if (v2)
+  v4 = objc_allocWithZone(MEMORY[0x29EDBB228]);
+  if (v3)
   {
-    v4 = [v3 initWithUserActivity_];
+    v5 = [v4 initWithUserActivity_];
 LABEL_4:
     NSObject.hash(into:)();
 
     return Hasher._finalize()();
   }
 
-  result = [v3 initWithIntent_];
-  v4 = result;
+  result = [v4 initWithIntent_];
+  v5 = result;
   if (result)
   {
     goto LABEL_4;
@@ -3377,42 +3892,42 @@ unint64_t type metadata accessor for NSObject()
 
 id INLodgingReservation.init(itemReference:reservationNumber:bookingTime:reservationStatus:reservationHolderName:actions:lodgingBusinessLocation:reservationDuration:numberOfAdults:numberOfChildren:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, char a12, uint64_t a13, char a14)
 {
-  v40 = a5;
-  v41 = a1;
-  v20 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v39 = a5;
+  v40 = a1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   MEMORY[0x2A1C7C4A8]();
-  v22 = &v38 - v21;
+  v21 = &v37 - v20;
   if (a3)
   {
-    v39 = MEMORY[0x29C2AAC80](a2, a3);
+    v38 = MEMORY[0x29C2AAC80](a2, a3);
   }
 
   else
   {
-    v39 = 0;
+    v38 = 0;
   }
 
-  v42 = a4;
-  outlined init with copy of Date?(a4, v22, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v23 = type metadata accessor for Date();
-  v24 = *(v23 - 8);
+  v41 = a4;
+  outlined init with copy of Date?(a4, v21, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v22 = type metadata accessor for Date();
+  v23 = *(v22 - 8);
   isa = 0;
-  if ((*(v24 + 48))(v22, 1, v23) != 1)
+  if ((*(v23 + 48))(v21, 1, v22) != 1)
   {
     isa = Date._bridgeToObjectiveC()().super.isa;
-    (*(v24 + 8))(v22, v23);
+    (*(v23 + 8))(v21, v22);
   }
 
   if (a7)
   {
-    v26 = MEMORY[0x29C2AAC80](a6, a7);
+    v25 = MEMORY[0x29C2AAC80](a6, a7);
 
-    v27 = a12;
+    v26 = a12;
     if (a8)
     {
 LABEL_8:
       type metadata accessor for INReservationAction();
-      v28.super.isa = Array._bridgeToObjectiveC()().super.isa;
+      v27.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
       goto LABEL_11;
     }
@@ -3420,91 +3935,91 @@ LABEL_8:
 
   else
   {
-    v26 = 0;
-    v27 = a12;
+    v25 = 0;
+    v26 = a12;
     if (a8)
     {
       goto LABEL_8;
     }
   }
 
-  v28.super.isa = 0;
+  v27.super.isa = 0;
 LABEL_11:
-  if ((v27 & 1) == 0)
+  if ((v26 & 1) == 0)
   {
-    v29 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithInteger_];
-    v30 = a9;
-    v31 = a10;
+    v28 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithInteger_];
+    v29 = a9;
+    v30 = a10;
     if ((a14 & 1) == 0)
     {
       goto LABEL_13;
     }
 
 LABEL_15:
-    v32 = 0;
+    v31 = 0;
     goto LABEL_16;
   }
 
-  v29 = 0;
-  v30 = a9;
-  v31 = a10;
+  v28 = 0;
+  v29 = a9;
+  v30 = a10;
   if (a14)
   {
     goto LABEL_15;
   }
 
 LABEL_13:
-  v32 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithInteger_];
+  v31 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithInteger_];
 LABEL_16:
-  v33 = objc_allocWithZone(swift_getObjCClassFromMetadata());
-  v34 = v41;
-  v35 = v39;
-  v36 = [v33 initWithItemReference:v41 reservationNumber:v39 bookingTime:isa reservationStatus:v40 reservationHolderName:v26 actions:v28.super.isa lodgingBusinessLocation:v30 reservationDuration:v31 numberOfAdults:v29 numberOfChildren:v32];
+  v32 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+  v33 = v40;
+  v34 = v38;
+  v35 = [v32 initWithItemReference:v40 reservationNumber:v38 bookingTime:isa reservationStatus:v39 reservationHolderName:v25 actions:v27.super.isa lodgingBusinessLocation:v29 reservationDuration:v30 numberOfAdults:v28 numberOfChildren:v31];
 
-  outlined destroy of Date?(v42, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  return v36;
+  outlined destroy of Date?(v41, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  return v35;
 }
 
 id INLodgingReservation.init(itemReference:reservationNumber:bookingTime:reservationStatus:reservationHolderName:actions:url:lodgingBusinessLocation:reservationDuration:numberOfAdults:numberOfChildren:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, uint64_t a12, char a13, uint64_t a14, char a15)
 {
-  v53 = a5;
-  v54 = a1;
-  v21 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v51 = a5;
+  v52 = a1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   MEMORY[0x2A1C7C4A8]();
-  v23 = &v49 - v22;
-  v24 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v22 = &v47 - v21;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   MEMORY[0x2A1C7C4A8]();
-  v26 = &v49 - v25;
+  v24 = &v47 - v23;
   if (a3)
   {
-    v52 = MEMORY[0x29C2AAC80](a2, a3);
+    v50 = MEMORY[0x29C2AAC80](a2, a3);
   }
 
   else
   {
-    v52 = 0;
+    v50 = 0;
   }
 
-  v55 = a4;
-  outlined init with copy of Date?(a4, v26, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v27 = type metadata accessor for Date();
-  v28 = *(v27 - 8);
+  v53 = a4;
+  outlined init with copy of Date?(a4, v24, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v25 = type metadata accessor for Date();
+  v26 = *(v25 - 8);
   isa = 0;
-  if ((*(v28 + 48))(v26, 1, v27) != 1)
+  if ((*(v26 + 48))(v24, 1, v25) != 1)
   {
     isa = Date._bridgeToObjectiveC()().super.isa;
-    (*(v28 + 8))(v26, v27);
+    (*(v26 + 8))(v24, v25);
   }
 
   if (a7)
   {
-    v50 = MEMORY[0x29C2AAC80](a6, a7);
+    v48 = MEMORY[0x29C2AAC80](a6, a7);
 
     if (a8)
     {
 LABEL_8:
       type metadata accessor for INReservationAction();
-      v49 = Array._bridgeToObjectiveC()().super.isa;
+      v47 = Array._bridgeToObjectiveC()().super.isa;
 
       goto LABEL_11;
     }
@@ -3512,67 +4027,67 @@ LABEL_8:
 
   else
   {
-    v50 = 0;
+    v48 = 0;
     if (a8)
     {
       goto LABEL_8;
     }
   }
 
-  v49 = 0;
+  v47 = 0;
 LABEL_11:
-  v51 = a9;
-  outlined init with copy of Date?(a9, v23, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v30 = type metadata accessor for URL();
-  v31 = *(v30 - 8);
-  v33 = 0;
-  if ((*(v31 + 48))(v23, 1, v30) != 1)
+  v49 = a9;
+  outlined init with copy of Date?(a9, v22, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v28 = type metadata accessor for URL();
+  v29 = *(v28 - 8);
+  v31 = 0;
+  if ((*(v29 + 48))(v22, 1, v28) != 1)
   {
-    URL._bridgeToObjectiveC()(v32);
-    v33 = v34;
-    (*(v31 + 8))(v23, v30);
+    URL._bridgeToObjectiveC()(v30);
+    v31 = v32;
+    (*(v29 + 8))(v22, v28);
   }
 
   if ((a13 & 1) == 0)
   {
-    v35 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithInteger_];
-    v37 = a10;
-    v36 = a11;
+    v33 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithInteger_];
+    v35 = a10;
+    v34 = a11;
     if ((a15 & 1) == 0)
     {
       goto LABEL_15;
     }
 
 LABEL_17:
-    v38 = 0;
+    v36 = 0;
     goto LABEL_18;
   }
 
-  v35 = 0;
-  v37 = a10;
-  v36 = a11;
+  v33 = 0;
+  v35 = a10;
+  v34 = a11;
   if (a15)
   {
     goto LABEL_17;
   }
 
 LABEL_15:
-  v38 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithInteger_];
+  v36 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithInteger_];
 LABEL_18:
-  v39 = objc_allocWithZone(swift_getObjCClassFromMetadata());
-  v40 = v33;
-  v48 = v33;
-  v41 = v54;
-  v42 = v52;
-  v43 = isa;
-  v44 = isa;
-  v45 = v49;
-  v46 = v50;
-  v53 = [v39 initWithItemReference:v54 reservationNumber:v52 bookingTime:v43 reservationStatus:v53 reservationHolderName:v50 actions:v49 URL:v48 lodgingBusinessLocation:v37 reservationDuration:v36 numberOfAdults:v35 numberOfChildren:v38];
+  v37 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+  v38 = v31;
+  v46 = v31;
+  v39 = v52;
+  v40 = v50;
+  v41 = isa;
+  v42 = isa;
+  v43 = v47;
+  v44 = v48;
+  v51 = [v37 initWithItemReference:v52 reservationNumber:v50 bookingTime:v41 reservationStatus:v51 reservationHolderName:v48 actions:v47 URL:v46 lodgingBusinessLocation:v35 reservationDuration:v34 numberOfAdults:v33 numberOfChildren:v36];
 
-  outlined destroy of Date?(v51, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  outlined destroy of Date?(v55, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  return v53;
+  outlined destroy of Date?(v49, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  outlined destroy of Date?(v53, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  return v51;
 }
 
 uint64_t INGetCarLockStatusIntentResponse.locked.getter()
@@ -3706,6 +4221,72 @@ uint64_t INFocusStatus.isFocused.getter()
   v3 = [v1 BOOLValue];
 
   return v3;
+}
+
+INSetRadioStationIntent __swiftcall INSetRadioStationIntent.init(radioType:frequency:stationName:channel:presetNumber:)(INRadioType radioType, Swift::Double_optional frequency, Swift::String_optional stationName, Swift::String_optional channel, Swift::Int_optional presetNumber)
+{
+  v5 = *&presetNumber.is_nil;
+  value = presetNumber.value;
+  object = channel.value._object;
+  countAndFlagsBits = channel.value._countAndFlagsBits;
+  v9 = stationName.value._object;
+  if (stationName.value._countAndFlagsBits)
+  {
+    v11 = 0;
+    if (channel.value._countAndFlagsBits)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    v11 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithDouble_];
+    if (countAndFlagsBits)
+    {
+LABEL_3:
+      v12 = MEMORY[0x29C2AAC80](v9, countAndFlagsBits, *&frequency.value);
+
+      v13 = v18;
+      if (value)
+      {
+        goto LABEL_4;
+      }
+
+LABEL_8:
+      v14 = 0;
+      if (v13)
+      {
+        goto LABEL_5;
+      }
+
+LABEL_9:
+      v15 = [objc_allocWithZone(MEMORY[0x29EDBA070]) initWithInteger_];
+      goto LABEL_10;
+    }
+  }
+
+  v12 = 0;
+  v13 = v18;
+  if (!value)
+  {
+    goto LABEL_8;
+  }
+
+LABEL_4:
+  v14 = MEMORY[0x29C2AAC80](object, value);
+
+  if ((v13 & 1) == 0)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_5:
+  v15 = 0;
+LABEL_10:
+  v16 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) initWithRadioType:radioType frequency:v11 stationName:v12 channel:v14 presetNumber:v15];
+
+  return v16;
 }
 
 id INSetRadioStationIntent.frequency.getter()

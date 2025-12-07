@@ -23,7 +23,7 @@
 - (void)viewDidLoad
 {
   ObjectType = swift_getObjectType();
-  sub_529D58(&qword_959CE8);
+  sub_529D58(&qword_959CE8, &unk_7A31A0);
   selfCopy = self;
   sub_7632E0();
   v5.receiver = selfCopy;

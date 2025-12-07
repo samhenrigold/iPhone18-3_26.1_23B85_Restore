@@ -34,12 +34,12 @@
 
 - (HDCloudSyncCachedCloudState)initWithRepository:(id)repository accessibilityAssertion:(id)assertion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   repositoryCopy = repository;
   assertionCopy = assertion;
-  v29.receiver = self;
-  v29.super_class = HDCloudSyncCachedCloudState;
-  v9 = [(HDCloudSyncCachedCloudState *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = HDCloudSyncCachedCloudState;
+  v9 = [(HDCloudSyncCachedCloudState *)&v28 init];
   v10 = v9;
   if (v9)
   {
@@ -49,12 +49,12 @@
     objc_storeWeak(&v10->_profile, legacyRepositoryProfile);
 
     objc_storeStrong(&v10->_accessibilityAssertion, assertion);
-    v28 = 0;
+    v27 = 0;
     v13 = repositoryCopy;
     userRecordName = [v13 userRecordName];
     profile2 = [v13 profile];
     legacyRepositoryProfile2 = [profile2 legacyRepositoryProfile];
-    v17 = [HDCachedCKDatabaseEntity deleteDatabasesNotMatchingUserRecordName:userRecordName profile:legacyRepositoryProfile2 error:&v28];
+    v17 = [HDCachedCKDatabaseEntity deleteDatabasesNotMatchingUserRecordName:userRecordName profile:legacyRepositoryProfile2 error:&v27];
 
     if (v17)
     {
@@ -75,7 +75,7 @@
         if (v23)
         {
           v23 = v23;
-          v28 = v23;
+          v27 = v23;
         }
 
         LOBYTE(v17) = 0;
@@ -85,12 +85,12 @@
 
   else
   {
-    v28 = 0;
+    v27 = 0;
     v22 = repositoryCopy;
     LOBYTE(v17) = 0;
   }
 
-  v24 = v28;
+  v24 = v27;
   if (!v17)
   {
     _HKInitializeLogging();
@@ -99,13 +99,12 @@
     {
       *buf = 138543618;
       *&buf[4] = v10;
-      v31 = 2114;
-      v32 = v24;
+      v30 = 2114;
+      v31 = v24;
       _os_log_error_impl(&dword_228986000, v25, OS_LOG_TYPE_ERROR, "%{public}@: Error clearing and synchronizing cache %{public}@.", buf, 0x16u);
     }
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -174,52 +173,52 @@
 
 - (uint64_t)_resetServerChangeTokenForContainerIdentifier:(uint64_t)identifier databaseScope:(void *)scope error:
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v7 = a2;
   if (self)
   {
-    v52 = 0;
-    v8 = [self zoneIdentifiersForContainerIdentifier:v7 databaseScope:identifier error:&v52];
-    v9 = v52;
+    v51 = 0;
+    v8 = [self zoneIdentifiersForContainerIdentifier:v7 databaseScope:identifier error:&v51];
+    v9 = v51;
     v10 = v9;
     if (v8 || !v9)
     {
       scopeCopy = scope;
-      v43 = v9;
-      v44 = v7;
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
+      v42 = v9;
+      v43 = v7;
       v49 = 0u;
+      v50 = 0u;
+      v47 = 0u;
+      v48 = 0u;
       v12 = v8;
-      v13 = [v12 countByEnumeratingWithState:&v48 objects:v57 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v47 objects:v56 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v49;
+        v15 = *v48;
         while (2)
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v49 != v15)
+            if (*v48 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v17 = *(*(&v48 + 1) + 8 * i);
+            v17 = *(*(&v47 + 1) + 8 * i);
             v18 = [HDCloudSyncCachedZone alloc];
             repository = [self repository];
             v20 = [(HDCloudSyncCachedZone *)v18 initForZoneIdentifier:v17 repository:repository accessibilityAssertion:*(self + 64)];
 
-            v47 = 0;
-            LOBYTE(repository) = [v20 deleteZoneWithError:&v47];
-            v21 = v47;
+            v46 = 0;
+            LOBYTE(repository) = [v20 deleteZoneWithError:&v46];
+            v21 = v46;
             if ((repository & 1) == 0)
             {
               v31 = v21;
               v32 = v31;
-              v10 = v43;
-              v7 = v44;
+              v10 = v42;
+              v7 = v43;
               if (v31)
               {
                 if (scopeCopy)
@@ -238,7 +237,7 @@
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v48 objects:v57 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v47 objects:v56 count:16];
           if (v14)
           {
             continue;
@@ -248,47 +247,47 @@
         }
       }
 
-      v46 = 0;
-      v7 = v44;
-      v22 = [self setServerChangeToken:0 containerIdentifier:v44 databaseScope:identifier error:&v46];
-      v23 = v46;
+      v45 = 0;
+      v7 = v43;
+      v22 = [self setServerChangeToken:0 containerIdentifier:v43 databaseScope:identifier error:&v45];
+      v23 = v45;
       v24 = v23;
       if (v22)
       {
-        v41 = v23;
+        v40 = v23;
         uUID = [MEMORY[0x277CCAD78] UUID];
         repository2 = [self repository];
         profile = [repository2 profile];
         legacyRepositoryProfile = [profile legacyRepositoryProfile];
-        v45 = 0;
-        v29 = HDSetCloudSyncAttachmentManagementUUID(uUID, legacyRepositoryProfile, &v45);
-        v30 = v45;
+        v44 = 0;
+        v29 = HDSetCloudSyncAttachmentManagementUUID(uUID, legacyRepositoryProfile, &v44);
+        v30 = v44;
 
         if (v29)
         {
           self = 1;
-          v10 = v43;
-          v24 = v41;
+          v10 = v42;
+          v24 = v40;
         }
 
         else
         {
           _HKInitializeLogging();
           v36 = *MEMORY[0x277CCC328];
-          v10 = v43;
+          v10 = v42;
           if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
             selfCopy = self;
-            v55 = 2114;
-            v56 = v30;
+            v54 = 2114;
+            v55 = v30;
             _os_log_error_impl(&dword_228986000, v36, OS_LOG_TYPE_ERROR, "[attachments] %{public}@: Failed to reset attachment UUID in response to a reset change token, %{public}@", buf, 0x16u);
           }
 
           v37 = v30;
           v30 = v37;
           self = v37 == 0;
-          v24 = v41;
+          v24 = v40;
           if (v37)
           {
             if (scopeCopy)
@@ -311,7 +310,7 @@
         v30 = v34;
         if (v34)
         {
-          v10 = v43;
+          v10 = v42;
           if (scopeCopy)
           {
             v35 = v34;
@@ -329,7 +328,7 @@
         else
         {
           self = 0;
-          v10 = v43;
+          v10 = v42;
         }
       }
     }
@@ -349,7 +348,6 @@ LABEL_26:
     }
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -448,7 +446,7 @@ BOOL __59__HDCloudSyncCachedCloudState_addZoneWithIdentifier_error___block_invok
 
 uint64_t __89__HDCloudSyncCachedCloudState_zoneIdentifiersForContainerIdentifier_databaseScope_error___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = [[HDCloudSyncZoneIdentifier alloc] initForZone:v6 container:*(a1 + 32) scope:*(a1 + 56)];
 
@@ -463,15 +461,15 @@ uint64_t __89__HDCloudSyncCachedCloudState_zoneIdentifiersForContainerIdentifier
       v11 = [v7 zoneIdentifier];
       v12 = *(a1 + 32);
       v13 = HDCKDatabaseScopeToString(*(a1 + 56));
-      v16 = 138544130;
-      v17 = v9;
-      v18 = 2114;
-      v19 = v11;
-      v20 = 2114;
-      v21 = v12;
-      v22 = 2114;
-      v23 = v13;
-      _os_log_debug_impl(&dword_228986000, v10, OS_LOG_TYPE_DEBUG, "%{public}@: Ignoring zone %{public}@; with state Identity Lost, container %{public}@, database %{public}@", &v16, 0x2Au);
+      v15 = 138544130;
+      v16 = v9;
+      v17 = 2114;
+      v18 = v11;
+      v19 = 2114;
+      v20 = v12;
+      v21 = 2114;
+      v22 = v13;
+      _os_log_debug_impl(&dword_228986000, v10, OS_LOG_TYPE_DEBUG, "%{public}@: Ignoring zone %{public}@; with state Identity Lost, container %{public}@, database %{public}@", &v15, 0x2Au);
     }
   }
 
@@ -480,7 +478,6 @@ uint64_t __89__HDCloudSyncCachedCloudState_zoneIdentifiersForContainerIdentifier
     [*(a1 + 48) addObject:v7];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -584,15 +581,15 @@ uint64_t __105__HDCloudSyncCachedCloudState_zoneIdentifiersWithIdentityLossForCo
 
 - (id)zonesByIdentifierForContainers:(id)containers error:(id *)error filter:(id)filter
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   containersCopy = containers;
   filterCopy = filter;
-  v59 = 0;
+  v58 = 0;
   selfCopy = self;
   if (!self)
   {
     v18 = 0;
-    v47 = 0;
+    v46 = 0;
     goto LABEL_15;
   }
 
@@ -610,8 +607,8 @@ uint64_t __105__HDCloudSyncCachedCloudState_zoneIdentifiersWithIdentityLossForCo
     if (v10)
     {
       v15 = v10;
-      v47 = 0;
-      v59 = v10;
+      v46 = 0;
+      v58 = v10;
       goto LABEL_14;
     }
 
@@ -630,9 +627,9 @@ uint64_t __105__HDCloudSyncCachedCloudState_zoneIdentifiersWithIdentityLossForCo
     {
       if ((profileType - 2) < 2)
       {
-        [MEMORY[0x277CCA9B8] hk_assignError:&v59 code:729 format:{@"Profile type %ld requires a zone owner name but none was present.", profileType, containersCopy}];
+        [MEMORY[0x277CCA9B8] hk_assignError:&v58 code:729 format:{@"Profile type %ld requires a zone owner name but none was present.", profileType, containersCopy}];
 LABEL_13:
-        v47 = 0;
+        v46 = 0;
         goto LABEL_14;
       }
 
@@ -644,47 +641,47 @@ LABEL_37:
       }
     }
 
-    [MEMORY[0x277CCA9B8] hk_assignError:&v59 code:729 format:{@"Unexpected profile type %ld; requiring zone owner to be safe.", profileType, containersCopy}];
+    [MEMORY[0x277CCA9B8] hk_assignError:&v58 code:729 format:{@"Unexpected profile type %ld; requiring zone owner to be safe.", profileType, containersCopy}];
     goto LABEL_13;
   }
 
   v14 = recordName;
 LABEL_4:
-  v47 = v14;
+  v46 = v14;
 LABEL_14:
 
-  v18 = v59;
+  v18 = v58;
 LABEL_15:
   v19 = v18;
-  v42 = v19;
-  if (v47 || !v19)
+  v41 = v19;
+  if (v46 || !v19)
   {
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v62 = __Block_byref_object_copy__8;
-    v63 = __Block_byref_object_dispose__8;
-    v64 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v61 = __Block_byref_object_copy__8;
+    v62 = __Block_byref_object_dispose__8;
+    v63 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v54 = 0u;
     v55 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v58 = 0u;
     obj = containersCopy;
-    v23 = [obj countByEnumeratingWithState:&v55 objects:v60 count:16];
+    v23 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
     v24 = selfCopy;
     if (v23)
     {
-      v44 = *v56;
+      v43 = *v55;
       while (2)
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v56 != v44)
+          if (*v55 != v43)
           {
             objc_enumerationMutation(obj);
           }
 
-          v26 = *(*(&v55 + 1) + 8 * i);
+          v26 = *(*(&v54 + 1) + 8 * i);
           repository = [(HDCloudSyncCachedCloudState *)v24 repository];
           profileIdentifier = [repository profileIdentifier];
           v29 = HDDatabaseForContainer(v26, profileIdentifier);
@@ -694,18 +691,18 @@ LABEL_15:
           repository2 = [(HDCloudSyncCachedCloudState *)selfCopy repository];
           profile3 = [repository2 profile];
           legacyRepositoryProfile = [profile3 legacyRepositoryProfile];
-          v49[0] = MEMORY[0x277D85DD0];
-          v49[1] = 3221225472;
-          v49[2] = __75__HDCloudSyncCachedCloudState_zonesByIdentifierForContainers_error_filter___block_invoke;
-          v49[3] = &unk_278614758;
-          v49[4] = v26;
+          v48[0] = MEMORY[0x277D85DD0];
+          v48[1] = 3221225472;
+          v48[2] = __75__HDCloudSyncCachedCloudState_zonesByIdentifierForContainers_error_filter___block_invoke;
+          v48[3] = &unk_278614758;
+          v48[4] = v26;
           v35 = v29;
-          v50 = v35;
-          v51 = selfCopy;
-          v52 = v47;
-          v53 = filterCopy;
-          v54 = buf;
-          LOBYTE(v29) = [HDCachedCKRecordZoneEntity enumerateCKRecordZoneIDsWithContainerIdentifier:containerIdentifier databaseScope:databaseScope profile:legacyRepositoryProfile error:error enumerationHandler:v49];
+          v49 = v35;
+          v50 = selfCopy;
+          v51 = v46;
+          v52 = filterCopy;
+          v53 = buf;
+          LOBYTE(v29) = [HDCachedCKRecordZoneEntity enumerateCKRecordZoneIDsWithContainerIdentifier:containerIdentifier databaseScope:databaseScope profile:legacyRepositoryProfile error:error enumerationHandler:v48];
 
           if ((v29 & 1) == 0)
           {
@@ -717,7 +714,7 @@ LABEL_15:
           v24 = selfCopy;
         }
 
-        v23 = [obj countByEnumeratingWithState:&v55 objects:v60 count:16];
+        v23 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
         if (v23)
         {
           continue;
@@ -738,7 +735,7 @@ LABEL_31:
     v20 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v38 = v20;
+      v37 = v20;
       WeakRetained = objc_loadWeakRetained(&selfCopy->_profile);
       profileIdentifier2 = [WeakRetained profileIdentifier];
       *buf = 138543874;
@@ -746,15 +743,15 @@ LABEL_31:
       *&buf[12] = 2114;
       *&buf[14] = profileIdentifier2;
       *&buf[22] = 2114;
-      v62 = v42;
-      _os_log_error_impl(&dword_228986000, v38, OS_LOG_TYPE_ERROR, "%{public}@: Cannot get zone owner name for profile %{public}@ with error %{public}@", buf, 0x20u);
+      v61 = v41;
+      _os_log_error_impl(&dword_228986000, v37, OS_LOG_TYPE_ERROR, "%{public}@: Cannot get zone owner name for profile %{public}@ with error %{public}@", buf, 0x20u);
     }
 
     if (error)
     {
-      v21 = v42;
+      v21 = v41;
       v22 = 0;
-      *error = v42;
+      *error = v41;
     }
 
     else
@@ -764,14 +761,12 @@ LABEL_31:
     }
   }
 
-  v36 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 uint64_t __75__HDCloudSyncCachedCloudState_zonesByIdentifierForContainers_error_filter___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = [HDCloudSyncZoneIdentifier alloc];
   v8 = [*(a1 + 32) containerIdentifier];
@@ -790,15 +785,15 @@ uint64_t __75__HDCloudSyncCachedCloudState_zonesByIdentifierForContainers_error_
         v13 = [v9 zoneIdentifier];
         v14 = [*(a1 + 32) containerIdentifier];
         v15 = HDCKDatabaseScopeToString([*(a1 + 40) databaseScope]);
-        v44 = 138544130;
-        v45 = v11;
-        v46 = 2114;
-        v47 = v13;
-        v48 = 2114;
-        v49 = v14;
-        v50 = 2114;
-        v51 = v15;
-        _os_log_debug_impl(&dword_228986000, v12, OS_LOG_TYPE_DEBUG, "%{public}@: Ignoring zone %{public}@; with state Identity Lost, container %{public}@, database %{public}@", &v44, 0x2Au);
+        v43 = 138544130;
+        v44 = v11;
+        v45 = 2114;
+        v46 = v13;
+        v47 = 2114;
+        v48 = v14;
+        v49 = 2114;
+        v50 = v15;
+        _os_log_debug_impl(&dword_228986000, v12, OS_LOG_TYPE_DEBUG, "%{public}@: Ignoring zone %{public}@; with state Identity Lost, container %{public}@, database %{public}@", &v43, 0x2Au);
 
 LABEL_16:
         goto LABEL_17;
@@ -859,15 +854,15 @@ LABEL_8:
         v39 = [v38 hd_syncCircleIdentifier];
         v40 = [*(a1 + 48) repository];
         v41 = [v40 syncCircleIdentifier];
-        v44 = 138544130;
-        v45 = v36;
-        v46 = 2114;
-        v47 = v37;
-        v48 = 2114;
-        v49 = v39;
-        v50 = 2114;
-        v51 = v41;
-        _os_log_debug_impl(&dword_228986000, v12, OS_LOG_TYPE_DEBUG, "%{public}@: Ignoring zone %{public}@; syncCircleIdentifier %{public}@ does not match our expected syncCircleIdentifier %{public}@", &v44, 0x2Au);
+        v43 = 138544130;
+        v44 = v36;
+        v45 = 2114;
+        v46 = v37;
+        v47 = 2114;
+        v48 = v39;
+        v49 = 2114;
+        v50 = v41;
+        _os_log_debug_impl(&dword_228986000, v12, OS_LOG_TYPE_DEBUG, "%{public}@: Ignoring zone %{public}@; syncCircleIdentifier %{public}@ does not match our expected syncCircleIdentifier %{public}@", &v43, 0x2Au);
 
         goto LABEL_16;
       }
@@ -888,43 +883,42 @@ LABEL_8:
     v32 = [v9 zoneIdentifier];
     v33 = [v32 ownerName];
     v34 = *(a1 + 56);
-    v44 = 138544130;
-    v45 = v30;
-    v46 = 2114;
-    v47 = v31;
-    v48 = 2114;
-    v49 = v33;
-    v50 = 2114;
-    v51 = v34;
-    _os_log_debug_impl(&dword_228986000, v12, OS_LOG_TYPE_DEBUG, "%{public}@: Ignoring zone %{public}@; owner %{public}@ does not match our expected zone owner name %{public}@", &v44, 0x2Au);
+    v43 = 138544130;
+    v44 = v30;
+    v45 = 2114;
+    v46 = v31;
+    v47 = 2114;
+    v48 = v33;
+    v49 = 2114;
+    v50 = v34;
+    _os_log_debug_impl(&dword_228986000, v12, OS_LOG_TYPE_DEBUG, "%{public}@: Ignoring zone %{public}@; owner %{public}@ does not match our expected zone owner name %{public}@", &v43, 0x2Au);
 
     goto LABEL_16;
   }
 
 LABEL_17:
 
-  v42 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (id)_singletonZoneOfType:(void *)type containerID:(unint64_t)d error:(void *)error filter:(void *)filter
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v8 = errorCopy;
   if (type)
   {
     dCopy = d;
-    v28 = 0;
-    v21 = MEMORY[0x277D85DD0];
-    v22 = 3221225472;
-    v23 = __77__HDCloudSyncCachedCloudState__singletonZoneOfType_containerID_error_filter___block_invoke;
-    v24 = &unk_278614780;
+    v27 = 0;
+    v20 = MEMORY[0x277D85DD0];
+    v21 = 3221225472;
+    v22 = __77__HDCloudSyncCachedCloudState__singletonZoneOfType_containerID_error_filter___block_invoke;
+    v23 = &unk_278614780;
     v9 = errorCopy;
-    v25 = v9;
-    v26 = 0;
-    v10 = [type zonesByIdentifierWithError:&v28 filter:&v21];
-    v11 = v28;
+    v24 = v9;
+    v25 = 0;
+    v10 = [type zonesByIdentifierWithError:&v27 filter:&v20];
+    v11 = v27;
     v12 = v11;
     if (v10 || !v11)
     {
@@ -935,20 +929,20 @@ LABEL_17:
         v15 = *MEMORY[0x277CCC328];
         if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
         {
-          v18 = v15;
-          v19 = HDCloudSyncZoneTypeToString(d);
+          v17 = v15;
+          v18 = HDCloudSyncZoneTypeToString(d);
           profile = [type profile];
           *buf = 138544386;
           typeCopy = type;
-          v31 = 2114;
-          v32 = v19;
-          v33 = 2114;
-          v34 = profile;
-          v35 = 2114;
-          v36 = v9;
-          v37 = 2112;
-          v38 = allValues;
-          _os_log_fault_impl(&dword_228986000, v18, OS_LOG_TYPE_FAULT, "%{public}@ Retrieved multiple cached zones of type %{public}@ for profile %{public}@, container %{public}@. This is unexpected. (%@)", buf, 0x34u);
+          v30 = 2114;
+          v31 = v18;
+          v32 = 2114;
+          v33 = profile;
+          v34 = 2114;
+          v35 = v9;
+          v36 = 2112;
+          v37 = allValues;
+          _os_log_fault_impl(&dword_228986000, v17, OS_LOG_TYPE_FAULT, "%{public}@ Retrieved multiple cached zones of type %{public}@ for profile %{public}@, container %{public}@. This is unexpected. (%@)", buf, 0x34u);
         }
       }
 
@@ -968,8 +962,6 @@ LABEL_17:
       type = 0;
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return type;
 }
@@ -1092,46 +1084,46 @@ uint64_t __57__HDCloudSyncCachedCloudState_zonesForContainerID_error___block_inv
 - (id)detailedDescription
 {
   selfCopy3 = self;
-  v98 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAB68];
   if (self)
   {
-    v83 = 0;
-    v4 = [(HDCloudSyncCachedCloudState *)self zonesByIdentifierWithError:&v83];
-    v5 = v83;
+    v82 = 0;
+    v4 = [(HDCloudSyncCachedCloudState *)self zonesByIdentifierWithError:&v82];
+    v5 = v82;
     v6 = v5;
     if (v4 || !v5)
     {
-      v81 = 0u;
-      v82 = 0u;
-      v79 = 0u;
       v80 = 0u;
+      v81 = 0u;
+      v78 = 0u;
+      v79 = 0u;
       obj = [v4 allValues];
-      v9 = [obj countByEnumeratingWithState:&v79 objects:v92 count:16];
+      v9 = [obj countByEnumeratingWithState:&v78 objects:v91 count:16];
       if (v9)
       {
         v10 = v9;
-        v58 = v6;
-        v59 = v4;
-        v61 = v3;
-        v11 = *v80;
+        v57 = v6;
+        v58 = v4;
+        v60 = v3;
+        v11 = *v79;
         v12 = 1;
         do
         {
           v13 = 0;
-          v65 = v10;
+          v64 = v10;
           do
           {
-            if (*v80 != v11)
+            if (*v79 != v11)
             {
               objc_enumerationMutation(obj);
             }
 
-            v14 = *(*(&v79 + 1) + 8 * v13);
+            v14 = *(*(&v78 + 1) + 8 * v13);
             v15 = objc_opt_class();
-            v78 = 0;
-            v16 = [v14 recordsForClass:v15 error:&v78];
-            v17 = v78;
+            v77 = 0;
+            v16 = [v14 recordsForClass:v15 error:&v77];
+            v17 = v77;
             v18 = v17;
             if (v16)
             {
@@ -1146,26 +1138,26 @@ uint64_t __57__HDCloudSyncCachedCloudState_zonesForContainerID_error___block_inv
             if (v19)
             {
               v20 = v11;
-              v77 = 0u;
-              v75 = 0u;
               v76 = 0u;
               v74 = 0u;
+              v75 = 0u;
+              v73 = 0u;
               v21 = v16;
-              v22 = [v21 countByEnumeratingWithState:&v74 objects:v85 count:16];
+              v22 = [v21 countByEnumeratingWithState:&v73 objects:v84 count:16];
               if (v22)
               {
                 v23 = v22;
-                v24 = *v75;
+                v24 = *v74;
                 do
                 {
                   for (i = 0; i != v23; ++i)
                   {
-                    if (*v75 != v24)
+                    if (*v74 != v24)
                     {
                       objc_enumerationMutation(v21);
                     }
 
-                    v26 = *(*(&v74 + 1) + 8 * i);
+                    v26 = *(*(&v73 + 1) + 8 * i);
                     if (v26)
                     {
                       supportedProtocolVersion = [v26 supportedProtocolVersion];
@@ -1176,14 +1168,14 @@ uint64_t __57__HDCloudSyncCachedCloudState_zonesForContainerID_error___block_inv
                     }
                   }
 
-                  v23 = [v21 countByEnumeratingWithState:&v74 objects:v85 count:16];
+                  v23 = [v21 countByEnumeratingWithState:&v73 objects:v84 count:16];
                 }
 
                 while (v23);
               }
 
               v11 = v20;
-              v10 = v65;
+              v10 = v64;
             }
 
             else
@@ -1196,10 +1188,10 @@ uint64_t __57__HDCloudSyncCachedCloudState_zonesForContainerID_error___block_inv
                 zoneIdentifier = [v14 zoneIdentifier];
                 *buf = 138543874;
                 selfCopy2 = self;
-                v88 = 2114;
-                v89 = zoneIdentifier;
-                v90 = 2114;
-                v91 = v18;
+                v87 = 2114;
+                v88 = zoneIdentifier;
+                v89 = 2114;
+                v90 = v18;
                 _os_log_error_impl(&dword_228986000, v30, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get store records for %{public}@, %{public}@", buf, 0x20u);
               }
             }
@@ -1208,15 +1200,15 @@ uint64_t __57__HDCloudSyncCachedCloudState_zonesForContainerID_error___block_inv
           }
 
           while (v13 != v10);
-          v10 = [obj countByEnumeratingWithState:&v79 objects:v92 count:16];
+          v10 = [obj countByEnumeratingWithState:&v78 objects:v91 count:16];
         }
 
         while (v10);
         v8 = v12;
         selfCopy3 = self;
-        v4 = v59;
-        v3 = v61;
-        v6 = v58;
+        v4 = v58;
+        v3 = v60;
+        v6 = v57;
       }
 
       else
@@ -1231,11 +1223,11 @@ uint64_t __57__HDCloudSyncCachedCloudState_zonesForContainerID_error___block_inv
       v7 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        *v92 = 138543618;
+        *v91 = 138543618;
         selfCopy4 = selfCopy3;
-        v94 = 2114;
-        v95 = v6;
-        _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "%{public}@ Failed to retrieve cached zone identifiers while generating push targets, %{public}@", v92, 0x16u);
+        v93 = 2114;
+        v94 = v6;
+        _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "%{public}@ Failed to retrieve cached zone identifiers while generating push targets, %{public}@", v91, 0x16u);
       }
 
       v8 = 1;
@@ -1248,9 +1240,9 @@ uint64_t __57__HDCloudSyncCachedCloudState_zonesForContainerID_error___block_inv
   }
 
   obja = [v3 stringWithFormat:@"%@\nMinimum supported protocol: %ld\n\n", selfCopy3, v8];
-  v73 = 0;
-  v32 = [(HDCloudSyncCachedCloudState *)selfCopy3 zonesByIdentifierWithError:&v73];
-  v33 = v73;
+  v72 = 0;
+  v32 = [(HDCloudSyncCachedCloudState *)selfCopy3 zonesByIdentifierWithError:&v72];
+  v33 = v72;
   v34 = v33;
   if (!v32)
   {
@@ -1260,11 +1252,11 @@ uint64_t __57__HDCloudSyncCachedCloudState_zonesForContainerID_error___block_inv
       v35 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        *v92 = 138543618;
+        *v91 = 138543618;
         selfCopy4 = selfCopy3;
-        v94 = 2114;
-        v95 = v34;
-        _os_log_error_impl(&dword_228986000, v35, OS_LOG_TYPE_ERROR, "%{public}@ Failed to retrieve zone identifiers for cached cloud state description, %{public}@", v92, 0x16u);
+        v93 = 2114;
+        v94 = v34;
+        _os_log_error_impl(&dword_228986000, v35, OS_LOG_TYPE_ERROR, "%{public}@ Failed to retrieve zone identifiers for cached cloud state description, %{public}@", v91, 0x16u);
       }
     }
   }
@@ -1274,34 +1266,34 @@ uint64_t __57__HDCloudSyncCachedCloudState_zonesForContainerID_error___block_inv
 
   if ([v37 count])
   {
-    v62 = v34;
-    v63 = v32;
+    v61 = v34;
+    v62 = v32;
     [obja appendFormat:@"Master Records (%ld):\n", objc_msgSend(v37, "count")];
-    v71 = 0u;
-    v72 = 0u;
-    v69 = 0u;
     v70 = 0u;
-    v60 = v37;
+    v71 = 0u;
+    v68 = 0u;
+    v69 = 0u;
+    v59 = v37;
     v38 = v37;
-    v39 = [v38 countByEnumeratingWithState:&v69 objects:v84 count:16];
+    v39 = [v38 countByEnumeratingWithState:&v68 objects:v83 count:16];
     if (v39)
     {
       v40 = v39;
-      v41 = *v70;
+      v41 = *v69;
       do
       {
         for (j = 0; j != v40; ++j)
         {
-          if (*v70 != v41)
+          if (*v69 != v41)
           {
             objc_enumerationMutation(v38);
           }
 
-          v43 = *(*(&v69 + 1) + 8 * j);
+          v43 = *(*(&v68 + 1) + 8 * j);
           v44 = objc_opt_class();
-          v68 = 0;
-          v45 = [v43 recordsForClass:v44 error:&v68];
-          v46 = v68;
+          v67 = 0;
+          v45 = [v43 recordsForClass:v44 error:&v67];
+          v46 = v67;
           v47 = v46;
           if (v45)
           {
@@ -1329,29 +1321,27 @@ uint64_t __57__HDCloudSyncCachedCloudState_zonesForContainerID_error___block_inv
             {
               v54 = v52;
               zoneIdentifier2 = [v43 zoneIdentifier];
-              *v92 = 138543874;
+              *v91 = 138543874;
               selfCopy4 = self;
-              v94 = 2114;
-              v95 = zoneIdentifier2;
-              v96 = 2114;
-              v97 = v47;
-              _os_log_error_impl(&dword_228986000, v54, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get store records for %{public}@, %{public}@", v92, 0x20u);
+              v93 = 2114;
+              v94 = zoneIdentifier2;
+              v95 = 2114;
+              v96 = v47;
+              _os_log_error_impl(&dword_228986000, v54, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get store records for %{public}@, %{public}@", v91, 0x20u);
             }
           }
         }
 
-        v40 = [v38 countByEnumeratingWithState:&v69 objects:v84 count:16];
+        v40 = [v38 countByEnumeratingWithState:&v68 objects:v83 count:16];
       }
 
       while (v40);
     }
 
-    v34 = v62;
-    v32 = v63;
-    v37 = v60;
+    v34 = v61;
+    v32 = v62;
+    v37 = v59;
   }
-
-  v56 = *MEMORY[0x277D85DE8];
 
   return obja;
 }

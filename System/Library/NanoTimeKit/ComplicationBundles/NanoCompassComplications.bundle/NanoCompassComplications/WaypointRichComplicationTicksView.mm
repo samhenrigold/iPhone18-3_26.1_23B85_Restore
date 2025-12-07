@@ -18,170 +18,170 @@
   width = tickSize.width;
   v13 = size.height;
   v14 = size.width;
-  v258.receiver = self;
-  v258.super_class = WaypointRichComplicationTicksView;
-  v19 = [(WaypointRichComplicationTicksView *)&v258 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
-  if (v19)
+  v193.receiver = self;
+  v193.super_class = WaypointRichComplicationTicksView;
+  v18 = [(WaypointRichComplicationTicksView *)&v193 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  if (v18)
   {
-    v20 = objc_msgSend_clearColor(MEMORY[0x277D75348], v16, v17, v18);
-    objc_msgSend_setBackgroundColor_(v19, v21, v20, v22);
+    v19 = objc_msgSend_clearColor(MEMORY[0x277D75348], v16, v17);
+    objc_msgSend_setBackgroundColor_(v18, v20, v19);
 
-    v19->_progress = 1.0;
-    v19->_progressDirection = 1.0;
-    v26 = objc_msgSend_layer(v19, v23, v24, v25);
-    v19->_largeTickCount = count;
-    v19->_smallTickCountPerLargeTick = tick;
-    v27 = objc_opt_new();
-    largeTicksReplicatorLayer = v19->_largeTicksReplicatorLayer;
-    v19->_largeTicksReplicatorLayer = v27;
+    v18->_progress = 1.0;
+    v18->_progressDirection = 1.0;
+    v23 = objc_msgSend_layer(v18, v21, v22);
+    v18->_largeTickCount = count;
+    v18->_smallTickCountPerLargeTick = tick;
+    v24 = objc_opt_new();
+    largeTicksReplicatorLayer = v18->_largeTicksReplicatorLayer;
+    v18->_largeTicksReplicatorLayer = v24;
 
-    v29 = *MEMORY[0x277CDA230];
-    objc_msgSend_setFillMode_(v19->_largeTicksReplicatorLayer, v30, *MEMORY[0x277CDA230], v31);
-    objc_msgSend_setInstanceCount_(v19->_largeTicksReplicatorLayer, v32, count, v33);
-    v34 = v19->_largeTicksReplicatorLayer;
-    v38 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v35, v36, v37);
-    v39 = v38;
-    v43 = objc_msgSend_CGColor(v39, v40, v41, v42);
-    objc_msgSend_setInstanceColor_(v34, v44, v43, v45);
+    v26 = *MEMORY[0x277CDA230];
+    objc_msgSend_setFillMode_(v18->_largeTicksReplicatorLayer, v27, *MEMORY[0x277CDA230]);
+    objc_msgSend_setInstanceCount_(v18->_largeTicksReplicatorLayer, v28, count);
+    v29 = v18->_largeTicksReplicatorLayer;
+    v32 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v30, v31);
+    v33 = v32;
+    v36 = objc_msgSend_CGColor(v33, v34, v35);
+    objc_msgSend_setInstanceColor_(v29, v37, v36);
 
-    v46 = v19->_largeTicksReplicatorLayer;
-    CATransform3DMakeRotation(&v257, angle, 0.0, 0.0, 1.0);
-    objc_msgSend_setTransform_(v46, v47, &v257, v48);
-    v49 = v19->_largeTicksReplicatorLayer;
-    v53 = objc_msgSend_clearColor(MEMORY[0x277D75348], v50, v51, v52);
-    v54 = v53;
-    v58 = objc_msgSend_CGColor(v54, v55, v56, v57);
-    objc_msgSend_setBackgroundColor_(v49, v59, v58, v60);
+    v38 = v18->_largeTicksReplicatorLayer;
+    CATransform3DMakeRotation(&v192, angle, 0.0, 0.0, 1.0);
+    objc_msgSend_setTransform_(v38, v39, &v192);
+    v40 = v18->_largeTicksReplicatorLayer;
+    v43 = objc_msgSend_clearColor(MEMORY[0x277D75348], v41, v42);
+    v44 = v43;
+    v47 = objc_msgSend_CGColor(v44, v45, v46);
+    objc_msgSend_setBackgroundColor_(v40, v48, v47);
 
-    objc_msgSend_addSublayer_(v26, v61, v19->_largeTicksReplicatorLayer, v62);
-    v63 = objc_opt_new();
-    largeTickLayer = v19->_largeTickLayer;
-    v19->_largeTickLayer = v63;
+    objc_msgSend_addSublayer_(v23, v49, v18->_largeTicksReplicatorLayer);
+    v50 = objc_opt_new();
+    largeTickLayer = v18->_largeTickLayer;
+    v18->_largeTickLayer = v50;
 
-    v65 = v19->_largeTickLayer;
-    v69 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v66, v67, v68);
-    v70 = v69;
-    v74 = objc_msgSend_CGColor(v70, v71, v72, v73);
-    objc_msgSend_setBackgroundColor_(v65, v75, v74, v76);
+    v52 = v18->_largeTickLayer;
+    v55 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v53, v54);
+    v56 = v55;
+    v59 = objc_msgSend_CGColor(v56, v57, v58);
+    objc_msgSend_setBackgroundColor_(v52, v60, v59);
 
-    objc_msgSend_setBounds_(v19->_largeTickLayer, v77, v78, v79, 0.0, 0.0, v14, v13);
-    objc_msgSend_setCornerRadius_(v19->_largeTickLayer, v80, v81, v82, v14 * 0.5);
-    objc_msgSend_addSublayer_(v19->_largeTicksReplicatorLayer, v83, v19->_largeTickLayer, v84);
-    v85 = objc_opt_new();
-    highlightedLargeTicksReplicatorLayer = v19->_highlightedLargeTicksReplicatorLayer;
-    v19->_highlightedLargeTicksReplicatorLayer = v85;
+    objc_msgSend_setBounds_(v18->_largeTickLayer, v61, v62, 0.0, 0.0, v14, v13);
+    objc_msgSend_setCornerRadius_(v18->_largeTickLayer, v63, v64, v14 * 0.5);
+    objc_msgSend_addSublayer_(v18->_largeTicksReplicatorLayer, v65, v18->_largeTickLayer);
+    v66 = objc_opt_new();
+    highlightedLargeTicksReplicatorLayer = v18->_highlightedLargeTicksReplicatorLayer;
+    v18->_highlightedLargeTicksReplicatorLayer = v66;
 
-    objc_msgSend_setFillMode_(v19->_highlightedLargeTicksReplicatorLayer, v87, v29, v88);
-    objc_msgSend_setInstanceCount_(v19->_highlightedLargeTicksReplicatorLayer, v89, count, v90);
-    v91 = v19->_highlightedLargeTicksReplicatorLayer;
-    v95 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v92, v93, v94);
-    v96 = v95;
-    v100 = objc_msgSend_CGColor(v96, v97, v98, v99);
-    objc_msgSend_setInstanceColor_(v91, v101, v100, v102);
+    objc_msgSend_setFillMode_(v18->_highlightedLargeTicksReplicatorLayer, v68, v26);
+    objc_msgSend_setInstanceCount_(v18->_highlightedLargeTicksReplicatorLayer, v69, count);
+    v70 = v18->_highlightedLargeTicksReplicatorLayer;
+    v73 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v71, v72);
+    v74 = v73;
+    v77 = objc_msgSend_CGColor(v74, v75, v76);
+    objc_msgSend_setInstanceColor_(v70, v78, v77);
 
-    v103 = v19->_highlightedLargeTicksReplicatorLayer;
-    CATransform3DMakeRotation(&v257, angle, 0.0, 0.0, 1.0);
-    objc_msgSend_setTransform_(v103, v104, &v257, v105);
-    v106 = v19->_highlightedLargeTicksReplicatorLayer;
-    v110 = objc_msgSend_clearColor(MEMORY[0x277D75348], v107, v108, v109);
-    v111 = v110;
-    v115 = objc_msgSend_CGColor(v111, v112, v113, v114);
-    objc_msgSend_setBackgroundColor_(v106, v116, v115, v117);
+    v79 = v18->_highlightedLargeTicksReplicatorLayer;
+    CATransform3DMakeRotation(&v192, angle, 0.0, 0.0, 1.0);
+    objc_msgSend_setTransform_(v79, v80, &v192);
+    v81 = v18->_highlightedLargeTicksReplicatorLayer;
+    v84 = objc_msgSend_clearColor(MEMORY[0x277D75348], v82, v83);
+    v85 = v84;
+    v88 = objc_msgSend_CGColor(v85, v86, v87);
+    objc_msgSend_setBackgroundColor_(v81, v89, v88);
 
-    objc_msgSend_insertSublayer_above_(v26, v118, v19->_highlightedLargeTicksReplicatorLayer, v19->_largeTicksReplicatorLayer);
-    v119 = objc_opt_new();
-    highlightedLargeTickLayer = v19->_highlightedLargeTickLayer;
-    v19->_highlightedLargeTickLayer = v119;
+    objc_msgSend_insertSublayer_above_(v23, v90, v18->_highlightedLargeTicksReplicatorLayer, v18->_largeTicksReplicatorLayer);
+    v91 = objc_opt_new();
+    highlightedLargeTickLayer = v18->_highlightedLargeTickLayer;
+    v18->_highlightedLargeTickLayer = v91;
 
-    v121 = v19->_highlightedLargeTickLayer;
-    v125 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v122, v123, v124);
-    v126 = v125;
-    v130 = objc_msgSend_CGColor(v126, v127, v128, v129);
-    objc_msgSend_setBackgroundColor_(v121, v131, v130, v132);
+    v93 = v18->_highlightedLargeTickLayer;
+    v96 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v94, v95);
+    v97 = v96;
+    v100 = objc_msgSend_CGColor(v97, v98, v99);
+    objc_msgSend_setBackgroundColor_(v93, v101, v100);
 
-    objc_msgSend_setBounds_(v19->_highlightedLargeTickLayer, v133, v134, v135, 0.0, 0.0, v14, v13);
-    objc_msgSend_setCornerRadius_(v19->_highlightedLargeTickLayer, v136, v137, v138, v14 * 0.5);
-    objc_msgSend_addSublayer_(v19->_highlightedLargeTicksReplicatorLayer, v139, v19->_highlightedLargeTickLayer, v140);
-    v19->_largeTickPositionY = v13 * 0.5;
+    objc_msgSend_setBounds_(v18->_highlightedLargeTickLayer, v102, v103, 0.0, 0.0, v14, v13);
+    objc_msgSend_setCornerRadius_(v18->_highlightedLargeTickLayer, v104, v105, v14 * 0.5);
+    objc_msgSend_addSublayer_(v18->_highlightedLargeTicksReplicatorLayer, v106, v18->_highlightedLargeTickLayer);
+    v18->_largeTickPositionY = v13 * 0.5;
     if (width != *MEMORY[0x277CBF3A8] || height != *(MEMORY[0x277CBF3A8] + 8))
     {
-      v144 = objc_opt_new();
-      smallTicksReplicatorLayer = v19->_smallTicksReplicatorLayer;
-      v19->_smallTicksReplicatorLayer = v144;
+      v109 = objc_opt_new();
+      smallTicksReplicatorLayer = v18->_smallTicksReplicatorLayer;
+      v18->_smallTicksReplicatorLayer = v109;
 
-      objc_msgSend_setFillMode_(v19->_smallTicksReplicatorLayer, v146, v29, v147);
-      objc_msgSend_setInstanceCount_(v19->_smallTicksReplicatorLayer, v148, v19->_smallTickCountPerLargeTick * count, v149);
-      v150 = v19->_smallTicksReplicatorLayer;
-      v154 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v151, v152, v153);
-      v155 = v154;
-      v159 = objc_msgSend_CGColor(v155, v156, v157, v158);
-      objc_msgSend_setInstanceColor_(v150, v160, v159, v161);
+      objc_msgSend_setFillMode_(v18->_smallTicksReplicatorLayer, v111, v26);
+      objc_msgSend_setInstanceCount_(v18->_smallTicksReplicatorLayer, v112, v18->_smallTickCountPerLargeTick * count);
+      v113 = v18->_smallTicksReplicatorLayer;
+      v116 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v114, v115);
+      v117 = v116;
+      v120 = objc_msgSend_CGColor(v117, v118, v119);
+      objc_msgSend_setInstanceColor_(v113, v121, v120);
 
-      v162 = v19->_smallTicksReplicatorLayer;
-      CATransform3DMakeRotation(&v257, angle, 0.0, 0.0, 1.0);
-      objc_msgSend_setTransform_(v162, v163, &v257, v164);
-      v165 = v19->_smallTicksReplicatorLayer;
-      v169 = objc_msgSend_clearColor(MEMORY[0x277D75348], v166, v167, v168);
-      v170 = v169;
-      v174 = objc_msgSend_CGColor(v170, v171, v172, v173);
-      objc_msgSend_setBackgroundColor_(v165, v175, v174, v176);
+      v122 = v18->_smallTicksReplicatorLayer;
+      CATransform3DMakeRotation(&v192, angle, 0.0, 0.0, 1.0);
+      objc_msgSend_setTransform_(v122, v123, &v192);
+      v124 = v18->_smallTicksReplicatorLayer;
+      v127 = objc_msgSend_clearColor(MEMORY[0x277D75348], v125, v126);
+      v128 = v127;
+      v131 = objc_msgSend_CGColor(v128, v129, v130);
+      objc_msgSend_setBackgroundColor_(v124, v132, v131);
 
-      v177 = objc_opt_new();
-      smallTickLayer = v19->_smallTickLayer;
-      v19->_smallTickLayer = v177;
+      v133 = objc_opt_new();
+      smallTickLayer = v18->_smallTickLayer;
+      v18->_smallTickLayer = v133;
 
-      v179 = v19->_smallTickLayer;
-      v183 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v180, v181, v182);
-      v184 = v183;
-      v188 = objc_msgSend_CGColor(v184, v185, v186, v187);
-      objc_msgSend_setBackgroundColor_(v179, v189, v188, v190);
+      v135 = v18->_smallTickLayer;
+      v138 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v136, v137);
+      v139 = v138;
+      v142 = objc_msgSend_CGColor(v139, v140, v141);
+      objc_msgSend_setBackgroundColor_(v135, v143, v142);
 
-      objc_msgSend_setBounds_(v19->_smallTickLayer, v191, v192, v193, 0.0, 0.0, width, height);
-      objc_msgSend_setCornerRadius_(v19->_smallTickLayer, v194, v195, v196, width * 0.5);
-      objc_msgSend_addSublayer_(v19->_smallTicksReplicatorLayer, v197, v19->_smallTickLayer, v198);
-      v19->_smallTickPositionY = height * 0.5;
-      v199 = objc_opt_new();
-      highlightedSmallTicksReplicatorLayer = v19->_highlightedSmallTicksReplicatorLayer;
-      v19->_highlightedSmallTicksReplicatorLayer = v199;
+      objc_msgSend_setBounds_(v18->_smallTickLayer, v144, v145, 0.0, 0.0, width, height);
+      objc_msgSend_setCornerRadius_(v18->_smallTickLayer, v146, v147, width * 0.5);
+      objc_msgSend_addSublayer_(v18->_smallTicksReplicatorLayer, v148, v18->_smallTickLayer);
+      v18->_smallTickPositionY = height * 0.5;
+      v149 = objc_opt_new();
+      highlightedSmallTicksReplicatorLayer = v18->_highlightedSmallTicksReplicatorLayer;
+      v18->_highlightedSmallTicksReplicatorLayer = v149;
 
-      objc_msgSend_setFillMode_(v19->_highlightedSmallTicksReplicatorLayer, v201, v29, v202);
-      objc_msgSend_setInstanceCount_(v19->_highlightedSmallTicksReplicatorLayer, v203, v19->_smallTickCountPerLargeTick * count, v204);
-      v205 = v19->_highlightedSmallTicksReplicatorLayer;
-      v209 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v206, v207, v208);
-      v210 = v209;
-      v214 = objc_msgSend_CGColor(v210, v211, v212, v213);
-      objc_msgSend_setInstanceColor_(v205, v215, v214, v216);
+      objc_msgSend_setFillMode_(v18->_highlightedSmallTicksReplicatorLayer, v151, v26);
+      objc_msgSend_setInstanceCount_(v18->_highlightedSmallTicksReplicatorLayer, v152, v18->_smallTickCountPerLargeTick * count);
+      v153 = v18->_highlightedSmallTicksReplicatorLayer;
+      v156 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v154, v155);
+      v157 = v156;
+      v160 = objc_msgSend_CGColor(v157, v158, v159);
+      objc_msgSend_setInstanceColor_(v153, v161, v160);
 
-      v217 = v19->_highlightedSmallTicksReplicatorLayer;
-      CATransform3DMakeRotation(&v257, angle, 0.0, 0.0, 1.0);
-      objc_msgSend_setTransform_(v217, v218, &v257, v219);
-      v220 = v19->_highlightedSmallTicksReplicatorLayer;
-      v224 = objc_msgSend_clearColor(MEMORY[0x277D75348], v221, v222, v223);
-      v225 = v224;
-      v229 = objc_msgSend_CGColor(v225, v226, v227, v228);
-      objc_msgSend_setBackgroundColor_(v220, v230, v229, v231);
+      v162 = v18->_highlightedSmallTicksReplicatorLayer;
+      CATransform3DMakeRotation(&v192, angle, 0.0, 0.0, 1.0);
+      objc_msgSend_setTransform_(v162, v163, &v192);
+      v164 = v18->_highlightedSmallTicksReplicatorLayer;
+      v167 = objc_msgSend_clearColor(MEMORY[0x277D75348], v165, v166);
+      v168 = v167;
+      v171 = objc_msgSend_CGColor(v168, v169, v170);
+      objc_msgSend_setBackgroundColor_(v164, v172, v171);
 
-      v232 = objc_opt_new();
-      highlightedSmallTickLayer = v19->_highlightedSmallTickLayer;
-      v19->_highlightedSmallTickLayer = v232;
+      v173 = objc_opt_new();
+      highlightedSmallTickLayer = v18->_highlightedSmallTickLayer;
+      v18->_highlightedSmallTickLayer = v173;
 
-      v234 = v19->_highlightedSmallTickLayer;
-      v238 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v235, v236, v237);
-      v239 = v238;
-      v243 = objc_msgSend_CGColor(v239, v240, v241, v242);
-      objc_msgSend_setBackgroundColor_(v234, v244, v243, v245);
+      v175 = v18->_highlightedSmallTickLayer;
+      v178 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v176, v177);
+      v179 = v178;
+      v182 = objc_msgSend_CGColor(v179, v180, v181);
+      objc_msgSend_setBackgroundColor_(v175, v183, v182);
 
-      objc_msgSend_setBounds_(v19->_highlightedSmallTickLayer, v246, v247, v248, 0.0, 0.0, width, height);
-      objc_msgSend_setCornerRadius_(v19->_highlightedSmallTickLayer, v249, v250, v251, width * 0.5);
-      objc_msgSend_addSublayer_(v19->_highlightedSmallTicksReplicatorLayer, v252, v19->_highlightedSmallTickLayer, v253);
-      objc_msgSend_insertSublayer_below_(v26, v254, v19->_highlightedSmallTicksReplicatorLayer, v19->_highlightedLargeTicksReplicatorLayer);
-      objc_msgSend_insertSublayer_below_(v26, v255, v19->_smallTicksReplicatorLayer, v19->_largeTicksReplicatorLayer);
+      objc_msgSend_setBounds_(v18->_highlightedSmallTickLayer, v184, v185, 0.0, 0.0, width, height);
+      objc_msgSend_setCornerRadius_(v18->_highlightedSmallTickLayer, v186, v187, width * 0.5);
+      objc_msgSend_addSublayer_(v18->_highlightedSmallTicksReplicatorLayer, v188, v18->_highlightedSmallTickLayer);
+      objc_msgSend_insertSublayer_below_(v23, v189, v18->_highlightedSmallTicksReplicatorLayer, v18->_highlightedLargeTicksReplicatorLayer);
+      objc_msgSend_insertSublayer_below_(v23, v190, v18->_smallTicksReplicatorLayer, v18->_largeTicksReplicatorLayer);
     }
 
-    objc_msgSend_setLargeTicksTransformAngle_(v19, v141, v142, v143, range / count);
+    objc_msgSend_setLargeTicksTransformAngle_(v18, v107, v108, range / count);
   }
 
-  return v19;
+  return v18;
 }
 
 - (void)setLargeTickColor:(id)color
@@ -189,12 +189,12 @@
   colorCopy = color;
   if (self->_largeTickColor != colorCopy)
   {
-    v13 = colorCopy;
+    v11 = colorCopy;
     objc_storeStrong(&self->_largeTickColor, color);
     largeTicksReplicatorLayer = self->_largeTicksReplicatorLayer;
-    v10 = objc_msgSend_CGColor(self->_largeTickColor, v7, v8, v9);
-    objc_msgSend_setInstanceColor_(largeTicksReplicatorLayer, v11, v10, v12);
-    colorCopy = v13;
+    v9 = objc_msgSend_CGColor(self->_largeTickColor, v7, v8);
+    objc_msgSend_setInstanceColor_(largeTicksReplicatorLayer, v10, v9);
+    colorCopy = v11;
   }
 }
 
@@ -203,12 +203,12 @@
   colorCopy = color;
   if (self->_smallTickColor != colorCopy)
   {
-    v13 = colorCopy;
+    v11 = colorCopy;
     objc_storeStrong(&self->_smallTickColor, color);
     smallTicksReplicatorLayer = self->_smallTicksReplicatorLayer;
-    v10 = objc_msgSend_CGColor(self->_smallTickColor, v7, v8, v9);
-    objc_msgSend_setInstanceColor_(smallTicksReplicatorLayer, v11, v10, v12);
-    colorCopy = v13;
+    v9 = objc_msgSend_CGColor(self->_smallTickColor, v7, v8);
+    objc_msgSend_setInstanceColor_(smallTicksReplicatorLayer, v10, v9);
+    colorCopy = v11;
   }
 }
 
@@ -217,15 +217,15 @@
   colorCopy = color;
   if (self->_highlightColor != colorCopy)
   {
-    v20 = colorCopy;
+    v16 = colorCopy;
     objc_storeStrong(&self->_highlightColor, color);
     highlightedLargeTicksReplicatorLayer = self->_highlightedLargeTicksReplicatorLayer;
-    v10 = objc_msgSend_CGColor(self->_highlightColor, v7, v8, v9);
-    objc_msgSend_setInstanceColor_(highlightedLargeTicksReplicatorLayer, v11, v10, v12);
+    v9 = objc_msgSend_CGColor(self->_highlightColor, v7, v8);
+    objc_msgSend_setInstanceColor_(highlightedLargeTicksReplicatorLayer, v10, v9);
     highlightedSmallTicksReplicatorLayer = self->_highlightedSmallTicksReplicatorLayer;
-    v17 = objc_msgSend_CGColor(self->_highlightColor, v14, v15, v16);
-    objc_msgSend_setInstanceColor_(highlightedSmallTicksReplicatorLayer, v18, v17, v19);
-    colorCopy = v20;
+    v14 = objc_msgSend_CGColor(self->_highlightColor, v12, v13);
+    objc_msgSend_setInstanceColor_(highlightedSmallTicksReplicatorLayer, v15, v14);
+    colorCopy = v16;
   }
 }
 
@@ -239,12 +239,12 @@
 
   if (progress >= progress)
   {
-    v7 = 0.05;
+    v6 = 0.05;
   }
 
   else
   {
-    v7 = 0.25;
+    v6 = 0.25;
   }
 
   self->_progress = progress;
@@ -252,57 +252,57 @@
   largeTickLayer = self->_largeTickLayer;
   if (!largeTickCount)
   {
-    objc_msgSend_setHidden_(largeTickLayer, a2, 1, v3);
+    objc_msgSend_setHidden_(largeTickLayer, a2, 1);
     highlightedLargeTickLayer = self->_highlightedLargeTickLayer;
     goto LABEL_10;
   }
 
-  objc_msgSend_setHidden_(largeTickLayer, a2, 0, v3);
-  objc_msgSend_setInstanceCount_(self->_largeTicksReplicatorLayer, v10, largeTickCount, v11);
+  objc_msgSend_setHidden_(largeTickLayer, a2, 0);
+  objc_msgSend_setInstanceCount_(self->_largeTicksReplicatorLayer, v9, largeTickCount);
   highlightedLargeTickLayer = self->_highlightedLargeTickLayer;
   if (self->_progress == 0.0)
   {
 LABEL_10:
-    objc_msgSend_setHidden_(highlightedLargeTickLayer, v12, 1, v13);
+    objc_msgSend_setHidden_(highlightedLargeTickLayer, v10, 1);
     goto LABEL_11;
   }
 
-  objc_msgSend_setHidden_(highlightedLargeTickLayer, v12, 0, v13);
-  objc_msgSend_setInstanceCount_(self->_highlightedLargeTicksReplicatorLayer, v15, (((progress * largeTickCount) + 1.0) + 0.1), v16);
+  objc_msgSend_setHidden_(highlightedLargeTickLayer, v10, 0);
+  objc_msgSend_setInstanceCount_(self->_highlightedLargeTicksReplicatorLayer, v12, (((progress * largeTickCount) + 1.0) + 0.1));
 LABEL_11:
   if (self->_smallTicksReplicatorLayer)
   {
-    v19 = self->_smallTickCountPerLargeTick * self->_largeTickCount;
+    v14 = self->_smallTickCountPerLargeTick * self->_largeTickCount;
     smallTickLayer = self->_smallTickLayer;
-    if (v19)
+    if (v14)
     {
-      objc_msgSend_setHidden_(smallTickLayer, v17, 0, v18);
-      objc_msgSend_setInstanceCount_(self->_smallTicksReplicatorLayer, v21, v19, v22);
+      objc_msgSend_setHidden_(smallTickLayer, v13, 0);
+      objc_msgSend_setInstanceCount_(self->_smallTicksReplicatorLayer, v16, v14);
     }
 
     else
     {
-      objc_msgSend_setHidden_(smallTickLayer, v17, 1, v18);
+      objc_msgSend_setHidden_(smallTickLayer, v13, 1);
     }
   }
 
   if (self->_highlightedSmallTicksReplicatorLayer)
   {
-    v23 = self->_progress;
-    v24 = (v7 + (((v23 * self->_largeTickCount) * self->_smallTickCountPerLargeTick) + 1.0));
+    v17 = self->_progress;
+    v18 = (v6 + (((v17 * self->_largeTickCount) * self->_smallTickCountPerLargeTick) + 1.0));
     highlightedSmallTickLayer = self->_highlightedSmallTickLayer;
-    if (!v24 || v23 == 0.0)
+    if (!v18 || v17 == 0.0)
     {
 
-      objc_msgSend_setHidden_(highlightedSmallTickLayer, v17, 1, v18);
+      objc_msgSend_setHidden_(highlightedSmallTickLayer, v13, 1);
     }
 
     else
     {
-      objc_msgSend_setHidden_(highlightedSmallTickLayer, v17, 0, v18);
+      objc_msgSend_setHidden_(highlightedSmallTickLayer, v13, 0);
       highlightedSmallTicksReplicatorLayer = self->_highlightedSmallTicksReplicatorLayer;
 
-      objc_msgSend_setInstanceCount_(highlightedSmallTicksReplicatorLayer, v26, v24, v27);
+      objc_msgSend_setInstanceCount_(highlightedSmallTicksReplicatorLayer, v20, v18);
     }
   }
 }
@@ -319,7 +319,7 @@ LABEL_11:
   if (self->_progressDirection != v4)
   {
     self->_progressDirection = v4;
-    MEMORY[0x2821F9670]();
+    (MEMORY[0x2821F9670])(self, sel__updateTicksRotationTransform);
   }
 }
 
@@ -328,70 +328,70 @@ LABEL_11:
   if (self->_largeTicksTransformAngle != angle)
   {
     self->_largeTicksTransformAngle = angle;
-    MEMORY[0x2821F9670]();
+    (MEMORY[0x2821F9670])(self, sel__updateTicksRotationTransform);
   }
 }
 
 - (void)_updateTicksRotationTransform
 {
-  objc_msgSend_setDisableActions_(MEMORY[0x277CD9FF0], a2, 1, v2);
-  v4 = self->_largeTicksTransformAngle * self->_progressDirection;
+  objc_msgSend_setDisableActions_(MEMORY[0x277CD9FF0], a2, 1);
+  v3 = self->_largeTicksTransformAngle * self->_progressDirection;
   largeTicksReplicatorLayer = self->_largeTicksReplicatorLayer;
-  CATransform3DMakeRotation(&v19, v4, 0.0, 0.0, 1.0);
-  objc_msgSend_setInstanceTransform_(largeTicksReplicatorLayer, v6, &v19, v7);
+  CATransform3DMakeRotation(&v13, v3, 0.0, 0.0, 1.0);
+  objc_msgSend_setInstanceTransform_(largeTicksReplicatorLayer, v5, &v13);
   highlightedLargeTicksReplicatorLayer = self->_highlightedLargeTicksReplicatorLayer;
-  CATransform3DMakeRotation(&v19, v4, 0.0, 0.0, 1.0);
-  objc_msgSend_setInstanceTransform_(highlightedLargeTicksReplicatorLayer, v9, &v19, v10);
+  CATransform3DMakeRotation(&v13, v3, 0.0, 0.0, 1.0);
+  objc_msgSend_setInstanceTransform_(highlightedLargeTicksReplicatorLayer, v7, &v13);
   smallTicksReplicatorLayer = self->_smallTicksReplicatorLayer;
   if (smallTicksReplicatorLayer)
   {
-    CATransform3DMakeRotation(&v19, v4 / self->_smallTickCountPerLargeTick, 0.0, 0.0, 1.0);
-    objc_msgSend_setInstanceTransform_(smallTicksReplicatorLayer, v14, &v19, v15);
+    CATransform3DMakeRotation(&v13, v3 / self->_smallTickCountPerLargeTick, 0.0, 0.0, 1.0);
+    objc_msgSend_setInstanceTransform_(smallTicksReplicatorLayer, v10, &v13);
   }
 
   highlightedSmallTicksReplicatorLayer = self->_highlightedSmallTicksReplicatorLayer;
   if (highlightedSmallTicksReplicatorLayer)
   {
-    CATransform3DMakeRotation(&v19, v4 / self->_smallTickCountPerLargeTick, 0.0, 0.0, 1.0);
-    objc_msgSend_setInstanceTransform_(highlightedSmallTicksReplicatorLayer, v17, &v19, v18);
+    CATransform3DMakeRotation(&v13, v3 / self->_smallTickCountPerLargeTick, 0.0, 0.0, 1.0);
+    objc_msgSend_setInstanceTransform_(highlightedSmallTicksReplicatorLayer, v12, &v13);
   }
 
-  objc_msgSend_setDisableActions_(MEMORY[0x277CD9FF0], v11, 0, v12);
+  objc_msgSend_setDisableActions_(MEMORY[0x277CD9FF0], v8, 0);
 }
 
 - (void)layoutSubviews
 {
-  v55.receiver = self;
-  v55.super_class = WaypointRichComplicationTicksView;
-  [(WaypointRichComplicationTicksView *)&v55 layoutSubviews];
-  v6 = objc_msgSend_layer(self, v3, v4, v5);
-  objc_msgSend_bounds(v6, v7, v8, v9);
+  v42.receiver = self;
+  v42.super_class = WaypointRichComplicationTicksView;
+  [(WaypointRichComplicationTicksView *)&v42 layoutSubviews];
+  v5 = objc_msgSend_layer(self, v3, v4);
+  objc_msgSend_bounds(v5, v6, v7);
+  v9 = v8;
   v11 = v10;
   v13 = v12;
   v15 = v14;
-  v17 = v16;
-  v18 = v14 * 0.5;
-  v19 = v16 * 0.5;
-  objc_msgSend_setPosition_(self->_largeTicksReplicatorLayer, v20, v21, v22, v14 * 0.5, v16 * 0.5);
-  objc_msgSend_setBounds_(self->_largeTicksReplicatorLayer, v23, v24, v25, v11, v13, v15, v17);
-  objc_msgSend_setPosition_(self->_largeTickLayer, v26, v27, v28, v18, self->_largeTickPositionY);
-  objc_msgSend_setPosition_(self->_highlightedLargeTicksReplicatorLayer, v29, v30, v31, v18, v19);
-  objc_msgSend_setBounds_(self->_highlightedLargeTicksReplicatorLayer, v32, v33, v34, v11, v13, v15, v17);
-  objc_msgSend_setPosition_(self->_highlightedLargeTickLayer, v35, v36, v37, v18, self->_largeTickPositionY);
+  v16 = v12 * 0.5;
+  v17 = v14 * 0.5;
+  objc_msgSend_setPosition_(self->_largeTicksReplicatorLayer, v18, v19, v12 * 0.5, v14 * 0.5);
+  objc_msgSend_setBounds_(self->_largeTicksReplicatorLayer, v20, v21, v9, v11, v13, v15);
+  objc_msgSend_setPosition_(self->_largeTickLayer, v22, v23, v16, self->_largeTickPositionY);
+  objc_msgSend_setPosition_(self->_highlightedLargeTicksReplicatorLayer, v24, v25, v16, v17);
+  objc_msgSend_setBounds_(self->_highlightedLargeTicksReplicatorLayer, v26, v27, v9, v11, v13, v15);
+  objc_msgSend_setPosition_(self->_highlightedLargeTickLayer, v28, v29, v16, self->_largeTickPositionY);
   smallTicksReplicatorLayer = self->_smallTicksReplicatorLayer;
   if (smallTicksReplicatorLayer)
   {
-    objc_msgSend_setPosition_(smallTicksReplicatorLayer, v38, v39, v40, v18, v19);
-    objc_msgSend_setBounds_(self->_smallTicksReplicatorLayer, v42, v43, v44, v11, v13, v15, v17);
-    objc_msgSend_setPosition_(self->_smallTickLayer, v45, v46, v47, v18, self->_smallTickPositionY);
+    objc_msgSend_setPosition_(smallTicksReplicatorLayer, v30, v31, v16, v17);
+    objc_msgSend_setBounds_(self->_smallTicksReplicatorLayer, v33, v34, v9, v11, v13, v15);
+    objc_msgSend_setPosition_(self->_smallTickLayer, v35, v36, v16, self->_smallTickPositionY);
   }
 
   highlightedSmallTicksReplicatorLayer = self->_highlightedSmallTicksReplicatorLayer;
   if (highlightedSmallTicksReplicatorLayer)
   {
-    objc_msgSend_setPosition_(highlightedSmallTicksReplicatorLayer, v38, v39, v40, v18, v19);
-    objc_msgSend_setBounds_(self->_highlightedSmallTicksReplicatorLayer, v49, v50, v51, v11, v13, v15, v17);
-    objc_msgSend_setPosition_(self->_highlightedSmallTickLayer, v52, v53, v54, v18, self->_smallTickPositionY);
+    objc_msgSend_setPosition_(highlightedSmallTicksReplicatorLayer, v30, v31, v16, v17);
+    objc_msgSend_setBounds_(self->_highlightedSmallTicksReplicatorLayer, v38, v39, v9, v11, v13, v15);
+    objc_msgSend_setPosition_(self->_highlightedSmallTickLayer, v40, v41, v16, self->_smallTickPositionY);
   }
 }
 

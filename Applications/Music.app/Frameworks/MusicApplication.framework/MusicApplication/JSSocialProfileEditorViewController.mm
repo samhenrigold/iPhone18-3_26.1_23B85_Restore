@@ -18,14 +18,14 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_4E243C();
+  sub_4E243C(selfCopy);
 }
 
 - (void)collectionView:(id)view willDisplayCell:(id)cell forItemAtIndexPath:(id)path
 {
   v7 = sub_AB3820();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   objc_opt_self();
@@ -59,13 +59,13 @@
 {
   v7 = sub_AB3820();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   viewCopy = view;
   pathCopy = path;
   selfCopy = self;
-  v14 = sub_4E3B34();
+  v14 = sub_4E3B34(viewCopy, v10);
 
   (*(v8 + 8))(v10, v7);
 
@@ -76,7 +76,7 @@
 {
   v9 = sub_AB3820();
   v10 = *(v9 - 8);
-  __chkstk_darwin(v9);
+  __chkstk_darwin();
   v12 = &v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = sub_AB92A0();
   v15 = v14;
@@ -108,7 +108,7 @@
 {
   v7 = sub_AB3820();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   type metadata accessor for SocialProfileEditorCell();
@@ -126,7 +126,7 @@
 {
   v5 = sub_AB3820();
   v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
+  __chkstk_darwin();
   v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   (*(v6 + 8))(v8, v5);
@@ -137,7 +137,7 @@
 {
   v5 = sub_AB3820();
   v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
+  __chkstk_darwin();
   v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   (*(v6 + 8))(v8, v5);
@@ -147,7 +147,7 @@
 - (void)imagePickerController:(id)controller didFinishPickingMediaWithInfo:(id)info
 {
   type metadata accessor for InfoKey(0);
-  sub_4E9BAC(&unk_E05380, 255, type metadata accessor for InfoKey);
+  sub_4E9BAC(&unk_E05380, 255, type metadata accessor for InfoKey, &unk_AF7660);
   v7 = sub_AB8FF0();
   controllerCopy = controller;
   infoCopy = info;

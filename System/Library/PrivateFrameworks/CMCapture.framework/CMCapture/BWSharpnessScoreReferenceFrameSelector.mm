@@ -108,13 +108,15 @@ LABEL_41:
       v125 = 0u;
       v126 = 0u;
       v127 = 0u;
-      v21 = OUTLINED_FUNCTION_7_71(v13, v14, v15, v16, v17, v18, v19, v20, v66, *(&v66 + 1), v69, *(&v69 + 1), v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v107, v109, v111, v113, v115, v117, v119, v121, *(&v121 + 1), v122, *(&v122 + 1), v123);
+      v21 = OUTLINED_FUNCTION_7_71(v13, v14, v15, v16, v17, v18, v19, v20, v68, *(&v68 + 1), v71, *(&v71 + 1), v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, v108, v110, v112, v114, v116, v118, v120, v122, *(&v122 + 1), v123, *(&v123 + 1));
       if (v21)
       {
         v22 = v21;
         v23 = *v125;
-        v66 = *(MEMORY[0x1E695F050] + 16);
-        v69 = *MEMORY[0x1E695F050];
+        v24 = v13;
+        v25 = SHIDWORD(v13);
+        v68 = *(MEMORY[0x1E695F050] + 16);
+        v71 = *MEMORY[0x1E695F050];
         do
         {
           for (i = 0; i != v22; ++i)
@@ -124,84 +126,84 @@ LABEL_41:
               objc_enumerationMutation(v11);
             }
 
-            v121 = v69;
-            v122 = v66;
+            v122 = v71;
+            v123 = v68;
             CGRectIfPresent = FigCFDictionaryGetCGRectIfPresent();
             if (CGRectIfPresent)
             {
-              FigCaptureMetadataUtilitiesDenormalizeCropRect(*&v121, *(&v121 + 1), *&v122, *(&v122 + 1));
+              FigCaptureMetadataUtilitiesDenormalizeCropRect(*&v122, *(&v122 + 1), *&v123, *(&v123 + 1), v24, v25);
               DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v128);
               [array addObject:DictionaryRepresentation];
             }
           }
 
-          v22 = OUTLINED_FUNCTION_7_71(CGRectIfPresent, v26, v27, v28, v29, v30, v31, v32, v66, *(&v66 + 1), v69, *(&v69 + 1), v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v105, v108, v110, v112, v114, v116, v118, v120, v121, *(&v121 + 1), v122, *(&v122 + 1), v123);
+          v22 = OUTLINED_FUNCTION_7_71(CGRectIfPresent, v28, v29, v30, v31, v32, v33, v34, v68, *(&v68 + 1), v71, *(&v71 + 1), v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v107, v109, v111, v113, v115, v117, v119, v121, v122, *(&v122 + 1), v123, *(&v123 + 1));
         }
 
         while (v22);
       }
 
       [array sortedArrayUsingComparator:&__block_literal_global_119];
-      v34 = [array count];
-      if (v34 >= self->_maxNumberOfFaceScores)
+      v36 = [array count];
+      if (v36 >= self->_maxNumberOfFaceScores)
       {
         maxNumberOfFaceScores = self->_maxNumberOfFaceScores;
       }
 
       else
       {
-        maxNumberOfFaceScores = v34;
+        maxNumberOfFaceScores = v36;
       }
 
-      v36 = [array subarrayWithRange:{0, maxNumberOfFaceScores}];
+      v38 = [array subarrayWithRange:{0, maxNumberOfFaceScores}];
     }
 
     else
     {
-      v36 = 0;
+      v38 = 0;
     }
 
-    *&v121 = 0;
-    v37 = [(CMISharpnessScore *)self->_sharpnessScoreCalculator calculateFromPixelBuffer:CMSampleBufferGetImageBuffer(candidateCopy) andFromRoi:v36 sourceComponent:0 toResult:&v121];
-    [v121 fullImageScore];
-    v39 = v38;
-    facesScores = [v121 facesScores];
-    if (v37)
+    *&v122 = 0;
+    v39 = [(CMISharpnessScore *)self->_sharpnessScoreCalculator calculateFromPixelBuffer:CMSampleBufferGetImageBuffer(candidateCopy) andFromRoi:v38 sourceComponent:0 toResult:&v122];
+    [v122 fullImageScore];
+    v41 = v40;
+    facesScores = [v122 facesScores];
+    if (v39)
     {
-      v39 = 1.1755e-38;
+      v41 = 1.1755e-38;
     }
 
     else
     {
-      v44 = facesScores;
-      v45 = [facesScores count];
-      if (v45)
+      v46 = facesScores;
+      v47 = [facesScores count];
+      if (v47)
       {
-        v53 = OUTLINED_FUNCTION_21_30(v45, v46, v47, v48, v49, v50, v51, v52, v66, *(&v66 + 1), v69, *(&v69 + 1), v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, 0);
-        if (v53)
+        v55 = OUTLINED_FUNCTION_21_30(v47, v48, v49, v50, v51, v52, v53, v54, v68, *(&v68 + 1), v71, *(&v71 + 1), v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104);
+        if (v55)
         {
-          v54 = v53;
-          v55 = MEMORY[0];
+          v56 = v55;
+          v57 = MEMORY[0];
           do
           {
-            for (j = 0; j != v54; ++j)
+            for (j = 0; j != v56; ++j)
             {
-              if (MEMORY[0] != v55)
+              if (MEMORY[0] != v57)
               {
-                objc_enumerationMutation(v44);
+                objc_enumerationMutation(v46);
               }
 
               floatValue = [*(8 * j) floatValue];
-              if (v39 < v65)
+              if (v41 < v67)
               {
-                v39 = v65;
+                v41 = v67;
               }
             }
 
-            v54 = OUTLINED_FUNCTION_21_30(floatValue, v58, v59, v60, v61, v62, v63, v64, v67, v68, v70, v71, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91, v93, v95, v97, v99, v101, v103, v106);
+            v56 = OUTLINED_FUNCTION_21_30(floatValue, v60, v61, v62, v63, v64, v65, v66, v69, v70, v72, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91, v93, v95, v97, v99, v101, v103, v105);
           }
 
-          while (v54);
+          while (v56);
         }
       }
     }
@@ -212,23 +214,23 @@ LABEL_41:
 
   else if (receivedCandidateFrameCount <= 0)
   {
-    v39 = 0.0;
+    v41 = 0.0;
   }
 
   else
   {
-    v39 = 1.1755e-38;
+    v41 = 1.1755e-38;
   }
 
   currentCandidateSharpnessScore = self->_currentCandidateSharpnessScore;
   if (v9 != candidateFrameCount)
   {
-    if (v39 > currentCandidateSharpnessScore)
+    if (v41 > currentCandidateSharpnessScore)
     {
       currentCandidateFrame = self->_currentCandidateFrame;
       v10 = 0;
       self->_currentCandidateFrame = CFRetain(candidateCopy);
-      self->_currentCandidateSharpnessScore = v39;
+      self->_currentCandidateSharpnessScore = v41;
       candidateCopy = currentCandidateFrame;
       if (!out)
       {
@@ -242,7 +244,7 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  if (v39 <= currentCandidateSharpnessScore)
+  if (v41 <= currentCandidateSharpnessScore)
   {
     v10 = self->_currentCandidateFrame;
     candidateCopy = CFRetain(candidateCopy);

@@ -265,29 +265,29 @@ void __41__EFPrivacy_partiallyRedactedDictionary___block_invoke(uint64_t a1, voi
 
 + (id)fullyOrPartiallyRedactFields:(id)fields inString:(id)string
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   fieldsCopy = fields;
   v5 = [string mutableCopy];
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   obj = fieldsCopy;
-  v6 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v6 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v6)
   {
-    v25 = *v28;
+    v24 = *v27;
     do
     {
-      v26 = v6;
-      for (i = 0; i != v26; ++i)
+      v25 = v6;
+      for (i = 0; i != v25; ++i)
       {
-        if (*v28 != v25)
+        if (*v27 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(?<=%@ = ['||“])([^]+)(?=['||”];)", *(*(&v27 + 1) + 8 * i)];;
+        v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(?<=%@ = ['||“])([^]+)(?=['||”];)", *(*(&v26 + 1) + 8 * i)];;
         v9 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:v8 options:1 error:0];
         if (v9)
         {
@@ -332,13 +332,11 @@ void __41__EFPrivacy_partiallyRedactedDictionary___block_invoke(uint64_t a1, voi
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v6 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v6);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

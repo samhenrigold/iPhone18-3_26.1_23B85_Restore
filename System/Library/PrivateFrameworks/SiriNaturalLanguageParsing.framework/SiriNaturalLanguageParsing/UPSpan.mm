@@ -32,7 +32,7 @@
 
 - (UPSpan)initWithProtobufSpan:(id)span nonWhitespaceTokenIndexes:(id)indexes error:(id *)error
 {
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   spanCopy = span;
   indexesCopy = indexes;
   if ([spanCopy hasStartTokenIndex] && (objc_msgSend(spanCopy, "hasEndTokenIndex") & 1) != 0)
@@ -44,11 +44,11 @@
       {
         label = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid span: start token index (%u) >= end token index (%u)", objc_msgSend(spanCopy, "startTokenIndex"), objc_msgSend(spanCopy, "endTokenIndex")];
         v23 = MEMORY[0x277CCA9B8];
-        v40 = *MEMORY[0x277CCA450];
-        v41 = label;
+        v39 = *MEMORY[0x277CCA450];
+        v40 = label;
         v24 = MEMORY[0x277CBEAC0];
-        v25 = &v41;
-        v26 = &v40;
+        v25 = &v40;
+        v26 = &v39;
 LABEL_15:
         v27 = [v24 dictionaryWithObjects:v25 forKeys:v26 count:1];
         *error = [v23 errorWithDomain:@"com.apple.uaapcustomluframework" code:10 userInfo:v27];
@@ -75,12 +75,12 @@ LABEL_15:
           {
             *buf = 67109888;
             startTokenIndex3 = [spanCopy startTokenIndex];
-            v32 = 1024;
+            v31 = 1024;
             endTokenIndex2 = [spanCopy endTokenIndex];
-            v34 = 2048;
-            v35 = v15;
-            v36 = 2048;
-            v37 = v16;
+            v33 = 2048;
+            v34 = v15;
+            v35 = 2048;
+            v36 = v16;
             _os_log_impl(&dword_22284A000, v17, OS_LOG_TYPE_DEBUG, "Converted protobuf token indexes (%u -> %u) to non-whitespace token indexes (%lu -> %lu)", buf, 0x22u);
           }
 
@@ -98,11 +98,11 @@ LABEL_15:
       {
         label = [MEMORY[0x277CCACA8] stringWithFormat:@"Warning: discarding data detector matching span not aligned with non-whitespace tokens (%u -> %u)", objc_msgSend(spanCopy, "startTokenIndex"), objc_msgSend(spanCopy, "endTokenIndex")];
         v23 = MEMORY[0x277CCA9B8];
-        v38 = *MEMORY[0x277CCA450];
-        v39 = label;
+        v37 = *MEMORY[0x277CCA450];
+        v38 = label;
         v24 = MEMORY[0x277CBEAC0];
-        v25 = &v39;
-        v26 = &v38;
+        v25 = &v38;
+        v26 = &v37;
         goto LABEL_15;
       }
     }
@@ -118,15 +118,14 @@ LABEL_17:
   }
 
   v22 = MEMORY[0x277CCA9B8];
-  v42 = *MEMORY[0x277CCA450];
-  v43[0] = @"protobuf message is missing a start/end index";
-  label = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:1];
+  v41 = *MEMORY[0x277CCA450];
+  v42[0] = @"protobuf message is missing a start/end index";
+  label = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
   [v22 errorWithDomain:@"com.apple.uaapcustomluframework" code:10 userInfo:label];
   *error = selfCopy = 0;
 LABEL_16:
 
 LABEL_18:
-  v28 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

@@ -8,13 +8,11 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC16HealthTopicsCore32SecurelyCodableTopicRequestToken_payload);
-  v5 = *&self->payload[OBJC_IVAR____TtC16HealthTopicsCore32SecurelyCodableTopicRequestToken_payload];
   coderCopy = coder;
   selfCopy = self;
-  v7 = sub_251F4DEDC();
-  v8 = sub_251F4DF9C();
-  [coderCopy encodeObject:v7 forKey:v8];
+  v5 = sub_251F4DEDC();
+  v6 = sub_251F4DF9C();
+  [coderCopy encodeObject:v5 forKey:v6];
 }
 
 - (NSString)description

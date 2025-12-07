@@ -91,6 +91,8 @@
 - (void)_resetDetails;
 - (void)_updateWithCallback:(id)callback;
 - (void)advanceToNextLeg;
+- (void)changeOfflineMode:(unsigned __int8)mode;
+- (void)changeTransportType:(int)type route:(id)route;
 - (void)changeUserOptions:(id)options;
 - (void)closeForClient:(id)client;
 - (void)dealloc;
@@ -98,8 +100,11 @@
 - (void)enableNavigationCapability:(unint64_t)capability reason:(unint64_t)reason;
 - (void)forceReroute;
 - (void)insertWaypoint:(id)waypoint;
+- (void)navigationServiceProxy:(id)proxy didActivateAudioSession:(BOOL)session;
 - (void)navigationServiceProxy:(id)proxy didArriveAtWaypoint:(id)waypoint endOfLegIndex:(unint64_t)index;
 - (void)navigationServiceProxy:(id)proxy didChangeFromState:(unint64_t)state toState:(unint64_t)toState;
+- (void)navigationServiceProxy:(id)proxy didChangeNavigationState:(int)state;
+- (void)navigationServiceProxy:(id)proxy didEnableGuidancePrompts:(BOOL)prompts;
 - (void)navigationServiceProxy:(id)proxy didEnterPreArrivalStateForWaypoint:(id)waypoint endOfLegIndex:(unint64_t)index;
 - (void)navigationServiceProxy:(id)proxy didFailRerouteWithError:(id)error;
 - (void)navigationServiceProxy:(id)proxy didFailWithError:(id)error;
@@ -109,6 +114,7 @@
 - (void)navigationServiceProxy:(id)proxy didRerouteWithRoute:(id)route withLocation:(id)location withAlternateRoutes:(id)routes rerouteReason:(unint64_t)reason;
 - (void)navigationServiceProxy:(id)proxy didResumeNavigatingFromWaypoint:(id)waypoint endOfLegIndex:(unint64_t)index reason:(unint64_t)reason;
 - (void)navigationServiceProxy:(id)proxy didStartSpeakingPrompt:(id)prompt;
+- (void)navigationServiceProxy:(id)proxy didSwitchToNewTransportType:(int)type newRoute:(id)route;
 - (void)navigationServiceProxy:(id)proxy didUpdateAlternateRoutes:(id)routes;
 - (void)navigationServiceProxy:(id)proxy didUpdateDisplayedStepIndex:(unint64_t)index segmentIndex:(unint64_t)segmentIndex;
 - (void)navigationServiceProxy:(id)proxy didUpdateDistanceUntilManeuver:(double)maneuver timeUntilManeuver:(double)untilManeuver forStepIndex:(unint64_t)index;
@@ -120,13 +126,17 @@
 - (void)navigationServiceProxy:(id)proxy didUpdateRouteWithNewRideSelection:(id)selection;
 - (void)navigationServiceProxy:(id)proxy didUpdateTracePlaybackDetails:(id)details;
 - (void)navigationServiceProxy:(id)proxy displayManeuverAlertForAnnouncementStage:(unint64_t)stage;
+- (void)navigationServiceProxy:(id)proxy displayPrimaryStep:(id)step instructions:(id)instructions shieldType:(int)type shieldText:(id)text drivingSide:(int)side maneuverStepIndex:(unint64_t)index isSynthetic:(BOOL)self0;
+- (void)navigationServiceProxy:(id)proxy displaySecondaryStep:(id)step instructions:(id)instructions shieldType:(int)type shieldText:(id)text drivingSide:(int)side;
 - (void)navigationServiceProxy:(id)proxy hideJunctionViewForId:(id)id;
 - (void)navigationServiceProxy:(id)proxy hideLaneDirectionsForId:(id)id;
 - (void)navigationServiceProxy:(id)proxy isApproachingEndOfLeg:(unint64_t)leg;
 - (void)navigationServiceProxy:(id)proxy showJunctionView:(id)view;
 - (void)navigationServiceProxy:(id)proxy showLaneDirections:(id)directions;
+- (void)navigationServiceProxy:(id)proxy triggerHaptics:(int)haptics;
 - (void)navigationServiceProxy:(id)proxy updateSignsWithARInfo:(id)info;
 - (void)navigationServiceProxy:(id)proxy updateSignsWithInfo:(id)info;
+- (void)navigationServiceProxy:(id)proxy usePersistentDisplay:(BOOL)display;
 - (void)navigationServiceProxy:(id)proxy willAnnounce:(unint64_t)announce inSeconds:(double)seconds;
 - (void)navigationServiceProxy:(id)proxy willChangeFromState:(unint64_t)state toState:(unint64_t)toState;
 - (void)navigationServiceProxy:(id)proxy willProcessSpeechEvent:(id)event;
@@ -151,13 +161,18 @@
 - (void)resumeOriginalDestination;
 - (void)resumeRealtimeUpdates;
 - (void)setDisplayedStepIndex:(unint64_t)index;
+- (void)setGuidancePromptsEnabled:(BOOL)enabled;
 - (void)setGuidanceType:(unint64_t)type;
+- (void)setHeadingOrientation:(int)orientation;
+- (void)setIsConnectedToCarplay:(BOOL)carplay;
+- (void)setIsDisplayingNavigationTray:(BOOL)tray;
 - (void)setJunctionViewImageWidth:(double)width height:(double)height;
 - (void)setRideIndex:(unint64_t)index forSegmentIndex:(unint64_t)segmentIndex;
 - (void)setRoutesForPreview:(id)preview selectedRouteIndex:(unint64_t)index;
 - (void)setSimulationPosition:(double)position;
 - (void)setSimulationSpeedMultiplier:(double)multiplier;
 - (void)setSimulationSpeedOverride:(double)override;
+- (void)setTraceIsPlaying:(BOOL)playing;
 - (void)setTracePlaybackSpeed:(double)speed;
 - (void)setTracePosition:(double)position;
 - (void)setVoiceGuidanceLevelOverride:(unint64_t)override;
@@ -193,10 +208,10 @@ void __36__MNNavigationService_sharedService__block_invoke()
 
 - (id)initPrivate
 {
-  v37 = *MEMORY[0x1E69E9840];
-  v26.receiver = self;
-  v26.super_class = MNNavigationService;
-  v2 = [(MNNavigationService *)&v26 init];
+  v34 = *MEMORY[0x1E69E9840];
+  v23.receiver = self;
+  v23.super_class = MNNavigationService;
+  v2 = [(MNNavigationService *)&v23 init];
   if (v2)
   {
     processInfo = [MEMORY[0x1E696AE30] processInfo];
@@ -204,75 +219,72 @@ void __36__MNNavigationService_sharedService__block_invoke()
 
     if (_navigation_isNavd)
     {
-      v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"MNNavigationService is not allowed on navd"];
-      v25 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"MNNavigationService is not allowed on navd"];
+      v22 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         *buf = 136316162;
-        v28 = "[MNNavigationService initPrivate]";
-        v29 = 2080;
-        v30 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Interfaces/MNNavigationService.m";
-        v31 = 1024;
-        v32 = 104;
-        v33 = 2080;
-        v34 = "![[NSProcessInfo processInfo] _navigation_isNavd]";
-        v35 = 2112;
-        v36 = v24;
-        _os_log_impl(&dword_1D311E000, v25, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
+        v25 = "[MNNavigationService initPrivate]";
+        v26 = 2080;
+        v27 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Interfaces/MNNavigationService.m";
+        v28 = 1024;
+        v29 = 104;
+        v30 = 2080;
+        v31 = "![[NSProcessInfo processInfo] _navigation_isNavd]";
+        v32 = 2112;
+        v33 = v21;
+        _os_log_impl(&dword_1D311E000, v22, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
       }
     }
 
     [(MNNavigationService *)v2 _resetDetails];
     if (+[MNNavigationService supportsNavigation])
     {
-      v5 = *MEMORY[0x1E69A19E0];
-      v6 = *(MEMORY[0x1E69A19E0] + 8);
       if (GEOConfigGetBOOL())
       {
-        v7 = objc_alloc_init(MNNavigationServiceRemoteProxy);
+        v5 = objc_alloc_init(MNNavigationServiceRemoteProxy);
         remoteProxy = v2->_remoteProxy;
-        v2->_remoteProxy = v7;
+        v2->_remoteProxy = v5;
 
         [(MNNavigationServiceRemoteProxy *)v2->_remoteProxy setDelegate:v2];
-        v9 = v2->_remoteProxy;
+        v7 = v2->_remoteProxy;
         proxy = v2->_proxy;
-        v2->_proxy = v9;
+        v2->_proxy = v7;
       }
 
       else
       {
-        v11 = objc_alloc_init(MNNavigationServiceLocalProxy);
-        [(MNNavigationServiceLocalProxy *)v11 setDelegate:v2];
-        v12 = v2->_proxy;
-        v2->_proxy = v11;
-        proxy = v11;
+        v9 = objc_alloc_init(MNNavigationServiceLocalProxy);
+        [(MNNavigationServiceLocalProxy *)v9 setDelegate:v2];
+        v10 = v2->_proxy;
+        v2->_proxy = v9;
+        proxy = v9;
 
         [(MNNavigationServiceLocalProxy *)proxy reset];
       }
     }
 
     objc_storeStrong(&v2->_queue, MEMORY[0x1E69E96A0]);
-    v13 = [objc_alloc(MEMORY[0x1E69A22D8]) initWithProtocol:&unk_1F4EF5798 queue:v2->_queue];
+    v11 = [objc_alloc(MEMORY[0x1E69A22D8]) initWithProtocol:&unk_1F4EF5798 queue:v2->_queue];
     navigationObservers = v2->_navigationObservers;
-    v2->_navigationObservers = v13;
+    v2->_navigationObservers = v11;
 
-    v15 = objc_opt_new();
+    v13 = objc_opt_new();
     cachedUserOptions = v2->_cachedUserOptions;
-    v2->_cachedUserOptions = v15;
+    v2->_cachedUserOptions = v13;
 
     uUID = [MEMORY[0x1E696AFB0] UUID];
     uuid = v2->_uuid;
     v2->_uuid = uUID;
 
-    v19 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v17 = objc_alloc_init(MEMORY[0x1E695DF90]);
     disabledCapabilities = v2->_disabledCapabilities;
-    v2->_disabledCapabilities = v19;
+    v2->_disabledCapabilities = v17;
 
-    v21 = dispatch_get_global_queue(21, 0);
+    v19 = dispatch_get_global_queue(21, 0);
     GEORegisterPListStateCaptureLegacy();
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -514,13 +526,13 @@ void __36__MNNavigationService_sharedService__block_invoke()
 - (id)captureStatePlistWithHints:(os_state_hints_s *)hints
 {
   selfCopy = self;
-  v87[6] = *MEMORY[0x1E69E9840];
+  v86[6] = *MEMORY[0x1E69E9840];
   route = [(MNNavigationService *)self route];
-  v73 = route;
-  v74 = selfCopy;
+  v72 = route;
+  v73 = selfCopy;
   if (route)
   {
-    v86[0] = @"routeID";
+    v85[0] = @"routeID";
     v5 = route;
     uniqueRouteID = [route uniqueRouteID];
     uUIDString = [uniqueRouteID UUIDString];
@@ -535,8 +547,8 @@ void __36__MNNavigationService_sharedService__block_invoke()
       v8 = &stru_1F4EB6B70;
     }
 
-    v87[0] = v8;
-    v86[1] = @"name";
+    v86[0] = v8;
+    v85[1] = @"name";
     name = [v5 name];
     v10 = name;
     if (name)
@@ -549,58 +561,58 @@ void __36__MNNavigationService_sharedService__block_invoke()
       v11 = &stru_1F4EB6B70;
     }
 
-    v87[1] = v11;
-    v86[2] = @"legs";
+    v86[1] = v11;
+    v85[2] = @"legs";
     v12 = MEMORY[0x1E696AD98];
     legs = [v5 legs];
     v13 = [v12 numberWithUnsignedInteger:{objc_msgSend(legs, "count")}];
-    v87[2] = v13;
-    v86[3] = @"segments";
+    v86[2] = v13;
+    v85[3] = @"segments";
     v14 = MEMORY[0x1E696AD98];
     segments = [v5 segments];
     v16 = [v14 numberWithUnsignedInteger:{objc_msgSend(segments, "count")}];
-    v87[3] = v16;
-    v86[4] = @"steps";
+    v86[3] = v16;
+    v85[4] = @"steps";
     v17 = MEMORY[0x1E696AD98];
     steps = [v5 steps];
     v19 = [v17 numberWithUnsignedInteger:{objc_msgSend(steps, "count")}];
-    v87[4] = v19;
-    v86[5] = @"length";
+    v86[4] = v19;
+    v85[5] = @"length";
     v20 = MEMORY[0x1E696AD98];
     [v5 distance];
     v21 = [v20 numberWithDouble:?];
-    v87[5] = v21;
-    v72 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v87 forKeys:v86 count:6];
+    v86[5] = v21;
+    v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v86 forKeys:v85 count:6];
 
-    selfCopy = v74;
+    selfCopy = v73;
   }
 
   else
   {
-    v72 = 0;
+    v71 = 0;
   }
 
   array = [MEMORY[0x1E695DF70] array];
+  v74 = 0u;
   v75 = 0u;
   v76 = 0u;
   v77 = 0u;
-  v78 = 0u;
   alternateRoutes = [(MNNavigationService *)selfCopy alternateRoutes];
-  v24 = [alternateRoutes countByEnumeratingWithState:&v75 objects:v85 count:16];
+  v24 = [alternateRoutes countByEnumeratingWithState:&v74 objects:v84 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v76;
+    v26 = *v75;
     do
     {
       for (i = 0; i != v25; ++i)
       {
-        if (*v76 != v26)
+        if (*v75 != v26)
         {
           objc_enumerationMutation(alternateRoutes);
         }
 
-        uniqueRouteID2 = [*(*(&v75 + 1) + 8 * i) uniqueRouteID];
+        uniqueRouteID2 = [*(*(&v74 + 1) + 8 * i) uniqueRouteID];
         uUIDString2 = [uniqueRouteID2 UUIDString];
         v30 = uUIDString2;
         if (uUIDString2)
@@ -616,7 +628,7 @@ void __36__MNNavigationService_sharedService__block_invoke()
         [(__CFString *)array addObject:v31];
       }
 
-      v25 = [alternateRoutes countByEnumeratingWithState:&v75 objects:v85 count:16];
+      v25 = [alternateRoutes countByEnumeratingWithState:&v74 objects:v84 count:16];
     }
 
     while (v25);
@@ -629,14 +641,14 @@ void __36__MNNavigationService_sharedService__block_invoke()
     legInfos = [displayEtaInfo legInfos];
     firstObject = [legInfos firstObject];
 
-    v71 = firstObject;
+    v70 = firstObject;
     if (firstObject)
     {
-      v83[0] = @"remainingMinutes";
+      v82[0] = @"remainingMinutes";
       v36 = 0x1E696A000uLL;
       v37 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(firstObject, "remainingMinutes")}];
-      v84[0] = v37;
-      v83[1] = @"displayETA";
+      v83[0] = v37;
+      v82[1] = @"displayETA";
       v38 = [firstObject eta];
       v39 = v38;
       if (v38)
@@ -649,11 +661,11 @@ void __36__MNNavigationService_sharedService__block_invoke()
         v40 = &stru_1F4EB6B70;
       }
 
-      v84[1] = v40;
-      v83[2] = @"legIndex";
+      v83[1] = v40;
+      v82[2] = @"legIndex";
       v41 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(firstObject, "legIndex")}];
-      v84[2] = v41;
-      v83[3] = @"timeZone";
+      v83[2] = v41;
+      v82[3] = @"timeZone";
       timeZone = [firstObject timeZone];
       v43 = [timeZone description];
       v44 = v33;
@@ -668,8 +680,8 @@ void __36__MNNavigationService_sharedService__block_invoke()
         v46 = &stru_1F4EB6B70;
       }
 
-      v84[3] = v46;
-      v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v84 forKeys:v83 count:4];
+      v83[3] = v46;
+      v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v83 forKeys:v82 count:4];
 
       v33 = v44;
     }
@@ -680,7 +692,7 @@ void __36__MNNavigationService_sharedService__block_invoke()
       v36 = 0x1E696A000uLL;
     }
 
-    v81[0] = @"routeID";
+    v80[0] = @"routeID";
     routeID = [v33 routeID];
     uUIDString3 = [routeID UUIDString];
     v51 = v33;
@@ -695,13 +707,13 @@ void __36__MNNavigationService_sharedService__block_invoke()
       v53 = &stru_1F4EB6B70;
     }
 
-    v82[0] = v53;
-    v81[1] = @"legInfos";
+    v81[0] = v53;
+    v80[1] = @"legInfos";
     v54 = MEMORY[0x1E696AD98];
     legInfos2 = [v51 legInfos];
     v56 = [v54 numberWithUnsignedInteger:{objc_msgSend(legInfos2, "count")}];
     v57 = v56;
-    v81[2] = @"legInfos[0]";
+    v80[2] = @"legInfos[0]";
     if (v47)
     {
       v58 = v47;
@@ -712,12 +724,12 @@ void __36__MNNavigationService_sharedService__block_invoke()
       v58 = &stru_1F4EB6B70;
     }
 
-    v82[1] = v56;
-    v82[2] = v58;
-    v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v82 forKeys:v81 count:3];
+    v81[1] = v56;
+    v81[2] = v58;
+    v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v81 forKeys:v80 count:3];
 
     v33 = v51;
-    selfCopy = v74;
+    selfCopy = v73;
   }
 
   else
@@ -726,18 +738,18 @@ void __36__MNNavigationService_sharedService__block_invoke()
     v36 = 0x1E696A000;
   }
 
-  v79[0] = @"state";
+  v78[0] = @"state";
   v59 = [*(v36 + 3480) numberWithUnsignedInteger:{-[MNNavigationService state](selfCopy, "state")}];
-  v80[0] = v59;
-  v79[1] = @"navigationState";
+  v79[0] = v59;
+  v78[1] = @"navigationState";
   v60 = [*(v36 + 3480) numberWithInt:{-[MNNavigationService navigationState](selfCopy, "navigationState")}];
-  v80[1] = v60;
-  v79[2] = @"navigationType";
+  v79[1] = v60;
+  v78[2] = @"navigationType";
   v61 = [*(v36 + 3480) numberWithInteger:{-[MNNavigationService navigationType](selfCopy, "navigationType")}];
   v62 = v61;
-  if (v72)
+  if (v71)
   {
-    v63 = v72;
+    v63 = v71;
   }
 
   else
@@ -745,10 +757,10 @@ void __36__MNNavigationService_sharedService__block_invoke()
     v63 = &stru_1F4EB6B70;
   }
 
-  v80[2] = v61;
-  v80[3] = v63;
-  v79[3] = @"currentRoute";
-  v79[4] = @"alternateRoutes";
+  v79[2] = v61;
+  v79[3] = v63;
+  v78[3] = @"currentRoute";
+  v78[4] = @"alternateRoutes";
   if (array)
   {
     v64 = array;
@@ -759,7 +771,7 @@ void __36__MNNavigationService_sharedService__block_invoke()
     v64 = &stru_1F4EB6B70;
   }
 
-  v79[5] = @"displayETA";
+  v78[5] = @"displayETA";
   if (v48)
   {
     v65 = v48;
@@ -770,30 +782,27 @@ void __36__MNNavigationService_sharedService__block_invoke()
     v65 = &stru_1F4EB6B70;
   }
 
-  v80[4] = v64;
-  v80[5] = v65;
-  v66 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v80 forKeys:v79 count:6];
-
-  v67 = *MEMORY[0x1E69E9840];
+  v79[4] = v64;
+  v79[5] = v65;
+  v66 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v79 forKeys:v78 count:6];
 
   return v66;
 }
 
 - (void)navigationServiceProxy:(id)proxy didReceiveTransitAlert:(id)alert
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   alertCopy = alert;
   v7 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = NSStringFromSelector(a2);
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "(%{public}@)", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "(%{public}@)", &v9, 0xCu);
   }
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self didReceiveTransitAlert:alertCopy];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy didReceiveRealtimeUpdates:(id)updates
@@ -803,17 +812,33 @@ void __36__MNNavigationService_sharedService__block_invoke()
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self didReceiveRealtimeUpdates:updatesCopy];
 }
 
+- (void)navigationServiceProxy:(id)proxy triggerHaptics:(int)haptics
+{
+  v4 = *&haptics;
+  v11 = *MEMORY[0x1E69E9840];
+  v7 = MNGetMNNavigationServiceLog();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = NSStringFromSelector(a2);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@)", &v9, 0xCu);
+  }
+
+  [(GEOObserverHashTable *)self->_navigationObservers navigationService:self triggerHaptics:v4];
+}
+
 - (void)navigationServiceProxy:(id)proxy didProcessSpeechEvent:(id)event
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v7 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = NSStringFromSelector(a2);
-    v12 = 138543362;
-    v13 = v8;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@)", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v8;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@)", &v11, 0xCu);
   }
 
   if ([eventCopy hasSpokenGuidance])
@@ -824,47 +849,59 @@ void __36__MNNavigationService_sharedService__block_invoke()
   }
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self didProcessSpeechEvent:eventCopy];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy willProcessSpeechEvent:(id)event
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v7 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = NSStringFromSelector(a2);
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@)", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@)", &v9, 0xCu);
   }
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self willProcessSpeechEvent:eventCopy];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy didStartSpeakingPrompt:(id)prompt
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   promptCopy = prompt;
   v7 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = NSStringFromSelector(a2);
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@)", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@)", &v9, 0xCu);
   }
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self didStartSpeakingPrompt:promptCopy];
-  v9 = *MEMORY[0x1E69E9840];
+}
+
+- (void)navigationServiceProxy:(id)proxy didActivateAudioSession:(BOOL)session
+{
+  sessionCopy = session;
+  v11 = *MEMORY[0x1E69E9840];
+  v7 = MNGetMNNavigationServiceLog();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = NSStringFromSelector(a2);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@)", &v9, 0xCu);
+  }
+
+  [(GEOObserverHashTable *)self->_navigationObservers navigationService:self didActivateAudioSession:sessionCopy];
 }
 
 - (void)navigationServiceProxy:(id)proxy didUpdateTracePlaybackDetails:(id)details
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   detailsCopy = details;
   eventType = [detailsCopy eventType];
   if (eventType <= 3)
@@ -923,13 +960,13 @@ void __36__MNNavigationService_sharedService__block_invoke()
       v26 = GEOFindOrCreateLog();
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        v35 = 136315650;
-        v36 = "[MNNavigationService navigationServiceProxy:didUpdateTracePlaybackDetails:]";
-        v37 = 2080;
-        v38 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Interfaces/MNNavigationService.m";
-        v39 = 1024;
-        v40 = 1425;
-        _os_log_impl(&dword_1D311E000, v26, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v35, 0x1Cu);
+        v34 = 136315650;
+        v35 = "[MNNavigationService navigationServiceProxy:didUpdateTracePlaybackDetails:]";
+        v36 = 2080;
+        v37 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Interfaces/MNNavigationService.m";
+        v38 = 1024;
+        v39 = 1425;
+        _os_log_impl(&dword_1D311E000, v26, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v34, 0x1Cu);
       }
     }
 
@@ -990,13 +1027,11 @@ LABEL_18:
   }
 
 LABEL_21:
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy didUpdateAlternateRoutes:(id)routes
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   routesCopy = routes;
   array = [MEMORY[0x1E695DF70] array];
   v7 = MEMORY[0x1E696AEC0];
@@ -1004,27 +1039,27 @@ LABEL_21:
   v9 = [v7 stringWithFormat:@"(%@) count: %d", v8, objc_msgSend(routesCopy, "count")];
   [array addObject:v9];
 
-  v38 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v37 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = routesCopy;
-  v10 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+  v10 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v40;
+    v12 = *v39;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v40 != v12)
+        if (*v39 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v39 + 1) + 8 * i);
+        v14 = *(*(&v38 + 1) + 8 * i);
         v15 = MEMORY[0x1E696AEC0];
         route = [v14 route];
         name = [route name];
@@ -1038,11 +1073,11 @@ LABEL_21:
         {
           traffic2 = [v14 traffic];
           routeID = [v14 routeID];
-          [v38 setObject:traffic2 forKeyedSubscript:routeID];
+          [v37 setObject:traffic2 forKeyedSubscript:routeID];
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+      v11 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
     }
 
     while (v11);
@@ -1063,41 +1098,71 @@ LABEL_21:
   {
     v30 = [array componentsJoinedByString:@"\n"];
     *buf = 138412290;
-    v44 = v30;
+    v43 = v30;
     _os_log_impl(&dword_1D311E000, v29, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
 
   navigationObservers = self->_navigationObservers;
   details3 = [(MNNavigationService *)self details];
   alternateRoutes = [details3 alternateRoutes];
-  v34 = [v38 copy];
+  v34 = [v37 copy];
   [(GEOObserverHashTable *)navigationObservers navigationService:self didUpdateAlternateRoutes:alternateRoutes traffics:v34];
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy didFailRerouteWithError:(id)error
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v7 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = NSStringFromSelector(a2);
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2112;
-    v13 = errorCopy;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@)%@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2112;
+    v12 = errorCopy;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@)%@", &v9, 0x16u);
   }
 
   -[GEOObserverHashTable navigationService:failedRerouteWithErrorCode:](self->_navigationObservers, "navigationService:failedRerouteWithErrorCode:", self, [errorCopy code]);
-  v9 = *MEMORY[0x1E69E9840];
+}
+
+- (void)navigationServiceProxy:(id)proxy didSwitchToNewTransportType:(int)type newRoute:(id)route
+{
+  v5 = *&type;
+  v23 = *MEMORY[0x1E69E9840];
+  routeCopy = route;
+  details = [(MNNavigationService *)self details];
+  [details setBackgroundWalkingRouteInfo:0];
+
+  details2 = [(MNNavigationService *)self details];
+  [details2 setVehicleParkingInfo:0];
+
+  details3 = [(MNNavigationService *)self details];
+  [details3 setCurrentRoute:routeCopy withAlternateRoutes:0];
+
+  v12 = MNGetMNNavigationServiceLog();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = NSStringFromSelector(a2);
+    details4 = [(MNNavigationService *)self details];
+    routeLookupIDs = [details4 routeLookupIDs];
+    v16 = [routeLookupIDs componentsJoinedByString:{@", "}];
+    v19 = 138543618;
+    v20 = v13;
+    v21 = 2112;
+    v22 = v16;
+    _os_log_impl(&dword_1D311E000, v12, OS_LOG_TYPE_DEFAULT, "(%{public}@)\nKnown route IDs: (%@)", &v19, 0x16u);
+  }
+
+  route = [routeCopy route];
+  traffic = [routeCopy traffic];
+  [(GEOObserverHashTable *)self->_navigationObservers navigationService:self didSwitchToNewTransportType:v5 newRoute:route traffic:traffic];
 }
 
 - (void)navigationServiceProxy:(id)proxy didUpdateRouteWithNewRideSelection:(id)selection
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   selectionCopy = selection;
   details = [(MNNavigationService *)self details];
   [details setCurrentRoute:selectionCopy withAlternateRoutes:0];
@@ -1109,39 +1174,36 @@ LABEL_21:
     details2 = [(MNNavigationService *)self details];
     routeLookupIDs = [details2 routeLookupIDs];
     v12 = [routeLookupIDs componentsJoinedByString:{@", "}];
-    v16 = 138543618;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v12;
-    _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "(%{public}@)\nKnown route IDs: (%@)", &v16, 0x16u);
+    v15 = 138543618;
+    v16 = v9;
+    v17 = 2112;
+    v18 = v12;
+    _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "(%{public}@)\nKnown route IDs: (%@)", &v15, 0x16u);
   }
 
   navigationObservers = self->_navigationObservers;
   route = [selectionCopy route];
   [(GEOObserverHashTable *)navigationObservers navigationService:self didUpdateRouteWithNewRideSelection:route];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxyDidCancelReroute:(id)reroute
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = NSStringFromSelector(a2);
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "(%{public}@)", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "(%{public}@)", &v7, 0xCu);
   }
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationServiceDidCancelReroute:self];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy didRerouteWithRoute:(id)route withLocation:(id)location withAlternateRoutes:(id)routes rerouteReason:(unint64_t)reason
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   proxyCopy = proxy;
   routeCopy = route;
   locationCopy = location;
@@ -1156,24 +1218,24 @@ LABEL_21:
     {
       v20 = NSStringFromSelector(a2);
       routeID = [routeCopy routeID];
-      v35 = proxyCopy;
+      v34 = proxyCopy;
       v22 = [routesCopy count];
       details2 = [(MNNavigationService *)self details];
       routeLookupIDs = [details2 routeLookupIDs];
       [routeLookupIDs componentsJoinedByString:{@", "}];
-      v24 = v36 = reason;
+      v24 = v35 = reason;
       *buf = 138413058;
-      v38 = v20;
-      v39 = 2112;
-      v40 = routeID;
-      v41 = 1024;
-      v42 = v22;
-      proxyCopy = v35;
-      v43 = 2112;
-      v44 = v24;
+      v37 = v20;
+      v38 = 2112;
+      v39 = routeID;
+      v40 = 1024;
+      v41 = v22;
+      proxyCopy = v34;
+      v42 = 2112;
+      v43 = v24;
       _os_log_impl(&dword_1D311E000, v19, OS_LOG_TYPE_DEFAULT, "(%@) %@ | alternate routes: %d\nKnown route IDs: (%@)", buf, 0x26u);
 
-      reason = v36;
+      reason = v35;
     }
 
     details3 = [(MNNavigationService *)self details];
@@ -1206,37 +1268,34 @@ LABEL_21:
       _os_log_impl(&dword_1D311E000, currentRoute, OS_LOG_TYPE_ERROR, "didRerouteWithRoute: was called with a null routeInfo or route", buf, 2u);
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxyWillReroute:(id)reroute
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = NSStringFromSelector(a2);
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "(%{public}@)", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "(%{public}@)", &v7, 0xCu);
   }
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationServiceWillReroute:self];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy didUpdatePreviewRoutes:(id)routes withSelectedRouteIndex:(unint64_t)index
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   routesCopy = routes;
   v9 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = NSStringFromSelector(a2);
-    v15 = 138543362;
-    v16 = v10;
-    _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_DEFAULT, "(%{public}@)", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = v10;
+    _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_DEFAULT, "(%{public}@)", &v14, 0xCu);
   }
 
   details = [(MNNavigationService *)self details];
@@ -1246,12 +1305,11 @@ LABEL_21:
   previewRoutes = [details2 previewRoutes];
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self didUpdatePreviewRoutes:previewRoutes withSelectedRouteIndex:index];
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy didUpdateETAResponseForRoute:(id)route
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   routeCopy = route;
   v7 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -1260,13 +1318,13 @@ LABEL_21:
     route = [routeCopy route];
     name = [route name];
     routeID = [routeCopy routeID];
-    v26 = 138543874;
-    v27 = v8;
-    v28 = 2112;
-    v29 = name;
-    v30 = 2112;
-    v31 = routeID;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@)%@ | route ID: %@", &v26, 0x20u);
+    v25 = 138543874;
+    v26 = v8;
+    v27 = 2112;
+    v28 = name;
+    v29 = 2112;
+    v30 = routeID;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@)%@ | route ID: %@", &v25, 0x20u);
   }
 
   details = [(MNNavigationService *)self details];
@@ -1293,57 +1351,74 @@ LABEL_21:
     route4 = [v15 route];
     [(GEOObserverHashTable *)v21 navigationService:self didUpdateMutableData:mutableData forRoute:route4];
   }
+}
 
-  v25 = *MEMORY[0x1E69E9840];
+- (void)navigationServiceProxy:(id)proxy didEnableGuidancePrompts:(BOOL)prompts
+{
+  promptsCopy = prompts;
+  v14 = *MEMORY[0x1E69E9840];
+  v7 = MNGetMNNavigationServiceLog();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = NSStringFromSelector(a2);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 1024;
+    v13 = promptsCopy;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@)%d", &v10, 0x12u);
+  }
+
+  details = [(MNNavigationService *)self details];
+  [details setGuidancePromptsEnabled:promptsCopy];
+
+  [(GEOObserverHashTable *)self->_navigationObservers navigationService:self didEnableGuidancePrompts:promptsCopy];
 }
 
 - (void)navigationServiceProxy:(id)proxy hideJunctionViewForId:(id)id
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   idCopy = id;
   v7 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = NSStringFromSelector(a2);
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "(%{public}@)", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "(%{public}@)", &v9, 0xCu);
   }
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self hideJunctionViewForId:idCopy];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy showJunctionView:(id)view
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   viewCopy = view;
   v7 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = NSStringFromSelector(a2);
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "(%{public}@)", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "(%{public}@)", &v9, 0xCu);
   }
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self showJunctionView:viewCopy];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy hideLaneDirectionsForId:(id)id
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   idCopy = id;
   v7 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = NSStringFromSelector(a2);
-    v16 = 138543618;
-    v17 = v8;
-    v18 = 2112;
-    v19 = idCopy;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "(%{public}@)%@", &v16, 0x16u);
+    v15 = 138543618;
+    v16 = v8;
+    v17 = 2112;
+    v18 = idCopy;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "(%{public}@)%@", &v15, 0x16u);
   }
 
   activeLaneInfo = [(MNNavigationDetails *)self->_details activeLaneInfo];
@@ -1357,63 +1432,76 @@ LABEL_21:
     {
       activeLaneInfo2 = [(MNNavigationDetails *)self->_details activeLaneInfo];
       uniqueID2 = [activeLaneInfo2 uniqueID];
-      v16 = 138412546;
-      v17 = idCopy;
-      v18 = 2112;
-      v19 = uniqueID2;
-      _os_log_impl(&dword_1D311E000, v12, OS_LOG_TYPE_ERROR, "Requested to remove active lane info with ID %@, but active info was %@", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = idCopy;
+      v17 = 2112;
+      v18 = uniqueID2;
+      _os_log_impl(&dword_1D311E000, v12, OS_LOG_TYPE_ERROR, "Requested to remove active lane info with ID %@, but active info was %@", &v15, 0x16u);
     }
   }
 
   [(MNNavigationDetails *)self->_details setActiveLaneInfo:0];
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self hideLaneDirectionsForId:idCopy];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy showLaneDirections:(id)directions
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   directionsCopy = directions;
   v7 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = NSStringFromSelector(a2);
     uniqueID = [directionsCopy uniqueID];
-    v11 = 138543874;
-    v12 = v8;
-    v13 = 2112;
-    v14 = directionsCopy;
-    v15 = 2112;
-    v16 = uniqueID;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "(%{public}@)%@, %@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v8;
+    v12 = 2112;
+    v13 = directionsCopy;
+    v14 = 2112;
+    v15 = uniqueID;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "(%{public}@)%@, %@", &v10, 0x20u);
   }
 
   [(MNNavigationDetails *)self->_details setActiveLaneInfo:directionsCopy];
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self showLaneDirections:directionsCopy];
+}
 
-  v10 = *MEMORY[0x1E69E9840];
+- (void)navigationServiceProxy:(id)proxy usePersistentDisplay:(BOOL)display
+{
+  displayCopy = display;
+  v13 = *MEMORY[0x1E69E9840];
+  v7 = MNGetMNNavigationServiceLog();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    v8 = NSStringFromSelector(a2);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 1024;
+    v12 = displayCopy;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "(%{public}@)%d", &v9, 0x12u);
+  }
+
+  [(GEOObserverHashTable *)self->_navigationObservers navigationService:self usePersistentDisplay:displayCopy];
 }
 
 - (void)navigationServiceProxy:(id)proxy updateSignsWithARInfo:(id)info
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = infoCopy;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_INFO, "(navigationServiceProxy:updateSignsWithARInfo:) %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = infoCopy;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_INFO, "(navigationServiceProxy:updateSignsWithARInfo:) %@", &v7, 0xCu);
   }
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self updateSignsWithARInfo:infoCopy];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy updateSignsWithInfo:(id)info
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   secondarySign = [infoCopy secondarySign];
 
@@ -1425,11 +1513,11 @@ LABEL_21:
     {
       primarySign = [infoCopy primarySign];
       secondarySign2 = [infoCopy secondarySign];
-      v12 = 138412546;
-      v13 = primarySign;
-      v14 = 2112;
-      v15 = secondarySign2;
-      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "(navigationServiceProxy:updateSignsWithInfo:) %@ / %@", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = primarySign;
+      v13 = 2112;
+      v14 = secondarySign2;
+      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "(navigationServiceProxy:updateSignsWithInfo:) %@ / %@", &v11, 0x16u);
 
 LABEL_6:
     }
@@ -1438,106 +1526,141 @@ LABEL_6:
   else if (v8)
   {
     primarySign = [infoCopy primarySign];
-    v12 = 138412290;
-    v13 = primarySign;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "(navigationServiceProxy:updateSignsWithInfo:) %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = primarySign;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "(navigationServiceProxy:updateSignsWithInfo:) %@", &v11, 0xCu);
     goto LABEL_6;
   }
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self updateSignsWithInfo:infoCopy];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxyEndGuidanceUpdate:(id)update
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = NSStringFromSelector(a2);
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_INFO, "(%{public}@)", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_INFO, "(%{public}@)", &v7, 0xCu);
   }
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationServiceEndGuidanceUpdate:self];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxyBeginGuidanceUpdate:(id)update
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = NSStringFromSelector(a2);
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_INFO, "(%{public}@)", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_INFO, "(%{public}@)", &v7, 0xCu);
   }
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationServiceBeginGuidanceUpdate:self];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxyHideSecondaryStep:(id)step
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = NSStringFromSelector(a2);
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_INFO, "(%{public}@)", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_INFO, "(%{public}@)", &v7, 0xCu);
   }
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationServiceDidHideSecondaryStep:self];
-  v7 = *MEMORY[0x1E69E9840];
+}
+
+- (void)navigationServiceProxy:(id)proxy displaySecondaryStep:(id)step instructions:(id)instructions shieldType:(int)type shieldText:(id)text drivingSide:(int)side
+{
+  v8 = *&side;
+  v9 = *&type;
+  v21 = *MEMORY[0x1E69E9840];
+  textCopy = text;
+  instructionsCopy = instructions;
+  stepCopy = step;
+  v17 = MNGetMNNavigationServiceLog();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  {
+    v18 = NSStringFromSelector(a2);
+    v19 = 138543362;
+    v20 = v18;
+    _os_log_impl(&dword_1D311E000, v17, OS_LOG_TYPE_INFO, "(%{public}@)", &v19, 0xCu);
+  }
+
+  [(GEOObserverHashTable *)self->_navigationObservers navigationService:self displaySecondaryStep:stepCopy instructions:instructionsCopy shieldType:v9 shieldText:textCopy drivingSide:v8];
 }
 
 - (void)navigationServiceProxy:(id)proxy displayManeuverAlertForAnnouncementStage:(unint64_t)stage
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v7 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = NSStringFromSelector(a2);
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "(%{public}@)", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "(%{public}@)", &v9, 0xCu);
   }
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self displayManeuverAlertForAnnouncementStage:stage];
-  v9 = *MEMORY[0x1E69E9840];
+}
+
+- (void)navigationServiceProxy:(id)proxy displayPrimaryStep:(id)step instructions:(id)instructions shieldType:(int)type shieldText:(id)text drivingSide:(int)side maneuverStepIndex:(unint64_t)index isSynthetic:(BOOL)self0
+{
+  v10 = *&side;
+  v11 = *&type;
+  v24 = *MEMORY[0x1E69E9840];
+  textCopy = text;
+  instructionsCopy = instructions;
+  stepCopy = step;
+  v19 = MNGetMNNavigationServiceLog();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  {
+    v20 = NSStringFromSelector(a2);
+    *buf = 138543362;
+    v23 = v20;
+    _os_log_impl(&dword_1D311E000, v19, OS_LOG_TYPE_INFO, "(%{public}@)", buf, 0xCu);
+  }
+
+  LOBYTE(v21) = synthetic;
+  [(GEOObserverHashTable *)self->_navigationObservers navigationService:self displayPrimaryStep:stepCopy instructions:instructionsCopy shieldType:v11 shieldText:textCopy drivingSide:v10 maneuverStepIndex:index isSynthetic:v21];
 }
 
 - (void)navigationServiceProxy:(id)proxy willAnnounce:(unint64_t)announce inSeconds:(double)seconds
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v9 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = NSStringFromSelector(a2);
-    v12 = 138543362;
-    v13 = v10;
-    _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_INFO, "(%{public}@)", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v10;
+    _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_INFO, "(%{public}@)", &v11, 0xCu);
   }
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self willAnnounce:announce inSeconds:seconds];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy didUpdateDistanceUntilSign:(double)sign timeUntilSign:(double)untilSign forStepIndex:(unint64_t)index
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v11 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = NSStringFromSelector(a2);
-    v16 = 138543362;
-    v17 = v12;
-    _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_INFO, "(%{public}@)", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = v12;
+    _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_INFO, "(%{public}@)", &v15, 0xCu);
   }
 
   details = [(MNNavigationService *)self details];
@@ -1547,20 +1670,19 @@ LABEL_6:
   [details2 setTimeUntilSign:untilSign];
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self didUpdateDistanceUntilSign:index timeUntilSign:sign forStepIndex:untilSign];
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy didUpdateProceedToRouteDistance:(double)distance displayString:(id)string closestStepIndex:(unint64_t)index
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v11 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = NSStringFromSelector(a2);
-    v17 = 138543362;
-    v18 = v12;
-    _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_INFO, "(%{public}@)", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = v12;
+    _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_INFO, "(%{public}@)", &v16, 0xCu);
   }
 
   details = [(MNNavigationService *)self details];
@@ -1573,10 +1695,24 @@ LABEL_6:
   [details3 setClosestStepIndex:index];
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self didUpdateProceedToRouteDistance:stringCopy displayString:index closestStepIndex:distance];
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxyDidArrive:(id)arrive
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v5 = MNGetMNNavigationServiceLog();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = NSStringFromSelector(a2);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "(%{public}@)", &v7, 0xCu);
+  }
+
+  [(GEOObserverHashTable *)self->_navigationObservers navigationServiceDidArrive:self];
+}
+
+- (void)navigationServiceProxyDidEnterPreArrivalState:(id)state
 {
   v10 = *MEMORY[0x1E69E9840];
   v5 = MNGetMNNavigationServiceLog();
@@ -1588,32 +1724,15 @@ LABEL_6:
     _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "(%{public}@)", &v8, 0xCu);
   }
 
-  [(GEOObserverHashTable *)self->_navigationObservers navigationServiceDidArrive:self];
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-- (void)navigationServiceProxyDidEnterPreArrivalState:(id)state
-{
-  v11 = *MEMORY[0x1E69E9840];
-  v5 = MNGetMNNavigationServiceLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-  {
-    v6 = NSStringFromSelector(a2);
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "(%{public}@)", &v9, 0xCu);
-  }
-
   details = [(MNNavigationService *)self details];
   [details setIsInPreArrivalState:1];
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationServiceDidEnterPreArrivalState:self];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy didResumeNavigatingFromWaypoint:(id)waypoint endOfLegIndex:(unint64_t)index reason:(unint64_t)reason
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   waypointCopy = waypoint;
   v11 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
@@ -1631,15 +1750,15 @@ LABEL_6:
       v15 = off_1E842AE50[reason - 1];
     }
 
-    v19 = 138544131;
-    v20 = v12;
-    v21 = 2113;
-    v22 = name;
-    v23 = 1024;
+    v18 = 138544131;
+    v19 = v12;
+    v20 = 2113;
+    v21 = name;
+    v22 = 1024;
     indexCopy = index;
-    v25 = 2112;
-    v26 = v15;
-    _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_DEFAULT, "(%{public}@)%{private}@ | legIndex: %d | reason: %@", &v19, 0x26u);
+    v24 = 2112;
+    v25 = v15;
+    _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_DEFAULT, "(%{public}@)%{private}@ | legIndex: %d | reason: %@", &v18, 0x26u);
   }
 
   details = [(MNNavigationService *)self details];
@@ -1649,104 +1768,99 @@ LABEL_6:
   [details2 setIsInPreArrivalState:0];
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self didResumeNavigatingFromWaypoint:waypointCopy endOfLegIndex:index reason:reason];
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy didArriveAtWaypoint:(id)waypoint endOfLegIndex:(unint64_t)index
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   waypointCopy = waypoint;
   v9 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = NSStringFromSelector(a2);
     name = [waypointCopy name];
-    v13 = 138543875;
-    v14 = v10;
-    v15 = 2113;
-    v16 = name;
-    v17 = 1024;
+    v12 = 138543875;
+    v13 = v10;
+    v14 = 2113;
+    v15 = name;
+    v16 = 1024;
     indexCopy = index;
-    _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_DEFAULT, "(%{public}@)%{private}@ | legIndex: %d", &v13, 0x1Cu);
+    _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_DEFAULT, "(%{public}@)%{private}@ | legIndex: %d", &v12, 0x1Cu);
   }
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self didArriveAtWaypoint:waypointCopy endOfLegIndex:index];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy didEnterPreArrivalStateForWaypoint:(id)waypoint endOfLegIndex:(unint64_t)index
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   waypointCopy = waypoint;
   v9 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = NSStringFromSelector(a2);
     name = [waypointCopy name];
-    v13 = 138543875;
-    v14 = v10;
-    v15 = 2113;
-    v16 = name;
-    v17 = 1024;
+    v12 = 138543875;
+    v13 = v10;
+    v14 = 2113;
+    v15 = name;
+    v16 = 1024;
     indexCopy = index;
-    _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_DEFAULT, "(%{public}@)%{private}@ | legIndex: %d", &v13, 0x1Cu);
+    _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_DEFAULT, "(%{public}@)%{private}@ | legIndex: %d", &v12, 0x1Cu);
   }
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self didEnterPreArrivalStateForWaypoint:waypointCopy endOfLegIndex:index];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy isApproachingEndOfLeg:(unint64_t)leg
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v7 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = NSStringFromSelector(a2);
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 1024;
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 1024;
     legCopy = leg;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@)legIndex: %d", &v11, 0x12u);
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@)legIndex: %d", &v10, 0x12u);
   }
 
   details = [(MNNavigationService *)self details];
   [details setIsApproachingWaypoint:1];
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self isApproachingEndOfLeg:leg];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxyDidFinishLocationUpdate:(id)update
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     v6 = NSStringFromSelector(a2);
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEBUG, "(%{public}@)", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEBUG, "(%{public}@)", &v7, 0xCu);
   }
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationServiceDidFinishLocationUpdate:self];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy didUpdateDistanceUntilManeuver:(double)maneuver timeUntilManeuver:(double)untilManeuver forStepIndex:(unint64_t)index
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v11 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = NSStringFromSelector(a2);
-    v16 = 138543874;
-    v17 = v12;
-    v18 = 2048;
+    v15 = 138543874;
+    v16 = v12;
+    v17 = 2048;
     maneuverCopy = maneuver;
-    v20 = 2048;
+    v19 = 2048;
     untilManeuverCopy = untilManeuver;
-    _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_INFO, "(%{public}@)| %0.1f meters, %0.1f seconds", &v16, 0x20u);
+    _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_INFO, "(%{public}@)| %0.1f meters, %0.1f seconds", &v15, 0x20u);
   }
 
   details = [(MNNavigationService *)self details];
@@ -1756,94 +1870,134 @@ LABEL_6:
   [details2 setTimeUntilManeuver:untilManeuver];
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self didUpdateDistanceUntilManeuver:index timeUntilManeuver:maneuver forStepIndex:untilManeuver];
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy didUpdateDisplayedStepIndex:(unint64_t)index segmentIndex:(unint64_t)segmentIndex
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v9 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = NSStringFromSelector(a2);
-    v13 = 138543874;
-    v14 = v10;
-    v15 = 1024;
+    v12 = 138543874;
+    v13 = v10;
+    v14 = 1024;
     indexCopy = index;
-    v17 = 1024;
+    v16 = 1024;
     segmentIndexCopy = segmentIndex;
-    _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_DEFAULT, "(%{public}@)%d, %d", &v13, 0x18u);
+    _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_DEFAULT, "(%{public}@)%d, %d", &v12, 0x18u);
   }
 
   details = [(MNNavigationService *)self details];
   [details setDisplayedStepIndex:index];
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self didUpdateDisplayedStepIndex:index segmentIndex:segmentIndex];
-  v12 = *MEMORY[0x1E69E9840];
+}
+
+- (void)navigationServiceProxy:(id)proxy didChangeNavigationState:(int)state
+{
+  v4 = *&state;
+  v21 = *MEMORY[0x1E69E9840];
+  v7 = MNGetMNNavigationServiceLog();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = NSStringFromSelector(a2);
+    details = [(MNNavigationService *)self details];
+    navigationState = [details navigationState];
+    if (navigationState >= 9)
+    {
+      v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", navigationState];
+    }
+
+    else
+    {
+      v11 = off_1E842AE08[navigationState];
+    }
+
+    v12 = v11;
+    if (v4 >= 9)
+    {
+      v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v4];
+    }
+
+    else
+    {
+      v13 = off_1E842AE08[v4];
+    }
+
+    *buf = 138543874;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v12;
+    v19 = 2112;
+    v20 = v13;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@)%@ => %@", buf, 0x20u);
+  }
+
+  details2 = [(MNNavigationService *)self details];
+  [details2 setNavigationState:v4];
+
+  [(GEOObserverHashTable *)self->_navigationObservers navigationService:self didChangeNavigationState:v4];
 }
 
 - (void)navigationServiceProxy:(id)proxy didFailWithError:(id)error
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v7 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     v8 = NSStringFromSelector(a2);
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "(%{public}@)", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "(%{public}@)", &v9, 0xCu);
   }
 
   [(MNNavigationServiceProxy *)self->_proxy stopNavigationWithReason:1];
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self didFailWithError:errorCopy];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxyWillResumeFromPauseNavigation:(id)navigation
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = NSStringFromSelector(a2);
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_INFO, "(%{public}@)", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_INFO, "(%{public}@)", &v7, 0xCu);
   }
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationServiceWillResumeFromPause:self];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxyWillPauseNavigation:(id)navigation
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = NSStringFromSelector(a2);
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_INFO, "(%{public}@)", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_INFO, "(%{public}@)", &v7, 0xCu);
   }
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationServiceWillPause:self];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy didUpdateNavigationDetails:(id)details
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   detailsCopy = details;
   v7 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = NSStringFromSelector(a2);
-    v27 = 138543362;
-    v28 = v8;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@)", &v27, 0xCu);
+    v26 = 138543362;
+    v27 = v8;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@)", &v26, 0xCu);
   }
 
   details = [(MNNavigationService *)self details];
@@ -1870,9 +2024,9 @@ LABEL_6:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       details5 = [(MNNavigationService *)self details];
-      v27 = 138412290;
-      v28 = details5;
-      _os_log_impl(&dword_1D311E000, v16, OS_LOG_TYPE_INFO, "Updated navigation details: %@", &v27, 0xCu);
+      v26 = 138412290;
+      v27 = details5;
+      _os_log_impl(&dword_1D311E000, v16, OS_LOG_TYPE_INFO, "Updated navigation details: %@", &v26, 0xCu);
     }
 
     details6 = [(MNNavigationService *)self details];
@@ -1891,9 +2045,9 @@ LABEL_6:
     v21 = MNGetMNNavigationServiceLog();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
-      v27 = 138412290;
-      v28 = v20;
-      _os_log_impl(&dword_1D311E000, v21, OS_LOG_TYPE_INFO, "Known route IDs: (%@)", &v27, 0xCu);
+      v26 = 138412290;
+      v27 = v20;
+      _os_log_impl(&dword_1D311E000, v21, OS_LOG_TYPE_INFO, "Known route IDs: (%@)", &v26, 0xCu);
     }
   }
 
@@ -1911,9 +2065,9 @@ LABEL_6:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         v23 = NSStringFromSelector(sel_navigationService_didUpdatePreviewRoutes_withSelectedRouteIndex_);
-        v27 = 138477827;
-        v28 = v23;
-        _os_log_impl(&dword_1D311E000, v22, OS_LOG_TYPE_INFO, "%{private}@", &v27, 0xCu);
+        v26 = 138477827;
+        v27 = v23;
+        _os_log_impl(&dword_1D311E000, v22, OS_LOG_TYPE_INFO, "%{private}@", &v26, 0xCu);
       }
 
       navigationObservers = self->_navigationObservers;
@@ -1923,13 +2077,11 @@ LABEL_6:
   }
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationServiceDidSynchronize:self];
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy didChangeFromState:(unint64_t)state toState:(unint64_t)toState
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v9 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
@@ -1957,11 +2109,11 @@ LABEL_6:
 
     v14 = v13;
     *buf = 138543874;
-    v24 = v10;
-    v25 = 2112;
-    v26 = v12;
-    v27 = 2112;
-    v28 = v14;
+    v23 = v10;
+    v24 = 2112;
+    v25 = v12;
+    v26 = 2112;
+    v27 = v14;
     _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_DEFAULT, "(%{public}@)'%@' to '%@'", buf, 0x20u);
   }
 
@@ -1978,37 +2130,36 @@ LABEL_6:
     block[2] = __73__MNNavigationService_navigationServiceProxy_didChangeFromState_toState___block_invoke;
     block[3] = &unk_1E84309E8;
     block[4] = self;
-    v21 = interruptionDates;
+    v20 = interruptionDates;
     stateCopy = state;
     v18 = interruptionDates;
     dispatch_async(queue, block);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __73__MNNavigationService_navigationServiceProxy_didChangeFromState_toState___block_invoke(uint64_t a1)
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _resetDetails];
-  if ([*(a1 + 40) count] && *(a1 + 48) >= 3uLL)
+  if ([*(a1 + 40) count])
   {
-    v6[0] = @"MNErrorInternalDescriptionKey";
-    v6[1] = @"MNErrorInterruptionDatesKey";
-    v2 = *(a1 + 40);
-    v7[0] = @"Interruptions to the navigation service were detected";
-    v7[1] = v2;
-    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
-    v4 = [MEMORY[0x1E696ABC0] _navigation_errorWithCode:10 userInfo:v3];
-    [*(*(a1 + 32) + 16) navigationService:*(a1 + 32) didFailWithError:v4];
+    if (*(a1 + 48) >= 3uLL)
+    {
+      v5[0] = @"MNErrorInternalDescriptionKey";
+      v5[1] = @"MNErrorInterruptionDatesKey";
+      v2 = *(a1 + 40);
+      v6[0] = @"Interruptions to the navigation service were detected";
+      v6[1] = v2;
+      v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
+      v4 = [MEMORY[0x1E696ABC0] _navigation_errorWithCode:10 userInfo:v3];
+      [*(*(a1 + 32) + 16) navigationService:*(a1 + 32) didFailWithError:v4];
+    }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy willChangeFromState:(unint64_t)state toState:(unint64_t)toState
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v9 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
@@ -2035,17 +2186,16 @@ void __73__MNNavigationService_navigationServiceProxy_didChangeFromState_toState
     }
 
     v14 = v13;
-    v16 = 138543874;
-    v17 = v10;
-    v18 = 2112;
-    v19 = v12;
-    v20 = 2112;
-    v21 = v14;
-    _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_DEFAULT, "(%{public}@)'%@' to '%@'", &v16, 0x20u);
+    v15 = 138543874;
+    v16 = v10;
+    v17 = 2112;
+    v18 = v12;
+    v19 = 2112;
+    v20 = v14;
+    _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_DEFAULT, "(%{public}@)'%@' to '%@'", &v15, 0x20u);
   }
 
   [(GEOObserverHashTable *)self->_navigationObservers navigationService:self willChangeFromState:state toState:toState];
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_clientProxy
@@ -2065,144 +2215,137 @@ void __73__MNNavigationService_navigationServiceProxy_didChangeFromState_toState
 
 - (void)setSimulationPosition:(double)position
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = NSStringFromSelector(a2);
-    v11 = 138412546;
-    v12 = v7;
-    v13 = 2048;
+    v10 = 138412546;
+    v11 = v7;
+    v12 = 2048;
     positionCopy = position;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_INFO, "%@ [%g]", &v11, 0x16u);
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_INFO, "%@ [%g]", &v10, 0x16u);
   }
 
   if (position < 0.0 || position > 1.0)
   {
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Only values between [0, 1] are valid."];
-    v10 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Only values between [0, 1] are valid."];
+    v9 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136316162;
-      v12 = "[MNNavigationService setSimulationPosition:]";
-      v13 = 2080;
+      v10 = 136316162;
+      v11 = "[MNNavigationService setSimulationPosition:]";
+      v12 = 2080;
       positionCopy = COERCE_DOUBLE("/Library/Caches/com.apple.xbs/Sources/Navigation/Interfaces/MNNavigationService.m");
-      v15 = 1024;
-      v16 = 900;
-      v17 = 2080;
-      v18 = "0 <= position && position <= 1";
-      v19 = 2112;
-      v20 = v9;
-      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v11, 0x30u);
+      v14 = 1024;
+      v15 = 900;
+      v16 = 2080;
+      v17 = "0 <= position && position <= 1";
+      v18 = 2112;
+      v19 = v8;
+      _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v10, 0x30u);
     }
   }
 
   [(MNNavigationServiceProxy *)self->_proxy setSimulationPosition:position];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSimulationSpeedMultiplier:(double)multiplier
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = NSStringFromSelector(a2);
-    v9 = 138412546;
-    v10 = v7;
-    v11 = 2048;
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 2048;
     multiplierCopy = multiplier;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_INFO, "%@ [%g]", &v9, 0x16u);
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_INFO, "%@ [%g]", &v8, 0x16u);
   }
 
   [(MNNavigationServiceProxy *)self->_proxy setSimulationSpeedMultiplier:multiplier];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSimulationSpeedOverride:(double)override
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = NSStringFromSelector(a2);
-    v9 = 138412546;
-    v10 = v7;
-    v11 = 2048;
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 2048;
     overrideCopy = override;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_INFO, "%@ [%g]", &v9, 0x16u);
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_INFO, "%@ [%g]", &v8, 0x16u);
   }
 
   [(MNNavigationServiceProxy *)self->_proxy setSimulationSpeedOverride:override];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordPedestrianTracePath:(id)path
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
-    v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "%@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "%@", &v8, 0xCu);
   }
 
   [(MNNavigationServiceProxy *)self->_proxy recordPedestrianTracePath:pathCopy];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordTraceBookmarkAtCurrentPositionWthScreenshotData:(id)data
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
-    v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "%@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "%@", &v8, 0xCu);
   }
 
   [(MNNavigationServiceProxy *)self->_proxy recordTraceBookmarkAtCurrentPositionWthScreenshotData:dataCopy];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setTracePlaybackSpeed:(double)speed
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
-    v9 = 138412546;
-    v10 = v7;
-    v11 = 2048;
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 2048;
     speedCopy = speed;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "%@, %g", &v9, 0x16u);
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "%@, %g", &v8, 0x16u);
   }
 
   [(MNNavigationServiceProxy *)self->_proxy setTracePlaybackSpeed:speed];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setTracePosition:(double)position
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
-    v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "%@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "%@", &v8, 0xCu);
   }
 
   [(MNNavigationServiceProxy *)self->_proxy setTracePosition:position];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (double)tracePosition
@@ -2212,6 +2355,24 @@ void __73__MNNavigationService_navigationServiceProxy_didChangeFromState_toState
   v4 = v3;
 
   return v4;
+}
+
+- (void)setTraceIsPlaying:(BOOL)playing
+{
+  playingCopy = playing;
+  v12 = *MEMORY[0x1E69E9840];
+  v6 = MNGetMNNavigationServiceLog();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = NSStringFromSelector(a2);
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 1024;
+    v11 = playingCopy;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "%@ %d", &v8, 0x12u);
+  }
+
+  [(MNNavigationServiceProxy *)self->_proxy setTraceIsPlaying:playingCopy];
 }
 
 - (BOOL)traceIsPlaying
@@ -2359,95 +2520,93 @@ void __73__MNNavigationService_navigationServiceProxy_didChangeFromState_toState
 
 - (void)resumeRealtimeUpdates
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = NSStringFromSelector(a2);
-    v7 = 138477827;
-    v8 = v5;
-    _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_INFO, "%{private}@", &v7, 0xCu);
+    v6 = 138477827;
+    v7 = v5;
+    _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_INFO, "%{private}@", &v6, 0xCu);
   }
 
   [(MNNavigationServiceProxy *)self->_proxy resumeRealtimeUpdatesForSubscriber:self->_uuid];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pauseRealtimeUpdates
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = NSStringFromSelector(a2);
-    v7 = 138477827;
-    v8 = v5;
-    _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_INFO, "%{private}@", &v7, 0xCu);
+    v6 = 138477827;
+    v7 = v5;
+    _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_INFO, "%{private}@", &v6, 0xCu);
   }
 
   [(MNNavigationServiceProxy *)self->_proxy pauseRealtimeUpdatesForSubscriber:self->_uuid];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)realtimeUpdatesForRoutes:(id)routes
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   routesCopy = routes;
   if ([routesCopy count])
   {
-    v19 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(routesCopy, "count")}];
+    v18 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(routesCopy, "count")}];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
-    v17 = routesCopy;
+    v16 = routesCopy;
     obj = routesCopy;
-    v22 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
-    if (v22)
+    v21 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+    if (v21)
     {
-      v20 = *v28;
+      v19 = *v27;
       do
       {
-        for (i = 0; i != v22; ++i)
+        for (i = 0; i != v21; ++i)
         {
-          if (*v28 != v20)
+          if (*v27 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v5 = *(*(&v27 + 1) + 8 * i);
+          v5 = *(*(&v26 + 1) + 8 * i);
+          v22 = 0u;
           v23 = 0u;
           v24 = 0u;
           v25 = 0u;
-          v26 = 0u;
           v6 = self->_realtimeUpdates;
-          v7 = [(NSSet *)v6 countByEnumeratingWithState:&v23 objects:v31 count:16];
+          v7 = [(NSSet *)v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
           if (v7)
           {
             v8 = v7;
-            v9 = *v24;
+            v9 = *v23;
             while (2)
             {
               for (j = 0; j != v8; ++j)
               {
-                if (*v24 != v9)
+                if (*v23 != v9)
                 {
                   objc_enumerationMutation(v6);
                 }
 
-                v11 = *(*(&v23 + 1) + 8 * j);
+                v11 = *(*(&v22 + 1) + 8 * j);
                 routeID = [v11 routeID];
                 uniqueRouteID = [v5 uniqueRouteID];
                 v14 = [routeID isEqual:uniqueRouteID];
 
                 if (v14)
                 {
-                  [v19 addObject:v11];
+                  [v18 addObject:v11];
                   goto LABEL_17;
                 }
               }
 
-              v8 = [(NSSet *)v6 countByEnumeratingWithState:&v23 objects:v31 count:16];
+              v8 = [(NSSet *)v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
               if (v8)
               {
                 continue;
@@ -2460,23 +2619,21 @@ void __73__MNNavigationService_navigationServiceProxy_didChangeFromState_toState
 LABEL_17:
         }
 
-        v22 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v21 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
-      while (v22);
+      while (v21);
     }
 
-    routesCopy = v17;
+    routesCopy = v16;
   }
 
   else
   {
-    v19 = [MEMORY[0x1E695DFD8] setWithArray:MEMORY[0x1E695E0F0]];
+    v18 = [MEMORY[0x1E695DFD8] setWithArray:MEMORY[0x1E695E0F0]];
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
-  return v19;
+  return v18;
 }
 
 - (id)etaRouteForRoute:(id)route
@@ -2666,9 +2823,45 @@ LABEL_17:
   return navigationType;
 }
 
+- (void)changeOfflineMode:(unsigned __int8)mode
+{
+  modeCopy = mode;
+  v13 = *MEMORY[0x1E69E9840];
+  v5 = MNGetMNNavigationServiceLog();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = GEOOfflineModeAsString();
+    v9 = 138412546;
+    v10 = v6;
+    v11 = 1024;
+    v12 = modeCopy;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "changeOfflineMode: %@(%x)", &v9, 0x12u);
+  }
+
+  if ([(MNNavigationService *)self isInNavigatingState])
+  {
+    if ([(MNNavigationService *)self navigationTransportType]!= 1)
+    {
+      [(MNNavigationServiceProxy *)self->_proxy changeOfflineMode:modeCopy];
+    }
+  }
+
+  else
+  {
+    v7 = MNGetMNNavigationServiceLog();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      v8 = GEOOfflineModeAsString();
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "changeOfflineMode: called with state %@ when the user is not navigating. This is an ERROR!! ", &v9, 0xCu);
+    }
+  }
+}
+
 - (void)enableNavigationCapability:(unint64_t)capability reason:(unint64_t)reason
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v7 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
@@ -2747,9 +2940,9 @@ LABEL_22:
     }
 
     *buf = 138412546;
-    v28 = v13;
-    v29 = 2112;
-    v30 = v14;
+    v27 = v13;
+    v28 = 2112;
+    v29 = v14;
     _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "enableNavigationCapability:%@ reason: %@", buf, 0x16u);
   }
 
@@ -2784,13 +2977,11 @@ LABEL_22:
       }
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)disableNavigationCapability:(unint64_t)capability reason:(unint64_t)reason
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v7 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
@@ -2871,9 +3062,9 @@ LABEL_22:
     }
 
     *buf = 138412546;
-    v31 = v13;
-    v32 = 2112;
-    v33 = v14;
+    v30 = v13;
+    v31 = 2112;
+    v32 = v14;
     _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "disableNavigationCapability:%@ reason: %@", buf, 0x16u);
   }
 
@@ -2902,13 +3093,11 @@ LABEL_22:
 
     [(MNNavigationServiceProxy *)self->_proxy disableNavigationCapability:capability];
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateForUserIncidentReport:(id)report
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   reportCopy = report;
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -2926,58 +3115,106 @@ LABEL_22:
     }
 
     *buf = 138412546;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v9;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v9;
     _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "%@ %@", buf, 0x16u);
   }
 
   [(MNNavigationServiceProxy *)self->_proxy updateForUserIncidentReport:reportCopy];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setJunctionViewImageWidth:(double)width height:(double)height
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v8 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = NSStringFromSelector(a2);
-    v11 = 138412802;
-    v12 = v9;
-    v13 = 2048;
+    v10 = 138412802;
+    v11 = v9;
+    v12 = 2048;
     widthCopy = width;
-    v15 = 2048;
+    v14 = 2048;
     heightCopy = height;
-    _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "%@ [%g x %g]", &v11, 0x20u);
+    _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "%@ [%g x %g]", &v10, 0x20u);
   }
 
   [(MNNavigationServiceProxy *)self->_proxy setJunctionViewImageWidth:width height:height];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setRideIndex:(unint64_t)index forSegmentIndex:(unint64_t)segmentIndex
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v8 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = NSStringFromSelector(a2);
-    v11 = 138412802;
-    v12 = v9;
-    v13 = 1024;
+    v10 = 138412802;
+    v11 = v9;
+    v12 = 1024;
     indexCopy = index;
-    v15 = 1024;
+    v14 = 1024;
     segmentIndexCopy = segmentIndex;
-    _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "%@ %d, %d", &v11, 0x18u);
+    _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "%@ %d, %d", &v10, 0x18u);
   }
 
   [(MNNavigationServiceProxy *)self->_proxy setRideIndex:index forSegmentIndex:segmentIndex];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDisplayedStepIndex:(unint64_t)index
 {
+  v12 = *MEMORY[0x1E69E9840];
+  v6 = MNGetMNNavigationServiceLog();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = NSStringFromSelector(a2);
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 1024;
+    indexCopy = index;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "%@ %d", &v8, 0x12u);
+  }
+
+  [(MNNavigationServiceProxy *)self->_proxy setDisplayedStepIndex:index];
+}
+
+- (void)setIsConnectedToCarplay:(BOOL)carplay
+{
+  carplayCopy = carplay;
+  v7 = *MEMORY[0x1E69E9840];
+  v5 = MNGetMNNavigationServiceLog();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6[0] = 67109120;
+    v6[1] = carplayCopy;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "setIsConnectedToCarplay: %d", v6, 8u);
+  }
+
+  [(MNNavigationServiceProxy *)self->_proxy setIsConnectedToCarplay:carplayCopy];
+}
+
+- (void)setIsDisplayingNavigationTray:(BOOL)tray
+{
+  trayCopy = tray;
+  v12 = *MEMORY[0x1E69E9840];
+  v6 = MNGetMNNavigationServiceLog();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = NSStringFromSelector(a2);
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 1024;
+    v11 = trayCopy;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "%@ %d", &v8, 0x12u);
+  }
+
+  [(MNNavigationServiceProxy *)self->_proxy setIsDisplayingNavigationTray:trayCopy];
+}
+
+- (void)setGuidancePromptsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
   v13 = *MEMORY[0x1E69E9840];
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -2986,12 +3223,14 @@ LABEL_22:
     v9 = 138412546;
     v10 = v7;
     v11 = 1024;
-    indexCopy = index;
+    v12 = enabledCopy;
     _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "%@ %d", &v9, 0x12u);
   }
 
-  [(MNNavigationServiceProxy *)self->_proxy setDisplayedStepIndex:index];
-  v8 = *MEMORY[0x1E69E9840];
+  details = [(MNNavigationService *)self details];
+  [details setGuidancePromptsEnabled:enabledCopy];
+
+  [(MNNavigationServiceProxy *)self->_proxy setGuidancePromptsEnabled:enabledCopy];
 }
 
 - (BOOL)guidancePromptsEnabled
@@ -3000,6 +3239,27 @@ LABEL_22:
   guidancePromptsEnabled = [details guidancePromptsEnabled];
 
   return guidancePromptsEnabled;
+}
+
+- (void)setHeadingOrientation:(int)orientation
+{
+  v3 = *&orientation;
+  v13 = *MEMORY[0x1E69E9840];
+  v6 = MNGetMNNavigationServiceLog();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = NSStringFromSelector(a2);
+    v9 = 138412546;
+    v10 = v7;
+    v11 = 1024;
+    v12 = v3;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "%@ %d", &v9, 0x12u);
+  }
+
+  details = [(MNNavigationService *)self details];
+  [details setHeadingOrientation:v3];
+
+  [(MNNavigationServiceProxy *)self->_proxy setHeadingOrientation:v3];
 }
 
 - (int)headingOrientation
@@ -3012,74 +3272,70 @@ LABEL_22:
 
 - (void)stopCurrentGuidancePrompt
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = NSStringFromSelector(a2);
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_DEFAULT, "%@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_DEFAULT, "%@", &v6, 0xCu);
   }
 
   [(MNNavigationServiceProxy *)self->_proxy stopCurrentGuidancePrompt];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)vibrateForPrompt:(unint64_t)prompt completion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v8 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = NSStringFromSelector(a2);
-    v11 = 138412290;
-    v12 = v9;
-    _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "%@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v9;
+    _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "%@", &v10, 0xCu);
   }
 
   [(MNNavigationServiceProxy *)self->_proxy vibrateForPrompt:prompt withReply:completionCopy];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)repeatCurrentTrafficAlert:(id)alert
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   alertCopy = alert;
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
-    v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "%@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "%@", &v8, 0xCu);
   }
 
   [(MNNavigationServiceProxy *)self->_proxy repeatCurrentGuidanceWithReply:alertCopy];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)repeatCurrentGuidance:(id)guidance
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   guidanceCopy = guidance;
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
-    v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "%@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "%@", &v8, 0xCu);
   }
 
   [(MNNavigationServiceProxy *)self->_proxy repeatCurrentGuidanceWithReply:guidanceCopy];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setVoiceGuidanceLevelOverride:(unint64_t)override
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
@@ -3095,38 +3351,35 @@ LABEL_22:
     }
 
     *buf = 138412546;
-    v11 = v7;
-    v12 = 2112;
-    v13 = override;
+    v10 = v7;
+    v11 = 2112;
+    v12 = override;
     _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "%@ %@", buf, 0x16u);
   }
 
   [(MNNavigationServiceProxy *)self->_proxy setVoiceGuidanceLevelOverride:override];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)changeUserOptions:(id)options
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = NSStringFromSelector(a2);
-    v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_INFO, "%@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_INFO, "%@", &v8, 0xCu);
   }
 
   [(MNNavigationService *)self setCachedUserOptions:optionsCopy];
   [(MNNavigationServiceProxy *)self->_proxy changeUserOptions:optionsCopy];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setGuidanceType:(unint64_t)type
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
@@ -3143,20 +3396,19 @@ LABEL_22:
       v9 = @"RoutePreview";
     }
 
-    v11 = 138412546;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v9;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "%@: %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "%@: %@", &v10, 0x16u);
   }
 
   [(MNNavigationServiceProxy *)self->_proxy setGuidanceType:type];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)switchToDestinationRoute
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   destination = [(MNNavigationService *)self destination];
   route = [destination route];
 
@@ -3179,13 +3431,13 @@ LABEL_22:
         v10 = off_1E842AD20[source - 1];
       }
 
-      v12 = 138412802;
-      v13 = name;
-      v14 = 2112;
-      v15 = userProvidedName;
-      v16 = 2112;
-      v17 = v10;
-      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "switchToDestinationRoute | destination route: %@ (%@) %@", &v12, 0x20u);
+      v11 = 138412802;
+      v12 = name;
+      v13 = 2112;
+      v14 = userProvidedName;
+      v15 = 2112;
+      v16 = v10;
+      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "switchToDestinationRoute | destination route: %@ (%@) %@", &v11, 0x20u);
     }
 
     [(MNNavigationServiceProxy *)self->_proxy switchToDestinationRoute];
@@ -3195,35 +3447,61 @@ LABEL_22:
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "switchToDestinationRoute was called, but the destination does not lead to another route.", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "switchToDestinationRoute was called, but the destination does not lead to another route.", &v11, 2u);
     }
   }
+}
 
-  v11 = *MEMORY[0x1E69E9840];
+- (void)changeTransportType:(int)type route:(id)route
+{
+  v4 = *&type;
+  v14 = *MEMORY[0x1E69E9840];
+  routeCopy = route;
+  v7 = MNGetMNNavigationServiceLog();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    if (v4 >= 7)
+    {
+      v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v4];
+    }
+
+    else
+    {
+      v8 = off_1E842ACE8[v4];
+    }
+
+    uniqueRouteID = [routeCopy uniqueRouteID];
+    *buf = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = uniqueRouteID;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "changeTransportType: %@ | route: %@", buf, 0x16u);
+  }
+
+  [(MNNavigationServiceProxy *)self->_proxy changeTransportType:v4 route:routeCopy];
 }
 
 - (void)switchToRoute:(id)route
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   routeCopy = route;
   v5 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [routeCopy name];
     uniqueRouteID = [routeCopy uniqueRouteID];
-    v11 = 138412546;
-    v12 = name;
-    v13 = 2112;
-    v14 = uniqueRouteID;
-    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "switchToRoute: %@ | %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = name;
+    v12 = 2112;
+    v13 = uniqueRouteID;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "switchToRoute: %@ | %@", &v10, 0x16u);
   }
 
   details = [(MNNavigationService *)self details];
   v9 = [details routeInfoForRoute:routeCopy];
 
   [(MNNavigationServiceProxy *)self->_proxy switchToRoute:v9];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)forceReroute
@@ -3255,22 +3533,21 @@ LABEL_22:
 
 - (void)updateDestination:(id)destination
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   destinationCopy = destination;
   v5 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     navDisplayName = [destinationCopy navDisplayName];
-    v9 = 138412290;
-    v10 = navDisplayName;
-    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "updateDestination: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = navDisplayName;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "updateDestination: %@", &v8, 0xCu);
   }
 
   details = [(MNNavigationService *)self details];
   [details setIsDetour:1];
 
   [(MNNavigationServiceProxy *)self->_proxy updateDestination:destinationCopy];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)advanceToNextLeg
@@ -3287,7 +3564,7 @@ LABEL_22:
 
 - (void)removeWaypointAtIndex:(unint64_t)index
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   details = [(MNNavigationService *)self details];
   currentRoute = [details currentRoute];
   waypoints = [currentRoute waypoints];
@@ -3299,9 +3576,9 @@ LABEL_22:
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 134217984;
+      v11 = 134217984;
       indexCopy2 = index;
-      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_DEFAULT, "removeWaypointAtIndex: %lu", &v12, 0xCu);
+      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_DEFAULT, "removeWaypointAtIndex: %lu", &v11, 0xCu);
     }
 
     [(MNNavigationServiceProxy *)self->_proxy removeWaypointAtIndex:index];
@@ -3311,57 +3588,53 @@ LABEL_22:
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = 134218240;
+      v11 = 134218240;
       indexCopy2 = index;
-      v14 = 2048;
-      v15 = v8;
-      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "Invalid index for removeWaypointAtIndex: %lu, total number of waypoints: %lu", &v12, 0x16u);
+      v13 = 2048;
+      v14 = v8;
+      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "Invalid index for removeWaypointAtIndex: %lu, total number of waypoints: %lu", &v11, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)insertWaypoint:(id)waypoint
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   waypointCopy = waypoint;
   v5 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     navDisplayName = [waypointCopy navDisplayName];
-    v8 = 138477827;
-    v9 = navDisplayName;
-    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "insertWaypoint: %{private}@", &v8, 0xCu);
+    v7 = 138477827;
+    v8 = navDisplayName;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "insertWaypoint: %{private}@", &v7, 0xCu);
   }
 
   [(MNNavigationServiceProxy *)self->_proxy insertWaypoint:waypointCopy];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)rerouteWithWaypoints:(id)waypoints
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   waypointsCopy = waypoints;
   v5 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [waypointsCopy count];
     v7 = [waypointsCopy valueForKey:@"navDisplayName"];
-    v9 = 134218242;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "rerouteWithWaypoints: Number of waypoints is %lu, waypoints: %@", &v9, 0x16u);
+    v8 = 134218242;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "rerouteWithWaypoints: Number of waypoints is %lu, waypoints: %@", &v8, 0x16u);
   }
 
   [(MNNavigationServiceProxy *)self->_proxy rerouteWithWaypoints:waypointsCopy];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopNavigationWithReason:(unint64_t)reason
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -3375,25 +3648,24 @@ LABEL_22:
       v6 = off_1E842AC98[reason - 1];
     }
 
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "stopNavigationWithReason: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "stopNavigationWithReason: %@", &v7, 0xCu);
   }
 
   [(MNNavigationServiceProxy *)self->_proxy stopNavigationWithReason:reason];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)startNavigationWithDetails:(id)details error:(id *)error
 {
-  v54[1] = *MEMORY[0x1E69E9840];
+  v53[1] = *MEMORY[0x1E69E9840];
   detailsCopy = details;
   v7 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [detailsCopy description];
     *buf = 138412290;
-    *v52 = v8;
+    *v51 = v8;
     _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "startNavigationWithDetails:error:\n\t%@", buf, 0xCu);
   }
 
@@ -3420,27 +3692,27 @@ LABEL_22:
       [details3 setIsResumingMultipointRoute:isResumingMultipointRoute];
 
       [(MNNavigationServiceProxy *)self->_proxy startNavigationWithDetails:detailsCopy activeBlock:0];
-      v46 = 0u;
-      v47 = 0u;
-      v44 = 0u;
       v45 = 0u;
+      v46 = 0u;
+      v43 = 0u;
+      v44 = 0u;
       v23 = self->_disabledCapabilities;
-      v24 = [(NSMutableDictionary *)v23 countByEnumeratingWithState:&v44 objects:v48 count:16];
+      v24 = [(NSMutableDictionary *)v23 countByEnumeratingWithState:&v43 objects:v47 count:16];
       if (v24)
       {
         v25 = v24;
-        v26 = *v45;
+        v26 = *v44;
         do
         {
           for (i = 0; i != v25; ++i)
           {
-            if (*v45 != v26)
+            if (*v44 != v26)
             {
               objc_enumerationMutation(v23);
             }
 
-            v28 = *(*(&v44 + 1) + 8 * i);
-            v29 = [(NSMutableDictionary *)self->_disabledCapabilities objectForKey:v28, v44];
+            v28 = *(*(&v43 + 1) + 8 * i);
+            v29 = [(NSMutableDictionary *)self->_disabledCapabilities objectForKey:v28, v43];
             v30 = [v29 count];
 
             if (v30)
@@ -3449,7 +3721,7 @@ LABEL_22:
             }
           }
 
-          v25 = [(NSMutableDictionary *)v23 countByEnumeratingWithState:&v44 objects:v48 count:16];
+          v25 = [(NSMutableDictionary *)v23 countByEnumeratingWithState:&v43 objects:v47 count:16];
         }
 
         while (v25);
@@ -3466,17 +3738,17 @@ LABEL_22:
       routes3 = [detailsCopy routes];
       v35 = [routes3 count];
       *buf = 67109376;
-      *v52 = selectedRouteIndex2;
-      *&v52[4] = 1024;
-      *&v52[6] = v35;
+      *v51 = selectedRouteIndex2;
+      *&v51[4] = 1024;
+      *&v51[6] = v35;
       _os_log_impl(&dword_1D311E000, v32, OS_LOG_TYPE_ERROR, "MNStartNavigationDetails selectedRouteIndex is (%d), but only (%d) routes were provided", buf, 0xEu);
     }
 
     if (error)
     {
-      v49 = @"startNavigationDetails";
-      v50 = detailsCopy;
-      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+      v48 = @"startNavigationDetails";
+      v49 = detailsCopy;
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
       v36 = MEMORY[0x1E696ABC0];
       v37 = 7;
 LABEL_30:
@@ -3506,13 +3778,13 @@ LABEL_31:
 
       v38 = v11;
       *buf = 138412290;
-      *v52 = v38;
+      *v51 = v38;
       _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_ERROR, "startNavigation called when navd is already navigating. navd state: %@", buf, 0xCu);
     }
 
     if (error)
     {
-      v53 = @"currentState";
+      v52 = @"currentState";
       state2 = [(MNNavigationService *)self state];
       if (state2 - 1 > 5)
       {
@@ -3525,8 +3797,8 @@ LABEL_31:
       }
 
       v41 = v40;
-      v54[0] = v41;
-      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:&v53 count:1];
+      v53[0] = v41;
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:&v52 count:1];
 
       v36 = MEMORY[0x1E696ABC0];
       v37 = 6;
@@ -3537,13 +3809,12 @@ LABEL_31:
   v31 = 0;
 LABEL_32:
 
-  v42 = *MEMORY[0x1E69E9840];
   return v31;
 }
 
 - (void)setRoutesForPreview:(id)preview selectedRouteIndex:(unint64_t)index
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   previewCopy = preview;
   v7 = [previewCopy count];
   v8 = MNGetMNNavigationServiceLog();
@@ -3556,8 +3827,8 @@ LABEL_32:
     }
 
     *buf = 67109376;
-    v29 = [previewCopy count];
-    v30 = 1024;
+    v28 = [previewCopy count];
+    v29 = 1024;
     indexCopy = index;
     v10 = "setRoutesForPreview:selectedRouteIndex: routes.count = %d, selectedRouteIndex = %d";
     v11 = v8;
@@ -3572,7 +3843,7 @@ LABEL_32:
     }
 
     *buf = 67109120;
-    v29 = [previewCopy count];
+    v28 = [previewCopy count];
     v10 = "setRoutesForPreview:selectedRouteIndex: routes.count = %d";
     v11 = v8;
     v12 = 8;
@@ -3582,39 +3853,38 @@ LABEL_32:
 LABEL_7:
 
   v13 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(previewCopy, "count")}];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v14 = previewCopy;
-  v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v24;
+    v17 = *v23;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v24 != v17)
+        if (*v23 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v23 + 1) + 8 * i);
+        v19 = *(*(&v22 + 1) + 8 * i);
         v20 = [MNActiveRouteInfo alloc];
-        v21 = [(MNActiveRouteInfo *)v20 initWithRoute:v19, v23];
+        v21 = [(MNActiveRouteInfo *)v20 initWithRoute:v19, v22];
         [v13 addObject:v21];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v16);
   }
 
   [(MNNavigationServiceProxy *)self->_proxy setRoutesForPreview:v13 selectedRouteIndex:index];
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (id)ticketForDirectionsRequest:(id)request
@@ -3629,19 +3899,19 @@ LABEL_7:
 
 - (void)closeForClient:(id)client
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   if ([(MNNavigationServiceRemoteProxy *)self->_remoteProxy isOpenForClient:clientCopy])
   {
     v5 = MNGetMNNavigationServiceLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412546;
-      v11 = objc_opt_class();
-      v12 = 2048;
-      v13 = clientCopy;
-      v6 = v11;
-      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "closeForClient: '%@' (%p)", &v10, 0x16u);
+      v9 = 138412546;
+      v10 = objc_opt_class();
+      v11 = 2048;
+      v12 = clientCopy;
+      v6 = v10;
+      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "closeForClient: '%@' (%p)", &v9, 0x16u);
     }
 
     [(MNNavigationServiceRemoteProxy *)self->_remoteProxy closeForClient:clientCopy];
@@ -3651,34 +3921,31 @@ LABEL_7:
       v8 = MNGetMNNavigationServiceLog();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v10) = 0;
-        _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "No more open clients in current process", &v10, 2u);
+        LOWORD(v9) = 0;
+        _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "No more open clients in current process", &v9, 2u);
       }
 
       [(MNNavigationService *)self _resetDetails];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)openForClient:(id)client
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   v5 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412546;
-    v9 = objc_opt_class();
-    v10 = 2048;
-    v11 = clientCopy;
-    v6 = v9;
-    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "openForClient: '%@' (%p)", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = objc_opt_class();
+    v9 = 2048;
+    v10 = clientCopy;
+    v6 = v8;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "openForClient: '%@' (%p)", &v7, 0x16u);
   }
 
   [(MNNavigationServiceRemoteProxy *)self->_remoteProxy openForClient:clientCopy];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)description
@@ -3744,7 +4011,7 @@ LABEL_7:
   return daemonInterfaceHash_daemonInterfaceHash;
 }
 
-uint64_t __52__MNNavigationService_Internal__daemonInterfaceHash__block_invoke(uint64_t a1)
+void *__52__MNNavigationService_Internal__daemonInterfaceHash__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _hashForProtocol:&unk_1F4EEDD48];
   daemonInterfaceHash_daemonInterfaceHash = result;
@@ -3766,7 +4033,7 @@ uint64_t __52__MNNavigationService_Internal__daemonInterfaceHash__block_invoke(u
   return clientInterfaceHash_clientInterfaceHash;
 }
 
-uint64_t __52__MNNavigationService_Internal__clientInterfaceHash__block_invoke(uint64_t a1)
+void *__52__MNNavigationService_Internal__clientInterfaceHash__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _hashForProtocol:&unk_1F4EEA548];
   clientInterfaceHash_clientInterfaceHash = result;
@@ -3775,7 +4042,7 @@ uint64_t __52__MNNavigationService_Internal__clientInterfaceHash__block_invoke(u
 
 - (void)_updateWithCallback:(id)callback
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   callbackCopy = callback;
   details = [(MNNavigationService *)self details];
   [details updateWithNavigationServiceCallbackParameters:callbackCopy];
@@ -3786,20 +4053,20 @@ uint64_t __52__MNNavigationService_Internal__clientInterfaceHash__block_invoke(u
       v6 = MNGetMNNavigationServiceLog();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        LOWORD(v28) = 0;
-        _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_FAULT, "MNNavigationService received Unknown type callback.", &v28, 2u);
+        LOWORD(v27) = 0;
+        _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_FAULT, "MNNavigationService received Unknown type callback.", &v27, 2u);
       }
 
       v7 = GEOFindOrCreateLog();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v28 = 136315650;
-        v29 = "[MNNavigationService(CallbackHandling) _updateWithCallback:]";
-        v30 = 2080;
-        v31 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Navigation Service Internal/MNNavigationService+CallbackHandling.m";
-        v32 = 1024;
-        v33 = 233;
-        _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v28, 0x1Cu);
+        v27 = 136315650;
+        v28 = "[MNNavigationService(CallbackHandling) _updateWithCallback:]";
+        v29 = 2080;
+        v30 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Navigation Service Internal/MNNavigationService+CallbackHandling.m";
+        v31 = 1024;
+        v32 = 233;
+        _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v27, 0x1Cu);
       }
 
       goto LABEL_109;
@@ -4244,11 +4511,11 @@ uint64_t __52__MNNavigationService_Internal__clientInterfaceHash__block_invoke(u
 
 LABEL_108:
           v26 = v9;
-          v28 = 138412546;
-          v29 = v26;
-          v30 = 2112;
-          v31 = objc_opt_class();
-          _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_FAULT, "Callback parameters of type '%@' was received, but was not the expected subclass. Received '%@' instead.", &v28, 0x16u);
+          v27 = 138412546;
+          v28 = v26;
+          v29 = 2112;
+          v30 = objc_opt_class();
+          _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_FAULT, "Callback parameters of type '%@' was received, but was not the expected subclass. Received '%@' instead.", &v27, 0x16u);
         }
 
 LABEL_109:
@@ -4256,7 +4523,6 @@ LABEL_109:
 
 LABEL_110:
 
-      v27 = *MEMORY[0x1E69E9840];
       return;
     default:
       goto LABEL_110;
@@ -4265,12 +4531,12 @@ LABEL_110:
 
 - (void)_navigationServiceCallback_WillStartNavigation:(id)navigation
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   navigationCopy = navigation;
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = NSStringFromSelector(a2);
+    v20 = NSStringFromSelector(a2);
     routeInfo = [navigationCopy routeInfo];
     route = [routeInfo route];
     transportType = [route transportType];
@@ -4284,7 +4550,7 @@ LABEL_110:
       v8 = off_1E842B160[transportType];
     }
 
-    v18 = v8;
+    v17 = v8;
     capitalizedString = [(__CFString *)v8 capitalizedString];
     v10 = [navigationCopy navigationType] - 1;
     if (v10 > 3)
@@ -4303,24 +4569,22 @@ LABEL_110:
     routeLookupIDs = [details routeLookupIDs];
     v16 = [routeLookupIDs componentsJoinedByString:{@", "}];
     *buf = 138544386;
-    v23 = v21;
-    v24 = 2112;
-    v25 = capitalizedString;
-    v26 = 2112;
-    v27 = v11;
-    v28 = 2112;
-    v29 = routeID;
-    v30 = 2112;
-    v31 = v16;
+    v22 = v20;
+    v23 = 2112;
+    v24 = capitalizedString;
+    v25 = 2112;
+    v26 = v11;
+    v27 = 2112;
+    v28 = routeID;
+    v29 = 2112;
+    v30 = v16;
     _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@)%@ %@ | %@\nKnown route IDs: (%@)", buf, 0x34u);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_navigationServiceCallback_WillEndNavigation:(id)navigation
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   navigationCopy = navigation;
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -4337,54 +4601,50 @@ LABEL_110:
       v9 = off_1E842B110[reason - 1];
     }
 
-    v12 = 138543618;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v9;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@)%@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v9;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@)%@", &v11, 0x16u);
   }
 
   navigationObservers = [(MNNavigationService *)self navigationObservers];
   [navigationObservers navigationService:self willEndWithReason:{objc_msgSend(navigationCopy, "reason")}];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_navigationServiceCallback_ShouldEnableIdleTimer:(id)timer
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 1024;
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 1024;
     shouldEnable = [timerCopy shouldEnable];
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@)%d", &v10, 0x12u);
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@)%d", &v9, 0x12u);
   }
 
   navigationObservers = [(MNNavigationService *)self navigationObservers];
   [navigationObservers navigationService:self shouldEnableIdleTimer:{objc_msgSend(timerCopy, "shouldEnable")}];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_navigationServiceCallback_DidUpdateVehicleParkingInfo:(id)info
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
     vehicleParkingInfo = [infoCopy vehicleParkingInfo];
-    v14 = 138543618;
-    v15 = v7;
-    v16 = 2112;
-    v17 = vehicleParkingInfo;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@)%@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v7;
+    v15 = 2112;
+    v16 = vehicleParkingInfo;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@)%@", &v13, 0x16u);
   }
 
   vehicleParkingInfo2 = [infoCopy vehicleParkingInfo];
@@ -4394,34 +4654,30 @@ LABEL_110:
   navigationObservers = [(MNNavigationService *)self navigationObservers];
   vehicleParkingInfo3 = [infoCopy vehicleParkingInfo];
   [navigationObservers navigationService:self didUpdateVehicleParkingInfo:vehicleParkingInfo3];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_navigationServiceCallback_DidUpdateUpcomingAnchorPointIndex:(id)index
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   indexCopy = index;
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 1024;
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 1024;
     anchorPointIndex = [indexCopy anchorPointIndex];
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@)%d", &v10, 0x12u);
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@)%d", &v9, 0x12u);
   }
 
   navigationObservers = [(MNNavigationService *)self navigationObservers];
   [navigationObservers navigationService:self didUpdateUpcomingAnchorPointIndex:{objc_msgSend(indexCopy, "anchorPointIndex")}];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_navigationServiceCallback_DidUpdateTrafficIncidentAlert:(id)alert
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   alertCopy = alert;
   trafficIncidentAlert = [alertCopy trafficIncidentAlert];
   v7 = trafficIncidentAlert;
@@ -4442,11 +4698,11 @@ LABEL_110:
   {
     v12 = NSStringFromSelector(a2);
     *buf = 138543874;
-    v22 = v12;
-    v23 = 1024;
+    v21 = v12;
+    v22 = 1024;
     updateType = [alertCopy updateType];
-    v25 = 2112;
-    v26 = v10;
+    v24 = 2112;
+    v25 = v10;
     _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_DEFAULT, "(%{public}@)%d (%@)", buf, 0x1Cu);
   }
 
@@ -4473,16 +4729,16 @@ LABEL_110:
     if (!updateType2)
     {
       navigationObservers2 = [(MNNavigationService *)self navigationObservers];
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __98__MNNavigationService_CallbackHandling___navigationServiceCallback_DidUpdateTrafficIncidentAlert___block_invoke;
-      v17[3] = &unk_1E842B0D0;
-      v18 = v10;
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __98__MNNavigationService_CallbackHandling___navigationServiceCallback_DidUpdateTrafficIncidentAlert___block_invoke;
+      v16[3] = &unk_1E842B0D0;
+      v17 = v10;
       selfCopy = self;
-      v20 = v7;
-      [navigationObservers2 navigationService:self didReceiveTrafficIncidentAlert:v20 responseCallback:v17];
+      v19 = v7;
+      [navigationObservers2 navigationService:self didReceiveTrafficIncidentAlert:v19 responseCallback:v16];
 
-      navigationObservers = v18;
+      navigationObservers = v17;
       goto LABEL_15;
     }
 
@@ -4493,54 +4749,48 @@ LABEL_110:
 LABEL_15:
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __98__MNNavigationService_CallbackHandling___navigationServiceCallback_DidUpdateTrafficIncidentAlert___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v8[0] = 67109378;
-    v8[1] = a2;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_DEFAULT, "acceptReroute: %d, %@", v8, 0x12u);
+    v7[0] = 67109378;
+    v7[1] = a2;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_DEFAULT, "acceptReroute: %d, %@", v7, 0x12u);
   }
 
   v6 = [*(a1 + 40) proxy];
   [v6 acceptReroute:a2 forTrafficIncidentAlert:*(a1 + 48)];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_navigationServiceCallback_DidUpdateTargetLegIndex:(id)index
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   indexCopy = index;
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 1024;
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 1024;
     targetLegIndex = [indexCopy targetLegIndex];
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@)%d", &v10, 0x12u);
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@)%d", &v9, 0x12u);
   }
 
   navigationObservers = [(MNNavigationService *)self navigationObservers];
   [navigationObservers navigationService:self didUpdateTargetLegIndex:{objc_msgSend(indexCopy, "targetLegIndex")}];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_navigationServiceCallback_DidUpdateStepIndex:(id)index
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   indexCopy = index;
   stepIndex = [indexCopy stepIndex];
   segmentIndex = [indexCopy segmentIndex];
@@ -4549,80 +4799,74 @@ void __98__MNNavigationService_CallbackHandling___navigationServiceCallback_DidU
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = NSStringFromSelector(a2);
-    v12 = 138543874;
-    v13 = v9;
-    v14 = 1024;
-    v15 = stepIndex;
-    v16 = 1024;
-    v17 = segmentIndex;
-    _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "(%{public}@)%d, %d", &v12, 0x18u);
+    v11 = 138543874;
+    v12 = v9;
+    v13 = 1024;
+    v14 = stepIndex;
+    v15 = 1024;
+    v16 = segmentIndex;
+    _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "(%{public}@)%d, %d", &v11, 0x18u);
   }
 
   navigationObservers = [(MNNavigationService *)self navigationObservers];
   [navigationObservers navigationService:self didUpdateStepIndex:stepIndex segmentIndex:segmentIndex];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_navigationServiceCallback_DidUpdateResumeRouteHandle:(id)handle
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
     resumeRouteHandle = [handleCopy resumeRouteHandle];
-    v12 = 138543618;
-    v13 = v7;
-    v14 = 2112;
-    v15 = resumeRouteHandle;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@)%@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v7;
+    v13 = 2112;
+    v14 = resumeRouteHandle;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@)%@", &v11, 0x16u);
   }
 
   navigationObservers = [(MNNavigationService *)self navigationObservers];
   resumeRouteHandle2 = [handleCopy resumeRouteHandle];
   [navigationObservers navigationService:self didUpdateResumeRouteHandle:resumeRouteHandle2];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_navigationServiceCallback_DidUpdateNavTrayGuidance:(id)guidance
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   guidanceCopy = guidance;
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
     navTrayGuidanceEvent = [guidanceCopy navTrayGuidanceEvent];
-    v12 = 138543618;
-    v13 = v7;
-    v14 = 2112;
-    v15 = navTrayGuidanceEvent;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@)%@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v7;
+    v13 = 2112;
+    v14 = navTrayGuidanceEvent;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@)%@", &v11, 0x16u);
   }
 
   navigationObservers = [(MNNavigationService *)self navigationObservers];
   navTrayGuidanceEvent2 = [guidanceCopy navTrayGuidanceEvent];
   [navigationObservers navigationService:self didUpdateNavTrayGuidance:navTrayGuidanceEvent2];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_navigationServiceCallback_DidUpdateMatchedLocation:(id)location
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   location = [location location];
   v6 = MNGetPuckTrackingLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     uuid = [location uuid];
-    v19 = 138412546;
-    v20 = uuid;
-    v21 = 2080;
-    v22 = "[MNNavigationService(CallbackHandling) _navigationServiceCallback_DidUpdateMatchedLocation:]";
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_INFO, "[MN] [%@] - Processing - in %s", &v19, 0x16u);
+    v18 = 138412546;
+    v19 = uuid;
+    v20 = 2080;
+    v21 = "[MNNavigationService(CallbackHandling) _navigationServiceCallback_DidUpdateMatchedLocation:]";
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_INFO, "[MN] [%@] - Processing - in %s", &v18, 0x16u);
   }
 
   v8 = MNGetMNNavigationServiceLog();
@@ -4636,28 +4880,26 @@ void __98__MNNavigationService_CallbackHandling___navigationServiceCallback_DidU
     [location course];
     v15 = v14;
     routeID = [location routeID];
-    v19 = 138413314;
-    v20 = v9;
-    v21 = 2048;
-    v22 = v11;
-    v23 = 2048;
-    v24 = v13;
-    v25 = 1024;
-    v26 = v15;
-    v27 = 2112;
-    v28 = routeID;
-    _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_INFO, "(%@) %0.6f, %0.6f | %d | route ID: %@", &v19, 0x30u);
+    v18 = 138413314;
+    v19 = v9;
+    v20 = 2048;
+    v21 = v11;
+    v22 = 2048;
+    v23 = v13;
+    v24 = 1024;
+    v25 = v15;
+    v26 = 2112;
+    v27 = routeID;
+    _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_INFO, "(%@) %0.6f, %0.6f | %d | route ID: %@", &v18, 0x30u);
   }
 
   navigationObservers = [(MNNavigationService *)self navigationObservers];
   [navigationObservers navigationService:self didUpdateMatchedLocation:location];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_navigationServiceCallback_DidUpdateDisplayETA:(id)a
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   aCopy = a;
   displayETAInfo = [aCopy displayETAInfo];
   routeDistanceInfo = [aCopy routeDistanceInfo];
@@ -4668,15 +4910,15 @@ void __98__MNNavigationService_CallbackHandling___navigationServiceCallback_DidU
   {
     v10 = NSStringFromSelector(a2);
     routeID = [displayETAInfo routeID];
-    v17 = 138544130;
-    v18 = v10;
-    v19 = 2112;
-    v20 = displayETAInfo;
-    v21 = 2112;
-    v22 = routeDistanceInfo;
-    v23 = 2112;
-    v24 = routeID;
-    _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_INFO, "(%{public}@)%@ | %@ | %@", &v17, 0x2Au);
+    v16 = 138544130;
+    v17 = v10;
+    v18 = 2112;
+    v19 = displayETAInfo;
+    v20 = 2112;
+    v21 = routeDistanceInfo;
+    v22 = 2112;
+    v23 = routeID;
+    _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_INFO, "(%{public}@)%@ | %@ | %@", &v16, 0x2Au);
   }
 
   details = [(MNNavigationService *)self details];
@@ -4691,13 +4933,11 @@ void __98__MNNavigationService_CallbackHandling___navigationServiceCallback_DidU
     navigationObservers = [(MNNavigationService *)self navigationObservers];
     [navigationObservers navigationService:self didUpdateDisplayETA:displayETAInfo remainingDistance:routeDistanceInfo batteryChargeInfo:batteryChargeInfo];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_navigationServiceCallback_DidUpdateBackgroundWalkingRoute:(id)route
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   routeCopy = route;
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -4711,13 +4951,13 @@ void __98__MNNavigationService_CallbackHandling___navigationServiceCallback_DidU
     routeInfo3 = [routeCopy routeInfo];
     displayETAInfo = [routeInfo3 displayETAInfo];
     *buf = 138544130;
-    v21 = v7;
-    v22 = 2112;
-    v23 = name;
-    v24 = 2112;
-    v25 = routeID;
-    v26 = 2112;
-    v27 = displayETAInfo;
+    v20 = v7;
+    v21 = 2112;
+    v22 = name;
+    v23 = 2112;
+    v24 = routeID;
+    v25 = 2112;
+    v26 = displayETAInfo;
     _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@)%@ | %@ | %@", buf, 0x2Au);
   }
 
@@ -4728,24 +4968,22 @@ void __98__MNNavigationService_CallbackHandling___navigationServiceCallback_DidU
   navigationObservers = [(MNNavigationService *)self navigationObservers];
   alternateWalkingRoute = [(MNNavigationService *)self alternateWalkingRoute];
   [navigationObservers navigationService:self didUpdateAlternateWalkingRoute:alternateWalkingRoute];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_navigationServiceCallback_DidUpdateArrivalInfo:(id)info
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
     arrivalInfo = [infoCopy arrivalInfo];
-    v14 = 138543618;
-    v15 = v7;
-    v16 = 2112;
-    v17 = arrivalInfo;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@)%@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v7;
+    v15 = 2112;
+    v16 = arrivalInfo;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@)%@", &v13, 0x16u);
   }
 
   arrivalInfo2 = [infoCopy arrivalInfo];
@@ -4755,36 +4993,32 @@ void __98__MNNavigationService_CallbackHandling___navigationServiceCallback_DidU
   navigationObservers = [(MNNavigationService *)self navigationObservers];
   arrivalInfo3 = [infoCopy arrivalInfo];
   [navigationObservers navigationService:self didUpdateArrivalInfo:arrivalInfo3 previousState:{objc_msgSend(infoCopy, "previousState")}];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_navigationServiceCallback_DidReceiveRoutingServiceError:(id)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = NSStringFromSelector(a2);
     error = [errorCopy error];
-    v12 = 138543618;
-    v13 = v7;
-    v14 = 2112;
-    v15 = error;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "(%{public}@) %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v7;
+    v13 = 2112;
+    v14 = error;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "(%{public}@) %@", &v11, 0x16u);
   }
 
   navigationObservers = [(MNNavigationService *)self navigationObservers];
   error2 = [errorCopy error];
   [navigationObservers navigationService:self didReceiveRoutingServiceError:error2];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_navigationServiceCallback_DidEndNavigation:(id)navigation
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   navigationCopy = navigation;
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -4801,22 +5035,20 @@ void __98__MNNavigationService_CallbackHandling___navigationServiceCallback_DidU
       v9 = off_1E842B110[reason - 1];
     }
 
-    v12 = 138543618;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v9;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@)%@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v9;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@)%@", &v11, 0x16u);
   }
 
   navigationObservers = [(MNNavigationService *)self navigationObservers];
   [navigationObservers navigationService:self didEndWithReason:{objc_msgSend(navigationCopy, "reason")}];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_navigationServiceCallback_DidChangeVoiceGuidanceLevel:(id)level
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   levelCopy = level;
   v6 = MNGetMNNavigationServiceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -4834,16 +5066,14 @@ void __98__MNNavigationService_CallbackHandling___navigationServiceCallback_DidU
     }
 
     *buf = 138543618;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v9;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v9;
     _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@)%@", buf, 0x16u);
   }
 
   navigationObservers = [(MNNavigationService *)self navigationObservers];
   [navigationObservers navigationService:self didChangeVoiceGuidanceLevel:{objc_msgSend(levelCopy, "voiceGuidanceLevel")}];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

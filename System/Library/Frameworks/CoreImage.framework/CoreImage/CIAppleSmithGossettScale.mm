@@ -109,8 +109,8 @@ LABEL_13:
     v52.var3 = v19;
   }
 
-  Rectangle::inset(&v52, -3.0, -0.0, &v55);
-  Rectangle::integralize(&v55, 0.0001, &v48);
+  Rectangle::inset(&v55, &v52, -3.0, -0.0);
+  Rectangle::integralize(&v48, &v55, 0.0001);
   v42 = v49;
   v46 = v48;
   v21 = COERCE_DOUBLE([(CIImage *)imageByClampingToExtent imageBySamplingNearest]);
@@ -190,8 +190,8 @@ LABEL_30:
     v52.var3 = height * v8;
   }
 
-  Rectangle::inset(&v52, -0.0, -3.0, &v55);
-  Rectangle::integralize(&v55, 0.0001, &v48);
+  Rectangle::inset(&v55, &v52, -0.0, -3.0);
+  Rectangle::integralize(&v48, &v55, 0.0001);
   v44 = v49;
   v47 = v48;
   v32 = COERCE_DOUBLE([(CIImage *)v25 imageBySamplingNearest]);

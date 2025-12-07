@@ -36,14 +36,14 @@
 
   else
   {
-    memset(v9, 0, sizeof(v9));
+    memset(v10, 0, sizeof(v10));
     selfCopy2 = self;
   }
 
-  v7 = sub_1E38D46E0();
+  v8 = sub_1E38D46E0(action);
 
-  sub_1E325F748(v9, &unk_1ECF296E0);
-  return v7 & 1;
+  sub_1E325F748(v10, &unk_1ECF296E0, &unk_1E4298030);
+  return v8 & 1;
 }
 
 - (void)didTapDownload

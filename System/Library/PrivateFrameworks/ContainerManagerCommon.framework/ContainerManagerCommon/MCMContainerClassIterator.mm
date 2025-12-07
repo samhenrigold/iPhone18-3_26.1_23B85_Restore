@@ -1,7 +1,6 @@
 @interface MCMContainerClassIterator
 - (MCMContainerClassIterator)initWithStaticConfig:(id)config;
 - (MCMContainerClassIterator)initWithStaticConfig:(id)config userIdentityCache:(id)cache;
-- (MCMStaticConfiguration)staticConfig;
 - (MCMUserIdentityCache)userIdentityCache;
 - (void)_selectWithFlags:(unint64_t)flags includeUserIdentities:(BOOL)identities iterator:(id)iterator;
 - (void)selectAutorollingWithIterator:(id)iterator;
@@ -27,51 +26,43 @@
 
 @implementation MCMContainerClassIterator
 
-- (MCMStaticConfiguration)staticConfig
-{
-  result = self->_staticConfig;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (void)_selectWithFlags:(unint64_t)flags includeUserIdentities:(BOOL)identities iterator:(id)iterator
 {
   identitiesCopy = identities;
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   iteratorCopy = iterator;
   if (!identitiesCopy || ([(MCMContainerClassIterator *)self userIdentityCache], v9 = objc_claimAutoreleasedReturnValue(), v9, v9))
   {
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     staticConfig = [(MCMContainerClassIterator *)self staticConfig];
     containerConfigMap = [staticConfig containerConfigMap];
 
-    v12 = [containerConfigMap countByEnumeratingWithState:&v49 objects:v48 count:16];
+    v12 = [containerConfigMap countByEnumeratingWithState:&v48 objects:v47 count:16];
     if (!v12)
     {
       goto LABEL_63;
     }
 
     v13 = v12;
-    v39 = *v50;
-    v38 = identitiesCopy;
+    v38 = *v49;
+    v37 = identitiesCopy;
     selfCopy = self;
-    v37 = iteratorCopy;
-    v35 = containerConfigMap;
+    v36 = iteratorCopy;
+    v34 = containerConfigMap;
     while (1)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v50 != v39)
+        if (*v49 != v38)
         {
           objc_enumerationMutation(containerConfigMap);
         }
 
-        v15 = *(*(&v49 + 1) + 8 * i);
-        v16 = [(MCMContainerClassIterator *)self staticConfig:v35];
+        v15 = *(*(&v48 + 1) + 8 * i);
+        v16 = [(MCMContainerClassIterator *)self staticConfig:v34];
         containerConfigMap2 = [v16 containerConfigMap];
         v18 = [containerConfigMap2 objectForKeyedSubscript:v15];
 
@@ -105,7 +96,7 @@
                   aBlock[2] = __77__MCMContainerClassIterator__selectWithFlags_includeUserIdentities_iterator___block_invoke;
                   aBlock[3] = &unk_1E86B0668;
                   flagsCopy = flags;
-                  v41 = iteratorCopy;
+                  v40 = iteratorCopy;
                   v22 = _Block_copy(aBlock);
                   v23 = v22;
                   if (identitiesCopy)
@@ -142,38 +133,38 @@ LABEL_51:
                       allAccessibleUserIdentities = [v24 setWithObject:globalSystemUserIdentity];
                     }
 
-                    v46 = 0u;
-                    v47 = 0u;
-                    v44 = 0u;
                     v45 = 0u;
+                    v46 = 0u;
+                    v43 = 0u;
+                    v44 = 0u;
                     v29 = allAccessibleUserIdentities;
-                    v30 = [v29 countByEnumeratingWithState:&v44 objects:v43 count:16];
+                    v30 = [v29 countByEnumeratingWithState:&v43 objects:v42 count:16];
                     if (v30)
                     {
                       v31 = v30;
-                      v32 = *v45;
+                      v32 = *v44;
                       do
                       {
                         for (j = 0; j != v31; ++j)
                         {
-                          if (*v45 != v32)
+                          if (*v44 != v32)
                           {
                             objc_enumerationMutation(v29);
                           }
 
-                          (v23)[2](v23, v18, *(*(&v44 + 1) + 8 * j));
+                          (v23)[2](v23, v18, *(*(&v43 + 1) + 8 * j));
                         }
 
-                        v31 = [v29 countByEnumeratingWithState:&v44 objects:v43 count:16];
+                        v31 = [v29 countByEnumeratingWithState:&v43 objects:v42 count:16];
                       }
 
                       while (v31);
                     }
 
-                    identitiesCopy = v38;
+                    identitiesCopy = v37;
                     self = selfCopy;
-                    iteratorCopy = v37;
-                    containerConfigMap = v35;
+                    iteratorCopy = v36;
+                    containerConfigMap = v34;
                   }
 
                   else
@@ -189,12 +180,11 @@ LABEL_51:
 LABEL_61:
       }
 
-      v13 = [containerConfigMap countByEnumeratingWithState:&v49 objects:v48 count:16];
+      v13 = [containerConfigMap countByEnumeratingWithState:&v48 objects:v47 count:16];
       if (!v13)
       {
 LABEL_63:
 
-        v34 = *MEMORY[0x1E69E9840];
         return;
       }
     }
@@ -206,8 +196,7 @@ LABEL_63:
 
 void __77__MCMContainerClassIterator__selectWithFlags_includeUserIdentities_iterator___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = a2;
+  v7 = a2;
   v5 = a3;
   if (*(a1 + 40))
   {
@@ -220,209 +209,156 @@ void __77__MCMContainerClassIterator__selectWithFlags_includeUserIdentities_iter
     (*(*(a1 + 32) + 16))();
     objc_autoreleasePoolPop(v6);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)selectAutorollingWithIterator:(id)iterator
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
 
   [(MCMContainerClassIterator *)self selectWithFlags:0x8000000000 iterator:iterator];
 }
 
 - (void)selectDataProtectedWithIterator:(id)iterator
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
 
   [(MCMContainerClassIterator *)self selectWithFlags:0x4000000000 iterator:iterator];
 }
 
 - (void)selectGlobalWithIterator:(id)iterator
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
 
   [(MCMContainerClassIterator *)self selectWithFlags:0x20000000000 iterator:iterator];
 }
 
 - (void)selectBundleWithIterator:(id)iterator
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
 
   [(MCMContainerClassIterator *)self selectWithFlags:0x2000000000 iterator:iterator];
 }
 
 - (void)selectSystemWithIterator:(id)iterator
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
 
   [(MCMContainerClassIterator *)self selectWithFlags:0x1000000000 iterator:iterator];
 }
 
 - (void)selectUserWithIterator:(id)iterator
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
 
   [(MCMContainerClassIterator *)self selectWithFlags:0x800000000 iterator:iterator];
 }
 
 - (void)selectRemoteWithIterator:(id)iterator
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
 
   [(MCMContainerClassIterator *)self selectWithFlags:0x200000000 iterator:iterator];
 }
 
 - (void)selectUserDataWithIterator:(id)iterator
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
 
   [(MCMContainerClassIterator *)self selectWithFlags:0x400000000 iterator:iterator];
 }
 
 - (void)selectWithIterator:(id)iterator
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
 
   [(MCMContainerClassIterator *)self selectWithFlags:0 iterator:iterator];
 }
 
 - (void)selectWithFlags:(unint64_t)flags iterator:(id)iterator
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   iteratorCopy = iterator;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __54__MCMContainerClassIterator_selectWithFlags_iterator___block_invoke;
-  v9[3] = &unk_1E86B0640;
-  v10 = iteratorCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __54__MCMContainerClassIterator_selectWithFlags_iterator___block_invoke;
+  v8[3] = &unk_1E86B0640;
+  v9 = iteratorCopy;
   v7 = iteratorCopy;
-  [(MCMContainerClassIterator *)self _selectWithFlags:flags includeUserIdentities:0 iterator:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [(MCMContainerClassIterator *)self _selectWithFlags:flags includeUserIdentities:0 iterator:v8];
 }
 
 uint64_t __54__MCMContainerClassIterator_selectWithFlags_iterator___block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   v1 = *(*(a1 + 32) + 16);
-  v2 = *MEMORY[0x1E69E9840];
 
   return v1();
 }
 
 - (MCMContainerClassIterator)initWithStaticConfig:(id)config
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
 
   return [(MCMContainerClassIterator *)self initWithStaticConfig:config userIdentityCache:0];
 }
 
 - (void)selectAutorollingWithUserIdentityIterator:(id)iterator
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
 
   [(MCMContainerClassIterator *)self selectWithFlags:0x8000000000 userIdentityIterator:iterator];
 }
 
 - (void)selectDataProtectedWithUserIdentityIterator:(id)iterator
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
 
   [(MCMContainerClassIterator *)self selectWithFlags:0x4000000000 userIdentityIterator:iterator];
 }
 
 - (void)selectGlobalWithUserIdentityIterator:(id)iterator
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
 
   [(MCMContainerClassIterator *)self selectWithFlags:0x20000000000 userIdentityIterator:iterator];
 }
 
 - (void)selectBundleWithUserIdentityIterator:(id)iterator
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
 
   [(MCMContainerClassIterator *)self selectWithFlags:0x2000000000 userIdentityIterator:iterator];
 }
 
 - (void)selectSystemWithUserIdentityIterator:(id)iterator
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
 
   [(MCMContainerClassIterator *)self selectWithFlags:0x1000000000 userIdentityIterator:iterator];
 }
 
 - (void)selectUserWithUserIdentityIterator:(id)iterator
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
 
   [(MCMContainerClassIterator *)self selectWithFlags:0x800000000 userIdentityIterator:iterator];
 }
 
 - (void)selectRemoteWithUserIdentityIterator:(id)iterator
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
 
   [(MCMContainerClassIterator *)self selectWithFlags:0x200000000 userIdentityIterator:iterator];
 }
 
 - (void)selectUserDataWithUserIdentityIterator:(id)iterator
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
 
   [(MCMContainerClassIterator *)self selectWithFlags:0x20000000000 userIdentityIterator:iterator];
 }
 
 - (void)selectWithFlags:(unint64_t)flags userIdentityIterator:(id)iterator
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   iteratorCopy = iterator;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __80__MCMContainerClassIterator_UserIdentity__selectWithFlags_userIdentityIterator___block_invoke;
-  v9[3] = &unk_1E86B0640;
-  v10 = iteratorCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __80__MCMContainerClassIterator_UserIdentity__selectWithFlags_userIdentityIterator___block_invoke;
+  v8[3] = &unk_1E86B0640;
+  v9 = iteratorCopy;
   v7 = iteratorCopy;
-  [(MCMContainerClassIterator *)self _selectWithFlags:flags includeUserIdentities:1 iterator:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [(MCMContainerClassIterator *)self _selectWithFlags:flags includeUserIdentities:1 iterator:v8];
 }
 
 uint64_t __80__MCMContainerClassIterator_UserIdentity__selectWithFlags_userIdentityIterator___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     v3 = *(*(result + 32) + 16);
-    v4 = *MEMORY[0x1E69E9840];
-    v5 = *MEMORY[0x1E69E9840];
 
     return v3();
-  }
-
-  else
-  {
-    v6 = *MEMORY[0x1E69E9840];
-    v7 = *MEMORY[0x1E69E9840];
   }
 
   return result;
@@ -431,20 +367,18 @@ uint64_t __80__MCMContainerClassIterator_UserIdentity__selectWithFlags_userIdent
 - (MCMUserIdentityCache)userIdentityCache
 {
   userIdentityCache = self->_userIdentityCache;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
 
   return userIdentityCache;
 }
 
 - (MCMContainerClassIterator)initWithStaticConfig:(id)config userIdentityCache:(id)cache
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   configCopy = config;
   cacheCopy = cache;
-  v13.receiver = self;
-  v13.super_class = MCMContainerClassIterator;
-  v9 = [(MCMContainerClassIterator *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = MCMContainerClassIterator;
+  v9 = [(MCMContainerClassIterator *)&v12 init];
   v10 = v9;
   if (v9)
   {
@@ -452,7 +386,6 @@ uint64_t __80__MCMContainerClassIterator_UserIdentity__selectWithFlags_userIdent
     objc_storeStrong(&v10->_userIdentityCache, cache);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

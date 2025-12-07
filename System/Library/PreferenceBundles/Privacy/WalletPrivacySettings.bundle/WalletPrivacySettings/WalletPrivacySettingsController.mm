@@ -7,6 +7,8 @@
 - (void)dealloc;
 - (void)didEnterBackground;
 - (void)loadView;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 - (void)willEnterForeground;
 @end
@@ -37,6 +39,31 @@
 {
   selfCopy = self;
   sub_1DFC();
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v6.receiver = self;
+  v6.super_class = swift_getObjectType();
+  v4 = v6.receiver;
+  [(WalletPrivacySettingsController *)&v6 viewWillAppear:appearCopy];
+  sub_5864();
+  v5 = *&v4[OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_financeKitProvider];
+  if (v5)
+  {
+    [v5 reloadStaleSpecifiers];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = swift_getObjectType();
+  v4 = v5.receiver;
+  [(WalletPrivacySettingsController *)&v5 viewDidAppear:appearCopy];
+  sub_5884();
 }
 
 - (id)specifiers

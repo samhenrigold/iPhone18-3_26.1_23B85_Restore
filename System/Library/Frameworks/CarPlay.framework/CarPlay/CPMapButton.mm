@@ -8,6 +8,7 @@
 - (void)handlePrimaryAction;
 - (void)setEnabled:(BOOL)enabled;
 - (void)setFocusedImage:(UIImage *)focusedImage;
+- (void)setHidden:(BOOL)hidden;
 - (void)setImage:(UIImage *)image;
 @end
 
@@ -99,6 +100,15 @@
   }
 }
 
+- (void)setHidden:(BOOL)hidden
+{
+  v3 = hidden;
+  controlDelegate = [(CPMapButton *)self controlDelegate];
+  [controlDelegate mapButton:self setHidden:v3];
+
+  self->_hidden = v3;
+}
+
 - (void)setImage:(UIImage *)image
 {
   v4 = image;
@@ -142,11 +152,10 @@
 
 - (void)handlePrimaryAction
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_236ED4000, a2, OS_LOG_TYPE_ERROR, "%@ action handler nil", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_236ED4000, a2, OS_LOG_TYPE_ERROR, "%@ action handler nil", &v2, 0xCu);
 }
 
 - (CPMapButtonDelegate)controlDelegate

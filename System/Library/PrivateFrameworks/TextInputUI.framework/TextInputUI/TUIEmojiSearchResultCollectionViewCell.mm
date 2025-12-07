@@ -133,11 +133,11 @@ uint64_t __95__TUIEmojiSearchResultCollectionViewCell_setDisplayedEmojiString_an
   return [v2 setTransform:&v4];
 }
 
-uint64_t __95__TUIEmojiSearchResultCollectionViewCell_setDisplayedEmojiString_animated_withAnimationOffset___block_invoke_4(uint64_t result, int a2)
+id *__95__TUIEmojiSearchResultCollectionViewCell_setDisplayedEmojiString_animated_withAnimationOffset___block_invoke_4(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) removeFromSuperview];
+    return [result[4] removeFromSuperview];
   }
 
   return result;
@@ -154,7 +154,7 @@ uint64_t __95__TUIEmojiSearchResultCollectionViewCell_setDisplayedEmojiString_an
   return [v2 setTransform:v5];
 }
 
-uint64_t __95__TUIEmojiSearchResultCollectionViewCell_setDisplayedEmojiString_animated_withAnimationOffset___block_invoke_6(uint64_t a1)
+void *__95__TUIEmojiSearchResultCollectionViewCell_setDisplayedEmojiString_animated_withAnimationOffset___block_invoke_6(uint64_t a1)
 {
   result = [*(a1 + 32) removeFromSuperview];
   --*(*(a1 + 40) + 664);

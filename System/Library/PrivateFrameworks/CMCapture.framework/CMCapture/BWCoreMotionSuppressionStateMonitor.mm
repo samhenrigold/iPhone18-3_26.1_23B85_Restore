@@ -86,14 +86,14 @@
   os_unfair_lock_unlock(&self->_monitoringStateLock);
 }
 
-uint64_t __44__BWCoreMotionSuppressionStateMonitor_start__block_invoke(uint64_t result, void *a2, uint64_t a3)
+char *__44__BWCoreMotionSuppressionStateMonitor_start__block_invoke(char *result, void *a2, uint64_t a3)
 {
-  v3 = *(result + 32);
+  v3 = *(result + 4);
   if (*(v3 + 44) == 1 && a2 != 0 && a3 == 0)
   {
     v7 = result;
     v8 = *(v3 + 16);
-    [a2 timestamp];
+    objc_msgSend_timestamp(a2);
     v10 = v9;
     v11 = [a2 type];
     if (v11 < 3)
@@ -101,7 +101,7 @@ uint64_t __44__BWCoreMotionSuppressionStateMonitor_start__block_invoke(uint64_t 
       v8 = v11;
     }
 
-    v12 = *(*(v7 + 32) + 20);
+    v12 = *(*(v7 + 4) + 20);
     result = [MEMORY[0x1E69634F0] instancesRespondToSelector:sel_facedownState];
     if (result)
     {
@@ -117,15 +117,15 @@ uint64_t __44__BWCoreMotionSuppressionStateMonitor_start__block_invoke(uint64_t 
       }
     }
 
-    v14 = *(v7 + 32);
+    v14 = *(v7 + 4);
     if (v8 != *(v14 + 16) || v12 != *(v14 + 20))
     {
       *(v14 + 16) = v8;
-      *(*(v7 + 32) + 20) = v12;
-      result = *(*(v7 + 32) + 32);
+      *(*(v7 + 4) + 20) = v12;
+      result = *(*(v7 + 4) + 32);
       if (result)
       {
-        v15 = *(result + 16);
+        v15 = *(result + 2);
         v13.n128_u64[0] = v10;
 
         return v15(v13);
@@ -160,27 +160,6 @@ uint64_t __44__BWCoreMotionSuppressionStateMonitor_start__block_invoke(uint64_t 
   v3.receiver = self;
   v3.super_class = BWCoreMotionSuppressionStateMonitor;
   [(BWCoreMotionSuppressionStateMonitor *)&v3 dealloc];
-}
-
-- (uint64_t)initWithSuppressionStateChangeHandler:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithSuppressionStateChangeHandler:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithSuppressionStateChangeHandler:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

@@ -10,7 +10,6 @@
 - (timespec)last_recv;
 - (unsigned)isPerAppVPN;
 - (void)closeSocket;
-- (void)connectSocket;
 - (void)readData:(const void *)data;
 - (void)readNBHeader;
 - (void)setEventHandler:(id)handler;
@@ -22,13 +21,13 @@
 
 - (int)openSocket:(id)socket
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   socketCopy = socket;
   objc_initWeak(&location, self);
   *port = 0;
-  v56 = 0;
-  v58 = 0;
-  v57 = 0;
+  v52 = 0;
+  v54 = 0;
+  v53 = 0;
   objc_storeStrong(&self->pd, socket);
   self->_resp_wait_timeout = 35;
   v6 = pthread_mutex_init(&self->io_rqlock, 0);
@@ -113,7 +112,7 @@
                   handler[1] = 3221225472;
                   handler[2] = __24__SMBSocket_openSocket___block_invoke;
                   handler[3] = &unk_279B4FA38;
-                  objc_copyWeak(&v52, &location);
+                  objc_copyWeak(&v48, &location);
                   dispatch_source_set_event_handler(v25, handler);
                   v26 = dispatch_semaphore_create(0);
                   timer_semaphore = self->timer_semaphore;
@@ -122,12 +121,12 @@
                   if (self->timer_semaphore)
                   {
                     v28 = self->timer;
-                    v50[0] = MEMORY[0x277D85DD0];
-                    v50[1] = 3221225472;
-                    v50[2] = __24__SMBSocket_openSocket___block_invoke_6;
-                    v50[3] = &unk_279B4FA60;
-                    v50[4] = self;
-                    dispatch_source_set_cancel_handler(v28, v50);
+                    v46[0] = MEMORY[0x277D85DD0];
+                    v46[1] = 3221225472;
+                    v46[2] = __24__SMBSocket_openSocket___block_invoke_6;
+                    v46[3] = &unk_279B4FA60;
+                    v46[4] = self;
+                    dispatch_source_set_cancel_handler(v28, v46);
                     __snprintf_chk(port, 0x19uLL, 0, 0x19uLL, "%d", self->_port);
                     host = nw_endpoint_create_host([(NSString *)self->_serverName cStringUsingEncoding:4], port);
                     endpoint = self->endpoint;
@@ -136,9 +135,9 @@
                     if (!self->endpoint)
                     {
                       v6 = *__error();
-                      v45 = MEMORY[0x277D86220];
-                      v46 = MEMORY[0x277D86220];
-                      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+                      v41 = MEMORY[0x277D86220];
+                      v42 = MEMORY[0x277D86220];
+                      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
                       {
                         [(SMBSocket *)[(NSString *)self->_serverName cStringUsingEncoding:4] openSocket:buf];
                       }
@@ -163,47 +162,44 @@
                       {
                         nw_connection_set_queue(v34, self->nw_conn_queue);
                         v35 = self->_connection;
-                        v49[0] = MEMORY[0x277D85DD0];
-                        v49[1] = 3221225472;
-                        v49[2] = __24__SMBSocket_openSocket___block_invoke_8;
-                        v49[3] = &unk_279B4FA88;
-                        v49[4] = self;
-                        MEMORY[0x2667347D0](v35, v49);
-                        v36 = self->_connection;
-                        v48[5] = MEMORY[0x277D85DD0];
-                        v48[6] = 3221225472;
-                        v48[7] = __24__SMBSocket_openSocket___block_invoke_10;
-                        v48[8] = &unk_279B4FA60;
-                        v48[9] = self;
+                        v45[0] = MEMORY[0x277D85DD0];
+                        v45[1] = 3221225472;
+                        v45[2] = __24__SMBSocket_openSocket___block_invoke_8;
+                        v45[3] = &unk_279B4FA88;
+                        v45[4] = self;
+                        MEMORY[0x2667347D0](v35, v45);
+                        v44[5] = MEMORY[0x277D85DD0];
+                        v44[6] = 3221225472;
+                        v44[7] = __24__SMBSocket_openSocket___block_invoke_10;
+                        v44[8] = &unk_279B4FA60;
+                        v44[9] = self;
                         nw_connection_set_cancel_handler();
-                        v37 = dispatch_semaphore_create(0);
+                        v36 = dispatch_semaphore_create(0);
                         event_semaphore = self->event_semaphore;
-                        self->event_semaphore = v37;
+                        self->event_semaphore = v36;
 
                         if (self->event_semaphore)
                         {
+                          v38 = self->_connection;
+                          v44[0] = MEMORY[0x277D85DD0];
+                          v44[1] = 3221225472;
+                          v44[2] = __24__SMBSocket_openSocket___block_invoke_11;
+                          v44[3] = &unk_279B4FAB0;
+                          v44[4] = self;
+                          nw_connection_set_viability_changed_handler(v38, v44);
                           v39 = self->_connection;
-                          v48[0] = MEMORY[0x277D85DD0];
-                          v48[1] = 3221225472;
-                          v48[2] = __24__SMBSocket_openSocket___block_invoke_11;
-                          v48[3] = &unk_279B4FAB0;
-                          v48[4] = self;
-                          nw_connection_set_viability_changed_handler(v39, v48);
-                          v40 = self->_connection;
-                          v47[0] = MEMORY[0x277D85DD0];
-                          v47[1] = 3221225472;
-                          v47[2] = __24__SMBSocket_openSocket___block_invoke_2;
-                          v47[3] = &unk_279B4FAB0;
-                          v47[4] = self;
-                          nw_connection_set_better_path_available_handler(v40, v47);
-                          v41 = self->_connection;
+                          v43[0] = MEMORY[0x277D85DD0];
+                          v43[1] = 3221225472;
+                          v43[2] = __24__SMBSocket_openSocket___block_invoke_2;
+                          v43[3] = &unk_279B4FAB0;
+                          v43[4] = self;
+                          nw_connection_set_better_path_available_handler(v39, v43);
                           nw_connection_set_read_close_handler();
-                          v42 = self->_connection;
                           nw_connection_set_write_close_handler();
                           pthread_mutex_unlock(&self->skt_lock);
                           v6 = 0;
 LABEL_56:
-                          objc_destroyWeak(&v52);
+                          objc_destroyWeak(&v48);
                           goto LABEL_42;
                         }
 
@@ -315,7 +311,6 @@ LABEL_46:
 LABEL_42:
   objc_destroyWeak(&location);
 
-  v43 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -423,11 +418,12 @@ void __24__SMBSocket_openSocket___block_invoke_10(uint64_t a1)
   }
 }
 
-void __24__SMBSocket_openSocket___block_invoke_11(uint64_t a1, int a2)
+void __24__SMBSocket_openSocket___block_invoke_11(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
   if (v2)
   {
+    v3 = a2;
     pthread_mutex_lock((v2 + 208));
     *(*(a1 + 32) + 16) |= 0x400uLL;
     if ((piston_log_level & 8) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -436,7 +432,7 @@ void __24__SMBSocket_openSocket___block_invoke_11(uint64_t a1, int a2)
     }
 
     v5 = 4;
-    if (a2)
+    if (v3)
     {
       v5 = 0;
     }
@@ -452,7 +448,7 @@ void __24__SMBSocket_openSocket___block_invoke_11(uint64_t a1, int a2)
       v8[2] = __24__SMBSocket_openSocket___block_invoke_14;
       v8[3] = &unk_279B4F9E8;
       v8[4] = v6;
-      v9 = a2;
+      v9 = v3;
       dispatch_async(v7, v8);
     }
 
@@ -473,11 +469,12 @@ void __24__SMBSocket_openSocket___block_invoke_11(uint64_t a1, int a2)
   }
 }
 
-void __24__SMBSocket_openSocket___block_invoke_2(uint64_t a1, int a2)
+void __24__SMBSocket_openSocket___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
   if (v2)
   {
+    v3 = a2;
     pthread_mutex_lock((v2 + 208));
     *(*(a1 + 32) + 16) |= 0x800uLL;
     pthread_mutex_unlock((*(a1 + 32) + 208));
@@ -495,7 +492,7 @@ void __24__SMBSocket_openSocket___block_invoke_2(uint64_t a1, int a2)
       v7[2] = __24__SMBSocket_openSocket___block_invoke_16;
       v7[3] = &unk_279B4F9E8;
       v7[4] = v5;
-      v8 = a2;
+      v8 = v3;
       dispatch_async(v6, v7);
     }
 
@@ -649,10 +646,9 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  connection = self->_connection;
-  v8 = nw_connection_copy_connected_remote_endpoint();
+  v7 = nw_connection_copy_connected_remote_endpoint();
   remote_endpoint = self->remote_endpoint;
-  self->remote_endpoint = v8;
+  self->remote_endpoint = v7;
 
   address = self->remote_endpoint;
   if (address)
@@ -660,17 +656,17 @@ LABEL_9:
     address = nw_endpoint_get_address(address);
   }
 
-  v14.tv_sec = 0;
-  *&v14.tv_usec = 0;
+  v13.tv_sec = 0;
+  *&v13.tv_usec = 0;
   self->server_addr = address;
-  [(SMBSocket *)self readNBHeader:v14.tv_sec];
-  gettimeofday(&v14, 0);
-  tv_sec = v14.tv_sec;
-  v12 = 1000 * v14.tv_usec;
-  self->_last_recv.tv_sec = v14.tv_sec;
-  self->_last_recv.tv_nsec = v12;
+  [(SMBSocket *)self readNBHeader:v13.tv_sec];
+  gettimeofday(&v13, 0);
+  tv_sec = v13.tv_sec;
+  v11 = 1000 * v13.tv_usec;
+  self->_last_recv.tv_sec = v13.tv_sec;
+  self->_last_recv.tv_nsec = v11;
   self->_last_echo.tv_sec = tv_sec;
-  self->_last_echo.tv_nsec = v12;
+  self->_last_echo.tv_nsec = v11;
   pthread_mutex_lock(&self->io_rqlock);
   dispatch_activate(self->timer);
   dispatch_suspend(self->timer);
@@ -680,12 +676,10 @@ LABEL_9:
 
 - (void)closeSocket
 {
-  v7 = *MEMORY[0x277D85DE8];
   strerror(self);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getEventHandler
@@ -705,29 +699,27 @@ LABEL_9:
 
 - (void)setEventHandler:(id)handler
 {
-  v4 = MEMORY[0x266734A50](handler, a2);
-  event_handler_callback = self->event_handler_callback;
-  self->event_handler_callback = v4;
+  self->event_handler_callback = MEMORY[0x266734A50](handler, a2);
 
   MEMORY[0x2821F96F8]();
 }
 
 - (int)processReply:(void *)reply
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
-  v59 = 0;
-  v55 = 0;
   v54 = 0;
-  v53.tv_sec = 0;
-  *&v53.tv_usec = 0;
+  v55 = &v54;
+  v56 = 0x2020000000;
+  v57 = 0;
+  v53 = 0;
+  v52 = 0;
+  v51.tv_sec = 0;
+  *&v51.tv_usec = 0;
   memset(__s2, 0, sizeof(__s2));
-  gettimeofday(&v53, 0);
-  v5 = 1000 * v53.tv_usec;
-  self->_last_recv.tv_sec = v53.tv_sec;
+  gettimeofday(&v51, 0);
+  v5 = 1000 * v51.tv_usec;
+  self->_last_recv.tv_sec = v51.tv_sec;
   self->_last_recv.tv_nsec = v5;
   getSessionPtr = [(SMBPiston *)self->pd getSessionPtr];
   if (*mbuf_data(reply) == 253)
@@ -739,7 +731,7 @@ LABEL_9:
       nw_connection_cancel(self->_connection);
       v8 = 0;
       v9 = 0;
-      v45 = 0;
+      v43 = 0;
       v10 = 0;
       v11 = 0;
       goto LABEL_48;
@@ -748,33 +740,32 @@ LABEL_9:
 
   v12 = mbuf_data(replyCopy);
   v13 = *(v12 + 12);
-  v14 = (v12 + 24);
-  v15 = *(v12 + 24);
-  v16 = (v12 + 8);
-  v43 = *(v12 + 8);
-  v41 = *(v12 + 16);
+  v14 = *(v12 + 24);
+  v15 = (v12 + 8);
+  v41 = *(v12 + 8);
+  v39 = *(v12 + 16);
   io_rqlist = self->io_rqlist;
-  v52 = 0;
-  v11 = smb_rq_find(&self->io_rqlock, io_rqlist, v15, &v54, &v55, &v52, 0);
-  v10 = v52;
+  v50 = 0;
+  v11 = smb_rq_find(&self->io_rqlock, io_rqlist, v14, &v52, &v53, &v50, 0);
+  v10 = v50;
   if (v11)
   {
-    v45 = 0;
+    v43 = 0;
     goto LABEL_6;
   }
 
-  v45 = 0;
-  if ((getSessionPtr->option_flags & 0x200) != 0 && !v54)
+  v43 = 0;
+  if ((getSessionPtr->option_flags & 0x200) != 0 && !v52)
   {
-    v18 = self->io_rqlist;
-    v51 = 0;
-    v11 = smb_rq_find_cmpd(&self->io_rqlock, v18, v15, &v51);
-    v45 = v51;
+    v17 = self->io_rqlist;
+    v49 = 0;
+    v11 = smb_rq_find_cmpd(&self->io_rqlock, v17, v14, &v49);
+    v43 = v49;
     if (v11)
     {
 LABEL_6:
       pthread_mutex_lock(&getSessionPtr->session_credits_lock);
-      if (v54)
+      if (v52)
       {
         getSessionPtr->session_req_pending = 0;
         if (!getSessionPtr->session_oldest_message_id)
@@ -788,12 +779,12 @@ LABEL_6:
       else
       {
         getSessionPtr->session_req_pending = 1;
-        if ((*(v12 + 16) & 2) != 0 || v55 == getSessionPtr->session_oldest_message_id)
+        if ((*(v12 + 16) & 2) != 0 || v53 == getSessionPtr->session_oldest_message_id)
         {
           goto LABEL_26;
         }
 
-        getSessionPtr->session_oldest_message_id = v55;
+        getSessionPtr->session_oldest_message_id = v53;
       }
 
       if (atomic_load(&getSessionPtr->session_credits_wait))
@@ -804,7 +795,7 @@ LABEL_6:
 
 LABEL_26:
       pthread_mutex_unlock(&getSessionPtr->session_credits_lock);
-      if ((*(v12 + 16) & 2) != 0 && *v16 == 259)
+      if ((*(v12 + 16) & 2) != 0 && *v15 == 259)
       {
         smb_rq_handle_async_pending(v11, v12);
         mbuf_freem(replyCopy);
@@ -816,7 +807,7 @@ LABEL_29:
       }
 
       smb_rq_getreply = [v11 smb_rq_getreply];
-      v57[3] = smb_rq_getreply;
+      v55[3] = smb_rq_getreply;
       md_initm(smb_rq_getreply, replyCopy);
       [v11 smb_rq_set_extflag:2];
       v11 = v11;
@@ -838,10 +829,10 @@ LABEL_29:
           getSessionPtr->option_flags = option_flags | 0x200;
         }
 
-        if (v45)
+        if (v43)
         {
-          v29 = v45;
-          v9 = v29;
+          v27 = v43;
+          v9 = v27;
           while (([v9 sr_extflags] & 2) != 0)
           {
             sr_next_rqp = [v9 sr_next_rqp];
@@ -849,22 +840,22 @@ LABEL_29:
             v9 = sr_next_rqp;
             if (!sr_next_rqp)
             {
-              v44 = v29;
+              v42 = v27;
 
-              smb_rq_getreply2 = [v44 smb_rq_getreply];
+              smb_rq_getreply2 = [v42 smb_rq_getreply];
               v9 = 0;
-              v57[3] = smb_rq_getreply2;
-              v42 = 1;
+              v55[3] = smb_rq_getreply2;
+              v40 = 1;
               goto LABEL_34;
             }
           }
 
-          v42 = 0;
+          v40 = 0;
         }
 
         else
         {
-          v42 = 0;
+          v40 = 0;
           v9 = 0;
         }
       }
@@ -872,17 +863,17 @@ LABEL_29:
       else
       {
         v9 = 0;
-        v42 = 1;
+        v40 = 1;
       }
 
-      v44 = v11;
+      v42 = v11;
 LABEL_34:
       if (v13 == 1)
       {
         session_flags = getSessionPtr->session_flags;
-        if ((session_flags & 0x20000) == 0 || v43 != -1073741802)
+        if ((session_flags & 0x20000) == 0 || v41 != -1073741802)
         {
-          if ((session_flags & 0x28800) != 0 && !v43 && (v41 & 8) != 0)
+          if ((session_flags & 0x28800) != 0 && !v41 && (v39 & 8) != 0)
           {
             sess_setup_reply = getSessionPtr->sess_setup_reply;
             if (sess_setup_reply)
@@ -901,30 +892,30 @@ LABEL_34:
               chain_len = 0x10000;
             }
 
-            v34 = malloc_type_malloc(chain_len, 0xDAC728CuLL);
-            getSessionPtr->sess_setup_reply = v34;
-            if (v34)
+            v32 = malloc_type_malloc(chain_len, 0xDAC728CuLL);
+            getSessionPtr->sess_setup_reply = v32;
+            if (v32)
             {
               getSessionPtr->sess_setup_reply_len = chain_len;
-              getSessionPtr->sess_setup_message_id = v15;
-              v35 = replyCopy;
+              getSessionPtr->sess_setup_message_id = v14;
+              v33 = replyCopy;
               if (replyCopy && chain_len)
               {
-                for (i = 0; i < chain_len; i += v38)
+                for (i = 0; i < chain_len; i += v36)
                 {
-                  v37 = v10;
-                  v38 = mbuf_len(v35);
-                  v39 = getSessionPtr->sess_setup_reply;
-                  v40 = mbuf_data(v35);
-                  if (v38 + i > chain_len)
+                  v35 = v10;
+                  v36 = mbuf_len(v33);
+                  v37 = getSessionPtr->sess_setup_reply;
+                  v38 = mbuf_data(v33);
+                  if (v36 + i > chain_len)
                   {
-                    v38 = chain_len - i;
+                    v36 = chain_len - i;
                   }
 
-                  memcpy(&v39[i], v40, v38);
-                  v35 = mbuf_next(v35);
-                  v10 = v37;
-                  if (!v35)
+                  memcpy(&v37[i], v38, v36);
+                  v33 = mbuf_next(v33);
+                  v10 = v35;
+                  if (!v33)
                   {
                     break;
                   }
@@ -945,17 +936,17 @@ LABEL_34:
       else if (v13 || !memcmp(getSessionPtr->pre_auth_int_hash, __s2, 0x40uLL))
       {
 LABEL_43:
-        if (v42)
+        if (v40)
         {
-          smb_rq_dequeue(&self->io_rqlock, self->io_rqlist, &self->timer_running, self->timer, v44);
+          smb_rq_dequeue(&self->io_rqlock, self->io_rqlist, &self->timer_running, self->timer, v42);
           recv_queue = self->_recv_queue;
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
           block[2] = __26__SMBSocket_processReply___block_invoke;
           block[3] = &unk_279B4FAF8;
-          v44 = v44;
-          v49 = v44;
-          v50 = &v56;
+          v42 = v42;
+          v47 = v42;
+          v48 = &v54;
           dispatch_async(recv_queue, block);
         }
 
@@ -965,12 +956,12 @@ LABEL_43:
       smb311_pre_auth_integrity_hash_update(getSessionPtr, replyCopy);
       if (!v13)
       {
-        v22 = *&getSessionPtr->pre_auth_int_hash[16];
+        v21 = *&getSessionPtr->pre_auth_int_hash[16];
         *getSessionPtr->pre_auth_int_hash_neg = *getSessionPtr->pre_auth_int_hash;
-        *&getSessionPtr->pre_auth_int_hash_neg[16] = v22;
-        v23 = *&getSessionPtr->pre_auth_int_hash[48];
+        *&getSessionPtr->pre_auth_int_hash_neg[16] = v21;
+        v22 = *&getSessionPtr->pre_auth_int_hash[48];
         *&getSessionPtr->pre_auth_int_hash_neg[32] = *&getSessionPtr->pre_auth_int_hash[32];
-        *&getSessionPtr->pre_auth_int_hash_neg[48] = v23;
+        *&getSessionPtr->pre_auth_int_hash_neg[48] = v22;
       }
 
       smb311_pre_auth_integrity_hash_print(getSessionPtr);
@@ -980,7 +971,7 @@ LABEL_43:
 
   if (v13 != 13)
   {
-    if (v13 == 18 && *v14 == -1 && !*(v12 + 36))
+    if (v13 == 18 && *(v12 + 24) == -1 && !*(v12 + 36))
     {
       if (self->event_handler_callback)
       {
@@ -997,37 +988,36 @@ LABEL_43:
       }
     }
 
-    if (((*(v12 + 16) & 2) == 0 || *v16 != 259) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    if (((*(v12 + 16) & 2) == 0 || *v15 != 259) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      [(SMBSocket *)v14 processReply:v16];
+      [SMBSocket processReply:];
     }
   }
 
   mbuf_freem(replyCopy);
   v11 = 0;
-  v44 = 0;
+  v42 = 0;
   v9 = 0;
 LABEL_45:
   if (v10)
   {
     smb_rq_dequeue(&self->io_rqlock, self->io_rqlist, &self->timer_running, self->timer, v10);
-    v25 = self->_recv_queue;
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __26__SMBSocket_processReply___block_invoke_21;
-    v46[3] = &unk_279B4FA60;
-    v47 = v10;
-    dispatch_async(v25, v46);
+    v24 = self->_recv_queue;
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __26__SMBSocket_processReply___block_invoke_21;
+    v44[3] = &unk_279B4FA60;
+    v45 = v10;
+    dispatch_async(v24, v44);
 
     v10 = 0;
   }
 
   v7 = 0;
-  v8 = v44;
+  v8 = v42;
 LABEL_48:
 
-  _Block_object_dispose(&v56, 8);
-  v26 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v54, 8);
   return v7;
 }
 
@@ -1041,13 +1031,13 @@ uint64_t __26__SMBSocket_processReply___block_invoke(uint64_t a1)
 
 - (void)readData:(const void *)data
 {
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
-  v13 = 0;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v11 = 0;
   objc_initWeak(&location, self);
-  v5 = bswap32(*data);
-  if (BYTE3(v5))
+  v4 = bswap32(*data);
+  if (BYTE3(v4))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
@@ -1055,7 +1045,7 @@ uint64_t __26__SMBSocket_processReply___block_invoke(uint64_t a1)
     }
   }
 
-  else if (smb_mbuf_get(0, 1, v11 + 3, v5))
+  else if (smb_mbuf_get(0, 1, v9 + 3, v4))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
@@ -1065,29 +1055,29 @@ uint64_t __26__SMBSocket_processReply___block_invoke(uint64_t a1)
 
   else
   {
-    connection = self->_connection;
-    mbuf_data(v11[3]);
-    v8 = v5;
-    objc_copyWeak(&v7, &location);
+    mbuf_data(v9[3]);
+    v6 = v4;
+    objc_copyWeak(&v5, &location);
     if ((nw_connection_read_buffer() & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       [SMBSocket readData:];
     }
 
-    objc_destroyWeak(&v7);
+    objc_destroyWeak(&v5);
   }
 
   objc_destroyWeak(&location);
-  _Block_object_dispose(&v10, 8);
+  _Block_object_dispose(&v8, 8);
 }
 
-void __22__SMBSocket_readData___block_invoke(uint64_t a1, uint64_t a2, int a3)
+void __22__SMBSocket_readData___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
+    v4 = a3;
     if (a3 != 57 && a3 != 89 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      __22__SMBSocket_readData___block_invoke_cold_1(a3);
+      __22__SMBSocket_readData___block_invoke_cold_1(v4);
     }
   }
 
@@ -1223,7 +1213,7 @@ LABEL_7:
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
     v10 = WeakRetained;
-    v11 = *(*(a1 + 32) + 8) + 24;
+    v11 = (*(*(a1 + 32) + 8) + 24);
     goto LABEL_7;
   }
 
@@ -1234,20 +1224,20 @@ LABEL_8:
 
 - (int)send:(id)send
 {
-  v57[1] = *MEMORY[0x277D85DE8];
+  v56[1] = *MEMORY[0x277D85DE8];
   sendCopy = send;
-  v56 = 0;
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x2020000000;
   v55 = 0;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2020000000;
   v51 = 0;
+  v52 = &v51;
+  v53 = 0x2020000000;
+  v54 = 0;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2020000000;
+  v50 = 0;
   objc_initWeak(&location, self);
   buffer = 0;
-  v57[0] = 0;
+  v56[0] = 0;
   if (!sendCopy)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -1270,7 +1260,7 @@ LABEL_8:
   }
 
   v6 = malloc_type_malloc(4uLL, 0x100004052888210uLL);
-  v49[3] = v6;
+  v48[3] = v6;
   if (v6)
   {
     if (([sendCopy sr_flags] & 0x100) != 0)
@@ -1279,7 +1269,7 @@ LABEL_8:
       if (smb_rq_getrequest)
       {
         v13 = mb_detach(smb_rq_getrequest);
-        v53[3] = v13;
+        v52[3] = v13;
         [sendCopy sr_next_rqp];
         v15 = v14 = 0;
         if (v15)
@@ -1289,14 +1279,14 @@ LABEL_8:
             v16 = mb_detach([v15 smb_rq_getrequest]);
             if (v16)
             {
-              v17 = mbuf_concatenate(v53[3], v16);
-              v53[3] = v17;
+              v17 = mbuf_concatenate(v52[3], v16);
+              v52[3] = v17;
             }
 
             if ([v15 sr_command] == 9 && !objc_msgSend(v15, "onEncryptedShare"))
             {
               v14 += [v15 writeLen];
-              v56 = v14;
+              v55 = v14;
               writeData = [v15 writeData];
               v19 = writeData;
               mbuf_set_write(v16, [writeData bytes], objc_msgSend(v15, "writeLen"));
@@ -1304,7 +1294,7 @@ LABEL_8:
               if (([v15 sr_flags] & 0x100) != 0 && (objc_msgSend(v15, "writeLen") & 7) != 0)
               {
                 v14 += 8 - ([v15 writeLen] & 7);
-                v56 = v14;
+                v55 = v14;
               }
             }
 
@@ -1316,7 +1306,7 @@ LABEL_8:
           while (sr_next_rqp);
         }
 
-        v9 = v14 + m_fixhdr(v53[3]);
+        v9 = v14 + m_fixhdr(v52[3]);
         goto LABEL_46;
       }
 
@@ -1336,10 +1326,10 @@ LABEL_8:
         {
           v9 = mb_fixhdr(smb_rq_getrequest2);
           v10 = mb_detach(v8);
-          v53[3] = v10;
+          v52[3] = v10;
           if (![sendCopy sr_command] && (*(sr_sessionp + 561) & 0x10) != 0)
           {
-            smb311_pre_auth_integrity_hash_init(sr_sessionp, 0, v53[3]);
+            smb311_pre_auth_integrity_hash_init(sr_sessionp, 0, v52[3]);
             smb311_pre_auth_integrity_hash_print(sr_sessionp);
           }
 
@@ -1347,12 +1337,12 @@ LABEL_8:
           {
             if ([sendCopy sr_rqsessionid])
             {
-              smb311_pre_auth_integrity_hash_update(sr_sessionp, v53[3]);
+              smb311_pre_auth_integrity_hash_update(sr_sessionp, v52[3]);
             }
 
             else
             {
-              smb311_pre_auth_integrity_hash_init(sr_sessionp, 1, v53[3]);
+              smb311_pre_auth_integrity_hash_init(sr_sessionp, 1, v52[3]);
             }
 
             smb311_pre_auth_integrity_hash_print(sr_sessionp);
@@ -1361,92 +1351,92 @@ LABEL_8:
           if ([sendCopy sr_command] == 9 && !objc_msgSend(sendCopy, "onEncryptedShare"))
           {
             writeLen = [sendCopy writeLen];
-            v24 = v53[3];
+            v23 = v52[3];
             writeData2 = [sendCopy writeData];
-            v26 = writeData2;
-            mbuf_set_write(v24, [writeData2 bytes], objc_msgSend(sendCopy, "writeLen"));
+            v25 = writeData2;
+            mbuf_set_write(v23, [writeData2 bytes], objc_msgSend(sendCopy, "writeLen"));
 
             v9 += writeLen;
           }
 
 LABEL_46:
-          v27 = v53[3];
-          if (v27)
+          v26 = v52[3];
+          if (v26)
           {
-            v28 = 0;
+            v27 = 0;
             do
             {
-              v27 = mbuf_next(v27);
-              ++v28;
+              v26 = mbuf_next(v26);
+              ++v27;
             }
 
-            while (v27);
+            while (v26);
           }
 
           else
           {
-            v28 = 0;
+            v27 = 0;
           }
 
-          v29 = objc_loadWeakRetained(&location);
-          [v29 setNetBIOSHeader:v49[3] nbType:0 length:v9];
+          v28 = objc_loadWeakRetained(&location);
+          [v28 setNetBIOSHeader:v48[3] nbType:0 length:v9];
 
           smb_rq_set_time_sent(sendCopy, 0);
-          v30 = dispatch_data_create(v49[3], 4uLL, 0, 0);
-          v31 = 0;
-          if (v28)
+          v29 = dispatch_data_create(v48[3], 4uLL, 0, 0);
+          v30 = 0;
+          if (v27)
           {
-            v32 = v53[3];
+            v31 = v52[3];
             do
             {
-              v33 = mbuf_data(v32);
-              v34 = mbuf_len(v32);
-              v35 = dispatch_data_create(v33, v34, 0, 0);
+              v32 = mbuf_data(v31);
+              v33 = mbuf_len(v31);
+              v34 = dispatch_data_create(v32, v33, 0, 0);
 
-              concat = dispatch_data_create_concat(v30, v35);
-              if (mbuf_is_write(v32, &buffer, &v56))
+              concat = dispatch_data_create_concat(v29, v34);
+              if (mbuf_is_write(v31, &buffer, &v55))
               {
-                v37 = dispatch_data_create(buffer, v56, 0, 0);
+                v36 = dispatch_data_create(buffer, v55, 0, 0);
 
-                v30 = dispatch_data_create_concat(concat, v37);
-                if (([sendCopy sr_flags] & 0x100) != 0 && (v56 & 7) != 0)
+                v29 = dispatch_data_create_concat(concat, v36);
+                if (([sendCopy sr_flags] & 0x100) != 0 && (v55 & 7) != 0)
                 {
-                  v31 = dispatch_data_create(v57, 8 - (v56 & 7), 0, 0);
+                  v30 = dispatch_data_create(v56, 8 - (v55 & 7), 0, 0);
 
-                  v38 = dispatch_data_create_concat(v30, v31);
-                  v30 = v38;
+                  v37 = dispatch_data_create_concat(v29, v30);
+                  v29 = v37;
                 }
 
                 else
                 {
-                  v31 = v37;
+                  v30 = v36;
                 }
               }
 
               else
               {
-                v31 = v35;
-                v30 = concat;
+                v30 = v34;
+                v29 = concat;
               }
 
-              v32 = mbuf_next(v32);
-              --v28;
+              v31 = mbuf_next(v31);
+              --v27;
             }
 
-            while (v28);
+            while (v27);
           }
 
           connection = self->_connection;
-          v40 = *MEMORY[0x277CD9220];
-          v41[0] = MEMORY[0x277D85DD0];
-          v41[1] = 3221225472;
-          v41[2] = __18__SMBSocket_send___block_invoke;
-          v41[3] = &unk_279B4FB98;
-          v44 = &v48;
-          v45 = &v52;
-          v42 = sendCopy;
+          v39 = *MEMORY[0x277CD9220];
+          v40[0] = MEMORY[0x277D85DD0];
+          v40[1] = 3221225472;
+          v40[2] = __18__SMBSocket_send___block_invoke;
+          v40[3] = &unk_279B4FB98;
+          v43 = &v47;
+          v44 = &v51;
+          v41 = sendCopy;
           selfCopy = self;
-          nw_connection_send(connection, v30, v40, 0, v41);
+          nw_connection_send(connection, v29, v39, 0, v40);
 
           v11 = 0;
           goto LABEL_40;
@@ -1463,7 +1453,7 @@ LABEL_46:
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
 LABEL_38:
-        free(v49[3]);
+        free(v48[3]);
 LABEL_39:
         v11 = 22;
         goto LABEL_40;
@@ -1482,10 +1472,9 @@ LABEL_39:
   v11 = 12;
 LABEL_40:
   objc_destroyWeak(&location);
-  _Block_object_dispose(&v48, 8);
-  _Block_object_dispose(&v52, 8);
+  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v51, 8);
 
-  v21 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1707,10 +1696,138 @@ void __25__SMBSocket_sendRequest___block_invoke_28(uint64_t a1)
 
 - (void)timeOutCheck
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v26.tv_sec = 0;
+  *&v26.tv_usec = 0;
+  if (!self)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [SMBSocket timeOutCheck];
+    }
+
+    return;
+  }
+
+  pthread_mutex_lock(&self->skt_lock);
+  self->state |= 0x40uLL;
+  pthread_mutex_unlock(&self->skt_lock);
+  pthread_mutex_lock(&self->io_rqlock);
+  v3 = [(NSMutableArray *)self->io_rqlist count];
+  if (!v3)
+  {
+    pthread_mutex_unlock(&self->io_rqlock);
+    goto LABEL_33;
+  }
+
+  v4 = v3;
+  v5 = 0;
+  v6 = 0;
+  while (1)
+  {
+    v7 = v5;
+    v5 = [(NSMutableArray *)self->io_rqlist objectAtIndexedSubscript:v6, v26.tv_sec];
+
+    if (v5)
+    {
+      if (([v5 sr_extflags] & 4) != 0 && (objc_msgSend(v5, "sr_extflags") & 2) == 0 && objc_msgSend(v5, "sr_command") != 15)
+      {
+        break;
+      }
+    }
+
+LABEL_27:
+    if (v4 == ++v6)
+    {
+      pthread_mutex_unlock(&self->io_rqlock);
+      goto LABEL_29;
+    }
+  }
+
+  gettimeofday(&v26, 0);
+  tv_sec = v26.tv_sec;
+  tv_usec = v26.tv_usec;
+  if (v26.tv_usec >= 0)
+  {
+    v10 = 1000 * v26.tv_usec;
+  }
+
+  else
+  {
+    v10 = 1000 * v26.tv_usec + 1000000000;
+  }
+
+  v11 = v26.tv_sec - self->_resp_wait_timeout + (v26.tv_usec >> 31);
+  v12 = self->_last_recv.tv_sec;
+  tv_nsec = self->_last_recv.tv_nsec;
+  sr_timesent = [v5 sr_timesent];
+  v16 = v11 <= v12;
+  if (v11 == v12)
+  {
+    v16 = v10 <= tv_nsec;
+  }
+
+  if (v16)
+  {
+    goto LABEL_18;
+  }
+
+  v17 = v11 <= sr_timesent;
+  if (v11 == sr_timesent)
+  {
+    v17 = v10 <= v15;
+  }
+
+  if (v17)
+  {
+LABEL_18:
+    v18 = -11;
+    if (tv_usec >= 0)
+    {
+      v18 = -10;
+    }
+
+    v19 = v18 + tv_sec;
+    sr_timesent2 = [v5 sr_timesent];
+    v22 = v19 <= sr_timesent2;
+    if (v19 == sr_timesent2)
+    {
+      v22 = v10 <= v21;
+    }
+
+    if (!v22)
+    {
+      v23 = self->_last_echo.tv_sec;
+      v24 = v19 <= v23;
+      if (v19 == v23)
+      {
+        v24 = v10 <= self->_last_echo.tv_nsec;
+      }
+
+      if (!v24)
+      {
+        pthread_mutex_unlock(&self->io_rqlock);
+        smb2_smb_echo(self->pd);
+        goto LABEL_29;
+      }
+    }
+
+    goto LABEL_27;
+  }
+
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    [SMBSocket timeOutCheck];
+  }
+
+  pthread_mutex_unlock(&self->io_rqlock);
+  nw_connection_cancel(self->_connection);
+LABEL_29:
+
+LABEL_33:
+  pthread_mutex_lock(&self->skt_lock);
+  self->state &= ~0x40uLL;
+  pthread_cond_signal(&self->skt_lock_cond);
+  pthread_mutex_unlock(&self->skt_lock);
 }
 
 - (int)writeEnabled
@@ -1743,53 +1860,23 @@ void __25__SMBSocket_sendRequest___block_invoke_28(uint64_t a1)
 
 - (void)openSocket:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openSocket:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openSocket:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)openSocket:.cold.4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)openSocket:.cold.5()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)openSocket:.cold.6()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openSocket:(uint64_t)a1 .cold.7(uint64_t a1, uint8_t *buf)
@@ -1801,330 +1888,69 @@ void __25__SMBSocket_sendRequest___block_invoke_28(uint64_t a1)
   _os_log_error_impl(&dword_264287000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: nw_endpoint_create_host failed for <%s> \n", buf, 0x16u);
 }
 
-- (void)openSocket:.cold.8()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)openSocket:.cold.9()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)openSocket:.cold.10()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)openSocket:.cold.11()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)openSocket:.cold.12()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)openSocket:.cold.13()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)openSocket:.cold.14()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)openSocket:.cold.15()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __24__SMBSocket_openSocket___block_invoke_8_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __24__SMBSocket_openSocket___block_invoke_8_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __24__SMBSocket_openSocket___block_invoke_11_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_5();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __24__SMBSocket_openSocket___block_invoke_11_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __24__SMBSocket_openSocket___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_5();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __24__SMBSocket_openSocket___block_invoke_2_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __24__SMBSocket_openSocket___block_invoke_2_cold_3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __24__SMBSocket_openSocket___block_invoke_2_17_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __24__SMBSocket_openSocket___block_invoke_2_17_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __24__SMBSocket_openSocket___block_invoke_2_19_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __24__SMBSocket_openSocket___block_invoke_2_19_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)connectSocket
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)processReply:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)processReply:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)processReply:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)processReply:.cold.4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)processReply:(int *)a3 .cold.5(uint64_t *a1, unsigned __int16 *a2, int *a3)
-{
-  v12 = *MEMORY[0x277D85DE8];
-  v9 = *a1;
-  v10 = *a2;
-  v11 = *a3;
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x22u);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readData:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readData:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)readData:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __22__SMBSocket_readData___block_invoke_cold_1(int a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   strerror(a1);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __25__SMBSocket_readNBHeader__block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __25__SMBSocket_readNBHeader__block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __25__SMBSocket_readNBHeader__block_invoke_cold_3(int a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   strerror(a1);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)send:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)send:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)send:.cold.4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)send:.cold.5()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)send:.cold.6()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __18__SMBSocket_send___block_invoke_cold_1(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) sr_messageid];
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __25__SMBSocket_sendRequest___block_invoke_4_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

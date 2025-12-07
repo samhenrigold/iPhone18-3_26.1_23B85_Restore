@@ -1,8 +1,13 @@
 @interface CAFIntegerSettingObservable
 - (NSString)description;
 - (void)automakerSettingService:(id)service didUpdateCategory:(unsigned __int8)category;
+- (void)automakerSettingService:(id)service didUpdateDisabled:(BOOL)disabled;
+- (void)automakerSettingService:(id)service didUpdateHidden:(BOOL)hidden;
+- (void)automakerSettingService:(id)service didUpdateLimitableUIElement:(BOOL)element;
 - (void)automakerSettingService:(id)service didUpdateProminenceInfo:(id)info;
+- (void)automakerSettingService:(id)service didUpdateShowAudioBrandLogo:(BOOL)logo;
 - (void)automakerSettingService:(id)service didUpdateSortOrder:(unsigned __int8)order;
+- (void)integerSettingService:(id)service didUpdateStepperBarHidden:(BOOL)hidden;
 - (void)integerSettingService:(id)service didUpdateUserVisibleDetailedDescription:(id)description;
 - (void)integerSettingService:(id)service didUpdateValue:(int)value;
 - (void)serviceDidFinishGroupUpdate:(id)update;
@@ -27,14 +32,46 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFIntegerSettingObservable.automakerSettingService(_:didUpdateSortOrder:)();
+  CAFIntegerSettingObservable.automakerSettingService(_:didUpdateSortOrder:)(selfCopy, order);
 }
 
 - (void)automakerSettingService:(id)service didUpdateCategory:(unsigned __int8)category
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFIntegerSettingObservable.automakerSettingService(_:didUpdateCategory:)();
+  CAFIntegerSettingObservable.automakerSettingService(_:didUpdateCategory:)(selfCopy, category);
+}
+
+- (void)automakerSettingService:(id)service didUpdateDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFIntegerSettingObservable.automakerSettingService(_:didUpdateDisabled:)(selfCopy, disabledCopy);
+}
+
+- (void)automakerSettingService:(id)service didUpdateLimitableUIElement:(BOOL)element
+{
+  elementCopy = element;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFIntegerSettingObservable.automakerSettingService(_:didUpdateLimitableUIElement:)(selfCopy, elementCopy);
+}
+
+- (void)automakerSettingService:(id)service didUpdateHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFIntegerSettingObservable.automakerSettingService(_:didUpdateHidden:)(selfCopy, hiddenCopy);
+}
+
+- (void)automakerSettingService:(id)service didUpdateShowAudioBrandLogo:(BOOL)logo
+{
+  logoCopy = logo;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFIntegerSettingObservable.automakerSettingService(_:didUpdateShowAudioBrandLogo:)(selfCopy, logoCopy);
 }
 
 - (void)automakerSettingService:(id)service didUpdateProminenceInfo:(id)info
@@ -49,7 +86,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFIntegerSettingObservable.integerSettingService(_:didUpdateValue:)();
+  CAFIntegerSettingObservable.integerSettingService(_:didUpdateValue:)(selfCopy, value);
 }
 
 - (void)integerSettingService:(id)service didUpdateUserVisibleDetailedDescription:(id)description
@@ -58,6 +95,14 @@
   descriptionCopy = description;
   selfCopy = self;
   CAFIntegerSettingObservable.integerSettingService(_:didUpdateUserVisibleDetailedDescription:)(selfCopy, description);
+}
+
+- (void)integerSettingService:(id)service didUpdateStepperBarHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFIntegerSettingObservable.integerSettingService(_:didUpdateStepperBarHidden:)(selfCopy, hiddenCopy);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

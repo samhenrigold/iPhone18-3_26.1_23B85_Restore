@@ -138,7 +138,7 @@ void __183__WFLinkActionAttributedStringParameterDefinition_getLinkValueFromProc
 
 - (id)parameterStateFromLinkValue:(id)value
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   value = [value value];
   if (!value)
   {
@@ -156,12 +156,12 @@ LABEL_12:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       valueType2 = [(WFLinkActionParameterDefinition *)self valueType];
-      v19 = 136315650;
-      v20 = "[WFLinkActionAttributedStringParameterDefinition parameterStateFromLinkValue:]";
-      v21 = 2114;
-      v22 = value;
-      v23 = 2114;
-      v24 = valueType2;
+      v18 = 136315650;
+      v19 = "[WFLinkActionAttributedStringParameterDefinition parameterStateFromLinkValue:]";
+      v20 = 2114;
+      v21 = value;
+      v22 = 2114;
+      v23 = valueType2;
     }
 
     goto LABEL_12;
@@ -193,30 +193,27 @@ LABEL_12:
   }
 
 LABEL_13:
-  v17 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 - (id)parameterDefinitionDictionary
 {
-  v10[4] = *MEMORY[0x1E69E9840];
-  v8.receiver = self;
-  v8.super_class = WFLinkActionAttributedStringParameterDefinition;
-  parameterDefinitionDictionary = [(WFLinkActionParameterDefinition *)&v8 parameterDefinitionDictionary];
+  v9[4] = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = WFLinkActionAttributedStringParameterDefinition;
+  parameterDefinitionDictionary = [(WFLinkActionParameterDefinition *)&v7 parameterDefinitionDictionary];
   v3 = *MEMORY[0x1E69E12D0];
-  v9[0] = @"TextAlignment";
-  v9[1] = @"Multiline";
-  v10[0] = v3;
-  v10[1] = MEMORY[0x1E695E118];
-  v9[2] = @"ProcessIntoContentItems";
-  v9[3] = @"PrefersAttributedString";
-  v10[2] = MEMORY[0x1E695E118];
-  v10[3] = MEMORY[0x1E695E118];
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
+  v8[0] = @"TextAlignment";
+  v8[1] = @"Multiline";
+  v9[0] = v3;
+  v9[1] = MEMORY[0x1E695E118];
+  v8[2] = @"ProcessIntoContentItems";
+  v8[3] = @"PrefersAttributedString";
+  v9[2] = MEMORY[0x1E695E118];
+  v9[3] = MEMORY[0x1E695E118];
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:4];
   v5 = [parameterDefinitionDictionary definitionByAddingEntriesInDictionary:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

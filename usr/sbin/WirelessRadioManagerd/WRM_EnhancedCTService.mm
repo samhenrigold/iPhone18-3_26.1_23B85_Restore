@@ -115,9 +115,13 @@
 - (void)enhancedVoiceLinkQualityChanged:(id)changed metric:(id)metric;
 - (void)evaluateCbrsInDualSimMode:(BOOL)mode;
 - (void)evaluateCbrsInSingleSimMode;
+- (void)evaluateCellularScore:(unsigned __int8)score currnetConf:(unsigned __int8)conf score:(char *)a5 conf:(char *)a6 evalMode:(BOOL)mode outrankExit:(BOOL)exit deviceCap:(BOOL)cap;
+- (void)evaluateCellularScorePrivateNw:(unsigned __int8)nw currnetConf:(unsigned __int8)conf score:(char *)score conf:(char *)a6 evalMode:(BOOL)mode outrankExit:(BOOL)exit deviceCap:(BOOL)cap;
 - (void)feedCellularMetricsWithUUID:(id)d;
+- (void)fetchSmartDataModeDataForLocation:(double)location :(double)a4 :(unsigned __int16)a5 :(unsigned __int16)a6 :(unint64_t)a7 :(int64_t)a8;
 - (void)fetchWrmSdmLocationDbInfoWithMcc:(unsigned int)mcc Mnc:(unsigned int)mnc CellId:(unint64_t)id ForSim:(int64_t)sim;
 - (void)getCurrentEnhancedCTMetrics;
+- (void)handleSettingCellularSpeedTestSetting:(BOOL)setting;
 - (void)imsRegistrationChanged:(id)changed info:(id)info;
 - (void)initCellStationManager;
 - (void)initCellularSpeedTest;
@@ -129,7 +133,9 @@
 - (void)internetConnectionStateChanged:(id)changed;
 - (void)invalidateAudioQualityMetrics;
 - (void)monitorStrongSOSSignal:(double)signal;
+- (void)nrSliceAppStateChanged:(id)changed status:(BOOL)status trafficDescriptors:(id)descriptors;
 - (void)plmnChanged:(id)changed plmn:(id)plmn;
+- (void)privateNetworkInfoDidChange:(BOOL)change;
 - (void)processDataAttached:(BOOL)attached :(int64_t)a4;
 - (void)processDataStatus:(id)status :(int64_t)a4;
 - (void)processEnhancedDataLQMBlob:(id)blob :(int64_t)a4;
@@ -172,17 +178,21 @@
 - (void)signalStrengthChanged:(id)changed info:(id)info;
 - (void)smartDataModeChanged:(id)changed userEnabled:(BOOL)enabled;
 - (void)subscriptionInfoDidChange;
+- (void)switchPrivateNwDataSim:(int64_t)sim currentSlotQuality:(int)quality anyCallState:(int)state forceRecommend:(BOOL)recommend;
 - (void)tiggerEnhanceLQMConfiguration;
 - (void)triggerCommCenterForActivation;
 - (void)triggerCommCenterForDeActivation;
 - (void)triggerHarvestedCellEval;
 - (void)triggerLocationUpdate;
 - (void)updateAllowSAonWiFiCarrierBundleKey:(id)key;
+- (void)updateAudioQuality:(id)quality :(int64_t)a4;
 - (void)updateAudioQualityKaroo:(id *)karoo :(int64_t)a4;
 - (void)updateCellularAvailabilityStatus:(id)status :(int64_t)a4 :(double)a5 :(BOOL)a6;
 - (void)updateConfiguredMaxBW:(int64_t)w dlbw:(unsigned int)dlbw ulbw:(unsigned int)ulbw;
+- (void)updateConnectedStateSummary:(int64_t)summary neighberNRCell:(int)cell highrateIndicator:(BOOL)indicator;
 - (void)updateCurrentRatInfo:(int64_t)info currentNRCell:(int)cell;
 - (void)updateDataStallState:(int64_t)state stall:(BOOL)stall;
+- (void)updateDownlinkEstimatedBW:(unsigned __int8)w bw:(unsigned int)bw conf:(unsigned int)conf lte:(unsigned int)lte nr:(unsigned int)nr;
 - (void)updateGlobalCellID:(unsigned __int8)d gci:(id)gci cellprefix:(int)cellprefix;
 - (void)updateHighRateLikely:(int64_t)likely highrateIndicator:(BOOL)indicator;
 - (void)updateLTEBandwidth:(int64_t)bandwidth LTEBW:(unsigned int)w;
@@ -3378,6 +3388,22 @@ LABEL_13:
   dispatch_async([(WRM_EnhancedCTService *)self queue], block);
 }
 
+- (void)updateAudioQuality:(id)quality :(int64_t)a4
+{
+  v4 = *&quality.var2;
+  v5 = *&quality.var0;
+  var1 = quality.var1;
+  v8 = (100 * quality.var0) / (quality.var1 + 0.000001);
+  v9 = a4 - 1;
+  [(NSMutableArray *)[(WRM_EnhancedCTService *)self PrevAudioErasurePercent] replaceObjectAtIndex:a4 - 1 withObject:[NSNumber numberWithDouble:v8]];
+  v11 = v8 < 80.0 || var1 < 0x1F5;
+  [(NSMutableArray *)[(WRM_EnhancedCTService *)self PrevAudioQualityWasGood] replaceObjectAtIndex:v9 withObject:[NSNumber numberWithBool:v11]];
+  [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService servCellRSCP](self "servCellRSCP")];
+  v13 = v12;
+  [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService servCellECIO](self "servCellECIO")];
+  +[WCM_Logging logLevel:message:](WCM_Logging, "logLevel:message:", 22, @"BB Audio Metrics, CodecType: %d, Total Erasures: %d, Total playbacks: %d, Percent Erasures: %f, RSCP: %f, ECIO:%f, Eval Quality: %d", v4, v5, var1, *&v8, v13, v14, [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService PrevAudioQualityWasGood](self "PrevAudioQualityWasGood")]);
+}
+
 - (void)updateAudioQualityKaroo:(id *)karoo :(int64_t)a4
 {
   var1 = karoo->var1;
@@ -3416,6 +3442,17 @@ LABEL_13:
   block[5] = self;
   block[6] = a4;
   dispatch_async([(WRM_EnhancedCTService *)self queue], block);
+}
+
+- (void)nrSliceAppStateChanged:(id)changed status:(BOOL)status trafficDescriptors:(id)descriptors
+{
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_100036890;
+  v5[3] = &unk_10023E008;
+  v5[4] = changed;
+  statusCopy = status;
+  dispatch_async([(WRM_EnhancedCTService *)self queue:changed], v5);
 }
 
 - (void)processDataStatus:(id)status :(int64_t)a4
@@ -3890,6 +3927,119 @@ LABEL_12:
   dispatch_async([(WRM_EnhancedCTService *)self queue], block);
 }
 
+- (void)privateNetworkInfoDidChange:(BOOL)change
+{
+  changeCopy = change;
+  [WCM_Logging logLevel:22 message:@"privateNetworkInfoDidChange startEvaluation=%d", change];
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  subscriptions = [(WRM_EnhancedCTService *)self subscriptions];
+  v5 = [(NSMutableArray *)subscriptions countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v22;
+    do
+    {
+      for (i = 0; i != v6; i = i + 1)
+      {
+        if (*v22 != v7)
+        {
+          objc_enumerationMutation(subscriptions);
+        }
+
+        v9 = *(*(&v21 + 1) + 8 * i);
+        if ([v9 slotID])
+        {
+          v20 = 0;
+          v10 = [(CoreTelephonyClient *)[(WRM_EnhancedCTService *)self CTClient] getPrivateNetworkCapabilitiesForContext:v9 error:&v20];
+          v11 = v20;
+          slotID = [v9 slotID];
+          if (v11 || !v10)
+          {
+            if (slotID)
+            {
+              v16 = "CTSubscriptionSlotOne";
+              if ([v9 slotID] != 1)
+              {
+                if ([v9 slotID] == 2)
+                {
+                  v16 = "CTSubscriptionSlotTwo";
+                }
+
+                else
+                {
+                  v16 = "Unknown CTSubscriptionSlot!!!";
+                }
+              }
+            }
+
+            else
+            {
+              v16 = "CTSubscriptionSlotUnknown";
+            }
+
+            +[WCM_Logging logLevel:message:](WCM_Logging, "logLevel:message:", 22, @"%s: privateNetworkInfoDidChange cap error=%@", v16, [v20 localizedDescription]);
+            isPrivateNetworkModeEnabled = 0;
+            isPrivateNetworkPreferredOverWifi = 0;
+          }
+
+          else
+          {
+            if (slotID)
+            {
+              slotID2 = [v9 slotID];
+              v14 = "CTSubscriptionSlotOne";
+              if (slotID2 != 1)
+              {
+                slotID3 = [v9 slotID];
+                v14 = "Unknown CTSubscriptionSlot!!!";
+                if (slotID3 == 2)
+                {
+                  v14 = "CTSubscriptionSlotTwo";
+                }
+              }
+            }
+
+            else
+            {
+              v14 = "CTSubscriptionSlotUnknown";
+            }
+
+            [WCM_Logging logLevel:22 message:@"%s: privateNetworkInfoDidChange cap=%@", v14, v10];
+            isPrivateNetworkModeEnabled = [v10 isPrivateNetworkModeEnabled];
+            isPrivateNetworkPreferredOverWifi = [v10 isPrivateNetworkPreferredOverWifi];
+          }
+
+          -[WRM_EnhancedCTService processPrivateNwSimStatus:slot:](self, "processPrivateNwSimStatus:slot:", isPrivateNetworkModeEnabled, [v9 slotID]);
+          -[WRM_EnhancedCTService processPrivateNwPreferredOverWifiStatus:slot:](self, "processPrivateNwPreferredOverWifiStatus:slot:", isPrivateNetworkPreferredOverWifi, [v9 slotID]);
+        }
+      }
+
+      v6 = [(NSMutableArray *)subscriptions countByEnumeratingWithState:&v21 objects:v25 count:16];
+    }
+
+    while (v6);
+  }
+
+  *(&self->mCbrsSwitchingTimer + 4) = 0;
+  BYTE4(self->mLastCbrsRecommendation) = changeCopy;
+  if (changeCopy)
+  {
+    if ([(WRM_EnhancedCTService *)self numberofSubscriptions]== 1)
+    {
+      [(WRM_EnhancedCTService *)self evaluateCbrsInSingleSimMode];
+    }
+
+    else if ([(WRM_EnhancedCTService *)self numberofSubscriptions]>= 2)
+    {
+      [(WRM_EnhancedCTService *)self evaluateCbrsInDualSimMode:1];
+    }
+  }
+}
+
 - (void)evaluateCbrsInSingleSimMode
 {
   if (BYTE4(self->mLastCbrsRecommendation) == 1 && [+[WRM_HandoverManager WRM_HandoverManagerSingleton](WRM_HandoverManager "WRM_HandoverManagerSingleton")] && -[WRM_EnhancedCTService numberofSubscriptions](self, "numberofSubscriptions") == 1)
@@ -4057,6 +4207,24 @@ LABEL_18:
   dispatch_async([(WRM_EnhancedCTService *)self queue], v3);
 }
 
+- (void)switchPrivateNwDataSim:(int64_t)sim currentSlotQuality:(int)quality anyCallState:(int)state forceRecommend:(BOOL)recommend
+{
+  v6 = *&state;
+  v7 = *&quality;
+  if (!recommend && (v9 = *&self->mCellRSRQ4G5GvsWiFiThreshold) != 0 && [v9 isValid])
+  {
+
+    [WCM_Logging logLevel:22 message:@"CBRS ping-pong timer not expired yet. Suppress switching"];
+  }
+
+  else
+  {
+    v10 = +[WRM_HandoverManager WRM_HandoverManagerSingleton];
+
+    [v10 switchPrivateNwDataSim:sim currentSlotQuality:v7 anyCallState:v6];
+  }
+}
+
 - (void)voiceLinkQualityChanged:(id)changed metric:(id)metric
 {
   if ([changed slotID])
@@ -4137,25 +4305,24 @@ LABEL_18:
 
   [WCM_Logging logLevel:22 message:@"%s context %@ cell info %@", "[WRM_EnhancedCTService cellMonitorUpdate:info:]", update, info];
   legacyInfo = [info legacyInfo];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
-  v8 = [legacyInfo countByEnumeratingWithState:&v42 objects:v46 count:16];
+  v8 = [legacyInfo countByEnumeratingWithState:&v41 objects:v45 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v43;
+    v10 = *v42;
     do
     {
-      for (i = 0; i != v9; i = i + 1)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v43 != v10)
+        if (*v42 != v10)
         {
           objc_enumerationMutation(legacyInfo);
         }
 
-        v12 = *(*(&v42 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -4163,7 +4330,7 @@ LABEL_18:
         }
       }
 
-      v9 = [legacyInfo countByEnumeratingWithState:&v42 objects:v46 count:16];
+      v9 = [legacyInfo countByEnumeratingWithState:&v41 objects:v45 count:16];
     }
 
     while (v9);
@@ -4177,68 +4344,68 @@ LABEL_18:
   updateCopy = update;
   if (![legacyInfo count])
   {
-    v28 = 0;
-    v40 = 0;
+    v27 = 0;
+    v39 = 0;
     LODWORD(intValue) = 0;
-    v30 = 0;
     v29 = 0;
-    v27 = WRM_IPTelephonyController;
+    v28 = 0;
+    v26 = WRM_IPTelephonyController;
     goto LABEL_43;
   }
 
-  v13 = 0;
+  v12 = 0;
   intValue2 = 0;
   intValue5 = 0;
+  v13 = 0;
   v14 = 0;
-  v15 = 0;
-  v31 = 0;
+  v30 = 0;
   intValue3 = 0;
-  v39 = kCTCellMonitorCellId;
-  v38 = kCTCellMonitorUARFCN;
-  v37 = kCTCellMonitorBandInfo;
-  v36 = kCTCellMonitorBandwidth;
-  v35 = kCTCellMonitorNRARFCN;
+  v38 = kCTCellMonitorCellId;
+  v37 = kCTCellMonitorUARFCN;
+  v36 = kCTCellMonitorBandInfo;
+  v35 = kCTCellMonitorBandwidth;
+  v34 = kCTCellMonitorNRARFCN;
   do
   {
-    intValue = v15;
-    v17 = [legacyInfo objectAtIndex:v13];
-    v18 = [v17 objectForKeyedSubscript:v39];
-    if (v18)
+    intValue = v14;
+    v16 = [legacyInfo objectAtIndex:v12];
+    v17 = [v16 objectForKeyedSubscript:v38];
+    if (v17)
     {
-      intValue = [v18 intValue];
+      intValue = [v17 intValue];
     }
 
-    v19 = [v17 objectForKeyedSubscript:v38];
-    if (v19)
+    v18 = [v16 objectForKeyedSubscript:v37];
+    if (v18)
     {
-      intValue2 = [v19 intValue];
+      intValue2 = [v18 intValue];
       -[NSMutableArray replaceObjectAtIndex:withObject:](-[WRM_EnhancedCTService cellARFCN](self, "cellARFCN"), "replaceObjectAtIndex:withObject:", [updateCopy slotID] - 1, +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", intValue2));
     }
 
-    v20 = [v17 objectForKeyedSubscript:v37];
-    if (v20)
+    v19 = [v16 objectForKeyedSubscript:v36];
+    if (v19)
     {
-      intValue3 = [v20 intValue];
+      intValue3 = [v19 intValue];
       -[NSMutableArray replaceObjectAtIndex:withObject:](-[WRM_EnhancedCTService cellBandInfo](self, "cellBandInfo"), "replaceObjectAtIndex:withObject:", [updateCopy slotID] - 1, +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", intValue3));
     }
 
-    v21 = [v17 objectForKeyedSubscript:v36];
-    v15 = intValue;
-    if (v21)
+    v20 = [v16 objectForKeyedSubscript:v35];
+    v14 = intValue;
+    if (v20)
     {
-      intValue4 = [v21 intValue];
+      intValue4 = [v20 intValue];
       if (intValue4 > 49)
       {
         switch(intValue4)
         {
           case '2':
-            v14 = 10;
+            v13 = 10;
             goto LABEL_35;
           case 'K':
-            v14 = 15;
+            v13 = 15;
             goto LABEL_35;
           case 'd':
-            v14 = 20;
+            v13 = 20;
             goto LABEL_35;
         }
       }
@@ -4248,73 +4415,73 @@ LABEL_18:
         switch(intValue4)
         {
           case 6:
-            v14 = 1;
+            v13 = 1;
             goto LABEL_35;
           case 16:
-            v14 = 3;
+            v13 = 3;
             goto LABEL_35;
           case 25:
-            v14 = 5;
+            v13 = 5;
 LABEL_35:
-            -[NSMutableArray replaceObjectAtIndex:withObject:](-[WRM_EnhancedCTService cellBandwidth](self, "cellBandwidth"), "replaceObjectAtIndex:withObject:", [updateCopy slotID] - 1, +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", v14));
+            -[NSMutableArray replaceObjectAtIndex:withObject:](-[WRM_EnhancedCTService cellBandwidth](self, "cellBandwidth"), "replaceObjectAtIndex:withObject:", [updateCopy slotID] - 1, +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", v13));
             goto LABEL_36;
         }
       }
 
-      v14 = 0;
+      v13 = 0;
       goto LABEL_35;
     }
 
 LABEL_36:
-    v23 = [v17 objectForKeyedSubscript:v35];
-    if (v23)
+    v22 = [v16 objectForKeyedSubscript:v34];
+    if (v22)
     {
-      intValue5 = [v23 intValue];
-      v31 = 1;
+      intValue5 = [v22 intValue];
+      v30 = 1;
     }
 
-    ++v13;
+    ++v12;
   }
 
-  while ([legacyInfo count] > v13);
-  if (v31)
+  while ([legacyInfo count] > v12);
+  if (v30)
   {
-    v40 = v14;
-    v24 = updateCopy;
+    v39 = v13;
+    v23 = updateCopy;
     -[NSMutableArray replaceObjectAtIndex:withObject:](-[WRM_EnhancedCTService cellID](self, "cellID"), "replaceObjectAtIndex:withObject:", [updateCopy slotID] - 1, +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", intValue));
-    v25 = 1;
+    v24 = 1;
     -[NSMutableArray replaceObjectAtIndex:withObject:](-[WRM_EnhancedCTService currNRCellFound](self, "currNRCellFound"), "replaceObjectAtIndex:withObject:", [updateCopy slotID] - 1, +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", 1));
     wifiNRCellFound = [(WRM_EnhancedCTService *)self wifiNRCellFound];
-    v27 = WRM_IPTelephonyController;
-    v29 = intValue3;
-    v28 = intValue2;
+    v26 = WRM_IPTelephonyController;
+    v28 = intValue3;
+    v27 = intValue2;
     goto LABEL_46;
   }
 
-  v40 = v14;
-  v27 = WRM_IPTelephonyController;
-  v29 = intValue3;
-  v28 = intValue2;
-  v30 = intValue5;
+  v39 = v13;
+  v26 = WRM_IPTelephonyController;
+  v28 = intValue3;
+  v27 = intValue2;
+  v29 = intValue5;
 LABEL_43:
-  v24 = updateCopy;
+  v23 = updateCopy;
   if ([-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService cellID](self "cellID")] == intValue)
   {
-    v25 = 0;
+    v24 = 0;
   }
 
   else
   {
-    intValue5 = v30;
+    intValue5 = v29;
     -[NSMutableArray replaceObjectAtIndex:withObject:](-[WRM_EnhancedCTService wifiNRCellFound](self, "wifiNRCellFound"), "replaceObjectAtIndex:withObject:", [updateCopy slotID] - 1, +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", 0));
     wifiNRCellFound = [(WRM_EnhancedCTService *)self currNRCellFound];
-    v25 = 0;
+    v24 = 0;
 LABEL_46:
-    -[NSMutableArray replaceObjectAtIndex:withObject:](wifiNRCellFound, "replaceObjectAtIndex:withObject:", [v24 slotID] - 1, +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", v25));
-    v30 = intValue5;
+    -[NSMutableArray replaceObjectAtIndex:withObject:](wifiNRCellFound, "replaceObjectAtIndex:withObject:", [v23 slotID] - 1, +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", v24));
+    v29 = intValue5;
   }
 
-  [&v27[98] logLevel:22 message:{@"%s ARFCN: %d, CellBW: %d, CellBandInfo: %d, NRCellFound: %d, nARFCN: %d", "-[WRM_EnhancedCTService cellMonitorUpdate:info:]", v28, v40, v29, v25, v30}];
+  [&v26[98] logLevel:22 message:{@"%s ARFCN: %d, CellBW: %d, CellBandInfo: %d, NRCellFound: %d, nARFCN: %d", "-[WRM_EnhancedCTService cellMonitorUpdate:info:]", v27, v39, v28, v24, v29}];
 }
 
 - (void)context:(id)context capabilitiesChanged:(id)changed
@@ -4772,6 +4939,19 @@ LABEL_46:
   dispatch_async([(WRM_EnhancedCTService *)self queue], block);
 }
 
+- (void)updateDownlinkEstimatedBW:(unsigned __int8)w bw:(unsigned int)bw conf:(unsigned int)conf lte:(unsigned int)lte nr:(unsigned int)nr
+{
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_10003CEB4;
+  block[3] = &unk_10023DF40;
+  wCopy = w;
+  bwCopy = bw;
+  confCopy = conf;
+  block[4] = self;
+  dispatch_async([(WRM_EnhancedCTService *)self queue:w], block);
+}
+
 - (void)updateUplinkEstimatedBW:(unsigned __int8)w bw:(unsigned int)bw conf:(unsigned int)conf queue:(unsigned int)queue
 {
   block[0] = _NSConcreteStackBlock;
@@ -4796,6 +4976,18 @@ LABEL_46:
   block[4] = self;
   block[5] = likely;
   dispatch_async([(WRM_EnhancedCTService *)self queue], block);
+}
+
+- (void)updateConnectedStateSummary:(int64_t)summary neighberNRCell:(int)cell highrateIndicator:(BOOL)indicator
+{
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_10003D36C;
+  block[3] = &unk_10023E0A8;
+  cellCopy = cell;
+  block[4] = self;
+  block[5] = summary;
+  dispatch_async([(WRM_EnhancedCTService *)self queue:summary], block);
 }
 
 - (BOOL)ifInternalDevice
@@ -4892,6 +5084,415 @@ LABEL_46:
   }
 }
 
+- (void)evaluateCellularScorePrivateNw:(unsigned __int8)nw currnetConf:(unsigned __int8)conf score:(char *)score conf:(char *)a6 evalMode:(BOOL)mode outrankExit:(BOOL)exit deviceCap:(BOOL)cap
+{
+  modeCopy = mode;
+  *score = nw;
+  *a6 = conf;
+  v13 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService servCellRadioTechnologyType](self "servCellRadioTechnologyType")];
+  v14 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService currentNRCellType](self "currentNRCellType")];
+  v15 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService rrcState](self "rrcState")];
+  if (v13 == 9 || v14 == 3)
+  {
+    [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService nrCellRSRP](self "nrCellRSRP")];
+    v17 = v21;
+    [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService nrCellSNR](self "nrCellSNR")];
+    v19 = v22;
+    nrCellRSRQ = [(WRM_EnhancedCTService *)self nrCellRSRQ];
+  }
+
+  else
+  {
+    if (v13 != 1)
+    {
+      *score = 3;
+      *a6 = 2;
+      v26 = @"evaluateCellularScore: score: bad";
+      goto LABEL_46;
+    }
+
+    [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService servCellRSRP](self "servCellRSRP")];
+    v17 = v16;
+    [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService servCellSNR](self "servCellSNR")];
+    v19 = v18;
+    nrCellRSRQ = [(WRM_EnhancedCTService *)self servCellRSRQ];
+  }
+
+  [-[NSMutableArray objectAtIndex:](nrCellRSRQ objectAtIndex:{-[WRM_EnhancedCTService dataPreferredSlot](self, "dataPreferredSlot") - 1), "doubleValue"}];
+  v24 = v23;
+  v47 = v17 >= self->mCellConfiguredBandwidth && v23 >= self->mCellRSRP4G5GvsWiFiThreshold;
+  scoreCopy = score;
+  v50 = a6;
+  v52 = v14;
+  if ([(WRM_EnhancedCTService *)self dataPreferredSlot])
+  {
+    if ([(WRM_EnhancedCTService *)self dataPreferredSlot]== 1)
+    {
+      v25 = "CTSubscriptionSlotOne";
+    }
+
+    else
+    {
+      dataPreferredSlot = [(WRM_EnhancedCTService *)self dataPreferredSlot];
+      v25 = "Unknown CTSubscriptionSlot!!!";
+      if (dataPreferredSlot == 2)
+      {
+        v25 = "CTSubscriptionSlotTwo";
+      }
+    }
+  }
+
+  else
+  {
+    v25 = "CTSubscriptionSlotUnknown";
+  }
+
+  v48 = modeCopy;
+  v51 = v15;
+  [WCM_Logging logLevel:24 message:@"evaluateCellularScorePrivateNw: RRC state: %d, forceActiveEval:%d, RSRP: %f, SNR: %f, RSRQ: %f, data slot: %s, locationEnabled:%d", v15, modeCopy, *&v17, v19, *&v24, v25, byte_1002B7458];
+  v46 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService stallDetected](self "stallDetected")];
+  v28 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService highDataRateObserved](self "highDataRateObserved")];
+  v29 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService estimatedBWDL](self "estimatedBWDL")];
+  v30 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService estimatedBWDLConf](self "estimatedBWDLConf")];
+  v31 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService DataLqmValue](self "DataLqmValue")];
+  v32 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService VoiceLqmValue](self "VoiceLqmValue")];
+  getWiFiNRStatusDataSlot = [(WRM_EnhancedCTService *)self getWiFiNRStatusDataSlot];
+  v34 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService detectedFR1CellCountLocDB](self "detectedFR1CellCountLocDB")];
+  v35 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService detectedFR2CellCountLocDB](self "detectedFR2CellCountLocDB")];
+  if ([(WRM_EnhancedCTService *)self dataPreferredSlot])
+  {
+    if ([(WRM_EnhancedCTService *)self dataPreferredSlot]== 1)
+    {
+      v36 = "CTSubscriptionSlotOne";
+    }
+
+    else
+    {
+      dataPreferredSlot2 = [(WRM_EnhancedCTService *)self dataPreferredSlot];
+      v36 = "Unknown CTSubscriptionSlot!!!";
+      if (dataPreferredSlot2 == 2)
+      {
+        v36 = "CTSubscriptionSlotTwo";
+      }
+    }
+  }
+
+  else
+  {
+    v36 = "CTSubscriptionSlotUnknown";
+  }
+
+  [WCM_Logging logLevel:24 message:@"evaluateCellularScorePrivateNw: LocationDB FR1 count: %d, FR2 count: %d, %s", v34, v35, v36];
+  [WCM_Logging logLevel:24 message:@"evaluateCellularScorePrivateNw: Connected Cell: %d, High rate likely : %d, DL BW:%d, DL Conf:%d isWiFiCellNR: %d", v52, v28, v29, v30, getWiFiNRStatusDataSlot != 0];
+  if (v51 != 1 && !v48)
+  {
+    v38 = 1;
+    if (v31 == 50)
+    {
+      v40 = scoreCopy;
+      v39 = v50;
+    }
+
+    else
+    {
+      v40 = scoreCopy;
+      v39 = v50;
+      if (v31 != 100)
+      {
+        v41 = v47;
+        if (v34)
+        {
+          v41 = 1;
+        }
+
+        if (v41)
+        {
+          v38 = 1;
+        }
+
+        else if (v35 != 0 && cap)
+        {
+          v38 = 1;
+        }
+
+        else
+        {
+          v38 = 3;
+        }
+      }
+    }
+
+    *v40 = v38;
+    *v39 = 2;
+    v26 = @"evaluateCellularScorePrivateNw: default evaluation";
+    goto LABEL_46;
+  }
+
+  if (v30 >= 5)
+  {
+    [WCM_Logging logLevel:24 message:@"evaluateCellularScorePrivateNw: DLBW: %d, Conf:%d", v29, v30];
+    if (v29 > 1999)
+    {
+      v43 = scoreCopy;
+      v42 = v50;
+      if ((v47 & v28 & 1) == 0)
+      {
+        *scoreCopy = 2;
+        v45 = 1;
+        goto LABEL_40;
+      }
+
+      v44 = 1;
+LABEL_39:
+      *v43 = v44;
+      v45 = 2;
+LABEL_40:
+      *v42 = v45;
+      return;
+    }
+
+LABEL_38:
+    v44 = 3;
+    v43 = scoreCopy;
+    v42 = v50;
+    goto LABEL_39;
+  }
+
+  [WCM_Logging logLevel:24 message:@"evaluateCellularScorePrivateNw: dLQM: %d, vLQM: %d, RLGS stal: %d", v31, v32, v46 != 0];
+  if (v31 == 10 || v32 == 10 || v46)
+  {
+    goto LABEL_38;
+  }
+
+  v26 = @"evaluateCellularScorePrivateNw: RRC Connected mode";
+LABEL_46:
+
+  [WCM_Logging logLevel:24 message:v26];
+}
+
+- (void)evaluateCellularScore:(unsigned __int8)score currnetConf:(unsigned __int8)conf score:(char *)a5 conf:(char *)a6 evalMode:(BOOL)mode outrankExit:(BOOL)exit deviceCap:(BOOL)cap
+{
+  exitCopy = exit;
+  modeCopy = mode;
+  *a5 = score;
+  *a6 = conf;
+  v14 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService servCellRadioTechnologyType](self "servCellRadioTechnologyType")];
+  v15 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService currentNRCellType](self "currentNRCellType")];
+  v55 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService rrcState](self "rrcState")];
+  if (v14 == 9 || v15 == 3)
+  {
+    [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService nrCellRSRP](self "nrCellRSRP")];
+    v17 = v21;
+    [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService nrCellSNR](self "nrCellSNR")];
+    v19 = v22;
+    nrCellRSRQ = [(WRM_EnhancedCTService *)self nrCellRSRQ];
+  }
+
+  else
+  {
+    if (v14 != 1)
+    {
+      *a5 = 3;
+      *a6 = 2;
+      v27 = @"evaluateCellularScore: score: bad";
+      goto LABEL_46;
+    }
+
+    [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService servCellRSRP](self "servCellRSRP")];
+    v17 = v16;
+    [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService servCellSNR](self "servCellSNR")];
+    v19 = v18;
+    nrCellRSRQ = [(WRM_EnhancedCTService *)self servCellRSRQ];
+  }
+
+  [-[NSMutableArray objectAtIndex:](nrCellRSRQ objectAtIndex:{-[WRM_EnhancedCTService dataPreferredSlot](self, "dataPreferredSlot") - 1), "doubleValue"}];
+  v24 = v23;
+  v25 = v17 < self->mCellConfiguredBandwidth || v23 < self->mCellRSRP4G5GvsWiFiThreshold;
+  v47 = v25;
+  if ([(WRM_EnhancedCTService *)self dataPreferredSlot])
+  {
+    if ([(WRM_EnhancedCTService *)self dataPreferredSlot]== 1)
+    {
+      v26 = "CTSubscriptionSlotOne";
+    }
+
+    else
+    {
+      dataPreferredSlot = [(WRM_EnhancedCTService *)self dataPreferredSlot];
+      v26 = "Unknown CTSubscriptionSlot!!!";
+      if (dataPreferredSlot == 2)
+      {
+        v26 = "CTSubscriptionSlotTwo";
+      }
+    }
+  }
+
+  else
+  {
+    v26 = "CTSubscriptionSlotUnknown";
+  }
+
+  [WCM_Logging logLevel:24 message:@"evaluateCellularScore: RRC state: %d, forceActiveEval:%d, RSRP: %f, SNR: %f, RSRQ: %f, data slot: %s, locationEnabled:%d, exitOutrank: %d", v55, modeCopy, *&v17, v19, *&v24, v26, byte_1002B7458, exitCopy];
+  v52 = a5;
+  v51 = exitCopy;
+  v43 = v14;
+  v48 = modeCopy;
+  v49 = cap && [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService currentHarvestedCellTypeFR2Capable](self "currentHarvestedCellTypeFR2Capable")] != 0;
+  v46 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService stallDetected](self "stallDetected")];
+  v54 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService neighberCellType](self "neighberCellType")];
+  v50 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService highDataRateObserved](self "highDataRateObserved")];
+  v29 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService estimatedBWDL](self "estimatedBWDL")];
+  v30 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService estimatedBWDLConf](self "estimatedBWDLConf")];
+  v45 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService DataLqmValue](self "DataLqmValue")];
+  v44 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService VoiceLqmValue](self "VoiceLqmValue")];
+  getWiFiNRStatusDataSlot = [(WRM_EnhancedCTService *)self getWiFiNRStatusDataSlot];
+  v53 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService detectedFR1CellCountLocDB](self "detectedFR1CellCountLocDB")];
+  v32 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService detectedFR2CellCountLocDB](self "detectedFR2CellCountLocDB")];
+  v33 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService detectedFR1CellBW](self "detectedFR1CellBW")];
+  v34 = [-[NSMutableArray objectAtIndex:](-[WRM_EnhancedCTService cellBandwidth](self "cellBandwidth")] + v33;
+  if ([(WRM_EnhancedCTService *)self dataPreferredSlot])
+  {
+    if ([(WRM_EnhancedCTService *)self dataPreferredSlot]== 1)
+    {
+      v35 = "CTSubscriptionSlotOne";
+    }
+
+    else
+    {
+      dataPreferredSlot2 = [(WRM_EnhancedCTService *)self dataPreferredSlot];
+      v35 = "Unknown CTSubscriptionSlot!!!";
+      if (dataPreferredSlot2 == 2)
+      {
+        v35 = "CTSubscriptionSlotTwo";
+      }
+    }
+  }
+
+  else
+  {
+    v35 = "CTSubscriptionSlotUnknown";
+  }
+
+  [WCM_Logging logLevel:24 message:@"evaluateCellularScore: LocationDB FR1 count: %d, FR2 count: %d: BW:%d  %s", v53, v32, v34, v35];
+  [WCM_Logging logLevel:24 message:@"evaluateCellularScore: HarvestedCellFR2: %d, NeighberCell: %d, Connected Cell: %d, High rate likely : %d, DL BW:%d, DL Conf:%d isWiFiCellNR: %d", v49, v54, v15, v50, v29, v30, getWiFiNRStatusDataSlot != 0];
+  if (v55 == 1 || v48 || v51)
+  {
+    if (v51)
+    {
+      [WCM_Logging logLevel:24 message:@"evaluateCellularScore: exit outrank WiFi quality good, NR not added and LTE can't support high bandwidth"];
+      v37 = 3;
+      v39 = v52;
+      v38 = a6;
+LABEL_44:
+      *v39 = v37;
+      *v38 = 2;
+      return;
+    }
+
+    if (v30 < 5)
+    {
+      [WCM_Logging logLevel:24 message:@"evaluateCellularScore: dLQM: %d, vLQM: %d, RLGS stal: %d", v45, v44, v46 != 0];
+      if (v45 != 10 && v44 != 10 && !v46)
+      {
+        if (!v47 && (v50 & 1) != 0)
+        {
+          v27 = @"evaluateCellularScore: RRC Connected mode";
+          goto LABEL_46;
+        }
+
+        goto LABEL_57;
+      }
+    }
+
+    else
+    {
+      [WCM_Logging logLevel:24 message:@"evaluateCellularScore: DLBW: %d, Conf:%d", v29, v30];
+      if (v29 > 1999)
+      {
+        if (!v47 && (v50 & 1) != 0)
+        {
+          v40 = 1;
+LABEL_59:
+          *v52 = v40;
+          v41 = 2;
+          goto LABEL_60;
+        }
+
+LABEL_57:
+        *v52 = 2;
+        v41 = 1;
+LABEL_60:
+        *a6 = v41;
+        return;
+      }
+    }
+
+    v40 = 3;
+    goto LABEL_59;
+  }
+
+  if (v54 == 2 || v15 == 2 || v32 && cap || !(byte_1002B7458 | !v49 | !cap))
+  {
+    *v52 = 1;
+    *a6 = 2;
+    v27 = @"evaluateCellularScore: FR2 evaluation";
+    goto LABEL_46;
+  }
+
+  if (v43 == 9 || (v54 & 0xFFFFFFFD) == 1 || v15 == 1 || v54 == 4 || (v15 - 3) < 2 || v53 || getWiFiNRStatusDataSlot)
+  {
+    if (v17 < self->mCellConfiguredBandwidth)
+    {
+      [WCM_Logging logLevel:24 message:@"evaluateCellularScore: FR1 evaluation, radio Condition good: %d", 0];
+      v39 = v52;
+      v38 = a6;
+LABEL_64:
+      v37 = 2;
+      goto LABEL_44;
+    }
+
+    mCellRSRP4G5GvsWiFiThreshold = self->mCellRSRP4G5GvsWiFiThreshold;
+    [WCM_Logging logLevel:24 message:@"evaluateCellularScore: FR1 evaluation, radio Condition good: %d", v24 >= mCellRSRP4G5GvsWiFiThreshold];
+    if (v50)
+    {
+      v39 = v52;
+      v38 = a6;
+      if (v24 < mCellRSRP4G5GvsWiFiThreshold)
+      {
+        goto LABEL_64;
+      }
+    }
+
+    else
+    {
+      v39 = v52;
+      v38 = a6;
+      if (v24 < mCellRSRP4G5GvsWiFiThreshold || v34 < HIDWORD(self->mInternetInterfaceName) || !v53)
+      {
+        goto LABEL_64;
+      }
+    }
+
+    v37 = 1;
+    goto LABEL_44;
+  }
+
+  if (cap && v49)
+  {
+    *v52 = 2;
+    *a6 = 1;
+    [WCM_Logging logLevel:24 message:@"evaluateCellularScore: Fall back FR2 eval, auth: %d", byte_1002B7458];
+    return;
+  }
+
+  *v52 = 3;
+  *a6 = 2;
+  v27 = @"evaluateCellularScore: default evaluation";
+LABEL_46:
+
+  [WCM_Logging logLevel:24 message:v27];
+}
+
 - (void)reloadCellularSpeedTestSettingsFromPreferences
 {
   [WCM_Logging logLevel:22 message:@"CellularThroughput: reloadCellularSpeedTestSettingsFromPreferences called"];
@@ -4947,6 +5548,20 @@ LABEL_13:
   if (v10)
   {
     [(WRM_EnhancedCTService *)self setCellularSpeedTestSettingsToPreferences:v8];
+  }
+}
+
+- (void)handleSettingCellularSpeedTestSetting:(BOOL)setting
+{
+  [(WRM_EnhancedCTService *)self setCellularSpeedTestsDisabled:setting];
+  if (byte_1002B7D58 == 1)
+  {
+    v4 = *(&self->super.m_PDPAssertionRefCount + 1);
+    if (v4)
+    {
+
+      [v4 abort];
+    }
   }
 }
 
@@ -5207,6 +5822,46 @@ LABEL_13:
   }
 
   return v6;
+}
+
+- (void)fetchSmartDataModeDataForLocation:(double)location :(double)a4 :(unsigned __int16)a5 :(unsigned __int16)a6 :(unint64_t)a7 :(int64_t)a8
+{
+  v10 = a6;
+  v11 = a5;
+  v15 = [(WRM_EnhancedCTService *)self intializeInterfaceClient:a8];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
+  {
+    if (location == 0.0 && a4 == 0.0)
+    {
+      [WCM_Logging logLevel:22 message:@"fetchSmartDataModeDataForLocation for sub %d invalid location lat/long, return dB unavailable", a8];
+
+      [v15 sendWrmSdmLocationDbInfo:a8 dbAvailable:0 mcc:v11 mnc:v10 cellId:a7];
+    }
+
+    else
+    {
+      v16 = [objc_alloc(sub_1000165F8()) initWithGEOCoordinate:{location, a4}];
+      [v16 setHorizontalAccuracy:0.0];
+      v17[0] = _NSConcreteStackBlock;
+      v17[1] = 3221225472;
+      v17[2] = sub_100040554;
+      v17[3] = &unk_10023E2B0;
+      *&v17[5] = location;
+      *&v17[6] = a4;
+      v17[4] = v15;
+      v18 = v11;
+      v19 = v10;
+      v17[7] = a8;
+      v17[8] = a7;
+      [sub_10003F928() fetchSmartDataModeDataForLocation:v16 mcc:v11 mnc:v10 responseQueue:-[WRM_EnhancedCTService queue](self responseBlock:{"queue"), v17}];
+    }
+  }
+
+  else
+  {
+    [WCM_Logging logLevel:22 message:@"%s: Invalid class type for interface client.", "[WRM_EnhancedCTService fetchSmartDataModeDataForLocation::::::]"];
+  }
 }
 
 - (BOOL)shouldScheduleSpeedTests

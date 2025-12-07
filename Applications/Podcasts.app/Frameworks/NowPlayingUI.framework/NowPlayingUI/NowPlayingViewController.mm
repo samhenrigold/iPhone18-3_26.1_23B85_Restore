@@ -33,31 +33,31 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_7D888();
+  sub_7D888(v2);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_7EE30(appear);
+  sub_7EE30(appear, v4);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_7F5E4(appear);
+  sub_7F5E4(appear, v4);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
   selfCopy = self;
-  sub_7F808(disappear);
+  sub_7F808(disappear, v4);
 }
 
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_7F998();
+  sub_7F998(v2);
 }
 
 - (void)scrollViewDidScroll:(id)scroll
@@ -84,11 +84,11 @@
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_865D8();
+  sub_865D8(v10);
 
   swift_unknownObjectRelease();
   (*(v8 + 8))(v10, v7);
-  sub_2B860(0, &qword_1C4A90);
+  sub_2B860(0, &qword_1C4A90, UIDragItem_ptr);
   v13.super.isa = sub_1449CC().super.isa;
 
   return v13.super.isa;
@@ -106,7 +106,7 @@
 
 - (id)collectionView:(id)view dropSessionDidUpdate:(id)update withDestinationIndexPath:(id)path
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1C4A80);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1C4A80, qword_14F300);
   __chkstk_darwin(v9 - 8);
   v11 = &v18 - v10;
   if (path)
@@ -128,7 +128,7 @@
   v16 = sub_86BC0(update, v11);
 
   swift_unknownObjectRelease();
-  sub_15340(v11, &unk_1C4A80);
+  sub_15340(v11, &unk_1C4A80, qword_14F300);
 
   return v16;
 }
@@ -210,7 +210,7 @@
   viewCopy = view;
   cellCopy = cell;
   selfCopy = self;
-  sub_87CDC(cellCopy);
+  sub_87CDC(cellCopy, v11);
 
   (*(v9 + 8))(v11, v8);
 }
@@ -249,7 +249,7 @@
   sub_140BAC();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = sub_87BEC();
+  LOBYTE(self) = sub_87BEC(v9);
 
   (*(v7 + 8))(v9, v6);
   return self & 1;
@@ -279,17 +279,18 @@
   v7 = sub_140C2C();
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
-  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1448DC();
+  v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = sub_1448DC();
+  v13 = v12;
   sub_140BAC();
   viewCopy = view;
   selfCopy = self;
-  sub_84518(viewCopy);
-  v14 = v13;
+  sub_84518(viewCopy, v11, v13);
+  v17 = v16;
 
   (*(v8 + 8))(v10, v7);
 
-  return v14;
+  return v17;
 }
 
 - (void)collectionView:(id)view didSelectItemAtIndexPath:(id)path
@@ -311,9 +312,9 @@
   viewCopy = view;
   layoutCopy = layout;
   selfCopy = self;
-  v11 = sub_87E28(viewCopy, section);
+  v12 = sub_87E28(viewCopy, section, v11);
 
-  return v11;
+  return v12;
 }
 
 - (double)collectionView:(id)view tableLayout:(id)layout heightForRowAtIndexPath:(id)path
@@ -354,12 +355,12 @@
   viewCopy = view;
   layoutCopy = layout;
   selfCopy = self;
-  v15 = sub_888F4();
+  v15 = sub_888F4(v11);
 
   (*(v9 + 8))(v11, v8);
   if (v15)
   {
-    sub_2B860(0, &qword_1C4A40);
+    sub_2B860(0, &qword_1C4A40, UISwipeAction_ptr);
     v16.super.isa = sub_1449CC().super.isa;
   }
 

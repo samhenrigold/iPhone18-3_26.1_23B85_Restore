@@ -65,7 +65,7 @@ LABEL_4:
 LABEL_7:
   _s7Measure16SCNPatchDebuggerC12observeValue10forKeyPath2of6change7contextySSSg_ypSgSDySo05NSKeye6ChangeG0aypGSgSvSgtF_0(v9, v11);
 
-  sub_100018F04(v16, &unk_1004A6970);
+  sub_100018F04(v16, &unk_1004A6970, &unk_1003D5710);
 }
 
 - (_TtC7Measure16SCNPatchDebugger)init

@@ -1,6 +1,8 @@
 @interface HIDRemoteDevice
 - (HIDRemoteDevice)initWithProperties:(id)properties;
 - (id)description;
+- (int)getReportHandler:(int)handler reportID:(unsigned __int8)d report:(char *)report reportLength:(unint64_t)length;
+- (int)setReportHandler:(int)handler reportID:(unsigned __int8)d status:(int)status;
 @end
 
 @implementation HIDRemoteDevice
@@ -23,6 +25,40 @@
   }
 
   return v4;
+}
+
+- (int)setReportHandler:(int)handler reportID:(unsigned __int8)d status:(int)status
+{
+  v5 = *&status;
+  if ([(HIDRemoteDevice *)self waitForReport:*&handler])
+  {
+    [(HIDRemoteDevice *)self setLastSetReportStatus:v5];
+    semaphore = [(HIDRemoteDevice *)self semaphore];
+    dispatch_semaphore_signal(semaphore);
+  }
+
+  else
+  {
+    LODWORD(v5) = -536870165;
+  }
+
+  return v5;
+}
+
+- (int)getReportHandler:(int)handler reportID:(unsigned __int8)d report:(char *)report reportLength:(unint64_t)length
+{
+  if (![(HIDRemoteDevice *)self waitForReport:*&handler])
+  {
+    return -536870165;
+  }
+
+  v9 = [MEMORY[0x277CBEA90] dataWithBytes:report length:length];
+  [(HIDRemoteDevice *)self setLastGetReport:v9];
+
+  semaphore = [(HIDRemoteDevice *)self semaphore];
+  dispatch_semaphore_signal(semaphore);
+
+  return 0;
 }
 
 - (id)description

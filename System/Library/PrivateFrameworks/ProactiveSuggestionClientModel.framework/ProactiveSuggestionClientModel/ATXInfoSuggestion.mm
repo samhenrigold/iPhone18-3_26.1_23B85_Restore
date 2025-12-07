@@ -23,12 +23,10 @@
 - (id)encodeAsProto;
 - (id)proto;
 - (unint64_t)hash;
-- (void)data;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
 - (void)handleMemoryPressure;
 - (void)intent;
-- (void)proto;
 @end
 
 @implementation ATXInfoSuggestion
@@ -91,15 +89,15 @@
   {
     v4 = objc_autoreleasePoolPush();
     intentDescription = self->_intentDescription;
-    v26 = 0;
-    v6 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:intentDescription requiringSecureCoding:1 error:&v26];
-    v7 = v26;
+    v29 = 0;
+    v6 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:intentDescription requiringSecureCoding:1 error:&v29];
+    v7 = v29;
     [v3 setArchivedIntentDescription:v6];
 
     if (v7)
     {
-      v8 = __atxlog_handle_gi();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = __atxlog_handle_gi(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [ATXInfoSuggestion proto];
       }
@@ -121,19 +119,19 @@
 
     if (intent)
     {
-      v11 = objc_autoreleasePoolPush();
-      v12 = MEMORY[0x1E696ACC8];
+      v12 = objc_autoreleasePoolPush();
+      v13 = MEMORY[0x1E696ACC8];
       intent2 = [(ATXInfoSuggestion *)selfCopy intent];
-      v25 = 0;
-      v14 = [v12 archivedDataWithRootObject:intent2 requiringSecureCoding:1 error:&v25];
-      v15 = v25;
-      [v3 setArchivedIntent:v14];
+      v28 = 0;
+      v15 = [v13 archivedDataWithRootObject:intent2 requiringSecureCoding:1 error:&v28];
+      v16 = v28;
+      [v3 setArchivedIntent:v15];
 
-      objc_autoreleasePoolPop(v11);
-      if (v15)
+      objc_autoreleasePoolPop(v12);
+      if (v16)
       {
-        v16 = __atxlog_handle_gi();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v18 = __atxlog_handle_gi(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           [ATXInfoSuggestion proto];
         }
@@ -145,18 +143,18 @@
 
   if (selfCopy->_metadata)
   {
-    v17 = objc_autoreleasePoolPush();
+    v19 = objc_autoreleasePoolPush();
     metadata = selfCopy->_metadata;
-    v24 = 0;
-    v19 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:metadata requiringSecureCoding:1 error:&v24];
-    v20 = v24;
-    [v3 setArchivedMetadata:v19];
+    v27 = 0;
+    v21 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:metadata requiringSecureCoding:1 error:&v27];
+    v22 = v27;
+    [v3 setArchivedMetadata:v21];
 
-    objc_autoreleasePoolPop(v17);
-    if (v20)
+    objc_autoreleasePoolPop(v19);
+    if (v22)
     {
-      v21 = __atxlog_handle_gi();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v24 = __atxlog_handle_gi(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         [ATXInfoSuggestion proto];
       }
@@ -203,8 +201,8 @@ LABEL_2:
       goto LABEL_3;
     }
 
-    v9 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = __atxlog_handle_gi(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [(ATXInfoSuggestion *)selfCopy intent];
     }
@@ -212,26 +210,26 @@ LABEL_2:
 
   if (selfCopy->_intentProtoData)
   {
-    v10 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = __atxlog_handle_gi(intentDescription);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [ATXInfoSuggestion intent];
     }
 
-    v11 = objc_autoreleasePoolPush();
-    v12 = MEMORY[0x1E696ACD0];
-    v13 = objc_opt_class();
+    v12 = objc_autoreleasePoolPush();
+    v13 = MEMORY[0x1E696ACD0];
+    v14 = objc_opt_class();
     intentProtoData = selfCopy->_intentProtoData;
-    v19 = 0;
-    v15 = [v12 unarchivedObjectOfClass:v13 fromData:intentProtoData error:&v19];
-    v16 = v19;
-    v17 = selfCopy->_intent;
-    selfCopy->_intent = v15;
+    v21 = 0;
+    v16 = [v13 unarchivedObjectOfClass:v14 fromData:intentProtoData error:&v21];
+    v17 = v21;
+    v18 = selfCopy->_intent;
+    selfCopy->_intent = v16;
 
-    if (v16)
+    if (v17)
     {
-      v18 = __atxlog_handle_gi();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v20 = __atxlog_handle_gi(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [ATXInfoSuggestion intent];
       }
@@ -239,7 +237,7 @@ LABEL_2:
 
     v4 = selfCopy->_intent;
 
-    objc_autoreleasePoolPop(v11);
+    objc_autoreleasePoolPop(v12);
   }
 
   else
@@ -317,19 +315,19 @@ LABEL_3:
 {
   dataCopy = data;
   v5 = objc_autoreleasePoolPush();
-  v11 = 0;
-  v6 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v11];
-  v7 = v11;
+  v12 = 0;
+  v6 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v12];
+  v7 = v12;
   objc_autoreleasePoolPop(v5);
   if (v6)
   {
-    v8 = v6;
+    v9 = v6;
   }
 
   else
   {
-    v9 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = __atxlog_handle_gi(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [ATXInfoSuggestion initWithData:];
     }
@@ -358,7 +356,7 @@ LABEL_3:
 
   if (self->_intentDescription && possibleCopy)
   {
-    intent = __atxlog_handle_gi();
+    intent = __atxlog_handle_gi(v8);
     if (os_log_type_enabled(intent, OS_LOG_TYPE_DEBUG))
     {
       [ATXInfoSuggestion _dictionaryRepresentationAvoidingLoadingIntentIfPossible:];
@@ -368,14 +366,14 @@ LABEL_3:
   else
   {
     intent = [(ATXInfoSuggestion *)self intent];
-    v9 = [intent description];
-    [v5 setObject:v9 forKeyedSubscript:@"intent"];
+    v10 = [intent description];
+    [v5 setObject:v10 forKeyedSubscript:@"intent"];
   }
 
   [v5 setObject:self->_metadata forKeyedSubscript:@"meta"];
   [v5 setObject:self->_sourceIdentifier forKeyedSubscript:@"src"];
-  v10 = [MEMORY[0x1E696AD98] numberWithInteger:self->_confidenceLevel];
-  [v5 setObject:v10 forKeyedSubscript:@"confLevel"];
+  v11 = [MEMORY[0x1E696AD98] numberWithInteger:self->_confidenceLevel];
+  [v5 setObject:v11 forKeyedSubscript:@"confLevel"];
 
   [v5 setObject:self->_relevanceScore forKeyedSubscript:@"relevanceScore"];
 
@@ -384,7 +382,7 @@ LABEL_3:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v16 = [objc_opt_class() allocWithZone:zone];
+  v15 = [objc_opt_class() allocWithZone:zone];
   appBundleIdentifier = self->_appBundleIdentifier;
   widgetBundleIdentifier = self->_widgetBundleIdentifier;
   widgetKind = self->_widgetKind;
@@ -394,13 +392,12 @@ LABEL_3:
   startDate = self->_startDate;
   endDate = self->_endDate;
   intent = [(ATXInfoSuggestion *)self intent];
-  metadata = self->_metadata;
-  v14 = [v16 initWithAppBundleIdentifier:appBundleIdentifier widgetBundleIdentifier:widgetBundleIdentifier widgetKind:widgetKind criterion:criterion applicableLayouts:layouts suggestionIdentifier:suggestionIdentifier startDate:startDate endDate:endDate intent:intent metadata:metadata relevanceScore:self->_relevanceScore];
+  v13 = [v15 initWithAppBundleIdentifier:appBundleIdentifier widgetBundleIdentifier:widgetBundleIdentifier widgetKind:widgetKind criterion:criterion applicableLayouts:layouts suggestionIdentifier:suggestionIdentifier startDate:startDate endDate:endDate intent:intent metadata:self->_metadata relevanceScore:self->_relevanceScore];
 
-  [v14 setSourceIdentifier:self->_sourceIdentifier];
-  [v14 setConfidenceLevel:self->_confidenceLevel];
-  [v14 setClientModelId:self->_clientModelId];
-  return v14;
+  [v13 setSourceIdentifier:self->_sourceIdentifier];
+  [v13 setConfidenceLevel:self->_confidenceLevel];
+  [v13 setClientModelId:self->_clientModelId];
+  return v13;
 }
 
 - (id)copyByReplacingIntentWithIndexingHash
@@ -408,32 +405,30 @@ LABEL_3:
   intent = [(ATXInfoSuggestion *)self intent];
   atx_indexingHash = [intent atx_indexingHash];
 
-  v5 = objc_alloc(objc_opt_class());
-  metadata = self->_metadata;
-  v7 = [v5 initWithAppBundleIdentifier:self->_appBundleIdentifier widgetBundleIdentifier:self->_widgetBundleIdentifier widgetKind:self->_widgetKind criterion:self->_criterion applicableLayouts:self->_layouts suggestionIdentifier:self->_suggestionIdentifier startDate:self->_startDate endDate:self->_endDate intent:0 metadata:metadata relevanceScore:self->_relevanceScore];
-  [v7 setSourceIdentifier:self->_sourceIdentifier];
-  [v7 setConfidenceLevel:self->_confidenceLevel];
-  [v7 setClientModelId:self->_clientModelId];
-  [v7 setIntentIndexingHash:atx_indexingHash];
-  return v7;
+  v5 = [objc_alloc(objc_opt_class()) initWithAppBundleIdentifier:self->_appBundleIdentifier widgetBundleIdentifier:self->_widgetBundleIdentifier widgetKind:self->_widgetKind criterion:self->_criterion applicableLayouts:self->_layouts suggestionIdentifier:self->_suggestionIdentifier startDate:self->_startDate endDate:self->_endDate intent:0 metadata:self->_metadata relevanceScore:self->_relevanceScore];
+  [v5 setSourceIdentifier:self->_sourceIdentifier];
+  [v5 setConfidenceLevel:self->_confidenceLevel];
+  [v5 setClientModelId:self->_clientModelId];
+  [v5 setIntentIndexingHash:atx_indexingHash];
+  return v5;
 }
 
 - (id)data
 {
   v3 = objc_autoreleasePoolPush();
-  v9 = 0;
-  v4 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v9];
-  v5 = v9;
+  v10 = 0;
+  v4 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v10];
+  v5 = v10;
   objc_autoreleasePoolPop(v3);
   if (v4)
   {
-    v6 = v4;
+    v7 = v4;
   }
 
   else
   {
-    v7 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_gi(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [ATXInfoSuggestion data];
     }
@@ -453,8 +448,8 @@ LABEL_3:
 
   if (!v8)
   {
-    v9 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = __atxlog_handle_gi(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [ATXInfoSuggestion initWithProactiveSuggestion:];
     }
@@ -480,39 +475,37 @@ LABEL_3:
 
     if (!v19)
     {
-      v23 = [self _uiSpecForInfoSuggestion:suggestionCopy];
-      if (v23)
+      v24 = [self _uiSpecForInfoSuggestion:suggestionCopy];
+      if (v24)
       {
-        v24 = [[ATXProactiveSuggestionScoreSpecification alloc] initWithRawScore:category suggestedConfidenceCategory:score];
-        v22 = [[ATXProactiveSuggestion alloc] initWithClientModelSpecification:v15 executableSpecification:v16 uiSpecification:v23 scoreSpecification:v24];
+        v25 = [[ATXProactiveSuggestionScoreSpecification alloc] initWithRawScore:category suggestedConfidenceCategory:score];
+        v23 = [[ATXProactiveSuggestion alloc] initWithClientModelSpecification:v15 executableSpecification:v16 uiSpecification:v24 scoreSpecification:v25];
       }
 
       else
       {
-        v22 = 0;
+        v23 = 0;
       }
 
       goto LABEL_11;
     }
 
-    v20 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v21 = __atxlog_handle_gi(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       appBundleIdentifier2 = [suggestionCopy appBundleIdentifier];
       v27 = 136315394;
       v28 = "+[ATXInfoSuggestion proactiveSuggestionForInfoSuggestion:withClientModelId:clientModelVersion:rawScore:confidenceCategory:]";
       v29 = 2112;
       v30 = appBundleIdentifier2;
-      _os_log_impl(&dword_1DEFC4000, v20, OS_LOG_TYPE_DEFAULT, "%s: BundleId: %@ is disabled to show suggestions on home screen", &v27, 0x16u);
+      _os_log_impl(&dword_1DEFC4000, v21, OS_LOG_TYPE_DEFAULT, "%s: BundleId: %@ is disabled to show suggestions on home screen", &v27, 0x16u);
     }
   }
 
-  v22 = 0;
+  v23 = 0;
 LABEL_11:
 
-  v25 = *MEMORY[0x1E69E9840];
-
-  return v22;
+  return v23;
 }
 
 + (id)_executableSpecificationForInfoSuggestion:(id)suggestion
@@ -568,8 +561,8 @@ LABEL_11:
         goto LABEL_12;
       }
 
-      v14 = __atxlog_handle_gi();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+      v16 = __atxlog_handle_gi(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
         +[ATXInfoSuggestion infoSuggestionFromProactiveSuggestion:];
       }
@@ -577,8 +570,8 @@ LABEL_11:
 
     else
     {
-      v14 = __atxlog_handle_gi();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+      v16 = __atxlog_handle_gi(v12);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
         +[ATXInfoSuggestion infoSuggestionFromProactiveSuggestion:];
       }
@@ -626,7 +619,7 @@ LABEL_12:
 
 - (id)_verifyAndReturnDecodedObject:(id)object ofClass:(Class)class forKey:(id)key withCoder:(id)coder
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   objectCopy = object;
   keyCopy = key;
   coderCopy = coder;
@@ -637,20 +630,20 @@ LABEL_12:
     {
       keyCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"key %@ maps to unexpected class", keyCopy];
       v13 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v21 = *MEMORY[0x1E696A578];
-      v22[0] = keyCopy;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+      v22 = *MEMORY[0x1E696A578];
+      v23[0] = keyCopy;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
       v15 = [v13 initWithDomain:@"ATXInfoSuggestion" code:-1 userInfo:v14];
 
       [v11 failWithError:v15];
-      v16 = __atxlog_handle_gi();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = __atxlog_handle_gi(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [ATXInfoSuggestion _verifyAndReturnDecodedObject:ofClass:forKey:withCoder:];
       }
 
 LABEL_9:
-      v18 = 0;
+      v20 = 0;
       goto LABEL_11;
     }
   }
@@ -661,7 +654,7 @@ LABEL_9:
 
     if (error)
     {
-      keyCopy = __atxlog_handle_gi();
+      keyCopy = __atxlog_handle_gi(v19);
       if (os_log_type_enabled(keyCopy, OS_LOG_TYPE_ERROR))
       {
         [ATXInfoSuggestion _verifyAndReturnDecodedObject:v11 ofClass:keyCopy forKey:? withCoder:?];
@@ -671,12 +664,10 @@ LABEL_9:
     }
   }
 
-  v18 = objectCopy;
+  v20 = objectCopy;
 LABEL_11:
 
-  v19 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v20;
 }
 
 - (ATXInfoSuggestion)initWithCoder:(id)coder
@@ -696,15 +687,15 @@ LABEL_11:
       if (v12)
       {
         v13 = v12;
-        v55.receiver = self;
-        v55.super_class = ATXInfoSuggestion;
-        v14 = [(ATXInfoSuggestion *)&v55 init];
+        v56.receiver = self;
+        v56.super_class = ATXInfoSuggestion;
+        v14 = [(ATXInfoSuggestion *)&v56 init];
         v15 = v14;
         if (v14)
         {
           objc_storeStrong(&v14->_appBundleIdentifier, v7);
           objc_storeStrong(&v15->_widgetBundleIdentifier, v8);
-          v54 = v9;
+          v55 = v9;
           objc_storeStrong(&v15->_widgetKind, v9);
           objc_storeStrong(&v15->_criterion, v11);
           v15->_layouts = v13;
@@ -736,53 +727,53 @@ LABEL_11:
 
               if (!v15->_intent)
               {
-                v28 = v11;
-                v29 = __atxlog_handle_gi();
-                if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+                v29 = v11;
+                v30 = __atxlog_handle_gi(v28);
+                if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
                 {
                   [ATXInfoSuggestion initWithCoder:];
                 }
 
-                v11 = v28;
+                v11 = v29;
               }
             }
           }
 
-          v30 = objc_opt_class();
-          v52 = MEMORY[0x1E695DFD8];
-          v53 = v30;
+          v31 = objc_opt_class();
+          v53 = MEMORY[0x1E695DFD8];
+          v54 = v31;
+          v52 = objc_opt_class();
           v51 = objc_opt_class();
-          v50 = objc_opt_class();
-          v31 = v11;
-          v32 = objc_opt_class();
-          v33 = v8;
-          v34 = v7;
-          v35 = objc_opt_class();
+          v32 = v11;
+          v33 = objc_opt_class();
+          v34 = v8;
+          v35 = v7;
           v36 = objc_opt_class();
-          v49 = v35;
-          v7 = v34;
-          v8 = v33;
-          v48 = v32;
-          v11 = v31;
-          v37 = [v52 setWithObjects:{v51, v50, v48, v49, v36, objc_opt_class(), 0}];
-          v38 = [(ATXInfoSuggestion *)v15 _safeDecodeObjectOfClass:v53 allowedClasses:v37 forKey:@"meta" withCoder:coderCopy];
+          v37 = objc_opt_class();
+          v50 = v36;
+          v7 = v35;
+          v8 = v34;
+          v49 = v33;
+          v11 = v32;
+          v38 = [v53 setWithObjects:{v52, v51, v49, v50, v37, objc_opt_class(), 0}];
+          v39 = [(ATXInfoSuggestion *)v15 _safeDecodeObjectOfClass:v54 allowedClasses:v38 forKey:@"meta" withCoder:coderCopy];
           metadata = v15->_metadata;
-          v15->_metadata = v38;
+          v15->_metadata = v39;
 
-          v40 = [(ATXInfoSuggestion *)v15 _safeDecodeObjectOfClass:objc_opt_class() forKey:@"src" withCoder:coderCopy];
+          v41 = [(ATXInfoSuggestion *)v15 _safeDecodeObjectOfClass:objc_opt_class() forKey:@"src" withCoder:coderCopy];
           sourceIdentifier = v15->_sourceIdentifier;
-          v15->_sourceIdentifier = v40;
+          v15->_sourceIdentifier = v41;
 
           v15->_confidenceLevel = [coderCopy decodeIntegerForKey:@"confLevel"];
-          v42 = [(ATXInfoSuggestion *)v15 _safeDecodeObjectOfClass:objc_opt_class() forKey:@"clientModelId" withCoder:coderCopy];
+          v43 = [(ATXInfoSuggestion *)v15 _safeDecodeObjectOfClass:objc_opt_class() forKey:@"clientModelId" withCoder:coderCopy];
           clientModelId = v15->_clientModelId;
-          v15->_clientModelId = v42;
+          v15->_clientModelId = v43;
 
-          v44 = [(ATXInfoSuggestion *)v15 _safeDecodeObjectOfClass:objc_opt_class() forKey:@"relevanceScore" withCoder:coderCopy];
+          v45 = [(ATXInfoSuggestion *)v15 _safeDecodeObjectOfClass:objc_opt_class() forKey:@"relevanceScore" withCoder:coderCopy];
           relevanceScore = v15->_relevanceScore;
-          v15->_relevanceScore = v44;
+          v15->_relevanceScore = v45;
 
-          v9 = v54;
+          v9 = v55;
         }
 
         self = v15;
@@ -790,8 +781,8 @@ LABEL_11:
         goto LABEL_23;
       }
 
-      v46 = __atxlog_handle_gi();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+      v47 = __atxlog_handle_gi(0);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
         [ATXInfoSuggestion initWithCoder:];
       }
@@ -799,8 +790,8 @@ LABEL_11:
 
     else
     {
-      v46 = __atxlog_handle_gi();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+      v47 = __atxlog_handle_gi(v10);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
         [ATXInfoSuggestion initWithCoder:];
       }
@@ -822,14 +813,14 @@ LABEL_24:
 - (void)handleMemoryPressure
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v3 = objc_sync_enter(selfCopy);
   if (selfCopy->_intentProtoData && selfCopy->_intent)
   {
-    v3 = __atxlog_handle_default();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = __atxlog_handle_default(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_1DEFC4000, v3, OS_LOG_TYPE_DEFAULT, "Purging intent proto data due to memory pressure", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1DEFC4000, v4, OS_LOG_TYPE_DEFAULT, "Purging intent proto data due to memory pressure", v6, 2u);
     }
 
     intentProtoData = selfCopy->_intentProtoData;
@@ -864,27 +855,28 @@ LABEL_24:
   if (protoCopy)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = __atxlog_handle_default();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = __atxlog_handle_default(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [(ATXInfoSuggestion *)self initWithProto:v5];
+        [(ATXInfoSuggestion *)self initWithProto:v6];
       }
 
       selfCopy = 0;
       goto LABEL_42;
     }
 
-    v5 = protoCopy;
-    appBundleIdentifier = [v5 appBundleIdentifier];
-    widgetBundleIdentifier = [v5 widgetBundleIdentifier];
-    criterion = [v5 criterion];
-    v9 = criterion;
+    v6 = protoCopy;
+    appBundleIdentifier = [v6 appBundleIdentifier];
+    widgetBundleIdentifier = [v6 widgetBundleIdentifier];
+    criterion = [v6 criterion];
+    v10 = criterion;
     if (!appBundleIdentifier || !widgetBundleIdentifier || !criterion)
     {
-      v14 = __atxlog_handle_gi();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = __atxlog_handle_gi(criterion);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [ATXInfoSuggestion initWithProto:];
       }
@@ -893,75 +885,65 @@ LABEL_24:
       goto LABEL_41;
     }
 
-    archivedIntent = [v5 archivedIntent];
-    v56 = widgetBundleIdentifier;
-    v57 = appBundleIdentifier;
-    v55 = v9;
+    archivedIntent = [v6 archivedIntent];
+    v12 = archivedIntent;
+    v61 = widgetBundleIdentifier;
+    v62 = appBundleIdentifier;
+    v60 = v10;
     if (archivedIntent)
     {
-      v11 = __atxlog_handle_gi();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v13 = __atxlog_handle_gi(archivedIntent);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         [ATXInfoSuggestion initWithProto:];
       }
 
-      v12 = 0;
+      v14 = 0;
     }
 
     else
     {
-      if (![v5 hasArchivedIntentDescription])
+      hasArchivedIntentDescription = [v6 hasArchivedIntentDescription];
+      if (!hasArchivedIntentDescription)
       {
-        v53 = 0;
+        v58 = 0;
 LABEL_28:
-        archivedMetadata = [v5 archivedMetadata];
+        archivedMetadata = [v6 archivedMetadata];
 
-        v23 = 0x1E695D000uLL;
-        v24 = 0x1E696A000uLL;
-        v54 = archivedIntent;
+        v27 = 0x1E695D000uLL;
+        v28 = 0x1E696A000uLL;
+        v59 = v12;
         if (archivedMetadata)
         {
-          v25 = objc_autoreleasePoolPush();
-          v51 = MEMORY[0x1E696ACD0];
-          context = v25;
-          v26 = objc_autoreleasePoolPush();
-          v27 = objc_alloc(MEMORY[0x1E695DFD8]);
-          v28 = objc_opt_class();
-          v29 = objc_opt_class();
-          v30 = objc_opt_class();
-          v31 = objc_opt_class();
+          v29 = objc_autoreleasePoolPush();
+          v56 = MEMORY[0x1E696ACD0];
+          context = v29;
+          v30 = objc_autoreleasePoolPush();
+          v31 = objc_alloc(MEMORY[0x1E695DFD8]);
           v32 = objc_opt_class();
-          v33 = [v27 initWithObjects:{v28, v29, v30, v31, v32, objc_opt_class(), 0}];
-          objc_autoreleasePoolPop(v26);
-          archivedMetadata2 = [v5 archivedMetadata];
-          v58 = 0;
-          v35 = [v51 unarchivedObjectOfClasses:v33 fromData:archivedMetadata2 error:&v58];
-          v36 = v58;
+          v33 = objc_opt_class();
+          v34 = objc_opt_class();
+          v35 = objc_opt_class();
+          v36 = objc_opt_class();
+          v37 = [v31 initWithObjects:{v32, v33, v34, v35, v36, objc_opt_class(), 0}];
+          objc_autoreleasePoolPop(v30);
+          archivedMetadata2 = [v6 archivedMetadata];
+          v63 = 0;
+          v39 = [v56 unarchivedObjectOfClasses:v37 fromData:archivedMetadata2 error:&v63];
+          v40 = v63;
 
           objc_autoreleasePoolPop(context);
-          if (v36)
+          if (v40)
           {
-            v37 = __atxlog_handle_gi();
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+            v42 = __atxlog_handle_gi(v41);
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
             {
               [ATXInfoSuggestion initWithProto:];
             }
           }
 
-          v23 = 0x1E695D000;
-          v24 = 0x1E696A000;
-        }
-
-        else
-        {
-          v35 = 0;
-        }
-
-        if ([v5 hasRelevanceScore])
-        {
-          v38 = *(v24 + 3480);
-          [v5 relevanceScore];
-          v39 = [v38 numberWithDouble:?];
+          v27 = 0x1E695D000;
+          v28 = 0x1E696A000;
         }
 
         else
@@ -969,75 +951,87 @@ LABEL_28:
           v39 = 0;
         }
 
-        widgetKind = [v5 widgetKind];
-        layouts = [v5 layouts];
-        suggestionIdentifier = [v5 suggestionIdentifier];
-        v43 = *(v23 + 3840);
-        [v5 startDate];
-        v44 = [v43 dateWithTimeIntervalSinceReferenceDate:?];
-        v45 = *(v23 + 3840);
-        [v5 endDate];
-        v46 = [v45 dateWithTimeIntervalSinceReferenceDate:?];
-        v47 = [(ATXInfoSuggestion *)self initWithAppBundleIdentifier:v57 widgetBundleIdentifier:v56 widgetKind:widgetKind criterion:v55 applicableLayouts:layouts suggestionIdentifier:suggestionIdentifier startDate:v44 endDate:v46 intent:0 metadata:v35 relevanceScore:v39];
-
-        v14 = v54;
-        if (v47)
+        if ([v6 hasRelevanceScore])
         {
-          clientModelId = [v5 clientModelId];
-          [(ATXInfoSuggestion *)v47 setClientModelId:clientModelId];
-
-          [(ATXInfoSuggestion *)v47 setConfidenceLevel:[v5 confidenceLevel]];
-          sourceIdentifier = [v5 sourceIdentifier];
-          [(ATXInfoSuggestion *)v47 setSourceIdentifier:sourceIdentifier];
-
-          objc_storeStrong(&v47->_intentProtoData, v54);
-          objc_storeStrong(&v47->_intentDescription, v53);
+          v43 = *(v28 + 3480);
+          [v6 relevanceScore];
+          v44 = [v43 numberWithDouble:?];
         }
 
-        self = v47;
+        else
+        {
+          v44 = 0;
+        }
+
+        widgetKind = [v6 widgetKind];
+        layouts = [v6 layouts];
+        suggestionIdentifier = [v6 suggestionIdentifier];
+        v48 = *(v27 + 3840);
+        [v6 startDate];
+        v49 = [v48 dateWithTimeIntervalSinceReferenceDate:?];
+        v50 = *(v27 + 3840);
+        [v6 endDate];
+        v51 = [v50 dateWithTimeIntervalSinceReferenceDate:?];
+        v52 = [(ATXInfoSuggestion *)self initWithAppBundleIdentifier:v62 widgetBundleIdentifier:v61 widgetKind:widgetKind criterion:v60 applicableLayouts:layouts suggestionIdentifier:suggestionIdentifier startDate:v49 endDate:v51 intent:0 metadata:v39 relevanceScore:v44];
+
+        v16 = v59;
+        if (v52)
+        {
+          clientModelId = [v6 clientModelId];
+          [(ATXInfoSuggestion *)v52 setClientModelId:clientModelId];
+
+          [(ATXInfoSuggestion *)v52 setConfidenceLevel:[v6 confidenceLevel]];
+          sourceIdentifier = [v6 sourceIdentifier];
+          [(ATXInfoSuggestion *)v52 setSourceIdentifier:sourceIdentifier];
+
+          objc_storeStrong(&v52->_intentProtoData, v59);
+          objc_storeStrong(&v52->_intentDescription, v58);
+        }
+
+        self = v52;
 
         selfCopy = self;
-        widgetBundleIdentifier = v56;
-        appBundleIdentifier = v57;
-        v9 = v55;
+        widgetBundleIdentifier = v61;
+        appBundleIdentifier = v62;
+        v10 = v60;
 LABEL_41:
 
 LABEL_42:
         goto LABEL_43;
       }
 
-      v15 = __atxlog_handle_gi();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v18 = __atxlog_handle_gi(hasArchivedIntentDescription);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         [ATXInfoSuggestion initWithProto:];
       }
 
-      v16 = objc_autoreleasePoolPush();
-      v17 = MEMORY[0x1E696ACD0];
-      v18 = objc_opt_class();
-      archivedIntentDescription = [v5 archivedIntentDescription];
-      v59 = 0;
-      v12 = [v17 unarchivedObjectOfClass:v18 fromData:archivedIntentDescription error:&v59];
-      v11 = v59;
+      v19 = objc_autoreleasePoolPush();
+      v20 = MEMORY[0x1E696ACD0];
+      v21 = objc_opt_class();
+      archivedIntentDescription = [v6 archivedIntentDescription];
+      v64 = 0;
+      v14 = [v20 unarchivedObjectOfClass:v21 fromData:archivedIntentDescription error:&v64];
+      v13 = v64;
 
-      objc_autoreleasePoolPop(v16);
-      v20 = __atxlog_handle_gi();
-      v21 = v20;
-      if (v11)
+      objc_autoreleasePoolPop(v19);
+      v24 = __atxlog_handle_gi(v23);
+      v25 = v24;
+      if (v13)
       {
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           [ATXInfoSuggestion initWithProto:];
         }
       }
 
-      else if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      else if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         [ATXInfoSuggestion initWithProto:];
       }
     }
 
-    v53 = v12;
+    v58 = v14;
 
     goto LABEL_28;
   }
@@ -1452,22 +1446,6 @@ LABEL_13:
   return v13;
 }
 
-- (void)initWithData:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0(&dword_1DEFC4000, v0, v1, "error deserializing info suggestion: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)data
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0(&dword_1DEFC4000, v0, v1, "error serializing info suggestion: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)initWithProactiveSuggestion:.cold.1()
 {
   OUTLINED_FUNCTION_3_0();
@@ -1475,22 +1453,12 @@ LABEL_13:
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)_verifyAndReturnDecodedObject:ofClass:forKey:withCoder:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0(&dword_1DEFC4000, v0, v1, "ATXInfoSuggestion: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)_verifyAndReturnDecodedObject:(void *)a1 ofClass:(NSObject *)a2 forKey:withCoder:.cold.2(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = [a1 error];
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_ERROR, "ATXInfoSuggestion: error initWithCoder: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_ERROR, "ATXInfoSuggestion: error initWithCoder: %@", v4, 0xCu);
 }
 
 - (void)initWithCoder:.cold.1()
@@ -1502,12 +1470,11 @@ LABEL_13:
 
 - (void)initWithCoder:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_fault_impl(&dword_1DEFC4000, v1, OS_LOG_TYPE_FAULT, "ATXInfoSuggestion: could not make intent for %@: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_fault_impl(&dword_1DEFC4000, v1, OS_LOG_TYPE_FAULT, "ATXInfoSuggestion: could not make intent for %@: %@", v2, 0x16u);
 }
 
 - (void)initWithCoder:.cold.3()
@@ -1519,13 +1486,11 @@ LABEL_13:
 
 - (void)initWithProto:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0_0();
-  _os_log_fault_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_FAULT, "Unable to construct class %@ from ProtoBuf object", v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_FAULT, "Unable to construct class %@ from ProtoBuf object", v5, 0xCu);
 }
 
 - (void)initWithProto:.cold.2()
@@ -1535,44 +1500,23 @@ LABEL_13:
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)initWithProto:.cold.5()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0(&dword_1DEFC4000, v0, v1, "Could not unarchive intent description: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)initWithProto:.cold.6()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(&dword_1DEFC4000, v0, OS_LOG_TYPE_DEBUG, "Unarchived intent description: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initWithProto:.cold.7()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0(&dword_1DEFC4000, v0, v1, "Could not unarchive metadata for info suggestion: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1DEFC4000, v0, OS_LOG_TYPE_DEBUG, "Unarchived intent description: %@", v1, 0xCu);
 }
 
 - (void)intent
 {
   v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0(&dword_1DEFC4000, v0, v1, "Could not unarchive intent for info suggestion: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)proto
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0(&dword_1DEFC4000, v0, v1, "Could not archive metadata with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v2 = *(self + 24);
+  v3 = *(self + 32);
+  v4 = 138412546;
+  v5 = v2;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_fault_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_FAULT, "ATXInfoSuggestion: could not make intent for %@: %@", &v4, 0x16u);
 }
 
 @end

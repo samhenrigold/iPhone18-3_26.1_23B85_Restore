@@ -71,8 +71,7 @@
   currentDevice = [MEMORY[0x1E69DC938] currentDevice];
   userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
-  [v5 setPreferredStyle:(userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) == 1];
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem([v5 setPreferredStyle:(userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) == 1]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -135,49 +134,49 @@
   [(AAUIImagePickerAlertController *)self presentViewController:v5 animated:animatedCopy completion:0];
 }
 
-uint64_t __68__AAUIImagePickerAlertController__presentImageSourcePickerAnimated___block_invoke(uint64_t a1)
+uint64_t __68__AAUIImagePickerAlertController__presentImageSourcePickerAnimated___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1C5355000, v2, OS_LOG_TYPE_DEFAULT, "User opted to select image from camera.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C5355000, v3, OS_LOG_TYPE_DEFAULT, "User opted to select image from camera.", v5, 2u);
   }
 
   return [*(a1 + 32) _presentImagePickerWithSourceType:1 animated:*(a1 + 40)];
 }
 
-uint64_t __68__AAUIImagePickerAlertController__presentImageSourcePickerAnimated___block_invoke_49(uint64_t a1)
+uint64_t __68__AAUIImagePickerAlertController__presentImageSourcePickerAnimated___block_invoke_49(uint64_t a1, uint64_t a2)
 {
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1C5355000, v2, OS_LOG_TYPE_DEFAULT, "User opted to select image from photo library.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C5355000, v3, OS_LOG_TYPE_DEFAULT, "User opted to select image from photo library.", v5, 2u);
   }
 
   return [*(a1 + 32) _presentImagePickerWithSourceType:0 animated:*(a1 + 40)];
 }
 
-uint64_t __68__AAUIImagePickerAlertController__presentImageSourcePickerAnimated___block_invoke_53(uint64_t a1)
+uint64_t __68__AAUIImagePickerAlertController__presentImageSourcePickerAnimated___block_invoke_53(uint64_t a1, uint64_t a2)
 {
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1C5355000, v2, OS_LOG_TYPE_DEFAULT, "User opted to select image from document browser.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C5355000, v3, OS_LOG_TYPE_DEFAULT, "User opted to select image from document browser.", v5, 2u);
   }
 
   return [*(a1 + 32) _presentDocumentPickerAnimated:*(a1 + 40)];
 }
 
-uint64_t __68__AAUIImagePickerAlertController__presentImageSourcePickerAnimated___block_invoke_57(uint64_t a1)
+uint64_t __68__AAUIImagePickerAlertController__presentImageSourcePickerAnimated___block_invoke_57(uint64_t a1, uint64_t a2)
 {
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1C5355000, v2, OS_LOG_TYPE_DEFAULT, "User opted to cancel photo selection, bailing!", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C5355000, v3, OS_LOG_TYPE_DEFAULT, "User opted to cancel photo selection, bailing!", v5, 2u);
   }
 
   return [*(a1 + 32) _callSelectionHandlerWithImage:0 cropRect:0];
@@ -187,7 +186,7 @@ uint64_t __68__AAUIImagePickerAlertController__presentImageSourcePickerAnimated_
 {
   animatedCopy = animated;
   v16 = *MEMORY[0x1E69E9840];
-  v7 = _AAUILogSystem();
+  v7 = _AAUILogSystem(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [MEMORY[0x1E696AD98] numberWithInteger:type];
@@ -216,7 +215,7 @@ uint64_t __68__AAUIImagePickerAlertController__presentImageSourcePickerAnimated_
 - (void)_presentDocumentPickerAnimated:(BOOL)animated
 {
   animatedCopy = animated;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -280,67 +279,67 @@ uint64_t __68__AAUIImagePickerAlertController__presentImageSourcePickerAnimated_
 
 - (void)imagePickerController:(id)controller didFinishPickingMediaWithInfo:(id)info
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   v7 = *MEMORY[0x1E69DDE10];
   infoCopy = info;
   v9 = [infoCopy objectForKeyedSubscript:v7];
   v10 = [infoCopy objectForKeyedSubscript:*MEMORY[0x1E69DDDE0]];
 
-  v11 = _AAUILogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _AAUILogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v22 = v9;
-    v23 = 2112;
-    v24 = v10;
-    _os_log_impl(&dword_1C5355000, v11, OS_LOG_TYPE_DEFAULT, "User selected new profile picture: %@, crop rect: %@", buf, 0x16u);
+    v24 = v9;
+    v25 = 2112;
+    v26 = v10;
+    _os_log_impl(&dword_1C5355000, v12, OS_LOG_TYPE_DEFAULT, "User selected new profile picture: %@, crop rect: %@", buf, 0x16u);
   }
 
   if (v9)
   {
-    v12 = v10 == 0;
+    v13 = v10 == 0;
   }
 
   else
   {
-    v12 = 1;
+    v13 = 1;
   }
 
-  if (v12)
+  if (v13)
   {
-    v13 = v10;
+    v14 = v10;
   }
 
   else
   {
-    v13 = [MEMORY[0x1E69DCAD0] aaui_fixedCropRect:v10 forOriginalImage:v9];
+    v14 = [MEMORY[0x1E69DCAD0] aaui_fixedCropRect:v10 forOriginalImage:v9];
 
-    v14 = _AAUILogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = _AAUILogSystem(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = v13;
-      _os_log_impl(&dword_1C5355000, v14, OS_LOG_TYPE_DEFAULT, "Updated profile picture crop rect: %@", buf, 0xCu);
+      v24 = v14;
+      _os_log_impl(&dword_1C5355000, v16, OS_LOG_TYPE_DEFAULT, "Updated profile picture crop rect: %@", buf, 0xCu);
     }
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __86__AAUIImagePickerAlertController_imagePickerController_didFinishPickingMediaWithInfo___block_invoke;
-  v18[3] = &unk_1E820BF58;
-  v18[4] = self;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __86__AAUIImagePickerAlertController_imagePickerController_didFinishPickingMediaWithInfo___block_invoke;
+  v20[3] = &unk_1E820BF58;
+  v20[4] = self;
+  v21 = v9;
+  v22 = v14;
+  v18 = v14;
   v19 = v9;
-  v20 = v13;
-  v16 = v13;
-  v17 = v9;
-  [(AAUIImagePickerAlertController *)self _dismissViewController:controllerCopy animated:1 completion:v18];
+  [(AAUIImagePickerAlertController *)self _dismissViewController:controllerCopy animated:1 completion:v20];
 }
 
 - (void)imagePickerControllerDidCancel:(id)cancel
 {
   cancelCopy = cancel;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(cancelCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -413,7 +412,7 @@ uint64_t __68__AAUIImagePickerAlertController__presentImageSourcePickerAnimated_
 
 - (void)documentPickerWasCancelled:(id)cancelled
 {
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -448,7 +447,7 @@ uint64_t __68__AAUIImagePickerAlertController__presentImageSourcePickerAnimated_
 
 - (void)presentationControllerDidDismiss:(id)dismiss
 {
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

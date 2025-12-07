@@ -21,6 +21,7 @@
 - (void)addFloatValue:(float)value toHistogram:(id)histogram;
 - (void)addRTStatsDictionary:(id)dictionary;
 - (void)addVRAWidth:(unsigned int)width;
+- (void)addValue:(unsigned int)value toHistogram:(id)histogram;
 - (void)callEnd;
 - (void)callEndAppleCalling;
 - (void)callEndFaceTime;
@@ -36,6 +37,7 @@
 - (void)printHistograms;
 - (void)processSecondDisplayLogTransportInfoStats;
 - (void)reset;
+- (void)setFirstRemoteFrameTiming:(unsigned int)timing;
 - (void)setInterface:(id)interface;
 - (void)setInterfaceOUI:(id)i;
 - (void)setLocalWidth:(unsigned int)width height:(unsigned int)height framerate:(unsigned int)framerate;
@@ -45,7 +47,9 @@
 - (void)startHomeKitSessionWithCallID:(id)d RTCPSendInterval:(double)interval startTime:(int64_t)time;
 - (void)startPIPState;
 - (void)stopPIPState;
+- (void)updateAudioTier:(unsigned int)tier mode:(unsigned int)mode duplication:(unsigned int)duplication codecPayload:(unsigned int)payload codecBitrate:(unsigned int)bitrate bundling:(unsigned int)bundling;
 - (void)updateCellTech:(id)tech;
+- (void)updateHomeKitIPCameraRealtimeStats:(double)stats minFrameRate:(double)rate maxFrameRate:(double)frameRate videoStallDuration:(unsigned int)duration PLRSample:(unsigned int)sample RTTSample:(unsigned int)tSample NOWRDSample:(unsigned int)dSample RecommendedRxBitrateSample:(unsigned int)self0 ActualRxBitrateSample:(unsigned int)self1;
 - (void)updateLocalPrimaryInterface:(id)interface;
 - (void)updateMediaRecorderStats:(id)stats;
 @end
@@ -278,6 +282,12 @@ void __26__AWDStats_statsSingleton__block_invoke()
   }
 }
 
+- (void)setFirstRemoteFrameTiming:(unsigned int)timing
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:*&timing];
+  [(NSMutableDictionary *)self->timingDict setObject:v4 forKeyedSubscript:@"FaceTimeConnectivityTimingFirstRemoteFrame"];
+}
+
 - (void)addFloatValue:(float)value toHistogram:(id)histogram
 {
   v5 = [(NSDictionary *)self->histogramDict objectForKeyedSubscript:histogram];
@@ -286,6 +296,17 @@ void __26__AWDStats_statsSingleton__block_invoke()
     *&v6 = value;
 
     [v5 addFloatValue:v6];
+  }
+}
+
+- (void)addValue:(unsigned int)value toHistogram:(id)histogram
+{
+  v4 = *&value;
+  v5 = [(NSDictionary *)self->histogramDict objectForKeyedSubscript:histogram];
+  if (v5)
+  {
+
+    [v5 addValue:v4];
   }
 }
 
@@ -332,7 +353,7 @@ void __26__AWDStats_statsSingleton__block_invoke()
   currentInterface = self->currentInterface;
   self->currentInterface = interface;
 
-  self->timeSinceLastCellTech = micro();
+  self->timeSinceLastCellTech = micro(v7, v8);
 }
 
 - (void)setRemoteInterface:(id)interface
@@ -396,34 +417,34 @@ void __26__AWDStats_statsSingleton__block_invoke()
 
 - (void)generateAggregatedCallStats:(id)stats
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:5];
   v6 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:3];
   [(NSDictionary *)v6 setObject:v5 forKeyedSubscript:@"AggregationReportSegments"];
 
   -[NSDictionary setObject:forKeyedSubscript:](v6, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->operatingMode], @"AggregationReportCallType");
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   obj = self->aggregatedStats;
-  v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v63 objects:v67 count:16];
+  v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v62 objects:v66 count:16];
   if (v7)
   {
     v8 = v7;
     statsCopy = stats;
-    v61 = v6;
-    v9 = *v64;
+    v60 = v6;
+    v9 = *v63;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v64 != v9)
+        if (*v63 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = [(NSMutableDictionary *)self->aggregatedStats objectForKeyedSubscript:*(*(&v63 + 1) + 8 * i)];
+        v11 = [(NSMutableDictionary *)self->aggregatedStats objectForKeyedSubscript:*(*(&v62 + 1) + 8 * i)];
         v12 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:25];
         [v12 setObject:objc_msgSend(v11 forKeyedSubscript:{"segmentName"), @"SegmentName"}];
         [v12 setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithInt:", objc_msgSend(v11, "duration")), @"SegmentDuration"}];
@@ -561,12 +582,12 @@ void __26__AWDStats_statsSingleton__block_invoke()
       }
 
       v49 = rTPeriod;
-      v8 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v63 objects:v67 count:16];
+      v8 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v62 objects:v66 count:16];
     }
 
     while (v8);
     stats = statsCopy;
-    v6 = v61;
+    v6 = v60;
   }
 
   else
@@ -607,7 +628,6 @@ void __26__AWDStats_statsSingleton__block_invoke()
   [(NSDictionary *)v6 setObject:[(AWDHistogram *)self->momentsFileSizeHistogram array] forKeyedSubscript:@"AggregationMomentsFileSizeHistogram"];
 
   self->aggregatedReport = v6;
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processSecondDisplayLogTransportInfoStats
@@ -746,6 +766,38 @@ LABEL_40:
   }
 }
 
+- (void)updateHomeKitIPCameraRealtimeStats:(double)stats minFrameRate:(double)rate maxFrameRate:(double)frameRate videoStallDuration:(unsigned int)duration PLRSample:(unsigned int)sample RTTSample:(unsigned int)tSample NOWRDSample:(unsigned int)dSample RecommendedRxBitrateSample:(unsigned int)self0 ActualRxBitrateSample:(unsigned int)self1
+{
+  v11 = *&rxBitrateSample;
+  v12 = *&bitrateSample;
+  v13 = *&dSample;
+  v14 = *&tSample;
+  self->avgFrameRateSum = self->avgFrameRateSum + stats;
+  ++self->avgFrameRateSampleCount;
+  minFrameRate = self->minFrameRate;
+  if (rate == 0.0 || minFrameRate <= rate && minFrameRate != 0.0)
+  {
+    rate = self->minFrameRate;
+  }
+
+  maxFrameRate = self->maxFrameRate;
+  if (maxFrameRate < frameRate)
+  {
+    maxFrameRate = frameRate;
+  }
+
+  self->minFrameRate = rate;
+  self->maxFrameRate = maxFrameRate;
+  self->videoStallDuration += duration;
+  [(AWDHistogram *)self->PLRHistogram addValue:*&sample];
+  [(AWDHistogram *)self->RTTHistogram addValue:v14];
+  [(AWDHistogram *)self->NOWRDHistogram addValue:v13];
+  [(AWDHistogram *)self->RecommendedRxBitrateHistogram addValue:v12];
+  ActualRxBitrateHistogram = self->ActualRxBitrateHistogram;
+
+  [(AWDHistogram *)ActualRxBitrateHistogram addValue:v11];
+}
+
 - (void)startHomeKitSessionWithCallID:(id)d RTCPSendInterval:(double)interval startTime:(int64_t)time
 {
   self->startTime = time;
@@ -760,18 +812,19 @@ LABEL_40:
 
 - (void)updateCellTech:(id)tech
 {
-  if (![(NSString *)self->currentInterface isEqualToString:?])
+  v5 = [(NSString *)self->currentInterface isEqualToString:?];
+  if ((v5 & 1) == 0)
   {
-    v5 = micro();
+    v7 = micro(v5, v6);
     previousInterface = self->previousInterface;
     if (previousInterface)
     {
     }
 
     self->previousInterface = self->currentInterface;
-    self->previousCellTechDuration = v5 - self->timeSinceLastCellTech;
+    self->previousCellTechDuration = v7 - self->timeSinceLastCellTech;
     self->currentInterface = tech;
-    self->timeSinceLastCellTech = v5;
+    self->timeSinceLastCellTech = v7;
   }
 }
 
@@ -779,7 +832,7 @@ LABEL_40:
 {
   if (self->lastVRAWidth || self->timeSinceLastVRA != 0.0)
   {
-    v5 = micro();
+    v5 = micro(self, a2);
     timeSinceLastVRA = self->timeSinceLastVRA;
     v7 = [(NSDictionary *)self->histogramDict objectForKeyedSubscript:@"VideoVRAHistogram"];
     if (v7)
@@ -793,7 +846,7 @@ LABEL_40:
   else
   {
     self->lastVRAWidth = width;
-    self->timeSinceLastVRA = micro();
+    self->timeSinceLastVRA = micro(self, a2);
   }
 }
 
@@ -815,7 +868,7 @@ LABEL_40:
 {
   if (self->pipRunningSince <= 0.0)
   {
-    self->pipRunningSince = micro();
+    self->pipRunningSince = micro(self, a2);
   }
 }
 
@@ -823,71 +876,52 @@ LABEL_40:
 {
   if (self->pipRunningSince > 0.0)
   {
-    self->pipDuration = self->pipDuration + micro() - self->pipRunningSince;
+    self->pipDuration = self->pipDuration + micro(self, a2) - self->pipRunningSince;
     self->pipRunningSince = 0.0;
   }
 }
 
 - (int)sendConnectivityTimingToAWD
 {
-  timingDict = self->timingDict;
-  callNonce = self->callNonce;
-  isSender = self->isSender;
-  startTime = self->startTime;
-  v7 = GKSFacetimeSubmitMetric(987140);
+  v3 = GKSFacetimeSubmitMetric(987140);
   NSLog(&cfstr_SMetrictypeFac.isa, "[AWDStats sendConnectivityTimingToAWD]", self->timingDict);
-  return v7;
+  return v3;
 }
 
 - (int)sendHistogramsToAWD
 {
   selfCopy = self;
-  v33 = [-[NSDictionary objectForKeyedSubscript:](self->histogramDict objectForKeyedSubscript:{@"PLRHistogram", "newArray"}];
-  v32 = [-[NSDictionary objectForKeyedSubscript:](selfCopy->histogramDict objectForKeyedSubscript:{@"RTTHistogram", "newArray"}];
-  v31 = [-[NSDictionary objectForKeyedSubscript:](selfCopy->histogramDict objectForKeyedSubscript:{@"TargetTxRateHistogram", "newArray"}];
-  v30 = [-[NSDictionary objectForKeyedSubscript:](selfCopy->histogramDict objectForKeyedSubscript:{@"AudioWindowLossHistogram", "newArray"}];
-  v29 = [-[NSDictionary objectForKeyedSubscript:](selfCopy->histogramDict objectForKeyedSubscript:{@"MaxJitterHistogram", "newArray"}];
-  v3 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{v33, @"PLRHistogram", 0}];
-  v4 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{v32, @"RTTHistogram", 0}];
-  v5 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{v31, @"TargetTxRateHistogram", 0}];
-  v6 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{v30, @"AudioWindowLossHistogram", 0}];
-  v7 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{v29, @"MaxJitterHistogram", 0}];
-  callNonce = selfCopy->callNonce;
-  isSender = selfCopy->isSender;
-  startTime = selfCopy->startTime;
-  v28 = GKSFacetimeSubmitMetric(987142);
-  v11 = selfCopy->callNonce;
-  v12 = selfCopy->isSender;
-  v13 = selfCopy->startTime;
-  v14 = GKSFacetimeSubmitMetric(987143);
-  v15 = selfCopy->callNonce;
-  v16 = selfCopy->isSender;
-  v17 = selfCopy->startTime;
-  v18 = GKSFacetimeSubmitMetric(987144);
-  v19 = selfCopy->callNonce;
-  v20 = selfCopy->isSender;
-  v21 = selfCopy->startTime;
-  v22 = GKSFacetimeSubmitMetric(987145);
-  v23 = selfCopy->callNonce;
-  v24 = selfCopy->isSender;
-  v25 = selfCopy->startTime;
+  v18 = [-[NSDictionary objectForKeyedSubscript:](self->histogramDict objectForKeyedSubscript:{@"PLRHistogram", "newArray"}];
+  v17 = [-[NSDictionary objectForKeyedSubscript:](selfCopy->histogramDict objectForKeyedSubscript:{@"RTTHistogram", "newArray"}];
+  v16 = [-[NSDictionary objectForKeyedSubscript:](selfCopy->histogramDict objectForKeyedSubscript:{@"TargetTxRateHistogram", "newArray"}];
+  v15 = [-[NSDictionary objectForKeyedSubscript:](selfCopy->histogramDict objectForKeyedSubscript:{@"AudioWindowLossHistogram", "newArray"}];
+  v14 = [-[NSDictionary objectForKeyedSubscript:](selfCopy->histogramDict objectForKeyedSubscript:{@"MaxJitterHistogram", "newArray"}];
+  v3 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{v18, @"PLRHistogram", 0}];
+  v4 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{v17, @"RTTHistogram", 0}];
+  v5 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{v16, @"TargetTxRateHistogram", 0}];
+  v6 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{v15, @"AudioWindowLossHistogram", 0}];
+  v7 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{v14, @"MaxJitterHistogram", 0}];
+  v13 = GKSFacetimeSubmitMetric(987142);
+  v8 = GKSFacetimeSubmitMetric(987143);
+  v9 = GKSFacetimeSubmitMetric(987144);
+  v10 = GKSFacetimeSubmitMetric(987145);
   LODWORD(selfCopy) = GKSFacetimeSubmitMetric(987146);
   NSLog(&cfstr_SMetrictypeFac_0.isa, "[AWDStats sendHistogramsToAWD]", v3);
   NSLog(&cfstr_SMetrictypeFac_1.isa, "[AWDStats sendHistogramsToAWD]", v4);
   NSLog(&cfstr_SMetrictypeFac_2.isa, "[AWDStats sendHistogramsToAWD]", v5);
   NSLog(&cfstr_SMetrictypeFac_3.isa, "[AWDStats sendHistogramsToAWD]", v6);
   NSLog(&cfstr_SMetrictypeFac_4.isa, "[AWDStats sendHistogramsToAWD]", v7);
-  if (v28 | v14 | v18 | v22 | selfCopy)
+  if (v13 | v8 | v9 | v10 | selfCopy)
   {
-    v26 = -1;
+    v11 = -1;
   }
 
   else
   {
-    v26 = 0;
+    v11 = 0;
   }
 
-  return v26;
+  return v11;
 }
 
 - (int)sendBasebandStatsToAWD
@@ -920,13 +954,10 @@ LABEL_40:
   v16 = [objc_alloc(MEMORY[0x277CCABA8]) initWithDouble:round(v13)];
   v17 = [objc_alloc(MEMORY[0x277CCABA8]) initWithDouble:round(v14)];
   v18 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{v3, @"BasebandTargetBitrateHistogram", v4, @"BasebandInstantBitrateHistogram", v5, @"BasebandAverageBitrateHistogram", v6, @"BasebandQueueDelayHistogram", v15, @"BasebandAudioFlush", v16, @"BasebandVideoFlush", v17, @"BasebandAudioPause", 0}];
-  callNonce = self->callNonce;
-  isSender = self->isSender;
-  startTime = self->startTime;
-  v22 = GKSFacetimeSubmitMetric(987148);
+  v19 = GKSFacetimeSubmitMetric(987148);
   NSLog(&cfstr_SMetrictypeFac_5.isa, "[AWDStats sendBasebandStatsToAWD]", v18);
 
-  return v22;
+  return v19;
 }
 
 - (int)sendVideoStatusToAWD
@@ -939,9 +970,6 @@ LABEL_40:
   v6 = [-[NSDictionary objectForKeyedSubscript:](selfCopy->histogramDict objectForKeyedSubscript:{@"VideoJitterHistogram", "newArray"}];
   v7 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:selfCopy->targetFramerate];
   v8 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{v3, @"VideoTxFramerateHistogram", v4, @"VideoRxFramerateHistogram", v5, @"VideoVRAHistogram", v6, @"VideoJitterHistogram", v7, @"VideoTargetFramerate", 0}];
-  callNonce = selfCopy->callNonce;
-  isSender = selfCopy->isSender;
-  startTime = selfCopy->startTime;
   LODWORD(selfCopy) = GKSFacetimeSubmitMetric(987149);
   NSLog(&cfstr_SMetrictypeFac_6.isa, "[AWDStats sendVideoStatusToAWD]", v8);
 
@@ -950,13 +978,13 @@ LABEL_40:
 
 - (int)sendRTStatsToAWD
 {
-  v59 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->txWidth];
-  v58 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->txHeight];
-  v56 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->rxWidth];
+  v56 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->txWidth];
+  v55 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->txHeight];
+  v53 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->rxWidth];
   v3 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->rxHeight];
   remoteInterfaceName = self->remoteInterfaceName;
   interfaceName = self->interfaceName;
-  v55 = v3;
+  v52 = v3;
   v5 = objc_alloc(MEMORY[0x277CCABA8]);
   avgLossRateCount = self->avgLossRateCount;
   if (avgLossRateCount)
@@ -969,7 +997,7 @@ LABEL_40:
     v7 = 0;
   }
 
-  v52 = [v5 initWithUnsignedInt:v7];
+  v49 = [v5 initWithUnsignedInt:v7];
   v8 = objc_alloc(MEMORY[0x277CCABA8]);
   avgJitterBufferSizeCount = self->avgJitterBufferSizeCount;
   if (avgJitterBufferSizeCount)
@@ -982,7 +1010,7 @@ LABEL_40:
     v10 = 0;
   }
 
-  v50 = [v8 initWithUnsignedInt:v10];
+  v47 = [v8 initWithUnsignedInt:v10];
   v11 = objc_alloc(MEMORY[0x277CCABA8]);
   targetJitterBufferSizeCount = self->targetJitterBufferSizeCount;
   if (targetJitterBufferSizeCount)
@@ -995,7 +1023,7 @@ LABEL_40:
     v13 = 0;
   }
 
-  v61 = [v11 initWithUnsignedInt:v13];
+  v58 = [v11 initWithUnsignedInt:v13];
   v14 = objc_alloc(MEMORY[0x277CCABA8]);
   avgInterarrivalTimeCount = self->avgInterarrivalTimeCount;
   if (avgInterarrivalTimeCount)
@@ -1008,8 +1036,8 @@ LABEL_40:
     v16 = 0;
   }
 
-  v57 = [v14 initWithUnsignedInt:v16];
-  v49 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:{v57, 0}];
+  v54 = [v14 initWithUnsignedInt:v16];
+  v46 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:{v54, 0}];
   v17 = objc_alloc(MEMORY[0x277CCABA8]);
   txFrameRateAvgCount = self->txFrameRateAvgCount;
   if (txFrameRateAvgCount)
@@ -1022,9 +1050,9 @@ LABEL_40:
     v19 = 0;
   }
 
-  v51 = [v17 initWithUnsignedInt:v19];
-  v63 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->txFrameRateMin];
-  v62 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->txFrameRateMax];
+  v48 = [v17 initWithUnsignedInt:v19];
+  v60 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->txFrameRateMin];
+  v59 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->txFrameRateMax];
   v20 = objc_alloc(MEMORY[0x277CCABA8]);
   rxFrameRateAvgCount = self->rxFrameRateAvgCount;
   if (rxFrameRateAvgCount)
@@ -1037,7 +1065,7 @@ LABEL_40:
     v22 = 0;
   }
 
-  v60 = [v20 initWithUnsignedInt:v22];
+  v57 = [v20 initWithUnsignedInt:v22];
   v23 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->rxFrameRateMin];
   v24 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->rxFrameRateMax];
   v25 = objc_alloc(MEMORY[0x277CCABA8]);
@@ -1112,15 +1140,12 @@ LABEL_40:
     v42 = &stru_284F7AB18;
   }
 
-  v54 = [v38 initWithInt:v40];
-  v43 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{v59, @"RTStatsTxWidth", v58, @"RTStatsTxHeight", v56, @"RTStatsRxWidth", v55, @"RTStatsRxHeight", v42, @"RTStatsinterfaceName", v41, @"RTStatsRemoteInterfaceName", v52, @"RTStatswAvgLossRate", v50, @"RTStatswAvgJitterBufferSize", v61, @"RTStatsTargetJitterBufferSize", v49, @"RTStatswAvgInterArrivalTime", v51, @"RTStatsTxFrameRateAvg", v63, @"RTStatsTxFrameRateMin", v62, @"RTStatsTxFrameRateMax", v60, @"RTStatsRxFrameRateAvg", v23, @"RTStatsRxFrameRateMin", v24, @"RTStatsRxFrameRateMax", v28, @"RTStatsDownlinkEstimateAvg", v32, @"RTStatsUplinkEstimateAvg", v36, @"RTStatsAvgRate", v37, @"RTStatsPIPDuration", v54, @"RTStatsPIPPercent", 0}];
-  callNonce = self->callNonce;
-  isSender = self->isSender;
-  startTime = self->startTime;
-  v47 = GKSFacetimeSubmitMetric(987141);
+  v51 = [v38 initWithInt:v40];
+  v43 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{v56, @"RTStatsTxWidth", v55, @"RTStatsTxHeight", v53, @"RTStatsRxWidth", v52, @"RTStatsRxHeight", v42, @"RTStatsinterfaceName", v41, @"RTStatsRemoteInterfaceName", v49, @"RTStatswAvgLossRate", v47, @"RTStatswAvgJitterBufferSize", v58, @"RTStatsTargetJitterBufferSize", v46, @"RTStatswAvgInterArrivalTime", v48, @"RTStatsTxFrameRateAvg", v60, @"RTStatsTxFrameRateMin", v59, @"RTStatsTxFrameRateMax", v57, @"RTStatsRxFrameRateAvg", v23, @"RTStatsRxFrameRateMin", v24, @"RTStatsRxFrameRateMax", v28, @"RTStatsDownlinkEstimateAvg", v32, @"RTStatsUplinkEstimateAvg", v36, @"RTStatsAvgRate", v37, @"RTStatsPIPDuration", v51, @"RTStatsPIPPercent", 0}];
+  v44 = GKSFacetimeSubmitMetric(987141);
   NSLog(&cfstr_SMetrictypeFac_7.isa, "[AWDStats sendRTStatsToAWD]", v43);
 
-  return v47;
+  return v44;
 }
 
 - (int)sendVideoQualityStatsToAWD
@@ -1131,9 +1156,6 @@ LABEL_40:
   *&v5 = roundf(selfCopy->remoteVideoDegradeTime);
   v6 = [MEMORY[0x277CCABA8] numberWithFloat:v5];
   v7 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{v4, @"VideoQualityStatsLocalVideoDegradeTime", v6, @"VideoQualityStatsRemoteVideoDegradeTime", 0}];
-  callNonce = selfCopy->callNonce;
-  isSender = selfCopy->isSender;
-  startTime = selfCopy->startTime;
   LODWORD(selfCopy) = GKSFacetimeSubmitMetric(987147);
   NSLog(&cfstr_SMetrictypeFac_8.isa, "[AWDStats sendVideoQualityStatsToAWD]", v7);
 
@@ -1143,11 +1165,11 @@ LABEL_40:
 - (int)sendInterfaceStatusToAWD
 {
   [(AWDStats *)self finishCellTech];
-  v23 = [objc_alloc(MEMORY[0x277CCABA8]) initWithDouble:round(self->currentCellTechDuration)];
-  v25 = [objc_alloc(MEMORY[0x277CCABA8]) initWithDouble:round(self->previousCellTechDuration)];
-  v22 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->terminationReason];
-  v21 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->handoverCellCount];
-  v20 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->handoverWifiCount];
+  v20 = [objc_alloc(MEMORY[0x277CCABA8]) initWithDouble:round(self->currentCellTechDuration)];
+  v22 = [objc_alloc(MEMORY[0x277CCABA8]) initWithDouble:round(self->previousCellTechDuration)];
+  v19 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->terminationReason];
+  v18 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->handoverCellCount];
+  v17 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->handoverWifiCount];
   v3 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->handoverWithDuplicationCount];
   v4 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->handoverWithoutDuplicationCount];
   v5 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->duplicationWithoutHandoverCount];
@@ -1157,23 +1179,20 @@ LABEL_40:
   v9 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->rxExcessRTPBytes];
   v10 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->txExcessRTPBytes];
   v11 = [objc_alloc(MEMORY[0x277CCABA8]) initWithBool:self->isRoaming];
-  v24 = v7;
-  v12 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{self->currentInterface, @"InterfaceCurrentCellTech", v23, @"InterfaceCurrentDuration", v22, @"InterfaceTermination", v21, @"FailOverToCellCount", v20, @"HandOverToWifiCount", v3, @"HandOverWithDuplicationCount", v4, @"HandOverWithoutDuplicationCount", v5, @"DuplicationWithoutHandoverCount", v6, @"CallDuplicationPercentage", self->currentInterfaceOUI, @"InterfaceCurrentOUI", v7, @"InterfaceRXExcessICEBytes", v8, @"InterfaceTXExcessICEBytes", v9, @"InterfaceRXExcessRTPBytes", v10, @"InterfaceTXExcessRTPBytes", v11, @"InterfaceIsRoaming", 0}];
+  v21 = v7;
+  v12 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{self->currentInterface, @"InterfaceCurrentCellTech", v20, @"InterfaceCurrentDuration", v19, @"InterfaceTermination", v18, @"FailOverToCellCount", v17, @"HandOverToWifiCount", v3, @"HandOverWithDuplicationCount", v4, @"HandOverWithoutDuplicationCount", v5, @"DuplicationWithoutHandoverCount", v6, @"CallDuplicationPercentage", self->currentInterfaceOUI, @"InterfaceCurrentOUI", v7, @"InterfaceRXExcessICEBytes", v8, @"InterfaceTXExcessICEBytes", v9, @"InterfaceRXExcessRTPBytes", v10, @"InterfaceTXExcessRTPBytes", v11, @"InterfaceIsRoaming", 0}];
   v13 = v12;
   previousInterface = self->previousInterface;
   if (previousInterface)
   {
     [v12 setObject:previousInterface forKeyedSubscript:@"InterfacePreviousCellTech"];
-    [v13 setObject:v25 forKeyedSubscript:@"InterfacePreviousDuration"];
+    [v13 setObject:v22 forKeyedSubscript:@"InterfacePreviousDuration"];
   }
 
-  callNonce = self->callNonce;
-  isSender = self->isSender;
-  startTime = self->startTime;
-  v18 = GKSFacetimeSubmitMetric(987150);
+  v15 = GKSFacetimeSubmitMetric(987150);
   NSLog(&cfstr_SMetrictypeFac_9.isa, "[AWDStats sendInterfaceStatusToAWD]", v13);
 
-  return v18;
+  return v15;
 }
 
 - (int)sendAudioTierHistogramToAWD
@@ -1183,9 +1202,6 @@ LABEL_40:
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   newReport = [(AudioTierHistogram *)selfCopy->audioTiers newReport];
   [v3 setObject:newReport forKeyedSubscript:@"AudioTierReportAudioTiers"];
-  callNonce = selfCopy->callNonce;
-  isSender = selfCopy->isSender;
-  startTime = selfCopy->startTime;
   LODWORD(selfCopy) = GKSFacetimeSubmitMetric(987151);
   NSLog(&cfstr_SMetrictypeFac_10.isa, "[AWDStats sendAudioTierHistogramToAWD]", v3);
 
@@ -1199,9 +1215,6 @@ LABEL_40:
   v5 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInteger:self->bytesSaved];
   [v3 setObject:v4 forKeyedSubscript:@"SilenceCompressionRatio"];
   [v3 setObject:v5 forKeyedSubscript:@"BytesSaved"];
-  callNonce = self->callNonce;
-  isSender = self->isSender;
-  startTime = self->startTime;
   LODWORD(self) = GKSFacetimeSubmitMetric(987154);
   NSLog(&cfstr_SMetrictypeFac_11.isa, "[AWDStats sendDTXStatsToAWD]", v3);
 
@@ -1214,9 +1227,6 @@ LABEL_40:
   [v3 setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithUnsignedInt:", self->mode), @"Mode"}];
   [v3 setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithUnsignedInt:", self->deviceRole), @"Role"}];
   [v3 setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithUnsignedInt:", self->transportType), @"Transport"}];
-  callNonce = self->callNonce;
-  isSender = self->isSender;
-  startTime = self->startTime;
   LODWORD(self) = GKSFacetimeSubmitMetric(987155);
   NSLog(&cfstr_SMetrictypeFac_12.isa, "[AWDStats sendModeRoleTransportToAWD]", v3);
 
@@ -1228,7 +1238,7 @@ LABEL_40:
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   interfaceName = self->interfaceName;
   remoteInterfaceName = self->remoteInterfaceName;
-  v53 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->relayType];
+  v50 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->relayType];
   v6 = objc_alloc(MEMORY[0x277CCABA8]);
   avgLossRateCount = self->avgLossRateCount;
   if (avgLossRateCount)
@@ -1241,7 +1251,7 @@ LABEL_40:
     v8 = 0;
   }
 
-  v52 = [v6 initWithUnsignedInt:v8];
+  v49 = [v6 initWithUnsignedInt:v8];
   v9 = objc_alloc(MEMORY[0x277CCABA8]);
   avgJitterBufferSizeCount = self->avgJitterBufferSizeCount;
   if (avgJitterBufferSizeCount)
@@ -1254,7 +1264,7 @@ LABEL_40:
     v11 = 0;
   }
 
-  v51 = [v9 initWithUnsignedInt:v11];
+  v48 = [v9 initWithUnsignedInt:v11];
   v12 = objc_alloc(MEMORY[0x277CCABA8]);
   avgInterarrivalTimeCount = self->avgInterarrivalTimeCount;
   if (avgInterarrivalTimeCount)
@@ -1267,7 +1277,7 @@ LABEL_40:
     v14 = 0;
   }
 
-  v50 = [v12 initWithUnsignedInt:v14];
+  v47 = [v12 initWithUnsignedInt:v14];
   v15 = objc_alloc(MEMORY[0x277CCABA8]);
   avgRateCount = self->avgRateCount;
   if (avgRateCount)
@@ -1280,7 +1290,7 @@ LABEL_40:
     v17 = 0;
   }
 
-  v49 = [v15 initWithUnsignedInt:v17];
+  v46 = [v15 initWithUnsignedInt:v17];
   v18 = objc_alloc(MEMORY[0x277CCABA8]);
   callAvgTxRateCount = self->callAvgTxRateCount;
   if (callAvgTxRateCount)
@@ -1293,7 +1303,7 @@ LABEL_40:
     v20 = 0;
   }
 
-  v48 = [v18 initWithUnsignedInt:v20];
+  v45 = [v18 initWithUnsignedInt:v20];
   v21 = objc_alloc(MEMORY[0x277CCABA8]);
   callAvgRxRateCount = self->callAvgRxRateCount;
   if (callAvgRxRateCount)
@@ -1317,43 +1327,43 @@ LABEL_40:
     v25 = &stru_284F7AB18;
   }
 
-  v42 = v25;
+  v39 = v25;
   if (interfaceName)
   {
     v24 = interfaceName;
   }
 
-  v39 = v24;
-  v41 = [v21 initWithUnsignedInt:v23];
-  v40 = [-[NSDictionary objectForKeyedSubscript:](self->histogramDict objectForKeyedSubscript:{@"RTCEndCallAverageTransmitRateHistogram", "newArray"}];
-  v46 = [-[NSDictionary objectForKeyedSubscript:](self->histogramDict objectForKeyedSubscript:{@"RTCEndCallAverageReceiveRateHistogram", "newArray"}];
-  v45 = [-[NSDictionary objectForKeyedSubscript:](self->histogramDict objectForKeyedSubscript:{@"PLRHistogram", "newArray"}];
-  v44 = [-[NSDictionary objectForKeyedSubscript:](self->histogramDict objectForKeyedSubscript:{@"RTTHistogram", "newArray"}];
-  v38 = [-[NSDictionary objectForKeyedSubscript:](self->histogramDict objectForKeyedSubscript:{@"TargetTxRateHistogram", "newArray"}];
-  v43 = [-[NSDictionary objectForKeyedSubscript:](self->histogramDict objectForKeyedSubscript:{@"AudioWindowLossHistogram", "newArray"}];
-  v47 = [-[NSDictionary objectForKeyedSubscript:](self->histogramDict objectForKeyedSubscript:{@"MaxJitterHistogram", "newArray"}];
-  v37 = [-[NSDictionary objectForKeyedSubscript:](self->histogramDict objectForKeyedSubscript:{@"RTCEndTargetJitterBufferHistogram", "newArray"}];
-  v36 = [-[NSDictionary objectForKeyedSubscript:](self->histogramDict objectForKeyedSubscript:{@"BasebandAverageBitrateHistogram", "newArray"}];
+  v36 = v24;
+  v38 = [v21 initWithUnsignedInt:v23];
+  v37 = [-[NSDictionary objectForKeyedSubscript:](self->histogramDict objectForKeyedSubscript:{@"RTCEndCallAverageTransmitRateHistogram", "newArray"}];
+  v43 = [-[NSDictionary objectForKeyedSubscript:](self->histogramDict objectForKeyedSubscript:{@"RTCEndCallAverageReceiveRateHistogram", "newArray"}];
+  v42 = [-[NSDictionary objectForKeyedSubscript:](self->histogramDict objectForKeyedSubscript:{@"PLRHistogram", "newArray"}];
+  v41 = [-[NSDictionary objectForKeyedSubscript:](self->histogramDict objectForKeyedSubscript:{@"RTTHistogram", "newArray"}];
+  v35 = [-[NSDictionary objectForKeyedSubscript:](self->histogramDict objectForKeyedSubscript:{@"TargetTxRateHistogram", "newArray"}];
+  v40 = [-[NSDictionary objectForKeyedSubscript:](self->histogramDict objectForKeyedSubscript:{@"AudioWindowLossHistogram", "newArray"}];
+  v44 = [-[NSDictionary objectForKeyedSubscript:](self->histogramDict objectForKeyedSubscript:{@"MaxJitterHistogram", "newArray"}];
+  v34 = [-[NSDictionary objectForKeyedSubscript:](self->histogramDict objectForKeyedSubscript:{@"RTCEndTargetJitterBufferHistogram", "newArray"}];
+  v33 = [-[NSDictionary objectForKeyedSubscript:](self->histogramDict objectForKeyedSubscript:{@"BasebandAverageBitrateHistogram", "newArray"}];
   v26 = [objc_alloc(MEMORY[0x277CCABA8]) initWithLong:self->callDuration];
   v27 = [objc_alloc(MEMORY[0x277CCABA8]) initWithUnsignedInt:self->connectionType];
-  [v3 setObject:v39 forKeyedSubscript:@"RTCEndInterfaceName"];
-  [v3 setObject:v42 forKeyedSubscript:@"RTCEndRemoteInterfaceName"];
-  [v3 setObject:v53 forKeyedSubscript:@"RTCEndRelayType"];
-  [v3 setObject:v52 forKeyedSubscript:@"RTCEndAverageLossRate"];
-  [v3 setObject:v51 forKeyedSubscript:@"RTCEndAverageJitterBufferSize"];
-  [v3 setObject:v50 forKeyedSubscript:@"RTCEndAverageInterArrivalTime"];
-  [v3 setObject:v49 forKeyedSubscript:@"RTCEndBasebandAverageRate"];
-  [v3 setObject:v48 forKeyedSubscript:@"RTCEndCallAverageTransmitRate"];
-  [v3 setObject:v41 forKeyedSubscript:@"RTCEndCallAverageReceiveRate"];
-  [v3 setObject:v40 forKeyedSubscript:@"RTCEndCallAverageTransmitRateHistogram"];
-  [v3 setObject:v46 forKeyedSubscript:@"RTCEndCallAverageReceiveRateHistogram"];
-  [v3 setObject:v45 forKeyedSubscript:@"RTCEndPLRHistogram"];
-  [v3 setObject:v44 forKeyedSubscript:@"RTCEndRTTHistogram"];
-  [v3 setObject:v38 forKeyedSubscript:@"RTCEndTargetTxRateHistogram"];
-  [v3 setObject:v43 forKeyedSubscript:@"RTCEndAudioWindowLossHistogram"];
-  [v3 setObject:v47 forKeyedSubscript:@"RTCEndMaxJitterHistogram"];
-  [v3 setObject:v37 forKeyedSubscript:@"RTCEndTargetJitterBufferHistogram"];
-  [v3 setObject:v36 forKeyedSubscript:@"RTCEndBasebandAverageRateHistogram"];
+  [v3 setObject:v36 forKeyedSubscript:@"RTCEndInterfaceName"];
+  [v3 setObject:v39 forKeyedSubscript:@"RTCEndRemoteInterfaceName"];
+  [v3 setObject:v50 forKeyedSubscript:@"RTCEndRelayType"];
+  [v3 setObject:v49 forKeyedSubscript:@"RTCEndAverageLossRate"];
+  [v3 setObject:v48 forKeyedSubscript:@"RTCEndAverageJitterBufferSize"];
+  [v3 setObject:v47 forKeyedSubscript:@"RTCEndAverageInterArrivalTime"];
+  [v3 setObject:v46 forKeyedSubscript:@"RTCEndBasebandAverageRate"];
+  [v3 setObject:v45 forKeyedSubscript:@"RTCEndCallAverageTransmitRate"];
+  [v3 setObject:v38 forKeyedSubscript:@"RTCEndCallAverageReceiveRate"];
+  [v3 setObject:v37 forKeyedSubscript:@"RTCEndCallAverageTransmitRateHistogram"];
+  [v3 setObject:v43 forKeyedSubscript:@"RTCEndCallAverageReceiveRateHistogram"];
+  [v3 setObject:v42 forKeyedSubscript:@"RTCEndPLRHistogram"];
+  [v3 setObject:v41 forKeyedSubscript:@"RTCEndRTTHistogram"];
+  [v3 setObject:v35 forKeyedSubscript:@"RTCEndTargetTxRateHistogram"];
+  [v3 setObject:v40 forKeyedSubscript:@"RTCEndAudioWindowLossHistogram"];
+  [v3 setObject:v44 forKeyedSubscript:@"RTCEndMaxJitterHistogram"];
+  [v3 setObject:v34 forKeyedSubscript:@"RTCEndTargetJitterBufferHistogram"];
+  [v3 setObject:v33 forKeyedSubscript:@"RTCEndBasebandAverageRateHistogram"];
   [v3 setObject:v26 forKeyedSubscript:@"RTCEndCallDuration"];
   v28 = v27;
   [v3 setObject:v27 forKeyedSubscript:@"RTCEndRelayType"];
@@ -1361,13 +1371,10 @@ LABEL_40:
   v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
   [v30 addObject:v3];
   [v29 setValue:v30 forKey:@"RTCEndCallStats"];
-  callNonce = self->callNonce;
-  isSender = self->isSender;
-  startTime = self->startTime;
-  v34 = GKSFacetimeSubmitMetric(987153);
+  v31 = GKSFacetimeSubmitMetric(987153);
   NSLog(&cfstr_SMetrictypeFac_13.isa, "[AWDStats sendRTCSessionEndMetricToAWD]", v29);
 
-  return v34;
+  return v31;
 }
 
 - (int)sendAggregationReportToAWD
@@ -1375,13 +1382,9 @@ LABEL_40:
   aggregatedReport = self->aggregatedReport;
   if (aggregatedReport && [-[NSDictionary objectForKeyedSubscript:](aggregatedReport objectForKeyedSubscript:{@"AggregationReportSegments", "count"}])
   {
-    v4 = self->aggregatedReport;
-    callNonce = self->callNonce;
-    isSender = self->isSender;
-    startTime = self->startTime;
-    v8 = GKSFacetimeSubmitMetric(987157);
+    v4 = GKSFacetimeSubmitMetric(987157);
     NSLog(&cfstr_SMetrictypeFac_14.isa, "[AWDStats sendAggregationReportToAWD]", self->aggregatedReport);
-    return v8;
+    return v4;
   }
 
   else
@@ -1409,13 +1412,13 @@ LABEL_40:
   }
 }
 
-uint64_t __43__AWDStats_callStartIsSender_forTime_mode___block_invoke(uint64_t a1)
+- (void)updateAudioTier:(unsigned int)tier mode:(unsigned int)mode duplication:(unsigned int)duplication codecPayload:(unsigned int)payload codecBitrate:(unsigned int)bitrate bundling:(unsigned int)bundling
 {
-  v1 = *(a1 + 32);
-  v2 = *(v1 + 260);
-  v3 = *(v1 + 264);
-  v4 = *(v1 + 272);
-  return GKSFacetimeSubmitMetric(987138);
+  audioTiers = self->audioTiers;
+  if (audioTiers)
+  {
+    [(AudioTierHistogram *)audioTiers newAudioTier:*&tier duplication:*&duplication bundling:*&bundling codecPayload:*&payload codecBitrate:*&bitrate mode:*&mode];
+  }
 }
 
 - (void)callEndAppleCalling
@@ -1453,8 +1456,8 @@ uint64_t __31__AWDStats_callEndAppleCalling__block_invoke(uint64_t a1)
 
 void __27__AWDStats_callEndFaceTime__block_invoke(uint64_t a1)
 {
-  v16 = [*(a1 + 32) sendConnectivityTimingToAWD];
-  if (v16)
+  v12 = [*(a1 + 32) sendConnectivityTimingToAWD];
+  if (v12)
   {
     NSLog(&cfstr_AwdstatsSendco_1.isa);
   }
@@ -1464,8 +1467,8 @@ void __27__AWDStats_callEndFaceTime__block_invoke(uint64_t a1)
     NSLog(&cfstr_AwdstatsSendco_0.isa);
   }
 
-  v15 = [*(a1 + 32) sendRTStatsToAWD];
-  if (v15)
+  v11 = [*(a1 + 32) sendRTStatsToAWD];
+  if (v11)
   {
     NSLog(&cfstr_AwdstatsSendrt_2.isa);
   }
@@ -1563,12 +1566,8 @@ void __27__AWDStats_callEndFaceTime__block_invoke(uint64_t a1)
     NSLog(&cfstr_AwdstatsSendmo_0.isa);
   }
 
-  v10 = *(a1 + 32);
-  v11 = *(v10 + 260);
-  v12 = *(v10 + 264);
-  v13 = *(v10 + 272);
-  v14 = GKSFacetimeSubmitMetric(987139);
-  if (v14)
+  v10 = GKSFacetimeSubmitMetric(987139);
+  if (v10)
   {
     NSLog(&cfstr_AwdstatsSendfa_0.isa);
   }
@@ -1586,7 +1585,7 @@ void __27__AWDStats_callEndFaceTime__block_invoke(uint64_t a1)
   else
   {
     NSLog(&cfstr_AwdstatsSendag_0.isa);
-    if (!(v14 | v9 | v8 | v7 | v6 | v5 | v4 | v3 | v2 | v15 | v16))
+    if (!(v10 | v9 | v8 | v7 | v6 | v5 | v4 | v3 | v2 | v11 | v12))
     {
       return;
     }
@@ -1664,13 +1663,10 @@ void __27__AWDStats_callEndFaceTime__block_invoke(uint64_t a1)
   [v3 setObject:newArray4 forKeyedSubscript:@"RecommendedRxBitrateHistogram"];
   newArray5 = [(AWDHistogram *)self->ActualRxBitrateHistogram newArray];
   [v3 setObject:newArray5 forKeyedSubscript:@"ActualRxBitrateHistogram"];
-  callNonce = self->callNonce;
-  isSender = self->isSender;
-  startTime = self->startTime;
-  v22 = GKSFacetimeSubmitMetric(987156);
+  v19 = GKSFacetimeSubmitMetric(987156);
   NSLog(&cfstr_SMetrictypeFac_16.isa, "[AWDStats sendHomeKitIPCameraNetworkStatistics]", v3);
 
-  return v22;
+  return v19;
 }
 
 - (void)callEndHomeKitIPCamera
@@ -1697,12 +1693,8 @@ void __27__AWDStats_callEndFaceTime__block_invoke(uint64_t a1)
 
 void __32__AWDStats_callEndSecondDisplay__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  if (*(v1 + 544))
+  if (*(*(a1 + 32) + 544))
   {
-    v3 = *(v1 + 260);
-    v4 = *(v1 + 264);
-    v5 = *(v1 + 272);
     GKSFacetimeSubmitMetric(987158);
     NSLog(&cfstr_SMetrictypeFac_17.isa, "[AWDStats callEndSecondDisplay]_block_invoke", *(*(a1 + 32) + 544));
 
@@ -1757,32 +1749,32 @@ LABEL_10:
 
 - (void)reset
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   objectEnumerator = [(NSDictionary *)self->histogramDict objectEnumerator];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v4 = [(NSEnumerator *)objectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [(NSEnumerator *)objectEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       v7 = 0;
       do
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        [*(*(&v15 + 1) + 8 * v7++) reset];
+        [*(*(&v14 + 1) + 8 * v7++) reset];
       }
 
       while (v5 != v7);
-      v5 = [(NSEnumerator *)objectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [(NSEnumerator *)objectEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
@@ -1858,44 +1850,41 @@ LABEL_10:
   self->isRoaming = 0;
   *&self->handoverWithDuplicationCount = 0u;
   *&self->rxExcessICEBytes = 0u;
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)printHistograms
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   NSLog(&cfstr_PrintingAllHis.isa, a2);
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   histogramDict = self->histogramDict;
-  v4 = [(NSDictionary *)histogramDict countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSDictionary *)histogramDict countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(histogramDict);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * i);
+        v8 = *(*(&v9 + 1) + 8 * i);
         NSLog(&stru_284F7B8D8.isa, v8);
         [-[NSDictionary objectForKeyedSubscript:](self->histogramDict objectForKeyedSubscript:{v8), "print"}];
       }
 
-      v5 = [(NSDictionary *)histogramDict countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSDictionary *)histogramDict countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateLocalPrimaryInterface:(id)interface

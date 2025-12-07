@@ -38,10 +38,9 @@ void __17__MOWatchDog_pet__block_invoke(uint64_t a1)
 - (void)_pet
 {
   OUTLINED_FUNCTION_2_2();
-  [*(v1 + 8) UTF8String];
-  v7 = *(v0 + 16);
+  [*(v0 + 8) UTF8String];
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
 }
 
 - (void)cancel

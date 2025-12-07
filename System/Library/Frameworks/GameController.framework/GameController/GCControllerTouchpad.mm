@@ -1,5 +1,7 @@
 @interface GCControllerTouchpad
+- (BOOL)calculateRelativePositionWithDigitizerX:(float)x digitizerY:(float)y touchDown:(BOOL)down;
 - (BOOL)determineTouchStateWithDigitizerX:(float)x digitizerY:(float)y touchDown:(BOOL)down;
+- (BOOL)setDigitizerX:(float)x digitizerY:(float)y touchDown:(BOOL)down queue:(id)queue;
 - (CGPoint)addCGPoint:(CGPoint)point toPoint:(CGPoint)toPoint;
 - (CGPoint)clampPoint:(CGPoint)point toLength:(double)length;
 - (CGPoint)mulCGPoint:(CGPoint)point byScalar:(double)scalar;
@@ -12,6 +14,7 @@
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
 - (void)reportDigitizerChange:(id)change;
+- (void)setValueForXAxis:(float)xAxis yAxis:(float)yAxis touchDown:(BOOL)touchDown buttonValue:(float)buttonValue;
 @end
 
 @implementation GCControllerTouchpad
@@ -86,6 +89,84 @@
   [coderCopy encodeFloat:@"_touchpadRelativeWindowSize" forKey:v5];
   *&v6 = self->_touchpadRelativeOriginBufferSize;
   [coderCopy encodeFloat:@"_touchpadRelativeOriginBufferSize" forKey:v6];
+}
+
+- (BOOL)calculateRelativePositionWithDigitizerX:(float)x digitizerY:(float)y touchDown:(BOOL)down
+{
+  xCopy = x;
+  yCopy = y;
+  p_absoluteWindowLocation = &self->_absoluteWindowLocation;
+  [(GCControllerTouchpad *)self distanceBetweenCGPoint:down andCGPoint:x, y, self->_absoluteWindowLocation.x, self->_absoluteWindowLocation.y];
+  touchpadRelativeWindowSize = self->_touchpadRelativeWindowSize;
+  if (v10 >= (self->_touchpadRelativeOriginBufferSize * touchpadRelativeWindowSize) || self->_reportsAbsoluteTouchSurfaceValues)
+  {
+    leftBufferZone = 1;
+    self->_leftBufferZone = 1;
+    self->_absolutePosition.x = xCopy;
+    self->_absolutePosition.y = yCopy;
+    [(GCControllerTouchpad *)self mulCGPoint:xCopy - p_absoluteWindowLocation->x byScalar:yCopy - p_absoluteWindowLocation->y, 1.0 / touchpadRelativeWindowSize];
+    v13 = v12;
+    v15 = v14;
+    [(GCControllerTouchpad *)self normalizeCGPoint:?];
+    v17 = v16;
+    v19 = v18;
+    [GCControllerTouchpad scaleCGPoint:"scaleCGPoint:toLength:" toLength:?];
+    [GCControllerTouchpad addCGPoint:"addCGPoint:toPoint:" toPoint:?];
+    p_relativePosition = &self->_relativePosition;
+    v23 = self->_absolutePosition.y - v22;
+    self->_relativePosition.x = self->_absolutePosition.x - v20;
+    self->_relativePosition.y = v23;
+    [GCControllerTouchpad mulCGPoint:"mulCGPoint:byScalar:" byScalar:?];
+    self->_relativePosition.x = v24;
+    self->_relativePosition.y = v25;
+    [(GCControllerTouchpad *)self magnitudeForCGPoint:v13, v15];
+    if (v26 > 1.0)
+    {
+      v27 = 1.0 - self->_touchpadRelativeWindowSize;
+      [(GCControllerTouchpad *)self subCGPoint:v17 fromPoint:v19, v13, v15];
+      [(GCControllerTouchpad *)self addCGPoint:p_absoluteWindowLocation->x toPoint:p_absoluteWindowLocation->y, v28, v29];
+      p_absoluteWindowLocation->x = v30;
+      p_absoluteWindowLocation->y = v31;
+      if (self->_beganTouchOutsideBounds)
+      {
+        [(GCControllerTouchpad *)self magnitudeForCGPoint:?];
+        if (v32 <= v27)
+        {
+          self->_beganTouchOutsideBounds = 0;
+        }
+      }
+
+      else
+      {
+        [GCControllerTouchpad clampPoint:"clampPoint:toLength:" toLength:?];
+        p_absoluteWindowLocation->x = v33;
+        p_absoluteWindowLocation->y = v34;
+      }
+
+      [(GCControllerTouchpad *)self scaleCGPoint:p_relativePosition->x toLength:self->_relativePosition.y, 1.0];
+      p_relativePosition->x = v35;
+      self->_relativePosition.y = v36;
+    }
+  }
+
+  else
+  {
+    self->_absolutePosition = *p_absoluteWindowLocation;
+    self->_relativePosition = *MEMORY[0x1E695EFF8];
+    if (self->_touchState)
+    {
+      leftBufferZone = self->_leftBufferZone;
+    }
+
+    else
+    {
+      leftBufferZone = 1;
+    }
+
+    self->_leftBufferZone = 0;
+  }
+
+  return leftBufferZone;
 }
 
 - (void)reportDigitizerChange:(id)change
@@ -251,6 +332,56 @@ void __46__GCControllerTouchpad_reportDigitizerChange___block_invoke_3(uint64_t 
   return !v11 && (v8 != 2 || self->_absolutePosition.x != x || self->_absolutePosition.y != y);
 }
 
+- (BOOL)setDigitizerX:(float)x digitizerY:(float)y touchDown:(BOOL)down queue:(id)queue
+{
+  downCopy = down;
+  queueCopy = queue;
+  [(GCControllerButtonInput *)self->_button value];
+  v12 = v11;
+  previousButtonState = self->_previousButtonState;
+  *&v14 = x;
+  *&v15 = y;
+  if (![(GCControllerTouchpad *)self determineTouchStateWithDigitizerX:downCopy digitizerY:v14 touchDown:v15]&& v12 == previousButtonState)
+  {
+    goto LABEL_3;
+  }
+
+  if (self->_touchState == 1)
+  {
+    self->_absoluteTouchDownPosition.x = x;
+    self->_absoluteTouchDownPosition.y = y;
+    self->_absoluteWindowLocation = self->_absoluteTouchDownPosition;
+    self->_absolutePosition.x = x;
+    self->_absolutePosition.y = y;
+    self->_relativePosition = *MEMORY[0x1E695EFF8];
+    self->_leftBufferZone = 0;
+    v19 = 1.0 - self->_touchpadRelativeWindowSize;
+    [(GCControllerTouchpad *)self magnitudeForCGPoint:self->_absoluteWindowLocation.x, self->_absoluteWindowLocation.y];
+    if (v20 > v19)
+    {
+      self->_beganTouchOutsideBounds = 1;
+    }
+
+    goto LABEL_9;
+  }
+
+  *&v16 = x;
+  *&v17 = y;
+  if ([(GCControllerTouchpad *)self calculateRelativePositionWithDigitizerX:downCopy digitizerY:v16 touchDown:v17]|| v12 != previousButtonState)
+  {
+LABEL_9:
+    [(GCControllerTouchpad *)self reportDigitizerChange:queueCopy];
+    v18 = 1;
+    goto LABEL_10;
+  }
+
+LABEL_3:
+  v18 = 0;
+LABEL_10:
+
+  return v18;
+}
+
 - (CGPoint)normalizeCGPoint:(CGPoint)point
 {
   y = point.y;
@@ -359,6 +490,70 @@ void __46__GCControllerTouchpad_reportDigitizerChange___block_invoke_3(uint64_t 
   v7 = [v3 stringWithFormat:@"<%@: %p %@>", v5, self, v6];
 
   return v7;
+}
+
+- (void)setValueForXAxis:(float)xAxis yAxis:(float)yAxis touchDown:(BOOL)touchDown buttonValue:(float)buttonValue
+{
+  v7 = touchDown;
+  device = [(GCControllerElement *)self device];
+  if (device)
+  {
+    objc_opt_class();
+    isKindOfClass = objc_opt_isKindOfClass();
+    v12 = device;
+    if ((isKindOfClass & 1) == 0)
+    {
+      goto LABEL_16;
+    }
+
+    isSnapshot = [device isSnapshot];
+    v12 = device;
+    if ((isSnapshot & 1) == 0)
+    {
+      goto LABEL_16;
+    }
+
+    handlerQueue = [device handlerQueue];
+  }
+
+  else
+  {
+    handlerQueue = MEMORY[0x1E69E96A0];
+    v15 = MEMORY[0x1E69E96A0];
+  }
+
+  selfCopy = self;
+  v17 = handlerQueue;
+  button = [(GCControllerTouchpad *)selfCopy button];
+  v19 = v17;
+  v21 = !v7;
+  if (buttonValue <= 0.0)
+  {
+    v21 = 1;
+  }
+
+  if (buttonValue != 0.0 && v21)
+  {
+    [GCControllerTouchpad setValueForXAxis:yAxis:touchDown:buttonValue:];
+  }
+
+  *&v20 = buttonValue;
+  v22 = [button _setValue:v19 queue:v20];
+  v23 = [button _setTouched:v7 queue:v19];
+  if ((v22 & 1) != 0 || v23)
+  {
+    [0 addObject:button];
+  }
+
+  *&v24 = xAxis;
+  *&v25 = yAxis;
+  if ([(GCControllerTouchpad *)selfCopy setDigitizerX:v7 digitizerY:v19 touchDown:v24 queue:v25])
+  {
+    [0 addObject:selfCopy];
+  }
+
+  v12 = device;
+LABEL_16:
 }
 
 @end

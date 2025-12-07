@@ -12,7 +12,7 @@
   v2 = lazy protocol witness table cache variable for type [UInt32 : Float] and conformance [A : B];
   if (!lazy protocol witness table cache variable for type [UInt32 : Float] and conformance [A : B])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDys6UInt32VSfGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDys6UInt32VSfGMd, &_sSDys6UInt32VSfGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [UInt32 : Float] and conformance [A : B]);
     return WitnessTable;
@@ -26,7 +26,7 @@
   v2 = lazy protocol witness table cache variable for type [UInt32 : UInt8].Keys and conformance [A : B].Keys;
   if (!lazy protocol witness table cache variable for type [UInt32 : UInt8].Keys and conformance [A : B].Keys)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSD4KeysVys6UInt32Vs5UInt8V_GMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSD4KeysVys6UInt32Vs5UInt8V_GMd, &_sSD4KeysVys6UInt32Vs5UInt8V_GMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [UInt32 : UInt8].Keys and conformance [A : B].Keys);
     return WitnessTable;
@@ -40,7 +40,7 @@
   v2 = lazy protocol witness table cache variable for type [UInt32 : Bool].Keys and conformance [A : B].Keys;
   if (!lazy protocol witness table cache variable for type [UInt32 : Bool].Keys and conformance [A : B].Keys)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSD4KeysVys6UInt32VSb_GMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSD4KeysVys6UInt32VSb_GMd, &_sSD4KeysVys6UInt32VSb_GMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [UInt32 : Bool].Keys and conformance [A : B].Keys);
     return WitnessTable;
@@ -54,7 +54,7 @@
   v2 = lazy protocol witness table cache variable for type [UInt32 : Int].Keys and conformance [A : B].Keys;
   if (!lazy protocol witness table cache variable for type [UInt32 : Int].Keys and conformance [A : B].Keys)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSD4KeysVys6UInt32VSi_GMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSD4KeysVys6UInt32VSi_GMd, &_sSD4KeysVys6UInt32VSi_GMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [UInt32 : Int].Keys and conformance [A : B].Keys);
     return WitnessTable;

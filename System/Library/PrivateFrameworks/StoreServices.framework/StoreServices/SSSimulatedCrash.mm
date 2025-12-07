@@ -8,20 +8,20 @@
 + (void)simulateCrashWithFormat:(id)format
 {
   formatCopy = format;
-  if (SSIsInternalBuild())
+  if (SSIsInternalBuild(formatCopy, v5))
   {
-    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:formatCopy arguments:&v6];
-    [self simulateCrashWithString:v5];
+    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:formatCopy arguments:&v7];
+    [self simulateCrashWithString:v6];
   }
 }
 
 + (void)simulateCrashWithString:(id)string
 {
   stringCopy = string;
-  if (SSIsInternalBuild())
+  if (SSIsInternalBuild(stringCopy, v3))
   {
-    v3 = getpid();
-    softLinkSimulateCrash(v3, 195939070, stringCopy);
+    v4 = getpid();
+    softLinkSimulateCrash(v4, 195939070, stringCopy);
   }
 }
 

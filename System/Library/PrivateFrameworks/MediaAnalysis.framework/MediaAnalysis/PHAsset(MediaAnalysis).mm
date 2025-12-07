@@ -8,12 +8,12 @@
 - (id)vcp_modificationDate;
 - (uint64_t)mad_isShared;
 - (uint64_t)vcp_eligibleForVideoDownload:()MediaAnalysis;
-- (uint64_t)vcp_hasAdjustments;
-- (uint64_t)vcp_isLongMovie;
 - (uint64_t)vcp_needsFullAnalysisProcessing:()MediaAnalysis;
 - (uint64_t)vcp_needsProcessingForTask:()MediaAnalysis;
 - (uint64_t)vcp_targetMajorDimensionForImageWithWidth:()MediaAnalysis height:andMinPreferredMinorDimension:;
+- (unint64_t)vcp_hasAdjustments;
 - (unint64_t)vcp_majorDimensionForResource:()MediaAnalysis withTargetResolution:;
+- (void)vcp_isLongMovie;
 @end
 
 @implementation PHAsset(MediaAnalysis)
@@ -476,7 +476,7 @@ LABEL_53:
   return v8;
 }
 
-- (uint64_t)vcp_hasAdjustments
+- (unint64_t)vcp_hasAdjustments
 {
   if ([self vcp_isVideoSlowmo])
   {
@@ -927,13 +927,13 @@ LABEL_19:
   return [self vcp_needSceneProcessing];
 }
 
-- (uint64_t)vcp_isLongMovie
+- (void)vcp_isLongMovie
 {
   result = [self isVideo];
   if (result)
   {
-    [self duration];
-    return v3 > [objc_opt_class() vcp_longMovieDurationThreshold];
+    objc_msgSend_duration(self);
+    return (v3 > [objc_opt_class() vcp_longMovieDurationThreshold]);
   }
 
   return result;

@@ -1350,7 +1350,7 @@ void *__45__SBAppSwitcherPageView_setOverlay_animated___block_invoke_3(uint64_t 
   trailingAlpha = attributes.trailingAlpha;
   leadingAlpha = attributes.leadingAlpha;
   p_wallpaperGradientAttributes = &self->_wallpaperGradientAttributes;
-  if ((SBSwitcherWallpaperGradientAttributesEqual() & 1) == 0)
+  if ((SBSwitcherWallpaperGradientAttributesEqual(self, attributes.leadingAlpha, attributes.trailingAlpha, self->_wallpaperGradientAttributes.leadingAlpha, self->_wallpaperGradientAttributes.trailingAlpha) & 1) == 0)
   {
     p_wallpaperGradientAttributes->leadingAlpha = leadingAlpha;
     p_wallpaperGradientAttributes->trailingAlpha = trailingAlpha;

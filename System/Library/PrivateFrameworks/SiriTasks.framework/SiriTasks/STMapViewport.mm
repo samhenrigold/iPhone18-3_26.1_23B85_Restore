@@ -8,11 +8,11 @@
 
 - (STMapViewport)initWithCoder:(id)coder
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v19.receiver = self;
-  v19.super_class = STMapViewport;
-  v5 = [(STSiriModelObject *)&v19 initWithCoder:coderCopy];
+  v18.receiver = self;
+  v18.super_class = STMapViewport;
+  v5 = [(STSiriModelObject *)&v18 initWithCoder:coderCopy];
   if (v5)
   {
     [coderCopy decodeDoubleForKey:@"_eastLongitude"];
@@ -28,16 +28,15 @@
     [coderCopy decodeDoubleForKey:@"_timeSinceViewportEnteredForeground"];
     v5->_timeSinceViewportEnteredForeground = v11;
     v12 = MEMORY[0x277CBEB98];
-    v20[0] = objc_opt_class();
-    v20[1] = objc_opt_class();
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+    v19[0] = objc_opt_class();
+    v19[1] = objc_opt_class();
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
     v14 = [v12 setWithArray:v13];
     v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"_viewportVertices"];
     viewportVertices = v5->_viewportVertices;
     v5->_viewportVertices = v15;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -58,7 +57,7 @@
 
 - (id)_aceContextObjectValue
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277D474D0]);
   [v3 setNorthLatitude:self->_northLatitude];
   [v3 setSouthLatitude:self->_southLatitude];
@@ -67,26 +66,26 @@
   [v3 setTimeInSecondsSinceViewportChanged:self->_timeSinceViewportChanged];
   [v3 setTimeInSecondsSinceViewportEnteredForeground:self->_timeSinceViewportEnteredForeground];
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](self->_viewportVertices, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_viewportVertices;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         v11 = objc_alloc_init(MEMORY[0x277D474D8]);
         [v10 latitude];
         [v11 setLatitude:?];
@@ -94,14 +93,13 @@
         [v11 setLongitude:?];
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   [v3 setVertices:v4];
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

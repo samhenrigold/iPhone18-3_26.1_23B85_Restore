@@ -13,40 +13,39 @@
 
 + (id)typeStrings
 {
-  v5[2] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.google-oauth";
-  v5[1] = @"com.apple.gmail";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.google-oauth";
+  v4[1] = @"com.apple.gmail";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
 
   return v2;
 }
 
 - (MCGmailAccountPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v56.receiver = self;
-  v56.super_class = MCGmailAccountPayload;
-  v10 = [(MCPayload *)&v56 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
+  v55.receiver = self;
+  v55.super_class = MCGmailAccountPayload;
+  v10 = [(MCPayload *)&v55 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
   if (!v10)
   {
     goto LABEL_15;
   }
 
-  v55 = 0;
-  v11 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"CommunicationServiceRules" isRequired:0 outError:&v55];
-  v12 = v55;
+  v54 = 0;
+  v11 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"CommunicationServiceRules" isRequired:0 outError:&v54];
+  v12 = v54;
   if (v12)
   {
     v13 = v12;
     goto LABEL_6;
   }
 
-  v54 = 0;
-  v14 = [MCCommunicationServiceRulesUtilities validatedCommunicationServiceRules:v11 outError:&v54];
-  v13 = v54;
+  v53 = 0;
+  v14 = [MCCommunicationServiceRulesUtilities validatedCommunicationServiceRules:v11 outError:&v53];
+  v13 = v53;
   communicationServiceRules = v10->_communicationServiceRules;
   v10->_communicationServiceRules = v14;
 
@@ -55,9 +54,9 @@
     goto LABEL_6;
   }
 
-  v53 = 0;
-  v16 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"VPNUUID" isRequired:0 outError:&v53];
-  v13 = v53;
+  v52 = 0;
+  v16 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"VPNUUID" isRequired:0 outError:&v52];
+  v13 = v52;
   VPNUUID = v10->_VPNUUID;
   v10->_VPNUUID = v16;
 
@@ -68,22 +67,11 @@
 
   if ([profileCopy isStub])
   {
-    v49 = 0;
-    v31 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"AccountName" isRequired:0 outError:&v49];
-    v13 = v49;
-    accountName = v10->_accountName;
-    v10->_accountName = v31;
-
-    if (v13)
-    {
-      goto LABEL_6;
-    }
-
     v48 = 0;
-    v33 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"AccountDescription" isRequired:0 outError:&v48];
+    v30 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"AccountName" isRequired:0 outError:&v48];
     v13 = v48;
-    accountDescription = v10->_accountDescription;
-    v10->_accountDescription = v33;
+    accountName = v10->_accountName;
+    v10->_accountName = v30;
 
     if (v13)
     {
@@ -91,10 +79,10 @@
     }
 
     v47 = 0;
-    v35 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"EmailAddress" isRequired:0 outError:&v47];
+    v32 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"AccountDescription" isRequired:0 outError:&v47];
     v13 = v47;
-    emailAddress = v10->_emailAddress;
-    v10->_emailAddress = v35;
+    accountDescription = v10->_accountDescription;
+    v10->_accountDescription = v32;
 
     if (v13)
     {
@@ -102,29 +90,29 @@
     }
 
     v46 = 0;
-    v37 = &v46;
-    v38 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ACAccountIdentifier" isRequired:0 outError:&v46];
-    v39 = &OBJC_IVAR___MCGmailAccountPayload__acAccountIdentifier;
-  }
-
-  else
-  {
-    v52 = 0;
-    v40 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"AccountName" isRequired:0 outError:&v52];
-    v13 = v52;
-    v41 = v10->_accountName;
-    v10->_accountName = v40;
+    v34 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"EmailAddress" isRequired:0 outError:&v46];
+    v13 = v46;
+    emailAddress = v10->_emailAddress;
+    v10->_emailAddress = v34;
 
     if (v13)
     {
       goto LABEL_6;
     }
 
+    v45 = 0;
+    v36 = &v45;
+    v37 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ACAccountIdentifier" isRequired:0 outError:&v45];
+    v38 = &OBJC_IVAR___MCGmailAccountPayload__acAccountIdentifier;
+  }
+
+  else
+  {
     v51 = 0;
-    v42 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"AccountDescription" isRequired:0 outError:&v51];
+    v39 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"AccountName" isRequired:0 outError:&v51];
     v13 = v51;
-    v43 = v10->_accountDescription;
-    v10->_accountDescription = v42;
+    v40 = v10->_accountName;
+    v10->_accountName = v39;
 
     if (v13)
     {
@@ -132,15 +120,26 @@
     }
 
     v50 = 0;
-    v37 = &v50;
-    v38 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"EmailAddress" isRequired:1 outError:&v50];
-    v39 = &OBJC_IVAR___MCGmailAccountPayload__emailAddress;
+    v41 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"AccountDescription" isRequired:0 outError:&v50];
+    v13 = v50;
+    v42 = v10->_accountDescription;
+    v10->_accountDescription = v41;
+
+    if (v13)
+    {
+      goto LABEL_6;
+    }
+
+    v49 = 0;
+    v36 = &v49;
+    v37 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"EmailAddress" isRequired:1 outError:&v49];
+    v38 = &OBJC_IVAR___MCGmailAccountPayload__emailAddress;
   }
 
-  v13 = *v37;
-  v44 = *v39;
-  v45 = *(&v10->super.super.isa + v44);
-  *(&v10->super.super.isa + v44) = v38;
+  v13 = *v36;
+  v43 = *v38;
+  v44 = *(&v10->super.super.isa + v43);
+  *(&v10->super.super.isa + v43) = v37;
 
   if (v13)
   {
@@ -161,9 +160,9 @@ LABEL_6:
       v24 = v23;
       mCVerboseDescription = [v19 MCVerboseDescription];
       *buf = 138543618;
-      v58 = v23;
-      v59 = 2114;
-      v60 = mCVerboseDescription;
+      v57 = v23;
+      v58 = 2114;
+      v59 = mCVerboseDescription;
       _os_log_impl(&dword_1A795B000, v22, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
     }
 
@@ -178,15 +177,14 @@ LABEL_6:
       v27 = v26;
       friendlyName = [(MCPayload *)v10 friendlyName];
       *buf = 138543618;
-      v58 = friendlyName;
-      v59 = 2114;
-      v60 = dictionaryCopy;
+      v57 = friendlyName;
+      v58 = 2114;
+      v59 = dictionaryCopy;
       _os_log_impl(&dword_1A795B000, v27, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
     }
   }
 
 LABEL_15:
-  v29 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -328,19 +326,17 @@ LABEL_15:
 
 - (NSArray)mailAccountIdentifiers
 {
-  v5[1] = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
   if (self->_acAccountIdentifier)
   {
-    v5[0] = self->_acAccountIdentifier;
-    v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
+    v4[0] = self->_acAccountIdentifier;
+    v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
   }
 
   else
   {
     v2 = 0;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

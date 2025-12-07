@@ -488,7 +488,7 @@ void __45__PXInlineHeadersSpriteLayout__updateSprites__block_invoke(uint64_t a1,
   v44 = v43;
   if (v13)
   {
-    [v13 spriteTransformForLevel:v16];
+    objc_msgSend_spriteTransformForLevel_(v13);
   }
 
   v112 = v13;

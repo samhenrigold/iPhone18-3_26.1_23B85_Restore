@@ -62,11 +62,11 @@
 
 - (FRCOpticalFlowEstimator)initWithWidth:(int64_t)width height:(int64_t)height configuration:(id)configuration
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
-  v58.receiver = self;
-  v58.super_class = FRCOpticalFlowEstimator;
-  v9 = [(FRCOpticalFlowEstimator *)&v58 init];
+  v57.receiver = self;
+  v57.super_class = FRCOpticalFlowEstimator;
+  v9 = [(FRCOpticalFlowEstimator *)&v57 init];
   v10 = v9;
   if (v9)
   {
@@ -215,21 +215,21 @@
             flowWidth = [(FRCOpticalFlowEstimator *)v10 flowWidth];
             flowHeight = [(FRCOpticalFlowEstimator *)v10 flowHeight];
             *buf = 134219776;
-            v60 = v10;
-            v61 = 1024;
-            v62 = v18;
-            v63 = 1024;
-            v64 = v38;
-            v65 = 1024;
-            v66 = useAdaptationLayer;
-            v67 = 1024;
-            v68 = twoStageFlow;
-            v69 = 1024;
-            v70 = revision;
-            v71 = 2048;
-            v72 = flowWidth;
-            v73 = 2048;
-            v74 = flowHeight;
+            v59 = v10;
+            v60 = 1024;
+            v61 = v18;
+            v62 = 1024;
+            v63 = v38;
+            v64 = 1024;
+            v65 = useAdaptationLayer;
+            v66 = 1024;
+            v67 = twoStageFlow;
+            v68 = 1024;
+            v69 = revision;
+            v70 = 2048;
+            v71 = flowWidth;
+            v72 = 2048;
+            v73 = flowHeight;
             _os_log_impl(&dword_24A8C8000, v39, OS_LOG_TYPE_DEFAULT, "Initialized successfully (%p) [usage:%d, 1/4 flow:%d, adaptation layer:%d, twoStage:%d, revision:%d, flow size (%ldx%ld)].", buf, 0x3Eu);
           }
 
@@ -248,21 +248,21 @@
           flowWidth2 = [(FRCOpticalFlowEstimator *)v10 flowWidth];
           flowHeight2 = [(FRCOpticalFlowEstimator *)v10 flowHeight];
           *buf = 134219776;
-          v60 = v10;
-          v61 = 1024;
-          v62 = v18;
-          v63 = 1024;
-          v64 = v48;
-          v65 = 1024;
-          v66 = useAdaptationLayer2;
-          v67 = 1024;
-          v68 = twoStageFlow2;
-          v69 = 1024;
-          v70 = revision2;
-          v71 = 2048;
-          v72 = flowWidth2;
-          v73 = 2048;
-          v74 = flowHeight2;
+          v59 = v10;
+          v60 = 1024;
+          v61 = v18;
+          v62 = 1024;
+          v63 = v48;
+          v64 = 1024;
+          v65 = useAdaptationLayer2;
+          v66 = 1024;
+          v67 = twoStageFlow2;
+          v68 = 1024;
+          v69 = revision2;
+          v70 = 2048;
+          v71 = flowWidth2;
+          v72 = 2048;
+          v73 = flowHeight2;
           _os_log_impl(&dword_24A8C8000, v49, OS_LOG_TYPE_DEFAULT, "Failed to switch (%p) [usage:%d, 1/4 flow:%d, adaptation layer:%d, twoStage:%d, revision:%d, flow size (%ldx%ld)].", buf, 0x3Eu);
         }
 
@@ -294,13 +294,12 @@ LABEL_50:
   v45 = v10;
 LABEL_58:
 
-  v56 = *MEMORY[0x277D85DE8];
   return v45;
 }
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   intermediateFlow = self->_intermediateFlow;
   if (intermediateFlow)
   {
@@ -313,15 +312,14 @@ LABEL_58:
     usage = self->_usage;
     *buf = 134218240;
     selfCopy = self;
-    v10 = 2048;
-    v11 = usage;
+    v9 = 2048;
+    v10 = usage;
     _os_log_impl(&dword_24A8C8000, logger, OS_LOG_TYPE_DEFAULT, "Released (%p) [usage:%ld]", buf, 0x16u);
   }
 
-  v7.receiver = self;
-  v7.super_class = FRCOpticalFlowEstimator;
-  [(FRCOpticalFlowEstimator *)&v7 dealloc];
-  v6 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = FRCOpticalFlowEstimator;
+  [(FRCOpticalFlowEstimator *)&v6 dealloc];
 }
 
 - (__CVBuffer)allocateFlowBufferFullSize:(BOOL)size
@@ -345,16 +343,16 @@ LABEL_58:
 
 - (int64_t)opticalFlowFrom:(__CVBuffer *)from to:(__CVBuffer *)to flow:(__CVBuffer *)flow
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
     v10 = logger;
-    v18 = 134218240;
+    v17 = 134218240;
     Width = CVPixelBufferGetWidth(flow);
-    v20 = 2048;
+    v19 = 2048;
     Height = CVPixelBufferGetHeight(flow);
-    _os_log_impl(&dword_24A8C8000, v10, OS_LOG_TYPE_DEFAULT, "opticalFlowFrom:to:outputFlow [Flow Size %ld x %ld]\n", &v18, 0x16u);
+    _os_log_impl(&dword_24A8C8000, v10, OS_LOG_TYPE_DEFAULT, "opticalFlowFrom:to:outputFlow [Flow Size %ld x %ld]\n", &v17, 0x16u);
   }
 
   intermediateFlow = flow;
@@ -406,22 +404,21 @@ LABEL_58:
   }
 
   self->_firstPair = 0;
-  v16 = *MEMORY[0x277D85DE8];
   return -22000;
 }
 
 - (int64_t)opticalFlowsFrom:(__CVBuffer *)from to:(__CVBuffer *)to forwardFlow:(__CVBuffer *)flow backwardFlow:(__CVBuffer *)backwardFlow
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
     v12 = logger;
-    v19 = 134218240;
+    v18 = 134218240;
     Width = CVPixelBufferGetWidth(flow);
-    v21 = 2048;
+    v20 = 2048;
     Height = CVPixelBufferGetHeight(flow);
-    _os_log_impl(&dword_24A8C8000, v12, OS_LOG_TYPE_DEFAULT, "opticalFlowsFrom:to:forwardFlow:backwardFlow [Flow Size %ld x %ld]\n", &v19, 0x16u);
+    _os_log_impl(&dword_24A8C8000, v12, OS_LOG_TYPE_DEFAULT, "opticalFlowsFrom:to:forwardFlow:backwardFlow [Flow Size %ld x %ld]\n", &v18, 0x16u);
   }
 
   if (!self->_resourcePreAllocated)
@@ -456,13 +453,12 @@ LABEL_58:
   }
 
   self->_firstPair = 0;
-  v17 = *MEMORY[0x277D85DE8];
   return -22000;
 }
 
 - (__CVBuffer)opticalFlowFrom:(__CVBuffer *)from to:(__CVBuffer *)to
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
@@ -470,21 +466,20 @@ LABEL_58:
     v9 = logger;
     flowWidth = [(OpticalFlow *)opticalFlow flowWidth];
     flowHeight = [(OpticalFlow *)self->_opticalFlow flowHeight];
-    v15 = 134218240;
-    v16 = flowWidth;
-    v17 = 2048;
-    v18 = flowHeight;
-    _os_log_impl(&dword_24A8C8000, v9, OS_LOG_TYPE_DEFAULT, "opticalFlowFrom:to: [Flow Size %ld x %ld]\n", &v15, 0x16u);
+    v14 = 134218240;
+    v15 = flowWidth;
+    v16 = 2048;
+    v17 = flowHeight;
+    _os_log_impl(&dword_24A8C8000, v9, OS_LOG_TYPE_DEFAULT, "opticalFlowFrom:to: [Flow Size %ld x %ld]\n", &v14, 0x16u);
   }
 
   v12 = [(FRCOpticalFlowEstimator *)self allocateFlowBufferFullSize:self->_matchFlowDimensions];
   if ([(FRCOpticalFlowEstimator *)self opticalFlowFrom:from to:to flow:v12]!= -22000)
   {
     CVPixelBufferRelease(v12);
-    v12 = 0;
+    return 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -497,16 +492,16 @@ LABEL_58:
 
 - (void)matchFlow:(__CVBuffer *)flow toFullSizeFlow:(__CVBuffer *)sizeFlow
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
     v8 = logger;
-    v16 = 134218240;
+    v15 = 134218240;
     flowWidth = [(FRCOpticalFlowEstimator *)self flowWidth];
-    v18 = 2048;
+    v17 = 2048;
     flowHeight = [(FRCOpticalFlowEstimator *)self flowHeight];
-    _os_log_impl(&dword_24A8C8000, v8, OS_LOG_TYPE_DEFAULT, "Output Flow %ld, %ld", &v16, 0x16u);
+    _os_log_impl(&dword_24A8C8000, v8, OS_LOG_TYPE_DEFAULT, "Output Flow %ld, %ld", &v15, 0x16u);
   }
 
   if (self->_outputPixelFormat == 1278226536)
@@ -536,12 +531,11 @@ LABEL_58:
   v14 = createTexturesFromCVPixelBuffer(sizeFlow, device2, v10, v9);
 
   [(Backwarp *)self->_backwarp upscaleFlow:v12 destination:v14];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)opticalFlowsFrom:(__CVBuffer *)from to:(__CVBuffer *)to
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
@@ -563,12 +557,12 @@ LABEL_58:
   {
     v15 = [FRCFrame alloc];
     *buf = *MEMORY[0x277CC0898];
-    v23 = *buf;
+    v22 = *buf;
     *&buf[16] = *(MEMORY[0x277CC0898] + 16);
     v16 = *&buf[16];
     v17 = [(FRCFrame *)v15 initWithBuffer:PixelBuffer presentationTimeStamp:buf];
     v18 = [FRCFrame alloc];
-    *buf = v23;
+    *buf = v22;
     *&buf[16] = v16;
     v19 = [(FRCFrame *)v18 initWithBuffer:v14 presentationTimeStamp:buf];
     CVPixelBufferRelease(PixelBuffer);
@@ -583,26 +577,24 @@ LABEL_58:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (int64_t)flowAdaptationFrom:(__CVBuffer *)from to:(__CVBuffer *)to inputForwardFlow:(__CVBuffer *)flow inputBackwardFlow:(__CVBuffer *)backwardFlow outputForwardFlow:(__CVBuffer *)forwardFlow outputBackwardFlow:(__CVBuffer *)outputBackwardFlow
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
     log = logger;
     *buf = 134218752;
     Width = CVPixelBufferGetWidth(flow);
-    v25 = 2048;
+    v24 = 2048;
     Height = CVPixelBufferGetHeight(backwardFlow);
-    v27 = 2048;
-    v28 = CVPixelBufferGetWidth(forwardFlow);
-    v29 = 2048;
-    v30 = CVPixelBufferGetHeight(outputBackwardFlow);
+    v26 = 2048;
+    v27 = CVPixelBufferGetWidth(forwardFlow);
+    v28 = 2048;
+    v29 = CVPixelBufferGetHeight(outputBackwardFlow);
     _os_log_impl(&dword_24A8C8000, log, OS_LOG_TYPE_DEFAULT, "flowAdaptationFrom:to:inputForwardFlow:inputBackwardFlow:outputForwardFlow:outputBackwardFlow [inputFlow Size %ld x %ld] [outputFlow Size %ld x %ld]\n", buf, 0x2Au);
   }
 
@@ -638,7 +630,6 @@ LABEL_58:
   }
 
   self->_firstPair = 0;
-  v20 = *MEMORY[0x277D85DE8];
   return -22000;
 }
 

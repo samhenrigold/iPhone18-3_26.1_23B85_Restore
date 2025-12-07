@@ -7,7 +7,6 @@
 + (id)registrationWithIdentifier:(id)identifier contextualPredicate:(id)predicate dismissalPolicy:(id)policy deviceSet:(unint64_t)set clientIdentifier:(id)clientIdentifier mustWake:(BOOL)wake qualityOfService:(unsigned int)service callback:(id)self0;
 + (id)registrationWithIdentifier:(id)identifier contextualPredicate:(id)predicate dismissalPolicy:(id)policy deviceSet:(unint64_t)set mustWake:(BOOL)wake callback:(id)callback;
 - (BOOL)isEqual:(id)equal;
-- (BOOL)isMultiDeviceRegistration;
 - (_CDContextualChangeRegistration)initWithCoder:(id)coder;
 - (_CDContextualChangeRegistration)initWithIdentifier:(id)identifier contextualPredicate:(id)predicate dismissalPolicy:(id)policy deviceSet:(unint64_t)set deviceTypes:(unint64_t)types clientIdentifier:(id)clientIdentifier mustWake:(BOOL)wake callback:(id)self0;
 - (_CDContextualChangeRegistration)initWithIdentifier:(id)identifier contextualPredicate:(id)predicate dismissalPolicy:(id)policy deviceSet:(unint64_t)set deviceTypes:(unint64_t)types clientIdentifier:(id)clientIdentifier mustWake:(BOOL)wake qualityOfService:(unsigned int)self0 informativeCallback:(id)self1;
@@ -17,13 +16,6 @@
 @end
 
 @implementation _CDContextualChangeRegistration
-
-- (BOOL)isMultiDeviceRegistration
-{
-  predicate = self->_predicate;
-  objc_opt_class();
-  return objc_opt_isKindOfClass() & 1;
-}
 
 - (_CDContextualChangeRegistration)initWithIdentifier:(id)identifier contextualPredicate:(id)predicate dismissalPolicy:(id)policy deviceSet:(unint64_t)set deviceTypes:(unint64_t)types clientIdentifier:(id)clientIdentifier mustWake:(BOOL)wake callback:(id)self0
 {
@@ -216,24 +208,23 @@
   deviceSet = self->_deviceSet;
   deviceTypes = self->_deviceTypes;
   clientIdentifier = self->_clientIdentifier;
-  mustWake = self->_mustWake;
   if (informativeCallback)
   {
-    HIDWORD(v16) = self->_qualityOfService;
-    LOBYTE(v16) = self->_mustWake;
-    v13 = [v5 initWithIdentifier:identifier contextualPredicate:predicate dismissalPolicy:dismissalPolicy deviceSet:deviceSet deviceTypes:deviceTypes clientIdentifier:clientIdentifier mustWake:v16 qualityOfService:self->_informativeCallback informativeCallback:?];
+    HIDWORD(v15) = self->_qualityOfService;
+    LOBYTE(v15) = self->_mustWake;
+    v12 = [v5 initWithIdentifier:identifier contextualPredicate:predicate dismissalPolicy:dismissalPolicy deviceSet:deviceSet deviceTypes:deviceTypes clientIdentifier:clientIdentifier mustWake:v15 qualityOfService:self->_informativeCallback informativeCallback:?];
   }
 
   else
   {
-    LOBYTE(v16) = self->_mustWake;
-    v13 = [v5 initWithIdentifier:identifier contextualPredicate:predicate dismissalPolicy:dismissalPolicy deviceSet:deviceSet deviceTypes:deviceTypes clientIdentifier:clientIdentifier mustWake:v16 callback:self->_callback];
+    LOBYTE(v15) = self->_mustWake;
+    v12 = [v5 initWithIdentifier:identifier contextualPredicate:predicate dismissalPolicy:dismissalPolicy deviceSet:deviceSet deviceTypes:deviceTypes clientIdentifier:clientIdentifier mustWake:v15 callback:self->_callback];
   }
 
-  v14 = v13;
-  [v13 setLocationManagerEffectiveBundleID:self->_locationManagerEffectiveBundleID];
-  [v14 setLocationManagerEffectiveBundlePath:self->_locationManagerEffectiveBundlePath];
-  return v14;
+  v13 = v12;
+  [v12 setLocationManagerEffectiveBundleID:self->_locationManagerEffectiveBundleID];
+  [v13 setLocationManagerEffectiveBundlePath:self->_locationManagerEffectiveBundlePath];
+  return v13;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -395,10 +386,9 @@ LABEL_18:
     v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@" (%@)", self->_clientIdentifier];
   }
 
-  deviceTypes = self->_deviceTypes;
-  v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<_CDContextualChangeRegistration%@ %p [%@]%@ (%@ / %X): %@>", v7, self, self->_identifier, v5, v4, deviceTypes, self->_predicate];
+  v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<_CDContextualChangeRegistration%@ %p [%@]%@ (%@ / %X): %@>", v7, self, self->_identifier, v5, v4, self->_deviceTypes, self->_predicate];
 
-  return v9;
+  return v8;
 }
 
 @end

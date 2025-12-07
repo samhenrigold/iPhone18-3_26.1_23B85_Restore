@@ -1,1373 +1,4 @@
-void sub_275FC9724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
-{
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose(&a30, 8);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_275FC9850(uint64_t a1, void *a2)
-{
-  v15 = a2;
-  if (objc_msgSend_lineCount(v15, v3, v4, v5, v6, v7))
-  {
-    *(*(*(a1 + 32) + 8) + 24) = 0;
-  }
-
-  v13 = *(*(a1 + 40) + 8);
-  objc_msgSend_frameBounds(v15, v8, v9, v10, v11, v12);
-  if (v14 >= *(v13 + 24))
-  {
-    v14 = *(v13 + 24);
-  }
-
-  *(*(*(a1 + 40) + 8) + 24) = v14;
-}
-
-void sub_275FC98E8(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
-{
-  v12 = objc_msgSend_i_flowLayoutController(*(a1 + 32), a2, a3, a4, a5, a6);
-  objc_msgSend_layOutFlowsIfNeededOnPage_(v12, v7, v8, v9, v10, v11, *(a1 + 40));
-}
-
-void sub_275FCACD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
-{
-  va_start(va, a14);
-
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-__n128 sub_275FCAD88(__n128 *a1, __n128 *a2)
-{
-  result = a2[3];
-  a1[3] = result;
-  return result;
-}
-
-void sub_275FCAD98(uint64_t a1, void *a2)
-{
-  v25 = a2;
-  v8 = objc_msgSend_anchoredRange(v25, v3, v4, v5, v6, v7);
-  v14 = *(MEMORY[0x277D81490] + 8);
-  if (v8 != *MEMORY[0x277D81490] || v9 != v14)
-  {
-    v16 = *(*(a1 + 32) + 8);
-    v17 = *(v16 + 48);
-    v18 = *(v16 + 56);
-    if (v17 == *MEMORY[0x277D81490] && v18 == v14)
-    {
-      location = objc_msgSend_anchoredRange(v25, v9, v10, v11, v12, v13);
-    }
-
-    else
-    {
-      v28.location = objc_msgSend_anchoredRange(v25, v9, v10, v11, v12, v13);
-      v28.length = v20;
-      v27.location = v17;
-      v27.length = v18;
-      v23 = NSUnionRange(v27, v28);
-      length = v23.length;
-      location = v23.location;
-    }
-
-    v24 = *(*(a1 + 32) + 8);
-    *(v24 + 48) = location;
-    *(v24 + 56) = length;
-  }
-}
-
-uint64_t sub_275FCB39C(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a2;
-  v6 = a3;
-  v7 = v5;
-  v9 = v6;
-  if (v7 != v9)
-  {
-    v14 = objc_msgSend_info(v7, v8, v10, v11, v12, v13);
-    v20 = objc_msgSend_info(v9, v15, v16, v17, v18, v19);
-    v26 = objc_msgSend_sectionTemplateDrawableProvider(*(a1 + 32), v21, v22, v23, v24, v25);
-    v32 = objc_msgSend_sectionTemplateDrawables(v26, v27, v28, v29, v30, v31);
-
-    if (v32)
-    {
-      v38 = objc_msgSend_indexOfObjectIdenticalTo_(v32, v33, v34, v35, v36, v37, v14);
-      v44 = objc_msgSend_indexOfObjectIdenticalTo_(v32, v39, v40, v41, v42, v43, v20);
-      if (v38 != 0x7FFFFFFFFFFFFFFFLL)
-      {
-        if (v44 == 0x7FFFFFFFFFFFFFFFLL)
-        {
-          v86 = -1;
-        }
-
-        else if (v38 < v44)
-        {
-          v86 = -1;
-        }
-
-        else
-        {
-          v86 = v38 > v44;
-        }
-
-        goto LABEL_54;
-      }
-
-      if (v44 != 0x7FFFFFFFFFFFFFFFLL)
-      {
-        v86 = 1;
-LABEL_54:
-
-        goto LABEL_55;
-      }
-    }
-
-    v184 = v20;
-    v185 = v14;
-    v186 = objc_msgSend_drawablesZOrder(*(a1 + 40), v33, v34, v35, v36, v37);
-    v50 = objc_msgSend_zOrderOfDrawable_(v186, v45, v46, v47, v48, v49, v14);
-    v56 = objc_msgSend_zOrderOfDrawable_(v186, v51, v52, v53, v54, v55, v20);
-    v62 = objc_msgSend_info(*(a1 + 32), v57, v58, v59, v60, v61);
-    v68 = objc_msgSend_documentRoot(v62, v63, v64, v65, v66, v67);
-    v74 = objc_msgSend_bodyStorage(v68, v69, v70, v71, v72, v73);
-    v80 = objc_msgSend_zOrderOfDrawable_(v186, v75, v76, v77, v78, v79, v74);
-
-    if (v50 < v80)
-    {
-      if (v56 >= v80)
-      {
-        v86 = -1;
-      }
-
-      else if (v50 < v56)
-      {
-        v86 = -1;
-      }
-
-      else
-      {
-        v86 = v50 > v56;
-      }
-
-      goto LABEL_53;
-    }
-
-    if (v56 < v80)
-    {
-      v86 = 1;
-LABEL_53:
-
-      v20 = v184;
-      v14 = v185;
-      goto LABEL_54;
-    }
-
-    v105 = objc_msgSend_headerFooterProvider(*(a1 + 32), v81, v82, v83, v84, v85);
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v111 = objc_msgSend_headerFooterTypeForStorage_(v105, v106, v107, v108, v109, v110, v185);
-    }
-
-    else
-    {
-      v111 = -1;
-    }
-
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v117 = objc_msgSend_headerFooterTypeForStorage_(v105, v112, v113, v114, v115, v116, v184);
-      v86 = v117;
-      if (!v111)
-      {
-        if (!v117)
-        {
-LABEL_37:
-          v138 = objc_msgSend_headerFragmentIndexForStorage_(v105, v112, v113, v114, v115, v116, v185);
-          v144 = objc_msgSend_headerFragmentIndexForStorage_(v105, v139, v140, v141, v142, v143, v184);
-          v145 = v138 >= v144;
-          v146 = v138 > v144;
-LABEL_38:
-          v147 = v146;
-          if (v145)
-          {
-            v86 = v147;
-          }
-
-          else
-          {
-            v86 = -1;
-          }
-
-          goto LABEL_52;
-        }
-
-        goto LABEL_36;
-      }
-
-      if (!v117)
-      {
-        goto LABEL_51;
-      }
-    }
-
-    else
-    {
-      v86 = -1;
-      if (!v111)
-      {
-LABEL_52:
-
-        goto LABEL_53;
-      }
-    }
-
-    v118 = objc_msgSend_bodyLayout(*(a1 + 32), v112, v113, v114, v115, v116);
-
-    if (v118 != v7)
-    {
-      v124 = objc_msgSend_bodyLayout(*(a1 + 32), v119, v120, v121, v122, v123);
-
-      if (v124 == v9)
-      {
-        goto LABEL_51;
-      }
-
-      v130 = objc_msgSend_footnoteContainerLayout(*(a1 + 32), v125, v126, v127, v128, v129);
-
-      if (v130 != v7)
-      {
-        v136 = objc_msgSend_footnoteContainerLayout(*(a1 + 32), v131, v132, v133, v134, v135);
-
-        if (v136 != v9)
-        {
-          if (v111 == 1)
-          {
-            if (v86 == 1)
-            {
-              goto LABEL_37;
-            }
-
-            goto LABEL_36;
-          }
-
-          if (v86 == 1)
-          {
-            goto LABEL_52;
-          }
-
-          if (v50 != 0x7FFFFFFFFFFFFFFFLL)
-          {
-            if (v56 != 0x7FFFFFFFFFFFFFFFLL)
-            {
-              v145 = v50 >= v56;
-              v146 = v50 > v56;
-              goto LABEL_38;
-            }
-
-            goto LABEL_36;
-          }
-
-          if (v56 == 0x7FFFFFFFFFFFFFFFLL)
-          {
-            v148 = sub_275FCB9A4(v113, v114, v115, v116, v137, v185);
-            v149 = v148;
-            v154 = sub_275FCB9A4(v150, v151, v152, v153, v148, v184);
-            if (v154 || !v149)
-            {
-              if (v149 || !v154)
-              {
-                if (v149 || v154)
-                {
-                  v183 = v105;
-                  v155 = objc_opt_class();
-                  v156 = NSStringFromClass(v155);
-                  v157 = objc_opt_class();
-                  v158 = NSStringFromClass(v157);
-                  v159 = MEMORY[0x277D81150];
-                  v165 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v160, v161, v162, v163, v164, "[TPPaginatedPageLayout p_sortChildLayouts]_block_invoke");
-                  v171 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v166, v167, v168, v169, v170, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageLayout.mm");
-                  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v159, v172, v173, v174, v175, v176, v165, v171, 1875, 0, "Unexpected objects: %{public}@(%{public}p)#%lu and %{public}@(%{public}p)#%lu", v156, v7, 0x7FFFFFFFFFFFFFFFLL, v158, v9, 0x7FFFFFFFFFFFFFFFLL);
-
-                  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v177, v178, v179, v180, v181);
-                  v86 = 0;
-                  v105 = v183;
-                }
-
-                else
-                {
-                  v86 = 0;
-                }
-
-                goto LABEL_52;
-              }
-
-              goto LABEL_51;
-            }
-
-            goto LABEL_36;
-          }
-        }
-
-LABEL_51:
-        v86 = 1;
-        goto LABEL_52;
-      }
-    }
-
-LABEL_36:
-    v86 = -1;
-    goto LABEL_52;
-  }
-
-  v87 = MEMORY[0x277D81150];
-  v88 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, v10, v11, v12, v13, "[TPPaginatedPageLayout p_sortChildLayouts]_block_invoke");
-  v94 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v89, v90, v91, v92, v93, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageLayout.mm");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v87, v95, v96, v97, v98, v99, v88, v94, 1758, 0, "Unexpected layout equality");
-
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v100, v101, v102, v103, v104);
-  v86 = 0;
-LABEL_55:
-
-  return v86;
-}
-
-BOOL sub_275FCB9A4(__n128 a1, __n128 a2, __n128 a3, __n128 a4, uint64_t a5, void *a6)
-{
-  v6 = objc_msgSend_owningAttachmentNoRecurse(a6, a6, a1, a2, a3, a4);
-  v12 = v6;
-  if (v6)
-  {
-    v13 = objc_msgSend_parentStorage(v6, v7, v8, v9, v10, v11);
-    v14 = v13 != 0;
-  }
-
-  else
-  {
-    v14 = 1;
-  }
-
-  return v14;
-}
-
-void sub_275FCCCD8(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  objc_opt_class();
-  v10 = TSUDynamicCast();
-
-  v9 = v10;
-  if (v10)
-  {
-    objc_msgSend_addObject_(*(a1 + 32), v4, v5, v6, v7, v8, v10);
-    v9 = v10;
-  }
-}
-
-void sub_275FCD7E8(_Unwind_Exception *a1)
-{
-  v6 = v4;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_275FCE2CC(uint64_t a1, void *a2)
-{
-  objc_storeStrong((*(a1 + 32) + 64), a2);
-  v9 = a2;
-  objc_msgSend_setSection_(*(*(a1 + 32) + 64), v4, v5, v6, v7, v8);
-}
-
-void sub_275FCE350(uint64_t a1, void *a2)
-{
-  objc_storeStrong((*(a1 + 32) + 72), a2);
-  v9 = a2;
-  objc_msgSend_setSection_(*(*(a1 + 32) + 72), v4, v5, v6, v7, v8);
-}
-
-void sub_275FCE3DC(uint64_t a1, void *a2)
-{
-  objc_storeStrong((*(a1 + 32) + 80), a2);
-  v9 = a2;
-  objc_msgSend_setSection_(*(*(a1 + 32) + 80), v4, v5, v6, v7, v8);
-}
-
-uint64_t sub_275FCE468(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
-{
-  if (*(a1 + 48) <= 0x2CBDB02A3uLL)
-  {
-    objc_msgSend_p_upgradePageSizeAndMarginsFromObsoleteSettings_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 40));
-  }
-
-  v7 = *(a1 + 32);
-
-  return objc_msgSend_p_makeUserGuideStorage(v7, a2, a3, a4, a5, a6);
-}
-
-void sub_275FCE858(uint64_t a1, char *__s)
-{
-  *(a1 + 16) |= 1u;
-  v3 = strlen(__s);
-  if (v3 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    sub_275FB2CD8();
-  }
-
-  v4 = v3;
-  if (v3 >= 0x17)
-  {
-    operator new();
-  }
-
-  v6 = v3;
-  if (v3)
-  {
-    memcpy(&__dst, __s, v3);
-  }
-
-  *(&__dst + v4) = 0;
-  google::protobuf::internal::ArenaStringPtr::Set();
-  if (v6 < 0)
-  {
-    operator delete(__dst);
-  }
-}
-
-void sub_275FCE950(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_275FCF0A4(_Unwind_Exception *a1)
-{
-  v5 = v4;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_275FD08A4(uint64_t a1, void *a2)
-{
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = sub_275FD0944;
-  v8[3] = &unk_27A6A84E0;
-  v9 = *(a1 + 32);
-  objc_msgSend_enumerateObjectsUsingBlock_(a2, v3, v4, v5, v6, v7, v8);
-}
-
-void sub_275FD0958(uint64_t a1, void *a2)
-{
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = sub_275FD09F8;
-  v8[3] = &unk_27A6A84E0;
-  v9 = *(a1 + 32);
-  objc_msgSend_enumerateObjectsUsingBlock_(a2, v3, v4, v5, v6, v7, v8);
-}
-
-void sub_275FD0A0C(uint64_t a1, void *a2)
-{
-  v22 = *MEMORY[0x277D85DE8];
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v3 = a2;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, v5, v6, v7, v8, &v17, v21, 16);
-  if (v10)
-  {
-    v15 = *v18;
-    do
-    {
-      v16 = 0;
-      do
-      {
-        if (*v18 != v15)
-        {
-          objc_enumerationMutation(v3);
-        }
-
-        objc_msgSend_i_addSectionTemplateDrawable_(*(a1 + 32), v9, v11, v12, v13, v14, *(*(&v17 + 1) + 8 * v16++), v17);
-      }
-
-      while (v10 != v16);
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v9, v11, v12, v13, v14, &v17, v21, 16);
-    }
-
-    while (v10);
-  }
-}
-
-void sub_275FD0B28(uint64_t a1)
-{
-  v118 = *MEMORY[0x277D85DE8];
-  objc_opt_class();
-  v7 = objc_msgSend_context(*(a1 + 32), v2, v3, v4, v5, v6);
-  v13 = objc_msgSend_documentObject(v7, v8, v9, v10, v11, v12);
-  v14 = TSUDynamicCast();
-
-  v15 = *(a1 + 40);
-  v21 = objc_msgSend_stylesheet(v14, v16, v17, v18, v19, v20);
-  v27 = objc_msgSend_theme(v14, v22, v23, v24, v25, v26);
-  v33 = objc_msgSend_headerAndFooterStyle(v27, v28, v29, v30, v31, v32);
-  objc_msgSend_i_ensureHeaderFooterStoragesExistWithStylesheet_paragraphStyle_context_(v15, v34, v35, v36, v37, v38, v21, v33, 0);
-
-  v114 = 0u;
-  v115 = 0u;
-  v112 = 0u;
-  v113 = 0u;
-  v43 = objc_msgSend_headerFooterFragmentEnumerator(*(a1 + 40), v39, 0, v40, v41, v42);
-  v50 = objc_msgSend_countByEnumeratingWithState_objects_count_(v43, v44, v45, v46, v47, v48, &v112, v117, 16);
-  if (v50)
-  {
-    v55 = *v113;
-    do
-    {
-      for (i = 0; i != v50; ++i)
-      {
-        if (*v113 != v55)
-        {
-          objc_enumerationMutation(v43);
-        }
-
-        v57 = *(*(&v112 + 1) + 8 * i);
-        if (objc_msgSend_tsp_isInDocument(v57, v49, v51, v52, v53, v54))
-        {
-          objc_msgSend_willBeRemovedFromDocumentRoot_(v57, v49, v51, v52, v53, v54, v14);
-          objc_msgSend_wasRemovedFromDocumentRoot_(v57, v58, v59, v60, v61, v62, v14);
-        }
-      }
-
-      v50 = objc_msgSend_countByEnumeratingWithState_objects_count_(v43, v49, v51, v52, v53, v54, &v112, v117, 16);
-    }
-
-    while (v50);
-  }
-
-  v110 = 0u;
-  v111 = 0u;
-  v108 = 0u;
-  v109 = 0u;
-  v67 = objc_msgSend_sectionTemplateDrawables(*(a1 + 40), v63, 0, v64, v65, v66, 0);
-  v74 = objc_msgSend_countByEnumeratingWithState_objects_count_(v67, v68, v69, v70, v71, v72, &v108, v116, 16);
-  if (v74)
-  {
-    v79 = *v109;
-    do
-    {
-      for (j = 0; j != v74; ++j)
-      {
-        if (*v109 != v79)
-        {
-          objc_enumerationMutation(v67);
-        }
-
-        v81 = *(*(&v108 + 1) + 8 * j);
-        if (objc_msgSend_tsp_isInDocument(v81, v73, v75, v76, v77, v78))
-        {
-          objc_msgSend_willBeRemovedFromDocumentRoot_(v81, v73, v75, v76, v77, v78, v14);
-          objc_msgSend_wasRemovedFromDocumentRoot_(v81, v82, v83, v84, v85, v86, v14);
-        }
-      }
-
-      v74 = objc_msgSend_countByEnumeratingWithState_objects_count_(v67, v73, v75, v76, v77, v78, &v108, v116, 16);
-    }
-
-    while (v74);
-  }
-
-  if (objc_msgSend_tsp_isInDocument(*(a1 + 32), v87, v88, v89, v90, v91))
-  {
-    v97 = objc_msgSend_unarchivingContext(MEMORY[0x277D805F0], v92, v93, v94, v95, v96);
-    objc_msgSend_willBeAddedToDocumentRoot_dolcContext_(*(a1 + 40), v98, v99, v100, v101, v102, v14, v97);
-    objc_msgSend_wasAddedToDocumentRoot_dolcContext_(*(a1 + 40), v103, v104, v105, v106, v107, v14, v97);
-  }
-}
-
-void sub_275FD4678(_Unwind_Exception *a1)
-{
-  v6 = v4;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_275FD478C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
-{
-  a9.super_class = TPTextFlowLayoutController;
-  [(_Unwind_Exception *)&a9 dealloc];
-  _Unwind_Resume(a1);
-}
-
-void sub_275FD6008(uint64_t a1, void *a2)
-{
-  v65 = a2;
-  v8 = objc_msgSend_range(*(a1 + 32), v3, v4, v5, v6, v7);
-  v10 = v9;
-  v15 = objc_msgSend_range(v65, v9, v11, v12, v13, v14);
-  v21.location = v15;
-  v21.length = v16;
-  v22 = *(MEMORY[0x277D81490] + 8);
-  if (v8 != *MEMORY[0x277D81490] || v10 != v22)
-  {
-    if (v15 != *MEMORY[0x277D81490] || v16 != v22)
-    {
-      v67.location = v8;
-      v67.length = v10;
-      v25 = NSUnionRange(v67, v21);
-      objc_msgSend_setRange_(*(a1 + 32), v25.length, v26, v27, v28, v29, v25.location, v25.length);
-      goto LABEL_12;
-    }
-
-    v21.location = v8;
-    v21.length = v10;
-  }
-
-  objc_msgSend_setRange_(*(a1 + 32), v16, v17, v18, v19, v20, v21.location, v21.length);
-LABEL_12:
-  WidowPullsDownFromCharIndex = objc_msgSend_nextWidowPullsDownFromCharIndex(*(a1 + 32), v30, v31, v32, v33, v34);
-  v41 = objc_msgSend_nextWidowPullsDownFromCharIndex(v65, v36, v37, v38, v39, v40);
-  if (WidowPullsDownFromCharIndex <= v41)
-  {
-    objc_msgSend_setNextWidowPullsDownFromCharIndex_(*(a1 + 32), v42, v43, v44, v45, v46, v41);
-  }
-
-  else
-  {
-    objc_msgSend_setNextWidowPullsDownFromCharIndex_(*(a1 + 32), v42, v43, v44, v45, v46, WidowPullsDownFromCharIndex);
-  }
-
-  v52 = *(a1 + 32);
-  v53 = objc_msgSend_lineCount(v65, v47, v48, v49, v50, v51);
-  v59 = objc_msgSend_lineFragmentCount(v52, v54, v55, v56, v57, v58);
-  objc_msgSend_setLineFragmentCount_(v52, v60, v61, v62, v63, v64, v59 + v53);
-}
-
-uint64_t sub_275FD6BA0(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
-{
-  v8[0] = MEMORY[0x277D85DD0];
-  a3.n128_u64[0] = 3221225472;
-  v8[1] = 3221225472;
-  v8[2] = sub_275FD6C18;
-  v8[3] = &unk_27A6A8558;
-  v6 = *(a1 + 32);
-  v8[4] = *(a1 + 40);
-  return objc_msgSend_enumerateIndexesUsingBlock_(v6, a2, a3, a4, a5, a6, v8);
-}
-
-void sub_275FD6C18(uint64_t a1, uint64_t a2)
-{
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
-  objc_msgSend_i_invalidatePageIndex_(WeakRetained, v3, v4, v5, v6, v7, a2);
-}
-
-void sub_275FD7404(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
-  v45 = objc_msgSend_i_pageHintForPageIndex_(WeakRetained, v3, v4, v5, v6, v7, *(a1 + 64));
-
-  if (v45)
-  {
-    v13 = objc_msgSend_flowHints(v45, v8, v9, v10, v11, v12);
-    v19 = objc_msgSend_objectForKeyedSubscript_(v13, v14, v15, v16, v17, v18, *(a1 + 40));
-    v25 = v19;
-    if (v19)
-    {
-      v26 = objc_msgSend_range(v19, v20, v21, v22, v23, v24);
-      v28 = v27;
-      v33 = objc_msgSend_dirtyRangesIntersecting_(*(a1 + 48), v27, v29, v30, v31, v32, v26, v27);
-      if (objc_msgSend_count(v33, v34, v35, v36, v37, v38) || (v44 = *(a1 + 72), v44 == v26) || v44 == &v28[v26])
-      {
-        objc_msgSend_addIndex_(*(a1 + 56), v39, v40, v41, v42, v43, *(a1 + 64));
-      }
-    }
-
-    else
-    {
-      objc_msgSend_addIndex_(*(a1 + 56), v20, v21, v22, v23, v24, *(a1 + 64));
-    }
-  }
-
-  else
-  {
-    objc_msgSend_addIndex_(*(a1 + 56), v8, v9, v10, v11, v12, *(a1 + 64));
-  }
-}
-
-uint64_t sub_275FD7564(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
-{
-  v8[0] = MEMORY[0x277D85DD0];
-  a3.n128_u64[0] = 3221225472;
-  v8[1] = 3221225472;
-  v8[2] = sub_275FD75DC;
-  v8[3] = &unk_27A6A8558;
-  v6 = *(a1 + 32);
-  v8[4] = *(a1 + 40);
-  return objc_msgSend_enumerateIndexesUsingBlock_(v6, a2, a3, a4, a5, a6, v8);
-}
-
-void sub_275FD75DC(uint64_t a1, uint64_t a2)
-{
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
-  objc_msgSend_i_invalidatePageIndex_(WeakRetained, v4, v5, v6, v7, v8, a2);
-
-  v15 = objc_loadWeakRetained((*(a1 + 32) + 8));
-  objc_msgSend_i_rebuildCachedLayoutChildrenFromStartPage_toEndPage_setNeedsLayout_(v15, v9, v10, v11, v12, v13, a2, a2, 1);
-}
-
-void sub_275FD7DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
-{
-  _Block_object_dispose(&a21, 8);
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_275FD7F10(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_275FD7F28()
-{
-  v0 = TSULogCreateCategory();
-  v1 = *MEMORY[0x277D81438];
-  *MEMORY[0x277D81438] = v0;
-}
-
-void sub_275FD7F6C()
-{
-  v0 = TSULogCreateCategory();
-  v1 = *MEMORY[0x277D81438];
-  *MEMORY[0x277D81438] = v0;
-}
-
-void sub_275FD7FB0()
-{
-  v0 = TSULogCreateCategory();
-  v1 = *MEMORY[0x277D81438];
-  *MEMORY[0x277D81438] = v0;
-}
-
-void sub_275FD7FF4(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
-{
-  v7 = objc_msgSend_hintForFlow_pageIndex_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 40), *(a1 + 56));
-  v8 = *(*(a1 + 48) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v7;
-}
-
-uint64_t sub_275FD8838(uint64_t a1, uint64_t a2, void *a3)
-{
-  v5 = a3;
-  v11 = objc_msgSend_indexOfObject_(*(a1 + 32), v6, v7, v8, v9, v10, a2);
-  v17 = objc_msgSend_indexOfObject_(*(a1 + 32), v12, v13, v14, v15, v16, v5);
-  if (v11 < v17)
-  {
-    v18 = -1;
-  }
-
-  else
-  {
-    v18 = v11 > v17;
-  }
-
-  return v18;
-}
-
-id sub_275FD89E8(void *a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
-{
-  v6 = objc_msgSend_context(a1, a2, a3, a4, a5, a6);
-  v12 = objc_msgSend_documentRoot(v6, v7, v8, v9, v10, v11);
-
-  return v12;
-}
-
-void sub_275FD904C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-id sub_275FD9064(uint64_t a1)
-{
-  v3.receiver = *(a1 + 32);
-  v3.super_class = TPThumbnailImager;
-  result = objc_msgSendSuper2(&v3, sel_newImage);
-  *(*(*(a1 + 40) + 8) + 24) = result;
-  return result;
-}
-
-void sub_275FD9EEC(uint64_t a1, const char *a2, double a3, __n128 a4, __n128 a5, __n128 a6)
-{
-  v45 = *MEMORY[0x277D85DE8];
-  v40 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v6 = objc_msgSend_documentRoot(*(a1 + 32), a2, 0, a4, a5, a6);
-  v12 = objc_msgSend_storagesWithChanges(v6, v7, v8, v9, v10, v11);
-
-  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, v14, v15, v16, v17, &v40, v44, 16);
-  if (v18)
-  {
-    v24 = v18;
-    v25 = *v41;
-    do
-    {
-      for (i = 0; i != v24; ++i)
-      {
-        if (*v41 != v25)
-        {
-          objc_enumerationMutation(v12);
-        }
-
-        v27 = *(*(&v40 + 1) + 8 * i);
-        objc_msgSend_settingsDidChangeRequiringLayoutAndRendering(v27, v19, v20, v21, v22, v23);
-        v33 = objc_msgSend_range(v27, v28, v29, v30, v31, v32);
-        v39[0] = MEMORY[0x277D85DD0];
-        v39[1] = 3221225472;
-        v39[2] = sub_275FDA070;
-        v39[3] = &unk_27A6A8620;
-        v39[4] = v27;
-        objc_msgSend_enumerateChangesInRange_usingBlock_(v27, v34, v35, v36, v37, v38, v33, v34, v39);
-      }
-
-      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v19, v20, v21, v22, v23, &v40, v44, 16);
-    }
-
-    while (v24);
-  }
-}
-
-uint64_t sub_275FDA070(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
-{
-  v6 = *(a1 + 32);
-  objc_msgSend_range(v6, a2, a3, a4, a5, a6);
-
-  return MEMORY[0x2821F9670](v6, sel_didChangeRange_delta_broadcastKind_attributeKindChanges_, v7, v8, v9, v10);
-}
-
-uint64_t sub_275FDA9C4(void *a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
-{
-  v6 = objc_msgSend_parent(a1, a2, a3, a4, a5, a6);
-  if (objc_opt_respondsToSelector())
-  {
-    v12 = objc_msgSend_pageIndex(v6, v7, v8, v9, v10, v11);
-  }
-
-  else
-  {
-    v12 = 0xFFFFFFFFLL;
-  }
-
-  return v12;
-}
-
-id sub_275FDAA18(void *a1)
-{
-  v1 = a1;
-  if (v1)
-  {
-    v2 = v1;
-    while (1)
-    {
-      objc_opt_class();
-      v3 = TSUDynamicCast();
-      if (v3)
-      {
-        break;
-      }
-
-      v9 = objc_msgSend_parent(v2, v4, v5, v6, v7, v8);
-
-      v2 = v9;
-      if (!v9)
-      {
-        goto LABEL_8;
-      }
-    }
-
-    v9 = v3;
-LABEL_8:
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  return v9;
-}
-
-id sub_275FDAAA8(void *a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
-{
-  v6 = objc_msgSend_pageLayout(a1, a2, a3, a4, a5, a6);
-  objc_opt_class();
-  v7 = TSUDynamicCast();
-  v13 = objc_msgSend_info(v7, v8, v9, v10, v11, v12);
-
-  objc_opt_class();
-  v19 = objc_msgSend_documentRoot(v13, v14, v15, v16, v17, v18);
-  v20 = TSUDynamicCast();
-
-  v21 = [TPShapeTextWrapController alloc];
-  v27 = objc_msgSend_initWithDocumentRoot_(v21, v22, v23, v24, v25, v26, v20);
-
-  return v27;
-}
-
-id sub_275FDAB74(uint64_t a1, uint64_t a2, void *a3)
-{
-  v3 = a3;
-  v4 = [TPSection alloc];
-  v10 = objc_msgSend_initWithContext_(v4, v5, v6, v7, v8, v9, v3);
-
-  return v10;
-}
-
-id sub_275FDABCC(void *a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
-{
-  v6 = objc_msgSend_context(a1, a2, a3, a4, a5, a6);
-  v12 = objc_msgSend_documentRoot(v6, v7, v8, v9, v10, v11);
-
-  return v12;
-}
-
-id sub_275FDAC18(void *a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
-{
-  v7 = objc_msgSend_context(a1, a2, a3, a4, a5, a6);
-  v13 = objc_msgSend_documentRoot(v7, v8, v9, v10, v11, v12);
-
-  v19 = objc_msgSend_bodyStorage(v13, v14, v15, v16, v17, v18);
-  v25 = objc_msgSend_objectUUIDPath(v19, v20, v21, v22, v23, v24);
-  v31 = objc_msgSend_objectUUID(a1, v26, v27, v28, v29, v30);
-  v37 = objc_msgSend_UUIDPathByAppendingUUID_(v25, v32, v33, v34, v35, v36, v31);
-
-  return v37;
-}
-
-id sub_275FDACC8(void *a1)
-{
-  v70 = *MEMORY[0x277D85DE8];
-  objc_opt_class();
-  v7 = objc_msgSend_pageLayout(a1, v2, v3, v4, v5, v6);
-  v8 = TSUDynamicCast();
-
-  if (v8)
-  {
-    v14 = objc_msgSend_layoutsCausingWrapOnTextLayoutTarget_ignoreIntersection_(v8, v9, v10, v11, v12, v13, a1, 1);
-    if (objc_msgSend_count(v14, v15, v16, v17, v18, v19))
-    {
-      v64 = v8;
-      v25 = objc_msgSend_mutableCopy(v14, v20, v21, v22, v23, v24);
-      v65 = 0u;
-      v66 = 0u;
-      v67 = 0u;
-      v68 = 0u;
-      v26 = v14;
-      v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, v28, v29, v30, v31, &v65, v69, 16);
-      if (v32)
-      {
-        v38 = v32;
-        v39 = *v66;
-        do
-        {
-          for (i = 0; i != v38; ++i)
-          {
-            if (*v66 != v39)
-            {
-              objc_enumerationMutation(v26);
-            }
-
-            v41 = objc_msgSend_parent(*(*(&v65 + 1) + 8 * i), v33, v34, v35, v36, v37, v63);
-            objc_opt_class();
-            v63 = &unk_288510D20;
-            v42 = TSUClassAndProtocolCast();
-
-            if (v42)
-            {
-              do
-              {
-                if (objc_msgSend_tsu_containsObjectIdenticalTo_(v25, v33, v34, v35, v36, v37, v42, &unk_288510D20))
-                {
-                  break;
-                }
-
-                objc_msgSend_addObject_(v25, v43, v44, v45, v46, v47, v42);
-                v53 = objc_msgSend_parent(v42, v48, v49, v50, v51, v52);
-                objc_opt_class();
-                v63 = &unk_288510D20;
-                v54 = TSUClassAndProtocolCast();
-
-                v42 = v54;
-              }
-
-              while (v54);
-            }
-          }
-
-          v38 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v33, v34, v35, v36, v37, &v65, v69, 16);
-        }
-
-        while (v38);
-      }
-
-      v8 = v64;
-    }
-
-    else
-    {
-      v25 = 0;
-    }
-
-    v55 = objc_msgSend_copy(v25, v56, v57, v58, v59, v60, v63);
-  }
-
-  else
-  {
-    v25 = 0;
-    v55 = objc_msgSend_copy(0, v9, v10, v11, v12, v13);
-  }
-
-  v61 = v55;
-
-  return v61;
-}
-
-uint64_t sub_275FDCA74(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  if (a2 < a3)
-  {
-    return -1;
-  }
-
-  else
-  {
-    return a2 > a3;
-  }
-}
-
-void sub_275FDCA84(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = *(a1 + 32);
-  v16 = v3;
-  v10 = objc_msgSend_hash(v3, v5, v6, v7, v8, v9);
-  objc_msgSend_addUnsignedInteger_(v4, v11, v12, v13, v14, v15, v10);
-}
-
-uint64_t sub_275FDCC7C(uint64_t a1, void *a2)
-{
-  v2 = a2;
-  objc_opt_class();
-  v3 = TSUDynamicCast();
-  isLocked = objc_msgSend_isLocked(v3, v4, v5, v6, v7, v8);
-
-  return isLocked ^ 1u;
-}
-
-void sub_275FDD1FC(uint64_t a1, id *a2)
-{
-  v52 = *MEMORY[0x277D85DE8];
-  v47 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v4 = *a2;
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, v6, v7, v8, v9, &v47, v51, 16);
-  v46 = a2;
-  v16 = 0;
-  if (v11)
-  {
-    v17 = *v48;
-    do
-    {
-      for (i = 0; i != v11; ++i)
-      {
-        if (*v48 != v17)
-        {
-          objc_enumerationMutation(v4);
-        }
-
-        v19 = *(*(&v47 + 1) + 8 * i);
-        if (objc_msgSend_isFloatingAboveText(v19, v10, v12, v13, v14, v15) & 1) != 0 || (objc_msgSend_isAttachedToBodyText(v19, v20, v21, v22, v23, v24))
-        {
-          v25 = 0;
-          v26 = 1;
-        }
-
-        else
-        {
-          objc_opt_class();
-          v32 = objc_msgSend_owningAttachmentNoRecurse(v19, v27, v28, v29, v30, v31);
-          v33 = TSUDynamicCast();
-          v25 = objc_msgSend_parentStorage(v33, v34, v35, v36, v37, v38);
-
-          v26 = 0;
-        }
-
-        if (*(a1 + 40) == v26 && v25 == *(a1 + 32))
-        {
-          if (v16)
-          {
-            objc_msgSend_addObject_(v16, v20, v21, v22, v23, v24, v19);
-          }
-
-          else
-          {
-            v39 = objc_alloc(MEMORY[0x277CBEB58]);
-            v16 = objc_msgSend_initWithObjects_(v39, v40, v41, v42, v43, v44, v19, 0);
-          }
-        }
-      }
-
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v10, v12, v13, v14, v15, &v47, v51, 16);
-    }
-
-    while (v11);
-  }
-
-  v45 = *v46;
-  *v46 = v16;
-}
-
-void sub_275FDDA14(void *a1, uint64_t a2, void *a3, void *a4)
-{
-  v15 = a1;
-  v7 = a3;
-  v8 = a4;
-  v9 = objc_opt_class();
-  objc_msgSend_readRepeatedWeakReferenceMessage_class_protocol_completion_(v15, v10, v11, v12, v13, v14, a2, v9, v7, v8);
-}
-
-void sub_275FDDAC0(uint64_t a1, void *a2)
-{
-  v11 = a2;
-  if (v11)
-  {
-    v3 = objc_alloc(MEMORY[0x277CBEB98]);
-    v9 = objc_msgSend_initWithArray_(v3, v4, v5, v6, v7, v8, v11);
-  }
-
-  else
-  {
-    v9 = objc_opt_new();
-  }
-
-  v10 = v9;
-  objc_storeStrong((*(a1 + 32) + 88), v9);
-}
-
-void sub_275FDDB6C(uint64_t a1, void *a2)
-{
-  v11 = a2;
-  if (v11)
-  {
-    v3 = objc_alloc(MEMORY[0x277CBEB98]);
-    v9 = objc_msgSend_initWithArray_(v3, v4, v5, v6, v7, v8, v11);
-  }
-
-  else
-  {
-    v9 = objc_opt_new();
-  }
-
-  v10 = v9;
-  objc_storeStrong((*(a1 + 32) + 96), v9);
-}
-
-void sub_275FDDC18(uint64_t a1, void *a2)
-{
-  v11 = a2;
-  if (v11)
-  {
-    v3 = objc_alloc(MEMORY[0x277CBEB98]);
-    v9 = objc_msgSend_initWithArray_(v3, v4, v5, v6, v7, v8, v11);
-  }
-
-  else
-  {
-    v9 = objc_opt_new();
-  }
-
-  v10 = v9;
-  objc_storeStrong((*(a1 + 32) + 104), v9);
-}
-
-uint64_t sub_275FDDED0(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(v1 + 112);
-  if (!v2)
-  {
-    goto LABEL_6;
-  }
-
-  v3 = *(v1 + 104);
-  v4 = *v2;
-  if (v3 < *v2)
-  {
-    *(v1 + 104) = v3 + 1;
-    goto LABEL_8;
-  }
-
-  if (v4 == *(v1 + 108))
-  {
-LABEL_6:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v1 + 96));
-    v2 = *(v1 + 112);
-    v4 = *v2;
-  }
-
-  *v2 = v4 + 1;
-  v5 = MEMORY[0x277C92D40](*(v1 + 96));
-  v6 = *(v1 + 104);
-  v7 = *(v1 + 112) + 8 * v6;
-  *(v1 + 104) = v6 + 1;
-  *(v7 + 8) = v5;
-LABEL_8:
-
-  return TSPNSRangeCopyToMessage();
-}
-
-void sub_275FDE2D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
-{
-  v11 = v10;
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_275FDE414(uint64_t a1, int a2)
-{
-  if (a2 < 0)
-  {
-    google::protobuf::internal::LogMessage::LogMessage();
-    google::protobuf::internal::LogMessage::operator<<();
-    google::protobuf::internal::LogFinisher::operator=();
-    google::protobuf::internal::LogMessage::~LogMessage(v5);
-  }
-
-  if (*(a1 + 8) <= a2)
-  {
-    google::protobuf::internal::LogMessage::LogMessage();
-    google::protobuf::internal::LogMessage::operator<<();
-    google::protobuf::internal::LogFinisher::operator=();
-    google::protobuf::internal::LogMessage::~LogMessage(v5);
-  }
-
-  return *(*(a1 + 16) + 8 * a2 + 8);
-}
-
-void sub_275FDE4D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  google::protobuf::internal::LogMessage::~LogMessage(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_275FDE79C(void *a1, uint64_t a2, void *a3, void *a4)
-{
-  v15 = a1;
-  v7 = a3;
-  v8 = a4;
-  v9 = objc_opt_class();
-  objc_msgSend_readRepeatedReferenceMessage_class_protocol_completion_(v15, v10, v11, v12, v13, v14, a2, v9, v7, v8);
-}
-
-void sub_275FDE848(uint64_t a1, void *a2)
-{
-  v45 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = objc_alloc(MEMORY[0x277CBEB18]);
-  v10 = objc_msgSend_initWithCapacity_(v4, v5, v6, v7, v8, v9, *(a1 + 40));
-  v11 = *(a1 + 32);
-  v12 = *(v11 + 64);
-  *(v11 + 64) = v10;
-
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v13 = v3;
-  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, v15, v16, v17, v18, &v40, v44, 16);
-  if (v19)
-  {
-    v20 = *v41;
-    do
-    {
-      v21 = 0;
-      do
-      {
-        if (*v41 != v20)
-        {
-          objc_enumerationMutation(v13);
-        }
-
-        v22 = *(*(&v40 + 1) + 8 * v21);
-        objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) != 0 && (v28 = objc_opt_class(), objc_msgSend_canPartitionInline(v28, v29, v30, v31, v32, v33, v40)) && (objc_msgSend_isFloatingAboveText(v22, v23, v24, v25, v26, v27) & 1) == 0)
-        {
-          objc_msgSend_willModifyForUpgrade(*(a1 + 32), v23, v24, v25, v26, v27);
-        }
-
-        else
-        {
-          objc_msgSend_addObject_(*(*(a1 + 32) + 64), v23, v24, v25, v26, v27, v22, v40);
-        }
-
-        ++v21;
-      }
-
-      while (v19 != v21);
-      v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v34, v35, v36, v37, v38, &v40, v44, 16);
-      v19 = v39;
-    }
-
-    while (v39);
-  }
-}
-
-void sub_275FDE9FC(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
-{
-  v59 = objc_msgSend_documentRoot(*(a1 + 32), a2, a3, a4, a5, a6);
-  v12 = objc_msgSend_settings(v59, v7, v8, v9, v10, v11);
-  hasBody = objc_msgSend_hasBody(v12, v13, v14, v15, v16, v17);
-
-  if ((hasBody & 1) == 0)
-  {
-    v24 = objc_msgSend_bodyStorage(v59, v19, v20, v21, v22, v23);
-    v30 = objc_msgSend_indexOfObject_(*(*(a1 + 32) + 64), v25, v26, v27, v28, v29, v24);
-    if (v30)
-    {
-      if (v30 == 0x7FFFFFFFFFFFFFFFLL)
-      {
-        v36 = MEMORY[0x277D81150];
-        v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v31, v32, v33, v34, v35, "[TPDrawablesZOrder loadFromUnarchiver:]_block_invoke_2");
-        v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, v39, v40, v41, v42, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDrawablesZOrder.mm");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v36, v44, v45, v46, v47, v48, v37, v43, 97, 0, "Failed to find body storage in Z-order");
-
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v49, v50, v51, v52, v53);
-      }
-
-      else
-      {
-        objc_msgSend_willModifyForUpgrade(*(a1 + 32), v31, v32, v33, v34, v35);
-        objc_msgSend_moveDrawable_toZOrder_(*(a1 + 32), v54, v55, v56, v57, v58, v24, 0);
-      }
-    }
-  }
-}
-
-void sub_275FDF8A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void **a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24)
+void sub_275FDF8A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, char *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24)
 {
   a13 = &a24;
   sub_275FDFB98(&a13);
@@ -1375,7 +6,7 @@ void sub_275FDF8A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *sub_275FDF91C(void *result, unint64_t a2)
+uint64_t *sub_275FDF91C(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 4)
   {
@@ -1390,14 +21,14 @@ void *sub_275FDF91C(void *result, unint64_t a2)
   return result;
 }
 
-void sub_275FDF9C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_275FDF9C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_275FDFD1C(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_275FDF9D8(uint64_t *a1, uint64_t a2, uint64_t a3)
+void **sub_275FDF9D8(uint64_t *a1, void **a2, uint64_t a3)
 {
   v4 = a2;
   v7 = a1[1];
@@ -1456,17 +87,17 @@ uint64_t sub_275FDF9D8(uint64_t *a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    sub_275FDFD70(a1, a2, a1[1], a2 + 16);
+    sub_275FDFD70(a1, a2, a1[1], (a2 + 2));
     objc_storeStrong(v4, *a3);
-    *(v4 + 8) = *(a3 + 8);
+    v4[1] = *(a3 + 8);
   }
 
   return v4;
 }
 
-void sub_275FDFB04(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_275FDFB04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_275FDFD1C(va);
   _Unwind_Resume(a1);
 }
@@ -1685,32 +316,32 @@ uint64_t sub_275FE008C(int a1, uint64_t a2, uint64_t a3, id *location)
 
 void sub_275FE08F0(uint64_t a1, void *a2)
 {
-  v21 = a2;
-  v9 = objc_msgSend_null(MEMORY[0x277CBEB68], v3, v4, v5, v6, v7);
-  if (v9 == v21)
+  v32 = a2;
+  v17 = objc_msgSend_null(MEMORY[0x277CBEB68], v3, v8, v9, v10, v11, v4, v5, v6, v7);
+  if (v17 == v32)
   {
-    v14 = objc_msgSend_null(MEMORY[0x277CBEB68], v8, v10, v11, v12, v13);
+    v22 = objc_msgSend_null(MEMORY[0x277CBEB68], v12, v18, v19, v20, v21, v13, v14, v15, v16);
   }
 
   else
   {
-    v14 = objc_msgSend_copyForArchiving(v21, v8, v10, v11, v12, v13);
+    v22 = objc_msgSend_copyForArchiving(v32, v12, v18, v19, v20, v21, v13, v14, v15, v16);
   }
 
-  v15 = v14;
+  v23 = v22;
 
-  objc_msgSend_addObject_(*(a1 + 32), v16, v17, v18, v19, v20, v15);
+  objc_msgSend_addObject_(*(a1 + 32), v24, v28, v29, v30, v31, v23, v25, v26, v27);
 }
 
 void sub_275FE39FC(uint64_t a1, void *a2)
 {
-  v26 = a2;
-  if (objc_msgSend_isPartitioned(v26, v3, v4, v5, v6, v7))
+  v41 = a2;
+  if (objc_msgSend_isPartitioned(v41, v3, v8, v9, v10, v11, v4, v5, v6, v7))
   {
-    v13 = *(a1 + 32);
-    v14 = objc_msgSend_drawable(v26, v8, v9, v10, v11, v12);
-    v20 = objc_msgSend_objectUUID(v14, v15, v16, v17, v18, v19);
-    objc_msgSend_addObject_(v13, v21, v22, v23, v24, v25, v20);
+    v21 = *(a1 + 32);
+    v22 = objc_msgSend_drawable(v41, v12, v17, v18, v19, v20, v13, v14, v15, v16);
+    v32 = objc_msgSend_objectUUID(v22, v23, v28, v29, v30, v31, v24, v25, v26, v27);
+    objc_msgSend_addObject_(v21, v33, v37, v38, v39, v40, v32, v34, v35, v36);
   }
 }
 
@@ -1725,49 +356,49 @@ void sub_275FE451C(void *a1, uint64_t a2, void *a3, void *a4)
 
 void sub_275FE45C8(uint64_t a1, void *a2)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x277CBEB18];
-  v10 = objc_msgSend_count(v3, v5, v6, v7, v8, v9);
-  v16 = objc_msgSend_arrayWithCapacity_(v4, v11, v12, v13, v14, v15, v10);
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v17 = v3;
-  v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, v19, v20, v21, v22, &v42, v46, 16);
-  if (v24)
+  v14 = objc_msgSend_count(v3, v5, v10, v11, v12, v13, v6, v7, v8, v9);
+  v23 = objc_msgSend_arrayWithCapacity_(v4, v15, v19, v20, v21, v22, v14, v16, v17, v18);
+  v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
+  v24 = v3;
+  v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, v27, v28, v29, v30, &v61, v65, 16, v26);
+  if (v36)
   {
-    v29 = *v43;
+    v41 = *v62;
     do
     {
-      v30 = 0;
+      v42 = 0;
       do
       {
-        if (*v43 != v29)
+        if (*v62 != v41)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v24);
         }
 
-        v32 = objc_msgSend_hint(*(*(&v42 + 1) + 8 * v30), v23, v25, v26, v27, v28, v42);
-        if (!v32)
+        v48 = objc_msgSend_hint(*(*(&v61 + 1) + 8 * v42), v31, v37, v38, v39, v40, v32, v33, v34, v35, v61);
+        if (!v48)
         {
-          v32 = objc_msgSend_null(MEMORY[0x277CBEB68], v31, v33, v34, v35, v36);
+          v48 = objc_msgSend_null(MEMORY[0x277CBEB68], v43, v49, v50, v51, v52, v44, v45, v46, v47);
         }
 
-        objc_msgSend_addObject_(v16, v31, v33, v34, v35, v36, v32);
+        objc_msgSend_addObject_(v23, v43, v49, v50, v51, v52, v48, v45, v46, v47);
 
-        ++v30;
+        ++v42;
       }
 
-      while (v24 != v30);
-      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v23, v25, v26, v27, v28, &v42, v46, 16);
+      while (v36 != v42);
+      v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v31, v37, v38, v39, v40, &v61, v65, 16, v35);
     }
 
-    while (v24);
+    while (v36);
   }
 
-  objc_msgSend_setChildHints_(*(a1 + 32), v37, v38, v39, v40, v41, v16);
+  objc_msgSend_setChildHints_(*(a1 + 32), v53, v57, v58, v59, v60, v23, v54, v55, v56);
 }
 
 void sub_275FE4778(void *a1, uint64_t a2, void *a3)
@@ -1780,36 +411,36 @@ void sub_275FE4778(void *a1, uint64_t a2, void *a3)
 
 void sub_275FE4808(uint64_t a1, void *a2)
 {
-  v64 = a2;
+  v95 = a2;
   v3 = objc_alloc(MEMORY[0x277D81278]);
-  v9 = objc_msgSend_count(v64, v4, v5, v6, v7, v8);
-  v15 = objc_msgSend_initWithCapacity_(v3, v10, v11, v12, v13, v14, v9);
-  v16 = objc_alloc(MEMORY[0x277D81278]);
-  v22 = objc_msgSend_count(v64, v17, v18, v19, v20, v21);
-  v28 = objc_msgSend_initWithCapacity_(v16, v23, v24, v25, v26, v27, v22);
-  v34 = objc_msgSend_count(v64, v29, v30, v31, v32, v33);
-  if (*(a1 + 56) == v34)
+  v13 = objc_msgSend_count(v95, v4, v9, v10, v11, v12, v5, v6, v7, v8);
+  v22 = objc_msgSend_initWithCapacity_(v3, v14, v18, v19, v20, v21, v13, v15, v16, v17);
+  v23 = objc_alloc(MEMORY[0x277D81278]);
+  v33 = objc_msgSend_count(v95, v24, v29, v30, v31, v32, v25, v26, v27, v28);
+  v42 = objc_msgSend_initWithCapacity_(v23, v34, v38, v39, v40, v41, v33, v35, v36, v37);
+  v52 = objc_msgSend_count(v95, v43, v48, v49, v50, v51, v44, v45, v46, v47);
+  if (*(a1 + 56) == v52)
   {
-    if (v34 >= 1)
+    if (v52 >= 1)
     {
-      v40 = 0;
+      v61 = 0;
       do
       {
-        v41 = objc_msgSend_objectAtIndexedSubscript_(v64, v35, v36, v37, v38, v39, v40);
-        v47 = objc_msgSend_objectAtIndexedSubscript_(*(a1 + 32), v42, v43, v44, v45, v46, v40);
-        objc_msgSend_setObject_forUncopiedKey_(v15, v48, v49, v50, v51, v52, v47, v41);
+        v62 = objc_msgSend_objectAtIndexedSubscript_(v95, v53, v57, v58, v59, v60, v61, v54, v55, v56);
+        v71 = objc_msgSend_objectAtIndexedSubscript_(*(a1 + 32), v63, v67, v68, v69, v70, v61, v64, v65, v66);
+        objc_msgSend_setObject_forUncopiedKey_(v22, v72, v75, v76, v77, v78, v71, v62, v73, v74);
 
-        v58 = objc_msgSend_objectAtIndexedSubscript_(*(a1 + 40), v53, v54, v55, v56, v57, v40);
-        objc_msgSend_setObject_forUncopiedKey_(v28, v59, v60, v61, v62, v63, v58, v41);
+        v87 = objc_msgSend_objectAtIndexedSubscript_(*(a1 + 40), v79, v83, v84, v85, v86, v61, v80, v81, v82);
+        objc_msgSend_setObject_forUncopiedKey_(v42, v88, v91, v92, v93, v94, v87, v62, v89, v90);
 
-        ++v40;
+        ++v61;
       }
 
-      while (v40 < *(a1 + 56));
+      while (v61 < *(a1 + 56));
     }
 
-    objc_storeStrong((*(a1 + 48) + 40), v15);
-    objc_storeStrong((*(a1 + 48) + 112), v28);
+    objc_storeStrong((*(a1 + 48) + 40), v22);
+    objc_storeStrong((*(a1 + 48) + 112), v42);
   }
 
   else
@@ -1822,76 +453,76 @@ void sub_275FE57BC(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v31 = v5;
-  objc_msgSend_CGPointValue(v6, v7, v8, v9, v10, v11);
-  v17 = v13.n128_u64[0];
-  v18 = v14.n128_u64[0];
-  v19 = *(a1 + 40);
-  v20 = *(v19 + 64);
-  if (!v20)
+  v37 = v5;
+  objc_msgSend_CGPointValue(v6, v7, v12, v13, v14, v15, v8, v9, v10, v11);
+  v23 = v19.n128_u64[0];
+  v24 = v20.n128_u64[0];
+  v25 = *(a1 + 40);
+  v26 = *(v25 + 64);
+  if (!v26)
   {
     goto LABEL_6;
   }
 
-  v21 = *(v19 + 56);
-  v22 = *v20;
-  if (v21 < *v20)
+  v27 = *(v25 + 56);
+  v28 = *v26;
+  if (v27 < *v26)
   {
-    *(v19 + 56) = v21 + 1;
-    v23 = *&v20[2 * v21 + 2];
+    *(v25 + 56) = v27 + 1;
+    v29 = *&v26[2 * v27 + 2];
     goto LABEL_8;
   }
 
-  if (v22 == *(v19 + 60))
+  if (v28 == *(v25 + 60))
   {
 LABEL_6:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v19 + 48));
-    v20 = *(v19 + 64);
-    v22 = *v20;
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v25 + 48));
+    v26 = *(v25 + 64);
+    v28 = *v26;
   }
 
-  *v20 = v22 + 1;
-  v23 = sub_275FAF648(*(v19 + 48));
-  v24 = *(v19 + 56);
-  v25 = *(v19 + 64) + 8 * v24;
-  *(v19 + 56) = v24 + 1;
-  *(v25 + 8) = v23;
+  *v26 = v28 + 1;
+  v29 = sub_275FAF648(*(v25 + 48));
+  v30 = *(v25 + 56);
+  v31 = *(v25 + 64) + 8 * v30;
+  *(v25 + 56) = v30 + 1;
+  *(v31 + 8) = v29;
 LABEL_8:
-  *(v23 + 16) |= 8u;
-  v26 = *(v23 + 48);
-  if (!v26)
+  *(v29 + 16) |= 8u;
+  v32 = *(v29 + 48);
+  if (!v32)
   {
-    v27 = *(v23 + 8);
-    if (v27)
+    v33 = *(v29 + 8);
+    if (v33)
     {
-      v27 = *(v27 & 0xFFFFFFFFFFFFFFFELL);
+      v33 = *(v33 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v26 = sub_275FAF560(v27);
-    *(v23 + 48) = v26;
+    v32 = sub_275FAF560(v33);
+    *(v29 + 48) = v32;
   }
 
-  *(v26 + 16) |= 1u;
-  *(v23 + 16) |= 8u;
-  *(v26 + 16) |= 2u;
-  *(v26 + 24) = v17;
-  *(v26 + 32) = v18;
-  v28 = *(a1 + 32);
-  *(v23 + 16) |= 4u;
-  v29 = *(v23 + 40);
-  if (!v29)
+  *(v32 + 16) |= 1u;
+  *(v29 + 16) |= 8u;
+  *(v32 + 16) |= 2u;
+  *(v32 + 24) = v23;
+  *(v32 + 32) = v24;
+  v34 = *(a1 + 32);
+  *(v29 + 16) |= 4u;
+  v35 = *(v29 + 40);
+  if (!v35)
   {
-    v30 = *(v23 + 8);
-    if (v30)
+    v36 = *(v29 + 8);
+    if (v36)
     {
-      v30 = *(v30 & 0xFFFFFFFFFFFFFFFELL);
+      v36 = *(v36 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v29 = MEMORY[0x277C92D50](v30);
-    *(v23 + 40) = v29;
+    v35 = MEMORY[0x277C92D50](v36);
+    *(v29 + 40) = v35;
   }
 
-  objc_msgSend_setWeakReferenceToObjectUUIDPath_message_(v28, v12, v13, v14, v15, v16, v31, v29);
+  objc_msgSend_setWeakReferenceToObjectUUIDPath_message_(v34, v16, v19, v20, v21, v22, v37, v35, v17, v18);
 }
 
 void sub_275FE6AFC(uint64_t a1, void *a2)
@@ -1899,30 +530,30 @@ void sub_275FE6AFC(uint64_t a1, void *a2)
   v3 = a2;
   if (v3)
   {
-    v15 = v3;
-    v9 = objc_msgSend_entryForListStyle(*(a1 + 32), v4, v5, v6, v7, v8);
-    objc_msgSend_setObject_forKey_(v9, v10, v11, v12, v13, v14, *(a1 + 40), v15);
+    v21 = v3;
+    v13 = objc_msgSend_entryForListStyle(*(a1 + 32), v4, v9, v10, v11, v12, v5, v6, v7, v8);
+    objc_msgSend_setObject_forKey_(v13, v14, v17, v18, v19, v20, *(a1 + 40), v21, v15, v16);
 
-    v3 = v15;
+    v3 = v21;
   }
 }
 
 void sub_275FE77B4()
 {
   v0 = objc_alloc(MEMORY[0x277D80AB8]);
-  v13 = objc_msgSend_numberFormatWithFormatType_decimalPlaces_showThousandsSeparator_(MEMORY[0x277D80048], v1, v2, v3, v4, v5, 258, 0, 1);
-  v11 = objc_msgSend_initWithPropertiesAndValues_(v0, v6, v7, v8, v9, v10, 1350, 0, 1349, 1, 1287, 0, 1272, 1, 1264, 1, 1286, 0, 1284, 0, 1270, 1, 1481, 0, 1466, 0, 1431, 0, 1469, 0, 1484, 1, 1433, v13, 1435, 4, 1472, 0, 1474, 0, 0);
-  v12 = qword_280A404C0;
-  qword_280A404C0 = v11;
+  v17 = objc_msgSend_numberFormatWithFormatType_decimalPlaces_showThousandsSeparator_(MEMORY[0x277D80048], v1, v3, v4, v5, v6, 258, 0, 1, v2);
+  v15 = objc_msgSend_initWithPropertiesAndValues_(v0, v7, v11, v12, v13, v14, 1350, v8, v9, v10, 0, 1349, 1, 1287, 0, 1272, 1, 1264, 1, 1286, 0, 1284, 0, 1270, 1, 1481, 0, 1466, 0, 1431, 0, 1469, 0, 1484, 1, 1433, v17, 1435, 4, 1472, 0, 1474, 0, 0);
+  v16 = qword_280A404C0;
+  qword_280A404C0 = v15;
 }
 
 uint64_t sub_275FE7EB0(void *a1, void *a2)
 {
   v3 = a1;
-  v5 = a2;
-  if (v3 | v5)
+  v8 = a2;
+  if (v3 | v8)
   {
-    isEqual = objc_msgSend_isEqual_(v3, v4, v6, v7, v8, v9, v5);
+    isEqual = objc_msgSend_isEqual_(v3, v4, v9, v10, v11, v12, v8, v5, v6, v7);
   }
 
   else
@@ -1937,7 +568,7 @@ uint64_t sub_275FE7F28(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
-  v10 = v4;
+  v13 = v4;
   if (v3 == v4)
   {
     isEqualToString = 1;
@@ -1948,7 +579,7 @@ uint64_t sub_275FE7F28(void *a1, void *a2)
     isEqualToString = 0;
     if (v3 && v4)
     {
-      isEqualToString = objc_msgSend_isEqualToString_(v3, v5, v6, v7, v8, v9, v4);
+      isEqualToString = objc_msgSend_isEqualToString_(v3, v5, v9, v10, v11, v12, v4, v6, v7, v8);
     }
   }
 
@@ -1982,64 +613,64 @@ void sub_275FE8E38(void *a1, uint64_t a2, void *a3, void *a4)
 
 void sub_275FE8EF4(uint64_t a1)
 {
-  v44[2] = *MEMORY[0x277D85DE8];
+  v64[2] = *MEMORY[0x277D85DE8];
   objc_opt_class();
   v2 = TSUDynamicCast();
   objc_opt_class();
-  v8 = objc_msgSend_selection(*(*(*(a1 + 56) + 8) + 40), v3, v4, v5, v6, v7);
-  v9 = TSUDynamicCast();
+  v12 = objc_msgSend_selection(*(*(*(a1 + 56) + 8) + 40), v3, v8, v9, v10, v11, v4, v5, v6, v7);
+  v13 = TSUDynamicCast();
 
   if (v2)
   {
-    if (objc_msgSend_wpKind(v2, v10, v11, v12, v13, v14))
+    if (objc_msgSend_wpKind(v2, v14, v19, v20, v21, v22, v15, v16, v17, v18))
     {
-      v15 = 1;
+      v23 = 1;
     }
 
     else
     {
-      v15 = v9 == 0;
+      v23 = v13 == 0;
     }
 
-    if (!v15)
+    if (!v23)
     {
-      v16 = objc_alloc(MEMORY[0x277D80670]);
-      v22 = objc_msgSend_tsck_documentRoot(*(a1 + 32), v17, v18, v19, v20, v21);
-      v28 = objc_msgSend_initWithDocumentRoot_(v16, v23, v24, v25, v26, v27, v22);
+      v24 = objc_alloc(MEMORY[0x277D80670]);
+      v34 = objc_msgSend_tsck_documentRoot(*(a1 + 32), v25, v30, v31, v32, v33, v26, v27, v28, v29);
+      v43 = objc_msgSend_initWithDocumentRoot_(v24, v35, v39, v40, v41, v42, v34, v36, v37, v38);
 
-      v29 = MEMORY[0x277D806C8];
-      v44[0] = v28;
-      v44[1] = v9;
-      v35 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v30, v31, v32, v33, v34, v44, 2);
-      v41 = objc_msgSend_selectionPathWithSelectionArray_(v29, v36, v37, v38, v39, v40, v35);
-      v42 = *(a1 + 40);
-      v43 = *(v42 + 120);
-      *(v42 + 120) = v41;
+      v44 = MEMORY[0x277D806C8];
+      v64[0] = v43;
+      v64[1] = v13;
+      v52 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v45, v48, v49, v50, v51, v64, 2, v46, v47);
+      v61 = objc_msgSend_selectionPathWithSelectionArray_(v44, v53, v57, v58, v59, v60, v52, v54, v55, v56);
+      v62 = *(a1 + 40);
+      v63 = *(v62 + 120);
+      *(v62 + 120) = v61;
     }
   }
 }
 
 void sub_275FE90B8(uint64_t a1, void *a2)
 {
-  v30 = a2;
-  v8 = *(*(a1 + 32) + 128);
-  if (v8)
+  v43 = a2;
+  v12 = *(*(a1 + 32) + 128);
+  if (v12)
   {
-    v9 = objc_msgSend_mutableCopy(v8, v3, v4, v5, v6, v7);
-    objc_msgSend_setObject_forKeyedSubscript_(v9, v10, v11, v12, v13, v14, *(a1 + 40), v30);
-    v20 = objc_msgSend_copy(v9, v15, v16, v17, v18, v19);
-    v21 = *(a1 + 32);
-    v22 = *(v21 + 128);
-    *(v21 + 128) = v20;
+    v13 = objc_msgSend_mutableCopy(v12, v3, v8, v9, v10, v11, v4, v5, v6, v7);
+    objc_msgSend_setObject_forKeyedSubscript_(v13, v14, v17, v18, v19, v20, *(a1 + 40), v43, v15, v16);
+    v30 = objc_msgSend_copy(v13, v21, v26, v27, v28, v29, v22, v23, v24, v25);
+    v31 = *(a1 + 32);
+    v32 = *(v31 + 128);
+    *(v31 + 128) = v30;
   }
 
   else
   {
-    v23 = objc_alloc(MEMORY[0x277CBEAC0]);
-    v28 = objc_msgSend_initWithObjectsAndKeys_(v23, v30, v24, v25, v26, v27, *(a1 + 40), v30, 0);
-    v29 = *(a1 + 32);
-    v9 = *(v29 + 128);
-    *(v29 + 128) = v28;
+    v33 = objc_alloc(MEMORY[0x277CBEAC0]);
+    v41 = objc_msgSend_initWithObjectsAndKeys_(v33, v43, v37, v38, v39, v40, *(a1 + 40), v34, v35, v36, v43, 0);
+    v42 = *(a1 + 32);
+    v13 = *(v42 + 128);
+    *(v42 + 128) = v41;
   }
 }
 
@@ -2056,21 +687,21 @@ void sub_275FE9194(uint64_t a1, void *a2)
 void sub_275FE9214(uint64_t a1)
 {
   v2 = objc_alloc(MEMORY[0x277D80270]);
-  v8 = objc_msgSend_initWithContext_(v2, v3, v4, v5, v6, v7, *(a1 + 40));
-  v9 = *(a1 + 32);
-  v10 = *(v9 + 176);
-  *(v9 + 176) = v8;
+  v11 = objc_msgSend_initWithContext_(v2, v3, v7, v8, v9, v10, *(a1 + 40), v4, v5, v6);
+  v12 = *(a1 + 32);
+  v13 = *(v12 + 176);
+  *(v12 + 176) = v11;
 }
 
 void sub_275FE9270(uint64_t a1)
 {
   v2 = objc_alloc(MEMORY[0x277D806B8]);
   v3 = *(a1 + 40);
-  v17 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v4, v5, v6, v7, v8);
-  v14 = objc_msgSend_initWithContext_userDefaults_(v2, v9, v10, v11, v12, v13, v3);
-  v15 = *(a1 + 32);
-  v16 = *(v15 + 184);
-  *(v15 + 184) = v14;
+  v23 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v4, v9, v10, v11, v12, v5, v6, v7, v8);
+  v20 = objc_msgSend_initWithContext_userDefaults_(v2, v13, v16, v17, v18, v19, v3, v23, v14, v15);
+  v21 = *(a1 + 32);
+  v22 = *(v21 + 184);
+  *(v21 + 184) = v20;
 }
 
 void sub_275FE9AFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27)
@@ -2099,56 +730,56 @@ void sub_275FEB034(_Unwind_Exception *a1)
 
 void sub_275FEB084(uint64_t a1, void *a2)
 {
-  v45 = a2;
-  v9 = objc_msgSend_count(v45, v3, v4, v5, v6, v7);
-  v14 = *(a1 + 40);
-  if (*(a1 + 44) + v14 != v9)
+  v59 = a2;
+  v16 = objc_msgSend_count(v59, v3, v8, v9, v10, v11, v4, v5, v6, v7);
+  v21 = *(a1 + 40);
+  if (*(a1 + 44) + v21 != v16)
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, v10, v11, v12, v13, "[TPSectionTemplatePage loadFromUnarchiver:]_block_invoke");
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, v18, v19, v20, v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionTemplatePage.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v23, v24, v25, v26, v27, v16, v22, 208, 0, "Header/footer object count (%d) differes from header count (%d) + footer count (%d)", v9, *(a1 + 40), *(a1 + 44));
+    v22 = MEMORY[0x277D81150];
+    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v17, v18, v19, v20, "[TPSectionTemplatePage loadFromUnarchiver:]_block_invoke", v13, v14, v15);
+    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, v28, v29, v30, v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionTemplatePage.mm", v25, v26, v27);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v33, v34, v35, v36, v37, v23, v32, 208, 0, "Header/footer object count (%d) differes from header count (%d) + footer count (%d)", v16, *(a1 + 40), *(a1 + 44));
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29, v30, v31, v32);
-    v14 = *(a1 + 40);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v38, v43, v44, v45, v46, v39, v40, v41, v42);
+    v21 = *(a1 + 40);
   }
 
-  if (v14 < 1 || v9 < 1)
+  if (v21 < 1 || v16 < 1)
   {
-    LODWORD(v34) = 0;
+    LODWORD(v48) = 0;
   }
 
   else
   {
-    v34 = 0;
+    v48 = 0;
     do
     {
-      v35 = objc_msgSend_objectAtIndexedSubscript_(v45, v8, v10, v11, v12, v13, v34);
-      v36 = *(a1 + 32) + 80;
-      v37 = *(v36 + 8 * v34);
-      *(v36 + 8 * v34) = v35;
+      v49 = objc_msgSend_objectAtIndexedSubscript_(v59, v12, v17, v18, v19, v20, v48, v13, v14, v15);
+      v50 = *(a1 + 32) + 80;
+      v51 = *(v50 + 8 * v48);
+      *(v50 + 8 * v48) = v49;
     }
 
-    while (++v34 < *(a1 + 40) && v34 < (v9 & 0x7FFFFFFF));
+    while (++v48 < *(a1 + 40) && v48 < (v16 & 0x7FFFFFFF));
   }
 
-  if (*(a1 + 44) >= 1 && v34 < v9)
+  if (*(a1 + 44) >= 1 && v48 < v16)
   {
-    v34 = v34;
-    v39 = 3;
+    v48 = v48;
+    v53 = 3;
     do
     {
-      v40 = objc_msgSend_objectAtIndexedSubscript_(v45, v8, v10, v11, v12, v13, v34);
-      v41 = *(a1 + 32) + 80;
-      v42 = *(v41 + 8 * v39);
-      *(v41 + 8 * v39) = v40;
+      v54 = objc_msgSend_objectAtIndexedSubscript_(v59, v12, v17, v18, v19, v20, v48, v13, v14, v15);
+      v55 = *(a1 + 32) + 80;
+      v56 = *(v55 + 8 * v53);
+      *(v55 + 8 * v53) = v54;
 
-      ++v34;
-      v43 = v39 - 2;
-      ++v39;
+      ++v48;
+      v57 = v53 - 2;
+      ++v53;
     }
 
-    while (v43 < *(a1 + 44) && v34 < v9);
+    while (v57 < *(a1 + 44) && v48 < v16);
   }
 }
 
@@ -2156,71 +787,71 @@ void sub_275FEB278(uint64_t a1)
 {
   v2 = *(a1 + 32);
   objc_opt_class();
-  v92 = objc_msgSend_context(*(a1 + 32), v3, v4, v5, v6, v7);
-  v13 = objc_msgSend_documentObject(v92, v8, v9, v10, v11, v12);
-  v14 = TSUDynamicCast();
-  objc_msgSend_i_setDocumentRoot_(v2, v15, v16, v17, v18, v19, v14);
+  v137 = objc_msgSend_context(*(a1 + 32), v3, v8, v9, v10, v11, v4, v5, v6, v7);
+  v21 = objc_msgSend_documentObject(v137, v12, v17, v18, v19, v20, v13, v14, v15, v16);
+  v22 = TSUDynamicCast();
+  objc_msgSend_i_setDocumentRoot_(v2, v23, v27, v28, v29, v30, v22, v24, v25, v26);
 
-  v93 = objc_alloc_init(MEMORY[0x277D81258]);
-  v25 = objc_msgSend_p_isInDocument(*(a1 + 32), v20, v21, v22, v23, v24);
-  v26 = 0;
-  v27 = 1;
-  v28 = MEMORY[0x277D81500];
+  v138 = objc_alloc_init(MEMORY[0x277D81258]);
+  v40 = objc_msgSend_p_isInDocument(*(a1 + 32), v31, v36, v37, v38, v39, v32, v33, v34, v35);
+  v41 = 0;
+  v42 = 1;
+  v43 = MEMORY[0x277D81500];
   do
   {
-    v91 = v27;
-    v29 = 24 * v26 + 80;
-    v30 = 3;
+    v136 = v42;
+    v44 = 24 * v41 + 80;
+    v45 = 3;
     do
     {
-      v31 = *(*(a1 + 32) + v29);
-      v37 = objc_msgSend_member_(v93, v32, v33, v34, v35, v36, v31);
+      v46 = *(*(a1 + 32) + v44);
+      v55 = objc_msgSend_member_(v138, v47, v51, v52, v53, v54, v46, v48, v49, v50);
 
-      if (v37)
+      if (v55)
       {
-        if (*v28 != -1)
+        if (*v43 != -1)
         {
           sub_276038250();
         }
 
-        v43 = objc_msgSend_length(v31, v38, v39, v40, v41, v42);
-        v49 = objc_msgSend_context(v31, v44, v45, v46, v47, v48);
-        v55 = objc_msgSend_newSubstorageWithRange_context_flags_(v31, v50, v51, v52, v53, v54, 0, v43, v49, 39);
+        v65 = objc_msgSend_length(v46, v56, v61, v62, v63, v64, v57, v58, v59, v60);
+        v75 = objc_msgSend_context(v46, v66, v71, v72, v73, v74, v67, v68, v69, v70);
+        v81 = objc_msgSend_newSubstorageWithRange_context_flags_(v46, v76, v77, v78, v79, v80, 0, v65, v75, 39);
 
-        objc_msgSend_willModifyForUpgrade(*(a1 + 32), v56, v57, v58, v59, v60);
-        objc_storeStrong((*(a1 + 32) + v29), v55);
-        v31 = v55;
+        objc_msgSend_willModifyForUpgrade(*(a1 + 32), v82, v87, v88, v89, v90, v83, v84, v85, v86);
+        objc_storeStrong((*(a1 + 32) + v44), v81);
+        v46 = v81;
       }
 
-      objc_msgSend_addObject_(v93, v38, v39, v40, v41, v42, v31);
-      if (v25)
+      objc_msgSend_addObject_(v138, v56, v61, v62, v63, v64, v46, v58, v59, v60);
+      if (v40)
       {
         WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 72));
-        v67 = objc_msgSend_parentStorage(WeakRetained, v62, v63, v64, v65, v66);
-        objc_msgSend_setParentInfo_(v31, v68, v69, v70, v71, v72, v67);
+        v101 = objc_msgSend_parentStorage(WeakRetained, v92, v97, v98, v99, v100, v93, v94, v95, v96);
+        objc_msgSend_setParentInfo_(v46, v102, v106, v107, v108, v109, v101, v103, v104, v105);
 
-        v78 = objc_msgSend_documentRoot(v31, v73, v74, v75, v76, v77);
+        v119 = objc_msgSend_documentRoot(v46, v110, v115, v116, v117, v118, v111, v112, v113, v114);
 
-        if (!v78)
+        if (!v119)
         {
-          v79 = objc_loadWeakRetained((*(a1 + 32) + 64));
-          objc_msgSend_willBeAddedToDocumentRoot_dolcContext_(v31, v80, v81, v82, v83, v84, v79, 0);
+          v120 = objc_loadWeakRetained((*(a1 + 32) + 64));
+          objc_msgSend_willBeAddedToDocumentRoot_dolcContext_(v46, v121, v124, v125, v126, v127, v120, 0, v122, v123);
 
-          v85 = objc_loadWeakRetained((*(a1 + 32) + 64));
-          objc_msgSend_wasAddedToDocumentRoot_dolcContext_(v31, v86, v87, v88, v89, v90, v85, 0);
+          v128 = objc_loadWeakRetained((*(a1 + 32) + 64));
+          objc_msgSend_wasAddedToDocumentRoot_dolcContext_(v46, v129, v132, v133, v134, v135, v128, 0, v130, v131);
         }
       }
 
-      v29 += 8;
-      --v30;
+      v44 += 8;
+      --v45;
     }
 
-    while (v30);
-    v27 = 0;
-    v26 = 1;
+    while (v45);
+    v42 = 0;
+    v41 = 1;
   }
 
-  while ((v91 & 1) != 0);
+  while ((v136 & 1) != 0);
 }
 
 void sub_275FEB554()
@@ -2230,14 +861,14 @@ void sub_275FEB554()
   *MEMORY[0x277D81508] = v0;
 }
 
-void sub_275FEB64C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_275FEB64C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = TPSectionTemplatePage;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_275FEC214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, void **a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22)
+void sub_275FEC214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, char *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22)
 {
   a11 = &a22;
   sub_275FEFFF0(&a11);
@@ -2245,7 +876,7 @@ void sub_275FEC214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *sub_275FEC284(void *result, unint64_t a2)
+uint64_t *sub_275FEC284(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 4)
   {
@@ -2260,14 +891,14 @@ void *sub_275FEC284(void *result, unint64_t a2)
   return result;
 }
 
-void sub_275FEC32C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_275FEC32C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_275FF0124(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *sub_275FEC340(uint64_t *a1, uint64_t a2, uint64_t *a3)
+uint64_t *sub_275FEC340(uint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   v4 = a2;
   v6 = a1[1];
@@ -2327,7 +958,7 @@ uint64_t *sub_275FEC340(uint64_t *a1, uint64_t a2, uint64_t *a3)
 
   else
   {
-    sub_275FF0178(a1, a2, v6, a2 + 16);
+    sub_275FF0178(a1, a2, v6, (a2 + 2));
     *v4 = *a3;
     v8 = a3[1];
     a3[1] = 0;
@@ -2338,9 +969,9 @@ uint64_t *sub_275FEC340(uint64_t *a1, uint64_t a2, uint64_t *a3)
   return v4;
 }
 
-void sub_275FEC46C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_275FEC46C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_275FF0124(va);
   _Unwind_Resume(a1);
 }
@@ -2421,7 +1052,7 @@ void sub_275FF0078(uint64_t a1, unint64_t a2)
   sub_275FDFC78();
 }
 
-void sub_275FF00C0(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+void sub_275FF00C0(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
 {
   if (a2 != a3)
   {
@@ -2490,7 +1121,7 @@ uint64_t sub_275FF0178(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
   return sub_275FF0388(a2, v7, v6);
 }
 
-void *sub_275FF01C4(void *result, uint64_t *a2)
+uint64_t *sub_275FF01C4(uint64_t *result, uint64_t *a2)
 {
   v3 = result;
   v4 = result[2];
@@ -2526,7 +1157,7 @@ void *sub_275FF01C4(void *result, uint64_t *a2)
   a2[1] = 0;
   *v4 = v12;
   v4[1] = v13;
-  v3[2] = v4 + 2;
+  v3[2] = (v4 + 2);
   return result;
 }
 
@@ -2602,7 +1233,7 @@ void *sub_275FF03F0(void *a1, void *a2, void *a3)
   return v4;
 }
 
-void sub_275FF1A0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_275FF1A0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -2630,72 +1261,72 @@ void sub_275FF1A50(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 
 void sub_275FF1B88(uint64_t a1, void *a2, void *a3)
 {
-  v11 = a2;
+  v14 = a2;
   v5 = a3;
-  objc_msgSend_zOrderOfDrawable_(*(*(a1 + 32) + 88), v6, v7, v8, v9, v10, v5);
+  objc_msgSend_zOrderOfDrawable_(*(*(a1 + 32) + 88), v6, v10, v11, v12, v13, v5, v7, v8, v9);
   (*(*(a1 + 40) + 16))();
 }
 
 void sub_275FF3660(void *a1, void *a2)
 {
-  v51 = a2;
-  objc_msgSend_setObject_forKey_(*(a1[4] + 80), v3, v4, v5, v6, v7);
-  v8 = a1[8];
-  v14 = objc_msgSend_count(*(*(a1[6] + 8) + 40), v9, v10, v11, v12, v13);
-  if (v8 >= v14)
+  v75 = a2;
+  objc_msgSend_setObject_forKey_(*(a1[4] + 80), v3, v6, v7, v8, v9, v75, a1[5], v4, v5);
+  v10 = a1[8];
+  v20 = objc_msgSend_count(*(*(a1[6] + 8) + 40), v11, v16, v17, v18, v19, v12, v13, v14, v15);
+  if (v10 >= v20)
   {
-    objc_msgSend_setObject_atIndexedSubscript_(*(*(a1[6] + 8) + 40), v15, v16, v17, v18, v19, v51, v14);
+    objc_msgSend_setObject_atIndexedSubscript_(*(*(a1[6] + 8) + 40), v21, v24, v25, v26, v27, v75, v20, v22, v23);
   }
 
   else
   {
-    objc_msgSend_setObject_atIndexedSubscript_(*(*(a1[6] + 8) + 40), v15, v16, v17, v18, v19, v51, v8);
+    objc_msgSend_setObject_atIndexedSubscript_(*(*(a1[6] + 8) + 40), v21, v24, v25, v26, v27, v75, v10, v22, v23);
   }
 
   if (++*(*(a1[7] + 8) + 24) == a1[9])
   {
-    v25 = 0;
-    for (i = 0; i < objc_msgSend_count(*(*(a1[6] + 8) + 40), v20, v21, v22, v23, v24); ++i)
+    v37 = 0;
+    for (i = 0; i < objc_msgSend_count(*(*(a1[6] + 8) + 40), v28, v33, v34, v35, v36, v29, v30, v31, v32); ++i)
     {
-      v32 = objc_msgSend_objectAtIndexedSubscript_(*(*(a1[6] + 8) + 40), v27, v28, v29, v30, v31, i);
-      v38 = objc_msgSend_null(MEMORY[0x277CBEB68], v33, v34, v35, v36, v37);
-      isEqual = objc_msgSend_isEqual_(v32, v39, v40, v41, v42, v43, v38);
+      v47 = objc_msgSend_objectAtIndexedSubscript_(*(*(a1[6] + 8) + 40), v39, v43, v44, v45, v46, i, v40, v41, v42);
+      v57 = objc_msgSend_null(MEMORY[0x277CBEB68], v48, v53, v54, v55, v56, v49, v50, v51, v52);
+      isEqual = objc_msgSend_isEqual_(v47, v58, v62, v63, v64, v65, v57, v59, v60, v61);
 
       if ((isEqual & 1) == 0)
       {
         objc_opt_class();
-        v45 = TSUDynamicCast();
-        objc_msgSend_insertDrawable_atZOrder_(*(a1[4] + 88), v46, v47, v48, v49, v50, v45, v25++);
+        v67 = TSUDynamicCast();
+        objc_msgSend_insertDrawable_atZOrder_(*(a1[4] + 88), v68, v71, v72, v73, v74, v67, v37++, v69, v70);
       }
     }
   }
 }
 
-uint64_t sub_275FF3830(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void *sub_275FF3830(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v7 = objc_msgSend_count(*(*(a1 + 32) + 80), a2, a3, a4, a5, a6);
-  result = objc_msgSend_drawableCount(*(*(a1 + 32) + 88), v8, v9, v10, v11, v12);
-  if (v7 != result)
+  v11 = objc_msgSend_count(*(*(a1 + 32) + 80), a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  result = objc_msgSend_drawableCount(*(*(a1 + 32) + 88), v12, v17, v18, v19, v20, v13, v14, v15, v16);
+  if (v11 != result)
   {
-    v19 = MEMORY[0x277D81150];
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v15, v16, v17, v18, "[TPPageTemplate loadFromUnarchiver:]_block_invoke_3");
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, v22, v23, v24, v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageTemplate.mm");
-    v27 = *(a1 + 32);
-    v28 = *(v27 + 96);
-    v34 = objc_msgSend_count(*(v27 + 80), v29, v30, v31, v32, v33);
-    v40 = objc_msgSend_drawableCount(*(*(a1 + 32) + 88), v35, v36, v37, v38, v39);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v41, v42, v43, v44, v45, v20, v26, 431, 0, "In template %@ _placeholderDrawables has %lu entries but _drawablesZOrder has %lu.", v28, v34, v40);
+    v30 = MEMORY[0x277D81150];
+    v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, v26, v27, v28, v29, "[TPPageTemplate loadFromUnarchiver:]_block_invoke_3", v23, v24, v25);
+    v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, v36, v37, v38, v39, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageTemplate.mm", v33, v34, v35);
+    v41 = *(a1 + 32);
+    v42 = *(v41 + 96);
+    v52 = objc_msgSend_count(*(v41 + 80), v43, v48, v49, v50, v51, v44, v45, v46, v47);
+    v62 = objc_msgSend_drawableCount(*(*(a1 + 32) + 88), v53, v58, v59, v60, v61, v54, v55, v56, v57);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v30, v63, v64, v65, v66, v67, v31, v40, 431, 0, "In template %@ _placeholderDrawables has %lu entries but _drawablesZOrder has %lu.", v42, v52, v62);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v46, v47, v48, v49, v50);
-    v51 = *(a1 + 32);
-    v52 = *(v51 + 80);
-    v58[0] = MEMORY[0x277D85DD0];
-    v53.n128_u64[0] = 3221225472;
-    v58[1] = 3221225472;
-    v58[2] = sub_275FF39C4;
-    v58[3] = &unk_27A6A8A60;
-    v58[4] = v51;
-    return objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v52, v54, v53, v55, v56, v57, v58);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v68, v73, v74, v75, v76, v69, v70, v71, v72);
+    v77 = *(a1 + 32);
+    v78 = *(v77 + 80);
+    v87[0] = MEMORY[0x277D85DD0];
+    v79.n128_u64[0] = 3221225472;
+    v87[1] = 3221225472;
+    v87[2] = sub_275FF39C4;
+    v87[3] = &unk_27A6A8A60;
+    v87[4] = v77;
+    return objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v78, v80, v79, v84, v85, v86, v87, v81, v82, v83);
   }
 
   return result;
@@ -2703,42 +1334,42 @@ uint64_t sub_275FF3830(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128
 
 void sub_275FF39C4(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = a3;
-  if (objc_msgSend_zOrderOfDrawable_(*(*(a1 + 32) + 88), v4, v5, v6, v7, v8) == 0x7FFFFFFFFFFFFFFFLL)
+  v20 = a3;
+  if (objc_msgSend_zOrderOfDrawable_(*(*(a1 + 32) + 88), v4, v8, v9, v10, v11, v20, v5, v6, v7) == 0x7FFFFFFFFFFFFFFFLL)
   {
-    objc_msgSend_addDrawable_(*(*(a1 + 32) + 88), v9, v10, v11, v12, v13, v14);
+    objc_msgSend_addDrawable_(*(*(a1 + 32) + 88), v12, v16, v17, v18, v19, v20, v13, v14, v15);
   }
 }
 
 void sub_275FF3CCC(uint64_t a1, void *a2, void *a3)
 {
-  v18 = a2;
+  v24 = a2;
   v5 = a3;
   v6 = *(a1 + 32);
-  v12 = objc_msgSend_zOrderOfDrawable_(*(*(a1 + 40) + 88), v7, v8, v9, v10, v11, v5);
-  objc_msgSend_appendFormat_(v6, v13, v14, v15, v16, v17, @" {%@ : %@ (z-index:%lu)}", v18, v5, v12);
+  v15 = objc_msgSend_zOrderOfDrawable_(*(*(a1 + 40) + 88), v7, v11, v12, v13, v14, v5, v8, v9, v10);
+  objc_msgSend_appendFormat_(v6, v16, v20, v21, v22, v23, @" {%@ : %@ (z-index:%lu)}", v17, v18, v19, v24, v5, v15);
 }
 
-void sub_275FF4D3C(uint64_t a1, void *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_275FF4D3C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 40);
-  v19 = objc_msgSend_canvas(a2, a2, a3, a4, a5, a6);
-  v13 = objc_msgSend_layoutController(v19, v8, v9, v10, v11, v12);
-  objc_msgSend_paginateThroughPageIndex_forLayoutController_(v6, v14, v15, v16, v17, v18, v7, v13);
+  v10 = *(a1 + 32);
+  v11 = *(a1 + 40);
+  v29 = objc_msgSend_canvas(a2, a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  v21 = objc_msgSend_layoutController(v29, v12, v17, v18, v19, v20, v13, v14, v15, v16);
+  objc_msgSend_paginateThroughPageIndex_forLayoutController_(v10, v22, v25, v26, v27, v28, v11, v21, v23, v24);
 }
 
 void sub_275FF4FB8(uint64_t a1, void *a2)
 {
   v3 = a2;
   objc_initWeak(&location, *(a1 + 32));
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = sub_275FF5080;
-  v9[3] = &unk_27A6A8AD8;
-  objc_copyWeak(&v10, &location);
-  objc_msgSend_setPostRenderAction_(v3, v4, v5, v6, v7, v8, v9);
-  objc_destroyWeak(&v10);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = sub_275FF5080;
+  v12[3] = &unk_27A6A8AD8;
+  objc_copyWeak(&v13, &location);
+  objc_msgSend_setPostRenderAction_(v3, v4, v8, v9, v10, v11, v12, v5, v6, v7);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(&location);
 }
 
@@ -2753,22 +1384,22 @@ void sub_275FF5080(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  objc_msgSend_p_addHyperLinksInContext_forCanvas_(WeakRetained, v6, v7, v8, v9, v10, a2, v5);
+  objc_msgSend_p_addHyperLinksInContext_forCanvas_(WeakRetained, v6, v9, v10, v11, v12, a2, v5, v7, v8);
 }
 
 void sub_275FF5320(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
-  v24 = a2;
-  v8 = objc_msgSend_includeComments(v2, v3, v4, v5, v6, v7);
-  objc_msgSend_setShouldShowComments_(v24, v9, v10, v11, v12, v13, v8);
-  objc_msgSend_setShouldShowTextCommentHighlights_(v24, v14, v15, v16, v17, v18, 0);
-  objc_msgSend_setShouldShowInstructionalText_(v24, v19, v20, v21, v22, v23, 1);
+  v37 = a2;
+  v12 = objc_msgSend_includeComments(v2, v3, v8, v9, v10, v11, v4, v5, v6, v7);
+  objc_msgSend_setShouldShowComments_(v37, v13, v17, v18, v19, v20, v12, v14, v15, v16);
+  objc_msgSend_setShouldShowTextCommentHighlights_(v37, v21, v25, v26, v27, v28, 0, v22, v23, v24);
+  objc_msgSend_setShouldShowInstructionalText_(v37, v29, v33, v34, v35, v36, 1, v30, v31, v32);
 }
 
-void sub_275FF84CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_275FF84CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
 
   sub_275FFD2D0(va);
   _Unwind_Resume(a1);
@@ -2778,264 +1409,264 @@ NSUInteger sub_275FF8CB8(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
-  if (objc_msgSend_wpKind(v3, v5, v6, v7, v8, v9))
+  if (objc_msgSend_wpKind(v3, v5, v10, v11, v12, v13, v6, v7, v8, v9))
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, v14, "NSRange TPSectionCharRange(TSWPStorage * _Nonnull __strong, TPPageIndexPath * _Nonnull __strong)");
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, v18, v19, v20, v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginationStateCPPHelper.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v23, v24, v25, v26, v27, v16, v22, 26, 0, "Wrong storage kind");
+    v23 = MEMORY[0x277D81150];
+    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v19, v20, v21, v22, "NSRange TPSectionCharRange(TSWPStorage * _Nonnull __strong, TPPageIndexPath * _Nonnull __strong)", v16, v17, v18);
+    v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, v29, v30, v31, v32, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginationStateCPPHelper.mm", v26, v27, v28);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v34, v35, v36, v37, v38, v24, v33, 26, 0, "Wrong storage kind");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29, v30, v31, v32);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v39, v44, v45, v46, v47, v40, v41, v42, v43);
   }
 
-  v33 = *MEMORY[0x277D81490];
-  v34 = objc_msgSend_sectionIndex(v4, v10, v11, v12, v13, v14);
-  if (v34 < objc_msgSend_sectionCount(v3, v35, v36, v37, v38, v39))
+  v48 = *MEMORY[0x277D81490];
+  v49 = objc_msgSend_sectionIndex(v4, v14, v19, v20, v21, v22, v15, v16, v17, v18);
+  if (v49 < objc_msgSend_sectionCount(v3, v50, v55, v56, v57, v58, v51, v52, v53, v54))
   {
     if (v3)
     {
-      objc_msgSend_sectionEnumeratorAtSectionIndex_(v3, v40, v41, v42, v43, v44, v34);
+      objc_msgSend_sectionEnumeratorAtSectionIndex_(v3, v62, v63, v64, v65, v59, v49, v60, v61);
     }
 
     else
     {
-      memset(v46, 0, sizeof(v46));
+      memset(v67, 0, sizeof(v67));
     }
 
-    v33 = sub_2760007C4(v46);
-    sub_2760005A4(v46);
+    v48 = sub_2760007C4(v67);
+    sub_2760005A4(v67);
   }
 
-  return v33;
+  return v48;
 }
 
 BOOL sub_275FF8E30(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
-  if (objc_msgSend_wpKind(v3, v5, v6, v7, v8, v9))
+  if (objc_msgSend_wpKind(v3, v5, v10, v11, v12, v13, v6, v7, v8, v9))
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, v14, "BOOL TPIsLastSection(TSWPStorage * _Nonnull __strong, TPPageIndexPath * _Nonnull __strong)");
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, v18, v19, v20, v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginationStateCPPHelper.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v23, v24, v25, v26, v27, v16, v22, 39, 0, "Wrong storage kind");
+    v23 = MEMORY[0x277D81150];
+    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v19, v20, v21, v22, "BOOL TPIsLastSection(TSWPStorage * _Nonnull __strong, TPPageIndexPath * _Nonnull __strong)", v16, v17, v18);
+    v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, v29, v30, v31, v32, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginationStateCPPHelper.mm", v26, v27, v28);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v34, v35, v36, v37, v38, v24, v33, 39, 0, "Wrong storage kind");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29, v30, v31, v32);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v39, v44, v45, v46, v47, v40, v41, v42, v43);
   }
 
-  v33 = objc_msgSend_sectionIndex(v4, v10, v11, v12, v13, v14);
+  v48 = objc_msgSend_sectionIndex(v4, v14, v19, v20, v21, v22, v15, v16, v17, v18);
   if (v3)
   {
-    objc_msgSend_sectionEnumeratorAtSectionIndex_(v3, v34, v35, v36, v37, v38, v33);
+    objc_msgSend_sectionEnumeratorAtSectionIndex_(v3, v52, v53, v54, v55, v49, v48, v50, v51);
   }
 
   else
   {
-    memset(v41, 0, sizeof(v41));
+    memset(v58, 0, sizeof(v58));
   }
 
-  v39 = sub_2760009C4(v41);
-  sub_2760005A4(v41);
+  v56 = sub_2760009C4(v58);
+  sub_2760005A4(v58);
 
-  return v39;
+  return v56;
 }
 
 uint64_t sub_275FF8F7C(void *a1)
 {
   v1 = a1;
-  if (objc_msgSend_wpKind(v1, v2, v3, v4, v5, v6))
+  if (objc_msgSend_wpKind(v1, v2, v7, v8, v9, v10, v3, v4, v5, v6))
   {
-    v12 = MEMORY[0x277D81150];
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, v8, v9, v10, v11, "NSUInteger TPIndexOfLastSection(TSWPStorage * _Nonnull __strong)");
-    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v15, v16, v17, v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginationStateCPPHelper.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v20, v21, v22, v23, v24, v13, v19, 44, 0, "Wrong storage kind");
+    v20 = MEMORY[0x277D81150];
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v16, v17, v18, v19, "NSUInteger TPIndexOfLastSection(TSWPStorage * _Nonnull __strong)", v13, v14, v15);
+    v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, v26, v27, v28, v29, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginationStateCPPHelper.mm", v23, v24, v25);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v31, v32, v33, v34, v35, v21, v30, 44, 0, "Wrong storage kind");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26, v27, v28, v29);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v36, v41, v42, v43, v44, v37, v38, v39, v40);
   }
 
-  v30 = objc_msgSend_length(v1, v7, v8, v9, v10, v11);
+  v45 = objc_msgSend_length(v1, v11, v16, v17, v18, v19, v12, v13, v14, v15);
   if (v1)
   {
-    objc_msgSend_sectionEnumeratorAtCharIndex_(v1, v31, v32, v33, v34, v35, v30);
-    v36 = *(&v38[0] + 1);
+    objc_msgSend_sectionEnumeratorAtCharIndex_(v1, v49, v50, v51, v52, v46, v45, v47, v48);
+    v53 = *(&v55[0] + 1);
   }
 
   else
   {
-    v36 = 0;
-    memset(v38, 0, sizeof(v38));
+    v53 = 0;
+    memset(v55, 0, sizeof(v55));
   }
 
-  sub_2760005A4(v38);
+  sub_2760005A4(v55);
 
-  return v36;
+  return v53;
 }
 
-uint64_t sub_275FF909C(void *a1, void *a2, void *a3)
+char *sub_275FF909C(void *a1, void *a2, void *a3)
 {
   v5 = a1;
   v6 = a2;
-  if (objc_msgSend_wpKind(v5, v7, v8, v9, v10, v11))
+  if (objc_msgSend_wpKind(v5, v7, v12, v13, v14, v15, v8, v9, v10, v11))
   {
-    v17 = MEMORY[0x277D81150];
-    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v13, v14, v15, v16, "NSUInteger TPNextSectionIndex(TSWPStorage * _Nonnull __strong, TPPageIndexPath * _Nonnull __strong, NSUInteger * _Nonnull)");
-    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, v20, v21, v22, v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginationStateCPPHelper.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v25, v26, v27, v28, v29, v18, v24, 49, 0, "Wrong storage kind");
+    v25 = MEMORY[0x277D81150];
+    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, v21, v22, v23, v24, "NSUInteger TPNextSectionIndex(TSWPStorage * _Nonnull __strong, TPPageIndexPath * _Nonnull __strong, NSUInteger * _Nonnull)", v18, v19, v20);
+    v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, v31, v32, v33, v34, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginationStateCPPHelper.mm", v28, v29, v30);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v36, v37, v38, v39, v40, v26, v35, 49, 0, "Wrong storage kind");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v30, v31, v32, v33, v34);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v41, v46, v47, v48, v49, v42, v43, v44, v45);
   }
 
-  v36 = objc_msgSend_sectionIndex(v6, v12, v13, v14, v15, v16);
+  v53 = objc_msgSend_sectionIndex(v6, v16, v21, v22, v23, v24, v17, v18, v19, v20);
   if (v5)
   {
-    objc_msgSend_sectionEnumeratorAtSectionIndex_(v5, v35, v37, v38, v39, v40, v36);
+    objc_msgSend_sectionEnumeratorAtSectionIndex_(v5, v54, v55, v56, v57, v50, v53, v51, v52);
   }
 
   else
   {
-    memset(v49, 0, sizeof(v49));
+    memset(v70, 0, sizeof(v70));
   }
 
-  if (sub_2760009C4(v49))
+  if (sub_2760009C4(v70))
   {
-    v45 = v36 + 1;
+    v66 = v53 + 1;
   }
 
   else
   {
-    sub_2760005CC(v49);
-    v45 = *(&v49[0] + 1);
+    sub_2760005CC(v70);
+    v66 = *(&v70[0] + 1);
   }
 
-  v46 = sub_276000688(v49, &v48, v41, v42, v43, v44);
+  v67 = sub_276000688(v70, v69, v62, v63, v64, v65, v58, v59, v60, v61);
   if (a3)
   {
-    *a3 = v48;
+    *a3 = v69[0];
   }
 
-  sub_2760005A4(v49);
+  sub_2760005A4(v70);
 
-  return v45;
+  return v66;
 }
 
 id sub_275FF976C(void *a1, void *a2)
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v99 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
-  v10 = objc_msgSend_set(MEMORY[0x277CBEB58], v5, v6, v7, v8, v9);
-  v67 = 0u;
-  v68 = 0u;
-  v69 = 0u;
-  v70 = 0u;
-  v15 = objc_msgSend_children(v3, v11, 0, v12, v13, v14);
-  v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v16, v17, v18, v19, v20, &v67, v72, 16);
-  if (v21)
+  v14 = objc_msgSend_set(MEMORY[0x277CBEB58], v5, v10, v11, v12, v13, v6, v7, v8, v9);
+  v93 = 0u;
+  v94 = 0u;
+  v95 = 0u;
+  v96 = 0u;
+  v23 = objc_msgSend_children(v3, v15, 0, v20, v21, v22, v16, v17, v18, v19);
+  v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v24, v26, v27, v28, v29, &v93, v98, 16, v25);
+  if (v30)
   {
-    v27 = v21;
-    v28 = *v68;
+    v40 = v30;
+    v41 = *v94;
     do
     {
-      for (i = 0; i != v27; ++i)
+      for (i = 0; i != v40; ++i)
       {
-        if (*v68 != v28)
+        if (*v94 != v41)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v23);
         }
 
-        v30 = *(*(&v67 + 1) + 8 * i);
-        v31 = objc_msgSend_info(v30, v22, v23, v24, v25, v26);
+        v43 = *(*(&v93 + 1) + 8 * i);
+        v44 = objc_msgSend_info(v43, v31, v36, v37, v38, v39, v32, v33, v34, v35);
 
-        if (v31 == v4)
+        if (v44 == v4)
         {
-          objc_msgSend_addObject_(v10, v22, v23, v24, v25, v26, v30);
+          objc_msgSend_addObject_(v14, v31, v36, v37, v38, v39, v43, v33, v34, v35);
         }
       }
 
-      v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v22, v23, v24, v25, v26, &v67, v72, 16);
+      v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v31, v36, v37, v38, v39, &v93, v98, 16, v35);
     }
 
-    while (v27);
+    while (v40);
   }
 
-  if (!objc_msgSend_count(v10, v32, v33, v34, v35, v36))
+  if (!objc_msgSend_count(v14, v45, v50, v51, v52, v53, v46, v47, v48, v49))
   {
-    v65 = 0u;
-    v66 = 0u;
-    v63 = 0u;
-    v64 = 0u;
-    v41 = objc_msgSend_children(v3, v37, 0, v38, v39, v40, 0);
-    v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(v41, v42, v43, v44, v45, v46, &v63, v71, 16);
-    if (v47)
+    v91 = 0u;
+    v92 = 0u;
+    v89 = 0u;
+    v90 = 0u;
+    v62 = objc_msgSend_children(v3, v54, 0, v59, v60, v61, v55, v56, v57, v58, 0);
+    v69 = objc_msgSend_countByEnumeratingWithState_objects_count_(v62, v63, v65, v66, v67, v68, &v89, v97, 16, v64);
+    if (v69)
     {
-      v48 = v47;
-      v49 = *v64;
+      v70 = v69;
+      v71 = *v90;
       do
       {
-        for (j = 0; j != v48; ++j)
+        for (j = 0; j != v70; ++j)
         {
-          if (*v64 != v49)
+          if (*v90 != v71)
           {
-            objc_enumerationMutation(v41);
+            objc_enumerationMutation(v62);
           }
 
-          v51 = sub_275FF976C(*(*(&v63 + 1) + 8 * j), v4);
-          objc_msgSend_unionSet_(v10, v52, v53, v54, v55, v56, v51);
+          v73 = sub_275FF976C(*(*(&v89 + 1) + 8 * j), v4);
+          objc_msgSend_unionSet_(v14, v74, v78, v79, v80, v81, v73, v75, v76, v77);
         }
 
-        v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v41, v57, v58, v59, v60, v61, &v63, v71, 16);
+        v70 = objc_msgSend_countByEnumeratingWithState_objects_count_(v62, v82, v84, v85, v86, v87, &v89, v97, 16, v83);
       }
 
-      while (v48);
+      while (v70);
     }
   }
 
-  return v10;
+  return v14;
 }
 
-void sub_275FFA850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_275FFA850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_275FFA868(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_275FFA868(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v23 = objc_msgSend_p_paginationState(*(a1 + 32), a2, a3, a4, a5, a6);
-  if (objc_msgSend_isPaginationCompleteThroughDocumentPageIndex_(v23, v7, v8, v9, v10, v11, *(a1 + 48)))
+  v37 = objc_msgSend_p_paginationState(*(a1 + 32), a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  if (objc_msgSend_isPaginationCompleteThroughDocumentPageIndex_(v37, v11, v15, v16, v17, v18, *(a1 + 48), v12, v13, v14))
   {
     LOBYTE(isPaginating) = 1;
   }
 
   else
   {
-    isPaginating = objc_msgSend_isPaginating(*(a1 + 32), v12, v13, v14, v15, v16);
+    isPaginating = objc_msgSend_isPaginating(*(a1 + 32), v19, v24, v25, v26, v27, v20, v21, v22, v23);
     if (isPaginating)
     {
-      LOBYTE(isPaginating) = objc_msgSend_isPaginationCompleteUpToDocumentPageIndex_(v23, v18, v19, v20, v21, v22, *(a1 + 48));
+      LOBYTE(isPaginating) = objc_msgSend_isPaginationCompleteUpToDocumentPageIndex_(v37, v29, v33, v34, v35, v36, *(a1 + 48), v30, v31, v32);
     }
   }
 
   *(*(*(a1 + 40) + 8) + 24) = isPaginating;
 }
 
-void sub_275FFA9EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_275FFA9EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_275FFAA04(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_275FFAA04(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v12 = objc_msgSend_p_paginationState(*(a1 + 32), a2, a3, a4, a5, a6);
-  *(*(*(a1 + 40) + 8) + 24) = objc_msgSend_isPaginationCompleteUpToDocumentPageIndex_(v12, v7, v8, v9, v10, v11, *(a1 + 48));
+  v19 = objc_msgSend_p_paginationState(*(a1 + 32), a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  *(*(*(a1 + 40) + 8) + 24) = objc_msgSend_isPaginationCompleteUpToDocumentPageIndex_(v19, v11, v15, v16, v17, v18, *(a1 + 48), v12, v13, v14);
 }
 
-void sub_275FFAD8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_275FFAD8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3047,69 +1678,69 @@ uint64_t sub_275FFADAC(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_275FFADC4(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_275FFADC4(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v7 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), 0, 1);
-  v8 = *(*(a1 + 40) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v7;
+  v11 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), 0, 1, a10);
+  v12 = *(*(a1 + 40) + 8);
+  v13 = *(v12 + 40);
+  *(v12 + 40) = v11;
 }
 
-void sub_275FFB028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_275FFB028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_275FFB044(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_275FFB044(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v7 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), 0, 1);
-  v8 = *(*(a1 + 40) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v7;
+  v11 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), 0, 1, a10);
+  v12 = *(*(a1 + 40) + 8);
+  v13 = *(v12 + 40);
+  *(v12 + 40) = v11;
 }
 
-void sub_275FFB1D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_275FFB1D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_275FFB1E8(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_275FFB1E8(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  if (objc_msgSend_canProvideInfoForPageIndex_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48)))
+  if (objc_msgSend_canProvideInfoForPageIndex_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), a8, a9, a10))
   {
-    v12 = objc_msgSend_p_paginationState(*(a1 + 32), v7, v8, v9, v10, v11);
-    v49 = objc_msgSend_sectionHints(v12, v13, v14, v15, v16, v17);
+    v20 = objc_msgSend_p_paginationState(*(a1 + 32), v11, v16, v17, v18, v19, v12, v13, v14, v15);
+    v77 = objc_msgSend_sectionHints(v20, v21, v26, v27, v28, v29, v22, v23, v24, v25);
 
-    v23 = objc_msgSend_count(v49, v18, v19, v20, v21, v22);
-    if (v23)
+    v39 = objc_msgSend_count(v77, v30, v35, v36, v37, v38, v31, v32, v33, v34);
+    if (v39)
     {
-      v29 = 0;
-      v30 = v23 - 1;
+      v48 = 0;
+      v49 = v39 - 1;
       while (1)
       {
-        v31 = objc_msgSend_objectAtIndexedSubscript_(v49, v24, v25, v26, v27, v28, v29);
-        v37 = objc_msgSend_p_sectionAtSectionIndex_(*(a1 + 32), v32, v33, v34, v35, v36, v29);
-        if (!v37)
+        v50 = objc_msgSend_objectAtIndexedSubscript_(v77, v40, v44, v45, v46, v47, v48, v41, v42, v43);
+        v59 = objc_msgSend_p_sectionAtSectionIndex_(*(a1 + 32), v51, v55, v56, v57, v58, v48, v52, v53, v54);
+        if (!v59)
         {
           break;
         }
 
-        v43 = v37;
-        if (!*(*(*(a1 + 40) + 8) + 40) || (objc_msgSend_inheritPreviousHeaderFooter(v37, v38, v39, v40, v41, v42) & 1) == 0)
+        v69 = v59;
+        if (!*(*(*(a1 + 40) + 8) + 40) || (objc_msgSend_inheritPreviousHeaderFooter(v59, v60, v65, v66, v67, v68, v61, v62, v63, v64) & 1) == 0)
         {
-          v44 = objc_msgSend_p_pageMasterForPageIndex_inSection_sectionHint_(*(a1 + 32), v38, v39, v40, v41, v42, *(a1 + 48), v43, v31);
-          v45 = *(*(a1 + 40) + 8);
-          v46 = *(v45 + 40);
-          *(v45 + 40) = v44;
+          v72 = objc_msgSend_p_pageMasterForPageIndex_inSection_sectionHint_(*(a1 + 32), v60, v65, v66, v67, v68, *(a1 + 48), v69, v50, v64);
+          v73 = *(*(a1 + 40) + 8);
+          v74 = *(v73 + 40);
+          *(v73 + 40) = v72;
         }
 
-        v47 = objc_msgSend_containsDocumentPageIndex_(v31, v38, v39, v40, v41, v42, *(a1 + 48));
+        v75 = objc_msgSend_containsDocumentPageIndex_(v50, v60, v65, v66, v67, v68, *(a1 + 48), v70, v71, v64);
 
-        if ((v47 & 1) == 0 && v30 != v29++)
+        if ((v75 & 1) == 0 && v49 != v48++)
         {
           continue;
         }
@@ -3122,63 +1753,63 @@ LABEL_14:
   }
 }
 
-void sub_275FFB434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_275FFB434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_275FFB44C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_275FFB44C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  if (objc_msgSend_canProvideInfoForPageIndex_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48)))
+  if (objc_msgSend_canProvideInfoForPageIndex_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), a8, a9, a10))
   {
-    v12 = objc_msgSend_p_paginationState(*(a1 + 32), v7, v8, v9, v10, v11);
-    v61 = objc_msgSend_sectionHints(v12, v13, v14, v15, v16, v17);
+    v20 = objc_msgSend_p_paginationState(*(a1 + 32), v11, v16, v17, v18, v19, v12, v13, v14, v15);
+    v94 = objc_msgSend_sectionHints(v20, v21, v26, v27, v28, v29, v22, v23, v24, v25);
 
-    v23 = objc_msgSend_count(v61, v18, v19, v20, v21, v22);
-    if (v23)
+    v39 = objc_msgSend_count(v94, v30, v35, v36, v37, v38, v31, v32, v33, v34);
+    if (v39)
     {
-      v29 = v23;
-      v30 = 0;
+      v48 = v39;
+      v49 = 0;
       while (1)
       {
-        v31 = objc_msgSend_objectAtIndexedSubscript_(v61, v24, v25, v26, v27, v28, v30);
-        v37 = objc_msgSend_p_sectionAtSectionIndex_(*(a1 + 32), v32, v33, v34, v35, v36, v30);
-        if (!v37)
+        v50 = objc_msgSend_objectAtIndexedSubscript_(v94, v40, v44, v45, v46, v47, v49, v41, v42, v43);
+        v59 = objc_msgSend_p_sectionAtSectionIndex_(*(a1 + 32), v51, v55, v56, v57, v58, v49, v52, v53, v54);
+        if (!v59)
         {
           break;
         }
 
-        v43 = v37;
-        hasPageHintOfKind_atPageIndex = objc_msgSend_hasPageHintOfKind_atPageIndex_(v31, v38, v39, v40, v41, v42, 2, 0);
+        v67 = v59;
+        hasPageHintOfKind_atPageIndex = objc_msgSend_hasPageHintOfKind_atPageIndex_(v50, v60, v63, v64, v65, v66, 2, 0, v61, v62);
         if (hasPageHintOfKind_atPageIndex)
         {
-          v50 = *(a1 + 48);
-          if (v50 == objc_msgSend_documentStartPageIndex(v31, v44, v46, v47, v48, v49))
+          v78 = *(a1 + 48);
+          if (v78 == objc_msgSend_documentStartPageIndex(v50, v68, v74, v75, v76, v77, v69, v70, v71, v72))
           {
             goto LABEL_17;
           }
         }
 
-        if (objc_msgSend_sectionTemplateFirstPageHidesHeaderFooter(v43, v44, v46, v47, v48, v49))
+        if (objc_msgSend_sectionTemplateFirstPageHidesHeaderFooter(v67, v68, v74, v75, v76, v77, v69, v70, v71, v72))
         {
-          v56 = *(a1 + 48);
-          started = objc_msgSend_documentStartPageIndex(v31, v51, v52, v53, v54, v55);
-          v58 = v56 == started;
-          v59 = hasPageHintOfKind_atPageIndex ^ 1;
-          if (v56 == started)
+          v88 = *(a1 + 48);
+          started = objc_msgSend_documentStartPageIndex(v50, v79, v84, v85, v86, v87, v80, v81, v82, v83);
+          v91 = v88 == started;
+          v92 = hasPageHintOfKind_atPageIndex ^ 1;
+          if (v88 == started)
           {
-            v59 = 1;
+            v92 = 1;
           }
 
-          if ((v59 & 1) == 0)
+          if ((v92 & 1) == 0)
           {
-            v60 = *(a1 + 48);
-            v58 = v60 == objc_msgSend_documentStartPageIndex(v31, v51, v52, v53, v54, v55) + 1;
+            v93 = *(a1 + 48);
+            v91 = v93 == objc_msgSend_documentStartPageIndex(v50, v79, v84, v85, v86, v87, v90, v81, v82, v83) + 1;
           }
 
-          if (v58)
+          if (v91)
           {
 LABEL_17:
             *(*(*(a1 + 40) + 8) + 24) = 0;
@@ -3188,12 +1819,12 @@ LABEL_18:
           }
         }
 
-        if (objc_msgSend_containsDocumentPageIndex_(v31, v51, v52, v53, v54, v55, *(a1 + 48)))
+        if (objc_msgSend_containsDocumentPageIndex_(v50, v79, v84, v85, v86, v87, *(a1 + 48), v81, v82, v83))
         {
           goto LABEL_18;
         }
 
-        if (v29 == ++v30)
+        if (v48 == ++v49)
         {
           goto LABEL_20;
         }
@@ -3204,99 +1835,99 @@ LABEL_20:
   }
 }
 
-void sub_275FFB874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_275FFB874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_275FFB890(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_275FFB890(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  if (objc_msgSend_canProvideInfoForPageIndex_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48)))
+  if (objc_msgSend_canProvideInfoForPageIndex_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), a8, a9, a10))
   {
-    v12 = objc_msgSend_p_sectionHintForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v7, v8, v9, v10, v11, *(a1 + 48), 0, 1);
-    if (v12)
+    v17 = objc_msgSend_p_sectionHintForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v11, v13, v14, v15, v16, *(a1 + 48), 0, 1, v12);
+    if (v17)
     {
-      v45 = v12;
-      v18 = objc_msgSend_p_paginationState(*(a1 + 32), v13, v14, v15, v16, v17);
-      v24 = objc_msgSend_sectionHints(v18, v19, v20, v21, v22, v23);
-      v30 = objc_msgSend_indexOfObjectIdenticalTo_(v24, v25, v26, v27, v28, v29, v45);
+      v65 = v17;
+      v27 = objc_msgSend_p_paginationState(*(a1 + 32), v18, v23, v24, v25, v26, v19, v20, v21, v22);
+      v37 = objc_msgSend_sectionHints(v27, v28, v33, v34, v35, v36, v29, v30, v31, v32);
+      v46 = objc_msgSend_indexOfObjectIdenticalTo_(v37, v38, v42, v43, v44, v45, v65, v39, v40, v41);
 
-      v36 = objc_msgSend_p_sectionAtSectionIndex_(*(a1 + 32), v31, v32, v33, v34, v35, v30);
-      v42 = objc_msgSend_p_pageMasterForPageIndex_inSection_sectionHint_(*(a1 + 32), v37, v38, v39, v40, v41, *(a1 + 48), v36, v45);
-      v43 = *(*(a1 + 40) + 8);
-      v44 = *(v43 + 40);
-      *(v43 + 40) = v42;
+      v55 = objc_msgSend_p_sectionAtSectionIndex_(*(a1 + 32), v47, v51, v52, v53, v54, v46, v48, v49, v50);
+      v62 = objc_msgSend_p_pageMasterForPageIndex_inSection_sectionHint_(*(a1 + 32), v56, v58, v59, v60, v61, *(a1 + 48), v55, v65, v57);
+      v63 = *(*(a1 + 40) + 8);
+      v64 = *(v63 + 40);
+      *(v63 + 40) = v62;
 
-      v12 = v45;
+      v17 = v65;
     }
   }
 }
 
-void sub_275FFBFA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_275FFBFA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_275FFBFC0(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_275FFBFC0(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  if (!objc_msgSend_canProvideInfoForPageIndex_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48)))
+  if (!objc_msgSend_canProvideInfoForPageIndex_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), a8, a9, a10))
   {
     return;
   }
 
-  v12 = objc_msgSend_p_pageHintForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v7, v8, v9, v10, v11, *(a1 + 48), 0, 1);
-  v17 = v12;
-  if (v12)
+  v17 = objc_msgSend_p_pageHintForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v11, v13, v14, v15, v16, *(a1 + 48), 0, 1, v12);
+  v26 = v17;
+  if (v17)
   {
-    v49 = v12;
-    v18 = objc_msgSend_pageKind(v12, v12, v13, v14, v15, v16);
-    if (v18 > 2)
+    v72 = v17;
+    v27 = objc_msgSend_pageKind(v17, v17, v22, v23, v24, v25, v18, v19, v20, v21);
+    if (v27 > 2)
     {
-      v17 = v49;
-      if (v18 == 3 || v18 == 4 || v18 == 6)
+      v26 = v72;
+      if (v27 == 3 || v27 == 4 || v27 == 6)
       {
-        v23 = *(*(a1 + 40) + 8);
-        v24 = *(v23 + 24) & 0xFFFFFFFFFFFFFFFELL;
+        v35 = *(*(a1 + 40) + 8);
+        v36 = *(v35 + 24) & 0xFFFFFFFFFFFFFFFELL;
 LABEL_12:
-        *(v23 + 24) = v24;
+        *(v35 + 24) = v36;
         goto LABEL_13;
       }
 
       goto LABEL_16;
     }
 
-    v17 = v49;
-    if (v18 != 1)
+    v26 = v72;
+    if (v27 != 1)
     {
-      if (v18 == 2)
+      if (v27 == 2)
       {
-        v23 = *(*(a1 + 40) + 8);
-        v24 = 2;
+        v35 = *(*(a1 + 40) + 8);
+        v36 = 2;
         goto LABEL_12;
       }
 
 LABEL_16:
-      v25 = MEMORY[0x277D81150];
-      v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, v19, v20, v21, v22, "[TPPaginatedPageController(LayoutInfoProvider) contentFlagsForPageIndex:]_block_invoke");
-      v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, v28, v29, v30, v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController_LayoutInfoProvider.m");
-      v38 = objc_msgSend_pageKind(v49, v33, v34, v35, v36, v37);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v39, v40, v41, v42, v43, v26, v32, 345, 0, "Can't produce content flags for this page kind: %ld", v38);
+      v37 = MEMORY[0x277D81150];
+      v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, v31, v32, v33, v34, "[TPPaginatedPageController(LayoutInfoProvider) contentFlagsForPageIndex:]_block_invoke", v28, v29, v30);
+      v47 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, v43, v44, v45, v46, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageController_LayoutInfoProvider.m", v40, v41, v42);
+      v57 = objc_msgSend_pageKind(v72, v48, v53, v54, v55, v56, v49, v50, v51, v52);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v37, v58, v59, v60, v61, v62, v38, v47, 345, 0, "Can't produce content flags for this page kind: %ld", v57);
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v44, v45, v46, v47, v48);
-      v17 = v49;
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v63, v68, v69, v70, v71, v64, v65, v66, v67);
+      v26 = v72;
     }
   }
 
 LABEL_13:
 }
 
-void sub_275FFC250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_275FFC250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3305,25 +1936,25 @@ void sub_275FFC268(uint64_t a1)
 {
   objc_opt_class();
   v2 = TSUDynamicCast();
-  v8 = objc_msgSend_wpKind(v2, v3, v4, v5, v6, v7);
+  v12 = objc_msgSend_wpKind(v2, v3, v8, v9, v10, v11, v4, v5, v6, v7);
 
-  if (v8 == 1)
+  if (v12 == 1)
   {
-    if (!objc_msgSend_shouldHeaderFooterBeVisibleForPageIndex_(*(a1 + 40), v9, v10, v11, v12, v13, *(a1 + 56)))
+    if (!objc_msgSend_shouldHeaderFooterBeVisibleForPageIndex_(*(a1 + 40), v13, v17, v18, v19, v20, *(a1 + 56), v14, v15, v16))
     {
       return;
     }
 
-    v19 = objc_msgSend_headerFooterProviderForPageIndex_(*(a1 + 40), v14, v15, v16, v17, v18, *(a1 + 56));
-    if (v19)
+    v29 = objc_msgSend_headerFooterProviderForPageIndex_(*(a1 + 40), v21, v25, v26, v27, v28, *(a1 + 56), v22, v23, v24);
+    if (v29)
     {
-      v37 = v19;
-      v25 = objc_msgSend_headerFooterTypeForStorage_(v19, v20, v21, v22, v23, v24, *(a1 + 32)) == -1;
+      v56 = v29;
+      v38 = objc_msgSend_headerFooterTypeForStorage_(v29, v30, v34, v35, v36, v37, *(a1 + 32), v31, v32, v33) == -1;
       goto LABEL_8;
     }
 
 LABEL_12:
-    v36 = 0;
+    v55 = 0;
     goto LABEL_13;
   }
 
@@ -3333,80 +1964,80 @@ LABEL_12:
     return;
   }
 
-  v19 = objc_msgSend_sectionTemplateDrawableProviderForPageIndex_(*(a1 + 40), v26, v27, v28, v29, v30, *(a1 + 56));
-  if (!v19)
+  v29 = objc_msgSend_sectionTemplateDrawableProviderForPageIndex_(*(a1 + 40), v39, v43, v44, v45, v46, *(a1 + 56), v40, v41, v42);
+  if (!v29)
   {
     goto LABEL_12;
   }
 
-  v37 = v19;
-  v25 = objc_msgSend_indexOfSectionTemplateDrawable_(v19, v31, v32, v33, v34, v35, *(a1 + 32)) == 0x7FFFFFFFFFFFFFFFLL;
+  v56 = v29;
+  v38 = objc_msgSend_indexOfSectionTemplateDrawable_(v29, v47, v51, v52, v53, v54, *(a1 + 32), v48, v49, v50) == 0x7FFFFFFFFFFFFFFFLL;
 LABEL_8:
-  v19 = v37;
-  v36 = !v25;
+  v29 = v56;
+  v55 = !v38;
 LABEL_13:
-  *(*(*(a1 + 48) + 8) + 24) = v36;
+  *(*(*(a1 + 48) + 8) + 24) = v55;
 }
 
-void sub_275FFC6D4(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_275FFC6D4(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  if (!objc_msgSend_canProvideNumberingInfoForPageIndex_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48)))
+  if (!objc_msgSend_canProvideNumberingInfoForPageIndex_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), a8, a9, a10))
   {
     return;
   }
 
-  v12 = objc_msgSend_p_paginationState(*(a1 + 32), v7, v8, v9, v10, v11);
-  v55 = objc_msgSend_sectionHints(v12, v13, v14, v15, v16, v17);
+  v20 = objc_msgSend_p_paginationState(*(a1 + 32), v11, v16, v17, v18, v19, v12, v13, v14, v15);
+  v88 = objc_msgSend_sectionHints(v20, v21, v26, v27, v28, v29, v22, v23, v24, v25);
 
-  v23 = objc_msgSend_count(v55, v18, v19, v20, v21, v22);
-  if (!v23)
+  v39 = objc_msgSend_count(v88, v30, v35, v36, v37, v38, v31, v32, v33, v34);
+  if (!v39)
   {
     goto LABEL_19;
   }
 
-  v29 = v23;
-  v30 = 0;
+  v48 = v39;
+  v49 = 0;
   *(*(*(a1 + 40) + 8) + 24) = 1;
   while (1)
   {
-    v31 = objc_msgSend_p_sectionAtSectionIndex_(*(a1 + 32), v24, v25, v26, v27, v28, v30);
-    if (v31)
+    v50 = objc_msgSend_p_sectionAtSectionIndex_(*(a1 + 32), v40, v44, v45, v46, v47, v49, v41, v42, v43);
+    if (v50)
     {
       break;
     }
 
 LABEL_12:
-    if (v29 == ++v30)
+    if (v48 == ++v49)
     {
       goto LABEL_17;
     }
   }
 
-  v32 = v31;
-  v33 = objc_msgSend_objectAtIndexedSubscript_(v55, v24, v25, v26, v27, v28, v30);
-  if (objc_msgSend_sectionPageNumberKind(v32, v34, v35, v36, v37, v38) == 1)
+  v51 = v50;
+  v52 = objc_msgSend_objectAtIndexedSubscript_(v88, v40, v44, v45, v46, v47, v49, v41, v42, v43);
+  if (objc_msgSend_sectionPageNumberKind(v51, v53, v58, v59, v60, v61, v54, v55, v56, v57) == 1)
   {
-    if (objc_msgSend_documentStartPageIndex(v33, v39, v40, v41, v42, v43) > *(a1 + 48))
+    if (objc_msgSend_documentStartPageIndex(v52, v62, v67, v68, v69, v70, v63, v64, v65, v66) > *(a1 + 48))
     {
       goto LABEL_16;
     }
 
-    *(*(*(a1 + 40) + 8) + 24) = objc_msgSend_sectionPageNumberStart(v32, v44, v45, v46, v47, v48);
-    if (objc_msgSend_hasPageHintOfKind_atPageIndex_(v33, v49, v50, v51, v52, v53, 2, 0))
+    *(*(*(a1 + 40) + 8) + 24) = objc_msgSend_sectionPageNumberStart(v51, v71, v76, v77, v78, v79, v72, v73, v74, v75);
+    if (objc_msgSend_hasPageHintOfKind_atPageIndex_(v52, v80, v83, v84, v85, v86, 2, 0, v81, v82))
     {
       --*(*(*(a1 + 40) + 8) + 24);
     }
   }
 
-  if ((*(a1 + 56) & 1) != 0 || !objc_msgSend_containsDocumentPageIndex_(v33, v39, v40, v41, v42, v43, *(a1 + 48)))
+  if ((*(a1 + 56) & 1) != 0 || !objc_msgSend_containsDocumentPageIndex_(v52, v62, v67, v68, v69, v70, *(a1 + 48), v64, v65, v66))
   {
-    *(*(*(a1 + 40) + 8) + 24) += objc_msgSend_pageCount(v33, v39, v40, v41, v42, v43);
+    *(*(*(a1 + 40) + 8) + 24) += objc_msgSend_pageCount(v52, v62, v67, v68, v69, v70, v63, v64, v65, v66);
 
     goto LABEL_12;
   }
 
-  v54 = *(a1 + 48);
-  *(*(*(a1 + 40) + 8) + 24) += v54 - objc_msgSend_documentStartPageIndex(v33, v39, v40, v41, v42, v43);
+  v87 = *(a1 + 48);
+  *(*(*(a1 + 40) + 8) + 24) += v87 - objc_msgSend_documentStartPageIndex(v52, v62, v67, v68, v69, v70, v63, v64, v65, v66);
 LABEL_16:
 
 LABEL_17:
@@ -3424,20 +2055,20 @@ uint64_t sub_275FFC8B4(uint64_t a1, void *a2)
   *a1 = v3;
   *(a1 + 8) = 0u;
   *(a1 + 24) = 0u;
-  sub_275FFC928(a1, v4, 0, v5, v6, v7);
+  sub_275FFC928(a1, v4, v5, v6, v7, v8, 0, v9, v10, v11);
 
   return a1;
 }
 
-void sub_275FFC928(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_275FFC928(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v7 = *(a1 + 8);
-  if (v7 >= objc_msgSend_count(*a1, a2, a3, a4, a5, a6) || (objc_msgSend_objectAtIndexedSubscript_(*a1, v8, v9, v10, v11, v12, *(a1 + 8)), v13 = objc_claimAutoreleasedReturnValue(), v14 = *(a1 + 16), v20 = objc_msgSend_pageCount(v13, v15, v16, v17, v18, v19), v13, v14 >= v20))
+  v11 = *(a1 + 8);
+  if (v11 >= objc_msgSend_count(*a1, a2, a7, a8, a9, a10, a3, a4, a5, a6) || (objc_msgSend_objectAtIndexedSubscript_(*a1, v12, v16, v17, v18, v19, *(a1 + 8), v13, v14, v15), v20 = objc_claimAutoreleasedReturnValue(), v21 = *(a1 + 16), v31 = objc_msgSend_pageCount(v20, v22, v27, v28, v29, v30, v23, v24, v25, v26), v20, v21 >= v31))
   {
-    v21.f64[0] = NAN;
-    v21.f64[1] = NAN;
-    *(a1 + 8) = vnegq_f64(v21);
-    v22 = *(a1 + 24);
+    v32.f64[0] = NAN;
+    v32.f64[1] = NAN;
+    *(a1 + 8) = vnegq_f64(v32);
+    v33 = *(a1 + 24);
     *(a1 + 24) = 0;
     *(a1 + 32) = 0x7FFFFFFFFFFFFFFFLL;
   }
@@ -3449,40 +2080,40 @@ void *sub_275FFC9D4(void *a1, void *a2, void *a3, uint64_t a4)
   v8 = a3;
   v9 = v7;
   *a1 = v9;
-  a1[1] = objc_msgSend_sectionIndex(v8, v10, v11, v12, v13, v14);
-  a1[2] = objc_msgSend_pageIndex(v8, v15, v16, v17, v18, v19);
+  a1[1] = objc_msgSend_sectionIndex(v8, v10, v15, v16, v17, v18, v11, v12, v13, v14);
+  a1[2] = objc_msgSend_pageIndex(v8, v19, v24, v25, v26, v27, v20, v21, v22, v23);
   a1[3] = 0;
   a1[4] = 0x7FFFFFFFFFFFFFFFLL;
-  sub_275FFC928(a1, v20, v21, v22, v23, v24);
-  sub_275FFCAD0(a1, v25, v26, v27, v28, v29);
-  v35 = sub_275FFCB6C(a1, v30, v31, v32, v33, v34);
+  sub_275FFC928(a1, v28, v29, v30, v31, v32, v33, v34, v35, v36);
+  sub_275FFCAD0(a1, v37, v42, v43, v44, v45, v38, v39, v40, v41);
+  v55 = sub_275FFCB6C(a1, v46, v47, v48, v49, v50, v51, v52, v53, v54);
   if (a4)
   {
-    v41 = v35;
+    v65 = v55;
   }
 
   else
   {
-    v41 = 1;
+    v65 = 1;
   }
 
-  if ((v41 & 1) == 0)
+  if ((v65 & 1) == 0)
   {
     do
     {
       if (a4 < 0)
       {
-        sub_275FFCD14(a1, v36, v37, v38, v39, v40);
-        v42 = 1;
+        sub_275FFCD14(a1, v56, v57, v58, v59, v60, v61, v62, v63, v64);
+        v66 = 1;
       }
 
       else
       {
-        sub_275FFCF2C(a1, v36, v37, v38, v39, v40);
-        v42 = -1;
+        sub_275FFCF2C(a1, v56, v57, v58, v59, v60, v61, v62, v63, v64);
+        v66 = -1;
       }
 
-      a4 += v42;
+      a4 += v66;
     }
 
     while (a4);
@@ -3491,208 +2122,209 @@ void *sub_275FFC9D4(void *a1, void *a2, void *a3, uint64_t a4)
   return a1;
 }
 
-void sub_275FFCAD0(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_275FFCAD0(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v6 = *(a1 + 8);
-  if (v6 != 0x7FFFFFFFFFFFFFFFLL)
+  v10 = *(a1 + 8);
+  if (v10 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v8 = *(a1 + 16);
-    if (v8 != 0x7FFFFFFFFFFFFFFFLL)
+    v12 = *(a1 + 16);
+    if (v12 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v9 = 0;
-      if (v6)
+      v13 = 0;
+      if (v10)
       {
-        v10 = 0;
+        v14 = 0;
         do
         {
-          v11 = objc_msgSend_objectAtIndexedSubscript_(*a1, a2, a3, a4, a5, a6, v10);
-          v9 += objc_msgSend_pageCount(v11, v12, v13, v14, v15, v16);
+          v15 = objc_msgSend_objectAtIndexedSubscript_(*a1, a2, a3, a4, a5, a6, v14, a8, a9, a10);
+          v13 += objc_msgSend_pageCount(v15, v16, v21, v22, v23, v24, v17, v18, v19, v20);
 
-          ++v10;
+          ++v14;
         }
 
-        while (v10 < *(a1 + 8));
-        v8 = *(a1 + 16);
+        while (v14 < *(a1 + 8));
+        v12 = *(a1 + 16);
       }
 
-      *(a1 + 32) = v8 + v9;
+      *(a1 + 32) = v12 + v13;
     }
   }
 }
 
-uint64_t sub_275FFCB6C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+BOOL sub_275FFCB6C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
   if (*(a1 + 16) == 0x7FFFFFFFFFFFFFFFLL)
   {
     return 1;
   }
 
-  v7 = *(a1 + 8);
-  if (v7 == 0x7FFFFFFFFFFFFFFFLL || *(a1 + 32) == 0x7FFFFFFFFFFFFFFFLL)
+  v11 = *(a1 + 8);
+  if (v11 == 0x7FFFFFFFFFFFFFFFLL || *(a1 + 32) == 0x7FFFFFFFFFFFFFFFLL)
   {
     return 1;
   }
 
-  if (v7 >= objc_msgSend_count(*a1, a2, a3, a4, a5, a6))
+  if (v11 >= objc_msgSend_count(*a1, a2, a7, a8, a9, a10, a3, a4, a5, a6))
   {
-    v45 = MEMORY[0x277D81150];
-    v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, v9, v10, v11, v12, "BOOL TPPageHintEnumerator::isFinished() const");
-    v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, v48, v49, v50, v51, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHintEnumerator.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v45, v53, v54, v55, v56, v57, v46, v52, 261, 0, "Section index is out of bounds");
+    v66 = MEMORY[0x277D81150];
+    v67 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v16, v17, v18, v19, "BOOL TPPageHintEnumerator::isFinished() const", v13, v14, v15);
+    v76 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v68, v72, v73, v74, v75, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHintEnumerator.mm", v69, v70, v71);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v66, v77, v78, v79, v80, v81, v67, v76, 261, 0, "Section index is out of bounds");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v58, v59, v60, v61, v62);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v82, v87, v88, v89, v90, v83, v84, v85, v86);
     return 1;
   }
 
-  v13 = objc_msgSend_objectAtIndexedSubscript_(*a1, v8, v9, v10, v11, v12, *(a1 + 8));
-  v14 = *(a1 + 16);
-  v20 = v14 >= objc_msgSend_pageCount(v13, v15, v16, v17, v18, v19);
-  v26 = v20;
-  if (v20)
+  v20 = objc_msgSend_objectAtIndexedSubscript_(*a1, v12, v16, v17, v18, v19, *(a1 + 8), v13, v14, v15);
+  v21 = *(a1 + 16);
+  v31 = v21 >= objc_msgSend_pageCount(v20, v22, v27, v28, v29, v30, v23, v24, v25, v26);
+  v40 = v31;
+  if (v31)
   {
-    v27 = MEMORY[0x277D81150];
-    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, v22, v23, v24, v25, "BOOL TPPageHintEnumerator::isFinished() const");
-    v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v29, v30, v31, v32, v33, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHintEnumerator.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v27, v35, v36, v37, v38, v39, v28, v34, 266, 0, "Page index is out of bounds");
+    v41 = MEMORY[0x277D81150];
+    v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, v36, v37, v38, v39, "BOOL TPPageHintEnumerator::isFinished() const", v33, v34, v35);
+    v51 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, v47, v48, v49, v50, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHintEnumerator.mm", v44, v45, v46);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v41, v52, v53, v54, v55, v56, v42, v51, 266, 0, "Page index is out of bounds");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v40, v41, v42, v43, v44);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v57, v62, v63, v64, v65, v58, v59, v60, v61);
   }
 
-  return v26;
+  return v40;
 }
 
-uint64_t sub_275FFCD14(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+uint64_t sub_275FFCD14(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  if (sub_275FFCB6C(a1, a2, a3, a4, a5, a6))
+  if (sub_275FFCB6C(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10))
   {
-    v12 = MEMORY[0x277D81150];
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, v8, v9, v10, v11, "TPPageHintEnumerator &TPPageHintEnumerator::operator--()");
-    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v15, v16, v17, v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHintEnumerator.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v20, v21, v22, v23, v24, v13, v19, 114, 0, "Shouldn't be decrementing once we're finished");
+    v19 = MEMORY[0x277D81150];
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v15, v16, v17, v18, "TPPageHintEnumerator &TPPageHintEnumerator::operator--()", v12, v13, v14);
+    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, v25, v26, v27, v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHintEnumerator.mm", v22, v23, v24);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v30, v31, v32, v33, v34, v20, v29, 114, 0, "Shouldn't be decrementing once we're finished");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26, v27, v28, v29);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v35, v40, v41, v42, v43, v36, v37, v38, v39);
   }
 
-  v30 = *(a1 + 24);
+  v44 = *(a1 + 24);
   *(a1 + 24) = 0;
 
-  if ((sub_275FFCB6C(a1, v31, v32, v33, v34, v35) & 1) == 0)
+  if (!sub_275FFCB6C(a1, v45, v46, v47, v48, v49, v50, v51, v52, v53))
   {
     while (1)
     {
-      v41 = *(a1 + 32);
-      if (v41)
+      v62 = *(a1 + 32);
+      if (v62)
       {
-        *(a1 + 32) = v41 - 1;
+        *(a1 + 32) = v62 - 1;
       }
 
-      v42 = *(a1 + 16);
-      if (v42)
+      v63 = *(a1 + 16);
+      if (v63)
       {
-        *(a1 + 16) = v42 - 1;
+        *(a1 + 16) = v63 - 1;
         return a1;
       }
 
-      v43 = *(a1 + 8);
-      if (!v43)
+      v64 = *(a1 + 8);
+      if (!v64)
       {
-        v78.f64[0] = NAN;
-        v78.f64[1] = NAN;
-        *(a1 + 8) = vnegq_f64(v78);
-        v79 = *(a1 + 24);
+        v117.f64[0] = NAN;
+        v117.f64[1] = NAN;
+        *(a1 + 8) = vnegq_f64(v117);
+        v118 = *(a1 + 24);
         *(a1 + 24) = 0;
         *(a1 + 32) = 0x7FFFFFFFFFFFFFFFLL;
 
         return a1;
       }
 
-      *(a1 + 8) = v43 - 1;
-      v44 = objc_msgSend_objectAtIndexedSubscript_(*a1, v36, v37, v38, v39, v40);
-      if (objc_msgSend_pageCount(v44, v45, v46, v47, v48, v49))
+      *(a1 + 8) = v64 - 1;
+      v65 = objc_msgSend_objectAtIndexedSubscript_(*a1, v54, v58, v59, v60, v61, v64 - 1, v55, v56, v57);
+      if (objc_msgSend_pageCount(v65, v66, v71, v72, v73, v74, v67, v68, v69, v70))
       {
         break;
       }
 
-      if (objc_msgSend_lastPageIndex(v44, v50, v51, v52, v53, v54) != 0x7FFFFFFFFFFFFFFFLL)
+      if (objc_msgSend_lastPageIndex(v65, v75, v80, v81, v82, v83, v76, v77, v78, v79) != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v60 = MEMORY[0x277D81150];
-        v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v55, v56, v57, v58, v59, "TPPageHintEnumerator &TPPageHintEnumerator::operator--()");
-        v67 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v62, v63, v64, v65, v66, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHintEnumerator.mm");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v60, v68, v69, v70, v71, v72, v61, v67, 137, 0, "Unexpected page index for empty section");
+        v92 = MEMORY[0x277D81150];
+        v93 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v84, v88, v89, v90, v91, "TPPageHintEnumerator &TPPageHintEnumerator::operator--()", v85, v86, v87);
+        v102 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v94, v98, v99, v100, v101, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHintEnumerator.mm", v95, v96, v97);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v92, v103, v104, v105, v106, v107, v93, v102, 137, 0, "Unexpected page index for empty section");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v73, v74, v75, v76, v77);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v108, v113, v114, v115, v116, v109, v110, v111, v112);
       }
     }
 
-    *(a1 + 16) = objc_msgSend_lastPageIndex(v44, v50, v51, v52, v53, v54);
+    *(a1 + 16) = objc_msgSend_lastPageIndex(v65, v75, v80, v81, v82, v83, v76, v77, v78, v79);
   }
 
   return a1;
 }
 
-uint64_t sub_275FFCF2C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+uint64_t sub_275FFCF2C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  if (sub_275FFCB6C(a1, a2, a3, a4, a5, a6))
+  if (sub_275FFCB6C(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10))
   {
-    v12 = MEMORY[0x277D81150];
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, v8, v9, v10, v11, "TPPageHintEnumerator &TPPageHintEnumerator::operator++()");
-    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v15, v16, v17, v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHintEnumerator.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v20, v21, v22, v23, v24, v13, v19, 81, 0, "Shouldn't be incrementing once we're finished");
+    v19 = MEMORY[0x277D81150];
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v15, v16, v17, v18, "TPPageHintEnumerator &TPPageHintEnumerator::operator++()", v12, v13, v14);
+    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, v25, v26, v27, v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHintEnumerator.mm", v22, v23, v24);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v30, v31, v32, v33, v34, v20, v29, 81, 0, "Shouldn't be incrementing once we're finished");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26, v27, v28, v29);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v35, v40, v41, v42, v43, v36, v37, v38, v39);
   }
 
-  v30 = *(a1 + 24);
+  v44 = *(a1 + 24);
   *(a1 + 24) = 0;
 
-  if ((sub_275FFCB6C(a1, v31, v32, v33, v34, v35) & 1) == 0)
+  if (!sub_275FFCB6C(a1, v45, v46, v47, v48, v49, v50, v51, v52, v53))
   {
     while (1)
     {
       ++*(a1 + 32);
-      v41 = objc_msgSend_objectAtIndexedSubscript_(*a1, v36, v37, v38, v39, v40, *(a1 + 8));
-      v42 = *(a1 + 16);
-      if (v42 + 1 < objc_msgSend_pageCount(v41, v43, v44, v45, v46, v47))
+      v62 = objc_msgSend_objectAtIndexedSubscript_(*a1, v54, v58, v59, v60, v61, *(a1 + 8), v55, v56, v57);
+      v63 = *(a1 + 16);
+      if (v63 + 1 < objc_msgSend_pageCount(v62, v64, v69, v70, v71, v72, v65, v66, v67, v68))
       {
         ++*(a1 + 16);
         goto LABEL_13;
       }
 
-      v53 = *(a1 + 8);
-      if (v53 + 1 >= objc_msgSend_count(*a1, v48, v49, v50, v51, v52))
+      v82 = *(a1 + 8);
+      if (v82 + 1 >= objc_msgSend_count(*a1, v73, v78, v79, v80, v81, v74, v75, v76, v77))
       {
-        v94.f64[0] = NAN;
-        v94.f64[1] = NAN;
-        *(a1 + 8) = vnegq_f64(v94);
-        v95 = *(a1 + 24);
+        v145.f64[0] = NAN;
+        v145.f64[1] = NAN;
+        *(a1 + 8) = vnegq_f64(v145);
+        v146 = *(a1 + 24);
         *(a1 + 24) = 0;
         *(a1 + 32) = 0x7FFFFFFFFFFFFFFFLL;
 
         goto LABEL_13;
       }
 
-      v59 = *a1;
-      ++*(a1 + 8);
+      v91 = *a1;
+      v92 = *(a1 + 8) + 1;
+      *(a1 + 8) = v92;
       *(a1 + 16) = 0;
-      v60 = objc_msgSend_objectAtIndexedSubscript_(v59, v54, v55, v56, v57, v58);
+      v93 = objc_msgSend_objectAtIndexedSubscript_(v91, v83, v87, v88, v89, v90, v92, v84, v85, v86);
 
-      if (objc_msgSend_pageCount(v60, v61, v62, v63, v64, v65))
+      if (objc_msgSend_pageCount(v93, v94, v99, v100, v101, v102, v95, v96, v97, v98))
       {
         break;
       }
 
-      if (objc_msgSend_lastPageIndex(v60, v66, v67, v68, v69, v70) != 0x7FFFFFFFFFFFFFFFLL)
+      if (objc_msgSend_lastPageIndex(v93, v103, v108, v109, v110, v111, v104, v105, v106, v107) != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v76 = MEMORY[0x277D81150];
-        v77 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v71, v72, v73, v74, v75, "TPPageHintEnumerator &TPPageHintEnumerator::operator++()");
-        v83 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v78, v79, v80, v81, v82, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHintEnumerator.mm");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v76, v84, v85, v86, v87, v88, v77, v83, 101, 0, "Unexpected page index for empty section");
+        v120 = MEMORY[0x277D81150];
+        v121 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v112, v116, v117, v118, v119, "TPPageHintEnumerator &TPPageHintEnumerator::operator++()", v113, v114, v115);
+        v130 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v122, v126, v127, v128, v129, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHintEnumerator.mm", v123, v124, v125);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v120, v131, v132, v133, v134, v135, v121, v130, 101, 0, "Unexpected page index for empty section");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v89, v90, v91, v92, v93);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v136, v141, v142, v143, v144, v137, v138, v139, v140);
       }
     }
 
-    v41 = v60;
+    v62 = v93;
 LABEL_13:
   }
 
@@ -3709,32 +2341,32 @@ uint64_t sub_275FFD184(uint64_t a1, void *a2, unint64_t a3)
   *(a1 + 8) = v7;
   *(a1 + 24) = 0;
   *(a1 + 32) = a3;
-  v13 = objc_msgSend_count(v5, v8, v7, v9, v10, v11);
-  if (v13)
+  v21 = objc_msgSend_count(v5, v8, v7, v13, v14, v15, v9, v10, v11, v12);
+  if (v21)
   {
-    v18 = 0;
-    v19 = 0;
+    v26 = 0;
+    v27 = 0;
     while (1)
     {
-      v20 = objc_msgSend_objectAtIndexedSubscript_(*a1, v12, v14, v15, v16, v17, v19);
-      v18 += objc_msgSend_pageCount(v20, v21, v22, v23, v24, v25);
-      if (v18 > a3)
+      v28 = objc_msgSend_objectAtIndexedSubscript_(*a1, v16, v22, v23, v24, v25, v27, v18, v19, v20);
+      v26 += objc_msgSend_pageCount(v28, v29, v34, v35, v36, v37, v30, v31, v32, v33);
+      if (v26 > a3)
       {
         break;
       }
 
-      if (v13 == ++v19)
+      if (v21 == ++v27)
       {
         goto LABEL_7;
       }
     }
 
-    *(a1 + 8) = v19;
-    *(a1 + 16) = a3 - objc_msgSend_documentStartPageIndex(v20, v26, v27, v28, v29, v30);
+    *(a1 + 8) = v27;
+    *(a1 + 16) = a3 - objc_msgSend_documentStartPageIndex(v28, v38, v43, v44, v45, v46, v39, v40, v41, v42);
   }
 
 LABEL_7:
-  sub_275FFC928(a1, v12, v14, v15, v16, v17);
+  sub_275FFC928(a1, v16, v17, v18, v19, v20, v22, v23, v24, v25);
 
   return a1;
 }
@@ -3747,218 +2379,218 @@ id *sub_275FFD290(id *a1)
   return a1;
 }
 
-id sub_275FFD2D4(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+id sub_275FFD2D4(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  if (sub_275FFCB6C(a1, a2, a3, a4, a5, a6))
+  if (sub_275FFCB6C(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10))
   {
-    v12 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v12 = objc_msgSend_objectAtIndexedSubscript_(*a1, v7, v8, v9, v10, v11, *(a1 + 8));
+    v19 = objc_msgSend_objectAtIndexedSubscript_(*a1, v11, v15, v16, v17, v18, *(a1 + 8), v12, v13, v14);
   }
 
-  return v12;
+  return v19;
 }
 
-id sub_275FFD320(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+id sub_275FFD320(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v7 = *(a1 + 24);
-  if (!v7)
+  v11 = *(a1 + 24);
+  if (!v11)
   {
-    if (sub_275FFCB6C(a1, a2, a3, a4, a5, a6))
+    if (sub_275FFCB6C(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10))
     {
-      v13 = 0;
+      v21 = 0;
     }
 
     else
     {
-      v14 = sub_275FFD2D4(a1, v8, v9, v10, v11, v12);
-      v13 = objc_msgSend_pageHintForPageIndex_(v14, v15, v16, v17, v18, v19, *(a1 + 16));
+      v22 = sub_275FFD2D4(a1, v12, v13, v14, v15, v16, v17, v18, v19, v20);
+      v21 = objc_msgSend_pageHintForPageIndex_(v22, v23, v27, v28, v29, v30, *(a1 + 16), v24, v25, v26);
     }
 
-    v20 = *(a1 + 24);
-    *(a1 + 24) = v13;
+    v31 = *(a1 + 24);
+    *(a1 + 24) = v21;
 
-    v7 = *(a1 + 24);
+    v11 = *(a1 + 24);
   }
 
-  return v7;
+  return v11;
 }
 
-uint64_t sub_275FFD3B8(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+uint64_t sub_275FFD3B8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v6 = sub_275FFD320(a1, a2, a3, a4, a5, a6);
-  v12 = v6;
-  if (v6)
+  v10 = sub_275FFD320(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+  v20 = v10;
+  if (v10)
   {
-    v13 = objc_msgSend_pageKind(v6, v7, v8, v9, v10, v11);
+    v21 = objc_msgSend_pageKind(v10, v11, v16, v17, v18, v19, v12, v13, v14, v15);
   }
 
   else
   {
-    v13 = 0;
+    v21 = 0;
   }
 
-  return v13;
+  return v21;
 }
 
-uint64_t sub_275FFD410(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+uint64_t sub_275FFD410(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v6 = sub_275FFD320(a1, a2, a3, a4, a5, a6);
-  v12 = v6;
-  if (v6)
+  v10 = sub_275FFD320(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+  v20 = v10;
+  if (v10)
   {
-    v13 = objc_msgSend_range(v6, v7, v8, v9, v10, v11);
+    v21 = objc_msgSend_range(v10, v11, v16, v17, v18, v19, v12, v13, v14, v15);
   }
 
   else
   {
-    v13 = 0x7FFFFFFFFFFFFFFFLL;
+    v21 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  return v13;
+  return v21;
 }
 
-uint64_t sub_275FFD47C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+uint64_t sub_275FFD47C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v6 = sub_275FFD320(a1, a2, a3, a4, a5, a6);
-  v12 = v6;
-  if (v6)
+  v10 = sub_275FFD320(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+  v20 = v10;
+  if (v10)
   {
-    v13 = objc_msgSend_anchoredRange(v6, v7, v8, v9, v10, v11);
+    v21 = objc_msgSend_anchoredRange(v10, v11, v16, v17, v18, v19, v12, v13, v14, v15);
   }
 
   else
   {
-    v13 = 0x7FFFFFFFFFFFFFFFLL;
+    v21 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  return v13;
+  return v21;
 }
 
-uint64_t sub_275FFD4E8(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+uint64_t sub_275FFD4E8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v6 = sub_275FFD320(a1, a2, a3, a4, a5, a6);
-  v12 = v6;
-  if (v6)
+  v10 = sub_275FFD320(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+  v20 = v10;
+  if (v10)
   {
-    v13 = objc_msgSend_footnoteAutoNumberRange(v6, v7, v8, v9, v10, v11);
+    v21 = objc_msgSend_footnoteAutoNumberRange(v10, v11, v16, v17, v18, v19, v12, v13, v14, v15);
   }
 
   else
   {
-    v13 = 0x7FFFFFFFFFFFFFFFLL;
+    v21 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  return v13;
+  return v21;
 }
 
-uint64_t sub_275FFD554(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+uint64_t sub_275FFD554(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v6 = sub_275FFD320(a1, a2, a3, a4, a5, a6);
-  v12 = v6;
-  if (v6)
+  v10 = sub_275FFD320(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+  v20 = v10;
+  if (v10)
   {
-    v13 = objc_msgSend_footnoteLayoutRange(v6, v7, v8, v9, v10, v11);
+    v21 = objc_msgSend_footnoteLayoutRange(v10, v11, v16, v17, v18, v19, v12, v13, v14, v15);
   }
 
   else
   {
-    v13 = 0x7FFFFFFFFFFFFFFFLL;
+    v21 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  return v13;
+  return v21;
 }
 
-id sub_275FFD5C0(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+id sub_275FFD5C0(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v6 = sub_275FFD320(a1, a2, a3, a4, a5, a6);
-  v12 = v6;
-  if (v6)
+  v10 = sub_275FFD320(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+  v20 = v10;
+  if (v10)
   {
-    v13 = objc_msgSend_firstChildHint(v6, v7, v8, v9, v10, v11);
+    v21 = objc_msgSend_firstChildHint(v10, v11, v16, v17, v18, v19, v12, v13, v14, v15);
   }
 
   else
   {
-    v13 = 0;
+    v21 = 0;
   }
 
-  return v13;
+  return v21;
 }
 
-id sub_275FFD62C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+id sub_275FFD62C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v6 = sub_275FFD320(a1, a2, a3, a4, a5, a6);
-  v12 = v6;
-  if (v6)
+  v10 = sub_275FFD320(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+  v20 = v10;
+  if (v10)
   {
-    v13 = objc_msgSend_lastChildHint(v6, v7, v8, v9, v10, v11);
+    v21 = objc_msgSend_lastChildHint(v10, v11, v16, v17, v18, v19, v12, v13, v14, v15);
   }
 
   else
   {
-    v13 = 0;
+    v21 = 0;
   }
 
-  return v13;
+  return v21;
 }
 
 void sub_275FFDEDC(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  if (!v4)
+  v7 = a2;
+  if (!v7)
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v5, v6, v7, v8, "[TPViewStateRoot loadFromUnarchiver:]_block_invoke");
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v12, v13, v14, v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPViewStateRoot.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v17, v18, v19, v20, v21, v10, v16, 95, 0, "invalid nil value for '%{public}s'", "object");
+    v12 = MEMORY[0x277D81150];
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v8, v9, v10, v11, "[TPViewStateRoot loadFromUnarchiver:]_block_invoke", v4, v5, v6);
+    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v18, v19, v20, v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPViewStateRoot.mm", v15, v16, v17);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v23, v24, v25, v26, v27, v13, v22, 95, 0, "invalid nil value for '%{public}s'", "object");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25, v26);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v33, v34, v35, v36, v29, v30, v31, v32);
   }
 
-  v27 = *(a1 + 32);
-  v28 = *(v27 + 64);
-  *(v27 + 64) = v4;
+  v37 = *(a1 + 32);
+  v38 = *(v37 + 64);
+  *(v37 + 64) = v7;
 }
 
 void sub_275FFDFD8(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  if (!v4)
+  v7 = a2;
+  if (!v7)
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v5, v6, v7, v8, "[TPViewStateRoot loadFromUnarchiver:]_block_invoke_2");
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v12, v13, v14, v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPViewStateRoot.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v17, v18, v19, v20, v21, v10, v16, 102, 0, "invalid nil value for '%{public}s'", "object");
+    v12 = MEMORY[0x277D81150];
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v8, v9, v10, v11, "[TPViewStateRoot loadFromUnarchiver:]_block_invoke_2", v4, v5, v6);
+    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v18, v19, v20, v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPViewStateRoot.mm", v15, v16, v17);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v23, v24, v25, v26, v27, v13, v22, 102, 0, "invalid nil value for '%{public}s'", "object");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25, v26);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v33, v34, v35, v36, v29, v30, v31, v32);
   }
 
-  v27 = *(a1 + 32);
-  v28 = *(v27 + 72);
-  *(v27 + 72) = v4;
+  v37 = *(a1 + 32);
+  v38 = *(v37 + 72);
+  *(v37 + 72) = v7;
 }
 
-id sub_275FFFC3C()
+id sub_275FFFC3C(uint64_t a1)
 {
   if (qword_280A404D8 != -1)
   {
     sub_2760383C8();
   }
 
-  v1 = qword_280A404D0;
+  v2 = qword_280A404D0;
 
-  return v1;
+  return v2;
 }
 
-void sub_275FFFC80(__n128 a1, __n128 a2, __n128 a3, __n128 a4, uint64_t a5, const char *a6)
+void sub_275FFFC80(__n128 a1, __n128 a2, __n128 a3, __n128 a4, uint64_t a5, const char *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v6 = objc_msgSend_mainBundle(MEMORY[0x277CCA8D8], a6, a1, a2, a3, a4);
-  v7 = qword_280A404D0;
-  qword_280A404D0 = v6;
+  v10 = objc_msgSend_mainBundle(MEMORY[0x277CCA8D8], a6, a1, a2, a3, a4, a7, a8, a9, a10);
+  v11 = qword_280A404D0;
+  qword_280A404D0 = v10;
 }
 
 uint64_t sub_275FFFCC0(uint64_t a1, void *a2, unint64_t a3, unint64_t a4)
@@ -3998,12 +2630,12 @@ uint64_t sub_275FFFCC0(uint64_t a1, void *a2, unint64_t a3, unint64_t a4)
   *(a1 + 8) = v12;
   if (v12 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v18 = MEMORY[0x277D81150];
-    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v14, v15, v16, v17, "TPSectionEnumerator::TPSectionEnumerator(TSWPStorage *__strong, TSWPAttributeIndex, TSWPAttributeIndex)");
-    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, v21, v22, v23, v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionEnumerator.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v26, v27, v28, v29, v30, v19, v25, 34, 0, "bad section index");
+    v21 = MEMORY[0x277D81150];
+    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v17, v18, v19, v20, "TPSectionEnumerator::TPSectionEnumerator(TSWPStorage *__strong, TSWPAttributeIndex, TSWPAttributeIndex)", v14, v15, v16);
+    v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, v27, v28, v29, v30, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionEnumerator.mm", v24, v25, v26);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v21, v32, v33, v34, v35, v36, v22, v31, 34, 0, "bad section index");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32, v33, v34, v35);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v37, v42, v43, v44, v45, v38, v39, v40, v41);
   }
 
   return a1;
@@ -4019,57 +2651,57 @@ void sub_275FFFDE8(_Unwind_Exception *a1)
 unint64_t sub_275FFFE18(unint64_t a1, void *a2)
 {
   v3 = a2;
-  v9 = objc_msgSend_attributeArrayForKind_(v3, v4, v5, v6, v7, v8, 8);
-  v15 = v9;
-  if (v9)
+  v12 = objc_msgSend_attributeArrayForKind_(v3, v4, v8, v9, v10, v11, 8, v5, v6, v7);
+  v21 = v12;
+  if (v12)
   {
-    if (!*(v9 + 24))
+    if (!*(v12 + 24))
     {
-      v16 = MEMORY[0x277D81150];
-      v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, v14, "static TSWPAttributeIndex TPSectionEnumerator::firstSectionIndex(TSWPAttributeIndex, TSWPStorage *__strong)");
-      v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, v19, v20, v21, v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionEnumerator.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v24, v25, v26, v27, v28, v17, v23, 185, 0, "Illegal section count");
+      v22 = MEMORY[0x277D81150];
+      v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v17, v18, v19, v20, "static TSWPAttributeIndex TPSectionEnumerator::firstSectionIndex(TSWPAttributeIndex, TSWPStorage *__strong)", v14, v15, v16);
+      v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, v28, v29, v30, v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionEnumerator.mm", v25, v26, v27);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v33, v34, v35, v36, v37, v23, v32, 185, 0, "Illegal section count");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v29, v30, v31, v32, v33);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v38, v43, v44, v45, v46, v39, v40, v41, v42);
     }
 
     if (a1)
     {
       do
       {
-        v34 = TSWPAttributeArray::rangeForAttributeIndex(v15);
-        *v82 = xmmword_27605FD20;
-        if ((objc_msgSend_hasHiddenTextAtCharIndex_range_(v3, v35, xmmword_27605FD20, v36, v37, v38, v34 - 1, v82) & 1) == 0)
+        v47 = TSWPAttributeArray::rangeForAttributeIndex(v21);
+        *v114 = xmmword_27605FD20;
+        if ((objc_msgSend_hasHiddenTextAtCharIndex_range_(v3, v48, xmmword_27605FD20, v51, v52, v53, v47 - 1, v114, v49, v50) & 1) == 0)
         {
           break;
         }
 
-        v40 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(v15);
-        if (v40 >= a1)
+        v58 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(v21);
+        if (v58 >= a1)
         {
-          v45 = MEMORY[0x277D81150];
-          v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, v41, v42, v43, v44, "static TSWPAttributeIndex TPSectionEnumerator::firstSectionIndex(TSWPAttributeIndex, TSWPStorage *__strong)");
-          v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, v48, v49, v50, v51, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionEnumerator.mm");
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v45, v53, v54, v55, v56, v57, v46, v52, 196, 0, "Skipping past the hidden range should give us a new section");
+          v63 = MEMORY[0x277D81150];
+          v64 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v54, v59, v60, v61, v62, "static TSWPAttributeIndex TPSectionEnumerator::firstSectionIndex(TSWPAttributeIndex, TSWPStorage *__strong)", v55, v56, v57);
+          v73 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v65, v69, v70, v71, v72, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionEnumerator.mm", v66, v67, v68);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v63, v74, v75, v76, v77, v78, v64, v73, 196, 0, "Skipping past the hidden range should give us a new section");
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v58, v59, v60, v61, v62);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v79, v84, v85, v86, v87, v80, v81, v82, v83);
         }
 
-        a1 = v40;
+        a1 = v58;
       }
 
-      while (v40);
+      while (v58);
     }
   }
 
   else
   {
-    v63 = MEMORY[0x277D81150];
-    v64 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, v14, "static TSWPAttributeIndex TPSectionEnumerator::firstSectionIndex(TSWPAttributeIndex, TSWPStorage *__strong)");
-    v70 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v65, v66, v67, v68, v69, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionEnumerator.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v63, v71, v72, v73, v74, v75, v64, v70, 183, 0, "invalid nil value for '%{public}s'", "sectionTable");
+    v88 = MEMORY[0x277D81150];
+    v89 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v17, v18, v19, v20, "static TSWPAttributeIndex TPSectionEnumerator::firstSectionIndex(TSWPAttributeIndex, TSWPStorage *__strong)", v14, v15, v16);
+    v98 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v90, v94, v95, v96, v97, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionEnumerator.mm", v91, v92, v93);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v88, v99, v100, v101, v102, v103, v89, v98, 183, 0, "invalid nil value for '%{public}s'", "sectionTable");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v76, v77, v78, v79, v80);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v104, v109, v110, v111, v112, v105, v106, v107, v108);
     a1 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
@@ -4079,70 +2711,70 @@ unint64_t sub_275FFFE18(unint64_t a1, void *a2)
 unint64_t sub_27600009C(unint64_t a1, void *a2)
 {
   v3 = a2;
-  v9 = objc_msgSend_attributeArrayForKind_(v3, v4, v5, v6, v7, v8, 8);
-  v15 = v9;
-  if (v9)
+  v12 = objc_msgSend_attributeArrayForKind_(v3, v4, v8, v9, v10, v11, 8, v5, v6, v7);
+  v21 = v12;
+  if (v12)
   {
-    v16 = *(v9 + 24);
-    if (!v16)
+    v22 = *(v12 + 24);
+    if (!v22)
     {
-      v17 = MEMORY[0x277D81150];
-      v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, v14, "static TSWPAttributeIndex TPSectionEnumerator::lastSectionIndex(TSWPAttributeIndex, TSWPStorage *__strong)");
-      v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, v20, v21, v22, v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionEnumerator.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v25, v26, v27, v28, v29, v18, v24, 210, 0, "Illegal section count");
+      v23 = MEMORY[0x277D81150];
+      v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v17, v18, v19, v20, "static TSWPAttributeIndex TPSectionEnumerator::lastSectionIndex(TSWPAttributeIndex, TSWPStorage *__strong)", v14, v15, v16);
+      v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, v29, v30, v31, v32, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionEnumerator.mm", v26, v27, v28);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v34, v35, v36, v37, v38, v24, v33, 210, 0, "Illegal section count");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v30, v31, v32, v33, v34);
-      v16 = *(v15 + 6);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v39, v44, v45, v46, v47, v40, v41, v42, v43);
+      v22 = *(v21 + 6);
     }
 
-    if (a1 + 1 < v16)
+    if (a1 + 1 < v22)
     {
-      v35 = v16;
+      v48 = v22;
       while (1)
       {
-        v36 = TSWPAttributeArray::rangeForAttributeIndex(v15);
-        v84 = xmmword_27605FD20;
-        if ((objc_msgSend_hasHiddenTextAtCharIndex_range_(v3, v37, xmmword_27605FD20, v38, v39, v40, &v37[v36 - 1], &v84) & 1) == 0)
+        v49 = TSWPAttributeArray::rangeForAttributeIndex(v21);
+        v116 = xmmword_27605FD20;
+        if ((objc_msgSend_hasHiddenTextAtCharIndex_range_(v3, v50, xmmword_27605FD20, v53, v54, v55, &v50[v49 - 1], &v116, v51, v52) & 1) == 0)
         {
           break;
         }
 
-        v42 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(v15);
-        if (v42 <= a1)
+        v60 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(v21);
+        if (v60 <= a1)
         {
-          v47 = MEMORY[0x277D81150];
-          v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, v43, v44, v45, v46, "static TSWPAttributeIndex TPSectionEnumerator::lastSectionIndex(TSWPAttributeIndex, TSWPStorage *__strong)");
-          v54 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, v50, v51, v52, v53, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionEnumerator.mm");
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v47, v55, v56, v57, v58, v59, v48, v54, 224, 0, "Skipping past the hidden range should give us a new section");
+          v65 = MEMORY[0x277D81150];
+          v66 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v56, v61, v62, v63, v64, "static TSWPAttributeIndex TPSectionEnumerator::lastSectionIndex(TSWPAttributeIndex, TSWPStorage *__strong)", v57, v58, v59);
+          v75 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v67, v71, v72, v73, v74, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionEnumerator.mm", v68, v69, v70);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v65, v76, v77, v78, v79, v80, v66, v75, 224, 0, "Skipping past the hidden range should give us a new section");
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v60, v61, v62, v63, v64);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v81, v86, v87, v88, v89, v82, v83, v84, v85);
         }
 
-        a1 = v42;
-        if (v42 + 1 >= v35)
+        a1 = v60;
+        if (v60 + 1 >= v48)
         {
           goto LABEL_13;
         }
       }
     }
 
-    v42 = a1;
+    v60 = a1;
   }
 
   else
   {
-    v65 = MEMORY[0x277D81150];
-    v66 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, v14, "static TSWPAttributeIndex TPSectionEnumerator::lastSectionIndex(TSWPAttributeIndex, TSWPStorage *__strong)");
-    v72 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v67, v68, v69, v70, v71, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionEnumerator.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v65, v73, v74, v75, v76, v77, v66, v72, 208, 0, "invalid nil value for '%{public}s'", "sectionTable");
+    v90 = MEMORY[0x277D81150];
+    v91 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v17, v18, v19, v20, "static TSWPAttributeIndex TPSectionEnumerator::lastSectionIndex(TSWPAttributeIndex, TSWPStorage *__strong)", v14, v15, v16);
+    v100 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v92, v96, v97, v98, v99, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionEnumerator.mm", v93, v94, v95);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v90, v101, v102, v103, v104, v105, v91, v100, 208, 0, "invalid nil value for '%{public}s'", "sectionTable");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v78, v79, v80, v81, v82);
-    v42 = 0x7FFFFFFFFFFFFFFFLL;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v106, v111, v112, v113, v114, v107, v108, v109, v110);
+    v60 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
 LABEL_13:
 
-  return v42;
+  return v60;
 }
 
 void sub_276000344(uint64_t a1)
@@ -4215,43 +2847,43 @@ unint64_t sub_276000420(uint64_t a1)
   {
     WeakRetained = objc_loadWeakRetained(a1);
     v7 = sub_2760007C4(a1);
-    VisibleCharInRange = objc_msgSend_indexOfFirstVisibleCharInRange_(WeakRetained, v8, v9, v10, v11, v12, v7, v8);
+    VisibleCharInRange = objc_msgSend_indexOfFirstVisibleCharInRange_(WeakRetained, v8, v11, v12, v13, v14, v7, v8, v9, v10);
 
     if (VisibleCharInRange != 0x7FFFFFFFFFFFFFFFLL)
     {
       while (1)
       {
-        v14 = sub_27600086C(a1);
-        v1 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(v14);
-        v15 = sub_27600086C(a1);
-        v16 = TSWPAttributeArray::charIndexForAttributeIndex(v15);
-        v17 = v16 ? v16 - 1 : 0;
-        v18 = objc_loadWeakRetained(a1);
-        if (!objc_msgSend_hasHiddenTextAtCharIndex_(v18, v19, v20, v21, v22, v23, v17))
+        v16 = sub_27600086C(a1);
+        v1 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(v16);
+        v17 = sub_27600086C(a1);
+        v18 = TSWPAttributeArray::charIndexForAttributeIndex(v17);
+        v19 = v18 ? v18 - 1 : 0;
+        v20 = objc_loadWeakRetained(a1);
+        if (!objc_msgSend_hasHiddenTextAtCharIndex_(v20, v21, v25, v26, v27, v28, v19, v22, v23, v24))
         {
           break;
         }
 
-        v24 = *(a1 + 32);
+        v29 = *(a1 + 32);
 
-        if (v1 <= v24)
+        if (v1 <= v29)
         {
           goto LABEL_13;
         }
       }
 
 LABEL_13:
-      v30 = *(a1 + 32);
-      v4 = v1 >= v30;
-      v31 = v1 - v30;
-      if (!v4 || v31 >= *(a1 + 40))
+      v38 = *(a1 + 32);
+      v4 = v1 >= v38;
+      v39 = v1 - v38;
+      if (!v4 || v39 >= *(a1 + 40))
       {
-        v32 = MEMORY[0x277D81150];
-        v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, v26, v27, v28, v29, "TSWPAttributeIndex TPSectionEnumerator::firstVisibleSectionIndex() const");
-        v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, v35, v36, v37, v38, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionEnumerator.mm");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v32, v40, v41, v42, v43, v44, v33, v39, 174, 0, "Visible section index is out of bounds");
+        v40 = MEMORY[0x277D81150];
+        v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, v34, v35, v36, v37, "TSWPAttributeIndex TPSectionEnumerator::firstVisibleSectionIndex() const", v31, v32, v33);
+        v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, v46, v47, v48, v49, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionEnumerator.mm", v43, v44, v45);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v40, v51, v52, v53, v54, v55, v41, v50, 174, 0, "Visible section index is out of bounds");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v45, v46, v47, v48, v49);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v56, v61, v62, v63, v64, v57, v58, v59, v60);
       }
     }
   }
@@ -4283,48 +2915,48 @@ void *sub_276000610@<X0>(id *from@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-id sub_276000688(uint64_t a1, uint64_t a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+id sub_276000688(id *a1, NSUInteger *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a2)
   {
     *a2 = sub_2760007C4(a1);
-    *(a2 + 8) = a2;
+    a2[1] = a2;
   }
 
-  v8 = *(a1 + 8);
-  v9 = *(a1 + 16);
-  v11 = v8 >= v9;
-  v10 = v8 - v9;
-  v11 = !v11 || v10 >= *(a1 + 24);
-  if (v11)
+  v12 = a1[1];
+  v13 = a1[2];
+  v15 = v12 >= v13;
+  v14 = v12 - v13;
+  v15 = !v15 || v14 >= a1[3];
+  if (v15)
   {
-    v12 = MEMORY[0x277D81150];
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, a3, a4, a5, a6, "TPSection *TPSectionEnumerator::section(NSRange *) const");
-    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v15, v16, v17, v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionEnumerator.mm");
-    v20 = *(a1 + 8);
-    v21 = NSStringFromRange(*(a1 + 16));
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v22, v23, v24, v25, v26, v13, v19, 108, 0, "section index not within enumeration range: %lu / %{public}@", v20, v21);
+    v16 = MEMORY[0x277D81150];
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, a3, a4, a5, a6, "TPSection *TPSectionEnumerator::section(NSRange *) const", a8, a9, a10);
+    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, v22, v23, v24, v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionEnumerator.mm", v19, v20, v21);
+    v27 = a1[1];
+    v28 = NSStringFromRange(*(a1 + 1));
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v29, v30, v31, v32, v33, v17, v26, 108, 0, "section index not within enumeration range: %lu / %{public}@", v27, v28);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28, v29, v30, v31);
-    v33 = 0;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v39, v40, v41, v42, v35, v36, v37, v38);
+    v44 = 0;
   }
 
   else
   {
-    v32 = sub_27600086C(a1);
-    v33 = TSWPAttributeArray::objectForAttributeIndex(v32);
+    v43 = sub_27600086C(a1);
+    v44 = TSWPAttributeArray::objectForAttributeIndex(v43);
   }
 
-  return v33;
+  return v44;
 }
 
-NSUInteger sub_2760007C4(uint64_t a1)
+NSUInteger sub_2760007C4(id *a1)
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 16);
+  v1 = a1[4];
+  v2 = a1[2];
   v4 = v1 >= v2;
   v3 = v1 - v2;
-  v4 = !v4 || v3 >= *(a1 + 24);
+  v4 = !v4 || v3 >= a1[3];
   if (v4)
   {
     return *MEMORY[0x277D81490];
@@ -4333,7 +2965,7 @@ NSUInteger sub_2760007C4(uint64_t a1)
   v7 = sub_27600086C(a1);
   v5 = TSWPAttributeArray::rangeForAttributeIndex(v7);
   v9 = v8;
-  if (*(a1 + 40) >= 2uLL)
+  if (a1[5] >= 2)
   {
     v10 = sub_27600086C(a1);
     v14.location = TSWPAttributeArray::rangeForAttributeIndex(v10);
@@ -4346,32 +2978,32 @@ NSUInteger sub_2760007C4(uint64_t a1)
   return v5;
 }
 
-uint64_t sub_27600086C(id *a1)
+_DWORD *sub_27600086C(id *a1)
 {
   WeakRetained = objc_loadWeakRetained(a1);
-  v7 = objc_msgSend_attributeArrayForKind_(WeakRetained, v2, v3, v4, v5, v6, 8);
+  v10 = objc_msgSend_attributeArrayForKind_(WeakRetained, v2, v6, v7, v8, v9, 8, v3, v4, v5);
 
-  if (!v7)
+  if (!v10)
   {
-    v26 = MEMORY[0x277D81150];
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, v9, v10, v11, v12, "TSWPParagraphAttributeArray *TPSectionEnumerator::sectionTable() const");
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, v28, v29, v30, v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionEnumerator.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v32, v33, v34, v35, v36, v14, v20, 141, 0, "invalid nil value for '%{public}s'", "result");
+    v35 = MEMORY[0x277D81150];
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v15, v16, v17, v18, "TSWPParagraphAttributeArray *TPSectionEnumerator::sectionTable() const", v12, v13, v14);
+    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, v40, v41, v42, v43, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionEnumerator.mm", v37, v38, v39);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v35, v44, v45, v46, v47, v48, v20, v29, 141, 0, "invalid nil value for '%{public}s'", "result");
     goto LABEL_5;
   }
 
-  if (!*(v7 + 24))
+  if (!*(v10 + 24))
   {
-    v13 = MEMORY[0x277D81150];
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, v9, v10, v11, v12, "TSWPParagraphAttributeArray *TPSectionEnumerator::sectionTable() const");
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionEnumerator.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v21, v22, v23, v24, v25, v14, v20, 143, 0, "Illegal section count");
+    v19 = MEMORY[0x277D81150];
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v15, v16, v17, v18, "TSWPParagraphAttributeArray *TPSectionEnumerator::sectionTable() const", v12, v13, v14);
+    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, v25, v26, v27, v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPSectionEnumerator.mm", v22, v23, v24);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v30, v31, v32, v33, v34, v20, v29, 143, 0, "Illegal section count");
 LABEL_5:
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v37, v38, v39, v40, v41);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v49, v54, v55, v56, v57, v50, v51, v52, v53);
   }
 
-  return v7;
+  return v10;
 }
 
 void sub_276001D38(_Unwind_Exception *a1)
@@ -4388,93 +3020,93 @@ void sub_276002B3C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_276003400(void *a1, const char *a2, unint64_t a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7)
+uint64_t sub_276003400(void *a1, const char *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v9 = objc_msgSend_length(a1, a2, a4, a5, a6, a7);
-  if (v9 <= a3)
+  v12 = objc_msgSend_length(a1, a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  if (v12 <= a3)
   {
-    v15 = a3;
+    v19 = a3;
   }
 
   else
   {
-    v15 = v9;
+    v19 = v12;
   }
 
-  if (v9 >= a3)
+  if (v12 >= a3)
   {
-    v16 = a3;
+    v20 = a3;
   }
 
   else
   {
-    v16 = v9;
+    v20 = v12;
   }
 
-  return objc_msgSend_sectionEnumeratorForCharRange_(a1, v10, v11, v12, v13, v14, v16, v15 - v16);
+  return objc_msgSend_sectionEnumeratorForCharRange_(a1, v15, v16, v17, v18, v13, v20, v19 - v20, v14);
 }
 
-uint64_t sub_27600345C@<X0>(void *a1@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>, __n128 a6@<Q0>, __n128 a7@<Q1>, __n128 a8@<Q2>, __n128 a9@<Q3>)
+uint64_t sub_27600345C@<X0>(void *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>, const char *a5@<X1>, uint64_t a6@<X4>, uint64_t a7@<X5>, __n128 a8@<Q0>, __n128 a9@<Q1>, __n128 a10@<Q2>, __n128 a11@<Q3>)
 {
-  v13 = objc_msgSend_sectionIndexForCharIndex_(a1, a2, a6, a7, a8, a9);
-  v14 = a3 + a4;
-  if (v14 == objc_msgSend_length(a1, v15, v16, v17, v18, v19))
+  v15 = objc_msgSend_sectionIndexForCharIndex_(a1, a5, a8, a9, a10, a11, a2, a3, a6, a7);
+  v16 = a2 + a3;
+  if (v16 == objc_msgSend_length(a1, v17, v22, v23, v24, v25, v18, v19, v20, v21))
   {
-    v25 = objc_msgSend_sectionCount(a1, v20, v21, v22, v23, v24) - 1;
+    v35 = objc_msgSend_sectionCount(a1, v26, v31, v32, v33, v34, v27, v28, v29, v30) - 1;
   }
 
   else
   {
-    v25 = v13;
-    if (a4)
+    v35 = v15;
+    if (a3)
     {
-      v25 = objc_msgSend_sectionIndexForCharIndex_(a1, v20, v21, v22, v23, v24, v14 - 1, v13);
+      v35 = objc_msgSend_sectionIndexForCharIndex_(a1, v26, v31, v32, v33, v34, v16 - 1, v15, v29, v30);
     }
   }
 
-  return sub_2760005A0(a5, a1, v13, v25);
+  return sub_2760005A0(a4, a1, v15, v35);
 }
 
-uint64_t sub_2760034F8@<X0>(void *a1@<X0>, const char *a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>, __n128 a5@<Q0>, __n128 a6@<Q1>, __n128 a7@<Q2>, __n128 a8@<Q3>)
+uint64_t sub_2760034F8@<X0>(void *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>, const char *a4@<X1>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, __n128 a8@<Q0>, __n128 a9@<Q1>, __n128 a10@<Q2>, __n128 a11@<Q3>)
 {
-  if (objc_msgSend_length(a1, a2, a5, a6, a7, a8))
+  if (objc_msgSend_length(a1, a4, a8, a9, a10, a11, a2, a5, a6, a7))
   {
-    v16 = objc_msgSend_length(a1, v11, v12, v13, v14, v15);
-    v22 = objc_msgSend_sectionIndexForCharIndex_(a1, v17, v18, v19, v20, v21, v16);
+    v23 = objc_msgSend_length(a1, v14, v19, v20, v21, v22, v15, v16, v17, v18);
+    v32 = objc_msgSend_sectionIndexForCharIndex_(a1, v24, v28, v29, v30, v31, v23, v25, v26, v27);
   }
 
   else
   {
-    v22 = 0;
+    v32 = 0;
   }
 
-  return sub_2760005A0(a4, a1, a3, v22);
+  return sub_2760005A0(a3, a1, a2, v32);
 }
 
 id sub_27600356C(void *a1)
 {
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = sub_2760036A4;
-  v21 = sub_2760036B4;
-  v22 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = sub_2760036A4;
+  v25 = sub_2760036B4;
+  v26 = 0;
   v2 = objc_opt_class();
-  v8 = objc_msgSend_length(a1, v3, v4, v5, v6, v7);
-  v16[0] = MEMORY[0x277D85DD0];
-  v9.n128_u64[0] = 3221225472;
-  v16[1] = 3221225472;
-  v16[2] = sub_2760036BC;
-  v16[3] = &unk_27A6A8C98;
-  v16[4] = &v17;
-  objc_msgSend_enumerateAttachmentsOfClass_inTextRange_usingBlock_(a1, v10, v9, v11, v12, v13, v2, 0, v8, v16);
-  v14 = v18[5];
-  _Block_object_dispose(&v17, 8);
+  v12 = objc_msgSend_length(a1, v3, v8, v9, v10, v11, v4, v5, v6, v7);
+  v20[0] = MEMORY[0x277D85DD0];
+  v13.n128_u64[0] = 3221225472;
+  v20[1] = 3221225472;
+  v20[2] = sub_2760036BC;
+  v20[3] = &unk_27A6A8C98;
+  v20[4] = &v21;
+  objc_msgSend_enumerateAttachmentsOfClass_inTextRange_usingBlock_(a1, v14, v13, v15, v16, v17, v2, 0, v12, v20);
+  v18 = v22[5];
+  _Block_object_dispose(&v21, 8);
 
-  return v14;
+  return v18;
 }
 
-void sub_276003684(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_276003684(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -4490,67 +3122,67 @@ uint64_t sub_2760036A4(uint64_t result, uint64_t a2)
 
 id sub_2760036F4(void *a1)
 {
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = sub_2760036A4;
-  v21 = sub_2760036B4;
-  v22 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = sub_2760036A4;
+  v25 = sub_2760036B4;
+  v26 = 0;
   v2 = objc_opt_class();
-  v8 = objc_msgSend_length(a1, v3, v4, v5, v6, v7);
-  v16[0] = MEMORY[0x277D85DD0];
-  v9.n128_u64[0] = 3221225472;
-  v16[1] = 3221225472;
-  v16[2] = sub_27600382C;
-  v16[3] = &unk_27A6A8CC0;
-  v16[4] = &v17;
-  objc_msgSend_enumerateAttachmentsOfClass_inTextRange_usingBlock_(a1, v10, v9, v11, v12, v13, v2, 0, v8, v16);
-  v14 = v18[5];
-  _Block_object_dispose(&v17, 8);
+  v12 = objc_msgSend_length(a1, v3, v8, v9, v10, v11, v4, v5, v6, v7);
+  v20[0] = MEMORY[0x277D85DD0];
+  v13.n128_u64[0] = 3221225472;
+  v20[1] = 3221225472;
+  v20[2] = sub_27600382C;
+  v20[3] = &unk_27A6A8CC0;
+  v20[4] = &v21;
+  objc_msgSend_enumerateAttachmentsOfClass_inTextRange_usingBlock_(a1, v14, v13, v15, v16, v17, v2, 0, v12, v20);
+  v18 = v22[5];
+  _Block_object_dispose(&v21, 8);
 
-  return v14;
+  return v18;
 }
 
-void sub_27600380C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_27600380C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-id sub_276003864(void *a1, const char *a2, void *a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7)
+id sub_276003864(void *a1, const char *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  CharIndex = objc_msgSend_findCharIndex(a3, a2, a4, a5, a6, a7);
-  objc_msgSend_sectionEnumeratorForCharRange_(a1, v9, v10, v11, v12, v13, CharIndex, 1);
+  CharIndex = objc_msgSend_findCharIndex(a3, a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  objc_msgSend_sectionEnumeratorForCharRange_(a1, v14, v15, v16, v17, v12, CharIndex, 1, v13);
   objc_opt_class();
-  v18 = sub_276000688(v27, 0, v14, v15, v16, v17);
-  v19 = TSUDynamicCast();
+  v26 = sub_276000688(v39, 0, v22, v23, v24, v25, v18, v19, v20, v21);
+  v27 = TSUDynamicCast();
 
-  v25 = objc_msgSend_backgroundFill(v19, v20, v21, v22, v23, v24);
+  v37 = objc_msgSend_backgroundFill(v27, v28, v33, v34, v35, v36, v29, v30, v31, v32);
 
-  sub_2760005A4(v27);
+  sub_2760005A4(v39);
 
-  return v25;
+  return v37;
 }
 
-id sub_276003944(void *a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+id sub_276003944(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v7 = objc_msgSend_range(a1, a2, a3, a4, a5, a6);
-  v13 = objc_msgSend_smartFieldsWithAttributeKind_intersectingRange_passingTest_(a1, v8, v9, v10, v11, v12, 6, v7, v8, &unk_288501238);
-  v19 = v13;
-  if (v13)
+  v11 = objc_msgSend_range(a1, a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  v17 = objc_msgSend_smartFieldsWithAttributeKind_intersectingRange_passingTest_(a1, v12, v13, v14, v15, v16, 6, v11, v12, &unk_288501238);
+  v27 = v17;
+  if (v17)
   {
-    v20 = v13;
+    v28 = v17;
   }
 
   else
   {
-    v20 = objc_msgSend_array(MEMORY[0x277CBEA60], v14, v15, v16, v17, v18);
+    v28 = objc_msgSend_array(MEMORY[0x277CBEA60], v18, v23, v24, v25, v26, v19, v20, v21, v22);
   }
 
-  v21 = v20;
+  v29 = v28;
 
-  return v21;
+  return v29;
 }
 
 void sub_276003C60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
@@ -4563,10 +3195,10 @@ void sub_276003C60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 uint64_t sub_2760047FC(void *a1, void *a2)
 {
   v3 = a1;
-  v5 = a2;
-  if (v3 | v5)
+  v8 = a2;
+  if (v3 | v8)
   {
-    isEqual = objc_msgSend_isEqual_(v3, v4, v6, v7, v8, v9, v5);
+    isEqual = objc_msgSend_isEqual_(v3, v4, v9, v10, v11, v12, v8, v5, v6, v7);
   }
 
   else
@@ -4577,17 +3209,17 @@ uint64_t sub_2760047FC(void *a1, void *a2)
   return isEqual;
 }
 
-uint64_t sub_276005D38(uint64_t a1, void *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+uint64_t sub_276005D38(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v7 = objc_msgSend_name(a2, a2, a3, a4, a5, a6);
-  isEqual = objc_msgSend_isEqual_(v7, v8, v9, v10, v11, v12, *(a1 + 32));
+  v11 = objc_msgSend_name(a2, a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  isEqual = objc_msgSend_isEqual_(v11, v12, v16, v17, v18, v19, *(a1 + 32), v13, v14, v15);
 
   return isEqual;
 }
 
-void sub_27600613C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_27600613C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   sub_2760005A4(va);
   _Unwind_Resume(a1);
 }
@@ -4606,10 +3238,10 @@ void sub_276006AA0()
   *MEMORY[0x277D81438] = v0;
 }
 
-void sub_276006BB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_276006BB4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = TPDocumentRoot;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -4620,7 +3252,7 @@ void sub_2760074B0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_276008000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_276008000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a59, 8);
 
@@ -4629,100 +3261,100 @@ void sub_276008000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void sub_2760080C4(uint64_t a1, void *a2)
 {
-  v26 = a2;
-  if (!v26)
+  v36 = a2;
+  if (!v36)
   {
-    v8 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v4, v5, v6, v7, "[TPDocumentRoot loadFromUnarchiver:]_block_invoke");
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDocumentRoot.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v16, v17, v18, v19, v20, v9, v15, 916, 0, "invalid nil value for '%{public}s'", "object");
+    v11 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v7, v8, v9, v10, "[TPDocumentRoot loadFromUnarchiver:]_block_invoke", v4, v5, v6);
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v17, v18, v19, v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDocumentRoot.mm", v14, v15, v16);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v22, v23, v24, v25, v26, v12, v21, 916, 0, "invalid nil value for '%{public}s'", "object");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v32, v33, v34, v35, v28, v29, v30, v31);
   }
 
-  objc_msgSend_setTheme_(*(a1 + 32), v3, v4, v5, v6, v7, v26);
+  objc_msgSend_setTheme_(*(a1 + 32), v3, v7, v8, v9, v10, v36, v4, v5, v6);
 }
 
 void sub_2760081CC(uint64_t a1, void *a2)
 {
-  v26 = a2;
-  if (!v26)
+  v36 = a2;
+  if (!v36)
   {
-    v8 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v4, v5, v6, v7, "[TPDocumentRoot loadFromUnarchiver:]_block_invoke_2");
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDocumentRoot.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v16, v17, v18, v19, v20, v9, v15, 923, 0, "invalid nil value for '%{public}s'", "object");
+    v11 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v7, v8, v9, v10, "[TPDocumentRoot loadFromUnarchiver:]_block_invoke_2", v4, v5, v6);
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v17, v18, v19, v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDocumentRoot.mm", v14, v15, v16);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v22, v23, v24, v25, v26, v12, v21, 923, 0, "invalid nil value for '%{public}s'", "object");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v32, v33, v34, v35, v28, v29, v30, v31);
   }
 
-  objc_msgSend_setStylesheet_(*(a1 + 32), v3, v4, v5, v6, v7, v26);
+  objc_msgSend_setStylesheet_(*(a1 + 32), v3, v7, v8, v9, v10, v36, v4, v5, v6);
 }
 
 void sub_2760082D4(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  if (!v4)
+  v7 = a2;
+  if (!v7)
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v5, v6, v7, v8, "[TPDocumentRoot loadFromUnarchiver:]_block_invoke_3");
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v12, v13, v14, v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDocumentRoot.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v17, v18, v19, v20, v21, v10, v16, 931, 0, "invalid nil value for '%{public}s'", "object");
+    v12 = MEMORY[0x277D81150];
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v8, v9, v10, v11, "[TPDocumentRoot loadFromUnarchiver:]_block_invoke_3", v4, v5, v6);
+    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v18, v19, v20, v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDocumentRoot.mm", v15, v16, v17);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v23, v24, v25, v26, v27, v13, v22, 931, 0, "invalid nil value for '%{public}s'", "object");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25, v26);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v33, v34, v35, v36, v29, v30, v31, v32);
   }
 
-  v27 = *(a1 + 32);
-  v28 = *(v27 + 496);
-  *(v27 + 496) = v4;
+  v37 = *(a1 + 32);
+  v38 = *(v37 + 496);
+  *(v37 + 496) = v7;
 }
 
 void sub_2760083D0(uint64_t a1, void *a2)
 {
-  v26 = a2;
-  if (!v26)
+  v36 = a2;
+  if (!v36)
   {
-    v8 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v4, v5, v6, v7, "[TPDocumentRoot loadFromUnarchiver:]_block_invoke_4");
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDocumentRoot.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v16, v17, v18, v19, v20, v9, v15, 938, 0, "invalid nil value for '%{public}s'", "object");
+    v11 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v7, v8, v9, v10, "[TPDocumentRoot loadFromUnarchiver:]_block_invoke_4", v4, v5, v6);
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v17, v18, v19, v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDocumentRoot.mm", v14, v15, v16);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v22, v23, v24, v25, v26, v12, v21, 938, 0, "invalid nil value for '%{public}s'", "object");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v32, v33, v34, v35, v28, v29, v30, v31);
   }
 
-  objc_msgSend_setDrawablesZOrder_(*(a1 + 32), v3, v4, v5, v6, v7, v26);
+  objc_msgSend_setDrawablesZOrder_(*(a1 + 32), v3, v7, v8, v9, v10, v36, v4, v5, v6);
 }
 
 void sub_2760084D8(uint64_t a1, void *a2)
 {
-  v26 = a2;
-  if (!v26)
+  v36 = a2;
+  if (!v36)
   {
-    v8 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v4, v5, v6, v7, "[TPDocumentRoot loadFromUnarchiver:]_block_invoke_5");
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDocumentRoot.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v16, v17, v18, v19, v20, v9, v15, 945, 0, "invalid nil value for '%{public}s'", "object");
+    v11 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v7, v8, v9, v10, "[TPDocumentRoot loadFromUnarchiver:]_block_invoke_5", v4, v5, v6);
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v17, v18, v19, v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDocumentRoot.mm", v14, v15, v16);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v22, v23, v24, v25, v26, v12, v21, 945, 0, "invalid nil value for '%{public}s'", "object");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v32, v33, v34, v35, v28, v29, v30, v31);
   }
 
-  objc_msgSend_setFloatingDrawables_(*(a1 + 32), v3, v4, v5, v6, v7, v26);
+  objc_msgSend_setFloatingDrawables_(*(a1 + 32), v3, v7, v8, v9, v10, v36, v4, v5, v6);
 }
 
 void sub_2760085E0(uint64_t a1, void *a2)
 {
-  v26 = a2;
-  if (!v26)
+  v36 = a2;
+  if (!v36)
   {
-    v8 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v4, v5, v6, v7, "[TPDocumentRoot loadFromUnarchiver:]_block_invoke_6");
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDocumentRoot.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v16, v17, v18, v19, v20, v9, v15, 952, 0, "invalid nil value for '%{public}s'", "object");
+    v11 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v7, v8, v9, v10, "[TPDocumentRoot loadFromUnarchiver:]_block_invoke_6", v4, v5, v6);
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v17, v18, v19, v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDocumentRoot.mm", v14, v15, v16);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v22, v23, v24, v25, v26, v12, v21, 952, 0, "invalid nil value for '%{public}s'", "object");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v32, v33, v34, v35, v28, v29, v30, v31);
   }
 
-  objc_msgSend_setFlowInfoContainer_(*(a1 + 32), v3, v4, v5, v6, v7, v26);
+  objc_msgSend_setFlowInfoContainer_(*(a1 + 32), v3, v7, v8, v9, v10, v36, v4, v5, v6);
 }
 
 uint64_t sub_2760086E8(uint64_t result, uint64_t a2)
@@ -4734,183 +3366,183 @@ uint64_t sub_2760086E8(uint64_t result, uint64_t a2)
 
 void sub_276008700(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  if (!v4)
+  v7 = a2;
+  if (!v7)
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v5, v6, v7, v8, "[TPDocumentRoot loadFromUnarchiver:]_block_invoke");
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v12, v13, v14, v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDocumentRoot.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v17, v18, v19, v20, v21, v10, v16, 961, 0, "invalid nil value for '%{public}s'", "object");
+    v12 = MEMORY[0x277D81150];
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v8, v9, v10, v11, "[TPDocumentRoot loadFromUnarchiver:]_block_invoke", v4, v5, v6);
+    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v18, v19, v20, v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDocumentRoot.mm", v15, v16, v17);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v23, v24, v25, v26, v27, v13, v22, 961, 0, "invalid nil value for '%{public}s'", "object");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25, v26);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v33, v34, v35, v36, v29, v30, v31, v32);
   }
 
-  v27 = *(*(a1 + 32) + 8);
-  v28 = *(v27 + 40);
-  *(v27 + 40) = v4;
+  v37 = *(*(a1 + 32) + 8);
+  v38 = *(v37 + 40);
+  *(v37 + 40) = v7;
 }
 
 void sub_2760087F8(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  if (!v4)
+  v7 = a2;
+  if (!v7)
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v5, v6, v7, v8, "[TPDocumentRoot loadFromUnarchiver:]_block_invoke_2");
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v12, v13, v14, v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDocumentRoot.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v17, v18, v19, v20, v21, v10, v16, 968, 0, "invalid nil value for '%{public}s'", "object");
+    v12 = MEMORY[0x277D81150];
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v8, v9, v10, v11, "[TPDocumentRoot loadFromUnarchiver:]_block_invoke_2", v4, v5, v6);
+    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v18, v19, v20, v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDocumentRoot.mm", v15, v16, v17);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v23, v24, v25, v26, v27, v13, v22, 968, 0, "invalid nil value for '%{public}s'", "object");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25, v26);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v33, v34, v35, v36, v29, v30, v31, v32);
   }
 
-  v27 = *(a1 + 32);
-  v28 = *(v27 + 504);
-  *(v27 + 504) = v4;
+  v37 = *(a1 + 32);
+  v38 = *(v37 + 504);
+  *(v37 + 504) = v7;
 }
 
 void sub_276008930(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  if (!v4)
+  v7 = a2;
+  if (!v7)
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v5, v6, v7, v8, "[TPDocumentRoot loadFromUnarchiver:]_block_invoke_6");
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v12, v13, v14, v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDocumentRoot.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v17, v18, v19, v20, v21, v10, v16, 991, 0, "invalid nil value for '%{public}s'", "object");
+    v12 = MEMORY[0x277D81150];
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v8, v9, v10, v11, "[TPDocumentRoot loadFromUnarchiver:]_block_invoke_6", v4, v5, v6);
+    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v18, v19, v20, v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDocumentRoot.mm", v15, v16, v17);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v23, v24, v25, v26, v27, v13, v22, 991, 0, "invalid nil value for '%{public}s'", "object");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25, v26);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v33, v34, v35, v36, v29, v30, v31, v32);
   }
 
-  v27 = *(a1 + 32);
-  v28 = *(v27 + 664);
-  *(v27 + 664) = v4;
+  v37 = *(a1 + 32);
+  v38 = *(v37 + 664);
+  *(v37 + 664) = v7;
 }
 
-void sub_276008A2C(uint64_t a1, void *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_276008A2C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v12 = objc_msgSend_object(a2, a2, a3, a4, a5, a6);
-  objc_msgSend_setCustomFormatListToUpgrade_(*(a1 + 32), v7, v8, v9, v10, v11);
+  v19 = objc_msgSend_object(a2, a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  objc_msgSend_setCustomFormatListToUpgrade_(*(a1 + 32), v11, v15, v16, v17, v18, v19, v12, v13, v14);
 }
 
-uint64_t sub_276008AB0(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+uint64_t sub_276008AB0(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v368 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 32);
-  if (!v7[61])
+  v545 = *MEMORY[0x277D85DE8];
+  v11 = *(a1 + 32);
+  if (!v11[61])
   {
-    v8 = objc_alloc(MEMORY[0x277D80AE0]);
-    v14 = objc_msgSend_context(*(a1 + 32), v9, v10, v11, v12, v13);
-    canCullStyles = objc_msgSend_initWithContext_canCullStyles_(v8, v15, v16, v17, v18, v19, v14, 1);
-    v21 = *(a1 + 32);
-    v22 = *(v21 + 488);
-    *(v21 + 488) = canCullStyles;
+    v12 = objc_alloc(MEMORY[0x277D80AE0]);
+    v22 = objc_msgSend_context(*(a1 + 32), v13, v18, v19, v20, v21, v14, v15, v16, v17);
+    canCullStyles = objc_msgSend_initWithContext_canCullStyles_(v12, v23, v26, v27, v28, v29, v22, 1, v24, v25);
+    v31 = *(a1 + 32);
+    v32 = *(v31 + 488);
+    *(v31 + 488) = canCullStyles;
 
-    v7 = *(a1 + 32);
+    v11 = *(a1 + 32);
   }
 
-  if (!v7[60])
+  if (!v11[60])
   {
-    v23 = objc_msgSend_themeWithContext_alternate_withStylesheet_(TPTheme, a2, a3, a4, a5, a6, *(a1 + 40), 5, v7[61]);
-    objc_msgSend_setTheme_(*(a1 + 32), v24, v25, v26, v27, v28, v23);
+    v33 = objc_msgSend_themeWithContext_alternate_withStylesheet_(TPTheme, a2, a7, a8, a9, a10, *(a1 + 40), 5, v11[61], a6);
+    objc_msgSend_setTheme_(*(a1 + 32), v34, v38, v39, v40, v41, v33, v35, v36, v37);
 
-    v7 = *(a1 + 32);
+    v11 = *(a1 + 32);
   }
 
-  if (!v7[62])
+  if (!v11[62])
   {
-    objc_msgSend_pCreateBodyStorage(v7, a2, a3, a4, a5, a6);
-    v7 = *(a1 + 32);
+    objc_msgSend_pCreateBodyStorage(v11, a2, a7, a8, a9, a10, a3, a4, a5, a6);
+    v11 = *(a1 + 32);
   }
 
-  if (!v7[64])
+  if (!v11[64])
   {
-    objc_msgSend_willModifyForUpgrade(v7, a2, a3, a4, a5, a6);
-    v29 = *(a1 + 32);
-    v35 = objc_msgSend_bodyStorage(v29, v30, v31, v32, v33, v34);
-    objc_msgSend_pCreateDrawablesZOrderBodyStorage_addAnchoredDrawables_(v29, v36, v37, v38, v39, v40, v35, 1);
+    objc_msgSend_willModifyForUpgrade(v11, a2, a7, a8, a9, a10, a3, a4, a5, a6);
+    v42 = *(a1 + 32);
+    v52 = objc_msgSend_bodyStorage(v42, v43, v48, v49, v50, v51, v44, v45, v46, v47);
+    objc_msgSend_pCreateDrawablesZOrderBodyStorage_addAnchoredDrawables_(v42, v53, v56, v57, v58, v59, v52, 1, v54, v55);
 
-    v7 = *(a1 + 32);
+    v11 = *(a1 + 32);
   }
 
-  if (!v7[65])
+  if (!v11[65])
   {
-    objc_msgSend_pCreateFloatingDrawables(v7, a2, a3, a4, a5, a6);
-    v7 = *(a1 + 32);
+    objc_msgSend_pCreateFloatingDrawables(v11, a2, a7, a8, a9, a10, a3, a4, a5, a6);
+    v11 = *(a1 + 32);
   }
 
-  if (v7[97])
+  if (v11[97])
   {
-    v338 = objc_opt_new();
-    v359 = 0u;
-    v360 = 0u;
-    v361 = 0u;
-    v362 = 0u;
-    v45 = objc_msgSend_flowInfos(*(*(a1 + 32) + 776), v41, 0, v42, v43, v44);
-    obj = v45;
-    v51 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v46, v47, v48, v49, v50, &v359, v367, 16);
-    if (v51)
+    v515 = objc_opt_new();
+    v536 = 0u;
+    v537 = 0u;
+    v538 = 0u;
+    v539 = 0u;
+    v68 = objc_msgSend_flowInfos(*(*(a1 + 32) + 776), v60, 0, v65, v66, v67, v61, v62, v63, v64);
+    obj = v68;
+    v75 = objc_msgSend_countByEnumeratingWithState_objects_count_(v68, v69, v71, v72, v73, v74, &v536, v544, 16, v70);
+    if (v75)
     {
-      v340 = *v360;
+      v517 = *v537;
       do
       {
-        v52 = 0;
-        v341 = v51;
+        v76 = 0;
+        v518 = v75;
         do
         {
-          if (*v360 != v340)
+          if (*v537 != v517)
           {
             objc_enumerationMutation(obj);
           }
 
-          v53 = *(*(&v359 + 1) + 8 * v52);
-          v54 = objc_opt_new();
-          v357 = 0u;
-          v358 = 0u;
-          v355 = 0u;
-          v356 = 0u;
-          v59 = objc_msgSend_textboxes(v53, v55, 0, v56, v57, v58);
-          v66 = objc_msgSend_countByEnumeratingWithState_objects_count_(v59, v60, v61, v62, v63, v64, &v355, v366, 16);
-          v342 = v53;
-          if (v66)
+          v77 = *(*(&v536 + 1) + 8 * v76);
+          v78 = objc_opt_new();
+          v534 = 0u;
+          v535 = 0u;
+          v532 = 0u;
+          v533 = 0u;
+          v87 = objc_msgSend_textboxes(v77, v79, 0, v84, v85, v86, v80, v81, v82, v83);
+          v98 = objc_msgSend_countByEnumeratingWithState_objects_count_(v87, v88, v90, v91, v92, v93, &v532, v543, 16, v89);
+          v519 = v77;
+          if (v98)
           {
-            v71 = *v356;
+            v103 = *v533;
             do
             {
-              for (i = 0; i != v66; ++i)
+              for (i = 0; i != v98; ++i)
               {
-                if (*v356 != v71)
+                if (*v533 != v103)
                 {
-                  objc_enumerationMutation(v59);
+                  objc_enumerationMutation(v87);
                 }
 
-                v73 = *(*(&v355 + 1) + 8 * i);
-                if (objc_msgSend_pageIndexForDrawable_(*(*(a1 + 32) + 520), v65, v67, v68, v69, v70, v73) == 0x7FFFFFFFFFFFFFFFLL)
+                v105 = *(*(&v532 + 1) + 8 * i);
+                if (objc_msgSend_pageIndexForDrawable_(*(*(a1 + 32) + 520), v94, v99, v100, v101, v102, v105, v95, v96, v97) == 0x7FFFFFFFFFFFFFFFLL)
                 {
-                  objc_msgSend_addObject_(v54, v65, v67, v68, v69, v70, v73);
+                  objc_msgSend_addObject_(v78, v94, v99, v100, v101, v102, v105, v95, v96, v97);
                 }
               }
 
-              v66 = objc_msgSend_countByEnumeratingWithState_objects_count_(v59, v65, v67, v68, v69, v70, &v355, v366, 16);
+              v98 = objc_msgSend_countByEnumeratingWithState_objects_count_(v87, v94, v99, v100, v101, v102, &v532, v543, 16, v97);
             }
 
-            while (v66);
+            while (v98);
           }
 
-          if (objc_msgSend_count(v54, v74, v75, v76, v77, v78))
+          if (objc_msgSend_count(v78, v106, v111, v112, v113, v114, v107, v108, v109, v110))
           {
-            v84 = objc_msgSend_textboxes(v342, v79, v80, v81, v82, v83);
-            v90 = objc_msgSend_mutableCopy(v84, v85, v86, v87, v88, v89);
+            v124 = objc_msgSend_textboxes(v519, v115, v120, v121, v122, v123, v116, v117, v118, v119);
+            v134 = objc_msgSend_mutableCopy(v124, v125, v130, v131, v132, v133, v126, v127, v128, v129);
 
-            objc_msgSend_removeObjectsInArray_(v90, v91, v92, v93, v94, v95, v54);
-            if (objc_msgSend_count(v90, v96, v97, v98, v99, v100))
+            objc_msgSend_removeObjectsInArray_(v134, v135, v139, v140, v141, v142, v78, v136, v137, v138);
+            if (objc_msgSend_count(v134, v143, v148, v149, v150, v151, v144, v145, v146, v147))
             {
               if (*MEMORY[0x277D81500] != -1)
               {
                 sub_2760383F0();
               }
 
-              objc_msgSend_willModifyForUpgrade(v342, v101, v102, v103, v104, v105);
-              objc_msgSend_setTextboxes_(v342, v106, v107, v108, v109, v110, v90);
+              objc_msgSend_willModifyForUpgrade(v519, v152, v157, v158, v159, v160, v153, v154, v155, v156);
+              objc_msgSend_setTextboxes_(v519, v161, v165, v166, v167, v168, v134, v162, v163, v164);
             }
 
             else
@@ -4920,123 +3552,123 @@ uint64_t sub_276008AB0(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128
                 sub_276038418();
               }
 
-              objc_msgSend_addObject_(v338, v101, v102, v103, v104, v105, v342);
+              objc_msgSend_addObject_(v515, v152, v157, v158, v159, v160, v519, v154, v155, v156);
             }
           }
 
-          ++v52;
+          ++v76;
         }
 
-        while (v52 != v341);
-        v45 = obj;
-        v51 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v111, v112, v113, v114, v115, &v359, v367, 16);
+        while (v76 != v518);
+        v68 = obj;
+        v75 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v169, v171, v172, v173, v174, &v536, v544, 16, v170);
       }
 
-      while (v51);
+      while (v75);
     }
 
-    v353 = 0u;
-    v354 = 0u;
-    v351 = 0u;
-    v352 = 0u;
-    v116 = v338;
-    v123 = objc_msgSend_countByEnumeratingWithState_objects_count_(v116, v117, v118, v119, v120, v121, &v351, v365, 16);
-    if (v123)
+    v530 = 0u;
+    v531 = 0u;
+    v528 = 0u;
+    v529 = 0u;
+    v175 = v515;
+    v187 = objc_msgSend_countByEnumeratingWithState_objects_count_(v175, v176, v178, v179, v180, v181, &v528, v542, 16, v177);
+    if (v187)
     {
-      v128 = *v352;
+      v192 = *v529;
       do
       {
-        for (j = 0; j != v123; ++j)
+        for (j = 0; j != v187; ++j)
         {
-          if (*v352 != v128)
+          if (*v529 != v192)
           {
-            objc_enumerationMutation(v116);
+            objc_enumerationMutation(v175);
           }
 
-          v130 = *(*(&v351 + 1) + 8 * j);
-          objc_msgSend_willModifyForUpgrade(*(*(a1 + 32) + 776), v122, v124, v125, v126, v127);
-          objc_msgSend_removeFlowInfo_(*(*(a1 + 32) + 776), v131, v132, v133, v134, v135, v130);
+          v194 = *(*(&v528 + 1) + 8 * j);
+          objc_msgSend_willModifyForUpgrade(*(*(a1 + 32) + 776), v182, v188, v189, v190, v191, v183, v184, v185, v186);
+          objc_msgSend_removeFlowInfo_(*(*(a1 + 32) + 776), v195, v199, v200, v201, v202, v194, v196, v197, v198);
         }
 
-        v123 = objc_msgSend_countByEnumeratingWithState_objects_count_(v116, v122, v124, v125, v126, v127, &v351, v365, 16);
+        v187 = objc_msgSend_countByEnumeratingWithState_objects_count_(v175, v182, v188, v189, v190, v191, &v528, v542, 16, v186);
       }
 
-      while (v123);
+      while (v187);
     }
   }
 
   else
   {
-    objc_msgSend_pCreateFlowInfoContainer(v7, a2, a3, a4, a5, a6);
+    objc_msgSend_pCreateFlowInfoContainer(v11, a2, a7, a8, a9, a10, a3, a4, a5, a6);
   }
 
-  v141 = *(*(*(a1 + 48) + 8) + 40);
-  if (v141)
+  v212 = *(*(*(a1 + 48) + 8) + 40);
+  if (v212)
   {
-    objc_msgSend_willBeRemovedFromDocumentRoot_(v141, v136, v137, v138, v139, v140, *(a1 + 32));
-    objc_msgSend_wasRemovedFromDocumentRoot_(*(*(*(a1 + 48) + 8) + 40), v142, v143, v144, v145, v146, *(a1 + 32));
+    objc_msgSend_willBeRemovedFromDocumentRoot_(v212, v203, v208, v209, v210, v211, *(a1 + 32), v205, v206, v207);
+    objc_msgSend_wasRemovedFromDocumentRoot_(*(*(*(a1 + 48) + 8) + 40), v213, v217, v218, v219, v220, *(a1 + 32), v214, v215, v216);
     if (*(a1 + 72) == 1)
     {
-      objc_msgSend_pUpgradeSection_documentVersion_(*(a1 + 32), v136, v137, v138, v139, v140, *(*(*(a1 + 48) + 8) + 40), *(a1 + 56));
+      objc_msgSend_pUpgradeSection_documentVersion_(*(a1 + 32), v203, v208, v209, v210, v211, *(*(*(a1 + 48) + 8) + 40), *(a1 + 56), v206, v207);
     }
   }
 
-  objc_msgSend_pCommonInitialization(*(a1 + 32), v136, v137, v138, v139, v140);
+  objc_msgSend_pCommonInitialization(*(a1 + 32), v203, v208, v209, v210, v211, v204, v205, v206, v207);
   if (*(a1 + 72) == 1)
   {
-    objc_msgSend_performHyperlinkUpgradesIfNecessaryForVersion_(*(a1 + 32), v147, v148, v149, v150, v151, *(a1 + 56));
-    objc_msgSend_p_upgradeTOCStyles(*(a1 + 32), v152, v153, v154, v155, v156);
-    objc_msgSend_p_upgradeBodyTOC(*(a1 + 32), v157, v158, v159, v160, v161);
+    objc_msgSend_performHyperlinkUpgradesIfNecessaryForVersion_(*(a1 + 32), v221, v226, v227, v228, v229, *(a1 + 56), v223, v224, v225);
+    objc_msgSend_p_upgradeTOCStyles(*(a1 + 32), v230, v235, v236, v237, v238, v231, v232, v233, v234);
+    objc_msgSend_p_upgradeBodyTOC(*(a1 + 32), v239, v244, v245, v246, v247, v240, v241, v242, v243);
     *(*(a1 + 32) + 464) = 1;
   }
 
   if (*(a1 + 64) < *MEMORY[0x277D80968])
   {
-    objc_msgSend_p_upgradeTOCModelForUnity20(*(a1 + 32), v147, v148, v149, v150, v151);
+    objc_msgSend_p_upgradeTOCModelForUnity20(*(a1 + 32), v221, v226, v227, v228, v229, v222, v223, v224, v225);
   }
 
   if ((*(a1 + 73) & 1) == 0)
   {
-    objc_msgSend_willModifyForUpgrade(*(a1 + 32), v147, v148, v149, v150, v151);
-    objc_msgSend_p_initializeShowInBookmarksListParagraphStylesProperty(*(a1 + 32), v162, v163, v164, v165, v166);
+    objc_msgSend_willModifyForUpgrade(*(a1 + 32), v221, v226, v227, v228, v229, v222, v223, v224, v225);
+    objc_msgSend_p_initializeShowInBookmarksListParagraphStylesProperty(*(a1 + 32), v248, v253, v254, v255, v256, v249, v250, v251, v252);
   }
 
-  v167 = objc_msgSend_settings(*(a1 + 32), v147, v148, v149, v150, v151);
-  hasBody = objc_msgSend_hasBody(v167, v168, v169, v170, v171, v172);
+  v257 = objc_msgSend_settings(*(a1 + 32), v221, v226, v227, v228, v229, v222, v223, v224, v225);
+  hasBody = objc_msgSend_hasBody(v257, v258, v263, v264, v265, v266, v259, v260, v261, v262);
 
   if ((hasBody & 1) == 0)
   {
-    v349 = 0u;
-    v350 = 0u;
-    v347 = 0u;
-    v348 = 0u;
-    v179 = objc_msgSend_sections(*(a1 + 32), v174, 0, v176, v177, v178);
-    v186 = objc_msgSend_countByEnumeratingWithState_objects_count_(v179, v180, v181, v182, v183, v184, &v347, v364, 16);
-    if (v186)
+    v526 = 0u;
+    v527 = 0u;
+    v524 = 0u;
+    v525 = 0u;
+    v277 = objc_msgSend_sections(*(a1 + 32), v268, 0, v274, v275, v276, v269, v270, v271, v272);
+    v288 = objc_msgSend_countByEnumeratingWithState_objects_count_(v277, v278, v280, v281, v282, v283, &v524, v541, 16, v279);
+    if (v288)
     {
-      v191 = *v348;
+      v293 = *v525;
 LABEL_58:
-      v192 = 0;
+      v294 = 0;
       while (1)
       {
-        if (*v348 != v191)
+        if (*v525 != v293)
         {
-          objc_enumerationMutation(v179);
+          objc_enumerationMutation(v277);
         }
 
-        v193 = objc_msgSend_sectionTemplatePageForType_(*(*(&v347 + 1) + 8 * v192), v185, v187, v188, v189, v190, 0);
-        v199 = objc_msgSend_pageTemplateUUIDPath(v193, v194, v195, v196, v197, v198);
-        v200 = v199 == 0;
+        v295 = objc_msgSend_sectionTemplatePageForType_(*(*(&v524 + 1) + 8 * v294), v284, v289, v290, v291, v292, 0, v285, v286, v287);
+        v305 = objc_msgSend_pageTemplateUUIDPath(v295, v296, v301, v302, v303, v304, v297, v298, v299, v300);
+        v306 = v305 == 0;
 
-        if (v200)
+        if (v306)
         {
           break;
         }
 
-        if (v186 == ++v192)
+        if (v288 == ++v294)
         {
-          v186 = objc_msgSend_countByEnumeratingWithState_objects_count_(v179, v185, v187, v188, v189, v190, &v347, v364, 16);
-          if (v186)
+          v288 = objc_msgSend_countByEnumeratingWithState_objects_count_(v277, v284, v289, v290, v291, v292, &v524, v541, 16, v287);
+          if (v288)
           {
             goto LABEL_58;
           }
@@ -5045,31 +3677,31 @@ LABEL_58:
         }
       }
 
-      if (objc_msgSend_count(*(*(a1 + 32) + 736), v201, v202, v203, v204, v205) != 1)
+      if (objc_msgSend_count(*(*(a1 + 32) + 736), v307, v312, v313, v314, v315, v308, v309, v310, v311) != 1)
       {
 
         goto LABEL_71;
       }
 
-      v211 = objc_msgSend_firstObject(*(*(a1 + 32) + 736), v206, v207, v208, v209, v210);
-      v217 = objc_msgSend_objectUUID(v211, v212, v213, v214, v215, v216);
-      v223 = objc_msgSend_UUIDString(v217, v218, v219, v220, v221, v222);
-      isEqualToString = objc_msgSend_isEqualToString_(v223, v224, v225, v226, v227, v228, @"6EC83440-F231-4439-8E15-2D32D699FA7F");
+      v325 = objc_msgSend_firstObject(*(*(a1 + 32) + 736), v316, v321, v322, v323, v324, v317, v318, v319, v320);
+      v335 = objc_msgSend_objectUUID(v325, v326, v331, v332, v333, v334, v327, v328, v329, v330);
+      v345 = objc_msgSend_UUIDString(v335, v336, v341, v342, v343, v344, v337, v338, v339, v340);
+      isEqualToString = objc_msgSend_isEqualToString_(v345, v346, v350, v351, v352, v353, @"6EC83440-F231-4439-8E15-2D32D699FA7F", v347, v348, v349);
 
       if ((isEqualToString & 1) == 0)
       {
         goto LABEL_72;
       }
 
-      v235 = *(a1 + 64);
-      v236 = 1;
-      if (v235 <= 0x2000400000003 && v235 >= *MEMORY[0x277D80990])
+      v364 = *(a1 + 64);
+      v365 = 1;
+      if (v364 <= 0x2000400000003 && v364 >= *MEMORY[0x277D80990])
       {
-        TSUSetCrashReporterInfo();
-        v237 = MEMORY[0x277D81150];
-        v243 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v238, v239, v240, v241, v242, "[TPDocumentRoot loadFromUnarchiver:]_block_invoke_9", "[TPDocumentRoot loadFromUnarchiver:]_block_invoke_9", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDocumentRoot.mm", 1195);
-        v249 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v244, v245, v246, v247, v248, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDocumentRoot.mm");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v237, v250, v251, v252, v253, v254, v243, v249, 1195, 1, "Document is from a pre-release 2.4 build and could not be upgraded");
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Document is from a pre-release 2.4 build and could not be upgraded", "[TPDocumentRoot loadFromUnarchiver:]_block_invoke_9", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDocumentRoot.mm", 1195);
+        v366 = MEMORY[0x277D81150];
+        v375 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v367, v371, v372, v373, v374, "[TPDocumentRoot loadFromUnarchiver:]_block_invoke_9", v368, v369, v370);
+        v384 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v376, v380, v381, v382, v383, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPDocumentRoot.mm", v377, v378, v379);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v366, v385, v386, v387, v388, v389, v375, v384, 1195, 1, "Document is from a pre-release 2.4 build and could not be upgraded");
 
         TSUCrashBreakpoint();
         abort();
@@ -5081,69 +3713,69 @@ LABEL_58:
 LABEL_71:
 
 LABEL_72:
-      v236 = 0;
+      v365 = 0;
     }
 
-    if (((objc_msgSend_count(*(*(a1 + 32) + 736), v230, v231, v232, v233, v234) != 0) & ~v236) != 0)
+    if (((objc_msgSend_count(*(*(a1 + 32) + 736), v355, v360, v361, v362, v363, v356, v357, v358, v359) != 0) & ~v365) != 0)
     {
-      v345 = 0u;
-      v346 = 0u;
-      v343 = 0u;
-      v344 = 0u;
-      v265 = objc_msgSend_sections(*(a1 + 32), v255, 0, v257, v258, v259);
-      v272 = objc_msgSend_countByEnumeratingWithState_objects_count_(v265, v266, v267, v268, v269, v270, &v343, v363, 16);
-      if (v272)
+      v522 = 0u;
+      v523 = 0u;
+      v520 = 0u;
+      v521 = 0u;
+      v408 = objc_msgSend_sections(*(a1 + 32), v390, 0, v396, v397, v398, v391, v392, v393, v394);
+      v419 = objc_msgSend_countByEnumeratingWithState_objects_count_(v408, v409, v411, v412, v413, v414, &v520, v540, 16, v410);
+      if (v419)
       {
-        v277 = *v344;
+        v424 = *v521;
         do
         {
-          for (k = 0; k != v272; ++k)
+          for (k = 0; k != v419; ++k)
           {
-            if (*v344 != v277)
+            if (*v521 != v424)
             {
-              objc_enumerationMutation(v265);
+              objc_enumerationMutation(v408);
             }
 
-            v279 = objc_msgSend_sectionTemplatePageForType_(*(*(&v343 + 1) + 8 * k), v271, v273, v274, v275, v276, 0);
-            v285 = objc_msgSend_pageTemplateUUIDPath(v279, v280, v281, v282, v283, v284);
-            v286 = v285 == 0;
+            v426 = objc_msgSend_sectionTemplatePageForType_(*(*(&v520 + 1) + 8 * k), v415, v420, v421, v422, v423, 0, v416, v417, v418);
+            v436 = objc_msgSend_pageTemplateUUIDPath(v426, v427, v432, v433, v434, v435, v428, v429, v430, v431);
+            v437 = v436 == 0;
 
-            if (v286)
+            if (v437)
             {
-              objc_msgSend_willModifyForUpgrade(v279, v287, v288, v289, v290, v291);
-              v292 = [TPPageTemplate alloc];
-              v298 = objc_msgSend_context(*(a1 + 32), v293, v294, v295, v296, v297);
-              v304 = objc_msgSend_blankPageTemplateName(*(a1 + 32), v299, v300, v301, v302, v303);
-              v310 = objc_msgSend_initWithContext_name_placeholderDrawables_placeholderTagsInZOrder_sectionTemplateDrawables_(v292, v305, v306, v307, v308, v309, v298, v304, MEMORY[0x277CBEC10], MEMORY[0x277CBEBF8], 0);
+              objc_msgSend_willModifyForUpgrade(v426, v438, v443, v444, v445, v446, v439, v440, v441, v442);
+              v447 = [TPPageTemplate alloc];
+              v457 = objc_msgSend_context(*(a1 + 32), v448, v453, v454, v455, v456, v449, v450, v451, v452);
+              v467 = objc_msgSend_blankPageTemplateName(*(a1 + 32), v458, v463, v464, v465, v466, v459, v460, v461, v462);
+              v473 = objc_msgSend_initWithContext_name_placeholderDrawables_placeholderTagsInZOrder_sectionTemplateDrawables_(v447, v468, v469, v470, v471, v472, v457, v467, MEMORY[0x277CBEC10], MEMORY[0x277CBEBF8], 0);
 
-              objc_msgSend_willBeAddedToDocumentRoot_dolcContext_(v310, v311, v312, v313, v314, v315, *(a1 + 32), 0);
-              objc_msgSend_addObject_(*(*(a1 + 32) + 736), v316, v317, v318, v319, v320, v310);
-              objc_msgSend_wasAddedToDocumentRoot_dolcContext_(v310, v321, v322, v323, v324, v325, *(a1 + 32), 0);
-              v331 = objc_msgSend_objectUUIDPath(v310, v326, v327, v328, v329, v330);
-              objc_msgSend_i_setPageTemplateUUIDPath_(v279, v332, v333, v334, v335, v336, v331);
+              objc_msgSend_willBeAddedToDocumentRoot_dolcContext_(v473, v474, v477, v478, v479, v480, *(a1 + 32), 0, v475, v476);
+              objc_msgSend_addObject_(*(*(a1 + 32) + 736), v481, v485, v486, v487, v488, v473, v482, v483, v484);
+              objc_msgSend_wasAddedToDocumentRoot_dolcContext_(v473, v489, v492, v493, v494, v495, *(a1 + 32), 0, v490, v491);
+              v505 = objc_msgSend_objectUUIDPath(v473, v496, v501, v502, v503, v504, v497, v498, v499, v500);
+              objc_msgSend_i_setPageTemplateUUIDPath_(v426, v506, v510, v511, v512, v513, v505, v507, v508, v509);
             }
           }
 
-          v272 = objc_msgSend_countByEnumeratingWithState_objects_count_(v265, v271, v273, v274, v275, v276, &v343, v363, 16);
+          v419 = objc_msgSend_countByEnumeratingWithState_objects_count_(v408, v415, v420, v421, v422, v423, &v520, v540, 16, v418);
         }
 
-        while (v272);
+        while (v419);
       }
     }
 
     else
     {
-      objc_msgSend_willModifyForUpgrade(*(a1 + 32), v255, v256, v257, v258, v259);
-      objc_msgSend_i_upgradeSectionsForPageTemplates(*(a1 + 32), v260, v261, v262, v263, v264);
+      objc_msgSend_willModifyForUpgrade(*(a1 + 32), v390, v395, v396, v397, v398, v391, v392, v393, v394);
+      objc_msgSend_i_upgradeSectionsForPageTemplates(*(a1 + 32), v399, v404, v405, v406, v407, v400, v401, v402, v403);
     }
   }
 
   if (*(a1 + 64) < *MEMORY[0x277D809A8])
   {
-    objc_msgSend_upgradeParagraphStylesForTOCNavigator(*(a1 + 32), v174, v175, v176, v177, v178);
+    objc_msgSend_upgradeParagraphStylesForTOCNavigator(*(a1 + 32), v268, v273, v274, v275, v276, v269, v270, v271, v272);
   }
 
-  return objc_msgSend_validate_(*(*(a1 + 32) + 496), v174, v175, v176, v177, v178, 2);
+  return objc_msgSend_validate_(*(*(a1 + 32) + 496), v268, v273, v274, v275, v276, 2, v270, v271, v272);
 }
 
 void sub_27600954C()
@@ -5160,69 +3792,69 @@ void sub_276009590()
   *MEMORY[0x277D81508] = v0;
 }
 
-void sub_27600A8F8(uint64_t a1, void *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8)
+void sub_27600A8F8(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v59 = *MEMORY[0x277D85DE8];
-  v53 = objc_msgSend_tocInfo(a2, a2, a3, a4, a5, a6);
-  v15 = objc_msgSend_tocSettings(v53, v10, v11, v12, v13, v14);
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v20 = objc_msgSend_indexedStyles(v15, v16, 0, v17, v18, v19);
-  v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, v22, v23, v24, v25, &v54, v58, 16);
-  if (v27)
+  v82 = *MEMORY[0x277D85DE8];
+  v76 = objc_msgSend_tocInfo(a2, a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  v21 = objc_msgSend_tocSettings(v76, v12, v17, v18, v19, v20, v13, v14, v15, v16);
+  v79 = 0u;
+  v80 = 0u;
+  v77 = 0u;
+  v78 = 0u;
+  v30 = objc_msgSend_indexedStyles(v21, v22, 0, v27, v28, v29, v23, v24, v25, v26);
+  v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v31, v33, v34, v35, v36, &v77, v81, 16, v32);
+  if (v41)
   {
-    v32 = 0;
-    v33 = *v55;
+    v46 = 0;
+    v47 = *v78;
     do
     {
-      v34 = 0;
+      v48 = 0;
       do
       {
-        if (*v55 != v33)
+        if (*v78 != v47)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v30);
         }
 
-        v35 = objc_msgSend_entryStyleForParagraphStyle_(v15, v26, v28, v29, v30, v31, *(*(&v54 + 1) + 8 * v34));
-        if (objc_msgSend_containsObject_(*(a1 + 32), v36, v37, v38, v39, v40, v35))
+        v49 = objc_msgSend_entryStyleForParagraphStyle_(v21, v37, v42, v43, v44, v45, *(*(&v77 + 1) + 8 * v48), v38, v39, v40);
+        if (objc_msgSend_containsObject_(*(a1 + 32), v50, v54, v55, v56, v57, v49, v51, v52, v53))
         {
-          if ((v32 & 1) == 0)
+          if ((v46 & 1) == 0)
           {
-            v46 = *(a1 + 40);
-            v47 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v41, v42, v43, v44, v45, a8);
-            objc_msgSend_addObject_(v46, v48, v49, v50, v51, v52, v47);
+            v66 = *(a1 + 40);
+            v67 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v58, v62, v63, v64, v65, a4, v59, v60, v61);
+            objc_msgSend_addObject_(v66, v68, v72, v73, v74, v75, v67, v69, v70, v71);
           }
 
-          v32 = 1;
+          v46 = 1;
         }
 
         else
         {
-          objc_msgSend_addObject_(*(a1 + 32), v41, v42, v43, v44, v45, v35);
+          objc_msgSend_addObject_(*(a1 + 32), v58, v62, v63, v64, v65, v49, v59, v60, v61);
         }
 
-        ++v34;
+        ++v48;
       }
 
-      while (v27 != v34);
-      v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v26, v28, v29, v30, v31, &v54, v58, 16);
+      while (v41 != v48);
+      v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v37, v42, v43, v44, v45, &v77, v81, 16, v40);
     }
 
-    while (v27);
+    while (v41);
   }
 }
 
-void sub_27600AAE8(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_27600AAE8(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v24 = objc_msgSend_entryStyleForParagraphStyle_(*(a1 + 32), a2, a3, a4, a5, a6, a2);
-  v12 = objc_msgSend_stylesheet(v24, v7, v8, v9, v10, v11);
+  v39 = objc_msgSend_entryStyleForParagraphStyle_(*(a1 + 32), a2, a3, a4, a5, a6, a2, a8, a9, a10);
+  v20 = objc_msgSend_stylesheet(v39, v11, v16, v17, v18, v19, v12, v13, v14, v15);
 
-  if (!v12)
+  if (!v20)
   {
-    v18 = objc_msgSend_stylesheet(*(a1 + 40), v13, v14, v15, v16, v17);
-    objc_msgSend_addStyle_(v18, v19, v20, v21, v22, v23, v24);
+    v30 = objc_msgSend_stylesheet(*(a1 + 40), v21, v26, v27, v28, v29, v22, v23, v24, v25);
+    objc_msgSend_addStyle_(v30, v31, v35, v36, v37, v38, v39, v32, v33, v34);
   }
 }
 
@@ -5250,21 +3882,21 @@ id sub_27600CE88(void *a1)
   return objc_msgSendSuper2(&v8, sel_saveToArchive_archiver_, v4, v6);
 }
 
-void sub_27600DC50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_27600DC50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_27600DC7C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_27600DC7C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  a3.n128_u64[0] = *(a1 + 48);
-  a4.n128_u64[0] = *(a1 + 56);
-  v7 = objc_msgSend_p_previewImageWithImageSize_(*(a1 + 32), a2, a3, a4, a5, a6);
-  v8 = *(*(a1 + 40) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v7;
+  a7.n128_u64[0] = *(a1 + 48);
+  a8.n128_u64[0] = *(a1 + 56);
+  v11 = objc_msgSend_p_previewImageWithImageSize_(*(a1 + 32), a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  v12 = *(*(a1 + 40) + 8);
+  v13 = *(v12 + 40);
+  *(v12 + 40) = v11;
 }
 
 void sub_27600E02C(_Unwind_Exception *a1)
@@ -5278,27 +3910,27 @@ uint64_t sub_27600E66C(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v7 = a2;
   *a4 = 1;
-  v13 = objc_msgSend_bodyStorage(*(a1 + 32), v8, v9, v10, v11, v12);
-  if (v13 == v7)
+  v17 = objc_msgSend_bodyStorage(*(a1 + 32), v8, v13, v14, v15, v16, v9, v10, v11, v12);
+  if (v17 == v7)
   {
-    v15 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v14 = *(a1 + 40);
-    if (v14)
+    v18 = *(a1 + 40);
+    if (v18)
     {
-      v15 = (*(v14 + 16))(v14, v7, a3, a4);
+      v19 = (*(v18 + 16))(v18, v7, a3, a4);
     }
 
     else
     {
-      v15 = 1;
+      v19 = 1;
     }
   }
 
-  return v15;
+  return v19;
 }
 
 void sub_27600F87C(uint64_t a1, void *a2, _BYTE *a3)
@@ -5326,19 +3958,19 @@ uint64_t sub_276010CCC(uint64_t a1, void *a2)
 
 void sub_276010D24(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v44[2] = *MEMORY[0x277D85DE8];
   v7 = a2;
   objc_opt_class();
   v8 = TSUDynamicCast();
-  v14 = v8;
-  if (v8 && objc_msgSend_isLocalizable(v8, v9, v10, v11, v12, v13))
+  v18 = v8;
+  if (v8 && objc_msgSend_isLocalizable(v8, v9, v14, v15, v16, v17, v10, v11, v12, v13))
   {
-    v20 = *(a1 + 32);
-    v33[0] = v14;
-    v21 = objc_msgSend_valueWithRange_(MEMORY[0x277CCAE60], v15, v16, v17, v18, v19, a3, a4);
-    v33[1] = v21;
-    v27 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v22, v23, v24, v25, v26, v33, 2);
-    objc_msgSend_addObject_(v20, v28, v29, v30, v31, v32, v27);
+    v26 = *(a1 + 32);
+    v44[0] = v18;
+    v27 = objc_msgSend_valueWithRange_(MEMORY[0x277CCAE60], v19, v22, v23, v24, v25, a3, a4, v20, v21);
+    v44[1] = v27;
+    v35 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v28, v31, v32, v33, v34, v44, 2, v29, v30);
+    objc_msgSend_addObject_(v26, v36, v40, v41, v42, v43, v35, v37, v38, v39);
   }
 }
 
@@ -5349,29 +3981,29 @@ void sub_276010E24(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2760117C8(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_2760117C8(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   while (1)
   {
-    v8 = objc_msgSend_headerFooter_fragmentAtIndex_(*(a1 + 32), a2, a3, a4, a5, a6, a2, 0);
-    v14 = objc_msgSend_headerFooter_fragmentAtIndex_(*(a1 + 40), v9, v10, v11, v12, v13, a2, 0);
-    objc_msgSend_i_setHeaderFooter_storage_fragmentIndex_(*(a1 + 32), v15, v16, v17, v18, v19, a2, 0, 0);
-    objc_msgSend_i_setHeaderFooter_storage_fragmentIndex_(*(a1 + 40), v20, v21, v22, v23, v24, a2, v8, 0);
-    objc_msgSend_i_setHeaderFooter_storage_fragmentIndex_(*(a1 + 32), v25, v26, v27, v28, v29, a2, v14, 0);
+    v12 = objc_msgSend_headerFooter_fragmentAtIndex_(*(a1 + 32), a2, a3, a4, a5, a6, a2, 0, a9, a10);
+    v20 = objc_msgSend_headerFooter_fragmentAtIndex_(*(a1 + 40), v13, v16, v17, v18, v19, a2, 0, v14, v15);
+    objc_msgSend_i_setHeaderFooter_storage_fragmentIndex_(*(a1 + 32), v21, v23, v24, v25, v26, a2, 0, 0, v22);
+    objc_msgSend_i_setHeaderFooter_storage_fragmentIndex_(*(a1 + 40), v27, v29, v30, v31, v32, a2, v12, 0, v28);
+    objc_msgSend_i_setHeaderFooter_storage_fragmentIndex_(*(a1 + 32), v33, v35, v36, v37, v38, a2, v20, 0, v34);
 
     operator++();
   }
 }
 
-void sub_2760118A8(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_2760118A8(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v34 = objc_msgSend_headerFooter_fragmentAtIndex_(*(a1 + 32), a2, a3, a4, a5, a6, a2, 0);
-  v13 = objc_msgSend_headerFooter_fragmentAtIndex_(*(a1 + 32), v8, v9, v10, v11, v12, a2, 2);
-  if (objc_msgSend_length(v34, v14, v15, v16, v17, v18) || objc_msgSend_length(v13, v19, v20, v21, v22, v23))
+  v50 = objc_msgSend_headerFooter_fragmentAtIndex_(*(a1 + 32), a2, a3, a4, a5, a6, a2, 0, a9, a10);
+  v19 = objc_msgSend_headerFooter_fragmentAtIndex_(*(a1 + 32), v12, v15, v16, v17, v18, a2, 2, v13, v14);
+  if (objc_msgSend_length(v50, v20, v25, v26, v27, v28, v21, v22, v23, v24) || objc_msgSend_length(v19, v29, v34, v35, v36, v37, v30, v31, v32, v33))
   {
-    objc_msgSend_i_setHeaderFooter_storage_fragmentIndex_(*(a1 + 32), v19, v20, v21, v22, v23, a2, 0, 2);
-    objc_msgSend_i_setHeaderFooter_storage_fragmentIndex_(*(a1 + 32), v24, v25, v26, v27, v28, a2, v13, 0);
-    objc_msgSend_i_setHeaderFooter_storage_fragmentIndex_(*(a1 + 32), v29, v30, v31, v32, v33, a2, v34, 2);
+    objc_msgSend_i_setHeaderFooter_storage_fragmentIndex_(*(a1 + 32), v29, v34, v35, v36, v37, a2, 0, 2, v33);
+    objc_msgSend_i_setHeaderFooter_storage_fragmentIndex_(*(a1 + 32), v38, v40, v41, v42, v43, a2, v19, 0, v39);
+    objc_msgSend_i_setHeaderFooter_storage_fragmentIndex_(*(a1 + 32), v44, v46, v47, v48, v49, a2, v50, 2, v45);
   }
 }
 
@@ -5391,26 +4023,26 @@ void sub_276011D7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_27601269C(uint64_t a1, void *a2, void *a3)
 {
-  v16 = a2;
+  v21 = a2;
   v5 = a3;
-  if (objc_msgSend_tst_hasCaseInsensitivePrefix_withLocale_(v16, v6, v7, v8, v9, v10, *(a1 + 32), *(a1 + 40)))
+  if (objc_msgSend_tst_hasCaseInsensitivePrefix_withLocale_(v21, v6, v9, v10, v11, v12, *(a1 + 32), *(a1 + 40), v7, v8))
   {
-    objc_msgSend_addObject_(*(a1 + 48), v11, v12, v13, v14, v15, v5);
+    objc_msgSend_addObject_(*(a1 + 48), v13, v17, v18, v19, v20, v5, v14, v15, v16);
   }
 }
 
 void sub_2760130E0(uint64_t a1, void *a2)
 {
-  v8 = a2;
+  v11 = a2;
   if (objc_opt_respondsToSelector())
   {
-    objc_msgSend_setStylesheetForUpgradeToSingleStylesheet_(v8, v3, v4, v5, v6, v7, *(a1 + 32));
+    objc_msgSend_setStylesheetForUpgradeToSingleStylesheet_(v11, v3, v7, v8, v9, v10, *(a1 + 32), v4, v5, v6);
   }
 }
 
-void sub_27601343C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_27601343C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5422,9 +4054,9 @@ uint64_t sub_276013454(uint64_t result, uint64_t a2, _BYTE *a3)
   return result;
 }
 
-void sub_2760135A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2760135A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -5432,15 +4064,15 @@ void sub_2760135A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void sub_2760135D4(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v24 = a2;
-  v10 = objc_msgSend_pencilAnnotationStorage(v24, v5, v6, v7, v8, v9);
-  v16 = objc_msgSend_drawing(v10, v11, v12, v13, v14, v15);
-  objc_msgSend_pencilAnnotationDrawingScale(v16, v17, v18, v19, v20, v21);
-  v23 = v22;
+  v36 = a2;
+  v14 = objc_msgSend_pencilAnnotationStorage(v36, v5, v10, v11, v12, v13, v6, v7, v8, v9);
+  v24 = objc_msgSend_drawing(v14, v15, v20, v21, v22, v23, v16, v17, v18, v19);
+  objc_msgSend_pencilAnnotationDrawingScale(v24, v25, v30, v31, v32, v33, v26, v27, v28, v29);
+  v35 = v34;
 
-  if (v23 > 0.0)
+  if (v35 > 0.0)
   {
-    *(*(*(a1 + 32) + 8) + 24) = v23;
+    *(*(*(a1 + 32) + 8) + 24) = v35;
     *a3 = 1;
   }
 }
@@ -5505,225 +4137,226 @@ void sub_276015138(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_27601580C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_27601580C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
   *(*(a1 + 32) + 152) = 0;
-  v7 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], a2, a3, a4, a5, a6);
-  objc_msgSend_removeObserver_(v7, v8, v9, v10, v11, v12, *(a1 + 32));
+  v11 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  objc_msgSend_removeObserver_(v11, v12, v16, v17, v18, v19, *(a1 + 32), v13, v14, v15);
 
   objc_storeWeak((*(a1 + 32) + 272), 0);
-  v13 = *(a1 + 32);
-  v14 = *(v13 + 200);
-  *(v13 + 200) = 0;
+  v20 = *(a1 + 32);
+  v21 = *(v20 + 200);
+  *(v20 + 200) = 0;
 
-  objc_msgSend_p_destroyBodyLayoutState(*(a1 + 32), v15, v16, v17, v18, v19);
-  objc_msgSend_clearOwner(*(*(a1 + 32) + 96), v20, v21, v22, v23, v24);
-  v25 = *(a1 + 32);
-  v26 = *(v25 + 96);
-  *(v25 + 96) = 0;
-
-  objc_msgSend_tearDown(*(*(a1 + 32) + 104), v27, v28, v29, v30, v31);
-  v32 = *(a1 + 32);
-  v33 = *(v32 + 104);
-  *(v32 + 104) = 0;
-
-  v34 = *(a1 + 32);
-  v35 = *(v34 + 112);
-  *(v34 + 112) = 0;
-
-  v36 = *(a1 + 32);
-  v37 = *(v36 + 80);
-  *(v36 + 80) = 0;
-
-  v38 = *(a1 + 32);
-  v39 = *(v38 + 88);
-  *(v38 + 88) = 0;
-
+  objc_msgSend_p_destroyBodyLayoutState(*(a1 + 32), v22, v27, v28, v29, v30, v23, v24, v25, v26);
+  objc_msgSend_clearOwner(*(*(a1 + 32) + 96), v31, v36, v37, v38, v39, v32, v33, v34, v35);
   v40 = *(a1 + 32);
-  v41 = *(v40 + 128);
-  *(v40 + 128) = 0;
+  v41 = *(v40 + 96);
+  *(v40 + 96) = 0;
 
-  v42 = *(a1 + 32);
-  v43 = *(v42 + 176);
-  *(v42 + 176) = 0;
-
-  v44 = *(a1 + 32);
-  v45 = *(v44 + 184);
-  *(v44 + 184) = 0;
-
-  objc_msgSend_teardown(*(*(a1 + 32) + 192), v46, v47, v48, v49, v50);
+  objc_msgSend_tearDown(*(*(a1 + 32) + 104), v42, v47, v48, v49, v50, v43, v44, v45, v46);
   v51 = *(a1 + 32);
-  v52 = *(v51 + 192);
-  *(v51 + 192) = 0;
+  v52 = *(v51 + 104);
+  *(v51 + 104) = 0;
+
+  v53 = *(a1 + 32);
+  v54 = *(v53 + 112);
+  *(v53 + 112) = 0;
+
+  v55 = *(a1 + 32);
+  v56 = *(v55 + 80);
+  *(v55 + 80) = 0;
+
+  v57 = *(a1 + 32);
+  v58 = *(v57 + 88);
+  *(v57 + 88) = 0;
+
+  v59 = *(a1 + 32);
+  v60 = *(v59 + 128);
+  *(v59 + 128) = 0;
+
+  v61 = *(a1 + 32);
+  v62 = *(v61 + 176);
+  *(v61 + 176) = 0;
+
+  v63 = *(a1 + 32);
+  v64 = *(v63 + 184);
+  *(v63 + 184) = 0;
+
+  objc_msgSend_teardown(*(*(a1 + 32) + 192), v65, v70, v71, v72, v73, v66, v67, v68, v69);
+  v74 = *(a1 + 32);
+  v75 = *(v74 + 192);
+  *(v74 + 192) = 0;
 
   *(*(a1 + 32) + 121) = 1;
 }
 
-void sub_276015DD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_276015DD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  _Block_object_dispose(&a28, 8);
+  va_start(va, a27);
 
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_276015EE0(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_276015EE0(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v420 = *MEMORY[0x277D85DE8];
-  v7 = objc_msgSend_documentRoot(*(a1 + 32), a2, a3, a4, a5, a6);
-  v13 = objc_msgSend_bodyStorage(v7, v8, v9, v10, v11, v12);
-  v383 = objc_msgSend_length(v13, v14, v15, v16, v17, v18);
+  v608 = *MEMORY[0x277D85DE8];
+  v11 = objc_msgSend_documentRoot(*(a1 + 32), a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  v21 = objc_msgSend_bodyStorage(v11, v12, v17, v18, v19, v20, v13, v14, v15, v16);
+  v571 = objc_msgSend_length(v21, v22, v27, v28, v29, v30, v23, v24, v25, v26);
 
-  v385 = *(MEMORY[0x277D81490] + 8);
-  v386 = *MEMORY[0x277D81490];
-  v411 = 0u;
-  v412 = 0u;
-  v413 = 0u;
-  v414 = 0u;
-  obj = objc_msgSend_sectionHints(*(a1 + 40), v19, 0, v20, v21, v22);
-  v381 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v23, v24, v25, v26, v27, &v411, v419, 16);
-  if (v381)
+  v573 = *(MEMORY[0x277D81490] + 8);
+  v574 = *MEMORY[0x277D81490];
+  v599 = 0u;
+  v600 = 0u;
+  v601 = 0u;
+  v602 = 0u;
+  obj = objc_msgSend_sectionHints(*(a1 + 40), v31, 0, v36, v37, v38, v32, v33, v34, v35);
+  v569 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v39, v41, v42, v43, v44, &v599, v607, 16, v40);
+  if (v569)
   {
-    v393 = 0;
-    v380 = *v412;
-    v33 = v385;
-    v34 = v386;
+    v581 = 0;
+    v568 = *v600;
+    v54 = v573;
+    v55 = v574;
     do
     {
-      for (i = 0; i != v381; ++i)
+      for (i = 0; i != v569; ++i)
       {
-        if (*v412 != v380)
+        if (*v600 != v568)
         {
           objc_enumerationMutation(obj);
         }
 
-        v35 = *(*(&v411 + 1) + 8 * i);
-        if (objc_msgSend_documentStartPageIndex(v35, v28, v29, v30, v31, v32) != v393)
+        v56 = *(*(&v599 + 1) + 8 * i);
+        if (objc_msgSend_documentStartPageIndex(v56, v45, v50, v51, v52, v53, v46, v47, v48, v49) != v581)
         {
-          v293 = MEMORY[0x277D81150];
-          v294 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, v37, v38, v39, v40, "[TPPaginatedPageController restoreFromLayoutState:]_block_invoke");
-          v300 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v295, v296, v297, v298, v299, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-          started = objc_msgSend_documentStartPageIndex(v35, v301, v302, v303, v304, v305);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v293, v307, v308, v309, v310, v311, v294, v300, 484, 0, "inconsistent hint pageIndex: %lu instead of %lu", started, v393);
+          v434 = MEMORY[0x277D81150];
+          v435 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v57, v62, v63, v64, v65, "[TPPaginatedPageController restoreFromLayoutState:]_block_invoke", v59, v60, v61);
+          v444 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v436, v440, v441, v442, v443, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v437, v438, v439);
+          started = objc_msgSend_documentStartPageIndex(v56, v445, v450, v451, v452, v453, v446, v447, v448, v449);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v434, v455, v456, v457, v458, v459, v435, v444, 484, 0, "inconsistent hint pageIndex: %lu instead of %lu", started, v581);
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v312, v313, v314, v315, v316);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v460, v465, v466, v467, v468, v461, v462, v463, v464);
           *(*(*(a1 + 56) + 8) + 24) = 0;
           goto LABEL_65;
         }
 
-        v409 = 0u;
-        v410 = 0u;
-        v407 = 0u;
-        v408 = 0u;
-        v384 = objc_msgSend_pageHints(v35, v36, 0, v38, v39, v40);
-        v46 = objc_msgSend_countByEnumeratingWithState_objects_count_(v384, v41, v42, v43, v44, v45, &v407, v418, 16);
-        if (!v46)
+        v597 = 0u;
+        v598 = 0u;
+        v595 = 0u;
+        v596 = 0u;
+        v572 = objc_msgSend_pageHints(v56, v57, 0, v63, v64, v65, v58, v59, v60, v61);
+        v72 = objc_msgSend_countByEnumeratingWithState_objects_count_(v572, v66, v68, v69, v70, v71, &v595, v606, 16, v67);
+        if (!v72)
         {
           goto LABEL_60;
         }
 
-        v391 = *v408;
+        v579 = *v596;
         while (2)
         {
-          v394 = 0;
-          v390 = v46;
+          v582 = 0;
+          v578 = v72;
           do
           {
-            if (*v408 != v391)
+            if (*v596 != v579)
             {
-              objc_enumerationMutation(v384);
+              objc_enumerationMutation(v572);
             }
 
-            v52 = *(*(&v407 + 1) + 8 * v394);
-            if (objc_msgSend_pageKind(v52, v47, v48, v49, v50, v51) == 1)
+            v82 = *(*(&v595 + 1) + 8 * v582);
+            if (objc_msgSend_pageKind(v82, v73, v78, v79, v80, v81, v74, v75, v76, v77) == 1)
             {
-              v58 = objc_msgSend_range(v52, v53, v54, v55, v56, v57);
-              if (&v59[v58] > v383)
+              v92 = objc_msgSend_range(v82, v83, v88, v89, v90, v91, v84, v85, v86, v87);
+              if (&v93[v92] > v571)
               {
-                v240 = MEMORY[0x277D81150];
-                v241 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v59, v60, v61, v62, v63, "[TPPaginatedPageController restoreFromLayoutState:]_block_invoke");
-                v247 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v242, v243, v244, v245, v246, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-                v253 = objc_msgSend_range(v52, v248, v249, v250, v251, v252);
-                objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v240, v254, v255, v256, v257, v258, v241, v247, 492, 0, "bad hint: out of range (%lu > %lu)", &v254[v253], v383);
+                v360 = MEMORY[0x277D81150];
+                v361 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v93, v98, v99, v100, v101, "[TPPaginatedPageController restoreFromLayoutState:]_block_invoke", v95, v96, v97);
+                v370 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v362, v366, v367, v368, v369, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v363, v364, v365);
+                v380 = objc_msgSend_range(v82, v371, v376, v377, v378, v379, v372, v373, v374, v375);
+                objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v360, v381, v382, v383, v384, v385, v361, v370, 492, 0, "bad hint: out of range (%lu > %lu)", &v381[v380], v571);
 
-                objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v259, v260, v261, v262, v263);
+                objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v386, v391, v392, v393, v394, v387, v388, v389, v390);
                 goto LABEL_59;
               }
 
-              v392 = objc_msgSend_anchoredRange(v52, v59, v60, v61, v62, v63);
-              v389 = v64;
-              v69 = objc_msgSend_range(v52, v64, v65, v66, v67, v68);
-              v388 = v70;
-              if (v34 != 0x7FFFFFFFFFFFFFFFLL)
+              v580 = objc_msgSend_anchoredRange(v82, v93, v98, v99, v100, v101, v94, v95, v96, v97);
+              v577 = v102;
+              v111 = objc_msgSend_range(v82, v102, v107, v108, v109, v110, v103, v104, v105, v106);
+              v576 = v112;
+              if (v55 != 0x7FFFFFFFFFFFFFFFLL)
               {
-                if (v69 != &v33[v34])
+                if (v111 != &v54[v55])
                 {
-                  v264 = MEMORY[0x277D81150];
-                  v265 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v70, v71, v72, v73, v74, "[TPPaginatedPageController restoreFromLayoutState:]_block_invoke");
-                  v271 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v266, v267, v268, v269, v270, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-                  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v264, v272, v273, v274, v275, v276, v265, v271, 502, 0, "Hints' ranges are inconsistent");
+                  v395 = MEMORY[0x277D81150];
+                  v396 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v112, v117, v118, v119, v120, "[TPPaginatedPageController restoreFromLayoutState:]_block_invoke", v114, v115, v116);
+                  v405 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v397, v401, v402, v403, v404, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v398, v399, v400);
+                  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v395, v406, v407, v408, v409, v410, v396, v405, 502, 0, "Hints' ranges are inconsistent");
                   goto LABEL_58;
                 }
 
-                if (v392 != &v385[v386])
+                if (v580 != &v573[v574])
                 {
-                  v277 = MEMORY[0x277D81150];
-                  v265 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v70, v71, v72, v73, v74, "[TPPaginatedPageController restoreFromLayoutState:]_block_invoke");
-                  v271 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v278, v279, v280, v281, v282, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-                  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v277, v283, v284, v285, v286, v287, v265, v271, 507, 0, "Hints' anchored ranges are inconsistent");
+                  v411 = MEMORY[0x277D81150];
+                  v396 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v112, v117, v118, v119, v120, "[TPPaginatedPageController restoreFromLayoutState:]_block_invoke", v114, v115, v116);
+                  v405 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v412, v416, v417, v418, v419, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v413, v414, v415);
+                  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v411, v420, v421, v422, v423, v424, v396, v405, 507, 0, "Hints' anchored ranges are inconsistent");
 LABEL_58:
 
-                  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v288, v289, v290, v291, v292);
+                  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v425, v430, v431, v432, v433, v426, v427, v428, v429);
 LABEL_59:
                   *(*(*(a1 + 56) + 8) + 24) = 0;
                   goto LABEL_60;
                 }
               }
 
-              v387 = v69;
-              v405 = 0u;
-              v406 = 0u;
-              v403 = 0u;
-              v404 = 0u;
-              v75 = objc_msgSend_anchoredDrawablePositions(v52, v70, 0, v72, v73, v74);
-              v81 = objc_msgSend_countByEnumeratingWithState_objects_count_(v75, v76, v77, v78, v79, v80, &v403, v417, 16);
-              if (v81)
+              v575 = v111;
+              v593 = 0u;
+              v594 = 0u;
+              v591 = 0u;
+              v592 = 0u;
+              v121 = objc_msgSend_anchoredDrawablePositions(v82, v112, 0, v118, v119, v120, v113, v114, v115, v116);
+              v128 = objc_msgSend_countByEnumeratingWithState_objects_count_(v121, v122, v124, v125, v126, v127, &v591, v605, 16, v123);
+              if (v128)
               {
-                v82 = *v404;
+                v129 = *v592;
                 while (2)
                 {
-                  for (j = 0; j != v81; ++j)
+                  for (j = 0; j != v128; ++j)
                   {
-                    if (*v404 != v82)
+                    if (*v592 != v129)
                     {
-                      objc_enumerationMutation(v75);
+                      objc_enumerationMutation(v121);
                     }
 
-                    v84 = *(*(&v403 + 1) + 8 * j);
+                    v131 = *(*(&v591 + 1) + 8 * j);
                     objc_opt_class();
-                    v90 = objc_msgSend_documentRoot(*(a1 + 32), v85, v86, v87, v88, v89);
-                    v96 = objc_msgSend_context(v90, v91, v92, v93, v94, v95);
-                    v102 = objc_msgSend_objectWithUUIDPath_(v96, v97, v98, v99, v100, v101, v84);
-                    v103 = TSUDynamicCast();
+                    v141 = objc_msgSend_documentRoot(*(a1 + 32), v132, v137, v138, v139, v140, v133, v134, v135, v136);
+                    v151 = objc_msgSend_context(v141, v142, v147, v148, v149, v150, v143, v144, v145, v146);
+                    v160 = objc_msgSend_objectWithUUIDPath_(v151, v152, v156, v157, v158, v159, v131, v153, v154, v155);
+                    v161 = TSUDynamicCast();
 
-                    v109 = objc_msgSend_owningAttachmentNoRecurse(v103, v104, v105, v106, v107, v108);
-                    LODWORD(v90) = v109 == 0;
+                    v171 = objc_msgSend_owningAttachmentNoRecurse(v161, v162, v167, v168, v169, v170, v163, v164, v165, v166);
+                    LODWORD(v141) = v171 == 0;
 
-                    if (v90)
+                    if (v141)
                     {
-                      v120 = MEMORY[0x277D81150];
-                      v121 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v110, v111, v112, v113, v114, "[TPPaginatedPageController restoreFromLayoutState:]_block_invoke");
-                      v127 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v122, v123, v124, v125, v126, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-                      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v120, v128, v129, v130, v131, v132, v121, v127, 519, 0, "bad hint: detached drawable");
+                      v186 = MEMORY[0x277D81150];
+                      v187 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v172, v176, v177, v178, v179, "[TPPaginatedPageController restoreFromLayoutState:]_block_invoke", v173, v174, v175);
+                      v196 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v188, v192, v193, v194, v195, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v189, v190, v191);
+                      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v186, v197, v198, v199, v200, v201, v187, v196, 519, 0, "bad hint: detached drawable");
 
-                      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v133, v134, v135, v136, v137);
+                      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v202, v207, v208, v209, v210, v203, v204, v205, v206);
                       *(*(*(a1 + 56) + 8) + 24) = 0;
 
                       goto LABEL_27;
                     }
                   }
 
-                  v81 = objc_msgSend_countByEnumeratingWithState_objects_count_(v75, v115, v116, v117, v118, v119, &v403, v417, 16);
-                  if (v81)
+                  v128 = objc_msgSend_countByEnumeratingWithState_objects_count_(v121, v180, v182, v183, v184, v185, &v591, v605, 16, v181);
+                  if (v128)
                   {
                     continue;
                   }
@@ -5734,46 +4367,46 @@ LABEL_59:
 
 LABEL_27:
 
-              v401 = 0u;
-              v402 = 0u;
-              v399 = 0u;
-              v400 = 0u;
-              v142 = objc_msgSend_startingPartitionedAttachments(v52, v138, 0, v139, v140, v141);
-              v148 = objc_msgSend_countByEnumeratingWithState_objects_count_(v142, v143, v144, v145, v146, v147, &v399, v416, 16);
-              if (v148)
+              v589 = 0u;
+              v590 = 0u;
+              v587 = 0u;
+              v588 = 0u;
+              v219 = objc_msgSend_startingPartitionedAttachments(v82, v211, 0, v216, v217, v218, v212, v213, v214, v215);
+              v226 = objc_msgSend_countByEnumeratingWithState_objects_count_(v219, v220, v222, v223, v224, v225, &v587, v604, 16, v221);
+              if (v226)
               {
-                v149 = *v400;
+                v227 = *v588;
                 while (2)
                 {
-                  for (k = 0; k != v148; ++k)
+                  for (k = 0; k != v226; ++k)
                   {
-                    if (*v400 != v149)
+                    if (*v588 != v227)
                     {
-                      objc_enumerationMutation(v142);
+                      objc_enumerationMutation(v219);
                     }
 
-                    v151 = *(*(&v399 + 1) + 8 * k);
+                    v229 = *(*(&v587 + 1) + 8 * k);
                     objc_opt_class();
-                    v157 = objc_msgSend_documentRoot(*(a1 + 32), v152, v153, v154, v155, v156);
-                    v163 = objc_msgSend_context(v157, v158, v159, v160, v161, v162);
-                    v169 = objc_msgSend_objectWithUUID_(v163, v164, v165, v166, v167, v168, v151);
-                    v170 = TSUDynamicCast();
+                    v239 = objc_msgSend_documentRoot(*(a1 + 32), v230, v235, v236, v237, v238, v231, v232, v233, v234);
+                    v249 = objc_msgSend_context(v239, v240, v245, v246, v247, v248, v241, v242, v243, v244);
+                    v258 = objc_msgSend_objectWithUUID_(v249, v250, v254, v255, v256, v257, v229, v251, v252, v253);
+                    v259 = TSUDynamicCast();
 
-                    if (!v170)
+                    if (!v259)
                     {
-                      v181 = MEMORY[0x277D81150];
-                      v182 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v171, v172, v173, v174, v175, "[TPPaginatedPageController restoreFromLayoutState:]_block_invoke");
-                      v188 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v183, v184, v185, v186, v187, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-                      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v181, v189, v190, v191, v192, v193, v182, v188, 528, 0, "bad hint: missing partitionable attachment");
+                      v274 = MEMORY[0x277D81150];
+                      v275 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v260, v264, v265, v266, v267, "[TPPaginatedPageController restoreFromLayoutState:]_block_invoke", v261, v262, v263);
+                      v284 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v276, v280, v281, v282, v283, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v277, v278, v279);
+                      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v274, v285, v286, v287, v288, v289, v275, v284, 528, 0, "bad hint: missing partitionable attachment");
 
-                      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v194, v195, v196, v197, v198);
+                      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v290, v295, v296, v297, v298, v291, v292, v293, v294);
                       *(*(*(a1 + 56) + 8) + 24) = 0;
                       goto LABEL_37;
                     }
                   }
 
-                  v148 = objc_msgSend_countByEnumeratingWithState_objects_count_(v142, v176, v177, v178, v179, v180, &v399, v416, 16);
-                  if (v148)
+                  v226 = objc_msgSend_countByEnumeratingWithState_objects_count_(v219, v268, v270, v271, v272, v273, &v587, v604, 16, v269);
+                  if (v226)
                   {
                     continue;
                   }
@@ -5784,52 +4417,52 @@ LABEL_27:
 
 LABEL_37:
 
-              v33 = v388;
-              v385 = v389;
-              v386 = v392;
-              v34 = v387;
+              v54 = v576;
+              v573 = v577;
+              v574 = v580;
+              v55 = v575;
               if (*(*(*(a1 + 56) + 8) + 24) != 1)
               {
-                v386 = v392;
-                v34 = v387;
+                v574 = v580;
+                v55 = v575;
                 goto LABEL_60;
               }
             }
 
-            if (objc_msgSend_pageKind(v52, v53, v54, v55, v56, v57) != 5)
+            if (objc_msgSend_pageKind(v82, v83, v88, v89, v90, v91, v84, v85, v86, v87) != 5)
             {
-              v199 = objc_msgSend_documentRoot(*(a1 + 32), v47, v48, v49, v50, v51);
-              v205 = objc_msgSend_floatingDrawables(v199, v200, v201, v202, v203, v204);
-              v211 = objc_msgSend_drawablesOnPageIndex_(v205, v206, v207, v208, v209, v210, v393);
+              v299 = objc_msgSend_documentRoot(*(a1 + 32), v73, v78, v79, v80, v81, v74, v75, v76, v77);
+              v309 = objc_msgSend_floatingDrawables(v299, v300, v305, v306, v307, v308, v301, v302, v303, v304);
+              v318 = objc_msgSend_drawablesOnPageIndex_(v309, v310, v314, v315, v316, v317, v581, v311, v312, v313);
 
-              v397 = 0u;
-              v398 = 0u;
-              v395 = 0u;
-              v396 = 0u;
-              v212 = v211;
-              v218 = objc_msgSend_countByEnumeratingWithState_objects_count_(v212, v213, v214, v215, v216, v217, &v395, v415, 16);
-              if (v218)
+              v585 = 0u;
+              v586 = 0u;
+              v583 = 0u;
+              v584 = 0u;
+              v319 = v318;
+              v326 = objc_msgSend_countByEnumeratingWithState_objects_count_(v319, v320, v322, v323, v324, v325, &v583, v603, 16, v321);
+              if (v326)
               {
-                v219 = *v396;
+                v327 = *v584;
                 while (2)
                 {
-                  for (m = 0; m != v218; ++m)
+                  for (m = 0; m != v326; ++m)
                   {
-                    if (*v396 != v219)
+                    if (*v584 != v327)
                     {
-                      objc_enumerationMutation(v212);
+                      objc_enumerationMutation(v319);
                     }
 
                     objc_opt_class();
-                    v221 = TSUDynamicCast();
-                    isLinked = objc_msgSend_isLinked(v221, v222, v223, v224, v225, v226);
+                    v329 = TSUDynamicCast();
+                    isLinked = objc_msgSend_isLinked(v329, v330, v335, v336, v337, v338, v331, v332, v333, v334);
 
                     if (isLinked)
                     {
-                      v233 = objc_msgSend_flowHints(v52, v228, v229, v230, v231, v232);
-                      v239 = objc_msgSend_count(v233, v234, v235, v236, v237, v238) == 0;
+                      v349 = objc_msgSend_flowHints(v82, v340, v345, v346, v347, v348, v341, v342, v343, v344);
+                      v359 = objc_msgSend_count(v349, v350, v355, v356, v357, v358, v351, v352, v353, v354) == 0;
 
-                      if (v239)
+                      if (v359)
                       {
                         *(*(*(a1 + 56) + 8) + 24) = 0;
                       }
@@ -5838,8 +4471,8 @@ LABEL_37:
                     }
                   }
 
-                  v218 = objc_msgSend_countByEnumeratingWithState_objects_count_(v212, v228, v229, v230, v231, v232, &v395, v415, 16);
-                  if (v218)
+                  v326 = objc_msgSend_countByEnumeratingWithState_objects_count_(v319, v340, v345, v346, v347, v348, &v583, v603, 16, v344);
+                  if (v326)
                   {
                     continue;
                   }
@@ -5851,13 +4484,13 @@ LABEL_37:
 LABEL_50:
             }
 
-            ++v393;
-            ++v394;
+            ++v581;
+            ++v582;
           }
 
-          while (v394 != v390);
-          v46 = objc_msgSend_countByEnumeratingWithState_objects_count_(v384, v47, v48, v49, v50, v51, &v407, v418, 16);
-          if (v46)
+          while (v582 != v578);
+          v72 = objc_msgSend_countByEnumeratingWithState_objects_count_(v572, v73, v78, v79, v80, v81, &v595, v606, 16, v77);
+          if (v72)
           {
             continue;
           }
@@ -5873,55 +4506,55 @@ LABEL_60:
         }
       }
 
-      v381 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v28, v29, v30, v31, v32, &v411, v419, 16);
+      v569 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v45, v50, v51, v52, v53, &v599, v607, 16, v49);
     }
 
-    while (v381);
+    while (v569);
   }
 
 LABEL_65:
 
   if (*(*(*(a1 + 56) + 8) + 24) == 1)
   {
-    objc_msgSend_setSectionHints_(*(*(a1 + 32) + 80), v317, v318, v319, v320, v321, *(a1 + 48));
+    objc_msgSend_setSectionHints_(*(*(a1 + 32) + 80), v469, v473, v474, v475, v476, *(a1 + 48), v470, v471, v472);
     if (*(*(*(a1 + 56) + 8) + 24))
     {
-      if (objc_msgSend_sectionIndex(*(a1 + 40), v322, v323, v324, v325, v326) != 0x7FFFFFFFFFFFFFFFLL)
+      if (objc_msgSend_sectionIndex(*(a1 + 40), v477, v482, v483, v484, v485, v478, v479, v480, v481) != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v332 = *(*(a1 + 32) + 80);
-        v333 = objc_msgSend_sectionIndex(*(a1 + 40), v327, v328, v329, v330, v331);
-        objc_msgSend_setSectionIndex_(v332, v334, v335, v336, v337, v338, v333);
+        v495 = *(*(a1 + 32) + 80);
+        v496 = objc_msgSend_sectionIndex(*(a1 + 40), v486, v491, v492, v493, v494, v487, v488, v489, v490);
+        objc_msgSend_setSectionIndex_(v495, v497, v501, v502, v503, v504, v496, v498, v499, v500);
       }
 
-      if (objc_msgSend_sectionPageIndex(*(a1 + 40), v327, v328, v329, v330, v331) != 0x7FFFFFFFFFFFFFFFLL)
+      if (objc_msgSend_sectionPageIndex(*(a1 + 40), v486, v491, v492, v493, v494, v487, v488, v489, v490) != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v344 = *(*(a1 + 32) + 80);
-        v345 = objc_msgSend_sectionPageIndex(*(a1 + 40), v339, v340, v341, v342, v343);
-        objc_msgSend_setPageIndex_(v344, v346, v347, v348, v349, v350, v345);
+        v514 = *(*(a1 + 32) + 80);
+        v515 = objc_msgSend_sectionPageIndex(*(a1 + 40), v505, v510, v511, v512, v513, v506, v507, v508, v509);
+        objc_msgSend_setPageIndex_(v514, v516, v520, v521, v522, v523, v515, v517, v518, v519);
       }
 
-      if (objc_msgSend_documentPageIndex(*(a1 + 40), v339, v340, v341, v342, v343) != 0x7FFFFFFFFFFFFFFFLL)
+      if (objc_msgSend_documentPageIndex(*(a1 + 40), v505, v510, v511, v512, v513, v506, v507, v508, v509) != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v356 = *(*(a1 + 32) + 80);
-        v357 = objc_msgSend_documentPageIndex(*(a1 + 40), v351, v352, v353, v354, v355);
-        objc_msgSend_setDocumentPageIndex_(v356, v358, v359, v360, v361, v362, v357);
+        v533 = *(*(a1 + 32) + 80);
+        v534 = objc_msgSend_documentPageIndex(*(a1 + 40), v524, v529, v530, v531, v532, v525, v526, v527, v528);
+        objc_msgSend_setDocumentPageIndex_(v533, v535, v539, v540, v541, v542, v534, v536, v537, v538);
       }
 
-      if (objc_msgSend_lastPageCount(*(a1 + 40), v351, v352, v353, v354, v355) != 0x7FFFFFFFFFFFFFFFLL)
+      if (objc_msgSend_lastPageCount(*(a1 + 40), v524, v529, v530, v531, v532, v525, v526, v527, v528) != 0x7FFFFFFFFFFFFFFFLL)
       {
-        PageCount = objc_msgSend_lastPageCount(*(a1 + 40), v363, v364, v365, v366, v367);
-        v370 = *(a1 + 32);
-        v369 = (a1 + 32);
-        *(v370 + 136) = PageCount;
-        v371 = *v369;
-        v377 = objc_msgSend_pageHintCount(*(*v369 + 80), v372, v373, v374, v375, v376);
-        v378 = *(v371 + 136);
-        if (v378 <= v377)
+        PageCount = objc_msgSend_lastPageCount(*(a1 + 40), v543, v548, v549, v550, v551, v544, v545, v546, v547);
+        v554 = *(a1 + 32);
+        v553 = (a1 + 32);
+        *(v554 + 136) = PageCount;
+        v555 = *v553;
+        v565 = objc_msgSend_pageHintCount(*(*v553 + 80), v556, v561, v562, v563, v564, v557, v558, v559, v560);
+        v566 = *(v555 + 136);
+        if (v566 <= v565)
         {
-          v378 = v377;
+          v566 = v565;
         }
 
-        *(*v369 + 136) = v378;
+        *(*v553 + 136) = v566;
       }
     }
   }
@@ -5934,36 +4567,36 @@ void sub_276016C44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_276016FC0(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_276016FC0(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  if (objc_msgSend_isInsertionPoint(*(a1 + 32), a2, a3, a4, a5, a6))
+  if (objc_msgSend_isInsertionPoint(*(a1 + 32), a2, a7, a8, a9, a10, a3, a4, a5, a6))
   {
-    v12 = *(a1 + 40);
-    v13 = objc_msgSend_insertionCharIndex(*(a1 + 32), v7, v8, v9, v10, v11);
-    v19 = objc_msgSend_caretLFAffinity(*(a1 + 32), v14, v15, v16, v17, v18);
-    v25 = objc_msgSend_p_pageIndexForCharIndex_includeEmptyPages_caretAffinity_forcePagination_searchAfterPaginationPoint_(v12, v20, v21, v22, v23, v24, v13, 0, v19, 1, 0);
-    if (v25 != 0x7FFFFFFFFFFFFFFFLL)
+    v20 = *(a1 + 40);
+    v21 = objc_msgSend_insertionCharIndex(*(a1 + 32), v11, v16, v17, v18, v19, v12, v13, v14, v15);
+    v31 = objc_msgSend_caretLFAffinity(*(a1 + 32), v22, v27, v28, v29, v30, v23, v24, v25, v26);
+    v37 = objc_msgSend_p_pageIndexForCharIndex_includeEmptyPages_caretAffinity_forcePagination_searchAfterPaginationPoint_(v20, v32, v33, v34, v35, v36, v21, 0, v31, 1, 0);
+    if (v37 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v31 = v25;
-      v32 = *(a1 + 48);
+      v46 = v37;
+      v47 = *(a1 + 48);
 
-      objc_msgSend_addIndex_(v32, v26, v27, v28, v29, v30, v31);
+      objc_msgSend_addIndex_(v47, v38, v42, v43, v44, v45, v46, v39, v40, v41);
     }
   }
 
-  else if (objc_msgSend_isRange(*(a1 + 32), v7, v8, v9, v10, v11))
+  else if (objc_msgSend_isRange(*(a1 + 32), v11, v16, v17, v18, v19, v12, v13, v14, v15))
   {
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = sub_276017104;
-    v40[3] = &unk_27A6A9130;
-    v33 = *(a1 + 32);
-    v40[4] = *(a1 + 40);
-    v42 = *(a1 + 64);
-    v39 = *(a1 + 48);
-    v34 = v39.n128_u64[0];
-    v41 = v39;
-    objc_msgSend_enumerateRanges_(v33, v35, v39, v36, v37, v38, v40);
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = sub_276017104;
+    v58[3] = &unk_27A6A9130;
+    v48 = *(a1 + 32);
+    v58[4] = *(a1 + 40);
+    v60 = *(a1 + 64);
+    v57 = *(a1 + 48);
+    v49 = v57.n128_u64[0];
+    v59 = v57;
+    objc_msgSend_enumerateRanges_(v48, v50, v57, v54, v55, v56, v58, v51, v52, v53);
   }
 }
 
@@ -5982,58 +4615,58 @@ __n128 sub_27601745C(__n128 *a1, __n128 *a2)
   return result;
 }
 
-void sub_27601746C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_27601746C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v7 = *(a1 + 56);
-  if (v7 || (v8 = *(a1 + 64), v8 == 0x7FFFFFFFFFFFFFFFLL))
+  v11 = *(a1 + 56);
+  if (v11 || (v12 = *(a1 + 64), v12 == 0x7FFFFFFFFFFFFFFFLL))
   {
-    v9 = 0;
-    v10 = 0;
+    v13 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v10 = v8 == *(*(a1 + 32) + 248) + *(*(a1 + 32) + 240);
-    v9 = 1;
+    v14 = v12 == *(*(a1 + 32) + 248) + *(*(a1 + 32) + 240);
+    v13 = 1;
   }
 
-  if ((*(a1 + 88) & 1) != 0 || (v11 = *(a1 + 32), v12 = v11[30], v13 = *(a1 + 48), v12 > v13) || (v14 = v13 + v7, v11[31] + v12 < v13 + v7 || v10) || (objc_msgSend_documentRoot(v11, a2, a3, a4, a5, a6), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend_bodyStorage(v15, v16, v17, v18, v19, v20), v21 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend_length(v21, v22, v23, v24, v25, v26), v21, v15, v14 == v27))
+  if ((*(a1 + 88) & 1) != 0 || (v15 = *(a1 + 32), v16 = v15[30], v17 = *(a1 + 48), v16 > v17) || (v18 = v17 + v11, v15[31] + v16 < v17 + v11 || v14) || (objc_msgSend_documentRoot(v15, a2, a7, a8, a9, a10, a3, a4, a5, a6), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend_bodyStorage(v19, v20, v25, v26, v27, v28, v21, v22, v23, v24), v29 = objc_claimAutoreleasedReturnValue(), v39 = objc_msgSend_length(v29, v30, v35, v36, v37, v38, v31, v32, v33, v34), v29, v19, v18 == v39))
   {
-    v28 = *(a1 + 32);
-    if (v9)
+    v40 = *(a1 + 32);
+    if (v13)
     {
-      v29 = objc_msgSend_p_pageIndexForCharIndex_includeEmptyPages_caretAffinity_forcePagination_searchAfterPaginationPoint_(v28, a2, a3, a4, a5, a6, *(a1 + 64), *(a1 + 88), *(a1 + 80), 1, 0);
-      v35 = *(*(a1 + 40) + 8);
-      if (v29 == 0x7FFFFFFFFFFFFFFFLL)
+      v41 = objc_msgSend_p_pageIndexForCharIndex_includeEmptyPages_caretAffinity_forcePagination_searchAfterPaginationPoint_(v40, a2, a7, a8, a9, a10, *(a1 + 64), *(a1 + 88), *(a1 + 80), 1, 0);
+      v48 = *(*(a1 + 40) + 8);
+      if (v41 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v31 = *MEMORY[0x277D81490];
-        *(v35 + 48) = *MEMORY[0x277D81490];
+        v44 = *MEMORY[0x277D81490];
+        *(v48 + 48) = *MEMORY[0x277D81490];
       }
 
       else
       {
-        *(v35 + 48) = v29;
-        *(v35 + 56) = 1;
+        *(v48 + 48) = v41;
+        *(v48 + 56) = 1;
       }
 
-      v55 = *(a1 + 72);
-      if (v55)
+      v77 = *(a1 + 72);
+      if (v77)
       {
-        *v55 = 1;
+        *v77 = 1;
       }
 
-      v56 = objc_msgSend_p_pageHintForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v30, v31, v32, v33, v34, v29, 0, 0);
-      v62 = v56;
-      if ((*(a1 + 88) & 1) == 0 && objc_msgSend_pageKind(v56, v57, v58, v59, v60, v61) == 1)
+      v78 = objc_msgSend_p_pageHintForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v42, v44, v45, v46, v47, v41, 0, 0, v43);
+      v88 = v78;
+      if ((*(a1 + 88) & 1) == 0 && objc_msgSend_pageKind(v78, v79, v84, v85, v86, v87, v80, v81, v82, v83) == 1)
       {
-        v193 = 0;
-        v68 = objc_msgSend_rangeAndChildHints_(v62, v63, v64, v65, v66, v67, &v193);
-        v70 = v69;
-        v71 = v193;
-        v72 = (*(a1 + 32) + 240);
-        *v72 = v68;
-        v72[1] = v70;
-        if (objc_msgSend_count(v71, v73, v74, v75, v76, v77))
+        v272 = 0;
+        v97 = objc_msgSend_rangeAndChildHints_(v88, v89, v93, v94, v95, v96, &v272, v90, v91, v92);
+        v99 = v98;
+        v100 = v272;
+        v101 = (*(a1 + 32) + 240);
+        *v101 = v97;
+        v101[1] = v99;
+        if (objc_msgSend_count(v100, v102, v107, v108, v109, v110, v103, v104, v105, v106))
         {
           *(*(a1 + 32) + 256) = 0x7FFFFFFFFFFFFFFFLL;
           *(*(a1 + 32) + 240) = *MEMORY[0x277D81490];
@@ -6048,135 +4681,135 @@ void sub_27601746C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5,
 
     else
     {
-      v36 = objc_msgSend_p_pageIndexForCharIndex_includeEmptyPages_caretAffinity_forcePagination_searchAfterPaginationPoint_(v28, a2, a3, a4, a5, a6, *(a1 + 48), *(a1 + 88), 0, 1, 0);
-      v42 = objc_msgSend_documentRoot(*(a1 + 32), v37, v38, v39, v40, v41);
-      v48 = objc_msgSend_bodyStorage(v42, v43, v44, v45, v46, v47);
-      v54 = v48;
-      if (v48)
+      v49 = objc_msgSend_p_pageIndexForCharIndex_includeEmptyPages_caretAffinity_forcePagination_searchAfterPaginationPoint_(v40, a2, a7, a8, a9, a10, *(a1 + 48), *(a1 + 88), 0, 1, 0);
+      v59 = objc_msgSend_documentRoot(*(a1 + 32), v50, v55, v56, v57, v58, v51, v52, v53, v54);
+      v69 = objc_msgSend_bodyStorage(v59, v60, v65, v66, v67, v68, v61, v62, v63, v64);
+      v76 = v69;
+      if (v69)
       {
-        objc_msgSend_paragraphEnumeratorAtCharIndex_styleProvider_(v48, v49, v50, v51, v52, v53, *(a1 + 56) + *(a1 + 48), 0);
+        objc_msgSend_paragraphEnumeratorAtCharIndex_styleProvider_(v69, v72, v73, v74, v75, v70, *(a1 + 56) + *(a1 + 48), 0, v71);
       }
 
       else
       {
-        v192 = 0;
-        memset(v191, 0, sizeof(v191));
+        v271 = 0;
+        memset(v270, 0, sizeof(v270));
       }
 
-      if ((TSWPParagraphEnumerator::isFirstParagraph(v191) & 1) == 0)
+      if ((TSWPParagraphEnumerator::isFirstParagraph(v270) & 1) == 0)
       {
         TSWPParagraphEnumerator::operator--();
       }
 
-      v78 = objc_alloc(MEMORY[0x277D80E18]);
-      v84 = objc_msgSend_documentRoot(*(a1 + 32), v79, v80, v81, v82, v83);
-      v90 = objc_msgSend_bodyStorage(v84, v85, v86, v87, v88, v89);
-      v91 = TSWPParagraphEnumerator::paragraphTextRange(v191);
-      v97 = *(a1 + 56);
-      v98 = v97 + *(a1 + 48);
-      if (v91 <= v98)
+      v111 = objc_alloc(MEMORY[0x277D80E18]);
+      v121 = objc_msgSend_documentRoot(*(a1 + 32), v112, v117, v118, v119, v120, v113, v114, v115, v116);
+      v131 = objc_msgSend_bodyStorage(v121, v122, v127, v128, v129, v130, v123, v124, v125, v126);
+      v132 = TSWPParagraphEnumerator::paragraphTextRange(v270);
+      v139 = *(a1 + 56);
+      v140 = v139 + *(a1 + 48);
+      if (v132 <= v140)
       {
-        v99 = v97 + *(a1 + 48);
+        v141 = v139 + *(a1 + 48);
       }
 
       else
       {
-        v99 = v91;
+        v141 = v132;
       }
 
-      if (v91 >= v98)
+      if (v132 >= v140)
       {
-        v100 = objc_msgSend_initWithStorage_subRange_(v78, v92, v93, v94, v95, v96, v90, v98, v99 - v98);
+        v142 = objc_msgSend_initWithStorage_subRange_(v111, v133, v135, v136, v137, v138, v131, v140, v141 - v140, v134);
       }
 
       else
       {
-        v100 = objc_msgSend_initWithStorage_subRange_(v78, v92, v93, v94, v95, v96, v90, v91, v99 - v91);
+        v142 = objc_msgSend_initWithStorage_subRange_(v111, v133, v135, v136, v137, v138, v131, v132, v141 - v132, v134);
       }
 
-      v101 = v100;
+      v143 = v142;
 
-      v112 = *(a1 + 56) + *(a1 + 48);
-      if (objc_msgSend_length(v101, v102, v103, v104, v105, v106))
+      v158 = *(a1 + 56) + *(a1 + 48);
+      if (objc_msgSend_length(v143, v144, v149, v150, v151, v152, v145, v146, v147, v148))
       {
-        v114 = TSWPPreviousCharIndexFromTextSource();
-        if (v114 >= *(a1 + 48))
+        v164 = TSWPPreviousCharIndexFromTextSource();
+        if (v164 >= *(a1 + 48))
         {
-          v125 = objc_msgSend_documentRoot(*(a1 + 32), v113, v115, v116, v117, v118);
-          v131 = objc_msgSend_bodyStorage(v125, v126, v127, v128, v129, v130);
-          v137 = objc_msgSend_characterAtIndex_(v131, v132, v133, v134, v135, v136, v114);
-          v138 = IsParagraphBreakingCharacter();
-          if (v137 == 8232)
+          v179 = objc_msgSend_documentRoot(*(a1 + 32), v159, v165, v166, v167, v168, v160, v161, v162, v163);
+          v189 = objc_msgSend_bodyStorage(v179, v180, v185, v186, v187, v188, v181, v182, v183, v184);
+          v198 = objc_msgSend_characterAtIndex_(v189, v190, v194, v195, v196, v197, v164, v191, v192, v193);
+          v199 = IsParagraphBreakingCharacter();
+          if (v198 == 8232)
           {
-            v139 = 1;
+            v200 = 1;
           }
 
           else
           {
-            v139 = v138;
+            v200 = v199;
           }
 
-          if (v139)
+          if (v200)
           {
-            v112 = v114;
+            v158 = v164;
           }
 
-          v119 = objc_msgSend_p_pageIndexForCharIndex_includeEmptyPages_caretAffinity_forcePagination_searchAfterPaginationPoint_(*(a1 + 32), v140, v141, v142, v143, v144, v112, *(a1 + 88), v139 ^ 1u, *(a1 + 89), 0);
+          v169 = objc_msgSend_p_pageIndexForCharIndex_includeEmptyPages_caretAffinity_forcePagination_searchAfterPaginationPoint_(*(a1 + 32), v201, v202, v203, v204, v205, v158, *(a1 + 88), v200 ^ 1u, *(a1 + 89), 0);
         }
 
         else
         {
-          v119 = objc_msgSend_p_pageIndexForCharIndex_includeEmptyPages_caretAffinity_forcePagination_searchAfterPaginationPoint_(*(a1 + 32), v113, v115, v116, v117, v118, *(a1 + 48), *(a1 + 88), 0, *(a1 + 89), 0);
+          v169 = objc_msgSend_p_pageIndexForCharIndex_includeEmptyPages_caretAffinity_forcePagination_searchAfterPaginationPoint_(*(a1 + 32), v159, v165, v166, v167, v168, *(a1 + 48), *(a1 + 88), 0, *(a1 + 89), 0);
         }
       }
 
       else
       {
-        v119 = objc_msgSend_p_pageIndexForCharIndex_includeEmptyPages_caretAffinity_forcePagination_searchAfterPaginationPoint_(*(a1 + 32), v107, v108, v109, v110, v111, v112, *(a1 + 88), 0, *(a1 + 89), 0);
+        v169 = objc_msgSend_p_pageIndexForCharIndex_includeEmptyPages_caretAffinity_forcePagination_searchAfterPaginationPoint_(*(a1 + 32), v153, v154, v155, v156, v157, v158, *(a1 + 88), 0, *(a1 + 89), 0);
       }
 
-      if (v119 == 0x7FFFFFFFFFFFFFFFLL)
+      if (v169 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v119 = objc_msgSend_documentPageIndex(*(*(a1 + 32) + 80), v120, v121, v122, v123, v124);
+        v169 = objc_msgSend_documentPageIndex(*(*(a1 + 32) + 80), v170, v175, v176, v177, v178, v171, v172, v173, v174);
       }
 
       else
       {
-        v145 = *(a1 + 72);
-        if (v145)
+        v206 = *(a1 + 72);
+        if (v206)
         {
-          *v145 = 1;
+          *v206 = 1;
         }
       }
 
-      v146 = v119 - v36;
-      if (v119 < v36)
+      v207 = v169 - v49;
+      if (v169 < v49)
       {
-        v147 = MEMORY[0x277D81150];
-        v148 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v120, v121, v122, v123, v124, "[TPPaginatedPageController p_pageRangeForRange:forcePagination:includingEmptyPages:caretAffinity:leadingCharIndex:outEndIsValid:]_block_invoke");
-        v154 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v149, v150, v151, v152, v153, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v147, v155, v156, v157, v158, v159, v148, v154, 839, 0, "selection should end after it starts");
+        v208 = MEMORY[0x277D81150];
+        v209 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v170, v175, v176, v177, v178, "[TPPaginatedPageController p_pageRangeForRange:forcePagination:includingEmptyPages:caretAffinity:leadingCharIndex:outEndIsValid:]_block_invoke", v172, v173, v174);
+        v218 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v210, v214, v215, v216, v217, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v211, v212, v213);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v208, v219, v220, v221, v222, v223, v209, v218, 839, 0, "selection should end after it starts");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v160, v161, v162, v163, v164);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v224, v229, v230, v231, v232, v225, v226, v227, v228);
       }
 
-      v165 = *(*(a1 + 40) + 8);
-      *(v165 + 48) = v36;
-      *(v165 + 56) = v146 + 1;
+      v233 = *(*(a1 + 40) + 8);
+      *(v233 + 48) = v49;
+      *(v233 + 56) = v207 + 1;
       if (*(*(*(a1 + 40) + 8) + 56) == 1)
       {
-        v166 = objc_msgSend_p_pageHintForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v120, v121, v122, v123, v124, v36, *(a1 + 89), 0);
-        v172 = v166;
-        if ((*(a1 + 88) & 1) == 0 && objc_msgSend_pageKind(v166, v167, v168, v169, v170, v171) == 1)
+        v234 = objc_msgSend_p_pageHintForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v170, v175, v176, v177, v178, v49, *(a1 + 89), 0, v174);
+        v244 = v234;
+        if ((*(a1 + 88) & 1) == 0 && objc_msgSend_pageKind(v234, v235, v240, v241, v242, v243, v236, v237, v238, v239) == 1)
         {
-          v190 = 0;
-          v178 = objc_msgSend_rangeAndChildHints_(v172, v173, v174, v175, v176, v177, &v190);
-          v180 = v179;
-          v181 = v190;
-          v182 = (*(a1 + 32) + 240);
-          *v182 = v178;
-          v182[1] = v180;
-          if (objc_msgSend_count(v181, v183, v184, v185, v186, v187))
+          v269 = 0;
+          v253 = objc_msgSend_rangeAndChildHints_(v244, v245, v249, v250, v251, v252, &v269, v246, v247, v248);
+          v255 = v254;
+          v256 = v269;
+          v257 = (*(a1 + 32) + 240);
+          *v257 = v253;
+          v257[1] = v255;
+          if (objc_msgSend_count(v256, v258, v263, v264, v265, v266, v259, v260, v261, v262))
           {
             *(*(a1 + 32) + 256) = 0x7FFFFFFFFFFFFFFFLL;
             *(*(a1 + 32) + 240) = *MEMORY[0x277D81490];
@@ -6189,372 +4822,372 @@ void sub_27601746C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5,
         }
       }
 
-      TSWPParagraphEnumerator::~TSWPParagraphEnumerator(v191);
+      TSWPParagraphEnumerator::~TSWPParagraphEnumerator(v270);
     }
   }
 
   else
   {
-    v188 = *(*(a1 + 40) + 8);
-    *(v188 + 48) = *(*(a1 + 32) + 256);
-    *(v188 + 56) = 1;
-    v189 = *(a1 + 72);
-    if (v189)
+    v267 = *(*(a1 + 40) + 8);
+    *(v267 + 48) = *(*(a1 + 32) + 256);
+    *(v267 + 56) = 1;
+    v268 = *(a1 + 72);
+    if (v268)
     {
-      *v189 = 1;
+      *v268 = 1;
     }
   }
 }
 
-void sub_2760179E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2760179E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
 
   TSWPParagraphEnumerator::~TSWPParagraphEnumerator(va);
   _Unwind_Resume(a1);
 }
 
-void sub_276017BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, ...)
+void sub_276017BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_276017BD8(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+_BYTE *sub_276017BD8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  if (objc_msgSend_isInsertionPoint(*(a1 + 32), a2, a3, a4, a5, a6))
+  if (objc_msgSend_isInsertionPoint(*(a1 + 32), a2, a7, a8, a9, a10, a3, a4, a5, a6))
   {
-    v12 = *(a1 + 40);
-    v13 = objc_msgSend_start(*(a1 + 32), v7, v8, v9, v10, v11);
-    v19 = objc_msgSend_caretLFAffinity(*(a1 + 32), v14, v15, v16, v17, v18);
-    result = objc_msgSend_p_pageIndexForCharIndex_includeEmptyPages_caretAffinity_forcePagination_searchAfterPaginationPoint_(v12, v20, v21, v22, v23, v24, v13, 0, v19, 0, 0);
+    v20 = *(a1 + 40);
+    v21 = objc_msgSend_start(*(a1 + 32), v11, v16, v17, v18, v19, v12, v13, v14, v15);
+    v31 = objc_msgSend_caretLFAffinity(*(a1 + 32), v22, v27, v28, v29, v30, v23, v24, v25, v26);
+    result = objc_msgSend_p_pageIndexForCharIndex_includeEmptyPages_caretAffinity_forcePagination_searchAfterPaginationPoint_(v20, v32, v33, v34, v35, v36, v21, 0, v31, 0, 0);
     if (result == 0x7FFFFFFFFFFFFFFFLL)
     {
       return result;
     }
 
-    v26 = result;
-    v27 = 1;
+    v38 = result;
+    v39 = 1;
     goto LABEL_10;
   }
 
-  result = objc_msgSend_isRange(*(a1 + 32), v7, v8, v9, v10, v11);
+  result = objc_msgSend_isRange(*(a1 + 32), v11, v16, v17, v18, v19, v12, v13, v14, v15);
   if (result)
   {
-    v33 = *(a1 + 40);
-    v34 = objc_msgSend_start(*(a1 + 32), v28, v29, v30, v31, v32);
-    v26 = objc_msgSend_p_pageIndexForCharIndex_includeEmptyPages_caretAffinity_forcePagination_searchAfterPaginationPoint_(v33, v35, v36, v37, v38, v39, v34, 0, 0, 0, 0);
-    v40 = *(a1 + 40);
-    v46 = objc_msgSend_end(*(a1 + 32), v41, v42, v43, v44, v45);
-    result = objc_msgSend_p_pageIndexForCharIndex_includeEmptyPages_caretAffinity_forcePagination_searchAfterPaginationPoint_(v40, v47, v48, v49, v50, v51, v46, 0, 1, 0, 0);
+    v49 = *(a1 + 40);
+    v50 = objc_msgSend_start(*(a1 + 32), v40, v45, v46, v47, v48, v41, v42, v43, v44);
+    v38 = objc_msgSend_p_pageIndexForCharIndex_includeEmptyPages_caretAffinity_forcePagination_searchAfterPaginationPoint_(v49, v51, v52, v53, v54, v55, v50, 0, 0, 0, 0);
+    v56 = *(a1 + 40);
+    v66 = objc_msgSend_end(*(a1 + 32), v57, v62, v63, v64, v65, v58, v59, v60, v61);
+    result = objc_msgSend_p_pageIndexForCharIndex_includeEmptyPages_caretAffinity_forcePagination_searchAfterPaginationPoint_(v56, v67, v68, v69, v70, v71, v66, 0, 1, 0, 0);
     if (result == 0x7FFFFFFFFFFFFFFFLL)
     {
-      result = objc_msgSend_documentPageIndex(*(*(a1 + 40) + 80), v52, v53, v54, v55, v56);
+      result = objc_msgSend_documentPageIndex(*(*(a1 + 40) + 80), v72, v77, v78, v79, v80, v73, v74, v75, v76);
     }
 
-    if (v26 != 0x7FFFFFFFFFFFFFFFLL && result != 0x7FFFFFFFFFFFFFFFLL)
+    if (v38 != 0x7FFFFFFFFFFFFFFFLL && result != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v27 = result - v26 + 1;
+      v39 = &result[-v38 + 1];
 LABEL_10:
-      v57 = *(*(a1 + 48) + 8);
-      *(v57 + 48) = v26;
-      *(v57 + 56) = v27;
+      v81 = *(*(a1 + 48) + 8);
+      *(v81 + 48) = v38;
+      *(v81 + 56) = v39;
     }
   }
 
   return result;
 }
 
-void sub_276017DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_276017DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_276017DF8(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void *sub_276017DF8(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  result = objc_msgSend_p_bodyRangeForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), *(a1 + 56), 0);
-  v8 = *(*(a1 + 40) + 8);
-  *(v8 + 48) = result;
-  *(v8 + 56) = v9;
+  result = objc_msgSend_p_bodyRangeForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), *(a1 + 56), 0, a10);
+  v12 = *(*(a1 + 40) + 8);
+  *(v12 + 48) = result;
+  *(v12 + 56) = v13;
   return result;
 }
 
-void sub_276017F24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_276017F24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_276017F3C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void *sub_276017F3C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  result = objc_msgSend_p_anchoredRangeForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), *(a1 + 56), 0);
-  v8 = *(*(a1 + 40) + 8);
-  *(v8 + 48) = result;
-  *(v8 + 56) = v9;
+  result = objc_msgSend_p_anchoredRangeForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), *(a1 + 56), 0, a10);
+  v12 = *(*(a1 + 40) + 8);
+  *(v12 + 48) = result;
+  *(v12 + 56) = v13;
   return result;
 }
 
-void sub_276018244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_276018244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_27601825C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void *sub_27601825C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  result = objc_msgSend_p_footnoteLayoutRangeForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), *(a1 + 56), 0);
-  v8 = *(*(a1 + 40) + 8);
-  *(v8 + 48) = result;
-  *(v8 + 56) = v9;
+  result = objc_msgSend_p_footnoteLayoutRangeForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), *(a1 + 56), 0, a10);
+  v12 = *(*(a1 + 40) + 8);
+  *(v12 + 48) = result;
+  *(v12 + 56) = v13;
   return result;
 }
 
-void sub_27601835C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_27601835C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  if ((objc_msgSend_isPaginationCompleteThroughDocumentPageIndex_(*(*(a1 + 32) + 80), a2, a3, a4, a5, a6, *(a1 + 48)) & 1) == 0)
+  if ((objc_msgSend_isPaginationCompleteThroughDocumentPageIndex_(*(*(a1 + 32) + 80), a2, a3, a4, a5, a6, *(a1 + 48), a8, a9, a10) & 1) == 0)
   {
-    v12 = MEMORY[0x277D81150];
-    v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, v8, v9, v10, v11, "[TPPaginatedPageController pageBeginsWithPaginatedAttachment:]_block_invoke");
-    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v14, v15, v16, v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v19, v20, v21, v22, v23, v35, v18, 947, 0, "page must be laid out to tell if it starts with a paginated attachment");
+    v19 = MEMORY[0x277D81150];
+    v53 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v15, v16, v17, v18, "[TPPaginatedPageController pageBeginsWithPaginatedAttachment:]_block_invoke", v12, v13, v14);
+    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, v24, v25, v26, v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v21, v22, v23);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v29, v30, v31, v32, v33, v53, v28, 947, 0, "page must be laid out to tell if it starts with a paginated attachment");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25, v26, v27, v28);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v39, v40, v41, v42, v35, v36, v37, v38);
   }
 
-  v36 = objc_msgSend_p_pageHintForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v7, v8, v9, v10, v11, *(a1 + 48), 0, 0);
-  v34 = objc_msgSend_firstChildHint(v36, v29, v30, v31, v32, v33);
+  v54 = objc_msgSend_p_pageHintForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v11, v15, v16, v17, v18, *(a1 + 48), 0, 0, v14);
+  v52 = objc_msgSend_firstChildHint(v54, v43, v48, v49, v50, v51, v44, v45, v46, v47);
 
-  if (v34)
+  if (v52)
   {
     *(*(*(a1 + 40) + 8) + 24) = 1;
   }
 }
 
-void sub_276018550(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_276018550(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  if ((objc_msgSend_isPaginationCompleteThroughDocumentPageIndex_(*(*(a1 + 32) + 80), a2, a3, a4, a5, a6, *(a1 + 48)) & 1) == 0)
+  if ((objc_msgSend_isPaginationCompleteThroughDocumentPageIndex_(*(*(a1 + 32) + 80), a2, a3, a4, a5, a6, *(a1 + 48), a8, a9, a10) & 1) == 0)
   {
-    v12 = MEMORY[0x277D81150];
-    v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, v8, v9, v10, v11, "[TPPaginatedPageController pageEndsWithPaginatedAttachment:]_block_invoke");
-    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v14, v15, v16, v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v19, v20, v21, v22, v23, v35, v18, 962, 0, "page must be laid out to tell if it ends with a paginated attachment");
+    v19 = MEMORY[0x277D81150];
+    v53 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v15, v16, v17, v18, "[TPPaginatedPageController pageEndsWithPaginatedAttachment:]_block_invoke", v12, v13, v14);
+    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, v24, v25, v26, v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v21, v22, v23);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v29, v30, v31, v32, v33, v53, v28, 962, 0, "page must be laid out to tell if it ends with a paginated attachment");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25, v26, v27, v28);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v39, v40, v41, v42, v35, v36, v37, v38);
   }
 
-  v36 = objc_msgSend_p_pageHintForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v7, v8, v9, v10, v11, *(a1 + 48), 0, 0);
-  v34 = objc_msgSend_lastChildHint(v36, v29, v30, v31, v32, v33);
+  v54 = objc_msgSend_p_pageHintForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v11, v15, v16, v17, v18, *(a1 + 48), 0, 0, v14);
+  v52 = objc_msgSend_lastChildHint(v54, v43, v48, v49, v50, v51, v44, v45, v46, v47);
 
-  if (v34)
+  if (v52)
   {
     *(*(*(a1 + 40) + 8) + 24) = 1;
   }
 }
 
-void sub_276018744(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_276018744(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  if ((objc_msgSend_isPaginationCompleteThroughDocumentPageIndex_(*(*(a1 + 32) + 80), a2, a3, a4, a5, a6, *(a1 + 48)) & 1) == 0)
+  if ((objc_msgSend_isPaginationCompleteThroughDocumentPageIndex_(*(*(a1 + 32) + 80), a2, a3, a4, a5, a6, *(a1 + 48), a8, a9, a10) & 1) == 0)
   {
-    v12 = MEMORY[0x277D81150];
-    v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, v8, v9, v10, v11, "[TPPaginatedPageController pageAtIndexHasBody:]_block_invoke");
-    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v14, v15, v16, v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v19, v20, v21, v22, v23, v34, v18, 977, 0, "page must be laid out to tell if it has a body");
+    v19 = MEMORY[0x277D81150];
+    v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v15, v16, v17, v18, "[TPPaginatedPageController pageAtIndexHasBody:]_block_invoke", v12, v13, v14);
+    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, v24, v25, v26, v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v21, v22, v23);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v29, v30, v31, v32, v33, v52, v28, 977, 0, "page must be laid out to tell if it has a body");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25, v26, v27, v28);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v39, v40, v41, v42, v35, v36, v37, v38);
   }
 
-  v35 = objc_msgSend_p_pageHintForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v7, v8, v9, v10, v11, *(a1 + 48), 0, 0);
-  if (objc_msgSend_pageKind(v35, v29, v30, v31, v32, v33) == 1)
+  v53 = objc_msgSend_p_pageHintForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v11, v15, v16, v17, v18, *(a1 + 48), 0, 0, v14);
+  if (objc_msgSend_pageKind(v53, v43, v48, v49, v50, v51, v44, v45, v46, v47) == 1)
   {
     *(*(*(a1 + 40) + 8) + 24) = 1;
   }
 }
 
-uint64_t sub_276018938(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void *sub_276018938(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
 {
   result = objc_msgSend_p_pageIndexForCharIndex_includeEmptyPages_caretAffinity_forcePagination_searchAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), 0, 0, *(a1 + 56), 0);
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t sub_276018A48(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void *sub_276018A48(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  result = objc_msgSend_p_pageIndexForAnchoredCharIndex_forcePagination_searchAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), *(a1 + 56), 0);
+  result = objc_msgSend_p_pageIndexForAnchoredCharIndex_forcePagination_searchAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), *(a1 + 56), 0, a10);
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t sub_276018BD0(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void *sub_276018BD0(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  result = objc_msgSend_p_pageIndexForFootnoteIndex_forcePagination_searchAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), *(a1 + 56), 0);
+  result = objc_msgSend_p_pageIndexForFootnoteIndex_forcePagination_searchAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), *(a1 + 56), 0, a10);
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-void sub_276018CFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_276018CFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_276018D14(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_276018D14(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v7 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, 0, *(a1 + 56), 0);
-  if (v7)
+  v11 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, 0, *(a1 + 56), 0, a10);
+  if (v11)
   {
-    v13 = 0;
+    v21 = 0;
     while (1)
     {
-      v33 = v7;
-      if (objc_msgSend_sectionIndex(v7, v8, v9, v10, v11, v12) >= *(a1 + 48))
+      v47 = v11;
+      if (objc_msgSend_sectionIndex(v11, v12, v17, v18, v19, v20, v13, v14, v15, v16) >= *(a1 + 48))
       {
         break;
       }
 
-      ++v13;
+      ++v21;
 
-      v7 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v14, v15, v16, v17, v18, v13, *(a1 + 56), 0);
-      if (!v7)
+      v11 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v22, v24, v25, v26, v27, v21, *(a1 + 56), 0, v23);
+      if (!v11)
       {
         goto LABEL_7;
       }
     }
 
-    v19 = *(*(a1 + 40) + 8);
-    *(v19 + 48) = v13;
-    *(v19 + 56) = 1;
+    v28 = *(*(a1 + 40) + 8);
+    *(v28 + 48) = v21;
+    *(v28 + 56) = 1;
   }
 
 LABEL_7:
-  v20 = *(*(*(a1 + 40) + 8) + 48);
-  if (v20 != 0x7FFFFFFFFFFFFFFFLL)
+  v29 = *(*(*(a1 + 40) + 8) + 48);
+  if (v29 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v21 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v8, v9, v10, v11, v12, v20 + 1, *(a1 + 56), 0);
-    if (v21)
+    v30 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v12, v17, v18, v19, v20, v29 + 1, *(a1 + 56), 0, v16);
+    if (v30)
     {
-      v27 = v20 + 2;
+      v40 = v29 + 2;
       while (1)
       {
-        v34 = v21;
-        if (objc_msgSend_sectionIndex(v21, v22, v23, v24, v25, v26) > *(a1 + 48))
+        v48 = v30;
+        if (objc_msgSend_sectionIndex(v30, v31, v36, v37, v38, v39, v32, v33, v34, v35) > *(a1 + 48))
         {
           break;
         }
 
         ++*(*(*(a1 + 40) + 8) + 56);
 
-        v21 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v28, v29, v30, v31, v32, v27, *(a1 + 56), 0);
-        ++v27;
-        if (!v21)
+        v30 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v41, v43, v44, v45, v46, v40, *(a1 + 56), 0, v42);
+        ++v40;
+        if (!v30)
         {
           goto LABEL_15;
         }
       }
 
-      v21 = v34;
+      v30 = v48;
 LABEL_15:
     }
   }
 }
 
-void sub_276018F44(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_276018F44(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v7 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), *(a1 + 56), 0);
-  if (v7)
+  v11 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), *(a1 + 56), 0, a10);
+  if (v11)
   {
-    v13 = v7;
-    *(*(*(a1 + 40) + 8) + 24) = objc_msgSend_sectionIndex(v7, v8, v9, v10, v11, v12);
-    v7 = v13;
+    v21 = v11;
+    *(*(*(a1 + 40) + 8) + 24) = objc_msgSend_sectionIndex(v11, v12, v17, v18, v19, v20, v13, v14, v15, v16);
+    v11 = v21;
   }
 }
 
-void sub_2760190AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2760190AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2760190C4(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_2760190C4(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v7 = objc_msgSend_p_sectionHintForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), *(a1 + 56), 0);
-  if (v7)
+  v11 = objc_msgSend_p_sectionHintForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), *(a1 + 56), 0, a10);
+  if (v11)
   {
-    v52 = v7;
-    v14 = objc_msgSend_documentPageRange(v7, v8, v9, v10, v11, v12);
-    v19 = v13;
-    v7 = v52;
-    if (v13)
+    v72 = v11;
+    v23 = objc_msgSend_documentPageRange(v11, v12, v17, v18, v19, v20, v13, v14, v15, v16);
+    v28 = v21;
+    v11 = v72;
+    if (v21)
     {
-      v20 = objc_msgSend_p_bodyRangeForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v13, v15, v16, v17, v18, v14, *(a1 + 56), 0);
-      v22 = v21;
-      v28 = objc_msgSend_p_bodyRangeForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v21, v23, v24, v25, v26, &v19[v14 - 1], *(a1 + 56), 0);
-      v33 = v27;
-      if (v28 == 0x7FFFFFFFFFFFFFFFLL)
+      v29 = objc_msgSend_p_bodyRangeForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v21, v24, v25, v26, v27, v23, *(a1 + 56), 0, v22);
+      v31 = v30;
+      v41 = objc_msgSend_p_bodyRangeForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v30, v33, v34, v35, v36, &v28[v23 - 1], *(a1 + 56), 0, v32);
+      v46 = v37;
+      if (v41 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v34 = MEMORY[0x277D81150];
-        v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, v29, v30, v31, v32, "[TPPaginatedPageController sectionBodyRangeForPageIndex:forcePagination:]_block_invoke");
-        v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, v37, v38, v39, v40, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v34, v42, v43, v44, v45, v46, v35, v41, 1097, 0, "Not laid out through end of section");
+        v47 = MEMORY[0x277D81150];
+        v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, v42, v43, v44, v45, "[TPPaginatedPageController sectionBodyRangeForPageIndex:forcePagination:]_block_invoke", v38, v39, v40);
+        v57 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, v53, v54, v55, v56, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v50, v51, v52);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v47, v58, v59, v60, v61, v62, v48, v57, 1097, 0, "Not laid out through end of section");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v47, v48, v49, v50, v51);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v63, v68, v69, v70, v71, v64, v65, v66, v67);
       }
 
-      v54.location = v20;
-      v54.length = v22;
-      v55.location = v28;
-      v55.length = v33;
-      *(*(*(a1 + 40) + 8) + 48) = NSUnionRange(v54, v55);
-      v7 = v52;
+      v74.location = v29;
+      v74.length = v31;
+      v75.location = v41;
+      v75.length = v46;
+      *(*(*(a1 + 40) + 8) + 48) = NSUnionRange(v74, v75);
+      v11 = v72;
     }
   }
 }
 
-void sub_276019328(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_276019328(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v7 = objc_msgSend_p_sectionHintForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), *(a1 + 56), 0);
-  if (v7)
+  v11 = objc_msgSend_p_sectionHintForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), *(a1 + 56), 0, a10);
+  if (v11)
   {
-    v13 = v7;
-    *(*(*(a1 + 40) + 8) + 24) = *(a1 + 48) - objc_msgSend_documentPageRange(v7, v8, v9, v10, v11, v12);
-    v7 = v13;
+    v21 = v11;
+    *(*(*(a1 + 40) + 8) + 24) = *(a1 + 48) - objc_msgSend_documentPageRange(v11, v12, v17, v18, v19, v20, v13, v14, v15, v16);
+    v11 = v21;
   }
 }
 
-void sub_276019494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_276019494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2760194AC(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_2760194AC(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v7 = objc_msgSend_p_sectionHintForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), *(a1 + 64), 0);
-  if (v7)
+  v11 = objc_msgSend_p_sectionHintForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), *(a1 + 64), 0, a10);
+  if (v11)
   {
-    v20 = v7;
-    v13 = objc_msgSend_documentPageRange(v7, v8, v9, v10, v11, v12);
-    v19 = *(*(a1 + 40) + 8);
-    *(v19 + 48) = v13;
-    *(v19 + 56) = v14;
-    v7 = v20;
+    v31 = v11;
+    v21 = objc_msgSend_documentPageRange(v11, v12, v17, v18, v19, v20, v13, v14, v15, v16);
+    v30 = *(*(a1 + 40) + 8);
+    *(v30 + 48) = v21;
+    *(v30 + 56) = v22;
+    v11 = v31;
     if (*(a1 + 56))
     {
-      **(a1 + 56) = objc_msgSend_isPaginationCompleteUpToDocumentPageIndex_(*(*(a1 + 32) + 80), v14, v15, v16, v17, v18, *(*(*(a1 + 40) + 8) + 56) + *(*(*(a1 + 40) + 8) + 48));
-      v7 = v20;
+      **(a1 + 56) = objc_msgSend_isPaginationCompleteUpToDocumentPageIndex_(*(*(a1 + 32) + 80), v22, v26, v27, v28, v29, *(*(*(a1 + 40) + 8) + 56) + *(*(*(a1 + 40) + 8) + 48), v23, v24, v25);
+      v11 = v31;
     }
   }
 }
 
-void sub_27601968C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_27601968C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -6568,187 +5201,187 @@ uint64_t sub_2760196AC(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2760196C4(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_2760196C4(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v7 = objc_msgSend_p_cachedPageLayoutForPageIndex_preferredLayoutController_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), 0);
-  v43 = v7;
-  if (v7)
+  v11 = objc_msgSend_p_cachedPageLayoutForPageIndex_preferredLayoutController_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), 0, a9, a10);
+  v62 = v11;
+  if (v11)
   {
-    v13 = objc_msgSend_info(v7, v8, v9, v10, v11, v12);
+    v21 = objc_msgSend_info(v11, v12, v17, v18, v19, v20, v13, v14, v15, v16);
 
-    if (!v13)
+    if (!v21)
     {
-      v19 = MEMORY[0x277D81150];
-      v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v15, v16, v17, v18, "[TPPaginatedPageController pageInfoForPageIndex:]_block_invoke");
-      v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, v22, v23, v24, v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v27, v28, v29, v30, v31, v20, v26, 1147, 0, "cached page layout should have an info");
+      v31 = MEMORY[0x277D81150];
+      v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, v27, v28, v29, v30, "[TPPaginatedPageController pageInfoForPageIndex:]_block_invoke", v24, v25, v26);
+      v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, v37, v38, v39, v40, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v34, v35, v36);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v42, v43, v44, v45, v46, v32, v41, 1147, 0, "cached page layout should have an info");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v32, v33, v34, v35, v36);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v47, v52, v53, v54, v55, v48, v49, v50, v51);
     }
 
-    v37 = objc_msgSend_info(v43, v14, v15, v16, v17, v18);
-    v38 = *(*(a1 + 40) + 8);
-    v39 = *(v38 + 40);
-    *(v38 + 40) = v37;
+    v56 = objc_msgSend_info(v62, v22, v27, v28, v29, v30, v23, v24, v25, v26);
+    v57 = *(*(a1 + 40) + 8);
+    v58 = *(v57 + 40);
+    *(v57 + 40) = v56;
 
-    v7 = v43;
+    v11 = v62;
   }
 
   if (!*(*(*(a1 + 40) + 8) + 40))
   {
-    v40 = objc_msgSend_p_pageInfoForPageAtIndex_(*(a1 + 32), v8, v9, v10, v11, v12, *(a1 + 48));
-    v41 = *(*(a1 + 40) + 8);
-    v42 = *(v41 + 40);
-    *(v41 + 40) = v40;
+    v59 = objc_msgSend_p_pageInfoForPageAtIndex_(*(a1 + 32), v12, v17, v18, v19, v20, *(a1 + 48), v14, v15, v16);
+    v60 = *(*(a1 + 40) + 8);
+    v61 = *(v60 + 40);
+    *(v60 + 40) = v59;
 
-    v7 = v43;
+    v11 = v62;
   }
 }
 
-void sub_276019934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_276019934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_276019954(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_276019954(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v51 = *MEMORY[0x277D85DE8];
-  v7 = objc_msgSend_sectionHints(*(*(a1 + 32) + 80), a2, a3, a4, a5, a6);
-  v13 = objc_msgSend_count(v7, v8, v9, v10, v11, v12);
+  v74 = *MEMORY[0x277D85DE8];
+  v11 = objc_msgSend_sectionHints(*(*(a1 + 32) + 80), a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  v21 = objc_msgSend_count(v11, v12, v17, v18, v19, v20, v13, v14, v15, v16);
 
-  if (v13)
+  if (v21)
   {
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v18 = objc_msgSend_sectionHints(*(*(a1 + 32) + 80), v14, 0, v15, v16, v17, 0);
-    v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, v20, v21, v22, v23, &v46, v50, 16);
-    if (v25)
+    v71 = 0u;
+    v72 = 0u;
+    v69 = 0u;
+    v70 = 0u;
+    v30 = objc_msgSend_sectionHints(*(*(a1 + 32) + 80), v22, 0, v27, v28, v29, v23, v24, v25, v26, 0);
+    v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v31, v33, v34, v35, v36, &v69, v73, 16, v32);
+    if (v42)
     {
-      v30 = *v47;
+      v47 = *v70;
       do
       {
-        v31 = 0;
+        v48 = 0;
         do
         {
-          if (*v47 != v30)
+          if (*v70 != v47)
           {
-            objc_enumerationMutation(v18);
+            objc_enumerationMutation(v30);
           }
 
-          v32 = *(*(*(a1 + 40) + 8) + 40);
-          v33 = MEMORY[0x277CCABB0];
-          v34 = objc_msgSend_pageCount(*(*(&v46 + 1) + 8 * v31), v24, v26, v27, v28, v29);
-          v40 = objc_msgSend_numberWithUnsignedInteger_(v33, v35, v36, v37, v38, v39, v34);
-          objc_msgSend_addObject_(v32, v41, v42, v43, v44, v45, v40);
+          v49 = *(*(*(a1 + 40) + 8) + 40);
+          v50 = MEMORY[0x277CCABB0];
+          v51 = objc_msgSend_pageCount(*(*(&v69 + 1) + 8 * v48), v37, v43, v44, v45, v46, v38, v39, v40, v41);
+          v60 = objc_msgSend_numberWithUnsignedInteger_(v50, v52, v56, v57, v58, v59, v51, v53, v54, v55);
+          objc_msgSend_addObject_(v49, v61, v65, v66, v67, v68, v60, v62, v63, v64);
 
-          ++v31;
+          ++v48;
         }
 
-        while (v25 != v31);
-        v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v24, v26, v27, v28, v29, &v46, v50, 16);
+        while (v42 != v48);
+        v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v37, v43, v44, v45, v46, &v69, v73, 16, v41);
       }
 
-      while (v25);
+      while (v42);
     }
   }
 }
 
 void sub_276019C14(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
 {
-  v149 = *MEMORY[0x277D85DE8];
+  v213 = *MEMORY[0x277D85DE8];
   v7 = objc_msgSend_p_pageIndexForCharIndex_includeEmptyPages_caretAffinity_forcePagination_searchAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 56), 0, 0, *(a1 + 64), 0);
-  v13 = objc_msgSend_orderedSelections(*(a1 + 40), v8, v9, v10, v11, v12);
-  v19 = objc_msgSend_indexOfObjectPassingTest_(v13, v14, v15, v16, v17, v18, &unk_2885012D8);
+  v17 = objc_msgSend_orderedSelections(*(a1 + 40), v8, v13, v14, v15, v16, v9, v10, v11, v12);
+  v26 = objc_msgSend_indexOfObjectPassingTest_(v17, v18, v22, v23, v24, v25, &unk_2885012D8, v19, v20, v21);
 
   objc_opt_class();
-  v25 = objc_msgSend_selectionAtIndex_(*(a1 + 40), v20, v21, v22, v23, v24, v19);
-  v140 = TSUCheckedDynamicCast();
+  v35 = objc_msgSend_selectionAtIndex_(*(a1 + 40), v27, v31, v32, v33, v34, v26, v28, v29, v30);
+  v204 = TSUCheckedDynamicCast();
 
   objc_opt_class();
-  v31 = objc_msgSend_documentRoot(*(a1 + 32), v26, v27, v28, v29, v30);
-  v37 = objc_msgSend_bodyStorage(v31, v32, v33, v34, v35, v36);
-  v43 = objc_msgSend_attachmentAtCharIndex_(v37, v38, v39, v40, v41, v42, *(a1 + 56));
-  v141 = TSUCheckedDynamicCast();
+  v45 = objc_msgSend_documentRoot(*(a1 + 32), v36, v41, v42, v43, v44, v37, v38, v39, v40);
+  v55 = objc_msgSend_bodyStorage(v45, v46, v51, v52, v53, v54, v47, v48, v49, v50);
+  v64 = objc_msgSend_attachmentAtCharIndex_(v55, v56, v60, v61, v62, v63, *(a1 + 56), v57, v58, v59);
+  v205 = TSUCheckedDynamicCast();
 
-  v49 = objc_msgSend_infos(v140, v44, v45, v46, v47, v48);
-  v55 = objc_msgSend_drawable(v141, v50, v51, v52, v53, v54);
-  LOBYTE(v37) = objc_msgSend_containsObject_(v49, v56, v57, v58, v59, v60, v55);
+  v74 = objc_msgSend_infos(v204, v65, v70, v71, v72, v73, v66, v67, v68, v69);
+  v84 = objc_msgSend_drawable(v205, v75, v80, v81, v82, v83, v76, v77, v78, v79);
+  LOBYTE(v55) = objc_msgSend_containsObject_(v74, v85, v89, v90, v91, v92, v84, v86, v87, v88);
 
-  if ((v37 & 1) == 0)
+  if ((v55 & 1) == 0)
   {
-    v66 = MEMORY[0x277D81150];
-    v67 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v61, v62, v63, v64, v65, "[TPPaginatedPageController pageIndicesForPartitionableAttachmentAtBodyCharIndex:selectionPath:forcePagination:]_block_invoke");
-    v73 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v68, v69, v70, v71, v72, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v66, v74, v75, v76, v77, v78, v67, v73, 1189, 0, "Selection path %@ doesn't contain attachment at %lu", *(a1 + 40), *(a1 + 56));
+    v101 = MEMORY[0x277D81150];
+    v102 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v93, v97, v98, v99, v100, "[TPPaginatedPageController pageIndicesForPartitionableAttachmentAtBodyCharIndex:selectionPath:forcePagination:]_block_invoke", v94, v95, v96);
+    v111 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v103, v107, v108, v109, v110, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v104, v105, v106);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v101, v112, v113, v114, v115, v116, v102, v111, 1189, 0, "Selection path %@ doesn't contain attachment at %lu", *(a1 + 40), *(a1 + 56));
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v79, v80, v81, v82, v83);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v117, v122, v123, v124, v125, v118, v119, v120, v121);
   }
 
   if (v7 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v84 = 0;
+    v126 = 0;
   }
 
   else
   {
-    v84 = v7;
+    v126 = v7;
   }
 
   while (1)
   {
-    v85 = v84;
-    v86 = objc_msgSend_p_pageHintForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v61, v62, v63, v64, v65);
-    v92 = v86;
-    if (!v86)
+    v127 = v126;
+    v128 = objc_msgSend_p_pageHintForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v93, v97, v98, v99, v100, v126, *(a1 + 64), *(a1 + 64) ^ 1u, v96);
+    v137 = v128;
+    if (!v128)
     {
       break;
     }
 
-    v147 = 0;
-    v93 = objc_msgSend_rangeAndChildHints_(v86, v87, v88, v89, v90, v91, &v147);
-    v95 = v94;
-    v97 = v147;
-    v102 = *(a1 + 56);
-    if (v102 < v93)
+    v211 = 0;
+    v138 = objc_msgSend_rangeAndChildHints_(v128, v129, v133, v134, v135, v136, &v211, v130, v131, v132);
+    v140 = v139;
+    v146 = v211;
+    v151 = *(a1 + 56);
+    if (v151 < v138)
     {
       goto LABEL_28;
     }
 
-    if (v102 <= v93 + v95 && (objc_msgSend_pageKind(v92, v96, v98, v99, v100, v101) == 1 || v97))
+    if (v151 <= v138 + v140 && (objc_msgSend_pageKind(v137, v141, v147, v148, v149, v150, v142, v143, v144, v145) == 1 || v146))
     {
-      v145 = 0u;
-      v146 = 0u;
-      v143 = 0u;
-      v144 = 0u;
-      obj = v97;
-      v108 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v103, v104, v105, v106, v107, &v143, v148, 16);
-      if (v108)
+      v209 = 0u;
+      v210 = 0u;
+      v207 = 0u;
+      v208 = 0u;
+      obj = v146;
+      v158 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v152, v154, v155, v156, v157, &v207, v212, 16, v153);
+      if (v158)
       {
-        v109 = *v144;
+        v159 = *v208;
         while (2)
         {
-          for (i = 0; i != v108; ++i)
+          for (i = 0; i != v158; ++i)
           {
-            if (*v144 != v109)
+            if (*v208 != v159)
             {
               objc_enumerationMutation(obj);
             }
 
-            v111 = TSUProtocolCast();
-            if (objc_msgSend_overlapsWithSelectionPath_(v111, v112, v113, v114, v115, v116, *(a1 + 40), &unk_288546710))
+            v161 = TSUProtocolCast();
+            if (objc_msgSend_overlapsWithSelectionPath_(v161, v162, v166, v167, v168, v169, *(a1 + 40), v163, v164, v165, &unk_288546710))
             {
-              objc_msgSend_addIndex_(*(a1 + 48), v117, v118, v119, v120, v121, v85);
+              objc_msgSend_addIndex_(*(a1 + 48), v170, v174, v175, v176, v177, v127, v171, v172, v173);
 
               goto LABEL_21;
             }
           }
 
-          v108 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v122, v123, v124, v125, v126, &v143, v148, 16);
-          if (v108)
+          v158 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v178, v180, v181, v182, v183, &v207, v212, 16, v179);
+          if (v158)
           {
             continue;
           }
@@ -6759,14 +5392,14 @@ void sub_276019C14(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5,
 
 LABEL_21:
 
-      v132 = *(a1 + 56);
-      if (v132 < v93 + v95)
+      v193 = *(a1 + 56);
+      if (v193 < v138 + v140)
       {
-        v133 = v132 >= v93;
-        v134 = v132 - v93;
-        if (v133 && v134 < v95 && !objc_msgSend_count(*(a1 + 48), v127, v128, v129, v130, v131))
+        v194 = v193 >= v138;
+        v195 = v193 - v138;
+        if (v194 && v195 < v140 && !objc_msgSend_count(*(a1 + 48), v184, v189, v190, v191, v192, v185, v186, v187, v188))
         {
-          objc_msgSend_addIndex_(*(a1 + 48), v135, v136, v137, v138, v139, v85);
+          objc_msgSend_addIndex_(*(a1 + 48), v196, v200, v201, v202, v203, v127, v197, v198, v199);
         }
 
 LABEL_28:
@@ -6775,7 +5408,7 @@ LABEL_28:
       }
     }
 
-    v84 = v85 + 1;
+    v126 = v127 + 1;
   }
 }
 
@@ -6788,115 +5421,115 @@ uint64_t sub_27601A0A4(uint64_t a1, void *a2)
   return isKindOfClass & 1;
 }
 
-uint64_t sub_27601A1F0(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+uint64_t sub_27601A1F0(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v224 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 32);
-  v8 = objc_msgSend_withPageLayoutRecursionCount(v7, a2, a3, a4, a5, a6);
-  objc_msgSend_setWithPageLayoutRecursionCount_(v7, v9, v10, v11, v12, v13, v8 + 1);
-  v14 = *(a1 + 56);
-  v20 = objc_msgSend_documentRoot(*(a1 + 32), v15, v16, v17, v18, v19);
-  isAlternativePageIndex_documentRoot = objc_msgSend_isAlternativePageIndex_documentRoot_(TPPageInfo, v21, v22, v23, v24, v25, v14, v20);
+  v323 = *MEMORY[0x277D85DE8];
+  v11 = *(a1 + 32);
+  v12 = objc_msgSend_withPageLayoutRecursionCount(v11, a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  objc_msgSend_setWithPageLayoutRecursionCount_(v11, v13, v17, v18, v19, v20, v12 + 1, v14, v15, v16);
+  v21 = *(a1 + 56);
+  v31 = objc_msgSend_documentRoot(*(a1 + 32), v22, v27, v28, v29, v30, v23, v24, v25, v26);
+  isAlternativePageIndex_documentRoot = objc_msgSend_isAlternativePageIndex_documentRoot_(TPPageInfo, v32, v35, v36, v37, v38, v21, v31, v33, v34);
 
-  v32 = *(a1 + 56);
-  if (v32 >= 0x7FFFFFFFFFFFFFFFLL && (v33 = MEMORY[0x277D81150], objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, v28, v29, v30, v31, "[TPPaginatedPageController withPageLayoutAtIndex:preferredLayoutController:executeBlock:]_block_invoke"), v34 = objc_claimAutoreleasedReturnValue(), objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v35, v36, v37, v38, v39, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm"), v40 = objc_claimAutoreleasedReturnValue(), objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v33, v41, v42, v43, v44, v45, v34, v40, 1247, 0, "Illegal page index: %lu", *(a1 + 56)), v40, v34, objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v46, v47, v48, v49, v50), v32 = *(a1 + 56), v32 > 0x7FFFFFFFFFFFFFFELL))
+  v49 = *(a1 + 56);
+  if (v49 >= 0x7FFFFFFFFFFFFFFFLL && (v50 = MEMORY[0x277D81150], objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v40, v45, v46, v47, v48, "[TPPaginatedPageController withPageLayoutAtIndex:preferredLayoutController:executeBlock:]_block_invoke", v42, v43, v44), v51 = objc_claimAutoreleasedReturnValue(), objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v52, v56, v57, v58, v59, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v53, v54, v55), v60 = objc_claimAutoreleasedReturnValue(), objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v50, v61, v62, v63, v64, v65, v51, v60, 1247, 0, "Illegal page index: %lu", *(a1 + 56)), v60, v51, objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v66, v71, v72, v73, v74, v67, v68, v69, v70), v49 = *(a1 + 56), v49 > 0x7FFFFFFFFFFFFFFELL))
   {
     if ((isAlternativePageIndex_documentRoot & 1) == 0)
     {
-      v51 = *(a1 + 32);
-      v52 = v51[20];
+      v75 = *(a1 + 32);
+      v76 = v75[20];
       goto LABEL_19;
     }
   }
 
   else
   {
-    v51 = *(a1 + 32);
-    v52 = v51[20];
-    if (!((v52 == v32) | isAlternativePageIndex_documentRoot & 1))
+    v75 = *(a1 + 32);
+    v76 = v75[20];
+    if (!((v76 == v49) | isAlternativePageIndex_documentRoot & 1))
     {
 LABEL_19:
-      if (v52 != 0x7FFFFFFFFFFFFFFFLL)
+      if (v76 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v107 = MEMORY[0x277D81150];
-        v108 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, v28, v29, v30, v31, "[TPPaginatedPageController withPageLayoutAtIndex:preferredLayoutController:executeBlock:]_block_invoke");
-        v114 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v109, v110, v111, v112, v113, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v107, v115, v116, v117, v118, v119, v108, v114, 1280, 0, "Laying out page index %lu while inside didLayOutPageIndex: %lu", *(a1 + 56), *(*(a1 + 32) + 160));
+        v157 = MEMORY[0x277D81150];
+        v158 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v40, v45, v46, v47, v48, "[TPPaginatedPageController withPageLayoutAtIndex:preferredLayoutController:executeBlock:]_block_invoke", v42, v43, v44);
+        v167 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v159, v163, v164, v165, v166, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v160, v161, v162);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v157, v168, v169, v170, v171, v172, v158, v167, 1280, 0, "Laying out page index %lu while inside didLayOutPageIndex: %lu", *(a1 + 56), *(*(a1 + 32) + 160));
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v120, v121, v122, v123, v124);
-        v51 = *(a1 + 32);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v173, v178, v179, v180, v181, v174, v175, v176, v177);
+        v75 = *(a1 + 32);
       }
 
-      objc_msgSend_setAllowParagraphMetrics_(v51, v27, v28, v29, v30, v31, 0);
-      v130 = 0;
-      v131 = 1;
-      v132 = MEMORY[0x277D81408];
+      objc_msgSend_setAllowParagraphMetrics_(v75, v40, v45, v46, v47, v48, 0, v42, v43, v44);
+      v191 = 0;
+      v192 = 1;
+      v193 = MEMORY[0x277D81408];
       while (1)
       {
-        v133 = v131;
-        v134 = objc_msgSend_documentPageIndex(*(*(a1 + 32) + 80), v125, v126, v127, v128, v129);
-        v135 = *(a1 + 56);
-        if (v134 > v135)
+        v194 = v192;
+        v195 = objc_msgSend_documentPageIndex(*(*(a1 + 32) + 80), v182, v187, v188, v189, v190, v183, v184, v185, v186);
+        v196 = *(a1 + 56);
+        if (v195 > v196)
         {
           break;
         }
 
-        if (v130)
+        if (v191)
         {
-          if (*v132 != -1)
+          if (*v193 != -1)
           {
             sub_276038440();
           }
 
-          v135 = *(a1 + 56);
+          v196 = *(a1 + 56);
         }
 
-        objc_msgSend_p_paginateThroughPageIndex_forLayoutController_clearOffscreenInfos_(*(a1 + 32), v125, v126, v127, v128, v129, v135, *(a1 + 40), 0);
-        v131 = 0;
-        v130 = 1;
-        if ((v133 & 1) == 0)
+        objc_msgSend_p_paginateThroughPageIndex_forLayoutController_clearOffscreenInfos_(*(a1 + 32), v182, v187, v188, v189, v190, v196, *(a1 + 40), 0, v186);
+        v192 = 0;
+        v191 = 1;
+        if ((v194 & 1) == 0)
         {
-          v135 = *(a1 + 56);
+          v196 = *(a1 + 56);
           break;
         }
       }
 
-      objc_msgSend_p_withPageLayoutAtIndex_preferredLayoutController_executeBlock_(*(a1 + 32), v125, v126, v127, v128, v129, v135, *(a1 + 40), *(a1 + 48));
-      objc_msgSend_setAllowParagraphMetrics_(*(a1 + 32), v136, v137, v138, v139, v140, 1);
-      if (objc_msgSend_withPageLayoutRecursionCount(*(a1 + 32), v141, v142, v143, v144, v145) < 1)
+      objc_msgSend_p_withPageLayoutAtIndex_preferredLayoutController_executeBlock_(*(a1 + 32), v182, v187, v188, v189, v190, v196, *(a1 + 40), *(a1 + 48), v186);
+      objc_msgSend_setAllowParagraphMetrics_(*(a1 + 32), v197, v201, v202, v203, v204, 1, v198, v199, v200);
+      if (objc_msgSend_withPageLayoutRecursionCount(*(a1 + 32), v205, v210, v211, v212, v213, v206, v207, v208, v209) < 1)
       {
-        v146 = objc_msgSend_canvas(*(*(a1 + 32) + 104), v102, v103, v104, v105, v106);
-        objc_msgSend_setInfosToDisplay_(v146, v147, v148, v149, v150, v151, 0);
+        v214 = objc_msgSend_canvas(*(*(a1 + 32) + 104), v148, v153, v154, v155, v156, v149, v150, v151, v152);
+        objc_msgSend_setInfosToDisplay_(v214, v215, v219, v220, v221, v222, 0, v216, v217, v218);
       }
 
       goto LABEL_36;
     }
   }
 
-  v221 = 0u;
-  v222 = 0u;
-  v219 = 0u;
-  v220 = 0u;
-  v53 = objc_msgSend_rootLayout(*(a1 + 40), v27, 0, v29, v30, v31);
-  v59 = objc_msgSend_children(v53, v54, v55, v56, v57, v58);
+  v320 = 0u;
+  v321 = 0u;
+  v318 = 0u;
+  v319 = 0u;
+  v77 = objc_msgSend_rootLayout(*(a1 + 40), v40, 0, v46, v47, v48, v41, v42, v43, v44);
+  v87 = objc_msgSend_children(v77, v78, v83, v84, v85, v86, v79, v80, v81, v82);
 
-  v65 = objc_msgSend_countByEnumeratingWithState_objects_count_(v59, v60, v61, v62, v63, v64, &v219, v223, 16);
-  if (v65)
+  v94 = objc_msgSend_countByEnumeratingWithState_objects_count_(v87, v88, v90, v91, v92, v93, &v318, v322, 16, v89);
+  if (v94)
   {
-    v66 = *v220;
+    v95 = *v319;
     while (2)
     {
-      for (i = 0; i != v65; ++i)
+      for (i = 0; i != v94; ++i)
       {
-        if (*v220 != v66)
+        if (*v319 != v95)
         {
-          objc_enumerationMutation(v59);
+          objc_enumerationMutation(v87);
         }
 
         objc_opt_class();
-        v68 = TSUCheckedDynamicCast();
-        v74 = v68;
-        if (v68 && objc_msgSend_pageIndex(v68, v69, v70, v71, v72, v73) == *(a1 + 56))
+        v97 = TSUCheckedDynamicCast();
+        v107 = v97;
+        if (v97 && objc_msgSend_pageIndex(v97, v98, v103, v104, v105, v106, v99, v100, v101, v102) == *(a1 + 56))
         {
           (*(*(a1 + 48) + 16))();
 
@@ -6904,8 +5537,8 @@ LABEL_19:
         }
       }
 
-      v65 = objc_msgSend_countByEnumeratingWithState_objects_count_(v59, v75, v76, v77, v78, v79, &v219, v223, 16);
-      if (v65)
+      v94 = objc_msgSend_countByEnumeratingWithState_objects_count_(v87, v108, v110, v111, v112, v113, &v318, v322, 16, v109);
+      if (v94)
       {
         continue;
       }
@@ -6914,50 +5547,50 @@ LABEL_19:
     }
   }
 
-  v80 = *(a1 + 56);
-  v86 = objc_msgSend_documentRoot(*(a1 + 32), v81, v82, v83, v84, v85);
-  if (objc_msgSend_isPageTemplatePageIndex_documentRoot_(TPPageInfo, v87, v88, v89, v90, v91, v80, v86))
+  v114 = *(a1 + 56);
+  v124 = objc_msgSend_documentRoot(*(a1 + 32), v115, v120, v121, v122, v123, v116, v117, v118, v119);
+  if (objc_msgSend_isPageTemplatePageIndex_documentRoot_(TPPageInfo, v125, v128, v129, v130, v131, v114, v124, v126, v127))
   {
   }
 
   else
   {
-    isDocSetupPageIndex = objc_msgSend_isDocSetupPageIndex_(TPPageInfo, v92, v93, v94, v95, v96, *(a1 + 56));
+    isDocSetupPageIndex = objc_msgSend_isDocSetupPageIndex_(TPPageInfo, v132, v136, v137, v138, v139, *(a1 + 56), v133, v134, v135);
 
     if ((isDocSetupPageIndex & 1) == 0)
     {
-      v193 = MEMORY[0x277D81150];
-      v194 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v97, v98, v99, v100, v101, "[TPPaginatedPageController withPageLayoutAtIndex:preferredLayoutController:executeBlock:]_block_invoke");
-      v200 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v195, v196, v197, v198, v199, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v193, v201, v202, v203, v204, v205, v194, v200, 1276, 0, "Failed to find page that was just laid out");
+      v282 = MEMORY[0x277D81150];
+      v283 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v140, v144, v145, v146, v147, "[TPPaginatedPageController withPageLayoutAtIndex:preferredLayoutController:executeBlock:]_block_invoke", v141, v142, v143);
+      v292 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v284, v288, v289, v290, v291, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v285, v286, v287);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v282, v293, v294, v295, v296, v297, v283, v292, 1276, 0, "Failed to find page that was just laid out");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v206, v207, v208, v209, v210);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v298, v303, v304, v305, v306, v299, v300, v301, v302);
       goto LABEL_36;
     }
   }
 
-  v153 = *(a1 + 32);
-  if (v153[20] != 0x7FFFFFFFFFFFFFFFLL)
+  v224 = *(a1 + 32);
+  if (v224[20] != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v154 = MEMORY[0x277D81150];
-    v155 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v97, v98, v99, v100, v101, "[TPPaginatedPageController withPageLayoutAtIndex:preferredLayoutController:executeBlock:]_block_invoke");
-    v161 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v156, v157, v158, v159, v160, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v154, v162, v163, v164, v165, v166, v155, v161, 1263, 0, "Laying out page index %lu while inside didLayOutPageIndex: %lu", *(a1 + 56), *(*(a1 + 32) + 160));
+    v225 = MEMORY[0x277D81150];
+    v226 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v140, v144, v145, v146, v147, "[TPPaginatedPageController withPageLayoutAtIndex:preferredLayoutController:executeBlock:]_block_invoke", v141, v142, v143);
+    v235 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v227, v231, v232, v233, v234, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v228, v229, v230);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v225, v236, v237, v238, v239, v240, v226, v235, 1263, 0, "Laying out page index %lu while inside didLayOutPageIndex: %lu", *(a1 + 56), *(*(a1 + 32) + 160));
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v167, v168, v169, v170, v171);
-    v153 = *(a1 + 32);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v241, v246, v247, v248, v249, v242, v243, v244, v245);
+    v224 = *(a1 + 32);
   }
 
-  objc_msgSend_setAllowParagraphMetrics_(v153, v97, v98, v99, v100, v101, 0);
-  objc_msgSend_p_withPageLayoutAtIndex_preferredLayoutController_executeBlock_(*(a1 + 32), v172, v173, v174, v175, v176, *(a1 + 56), *(a1 + 40), *(a1 + 48));
-  objc_msgSend_setAllowParagraphMetrics_(*(a1 + 32), v177, v178, v179, v180, v181, 1);
-  v187 = objc_msgSend_canvas(*(*(a1 + 32) + 104), v182, v183, v184, v185, v186);
-  objc_msgSend_setInfosToDisplay_(v187, v188, v189, v190, v191, v192, 0);
+  objc_msgSend_setAllowParagraphMetrics_(v224, v140, v144, v145, v146, v147, 0, v141, v142, v143);
+  objc_msgSend_p_withPageLayoutAtIndex_preferredLayoutController_executeBlock_(*(a1 + 32), v250, v252, v253, v254, v255, *(a1 + 56), *(a1 + 40), *(a1 + 48), v251);
+  objc_msgSend_setAllowParagraphMetrics_(*(a1 + 32), v256, v260, v261, v262, v263, 1, v257, v258, v259);
+  v273 = objc_msgSend_canvas(*(*(a1 + 32) + 104), v264, v269, v270, v271, v272, v265, v266, v267, v268);
+  objc_msgSend_setInfosToDisplay_(v273, v274, v278, v279, v280, v281, 0, v275, v276, v277);
 
 LABEL_36:
-  v211 = *(a1 + 32);
-  v212 = objc_msgSend_withPageLayoutRecursionCount(v211, v102, v103, v104, v105, v106);
-  return objc_msgSend_setWithPageLayoutRecursionCount_(v211, v213, v214, v215, v216, v217, v212 - 1);
+  v307 = *(a1 + 32);
+  v308 = objc_msgSend_withPageLayoutRecursionCount(v307, v148, v153, v154, v155, v156, v149, v150, v151, v152);
+  return objc_msgSend_setWithPageLayoutRecursionCount_(v307, v309, v313, v314, v315, v316, v308 - 1, v310, v311, v312);
 }
 
 void sub_27601A844()
@@ -6967,72 +5600,72 @@ void sub_27601A844()
   *MEMORY[0x277D81410] = v0;
 }
 
-void sub_27601A9F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, ...)
+void sub_27601A9F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_27601AA24(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_27601AA24(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v12 = objc_msgSend_p_pageIndicesForFlow_withSelection_forcePagination_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 40), *(a1 + 48), 0);
-  *(*(*(a1 + 56) + 8) + 24) = objc_msgSend_count(v12, v7, v8, v9, v10, v11) != 0;
+  v20 = objc_msgSend_p_pageIndicesForFlow_withSelection_forcePagination_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 40), *(a1 + 48), 0, a10);
+  *(*(*(a1 + 56) + 8) + 24) = objc_msgSend_count(v20, v11, v16, v17, v18, v19, v12, v13, v14, v15) != 0;
 }
 
-void sub_27601AB5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_27601AB5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_27601AB74(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void *sub_27601AB74(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  result = objc_msgSend_p_isPaginationComplete(*(a1 + 32), a2, a3, a4, a5, a6);
+  result = objc_msgSend_p_isPaginationComplete(*(a1 + 32), a2, a7, a8, a9, a10, a3, a4, a5, a6);
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-void sub_27601AC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_27601AC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_27601B464(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_27601B464(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v47 = *MEMORY[0x277D85DE8];
-  if (objc_msgSend_isPaginating(*(a1 + 32), a2, a3, a4, a5, a6))
+  v59 = *MEMORY[0x277D85DE8];
+  if (objc_msgSend_isPaginating(*(a1 + 32), a2, a7, a8, a9, a10, a3, a4, a5, a6))
   {
     *(*(*(a1 + 48) + 8) + 24) = 0;
   }
 
   else
   {
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    v7 = *(a1 + 40);
-    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, v9, v10, v11, v12, &v42, v46, 16);
-    if (v13)
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v11 = *(a1 + 40);
+    v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, v14, v15, v16, v17, &v54, v58, 16, v13);
+    if (v18)
     {
-      v14 = *v43;
+      v19 = *v55;
       while (2)
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v18; ++i)
         {
-          if (*v43 != v14)
+          if (*v55 != v19)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v11);
           }
 
           objc_opt_class();
-          v16 = TSUDynamicCast();
-          canAnchor = objc_msgSend_canAnchor(v16, v17, v18, v19, v20, v21);
+          v21 = TSUDynamicCast();
+          canAnchor = objc_msgSend_canAnchor(v21, v22, v27, v28, v29, v30, v23, v24, v25, v26);
 
           if ((canAnchor & 1) == 0)
           {
@@ -7041,8 +5674,8 @@ void sub_27601B464(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5,
           }
         }
 
-        v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v23, v24, v25, v26, v27, &v42, v46, 16);
-        if (v13)
+        v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v32, v34, v35, v36, v37, &v54, v58, 16, v33);
+        if (v18)
         {
           continue;
         }
@@ -7055,55 +5688,55 @@ LABEL_13:
 
     if (*(*(*(a1 + 48) + 8) + 24) == 1)
     {
-      v28 = *(a1 + 56);
-      v38[0] = MEMORY[0x277D85DD0];
-      v38[1] = 3221225472;
-      v38[2] = sub_27601B67C;
-      v38[3] = &unk_27A6A9330;
-      v29 = *(a1 + 32);
-      v30 = *(a1 + 40);
-      v31 = *(a1 + 48);
-      v32 = *(a1 + 32);
-      v39 = v30;
-      v40 = v32;
-      v41 = v31;
-      objc_msgSend_withPageLayoutAtIndex_executeBlock_(v29, v33, v34, v35, v36, v37, v28, v38);
+      v38 = *(a1 + 56);
+      v50[0] = MEMORY[0x277D85DD0];
+      v50[1] = 3221225472;
+      v50[2] = sub_27601B67C;
+      v50[3] = &unk_27A6A9330;
+      v39 = *(a1 + 32);
+      v40 = *(a1 + 40);
+      v41 = *(a1 + 48);
+      v42 = *(a1 + 32);
+      v51 = v40;
+      v52 = v42;
+      v53 = v41;
+      objc_msgSend_withPageLayoutAtIndex_executeBlock_(v39, v43, v46, v47, v48, v49, v38, v50, v44, v45);
     }
   }
 }
 
 void sub_27601B67C(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v4 = *(a1 + 32);
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, v6, v7, v8, v9, &v18, v22, 16);
-  if (v11)
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, v7, v8, v9, v10, &v21, v25, 16, v6);
+  if (v14)
   {
-    v16 = *v19;
+    v19 = *v22;
 LABEL_3:
-    v17 = 0;
+    v20 = 0;
     while (1)
     {
-      if (*v19 != v16)
+      if (*v22 != v19)
       {
         objc_enumerationMutation(v4);
       }
 
-      *(*(*(a1 + 48) + 8) + 24) = objc_msgSend_p_canAnchorDrawable_toPageLayout_(*(a1 + 40), v10, v12, v13, v14, v15, *(*(&v18 + 1) + 8 * v17), v3, v18);
+      *(*(*(a1 + 48) + 8) + 24) = objc_msgSend_p_canAnchorDrawable_toPageLayout_(*(a1 + 40), v11, v15, v16, v17, v18, *(*(&v21 + 1) + 8 * v20), v3, v12, v13, v21);
       if ((*(*(*(a1 + 48) + 8) + 24) & 1) == 0)
       {
         break;
       }
 
-      if (v11 == ++v17)
+      if (v14 == ++v20)
       {
-        v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v10, v12, v13, v14, v15, &v18, v22, 16);
-        if (v11)
+        v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v11, v15, v16, v17, v18, &v21, v25, 16, v13);
+        if (v14)
         {
           goto LABEL_3;
         }
@@ -7114,198 +5747,198 @@ LABEL_3:
   }
 }
 
-uint64_t sub_27601B928(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+uint64_t sub_27601B928(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v7 = *(*(a1 + 32) + 176);
-  if (!v7)
+  v11 = *(*(a1 + 32) + 176);
+  if (!v11)
   {
-    v8 = objc_alloc_init(MEMORY[0x277D81258]);
-    v9 = *(a1 + 32);
-    v10 = *(v9 + 176);
-    *(v9 + 176) = v8;
+    v12 = objc_alloc_init(MEMORY[0x277D81258]);
+    v13 = *(a1 + 32);
+    v14 = *(v13 + 176);
+    *(v13 + 176) = v12;
 
-    v7 = *(*(a1 + 32) + 176);
+    v11 = *(*(a1 + 32) + 176);
   }
 
-  v11 = *(a1 + 40);
+  v15 = *(a1 + 40);
 
-  return objc_msgSend_addObject_(v7, a2, a3, a4, a5, a6, v11);
+  return objc_msgSend_addObject_(v11, a2, a3, a4, a5, a6, v15, a8, a9, a10);
 }
 
 void sub_27601BD48(uint64_t a1)
 {
-  v264 = *MEMORY[0x277D85DE8];
-  v254 = *(*(a1 + 32) + 96);
-  v7 = objc_msgSend_dirtyRanges(v254, v2, v3, v4, v5, v6);
-  v255 = objc_msgSend_copy(v7, v8, v9, v10, v11, v12);
+  v399 = *MEMORY[0x277D85DE8];
+  v389 = *(*(a1 + 32) + 96);
+  v11 = objc_msgSend_dirtyRanges(v389, v2, v7, v8, v9, v10, v3, v4, v5, v6);
+  v390 = objc_msgSend_copy(v11, v12, v17, v18, v19, v20, v13, v14, v15, v16);
 
   *(*(a1 + 32) + 153) = 1;
-  PageIndexNeedingLayout = objc_msgSend_firstPageIndexNeedingLayout(*(a1 + 32), v13, v14, v15, v16, v17);
-  v24 = objc_msgSend_documentRoot(*(a1 + 32), v19, v20, v21, v22, v23);
-  v30 = objc_msgSend_settings(v24, v25, v26, v27, v28, v29);
-  v253 = PageIndexNeedingLayout;
-  hasBody = objc_msgSend_hasBody(v30, v31, v32, v33, v34, v35);
+  PageIndexNeedingLayout = objc_msgSend_firstPageIndexNeedingLayout(*(a1 + 32), v21, v26, v27, v28, v29, v22, v23, v24, v25);
+  v40 = objc_msgSend_documentRoot(*(a1 + 32), v31, v36, v37, v38, v39, v32, v33, v34, v35);
+  v50 = objc_msgSend_settings(v40, v41, v46, v47, v48, v49, v42, v43, v44, v45);
+  v388 = PageIndexNeedingLayout;
+  hasBody = objc_msgSend_hasBody(v50, v51, v56, v57, v58, v59, v52, v53, v54, v55);
 
-  v42 = 0;
-  v43 = 0;
-  while (v42 < objc_msgSend_count(v255, v37, v38, v39, v40, v41))
+  v70 = 0;
+  v71 = 0;
+  while (v70 < objc_msgSend_count(v390, v61, v66, v67, v68, v69, v62, v63, v64, v65))
   {
-    v260 = 0;
-    v261 = 0;
-    v262 = 0;
-    if (v255)
+    v395 = 0;
+    v396 = 0;
+    v397 = 0;
+    if (v390)
     {
-      objc_msgSend_dirtyRangeAtIndex_(v255, v44, v45, v46, v47, v48, v42);
-      v49 = v260;
-      if (((v260 != 0) & hasBody) == 1)
+      objc_msgSend_dirtyRangeAtIndex_(v390, v77, v78, v79, v80, v72, v70, v74, v75);
+      v82 = v395;
+      if (((v395 != 0) & hasBody) == 1)
       {
-        v50 = objc_msgSend_documentRoot(*(a1 + 32), v44, v45, v46, v47, v48);
-        v56 = objc_msgSend_bodyStorage(v50, v51, v52, v53, v54, v55);
-        v57 = v260 - 1;
-        v63 = objc_msgSend_attachmentAtCharIndex_(v56, v58, v59, v60, v61, v62, v260 - 1);
+        v83 = objc_msgSend_documentRoot(*(a1 + 32), v72, v77, v78, v79, v80, v81, v74, v75, v76);
+        v93 = objc_msgSend_bodyStorage(v83, v84, v89, v90, v91, v92, v85, v86, v87, v88);
+        v94 = v395 - 1;
+        v103 = objc_msgSend_attachmentAtCharIndex_(v93, v95, v99, v100, v101, v102, v395 - 1, v96, v97, v98);
 
-        if (v63 && (objc_msgSend_isPartitioned(v63, v64, v65, v66, v67, v68) & 1) != 0)
+        if (v103 && (objc_msgSend_isPartitioned(v103, v104, v109, v110, v111, v112, v105, v106, v107, v108) & 1) != 0)
         {
-          v57 = v260;
+          v94 = v395;
         }
       }
 
       else
       {
-        v57 = v260;
+        v94 = v395;
       }
     }
 
     else
     {
-      v49 = 0;
-      v57 = 0;
+      v82 = 0;
+      v94 = 0;
     }
 
-    v69 = objc_msgSend_p_pageHintIndexForCharIndex_(*(a1 + 32), v44, v45, v46, v47, v48, v57 - v43);
-    v75 = objc_msgSend_p_pageHintIndexForAnchoredCharIndex_(*(a1 + 32), v70, v71, v72, v73, v74, v49 - v43);
-    if (v75 >= v69)
+    v113 = objc_msgSend_p_pageHintIndexForCharIndex_(*(a1 + 32), v72, v77, v78, v79, v80, v94 - v71, v74, v75, v76);
+    v122 = objc_msgSend_p_pageHintIndexForAnchoredCharIndex_(*(a1 + 32), v114, v118, v119, v120, v121, v82 - v71, v115, v116, v117);
+    if (v122 >= v113)
     {
-      v76 = v69;
+      v124 = v113;
     }
 
     else
     {
-      v76 = v75;
+      v124 = v122;
     }
 
-    if (v76 != 0x7FFFFFFFFFFFFFFFLL || (ValidCharIndex = objc_msgSend_p_lastValidCharIndex(*(a1 + 32), v37, v38, v39, v40, v41), ValidCharIndex != 0x7FFFFFFFFFFFFFFFLL) && (objc_msgSend_documentRoot(*(a1 + 32), v37, v38, v39, v40, v41), v78 = objc_claimAutoreleasedReturnValue(), objc_msgSend_bodyStorage(v78, v79, v80, v81, v82, v83), v84 = objc_claimAutoreleasedReturnValue(), v90 = objc_msgSend_length(v84, v85, v86, v87, v88, v89), v84, v78, v260 == ValidCharIndex) && v261 == v90 - ValidCharIndex && (v91 = *(a1 + 32), v92 = objc_msgSend_documentPageIndex(v91[10], v37, v38, v39, v40, v41), v76 = objc_msgSend_p_textPageIndexPrecedingPageIndex_(v91, v93, v94, v95, v96, v97, v92), v76 != 0x7FFFFFFFFFFFFFFFLL))
+    if (v124 != 0x7FFFFFFFFFFFFFFFLL || (ValidCharIndex = objc_msgSend_p_lastValidCharIndex(*(a1 + 32), v61, v66, v67, v68, v69, v123, v63, v64, v65), ValidCharIndex != 0x7FFFFFFFFFFFFFFFLL) && (objc_msgSend_documentRoot(*(a1 + 32), v61, v66, v67, v68, v69, v62, v63, v64, v65), v126 = objc_claimAutoreleasedReturnValue(), objc_msgSend_bodyStorage(v126, v127, v132, v133, v134, v135, v128, v129, v130, v131), v136 = objc_claimAutoreleasedReturnValue(), v146 = objc_msgSend_length(v136, v137, v142, v143, v144, v145, v138, v139, v140, v141), v136, v126, v395 == ValidCharIndex) && v396 == v146 - ValidCharIndex && (v147 = *(a1 + 32), v148 = objc_msgSend_documentPageIndex(v147[10], v61, v66, v67, v68, v69, v62, v63, v64, v65), v124 = objc_msgSend_p_textPageIndexPrecedingPageIndex_(v147, v149, v153, v154, v155, v156, v148, v150, v151, v152), v124 != 0x7FFFFFFFFFFFFFFFLL))
     {
       if (hasBody)
       {
-        v98 = 0;
+        v157 = 0;
       }
 
       else
       {
-        v98 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v37, v38, v39, v40, v41, v76, 0, 1);
+        v157 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v61, v66, v67, v68, v69, v124, 0, 1, v65);
       }
 
-      objc_msgSend_p_setNeedsLayoutOnPageIndex_(*(a1 + 32), v37, v38, v39, v40, v41, v76);
-      if (v98)
+      objc_msgSend_p_setNeedsLayoutOnPageIndex_(*(a1 + 32), v61, v66, v67, v68, v69, v124, v63, v64, v65);
+      if (v157)
       {
-        v99 = objc_msgSend_sectionHints(*(*(a1 + 32) + 80), v37, v38, v39, v40, v41);
-        v105 = objc_msgSend_count(v99, v100, v101, v102, v103, v104);
+        v158 = objc_msgSend_sectionHints(*(*(a1 + 32) + 80), v61, v66, v67, v68, v69, v62, v63, v64, v65);
+        v168 = objc_msgSend_count(v158, v159, v164, v165, v166, v167, v160, v161, v162, v163);
 
-        v111 = objc_msgSend_pageIndex(v98, v106, v107, v108, v109, v110);
-        v118 = objc_msgSend_sectionIndex(v98, v112, v113, v114, v115, v116);
-        if (v118 < v105)
+        v178 = objc_msgSend_pageIndex(v157, v169, v174, v175, v176, v177, v170, v171, v172, v173);
+        v193 = objc_msgSend_sectionIndex(v157, v179, v184, v185, v186, v187, v180, v181, v182, v183);
+        if (v193 < v168)
         {
-          v123 = v111 + 1;
-          v124 = v76 + 1;
+          v198 = v178 + 1;
+          v199 = v124 + 1;
           do
           {
-            v125 = objc_msgSend_sectionHints(*(*(a1 + 32) + 80), v117, v119, v120, v121, v122);
-            v131 = objc_msgSend_objectAtIndexedSubscript_(v125, v126, v127, v128, v129, v130, v118);
+            v200 = objc_msgSend_sectionHints(*(*(a1 + 32) + 80), v188, v194, v195, v196, v197, v189, v190, v191, v192);
+            v209 = objc_msgSend_objectAtIndexedSubscript_(v200, v201, v205, v206, v207, v208, v193, v202, v203, v204);
 
-            v137 = objc_msgSend_pageHints(v131, v132, v133, v134, v135, v136);
-            v143 = objc_msgSend_count(v137, v138, v139, v140, v141, v142);
+            v219 = objc_msgSend_pageHints(v209, v210, v215, v216, v217, v218, v211, v212, v213, v214);
+            v229 = objc_msgSend_count(v219, v220, v225, v226, v227, v228, v221, v222, v223, v224);
 
-            v149 = v143 > v123;
-            v150 = v143 - v123;
-            if (v149)
+            v238 = v229 > v198;
+            v239 = v229 - v198;
+            if (v238)
             {
               do
               {
-                objc_msgSend_p_setNeedsLayoutOnPageIndex_(*(a1 + 32), v144, v145, v146, v147, v148, v124++);
-                --v150;
+                objc_msgSend_p_setNeedsLayoutOnPageIndex_(*(a1 + 32), v230, v234, v235, v236, v237, v199++, v231, v232, v233);
+                --v239;
               }
 
-              while (v150);
+              while (v239);
             }
 
-            v123 = 0;
-            ++v118;
+            v198 = 0;
+            ++v193;
           }
 
-          while (v118 != v105);
+          while (v193 != v168);
         }
 
         break;
       }
     }
 
-    v43 += v262;
-    ++v42;
+    v71 += v397;
+    ++v70;
   }
 
-  objc_msgSend_p_destroyBodyLayoutState(*(a1 + 32), v44, v45, v46, v47, v48);
-  objc_msgSend_setBodyCharIndex_(*(*(a1 + 32) + 80), v151, v152, v153, v154, v155, 0x7FFFFFFFFFFFFFFFLL);
-  objc_msgSend_setFootnoteIndex_(*(*(a1 + 32) + 80), v156, v157, v158, v159, v160, 0x7FFFFFFFFFFFFFFFLL);
-  if (objc_msgSend_p_isPaginationComplete(*(a1 + 32), v161, v162, v163, v164, v165))
+  objc_msgSend_p_destroyBodyLayoutState(*(a1 + 32), v72, v77, v78, v79, v80, v73, v74, v75, v76);
+  objc_msgSend_setBodyCharIndex_(*(*(a1 + 32) + 80), v240, v244, v245, v246, v247, 0x7FFFFFFFFFFFFFFFLL, v241, v242, v243);
+  objc_msgSend_setFootnoteIndex_(*(*(a1 + 32) + 80), v248, v252, v253, v254, v255, 0x7FFFFFFFFFFFFFFFLL, v249, v250, v251);
+  if (objc_msgSend_p_isPaginationComplete(*(a1 + 32), v256, v261, v262, v263, v264, v257, v258, v259, v260))
   {
-    v171 = MEMORY[0x277D81150];
-    v172 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v166, v167, v168, v169, v170, "[TPPaginatedPageController p_processBodyLayoutInvalidation]_block_invoke");
-    v178 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v173, v174, v175, v176, v177, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v171, v179, v180, v181, v182, v183, v172, v178, 2094, 0, "layout should not be complete after the layout manager claims to need layout");
+    v273 = MEMORY[0x277D81150];
+    v274 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v265, v269, v270, v271, v272, "[TPPaginatedPageController p_processBodyLayoutInvalidation]_block_invoke", v266, v267, v268);
+    v283 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v275, v279, v280, v281, v282, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v276, v277, v278);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v273, v284, v285, v286, v287, v288, v274, v283, 2094, 0, "layout should not be complete after the layout manager claims to need layout");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v184, v185, v186, v187, v188);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v289, v294, v295, v296, v297, v290, v291, v292, v293);
   }
 
-  v258 = 0u;
-  v259 = 0u;
-  v256 = 0u;
-  v257 = 0u;
-  v189 = *(*(a1 + 32) + 176);
-  v195 = objc_msgSend_countByEnumeratingWithState_objects_count_(v189, v190, v191, v192, v193, v194, &v256, v263, 16);
-  if (v195)
+  v393 = 0u;
+  v394 = 0u;
+  v391 = 0u;
+  v392 = 0u;
+  v298 = *(*(a1 + 32) + 176);
+  v305 = objc_msgSend_countByEnumeratingWithState_objects_count_(v298, v299, v301, v302, v303, v304, &v391, v398, 16, v300);
+  if (v305)
   {
-    v196 = *v257;
+    v306 = *v392;
     isBodyTextPaginationCoherentForPageController_atPageIndex = 1;
     do
     {
-      v198 = 0;
-      v199 = isBodyTextPaginationCoherentForPageController_atPageIndex;
+      v308 = 0;
+      v309 = isBodyTextPaginationCoherentForPageController_atPageIndex;
       do
       {
-        if (*v257 != v196)
+        if (*v392 != v306)
         {
-          objc_enumerationMutation(v189);
+          objc_enumerationMutation(v298);
         }
 
-        v201 = TSUProtocolCast();
-        isBodyTextPaginationCoherentForPageController_atPageIndex = (v201 == 0) & v199;
-        if (v201 && ((v199 ^ 1) & 1) == 0)
+        v315 = TSUProtocolCast();
+        isBodyTextPaginationCoherentForPageController_atPageIndex = (v315 == 0) & v309;
+        if (v315 && ((v309 ^ 1) & 1) == 0)
         {
-          v206 = *(a1 + 32);
-          v207 = objc_msgSend_documentPageIndex(*(v206 + 80), v200, v202, v203, v204, v205, &unk_288546998);
-          isBodyTextPaginationCoherentForPageController_atPageIndex = objc_msgSend_isBodyTextPaginationCoherentForPageController_atPageIndex_(v201, v208, v209, v210, v211, v212, v206, v207);
+          v320 = *(a1 + 32);
+          v321 = objc_msgSend_documentPageIndex(*(v320 + 80), v310, v316, v317, v318, v319, v311, v312, v313, v314, &unk_288546998);
+          isBodyTextPaginationCoherentForPageController_atPageIndex = objc_msgSend_isBodyTextPaginationCoherentForPageController_atPageIndex_(v315, v322, v325, v326, v327, v328, v320, v321, v323, v324);
         }
 
-        ++v198;
-        v199 = isBodyTextPaginationCoherentForPageController_atPageIndex;
+        ++v308;
+        v309 = isBodyTextPaginationCoherentForPageController_atPageIndex;
       }
 
-      while (v195 != v198);
-      v195 = objc_msgSend_countByEnumeratingWithState_objects_count_(v189, v213, v214, v215, v216, v217, &v256, v263, 16);
+      while (v305 != v308);
+      v305 = objc_msgSend_countByEnumeratingWithState_objects_count_(v298, v329, v331, v332, v333, v334, &v391, v398, 16, v330);
     }
 
-    while (v195);
+    while (v305);
   }
 
   else
@@ -7313,65 +5946,65 @@ void sub_27601BD48(uint64_t a1)
     isBodyTextPaginationCoherentForPageController_atPageIndex = 1;
   }
 
-  if (v253)
+  if (v388)
   {
-    v223 = objc_msgSend_backgroundPaginationController(*(a1 + 32), v218, v219, v220, v221, v222);
-    isBackgroundPaginationSuspended = objc_msgSend_isBackgroundPaginationSuspended(v223, v224, v225, v226, v227, v228);
+    v344 = objc_msgSend_backgroundPaginationController(*(a1 + 32), v335, v340, v341, v342, v343, v336, v337, v338, v339);
+    isBackgroundPaginationSuspended = objc_msgSend_isBackgroundPaginationSuspended(v344, v345, v350, v351, v352, v353, v346, v347, v348, v349);
 
     if (((isBackgroundPaginationSuspended | isBodyTextPaginationCoherentForPageController_atPageIndex) & 1) == 0)
     {
-      v235 = MEMORY[0x277D81150];
-      v236 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v230, v231, v232, v233, v234, "[TPPaginatedPageController p_processBodyLayoutInvalidation]_block_invoke");
-      v242 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v237, v238, v239, v240, v241, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v235, v243, v244, v245, v246, v247, v236, v242, 2109, 0, "canvas view should need layout after the layout manager claims to need layout");
+      v363 = MEMORY[0x277D81150];
+      v364 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v355, v359, v360, v361, v362, "[TPPaginatedPageController p_processBodyLayoutInvalidation]_block_invoke", v356, v357, v358);
+      v373 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v365, v369, v370, v371, v372, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v366, v367, v368);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v363, v374, v375, v376, v377, v378, v364, v373, 2109, 0, "canvas view should need layout after the layout manager claims to need layout");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v248, v249, v250, v251, v252);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v379, v384, v385, v386, v387, v380, v381, v382, v383);
     }
   }
 }
 
-void sub_27601CB28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_27601CB28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v16 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
-  v20 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v23 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  v27 = va_arg(va1, void);
 
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_27601CB8C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_27601CB8C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v7 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 56) - 1, 0, 1);
-  if (v7)
+  v11 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 56) - 1, 0, 1, a10);
+  if (v11)
   {
-    v56 = v7;
-    v13 = objc_msgSend_p_pageHintForPageIndexPath_(*(a1 + 32), v7, v8, v9, v10, v11, v7);
-    if (!v13)
+    v86 = v11;
+    v24 = objc_msgSend_p_pageHintForPageIndexPath_(*(a1 + 32), v11, v15, v16, v17, v18, v11, v12, v13, v14);
+    if (!v24)
     {
-      v37 = MEMORY[0x277D81150];
-      v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v14, v15, v16, v17, "[TPPaginatedPageController pageOriginForPageIndex:allowAfterPaginationPoint:]_block_invoke");
-      v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, v40, v41, v42, v43, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v37, v45, v46, v47, v48, v49, v38, v44, 2185, 0, "invalid nil value for '%{public}s'", "previousPageHint");
+      v60 = MEMORY[0x277D81150];
+      v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, v25, v26, v27, v28, "[TPPaginatedPageController pageOriginForPageIndex:allowAfterPaginationPoint:]_block_invoke", v21, v22, v23);
+      v70 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v62, v66, v67, v68, v69, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v63, v64, v65);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v60, v71, v72, v73, v74, v75, v61, v70, 2185, 0, "invalid nil value for '%{public}s'", "previousPageHint");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v50, v51, v52, v53, v54);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v76, v81, v82, v83, v84, v77, v78, v79, v80);
 LABEL_13:
 
-      v7 = v56;
+      v11 = v86;
       goto LABEL_14;
     }
 
-    isPageLayoutRightToLeft = objc_msgSend_isPageLayoutRightToLeft(*(a1 + 32), v12, v14, v15, v16, v17);
-    v24 = objc_msgSend_documentRoot(*(a1 + 32), v19, v20, v21, v22, v23);
-    v30 = objc_msgSend_writingDirection(v24, v25, v26, v27, v28, v29);
+    isPageLayoutRightToLeft = objc_msgSend_isPageLayoutRightToLeft(*(a1 + 32), v19, v25, v26, v27, v28, v20, v21, v22, v23);
+    v39 = objc_msgSend_documentRoot(*(a1 + 32), v30, v35, v36, v37, v38, v31, v32, v33, v34);
+    v49 = objc_msgSend_writingDirection(v39, v40, v45, v46, v47, v48, v41, v42, v43, v44);
 
-    if (v30 == 1)
+    if (v49 == 1)
     {
-      v36 = objc_msgSend_pageColumn(v13, v31, v32, v33, v34, v35) != 1;
+      v59 = objc_msgSend_pageColumn(v24, v50, v55, v56, v57, v58, v51, v52, v53, v54) != 1;
     }
 
     else
@@ -7381,163 +6014,163 @@ LABEL_13:
 LABEL_9:
         if (*(*(*(a1 + 40) + 8) + 24) == isPageLayoutRightToLeft)
         {
-          v55 = objc_msgSend_pageRow(v13, v31, v32, v33, v34, v35) + 1;
+          v85 = objc_msgSend_pageRow(v24, v50, v55, v56, v57, v58, v51, v52, v53, v54) + 1;
         }
 
         else
         {
-          v55 = objc_msgSend_pageRow(v13, v31, v32, v33, v34, v35);
+          v85 = objc_msgSend_pageRow(v24, v50, v55, v56, v57, v58, v51, v52, v53, v54);
         }
 
-        *(*(*(a1 + 48) + 8) + 24) = v55;
+        *(*(*(a1 + 48) + 8) + 24) = v85;
         goto LABEL_13;
       }
 
-      v36 = objc_msgSend_pageColumn(v13, v31, v32, v33, v34, v35) == 0;
+      v59 = objc_msgSend_pageColumn(v24, v50, v55, v56, v57, v58, v51, v52, v53, v54) == 0;
     }
 
-    *(*(*(a1 + 40) + 8) + 24) = v36;
+    *(*(*(a1 + 40) + 8) + 24) = v59;
     goto LABEL_9;
   }
 
 LABEL_14:
 }
 
-void sub_27601CF18(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_27601CF18(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v12 = objc_msgSend_i_pageHintForPageIndex_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48));
-  *(*(*(a1 + 40) + 8) + 24) = objc_msgSend_pageKind(v12, v7, v8, v9, v10, v11);
+  v20 = objc_msgSend_i_pageHintForPageIndex_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), a8, a9, a10);
+  *(*(*(a1 + 40) + 8) + 24) = objc_msgSend_pageKind(v20, v11, v16, v17, v18, v19, v12, v13, v14, v15);
 }
 
-void sub_27601D2F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_27601D2F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_27601D310(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_27601D310(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v7 = *(a1 + 32);
-  v8 = objc_msgSend_pageCount(v7, a2, a3, a4, a5, a6);
-  v15 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(v7, v9, v10, v11, v12, v13, v8 - 1, 0, 1);
-  v20 = *(a1 + 32);
-  if (v15)
+  v11 = *(a1 + 32);
+  v12 = objc_msgSend_pageCount(v11, a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  v24 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(v11, v13, v15, v16, v17, v18, v12 - 1, 0, 1, v14);
+  v29 = *(a1 + 32);
+  if (v24)
   {
-    objc_msgSend_p_pageHintForPageIndexPath_(v20, v14, v16, v17, v18, v19, v15);
+    objc_msgSend_p_pageHintForPageIndexPath_(v29, v19, v25, v26, v27, v28, v24, v21, v22, v23);
   }
 
   else
   {
-    objc_msgSend_p_lastValidPageHint(v20, v14, v16, v17, v18, v19);
+    objc_msgSend_p_lastValidPageHint(v29, v19, v25, v26, v27, v28, v20, v21, v22, v23);
   }
-  v48 = ;
-  if (v48)
+  v68 = ;
+  if (v68)
   {
-    *(*(*(a1 + 40) + 8) + 24) = objc_msgSend_pageRow(v48, v21, v22, v23, v24, v25) + 1;
-    v26 = *(a1 + 32);
-    v27 = *(*(*(a1 + 40) + 8) + 24);
-    if (v27 != *(v26 + 224))
+    *(*(*(a1 + 40) + 8) + 24) = objc_msgSend_pageRow(v68, v30, v35, v36, v37, v38, v31, v32, v33, v34) + 1;
+    v39 = *(a1 + 32);
+    v40 = *(*(*(a1 + 40) + 8) + 24);
+    if (v40 != *(v39 + 224))
     {
-      *(v26 + 224) = v27;
+      *(v39 + 224) = v40;
     }
   }
 
   else
   {
-    v28 = MEMORY[0x277D81150];
-    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, v22, v23, v24, v25, "[TPPaginatedPageController pageHeightCountForPageViewState:]_block_invoke");
-    v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, v31, v32, v33, v34, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v28, v36, v37, v38, v39, v40, v29, v35, 2327, 0, "invalid nil value for '%{public}s'", "lastUsablePageHint");
+    v41 = MEMORY[0x277D81150];
+    v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, v35, v36, v37, v38, "[TPPaginatedPageController pageHeightCountForPageViewState:]_block_invoke", v32, v33, v34);
+    v51 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, v47, v48, v49, v50, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v44, v45, v46);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v41, v52, v53, v54, v55, v56, v42, v51, 2327, 0, "invalid nil value for '%{public}s'", "lastUsablePageHint");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v41, v42, v43, v44, v45);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v57, v62, v63, v64, v65, v58, v59, v60, v61);
   }
 
-  v46 = *(*(a1 + 40) + 8);
-  if (!*(v46 + 24))
+  v66 = *(*(a1 + 40) + 8);
+  if (!*(v66 + 24))
   {
-    LODWORD(v47) = *(*(a1 + 32) + 224);
-    if (v47 <= 1)
+    LODWORD(v67) = *(*(a1 + 32) + 224);
+    if (v67 <= 1)
     {
-      v47 = 1;
+      v67 = 1;
     }
 
     else
     {
-      v47 = v47;
+      v67 = v67;
     }
 
-    *(v46 + 24) = v47;
+    *(v66 + 24) = v67;
   }
 }
 
-void sub_27601D694(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_27601D694(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  objc_msgSend_verticalPageSeparation(*(a1 + 32), a2, a3, a4, a5, a6);
-  *(*(a1 + 32) + 216) = v7;
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v12 = objc_msgSend_pageLayouts(*(*(a1 + 32) + 72), v8, 0, v9, v10, v11, 0);
-  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, v14, v15, v16, v17, &v26, v30, 16);
-  if (v19)
+  v44 = *MEMORY[0x277D85DE8];
+  objc_msgSend_verticalPageSeparation(*(a1 + 32), a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  *(*(a1 + 32) + 216) = v11;
+  v39 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v20 = objc_msgSend_pageLayouts(*(*(a1 + 32) + 72), v12, 0, v17, v18, v19, v13, v14, v15, v16, 0);
+  v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, v23, v24, v25, v26, &v39, v43, 16, v22);
+  if (v32)
   {
-    v24 = *v27;
+    v37 = *v40;
     do
     {
-      v25 = 0;
+      v38 = 0;
       do
       {
-        if (*v27 != v24)
+        if (*v40 != v37)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v20);
         }
 
-        objc_msgSend_invalidatePosition(*(*(&v26 + 1) + 8 * v25++), v18, v20, v21, v22, v23);
+        objc_msgSend_invalidatePosition(*(*(&v39 + 1) + 8 * v38++), v27, v33, v34, v35, v36, v28, v29, v30, v31);
       }
 
-      while (v19 != v25);
-      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v18, v20, v21, v22, v23, &v26, v30, 16);
+      while (v32 != v38);
+      v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v27, v33, v34, v35, v36, &v39, v43, 16, v31);
     }
 
-    while (v19);
+    while (v32);
   }
 }
 
-void sub_27601DB98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_27601DB98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_27601DBF4(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_27601DBF4(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v7 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), 0, 1);
-  if (v7)
+  v11 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), a2, a3, a4, a5, a6, *(a1 + 48), 0, 1, a10);
+  if (v11)
   {
-    v37 = v7;
-    v12 = objc_msgSend_p_pageHintForPageIndexPath_(*(a1 + 32), v7, v8, v9, v10, v11, v7);
-    v18 = v12;
-    if (v12)
+    v55 = v11;
+    v19 = objc_msgSend_p_pageHintForPageIndexPath_(*(a1 + 32), v11, v15, v16, v17, v18, v11, v12, v13, v14);
+    v29 = v19;
+    if (v19)
     {
-      *(*(*(a1 + 40) + 8) + 24) = objc_msgSend_pageColumn(v12, v13, v14, v15, v16, v17);
+      *(*(*(a1 + 40) + 8) + 24) = objc_msgSend_pageColumn(v19, v20, v25, v26, v27, v28, v21, v22, v23, v24);
     }
 
     else
     {
-      v19 = MEMORY[0x277D81150];
-      v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v14, v15, v16, v17, "[TPPaginatedPageController adjacentPageIndexForPageIndex:]_block_invoke");
-      v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, v22, v23, v24, v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v27, v28, v29, v30, v31, v20, v26, 2425, 0, "invalid nil value for '%{public}s'", "pageHint");
+      v30 = MEMORY[0x277D81150];
+      v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, v25, v26, v27, v28, "[TPPaginatedPageController adjacentPageIndexForPageIndex:]_block_invoke", v22, v23, v24);
+      v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, v36, v37, v38, v39, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v33, v34, v35);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v30, v41, v42, v43, v44, v45, v31, v40, 2425, 0, "invalid nil value for '%{public}s'", "pageHint");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v32, v33, v34, v35, v36);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v46, v51, v52, v53, v54, v47, v48, v49, v50);
     }
 
-    v7 = v37;
+    v11 = v55;
   }
 }
 
@@ -7554,60 +6187,60 @@ void sub_27601DF98(uint64_t a1, void *a2)
 
 void sub_27601E198(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v73 = *MEMORY[0x277D85DE8];
-  v68 = 0u;
-  v69 = 0u;
-  v70 = 0u;
-  v71 = 0u;
-  v66 = a2;
-  v8 = objc_msgSend_children(v66, v4, 0, v5, v6, v7);
-  obj = v8;
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, v10, v11, v12, v13, &v68, v72, 16);
-  if (v14)
+  v105 = *MEMORY[0x277D85DE8];
+  v100 = 0u;
+  v101 = 0u;
+  v102 = 0u;
+  v103 = 0u;
+  v98 = a2;
+  v12 = objc_msgSend_children(v98, v4, 0, v9, v10, v11, v5, v6, v7, v8);
+  obj = v12;
+  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, v15, v16, v17, v18, &v100, v104, 16, v14);
+  if (v19)
   {
-    v15 = *v69;
+    v20 = *v101;
     while (2)
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v69 != v15)
+        if (*v101 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
         objc_opt_class();
-        v17 = TSUDynamicCast();
+        v22 = TSUDynamicCast();
         objc_opt_class();
-        v23 = objc_msgSend_info(v17, v18, v19, v20, v21, v22);
-        v24 = TSUDynamicCast();
+        v32 = objc_msgSend_info(v22, v23, v28, v29, v30, v31, v24, v25, v26, v27);
+        v33 = TSUDynamicCast();
 
-        if (v24)
+        if (v33)
         {
-          v30 = *(a1 + 32);
-          v31 = objc_msgSend_objectUUID(v24, v25, v26, v27, v28, v29);
-          LODWORD(v30) = objc_msgSend_containsObject_(v30, v32, v33, v34, v35, v36, v31);
+          v43 = *(a1 + 32);
+          v44 = objc_msgSend_objectUUID(v33, v34, v39, v40, v41, v42, v35, v36, v37, v38);
+          LODWORD(v43) = objc_msgSend_containsObject_(v43, v45, v49, v50, v51, v52, v44, v46, v47, v48);
 
-          if (v30)
+          if (v43)
           {
-            v47 = *(a1 + 40);
-            v48 = objc_msgSend_info(v66, v37, v38, v39, v40, v41);
-            v54 = objc_msgSend_pageIndex(v48, v49, v50, v51, v52, v53);
-            objc_msgSend_addIndex_(v47, v55, v56, v57, v58, v59, v54);
+            v68 = *(a1 + 40);
+            v69 = objc_msgSend_info(v98, v53, v58, v59, v60, v61, v54, v55, v56, v57);
+            v79 = objc_msgSend_pageIndex(v69, v70, v75, v76, v77, v78, v71, v72, v73, v74);
+            objc_msgSend_addIndex_(v68, v80, v84, v85, v86, v87, v79, v81, v82, v83);
 
-            if (objc_msgSend_count(*(a1 + 32), v60, v61, v62, v63, v64) == 1)
+            if (objc_msgSend_count(*(a1 + 32), v88, v93, v94, v95, v96, v89, v90, v91, v92) == 1)
             {
               *a3 = 1;
             }
 
-            v8 = obj;
+            v12 = obj;
             goto LABEL_14;
           }
         }
       }
 
-      v8 = obj;
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v42, v43, v44, v45, v46, &v68, v72, 16);
-      if (v14)
+      v12 = obj;
+      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v62, v64, v65, v66, v67, &v100, v104, 16, v63);
+      if (v19)
       {
         continue;
       }
@@ -7619,62 +6252,62 @@ void sub_27601E198(uint64_t a1, void *a2, _BYTE *a3)
 LABEL_14:
 }
 
-void sub_27601ED74(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_27601ED74(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v6 = *(a1 + 32);
-  v24 = objc_msgSend_userInfo(*(a1 + 40), a2, a3, a4, a5, a6);
-  v12 = objc_msgSend_objectForKeyedSubscript_(v24, v7, v8, v9, v10, v11, @"resetMetricsCache");
-  v18 = objc_msgSend_BOOLValue(v12, v13, v14, v15, v16, v17);
-  objc_msgSend_p_forceRestartPaginationAndResetMetricsCache_(v6, v19, v20, v21, v22, v23, v18);
+  v10 = *(a1 + 32);
+  v38 = objc_msgSend_userInfo(*(a1 + 40), a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  v19 = objc_msgSend_objectForKeyedSubscript_(v38, v11, v15, v16, v17, v18, @"resetMetricsCache", v12, v13, v14);
+  v29 = objc_msgSend_BOOLValue(v19, v20, v25, v26, v27, v28, v21, v22, v23, v24);
+  objc_msgSend_p_forceRestartPaginationAndResetMetricsCache_(v10, v30, v34, v35, v36, v37, v29, v31, v32, v33);
 }
 
-void sub_276020EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_276020EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  v13 = v10;
+  va_start(va, a16);
+  v20 = v17;
 
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v12 - 80), 8);
+  _Block_object_dispose((v19 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_276020F54(void *a1, void *a2, double a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, _BYTE *a8)
+void sub_276020F54(void *a1, void *a2, uint64_t a3, _BYTE *a4, uint64_t a5, uint64_t a6, double a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v10 = objc_msgSend_pageHints(a2, a2, 0, a4, a5, a6, 0);
-  v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, v12, v13, v14, v15, &v29, v33, 16);
-  if (v17)
+  v41 = *MEMORY[0x277D85DE8];
+  v36 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v12 = objc_msgSend_pageHints(a2, a2, 0, a8, a9, a10, a3, a4, a5, a6, 0);
+  v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, v15, v16, v17, v18, &v36, v40, 16, v14);
+  if (v24)
   {
-    v22 = *v30;
+    v29 = *v37;
     while (2)
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v24; ++i)
       {
-        if (*v30 != v22)
+        if (*v37 != v29)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v12);
         }
 
-        v24 = *(*(&v29 + 1) + 8 * i);
-        if (objc_msgSend_pageKind(v24, v16, v18, v19, v20, v21) == 1)
+        v31 = *(*(&v36 + 1) + 8 * i);
+        if (objc_msgSend_pageKind(v31, v19, v25, v26, v27, v28, v20, v21, v22, v23) == 1)
         {
-          v25 = objc_msgSend_range(v24, v16, v18, v19, v20, v21);
-          v26 = a1[6];
-          if (v26 < v25)
+          v32 = objc_msgSend_range(v31, v19, v25, v26, v27, v28, v20, v21, v22, v23);
+          v33 = a1[6];
+          if (v33 < v32)
           {
             goto LABEL_16;
           }
 
-          v27 = v26 - v25;
-          if (!v27 || v27 < v16)
+          v34 = v33 - v32;
+          if (!v34 || v34 < v19)
           {
             *(*(a1[4] + 8) + 24) = 1;
 LABEL_16:
-            *a8 = 1;
+            *a4 = 1;
             goto LABEL_17;
           }
         }
@@ -7682,8 +6315,8 @@ LABEL_16:
         ++*(*(a1[5] + 8) + 24);
       }
 
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v16, v18, v19, v20, v21, &v29, v33, 16);
-      if (v17)
+      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v19, v25, v26, v27, v28, &v36, v40, 16, v23);
+      if (v24)
       {
         continue;
       }
@@ -7695,52 +6328,52 @@ LABEL_16:
 LABEL_17:
 }
 
-void sub_276021218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_276021218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v10 - 80), 8);
+  _Block_object_dispose((v17 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_276021260(void *a1, void *a2, double a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, _BYTE *a8)
+void sub_276021260(void *a1, void *a2, uint64_t a3, _BYTE *a4, uint64_t a5, uint64_t a6, double a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v10 = objc_msgSend_pageHints(a2, a2, 0, a4, a5, a6, 0);
-  v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, v12, v13, v14, v15, &v29, v33, 16);
-  if (v17)
+  v41 = *MEMORY[0x277D85DE8];
+  v36 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v12 = objc_msgSend_pageHints(a2, a2, 0, a8, a9, a10, a3, a4, a5, a6, 0);
+  v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, v15, v16, v17, v18, &v36, v40, 16, v14);
+  if (v24)
   {
-    v22 = *v30;
+    v29 = *v37;
     while (2)
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v24; ++i)
       {
-        if (*v30 != v22)
+        if (*v37 != v29)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v12);
         }
 
-        v24 = *(*(&v29 + 1) + 8 * i);
-        if (objc_msgSend_pageKind(v24, v16, v18, v19, v20, v21) == 1)
+        v31 = *(*(&v36 + 1) + 8 * i);
+        if (objc_msgSend_pageKind(v31, v19, v25, v26, v27, v28, v20, v21, v22, v23) == 1)
         {
-          v25 = objc_msgSend_anchoredRange(v24, v16, v18, v19, v20, v21);
-          v26 = a1[6];
-          if (v26 < v25)
+          v32 = objc_msgSend_anchoredRange(v31, v19, v25, v26, v27, v28, v20, v21, v22, v23);
+          v33 = a1[6];
+          if (v33 < v32)
           {
             goto LABEL_16;
           }
 
-          v27 = v26 - v25;
-          if (!v27 || v27 < v16)
+          v34 = v33 - v32;
+          if (!v34 || v34 < v19)
           {
             *(*(a1[4] + 8) + 24) = 1;
 LABEL_16:
-            *a8 = 1;
+            *a4 = 1;
             goto LABEL_17;
           }
         }
@@ -7748,8 +6381,8 @@ LABEL_16:
         ++*(*(a1[5] + 8) + 24);
       }
 
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v16, v18, v19, v20, v21, &v29, v33, 16);
-      if (v17)
+      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v19, v25, v26, v27, v28, &v36, v40, 16, v23);
+      if (v24)
       {
         continue;
       }
@@ -7761,213 +6394,215 @@ LABEL_16:
 LABEL_17:
 }
 
-void sub_27602182C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_27602182C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v6 = *(a1 + 32);
-  v12 = objc_msgSend_pageInfoForPageIndex_(*(a1 + 40), a2, a3, a4, a5, a6, a2);
-  objc_msgSend_addObject_(v6, v7, v8, v9, v10, v11);
+  v10 = *(a1 + 32);
+  v19 = objc_msgSend_pageInfoForPageIndex_(*(a1 + 40), a2, a3, a4, a5, a6, a2, a8, a9, a10);
+  objc_msgSend_addObject_(v10, v11, v15, v16, v17, v18, v19, v12, v13, v14);
 }
 
-void sub_276021F78(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_276021F78(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v12 = objc_msgSend_pageInfoForPageIndex_(*(a1 + 32), a2, a3, a4, a5, a6, a2);
-  objc_msgSend_addObject_(*(a1 + 40), v7, v8, v9, v10, v11);
+  v19 = objc_msgSend_pageInfoForPageIndex_(*(a1 + 32), a2, a3, a4, a5, a6, a2, a8, a9, a10);
+  objc_msgSend_addObject_(*(a1 + 40), v11, v15, v16, v17, v18, v19, v12, v13, v14);
 }
 
-void sub_276022CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_276022CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  _Block_object_dispose(&a28, 8);
-  _Block_object_dispose((v32 - 120), 8);
+  va_start(va, a27);
+
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 120), 8);
 
   _Unwind_Resume(a1);
 }
 
 void sub_276022DC8(uint64_t a1, void *a2)
 {
-  v70 = a2;
-  v8 = objc_msgSend_pageIndex(v70, v3, v4, v5, v6, v7);
-  if (v8 != objc_msgSend_documentPageIndex(*(*(a1 + 32) + 80), v9, v10, v11, v12, v13))
+  v107 = a2;
+  v12 = objc_msgSend_pageIndex(v107, v3, v8, v9, v10, v11, v4, v5, v6, v7);
+  if (v12 != objc_msgSend_documentPageIndex(*(*(a1 + 32) + 80), v13, v18, v19, v20, v21, v14, v15, v16, v17))
   {
-    v19 = MEMORY[0x277D81150];
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v15, v16, v17, v18, "[TPPaginatedPageController p_layOutNextPageForLayoutController:dirtyRange:]_block_invoke");
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, v22, v23, v24, v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-    v32 = objc_msgSend_pageIndex(v70, v27, v28, v29, v30, v31);
-    v38 = objc_msgSend_documentPageIndex(*(*(a1 + 32) + 80), v33, v34, v35, v36, v37);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v39, v40, v41, v42, v43, v20, v26, 4312, 0, "Page to be laid out doesn't match pagination state: %lu vs %lu", v32, v38);
+    v30 = MEMORY[0x277D81150];
+    v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, v26, v27, v28, v29, "[TPPaginatedPageController p_layOutNextPageForLayoutController:dirtyRange:]_block_invoke", v23, v24, v25);
+    v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, v36, v37, v38, v39, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v33, v34, v35);
+    v50 = objc_msgSend_pageIndex(v107, v41, v46, v47, v48, v49, v42, v43, v44, v45);
+    v60 = objc_msgSend_documentPageIndex(*(*(a1 + 32) + 80), v51, v56, v57, v58, v59, v52, v53, v54, v55);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v30, v61, v62, v63, v64, v65, v31, v40, 4312, 0, "Page to be laid out doesn't match pagination state: %lu vs %lu", v50, v60);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v44, v45, v46, v47, v48);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v66, v71, v72, v73, v74, v67, v68, v69, v70);
   }
 
-  objc_msgSend_p_layOutIntoPageLayout_outDidSync_(*(a1 + 32), v14, v15, v16, v17, v18, v70, *(*(a1 + 40) + 8) + 24);
-  v49 = MEMORY[0x277D80DC0];
-  v55 = objc_msgSend_bodyLayout(v70, v50, v51, v52, v53, v54);
-  v61 = objc_msgSend_columns(v55, v56, v57, v58, v59, v60);
-  v67 = objc_msgSend_rangeOfColumns_(v49, v62, v63, v64, v65, v66, v61);
-  v68 = *(*(a1 + 48) + 8);
-  *(v68 + 48) = v67;
-  *(v68 + 56) = v69;
+  objc_msgSend_p_layOutIntoPageLayout_outDidSync_(*(a1 + 32), v22, v26, v27, v28, v29, v107, *(*(a1 + 40) + 8) + 24, v24, v25);
+  v75 = MEMORY[0x277D80DC0];
+  v85 = objc_msgSend_bodyLayout(v107, v76, v81, v82, v83, v84, v77, v78, v79, v80);
+  v95 = objc_msgSend_columns(v85, v86, v91, v92, v93, v94, v87, v88, v89, v90);
+  v104 = objc_msgSend_rangeOfColumns_(v75, v96, v100, v101, v102, v103, v95, v97, v98, v99);
+  v105 = *(*(a1 + 48) + 8);
+  *(v105 + 48) = v104;
+  *(v105 + 56) = v106;
 }
 
 void sub_276023F90(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v23 = a2;
-  if ((objc_msgSend_hasHiddenTextAtCharIndex_(*(a1 + 32), v6, v7, v8, v9, v10, a4) & 1) == 0)
+  v33 = a2;
+  if ((objc_msgSend_hasHiddenTextAtCharIndex_(*(a1 + 32), v6, v10, v11, v12, v13, a4, v7, v8, v9) & 1) == 0)
   {
-    v16 = *(a1 + 40);
-    v17 = objc_msgSend_containedStorage(v23, v11, v12, v13, v14, v15);
-    objc_msgSend_addFootnoteReferenceStorage_(v16, v18, v19, v20, v21, v22, v17);
+    v23 = *(a1 + 40);
+    v24 = objc_msgSend_containedStorage(v33, v14, v19, v20, v21, v22, v15, v16, v17, v18);
+    objc_msgSend_addFootnoteReferenceStorage_(v23, v25, v29, v30, v31, v32, v24, v26, v27, v28);
   }
 }
 
-BOOL sub_27602402C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+BOOL sub_27602402C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v7 = MEMORY[0x277D80DC0];
-  v8 = objc_msgSend_columns(*(a1 + 32), a2, a3, a4, a5, a6);
-  v14 = objc_msgSend_rangeOfColumns_(v7, v9, v10, v11, v12, v13, v8);
-  v16 = v15;
+  v11 = MEMORY[0x277D80DC0];
+  v12 = objc_msgSend_columns(*(a1 + 32), a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  v21 = objc_msgSend_rangeOfColumns_(v11, v13, v17, v18, v19, v20, v12, v14, v15, v16);
+  v23 = v22;
 
-  v22 = objc_msgSend_columns(*(a1 + 32), v17, v18, v19, v20, v21);
-  v28 = objc_msgSend_lastObject(v22, v23, v24, v25, v26, v27);
-  if ((objc_msgSend_layoutResultFlags(v28, v29, v30, v31, v32, v33) & 0x800) != 0)
+  v33 = objc_msgSend_columns(*(a1 + 32), v24, v29, v30, v31, v32, v25, v26, v27, v28);
+  v43 = objc_msgSend_lastObject(v33, v34, v39, v40, v41, v42, v35, v36, v37, v38);
+  if ((objc_msgSend_layoutResultFlags(v43, v44, v49, v50, v51, v52, v45, v46, v47, v48) & 0x800) != 0)
   {
-    v51 = 1;
+    v82 = 1;
   }
 
   else
   {
-    v39 = objc_msgSend_documentRoot(*(a1 + 40), v34, v35, v36, v37, v38);
-    v45 = objc_msgSend_bodyStorage(v39, v40, v41, v42, v43, v44);
-    v51 = v14 + v16 == objc_msgSend_length(v45, v46, v47, v48, v49, v50);
+    v62 = objc_msgSend_documentRoot(*(a1 + 40), v53, v58, v59, v60, v61, v54, v55, v56, v57);
+    v72 = objc_msgSend_bodyStorage(v62, v63, v68, v69, v70, v71, v64, v65, v66, v67);
+    v82 = v21 + v23 == objc_msgSend_length(v72, v73, v78, v79, v80, v81, v74, v75, v76, v77);
   }
 
-  return v51;
+  return v82;
 }
 
-void sub_276026C10(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_276026C10(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v97 = *MEMORY[0x277D85DE8];
-  isPaginationComplete = objc_msgSend_p_isPaginationComplete(*(a1 + 32), a2, a3, a4, a5, a6);
-  v13 = objc_msgSend_documentPageIndex(*(*(a1 + 32) + 80), v8, v9, v10, v11, v12);
-  v14 = v13;
-  v77 = isPaginationComplete;
+  v126 = *MEMORY[0x277D85DE8];
+  isPaginationComplete = objc_msgSend_p_isPaginationComplete(*(a1 + 32), a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  v21 = objc_msgSend_documentPageIndex(*(*(a1 + 32) + 80), v12, v17, v18, v19, v20, v13, v14, v15, v16);
+  v22 = v21;
+  v106 = isPaginationComplete;
   if (isPaginationComplete)
   {
-    v15 = *(a1 + 32);
+    v23 = *(a1 + 32);
   }
 
   else
   {
-    v14 = v13 + 1;
-    v15 = *(a1 + 32);
-    if ((v13 + 1) <= *(v15 + 136))
+    v22 = v21 + 1;
+    v23 = *(a1 + 32);
+    if ((v21 + 1) <= *(v23 + 136))
     {
       goto LABEL_29;
     }
   }
 
-  *(v15 + 136) = v14;
-  v92 = 0u;
-  v93 = 0u;
-  v90 = 0u;
-  v91 = 0u;
-  v16 = *(*(a1 + 32) + 176);
-  v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, v18, v19, v20, v21, &v90, v96, 16);
-  if (v22)
+  *(v23 + 136) = v22;
+  v121 = 0u;
+  v122 = 0u;
+  v119 = 0u;
+  v120 = 0u;
+  v24 = *(*(a1 + 32) + 176);
+  v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, v27, v28, v29, v30, &v119, v125, 16, v26);
+  if (v31)
   {
-    v23 = *v91;
+    v32 = *v120;
     do
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v31; ++i)
       {
-        if (*v91 != v23)
+        if (*v120 != v32)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v24);
         }
 
-        v25 = TSUProtocolCast();
-        objc_msgSend_canvasSizeWillChangeForPageController_(v25, v26, v27, v28, v29, v30, *(a1 + 32), &unk_288546998);
-        v31 = TSUProtocolCast();
-        objc_msgSend_pageCountDidChangeForPageController_(v31, v32, v33, v34, v35, v36, *(a1 + 32), &unk_2885469F8);
+        v34 = TSUProtocolCast();
+        objc_msgSend_canvasSizeWillChangeForPageController_(v34, v35, v39, v40, v41, v42, *(a1 + 32), v36, v37, v38, &unk_288546998);
+        v43 = TSUProtocolCast();
+        objc_msgSend_pageCountDidChangeForPageController_(v43, v44, v48, v49, v50, v51, *(a1 + 32), v45, v46, v47, &unk_2885469F8);
       }
 
-      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v37, v38, v39, v40, v41, &v90, v96, 16);
+      v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v52, v54, v55, v56, v57, &v119, v125, 16, v53);
     }
 
-    while (v22);
+    while (v31);
   }
 
-  if (v77)
+  if (v106)
   {
-    v42 = *(a1 + 32);
-    v43 = *(v42 + 144);
-    if (v14 != v43)
+    v58 = *(a1 + 32);
+    v59 = *(v58 + 144);
+    if (v22 != v59)
     {
-      v44 = v14 > v43;
-      *(v42 + 144) = v14;
+      v60 = v22 > v59;
+      *(v58 + 144) = v22;
       objc_initWeak(&location, *(a1 + 32));
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = sub_276027058;
       block[3] = &unk_27A6A9510;
-      objc_copyWeak(&v87, &location);
-      v88 = v44;
+      objc_copyWeak(&v116, &location);
+      v117 = v60;
       dispatch_async(MEMORY[0x277D85CD0], block);
-      v84 = 0u;
-      v85 = 0u;
-      v82 = 0u;
-      v83 = 0u;
-      v49 = objc_msgSend_pageLayouts(*(*(a1 + 32) + 72), v45, 0, v46, v47, v48);
-      v56 = objc_msgSend_countByEnumeratingWithState_objects_count_(v49, v50, v51, v52, v53, v54, &v82, v95, 16);
-      if (v56)
+      v113 = 0u;
+      v114 = 0u;
+      v111 = 0u;
+      v112 = 0u;
+      v69 = objc_msgSend_pageLayouts(*(*(a1 + 32) + 72), v61, 0, v66, v67, v68, v62, v63, v64, v65);
+      v81 = objc_msgSend_countByEnumeratingWithState_objects_count_(v69, v70, v72, v73, v74, v75, &v111, v124, 16, v71);
+      if (v81)
       {
-        v61 = *v83;
+        v86 = *v112;
         do
         {
-          for (j = 0; j != v56; ++j)
+          for (j = 0; j != v81; ++j)
           {
-            if (*v83 != v61)
+            if (*v112 != v86)
             {
-              objc_enumerationMutation(v49);
+              objc_enumerationMutation(v69);
             }
 
-            objc_msgSend_invalidateLayoutsForPageCountChange(*(*(&v82 + 1) + 8 * j), v55, v57, v58, v59, v60);
+            objc_msgSend_invalidateLayoutsForPageCountChange(*(*(&v111 + 1) + 8 * j), v76, v82, v83, v84, v85, v77, v78, v79, v80);
           }
 
-          v56 = objc_msgSend_countByEnumeratingWithState_objects_count_(v49, v55, v57, v58, v59, v60, &v82, v95, 16);
+          v81 = objc_msgSend_countByEnumeratingWithState_objects_count_(v69, v76, v82, v83, v84, v85, &v111, v124, 16, v80);
         }
 
-        while (v56);
+        while (v81);
       }
 
-      objc_destroyWeak(&v87);
+      objc_destroyWeak(&v116);
       objc_destroyWeak(&location);
     }
 
-    v80 = 0u;
-    v81 = 0u;
-    v78 = 0u;
-    v79 = 0u;
-    v63 = *(*(a1 + 32) + 176);
-    v70 = objc_msgSend_countByEnumeratingWithState_objects_count_(v63, v64, v65, v66, v67, v68, &v78, v94, 16);
-    if (v70)
+    v109 = 0u;
+    v110 = 0u;
+    v107 = 0u;
+    v108 = 0u;
+    v88 = *(*(a1 + 32) + 176);
+    v99 = objc_msgSend_countByEnumeratingWithState_objects_count_(v88, v89, v91, v92, v93, v94, &v107, v123, 16, v90);
+    if (v99)
     {
-      v75 = *v79;
+      v104 = *v108;
       do
       {
-        for (k = 0; k != v70; ++k)
+        for (k = 0; k != v99; ++k)
         {
-          if (*v79 != v75)
+          if (*v108 != v104)
           {
-            objc_enumerationMutation(v63);
+            objc_enumerationMutation(v88);
           }
 
-          objc_msgSend_paginationCompletedForPageController_(*(*(&v78 + 1) + 8 * k), v69, v71, v72, v73, v74, *(a1 + 32));
+          objc_msgSend_paginationCompletedForPageController_(*(*(&v107 + 1) + 8 * k), v95, v100, v101, v102, v103, *(a1 + 32), v96, v97, v98);
         }
 
-        v70 = objc_msgSend_countByEnumeratingWithState_objects_count_(v63, v69, v71, v72, v73, v74, &v78, v94, 16);
+        v99 = objc_msgSend_countByEnumeratingWithState_objects_count_(v88, v95, v100, v101, v102, v103, &v107, v123, 16, v98);
       }
 
-      while (v70);
+      while (v99);
     }
   }
 
@@ -7985,69 +6620,69 @@ void sub_276026FD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void sub_276027058(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v8 = WeakRetained;
+  v12 = WeakRetained;
   if (WeakRetained && (WeakRetained[121] & 1) == 0)
   {
-    v9 = objc_msgSend_documentRoot(WeakRetained, v3, v4, v5, v6, v7);
-    v15 = objc_msgSend_accessController(v9, v10, v11, v12, v13, v14);
-    v21[0] = MEMORY[0x277D85DD0];
-    v16.n128_u64[0] = 3221225472;
-    v21[1] = 3221225472;
-    v21[2] = sub_276027150;
-    v21[3] = &unk_27A6A94E8;
-    v21[4] = v9;
-    v22 = *(a1 + 40);
-    objc_msgSend_performWrite_(v15, v17, v16, v18, v19, v20, v21);
+    v13 = objc_msgSend_documentRoot(WeakRetained, v3, v8, v9, v10, v11, v4, v5, v6, v7);
+    v23 = objc_msgSend_accessController(v13, v14, v19, v20, v21, v22, v15, v16, v17, v18);
+    v32[0] = MEMORY[0x277D85DD0];
+    v24.n128_u64[0] = 3221225472;
+    v32[1] = 3221225472;
+    v32[2] = sub_276027150;
+    v32[3] = &unk_27A6A94E8;
+    v32[4] = v13;
+    v33 = *(a1 + 40);
+    objc_msgSend_performWrite_(v23, v25, v24, v29, v30, v31, v32, v26, v27, v28);
   }
 }
 
-void sub_276027150(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_276027150(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v12 = objc_msgSend_bodyStorage(*(a1 + 32), a2, a3, a4, a5, a6);
-  objc_msgSend_invalidatePageCountAttachmentCharIndexes_(v12, v7, v8, v9, v10, v11, *(a1 + 40));
+  v19 = objc_msgSend_bodyStorage(*(a1 + 32), a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  objc_msgSend_invalidatePageCountAttachmentCharIndexes_(v19, v11, v15, v16, v17, v18, *(a1 + 40), v12, v13, v14);
 }
 
-void sub_2760277E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2760277E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_275FFD2D0(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_2760278D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2760278D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_275FFD2D0(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_2760279CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2760279CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_275FFD2D0(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_276027F80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_276027F80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_276027F9C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+uint64_t sub_276027F9C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  if (objc_msgSend_p_isPaginationComplete(*(a1 + 32), a2, a3, a4, a5, a6))
+  if (objc_msgSend_p_isPaginationComplete(*(a1 + 32), a2, a7, a8, a9, a10, a3, a4, a5, a6))
   {
     result = 1;
   }
 
   else
   {
-    result = objc_msgSend_p_layOutNextPageOnceWithOffscreenLayoutController(*(a1 + 32), v7, v8, v9, v10, v11);
+    result = objc_msgSend_p_layOutNextPageOnceWithOffscreenLayoutController(*(a1 + 32), v11, v16, v17, v18, v19, v12, v13, v14, v15);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -8059,216 +6694,216 @@ void sub_27602809C(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained && (WeakRetained[121] & 1) == 0 && WeakRetained[152] == 1)
   {
-    objc_msgSend_p_updatePageCount(WeakRetained, v1, v2, v3, v4, v5);
+    objc_msgSend_p_updatePageCount(WeakRetained, v1, v6, v7, v8, v9, v2, v3, v4, v5);
   }
 }
 
-void sub_2760281D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2760281D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2760281E8(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_2760281E8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v30 = objc_msgSend_canvas(*(*(a1 + 32) + 104), a2, a3, a4, a5, a6);
-  v12 = objc_msgSend_layoutController(v30, v7, v8, v9, v10, v11);
-  v13 = *(a1 + 32);
-  v14 = objc_opt_new();
-  objc_msgSend_p_layOutNextPageForLayoutController_dirtyRange_(v13, v15, v16, v17, v18, v19, v12, v14);
+  v47 = objc_msgSend_canvas(*(*(a1 + 32) + 104), a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  v20 = objc_msgSend_layoutController(v47, v11, v16, v17, v18, v19, v12, v13, v14, v15);
+  v21 = *(a1 + 32);
+  v22 = objc_opt_new();
+  objc_msgSend_p_layOutNextPageForLayoutController_dirtyRange_(v21, v23, v26, v27, v28, v29, v20, v22, v24, v25);
 
-  objc_msgSend_setInfosToDisplay_(v30, v20, v21, v22, v23, v24, 0);
-  *(*(*(a1 + 40) + 8) + 24) = objc_msgSend_p_didLayOut(*(a1 + 32), v25, v26, v27, v28, v29);
+  objc_msgSend_setInfosToDisplay_(v47, v30, v34, v35, v36, v37, 0, v31, v32, v33);
+  *(*(*(a1 + 40) + 8) + 24) = objc_msgSend_p_didLayOut(*(a1 + 32), v38, v43, v44, v45, v46, v39, v40, v41, v42);
 }
 
-void sub_2760293DC(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_2760293DC(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v367 = *MEMORY[0x277D85DE8];
-  objc_msgSend_willInflate(*(a1 + 32), a2, a3, a4, a5, a6);
-  if ((objc_msgSend_isPaginating(*(a1 + 40), v7, v8, v9, v10, v11) & 1) == 0)
+  v545 = *MEMORY[0x277D85DE8];
+  objc_msgSend_willInflate(*(a1 + 32), a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  if ((objc_msgSend_isPaginating(*(a1 + 40), v11, v16, v17, v18, v19, v12, v13, v14, v15) & 1) == 0)
   {
-    v17 = objc_msgSend_pageIndex(*(a1 + 32), v12, v13, v14, v15, v16);
-    v352 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 40), v18, v19, v20, v21, v22, v17, 0, 0);
-    v28 = v352;
-    if (!v352)
+    v29 = objc_msgSend_pageIndex(*(a1 + 32), v20, v25, v26, v27, v28, v21, v22, v23, v24);
+    v530 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 40), v30, v32, v33, v34, v35, v29, 0, 0, v31);
+    v44 = v530;
+    if (!v530)
     {
 LABEL_46:
 
       return;
     }
 
-    v30 = objc_msgSend_p_pageHintForPageIndexPath_(*(a1 + 40), v23, v24, v25, v26, v27);
-    if (!v30)
+    v50 = objc_msgSend_p_pageHintForPageIndexPath_(*(a1 + 40), v36, v40, v41, v42, v43, v530, v37, v38, v39);
+    if (!v50)
     {
-      v35 = MEMORY[0x277D81150];
-      v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v29, v31, v32, v33, v34, "[TPPaginatedPageController i_inflateColumnsInBodyLayout:]_block_invoke");
-      v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, v38, v39, v40, v41, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v35, v43, v44, v45, v46, v47, v36, v42, 5747, 0, "invalid nil value for '%{public}s'", "pageHint");
+      v55 = MEMORY[0x277D81150];
+      v56 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v45, v51, v52, v53, v54, "[TPPaginatedPageController i_inflateColumnsInBodyLayout:]_block_invoke", v47, v48, v49);
+      v65 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v57, v61, v62, v63, v64, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v58, v59, v60);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v55, v66, v67, v68, v69, v70, v56, v65, 5747, 0, "invalid nil value for '%{public}s'", "pageHint");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v48, v49, v50, v51, v52);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v71, v76, v77, v78, v79, v72, v73, v74, v75);
     }
 
-    if (objc_msgSend_pageKind(v30, v29, v31, v32, v33, v34) != 1)
+    if (objc_msgSend_pageKind(v50, v45, v51, v52, v53, v54, v46, v47, v48, v49) != 1)
     {
-      v58 = MEMORY[0x277D81150];
-      v59 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v53, v54, v55, v56, v57, "[TPPaginatedPageController i_inflateColumnsInBodyLayout:]_block_invoke");
-      v65 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v60, v61, v62, v63, v64, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v58, v66, v67, v68, v69, v70, v59, v65, 5748, 0, "Can't inflate columns on a non-text page");
+      v89 = MEMORY[0x277D81150];
+      v90 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v80, v85, v86, v87, v88, "[TPPaginatedPageController i_inflateColumnsInBodyLayout:]_block_invoke", v82, v83, v84);
+      v99 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v91, v95, v96, v97, v98, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v92, v93, v94);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v89, v100, v101, v102, v103, v104, v90, v99, 5748, 0, "Can't inflate columns on a non-text page");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v71, v72, v73, v74, v75);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v105, v110, v111, v112, v113, v106, v107, v108, v109);
     }
 
-    v351 = objc_msgSend_firstChildHint(v30, v53, v54, v55, v56, v57);
-    if (v17 && (objc_opt_respondsToSelector() & 1) != 0 && (objc_msgSend_isFirstHint(v351, v76, v77, v78, v79, v80) & 1) == 0)
+    v529 = objc_msgSend_firstChildHint(v50, v80, v85, v86, v87, v88, v81, v82, v83, v84);
+    if (v29 && (objc_opt_respondsToSelector() & 1) != 0 && (objc_msgSend_isFirstHint(v529, v114, v119, v120, v121, v122, v115, v116, v117, v118) & 1) == 0)
     {
-      v167 = objc_msgSend_sectionHints(*(*(a1 + 40) + 80), v76, v77, v78, v79, v80);
-      sub_275FFD28C(&v359, v167, v17 - 1);
+      v255 = objc_msgSend_sectionHints(*(*(a1 + 40) + 80), v114, v119, v120, v121, v122, v115, v116, v117, v118);
+      sub_275FFD28C(&v537, v255, v29 - 1);
 
       while (1)
       {
-        v173 = sub_275FFD320(&v359, v168, v169, v170, v171, v172);
-        v174 = v173 == 0;
+        v265 = sub_275FFD320(&v537, v256, v257, v258, v259, v260, v261, v262, v263, v264);
+        v266 = v265 == 0;
 
-        if (v174)
+        if (v266)
         {
           break;
         }
 
-        if (sub_275FFD3B8(&v359, v175, v176, v177, v178, v179) == 1)
+        if (sub_275FFD3B8(&v537, v267, v268, v269, v270, v271, v272, v273, v274, v275) == 1)
         {
-          v81 = sub_275FFD62C(&v359, v180, v181, v182, v183, v184);
-          if (v81)
+          v123 = sub_275FFD62C(&v537, v276, v277, v278, v279, v280, v281, v282, v283, v284);
+          if (v123)
           {
-            sub_275FFD2D0(&v359);
+            sub_275FFD2D0(&v537);
             goto LABEL_11;
           }
 
-          v190 = sub_275FFD5C0(&v359, v185, v186, v187, v188, v189);
-          if (v190)
+          v294 = sub_275FFD5C0(&v537, v285, v286, v287, v288, v289, v290, v291, v292, v293);
+          if (v294)
           {
-            v309 = MEMORY[0x277D81150];
-            v310 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v180, v181, v182, v183, v184, "[TPPaginatedPageController i_inflateColumnsInBodyLayout:]_block_invoke");
-            v316 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v311, v312, v313, v314, v315, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v309, v317, v318, v319, v320, v321, v310, v316, 5765, 0, "inconsistent previous child hint");
+            v470 = MEMORY[0x277D81150];
+            v471 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v276, v281, v282, v283, v284, "[TPPaginatedPageController i_inflateColumnsInBodyLayout:]_block_invoke", v278, v279, v280);
+            v480 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v472, v476, v477, v478, v479, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v473, v474, v475);
+            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v470, v481, v482, v483, v484, v485, v471, v480, 5765, 0, "inconsistent previous child hint");
 
-            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v322, v323, v324, v325, v326);
+            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v486, v491, v492, v493, v494, v487, v488, v489, v490);
             break;
           }
         }
 
-        sub_275FFCD14(&v359, v180, v181, v182, v183, v184);
+        sub_275FFCD14(&v537, v276, v277, v278, v279, v280, v281, v282, v283, v284);
       }
 
-      sub_275FFD2D0(&v359);
-      v327 = MEMORY[0x277D81150];
-      v333 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v328, v329, v330, v331, v332, "[TPPaginatedPageController i_inflateColumnsInBodyLayout:]_block_invoke");
-      v339 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v334, v335, v336, v337, v338, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v327, v340, v341, v342, v343, v344, v333, v339, 5773, 0, "Failed to find previous child hint for %lu", v17);
+      sub_275FFD2D0(&v537);
+      v495 = MEMORY[0x277D81150];
+      v504 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v496, v500, v501, v502, v503, "[TPPaginatedPageController i_inflateColumnsInBodyLayout:]_block_invoke", v497, v498, v499);
+      v513 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v505, v509, v510, v511, v512, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v506, v507, v508);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v495, v514, v515, v516, v517, v518, v504, v513, 5773, 0, "Failed to find previous child hint for %lu", v29);
 
-      v81 = 0;
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v345, v346, v347, v348, v349);
+      v123 = 0;
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v519, v524, v525, v526, v527, v520, v521, v522, v523);
     }
 
     else
     {
-      v81 = 0;
+      v123 = 0;
     }
 
 LABEL_11:
-    if (!v30)
+    if (!v50)
     {
-      v149 = MEMORY[0x277D81150];
-      v150 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v76, v77, v78, v79, v80, "[TPPaginatedPageController i_inflateColumnsInBodyLayout:]_block_invoke");
-      v156 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v151, v152, v153, v154, v155, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v149, v157, v158, v159, v160, v161, v150, v156, 5776, 0, "Nil page hint for %{public}@\n%@", v352, *(a1 + 40));
+      v230 = MEMORY[0x277D81150];
+      v231 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v114, v119, v120, v121, v122, "[TPPaginatedPageController i_inflateColumnsInBodyLayout:]_block_invoke", v116, v117, v118);
+      v240 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v232, v236, v237, v238, v239, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v233, v234, v235);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v230, v241, v242, v243, v244, v245, v231, v240, 5776, 0, "Nil page hint for %{public}@\n%@", v530, *(a1 + 40));
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v162, v163, v164, v165, v166);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v246, v251, v252, v253, v254, v247, v248, v249, v250);
 LABEL_45:
 
-      v28 = v352;
+      v44 = v530;
       goto LABEL_46;
     }
 
-    v359 = 0;
-    v360 = &v359;
-    v361 = 0x4012000000;
-    v362 = sub_27601745C;
-    v363 = nullsub_2;
-    v364 = &unk_2760658C2;
-    v365 = *MEMORY[0x277D81490];
-    v82 = objc_msgSend_documentRoot(*(a1 + 40), v76, v365, v78, v79, v80);
-    if (objc_msgSend_laysOutBodyVertically(v82, v83, v84, v85, v86, v87))
+    v537 = 0;
+    v538 = &v537;
+    v539 = 0x4012000000;
+    v540 = sub_27601745C;
+    v541 = nullsub_2;
+    v542 = &unk_2760658C2;
+    v543 = *MEMORY[0x277D81490];
+    v124 = objc_msgSend_documentRoot(*(a1 + 40), v114, v543, v120, v121, v122, v115, v116, v117, v118);
+    if (objc_msgSend_laysOutBodyVertically(v124, v125, v130, v131, v132, v133, v126, v127, v128, v129))
     {
-      v93 = objc_msgSend_documentRoot(*(a1 + 40), v88, v89, v90, v91, v92);
-      v99 = objc_msgSend_settings(v93, v94, v95, v96, v97, v98);
-      hasFacingPages = objc_msgSend_hasFacingPages(v99, v100, v101, v102, v103, v104);
+      v143 = objc_msgSend_documentRoot(*(a1 + 40), v134, v139, v140, v141, v142, v135, v136, v137, v138);
+      v153 = objc_msgSend_settings(v143, v144, v149, v150, v151, v152, v145, v146, v147, v148);
+      hasFacingPages = objc_msgSend_hasFacingPages(v153, v154, v159, v160, v161, v162, v155, v156, v157, v158);
 
-      if ((((v17 & 1) == 0) & hasFacingPages) != 1)
+      if ((((v29 & 1) == 0) & hasFacingPages) != 1)
       {
 LABEL_28:
-        v191 = *(a1 + 32);
-        v192 = *(*(a1 + 40) + 96);
-        v193 = objc_msgSend_hints(v30, v106, v107, v108, v109, v110);
-        v199 = objc_msgSend_anchoredDrawablePositions(v30, v194, v195, v196, v197, v198);
-        objc_msgSend_inflateTarget_fromHints_childHint_anchoredDrawablePositions_footnoteLayoutRange_(v192, v200, v201, v202, v203, v204, v191, v193, v81, v199, v360[6], v360[7]);
+        v295 = *(a1 + 32);
+        v296 = *(*(a1 + 40) + 96);
+        v297 = objc_msgSend_hints(v50, v164, v169, v170, v171, v172, v165, v166, v167, v168);
+        v307 = objc_msgSend_anchoredDrawablePositions(v50, v298, v303, v304, v305, v306, v299, v300, v301, v302);
+        objc_msgSend_inflateTarget_fromHints_childHint_anchoredDrawablePositions_footnoteLayoutRange_(v296, v308, v309, v310, v311, v312, v295, v297, v123, v307, v538[6], v538[7]);
 
-        v210 = objc_msgSend_columns(*(a1 + 32), v205, v206, v207, v208, v209);
-        v216 = objc_msgSend_count(v210, v211, v212, v213, v214, v215) == 0;
+        v322 = objc_msgSend_columns(*(a1 + 32), v313, v318, v319, v320, v321, v314, v315, v316, v317);
+        v332 = objc_msgSend_count(v322, v323, v328, v329, v330, v331, v324, v325, v326, v327) == 0;
 
-        if (v216)
+        if (v332)
         {
-          v222 = MEMORY[0x277D81150];
-          v223 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v217, v218, v219, v220, v221, "[TPPaginatedPageController i_inflateColumnsInBodyLayout:]_block_invoke");
-          v229 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v224, v225, v226, v227, v228, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v222, v230, v231, v232, v233, v234, v223, v229, 5803, 0, "should have created columns unless we're in the process of doing layout");
+          v342 = MEMORY[0x277D81150];
+          v343 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v333, v338, v339, v340, v341, "[TPPaginatedPageController i_inflateColumnsInBodyLayout:]_block_invoke", v335, v336, v337);
+          v352 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v344, v348, v349, v350, v351, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v345, v346, v347);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v342, v353, v354, v355, v356, v357, v343, v352, 5803, 0, "should have created columns unless we're in the process of doing layout");
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v235, v236, v237, v238, v239);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v358, v363, v364, v365, v366, v359, v360, v361, v362);
         }
 
-        v240 = objc_msgSend_lastChildHint(v30, v217, v218, v219, v220, v221);
+        v367 = objc_msgSend_lastChildHint(v50, v333, v338, v339, v340, v341, v334, v335, v336, v337);
 
-        v355 = 0u;
-        v356 = 0u;
-        v353 = 0u;
-        v354 = 0u;
-        v245 = objc_msgSend_columns(*(a1 + 32), v241, 0, v242, v243, v244);
-        v251 = objc_msgSend_reverseObjectEnumerator(v245, v246, v247, v248, v249, v250);
+        v533 = 0u;
+        v534 = 0u;
+        v531 = 0u;
+        v532 = 0u;
+        v376 = objc_msgSend_columns(*(a1 + 32), v368, 0, v373, v374, v375, v369, v370, v371, v372);
+        v386 = objc_msgSend_reverseObjectEnumerator(v376, v377, v382, v383, v384, v385, v378, v379, v380, v381);
 
-        v258 = objc_msgSend_countByEnumeratingWithState_objects_count_(v251, v252, v253, v254, v255, v256, &v353, v366, 16);
-        if (v258)
+        v398 = objc_msgSend_countByEnumeratingWithState_objects_count_(v386, v387, v389, v390, v391, v392, &v531, v544, 16, v388);
+        if (v398)
         {
-          v263 = *v354;
+          v403 = *v532;
           while (2)
           {
-            for (i = 0; i != v258; i = i + 1)
+            for (i = 0; i != v398; i = i + 1)
             {
-              if (*v354 != v263)
+              if (*v532 != v403)
               {
-                objc_enumerationMutation(v251);
+                objc_enumerationMutation(v386);
               }
 
-              v265 = *(*(&v353 + 1) + 8 * i);
-              if (objc_msgSend_lineCount(v265, v257, v259, v260, v261, v262))
+              v405 = *(*(&v531 + 1) + 8 * i);
+              if (objc_msgSend_lineCount(v405, v393, v399, v400, v401, v402, v394, v395, v396, v397))
               {
-                hasPartitionedAttachmentContinuationAt = objc_msgSend_hasPartitionedAttachmentContinuationAt_(v265, v257, v259, v260, v261, v262, 1);
+                hasPartitionedAttachmentContinuationAt = objc_msgSend_hasPartitionedAttachmentContinuationAt_(v405, v393, v399, v400, v401, v402, 1, v395, v396, v397);
                 if (hasPartitionedAttachmentContinuationAt)
                 {
-                  v272 = objc_msgSend_lineCount(v265, v267, v268, v269, v270, v271);
-                  v258 = objc_msgSend_partitionedLayoutOfLineFragmentAtIndex_(v265, v273, v274, v275, v276, v277, v272 - 1);
+                  v416 = objc_msgSend_lineCount(v405, v407, v412, v413, v414, v415, v408, v409, v410, v411);
+                  v398 = objc_msgSend_partitionedLayoutOfLineFragmentAtIndex_(v405, v417, v421, v422, v423, v424, v416 - 1, v418, v419, v420);
                 }
 
                 else
                 {
-                  v258 = 0;
+                  v398 = 0;
                 }
 
                 goto LABEL_42;
               }
             }
 
-            v258 = objc_msgSend_countByEnumeratingWithState_objects_count_(v251, v257, v259, v260, v261, v262, &v353, v366, 16);
-            if (v258)
+            v398 = objc_msgSend_countByEnumeratingWithState_objects_count_(v386, v393, v399, v400, v401, v402, &v531, v544, 16, v397);
+            if (v398)
             {
               continue;
             }
@@ -8280,51 +6915,51 @@ LABEL_28:
         hasPartitionedAttachmentContinuationAt = 0;
 LABEL_42:
 
-        if (hasPartitionedAttachmentContinuationAt != (v240 != 0))
+        if (hasPartitionedAttachmentContinuationAt != (v367 != 0))
         {
-          v283 = MEMORY[0x277D81150];
-          v284 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v278, v279, v280, v281, v282, "[TPPaginatedPageController i_inflateColumnsInBodyLayout:]_block_invoke");
-          v290 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v285, v286, v287, v288, v289, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-          v296 = objc_msgSend_lastChildHint(v30, v291, v292, v293, v294, v295);
-          v297 = objc_opt_class();
-          v298 = objc_opt_class();
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v283, v299, v300, v301, v302, v303, v284, v290, 5817, 0, "page hint doesn't match layout for partition at end (%lu). %{public}@ vs %{public}@", v17, v297, v298);
+          v433 = MEMORY[0x277D81150];
+          v434 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v425, v429, v430, v431, v432, "[TPPaginatedPageController i_inflateColumnsInBodyLayout:]_block_invoke", v426, v427, v428);
+          v443 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v435, v439, v440, v441, v442, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v436, v437, v438);
+          v453 = objc_msgSend_lastChildHint(v50, v444, v449, v450, v451, v452, v445, v446, v447, v448);
+          v454 = objc_opt_class();
+          v455 = objc_opt_class();
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v433, v456, v457, v458, v459, v460, v434, v443, 5817, 0, "page hint doesn't match layout for partition at end (%lu). %{public}@ vs %{public}@", v29, v454, v455);
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v304, v305, v306, v307, v308);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v461, v466, v467, v468, v469, v462, v463, v464, v465);
         }
 
-        _Block_object_dispose(&v359, 8);
+        _Block_object_dispose(&v537, 8);
         goto LABEL_45;
       }
 
-      v82 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 40), v106, v107, v108, v109, v110, v17 - 1, 0, 1);
-      if (v82)
+      v124 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 40), v164, v169, v170, v171, v172, v29 - 1, 0, 1, v168);
+      if (v124)
       {
-        v116 = objc_msgSend_p_pageHintForPageIndexPath_(*(a1 + 40), v111, v112, v113, v114, v115, v82);
-        v122 = v116;
-        if (v116 && (objc_msgSend_terminatedByBreak(v116, v117, v118, v119, v120, v121) & 1) == 0)
+        v181 = objc_msgSend_p_pageHintForPageIndexPath_(*(a1 + 40), v173, v177, v178, v179, v180, v124, v174, v175, v176);
+        v191 = v181;
+        if (v181 && (objc_msgSend_terminatedByBreak(v181, v182, v187, v188, v189, v190, v183, v184, v185, v186) & 1) == 0)
         {
-          v358 = 0;
-          v128 = objc_msgSend_rangeAndChildHints_(v122, v123, v124, v125, v126, v127, &v358);
-          v350 = v129;
-          v130 = v128;
-          v131 = v358;
-          v137 = objc_msgSend_documentRoot(*(a1 + 40), v132, v133, v134, v135, v136);
-          v143 = objc_msgSend_bodyStorage(v137, v138, v139, v140, v141, v142);
+          v536 = 0;
+          v200 = objc_msgSend_rangeAndChildHints_(v191, v192, v196, v197, v198, v199, &v536, v193, v194, v195);
+          v528 = v201;
+          v202 = v200;
+          v203 = v536;
+          v213 = objc_msgSend_documentRoot(*(a1 + 40), v204, v209, v210, v211, v212, v205, v206, v207, v208);
+          v223 = objc_msgSend_bodyStorage(v213, v214, v219, v220, v221, v222, v215, v216, v217, v218);
 
-          v357[0] = MEMORY[0x277D85DD0];
-          v144.n128_u64[0] = 3221225472;
-          v357[1] = 3221225472;
-          v357[2] = sub_276029E54;
-          v357[3] = &unk_27A6A9560;
-          v357[4] = &v359;
-          objc_msgSend_enumerateFootnoteAttachmentsInTextRange_usingBlock_(v143, v145, v144, v146, v147, v148, v130, v350, v357);
+          v535[0] = MEMORY[0x277D85DD0];
+          v224.n128_u64[0] = 3221225472;
+          v535[1] = 3221225472;
+          v535[2] = sub_276029E54;
+          v535[3] = &unk_27A6A9560;
+          v535[4] = &v537;
+          objc_msgSend_enumerateFootnoteAttachmentsInTextRange_usingBlock_(v223, v225, v224, v227, v228, v229, v202, v528, v535, v226);
         }
       }
 
       else
       {
-        v122 = 0;
+        v191 = 0;
       }
     }
 
@@ -8332,10 +6967,11 @@ LABEL_42:
   }
 }
 
-void sub_276029C54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_276029C54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  _Block_object_dispose(&a29, 8);
+  va_start(va, a28);
 
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -8368,198 +7004,198 @@ NSUInteger sub_276029E54(uint64_t a1, uint64_t a2, NSRange a3)
   return v5.location;
 }
 
-void sub_276029F7C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_276029F7C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  if ((objc_msgSend_isPaginating(*(a1 + 32), a2, a3, a4, a5, a6) & 1) == 0)
+  if ((objc_msgSend_isPaginating(*(a1 + 32), a2, a7, a8, a9, a10, a3, a4, a5, a6) & 1) == 0)
   {
-    v12 = *(a1 + 32);
-    v13 = objc_msgSend_pageIndex(*(a1 + 40), v7, v8, v9, v10, v11);
-    v19 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(v12, v14, v15, v16, v17, v18, v13, 0, 0);
-    if (v19)
+    v20 = *(a1 + 32);
+    v21 = objc_msgSend_pageIndex(*(a1 + 40), v11, v16, v17, v18, v19, v12, v13, v14, v15);
+    v28 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(v20, v22, v24, v25, v26, v27, v21, 0, 0, v23);
+    if (v28)
     {
-      v60 = v19;
-      v24 = objc_msgSend_p_pageHintForPageIndexPath_(*(a1 + 32), v19, v20, v21, v22, v23, v19);
-      if (objc_msgSend_pageKind(v24, v25, v26, v27, v28, v29) != 1 && objc_msgSend_pageKind(v24, v30, v31, v32, v33, v34) != 6 && objc_msgSend_pageKind(v24, v30, v31, v32, v33, v34) != 4 && objc_msgSend_pageKind(v24, v30, v31, v32, v33, v34) != 3)
+      v88 = v28;
+      v36 = objc_msgSend_p_pageHintForPageIndexPath_(*(a1 + 32), v28, v32, v33, v34, v35, v28, v29, v30, v31);
+      if (objc_msgSend_pageKind(v36, v37, v42, v43, v44, v45, v38, v39, v40, v41) != 1 && objc_msgSend_pageKind(v36, v46, v51, v52, v53, v54, v47, v48, v49, v50) != 6 && objc_msgSend_pageKind(v36, v46, v51, v52, v53, v54, v47, v48, v49, v50) != 4 && objc_msgSend_pageKind(v36, v46, v51, v52, v53, v54, v47, v48, v49, v50) != 3)
       {
-        v35 = MEMORY[0x277D81150];
-        v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, v31, v32, v33, v34, "[TPPaginatedPageController i_inflateFootnotesInFootnoteContainer:]_block_invoke");
-        v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, v38, v39, v40, v41, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v35, v43, v44, v45, v46, v47, v36, v42, 5831, 0, "Can't inflate footnotes on this kind of page");
+        v55 = MEMORY[0x277D81150];
+        v56 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v46, v51, v52, v53, v54, "[TPPaginatedPageController i_inflateFootnotesInFootnoteContainer:]_block_invoke", v48, v49, v50);
+        v65 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v57, v61, v62, v63, v64, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v58, v59, v60);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v55, v66, v67, v68, v69, v70, v56, v65, 5831, 0, "Can't inflate footnotes on this kind of page");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v48, v49, v50, v51, v52);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v71, v76, v77, v78, v79, v72, v73, v74, v75);
       }
 
-      v53 = *(*(a1 + 32) + 112);
-      v54 = objc_msgSend_footnoteLayoutRange(v24, v30, v31, v32, v33, v34);
-      objc_msgSend_inflateFootnotesInRange_intoFootnoteContainer_(v53, v55, v56, v57, v58, v59, v54, v55, *(a1 + 40));
+      v80 = *(*(a1 + 32) + 112);
+      v81 = objc_msgSend_footnoteLayoutRange(v36, v46, v51, v52, v53, v54, v47, v48, v49, v50);
+      objc_msgSend_inflateFootnotesInRange_intoFootnoteContainer_(v80, v82, v84, v85, v86, v87, v81, v82, *(a1 + 40), v83);
 
-      v19 = v60;
+      v28 = v88;
     }
   }
 }
 
-void sub_27602A1E8(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_27602A1E8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  if ((objc_msgSend_isPaginating(*(a1 + 32), a2, a3, a4, a5, a6) & 1) == 0)
+  if ((objc_msgSend_isPaginating(*(a1 + 32), a2, a7, a8, a9, a10, a3, a4, a5, a6) & 1) == 0)
   {
-    v12 = objc_msgSend_pageIndex(*(a1 + 40), v7, v8, v9, v10, v11);
-    if (v12 == 0x7FFFFFFFFFFFFFFFLL)
+    v20 = objc_msgSend_pageIndex(*(a1 + 40), v11, v16, v17, v18, v19, v12, v13, v14, v15);
+    if (v20 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v18 = MEMORY[0x277D81150];
-      v70 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v14, v15, v16, v17, "[TPPaginatedPageController i_inflateTextFlowsOnPage:]_block_invoke");
-      v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, v20, v21, v22, v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v25, v26, v27, v28, v29, v70, v24, 5843, 0, "Invalid page index for %@", *(a1 + 40));
+      v29 = MEMORY[0x277D81150];
+      v106 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, v25, v26, v27, v28, "[TPPaginatedPageController i_inflateTextFlowsOnPage:]_block_invoke", v22, v23, v24);
+      v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, v34, v35, v36, v37, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v31, v32, v33);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v29, v39, v40, v41, v42, v43, v106, v38, 5843, 0, "Invalid page index for %@", *(a1 + 40));
 
-      v35 = MEMORY[0x277D81150];
+      v53 = MEMORY[0x277D81150];
 
-      objc_msgSend_logBacktraceThrottled(v35, v30, v31, v32, v33, v34);
+      objc_msgSend_logBacktraceThrottled(v53, v44, v49, v50, v51, v52, v45, v46, v47, v48);
     }
 
     else
     {
-      v71 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v13, v14, v15, v16, v17, v12, 0, 0);
-      v41 = objc_msgSend_p_pageHintForPageIndexPath_(*(a1 + 32), v36, v37, v38, v39, v40);
-      if (objc_msgSend_pageKind(v41, v42, v43, v44, v45, v46) == 5 || !objc_msgSend_pageKind(v41, v47, v48, v49, v50, v51))
+      v107 = objc_msgSend_i_pageIndexPathForPageIndex_forcePagination_allowAfterPaginationPoint_(*(a1 + 32), v21, v25, v26, v27, v28, v20, 0, 0, v24);
+      v62 = objc_msgSend_p_pageHintForPageIndexPath_(*(a1 + 32), v54, v58, v59, v60, v61, v107, v55, v56, v57);
+      if (objc_msgSend_pageKind(v62, v63, v68, v69, v70, v71, v64, v65, v66, v67) == 5 || !objc_msgSend_pageKind(v62, v72, v77, v78, v79, v80, v73, v74, v75, v76))
       {
-        v52 = MEMORY[0x277D81150];
-        v53 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, v48, v49, v50, v51, "[TPPaginatedPageController i_inflateTextFlowsOnPage:]_block_invoke");
-        v59 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v54, v55, v56, v57, v58, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v52, v60, v61, v62, v63, v64, v53, v59, 5847, 0, "Can't inflate footnotes on this kind of page");
+        v81 = MEMORY[0x277D81150];
+        v82 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v72, v77, v78, v79, v80, "[TPPaginatedPageController i_inflateTextFlowsOnPage:]_block_invoke", v74, v75, v76);
+        v91 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v83, v87, v88, v89, v90, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v84, v85, v86);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v81, v92, v93, v94, v95, v96, v82, v91, 5847, 0, "Can't inflate footnotes on this kind of page");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v65, v66, v67, v68, v69);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v97, v102, v103, v104, v105, v98, v99, v100, v101);
       }
 
-      objc_msgSend_layOutFlowsIfNeededOnPage_(*(*(a1 + 32) + 192), v47, v48, v49, v50, v51, *(a1 + 40));
+      objc_msgSend_layOutFlowsIfNeededOnPage_(*(*(a1 + 32) + 192), v72, v77, v78, v79, v80, *(a1 + 40), v74, v75, v76);
     }
   }
 }
 
-void sub_27602A500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_27602A500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_27602A520(uint64_t result, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+id *sub_27602A520(id *result, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  if (**(result + 48))
+  if (*result[6])
   {
-    v6 = result;
-    v7 = objc_msgSend_sectionHints(*(*(result + 32) + 80), a2, a3, a4, a5, a6);
-    sub_275FFD28C(v60, v7, **(v6 + 48) - 1);
+    v10 = result;
+    v11 = objc_msgSend_sectionHints(*(result[4] + 10), a2, a7, a8, a9, a10, a3, a4, a5, a6);
+    sub_275FFD28C(v99, v11, *v10[6] - 1);
 
     while (1)
     {
-      v13 = sub_275FFD320(v60, v8, v9, v10, v11, v12);
+      v21 = sub_275FFD320(v99, v12, v13, v14, v15, v16, v17, v18, v19, v20);
 
-      if (!v13)
+      if (!v21)
       {
         break;
       }
 
-      if (sub_275FFD3B8(v60, v14, v15, v16, v17, v18) == 1)
+      if (sub_275FFD3B8(v99, v22, v23, v24, v25, v26, v27, v28, v29, v30) == 1)
       {
-        v24 = sub_275FFD320(v60, v19, v20, v21, v22, v23);
-        v30 = objc_msgSend_hints(v24, v25, v26, v27, v28, v29);
+        v40 = sub_275FFD320(v99, v31, v32, v33, v34, v35, v36, v37, v38, v39);
+        v50 = objc_msgSend_hints(v40, v41, v46, v47, v48, v49, v42, v43, v44, v45);
 
-        if (objc_msgSend_count(v30, v31, v32, v33, v34, v35))
+        if (objc_msgSend_count(v50, v51, v56, v57, v58, v59, v52, v53, v54, v55))
         {
-          v41 = objc_msgSend_objectAtIndexedSubscript_(v30, v36, v37, v38, v39, v40, 0);
-          if (objc_msgSend_lineFragmentCount(v41, v42, v43, v44, v45, v46))
+          v68 = objc_msgSend_objectAtIndexedSubscript_(v50, v60, v64, v65, v66, v67, 0, v61, v62, v63);
+          if (objc_msgSend_lineFragmentCount(v68, v69, v74, v75, v76, v77, v70, v71, v72, v73))
           {
-            v57 = sub_275FFD320(v60, v47, v48, v49, v50, v51);
-            v58 = *(*(v6 + 40) + 8);
-            v59 = *(v58 + 40);
-            *(v58 + 40) = v57;
+            v96 = sub_275FFD320(v99, v78, v79, v80, v81, v82, v83, v84, v85, v86);
+            v97 = *(v10[5] + 1);
+            v98 = *(v97 + 40);
+            *(v97 + 40) = v96;
 
-            **(v6 + 48) = sub_275FFD698(v60);
-            return sub_275FFD2D0(v60);
+            *v10[6] = sub_275FFD698(v99);
+            return sub_275FFD2D0(v99);
           }
         }
       }
 
-      else if (sub_275FFD3B8(v60, v19, v20, v21, v22, v23) == 5)
+      else if (sub_275FFD3B8(v99, v31, v32, v33, v34, v35, v36, v37, v38, v39) == 5)
       {
-        return sub_275FFD2D0(v60);
+        return sub_275FFD2D0(v99);
       }
 
-      sub_275FFCD14(v60, v52, v53, v54, v55, v56);
+      sub_275FFCD14(v99, v87, v88, v89, v90, v91, v92, v93, v94, v95);
     }
 
-    return sub_275FFD2D0(v60);
+    return sub_275FFD2D0(v99);
   }
 
   return result;
 }
 
-void sub_27602A66C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_27602A66C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   sub_275FFD2D0(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_27602A81C(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+uint64_t sub_27602A81C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  result = objc_msgSend_isPaginating(*(a1 + 32), a2, a3, a4, a5, a6);
+  result = objc_msgSend_isPaginating(*(a1 + 32), a2, a7, a8, a9, a10, a3, a4, a5, a6);
   if ((result & 1) == 0)
   {
-    v12 = *(*(a1 + 32) + 192);
+    v16 = *(*(a1 + 32) + 192);
 
-    return MEMORY[0x2821F9670](v12, sel_invalidateFlows_startingPage_, v8, v9, v10, v11);
+    return MEMORY[0x2821F9670](v16, sel_invalidateFlows_startingPage_, v12, v13, v14, v15);
   }
 
   return result;
 }
 
-uint64_t sub_27602AC48(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void *sub_27602AC48(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  if (objc_msgSend_isPaginating(*(a1 + 32), a2, a3, a4, a5, a6))
+  if (objc_msgSend_isPaginating(*(a1 + 32), a2, a7, a8, a9, a10, a3, a4, a5, a6))
   {
-    v12 = *(a1 + 40);
-    result = objc_msgSend_documentPageIndex(*(*(a1 + 32) + 80), v7, v8, v9, v10, v11);
-    if (v12 != result)
+    v20 = *(a1 + 40);
+    result = objc_msgSend_documentPageIndex(*(*(a1 + 32) + 80), v11, v16, v17, v18, v19, v12, v13, v14, v15);
+    if (v20 != result)
     {
-      v25 = MEMORY[0x277D81150];
-      v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v15, v16, v17, v18, "[TPPaginatedPageController i_setNeedsDynamicLayoutForLayoutController:onPageIndex:]_block_invoke");
-      v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, v28, v29, v30, v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v33, v34, v35, v36, v37, v26, v32, 5930, 0, "pages shouldn't need dynamic layout while another page is being laid out");
+      v40 = MEMORY[0x277D81150];
+      v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, v26, v27, v28, v29, "[TPPaginatedPageController i_setNeedsDynamicLayoutForLayoutController:onPageIndex:]_block_invoke", v23, v24, v25);
+      v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, v46, v47, v48, v49, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPaginatedPageController.mm", v43, v44, v45);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v40, v51, v52, v53, v54, v55, v41, v50, 5930, 0, "pages shouldn't need dynamic layout while another page is being laid out");
 
-      v43 = MEMORY[0x277D81150];
+      v65 = MEMORY[0x277D81150];
 
-      return objc_msgSend_logBacktraceThrottled(v43, v38, v39, v40, v41, v42);
+      return objc_msgSend_logBacktraceThrottled(v65, v56, v61, v62, v63, v64, v57, v58, v59, v60);
     }
   }
 
   else
   {
-    objc_msgSend_p_invalidatePageIndex_(*(a1 + 32), v7, v8, v9, v10, v11, *(a1 + 40));
-    v24 = *(a1 + 32);
+    objc_msgSend_p_invalidatePageIndex_(*(a1 + 32), v11, v16, v17, v18, v19, *(a1 + 40), v13, v14, v15);
+    v39 = *(a1 + 32);
 
-    return objc_msgSend_p_interruptBackgroundPagination(v24, v19, v20, v21, v22, v23);
+    return objc_msgSend_p_interruptBackgroundPagination(v39, v30, v35, v36, v37, v38, v31, v32, v33, v34);
   }
 
   return result;
 }
 
-void sub_27602AFDC(uint64_t a1, const char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+void sub_27602AFDC(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  objc_msgSend_restartPaginationFromFirstPage(*(*(a1 + 32) + 80), a2, a3, a4, a5, a6);
-  objc_msgSend_p_performPaginationResetAndMetricsReset_(*(a1 + 32), v7, v8, v9, v10, v11, *(a1 + 40));
-  objc_msgSend_p_destroyBodyLayoutState(*(a1 + 32), v12, v13, v14, v15, v16);
-  v17.n128_f64[0] = CFAbsoluteTimeGetCurrent();
-  v18 = v17.n128_f64[0];
-  objc_msgSend_paginateThroughPageIndex_(*(a1 + 32), v19, v17, v20, v21, v22, -1);
-  v23.n128_f64[0] = CFAbsoluteTimeGetCurrent();
-  v24 = v23.n128_f64[0] - v18;
-  v29 = objc_msgSend_documentPageIndex(*(*(a1 + 32) + 80), v25, v23, v26, v27, v28);
-  v30 = *MEMORY[0x277D85DF8];
-  v31.n128_f64[0] = v29 / v24;
-  v42 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v32, v31, v33, v34, v35, @"Layout of %lu pages took %g seconds (%g pages / sec)", v29, *&v24, v31.n128_u64[0]);
-  v41 = objc_msgSend_UTF8String(v42, v36, v37, v38, v39, v40);
-  fprintf(v30, "%s\n", v41);
+  objc_msgSend_restartPaginationFromFirstPage(*(*(a1 + 32) + 80), a2, a7, a8, a9, a10, a3, a4, a5, a6);
+  objc_msgSend_p_performPaginationResetAndMetricsReset_(*(a1 + 32), v11, v15, v16, v17, v18, *(a1 + 40), v12, v13, v14);
+  objc_msgSend_p_destroyBodyLayoutState(*(a1 + 32), v19, v24, v25, v26, v27, v20, v21, v22, v23);
+  v28.n128_f64[0] = CFAbsoluteTimeGetCurrent();
+  v29 = v28.n128_f64[0];
+  objc_msgSend_paginateThroughPageIndex_(*(a1 + 32), v30, v28, v34, v35, v36, -1, v31, v32, v33);
+  v37.n128_f64[0] = CFAbsoluteTimeGetCurrent();
+  v38 = v37.n128_f64[0] - v29;
+  v47 = objc_msgSend_documentPageIndex(*(*(a1 + 32) + 80), v39, v37, v44, v45, v46, v40, v41, v42, v43);
+  v48 = *MEMORY[0x277D85DF8];
+  v49.n128_f64[0] = v47 / v38;
+  v67 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v50, v49, v54, v55, v56, @"Layout of %lu pages took %g seconds (%g pages / sec)", v51, v52, v53, v47, *&v38, v49.n128_u64[0]);
+  v66 = objc_msgSend_UTF8String(v67, v57, v62, v63, v64, v65, v58, v59, v60, v61);
+  fprintf(v48, "%s\n", v66);
 }
 
 id variable initialization expression of TPPaginationState._pageIndexPath()
@@ -8594,7 +7230,7 @@ uint64_t variable initialization expression of TPPageLayoutCache.accessQueue()
   sub_2760384D4();
   v5[1] = MEMORY[0x277D84F90];
   sub_27602B470();
-  sub_27602B4C8(&qword_280A40108);
+  sub_27602B4C8(&qword_280A40108, &unk_27605FD70);
   sub_27602B510();
   sub_276038614();
   (*(v1 + 104))(v3, *MEMORY[0x277D85260], v0);
@@ -8627,7 +7263,7 @@ unint64_t sub_27602B470()
   return result;
 }
 
-uint64_t sub_27602B4C8(uint64_t *a1)
+uint64_t sub_27602B4C8(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -8644,7 +7280,7 @@ unint64_t sub_27602B510()
   result = qword_280A40110;
   if (!qword_280A40110)
   {
-    sub_27602B574(&qword_280A40108);
+    sub_27602B574(&qword_280A40108, &unk_27605FD70);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_280A40110);
   }
@@ -8652,7 +7288,7 @@ unint64_t sub_27602B510()
   return result;
 }
 
-uint64_t sub_27602B574(uint64_t *a1)
+uint64_t sub_27602B574(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -8710,7 +7346,7 @@ void static OS_os_log.logPaginationCat.setter(uint64_t a1)
   static OS_os_log.logPaginationCat = a1;
 }
 
-uint64_t (*static OS_os_log.logPaginationCat.modify())()
+uint64_t (*static OS_os_log.logPaginationCat.modify(uint64_t a1))(uint64_t a1)
 {
   if (qword_280A400F0 != -1)
   {
@@ -8767,11 +7403,11 @@ id TPPaginationState.pageIndexPath.getter()
   return v2;
 }
 
-uint64_t TPPaginationState.pageIndexPath.setter()
+uint64_t TPPaginationState.pageIndexPath.setter(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
   swift_getKeyPath();
-  v1 = v0;
+  v3 = v2;
   return sub_2760384C4();
 }
 
@@ -8896,11 +7532,11 @@ uint64_t TPPaginationState.bodyLayoutState.getter()
   return *(v0 + v1);
 }
 
-uint64_t TPPaginationState.bodyLayoutState.setter()
+uint64_t TPPaginationState.bodyLayoutState.setter(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
   swift_getKeyPath();
-  v1 = v0;
+  v3 = v2;
   return sub_2760384C4();
 }
 
@@ -8913,7 +7549,7 @@ uint64_t sub_27602C26C@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t sub_27602C2C4(uint64_t a1, void **a2)
+uint64_t sub_27602C2C4(uint64_t *a1, void **a2)
 {
   v2 = *a2;
   swift_getKeyPath();
@@ -8982,28 +7618,28 @@ uint64_t TPPaginationState.footnoteIndex.getter()
   return *(v0 + v1);
 }
 
-uint64_t sub_27602C63C(void *a1)
+uint64_t sub_27602C63C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   swift_getKeyPath();
   swift_getKeyPath();
-  v2 = a1;
+  v6 = a1;
   return sub_2760384C4();
 }
 
-uint64_t sub_27602C6C4()
+uint64_t sub_27602C6C4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   swift_getKeyPath();
   swift_getKeyPath();
-  v1 = v0;
+  v4 = v3;
   return sub_2760384C4();
 }
 
-uint64_t sub_27602C740(uint64_t a1, void **a2)
+uint64_t sub_27602C740(uint64_t *a1, void **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v2 = *a2;
+  v6 = *a2;
   swift_getKeyPath();
   swift_getKeyPath();
-  v3 = v2;
+  v7 = v6;
   return sub_2760384C4();
 }
 
@@ -9030,7 +7666,7 @@ uint64_t (*TPPaginationState.footnoteIndex.modify(uint64_t *a1))()
   return sub_27602FDD8;
 }
 
-void sub_27602C890(uint64_t a1)
+void sub_27602C890(uint64_t *a1)
 {
   v1 = *a1;
   v2 = *(*a1 + 40);
@@ -9041,11 +7677,11 @@ void sub_27602C890(uint64_t a1)
   free(v1);
 }
 
-uint64_t TPPaginationState.sectionHints.setter()
+uint64_t TPPaginationState.sectionHints.setter(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
   swift_getKeyPath();
-  v1 = v0;
+  v3 = v2;
   return sub_2760384C4();
 }
 
@@ -9057,7 +7693,7 @@ uint64_t sub_27602CAF4@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   *a2 = *(v3 + v4);
 }
 
-uint64_t sub_27602CB50(uint64_t a1, void **a2)
+uint64_t sub_27602CB50(uint64_t *a1, void **a2)
 {
   v2 = *a2;
   swift_getKeyPath();
@@ -9188,4 +7824,1611 @@ void sub_27602D080(uint64_t a1, uint64_t a2, SEL *a3)
   [*(*(*a1 + 32) + *(*a1 + 40)) *a3];
 
   free(v3);
+}
+
+uint64_t TPPaginationState.pageHintCount.getter()
+{
+  v1 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__sectionHints;
+  result = swift_beginAccess();
+  v3 = *(v0 + v1);
+  if (v3 >> 62)
+  {
+    goto LABEL_12;
+  }
+
+  v4 = *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  if (v4)
+  {
+    while (v4 >= 1)
+    {
+
+      v5 = 0;
+      v6 = 0;
+      while (1)
+      {
+        v7 = (v3 & 0xC000000000000001) != 0 ? MEMORY[0x277C92160](v6, v3) : *(v3 + 8 * v6 + 32);
+        v8 = v7;
+        v9 = [v7 pageCount];
+
+        v10 = __CFADD__(v5, v9);
+        v5 += v9;
+        if (v10)
+        {
+          break;
+        }
+
+        if (v4 == ++v6)
+        {
+
+          return v5;
+        }
+      }
+
+      __break(1u);
+LABEL_12:
+      result = sub_276038654();
+      v4 = result;
+      if (!result)
+      {
+        return 0;
+      }
+    }
+
+    __break(1u);
+  }
+
+  else
+  {
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t TPPaginationState.lastLaidOutDocumentPageIndex.getter()
+{
+  v1 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__documentPageIndex;
+  swift_beginAccess();
+  v2 = *(v0 + v1);
+  if (v2)
+  {
+    return v2 - 1;
+  }
+
+  result = sub_2760384B4();
+  if (result < 0)
+  {
+    __break(1u);
+  }
+
+  return result;
+}
+
+id TPPaginationState.section.getter()
+{
+  v1 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__pageIndexPath;
+  swift_beginAccess();
+  v2 = [*(v0 + v1) sectionIndex];
+  v3 = *(v0 + OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState_bodyStorage);
+  if (v2 >= [v3 sectionCount])
+  {
+    return 0;
+  }
+
+  result = [v3 sectionAtSectionIndex:v2 effectiveRange:0];
+  if (result)
+  {
+    v5 = result;
+    objc_opt_self();
+    result = swift_dynamicCastObjCClass();
+    if (!result)
+    {
+
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+unint64_t TPPaginationState.sectionHint.getter()
+{
+  v1 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__pageIndexPath;
+  swift_beginAccess();
+  v2 = [*(v0 + v1) sectionIndex];
+  v3 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__sectionHints;
+  swift_beginAccess();
+  v4 = *(v0 + v3);
+  if (v4 >> 62)
+  {
+    result = sub_276038654();
+  }
+
+  else
+  {
+    result = *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  }
+
+  if (result < 1 || v2 >= result)
+  {
+    return 0;
+  }
+
+  v7 = *(v0 + v3);
+  if ((v7 & 0xC000000000000001) != 0)
+  {
+
+    v8 = MEMORY[0x277C92160](v2, v7);
+
+    return v8;
+  }
+
+  else if (v2 >= *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    return *(v7 + 8 * v2 + 32);
+  }
+
+  return result;
+}
+
+NSUInteger TPPaginationState.sectionCharRange.getter()
+{
+  v1 = *(v0 + OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState_bodyStorage);
+  v2 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__pageIndexPath;
+  swift_beginAccess();
+  return sub_275FF8CB8(v1, *(v0 + v2));
+}
+
+BOOL TPPaginationState.onLastSection.getter()
+{
+  v1 = *(v0 + OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState_bodyStorage);
+  v2 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__pageIndexPath;
+  swift_beginAccess();
+  return sub_275FF8E30(v1, *(v0 + v2));
+}
+
+BOOL TPPaginationState.isPaginationComplete.getter()
+{
+  v1 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__pageIndexPath;
+  swift_beginAccess();
+  v2 = [*(v0 + v1) sectionIndex];
+  return sub_275FF8F7C(*(v0 + OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState_bodyStorage)) < v2;
+}
+
+uint64_t TPPaginationState.description.getter()
+{
+  v1 = v0;
+  v2 = [objc_allocWithZone(MEMORY[0x277D811A8]) initWithObject_];
+  v3 = sub_276038504();
+  v4 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__pageIndexPath;
+  swift_beginAccess();
+  [*(v0 + v4) sectionIndex];
+  sub_2760387A4();
+  v5 = sub_276038504();
+
+  [v2 addField:v3 value:v5];
+
+  v6 = sub_276038504();
+  [*(v0 + v4) pageIndex];
+  sub_2760387A4();
+  v7 = sub_276038504();
+
+  [v2 addField:v6 value:v7];
+
+  v8 = sub_276038504();
+  v9 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__documentPageIndex;
+  swift_beginAccess();
+  v18 = *(v1 + v9);
+  sub_2760387A4();
+  v10 = sub_276038504();
+
+  [v2 addField:v8 value:v10];
+
+  v11 = sub_276038504();
+  v12 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__bodyCharIndex;
+  swift_beginAccess();
+  v17 = *(v1 + v12);
+  sub_2760387A4();
+  v13 = sub_276038504();
+
+  [v2 addField:v11 value:{v13, v17, v18}];
+
+  v14 = [v2 descriptionString];
+  v15 = sub_276038514();
+
+  return v15;
+}
+
+uint64_t sub_27602DAD0(void *a1)
+{
+  v1[OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState_isInvalid] = 0;
+  v3 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__pageIndexPath;
+  *&v1[v3] = [objc_allocWithZone(TPPageIndexPath) initWithSectionIndex:0 pageIndex:0];
+  *&v1[OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__documentPageIndex] = 0;
+  v4 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__lastLaidOutSectionIndex;
+  result = sub_2760384B4();
+  if (result < 0)
+  {
+    __break(1u);
+    goto LABEL_6;
+  }
+
+  *&v1[v4] = result;
+  *&v1[OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__bodyLayoutState] = 0;
+  v6 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__bodyCharIndex;
+  result = sub_2760384B4();
+  if (result < 0)
+  {
+LABEL_6:
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  *&v1[v6] = result;
+  v7 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__footnoteIndex;
+  result = sub_2760384B4();
+  if ((result & 0x8000000000000000) == 0)
+  {
+    *&v1[v7] = result;
+    *&v1[OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__sectionHints] = MEMORY[0x277D84F90];
+    *&v1[OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState_bodyStorage] = a1;
+    v18.receiver = v1;
+    v18.super_class = type metadata accessor for TPPaginationState();
+    v8 = a1;
+    v9 = objc_msgSendSuper2(&v18, sel_init);
+    v10 = objc_allocWithZone(TPSectionHint);
+    v11 = v9;
+    v12 = [v10 init];
+    v13 = [objc_allocWithZone(TPPageHint) init];
+    [v13 setPageKind_];
+    sub_27602B4C8(&qword_280A40168, &unk_276060058);
+    v14 = swift_allocObject();
+    *(v14 + 16) = xmmword_27605FD80;
+    *(v14 + 56) = sub_27602FD90(0, &qword_280A40170, off_27A6A7750);
+    *(v14 + 32) = v13;
+    v15 = v13;
+    v16 = sub_276038544();
+
+    [v12 setPageHints_];
+
+    v19.super.isa = v12;
+    TPPaginationState.addSectionHint(_:)(v19);
+
+    v17 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState_isInvalid;
+    swift_beginAccess();
+    v11[v17] = 0;
+
+    return v11;
+  }
+
+LABEL_7:
+  __break(1u);
+  return result;
+}
+
+id TPPaginationState.copy(with:)@<X0>(char **a1@<X8>)
+{
+  v2 = v1;
+  v4 = *(v1 + OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState_bodyStorage);
+  v5 = type metadata accessor for TPPaginationState();
+  v6 = objc_allocWithZone(v5);
+  v7 = sub_27602DAD0(v4);
+  v8 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__pageIndexPath;
+  swift_beginAccess();
+  v9 = *(v2 + v8);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v10 = v9;
+  v11 = v7;
+  sub_2760384C4();
+  swift_beginAccess();
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v12 = v11;
+  sub_2760384C4();
+  swift_beginAccess();
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v13 = v12;
+  sub_2760384C4();
+  swift_beginAccess();
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v14 = v13;
+  sub_2760384C4();
+  swift_beginAccess();
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v15 = v14;
+  sub_2760384C4();
+  swift_beginAccess();
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v16 = v15;
+  sub_2760384C4();
+  v17 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__sectionHints;
+  swift_beginAccess();
+  v18 = *(v2 + v17);
+  if (v18 >> 62)
+  {
+    goto LABEL_17;
+  }
+
+  for (i = *((v18 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = sub_276038654())
+  {
+    if (!i)
+    {
+LABEL_14:
+      swift_getKeyPath();
+      swift_getKeyPath();
+      v24 = v16;
+      sub_2760384C4();
+      v25 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState_isInvalid;
+      result = swift_beginAccess();
+      v24[v25] = 0;
+      a1[3] = v5;
+      *a1 = v24;
+      return result;
+    }
+
+    v29 = MEMORY[0x277D84F90];
+
+    result = sub_276038724();
+    if (i < 0)
+    {
+      break;
+    }
+
+    v26 = v16;
+    v27 = v5;
+    v28 = a1;
+    v21 = 0;
+    a1 = &selRef_bezierPathByFlatteningPath;
+    while (1)
+    {
+      v16 = (v21 + 1);
+      if (__OFADD__(v21, 1))
+      {
+        break;
+      }
+
+      if ((v18 & 0xC000000000000001) != 0)
+      {
+        v22 = MEMORY[0x277C92160](v21, v18);
+      }
+
+      else
+      {
+        if (v21 >= *((v18 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        {
+          goto LABEL_16;
+        }
+
+        v22 = *(v18 + 8 * v21 + 32);
+      }
+
+      v23 = v22;
+      result = [v22 copyForArchiving];
+      if (!result)
+      {
+        goto LABEL_19;
+      }
+
+      sub_276038704();
+      v5 = *(v29 + 16);
+      sub_276038734();
+      sub_276038744();
+      sub_276038714();
+      ++v21;
+      if (v16 == i)
+      {
+
+        a1 = v28;
+        v16 = v26;
+        v5 = v27;
+        goto LABEL_14;
+      }
+    }
+
+    __break(1u);
+LABEL_16:
+    __break(1u);
+LABEL_17:
+    ;
+  }
+
+  __break(1u);
+LABEL_19:
+  __break(1u);
+  return result;
+}
+
+uint64_t sub_27602E1DC@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X3>, void *a3@<X8>)
+{
+  v4 = *a1;
+  v5 = *a2;
+  result = swift_beginAccess();
+  *a3 = *(v4 + v5);
+  return result;
+}
+
+id TPPaginationState.copyForCaching()@<X0>(char **a1@<X8>)
+{
+  v2 = v1;
+  v4 = *(v1 + OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState_bodyStorage);
+  v5 = type metadata accessor for TPPaginationState();
+  v6 = objc_allocWithZone(v5);
+  v7 = sub_27602DAD0(v4);
+  v8 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__pageIndexPath;
+  swift_beginAccess();
+  v9 = *(v2 + v8);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v10 = v9;
+  v11 = v7;
+  sub_2760384C4();
+  swift_beginAccess();
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v12 = v11;
+  sub_2760384C4();
+  swift_beginAccess();
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v13 = v12;
+  sub_2760384C4();
+  swift_beginAccess();
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v14 = v13;
+  sub_2760384C4();
+  swift_beginAccess();
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v15 = v14;
+  sub_2760384C4();
+  swift_beginAccess();
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v16 = v15;
+  sub_2760384C4();
+  v17 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__sectionHints;
+  swift_beginAccess();
+  v18 = *(v2 + v17);
+  if (v18 >> 62)
+  {
+    goto LABEL_17;
+  }
+
+  for (i = *((v18 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = sub_276038654())
+  {
+    if (!i)
+    {
+LABEL_14:
+      swift_getKeyPath();
+      swift_getKeyPath();
+      v24 = v16;
+      sub_2760384C4();
+      v25 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState_isInvalid;
+      result = swift_beginAccess();
+      v24[v25] = 0;
+      a1[3] = v5;
+      *a1 = v24;
+      return result;
+    }
+
+    v29 = MEMORY[0x277D84F90];
+
+    result = sub_276038724();
+    if (i < 0)
+    {
+      break;
+    }
+
+    v26 = v16;
+    v27 = v5;
+    v28 = a1;
+    v21 = 0;
+    a1 = &selRef_bezierPathByFlatteningPath;
+    while (1)
+    {
+      v16 = (v21 + 1);
+      if (__OFADD__(v21, 1))
+      {
+        break;
+      }
+
+      if ((v18 & 0xC000000000000001) != 0)
+      {
+        v22 = MEMORY[0x277C92160](v21, v18);
+      }
+
+      else
+      {
+        if (v21 >= *((v18 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        {
+          goto LABEL_16;
+        }
+
+        v22 = *(v18 + 8 * v21 + 32);
+      }
+
+      v23 = v22;
+      result = [v22 copyForCaching];
+      if (!result)
+      {
+        goto LABEL_19;
+      }
+
+      sub_276038704();
+      v5 = *(v29 + 16);
+      sub_276038734();
+      sub_276038744();
+      sub_276038714();
+      ++v21;
+      if (v16 == i)
+      {
+
+        a1 = v28;
+        v16 = v26;
+        v5 = v27;
+        goto LABEL_14;
+      }
+    }
+
+    __break(1u);
+LABEL_16:
+    __break(1u);
+LABEL_17:
+    ;
+  }
+
+  __break(1u);
+LABEL_19:
+  __break(1u);
+  return result;
+}
+
+Swift::Bool __swiftcall TPPaginationState.isPaginationComplete(through:)(Swift::UInt through)
+{
+  v3 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__documentPageIndex;
+  swift_beginAccess();
+  return *(v1 + v3) > through;
+}
+
+Swift::Bool __swiftcall TPPaginationState.isPaginationComplete(upTo:)(Swift::UInt upTo)
+{
+  v3 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__documentPageIndex;
+  swift_beginAccess();
+  return *(v1 + v3) >= upTo;
+}
+
+_NSRange __swiftcall TPPaginationState.footnoteRange(inBodyTextRange:)(_NSRange inBodyTextRange)
+{
+  v2 = [*(v1 + OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState_bodyStorage) footnoteRangeForTextRange_];
+  result.length = v3;
+  result.location = v2;
+  return result;
+}
+
+Swift::Void __swiftcall TPPaginationState.restartPagination(fromPageIndexPath:documentPageIndex:)(TPPageIndexPath fromPageIndexPath, Swift::UInt documentPageIndex)
+{
+  isa = fromPageIndexPath.super.isa;
+  v4 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__pageIndexPath;
+  swift_beginAccess();
+  v5 = *&v2[v4];
+  [v5 setSectionIndex_];
+
+  v6 = *&v2[v4];
+  [v6 setPageIndex_];
+
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v7 = v2;
+  sub_2760384C4();
+  if (qword_280A400F0 == -1)
+  {
+    if ((sub_2760384B4() & 0x8000000000000000) == 0)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_6:
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  swift_once();
+  if (sub_2760384B4() < 0)
+  {
+    goto LABEL_6;
+  }
+
+LABEL_3:
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v8 = v7;
+  sub_2760384C4();
+  if ((sub_2760384B4() & 0x8000000000000000) == 0)
+  {
+    swift_getKeyPath();
+    swift_getKeyPath();
+    v9 = v8;
+    sub_2760384C4();
+    return;
+  }
+
+LABEL_7:
+  __break(1u);
+}
+
+Swift::Void __swiftcall TPPaginationState.restartPaginationFromFirstPage()()
+{
+  v3.super.isa = [objc_allocWithZone(TPPageIndexPath) initWithSectionIndex:0 pageIndex:0];
+  isa = v3.super.isa;
+  v3._sectionIndex = 0;
+  TPPaginationState.restartPagination(fromPageIndexPath:documentPageIndex:)(v3, v0);
+}
+
+Swift::Void __swiftcall TPPaginationState.backUp(to:documentPageIndex:)(TPPageIndexPath to, Swift::UInt documentPageIndex)
+{
+  sectionIndex = to._sectionIndex;
+  isa = to.super.isa;
+  v5 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__documentPageIndex;
+  swift_beginAccess();
+  v6 = *&v2[v5];
+  if (v6)
+  {
+    if (v6 == sectionIndex)
+    {
+      return;
+    }
+  }
+
+  else
+  {
+    sub_276038764();
+    v10 = swift_allocObject();
+    v10[2] = 8;
+    v10[3] = 0;
+    v10[4] = 0;
+    v10[5] = 0;
+    v15 = sub_276038754();
+    v11 = objc_opt_self();
+    sub_2760386D4();
+    v12 = sub_276038504();
+
+    sub_2760386D4();
+    v13 = sub_276038504();
+
+    sub_2760386D4();
+    v14 = sub_276038504();
+
+    [v11 handleFailureInFunction:v12 file:v13 lineNumber:207 isFatal:0 format:v14 args:v15];
+
+    if (*&v2[v5] == sectionIndex)
+    {
+      return;
+    }
+  }
+
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v7 = v2;
+  v8 = isa;
+  sub_2760384C4();
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v9 = v7;
+  sub_2760384C4();
+}
+
+Swift::Void __swiftcall TPPaginationState.advancePageIndex()()
+{
+  v1 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__pageIndexPath;
+  swift_beginAccess();
+  v2 = *&v0[v1];
+  v3 = [v2 pageIndex];
+  if (v3 == -1)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    [v2 setPageIndex_];
+
+    swift_getKeyPath();
+    swift_getKeyPath();
+    v4 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__documentPageIndex;
+    swift_beginAccess();
+    if (*&v0[v4] != -1)
+    {
+      v5 = v0;
+      sub_2760384C4();
+      return;
+    }
+  }
+
+  __break(1u);
+}
+
+Swift::Void __swiftcall TPPaginationState.advanceSectionIndex()()
+{
+  v5[4] = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
+  v1 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__pageIndexPath;
+  swift_beginAccess();
+  v2 = *&v0[OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState_bodyStorage];
+  v3 = *&v0[v1];
+  [v3 setSectionIndex_];
+
+  [*&v0[v1] setPageIndex_];
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v4 = v0;
+  sub_2760384C4();
+}
+
+TPPageIndexPath_optional __swiftcall TPPaginationState.pageIndexPath(forPageIndex:)(Swift::UInt forPageIndex)
+{
+  v3 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__documentPageIndex;
+  swift_beginAccess();
+  if (*(v1 + v3) <= forPageIndex)
+  {
+    goto LABEL_22;
+  }
+
+  v7 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__sectionHints;
+  swift_beginAccess();
+  v8 = *(v1 + v7);
+  if (!(v8 >> 62))
+  {
+    v9 = *((v8 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v9)
+    {
+      goto LABEL_4;
+    }
+
+LABEL_22:
+    v18 = 0;
+    goto LABEL_23;
+  }
+
+LABEL_18:
+  v14 = sub_276038654();
+  if (v14 < 0)
+  {
+    __break(1u);
+LABEL_20:
+    __break(1u);
+  }
+
+  v9 = v14;
+  if (!v14)
+  {
+    goto LABEL_22;
+  }
+
+LABEL_4:
+  v10 = 0;
+  v11 = 0;
+  while (1)
+  {
+    v12 = *(v1 + v7);
+    if ((v12 & 0xC000000000000001) != 0)
+    {
+
+      v13 = MEMORY[0x277C92160](v10, v12);
+    }
+
+    else
+    {
+      if (v10 >= *((v12 & 0xFFFFFFFFFFFFFF8) + 0x10))
+      {
+        goto LABEL_17;
+      }
+
+      v13 = *(v12 + 8 * v10 + 32);
+    }
+
+    v14 = [v13 pageCount];
+    v15 = v11 + v14;
+    if (__CFADD__(v11, v14))
+    {
+      __break(1u);
+LABEL_17:
+      __break(1u);
+      goto LABEL_18;
+    }
+
+    if (v15 > forPageIndex)
+    {
+      break;
+    }
+
+    ++v10;
+
+    v11 = v15;
+    if (v9 == v10)
+    {
+      goto LABEL_22;
+    }
+  }
+
+  v16 = forPageIndex >= v11;
+  forPageIndex -= v11;
+  if (!v16)
+  {
+    goto LABEL_20;
+  }
+
+  v17 = [objc_allocWithZone(TPPageIndexPath) initWithSectionIndex:v10 pageIndex:forPageIndex];
+
+  v18 = v17;
+LABEL_23:
+  result.value._pageIndex = v5;
+  result.value._sectionIndex = v4;
+  result.value.super.isa = v18;
+  result.is_nil = v6;
+  return result;
+}
+
+void __swiftcall TPPaginationState.pageHint(forPageIndex:)(TPPageHint_optional *__return_ptr retstr, Swift::UInt forPageIndex)
+{
+  v12 = TPPaginationState.pageIndexPath(forPageIndex:)(forPageIndex);
+  if (!v12.value.super.isa)
+  {
+    return;
+  }
+
+  isa = v12.value.super.isa;
+  v5 = [(objc_class *)v12.value.super.isa sectionIndex:v12.value._pageIndex];
+  v6 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__sectionHints;
+  swift_beginAccess();
+  v7 = *(v2 + v6);
+  if (v7 >> 62)
+  {
+    v8 = sub_276038654();
+    if (v8 <= 0)
+    {
+      goto LABEL_11;
+    }
+  }
+
+  else
+  {
+    v8 = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v8 <= 0)
+    {
+LABEL_11:
+
+      return;
+    }
+  }
+
+  if (v5 >= v8)
+  {
+    goto LABEL_11;
+  }
+
+  v9 = [(objc_class *)isa sectionIndex];
+  if ((v9 & 0x8000000000000000) != 0)
+  {
+    __break(1u);
+    goto LABEL_14;
+  }
+
+  v5 = *(v2 + v6);
+  if ((v5 & 0xC000000000000001) != 0)
+  {
+LABEL_14:
+    v11 = v9;
+
+    v10 = MEMORY[0x277C92160](v11, v5);
+
+    goto LABEL_9;
+  }
+
+  if (v9 < *((v5 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  {
+    v10 = *(v5 + 8 * v9 + 32);
+LABEL_9:
+    [v10 pageHintForPageIndex_];
+
+    return;
+  }
+
+  __break(1u);
+}
+
+Swift::Void __swiftcall TPPaginationState.addSectionHint(_:)(TPSectionHint a1)
+{
+  v2 = v1;
+  isa = a1.super.isa;
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v4 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__sectionHints;
+  swift_beginAccess();
+  v7 = *&v2[v4];
+
+  v5 = isa;
+  MEMORY[0x277C91FB0]();
+  if (*((v7 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v7 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+  {
+    sub_276038574();
+  }
+
+  sub_276038594();
+  v6 = v2;
+  sub_2760384C4();
+}
+
+Swift::Void __swiftcall TPPaginationState.removeAllSectionHints()()
+{
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v1 = v0;
+  sub_2760384C4();
+}
+
+Swift::Void __swiftcall TPPaginationState.trimSectionHints(fromIndex:)(Swift::UInt fromIndex)
+{
+  if ((fromIndex & 0x8000000000000000) != 0)
+  {
+    __break(1u);
+LABEL_6:
+    v6 = sub_276038654();
+    if (v6 >= v3)
+    {
+      goto LABEL_4;
+    }
+
+    goto LABEL_7;
+  }
+
+  v1 = v2;
+  v3 = fromIndex;
+  v4 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState__sectionHints;
+  swift_beginAccess();
+  v5 = *&v1[v4];
+  if (v5 >> 62)
+  {
+    goto LABEL_6;
+  }
+
+  v6 = *((v5 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  if (v6 >= v3)
+  {
+LABEL_4:
+    swift_getKeyPath();
+    swift_getKeyPath();
+
+    sub_27602FC28(v3, v6);
+    v7 = v1;
+    sub_2760384C4();
+    return;
+  }
+
+LABEL_7:
+  __break(1u);
+}
+
+Swift::Void __swiftcall TPPaginationState.invalidate()()
+{
+  v1 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState_isInvalid;
+  swift_beginAccess();
+  *(v0 + v1) = 1;
+}
+
+id TPPaginationState.__allocating_init()()
+{
+  v1 = objc_allocWithZone(v0);
+
+  return [v1 init];
+}
+
+id TPPaginationState.__deallocating_deinit()
+{
+  v2.receiver = v0;
+  v2.super_class = type metadata accessor for TPPaginationState();
+  return objc_msgSendSuper2(&v2, sel_dealloc);
+}
+
+uint64_t sub_27602FA0C()
+{
+  v1 = OBJC_IVAR____TtC14PagesQuicklook17TPPaginationState_isInvalid;
+  result = swift_beginAccess();
+  *(v0 + v1) = 1;
+  return result;
+}
+
+unint64_t sub_27602FA5C(uint64_t a1, char a2)
+{
+  v4 = *v2;
+  isUniquelyReferenced_nonNull_bridgeObject = swift_isUniquelyReferenced_nonNull_bridgeObject();
+  *v2 = v4;
+  if ((isUniquelyReferenced_nonNull_bridgeObject & 1) == 0 || (result = 0, (v4 & 0x8000000000000000) != 0) || (v4 & 0x4000000000000000) != 0 || a1 > *((v4 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+  {
+    if (v4 >> 62)
+    {
+      sub_276038654();
+    }
+
+    result = sub_2760386F4();
+    *v2 = result;
+  }
+
+  return result;
+}
+
+uint64_t sub_27602FB18(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v9 = a2 - a1;
+  if (__OFSUB__(a2, a1))
+  {
+    __break(1u);
+    goto LABEL_20;
+  }
+
+  v3 = a3;
+  v6 = a2;
+  v10 = *v4;
+  v4 = (*v4 & 0xFFFFFFFFFFFFFF8);
+  v7 = v4 + 4;
+  v5 = &v4[a1 + 4];
+  sub_27602FD90(0, &qword_280A40160, &off_27A6A7770);
+  result = swift_arrayDestroy();
+  v12 = __OFSUB__(v3, v9);
+  v9 = v3 - v9;
+  if (v12)
+  {
+LABEL_20:
+    __break(1u);
+    goto LABEL_21;
+  }
+
+  if (!v9)
+  {
+    goto LABEL_17;
+  }
+
+  v8 = v10 >> 62;
+  if (!(v10 >> 62))
+  {
+    result = v4[2];
+    v13 = result - v6;
+    if (!__OFSUB__(result, v6))
+    {
+      goto LABEL_6;
+    }
+
+LABEL_23:
+    __break(1u);
+LABEL_24:
+    __break(1u);
+    goto LABEL_25;
+  }
+
+LABEL_21:
+  result = sub_276038654();
+  v13 = result - v6;
+  if (__OFSUB__(result, v6))
+  {
+    goto LABEL_23;
+  }
+
+LABEL_6:
+  v14 = (v5 + 8 * v3);
+  v15 = &v7[v6];
+  if (v14 != v15 || v14 >= &v15[8 * v13])
+  {
+    memmove(v14, v15, 8 * v13);
+  }
+
+  if (v8)
+  {
+    result = sub_276038654();
+  }
+
+  else
+  {
+    result = v4[2];
+  }
+
+  if (__OFADD__(result, v9))
+  {
+    goto LABEL_24;
+  }
+
+  v4[2] = result + v9;
+LABEL_17:
+  if (v3 > 0)
+  {
+LABEL_25:
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t sub_27602FC28(uint64_t a1, uint64_t a2)
+{
+  if (a1 < 0)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    v3 = a2;
+    v5 = a1;
+    v6 = *v4;
+    v7 = *v4 >> 62;
+    if (!v7)
+    {
+      result = *((*v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      if (result >= a2)
+      {
+        goto LABEL_4;
+      }
+
+LABEL_15:
+      __break(1u);
+      goto LABEL_16;
+    }
+  }
+
+  result = sub_276038654();
+  if (result < v3)
+  {
+    goto LABEL_15;
+  }
+
+LABEL_4:
+  if (__OFSUB__(v3, v5))
+  {
+LABEL_16:
+    __break(1u);
+    goto LABEL_17;
+  }
+
+  v9 = v5 - v3;
+  if (__OFSUB__(0, v3 - v5))
+  {
+LABEL_17:
+    __break(1u);
+LABEL_18:
+    __break(1u);
+    return result;
+  }
+
+  if (v7)
+  {
+    v10 = sub_276038654();
+  }
+
+  else
+  {
+    v10 = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  }
+
+  v11 = __OFADD__(v10, v9);
+  result = v10 + v9;
+  if (v11)
+  {
+    goto LABEL_18;
+  }
+
+  sub_27602FA5C(result, 1);
+
+  return sub_27602FB18(v5, v3, 0);
+}
+
+void *sub_27602FD00(void *result, uint64_t a2)
+{
+  if ((*(*(a2 - 8) + 80) & 0x20000) != 0)
+  {
+    return (*result + ((*(*(a2 - 8) + 80) + 16) & ~*(*(a2 - 8) + 80)));
+  }
+
+  return result;
+}
+
+uint64_t sub_27602FD44(void *a1)
+{
+  v1 = *(a1[3] - 8);
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
+  {
+    return (*(v1 + 8))();
+  }
+}
+
+uint64_t sub_27602FD90(uint64_t a1, unint64_t *a2, void *a3)
+{
+  result = *a2;
+  if (!*a2)
+  {
+    objc_opt_self();
+    result = swift_getObjCClassMetadata();
+    atomic_store(result, a2);
+  }
+
+  return result;
+}
+
+uint64_t sub_27602FDF4()
+{
+  v1 = *v0;
+  sub_2760387D4();
+  MEMORY[0x277C92260](v1);
+  return sub_2760387F4();
+}
+
+uint64_t sub_27602FE68(uint64_t a1)
+{
+  v2 = *v1;
+  sub_2760387D4();
+  MEMORY[0x277C92260](v2);
+  return sub_2760387F4();
+}
+
+uint64_t sub_27602FEAC(void *a1)
+{
+  v2 = v1;
+  v4 = [a1 layoutController];
+  if (!v4)
+  {
+    sub_276038764();
+    v5 = swift_allocObject();
+    v5[2] = 8;
+    v5[3] = 0;
+    v5[4] = 0;
+    v5[5] = 0;
+    v6 = sub_276038754();
+    v7 = objc_opt_self();
+    sub_2760386D4();
+    v8 = sub_276038504();
+
+    sub_2760386D4();
+    v9 = sub_276038504();
+
+    sub_2760386D4();
+    v10 = sub_276038504();
+
+    [v7 handleFailureInFunction:v8 file:v9 lineNumber:50 isFatal:0 format:v10 args:v6];
+
+    v4 = v10;
+  }
+
+  v11 = *&v1[OBJC_IVAR____TtC14PagesQuicklook17TPPageLayoutCache_accessQueue];
+  v12 = swift_allocObject();
+  *(v12 + 16) = a1;
+  *(v12 + 24) = v2;
+  v13 = swift_allocObject();
+  *(v13 + 16) = sub_276034174;
+  *(v13 + 24) = v12;
+  v19[4] = sub_2760344E4;
+  v19[5] = v13;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 1107296256;
+  v19[2] = sub_276030124;
+  v19[3] = &unk_288501498;
+  v14 = _Block_copy(v19);
+  v15 = a1;
+  v16 = v2;
+
+  dispatch_sync(v11, v14);
+  _Block_release(v14);
+  isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
+
+  if (isEscapingClosureAtFileLocation)
+  {
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t sub_2760301B4(void *a1)
+{
+  v2 = v1;
+  v4 = [a1 layoutController];
+  if (!v4)
+  {
+    sub_276038764();
+    v5 = swift_allocObject();
+    v5[2] = 8;
+    v5[3] = 0;
+    v5[4] = 0;
+    v5[5] = 0;
+    v6 = sub_276038754();
+    v7 = objc_opt_self();
+    sub_2760386D4();
+    v8 = sub_276038504();
+
+    sub_2760386D4();
+    v9 = sub_276038504();
+
+    sub_2760386D4();
+    v10 = sub_276038504();
+
+    [v7 handleFailureInFunction:v8 file:v9 lineNumber:60 isFatal:0 format:v10 args:v6];
+
+    v4 = v10;
+  }
+
+  v11 = *&v1[OBJC_IVAR____TtC14PagesQuicklook17TPPageLayoutCache_accessQueue];
+  v12 = swift_allocObject();
+  *(v12 + 16) = a1;
+  *(v12 + 24) = v2;
+  v13 = swift_allocObject();
+  *(v13 + 16) = sub_276034114;
+  *(v13 + 24) = v12;
+  v19[4] = sub_276034134;
+  v19[5] = v13;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 1107296256;
+  v19[2] = sub_276030124;
+  v19[3] = &unk_288501420;
+  v14 = _Block_copy(v19);
+  v15 = a1;
+  v16 = v2;
+
+  dispatch_sync(v11, v14);
+  _Block_release(v14);
+  isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
+
+  if (isEscapingClosureAtFileLocation)
+  {
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t sub_27603042C(void *a1, uint64_t a2, char a3)
+{
+  v6 = OBJC_IVAR____TtC14PagesQuicklook17TPPageLayoutCache_pendingUpdates;
+  swift_beginAccess();
+  v7 = *(a2 + v6);
+  v8 = a1;
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  *(a2 + v6) = v7;
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v7 = sub_2760319FC(0, *(v7 + 2) + 1, 1, v7);
+    *(a2 + v6) = v7;
+  }
+
+  v11 = *(v7 + 2);
+  v10 = *(v7 + 3);
+  if (v11 >= v10 >> 1)
+  {
+    v7 = sub_2760319FC((v10 > 1), v11 + 1, 1, v7);
+  }
+
+  *(v7 + 2) = v11 + 1;
+  v12 = &v7[16 * v11];
+  v12[32] = a3;
+  *(v12 + 5) = v8;
+  *(a2 + v6) = v7;
+  return swift_endAccess();
+}
+
+uint64_t sub_276030584(uint64_t a1)
+{
+  v2 = OBJC_IVAR____TtC14PagesQuicklook17TPPageLayoutCache_pendingUpdates;
+  swift_beginAccess();
+  v3 = *(a1 + v2);
+  v50 = *(v3 + 16);
+  if (v50)
+  {
+    v46 = v2;
+    v4 = OBJC_IVAR____TtC14PagesQuicklook17TPPageLayoutCache_pageLayoutCache;
+    v49 = v3 + 32;
+
+    swift_beginAccess();
+    v5 = 0;
+    v47 = a1;
+    v48 = v4;
+    while (1)
+    {
+      v8 = (v49 + 16 * v5);
+      v9 = *v8;
+      v10 = *(v8 + 1);
+      v11 = *(a1 + v4);
+      v12 = v11 & 0xC000000000000001;
+      if (v9)
+      {
+        if (v12)
+        {
+          v13 = v10;
+
+          v14 = sub_276038684();
+
+          if ((v14 & 1) == 0)
+          {
+            goto LABEL_26;
+          }
+        }
+
+        else
+        {
+          if (!*(v11 + 16))
+          {
+            v37 = v10;
+            goto LABEL_26;
+          }
+
+          sub_27602FD90(0, &qword_280A401A0, off_27A6A7760);
+          v10;
+
+          v25 = sub_2760385F4();
+          v26 = -1 << *(v11 + 32);
+          v27 = v25 & ~v26;
+          if (((*(v11 + 56 + ((v27 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v27) & 1) == 0)
+          {
+LABEL_18:
+
+            a1 = v47;
+LABEL_26:
+            sub_276038764();
+            v38 = swift_allocObject();
+            v38[2] = 8;
+            v38[3] = 0;
+            v38[4] = 0;
+            v38[5] = 0;
+            v39 = sub_276038754();
+            v40 = objc_opt_self();
+            sub_2760386D4();
+            v41 = sub_276038504();
+
+            sub_2760386D4();
+            v42 = sub_276038504();
+
+            sub_2760386D4();
+            v43 = sub_276038504();
+
+            [v40 handleFailureInFunction:v41 file:v42 lineNumber:140 isFatal:0 format:v43 args:v39];
+
+            v4 = v48;
+
+            goto LABEL_5;
+          }
+
+          v28 = ~v26;
+          while (1)
+          {
+            v29 = *(*(v11 + 48) + 8 * v27);
+            v30 = sub_276038604();
+
+            if (v30)
+            {
+              break;
+            }
+
+            v27 = (v27 + 1) & v28;
+            if (((*(v11 + 56 + ((v27 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v27) & 1) == 0)
+            {
+              goto LABEL_18;
+            }
+          }
+
+          a1 = v47;
+          v4 = v48;
+        }
+
+        swift_beginAccess();
+        v15 = sub_276033560(v10);
+        swift_endAccess();
+      }
+
+      else
+      {
+        if (v12)
+        {
+          v16 = v10;
+
+          v17 = sub_276038684();
+
+          if (v17)
+          {
+            goto LABEL_12;
+          }
+        }
+
+        else if (*(v11 + 16))
+        {
+          sub_27602FD90(0, &qword_280A401A0, off_27A6A7760);
+          v10;
+
+          v31 = sub_2760385F4();
+          v32 = -1 << *(v11 + 32);
+          v33 = v31 & ~v32;
+          if ((*(v11 + 56 + ((v33 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v33))
+          {
+            v34 = ~v32;
+            while (1)
+            {
+              v35 = *(*(v11 + 48) + 8 * v33);
+              v36 = sub_276038604();
+
+              if (v36)
+              {
+                break;
+              }
+
+              v33 = (v33 + 1) & v34;
+              if (((*(v11 + 56 + ((v33 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v33) & 1) == 0)
+              {
+                goto LABEL_3;
+              }
+            }
+
+            a1 = v47;
+LABEL_12:
+            sub_276038764();
+            v18 = swift_allocObject();
+            v18[2] = 8;
+            v18[3] = 0;
+            v18[4] = 0;
+            v18[5] = 0;
+            v19 = sub_276038754();
+            v20 = objc_opt_self();
+            sub_2760386D4();
+            v21 = sub_276038504();
+
+            sub_2760386D4();
+            v22 = sub_276038504();
+
+            sub_2760386D4();
+            v23 = sub_276038504();
+
+            v24 = v20;
+            v4 = v48;
+            [v24 handleFailureInFunction:v21 file:v22 lineNumber:132 isFatal:0 format:v23 args:v19];
+
+            goto LABEL_5;
+          }
+
+LABEL_3:
+
+          v4 = v48;
+        }
+
+        else
+        {
+          v44 = v10;
+        }
+
+        swift_beginAccess();
+        v6 = v10;
+        sub_2760329B8(&v51, v6);
+        v7 = v51;
+        swift_endAccess();
+
+        a1 = v47;
+      }
+
+LABEL_5:
+      if (++v5 == v50)
+      {
+
+        v2 = v46;
+        break;
+      }
+    }
+  }
+
+  *(a1 + v2) = MEMORY[0x277D84F90];
 }

@@ -179,7 +179,7 @@ void __64__WFSlotTemplateTextStorage_enumerateContentInRange_usingBlock___block_
   return result;
 }
 
-uint64_t __87__WFSlotTemplateTextStorage_characterRangeForSlot_includingInsideSpacingOpportunities___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__87__WFSlotTemplateTextStorage_characterRangeForSlot_includingInsideSpacingOpportunities___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   result = [a2 isEqual:*(a1 + 32)];
   if (result)
@@ -273,11 +273,11 @@ LABEL_5:
   [(WFSlotTemplateTextStorage *)self endEditing];
 }
 
-uint64_t __52__WFSlotTemplateTextStorage_updateColorsForAllSlots__block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__52__WFSlotTemplateTextStorage_updateColorsForAllSlots__block_invoke(id *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
-    return [*(result + 32) _updateColorsForSlot:a2 inRange:{a3, a4}];
+    return [result[4] _updateColorsForSlot:a2 inRange:{a3, a4}];
   }
 
   return result;

@@ -1,10 +1,10 @@
 @interface FigCaptureSessionAttachedSessionManager
 + (void)initialize;
 - (FigCaptureSessionAttachedSessionManager)init;
-- (uint64_t)_generateStateLog;
-- (uint64_t)_stopAttachedSessionsAndRemoveHostSession:(uint64_t)result;
+- (double)_generateStateLog;
 - (uint64_t)attachToRunningSession:(uint64_t)session;
 - (void)_startNextSession;
+- (void)_stopAttachedSessionsAndRemoveHostSession:(void *)result;
 - (void)sessionDidReconfigure:(uint64_t)reconfigure;
 - (void)sessionDidStartRunning:(char)running sessionContainsVideoSource:(char)source sessionContainsCameraSource:;
 - (void)sessionDidStopRunning:(char)running captureDeviceStolen:(char)stolen sessionIsEligibleToAttach:(char)attach clientStartedSession:;
@@ -48,15 +48,15 @@
   return v2;
 }
 
-- (uint64_t)_generateStateLog
+- (double)_generateStateLog
 {
-  if (result)
+  if (self)
   {
     if (dword_1EB58E660)
     {
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-      return fig_log_call_emit_and_clean_up_after_send_and_compose();
+      fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
 
@@ -78,7 +78,7 @@ void __65__FigCaptureSessionAttachedSessionManager_sessionDidReconfigure___block
 
   ++*(*(a1 + 32) + 72);
   v4 = *(a1 + 32);
-  if (*(a1 + 40) == *(v4 + 8))
+  if (*(a1 + 40) == v4[1])
   {
     __65__FigCaptureSessionAttachedSessionManager_sessionDidReconfigure___block_invoke_cold_1(v4, v2, v6);
     v4 = v6[0];
@@ -94,41 +94,41 @@ void __65__FigCaptureSessionAttachedSessionManager_sessionDidReconfigure___block
 
 void __62__FigCaptureSessionAttachedSessionManager_sessionInvalidated___block_invoke(uint64_t a1)
 {
-  [(FigCaptureSessionAttachedSessionManager *)*(a1 + 32) _generateStateLog];
+  State = [(FigCaptureSessionAttachedSessionManager *)*(a1 + 32) _generateStateLog];
   ++*(*(a1 + 32) + 72);
   if (dword_1EB58E660)
   {
+    v10 = 0;
     v9 = 0;
-    v8 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [*(*(a1 + 32) + 56) removeObject:{*(a1 + 40), v6, v7}];
+  [*(*(a1 + 32) + 56) removeObject:{*(a1 + 40), State, v7, v8}];
   [*(*(a1 + 32) + 48) removeObject:*(a1 + 40)];
   [*(*(a1 + 32) + 32) removeObject:*(a1 + 40)];
   [*(*(a1 + 32) + 40) removeObject:*(a1 + 40)];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 16);
-  if (v4 == *(a1 + 40))
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 16);
+  if (v5 == *(a1 + 40))
   {
-    if (v4)
+    if (v5)
     {
-      CFRelease(*(v3 + 16));
+      CFRelease(*(v4 + 16));
       *(*(a1 + 32) + 16) = 0;
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
     }
 
-    [(FigCaptureSessionAttachedSessionManager *)v3 _startNextSession];
-    v3 = *(a1 + 32);
+    [(FigCaptureSessionAttachedSessionManager *)v4 _startNextSession];
+    v4 = *(a1 + 32);
   }
 
-  [(FigCaptureSessionAttachedSessionManager *)v3 _generateStateLog];
-  v5 = *(a1 + 40);
-  if (v5)
+  [(FigCaptureSessionAttachedSessionManager *)v4 _generateStateLog];
+  v6 = *(a1 + 40);
+  if (v6)
   {
-    CFRelease(v5);
+    CFRelease(v6);
   }
 }
 
@@ -161,7 +161,7 @@ void __62__FigCaptureSessionAttachedSessionManager_sessionInvalidated___block_in
   return v3 & 1;
 }
 
-uint64_t __66__FigCaptureSessionAttachedSessionManager_attachToRunningSession___block_invoke(uint64_t *a1)
+double __66__FigCaptureSessionAttachedSessionManager_attachToRunningSession___block_invoke(uint64_t *a1)
 {
   v2 = a1[4];
   v3 = *(v2 + 8);
@@ -173,12 +173,12 @@ uint64_t __66__FigCaptureSessionAttachedSessionManager_attachToRunningSession___
     {
       OUTLINED_FUNCTION_14_20();
       OUTLINED_FUNCTION_0_55();
-      OUTLINED_FUNCTION_4_48();
+      OUTLINED_FUNCTION_4_48(v6, v7, v8, v9, &dword_1AC90E000, v10, v11, "<<<< FigCaptureSessionAttachedSessionManager >>>> %s:  %@ cannot attach because there is nothing to attach to.", v68, v69, v70, v71, *(&v71 + 1), v72, *v75, *&v75[8], v76, SHIBYTE(v76));
       OUTLINED_FUNCTION_16_22();
     }
 
     OUTLINED_FUNCTION_1_65();
-    OUTLINED_FUNCTION_17_8();
+    OUTLINED_FUNCTION_17_8(v12, v13, v14, v15, v16);
     v2 = a1[4];
     v3 = *(v2 + 8);
   }
@@ -188,22 +188,22 @@ uint64_t __66__FigCaptureSessionAttachedSessionManager_attachToRunningSession___
     [(FigCaptureSessionAttachedSessionManager *)v2 _generateStateLog];
     if (dword_1EB58E660)
     {
-      v6 = OUTLINED_FUNCTION_6_42();
-      v7 = OUTLINED_FUNCTION_96(v6);
-      if (OUTLINED_FUNCTION_6(v7))
+      v17 = OUTLINED_FUNCTION_6_42();
+      v18 = OUTLINED_FUNCTION_96(v17);
+      if (OUTLINED_FUNCTION_6(v18))
       {
         OUTLINED_FUNCTION_14_20();
         OUTLINED_FUNCTION_0_55();
-        OUTLINED_FUNCTION_4_48();
+        OUTLINED_FUNCTION_4_48(v19, v20, v21, v22, &dword_1AC90E000, v23, v24, "<<<< FigCaptureSessionAttachedSessionManager >>>> %s: Attempting to attach %@ to a host session.", v68, v69, v70, v71, *(&v71 + 1), v72, *v75, *&v75[8], v76, SHIBYTE(v76));
         OUTLINED_FUNCTION_16_22();
       }
 
       OUTLINED_FUNCTION_1_65();
-      OUTLINED_FUNCTION_17_8();
+      OUTLINED_FUNCTION_17_8(v25, v26, v27, v28, v29);
     }
 
-    v8 = FigCaptureSessionAttachSession(*(a1[4] + 8), a1[6]);
-    if (v8 == 2)
+    v30 = FigCaptureSessionAttachSession(*(a1[4] + 8), a1[6]);
+    if (v30 == 2)
     {
       [*(a1[4] + 48) removeObject:a1[6]];
       if (([*(a1[4] + 56) containsObject:a1[6]] & 1) == 0)
@@ -213,35 +213,49 @@ uint64_t __66__FigCaptureSessionAttachedSessionManager_attachToRunningSession___
 
       if (!dword_1EB58E660)
       {
+        goto LABEL_29;
+      }
+
+      v52 = OUTLINED_FUNCTION_6_42();
+      v53 = OUTLINED_FUNCTION_96(v52);
+      if (!OUTLINED_FUNCTION_6(v53))
+      {
         goto LABEL_28;
       }
 
-      v13 = OUTLINED_FUNCTION_6_42();
-      v14 = OUTLINED_FUNCTION_96(v13);
-      if (!OUTLINED_FUNCTION_6(v14))
-      {
-        goto LABEL_27;
-      }
+      OUTLINED_FUNCTION_14_20();
+      WORD2(v71) = 2112;
+      *(&v71 + 6) = v54;
+      HIWORD(v71) = 2112;
+      v74 = v55;
+      *v75 = 2112;
+      *&v75[2] = v56;
+      OUTLINED_FUNCTION_5();
+      v51 = "<<<< FigCaptureSessionAttachedSessionManager >>>> %s: Session %@ incompatible with host %@. Incompatible sessions: %@";
     }
 
     else
     {
-      if (v8 != 1)
+      if (v30 != 1)
       {
-        if (!v8 && dword_1EB58E660)
+        if (!v30 && dword_1EB58E660)
         {
-          v9 = OUTLINED_FUNCTION_6_42();
-          v10 = OUTLINED_FUNCTION_96(v9);
-          if (OUTLINED_FUNCTION_6(v10))
+          v31 = OUTLINED_FUNCTION_6_42();
+          v32 = OUTLINED_FUNCTION_96(v31);
+          if (OUTLINED_FUNCTION_6(v32))
           {
             OUTLINED_FUNCTION_14_20();
+            WORD2(v71) = 2112;
+            *(&v71 + 6) = v33;
+            HIWORD(v71) = 2112;
+            v73 = v34;
             OUTLINED_FUNCTION_5();
-            OUTLINED_FUNCTION_4_48();
+            OUTLINED_FUNCTION_4_48(v35, v36, v37, v38, &dword_1AC90E000, v39, v40, "<<<< FigCaptureSessionAttachedSessionManager >>>> %s: Session %@ did not attach to host %@", v68, v69, v70, v71, *(&v71 + 1), v73, *v75, *&v75[8], v76, SHIBYTE(v76));
             OUTLINED_FUNCTION_16_22();
           }
 
           OUTLINED_FUNCTION_1_65();
-          OUTLINED_FUNCTION_17_8();
+          OUTLINED_FUNCTION_17_8(v62, v63, v64, v65, v66);
         }
 
         return [(FigCaptureSessionAttachedSessionManager *)a1[4] _generateStateLog];
@@ -255,27 +269,33 @@ uint64_t __66__FigCaptureSessionAttachedSessionManager_attachToRunningSession___
 
       if (!dword_1EB58E660)
       {
-LABEL_28:
+LABEL_29:
         OUTLINED_FUNCTION_15_19();
         return [(FigCaptureSessionAttachedSessionManager *)a1[4] _generateStateLog];
       }
 
-      v11 = OUTLINED_FUNCTION_6_42();
-      v12 = OUTLINED_FUNCTION_96(v11);
-      if (!OUTLINED_FUNCTION_6(v12))
+      v41 = OUTLINED_FUNCTION_6_42();
+      v42 = OUTLINED_FUNCTION_96(v41);
+      if (!OUTLINED_FUNCTION_6(v42))
       {
-LABEL_27:
+LABEL_28:
         OUTLINED_FUNCTION_1_65();
-        OUTLINED_FUNCTION_17_8();
-        goto LABEL_28;
+        OUTLINED_FUNCTION_17_8(v57, v58, v59, v60, v61);
+        goto LABEL_29;
       }
+
+      OUTLINED_FUNCTION_14_20();
+      WORD2(v71) = 2112;
+      *(&v71 + 6) = v43;
+      HIWORD(v71) = 2112;
+      v74 = v44;
+      OUTLINED_FUNCTION_5();
+      v51 = "<<<< FigCaptureSessionAttachedSessionManager >>>> %s: Session %@ attached to host %@";
     }
 
-    OUTLINED_FUNCTION_14_20();
-    OUTLINED_FUNCTION_5();
-    OUTLINED_FUNCTION_4_48();
+    OUTLINED_FUNCTION_4_48(v45, v46, v47, v48, &dword_1AC90E000, v49, v50, v51, v68, v69, v70, v71, *(&v71 + 1), v74, *v75, *&v75[8], v76, SHIBYTE(v76));
     OUTLINED_FUNCTION_16_22();
-    goto LABEL_27;
+    goto LABEL_28;
   }
 
   return [(FigCaptureSessionAttachedSessionManager *)a1[4] _generateStateLog];
@@ -314,51 +334,56 @@ void __121__FigCaptureSessionAttachedSessionManager_sessionDidStartRunning_sessi
       if (OUTLINED_FUNCTION_6(v3))
       {
         OUTLINED_FUNCTION_14_20();
+        WORD2(v66) = 2112;
         OUTLINED_FUNCTION_17_19();
         OUTLINED_FUNCTION_5();
-        OUTLINED_FUNCTION_4_48();
+        OUTLINED_FUNCTION_4_48(v4, v5, v6, v7, &dword_1AC90E000, v8, v9, "<<<< FigCaptureSessionAttachedSessionManager >>>> %s: Received DidStartRunning for %@. sessionContainsVideoSource: %i, sessionContainsCameraSource: %i", v63, v64, v65, v66, *(&v66 + 1), v67, v69, v70, SBYTE2(v70), SHIBYTE(v70));
         OUTLINED_FUNCTION_54_1();
       }
 
       OUTLINED_FUNCTION_1_65();
-      OUTLINED_FUNCTION_17_8();
+      OUTLINED_FUNCTION_17_8(v10, v11, v12, v13, v14);
     }
 
     OUTLINED_FUNCTION_15_19();
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 8);
-    if (v5 || *(a1 + 49) != 1)
+    v15 = *(a1 + 32);
+    v16 = *(v15 + 8);
+    if (v16 || *(a1 + 49) != 1)
     {
       if (*(a1 + 48) == 1)
       {
         if (dword_1EB58E660)
         {
-          v9 = OUTLINED_FUNCTION_9_31();
-          v10 = OUTLINED_FUNCTION_29_4(v9);
-          if (OUTLINED_FUNCTION_6(v10))
+          v20 = OUTLINED_FUNCTION_9_31();
+          v21 = OUTLINED_FUNCTION_29_4(v20);
+          if (OUTLINED_FUNCTION_6(v21))
           {
             OUTLINED_FUNCTION_14_20();
+            WORD2(v66) = 2112;
+            *(&v66 + 6) = v22;
+            HIWORD(v66) = 2112;
+            v68 = v23;
             OUTLINED_FUNCTION_5();
-            OUTLINED_FUNCTION_4_48();
+            OUTLINED_FUNCTION_4_48(v24, v25, v26, v27, &dword_1AC90E000, v28, v29, "<<<< FigCaptureSessionAttachedSessionManager >>>> %s: New primary session: %@, replaces %@", v63, v64, v65, v66, *(&v66 + 1), v68, v69, v70, SBYTE2(v70), SHIBYTE(v70));
             OUTLINED_FUNCTION_54_1();
           }
 
           OUTLINED_FUNCTION_1_65();
-          OUTLINED_FUNCTION_17_8();
-          v4 = *(a1 + 32);
-          v5 = *(v4 + 8);
+          OUTLINED_FUNCTION_17_8(v30, v31, v32, v33, v34);
+          v15 = *(a1 + 32);
+          v16 = *(v15 + 8);
         }
 
-        v11 = *(a1 + 40);
-        *(v4 + 8) = v11;
-        if (v11)
+        v35 = *(a1 + 40);
+        *(v15 + 8) = v35;
+        if (v35)
         {
-          CFRetain(v11);
+          CFRetain(v35);
         }
 
-        if (v5)
+        if (v16)
         {
-          CFRelease(v5);
+          CFRelease(v16);
         }
 
         [(FigCaptureSessionAttachedSessionManager *)*(a1 + 32) _stopAttachedSessionsAndRemoveHostSession:?];
@@ -369,74 +394,74 @@ void __121__FigCaptureSessionAttachedSessionManager_sessionDidStartRunning_sessi
 
     else
     {
-      v6 = *(a1 + 40);
-      if (v6)
+      v17 = *(a1 + 40);
+      if (v17)
       {
-        v6 = CFRetain(v6);
-        v4 = *(a1 + 32);
+        v17 = CFRetain(v17);
+        v15 = *(a1 + 32);
       }
 
-      *(v4 + 8) = v6;
+      *(v15 + 8) = v17;
       if (dword_1EB58E660)
       {
-        v7 = OUTLINED_FUNCTION_9_31();
-        v8 = OUTLINED_FUNCTION_29_4(v7);
-        if (OUTLINED_FUNCTION_6(v8))
+        v18 = OUTLINED_FUNCTION_9_31();
+        v19 = OUTLINED_FUNCTION_29_4(v18);
+        if (OUTLINED_FUNCTION_6(v19))
         {
           OUTLINED_FUNCTION_14_20();
           OUTLINED_FUNCTION_0_55();
-          OUTLINED_FUNCTION_4_48();
+          OUTLINED_FUNCTION_4_48(v36, v37, v38, v39, &dword_1AC90E000, v40, v41, "<<<< FigCaptureSessionAttachedSessionManager >>>> %s: New primary session: %@", v63, v64, v65, v66, *(&v66 + 1), v67, v69, v70, SBYTE2(v70), SHIBYTE(v70));
           OUTLINED_FUNCTION_54_1();
         }
 
         OUTLINED_FUNCTION_1_65();
-        OUTLINED_FUNCTION_17_8();
+        OUTLINED_FUNCTION_17_8(v42, v43, v44, v45, v46);
       }
     }
 
     [OUTLINED_FUNCTION_21_17() removeObject:?];
-    v12 = *(a1 + 32);
-    v13 = *(v12 + 16);
-    if (*(a1 + 40) == v13)
+    v47 = *(a1 + 32);
+    v48 = *(v47 + 16);
+    if (*(a1 + 40) == v48)
     {
       if (dword_1EB58E660)
       {
-        v14 = OUTLINED_FUNCTION_9_31();
-        v15 = OUTLINED_FUNCTION_29_4(v14);
-        if (OUTLINED_FUNCTION_6(v15))
+        v49 = OUTLINED_FUNCTION_9_31();
+        v50 = OUTLINED_FUNCTION_29_4(v49);
+        if (OUTLINED_FUNCTION_6(v50))
         {
           OUTLINED_FUNCTION_14_20();
           OUTLINED_FUNCTION_5();
-          OUTLINED_FUNCTION_4_48();
+          OUTLINED_FUNCTION_4_48(v51, v52, v53, v54, &dword_1AC90E000, v55, v56, "<<<< FigCaptureSessionAttachedSessionManager >>>> %s: Currently starting session started, resetting _currentlyStartingSession", v63, v64, v65, v66, *(&v66 + 1), v67, v69, v70, SBYTE2(v70), SHIBYTE(v70));
           OUTLINED_FUNCTION_54_1();
         }
 
         OUTLINED_FUNCTION_1_65();
-        OUTLINED_FUNCTION_17_8();
-        v12 = *(a1 + 32);
-        v13 = *(v12 + 16);
+        OUTLINED_FUNCTION_17_8(v57, v58, v59, v60, v61);
+        v47 = *(a1 + 32);
+        v48 = *(v47 + 16);
       }
 
-      if (v13)
+      if (v48)
       {
-        CFRelease(v13);
+        CFRelease(v48);
         *(*(a1 + 32) + 16) = 0;
-        v12 = *(a1 + 32);
+        v47 = *(a1 + 32);
       }
     }
 
-    [(FigCaptureSessionAttachedSessionManager *)v12 _startNextSession];
+    [(FigCaptureSessionAttachedSessionManager *)v47 _startNextSession];
   }
 
   [(FigCaptureSessionAttachedSessionManager *)*(a1 + 32) _generateStateLog];
-  v16 = *(a1 + 40);
-  if (v16)
+  v62 = *(a1 + 40);
+  if (v62)
   {
-    CFRelease(v16);
+    CFRelease(v62);
   }
 }
 
-- (uint64_t)_stopAttachedSessionsAndRemoveHostSession:(uint64_t)result
+- (void)_stopAttachedSessionsAndRemoveHostSession:(void *)result
 {
   if (result)
   {
@@ -445,7 +470,7 @@ void __121__FigCaptureSessionAttachedSessionManager_sessionDidStartRunning_sessi
     v22 = 0u;
     v23 = 0u;
     v13 = result;
-    obj = *(result + 32);
+    obj = result[4];
     v3 = [obj countByEnumeratingWithState:&v22 objects:v21 count:16];
     if (v3)
     {
@@ -502,8 +527,8 @@ void __121__FigCaptureSessionAttachedSessionManager_sessionDidStartRunning_sessi
       while (v4);
     }
 
-    [*(v13 + 40) addObjectsFromArray:{*(v13 + 32), v11, v12}];
-    return [*(v13 + 32) removeAllObjects];
+    [v13[5] addObjectsFromArray:{v13[4], v11, v12}];
+    return [v13[4] removeAllObjects];
   }
 
   return result;
@@ -531,7 +556,7 @@ void __121__FigCaptureSessionAttachedSessionManager_sessionDidStartRunning_sessi
           }
 
           OUTLINED_FUNCTION_2_4();
-          OUTLINED_FUNCTION_17_8();
+          OUTLINED_FUNCTION_17_8(v5, v6, v7, v8, v9);
           firstObject = *(self + 16);
         }
 
@@ -579,64 +604,67 @@ void __132__FigCaptureSessionAttachedSessionManager_sessionDidStopRunning_captur
     if (OUTLINED_FUNCTION_6(v4))
     {
       OUTLINED_FUNCTION_19_16();
+      WORD2(v63) = 2112;
       OUTLINED_FUNCTION_17_19();
+      WORD1(v66) = v5;
+      HIDWORD(v66) = v6;
       OUTLINED_FUNCTION_5();
-      OUTLINED_FUNCTION_4_48();
+      OUTLINED_FUNCTION_4_48(v7, v8, v9, v10, &dword_1AC90E000, v11, v12, "<<<< FigCaptureSessionAttachedSessionManager >>>> %s: Received DidStopRunning for %@. captureDeviceStolen: %i, sessionIsEligibleToAttach: %i, clientStartedSession: %i", v60, v61, v62, v63, v64, v65, v66, v67, SBYTE2(v67), SHIBYTE(v67));
       OUTLINED_FUNCTION_16_22();
     }
 
     OUTLINED_FUNCTION_1_65();
-    OUTLINED_FUNCTION_17_8();
+    OUTLINED_FUNCTION_17_8(v13, v14, v15, v16, v17);
   }
 
   OUTLINED_FUNCTION_15_19();
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
+  v19 = *(a1 + 32);
+  v18 = *(a1 + 40);
   if ((*(a1 + 50) & 1) == 0)
   {
-    [*(v6 + 32) removeObject:v5];
+    [*(v19 + 32) removeObject:v18];
     [*(*(a1 + 32) + 40) removeObject:*(a1 + 40)];
     [OUTLINED_FUNCTION_21_17() removeObject:?];
     [*(*(a1 + 32) + 56) removeObject:*(a1 + 40)];
-    v6 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v7 = *(v6 + 16);
-    if (v7)
+    v19 = *(a1 + 32);
+    v18 = *(a1 + 40);
+    v20 = *(v19 + 16);
+    if (v20)
     {
-      if (v7 == v5)
+      if (v20 == v18)
       {
-        CFRelease(v7);
+        CFRelease(v20);
         *(*(a1 + 32) + 16) = 0;
-        v6 = *(a1 + 32);
-        v5 = *(a1 + 40);
+        v19 = *(a1 + 32);
+        v18 = *(a1 + 40);
       }
     }
   }
 
-  v8 = [*(v6 + 40) containsObject:v5];
-  v9 = v8;
-  if (v8)
+  v21 = [*(v19 + 40) containsObject:v18];
+  v22 = v21;
+  if (v21)
   {
     if (dword_1EB58E660)
     {
-      v10 = OUTLINED_FUNCTION_7_37();
-      if (OUTLINED_FUNCTION_26_8(v10))
+      v23 = OUTLINED_FUNCTION_7_37();
+      if (OUTLINED_FUNCTION_26_8(v23))
       {
-        v11 = v1;
+        v24 = v1;
       }
 
       else
       {
-        v11 = v1 & 0xFFFFFFFE;
+        v24 = v1 & 0xFFFFFFFE;
       }
 
-      if (v11)
+      if (v24)
       {
         OUTLINED_FUNCTION_19_16();
         OUTLINED_FUNCTION_0_55();
         OUTLINED_FUNCTION_13();
         _os_log_send_and_compose_impl();
-        v1 = v25;
+        v1 = v68;
       }
 
       OUTLINED_FUNCTION_1_65();
@@ -646,24 +674,24 @@ void __132__FigCaptureSessionAttachedSessionManager_sessionDidStopRunning_captur
     [*(*(a1 + 32) + 40) removeObject:*(a1 + 40)];
   }
 
-  v13 = *(a1 + 32);
-  v12 = *(a1 + 40);
-  if (v12 == *(v13 + 16))
+  v26 = *(a1 + 32);
+  v25 = *(a1 + 40);
+  if (v25 == *(v26 + 16))
   {
     if (dword_1EB58E660)
     {
-      v15 = OUTLINED_FUNCTION_7_37();
-      if (OUTLINED_FUNCTION_26_8(v15))
+      v28 = OUTLINED_FUNCTION_7_37();
+      if (OUTLINED_FUNCTION_26_8(v28))
       {
-        v16 = v1;
+        v29 = v1;
       }
 
       else
       {
-        v16 = v1 & 0xFFFFFFFE;
+        v29 = v1 & 0xFFFFFFFE;
       }
 
-      if (v16)
+      if (v29)
       {
         OUTLINED_FUNCTION_19_16();
         OUTLINED_FUNCTION_0_55();
@@ -673,22 +701,22 @@ void __132__FigCaptureSessionAttachedSessionManager_sessionDidStopRunning_captur
 
       OUTLINED_FUNCTION_1_65();
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-      v13 = *(a1 + 32);
-      v12 = *(a1 + 40);
+      v26 = *(a1 + 32);
+      v25 = *(a1 + 40);
     }
 
-    [*(v13 + 48) removeObject:v12];
-    v13 = *(a1 + 32);
-    v17 = *(v13 + 16);
-    if (v17)
+    [*(v26 + 48) removeObject:v25];
+    v26 = *(a1 + 32);
+    v30 = *(v26 + 16);
+    if (v30)
     {
-      CFRelease(v17);
+      CFRelease(v30);
       *(*(a1 + 32) + 16) = 0;
-      v13 = *(a1 + 32);
+      v26 = *(a1 + 32);
     }
 
-    v14 = *(v13 + 72) != *(v13 + 24) + 1;
-    if (v9)
+    v27 = *(v26 + 72) != *(v26 + 24) + 1;
+    if (v22)
     {
       goto LABEL_34;
     }
@@ -702,29 +730,29 @@ LABEL_32:
     goto LABEL_34;
   }
 
-  v14 = 1;
-  if ((v9 & 1) == 0)
+  v27 = 1;
+  if ((v22 & 1) == 0)
   {
     goto LABEL_32;
   }
 
 LABEL_34:
-  if (([*(v13 + 56) containsObject:*(a1 + 40)] & 1) == 0)
+  if (([*(v26 + 56) containsObject:*(a1 + 40)] & 1) == 0)
   {
     if (dword_1EB58E660)
     {
-      v18 = OUTLINED_FUNCTION_7_37();
-      v19 = OUTLINED_FUNCTION_96(v18);
-      if (OUTLINED_FUNCTION_6(v19))
+      v31 = OUTLINED_FUNCTION_7_37();
+      v32 = OUTLINED_FUNCTION_96(v31);
+      if (OUTLINED_FUNCTION_6(v32))
       {
         OUTLINED_FUNCTION_19_16();
         OUTLINED_FUNCTION_0_55();
-        OUTLINED_FUNCTION_4_48();
+        OUTLINED_FUNCTION_4_48(v33, v34, v35, v36, &dword_1AC90E000, v37, v38, "<<<< FigCaptureSessionAttachedSessionManager >>>> %s: Adding stopped session %@ to _sessionsToStart", v60, v61, v62, v63, v64, v65, v66, v67, SBYTE2(v67), SHIBYTE(v67));
         OUTLINED_FUNCTION_16_22();
       }
 
       OUTLINED_FUNCTION_1_65();
-      OUTLINED_FUNCTION_17_8();
+      OUTLINED_FUNCTION_17_8(v39, v40, v41, v42, v43);
     }
 
     if (([OUTLINED_FUNCTION_21_17() containsObject:?] & 1) == 0)
@@ -734,11 +762,11 @@ LABEL_34:
   }
 
 LABEL_41:
-  v20 = *(a1 + 32);
-  v21 = *(v20 + 8);
-  if (*(a1 + 40) != v21)
+  v44 = *(a1 + 32);
+  v45 = v44[1];
+  if (*(a1 + 40) != v45)
   {
-    if (!v14)
+    if (!v27)
     {
       goto LABEL_43;
     }
@@ -748,31 +776,31 @@ LABEL_41:
 
   if (dword_1EB58E660)
   {
-    v23 = OUTLINED_FUNCTION_7_37();
-    v24 = OUTLINED_FUNCTION_96(v23);
-    if (OUTLINED_FUNCTION_6(v24))
+    v47 = OUTLINED_FUNCTION_7_37();
+    v48 = OUTLINED_FUNCTION_96(v47);
+    if (OUTLINED_FUNCTION_6(v48))
     {
       OUTLINED_FUNCTION_19_16();
       OUTLINED_FUNCTION_0_55();
-      OUTLINED_FUNCTION_4_48();
+      OUTLINED_FUNCTION_4_48(v49, v50, v51, v52, &dword_1AC90E000, v53, v54, "<<<< FigCaptureSessionAttachedSessionManager >>>> %s: Primary session %@ stopped, resetting primary session", v60, v61, v62, v63, v64, v65, v66, v67, SBYTE2(v67), SHIBYTE(v67));
       OUTLINED_FUNCTION_16_22();
     }
 
     OUTLINED_FUNCTION_1_65();
-    OUTLINED_FUNCTION_17_8();
-    v20 = *(a1 + 32);
-    v21 = *(v20 + 8);
+    OUTLINED_FUNCTION_17_8(v55, v56, v57, v58, v59);
+    v44 = *(a1 + 32);
+    v45 = v44[1];
   }
 
-  if (v21)
+  if (v45)
   {
-    CFRelease(v21);
+    CFRelease(v45);
     *(*(a1 + 32) + 8) = 0;
-    v20 = *(a1 + 32);
+    v44 = *(a1 + 32);
   }
 
-  [(FigCaptureSessionAttachedSessionManager *)v20 _stopAttachedSessionsAndRemoveHostSession:?];
-  if (v14)
+  [(FigCaptureSessionAttachedSessionManager *)v44 _stopAttachedSessionsAndRemoveHostSession:?];
+  if (v27)
   {
 LABEL_53:
     [(FigCaptureSessionAttachedSessionManager *)*(a1 + 32) _startNextSession];
@@ -780,10 +808,10 @@ LABEL_53:
 
 LABEL_43:
   [(FigCaptureSessionAttachedSessionManager *)*(a1 + 32) _generateStateLog];
-  v22 = *(a1 + 40);
-  if (v22)
+  v46 = *(a1 + 40);
+  if (v46)
   {
-    CFRelease(v22);
+    CFRelease(v46);
   }
 }
 
@@ -825,7 +853,7 @@ LABEL_43:
   }
 }
 
-void __65__FigCaptureSessionAttachedSessionManager_sessionDidReconfigure___block_invoke_cold_1(uint64_t a1, uint64_t *a2, uint64_t *a3)
+void __65__FigCaptureSessionAttachedSessionManager_sessionDidReconfigure___block_invoke_cold_1(void *a1, uint64_t *a2, uint64_t *a3)
 {
   [(FigCaptureSessionAttachedSessionManager *)a1 _stopAttachedSessionsAndRemoveHostSession:?];
   [*(*a2 + 48) addObjectsFromArray:*(*a2 + 56)];

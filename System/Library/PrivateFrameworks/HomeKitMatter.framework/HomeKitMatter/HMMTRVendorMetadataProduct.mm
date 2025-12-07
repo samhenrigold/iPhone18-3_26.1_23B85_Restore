@@ -128,34 +128,7 @@
     {
       categoryNumber = [v7 categoryNumber];
       categoryNumber2 = [(HMMTRVendorMetadataProduct *)self categoryNumber];
-      if (![categoryNumber isEqualToNumber:categoryNumber2])
-      {
-        goto LABEL_13;
-      }
-
-      deviceTypeID = [v7 deviceTypeID];
-      deviceTypeID2 = [(HMMTRVendorMetadataProduct *)self deviceTypeID];
-      v14 = HMFEqualObjects();
-
-      if (!v14)
-      {
-        goto LABEL_13;
-      }
-
-      name = [v7 name];
-      name2 = [(HMMTRVendorMetadataProduct *)self name];
-      v17 = HMFEqualObjects();
-
-      if (!v17)
-      {
-        goto LABEL_13;
-      }
-
-      label = [v7 label];
-      label2 = [(HMMTRVendorMetadataProduct *)self label];
-      v20 = HMFEqualObjects();
-
-      if (v20)
+      if ([categoryNumber isEqualToNumber:categoryNumber2] && (objc_msgSend(v7, "deviceTypeID"), v12 = objc_claimAutoreleasedReturnValue(), -[HMMTRVendorMetadataProduct deviceTypeID](self, "deviceTypeID"), v13 = objc_claimAutoreleasedReturnValue(), v14 = HMFEqualObjects(), v13, v12, v14) && (objc_msgSend(v7, "name"), v15 = objc_claimAutoreleasedReturnValue(), -[HMMTRVendorMetadataProduct name](self, "name"), v16 = objc_claimAutoreleasedReturnValue(), v17 = HMFEqualObjects(), v16, v15, v17) && (objc_msgSend(v7, "label"), v18 = objc_claimAutoreleasedReturnValue(), -[HMMTRVendorMetadataProduct label](self, "label"), v19 = objc_claimAutoreleasedReturnValue(), v20 = HMFEqualObjects(), v19, v18, v20))
       {
         installationGuideURL = [v7 installationGuideURL];
         installationGuideURL2 = [(HMMTRVendorMetadataProduct *)self installationGuideURL];
@@ -164,7 +137,6 @@
 
       else
       {
-LABEL_13:
         v23 = 0;
       }
     }
@@ -251,7 +223,7 @@ LABEL_7:
 
 - (HMMTRVendorMetadataProduct)initWithIdentifier:(id)identifier dictionaryRepresentation:(id)representation
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   representationCopy = representation;
   if (!representationCopy)
@@ -297,18 +269,17 @@ LABEL_7:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = HMFGetLogIdentifier();
-      v23 = 138543618;
-      v24 = v19;
-      v25 = 2112;
-      v26 = v8;
-      _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, "%{public}@Cannot find category to create vendor information from dictionary: %@", &v23, 0x16u);
+      v22 = 138543618;
+      v23 = v19;
+      v24 = 2112;
+      v25 = v8;
+      _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, "%{public}@Cannot find category to create vendor information from dictionary: %@", &v22, 0x16u);
     }
 
     objc_autoreleasePoolPop(v17);
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

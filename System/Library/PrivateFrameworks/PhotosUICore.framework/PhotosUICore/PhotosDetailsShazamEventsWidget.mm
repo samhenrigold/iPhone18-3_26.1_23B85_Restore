@@ -29,7 +29,7 @@
 {
   contextCopy = context;
   selfCopy = self;
-  sub_1A4038E8C(contextCopy);
+  sub_1A4038E8C(contextCopy, selfCopy);
 }
 
 - (NSString)snappableWidgetIdentifier
@@ -61,14 +61,14 @@
 
 - (_TtC12PhotosUICore31PhotosDetailsShazamEventsWidget)init
 {
-  swift_unknownObjectWeakInit();
-  v3 = (self + OBJC_IVAR____TtC12PhotosUICore31PhotosDetailsShazamEventsWidget_contextObservation);
-  v4 = type metadata accessor for PhotosDetailsShazamEventsWidget();
-  *v3 = 0;
-  v3[1] = 0;
-  v6.receiver = self;
-  v6.super_class = v4;
-  return [(PXPhotosDetailsWidget *)&v6 init];
+  v3 = swift_unknownObjectWeakInit();
+  v4 = (self + OBJC_IVAR____TtC12PhotosUICore31PhotosDetailsShazamEventsWidget_contextObservation);
+  v6 = type metadata accessor for PhotosDetailsShazamEventsWidget(v3, v5);
+  *v4 = 0;
+  v4[1] = 0;
+  v8.receiver = self;
+  v8.super_class = v6;
+  return [(PXPhotosDetailsWidget *)&v8 init];
 }
 
 @end

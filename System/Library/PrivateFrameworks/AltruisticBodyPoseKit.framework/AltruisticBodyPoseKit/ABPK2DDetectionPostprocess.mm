@@ -1,4 +1,5 @@
 @interface ABPK2DDetectionPostprocess
+- (ABPK2DDetectionPostprocess)initWithInputJoints:(unint64_t)joints andOutputJoints:(unint64_t)outputJoints use3DSkeletonForExtrapolation:(BOOL)extrapolation shouldPush3DSupportSkeleton:(BOOL)skeleton withExtrapolationTime:(double)time;
 - (id)get2DDetectionResultforRotation:(int64_t)rotation croppedRect:(CGRect)rect;
 - (id)getAligned3DSkeleton;
 - (id)getRaw2DDetectionResultforRotation:(int64_t)rotation croppedRect:(CGRect)rect;
@@ -11,6 +12,16 @@
 @end
 
 @implementation ABPK2DDetectionPostprocess
+
+- (ABPK2DDetectionPostprocess)initWithInputJoints:(unint64_t)joints andOutputJoints:(unint64_t)outputJoints use3DSkeletonForExtrapolation:(BOOL)extrapolation shouldPush3DSupportSkeleton:(BOOL)skeleton withExtrapolationTime:(double)time
+{
+  v7 = MEMORY[0x277CBEAD8];
+  v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s must be overridden in a subclass/category", outputJoints, extrapolation, skeleton, time, "-[ABPK2DDetectionPostprocess initWithInputJoints:andOutputJoints:use3DSkeletonForExtrapolation:shouldPush3DSupportSkeleton:withExtrapolationTime:]"];
+  v9 = [v7 exceptionWithName:*MEMORY[0x277CBE660] reason:v8 userInfo:0];
+  v10 = v9;
+
+  objc_exception_throw(v9);
+}
 
 - (int)extract2DSkeletonfromBuffers:(id)buffers withImagePreProcessingParams:(id)params atTimestamp:(double)timestamp previousSkeleton3D:(id)d
 {

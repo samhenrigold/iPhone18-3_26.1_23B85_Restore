@@ -1462,7 +1462,7 @@ LABEL_64:
 {
   pushCopy = push;
   completionCopy = completion;
-  v8 = [pushCopy objectForKey:@"request_id"];
+  v8 = objc_msgSend_objectForKey_(pushCopy);
   if (v8)
   {
     if (!self->_contextSnapshotByForeignRequestID)
@@ -1484,7 +1484,7 @@ LABEL_64:
       _os_log_debug_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "%s #hal received context_snapshot_push for request %@:", buf, 0x16u);
     }
 
-    v14 = [pushCopy objectForKey:@"context_snapshot"];
+    v14 = objc_msgSend_objectForKey_(pushCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1506,7 +1506,7 @@ LABEL_64:
     v34 = v19;
     [v15 enumerateKeysAndObjectsUsingBlock:v32];
 
-    v20 = [pushCopy objectForKey:@"context_snapshot_by_assistant_identifier"];
+    v20 = objc_msgSend_objectForKey_(pushCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1583,11 +1583,11 @@ LABEL_19:
   dispatch_assert_queue_V2(queue);
   remoteContextStore = [(ADContextManager *)self remoteContextStore];
   v12 = [[AFDeviceContext alloc] initWithSerializedBackingStore:messageCopy fromLocalDevice:0 contextCollectorSource:0];
-  v13 = [messageCopy objectForKey:@"included_context_types_in_request"];
-  v14 = [messageCopy objectForKey:@"excluded_context_keys_in_request"];
-  v15 = [messageCopy objectForKey:@"included_context_types_in_response"];
-  v16 = [messageCopy objectForKey:@"excluded_context_keys_in_response"];
-  v17 = [messageCopy objectForKey:@"prefers_assistant_identifiers"];
+  v13 = objc_msgSend_objectForKey_(messageCopy);
+  v14 = objc_msgSend_objectForKey_(messageCopy);
+  v15 = objc_msgSend_objectForKey_(messageCopy);
+  v16 = objc_msgSend_objectForKey_(messageCopy);
+  v17 = objc_msgSend_objectForKey_(messageCopy);
 
   objc_opt_class();
   v18 = 0;
@@ -1625,7 +1625,7 @@ LABEL_19:
     [v11 logEventWithType:4586 context:0];
 
     v12 = dispatch_group_create();
-    v13 = [messageCopy objectForKey:@"prefers_assistant_identifiers"];
+    v13 = objc_msgSend_objectForKey_(messageCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1675,7 +1675,7 @@ LABEL_19:
       goto LABEL_61;
     }
 
-    v16 = [messageCopy objectForKey:@"force_fetch_assistant_identifiers"];
+    v16 = objc_msgSend_objectForKey_(messageCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1726,7 +1726,7 @@ LABEL_19:
     {
     }
 
-    localPeerInfo = [messageCopy objectForKey:@"forceFetchingContextFrom"];
+    localPeerInfo = objc_msgSend_objectForKey_(messageCopy);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {

@@ -6,7 +6,7 @@
 
 - (void)dealloc
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (self)
   {
     isa = self[2].super.super.isa;
@@ -68,85 +68,83 @@
     goto LABEL_18;
   }
 
-  __nwlog_obj();
+  v13 = __nwlog_obj();
   *buf = 136446210;
-  v25 = "nw_parallel_array_dispose";
-  v20 = 12;
-  v19 = buf;
-  v13 = _os_log_send_and_compose_impl();
+  v24 = "nw_parallel_array_dispose";
+  v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s called with null object", buf, 12);
   type = OS_LOG_TYPE_ERROR;
-  v22 = 0;
-  if (__nwlog_fault(v13, &type, &v22))
+  v21 = 0;
+  if (__nwlog_fault(v14, &type, &v21))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v14 = __nwlog_obj();
-      v15 = type;
-      if (!os_log_type_enabled(v14, type))
+      v15 = __nwlog_obj();
+      v16 = type;
+      if (!os_log_type_enabled(v15, type))
       {
         goto LABEL_33;
       }
 
       *buf = 136446210;
-      v25 = "nw_parallel_array_dispose";
-      v16 = "%{public}s called with null object";
+      v24 = "nw_parallel_array_dispose";
+      v17 = "%{public}s called with null object";
       goto LABEL_32;
     }
 
-    if (v22 != 1)
+    if (v21 != 1)
     {
-      v14 = __nwlog_obj();
-      v15 = type;
-      if (!os_log_type_enabled(v14, type))
+      v15 = __nwlog_obj();
+      v16 = type;
+      if (!os_log_type_enabled(v15, type))
       {
         goto LABEL_33;
       }
 
       *buf = 136446210;
-      v25 = "nw_parallel_array_dispose";
-      v16 = "%{public}s called with null object, backtrace limit exceeded";
+      v24 = "nw_parallel_array_dispose";
+      v17 = "%{public}s called with null object, backtrace limit exceeded";
       goto LABEL_32;
     }
 
     backtrace_string = __nw_create_backtrace_string();
-    v14 = __nwlog_obj();
-    v15 = type;
-    v18 = os_log_type_enabled(v14, type);
+    v15 = __nwlog_obj();
+    v16 = type;
+    v19 = os_log_type_enabled(v15, type);
     if (backtrace_string)
     {
-      if (v18)
+      if (v19)
       {
         *buf = 136446466;
-        v25 = "nw_parallel_array_dispose";
-        v26 = 2082;
-        v27 = backtrace_string;
-        _os_log_impl(&dword_181A37000, v14, v15, "%{public}s called with null object, dumping backtrace:%{public}s", buf, 0x16u);
+        v24 = "nw_parallel_array_dispose";
+        v25 = 2082;
+        v26 = backtrace_string;
+        _os_log_impl(&dword_181A37000, v15, v16, "%{public}s called with null object, dumping backtrace:%{public}s", buf, 0x16u);
       }
 
       free(backtrace_string);
       goto LABEL_33;
     }
 
-    if (v18)
+    if (v19)
     {
       *buf = 136446210;
-      v25 = "nw_parallel_array_dispose";
-      v16 = "%{public}s called with null object, no backtrace";
+      v24 = "nw_parallel_array_dispose";
+      v17 = "%{public}s called with null object, no backtrace";
 LABEL_32:
-      _os_log_impl(&dword_181A37000, v14, v15, v16, buf, 0xCu);
+      _os_log_impl(&dword_181A37000, v15, v16, v17, buf, 0xCu);
     }
   }
 
 LABEL_33:
-  if (v13)
+  if (v14)
   {
-    free(v13);
+    free(v14);
   }
 
 LABEL_18:
-  v21.receiver = self;
-  v21.super_class = OS_nw_parallel_array;
-  [(OS_nw_parallel_array *)&v21 dealloc:v19];
+  v20.receiver = self;
+  v20.super_class = OS_nw_parallel_array;
+  [(OS_nw_parallel_array *)&v20 dealloc];
 }
 
 @end

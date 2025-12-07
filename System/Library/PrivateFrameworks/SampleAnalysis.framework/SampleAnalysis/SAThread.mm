@@ -8,6 +8,7 @@
 - (id)firstThreadStateOnOrAfterTime:(id)time sampleIndex:(unint64_t)index;
 - (id)firstThreadStateOnOrAfterTime:(id)time withSampleIndex:(BOOL)index;
 - (id)lastThreadStateOnOrBeforeTime:(id)time sampleIndex:(unint64_t)index;
+- (id)lastThreadStateOnOrBeforeTime:(id)time withSampleIndex:(BOOL)index;
 - (id)patchedStackForTruncatedStack:(id)stack;
 - (unint64_t)indexOfFirstThreadStateOnOrAfterTime:(id)time sampleIndex:(unint64_t)index;
 - (unint64_t)indexOfFirstThreadStateOnOrAfterTime:(id)time withSampleIndex:(BOOL)index;
@@ -16,6 +17,7 @@
 - (unint64_t)sampleCountInTimestampRangeStart:(id)start end:(id)end;
 - (void)addSelfToSerializationDictionary:(id)dictionary;
 - (void)cpuTimeForThreadStateIndex:(uint64_t)index@<X2> inTimestampRangeStart:(uint64_t)start@<X3> end:(void *)end@<X8>;
+- (void)enumerateThreadStatesBetweenStartTime:(id)time endTime:(id)endTime reverseOrder:(BOOL)order withSampleIndex:(BOOL)index block:(id)block;
 - (void)enumerateThreadStatesBetweenStartTime:(id)time startSampleIndex:(unint64_t)index endTime:(id)endTime endSampleIndex:(unint64_t)sampleIndex reverseOrder:(BOOL)order block:(id)block;
 - (void)forwardFillMonotonicallyIncreasingData;
 - (void)insertState:(void *)state atIndex:;
@@ -279,6 +281,22 @@ uint64_t __61__SAThread_indexOfLastThreadStateOnOrBeforeTime_sampleIndex___block
   return [(SAThread *)self indexOfFirstThreadStateOnOrAfterTime:time sampleIndex:v4];
 }
 
+- (id)lastThreadStateOnOrBeforeTime:(id)time withSampleIndex:(BOOL)index
+{
+  v5 = [(SAThread *)self indexOfLastThreadStateOnOrBeforeTime:time withSampleIndex:index];
+  if (v5 == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v6 = [(NSMutableArray *)self->_threadStates objectAtIndexedSubscript:v5];
+  }
+
+  return v6;
+}
+
 - (unint64_t)indexOfLastThreadStateOnOrBeforeTime:(id)time withSampleIndex:(BOOL)index
 {
   indexCopy = index;
@@ -364,7 +382,18 @@ uint64_t __109__SAThread_enumerateThreadStatesBetweenStartTime_startSampleIndex_
   return v6;
 }
 
-uint64_t __93__SAThread_enumerateThreadStatesBetweenStartTime_endTime_reverseOrder_withSampleIndex_block___block_invoke(uint64_t a1, void *a2)
+- (void)enumerateThreadStatesBetweenStartTime:(id)time endTime:(id)endTime reverseOrder:(BOOL)order withSampleIndex:(BOOL)index block:(id)block
+{
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __93__SAThread_enumerateThreadStatesBetweenStartTime_endTime_reverseOrder_withSampleIndex_block___block_invoke;
+  v7[3] = &unk_1E86F7090;
+  indexCopy = index;
+  v7[4] = block;
+  [(SAThread *)self enumerateThreadStatesBetweenStartTime:time startSampleIndex:0x7FFFFFFFFFFFFFFFLL endTime:endTime endSampleIndex:0x7FFFFFFFFFFFFFFFLL reverseOrder:order block:v7];
+}
+
+void *__93__SAThread_enumerateThreadStatesBetweenStartTime_endTime_reverseOrder_withSampleIndex_block___block_invoke(uint64_t a1, void *a2)
 {
   if (*(a1 + 40) != 1 || (result = [a2 startSampleIndex], result != 0x7FFFFFFFFFFFFFFFLL))
   {
@@ -378,29 +407,28 @@ uint64_t __93__SAThread_enumerateThreadStatesBetweenStartTime_endTime_reverseOrd
 
 - (unint64_t)sampleCountInTimestampRangeStart:(id)start end:(id)end
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (start && end && ([start le:end] & 1) == 0)
   {
-    v13 = *__error();
-    v14 = _sa_logt();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v12 = *__error();
+    v13 = _sa_logt();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v15 = [start debugDescription];
-      uTF8String = [v15 UTF8String];
-      v17 = [end debugDescription];
+      v14 = [start debugDescription];
+      uTF8String = [v14 UTF8String];
+      v16 = [end debugDescription];
       *buf = 136315394;
-      v28 = uTF8String;
-      v29 = 2080;
-      uTF8String2 = [v17 UTF8String];
-      _os_log_error_impl(&dword_1E0E2F000, v14, OS_LOG_TYPE_ERROR, "start time %s after end time %s", buf, 0x16u);
+      v21 = uTF8String;
+      v22 = 2080;
+      uTF8String2 = [v16 UTF8String];
+      _os_log_error_impl(&dword_1E0E2F000, v13, OS_LOG_TYPE_ERROR, "start time %s after end time %s", buf, 0x16u);
     }
 
-    *__error() = v13;
-    v18 = [start debugDescription];
-    uTF8String3 = [v18 UTF8String];
-    v20 = [end debugDescription];
-    [v20 UTF8String];
-    _SASetCrashLogMessage(259, "start time %s after end time %s", v21, v22, v23, v24, v25, v26, uTF8String3);
+    *__error() = v12;
+    v17 = [start debugDescription];
+    uTF8String3 = [v17 UTF8String];
+    v19 = [end debugDescription];
+    _SASetCrashLogMessage(259, "start time %s after end time %s", uTF8String3, [v19 UTF8String]);
 
     _os_crash();
     __break(1u);
@@ -412,7 +440,7 @@ uint64_t __93__SAThread_enumerateThreadStatesBetweenStartTime_endTime_reverseOrd
     v8 = [(SAThread *)self indexOfFirstThreadStateOnOrAfterTime:start sampleIndex:0x7FFFFFFFFFFFFFFFLL];
     if (v8 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      result = 0;
+      return 0;
     }
 
     else
@@ -431,17 +459,16 @@ uint64_t __93__SAThread_enumerateThreadStatesBetweenStartTime_endTime_reverseOrd
 
       if (v10 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        result = 0;
+        return 0;
       }
 
       else
       {
-        result = v11;
+        return v11;
       }
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -583,7 +610,7 @@ LABEL_42:
             threadStates7 = [self threadStates];
             v35 = [threadStates7 count] - 1;
 
-            if (v33 - 1 >= v35)
+            if ((v33 - 1) >= v35)
             {
               break;
             }
@@ -640,37 +667,37 @@ LABEL_43:
 
 - (void)forwardFillMonotonicallyIncreasingData
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     threadStates = [self threadStates];
-    v3 = [threadStates countByEnumeratingWithState:&v43 objects:v77 count:16];
+    v3 = [threadStates countByEnumeratingWithState:&v42 objects:v76 count:16];
     if (v3)
     {
       v4 = v3;
       selfCopy = self;
       v5 = 0;
       v6 = 0;
-      v7 = *v44;
-      v28 = threadStates;
+      v7 = *v43;
+      v27 = threadStates;
       do
       {
         for (i = 0; i != v4; ++i)
         {
           v9 = v6;
-          if (*v44 != v7)
+          if (*v43 != v7)
           {
             objc_enumerationMutation(threadStates);
           }
 
-          v10 = *(*(&v43 + 1) + 8 * i);
+          v10 = *(*(&v42 + 1) + 8 * i);
           if (v6)
           {
-            if ([*(*(&v43 + 1) + 8 * i) userTimeInNs] && (v11 = objc_msgSend(v10, "userTimeInNs"), v11 < objc_msgSend(v6, "userTimeInNs")) || objc_msgSend(v10, "systemTimeInNs") && (v12 = objc_msgSend(v10, "systemTimeInNs"), v12 < objc_msgSend(v6, "systemTimeInNs")) || objc_msgSend(v10, "instructions") && (v13 = objc_msgSend(v10, "instructions"), v13 < objc_msgSend(v6, "instructions")) || objc_msgSend(v10, "cycles") && (v14 = objc_msgSend(v10, "cycles"), v14 < objc_msgSend(v6, "cycles")))
+            if ([*(*(&v42 + 1) + 8 * i) userTimeInNs] && (v11 = objc_msgSend(v10, "userTimeInNs"), v11 < objc_msgSend(v6, "userTimeInNs")) || objc_msgSend(v10, "systemTimeInNs") && (v12 = objc_msgSend(v10, "systemTimeInNs"), v12 < objc_msgSend(v6, "systemTimeInNs")) || objc_msgSend(v10, "instructions") && (v13 = objc_msgSend(v10, "instructions"), v13 < objc_msgSend(v6, "instructions")) || objc_msgSend(v10, "cycles") && (v14 = objc_msgSend(v10, "cycles"), v14 < objc_msgSend(v6, "cycles")))
             {
               v15 = *__error();
               v16 = _sa_logt();
@@ -679,8 +706,8 @@ LABEL_43:
                 threadId = [selfCopy threadId];
                 threadStates2 = [selfCopy threadStates];
                 v25 = [threadStates2 count];
-                v40 = [v9 debugDescription];
-                v39 = [v10 debugDescription];
+                v39 = [v9 debugDescription];
+                v38 = [v10 debugDescription];
                 cpuTimeNs = [v9 cpuTimeNs];
                 userTimeInNs = [v9 userTimeInNs];
                 systemTimeInNs = [v9 systemTimeInNs];
@@ -692,38 +719,38 @@ LABEL_43:
                 cycles = [v9 cycles];
                 cycles2 = [v10 cycles];
                 *buf = 134221570;
-                v48 = threadId;
-                v49 = 2048;
-                v50 = v5;
-                v51 = 2048;
-                v52 = v25;
-                v53 = 2112;
-                v54 = v40;
-                v55 = 2112;
-                v56 = v39;
-                v57 = 2048;
-                v58 = cpuTimeNs;
-                v59 = 2048;
-                v60 = userTimeInNs;
-                v61 = 2048;
-                v62 = systemTimeInNs;
-                v63 = 2048;
-                v64 = cpuTimeNs2;
-                v65 = 2048;
-                v66 = userTimeInNs2;
-                v67 = 2048;
-                v68 = systemTimeInNs2;
-                v69 = 2048;
-                v70 = instructions;
-                v71 = 2048;
-                v72 = instructions2;
-                v73 = 2048;
-                v74 = cycles;
-                v75 = 2048;
-                v76 = cycles2;
+                v47 = threadId;
+                v48 = 2048;
+                v49 = v5;
+                v50 = 2048;
+                v51 = v25;
+                v52 = 2112;
+                v53 = v39;
+                v54 = 2112;
+                v55 = v38;
+                v56 = 2048;
+                v57 = cpuTimeNs;
+                v58 = 2048;
+                v59 = userTimeInNs;
+                v60 = 2048;
+                v61 = systemTimeInNs;
+                v62 = 2048;
+                v63 = cpuTimeNs2;
+                v64 = 2048;
+                v65 = userTimeInNs2;
+                v66 = 2048;
+                v67 = systemTimeInNs2;
+                v68 = 2048;
+                v69 = instructions;
+                v70 = 2048;
+                v71 = instructions2;
+                v72 = 2048;
+                v73 = cycles;
+                v74 = 2048;
+                v75 = cycles2;
                 _os_log_debug_impl(&dword_1E0E2F000, v16, OS_LOG_TYPE_DEBUG, "Thread 0x%llx monotonically increasing data decreased at index %lu of %lu between %@ and %@:\ncpu time %llu (%llu + %llu) -> %llu (%llu + %llu)\ninstructions %llu -> %llu\ncycles %llu -> %llu", buf, 0x98u);
 
-                threadStates = v28;
+                threadStates = v27;
               }
 
               *__error() = v15;
@@ -775,19 +802,17 @@ LABEL_43:
           ++v5;
         }
 
-        v4 = [threadStates countByEnumeratingWithState:&v43 objects:v77 count:16];
+        v4 = [threadStates countByEnumeratingWithState:&v42 objects:v76 count:16];
       }
 
       while (v4);
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)insertState:(void *)state atIndex:
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   if (self)
   {
     stateCopy = state;
@@ -798,22 +823,22 @@ LABEL_43:
     v7 = objc_alloc_init(MEMORY[0x1E695DFA8]);
     v8 = objc_alloc_init(MEMORY[0x1E695DFA8]);
     v9 = selfCopy[1];
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __32__SAThread_insertState_atIndex___block_invoke;
-    v45[3] = &unk_1E86F70B8;
-    v10 = v7;
-    v46 = v10;
-    v11 = v8;
-    v47 = v11;
-    [v9 enumerateObjectsAtIndexes:v6 options:0 usingBlock:v45];
     v44[0] = MEMORY[0x1E69E9820];
     v44[1] = 3221225472;
-    v44[2] = __32__SAThread_insertState_atIndex___block_invoke_2;
-    v44[3] = &unk_1E86F7108;
-    v44[4] = selfCopy;
-    v44[5] = stateCopy;
-    v12 = MEMORY[0x1E12EBE50](v44);
+    v44[2] = __32__SAThread_insertState_atIndex___block_invoke;
+    v44[3] = &unk_1E86F70B8;
+    v10 = v7;
+    v45 = v10;
+    v11 = v8;
+    v46 = v11;
+    [v9 enumerateObjectsAtIndexes:v6 options:0 usingBlock:v44];
+    v43[0] = MEMORY[0x1E69E9820];
+    v43[1] = 3221225472;
+    v43[2] = __32__SAThread_insertState_atIndex___block_invoke_2;
+    v43[3] = &unk_1E86F7108;
+    v43[4] = selfCopy;
+    v43[5] = stateCopy;
+    v12 = MEMORY[0x1E12EBE50](v43);
     (v12)[2](v12, v10);
     dispatchQueue = [v4 dispatchQueue];
     if (dispatchQueue)
@@ -826,40 +851,40 @@ LABEL_43:
         v15 = 0;
       }
 
-      v41 = v15;
-      v42 = v14;
+      v40 = v15;
+      v41 = v14;
       [*(dispatchQueue + 8) addObject:v14];
       [*(dispatchQueue + 8) sortUsingComparator:&__block_literal_global_6];
       if ((v16 & 1) == 0)
       {
-        v34 = v12;
-        v35 = v11;
-        v36 = v10;
-        v37 = v4;
-        v38 = selfCopy;
-        v39 = stateCopy;
-        v40 = v6;
-        v50 = 0u;
-        v51 = 0u;
-        v48 = 0u;
+        v33 = v12;
+        v34 = v11;
+        v35 = v10;
+        v36 = v4;
+        v37 = selfCopy;
+        v38 = stateCopy;
+        v39 = v6;
         v49 = 0u;
-        v33 = dispatchQueue;
+        v50 = 0u;
+        v47 = 0u;
+        v48 = 0u;
+        v32 = dispatchQueue;
         obj = *(dispatchQueue + 8);
-        v17 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
+        v17 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v49;
+          v19 = *v48;
           do
           {
             for (i = 0; i != v18; ++i)
             {
-              if (*v49 != v19)
+              if (*v48 != v19)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v21 = *(*(&v48 + 1) + 8 * i);
+              v21 = *(*(&v47 + 1) + 8 * i);
               thread = [0 thread];
               thread2 = [v21 thread];
               v24 = thread2;
@@ -877,13 +902,13 @@ LABEL_43:
 
                 if (v29)
                 {
-                  *v41 = 1;
+                  *v40 = 1;
                   goto LABEL_17;
                 }
               }
             }
 
-            v18 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
+            v18 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
           }
 
           while (v18);
@@ -891,14 +916,14 @@ LABEL_43:
 
 LABEL_17:
 
-        stateCopy = v39;
-        v6 = v40;
-        v4 = v37;
-        selfCopy = v38;
-        v11 = v35;
-        v10 = v36;
-        dispatchQueue = v33;
-        v12 = v34;
+        stateCopy = v38;
+        v6 = v39;
+        v4 = v36;
+        selfCopy = v37;
+        v11 = v34;
+        v10 = v35;
+        dispatchQueue = v32;
+        v12 = v33;
       }
     }
 
@@ -911,8 +936,6 @@ LABEL_17:
       [swiftTask[1] sortUsingComparator:&__block_literal_global_6];
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __32__SAThread_insertState_atIndex___block_invoke(uint64_t a1, void *a2)
@@ -932,48 +955,46 @@ void __32__SAThread_insertState_atIndex___block_invoke(uint64_t a1, void *a2)
 
 void __32__SAThread_insertState_atIndex___block_invoke_2(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v12 + 1) + 8 * v7) states];
-        v11[0] = MEMORY[0x1E69E9820];
-        v11[1] = 3221225472;
-        v11[2] = __32__SAThread_insertState_atIndex___block_invoke_3;
-        v11[3] = &unk_1E86F70E0;
+        v8 = [*(*(&v11 + 1) + 8 * v7) states];
+        v10[0] = MEMORY[0x1E69E9820];
+        v10[1] = 3221225472;
+        v10[2] = __32__SAThread_insertState_atIndex___block_invoke_3;
+        v10[3] = &unk_1E86F70E0;
         v9 = *(a1 + 40);
-        v11[4] = *(a1 + 32);
-        v11[5] = v9;
-        [v8 enumerateObjectsWithOptions:2 usingBlock:v11];
+        v10[4] = *(a1 + 32);
+        v10[5] = v9;
+        [v8 enumerateObjectsWithOptions:2 usingBlock:v10];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __32__SAThread_insertState_atIndex___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -1002,45 +1023,44 @@ void __32__SAThread_insertState_atIndex___block_invoke_3(uint64_t a1, void *a2, 
 - (id)patchedStackForTruncatedStack:(id)stack
 {
   stackCopy = stack;
-  v73 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   v6 = [stack objectAtIndexedSubscript:0];
   isTruncatedBacktraceFrame = [v6 isTruncatedBacktraceFrame];
 
   if ((isTruncatedBacktraceFrame & 1) == 0)
   {
-    v42 = *__error();
-    v43 = _sa_logt();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v41 = *__error();
+    v42 = _sa_logt();
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
       v3 = [stackCopy objectAtIndexedSubscript:0];
-      v44 = [v3 debugDescription];
+      v43 = [v3 debugDescription];
       *buf = 136315138;
-      uTF8String = [v44 UTF8String];
-      _os_log_error_impl(&dword_1E0E2F000, v43, OS_LOG_TYPE_ERROR, "%s is not a truncated frame", buf, 0xCu);
+      uTF8String = [v43 UTF8String];
+      _os_log_error_impl(&dword_1E0E2F000, v42, OS_LOG_TYPE_ERROR, "%s is not a truncated frame", buf, 0xCu);
     }
 
-    *__error() = v42;
-    v45 = [stackCopy objectAtIndexedSubscript:0];
-    v46 = [v45 debugDescription];
-    uTF8String2 = [v46 UTF8String];
-    _SASetCrashLogMessage(470, "%s is not a truncated frame", v48, v49, v50, v51, v52, v53, uTF8String2);
+    *__error() = v41;
+    v44 = [stackCopy objectAtIndexedSubscript:0];
+    v45 = [v44 debugDescription];
+    _SASetCrashLogMessage(470, "%s is not a truncated frame", [v45 UTF8String]);
 
     _os_crash();
     __break(1u);
 LABEL_48:
-    v54 = *__error();
-    v55 = _sa_logt();
-    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+    v46 = *__error();
+    v47 = _sa_logt();
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       uTF8String = v3;
-      v69 = 2048;
-      v70 = 0x7FFFFFFFFFFFFFFFLL;
-      _os_log_error_impl(&dword_1E0E2F000, v55, OS_LOG_TYPE_ERROR, "best match length is %lu, but index is %lu", buf, 0x16u);
+      v55 = 2048;
+      v56 = 0x7FFFFFFFFFFFFFFFLL;
+      _os_log_error_impl(&dword_1E0E2F000, v47, OS_LOG_TYPE_ERROR, "best match length is %lu, but index is %lu", buf, 0x16u);
     }
 
-    *__error() = v54;
-    _SASetCrashLogMessage(532, "best match length is %lu, but index is %lu", v56, v57, v58, v59, v60, v61, v3);
+    *__error() = v46;
+    _SASetCrashLogMessage(532, "best match length is %lu, but index is %lu", v3, 0x7FFFFFFFFFFFFFFFLL);
     _os_crash();
     __break(1u);
   }
@@ -1051,7 +1071,7 @@ LABEL_48:
     goto LABEL_42;
   }
 
-  v66 = [stackCopy count];
+  v52 = [stackCopy count];
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
   selfCopy = self;
   v9 = self->_resampledLeafUserFrame;
@@ -1070,8 +1090,8 @@ LABEL_48:
     while (parentFrame);
   }
 
-  v63 = [v8 count];
-  if (!v63)
+  v49 = [v8 count];
+  if (!v49)
   {
     goto LABEL_29;
   }
@@ -1081,9 +1101,9 @@ LABEL_48:
   v14 = 0x7FFFFFFFFFFFFFFFLL;
   do
   {
-    v64 = v14;
-    v65 = v3;
-    if (v66 < 2)
+    v50 = v14;
+    v51 = v3;
+    if (v52 < 2)
     {
       v16 = 0;
     }
@@ -1106,7 +1126,7 @@ LABEL_48:
           break;
         }
 
-        if (v16 >= v63 - v13)
+        if (v16 >= v49 - v13)
         {
           goto LABEL_16;
         }
@@ -1115,7 +1135,7 @@ LABEL_48:
         ++v15;
         stackCopy = v17;
         v8 = v20;
-        if (v23 >= v66)
+        if (v23 >= v52)
         {
           goto LABEL_17;
         }
@@ -1128,11 +1148,11 @@ LABEL_16:
     }
 
 LABEL_17:
-    v14 = v64;
-    v3 = v65;
+    v14 = v50;
+    v3 = v51;
     if (v16)
     {
-      v24 = v16 >= v65;
+      v24 = v16 >= v51;
     }
 
     else
@@ -1149,7 +1169,7 @@ LABEL_17:
     ++v13;
   }
 
-  while (v13 != v63);
+  while (v13 != v49);
   if (!v3)
   {
 LABEL_29:
@@ -1184,7 +1204,7 @@ LABEL_29:
 
         if (address3 == address4)
         {
-          v14 = v63 - 1;
+          v14 = v49 - 1;
           v3 = 1;
           goto LABEL_27;
         }
@@ -1196,15 +1216,15 @@ LABEL_38:
     v36 = _sa_logt();
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
     {
-      v39 = [(SAThread *)selfCopy debugDescription];
-      v40 = [v8 debugDescription];
-      v41 = [stackCopy debugDescription];
+      v38 = [(SAThread *)selfCopy debugDescription];
+      v39 = [v8 debugDescription];
+      v40 = [stackCopy debugDescription];
       *buf = 138412802;
-      uTF8String = v39;
-      v69 = 2112;
-      v70 = v40;
-      v71 = 2112;
-      v72 = v41;
+      uTF8String = v38;
+      v55 = 2112;
+      v56 = v39;
+      v57 = 2112;
+      v58 = v40;
       _os_log_debug_impl(&dword_1E0E2F000, v36, OS_LOG_TYPE_DEBUG, "%@ no matching frames in resampled stack:%@\nvs\n%@", buf, 0x20u);
     }
 
@@ -1218,8 +1238,8 @@ LABEL_27:
     goto LABEL_48;
   }
 
-  [v8 removeObjectsInRange:{v14, v63 - v14}];
-  v26 = [stackCopy subarrayWithRange:{1, v66 - 1}];
+  [v8 removeObjectsInRange:{v14, v49 - v14}];
+  v26 = [stackCopy subarrayWithRange:{1, v52 - 1}];
   [v8 addObjectsFromArray:v26];
 
   stackCopy = v8;
@@ -1227,7 +1247,6 @@ LABEL_41:
   v28 = stackCopy;
 
 LABEL_42:
-  v37 = *MEMORY[0x1E69E9840];
 
   return v28;
 }
@@ -1241,28 +1260,26 @@ LABEL_42:
 
 - (BOOL)addSelfToBuffer:(id *)buffer bufferLength:(unint64_t)length withCompletedSerializationDictionary:(id)dictionary
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if ([(SAThread *)self sizeInBytesForSerializedVersion]!= length)
   {
     v5 = *__error();
-    v16 = _sa_logt();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = _sa_logt();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v17 = [(SAThread *)self debugDescription];
+      v16 = [(SAThread *)self debugDescription];
       *buf = 136315650;
-      uTF8String = [v17 UTF8String];
-      v55 = 2048;
-      *v56 = [(SAThread *)self sizeInBytesForSerializedVersion];
-      *&v56[8] = 2048;
-      *&v56[10] = length;
-      _os_log_error_impl(&dword_1E0E2F000, v16, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
+      uTF8String = [v16 UTF8String];
+      v32 = 2048;
+      *v33 = [(SAThread *)self sizeInBytesForSerializedVersion];
+      *&v33[8] = 2048;
+      *&v33[10] = length;
+      _os_log_error_impl(&dword_1E0E2F000, v15, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
     }
 
     *__error() = v5;
-    v18 = [(SAThread *)self debugDescription];
-    uTF8String2 = [v18 UTF8String];
-    [(SAThread *)self sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(4071, "%s: size %lu != buffer length %lu", v20, v21, v22, v23, v24, v25, uTF8String2);
+    v17 = [(SAThread *)self debugDescription];
+    _SASetCrashLogMessage(4071, "%s: size %lu != buffer length %lu", [v17 UTF8String], -[SAThread sizeInBytesForSerializedVersion](self, "sizeInBytesForSerializedVersion"), length);
 
     _os_crash();
     __break(1u);
@@ -1279,54 +1296,49 @@ LABEL_42:
   if ([(NSMutableArray *)self->_threadStates count]>= 0xFFFFFFFF)
   {
 LABEL_8:
-    v26 = *__error();
-    v27 = _sa_logt();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v18 = *__error();
+    v19 = _sa_logt();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v28 = [(SAThread *)self debugDescription];
-      uTF8String3 = [v28 UTF8String];
-      v30 = [(NSMutableArray *)self->_threadStates count];
+      v20 = [(SAThread *)self debugDescription];
+      uTF8String2 = [v20 UTF8String];
+      v22 = [(NSMutableArray *)self->_threadStates count];
       *buf = 136315394;
-      uTF8String = uTF8String3;
-      v55 = 2048;
-      *v56 = v30;
-      _os_log_error_impl(&dword_1E0E2F000, v27, OS_LOG_TYPE_ERROR, "%s has %lu states", buf, 0x16u);
+      uTF8String = uTF8String2;
+      v32 = 2048;
+      *v33 = v22;
+      _os_log_error_impl(&dword_1E0E2F000, v19, OS_LOG_TYPE_ERROR, "%s has %lu states", buf, 0x16u);
     }
 
-    *__error() = v26;
+    *__error() = v18;
     buffer = [(SAThread *)self debugDescription];
-    uTF8String4 = [($6806D93BA7D51FFB199EB98EFF121020 *)buffer UTF8String];
-    [(NSMutableArray *)self->_threadStates count];
-    _SASetCrashLogMessage(4085, "%s has %lu states", v32, v33, v34, v35, v36, v37, uTF8String4);
+    _SASetCrashLogMessage(4085, "%s has %lu states", [($6806D93BA7D51FFB199EB98EFF121020 *)buffer UTF8String], [(NSMutableArray *)self->_threadStates count]);
 
     _os_crash();
     __break(1u);
 LABEL_11:
-    v38 = *__error();
-    v39 = _sa_logt();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v23 = *__error();
+    v24 = _sa_logt();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v40 = [(SAThread *)self debugDescription];
-      uTF8String5 = [v40 UTF8String];
-      v42 = *(&buffer->var4 + 2);
+      v25 = [(SAThread *)self debugDescription];
+      uTF8String3 = [v25 UTF8String];
+      v27 = *(&buffer->var4 + 2);
       sizeInBytesForSerializedVersion = [(SAThread *)self sizeInBytesForSerializedVersion];
       *buf = 136315906;
-      uTF8String = uTF8String5;
-      v55 = 1024;
-      *v56 = v42;
-      *&v56[4] = 2048;
-      *&v56[6] = v5;
-      *&v56[14] = 2048;
-      *&v56[16] = sizeInBytesForSerializedVersion;
-      _os_log_error_impl(&dword_1E0E2F000, v39, OS_LOG_TYPE_ERROR, "%s: after serializing (with %u threadStates), ended with length %ld, should be %lu", buf, 0x26u);
+      uTF8String = uTF8String3;
+      v32 = 1024;
+      *v33 = v27;
+      *&v33[4] = 2048;
+      *&v33[6] = v5;
+      *&v33[14] = 2048;
+      *&v33[16] = sizeInBytesForSerializedVersion;
+      _os_log_error_impl(&dword_1E0E2F000, v24, OS_LOG_TYPE_ERROR, "%s: after serializing (with %u threadStates), ended with length %ld, should be %lu", buf, 0x26u);
     }
 
-    *__error() = v38;
-    v44 = [(SAThread *)self debugDescription];
-    uTF8String6 = [v44 UTF8String];
-    v46 = *(&buffer->var4 + 2);
-    [(SAThread *)self sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(4092, "%s: after serializing (with %u threadStates), ended with length %ld, should be %lu", v47, v48, v49, v50, v51, v52, uTF8String6);
+    *__error() = v23;
+    v29 = [(SAThread *)self debugDescription];
+    _SASetCrashLogMessage(4092, "%s: after serializing (with %u threadStates), ended with length %ld, should be %lu", [v29 UTF8String], *(&buffer->var4 + 2), v5, -[SAThread sizeInBytesForSerializedVersion](self, "sizeInBytesForSerializedVersion"));
 
     _os_crash();
     __break(1u);
@@ -1345,13 +1357,12 @@ LABEL_11:
   v13 = &buffer->var5 + 2 * v12;
   *v13 = SASerializableIndexForPointerFromSerializationDictionary(self->_resampledLeafUserFrame, dictionary);
   *(v13 + 1) = SASerializableIndexForPointerFromSerializationDictionary(self->_resampledleafOfCRootFramesReplacedBySwiftAsync, dictionary);
-  v14 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (void)addSelfToSerializationDictionary:(id)dictionary
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   classDictionaryKey = [objc_opt_class() classDictionaryKey];
   v6 = SASerializableAddInstanceToSerializationDictionaryWithClassKey(dictionary, self, classDictionaryKey);
 
@@ -1359,31 +1370,31 @@ LABEL_11:
   {
     [(SATimestamp *)self->_creationTimestamp addSelfToSerializationDictionary:dictionary];
     [(SATimestamp *)self->_exitTimestamp addSelfToSerializationDictionary:dictionary];
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = self->_threadStates;
-    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [*(*(&v13 + 1) + 8 * v11++) addSelfToSerializationDictionary:{dictionary, v13}];
+          [*(*(&v12 + 1) + 8 * v11++) addSelfToSerializationDictionary:{dictionary, v12}];
         }
 
         while (v9 != v11);
-        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
@@ -1392,13 +1403,11 @@ LABEL_11:
     [(SAFrame *)self->_resampledLeafUserFrame addSelfToSerializationDictionary:dictionary];
     [(SAFrame *)self->_resampledleafOfCRootFramesReplacedBySwiftAsync addSelfToSerializationDictionary:dictionary];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (id)newInstanceWithoutReferencesFromSerializedBuffer:(const void *)buffer bufferLength:(unint64_t)length
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (*buffer >= 4u)
   {
     goto LABEL_11;
@@ -1406,19 +1415,19 @@ LABEL_11:
 
   if (length <= 0x1F)
   {
-    v8 = *__error();
+    v7 = *__error();
     bufferCopy = _sa_logt();
     if (os_log_type_enabled(bufferCopy, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy2 = length;
-      v28 = 2048;
-      v29 = 32;
+      v14 = 2048;
+      v15 = 32;
       _os_log_error_impl(&dword_1E0E2F000, bufferCopy, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThread struct %lu", buf, 0x16u);
     }
 
-    *__error() = v8;
-    _SASetCrashLogMessage(4121, "bufferLength %lu < serialized SAThread struct %lu", v9, v10, v11, v12, v13, v14, length);
+    *__error() = v7;
+    _SASetCrashLogMessage(4121, "bufferLength %lu < serialized SAThread struct %lu", length, 32);
     _os_crash();
     __break(1u);
     goto LABEL_8;
@@ -1428,38 +1437,36 @@ LABEL_11:
   if (8 * *(buffer + 26) + 32 > length)
   {
 LABEL_8:
-    v15 = *__error();
-    v16 = _sa_logt();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v8 = *__error();
+    v9 = _sa_logt();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v17 = *(bufferCopy + 26);
+      v10 = *(bufferCopy + 26);
       *buf = 134218240;
       lengthCopy2 = length;
-      v28 = 1024;
-      LODWORD(v29) = v17;
-      _os_log_error_impl(&dword_1E0E2F000, v16, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThread struct with %u thread states", buf, 0x12u);
+      v14 = 1024;
+      LODWORD(v15) = v10;
+      _os_log_error_impl(&dword_1E0E2F000, v9, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThread struct with %u thread states", buf, 0x12u);
     }
 
-    *__error() = v15;
-    v25 = *(bufferCopy + 26);
-    _SASetCrashLogMessage(4122, "bufferLength %lu < serialized SAThread struct with %u thread states", v18, v19, v20, v21, v22, v23, length);
+    *__error() = v8;
+    _SASetCrashLogMessage(4122, "bufferLength %lu < serialized SAThread struct with %u thread states", length, *(bufferCopy + 26));
     _os_crash();
     __break(1u);
 LABEL_11:
-    v24 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAThread version" userInfo:0];
-    objc_exception_throw(v24);
+    v11 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAThread version" userInfo:0];
+    objc_exception_throw(v11);
   }
 
   result = [SAThread threadWithId:?];
   *(result + 16) = *(bufferCopy + 30) & 1;
   *(result + 17) = (*(bufferCopy + 30) & 2) != 0;
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   if (*buffer >= 4u)
   {
     goto LABEL_24;
@@ -1467,19 +1474,19 @@ LABEL_11:
 
   if (length <= 0x1F)
   {
-    v36 = *__error();
+    v34 = *__error();
     bufferCopy = _sa_logt();
     if (os_log_type_enabled(bufferCopy, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy4 = length;
-      v76 = 2048;
-      v77 = 32;
+      v47 = 2048;
+      v48 = 32;
       _os_log_error_impl(&dword_1E0E2F000, bufferCopy, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThread struct %lu", buf, 0x16u);
     }
 
-    *__error() = v36;
-    _SASetCrashLogMessage(4136, "bufferLength %lu < serialized SAThread struct %lu", v37, v38, v39, v40, v41, v42, length);
+    *__error() = v34;
+    _SASetCrashLogMessage(4136, "bufferLength %lu < serialized SAThread struct %lu", length, 32);
     _os_crash();
     __break(1u);
     goto LABEL_15;
@@ -1489,24 +1496,59 @@ LABEL_11:
   if (8 * *(buffer + 26) + 32 > length)
   {
 LABEL_15:
-    v43 = *__error();
-    v44 = _sa_logt();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v35 = *__error();
+    v36 = _sa_logt();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      v45 = *(bufferCopy + 26);
+      v37 = *(bufferCopy + 26);
       *buf = 134218240;
       lengthCopy4 = length;
-      v76 = 1024;
-      LODWORD(v77) = v45;
-      _os_log_error_impl(&dword_1E0E2F000, v44, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThread struct with %u thread states", buf, 0x12u);
+      v47 = 1024;
+      LODWORD(v48) = v37;
+      _os_log_error_impl(&dword_1E0E2F000, v36, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThread struct with %u thread states", buf, 0x12u);
     }
 
-    *__error() = v43;
-    v71 = *(bufferCopy + 26);
-    _SASetCrashLogMessage(4137, "bufferLength %lu < serialized SAThread struct with %u thread states", v46, v47, v48, v49, v50, v51, length);
+    *__error() = v35;
+    _SASetCrashLogMessage(4137, "bufferLength %lu < serialized SAThread struct with %u thread states", length, *(bufferCopy + 26));
     _os_crash();
     __break(1u);
-    goto LABEL_18;
+LABEL_18:
+    v38 = *__error();
+    v39 = _sa_logt();
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    {
+      v40 = *(bufferCopy + 26);
+      *buf = 134218240;
+      lengthCopy4 = length;
+      v47 = 1024;
+      LODWORD(v48) = v40;
+      _os_log_error_impl(&dword_1E0E2F000, v39, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThread v2 struct with %u thread states", buf, 0x12u);
+    }
+
+    *__error() = v38;
+    _SASetCrashLogMessage(4147, "bufferLength %lu < serialized SAThread v2 struct with %u thread states", length, *(bufferCopy + 26));
+    _os_crash();
+    __break(1u);
+LABEL_21:
+    v41 = *__error();
+    v42 = _sa_logt();
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    {
+      v43 = *(bufferCopy + 26);
+      *buf = 134218240;
+      lengthCopy4 = length;
+      v47 = 1024;
+      LODWORD(v48) = v43;
+      _os_log_error_impl(&dword_1E0E2F000, v42, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThread v3 struct with %u thread states", buf, 0x12u);
+    }
+
+    *__error() = v41;
+    _SASetCrashLogMessage(4153, "bufferLength %lu < serialized SAThread v3 struct with %u thread states", length, *(bufferCopy + 26));
+    _os_crash();
+    __break(1u);
+LABEL_24:
+    v44 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAThread version" userInfo:0];
+    objc_exception_throw(v44);
   }
 
   v11 = *(buffer + 10);
@@ -1530,33 +1572,13 @@ LABEL_15:
 
   if (*(bufferCopy + 1) < 2u)
   {
-LABEL_11:
-    v35 = *MEMORY[0x1E69E9840];
     return;
   }
 
   v24 = *(bufferCopy + 26);
   if (8 * v24 + 40 > length)
   {
-LABEL_18:
-    v52 = *__error();
-    v53 = _sa_logt();
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
-    {
-      v54 = *(bufferCopy + 26);
-      *buf = 134218240;
-      lengthCopy4 = length;
-      v76 = 1024;
-      LODWORD(v77) = v54;
-      _os_log_error_impl(&dword_1E0E2F000, v53, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThread v2 struct with %u thread states", buf, 0x12u);
-    }
-
-    *__error() = v52;
-    v72 = *(bufferCopy + 26);
-    _SASetCrashLogMessage(4147, "bufferLength %lu < serialized SAThread v2 struct with %u thread states", v55, v56, v57, v58, v59, v60, length);
-    _os_crash();
-    __break(1u);
-    goto LABEL_21;
+    goto LABEL_18;
   }
 
   v25 = *(v19 + 8 * v24);
@@ -1567,33 +1589,13 @@ LABEL_18:
 
   if (*(bufferCopy + 1) < 3u)
   {
-    goto LABEL_11;
+    return;
   }
 
   v29 = *(bufferCopy + 26);
   if (8 * v29 + 48 > length)
   {
-LABEL_21:
-    v61 = *__error();
-    v62 = _sa_logt();
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
-    {
-      v63 = *(bufferCopy + 26);
-      *buf = 134218240;
-      lengthCopy4 = length;
-      v76 = 1024;
-      LODWORD(v77) = v63;
-      _os_log_error_impl(&dword_1E0E2F000, v62, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThread v3 struct with %u thread states", buf, 0x12u);
-    }
-
-    *__error() = v61;
-    v73 = *(bufferCopy + 26);
-    _SASetCrashLogMessage(4153, "bufferLength %lu < serialized SAThread v3 struct with %u thread states", v64, v65, v66, v67, v68, v69, length);
-    _os_crash();
-    __break(1u);
-LABEL_24:
-    v70 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAThread version" userInfo:0];
-    objc_exception_throw(v70);
+    goto LABEL_21;
   }
 
   v30 = *(v19 + 8 * v29 + 8);
@@ -1601,7 +1603,6 @@ LABEL_24:
   v32 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v30, dictionary, bufferDictionary, v31, 0);
   resampledleafOfCRootFramesReplacedBySwiftAsync = self->_resampledleafOfCRootFramesReplacedBySwiftAsync;
   self->_resampledleafOfCRootFramesReplacedBySwiftAsync = v32;
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 @end

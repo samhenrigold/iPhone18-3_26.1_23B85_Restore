@@ -14,7 +14,7 @@
 
 - (PFCloudKitHistoryAnalyzerContext)initWithOptions:(id)options managedObjectContext:(id)context store:(id)store
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -35,9 +35,9 @@
     }
   }
 
-  v25.receiver = self;
-  v25.super_class = PFCloudKitHistoryAnalyzerContext;
-  v11 = [(PFHistoryAnalyzerContext *)&v25 initWithOptions:options];
+  v24.receiver = self;
+  v24.super_class = PFCloudKitHistoryAnalyzerContext;
+  v11 = [(PFHistoryAnalyzerContext *)&v24 initWithOptions:options];
   if (v11)
   {
     v11->_managedObjectContext = context;
@@ -46,30 +46,30 @@
     v12 = objc_autoreleasePoolPush();
     v13 = objc_alloc_init(MEMORY[0x1E695DFA8]);
     v14 = [objc_msgSend(objc_msgSend(context "persistentStoreCoordinator")];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
-    v15 = [v14 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v22;
+      v17 = *v21;
       do
       {
         v18 = 0;
         do
         {
-          if (*v22 != v17)
+          if (*v21 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          [v13 addObject:{objc_msgSend(*(*(&v21 + 1) + 8 * v18++), "name")}];
+          [v13 addObject:{objc_msgSend(*(*(&v20 + 1) + 8 * v18++), "name")}];
         }
 
         while (v16 != v18);
-        v16 = [v14 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v16);
@@ -81,7 +81,6 @@
     v11->_store = store;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -94,7 +93,7 @@
 
 - (BOOL)processChange:(id)change error:(id *)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if (!-[NSSet containsObject:](self->_configuredEntityNames, "containsObject:", [objc_msgSend(objc_msgSend(change "changedObjectID")]))
   {
     v10 = objc_autoreleasePoolPush();
@@ -143,12 +142,12 @@
     if (os_log_type_enabled(Stream, v15))
     {
       *buf = 136315906;
-      v28 = "[PFCloudKitHistoryAnalyzerContext processChange:error:]";
-      v29 = 1024;
-      v30 = 97;
-      v31 = 2112;
+      v27 = "[PFCloudKitHistoryAnalyzerContext processChange:error:]";
+      v28 = 1024;
+      v29 = 97;
+      v30 = 2112;
       selfCopy = self;
-      v33 = 2112;
+      v32 = 2112;
       changedObjectID = [change changedObjectID];
       _os_log_impl(&dword_18565F000, v12, v15, "CoreData+CloudKit: %s(%d): %@: Skipping change because its entity is not in the configured set of entities for this store: %@", buf, 0x26u);
     }
@@ -164,9 +163,7 @@
     {
       if ([change changeType] == 2 && !-[PFCloudKitHistoryAnalyzerContext resetStateForObjectID:error:](self, "resetStateForObjectID:error:", objc_msgSend(change, "changedObjectID"), error))
       {
-LABEL_32:
-        result = 0;
-        goto LABEL_29;
+        return 0;
       }
 
       goto LABEL_26;
@@ -175,48 +172,46 @@ LABEL_32:
 
   else if ([change changeType] != 2 && objc_msgSend(objc_msgSend(change, "updatedProperties"), "count"))
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     updatedProperties = [change updatedProperties];
-    v18 = [updatedProperties countByEnumeratingWithState:&v23 objects:v35 count:16];
-    if (!v18)
+    v17 = [updatedProperties countByEnumeratingWithState:&v22 objects:v34 count:16];
+    if (!v17)
     {
 LABEL_26:
       if ([(NSMutableDictionary *)self->super._objectIDToState count]< 0x3E8)
       {
-        result = 1;
+        return 1;
       }
 
       else
       {
-        result = [(PFCloudKitHistoryAnalyzerContext *)self _flushPendingAnalyzerStates:error];
+        return [(PFCloudKitHistoryAnalyzerContext *)self _flushPendingAnalyzerStates:error];
       }
-
-      goto LABEL_29;
     }
 
-    v19 = v18;
-    v20 = *v24;
+    v18 = v17;
+    v19 = *v23;
 LABEL_37:
-    v21 = 0;
+    v20 = 0;
     while (1)
     {
-      if (*v24 != v20)
+      if (*v23 != v19)
       {
         objc_enumerationMutation(updatedProperties);
       }
 
-      if (![objc_msgSend(objc_msgSend(*(*(&v23 + 1) + 8 * v21) "userInfo")])
+      if (![objc_msgSend(objc_msgSend(*(*(&v22 + 1) + 8 * v20) "userInfo")])
       {
         break;
       }
 
-      if (v19 == ++v21)
+      if (v18 == ++v20)
       {
-        v19 = [updatedProperties countByEnumeratingWithState:&v23 objects:v35 count:16];
-        if (v19)
+        v18 = [updatedProperties countByEnumeratingWithState:&v22 objects:v34 count:16];
+        if (v18)
         {
           goto LABEL_37;
         }
@@ -226,67 +221,65 @@ LABEL_37:
           goto LABEL_26;
         }
 
-        goto LABEL_32;
+        return 0;
       }
     }
   }
 
-  v22.receiver = self;
-  v22.super_class = PFCloudKitHistoryAnalyzerContext;
-  v8 = [(PFHistoryAnalyzerContext *)&v22 processChange:change error:error];
+  v21.receiver = self;
+  v21.super_class = PFCloudKitHistoryAnalyzerContext;
+  v8 = [(PFHistoryAnalyzerContext *)&v21 processChange:change error:error];
   result = 0;
   if (self && (v8 & 1) != 0)
   {
     goto LABEL_26;
   }
 
-LABEL_29:
-  v16 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (uint64_t)_flushPendingAnalyzerStates:(uint64_t)states
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (states)
   {
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x3052000000;
-    v20 = __Block_byref_object_copy__49;
-    v21 = __Block_byref_object_dispose__49;
-    v22 = 0;
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x2020000000;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x3052000000;
+    v19 = __Block_byref_object_copy__49;
+    v20 = __Block_byref_object_dispose__49;
+    v21 = 0;
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x2020000000;
     v4 = *(states + 64);
-    v16 = 1;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __64__PFCloudKitHistoryAnalyzerContext__flushPendingAnalyzerStates___block_invoke;
-    v12[3] = &unk_1E6EC2F08;
-    v12[4] = states;
-    v12[5] = &v13;
-    v12[6] = &v17;
-    [v4 performBlockAndWait:v12];
-    v5 = *(v14 + 24);
+    v15 = 1;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __64__PFCloudKitHistoryAnalyzerContext__flushPendingAnalyzerStates___block_invoke;
+    v11[3] = &unk_1E6EC2F08;
+    v11[4] = states;
+    v11[5] = &v12;
+    v11[6] = &v16;
+    [v4 performBlockAndWait:v11];
+    v5 = *(v13 + 24);
     if (v5 == 1)
     {
       [*(states + 24) removeAllObjects];
       [*(states + 40) removeAllObjects];
       [*(states + 80) removeAllObjects];
       [*(states + 88) removeAllObjects];
-      v5 = *(v14 + 24);
+      v5 = *(v13 + 24);
     }
 
     if (!v5)
     {
-      v9 = v18[5];
-      if (v9)
+      v8 = v17[5];
+      if (v8)
       {
         if (a2)
         {
-          *a2 = v9;
+          *a2 = v8;
         }
       }
 
@@ -296,28 +289,28 @@ LABEL_29:
         if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v24 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitHistoryAnalyzerContext.m";
-          v25 = 1024;
-          v26 = 198;
+          v23 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitHistoryAnalyzerContext.m";
+          v24 = 1024;
+          v25 = 198;
           _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
         }
 
-        v11 = _PFLogGetLogStream(17);
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+        v10 = _PFLogGetLogStream(17);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315394;
-          v24 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitHistoryAnalyzerContext.m";
-          v25 = 1024;
-          v26 = 198;
-          _os_log_fault_impl(&dword_18565F000, v11, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+          v23 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitHistoryAnalyzerContext.m";
+          v24 = 1024;
+          v25 = 198;
+          _os_log_fault_impl(&dword_18565F000, v10, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
         }
       }
     }
 
-    v18[5] = 0;
-    v6 = *(v14 + 24);
-    _Block_object_dispose(&v13, 8);
-    _Block_object_dispose(&v17, 8);
+    v17[5] = 0;
+    v6 = *(v13 + 24);
+    _Block_object_dispose(&v12, 8);
+    _Block_object_dispose(&v16, 8);
   }
 
   else
@@ -325,42 +318,41 @@ LABEL_29:
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6 & 1;
 }
 
-uint64_t __64__PFCloudKitHistoryAnalyzerContext__flushPendingAnalyzerStates___block_invoke(uint64_t result)
+void *__64__PFCloudKitHistoryAnalyzerContext__flushPendingAnalyzerStates___block_invoke(void *result)
 {
   v1 = result;
-  v62 = *MEMORY[0x1E69E9840];
-  if (*(*(*(result + 40) + 8) + 24) == 1)
+  v61 = *MEMORY[0x1E69E9840];
+  if (*(*(result[5] + 8) + 24) == 1)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     v3 = v2 ? *(v2 + 24) : 0;
     result = [v3 count];
     if (result)
     {
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
       v54 = 0u;
+      v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
       obj = *(v1[4] + 88);
-      result = [obj countByEnumeratingWithState:&v53 objects:v61 count:16];
-      v42 = result;
+      result = [obj countByEnumeratingWithState:&v52 objects:v60 count:16];
+      v41 = result;
       if (result)
       {
-        v41 = *v54;
+        v40 = *v53;
         while (2)
         {
           v4 = 0;
           do
           {
-            if (*v54 != v41)
+            if (*v53 != v40)
             {
               objc_enumerationMutation(obj);
             }
 
-            v5 = *(*(&v53 + 1) + 8 * v4);
+            v5 = *(*(&v52 + 1) + 8 * v4);
             v6 = [*(v1[4] + 88) objectForKey:v5];
             v7 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKHistoryAnalyzerState entityPath]);
             -[NSFetchRequest setPredicate:](v7, "setPredicate:", [MEMORY[0x1E696AE18] predicateWithFormat:@"entityId = %@ AND entityPK in %@", v5, v6]);
@@ -373,27 +365,27 @@ uint64_t __64__PFCloudKitHistoryAnalyzerContext__flushPendingAnalyzerStates___bl
             }
 
             v9 = v8;
-            v43 = v4;
-            v51 = 0u;
-            v52 = 0u;
-            v49 = 0u;
+            v42 = v4;
             v50 = 0u;
-            v10 = [v8 countByEnumeratingWithState:&v49 objects:v60 count:16];
+            v51 = 0u;
+            v48 = 0u;
+            v49 = 0u;
+            v10 = [v8 countByEnumeratingWithState:&v48 objects:v59 count:16];
             if (v10)
             {
               v11 = v10;
-              v12 = *v50;
+              v12 = *v49;
               do
               {
                 v13 = 0;
                 do
                 {
-                  if (*v50 != v12)
+                  if (*v49 != v12)
                   {
                     objc_enumerationMutation(v9);
                   }
 
-                  v14 = *(*(&v49 + 1) + 8 * v13);
+                  v14 = *(*(&v48 + 1) + 8 * v13);
                   v15 = [v14 analyzedObjectID];
                   v16 = v1[4];
                   if (v16)
@@ -435,7 +427,7 @@ uint64_t __64__PFCloudKitHistoryAnalyzerContext__flushPendingAnalyzerStates___bl
                     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138412290;
-                      v59 = v15;
+                      v58 = v15;
                       _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: History parsing corruption detected. An existing analyzer state was fetched from the database for '%@' but it's corresponding in-memory copy is no longer present in the in-memory cache.\n", buf, 0xCu);
                     }
 
@@ -443,7 +435,7 @@ uint64_t __64__PFCloudKitHistoryAnalyzerContext__flushPendingAnalyzerStates___bl
                     if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
                     {
                       *buf = 138412290;
-                      v59 = v15;
+                      v58 = v15;
                       _os_log_fault_impl(&dword_18565F000, v22, OS_LOG_TYPE_FAULT, "CoreData: History parsing corruption detected. An existing analyzer state was fetched from the database for '%@' but it's corresponding in-memory copy is no longer present in the in-memory cache.", buf, 0xCu);
                     }
                   }
@@ -452,19 +444,19 @@ uint64_t __64__PFCloudKitHistoryAnalyzerContext__flushPendingAnalyzerStates___bl
                 }
 
                 while (v11 != v13);
-                v23 = [v9 countByEnumeratingWithState:&v49 objects:v60 count:16];
+                v23 = [v9 countByEnumeratingWithState:&v48 objects:v59 count:16];
                 v11 = v23;
               }
 
               while (v23);
             }
 
-            v4 = v43 + 1;
+            v4 = v42 + 1;
           }
 
-          while (v43 + 1 != v42);
-          result = [obj countByEnumeratingWithState:&v53 objects:v61 count:16];
-          v42 = result;
+          while ((v42 + 1) != v41);
+          result = [obj countByEnumeratingWithState:&v52 objects:v60 count:16];
+          v41 = result;
           if (result)
           {
             continue;
@@ -479,29 +471,29 @@ uint64_t __64__PFCloudKitHistoryAnalyzerContext__flushPendingAnalyzerStates___bl
 LABEL_37:
   if (*(*(v1[5] + 8) + 24) == 1)
   {
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     v24 = v1[4];
     v25 = v24 ? *(v24 + 24) : 0;
-    result = [v25 countByEnumeratingWithState:&v45 objects:v57 count:16];
+    result = [v25 countByEnumeratingWithState:&v44 objects:v56 count:16];
     if (result)
     {
       v26 = result;
-      v27 = *v46;
-      v44 = v25;
+      v27 = *v45;
+      v43 = v25;
       do
       {
         v28 = 0;
         do
         {
-          if (*v46 != v27)
+          if (*v45 != v27)
           {
-            objc_enumerationMutation(v44);
+            objc_enumerationMutation(v43);
           }
 
-          v29 = *(*(&v45 + 1) + 8 * v28);
+          v29 = *(*(&v44 + 1) + 8 * v28);
           v30 = v1[4];
           if (v30)
           {
@@ -513,7 +505,7 @@ LABEL_37:
             v31 = 0;
           }
 
-          v32 = [v31 objectForKey:*(*(&v45 + 1) + 8 * v28)];
+          v32 = [v31 objectForKey:*(*(&v44 + 1) + 8 * v28)];
           v33 = +[NSEntityDescription insertNewObjectForEntityForName:inManagedObjectContext:](NSEntityDescription, "insertNewObjectForEntityForName:inManagedObjectContext:", +[NSCKHistoryAnalyzerState entityPath], *(v1[4] + 64));
           -[NSManagedObject setValue:forKey:](v33, "setValue:forKey:", [v32 originalTransactionNumber], @"originalTransactionNumber");
           -[NSManagedObject setOriginalChangeTypeNum:](v33, "setOriginalChangeTypeNum:", [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v32, "originalChangeType")}]);
@@ -535,11 +527,11 @@ LABEL_37:
           -[NSManagedObject setEntityPK:](v33, "setEntityPK:", [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v29, "_referenceData64")}]);
           [*(v1[4] + 64) assignObject:v33 toPersistentStore:*(v1[4] + 96)];
 
-          ++v28;
+          v28 = (v28 + 1);
         }
 
         while (v26 != v28);
-        result = [v44 countByEnumeratingWithState:&v45 objects:v57 count:16];
+        result = [v43 countByEnumeratingWithState:&v44 objects:v56 count:16];
         v26 = result;
       }
 
@@ -573,31 +565,30 @@ LABEL_37:
     result = [*(v1[4] + 64) save:*(v1[6] + 8) + 40];
     if ((result & 1) == 0)
     {
-      result = *(*(v1[6] + 8) + 40);
+      return *(*(v1[6] + 8) + 40);
     }
   }
 
-  v39 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (BOOL)resetStateForObjectID:(id)d error:(id *)error
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v12.receiver = self;
-  v12.super_class = PFCloudKitHistoryAnalyzerContext;
-  v13 = 0;
-  v7 = [(PFHistoryAnalyzerContext *)&v12 resetStateForObjectID:d error:&v13];
+  v17 = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = PFCloudKitHistoryAnalyzerContext;
+  v12 = 0;
+  v7 = [(PFHistoryAnalyzerContext *)&v11 resetStateForObjectID:d error:&v12];
   if (v7)
   {
     [(NSMutableSet *)self->_resetChangedObjectIDs addObject:d];
   }
 
-  else if (v13)
+  else if (v12)
   {
     if (error)
     {
-      *error = v13;
+      *error = v12;
     }
   }
 
@@ -607,9 +598,9 @@ LABEL_37:
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v15 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitHistoryAnalyzerContext.m";
-      v16 = 1024;
-      v17 = 220;
+      v14 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitHistoryAnalyzerContext.m";
+      v15 = 1024;
+      v16 = 220;
       _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
     }
 
@@ -617,60 +608,59 @@ LABEL_37:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v15 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitHistoryAnalyzerContext.m";
-      v16 = 1024;
-      v17 = 220;
+      v14 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitHistoryAnalyzerContext.m";
+      v15 = 1024;
+      v16 = 220;
       _os_log_fault_impl(&dword_18565F000, v9, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (BOOL)reset:(id *)reset
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v12.receiver = self;
-  v12.super_class = PFCloudKitHistoryAnalyzerContext;
-  v13 = 0;
-  if ([(PFHistoryAnalyzerContext *)&v12 reset:&v13])
+  v17 = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = PFCloudKitHistoryAnalyzerContext;
+  v12 = 0;
+  if ([(PFHistoryAnalyzerContext *)&v11 reset:&v12])
   {
     [(NSMutableDictionary *)self->_entityIDToChangedPrimaryKeySet removeAllObjects];
     [(NSMutableSet *)self->_resetChangedObjectIDs removeAllObjects];
     v5 = [[NSBatchDeleteRequest alloc] initWithFetchRequest:+[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKHistoryAnalyzerState entityPath])];
     [(NSBatchDeleteRequest *)v5 setResultType:0];
-    v6 = [-[NSPersistentStoreResult result](-[NSManagedObjectContext executeRequest:error:](self->_managedObjectContext executeRequest:v5 error:{&v13), "result"), "BOOLValue"}];
+    v6 = [-[NSPersistentStoreResult result](-[NSManagedObjectContext executeRequest:error:](self->_managedObjectContext executeRequest:v5 error:{&v12), "result"), "BOOLValue"}];
 
     if (v6)
     {
       [(NSManagedObjectContext *)self->_managedObjectContext reset];
       LOBYTE(v7) = 1;
-      goto LABEL_12;
+      return v7;
     }
   }
 
-  if (v13)
+  if (v12)
   {
     if (reset)
     {
       LOBYTE(v7) = 0;
-      *reset = v13;
-      goto LABEL_12;
+      *reset = v12;
+      return v7;
     }
 
 LABEL_11:
     LOBYTE(v7) = 0;
-    goto LABEL_12;
+    return v7;
   }
 
   LogStream = _PFLogGetLogStream(17);
   if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v15 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitHistoryAnalyzerContext.m";
-    v16 = 1024;
-    v17 = 243;
+    v14 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitHistoryAnalyzerContext.m";
+    v15 = 1024;
+    v16 = 243;
     _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
   }
 
@@ -679,57 +669,55 @@ LABEL_11:
   if (v7)
   {
     *buf = 136315394;
-    v15 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitHistoryAnalyzerContext.m";
-    v16 = 1024;
-    v17 = 243;
+    v14 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitHistoryAnalyzerContext.m";
+    v15 = 1024;
+    v16 = 243;
     _os_log_fault_impl(&dword_18565F000, v9, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
     goto LABEL_11;
   }
 
-LABEL_12:
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (BOOL)finishProcessing:(id *)processing
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v14.receiver = self;
-  v14.super_class = PFCloudKitHistoryAnalyzerContext;
-  v15 = 0;
-  if ([(PFHistoryAnalyzerContext *)&v14 finishProcessing:&v15])
+  v19 = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = PFCloudKitHistoryAnalyzerContext;
+  v14 = 0;
+  if ([(PFHistoryAnalyzerContext *)&v13 finishProcessing:&v14])
   {
     if ([(PFCloudKitHistoryAnalyzerContext *)self _flushPendingAnalyzerStates:?])
     {
-      if (!self || (options = self->super._options) == 0 || !options->_automaticallyPruneTransientRecords || (v6 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKHistoryAnalyzerState entityPath](NSCKHistoryAnalyzerState, "entityPath")), -[NSFetchRequest setPredicate:](v6, "setPredicate:", [MEMORY[0x1E696AE18] predicateWithFormat:@"originalChangeTypeNum = %@ AND finalChangeTypeNum = %@", &unk_1EF435F08, &unk_1EF435F20]), v7 = -[NSBatchDeleteRequest initWithFetchRequest:]([NSBatchDeleteRequest alloc], "initWithFetchRequest:", v6), -[NSBatchDeleteRequest setResultType:](v7, "setResultType:", 0), v8 = objc_msgSend(-[NSPersistentStoreResult result](-[NSManagedObjectContext executeRequest:error:](self->_managedObjectContext, "executeRequest:error:", v7, &v15), "result"), "BOOLValue"), v7, (v8 & 1) != 0))
+      if (!self || (options = self->super._options) == 0 || !options->_automaticallyPruneTransientRecords || (v6 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKHistoryAnalyzerState entityPath](NSCKHistoryAnalyzerState, "entityPath")), -[NSFetchRequest setPredicate:](v6, "setPredicate:", [MEMORY[0x1E696AE18] predicateWithFormat:@"originalChangeTypeNum = %@ AND finalChangeTypeNum = %@", &unk_1EF435F08, &unk_1EF435F20]), v7 = -[NSBatchDeleteRequest initWithFetchRequest:]([NSBatchDeleteRequest alloc], "initWithFetchRequest:", v6), -[NSBatchDeleteRequest setResultType:](v7, "setResultType:", 0), v8 = objc_msgSend(-[NSPersistentStoreResult result](-[NSManagedObjectContext executeRequest:error:](self->_managedObjectContext, "executeRequest:error:", v7, &v14), "result"), "BOOLValue"), v7, (v8 & 1) != 0))
       {
         LOBYTE(v9) = 1;
-        goto LABEL_16;
+        return v9;
       }
     }
   }
 
-  if (v15)
+  if (v14)
   {
     if (processing)
     {
       LOBYTE(v9) = 0;
-      *processing = v15;
-      goto LABEL_16;
+      *processing = v14;
+      return v9;
     }
 
 LABEL_15:
     LOBYTE(v9) = 0;
-    goto LABEL_16;
+    return v9;
   }
 
   LogStream = _PFLogGetLogStream(17);
   if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v17 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitHistoryAnalyzerContext.m";
-    v18 = 1024;
-    v19 = 268;
+    v16 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitHistoryAnalyzerContext.m";
+    v17 = 1024;
+    v18 = 268;
     _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
   }
 
@@ -738,28 +726,24 @@ LABEL_15:
   if (v9)
   {
     *buf = 136315394;
-    v17 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitHistoryAnalyzerContext.m";
-    v18 = 1024;
-    v19 = 268;
+    v16 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitHistoryAnalyzerContext.m";
+    v17 = 1024;
+    v18 = 268;
     _os_log_fault_impl(&dword_18565F000, v11, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
     goto LABEL_15;
   }
 
-LABEL_16:
-  v12 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (id)fetchSortedStates:(id *)states
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v5 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKHistoryAnalyzerState entityPath]);
-  v8[0] = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"finalTransactionNumber" ascending:1];
-  -[NSFetchRequest setSortDescriptors:](v5, "setSortDescriptors:", [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1]);
+  v7[0] = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"finalTransactionNumber" ascending:1];
+  -[NSFetchRequest setSortDescriptors:](v5, "setSortDescriptors:", [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1]);
   [(NSFetchRequest *)v5 setFetchBatchSize:200];
-  result = [(NSManagedObjectContext *)self->_managedObjectContext executeFetchRequest:v5 error:states];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [(NSManagedObjectContext *)self->_managedObjectContext executeFetchRequest:v5 error:states];
 }
 
 - (id)newAnalyzerStateForChange:(id)change error:(id *)error

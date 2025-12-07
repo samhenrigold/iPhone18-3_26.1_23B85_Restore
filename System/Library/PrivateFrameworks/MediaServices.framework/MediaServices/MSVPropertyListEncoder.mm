@@ -40,32 +40,32 @@
 
 - (void)_writeString:(id)string
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v5 = [MEMORY[0x1E695DF88] dataWithCapacity:{-[__CFString length](stringCopy, "length")}];
   v6 = [(__CFString *)stringCopy length];
   theString = stringCopy;
-  v38 = 0;
-  v39 = v6;
+  v37 = 0;
+  v38 = v6;
   CharactersPtr = CFStringGetCharactersPtr(stringCopy);
   CStringPtr = 0;
-  v36 = CharactersPtr;
+  v35 = CharactersPtr;
   if (!CharactersPtr)
   {
     CStringPtr = CFStringGetCStringPtr(stringCopy, 0x600u);
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  *buffer = 0u;
+  v31 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  *buffer = 0u;
+  v27 = 0u;
+  v39 = 0;
   v40 = 0;
-  v41 = 0;
-  v37 = CStringPtr;
+  v36 = CStringPtr;
   if (v6)
   {
     selfCopy = self;
@@ -85,52 +85,52 @@
         v13 = v11;
       }
 
-      if (v11 < 0 || (v14 = v39, v39 <= v11))
+      if (v11 < 0 || (v14 = v38, v38 <= v11))
       {
         v16 = 0;
         goto LABEL_14;
       }
 
-      if (v36)
+      if (v35)
       {
         break;
       }
 
-      if (!v37)
+      if (!v36)
       {
-        if (v41 <= v11 || (v20 = v40, v40 > v11))
+        if (v40 <= v11 || (v20 = v39, v39 > v11))
         {
           v21 = v13 + v9;
           v22 = v12 - v13;
           v23 = v11 - v13;
           v24 = v23 + 64;
-          if (v23 + 64 >= v39)
+          if (v23 + 64 >= v38)
           {
-            v24 = v39;
+            v24 = v38;
           }
 
-          v40 = v23;
-          v41 = v24;
-          if (v39 >= v22)
+          v39 = v23;
+          v40 = v24;
+          if (v38 >= v22)
           {
             v14 = v22;
           }
 
-          v44.location = v23 + v38;
-          v44.length = v14 + v21;
-          CFStringGetCharacters(theString, v44, buffer);
-          v20 = v40;
+          v43.location = v23 + v37;
+          v43.length = v14 + v21;
+          CFStringGetCharacters(theString, v43, buffer);
+          v20 = v39;
         }
 
         v15 = &buffer[-v20];
         goto LABEL_12;
       }
 
-      v16 = v37[v38 + v11];
+      v16 = v36[v37 + v11];
 LABEL_18:
       if (v10 >= 62 && (v16 & 0xFC00) == 0xD800)
       {
-        _MSVPropertyListEncoderAppendCharacters(v5, v42, v10);
+        _MSVPropertyListEncoderAppendCharacters(v5, v41, v10);
         v10 = 0;
       }
 
@@ -139,7 +139,7 @@ LABEL_18:
         case '&':
           if (v10)
           {
-            _MSVPropertyListEncoderAppendCharacters(v5, v42, v10);
+            _MSVPropertyListEncoderAppendCharacters(v5, v41, v10);
           }
 
           v17 = v5;
@@ -153,7 +153,7 @@ LABEL_35:
         case '>':
           if (v10)
           {
-            _MSVPropertyListEncoderAppendCharacters(v5, v42, v10);
+            _MSVPropertyListEncoderAppendCharacters(v5, v41, v10);
           }
 
           v17 = v5;
@@ -162,7 +162,7 @@ LABEL_35:
         case '<':
           if (v10)
           {
-            _MSVPropertyListEncoderAppendCharacters(v5, v42, v10);
+            _MSVPropertyListEncoderAppendCharacters(v5, v41, v10);
           }
 
           v17 = v5;
@@ -173,10 +173,10 @@ LABEL_30:
       }
 
 LABEL_14:
-      v42[v10++] = v16;
+      v41[v10++] = v16;
       if (v10 == 64)
       {
-        _MSVPropertyListEncoderAppendCharacters(v5, v42, 0x40uLL);
+        _MSVPropertyListEncoderAppendCharacters(v5, v41, 0x40uLL);
         goto LABEL_35;
       }
 
@@ -189,14 +189,14 @@ LABEL_36:
         self = selfCopy;
         if (v10)
         {
-          _MSVPropertyListEncoderAppendCharacters(v5, v42, v10);
+          _MSVPropertyListEncoderAppendCharacters(v5, v41, v10);
         }
 
         goto LABEL_48;
       }
     }
 
-    v15 = &v36[v38];
+    v15 = &v35[v37];
 LABEL_12:
     v16 = v15[v11];
     goto LABEL_18;
@@ -205,7 +205,6 @@ LABEL_12:
 LABEL_48:
 
   [(MSVPropertyListEncoder *)self _writeData:v5];
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_writeDictionaryKey:(id)key
@@ -430,7 +429,7 @@ LABEL_19:
 
 - (void)_addObject:(id)object
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -472,31 +471,31 @@ LABEL_19:
             allKeys = [v6 allKeys];
             v8 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-            v28 = 0u;
-            v29 = 0u;
-            v26 = 0u;
             v27 = 0u;
+            v28 = 0u;
+            v25 = 0u;
+            v26 = 0u;
             v9 = v8;
-            v10 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
+            v10 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
             if (v10)
             {
               v11 = v10;
-              v12 = *v27;
+              v12 = *v26;
               do
               {
                 for (i = 0; i != v11; ++i)
                 {
-                  if (*v27 != v12)
+                  if (*v26 != v12)
                   {
                     objc_enumerationMutation(v9);
                   }
 
-                  v14 = *(*(&v26 + 1) + 8 * i);
+                  v14 = *(*(&v25 + 1) + 8 * i);
                   v15 = [v6 objectForKey:v14];
                   [(MSVPropertyListEncoder *)self setObject:v15 forKey:v14];
                 }
 
-                v11 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
+                v11 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
               }
 
               while (v11);
@@ -518,28 +517,28 @@ LABEL_19:
 
             [(MSVPropertyListEncoder *)self _startArray];
             v6 = objectCopy;
+            v21 = 0u;
             v22 = 0u;
             v23 = 0u;
             v24 = 0u;
-            v25 = 0u;
-            v16 = [v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v16 = [v6 countByEnumeratingWithState:&v21 objects:v29 count:16];
             if (v16)
             {
               v17 = v16;
-              v18 = *v23;
+              v18 = *v22;
               do
               {
                 for (j = 0; j != v17; ++j)
                 {
-                  if (*v23 != v18)
+                  if (*v22 != v18)
                   {
                     objc_enumerationMutation(v6);
                   }
 
-                  [(MSVPropertyListEncoder *)self addObject:*(*(&v22 + 1) + 8 * j)];
+                  [(MSVPropertyListEncoder *)self addObject:*(*(&v21 + 1) + 8 * j)];
                 }
 
-                v17 = [v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
+                v17 = [v6 countByEnumeratingWithState:&v21 objects:v29 count:16];
               }
 
               while (v17);
@@ -553,8 +552,6 @@ LABEL_19:
   }
 
 LABEL_29:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_flushOutputBuffer
@@ -787,30 +784,30 @@ LABEL_29:
 
 - (void)close
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   containerStack = [(MSVPropertyListEncoder *)self containerStack];
   v5 = [containerStack copy];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   reverseObjectEnumerator = [v5 reverseObjectEnumerator];
-  v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         if (v11 == objc_opt_class())
         {
           [(MSVPropertyListEncoder *)self endArray];
@@ -828,7 +825,7 @@ LABEL_29:
         }
       }
 
-      v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -840,8 +837,6 @@ LABEL_29:
   [(MSVPropertyListEncoder *)self _flushOutputBuffer];
   outputFileHandle = [(MSVPropertyListEncoder *)self outputFileHandle];
   [outputFileHandle closeFile];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endDictionary

@@ -63,11 +63,9 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  subtitle = self->_subtitle;
-  installURL = self->_installURL;
-  v8 = [v3 stringWithFormat:@"%@: {name: %@, publisher: %@, bundleID: %@, subtitle: %@, icon URL: %@, install URL: %@, icon: %@}", v5, self->_name, self->_publisher, self->_bundleID, subtitle, self->_iconURL, installURL, self->_icon];
+  v6 = [v3 stringWithFormat:@"%@: {name: %@, publisher: %@, bundleID: %@, subtitle: %@, icon URL: %@, install URL: %@, icon: %@}", v5, self->_name, self->_publisher, self->_bundleID, self->_subtitle, self->_iconURL, self->_installURL, self->_icon];
 
-  return v8;
+  return v6;
 }
 
 @end

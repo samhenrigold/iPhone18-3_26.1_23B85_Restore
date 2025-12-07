@@ -100,7 +100,7 @@
       NTKKaleidoscopeAnalyzeInterestingness(v12, v26, v23, v24, v22);
       self->_cellGridWidth = v23;
       self->_cellGridHeight = v24;
-      v27 = NTKGeneratePathFromInterestingness();
+      v27 = NTKGeneratePathFromInterestingness(v26);
       v28 = v27;
       if (v27)
       {
@@ -130,7 +130,7 @@
 
         free(v38);
         *&self->_dominanceGrid[4] = malloc_type_malloc(16 * v23 * v24, 0x1000040451B5BE8uLL);
-        NTKKaleidoscopeAnalyzeDominance();
+        NTKKaleidoscopeAnalyzeDominance(v12);
         selfCopy = self;
       }
 
@@ -308,49 +308,26 @@
   pathLength = self->_pathLength;
   v6 = pathLength * time;
   v7 = vcvtms_s32_f32(v6);
-  v8 = *&self->_dominanceGrid[4];
-  v9 = *&self->_path[4];
-  v10 = *(v9 + 8 * (v7 % pathLength));
-  v24 = vmla_n_f32(v10, vsub_f32(*(v9 + 8 * ((v7 + 1) % pathLength)), v10), v6 - floorf(v6));
-  v11 = *&self->_cellGridWidth;
-  *(v4 + 8) = *&self->_sampleRadiusX;
-  v12 = vadd_s32(v11, -1);
-  v13 = vmin_s32(vmax_s32(vcvt_s32_f32(vmla_f32(0xBF000000BF000000, vcvt_f32_s32(v11), v24)), 0), v12);
-  v14 = v12.i32[1];
-  if (v13.i32[0] + 1 < v12.i32[0])
-  {
-    v15 = v13.i32[0] + 1;
-  }
-
-  else
-  {
-    v15 = v12.i32[0];
-  }
-
-  if (v13.i32[1] + 1 < v12.i32[1])
-  {
-    v14 = v13.i32[1] + 1;
-  }
-
-  v16 = v11.i32[0];
-  v17 = vsubq_f32(*(v8 + 16 * (v15 + v13.i32[1] * v11.i32[0])), *(v8 + 16 * (v13.i32[1] * v11.i32[0] + v13.i32[0])));
-  v18 = vsubq_f32(*(v8 + 16 * (v14 * v16 + v15)), *(v8 + 16 * (v14 * v16 + v13.i32[0])));
+  v8 = *&self->_path[4];
+  v9 = *(v8 + 8 * (v7 % pathLength));
+  v15 = vmla_n_f32(v9, vsub_f32(*(v8 + 8 * ((v7 + 1) % pathLength)), v9), v6 - floorf(v6));
+  *(v3 + 8) = *&self->_sampleRadiusX;
   CLKUIConvertToSRGBfFromRGBf_fast();
-  v21 = vcvtq_f64_f32(*&v20);
-  *(v4 + 16) = v20;
-  *(v4 + 32) = v21;
-  v22 = *(&v20 + 2);
-  *(v4 + 48) = *(&v20 + 2);
+  v12 = vcvtq_f64_f32(*&v11);
+  *(v4 + 16) = v11;
+  *(v4 + 32) = v12;
+  v13 = *(&v11 + 2);
+  *(v4 + 48) = *(&v11 + 2);
   *(v4 + 56) = 0x3FF0000000000000;
-  LODWORD(v23) = v24.i32[0];
-  LODWORD(v21.f64[0]) = 1.0;
-  *&v22 = 1.0 - v24.f32[1];
-  *(&v23 + 1) = 1.0 - v24.f32[1];
-  *v4 = v23;
-  result.var0[1] = v21.f64[0];
-  result.var0[3] = v19;
-  result.var0[2] = v23;
-  result.var0[0] = v22;
+  LODWORD(v14) = v15.i32[0];
+  LODWORD(v12.f64[0]) = 1.0;
+  *&v13 = 1.0 - v15.f32[1];
+  *(&v14 + 1) = 1.0 - v15.f32[1];
+  *v4 = v14;
+  result.var0[1] = v12.f64[0];
+  result.var0[3] = v10;
+  result.var0[2] = v14;
+  result.var0[0] = v13;
   return result;
 }
 

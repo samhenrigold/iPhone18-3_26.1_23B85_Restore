@@ -349,21 +349,22 @@ void __33__VUIPlistMediaDatabase_episodes__block_invoke(uint64_t a1)
   block[2] = __67__VUIPlistMediaDatabase_addEntity_showIdentifier_seasonIdentifier___block_invoke;
   block[3] = &unk_1E872E5D8;
   v15 = v13;
-  v22 = v15;
+  v23 = v15;
   selfCopy = self;
   v16 = identifierCopy;
-  v24 = v16;
+  v25 = v16;
   v17 = seasonIdentifierCopy;
-  v25 = v17;
+  v26 = v17;
   dispatch_sync(serialDispatchQueue, block);
 
-  v20 = 0;
-  LOBYTE(serialDispatchQueue) = [(VUIPlistMediaDatabase *)self _saveWithError:&v20];
-  v18 = v20;
+  v21 = 0;
+  LOBYTE(serialDispatchQueue) = [(VUIPlistMediaDatabase *)self _saveWithError:&v21];
+  v18 = v21;
+  v19 = v18;
   if ((serialDispatchQueue & 1) == 0)
   {
-    v19 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = VUIDefaultLogObject(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [VUIPlistMediaDatabase addEntity:showIdentifier:seasonIdentifier:];
     }
@@ -454,16 +455,17 @@ uint64_t __67__VUIPlistMediaDatabase_addEntity_showIdentifier_seasonIdentifier__
   block[3] = &unk_1E872D990;
   block[4] = self;
   v6 = identifierCopy;
-  v11 = v6;
+  v12 = v6;
   dispatch_sync(serialDispatchQueue, block);
 
-  v9 = 0;
-  LOBYTE(serialDispatchQueue) = [(VUIPlistMediaDatabase *)self _saveWithError:&v9];
-  v7 = v9;
+  v10 = 0;
+  LOBYTE(serialDispatchQueue) = [(VUIPlistMediaDatabase *)self _saveWithError:&v10];
+  v7 = v10;
+  v8 = v7;
   if ((serialDispatchQueue & 1) == 0)
   {
-    v8 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = VUIDefaultLogObject(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [VUIPlistMediaDatabase addEntity:showIdentifier:seasonIdentifier:];
     }
@@ -472,7 +474,7 @@ uint64_t __67__VUIPlistMediaDatabase_addEntity_showIdentifier_seasonIdentifier__
 
 - (void)updateEntity:(id)entity propertyName:(id)name propertyValue:(id)value
 {
-  v27[2] = *MEMORY[0x1E69E9840];
+  v28[2] = *MEMORY[0x1E69E9840];
   entityCopy = entity;
   nameCopy = name;
   valueCopy = value;
@@ -484,11 +486,11 @@ uint64_t __67__VUIPlistMediaDatabase_addEntity_showIdentifier_seasonIdentifier__
     block[2] = __65__VUIPlistMediaDatabase_updateEntity_propertyName_propertyValue___block_invoke;
     block[3] = &unk_1E872E008;
     v12 = entityCopy;
-    v23 = v12;
+    v24 = v12;
     v13 = valueCopy;
-    v24 = v13;
+    v25 = v13;
     v14 = nameCopy;
-    v25 = v14;
+    v26 = v14;
     dispatch_sync(serialDispatchQueue, block);
 
     if (v14)
@@ -499,22 +501,23 @@ uint64_t __67__VUIPlistMediaDatabase_addEntity_showIdentifier_seasonIdentifier__
         null = [MEMORY[0x1E695DFB0] null];
       }
 
-      v26[0] = VUIPlistMediaEntityPropertyDidChangePropertyNameKey;
-      v26[1] = VUIPlistMediaEntityPropertyDidChangePropertyValueKey;
-      v27[0] = v14;
-      v27[1] = null;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
+      v27[0] = VUIPlistMediaEntityPropertyDidChangePropertyNameKey;
+      v27[1] = VUIPlistMediaEntityPropertyDidChangePropertyValueKey;
+      v28[0] = v14;
+      v28[1] = null;
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:2];
       defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
       [defaultCenter postNotificationName:VUIPlistMediaEntityPropertyDidChange object:v12 userInfo:v16];
     }
 
-    v21 = 0;
-    v18 = [(VUIPlistMediaDatabase *)self _saveWithError:&v21];
-    v19 = v21;
+    v22 = 0;
+    v18 = [(VUIPlistMediaDatabase *)self _saveWithError:&v22];
+    v19 = v22;
+    v20 = v19;
     if (!v18)
     {
-      v20 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = VUIDefaultLogObject(v19);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [VUIPlistMediaDatabase addEntity:showIdentifier:seasonIdentifier:];
       }
@@ -632,43 +635,43 @@ void __45__VUIPlistMediaDatabase_entityForIdentifier___block_invoke_2(uint64_t a
 
 - (void)removeDownloadedMediaForIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = [(VUIPlistMediaDatabase *)self itemForIdentifier:identifierCopy];
   v6 = v5;
   if (v5)
   {
     filePathURL = [v5 filePathURL];
-    v8 = VUIDefaultLogObject();
+    v8 = VUIDefaultLogObject(filePathURL);
     v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     if (filePathURL)
     {
       if (v9)
       {
         *buf = 138412290;
-        v17 = filePathURL;
+        v19 = filePathURL;
         _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "Deleting downloaded video at %@", buf, 0xCu);
       }
 
       defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-      v15 = 0;
-      v11 = [defaultManager removeItemAtURL:filePathURL error:&v15];
-      v8 = v15;
+      v17 = 0;
+      v11 = [defaultManager removeItemAtURL:filePathURL error:&v17];
+      v8 = v17;
 
       if ((v11 & 1) == 0)
       {
-        v12 = VUIDefaultLogObject();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = VUIDefaultLogObject(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           [VUIPlistMediaDatabase removeDownloadedMediaForIdentifier:];
         }
       }
 
-      v13 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = VUIDefaultLogObject(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_DEFAULT, "Removing local file path from database", buf, 2u);
+        _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_DEFAULT, "Removing local file path from database", buf, 2u);
       }
 
       [(VUIPlistMediaDatabase *)self updateEntity:v6 propertyName:@"filePathURL" propertyValue:0];
@@ -680,11 +683,11 @@ void __45__VUIPlistMediaDatabase_entityForIdentifier___block_invoke_2(uint64_t a
       _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "No file path exists for database item; not deleting downloaded video", buf, 2u);
     }
 
-    v14 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = VUIDefaultLogObject(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_DEFAULT, "Removing offline FPS keys from database and setting state to NotDownloaded", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_DEFAULT, "Removing offline FPS keys from database and setting state to NotDownloaded", buf, 2u);
     }
 
     [(VUIPlistMediaDatabase *)self updateEntity:v6 propertyName:@"offlineFPSKeys" propertyValue:0];
@@ -693,7 +696,7 @@ void __45__VUIPlistMediaDatabase_entityForIdentifier___block_invoke_2(uint64_t a
 
   else
   {
-    filePathURL = VUIDefaultLogObject();
+    filePathURL = VUIDefaultLogObject(0);
     if (os_log_type_enabled(filePathURL, OS_LOG_TYPE_ERROR))
     {
       [VUIPlistMediaDatabase removeDownloadedMediaForIdentifier:];
@@ -936,7 +939,7 @@ LABEL_31:
 
 - (BOOL)_parseDatabase
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   [(NSMutableDictionary *)self->_movieByIdentifier removeAllObjects];
   [(NSMutableDictionary *)self->_movieRentalByIdentifier removeAllObjects];
   [(NSMutableDictionary *)self->_homeVideoByIdentifier removeAllObjects];
@@ -945,156 +948,157 @@ LABEL_31:
   v4 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:fileURL];
   if (v4)
   {
-    v66 = 0;
-    v5 = [MEMORY[0x1E696AE40] propertyListWithData:v4 options:0 format:0 error:&v66];
-    v6 = v66;
+    v67 = 0;
+    v5 = [MEMORY[0x1E696AE40] propertyListWithData:v4 options:0 format:0 error:&v67];
+    v6 = v67;
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
+    v8 = isKindOfClass;
     if (isKindOfClass)
     {
-      v45 = v6;
-      v46 = v4;
-      v47 = fileURL;
-      v43 = v5;
-      v8 = v5;
-      [v8 objectForKey:@"Movies"];
-      v62 = 0u;
+      v46 = v6;
+      v47 = v4;
+      v48 = fileURL;
+      v44 = v5;
+      v9 = v5;
+      [v9 objectForKey:@"Movies"];
       v63 = 0u;
       v64 = 0u;
-      obj = v65 = 0u;
-      v9 = [obj countByEnumeratingWithState:&v62 objects:v70 count:16];
-      if (v9)
+      v65 = 0u;
+      obj = v66 = 0u;
+      v10 = [obj countByEnumeratingWithState:&v63 objects:v71 count:16];
+      if (v10)
       {
-        v10 = v9;
-        v11 = *v63;
+        v11 = v10;
+        v12 = *v64;
         do
         {
-          for (i = 0; i != v10; ++i)
+          for (i = 0; i != v11; ++i)
           {
-            if (*v63 != v11)
+            if (*v64 != v12)
             {
               objc_enumerationMutation(obj);
             }
 
-            v13 = [[VUIPlistMediaDatabaseItem alloc] initWithDictionary:*(*(&v62 + 1) + 8 * i)];
+            v14 = [[VUIPlistMediaDatabaseItem alloc] initWithDictionary:*(*(&v63 + 1) + 8 * i)];
             movieByIdentifier = self->_movieByIdentifier;
-            identifier = [(VUIPlistMediaDatabaseEntity *)v13 identifier];
-            [(NSMutableDictionary *)movieByIdentifier vui_setObjectIfNotNil:v13 forKey:identifier];
+            identifier = [(VUIPlistMediaDatabaseEntity *)v14 identifier];
+            [(NSMutableDictionary *)movieByIdentifier vui_setObjectIfNotNil:v14 forKey:identifier];
           }
 
-          v10 = [obj countByEnumeratingWithState:&v62 objects:v70 count:16];
+          v11 = [obj countByEnumeratingWithState:&v63 objects:v71 count:16];
         }
 
-        while (v10);
+        while (v11);
       }
 
-      v44 = isKindOfClass;
-      v16 = [v8 objectForKey:@"MovieRentals"];
-      v58 = 0u;
+      v45 = v8;
+      v17 = [v9 objectForKey:@"MovieRentals"];
       v59 = 0u;
       v60 = 0u;
       v61 = 0u;
-      v17 = [v16 countByEnumeratingWithState:&v58 objects:v69 count:16];
-      if (v17)
+      v62 = 0u;
+      v18 = [v17 countByEnumeratingWithState:&v59 objects:v70 count:16];
+      if (v18)
       {
-        v18 = v17;
-        v19 = *v59;
+        v19 = v18;
+        v20 = *v60;
         do
         {
-          for (j = 0; j != v18; ++j)
+          for (j = 0; j != v19; ++j)
           {
-            if (*v59 != v19)
+            if (*v60 != v20)
             {
-              objc_enumerationMutation(v16);
+              objc_enumerationMutation(v17);
             }
 
-            v21 = [[VUIPlistMediaDatabaseItem alloc] initWithDictionary:*(*(&v58 + 1) + 8 * j)];
+            v22 = [[VUIPlistMediaDatabaseItem alloc] initWithDictionary:*(*(&v59 + 1) + 8 * j)];
             movieRentalByIdentifier = self->_movieRentalByIdentifier;
-            identifier2 = [(VUIPlistMediaDatabaseEntity *)v21 identifier];
-            [(NSMutableDictionary *)movieRentalByIdentifier vui_setObjectIfNotNil:v21 forKey:identifier2];
+            identifier2 = [(VUIPlistMediaDatabaseEntity *)v22 identifier];
+            [(NSMutableDictionary *)movieRentalByIdentifier vui_setObjectIfNotNil:v22 forKey:identifier2];
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v58 objects:v69 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v59 objects:v70 count:16];
         }
 
-        while (v18);
+        while (v19);
       }
 
-      v48 = v8;
-      v24 = [v8 objectForKey:@"HomeVideos", v16];
-      v54 = 0u;
+      v49 = v9;
+      v25 = [v9 objectForKey:@"HomeVideos", v17];
       v55 = 0u;
       v56 = 0u;
       v57 = 0u;
-      v25 = [v24 countByEnumeratingWithState:&v54 objects:v68 count:16];
-      if (v25)
+      v58 = 0u;
+      v26 = [v25 countByEnumeratingWithState:&v55 objects:v69 count:16];
+      if (v26)
       {
-        v26 = v25;
-        v27 = *v55;
+        v27 = v26;
+        v28 = *v56;
         do
         {
-          for (k = 0; k != v26; ++k)
+          for (k = 0; k != v27; ++k)
           {
-            if (*v55 != v27)
+            if (*v56 != v28)
             {
-              objc_enumerationMutation(v24);
+              objc_enumerationMutation(v25);
             }
 
-            v29 = [[VUIPlistMediaDatabaseItem alloc] initWithDictionary:*(*(&v54 + 1) + 8 * k)];
+            v30 = [[VUIPlistMediaDatabaseItem alloc] initWithDictionary:*(*(&v55 + 1) + 8 * k)];
             homeVideoByIdentifier = self->_homeVideoByIdentifier;
-            identifier3 = [(VUIPlistMediaDatabaseEntity *)v29 identifier];
-            [(NSMutableDictionary *)homeVideoByIdentifier vui_setObjectIfNotNil:v29 forKey:identifier3];
+            identifier3 = [(VUIPlistMediaDatabaseEntity *)v30 identifier];
+            [(NSMutableDictionary *)homeVideoByIdentifier vui_setObjectIfNotNil:v30 forKey:identifier3];
           }
 
-          v26 = [v24 countByEnumeratingWithState:&v54 objects:v68 count:16];
+          v27 = [v25 countByEnumeratingWithState:&v55 objects:v69 count:16];
         }
 
-        while (v26);
+        while (v27);
       }
 
-      v32 = [v48 objectForKey:@"Shows"];
-      v50 = 0u;
+      v33 = [v49 objectForKey:@"Shows"];
       v51 = 0u;
       v52 = 0u;
       v53 = 0u;
-      v33 = [v32 countByEnumeratingWithState:&v50 objects:v67 count:16];
-      if (v33)
+      v54 = 0u;
+      v34 = [v33 countByEnumeratingWithState:&v51 objects:v68 count:16];
+      if (v34)
       {
-        v34 = v33;
-        v35 = *v51;
+        v35 = v34;
+        v36 = *v52;
         do
         {
-          for (m = 0; m != v34; ++m)
+          for (m = 0; m != v35; ++m)
           {
-            if (*v51 != v35)
+            if (*v52 != v36)
             {
-              objc_enumerationMutation(v32);
+              objc_enumerationMutation(v33);
             }
 
-            v37 = [[VUIPlistMediaDatabaseShow alloc] initWithDictionary:*(*(&v50 + 1) + 8 * m)];
+            v38 = [[VUIPlistMediaDatabaseShow alloc] initWithDictionary:*(*(&v51 + 1) + 8 * m)];
             showByIdentifier = self->_showByIdentifier;
-            identifier4 = [(VUIPlistMediaDatabaseEntity *)v37 identifier];
-            [(NSMutableDictionary *)showByIdentifier vui_setObjectIfNotNil:v37 forKey:identifier4];
+            identifier4 = [(VUIPlistMediaDatabaseEntity *)v38 identifier];
+            [(NSMutableDictionary *)showByIdentifier vui_setObjectIfNotNil:v38 forKey:identifier4];
           }
 
-          v34 = [v32 countByEnumeratingWithState:&v50 objects:v67 count:16];
+          v35 = [v33 countByEnumeratingWithState:&v51 objects:v68 count:16];
         }
 
-        while (v34);
+        while (v35);
       }
 
-      v4 = v46;
-      fileURL = v47;
-      v6 = v45;
-      isKindOfClass = v44;
-      v5 = v43;
-      v40 = v48;
+      v4 = v47;
+      fileURL = v48;
+      v6 = v46;
+      v8 = v45;
+      v5 = v44;
+      v41 = v49;
     }
 
     else
     {
-      v40 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v41 = VUIDefaultLogObject(isKindOfClass);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         [VUIPlistMediaDatabase _parseDatabase];
       }
@@ -1103,16 +1107,16 @@ LABEL_31:
 
   else
   {
-    v6 = VUIDefaultLogObject();
+    v6 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [VUIPlistMediaDatabase _parseDatabase];
     }
 
-    isKindOfClass = 0;
+    v8 = 0;
   }
 
-  return isKindOfClass & 1;
+  return v8 & 1;
 }
 
 - (void)_parseDatabaseAndSendNotification

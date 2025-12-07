@@ -2302,7 +2302,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t **mlir::mps::arithmeticUnaryTileBaseKernel<__emulated_bf16,__emulated_bf16,(mlir::mps::arithmeticOp)12>(uint64_t **result, uint64_t **a2, uint64_t ****a3, uint64_t **a4)
+unint64_t mlir::mps::arithmeticUnaryTileBaseKernel<__emulated_bf16,__emulated_bf16,(mlir::mps::arithmeticOp)12>(unint64_t result, uint64_t **a2, uint64_t ****a3, uint64_t **a4)
 {
   v4 = **result;
   v5 = **a2;
@@ -2344,7 +2344,7 @@ LABEL_8:
     v25 = v16 | v22;
     v26 = v11 > v24;
     v27 = v13 | v22;
-    result = (v20 | v22);
+    result = v20 | v22;
     LOBYTE(v22) = v10 > v24;
     v28 = v7 > v24;
     v29 = v23 | (v14 > v24);
@@ -2519,8 +2519,8 @@ LABEL_47:
           }
 
           v60 = 1.0 / COERCE_FLOAT(*&v52[v58 * v51 + v53] << 16);
-          result = (v55 + v59 * v51);
-          *(result + v54) = HIWORD(COERCE_UNSIGNED_INT(v60 + (COERCE_FLOAT(LODWORD(v60) & 0xFF800000) * 0.0039062)));
+          result = v55 + v59 * v51;
+          *(v54 + result) = HIWORD(COERCE_UNSIGNED_INT(v60 + (COERCE_FLOAT(LODWORD(v60) & 0xFF800000) * 0.0039062)));
           if (v9 == ++v51)
           {
             goto LABEL_31;
@@ -2581,7 +2581,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t **mlir::mps::arithmeticUnaryTileBaseKernel<float,__emulated_bf16,(mlir::mps::arithmeticOp)12>(uint64_t **result, uint64_t **a2, uint64_t ****a3, uint64_t **a4)
+unint64_t mlir::mps::arithmeticUnaryTileBaseKernel<float,__emulated_bf16,(mlir::mps::arithmeticOp)12>(unint64_t result, uint64_t **a2, uint64_t ****a3, uint64_t **a4)
 {
   v4 = **result;
   v5 = **a2;
@@ -2623,7 +2623,7 @@ LABEL_8:
     v25 = v16 | v22;
     v26 = v11 > v24;
     v27 = v13 | v22;
-    result = (v20 | v22);
+    result = v20 | v22;
     LOBYTE(v22) = v10 > v24;
     v28 = v7 > v24;
     v29 = v23 | (v14 > v24);
@@ -2798,8 +2798,8 @@ LABEL_47:
           }
 
           v60 = 1.0 / *&v52[v58 * v51 + v53];
-          result = (v55 + v59 * v51);
-          *(result + v54) = HIWORD(COERCE_UNSIGNED_INT(v60 + (COERCE_FLOAT(LODWORD(v60) & 0xFF800000) * 0.0039062)));
+          result = v55 + v59 * v51;
+          *(v54 + result) = HIWORD(COERCE_UNSIGNED_INT(v60 + (COERCE_FLOAT(LODWORD(v60) & 0xFF800000) * 0.0039062)));
           if (v9 == ++v51)
           {
             goto LABEL_31;
@@ -4659,7 +4659,7 @@ LABEL_63:
 LABEL_64:
       a5.i32[0] = *&v38[v42 * v37 + *(v5 + 40)];
       a5 = vcvtq_f32_f16(a5).u64[0];
-      *(v39 + v45 * v37++ + *(v6 + 40)) = *&a5;
+      *(v39 + v45 * v37++ + *(v6 + 40)) = a5;
       if (v11 == v37)
       {
         goto LABEL_39;
@@ -6257,7 +6257,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t **mlir::mps::arithmeticUnaryTileBaseKernel<float,__emulated_bf16,(mlir::mps::arithmeticOp)13>(uint64_t **result, uint64_t **a2, uint64_t ****a3, uint64_t **a4)
+unint64_t mlir::mps::arithmeticUnaryTileBaseKernel<float,__emulated_bf16,(mlir::mps::arithmeticOp)13>(unint64_t result, uint64_t **a2, uint64_t ****a3, uint64_t **a4)
 {
   v4 = **result;
   v5 = **a2;
@@ -6299,7 +6299,7 @@ LABEL_8:
     v25 = v16 | v22;
     v26 = v11 > v24;
     v27 = v13 | v22;
-    result = (v20 | v22);
+    result = v20 | v22;
     LOBYTE(v22) = v10 > v24;
     v28 = v7 > v24;
     v29 = v23 | (v14 > v24);
@@ -6473,8 +6473,8 @@ LABEL_47:
             v59 = *(*(v5 + 64) + 8 * v7);
           }
 
-          result = (v55 + v59 * v51);
-          *(result + v54) = HIWORD(COERCE_UNSIGNED_INT(*&v52[v58 * v51 + v53] + (COERCE_FLOAT(*&v52[v58 * v51 + v53] & 0xFF800000) * 0.0039062)));
+          result = v55 + v59 * v51;
+          *(v54 + result) = HIWORD(COERCE_UNSIGNED_INT(*&v52[v58 * v51 + v53] + (COERCE_FLOAT(*&v52[v58 * v51 + v53] & 0xFF800000) * 0.0039062)));
           if (v9 == ++v51)
           {
             goto LABEL_31;
@@ -7015,7 +7015,7 @@ LABEL_64:
   return result;
 }
 
-uint64_t **mlir::mps::arithmeticUnaryTileBaseKernel<float,float,(mlir::mps::arithmeticOp)14>(uint64_t **result, uint64_t **a2, uint64_t **a3, uint64_t **a4)
+unint64_t mlir::mps::arithmeticUnaryTileBaseKernel<float,float,(mlir::mps::arithmeticOp)14>(unint64_t result, uint64_t **a2, uint64_t **a3, uint64_t **a4)
 {
   v4 = **result;
   v5 = **a2;
@@ -7051,7 +7051,7 @@ LABEL_8:
     v19 = v6 < 1;
     v20 = *(v4 + 58);
     v21 = *(v5 + 58);
-    result = (v17 | v21);
+    result = v17 | v21;
     v22 = v6 - 1;
     v61 = v14;
     v23 = v11 > v22;
@@ -7228,7 +7228,7 @@ LABEL_51:
             v55 = *(*(v5 + 64) + 8 * v7);
           }
 
-          result = (v51 + v60 * v50);
+          result = v51 + v60 * v50;
           v56 = v54 + v55 * v50;
           v57 = *(result + v52);
           if (v57 > 3.4028e38)
@@ -7525,7 +7525,7 @@ LABEL_63:
 LABEL_64:
       a6.i32[0] = *&v39[v43 * v38 + *(v6 + 40)];
       a6 = vcvtq_f32_f16(vmaxnm_f16(a6, 0xFC00FC00FC00FC00)).u64[0];
-      *(v40 + v46 * v38++ + *(v7 + 40)) = *&a6;
+      *(v40 + v46 * v38++ + *(v7 + 40)) = a6;
       if (v12 == v38)
       {
         goto LABEL_39;
@@ -8608,7 +8608,7 @@ LABEL_64:
   return result;
 }
 
-uint64_t **mlir::mps::arithmeticUnaryTileBaseKernel<float,half,(mlir::mps::arithmeticOp)14>(uint64_t **result, uint64_t **a2, uint64_t **a3, uint64_t **a4)
+unint64_t mlir::mps::arithmeticUnaryTileBaseKernel<float,half,(mlir::mps::arithmeticOp)14>(unint64_t result, uint64_t **a2, uint64_t **a3, uint64_t **a4)
 {
   v4 = **result;
   v5 = **a2;
@@ -8644,7 +8644,7 @@ LABEL_8:
     v19 = v6 < 1;
     v20 = *(v4 + 58);
     v21 = *(v5 + 58);
-    result = (v17 | v21);
+    result = v17 | v21;
     v22 = v6 - 1;
     v66 = v14;
     v23 = v11 > v22;
@@ -8821,7 +8821,7 @@ LABEL_51:
             v55 = *(*(v5 + 64) + 8 * v7);
           }
 
-          result = (v51 + v65 * v50);
+          result = v51 + v65 * v50;
           v56 = v54 + v55 * v50;
           v57 = *(result + v52);
           if (v57 > 65504.0)
@@ -8893,7 +8893,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t **mlir::mps::arithmeticUnaryTileBaseKernel<__emulated_bf16,float,(mlir::mps::arithmeticOp)14>(uint64_t **result, uint64_t **a2, uint64_t ****a3, uint64_t **a4)
+unint64_t mlir::mps::arithmeticUnaryTileBaseKernel<__emulated_bf16,float,(mlir::mps::arithmeticOp)14>(unint64_t result, uint64_t **a2, uint64_t ****a3, uint64_t **a4)
 {
   v4 = **result;
   v5 = **a2;
@@ -8935,7 +8935,7 @@ LABEL_8:
     v25 = v16 | v22;
     v26 = v11 > v24;
     v27 = v13 | v22;
-    result = (v20 | v22);
+    result = v20 | v22;
     LOBYTE(v22) = v10 > v24;
     v28 = v7 > v24;
     v29 = v23 | (v14 > v24);
@@ -9109,7 +9109,7 @@ LABEL_53:
             v56 = *(*(v5 + 64) + 8 * v7);
           }
 
-          result = (v55 + v56 * v51);
+          result = v55 + v56 * v51;
           LODWORD(v57) = *&v52[v62 * v51 + v53] << 16;
           v58 = v57;
           v59 = -INFINITY;

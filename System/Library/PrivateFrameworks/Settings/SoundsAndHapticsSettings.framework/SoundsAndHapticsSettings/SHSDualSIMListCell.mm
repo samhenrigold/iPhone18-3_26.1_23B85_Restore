@@ -288,11 +288,11 @@
 
 - (void)refreshCellContentsWithSpecifier:(id)specifier
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
-  v15.receiver = self;
-  v15.super_class = SHSDualSIMListCell;
-  [(PSTableCell *)&v15 refreshCellContentsWithSpecifier:specifierCopy];
+  v14.receiver = self;
+  v14.super_class = SHSDualSIMListCell;
+  [(PSTableCell *)&v14 refreshCellContentsWithSpecifier:specifierCopy];
   v5 = [specifierCopy propertyForKey:*MEMORY[0x277D40128]];
   v6 = [specifierCopy propertyForKey:@"contextShortLabel"];
   v7 = v6;
@@ -310,13 +310,13 @@
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v17 = "[SHSDualSIMListCell refreshCellContentsWithSpecifier:]";
-    v18 = 2112;
-    v19 = v9;
-    v20 = 2112;
-    v21 = label;
-    v22 = 2112;
-    v23 = v11;
+    v16 = "[SHSDualSIMListCell refreshCellContentsWithSpecifier:]";
+    v17 = 2112;
+    v18 = v9;
+    v19 = 2112;
+    v20 = label;
+    v21 = 2112;
+    v22 = v11;
     _os_log_impl(&dword_265896000, v12, OS_LOG_TYPE_DEFAULT, "%s : Received badge: %@, label: %@, phoneNumber: %@", buf, 0x2Au);
   }
 
@@ -344,8 +344,6 @@
   }
 
   [(SHSDualSIMListCell *)self setNeedsLayout];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

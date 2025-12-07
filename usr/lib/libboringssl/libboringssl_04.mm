@@ -1,1891 +1,6 @@
-uint64_t boringssl_session_set_trust_reference(uint64_t result, uint64_t a2)
+void bssl::SSL_SESSION_dup(uint64_t *__return_ptr a1@<X8>, bssl *this@<X0>, ssl_session_st *a3@<X1>)
 {
-  if (result)
-  {
-    v2 = result;
-    if (*result == -1252936367)
-    {
-      result = 0;
-      if (a2)
-      {
-        v4 = *(v2 + 8);
-        if (v4)
-        {
-          v5 = *(v4 + 352);
-          if (v5)
-          {
-            CFRelease(v5);
-          }
-
-          *(v4 + 352) = 0;
-          *(v4 + 352) = a2;
-          CFRetain(*(v4 + 352));
-          return 1;
-        }
-      }
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-void __boringssl_context_evaluate_trust_async_external_block_invoke(uint64_t a1)
-{
-  v38 = *MEMORY[0x1E69E9840];
-  if (boringssl_session_get_state(*(a1 + 64)) <= 3 && !boringssl_session_is_cancelled(*(a1 + 64)))
-  {
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __boringssl_context_evaluate_trust_async_external_block_invoke_2;
-    v25[3] = &unk_1E7869638;
-    v26 = *(a1 + 32);
-    v28 = *(a1 + 64);
-    v3 = *(a1 + 48);
-    v4 = *(a1 + 80);
-    v27 = v3;
-    v29 = v4;
-    v5 = MEMORY[0x1AC57F4F0](v25);
-    v6 = *(a1 + 32);
-    if (!v6)
-    {
-      goto LABEL_10;
-    }
-
-    WeakRetained = objc_loadWeakRetained((v6 + 16));
-    if (WeakRetained)
-    {
-      v8 = WeakRetained;
-      v9 = objc_loadWeakRetained((*(a1 + 32) + 16));
-      v10 = v9[435];
-
-      if (v10)
-      {
-        goto LABEL_16;
-      }
-    }
-
-    v11 = *(a1 + 32);
-    if (v11)
-    {
-      v12 = objc_loadWeakRetained((v11 + 16));
-      if (v12)
-      {
-        v13 = objc_loadWeakRetained((*(a1 + 32) + 16));
-        v14 = (v13[435] & 1) == 0;
-      }
-
-      else
-      {
-        v14 = 1;
-      }
-
-      if (!v14)
-      {
-        goto LABEL_16;
-      }
-    }
-
-    else
-    {
-LABEL_10:
-      v14 = 1;
-    }
-
-    if (!g_boringssl_log)
-    {
-LABEL_16:
-      v16 = *(a1 + 40);
-      v17 = *(*(a1 + 32) + 512);
-      (*(*(a1 + 56) + 16))();
-
-      goto LABEL_17;
-    }
-
-    v15 = g_boringssl_log;
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
-    {
-LABEL_15:
-
-      goto LABEL_16;
-    }
-
-    v19 = *(a1 + 32);
-    if (v19)
-    {
-      v14 = objc_loadWeakRetained((v19 + 16));
-      v24 = *(a1 + 32);
-      if (v14)
-      {
-        v20 = v24 != 0;
-        if (v24)
-        {
-          v1 = objc_loadWeakRetained((v24 + 16));
-          v24 = *(a1 + 32);
-        }
-
-        else
-        {
-          v1 = 0;
-        }
-
-        v23 = v1 + 351;
-      }
-
-      else
-      {
-        v20 = 0;
-        v23 = &unk_1A9098A9F;
-      }
-
-      if (v24)
-      {
-        v21 = objc_loadWeakRetained((v24 + 16));
-        v22 = 0;
-      }
-
-      else
-      {
-        v21 = 0;
-        v22 = 1;
-      }
-    }
-
-    else
-    {
-      v20 = 0;
-      v21 = 0;
-      v22 = 1;
-      v23 = &unk_1A9098A9F;
-    }
-
-    *buf = 136446978;
-    v31 = "boringssl_context_evaluate_trust_async_external_block_invoke";
-    v32 = 1024;
-    v33 = 1800;
-    v34 = 2082;
-    v35 = v23;
-    v36 = 2048;
-    v37 = v21;
-    _os_log_debug_impl(&dword_1A8FF5000, v15, OS_LOG_TYPE_DEBUG, "%{public}s(%d) %{public}s[%p] Invoking verify block", buf, 0x26u);
-    if (v22)
-    {
-      if (!v20)
-      {
-        goto LABEL_31;
-      }
-    }
-
-    else
-    {
-
-      if (!v20)
-      {
-LABEL_31:
-        if (!v19)
-        {
-          goto LABEL_15;
-        }
-
-        goto LABEL_35;
-      }
-    }
-
-    if (!v19)
-    {
-      goto LABEL_15;
-    }
-
-LABEL_35:
-
-    goto LABEL_15;
-  }
-
-  *(*(a1 + 72) + 550) &= ~8u;
-LABEL_17:
-  v18 = *MEMORY[0x1E69E9840];
-}
-
-double bssl::ssl_done_writing_client_hello(void **a1)
-{
-  v2 = a1 + 73;
-  OPENSSL_free(a1[73]);
-  *v2 = 0u;
-  OPENSSL_free(a1[69]);
-  *(a1 + 69) = 0u;
-  OPENSSL_free(a1[79]);
-  result = 0.0;
-  *(a1 + 79) = 0u;
-  return result;
-}
-
-uint64_t OPENSSL_sk_find(uint64_t result, unint64_t *a2, uint64_t a3, uint64_t (*a4)(void, uint64_t, void))
-{
-  if (!result)
-  {
-    return result;
-  }
-
-  v6 = result;
-  if (!*(result + 32))
-  {
-    if (*result)
-    {
-      v9 = 0;
-      while (*(*(result + 8) + 8 * v9) != a3)
-      {
-        if (*result == ++v9)
-        {
-          return 0;
-        }
-      }
-
-      goto LABEL_31;
-    }
-
-    return 0;
-  }
-
-  if (!a3)
-  {
-    return 0;
-  }
-
-  v8 = *result;
-  if (*(result + 16) || v8 < 2)
-  {
-    if (v8)
-    {
-      v10 = 0;
-      do
-      {
-        v11 = v8 - v10 - 1;
-        v9 = v10 + (v11 >> 1);
-        if (__CFADD__(v10, v11 >> 1) || v9 >= v8)
-        {
-          OPENSSL_sk_find_cold_3();
-        }
-
-        v12 = a4(v6[4], a3, *(v6[1] + 8 * v9));
-        if (v12 < 1)
-        {
-          if (v12 < 0)
-          {
-            v8 = v9;
-          }
-
-          else
-          {
-            if (v8 - v10 == 1)
-            {
-              goto LABEL_31;
-            }
-
-            v13 = v9 + 1 >= v8;
-            v8 = v9 + 1;
-            if (v13)
-            {
-              OPENSSL_sk_find_cold_1();
-            }
-          }
-        }
-
-        else
-        {
-          v10 = v9 + 1;
-        }
-      }
-
-      while (v10 < v8);
-      if (v10 != v8)
-      {
-        OPENSSL_sk_find_cold_2();
-      }
-    }
-
-    return 0;
-  }
-
-  v9 = 0;
-  while (a4(v6[4], a3, *(v6[1] + 8 * v9)))
-  {
-    if (++v9 >= *v6)
-    {
-      return 0;
-    }
-  }
-
-LABEL_31:
-  if (a2)
-  {
-    *a2 = v9;
-  }
-
-  return 1;
-}
-
-void bssl::ssl_set_session(ssl_st **this, SSL_SESSION *a2, ssl_session_st *a3)
-{
-  v3 = (this + 13);
-  if (this[13] != a2)
-  {
-    if (a2)
-    {
-      CRYPTO_refcount_inc(a2);
-    }
-
-    std::unique_ptr<ssl_session_st,bssl::internal::Deleter>::reset[abi:ne200100](v3, a2);
-  }
-}
-
-BOOL bssl::ssl_parse_cert_chain(char *a1, unint64_t **a2, EVP_PKEY **a3, unsigned __int8 *a4, unsigned __int8 **a5, void **a6)
-{
-  std::unique_ptr<stack_st_CRYPTO_BUFFER,bssl::internal::Deleter>::reset[abi:ne200100](a2, 0);
-  std::unique_ptr<evp_pkey_st,bssl::internal::Deleter>::reset[abi:ne200100](a3, 0);
-  v23 = 0xAAAAAAAAAAAAAAAALL;
-  v24 = 0xAAAAAAAAAAAAAAAALL;
-  if (!CBS_get_u24_length_prefixed(a5, &v23))
-  {
-    *a1 = 50;
-    ERR_put_error(16, 0, 137, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/ssl_cert.cc", 257);
-    return 0;
-  }
-
-  if (!v24)
-  {
-    return 1;
-  }
-
-  ctx = OPENSSL_sk_new_null();
-  if (!ctx)
-  {
-    v12 = 0;
-    *a1 = 80;
-    goto LABEL_27;
-  }
-
-  pkey = 0;
-  v12 = v24 == 0;
-  v13 = 0;
-  if (!v24)
-  {
-LABEL_17:
-    v16 = ctx;
-    ctx = 0;
-    std::unique_ptr<stack_st_CRYPTO_BUFFER,bssl::internal::Deleter>::reset[abi:ne200100](a2, v16);
-    pkey = 0;
-    std::unique_ptr<evp_pkey_st,bssl::internal::Deleter>::reset[abi:ne200100](a3, v13);
-    v13 = pkey;
-    goto LABEL_25;
-  }
-
-  while (1)
-  {
-    *&v20 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    if (!CBS_get_u24_length_prefixed(&v23, &v20) || !*(&v20 + 1))
-    {
-      *a1 = 50;
-      ERR_put_error(16, 0, 127, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/ssl_cert.cc", 277);
-      goto LABEL_25;
-    }
-
-    if (!EVP_MD_CTX_md(ctx))
-    {
-      break;
-    }
-
-LABEL_14:
-    v15 = CRYPTO_BUFFER_new_from_CBS(&v20, a6);
-    if (!v15)
-    {
-      goto LABEL_23;
-    }
-
-    v19 = 0;
-    if (!OPENSSL_sk_push(ctx, v15))
-    {
-      CRYPTO_BUFFER_free(v15);
-LABEL_23:
-      v17 = 80;
-      goto LABEL_24;
-    }
-
-    v12 = v24 == 0;
-    if (!v24)
-    {
-      goto LABEL_17;
-    }
-  }
-
-  bssl::ssl_cert_parse_pubkey(&v20, &v19);
-  v14 = v19;
-  v19 = 0;
-  pkey = v14;
-  if (v13)
-  {
-    EVP_PKEY_free(v13);
-    v13 = pkey;
-    if (!pkey)
-    {
-      goto LABEL_29;
-    }
-
-    goto LABEL_12;
-  }
-
-  v13 = v14;
-  if (v14)
-  {
-LABEL_12:
-    if (a4)
-    {
-      SHA256(v20, *(&v20 + 1), a4);
-    }
-
-    goto LABEL_14;
-  }
-
-LABEL_29:
-  v17 = 50;
-LABEL_24:
-  *a1 = v17;
-LABEL_25:
-  pkey = 0;
-  if (v13)
-  {
-    EVP_PKEY_free(v13);
-  }
-
-LABEL_27:
-  std::unique_ptr<stack_st_CRYPTO_BUFFER,bssl::internal::Deleter>::reset[abi:ne200100](&ctx, 0);
-  return v12;
-}
-
-void sub_1A902A11C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, EVP_PKEY *);
-  std::unique_ptr<evp_pkey_st,bssl::internal::Deleter>::reset[abi:ne200100](va, 0);
-  std::unique_ptr<stack_st_CRYPTO_BUFFER,bssl::internal::Deleter>::reset[abi:ne200100](va1, 0);
-  _Unwind_Resume(a1);
-}
-
-uint64_t SSL_clear_options(uint64_t a1, int a2)
-{
-  v2 = *(a1 + 144) & ~a2;
-  *(a1 + 144) = v2;
-  return v2;
-}
-
-uint64_t EC_KEY_parse_curve_name(__int128 *a1)
-{
-  v6[0] = 0xAAAAAAAAAAAAAAAALL;
-  v6[1] = 0xAAAAAAAAAAAAAAAALL;
-  if (CBS_get_asn1(a1, v6, 6))
-  {
-    v1 = 0;
-    while (1)
-    {
-      v2 = (*(&kAllGroups + v1))();
-      if (CBS_mem_equal(v6, (v2 + 516), *(v2 + 525)))
-      {
-        break;
-      }
-
-      v1 += 8;
-      if (v1 == 32)
-      {
-        v3 = 123;
-        v4 = 357;
-        goto LABEL_7;
-      }
-    }
-  }
-
-  else
-  {
-    v3 = 128;
-    v4 = 345;
-LABEL_7:
-    ERR_put_error(15, 0, v3, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/ec_extra/ec_asn1.c", v4);
-    return 0;
-  }
-
-  return v2;
-}
-
-uint64_t eckey_pub_decode(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = EC_KEY_parse_curve_name(a2);
-  if (!v6 || *(a2 + 8))
-  {
-    ERR_put_error(6, 0, 102, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/evp/p_ec_asn1.c", 99);
-    v7 = 0;
-LABEL_4:
-    EC_KEY_free(v7);
-    return 0;
-  }
-
-  v9 = v6;
-  v10 = EC_KEY_new();
-  v7 = v10;
-  if (!v10 || !EC_KEY_set_group(v10, v9) || !EC_KEY_oct2key(v7, *a3, *(a3 + 8), 0))
-  {
-    goto LABEL_4;
-  }
-
-  evp_pkey_set_method(a1, &ec_asn1_meth);
-  *(a1 + 8) = v7;
-  return 1;
-}
-
-void *EC_KEY_new_method(uint64_t a1)
-{
-  v2 = OPENSSL_zalloc(0x38uLL);
-  v5 = v2;
-  if (!v2)
-  {
-    return v5;
-  }
-
-  if (!a1)
-  {
-    ECDSA_method = v2[5];
-    if (!ECDSA_method)
-    {
-      goto LABEL_5;
-    }
-
-    goto LABEL_4;
-  }
-
-  ECDSA_method = ENGINE_get_ECDSA_method(a1);
-  v5[5] = ECDSA_method;
-  if (ECDSA_method)
-  {
-LABEL_4:
-    METHOD_ref(ECDSA_method);
-  }
-
-LABEL_5:
-  *(v5 + 28) = 0x100000004;
-  CRYPTO_new_ex_data(v5 + 48, v3, v4);
-  v7 = v5[5];
-  if (v7)
-  {
-    v8 = *(v7 + 16);
-    if (v8)
-    {
-      if (!v8(v5))
-      {
-        CRYPTO_free_ex_data(&g_ec_ex_data_class, v5, v5 + 3);
-        v9 = v5[5];
-        if (v9)
-        {
-          METHOD_unref(v9);
-        }
-
-        OPENSSL_free(v5);
-        return 0;
-      }
-    }
-  }
-
-  return v5;
-}
-
-int EC_KEY_set_group(EC_KEY *a1, const EC_GROUP *a2)
-{
-  v4 = *a1;
-  if (v4)
-  {
-    if (EC_GROUP_cmp(v4, a2, 0))
-    {
-      ERR_put_error(15, 0, 130, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/fipsmodule/ec/ec_key.c.inc", 220);
-      return 0;
-    }
-
-    else
-    {
-      return 1;
-    }
-  }
-
-  else
-  {
-    if (*(a1 + 2))
-    {
-      EC_KEY_set_group_cold_1();
-    }
-
-    if (*(a1 + 1))
-    {
-      EC_KEY_set_group_cold_2();
-    }
-
-    EC_GROUP_free(0);
-    v6 = EC_GROUP_dup(a2);
-    *a1 = v6;
-    return v6 != 0;
-  }
-}
-
-void EC_GROUP_free(EC_GROUP *a1)
-{
-  if (a1 && !*(a1 + 128) && CRYPTO_refcount_dec_and_test_zero(a1 + 135))
-  {
-    bn_mont_ctx_cleanup((a1 + 232));
-    bn_mont_ctx_cleanup((a1 + 296));
-
-    OPENSSL_free(a1);
-  }
-}
-
-EC_GROUP *__cdecl EC_GROUP_dup(const EC_GROUP *a1)
-{
-  if (a1 && !*(a1 + 128))
-  {
-    CRYPTO_refcount_inc(a1 + 135);
-  }
-
-  return a1;
-}
-
-uint64_t EC_KEY_oct2key(EC_KEY *a1, const unsigned __int8 *a2, size_t a3, BN_CTX *a4)
-{
-  v5 = *a1;
-  if (v5)
-  {
-    v9 = EC_POINT_new(v5);
-    if (v9 && EC_POINT_oct2point(*a1, v9, a2, a3, a4))
-    {
-      v10 = EC_KEY_set_public_key(a1, v9);
-    }
-
-    else
-    {
-      v10 = 0;
-    }
-
-    EC_POINT_free(v9);
-  }
-
-  else
-  {
-    ERR_put_error(15, 0, 114, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/fipsmodule/ec/ec_key.c.inc", 405);
-    return 0;
-  }
-
-  return v10;
-}
-
-EC_POINT *__cdecl EC_POINT_new(const EC_GROUP *a1)
-{
-  if (a1)
-  {
-    v2 = OPENSSL_malloc(0xE0uLL);
-    if (v2)
-    {
-      if (!*(a1 + 128))
-      {
-        CRYPTO_refcount_inc(a1 + 135);
-      }
-
-      *v2 = a1;
-      ec_GFp_simple_point_init(v2 + 8);
-    }
-  }
-
-  else
-  {
-    ERR_put_error(15, 0, 67, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/fipsmodule/ec/ec.c.inc", 469);
-    return 0;
-  }
-
-  return v2;
-}
-
-double ec_GFp_simple_point_init(uint64_t a1)
-{
-  *(a1 + 64) = 0;
-  result = 0.0;
-  *(a1 + 32) = 0u;
-  *(a1 + 48) = 0u;
-  *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 72) = 0u;
-  *(a1 + 88) = 0u;
-  *(a1 + 104) = 0u;
-  *(a1 + 120) = 0u;
-  *(a1 + 136) = 0;
-  *(a1 + 144) = 0u;
-  *(a1 + 160) = 0u;
-  *(a1 + 176) = 0u;
-  *(a1 + 192) = 0u;
-  *(a1 + 208) = 0;
-  return result;
-}
-
-int EC_POINT_oct2point(const EC_GROUP *a1, EC_POINT *a2, const unsigned __int8 *buf, size_t len, BN_CTX *a5)
-{
-  if (EC_GROUP_cmp(a1, *a2, 0))
-  {
-    v10 = 106;
-    v11 = 205;
-LABEL_3:
-    ERR_put_error(15, 0, v10, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/fipsmodule/ec/oct.c.inc", v11);
-    return 0;
-  }
-
-  if (!len)
-  {
-    v10 = 100;
-    v11 = 140;
-    goto LABEL_3;
-  }
-
-  v14 = *buf;
-  if (v14 != 4)
-  {
-    v18 = BN_num_bytes((a1 + 320));
-    if ((v14 & 0xFE) != 2 || v18 + 1 != len)
-    {
-      v10 = 109;
-      v11 = 162;
-      goto LABEL_3;
-    }
-
-    if (a5)
-    {
-      v20 = 0;
-    }
-
-    else
-    {
-      a5 = BN_CTX_new();
-      v20 = a5;
-      if (!a5)
-      {
-        return 0;
-      }
-    }
-
-    BN_CTX_start(a5);
-    v21 = BN_CTX_get(a5);
-    if (v21)
-    {
-      v22 = v21;
-      if (BN_bin2bn(buf + 1, v18, v21))
-      {
-        if (BN_ucmp(v22, (a1 + 320)) < 0)
-        {
-          v12 = EC_POINT_set_compressed_coordinates_GFp(a1, a2, v22, v14 & 1, a5);
-          goto LABEL_25;
-        }
-
-        ERR_put_error(15, 0, 109, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/fipsmodule/ec/oct.c.inc", 186);
-      }
-    }
-
-    v12 = 0;
-LABEL_25:
-    BN_CTX_end(a5);
-    BN_CTX_free(v20);
-    return v12;
-  }
-
-  *&v15 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v23[7] = v15;
-  v23[8] = v15;
-  v23[5] = v15;
-  v23[6] = v15;
-  v23[3] = v15;
-  v23[4] = v15;
-  v23[1] = v15;
-  v23[2] = v15;
-  v23[0] = v15;
-  v16 = ec_point_from_uncompressed(a1, v23, buf, len);
-  v17 = a2 + 8;
-  if (v16)
-  {
-    ec_affine_to_jacobian(a1, v17, v23);
-    return 1;
-  }
-
-  ec_set_to_safe_point(a1, v17);
-  return 0;
-}
-
-uint64_t ec_point_from_uncompressed(uint64_t a1, uint64_t a2, _BYTE *a3, uint64_t a4)
-{
-  if (((2 * BN_num_bytes((a1 + 320))) | 1) == a4 && *a3 == 4)
-  {
-    v12 = 0xAAAAAAAAAAAAAAAALL;
-    *&v7 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v11[2] = v7;
-    v11[3] = v7;
-    v11[0] = v7;
-    v11[1] = v7;
-    v10 = 0xAAAAAAAAAAAAAAAALL;
-    v9[2] = v7;
-    v9[3] = v7;
-    v9[0] = v7;
-    v9[1] = v7;
-    result = ec_felem_from_bytes(a1);
-    if (result)
-    {
-      result = ec_felem_from_bytes(a1);
-      if (result)
-      {
-        return ec_point_set_affine_coordinates(a1, a2, v11, v9) != 0;
-      }
-    }
-  }
-
-  else
-  {
-    ERR_put_error(15, 0, 109, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/fipsmodule/ec/oct.c.inc", 122);
-    return 0;
-  }
-
-  return result;
-}
-
-int EC_GROUP_cmp(const EC_GROUP *a1, const EC_GROUP *a2, BN_CTX *a3)
-{
-  if (a1 == a2)
-  {
-    return 0;
-  }
-
-  v5 = *(a1 + 128);
-  if (v5 != *(a2 + 128))
-  {
-    return 1;
-  }
-
-  if (v5)
-  {
-    return 0;
-  }
-
-  return *a1 != *a2 || !*(a1 + 133) || !*(a2 + 133) || BN_cmp((a1 + 256), (a2 + 256)) || BN_cmp((a1 + 320), (a2 + 320)) || !ec_felem_equal(a1, a1 + 360, a2 + 360) || !ec_felem_equal(a1, a1 + 432, a2 + 432) || ec_GFp_simple_points_equal(a1, a1 + 16, a2 + 1) == 0;
-}
-
-uint64_t ec_GFp_mont_felem_from_bytes(uint64_t a1, unint64_t *a2, unsigned __int8 *a3, unint64_t a4)
-{
-  result = ec_GFp_simple_felem_from_bytes(a1, a2, a3, a4);
-  if (result)
-  {
-    bn_to_montgomery_small(a2, a2, *(a1 + 328), (a1 + 296));
-    return 1;
-  }
-
-  return result;
-}
-
-uint64_t bn_cmp_words_consttime(uint64_t *a1, unint64_t a2, uint64_t *a3, unint64_t a4)
-{
-  if (a2 >= a4)
-  {
-    v5 = a4;
-  }
-
-  else
-  {
-    v5 = a2;
-  }
-
-  if (v5)
-  {
-    result = 0;
-    v7 = a1;
-    v8 = a3;
-    do
-    {
-      v10 = *v7++;
-      v9 = v10;
-      v11 = *v8++;
-      v12 = (((v11 ^ v9) - 1) & ~(v11 ^ v9)) >> 63;
-      result = v12 & result | (((((v9 - v11) ^ v9 | v11 ^ v9) ^ v9) >> 63) | 1) & ~v12;
-      --v5;
-    }
-
-    while (v5);
-  }
-
-  else
-  {
-    result = 0;
-  }
-
-  v13 = a2 - a4;
-  if (a2 >= a4)
-  {
-    if (a4 < a2)
-    {
-      v18 = 0;
-      v19 = &a1[a4];
-      do
-      {
-        v20 = *v19++;
-        v18 |= v20;
-        --v13;
-      }
-
-      while (v13);
-      return (((((v18 - 1) & ~v18) >> 63) & 1) == 0) | (((v18 - 1) & ~v18) >> 63) & result;
-    }
-  }
-
-  else
-  {
-    v14 = 0;
-    v15 = a4 - a2;
-    v16 = &a3[a2];
-    do
-    {
-      v17 = *v16++;
-      v14 |= v17;
-      --v15;
-    }
-
-    while (v15);
-    return result | ~(((v14 - 1) & ~v14) >> 63);
-  }
-
-  return result;
-}
-
-void bn_mul_normal(unint64_t *a1, unint64_t *a2, unint64_t a3, unint64_t *a4, unint64_t a5)
-{
-  if (a3 < a5)
-  {
-    v6 = a5;
-  }
-
-  else
-  {
-    v6 = a3;
-  }
-
-  if (a3 < a5)
-  {
-    v7 = a2;
-  }
-
-  else
-  {
-    v7 = a4;
-  }
-
-  if (a3 < a5)
-  {
-    v8 = a3;
-  }
-
-  else
-  {
-    v8 = a5;
-  }
-
-  if (a3 < a5)
-  {
-    v9 = a4;
-  }
-
-  else
-  {
-    v9 = a2;
-  }
-
-  if (v8)
-  {
-    a1[v6] = bn_mul_words(a1, v9, v6, *v7);
-    if (v8 != 1)
-    {
-      v10 = 0;
-      v11 = v7 + 2;
-      v12 = 4 - v8;
-      v13 = &a1[v6 + 4];
-      do
-      {
-        v13[v10 - 3] = bn_mul_add_words(&a1[v10 + 1], v9, v6, v11[v10 - 1]);
-        if (v12 == 2)
-        {
-          break;
-        }
-
-        v13[v10 - 2] = bn_mul_add_words(&a1[v10 + 2], v9, v6, v11[v10]);
-        if (v12 == 1)
-        {
-          break;
-        }
-
-        v13[v10 - 1] = bn_mul_add_words(&a1[v10 + 3], v9, v6, v11[v10 + 1]);
-        if (!v12)
-        {
-          break;
-        }
-
-        v13[v10] = bn_mul_add_words(&a1[v10 + 4], v9, v6, v11[v10 + 2]);
-        v12 += 4;
-        v10 += 4;
-      }
-
-      while (v12 != 3);
-    }
-  }
-
-  else if (8 * v6)
-  {
-
-    bzero(a1, 8 * v6);
-  }
-}
-
-void bn_mod_mul_montgomery_small(unint64_t *a1, unint64_t *a2, unint64_t *a3, unint64_t a4, uint64_t a5)
-{
-  v14 = *MEMORY[0x1E69E9840];
-  if (a4 > 9 || *(a5 + 32) != a4)
-  {
-    goto LABEL_8;
-  }
-
-  *&v10 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v13[7] = v10;
-  v13[8] = v10;
-  v13[5] = v10;
-  v13[6] = v10;
-  v13[3] = v10;
-  v13[4] = v10;
-  v13[1] = v10;
-  v13[2] = v10;
-  v13[0] = v10;
-  v11 = 2 * a4;
-  if (a2 == a3)
-  {
-    bn_sqr_small(v13, v11, a2, a4);
-  }
-
-  else
-  {
-    bn_mul_small(v13, v11, a2, a4, a3, a4);
-  }
-
-  if (!bn_from_montgomery_in_place(a1, a4, v13, 2 * a4, a5))
-  {
-LABEL_8:
-    abort();
-  }
-
-  OPENSSL_cleanse(v13, 16 * a4);
-  v12 = *MEMORY[0x1E69E9840];
-}
-
-uint64_t bn_reduce_once_in_place(unint64_t *ap, uint64_t a2, const unint64_t *a3, unint64_t *rp, uint64_t num)
-{
-  v8 = a2 - bn_sub_words(rp, ap, a3, num);
-  if ((v8 + 1) >= 2)
-  {
-    bn_reduce_once_in_place_cold_1();
-  }
-
-  bn_select_words(ap, v8, ap, rp, num);
-  return v8;
-}
-
-__n128 ec_affine_to_jacobian(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  *a2 = *a3;
-  v4 = *(a3 + 16);
-  v5 = *(a3 + 32);
-  v6 = *(a3 + 48);
-  *(a2 + 64) = *(a3 + 64);
-  *(a2 + 32) = v5;
-  *(a2 + 48) = v6;
-  *(a2 + 16) = v4;
-  v7 = *(a3 + 104);
-  v8 = *(a3 + 120);
-  v9 = *(a3 + 136);
-  *(a2 + 88) = *(a3 + 88);
-  *(a2 + 136) = v9;
-  *(a2 + 120) = v8;
-  *(a2 + 104) = v7;
-  *(a2 + 72) = *(a3 + 72);
-  v10 = ec_felem_one(a1);
-  *(a2 + 144) = *v10;
-  v12 = *(v10 + 32);
-  result = *(v10 + 48);
-  v13 = *(v10 + 16);
-  *(a2 + 208) = *(v10 + 64);
-  *(a2 + 176) = v12;
-  *(a2 + 192) = result;
-  *(a2 + 160) = v13;
-  return result;
-}
-
-int EC_KEY_set_public_key(EC_KEY *a1, const EC_POINT *a2)
-{
-  v3 = *a1;
-  if (v3)
-  {
-    if (!a2 || !EC_GROUP_cmp(v3, *a2, 0))
-    {
-      EC_POINT_free(*(a1 + 1));
-      v7 = EC_POINT_dup(a2, *a1);
-      *(a1 + 1) = v7;
-      return v7 != 0;
-    }
-
-    v5 = 130;
-    v6 = 273;
-  }
-
-  else
-  {
-    v5 = 114;
-    v6 = 268;
-  }
-
-  ERR_put_error(15, 0, v5, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/fipsmodule/ec/ec_key.c.inc", v6);
-  return 0;
-}
-
-int EC_POINT_copy(EC_POINT *a1, const EC_POINT *a2)
-{
-  if (EC_GROUP_cmp(*a1, *a2, v2))
-  {
-    ERR_put_error(15, 0, 106, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/fipsmodule/ec/ec.c.inc", 501);
-    return 0;
-  }
-
-  else
-  {
-    if (a1 != a2)
-    {
-      ec_GFp_simple_point_copy(a1 + 8, a2 + 8);
-    }
-
-    return 1;
-  }
-}
-
-__n128 ec_GFp_simple_point_copy(uint64_t a1, uint64_t a2)
-{
-  *a1 = *a2;
-  v2 = *(a2 + 16);
-  v3 = *(a2 + 32);
-  v4 = *(a2 + 48);
-  *(a1 + 64) = *(a2 + 64);
-  *(a1 + 32) = v3;
-  *(a1 + 48) = v4;
-  *(a1 + 16) = v2;
-  v5 = *(a2 + 104);
-  v6 = *(a2 + 120);
-  v7 = *(a2 + 136);
-  *(a1 + 88) = *(a2 + 88);
-  *(a1 + 136) = v7;
-  *(a1 + 120) = v6;
-  *(a1 + 104) = v5;
-  *(a1 + 72) = *(a2 + 72);
-  v9 = *(a2 + 176);
-  v8 = *(a2 + 192);
-  v10 = *(a2 + 160);
-  *(a1 + 208) = *(a2 + 208);
-  *(a1 + 176) = v9;
-  *(a1 + 192) = v8;
-  *(a1 + 160) = v10;
-  result = *(a2 + 144);
-  *(a1 + 144) = result;
-  return result;
-}
-
-void nw_protocol_boringssl_disconnect_cold_1()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_22(&datapath_logging_enabled);
-  if (v0 && g_boringssl_log && OUTLINED_FUNCTION_18_0())
-  {
-    OUTLINED_FUNCTION_5_0();
-    OUTLINED_FUNCTION_0_2();
-    OUTLINED_FUNCTION_10_0();
-    _os_log_debug_impl(v2, v3, v4, v5, v6, 0x26u);
-  }
-
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-uint64_t boringssl_session_disconnect(uint64_t a1)
-{
-  if (!a1)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (*a1 != -1252936367)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  v2 = *(a1 + 8);
-  if (!v2 || !*(v2 + 392))
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  WeakRetained = objc_loadWeakRetained((v2 + 16));
-  if (!WeakRetained || (v4 = WeakRetained, v5 = objc_loadWeakRetained((v2 + 16)), v6 = v5[435], v5, v4, (v6 & 1) == 0))
-  {
-    v7 = objc_loadWeakRetained((v2 + 16));
-    if (v7)
-    {
-      v8 = objc_loadWeakRetained((v2 + 16));
-      v9 = (v8[435] & 1) == 0;
-    }
-
-    else
-    {
-      v9 = 1;
-    }
-
-    if (v9)
-    {
-      if (g_boringssl_log)
-      {
-        v11 = g_boringssl_log;
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
-        {
-          boringssl_session_disconnect_cold_1();
-        }
-      }
-    }
-  }
-
-  v12 = SSL_shutdown(*(v2 + 392));
-  v13 = objc_loadWeakRetained((v2 + 16));
-  if (!v13 || (v14 = v13, v15 = objc_loadWeakRetained((v2 + 16)), v16 = v15[435], v15, v14, (v16 & 1) == 0))
-  {
-    v17 = objc_loadWeakRetained((v2 + 16));
-    if (v17)
-    {
-      v18 = objc_loadWeakRetained((v2 + 16));
-      v19 = (v18[435] & 1) == 0;
-    }
-
-    else
-    {
-      v19 = 1;
-    }
-
-    if (v19)
-    {
-      if (g_boringssl_log)
-      {
-        v20 = g_boringssl_log;
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
-        {
-          boringssl_session_disconnect_cold_2();
-        }
-      }
-    }
-  }
-
-  boringssl_session_set_state(a1, 3);
-  return (v12 >> 31);
-}
-
-void bn_mul_small(unint64_t *a1, uint64_t a2, unint64_t *a3, unint64_t a4, unint64_t *a5, unint64_t a6)
-{
-  if (a6 + a4 != a2)
-  {
-    abort();
-  }
-
-  if (a4 == 8 && a6 == 8)
-  {
-
-    bn_mul_comba8(a1, a3, a5);
-  }
-
-  else
-  {
-
-    bn_mul_normal(a1, a3, a4, a5, a6);
-  }
-}
-
-uint64_t ec_point_set_affine_coordinates(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v8 = *(*a1 + 88);
-  v9 = *(*a1 + 96);
-  v27 = 0xAAAAAAAAAAAAAAAALL;
-  *&v10 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v26[2] = v10;
-  v26[3] = v10;
-  v26[0] = v10;
-  v26[1] = v10;
-  v25 = 0xAAAAAAAAAAAAAAAALL;
-  v24[2] = v10;
-  v24[3] = v10;
-  v24[0] = v10;
-  v24[1] = v10;
-  v9(a1, v26, a4);
-  v9(a1, v24, a3);
-  ec_felem_add(a1, v24, v24, (a1 + 360));
-  v8(a1, v24, v24, a3);
-  ec_felem_add(a1, v24, v24, (a1 + 432));
-  if (ec_felem_equal(a1, v26, v24))
-  {
-    *a2 = *a3;
-    v11 = *(a3 + 16);
-    v12 = *(a3 + 32);
-    v13 = *(a3 + 48);
-    *(a2 + 64) = *(a3 + 64);
-    *(a2 + 32) = v12;
-    *(a2 + 48) = v13;
-    *(a2 + 16) = v11;
-    v15 = *(a4 + 32);
-    v14 = *(a4 + 48);
-    v16 = *(a4 + 64);
-    *(a2 + 88) = *(a4 + 16);
-    *(a2 + 136) = v16;
-    *(a2 + 120) = v14;
-    *(a2 + 104) = v15;
-    *(a2 + 72) = *a4;
-    return 1;
-  }
-
-  else
-  {
-    ERR_put_error(15, 0, 120, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/fipsmodule/ec/ec.c.inc", 628);
-    result = 0;
-    if (*(a1 + 532))
-    {
-      *a2 = *(a1 + 16);
-      v18 = *(a1 + 32);
-      v19 = *(a1 + 48);
-      v20 = *(a1 + 64);
-      *(a2 + 64) = *(a1 + 80);
-      *(a2 + 32) = v19;
-      *(a2 + 48) = v20;
-      *(a2 + 16) = v18;
-      v21 = *(a1 + 120);
-      v22 = *(a1 + 136);
-      v23 = *(a1 + 104);
-      *(a2 + 136) = *(a1 + 152);
-      *(a2 + 88) = v23;
-      *(a2 + 120) = v22;
-      *(a2 + 104) = v21;
-      *(a2 + 72) = *(a1 + 88);
-    }
-  }
-
-  return result;
-}
-
-void bn_sqr_small(unint64_t *a1, uint64_t a2, unint64_t *a3, unint64_t a4)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  if (a4 > 9 || 2 * a4 != a2)
-  {
-    abort();
-  }
-
-  if (a4 == 8)
-  {
-    v6 = *MEMORY[0x1E69E9840];
-
-    bn_sqr_comba8(a1, a3);
-  }
-
-  else if (a4 == 4)
-  {
-    v5 = *MEMORY[0x1E69E9840];
-
-    bn_sqr_comba4(a1, a3);
-  }
-
-  else
-  {
-    *&v7 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v9[7] = v7;
-    v9[8] = v7;
-    v9[5] = v7;
-    v9[6] = v7;
-    v9[3] = v7;
-    v9[4] = v7;
-    v9[1] = v7;
-    v9[2] = v7;
-    v9[0] = v7;
-    bn_sqr_normal(a1, a3, a4, v9);
-    OPENSSL_cleanse(v9, 16 * a4);
-    v8 = *MEMORY[0x1E69E9840];
-  }
-}
-
-EC_POINT *__cdecl EC_POINT_dup(const EC_POINT *a1, const EC_GROUP *a2)
-{
-  if (!a1)
-  {
-    return 0;
-  }
-
-  v3 = EC_POINT_new(a2);
-  v4 = v3;
-  if (!v3 || !EC_POINT_copy(v3, a1))
-  {
-    EC_POINT_free(v4);
-    return 0;
-  }
-
-  return v4;
-}
-
-uint64_t CBB_add_asn1(uint64_t *a1, uint64_t a2, unsigned int a3)
-{
-  if (!CBB_flush(a1))
-  {
-    return 0;
-  }
-
-  if ((a3 & 0x1FFFFFFF) < 0x1F)
-  {
-    if (!cbb_add_u(a1, HIBYTE(a3) & 0xE0 | a3, 1uLL))
-    {
-      return 0;
-    }
-  }
-
-  else if (!cbb_add_u(a1, HIBYTE(a3) | 0x1F, 1uLL) || !add_base128_integer(a1, a3 & 0x1FFFFFFF))
-  {
-    return 0;
-  }
-
-  return cbb_add_child(a1, a2, 1u, 1);
-}
-
-uint64_t CBB_add_asn1_octet_string(uint64_t a1, const void *a2, size_t a3)
-{
-  *&v6 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v9[1] = v6;
-  v9[2] = v6;
-  v9[0] = v6;
-  if (CBB_add_asn1(a1, v9, 4u) && CBB_add_bytes(v9, a2, a3) && CBB_flush(a1))
-  {
-    return 1;
-  }
-
-  v8 = (a1 + 16);
-  if (*(a1 + 8))
-  {
-    v8 = *v8;
-  }
-
-  result = 0;
-  *(v8 + 24) |= 2u;
-  *a1 = 0;
-  return result;
-}
-
-void ssl_st::~ssl_st(ssl_st *this)
-{
-  CRYPTO_free_ex_data(&bssl::g_ex_data_class_ssl, this, &this->d1);
-  std::unique_ptr<bssl::SSL_CONFIG,bssl::internal::Deleter>::reset[abi:ne200100](&this->method, 0);
-  if (*&this->version)
-  {
-    (*(*&this->version + 16))(this);
-  }
-
-  std::unique_ptr<char,bssl::internal::Deleter>::reset[abi:ne200100](&this->msg_callback_arg, 0);
-  std::unique_ptr<ssl_ctx_st,bssl::internal::Deleter>::reset[abi:ne200100](&this->s3, 0);
-  std::unique_ptr<ssl_ctx_st,bssl::internal::Deleter>::reset[abi:ne200100](&this->s2, 0);
-  std::unique_ptr<ssl_session_st,bssl::internal::Deleter>::reset[abi:ne200100](&this->packet, 0);
-  std::unique_ptr<bio_st,bssl::internal::Deleter>::reset[abi:ne200100](&this->bbio, 0);
-  std::unique_ptr<bio_st,bssl::internal::Deleter>::reset[abi:ne200100](&this->wbio, 0);
-  std::unique_ptr<bssl::SSL_CONFIG,bssl::internal::Deleter>::reset[abi:ne200100](&this->method, 0);
-}
-
-void SSL_free(SSL *ssl)
-{
-  if (ssl)
-  {
-    ssl_st::~ssl_st(ssl);
-
-    OPENSSL_free(v1);
-  }
-}
-
-uint64_t bn_from_montgomery_in_place(unint64_t *a1, uint64_t num, unint64_t *rp, uint64_t a4, uint64_t a5)
-{
-  v5 = *(a5 + 32);
-  if (v5 == num && 2 * v5 == a4)
-  {
-    v11 = *(a5 + 24);
-    v12 = 0;
-    if (v5)
-    {
-      v13 = *(a5 + 48);
-      v14 = rp;
-      v15 = num;
-      do
-      {
-        v16 = bn_mul_add_words(v14, v11, num, *v14 * v13);
-        v17 = v14[num];
-        v18 = v16 + v12 + v17;
-        v12 = (v18 <= v17) & ((v16 + v12 != 0) | v12);
-        v14[num] = v18;
-        ++v14;
-        --v15;
-      }
-
-      while (v15);
-    }
-
-    bn_reduce_once(a1, &rp[num], v12, v11, num);
-    return 1;
-  }
-
-  else
-  {
-    ERR_put_error(3, 0, 66, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/fipsmodule/bn/montgomery.c.inc", 294);
-    return 0;
-  }
-}
-
-void *bn_sqr_comba4(void *result, unint64_t *a2)
-{
-  v2 = (*a2 * *a2) >> 64;
-  *result = *a2 * *a2;
-  v3 = a2[1];
-  v4 = (*a2 * v3) >> 64;
-  v5 = *a2 * v3;
-  v6 = __CFADD__(v5, v2);
-  v7 = v5 + v2;
-  if (v6)
-  {
-    v8 = v4 + 1;
-  }
-
-  else
-  {
-    v8 = v4;
-  }
-
-  v6 = __CFADD__(v7, v5);
-  v9 = v7 + v5;
-  if (v6)
-  {
-    v10 = v4 + 1;
-  }
-
-  else
-  {
-    v10 = v4;
-  }
-
-  result[1] = v9;
-  v12 = *a2;
-  v11 = a2[1];
-  v13 = (v11 * v11) >> 64;
-  v14 = v11 * v11;
-  v6 = __CFADD__(v14, v10 + v8);
-  v15 = v14 + v10 + v8;
-  if (v6)
-  {
-    v16 = v13 + 1;
-  }
-
-  else
-  {
-    v16 = v13;
-  }
-
-  v6 = __CFADD__(__CFADD__(v10, v8), v16);
-  v17 = __CFADD__(v10, v8) + v16;
-  v18 = v6;
-  v19 = a2[2];
-  v20 = (v12 * v19) >> 64;
-  v21 = v12 * v19;
-  v6 = __CFADD__(v15, v21);
-  v22 = v15 + v21;
-  if (v6)
-  {
-    v23 = v20 + 1;
-  }
-
-  else
-  {
-    v23 = v20;
-  }
-
-  v6 = __CFADD__(v17, v23);
-  v24 = v17 + v23;
-  v25 = v6;
-  v6 = __CFADD__(v22, v21);
-  v26 = v22 + v21;
-  if (v6)
-  {
-    v27 = v20 + 1;
-  }
-
-  else
-  {
-    v27 = v20;
-  }
-
-  v6 = __CFADD__(v24, v27);
-  v28 = v24 + v27;
-  v29 = v18 + v6 + v25;
-  result[2] = v26;
-  v31 = a2[2];
-  v30 = a2[3];
-  v32 = a2[1];
-  v33 = (*a2 * v30) >> 64;
-  v34 = *a2 * v30;
-  v6 = __CFADD__(v34, v28);
-  v35 = v34 + v28;
-  if (v6)
-  {
-    v36 = v33 + 1;
-  }
-
-  else
-  {
-    v36 = v33;
-  }
-
-  v37 = v29 + v36;
-  v6 = __CFADD__(v35, v34);
-  v38 = v35 + v34;
-  if (v6)
-  {
-    v39 = v33 + 1;
-  }
-
-  else
-  {
-    v39 = v33;
-  }
-
-  v6 = __CFADD__(v37, v39);
-  v40 = v37 + v39;
-  v41 = v6;
-  if (__CFADD__(v29, v36))
-  {
-    v42 = v41 + 1;
-  }
-
-  else
-  {
-    v42 = v41;
-  }
-
-  v43 = (v32 * v31) >> 64;
-  v44 = v32 * v31;
-  v6 = __CFADD__(v38, v44);
-  v45 = v38 + v44;
-  if (v6)
-  {
-    v46 = v43 + 1;
-  }
-
-  else
-  {
-    v46 = v43;
-  }
-
-  v6 = __CFADD__(v40, v46);
-  v47 = v40 + v46;
-  v48 = v6;
-  v6 = __CFADD__(v45, v44);
-  v49 = v45 + v44;
-  if (v6)
-  {
-    v50 = v43 + 1;
-  }
-
-  else
-  {
-    v50 = v43;
-  }
-
-  v51 = __PAIR128__(v42, v47) + __PAIR128__(v48, v50);
-  result[3] = v49;
-  v52 = a2[1];
-  v53 = a2[2] * a2[2] + v51;
-  v54 = *(&v51 + 1) + v51;
-  v55 = __CFADD__(*(&v51 + 1), v51);
-  v56 = a2[3];
-  v57 = (v52 * v56) >> 64;
-  v58 = v52 * v56;
-  v6 = __CFADD__(v53, v58);
-  v59 = v53 + v58;
-  if (v6)
-  {
-    v60 = v57 + 1;
-  }
-
-  else
-  {
-    v60 = v57;
-  }
-
-  v6 = __CFADD__(v54, v60);
-  v61 = v54 + v60;
-  v62 = v6;
-  v6 = __CFADD__(v59, v58);
-  v63 = v59 + v58;
-  if (v6)
-  {
-    v64 = v57 + 1;
-  }
-
-  else
-  {
-    v64 = v57;
-  }
-
-  v6 = __CFADD__(v61, v64);
-  v65 = v61 + v64;
-  v66 = v55 + v6 + v62;
-  result[4] = v63;
-  v68 = a2[2];
-  v67 = a2[3];
-  v69 = (v68 * v67) >> 64;
-  v70 = v68 * v67;
-  v6 = __CFADD__(v70, v65);
-  v71 = v70 + v65;
-  if (v6)
-  {
-    v72 = v69 + 1;
-  }
-
-  else
-  {
-    v72 = v69;
-  }
-
-  v73 = v66 + v72;
-  v6 = __CFADD__(v71, v70);
-  v74 = v71 + v70;
-  if (v6)
-  {
-    v75 = v69 + 1;
-  }
-
-  else
-  {
-    v75 = v69;
-  }
-
-  v6 = __CFADD__(v73, v75);
-  v76 = v73 + v75;
-  v77 = v6;
-  result[5] = v74;
-  v78 = a2[3];
-  v79 = (v78 * v78) >> 64;
-  v80 = v78 * v78;
-  v6 = __CFADD__(v80, v76);
-  v81 = v80 + v76;
-  if (v6)
-  {
-    v82 = v79 + 1;
-  }
-
-  else
-  {
-    v82 = v79;
-  }
-
-  result[6] = v81;
-  result[7] = v77 + __CFADD__(v66, v72) + v82;
-  return result;
-}
-
-uint64_t ec_felem_add(uint64_t a1, unint64_t *a2, const unint64_t *a3, const unint64_t *a4)
-{
-  v7 = 0xAAAAAAAAAAAAAAAALL;
-  *&v4 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v6[2] = v4;
-  v6[3] = v4;
-  v6[0] = v4;
-  v6[1] = v4;
-  return bn_mod_add_words(a2, a3, a4, *(a1 + 320), v6, *(a1 + 328));
-}
-
-uint64_t bn_mod_add_words(unint64_t *a1, const unint64_t *a2, const unint64_t *a3, const unint64_t *a4, unint64_t *a5, uint64_t num)
-{
-  v10 = bn_add_words(a1, a2, a3, num);
-
-  return bn_reduce_once_in_place(a1, v10, a4, a5, num);
-}
-
-uint64_t *bn_select_words(uint64_t *result, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v6 = *a3++;
-    v5 = v6;
-    v7 = *a4++;
-    *result++ = a2 & v5 | v7 & ~a2;
-  }
-
-  return result;
-}
-
-void EC_POINT_free(EC_POINT *a1)
-{
-  if (a1)
-  {
-    EC_GROUP_free(*a1);
-
-    OPENSSL_free(a1);
-  }
-}
-
-void EC_KEY_free(EC_KEY *a1)
-{
-  if (a1 && CRYPTO_refcount_dec_and_test_zero(a1 + 8))
-  {
-    v2 = *(a1 + 5);
-    if (v2)
-    {
-      v3 = *(v2 + 24);
-      if (v3)
-      {
-        v3(a1);
-        v2 = *(a1 + 5);
-      }
-
-      METHOD_unref(v2);
-    }
-
-    CRYPTO_free_ex_data(&g_ec_ex_data_class, a1, a1 + 3);
-    EC_GROUP_free(*a1);
-    EC_POINT_free(*(a1 + 1));
-    OPENSSL_free(*(a1 + 2));
-
-    OPENSSL_free(a1);
-  }
-}
-
-void bssl::SSL_SESSION_dup(bssl *this@<X0>, ssl_session_st *a2@<X1>, void *a3@<X8>)
-{
-  v3 = a2;
+  v3 = a3;
   v38 = *(this + 18);
   v6 = bssl::New<ssl_session_st,bssl::SSL_X509_METHOD const*&>(&v38);
   v7 = v6;
@@ -1899,58 +14,58 @@ void bssl::SSL_SESSION_dup(bssl *this@<X0>, ssl_session_st *a2@<X1>, void *a3@<X
   *(v6 + 2) = *(this + 2);
   *(v6 + 440) = *(this + 440) & 0x20 | v8 & 0xDF;
   bssl::InplaceVector<unsigned char,32ul>::operator=(v6 + 92, this + 92);
-  bssl::InplaceVector<unsigned char,48ul>::operator=(v7 + 10, this + 10);
-  v7[25] = *(this + 25);
+  bssl::InplaceVector<unsigned char,48ul>::operator=((v7 + 10), this + 10);
+  *(v7 + 200) = *(this + 25);
   v9 = *(this + 16);
-  if (!v9 || (v10 = OPENSSL_strdup(v9), std::unique_ptr<char,bssl::internal::Deleter>::reset[abi:ne200100](v7 + 16, v10), v7[16]))
+  if (!v9 || (v10 = OPENSSL_strdup(v9), std::unique_ptr<char,bssl::internal::Deleter>::reset[abi:ne200100]((v7 + 128), v10), *(v7 + 128)))
   {
     v11 = *(this + 17);
-    if (!v11 || (v12 = OPENSSL_sk_deep_copy(v11, sk_CRYPTO_BUFFER_call_copy_func, bssl::SSL_SESSION_dup(ssl_session_st *,int)::$_0::__invoke, sk_CRYPTO_BUFFER_call_free_func, CRYPTO_BUFFER_free), std::unique_ptr<stack_st_CRYPTO_BUFFER,bssl::internal::Deleter>::reset[abi:ne200100](v7 + 17, v12), v7[17]))
+    if (!v11 || (v12 = OPENSSL_sk_deep_copy(v11, sk_CRYPTO_BUFFER_call_copy_func, bssl::SSL_SESSION_dup(ssl_session_st *,int)::$_0::__invoke, sk_CRYPTO_BUFFER_call_free_func, CRYPTO_BUFFER_free), std::unique_ptr<stack_st_CRYPTO_BUFFER,bssl::internal::Deleter>::reset[abi:ne200100]((v7 + 136), v12), *(v7 + 136)))
     {
       if ((*(*(this + 18) + 56))(v7, this))
       {
-        v7[22] = *(this + 22);
+        *(v7 + 176) = *(this + 22);
         v13 = *(this + 32);
         if (v13)
         {
           CRYPTO_BUFFER_up_ref(*(this + 32));
         }
 
-        std::unique_ptr<crypto_buffer_st,bssl::internal::Deleter>::reset[abi:ne200100](v7 + 32, v13);
+        std::unique_ptr<crypto_buffer_st,bssl::internal::Deleter>::reset[abi:ne200100]((v7 + 256), v13);
         v14 = *(this + 31);
         if (v14)
         {
           CRYPTO_BUFFER_up_ref(*(this + 31));
         }
 
-        std::unique_ptr<crypto_buffer_st,bssl::internal::Deleter>::reset[abi:ne200100](v7 + 31, v14);
+        std::unique_ptr<crypto_buffer_st,bssl::internal::Deleter>::reset[abi:ne200100]((v7 + 248), v14);
         v15 = *(this + 18);
-        *(v7 + 17) = *(this + 17);
-        *(v7 + 18) = v15;
-        *(v7 + 440) = v7[55] & 0xFD | *(this + 440) & 2;
-        *(v7 + 4) = *(this + 4);
-        v7[23] = *(this + 23);
-        v7[24] = *(this + 24);
+        *(v7 + 272) = *(this + 17);
+        *(v7 + 288) = v15;
+        *(v7 + 440) = *(v7 + 440) & 0xFD | *(this + 440) & 2;
+        *(v7 + 8) = *(this + 4);
+        *(v7 + 184) = *(this + 23);
+        *(v7 + 192) = *(this + 24);
         if ((v3 & 2) != 0)
         {
-          bssl::InplaceVector<unsigned char,32ul>::operator=(v7 + 59, this + 59);
-          *(v7 + 3) = *(this + 3);
-          bssl::InplaceVector<unsigned char,64ul>::operator=(v7 + 304, this + 304);
-          *(v7 + 93) = *(this + 93);
-          v7[47] = *(this + 47);
-          v21 = v7[55] & 0xFE | *(this + 440) & 1;
+          bssl::InplaceVector<unsigned char,32ul>::operator=((v7 + 59), this + 59);
+          *(v7 + 6) = *(this + 3);
+          bssl::InplaceVector<unsigned char,64ul>::operator=((v7 + 304), this + 304);
+          *(v7 + 372) = *(this + 93);
+          *(v7 + 376) = *(this + 47);
+          v21 = *(v7 + 440) & 0xFE | *(this + 440) & 1;
           *(v7 + 440) = v21;
           *(v7 + 440) = v21 & 0xBF | *(this + 440) & 0x40;
           v23 = *(this + 49);
           v22 = *(this + 50);
-          if (!bssl::Array<unsigned char>::InitUninitialized((v7 + 49), v22))
+          if (!bssl::Array<unsigned char>::InitUninitialized(v7 + 392, v22))
           {
             goto LABEL_36;
           }
 
           if (v22)
           {
-            v24 = v7[49];
+            v24 = *(v7 + 392);
             do
             {
               v25 = *v23++;
@@ -1963,14 +78,14 @@ void bssl::SSL_SESSION_dup(bssl *this@<X0>, ssl_session_st *a2@<X1>, void *a3@<X
 
           v27 = *(this + 56);
           v26 = *(this + 57);
-          if (!bssl::Array<unsigned char>::InitUninitialized((v7 + 56), v26))
+          if (!bssl::Array<unsigned char>::InitUninitialized(v7 + 448, v26))
           {
             goto LABEL_36;
           }
 
           if (v26)
           {
-            v28 = v7[56];
+            v28 = *(v7 + 448);
             do
             {
               v29 = *v27++;
@@ -1983,14 +98,14 @@ void bssl::SSL_SESSION_dup(bssl *this@<X0>, ssl_session_st *a2@<X1>, void *a3@<X
 
           v31 = *(this + 51);
           v30 = *(this + 52);
-          if (!bssl::Array<unsigned char>::InitUninitialized((v7 + 51), v30))
+          if (!bssl::Array<unsigned char>::InitUninitialized(v7 + 408, v30))
           {
             goto LABEL_36;
           }
 
           if (v30)
           {
-            v32 = v7[51];
+            v32 = *(v7 + 408);
             do
             {
               v33 = *v31++;
@@ -2003,14 +118,14 @@ void bssl::SSL_SESSION_dup(bssl *this@<X0>, ssl_session_st *a2@<X1>, void *a3@<X
 
           v35 = *(this + 53);
           v34 = *(this + 54);
-          if (!bssl::Array<unsigned char>::InitUninitialized((v7 + 53), v34))
+          if (!bssl::Array<unsigned char>::InitUninitialized(v7 + 424, v34))
           {
             goto LABEL_36;
           }
 
           if (v34)
           {
-            v36 = v7[53];
+            v36 = *(v7 + 424);
             do
             {
               v37 = *v35++;
@@ -2029,17 +144,17 @@ LABEL_17:
           *(v7 + 440) = v20;
           *(v7 + 440) = *(this + 440) & 0x80 | v20 & 0x7F;
 LABEL_18:
-          *a3 = v7;
+          *a1 = v7;
           return;
         }
 
         v17 = *(this + 29);
         v16 = *(this + 30);
-        if (bssl::Array<unsigned char>::InitUninitialized((v7 + 29), v16))
+        if (bssl::Array<unsigned char>::InitUninitialized(v7 + 232, v16))
         {
           if (v16)
           {
-            v18 = v7[29];
+            v18 = *(v7 + 232);
             do
             {
               v19 = *v17++;
@@ -2057,14 +172,12 @@ LABEL_18:
   }
 
 LABEL_36:
-  *a3 = 0;
+  *a1 = 0;
   bssl::RefCounted<ssl_session_st>::DecRefInternal(v7);
 }
 
 void __boringssl_metrics_log_metric_block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   if ((SecTrustReportNetworkingAnalytics() & 1) == 0 && g_boringssl_log && os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_ERROR))
   {
     __boringssl_metrics_log_metric_block_invoke_cold_1();
@@ -2297,9 +410,9 @@ LABEL_73:
   return result;
 }
 
-void nw_protocol_boringssl_disconnect(uint64_t a1)
+void nw_protocol_boringssl_disconnect(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
     v1 = nw_protocol_downcast();
     if (v1)
@@ -2451,9 +564,9 @@ uint64_t bssl::tls_dispatch_alert(bssl *this, ssl_st *a2)
     goto LABEL_10;
   }
 
-  v10 = 0xAAAAAAAAAAAAAAAALL;
-  v5 = bssl::do_tls_write(this, &v10, 0x15, *(this + 6) + 469, 2);
-  if (v5 >= 1 && v10 != 2)
+  v9 = 0xAAAAAAAAAAAAAAAALL;
+  v5 = bssl::do_tls_write(this, &v9, 0x15, *(this + 6) + 469, 2);
+  if (v5 >= 1 && v9 != 2)
   {
     bssl::tls_dispatch_alert();
   }
@@ -2472,7 +585,6 @@ LABEL_10:
 
     v4 = 1;
     bssl::ssl_do_msg_callback(this, 1, 21, v7 + 469, 2);
-    v8 = *(*(this + 6) + 469);
     bssl::ssl_do_info_callback(this, 0x4008);
   }
 
@@ -2524,7 +636,7 @@ uint64_t bssl::ssl_send_alert_impl(bssl *this, ssl_st *a2, int a3)
 
 void boringssl_context_alert_callback_handler(const SSL *a1, uint64_t a2, int a3, int a4)
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   v7 = SSL_get_ex_data(a1, 0);
   if (v7)
   {
@@ -2584,19 +696,19 @@ void boringssl_context_alert_callback_handler(const SSL *a1, uint64_t a2, int a3
                   }
 
                   *buf = 136447746;
-                  v50 = "boringssl_context_handle_warning_alert";
-                  v51 = 1024;
-                  v52 = 2335;
-                  v53 = 2082;
-                  v54 = v34;
-                  v55 = 2048;
-                  v56 = v36;
-                  v57 = 2082;
-                  v58 = v37;
-                  v59 = 2082;
-                  v60 = SSL_alert_type_string_long(a3);
-                  v61 = 2082;
-                  v62 = SSL_alert_desc_string_long(a3);
+                  v49 = "boringssl_context_handle_warning_alert";
+                  v50 = 1024;
+                  v51 = 2335;
+                  v52 = 2082;
+                  v53 = v34;
+                  v54 = 2048;
+                  v55 = v36;
+                  v56 = 2082;
+                  v57 = v37;
+                  v58 = 2082;
+                  v59 = SSL_alert_type_string_long(a3);
+                  v60 = 2082;
+                  v61 = SSL_alert_desc_string_long(a3);
                   _os_log_impl(&dword_1A8FF5000, v32, OS_LOG_TYPE_INFO, "%{public}s(%d) %{public}s[%p] %{public}s alert, level: %{public}s, description: %{public}s", buf, 0x44u);
 
                   if (v33)
@@ -2633,46 +745,46 @@ void boringssl_context_alert_callback_handler(const SSL *a1, uint64_t a2, int a3
                 v28 = g_boringssl_log;
                 if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
                 {
-                  v39 = objc_loadWeakRetained((v9 + 16));
-                  if (v39)
+                  v38 = objc_loadWeakRetained((v9 + 16));
+                  if (v38)
                   {
-                    v48 = objc_loadWeakRetained((v9 + 16));
-                    v40 = v48 + 351;
+                    v47 = objc_loadWeakRetained((v9 + 16));
+                    v39 = v47 + 351;
                   }
 
                   else
                   {
-                    v40 = &unk_1A9098A9F;
+                    v39 = &unk_1A9098A9F;
                   }
 
-                  v43 = objc_loadWeakRetained((v9 + 16));
+                  v42 = objc_loadWeakRetained((v9 + 16));
                   if (a4)
                   {
-                    v44 = "read";
+                    v43 = "read";
                   }
 
                   else
                   {
-                    v44 = "write";
+                    v43 = "write";
                   }
 
                   *buf = 136447746;
-                  v50 = "boringssl_context_handle_fatal_alert";
-                  v51 = 1024;
-                  v52 = 2316;
-                  v53 = 2082;
-                  v54 = v40;
-                  v55 = 2048;
-                  v56 = v43;
-                  v57 = 2082;
-                  v58 = v44;
-                  v59 = 2082;
-                  v60 = SSL_alert_type_string_long(a3);
-                  v61 = 2082;
-                  v62 = SSL_alert_desc_string_long(a3);
+                  v49 = "boringssl_context_handle_fatal_alert";
+                  v50 = 1024;
+                  v51 = 2316;
+                  v52 = 2082;
+                  v53 = v39;
+                  v54 = 2048;
+                  v55 = v42;
+                  v56 = 2082;
+                  v57 = v43;
+                  v58 = 2082;
+                  v59 = SSL_alert_type_string_long(a3);
+                  v60 = 2082;
+                  v61 = SSL_alert_desc_string_long(a3);
                   _os_log_error_impl(&dword_1A8FF5000, v28, OS_LOG_TYPE_ERROR, "%{public}s(%d) %{public}s[%p] %{public}s alert, level: %{public}s, description: %{public}s", buf, 0x44u);
 
-                  if (v39)
+                  if (v38)
                   {
                   }
                 }
@@ -2711,41 +823,41 @@ void boringssl_context_alert_callback_handler(const SSL *a1, uint64_t a2, int a3
               v35 = g_boringssl_log;
               if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
               {
-                v41 = objc_loadWeakRetained((v9 + 16));
-                if (v41)
+                v40 = objc_loadWeakRetained((v9 + 16));
+                if (v40)
                 {
                   v8 = objc_loadWeakRetained((v9 + 16));
-                  v42 = v8 + 351;
+                  v41 = v8 + 351;
                 }
 
                 else
                 {
-                  v42 = &unk_1A9098A9F;
+                  v41 = &unk_1A9098A9F;
                 }
 
-                v45 = objc_loadWeakRetained((v9 + 16));
-                v46 = v45;
+                v44 = objc_loadWeakRetained((v9 + 16));
+                v45 = v44;
                 *buf = 136447490;
-                v50 = "boringssl_context_alert_callback_handler";
-                v47 = "write";
-                v52 = 2358;
-                v51 = 1024;
+                v49 = "boringssl_context_alert_callback_handler";
+                v46 = "write";
+                v51 = 2358;
+                v50 = 1024;
                 if (a4)
                 {
-                  v47 = "read";
+                  v46 = "read";
                 }
 
-                v53 = 2082;
-                v54 = v42;
-                v55 = 2048;
-                v56 = v45;
-                v57 = 2082;
-                v58 = v47;
-                v59 = 1024;
-                LODWORD(v60) = v10;
+                v52 = 2082;
+                v53 = v41;
+                v54 = 2048;
+                v55 = v44;
+                v56 = 2082;
+                v57 = v46;
+                v58 = 1024;
+                LODWORD(v59) = v10;
                 _os_log_error_impl(&dword_1A8FF5000, v35, OS_LOG_TYPE_ERROR, "%{public}s(%d) %{public}s[%p] Unhandled %{public}s alert level: %d", buf, 0x36u);
 
-                if (v41)
+                if (v40)
                 {
                 }
               }
@@ -2755,8 +867,6 @@ void boringssl_context_alert_callback_handler(const SSL *a1, uint64_t a2, int a3
       }
     }
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 const char *__cdecl SSL_alert_type_string_long(int value)
@@ -2977,39 +1087,35 @@ const char *__cdecl SSL_alert_desc_string_long(int value)
 
 void nw_protocol_boringssl_get_input_frames_cold_2()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_22(&datapath_logging_enabled);
+  OUTLINED_FUNCTION_22();
   if (v0 && g_boringssl_log && os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_DEBUG))
   {
     OUTLINED_FUNCTION_6_1();
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_4();
-    _os_log_debug_impl(v2, v3, v4, v5, v6, 0x26u);
+    _os_log_debug_impl(v1, v2, v3, v4, v5, 0x26u);
   }
 
   OUTLINED_FUNCTION_39();
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 void nw_protocol_boringssl_remove_input_handler_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_22(&datapath_logging_enabled);
+  OUTLINED_FUNCTION_22();
   if (v0 && g_boringssl_log && OUTLINED_FUNCTION_18_0())
   {
     OUTLINED_FUNCTION_5_0();
     OUTLINED_FUNCTION_0_2();
     OUTLINED_FUNCTION_10_0();
-    _os_log_debug_impl(v2, v3, v4, v5, v6, 0x26u);
+    _os_log_debug_impl(v1, v2, v3, v4, v5, 0x26u);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t nw_protocol_boringssl_remove_input_handler(uint64_t result, uint64_t a2, int a3)
+uint64_t nw_protocol_boringssl_remove_input_handler(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (result)
   {
+    v3 = a3;
     result = nw_protocol_downcast();
     if (result)
     {
@@ -3039,7 +1145,7 @@ uint64_t nw_protocol_boringssl_remove_input_handler(uint64_t result, uint64_t a2
           nw_protocol_remove_input_handler();
         }
 
-        if (a3)
+        if (v3)
         {
           v7 = *(v5 + 16);
           *(v5 + 16) = 0;
@@ -3574,12 +1680,11 @@ void aead_aes_gcm_cleanup(uint64_t a1)
 {
   if (a1 && *(a1 + 16))
   {
-    v2 = **(a1 + 8);
     cc_clear();
-    v3 = *(a1 + 16);
-    if (v3)
+    v2 = *(a1 + 16);
+    if (v2)
     {
-      free(v3);
+      free(v2);
       *(a1 + 16) = 0;
     }
   }
@@ -3786,19 +1891,13 @@ void SSL_CTX_flush_sessions(SSL_CTX *ctx, uint64_t tm)
   }
 }
 
-void __boringssl_context_evaluate_trust_async_external_block_invoke_2(uint64_t a1)
+void __boringssl_context_evaluate_trust_async_external_block_invoke_2(uint64_t a1, char a2)
 {
-  v2 = (a1 + 56);
   v3 = *(a1 + 32);
-  v4 = v3[3];
-  v9 = *(a1 + 48);
-  v5 = v3;
-  v6 = *v2;
-  v7 = *(a1 + 40);
-  *&v8 = v5;
-  *(&v8 + 1) = v7;
-  v10 = v8;
-  v11 = *(a1 + 64);
+  v4 = *(a1 + 40);
+  *&v5 = v3;
+  *(&v5 + 1) = v4;
+  v6 = v5;
   nw_queue_context_async_if_needed();
 }
 
@@ -3815,851 +1914,65 @@ uint64_t CRYPTO_MUTEX_lock_write(pthread_rwlock_t *a1)
 
 void __boringssl_context_evaluate_trust_async_external_block_invoke_3(uint64_t a1)
 {
-  v134 = *MEMORY[0x1E69E9840];
-  if (boringssl_session_get_state(*(a1 + 48)) <= 3 && (boringssl_session_is_cancelled(*(a1 + 48)) & 1) == 0)
+  v131 = *MEMORY[0x1E69E9840];
+  if (boringssl_session_get_state(*(a1 + 48)) > 3 || (boringssl_session_is_cancelled(*(a1 + 48)) & 1) != 0)
   {
-    v13 = *(a1 + 32);
-    if (v13)
+    v4 = *(a1 + 32);
+    if (!v4)
     {
-      WeakRetained = objc_loadWeakRetained((v13 + 16));
-      if (WeakRetained)
+      goto LABEL_9;
+    }
+
+    WeakRetained = objc_loadWeakRetained((v4 + 16));
+    if (WeakRetained)
+    {
+      v6 = WeakRetained;
+      v7 = objc_loadWeakRetained((*(a1 + 32) + 16));
+      v8 = v7[435];
+
+      if (v8)
       {
-        v15 = WeakRetained;
-        v16 = objc_loadWeakRetained((*(a1 + 32) + 16));
-        v17 = v16[435];
-
-        if (v17)
-        {
-          goto LABEL_59;
-        }
-      }
-
-      v18 = *(a1 + 32);
-      if (v18)
-      {
-        v19 = objc_loadWeakRetained((v18 + 16));
-        if (v19)
-        {
-          v20 = objc_loadWeakRetained((*(a1 + 32) + 16));
-          v21 = (v20[435] & 1) == 0;
-        }
-
-        else
-        {
-          v21 = 1;
-        }
-
-        if (v21)
-        {
-LABEL_30:
-          if (!g_boringssl_log)
-          {
-            goto LABEL_59;
-          }
-
-          v29 = g_boringssl_log;
-          if (!os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
-          {
-            goto LABEL_58;
-          }
-
-          v30 = *(a1 + 32);
-          if (v30)
-          {
-            v21 = objc_loadWeakRetained((v30 + 16));
-            v31 = *(a1 + 32);
-            if (v21)
-            {
-              v32 = v31 != 0;
-              if (v31)
-              {
-                v1 = objc_loadWeakRetained((v31 + 16));
-                v31 = *(a1 + 32);
-              }
-
-              else
-              {
-                v1 = 0;
-              }
-
-              v34 = (v1 + 351);
-            }
-
-            else
-            {
-              v32 = 0;
-              v34 = &unk_1A9098A9F;
-            }
-
-            if (v31)
-            {
-              SignatureHashAlgorithm = objc_loadWeakRetained((v31 + 16));
-              v33 = 0;
-            }
-
-            else
-            {
-              SignatureHashAlgorithm = 0;
-              v33 = 1;
-            }
-          }
-
-          else
-          {
-            v32 = 0;
-            SignatureHashAlgorithm = 0;
-            v33 = 1;
-            v34 = &unk_1A9098A9F;
-          }
-
-          v35 = *(a1 + 72);
-          *buf = 136447234;
-          v125 = "boringssl_context_evaluate_trust_async_external_block_invoke_3";
-          v126 = 1024;
-          v127 = 1760;
-          v128 = 2082;
-          v129 = v34;
-          v130 = 2048;
-          v131 = SignatureHashAlgorithm;
-          v132 = 1024;
-          v133 = v35;
-          _os_log_impl(&dword_1A8FF5000, v29, OS_LOG_TYPE_DEFAULT, "%{public}s(%d) %{public}s[%p] Returning from external verify block with result: %{BOOL}d", buf, 0x2Cu);
-          if (v33)
-          {
-            if (!v32)
-            {
-              goto LABEL_56;
-            }
-          }
-
-          else
-          {
-
-            if (!v32)
-            {
-LABEL_56:
-              if (!v30)
-              {
-LABEL_58:
-
-                goto LABEL_59;
-              }
-
-LABEL_57:
-
-              goto LABEL_58;
-            }
-          }
-
-          if (!v30)
-          {
-            goto LABEL_58;
-          }
-
-          goto LABEL_57;
-        }
-
-LABEL_59:
-        if ((*(a1 + 72) & 1) == 0)
-        {
-          goto LABEL_118;
-        }
-
-        v36 = *(a1 + 32);
-        v37 = v36;
-        if (v36 && (*(v36 + 551) & 0x18) == 8)
-        {
-          BlockSize = SecKeyGetBlockSize(v36[42]);
-          v39 = v37[42];
-          AlgorithmId = SecKeyGetAlgorithmId();
-          if (AlgorithmId == 3)
-          {
-            SignatureHashAlgorithm = (8 * BlockSize);
-            if (8 * BlockSize < v37[66])
-            {
-              v46 = objc_loadWeakRetained(v37 + 2);
-              if (!v46 || (v47 = v46, v48 = objc_loadWeakRetained(v37 + 2), v1 = v48[435], v48, v47, (v1 & 1) == 0))
-              {
-                v49 = objc_loadWeakRetained(v37 + 2);
-                if (v49)
-                {
-                  v50 = objc_loadWeakRetained(v37 + 2);
-                  v1 = (v50[435] & 1) == 0;
-                }
-
-                else
-                {
-                  v1 = 1;
-                }
-
-                v65 = 4294957413;
-                if (v1 && g_boringssl_log)
-                {
-                  v1 = g_boringssl_log;
-                  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
-                  {
-                    __boringssl_context_evaluate_trust_async_external_block_invoke_3_cold_1();
-                  }
-
-                  goto LABEL_165;
-                }
-
-                goto LABEL_92;
-              }
-
-              goto LABEL_138;
-            }
-          }
-
-          else if (AlgorithmId == 1)
-          {
-            SignatureHashAlgorithm = (8 * BlockSize);
-            if (8 * BlockSize < v37[65])
-            {
-              v41 = objc_loadWeakRetained(v37 + 2);
-              if (!v41 || (v42 = v41, v43 = objc_loadWeakRetained(v37 + 2), v1 = v43[435], v43, v42, (v1 & 1) == 0))
-              {
-                v44 = objc_loadWeakRetained(v37 + 2);
-                if (v44)
-                {
-                  v45 = objc_loadWeakRetained(v37 + 2);
-                  v1 = (v45[435] & 1) == 0;
-                }
-
-                else
-                {
-                  v1 = 1;
-                }
-
-                v65 = 4294957413;
-                if (v1 && g_boringssl_log)
-                {
-                  v1 = g_boringssl_log;
-                  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
-                  {
-                    __boringssl_context_evaluate_trust_async_external_block_invoke_3_cold_2();
-                  }
-
-LABEL_165:
-
-                  goto LABEL_92;
-                }
-
-                goto LABEL_92;
-              }
-
-LABEL_138:
-              v65 = 4294957413;
-              goto LABEL_92;
-            }
-          }
-
-          if (!CFArrayGetValueAtIndex(v37[43], 0))
-          {
-            v57 = objc_loadWeakRetained(v37 + 2);
-            if (!v57 || (v58 = v57, v59 = objc_loadWeakRetained(v37 + 2), v1 = v59[435], v59, v58, (v1 & 1) == 0))
-            {
-              v60 = objc_loadWeakRetained(v37 + 2);
-              if (v60)
-              {
-                v61 = objc_loadWeakRetained(v37 + 2);
-                v1 = (v61[435] & 1) == 0;
-              }
-
-              else
-              {
-                v1 = 1;
-              }
-
-              v65 = 4294957412;
-              if (v1 && g_boringssl_log)
-              {
-                v1 = g_boringssl_log;
-                if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
-                {
-                  __boringssl_context_evaluate_trust_async_external_block_invoke_3_cold_5();
-                }
-
-                goto LABEL_165;
-              }
-
-              goto LABEL_92;
-            }
-
-            goto LABEL_123;
-          }
-
-          SignatureHashAlgorithm = SecCertificateGetSignatureHashAlgorithm();
-          v51 = *(v37 + 134);
-          v52 = objc_loadWeakRetained(v37 + 2);
-          v53 = v52;
-          if (SignatureHashAlgorithm < v51)
-          {
-            if (!v52 || (v54 = objc_loadWeakRetained(v37 + 2), v1 = v54[435], v54, v53, (v1 & 1) == 0))
-            {
-              v55 = objc_loadWeakRetained(v37 + 2);
-              if (v55)
-              {
-                v56 = objc_loadWeakRetained(v37 + 2);
-                v1 = (v56[435] & 1) == 0;
-              }
-
-              else
-              {
-                v1 = 1;
-              }
-
-              v65 = 4294957412;
-              if (v1 && g_boringssl_log)
-              {
-                v1 = g_boringssl_log;
-                if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
-                {
-                  __boringssl_context_evaluate_trust_async_external_block_invoke_3_cold_4();
-                }
-
-                goto LABEL_165;
-              }
-
-LABEL_92:
-
-              v66 = *(a1 + 32);
-              if (v65 && (*(v66 + 551) & 8) != 0)
-              {
-                v67 = objc_loadWeakRetained((v66 + 16));
-                if (v67)
-                {
-                  v68 = v67;
-                  v69 = objc_loadWeakRetained((*(a1 + 32) + 16));
-                  v70 = v69[435];
-
-                  if (v70)
-                  {
-                    goto LABEL_117;
-                  }
-                }
-
-                v71 = *(a1 + 32);
-                if (v71)
-                {
-                  v72 = objc_loadWeakRetained((v71 + 16));
-                  if (v72)
-                  {
-                    v73 = objc_loadWeakRetained((*(a1 + 32) + 16));
-                    v74 = (v73[435] & 1) == 0;
-                  }
-
-                  else
-                  {
-                    v74 = 1;
-                  }
-                }
-
-                else
-                {
-                  v74 = 1;
-                }
-
-                if (!v74 || !g_boringssl_log)
-                {
-                  goto LABEL_117;
-                }
-
-                v92 = g_boringssl_log;
-                if (!os_log_type_enabled(v92, OS_LOG_TYPE_DEBUG))
-                {
-LABEL_116:
-
-LABEL_117:
-                  v93 = *(*(a1 + 32) + 272);
-                  v94 = objc_loadWeakRetained((*(a1 + 56) + 16));
-                  (*(v93 + 16))(v93, v94, 0, v65);
-
-                  goto LABEL_118;
-                }
-
-                v102 = *(a1 + 32);
-                if (v102)
-                {
-                  v74 = objc_loadWeakRetained((v102 + 16));
-                  v117 = *(a1 + 32);
-                  if (v74)
-                  {
-                    v103 = v117 != 0;
-                    if (v117)
-                    {
-                      SignatureHashAlgorithm = objc_loadWeakRetained((v117 + 16));
-                      v117 = *(a1 + 32);
-                    }
-
-                    else
-                    {
-                      SignatureHashAlgorithm = 0;
-                    }
-
-                    v106 = SignatureHashAlgorithm + 351;
-                  }
-
-                  else
-                  {
-                    v103 = 0;
-                    v106 = &unk_1A9098A9F;
-                  }
-
-                  if (v117)
-                  {
-                    v104 = objc_loadWeakRetained((v117 + 16));
-                    v105 = 0;
-                  }
-
-                  else
-                  {
-                    v104 = 0;
-                    v105 = 1;
-                  }
-                }
-
-                else
-                {
-                  v103 = 0;
-                  v104 = 0;
-                  v105 = 1;
-                  v106 = &unk_1A9098A9F;
-                }
-
-                *buf = 136446978;
-                v125 = "boringssl_context_evaluate_trust_async_external_block_invoke";
-                v126 = 1024;
-                v127 = 1772;
-                v128 = 2082;
-                v129 = v106;
-                v130 = 2048;
-                v131 = v104;
-                _os_log_debug_impl(&dword_1A8FF5000, v92, OS_LOG_TYPE_DEBUG, "%{public}s(%d) %{public}s[%p] Generating ATS violation error", buf, 0x26u);
-                if (v105)
-                {
-                  if (!v103)
-                  {
-                    goto LABEL_191;
-                  }
-                }
-
-                else
-                {
-
-                  if (!v103)
-                  {
-LABEL_191:
-                    if (!v102)
-                    {
-                      goto LABEL_116;
-                    }
-
-                    goto LABEL_195;
-                  }
-                }
-
-                if (!v102)
-                {
-                  goto LABEL_116;
-                }
-
-LABEL_195:
-
-                goto LABEL_116;
-              }
-
-              v75 = *(a1 + 56);
-              if ((*(v75 + 551) & 0x28) == 8)
-              {
-                v76 = objc_loadWeakRetained((v75 + 16));
-                if (v76)
-                {
-                  v77 = v76;
-                  v78 = objc_loadWeakRetained((*(a1 + 56) + 16));
-                  v79 = v78[435];
-
-                  if (v79)
-                  {
-                    goto LABEL_130;
-                  }
-                }
-
-                v80 = *(a1 + 56);
-                if (v80)
-                {
-                  v81 = objc_loadWeakRetained((v80 + 16));
-                  if (v81)
-                  {
-                    v82 = objc_loadWeakRetained((*(a1 + 56) + 16));
-                    v83 = (v82[435] & 1) == 0;
-                  }
-
-                  else
-                  {
-                    v83 = 1;
-                  }
-                }
-
-                else
-                {
-                  v83 = 1;
-                }
-
-                if (!v83 || !g_boringssl_log)
-                {
-                  goto LABEL_130;
-                }
-
-                v97 = g_boringssl_log;
-                if (!os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
-                {
-LABEL_129:
-
-LABEL_130:
-                  SecTrustSetExceptions(*(a1 + 64), 0);
-                  v98 = *(a1 + 64);
-                  v121[0] = MEMORY[0x1E69E9820];
-                  v121[1] = 3221225472;
-                  v121[2] = __boringssl_context_evaluate_trust_async_external_block_invoke_204;
-                  v121[3] = &unk_1E78695E8;
-                  v99 = *(a1 + 48);
-                  v123 = *(a1 + 56);
-                  v122 = *(a1 + 40);
-                  boringssl_context_evaluate_trust_async_internal(v99, v98, v121);
-
-                  goto LABEL_120;
-                }
-
-                v107 = *(a1 + 56);
-                if (v107)
-                {
-                  v83 = objc_loadWeakRetained((v107 + 16));
-                  v118 = *(a1 + 56);
-                  if (v83)
-                  {
-                    v108 = v118 != 0;
-                    if (v118)
-                    {
-                      v1 = objc_loadWeakRetained((v118 + 16));
-                      v118 = *(a1 + 56);
-                    }
-
-                    else
-                    {
-                      v1 = 0;
-                    }
-
-                    v111 = (v1 + 351);
-                  }
-
-                  else
-                  {
-                    v108 = 0;
-                    v111 = &unk_1A9098A9F;
-                  }
-
-                  if (v118)
-                  {
-                    v109 = objc_loadWeakRetained((v118 + 16));
-                    v110 = 0;
-                  }
-
-                  else
-                  {
-                    v109 = 0;
-                    v110 = 1;
-                  }
-                }
-
-                else
-                {
-                  v108 = 0;
-                  v109 = 0;
-                  v110 = 1;
-                  v111 = &unk_1A9098A9F;
-                }
-
-                *buf = 136446978;
-                v125 = "boringssl_context_evaluate_trust_async_external_block_invoke";
-                v126 = 1024;
-                v127 = 1781;
-                v128 = 2082;
-                v129 = v111;
-                v130 = 2048;
-                v131 = v109;
-                _os_log_debug_impl(&dword_1A8FF5000, v97, OS_LOG_TYPE_DEBUG, "%{public}s(%d) %{public}s[%p] Performing local ATS trust evaluation", buf, 0x26u);
-                if (v110)
-                {
-                  if (!v108)
-                  {
-                    goto LABEL_203;
-                  }
-                }
-
-                else
-                {
-
-                  if (!v108)
-                  {
-LABEL_203:
-                    if (!v107)
-                    {
-                      goto LABEL_129;
-                    }
-
-                    goto LABEL_207;
-                  }
-                }
-
-                if (!v107)
-                {
-                  goto LABEL_129;
-                }
-
-LABEL_207:
-
-                goto LABEL_129;
-              }
-
-              v84 = objc_loadWeakRetained((v66 + 16));
-              if (v84)
-              {
-                v85 = v84;
-                v86 = objc_loadWeakRetained((*(a1 + 32) + 16));
-                v87 = v86[435];
-
-                if (v87)
-                {
-                  goto LABEL_137;
-                }
-              }
-
-              v88 = *(a1 + 32);
-              if (v88)
-              {
-                v89 = objc_loadWeakRetained((v88 + 16));
-                if (v89)
-                {
-                  v90 = objc_loadWeakRetained((*(a1 + 32) + 16));
-                  v91 = (v90[435] & 1) == 0;
-                }
-
-                else
-                {
-                  v91 = 1;
-                }
-              }
-
-              else
-              {
-                v91 = 1;
-              }
-
-              if (!v91 || !g_boringssl_log)
-              {
-LABEL_137:
-                *(*(a1 + 56) + 550) &= ~8u;
-                v101 = *(a1 + 72);
-                v95 = *(*(a1 + 40) + 16);
-                goto LABEL_119;
-              }
-
-              v100 = g_boringssl_log;
-              if (!os_log_type_enabled(v100, OS_LOG_TYPE_DEBUG))
-              {
-LABEL_136:
-
-                goto LABEL_137;
-              }
-
-              v112 = *(a1 + 32);
-              if (v112)
-              {
-                v91 = objc_loadWeakRetained((v112 + 16));
-                v119 = *(a1 + 32);
-                if (v91)
-                {
-                  v113 = v119 != 0;
-                  if (v119)
-                  {
-                    v1 = objc_loadWeakRetained((v119 + 16));
-                    v119 = *(a1 + 32);
-                  }
-
-                  else
-                  {
-                    v1 = 0;
-                  }
-
-                  v116 = (v1 + 351);
-                }
-
-                else
-                {
-                  v113 = 0;
-                  v116 = &unk_1A9098A9F;
-                }
-
-                if (v119)
-                {
-                  v114 = objc_loadWeakRetained((v119 + 16));
-                  v115 = 0;
-                }
-
-                else
-                {
-                  v114 = 0;
-                  v115 = 1;
-                }
-              }
-
-              else
-              {
-                v113 = 0;
-                v114 = 0;
-                v115 = 1;
-                v116 = &unk_1A9098A9F;
-              }
-
-              v120 = *(a1 + 72);
-              *buf = 136447234;
-              v125 = "boringssl_context_evaluate_trust_async_external_block_invoke_2";
-              v126 = 1024;
-              v127 = 1788;
-              v128 = 2082;
-              v129 = v116;
-              v130 = 2048;
-              v131 = v114;
-              v132 = 1024;
-              v133 = v120;
-              _os_log_debug_impl(&dword_1A8FF5000, v100, OS_LOG_TYPE_DEBUG, "%{public}s(%d) %{public}s[%p] Setting verify result to %{BOOL}d", buf, 0x2Cu);
-              if (v115)
-              {
-                if (!v113)
-                {
-                  goto LABEL_215;
-                }
-              }
-
-              else
-              {
-
-                if (!v113)
-                {
-LABEL_215:
-                  if (!v112)
-                  {
-                    goto LABEL_136;
-                  }
-
-                  goto LABEL_219;
-                }
-              }
-
-              if (!v112)
-              {
-                goto LABEL_136;
-              }
-
-LABEL_219:
-
-              goto LABEL_136;
-            }
-
-LABEL_123:
-            v65 = 4294957412;
-            goto LABEL_92;
-          }
-
-          if (!v52 || (v62 = objc_loadWeakRetained(v37 + 2), v1 = v62[435], v62, v53, (v1 & 1) == 0))
-          {
-            v63 = objc_loadWeakRetained(v37 + 2);
-            if (v63)
-            {
-              v64 = objc_loadWeakRetained(v37 + 2);
-              v1 = (v64[435] & 1) == 0;
-            }
-
-            else
-            {
-              v1 = 1;
-            }
-
-            v65 = 0;
-            if (v1 && g_boringssl_log)
-            {
-              v1 = g_boringssl_log;
-              if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
-              {
-                __boringssl_context_evaluate_trust_async_external_block_invoke_3_cold_3();
-              }
-
-              v65 = 0;
-              goto LABEL_165;
-            }
-
-            goto LABEL_92;
-          }
-        }
-
-        v65 = 0;
-        goto LABEL_92;
+        goto LABEL_118;
       }
     }
 
-    v21 = 1;
-    goto LABEL_30;
-  }
-
-  v4 = *(a1 + 32);
-  if (!v4)
-  {
-    goto LABEL_9;
-  }
-
-  v5 = objc_loadWeakRetained((v4 + 16));
-  if (v5)
-  {
-    v6 = v5;
-    v7 = objc_loadWeakRetained((*(a1 + 32) + 16));
-    v8 = v7[435];
-
-    if (v8)
+    v9 = *(a1 + 32);
+    if (v9)
     {
-      goto LABEL_118;
-    }
-  }
+      v10 = objc_loadWeakRetained((v9 + 16));
+      if (v10)
+      {
+        v11 = objc_loadWeakRetained((*(a1 + 32) + 16));
+        v12 = (v11[435] & 1) == 0;
+      }
 
-  v9 = *(a1 + 32);
-  if (v9)
-  {
-    v10 = objc_loadWeakRetained((v9 + 16));
-    if (v10)
-    {
-      v11 = objc_loadWeakRetained((*(a1 + 32) + 16));
-      v12 = (v11[435] & 1) == 0;
+      else
+      {
+        v12 = 1;
+      }
+
+      if (!v12)
+      {
+        goto LABEL_118;
+      }
     }
 
     else
     {
+LABEL_9:
       v12 = 1;
     }
 
-    if (!v12)
+    if (!g_boringssl_log)
     {
-      goto LABEL_118;
+LABEL_118:
+      *(*(a1 + 56) + 550) &= ~8u;
+      v94 = *(*(a1 + 40) + 16);
+LABEL_119:
+      v94();
+      return;
     }
-  }
 
-  else
-  {
-LABEL_9:
-    v12 = 1;
-  }
-
-  if (g_boringssl_log)
-  {
     v22 = g_boringssl_log;
     if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
@@ -4710,13 +2023,13 @@ LABEL_38:
         v27 = 0;
 LABEL_39:
         *buf = 136446978;
-        v125 = "boringssl_context_evaluate_trust_async_external_block_invoke";
-        v126 = 1024;
-        v127 = 1793;
-        v128 = 2082;
-        v129 = v28;
-        v130 = 2048;
-        v131 = v26;
+        v122 = "boringssl_context_evaluate_trust_async_external_block_invoke";
+        v123 = 1024;
+        v124 = 1793;
+        v125 = 2082;
+        v126 = v28;
+        v127 = 2048;
+        v128 = v26;
         _os_log_impl(&dword_1A8FF5000, v22, OS_LOG_TYPE_DEFAULT, "%{public}s(%d) %{public}s[%p] Cancelled during verify block", buf, 0x26u);
         if (v27)
         {
@@ -4757,13 +2070,804 @@ LABEL_43:
     goto LABEL_39;
   }
 
-LABEL_118:
-  *(*(a1 + 56) + 550) &= ~8u;
-  v95 = *(*(a1 + 40) + 16);
-LABEL_119:
-  v95();
-LABEL_120:
-  v96 = *MEMORY[0x1E69E9840];
+  v13 = *(a1 + 32);
+  if (!v13)
+  {
+    goto LABEL_16;
+  }
+
+  v14 = objc_loadWeakRetained((v13 + 16));
+  if (v14)
+  {
+    v15 = v14;
+    v16 = objc_loadWeakRetained((*(a1 + 32) + 16));
+    v17 = v16[435];
+
+    if (v17)
+    {
+      goto LABEL_59;
+    }
+  }
+
+  v18 = *(a1 + 32);
+  if (!v18)
+  {
+LABEL_16:
+    v21 = 1;
+    goto LABEL_30;
+  }
+
+  v19 = objc_loadWeakRetained((v18 + 16));
+  if (v19)
+  {
+    v20 = objc_loadWeakRetained((*(a1 + 32) + 16));
+    v21 = (v20[435] & 1) == 0;
+  }
+
+  else
+  {
+    v21 = 1;
+  }
+
+  if (v21)
+  {
+LABEL_30:
+    if (!g_boringssl_log)
+    {
+      goto LABEL_59;
+    }
+
+    v29 = g_boringssl_log;
+    if (!os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_58;
+    }
+
+    v30 = *(a1 + 32);
+    if (v30)
+    {
+      v21 = objc_loadWeakRetained((v30 + 16));
+      v31 = *(a1 + 32);
+      if (v21)
+      {
+        v32 = v31 != 0;
+        if (v31)
+        {
+          v1 = objc_loadWeakRetained((v31 + 16));
+          v31 = *(a1 + 32);
+        }
+
+        else
+        {
+          v1 = 0;
+        }
+
+        v34 = (v1 + 351);
+      }
+
+      else
+      {
+        v32 = 0;
+        v34 = &unk_1A9098A9F;
+      }
+
+      if (v31)
+      {
+        SignatureHashAlgorithm = objc_loadWeakRetained((v31 + 16));
+        v33 = 0;
+      }
+
+      else
+      {
+        SignatureHashAlgorithm = 0;
+        v33 = 1;
+      }
+    }
+
+    else
+    {
+      v32 = 0;
+      SignatureHashAlgorithm = 0;
+      v33 = 1;
+      v34 = &unk_1A9098A9F;
+    }
+
+    v35 = *(a1 + 72);
+    *buf = 136447234;
+    v122 = "boringssl_context_evaluate_trust_async_external_block_invoke_3";
+    v123 = 1024;
+    v124 = 1760;
+    v125 = 2082;
+    v126 = v34;
+    v127 = 2048;
+    v128 = SignatureHashAlgorithm;
+    v129 = 1024;
+    v130 = v35;
+    _os_log_impl(&dword_1A8FF5000, v29, OS_LOG_TYPE_DEFAULT, "%{public}s(%d) %{public}s[%p] Returning from external verify block with result: %{BOOL}d", buf, 0x2Cu);
+    if (v33)
+    {
+      if (!v32)
+      {
+        goto LABEL_56;
+      }
+    }
+
+    else
+    {
+
+      if (!v32)
+      {
+LABEL_56:
+        if (!v30)
+        {
+LABEL_58:
+
+          goto LABEL_59;
+        }
+
+LABEL_57:
+
+        goto LABEL_58;
+      }
+    }
+
+    if (!v30)
+    {
+      goto LABEL_58;
+    }
+
+    goto LABEL_57;
+  }
+
+LABEL_59:
+  if ((*(a1 + 72) & 1) == 0)
+  {
+    goto LABEL_118;
+  }
+
+  v36 = *(a1 + 32);
+  v37 = v36;
+  if (!v36 || (*(v36 + 551) & 0x18) != 8)
+  {
+    goto LABEL_91;
+  }
+
+  BlockSize = SecKeyGetBlockSize(v36[42]);
+  AlgorithmId = SecKeyGetAlgorithmId();
+  if (AlgorithmId == 3)
+  {
+    SignatureHashAlgorithm = (8 * BlockSize);
+    if (8 * BlockSize < v37[66])
+    {
+      v45 = objc_loadWeakRetained(v37 + 2);
+      if (!v45 || (v46 = v45, v47 = objc_loadWeakRetained(v37 + 2), v1 = v47[435], v47, v46, (v1 & 1) == 0))
+      {
+        v48 = objc_loadWeakRetained(v37 + 2);
+        if (v48)
+        {
+          v49 = objc_loadWeakRetained(v37 + 2);
+          v1 = (v49[435] & 1) == 0;
+        }
+
+        else
+        {
+          v1 = 1;
+        }
+
+        v64 = 4294957413;
+        if (v1 && g_boringssl_log)
+        {
+          v1 = g_boringssl_log;
+          if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+          {
+            __boringssl_context_evaluate_trust_async_external_block_invoke_3_cold_1();
+          }
+
+          goto LABEL_164;
+        }
+
+        goto LABEL_92;
+      }
+
+      goto LABEL_137;
+    }
+  }
+
+  else if (AlgorithmId == 1)
+  {
+    SignatureHashAlgorithm = (8 * BlockSize);
+    if (8 * BlockSize < v37[65])
+    {
+      v40 = objc_loadWeakRetained(v37 + 2);
+      if (!v40 || (v41 = v40, v42 = objc_loadWeakRetained(v37 + 2), v1 = v42[435], v42, v41, (v1 & 1) == 0))
+      {
+        v43 = objc_loadWeakRetained(v37 + 2);
+        if (v43)
+        {
+          v44 = objc_loadWeakRetained(v37 + 2);
+          v1 = (v44[435] & 1) == 0;
+        }
+
+        else
+        {
+          v1 = 1;
+        }
+
+        v64 = 4294957413;
+        if (v1 && g_boringssl_log)
+        {
+          v1 = g_boringssl_log;
+          if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+          {
+            __boringssl_context_evaluate_trust_async_external_block_invoke_3_cold_2();
+          }
+
+LABEL_164:
+
+          goto LABEL_92;
+        }
+
+        goto LABEL_92;
+      }
+
+LABEL_137:
+      v64 = 4294957413;
+      goto LABEL_92;
+    }
+  }
+
+  if (!CFArrayGetValueAtIndex(v37[43], 0))
+  {
+    v56 = objc_loadWeakRetained(v37 + 2);
+    if (!v56 || (v57 = v56, v58 = objc_loadWeakRetained(v37 + 2), v1 = v58[435], v58, v57, (v1 & 1) == 0))
+    {
+      v59 = objc_loadWeakRetained(v37 + 2);
+      if (v59)
+      {
+        v60 = objc_loadWeakRetained(v37 + 2);
+        v1 = (v60[435] & 1) == 0;
+      }
+
+      else
+      {
+        v1 = 1;
+      }
+
+      v64 = 4294957412;
+      if (v1 && g_boringssl_log)
+      {
+        v1 = g_boringssl_log;
+        if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+        {
+          __boringssl_context_evaluate_trust_async_external_block_invoke_3_cold_5();
+        }
+
+        goto LABEL_164;
+      }
+
+      goto LABEL_92;
+    }
+
+LABEL_122:
+    v64 = 4294957412;
+    goto LABEL_92;
+  }
+
+  SignatureHashAlgorithm = SecCertificateGetSignatureHashAlgorithm();
+  v50 = *(v37 + 134);
+  v51 = objc_loadWeakRetained(v37 + 2);
+  v52 = v51;
+  if (SignatureHashAlgorithm >= v50)
+  {
+    if (!v51 || (v61 = objc_loadWeakRetained(v37 + 2), v1 = v61[435], v61, v52, (v1 & 1) == 0))
+    {
+      v62 = objc_loadWeakRetained(v37 + 2);
+      if (v62)
+      {
+        v63 = objc_loadWeakRetained(v37 + 2);
+        v1 = (v63[435] & 1) == 0;
+      }
+
+      else
+      {
+        v1 = 1;
+      }
+
+      v64 = 0;
+      if (v1 && g_boringssl_log)
+      {
+        v1 = g_boringssl_log;
+        if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
+        {
+          __boringssl_context_evaluate_trust_async_external_block_invoke_3_cold_3();
+        }
+
+        v64 = 0;
+        goto LABEL_164;
+      }
+
+      goto LABEL_92;
+    }
+
+LABEL_91:
+    v64 = 0;
+    goto LABEL_92;
+  }
+
+  if (v51)
+  {
+    v53 = objc_loadWeakRetained(v37 + 2);
+    v1 = v53[435];
+
+    if (v1)
+    {
+      goto LABEL_122;
+    }
+  }
+
+  v54 = objc_loadWeakRetained(v37 + 2);
+  if (v54)
+  {
+    v55 = objc_loadWeakRetained(v37 + 2);
+    v1 = (v55[435] & 1) == 0;
+  }
+
+  else
+  {
+    v1 = 1;
+  }
+
+  v64 = 4294957412;
+  if (v1 && g_boringssl_log)
+  {
+    v1 = g_boringssl_log;
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    {
+      __boringssl_context_evaluate_trust_async_external_block_invoke_3_cold_4();
+    }
+
+    goto LABEL_164;
+  }
+
+LABEL_92:
+
+  v65 = *(a1 + 32);
+  if (v64 && (*(v65 + 551) & 8) != 0)
+  {
+    v66 = objc_loadWeakRetained((v65 + 16));
+    if (v66)
+    {
+      v67 = v66;
+      v68 = objc_loadWeakRetained((*(a1 + 32) + 16));
+      v69 = v68[435];
+
+      if (v69)
+      {
+        goto LABEL_117;
+      }
+    }
+
+    v70 = *(a1 + 32);
+    if (v70)
+    {
+      v71 = objc_loadWeakRetained((v70 + 16));
+      if (v71)
+      {
+        v72 = objc_loadWeakRetained((*(a1 + 32) + 16));
+        v73 = (v72[435] & 1) == 0;
+      }
+
+      else
+      {
+        v73 = 1;
+      }
+    }
+
+    else
+    {
+      v73 = 1;
+    }
+
+    if (!v73 || !g_boringssl_log)
+    {
+      goto LABEL_117;
+    }
+
+    v91 = g_boringssl_log;
+    if (!os_log_type_enabled(v91, OS_LOG_TYPE_DEBUG))
+    {
+LABEL_116:
+
+LABEL_117:
+      v92 = *(*(a1 + 32) + 272);
+      v93 = objc_loadWeakRetained((*(a1 + 56) + 16));
+      (*(v92 + 16))(v92, v93, 0, v64);
+
+      goto LABEL_118;
+    }
+
+    v99 = *(a1 + 32);
+    if (v99)
+    {
+      v73 = objc_loadWeakRetained((v99 + 16));
+      v114 = *(a1 + 32);
+      if (v73)
+      {
+        v100 = v114 != 0;
+        if (v114)
+        {
+          SignatureHashAlgorithm = objc_loadWeakRetained((v114 + 16));
+          v114 = *(a1 + 32);
+        }
+
+        else
+        {
+          SignatureHashAlgorithm = 0;
+        }
+
+        v103 = SignatureHashAlgorithm + 351;
+      }
+
+      else
+      {
+        v100 = 0;
+        v103 = &unk_1A9098A9F;
+      }
+
+      if (v114)
+      {
+        v101 = objc_loadWeakRetained((v114 + 16));
+        v102 = 0;
+      }
+
+      else
+      {
+        v101 = 0;
+        v102 = 1;
+      }
+    }
+
+    else
+    {
+      v100 = 0;
+      v101 = 0;
+      v102 = 1;
+      v103 = &unk_1A9098A9F;
+    }
+
+    *buf = 136446978;
+    v122 = "boringssl_context_evaluate_trust_async_external_block_invoke";
+    v123 = 1024;
+    v124 = 1772;
+    v125 = 2082;
+    v126 = v103;
+    v127 = 2048;
+    v128 = v101;
+    _os_log_debug_impl(&dword_1A8FF5000, v91, OS_LOG_TYPE_DEBUG, "%{public}s(%d) %{public}s[%p] Generating ATS violation error", buf, 0x26u);
+    if (v102)
+    {
+      if (!v100)
+      {
+        goto LABEL_190;
+      }
+    }
+
+    else
+    {
+
+      if (!v100)
+      {
+LABEL_190:
+        if (!v99)
+        {
+          goto LABEL_116;
+        }
+
+        goto LABEL_194;
+      }
+    }
+
+    if (!v99)
+    {
+      goto LABEL_116;
+    }
+
+LABEL_194:
+
+    goto LABEL_116;
+  }
+
+  v74 = *(a1 + 56);
+  if ((*(v74 + 551) & 0x28) != 8)
+  {
+    v83 = objc_loadWeakRetained((v65 + 16));
+    if (v83)
+    {
+      v84 = v83;
+      v85 = objc_loadWeakRetained((*(a1 + 32) + 16));
+      v86 = v85[435];
+
+      if (v86)
+      {
+        goto LABEL_136;
+      }
+    }
+
+    v87 = *(a1 + 32);
+    if (v87)
+    {
+      v88 = objc_loadWeakRetained((v87 + 16));
+      if (v88)
+      {
+        v89 = objc_loadWeakRetained((*(a1 + 32) + 16));
+        v90 = (v89[435] & 1) == 0;
+      }
+
+      else
+      {
+        v90 = 1;
+      }
+    }
+
+    else
+    {
+      v90 = 1;
+    }
+
+    if (!v90 || !g_boringssl_log)
+    {
+      goto LABEL_136;
+    }
+
+    v98 = g_boringssl_log;
+    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    {
+LABEL_135:
+
+LABEL_136:
+      *(*(a1 + 56) + 550) &= ~8u;
+      v94 = *(*(a1 + 40) + 16);
+      goto LABEL_119;
+    }
+
+    v109 = *(a1 + 32);
+    if (v109)
+    {
+      v90 = objc_loadWeakRetained((v109 + 16));
+      v116 = *(a1 + 32);
+      if (v90)
+      {
+        v110 = v116 != 0;
+        if (v116)
+        {
+          v1 = objc_loadWeakRetained((v116 + 16));
+          v116 = *(a1 + 32);
+        }
+
+        else
+        {
+          v1 = 0;
+        }
+
+        v113 = (v1 + 351);
+      }
+
+      else
+      {
+        v110 = 0;
+        v113 = &unk_1A9098A9F;
+      }
+
+      if (v116)
+      {
+        v111 = objc_loadWeakRetained((v116 + 16));
+        v112 = 0;
+      }
+
+      else
+      {
+        v111 = 0;
+        v112 = 1;
+      }
+    }
+
+    else
+    {
+      v110 = 0;
+      v111 = 0;
+      v112 = 1;
+      v113 = &unk_1A9098A9F;
+    }
+
+    v117 = *(a1 + 72);
+    *buf = 136447234;
+    v122 = "boringssl_context_evaluate_trust_async_external_block_invoke_2";
+    v123 = 1024;
+    v124 = 1788;
+    v125 = 2082;
+    v126 = v113;
+    v127 = 2048;
+    v128 = v111;
+    v129 = 1024;
+    v130 = v117;
+    _os_log_debug_impl(&dword_1A8FF5000, v98, OS_LOG_TYPE_DEBUG, "%{public}s(%d) %{public}s[%p] Setting verify result to %{BOOL}d", buf, 0x2Cu);
+    if (v112)
+    {
+      if (!v110)
+      {
+        goto LABEL_214;
+      }
+    }
+
+    else
+    {
+
+      if (!v110)
+      {
+LABEL_214:
+        if (!v109)
+        {
+          goto LABEL_135;
+        }
+
+        goto LABEL_218;
+      }
+    }
+
+    if (!v109)
+    {
+      goto LABEL_135;
+    }
+
+LABEL_218:
+
+    goto LABEL_135;
+  }
+
+  v75 = objc_loadWeakRetained((v74 + 16));
+  if (v75)
+  {
+    v76 = v75;
+    v77 = objc_loadWeakRetained((*(a1 + 56) + 16));
+    v78 = v77[435];
+
+    if (v78)
+    {
+      goto LABEL_129;
+    }
+  }
+
+  v79 = *(a1 + 56);
+  if (v79)
+  {
+    v80 = objc_loadWeakRetained((v79 + 16));
+    if (v80)
+    {
+      v81 = objc_loadWeakRetained((*(a1 + 56) + 16));
+      v82 = (v81[435] & 1) == 0;
+    }
+
+    else
+    {
+      v82 = 1;
+    }
+  }
+
+  else
+  {
+    v82 = 1;
+  }
+
+  if (!v82 || !g_boringssl_log)
+  {
+    goto LABEL_129;
+  }
+
+  v95 = g_boringssl_log;
+  if (os_log_type_enabled(v95, OS_LOG_TYPE_DEBUG))
+  {
+    v104 = *(a1 + 56);
+    if (v104)
+    {
+      v82 = objc_loadWeakRetained((v104 + 16));
+      v115 = *(a1 + 56);
+      if (v82)
+      {
+        v105 = v115 != 0;
+        if (v115)
+        {
+          v1 = objc_loadWeakRetained((v115 + 16));
+          v115 = *(a1 + 56);
+        }
+
+        else
+        {
+          v1 = 0;
+        }
+
+        v108 = (v1 + 351);
+      }
+
+      else
+      {
+        v105 = 0;
+        v108 = &unk_1A9098A9F;
+      }
+
+      if (v115)
+      {
+        v106 = objc_loadWeakRetained((v115 + 16));
+        v107 = 0;
+      }
+
+      else
+      {
+        v106 = 0;
+        v107 = 1;
+      }
+    }
+
+    else
+    {
+      v105 = 0;
+      v106 = 0;
+      v107 = 1;
+      v108 = &unk_1A9098A9F;
+    }
+
+    *buf = 136446978;
+    v122 = "boringssl_context_evaluate_trust_async_external_block_invoke";
+    v123 = 1024;
+    v124 = 1781;
+    v125 = 2082;
+    v126 = v108;
+    v127 = 2048;
+    v128 = v106;
+    _os_log_debug_impl(&dword_1A8FF5000, v95, OS_LOG_TYPE_DEBUG, "%{public}s(%d) %{public}s[%p] Performing local ATS trust evaluation", buf, 0x26u);
+    if (v107)
+    {
+      if (!v105)
+      {
+        goto LABEL_202;
+      }
+    }
+
+    else
+    {
+
+      if (!v105)
+      {
+LABEL_202:
+        if (!v104)
+        {
+          goto LABEL_128;
+        }
+
+        goto LABEL_206;
+      }
+    }
+
+    if (!v104)
+    {
+      goto LABEL_128;
+    }
+
+LABEL_206:
+  }
+
+LABEL_128:
+
+LABEL_129:
+  SecTrustSetExceptions(*(a1 + 64), 0);
+  v96 = *(a1 + 64);
+  v118[0] = MEMORY[0x1E69E9820];
+  v118[1] = 3221225472;
+  v118[2] = __boringssl_context_evaluate_trust_async_external_block_invoke_204;
+  v118[3] = &unk_1E78695E8;
+  v97 = *(a1 + 48);
+  v120 = *(a1 + 56);
+  v119 = *(a1 + 40);
+  boringssl_context_evaluate_trust_async_internal(v97, v96, v118);
 }
 
 void __boringssl_context_certificate_verify_callback_block_invoke(uint64_t a1, char a2)
@@ -4786,11 +2890,11 @@ void __boringssl_context_certificate_verify_callback_block_invoke(uint64_t a1, c
   nw_protocol_boringssl_handshake_negotiate(WeakRetained);
 }
 
-void OPENSSL_lh_doall_arg(uint64_t a1, void (*a2)(void, uint64_t), uint64_t a3)
+void OPENSSL_lh_doall_arg(uint64_t result, void (*a2)(void, uint64_t), uint64_t a3)
 {
-  if (a1)
+  if (result)
   {
-    v6 = *(a1 + 24);
+    v6 = *(result + 24);
     if (v6 == -1)
     {
       v7 = -1;
@@ -4799,15 +2903,15 @@ void OPENSSL_lh_doall_arg(uint64_t a1, void (*a2)(void, uint64_t), uint64_t a3)
     else
     {
       v7 = v6 + 1;
-      *(a1 + 24) = v6 + 1;
+      *(result + 24) = v6 + 1;
     }
 
-    v8 = *(a1 + 16);
+    v8 = *(result + 16);
     if (v8)
     {
       for (i = 0; i < v8; ++i)
       {
-        v10 = *(*(a1 + 8) + 8 * i);
+        v10 = *(*(result + 8) + 8 * i);
         if (v10)
         {
           do
@@ -4818,19 +2922,19 @@ void OPENSSL_lh_doall_arg(uint64_t a1, void (*a2)(void, uint64_t), uint64_t a3)
           }
 
           while (v11);
-          v8 = *(a1 + 16);
+          v8 = *(result + 16);
         }
       }
 
-      v7 = *(a1 + 24);
+      v7 = *(result + 24);
     }
 
     if (v7 != -1)
     {
-      *(a1 + 24) = v7 - 1;
+      *(result + 24) = v7 - 1;
     }
 
-    lh_maybe_resize(a1);
+    lh_maybe_resize(result, a2);
   }
 }
 
@@ -4845,46 +2949,46 @@ uint64_t CRYPTO_MUTEX_unlock_read(pthread_rwlock_t *a1)
   return result;
 }
 
-void lh_maybe_resize(uint64_t a1)
+void lh_maybe_resize(uint64_t result, uint64_t a2)
 {
-  if (!*(a1 + 24))
+  if (!*(result + 24))
   {
-    v2 = *(a1 + 16);
-    if (v2 <= 0xF)
+    v3 = *(result + 16);
+    if (v3 <= 0xF)
     {
       lh_maybe_resize_cold_1();
     }
 
-    if (*a1 / v2 < 3)
+    if (*result / v3 < 3)
     {
-      if (v2 == 16 || v2 <= *a1)
+      if (v3 == 16 || v3 <= *result)
       {
         return;
       }
 
-      v4 = v2 >> 1;
-      if (v4 <= 0x10)
+      v5 = v3 >> 1;
+      if (v5 <= 0x10)
       {
-        v3 = 16;
+        v4 = 16;
       }
 
       else
       {
-        v3 = v4;
+        v4 = v5;
       }
     }
 
     else
     {
-      if (v2 < 1)
+      if (v3 < 1)
       {
         return;
       }
 
-      v3 = 2 * v2;
+      v4 = 2 * v3;
     }
 
-    lh_rebucket(a1, v3);
+    lh_rebucket(result, v4);
   }
 }
 
@@ -4938,7 +3042,7 @@ void std::unique_ptr<bssl::TicketKey,bssl::internal::Deleter>::reset[abi:ne20010
   }
 }
 
-void boringssl_bio_destroy(BIO *a)
+void boringssl_bio_destroy(uint64_t a)
 {
   if (g_boringssl_log && os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_DEBUG))
   {
@@ -4954,7 +3058,7 @@ void boringssl_bio_destroy(BIO *a)
     return;
   }
 
-  v2 = *&a->num;
+  v2 = *(a + 40);
   if (v2)
   {
     free(v2);
@@ -5034,9 +3138,9 @@ LABEL_21:
   return 0;
 }
 
-void sub_1A9030A94(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A9030A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   bssl::Array<unsigned char>::~Array(va);
   _Unwind_Resume(a1);
 }
@@ -5209,22 +3313,22 @@ BOOL bssl::ssl_pkey_supports_algorithm(bssl *this, EVP_PKEY *a2, evp_pkey_st *a3
     return 0;
   }
 
-  v12 = v10;
+  v13 = v10;
   if (*(i - 3) == 1)
   {
-    v13 = EVP_PKEY_size(a2);
-    v14 = (*(i - 11))();
-    if (2 * EVP_MD_size(v14) + 2 > v13)
+    v14 = EVP_PKEY_size(a2);
+    v15 = (*(i - 11))();
+    if (2 * EVP_MD_size(v15) + 2 > v14)
     {
       return 0;
     }
   }
 
-  if (bssl::ssl_protocol_version(this, v11) > 0x302)
+  if (bssl::ssl_protocol_version(this, v11, v12) > 0x302)
   {
     if (v5 != 65281)
     {
-      if (bssl::ssl_protocol_version(this, v15) < 0x304)
+      if (bssl::ssl_protocol_version(this, v16, v17) < 0x304)
       {
         if (*(i - 2) != 1)
         {
@@ -5239,17 +3343,17 @@ BOOL bssl::ssl_pkey_supports_algorithm(bssl *this, EVP_PKEY *a2, evp_pkey_st *a3
           return 0;
         }
 
-        if (v12 == 408)
+        if (v13 == 408)
         {
-          v18 = *(i - 19);
-          if (!v18)
+          v20 = *(i - 19);
+          if (!v20)
           {
             return 0;
           }
 
-          v19 = EVP_PKEY_get0_EC_KEY(a2);
-          v20 = EC_KEY_get0_group(v19);
-          if (EC_GROUP_get_curve_name(v20) != v18)
+          v21 = EVP_PKEY_get0_EC_KEY(a2);
+          v22 = EC_KEY_get0_group(v21);
+          if (EC_GROUP_get_curve_name(v22) != v20)
           {
             return 0;
           }
@@ -5312,7 +3416,7 @@ BOOL bssl::tls13_get_cert_verify_signature_input(uint64_t a1, uint64_t a2, unsig
     goto LABEL_17;
   }
 
-  v11 = 64;
+  v12 = 64;
   do
   {
     if (!CBB_add_u8(v18, 0x20u))
@@ -5320,26 +3424,26 @@ BOOL bssl::tls13_get_cert_verify_signature_input(uint64_t a1, uint64_t a2, unsig
       goto LABEL_17;
     }
 
-    --v11;
+    --v12;
   }
 
-  while (v11);
+  while (v12);
   if (a3 < 4 && CBB_add_bytes(v18, off_1E785EF68[a3], *&asc_1A90AF6B8[8 * a3]))
   {
-    *&v12 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    __dst[2] = v12;
-    __dst[3] = v12;
-    __dst[0] = v12;
-    __dst[1] = v12;
+    *&v13 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    __dst[2] = v13;
+    __dst[3] = v13;
+    __dst[0] = v13;
+    __dst[1] = v13;
     v17 = 0xAAAAAAAAAAAAAAAALL;
     if (a4)
     {
       if (a5 - 65 < 0xFFFFFFFFFFFFFFC0)
       {
-        v13 = 105;
+        v14 = 105;
 LABEL_16:
-        ERR_put_error(16, 0, 65, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/tls13_both.cc", v13);
+        ERR_put_error(16, 0, 65, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/tls13_both.cc", v14);
         goto LABEL_17;
       }
 
@@ -5351,7 +3455,7 @@ LABEL_16:
     {
       if (!bssl::SSLTranscript::GetHash((a1 + 424), __dst, &v17))
       {
-        v13 = 112;
+        v14 = 112;
         goto LABEL_16;
       }
 
@@ -5363,24 +3467,23 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    v14 = bssl::CBBFinishArray(v18, a2);
+    v15 = bssl::CBBFinishArray(v18, a2);
   }
 
   else
   {
 LABEL_17:
-    v14 = 0;
+    v15 = 0;
   }
 
-  CBB_cleanup(v18);
-  v15 = *MEMORY[0x1E69E9840];
-  return v14;
+  CBB_cleanup(v18, v11);
+  return v15;
 }
 
-void sub_1A90310FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1A90310FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a3);
-  CBB_cleanup(va);
+  va_start(va, a6);
+  CBB_cleanup(va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -5395,7 +3498,7 @@ uint64_t EVP_PKEY_get0_EC_KEY(uint64_t a1)
   return 0;
 }
 
-uint64_t bssl::setup_ctx(bssl *this, ssl_st *a2, EVP_PKEY *a3, evp_pkey_st *a4, int a5)
+uint64_t bssl::setup_ctx(bssl *this, EVP_MD_CTX *a2, EVP_PKEY *a3, evp_pkey_st *a4, int a5)
 {
   v6 = a4;
   if (!bssl::ssl_pkey_supports_algorithm(this, a3, a4, a5))
@@ -5464,12 +3567,12 @@ uint64_t bssl::setup_ctx(bssl *this, ssl_st *a2, EVP_PKEY *a3, evp_pkey_st *a4, 
   return result;
 }
 
-uint64_t do_sigver_init(uint64_t a1, void *a2, const EVP_MD *a3, ENGINE *a4, uint64_t a5, int a6)
+unint64_t do_sigver_init(EVP_MD_CTX *a1, unint64_t *a2, const EVP_MD *a3, ENGINE *a4, uint64_t a5, int a6)
 {
-  if (!*(a1 + 16))
+  if (!a1->flags)
   {
     result = EVP_PKEY_CTX_new(a5, a4);
-    *(a1 + 16) = result;
+    a1->flags = result;
     if (!result)
     {
       return result;
@@ -5477,11 +3580,11 @@ uint64_t do_sigver_init(uint64_t a1, void *a2, const EVP_MD *a3, ENGINE *a4, uin
   }
 
   CRYPTO_once(&md_pctx_ops_once, md_pctx_ops_init);
-  *(a1 + 24) = &md_pctx_ops_storage;
-  v12 = *(a1 + 16);
+  a1->md_data = &md_pctx_ops_storage;
+  flags = a1->flags;
   if (a6 == 1)
   {
-    result = EVP_PKEY_verify_init(v12);
+    result = EVP_PKEY_verify_init(flags);
     if (!result)
     {
       return result;
@@ -5490,7 +3593,7 @@ uint64_t do_sigver_init(uint64_t a1, void *a2, const EVP_MD *a3, ENGINE *a4, uin
 
   else
   {
-    result = EVP_PKEY_sign_init(v12);
+    result = EVP_PKEY_sign_init(flags);
     if (!result)
     {
       return result;
@@ -5505,7 +3608,7 @@ uint64_t do_sigver_init(uint64_t a1, void *a2, const EVP_MD *a3, ENGINE *a4, uin
       v14 = 40;
     }
 
-    if (*(**(a1 + 16) + v14))
+    if (*(*a1->flags + v14))
     {
       ERR_put_error(6, 0, 119, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/fipsmodule/digestsign/digestsign.c.inc", 109);
       return 0;
@@ -5514,7 +3617,7 @@ uint64_t do_sigver_init(uint64_t a1, void *a2, const EVP_MD *a3, ENGINE *a4, uin
     goto LABEL_18;
   }
 
-  result = EVP_PKEY_CTX_set_signature_md(*(a1 + 16));
+  result = EVP_PKEY_CTX_set_signature_md(a1->flags);
   if (result)
   {
     v13 = 56;
@@ -5523,12 +3626,12 @@ uint64_t do_sigver_init(uint64_t a1, void *a2, const EVP_MD *a3, ENGINE *a4, uin
       v13 = 40;
     }
 
-    if (!*(**(a1 + 16) + v13) || (result = EVP_DigestInit_ex(a1, a3, a4), result))
+    if (!*(*a1->flags + v13) || (result = EVP_DigestInit_ex(a1, a3, a4), result))
     {
 LABEL_18:
       if (a2)
       {
-        *a2 = *(a1 + 16);
+        *a2 = a1->flags;
       }
 
       return 1;
@@ -5550,7 +3653,7 @@ void *EVP_PKEY_CTX_new(uint64_t a1, uint64_t a2)
   if (!v4)
   {
     ERR_put_error(6, 0, 128, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/evp/evp_ctx.c", 122);
-    ERR_add_error_dataf("algorithm %d", v6, v7, v8, v9, v10, v11, v12, **(a1 + 16));
+    ERR_add_error_dataf("algorithm %d", **(a1 + 16));
     return 0;
   }
 
@@ -5584,41 +3687,41 @@ void *evp_pkey_ctx_new(unsigned int *a1, uint64_t a2, uint64_t a3)
   return v7;
 }
 
-uint64_t bssl::ssl_check_leaf_certificate(uint64_t a1, ssl_st *a2)
+uint64_t bssl::ssl_check_leaf_certificate(uint64_t a1, ssl_st *a2, unsigned __int16 a3)
 {
-  if (bssl::ssl_protocol_version(*a1, a2) >= 0x304)
+  if (bssl::ssl_protocol_version(*a1, a2, a3) >= 0x304)
   {
     bssl::ssl_check_leaf_certificate();
   }
 
-  v4 = *(*(a1 + 1568) + 24);
-  if ((bssl::ssl_cipher_auth_mask_for_key(a2, 1) & v4) != 0)
+  v5 = *(*(a1 + 1568) + 24);
+  if ((bssl::ssl_cipher_auth_mask_for_key(a2, 1) & v5) != 0)
   {
     if (EVP_PKEY_id(a2) != 408)
     {
       return 1;
     }
 
-    v5 = EVP_PKEY_get0_EC_KEY(a2);
-    LOWORD(v11) = -21846;
-    v6 = EC_KEY_get0_group(v5);
-    curve_name = EC_GROUP_get_curve_name(v6);
-    if (bssl::ssl_nid_to_group_id(&v11, curve_name) && bssl::tls1_check_group_id(a1, v11) && EC_KEY_get_conv_form(v5) == POINT_CONVERSION_UNCOMPRESSED)
+    v6 = EVP_PKEY_get0_EC_KEY(a2);
+    LOWORD(v13) = -21846;
+    v7 = EC_KEY_get0_group(v6);
+    curve_name = EC_GROUP_get_curve_name(v7);
+    if (bssl::ssl_nid_to_group_id(&v13, curve_name) && bssl::tls1_check_group_id(a1, v13, v9) && EC_KEY_get_conv_form(v6) == POINT_CONVERSION_UNCOMPRESSED)
     {
       return 1;
     }
 
-    v9 = 107;
-    v10 = 616;
+    v11 = 107;
+    v12 = 616;
   }
 
   else
   {
-    v9 = 241;
-    v10 = 604;
+    v11 = 241;
+    v12 = 604;
   }
 
-  ERR_put_error(16, 0, v9, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/ssl_cert.cc", v10);
+  ERR_put_error(16, 0, v11, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/ssl_cert.cc", v12);
   return 0;
 }
 
@@ -5730,7 +3833,7 @@ LABEL_12:
   return v4();
 }
 
-uint64_t pkey_rsa_ctrl(uint64_t a1, int a2, int a3, uint64_t a4)
+uint64_t pkey_rsa_ctrl(uint64_t a1, int a2, unsigned int a3, uint64_t a4)
 {
   v5 = *(a1 + 40);
   if (a2 <= 4101)
@@ -5985,67 +4088,67 @@ BOOL bssl::ssl_nid_to_group_id(bssl *this, unsigned __int16 *a2)
   return v4 == a2;
 }
 
-BOOL bssl::tls1_check_group_id(bssl **this, const ssl_st *a2)
+BOOL bssl::tls1_check_group_id(bssl **this, const ssl_st *a2, unsigned __int16 a3)
 {
   if (!a2)
   {
     return 0;
   }
 
-  v2 = a2;
-  if ((a2 == 25497 || a2 == 4588) && bssl::ssl_protocol_version(*this, a2) < 0x304)
+  v3 = a2;
+  if ((a2 == 25497 || a2 == 4588) && bssl::ssl_protocol_version(*this, a2, a3) < 0x304)
   {
     return 0;
   }
 
-  v5 = this[1];
-  v6 = *(v5 + 15);
-  if (v6)
+  v6 = this[1];
+  v7 = *(v6 + 15);
+  if (v7)
   {
-    v7 = *(v5 + 14);
+    v8 = *(v6 + 14);
   }
 
   else
   {
-    v7 = &bssl::kDefaultGroups;
-    v6 = 4;
+    v8 = &bssl::kDefaultGroups;
+    v7 = 4;
   }
 
-  v8 = 2 * v6 - 2;
+  v9 = 2 * v7 - 2;
   do
   {
-    v9 = *v7++;
-    result = v9 == v2;
-    v10 = v9 == v2 || v8 == 0;
-    v8 -= 2;
+    v10 = *v8++;
+    result = v10 == v3;
+    v11 = v10 == v3 || v9 == 0;
+    v9 -= 2;
   }
 
-  while (!v10);
+  while (!v11);
   return result;
 }
 
-uint64_t EVP_DigestVerify(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, size_t a5)
+uint64_t EVP_DigestVerify(const EVP_MD_CTX *a1, uint64_t a2, uint64_t a3, const void *a4, size_t a5)
 {
-  v6 = *(a1 + 16);
-  if (*(*v6 + 56))
+  flags = a1->flags;
+  if (*(*flags + 56))
   {
     if (EVP_DigestVerifyUpdate(a1, a4, a5))
     {
 
-      return EVP_DigestVerifyFinal(a1);
+      return EVP_DigestVerifyFinal(a1, a2, a3);
     }
 
     return 0;
   }
 
-  v8 = *(*v6 + 64);
-  if (!v8)
+  v10 = *(*flags + 64);
+  if (!v10)
   {
     ERR_put_error(6, 0, 125, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/fipsmodule/digestsign/digestsign.c.inc", 255);
     return 0;
   }
 
-  return v8();
+  return v10();
 }
 
 uint64_t pkey_ec_init(uint64_t a1)
@@ -6284,17 +4387,17 @@ uint64_t RSA_public_key_to_bytes(void *a1, void *a2, uint64_t a3)
 {
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v8[1] = v6;
-  v8[2] = v6;
-  v8[0] = v6;
-  CBB_zero(v8);
-  if (CBB_init(v8, 0) && RSA_marshal_public_key(v8, a3) && CBB_finish(v8, a1, a2))
+  v9[1] = v6;
+  v9[2] = v6;
+  v9[0] = v6;
+  CBB_zero(v9);
+  if (CBB_init(v9, 0) && RSA_marshal_public_key(v9, a3) && CBB_finish(v9, a1, a2))
   {
     return 1;
   }
 
   ERR_put_error(4, 0, 121, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/rsa_extra/rsa_asn1.c", 145);
-  CBB_cleanup(v8);
+  CBB_cleanup(v9, v8);
   return 0;
 }
 
@@ -6350,18 +4453,18 @@ int i2o_ECPublicKey(EC_KEY *a, unsigned __int8 **out)
   {
     *&v4 = 0xAAAAAAAAAAAAAAAALL;
     *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v7[1] = v4;
-    v7[2] = v4;
-    v7[0] = v4;
-    if (CBB_init(v7, 0) && EC_POINT_point2cbb(v7, *a, *(a + 1), *(a + 7), 0))
+    v8[1] = v4;
+    v8[2] = v4;
+    v8[0] = v4;
+    if (CBB_init(v8, 0) && EC_POINT_point2cbb(v8, *a, *(a + 1), *(a + 7), 0))
     {
-      v5 = CBB_finish_i2d(v7, out);
-      return v5 & ~(v5 >> 31);
+      v6 = CBB_finish_i2d(v8, out);
+      return v6 & ~(v6 >> 31);
     }
 
     else
     {
-      CBB_cleanup(v7);
+      CBB_cleanup(v8, v5);
       return -1;
     }
   }
@@ -6373,7 +4476,7 @@ int i2o_ECPublicKey(EC_KEY *a, unsigned __int8 **out)
   }
 }
 
-uint64_t BN_marshal_asn1(uint64_t *a1, const BIGNUM *a2)
+uint64_t BN_marshal_asn1(uint64_t *a1, BIGNUM *a2)
 {
   if (BN_is_negative(a2))
   {
@@ -6499,7 +4602,7 @@ LABEL_17:
   return 0;
 }
 
-uint64_t marshal_integer(uint64_t *a1, const BIGNUM *a2)
+uint64_t marshal_integer(uint64_t *a1, BIGNUM *a2)
 {
   if (a2)
   {
@@ -6514,7 +4617,7 @@ uint64_t marshal_integer(uint64_t *a1, const BIGNUM *a2)
   }
 }
 
-uint64_t marshal_integer_0(uint64_t *a1, const BIGNUM *a2)
+uint64_t marshal_integer_0(uint64_t *a1, BIGNUM *a2)
 {
   if (a2)
   {
@@ -6529,7 +4632,7 @@ uint64_t marshal_integer_0(uint64_t *a1, const BIGNUM *a2)
   }
 }
 
-uint64_t BN_bn2cbb_padded(uint64_t a1, unint64_t a2, uint64_t a3)
+uint64_t BN_bn2cbb_padded(uint64_t a1, unint64_t a2, char **a3)
 {
   v6 = 0xAAAAAAAAAAAAAAAALL;
   result = CBB_add_space(a1, &v6, a2);
@@ -6558,10 +4661,10 @@ uint64_t EC_POINT_point2cbb(uint64_t a1, EC_GROUP *a2, EC_POINT *a3, point_conve
   return result;
 }
 
-uint64_t BN_bn2bin_padded(char *a1, unint64_t a2, uint64_t a3)
+uint64_t BN_bn2bin_padded(char *a1, unint64_t a2, char **a3)
 {
   v4 = *a3;
-  v5 = *(a3 + 8);
+  v5 = *(a3 + 2);
   if (a2 < 8 * v5)
   {
     v6 = 0;
@@ -6735,28 +4838,26 @@ uint64_t ec_point_byte_len(uint64_t a1, int a2)
   }
 }
 
-uint64_t ec_GFp_nistp256_point_get_affine_coordinates(uint64_t a1, __int128 *a2, _OWORD *a3, _OWORD *a4)
+uint64_t ec_GFp_nistp256_point_get_affine_coordinates(uint64_t a1, __int128 *a2, __int128 *a3, __int128 *a4)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (ec_GFp_simple_is_at_infinity(a1, a2))
   {
     ERR_put_error(15, 0, 119, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/fipsmodule/ec/p256.c.inc", 421);
-    result = 0;
+    return 0;
   }
 
   else
   {
     *&v8 = 0xAAAAAAAAAAAAAAAALL;
     *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v24[0] = v8;
-    v24[1] = v8;
+    v23[0] = v8;
+    v23[1] = v8;
     v9 = a2[10];
-    v25[0] = a2[9];
-    v25[1] = v9;
+    v24[0] = a2[9];
+    v24[1] = v9;
+    v32 = v8;
     v33 = v8;
-    v34 = v8;
-    v32[0] = v8;
-    v32[1] = v8;
     v31[0] = v8;
     v31[1] = v8;
     v30[0] = v8;
@@ -6767,125 +4868,124 @@ uint64_t ec_GFp_nistp256_point_get_affine_coordinates(uint64_t a1, __int128 *a2,
     v28[1] = v8;
     v27[0] = v8;
     v27[1] = v8;
-    fiat_p256_square(&v33, v25);
-    fiat_p256_mul(&v33, &v33, v25);
-    fiat_p256_square(v32, &v33);
-    fiat_p256_mul(v32, v32, v25);
-    fiat_p256_square(v31, v32);
+    v26[0] = v8;
+    v26[1] = v8;
+    fiat_p256_square(&v32, v24);
+    fiat_p256_mul(&v32, &v32, v24);
+    fiat_p256_square(v31, &v32);
+    fiat_p256_mul(v31, v31, v24);
+    fiat_p256_square(v30, v31);
     v10 = 2;
     do
     {
-      fiat_p256_square(v31, v31);
+      fiat_p256_square(v30, v30);
       --v10;
     }
 
     while (v10);
-    fiat_p256_mul(v31, v31, v32);
-    fiat_p256_square(v30, v31);
+    fiat_p256_mul(v30, v30, v31);
+    fiat_p256_square(v29, v30);
     v11 = 5;
     do
     {
-      fiat_p256_square(v30, v30);
+      fiat_p256_square(v29, v29);
       --v11;
     }
 
     while (v11);
-    fiat_p256_mul(v30, v30, v31);
-    fiat_p256_square(v29, v30);
+    fiat_p256_mul(v29, v29, v30);
+    fiat_p256_square(v28, v29);
     v12 = 2;
     do
     {
-      fiat_p256_square(v29, v29);
+      fiat_p256_square(v28, v28);
       --v12;
     }
 
     while (v12);
-    fiat_p256_mul(v29, v29, v32);
-    fiat_p256_square(v28, v29);
+    fiat_p256_mul(v28, v28, v31);
+    fiat_p256_square(v27, v28);
     v13 = 14;
     do
     {
-      fiat_p256_square(v28, v28);
+      fiat_p256_square(v27, v27);
       --v13;
     }
 
     while (v13);
-    fiat_p256_mul(v28, v28, v29);
-    fiat_p256_square(v27, v28);
-    fiat_p256_square(v27, v27);
-    fiat_p256_mul(v27, v27, &v33);
+    fiat_p256_mul(v27, v27, v28);
+    fiat_p256_square(v26, v27);
+    fiat_p256_square(v26, v26);
+    fiat_p256_mul(v26, v26, &v32);
     *&v14 = 0xAAAAAAAAAAAAAAAALL;
     *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v26[0] = v14;
-    v26[1] = v14;
-    fiat_p256_square(v26, v27);
+    v25[0] = v14;
+    v25[1] = v14;
+    fiat_p256_square(v25, v26);
     v15 = 31;
     do
     {
-      fiat_p256_square(v26, v26);
+      fiat_p256_square(v25, v25);
       --v15;
     }
 
     while (v15);
-    fiat_p256_mul(v26, v26, v25);
+    fiat_p256_mul(v25, v25, v24);
     v16 = 128;
     do
     {
-      fiat_p256_square(v26, v26);
+      fiat_p256_square(v25, v25);
       --v16;
     }
 
     while (v16);
-    fiat_p256_mul(v26, v26, v27);
+    fiat_p256_mul(v25, v25, v26);
     v17 = 32;
     do
     {
-      fiat_p256_square(v26, v26);
+      fiat_p256_square(v25, v25);
       --v17;
     }
 
     while (v17);
-    fiat_p256_mul(v26, v26, v27);
+    fiat_p256_mul(v25, v25, v26);
     v18 = 30;
     do
     {
-      fiat_p256_square(v26, v26);
+      fiat_p256_square(v25, v25);
       --v18;
     }
 
     while (v18);
-    fiat_p256_mul(v26, v26, v28);
-    fiat_p256_square(v26, v26);
-    fiat_p256_square(v24, v26);
+    fiat_p256_mul(v25, v25, v27);
+    fiat_p256_square(v25, v25);
+    fiat_p256_square(v23, v25);
     if (a3)
     {
       v19 = a2[1];
-      v33 = *a2;
-      v34 = v19;
-      fiat_p256_mul(&v33, &v33, v24);
-      v20 = v34;
-      *a3 = v33;
+      v32 = *a2;
+      v33 = v19;
+      fiat_p256_mul(&v32, &v32, v23);
+      v20 = v33;
+      *a3 = v32;
       a3[1] = v20;
     }
 
     if (a4)
     {
       v21 = *(a2 + 88);
-      v33 = *(a2 + 72);
-      v34 = v21;
-      fiat_p256_square(v24, v24);
-      fiat_p256_mul(&v33, &v33, v25);
-      fiat_p256_mul(&v33, &v33, v24);
-      v22 = v34;
-      *a4 = v33;
+      v32 = *(a2 + 72);
+      v33 = v21;
+      fiat_p256_square(v23, v23);
+      fiat_p256_mul(&v32, &v32, v24);
+      fiat_p256_mul(&v32, &v32, v23);
+      v22 = v33;
+      *a4 = v32;
       a4[1] = v22;
     }
 
-    result = 1;
+    return 1;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t *fiat_p256_square(uint64_t *result, unint64_t *a2)
@@ -7580,12 +5680,12 @@ uint64_t *fiat_p256_mul(uint64_t *result, unint64_t *a2, unint64_t *a3)
 
 unint64_t ec_point_to_bytes(uint64_t a1, uint64_t a2, int a3, char *a4, unint64_t a5)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v9 = ec_point_byte_len(a1, a3);
   if (v9 <= a5)
   {
     v10 = v9;
-    v15 = 0xAAAAAAAAAAAAAAAALL;
+    v14 = 0xAAAAAAAAAAAAAAAALL;
     ec_felem_to_bytes(a1);
     if (BN_num_bytes((a1 + 320)) != 0xAAAAAAAAAAAAAAAALL)
     {
@@ -7595,7 +5695,7 @@ unint64_t ec_point_to_bytes(uint64_t a1, uint64_t a2, int a3, char *a4, unint64_
     if (a3 == 4)
     {
       ec_felem_to_bytes(a1);
-      if (v15 != BN_num_bytes((a1 + 320)))
+      if (v14 != BN_num_bytes((a1 + 320)))
       {
         ec_point_to_bytes_cold_2();
       }
@@ -7605,15 +5705,15 @@ unint64_t ec_point_to_bytes(uint64_t a1, uint64_t a2, int a3, char *a4, unint64_
 
     else
     {
-      v17 = -21846;
+      v16 = -21846;
       *&v12 = 0xAAAAAAAAAAAAAAAALL;
       *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v16[2] = v12;
-      v16[3] = v12;
-      v16[0] = v12;
-      v16[1] = v12;
+      v15[2] = v12;
+      v15[3] = v12;
+      v15[0] = v12;
+      v15[1] = v12;
       ec_felem_to_bytes(a1);
-      v11 = (*(v16 + v15 - 1) & 1) + a3;
+      v11 = (*(v15 + v14 - 1) & 1) + a3;
     }
 
     *a4 = v11;
@@ -7622,10 +5722,9 @@ unint64_t ec_point_to_bytes(uint64_t a1, uint64_t a2, int a3, char *a4, unint64_
   else
   {
     ERR_put_error(15, 0, 100, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/fipsmodule/ec/oct.c.inc", 97);
-    v10 = 0;
+    return 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -7644,7 +5743,7 @@ void ec_GFp_mont_felem_to_bytes(uint64_t a1, char *a2, unint64_t *a3, uint64_t a
 
 void bn_from_montgomery_small(unint64_t *a1, unint64_t num, uint64_t a3, unint64_t a4, uint64_t a5)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (num > 9)
   {
     goto LABEL_11;
@@ -7656,20 +5755,19 @@ void bn_from_montgomery_small(unint64_t *a1, unint64_t num, uint64_t a3, unint64
     goto LABEL_11;
   }
 
-  memset(v11, 0, sizeof(v11));
+  memset(v10, 0, sizeof(v10));
   if (a4)
   {
     __memcpy_chk();
   }
 
-  if (!bn_from_montgomery_in_place(a1, num, v11, v7, a5))
+  if (!bn_from_montgomery_in_place(a1, num, v10, v7, a5))
   {
 LABEL_11:
     abort();
   }
 
-  OPENSSL_cleanse(v11, 16 * num);
-  v10 = *MEMORY[0x1E69E9840];
+  OPENSSL_cleanse(v10, 16 * num);
 }
 
 void ec_GFp_simple_felem_to_bytes(uint64_t a1, char *a2, unint64_t *a3, char *a4)
@@ -7695,7 +5793,7 @@ uint64_t CBB_finish_i2d(uint64_t a1, void **a2)
   __src = 0xAAAAAAAAAAAAAAAALL;
   if (!CBB_finish(a1, &__src, &__n))
   {
-    CBB_cleanup(a1);
+    CBB_cleanup(a1, v4);
     return 0xFFFFFFFFLL;
   }
 
@@ -7707,22 +5805,22 @@ uint64_t CBB_finish_i2d(uint64_t a1, void **a2)
 
   if (a2)
   {
-    v5 = *a2;
+    v6 = *a2;
     if (*a2)
     {
       if (__n)
       {
-        memcpy(v5, __src, __n);
-        v6 = __n;
-        v5 = *a2;
+        memcpy(v6, __src, __n);
+        v7 = __n;
+        v6 = *a2;
       }
 
       else
       {
-        v6 = 0;
+        v7 = 0;
       }
 
-      *a2 = &v5[v6];
+      *a2 = &v6[v7];
     }
 
     else
@@ -7736,7 +5834,7 @@ uint64_t CBB_finish_i2d(uint64_t a1, void **a2)
   return __n;
 }
 
-uint64_t boringssl_ecdsa_get_cc_curve_parameters(int a1)
+uint64_t boringssl_ecdsa_get_cc_curve_parameters(uint64_t a1)
 {
   if (a1 <= 714)
   {
@@ -7786,7 +5884,7 @@ void pkey_ec_cleanup(uint64_t a1)
 
 uint64_t bssl::tls13_finished_mac(unsigned __int8 ***this, bssl::SSL_HANDSHAKE *a2, unsigned __int8 *a3, unint64_t *a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v7 = 130;
   if (a4)
   {
@@ -7797,35 +5895,34 @@ uint64_t bssl::tls13_finished_mac(unsigned __int8 ***this, bssl::SSL_HANDSHAKE *
   v9 = *(this + v7 + 48);
   *&v10 = 0xAAAAAAAAAAAAAAAALL;
   *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v20 = v10;
-  v21 = v10;
-  *v18 = v10;
   v19 = v10;
-  v17 = 0xAAAAAAAAAAAAAAAALL;
-  result = bssl::SSLTranscript::GetHash((this + 53), v18, &v17);
+  v20 = v10;
+  *v17 = v10;
+  v18 = v10;
+  v16 = 0xAAAAAAAAAAAAAAAALL;
+  result = bssl::SSLTranscript::GetHash((this + 53), v17, &v16);
   if (result)
   {
     v12 = bssl::SSLTranscript::Digest((this + 53));
     v13 = *this;
-    v14 = v17;
+    v14 = v16;
     v15 = SSL_is_dtls(v13) != 0;
-    result = bssl::tls13_verify_data(a2, a3, v12, v8, v9, v18, v14, v15);
+    return bssl::tls13_verify_data(a2, a3, v12, v8, v9, v17, v14, v15);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t bssl::tls13_process_finished(uint64_t a1, uint64_t a2, int a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = *a1;
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v11[2] = v5;
-  v11[3] = v5;
-  v11[0] = v5;
-  v11[1] = v5;
+  v10[2] = v5;
+  v10[3] = v5;
+  v10[0] = v5;
+  v10[1] = v5;
   if (a3)
   {
     if ((*(v4 + 180) & 1) == 0)
@@ -7839,32 +5936,25 @@ uint64_t bssl::tls13_process_finished(uint64_t a1, uint64_t a2, int a3)
 
   else
   {
-    *v10 = 0xAAAAAAAAAAAAAAAALL;
-    result = bssl::tls13_finished_mac(a1, v11, v10, ((*(v4 + 180) & 1) == 0));
+    *v9 = 0xAAAAAAAAAAAAAAAALL;
+    result = bssl::tls13_finished_mac(a1, v10, v9, ((*(v4 + 180) & 1) == 0));
     if (!result)
     {
-      goto LABEL_9;
+      return result;
     }
 
-    v7 = *v10;
-    v6 = v11;
+    v7 = *v9;
+    v6 = v10;
   }
 
   if (CBS_mem_equal(a2 + 8, v6, v7))
   {
-    result = 1;
+    return 1;
   }
 
-  else
-  {
-    bssl::ssl_send_alert(v4, 2, 51);
-    ERR_put_error(16, 0, 142, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/tls13_both.cc", 473);
-    result = 0;
-  }
-
-LABEL_9:
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  bssl::ssl_send_alert(v4, 2, 51);
+  ERR_put_error(16, 0, 142, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/tls13_both.cc", 473);
+  return 0;
 }
 
 uint64_t bssl::tls13_verify_data(unsigned __int8 *a1, void *a2, EVP_MD *md, uint64_t a4, uint64_t a5, const unsigned __int8 *a6, size_t a7, char a8)
@@ -7877,19 +5967,19 @@ uint64_t bssl::tls13_verify_data(unsigned __int8 *a1, void *a2, EVP_MD *md, uint
   key[0] = v16;
   key[1] = v16;
   v17 = EVP_MD_size(md);
+  v18 = v17;
   md_len = 0;
-  result = bssl::hkdf_expand_label(key, v17, md, a4, a5, "finished", 8uLL, v18, 0, 0, a8);
+  result = bssl::hkdf_expand_label(key, v17, md, a4, a5, "finished", 8uLL, v19, 0, 0, a8);
   if (result)
   {
-    result = HMAC(md, key, v17, a6, a7, a1, &md_len);
+    result = HMAC(md, key, v18, a6, a7, a1, &md_len);
     if (result)
     {
       *a2 = md_len;
-      result = 1;
+      return 1;
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7920,29 +6010,28 @@ unsigned __int8 *__cdecl HMAC(const EVP_MD *evp_md, const void *key, int key_len
     cchmac_init();
     cchmac_update();
     cchmac_final();
-    v15 = (*(v12 + 8) + *(v12 + 16) + 19) & 0xFFFFFFFFFFFFFFF8;
     cc_clear();
     free(v14);
     if (md_len)
     {
-      v16 = *v12;
+      v15 = *v12;
 LABEL_13:
-      *md_len = v16;
+      *md_len = v15;
     }
   }
 
   else
   {
-    v17 = g_boringssl_log;
+    v16 = g_boringssl_log;
     if (g_boringssl_log && os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_ERROR))
     {
-      HMAC_cold_1(v17, evp_md);
+      HMAC_cold_1(v16, evp_md);
     }
 
     v9 = 0;
     if (md_len)
     {
-      v16 = 0;
+      v15 = 0;
       goto LABEL_13;
     }
   }
@@ -7991,26 +6080,25 @@ uint64_t bssl::tls13_add_finished(unsigned __int8 ***this, bssl::SSL_HANDSHAKE *
     v9[0] = v5;
     if ((*(*v2 + 11))(v2, v10, v9, 20) && CBB_add_bytes(v9, v12, *v11))
     {
-      v6 = bssl::ssl_add_message_cbb(v2, v10);
+      v7 = bssl::ssl_add_message_cbb(v2, v10);
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
 
-    CBB_cleanup(v10);
+    CBB_cleanup(v10, v6);
   }
 
   else
   {
     bssl::ssl_send_alert(v2, 2, 80);
     ERR_put_error(16, 0, 142, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/tls13_both.cc", 855);
-    v6 = 0;
+    return 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-  return v6;
+  return v7;
 }
 
 void sub_1A90342B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
@@ -8116,9 +6204,9 @@ void bssl::ssl_update_cache(bssl *this, ssl_st *a2)
   }
 }
 
-void sub_1A90344A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1A90344A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::unique_ptr<ssl_session_st,bssl::internal::Deleter>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
@@ -8152,11 +6240,10 @@ SSL *boringssl_session_finish_handshake(SSL *result)
               if (v9)
               {
                 v10 = objc_loadWeakRetained(&method->ssl_clear);
-                v11 = v10[35];
                 nw_queue_cancel_source();
 
-                v12 = objc_loadWeakRetained(&method->ssl_clear);
-                v12[35] = 0;
+                v11 = objc_loadWeakRetained(&method->ssl_clear);
+                v11[35] = 0;
               }
             }
           }
@@ -8165,14 +6252,14 @@ SSL *boringssl_session_finish_handshake(SSL *result)
         boringssl_session_set_state(v1, 2);
         if (v1->version == -1252936367)
         {
-          v13 = v1->method;
-          if (v13)
+          v12 = v1->method;
+          if (v12)
           {
-            v13[1].get_timeout = boringssl_helper_get_current_time_ms();
+            v12[1].get_timeout = boringssl_helper_get_current_time_ms();
           }
         }
 
-        boringssl_session_update_metadata(v1);
+        boringssl_session_update_metadata(v1, 0);
         boringssl_context_update_encryption_level(v1);
         boringssl_metrics_log_connection(v1);
 
@@ -8218,162 +6305,169 @@ BOOL boringssl_metrics_log_connection(SSL *a1)
 xpc_object_t boringssl_metrics_create_connection_event(SSL *a1)
 {
   v55 = *MEMORY[0x1E69E9840];
-  if (a1 && a1->version == -1252936367 && (method = a1->method) != 0)
+  if (!a1)
   {
-    v3 = xpc_dictionary_create(0, 0, 0);
-    if (v3)
+    return 0;
+  }
+
+  if (a1->version != -1252936367)
+  {
+    return 0;
+  }
+
+  method = a1->method;
+  if (!method)
+  {
+    return 0;
+  }
+
+  v3 = xpc_dictionary_create(0, 0, 0);
+  if (v3)
+  {
+    v4 = TLS_METRIC_DEFAULT_EMPTY_STRING;
+    if (boringssl_session_get_peer_public_key(a1))
     {
-      v4 = TLS_METRIC_DEFAULT_EMPTY_STRING;
-      if (boringssl_session_get_peer_public_key(a1))
+      v5 = SecKeyGetAlgorithmId() - 1;
+      if (v5 <= 2)
       {
-        v5 = SecKeyGetAlgorithmId() - 1;
-        if (v5 <= 2)
-        {
-          v4 = off_1E785FA68[v5];
-        }
+        v4 = off_1E785FA68[v5];
+      }
+    }
+
+    negotiated_group = boringssl_session_get_negotiated_group(a1);
+    v46 = 0;
+    negotiated_protocol = boringssl_session_get_negotiated_protocol(a1, &v46);
+    v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    *string = 0u;
+    v48 = 0u;
+    if (!negotiated_protocol)
+    {
+      strlen(TLS_METRIC_DEFAULT_EMPTY_STRING);
+    }
+
+    __memcpy_chk();
+    v9 = boringssl_session_ticket_lifetime_hint(a1);
+    v10 = &dword_1A90AFB4C;
+    v11 = 5;
+    while (1)
+    {
+      v12 = *(v10 - 1);
+      if (v12 <= v9 && *v10 > v9)
+      {
+        break;
       }
 
-      negotiated_group = boringssl_session_get_negotiated_group(a1);
-      v46 = 0;
-      negotiated_protocol = boringssl_session_get_negotiated_protocol(a1, &v46);
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
-      v50 = 0u;
-      *string = 0u;
-      v48 = 0u;
-      if (!negotiated_protocol)
+      ++v10;
+      if (!--v11)
       {
-        strlen(TLS_METRIC_DEFAULT_EMPTY_STRING);
+        v12 = 108000;
+        break;
       }
+    }
 
-      __memcpy_chk();
-      v10 = boringssl_session_ticket_lifetime_hint(a1);
-      v11 = &dword_1A90AFB4C;
-      v12 = 5;
-      while (1)
+    boringssl_metrics_log_configuration_data(a1, v3);
+    boringssl_metrics_log_connection_data(a1, v3);
+    v13 = TLS_METRIC_CIPHERSUITE;
+    negotiated_ciphersuite = boringssl_session_get_negotiated_ciphersuite(a1);
+    xpc_dictionary_set_uint64(v3, v13, negotiated_ciphersuite);
+    negotiated_protocol_version = boringssl_session_get_negotiated_protocol_version(a1);
+    xpc_dictionary_set_uint64(v3, TLS_METRIC_PROTOCOL_VERSION, negotiated_protocol_version);
+    xpc_dictionary_set_uint64(v3, TLS_METRIC_TICKET_LIFETIME, v12);
+    v16 = TLS_METRIC_HANDSHAKE_TIME;
+    handshake_time_ms = boringssl_session_get_handshake_time_ms(a1);
+    xpc_dictionary_set_uint64(v3, v16, handshake_time_ms);
+    v18 = TLS_METRIC_SIGNATURE_ALGORITHM;
+    peer_signature_algorithm = boringssl_session_get_peer_signature_algorithm(a1);
+    xpc_dictionary_set_uint64(v3, v18, peer_signature_algorithm);
+    if (negotiated_group)
+    {
+      v20 = v3;
+      v21 = negotiated_group;
+    }
+
+    else
+    {
+      v21 = TLS_METRIC_DEFAULT_EMPTY_STRING;
+      v20 = v3;
+    }
+
+    xpc_dictionary_set_string(v20, TLS_METRIC_GROUP_NAME, v21);
+    v22 = TLS_METRIC_PQTLS_ENABLED;
+    pqtls_enabled = boringssl_session_get_pqtls_enabled(a1);
+    xpc_dictionary_set_uint64(v3, v22, pqtls_enabled);
+    has_internal_content = os_variant_has_internal_content();
+    if (negotiated_protocol_version - 769 <= 1 && has_internal_content)
+    {
+      server_name = boringssl_session_get_server_name(a1);
+      if (server_name)
       {
-        v13 = *(v11 - 1);
-        if (v13 <= v10 && *v11 > v10)
-        {
-          break;
-        }
-
-        ++v11;
-        if (!--v12)
-        {
-          v13 = 108000;
-          break;
-        }
-      }
-
-      boringssl_metrics_log_configuration_data(a1, v3);
-      boringssl_metrics_log_connection_data(a1, v3);
-      v14 = TLS_METRIC_CIPHERSUITE;
-      negotiated_ciphersuite = boringssl_session_get_negotiated_ciphersuite(a1);
-      xpc_dictionary_set_uint64(v3, v14, negotiated_ciphersuite);
-      negotiated_protocol_version = boringssl_session_get_negotiated_protocol_version(a1);
-      xpc_dictionary_set_uint64(v3, TLS_METRIC_PROTOCOL_VERSION, negotiated_protocol_version);
-      xpc_dictionary_set_uint64(v3, TLS_METRIC_TICKET_LIFETIME, v13);
-      v17 = TLS_METRIC_HANDSHAKE_TIME;
-      handshake_time_ms = boringssl_session_get_handshake_time_ms(a1);
-      xpc_dictionary_set_uint64(v3, v17, handshake_time_ms);
-      v19 = TLS_METRIC_SIGNATURE_ALGORITHM;
-      peer_signature_algorithm = boringssl_session_get_peer_signature_algorithm(a1);
-      xpc_dictionary_set_uint64(v3, v19, peer_signature_algorithm);
-      if (negotiated_group)
-      {
-        v21 = v3;
-        v22 = negotiated_group;
+        v26 = server_name;
       }
 
       else
       {
-        v22 = TLS_METRIC_DEFAULT_EMPTY_STRING;
-        v21 = v3;
+        v26 = TLS_METRIC_DEFAULT_EMPTY_STRING;
       }
 
-      xpc_dictionary_set_string(v21, TLS_METRIC_GROUP_NAME, v22);
-      v23 = TLS_METRIC_PQTLS_ENABLED;
-      pqtls_enabled = boringssl_session_get_pqtls_enabled(a1);
-      xpc_dictionary_set_uint64(v3, v23, pqtls_enabled);
-      has_internal_content = os_variant_has_internal_content();
-      if (negotiated_protocol_version - 769 <= 1 && has_internal_content)
-      {
-        server_name = boringssl_session_get_server_name(a1);
-        if (server_name)
-        {
-          v27 = server_name;
-        }
-
-        else
-        {
-          v27 = TLS_METRIC_DEFAULT_EMPTY_STRING;
-        }
-
-        xpc_dictionary_set_string(v3, TLS_METRIC_SERVER_NAME, v27);
-      }
-
-      if (v4)
-      {
-        v28 = v3;
-        v29 = v4;
-      }
-
-      else
-      {
-        v29 = TLS_METRIC_DEFAULT_EMPTY_STRING;
-        v28 = v3;
-      }
-
-      xpc_dictionary_set_string(v28, TLS_METRIC_PEER_PUBLIC_KEY_TYPE, v29);
-      xpc_dictionary_set_string(v3, TLS_METRIC_NEGOTIATED_PROTOCOL, string);
-      v30 = TLS_METRIC_UNKNOWN_NEGOTIATED_PROTOCOL;
-      is_unknown = boringssl_context_negotiated_protocol_is_unknown(a1, string);
-      xpc_dictionary_set_BOOL(v3, v30, is_unknown);
-      xpc_dictionary_set_BOOL(v3, TLS_METRIC_FALSE_START_USED, BYTE5(method[2].ssl_renegotiate) & 1);
-      v32 = TLS_METRIC_TICKET_RECEIVED;
-      v33 = boringssl_session_has_session_ticket(a1, 0);
-      xpc_dictionary_set_BOOL(v3, v32, v33);
-      v34 = TLS_METRIC_SESSION_RENEWED;
-      v35 = boringssl_session_was_renewed(a1, 0);
-      xpc_dictionary_set_BOOL(v3, v34, v35);
-      v36 = TLS_METRIC_ALPN_USED;
-      v37 = boringssl_session_get_negotiated_protocol(a1, 0) != 0;
-      xpc_dictionary_set_BOOL(v3, v36, v37);
-      v38 = TLS_METRIC_OCSP_RECEIVED;
-      ocsp_response_received = boringssl_session_get_ocsp_response_received(a1);
-      xpc_dictionary_set_BOOL(v3, v38, ocsp_response_received);
-      v40 = TLS_METRIC_SCT_RECEIVED;
-      sct_received = boringssl_session_get_sct_received(a1);
-      xpc_dictionary_set_BOOL(v3, v40, sct_received);
-      xpc_dictionary_set_BOOL(v3, TLS_METRIC_FALLBACK_ATTEMPTED, (BYTE4(method[2].ssl_renegotiate) & 0x40) != 0);
-      xpc_dictionary_set_BOOL(v3, TLS_METRIC_HANDSHAKE_CANCELLED, (BYTE4(method[2].ssl_renegotiate) & 2) != 0);
-      xpc_dictionary_set_BOOL(v3, TLS_METRIC_CERTIFICATE_REQUESTED, (BYTE6(method[2].ssl_renegotiate) & 0x10) != 0);
-      xpc_dictionary_set_BOOL(v3, TLS_METRIC_CERTIFICATE_COMPRESSION_ENABLED, (HIBYTE(method[2].ssl_renegotiate) & 0x40) != 0);
-      xpc_dictionary_set_BOOL(v3, TLS_METRIC_CERTIFICATE_COMPRESSION_USED, HIBYTE(method[2].ssl_renegotiate) >> 7);
-      xpc_dictionary_set_uint64(v3, TLS_METRIC_CERTIFICATE_COMPRESSION_ALGORITHM, LOWORD(method[1].ssl_get_message));
-      v42 = TLS_METRIC_EXTENDED_MASTER_SECRET_NEGOTIATED;
-      ems_used = boringssl_session_get_ems_used(a1, v43);
-      xpc_dictionary_set_uint64(v3, v42, ems_used);
-      xpc_dictionary_set_uuid(v3, TLS_METRIC_CONNECTION_ID, &method[1].ssl_new + 4);
-      v45 = v3;
+      xpc_dictionary_set_string(v3, TLS_METRIC_SERVER_NAME, v26);
     }
 
-    else if (g_boringssl_log && os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_ERROR))
+    if (v4)
     {
-      boringssl_metrics_create_connection_event_cold_1();
+      v27 = v3;
+      v28 = v4;
     }
+
+    else
+    {
+      v28 = TLS_METRIC_DEFAULT_EMPTY_STRING;
+      v27 = v3;
+    }
+
+    xpc_dictionary_set_string(v27, TLS_METRIC_PEER_PUBLIC_KEY_TYPE, v28);
+    xpc_dictionary_set_string(v3, TLS_METRIC_NEGOTIATED_PROTOCOL, string);
+    v29 = TLS_METRIC_UNKNOWN_NEGOTIATED_PROTOCOL;
+    is_unknown = boringssl_context_negotiated_protocol_is_unknown(a1, string);
+    xpc_dictionary_set_BOOL(v3, v29, is_unknown);
+    xpc_dictionary_set_BOOL(v3, TLS_METRIC_FALSE_START_USED, method[549] & 1);
+    v31 = TLS_METRIC_TICKET_RECEIVED;
+    v32 = boringssl_session_has_session_ticket(a1, 0);
+    xpc_dictionary_set_BOOL(v3, v31, v32);
+    v33 = TLS_METRIC_SESSION_RENEWED;
+    v34 = boringssl_session_was_renewed(a1, 0);
+    xpc_dictionary_set_BOOL(v3, v33, v34);
+    v35 = TLS_METRIC_ALPN_USED;
+    v36 = boringssl_session_get_negotiated_protocol(a1, 0) != 0;
+    xpc_dictionary_set_BOOL(v3, v35, v36);
+    v37 = TLS_METRIC_OCSP_RECEIVED;
+    ocsp_response_received = boringssl_session_get_ocsp_response_received(a1);
+    xpc_dictionary_set_BOOL(v3, v37, ocsp_response_received);
+    v39 = TLS_METRIC_SCT_RECEIVED;
+    sct_received = boringssl_session_get_sct_received(a1);
+    xpc_dictionary_set_BOOL(v3, v39, sct_received);
+    xpc_dictionary_set_BOOL(v3, TLS_METRIC_FALLBACK_ATTEMPTED, (method[548] & 0x40) != 0);
+    xpc_dictionary_set_BOOL(v3, TLS_METRIC_HANDSHAKE_CANCELLED, (method[548] & 2) != 0);
+    xpc_dictionary_set_BOOL(v3, TLS_METRIC_CERTIFICATE_REQUESTED, (method[550] & 0x10) != 0);
+    xpc_dictionary_set_BOOL(v3, TLS_METRIC_CERTIFICATE_COMPRESSION_ENABLED, (method[551] & 0x40) != 0);
+    xpc_dictionary_set_BOOL(v3, TLS_METRIC_CERTIFICATE_COMPRESSION_USED, method[551] >> 7);
+    xpc_dictionary_set_uint64(v3, TLS_METRIC_CERTIFICATE_COMPRESSION_ALGORITHM, *(method + 164));
+    v41 = TLS_METRIC_EXTENDED_MASTER_SECRET_NEGOTIATED;
+    ems_used = boringssl_session_get_ems_used(a1, v42, v43);
+    xpc_dictionary_set_uint64(v3, v41, ems_used);
+    xpc_dictionary_set_uuid(v3, TLS_METRIC_CONNECTION_ID, method + 244);
+    v45 = v3;
   }
 
-  else
+  else if (g_boringssl_log && os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_ERROR))
   {
-    v3 = 0;
+    boringssl_metrics_create_connection_event_cold_1();
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -8960,7 +7054,7 @@ uint64_t boringssl_context_get_experiment_identifer(uint64_t result)
   return result;
 }
 
-void boringssl_metrics_log_connection_data(uint64_t a1, void *a2)
+void boringssl_metrics_log_connection_data(unint64_t a1, void *a2)
 {
   v3 = a2;
   if (*a1 == -1252936367)
@@ -8999,7 +7093,7 @@ void boringssl_metrics_log_connection_data(uint64_t a1, void *a2)
   }
 }
 
-uint64_t boringssl_session_get_handshake_rtt_ms(uint64_t result)
+unint64_t boringssl_session_get_handshake_rtt_ms(unint64_t result)
 {
   if (result)
   {
@@ -9031,9 +7125,10 @@ uint64_t boringssl_session_get_handshake_rtt_ms(uint64_t result)
 
 uint64_t __boringssl_metrics_log_connection_block_invoke()
 {
-  boringssl_context_metrics_queue = dispatch_queue_create("com.apple.network.boringssl.metrics_queue", 0);
+  v0 = dispatch_queue_create("com.apple.network.boringssl.metrics_queue", 0);
+  boringssl_context_metrics_queue = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 uint64_t boringssl_session_get_handshake_inbound_byte_count(uint64_t result)
@@ -9321,16 +7416,16 @@ uint64_t boringssl_session_get_sct_received(uint64_t result)
   return result;
 }
 
-bssl *boringssl_session_get_ems_used(bssl *result, const ssl_st *a2)
+bssl *boringssl_session_get_ems_used(bssl *result, const ssl_st *a2, unsigned __int16 a3)
 {
   if (result)
   {
-    if (*result == -1252936367 && (v2 = *(result + 1)) != 0)
+    if (*result == -1252936367 && (v3 = *(result + 1)) != 0)
     {
-      result = *(v2 + 392);
+      result = *(v3 + 392);
       if (result)
       {
-        return (SSL_get_extms_support(result, a2) != 0);
+        return (SSL_get_extms_support(result, a2, a3) != 0);
       }
     }
 
@@ -9343,32 +7438,32 @@ bssl *boringssl_session_get_ems_used(bssl *result, const ssl_st *a2)
   return result;
 }
 
-uint64_t SSL_get_extms_support(bssl *a1, const ssl_st *a2)
+uint64_t SSL_get_extms_support(bssl *a1, const ssl_st *a2, unsigned __int16 a3)
 {
   if (!*(*(a1 + 6) + 208))
   {
     return 0;
   }
 
-  if (bssl::ssl_protocol_version(a1, a2) > 0x303)
+  if (bssl::ssl_protocol_version(a1, a2, a3) > 0x303)
   {
     return 1;
   }
 
-  v4 = *(a1 + 6);
-  v5 = *(v4 + 472);
-  if (v5)
+  v5 = *(a1 + 6);
+  v6 = *(v5 + 472);
+  if (v6)
   {
-    return *(v5 + 440) & 1;
+    return *(v6 + 440) & 1;
   }
 
-  v6 = *(v4 + 280);
-  if (!v6)
+  v7 = *(v5 + 280);
+  if (!v7)
   {
     SSL_get_extms_support_cold_1();
   }
 
-  return HIWORD(*(v6 + 1600)) & 1;
+  return HIWORD(*(v7 + 1600)) & 1;
 }
 
 BOOL boringssl_metrics_log_event(uint64_t a1, void *a2, void *a3)
@@ -9377,20 +7472,21 @@ BOOL boringssl_metrics_log_event(uint64_t a1, void *a2, void *a3)
   if (a1)
   {
     v6 = xpc_copy(a2);
-    v7 = v6 != 0;
+    v8 = v6;
+    v9 = v6 != 0;
     if (v6)
     {
-      v8 = TLS_METRIC_PROCESS_IDENTIFIER;
-      whitelisted_bundle_identifier = boringssl_config_get_whitelisted_bundle_identifier();
-      xpc_dictionary_set_string(v6, v8, whitelisted_bundle_identifier);
-      v10 = v6;
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __boringssl_metrics_log_metric_block_invoke;
-      v12[3] = &unk_1E785EB18;
-      v13 = v10;
-      v14 = a1;
-      dispatch_async(v5, v12);
+      v10 = TLS_METRIC_PROCESS_IDENTIFIER;
+      whitelisted_bundle_identifier = boringssl_config_get_whitelisted_bundle_identifier(v6, v7);
+      xpc_dictionary_set_string(v8, v10, whitelisted_bundle_identifier);
+      v12 = v8;
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __boringssl_metrics_log_metric_block_invoke;
+      v14[3] = &unk_1E785EB18;
+      v15 = v12;
+      v16 = a1;
+      dispatch_async(v5, v14);
     }
 
     else if (g_boringssl_log && os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_ERROR))
@@ -9401,13 +7497,13 @@ BOOL boringssl_metrics_log_event(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v7 = 0;
+    v9 = 0;
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t boringssl_config_get_whitelisted_bundle_identifier()
+uint64_t boringssl_config_get_whitelisted_bundle_identifier(uint64_t a1, uint64_t a2)
 {
   if (boringssl_config_get_whitelisted_bundle_identifier_onceToken != -1)
   {
@@ -9424,13 +7520,13 @@ xpc_object_t boringssl_metrics_create_ech_event(uint64_t a1)
     return 0;
   }
 
-  v2 = xpc_dictionary_create(0, 0, 0);
-  if (v2)
+  v3 = xpc_dictionary_create(0, 0, 0);
+  if (v3)
   {
-    v3 = TLS_METRIC_ECH_USED;
-    ech_was_used = boringssl_session_get_ech_was_used(a1);
-    xpc_dictionary_set_BOOL(v2, v3, ech_was_used);
-    v5 = v2;
+    v4 = TLS_METRIC_ECH_USED;
+    ech_was_used = boringssl_session_get_ech_was_used(a1, v2);
+    xpc_dictionary_set_BOOL(v3, v4, ech_was_used);
+    v6 = v3;
   }
 
   else if (g_boringssl_log && os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_ERROR))
@@ -9438,7 +7534,7 @@ xpc_object_t boringssl_metrics_create_ech_event(uint64_t a1)
     boringssl_metrics_create_ech_event_cold_1();
   }
 
-  return v2;
+  return v3;
 }
 
 BOOL boringssl_metrics_log_ech(uint64_t a1)
@@ -9486,7 +7582,6 @@ void nw_protocol_boringssl_signal_connected(void *a1)
   {
     if (*(v1 + 35))
     {
-      v3 = *(v1 + 35);
       nw_queue_cancel_source();
       *(v1 + 35) = 0;
       v2 = *(v1 + 37);
@@ -9503,15 +7598,15 @@ void nw_protocol_boringssl_signal_connected(void *a1)
     negotiated_ciphersuite_name = boringssl_session_get_negotiated_ciphersuite_name(*(v1 + 37));
     if ((v1[435] & 1) == 0)
     {
-      v7 = g_boringssl_log;
+      v5 = g_boringssl_log;
       if (g_boringssl_log)
       {
-        v8 = negotiated_ciphersuite_name;
+        v6 = negotiated_ciphersuite_name;
         if (os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_DEFAULT))
         {
-          v9 = negotiated_protocol;
-          v10 = *(v1 + 37);
-          if (v10 && v10->version == -1252936367 && (method = v10->method) != 0)
+          v7 = negotiated_protocol;
+          v8 = *(v1 + 37);
+          if (v8 && v8->version == -1252936367 && (method = v8->method) != 0)
           {
             v33 = (BYTE4(method[2].ssl_renegotiate) >> 4) & 1;
           }
@@ -9521,31 +7616,31 @@ void nw_protocol_boringssl_signal_connected(void *a1)
             v33 = 0;
           }
 
-          log = v7;
-          negotiated_protocol_version = boringssl_session_get_negotiated_protocol_version(v10);
-          if (v8)
+          log = v5;
+          negotiated_protocol_version = boringssl_session_get_negotiated_protocol_version(v8);
+          if (v6)
           {
-            v12 = v8;
+            v10 = v6;
           }
 
           else
           {
+            v10 = "nil";
+          }
+
+          v30 = v10;
+          negotiated_group_id = boringssl_session_get_negotiated_group_id(*(v1 + 37));
+          peer_signature_algorithm = boringssl_session_get_peer_signature_algorithm(*(v1 + 37));
+          v12 = v81;
+          if (!v7)
+          {
             v12 = "nil";
           }
 
-          v30 = v12;
-          negotiated_group_id = boringssl_session_get_negotiated_group_id(*(v1 + 37));
-          peer_signature_algorithm = boringssl_session_get_peer_signature_algorithm(*(v1 + 37));
-          v13 = v81;
-          if (!v9)
-          {
-            v13 = "nil";
-          }
-
-          v27 = v13;
-          v26 = boringssl_session_was_resumed(*(v1 + 37));
+          v27 = v12;
+          v26 = boringssl_session_was_resumed(*(v1 + 37), v11);
           ticket_offered = boringssl_session_get_ticket_offered(*(v1 + 37));
-          v24 = boringssl_session_in_early_data(*(v1 + 37));
+          v24 = boringssl_session_in_early_data(*(v1 + 37), v13);
           v23 = boringssl_session_early_data_accepted(*(v1 + 37));
           false_start_used = boringssl_session_get_false_start_used(*(v1 + 37));
           ocsp_response_received = boringssl_session_get_ocsp_response_received(*(v1 + 37));
@@ -9613,26 +7708,21 @@ void nw_protocol_boringssl_signal_connected(void *a1)
     nw_protocol_connected();
     v1[350] |= 2u;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void nw_protocol_boringssl_signal_connected_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_22(&datapath_logging_enabled);
+  OUTLINED_FUNCTION_22();
   if (v0 && g_boringssl_log && OUTLINED_FUNCTION_18_0())
   {
     OUTLINED_FUNCTION_5_0();
     OUTLINED_FUNCTION_0_2();
     OUTLINED_FUNCTION_10_0();
-    _os_log_debug_impl(v2, v3, v4, v5, v6, 0x26u);
+    _os_log_debug_impl(v1, v2, v3, v4, v5, 0x26u);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
-void *boringssl_session_get_negotiated_ciphersuite_name(uint64_t a1)
+void *boringssl_session_get_negotiated_ciphersuite_name(SSL_CIPHER *a1)
 {
   negotiated_ciphersuite = boringssl_session_get_negotiated_ciphersuite(a1);
   result = SSL_get_cipher_by_value(negotiated_ciphersuite);
@@ -9674,4 +7764,1913 @@ uint64_t boringssl_session_get_false_start_used(uint64_t result)
   }
 
   return result;
+}
+
+uint64_t boringssl_session_get_handshake_flight_time_ms(uint64_t result)
+{
+  if (result)
+  {
+    if (*result == -1252936367 && (v1 = *(result + 8)) != 0)
+    {
+      return *(v1 + 440);
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t nw_protocol_boringssl_waiting_for_output(uint64_t a1)
+{
+  if (!a1)
+  {
+    return 0;
+  }
+
+  v1 = nw_protocol_downcast();
+  if (!v1)
+  {
+    return 0;
+  }
+
+  v3 = v1;
+  if ((*(v1 + 435) & 1) == 0)
+  {
+    nw_protocol_boringssl_waiting_for_output_cold_1();
+  }
+
+  if (boringssl_session_in_early_data(*(v3 + 296), v2))
+  {
+    v4 = boringssl_session_get_state(*(v3 + 296)) < 2;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  if ((*(v3 + 435) & 1) == 0)
+  {
+    nw_protocol_boringssl_waiting_for_output_cold_2(v3, v4, &v6);
+    return v6;
+  }
+
+  return v4;
+}
+
+void nw_protocol_boringssl_waiting_for_output_cold_1()
+{
+  OUTLINED_FUNCTION_22();
+  if (v0 && g_boringssl_log && OUTLINED_FUNCTION_18_0())
+  {
+    OUTLINED_FUNCTION_5_0();
+    OUTLINED_FUNCTION_0_2();
+    OUTLINED_FUNCTION_10_0();
+    _os_log_debug_impl(v1, v2, v3, v4, v5, 0x26u);
+  }
+}
+
+void nw_protocol_boringssl_waiting_for_output_cold_2(uint64_t a1, char a2, _BYTE *a3)
+{
+  if (g_boringssl_log)
+  {
+    v5 = OUTLINED_FUNCTION_34();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    {
+      OUTLINED_FUNCTION_13_0();
+      OUTLINED_FUNCTION_28();
+      _os_log_debug_impl(v6, v7, v8, v9, v10, 0x30u);
+    }
+  }
+
+  *a3 = a2 & 1;
+}
+
+uint64_t __boringssl_config_get_whitelisted_bundle_identifier_block_invoke()
+{
+  getpid();
+  result = csops();
+  if (result == -1 && (result = __error(), *result == 34) && (v1 = bswap32(0xAAAAAAAA), (v1 - 1025) >= 0xFFFFFC07) && (getpid(), result = csops(), !result))
+  {
+    csops_identifier_data_csops_data[v1] = 0;
+    if ((qword_1ED4C050C != 0x6C7070612E6D6F63 || word_1ED4C0514 != 11877) && (qword_1ED4C050C != 0x7365745F6C737362 || word_1ED4C0514 != 116))
+    {
+      v5 = 0;
+      v2 = "redacted_bundle_id";
+      while (1)
+      {
+        result = strcmp(top_bundles[v5], &qword_1ED4C050C);
+        if (!result)
+        {
+          break;
+        }
+
+        if (++v5 == 251)
+        {
+          goto LABEL_6;
+        }
+      }
+    }
+
+    result = strdup(&qword_1ED4C050C);
+    v2 = result;
+  }
+
+  else
+  {
+    v2 = "no_bundle_id";
+  }
+
+LABEL_6:
+  global_bundle_identifier = v2;
+  return result;
+}
+
+uint64_t SSL_process_quic_post_handshake(void *a1)
+{
+  *(a1[6] + 196) = 0;
+  ERR_clear_error();
+  ERR_clear_system_error();
+  v2 = a1[6];
+  v3 = *(v2 + 280);
+  if (!v3 || (*(v3 + 1600) & 8) != 0)
+  {
+    if (*(v2 + 172) == 2)
+    {
+      ERR_restore_state(*(v2 + 184));
+    }
+
+    else
+    {
+      v10 = 0xAAAAAAAAAAAAAAAALL;
+      *&v4 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v9[0] = v4;
+      v9[1] = v4;
+      if (!(*(*a1 + 24))(a1, v9))
+      {
+        return 1;
+      }
+
+      while (ssl_do_post_handshake(a1, v9, v5))
+      {
+        (*(*a1 + 32))(a1);
+        if (((*(*a1 + 24))(a1, v9) & 1) == 0)
+        {
+          return 1;
+        }
+      }
+
+      v7 = a1[6];
+      *(v7 + 172) = 2;
+      v8 = ERR_save_state();
+      std::unique_ptr<err_save_state_st,bssl::internal::Deleter>::reset[abi:ne200100]((v7 + 184), v8);
+    }
+  }
+
+  else
+  {
+    ERR_put_error(16, 0, 66, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/ssl_lib.cc", 1193);
+  }
+
+  return 0;
+}
+
+uint64_t ssl_do_post_handshake(uint64_t a1, uint64_t a2, unsigned __int16 a3)
+{
+  if (bssl::ssl_protocol_version(a1, a2, a3) >= 0x304)
+  {
+    return bssl::tls13_post_handshake(a1, a2, v5, v6);
+  }
+
+  if (*(a1 + 180))
+  {
+    ERR_put_error(16, 0, 182, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/ssl_lib.cc", 1161);
+  }
+
+  else
+  {
+    if (*(a2 + 1) || *(a2 + 16))
+    {
+      bssl::ssl_send_alert(a1, 2, 50);
+      ERR_put_error(16, 0, 110, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/ssl_lib.cc", 1168);
+      return 0;
+    }
+
+    if (*(a1 + 176) == 3)
+    {
+      return 1;
+    }
+
+    *(*(a1 + 48) + 222) |= 0x800u;
+    if (*(a1 + 176) == 4 || SSL_renegotiate(a1))
+    {
+      return 1;
+    }
+  }
+
+  bssl::ssl_send_alert(a1, 2, 100);
+  return 0;
+}
+
+uint64_t bssl::tls13_post_handshake(bssl *this, uint64_t a2, uint64_t a3, int a4)
+{
+  v5 = *(a2 + 1);
+  v6 = *(this + 6);
+  if (v5 == 24)
+  {
+    v7 = *(v6 + 214) + 1;
+    *(v6 + 214) = v7;
+    if (*(this + 21) || v7 >= 0x21u)
+    {
+      ERR_put_error(16, 0, 260, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/tls13_both.cc", 920);
+      v9 = this;
+      v10 = 10;
+    }
+
+    else
+    {
+      v12 = *(a2 + 8);
+      v11 = -86;
+      if (CBS_get_u8(&v12, &v11) && !*(&v12 + 1) && v11 < 2u)
+      {
+        result = bssl::tls13_rotate_traffic_key(this, 0);
+        if (result)
+        {
+          if (v11 != 1)
+          {
+            return 1;
+          }
+
+          if ((*(*(this + 6) + 222) & 0x100) != 0)
+          {
+            return 1;
+          }
+
+          result = bssl::tls13_add_key_update(this, 0);
+          if (result)
+          {
+            return 1;
+          }
+        }
+
+        return result;
+      }
+
+      ERR_put_error(16, 0, 137, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/tls13_both.cc", 896);
+      v9 = this;
+      v10 = 50;
+    }
+
+    bssl::ssl_send_alert(v9, 2, v10);
+    return 0;
+  }
+
+  *(v6 + 214) = 0;
+  if (v5 != 4 || (*(this + 180) & 1) != 0)
+  {
+    bssl::ssl_send_alert(this, 2, 10);
+    ERR_put_error(16, 0, 223, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/tls13_both.cc", 935);
+    return 0;
+  }
+
+  return bssl::tls13_process_new_session_ticket(this, a2);
+}
+
+void bssl::tls13_create_session_with_ticket(bssl *a1@<X0>, uint64_t *a2@<X1>, ssl_st **a3@<X8>)
+{
+  v28[1] = *MEMORY[0x1E69E9840];
+  v27 = 0xAAAAAAAAAAAAAAAALL;
+  bssl::SSL_SESSION_dup(&v27, *(*(a1 + 6) + 472), 2);
+  if (!v27)
+  {
+    *a3 = 0;
+    return;
+  }
+
+  bssl::ssl_session_rebase_time(a1, v27, v6);
+  v26 = -1431655766;
+  memset(v25, 170, sizeof(v25));
+  *&v24 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v24 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  if (!CBS_get_u32(a2, &v26))
+  {
+    goto LABEL_12;
+  }
+
+  if (!CBS_get_u32(a2, &v27->ex_data.dummy))
+  {
+    goto LABEL_12;
+  }
+
+  if (!CBS_get_u8_length_prefixed(a2, &v25[2]))
+  {
+    goto LABEL_12;
+  }
+
+  if (!CBS_get_u16_length_prefixed(a2, v25))
+  {
+    goto LABEL_12;
+  }
+
+  v7 = v27;
+  v9 = v25[0];
+  v8 = v25[1];
+  if (!bssl::Array<unsigned char>::InitUninitialized(&v27->write_hash, v25[1]))
+  {
+    goto LABEL_12;
+  }
+
+  if (v8)
+  {
+    write_hash = v7->write_hash;
+    do
+    {
+      v11 = *v9++;
+      LOBYTE(write_hash->type) = v11;
+      write_hash = (write_hash + 1);
+      --v8;
+    }
+
+    while (v8);
+  }
+
+  if (!CBS_get_u16_length_prefixed(a2, &v24) || a2[1])
+  {
+LABEL_12:
+    bssl::ssl_send_alert(a1, 2, 50);
+    ERR_put_error(16, 0, 137, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/tls13_client.cc", 1216);
+LABEL_13:
+    *a3 = 0;
+    goto LABEL_14;
+  }
+
+  v13 = v27;
+  if (LODWORD(v27->cipher_list) > v26)
+  {
+    LODWORD(v27->cipher_list) = v26;
+  }
+
+  v14 = v25[2];
+  v15 = v25[3];
+  v16 = SSL_is_dtls(a1) != 0;
+  if (!bssl::tls13_derive_session_psk(v13, v14, v15, v16))
+  {
+    goto LABEL_13;
+  }
+
+  v21[1] = -1431655766;
+  v22 = 0;
+  v21[0] = 65578;
+  v23 = 0;
+  v20 = 50;
+  v28[0] = v21;
+  if ((bssl::ssl_parse_extensions(&v24, &v20, v28, 1, 1) & 1) == 0)
+  {
+    bssl::ssl_send_alert(a1, 2, v20);
+LABEL_32:
+    v19 = 0;
+    goto LABEL_33;
+  }
+
+  v17 = v27;
+  if (HIBYTE(v21[0]) == 1)
+  {
+    if (!CBS_get_u32(&v22, &v27->ex_data.dummy + 1) || v23)
+    {
+      bssl::ssl_send_alert(a1, 2, 50);
+      v18 = 1243;
+      goto LABEL_31;
+    }
+
+    v17 = v27;
+    if (*(a1 + 21) && *(&v27->ex_data.dummy + 1) != -1)
+    {
+      bssl::ssl_send_alert(a1, 2, 47);
+      v18 = 1252;
+LABEL_31:
+      ERR_put_error(16, 0, 137, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/tls13_client.cc", v18);
+      goto LABEL_32;
+    }
+  }
+
+  BYTE3(v17->init_msg) = 32;
+  SHA256(v25[0], v25[1], &v17->server + 3);
+  v19 = v27;
+  LOBYTE(v27->tlsext_debug_arg) = v27->tlsext_debug_arg & 0xF3 | 8;
+  v27 = 0;
+LABEL_33:
+  *a3 = v19;
+LABEL_14:
+  v12 = v27;
+  v27 = 0;
+  if (v12)
+  {
+    SSL_SESSION_free(v12);
+  }
+}
+
+BOOL bssl::tls13_process_new_session_ticket(bssl *a1, uint64_t a2)
+{
+  if (*(*(a1 + 6) + 176))
+  {
+    return 1;
+  }
+
+  v9 = *(a2 + 8);
+  ses = 0xAAAAAAAAAAAAAAAALL;
+  bssl::tls13_create_session_with_ticket(a1, &v9, &ses);
+  v4 = ses;
+  v2 = ses != 0;
+  if (ses)
+  {
+    v5 = *(a1 + 16);
+    if ((*(v5 + 300) & 1) == 0 || (v6 = *(v5 + 312)) == 0 || !v6(a1, ses))
+    {
+      ses = 0;
+      SSL_SESSION_free(v4);
+    }
+  }
+
+  return v2;
+}
+
+void sub_1A9037220(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<ssl_session_st,bssl::internal::Deleter>::reset[abi:ne200100](va, 0);
+  _Unwind_Resume(a1);
+}
+
+int8x8_t bssl::ssl_session_rebase_time(bssl *this, ssl_st *a2, ssl_session_st *a3)
+{
+  v11[0] = 0xAAAAAAAAAAAAAAAALL;
+  v11[1] = 0xAAAAAAAAAAAAAAAALL;
+  bssl::ssl_get_current_time(this, v11);
+  cipher_list_by_id = a2->cipher_list_by_id;
+  v6 = v11[0];
+  v7 = v11[0] >= cipher_list_by_id;
+  v8 = v11[0] - cipher_list_by_id;
+  if (v7)
+  {
+    a2->cipher_list_by_id = v11[0];
+    cipher_list = a2->cipher_list;
+    v10.i64[0] = cipher_list;
+    v10.i64[1] = HIDWORD(cipher_list);
+    result = vbic_s8(vsub_s32(cipher_list, vdup_n_s32(v8)), vmovn_s64(vcgtq_u64(vdupq_n_s64(v8), v10)));
+    a2->cipher_list = result;
+  }
+
+  else
+  {
+    a2->cipher_list = 0;
+    a2->cipher_list_by_id = v6;
+  }
+
+  return result;
+}
+
+BOOL bssl::tls13_derive_session_psk(bssl *a1, const ssl_session_st *a2, size_t a3, char a4)
+{
+  digest = bssl::ssl_session_get_digest(a1, a2);
+  v9 = *(a1 + 58);
+  if (EVP_MD_size(digest) != v9)
+  {
+    bssl::tls13_derive_session_psk();
+  }
+
+  return bssl::hkdf_expand_label(a1 + 10, *(a1 + 58), digest, a1 + 10, *(a1 + 58), "resumption", 0xAuLL, v10, a2, a3, a4);
+}
+
+uint64_t bssl::ssl_get_finished(bssl *this, bssl::SSL_HANDSHAKE *a2)
+{
+  v29 = *MEMORY[0x1E69E9840];
+  v3 = *this;
+  v24 = 0xAAAAAAAAAAAAAAAALL;
+  *&v4 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v22 = v4;
+  v23 = v4;
+  if (!(*(*v3 + 24))(v3, &v22))
+  {
+    return 3;
+  }
+
+  result = bssl::ssl_check_message_type(v3, &v22, 20, v5);
+  if (result)
+  {
+    *&v7 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v27 = v7;
+    v28 = v7;
+    *v25 = v7;
+    v26 = v7;
+    v21 = 0xAAAAAAAAAAAAAAAALL;
+    v8 = *(this + 192);
+    if (!v8)
+    {
+      v8 = *(*this + 104);
+    }
+
+    result = bssl::SSLTranscript::GetFinishedMAC((this + 424), v25, &v21, v8, (*(v3 + 180) & 1) == 0);
+    if (result)
+    {
+      if ((v22 & 1) != 0 || (result = bssl::SSLTranscript::Update(this + 424, *(&v23 + 1), v24), result))
+      {
+        if (!CBS_mem_equal(&v22 + 8, v25, v21))
+        {
+          bssl::ssl_send_alert(v3, 2, 51);
+          v10 = 142;
+          v11 = 501;
+          goto LABEL_25;
+        }
+
+        v9 = v21;
+        if (v21 >= 0xD)
+        {
+          v10 = 68;
+          v11 = 508;
+LABEL_25:
+          ERR_put_error(16, 0, v10, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/handshake.cc", v11);
+          return 0;
+        }
+
+        v12 = *(v3 + 48);
+        if (*(v3 + 180))
+        {
+          v12[455] = 0;
+          if (v9)
+          {
+            v13 = v12 + 443;
+            v14 = v25;
+            v15 = v9;
+            do
+            {
+              v16 = *v14++;
+              *v13++ = v16;
+              --v15;
+            }
+
+            while (v15);
+          }
+
+          v12[455] = v9;
+        }
+
+        else
+        {
+          v12[468] = 0;
+          if (v9)
+          {
+            v17 = v12 + 456;
+            v18 = v25;
+            v19 = v9;
+            do
+            {
+              v20 = *v18++;
+              *v17++ = v20;
+              --v19;
+            }
+
+            while (v19);
+          }
+
+          v12[468] = v9;
+        }
+
+        if ((*(*v3 + 40))(v3))
+        {
+          bssl::ssl_send_alert(v3, 2, 10);
+          v10 = 255;
+          v11 = 523;
+          goto LABEL_25;
+        }
+
+        (*(*v3 + 32))(v3);
+        return 1;
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t BCM_sha256_update(uint64_t a1, int8x16_t *__src, size_t __n)
+{
+  if (__n)
+  {
+    v3 = __n;
+    v4 = __src;
+    v6 = a1 + 40;
+    v7 = *(a1 + 32) + 8 * __n;
+    *(a1 + 32) = v7;
+    v8 = *(a1 + 104);
+    if (v8)
+    {
+      if (__n <= 0x3F && v8 + __n < 0x40)
+      {
+        memcpy((v6 + v8), __src, __n);
+        *(a1 + 104) += v3;
+        return 0;
+      }
+
+      v9 = 64 - v8;
+      if (v8 != 64)
+      {
+        memcpy((v6 + v8), __src, 64 - v8);
+      }
+
+      sha256_block_data_order(a1, v6, 1);
+      v4 = (v4 + v9);
+      v3 -= v9;
+      *(a1 + 104) = 0;
+      *v6 = 0u;
+      *(v6 + 16) = 0u;
+      *(v6 + 32) = 0u;
+      *(v6 + 48) = 0u;
+    }
+
+    if (v3 >= 0x40)
+    {
+      sha256_block_data_order(a1, v4, v3 >> 6);
+      v4 = (v4 + (v3 & 0xFFFFFFFFFFFFFFC0));
+      v3 &= 0x3Fu;
+    }
+
+    if (v3)
+    {
+      *(a1 + 104) = v3;
+      memcpy(v6, v4, v3);
+    }
+  }
+
+  return 0;
+}
+
+unsigned __int8 *__cdecl SHA256(const unsigned __int8 *d, size_t n, unsigned __int8 *md)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  *&v6 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v8[5] = v6;
+  v8[6] = v6;
+  v8[3] = v6;
+  v8[4] = v6;
+  v8[1] = v6;
+  v8[2] = v6;
+  v8[0] = v6;
+  BCM_sha256_init(v8);
+  BCM_sha256_update(v8, d, n);
+  BCM_sha256_final(md, v8);
+  OPENSSL_cleanse(v8, 0x70uLL);
+  return md;
+}
+
+_DWORD *sha256_block_data_order(_DWORD *result, int8x16_t *a2, uint64_t a3)
+{
+  v211 = result;
+  v223 = *MEMORY[0x1E69E9840];
+  if (a3)
+  {
+    v3 = *result;
+    v4 = result[1];
+    v6 = result[2];
+    v5 = result[3];
+    v8 = result[4];
+    v7 = result[5];
+    v9 = result[6];
+    v10 = result[7];
+    do
+    {
+      v221 = a3;
+      HIDWORD(v11) = v8;
+      LODWORD(v11) = v8;
+      v12 = (v11 >> 6) ^ __ROR4__(v8, 11);
+      v13 = __PAIR64__(v3, __ROR4__(v8, 25));
+      v212 = v10;
+      v213 = v9;
+      v14 = vrev32q_s8(*a2);
+      v15 = v10 + (v9 & ~v8 | v8 & v7) + (v12 ^ v13) + v14.i32[0];
+      LODWORD(v13) = v3;
+      v15 += 1116352408;
+      v216 = v5;
+      v16 = v15 + v5;
+      v17 = ((v13 >> 2) ^ __ROR4__(v3, 13) ^ __ROR4__(v3, 22)) + ((v4 ^ v6) & v3 ^ v4 & v6) + v15;
+      HIDWORD(v13) = v15 + v5;
+      LODWORD(v13) = v15 + v5;
+      v18 = (v13 >> 6) ^ __ROR4__(v15 + v5, 11);
+      v19 = __PAIR64__(v17, __ROR4__(v16, 25));
+      v214 = v7;
+      v20 = v9 + v14.i32[1] + (v16 & v8 | v7 & ~v16) + 1899447441 + (v18 ^ v19);
+      LODWORD(v19) = v17;
+      v217 = v6;
+      v21 = v20 + v6;
+      v22 = ((v19 >> 2) ^ __ROR4__(v17, 13) ^ __ROR4__(v17, 22)) + (v17 & (v3 ^ v4) ^ v3 & v4) + v20;
+      HIDWORD(v19) = v20 + v6;
+      LODWORD(v19) = v20 + v6;
+      v23 = (v19 >> 6) ^ __ROR4__(v20 + v6, 11);
+      v24 = __PAIR64__(v22, __ROR4__(v21, 25));
+      v25 = v7 + v14.i32[2] + (v21 & v16 | v8 & ~v21) - 1245643825 + (v23 ^ v24);
+      LODWORD(v24) = v22;
+      v218 = v4;
+      v26 = v25 + v4;
+      v27 = ((v24 >> 2) ^ __ROR4__(v22, 13) ^ __ROR4__(v22, 22)) + (v22 & (v17 ^ v3) ^ v17 & v3) + v25;
+      HIDWORD(v24) = v26;
+      LODWORD(v24) = v26;
+      v28 = (v24 >> 6) ^ __ROR4__(v26, 11);
+      v29 = __PAIR64__(v27, __ROR4__(v26, 25));
+      v215 = v8;
+      v30 = v8 + v14.i32[3] + (v26 & v21 | v16 & ~v26) - 373957723 + (v28 ^ v29);
+      LODWORD(v29) = v27;
+      v219 = v3;
+      v31 = v30 + v3;
+      v32 = ((v29 >> 2) ^ __ROR4__(v27, 13) ^ __ROR4__(v27, 22)) + (v27 & (v22 ^ v17) ^ v22 & v17) + v30;
+      v33 = vrev32q_s8(a2[1]);
+      HIDWORD(v29) = v32;
+      LODWORD(v29) = v32;
+      v34 = (v29 >> 2) ^ __ROR4__(v32, 13);
+      v35 = __PAIR64__(v31, __ROR4__(v32, 22));
+      v36 = (v34 ^ v35) + (v32 & (v27 ^ v22) ^ v27 & v22);
+      v37 = v21 + v33.i32[1];
+      LODWORD(v35) = v31;
+      v38 = v16 + v33.i32[0] + (v31 & v26 | v21 & ~v31) + 961987163 + ((v35 >> 6) ^ __ROR4__(v31, 11) ^ __ROR4__(v31, 25));
+      v39 = v38 + v17;
+      v40 = v36 + v38;
+      HIDWORD(v35) = v39;
+      LODWORD(v35) = v39;
+      v41 = (v35 >> 6) ^ __ROR4__(v39, 11);
+      v42 = __PAIR64__(v40, __ROR4__(v39, 25));
+      v43 = v37 + (v39 & v31 | v26 & ~v39) + 1508970993 + (v41 ^ v42);
+      LODWORD(v42) = v40;
+      v44 = v43 + v22;
+      v45 = ((v42 >> 2) ^ __ROR4__(v40, 13) ^ __ROR4__(v40, 22)) + (v40 & (v32 ^ v27) ^ v32 & v27) + v43;
+      HIDWORD(v42) = v44;
+      LODWORD(v42) = v44;
+      v46 = (v42 >> 6) ^ __ROR4__(v44, 11);
+      v47 = __PAIR64__(v45, __ROR4__(v44, 25));
+      v48 = v33.i32[2] + v26 + (v44 & v39 | v31 & ~v44) - 1841331548 + (v46 ^ v47);
+      LODWORD(v47) = v45;
+      v49 = v48 + v27;
+      v50 = ((v47 >> 2) ^ __ROR4__(v45, 13) ^ __ROR4__(v45, 22)) + (v45 & (v40 ^ v32) ^ v40 & v32) + v48;
+      HIDWORD(v47) = v49;
+      LODWORD(v47) = v49;
+      v51 = (v47 >> 6) ^ __ROR4__(v49, 11);
+      v52 = __PAIR64__(v50, __ROR4__(v49, 25));
+      v53 = v33.i32[3] + v31 + (v49 & v44 | v39 & ~v49) - 1424204075 + (v51 ^ v52);
+      LODWORD(v52) = v50;
+      v54 = v53 + v32;
+      v55 = ((v52 >> 2) ^ __ROR4__(v50, 13) ^ __ROR4__(v50, 22)) + (v50 & (v45 ^ v40) ^ v45 & v40) + v53;
+      HIDWORD(v52) = v55;
+      LODWORD(v52) = v55;
+      v56 = (v52 >> 2) ^ __ROR4__(v55, 13);
+      v57 = __PAIR64__(v54, __ROR4__(v55, 22));
+      v58 = (v56 ^ v57) + (v55 & (v50 ^ v45) ^ v50 & v45);
+      v59 = a2[3];
+      v220 = a2;
+      v60 = vrev32q_s8(a2[2]);
+      LODWORD(v57) = v54;
+      v61 = v60.i32[0] + v39 + (v54 & v49 | v44 & ~v54) - 670586216 + ((v57 >> 6) ^ __ROR4__(v54, 11) ^ __ROR4__(v54, 25));
+      v62 = v61 + v40;
+      v63 = v58 + v61;
+      v64 = v60.i32[1] + v44 + ((v61 + v40) & v54 | v49 & ~(v61 + v40));
+      HIDWORD(v57) = v62;
+      LODWORD(v57) = v62;
+      v65 = (v57 >> 6) ^ __ROR4__(v62, 11);
+      v66 = __PAIR64__(v63, __ROR4__(v62, 25));
+      v67 = v64 + 310598401 + (v65 ^ v66);
+      LODWORD(v66) = v63;
+      v68 = v67 + v45;
+      v69 = ((v66 >> 2) ^ __ROR4__(v63, 13) ^ __ROR4__(v63, 22)) + (v63 & (v55 ^ v50) ^ v55 & v50) + v67;
+      HIDWORD(v66) = v68;
+      LODWORD(v66) = v68;
+      v70 = (v66 >> 6) ^ __ROR4__(v68, 11);
+      v71 = __PAIR64__(v69, __ROR4__(v68, 25));
+      v72 = v60.i32[2] + v49 + (v68 & v62 | v54 & ~v68) + 607225278 + (v70 ^ v71);
+      LODWORD(v71) = v69;
+      v73 = v72 + v50;
+      v74 = ((v71 >> 2) ^ __ROR4__(v69, 13) ^ __ROR4__(v69, 22)) + (v69 & (v63 ^ v55) ^ v63 & v55) + v72;
+      HIDWORD(v71) = v73;
+      LODWORD(v71) = v73;
+      v75 = (v71 >> 6) ^ __ROR4__(v73, 11);
+      v76 = __PAIR64__(v74, __ROR4__(v73, 25));
+      v77 = v60.i32[3] + v54 + (v73 & v68 | v62 & ~v73) + 1426881987 + (v75 ^ v76);
+      LODWORD(v76) = v74;
+      v78 = ((v76 >> 2) ^ __ROR4__(v74, 13) ^ __ROR4__(v74, 22)) + (v74 & (v69 ^ v63) ^ v69 & v63);
+      v79 = v77 + v55;
+      v80 = v78 + v77;
+      HIDWORD(v76) = v78 + v77;
+      LODWORD(v76) = v78 + v77;
+      v81 = (v76 >> 2) ^ __ROR4__(v78 + v77, 13);
+      v82 = __PAIR64__(v79, __ROR4__(v78 + v77, 22));
+      v83 = (v81 ^ v82) + ((v78 + v77) & (v74 ^ v69) ^ v74 & v69);
+      v84 = vrev32q_s8(v59);
+      LODWORD(v82) = v79;
+      v85 = v84.i32[0] + v62 + (v79 & v73 | v68 & ~v79) + 1925078388 + ((v82 >> 6) ^ __ROR4__(v79, 11) ^ __ROR4__(v79, 25));
+      v86 = v85 + v63;
+      v87 = v83 + v85;
+      v88 = v84.i32[1] + v68 + (v86 & v79 | v73 & ~v86);
+      HIDWORD(v82) = v86;
+      LODWORD(v82) = v86;
+      v89 = (v82 >> 6) ^ __ROR4__(v86, 11);
+      v90 = __PAIR64__(v87, __ROR4__(v86, 25));
+      v91 = v88 - 2132889090 + (v89 ^ v90);
+      LODWORD(v90) = v87;
+      v92 = v91 + v69;
+      v93 = ((v90 >> 2) ^ __ROR4__(v87, 13) ^ __ROR4__(v87, 22)) + (v87 & (v80 ^ v74) ^ v80 & v74) + v91;
+      v222[0] = v14;
+      v222[1] = v33;
+      v222[2] = v60;
+      v222[3] = v84;
+      HIDWORD(v90) = v92;
+      LODWORD(v90) = v92;
+      v94 = (v90 >> 6) ^ __ROR4__(v92, 11);
+      v95 = __PAIR64__(v93, __ROR4__(v92, 25));
+      v96 = v84.i32[2] + v73 + (v92 & v86 | v79 & ~v92) - 1680079193 + (v94 ^ v95);
+      LODWORD(v95) = v93;
+      v97 = v96 + v74;
+      v98 = ((v95 >> 2) ^ __ROR4__(v93, 13) ^ __ROR4__(v93, 22)) + (v93 & (v87 ^ v80) ^ v87 & v80) + v96;
+      HIDWORD(v95) = v97;
+      LODWORD(v95) = v96 + v74;
+      v99 = v84.i32[3] + v79 + (v97 & v92 | v86 & ~v97) - 1046744716 + ((v95 >> 6) ^ __ROR4__(v97, 11) ^ __ROR4__(v97, 25));
+      HIDWORD(v95) = v98;
+      LODWORD(v95) = v98;
+      v100 = v99 + v80;
+      v101 = ((v95 >> 2) ^ __ROR4__(v98, 13) ^ __ROR4__(v98, 22)) + (v98 & (v93 ^ v87) ^ v93 & v87) + v99;
+      v102 = &dword_1A90A994C;
+      v103 = 31;
+      do
+      {
+        v104 = v103 - 15;
+        v105 = (v103 - 14) & 9;
+        v106 = *(v222 + v105);
+        v107 = *(v222 + ((v103 - 1) & 0xE));
+        HIDWORD(v109) = v106;
+        LODWORD(v109) = v106;
+        v108 = v109 >> 7;
+        v111 = __PAIR64__(v107, __ROR4__(v106, 18));
+        v110 = v108 ^ v111;
+        LODWORD(v111) = v107;
+        v112 = v111 >> 17;
+        v114 = __PAIR64__(v100, __ROR4__(v107, 19));
+        v113 = v112 ^ v114;
+        v115 = (v103 - 15) & 8;
+        LODWORD(v114) = v100;
+        v116 = (v103 - 15) & 8;
+        v117 = (v110 ^ (v106 >> 3)) + *(v222 + ((v103 - 6) & 9)) + *(v222 + v115) + (v113 ^ (v107 >> 10));
+        v118 = (v114 >> 6) ^ __ROR4__(v100, 11);
+        v120 = __PAIR64__(v101, __ROR4__(v100, 25));
+        v119 = v118 ^ v120;
+        LODWORD(v120) = v101;
+        v121 = *(v102 - 6);
+        v122 = (v92 & ~v100 | v100 & v97) + v86 + *(v102 - 7) + v119;
+        *(v222 + v115) = v117;
+        v123 = ((v120 >> 2) ^ __ROR4__(v101, 13) ^ __ROR4__(v101, 22)) + ((v98 ^ v93) & v101 ^ v98 & v93);
+        v124 = v122 + v117;
+        v125 = v124 + v87;
+        HIDWORD(v120) = *(v222 + (v116 | 2u));
+        LODWORD(v120) = HIDWORD(v120);
+        v126 = v123 + v124;
+        v127 = *(v222 + (v103 & 0xF));
+        v128 = (v120 >> 7) ^ __ROR4__(HIDWORD(v120), 18) ^ (HIDWORD(v120) >> 3);
+        HIDWORD(v120) = v127;
+        LODWORD(v120) = v127;
+        v129 = v120 >> 17;
+        v130 = __PAIR64__(v125, __ROR4__(v127, 19));
+        v131 = *(v222 + ((v103 - 5) & 0xALL)) + v106 + (v129 ^ v130 ^ (v127 >> 10));
+        LODWORD(v130) = v125;
+        v132 = v131 + v128;
+        v133 = (v130 >> 6) ^ __ROR4__(v125, 11);
+        v135 = __PAIR64__(v126, __ROR4__(v125, 25));
+        v134 = v133 ^ v135;
+        LODWORD(v135) = v126;
+        *(v222 + v105) = v132;
+        v136 = v121 + v92 + (v125 & v100 | v97 & ~v125) + v132;
+        v137 = (v135 >> 2) ^ __ROR4__(v126, 13);
+        v138 = __PAIR64__(v117, __ROR4__(v126, 22));
+        v139 = v136 + v134;
+        v140 = (v137 ^ v138) + (v126 & (v101 ^ v98) ^ v101 & v98);
+        v141 = v139 + v93;
+        v142 = *(v222 + (v116 | 3u));
+        LODWORD(v138) = v117;
+        v143 = v138 >> 17;
+        HIDWORD(v138) = v142;
+        LODWORD(v138) = v142;
+        v144 = (v138 >> 7) ^ __ROR4__(v142, 18);
+        v145 = __PAIR64__(v141, __ROR4__(v117, 19));
+        v146 = v144 ^ (v142 >> 3);
+        v147 = (v103 - 13) & 0xALL;
+        v148 = v140 + v139;
+        v149 = *(v222 + ((v103 - 4) & 0xBLL)) + *(v222 + v147) + v146 + (v143 ^ v145 ^ (v117 >> 10));
+        LODWORD(v145) = v141;
+        v150 = (v145 >> 6) ^ __ROR4__(v141, 11);
+        v152 = __PAIR64__(v148, __ROR4__(v141, 25));
+        v151 = v150 ^ v152;
+        *(v222 + v147) = v149;
+        v153 = *(v102 - 4);
+        LODWORD(v152) = v148;
+        v154 = ((v152 >> 2) ^ __ROR4__(v148, 13) ^ __ROR4__(v148, 22)) + (v148 & (v126 ^ v101) ^ v126 & v101);
+        v155 = *(v222 + (v116 | 4u));
+        v156 = *(v102 - 5) + v97 + v149 + (v141 & v125 | v100 & ~v141) + v151;
+        HIDWORD(v152) = v155;
+        LODWORD(v152) = v155;
+        v157 = v152 >> 7;
+        v158 = *(v222 + (v116 | 1u));
+        v160 = __PAIR64__(v158, __ROR4__(v155, 18));
+        v159 = v157 ^ v160;
+        LODWORD(v160) = v158;
+        v161 = (v103 - 12) & 0xBLL;
+        LODWORD(v147) = (v160 >> 17) ^ __ROR4__(v158, 19) ^ (v158 >> 10);
+        v162 = v156 + v98;
+        v163 = (v159 ^ (v155 >> 3)) + *(v222 + ((v103 - 3) & 0xC)) + *(v222 + v161) + v147;
+        v164 = v154 + v156;
+        HIDWORD(v160) = v162;
+        LODWORD(v160) = v162;
+        v165 = (v160 >> 6) ^ __ROR4__(v162, 11);
+        v167 = __PAIR64__(v164, __ROR4__(v162, 25));
+        v166 = v165 ^ v167;
+        *(v222 + v161) = v163;
+        LODWORD(v167) = v164;
+        v168 = v153 + v100 + v163 + (v162 & v141 | v125 & ~v162) + v166;
+        v169 = ((v167 >> 2) ^ __ROR4__(v164, 13) ^ __ROR4__(v164, 22)) + (v164 & (v148 ^ v126) ^ v148 & v126);
+        v170 = v168 + v101;
+        v171 = *(v222 + (v116 | 5u));
+        HIDWORD(v167) = v171;
+        LODWORD(v167) = v171;
+        LODWORD(v161) = (v167 >> 7) ^ __ROR4__(v171, 18);
+        LODWORD(v115) = *(v222 + (v116 | 2u));
+        HIDWORD(v167) = v115;
+        LODWORD(v167) = v115;
+        v172 = v167 >> 17;
+        v173 = __PAIR64__(v170, __ROR4__(v115, 19));
+        v174 = (v103 - 11) & 0xC;
+        v175 = (v161 ^ (v171 >> 3)) + *(v222 + ((v103 - 2) & 0xDLL)) + *(v222 + v174) + (v172 ^ v173 ^ (v115 >> 10));
+        v176 = v169 + v168;
+        LODWORD(v173) = v170;
+        v177 = (v173 >> 6) ^ __ROR4__(v170, 11);
+        v179 = __PAIR64__(v176, __ROR4__(v170, 25));
+        v178 = v177 ^ v179;
+        *(v222 + v174) = v175;
+        LODWORD(v161) = *(v102 - 2);
+        LODWORD(v174) = *(v102 - 3) + v175 + v125;
+        LODWORD(v179) = v176;
+        v180 = ((v179 >> 2) ^ __ROR4__(v176, 13) ^ __ROR4__(v176, 22)) + (v176 & (v164 ^ v148) ^ v164 & v148);
+        v181 = v174 + (v170 & v162 | v141 & ~v170) + v178;
+        v86 = v181 + v126;
+        v182 = *(v222 + (v116 | 6u));
+        HIDWORD(v179) = v182;
+        LODWORD(v179) = v182;
+        LODWORD(v115) = v179 >> 7;
+        v183 = *(v222 + (v116 | 3u));
+        HIDWORD(v179) = v183;
+        LODWORD(v179) = v183;
+        v184 = v179 >> 17;
+        v185 = v115 ^ __ROR4__(v182, 18) ^ (v182 >> 3);
+        v186 = __PAIR64__(v181 + v126, __ROR4__(v183, 19));
+        LODWORD(v115) = v184 ^ v186;
+        v187 = (v103 - 10) & 0xDLL;
+        v87 = v180 + v181;
+        v188 = *(v222 + v187) + v107 + v185 + (v115 ^ (v183 >> 10));
+        LODWORD(v186) = v86;
+        v189 = (v186 >> 6) ^ __ROR4__(v86, 11);
+        v191 = __PAIR64__(v87, __ROR4__(v86, 25));
+        v190 = v189 ^ v191;
+        *(v222 + v187) = v188;
+        LODWORD(v191) = v87;
+        v192 = v161 + v188 + v141 + (v86 & v170 | v162 & ~v86) + v190;
+        v193 = ((v191 >> 2) ^ __ROR4__(v87, 13) ^ __ROR4__(v87, 22)) + (v87 & (v176 ^ v164) ^ v176 & v164);
+        LODWORD(v174) = *(v222 + (v116 | 7u));
+        v92 = v192 + v148;
+        HIDWORD(v191) = v174;
+        LODWORD(v191) = v174;
+        v194 = v191 >> 7;
+        LODWORD(v105) = *(v222 + (v116 | 4u));
+        v195 = __PAIR64__(v105, __ROR4__(v174, 18));
+        LODWORD(v174) = v194 ^ v195 ^ (v174 >> 3);
+        LODWORD(v195) = v105;
+        v196 = v195 >> 17;
+        v197 = __PAIR64__(v92, __ROR4__(v105, 19));
+        v198 = (v103 - 9) & 0xE;
+        LODWORD(v174) = *(v222 + v198) + v127 + v174 + (v196 ^ v197 ^ (v105 >> 10));
+        v93 = v193 + v192;
+        LODWORD(v197) = v92;
+        v199 = (v197 >> 6) ^ __ROR4__(v92, 11);
+        v201 = __PAIR64__(v93, __ROR4__(v92, 25));
+        v200 = v199 ^ v201;
+        *(v222 + v198) = v174;
+        LODWORD(v201) = v93;
+        v202 = *(v102 - 1) + v174 + v162 + (v92 & v86 | v170 & ~v92) + v200;
+        v97 = v202 + v164;
+        v98 = ((v201 >> 2) ^ __ROR4__(v93, 13) ^ __ROR4__(v93, 22)) + (v93 & (v87 ^ v176) ^ v87 & v176) + v202;
+        v203 = *(v222 + (v116 ^ 8u));
+        HIDWORD(v201) = v203;
+        LODWORD(v201) = v203;
+        LODWORD(v174) = v201 >> 7;
+        LODWORD(v161) = *(v222 + (v116 | 5u));
+        HIDWORD(v201) = v161;
+        LODWORD(v201) = v161;
+        LODWORD(v105) = v201 >> 17;
+        v204 = v174 ^ __ROR4__(v203, 18) ^ (v203 >> 3);
+        v205 = __PAIR64__(v97, __ROR4__(v161, 19));
+        v206 = (v103 - 8) & 0xF;
+        LODWORD(v174) = v105 ^ v205 ^ (v161 >> 10);
+        LODWORD(v205) = v97;
+        LODWORD(v161) = (v205 >> 6) ^ __ROR4__(v97, 11);
+        v207 = *(v222 + v206) + v204 + v117 + v174;
+        v208 = __PAIR64__(v98, __ROR4__(v97, 25));
+        LODWORD(v174) = v161 ^ v208;
+        result = (v86 & ~v97);
+        *(v222 + v206) = v207;
+        v209 = *v102;
+        v102 += 8;
+        LODWORD(v208) = v98;
+        v210 = v209 + v207 + v170 + (v97 & v92 | result) + v174;
+        v100 = v210 + v176;
+        v101 = ((v208 >> 2) ^ __ROR4__(v98, 13) ^ __ROR4__(v98, 22)) + (v98 & (v93 ^ v87) ^ v93 & v87) + v210;
+        v103 += 8;
+      }
+
+      while (v104 < 0x38);
+      a2 = v220 + 4;
+      v3 = v101 + v219;
+      v4 = v98 + v218;
+      *v211 = v101 + v219;
+      v211[1] = v98 + v218;
+      v6 = v93 + v217;
+      v5 = v87 + v216;
+      v211[2] = v93 + v217;
+      v211[3] = v87 + v216;
+      v8 = v100 + v215;
+      v7 = v97 + v214;
+      v211[4] = v100 + v215;
+      v211[5] = v97 + v214;
+      v9 = v92 + v213;
+      v10 = v86 + v212;
+      v211[6] = v92 + v213;
+      v211[7] = v86 + v212;
+      a3 = v221 - 1;
+    }
+
+    while (v221 != 1);
+  }
+
+  return result;
+}
+
+uint64_t BCM_sha256_init(uint64_t a1)
+{
+  *(a1 + 80) = 0u;
+  *(a1 + 96) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 64) = 0u;
+  *a1 = xmmword_1A90A98D0;
+  *(a1 + 16) = xmmword_1A90A98E0;
+  *(a1 + 32) = 0u;
+  *(a1 + 108) = 32;
+  return 0;
+}
+
+_DWORD *sha256_final_impl(_DWORD *a1, unint64_t a2, uint64_t a3)
+{
+  v3 = *(a3 + 104);
+  if (v3 >= 0x40)
+  {
+    sha256_final_impl_cold_2();
+  }
+
+  v4 = a3;
+  v7 = a3 + 40;
+  v8 = *(a3 + 32);
+  *(a3 + 40 + v3) = 0x80;
+  v9 = v3 + 1;
+  if (v3 < 0x38)
+  {
+    if (v3 == 55)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+    if (v3 != 63)
+    {
+      bzero((v7 + v9), 63 - v3);
+    }
+
+    sha256_block_data_order(v4, v7, 1);
+    v9 = 0;
+  }
+
+  bzero((v7 + v9), 56 - v9);
+LABEL_8:
+  v4[12] = vrev64_s32(vrev32_s8(v8));
+  result = sha256_block_data_order(v4, v7, 1);
+  v4[13].i32[0] = 0;
+  *v7 = 0u;
+  *(v7 + 16) = 0u;
+  *(v7 + 32) = 0u;
+  *(v7 + 48) = 0u;
+  if (a2 >= 0x21)
+  {
+    abort();
+  }
+
+  if ((a2 & 3) != 0)
+  {
+    sha256_final_impl_cold_1();
+  }
+
+  if (a2)
+  {
+    v11 = a2 >> 2;
+    do
+    {
+      v12 = v4->i32[0];
+      v4 = (v4 + 4);
+      *a1++ = bswap32(v12);
+      --v11;
+    }
+
+    while (v11);
+  }
+
+  return result;
+}
+
+uint64_t boringssl_context_new_session_handler(SSL *a1, uint64_t a2)
+{
+  v84 = *MEMORY[0x1E69E9840];
+  if (a1)
+  {
+    if (a2)
+    {
+      v4 = a1;
+      v5 = SSL_get_ex_data(a1, 0);
+      if (v5)
+      {
+        v6 = v5;
+        if (v5->version == -1252936367)
+        {
+          method = v5->method;
+          if (method)
+          {
+            WeakRetained = objc_loadWeakRetained(&method->ssl_clear);
+            if (!WeakRetained || (v9 = WeakRetained, v10 = objc_loadWeakRetained(&method->ssl_clear), v11 = v10[435], v10, v9, (v11 & 1) == 0))
+            {
+              v12 = objc_loadWeakRetained(&method->ssl_clear);
+              if (v12)
+              {
+                v13 = objc_loadWeakRetained(&method->ssl_clear);
+                v14 = (v13[435] & 1) == 0;
+              }
+
+              else
+              {
+                v14 = 1;
+              }
+
+              if (v14)
+              {
+                if (g_boringssl_log)
+                {
+                  v15 = g_boringssl_log;
+                  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+                  {
+                    v16 = objc_loadWeakRetained(&method->ssl_clear);
+                    if (v16)
+                    {
+                      v2 = objc_loadWeakRetained(&method->ssl_clear);
+                      v17 = (v2 + 351);
+                    }
+
+                    else
+                    {
+                      v17 = &unk_1A9098A9F;
+                    }
+
+                    v18 = objc_loadWeakRetained(&method->ssl_clear);
+                    *buf = 136446978;
+                    v77 = "boringssl_context_new_session_handler";
+                    v78 = 1024;
+                    v79 = 1497;
+                    v80 = 2082;
+                    v81 = v17;
+                    v82 = 2048;
+                    v83 = v18;
+                    _os_log_impl(&dword_1A8FF5000, v15, OS_LOG_TYPE_INFO, "%{public}s(%d) %{public}s[%p] New session available", buf, 0x26u);
+
+                    if (v16)
+                    {
+                    }
+                  }
+                }
+              }
+            }
+
+            v19 = boringssl_session_state_create(a2, &method->ssl_callback_ctrl);
+            if (v19)
+            {
+              objc_storeStrong(&method[1].put_cipher_by_char, v19);
+              boringssl_session_update_metadata(v6, a2);
+              if (method->ssl_pending)
+              {
+                v20 = method;
+                v21 = nw_protocol_boringssl_copy_definition(v20);
+                v22 = MEMORY[0x1AC57F130]();
+
+                v71 = MEMORY[0x1E69E9820];
+                v72 = 3221225472;
+                v73 = __boringssl_context_new_session_handler_block_invoke;
+                v74 = &unk_1E7869750;
+                v23 = v22;
+                v75 = v23;
+                nw_protocol_metadata_access_handle();
+                v24 = objc_loadWeakRetained(&method->ssl_clear);
+                if (!v24 || (v25 = v24, v26 = objc_loadWeakRetained(&method->ssl_clear), v27 = v26[435], v26, v25, (v27 & 1) == 0))
+                {
+                  v28 = objc_loadWeakRetained(&method->ssl_clear);
+                  if (v28)
+                  {
+                    v29 = objc_loadWeakRetained(&method->ssl_clear);
+                    v30 = (v29[435] & 1) == 0;
+                  }
+
+                  else
+                  {
+                    v30 = 1;
+                  }
+
+                  if (v30)
+                  {
+                    if (g_boringssl_log)
+                    {
+                      v38 = g_boringssl_log;
+                      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+                      {
+                        v39 = objc_loadWeakRetained(&method->ssl_clear);
+                        if (v39)
+                        {
+                          v66 = objc_loadWeakRetained(&method->ssl_clear);
+                          v67 = v66 + 351;
+                        }
+
+                        else
+                        {
+                          v67 = &unk_1A9098A9F;
+                        }
+
+                        v43 = objc_loadWeakRetained(&method->ssl_clear);
+                        *buf = 136446978;
+                        v77 = "boringssl_context_new_session_handler";
+                        v78 = 1024;
+                        v79 = 1520;
+                        v80 = 2082;
+                        v81 = v67;
+                        v82 = 2048;
+                        v83 = v43;
+                        _os_log_impl(&dword_1A8FF5000, v38, OS_LOG_TYPE_DEFAULT, "%{public}s(%d) %{public}s[%p] Asyncing for session update block", buf, 0x26u);
+
+                        if (v39)
+                        {
+                        }
+                      }
+                    }
+                  }
+                }
+
+                num_ciphers = v20->num_ciphers;
+                block[0] = MEMORY[0x1E69E9820];
+                block[1] = 3221225472;
+                block[2] = __boringssl_context_new_session_handler_block_invoke_238;
+                block[3] = &unk_1E7869848;
+                v45 = v20;
+                v69 = v45;
+                v2 = v23;
+                v70 = v2;
+                v46 = v2;
+                if (num_ciphers)
+                {
+                  ++v45[2].ssl_accept;
+                  dispatch_async(num_ciphers, block);
+                  v46 = v70;
+                }
+              }
+
+              if (method->ssl_accept)
+              {
+                v47 = objc_loadWeakRetained(&method->ssl_clear);
+                if (!v47 || (v48 = v47, v49 = objc_loadWeakRetained(&method->ssl_clear), v2 = v49[435], v49, v48, (v2 & 1) == 0))
+                {
+                  v50 = objc_loadWeakRetained(&method->ssl_clear);
+                  if (v50)
+                  {
+                    v51 = objc_loadWeakRetained(&method->ssl_clear);
+                    v2 = (v51[435] & 1) == 0;
+                  }
+
+                  else
+                  {
+                    v2 = 1;
+                  }
+
+                  if (v2)
+                  {
+                    if (g_boringssl_log)
+                    {
+                      v52 = g_boringssl_log;
+                      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
+                      {
+                        boringssl_context_new_session_handler_cold_1();
+                      }
+                    }
+                  }
+                }
+
+                boringssl_session_cache_push(method->ssl_accept, v19);
+              }
+
+              if (SSL_session_reused(v4) && method[1].ssl_dispatch_alert)
+              {
+                v53 = objc_loadWeakRetained(&method->ssl_clear);
+                if (!v53 || (v54 = v53, v55 = objc_loadWeakRetained(&method->ssl_clear), v56 = v55[435], v55, v54, (v56 & 1) == 0))
+                {
+                  v57 = objc_loadWeakRetained(&method->ssl_clear);
+                  if (v57)
+                  {
+                    v58 = objc_loadWeakRetained(&method->ssl_clear);
+                    v59 = (v58[435] & 1) == 0;
+                  }
+
+                  else
+                  {
+                    v59 = 1;
+                  }
+
+                  if (v59)
+                  {
+                    if (g_boringssl_log)
+                    {
+                      v60 = g_boringssl_log;
+                      if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
+                      {
+                        v61 = objc_loadWeakRetained(&method->ssl_clear);
+                        if (v61)
+                        {
+                          v2 = objc_loadWeakRetained(&method->ssl_clear);
+                          v62 = (v2 + 351);
+                        }
+
+                        else
+                        {
+                          v62 = &unk_1A9098A9F;
+                        }
+
+                        v64 = objc_loadWeakRetained(&method->ssl_clear);
+                        *buf = 136446978;
+                        v77 = "boringssl_context_new_session_handler";
+                        v78 = 1024;
+                        v79 = 1536;
+                        v80 = 2082;
+                        v81 = v62;
+                        v82 = 2048;
+                        v83 = v64;
+                        _os_log_impl(&dword_1A8FF5000, v60, OS_LOG_TYPE_INFO, "%{public}s(%d) %{public}s[%p] Rebuilding session state for resumed session", buf, 0x26u);
+
+                        if (v61)
+                        {
+                        }
+                      }
+                    }
+                  }
+                }
+
+                boringssl_session_set_peer_verification_state_from_session(v6, a2);
+              }
+            }
+
+            else
+            {
+              v31 = objc_loadWeakRetained(&method->ssl_clear);
+              if (!v31 || (v32 = v31, v33 = objc_loadWeakRetained(&method->ssl_clear), v34 = v33[435], v33, v32, (v34 & 1) == 0))
+              {
+                v35 = objc_loadWeakRetained(&method->ssl_clear);
+                if (v35)
+                {
+                  v36 = objc_loadWeakRetained(&method->ssl_clear);
+                  v37 = (v36[435] & 1) == 0;
+                }
+
+                else
+                {
+                  v37 = 1;
+                }
+
+                if (v37)
+                {
+                  if (g_boringssl_log)
+                  {
+                    v40 = g_boringssl_log;
+                    if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+                    {
+                      v41 = objc_loadWeakRetained(&method->ssl_clear);
+                      if (v41)
+                      {
+                        v4 = objc_loadWeakRetained(&method->ssl_clear);
+                        v42 = &v4->ctx + 7;
+                      }
+
+                      else
+                      {
+                        v42 = &unk_1A9098A9F;
+                      }
+
+                      v63 = objc_loadWeakRetained(&method->ssl_clear);
+                      *buf = 136446978;
+                      v77 = "boringssl_context_new_session_handler";
+                      v78 = 1024;
+                      v79 = 1501;
+                      v80 = 2082;
+                      v81 = v42;
+                      v82 = 2048;
+                      v83 = v63;
+                      _os_log_impl(&dword_1A8FF5000, v40, OS_LOG_TYPE_INFO, "%{public}s(%d) %{public}s[%p] boringssl_session_state_create failed", buf, 0x26u);
+
+                      if (v41)
+                      {
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return 0;
+}
+
+boringssl_concrete_boringssl_session_state *boringssl_session_state_create(uint64_t a1, unsigned __int8 *a2)
+{
+  v2 = 0;
+  if (a1 && a2)
+  {
+    v5 = objc_alloc_init(boringssl_concrete_boringssl_session_state);
+    v6 = v5;
+    if (v5)
+    {
+      v5->cached_content_type = 1;
+      v5->used_extended_master_secret = SSL_SESSION_used_extended_master_secret(a1);
+      memcpy(&v6->remote_address, a2, *a2);
+      if (SSL_SESSION_to_bytes(a1, &v6->serialized_session, &v6->serialized_session_length))
+      {
+        v2 = v6;
+LABEL_13:
+
+        return v2;
+      }
+
+      if (g_boringssl_log && os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_ERROR))
+      {
+        boringssl_session_state_create_cold_1();
+      }
+    }
+
+    else if (g_boringssl_log && os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_ERROR))
+    {
+      boringssl_session_state_create_cold_2();
+    }
+
+    v2 = 0;
+    goto LABEL_13;
+  }
+
+  return v2;
+}
+
+BOOL SSL_SESSION_to_bytes(uint64_t a1, void *a2, void *a3)
+{
+  if ((*(a1 + 440) & 4) != 0)
+  {
+    *a3 = 13;
+    v9 = OPENSSL_memdup("NOT RESUMABLE", 0xDuLL);
+    *a2 = v9;
+    return v9 != 0;
+  }
+
+  else
+  {
+    *&v6 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v11[1] = v6;
+    v11[2] = v6;
+    v11[0] = v6;
+    CBB_zero(v11);
+    v8 = CBB_init(v11, 0x100uLL) && bssl::SSL_SESSION_to_bytes_full(a1, v11, 0) && CBB_finish(v11, a2, a3) != 0;
+    CBB_cleanup(v11, v7);
+  }
+
+  return v8;
+}
+
+uint64_t SSL_SESSION_used_extended_master_secret(uint64_t a1)
+{
+  if (*(a1 + 4) <= 0x303u)
+  {
+    return *(a1 + 440) & 1;
+  }
+
+  else
+  {
+    return 1;
+  }
+}
+
+uint64_t CBB_add_asn1_uint64_with_tag(uint64_t a1, unint64_t a2, unsigned int a3)
+{
+  *&v5 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v10[1] = v5;
+  v10[2] = v5;
+  v10[0] = v5;
+  if (!CBB_add_asn1(a1, v10, a3))
+  {
+LABEL_13:
+    v9 = (a1 + 16);
+    if (*(a1 + 8))
+    {
+      v9 = *v9;
+    }
+
+    result = 0;
+    *(v9 + 24) |= 2u;
+    *a1 = 0;
+    return result;
+  }
+
+  v6 = 0;
+  v7 = 1;
+  do
+  {
+    while ((v7 & 1) == 0)
+    {
+LABEL_7:
+      if (!cbb_add_u(v10, (a2 >> (56 - 8 * v6)), 1uLL))
+      {
+        goto LABEL_13;
+      }
+
+      v7 = 0;
+      if (++v6 == 8)
+      {
+        return CBB_flush(a1);
+      }
+    }
+
+    if ((a2 >> (56 - 8 * v6)))
+    {
+      if (((a2 >> (56 - 8 * v6)) & 0x80) != 0 && !cbb_add_u(v10, 0, 1uLL))
+      {
+        goto LABEL_13;
+      }
+
+      goto LABEL_7;
+    }
+
+    ++v6;
+    v7 = 1;
+  }
+
+  while (v6 != 8);
+  if (!cbb_add_u(v10, 0, 1uLL))
+  {
+    goto LABEL_13;
+  }
+
+  return CBB_flush(a1);
+}
+
+uint64_t CBB_add_asn1_BOOL(uint64_t a1, int a2)
+{
+  *&v4 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v8[1] = v4;
+  v8[2] = v4;
+  v8[0] = v4;
+  if (CBB_add_asn1(a1, v8, 1u))
+  {
+    v5 = a2 ? 255 : 0;
+    if (cbb_add_u(v8, v5, 1uLL) && CBB_flush(a1))
+    {
+      return 1;
+    }
+  }
+
+  v7 = (a1 + 16);
+  if (*(a1 + 8))
+  {
+    v7 = *v7;
+  }
+
+  result = 0;
+  *(v7 + 24) |= 2u;
+  *a1 = 0;
+  return result;
+}
+
+size_t SSL_SESSION_get_master_key(uint64_t a1, void *__dst, size_t __n)
+{
+  if (!__n)
+  {
+    return *(a1 + 58);
+  }
+
+  v3 = __n;
+  if (*(a1 + 58) < __n)
+  {
+    v3 = *(a1 + 58);
+    if (!*(a1 + 58))
+    {
+      return 0;
+    }
+  }
+
+  memcpy(__dst, (a1 + 10), v3);
+  return v3;
+}
+
+_OWORD *nw_protocol_boringssl_copy_metadata_contents(_OWORD *result, uint64_t a2)
+{
+  if (result && a2)
+  {
+    v3 = result;
+    *result = *a2;
+    result[1] = *(a2 + 16);
+    *(result + 8) = *(a2 + 32);
+    v4 = *(a2 + 40);
+    if (v4)
+    {
+      *(v3 + 5) = strdup(v4);
+    }
+
+    v5 = *(a2 + 48);
+    if (v5)
+    {
+      *(v3 + 6) = strdup(v5);
+    }
+
+    v6 = *(a2 + 56);
+    if (v6)
+    {
+      *(v3 + 7) = strdup(v6);
+    }
+
+    v3[4] = *(a2 + 64);
+    objc_storeStrong(v3 + 10, *(a2 + 80));
+    objc_storeStrong(v3 + 11, *(a2 + 88));
+    v7 = *(a2 + 96);
+    if (v7)
+    {
+      v8 = xpc_copy(v7);
+      v9 = *(v3 + 12);
+      *(v3 + 12) = v8;
+    }
+
+    objc_storeStrong(v3 + 13, *(a2 + 104));
+    v10 = *(a2 + 112);
+    if (v10)
+    {
+      v11 = xpc_copy(v10);
+      v12 = *(v3 + 14);
+      *(v3 + 14) = v11;
+    }
+
+    objc_storeStrong(v3 + 15, *(a2 + 120));
+    objc_storeStrong(v3 + 16, *(a2 + 128));
+    objc_storeStrong(v3 + 17, *(a2 + 136));
+    objc_storeStrong(v3 + 18, *(a2 + 144));
+    objc_storeStrong(v3 + 19, *(a2 + 152));
+    objc_storeStrong(v3 + 20, *(a2 + 160));
+    objc_storeStrong(v3 + 21, *(a2 + 168));
+    v13 = *(a2 + 176);
+    if (v13)
+    {
+      *(v3 + 22) = strdup(v13);
+    }
+
+    v14 = *(a2 + 184);
+    if (v14)
+    {
+      *(v3 + 23) = strdup(v14);
+    }
+
+    v15 = *(a2 + 192);
+    if (v15)
+    {
+      *(v3 + 24) = strdup(v15);
+    }
+
+    *(v3 + 200) = *(a2 + 200);
+    *(v3 + 216) = *(a2 + 216);
+    *(v3 + 232) = *(a2 + 232);
+    *(v3 + 31) = *(a2 + 248);
+    *(v3 + 128) = *(a2 + 256);
+    *(v3 + 33) = *(a2 + 264);
+    v3[17] = *(a2 + 272);
+    v3[18] = *(a2 + 288);
+    v3[19] = *(a2 + 304);
+    v16 = *(a2 + 328);
+    if (v16)
+    {
+      *(v3 + 41) = boringssl_memory_copy_array(v16, 0x80uLL);
+    }
+
+    v17 = v3[21] & 0xFFFE | *(a2 + 336) & 1;
+    *(v3 + 168) = v3[21] & 0xFFFE | *(a2 + 336) & 1;
+    v18 = v17 & 0xFFFFFFFD | (2 * ((*(a2 + 336) >> 1) & 1));
+    *(v3 + 168) = v18;
+    v19 = v18 & 0xFFFFFFFB | (4 * ((*(a2 + 336) >> 2) & 1));
+    *(v3 + 168) = v19;
+    v20 = v19 & 0xFFFFFFF7 | (8 * ((*(a2 + 336) >> 3) & 1));
+    *(v3 + 168) = v20;
+    v21 = v20 & 0xFFFFFFEF | (16 * ((*(a2 + 336) >> 4) & 1));
+    *(v3 + 168) = v21;
+    v22 = v21 & 0xFFFFFFDF | (32 * ((*(a2 + 336) >> 5) & 1));
+    *(v3 + 168) = v22;
+    v23 = v22 & 0xFFFFFFBF | (((*(a2 + 336) >> 6) & 1) << 6);
+    *(v3 + 168) = v23;
+    v24 = v23 & 0xFFFFFF7F | (((*(a2 + 336) >> 7) & 1) << 7);
+    *(v3 + 168) = v24;
+    v25 = v24 & 0xFFFFFEFF | ((HIBYTE(*(a2 + 336)) & 1) << 8);
+    *(v3 + 168) = v25;
+    v26 = v25 & 0xFFFFFDFF | (((*(a2 + 336) >> 9) & 1) << 9);
+    *(v3 + 168) = v26;
+    v27 = v26 & 0xFFFFFBFF | (((*(a2 + 336) >> 10) & 1) << 10);
+    *(v3 + 168) = v27;
+    v28 = v27 & 0xFFFFF7FF | (((*(a2 + 336) >> 11) & 1) << 11);
+    *(v3 + 168) = v28;
+    LOWORD(v28) = v28 & 0xEFFF | (((*(a2 + 336) >> 12) & 1) << 12);
+    *(v3 + 168) = v28;
+    *(v3 + 168) = v28 & 0xDFFF | *(a2 + 336) & 0x2000;
+    *(v3 + 43) = *(a2 + 344);
+    v3[22] = *(a2 + 352);
+    result = *(a2 + 368);
+    if (result)
+    {
+      result = CFRetain(result);
+      *(v3 + 46) = result;
+    }
+
+    *(v3 + 48) = 0;
+  }
+
+  return result;
+}
+
+void boringssl_session_cache_push(void *a1, void *a2)
+{
+  v8 = a1;
+  v3 = a2;
+  if (v8 && v3)
+  {
+    v4 = boringssl_session_cache_copy_queue(v8);
+    if (!v4)
+    {
+      v5 = sec_array_create();
+      if (!v5)
+      {
+        v4 = 0;
+LABEL_9:
+
+        goto LABEL_10;
+      }
+
+      v4 = v5;
+    }
+
+    sec_array_append();
+    v6 = nw_protocol_boringssl_copy_definition(v8);
+    time(0);
+    nw_association_set_cached_content_for_protocol();
+
+    if (sec_array_get_count() >= 2)
+    {
+      v7 = boringssl_session_cache_pop(v8);
+    }
+
+    goto LABEL_9;
+  }
+
+LABEL_10:
+}
+
+uint64_t boringssl_session_copy_serialized_session(uint64_t result)
+{
+  if (result)
+  {
+    if (*result == -1252936367 && (v1 = *(result + 8)) != 0)
+    {
+      boringssl_session_state_copy_serialized_session_state(*(v1 + 384));
+      return objc_claimAutoreleasedReturnValue();
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+dispatch_data_t boringssl_session_state_copy_serialized_session_state(void *a1)
+{
+  v1 = a1;
+  v2 = v1;
+  if (!v1)
+  {
+LABEL_14:
+    v6 = 0;
+    goto LABEL_15;
+  }
+
+  v3 = *(v1 + 12);
+  v4 = v1[6];
+  if (~v4 < v3)
+  {
+    if (g_boringssl_log && os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_ERROR))
+    {
+      boringssl_session_state_copy_serialized_session_state_cold_4();
+    }
+
+    goto LABEL_14;
+  }
+
+  if (~v4 == v3)
+  {
+    if (g_boringssl_log && os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_ERROR))
+    {
+      boringssl_session_state_copy_serialized_session_state_cold_3();
+    }
+
+    goto LABEL_14;
+  }
+
+  v5 = v4 + v3;
+  if (v4 + v3 == -2)
+  {
+    if (g_boringssl_log && os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_ERROR))
+    {
+      boringssl_session_state_copy_serialized_session_state_cold_2();
+    }
+
+    goto LABEL_14;
+  }
+
+  v8 = *(v1 + 8);
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = malloc_type_malloc(v5 + 2, 0x7D92A5ADuLL);
+  v9 = v14[3];
+  if (v9)
+  {
+    v10 = v2[5];
+    *v9 = v8;
+    *(v14[3] + 1) = *(v2 + 12);
+    memcpy((v14[3] + 2), v2 + 12, *(v2 + 12));
+    memcpy((v14[3] + *(v2 + 12) + 2), v10, v4);
+    v11 = v14[3];
+    destructor[0] = MEMORY[0x1E69E9820];
+    destructor[1] = 3221225472;
+    destructor[2] = __boringssl_session_state_copy_serialized_session_state_block_invoke;
+    destructor[3] = &unk_1E785EF90;
+    destructor[4] = &v13;
+    v6 = dispatch_data_create(v11, v5 + 2, 0, destructor);
+  }
+
+  else
+  {
+    v6 = g_boringssl_log;
+    if (g_boringssl_log)
+    {
+      if (os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_ERROR))
+      {
+        boringssl_session_state_copy_serialized_session_state_cold_1();
+      }
+
+      v6 = 0;
+    }
+  }
+
+  _Block_object_dispose(&v13, 8);
+LABEL_15:
+
+  return v6;
 }

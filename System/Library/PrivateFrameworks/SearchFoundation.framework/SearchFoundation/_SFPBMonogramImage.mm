@@ -195,9 +195,7 @@ LABEL_8:
 
 - (void)setMonogramLetters:(id)letters
 {
-  v4 = [letters copy];
-  monogramLetters = self->_monogramLetters;
-  self->_monogramLetters = v4;
+  self->_monogramLetters = [letters copy];
 
   MEMORY[0x1EEE66BB8]();
 }

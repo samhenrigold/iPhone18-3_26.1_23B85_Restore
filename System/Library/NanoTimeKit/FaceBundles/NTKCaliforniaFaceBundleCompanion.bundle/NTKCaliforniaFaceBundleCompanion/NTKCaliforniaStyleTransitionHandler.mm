@@ -40,26 +40,23 @@
   [NTKCaliforniaStyleTransitionHandler animationProgressForHourMarkerAtIndex:"animationProgressForHourMarkerAtIndex:markerType:" markerType:?];
   if (type)
   {
-    fadeInHourMarkersCenterPoints = [(NTKCaliforniaStyleTransitionHandler *)self fadeInHourMarkersCenterPoints];
+    [(NTKCaliforniaStyleTransitionHandler *)self fadeInHourMarkersCenterPoints];
   }
 
   else
   {
-    fadeInHourMarkersCenterPoints = [(NTKCaliforniaStyleTransitionHandler *)self fadeOutHourMarkersCenterPoints];
+    [(NTKCaliforniaStyleTransitionHandler *)self fadeOutHourMarkersCenterPoints];
   }
 
-  v8 = &fadeInHourMarkersCenterPoints[index];
-  v9 = *v8;
-  v10 = v8[1];
   [(NTKCaliforniaStyleTransitionHandler *)self centerPoint];
   CLKInterpolateBetweenFloatsClipped();
-  v12 = v11;
+  v7 = v6;
   [(NTKCaliforniaStyleTransitionHandler *)self centerPoint];
   CLKInterpolateBetweenFloatsClipped();
-  v14 = v13;
-  v15 = v12;
-  result.y = v14;
-  result.x = v15;
+  v9 = v8;
+  v10 = v7;
+  result.y = v9;
+  result.x = v10;
   return result;
 }
 

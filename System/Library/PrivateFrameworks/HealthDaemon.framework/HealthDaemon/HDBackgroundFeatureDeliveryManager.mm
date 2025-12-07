@@ -105,16 +105,16 @@
 
 - (void)_setLastCountryAvailabilityVersion:(uint64_t)version
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (version)
   {
-    v10 = 0;
+    v9 = 0;
     v3 = a2;
     _lastCountryAvailabilityVersionDomain = [(HDBackgroundFeatureDeliveryManager *)version _lastCountryAvailabilityVersionDomain];
     featureIdentifier = [*(version + 24) featureIdentifier];
-    v6 = [_lastCountryAvailabilityVersionDomain setString:v3 forKey:featureIdentifier error:&v10];
+    v6 = [_lastCountryAvailabilityVersionDomain setString:v3 forKey:featureIdentifier error:&v9];
 
-    v7 = v10;
+    v7 = v9;
     if ((v6 & 1) == 0)
     {
       _HKInitializeLogging();
@@ -123,30 +123,27 @@
       {
         *buf = 138543618;
         versionCopy = version;
-        v13 = 2114;
-        v14 = v7;
+        v12 = 2114;
+        v13 = v7;
         _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "[%{public}@] Error setting last country availability version: %{public}@", buf, 0x16u);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_queue_isEligibleForDeliveryMonitoringWithError:(uint64_t)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (!error)
   {
-    v8 = 0;
-    goto LABEL_30;
+    return 0;
   }
 
   dispatch_assert_queue_V2(*(error + 56));
   v4 = *(error + 24);
-  v17 = 0;
-  v5 = [v4 onboardedCountryCodeSupportedStateWithError:&v17];
-  v6 = v17;
+  v16 = 0;
+  v5 = [v4 onboardedCountryCodeSupportedStateWithError:&v16];
+  v6 = v16;
   if (!v5)
   {
     _HKInitializeLogging();
@@ -155,8 +152,8 @@
     {
       *buf = 138543618;
       errorCopy6 = error;
-      v20 = 2114;
-      v21 = v6;
+      v19 = 2114;
+      v20 = v6;
       _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "[%{public}@] Error checking onboarded state: %{public}@", buf, 0x16u);
     }
 
@@ -261,14 +258,12 @@ LABEL_25:
 
 LABEL_29:
 
-LABEL_30:
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (void)_queue_updatePeriodicCountryMonitorEligibility
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (self)
   {
     dispatch_assert_queue_V2(*(self + 56));
@@ -286,9 +281,9 @@ LABEL_30:
 
     else
     {
-      v25 = 0;
+      v24 = 0;
       v3 = [(HDBackgroundFeatureDeliveryManager *)self _queue_isEligibleForDeliveryMonitoringWithError:?];
-      v4 = v25;
+      v4 = v24;
       if (v3)
       {
         bOOLValue = [v3 BOOLValue];
@@ -307,9 +302,9 @@ LABEL_30:
           *(self + 64) = 1;
           dispatch_assert_queue_V2(*(self + 56));
           v8 = *(self + 24);
-          v27 = 0;
-          v9 = [v8 regionAvailabilityWithError:&v27];
-          v10 = v27;
+          v26 = 0;
+          v9 = [v8 regionAvailabilityWithError:&v26];
+          v10 = v26;
           version = [v9 version];
 
           if (!version)
@@ -318,23 +313,23 @@ LABEL_30:
             v12 = *(self + 48);
             if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
             {
-              v22 = v12;
-              v23 = objc_opt_class();
+              v21 = v12;
+              v22 = objc_opt_class();
               *buf = 138543618;
-              selfCopy7 = v23;
-              v30 = 2114;
-              v31 = v10;
-              v24 = v23;
-              _os_log_error_impl(&dword_228986000, v22, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving region availability version: %{public}@", buf, 0x16u);
+              selfCopy7 = v22;
+              v29 = 2114;
+              v30 = v10;
+              v23 = v22;
+              _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving region availability version: %{public}@", buf, 0x16u);
             }
           }
 
-          v26 = v10;
+          v25 = v10;
           _lastCountryAvailabilityVersionDomain = [(HDBackgroundFeatureDeliveryManager *)self _lastCountryAvailabilityVersionDomain];
           featureIdentifier = [*(self + 24) featureIdentifier];
-          v15 = [_lastCountryAvailabilityVersionDomain stringForKey:featureIdentifier error:&v26];
+          v15 = [_lastCountryAvailabilityVersionDomain stringForKey:featureIdentifier error:&v25];
 
-          v16 = v26;
+          v16 = v25;
           if (v15 || !v16)
           {
             if (v15 && [version isEqualToString:v15])
@@ -345,8 +340,8 @@ LABEL_30:
               {
                 *buf = 138543618;
                 selfCopy7 = self;
-                v30 = 2114;
-                v31 = version;
+                v29 = 2114;
+                v30 = version;
                 _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] Not eligible for immediate background delivery check. Current: %{public}@", buf, 0x16u);
               }
             }
@@ -359,10 +354,10 @@ LABEL_30:
               {
                 *buf = 138543874;
                 selfCopy7 = self;
-                v30 = 2114;
-                v31 = v15;
-                v32 = 2114;
-                v33 = version;
+                v29 = 2114;
+                v30 = v15;
+                v31 = 2114;
+                v32 = version;
                 _os_log_impl(&dword_228986000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Eligible for immediate background delivery check. Last: %{public}@ Current: %{public}@", buf, 0x20u);
               }
 
@@ -378,8 +373,8 @@ LABEL_30:
             {
               *buf = 138543618;
               selfCopy7 = self;
-              v30 = 2114;
-              v31 = v16;
+              v29 = 2114;
+              v30 = v16;
               _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving last country availability version: %{public}@. Skipping immediate background check", buf, 0x16u);
             }
           }
@@ -406,79 +401,74 @@ LABEL_30:
         {
           *buf = 138543618;
           selfCopy7 = self;
-          v30 = 2114;
-          v31 = v4;
+          v29 = 2114;
+          v30 = v4;
           _os_log_error_impl(&dword_228986000, v18, OS_LOG_TYPE_ERROR, "[%{public}@] Error determining eligibility: %{public}@; skipping registration update", buf, 0x16u);
         }
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)featureAvailabilityProvidingDidUpdateOnboardingCompletion:(id)completion
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   _HKInitializeLogging();
   loggingCategory = self->_loggingCategory;
   if (os_log_type_enabled(loggingCategory, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received update of onboarding completion, updating registration status", &v6, 0xCu);
+    _os_log_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received update of onboarding completion, updating registration status", &v5, 0xCu);
   }
 
   [(HDBackgroundFeatureDeliveryManager *)self _queue_updatePeriodicCountryMonitorEligibility];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)featureAvailabilityExtensionDidUpdateRegionAvailability:(id)availability
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   _HKInitializeLogging();
   loggingCategory = self->_loggingCategory;
   if (os_log_type_enabled(loggingCategory, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received region availability update notification, updating registration status", &v6, 0xCu);
+    _os_log_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received region availability update notification, updating registration status", &v5, 0xCu);
   }
 
   [(HDBackgroundFeatureDeliveryManager *)self _queue_updatePeriodicCountryMonitorEligibility];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)featureAvailabilityExtensionDidUpdatePairedDeviceCapability:(id)capability
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   _HKInitializeLogging();
   loggingCategory = self->_loggingCategory;
   if (os_log_type_enabled(loggingCategory, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received update of paired device availability, updating registration status", &v6, 0xCu);
+    _os_log_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received update of paired device availability, updating registration status", &v5, 0xCu);
   }
 
   [(HDBackgroundFeatureDeliveryManager *)self _queue_updatePeriodicCountryMonitorEligibility];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEligibleForFetchByPeriodicCountryMonitor:(id)monitor
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   _HKInitializeLogging();
   loggingCategory = self->_loggingCategory;
   if (os_log_type_enabled(loggingCategory, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_DEFAULT, "[%{public}@] Checking eligibility", &v8, 0xCu);
+    _os_log_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_DEFAULT, "[%{public}@] Checking eligibility", &v7, 0xCu);
   }
 
   state = self->_state;
@@ -488,14 +478,12 @@ LABEL_30:
     state = self->_state;
   }
 
-  result = state == 1;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return state == 1;
 }
 
 - (void)periodicCountryMonitor:(id)monitor didFetchISOCountryCode:(id)code countryCodeProvenance:(int64_t)provenance
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   codeCopy = code;
   dispatch_assert_queue_V2(self->_queue);
   _HKInitializeLogging();
@@ -504,8 +492,8 @@ LABEL_30:
   {
     *buf = 138543618;
     selfCopy11 = self;
-    v93 = 2114;
-    v94 = codeCopy;
+    v92 = 2114;
+    v93 = codeCopy;
     _os_log_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received new country code: %{public}@", buf, 0x16u);
   }
 
@@ -521,10 +509,10 @@ LABEL_30:
 
   v17 = v16;
   v18 = [objc_alloc(MEMORY[0x277CCD460]) initWithFeatureAvailabilityProviding:self->_featureAvailabilityExtension featureAvailabilityDataSource:v12 contextConstraint:v16];
-  v89 = 0;
-  v19 = [v18 featureStatusWithError:&v89];
-  v20 = v89;
-  v81 = v19;
+  v88 = 0;
+  v19 = [v18 featureStatusWithError:&v88];
+  v20 = v88;
+  v80 = v19;
   if (!v19)
   {
     _HKInitializeLogging();
@@ -533,8 +521,8 @@ LABEL_30:
     {
       *buf = 138543618;
       selfCopy11 = self;
-      v93 = 2114;
-      v94 = v20;
+      v92 = 2114;
+      v93 = v20;
       _os_log_error_impl(&dword_228986000, v35, OS_LOG_TYPE_ERROR, "[%{public}@] Error evaluating feature status: %{public}@", buf, 0x16u);
     }
 
@@ -550,15 +538,15 @@ LABEL_30:
     goto LABEL_19;
   }
 
-  v79 = v18;
+  v78 = v18;
   featureAvailabilityExtension = self->_featureAvailabilityExtension;
-  v88 = v20;
-  v22 = [(HDFeatureAvailabilityExtension *)featureAvailabilityExtension regionAvailabilityWithError:&v88];
-  v23 = v88;
+  v87 = v20;
+  v22 = [(HDFeatureAvailabilityExtension *)featureAvailabilityExtension regionAvailabilityWithError:&v87];
+  v23 = v87;
 
   version = [v22 version];
 
-  v78 = version;
+  v77 = version;
   if (!version)
   {
     _HKInitializeLogging();
@@ -567,8 +555,8 @@ LABEL_30:
     {
       *buf = 138543618;
       selfCopy11 = self;
-      v93 = 2114;
-      v94 = v23;
+      v92 = 2114;
+      v93 = v23;
       _os_log_error_impl(&dword_228986000, v42, OS_LOG_TYPE_ERROR, "[%{public}@] Error accessing region availability: %{public}@", buf, 0x16u);
     }
 
@@ -583,16 +571,16 @@ LABEL_30:
     goto LABEL_23;
   }
 
-  if (([v81 includesContext:v14] & 1) == 0)
+  if (([v80 includesContext:v14] & 1) == 0)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"HDBackgroundFeatureDeliveryManager.m" lineNumber:356 description:{@"Invalid parameter not satisfying: %@", @"[featureStatus includesContext:HKFeatureAvailabilityContextBackgroundDelivery]"}];
   }
 
-  domain2 = [v81 objectForKeyedSubscript:v14];
+  domain2 = [v80 objectForKeyedSubscript:v14];
   if (([domain2 areAllRequirementsSatisfied] & 1) == 0)
   {
-    v75 = v17;
+    v74 = v17;
     _HKInitializeLogging();
     v45 = self->_loggingCategory;
     if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
@@ -601,29 +589,29 @@ LABEL_30:
       unsatisfiedRequirementIdentifiersDescription = [domain2 unsatisfiedRequirementIdentifiersDescription];
       *buf = 138543874;
       selfCopy11 = self;
-      v93 = 2114;
-      v94 = codeCopy;
-      v95 = 2114;
-      v96 = unsatisfiedRequirementIdentifiersDescription;
+      v92 = 2114;
+      v93 = codeCopy;
+      v94 = 2114;
+      v95 = unsatisfiedRequirementIdentifiersDescription;
       _os_log_impl(&dword_228986000, v46, OS_LOG_TYPE_DEFAULT, "[%{public}@] Not eligible for delivery in %{public}@, unsatisfied requirements: %{public}@", buf, 0x20u);
     }
 
-    v77 = v12;
+    v76 = v12;
     v48 = MEMORY[0x277CBEB98];
     unsatisfiedRequirementIdentifiers = [domain2 unsatisfiedRequirementIdentifiers];
     v26 = [v48 setWithArray:unsatisfiedRequirementIdentifiers];
 
     v50 = MEMORY[0x277CBEB98];
     v51 = *MEMORY[0x277CCBF18];
-    v90[0] = *MEMORY[0x277CCBF20];
-    v90[1] = v51;
-    v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v90 count:2];
+    v89[0] = *MEMORY[0x277CCBF20];
+    v89[1] = v51;
+    v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v89 count:2];
     v53 = [v50 setWithArray:v52];
     v54 = [(__CFString *)v26 isSubsetOfSet:v53];
 
     if (v54)
     {
-      [(HDBackgroundFeatureDeliveryManager *)self _setLastCountryAvailabilityVersion:v78];
+      [(HDBackgroundFeatureDeliveryManager *)self _setLastCountryAvailabilityVersion:v77];
     }
 
     domain2 = domain2;
@@ -648,16 +636,16 @@ LABEL_30:
 
     codeCopy = v59;
     v20 = v23;
-    v17 = v75;
-    v12 = v77;
+    v17 = v74;
+    v12 = v76;
     goto LABEL_35;
   }
 
-  v87 = v23;
+  v86 = v23;
   v26 = [(HDBackgroundFeatureDeliveryManager *)self _queue_isEligibleForDeliveryMonitoringWithError:?];
-  v20 = v87;
+  v20 = v86;
 
-  v18 = v79;
+  v18 = v78;
   if (!v26)
   {
     _HKInitializeLogging();
@@ -666,10 +654,10 @@ LABEL_30:
     {
       *buf = 138543874;
       selfCopy11 = self;
-      v93 = 2114;
-      v94 = v20;
-      v95 = 2114;
-      v96 = codeCopy;
+      v92 = 2114;
+      v93 = v20;
+      v94 = 2114;
+      v95 = codeCopy;
       _os_log_error_impl(&dword_228986000, v62, OS_LOG_TYPE_ERROR, "[%{public}@] Error determining eligibility: %{public}@; ignoring new country code: %{public}@", buf, 0x20u);
     }
 
@@ -686,15 +674,15 @@ LABEL_30:
   if (([(__CFString *)v26 BOOLValue]& 1) == 0)
   {
     _HKInitializeLogging();
-    v68 = self->_loggingCategory;
-    domain = v78;
-    if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
+    v67 = self->_loggingCategory;
+    domain = v77;
+    if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
       selfCopy11 = self;
-      v93 = 2114;
-      v94 = codeCopy;
-      _os_log_impl(&dword_228986000, v68, OS_LOG_TYPE_DEFAULT, "[%{public}@] Not eligible for delivery; ignoring new country code: %{public}@", buf, 0x16u);
+      v92 = 2114;
+      v93 = codeCopy;
+      _os_log_impl(&dword_228986000, v67, OS_LOG_TYPE_DEFAULT, "[%{public}@] Not eligible for delivery; ignoring new country code: %{public}@", buf, 0x16u);
     }
 
     v37 = @"eligibility";
@@ -708,42 +696,42 @@ LABEL_19:
   }
 
   featureSpecificDeliveryCriteria = self->_featureSpecificDeliveryCriteria;
-  domain = v78;
+  domain = v77;
   if (!featureSpecificDeliveryCriteria)
   {
 LABEL_44:
     _HKInitializeLogging();
-    v70 = self->_loggingCategory;
-    if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+    v69 = self->_loggingCategory;
+    if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       selfCopy11 = self;
-      _os_log_impl(&dword_228986000, v70, OS_LOG_TYPE_DEFAULT, "[%{public}@] Saving delivery", buf, 0xCu);
+      _os_log_impl(&dword_228986000, v69, OS_LOG_TYPE_DEFAULT, "[%{public}@] Saving delivery", buf, 0xCu);
     }
 
     self->_state = 2;
     featureSettingsUponBackgroundDelivery = [(HDBackgroundFeatureDeliverySettingsProviding *)self->_settingsProvider featureSettingsUponBackgroundDelivery];
-    v72 = self->_featureAvailabilityExtension;
-    v82[0] = MEMORY[0x277D85DD0];
-    v82[1] = 3221225472;
-    v82[2] = __106__HDBackgroundFeatureDeliveryManager_periodicCountryMonitor_didFetchISOCountryCode_countryCodeProvenance___block_invoke;
-    v82[3] = &unk_278620658;
-    v82[4] = self;
-    v83 = codeCopy;
+    v71 = self->_featureAvailabilityExtension;
+    v81[0] = MEMORY[0x277D85DD0];
+    v81[1] = 3221225472;
+    v81[2] = __106__HDBackgroundFeatureDeliveryManager_periodicCountryMonitor_didFetchISOCountryCode_countryCodeProvenance___block_invoke;
+    v81[3] = &unk_278620658;
+    v81[4] = self;
+    v82 = codeCopy;
     provenanceCopy3 = provenance;
-    v84 = v78;
-    v73 = v72;
-    domain = v84;
-    [(HDFeatureAvailabilityExtension *)v73 setCurrentOnboardingVersionCompletedForCountryCode:v83 countryCodeProvenance:provenance date:0 settings:featureSettingsUponBackgroundDelivery completion:v82];
+    v83 = v77;
+    v72 = v71;
+    domain = v83;
+    [(HDFeatureAvailabilityExtension *)v72 setCurrentOnboardingVersionCompletedForCountryCode:v82 countryCodeProvenance:provenance date:0 settings:featureSettingsUponBackgroundDelivery completion:v81];
 
 LABEL_23:
-    v18 = v79;
+    v18 = v78;
     goto LABEL_36;
   }
 
-  v86 = v20;
-  v29 = [(HDBackgroundFeatureDeliveryCriteriaProviding *)featureSpecificDeliveryCriteria isBackgroundDeliverySupportedWithError:&v86];
-  v76 = v86;
+  v85 = v20;
+  v29 = [(HDBackgroundFeatureDeliveryCriteriaProviding *)featureSpecificDeliveryCriteria isBackgroundDeliverySupportedWithError:&v85];
+  v75 = v85;
 
   if (v29 != 2)
   {
@@ -755,51 +743,49 @@ LABEL_23:
       {
         *buf = 138543874;
         selfCopy11 = self;
-        v93 = 2114;
-        v94 = v76;
-        v95 = 2114;
-        v96 = codeCopy;
+        v92 = 2114;
+        v93 = v75;
+        v94 = 2114;
+        v95 = codeCopy;
         _os_log_error_impl(&dword_228986000, v30, OS_LOG_TYPE_ERROR, "[%{public}@] Error evaluating background delivery criteria: %{public}@; ignoring new country code: %{public}@", buf, 0x20u);
       }
 
       v31 = MEMORY[0x277CCACA8];
-      v20 = v76;
-      domain4 = [v76 domain];
-      v33 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v76, "code")}];
+      v20 = v75;
+      domain4 = [v75 domain];
+      v33 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v75, "code")}];
       v34 = [v31 stringWithFormat:@"%@_%@", domain4, v33];
       [(HDBackgroundFeatureDeliveryManager *)self _reportAnalyticsEventForCountryCode:codeCopy countryCodeProvenance:provenance eventType:@"error" errorCategory:@"legacy_criteria" errorDetail:v34];
 
 LABEL_35:
-      domain = v78;
-      v18 = v79;
+      domain = v77;
+      v18 = v78;
       goto LABEL_36;
     }
 
-    v20 = v76;
+    v20 = v75;
     goto LABEL_44;
   }
 
   _HKInitializeLogging();
-  v69 = self->_loggingCategory;
-  if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+  v68 = self->_loggingCategory;
+  if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy11 = self;
-    v93 = 2114;
-    v94 = codeCopy;
-    _os_log_impl(&dword_228986000, v69, OS_LOG_TYPE_DEFAULT, "[%{public}@] Not eligible for delivery; ignoring new country code: %{public}@", buf, 0x16u);
+    v92 = 2114;
+    v93 = codeCopy;
+    _os_log_impl(&dword_228986000, v68, OS_LOG_TYPE_DEFAULT, "[%{public}@] Not eligible for delivery; ignoring new country code: %{public}@", buf, 0x16u);
   }
 
   [(HDBackgroundFeatureDeliveryManager *)self _reportAnalyticsEventForCountryCode:codeCopy countryCodeProvenance:provenance eventType:@"error" errorCategory:@"legacy_criteria" errorDetail:@"unsupported"];
-  v20 = v76;
+  v20 = v75;
 LABEL_36:
-
-  v67 = *MEMORY[0x277D85DE8];
 }
 
 void __106__HDBackgroundFeatureDeliveryManager_periodicCountryMonitor_didFetchISOCountryCode_countryCodeProvenance___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -818,9 +804,9 @@ void __106__HDBackgroundFeatureDeliveryManager_periodicCountryMonitor_didFetchIS
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v21 = v7;
-      v22 = 2114;
-      v23 = v5;
+      v20 = v7;
+      v21 = 2114;
+      v22 = v5;
       _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "[%{public}@] Error saving delivery: %{public}@", buf, 0x16u);
       v7 = *(a1 + 32);
     }
@@ -844,10 +830,8 @@ void __106__HDBackgroundFeatureDeliveryManager_periodicCountryMonitor_didFetchIS
   block[2] = __106__HDBackgroundFeatureDeliveryManager_periodicCountryMonitor_didFetchISOCountryCode_countryCodeProvenance___block_invoke_340;
   block[3] = &unk_278613920;
   block[4] = v15;
-  v19 = *(a1 + 48);
+  v18 = *(a1 + 48);
   dispatch_async(v16, block);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __106__HDBackgroundFeatureDeliveryManager_periodicCountryMonitor_didFetchISOCountryCode_countryCodeProvenance___block_invoke_340(uint64_t a1)
@@ -861,23 +845,23 @@ void __106__HDBackgroundFeatureDeliveryManager_periodicCountryMonitor_didFetchIS
 
 - (void)_reportAnalyticsEventForCountryCode:(uint64_t)code countryCodeProvenance:(void *)provenance eventType:(void *)type errorCategory:(void *)category errorDetail:
 {
-  v26[3] = *MEMORY[0x277D85DE8];
+  v25[3] = *MEMORY[0x277D85DE8];
   if (self)
   {
-    v26[0] = provenance;
-    v25[0] = @"eventType";
-    v25[1] = @"featureIdentifier";
+    v25[0] = provenance;
+    v24[0] = @"eventType";
+    v24[1] = @"featureIdentifier";
     v10 = *(self + 24);
     categoryCopy = category;
     typeCopy = type;
     provenanceCopy = provenance;
     v14 = a2;
     featureIdentifier = [v10 featureIdentifier];
-    v26[1] = featureIdentifier;
-    v25[2] = @"provenance";
+    v25[1] = featureIdentifier;
+    v24[2] = @"provenance";
     v16 = NSStringFromHKOnboardingCompletionCountryCodeProvenance();
-    v26[2] = v16;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:3];
+    v25[2] = v16;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:3];
     v18 = [v17 mutableCopy];
 
     [v18 setObject:typeCopy forKeyedSubscript:@"errorCategory"];
@@ -895,8 +879,6 @@ void __106__HDBackgroundFeatureDeliveryManager_periodicCountryMonitor_didFetchIS
     [v18 setObject:v23 forKeyedSubscript:@"isImproveHealthAndActivityAllowed"];
     AnalyticsSendEvent();
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

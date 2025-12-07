@@ -261,27 +261,7 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
-  {
-    goto LABEL_22;
-  }
-
-  requestUniqueID = self->_requestUniqueID;
-  if (requestUniqueID | equalCopy[9])
-  {
-    if (![(NSString *)requestUniqueID isEqual:?])
-    {
-      goto LABEL_22;
-    }
-  }
-
-  planIdentifier = self->_planIdentifier;
-  if (planIdentifier | equalCopy[7] && ![(NSString *)planIdentifier isEqual:?])
-  {
-    goto LABEL_22;
-  }
-
-  if (((planLabel = self->_planLabel, !(planLabel | equalCopy[8])) || [(NSString *)planLabel isEqual:?]) && ((planDetailLabel = self->_planDetailLabel, !(planDetailLabel | equalCopy[6])) || [(NSString *)planDetailLabel isEqual:?]) && ((startDateData = self->_startDateData, !(startDateData | equalCopy[10])) || [(NSData *)startDateData isEqual:?]) && ((expiryDateData = self->_expiryDateData, !(expiryDateData | equalCopy[2])) || [(NSData *)expiryDateData isEqual:?]) && ((paymentPassActionData = self->_paymentPassActionData, !(paymentPassActionData | equalCopy[5])) || [(NSData *)paymentPassActionData isEqual:?]) && ((deviceIdentifier = self->_deviceIdentifier, !(deviceIdentifier | equalCopy[1])) || [(NSString *)deviceIdentifier isEqual:?]) && ((passTypeIdentifier = self->_passTypeIdentifier, !(passTypeIdentifier | equalCopy[4])) || [(NSString *)passTypeIdentifier isEqual:?]))
+  if ([equalCopy isMemberOfClass:objc_opt_class()] && ((requestUniqueID = self->_requestUniqueID, !(requestUniqueID | equalCopy[9])) || -[NSString isEqual:](requestUniqueID, "isEqual:")) && ((planIdentifier = self->_planIdentifier, !(planIdentifier | equalCopy[7])) || -[NSString isEqual:](planIdentifier, "isEqual:")) && ((planLabel = self->_planLabel, !(planLabel | equalCopy[8])) || -[NSString isEqual:](planLabel, "isEqual:")) && ((planDetailLabel = self->_planDetailLabel, !(planDetailLabel | equalCopy[6])) || -[NSString isEqual:](planDetailLabel, "isEqual:")) && ((startDateData = self->_startDateData, !(startDateData | equalCopy[10])) || -[NSData isEqual:](startDateData, "isEqual:")) && ((expiryDateData = self->_expiryDateData, !(expiryDateData | equalCopy[2])) || -[NSData isEqual:](expiryDateData, "isEqual:")) && ((paymentPassActionData = self->_paymentPassActionData, !(paymentPassActionData | equalCopy[5])) || -[NSData isEqual:](paymentPassActionData, "isEqual:")) && ((deviceIdentifier = self->_deviceIdentifier, !(deviceIdentifier | equalCopy[1])) || -[NSString isEqual:](deviceIdentifier, "isEqual:")) && ((passTypeIdentifier = self->_passTypeIdentifier, !(passTypeIdentifier | equalCopy[4])) || -[NSString isEqual:](passTypeIdentifier, "isEqual:")))
   {
     passSerialNumber = self->_passSerialNumber;
     if (passSerialNumber | equalCopy[3])
@@ -297,7 +277,6 @@
 
   else
   {
-LABEL_22:
     v15 = 0;
   }
 

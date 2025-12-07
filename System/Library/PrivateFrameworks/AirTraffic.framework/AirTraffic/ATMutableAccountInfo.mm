@@ -10,9 +10,7 @@
 {
   if (self->super._appleID != d)
   {
-    v5 = [d copy];
-    appleID = self->super._appleID;
-    self->super._appleID = v5;
+    self->super._appleID = [d copy];
 
     MEMORY[0x2821F96F8]();
   }
@@ -22,9 +20,7 @@
 {
   if (self->super._altDSID != d)
   {
-    v5 = [d copy];
-    altDSID = self->super._altDSID;
-    self->super._altDSID = v5;
+    self->super._altDSID = [d copy];
 
     MEMORY[0x2821F96F8]();
   }
@@ -34,9 +30,7 @@
 {
   if (self->super._DSID != d)
   {
-    v5 = [d copy];
-    DSID = self->super._DSID;
-    self->super._DSID = v5;
+    self->super._DSID = [d copy];
 
     MEMORY[0x2821F96F8]();
   }

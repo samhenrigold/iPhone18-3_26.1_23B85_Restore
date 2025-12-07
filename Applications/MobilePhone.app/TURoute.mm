@@ -33,46 +33,55 @@
 
     if (![(TURoute *)self isSpeaker])
     {
-      if (([(TURoute *)self isSpeaker]& 1) == 0 && ([(TURoute *)self isReceiver]& 1) == 0 && ([(TURoute *)self isDefaultRoute]& 1) == 0)
+      isSpeaker = [(TURoute *)self isSpeaker];
+      if ((isSpeaker & 1) == 0)
       {
-        v8 = [UIImage bluetoothAudioRouteGlyphForDisplayStyle:style];
-        goto LABEL_11;
+        isSpeaker = [(TURoute *)self isReceiver];
+        if ((isSpeaker & 1) == 0)
+        {
+          isSpeaker = [(TURoute *)self isDefaultRoute];
+          if ((isSpeaker & 1) == 0)
+          {
+            v9 = [UIImage bluetoothAudioRouteGlyphForDisplayStyle:style];
+            goto LABEL_11;
+          }
+        }
       }
 
-      v7 = PHDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = PHDefaultLog(isSpeaker);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [(TURoute(UI) *)self audioRouteGlyphForDisplayStyle:v7];
+        [(TURoute(UI) *)self audioRouteGlyphForDisplayStyle:v8];
       }
     }
 
-    v8 = [UIImage speakerRouteGlyphForDisplayStyle:style];
+    v9 = [UIImage speakerRouteGlyphForDisplayStyle:style];
 LABEL_11:
-    v6 = v8;
+    v6 = v9;
     goto LABEL_17;
   }
 
   if (style == 1)
   {
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x3032000000;
-    v19 = __Block_byref_object_copy__5;
-    v20 = __Block_byref_object_dispose__5;
-    v21 = 0;
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = __46__TURoute_UI__audioRouteGlyphForDisplayStyle___block_invoke;
-    v13[3] = &unk_100286B38;
-    v15 = &v16;
-    v10 = dispatch_semaphore_create(0);
-    v14 = v10;
-    [(TURoute *)self fetchAudioControlsGlyphWithCompletion:v13];
-    v11 = dispatch_time(0, 3000000000);
-    dispatch_semaphore_wait(v10, v11);
-    v6 = v17[5];
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x3032000000;
+    v20 = __Block_byref_object_copy__5;
+    v21 = __Block_byref_object_dispose__5;
+    v22 = 0;
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = __46__TURoute_UI__audioRouteGlyphForDisplayStyle___block_invoke;
+    v14[3] = &unk_100286B38;
+    v16 = &v17;
+    v11 = dispatch_semaphore_create(0);
+    v15 = v11;
+    [(TURoute *)self fetchAudioControlsGlyphWithCompletion:v14];
+    v12 = dispatch_time(0, 3000000000);
+    dispatch_semaphore_wait(v11, v12);
+    v6 = v18[5];
 
-    _Block_object_dispose(&v16, 8);
+    _Block_object_dispose(&v17, 8);
   }
 
   else if (style)
@@ -82,8 +91,8 @@ LABEL_11:
 
   else
   {
-    v9 = +[UIColor labelColor];
-    v6 = [(TURoute *)self audioRouteGlyphForRoutePickerWithColor:v9];
+    v10 = +[UIColor labelColor];
+    v6 = [(TURoute *)self audioRouteGlyphForRoutePickerWithColor:v10];
   }
 
 LABEL_17:
@@ -146,7 +155,7 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v11 = PHDefaultLog();
+  v11 = PHDefaultLog(0);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     modelIdentifier = [(TURoute *)self modelIdentifier];
@@ -242,7 +251,7 @@ void __43__TURoute_UI__avSystemControllerQueryQueue__block_invoke(id a1)
 
     else
     {
-      v7 = PHDefaultLog();
+      v7 = PHDefaultLog(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         modelIdentifier = [(TURoute *)self modelIdentifier];
@@ -264,7 +273,7 @@ void __43__TURoute_UI__avSystemControllerQueryQueue__block_invoke(id a1)
 
   else
   {
-    v6 = PHDefaultLog();
+    v6 = PHDefaultLog(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [TURoute(UI) fetchAudioControlsGlyphWithCompletion:v6];
@@ -288,7 +297,7 @@ id __53__TURoute_UI__fetchAudioControlsGlyphWithCompletion___block_invoke(uint64
 - (void)fetchFallbackAudioControlsGlyphWithCompletion:(id)completion
 {
   completionCopy = completion;
-  objc_initWeak(&location, self);
+  inited = objc_initWeak(&location, self);
   if (completionCopy)
   {
     avSystemControllerQueryQueue = [(TURoute *)self avSystemControllerQueryQueue];
@@ -296,19 +305,19 @@ id __53__TURoute_UI__fetchAudioControlsGlyphWithCompletion___block_invoke(uint64
     block[1] = 3221225472;
     block[2] = __61__TURoute_UI__fetchFallbackAudioControlsGlyphWithCompletion___block_invoke;
     block[3] = &unk_100285690;
-    objc_copyWeak(&v9, &location);
-    v8 = completionCopy;
+    objc_copyWeak(&v10, &location);
+    v9 = completionCopy;
     dispatch_async(avSystemControllerQueryQueue, block);
 
-    objc_destroyWeak(&v9);
+    objc_destroyWeak(&v10);
   }
 
   else
   {
-    v6 = PHDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = PHDefaultLog(inited);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [TURoute(UI) fetchFallbackAudioControlsGlyphWithCompletion:v6];
+      [TURoute(UI) fetchFallbackAudioControlsGlyphWithCompletion:v7];
     }
   }
 

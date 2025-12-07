@@ -105,26 +105,26 @@ void __65__TUContactsAutocompleteSearchModule_searchForString_completion___block
     v13 = [[v5 alloc] initWithDelegate:*(a1 + 32)];
     [*(a1 + 32) setAutocompleteStore:v13];
 
-    v14 = TUDefaultLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = TUDefaultLog(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1956FD000, v14, OS_LOG_TYPE_DEFAULT, "Requesting fetch from CNAutocompleteStore", buf, 2u);
+      _os_log_impl(&dword_1956FD000, v15, OS_LOG_TYPE_DEFAULT, "Requesting fetch from CNAutocompleteStore", buf, 2u);
     }
 
-    v15 = [*(a1 + 32) autocompleteStore];
-    v16 = [v15 scheduleFetchRequest:v6];
-    [*(a1 + 32) setFetchRequest:v16];
+    v16 = [*(a1 + 32) autocompleteStore];
+    v17 = [v16 scheduleFetchRequest:v6];
+    [*(a1 + 32) setFetchRequest:v17];
   }
 
   else
   {
-    v17 = [*(a1 + 32) completion];
+    v18 = [*(a1 + 32) completion];
 
-    if (v17)
+    if (v18)
     {
-      v18 = [*(a1 + 32) completion];
-      (*(v18 + 2))(v18, *(a1 + 32), 0);
+      v19 = [*(a1 + 32) completion];
+      (*(v19 + 2))(v19, *(a1 + 32), 0);
     }
   }
 }
@@ -207,78 +207,77 @@ void __51__TUContactsAutocompleteSearchModule_searchResults__block_invoke(uint64
 void __74__TUContactsAutocompleteSearchModule_autocompleteFetch_didReceiveResults___block_invoke(uint64_t a1)
 {
   v26 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "autocompleteFetch:didReceiveResults:", buf, 2u);
   }
 
-  if ([*(a1 + 32) isCancelled])
+  v3 = [*(a1 + 32) isCancelled];
+  if (v3)
   {
-    v3 = TUDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = TUDefaultLog(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 48);
-      v5 = [*(a1 + 32) fetchRequest];
+      v5 = *(a1 + 48);
+      v6 = [*(a1 + 32) fetchRequest];
       *buf = 138412546;
-      v22 = v4;
+      v22 = v5;
       v23 = 2112;
-      v24 = v5;
-      _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "[WARN] ZOMBIE FETCH %@ did receive results but current search is %@", buf, 0x16u);
+      v24 = v6;
+      _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "[WARN] ZOMBIE FETCH %@ did receive results but current search is %@", buf, 0x16u);
     }
   }
 
   else
   {
-    v6 = [*(a1 + 32) autocompleteResultPartitioner];
+    v7 = [*(a1 + 32) autocompleteResultPartitioner];
 
-    if (!v6)
+    if (!v7)
     {
-      v7 = objc_alloc_init(TUAutocompleteResultPartitioner);
-      [*(a1 + 32) setAutocompleteResultPartitioner:v7];
+      v8 = objc_alloc_init(TUAutocompleteResultPartitioner);
+      [*(a1 + 32) setAutocompleteResultPartitioner:v8];
 
-      v8 = [*(a1 + 32) searchController];
-      v9 = [*(a1 + 32) autocompleteResultPartitioner];
-      [v9 setSearchController:v8];
+      v9 = [*(a1 + 32) searchController];
+      v10 = [*(a1 + 32) autocompleteResultPartitioner];
+      [v10 setSearchController:v9];
     }
 
     v19 = 0u;
     v20 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v3 = *(a1 + 40);
-    v10 = [v3 countByEnumeratingWithState:&v17 objects:v25 count:16];
-    if (v10)
+    v4 = *(a1 + 40);
+    v11 = [v4 countByEnumeratingWithState:&v17 objects:v25 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v18;
+      v12 = v11;
+      v13 = *v18;
       do
       {
-        v13 = 0;
+        v14 = 0;
         do
         {
-          if (*v18 != v12)
+          if (*v18 != v13)
           {
-            objc_enumerationMutation(v3);
+            objc_enumerationMutation(v4);
           }
 
-          v14 = *(*(&v17 + 1) + 8 * v13);
-          v15 = [*(a1 + 32) autocompleteResultPartitioner];
-          [v15 addResult:v14];
+          v15 = *(*(&v17 + 1) + 8 * v14);
+          v16 = [*(a1 + 32) autocompleteResultPartitioner];
+          [v16 addResult:v15];
 
-          ++v13;
+          ++v14;
         }
 
-        while (v11 != v13);
-        v11 = [v3 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        while (v12 != v14);
+        v12 = [v4 countByEnumeratingWithState:&v17 objects:v25 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)autocompleteFetch:(id)fetch didFailWithError:(id)error
@@ -295,9 +294,9 @@ void __74__TUContactsAutocompleteSearchModule_autocompleteFetch_didReceiveResult
   dispatch_async(queue, v8);
 }
 
-uint64_t __73__TUContactsAutocompleteSearchModule_autocompleteFetch_didFailWithError___block_invoke(uint64_t a1)
+void *__73__TUContactsAutocompleteSearchModule_autocompleteFetch_didFailWithError___block_invoke(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __73__TUContactsAutocompleteSearchModule_autocompleteFetch_didFailWithError___block_invoke_cold_1(a1, v2);
@@ -334,7 +333,7 @@ uint64_t __73__TUContactsAutocompleteSearchModule_autocompleteFetch_didFailWithE
 
 void __65__TUContactsAutocompleteSearchModule_autocompleteFetchDidFinish___block_invoke(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -363,12 +362,11 @@ void __65__TUContactsAutocompleteSearchModule_autocompleteFetchDidFinish___block
 
 void __73__TUContactsAutocompleteSearchModule_autocompleteFetch_didFailWithError___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "autocompleteFetch:didFailWithError: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "autocompleteFetch:didFailWithError: %@", &v3, 0xCu);
 }
 
 @end

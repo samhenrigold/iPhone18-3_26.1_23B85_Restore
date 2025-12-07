@@ -29,43 +29,43 @@
 
 - (BMBehaviorRetriever)initWithURL:(id)l taskSpecificItemTypes:(id)types
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   lCopy = l;
   typesCopy = types;
-  v22.receiver = self;
-  v22.super_class = BMBehaviorRetriever;
-  v8 = [(BMBehaviorRetriever *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = BMBehaviorRetriever;
+  v8 = [(BMBehaviorRetriever *)&v21 init];
   if (v8)
   {
     v9 = [[BMBehaviorStorage alloc] initWithURL:lCopy readOnly:1];
     storage = v8->_storage;
     v8->_storage = v9;
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v11 = typesCopy;
-    v12 = [v11 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v19;
+      v14 = *v18;
       do
       {
         v15 = 0;
         do
         {
-          if (*v19 != v14)
+          if (*v18 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          [BMItemType registerItemType:*(*(&v18 + 1) + 8 * v15++), v18];
+          [BMItemType registerItemType:*(*(&v17 + 1) + 8 * v15++), v17];
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v13);
@@ -74,7 +74,6 @@
     v8->_fetchLimit = 2048;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

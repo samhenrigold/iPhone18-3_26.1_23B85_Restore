@@ -1,587 +1,506 @@
-uint64_t str_sub(void *a1)
-{
-  v14 = 0;
-  v2 = luaL_checklstring(a1, 1, &v14);
-  v3 = luaL_checkinteger(a1, 2);
-  if (v14 >= -v3)
-  {
-    v4 = v3 + v14 + 1;
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  if (v3 < 0)
-  {
-    v5 = v4;
-  }
-
-  else
-  {
-    v5 = v3;
-  }
-
-  v6 = luaL_optinteger(a1, 3, -1);
-  v7 = v14;
-  if (v14 >= -v6)
-  {
-    v8 = v6 + v14 + 1;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  if (v6 < 0)
-  {
-    v9 = v8;
-  }
-
-  else
-  {
-    v9 = v6;
-  }
-
-  if (v5 <= 1)
-  {
-    v10 = 1;
-  }
-
-  else
-  {
-    v10 = v5;
-  }
-
-  if (v9 < v14)
-  {
-    v7 = v9;
-  }
-
-  v11 = v7 < v10;
-  v12 = v7 - v10;
-  if (v11)
-  {
-    lua_pushstring(a1, "");
-  }
-
-  else
-  {
-    lua_pushlstring(a1, (v2 + v10 - 1), v12 + 1);
-  }
-
-  return 1;
-}
-
 uint64_t str_upper(uint64_t a1)
 {
   v1 = MEMORY[0x1EEE9AC00](a1);
-  v16 = *MEMORY[0x1E69E9840];
-  v14 = 0;
-  memset(v15, 0, 512);
-  v2 = luaL_checklstring(v1, 1, &v14);
-  v8 = luaL_buffinitsize(v1, v15, v14, v3, v4, v5, v6, v7);
-  if (v14)
+  v10 = *MEMORY[0x1E69E9840];
+  v8 = 0;
+  memset(v9, 0, 512);
+  v2 = luaL_checklstring(v1, 1, &v8);
+  v3 = luaL_buffinitsize(v1, v9, v8);
+  if (v8)
   {
-    v9 = v8;
-    for (i = 0; i < v14; ++i)
+    v4 = v3;
+    for (i = 0; i < v8; ++i)
     {
-      v9[i] = __toupper(*(v2 + i));
-      v11 = v14;
+      v4[i] = __toupper(*(v2 + i));
+      v6 = v8;
     }
   }
 
   else
   {
-    v11 = 0;
+    v6 = 0;
   }
 
-  luaL_pushresultsize(v15, v11);
-  v12 = *MEMORY[0x1E69E9840];
+  luaL_pushresultsize(v9, v6);
   return 1;
 }
 
 uint64_t str_pack(uint64_t a1)
 {
   v1 = MEMORY[0x1EEE9AC00](a1);
-  v107 = *MEMORY[0x1E69E9840];
-  v105 = 0u;
-  v106 = 0u;
-  v103 = 0u;
-  v104 = 0u;
-  v101 = 0u;
-  v102 = 0u;
-  v99 = 0u;
-  v100 = 0u;
-  v97 = 0u;
-  v98 = 0u;
-  v95 = 0u;
-  v96 = 0u;
-  v93 = 0u;
-  v94 = 0u;
-  v91 = 0u;
-  v92 = 0u;
-  v89 = 0u;
-  v90 = 0u;
-  v87 = 0u;
-  v88 = 0u;
-  v85 = 0u;
-  v86 = 0u;
-  v83 = 0u;
-  v84 = 0u;
-  v81 = 0u;
-  v82 = 0u;
-  v79 = 0u;
-  v80 = 0u;
-  v77 = 0u;
-  v78 = 0u;
+  v76 = *MEMORY[0x1E69E9840];
+  v74 = 0u;
   v75 = 0u;
-  v76 = 0u;
-  v70 = luaL_checklstring(v1, 1, 0);
-  v71 = v1;
-  v72 = 0x100000001;
+  v72 = 0u;
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v39 = luaL_checklstring(v1, 1, 0);
+  v40 = v1;
+  v41 = 0x100000001;
   lua_pushnil(v1);
-  luaL_buffinit(v1, &v75);
-  if (*v70)
+  luaL_buffinit(v1, &v44);
+  if (*v39)
   {
-    v5 = 0;
-    v6 = 1;
+    v2 = 0;
+    v3 = 1;
     do
     {
-      v69 = 0;
-      v10 = getdetails(&v71, v5, &v70, &v69 + 1, &v69, v2, v3, v4);
-      v11 = v69;
-      v12 = HIDWORD(v69);
-      if (v69 >= 1)
+      v38 = 0;
+      v4 = getdetails(&v40, v2, &v39, &v38 + 1, &v38);
+      v5 = v38;
+      v6 = HIDWORD(v38);
+      if (v38 >= 1)
       {
-        v13 = v69 + 1;
+        v7 = v38 + 1;
         do
         {
-          v14 = v76;
-          if (v76 >= *(&v75 + 1))
+          v8 = v45;
+          if (v45 >= *(&v44 + 1))
           {
-            luaL_prepbuffsize(&v75, 1uLL, v7, v8, v9, v2, v3, v4);
-            v14 = v76;
+            luaL_prepbuffsize(&v44, 1uLL);
+            v8 = v45;
           }
 
-          *&v76 = v14 + 1;
-          *(v75 + v14) = 0;
-          --v13;
+          *&v45 = v8 + 1;
+          *(v44 + v8) = 0;
+          --v7;
         }
 
-        while (v13 > 1);
+        while (v7 > 1);
       }
 
-      v5 += v12 + v11;
-      v15 = (v6 + 1);
-      if (v10 > 4)
+      v2 += v6 + v5;
+      v9 = (v3 + 1);
+      if (v4 > 4)
       {
-        if ((v10 - 7) >= 2)
+        if ((v4 - 7) >= 2)
         {
-          if (v10 == 5)
+          if (v4 == 5)
           {
-            *&v73[0] = 0;
-            v23 = luaL_checklstring(v1, (v6 + 1), v73);
-            v24 = strlen(v23);
-            if (v24 != *&v73[0])
+            *&v42[0] = 0;
+            v12 = luaL_checklstring(v1, (v3 + 1), v42);
+            v13 = strlen(v12);
+            if (v13 != *&v42[0])
             {
-              luaL_argerror(v1, (v6 + 1));
-              v24 = *&v73[0];
+              luaL_argerror(v1, v3 + 1);
+              v13 = *&v42[0];
             }
 
-            luaL_addlstring(&v75, v23, v24, v25, v26, v27, v28, v29);
-            v33 = v76;
-            if (v76 >= *(&v75 + 1))
+            luaL_addlstring(&v44, v12, v13);
+            v14 = v45;
+            if (v45 >= *(&v44 + 1))
             {
-              luaL_prepbuffsize(&v75, 1uLL, v30, v31, v32, v2, v3, v4);
-              v33 = v76;
+              luaL_prepbuffsize(&v44, 1uLL);
+              v14 = v45;
             }
 
-            *&v76 = v33 + 1;
-            *(v75 + v33) = 0;
-            v5 += *&v73[0] + 1;
+            *&v45 = v14 + 1;
+            *(v44 + v14) = 0;
+            v2 += *&v42[0] + 1;
             goto LABEL_55;
           }
 
-          v49 = v76;
-          if (v76 >= *(&v75 + 1))
+          v27 = v45;
+          if (v45 >= *(&v44 + 1))
           {
-            luaL_prepbuffsize(&v75, 1uLL, v7, v8, v9, v2, v3, v4);
-            v49 = v76;
+            luaL_prepbuffsize(&v44, 1uLL);
+            v27 = v45;
           }
 
-          *&v76 = v49 + 1;
-          *(v75 + v49) = 0;
+          *&v45 = v27 + 1;
+          *(v44 + v27) = 0;
         }
 
-        v15 = v6;
+        v9 = v3;
       }
 
-      else if (v10 <= 1)
+      else if (v4 <= 1)
       {
-        v34 = (v6 + 1);
-        if (v10)
+        v15 = (v3 + 1);
+        if (v4)
         {
-          v60 = luaL_checkinteger(v1, v34);
-          v61 = v60;
-          if (v12 <= 7 && v60 >> (8 * v12))
+          v30 = luaL_checkinteger(v1, v15);
+          v31 = v30;
+          if (v6 <= 7 && v30 >> (8 * v6))
           {
-            luaL_argerror(v1, (v6 + 1));
+            luaL_argerror(v1, v3 + 1);
           }
 
-          v42 = v72;
-          v44 = v61;
-          v45 = v12;
-          v43 = 0;
+          v20 = v41;
+          v22 = v31;
+          v23 = v6;
+          LODWORD(v21) = 0;
         }
 
         else
         {
-          v35 = luaL_checkinteger(v1, v34);
-          v39 = v35;
-          if (v12 <= 7)
+          v16 = luaL_checkinteger(v1, v15);
+          v17 = v16;
+          if (v6 <= 7)
           {
-            v40 = 1 << (8 * v12 - 1);
-            if (v35 < -v40 || v35 >= v40)
+            v18 = 1 << (8 * v6 - 1);
+            if (v16 < -v18 || v16 >= v18)
             {
-              luaL_argerror(v1, (v6 + 1));
+              luaL_argerror(v1, v3 + 1);
             }
           }
 
-          v42 = v72;
-          v43 = v39 >> 63;
-          v44 = v39;
-          v45 = v12;
+          v20 = v41;
+          v21 = v17 >> 63;
+          v22 = v17;
+          v23 = v6;
         }
 
-        packint(&v75, v44, v42, v45, v43, v36, v37, v38);
+        packint(&v44, v22, v20, v23, v21);
       }
 
       else
       {
-        v16 = v12;
-        if (v10 == 2)
+        v10 = v6;
+        if (v4 == 2)
         {
-          v74 = 0;
-          memset(v73, 0, sizeof(v73));
-          v46 = luaL_prepbuffsize(&v75, v12, v7, v8, v9, v2, v3, v4);
-          v47 = luaL_checknumber(v1, v15);
-          if (v12 == 4)
+          v43 = 0;
+          memset(v42, 0, sizeof(v42));
+          v24 = luaL_prepbuffsize(&v44, v6);
+          v25 = luaL_checknumber(v1, v9);
+          if (v6 == 4)
           {
-            v48 = v47;
-            *v73 = v48;
+            v26 = v25;
+            *v42 = v26;
           }
 
           else
           {
-            *v73 = v47;
+            *v42 = v25;
           }
 
-          if (v72 == 1)
+          if (v41 == 1)
           {
-            if (v12)
+            if (v6)
             {
-              v62 = v73;
+              v32 = v42;
               do
               {
-                v63 = *v62++;
-                *v46++ = v63;
-                LODWORD(v12) = v12 - 1;
+                v33 = *v32++;
+                *v24++ = v33;
+                --v6;
               }
 
-              while (v12);
+              while (v6);
             }
           }
 
-          else if (v12)
+          else if (v6)
           {
-            v64 = &v46[v12 - 1];
-            v65 = v73;
+            v34 = &v24[v6 - 1];
+            v35 = v42;
             do
             {
-              v66 = *v65++;
-              *v64-- = v66;
-              LODWORD(v12) = v12 - 1;
+              v36 = *v35++;
+              *v34-- = v36;
+              --v6;
             }
 
-            while (v12);
+            while (v6);
           }
 
-          *&v76 = v76 + v16;
+          *&v45 = v45 + v10;
         }
 
-        else if (v10 == 3)
+        else if (v4 == 3)
         {
-          *&v73[0] = 0;
-          v22 = luaL_checklstring(v1, v15, v73);
-          if (*&v73[0] != v12)
+          *&v42[0] = 0;
+          v11 = luaL_checklstring(v1, v9, v42);
+          if (*&v42[0] != v6)
           {
-            luaL_argerror(v1, v15);
+            luaL_argerror(v1, v9);
           }
 
-          luaL_addlstring(&v75, v22, v12, v17, v18, v19, v20, v21);
+          luaL_addlstring(&v44, v11, v6);
         }
 
         else
         {
-          *&v73[0] = 0;
-          v53 = luaL_checklstring(v1, v15, v73);
-          v54 = *&v73[0];
-          if (v12 <= 7 && *&v73[0] >> (8 * v12))
+          *&v42[0] = 0;
+          v28 = luaL_checklstring(v1, v9, v42);
+          v29 = *&v42[0];
+          if (v6 <= 7 && *&v42[0] >> (8 * v6))
           {
-            luaL_argerror(v1, v15);
-            v54 = *&v73[0];
+            luaL_argerror(v1, v9);
+            v29 = *&v42[0];
           }
 
-          packint(&v75, v54, v72, v12, 0, v50, v51, v52);
-          luaL_addlstring(&v75, v53, *&v73[0], v55, v56, v57, v58, v59);
-          v5 += *&v73[0];
+          packint(&v44, v29, v41, v6, 0);
+          luaL_addlstring(&v44, v28, *&v42[0]);
+          v2 += *&v42[0];
         }
       }
 
 LABEL_55:
-      v6 = v15;
+      v3 = v9;
     }
 
-    while (*v70);
+    while (*v39);
   }
 
-  luaL_pushresult(&v75);
-  v67 = *MEMORY[0x1E69E9840];
+  luaL_pushresult(&v44);
   return 1;
 }
 
 uint64_t str_packsize(void *a1)
 {
-  v10 = luaL_checklstring(a1, 1, 0);
-  v11[0] = a1;
-  v11[1] = 0x100000001;
-  if (*v10)
+  v7 = luaL_checklstring(a1, 1, 0);
+  v8[0] = a1;
+  v8[1] = 0x100000001;
+  if (*v7)
   {
-    v5 = 0;
+    v2 = 0;
     do
     {
-      v9 = 0;
-      v6 = getdetails(v11, v5, &v10, &v9 + 1, &v9, v2, v3, v4);
-      v7 = SHIDWORD(v9) + v9;
-      if (v5 > 0x7FFFFFFF - v7)
+      v6 = 0;
+      v3 = getdetails(v8, v2, &v7, &v6 + 1, &v6);
+      v4 = SHIDWORD(v6) + v6;
+      if (v2 > 0x7FFFFFFF - v4)
       {
         luaL_argerror(a1, 1);
       }
 
-      if ((v6 & 0xE) == 4)
+      if ((v3 & 0xE) == 4)
       {
         luaL_argerror(a1, 1);
       }
 
-      v5 += v7;
+      v2 += v4;
     }
 
-    while (*v10);
+    while (*v7);
   }
 
   else
   {
-    v5 = 0;
+    v2 = 0;
   }
 
-  lua_pushinteger(a1, v5);
+  lua_pushinteger(a1, v2);
   return 1;
 }
 
 uint64_t str_unpack(void *a1)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v2 = luaL_checklstring(a1, 1, 0);
-  v41 = 0;
-  v42 = v2;
-  v3 = luaL_checklstring(a1, 2, &v41);
+  v31 = 0;
+  v32 = v2;
+  v3 = luaL_checklstring(a1, 2, &v31);
   v4 = luaL_optinteger(a1, 3, 1);
-  if (v41 >= -v4)
+  if (v31 >= -v4)
   {
-    v8 = v4 + v41 + 1;
+    v5 = v4 + v31 + 1;
   }
 
   else
   {
-    v8 = 0;
+    v5 = 0;
   }
 
   if (v4 < 0)
   {
-    v9 = v8;
+    v6 = v5;
   }
 
   else
   {
-    v9 = v4;
+    v6 = v4;
   }
 
-  v10 = v9 - 1;
-  if (v9 - 1 > v41)
+  v7 = v6 - 1;
+  if (v6 - 1 > v31)
   {
     luaL_argerror(a1, 3);
   }
 
-  v43 = a1;
-  v44 = 0x100000001;
+  v33 = a1;
+  v34 = 0x100000001;
   if (!*v2)
   {
-    v36 = 1;
+    v28 = 1;
     goto LABEL_42;
   }
 
-  v11 = 0;
-  v39 = &v44 + 7;
+  v8 = 0;
   do
   {
-    v40 = 0;
-    v17 = getdetails(&v43, v10, &v42, &v40 + 1, &v40, v5, v6, v7);
-    v18 = HIDWORD(v40);
-    v19 = SHIDWORD(v40);
-    v20 = v10 + v40;
-    if (__CFADD__(v10, v40 + SHIDWORD(v40)) || v20 + SHIDWORD(v40) > v41)
+    v30 = 0;
+    v9 = getdetails(&v33, v7, &v32, &v30 + 1, &v30);
+    v10 = HIDWORD(v30);
+    v11 = SHIDWORD(v30);
+    v12 = v7 + v30;
+    if (__CFADD__(v7, v30 + SHIDWORD(v30)) || v12 + SHIDWORD(v30) > v31)
     {
       luaL_argerror(a1, 2);
     }
 
-    luaL_checkstack(a1, 2, "too many results", v12, v13, v14, v15, v16, v39);
-    if (v17 > 3)
+    luaL_checkstack(a1, 2, "too many results");
+    if (v9 > 3)
     {
-      if ((v17 - 6) < 3)
+      if ((v9 - 6) < 3)
       {
         goto LABEL_39;
       }
 
-      if (v17 != 4)
+      if (v9 != 4)
       {
-        v31 = strlen((v3 + v20));
-        lua_pushlstring(a1, (v3 + v20), v31);
-        v20 += v31 + 1;
+        v23 = strlen((v3 + v12));
+        lua_pushlstring(a1, (v3 + v12), v23);
+        v12 += v23 + 1;
         goto LABEL_38;
       }
 
-      v22 = v3 + v20;
-      v23 = unpackint(a1, v3 + v20, v44, v18, 0, v5, v6, v7);
-      v20 += v23;
-      if (v20 + v19 > v41)
+      v14 = v3 + v12;
+      v15 = unpackint(a1, v3 + v12, v34, v10, 0);
+      v12 += v15;
+      if (v12 + v11 > v31)
       {
         luaL_argerror(a1, 2);
       }
 
-      v24 = (v22 + v19);
-      v25 = a1;
-      v26 = v23;
+      v16 = (v14 + v11);
+      v17 = a1;
+      v18 = v15;
       goto LABEL_29;
     }
 
-    if (v17 >= 2)
+    if (v9 >= 2)
     {
-      if (v17 != 2)
+      if (v9 != 2)
       {
-        v24 = (v3 + v20);
-        v25 = a1;
-        v26 = v19;
+        v16 = (v3 + v12);
+        v17 = a1;
+        v18 = v11;
 LABEL_29:
-        lua_pushlstring(v25, v24, v26);
+        lua_pushlstring(v17, v16, v18);
         goto LABEL_38;
       }
 
-      v46 = 0;
-      memset(v45, 0, sizeof(v45));
-      v27 = (v3 + v20);
-      if (v44 == 1)
+      v36 = 0;
+      memset(v35, 0, sizeof(v35));
+      v19 = (v3 + v12);
+      if (v34 == 1)
       {
-        if (!v18)
+        if (!v10)
         {
           goto LABEL_36;
         }
 
-        v28 = v45;
-        v29 = v18;
+        v20 = v35;
+        v21 = v10;
         do
         {
-          v30 = *v27++;
-          *v28++ = v30;
-          --v29;
+          v22 = *v19++;
+          *v20++ = v22;
+          --v21;
         }
 
-        while (v29);
+        while (v21);
       }
 
       else
       {
-        if (!v18)
+        if (!v10)
         {
           goto LABEL_36;
         }
 
-        v32 = &v39[v19];
-        v33 = v18;
+        v24 = &v34 + v11 + 7;
+        v25 = v10;
         do
         {
-          v34 = *v27++;
-          *v32-- = v34;
-          --v33;
+          v26 = *v19++;
+          *v24-- = v26;
+          --v25;
         }
 
-        while (v33);
+        while (v25);
       }
 
-      if (v18 == 4)
+      if (v10 == 4)
       {
-        v35 = *v45;
+        v27 = *v35;
 LABEL_37:
-        lua_pushnumber(a1, v35);
+        lua_pushnumber(a1, v27);
         goto LABEL_38;
       }
 
 LABEL_36:
-      v35 = *v45;
+      v27 = *v35;
       goto LABEL_37;
     }
 
-    v21 = unpackint(a1, v3 + v20, v44, v18, v17 == 0, v5, v6, v7);
-    lua_pushinteger(a1, v21);
+    v13 = unpackint(a1, v3 + v12, v34, v10, v9 == 0);
+    lua_pushinteger(a1, v13);
 LABEL_38:
-    ++v11;
+    ++v8;
 LABEL_39:
-    v10 = v20 + v19;
+    v7 = v12 + v11;
   }
 
-  while (*v42);
-  v9 = v10 + 1;
-  v36 = (v11 + 1);
+  while (*v32);
+  v6 = v7 + 1;
+  v28 = (v8 + 1);
 LABEL_42:
-  lua_pushinteger(a1, v9);
-  v37 = *MEMORY[0x1E69E9840];
-  return v36;
+  lua_pushinteger(a1, v6);
+  return v28;
 }
 
 uint64_t str_find_aux(void *a1, int a2)
 {
-  v71 = 0;
-  v72 = 0;
-  v4 = luaL_checklstring(a1, 1, &v72);
-  v5 = luaL_checklstring(a1, 2, &v71);
+  v61 = 0;
+  v62 = 0;
+  v4 = luaL_checklstring(a1, 1, &v62);
+  v5 = luaL_checklstring(a1, 2, &v61);
   v6 = luaL_optinteger(a1, 3, 1);
-  v12 = v6;
+  v7 = v6;
   if (v6 < 0)
   {
-    if (v72 < -v6)
+    if (v62 < -v6)
     {
       goto LABEL_19;
     }
 
-    v12 = v72 + v6 + 1;
+    v7 = v62 + v6 + 1;
   }
 
-  if (v12 < 1)
+  if (v7 < 1)
   {
 LABEL_19:
-    v12 = 1;
+    v7 = 1;
     if (a2)
     {
       goto LABEL_7;
@@ -590,7 +509,7 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  if (v12 > (v72 + 1))
+  if (v7 > (v62 + 1))
   {
     goto LABEL_28;
   }
@@ -598,15 +517,15 @@ LABEL_19:
   if (a2)
   {
 LABEL_7:
-    v13 = lua_toBOOLean(a1, 4);
-    v14 = v71;
-    if (!v13)
+    v8 = lua_toBOOLean(a1, 4u);
+    v9 = v61;
+    if (!v8)
     {
-      v15 = 0;
-      while (!strpbrk(&v5[v15], "^$*+?.([%-"))
+      v10 = 0;
+      while (!strpbrk(&v5[v10], "^$*+?.([%-"))
       {
-        v15 += strlen(&v5[v15]) + 1;
-        if (v15 > v14)
+        v10 += strlen(&v5[v10]) + 1;
+        if (v10 > v9)
         {
           goto LABEL_11;
         }
@@ -616,48 +535,48 @@ LABEL_7:
     }
 
 LABEL_11:
-    v16 = (v4 + v12 - 1);
-    if (!v14)
+    v11 = (v4 + v7 - 1);
+    if (!v9)
     {
 LABEL_33:
-      v38 = &v16[-v4];
-      lua_pushinteger(a1, (v38 + 1));
-      lua_pushinteger(a1, &v38[v71]);
+      v28 = &v11[-v4];
+      lua_pushinteger(a1, (v28 + 1));
+      lua_pushinteger(a1, &v28[v61]);
       return 2;
     }
 
-    v17 = v72 - v12 + 1;
-    if (v14 <= v17)
+    v12 = v62 - v7 + 1;
+    if (v9 <= v12)
     {
-      v18 = v14 - 1;
-      v19 = v17 - (v14 - 1);
-      if (v17 != v14 - 1)
+      v13 = v9 - 1;
+      v14 = v12 - (v9 - 1);
+      if (v12 != v9 - 1)
       {
-        v22 = *v5;
-        v20 = v5 + 1;
-        v21 = v22;
+        v17 = *v5;
+        v15 = v5 + 1;
+        v16 = v17;
         do
         {
-          v23 = memchr(v16, v21, v19);
-          if (!v23)
+          v18 = memchr(v11, v16, v14);
+          if (!v18)
           {
             break;
           }
 
-          v24 = v23;
-          v25 = v23 + 1;
-          if (!memcmp(v23 + 1, v20, v18))
+          v19 = v18;
+          v20 = v18 + 1;
+          if (!memcmp(v18 + 1, v15, v13))
           {
-            v16 = v24;
+            v11 = v19;
             goto LABEL_33;
           }
 
-          v26 = &v16[v19];
-          v16 = v25;
-          v19 = v26 - v25;
+          v21 = &v11[v14];
+          v11 = v20;
+          v14 = v21 - v20;
         }
 
-        while (v26 != v25);
+        while (v21 != v20);
       }
     }
 
@@ -667,18 +586,8 @@ LABEL_28:
   }
 
 LABEL_20:
-  v14 = v71;
+  v9 = v61;
 LABEL_21:
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
-  v62 = 0u;
   v59 = 0u;
   v60 = 0u;
   v57 = 0u;
@@ -701,32 +610,42 @@ LABEL_21:
   v42 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v27 = (v4 + v12 - 1);
-  v28 = *v5;
-  if (v28 == 94)
+  v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v22 = (v4 + v7 - 1);
+  v23 = *v5;
+  if (v23 == 94)
   {
     ++v5;
-    v71 = --v14;
+    v61 = --v9;
   }
 
-  LODWORD(v39) = 200;
-  *(&v39 + 1) = v4;
-  *&v40 = v4 + v72;
-  *(&v40 + 1) = &v5[v14];
-  *&v41 = a1;
+  LODWORD(v29) = 200;
+  *(&v29 + 1) = v4;
+  *&v30 = v4 + v62;
+  *(&v30 + 1) = &v5[v9];
+  *&v31 = a1;
   while (1)
   {
-    DWORD2(v41) = 0;
-    matched = match_0(&v39, v27, v5, v7, v8, v9, v10, v11);
+    DWORD2(v31) = 0;
+    matched = match_0(&v29, v22, v5);
     if (matched)
     {
       break;
     }
 
-    if (v28 != 94)
+    if (v23 != 94)
     {
-      ++v12;
-      if (v27++ < v40)
+      ++v7;
+      if (v22++ < v30)
       {
         continue;
       }
@@ -735,68 +654,67 @@ LABEL_21:
     goto LABEL_28;
   }
 
-  v32 = matched;
+  v27 = matched;
   if (!a2)
   {
-    return push_captures(&v39, v27, matched, v7, v8, v9, v10, v11);
+    return push_captures(&v29, v22, matched);
   }
 
-  lua_pushinteger(a1, v12);
-  lua_pushinteger(a1, v32 - v4);
-  return push_captures(&v39, 0, 0, v33, v34, v35, v36, v37) + 2;
+  lua_pushinteger(a1, v7);
+  lua_pushinteger(a1, &v27[-v4]);
+  return push_captures(&v29, 0, 0) + 2;
 }
 
-uint64_t push_captures(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t push_captures(uint64_t a1, char *a2, uint64_t a3)
 {
-  v11 = *(a1 + 40);
-  if (v11)
+  v6 = *(a1 + 40);
+  if (v6)
   {
-    v12 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v12 = a2 == 0;
+    v7 = a2 == 0;
   }
 
-  if (v12)
+  if (v7)
   {
-    v13 = v11;
+    v8 = v6;
   }
 
   else
   {
-    v13 = 1;
+    v8 = 1;
   }
 
-  luaL_checkstack(*(a1 + 32), v13, "too many captures", a4, a5, a6, a7, a8, v20);
-  if (v13 >= 1)
+  luaL_checkstack(*(a1 + 32), v8, "too many captures");
+  if (v8 >= 1)
   {
-    v18 = 0;
+    v9 = 0;
     do
     {
-      push_onecapture(a1, v18++, a2, a3, v14, v15, v16, v17);
+      push_onecapture(a1, v9++, a2, a3);
     }
 
-    while (v13 != v18);
+    while (v8 != v9);
   }
 
-  return v13;
+  return v8;
 }
 
-uint64_t start_capture(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t start_capture(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3, int a4)
 {
-  v8 = a4;
-  v12 = *(a1 + 40);
-  if (v12 >= 32)
+  v8 = *(a1 + 40);
+  if (v8 >= 32)
   {
-    luaL_error(*(a1 + 32), "too many captures", a3, a4, a5, a6, a7, a8, v15);
+    luaL_error(*(a1 + 32), "too many captures");
   }
 
-  v13 = a1 + 16 * v12;
-  *(v13 + 48) = a2;
-  *(v13 + 56) = v8;
-  *(a1 + 40) = v12 + 1;
+  v9 = a1 + 16 * v8;
+  *(v9 + 48) = a2;
+  *(v9 + 56) = a4;
+  *(a1 + 40) = v8 + 1;
   result = match_0(a1, a2, a3);
   if (!result)
   {
@@ -806,47 +724,47 @@ uint64_t start_capture(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return result;
 }
 
-unsigned __int8 *classend(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unsigned __int8 *classend(uint64_t a1, unsigned __int8 *a2)
 {
   result = a2 + 1;
-  v11 = *a2;
-  if (v11 == 91)
+  v5 = *a2;
+  if (v5 == 91)
   {
     if (a2[1] == 94)
     {
-      v12 = a2 + 2;
+      v6 = a2 + 2;
     }
 
     else
     {
-      v12 = a2 + 1;
+      v6 = a2 + 1;
     }
 
     do
     {
-      if (v12 == *(a1 + 24))
+      if (v6 == *(a1 + 24))
       {
-        luaL_error(*(a1 + 32), "malformed pattern (missing ']')", a3, a4, a5, a6, a7, a8, v14);
+        luaL_error(*(a1 + 32), "malformed pattern (missing ']')");
       }
 
-      v13 = v12 + 1;
-      if (*v12 == 37 && v13 < *(a1 + 24))
+      v7 = v6 + 1;
+      if (*v6 == 37 && v7 < *(a1 + 24))
       {
-        v13 = v12 + 2;
+        v7 = v6 + 2;
       }
 
-      v12 = v13;
+      v6 = v7;
     }
 
-    while (*v13 != 93);
-    return v13 + 1;
+    while (*v7 != 93);
+    return v7 + 1;
   }
 
-  else if (v11 == 37)
+  else if (v5 == 37)
   {
     if (result == *(a1 + 24))
     {
-      luaL_error(*(a1 + 32), "malformed pattern (ends with '%%')", a3, a4, a5, a6, a7, a8, v14);
+      luaL_error(*(a1 + 32), "malformed pattern (ends with '%%')");
     }
 
     return a2 + 2;
@@ -1086,56 +1004,46 @@ LABEL_47:
   return v6 ^ (v10 == 0);
 }
 
-uint64_t push_onecapture(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t push_onecapture(uint64_t a1, int a2, char *a3, uint64_t a4)
 {
   if (*(a1 + 40) <= a2)
   {
-    v11 = *(a1 + 32);
+    v7 = *(a1 + 32);
     if (a2)
     {
-      return luaL_error(v11, "invalid capture index %%%d", a3, a4, a5, a6, a7, a8, (a2 + 1));
+      return luaL_error(v7, "invalid capture index %%%d", a2 + 1);
     }
 
-    v12 = a3;
-    v13 = a4 - a3;
+    v8 = a3;
+    v9 = a4 - a3;
     goto LABEL_9;
   }
 
-  v9 = a1 + 16 * a2;
-  v10 = *(v9 + 56);
-  if (v10 != -2)
+  v5 = a1 + 16 * a2;
+  v6 = *(v5 + 56);
+  if (v6 != -2)
   {
-    if (v10 == -1)
+    if (v6 == -1)
     {
-      luaL_error(*(a1 + 32), "unfinished capture", a3, a4, a5, a6, a7, a8, v17);
+      luaL_error(*(a1 + 32), "unfinished capture", a3, a4);
     }
 
-    v11 = *(a1 + 32);
-    v12 = *(v9 + 48);
-    v13 = v10;
+    v7 = *(a1 + 32);
+    v8 = *(v5 + 48);
+    v9 = v6;
 LABEL_9:
 
-    return lua_pushlstring(v11, v12, v13);
+    return lua_pushlstring(v7, v8, v9);
   }
 
-  v15 = *(a1 + 32);
-  v16 = *(v9 + 48) - *(a1 + 8) + 1;
+  v11 = *(a1 + 32);
+  v12 = *(v5 + 48) - *(a1 + 8) + 1;
 
-  return lua_pushinteger(v15, v16);
+  return lua_pushinteger(v11, v12);
 }
 
 uint64_t gmatch_aux(void *a1)
 {
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
   v43 = 0u;
   v44 = 0u;
   v41 = 0u;
@@ -1158,357 +1066,364 @@ uint64_t gmatch_aux(void *a1)
   v26 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v21 = 0;
-  v22 = 0;
-  v2 = lua_tolstring(a1, -1001001, &v22);
-  v3 = lua_tolstring(a1, -1001002, &v21);
-  LODWORD(v23) = 200;
-  v4 = v22;
-  *(&v23 + 1) = v2;
-  *&v24 = v2 + v22;
-  *(&v24 + 1) = v3 + v21;
-  *&v25 = a1;
-  v5 = lua_tointegerx(a1, -1001003, 0);
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0;
+  v12 = 0;
+  v2 = lua_tolstring(a1, 0xFFF0B9D7, &v12);
+  v3 = lua_tolstring(a1, 0xFFF0B9D6, &v11);
+  LODWORD(v13) = 200;
+  v4 = v12;
+  *(&v13 + 1) = v2;
+  *&v14 = v2 + v12;
+  *(&v14 + 1) = &v3[v11];
+  *&v15 = a1;
+  v5 = lua_tointegerx(a1, 0xFFF0B9D5, 0);
   if (v5 > v4)
   {
     return 0;
   }
 
-  v11 = (v2 + v5);
+  v6 = (v2 + v5);
   while (1)
   {
-    DWORD2(v25) = 0;
-    matched = match_0(&v23, v11, v3, v6, v7, v8, v9, v10);
+    DWORD2(v15) = 0;
+    matched = match_0(&v13, v6, v3);
     if (matched)
     {
       break;
     }
 
-    if (++v11 > v24)
+    if (++v6 > v14)
     {
       return 0;
     }
   }
 
-  v14 = matched;
-  if (v11 == matched)
+  v9 = matched;
+  if (v6 == matched)
   {
-    v15 = matched - v2 + 1;
+    v10 = &matched[-v2 + 1];
   }
 
   else
   {
-    v15 = matched - v2;
+    v10 = &matched[-v2];
   }
 
-  lua_pushinteger(a1, v15);
-  lua_copy(a1, -1, -1001003);
-  lua_settop(a1, 0xFFFFFFFE);
-  return push_captures(&v23, v11, v14, v16, v17, v18, v19, v20);
+  lua_pushinteger(a1, v10);
+  lua_copy(a1, 0xFFFFFFFF, -1001003);
+  lua_settop(a1, -2);
+  return push_captures(&v13, v6, v9);
 }
 
-uint64_t getdetails(void **a1, int a2, void *a3, int *a4, int *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t getdetails(void **a1, int a2, unsigned __int8 **a3, int *a4, int *a5)
 {
-  v18 = getoption(a1, a3, a4, a4, a5, a6, a7, a8);
-  v19 = *a4;
-  v24 = v19;
-  if (v18 == 7)
+  v10 = getoption(a1, a3, a4);
+  v11 = *a4;
+  v16 = v11;
+  if (v10 == 7)
   {
-    if (!**a3 || (v20 = getoption(a1, a3, &v24, v13, v14, v15, v16, v17), v19 = v24, v20 == 3) || !v24)
+    if (!**a3 || (v12 = getoption(a1, a3, &v16), v11 = v16, v12 == 3) || !v16)
     {
       luaL_argerror(*a1, 1);
     }
   }
 
-  v21 = 0;
-  if (v18 != 3 && v19 >= 2)
+  v13 = 0;
+  if (v10 != 3 && v11 >= 2)
   {
-    if (v19 >= *(a1 + 3))
+    if (v11 >= *(a1 + 3))
     {
-      v22 = *(a1 + 3);
+      v14 = *(a1 + 3);
     }
 
     else
     {
-      v22 = v19;
+      v14 = v11;
     }
 
-    if ((v22 & (v22 - 1)) != 0)
+    if ((v14 & (v14 - 1)) != 0)
     {
       luaL_argerror(*a1, 1);
     }
 
-    v21 = (v22 - ((v22 - 1) & a2)) & (v22 - 1);
+    v13 = (v14 - ((v14 - 1) & a2)) & (v14 - 1);
   }
 
-  *a5 = v21;
-  return v18;
+  *a5 = v13;
+  return v10;
 }
 
-char *packint(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *packint(uint64_t a1, unint64_t a2, int a3, int a4, int a5)
 {
-  v8 = a5;
-  v9 = a4;
-  v10 = a3;
-  v13 = a4;
-  result = luaL_prepbuffsize(a1, a4, a3, a4, a5, a6, a7, a8);
-  v15 = v9 - 1;
-  if (v10)
+  v10 = a4;
+  result = luaL_prepbuffsize(a1, a4);
+  v12 = a4 - 1;
+  if (a3)
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  result[v15] = a2;
-  v16 = v9 - 2;
-  if (v9 >= 2)
+  result[v12] = a2;
+  v13 = a4 - 2;
+  if (a4 >= 2)
   {
-    v17 = 1;
+    v14 = 1;
     do
     {
       a2 >>= 8;
-      if (v10)
+      if (a3)
       {
-        v18 = v17;
+        v15 = v14;
       }
 
       else
       {
-        v18 = v16;
+        v15 = v13;
       }
 
-      result[v18] = a2;
-      ++v17;
-      --v16;
+      result[v15] = a2;
+      ++v14;
+      --v13;
     }
 
-    while (v16 != -1);
-    if (v9 >= 9 && v8)
+    while (v13 != -1);
+    if (a4 >= 9 && a5)
     {
-      v19 = vdupq_n_s32(v9 - 9);
-      v20 = v9 - 24;
-      v21 = 23;
+      v16 = vdupq_n_s32(a4 - 9);
+      v17 = a4 - 24;
+      v18 = 23;
       do
       {
-        v22 = vdupq_n_s32(v21 - 23);
-        v23 = vmovn_s32(vcgeq_u32(v19, vorrq_s8(v22, xmmword_1C37B17D0)));
-        if (vuzp1_s8(v23, *v19.i8).u8[0])
+        v19 = vdupq_n_s32(v18 - 23);
+        v20 = vmovn_s32(vcgeq_u32(v16, vorrq_s8(v19, xmmword_1C37B17D0)));
+        if (vuzp1_s8(v20, *v16.i8).u8[0])
         {
-          v24 = v21 - 15;
-          if (!v10)
+          v21 = v18 - 15;
+          if (!a3)
           {
-            v24 = v20 + 15;
+            v21 = v17 + 15;
+          }
+
+          result[v21] = -1;
+        }
+
+        if (vuzp1_s8(v20, *&v16).i8[1])
+        {
+          v22 = v18 - 14;
+          if (!a3)
+          {
+            v22 = v17 + 14;
+          }
+
+          result[v22] = -1;
+        }
+
+        if (vuzp1_s8(v20, *&v16).i8[2])
+        {
+          v23 = v18 - 13;
+          if (!a3)
+          {
+            v23 = v17 + 13;
+          }
+
+          result[v23] = -1;
+        }
+
+        if (vuzp1_s8(v20, *&v16).i8[3])
+        {
+          v24 = v18 - 12;
+          if (!a3)
+          {
+            v24 = v17 + 12;
           }
 
           result[v24] = -1;
         }
 
-        if (vuzp1_s8(v23, *&v19).i8[1])
+        v25 = vmovn_s32(vcgeq_u32(v16, vorrq_s8(v19, xmmword_1C37B17C0)));
+        if (vuzp1_s8(*&v16, v25).i32[1])
         {
-          v25 = v21 - 14;
-          if (!v10)
+          v26 = v18 - 11;
+          if (!a3)
           {
-            v25 = v20 + 14;
-          }
-
-          result[v25] = -1;
-        }
-
-        if (vuzp1_s8(v23, *&v19).i8[2])
-        {
-          v26 = v21 - 13;
-          if (!v10)
-          {
-            v26 = v20 + 13;
+            v26 = v17 + 11;
           }
 
           result[v26] = -1;
         }
 
-        if (vuzp1_s8(v23, *&v19).i8[3])
+        if (vuzp1_s8(*&v16, v25).i8[5])
         {
-          v27 = v21 - 12;
-          if (!v10)
+          v27 = v18 - 10;
+          if (!a3)
           {
-            v27 = v20 + 12;
+            v27 = v17 + 10;
           }
 
           result[v27] = -1;
         }
 
-        v28 = vmovn_s32(vcgeq_u32(v19, vorrq_s8(v22, xmmword_1C37B17C0)));
-        if (vuzp1_s8(*&v19, v28).i32[1])
+        if (vuzp1_s8(*&v16, v25).i8[6])
         {
-          v29 = v21 - 11;
-          if (!v10)
+          v28 = v18 - 9;
+          if (!a3)
           {
-            v29 = v20 + 11;
+            v28 = v17 + 9;
+          }
+
+          result[v28] = -1;
+        }
+
+        if (vuzp1_s8(*&v16, v25).i8[7])
+        {
+          v29 = v18 - 8;
+          if (!a3)
+          {
+            v29 = v17 + 8;
           }
 
           result[v29] = -1;
         }
 
-        if (vuzp1_s8(*&v19, v28).i8[5])
+        v30 = vmovn_s32(vcgeq_u32(v16, vorrq_s8(v19, xmmword_1C37B17B0)));
+        if (vuzp1_s8(v30, *v16.i8).u8[0])
         {
-          v30 = v21 - 10;
-          if (!v10)
+          v31 = v18 - 7;
+          if (!a3)
           {
-            v30 = v20 + 10;
-          }
-
-          result[v30] = -1;
-        }
-
-        if (vuzp1_s8(*&v19, v28).i8[6])
-        {
-          v31 = v21 - 9;
-          if (!v10)
-          {
-            v31 = v20 + 9;
+            v31 = v17 + 7;
           }
 
           result[v31] = -1;
         }
 
-        if (vuzp1_s8(*&v19, v28).i8[7])
+        if (vuzp1_s8(v30, *&v16).i8[1])
         {
-          v32 = v21 - 8;
-          if (!v10)
+          v32 = v18 - 6;
+          if (!a3)
           {
-            v32 = v20 + 8;
+            v32 = v17 + 6;
           }
 
           result[v32] = -1;
         }
 
-        v33 = vmovn_s32(vcgeq_u32(v19, vorrq_s8(v22, xmmword_1C37B17B0)));
-        if (vuzp1_s8(v33, *v19.i8).u8[0])
+        if (vuzp1_s8(v30, *&v16).i8[2])
         {
-          v34 = v21 - 7;
-          if (!v10)
+          v33 = v18 - 5;
+          if (!a3)
           {
-            v34 = v20 + 7;
+            v33 = v17 + 5;
+          }
+
+          result[v33] = -1;
+        }
+
+        if (vuzp1_s8(v30, *&v16).i8[3])
+        {
+          v34 = v18 - 4;
+          if (!a3)
+          {
+            v34 = v17 + 4;
           }
 
           result[v34] = -1;
         }
 
-        if (vuzp1_s8(v33, *&v19).i8[1])
+        v35 = vmovn_s32(vcgeq_u32(v16, vorrq_s8(v19, xmmword_1C37B17A0)));
+        if (vuzp1_s8(*&v16, v35).i32[1])
         {
-          v35 = v21 - 6;
-          if (!v10)
+          v36 = v18 - 3;
+          if (!a3)
           {
-            v35 = v20 + 6;
-          }
-
-          result[v35] = -1;
-        }
-
-        if (vuzp1_s8(v33, *&v19).i8[2])
-        {
-          v36 = v21 - 5;
-          if (!v10)
-          {
-            v36 = v20 + 5;
+            v36 = v17 + 3;
           }
 
           result[v36] = -1;
         }
 
-        if (vuzp1_s8(v33, *&v19).i8[3])
+        if (vuzp1_s8(*&v16, v35).i8[5])
         {
-          v37 = v21 - 4;
-          if (!v10)
+          v37 = v18 - 2;
+          if (!a3)
           {
-            v37 = v20 + 4;
+            v37 = v17 + 2;
           }
 
           result[v37] = -1;
         }
 
-        v38 = vmovn_s32(vcgeq_u32(v19, vorrq_s8(v22, xmmword_1C37B17A0)));
-        if (vuzp1_s8(*&v19, v38).i32[1])
+        if (vuzp1_s8(*&v16, v35).i8[6])
         {
-          v39 = v21 - 3;
-          if (!v10)
+          v38 = v18 - 1;
+          if (!a3)
           {
-            v39 = v20 + 3;
+            v38 = v17 + 1;
+          }
+
+          result[v38] = -1;
+        }
+
+        if (vuzp1_s8(*&v16, v35).i8[7])
+        {
+          if (a3)
+          {
+            v39 = v18;
+          }
+
+          else
+          {
+            v39 = v17;
           }
 
           result[v39] = -1;
         }
 
-        if (vuzp1_s8(*&v19, v38).i8[5])
-        {
-          v40 = v21 - 2;
-          if (!v10)
-          {
-            v40 = v20 + 2;
-          }
-
-          result[v40] = -1;
-        }
-
-        if (vuzp1_s8(*&v19, v38).i8[6])
-        {
-          v41 = v21 - 1;
-          if (!v10)
-          {
-            v41 = v20 + 1;
-          }
-
-          result[v41] = -1;
-        }
-
-        if (vuzp1_s8(*&v19, v38).i8[7])
-        {
-          if (v10)
-          {
-            v42 = v21;
-          }
-
-          else
-          {
-            v42 = v20;
-          }
-
-          result[v42] = -1;
-        }
-
-        v20 -= 16;
-        v21 += 16;
+        v17 -= 16;
+        v18 += 16;
       }
 
-      while (v21 - ((v9 + 7) & 0xFFFFFFF0) != 23);
+      while (v18 - ((a4 + 7) & 0xFFFFFFF0) != 23);
     }
   }
 
-  *(a1 + 16) += v13;
+  *(a1 + 16) += v10;
   return result;
 }
 
-uint64_t getoption(void **a1, void *a2, int *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t getoption(void **a1, unsigned __int8 **a2, int *a3)
 {
-  v9 = *a2;
-  v10 = (*a2 + 1);
-  *a2 = v10;
-  v11 = *v9;
+  v4 = *a2;
+  v5 = *a2 + 1;
+  *a2 = v5;
+  v6 = *v4;
   *a3 = 0;
-  if (v11 <= 97)
+  if (v6 <= 97)
   {
-    if (v11 <= 71)
+    if (v6 <= 71)
     {
-      if (v11 > 60)
+      if (v6 > 60)
       {
-        if (v11 == 61)
+        if (v6 == 61)
         {
 LABEL_42:
           *(a1 + 2) = 1;
           return 8;
         }
 
-        if (v11 != 62)
+        if (v6 != 62)
         {
-          if (v11 == 66)
+          if (v6 == 66)
           {
             result = 1;
             *a3 = 1;
@@ -1521,15 +1436,15 @@ LABEL_42:
         *(a1 + 2) = 0;
       }
 
-      else if (v11 != 32)
+      else if (v6 != 32)
       {
-        if (v11 == 33)
+        if (v6 == 33)
         {
-          *(a1 + 3) = getnumlimit(a1, a2, 8, a4, a5, a6, a7, a8);
+          *(a1 + 3) = getnumlimit(a1, a2, 8);
           return 8;
         }
 
-        if (v11 != 60)
+        if (v6 != 60)
         {
           goto LABEL_58;
         }
@@ -1540,11 +1455,11 @@ LABEL_42:
       return 8;
     }
 
-    if (v11 > 75)
+    if (v6 > 75)
     {
-      if (v11 != 76 && v11 != 84)
+      if (v6 != 76 && v6 != 84)
       {
-        if (v11 == 88)
+        if (v6 == 88)
         {
           return 7;
         }
@@ -1555,38 +1470,38 @@ LABEL_42:
 
     else
     {
-      if (v11 == 72)
+      if (v6 == 72)
       {
-        v15 = 2;
+        v10 = 2;
         goto LABEL_53;
       }
 
-      if (v11 == 73)
+      if (v6 == 73)
       {
-        *a3 = getnumlimit(a1, a2, 4, a4, a5, a6, a7, a8);
+        *a3 = getnumlimit(a1, a2, 4);
         return 1;
       }
 
-      if (v11 != 74)
+      if (v6 != 74)
       {
         goto LABEL_58;
       }
     }
 
-    v15 = 8;
+    v10 = 8;
 LABEL_53:
-    *a3 = v15;
+    *a3 = v10;
     return 1;
   }
 
-  if (v11 > 105)
+  if (v6 > 105)
   {
-    if (v11 > 114)
+    if (v6 > 114)
     {
-      switch(v11)
+      switch(v6)
       {
         case 's':
-          *a3 = getnumlimit(a1, a2, 8, a4, a5, a6, a7, a8);
+          *a3 = getnumlimit(a1, a2, 8);
           return 4;
         case 'x':
           *a3 = 1;
@@ -1598,59 +1513,59 @@ LABEL_53:
       goto LABEL_58;
     }
 
-    if (v11 == 106 || v11 == 108)
+    if (v6 == 106 || v6 == 108)
     {
       result = 0;
-      v14 = 8;
+      v9 = 8;
       goto LABEL_51;
     }
 
-    if (v11 == 110)
+    if (v6 == 110)
     {
 LABEL_23:
-      v12 = 8;
+      v7 = 8;
 LABEL_56:
-      *a3 = v12;
+      *a3 = v7;
       return 2;
     }
 
 LABEL_58:
-    luaL_error(*a1, "invalid format option '%c'", a3, a4, a5, a6, a7, a8, v11);
+    luaL_error(*a1, "invalid format option '%c'", v6);
     return 8;
   }
 
-  if (v11 > 101)
+  if (v6 > 101)
   {
-    switch(v11)
+    switch(v6)
     {
       case 'f':
-        v12 = 4;
+        v7 = 4;
         goto LABEL_56;
       case 'h':
         result = 0;
-        v14 = 2;
+        v9 = 2;
         goto LABEL_51;
       case 'i':
-        v14 = getnumlimit(a1, a2, 4, a4, a5, a6, a7, a8);
+        v9 = getnumlimit(a1, a2, 4);
         result = 0;
 LABEL_51:
-        *a3 = v14;
+        *a3 = v9;
         return result;
     }
 
     goto LABEL_58;
   }
 
-  if (v11 == 98)
+  if (v6 == 98)
   {
     result = 0;
-    v14 = 1;
+    v9 = 1;
     goto LABEL_51;
   }
 
-  if (v11 != 99)
+  if (v6 != 99)
   {
-    if (v11 != 100)
+    if (v6 != 100)
     {
       goto LABEL_58;
     }
@@ -1658,20 +1573,20 @@ LABEL_51:
     goto LABEL_23;
   }
 
-  if ((*v10 - 58) >= 0xFFFFFFF6)
+  if ((*v5 - 58) >= 0xFFFFFFF6)
   {
-    v16 = 0;
-    v17 = (v9 + 2);
+    v11 = 0;
+    v12 = v4 + 2;
     do
     {
-      *a2 = v17;
-      v16 = *(v17 - 1) + 10 * v16 - 48;
-      v18 = *v17++ - 48;
+      *a2 = v12;
+      v11 = *(v12 - 1) + 10 * v11 - 48;
+      v13 = *v12++ - 48;
     }
 
-    while (v18 <= 9 && v16 < 214748364);
-    *a3 = v16;
-    if (v16 != -1)
+    while (v13 <= 9 && v11 < 214748364);
+    *a3 = v11;
+    if (v11 != -1)
     {
       return 3;
     }
@@ -1682,122 +1597,120 @@ LABEL_51:
     *a3 = -1;
   }
 
-  luaL_error(*a1, "missing size for format option 'c'", a3, a4, a5, a6, a7, a8, v20);
+  luaL_error(*a1, "missing size for format option 'c'");
   return 3;
 }
 
-uint64_t getnumlimit(void **a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t getnumlimit(uint64_t *a1, void *a2, uint64_t a3)
 {
-  v8 = a3;
   if ((**a2 - 58) >= 0xFFFFFFF6)
   {
-    LODWORD(v8) = 0;
-    v9 = (*a2 + 1);
+    LODWORD(a3) = 0;
+    v4 = (*a2 + 1);
     do
     {
-      *a2 = v9;
-      v8 = (*(v9 - 1) + 10 * v8 - 48);
-      v10 = *v9++ - 48;
+      *a2 = v4;
+      a3 = (*(v4 - 1) + 10 * a3 - 48);
+      v5 = *v4++ - 48;
     }
 
-    while (v10 <= 9 && v8 < 214748364);
+    while (v5 <= 9 && a3 < 214748364);
   }
 
-  if ((v8 - 17) <= 0xFFFFFFEF)
+  if ((a3 - 17) <= 0xFFFFFFEF)
   {
-    luaL_error(*a1, "integral size (%d) out of limits [1,%d]", a3, a4, a5, a6, a7, a8, v8);
+    luaL_error(*a1, "integral size (%d) out of limits [1,%d]", a3, 16);
   }
 
-  return v8;
+  return a3;
 }
 
-uint64_t unpackint(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t unpackint(void *a1, uint64_t a2, int a3, int a4, int a5)
 {
   if (a4 >= 8)
   {
-    v9 = 8;
+    v6 = 8;
   }
 
   else
   {
-    v9 = a4;
+    v6 = a4;
   }
 
   if (a4 < 1)
   {
-    v13 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v10 = a3;
-    v13 = 0;
-    v14 = v9 + 1;
-    v15 = a4 - v9;
+    v10 = 0;
+    v11 = v6 + 1;
+    v12 = a4 - v6;
     do
     {
-      v16 = v13;
-      v17 = v14 - 2;
+      v13 = v10;
+      v14 = v11 - 2;
       if (!a3)
       {
-        v17 = v15;
+        v14 = v12;
       }
 
-      v13 = *(a2 + v17) | (v13 << 8);
-      --v14;
-      ++v15;
+      v10 = *(a2 + v14) | (v10 << 8);
+      --v11;
+      ++v12;
     }
 
-    while (v14 > 1);
+    while (v11 > 1);
     if (a4 > 7)
     {
       if (a4 != 8)
       {
-        if ((v16 << 8) > -1 || a5 == 0)
+        if ((v13 << 8) > -1 || a5 == 0)
         {
-          v19 = 0;
+          v16 = 0;
         }
 
         else
         {
-          v19 = 255;
+          v16 = 255;
         }
 
-        v20 = ~v9 + a4;
+        v17 = ~v6 + a4;
         do
         {
-          if (v10)
+          if (a3)
           {
-            v21 = v9;
+            v18 = v6;
           }
 
           else
           {
-            v21 = v20;
+            v18 = v17;
           }
 
-          if (v19 != *(a2 + v21))
+          if (v16 != *(a2 + v18))
           {
-            luaL_error(a1, "%d-byte integer does not fit into Lua Integer", a3, a4, a5, a6, a7, a8, a4);
+            luaL_error(a1, "%d-byte integer does not fit into Lua Integer", a4);
           }
 
-          ++v9;
-          --v20;
+          ++v6;
+          --v17;
         }
 
-        while (v9 < a4);
+        while (v6 < a4);
       }
 
-      return v13;
+      return v10;
     }
   }
 
   if (a5)
   {
-    return (v13 ^ (1 << (8 * a4 - 1))) - (1 << (8 * a4 - 1));
+    return (v10 ^ (1 << (8 * a4 - 1))) - (1 << (8 * a4 - 1));
   }
 
-  return v13;
+  return v10;
 }
 
 uint64_t luaH_next(void *a1, uint64_t a2, uint64_t *a3)
@@ -1901,8 +1814,9 @@ LABEL_20:
   return 1;
 }
 
-_OWORD *luaH_resize(uint64_t a1, uint64_t a2, unsigned int a3, int a4)
+_OWORD *luaH_resize(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
+  v4 = a4;
   v8 = *(a2 + 12);
   v9 = *(a2 + 11);
   v10 = *(a2 + 24);
@@ -1948,7 +1862,7 @@ _OWORD *luaH_resize(uint64_t a1, uint64_t a2, unsigned int a3, int a4)
     *(a2 + 12) = a3;
   }
 
-  result = setnodevector(a1, a2, a4);
+  result = setnodevector(a1, a2, v4);
   if (v8 > a3)
   {
     *(a2 + 12) = a3;
@@ -2091,7 +2005,7 @@ _OWORD *luaH_resizearray(uint64_t a1, uint64_t a2, unsigned int a3)
 
   else
   {
-    v3 = 1 << *(a2 + 11);
+    v3 = (1 << *(a2 + 11));
   }
 
   return luaH_resize(a1, a2, a3, v3);
@@ -2125,256 +2039,245 @@ uint64_t luaH_free(uint64_t a1, uint64_t a2)
 uint64_t *luaH_newkey(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   v3 = a3;
-  v55 = *MEMORY[0x1E69E9840];
-  v52 = 0;
-  v53 = 0;
+  v53 = *MEMORY[0x1E69E9840];
+  v50 = 0;
+  v51 = 0;
   v6 = *(a3 + 2);
   if (v6 == 3)
   {
-    *&v54[0] = 0;
-    if (luaV_tointeger(a3, v54))
+    *&v52[0] = 0;
+    if (luaV_tointeger(a3, v52))
     {
-      v52 = *&v54[0];
-      LODWORD(v53) = 19;
-      v3 = &v52;
-    }
-
-    else
-    {
-      v7 = *v3;
+      v50 = *&v52[0];
+      LODWORD(v51) = 19;
+      v3 = &v50;
     }
   }
 
   else if (!v6)
   {
-    luaG_runerror(a1, "table index is nil", v52, v53);
+    luaG_runerror(a1, "table index is nil", v50, v51);
   }
 
-  v8 = mainposition(a2, v3);
-  v9 = v8;
-  if (v8 == &dummynode_ || *(v8 + 8))
+  v7 = mainposition(a2, v3);
+  v8 = v7;
+  if (v7 == &dummynode_ || *(v7 + 8))
   {
-    v10 = 0;
-    v11 = *(a2 + 24);
-    v12 = *(a2 + 32);
+    v9 = 0;
+    v10 = *(a2 + 24);
+    v11 = *(a2 + 32);
     while (1)
     {
-      v13 = v12 + v10;
-      if (v12 + v10 <= v11)
+      v12 = v11 + v9;
+      if (v11 + v9 <= v10)
       {
         break;
       }
 
-      *(a2 + 32) = v13 - 32;
-      v10 -= 32;
-      if (!*(v13 - 8))
+      *(a2 + 32) = v12 - 32;
+      v9 -= 32;
+      if (!*(v12 - 8))
       {
-        v14 = mainposition(a2, (v8 + 16));
-        v15 = (v12 + v10);
-        if (v14 == v9)
+        v13 = mainposition(a2, (v7 + 16));
+        v14 = (v11 + v9);
+        if (v13 == v8)
         {
-          v35 = *(v9 + 7);
-          if (v35)
+          v34 = *(v8 + 28);
+          if (v34)
           {
-            *(v12 + v10 + 28) = (&v9[4 * v35] - v12 - v10) >> 5;
+            *(v11 + v9 + 28) = (v8 - v11 + 32 * v34 - v9) >> 5;
           }
 
-          *(v9 + 7) = (v12 + v10 - v9) >> 5;
-          v9 = (v12 + v10);
+          *(v8 + 28) = (v11 + v9 - v8) >> 5;
+          v8 = v11 + v9;
         }
 
         else
         {
           do
           {
-            v16 = v14;
-            v14 += 32 * *(v14 + 28);
+            v15 = v13;
+            v13 += 32 * *(v13 + 28);
           }
 
-          while (v14 != v9);
-          *(v16 + 28) = (v12 - v16 + v10) >> 5;
-          v17 = *(v9 + 1);
-          *v15 = *v9;
-          v15[1] = v17;
-          if (*(v9 + 7))
+          while (v13 != v8);
+          *(v15 + 28) = (v11 - v15 + v9) >> 5;
+          v16 = *(v8 + 16);
+          *v14 = *v8;
+          v14[1] = v16;
+          if (*(v8 + 28))
           {
-            *(v12 + v10 + 28) += (v9 - v12 - v10) >> 5;
-            *(v9 + 7) = 0;
+            *(v11 + v9 + 28) += (v8 - v11 - v9) >> 5;
+            *(v8 + 28) = 0;
           }
 
-          *(v9 + 2) = 0;
+          *(v8 + 8) = 0;
         }
 
-        goto LABEL_58;
+        goto LABEL_56;
       }
     }
 
+    v17 = 0;
     v18 = 0;
-    v19 = 0;
-    memset(v54, 0, sizeof(v54));
+    memset(v52, 0, sizeof(v52));
+    v19 = 1;
     v20 = 1;
-    v21 = 1;
-    v22 = *(a2 + 12);
+    v21 = *(a2 + 12);
     do
     {
-      v23 = v21;
-      if (v21 > v22)
+      v22 = v20;
+      if (v20 > v21)
       {
-        v23 = v22;
-        if (v20 > v22)
+        v22 = v21;
+        if (v19 > v21)
         {
           break;
         }
       }
 
-      if (v20 <= v23)
+      if (v19 <= v22)
       {
-        v24 = 0;
-        v25 = v20 - 1;
+        v23 = 0;
+        v24 = v19 - 1;
         do
         {
-          if (*(*(a2 + 16) + 16 * v25 + 8))
+          if (*(*(a2 + 16) + 16 * v24 + 8))
           {
-            ++v24;
+            ++v23;
           }
 
-          ++v25;
+          ++v24;
         }
 
-        while (v23 != v25);
-        v20 = v23 + 1;
+        while (v22 != v24);
+        v19 = v22 + 1;
       }
 
       else
       {
-        v24 = 0;
+        v23 = 0;
       }
 
-      *(v54 + v18) += v24;
-      v19 += v24;
-      ++v18;
-      v21 *= 2;
+      *(v52 + v17) += v23;
+      v18 += v23;
+      ++v17;
+      v20 *= 2;
     }
 
-    while (v18 != 32);
+    while (v17 != 32);
+    v25 = 0;
     v26 = 0;
-    v27 = 0;
-    v28 = 32 * ~(-1 << *(a2 + 11));
+    v27 = 32 * ~(-1 << *(a2 + 11));
     do
     {
-      v29 = *(a2 + 24);
-      if (*(v29 + v28 + 8))
+      v28 = *(a2 + 24);
+      if (*(v28 + v27 + 8))
       {
-        if (*(v29 + v28 + 24) == 19 && (v30 = *(v29 + v28 + 16), (v30 - 2147483649) >= 0xFFFFFFFF80000000))
+        if (*(v28 + v27 + 24) == 19 && (v29 = *(v28 + v27 + 16), (v29 - 2147483649) >= 0xFFFFFFFF80000000))
         {
-          v32 = luaO_ceillog2(v30);
-          ++*(v54 + v32);
-          v31 = 1;
+          v31 = luaO_ceillog2(v29);
+          ++*(v52 + v31);
+          v30 = 1;
         }
 
         else
         {
-          v31 = 0;
+          v30 = 0;
         }
 
-        v27 += v31;
-        ++v26;
+        v26 += v30;
+        ++v25;
       }
 
-      v28 -= 32;
+      v27 -= 32;
     }
 
-    while (v28 != -32);
-    v33 = v27 + v19;
+    while (v27 != -32);
+    v32 = v26 + v18;
     if (*(v3 + 2) == 19 && (*v3 - 2147483649) >= 0xFFFFFFFF80000000)
     {
-      v36 = luaO_ceillog2(*v3);
-      ++*(v54 + v36);
-      v34 = 1;
+      v35 = luaO_ceillog2(*v3);
+      ++*(v52 + v35);
+      v33 = 1;
     }
 
     else
     {
-      v34 = 0;
+      v33 = 0;
     }
 
-    v37 = v33 + v34;
-    if (v33 + v34)
+    v36 = v32 + v33;
+    if (v32 + v33)
     {
+      v37 = 0;
       v38 = 0;
-      LODWORD(v39) = 0;
+      v39 = 0;
       v40 = 0;
-      v41 = 0;
-      v42 = 1;
-      v43 = v54;
+      v41 = 1;
+      v42 = v52;
       do
       {
-        v45 = *v43++;
-        v44 = v45;
-        v41 += v45;
-        v46 = v41 > v38;
-        if (v41 <= v38)
+        v44 = *v42++;
+        v43 = v44;
+        v40 += v44;
+        v45 = v40 > v37;
+        if (v40 <= v37)
         {
-          v47 = v40;
+          v46 = v39;
         }
 
         else
+        {
+          v46 = v40;
+        }
+
+        if (v45)
         {
           v47 = v41;
         }
 
-        if (v46)
-        {
-          v48 = v42;
-        }
-
         else
         {
-          v48 = v39;
+          v47 = v38;
         }
 
-        if (v44)
+        if (v43)
         {
-          v40 = v47;
-          v39 = v48;
+          v39 = v46;
+          v38 = v47;
         }
 
-        else
-        {
-          v39 = v39;
-        }
-
-        v38 = v42 & 0x7FFFFFFF;
-        v42 *= 2;
+        v37 = v41 & 0x7FFFFFFF;
+        v41 *= 2;
       }
 
-      while (v37 > v38);
+      while (v36 > v37);
     }
 
     else
     {
-      v40 = 0;
       v39 = 0;
+      v38 = 0;
     }
 
-    luaH_resize(a1, a2, v39, v19 + v26 - v40 + 1);
-    v9 = luaH_set(a1, a2, v3);
+    luaH_resize(a1, a2, v38, v18 + v25 - v39 + 1);
+    return luaH_set(a1, a2, v3);
   }
 
   else
   {
-LABEL_58:
-    v9[2] = *v3;
-    v49 = *(v3 + 2);
-    *(v9 + 6) = v49;
-    if ((v49 & 0x40) != 0 && (*(a2 + 9) & 4) != 0 && (*(*v3 + 9) & 3) != 0)
+LABEL_56:
+    *(v8 + 16) = *v3;
+    v48 = *(v3 + 2);
+    *(v8 + 24) = v48;
+    if ((v48 & 0x40) != 0 && (*(a2 + 9) & 4) != 0 && (*(*v3 + 9) & 3) != 0)
     {
       luaC_barrierback_(a1, a2);
     }
   }
 
-  v50 = *MEMORY[0x1E69E9840];
-  return v9;
+  return v8;
 }
 
 uint64_t mainposition(uint64_t a1, _DWORD *a2)
@@ -2620,28 +2523,28 @@ LABEL_12:
   return v7;
 }
 
-uint64_t luaopen_table(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t luaopen_table(void *a1)
 {
-  luaL_checkversion_(a1, 136, 503.0, a3, a4, a5, a6, a7, a8, v15);
+  luaL_checkversion_(a1, 136, 503.0);
   lua_createtable(a1, 0, 7);
-  luaL_setfuncs(a1, &tab_funcs, 0, v9, v10, v11, v12, v13);
+  luaL_setfuncs(a1, &tab_funcs, 0);
   return 1;
 }
 
 uint64_t tconcat(uint64_t a1)
 {
   v1 = MEMORY[0x1EEE9AC00](a1);
-  v16 = *MEMORY[0x1E69E9840];
-  v14[0] = 0;
-  v14[1] = 0;
-  memset(v15, 0, 512);
-  v13 = 0;
-  v2 = luaL_optlstring(v1, 2, "", &v13);
-  checktab(v1, v14);
+  v10 = *MEMORY[0x1E69E9840];
+  v8[0] = 0;
+  v8[1] = 0;
+  memset(v9, 0, 512);
+  v7 = 0;
+  v2 = luaL_optlstring(v1, 2, "", &v7);
+  checktab(v1, v8);
   v3 = luaL_optinteger(v1, 3, 1);
-  if (lua_type(v1, 4) <= 0)
+  if (lua_type(v1, 4u) <= 0)
   {
-    v4 = luaL_len(v1, 1);
+    v4 = luaL_len(v1, 1u);
   }
 
   else
@@ -2650,13 +2553,13 @@ uint64_t tconcat(uint64_t a1)
   }
 
   v5 = v4;
-  luaL_buffinit(v1, v15);
+  luaL_buffinit(v1, v9);
   if (v3 < v5)
   {
     do
     {
-      addfield(v1, v15, v14, v3);
-      luaL_addlstring(v15, v2, v13, v6, v7, v8, v9, v10);
+      addfield(v1, v9, v8, v3);
+      luaL_addlstring(v9, v2, v7);
       ++v3;
     }
 
@@ -2667,119 +2570,119 @@ uint64_t tconcat(uint64_t a1)
   if (v3 == v5)
   {
 LABEL_8:
-    addfield(v1, v15, v14, v5);
+    addfield(v1, v9, v8, v5);
   }
 
-  luaL_pushresult(v15);
-  v11 = *MEMORY[0x1E69E9840];
+  luaL_pushresult(v9);
   return 1;
 }
 
-uint64_t tinsert(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t tinsert(void *a1)
 {
-  v24 = 0;
-  v25 = 0;
-  checktab(a1, &v24);
-  v10 = luaL_len(a1, 1);
-  v11 = lua_gettop(a1);
-  if (v11 == 2)
+  v10 = 0;
+  v11 = 0;
+  checktab(a1, &v10);
+  v2 = luaL_len(a1, 1u);
+  v3 = lua_gettop(a1);
+  if (v3 == 2)
   {
-    v19 = v10 + 1;
+    v5 = v2 + 1;
 LABEL_12:
-    v25(a1, 1, v19);
+    v11(a1, 1, v5);
     return 0;
   }
 
-  if (v11 == 3)
+  if (v3 == 3)
   {
-    v18 = luaL_checkinteger(a1, 2);
-    v19 = v18;
-    if (v18 < 1 || v18 > v10 + 1)
+    v4 = luaL_checkinteger(a1, 2);
+    v5 = v4;
+    if (v4 < 1 || v4 > v2 + 1)
     {
       luaL_argerror(a1, 2);
     }
 
-    if (v10 >= v19)
+    if (v2 >= v5)
     {
-      v20 = v24;
-      v21 = v25;
+      v6 = v10;
+      v7 = v11;
       do
       {
-        v20(a1, 1, v10);
-        v21(a1, 1, v10 + 1);
+        v6(a1, 1, v2);
+        v7(a1, 1, v2 + 1);
       }
 
-      while (v10-- > v19);
+      while (v2-- > v5);
     }
 
     goto LABEL_12;
   }
 
-  return luaL_error(a1, "wrong number of arguments to 'insert'", v12, v13, v14, v15, v16, v17, a9);
+  return luaL_error(a1, "wrong number of arguments to 'insert'");
 }
 
 uint64_t pack(void *a1)
 {
   v2 = lua_gettop(a1);
+  v3 = v2;
   lua_createtable(a1, v2, 1);
-  lua_rotate(a1, 1, 1);
-  if (v2 >= 1)
+  lua_rotate(a1, 1, 1u);
+  if (v3 >= 1)
   {
-    v3 = v2;
+    v4 = v3;
     do
     {
-      lua_rawseti(a1, 1, v3);
+      lua_rawseti(a1, 1u, v4);
     }
 
-    while (v3-- > 1);
+    while (v4-- > 1);
   }
 
-  lua_pushinteger(a1, v2);
-  lua_setfield(a1, 1, "n");
+  lua_pushinteger(a1, v3);
+  lua_setfield(a1, 1u, "n");
   return 1;
 }
 
-uint64_t unpack(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t unpack(void *a1)
 {
-  v24[0] = 0;
-  v24[1] = 0;
-  checktab(a1, v24);
-  v10 = luaL_optinteger(a1, 2, 1);
-  if (lua_type(a1, 3) <= 0)
+  v10[0] = 0;
+  v10[1] = 0;
+  checktab(a1, v10);
+  v2 = luaL_optinteger(a1, 2, 1);
+  if (lua_type(a1, 3u) <= 0)
   {
-    v11 = luaL_len(a1, 1);
+    v3 = luaL_len(a1, 1u);
   }
 
   else
   {
-    v11 = luaL_checkinteger(a1, 3);
+    v3 = luaL_checkinteger(a1, 3);
   }
 
-  v18 = v11;
-  v19 = v11 - v10;
-  if (v11 < v10)
+  v4 = v3;
+  v5 = v3 - v2;
+  if (v3 < v2)
   {
     return 0;
   }
 
-  if (v19 <= 0x7FFFFFFE)
+  if (v5 <= 0x7FFFFFFE)
   {
-    v20 = (v19 + 1);
-    if (lua_checkstack(a1, v19 + 1))
+    v6 = (v5 + 1);
+    if (lua_checkstack(a1, v5 + 1))
     {
-      v21 = v24[0];
-      v22 = v18 + 1;
+      v7 = v10[0];
+      v8 = v4 + 1;
       do
       {
-        v21(a1, 1, v10++);
+        v7(a1, 1, v2++);
       }
 
-      while (v22 != v10);
-      return v20;
+      while (v8 != v2);
+      return v6;
     }
   }
 
-  return luaL_error(a1, "too many results to unpack", v12, v13, v14, v15, v16, v17, a9);
+  return luaL_error(a1, "too many results to unpack");
 }
 
 uint64_t tremove(void *a1)
@@ -2787,7 +2690,7 @@ uint64_t tremove(void *a1)
   v8 = 0;
   v9 = 0;
   checktab(a1, &v8);
-  v2 = luaL_len(a1, 1);
+  v2 = luaL_len(a1, 1u);
   v3 = luaL_optinteger(a1, 2, v2);
   v4 = v3;
   if (v3 != v2 && (v3 < 1 || v3 > v2 + 1))
@@ -2820,7 +2723,7 @@ uint64_t tmove(void *a1)
   v2 = luaL_checkinteger(a1, 2);
   v3 = luaL_checkinteger(a1, 3);
   v4 = luaL_checkinteger(a1, 4);
-  if (lua_type(a1, 5) < 1)
+  if (lua_type(a1, 5u) < 1)
   {
     v5 = 1;
   }
@@ -2833,7 +2736,7 @@ uint64_t tmove(void *a1)
   v6 = v3 - v2;
   if (v3 >= v2)
   {
-    v7 = luaL_getmetafield(a1, 1, "__index");
+    v7 = luaL_getmetafield(a1, 1u, "__index");
     v8 = lua_geti;
     if (!v7)
     {
@@ -2899,18 +2802,18 @@ uint64_t tmove(void *a1)
 
 uint64_t sort(void *a1)
 {
-  v9[0] = 0;
-  v9[1] = 0;
-  checktab(a1, v9);
-  v2 = luaL_len(a1, 1);
-  luaL_checkstack(a1, 50, "", v3, v4, v5, v6, v7, v9[0]);
-  if (lua_type(a1, 2) >= 1)
+  v4[0] = 0;
+  v4[1] = 0;
+  checktab(a1, v4);
+  v2 = luaL_len(a1, 1u);
+  luaL_checkstack(a1, 50, "");
+  if (lua_type(a1, 2u) >= 1)
   {
     luaL_checktype(a1, 2, 6);
   }
 
-  lua_settop(a1, 2u);
-  auxsort(a1, v9, 1, v2);
+  lua_settop(a1, 2);
+  auxsort(a1, v4, 1, v2);
   return 0;
 }
 
@@ -2918,22 +2821,22 @@ uint64_t checktab(void *a1, void *a2)
 {
   *a2 = 0;
   a2[1] = 0;
-  result = lua_getmetatable(a1, 1);
+  result = lua_getmetatable(a1, 1u);
   if (result)
   {
     lua_pushstring(a1, "__index");
-    if (lua_rawget(a1, -2))
+    if (lua_rawget(a1, 0xFFFFFFFE))
     {
       *a2 = lua_geti;
     }
 
     lua_pushstring(a1, "__newindex");
-    if (lua_rawget(a1, -3))
+    if (lua_rawget(a1, 0xFFFFFFFD))
     {
       a2[1] = lua_seti;
     }
 
-    result = lua_settop(a1, 0xFFFFFFFC);
+    result = lua_settop(a1, -4);
   }
 
   if (!*a2 || !a2[1])
@@ -2955,18 +2858,19 @@ uint64_t checktab(void *a1, void *a2)
 
 uint64_t addfield(void *a1, uint64_t a2, void (**a3)(void *, uint64_t, uint64_t), uint64_t a4)
 {
+  v4 = a4;
   (*a3)(a1, 1, a4);
-  if (!lua_isstring(a1, -1))
+  if (!lua_isstring(a1, 0xFFFFFFFF))
   {
-    v6 = lua_type(a1, -1);
-    v7 = lua_typename(a1, v6);
-    luaL_error(a1, "invalid value (%s) at index %d in table for 'concat'", v8, v9, v10, v11, v12, v13, v7);
+    v7 = lua_type(a1, 0xFFFFFFFF);
+    v8 = lua_typename(a1, v7);
+    luaL_error(a1, "invalid value (%s) at index %d in table for 'concat'", v8, v4);
   }
 
   return luaL_addvalue(a2);
 }
 
-uint64_t auxsort(uint64_t result, void (**a2)(void *, uint64_t, uint64_t), int a3, int a4)
+void *auxsort(void *result, void (**a2)(void *, uint64_t, uint64_t), int a3, int a4)
 {
   if (a3 < a4)
   {
@@ -2979,7 +2883,7 @@ uint64_t auxsort(uint64_t result, void (**a2)(void *, uint64_t, uint64_t), int a
       (*a2)(v7, 1, v5);
       v9 = v4;
       (*a2)(v7, 1, v4);
-      if (sort_comp(v7, -1, -2))
+      if (sort_comp(v7, 0xFFFFFFFF, 0xFFFFFFFE))
       {
         a2[1](v7, 1, v5);
         result = (a2[1])(v7, 1, v4);
@@ -2987,7 +2891,7 @@ uint64_t auxsort(uint64_t result, void (**a2)(void *, uint64_t, uint64_t), int a
 
       else
       {
-        result = lua_settop(v7, 0xFFFFFFFD);
+        result = lua_settop(v7, -3);
       }
 
       if (v4 - v5 == 1)
@@ -2998,7 +2902,7 @@ uint64_t auxsort(uint64_t result, void (**a2)(void *, uint64_t, uint64_t), int a
       v10 = (v4 + v5 + ((v4 + v5) >> 31)) >> 1;
       (*a2)(v7, 1, v10);
       (*a2)(v7, 1, v5);
-      if (sort_comp(v7, -2, -1))
+      if (sort_comp(v7, 0xFFFFFFFE, 0xFFFFFFFF))
       {
         a2[1](v7, 1, v10);
         result = (a2[1])(v7, 1, v5);
@@ -3006,9 +2910,9 @@ uint64_t auxsort(uint64_t result, void (**a2)(void *, uint64_t, uint64_t), int a
 
       else
       {
-        lua_settop(v7, 0xFFFFFFFE);
+        lua_settop(v7, -2);
         (*a2)(v7, 1, v9);
-        if (sort_comp(v7, -1, -2))
+        if (sort_comp(v7, 0xFFFFFFFF, 0xFFFFFFFE))
         {
           a2[1](v7, 1, v10);
           result = (a2[1])(v7, 1, v9);
@@ -3016,7 +2920,7 @@ uint64_t auxsort(uint64_t result, void (**a2)(void *, uint64_t, uint64_t), int a
 
         else
         {
-          result = lua_settop(v7, 0xFFFFFFFD);
+          result = lua_settop(v7, -3);
         }
       }
 
@@ -3026,99 +2930,99 @@ uint64_t auxsort(uint64_t result, void (**a2)(void *, uint64_t, uint64_t), int a
       }
 
       (*a2)(v7, 1, v10);
-      v11 = lua_pushvalue(v7, -1);
+      v11 = lua_pushvalue(v7, 0xFFFFFFFF);
       v12 = v9 - 1;
       v13 = v9 - 1;
       (*a2)(v7, 1, v13, v11);
-      v34 = v13;
-      v35 = v5;
+      v21 = v13;
+      v22 = v5;
       do
       {
         a2[1](v7, 1, v10);
         a2[1](v7, 1, v13);
         v10 = v5 + 1;
         (*a2)(v7, 1, v10);
-        if (sort_comp(v7, -1, -2))
+        if (sort_comp(v7, 0xFFFFFFFF, 0xFFFFFFFE))
         {
           v10 = v5 + 1;
           do
           {
             if (v10 >= v9)
             {
-              luaL_error(v7, "invalid order function for sorting", v14, v15, v16, v17, v18, v19, v33);
+              luaL_error(v7, "invalid order function for sorting");
             }
 
-            lua_settop(v7, 0xFFFFFFFE);
+            lua_settop(v7, -2);
             (*a2)(v7, 1, ++v10);
             ++v5;
           }
 
-          while (sort_comp(v7, -1, -2));
-          v36 = v5++;
+          while (sort_comp(v7, 0xFFFFFFFF, 0xFFFFFFFE));
+          v23 = v5++;
         }
 
         else
         {
-          v36 = v5++;
+          v23 = v5++;
         }
 
-        v20 = v12 - 1;
+        v14 = v12 - 1;
         v13 = v12 - 1;
         (*a2)(v7, 1, v13);
-        if (sort_comp(v7, -3, -1))
+        if (sort_comp(v7, 0xFFFFFFFD, 0xFFFFFFFF))
         {
           do
           {
             if (v13 <= v8)
             {
-              luaL_error(v7, "invalid order function for sorting", v21, v22, v23, v24, v25, v26, v33);
+              luaL_error(v7, "invalid order function for sorting");
             }
 
-            lua_settop(v7, 0xFFFFFFFE);
+            lua_settop(v7, -2);
             (*a2)(v7, 1, --v13);
             --v12;
           }
 
-          while (sort_comp(v7, -3, -1));
-          v20 = v12 - 1;
+          while (sort_comp(v7, 0xFFFFFFFD, 0xFFFFFFFF));
+          v14 = v12 - 1;
         }
 
-        v27 = v12 <= v5;
-        v12 = v20;
+        v15 = v12 <= v5;
+        v12 = v14;
       }
 
-      while (!v27);
-      lua_settop(v7, 0xFFFFFFFC);
-      (*a2)(v7, 1, v34);
+      while (!v15);
+      lua_settop(v7, -4);
+      (*a2)(v7, 1, v21);
       (*a2)(v7, 1, v10);
-      a2[1](v7, 1, v34);
+      a2[1](v7, 1, v21);
       a2[1](v7, 1, v10);
-      v28 = v5 - v35;
-      v29 = v9 - v5;
-      v30 = (v5 - v35) >= v9 - v5 ? v35 : v36 + 2;
-      v4 = v28 >= v29 ? v36 : v9;
-      v31 = v28 >= v29 ? v9 : v36;
-      v32 = v28 >= v29 ? v36 + 2 : v35;
-      result = auxsort(v7, a2, v32, v31);
-      v5 = v30;
+      v16 = v5 - v22;
+      v17 = v9 - v5;
+      v18 = v5 - v22 >= v9 - v5 ? v22 : v23 + 2;
+      v4 = v16 >= v17 ? v23 : v9;
+      v19 = v16 >= v17 ? v9 : v23;
+      v20 = v16 >= v17 ? v23 + 2 : v22;
+      result = auxsort(v7, a2, v20, v19);
+      v5 = v18;
     }
 
-    while (v30 < v4);
+    while (v18 < v4);
   }
 
   return result;
 }
 
-uint64_t sort_comp(void *a1, int a2, int a3)
+uint64_t sort_comp(void *a1, unsigned int a2, unsigned int a3)
 {
-  if (lua_type(a1, 2))
+  if (lua_type(a1, 2u))
   {
-    lua_pushvalue(a1, 2);
+    lua_pushvalue(a1, 2u);
     lua_pushvalue(a1, a2 - 1);
     lua_pushvalue(a1, a3 - 2);
     lua_callk(a1, 2, 1, 0, 0);
-    v6 = lua_toBOOLean(a1, -1);
-    lua_settop(a1, 0xFFFFFFFE);
+    v6 = lua_toBOOLean(a1, 0xFFFFFFFF);
+    lua_settop(a1, -2);
     return v6;
   }
 
@@ -3279,7 +3183,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t luaT_callorderTM(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t luaT_callorderTM(uint64_t a1, _DWORD *a2, _DWORD *a3, unsigned int a4)
 {
   if (!luaT_callbinTM(a1, a2, a3, *(a1 + 16), a4))
   {
@@ -3376,7 +3280,7 @@ uint64_t luaU_undump(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
   return v7;
 }
 
-size_t LoadFunction(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t LoadFunction(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   String = LoadString(a1);
   if (String)
@@ -3390,33 +3294,33 @@ size_t LoadFunction(uint64_t *a1, uint64_t a2, uint64_t a3)
   }
 
   *(a2 + 104) = v7;
-  LODWORD(v57) = 0;
-  LoadBlock(a1, &v57, 4uLL);
-  *(a2 + 40) = v57;
-  LODWORD(v57) = 0;
-  LoadBlock(a1, &v57, 4uLL);
-  *(a2 + 44) = v57;
-  LOBYTE(v57) = 0;
-  LoadBlock(a1, &v57, 1uLL);
-  *(a2 + 10) = v57;
-  LOBYTE(v57) = 0;
-  LoadBlock(a1, &v57, 1uLL);
-  *(a2 + 11) = v57;
-  LOBYTE(v57) = 0;
-  LoadBlock(a1, &v57, 1uLL);
-  *(a2 + 12) = v57;
-  LODWORD(v57) = 0;
-  LoadBlock(a1, &v57, 4uLL);
-  v8 = v57;
-  v9 = 4 * v57;
+  LODWORD(v56) = 0;
+  LoadBlock(a1, &v56, 4uLL);
+  *(a2 + 40) = v56;
+  LODWORD(v56) = 0;
+  LoadBlock(a1, &v56, 4uLL);
+  *(a2 + 44) = v56;
+  LOBYTE(v56) = 0;
+  LoadBlock(a1, &v56, 1uLL);
+  *(a2 + 10) = v56;
+  LOBYTE(v56) = 0;
+  LoadBlock(a1, &v56, 1uLL);
+  *(a2 + 11) = v56;
+  LOBYTE(v56) = 0;
+  LoadBlock(a1, &v56, 1uLL);
+  *(a2 + 12) = v56;
+  LODWORD(v56) = 0;
+  LoadBlock(a1, &v56, 4uLL);
+  v8 = v56;
+  v9 = 4 * v56;
   v10 = luaM_realloc_(*a1, 0, 0, v9);
   *(a2 + 56) = v10;
   *(a2 + 24) = v8;
   LoadBlock(a1, v10, v9);
-  LODWORD(v57) = 0;
-  LoadBlock(a1, &v57, 4uLL);
-  v11 = v57;
-  v12 = 16 * v57;
+  LODWORD(v56) = 0;
+  LoadBlock(a1, &v56, 4uLL);
+  v11 = v56;
+  v12 = 16 * v56;
   v13 = luaM_realloc_(*a1, 0, 0, v12);
   *(a2 + 48) = v13;
   *(a2 + 20) = v11;
@@ -3457,19 +3361,19 @@ size_t LoadFunction(uint64_t *a1, uint64_t a2, uint64_t a3)
     for (i = 0; v12 != i; i += 16)
     {
       v22 = *(a2 + 48);
-      LOBYTE(v57) = 0;
-      LoadBlock(a1, &v57, 1uLL);
-      v23 = v57;
-      if (v57 > 3u)
+      LOBYTE(v56) = 0;
+      LoadBlock(a1, &v56, 1uLL);
+      v23 = v56;
+      if (v56 > 3u)
       {
-        switch(v57)
+        switch(v56)
         {
           case 4u:
             goto LABEL_22;
           case 0x13u:
-            v57 = 0;
-            LoadBlock(a1, &v57, 8uLL);
-            *(v22 + i) = v57;
+            v56 = 0;
+            LoadBlock(a1, &v56, 8uLL);
+            *(v22 + i) = v56;
             v23 = 19;
             goto LABEL_25;
           case 0x14u:
@@ -3483,25 +3387,25 @@ LABEL_22:
 
       else
       {
-        if (!v57)
+        if (!v56)
         {
           goto LABEL_25;
         }
 
-        if (v57 == 1)
+        if (v56 == 1)
         {
-          LOBYTE(v57) = 0;
+          LOBYTE(v56) = 0;
           v23 = 1;
-          LoadBlock(a1, &v57, 1uLL);
-          *(v22 + i) = v57;
+          LoadBlock(a1, &v56, 1uLL);
+          *(v22 + i) = v56;
           goto LABEL_25;
         }
 
-        if (v57 == 3)
+        if (v56 == 3)
         {
-          v57 = 0;
-          LoadBlock(a1, &v57, 8uLL);
-          *(v22 + i) = v57;
+          v56 = 0;
+          LoadBlock(a1, &v56, 8uLL);
+          *(v22 + i) = v56;
           v23 = 3;
 LABEL_25:
           *(v22 + i + 8) = v23;
@@ -3510,10 +3414,10 @@ LABEL_25:
     }
   }
 
-  LODWORD(v57) = 0;
-  LoadBlock(a1, &v57, 4uLL);
-  v25 = v57;
-  v26 = 16 * v57;
+  LODWORD(v56) = 0;
+  LoadBlock(a1, &v56, 4uLL);
+  v25 = v56;
+  v26 = 16 * v56;
   v27 = luaM_realloc_(*a1, 0, 0, v26);
   *(a2 + 88) = v27;
   *(a2 + 16) = v25;
@@ -3546,22 +3450,22 @@ LABEL_25:
     v34 = 0;
     do
     {
-      LOBYTE(v57) = 0;
-      LoadBlock(a1, &v57, 1uLL);
-      *(*(a2 + 88) + v34 + 8) = v57;
-      LOBYTE(v57) = 0;
-      LoadBlock(a1, &v57, 1uLL);
-      *(*(a2 + 88) + v34 + 9) = v57;
+      LOBYTE(v56) = 0;
+      LoadBlock(a1, &v56, 1uLL);
+      *(*(a2 + 88) + v34 + 8) = v56;
+      LOBYTE(v56) = 0;
+      LoadBlock(a1, &v56, 1uLL);
+      *(*(a2 + 88) + v34 + 9) = v56;
       v34 += 16;
     }
 
     while (v26 != v34);
   }
 
-  LODWORD(v57) = 0;
-  LoadBlock(a1, &v57, 4uLL);
-  v35 = v57;
-  v36 = 8 * v57;
+  LODWORD(v56) = 0;
+  LoadBlock(a1, &v56, 4uLL);
+  v35 = v56;
+  v36 = 8 * v56;
   *(a2 + 64) = luaM_realloc_(*a1, 0, 0, v36);
   *(a2 + 32) = v35;
   if (v35 >= 1)
@@ -3577,86 +3481,86 @@ LABEL_25:
     v38 = 0;
     do
     {
-      v39 = luaF_newproto(*a1);
-      *(*(a2 + 64) + v38) = v40;
-      LoadFunction(a1, *(*(a2 + 64) + v38), *(a2 + 104), v39);
+      luaF_newproto(*a1);
+      *(*(a2 + 64) + v38) = v39;
+      LoadFunction(a1, *(*(a2 + 64) + v38), *(a2 + 104));
       v38 += 8;
     }
 
     while (v36 != v38);
   }
 
-  LODWORD(v57) = 0;
-  LoadBlock(a1, &v57, 4uLL);
-  v41 = v57;
-  v42 = 4 * v57;
-  v43 = luaM_realloc_(*a1, 0, 0, v42);
-  *(a2 + 72) = v43;
-  *(a2 + 28) = v41;
-  LoadBlock(a1, v43, v42);
-  LODWORD(v57) = 0;
-  LoadBlock(a1, &v57, 4uLL);
-  v44 = v57;
-  v45 = 16 * v57;
-  v46 = luaM_realloc_(*a1, 0, 0, v45);
-  *(a2 + 80) = v46;
-  *(a2 + 36) = v44;
-  if (v44 >= 1)
+  LODWORD(v56) = 0;
+  LoadBlock(a1, &v56, 4uLL);
+  v40 = v56;
+  v41 = 4 * v56;
+  v42 = luaM_realloc_(*a1, 0, 0, v41);
+  *(a2 + 72) = v42;
+  *(a2 + 28) = v40;
+  LoadBlock(a1, v42, v41);
+  LODWORD(v56) = 0;
+  LoadBlock(a1, &v56, 4uLL);
+  v43 = v56;
+  v44 = 16 * v56;
+  v45 = luaM_realloc_(*a1, 0, 0, v44);
+  *(a2 + 80) = v45;
+  *(a2 + 36) = v43;
+  if (v43 >= 1)
   {
-    v47 = vdupq_n_s64(v44 - 1);
-    v48 = (v44 + 1) & 0xFFFFFFFE;
-    v49 = xmmword_1C378AF00;
-    v50 = (v46 + 16);
-    v51 = vdupq_n_s64(2uLL);
+    v46 = vdupq_n_s64(v43 - 1);
+    v47 = (v43 + 1) & 0xFFFFFFFE;
+    v48 = xmmword_1C378AF00;
+    v49 = (v45 + 16);
+    v50 = vdupq_n_s64(2uLL);
     do
     {
-      v52 = vmovn_s64(vcgeq_u64(v47, v49));
-      if (v52.i8[0])
+      v51 = vmovn_s64(vcgeq_u64(v46, v48));
+      if (v51.i8[0])
       {
-        *(v50 - 2) = 0;
+        *(v49 - 2) = 0;
       }
 
-      if (v52.i8[4])
+      if (v51.i8[4])
       {
-        *v50 = 0;
+        *v49 = 0;
       }
 
-      v49 = vaddq_s64(v49, v51);
-      v50 += 4;
-      v48 -= 2;
+      v48 = vaddq_s64(v48, v50);
+      v49 += 4;
+      v47 -= 2;
     }
 
-    while (v48);
-    v53 = 0;
+    while (v47);
+    v52 = 0;
     do
     {
-      *(*(a2 + 80) + v53) = LoadString(a1);
-      LODWORD(v57) = 0;
-      LoadBlock(a1, &v57, 4uLL);
-      *(*(a2 + 80) + v53 + 8) = v57;
-      LODWORD(v57) = 0;
-      LoadBlock(a1, &v57, 4uLL);
-      *(*(a2 + 80) + v53 + 12) = v57;
-      v53 += 16;
+      *(*(a2 + 80) + v52) = LoadString(a1);
+      LODWORD(v56) = 0;
+      LoadBlock(a1, &v56, 4uLL);
+      *(*(a2 + 80) + v52 + 8) = v56;
+      LODWORD(v56) = 0;
+      LoadBlock(a1, &v56, 4uLL);
+      *(*(a2 + 80) + v52 + 12) = v56;
+      v52 += 16;
     }
 
-    while (v45 != v53);
+    while (v44 != v52);
   }
 
-  LODWORD(v57) = 0;
-  result = LoadBlock(a1, &v57, 4uLL);
-  if (v57 >= 1)
+  LODWORD(v56) = 0;
+  result = LoadBlock(a1, &v56, 4uLL);
+  if (v56 >= 1)
   {
-    v55 = 0;
-    v56 = 16 * v57;
+    v54 = 0;
+    v55 = 16 * v56;
     do
     {
       result = LoadString(a1);
-      *(*(a2 + 88) + v55) = result;
-      v55 += 16;
+      *(*(a2 + 88) + v54) = result;
+      v54 += 16;
     }
 
-    while (v56 != v55);
+    while (v55 != v54);
   }
 
   return result;
@@ -3664,17 +3568,16 @@ LABEL_25:
 
 uint64_t checkliteral(uint64_t a1, char *__s, const char *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v6 = strlen(__s);
   LoadBlock(a1, __s2, v6);
   result = memcmp(__s, __s2, v6);
   if (result)
   {
     luaO_pushfstring(*a1, "%s: %s precompiled chunk", *(a1 + 24), a3);
-    result = luaD_throw(*a1, 3);
+    return luaD_throw(*a1, 3);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3706,7 +3609,7 @@ size_t LoadBlock(uint64_t a1, char *a2, size_t a3)
   return result;
 }
 
-uint64_t LoadString(uint64_t a1)
+uint64_t LoadString(uint64_t *a1)
 {
   v8 = 0;
   LoadBlock(a1, &v8, 1uLL);
@@ -3726,7 +3629,7 @@ uint64_t LoadString(uint64_t a1)
   {
 LABEL_3:
     v3 = *a1;
-    v4 = *(a1 + 16);
+    v4 = a1[2];
     __n = v2 - 1;
     v5 = luaZ_openspace(v3, v4, v2 - 1);
     LoadBlock(a1, v5, __n);
@@ -3736,24 +3639,24 @@ LABEL_3:
   return 0;
 }
 
-uint64_t luaopen_utf8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t luaopen_utf8(void *a1)
 {
-  luaL_checkversion_(a1, 136, 503.0, a3, a4, a5, a6, a7, a8, v15);
+  luaL_checkversion_(a1, 136, 503.0);
   lua_createtable(a1, 0, 6);
-  luaL_setfuncs(a1, &funcs, 0, v9, v10, v11, v12, v13);
+  luaL_setfuncs(a1, &funcs, 0);
   lua_pushlstring(a1, "[", 0xEuLL);
-  lua_setfield(a1, -2, "charpattern");
+  lua_setfield(a1, 0xFFFFFFFE, "charpattern");
   return 1;
 }
 
 uint64_t byteoffset(void *a1)
 {
-  v22 = 0;
-  v2 = luaL_checklstring(a1, 1, &v22);
+  v15 = 0;
+  v2 = luaL_checklstring(a1, 1, &v15);
   v3 = luaL_checkinteger(a1, 2);
   if (v3 < 0)
   {
-    v4 = v22 + 1;
+    v4 = v15 + 1;
   }
 
   else
@@ -3762,28 +3665,28 @@ uint64_t byteoffset(void *a1)
   }
 
   v5 = luaL_optinteger(a1, 3, v4);
-  v12 = v5;
+  v6 = v5;
   if (v5 < 0)
   {
-    v12 = 0;
-    if (v22 < -v5)
+    v6 = 0;
+    if (v15 < -v5)
     {
 LABEL_9:
       luaL_argerror(a1, 3);
       goto LABEL_10;
     }
 
-    v12 = v5 + v22 + 1;
+    v6 = v5 + v15 + 1;
   }
 
-  v13 = v12 - 1;
-  if (v12 < 1)
+  v7 = v6 - 1;
+  if (v6 < 1)
   {
     goto LABEL_9;
   }
 
-  --v12;
-  if (v13 > v22)
+  --v6;
+  if (v7 > v15)
   {
     goto LABEL_9;
   }
@@ -3791,13 +3694,13 @@ LABEL_9:
 LABEL_10:
   if (!v3)
   {
-    if (v12 >= 1)
+    if (v6 >= 1)
     {
-      while ((*(v2 + v12) & 0xC0) == 0x80)
+      while ((*(v2 + v6) & 0xC0) == 0x80)
       {
-        if (v12-- <= 1)
+        if (v6-- <= 1)
         {
-          v12 = 0;
+          v6 = 0;
           goto LABEL_36;
         }
       }
@@ -3806,17 +3709,17 @@ LABEL_10:
     goto LABEL_36;
   }
 
-  if ((*(v2 + v12) & 0xC0) == 0x80)
+  if ((*(v2 + v6) & 0xC0) == 0x80)
   {
-    luaL_error(a1, "initial position is a continuation byte", v6, v7, v8, v9, v10, v11, v21);
+    luaL_error(a1, "initial position is a continuation byte");
   }
 
   if ((v3 & 0x8000000000000000) == 0)
   {
-    v14 = v3 - 1;
-    if (v3 == 1 || v12 >= v22)
+    v8 = v3 - 1;
+    if (v3 == 1 || v6 >= v15)
     {
-      v16 = v3 - 1;
+      v10 = v3 - 1;
     }
 
     else
@@ -3825,36 +3728,36 @@ LABEL_10:
       {
         do
         {
-          v15 = *(v2 + 1 + v12++);
+          v9 = *(v2 + 1 + v6++);
         }
 
-        while ((v15 & 0xC0) == 0x80);
-        v16 = v14 - 1;
-        if (v14 < 2)
+        while ((v9 & 0xC0) == 0x80);
+        v10 = v8 - 1;
+        if (v8 < 2)
         {
           break;
         }
 
-        --v14;
+        --v8;
       }
 
-      while (v12 < v22);
+      while (v6 < v15);
     }
 
     goto LABEL_33;
   }
 
-  if (v12 >= 1)
+  if (v6 >= 1)
   {
     while (2)
     {
-      v18 = v12;
+      v12 = v6;
       do
       {
-        v12 = v18 - 1;
-        if (v18 <= 1)
+        v6 = v12 - 1;
+        if (v12 <= 1)
         {
-          v12 = 0;
+          v6 = 0;
           if (v3 != -1)
           {
             goto LABEL_34;
@@ -3863,15 +3766,15 @@ LABEL_10:
           goto LABEL_36;
         }
 
-        v19 = *(v2 - 1 + v18--) & 0xC0;
+        v13 = *(v2 - 1 + v12--) & 0xC0;
       }
 
-      while (v19 == 128);
-      v16 = v3 + 1;
+      while (v13 == 128);
+      v10 = v3 + 1;
       if (v3 <= -2)
       {
         ++v3;
-        if (v12 + 1 > 1)
+        if (v6 + 1 > 1)
         {
           continue;
         }
@@ -3881,13 +3784,13 @@ LABEL_10:
     }
 
 LABEL_33:
-    if (v16)
+    if (v10)
     {
       goto LABEL_34;
     }
 
 LABEL_36:
-    lua_pushinteger(a1, v12 + 1);
+    lua_pushinteger(a1, v6 + 1);
     return 1;
   }
 
@@ -3898,12 +3801,12 @@ LABEL_34:
 
 uint64_t codepoint(void *a1)
 {
-  v24 = 0;
-  v2 = luaL_checklstring(a1, 1, &v24);
+  v18 = 0;
+  v2 = luaL_checklstring(a1, 1, &v18);
   v3 = luaL_optinteger(a1, 2, 1);
-  if (v24 >= -v3)
+  if (v18 >= -v3)
   {
-    v4 = v3 + v24 + 1;
+    v4 = v3 + v18 + 1;
   }
 
   else
@@ -3922,76 +3825,74 @@ uint64_t codepoint(void *a1)
   }
 
   v6 = luaL_optinteger(a1, 3, v5);
-  v13 = v24;
-  if (v24 >= -v6)
+  v7 = v18;
+  if (v18 >= -v6)
   {
-    v14 = v6 + v24 + 1;
+    v8 = v6 + v18 + 1;
   }
 
   else
   {
-    v14 = 0;
+    v8 = 0;
   }
 
   if (v6 < 0)
   {
-    v15 = v14;
+    v9 = v8;
   }
 
   else
   {
-    v15 = v6;
+    v9 = v6;
   }
 
   if (v5 <= 0)
   {
     luaL_argerror(a1, 2);
-    v13 = v24;
+    v7 = v18;
   }
 
-  if (v15 > v13)
+  if (v9 > v7)
   {
     luaL_argerror(a1, 3);
   }
 
-  v16 = v15 - v5;
-  if (v15 < v5)
+  v10 = v9 - v5;
+  if (v9 < v5)
   {
     return 0;
   }
 
-  if (v16 >= 0x7FFFFFFF)
+  if (v10 >= 0x7FFFFFFF)
   {
-    v18 = "string slice too long";
-    return luaL_error(a1, v18, v7, v8, v9, v10, v11, v12, v23);
+    return luaL_error(a1, "string slice too long");
   }
 
-  luaL_checkstack(a1, v16 + 1, "string slice too long", v8, v9, v10, v11, v12, v23);
-  v19 = v2 + v15;
-  v20 = (v2 + v5 - 1);
-  if (v20 < v19)
+  luaL_checkstack(a1, v10 + 1, "string slice too long");
+  v13 = v2 + v9;
+  v14 = (v2 + v5 - 1);
+  if (v14 < v13)
   {
-    LODWORD(v17) = 0;
+    LODWORD(v11) = 0;
     while (1)
     {
-      HIDWORD(v23) = 0;
-      v21 = utf8_decode(v20, &v23 + 1);
-      if (!v21)
+      v17 = 0;
+      v15 = utf8_decode(v14, &v17);
+      if (!v15)
       {
         break;
       }
 
-      v20 = v21;
-      lua_pushinteger(a1, SHIDWORD(v23));
-      v17 = (v17 + 1);
-      if (v20 >= v19)
+      v14 = v15;
+      lua_pushinteger(a1, v17);
+      v11 = (v11 + 1);
+      if (v14 >= v13)
       {
-        return v17;
+        return v11;
       }
     }
 
-    v18 = "invalid UTF-8 code";
-    return luaL_error(a1, v18, v7, v8, v9, v10, v11, v12, v23);
+    return luaL_error(a1, "invalid UTF-8 code");
   }
 
   return 0;
@@ -4000,7 +3901,7 @@ uint64_t codepoint(void *a1)
 uint64_t utfchar(uint64_t a1)
 {
   v1 = MEMORY[0x1EEE9AC00](a1);
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = lua_gettop(v1);
   if (v2 == 1)
   {
@@ -4010,15 +3911,15 @@ uint64_t utfchar(uint64_t a1)
   else
   {
     v3 = v2;
-    memset(v7, 0, 512);
-    luaL_buffinit(v1, v7);
+    memset(v6, 0, 512);
+    luaL_buffinit(v1, v6);
     if (v3 >= 1)
     {
       v4 = 1;
       do
       {
         pushutfchar(v1, v4);
-        luaL_addvalue(v7);
+        luaL_addvalue(v6);
         v4 = (v4 + 1);
         --v3;
       }
@@ -4026,10 +3927,9 @@ uint64_t utfchar(uint64_t a1)
       while (v3);
     }
 
-    luaL_pushresult(v7);
+    luaL_pushresult(v6);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -4132,12 +4032,12 @@ uint64_t iter_codes(void *a1)
 {
   luaL_checklstring(a1, 1, 0);
   lua_pushcclosure(a1, iter_aux, 0);
-  lua_pushvalue(a1, 1);
+  lua_pushvalue(a1, 1u);
   lua_pushinteger(a1, 0);
   return 3;
 }
 
-unsigned __int8 *utf8_decode(char *a1, unsigned int *a2)
+char *utf8_decode(char *a1, unsigned int *a2)
 {
   v2 = *a1;
   if (*a1 < 0)
@@ -4182,7 +4082,7 @@ LABEL_2:
       *a2 = v2;
     }
 
-    return (a1 + 1);
+    return a1 + 1;
   }
 
   return v3;
@@ -4190,27 +4090,28 @@ LABEL_2:
 
 uint64_t pushutfchar(void *a1, uint64_t a2)
 {
-  v10 = luaL_checkinteger(a1, a2);
-  if (v10 >= 0x110000)
+  v2 = a2;
+  v4 = luaL_checkinteger(a1, a2);
+  if (v4 >= 0x110000)
   {
-    luaL_argerror(a1, a2);
+    luaL_argerror(a1, v2);
   }
 
-  return lua_pushfstring(a1, "%U", v4, v5, v6, v7, v8, v9, v10);
+  return lua_pushfstring(a1, "%U", v4);
 }
 
 uint64_t iter_aux(void *a1)
 {
-  v15 = 0;
-  v2 = luaL_checklstring(a1, 1, &v15);
-  v3 = lua_tointegerx(a1, 2, 0);
+  v9 = 0;
+  v2 = luaL_checklstring(a1, 1, &v9);
+  v3 = lua_tointegerx(a1, 2u, 0);
   v4 = v3 - 1;
   if (v3 < 1)
   {
     v4 = 0;
   }
 
-  else if (v3 <= v15)
+  else if (v3 <= v9)
   {
     do
     {
@@ -4221,20 +4122,20 @@ uint64_t iter_aux(void *a1)
     v4 = v3 - 1;
   }
 
-  if (v4 >= v15)
+  if (v4 >= v9)
   {
     return 0;
   }
 
-  HIDWORD(v14) = 0;
-  v6 = utf8_decode((v2 + v4), &v14 + 1);
+  v8 = 0;
+  v6 = utf8_decode((v2 + v4), &v8);
   if (!v6 || (*v6 & 0xC0) == 0x80)
   {
-    return luaL_error(a1, "invalid UTF-8 code", v7, v8, v9, v10, v11, v12, v14);
+    return luaL_error(a1, "invalid UTF-8 code");
   }
 
   lua_pushinteger(a1, v4 + 1);
-  lua_pushinteger(a1, SHIDWORD(v14));
+  lua_pushinteger(a1, v8);
   return 2;
 }
 
@@ -4295,7 +4196,7 @@ uint64_t luaV_tointeger(_DWORD *a1, void *a2)
   return 1;
 }
 
-uint64_t *luaV_gettable(uint64_t a1, uint64_t a2, uint64_t *a3, _OWORD *a4)
+double luaV_gettable(void *a1, uint64_t a2, uint64_t *a3, _OWORD *a4)
 {
   v6 = a2;
   v8 = *(a2 + 8);
@@ -4305,12 +4206,12 @@ uint64_t *luaV_gettable(uint64_t a1, uint64_t a2, uint64_t *a3, _OWORD *a4)
     if (v8 == 69)
     {
       v10 = *v6;
-      result = luaH_get(*v6, a3);
-      v12 = result;
-      if (*(result + 2) || (result = *(v10 + 40)) == 0 || (*(result + 10) & 1) != 0 || (result = luaT_gettm(result, 0, *(*(a1 + 24) + 248)), (v13 = result) == 0))
+      v11 = luaH_get(*v6, a3);
+      if (*(v11 + 2) || (v12 = *(v10 + 40)) == 0 || (*(v12 + 10) & 1) != 0 || (v13 = luaT_gettm(v12, 0, *(a1[3] + 248))) == 0)
       {
-        *a4 = *v12;
-        return result;
+        v14 = *v11;
+        *a4 = *v11;
+        return *&v14;
       }
     }
 
@@ -4333,14 +4234,16 @@ uint64_t *luaV_gettable(uint64_t a1, uint64_t a2, uint64_t *a3, _OWORD *a4)
     if (!--v9)
     {
 
-      return luaG_runerror(a1, "gettable chain too long; possible loop");
+      luaG_runerror(a1, "gettable chain too long; possible loop");
+      return *&v14;
     }
   }
 
-  return luaT_callTM(a1, v13, v6, a3, a4, 1);
+  *&v14 = luaT_callTM(a1, v13, v6, a3, a4, 1).n128_u64[0];
+  return *&v14;
 }
 
-uint64_t *luaV_settable(uint64_t a1, uint64_t a2, uint64_t *a3, _BYTE *a4)
+double luaV_settable(void *a1, uint64_t a2, uint64_t *a3, _BYTE *a4)
 {
   v6 = a2;
   v8 = *(a2 + 8);
@@ -4350,32 +4253,31 @@ uint64_t *luaV_settable(uint64_t a1, uint64_t a2, uint64_t *a3, _BYTE *a4)
     if (v8 == 69)
     {
       v10 = *v6;
-      result = luaH_get(*v6, a3);
-      v12 = result;
-      if (*(result + 2))
+      v11 = luaH_get(*v6, a3);
+      if (*(v11 + 2))
       {
         goto LABEL_17;
       }
 
-      result = *(v10 + 40);
-      if (!result || (*(result + 10) & 2) != 0 || (result = luaT_gettm(result, 1, *(*(a1 + 24) + 256)), (v13 = result) == 0))
+      v12 = *(v10 + 40);
+      if (!v12 || (*(v12 + 10) & 2) != 0 || (v13 = luaT_gettm(v12, 1, *(a1[3] + 256))) == 0)
       {
-        if (v12 == &luaO_nilobject_)
+        if (v11 == &luaO_nilobject_)
         {
-          result = luaH_newkey(a1, v10, a3);
-          v12 = result;
+          v11 = luaH_newkey(a1, v10, a3);
         }
 
 LABEL_17:
-        *v12 = *a4;
+        v14 = *a4;
+        *v11 = *a4;
         *(v10 + 10) = 0;
         if ((a4[8] & 0x40) != 0 && (*(v10 + 9) & 4) != 0 && (*(*a4 + 9) & 3) != 0)
         {
 
-          return luaC_barrierback_(a1, v10);
+          luaC_barrierback_(a1, v10);
         }
 
-        return result;
+        return *&v14;
       }
     }
 
@@ -4398,19 +4300,21 @@ LABEL_17:
     if (!--v9)
     {
 
-      return luaG_runerror(a1, "settable chain too long; possible loop");
+      luaG_runerror(a1, "settable chain too long; possible loop");
+      return *&v14;
     }
   }
 
-  return luaT_callTM(a1, v13, v6, a3, a4, 0);
+  *&v14 = luaT_callTM(a1, v13, v6, a3, a4, 0).n128_u64[0];
+  return *&v14;
 }
 
-uint64_t luaV_lessthan(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t luaV_lessthan(uint64_t a1, _DWORD *a2, _DWORD *a3)
 {
-  v6 = *(a2 + 8);
+  v6 = a2[2];
   if ((v6 & 0xF) == 4)
   {
-    if ((*(a3 + 8) & 0xF) == 4)
+    if ((a3[2] & 0xF) == 4)
     {
       return l_strcmp(*a2, *a3) >> 31;
     }
@@ -4418,10 +4322,10 @@ uint64_t luaV_lessthan(uint64_t a1, uint64_t a2, uint64_t a3)
     goto LABEL_10;
   }
 
-  if ((v6 & 0xF) != 3 || (v7 = *(a3 + 8), (v7 & 0xF) != 3))
+  if ((v6 & 0xF) != 3 || (v7 = a3[2], (v7 & 0xF) != 3))
   {
 LABEL_10:
-    v10 = luaT_callorderTM(a1, a2, a3, 20);
+    v10 = luaT_callorderTM(a1, a2, a3, 0x14u);
     if ((v10 & 0x80000000) != 0)
     {
       luaG_ordererror(a1, a2, a3);
@@ -4564,11 +4468,11 @@ uint64_t luaV_lessequal(uint64_t a1, uint64_t a2, uint64_t a3)
   if ((v6 & 0xF) != 3 || (v7 = *(a3 + 8), (v7 & 0xF) != 3))
   {
 LABEL_10:
-    result = luaT_callorderTM(a1, a2, a3, 21);
+    result = luaT_callorderTM(a1, a2, a3, 0x15u);
     if ((result & 0x80000000) != 0)
     {
       *(*(a1 + 32) + 66) |= 0x80u;
-      v11 = luaT_callorderTM(a1, a3, a2, 20);
+      v11 = luaT_callorderTM(a1, a3, a2, 0x14u);
       *(*(a1 + 32) + 66) ^= 0x80u;
       if (v11 < 0)
       {
@@ -4747,7 +4651,7 @@ uint64_t luaV_equalobj(uint64_t a1, _DWORD *a2, uint64_t *a3)
       {
         v12 = *v3;
 LABEL_31:
-        result = *(*&v12 + 16);
+        result = *(v12 + 16);
         if (!result)
         {
           return result;
@@ -4796,7 +4700,7 @@ LABEL_42:
       v14 = *v3;
     }
 
-    result = *(*&v14 + 40);
+    result = *(v14 + 40);
     if (!result)
     {
       return result;
@@ -4825,7 +4729,7 @@ LABEL_40:
   v17 = *a2;
   v18 = *a3;
 
-  return luaS_eqlngstr(v17, *&v18);
+  return luaS_eqlngstr(v17, v18);
 }
 
 uint64_t luaV_concat(uint64_t result, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -4974,47 +4878,42 @@ LABEL_36:
   return result;
 }
 
-uint64_t luaV_objlen(uint64_t result, uint64_t a2, _DWORD *a3)
+double luaV_objlen(void *a1, uint64_t a2, _DWORD *a3)
 {
   v5 = a3[2] & 0x3F;
-  if (v5 == 4)
+  switch(v5)
   {
-    v10 = *(*a3 + 11);
-    goto LABEL_10;
-  }
-
-  if (v5 == 20)
-  {
-    v10 = *(*a3 + 16);
-    goto LABEL_10;
-  }
-
-  v6 = result;
-  if (v5 == 5)
-  {
-    v7 = *a3;
-    v8 = *(*a3 + 40);
-    if (!v8 || (*(v8 + 10) & 0x10) != 0 || (v9 = luaT_gettm(v8, 4, *(*(v6 + 24) + 280))) == 0)
-    {
-      result = luaH_getn(v7);
-      v10 = result;
+    case 4:
+      v10 = *(*a3 + 11);
+      goto LABEL_10;
+    case 20:
+      v10 = *(*a3 + 16);
+      goto LABEL_10;
+    case 5:
+      v7 = *a3;
+      v8 = *(*a3 + 40);
+      if (!v8 || (*(v8 + 10) & 0x10) != 0 || (v9 = luaT_gettm(v8, 4, *(a1[3] + 280))) == 0)
+      {
+        v10 = luaH_getn(v7);
 LABEL_10:
-      *a2 = v10;
-      *(a2 + 8) = 19;
-      return result;
-    }
+        *a2 = v10;
+        *(a2 + 8) = 19;
+        return result;
+      }
+
+      break;
+    default:
+      v9 = luaT_gettmbyobj(a1, a3, 4u);
+      if (!*(v9 + 2))
+      {
+        luaG_typeerror(a1, a3, "get length of");
+      }
+
+      break;
   }
 
-  else
-  {
-    v9 = luaT_gettmbyobj(result, a3, 4u);
-    if (!*(v9 + 2))
-    {
-      luaG_typeerror(v6, a3, "get length of");
-    }
-  }
-
-  return luaT_callTM(v6, v9, a3, a3, a2, 1);
+  *&result = luaT_callTM(a1, v9, a3, a3, a2, 1).n128_u64[0];
+  return result;
 }
 
 uint64_t luaV_div(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -5060,7 +4959,7 @@ uint64_t luaV_mod(uint64_t a1, uint64_t a2, uint64_t a3)
   return 0;
 }
 
-unint64_t luaV_shiftl(unint64_t a1, uint64_t a2)
+unint64_t luaV_shiftl(unint64_t a1, unint64_t a2)
 {
   v2 = a1 << a2;
   if (a2 > 0x3F)
@@ -5074,7 +4973,7 @@ unint64_t luaV_shiftl(unint64_t a1, uint64_t a2)
     v3 = 0;
   }
 
-  if (a2 < 0)
+  if ((a2 & 0x8000000000000000) != 0)
   {
     return v3;
   }
@@ -5191,8 +5090,8 @@ LABEL_2:
   v3 = **v2;
   v4 = *(*(v3 + 24) + 48);
   v5 = v2[4];
-  v184 = v3;
-  v185 = v3 + 32;
+  v185 = v3;
+  v186 = v3 + 32;
   while (2)
   {
     v6 = v2[5];
@@ -5267,10 +5166,10 @@ LABEL_110:
         while ((((v7 >> 23) + 4) & 0x3FC) != v50);
         continue;
       case 5uLL:
-        *v11 = ***(v185 + ((v7 >> 20) & 0xFF8));
+        *v11 = ***(v186 + ((v7 >> 20) & 0xFF8));
         continue;
       case 6uLL:
-        v70 = **(v185 + ((v7 >> 20) & 0xFF8));
+        v70 = **(v186 + ((v7 >> 20) & 0xFF8));
         if ((v7 & 0x400000) != 0)
         {
           v87 = v4;
@@ -5287,7 +5186,7 @@ LABEL_110:
         v55 = (v7 >> 19) & 0x1FF0;
         goto LABEL_105;
       case 8uLL:
-        v93 = **(v185 + 8 * v10);
+        v93 = **(v186 + 8 * v10);
         if ((v7 & 0x80000000) == 0)
         {
           v89 = (v5 + 16 * (v7 >> 23));
@@ -5312,7 +5211,7 @@ LABEL_110:
         v92 = a1;
         goto LABEL_182;
       case 9uLL:
-        v56 = *(v185 + ((v7 >> 20) & 0xFF8));
+        v56 = *(v186 + ((v7 >> 20) & 0xFF8));
         **v56 = *v11;
         if (((*v56)[1] & 0x40) != 0 && *v56 == (v56 + 2))
         {
@@ -5412,12 +5311,12 @@ LABEL_157:
         }
 
         v85 = (v84 + 16 * (v7 >> 14));
-        v188 = 0;
-        v189 = 0.0;
-        v86 = *(v83 + 2);
+        v189 = 0;
+        v190 = 0.0;
+        v86 = v83[2];
         if (v86 == 3)
         {
-          v189 = *v83;
+          v190 = *v83;
         }
 
         else
@@ -5428,7 +5327,7 @@ LABEL_157:
             goto LABEL_331;
           }
 
-          if (!luaV_tonumber_(v83, &v189))
+          if (!luaV_tonumber_(v83, &v190))
           {
             goto LABEL_376;
           }
@@ -5436,26 +5335,26 @@ LABEL_157:
 
         if (*(v85 + 2) == 3)
         {
-          v168 = v85;
+          v169 = v85;
 LABEL_372:
-          v154 = v189 + *v168;
+          v155 = v190 + *v169;
           goto LABEL_373;
         }
 
-        v168 = &v188;
-        if (luaV_tonumber_(v85, &v188))
+        v169 = &v189;
+        if (luaV_tonumber_(v85, &v189))
         {
           goto LABEL_372;
         }
 
 LABEL_376:
-        v133 = a1;
+        v134 = a1;
         v27 = v83;
         v29 = v85;
-        v134 = v5 + 16 * v10;
-        v135 = 6;
+        v135 = (v5 + 16 * v10);
+        v136 = 6;
 LABEL_383:
-        luaT_trybinTM(v133, v27, v29, v134, v135);
+        luaT_trybinTM(v134, v27, v29, v135, v136);
 LABEL_384:
         v5 = v2[4];
         continue;
@@ -5481,12 +5380,12 @@ LABEL_384:
         }
 
         v33 = (v32 + 16 * (v7 >> 14));
-        v188 = 0;
-        v189 = 0.0;
-        v34 = *(v31 + 2);
+        v189 = 0;
+        v190 = 0.0;
+        v34 = v31[2];
         if (v34 == 3)
         {
-          v189 = *v31;
+          v190 = *v31;
         }
 
         else
@@ -5497,7 +5396,7 @@ LABEL_384:
             goto LABEL_331;
           }
 
-          if (!luaV_tonumber_(v31, &v189))
+          if (!luaV_tonumber_(v31, &v190))
           {
             goto LABEL_374;
           }
@@ -5505,24 +5404,24 @@ LABEL_384:
 
         if (*(v33 + 2) == 3)
         {
-          v165 = v33;
+          v166 = v33;
 LABEL_368:
-          v154 = v189 - *v165;
+          v155 = v190 - *v166;
           goto LABEL_373;
         }
 
-        v165 = &v188;
-        if (luaV_tonumber_(v33, &v188))
+        v166 = &v189;
+        if (luaV_tonumber_(v33, &v189))
         {
           goto LABEL_368;
         }
 
 LABEL_374:
-        v133 = a1;
+        v134 = a1;
         v27 = v31;
         v29 = v33;
-        v134 = v5 + 16 * v10;
-        v135 = 7;
+        v135 = (v5 + 16 * v10);
+        v136 = 7;
         goto LABEL_383;
       case 0xFuLL:
         if ((v7 & 0x80000000) == 0)
@@ -5546,12 +5445,12 @@ LABEL_374:
         }
 
         v65 = (v64 + 16 * (v7 >> 14));
-        v188 = 0;
-        v189 = 0.0;
-        v66 = *(v63 + 2);
+        v189 = 0;
+        v190 = 0.0;
+        v66 = v63[2];
         if (v66 == 3)
         {
-          v189 = *v63;
+          v190 = *v63;
         }
 
         else
@@ -5562,7 +5461,7 @@ LABEL_374:
             goto LABEL_331;
           }
 
-          if (!luaV_tonumber_(v63, &v189))
+          if (!luaV_tonumber_(v63, &v190))
           {
             goto LABEL_375;
           }
@@ -5570,24 +5469,24 @@ LABEL_374:
 
         if (*(v65 + 2) == 3)
         {
-          v167 = v65;
+          v168 = v65;
 LABEL_370:
-          v154 = v189 * *v167;
+          v155 = v190 * *v168;
           goto LABEL_373;
         }
 
-        v167 = &v188;
-        if (luaV_tonumber_(v65, &v188))
+        v168 = &v189;
+        if (luaV_tonumber_(v65, &v189))
         {
           goto LABEL_370;
         }
 
 LABEL_375:
-        v133 = a1;
+        v134 = a1;
         v27 = v63;
         v29 = v65;
-        v134 = v5 + 16 * v10;
-        v135 = 8;
+        v135 = (v5 + 16 * v10);
+        v136 = 8;
         goto LABEL_383;
       case 0x10uLL:
         if ((v7 & 0x80000000) == 0)
@@ -5611,15 +5510,15 @@ LABEL_375:
         }
 
         v29 = (v28 + 16 * (v7 >> 14));
-        if (*(v27 + 2) == 19 && *(v29 + 2) == 19)
+        if (v27[2] == 19 && v29[2] == 19)
         {
           v30 = luaV_mod(a1, *v27, *v29);
           goto LABEL_167;
         }
 
-        v133 = a1;
-        v134 = v5 + 16 * (v7 >> 6);
-        v135 = 9;
+        v134 = a1;
+        v135 = (v5 + 16 * (v7 >> 6));
+        v136 = 9;
         goto LABEL_383;
       case 0x12uLL:
         if ((v7 & 0x80000000) == 0)
@@ -5643,38 +5542,38 @@ LABEL_375:
         }
 
         v76 = (v75 + 16 * (v7 >> 14));
-        v188 = 0;
-        v189 = 0.0;
-        if (*(v74 + 2) == 3)
+        v189 = 0;
+        v190 = 0.0;
+        if (v74[2] == 3)
         {
-          v189 = *v74;
+          v190 = *v74;
         }
 
-        else if (!luaV_tonumber_(v74, &v189))
+        else if (!luaV_tonumber_(v74, &v190))
         {
           goto LABEL_346;
         }
 
         if (*(v76 + 2) == 3)
         {
-          v148 = v76;
+          v149 = v76;
 LABEL_308:
-          v154 = v189 / *v148;
+          v155 = v190 / *v149;
           goto LABEL_373;
         }
 
-        v148 = &v188;
-        if (luaV_tonumber_(v76, &v188))
+        v149 = &v189;
+        if (luaV_tonumber_(v76, &v189))
         {
           goto LABEL_308;
         }
 
 LABEL_346:
-        v133 = a1;
+        v134 = a1;
         v27 = v74;
         v29 = v76;
-        v134 = v5 + 16 * v10;
-        v135 = 11;
+        v135 = (v5 + 16 * v10);
+        v136 = 11;
         goto LABEL_383;
       case 0x13uLL:
         if ((v7 & 0x80000000) == 0)
@@ -5698,11 +5597,11 @@ LABEL_346:
         }
 
         v29 = (v88 + 16 * (v7 >> 14));
-        if (*(v27 + 2) != 19 || *(v29 + 2) != 19)
+        if (v27[2] != 19 || v29[2] != 19)
         {
-          v133 = a1;
-          v134 = v5 + 16 * (v7 >> 6);
-          v135 = 12;
+          v134 = a1;
+          v135 = (v5 + 16 * (v7 >> 6));
+          v136 = 12;
           goto LABEL_383;
         }
 
@@ -5732,38 +5631,38 @@ LABEL_167:
         }
 
         v111 = (v110 + 16 * (v7 >> 14));
-        v188 = 0;
-        v189 = 0.0;
-        if (*(v109 + 2) == 19)
+        v189 = 0;
+        v190 = 0.0;
+        if (v109[2] == 19)
         {
-          v189 = *v109;
+          v190 = *v109;
         }
 
-        else if (!luaV_tointeger(v109, &v189))
+        else if (!luaV_tointeger(v109, &v190))
         {
           goto LABEL_350;
         }
 
         if (*(v111 + 2) == 19)
         {
-          v152 = v111;
+          v153 = v111;
 LABEL_322:
-          v35 = *v152 & *&v189;
+          v35 = *v153 & *&v190;
           goto LABEL_331;
         }
 
-        v152 = &v188;
-        if (luaV_tointeger(v111, &v188))
+        v153 = &v189;
+        if (luaV_tointeger(v111, &v189))
         {
           goto LABEL_322;
         }
 
 LABEL_350:
-        v133 = a1;
+        v134 = a1;
         v27 = v109;
         v29 = v111;
-        v134 = v5 + 16 * v10;
-        v135 = 13;
+        v135 = (v5 + 16 * v10);
+        v136 = 13;
         goto LABEL_383;
       case 0x15uLL:
         if ((v7 & 0x80000000) == 0)
@@ -5787,38 +5686,38 @@ LABEL_350:
         }
 
         v79 = (v78 + 16 * (v7 >> 14));
-        v188 = 0;
-        v189 = 0.0;
-        if (*(v77 + 2) == 19)
+        v189 = 0;
+        v190 = 0.0;
+        if (v77[2] == 19)
         {
-          v189 = *v77;
+          v190 = *v77;
         }
 
-        else if (!luaV_tointeger(v77, &v189))
+        else if (!luaV_tointeger(v77, &v190))
         {
           goto LABEL_347;
         }
 
         if (*(v79 + 2) == 19)
         {
-          v149 = v79;
+          v150 = v79;
 LABEL_310:
-          v35 = *v149 | *&v189;
+          v35 = *v150 | *&v190;
           goto LABEL_331;
         }
 
-        v149 = &v188;
-        if (luaV_tointeger(v79, &v188))
+        v150 = &v189;
+        if (luaV_tointeger(v79, &v189))
         {
           goto LABEL_310;
         }
 
 LABEL_347:
-        v133 = a1;
+        v134 = a1;
         v27 = v77;
         v29 = v79;
-        v134 = v5 + 16 * v10;
-        v135 = 14;
+        v135 = (v5 + 16 * v10);
+        v136 = 14;
         goto LABEL_383;
       case 0x16uLL:
         if ((v7 & 0x80000000) == 0)
@@ -5842,38 +5741,38 @@ LABEL_347:
         }
 
         v82 = (v81 + 16 * (v7 >> 14));
-        v188 = 0;
-        v189 = 0.0;
-        if (*(v80 + 2) == 19)
+        v189 = 0;
+        v190 = 0.0;
+        if (v80[2] == 19)
         {
-          v189 = *v80;
+          v190 = *v80;
         }
 
-        else if (!luaV_tointeger(v80, &v189))
+        else if (!luaV_tointeger(v80, &v190))
         {
           goto LABEL_348;
         }
 
         if (*(v82 + 2) == 19)
         {
-          v150 = v82;
+          v151 = v82;
 LABEL_312:
-          v35 = *v150 ^ *&v189;
+          v35 = *v151 ^ *&v190;
           goto LABEL_331;
         }
 
-        v150 = &v188;
-        if (luaV_tointeger(v82, &v188))
+        v151 = &v189;
+        if (luaV_tointeger(v82, &v189))
         {
           goto LABEL_312;
         }
 
 LABEL_348:
-        v133 = a1;
+        v134 = a1;
         v27 = v80;
         v29 = v82;
-        v134 = v5 + 16 * v10;
-        v135 = 15;
+        v135 = (v5 + 16 * v10);
+        v136 = 15;
         goto LABEL_383;
       case 0x17uLL:
         if ((v7 & 0x80000000) == 0)
@@ -5897,59 +5796,59 @@ LABEL_348:
         }
 
         v108 = (v107 + 16 * (v7 >> 14));
-        v188 = 0;
-        v189 = 0.0;
-        if (*(v106 + 2) == 19)
+        v189 = 0;
+        v190 = 0.0;
+        if (v106[2] == 19)
         {
-          v189 = *v106;
+          v190 = *v106;
         }
 
-        else if (!luaV_tointeger(v106, &v189))
+        else if (!luaV_tointeger(v106, &v190))
         {
           goto LABEL_349;
         }
 
         if (*(v108 + 2) == 19)
         {
-          v151 = v108;
+          v152 = v108;
         }
 
         else
         {
-          v151 = &v188;
-          if (!luaV_tointeger(v108, &v188))
+          v152 = &v189;
+          if (!luaV_tointeger(v108, &v189))
           {
 LABEL_349:
-            v133 = a1;
+            v134 = a1;
             v27 = v106;
             v29 = v108;
-            v134 = v5 + 16 * v10;
-            v135 = 16;
+            v135 = (v5 + 16 * v10);
+            v136 = 16;
             goto LABEL_383;
           }
         }
 
-        v155 = *v151;
-        v156 = *&v189 << *v151;
-        if (*v151 > 0x3F)
-        {
-          v156 = 0;
-        }
-
-        v157 = *&v189 >> -v155;
-        if (v155 < 0xFFFFFFFFFFFFFFC1)
+        v156 = *v152;
+        v157 = *&v190 << *v152;
+        if (*v152 > 0x3F)
         {
           v157 = 0;
         }
 
-        if (v155 < 0)
+        v158 = *&v190 >> -v156;
+        if (v156 < 0xFFFFFFFFFFFFFFC1)
         {
-          v35 = v157;
+          v158 = 0;
+        }
+
+        if (v156 < 0)
+        {
+          v35 = v158;
         }
 
         else
         {
-          v35 = v156;
+          v35 = v157;
         }
 
         goto LABEL_331;
@@ -5975,61 +5874,60 @@ LABEL_349:
         }
 
         v114 = (v113 + 16 * (v7 >> 14));
-        v188 = 0;
-        v189 = 0.0;
-        if (*(v112 + 2) == 19)
+        v189 = 0;
+        v190 = 0.0;
+        if (v112[2] == 19)
         {
-          v189 = *v112;
+          v190 = *v112;
         }
 
-        else if (!luaV_tointeger(v112, &v189))
+        else if (!luaV_tointeger(v112, &v190))
         {
           goto LABEL_351;
         }
 
         if (*(v114 + 2) == 19)
         {
-          v153 = v114;
+          v154 = v114;
         }
 
         else
         {
-          v153 = &v188;
-          if (!luaV_tointeger(v114, &v188))
+          v154 = &v189;
+          if (!luaV_tointeger(v114, &v189))
           {
 LABEL_351:
-            v133 = a1;
+            v134 = a1;
             v27 = v112;
             v29 = v114;
-            v134 = v5 + 16 * v10;
-            v135 = 17;
+            v135 = (v5 + 16 * v10);
+            v136 = 17;
             goto LABEL_383;
           }
         }
 
-        v158 = *v153;
-        v159 = -*v153;
-        v160 = *&v189 << v159;
-        if (v159 > 0x3F)
-        {
-          v160 = 0;
-        }
-
-        v161 = *&v189 >> v158;
-        v47 = *v153 == 63;
-        if (v159 < 0xFFFFFFFFFFFFFFC1)
+        v159 = *v154;
+        v160 = -*v154;
+        v161 = *&v190 << v160;
+        if (v160 > 0x3F)
         {
           v161 = 0;
         }
 
-        if (v158 >= 1)
+        v162 = *&v190 >> v159;
+        if (v160 < 0xFFFFFFFFFFFFFFC1)
         {
-          v35 = v161;
+          v162 = 0;
+        }
+
+        if (v159 >= 1)
+        {
+          v35 = v162;
         }
 
         else
         {
-          v35 = v160;
+          v35 = v161;
         }
 
 LABEL_331:
@@ -6039,11 +5937,11 @@ LABEL_332:
         continue;
       case 0x19uLL:
         v59 = (v5 + ((v7 >> 19) & 0x1FF0));
-        v189 = 0.0;
-        v60 = *(v59 + 2);
+        v190 = 0.0;
+        v60 = v59[2];
         if (v60 == 3)
         {
-          v166 = (v5 + ((v7 >> 19) & 0x1FF0));
+          v167 = (v5 + ((v7 >> 19) & 0x1FF0));
         }
 
         else
@@ -6054,27 +5952,27 @@ LABEL_332:
             goto LABEL_331;
           }
 
-          v166 = &v189;
-          if (!luaV_tonumber_(v59, &v189))
+          v167 = &v190;
+          if (!luaV_tonumber_(v59, &v190))
           {
-            v133 = a1;
+            v134 = a1;
             v27 = v59;
             v29 = v59;
-            v134 = v5 + 16 * v10;
-            v135 = 18;
+            v135 = (v5 + 16 * v10);
+            v136 = 18;
             goto LABEL_383;
           }
         }
 
-        v154 = -*v166;
+        v155 = -*v167;
 LABEL_373:
-        *v11 = v154;
+        *v11 = v155;
         *(v11 + 8) = 3;
         continue;
       case 0x1AuLL:
         v57 = (v5 + ((v7 >> 19) & 0x1FF0));
-        v189 = 0.0;
-        if (*(v57 + 2) == 19)
+        v190 = 0.0;
+        if (v57[2] == 19)
         {
           v58 = (v5 + ((v7 >> 19) & 0x1FF0));
 LABEL_284:
@@ -6082,65 +5980,66 @@ LABEL_284:
           goto LABEL_331;
         }
 
-        v58 = &v189;
-        if (luaV_tointeger(v57, &v189))
+        v58 = &v190;
+        if (luaV_tointeger(v57, &v190))
         {
           goto LABEL_284;
         }
 
-        v133 = a1;
+        v134 = a1;
         v27 = v57;
         v29 = v57;
-        v134 = v5 + 16 * v10;
-        v135 = 19;
+        v135 = (v5 + 16 * v10);
+        v136 = 19;
         goto LABEL_383;
       case 0x1BuLL:
-        v120 = (v5 + ((v7 >> 19) & 0x1FF0));
-        v121 = v120[2];
-        if (v121)
+        v121 = (v5 + ((v7 >> 19) & 0x1FF0));
+        v122 = v121[2];
+        if (v122)
         {
-          v122 = v121 == 1 && *v120 == 0;
+          v123 = v122 == 1 && *v121 == 0;
         }
 
         else
         {
-          v122 = 1;
+          v123 = 1;
         }
 
-        *v11 = v122;
+        *v11 = v123;
         *(v11 + 8) = 1;
         continue;
       case 0x1CuLL:
         luaV_objlen(a1, v5 + 16 * (v7 >> 6), (v5 + ((v7 >> 19) & 0x1FF0)));
         goto LABEL_384;
       case 0x1DuLL:
-        *(a1 + 16) = v5 + 16 * ((v7 >> 14) & 0x1FF) + 16;
-        luaV_concat(a1);
-        v115 = v2[4];
-        v116 = &v115[2 * v10];
-        v117 = &v115[2 * (v7 >> 23)];
-        *v116 = *v117;
+        v115 = (v7 >> 14) & 0x1FF;
+        *(a1 + 16) = v5 + 16 * v115 + 16;
+        luaV_concat(a1, v115 - (v7 >> 23) + 1);
+        v116 = v2[4];
+        v117 = &v116[2 * v10];
+        v118 = &v116[2 * (v7 >> 23)];
+        *v117 = *v118;
         if (*(*(a1 + 24) + 24) <= 0)
         {
-          v119 = v2[1];
+          v120 = v2[1];
         }
 
         else
         {
-          v118 = v116 + 2;
+          v119 = v117 + 2;
           if (v10 >= (v7 >> 23))
           {
-            v117 = v118;
+            v118 = v119;
           }
 
-          *(a1 + 16) = v117;
+          *(a1 + 16) = v118;
           luaC_step(a1);
-          v119 = v2[1];
-          *(a1 + 16) = v119;
+          v120 = v2[1];
+          *(a1 + 16) = v120;
         }
 
         v5 = v2[4];
-        *(a1 + 16) = v119;
+        *(a1 + 16) = v120;
         continue;
       case 0x1EuLL:
         if (v10)
@@ -6175,12 +6074,12 @@ LABEL_284:
       case 0x20uLL:
         if ((v7 & 0x80000000) == 0)
         {
-          v71 = v5 + 16 * (v7 >> 23);
+          v71 = (v5 + 16 * (v7 >> 23));
         }
 
         else
         {
-          v71 = v4 + 16 * (v7 >> 23);
+          v71 = (v4 + 16 * (v7 >> 23));
         }
 
         if ((v7 & 0x400000) != 0)
@@ -6193,7 +6092,7 @@ LABEL_284:
           v72 = v5;
         }
 
-        v73 = luaV_lessthan(a1, v71, v72 + 16 * (v7 >> 14));
+        v73 = luaV_lessthan(a1, v71, (v72 + 16 * (v7 >> 14)));
         goto LABEL_197;
       case 0x21uLL:
         if ((v7 & 0x80000000) == 0)
@@ -6276,16 +6175,16 @@ LABEL_103:
 
         *v11 = *v16;
 LABEL_337:
-        v162 = v2[5];
-        v163 = *v162;
-        if ((v163 >> 6))
+        v163 = v2[5];
+        v164 = *v163;
+        if ((v164 >> 6))
         {
-          luaF_close(a1, &v2[4][2 * (v163 >> 6) - 2]);
-          v162 = v2[5];
+          luaF_close(a1, &v2[4][2 * (v164 >> 6) - 2]);
+          v163 = v2[5];
         }
 
-        v15 = (v163 >> 12) & 0xFFFFC;
-        v164 = -65528;
+        v15 = (v164 >> 12) & 0xFFFFC;
+        v165 = -65528;
         goto LABEL_409;
       case 0x24uLL:
         if (v7 >= 0x800000)
@@ -6317,37 +6216,37 @@ LABEL_337:
           goto LABEL_384;
         }
 
-        v173 = *(a1 + 32);
-        v2 = v173[2];
-        v174 = *v173;
-        v175 = *v2;
-        v176 = v173[4];
-        v177 = *(*(**v173 + 24) + 10);
+        v174 = *(a1 + 32);
+        v2 = v174[2];
+        v175 = *v174;
+        v176 = *v2;
+        v177 = v174[4];
+        v178 = *(*(**v174 + 24) + 10);
         if (*(*(v3 + 24) + 32) >= 1)
         {
           luaF_close(a1, v2[4]);
         }
 
-        v178 = &v176[v177];
-        if (v174 < v178)
+        v179 = &v177[v178];
+        if (v175 < v179)
         {
-          v179 = v175;
-          v180 = v174;
+          v180 = v176;
+          v181 = v175;
           do
           {
-            v181 = *v180++;
-            *v179 = v181;
-            v179 += 2;
+            v182 = *v181++;
+            *v180 = v182;
+            v180 += 2;
           }
 
-          while (v180 < v178);
+          while (v181 < v179);
         }
 
-        v2[4] = (v175 + v173[4] - v174);
-        v182 = v175 + *(a1 + 16) - v174;
-        *(a1 + 16) = v182;
-        v2[1] = v182;
-        v2[5] = v173[5];
+        v2[4] = (v176 + v174[4] - v175);
+        v183 = v176 + *(a1 + 16) - v175;
+        *(a1 + 16) = v183;
+        v2[1] = v183;
+        v2[5] = v174[5];
         *(v2 + 66) |= 0x20u;
         *(a1 + 32) = v2;
         goto LABEL_2;
@@ -6359,15 +6258,15 @@ LABEL_337:
 
         if (v7 >= 0x800000)
         {
-          LODWORD(v172) = (v7 >> 23) - 1;
+          LODWORD(v173) = (v7 >> 23) - 1;
         }
 
         else
         {
-          v172 = (*(a1 + 16) - v11) >> 4;
+          v173 = (*(a1 + 16) - v11) >> 4;
         }
 
-        result = luaD_poscall(a1, (v5 + 16 * (v7 >> 6)), v172);
+        result = luaD_poscall(a1, (v5 + 16 * (v7 >> 6)), v173);
         if ((*(v2 + 66) & 8) != 0)
         {
           v2 = *(a1 + 32);
@@ -6407,54 +6306,54 @@ LABEL_337:
 
         else
         {
-          v142 = *(v11 + 32);
-          v143 = v142 + *v11;
-          v144 = *(v11 + 16);
-          if (v142 <= 0.0)
+          v143 = *(v11 + 32);
+          v144 = v143 + *v11;
+          v145 = *(v11 + 16);
+          if (v143 <= 0.0)
           {
-            if (v144 > v143)
+            if (v145 > v144)
             {
               continue;
             }
           }
 
-          else if (v143 > v144)
+          else if (v144 > v145)
           {
             continue;
           }
 
           v2[5] = (v2[5] + ((v7 >> 12) & 0xFFFFC) - 524284);
-          *v11 = v143;
-          *(v11 + 48) = v143;
+          *v11 = v144;
+          *(v11 + 48) = v144;
           *(v11 + 56) = 3;
         }
 
         continue;
       case 0x28uLL:
-        v188 = 0;
+        v189 = 0;
         if (*(v11 + 8) != 19 || *(v11 + 40) != 19)
         {
           goto LABEL_394;
         }
 
         v102 = *(v11 + 32);
-        if (luaV_tointeger((v11 + 16), &v188))
+        if (luaV_tointeger((v11 + 16), &v189))
         {
-          v103 = v188;
+          v103 = v189;
           goto LABEL_207;
         }
 
-        v169 = v3;
-        v189 = 0.0;
+        v170 = v3;
+        v190 = 0.0;
         if (*(v11 + 24) == 3)
         {
-          v170 = (v11 + 16);
+          v171 = (v11 + 16);
 LABEL_388:
-          if (*v170 <= 0.0)
+          if (*v171 <= 0.0)
           {
             v103 = 0x8000000000000000;
-            v188 = 0x8000000000000000;
-            v3 = v169;
+            v189 = 0x8000000000000000;
+            v3 = v170;
             if ((v102 & 0x8000000000000000) == 0)
             {
               goto LABEL_392;
@@ -6464,8 +6363,8 @@ LABEL_388:
           else
           {
             v103 = 0x7FFFFFFFFFFFFFFFLL;
-            v188 = 0x7FFFFFFFFFFFFFFFLL;
-            v3 = v169;
+            v189 = 0x7FFFFFFFFFFFFFFFLL;
+            v3 = v170;
             if (v102 < 0)
             {
 LABEL_392:
@@ -6484,62 +6383,62 @@ LABEL_208:
           goto LABEL_407;
         }
 
-        v170 = &v189;
-        if (luaV_tonumber_((v11 + 16), &v189))
+        v171 = &v190;
+        if (luaV_tonumber_((v11 + 16), &v190))
         {
           goto LABEL_388;
         }
 
-        v3 = v169;
+        v3 = v170;
 LABEL_394:
-        v189 = 0.0;
-        v186 = 0.0;
-        v187 = 0;
+        v190 = 0.0;
+        v187 = 0.0;
+        v188 = 0;
         if (*(v11 + 24) == 3)
         {
-          v187 = *(v11 + 16);
+          v188 = *(v11 + 16);
         }
 
-        else if (!luaV_tonumber_((v11 + 16), &v187))
+        else if (!luaV_tonumber_((v11 + 16), &v188))
         {
           luaG_runerror(a1, "'for' limit must be a number");
         }
 
-        *(v11 + 16) = v187;
+        *(v11 + 16) = v188;
         *(v11 + 24) = 3;
         if (*(v11 + 40) == 3)
         {
-          v186 = *(v11 + 32);
+          v187 = *(v11 + 32);
         }
 
-        else if (!luaV_tonumber_((v11 + 32), &v186))
+        else if (!luaV_tonumber_((v11 + 32), &v187))
         {
           luaG_runerror(a1, "'for' step must be a number");
         }
 
-        v171 = v186;
-        *(v11 + 32) = v186;
+        v172 = v187;
+        *(v11 + 32) = v187;
         *(v11 + 40) = 3;
         if (*(v11 + 8) == 3)
         {
-          v189 = *v11;
+          v190 = *v11;
         }
 
-        else if (!luaV_tonumber_((v5 + 16 * (v7 >> 6)), &v189))
+        else if (!luaV_tonumber_((v5 + 16 * (v7 >> 6)), &v190))
         {
           luaG_runerror(a1, "'for' initial value must be a number");
         }
 
-        *v11 = v189 - v171;
+        *v11 = v190 - v172;
         v105 = 3;
 LABEL_407:
         *(v11 + 8) = v105;
 LABEL_408:
-        v162 = v2[5];
+        v163 = v2[5];
         v15 = (v7 >> 12) & 0xFFFFC;
-        v164 = -65532;
+        v165 = -65532;
 LABEL_409:
-        v14 = v162 + (v164 & 0xFFFFFFFF0000FFFFLL | 0xFFF80000);
+        v14 = v163 + (v165 & 0xFFFFFFFF0000FFFFLL | 0xFFF80000);
 LABEL_410:
         v67 = v14 + v15;
 LABEL_411:
@@ -6551,7 +6450,7 @@ LABEL_411:
         *(v11 + 80) = v12;
         *(v11 + 48) = *v11;
         *(a1 + 16) = v11 + 96;
-        luaD_call(a1, v11 + 48, (v7 >> 14) & 0x1FF, 1);
+        luaD_call(a1, (v11 + 48), (v7 >> 14) & 0x1FF, 1);
         v5 = v2[4];
         *(a1 + 16) = v2[1];
         v13 = v2[5];
@@ -6571,45 +6470,45 @@ LABEL_10:
         v15 = -524284;
         goto LABEL_410;
       case 0x2BuLL:
-        v123 = v7 >> 23;
+        v124 = v7 >> 23;
         if (!(v7 >> 23))
         {
-          v123 = ((*(a1 + 16) - v11) >> 4) - 1;
+          v124 = ((*(a1 + 16) - v11) >> 4) - 1;
         }
 
-        v124 = (v7 >> 14) & 0x1FF;
-        if (!v124)
+        v125 = (v7 >> 14) & 0x1FF;
+        if (!v125)
         {
-          v125 = v2[5];
-          v2[5] = (v125 + 4);
-          v124 = *v125 >> 6;
+          v126 = v2[5];
+          v2[5] = (v126 + 4);
+          v125 = *v126 >> 6;
         }
 
-        v126 = *v11;
-        v127 = 50 * v124;
-        v128 = v123 + 50 * v124 - 50;
-        if (v128 > *(v126 + 12))
+        v127 = *v11;
+        v128 = 50 * v125;
+        v129 = v124 + 50 * v125 - 50;
+        if (v129 > *(v127 + 12))
         {
-          luaH_resizearray(a1, v126, v128);
+          luaH_resizearray(a1, v127, v129);
         }
 
-        if (v123 >= 1)
+        if (v124 >= 1)
         {
-          v129 = v123;
-          v130 = (v5 + 16 * v10 + 16 * v123);
-          v131 = v127 - 50;
+          v130 = v124;
+          v131 = (v5 + 16 * v10 + 16 * v124);
+          v132 = v128 - 50;
           do
           {
-            luaH_setint(a1, v126, (v131 + v129), v130);
-            if ((v130->n128_u8[8] & 0x40) != 0 && (*(v126 + 9) & 4) != 0 && (*(v130->n128_u64[0] + 9) & 3) != 0)
+            luaH_setint(a1, v127, (v132 + v130), v131);
+            if ((v131->n128_u8[8] & 0x40) != 0 && (*(v127 + 9) & 4) != 0 && (*(v131->n128_u64[0] + 9) & 3) != 0)
             {
-              luaC_barrierback_(a1, v126);
+              luaC_barrierback_(a1, v127);
             }
 
-            --v130;
+            --v131;
           }
 
-          while (v129-- > 1);
+          while (v130-- > 1);
         }
 
         *(a1 + 16) = v2[1];
@@ -6635,7 +6534,7 @@ LABEL_10:
         while (1)
         {
           v25 = *v23;
-          v26 = *(v23 - 1) ? v5 + 16 * v25 : **(v185 + 8 * v25);
+          v26 = *(v23 - 1) ? v5 + 16 * v25 : **(v186 + 8 * v25);
           if (**v22 != v26)
           {
             break;
@@ -6653,41 +6552,41 @@ LABEL_35:
         }
 
 LABEL_259:
-        v136 = luaF_newLclosure(a1, *(v18 + 16));
-        v137 = v136;
-        *(v136 + 24) = v18;
-        *v11 = v136;
+        v137 = luaF_newLclosure(a1, *(v18 + 16));
+        v138 = v137;
+        *(v137 + 24) = v18;
+        *v11 = v137;
         *(v11 + 8) = 70;
         if (v19 >= 1)
         {
-          v138 = (v136 + 32);
-          v139 = (v21 + 9);
+          v139 = (v137 + 32);
+          v140 = (v21 + 9);
           do
           {
-            v140 = *v139;
-            if (*(v139 - 1))
+            v141 = *v140;
+            if (*(v140 - 1))
             {
-              v141 = luaF_findupval(a1, v5 + 16 * v140);
+              v142 = luaF_findupval(a1, v5 + 16 * v141);
             }
 
             else
             {
-              v141 = *(v185 + 8 * v140);
+              v142 = *(v186 + 8 * v141);
             }
 
-            v139 += 16;
-            *v138++ = v141;
-            ++*(v141 + 8);
+            v140 += 16;
+            *v139++ = v142;
+            ++v142[1];
             --v19;
           }
 
           while (v19);
         }
 
-        v3 = v184;
+        v3 = v185;
         if ((*(v18 + 9) & 4) == 0)
         {
-          *(v18 + 96) = v137;
+          *(v18 + 96) = v138;
         }
 
 LABEL_267:
@@ -6724,27 +6623,27 @@ LABEL_269:
 
         if (v43 >= 1)
         {
-          v145 = 0;
-          v146 = (v11 + 8);
-          v147 = -16 * v42;
+          v146 = 0;
+          v147 = (v11 + 8);
+          v148 = -16 * v42;
           do
           {
-            if (v145 >= v42)
+            if (v146 >= v42)
             {
-              *v146 = 0;
+              *v147 = 0;
             }
 
             else
             {
-              *(v146 - 2) = *(v5 + v147);
+              *(v147 - 2) = *(v5 + v148);
             }
 
-            ++v145;
-            v146 += 4;
-            v147 += 16;
+            ++v146;
+            v147 += 4;
+            v148 += 16;
           }
 
-          while (v43 != v145);
+          while (v43 != v146);
         }
 
         continue;
@@ -6865,18 +6764,17 @@ uint64_t luaZ_openspace(uint64_t a1, uint64_t *a2, unint64_t a3)
 
 uint64_t luaI_snprintf(uint64_t a1, uint64_t a2, int a3, unsigned __int8 *__src, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v181 = *MEMORY[0x1E69E9840];
+  v180 = *MEMORY[0x1E69E9840];
   if (a3 < 1)
   {
-    v12 = 0;
-    goto LABEL_322;
+    return 0;
   }
 
   v10 = a3;
   v12 = 0;
-  v177 = 0;
+  v176 = 0;
   v13 = 0;
-  v179 = &a9;
+  v178 = &a9;
   v14 = &byte_1C37B1852;
   while (2)
   {
@@ -6906,7 +6804,7 @@ uint64_t luaI_snprintf(uint64_t a1, uint64_t a2, int a3, unsigned __int8 *__src,
       if (v19 >= v10)
       {
         v10 = 0;
-        v177 = 2;
+        v176 = 2;
         v12 = v12;
       }
 
@@ -6936,7 +6834,7 @@ uint64_t luaI_snprintf(uint64_t a1, uint64_t a2, int a3, unsigned __int8 *__src,
       goto LABEL_320;
     }
 
-    v178 = v10;
+    v177 = v10;
     v22 = 0;
     v23 = 0;
     v24 = 0;
@@ -7005,8 +6903,7 @@ LABEL_32:
 
     if (v21 == 42)
     {
-      v56 = v179;
-      v179 += 2;
+      v56 = v178++;
       v57 = *v56;
       if (v57 == 0x80000000)
       {
@@ -7068,8 +6965,7 @@ LABEL_34:
     v21 = v28[1];
     if (v21 == 42)
     {
-      v75 = v179;
-      v179 += 2;
+      v75 = v178++;
       v31 = *v75;
       v76 = v28[2];
       v28 += 2;
@@ -7139,13 +7035,13 @@ LABEL_35:
         if (v34 - 6 >= 2)
         {
           v14 = &byte_1C37B1852;
-          v10 = v178;
+          v10 = v177;
           if (v34 == 8)
           {
             v54 = 0;
-            v180[0] = 37;
+            v179[0] = 37;
 LABEL_286:
-            v13 = v180;
+            v13 = v179;
             v32 = 1;
             goto LABEL_287;
           }
@@ -7156,11 +7052,10 @@ LABEL_320:
             goto LABEL_321;
           }
 
-          goto LABEL_322;
+          return v12;
         }
 
-        v51 = v179;
-        v179 += 2;
+        v51 = v178++;
         v52 = *v51;
         if (v34 == 7)
         {
@@ -7193,7 +7088,7 @@ LABEL_320:
         }
 
         v14 = &byte_1C37B1852;
-        v10 = v178;
+        v10 = v177;
         if (v31 < 0)
         {
           v136 = v27;
@@ -7234,9 +7129,8 @@ LABEL_320:
         }
 
 LABEL_108:
-        v172 = v27;
-        v62 = v179;
-        v179 += 2;
+        v171 = v27;
+        v62 = v178++;
         v63 = *v62;
         v64 = 32 * (v25 != 0);
         if (v26)
@@ -7280,7 +7174,7 @@ LABEL_108:
           v68 = v63;
         }
 
-        v169 = v30;
+        v168 = v30;
         v69 = v30 - (v67 != 0);
         if (v31 > v69)
         {
@@ -7297,7 +7191,7 @@ LABEL_108:
           v70 = v31;
         }
 
-        v175 = a2;
+        v174 = a2;
         if (v70 >= 60)
         {
           v72 = v70 + 10;
@@ -7314,7 +7208,7 @@ LABEL_108:
         {
           v71 = 0;
           v72 = 70;
-          v73 = v180;
+          v73 = v179;
         }
 
         v115 = 0;
@@ -7355,17 +7249,17 @@ LABEL_108:
         }
 
         v54 = v71;
-        v27 = v172;
+        v27 = v171;
         if (v67)
         {
           *--v13 = v67;
         }
 
-        v30 = v169;
+        v30 = v168;
         if (v68 && v24)
         {
           v139 = v14[3];
-          v10 = v178;
+          v10 = v177;
           if (v139 <= 6 && ((1 << v139) & 0x49) != 0)
           {
             v14 = &byte_1C37B1852;
@@ -7392,52 +7286,51 @@ LABEL_108:
         else
         {
           v14 = &byte_1C37B1852;
-          v10 = v178;
+          v10 = v177;
         }
 
         v32 = v116 - v13;
 LABEL_278:
-        a2 = v175;
+        a2 = v174;
         goto LABEL_287;
       }
 
-      v124 = v179;
-      v179 += 2;
+      v124 = v178++;
       v125 = *v124;
       v126 = v31 - 1;
       v14 = &byte_1C37B1852;
       if (v31 <= 1)
       {
-        v10 = v178;
+        v10 = v177;
 LABEL_285:
         v54 = 0;
-        v180[0] = v125;
+        v179[0] = v125;
         goto LABEL_286;
       }
 
       v30 -= v126;
-      v10 = v178;
+      v10 = v177;
       if (v30 < 2 || v27)
       {
         goto LABEL_281;
       }
 
       v127 = v30 - 1;
-      if (v30 - 1 + v12 >= v178)
+      if (v30 - 1 + v12 >= v177)
       {
-        if (v177)
+        if (v176)
         {
           v30 = 0;
 LABEL_281:
           if (v12 + v126 >= v10)
           {
-            if (v177)
+            if (v176)
             {
               goto LABEL_285;
             }
 
             v126 = v10 + ~v12;
-            v177 = 2;
+            v176 = 2;
             v10 = 0;
             if (v126 < 1)
             {
@@ -7455,11 +7348,11 @@ LABEL_283:
           goto LABEL_285;
         }
 
-        v127 = v178 + ~v12;
+        v127 = v177 + ~v12;
         if (v127 < 1)
         {
           v10 = 0;
-          v177 = 2;
+          v176 = 2;
           if (v126 + v12 >= 0)
           {
             v30 = 0;
@@ -7473,7 +7366,7 @@ LABEL_283:
 
         v128 = v27;
         v10 = 0;
-        v177 = 2;
+        v176 = 2;
       }
 
       else
@@ -7495,7 +7388,7 @@ LABEL_283:
         goto LABEL_108;
       }
 
-      v10 = v178;
+      v10 = v177;
       if (v34 != 5)
       {
         goto LABEL_320;
@@ -7504,8 +7397,7 @@ LABEL_283:
       v54 = 0;
       v30 = 0;
       v32 = 0;
-      v61 = v179;
-      v179 += 2;
+      v61 = v178++;
       **v61 = v12;
       v14 = &byte_1C37B1852;
 LABEL_287:
@@ -7516,7 +7408,7 @@ LABEL_287:
         if (v155 >= v10)
         {
           v10 = 0;
-          v177 = 2;
+          v176 = 2;
         }
 
         else
@@ -7532,7 +7424,7 @@ LABEL_287:
         {
           if (v27)
           {
-            if (v12 + v154 < v10 || !v177 && (v154 = v10 + ~v12, v177 = 2, v10 = 0, v154 >= 1))
+            if (v12 + v154 < v10 || !v176 && (v154 = v10 + ~v12, v176 = 2, v10 = 0, v154 >= 1))
             {
               memset((a2 + v12), 32, v154);
               v12 = (v12 + v154);
@@ -7543,7 +7435,7 @@ LABEL_287:
 
       else
       {
-        if (v154 + v12 < v10 || !v177 && (v154 = v10 + ~v12, v177 = 2, v10 = 0, v154 >= 1))
+        if (v154 + v12 < v10 || !v176 && (v154 = v10 + ~v12, v176 = 2, v10 = 0, v154 >= 1))
         {
           memset((a2 + v12), 32, v154);
           v12 = (v12 + v154);
@@ -7552,7 +7444,7 @@ LABEL_287:
         if (v12 + v32 >= v10)
         {
           v10 = 0;
-          v177 = 2;
+          v176 = 2;
         }
 
         else
@@ -7574,8 +7466,7 @@ LABEL_287:
     break;
   }
 
-  v35 = v179;
-  v179 += 2;
+  v35 = v178++;
   v36 = *v35;
   if (v31 < 0)
   {
@@ -7631,7 +7522,7 @@ LABEL_287:
     v44 = v38;
   }
 
-  v164 = v44;
+  v163 = v44;
   if (v36 < 0.0)
   {
     v45 = 45;
@@ -7767,12 +7658,12 @@ LABEL_287:
       v54 = 0;
       v32 = v98 & 0x3FFFFFFF;
       v14 = &byte_1C37B1852;
-      v10 = v178;
+      v10 = v177;
       goto LABEL_287;
     }
   }
 
-  v168 = v12;
+  v167 = v12;
   if (v34 == 2)
   {
     goto LABEL_178;
@@ -7827,32 +7718,32 @@ LABEL_178:
     v48 -= v103;
   }
 
-  v175 = a2;
+  v174 = a2;
   v104 = (v103 & ~(v103 >> 31)) + v30 + v48;
   if (v104 < 56)
   {
-    v167 = 0;
-    v13 = v180;
+    v166 = 0;
+    v13 = v179;
     goto LABEL_185;
   }
 
-  v170 = v43;
-  v165 = v48;
-  v162 = v45;
-  v173 = v27;
+  v169 = v43;
+  v164 = v48;
+  v161 = v45;
+  v172 = v27;
   v105 = v30;
   v106 = v102;
   v107 = v100;
   v108 = luaM_realloc_(a1, 0, 0, (v104 + 15));
   v100 = v107;
   v102 = v106;
-  v43 = v170;
-  v45 = v162;
-  v48 = v165;
+  v43 = v169;
+  v45 = v161;
+  v48 = v164;
   v30 = v105;
-  v27 = v173;
+  v27 = v172;
   v13 = v108;
-  v167 = v108;
+  v166 = v108;
   if (v108)
   {
 LABEL_185:
@@ -7902,25 +7793,25 @@ LABEL_185:
       *v109++ = 46;
     }
 
-    v10 = v178;
+    v10 = v177;
     if (v114 < 0)
     {
-      v166 = v48;
-      v174 = v27;
-      v171 = v30;
-      v161 = v100;
-      v163 = v102;
-      v160 = v129;
+      v165 = v48;
+      v173 = v27;
+      v170 = v30;
+      v160 = v100;
+      v162 = v102;
+      v159 = v129;
       memset(v109, 48, ~v114 + 1);
-      v129 = v160;
-      v100 = v161;
-      v102 = v163;
-      v48 = v166;
-      v30 = v171;
-      v27 = v174;
+      v129 = v159;
+      v100 = v160;
+      v102 = v162;
+      v48 = v165;
+      v30 = v170;
+      v27 = v173;
       v109 += ~v114 + 1;
-      v10 = v178;
-      v130 = v114 + v166;
+      v10 = v177;
+      v130 = v114 + v165;
     }
 
     else
@@ -7930,13 +7821,13 @@ LABEL_185:
 
     if (v130 < 1)
     {
-      v12 = v168;
+      v12 = v167;
     }
 
     else
     {
       v131 = v48 + (v114 & (v114 >> 31)) + 1;
-      v12 = v168;
+      v12 = v167;
       do
       {
         if (v110 < 1)
@@ -8003,7 +7894,7 @@ LABEL_185:
       }
     }
 
-    v54 = v167;
+    v54 = v166;
     if (v102)
     {
       *v109 = aDigits[v14[2]];
@@ -8072,7 +7963,7 @@ LABEL_185:
       {
         v150 = v27;
         v151 = v30;
-        memset(&v13[v164], 48, (~v109 + v30 + v13) + 1);
+        memset(&v13[v163], 48, (~v109 + v30 + v13) + 1);
         v30 = v151;
         v27 = v150;
       }
@@ -8083,17 +7974,15 @@ LABEL_185:
     goto LABEL_278;
   }
 
-  a2 = v175;
-  v12 = v168;
-  if (!v175)
+  a2 = v174;
+  v12 = v167;
+  if (!v174)
   {
-    goto LABEL_322;
+    return v12;
   }
 
 LABEL_321:
   *(a2 + v12) = 0;
-LABEL_322:
-  v158 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -8341,7 +8230,7 @@ uint64_t getLabels_LuaLDO(uint64_t *a1)
     while (!pushLuaObject_LuaLDOLabel(a1, *v3))
     {
       v6 = LuaVMUtil_u32_index_to_luainteger(v5);
-      lua_rawseti(a1, -2, v6);
+      lua_rawseti(a1, 0xFFFFFFFE, v6);
       ++v5;
       if (++v3 >= v4)
       {
@@ -8360,7 +8249,7 @@ uint64_t setText_LuaLDO(void *a1)
   v6 = 0;
   v7 = 0;
   __s = 0;
-  if (getOOCObject_LuaLDO(a1, 1, &v7) || getOOCObject_LuaLDOTreeNode(a1, 2, &v6) || LuaVMUtil_luastring_to_string(a1, 3, &__s) || !__s || LDO_SetText(v7, v6, __s))
+  if (getOOCObject_LuaLDO(a1, 1, &v7) || getOOCObject_LuaLDOTreeNode(a1, 2, &v6) || LuaVMUtil_luastring_to_string(a1, 3u, &__s) || !__s || LDO_SetText(v7, v6, __s))
   {
     return LuaVMUtil_error(a1, "Error in ldo:setText");
   }
@@ -8387,18 +8276,18 @@ uint64_t addLabel_LuaLDO(uint64_t *a1)
     goto LABEL_2;
   }
 
-  if (lua_type(a1, 2))
+  if (lua_type(a1, 2u))
   {
-    OOCObject_LuaLDO = LuaVMUtil_luastring_to_string(a1, 2, &v14);
+    OOCObject_LuaLDO = LuaVMUtil_luastring_to_string(a1, 2u, &v14);
     if (OOCObject_LuaLDO)
     {
       goto LABEL_2;
     }
   }
 
-  if (lua_type(a1, 3))
+  if (lua_type(a1, 3u))
   {
-    OOCObject_LuaLDO = LuaVMUtil_luastring_to_string(a1, 3, &v13);
+    OOCObject_LuaLDO = LuaVMUtil_luastring_to_string(a1, 3u, &v13);
     if (OOCObject_LuaLDO)
     {
       goto LABEL_2;
@@ -8409,7 +8298,7 @@ uint64_t addLabel_LuaLDO(uint64_t *a1)
   v17 = 0;
   v18 = 0;
   lua_pushnil(a1);
-  if (lua_next(a1, 4))
+  if (lua_next(a1, 4u))
   {
     v3 = 0;
     v4 = 0;
@@ -8464,10 +8353,10 @@ uint64_t addLabel_LuaLDO(uint64_t *a1)
 
       *v5 = v15;
       v5 = ++v18;
-      lua_settop(a1, 0xFFFFFFFE);
+      lua_settop(a1, -2);
     }
 
-    while (lua_next(a1, 4));
+    while (lua_next(a1, 4u));
   }
 
   v12 = v20;
@@ -8523,10 +8412,10 @@ uint64_t computeOverlappingLabels_LuaLDO(uint64_t *a1)
     return LuaVMUtil_error(a1, "Error in ldo:computeOverlappingLabels");
   }
 
-  if (lua_type(a1, 2))
+  if (lua_type(a1, 2u))
   {
     v3 = &v10 + 1;
-    if (LuaVMUtil_luainteger_to_u32_index(a1, 2, &v10 + 1))
+    if (LuaVMUtil_luainteger_to_u32_index(a1, 2u, &v10 + 1))
     {
       return LuaVMUtil_error(a1, "Error in ldo:computeOverlappingLabels");
     }
@@ -8537,10 +8426,10 @@ uint64_t computeOverlappingLabels_LuaLDO(uint64_t *a1)
     v3 = 0;
   }
 
-  if (lua_type(a1, 3))
+  if (lua_type(a1, 3u))
   {
     v4 = &v10;
-    if (!LuaVMUtil_luainteger_to_u32_index(a1, 3, &v10))
+    if (!LuaVMUtil_luainteger_to_u32_index(a1, 3u, &v10))
     {
       goto LABEL_11;
     }
@@ -8550,7 +8439,7 @@ uint64_t computeOverlappingLabels_LuaLDO(uint64_t *a1)
 
   v4 = 0;
 LABEL_11:
-  if (LuaVMUtil_luaBOOLean_to_lhBOOL(a1, 4, &v9))
+  if (LuaVMUtil_luaBOOLean_to_lhBOOL(a1, 4u, &v9))
   {
     return LuaVMUtil_error(a1, "Error in ldo:computeOverlappingLabels");
   }
@@ -8569,7 +8458,7 @@ LABEL_11:
     while (!pushLuaObject_LuaLDOLabel(a1, *v6))
     {
       v8 = LuaVMUtil_u32_index_to_luainteger(v7);
-      lua_rawseti(a1, -2, v8);
+      lua_rawseti(a1, 0xFFFFFFFE, v8);
       ++v7;
       if (++v6 >= v13)
       {
@@ -8599,7 +8488,7 @@ uint64_t appendNewNode_LuaLDO(uint64_t *a1)
   v4 = 0;
   v5 = 0;
   v3 = 0;
-  if (getOOCObject_LuaLDO(a1, 1, &v8) || getOOCObject_LuaLDOTreeNode(a1, 2, &v7) || lua_type(a1, 3) && LuaVMUtil_luastring_to_string(a1, 3, &v5) || lua_type(a1, 4) && LuaVMUtil_luastring_to_string(a1, 4, &v4) || LuaVMUtil_luainteger_to_u32_index(a1, 5, &v3 + 1) || LuaVMUtil_luainteger_to_u32_index(a1, 6, &v3) || LDO_AppendNewNode(v8, v7, v5, v4, SHIDWORD(v3), v3, &v6) || pushLuaObject_LuaLDOTreeNode(a1, v6))
+  if (getOOCObject_LuaLDO(a1, 1, &v8) || getOOCObject_LuaLDOTreeNode(a1, 2, &v7) || lua_type(a1, 3u) && LuaVMUtil_luastring_to_string(a1, 3u, &v5) || lua_type(a1, 4u) && LuaVMUtil_luastring_to_string(a1, 4u, &v4) || LuaVMUtil_luainteger_to_u32_index(a1, 5u, &v3 + 1) || LuaVMUtil_luainteger_to_u32_index(a1, 6u, &v3) || LDO_AppendNewNode(v8, v7, v5, v4, HIDWORD(v3), v3, &v6) || pushLuaObject_LuaLDOTreeNode(a1, v6))
   {
     return LuaVMUtil_error(a1, "Error in ldo:appendNewNode");
   }
@@ -8617,15 +8506,15 @@ uint64_t addLabelOnSubstring_LuaLDO(uint64_t *a1)
   v6 = 0;
   v7 = 0;
   v5 = 0;
-  if (getOOCObject_LuaLDO(a1, 1, &v9) || lua_type(a1, 2) && LuaVMUtil_luastring_to_string(a1, 2, &v7) || lua_type(a1, 3) && LuaVMUtil_luastring_to_string(a1, 3, &v6))
+  if (getOOCObject_LuaLDO(a1, 1, &v9) || lua_type(a1, 2u) && LuaVMUtil_luastring_to_string(a1, 2u, &v7) || lua_type(a1, 3u) && LuaVMUtil_luastring_to_string(a1, 3u, &v6))
   {
     return LuaVMUtil_error(a1, "Error in ldo:addLabelOnSubstring");
   }
 
-  if (lua_type(a1, 4))
+  if (lua_type(a1, 4u))
   {
     v3 = &v5 + 1;
-    if (LuaVMUtil_luainteger_to_u32_index(a1, 4, &v5 + 1))
+    if (LuaVMUtil_luainteger_to_u32_index(a1, 4u, &v5 + 1))
     {
       return LuaVMUtil_error(a1, "Error in ldo:addLabelOnSubstring");
     }
@@ -8636,10 +8525,10 @@ uint64_t addLabelOnSubstring_LuaLDO(uint64_t *a1)
     v3 = 0;
   }
 
-  if (lua_type(a1, 5))
+  if (lua_type(a1, 5u))
   {
     v4 = &v5;
-    if (!LuaVMUtil_luainteger_to_u32_index(a1, 5, &v5))
+    if (!LuaVMUtil_luainteger_to_u32_index(a1, 5u, &v5))
     {
       goto LABEL_15;
     }
@@ -8690,18 +8579,18 @@ uint64_t mergeLabels_LuaLDO(uint64_t *a1)
     goto LABEL_2;
   }
 
-  if (lua_type(a1, 2))
+  if (lua_type(a1, 2u))
   {
-    OOCObject_LuaLDO = LuaVMUtil_luastring_to_string(a1, 2, &v14);
+    OOCObject_LuaLDO = LuaVMUtil_luastring_to_string(a1, 2u, &v14);
     if (OOCObject_LuaLDO)
     {
       goto LABEL_2;
     }
   }
 
-  if (lua_type(a1, 3))
+  if (lua_type(a1, 3u))
   {
-    OOCObject_LuaLDO = LuaVMUtil_luastring_to_string(a1, 3, &v13);
+    OOCObject_LuaLDO = LuaVMUtil_luastring_to_string(a1, 3u, &v13);
     if (OOCObject_LuaLDO)
     {
       goto LABEL_2;
@@ -8712,7 +8601,7 @@ uint64_t mergeLabels_LuaLDO(uint64_t *a1)
   v16 = 0;
   v17 = 0;
   lua_pushnil(a1);
-  if (lua_next(a1, 4))
+  if (lua_next(a1, 4u))
   {
     v3 = 0;
     v4 = 0;
@@ -8767,10 +8656,10 @@ uint64_t mergeLabels_LuaLDO(uint64_t *a1)
 
       *v5 = v19;
       v5 = ++v17;
-      lua_settop(a1, 0xFFFFFFFE);
+      lua_settop(a1, -2);
     }
 
-    while (lua_next(a1, 4));
+    while (lua_next(a1, 4u));
   }
 
   v12 = v20;
@@ -8820,7 +8709,7 @@ uint64_t replaceNodes_LuaLDO(uint64_t *a1)
   }
 
   lua_pushnil(a1);
-  v4 = lua_next(a1, 2);
+  v4 = lua_next(a1, 2u);
   v5 = v54;
   if (v4)
   {
@@ -8859,7 +8748,7 @@ uint64_t replaceNodes_LuaLDO(uint64_t *a1)
           v11 = v10;
         }
 
-        v12 = OOCAllocator_Realloc(*(v5 + 8), v52, 8 * v11, &OOCObject_LuaLDO);
+        v12 = OOCAllocator_Realloc(v5[1], v52, 8 * v11, &OOCObject_LuaLDO);
         v2 = v12;
         v52 = v12;
         if (OOCObject_LuaLDO)
@@ -8874,14 +8763,14 @@ uint64_t replaceNodes_LuaLDO(uint64_t *a1)
 
       *v7 = v47;
       ++v53;
-      lua_settop(a1, 0xFFFFFFFE);
+      lua_settop(a1, -2);
     }
 
-    while (lua_next(a1, 2));
+    while (lua_next(a1, 2u));
   }
 
   lua_pushnil(a1);
-  if (!lua_next(a1, 3))
+  if (!lua_next(a1, 3u))
   {
     goto LABEL_94;
   }
@@ -8896,7 +8785,7 @@ uint64_t replaceNodes_LuaLDO(uint64_t *a1)
       goto LABEL_29;
     }
 
-    v14 = PNEW_LDOTreeNode_ConRoot(*(v5 + 8), *(v5 + 8), "", 0, 0, &v46);
+    v14 = PNEW_LDOTreeNode_ConRoot(v5[1], v5[1], "", 0, 0, &v46);
     if (v14)
     {
 LABEL_24:
@@ -8906,7 +8795,7 @@ LABEL_25:
       if (v46)
       {
 LABEL_26:
-        OOC_PlacementDeleteObject(*(v5 + 8), v16);
+        OOC_PlacementDeleteObject(v5[1], v16);
         v46 = 0;
         OOCObject_LuaLDO = v15;
         if (!v15)
@@ -8926,7 +8815,7 @@ LABEL_3:
       LODWORD(v51) = 0;
       if (v2)
       {
-        OOCAllocator_Free(*(v54 + 8), v2);
+        OOCAllocator_Free(v54[1], v2);
         v52 = 0;
       }
 
@@ -8934,7 +8823,7 @@ LABEL_3:
       LODWORD(v48) = 0;
       if (v49)
       {
-        OOCAllocator_Free(*(v54 + 8), v49);
+        OOCAllocator_Free(v54[1], v49);
         v49 = 0;
       }
 
@@ -8952,29 +8841,29 @@ LABEL_3:
     v23 = 0;
     do
     {
-      if (!lua_isstring(a1, -2))
+      if (!lua_isstring(a1, 0xFFFFFFFE))
       {
         goto LABEL_65;
       }
 
-      v24 = lua_tolstring(a1, -2, 0);
+      v24 = lua_tolstring(a1, 0xFFFFFFFE, 0);
       if (!v24)
       {
         goto LABEL_65;
       }
 
       v25 = v24;
-      if (lua_isinteger(a1, -1))
+      if (lua_isinteger(a1, 0xFFFFFFFF))
       {
         v56 = 0;
-        if (strcmp(v25, "par_from") || (v29 = LuaVMUtil_luainteger_to_u32_index(a1, -1, &v56 + 1)) == 0 && (LDOObject_SetU32Attribute(v46, "repl_from", SHIDWORD(v56)), !v29))
+        if (strcmp(v25, "par_from") || (v29 = LuaVMUtil_luainteger_to_u32_index(a1, 0xFFFFFFFF, &v56 + 1)) == 0 && (LDOObject_SetU32Attribute(v46, "repl_from", SHIDWORD(v56)), !v29))
         {
           if (strcmp(v25, "par_to"))
           {
             goto LABEL_65;
           }
 
-          v29 = LuaVMUtil_luainteger_to_u32_index(a1, -1, &v56);
+          v29 = LuaVMUtil_luainteger_to_u32_index(a1, 0xFFFFFFFF, &v56);
           if (!v29)
           {
             LDOObject_SetU32Attribute(v46, "repl_to", v56);
@@ -8991,9 +8880,9 @@ LABEL_64:
         goto LABEL_65;
       }
 
-      if (lua_isstring(a1, -1))
+      if (lua_isstring(a1, 0xFFFFFFFF))
       {
-        v26 = lua_tolstring(a1, -1, 0);
+        v26 = lua_tolstring(a1, 0xFFFFFFFF, 0);
         if (!v26)
         {
           goto LABEL_65;
@@ -9040,27 +8929,27 @@ LABEL_64:
         v23 = 1;
       }
 
-      else if (lua_type(a1, -1) == 5 && !strcmp(v25, "attr"))
+      else if (lua_type(a1, 0xFFFFFFFF) == 5 && !strcmp(v25, "attr"))
       {
         v30 = lua_gettop(a1);
         lua_pushnil(a1);
         while (lua_next(a1, v30))
         {
-          if (!lua_isstring(a1, -2))
+          if (!lua_isstring(a1, 0xFFFFFFFE))
           {
             break;
           }
 
-          v31 = lua_tolstring(a1, -2, 0);
+          v31 = lua_tolstring(a1, 0xFFFFFFFE, 0);
           if (!v31)
           {
             break;
           }
 
           v32 = v31;
-          if (lua_isinteger(a1, -1))
+          if (lua_isinteger(a1, 0xFFFFFFFF))
           {
-            v33 = lua_tointegerx(a1, -1, 0);
+            v33 = lua_tointegerx(a1, 0xFFFFFFFF, 0);
             v34 = v46;
             v35 = v32;
             if ((v33 & 0x80000000) == 0)
@@ -9075,9 +8964,9 @@ LABEL_64:
             }
           }
 
-          else if (lua_type(a1, -1) == 1)
+          else if (lua_type(a1, 0xFFFFFFFF) == 1)
           {
-            v33 = lua_toBOOLean(a1, -1) == 1;
+            v33 = lua_toBOOLean(a1, 0xFFFFFFFF) == 1;
             v34 = v46;
             v35 = v32;
 LABEL_78:
@@ -9088,9 +8977,9 @@ LABEL_78:
             }
           }
 
-          else if (lua_isstring(a1, -1))
+          else if (lua_isstring(a1, 0xFFFFFFFF))
           {
-            v36 = lua_tolstring(a1, -1, 0);
+            v36 = lua_tolstring(a1, 0xFFFFFFFF, 0);
             if (!v36)
             {
               break;
@@ -9103,13 +8992,13 @@ LABEL_78:
             }
           }
 
-          lua_settop(a1, 0xFFFFFFFE);
+          lua_settop(a1, -2);
           continue;
         }
       }
 
 LABEL_65:
-      lua_settop(a1, 0xFFFFFFFE);
+      lua_settop(a1, -2);
     }
 
     while (lua_next(a1, v13));
@@ -9158,7 +9047,7 @@ LABEL_29:
       v21 = v20;
     }
 
-    v22 = OOCAllocator_Realloc(*(v5 + 8), v49, 8 * v21, &OOCObject_LuaLDO);
+    v22 = OOCAllocator_Realloc(v5[1], v49, 8 * v21, &OOCObject_LuaLDO);
     v49 = v22;
     if (OOCObject_LuaLDO)
     {
@@ -9172,10 +9061,10 @@ LABEL_40:
     *v17 = v46;
     v50 += 8;
 LABEL_41:
-    lua_settop(a1, 0xFFFFFFFE);
+    lua_settop(a1, -2);
   }
 
-  while (lua_next(a1, 3));
+  while (lua_next(a1, 3u));
 LABEL_94:
   OOCObject_LuaLDO = LDO_ReplaceNodes(v5, &v51, &v48);
   if (OOCObject_LuaLDO)
@@ -9224,7 +9113,7 @@ LABEL_94:
           goto LABEL_2;
         }
 
-        OOCObject_LuaLDO = LDOLabelSet_AddLabel(*(v5 + 32), 0);
+        OOCObject_LuaLDO = LDOLabelSet_AddLabel(v5[4], 0);
         if (OOCObject_LuaLDO)
         {
           goto LABEL_2;
@@ -9251,7 +9140,7 @@ LABEL_94:
       }
 
       v41 = LuaVMUtil_u32_index_to_luainteger(v40);
-      lua_rawseti(a1, -2, v41);
+      lua_rawseti(a1, 0xFFFFFFFE, v41);
       ++v40;
       ++v39;
     }
@@ -9262,7 +9151,7 @@ LABEL_94:
   LODWORD(v51) = 0;
   if (v52)
   {
-    OOCAllocator_Free(*(v5 + 8), v52);
+    OOCAllocator_Free(v5[1], v52);
     v52 = 0;
   }
 
@@ -9270,7 +9159,7 @@ LABEL_94:
   LODWORD(v48) = 0;
   if (v49)
   {
-    OOCAllocator_Free(*(v5 + 8), v49);
+    OOCAllocator_Free(v5[1], v49);
   }
 
   return 1;
@@ -9373,7 +9262,7 @@ LABEL_8:
         while (!pushLuaObject_LuaLDOTreeNode(a1, *v3))
         {
           v5 = LuaVMUtil_u32_index_to_luainteger(v4);
-          lua_rawseti(a1, -2, v5);
+          lua_rawseti(a1, 0xFFFFFFFE, v5);
           ++v4;
           if (++v3 >= v9)
           {
@@ -9392,9 +9281,9 @@ LABEL_8:
 uint64_t luaopen_LDO(void *a1)
 {
   newMetatableLua(a1, "vocalizer.LDO");
-  lua_pushvalue(a1, -1);
-  lua_setfield(a1, -2, "__index");
-  luaL_setfuncs(a1, &lib_m, 0, v2, v3, v4, v5, v6);
+  lua_pushvalue(a1, 0xFFFFFFFF);
+  lua_setfield(a1, 0xFFFFFFFE, "__index");
+  luaL_setfuncs(a1, &lib_m, 0);
   lua_createtable(a1, 0, 0);
   lua_setglobal(a1, "LDO");
   return 0;
@@ -9423,7 +9312,7 @@ uint64_t pushLuaObject_LuaLDOLabel(uint64_t *a1, uint64_t a2)
   {
     *v4 = a2;
     getMetatableLua(a1, "vocalizer.LDOLabel");
-    lua_setmetatable(a1, -2);
+    lua_setmetatable(a1, 0xFFFFFFFE);
     return 0;
   }
 
@@ -9542,7 +9431,7 @@ uint64_t setReferenceFrom_LuaLDOLabel(void *a1)
 {
   v6 = 0;
   v5 = 0;
-  if (getOOCObject_LuaLDOLabel(a1, 1, &v6) || LuaVMUtil_luainteger_to_u32_index(a1, 2, &v5) || LDOLabel_SetReferenceFrom(v6, v5))
+  if (getOOCObject_LuaLDOLabel(a1, 1, &v6) || LuaVMUtil_luainteger_to_u32_index(a1, 2u, &v5) || LDOLabel_SetReferenceFrom(v6, v5))
   {
     return LuaVMUtil_error(a1, "Error in ldolabel:setReferenceFrom");
   }
@@ -9557,7 +9446,7 @@ uint64_t setReferenceTo_LuaLDOLabel(void *a1)
 {
   v6 = 0;
   v5 = 0;
-  if (getOOCObject_LuaLDOLabel(a1, 1, &v6) || LuaVMUtil_luainteger_to_u32_index(a1, 2, &v5) || LDOLabel_SetReferenceTo(v6, v5))
+  if (getOOCObject_LuaLDOLabel(a1, 1, &v6) || LuaVMUtil_luainteger_to_u32_index(a1, 2u, &v5) || LDOLabel_SetReferenceTo(v6, v5))
   {
     return LuaVMUtil_error(a1, "Error in ldolabel:setReferenceTo");
   }
@@ -9715,7 +9604,7 @@ uint64_t addNodes_LuaLDOLabel(void *a1)
   v17 = 0;
   v18 = 0;
   lua_pushnil(a1);
-  if (lua_next(a1, 2))
+  if (lua_next(a1, 2u))
   {
     v4 = 0;
     v5 = 0;
@@ -9771,10 +9660,10 @@ uint64_t addNodes_LuaLDOLabel(void *a1)
 
       *v6 = v19;
       v6 = ++v18;
-      lua_settop(a1, 0xFFFFFFFE);
+      lua_settop(a1, -2);
     }
 
-    while (lua_next(a1, 2));
+    while (lua_next(a1, 2u));
   }
 
   v14 = v20;
@@ -9864,4 +9753,97 @@ LABEL_4:
   }
 
   return 1;
+}
+
+uint64_t luaopen_LDOLabel(uint64_t *a1)
+{
+  newMetatableLua(a1, "vocalizer.LDOLabel");
+  lua_pushvalue(a1, 0xFFFFFFFF);
+  lua_setfield(a1, 0xFFFFFFFE, "__index");
+  getMetatableLua(a1, "vocalizer.LDOObject");
+  lua_pushvalue(a1, 0xFFFFFFFF);
+  lua_setfield(a1, 0xFFFFFFFE, "__index");
+  lua_setmetatable(a1, 0xFFFFFFFE);
+  luaL_setfuncs(a1, &lib_m_0, 0);
+  lua_createtable(a1, 0, 0);
+  lua_setglobal(a1, "LDOLabel");
+  return 0;
+}
+
+uint64_t getOOCObject_LuaLDOLabelSet(void *a1, uint64_t a2, void *a3)
+{
+  v4 = luaL_checkudata(a1, a2, "vocalizer.LDOLabelSet");
+  if (v4)
+  {
+    *a3 = *v4;
+    return 0;
+  }
+
+  else
+  {
+
+    return kaldi::OffsetFileInputImpl::MyType("lua_stack_arg");
+  }
+}
+
+uint64_t pushLuaObject_LuaLDOLabelSet(uint64_t *a1, uint64_t a2)
+{
+  v4 = lua_newuserdata(a1, 8uLL);
+  if (v4)
+  {
+    *v4 = a2;
+    getMetatableLua(a1, "vocalizer.LDOLabelSet");
+    lua_setmetatable(a1, 0xFFFFFFFE);
+    return 0;
+  }
+
+  else
+  {
+
+    return kaldi::nnet1::UpdatableComponent::IsUpdatable(0);
+  }
+}
+
+uint64_t getLabels_LuaLDOLabelSet(uint64_t *a1)
+{
+  v7 = 0;
+  if (!getOOCObject_LuaLDOLabelSet(a1, 1, &v7))
+  {
+    v3 = *(v7 + 24);
+    v4 = *(v7 + 32);
+    lua_createtable(a1, 0, 0);
+    if (v3 >= v4)
+    {
+      return 1;
+    }
+
+    v5 = 0;
+    while (!pushLuaObject_LuaLDOLabel(a1, *v3))
+    {
+      v6 = LuaVMUtil_u32_index_to_luainteger(v5);
+      lua_rawseti(a1, 0xFFFFFFFE, v6);
+      ++v5;
+      if (++v3 >= v4)
+      {
+        return 1;
+      }
+    }
+  }
+
+  return LuaVMUtil_error(a1, "Error in ldolabelset:getLabels");
+}
+
+uint64_t addLabel_LuaLDOLabelSet(void *a1)
+{
+  v5 = 0;
+  v6 = 0;
+  if (getOOCObject_LuaLDOLabelSet(a1, 1, &v6) || getOOCObject_LuaLDOLabel(a1, 2, &v5) || LDOLabelSet_AddLabel(v6, v5))
+  {
+    return LuaVMUtil_error(a1, "Error in ldolabelset:addLabel");
+  }
+
+  v2 = 1;
+  v4 = LuaVMUtil_lhBOOL_to_luaBOOLean(1);
+  lua_pushBOOLean(a1, v4);
+  return v2;
 }

@@ -1558,9 +1558,9 @@ LABEL_35:
           break;
         }
 
-        v14 = [(UIColor *)v10 isEqual:v11];
+        isEqual = objc_msgSend_isEqual_(v10);
 
-        if (!v14)
+        if (!isEqual)
         {
           break;
         }
@@ -1581,7 +1581,7 @@ LABEL_35:
           goto LABEL_35;
         }
 
-        v17 = [(UIColor *)v10 isEqual:v16];
+        v17 = objc_msgSend_isEqual_(v10);
 
         if (!v17)
         {
@@ -1604,7 +1604,7 @@ LABEL_35:
           goto LABEL_35;
         }
 
-        v20 = [(UIColor *)v10 isEqual:v19];
+        v20 = objc_msgSend_isEqual_(v10);
 
         if (!v20)
         {
@@ -1627,7 +1627,7 @@ LABEL_35:
           goto LABEL_35;
         }
 
-        v23 = [(UIColor *)v10 isEqual:v22];
+        v23 = objc_msgSend_isEqual_(v10);
 
         if (!v23)
         {

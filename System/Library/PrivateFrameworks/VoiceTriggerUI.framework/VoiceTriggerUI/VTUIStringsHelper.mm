@@ -326,52 +326,52 @@ uint64_t __31__VTUIStringsHelper_initialize__block_invoke()
 
 - (void)setSiriLanguage:(id)language
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   v6 = VTUILogContextFacility;
   if (os_log_type_enabled(VTUILogContextFacility, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v33 = "[VTUIStringsHelper setSiriLanguage:]";
-    v34 = 2112;
-    v35 = languageCopy;
+    v32 = "[VTUIStringsHelper setSiriLanguage:]";
+    v33 = 2112;
+    v34 = languageCopy;
     _os_log_impl(&dword_2728BC000, v6, OS_LOG_TYPE_DEFAULT, "%s Setting Siri Language to: %@", buf, 0x16u);
   }
 
   objc_storeStrong(&self->_siriLanguageCode, language);
   if (languageCopy)
   {
-    v30 = 0;
+    v29 = 0;
     mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
-    v8 = [mEMORY[0x277CEF368] allSiriLanguageCodesForSystemLanguageCode:languageCopy isGoodFit:&v30];
+    v8 = [mEMORY[0x277CEF368] allSiriLanguageCodesForSystemLanguageCode:languageCopy isGoodFit:&v29];
 
     v9 = objc_alloc_init(MEMORY[0x277CBEB58]);
     [v9 addObject:languageCopy];
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v27;
+      v13 = *v26;
       do
       {
         v14 = 0;
         do
         {
-          if (*v27 != v13)
+          if (*v26 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          [v9 addObject:{*(*(&v26 + 1) + 8 * v14++), v26}];
+          [v9 addObject:{*(*(&v25 + 1) + 8 * v14++), v25}];
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v12);
@@ -396,66 +396,63 @@ uint64_t __31__VTUIStringsHelper_initialize__block_invoke()
     {
       v24 = self->_heySiriTriggerPhrase;
       *buf = 136315394;
-      v33 = "[VTUIStringsHelper setSiriLanguage:]";
-      v34 = 2112;
-      v35 = v24;
+      v32 = "[VTUIStringsHelper setSiriLanguage:]";
+      v33 = 2112;
+      v34 = v24;
       _os_log_impl(&dword_2728BC000, v23, OS_LOG_TYPE_DEFAULT, "%s _heySiriTriggerPhrase set to %@", buf, 0x16u);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_bundleStringTableForLanguages:(id)languages inLocalizedStringsFileName:(id)name
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   languagesCopy = languages;
   nameCopy = name;
   v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy_;
-  v24 = __Block_byref_object_dispose_;
-  v25 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy_;
+  v23 = __Block_byref_object_dispose_;
+  v24 = 0;
   v8 = CFBundleCopyLocalizationsForPreferences([v7 localizations], languagesCopy);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __79__VTUIStringsHelper__bundleStringTableForLanguages_inLocalizedStringsFileName___block_invoke;
-  v16[3] = &unk_279E54A28;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __79__VTUIStringsHelper__bundleStringTableForLanguages_inLocalizedStringsFileName___block_invoke;
+  v15[3] = &unk_279E54A28;
   v9 = v7;
-  v17 = v9;
+  v16 = v9;
   v10 = nameCopy;
-  v18 = v10;
-  v19 = &v20;
-  [(__CFArray *)v8 enumerateObjectsUsingBlock:v16];
-  v11 = v21[5];
+  v17 = v10;
+  v18 = &v19;
+  [(__CFArray *)v8 enumerateObjectsUsingBlock:v15];
+  v11 = v20[5];
   if (!v11)
   {
     v12 = VTUILogContextFacility;
     if (os_log_type_enabled(VTUILogContextFacility, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v27 = "[VTUIStringsHelper _bundleStringTableForLanguages:inLocalizedStringsFileName:]";
-      v28 = 2112;
-      v29 = languagesCopy;
+      v26 = "[VTUIStringsHelper _bundleStringTableForLanguages:inLocalizedStringsFileName:]";
+      v27 = 2112;
+      v28 = languagesCopy;
       _os_log_impl(&dword_2728BC000, v12, OS_LOG_TYPE_DEFAULT, "%s No bundle string table found for %@", buf, 0x16u);
     }
 
-    v11 = v21[5];
+    v11 = v20[5];
   }
 
   v13 = v11;
 
-  _Block_object_dispose(&v20, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v19, 8);
 
   return v13;
 }
 
 void __79__VTUIStringsHelper__bundleStringTableForLanguages_inLocalizedStringsFileName___block_invoke(uint64_t a1, void *a2, uint64_t a3, BOOL *a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = [*(a1 + 32) URLForResource:*(a1 + 40) withExtension:@"strings" subdirectory:0 localization:v6];
   v8 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v7];
@@ -468,18 +465,16 @@ void __79__VTUIStringsHelper__bundleStringTableForLanguages_inLocalizedStringsFi
   {
     v12 = v11;
     v13 = [v7 path];
-    v15 = 136315650;
-    v16 = "[VTUIStringsHelper _bundleStringTableForLanguages:inLocalizedStringsFileName:]_block_invoke";
-    v17 = 2112;
-    v18 = v6;
-    v19 = 2112;
-    v20 = v13;
-    _os_log_impl(&dword_2728BC000, v12, OS_LOG_TYPE_DEFAULT, "%s Loaded stringsTable for %@ : %@", &v15, 0x20u);
+    v14 = 136315650;
+    v15 = "[VTUIStringsHelper _bundleStringTableForLanguages:inLocalizedStringsFileName:]_block_invoke";
+    v16 = 2112;
+    v17 = v6;
+    v18 = 2112;
+    v19 = v13;
+    _os_log_impl(&dword_2728BC000, v12, OS_LOG_TYPE_DEFAULT, "%s Loaded stringsTable for %@ : %@", &v14, 0x20u);
   }
 
   *a4 = *(*(*(a1 + 48) + 8) + 40) != 0;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_bundleStringTableForAllValidLanguages:(id)languages inLocalizedStringsFileName:(id)name
@@ -533,7 +528,7 @@ void __87__VTUIStringsHelper__bundleStringTableForAllValidLanguages_inLocalizedS
 - (id)uiLocalizedStringForKey:(id)key usesMultipleTriggers:(BOOL)triggers siriVoice:(id)voice
 {
   triggersCopy = triggers;
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   voiceCopy = voice;
   if (triggersCopy)
@@ -567,9 +562,9 @@ LABEL_6:
       {
 LABEL_11:
         v16 = MEMORY[0x277CBEB18];
-        v37[0] = v14;
-        v37[1] = keyCopy;
-        v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+        v36[0] = v14;
+        v36[1] = keyCopy;
+        v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
         v18 = [v16 arrayWithArray:v17];
 
         goto LABEL_13;
@@ -583,40 +578,40 @@ LABEL_11:
   }
 
   v19 = MEMORY[0x277CBEB18];
-  v36 = keyCopy;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+  v35 = keyCopy;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
   v18 = [v19 arrayWithArray:v14];
 LABEL_13:
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v20 = v18;
-  v21 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (!v21)
   {
 
 LABEL_24:
-    v23 = [(VTUIStringsHelper *)self uiLocalizedStringForKey:keyCopy, v31];
+    v23 = [(VTUIStringsHelper *)self uiLocalizedStringForKey:keyCopy, v30];
     goto LABEL_25;
   }
 
   v22 = v21;
   v23 = 0;
-  v24 = *v32;
+  v24 = *v31;
 LABEL_15:
   v25 = 0;
   v26 = v23;
   while (1)
   {
-    if (*v32 != v24)
+    if (*v31 != v24)
     {
       objc_enumerationMutation(v20);
     }
 
-    v27 = *(*(&v31 + 1) + 8 * v25);
-    v23 = [(VTUIStringsHelper *)self uiLocalizedStringForKey:v27, v31];
+    v27 = *(*(&v30 + 1) + 8 * v25);
+    v23 = [(VTUIStringsHelper *)self uiLocalizedStringForKey:v27, v30];
 
     if (![v23 isEqualToString:v27])
     {
@@ -627,7 +622,7 @@ LABEL_15:
     v26 = v23;
     if (v22 == v25)
     {
-      v22 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v30 objects:v34 count:16];
       if (v22)
       {
         goto LABEL_15;
@@ -645,8 +640,6 @@ LABEL_15:
 LABEL_25:
   v28 = self->_justSiriTriggerPhrase;
   self->_justSiriTriggerPhrase = 0;
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -685,7 +678,7 @@ LABEL_3:
 
 - (id)uiLocalizedStringForKey:(id)key languageCode:(id)code
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   codeCopy = code;
   if (codeCopy)
@@ -695,8 +688,8 @@ LABEL_3:
 
     if ((v9 & 1) == 0)
     {
-      v24[0] = codeCopy;
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+      v23[0] = codeCopy;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
       v11 = [(VTUIStringsHelper *)self _bundleStringTableForLanguages:v10 inLocalizedStringsFileName:@"Localizable"];
 
       languageLocalizedStringTables = self->_languageLocalizedStringTables;
@@ -740,14 +733,12 @@ LABEL_3:
     v18 = v21;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (id)_siriLanguageSubstitutedString:(id)string
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v5 = stringCopy;
   if (stringCopy)
@@ -756,27 +747,27 @@ LABEL_3:
     if ([v6 count])
     {
       v7 = [v5 mutableCopy];
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
-      v26 = 0u;
-      v21 = v6;
+      v20 = v6;
       obj = [v6 reverseObjectEnumerator];
-      v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v24;
+        v10 = *v23;
         while (2)
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v24 != v10)
+            if (*v23 != v10)
             {
               objc_enumerationMutation(obj);
             }
 
-            v12 = *(*(&v23 + 1) + 8 * i);
+            v12 = *(*(&v22 + 1) + 8 * i);
             v13 = [__siriLangRegex replacementStringForResult:v12 inString:v5 offset:0 template:@"$1"];
             v14 = [(VTUIStringsHelper *)self siriLanguageStringForKey:v13];
             if (!v14)
@@ -791,7 +782,7 @@ LABEL_3:
             [v7 replaceCharactersInRange:range withString:{v17, v15}];
           }
 
-          v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v9 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
           if (v9)
           {
             continue;
@@ -804,7 +795,7 @@ LABEL_3:
       v18 = v7;
 LABEL_14:
 
-      v6 = v21;
+      v6 = v20;
     }
 
     else
@@ -817,8 +808,6 @@ LABEL_14:
   {
     v18 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

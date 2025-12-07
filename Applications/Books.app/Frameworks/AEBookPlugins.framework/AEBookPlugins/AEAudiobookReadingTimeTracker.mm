@@ -161,17 +161,17 @@ LABEL_15:
   currentAudiobook = [player currentAudiobook];
   assetID = [currentAudiobook assetID];
 
-  v9 = _AEBookPluginsAudiobookLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _AEBookPluginsAudiobookLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     sessionID = [(AEAudiobookReadingTimeTracker *)self sessionID];
-    v13 = 138543874;
-    v14 = sessionID;
-    v15 = 2112;
-    v16 = assetID;
-    v17 = 2048;
+    v14 = 138543874;
+    v15 = sessionID;
+    v16 = 2112;
+    v17 = assetID;
+    v18 = 2048;
     typeCopy = type;
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "beginReadingSession: %{public}@ assetID:%@ eventType:%lu", &v13, 0x20u);
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "beginReadingSession: %{public}@ assetID:%@ eventType:%lu", &v14, 0x20u);
   }
 
   bcTracker = [(AEAudiobookReadingTimeTracker *)self bcTracker];
@@ -185,17 +185,17 @@ LABEL_15:
   currentAudiobook = [player currentAudiobook];
   assetID = [currentAudiobook assetID];
 
-  v8 = _AEBookPluginsAudiobookLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _AEBookPluginsAudiobookLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     sessionID = [(AEAudiobookReadingTimeTracker *)self sessionID];
-    v13 = 138543874;
-    v14 = sessionID;
-    v15 = 2112;
-    v16 = assetID;
-    v17 = 2048;
+    v14 = 138543874;
+    v15 = sessionID;
+    v16 = 2112;
+    v17 = assetID;
+    v18 = 2048;
     typeCopy = type;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "endReadingSession:%{public}@ assetID:%@ eventType:%lu", &v13, 0x20u);
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "endReadingSession:%{public}@ assetID:%@ eventType:%lu", &v14, 0x20u);
   }
 
   bcTracker = [(AEAudiobookReadingTimeTracker *)self bcTracker];
@@ -204,8 +204,8 @@ LABEL_15:
 
   if (type == 10)
   {
-    v12 = +[NSDate date];
-    [(AEAudiobookReadingTimeTracker *)self setPausedTime:v12];
+    v13 = +[NSDate date];
+    [(AEAudiobookReadingTimeTracker *)self setPausedTime:v13];
   }
 
   else

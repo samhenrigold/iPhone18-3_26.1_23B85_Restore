@@ -593,7 +593,7 @@ void __114__MOVStreamWriter_Delegate__writingSessionDidStartAtTime_streamId_medi
 
       else
       {
-        *(v9 + 208) = scale;
+        *(v9 + 52) = scale;
       }
 
       v11 = !v10;
@@ -818,7 +818,7 @@ void __114__MOVStreamWriter_Delegate__writingSessionDidStartAtTime_streamId_medi
     objc_exception_throw(v9);
   }
 
-  *(v7 + 64) = capacity;
+  v7[8] = capacity;
   if (v11 < 0)
   {
     operator delete(__p[0]);
@@ -840,7 +840,7 @@ void __114__MOVStreamWriter_Delegate__writingSessionDidStartAtTime_streamId_medi
     objc_exception_throw(v9);
   }
 
-  *(v7 + 64) = capacity;
+  v7[8] = capacity;
   if (v11 < 0)
   {
     operator delete(__p[0]);
@@ -877,7 +877,7 @@ void __114__MOVStreamWriter_Delegate__writingSessionDidStartAtTime_streamId_medi
     objc_exception_throw(v9);
   }
 
-  v6 = *(v5 + 64);
+  v6 = v5[8];
   if (v11 < 0)
   {
     operator delete(__p[0]);
@@ -901,7 +901,7 @@ void __114__MOVStreamWriter_Delegate__writingSessionDidStartAtTime_streamId_medi
     objc_exception_throw(v9);
   }
 
-  v6 = *(v5 + 64);
+  v6 = v5[8];
   if (v11 < 0)
   {
     operator delete(__p[0]);
@@ -942,7 +942,7 @@ void __114__MOVStreamWriter_Delegate__writingSessionDidStartAtTime_streamId_medi
     objc_exception_throw(v9);
   }
 
-  v6 = [*(v5 + 56) count];
+  v6 = [v5[7] count];
   if (v11 < 0)
   {
     operator delete(__p[0]);
@@ -966,7 +966,7 @@ void __114__MOVStreamWriter_Delegate__writingSessionDidStartAtTime_streamId_medi
     objc_exception_throw(v9);
   }
 
-  v6 = [*(v5 + 56) count];
+  v6 = [v5[7] count];
   if (v11 < 0)
   {
     operator delete(__p[0]);
@@ -1163,10 +1163,10 @@ void __114__MOVStreamWriter_Delegate__writingSessionDidStartAtTime_streamId_medi
 
       else
       {
-        objc_storeStrong((v17 + 104), toStream);
+        objc_storeStrong(v17 + 13, toStream);
         v18 = specifierCopy;
-        toStreamCopy = *(v17 + 112);
-        *(v17 + 112) = v18;
+        toStreamCopy = v17[14];
+        v17[14] = v18;
       }
 
       if (v23 < 0)
@@ -1543,22 +1543,22 @@ LABEL_12:
   v13 = *v12;
   *v12 = 0;
 
-  v14 = *(v12 + 8);
-  *(v12 + 8) = 0;
+  v14 = v12[1];
+  v12[1] = 0;
 
   *(v12 + 24) = 0;
-  *(v12 + 16) = description;
-  objc_storeStrong((v12 + 32), v9);
-  v15 = *(v12 + 48);
-  *(v12 + 40) = defaultMetadataWritingBufferCapacity;
-  *(v12 + 48) = 0;
+  v12[2] = description;
+  objc_storeStrong(v12 + 4, v9);
+  v15 = v12[6];
+  v12[5] = defaultMetadataWritingBufferCapacity;
+  v12[6] = 0;
 
-  *(v12 + 56) = 1;
-  objc_storeStrong((v12 + 64), v21);
-  *(v12 + 72) = 0;
+  *(v12 + 28) = 1;
+  objc_storeStrong(v12 + 8, v21);
+  *(v12 + 18) = 0;
   std::vector<std::string>::push_back[abi:ne200100](&selfCopy->m_orderedMetadataStreamNames, __p);
-  v24 = __p;
-  v16 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&selfCopy->m_lastPtsForMetadataStream, __p);
+  v25 = __p;
+  v16 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&selfCopy->m_lastPtsForMetadataStream, __p, &std::piecewise_construct, &v25, &v24);
   v17 = MEMORY[0x277CC0890];
   *(v16 + 56) = *MEMORY[0x277CC0890];
   *(v16 + 72) = *(v17 + 16);
@@ -1608,24 +1608,24 @@ LABEL_15:
   v13 = *v12;
   *v12 = 0;
 
-  v14 = *(v12 + 8);
-  *(v12 + 8) = 0;
+  v14 = v12[1];
+  v12[1] = 0;
 
   *(v12 + 24) = 0;
-  *(v12 + 16) = description;
-  v15 = *(v12 + 32);
-  *(v12 + 32) = 0;
+  v12[2] = description;
+  v15 = v12[4];
+  v12[4] = 0;
 
-  v16 = *(v12 + 48);
-  *(v12 + 40) = defaultMetadataWritingBufferCapacity;
-  *(v12 + 48) = 0;
+  v16 = v12[6];
+  v12[5] = defaultMetadataWritingBufferCapacity;
+  v12[6] = 0;
 
-  *(v12 + 56) = v23;
-  v17 = *(v12 + 64);
-  *(v12 + 64) = v24;
+  *(v12 + 28) = v23;
+  v17 = v12[8];
+  v12[8] = v24;
   v18 = v24;
 
-  *(v12 + 72) = 0;
+  *(v12 + 18) = 0;
   if (v26 < 0)
   {
     operator delete(__p[0]);
@@ -1845,40 +1845,40 @@ LABEL_30:
   v51 = v64;
   *(v50 + 8) = v65;
   *v50 = v51;
-  objc_storeStrong((v50 + 16), obj[0]);
-  objc_storeStrong((v50 + 24), obj[1]);
-  objc_storeStrong((v50 + 32), v67[0]);
-  objc_storeStrong((v50 + 40), v67[1]);
-  objc_storeStrong((v50 + 48), v68[0]);
-  objc_storeStrong((v50 + 56), v68[1]);
-  *(v50 + 64) = v69;
-  objc_storeStrong((v50 + 72), v70[0]);
-  objc_storeStrong((v50 + 80), v70[1]);
-  objc_storeStrong((v50 + 88), v71[0]);
-  objc_storeStrong((v50 + 96), v71[1]);
-  objc_storeStrong((v50 + 104), v72[0]);
-  objc_storeStrong((v50 + 112), v72[1]);
-  objc_storeStrong((v50 + 120), v73);
+  objc_storeStrong(v50 + 2, obj[0]);
+  objc_storeStrong(v50 + 3, obj[1]);
+  objc_storeStrong(v50 + 4, v67[0]);
+  objc_storeStrong(v50 + 5, v67[1]);
+  objc_storeStrong(v50 + 6, v68[0]);
+  objc_storeStrong(v50 + 7, v68[1]);
+  v50[8] = v69;
+  objc_storeStrong(v50 + 9, v70[0]);
+  objc_storeStrong(v50 + 10, v70[1]);
+  objc_storeStrong(v50 + 11, v71[0]);
+  objc_storeStrong(v50 + 12, v71[1]);
+  objc_storeStrong(v50 + 13, v72[0]);
+  objc_storeStrong(v50 + 14, v72[1]);
+  objc_storeStrong(v50 + 15, v73);
   *(v50 + 128) = bOOLValue;
-  objc_storeStrong((v50 + 136), v75);
+  objc_storeStrong(v50 + 17, v75);
   v52 = v77;
-  *(v50 + 144) = v76;
-  *(v50 + 160) = v52;
-  objc_storeStrong((v50 + 176), v78);
+  *(v50 + 9) = v76;
+  *(v50 + 10) = v52;
+  objc_storeStrong(v50 + 22, v78);
   v53 = v79;
-  *(v50 + 192) = v80;
-  *(v50 + 184) = v53;
-  objc_storeStrong((v50 + 200), v81);
+  *(v50 + 48) = v80;
+  v50[23] = v53;
+  objc_storeStrong(v50 + 25, v81);
   v54 = v82;
   *(v50 + 212) = v83;
-  *(v50 + 208) = v54;
+  *(v50 + 52) = v54;
   std::vector<std::string>::push_back[abi:ne200100](&selfCopy->m_orderedStreamNames, &v84);
-  v86 = &v84;
-  v55 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&selfCopy->m_lastPtsForStream, &v84);
+  v87[0] = &v84;
+  v55 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&selfCopy->m_lastPtsForStream, &v84, &std::piecewise_construct, v87, &v86);
   *(v55 + 56) = *v38;
   *(v55 + 72) = *(v38 + 16);
-  v86 = &v84;
-  v56 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&selfCopy->m_lastPtsForAttachmentsStream, &v84);
+  v87[0] = &v84;
+  v56 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&selfCopy->m_lastPtsForAttachmentsStream, &v84, &std::piecewise_construct, v87, &v86);
   *(v56 + 56) = *v38;
   *(v56 + 72) = *(v38 + 16);
 
@@ -1974,8 +1974,8 @@ LABEL_17:
       }
 
       v17 = streamCopy;
-      streamCopy = *(v16 + 72);
-      *(v16 + 72) = v17;
+      streamCopy = v16[9];
+      v16[9] = v17;
       v18 = 1;
     }
 
@@ -2010,8 +2010,8 @@ LABEL_17:
     else
     {
       v13 = itemsCopy;
-      streamCopy = *(v12 + 80);
-      *(v12 + 80) = v13;
+      streamCopy = v12[10];
+      v12[10] = v13;
     }
 
     if (v17 < 0)
@@ -2089,8 +2089,8 @@ LABEL_17:
       }
 
       v17 = streamCopy;
-      streamCopy = *(v16 + 48);
-      *(v16 + 48) = v17;
+      streamCopy = v16[6];
+      v16[6] = v17;
       v18 = 1;
     }
 
@@ -2249,7 +2249,7 @@ void __59__MOVStreamWriter_executePrepareToRecordWithMovieMetadata___block_invok
   if (v20)
   {
 LABEL_17:
-    [v20 movieFragmentInterval];
+    objc_msgSend_movieFragmentInterval(v20);
     if (buf.flags)
     {
       v22 = +[MIOLog defaultLog];
@@ -2258,7 +2258,7 @@ LABEL_17:
         v23 = *(a1 + 32);
         if (v23)
         {
-          [v23 movieFragmentInterval];
+          objc_msgSend_movieFragmentInterval(v23);
         }
 
         else
@@ -2272,7 +2272,7 @@ LABEL_17:
         _os_log_impl(&dword_257883000, v22, OS_LOG_TYPE_INFO, "MOVStreamWriter set movieFragmentInterval to %f", v68, 0xCu);
       }
 
-      [*(a1 + 32) movieFragmentInterval];
+      objc_msgSend_movieFragmentInterval(*(a1 + 32));
       v25 = *(*(a1 + 32) + 96);
       buf = v66;
       [v25 setMovieFragmentInterval:&buf];
@@ -2961,7 +2961,7 @@ LABEL_40:
     }
   }
 
-  [(MOVStreamWriter *)self sessionStartTime];
+  objc_msgSend_sessionStartTime(self);
   if ((time.flags & 1) == 0)
   {
     time = *time;
@@ -2969,9 +2969,9 @@ LABEL_40:
   }
 
   v11 = v10;
-  if (*(v10 + 48) && (v12 = *(v10 + 176), objc_sync_enter(v12), v13 = [*(v11 + 48) pendingFrames], v14 = *(v11 + 168), objc_sync_exit(v12), v12, v15 = *(v11 + 56), objc_sync_enter(v15), v16 = objc_msgSend(*(v11 + 56), "count"), objc_sync_exit(v15), v15, v17 = v13 & ~(v13 >> 63), v18 = *(v11 + 64), v14 + v17 + v16 > v18))
+  if (v10[6] && (v12 = v10[22], objc_sync_enter(v12), v13 = [v11[6] pendingFrames], v14 = v11[21], objc_sync_exit(v12), v12, v15 = v11[7], objc_sync_enter(v15), v16 = objc_msgSend(v11[7], "count"), objc_sync_exit(v15), v15, v17 = v13 & ~(v13 >> 63), v18 = v11[8], v14 + v17 + v16 > v18))
   {
-    v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"[VTEncoder] processing buffer for stream '%@' is full, dropping buffer (Pending:%lld Queue:%ld Fifo:%ld Capacity:%ld) (%llu/%llu/%llu/%llu).", idCopy, v17, v14, v16, v18, -[MOVStreamWriter writeThreadCount](self, "writeThreadCount"), objc_msgSend(*(v11 + 200), "visitCount"), objc_msgSend(*(v11 + 200), "attemptCount"), objc_msgSend(*(v11 + 200), "writeCount")];
+    v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"[VTEncoder] processing buffer for stream '%@' is full, dropping buffer (Pending:%lld Queue:%ld Fifo:%ld Capacity:%ld) (%llu/%llu/%llu/%llu).", idCopy, v17, v14, v16, v18, -[MOVStreamWriter writeThreadCount](self, "writeThreadCount"), objc_msgSend(v11[25], "visitCount"), objc_msgSend(v11[25], "attemptCount"), objc_msgSend(v11[25], "writeCount")];
     v20 = [MEMORY[0x277CCA9B8] streamErrorWithMessage:v19 code:18];
     v21 = [v20 errorByAddingStreamId:idCopy];
 
@@ -2981,9 +2981,9 @@ LABEL_40:
 
   else
   {
-    v22 = *(v11 + 176);
+    v22 = v11[22];
     objc_sync_enter(v22);
-    ++*(v11 + 168);
+    ++v11[21];
     objc_sync_exit(v22);
 
     CVPixelBufferRetain(buffer);
@@ -3028,7 +3028,7 @@ void __65__MOVStreamWriter_appendPixelBuffer_presentationTime_toStreamId___block
   v59 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = (a1 + 48);
-  if (*(v4 + 128))
+  if (v4[16])
   {
     v5 = 0;
     goto LABEL_17;
@@ -3079,7 +3079,7 @@ LABEL_16:
   sampleTiming.duration.epoch = *(a1 + 104);
   v5 = [v14 getMetadataGroupForBuffer:v13 stream:v15 presentationTime:&sampleTiming serializationMode:v10];
 LABEL_17:
-  v16 = *(v4 + 88);
+  v16 = v4[11];
   v17 = *(a1 + 72);
   v55 = 0;
   v18 = [v16 processedPixelBufferCopyOf:v17 streamData:v4 error:&v55];
@@ -3102,7 +3102,7 @@ LABEL_17:
       v24 = *(a1 + 104);
       sampleTiming.decodeTimeStamp.epoch = v22;
       sampleTiming.presentationTimeStamp.epoch = v24;
-      v25 = *(v4 + 48);
+      v25 = v4[6];
       if (v25)
       {
         time1 = *(a1 + 88);
@@ -3112,13 +3112,13 @@ LABEL_17:
 
       else
       {
-        v31 = [*(v4 + 88) formatDescriptionForPixelBuffer:v18 streamData:v4];
+        v31 = [v4[11] formatDescriptionForPixelBuffer:v18 streamData:v4];
         v32 = CMSampleBufferCreateForImageBuffer(*MEMORY[0x277CBECE8], v18, 1u, 0, 0, v31, &sampleTiming, &sampleBufferOut);
         if (sampleBufferOut)
         {
           v33 = *(a1 + 32);
           time1.value = a1 + 48;
-          v34 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v33 + 304, (a1 + 48));
+          v34 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v33 + 304, (a1 + 48), &std::piecewise_construct, &time1, &time2);
           v36 = *(v34 + 56);
           v35 = v34 + 56;
           v57 = v36;
@@ -3182,7 +3182,7 @@ LABEL_17:
 
       v49 = *(*(a1 + 80) + 176);
       objc_sync_enter(v49);
-      --*(v4 + 168);
+      --v4[21];
       objc_sync_exit(v49);
     }
 
@@ -3191,7 +3191,7 @@ LABEL_17:
       CFRelease(v18);
       v30 = *(*(a1 + 80) + 176);
       objc_sync_enter(v30);
-      --*(v4 + 168);
+      --v4[21];
       objc_sync_exit(v30);
     }
   }
@@ -3207,7 +3207,7 @@ LABEL_17:
     objc_sync_exit(v26);
     v29 = *(*(a1 + 80) + 176);
     objc_sync_enter(v29);
-    --*(v4 + 168);
+    --v4[21];
     objc_sync_exit(v29);
   }
 
@@ -3256,7 +3256,7 @@ LABEL_23:
     objc_exception_throw(v20);
   }
 
-  [(MOVStreamWriter *)self sessionStartTime];
+  objc_msgSend_sessionStartTime(self);
   if ((time.flags & 1) == 0)
   {
     time = v28;
@@ -3396,7 +3396,7 @@ void __71__MOVStreamWriter_appendVideoSampleBuffer_attachmentMetadata_streamId__
     }
   }
 
-  [(MOVStreamWriter *)self sessionStartTime];
+  objc_msgSend_sessionStartTime(self);
   if ((time.flags & 1) == 0)
   {
     time = v28;
@@ -3543,7 +3543,7 @@ LABEL_19:
 {
   v28 = v7;
   v8 = v6;
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   v14 = v8;
   if ([(MOVStreamWriter *)self isOrWasCanceled])
@@ -3554,13 +3554,13 @@ LABEL_19:
   else
   {
     timeCopy = time;
-    v16 = *(v15 + 56);
+    v16 = v15[7];
     objc_sync_enter(v16);
     v17 = objc_opt_new();
     [v17 setSampleBuffer:ready];
     [v17 setMetadata:metadataCopy];
     [v16 addObject:v17];
-    [*(v15 + 200) setFifoItemCount:{objc_msgSend(v16, "count")}];
+    [v15[25] setFifoItemCount:{objc_msgSend(v16, "count")}];
     if (+[MIOLog debugEnabled])
     {
       v18 = +[MIOLog defaultLog];
@@ -3568,13 +3568,13 @@ LABEL_19:
       {
         *buf = 138543618;
         *&buf[4] = v14;
-        v30 = 2048;
-        v31 = [v16 count];
+        v31 = 2048;
+        v32 = [v16 count];
         _os_log_impl(&dword_257883000, v18, OS_LOG_TYPE_DEBUG, "[FIFO] add to fifo '%{public}@' %lu", buf, 0x16u);
       }
     }
 
-    if ([v16 count] > *(v15 + 64) && -[MOVStreamWriter fifoDropsEnabled:](self, "fifoDropsEnabled:", v15))
+    if ([v16 count] > v15[8] && -[MOVStreamWriter fifoDropsEnabled:](self, "fifoDropsEnabled:", v15))
     {
       firstObject = [v16 firstObject];
       sampleBuffer = [firstObject sampleBuffer];
@@ -3586,7 +3586,7 @@ LABEL_19:
         var0 = std->var0.var1.var0;
       }
 
-      v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"[FIFO] FIFO buffer for stream '%s' is full, dropping older buffer (%llu/%llu/%llu/%llu) .", var0, -[MOVStreamWriter writeThreadCount](self, "writeThreadCount"), objc_msgSend(*(v15 + 200), "visitCount"), objc_msgSend(*(v15 + 200), "attemptCount"), objc_msgSend(*(v15 + 200), "writeCount")];
+      v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"[FIFO] FIFO buffer for stream '%s' is full, dropping older buffer (%llu/%llu/%llu/%llu) .", var0, -[MOVStreamWriter writeThreadCount](self, "writeThreadCount"), objc_msgSend(v15[25], "visitCount"), objc_msgSend(v15[25], "attemptCount"), objc_msgSend(v15[25], "writeCount")];
       v22 = [MEMORY[0x277CCA9B8] streamErrorWithMessage:v21 code:18];
       v23 = [v22 errorByAddingStreamId:v14];
 
@@ -3597,7 +3597,7 @@ LABEL_19:
     if ((v28 & 1) == 0)
     {
       *buf = std;
-      v24 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&self->m_lastPtsForStream, std);
+      v24 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&self->m_lastPtsForStream, std, &std::piecewise_construct, buf, &v29);
       v25 = *&timeCopy->var0;
       *(v24 + 72) = timeCopy->var3;
       *(v24 + 56) = v25;
@@ -3615,7 +3615,7 @@ LABEL_19:
   idCopy = id;
   std::string::basic_string[abi:ne200100]<0>(&__p, [idCopy UTF8String]);
   time1.value = &__p;
-  v15 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&self->m_lastPtsForStream, &__p.__r_.__value_.__l.__data_);
+  v15 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&self->m_lastPtsForStream, &__p, &std::piecewise_construct, &time1, &time2);
   v17 = *(v15 + 56);
   v16 = v15 + 56;
   v32 = v17;
@@ -3783,7 +3783,7 @@ LABEL_19:
 
   if (groupCopy)
   {
-    [groupCopy timeRange];
+    objc_msgSend_timeRange(groupCopy);
   }
 
   else
@@ -3810,7 +3810,7 @@ LABEL_19:
     }
   }
 
-  [(MOVStreamWriter *)self sessionStartTime];
+  objc_msgSend_sessionStartTime(self);
   if ((time[12] & 1) == 0)
   {
     *time = v22;
@@ -3874,7 +3874,7 @@ LABEL_23:
   }
 
   time1.value = &v38;
-  v13 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&self->m_lastPtsForMetadataStream, &v38.__r_.__value_.__l.__data_);
+  v13 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&self->m_lastPtsForMetadataStream, &v38, &std::piecewise_construct, &time1, &time2);
   v15 = *(v13 + 56);
   v14 = v13 + 56;
   v40 = v15;
@@ -3897,7 +3897,7 @@ LABEL_23:
       }
     }
 
-    [(MOVStreamWriter *)self sessionStartTime];
+    objc_msgSend_sessionStartTime(self);
     if ((time1.flags & 1) == 0)
     {
       time1 = *stamp;
@@ -3987,7 +3987,7 @@ void __77__MOVStreamWriter_appendTimeCode_rangeStart_rangeEnd_withTimeStamp_toSt
     [*(a1 + 40) queueMetadataGroup:v7 stream:*(a1 + 32)];
     v10 = *(a1 + 40);
     v16.start.value = a1 + 64;
-    v11 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v10 + 328, (a1 + 64));
+    v11 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v10 + 328, (a1 + 64), &std::piecewise_construct, &v16, &start);
     v12 = *(a1 + 112);
     *(v11 + 72) = *(a1 + 128);
     *(v11 + 56) = v12;
@@ -4030,7 +4030,7 @@ LABEL_6:
     }
   }
 
-  [(MOVStreamWriter *)self sessionStartTime];
+  objc_msgSend_sessionStartTime(self);
   if ((time.flags & 1) == 0)
   {
     time = *stamp;
@@ -4145,7 +4145,7 @@ void __57__MOVStreamWriter_appendMetadata_withTimeStamp_toStream___block_invoke(
       v12 = [v15 initWithItems:v34 timeRange:&v36];
       v16 = *(v32 + 40);
       v36.start.value = v30;
-      v17 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v16 + 328, v30);
+      v17 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v16 + 328, v30, &std::piecewise_construct, &v36, &start);
       v19 = *(v17 + 56);
       v18 = v17 + 56;
       duration.value = v19;
@@ -4158,7 +4158,7 @@ void __57__MOVStreamWriter_appendMetadata_withTimeStamp_toStream___block_invoke(
           [*(v32 + 40) queueMetadataGroup:v12 stream:*(v32 + 48)];
           v26 = *(v32 + 40);
           v36.start.value = v30;
-          v27 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v26 + 328, v30);
+          v27 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v26 + 328, v30, &std::piecewise_construct, &v36, &start);
           v28 = *(v32 + 80);
           *(v27 + 72) = *(v32 + 96);
           *(v27 + 56) = v28;
@@ -4208,10 +4208,10 @@ void __57__MOVStreamWriter_appendMetadata_withTimeStamp_toStream___block_invoke(
   groupCopy = group;
   streamCopy = stream;
   std::string::basic_string[abi:ne200100]<0>(__p, [streamCopy UTF8String]);
-  v9 = *(v8 + 32);
+  v9 = v8[4];
   objc_sync_enter(v9);
   [v9 addObject:groupCopy];
-  [*(v8 + 64) setFifoItemCount:{objc_msgSend(v9, "count")}];
+  [v8[8] setFifoItemCount:{objc_msgSend(v9, "count")}];
   if (+[MIOLog debugEnabled])
   {
     v10 = +[MIOLog defaultLog];
@@ -4226,10 +4226,10 @@ void __57__MOVStreamWriter_appendMetadata_withTimeStamp_toStream___block_invoke(
     }
   }
 
-  if ([v9 count] > *(v8 + 40))
+  if ([v9 count] > v8[5])
   {
     [v9 removeObjectAtIndex:0];
-    v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"FIFO buffer for metadata stream '%@' is full, dropping older buffer (%llu/%llu/%llu/%llu).", streamCopy, -[MOVStreamWriter writeThreadCount](self, "writeThreadCount"), objc_msgSend(*(v8 + 64), "visitCount"), objc_msgSend(*(v8 + 64), "attemptCount"), objc_msgSend(*(v8 + 64), "writeCount")];
+    v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"FIFO buffer for metadata stream '%@' is full, dropping older buffer (%llu/%llu/%llu/%llu).", streamCopy, -[MOVStreamWriter writeThreadCount](self, "writeThreadCount"), objc_msgSend(v8[8], "visitCount"), objc_msgSend(v8[8], "attemptCount"), objc_msgSend(v8[8], "writeCount")];
     v13 = [MEMORY[0x277CCA9B8] streamErrorWithMessage:v12 code:18];
     v14 = [v13 errorByAddingStreamId:streamCopy];
 
@@ -4252,12 +4252,12 @@ void __57__MOVStreamWriter_appendMetadata_withTimeStamp_toStream___block_invoke(
   streamCopy = stream;
   std::string::basic_string[abi:ne200100]<0>(&v23, [withCopy UTF8String]);
   std::string::basic_string[abi:ne200100]<0>(&v22, [streamCopy UTF8String]);
-  [(MOVStreamWriter *)self sessionStartTime];
+  objc_msgSend_sessionStartTime(self);
   if ((BYTE12(v19) & 1) == 0)
   {
     if (metadataCopy)
     {
-      [metadataCopy timeRange];
+      objc_msgSend_timeRange(metadataCopy);
     }
 
     else
@@ -4391,7 +4391,7 @@ void __58__MOVStreamWriter_appendMetadata_associatedWith_toStream___block_invoke
   else
   {
     memset(&v25, 0, sizeof(v25));
-    [(MOVStreamWriter *)selfCopy sessionStartTime];
+    objc_msgSend_sessionStartTime(selfCopy);
     flags = 0 >> 96;
     if (0 >> 96 != 1)
     {
@@ -4499,12 +4499,12 @@ void __80__MOVStreamWriter_asyncWriteAssociatedMetadata_metadataKey_associatedSt
   if (v4)
   {
     v5 = *(a1 + 32);
-    if ((v5[114] & 1) == 0)
+    if ((*(v5 + 114) & 1) == 0)
     {
       v6 = *(a1 + 40);
       if (v6)
       {
-        [v6 timeRange];
+        objc_msgSend_timeRange(v6);
       }
 
       else
@@ -4614,7 +4614,7 @@ LABEL_23:
     objc_exception_throw(v11);
   }
 
-  [(MOVStreamWriter *)self sessionStartTime];
+  objc_msgSend_sessionStartTime(self);
   if ((v17.flags & 1) == 0)
   {
     CMSampleBufferGetPresentationTimeStamp(&v16, buffer);
@@ -5244,7 +5244,7 @@ void __33__MOVStreamWriter_finishAVWriter__block_invoke(uint64_t a1)
   {
     if ([*(a1 + 32) preserveSessionStartTime])
     {
-      [*(a1 + 32) sessionStartTime];
+      objc_msgSend_sessionStartTime(*(a1 + 32));
       v8 = [*(*(a1 + 32) + 96) outputURL];
       v14 = 0;
       v9 = [MOVStreamIOUtility saveSessionStartTime:buf toMovieAtURL:v8 error:&v14];
@@ -5720,7 +5720,7 @@ uint64_t __41__MOVStreamWriter_processFinishRecording__block_invoke_549(uint64_t
   v5 = a3;
   if (v4)
   {
-    [v4 timeRange];
+    objc_msgSend_timeRange(v4);
   }
 
   else
@@ -5733,7 +5733,7 @@ uint64_t __41__MOVStreamWriter_processFinishRecording__block_invoke_549(uint64_t
   v13 = *&time1[16];
   if (v5)
   {
-    [v5 timeRange];
+    objc_msgSend_timeRange(v5);
   }
 
   else
@@ -6229,7 +6229,7 @@ LABEL_106:
             {
               if (v49)
               {
-                [v49 timeRange];
+                objc_msgSend_timeRange(v49);
               }
 
               else
@@ -6260,7 +6260,7 @@ LABEL_106:
             if (v49)
             {
               v55 = v101;
-              [v49 timeRange];
+              objc_msgSend_timeRange(v49);
             }
 
             else
@@ -6614,7 +6614,7 @@ LABEL_173:
     _os_signpost_emit_with_name_impl(&dword_257883000, v14, OS_SIGNPOST_INTERVAL_BEGIN, signpost, "mio.appendSampleBuffer", "", buf, 2u);
   }
 
-  v15 = [*(v11 + 16) appendSampleBuffer:buffer];
+  v15 = [v11[2] appendSampleBuffer:buffer];
   v16 = self->_perfLogAVF;
   v17 = v16;
   if (signpost - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
@@ -6639,29 +6639,29 @@ LABEL_173:
       }
     }
 
-    if (!metadataCopy || (*(v11 + 128) & 1) != 0)
+    if (!metadataCopy || (v11[16] & 1) != 0)
     {
 LABEL_31:
-      [(MOVStreamWriter *)self informDelegateAboutMediaWrittenForStream:idCopy mediaType:*(v11 + 184)];
+      [(MOVStreamWriter *)self informDelegateAboutMediaWrittenForStream:idCopy mediaType:v11[23]];
       goto LABEL_33;
     }
 
-    [metadataCopy timeRange];
+    objc_msgSend_timeRange(metadataCopy);
     v40 = buf[0];
-    if ([*(v11 + 48) frameReorderingEnabled])
+    if ([v11[6] frameReorderingEnabled])
     {
       if (*(v11 + 156))
       {
-        buf[0] = *(v11 + 144);
+        buf[0] = *(v11 + 6);
         time2 = v40;
         v32 = CMTimeCompare(buf, &time2);
-        v33 = *(v11 + 136);
+        v33 = v11[17];
         if (v32 < 1)
         {
           v20 = [v33 sortedArrayUsingComparator:&__block_literal_global_576];
-          [*(v11 + 136) removeAllObjects];
-          [*(v11 + 136) addObject:metadataCopy];
-          *(v11 + 144) = v40;
+          [v11[17] removeAllObjects];
+          [v11[17] addObject:metadataCopy];
+          *(v11 + 6) = v40;
         }
 
         else
@@ -6673,7 +6673,7 @@ LABEL_31:
         goto LABEL_18;
       }
 
-      *(v11 + 144) = v40;
+      *(v11 + 6) = v40;
     }
 
     v20 = [MEMORY[0x277CBEA60] arrayWithObject:metadataCopy];
@@ -6698,7 +6698,7 @@ LABEL_20:
 
         v25 = *(*(&v35 + 1) + 8 * v24);
         v26 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
-        if (![(MOVStreamWriter *)self writeVideoFrameStreamAttachmentsData:v25 toMetadataAdaptor:*(v11 + 32) ofStream:idCopy signpost:signpost])
+        if (![(MOVStreamWriter *)self writeVideoFrameStreamAttachmentsData:v25 toMetadataAdaptor:v11[4] ofStream:idCopy signpost:signpost])
         {
           break;
         }
@@ -6753,7 +6753,7 @@ uint64_t __70__MOVStreamWriter_writeSampleBuffer_andMetadata_forStreamId_signpos
   v5 = a3;
   if (v4)
   {
-    [v4 timeRange];
+    objc_msgSend_timeRange(v4);
   }
 
   else
@@ -6766,7 +6766,7 @@ uint64_t __70__MOVStreamWriter_writeSampleBuffer_andMetadata_forStreamId_signpos
   v13 = *&time1[16];
   if (v5)
   {
-    [v5 timeRange];
+    objc_msgSend_timeRange(v5);
   }
 
   else
@@ -6792,14 +6792,14 @@ uint64_t __70__MOVStreamWriter_writeSampleBuffer_andMetadata_forStreamId_signpos
   streamCopy = stream;
   std::string::basic_string[abi:ne200100]<0>(__p, [streamCopy UTF8String]);
   *time1 = __p;
-  v13 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&self->m_lastPtsForAttachmentsStream, __p);
+  v13 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&self->m_lastPtsForAttachmentsStream, __p, &std::piecewise_construct, time1, &v34);
   v37 = *(v13 + 56);
   v14 = *(v13 + 68);
   v38 = *(v13 + 64);
   v15 = *(v13 + 72);
   if (dataCopy)
   {
-    [dataCopy timeRange];
+    objc_msgSend_timeRange(dataCopy);
   }
 
   else
@@ -6812,7 +6812,8 @@ uint64_t __70__MOVStreamWriter_writeSampleBuffer_andMetadata_forStreamId_signpos
   if (v14)
   {
     *time1 = v37;
-    *&time1[8] = __PAIR64__(v14, v38);
+    *&time1[8] = v38;
+    *&time1[12] = v14;
     *&time1[16] = v15;
     time2 = v34;
     if ((CMTimeCompare(time1, &time2) & 0x80000000) == 0)
@@ -6821,7 +6822,8 @@ uint64_t __70__MOVStreamWriter_writeSampleBuffer_andMetadata_forStreamId_signpos
       *time1 = v34;
       Seconds = CMTimeGetSeconds(time1);
       *time1 = v37;
-      *&time1[8] = __PAIR64__(v14, v38);
+      *&time1[8] = v38;
+      *&time1[12] = v14;
       *&time1[16] = v15;
       streamCopy = [v16 stringWithFormat:@"Sample buffers attachments appended with presentation timestamp (%f) less than (or equal to) previous sample buffer (%f) for stream '%@'. Inconsistency!", *&Seconds, CMTimeGetSeconds(time1), streamCopy];
       v19 = [MEMORY[0x277CCA9B8] streamErrorWithMessage:streamCopy code:15];
@@ -6856,7 +6858,7 @@ uint64_t __70__MOVStreamWriter_writeSampleBuffer_andMetadata_forStreamId_signpos
   if (v22)
   {
     *time1 = __p;
-    v25 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&self->m_lastPtsForAttachmentsStream, __p);
+    v25 = std::__tree<std::__value_type<std::string,CMTime>,std::__map_value_compare<std::string,std::__value_type<std::string,CMTime>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CMTime>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&self->m_lastPtsForAttachmentsStream, __p, &std::piecewise_construct, time1, &time2);
     *(v25 + 56) = v34;
   }
 
@@ -6922,7 +6924,7 @@ LABEL_23:
       _os_signpost_emit_with_name_impl(&dword_257883000, v12, OS_SIGNPOST_INTERVAL_BEGIN, avfAppendMetadataSignPost, "mio.append.timed.metadata.group", "", buf, 2u);
     }
 
-    v14 = [*(v9 + 8) appendTimedMetadataGroup:metadataCopy];
+    v14 = [v9[1] appendTimedMetadataGroup:metadataCopy];
     v15 = self->_perfLogAVF;
     v16 = v15;
     v17 = self->_avfAppendMetadataSignPost;
@@ -7041,7 +7043,7 @@ LABEL_23:
 
 - (void)setupAssetWriterStreamInputsWithError:(id *)error
 {
-  v116 = *MEMORY[0x277D85DE8];
+  v114 = *MEMORY[0x277D85DE8];
   begin = self->m_orderedStreamNames.__begin_;
   end = self->m_orderedStreamNames.__end_;
   if (begin == end)
@@ -7081,8 +7083,8 @@ LABEL_23:
         encoderSpecVCP = [v98 encoderSpecVCP];
         sessionPropertiesVCP = [v98 sessionPropertiesVCP];
         v17 = [(MOVStreamVideoEncoderInterface *)v14 initForVCPEncodingStream:v104 videoEncoderSpec:encoderSpecVCP sessionProperties:sessionPropertiesVCP delegate:self];
-        v18 = *(v5 + 48);
-        *(v5 + 48) = v17;
+        v18 = v5[6];
+        v5[6] = v17;
       }
 
       else
@@ -7095,8 +7097,8 @@ LABEL_23:
           v25 = [MOVStreamVideoEncoderInterface alloc];
           [v98 expectedFrameRate];
           v26 = [(MOVStreamVideoEncoderInterface *)v25 initWithExpectedFrameRate:v104 forStream:self delegate:self->m_enableAVEHighPerformanceProfile enableAVEHighPerformanceProfile:?];
-          config2 = *(v5 + 48);
-          *(v5 + 48) = v26;
+          config2 = v5[6];
+          v5[6] = v26;
         }
 
         else
@@ -7104,11 +7106,11 @@ LABEL_23:
           v21 = [MOVStreamVideoEncoderInterface alloc];
           config2 = [v98 config];
           v23 = [(MOVStreamVideoEncoderInterface *)v21 initForStream:v104 configuration:config2 delegate:self];
-          v24 = *(v5 + 48);
-          *(v5 + 48) = v23;
+          v24 = v5[6];
+          v5[6] = v23;
         }
 
-        [*(v5 + 48) setCustomEncoderConfig:{objc_msgSend(v98, "useCustomEncoderConfig")}];
+        [v5[6] setCustomEncoderConfig:{objc_msgSend(v98, "useCustomEncoderConfig")}];
       }
 
       v27 = +[MOVStreamOptions sharedOptions];
@@ -7128,7 +7130,7 @@ LABEL_23:
         goto LABEL_23;
       }
 
-      v29 = [*(v5 + 88) createTrackFormatDescriptionFromStreamData:v5];
+      v29 = [v5[11] createTrackFormatDescriptionFromStreamData:v5];
       v30 = +[MIOLog defaultLog];
       if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
@@ -7137,7 +7139,7 @@ LABEL_23:
         _os_log_impl(&dword_257883000, v30, OS_LOG_TYPE_INFO, "Pre-initialize VTCompressionSession for stream '%{public}@'...", buf, 0xCu);
       }
 
-      if (([*(v5 + 48) preSetupWithFormatDescription:v29] & 1) == 0)
+      if (([v5[6] preSetupWithFormatDescription:v29] & 1) == 0)
       {
         v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"Orig fd: %@  Used fd: %@", *v5, v29];
         v32 = +[MIOLog defaultLog];
@@ -7190,7 +7192,7 @@ LABEL_23:
 LABEL_33:
     MediaType = CMFormatDescriptionGetMediaType(*v5);
     v102 = [MIOMediaTypeUtility matchingAVMediaTypeFromCMType:MediaType];
-    *(v5 + 184) = [MIOMediaTypeUtility matchingMIOMediaTypeFromCMType:MediaType];
+    v5[23] = [MIOMediaTypeUtility matchingMIOMediaTypeFromCMType:MediaType];
     if (*v5)
     {
       v34 = v102;
@@ -7200,7 +7202,7 @@ LABEL_33:
     {
       v35 = v93;
 
-      *(v5 + 184) = 0;
+      v5[23] = 0;
       v34 = v35;
     }
 
@@ -7222,13 +7224,13 @@ LABEL_103:
       goto LABEL_103;
     }
 
-    baseMediaTimeScale = *(v5 + 208);
+    baseMediaTimeScale = *(v5 + 52);
     if (baseMediaTimeScale <= 0)
     {
       baseMediaTimeScale = [(MOVStreamWriter *)self baseMediaTimeScale];
     }
 
-    v36 = [*(v5 + 88) createTrackFormatDescriptionFromStreamData:v5];
+    v36 = [v5[11] createTrackFormatDescriptionFromStreamData:v5];
     v37 = +[MOVStreamOptions sharedOptions];
     skipSourceHint = [v37 skipSourceHint];
 
@@ -7262,8 +7264,8 @@ LABEL_103:
     }
 
     v41 = [objc_alloc(MEMORY[0x277CE6468]) initWithMediaType:v103 outputSettings:v100 sourceFormatHint:v36];
-    v42 = *(v5 + 16);
-    *(v5 + 16) = v41;
+    v42 = v5[2];
+    v5[2] = v41;
 
     if (v36)
     {
@@ -7272,70 +7274,70 @@ LABEL_103:
 
     if (v103 != v90)
     {
-      [*(v5 + 16) setMediaTimeScale:baseMediaTimeScale];
+      [v5[2] setMediaTimeScale:baseMediaTimeScale];
     }
 
     if (v103 == v93)
     {
-      [(MOVStreamWriter *)self getVideoTransformForStream:v104];
-      v43 = *(v5 + 16);
-      *buf = v107;
-      *&buf[16] = v108;
-      v115 = v109;
+      objc_msgSend_getVideoTransformForStream_(self);
+      v43 = v5[2];
+      *buf = v107[0];
+      *&buf[16] = v107[1];
+      v113 = v107[2];
       [v43 setTransform:buf];
     }
 
-    [*(v5 + 16) setExpectsMediaDataInRealTime:self->m_realtime];
+    [v5[2] setExpectsMediaDataInRealTime:self->m_realtime];
     if ([(MOVStreamWriter *)self legacyKeysMode])
     {
       v96 = [(MOVStreamWriter *)self getTrackMetadataForStream:v104];
-      v113[0] = v96;
+      v111[0] = v96;
       v94 = [(MOVStreamWriter *)self getLegacyTrackMetadataForStream:v104];
-      v113[1] = v94;
+      v111[1] = v94;
       v95 = [(MOVStreamWriter *)self getTrackInputPixelFormatMetadataForStream:v104 fromMap:&self->m_streamDataMap];
-      v113[2] = v95;
+      v111[2] = v95;
       v44 = [(MOVStreamWriter *)self getTrackEncodedPixelFormatMetadataForStream:v104 fromMap:&self->m_streamDataMap];
-      v113[3] = v44;
+      v111[3] = v44;
       v45 = [(MOVStreamWriter *)self getLegacyTrackInputPixelFormatMetadataForStream:v104 fromMap:&self->m_streamDataMap];
-      v113[4] = v45;
+      v111[4] = v45;
       v46 = [(MOVStreamWriter *)self getLegacyTrackEncodedPixelFormatMetadataForStream:v104 fromMap:&self->m_streamDataMap];
-      v113[5] = v46;
+      v111[5] = v46;
       v47 = [(MOVStreamWriter *)self getLegacyTrackMetadataForAttachmentsSerializationMode:v104 fromMap:&self->m_streamDataMap];
-      v113[6] = v47;
+      v111[6] = v47;
       v48 = [(MOVStreamWriter *)self getTrackMetadataForAttachmentsSerializationMode:v104 fromMap:&self->m_streamDataMap];
-      v113[7] = v48;
+      v111[7] = v48;
       v49 = [(MOVStreamWriter *)self getTrackMetadataForTrackTypeInfo:v104 fromMap:&self->m_streamDataMap];
-      v113[8] = v49;
+      v111[8] = v49;
       v50 = [(MOVStreamWriter *)self getTrackMIOStreamEncoderTypeMetadataForStream:v104 fromMap:&self->m_streamDataMap];
-      v113[9] = v50;
-      v51 = [MEMORY[0x277CBEA60] arrayWithObjects:v113 count:10];
+      v111[9] = v50;
+      v51 = [MEMORY[0x277CBEA60] arrayWithObjects:v111 count:10];
       v101 = [v51 mutableCopy];
     }
 
     else
     {
       v96 = [(MOVStreamWriter *)self getTrackMetadataForStream:v104];
-      v112[0] = v96;
+      v110[0] = v96;
       v94 = [(MOVStreamWriter *)self getTrackInputPixelFormatMetadataForStream:v104 fromMap:&self->m_streamDataMap];
-      v112[1] = v94;
+      v110[1] = v94;
       v95 = [(MOVStreamWriter *)self getTrackEncodedPixelFormatMetadataForStream:v104 fromMap:&self->m_streamDataMap];
-      v112[2] = v95;
+      v110[2] = v95;
       v44 = [(MOVStreamWriter *)self getTrackMetadataForAttachmentsSerializationMode:v104 fromMap:&self->m_streamDataMap];
-      v112[3] = v44;
+      v110[3] = v44;
       v45 = [(MOVStreamWriter *)self getTrackMetadataForTrackTypeInfo:v104 fromMap:&self->m_streamDataMap];
-      v112[4] = v45;
+      v110[4] = v45;
       v46 = [(MOVStreamWriter *)self getTrackMIOStreamEncoderTypeMetadataForStream:v104 fromMap:&self->m_streamDataMap];
-      v112[5] = v46;
-      v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v112 count:6];
+      v110[5] = v46;
+      v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v110 count:6];
       v101 = [v47 mutableCopy];
     }
 
-    if (*(v5 + 104) && *(v5 + 112))
+    if (v5[13] && v5[14])
     {
       v52 = [(MOVStreamWriter *)self createRelatedToStreamMetadata:?];
       [v101 addObject:v52];
 
-      v53 = [(MOVStreamWriter *)self createRelationSpecifierMetadata:*(v5 + 112)];
+      v53 = [(MOVStreamWriter *)self createRelationSpecifierMetadata:v5[14]];
       [v101 addObject:v53];
     }
 
@@ -7364,7 +7366,7 @@ LABEL_103:
       }
     }
 
-    v58 = [*(v5 + 40) objectForKey:@"OutputPixelFormatOverride"];
+    v58 = [v5[5] objectForKey:@"OutputPixelFormatOverride"];
     v59 = v58;
     if (v58)
     {
@@ -7375,7 +7377,7 @@ LABEL_103:
       }
     }
 
-    v61 = [*(v5 + 40) objectForKey:@"AdditionalCompressionProperties"];
+    v61 = [v5[5] objectForKey:@"AdditionalCompressionProperties"];
     v62 = v61 == 0;
 
     if (v62)
@@ -7385,7 +7387,7 @@ LABEL_103:
 
     else
     {
-      v63 = [*(v5 + 40) objectForKey:@"AdditionalCompressionProperties"];
+      v63 = [v5[5] objectForKey:@"AdditionalCompressionProperties"];
       v106 = 0;
       v64 = [MEMORY[0x277CE6520] trackMetadataItemWithAdditionalCompressionProperties:v63 error:&v106];
       v65 = v106;
@@ -7415,7 +7417,7 @@ LABEL_103:
     }
 
     v69 = [v101 copy];
-    [*(v5 + 16) setMetadata:v69];
+    [v5[2] setMetadata:v69];
 
     if (*(v99 + 23) < 0)
     {
@@ -7429,7 +7431,7 @@ LABEL_103:
       *&v105.__r_.__value_.__l.__data_ = v70;
     }
 
-    [*(v5 + 16) setMarksOutputTrackAsEnabled:{-[MOVStreamWriter marksOutputTracksAsEnabledForStream:fromMap:](self, "marksOutputTracksAsEnabledForStream:fromMap:", &v105, &self->m_streamDataMap)}];
+    [v5[2] setMarksOutputTrackAsEnabled:{-[MOVStreamWriter marksOutputTracksAsEnabledForStream:fromMap:](self, "marksOutputTracksAsEnabledForStream:fromMap:", &v105, &self->m_streamDataMap)}];
     if (SHIBYTE(v105.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v105.__r_.__value_.__l.__data_);
@@ -7440,23 +7442,23 @@ LABEL_103:
       break;
     }
 
-    if (![(AVAssetWriter *)self->m_assetWriter canAddInput:*(v5 + 16)])
+    if (![(AVAssetWriter *)self->m_assetWriter canAddInput:v5[2]])
     {
       v1043 = [MEMORY[0x277CCACA8] stringWithFormat:@"Can't add stream input to the asset writer to stream: %@", v104];
       [MEMORY[0x277CCA9B8] populateStreamError:error message:v1043 code:13];
       goto LABEL_108;
     }
 
-    [(AVAssetWriter *)self->m_assetWriter addInput:*(v5 + 16)];
+    [(AVAssetWriter *)self->m_assetWriter addInput:v5[2]];
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     v72 = objc_opt_respondsToSelector();
 
     if (v72)
     {
       v1043 = objc_loadWeakRetained(&self->_delegate);
-      v111 = *(v5 + 16);
-      v74 = [MEMORY[0x277CBEA60] arrayWithObjects:&v111 count:1];
-      [v1043 streamWriter:self stream:v104 preparedTrackInputs:v74 mediaType:*(v5 + 184)];
+      v109 = v5[2];
+      v74 = [MEMORY[0x277CBEA60] arrayWithObjects:&v109 count:1];
+      [v1043 streamWriter:self stream:v104 preparedTrackInputs:v74 mediaType:v5[23]];
 LABEL_98:
     }
 
@@ -7471,21 +7473,21 @@ LABEL_98:
   if (v75)
   {
     v76 = [objc_alloc(MEMORY[0x277CE6468]) initWithMediaType:v89 outputSettings:0 sourceFormatHint:v75];
-    v77 = *(v5 + 24);
-    *(v5 + 24) = v76;
+    v77 = v5[3];
+    v5[3] = v76;
 
     CFRelease(v75);
     v1043 = [MOVStreamIOUtility qtTrackNameForAssociatedAttachmentsTrack:v104];
     v74 = [MEMORY[0x277CE6520] qtTrackMetadataItemsForStreamId:v1043];
-    [*(v5 + 24) setMetadata:v74];
-    [*(v5 + 24) setMediaTimeScale:baseMediaTimeScale];
-    [*(v5 + 24) setExpectsMediaDataInRealTime:self->m_realtime];
-    [*(v5 + 24) addTrackAssociationWithTrackOfInput:*(v5 + 16) type:v88];
-    v78 = [MEMORY[0x277CE6470] assetWriterInputMetadataAdaptorWithAssetWriterInput:*(v5 + 24)];
-    v79 = *(v5 + 32);
-    *(v5 + 32) = v78;
+    [v5[3] setMetadata:v74];
+    [v5[3] setMediaTimeScale:baseMediaTimeScale];
+    [v5[3] setExpectsMediaDataInRealTime:self->m_realtime];
+    [v5[3] addTrackAssociationWithTrackOfInput:v5[2] type:v88];
+    v78 = [MEMORY[0x277CE6470] assetWriterInputMetadataAdaptorWithAssetWriterInput:v5[3]];
+    v79 = v5[4];
+    v5[4] = v78;
 
-    if (![(AVAssetWriter *)self->m_assetWriter canAddInput:*(v5 + 16)]|| ![(AVAssetWriter *)self->m_assetWriter canAddInput:*(v5 + 24)])
+    if (![(AVAssetWriter *)self->m_assetWriter canAddInput:v5[2]]|| ![(AVAssetWriter *)self->m_assetWriter canAddInput:v5[3]])
     {
       v1044 = [MEMORY[0x277CCACA8] stringWithFormat:@"Can't add stream and metadata inputs to the asset writer to stream: %@", v104];
       [MEMORY[0x277CCA9B8] populateStreamError:error message:v1044 code:13];
@@ -7493,19 +7495,19 @@ LABEL_98:
       goto LABEL_108;
     }
 
-    [(AVAssetWriter *)self->m_assetWriter addInput:*(v5 + 16)];
-    [(AVAssetWriter *)self->m_assetWriter addInput:*(v5 + 24)];
+    [(AVAssetWriter *)self->m_assetWriter addInput:v5[2]];
+    [(AVAssetWriter *)self->m_assetWriter addInput:v5[3]];
     v80 = objc_loadWeakRetained(&self->_delegate);
     v81 = objc_opt_respondsToSelector();
 
     if (v81)
     {
       v82 = objc_loadWeakRetained(&self->_delegate);
-      v83 = *(v5 + 24);
-      v110[0] = *(v5 + 16);
-      v110[1] = v83;
-      v84 = [MEMORY[0x277CBEA60] arrayWithObjects:v110 count:2];
-      [v82 streamWriter:self stream:v104 preparedTrackInputs:v84 mediaType:*(v5 + 184)];
+      v83 = v5[3];
+      v108[0] = v5[2];
+      v108[1] = v83;
+      v84 = [MEMORY[0x277CBEA60] arrayWithObjects:v108 count:2];
+      [v82 streamWriter:self stream:v104 preparedTrackInputs:v84 mediaType:v5[23]];
     }
 
     goto LABEL_98;
@@ -7720,7 +7722,7 @@ LABEL_26:
           }
 
           v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:v9];
-          baseMediaTimeScale = *(v11 + 208);
+          baseMediaTimeScale = *(v11 + 52);
           if (baseMediaTimeScale <= 0)
           {
             baseMediaTimeScale = [(MOVStreamWriter *)self baseMediaTimeScale];
@@ -7764,7 +7766,7 @@ LABEL_26:
 
           [left[7].__left_ setMediaTimeScale:baseMediaTimeScale];
           [left[7].__left_ setExpectsMediaDataInRealTime:self->m_realtime];
-          [left[7].__left_ addTrackAssociationWithTrackOfInput:*(v11 + 16) type:v35];
+          [left[7].__left_ addTrackAssociationWithTrackOfInput:v11[2] type:v35];
           v20 = [MEMORY[0x277CE6470] assetWriterInputMetadataAdaptorWithAssetWriterInput:left[7].__left_];
           v21 = left[8].__left_;
           left[8].__left_ = v20;
@@ -7781,7 +7783,7 @@ LABEL_26:
           if (v23)
           {
             v24 = objc_loadWeakRetained(&self->_delegate);
-            v39 = *(v11 + 24);
+            v39 = v11[3];
             v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
             [v24 streamWriter:self stream:v7 preparedTrackInputs:v25 mediaType:2];
           }
@@ -8630,7 +8632,7 @@ void __48__MOVStreamWriter_startWritingThreadForMetadata__block_invoke(uint64_t 
             {
               if (v19)
               {
-                [v19 timeRange];
+                objc_msgSend_timeRange(v19);
               }
 
               else
@@ -8659,7 +8661,7 @@ void __48__MOVStreamWriter_startWritingThreadForMetadata__block_invoke(uint64_t 
           {
             if (v19)
             {
-              [v19 timeRange];
+              objc_msgSend_timeRange(v19);
             }
 
             else
@@ -9254,7 +9256,7 @@ void __70__MOVStreamWriter_informDelegateAboutMediaWrittenForStream_mediaType___
     goto LABEL_9;
   }
 
-  while ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__p, v6 + 4) & 0x80) != 0)
+  while ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__p, v6 + 32) & 0x80) != 0)
   {
 LABEL_5:
     v6 = *v6;
@@ -9266,13 +9268,13 @@ LABEL_5:
 
   if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v6 + 4, __p) & 0x80) != 0)
   {
-    ++v6;
+    v6 += 8;
     goto LABEL_5;
   }
 
-  if ([*(v7 + 16) isReadyForMoreMediaData])
+  if ([v7[2] isReadyForMoreMediaData])
   {
-    isReadyForMoreMediaData = [*(v7 + 24) isReadyForMoreMediaData];
+    isReadyForMoreMediaData = [v7[3] isReadyForMoreMediaData];
     goto LABEL_10;
   }
 
@@ -9418,7 +9420,7 @@ LABEL_27:
     bOOLValue = [v8 BOOLValue];
   }
 
-  else if (*(v4 + 16) == 1)
+  else if (v4[2] == 1)
   {
     bOOLValue = 1;
   }
@@ -9486,14 +9488,14 @@ LABEL_15:
   v26 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   std::string::basic_string[abi:ne200100]<0>(__p, [streamCopy UTF8String]);
-  if ([*(v5 + 72) count] || objc_msgSend(*(v5 + 80), "count"))
+  if ([v5[9] count] || objc_msgSend(v5[10], "count"))
   {
     v6 = objc_opt_new();
     v21 = 0u;
     v22 = 0u;
     v19 = 0u;
     v20 = 0u;
-    obj = *(v5 + 72);
+    obj = v5[9];
     v7 = [obj countByEnumeratingWithState:&v19 objects:v25 count:16];
     if (v7)
     {
@@ -9514,7 +9516,7 @@ LABEL_15:
           [metadataItem setIdentifier:v13];
           [metadataItem setDataType:v9];
           [metadataItem setExtraAttributes:0];
-          v14 = [*(v5 + 72) objectForKey:v11];
+          v14 = [v5[9] objectForKey:v11];
           [metadataItem setValue:v14];
 
           [v6 addObject:metadataItem];
@@ -9526,9 +9528,9 @@ LABEL_15:
       while (v7);
     }
 
-    if ([*(v5 + 80) count])
+    if ([v5[10] count])
     {
-      [v6 addObjectsFromArray:*(v5 + 80)];
+      [v6 addObjectsFromArray:v5[10]];
     }
 
     v15 = [v6 copy];
@@ -9552,14 +9554,14 @@ LABEL_15:
   v26 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   std::string::basic_string[abi:ne200100]<0>(__p, [streamCopy UTF8String]);
-  if ([*(v5 + 48) count])
+  if ([v5[6] count])
   {
     v6 = objc_opt_new();
     v21 = 0u;
     v22 = 0u;
     v19 = 0u;
     v20 = 0u;
-    obj = *(v5 + 48);
+    obj = v5[6];
     v7 = [obj countByEnumeratingWithState:&v19 objects:v25 count:16];
     if (v7)
     {
@@ -9580,7 +9582,7 @@ LABEL_15:
           [metadataItem setIdentifier:v13];
           [metadataItem setDataType:v9];
           [metadataItem setExtraAttributes:0];
-          v14 = [*(v5 + 48) objectForKey:v11];
+          v14 = [v5[6] objectForKey:v11];
           [metadataItem setValue:v14];
 
           [v6 addObject:metadataItem];
@@ -9755,7 +9757,7 @@ LABEL_15:
 {
   streamCopy = stream;
   std::string::basic_string[abi:ne200100]<0>(__p, [streamCopy UTF8String]);
-  v7 = [*(v6 + 88) inputPixelFormatFromStreamData:v6];
+  v7 = [v6[11] inputPixelFormatFromStreamData:v6];
   metadataItem = [MEMORY[0x277CE6558] metadataItem];
   [metadataItem setIdentifier:@"mdta/com.apple.stream_sample_format"];
   [metadataItem setDataType:*MEMORY[0x277CC05F0]];
@@ -9796,7 +9798,7 @@ LABEL_15:
 {
   streamCopy = stream;
   std::string::basic_string[abi:ne200100]<0>(__p, [streamCopy UTF8String]);
-  v7 = [*(v6 + 88) inputPixelFormatFromStreamData:v6];
+  v7 = [v6[11] inputPixelFormatFromStreamData:v6];
   metadataItem = [MEMORY[0x277CE6558] metadataItem];
   v9 = +[MIOVersion versionZero];
   v10 = [v9 versionedKey:@"mdta/com.apple.stream_sample_format" modifier:0];
@@ -9819,7 +9821,7 @@ LABEL_15:
 {
   streamCopy = stream;
   std::string::basic_string[abi:ne200100]<0>(__p, [streamCopy UTF8String]);
-  v7 = [*(v6 + 88) encodedPixelFormatFromStreamData:v6];
+  v7 = [v6[11] encodedPixelFormatFromStreamData:v6];
   metadataItem = [MEMORY[0x277CE6558] metadataItem];
   v9 = +[MIOVersion versionZero];
   v10 = [v9 versionedKey:@"mdta/com.apple.stream_encoded_sample_format" modifier:0];
@@ -9842,7 +9844,7 @@ LABEL_15:
 {
   streamCopy = stream;
   std::string::basic_string[abi:ne200100]<0>(__p, [streamCopy UTF8String]);
-  v7 = [*(v6 + 88) encodedPixelFormatFromStreamData:v6];
+  v7 = [v6[11] encodedPixelFormatFromStreamData:v6];
   metadataItem = [MEMORY[0x277CE6558] metadataItem];
   [metadataItem setIdentifier:@"mdta/com.apple.stream_encoded_sample_format"];
   [metadataItem setDataType:*MEMORY[0x277CC05F0]];
@@ -9913,7 +9915,7 @@ LABEL_15:
 {
   rowCopy = row;
   std::string::basic_string[abi:ne200100]<0>(__p, [rowCopy UTF8String]);
-  v9 = *(v8 + 40);
+  v9 = v8[5];
   v10 = [v9 objectForKey:@"PixelBufferExactBytesPerRow"];
   if (!v10)
   {

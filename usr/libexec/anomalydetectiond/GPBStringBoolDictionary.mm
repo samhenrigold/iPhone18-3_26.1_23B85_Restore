@@ -9,6 +9,7 @@
 - (void)dealloc;
 - (void)enumerateForTextFormat:(id)format;
 - (void)enumerateKeysAndBoolsUsingBlock:(id)block;
+- (void)setBool:(BOOL)bool forKey:(id)key;
 - (void)setGPBGenericValue:(id *)value forGPBGenericValueKey:(id *)key;
 - (void)writeToCodedOutputStream:(id)stream asField:(id)field;
 @end
@@ -226,6 +227,23 @@
 
       GPBAutocreatedDictionaryModified(autocreator, self);
     }
+  }
+}
+
+- (void)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  if (!key)
+  {
+    [NSException raise:NSInvalidArgumentException format:@"Attempting to add nil key to a Dictionary"];
+  }
+
+  [(NSMutableDictionary *)self->_dictionary setObject:[NSNumber forKey:"numberWithBool:" numberWithBool:boolCopy], key];
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    GPBAutocreatedDictionaryModified(autocreator, self);
   }
 }
 

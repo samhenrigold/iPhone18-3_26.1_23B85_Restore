@@ -23,8 +23,8 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(objc_opt_class());
-  home = [(HFNaturalLanguageOptions *)self home];
-  [v4 setHome:home];
+  v5 = objc_msgSend_home(self);
+  [v4 setHome:v5];
 
   extraOptions = [(HFNaturalLanguageOptions *)self extraOptions];
   v7 = [extraOptions mutableCopy];

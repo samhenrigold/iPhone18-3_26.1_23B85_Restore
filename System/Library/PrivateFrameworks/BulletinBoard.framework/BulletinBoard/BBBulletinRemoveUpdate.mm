@@ -1,4 +1,5 @@
 @interface BBBulletinRemoveUpdate
++ (id)updateWithBulletin:(id)bulletin feeds:(unint64_t)feeds shouldSync:(BOOL)sync;
 - (BBBulletinRemoveUpdate)initWithBulletin:(id)bulletin feeds:(unint64_t)feeds shouldSync:(BOOL)sync;
 - (BBBulletinRemoveUpdate)initWithCoder:(id)coder;
 - (BOOL)isEqual:(id)equal;
@@ -8,6 +9,15 @@
 @end
 
 @implementation BBBulletinRemoveUpdate
+
++ (id)updateWithBulletin:(id)bulletin feeds:(unint64_t)feeds shouldSync:(BOOL)sync
+{
+  syncCopy = sync;
+  bulletinCopy = bulletin;
+  v9 = [[self alloc] initWithBulletin:bulletinCopy feeds:feeds shouldSync:syncCopy];
+
+  return v9;
+}
 
 - (BBBulletinRemoveUpdate)initWithBulletin:(id)bulletin feeds:(unint64_t)feeds shouldSync:(BOOL)sync
 {

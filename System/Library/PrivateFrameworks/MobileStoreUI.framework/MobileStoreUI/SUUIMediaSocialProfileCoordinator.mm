@@ -414,7 +414,7 @@ void __81__SUUIMediaSocialProfileCoordinator__fireProfileBlocksWithProfile_isFin
 void __79__SUUIMediaSocialProfileCoordinator__handleOperationResponseWithProfile_error___block_invoke(id *a1)
 {
   v2 = [a1[4] domain];
-  if ([v2 isEqualToString:@"SUUIErrorDomain"])
+  if (objc_msgSend_isEqualToString_(v2))
   {
     v3 = [a1[4] code];
 

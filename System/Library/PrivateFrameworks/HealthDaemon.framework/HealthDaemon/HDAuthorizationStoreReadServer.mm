@@ -122,7 +122,7 @@
 
 - (void)remote_fetchAuthorizationStatusesForDocumentType:(id)type sourceBundleIdentifier:(id)identifier completion:(id)completion
 {
-  v48[1] = *MEMORY[0x277D85DE8];
+  v47[1] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   identifierCopy = identifier;
   completionCopy = completion;
@@ -130,75 +130,75 @@
   {
     profile = [(HDStandardTaskServer *)self profile];
     sourceManager = [profile sourceManager];
-    v45 = 0;
-    v14 = [sourceManager localSourceForBundleIdentifier:identifierCopy error:&v45];
-    v15 = v45;
+    v44 = 0;
+    v14 = [sourceManager localSourceForBundleIdentifier:identifierCopy error:&v44];
+    v15 = v44;
 
     if (v14)
     {
-      v44 = v15;
-      v16 = [HDObjectAuthorizationEntity authorizationStatusForSamplesOfType:typeCopy sourceEntity:v14 profile:profile error:&v44];
-      v17 = v44;
+      v43 = v15;
+      v16 = [HDObjectAuthorizationEntity authorizationStatusForSamplesOfType:typeCopy sourceEntity:v14 profile:profile error:&v43];
+      v17 = v43;
 
       if (v16)
       {
-        v33 = v14;
-        v34 = completionCopy;
-        v35 = identifierCopy;
-        v36 = typeCopy;
-        v37 = objc_alloc_init(MEMORY[0x277CBEB38]);
-        v47 = 0x283C2F1C8;
-        v48[0] = MEMORY[0x277CBEC38];
-        v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:&v47 count:1];
+        v32 = v14;
+        v33 = completionCopy;
+        v34 = identifierCopy;
+        v35 = typeCopy;
+        v36 = objc_alloc_init(MEMORY[0x277CBEB38]);
+        v46 = 0x283C2F1C8;
+        v47[0] = MEMORY[0x277CBEC38];
+        v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:&v46 count:1];
+        v39 = 0u;
         v40 = 0u;
         v41 = 0u;
         v42 = 0u;
-        v43 = 0u;
-        v32 = v16;
+        v31 = v16;
         v18 = v16;
-        v19 = [v18 countByEnumeratingWithState:&v40 objects:v46 count:16];
+        v19 = [v18 countByEnumeratingWithState:&v39 objects:v45 count:16];
         if (v19)
         {
           v20 = v19;
-          v21 = *v41;
+          v21 = *v40;
           while (2)
           {
             for (i = 0; i != v20; ++i)
             {
-              if (*v41 != v21)
+              if (*v40 != v21)
               {
                 objc_enumerationMutation(v18);
               }
 
-              v23 = *(*(&v40 + 1) + 8 * i);
+              v23 = *(*(&v39 + 1) + 8 * i);
               if ([v23 status])
               {
                 objectUUID = [v23 objectUUID];
-                v39 = v17;
+                v38 = v17;
                 v25 = profile;
-                v26 = [(HDDataEntity *)HDCDASampleEntity objectWithUUID:objectUUID encodingOptions:v38 profile:profile error:&v39];
-                v27 = v39;
+                v26 = [(HDDataEntity *)HDCDASampleEntity objectWithUUID:objectUUID encodingOptions:v37 profile:profile error:&v38];
+                v27 = v38;
 
                 if (!v26)
                 {
-                  completionCopy = v34;
-                  v34[2](v34, 0, v27);
+                  completionCopy = v33;
+                  v33[2](v33, 0, v27);
 
                   v17 = v27;
                   profile = v25;
-                  v29 = v37;
+                  v29 = v36;
                   goto LABEL_19;
                 }
 
                 v28 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v23, "status")}];
-                [v37 setObject:v28 forKeyedSubscript:v26];
+                [v36 setObject:v28 forKeyedSubscript:v26];
 
                 v17 = v27;
                 profile = v25;
               }
             }
 
-            v20 = [v18 countByEnumeratingWithState:&v40 objects:v46 count:16];
+            v20 = [v18 countByEnumeratingWithState:&v39 objects:v45 count:16];
             if (v20)
             {
               continue;
@@ -208,15 +208,15 @@
           }
         }
 
-        completionCopy = v34;
-        v29 = v37;
-        (v34)[2](v34, v37, 0);
+        completionCopy = v33;
+        v29 = v36;
+        (v33)[2](v33, v36, 0);
 LABEL_19:
 
-        identifierCopy = v35;
-        typeCopy = v36;
-        v16 = v32;
-        v14 = v33;
+        identifierCopy = v34;
+        typeCopy = v35;
+        v16 = v31;
+        v14 = v32;
       }
 
       else
@@ -238,55 +238,53 @@ LABEL_19:
     v30 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:a2 format:@"sourceBundleIdentifier may not be nil"];
     completionCopy[2](completionCopy, 0, v30);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_fetchAuthorizationStatusesForSampleUUID:(id)d completion:(id)completion
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   if (dCopy)
   {
     profile = [(HDStandardTaskServer *)self profile];
-    v40 = 0;
-    v10 = [HDObjectAuthorizationEntity authorizationRecordsBySourceForSampleWithUUID:dCopy profile:profile error:&v40];
-    v11 = v40;
+    v39 = 0;
+    v10 = [HDObjectAuthorizationEntity authorizationRecordsBySourceForSampleWithUUID:dCopy profile:profile error:&v39];
+    v11 = v39;
 
     if (v10)
     {
-      v30 = v11;
-      v32 = completionCopy;
-      v33 = dCopy;
+      v29 = v11;
+      v31 = completionCopy;
+      v32 = dCopy;
       v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
       profile2 = [(HDStandardTaskServer *)self profile];
       sourceManager = [profile2 sourceManager];
 
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
       v37 = 0u;
-      v31 = v10;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
+      v30 = v10;
       v14 = v10;
-      v15 = [v14 countByEnumeratingWithState:&v36 objects:v45 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v35 objects:v44 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v37;
+        v17 = *v36;
         while (2)
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v37 != v17)
+            if (*v36 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            v19 = *(*(&v36 + 1) + 8 * i);
-            v35 = 0;
-            v20 = [sourceManager clientSourceForUUID:v19 error:{&v35, v30}];
-            v21 = v35;
+            v19 = *(*(&v35 + 1) + 8 * i);
+            v34 = 0;
+            v20 = [sourceManager clientSourceForUUID:v19 error:{&v34, v29}];
+            v21 = v34;
             if (v20)
             {
               v22 = MEMORY[0x277CCABB0];
@@ -304,22 +302,22 @@ LABEL_19:
               {
                 v27 = os_log_type_enabled(v25, OS_LOG_TYPE_INFO);
 
-                completionCopy = v32;
-                dCopy = v33;
+                completionCopy = v31;
+                dCopy = v32;
                 if (v27)
                 {
                   v28 = HKLogAuthorization();
                   if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
                   {
                     *buf = 138543618;
-                    v42 = v19;
-                    v43 = 2114;
-                    v44 = v21;
+                    v41 = v19;
+                    v42 = 2114;
+                    v43 = v21;
                     _os_log_impl(&dword_228986000, v28, OS_LOG_TYPE_INFO, "Failed to retrieve source for UUID %{public}@: %{public}@", buf, 0x16u);
                   }
                 }
 
-                v32[2](v32, 0, v21);
+                v31[2](v31, 0, v21);
 
                 goto LABEL_23;
               }
@@ -327,13 +325,13 @@ LABEL_19:
               if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                v42 = v19;
+                v41 = v19;
                 _os_log_impl(&dword_228986000, v23, OS_LOG_TYPE_DEFAULT, "Found an authorization record for a source that does not exist (%{public}@); ignoring this record.", buf, 0xCu);
               }
             }
           }
 
-          v16 = [v14 countByEnumeratingWithState:&v36 objects:v45 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v35 objects:v44 count:16];
           if (v16)
           {
             continue;
@@ -343,13 +341,13 @@ LABEL_19:
         }
       }
 
-      completionCopy = v32;
-      (v32)[2](v32, v12, 0);
-      dCopy = v33;
+      completionCopy = v31;
+      (v31)[2](v31, v12, 0);
+      dCopy = v32;
 LABEL_23:
 
-      v11 = v30;
-      v10 = v31;
+      v11 = v29;
+      v10 = v30;
     }
 
     else
@@ -363,8 +361,6 @@ LABEL_23:
     v26 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:a2 format:@"sampleUUID may not be nil"];
     completionCopy[2](completionCopy, 0, v26);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_fetchAuthorizationStatusesForHealthConceptIdentifier:(id)identifier completion:(id)completion

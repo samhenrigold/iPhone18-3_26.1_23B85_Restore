@@ -3,6 +3,7 @@
 - (BOOL)isConnectionEntitled:(id)entitled;
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (IMDBackgroundMessagingAPIListener)init;
+- (void)connectionClosed:(int)closed;
 - (void)dealloc;
 - (void)handleSMSSendResult:(id)result sent:(BOOL)sent;
 @end
@@ -108,6 +109,13 @@
   v5 = v3 && ([v3 BOOLValue] & 1) != 0;
 
   return v5;
+}
+
+- (void)connectionClosed:(int)closed
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithInt:*&closed];
+  v4 = [(NSMutableDictionary *)self->_activeConnections objectForKey:v5];
+  [(NSMutableDictionary *)self->_activeConnections removeObjectForKey:v5];
 }
 
 - (void)handleSMSSendResult:(id)result sent:(BOOL)sent

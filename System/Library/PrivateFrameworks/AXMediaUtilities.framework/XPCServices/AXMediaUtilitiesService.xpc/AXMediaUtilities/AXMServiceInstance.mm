@@ -154,33 +154,33 @@
   dispatch_async(&_dispatch_main_q, v5);
 }
 
-void __48__AXMServiceInstance_willBecomeIdle_completion___block_invoke(uint64_t a1)
+void __48__AXMServiceInstance_willBecomeIdle_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = AXMediaLogService();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = AXMediaLogService();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "notified that service will go idle. purging engine resources", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "notified that service will go idle. purging engine resources", buf, 2u);
   }
 
-  v3 = dispatch_group_create();
-  v4 = [*(a1 + 32) engineCache];
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = __48__AXMServiceInstance_willBecomeIdle_completion___block_invoke_31;
-  v9[3] = &unk_100008290;
-  v10 = v3;
-  v5 = v3;
-  [v4 enumerateKeysAndObjectsUsingBlock:v9];
+  v4 = dispatch_group_create();
+  v5 = [*(a1 + 32) engineCache];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = __48__AXMServiceInstance_willBecomeIdle_completion___block_invoke_31;
+  v10[3] = &unk_100008290;
+  v11 = v4;
+  v6 = v4;
+  [v5 enumerateKeysAndObjectsUsingBlock:v10];
 
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = __48__AXMServiceInstance_willBecomeIdle_completion___block_invoke_3;
   block[3] = &unk_1000082B8;
-  v6 = *(a1 + 40);
+  v7 = *(a1 + 40);
   block[4] = *(a1 + 32);
-  v8 = v6;
-  dispatch_group_notify(v5, &_dispatch_main_q, block);
+  v9 = v7;
+  dispatch_group_notify(v6, &_dispatch_main_q, block);
 }
 
 void __48__AXMServiceInstance_willBecomeIdle_completion___block_invoke_31(uint64_t a1, uint64_t a2, void *a3)
@@ -196,18 +196,18 @@ void __48__AXMServiceInstance_willBecomeIdle_completion___block_invoke_31(uint64
   [v5 purgeResources:v6];
 }
 
-uint64_t __48__AXMServiceInstance_willBecomeIdle_completion___block_invoke_3(uint64_t a1)
+uint64_t __48__AXMServiceInstance_willBecomeIdle_completion___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = AXMediaLogService();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = AXMediaLogService();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "did purge engine resources", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "did purge engine resources", v6, 2u);
   }
 
   AXMDeleteCoreImageContext();
-  v3 = [*(a1 + 32) engineCache];
-  [v3 removeAllObjects];
+  v4 = [*(a1 + 32) engineCache];
+  [v4 removeAllObjects];
 
   return (*(*(a1 + 40) + 16))();
 }

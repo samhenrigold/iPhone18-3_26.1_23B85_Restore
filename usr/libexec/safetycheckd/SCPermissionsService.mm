@@ -188,7 +188,7 @@
 
   else
   {
-    v32 = sub_100002AF4();
+    v32 = sub_100002AF4(0);
     v29 = completionCopy;
     if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
     {

@@ -12,9 +12,9 @@
 
 + (id)supportedLanguages
 {
-  if (_MergedGlobals_11 != -1)
+  if (_MergedGlobals_11[0] != -1)
   {
-    dispatch_once(&_MergedGlobals_11, &__block_literal_global_3);
+    dispatch_once(_MergedGlobals_11, &__block_literal_global_3);
   }
 
   [qword_1ED95FD68 addObject:@"unknown"];

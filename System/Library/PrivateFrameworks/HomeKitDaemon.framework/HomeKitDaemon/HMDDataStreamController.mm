@@ -37,6 +37,7 @@
 - (void)openStreamSocketWithApplicationProtocol:(id)protocol completion:(id)completion;
 - (void)registerForNotifications;
 - (void)removeBulkSendListener:(id)listener;
+- (void)sendTargetControlWhoAmIWithIdentifier:(unsigned int)identifier;
 - (void)timerDidFire:(id)fire;
 @end
 
@@ -58,7 +59,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   workQueue = [(HMDDataStreamController *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -81,11 +82,11 @@
         v13 = @"active";
       }
 
-      v18 = 138543618;
-      v19 = v10;
-      v20 = 2112;
-      v21 = v13;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Idle timer fired and data stream is %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v10;
+      v19 = 2112;
+      v20 = v13;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Idle timer fired and data stream is %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -100,13 +101,11 @@
 
     [(HMDDataStreamController *)selfCopy _stopIdleTimer];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopIdleTimer
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDDataStreamController *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -120,9 +119,9 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v8;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Stopping idle timer", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v8;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Stopping idle timer", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -131,13 +130,11 @@
 
     [(HMDDataStreamController *)selfCopy setIdleTimer:0];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startIdleTimer
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDDataStreamController *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -148,9 +145,9 @@
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v20 = 138543362;
-    v21 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Starting idle timer", &v20, 0xCu);
+    v19 = 138543362;
+    v20 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Starting idle timer", &v19, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -183,8 +180,6 @@
 
   idleTimer3 = [(HMDDataStreamController *)selfCopy idleTimer];
   [idleTimer3 resume];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -206,7 +201,7 @@ void __37__HMDDataStreamController_invalidate__block_invoke(uint64_t a1)
 
 - (void)openBulkSendSessionForFileType:(id)type reason:(id)reason metadata:(id)metadata queue:(id)queue callback:(id)callback
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   reasonCopy = reason;
   metadataCopy = metadata;
@@ -242,20 +237,18 @@ void __37__HMDDataStreamController_invalidate__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v25 = v28 = v22;
+      v25 = v27 = v22;
       *buf = 138543362;
-      v30 = v25;
+      v29 = v25;
       _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@HMDDataStreamBulkSendProtocol not registered; cannot start bulk send session", buf, 0xCu);
 
-      v22 = v28;
+      v22 = v27;
     }
 
     objc_autoreleasePoolPop(v22);
     v26 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     callbackCopy[2](callbackCopy, 0, v26);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataStreamDidUpdateActiveStatus:(id)status
@@ -288,7 +281,7 @@ void __37__HMDDataStreamController_invalidate__block_invoke(uint64_t a1)
 
 - (void)dataStreamDidOpen:(id)open
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   openCopy = open;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -296,20 +289,18 @@ void __37__HMDDataStreamController_invalidate__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@DataStream opened", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@DataStream opened", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDDataStreamController *)selfCopy _processPendingSocketRequests];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataStreamDidClose:(id)close
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   closeCopy = close;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -317,20 +308,18 @@ void __37__HMDDataStreamController_invalidate__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@DataStream closed", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@DataStream closed", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDDataStreamController *)selfCopy _resetDefaultDataStream];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataStream:(id)stream didFailWithError:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   errorCopy = error;
   v8 = objc_autoreleasePoolPush();
@@ -339,17 +328,15 @@ void __37__HMDDataStreamController_invalidate__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     v11 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v11;
-    v15 = 2112;
-    v16 = errorCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@DataStream failed with error (%@)!", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v11;
+    v14 = 2112;
+    v15 = errorCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@DataStream failed with error (%@)!", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   [(HMDDataStreamController *)selfCopy _resetDefaultDataStream];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetDefaultDataStream
@@ -381,7 +368,7 @@ void __37__HMDDataStreamController_invalidate__block_invoke(uint64_t a1)
 
 - (void)_cancelStreamTransportWithError:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   setupInProgress = [(HMDDataStreamController *)self setupInProgress];
 
@@ -393,9 +380,9 @@ void __37__HMDDataStreamController_invalidate__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v9;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Canceling DataStream setup", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v9;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Canceling DataStream setup", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -419,9 +406,9 @@ void __37__HMDDataStreamController_invalidate__block_invoke(uint64_t a1)
       if (v15)
       {
         v16 = HMFGetLogIdentifier();
-        v20 = 138543362;
-        v21 = v16;
-        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Canceling active DataStream", &v20, 0xCu);
+        v19 = 138543362;
+        v20 = v16;
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Canceling active DataStream", &v19, 0xCu);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -434,21 +421,19 @@ void __37__HMDDataStreamController_invalidate__block_invoke(uint64_t a1)
       if (v15)
       {
         v18 = HMFGetLogIdentifier();
-        v20 = 138543362;
-        v21 = v18;
-        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Dropping cancel-stream; appears to already be canceled", &v20, 0xCu);
+        v19 = 138543362;
+        v20 = v18;
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Dropping cancel-stream; appears to already be canceled", &v19, 0xCu);
       }
 
       objc_autoreleasePoolPop(v12);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataStreamSetupOperation:(id)operation didFailWithError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   errorCopy = error;
   setupInProgress = [(HMDDataStreamController *)self setupInProgress];
@@ -461,22 +446,20 @@ void __37__HMDDataStreamController_invalidate__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Canceling DataStream setup (which is in progress)", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Canceling DataStream setup (which is in progress)", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
     [(HMDDataStreamController *)selfCopy setSetupInProgress:0];
     [(HMDDataStreamController *)selfCopy _failPendingSocketRequestsWithError:errorCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataStreamSetupOperation:(id)operation didSucceedWithTransport:(id)transport sessionEncryption:(id)encryption
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   transportCopy = transport;
   encryptionCopy = encryption;
@@ -507,21 +490,19 @@ void __37__HMDDataStreamController_invalidate__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = HMFGetLogIdentifier();
-      v22 = 138543362;
-      v23 = v15;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Setup operation succeeded however is no longer the current one; ignoring its result.", &v22, 0xCu);
+      v21 = 138543362;
+      v22 = v15;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Setup operation succeeded however is no longer the current one; ignoring its result.", &v21, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataStreamInitializationSetupOperation:(id)operation didCompleteSupportReadWithStatus:(BOOL)status
 {
   statusCopy = status;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   setupInProgress = [(HMDDataStreamController *)self setupInProgress];
 
@@ -547,9 +528,9 @@ void __37__HMDDataStreamController_invalidate__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         v15 = HMFGetLogIdentifier();
-        v19 = 138543362;
-        v20 = v15;
-        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Canceling DataStream initialization setup (which is in progress)", &v19, 0xCu);
+        v18 = 138543362;
+        v19 = v15;
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Canceling DataStream initialization setup (which is in progress)", &v18, 0xCu);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -567,20 +548,18 @@ void __37__HMDDataStreamController_invalidate__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v11;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Setup init operation succeeded however is no longer the current one; ignoring its result.", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = v11;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Setup init operation succeeded however is no longer the current one; ignoring its result.", &v18, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_initiateStreamSetup
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   setupInProgress = [(HMDDataStreamController *)self setupInProgress];
 
   if (!setupInProgress)
@@ -605,9 +584,9 @@ void __37__HMDDataStreamController_invalidate__block_invoke(uint64_t a1)
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           v20 = HMFGetLogIdentifier();
-          v23 = 138543362;
-          v24 = v20;
-          _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to create new DataStream; not supported", &v23, 0xCu);
+          v22 = 138543362;
+          v23 = v20;
+          _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to create new DataStream; not supported", &v22, 0xCu);
         }
 
         objc_autoreleasePoolPop(v17);
@@ -636,7 +615,7 @@ void __37__HMDDataStreamController_invalidate__block_invoke(uint64_t a1)
 
 LABEL_14:
 
-    goto LABEL_15;
+    return;
   }
 
   v4 = objc_autoreleasePoolPush();
@@ -645,22 +624,20 @@ LABEL_14:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = HMFGetLogIdentifier();
-    v23 = 138543362;
-    v24 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Initiating stream setup while already in progress; ignoring this extra call.", &v23, 0xCu);
+    v22 = 138543362;
+    v23 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Initiating stream setup while already in progress; ignoring this extra call.", &v22, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
-LABEL_15:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)setupRequiresCharacteristicReads
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ([(HMDDataStreamController *)self _isDataStreamCapable])
   {
-    goto LABEL_7;
+    return 0;
   }
 
   if (![(HMDDataStreamController *)self _isDataStreamConfigurationValid])
@@ -671,27 +648,15 @@ LABEL_15:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       v6 = HMFGetLogIdentifier();
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Current data stream configuration is not valid", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Current data stream configuration is not valid", &v8, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
   }
 
-  if ([(HMDDataStreamController *)self _isDataStreamCapable])
-  {
-LABEL_7:
-    result = 0;
-  }
-
-  else
-  {
-    result = 1;
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return ![(HMDDataStreamController *)self _isDataStreamCapable];
 }
 
 - (BOOL)_isDataStreamCapable
@@ -706,7 +671,7 @@ LABEL_7:
 
 - (void)_createStreamSocketWithStreamProtocol:(id)protocol applicationProtocolName:(id)name completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   protocolCopy = protocol;
   nameCopy = name;
   completionCopy = completion;
@@ -716,11 +681,11 @@ LABEL_7:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = HMFGetLogIdentifier();
-    v19 = 138543618;
-    v20 = v14;
-    v21 = 2112;
-    v22 = nameCopy;
-    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Creating stream socket for application protocol %@", &v19, 0x16u);
+    v18 = 138543618;
+    v19 = v14;
+    v20 = 2112;
+    v21 = nameCopy;
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Creating stream socket for application protocol %@", &v18, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -730,8 +695,6 @@ LABEL_7:
 
   [protocolCopy registerSocket:v17];
   completionCopy[2](completionCopy, v17, 0);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getStreamProtocol
@@ -771,36 +734,36 @@ LABEL_7:
 
 - (void)_failPendingSocketRequestsWithError:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   errorCopy = error;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   pendingSocketRequests = [(HMDDataStreamController *)self pendingSocketRequests];
-  v6 = [pendingSocketRequests countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [pendingSocketRequests countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(pendingSocketRequests);
         }
 
-        completion = [*(*(&v13 + 1) + 8 * v9) completion];
+        completion = [*(*(&v12 + 1) + 8 * v9) completion];
         (completion)[2](completion, 0, errorCopy);
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [pendingSocketRequests countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [pendingSocketRequests countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -808,45 +771,43 @@ LABEL_7:
 
   pendingSocketRequests2 = [(HMDDataStreamController *)self pendingSocketRequests];
   [pendingSocketRequests2 removeAllObjects];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processPendingSocketRequests
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   pendingSocketRequests = [(HMDDataStreamController *)self pendingSocketRequests];
   hmf_isEmpty = [pendingSocketRequests hmf_isEmpty];
 
   if ((hmf_isEmpty & 1) == 0)
   {
     _getStreamProtocol = [(HMDDataStreamController *)self _getStreamProtocol];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     pendingSocketRequests2 = [(HMDDataStreamController *)self pendingSocketRequests];
-    v7 = [pendingSocketRequests2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [pendingSocketRequests2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(pendingSocketRequests2);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * i);
+          v11 = *(*(&v15 + 1) + 8 * i);
           applicationProtocolName = [v11 applicationProtocolName];
           completion = [v11 completion];
           [(HMDDataStreamController *)self _createStreamSocketWithStreamProtocol:_getStreamProtocol applicationProtocolName:applicationProtocolName completion:completion];
         }
 
-        v8 = [pendingSocketRequests2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [pendingSocketRequests2 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v8);
@@ -855,8 +816,6 @@ LABEL_7:
     pendingSocketRequests3 = [(HMDDataStreamController *)self pendingSocketRequests];
     [pendingSocketRequests3 removeAllObjects];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openStreamSocketWithApplicationProtocol:(id)protocol completion:(id)completion
@@ -878,7 +837,7 @@ LABEL_7:
 
 void __78__HMDDataStreamController_openStreamSocketWithApplicationProtocol_completion___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) defaultDataStream];
 
   if (v2 || ([*(a1 + 32) _initiateStreamSetup], objc_msgSend(*(a1 + 32), "setupInProgress"), v3 = objc_claimAutoreleasedReturnValue(), v3, v3))
@@ -898,35 +857,72 @@ void __78__HMDDataStreamController_openStreamSocketWithApplicationProtocol_compl
       {
         v10 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v18 = v10;
+        v15 = v10;
         _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Waiting for DataStream setup before processing stream socket request", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v7);
-      v11 = *MEMORY[0x277D85DE8];
     }
 
     else
     {
-      v12 = *(a1 + 32);
-      v13 = *MEMORY[0x277D85DE8];
+      v11 = *(a1 + 32);
 
-      [v12 _processPendingSocketRequests];
+      [v11 _processPendingSocketRequests];
     }
   }
 
   else
   {
-    v14 = *(a1 + 48);
-    v16 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
-    (*(v14 + 16))(v14, 0);
-    v15 = *MEMORY[0x277D85DE8];
+    v12 = *(a1 + 48);
+    v13 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
+    (*(v12 + 16))(v12, 0);
+  }
+}
+
+- (void)sendTargetControlWhoAmIWithIdentifier:(unsigned int)identifier
+{
+  v3 = *&identifier;
+  v16 = *MEMORY[0x277D85DE8];
+  defaultDataStream = [(HMDDataStreamController *)self defaultDataStream];
+
+  v6 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v8 = HMFGetOSLogHandle();
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
+  if (defaultDataStream)
+  {
+    if (v9)
+    {
+      v10 = HMFGetLogIdentifier();
+      v14 = 138543362;
+      v15 = v10;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Data Stream sending target-control whoami message", &v14, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v6);
+    defaultDataStream2 = [(HMDDataStreamController *)selfCopy defaultDataStream];
+    protocolDelegateHandle = [defaultDataStream2 protocolDelegateHandle];
+    [HMDDataStreamTargetControlProtocol sendTargetControlWhoAmIWithIdentifier:v3 dataStreamProtocolDelegate:protocolDelegateHandle];
+  }
+
+  else
+  {
+    if (v9)
+    {
+      v13 = HMFGetLogIdentifier();
+      v14 = 138543362;
+      v15 = v13;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Data Stream not running; dropping target-control whoami message", &v14, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v6);
   }
 }
 
 - (void)removeBulkSendListener:(id)listener
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   accessory = [(HMDDataStreamController *)self accessory];
   defaultDataStream = [(HMDDataStreamController *)self defaultDataStream];
@@ -949,19 +945,19 @@ void __78__HMDDataStreamController_openStreamSocketWithApplicationProtocol_compl
         if (v23)
         {
           v24 = HMFGetLogIdentifier();
-          *v29 = 138543362;
-          *&v29[4] = v24;
+          *v28 = 138543362;
+          *&v28[4] = v24;
           v25 = "%{public}@Removed pending bulk-send listener registration (waiting for stream setup)";
 LABEL_20:
-          _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, v25, v29, 0xCu);
+          _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, v25, v28, 0xCu);
         }
       }
 
       else if (v23)
       {
         v24 = HMFGetLogIdentifier();
-        *v29 = 138543362;
-        *&v29[4] = v24;
+        *v28 = 138543362;
+        *&v28[4] = v24;
         v25 = "%{public}@Removed bulk-send listener trivially (stream setting up, but this was not part of it)";
         goto LABEL_20;
       }
@@ -975,8 +971,8 @@ LABEL_20:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         v24 = HMFGetLogIdentifier();
-        *v29 = 138543362;
-        *&v29[4] = v24;
+        *v28 = 138543362;
+        *&v28[4] = v24;
         v25 = "%{public}@Removed bulk-send listener trivially (nothing had started)";
         goto LABEL_20;
       }
@@ -984,7 +980,7 @@ LABEL_20:
 
     objc_autoreleasePoolPop(v20);
 LABEL_22:
-    [listenerCopy accessory:accessory didCloseDataStreamWithError:{0, *v29}];
+    [listenerCopy accessory:accessory didCloseDataStreamWithError:{0, *v28, *&v28[8]}];
     goto LABEL_23;
   }
 
@@ -1014,9 +1010,9 @@ LABEL_22:
     if (v15)
     {
       v16 = HMFGetLogIdentifier();
-      *v29 = 138543362;
-      *&v29[4] = v16;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Removed bulk-send listener on this stream", v29, 0xCu);
+      *v28 = 138543362;
+      *&v28[4] = v16;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Removed bulk-send listener on this stream", v28, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -1028,9 +1024,9 @@ LABEL_22:
   if (v15)
   {
     v26 = HMFGetLogIdentifier();
-    *v29 = 138543362;
-    *&v29[4] = v26;
-    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Removed bulk-send listener on this stream (but there was no protocol!?)", v29, 0xCu);
+    *v28 = 138543362;
+    *&v28[4] = v26;
+    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Removed bulk-send listener on this stream (but there was no protocol!?)", v28, 0xCu);
   }
 
   objc_autoreleasePoolPop(v12);
@@ -1038,12 +1034,11 @@ LABEL_22:
   [listenerCopy accessory:accessory didCloseDataStreamWithError:v27];
 
 LABEL_23:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addBulkSendListener:(id)listener fileType:(id)type
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   typeCopy = type;
   accessory = [(HMDDataStreamController *)self accessory];
@@ -1077,11 +1072,11 @@ LABEL_23:
       if (v18)
       {
         v19 = HMFGetLogIdentifier();
-        v30 = 138543618;
-        v31 = v19;
-        v32 = 2112;
-        v33 = typeCopy;
-        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Adding bulk-send listener on this stream for file-type '%@'", &v30, 0x16u);
+        v29 = 138543618;
+        v30 = v19;
+        v31 = 2112;
+        v32 = typeCopy;
+        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Adding bulk-send listener on this stream for file-type '%@'", &v29, 0x16u);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -1093,11 +1088,11 @@ LABEL_23:
       if (v18)
       {
         v26 = HMFGetLogIdentifier();
-        v30 = 138543618;
-        v31 = v26;
-        v32 = 2112;
-        v33 = typeCopy;
-        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Cancelling bulk-send listener registration for file-type '%@' due to no such protocol on this stream", &v30, 0x16u);
+        v29 = 138543618;
+        v30 = v26;
+        v31 = 2112;
+        v32 = typeCopy;
+        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Cancelling bulk-send listener registration for file-type '%@' due to no such protocol on this stream", &v29, 0x16u);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -1120,11 +1115,11 @@ LABEL_23:
       if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
         v25 = HMFGetLogIdentifier();
-        v30 = 138543618;
-        v31 = v25;
-        v32 = 2112;
-        v33 = typeCopy;
-        _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Add pending bulk-send listener registration for file-type '%@' (waiting for stream setup)", &v30, 0x16u);
+        v29 = 138543618;
+        v30 = v25;
+        v31 = 2112;
+        v32 = typeCopy;
+        _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Add pending bulk-send listener registration for file-type '%@' (waiting for stream setup)", &v29, 0x16u);
       }
 
       objc_autoreleasePoolPop(v21);
@@ -1136,12 +1131,12 @@ LABEL_23:
     {
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = HMFGetLogIdentifier();
-        v30 = 138543618;
-        v31 = v29;
-        v32 = 2112;
-        v33 = typeCopy;
-        _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@Canceling bulk-send listener registration for file-type '%@' due to no active data stream", &v30, 0x16u);
+        v28 = HMFGetLogIdentifier();
+        v29 = 138543618;
+        v30 = v28;
+        v31 = 2112;
+        v32 = typeCopy;
+        _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@Canceling bulk-send listener registration for file-type '%@' due to no active data stream", &v29, 0x16u);
       }
 
       objc_autoreleasePoolPop(v21);
@@ -1149,8 +1144,6 @@ LABEL_23:
       [listenerCopy accessory:accessory didCloseDataStreamWithError:setupInProgress2];
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getActiveProtocolWithName:(id)name
@@ -1167,26 +1160,24 @@ LABEL_23:
 
 - (void)_handleAccessoryDisconnected
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v6;
-    v11 = 2112;
-    v12 = selfCopy;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Accessory with HDS service is no longer connected: %@. Removing any transports that were active", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v6;
+    v10 = 2112;
+    v11 = selfCopy;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Accessory with HDS service is no longer connected: %@. Removing any transports that were active", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
   selfCopy->_supportsDataStreamOverTCP = 0;
   v7 = [MEMORY[0x277CCA9B8] hmErrorWithCode:4];
   [(HMDDataStreamController *)selfCopy _cancelStreamTransportWithError:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccessoryDisconnected:(id)disconnected
@@ -1205,7 +1196,7 @@ LABEL_23:
 
 void __55__HMDDataStreamController_handleAccessoryDisconnected___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) object];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -1237,24 +1228,22 @@ void __55__HMDDataStreamController_handleAccessoryDisconnected___block_invoke(ui
     {
       v10 = HMFGetLogIdentifier();
       v11 = [*(a1 + 40) accessory];
-      v13 = 138543874;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v4;
-      v17 = 2112;
-      v18 = v11;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unconfigured accessory: %@ did not match self.accessory :%@", &v13, 0x20u);
+      v12 = 138543874;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v4;
+      v16 = 2112;
+      v17 = v11;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unconfigured accessory: %@ did not match self.accessory :%@", &v12, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleAccessoryConnected
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDDataStreamController *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -1270,15 +1259,15 @@ void __55__HMDDataStreamController_handleAccessoryDisconnected___block_invoke(ui
     shortDescription = [accessory shortDescription];
     v12 = HMFBooleanToString();
     v13 = HMFBooleanToString();
-    v17 = 138544130;
-    v18 = v9;
-    v19 = 2112;
-    v20 = shortDescription;
-    v21 = 2112;
-    v22 = v12;
-    v23 = 2112;
-    v24 = v13;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Accessory with HDS service is connected: %@. Configured: %@ Accepts Bulk Send: %@", &v17, 0x2Au);
+    v16 = 138544130;
+    v17 = v9;
+    v18 = 2112;
+    v19 = shortDescription;
+    v20 = 2112;
+    v21 = v12;
+    v22 = 2112;
+    v23 = v13;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Accessory with HDS service is connected: %@. Configured: %@ Accepts Bulk Send: %@", &v16, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -1288,13 +1277,11 @@ void __55__HMDDataStreamController_handleAccessoryDisconnected___block_invoke(ui
     accessory2 = [(HMDDataStreamController *)selfCopy accessory];
     [defaultCenter postNotificationName:@"HMDAccessoryDoesSupportBulkSendDataStreamNotification" object:accessory2];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_readRequiredTransportCharacteristicsIfNeededWithCompletion:(id)completion
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   workQueue = [(HMDDataStreamController *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1306,7 +1293,7 @@ void __55__HMDDataStreamController_handleAccessoryDisconnected___block_invoke(ui
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v38 = v9;
+    v37 = v9;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Reading required transport characteristic for data stream controller", buf, 0xCu);
   }
 
@@ -1324,23 +1311,23 @@ void __55__HMDDataStreamController_handleAccessoryDisconnected___block_invoke(ui
       if (!value || ([v14 value], v16 = objc_claimAutoreleasedReturnValue(), v17 = v16 == 0, v16, value, v17))
       {
         v27 = [HMDCharacteristicRequest requestWithCharacteristic:v12];
-        v36[0] = v27;
+        v35[0] = v27;
         v28 = [HMDCharacteristicRequest requestWithCharacteristic:v14];
-        v36[1] = v28;
-        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
+        v35[1] = v28;
+        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
 
         objc_initWeak(buf, selfCopy);
         accessory = [(HMDDataStreamController *)selfCopy accessory];
         workQueue2 = [(HMDDataStreamController *)selfCopy workQueue];
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __87__HMDDataStreamController__readRequiredTransportCharacteristicsIfNeededWithCompletion___block_invoke;
-        v33[3] = &unk_278689410;
-        objc_copyWeak(&v35, buf);
-        v34 = completionCopy;
-        [accessory readCharacteristicValues:v29 source:1090 queue:workQueue2 completionHandler:v33];
+        v32[0] = MEMORY[0x277D85DD0];
+        v32[1] = 3221225472;
+        v32[2] = __87__HMDDataStreamController__readRequiredTransportCharacteristicsIfNeededWithCompletion___block_invoke;
+        v32[3] = &unk_278689410;
+        objc_copyWeak(&v34, buf);
+        v33 = completionCopy;
+        [accessory readCharacteristicValues:v29 source:1090 queue:workQueue2 completionHandler:v32];
 
-        objc_destroyWeak(&v35);
+        objc_destroyWeak(&v34);
         objc_destroyWeak(buf);
       }
 
@@ -1359,11 +1346,11 @@ void __55__HMDDataStreamController_handleAccessoryDisconnected___block_invoke(ui
       {
         v25 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v38 = v25;
-        v39 = 2112;
-        v40 = v12;
-        v41 = 2112;
-        v42 = v14;
+        v37 = v25;
+        v38 = 2112;
+        v39 = v12;
+        v40 = 2112;
+        v41 = v14;
         _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Cannot read required transport characteristic for data stream controller: version characteristic (%@) or supported configuration characteristic (%@) is nil", buf, 0x20u);
       }
 
@@ -1382,7 +1369,7 @@ void __55__HMDDataStreamController_handleAccessoryDisconnected___block_invoke(ui
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v38 = v21;
+      v37 = v21;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Cannot read required transport characteristic for data stream controller: transfer management service is nil", buf, 0xCu);
     }
 
@@ -1390,13 +1377,11 @@ void __55__HMDDataStreamController_handleAccessoryDisconnected___block_invoke(ui
     v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     (*(completionCopy + 2))(completionCopy, v12);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __87__HMDDataStreamController__readRequiredTransportCharacteristicsIfNeededWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
@@ -1405,26 +1390,26 @@ void __87__HMDDataStreamController__readRequiredTransportCharacteristicsIfNeeded
     v6 = [WeakRetained workQueue];
     dispatch_assert_queue_V2(v6);
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v7 = v3;
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [*(*(&v17 + 1) + 8 * i) error];
+          v12 = [*(*(&v16 + 1) + 8 * i) error];
           if (v12)
           {
             v13 = v12;
@@ -1432,7 +1417,7 @@ void __87__HMDDataStreamController__readRequiredTransportCharacteristicsIfNeeded
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v9)
         {
           continue;
@@ -1454,13 +1439,11 @@ LABEL_12:
     v15 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
     (*(v14 + 16))(v14, v15);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isDataStreamConfigurationValid
 {
-  v124 = *MEMORY[0x277D85DE8];
+  v123 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDDataStreamController *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -1483,8 +1466,8 @@ LABEL_12:
       v14 = v13;
       if (majorVersion == 1)
       {
-        v103 = transferManagementService;
-        v106 = v5;
+        v102 = transferManagementService;
+        v105 = v5;
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           v15 = HMFGetLogIdentifier();
@@ -1494,17 +1477,17 @@ LABEL_12:
           uuid = [accessory2 uuid];
           uUIDString = [uuid UUIDString];
           *buf = 138544130;
-          v117 = v15;
-          v118 = 2112;
-          v119 = v9;
-          v120 = 2112;
-          v121 = name;
-          v122 = 2112;
-          v123 = uUIDString;
+          v116 = v15;
+          v117 = 2112;
+          v118 = v9;
+          v119 = 2112;
+          v120 = name;
+          v121 = 2112;
+          v122 = uUIDString;
           _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEBUG, "%{public}@HDS has version '%@' (%@/%@)", buf, 0x2Au);
 
-          v5 = v106;
-          transferManagementService = v103;
+          v5 = v105;
+          transferManagementService = v102;
         }
 
         objc_autoreleasePoolPop(v11);
@@ -1514,9 +1497,9 @@ LABEL_12:
           [(HMDDataStreamController *)selfCopy _resetTransportInfo];
           v22 = MEMORY[0x277CFEB30];
           value3 = [v21 value];
-          v114 = 0;
-          v24 = [v22 parsedFromData:value3 error:&v114];
-          v25 = v114;
+          v113 = 0;
+          v24 = [v22 parsedFromData:value3 error:&v113];
+          v25 = v113;
 
           if (v25)
           {
@@ -1539,31 +1522,31 @@ LABEL_12:
               v84 = HMFGetLogIdentifier();
               accessory3 = [(HMDDataStreamController *)v82 accessory];
               [accessory3 name];
-              v86 = v101 = v21;
+              v86 = v100 = v21;
               [(HMDDataStreamController *)v82 accessory];
-              v97 = v24;
-              v87 = v99 = v27;
+              v96 = v24;
+              v87 = v98 = v27;
               [v87 uuid];
               v89 = v88 = v81;
               [v89 UUIDString];
-              v90 = v95 = v25;
+              v90 = v94 = v25;
               *buf = 138543874;
-              v117 = v84;
-              v118 = 2112;
-              v119 = v86;
-              v120 = 2112;
-              v121 = v90;
+              v116 = v84;
+              v117 = 2112;
+              v118 = v86;
+              v119 = 2112;
+              v120 = v90;
               _os_log_impl(&dword_229538000, v83, OS_LOG_TYPE_INFO, "%{public}@Failed to parse HDS supported configuration (%@/%@)", buf, 0x20u);
 
               v81 = v88;
-              v27 = v99;
-              v24 = v97;
+              v27 = v98;
+              v24 = v96;
 
-              v21 = v101;
-              transferManagementService = v103;
+              v21 = v100;
+              transferManagementService = v102;
 
-              v25 = v95;
-              v5 = v106;
+              v25 = v94;
+              v5 = v105;
             }
 
             objc_autoreleasePoolPop(v81);
@@ -1571,31 +1554,31 @@ LABEL_12:
 
           else
           {
-            v93 = v9;
-            v94 = v25;
-            v98 = v27;
-            v100 = v21;
-            v112 = 0u;
-            v113 = 0u;
-            v110 = 0u;
+            v92 = v9;
+            v93 = v25;
+            v97 = v27;
+            v99 = v21;
             v111 = 0u;
-            v96 = v24;
+            v112 = 0u;
+            v109 = 0u;
+            v110 = 0u;
+            v95 = v24;
             configurations = [v24 configurations];
-            v29 = [configurations countByEnumeratingWithState:&v110 objects:v115 count:16];
+            v29 = [configurations countByEnumeratingWithState:&v109 objects:v114 count:16];
             if (v29)
             {
               v30 = v29;
-              v31 = *v111;
+              v31 = *v110;
               do
               {
                 for (i = 0; i != v30; ++i)
                 {
-                  if (*v111 != v31)
+                  if (*v110 != v31)
                   {
                     objc_enumerationMutation(configurations);
                   }
 
-                  v33 = *(*(&v110 + 1) + 8 * i);
+                  v33 = *(*(&v109 + 1) + 8 * i);
                   transport = [v33 transport];
 
                   if (transport)
@@ -1628,7 +1611,7 @@ LABEL_12:
                           {
                             v44 = HMFGetLogIdentifier();
                             *buf = 138543362;
-                            v117 = v44;
+                            v116 = v44;
                             _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_DEFAULT, "%{public}@Accessory with HDS service advertises HDS-over-HAP but provides no MTU; ignoring.", buf, 0xCu);
                           }
 
@@ -1644,19 +1627,19 @@ LABEL_12:
                   }
                 }
 
-                v30 = [configurations countByEnumeratingWithState:&v110 objects:v115 count:16];
+                v30 = [configurations countByEnumeratingWithState:&v109 objects:v114 count:16];
               }
 
               while (v30);
             }
 
-            transferManagementService = v103;
-            v5 = v106;
-            v9 = v93;
-            v25 = v94;
-            v21 = v100;
-            v27 = v98;
-            v24 = v96;
+            transferManagementService = v102;
+            v5 = v105;
+            v9 = v92;
+            v25 = v93;
+            v21 = v99;
+            v27 = v97;
+            v24 = v95;
           }
         }
 
@@ -1674,17 +1657,17 @@ LABEL_12:
             uuid2 = [accessory5 uuid];
             uUIDString2 = [uuid2 UUIDString];
             *buf = 138543874;
-            v117 = v75;
-            v118 = 2112;
-            v119 = name2;
-            v120 = 2112;
-            v121 = uUIDString2;
+            v116 = v75;
+            v117 = 2112;
+            v118 = name2;
+            v119 = 2112;
+            v120 = uUIDString2;
             _os_log_impl(&dword_229538000, v74, OS_LOG_TYPE_INFO, "%{public}@No HDS supported configuration (%@/%@)", buf, 0x20u);
 
             v21 = 0;
-            v5 = v106;
+            v5 = v105;
 
-            transferManagementService = v103;
+            transferManagementService = v102;
           }
 
           objc_autoreleasePoolPop(v72);
@@ -1699,23 +1682,23 @@ LABEL_12:
         v66 = HMFGetLogIdentifier();
         accessory6 = [(HMDDataStreamController *)selfCopy accessory];
         [accessory6 name];
-        v68 = v109 = v5;
+        v68 = v108 = v5;
         accessory7 = [(HMDDataStreamController *)selfCopy accessory];
         uuid3 = [accessory7 uuid];
         [uuid3 UUIDString];
-        v71 = v105 = transferManagementService;
+        v71 = v104 = transferManagementService;
         *buf = 138544130;
-        v117 = v66;
-        v118 = 2112;
-        v119 = v9;
-        v120 = 2112;
-        v121 = v68;
-        v122 = 2112;
-        v123 = v71;
+        v116 = v66;
+        v117 = 2112;
+        v118 = v9;
+        v119 = 2112;
+        v120 = v68;
+        v121 = 2112;
+        v122 = v71;
         _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@HDS version '%@' is not supported (%@/%@)", buf, 0x2Au);
 
-        v5 = v109;
-        transferManagementService = v105;
+        v5 = v108;
+        transferManagementService = v104;
       }
 
       v65 = v11;
@@ -1731,27 +1714,27 @@ LABEL_12:
         v58 = HMFGetLogIdentifier();
         value6 = [v5 value];
         [(HMDDataStreamController *)selfCopy2 accessory];
-        v60 = v108 = v5;
+        v60 = v107 = v5;
         [v60 name];
-        v61 = v104 = transferManagementService;
+        v61 = v103 = transferManagementService;
         [(HMDDataStreamController *)selfCopy2 accessory];
-        v62 = v102 = v55;
+        v62 = v101 = v55;
         uuid4 = [v62 uuid];
         uUIDString3 = [uuid4 UUIDString];
         *buf = 138544130;
-        v117 = v58;
-        v118 = 2112;
-        v119 = value6;
-        v120 = 2112;
-        v121 = v61;
-        v122 = 2112;
-        v123 = uUIDString3;
+        v116 = v58;
+        v117 = 2112;
+        v118 = value6;
+        v119 = 2112;
+        v120 = v61;
+        v121 = 2112;
+        v122 = uUIDString3;
         _os_log_impl(&dword_229538000, v57, OS_LOG_TYPE_INFO, "%{public}@HDS version '%@' was not parsable (%@/%@)", buf, 0x2Au);
 
-        v55 = v102;
-        transferManagementService = v104;
+        v55 = v101;
+        transferManagementService = v103;
 
-        v5 = v108;
+        v5 = v107;
       }
 
       v65 = v55;
@@ -1773,27 +1756,26 @@ LABEL_50:
     accessory8 = [(HMDDataStreamController *)selfCopy3 accessory];
     name3 = [accessory8 name];
     [(HMDDataStreamController *)selfCopy3 accessory];
-    v51 = v107 = v5;
+    v51 = v106 = v5;
     [v51 uuid];
     v53 = v52 = transferManagementService;
     uUIDString4 = [v53 UUIDString];
     *buf = 138543874;
-    v117 = v48;
-    v118 = 2112;
-    v119 = name3;
-    v120 = 2112;
-    v121 = uUIDString4;
+    v116 = v48;
+    v117 = 2112;
+    v118 = name3;
+    v119 = 2112;
+    v120 = uUIDString4;
     _os_log_impl(&dword_229538000, v47, OS_LOG_TYPE_INFO, "%{public}@No HDS version found (%@/%@)", buf, 0x20u);
 
     transferManagementService = v52;
-    v5 = v107;
+    v5 = v106;
   }
 
   objc_autoreleasePoolPop(v45);
   v27 = 0;
 LABEL_51:
 
-  v91 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
@@ -1821,7 +1803,7 @@ uint64_t __51__HMDDataStreamController_handleAccessoryConnected__block_invoke(ui
 
 void __51__HMDDataStreamController_handleAccessoryConnected__block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) workQueue];
   dispatch_assert_queue_V2(v4);
@@ -1834,11 +1816,11 @@ void __51__HMDDataStreamController_handleAccessoryConnected__block_invoke_2(uint
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543618;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to read the required transport characteristics: %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to read the required transport characteristics: %@", &v9, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -1848,8 +1830,6 @@ void __51__HMDDataStreamController_handleAccessoryConnected__block_invoke_2(uint
   {
     [*(a1 + 32) _handleAccessoryConnected];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetTransportInfo

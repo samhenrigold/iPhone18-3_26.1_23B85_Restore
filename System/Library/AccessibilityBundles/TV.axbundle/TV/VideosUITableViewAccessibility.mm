@@ -14,7 +14,7 @@
 
 - (id)_accessibilitySupplementaryHeaderViews
 {
-  v12[1] = *MEMORY[0x29EDCA608];
+  v11[1] = *MEMORY[0x29EDCA608];
   v3 = [(VideosUITableViewAccessibility *)self _accessibilityFindAncestor:&__block_literal_global_0 startWithSelf:0];
   v4 = v3;
   if (v3)
@@ -24,8 +24,8 @@
     v7 = v6;
     if (v6)
     {
-      v12[0] = v6;
-      _accessibilitySupplementaryHeaderViews = [MEMORY[0x29EDB8D80] arrayWithObjects:v12 count:1];
+      v11[0] = v6;
+      _accessibilitySupplementaryHeaderViews = [MEMORY[0x29EDB8D80] arrayWithObjects:v11 count:1];
     }
 
     else
@@ -36,12 +36,10 @@
 
   else
   {
-    v11.receiver = self;
-    v11.super_class = VideosUITableViewAccessibility;
-    _accessibilitySupplementaryHeaderViews = [(VideosUITableViewAccessibility *)&v11 _accessibilitySupplementaryHeaderViews];
+    v10.receiver = self;
+    v10.super_class = VideosUITableViewAccessibility;
+    _accessibilitySupplementaryHeaderViews = [(VideosUITableViewAccessibility *)&v10 _accessibilitySupplementaryHeaderViews];
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 
   return _accessibilitySupplementaryHeaderViews;
 }

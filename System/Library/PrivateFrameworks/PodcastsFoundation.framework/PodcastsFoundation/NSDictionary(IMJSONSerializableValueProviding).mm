@@ -7,7 +7,7 @@
 - (id)im_jsonSerializableValue
 {
   selfCopy = self;
-  v36 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if ([MEMORY[0x1E696ACB0] isValidJSONObject:self])
   {
     v2 = selfCopy;
@@ -16,92 +16,89 @@
   else
   {
     allKeys = [selfCopy allKeys];
-    v24 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(allKeys, "count")}];
+    v22 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(allKeys, "count")}];
+    v23 = 0u;
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v28 = 0u;
     v4 = allKeys;
-    v5 = [v4 countByEnumeratingWithState:&v25 objects:v35 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v23 objects:v33 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v26;
+      v7 = *v24;
       v8 = 0x1E696A000uLL;
-      v23 = *v26;
+      v21 = *v24;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v26 != v7)
+          if (*v24 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v10 = *(*(&v25 + 1) + 8 * i);
-          v11 = *(v8 + 3776);
+          v10 = *(*(&v23 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v12 = [selfCopy objectForKey:v10];
-            v13 = jsonSerializableValueForValue(v12);
-            if (v13)
+            v11 = [selfCopy objectForKey:v10];
+            v12 = jsonSerializableValueForValue(v11);
+            if (v12)
             {
-              [v24 setObject:v13 forKey:v10];
+              [v22 setObject:v12 forKey:v10];
             }
 
             else
             {
-              v15 = v8;
-              v16 = v4;
-              v17 = selfCopy;
-              v18 = objc_opt_class();
-              v19 = NSStringFromClass(v18);
-              v20 = _IMStoreLogCategoryDefault();
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+              v14 = v8;
+              v15 = v4;
+              v16 = selfCopy;
+              v17 = objc_opt_class();
+              v18 = NSStringFromClass(v17);
+              v19 = _IMStoreLogCategoryDefault();
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412802;
-                v30 = v12;
+                v28 = v11;
+                v29 = 2112;
+                v30 = v18;
                 v31 = 2112;
-                v32 = v19;
-                v33 = 2112;
-                v34 = v10;
-                _os_log_impl(&dword_1D8CEC000, v20, OS_LOG_TYPE_ERROR, "Object %@ of class %@ for key %@ isn't JSON serializable", buf, 0x20u);
+                v32 = v10;
+                _os_log_impl(&dword_1D8CEC000, v19, OS_LOG_TYPE_ERROR, "Object %@ of class %@ for key %@ isn't JSON serializable", buf, 0x20u);
               }
 
-              selfCopy = v17;
-              v4 = v16;
-              v8 = v15;
-              v7 = v23;
+              selfCopy = v16;
+              v4 = v15;
+              v8 = v14;
+              v7 = v21;
             }
           }
 
           else
           {
-            v14 = objc_opt_class();
-            v12 = NSStringFromClass(v14);
-            v13 = _IMStoreLogCategoryDefault();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+            v13 = objc_opt_class();
+            v11 = NSStringFromClass(v13);
+            v12 = _IMStoreLogCategoryDefault();
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v30 = v10;
-              v31 = 2112;
-              v32 = v12;
-              _os_log_impl(&dword_1D8CEC000, v13, OS_LOG_TYPE_ERROR, "Non-string key %@ class %@ isn't JSON serializable", buf, 0x16u);
+              v28 = v10;
+              v29 = 2112;
+              v30 = v11;
+              _os_log_impl(&dword_1D8CEC000, v12, OS_LOG_TYPE_ERROR, "Non-string key %@ class %@ isn't JSON serializable", buf, 0x16u);
             }
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v25 objects:v35 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v23 objects:v33 count:16];
       }
 
       while (v6);
     }
 
-    v2 = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v24];
+    v2 = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v22];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

@@ -269,7 +269,6 @@ void __30__PredictionsBuffer_logBuffer__block_invoke(id *a1, void *a2, void *a3,
   [a1[4] addObject:v14[0]];
   objc_storeStrong(v14, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)description

@@ -2004,7 +2004,7 @@ LABEL_146:
 
 - (int64_t)preProcessColor:(__CVBuffer *)color processedColor:(__CVBuffer *)processedColor referenceCameraCalibration:(id)calibration colorCameraCalibration:(id)cameraCalibration
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   calibrationCopy = calibration;
   cameraCalibrationCopy = cameraCalibration;
   kdebug_trace();
@@ -2017,49 +2017,65 @@ LABEL_146:
   colorInputProcessingSession = self->_colorInputProcessingSession;
   if (!colorInputProcessingSession)
   {
-    CVPixelBufferGetPixelFormatType(color);
+    v43 = CVPixelBufferGetPixelFormatType(color);
     Width = CVPixelBufferGetWidth(color);
     Height = CVPixelBufferGetHeight(color);
-    CVPixelBufferGetPixelFormatType(processedColor);
+    v17 = CVPixelBufferGetPixelFormatType(processedColor);
+    v18 = Width;
+    v19 = Height;
     networkFlowType = self->_networkFlowType;
     if (networkFlowType < 3)
     {
-      CVPixelBufferGetWidth(processedColor);
-      CVPixelBufferGetHeight(processedColor);
+      v21 = CVPixelBufferGetWidth(processedColor);
+      v22 = CVPixelBufferGetHeight(processedColor);
       colorInput = [(ADEspressoPearlColorInFieldCalibrationBackendInferenceDescriptor *)self->_backendInferenceDesc colorInput];
       imageDescriptor = [colorInput imageDescriptor];
       [imageDescriptor sizeForLayout:255];
+      v26 = v25;
+      v28 = v27;
 
-      PixelBufferUtilsSession::createCropScaleConvertRotateSession();
+      if (v19 / (v28 / v26) <= v18)
+      {
+        v29 = v19 / (v28 / v26);
+      }
+
+      else
+      {
+        v29 = v18;
+      }
+
+      PixelBufferUtilsSession::createCropScaleConvertRotateSession(v43, v17, 0, v18, v19, v21, v22, (v18 - v29) * 0.5, (v19 - v28 / v26 * v29) * 0.5, v29, v28 / v26 * v29, *MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24));
     }
 
     if (networkFlowType == 3)
     {
-      CVPixelBufferGetWidth(processedColor);
-      CVPixelBufferGetHeight(processedColor);
-      v20 = Width / Height;
-      if (fabs(v20 + -0.75) < 0.01 || fabs(v20 + -0.5625) < 0.01)
+      v30 = CVPixelBufferGetWidth(processedColor);
+      v31 = CVPixelBufferGetHeight(processedColor);
+      v32 = v18 / v19;
+      if (fabs(v32 + -0.75) < 0.01 || fabs(v32 + -0.5625) < 0.01)
       {
         colorInput2 = [(ADEspressoPearlColorInFieldCalibrationBackendInferenceDescriptor *)self->_backendInferenceDesc colorInput];
         imageDescriptor2 = [colorInput2 imageDescriptor];
         [imageDescriptor2 sizeForLayout:255];
+        v36 = v35;
+        v38 = v37;
 
-        PixelBufferUtilsSession::createCropScaleConvertRotateSession();
+        PixelBufferUtilsSession::createCropScaleConvertRotateSession(v43, v17, 1, v18, v19, v30, v31, *MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24), ((v38 - (v36 * v18 / v19)) * 0.5), 0.0, (v36 * v18 / v19), v36);
       }
 
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_15;
+        goto LABEL_18;
       }
 
       *buf = 67109376;
-      v28 = Width;
-      v29 = 1024;
-      v30 = Height;
-      v24 = MEMORY[0x277D86220];
-      v25 = "PearlColorInfieldCalibration: unexpected resolution (%dx%d)";
-      v26 = 14;
-      goto LABEL_20;
+      v45 = Width;
+      v46 = 1024;
+      v47 = Height;
+      v40 = MEMORY[0x277D86220];
+      v41 = "PearlColorInfieldCalibration: unexpected resolution (%dx%d)";
+      v42 = 14;
+      goto LABEL_23;
     }
 
     colorInputProcessingSession = self->_colorInputProcessingSession;
@@ -2067,29 +2083,29 @@ LABEL_146:
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-LABEL_15:
+LABEL_18:
         v13 = -22950;
-        goto LABEL_16;
+        goto LABEL_19;
       }
 
       *buf = 0;
-      v24 = MEMORY[0x277D86220];
-      v25 = "PearlColorInfieldCalibration unable to create VT session";
-      v26 = 2;
-LABEL_20:
-      _os_log_error_impl(&dword_2402F6000, v24, OS_LOG_TYPE_ERROR, v25, buf, v26);
-      goto LABEL_15;
+      v40 = MEMORY[0x277D86220];
+      v41 = "PearlColorInfieldCalibration unable to create VT session";
+      v42 = 2;
+LABEL_23:
+      _os_log_error_impl(&dword_2402F6000, v40, OS_LOG_TYPE_ERROR, v41, buf, v42);
+      goto LABEL_18;
     }
   }
 
   if (self->_networkFlowType > 3u || (PixelBufferUtilsSession::run(colorInputProcessingSession, color, processedColor) & 1) == 0)
   {
-    goto LABEL_15;
+    goto LABEL_18;
   }
 
 LABEL_2:
   v13 = 0;
-LABEL_16:
+LABEL_19:
   kdebug_trace();
 
   return v13;

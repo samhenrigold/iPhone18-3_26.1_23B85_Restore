@@ -38,38 +38,38 @@
 
 - (CRDictationService)init
 {
-  v8.receiver = self;
-  v8.super_class = CRDictationService;
-  v2 = [(CRDictationService *)&v8 init];
-  if (v2)
+  v9.receiver = self;
+  v9.super_class = CRDictationService;
+  v3 = [(CRDictationService *)&v9 init];
+  if (v3)
   {
-    v10 = 0;
-    v11 = &v10;
-    v12 = 0x2050000000;
-    v3 = qword_100107F18;
-    v13 = qword_100107F18;
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x2050000000;
+    v4 = qword_100107F18;
+    v14 = qword_100107F18;
     if (!qword_100107F18)
     {
-      v9[0] = _NSConcreteStackBlock;
-      v9[1] = 3221225472;
-      v9[2] = sub_10000D3AC;
-      v9[3] = &unk_1000DD660;
-      v9[4] = &v10;
-      sub_10000D3AC(v9);
-      v3 = v11[3];
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_10000D3AC;
+      v10[3] = &unk_1000DD660;
+      v10[4] = &v11;
+      sub_10000D3AC(v10, v2);
+      v4 = v12[3];
     }
 
-    v4 = v3;
-    _Block_object_dispose(&v10, 8);
-    v5 = objc_alloc_init(v3);
-    dictationConnection = v2->_dictationConnection;
-    v2->_dictationConnection = v5;
+    v5 = v4;
+    _Block_object_dispose(&v11, 8);
+    v6 = objc_alloc_init(v4);
+    dictationConnection = v3->_dictationConnection;
+    v3->_dictationConnection = v6;
 
-    [(AFDictationConnection *)v2->_dictationConnection setDelegate:v2];
-    v2->_state = [(CRDictationService *)v2 dictationAvailable]- 1;
+    [(AFDictationConnection *)v3->_dictationConnection setDelegate:v3];
+    v3->_state = [(CRDictationService *)v3 dictationAvailable]- 1;
   }
 
-  return v2;
+  return v3;
 }
 
 - (BOOL)dictationEnabledInKeyboardSettings
@@ -82,7 +82,7 @@
 
 - (BOOL)dictationAvailable
 {
-  if (!sub_10000D43C() || !+[AFDictationConnection dictationIsEnabled])
+  if (!sub_10000D43C(0) || !+[AFDictationConnection dictationIsEnabled])
   {
     return 0;
   }

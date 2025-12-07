@@ -1,7 +1,7 @@
 @interface PKPaletteToolPickerClippingEdgeView
 - (PKPaletteToolPickerClippingEdgeView)init;
+- (double)initWithEdge:(void *)edge inParent:(void *)parent withScrollView:;
 - (double)scaledMagicPocketThickness;
-- (id)initWithEdge:(void *)edge inParent:(void *)parent withScrollView:;
 - (void)_updateUI;
 - (void)layoutSubviews;
 - (void)setScalingFactor:(double)factor;
@@ -11,9 +11,9 @@
 
 - (PKPaletteToolPickerClippingEdgeView)init
 {
-  v8.receiver = self;
-  v8.super_class = PKPaletteToolPickerClippingEdgeView;
-  v2 = [(PKPaletteToolPickerClippingEdgeView *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = PKPaletteToolPickerClippingEdgeView;
+  v2 = [(PKPaletteToolPickerClippingEdgeView *)&v9 init];
   v3 = v2;
   if (v2)
   {
@@ -35,76 +35,76 @@
 
 - (void)_updateUI
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   if (self)
   {
     if (_UISolariumEnabled())
     {
       [*(self + 416) setHidden:*(self + 441)];
       [*(self + 432) setHidden:*(self + 441)];
-      v2 = *(self + 441);
-      v3 = *(self + 416);
+      v3 = *(self + 441);
+      v4 = *(self + 416);
 
-      [v3 setHidden:v2];
+      [v4 setHidden:v3];
     }
 
     else
     {
       systemFillColor = [MEMORY[0x1E69DC888] systemFillColor];
-      v5 = 0.5;
-      v6 = [systemFillColor colorWithAlphaComponent:0.5];
+      v6 = 0.5;
+      v7 = [systemFillColor colorWithAlphaComponent:0.5];
 
-      v7 = [v6 colorWithAlphaComponent:0.0];
-      v17[0] = [v6 CGColor];
-      v17[1] = [v7 CGColor];
-      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
-      [*(self + 408) setColors:v8];
+      v8 = [v7 colorWithAlphaComponent:0.0];
+      v18[0] = [v7 CGColor];
+      v18[1] = [v8 CGColor];
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+      [*(self + 408) setColors:v9];
 
-      v9 = *(self + 456);
-      v10 = 0.75;
-      if (v9)
+      v10 = *(self + 456);
+      v11 = 0.75;
+      if (v10)
       {
-        v11 = 0.5;
-      }
-
-      else
-      {
-        v11 = 0.75;
-      }
-
-      if (v9)
-      {
-        v12 = 1.0;
-      }
-
-      else
-      {
-        v10 = 0.5;
         v12 = 0.5;
       }
 
-      if (!v9)
+      else
       {
-        v5 = 1.0;
+        v12 = 0.75;
       }
 
-      [*(self + 408) setStartPoint:{v10, v11}];
-      [*(self + 408) setEndPoint:{v12, v5}];
-      v13 = -1.0;
-      if (!*(self + 440))
+      if (v10)
       {
         v13 = 1.0;
       }
 
-      CATransform3DMakeScale(&v16, v13, 1.0, 1.0);
-      v14 = *(self + 408);
-      v15 = v16;
-      [v14 setTransform:&v15];
+      else
+      {
+        v11 = 0.5;
+        v13 = 0.5;
+      }
+
+      if (!v10)
+      {
+        v6 = 1.0;
+      }
+
+      [*(self + 408) setStartPoint:{v11, v12}];
+      [*(self + 408) setEndPoint:{v13, v6}];
+      v14 = -1.0;
+      if (!*(self + 440))
+      {
+        v14 = 1.0;
+      }
+
+      CATransform3DMakeScale(&v17, v14, 1.0, 1.0);
+      v15 = *(self + 408);
+      v16 = v17;
+      [v15 setTransform:&v16];
     }
   }
 }
 
-- (id)initWithEdge:(void *)edge inParent:(void *)parent withScrollView:
+- (double)initWithEdge:(void *)edge inParent:(void *)parent withScrollView:
 {
   v91 = *MEMORY[0x1E69E9840];
   edgeCopy = edge;

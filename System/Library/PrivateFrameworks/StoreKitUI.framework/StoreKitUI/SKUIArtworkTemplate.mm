@@ -253,15 +253,15 @@
   {
     urlTemplateString = self->_urlTemplateString;
     urlTemplateString = [equalCopy urlTemplateString];
-    v7 = [(NSString *)urlTemplateString isEqualToString:urlTemplateString];
+    isEqualToString = objc_msgSend_isEqualToString_(urlTemplateString);
   }
 
   else
   {
-    v7 = 0;
+    isEqualToString = 0;
   }
 
-  return v7;
+  return isEqualToString;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

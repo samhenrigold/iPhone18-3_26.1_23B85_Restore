@@ -39,20 +39,18 @@
 
 id __60__LAPSPasscodeChangeSystemStubbedAdapter_newPasscodeRequest__block_invoke()
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB70];
   v1 = +[LAPSPasscodeType numericFourDigitsType];
-  v9[0] = v1;
+  v8[0] = v1;
   v2 = +[LAPSPasscodeType numericSixDigitsType];
-  v9[1] = v2;
+  v8[1] = v2;
   v3 = +[LAPSPasscodeType numericCustomDigitsType];
-  v9[2] = v3;
+  v8[2] = v3;
   v4 = +[LAPSPasscodeType alphanumericType];
-  v9[3] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
+  v8[3] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:4];
   v6 = [v0 orderedSetWithArray:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

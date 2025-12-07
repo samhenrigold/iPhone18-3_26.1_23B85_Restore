@@ -1,6 +1,7 @@
 @interface DIBaseParams
 - (BOOL)RAMdisk;
 - (BOOL)hasUnlockedBackend;
+- (BOOL)openExistingImageWithFlags:(int)flags error:(id *)error;
 - (BOOL)prepareImageWithXpcHandler:(id)handler fileMode:(int64_t)mode error:(id *)error;
 - (BOOL)requiresRootDaemon;
 - (BOOL)tryResolvePstackChain:(id *)chain;
@@ -139,13 +140,86 @@ LABEL_10:
   return v15;
 }
 
+- (BOOL)openExistingImageWithFlags:(int)flags error:(id *)error
+{
+  v5 = *&flags;
+  diskImageParamsXPC = [(DIBaseParams *)self diskImageParamsXPC];
+
+  if (diskImageParamsXPC)
+  {
+    v8 = *__error();
+    v9 = sub_1000E95F0();
+    if (v9)
+    {
+      v22 = 0;
+      v11 = sub_1000E957C(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      {
+        v12 = 3;
+      }
+
+      else
+      {
+        v12 = 2;
+      }
+
+      *buf = 68157954;
+      v24 = 49;
+      v25 = 2080;
+      v26 = "[DIBaseParams openExistingImageWithFlags:error:]";
+      LODWORD(v21) = 18;
+      v13 = _os_log_send_and_compose_impl(v12, &v22, 0, 0, &_mh_execute_header, v11, 0, "%.*s: Using existing disk image params", buf, v21);
+
+      if (v13)
+      {
+        fprintf(__stderrp, "%s\n", v13);
+        free(v13);
+      }
+    }
+
+    else
+    {
+      v18 = sub_1000E957C(v9, v10);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 68157954;
+        v24 = 49;
+        v25 = 2080;
+        v26 = "[DIBaseParams openExistingImageWithFlags:error:]";
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%.*s: Using existing disk image params", buf, 0x12u);
+      }
+    }
+
+    *__error() = v8;
+  }
+
+  else
+  {
+    inputURL = [(DIBaseParams *)self inputURL];
+    v15 = [DiskImageParamsXPC newWithURL:inputURL fileOpenFlags:v5 error:error];
+    [(DIBaseParams *)self setDiskImageParamsXPC:v15];
+
+    diskImageParamsXPC2 = [(DIBaseParams *)self diskImageParamsXPC];
+
+    if (!diskImageParamsXPC2)
+    {
+      return 0;
+    }
+
+    diskImageParamsXPC3 = [(DIBaseParams *)self diskImageParamsXPC];
+    -[DIBaseParams setBlockSize:](self, "setBlockSize:", [diskImageParamsXPC3 blockSize]);
+  }
+
+  return 1;
+}
+
 - (BOOL)tryResolvePstackChain:(id *)chain
 {
   v5 = [SerializedDiskImageGraph alloc];
   inputURL = [(DIBaseParams *)self inputURL];
-  v28 = 0;
-  v7 = [(SerializedDiskImageGraph *)v5 initWithPstackURL:inputURL error:&v28];
-  v8 = v28;
+  v33 = 0;
+  v7 = [(SerializedDiskImageGraph *)v5 initWithPstackURL:inputURL error:&v33];
+  v8 = v33;
 
   if (v7)
   {
@@ -183,55 +257,67 @@ LABEL_10:
       self->_inputURL = v19;
     }
 
-    goto LABEL_20;
+    goto LABEL_23;
   }
 
   domain = [v8 domain];
   if (![domain isEqualToString:@"com.apple.DiskImages2.ErrorDomain"])
   {
 
-    goto LABEL_14;
+    goto LABEL_17;
   }
 
   v22 = [v8 code] == 167;
 
   if (!v22)
   {
-LABEL_14:
+LABEL_17:
     v18 = [DIError failWithInError:v8 outError:chain];
-    goto LABEL_20;
+    goto LABEL_23;
   }
 
   if (sub_1000E9608())
   {
     v23 = *__error();
-    if (sub_1000E95F0())
+    v24 = sub_1000E95F0();
+    if (v24)
     {
-      v24 = sub_1000E957C();
-      os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG);
-      *buf = 68157954;
-      v30 = 38;
-      v31 = 2080;
-      v32 = "[DIBaseParams tryResolvePstackChain:]";
-      v25 = _os_log_send_and_compose_impl();
-
-      if (v25)
+      v32 = 0;
+      v26 = sub_1000E957C(v24, v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
-        fprintf(__stderrp, "%s\n", v25);
-        free(v25);
+        v27 = 3;
+      }
+
+      else
+      {
+        v27 = 2;
+      }
+
+      *buf = 68157954;
+      v35 = 38;
+      v36 = 2080;
+      v37 = "[DIBaseParams tryResolvePstackChain:]";
+      LODWORD(v31) = 18;
+      v28 = _os_log_send_and_compose_impl(v27, &v32, 0, 0, &_mh_execute_header, v26, 2, "%.*s: Not a pstack", buf, v31);
+
+      if (v28)
+      {
+        fprintf(__stderrp, "%s\n", v28);
+        free(v28);
       }
     }
 
     else
     {
-      v26 = sub_1000E957C();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      v29 = sub_1000E957C(v24, v25);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
       {
         *buf = 68157954;
-        v30 = 38;
-        v31 = 2080;
-        v32 = "[DIBaseParams tryResolvePstackChain:]";
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "%.*s: Not a pstack", buf, 0x12u);
+        v35 = 38;
+        v36 = 2080;
+        v37 = "[DIBaseParams tryResolvePstackChain:]";
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEBUG, "%.*s: Not a pstack", buf, 0x12u);
       }
     }
 
@@ -239,7 +325,7 @@ LABEL_14:
   }
 
   v18 = 1;
-LABEL_20:
+LABEL_23:
 
   return v18;
 }
@@ -351,11 +437,11 @@ LABEL_20:
 
 - (BOOL)requiresRootDaemon
 {
-  [(DIBaseParams *)self backend];
-  sub_100192CB4(&v12, &lpsrc);
-  if (v13)
+  objc_msgSend_backend(self, a2);
+  sub_100192CB4(&v9, &lpsrc);
+  if (v10)
   {
-    sub_10000E984(v13);
+    sub_10000E984(v10);
   }
 
   v2 = lpsrc;
@@ -364,49 +450,46 @@ LABEL_20:
     goto LABEL_14;
   }
 
-  v3 = *lpsrc;
-  v4 = **lpsrc;
-  if (!v5)
+  if (!v3)
   {
-    v8 = *v3;
-    if (v9)
+    if (v6)
     {
-      v6 = v15;
-      if (v15)
+      v4 = v12;
+      if (v12)
       {
-        atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v7 = sub_100057078(v9 + 24);
+      v5 = sub_100057078(v6 + 24);
       goto LABEL_12;
     }
 
 LABEL_14:
-    v10 = 0;
+    v7 = 0;
     goto LABEL_15;
   }
 
-  v6 = v15;
-  if (v15)
+  v4 = v12;
+  if (v12)
   {
-    atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v7 = sub_100057078(v5[5]);
+  v5 = sub_100057078(v3[5]);
 LABEL_12:
-  v10 = v7;
-  if (v6)
+  v7 = v5;
+  if (v4)
   {
-    sub_10000E984(v6);
+    sub_10000E984(v4);
   }
 
 LABEL_15:
-  if (v15)
+  if (v12)
   {
-    sub_10000E984(v15);
+    sub_10000E984(v12);
   }
 
-  return v10;
+  return v7;
 }
 
 - (void)setSymmetricKey:(id)key
@@ -467,7 +550,7 @@ LABEL_15:
   v5 = backendXPC;
   if (backendXPC)
   {
-    [backendXPC backend];
+    objc_msgSend_backend(backendXPC);
   }
 
   else

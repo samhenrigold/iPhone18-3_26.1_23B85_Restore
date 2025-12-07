@@ -31,23 +31,24 @@
   peripheralCopy = peripheral;
   servicesCopy = services;
   ownerDelegate = [(EPResource *)self ownerDelegate];
-  if (objc_opt_respondsToSelector())
+  v9 = objc_opt_respondsToSelector();
+  if (v9)
   {
-    v9 = sub_1000A98C0();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v10 = sub_1000A98C0(v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-    if (v10)
+    if (v11)
     {
-      v11 = sub_1000A98C0();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_1000A98C0(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
-        v14 = 138412546;
-        v15 = v13;
-        v16 = 2048;
-        v17 = ownerDelegate;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Calling peripheral:didDiscoverServices: on %@[%p]", &v14, 0x16u);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v16 = 138412546;
+        v17 = v15;
+        v18 = 2048;
+        v19 = ownerDelegate;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Calling peripheral:didDiscoverServices: on %@[%p]", &v16, 0x16u);
       }
     }
 
@@ -61,23 +62,24 @@
   serviceCopy = service;
   errorCopy = error;
   ownerDelegate = [(EPResource *)self ownerDelegate];
-  if (objc_opt_respondsToSelector())
+  v12 = objc_opt_respondsToSelector();
+  if (v12)
   {
-    v12 = sub_1000A98C0();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    v13 = sub_1000A98C0(v12);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-    if (v13)
+    if (v14)
     {
-      v14 = sub_1000A98C0();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_1000A98C0(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = objc_opt_class();
-        v16 = NSStringFromClass(v15);
-        v17 = 138412546;
-        v18 = v16;
-        v19 = 2048;
-        v20 = ownerDelegate;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Calling peripheral:didDiscoverCharacteristicsForService:error: on %@[%p]", &v17, 0x16u);
+        v17 = objc_opt_class();
+        v18 = NSStringFromClass(v17);
+        v19 = 138412546;
+        v20 = v18;
+        v21 = 2048;
+        v22 = ownerDelegate;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Calling peripheral:didDiscoverCharacteristicsForService:error: on %@[%p]", &v19, 0x16u);
       }
     }
 
@@ -91,23 +93,24 @@
   characteristicCopy = characteristic;
   errorCopy = error;
   ownerDelegate = [(EPResource *)self ownerDelegate];
-  if (objc_opt_respondsToSelector())
+  v12 = objc_opt_respondsToSelector();
+  if (v12)
   {
-    v12 = sub_1000A98C0();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    v13 = sub_1000A98C0(v12);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-    if (v13)
+    if (v14)
     {
-      v14 = sub_1000A98C0();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_1000A98C0(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = objc_opt_class();
-        v16 = NSStringFromClass(v15);
-        v17 = 138412546;
-        v18 = v16;
-        v19 = 2048;
-        v20 = ownerDelegate;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Calling peripheral:didWriteValueForCharacteristic:error: on %@[%p]", &v17, 0x16u);
+        v17 = objc_opt_class();
+        v18 = NSStringFromClass(v17);
+        v19 = 138412546;
+        v20 = v18;
+        v21 = 2048;
+        v22 = ownerDelegate;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Calling peripheral:didWriteValueForCharacteristic:error: on %@[%p]", &v19, 0x16u);
       }
     }
 
@@ -121,23 +124,24 @@
   characteristicCopy = characteristic;
   errorCopy = error;
   ownerDelegate = [(EPResource *)self ownerDelegate];
-  if (objc_opt_respondsToSelector())
+  v12 = objc_opt_respondsToSelector();
+  if (v12)
   {
-    v12 = sub_1000A98C0();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    v13 = sub_1000A98C0(v12);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-    if (v13)
+    if (v14)
     {
-      v14 = sub_1000A98C0();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_1000A98C0(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = objc_opt_class();
-        v16 = NSStringFromClass(v15);
-        v17 = 138412546;
-        v18 = v16;
-        v19 = 2048;
-        v20 = ownerDelegate;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Calling peripheral:didUpdateValueForCharacteristic:error: on %@[%p]", &v17, 0x16u);
+        v17 = objc_opt_class();
+        v18 = NSStringFromClass(v17);
+        v19 = 138412546;
+        v20 = v18;
+        v21 = 2048;
+        v22 = ownerDelegate;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Calling peripheral:didUpdateValueForCharacteristic:error: on %@[%p]", &v19, 0x16u);
       }
     }
 

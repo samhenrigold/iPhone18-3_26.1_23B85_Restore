@@ -153,7 +153,7 @@
   v9 = timeCopy;
 
   objc_sync_exit(selfCopy);
-  objc_msgSend__backgroundDeferralCheck_completion_(selfCopy, v10, selfCopy->_startDate, handlerCopy);
+  [(APOdmlXpcLifecycleHandler *)selfCopy _backgroundDeferralCheck:selfCopy->_startDate completion:handlerCopy];
 }
 
 - (BOOL)taskCanContinueForTime:(id)time
@@ -161,19 +161,10 @@
   timeCopy = time;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  if (objc_msgSend_isEqualToDate_(timeCopy, v6, selfCopy->_startDate))
-  {
-    IsContinuing = objc_msgSend_taskIsContinuing(selfCopy, v7, v8);
-  }
-
-  else
-  {
-    IsContinuing = 0;
-  }
-
+  v6 = ([timeCopy isEqualToDate:selfCopy->_startDate] & 1) != 0 && -[APOdmlXpcLifecycleHandler taskIsContinuing](selfCopy, "taskIsContinuing");
   objc_sync_exit(selfCopy);
 
-  return IsContinuing;
+  return v6;
 }
 
 - (void)endBackgroundDeferralCheck

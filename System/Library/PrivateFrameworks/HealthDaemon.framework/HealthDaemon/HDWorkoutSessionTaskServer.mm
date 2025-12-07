@@ -3,7 +3,7 @@
 + (id)createTaskServerWithUUID:(id)d configuration:(id)configuration client:(id)client delegate:(id)delegate error:(id *)error;
 + (uint64_t)_canRecoverWorkoutSessionForConfiguration:(void *)configuration client:(void *)client error:;
 - (HDWorkoutDataAccumulator)workoutDataAccumulator;
-- (uint64_t)_setupSessionServer;
+- (id)_setupSessionServer;
 - (void)_fetchOrSetupServerWithCompletion:(uint64_t)completion;
 - (void)addMetadata:(id)metadata dataSource:(id)source;
 - (void)addOtherSamples:(id)samples dataSource:(id)source;
@@ -165,11 +165,11 @@ LABEL_13:
           if (v23)
           {
             v23->_lock._os_unfair_lock_opaque = 0;
-            v24 = [v21 copy];
+            v24 = objc_msgSend_copy(v21);
             taskConfiguration = v20->_taskConfiguration;
             v20->_taskConfiguration = v24;
 
-            v26 = [v22 copy];
+            v26 = objc_msgSend_copy(v22);
             clientSource = v20->_clientSource;
             v20->_clientSource = v26;
           }
@@ -198,18 +198,18 @@ LABEL_13:
 
 - (void)connectionConfigured
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = MEMORY[0x277CCC330];
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
   {
     sessionServer = self->_sessionServer;
-    v9 = 138543618;
+    v8 = 138543618;
     selfCopy = self;
-    v11 = 2114;
-    v12 = sessionServer;
-    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Connection configured with session server: %{public}@", &v9, 0x16u);
+    v10 = 2114;
+    v11 = sessionServer;
+    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Connection configured with session server: %{public}@", &v8, 0x16u);
   }
 
   _HKInitializeLogging();
@@ -219,32 +219,30 @@ LABEL_13:
 
   if (self->_sessionServer)
   {
-    [(HDWorkoutSessionTaskServer *)self _setupSessionServer];
+    [(HDWorkoutSessionTaskServer *)&self->super.super.isa _setupSessionServer];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-- (uint64_t)_setupSessionServer
+- (id)_setupSessionServer
 {
   if (result)
   {
     v1 = result;
-    v2 = *(result + 64);
-    workoutDataFlowLink = [*(result + 56) workoutDataFlowLink];
+    v2 = result[8];
+    workoutDataFlowLink = [result[7] workoutDataFlowLink];
     [v2 addSource:workoutDataFlowLink];
 
-    [*(v1 + 56) setTaskServer:v1];
-    [*(v1 + 56) addObserver:v1 queue:0];
-    result = [*(v1 + 56) sessionType];
+    [v1[7] setTaskServer:v1];
+    [v1[7] addObserver:v1 queue:0];
+    result = [v1[7] sessionType];
     if (!result)
     {
-      result = [*(v1 + 56) workoutDataDestinationRequestGeneratedTypes:v1];
+      result = [v1[7] workoutDataDestinationRequestGeneratedTypes:v1];
     }
 
-    if (*(v1 + 72))
+    if (v1[9])
     {
-      v4 = *(v1 + 56);
+      v4 = v1[7];
 
       return [v4 setAssociatedWorkoutBuilderEntity:?];
     }
@@ -257,7 +255,7 @@ LABEL_13:
 {
   objc_storeStrong(&self->_sessionServer, server);
 
-  [(HDWorkoutSessionTaskServer *)self _setupSessionServer];
+  [(HDWorkoutSessionTaskServer *)&self->super.super.isa _setupSessionServer];
 }
 
 - (void)setAssociatedWorkoutBuilderEntity:(id)entity
@@ -362,7 +360,7 @@ LABEL_13:
 
 void __69__HDWorkoutSessionTaskServer_remote_setupMirroredSessionWithHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (v5)
   {
@@ -382,11 +380,11 @@ void __69__HDWorkoutSessionTaskServer_remote_setupMirroredSessionWithHandler___b
     {
       v15 = *(a1 + 32);
       v16 = v14;
-      v20 = 138543618;
-      v21 = v15;
-      v22 = 2048;
-      v23 = [v13 sessionState];
-      _os_log_impl(&dword_228986000, v16, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Setting up mirrored session server with session state:%ld", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v15;
+      v21 = 2048;
+      v22 = [v13 sessionState];
+      _os_log_impl(&dword_228986000, v16, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Setting up mirrored session server with session state:%ld", &v19, 0x16u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -399,8 +397,6 @@ void __69__HDWorkoutSessionTaskServer_remote_setupMirroredSessionWithHandler___b
     v13 = a3;
     v18(v17, 0, v13);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_runSetupPostClientMirroringStartHandlerWithCompletion:(id)completion
@@ -477,12 +473,11 @@ void __68__HDWorkoutSessionTaskServer_remote_setTargetState_date_completion___bl
 
 void __59__HDWorkoutSessionTaskServer_remote_syncSessionEvent_date___block_invoke(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = a1[6];
     v4 = a1[4];
-    v5 = *MEMORY[0x277D85DE8];
 
     [a2 syncSessionEvent:v3 date:v4];
   }
@@ -490,16 +485,14 @@ void __59__HDWorkoutSessionTaskServer_remote_syncSessionEvent_date___block_invok
   else
   {
     _HKInitializeLogging();
-    v6 = *MEMORY[0x277CCC330];
+    v5 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v8 = a1[5];
-      v9 = 138543362;
-      v10 = v8;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to sync session event because there is no session server", &v9, 0xCu);
+      v6 = a1[5];
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to sync session event because there is no session server", &v7, 0xCu);
     }
-
-    v7 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -518,17 +511,17 @@ void __59__HDWorkoutSessionTaskServer_remote_syncSessionEvent_date___block_invok
 
 void __59__HDWorkoutSessionTaskServer_remote_recoverWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = *(a1 + 32);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __59__HDWorkoutSessionTaskServer_remote_recoverWithCompletion___block_invoke_2;
-    v15[3] = &unk_2786138D0;
-    v15[4] = v4;
-    v5 = [v4 remoteObjectProxyWithErrorHandler:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __59__HDWorkoutSessionTaskServer_remote_recoverWithCompletion___block_invoke_2;
+    v14[3] = &unk_2786138D0;
+    v14[4] = v4;
+    v5 = [v4 remoteObjectProxyWithErrorHandler:v14];
     [v3 state];
     v6 = HKWorkoutSessionStateFromServerState();
     v7 = [v3 startDate];
@@ -539,7 +532,7 @@ void __59__HDWorkoutSessionTaskServer_remote_recoverWithCompletion___block_invok
       if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_FAULT))
       {
         *buf = 138543362;
-        v17 = v3;
+        v16 = v3;
         _os_log_fault_impl(&dword_228986000, v8, OS_LOG_TYPE_FAULT, "Session server %{public}@ start date is nil", buf, 0xCu);
       }
     }
@@ -552,44 +545,40 @@ void __59__HDWorkoutSessionTaskServer_remote_recoverWithCompletion___block_invok
     v11 = [v3 generatedTypes];
     [v5 client_didUpdateGeneratedTypes:v11];
 
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __59__HDWorkoutSessionTaskServer_remote_recoverWithCompletion___block_invoke_418;
-    v13[3] = &unk_2786130D8;
-    v14 = *(a1 + 40);
-    [v5 client_synchronizeWithCompletion:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __59__HDWorkoutSessionTaskServer_remote_recoverWithCompletion___block_invoke_418;
+    v12[3] = &unk_2786130D8;
+    v13 = *(a1 + 40);
+    [v5 client_synchronizeWithCompletion:v12];
   }
 
   else
   {
     (*(*(a1 + 40) + 16))();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HDWorkoutSessionTaskServer_remote_recoverWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of start date: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of start date: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_recoverAllActiveSessionsWithStates:(id)states date:(id)date completion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   statesCopy = states;
   dateCopy = date;
   completionCopy = completion;
@@ -602,25 +591,23 @@ void __59__HDWorkoutSessionTaskServer_remote_recoverWithCompletion___block_invok
     _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Attempting to recover all active sessions", buf, 0xCu);
   }
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __88__HDWorkoutSessionTaskServer_remote_recoverAllActiveSessionsWithStates_date_completion___block_invoke;
-  v16[3] = &unk_27861A350;
-  v16[4] = self;
-  v17 = statesCopy;
-  v18 = dateCopy;
-  v19 = completionCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __88__HDWorkoutSessionTaskServer_remote_recoverAllActiveSessionsWithStates_date_completion___block_invoke;
+  v15[3] = &unk_27861A350;
+  v15[4] = self;
+  v16 = statesCopy;
+  v17 = dateCopy;
+  v18 = completionCopy;
   v12 = dateCopy;
   v13 = statesCopy;
   v14 = completionCopy;
-  [(HDWorkoutSessionTaskServer *)self _fetchOrSetupServerWithCompletion:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [(HDWorkoutSessionTaskServer *)self _fetchOrSetupServerWithCompletion:v15];
 }
 
 void __88__HDWorkoutSessionTaskServer_remote_recoverAllActiveSessionsWithStates_date_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!v3)
   {
@@ -639,95 +626,80 @@ void __88__HDWorkoutSessionTaskServer_remote_recoverAllActiveSessionsWithStates_
   v9 = [v3 identifier];
   v10 = [v8 objectForKeyedSubscript:v9];
 
-  if (!v10)
+  if (v10 && (v11 = *(a1 + 40), [v3 identifier], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "objectForKeyedSubscript:", v12), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "integerValue"), v13, v12, v6 != v14))
   {
-    goto LABEL_4;
-  }
-
-  v11 = *(a1 + 40);
-  v12 = [v3 identifier];
-  v13 = [v11 objectForKeyedSubscript:v12];
-  v14 = [v13 integerValue];
-
-  if (v6 != v14)
-  {
-    v20 = *(a1 + 48);
-    v28 = 0;
-    v21 = [v3 setTargetState:v14 date:v20 error:&v28];
-    v16 = v28;
-    if ((v21 & 1) == 0)
+    v19 = *(a1 + 48);
+    v27 = 0;
+    v20 = [v3 setTargetState:v14 date:v19 error:&v27];
+    v16 = v27;
+    if ((v20 & 1) == 0)
     {
       _HKInitializeLogging();
-      v23 = *MEMORY[0x277CCC330];
+      v22 = *MEMORY[0x277CCC330];
       if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
       {
-        v24 = *(a1 + 32);
+        v23 = *(a1 + 32);
         *buf = 138543874;
-        v30 = v24;
-        v31 = 2114;
-        v32 = v3;
-        v33 = 2114;
-        v34 = v16;
-        _os_log_error_impl(&dword_228986000, v23, OS_LOG_TYPE_ERROR, "%{public}@: Failed to set target state for %{public}@ upon recovery with error %{public}@", buf, 0x20u);
+        v29 = v23;
+        v30 = 2114;
+        v31 = v3;
+        v32 = 2114;
+        v33 = v16;
+        _os_log_error_impl(&dword_228986000, v22, OS_LOG_TYPE_ERROR, "%{public}@: Failed to set target state for %{public}@ upon recovery with error %{public}@", buf, 0x20u);
       }
 
       (*(*(a1 + 56) + 16))();
       goto LABEL_6;
     }
 
-    v22 = *(a1 + 48);
+    v21 = *(a1 + 48);
 
-    v7 = v22;
+    v7 = v21;
   }
 
   else
   {
-LABEL_4:
     v14 = v6;
   }
 
   v15 = *(a1 + 32);
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __88__HDWorkoutSessionTaskServer_remote_recoverAllActiveSessionsWithStates_date_completion___block_invoke_420;
-  v27[3] = &unk_2786138D0;
-  v27[4] = v15;
-  v16 = [v15 remoteObjectProxyWithErrorHandler:v27];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __88__HDWorkoutSessionTaskServer_remote_recoverAllActiveSessionsWithStates_date_completion___block_invoke_420;
+  v26[3] = &unk_2786138D0;
+  v26[4] = v15;
+  v16 = [v15 remoteObjectProxyWithErrorHandler:v26];
   [v16 client_didChangeToState:v14 date:v7];
   v17 = [v3 startDate];
   v18 = [v3 stopDate];
   [v16 client_didUpdateStartDate:v17 endDate:v18];
 
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __88__HDWorkoutSessionTaskServer_remote_recoverAllActiveSessionsWithStates_date_completion___block_invoke_421;
-  v25[3] = &unk_2786130D8;
-  v26 = *(a1 + 56);
-  [v16 client_synchronizeWithCompletion:v25];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __88__HDWorkoutSessionTaskServer_remote_recoverAllActiveSessionsWithStates_date_completion___block_invoke_421;
+  v24[3] = &unk_2786130D8;
+  v25 = *(a1 + 56);
+  [v16 client_synchronizeWithCompletion:v24];
 
 LABEL_6:
 LABEL_8:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __88__HDWorkoutSessionTaskServer_remote_recoverAllActiveSessionsWithStates_date_completion___block_invoke_420(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of start date: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of start date: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_beginNewActivityWithConfiguration:(id)configuration date:(id)date metadata:(id)metadata completion:(id)completion
@@ -945,15 +917,15 @@ void __79__HDWorkoutSessionTaskServer_remote_sendDataToRemoteWorkoutSession_comp
 
 - (void)workoutSession:(id)session didChangeToState:(int64_t)state fromState:(int64_t)fromState date:(id)date
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dateCopy = date;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __77__HDWorkoutSessionTaskServer_workoutSession_didChangeToState_fromState_date___block_invoke;
-  v16[3] = &unk_2786138D0;
-  v16[4] = self;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __77__HDWorkoutSessionTaskServer_workoutSession_didChangeToState_fromState_date___block_invoke;
+  v15[3] = &unk_2786138D0;
+  v15[4] = self;
   sessionCopy = session;
-  v11 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v16];
+  v11 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v15];
   startDate = [sessionCopy startDate];
   stopDate = [sessionCopy stopDate];
 
@@ -973,27 +945,23 @@ void __79__HDWorkoutSessionTaskServer_remote_sendDataToRemoteWorkoutSession_comp
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __77__HDWorkoutSessionTaskServer_workoutSession_didChangeToState_fromState_date___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of state change: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of state change: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workoutSession:(id)session didFailWithError:(id)error
@@ -1010,21 +978,19 @@ void __77__HDWorkoutSessionTaskServer_workoutSession_didChangeToState_fromState_
 
 void __62__HDWorkoutSessionTaskServer_workoutSession_didFailWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of failure: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of failure: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (HDWorkoutDataAccumulator)workoutDataAccumulator
@@ -1074,14 +1040,14 @@ void __62__HDWorkoutSessionTaskServer_workoutSession_didFailWithError___block_in
 
 - (void)addWorkoutEvents:(id)events dataSource:(id)source
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __58__HDWorkoutSessionTaskServer_addWorkoutEvents_dataSource___block_invoke;
-  v14[3] = &unk_2786138D0;
-  v14[4] = self;
-  v6 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __58__HDWorkoutSessionTaskServer_addWorkoutEvents_dataSource___block_invoke;
+  v13[3] = &unk_2786138D0;
+  v13[4] = self;
+  v6 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v13];
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -1093,35 +1059,31 @@ void __62__HDWorkoutSessionTaskServer_workoutSession_didFailWithError___block_in
 
   [v6 client_didGenerateEvents:eventsCopy];
   workoutDataFlowLink = self->_workoutDataFlowLink;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __58__HDWorkoutSessionTaskServer_addWorkoutEvents_dataSource___block_invoke_432;
-  v11[3] = &unk_278613880;
-  v12 = eventsCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __58__HDWorkoutSessionTaskServer_addWorkoutEvents_dataSource___block_invoke_432;
+  v10[3] = &unk_278613880;
+  v11 = eventsCopy;
   selfCopy2 = self;
   v9 = eventsCopy;
-  [(HKDataFlowLink *)workoutDataFlowLink sendToDestinationProcessors:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(HKDataFlowLink *)workoutDataFlowLink sendToDestinationProcessors:v10];
 }
 
 void __58__HDWorkoutSessionTaskServer_addWorkoutEvents_dataSource___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of generated events: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of generated events: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addMetadata:(id)metadata dataSource:(id)source
@@ -1161,21 +1123,19 @@ void __58__HDWorkoutSessionTaskServer_addWorkoutEvents_dataSource___block_invoke
 
 void __68__HDWorkoutSessionTaskServer_updateWorkoutConfiguration_dataSource___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of workout configuration update: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of workout configuration update: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didBeginActivity:(id)activity dataSource:(id)source
@@ -1203,21 +1163,19 @@ void __68__HDWorkoutSessionTaskServer_updateWorkoutConfiguration_dataSource___bl
 
 void __58__HDWorkoutSessionTaskServer_didBeginActivity_dataSource___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of workout configuration update: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of workout configuration update: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didEndActivity:(id)activity dataSource:(id)source
@@ -1245,21 +1203,19 @@ void __58__HDWorkoutSessionTaskServer_didBeginActivity_dataSource___block_invoke
 
 void __56__HDWorkoutSessionTaskServer_didEndActivity_dataSource___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of workout configuration update: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of workout configuration update: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didSuggestActivity:(id)activity dataSource:(id)source
@@ -1279,21 +1235,19 @@ void __56__HDWorkoutSessionTaskServer_didEndActivity_dataSource___block_invoke(u
 
 void __60__HDWorkoutSessionTaskServer_didSuggestActivity_dataSource___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of suggested workout configuration : %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of suggested workout configuration : %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveDataFromRemoteWorkoutSession:(id)session completion:(id)completion
@@ -1323,80 +1277,74 @@ void __60__HDWorkoutSessionTaskServer_didSuggestActivity_dataSource___block_invo
 
 void __80__HDWorkoutSessionTaskServer_didReceiveDataFromRemoteWorkoutSession_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to notify client of received data from remote session: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to notify client of received data from remote session: %{public}@", &v6, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didSyncStateEvent:(int64_t)event date:(id)date
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __53__HDWorkoutSessionTaskServer_didSyncStateEvent_date___block_invoke;
-  v10[3] = &unk_2786138D0;
-  v10[4] = self;
+  v14 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __53__HDWorkoutSessionTaskServer_didSyncStateEvent_date___block_invoke;
+  v9[3] = &unk_2786138D0;
+  v9[4] = self;
   dateCopy = date;
-  v7 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v10];
+  v7 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v9];
   _HKInitializeLogging();
   v8 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v13 = 2048;
+    v12 = 2048;
     eventCopy = event;
     _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Notifying client of synced state event: %ld ", buf, 0x16u);
   }
 
   [v7 client_didSyncSessionEvent:event date:dateCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HDWorkoutSessionTaskServer_didSyncStateEvent_date___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to notify client of synced state event: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to notify client of synced state event: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didSyncTransitionToNewState:(int64_t)state date:(id)date
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dateCopy = date;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __63__HDWorkoutSessionTaskServer_didSyncTransitionToNewState_date___block_invoke;
-  v16[3] = &unk_2786138D0;
-  v16[4] = self;
-  v7 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v16];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __63__HDWorkoutSessionTaskServer_didSyncTransitionToNewState_date___block_invoke;
+  v15[3] = &unk_2786138D0;
+  v15[4] = self;
+  v7 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v15];
   _HKInitializeLogging();
   v8 = MEMORY[0x277CCC330];
   v9 = *MEMORY[0x277CCC330];
@@ -1406,8 +1354,8 @@ void __53__HDWorkoutSessionTaskServer_didSyncStateEvent_date___block_invoke(uint
     v11 = HKWorkoutSessionStateToString();
     *buf = 138543618;
     selfCopy2 = self;
-    v19 = 2114;
-    v20 = v11;
+    v18 = 2114;
+    v19 = v11;
     _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Notifying client of state: %{public}@ update from remote session", buf, 0x16u);
   }
 
@@ -1417,38 +1365,34 @@ void __53__HDWorkoutSessionTaskServer_didSyncStateEvent_date___block_invoke(uint
     v12 = *v8;
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_FAULT))
     {
-      v14 = v12;
-      v15 = HKWorkoutSessionStateToString();
+      v13 = v12;
+      v14 = HKWorkoutSessionStateToString();
       *buf = 138543618;
       selfCopy2 = self;
-      v19 = 2114;
-      v20 = v15;
-      _os_log_fault_impl(&dword_228986000, v14, OS_LOG_TYPE_FAULT, "Task server %{public}@ received a nil state change from mirrored session for state: %{public}@", buf, 0x16u);
+      v18 = 2114;
+      v19 = v14;
+      _os_log_fault_impl(&dword_228986000, v13, OS_LOG_TYPE_FAULT, "Task server %{public}@ received a nil state change from mirrored session for state: %{public}@", buf, 0x16u);
     }
   }
 
   [v7 client_didChangeToState:state date:dateCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HDWorkoutSessionTaskServer_didSyncTransitionToNewState_date___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to notify client of state update from remote session : %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to notify client of state update from remote session : %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didSyncCurrentActivity:(id)activity
@@ -1467,24 +1411,22 @@ void __63__HDWorkoutSessionTaskServer_didSyncTransitionToNewState_date___block_i
 
 void __53__HDWorkoutSessionTaskServer_didSyncCurrentActivity___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v8 = 138543874;
-    v9 = v6;
-    v10 = 2114;
-    v11 = v7;
-    v12 = 2114;
-    v13 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to notify client of synced activity: %{public}@, error: %{public}@", &v8, 0x20u);
+    v5 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v7 = 138543874;
+    v8 = v5;
+    v9 = 2114;
+    v10 = v6;
+    v11 = 2114;
+    v12 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to notify client of synced activity: %{public}@, error: %{public}@", &v7, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteSessionDidRecover
@@ -1500,21 +1442,19 @@ void __53__HDWorkoutSessionTaskServer_didSyncCurrentActivity___block_invoke(uint
 
 void __53__HDWorkoutSessionTaskServer_remoteSessionDidRecover__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to notify client of remote session recovery: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to notify client of remote session recovery: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didDisconnectFromRemoteWithError:(id)error
@@ -1536,26 +1476,24 @@ void __53__HDWorkoutSessionTaskServer_remoteSessionDidRecover__block_invoke(uint
 
 void __63__HDWorkoutSessionTaskServer_didDisconnectFromRemoteWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to notify client of remote session disconnection: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to notify client of remote session disconnection: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HDWorkoutSessionTaskServer_didDisconnectFromRemoteWithError___block_invoke_439(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC330];
@@ -1563,21 +1501,19 @@ void __63__HDWorkoutSessionTaskServer_didDisconnectFromRemoteWithError___block_i
   {
     v7 = *(a1 + 32);
     v8 = @"NO";
-    v10 = 138543874;
+    v9 = 138543874;
     if (a2)
     {
       v8 = @"YES";
     }
 
-    v11 = v7;
-    v12 = 2114;
-    v13 = v8;
-    v14 = 2114;
-    v15 = v5;
-    _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Notified client of remote session disconnection with success: %{public}@, error: %{public}@", &v10, 0x20u);
+    v10 = v7;
+    v11 = 2114;
+    v12 = v8;
+    v13 = 2114;
+    v14 = v5;
+    _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Notified client of remote session disconnection with success: %{public}@, error: %{public}@", &v9, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdateGeneratedTypesWithConfiguration:(id)configuration sampleTypes:(id)types dataSource:(id)source didUpdateActivity:(BOOL)activity date:(id)date
@@ -1619,21 +1555,19 @@ void __117__HDWorkoutSessionTaskServer_didUpdateGeneratedTypesWithConfiguration_
 
 void __117__HDWorkoutSessionTaskServer_didUpdateGeneratedTypesWithConfiguration_sampleTypes_dataSource_didUpdateActivity_date___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of remote session disconnection: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of remote session disconnection: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workoutDataDestination:(id)destination requestsFinalDataFrom:(id)from to:(id)to completion:(id)completion
@@ -1658,7 +1592,7 @@ void __117__HDWorkoutSessionTaskServer_didUpdateGeneratedTypesWithConfiguration_
 
 - (void)workoutDataDestination:(id)destination didUpdateConfiguration:(id)configuration
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [(HKWorkoutSessionTaskConfiguration *)self->_taskConfiguration setWorkoutConfiguration:configuration];
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC330];
@@ -1667,14 +1601,12 @@ void __117__HDWorkoutSessionTaskServer_didUpdateGeneratedTypesWithConfiguration_
     taskConfiguration = self->_taskConfiguration;
     v7 = v5;
     workoutConfiguration = [(HKWorkoutSessionTaskConfiguration *)taskConfiguration workoutConfiguration];
-    v10 = 138543618;
+    v9 = 138543618;
     selfCopy = self;
-    v12 = 2114;
-    v13 = workoutConfiguration;
-    _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_INFO, "%{public}@:Updated workout configuration : %{public}@", &v10, 0x16u);
+    v11 = 2114;
+    v12 = workoutConfiguration;
+    _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_INFO, "%{public}@:Updated workout configuration : %{public}@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workoutDataDestination:(id)destination didInsertEvent:(id)event
@@ -1692,7 +1624,7 @@ void __117__HDWorkoutSessionTaskServer_didUpdateGeneratedTypesWithConfiguration_
 
 - (void)connectionInvalidated
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -1700,8 +1632,8 @@ void __117__HDWorkoutSessionTaskServer_didUpdateGeneratedTypesWithConfiguration_
     sessionServer = self->_sessionServer;
     *buf = 138543618;
     selfCopy = self;
-    v11 = 2114;
-    v12 = sessionServer;
+    v10 = 2114;
+    v11 = sessionServer;
     _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Connection invalidated with current session server: %{public}@", buf, 0x16u);
   }
 
@@ -1712,16 +1644,14 @@ void __117__HDWorkoutSessionTaskServer_didUpdateGeneratedTypesWithConfiguration_
 
   os_unfair_lock_unlock(&self->_lock);
   [(HDWorkoutSessionServer *)v6 invalidateTaskServer:self];
-  v8.receiver = self;
-  v8.super_class = HDWorkoutSessionTaskServer;
-  [(HDStandardTaskServer *)&v8 connectionInvalidated];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = HDWorkoutSessionTaskServer;
+  [(HDStandardTaskServer *)&v7 connectionInvalidated];
 }
 
 void __64__HDWorkoutSessionTaskServer__fetchOrSetupServerWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = a2;
   os_unfair_lock_lock((*(a1 + 32) + 40));
   v5 = *(a1 + 32);
@@ -1740,17 +1670,15 @@ void __64__HDWorkoutSessionTaskServer__fetchOrSetupServerWithCompletion___block_
     {
       v7 = *(a1 + 32);
       v8 = *(v7 + 56);
-      v10 = 138543618;
-      v11 = v7;
-      v12 = 2114;
-      v13 = v8;
-      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: New session server set %{public}@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v7;
+      v11 = 2114;
+      v12 = v8;
+      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: New session server set %{public}@", &v9, 0x16u);
     }
 
     [(HDWorkoutSessionTaskServer *)*(a1 + 32) _setupSessionServer];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HDWorkoutSessionTaskServer__fetchOrSetupServerWithCompletion___block_invoke_451(uint64_t a1, void *a2, void *a3)

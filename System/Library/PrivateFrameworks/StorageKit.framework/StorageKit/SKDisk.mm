@@ -295,7 +295,7 @@ LABEL_9:
 
 - (void)updateWithDictionary:(id)dictionary
 {
-  v98 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -310,13 +310,13 @@ LABEL_9:
 
     if ((v9 & 1) == 0)
     {
-      v92 = SKGetOSLog();
-      if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
+      v91 = SKGetOSLog();
+      if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
       {
-        v93 = objc_opt_class();
-        v94 = NSStringFromClass(v93);
-        v95 = [dictionaryCopy objectForKey:@"**ClassName**"];
-        [(SKDisk *)v94 updateWithDictionary:v95, buf, v92];
+        v92 = objc_opt_class();
+        v93 = NSStringFromClass(v92);
+        v94 = [dictionaryCopy objectForKey:@"**ClassName**"];
+        [(SKDisk *)v93 updateWithDictionary:v94, buf, v91];
       }
 
       __assert_rtn("[SKDisk updateWithDictionary:]", "SKDisk.m", 211, "NO");
@@ -677,8 +677,6 @@ LABEL_9:
   }
 
   objc_sync_exit(selfCopy);
-
-  v91 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __24__SKDisk_sortWithDisks___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -807,7 +805,7 @@ LABEL_29:
 
 - (id)diskAndDescendants
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB18] arrayWithObject:self];
   diskIdentifier = [(SKDisk *)self diskIdentifier];
 
@@ -833,29 +831,29 @@ LABEL_29:
       }
 
       children = [(SKDisk *)self children];
+      v14 = 0u;
       v15 = 0u;
       v16 = 0u;
       v17 = 0u;
-      v18 = 0u;
-      v8 = [children countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [children countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v16;
+        v10 = *v15;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v16 != v10)
+            if (*v15 != v10)
             {
               objc_enumerationMutation(children);
             }
 
-            diskAndDescendants2 = [*(*(&v15 + 1) + 8 * i) diskAndDescendants];
+            diskAndDescendants2 = [*(*(&v14 + 1) + 8 * i) diskAndDescendants];
             [v3 addObjectsFromArray:diskAndDescendants2];
           }
 
-          v9 = [children countByEnumeratingWithState:&v15 objects:v19 count:16];
+          v9 = [children countByEnumeratingWithState:&v14 objects:v18 count:16];
         }
 
         while (v9);
@@ -864,14 +862,13 @@ LABEL_29:
   }
 
 LABEL_14:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)children
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if ([(SKDisk *)self isWholeDisk])
   {
     diskIdentifier = [(SKDisk *)self diskIdentifier];
@@ -898,26 +895,26 @@ LABEL_14:
 
       v11 = [v7 initWithFormat:v10, diskIdentifier2];
 
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
       v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
       v12 = allDisks;
-      v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v23;
+        v15 = *v22;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v23 != v15)
+            if (*v22 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v17 = *(*(&v22 + 1) + 8 * i);
+            v17 = *(*(&v21 + 1) + 8 * i);
             diskIdentifier3 = [v17 diskIdentifier];
             v19 = [diskIdentifier3 hasPrefix:v11];
 
@@ -927,7 +924,7 @@ LABEL_14:
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
         }
 
         while (v14);
@@ -941,8 +938,6 @@ LABEL_14:
   {
     diskIdentifier = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return diskIdentifier;
 }
@@ -1204,32 +1199,32 @@ LABEL_14:
 
 - (id)cachedWholeDiskByIdentifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   wholeDiskIdentifier = [(SKDisk *)self wholeDiskIdentifier];
   if (wholeDiskIdentifier)
   {
     v3 = +[SKBaseManager sharedManager];
     allDisks = [v3 allDisks];
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v5 = allDisks;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         for (i = 0; i != v6; i = i + 1)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           diskIdentifier = [v9 diskIdentifier];
           v11 = [diskIdentifier isEqualToString:wholeDiskIdentifier];
 
@@ -1240,7 +1235,7 @@ LABEL_14:
           }
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v6)
         {
           continue;
@@ -1257,8 +1252,6 @@ LABEL_12:
   {
     v6 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1589,34 +1582,34 @@ uint64_t __39__SKDisk_Erase__formattableFilesystems__block_invoke_4(uint64_t a1,
 
 - (BOOL)cleanupWithError:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   children = [(SKDisk *)self children];
-  v5 = [children countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [children countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(children);
         }
 
-        if (![*(*(&v12 + 1) + 8 * i) cleanupWithError:error])
+        if (![*(*(&v11 + 1) + 8 * i) cleanupWithError:error])
         {
           v9 = 0;
           goto LABEL_11;
         }
       }
 
-      v6 = [children countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [children countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -1629,14 +1622,13 @@ uint64_t __39__SKDisk_Erase__formattableFilesystems__block_invoke_4(uint64_t a1,
   v9 = 1;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (unsigned)getSectorSize
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v17 = 512;
+  v23 = *MEMORY[0x277D85DE8];
+  v16 = 512;
   diskIdentifier = [(SKDisk *)self diskIdentifier];
 
   if (!diskIdentifier)
@@ -1645,8 +1637,8 @@ LABEL_11:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v19 = "[SKDisk(Erase) getSectorSize]";
-      v20 = 2112;
+      v18 = "[SKDisk(Erase) getSectorSize]";
+      v19 = 2112;
       selfCopy3 = self;
       v12 = "%s: Disk %@, does not have a BSD name";
       v13 = v11;
@@ -1657,8 +1649,7 @@ LABEL_12:
 
 LABEL_13:
 
-    result = 512;
-    goto LABEL_14;
+    return 512;
   }
 
   v4 = MEMORY[0x277CCACA8];
@@ -1673,11 +1664,11 @@ LABEL_13:
     {
       v15 = *__error();
       *buf = 136315650;
-      v19 = "[SKDisk(Erase) getSectorSize]";
-      v20 = 2112;
+      v18 = "[SKDisk(Erase) getSectorSize]";
+      v19 = 2112;
       selfCopy3 = self;
-      v22 = 1024;
-      v23 = v15;
+      v21 = 1024;
+      v22 = v15;
       v12 = "%s: Failed to get block size of %@, open err %d";
       v13 = v11;
       v14 = 28;
@@ -1687,27 +1678,24 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  if (ioctl(v7, 0x40046418uLL, &v17))
+  if (ioctl(v7, 0x40046418uLL, &v16))
   {
     v8 = SKGetOSLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = *__error();
       *buf = 136315650;
-      v19 = "[SKDisk(Erase) getSectorSize]";
-      v20 = 2112;
+      v18 = "[SKDisk(Erase) getSectorSize]";
+      v19 = 2112;
       selfCopy3 = self;
-      v22 = 1024;
-      v23 = v9;
+      v21 = 1024;
+      v22 = v9;
       _os_log_impl(&dword_26BBB8000, v8, OS_LOG_TYPE_ERROR, "%s: Failed to get block size of %@, ioctl err %d", buf, 0x1Cu);
     }
   }
 
   close(v7);
-  result = v17;
-LABEL_14:
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return v16;
 }
 
 - (BOOL)wipeDiskWithError:(id *)error

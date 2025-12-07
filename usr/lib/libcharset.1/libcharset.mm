@@ -1,6 +1,6 @@
 const char *locale_charset(void)
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   if (!os_variant_has_internal_content() || (v0 = getenv("LIBCHARSET_CODESET")) == 0)
   {
     v0 = nl_langinfo(0);
@@ -53,8 +53,8 @@ const char *locale_charset(void)
               while (v13 != -1 && v14);
               if (v13 == 35)
               {
-                v27 = 0;
-                fgetln(v8, &v27);
+                v26 = 0;
+                fgetln(v8, &v26);
               }
 
               else
@@ -65,7 +65,7 @@ const char *locale_charset(void)
                 }
 
                 ungetc(v13, v8);
-                if (fscanf(v8, "%64s %64s", __s1, &v28) != 2 || !__s1[0])
+                if (fscanf(v8, "%64s %64s", __s1, &v27) != 2 || !__s1[0])
                 {
                   break;
                 }
@@ -100,9 +100,9 @@ const char *locale_charset(void)
                 v19 = &v1[2 * v9];
                 v20 = strdup(__s1);
                 *v19 = v20;
-                if (v28)
+                if (v27)
                 {
-                  v21 = &v28;
+                  v21 = &v27;
                 }
 
                 else
@@ -207,6 +207,5 @@ LABEL_48:
     locale_charset_cold_3();
   }
 
-  v25 = *MEMORY[0x29EDCA608];
   return v0;
 }

@@ -12,6 +12,7 @@
 - (double)responseHeaderBytesReceived;
 - (int64_t)priority;
 - (void)setConnectionIdentifier:(id)identifier;
+- (void)setIsProxyConnection:(BOOL)connection;
 - (void)setPriority:(int64_t)priority;
 - (void)setProtocol:(id)protocol;
 - (void)setRemoteAddress:(id)address;
@@ -160,7 +161,7 @@ LABEL_8:
     v11.receiver = self;
     v11.super_class = RWIProtocolNetworkMetrics;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"requestHeaders"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -297,7 +298,7 @@ LABEL_8:
     v11.receiver = self;
     v11.super_class = RWIProtocolNetworkMetrics;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"securityConnection"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -339,6 +340,13 @@ LABEL_8:
   }
 
   return v7;
+}
+
+- (void)setIsProxyConnection:(BOOL)connection
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolNetworkMetrics;
+  [(RWIProtocolJSONObject *)&v3 setBool:connection forKey:@"isProxyConnection"];
 }
 
 - (BOOL)isProxyConnection

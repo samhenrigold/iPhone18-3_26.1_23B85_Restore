@@ -97,31 +97,31 @@
 
 - (id)longChargesAroundDate:(id)date withinSeconds:(double)seconds withinDays:(int)days withMinimumDuration:(double)duration checkWhetherNearDate:(BOOL)nearDate
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v11 = [PowerUISmartChargeUtilities pluginEventsBefore:dateCopy withMinimumDuration:duration ignoringDisconnectsShorterThan:300.0];
   array = [MEMORY[0x277CBEB18] array];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v13 = v11;
-  v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v30;
+    v16 = *v29;
     daysCopy = days;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v30 != v16)
+        if (*v29 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v19 = *(*(&v29 + 1) + 8 * i);
+        v19 = *(*(&v28 + 1) + 8 * i);
         startDate = [v19 startDate];
         [startDate timeIntervalSinceReferenceDate];
         v22 = v21;
@@ -134,7 +134,7 @@
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v15);
@@ -144,14 +144,12 @@
 
   v26 = [PowerUISmartChargeUtilities concatenateChargeSessions:v25 withMaxDeltaSecondsBetweenEvents:10];
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v26;
 }
 
 - (BOOL)locationIsUncertain:(id)uncertain
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   uncertainCopy = uncertain;
   v5 = uncertainCopy;
   if (uncertainCopy)
@@ -170,9 +168,9 @@
       v9 = log;
       [v5 horizontalAccuracy];
       v10 = [v8 numberWithDouble:?];
-      v15 = 138412290;
-      v16 = v10;
-      _os_log_impl(&dword_21B766000, v9, OS_LOG_TYPE_DEFAULT, "Horizontal accuracy: %@. Returning uncertain", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v10;
+      _os_log_impl(&dword_21B766000, v9, OS_LOG_TYPE_DEFAULT, "Horizontal accuracy: %@. Returning uncertain", &v14, 0xCu);
     }
   }
 
@@ -181,15 +179,14 @@
     v11 = self->_log;
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_21B766000, v11, OS_LOG_TYPE_DEFAULT, "No location: Returning uncertain", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_21B766000, v11, OS_LOG_TYPE_DEFAULT, "No location: Returning uncertain", &v14, 2u);
     }
   }
 
   v12 = 1;
 LABEL_9:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -210,7 +207,7 @@ LABEL_9:
 
 id __124__PowerUILocationSignalMonitor_logPredictionsWithDuration_withConfidence_withLOIString_withPredictionMethod_withSkipString___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB38] dictionary];
   [v2 setObject:*(a1 + 32) forKeyedSubscript:@"homeEntryDurationPrediction"];
   [v2 setObject:*(a1 + 40) forKeyedSubscript:@"confidence"];
@@ -230,47 +227,45 @@ id __124__PowerUILocationSignalMonitor_logPredictionsWithDuration_withConfidence
   v4 = [*(a1 + 72) log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v2;
-    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_DEFAULT, "Logging to CA: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v2;
+    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_DEFAULT, "Logging to CA: %@", &v6, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 - (id)coreRoutinePredictedEntryDateFromNearbyLOIs:(id)is
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   isCopy = is;
-  v54 = os_transaction_create();
-  v80 = 0;
-  v81 = &v80;
-  v82 = 0x3032000000;
-  v83 = __Block_byref_object_copy__10;
-  v84 = __Block_byref_object_dispose__10;
-  v85 = 0;
-  v78[0] = 0;
-  v78[1] = v78;
-  v78[2] = 0x3032000000;
-  v78[3] = __Block_byref_object_copy__10;
-  v78[4] = __Block_byref_object_dispose__10;
+  v53 = os_transaction_create();
   v79 = 0;
+  v80 = &v79;
+  v81 = 0x3032000000;
+  v82 = __Block_byref_object_copy__10;
+  v83 = __Block_byref_object_dispose__10;
+  v84 = 0;
+  v77[0] = 0;
+  v77[1] = v77;
+  v77[2] = 0x3032000000;
+  v77[3] = __Block_byref_object_copy__10;
+  v77[4] = __Block_byref_object_dispose__10;
+  v78 = 0;
   v4 = dispatch_semaphore_create(0);
-  v58 = [MEMORY[0x277CBEAA8] now];
+  v57 = [MEMORY[0x277CBEAA8] now];
   routine = self->_routine;
   v6 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:36000.0];
-  v74[0] = MEMORY[0x277D85DD0];
-  v74[1] = 3221225472;
-  v74[2] = __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyLOIs___block_invoke;
-  v74[3] = &unk_2782D5110;
-  v76 = v78;
-  v74[4] = self;
+  v73[0] = MEMORY[0x277D85DD0];
+  v73[1] = 3221225472;
+  v73[2] = __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyLOIs___block_invoke;
+  v73[3] = &unk_2782D5110;
+  v75 = v77;
+  v73[4] = self;
   dsema = v4;
-  v75 = dsema;
-  v77 = &v80;
-  [(RTRoutineManager *)routine fetchPredictedLocationsOfInterestBetweenStartDate:v58 endDate:v6 withHandler:v74];
+  v74 = dsema;
+  v76 = &v79;
+  [(RTRoutineManager *)routine fetchPredictedLocationsOfInterestBetweenStartDate:v57 endDate:v6 withHandler:v73];
   selfCopy = self;
 
   v7 = dispatch_time(0, 30000000000);
@@ -282,65 +277,65 @@ id __124__PowerUILocationSignalMonitor_logPredictionsWithDuration_withConfidence
       [PowerUILocationSignalMonitor coreRoutinePredictedEntryDateFromNearbyLOIs:];
     }
 
-    v64 = 0;
+    v63 = 0;
     goto LABEL_62;
   }
 
   array = [MEMORY[0x277CBEB18] array];
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
   v71 = 0u;
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
   v8 = isCopy;
-  v9 = [v8 countByEnumeratingWithState:&v70 objects:v91 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v69 objects:v90 count:16];
   if (v9)
   {
-    v10 = *v71;
+    v10 = *v70;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v71 != v10)
+        if (*v70 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        identifier = [*(*(&v70 + 1) + 8 * i) identifier];
+        identifier = [*(*(&v69 + 1) + 8 * i) identifier];
         [array addObject:identifier];
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v70 objects:v91 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v69 objects:v90 count:16];
     }
 
     while (v9);
   }
 
-  v61 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:28800.0];
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
+  v60 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:28800.0];
   v67 = 0u;
-  obj = v81[5];
-  v13 = [obj countByEnumeratingWithState:&v66 objects:v90 count:16];
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  obj = v80[5];
+  v13 = [obj countByEnumeratingWithState:&v65 objects:v89 count:16];
   if (!v13)
   {
-    v64 = 0;
+    v63 = 0;
     goto LABEL_59;
   }
 
-  v64 = 0;
-  v59 = *v67;
+  v63 = 0;
+  v58 = *v66;
   do
   {
-    v60 = v13;
-    for (j = 0; j != v60; ++j)
+    v59 = v13;
+    for (j = 0; j != v59; ++j)
     {
-      if (*v67 != v59)
+      if (*v66 != v58)
       {
         objc_enumerationMutation(obj);
       }
 
-      v15 = *(*(&v66 + 1) + 8 * j);
+      v15 = *(*(&v65 + 1) + 8 * j);
       nextEntryTime = [v15 nextEntryTime];
       locationOfInterest = [v15 locationOfInterest];
       identifier2 = [locationOfInterest identifier];
@@ -352,7 +347,7 @@ LABEL_24:
         if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v87 = v15;
+          v86 = v15;
           _os_log_impl(&dword_21B766000, v22, OS_LOG_TYPE_INFO, "CR Skipping loi %@ because it's not nearby", buf, 0xCu);
         }
 
@@ -360,7 +355,7 @@ LABEL_24:
 LABEL_27:
 
         v26 = 0;
-        if (v64)
+        if (v63)
         {
           goto LABEL_28;
         }
@@ -389,7 +384,7 @@ LABEL_27:
           [v15 confidence];
           v24 = [v23 numberWithDouble:?];
           *buf = 138412290;
-          v87 = v24;
+          v86 = v24;
           _os_log_impl(&dword_21B766000, v22, OS_LOG_TYPE_INFO, "CR LOI prediction is not confident %@", buf, 0xCu);
         }
 
@@ -406,9 +401,9 @@ LABEL_27:
           locationOfInterest3 = [v15 locationOfInterest];
           v48 = [v46 numberWithInteger:{objc_msgSend(locationOfInterest3, "type")}];
           *buf = 138412546;
-          v87 = v48;
-          v88 = 2112;
-          v89 = nextEntryTime;
+          v86 = v48;
+          v87 = 2112;
+          v88 = nextEntryTime;
           _os_log_impl(&dword_21B766000, v22, OS_LOG_TYPE_INFO, "CR nextEntryTime to loi %@ is now, NULL, or in the past %@", buf, 0x16u);
         }
 
@@ -416,10 +411,10 @@ LABEL_27:
         goto LABEL_27;
       }
 
-      if (v64)
+      if (v63)
       {
-        v44 = [v64 earlierDate:nextEntryTime];
-        v45 = v44 == v64;
+        v44 = [v63 earlierDate:nextEntryTime];
+        v45 = v44 == v63;
 
         if (v45)
         {
@@ -427,9 +422,9 @@ LABEL_27:
           if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            v87 = nextEntryTime;
-            v88 = 2112;
-            v89 = v64;
+            v86 = nextEntryTime;
+            v87 = 2112;
+            v88 = v63;
             _os_log_impl(&dword_21B766000, v49, OS_LOG_TYPE_INFO, "CR prediction %@ is later than current prediction %@", buf, 0x16u);
           }
 
@@ -444,7 +439,7 @@ LABEL_27:
         }
 
 LABEL_28:
-        [v64 timeIntervalSinceDate:v58];
+        [v63 timeIntervalSinceDate:v57];
         v28 = 0;
         goto LABEL_30;
       }
@@ -472,17 +467,17 @@ LABEL_30:
 
         else
         {
-          v35 = [v64 earlierDate:nextEntryTime];
+          v35 = [v63 earlierDate:nextEntryTime];
         }
 
         v36 = v35;
 
-        v37 = [v36 earlierDate:v61];
-        v38 = v61 == v37;
+        v37 = [v36 earlierDate:v60];
+        v38 = v60 == v37;
 
         if (v38)
         {
-          v64 = v61;
+          v63 = v60;
 
           v39 = [(PowerUILocationSignalMonitor *)selfCopy log];
           if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
@@ -494,7 +489,7 @@ LABEL_30:
 
         else
         {
-          v64 = v36;
+          v63 = v36;
         }
 
         v40 = [(PowerUILocationSignalMonitor *)selfCopy log];
@@ -503,15 +498,15 @@ LABEL_30:
           locationOfInterest6 = [v15 locationOfInterest];
           v42 = +[PowerUILocationSignalMonitor stringFromRTType:](PowerUILocationSignalMonitor, "stringFromRTType:", [locationOfInterest6 type]);
           *buf = 138412546;
-          v87 = nextEntryTime;
-          v88 = 2112;
-          v89 = v42;
+          v86 = nextEntryTime;
+          v87 = 2112;
+          v88 = v42;
           _os_log_impl(&dword_21B766000, v40, OS_LOG_TYPE_DEFAULT, "CR predicts %@ for %@", buf, 0x16u);
         }
       }
     }
 
-    v13 = [obj countByEnumeratingWithState:&v66 objects:v90 count:16];
+    v13 = [obj countByEnumeratingWithState:&v65 objects:v89 count:16];
   }
 
   while (v13);
@@ -520,24 +515,23 @@ LABEL_59:
   v50 = [(PowerUILocationSignalMonitor *)selfCopy log];
   if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
   {
-    v51 = v81[5];
+    v51 = v80[5];
     *buf = 138412290;
-    v87 = v51;
+    v86 = v51;
     _os_log_impl(&dword_21B766000, v50, OS_LOG_TYPE_DEFAULT, "CR Prediction with predicted next LOIs %@", buf, 0xCu);
   }
 
 LABEL_62:
-  _Block_object_dispose(v78, 8);
+  _Block_object_dispose(v77, 8);
 
-  _Block_object_dispose(&v80, 8);
-  v52 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v79, 8);
 
-  return v64;
+  return v63;
 }
 
 void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyLOIs___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   objc_storeStrong((*(*(a1 + 48) + 8) + 40), a3);
@@ -552,9 +546,9 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
         v9 = v7;
       }
 
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "CR: No predicted location: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "CR: No predicted location: %@", &v10, 0xCu);
     }
   }
 
@@ -564,42 +558,40 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (double)empiricalDurationAwayFromLocations:(id)locations
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   locationsCopy = locations;
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
   v6 = [MEMORY[0x277CBEAA8] now];
   v7 = [currentCalendar components:32 fromDate:v6];
 
-  v37 = v7;
+  v36 = v7;
   hour = [v7 hour];
   [MEMORY[0x277CBEB18] array];
-  v42 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+  v41 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   obj = locationsCopy;
-  v41 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
-  if (v41)
+  v40 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
+  if (v40)
   {
-    v39 = *v44;
+    v38 = *v43;
     selfCopy = self;
     do
     {
-      for (i = 0; i != v41; ++i)
+      for (i = 0; i != v40; ++i)
       {
-        if (*v44 != v39)
+        if (*v43 != v38)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v43 + 1) + 8 * i);
+        v10 = *(*(&v42 + 1) + 8 * i);
         visits = [v10 visits];
         v12 = [visits mutableCopy];
 
@@ -613,9 +605,9 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
           [v10 location];
           v16 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
           *buf = 138412546;
-          v48 = v16;
-          v49 = 2112;
-          v50 = v12;
+          v47 = v16;
+          v48 = 2112;
+          v49 = v12;
           _os_log_impl(&dword_21B766000, v15, OS_LOG_TYPE_INFO, "Sorted by exit date visits to %@: %@", buf, 0x16u);
         }
 
@@ -645,7 +637,7 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
               if (v25 > 0.0)
               {
                 v26 = [MEMORY[0x277CCABB0] numberWithDouble:?];
-                [*&v42 addObject:v26];
+                [*&v41 addObject:v26];
               }
             }
           }
@@ -658,18 +650,18 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
         if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v48 = v42;
+          v47 = v41;
           _os_log_impl(&dword_21B766000, v27, OS_LOG_TYPE_INFO, "Empirical Away durations: %@", buf, 0xCu);
         }
       }
 
-      v41 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
+      v40 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
     }
 
-    while (v41);
+    while (v40);
   }
 
-  if ([*&v42 count])
+  if ([*&v41 count])
   {
     v28 = 0;
   }
@@ -686,7 +678,7 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
     v28 = @"No Duration";
   }
 
-  [*&v42 percentile:0.5];
+  [*&v41 percentile:0.5];
   v31 = v30;
   v32 = [MEMORY[0x277CCABB0] numberWithDouble:?];
   v33 = [PowerUILocationSignalMonitor stringFromRTType:0];
@@ -703,26 +695,25 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v48 = 28800.0 / 60.0 / 60.0;
+      v47 = 28800.0 / 60.0 / 60.0;
       _os_log_impl(&dword_21B766000, v34, OS_LOG_TYPE_DEFAULT, "Empirical Away predicts %f hours > 8 hours. Using 8 hour default", buf, 0xCu);
     }
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
 - (id)empiricalPredictedDateAwayFromNearbyLocations:(id)locations
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [(PowerUILocationSignalMonitor *)self empiricalDurationAwayFromLocations:locations];
   if (v4 <= 0.0)
   {
     v7 = [(PowerUILocationSignalMonitor *)self log];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_21B766000, v7, OS_LOG_TYPE_DEFAULT, "Empirical Away cannot predict because duration = 0", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_21B766000, v7, OS_LOG_TYPE_DEFAULT, "Empirical Away cannot predict because duration = 0", &v10, 2u);
     }
 
     v6 = 0;
@@ -736,15 +727,13 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [MEMORY[0x277CCABB0] numberWithDouble:v5];
-      v11 = 138412546;
-      v12 = v6;
-      v13 = 2112;
-      v14 = v8;
-      _os_log_impl(&dword_21B766000, v7, OS_LOG_TYPE_DEFAULT, "Empirical Away Prediction %@ from empirical duration %@", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v8;
+      _os_log_impl(&dword_21B766000, v7, OS_LOG_TYPE_DEFAULT, "Empirical Away Prediction %@ from empirical duration %@", &v10, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -752,60 +741,60 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
 - (double)empiricalDurationAtRemoteLocation:(int64_t)location withPotentialLOIs:(id)is
 {
   locationCopy = location;
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   isCopy = is;
   array = [MEMORY[0x277CBEB18] array];
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
   v6 = isCopy;
-  v7 = [v6 countByEnumeratingWithState:&v59 objects:v72 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v58 objects:v71 count:16];
   v8 = 0x277CCA000uLL;
   if (v7)
   {
     v9 = v7;
-    v10 = *v60;
-    v48 = *v60;
-    v49 = v6;
+    v10 = *v59;
+    v47 = *v59;
+    v48 = v6;
     do
     {
       v11 = 0;
-      v50 = v9;
+      v49 = v9;
       do
       {
-        if (*v60 != v10)
+        if (*v59 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v59 + 1) + 8 * v11);
+        v12 = *(*(&v58 + 1) + 8 * v11);
         visits = [v12 visits];
         v14 = visits;
         if (visits && [visits count] >= 5.0)
         {
-          v57 = 0u;
-          v58 = 0u;
-          v55 = 0u;
           v56 = 0u;
-          v51 = v14;
+          v57 = 0u;
+          v54 = 0u;
+          v55 = 0u;
+          v50 = v14;
           v15 = v14;
-          v22 = [v15 countByEnumeratingWithState:&v55 objects:v65 count:16];
+          v22 = [v15 countByEnumeratingWithState:&v54 objects:v64 count:16];
           if (v22)
           {
             v23 = v22;
-            v53 = v11;
-            v24 = *v56;
+            v52 = v11;
+            v24 = *v55;
             do
             {
               for (i = 0; i != v23; ++i)
               {
-                if (*v56 != v24)
+                if (*v55 != v24)
                 {
                   objc_enumerationMutation(v15);
                 }
 
-                v26 = *(*(&v55 + 1) + 8 * i);
+                v26 = *(*(&v54 + 1) + 8 * i);
                 [v26 locationOfInterestConfidence];
                 if (v27 >= 0.9)
                 {
@@ -822,9 +811,9 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
                     [*(v8 + 2992) numberWithDouble:v31];
                     v35 = v34 = v8;
                     *buf = 138412546;
-                    v67 = v33;
-                    v68 = 2112;
-                    v69 = v35;
+                    v66 = v33;
+                    v67 = 2112;
+                    v68 = v35;
                     _os_log_impl(&dword_21B766000, v32, OS_LOG_TYPE_INFO, "Empirical Prediction: %@ Visit Duration : %@", buf, 0x16u);
 
                     v8 = v34;
@@ -841,23 +830,23 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
                     v36 = [(PowerUILocationSignalMonitor *)self log];
                     if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
                     {
-                      [(PowerUILocationSignalMonitor *)v63 empiricalDurationAtRemoteLocation:v36 withPotentialLOIs:?];
+                      [(PowerUILocationSignalMonitor *)v62 empiricalDurationAtRemoteLocation:v36 withPotentialLOIs:?];
                     }
                   }
                 }
               }
 
-              v23 = [v15 countByEnumeratingWithState:&v55 objects:v65 count:16];
+              v23 = [v15 countByEnumeratingWithState:&v54 objects:v64 count:16];
             }
 
             while (v23);
-            v10 = v48;
-            v6 = v49;
-            v9 = v50;
-            v11 = v53;
+            v10 = v47;
+            v6 = v48;
+            v9 = v49;
+            v11 = v52;
           }
 
-          v14 = v51;
+          v14 = v50;
         }
 
         else
@@ -865,7 +854,7 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
           v15 = [(PowerUILocationSignalMonitor *)self log];
           if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
-            v52 = v11;
+            v51 = v11;
             +[PowerUILocationSignalMonitor stringFromRTType:](PowerUILocationSignalMonitor, "stringFromRTType:", [v12 type]);
             v16 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
             v17 = [*(v8 + 2992) numberWithUnsignedInteger:{objc_msgSend(v14, "count")}];
@@ -874,18 +863,18 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
             v19 = v6;
             v21 = v20 = v14;
             *buf = 138412802;
-            v67 = v16;
-            v68 = 2112;
-            v69 = v17;
-            v70 = 2112;
-            v71 = v21;
+            v66 = v16;
+            v67 = 2112;
+            v68 = v17;
+            v69 = 2112;
+            v70 = v21;
             _os_log_impl(&dword_21B766000, v15, OS_LOG_TYPE_INFO, "Empirical Prediction: %@ has not enough visits %@ < %@", buf, 0x20u);
 
             v14 = v20;
             v6 = v19;
             v10 = v18;
 
-            v11 = v52;
+            v11 = v51;
           }
         }
 
@@ -893,7 +882,7 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
       }
 
       while (v11 != v9);
-      v9 = [v6 countByEnumeratingWithState:&v59 objects:v72 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v58 objects:v71 count:16];
     }
 
     while (v9);
@@ -919,7 +908,7 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
   [array percentile:{0.5, locationCopy}];
   v40 = v39;
   v41 = [*(v8 + 2992) numberWithDouble:?];
-  v42 = [PowerUILocationSignalMonitor stringFromRTType:v47];
+  v42 = [PowerUILocationSignalMonitor stringFromRTType:v46];
   [(PowerUILocationSignalMonitor *)self logPredictionsWithDuration:v41 withConfidence:&unk_282D4E9F8 withLOIString:v42 withPredictionMethod:@"Empirical" withSkipString:v37];
 
   if (v40 > 28800.0)
@@ -933,21 +922,20 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
     if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v67 = 28800.0 / 60.0 / 60.0;
+      v66 = 28800.0 / 60.0 / 60.0;
       _os_log_impl(&dword_21B766000, v43, OS_LOG_TYPE_INFO, "Empirical Stay predicts %f hours > 8 hours. Using 8 hour default", buf, 0xCu);
     }
   }
 
-  v44 = *MEMORY[0x277D85DE8];
   return v40;
 }
 
 - (id)empiricalPredictedDateStayingAtNearbyLOIs:(id)is withRemoteLocation:(int64_t)location
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   isCopy = is;
-  v39 = os_transaction_create();
-  v38 = [MEMORY[0x277CBEAA8] now];
+  v38 = os_transaction_create();
+  v37 = [MEMORY[0x277CBEAA8] now];
   v7 = [(PowerUILocationSignalMonitor *)self LOIsWithinMeters:100000];
   v8 = [v7 mutableCopy];
 
@@ -957,69 +945,69 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v49 = v8;
+    v48 = v8;
     _os_log_impl(&dword_21B766000, v11, OS_LOG_TYPE_DEFAULT, "Empirical Stay Prediction: All LOIs within 100000 meters %@", buf, 0xCu);
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v12 = isCopy;
-  v13 = [v12 countByEnumeratingWithState:&v44 objects:v53 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v43 objects:v52 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v45;
+    v15 = *v44;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v45 != v15)
+        if (*v44 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [v10 addObject:*(*(&v44 + 1) + 8 * i)];
+        [v10 addObject:*(*(&v43 + 1) + 8 * i)];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v44 objects:v53 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v43 objects:v52 count:16];
     }
 
     while (v14);
   }
 
-  v37 = v12;
+  v36 = v12;
 
   selfCopy = self;
   v17 = [(PowerUILocationSignalMonitor *)self log];
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v49 = v10;
+    v48 = v10;
     _os_log_impl(&dword_21B766000, v17, OS_LOG_TYPE_DEFAULT, "Empirical Prediction: Removing nearby LOIs with identifiers %@", buf, 0xCu);
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v18 = v8;
-  v19 = [v18 countByEnumeratingWithState:&v40 objects:v52 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v39 objects:v51 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v41;
+    v21 = *v40;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v41 != v21)
+        if (*v40 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v40 + 1) + 8 * j);
+        v23 = *(*(&v39 + 1) + 8 * j);
         identifier = [v23 identifier];
         v25 = [v10 containsObject:identifier];
 
@@ -1034,7 +1022,7 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v40 objects:v52 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v39 objects:v51 count:16];
     }
 
     while (v20);
@@ -1044,9 +1032,9 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
   if (v26 <= 0.0)
   {
     v30 = [(PowerUILocationSignalMonitor *)selfCopy log];
-    v28 = v38;
-    v31 = v39;
-    v32 = v37;
+    v28 = v37;
+    v31 = v38;
+    v32 = v36;
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -1059,32 +1047,30 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
   else
   {
     v27 = v26;
-    v28 = v38;
-    v29 = [MEMORY[0x277CBEAA8] dateWithTimeInterval:v38 sinceDate:?];
+    v28 = v37;
+    v29 = [MEMORY[0x277CBEAA8] dateWithTimeInterval:v37 sinceDate:?];
     v30 = [(PowerUILocationSignalMonitor *)selfCopy log];
-    v31 = v39;
-    v32 = v37;
+    v31 = v38;
+    v32 = v36;
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       v33 = [MEMORY[0x277CCABB0] numberWithDouble:v27];
       *buf = 138412546;
-      v49 = v29;
-      v50 = 2112;
-      v51 = v33;
+      v48 = v29;
+      v49 = 2112;
+      v50 = v33;
       _os_log_impl(&dword_21B766000, v30, OS_LOG_TYPE_DEFAULT, "Empirical Stay Prediction %@ from empirical duration %@", buf, 0x16u);
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v29;
 }
 
 - (BOOL)longChargesOccurredInLocationsNear:(id)near withError:(id *)error
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   nearCopy = near;
-  v49 = nearCopy;
+  v48 = nearCopy;
   if ([(PowerUILocationSignalMonitor *)self locationIsUncertain:nearCopy])
   {
     log = self->_log;
@@ -1101,29 +1087,29 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
   else
   {
     *buf = 0;
-    v78 = buf;
-    v79 = 0x3032000000;
-    v80 = __Block_byref_object_copy__10;
-    v81 = __Block_byref_object_dispose__10;
-    v82 = 0;
-    v71 = 0;
-    v72 = &v71;
-    v73 = 0x3032000000;
-    v74 = __Block_byref_object_copy__10;
-    v75 = __Block_byref_object_dispose__10;
-    v76 = 0;
+    v77 = buf;
+    v78 = 0x3032000000;
+    v79 = __Block_byref_object_copy__10;
+    v80 = __Block_byref_object_dispose__10;
+    v81 = 0;
+    v70 = 0;
+    v71 = &v70;
+    v72 = 0x3032000000;
+    v73 = __Block_byref_object_copy__10;
+    v74 = __Block_byref_object_dispose__10;
+    v75 = 0;
     v9 = dispatch_semaphore_create(0);
     routine = self->_routine;
-    v67[0] = MEMORY[0x277D85DD0];
-    v67[1] = 3221225472;
-    v67[2] = __77__PowerUILocationSignalMonitor_longChargesOccurredInLocationsNear_withError___block_invoke;
-    v67[3] = &unk_2782D5110;
-    v69 = &v71;
-    v67[4] = self;
+    v66[0] = MEMORY[0x277D85DD0];
+    v66[1] = 3221225472;
+    v66[2] = __77__PowerUILocationSignalMonitor_longChargesOccurredInLocationsNear_withError___block_invoke;
+    v66[3] = &unk_2782D5110;
+    v68 = &v70;
+    v66[4] = self;
     dsema = v9;
-    v68 = dsema;
-    v70 = buf;
-    [(RTRoutineManager *)routine fetchLocationsOfInterestWithinDistance:nearCopy ofLocation:v67 withHandler:200.0];
+    v67 = dsema;
+    v69 = buf;
+    [(RTRoutineManager *)routine fetchLocationsOfInterestWithinDistance:nearCopy ofLocation:v66 withHandler:200.0];
     v11 = dispatch_time(0, 30000000000);
     if (dispatch_semaphore_wait(dsema, v11))
     {
@@ -1140,33 +1126,33 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
     else
     {
       selfCopy = self;
-      if ([*(v78 + 5) count])
+      if ([*(v77 + 5) count])
       {
-        *error = v72[5];
+        *error = v71[5];
         array = [MEMORY[0x277CBEB18] array];
-        v62 = 0u;
-        v63 = 0u;
-        v60 = 0u;
         v61 = 0u;
-        v13 = *(v78 + 5);
-        v14 = [v13 countByEnumeratingWithState:&v60 objects:v84 count:16];
+        v62 = 0u;
+        v59 = 0u;
+        v60 = 0u;
+        v13 = *(v77 + 5);
+        v14 = [v13 countByEnumeratingWithState:&v59 objects:v83 count:16];
         if (v14)
         {
-          v15 = *v61;
+          v15 = *v60;
           do
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v61 != v15)
+              if (*v60 != v15)
               {
                 objc_enumerationMutation(v13);
               }
 
-              visits = [*(*(&v60 + 1) + 8 * i) visits];
+              visits = [*(*(&v59 + 1) + 8 * i) visits];
               [array addObjectsFromArray:visits];
             }
 
-            v14 = [v13 countByEnumeratingWithState:&v60 objects:v84 count:16];
+            v14 = [v13 countByEnumeratingWithState:&v59 objects:v83 count:16];
           }
 
           while (v14);
@@ -1175,29 +1161,29 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
         [array sortUsingComparator:&__block_literal_global_20];
         v18 = objc_alloc_init(MEMORY[0x277CCA968]);
         [v18 setDateFormat:@"yyyy-MM-dd HH:mm"];
-        v52 = v18;
+        v51 = v18;
         v19 = +[PowerUISmartChargeUtilities lastPluggedInDate];
-        v58 = 0u;
-        v59 = 0u;
-        v56 = 0u;
         v57 = 0u;
+        v58 = 0u;
+        v55 = 0u;
+        v56 = 0u;
         obj = array;
-        v20 = [obj countByEnumeratingWithState:&v56 objects:v83 count:16];
+        v20 = [obj countByEnumeratingWithState:&v55 objects:v82 count:16];
         if (v20)
         {
-          v53 = 0;
+          v52 = 0;
           v21 = 0;
-          v22 = *v57;
+          v22 = *v56;
           do
           {
             for (j = 0; j != v20; ++j)
             {
-              if (*v57 != v22)
+              if (*v56 != v22)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v24 = *(*(&v56 + 1) + 8 * j);
+              v24 = *(*(&v55 + 1) + 8 * j);
               entryDate = [v24 entryDate];
               [v19 timeIntervalSinceDate:entryDate];
               v27 = v26 > 2592000.0;
@@ -1216,20 +1202,20 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
                   if (v32)
                   {
                     entryDate3 = [v24 entryDate];
-                    v33 = [v52 stringFromDate:entryDate3];
+                    v33 = [v51 stringFromDate:entryDate3];
                     exitDate2 = [v24 exitDate];
-                    v35 = [v52 stringFromDate:exitDate2];
-                    v36 = [v52 stringFromDate:v19];
-                    *v85 = 138412802;
-                    *&v85[4] = v33;
-                    *&v85[12] = 2112;
-                    *&v85[14] = v35;
-                    *&v85[22] = 2112;
-                    v86 = v36;
-                    _os_log_debug_impl(&dword_21B766000, v31, OS_LOG_TYPE_DEBUG, "Match! visit start: %@  ---  visit end: %@  ---  plugin date: %@", v85, 0x20u);
+                    v35 = [v51 stringFromDate:exitDate2];
+                    v36 = [v51 stringFromDate:v19];
+                    *v84 = 138412802;
+                    *&v84[4] = v33;
+                    *&v84[12] = 2112;
+                    *&v84[14] = v35;
+                    *&v84[22] = 2112;
+                    v85 = v36;
+                    _os_log_debug_impl(&dword_21B766000, v31, OS_LOG_TYPE_DEBUG, "Match! visit start: %@  ---  visit end: %@  ---  plugin date: %@", v84, 0x20u);
                   }
 
-                  ++v53;
+                  ++v52;
                 }
 
                 else
@@ -1237,23 +1223,23 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
                   if (v32)
                   {
                     entryDate4 = [v24 entryDate];
-                    v37 = [v52 stringFromDate:entryDate4];
+                    v37 = [v51 stringFromDate:entryDate4];
                     exitDate3 = [v24 exitDate];
-                    v39 = [v52 stringFromDate:exitDate3];
-                    v40 = [v52 stringFromDate:v19];
-                    *v85 = 138412802;
-                    *&v85[4] = v37;
-                    *&v85[12] = 2112;
-                    *&v85[14] = v39;
-                    *&v85[22] = 2112;
-                    v86 = v40;
-                    _os_log_debug_impl(&dword_21B766000, v31, OS_LOG_TYPE_DEBUG, "NO Match! visit start: %@  ---  visit end: %@  ---  plugin date: %@", v85, 0x20u);
+                    v39 = [v51 stringFromDate:exitDate3];
+                    v40 = [v51 stringFromDate:v19];
+                    *v84 = 138412802;
+                    *&v84[4] = v37;
+                    *&v84[12] = 2112;
+                    *&v84[14] = v39;
+                    *&v84[22] = 2112;
+                    v85 = v40;
+                    _os_log_debug_impl(&dword_21B766000, v31, OS_LOG_TYPE_DEBUG, "NO Match! visit start: %@  ---  visit end: %@  ---  plugin date: %@", v84, 0x20u);
                   }
                 }
               }
             }
 
-            v20 = [obj countByEnumeratingWithState:&v56 objects:v83 count:16];
+            v20 = [obj countByEnumeratingWithState:&v55 objects:v82 count:16];
           }
 
           while (v20);
@@ -1261,42 +1247,42 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
 
         else
         {
-          v53 = 0;
+          v52 = 0;
           v21 = 0;
         }
 
         v45 = selfCopy->_log;
         if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
         {
-          *v85 = 67109376;
-          *&v85[4] = v53;
-          *&v85[8] = 1024;
-          *&v85[10] = v21;
-          _os_log_impl(&dword_21B766000, v45, OS_LOG_TYPE_DEFAULT, "%u out of %u LoI visits match current time", v85, 0xEu);
+          *v84 = 67109376;
+          *&v84[4] = v52;
+          *&v84[8] = 1024;
+          *&v84[10] = v21;
+          _os_log_impl(&dword_21B766000, v45, OS_LOG_TYPE_DEFAULT, "%u out of %u LoI visits match current time", v84, 0xEu);
         }
 
-        v8 = v53 > 4;
+        v8 = v52 > 4;
       }
 
       else
       {
-        *v85 = 0;
-        *&v85[8] = v85;
-        *&v85[16] = 0x2020000000;
-        LOBYTE(v86) = 0;
+        *v84 = 0;
+        *&v84[8] = v84;
+        *&v84[16] = 0x2020000000;
+        LOBYTE(v85) = 0;
         v41 = dispatch_semaphore_create(0);
 
         v42 = self->_routine;
         v43 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-259200.0];
-        v64[0] = MEMORY[0x277D85DD0];
-        v64[1] = 3221225472;
-        v64[2] = __77__PowerUILocationSignalMonitor_longChargesOccurredInLocationsNear_withError___block_invoke_155;
-        v64[3] = &unk_2782D5138;
-        v64[4] = selfCopy;
-        v66 = v85;
+        v63[0] = MEMORY[0x277D85DD0];
+        v63[1] = 3221225472;
+        v63[2] = __77__PowerUILocationSignalMonitor_longChargesOccurredInLocationsNear_withError___block_invoke_155;
+        v63[3] = &unk_2782D5138;
+        v63[4] = selfCopy;
+        v65 = v84;
         dsema = v41;
-        v65 = dsema;
-        [(RTRoutineManager *)v42 fetchLocationsOfInterestVisitedSinceDate:v43 withHandler:v64];
+        v64 = dsema;
+        [(RTRoutineManager *)v42 fetchLocationsOfInterestVisitedSinceDate:v43 withHandler:v63];
 
         v44 = dispatch_time(0, 30000000000);
         if (dispatch_semaphore_wait(dsema, v44))
@@ -1313,24 +1299,23 @@ void __76__PowerUILocationSignalMonitor_coreRoutinePredictedEntryDateFromNearbyL
 
         else
         {
-          v8 = *(*&v85[8] + 24) ^ 1;
+          v8 = *(*&v84[8] + 24) ^ 1;
         }
 
-        _Block_object_dispose(v85, 8);
+        _Block_object_dispose(v84, 8);
       }
     }
 
-    _Block_object_dispose(&v71, 8);
+    _Block_object_dispose(&v70, 8);
     _Block_object_dispose(buf, 8);
   }
 
-  v46 = *MEMORY[0x277D85DE8];
   return v8 & 1;
 }
 
 void __77__PowerUILocationSignalMonitor_longChargesOccurredInLocationsNear_withError___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   objc_storeStrong((*(*(a1 + 48) + 8) + 40), a3);
@@ -1345,9 +1330,9 @@ void __77__PowerUILocationSignalMonitor_longChargesOccurredInLocationsNear_withE
         v9 = v7;
       }
 
-      v15 = 138412290;
-      v16 = v9;
-      _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "No LOIs nearby: %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v9;
+      _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "No LOIs nearby: %@", &v14, 0xCu);
     }
 
     ADClientSetValueForScalarKey();
@@ -1361,22 +1346,20 @@ void __77__PowerUILocationSignalMonitor_longChargesOccurredInLocationsNear_withE
       v11 = MEMORY[0x277CCABB0];
       v12 = v10;
       v13 = [v11 numberWithUnsignedInteger:{objc_msgSend(v6, "count")}];
-      v15 = 138412290;
-      v16 = v13;
-      _os_log_impl(&dword_21B766000, v12, OS_LOG_TYPE_DEFAULT, "%@ nearby LOIs", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v13;
+      _os_log_impl(&dword_21B766000, v12, OS_LOG_TYPE_DEFAULT, "%@ nearby LOIs", &v14, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 56) + 8) + 40), a2);
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __77__PowerUILocationSignalMonitor_longChargesOccurredInLocationsNear_withError___block_invoke_155(uint64_t a1, void *a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (a3)
@@ -1394,9 +1377,9 @@ void __77__PowerUILocationSignalMonitor_longChargesOccurredInLocationsNear_withE
       if (os_log_type_enabled(*(v8 + 96), OS_LOG_TYPE_DEFAULT))
       {
         v10 = v9;
-        v12 = 134217984;
-        v13 = [v6 count];
-        _os_log_impl(&dword_21B766000, v10, OS_LOG_TYPE_DEFAULT, "No LoIs, but did see visits in the past. (%lu)", &v12, 0xCu);
+        v11 = 134217984;
+        v12 = [v6 count];
+        _os_log_impl(&dword_21B766000, v10, OS_LOG_TYPE_DEFAULT, "No LoIs, but did see visits in the past. (%lu)", &v11, 0xCu);
       }
 
       *(*(*(a1 + 48) + 8) + 24) = 1;
@@ -1414,8 +1397,6 @@ void __77__PowerUILocationSignalMonitor_longChargesOccurredInLocationsNear_withE
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __77__PowerUILocationSignalMonitor_longChargesOccurredInLocationsNear_withError___block_invoke_160(uint64_t a1, void *a2, void *a3)
@@ -1430,7 +1411,7 @@ uint64_t __77__PowerUILocationSignalMonitor_longChargesOccurredInLocationsNear_w
 
 - (BOOL)inTypicalChargingLocationWithError:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   queue = self->_queue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -1494,9 +1475,9 @@ uint64_t __77__PowerUILocationSignalMonitor_longChargesOccurredInLocationsNear_w
     }
 
     *buf = 138412546;
-    v30 = v16;
-    v31 = 2112;
-    v32 = v18;
+    v29 = v16;
+    v30 = 2112;
+    v31 = v18;
     _os_log_impl(&dword_21B766000, v14, OS_LOG_TYPE_DEFAULT, "Current location %@, Location manager location: %@", buf, 0x16u);
   }
 
@@ -1516,14 +1497,13 @@ uint64_t __77__PowerUILocationSignalMonitor_longChargesOccurredInLocationsNear_w
 
   v23 = [(PowerUILocationSignalMonitor *)self longChargesOccurredInLocationsNear:v22 withError:error];
   v24 = self->_queue;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __67__PowerUILocationSignalMonitor_inTypicalChargingLocationWithError___block_invoke_170;
-  v27[3] = &unk_2782D3EA8;
-  v27[4] = self;
-  dispatch_sync(v24, v27);
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __67__PowerUILocationSignalMonitor_inTypicalChargingLocationWithError___block_invoke_170;
+  v26[3] = &unk_2782D3EA8;
+  v26[4] = self;
+  dispatch_sync(v24, v26);
 
-  v25 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -1546,99 +1526,99 @@ uint64_t __67__PowerUILocationSignalMonitor_inTypicalChargingLocationWithError__
 
 - (BOOL)isInSameTimeZone
 {
-  v49 = *MEMORY[0x277D85DE8];
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy__10;
-  v46 = __Block_byref_object_dispose__10;
-  v47 = 0;
+  v48 = *MEMORY[0x277D85DE8];
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__10;
+  v45 = __Block_byref_object_dispose__10;
+  v46 = 0;
   v3 = BiomeLibrary();
   device = [v3 Device];
   timeZone = [device TimeZone];
 
   publisher = [timeZone publisher];
   last = [publisher last];
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __48__PowerUILocationSignalMonitor_isInSameTimeZone__block_invoke;
-  v41[3] = &unk_2782D3E10;
-  v41[4] = self;
   v40[0] = MEMORY[0x277D85DD0];
   v40[1] = 3221225472;
-  v40[2] = __48__PowerUILocationSignalMonitor_isInSameTimeZone__block_invoke_172;
-  v40[3] = &unk_2782D5180;
-  v40[4] = &v42;
-  v8 = [last sinkWithCompletion:v41 receiveInput:v40];
+  v40[2] = __48__PowerUILocationSignalMonitor_isInSameTimeZone__block_invoke;
+  v40[3] = &unk_2782D3E10;
+  v40[4] = self;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __48__PowerUILocationSignalMonitor_isInSameTimeZone__block_invoke_172;
+  v39[3] = &unk_2782D5180;
+  v39[4] = &v41;
+  v8 = [last sinkWithCompletion:v40 receiveInput:v39];
 
-  if (v43[5])
+  if (v42[5])
   {
     v9 = self->_log;
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      [v43[5] secondsFromGMT];
+      [v42[5] secondsFromGMT];
       [(PowerUILocationSignalMonitor *)buf isInSameTimeZone];
     }
 
-    v37 = 0;
-    v38[0] = &v37;
-    v38[1] = 0x2020000000;
-    v39 = 0;
-    v34 = 0;
-    v35[0] = &v34;
-    v35[1] = 0x2020000000;
     v36 = 0;
-    v32[0] = 0;
-    v32[1] = v32;
-    v32[2] = 0x3032000000;
-    v32[3] = __Block_byref_object_copy__10;
-    v32[4] = __Block_byref_object_dispose__10;
+    v37[0] = &v36;
+    v37[1] = 0x2020000000;
+    v38 = 0;
     v33 = 0;
+    v34[0] = &v33;
+    v34[1] = 0x2020000000;
+    v35 = 0;
+    v31[0] = 0;
+    v31[1] = v31;
+    v31[2] = 0x3032000000;
+    v31[3] = __Block_byref_object_copy__10;
+    v31[4] = __Block_byref_object_dispose__10;
+    v32 = 0;
     v11 = BiomeLibrary();
     device2 = [v11 Device];
     power = [device2 Power];
     pluggedIn = [power PluggedIn];
 
-    v30[0] = 0;
-    v30[1] = v30;
-    v30[2] = 0x2020000000;
-    v31 = -1;
+    v29[0] = 0;
+    v29[1] = v29;
+    v29[2] = 0x2020000000;
+    v30 = -1;
     publisher2 = [timeZone publisher];
     publisher3 = [pluggedIn publisher];
     v17 = [publisher2 orderedMergeWithOther:publisher3 comparator:&__block_literal_global_177];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __48__PowerUILocationSignalMonitor_isInSameTimeZone__block_invoke_2;
-    v29[3] = &unk_2782D51A8;
-    v29[4] = v32;
-    v29[5] = v30;
-    v18 = [v17 filterWithIsIncluded:v29];
     v28[0] = MEMORY[0x277D85DD0];
     v28[1] = 3221225472;
-    v28[2] = __48__PowerUILocationSignalMonitor_isInSameTimeZone__block_invoke_3;
-    v28[3] = &unk_2782D3E10;
-    v28[4] = self;
+    v28[2] = __48__PowerUILocationSignalMonitor_isInSameTimeZone__block_invoke_2;
+    v28[3] = &unk_2782D51A8;
+    v28[4] = v31;
+    v28[5] = v29;
+    v18 = [v17 filterWithIsIncluded:v28];
     v27[0] = MEMORY[0x277D85DD0];
     v27[1] = 3221225472;
-    v27[2] = __48__PowerUILocationSignalMonitor_isInSameTimeZone__block_invoke_181;
-    v27[3] = &unk_2782D51D0;
+    v27[2] = __48__PowerUILocationSignalMonitor_isInSameTimeZone__block_invoke_3;
+    v27[3] = &unk_2782D3E10;
     v27[4] = self;
-    v27[5] = v32;
-    v27[6] = &v42;
-    v27[7] = &v37;
-    v27[8] = &v34;
-    v19 = [v18 sinkWithCompletion:v28 receiveInput:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __48__PowerUILocationSignalMonitor_isInSameTimeZone__block_invoke_181;
+    v26[3] = &unk_2782D51D0;
+    v26[4] = self;
+    v26[5] = v31;
+    v26[6] = &v41;
+    v26[7] = &v36;
+    v26[8] = &v33;
+    v19 = [v18 sinkWithCompletion:v27 receiveInput:v26];
 
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
     {
-      [(PowerUILocationSignalMonitor *)v35 isInSameTimeZone];
+      [(PowerUILocationSignalMonitor *)v34 isInSameTimeZone];
     }
 
-    v21 = *(v35[0] + 24);
+    v21 = *(v34[0] + 24);
     if (v21)
     {
-      v22 = *(v38[0] + 24);
+      v22 = *(v37[0] + 24);
       v23 = v22 >= 11 && v22 / v21 > 3;
     }
 
@@ -1647,11 +1627,11 @@ uint64_t __67__PowerUILocationSignalMonitor_inTypicalChargingLocationWithError__
       v23 = 1;
     }
 
-    _Block_object_dispose(v30, 8);
+    _Block_object_dispose(v29, 8);
 
-    _Block_object_dispose(v32, 8);
-    _Block_object_dispose(&v34, 8);
-    _Block_object_dispose(&v37, 8);
+    _Block_object_dispose(v31, 8);
+    _Block_object_dispose(&v33, 8);
+    _Block_object_dispose(&v36, 8);
   }
 
   else
@@ -1665,8 +1645,7 @@ uint64_t __67__PowerUILocationSignalMonitor_inTypicalChargingLocationWithError__
     v23 = 0;
   }
 
-  _Block_object_dispose(&v42, 8);
-  v25 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v41, 8);
   return v23;
 }
 
@@ -1685,10 +1664,7 @@ void __48__PowerUILocationSignalMonitor_isInSameTimeZone__block_invoke(uint64_t 
 
 uint64_t __48__PowerUILocationSignalMonitor_isInSameTimeZone__block_invoke_172(uint64_t a1, void *a2)
 {
-  v3 = [a2 eventBody];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 eventBody];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1912,7 +1888,7 @@ void __52__PowerUILocationSignalMonitor_inKnownMicrolocation__block_invoke(uint6
 
 void __52__PowerUILocationSignalMonitor_inKnownMicrolocation__block_invoke_182(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   *(*(*(a1 + 40) + 8) + 24) = 1;
   v4 = *(a1 + 56);
@@ -1921,20 +1897,20 @@ void __52__PowerUILocationSignalMonitor_inKnownMicrolocation__block_invoke_182(u
   v7 = *(*(a1 + 32) + 96);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v10 = MEMORY[0x277CBEAA8];
-    v11 = *(a1 + 56);
-    v12 = v7;
-    v13 = [v10 dateWithTimeIntervalSinceReferenceDate:v11];
-    v14 = MEMORY[0x277CBEAA8];
+    v9 = MEMORY[0x277CBEAA8];
+    v10 = *(a1 + 56);
+    v11 = v7;
+    v12 = [v9 dateWithTimeIntervalSinceReferenceDate:v10];
+    v13 = MEMORY[0x277CBEAA8];
     [v3 timestamp];
-    v15 = [v14 dateWithTimeIntervalSinceReferenceDate:?];
-    v16 = 138412802;
-    v17 = v13;
-    v18 = 2112;
-    v19 = v15;
-    v20 = 2048;
-    v21 = v6;
-    _os_log_debug_impl(&dword_21B766000, v12, OS_LOG_TYPE_DEBUG, "working on event - plugin: %@ - event timestamp: %@ - diff: %f", &v16, 0x20u);
+    v14 = [v13 dateWithTimeIntervalSinceReferenceDate:?];
+    v15 = 138412802;
+    v16 = v12;
+    v17 = 2112;
+    v18 = v14;
+    v19 = 2048;
+    v20 = v6;
+    _os_log_debug_impl(&dword_21B766000, v11, OS_LOG_TYPE_DEBUG, "working on event - plugin: %@ - event timestamp: %@ - diff: %f", &v15, 0x20u);
   }
 
   if (fabs(v6) < 60.0)
@@ -1942,15 +1918,13 @@ void __52__PowerUILocationSignalMonitor_inKnownMicrolocation__block_invoke_182(u
     v8 = [*(a1 + 32) log];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = v3;
-      _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "Microlocation event near pluggedIn time %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v3;
+      _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "Microlocation event near pluggedIn time %@", &v15, 0xCu);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)notAuthorizedForLocation
@@ -2084,7 +2058,7 @@ LABEL_16:
 
 void __54__PowerUILocationSignalMonitor_requiredFullChargeDate__block_invoke(uint64_t a1)
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) notAuthorizedForLocation];
   v3 = *(a1 + 32);
   if (!v2)
@@ -2093,9 +2067,9 @@ void __54__PowerUILocationSignalMonitor_requiredFullChargeDate__block_invoke(uin
     v7 = dispatch_time(0, 5000000000);
     dispatch_semaphore_wait(v6, v7);
     v8 = *(a1 + 32);
-    v34 = 0;
-    v9 = [v8 inTypicalChargingLocationWithError:&v34];
-    v10 = v34;
+    v33 = 0;
+    v9 = [v8 inTypicalChargingLocationWithError:&v33];
+    v10 = v33;
     v11 = v10;
     if (v9)
     {
@@ -2127,16 +2101,16 @@ void __54__PowerUILocationSignalMonitor_requiredFullChargeDate__block_invoke(uin
         goto LABEL_14;
       }
 
-      v30 = [MEMORY[0x277CBEAA8] distantPast];
-      v31 = *(*(a1 + 40) + 8);
-      v32 = *(v31 + 40);
-      *(v31 + 40) = v30;
+      v29 = [MEMORY[0x277CBEAA8] distantPast];
+      v30 = *(*(a1 + 40) + 8);
+      v31 = *(v30 + 40);
+      *(v30 + 40) = v29;
 
-      v33 = *(*(a1 + 32) + 96);
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v32 = *(*(a1 + 32) + 96);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21B766000, v33, OS_LOG_TYPE_DEFAULT, "Not in typical charging location; Opting out of feature", buf, 2u);
+        _os_log_impl(&dword_21B766000, v32, OS_LOG_TYPE_DEFAULT, "Not in typical charging location; Opting out of feature", buf, 2u);
       }
     }
 
@@ -2176,17 +2150,15 @@ LABEL_14:
 
 LABEL_18:
   [*(*(*(a1 + 40) + 8) + 40) timeIntervalSinceNow];
-  v36[0] = @"Reason";
-  v36[1] = @"locationMonitorDecision";
-  v37[0] = v16;
+  v35[0] = @"Reason";
+  v35[1] = @"locationMonitorDecision";
+  v36[0] = v16;
   v25 = [MEMORY[0x277CCABB0] numberWithBool:v24 > 0.0];
-  v37[1] = v25;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
+  v36[1] = v25;
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:2];
   v27 = *(a1 + 32);
   v28 = *(v27 + 16);
   *(v27 + 16) = v26;
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (id)LOIsWithinMeters:(int)meters
@@ -2268,7 +2240,7 @@ void __49__PowerUILocationSignalMonitor_LOIsWithinMeters___block_invoke(uint64_t
 
 - (void)locationManagerDidChangeAuthorization:(id)authorization
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   authorizationStatus = [authorization authorizationStatus];
   ADClientSetValueForScalarKey();
   log = self->_log;
@@ -2277,8 +2249,8 @@ void __49__PowerUILocationSignalMonitor_LOIsWithinMeters___block_invoke(uint64_t
   {
     if (v6)
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Authorized for Protective Top-Off", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Authorized for Protective Top-Off", &v10, 2u);
     }
   }
 
@@ -2287,14 +2259,13 @@ void __49__PowerUILocationSignalMonitor_LOIsWithinMeters___block_invoke(uint64_t
     v7 = MEMORY[0x277CCABB0];
     v8 = log;
     v9 = [v7 numberWithInt:authorizationStatus];
-    v11 = 138412290;
-    v12 = v9;
-    _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "Authorization status: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v9;
+    _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "Authorization status: %@", &v10, 0xCu);
   }
 
   self->_authorizationStatus = authorizationStatus;
   dispatch_semaphore_signal(self->_authorizationSemaphore);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
@@ -2333,17 +2304,15 @@ void __67__PowerUILocationSignalMonitor_locationManager_didUpdateLocations___blo
 
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = errorCopy;
-    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Location Manager failed with error: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = errorCopy;
+    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Location Manager failed with error: %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)empiricalDurationAtRemoteLocation:(NSObject *)a3 withPotentialLOIs:.cold.1(uint8_t *a1, void *a2, NSObject *a3)
@@ -2356,7 +2325,7 @@ void __67__PowerUILocationSignalMonitor_locationManager_didUpdateLocations___blo
 
 - (void)inTypicalChargingLocationWithError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (*(a1 + 48))
   {
     v2 = @"Have Location";
@@ -2367,52 +2336,44 @@ void __67__PowerUILocationSignalMonitor_locationManager_didUpdateLocations___blo
     v2 = 0;
   }
 
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_21B766000, a2, OS_LOG_TYPE_DEBUG, "Current location: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_21B766000, a2, OS_LOG_TYPE_DEBUG, "Current location: %@", &v3, 0xCu);
 }
 
 - (void)isInSameTimeZone
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(*self + 24);
   v4 = *(*a2 + 24);
-  v6[0] = 67109376;
-  v6[1] = v3;
-  v7 = 1024;
-  v8 = v4;
-  _os_log_debug_impl(&dword_21B766000, log, OS_LOG_TYPE_DEBUG, "differentTimeZone: %d - sameTimeZone: %d", v6, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = 67109376;
+  v5[1] = v3;
+  v6 = 1024;
+  v7 = v4;
+  _os_log_debug_impl(&dword_21B766000, log, OS_LOG_TYPE_DEBUG, "differentTimeZone: %d - sameTimeZone: %d", v5, 0xEu);
 }
 
 void __48__PowerUILocationSignalMonitor_isInSameTimeZone__block_invoke_cold_1(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   v2 = [v1 description];
   [v2 UTF8String];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_21B766000, v3, v4, "Error getting TimeZone biome events in signal monitor: %s", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_1(&dword_21B766000, v3, v4, "Error getting TimeZone biome events in signal monitor: %s", v5, v6, v7, v8);
 }
 
 void __48__PowerUILocationSignalMonitor_isInSameTimeZone__block_invoke_3_cold_1(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   v2 = [v1 description];
   [v2 UTF8String];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_21B766000, v3, v4, "Error getting TimeZone/Plugin biome events in signal monitor: %s", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_1(&dword_21B766000, v3, v4, "Error getting TimeZone/Plugin biome events in signal monitor: %s", v5, v6, v7, v8);
 }
 
 void __48__PowerUILocationSignalMonitor_isInSameTimeZone__block_invoke_181_cold_1(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEAA8];
   v5 = *(*(*a1 + 8) + 40);
   v6 = a2;
@@ -2421,33 +2382,27 @@ void __48__PowerUILocationSignalMonitor_isInSameTimeZone__block_invoke_181_cold_
   v8 = MEMORY[0x277CBEAA8];
   [a3 timestamp];
   v9 = [v8 dateWithTimeIntervalSinceReferenceDate:?];
-  v11 = 138412546;
-  v12 = v7;
-  v13 = 2112;
-  v14 = v9;
-  _os_log_debug_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEBUG, "working on event with TZ timestamp: %@ - plugin timestamp: %@", &v11, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10 = 138412546;
+  v11 = v7;
+  v12 = 2112;
+  v13 = v9;
+  _os_log_debug_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEBUG, "working on event with TZ timestamp: %@ - plugin timestamp: %@", &v10, 0x16u);
 }
 
 void __52__PowerUILocationSignalMonitor_inKnownMicrolocation__block_invoke_cold_1(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   v2 = [v1 description];
   [v2 UTF8String];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_21B766000, v3, v4, "Error getting KML in signalMonitor: %s", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_1(&dword_21B766000, v3, v4, "Error getting KML in signalMonitor: %s", v5, v6, v7, v8);
 }
 
 void __49__PowerUILocationSignalMonitor_LOIsWithinMeters___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_21B766000, v0, OS_LOG_TYPE_ERROR, "Fetch LOIs error: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21B766000, v0, OS_LOG_TYPE_ERROR, "Fetch LOIs error: %@", v1, 0xCu);
 }
 
 @end

@@ -119,22 +119,20 @@
 
 - (id)dictionary
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9[0] = @"v";
-  v9[1] = @"a";
-  v10 = vbslq_s8(vceqzq_s64(*&self->_value), vdupq_n_s64(MEMORY[0x277CBEC10]), *&self->_value);
-  v9[2] = @"t";
+  v13 = *MEMORY[0x277D85DE8];
+  v8[0] = @"v";
+  v8[1] = @"a";
+  v9 = vbslq_s8(vceqzq_s64(*&self->_value), vdupq_n_s64(MEMORY[0x277CBEC10]), *&self->_value);
+  v8[2] = @"t";
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:self->_timestamp];
-  v11 = v3;
-  v9[3] = @"st";
+  v10 = v3;
+  v8[3] = @"st";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_syncTimestamp];
-  v12 = v4;
-  v9[4] = @"fi";
+  v11 = v4;
+  v8[4] = @"fi";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_frameId];
-  v13 = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:v9 count:5];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v12 = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:v8 count:5];
 
   return v6;
 }

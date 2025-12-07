@@ -97,39 +97,37 @@ void __36__PLMultiKeyEntry_setObject_forKey___block_invoke(uint64_t a1, void *a2
 
 - (id)objectsForSubKey:(id)key ofSubKeyType:(id)type
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = [(PLMultiKeyEntry *)self keysForSubKey:key ofSubKeyType:type];
   v6 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [(PLEntry *)self objectForKey:*(*(&v15 + 1) + 8 * i), v15];
+        v12 = [(PLEntry *)self objectForKey:*(*(&v14 + 1) + 8 * i), v14];
         [v6 addObject:v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

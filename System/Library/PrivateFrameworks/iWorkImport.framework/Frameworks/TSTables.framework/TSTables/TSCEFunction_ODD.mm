@@ -7,27 +7,27 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v7 = **arguments;
-  v28 = 0;
-  v9 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v7, v8, context, spec, 0, &v28);
-  v13 = v28;
-  if (v13)
+  v25 = 0;
+  v9 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v7, v8, context, spec, 0, &v25);
+  v12 = v25;
+  if (v12)
   {
-    v14 = objc_msgSend_raiseErrorOrConvert_(context, v10, v13, v11, v12);
+    v13 = objc_msgSend_raiseErrorOrConvert_(context, v10, v12, v11);
   }
 
   else
   {
     TSUDecimal::operator=();
     TSUDecimal::operator=();
-    v26._decimal.w[0] = objc_msgSend_decimalRepresentation(v9, v15, v16, v17, v18);
-    v26._decimal.w[1] = v19;
-    if (TSUDecimal::isNegative(&v26))
+    v23._decimal.w[0] = objc_msgSend_decimalRepresentation(v9, v14, v15, v16);
+    v23._decimal.w[1] = v17;
+    if (TSUDecimal::isNegative(&v23))
     {
-      TSUDecimal::floor(&v26);
-      TSUDecimal::negate(&v26);
+      TSUDecimal::floor(&v23);
+      TSUDecimal::negate(&v23);
       TSUDecimal::operator=();
-      TSUDecimal::mod(&v26, &v27, v25);
-      TSUDecimal::negate(&v26);
+      TSUDecimal::mod(&v23, &v24, v22);
+      TSUDecimal::negate(&v23);
       if ((TSUDecimal::operator==() & 1) == 0)
       {
         TSUDecimal::operator-=();
@@ -36,9 +36,9 @@
 
     else
     {
-      TSUDecimal::ceiling(&v26);
+      TSUDecimal::ceiling(&v23);
       TSUDecimal::operator=();
-      TSUDecimal::mod(&v26, &v27, v25);
+      TSUDecimal::mod(&v23, &v24, v22);
       if ((TSUDecimal::operator==() & 1) == 0)
       {
         TSUDecimal::operator+=();
@@ -47,20 +47,20 @@
 
     if (v7)
     {
-      objc_msgSend_formatWithContext_(v7, v20, context, v21, v22);
+      objc_msgSend_formatWithContext_(v7, v18, context, v19);
     }
 
     else
     {
-      memset(v25, 0, sizeof(v25));
+      memset(v22, 0, sizeof(v22));
     }
 
-    v14 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v20, &v26, v25, v22);
+    v13 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v18, &v23, v22);
   }
 
-  v23 = v14;
+  v20 = v13;
 
-  return v23;
+  return v20;
 }
 
 @end

@@ -198,7 +198,7 @@
 - (void)textFieldDidBeginEditing:(id)editing
 {
   v16 = *MEMORY[0x277D85DE8];
-  v4 = _TVRUIKeyboardLog();
+  v4 = _TVRUIKeyboardLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     textField = self->_textField;
@@ -219,7 +219,7 @@
 - (void)textFieldDidEndEditing:(id)editing
 {
   v6 = *MEMORY[0x277D85DE8];
-  v3 = _TVRUIKeyboardLog();
+  v3 = _TVRUIKeyboardLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136315138;
@@ -232,7 +232,7 @@
 {
   v19 = *MEMORY[0x277D85DE8];
   becomeFirstResponder = [(_TVRTextField *)self->_textField becomeFirstResponder];
-  v4 = _TVRUIKeyboardLog();
+  v4 = _TVRUIKeyboardLog(becomeFirstResponder);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     textField = self->_textField;
@@ -261,7 +261,7 @@
   v9.super_class = TVRKeyboardView;
   [(TVRKeyboardView *)&v9 resignFirstResponder];
   resignFirstResponder = [(_TVRTextField *)self->_textField resignFirstResponder];
-  v4 = _TVRUIKeyboardLog();
+  v4 = _TVRUIKeyboardLog(resignFirstResponder);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     textField = self->_textField;
@@ -374,41 +374,45 @@
 
 - (void)setText:(id)text
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   textCopy = text;
-  v5 = _TVRUIKeyboardLog();
+  v5 = _TVRUIKeyboardLog(textCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315394;
-    v12 = "[TVRKeyboardView setText:]";
-    v13 = 2114;
-    v14 = textCopy;
-    _os_log_impl(&dword_26CFEB000, v5, OS_LOG_TYPE_DEFAULT, "%s text:%{public}@", &v11, 0x16u);
+    v12 = 136315394;
+    v13 = "[TVRKeyboardView setText:]";
+    v14 = 2114;
+    v15 = textCopy;
+    _os_log_impl(&dword_26CFEB000, v5, OS_LOG_TYPE_DEFAULT, "%s text:%{public}@", &v12, 0x16u);
   }
 
   [(_TVRTextField *)self->_textField setText:textCopy];
   markedTextRange = [(_TVRTextField *)self->_textField markedTextRange];
   v7 = markedTextRange;
-  if (markedTextRange && ([markedTextRange isEmpty] & 1) == 0)
+  if (markedTextRange)
   {
-    v10 = _TVRUIKeyboardLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    isEmpty = [markedTextRange isEmpty];
+    if ((isEmpty & 1) == 0)
     {
-      v11 = 138543362;
-      v12 = v7;
-      _os_log_impl(&dword_26CFEB000, v10, OS_LOG_TYPE_DEFAULT, "marked range: %{public}@", &v11, 0xCu);
-    }
+      v11 = _TVRUIKeyboardLog(isEmpty);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      {
+        v12 = 138543362;
+        v13 = v7;
+        _os_log_impl(&dword_26CFEB000, v11, OS_LOG_TYPE_DEFAULT, "marked range: %{public}@", &v12, 0xCu);
+      }
 
-    goto LABEL_9;
+      goto LABEL_9;
+    }
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v9 = objc_opt_respondsToSelector();
+  v10 = objc_opt_respondsToSelector();
 
-  if (v9)
+  if (v10)
   {
-    v10 = objc_loadWeakRetained(&self->_delegate);
-    [v10 keyboardView:self didUpdateText:textCopy];
+    v11 = objc_loadWeakRetained(&self->_delegate);
+    [v11 keyboardView:self didUpdateText:textCopy];
 LABEL_9:
   }
 }
@@ -427,19 +431,19 @@ LABEL_9:
 
 - (void)handleTextActionPayload:(id)payload
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
-  v5 = _TVRUIKeyboardLog();
+  v5 = _TVRUIKeyboardLog(payloadCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     data = [payloadCopy data];
-    v17 = 136315650;
-    v18 = "[TVRKeyboardView handleTextActionPayload:]";
-    v19 = 2114;
-    v20 = payloadCopy;
-    v21 = 2048;
-    v22 = [data length];
-    _os_log_impl(&dword_26CFEB000, v5, OS_LOG_TYPE_DEFAULT, "%s payload: %{public}@, data length: %lu", &v17, 0x20u);
+    v18 = 136315650;
+    v19 = "[TVRKeyboardView handleTextActionPayload:]";
+    v20 = 2114;
+    v21 = payloadCopy;
+    v22 = 2048;
+    v23 = [data length];
+    _os_log_impl(&dword_26CFEB000, v5, OS_LOG_TYPE_DEFAULT, "%s payload: %{public}@, data length: %lu", &v18, 0x20u);
   }
 
   objc_opt_class();
@@ -449,27 +453,27 @@ LABEL_9:
     v7DocumentState = [documentState documentState];
     contextBeforeInput = [v7DocumentState contextBeforeInput];
 
-    v10 = _TVRUIKeyboardLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _TVRUIKeyboardLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [contextBeforeInput length];
+      v12 = [contextBeforeInput length];
       text = [(TVRKeyboardView *)self text];
-      v13 = [text length];
-      v17 = 134218240;
-      v18 = v11;
-      v19 = 2048;
-      v20 = v13;
-      _os_log_impl(&dword_26CFEB000, v10, OS_LOG_TYPE_DEFAULT, "payload string length: %lu textField.text length: %lu", &v17, 0x16u);
+      v14 = [text length];
+      v18 = 134218240;
+      v19 = v12;
+      v20 = 2048;
+      v21 = v14;
+      _os_log_impl(&dword_26CFEB000, v11, OS_LOG_TYPE_DEFAULT, "payload string length: %lu textField.text length: %lu", &v18, 0x16u);
     }
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v15 = objc_opt_respondsToSelector();
+  v16 = objc_opt_respondsToSelector();
 
-  if (v15)
+  if (v16)
   {
-    v16 = objc_loadWeakRetained(&self->_delegate);
-    [v16 keyboardView:self generatedTextInputPayload:payloadCopy];
+    v17 = objc_loadWeakRetained(&self->_delegate);
+    [v17 keyboardView:self generatedTextInputPayload:payloadCopy];
   }
 }
 
@@ -489,7 +493,7 @@ LABEL_9:
 {
   v17 = *MEMORY[0x277D85DE8];
   changeCopy = change;
-  v5 = _TVRUIKeyboardLog();
+  v5 = _TVRUIKeyboardLog(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     text = [changeCopy text];

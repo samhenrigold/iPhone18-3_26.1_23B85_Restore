@@ -111,7 +111,7 @@ LABEL_14:
 
 - (BOOL)openWithAssetDownloadStagingInfo:(id)info fileDescriptor:(int *)descriptor closeOnDealloc:(BOOL *)dealloc error:(id *)error
 {
-  v92[1] = *MEMORY[0x1E69E9840];
+  v91[1] = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v11 = objc_msgSend_inflightLastPathComponentWithInfo_(self, v9, infoCopy);
   if (v11)
@@ -127,26 +127,26 @@ LABEL_14:
       {
         LODWORD(v22) = objc_msgSend_fileDescriptor(v21, v17, v18);
 
-        v83 = 0;
+        v82 = 0;
         if ((v22 & 0x80000000) == 0)
         {
           v23 = 2;
 LABEL_20:
-          v84 = objc_msgSend_fileProtectionType(selfCopy, v17, v18);
-          if (v23 < 0x200 || !v84)
+          v83 = objc_msgSend_fileProtectionType(selfCopy, v17, v18);
+          if (v23 < 0x200 || !v83)
           {
             goto LABEL_25;
           }
 
           v50 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v48, v49);
-          v91 = *MEMORY[0x1E696A3A0];
-          v92[0] = v84;
-          v52 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v51, v92, &v91, 1);
+          v90 = *MEMORY[0x1E696A3A0];
+          v91[0] = v83;
+          v52 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v51, v91, &v90, 1);
           v55 = objc_msgSend_path(v12, v53, v54);
-          v88 = 0;
-          v57 = objc_msgSend_setAttributes_ofItemAtPath_error_(v50, v56, v52, v55, &v88);
-          v82 = v88;
-          if (v82)
+          v87 = 0;
+          v57 = objc_msgSend_setAttributes_ofItemAtPath_error_(v50, v56, v52, v55, &v87);
+          v81 = v87;
+          if (v81)
           {
             v57 = 0;
           }
@@ -163,7 +163,7 @@ LABEL_25:
 
             if (dealloc)
             {
-              *dealloc = v83;
+              *dealloc = v82;
             }
 
             v26 = 1;
@@ -179,19 +179,19 @@ LABEL_25:
           if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v90 = v82;
+            v89 = v81;
             _os_log_error_impl(&dword_1883EA000, v65, OS_LOG_TYPE_ERROR, "Failed to set fileProtectionType for inflightFile with error %@", buf, 0xCu);
           }
 
           if (error)
           {
-            *error = objc_msgSend_errorWithDomain_code_error_format_(CKPrettyError, v66, @"CKInternalErrorDomain", 1000, v82, @"Failed to set fileProtectionType for inflightFile");
+            *error = objc_msgSend_errorWithDomain_code_error_format_(CKPrettyError, v66, @"CKInternalErrorDomain", 1000, v81, @"Failed to set fileProtectionType for inflightFile");
           }
 
           v68 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v66, v67);
-          v87 = 0;
-          v70 = objc_msgSend_removeItemAtURL_error_(v68, v69, v12, &v87);
-          v71 = v87;
+          v86 = 0;
+          v70 = objc_msgSend_removeItemAtURL_error_(v68, v69, v12, &v86);
+          v71 = v86;
           if (v71)
           {
             v70 = 0;
@@ -208,7 +208,7 @@ LABEL_25:
             if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v90 = v71;
+              v89 = v71;
               _os_log_error_impl(&dword_1883EA000, v74, OS_LOG_TYPE_ERROR, "Failed to remove inflightFile with error %@", buf, 0xCu);
             }
           }
@@ -228,7 +228,7 @@ LABEL_25:
 
       else
       {
-        v83 = 1;
+        v82 = 1;
       }
 
       v27 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v17, v18);
@@ -260,7 +260,7 @@ LABEL_25:
           v46 = objc_msgSend_fileHandlesForInflightLastPathComponent(selfCopy, v44, v45);
           objc_msgSend_setObject_forKeyedSubscript_(v46, v47, v43, v11);
 
-          v83 = 0;
+          v82 = 0;
         }
 
         goto LABEL_20;
@@ -276,7 +276,7 @@ LABEL_25:
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v90) = v60;
+        LODWORD(v89) = v60;
         _os_log_error_impl(&dword_1883EA000, v61, OS_LOG_TYPE_ERROR, "open failed with errno:%d", buf, 8u);
       }
 
@@ -343,13 +343,12 @@ LABEL_60:
 
 LABEL_62:
 
-  v80 = *MEMORY[0x1E69E9840];
   return v26;
 }
 
 - (BOOL)finishWithAssetDownloadStagingInfo:(id)info fileURL:(id *)l fileHandle:(id *)handle error:(id *)error
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v13 = objc_msgSend_inflightLastPathComponentWithInfo_(self, v11, infoCopy);
   if (v13)
@@ -361,10 +360,10 @@ LABEL_62:
       if (v18)
       {
         v19 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v16, v17);
-        v49 = 0;
-        v21 = objc_msgSend_moveItemAtURL_toURL_error_(v19, v20, v15, v18, &v49);
-        v48 = v49;
-        if (v48)
+        v48 = 0;
+        v21 = objc_msgSend_moveItemAtURL_toURL_error_(v19, v20, v15, v18, &v48);
+        v47 = v48;
+        if (v47)
         {
           v21 = 0;
         }
@@ -417,11 +416,11 @@ LABEL_62:
         if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412802;
-          v51 = v15;
-          v52 = 2112;
-          v53 = v18;
-          v54 = 2112;
-          v55 = v48;
+          v50 = v15;
+          v51 = 2112;
+          v52 = v18;
+          v53 = 2112;
+          v54 = v47;
           _os_log_error_impl(&dword_1883EA000, v42, OS_LOG_TYPE_ERROR, "Failed to move existing item at path %@ to path %@ with error %@", buf, 0x20u);
           if (!error)
           {
@@ -436,7 +435,7 @@ LABEL_35:
           goto LABEL_36;
         }
 
-        *error = objc_msgSend_errorWithDomain_code_error_format_(CKPrettyError, v43, @"CKInternalErrorDomain", 1000, v48, @"Failed to move existing item at path %@ to path %@", v15, v18);
+        *error = objc_msgSend_errorWithDomain_code_error_format_(CKPrettyError, v43, @"CKInternalErrorDomain", 1000, v47, @"Failed to move existing item at path %@ to path %@", v15, v18);
         goto LABEL_35;
       }
 
@@ -530,7 +529,6 @@ LABEL_13:
   *error = v21 = 0;
 LABEL_38:
 
-  v46 = *MEMORY[0x1E69E9840];
   return v21;
 }
 

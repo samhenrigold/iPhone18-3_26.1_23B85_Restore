@@ -189,15 +189,15 @@ LABEL_14:
   chromaCopy = chroma;
   if (!params)
   {
-    sub_295EB5FD0(&v24);
-    v22 = v24;
+    sub_295EB5FD0(&v25);
+    v23 = v25;
     goto LABEL_11;
   }
 
   v20 = objc_msgSend_validateInputsWithInputMetadata_inputSlmParams_inputShiftMap_inputLuma_inputChroma_outputParams_(self, v18, metadata, slmParamsCopy, mapCopy, lumaCopy, chromaCopy, outputParams);
   if (v20)
   {
-    v22 = v20;
+    v23 = v20;
     sub_295EB5E5C();
     goto LABEL_11;
   }
@@ -205,13 +205,13 @@ LABEL_14:
   if (!self->_shadersLoaded)
   {
     sub_295EB5ED8();
-    v22 = -12784;
+    v23 = -12784;
     goto LABEL_11;
   }
 
   if (params->mode == 1)
   {
-    v22 = 0;
+    v23 = 0;
     outputParams->var0 = params->maxColourDiffusionIterations;
     *&outputParams->var1 = *&params->maxPreFilterGain;
     *&outputParams->var5 = *&params->maxObsceneWeightGain;
@@ -222,7 +222,7 @@ LABEL_10:
 
   if (params->mode)
   {
-    v22 = 0;
+    v23 = 0;
     *&outputParams->var0 = 0;
     *&outputParams->var2 = 0;
     outputParams->var6 = 0.0;
@@ -231,14 +231,15 @@ LABEL_10:
   }
 
   v22 = objc_msgSend_calculateXHLRBParamsWithInputMetadata_controlLogicParams_inputSlmParams_inputShiftMap_inputLuma_inputChroma_outputParams_(self, v21, metadata, params, slmParamsCopy, mapCopy, lumaCopy, chromaCopy, outputParams);
+  v23 = v22;
   if (v22)
   {
-    sub_295EB5F54();
+    sub_295EB5F54(v22);
   }
 
 LABEL_11:
 
-  return v22;
+  return v23;
 }
 
 - (int)calculateXHLRBParamsWithInputMetadata:(const xhlrb_input_image_metadata *)metadata controlLogicParams:(const xhlrb_control_logic_params *)params inputSlmParams:(id)slmParams inputShiftMap:(id)map inputLuma:(id)luma inputChroma:(id)chroma outputParams:(xhlrb_control_params *)outputParams
@@ -252,111 +253,111 @@ LABEL_11:
   outputParams->var6 = 0.0;
   *&outputParams->var4 = 0;
   maxBGBlur = params->maxBGBlur;
-  v20 = params->blurRadiusT0 / maxBGBlur;
+  v21 = params->blurRadiusT0 / maxBGBlur;
   maxIntensityT0 = params->maxIntensityT0;
-  v116[0] = 1.0 / ((params->blurRadiusT1 / maxBGBlur) - v20);
-  v116[1] = -(v116[0] * v20);
+  v123[0] = 1.0 / ((params->blurRadiusT1 / maxBGBlur) - v21);
+  v123[1] = -(v123[0] * v21);
   minIntensityT0 = params->minIntensityT0;
-  v117 = 1.0 / (params->maxIntensityT1 - maxIntensityT0);
-  v118 = -(v117 * maxIntensityT0);
-  v119 = 1.0 / (params->minIntensityT1 - minIntensityT0);
-  v120 = -(v119 * minIntensityT0);
-  v26 = sub_295EAE430(fminf(fmaxf(((metadata->var0 * metadata->var1) - params->exposureScoreT0) / (params->exposureScoreT1 - params->exposureScoreT0), 0.0), 1.0));
-  v28 = v27 * v26;
-  if ((v27 * v26) <= 0.0)
+  v124 = 1.0 / (params->maxIntensityT1 - maxIntensityT0);
+  v125 = -(v124 * maxIntensityT0);
+  v126 = 1.0 / (params->minIntensityT1 - minIntensityT0);
+  v127 = -(v126 * minIntensityT0);
+  v27 = sub_295EAE430(fminf(fmaxf(((metadata->var0 * metadata->var1) - params->exposureScoreT0) / (params->exposureScoreT1 - params->exposureScoreT0), 0.0), 1.0));
+  v29 = v28 * v27;
+  if ((v28 * v27) <= 0.0)
   {
-    v109 = 0;
+    v110 = 0;
   }
 
   else
   {
     metadataCopy = metadata;
-    v29 = objc_msgSend_commandQueue(self->_mtlCtx, v23, v24, v25);
-    v33 = objc_msgSend_commandBuffer(v29, v30, v31, v32);
+    v30 = objc_msgSend_commandQueue(self->_mtlCtx, v24, v25, v26);
+    v34 = objc_msgSend_commandBuffer(v30, v31, v32, v33);
 
-    if (v33)
+    if (v34)
     {
-      *objc_msgSend_contents(self->_nClippedPixelsBuf, v34, v35, v36) = 0;
-      v40 = objc_msgSend_computeCommandEncoder(v33, v37, v38, v39);
-      if (v40)
+      *objc_msgSend_contents(self->_nClippedPixelsBuf, v35, v36, v37) = 0;
+      v41 = objc_msgSend_computeCommandEncoder(v34, v38, v39, v40);
+      if (v41)
       {
-        v43 = v40;
-        objc_msgSend_setComputePipelineState_(v40, v41, self->_count_clipped_kernel, v42);
-        v112 = slmParamsCopy;
-        objc_msgSend_setBuffer_offset_atIndex_(v43, v44, slmParamsCopy, 0, 0);
-        objc_msgSend_setBuffer_offset_atIndex_(v43, v45, self->_nClippedPixelsBuf, 0, 1);
-        objc_msgSend_setBytes_length_atIndex_(v43, v46, v116, 24, 2);
-        v111 = mapCopy;
-        objc_msgSend_setTexture_atIndex_(v43, v47, mapCopy, 0);
-        objc_msgSend_setTexture_atIndex_(v43, v48, lumaCopy, 1);
-        objc_msgSend_setTexture_atIndex_(v43, v49, chromaCopy, 2);
-        v53 = objc_msgSend_threadExecutionWidth(self->_count_clipped_kernel, v50, v51, v52);
-        v57 = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_count_clipped_kernel, v54, v55, v56) / v53;
-        v115[0] = objc_msgSend_width(chromaCopy, v58, v59, v60) >> 1;
-        v115[1] = objc_msgSend_height(chromaCopy, v61, v62, v63) >> 1;
-        v115[2] = 1;
-        v114[0] = v53;
-        v114[1] = v57;
-        v114[2] = 1;
-        objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v43, v64, v115, v114);
-        objc_msgSend_endEncoding(v43, v65, v66, v67);
+        v44 = v41;
+        objc_msgSend_setComputePipelineState_(v41, v42, self->_count_clipped_kernel, v43);
+        v119 = slmParamsCopy;
+        objc_msgSend_setBuffer_offset_atIndex_(v44, v45, slmParamsCopy, 0, 0);
+        objc_msgSend_setBuffer_offset_atIndex_(v44, v46, self->_nClippedPixelsBuf, 0, 1);
+        objc_msgSend_setBytes_length_atIndex_(v44, v47, v123, 24, 2);
+        v117 = mapCopy;
+        objc_msgSend_setTexture_atIndex_(v44, v48, mapCopy, 0);
+        objc_msgSend_setTexture_atIndex_(v44, v49, lumaCopy, 1);
+        objc_msgSend_setTexture_atIndex_(v44, v50, chromaCopy, 2);
+        v54 = objc_msgSend_threadExecutionWidth(self->_count_clipped_kernel, v51, v52, v53);
+        v58 = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_count_clipped_kernel, v55, v56, v57) / v54;
+        v122[0] = objc_msgSend_width(chromaCopy, v59, v60, v61) >> 1;
+        v122[1] = objc_msgSend_height(chromaCopy, v62, v63, v64) >> 1;
+        v122[2] = 1;
+        v121[0] = v54;
+        v121[1] = v58;
+        v121[2] = 1;
+        objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v44, v65, v122, v121);
+        objc_msgSend_endEncoding(v44, v66, v67, v68);
         if (*MEMORY[0x29EDB9270])
         {
-          v71 = objc_msgSend_commandQueue(v33, v68, v69, v70);
-          v75 = objc_msgSend_commandBuffer(v71, v72, v73, v74);
+          v72 = objc_msgSend_commandQueue(v34, v69, v70, v71);
+          v76 = objc_msgSend_commandBuffer(v72, v73, v74, v75);
 
-          objc_msgSend_setLabel_(v75, v76, @"KTRACE_MTLCMDBUF", v77);
-          objc_msgSend_addCompletedHandler_(v75, v78, &unk_2A1D12428, v79);
-          objc_msgSend_commit(v75, v80, v81, v82);
-          objc_msgSend_addCompletedHandler_(v33, v83, &unk_2A1D12448, v84);
+          objc_msgSend_setLabel_(v76, v77, @"KTRACE_MTLCMDBUF", v78);
+          objc_msgSend_addCompletedHandler_(v76, v79, &unk_2A1D12428, v80);
+          objc_msgSend_commit(v76, v81, v82, v83);
+          objc_msgSend_addCompletedHandler_(v34, v84, &unk_2A1D12448, v85);
         }
 
-        objc_msgSend_commit(v33, v68, v69, v70);
-        objc_msgSend_waitUntilCompleted(v33, v85, v86, v87);
-        v91 = objc_msgSend_width(chromaCopy, v88, v89, v90);
-        v95 = (objc_msgSend_height(chromaCopy, v92, v93, v94) * v91);
-        v99 = objc_msgSend_contents(self->_nClippedPixelsBuf, v96, v97, v98);
-        v100 = sub_295EAE430(fminf(fmaxf((params->clippedPixelsT1 + ((*v99 * -100.0) / v95)) / (params->clippedPixelsT1 - params->clippedPixelsT0), 0.0), 1.0));
-        v102 = v101 * v100;
+        objc_msgSend_commit(v34, v69, v70, v71);
+        objc_msgSend_waitUntilCompleted(v34, v86, v87, v88);
+        v92 = objc_msgSend_width(chromaCopy, v89, v90, v91);
+        v96 = (objc_msgSend_height(chromaCopy, v93, v94, v95) * v92);
+        v100 = objc_msgSend_contents(self->_nClippedPixelsBuf, v97, v98, v99);
+        v101 = sub_295EAE430(fminf(fmaxf((params->clippedPixelsT1 + ((*v100 * -100.0) / v96)) / (params->clippedPixelsT1 - params->clippedPixelsT0), 0.0), 1.0));
+        v103 = v102 * v101;
         maxColourDiffusionIterations = params->maxColourDiffusionIterations;
         var2 = metadataCopy->var2;
         outputParams->var7 = var2;
-        *v105.i32 = v28 * v102;
-        outputParams->var0 = llroundf(*v105.i32 * maxColourDiffusionIterations);
-        v106 = *v105.i32 * (fminf(var2, 4.0) * 0.25);
-        v107 = v105;
-        *&v107.i32[1] = v106;
-        v108 = vzip1q_s32(v107, v107);
-        v108.i32[2] = v105.i32[0];
-        *&outputParams->var1 = vmulq_f32(*&params->maxPreFilterGain, v108);
-        *&outputParams->var5 = vmul_n_f32(*&params->maxObsceneWeightGain, v106);
+        *v106.i32 = v29 * v103;
+        outputParams->var0 = llroundf(*v106.i32 * maxColourDiffusionIterations);
+        v107 = *v106.i32 * (fminf(var2, 4.0) * 0.25);
+        v108 = v106;
+        *&v108.i32[1] = v107;
+        v109 = vzip1q_s32(v108, v108);
+        v109.i32[2] = v106.i32[0];
+        *&outputParams->var1 = vmulq_f32(*&params->maxPreFilterGain, v109);
+        *&outputParams->var5 = vmul_n_f32(*&params->maxObsceneWeightGain, v107);
 
-        v109 = 0;
-        mapCopy = v111;
-        slmParamsCopy = v112;
+        v110 = 0;
+        mapCopy = v117;
+        slmParamsCopy = v119;
       }
 
       else
       {
         sub_295EAE444();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v9, v114, v115, v116, v118, metadataCopy, LODWORD(v121[0]));
         sub_295EAE444();
         sub_295EAAA84();
-        v109 = FigSignalErrorAtGM();
+        v110 = FigSignalErrorAtGM(v113);
       }
     }
 
     else
     {
       sub_295EAE444();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v9, v114, v115, v116, v118, metadataCopy, LODWORD(v121[0]));
       sub_295EAE444();
       sub_295EAAA84();
-      v109 = FigSignalErrorAtGM();
+      v110 = FigSignalErrorAtGM(v112);
     }
   }
 
-  return v109;
+  return v110;
 }
 
 @end

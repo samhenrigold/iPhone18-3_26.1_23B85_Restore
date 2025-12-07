@@ -17,29 +17,32 @@
 
 - (id)initTextRegionObjectWithDictionary:(id)dictionary input:(id)input
 {
-  memset(&v17, 0, sizeof(v17));
-  CMTimeMakeFromDictionary(&v17, [dictionary objectForKeyedSubscript:*MEMORY[0x1E69912E0]]);
-  v7 = *(MEMORY[0x1E695F058] + 16);
+  memset(&v20, 0, sizeof(v20));
+  v7 = objc_msgSend_objectForKeyedSubscript_(dictionary, a2, *MEMORY[0x1E69912E0]);
+  CMTimeMakeFromDictionary(&v20, v7);
+  v8 = *(MEMORY[0x1E695F058] + 16);
   rect.origin = *MEMORY[0x1E695F058];
-  rect.size = v7;
-  CGRectMakeWithDictionaryRepresentation([dictionary objectForKeyedSubscript:*MEMORY[0x1E69912C8]], &rect);
-  v15.receiver = self;
-  v15.super_class = AVMetadataTextRegionObject;
-  v14 = v17;
-  v12 = *MEMORY[0x1E6960C70];
-  v13 = *(MEMORY[0x1E6960C70] + 16);
-  v8 = [(AVMetadataObject *)&v15 initWithType:@"textRegion" time:&v14 duration:&v12 bounds:0 optionalInfoDict:0 originalMetadataObject:input sourceCaptureInput:rect.origin.x, rect.origin.y, rect.size.width, rect.size.height];
-  if (v8)
+  rect.size = v8;
+  v9 = objc_msgSend_objectForKeyedSubscript_(dictionary);
+  CGRectMakeWithDictionaryRepresentation(v9, &rect);
+  v18.receiver = self;
+  v18.super_class = AVMetadataTextRegionObject;
+  v17 = v20;
+  v15 = *MEMORY[0x1E6960C70];
+  v16 = *(MEMORY[0x1E6960C70] + 16);
+  v10 = [(AVMetadataObject *)&v18 initWithType:@"textRegion" time:&v17 duration:&v15 bounds:0 optionalInfoDict:0 originalMetadataObject:input sourceCaptureInput:rect.origin.x, rect.origin.y, rect.size.width, rect.size.height];
+  if (v10)
   {
-    v8->_regionID = [objc_msgSend(dictionary objectForKeyedSubscript:{*MEMORY[0x1E69912D8]), "integerValue"}];
-    [objc_msgSend(dictionary objectForKeyedSubscript:{*MEMORY[0x1E69912D0]), "floatValue"}];
-    v8->_confidence = v9;
-    [objc_msgSend(dictionary objectForKeyedSubscript:{*MEMORY[0x1E69912B8]), "floatValue"}];
-    v8->_angularOffset = v10;
-    CGRectMakeWithDictionaryRepresentation([dictionary objectForKeyedSubscript:*MEMORY[0x1E69912C0]], &v8->_angularOffsetBounds);
+    v10->_regionID = [objc_msgSend_objectForKeyedSubscript_(dictionary) integerValue];
+    [objc_msgSend_objectForKeyedSubscript_(dictionary) floatValue];
+    v10->_confidence = v11;
+    [objc_msgSend_objectForKeyedSubscript_(dictionary) floatValue];
+    v10->_angularOffset = v12;
+    v13 = objc_msgSend_objectForKeyedSubscript_(dictionary);
+    CGRectMakeWithDictionaryRepresentation(v13, &v10->_angularOffsetBounds);
   }
 
-  return v8;
+  return v10;
 }
 
 - (id)initDerivedMetadataObjectFromMetadataObject:(id)object withTransform:(CGAffineTransform *)transform isVideoMirrored:(BOOL)mirrored rollAdjustment:(double)adjustment
@@ -56,8 +59,8 @@
   {
     if (object)
     {
-      [object time];
-      [object duration];
+      objc_msgSend_time(object);
+      objc_msgSend_duration(object);
     }
 
     else

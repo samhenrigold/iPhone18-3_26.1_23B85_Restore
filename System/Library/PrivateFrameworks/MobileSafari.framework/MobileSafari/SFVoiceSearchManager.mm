@@ -66,25 +66,26 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
   v5 = getAFDictationRestrictedSymbolLoc_ptr;
-  v16 = getAFDictationRestrictedSymbolLoc_ptr;
+  v17 = getAFDictationRestrictedSymbolLoc_ptr;
   if (!getAFDictationRestrictedSymbolLoc_ptr)
   {
     v6 = AssistantServicesLibrary();
-    v14[3] = dlsym(v6, "AFDictationRestricted");
-    getAFDictationRestrictedSymbolLoc_ptr = v14[3];
-    v5 = v14[3];
+    v15[3] = dlsym(v6, "AFDictationRestricted");
+    getAFDictationRestrictedSymbolLoc_ptr = v15[3];
+    v5 = v15[3];
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v14, 8);
   if (!v5)
   {
-    v12 = __42__SFStoreBanner__setUpStoreKitProductView__block_invoke_cold_1();
-    _Block_object_dispose(&v13, 8);
-    _Unwind_Resume(v12);
+    __42__SFStoreBanner__setUpStoreKitProductView__block_invoke_cold_1();
+    v13 = v12;
+    _Block_object_dispose(&v14, 8);
+    _Unwind_Resume(v13);
   }
 
   v7 = v5();

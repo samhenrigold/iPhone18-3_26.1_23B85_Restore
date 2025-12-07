@@ -23,7 +23,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_100082ED0();
+  sub_100082ED0(selfCopy, v2);
 }
 
 - (int64_t)numberOfSectionsInTableView:(id)view
@@ -43,8 +43,7 @@
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
 {
   v4 = sub_1000AB97C();
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8, v6);
+  __chkstk_darwin(v4 - 8);
   sub_1000AB93C();
   result = sub_1000AC63C();
   __break(1u);
@@ -55,11 +54,10 @@
 {
   v4 = sub_1000AB97C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4, v7);
-  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1000AB93C();
-  (*(v5 + 8))(v9, v4);
+  (*(v5 + 8))(v7, v4);
   return UITableViewAutomaticDimension;
 }
 

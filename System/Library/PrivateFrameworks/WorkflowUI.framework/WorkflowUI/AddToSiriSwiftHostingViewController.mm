@@ -14,7 +14,7 @@
 
 - (_TtP10WorkflowUI43AddToSiriSwiftHostingViewControllerDelegate_)delegate
 {
-  v2 = sub_27491BBE4();
+  sub_27491BBE4();
 
   return v2;
 }
@@ -62,8 +62,9 @@
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_27491C754(disappear);
+  sub_27491C754(disappearCopy);
 }
 
 - (_TtC10WorkflowUI35AddToSiriSwiftHostingViewController)initWithNibName:(id)name bundle:(id)bundle

@@ -92,32 +92,32 @@ LABEL_11:
 
 - (id)encodeNumber:(id)number toLength:(unint64_t)length
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   v7 = [MEMORY[0x277CBEB28] dataWithLength:length];
   mutableBytes = [v7 mutableBytes];
   [(NSDictionary *)self->_schemaDict objectForKeyedSubscript:@"items"];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v9 = v21 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = v20 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        [*(*(&v18 + 1) + 8 * i) floatValue];
+        [*(*(&v17 + 1) + 8 * i) floatValue];
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
@@ -137,39 +137,37 @@ LABEL_11:
 
   *v15 = 1;
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)encodeStringVector:(id)vector toLength:(unint64_t)length
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   vectorCopy = vector;
-  v19 = [MEMORY[0x277CBEB28] dataWithLength:length];
-  mutableBytes = [v19 mutableBytes];
+  v18 = [MEMORY[0x277CBEB28] dataWithLength:length];
+  mutableBytes = [v18 mutableBytes];
   v8 = [(NSDictionary *)self->_schemaDict objectForKeyedSubscript:@"items"];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = vectorCopy;
-  v9 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     v12 = length - 1;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = [(DESCategoricalMetadataEncoder *)self findBucketIndexOfString:*(*(&v21 + 1) + 8 * i) inItems:v8];
+        v14 = [(DESCategoricalMetadataEncoder *)self findBucketIndexOfString:*(*(&v20 + 1) + 8 * i) inItems:v8];
         v15 = v14 >= v12 || v14 == 0x7FFFFFFFFFFFFFFFLL;
         v16 = (mutableBytes + 1 + v14);
         if (v15)
@@ -180,73 +178,71 @@ LABEL_11:
         *v16 = 1;
       }
 
-      v10 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v19;
+  return v18;
 }
 
 - (id)encodeNumberVector:(id)vector toLength:(unint64_t)length
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   vectorCopy = vector;
   v7 = [MEMORY[0x277CBEB28] dataWithLength:length];
   selfCopy = self;
   mutableBytes = [v7 mutableBytes];
   [(NSDictionary *)self->_schemaDict objectForKeyedSubscript:@"items"];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v8 = v34 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v8 = v33 = 0u;
+  v9 = [v8 countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v32;
+    v11 = *v31;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v32 != v11)
+        if (*v31 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(*(&v31 + 1) + 8 * i) floatValue];
+        [*(*(&v30 + 1) + 8 * i) floatValue];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v10);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v13 = vectorCopy;
-  v14 = [v13 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v28;
+    v16 = *v27;
     v17 = length - 1;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v28 != v16)
+        if (*v27 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v19 = *(*(&v27 + 1) + 8 * j);
+        v19 = *(*(&v26 + 1) + 8 * j);
         [v19 floatValue];
         v20 = [(DESCategoricalMetadataEncoder *)selfCopy findBucketIndexOfNumber:v19 inItems:v8];
         v21 = v20 >= v17 || v20 == 0x7FFFFFFFFFFFFFFFLL;
@@ -259,13 +255,11 @@ LABEL_11:
         *v22 = 1;
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v15);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

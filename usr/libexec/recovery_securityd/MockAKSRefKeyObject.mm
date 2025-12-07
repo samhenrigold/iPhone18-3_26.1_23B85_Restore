@@ -43,7 +43,7 @@
 
     externalData3 = [(MockAKSOptionalParameters *)v17 externalData];
     v22 = [externalData3 length];
-    der_decode_plist(0, &cf, &v33, bytes, v22 + bytes, v23, v24, v25);
+    der_decode_plist(0, &cf, &v33, bytes, &v22[bytes], v23, v24, v25);
 
     if (cf)
     {

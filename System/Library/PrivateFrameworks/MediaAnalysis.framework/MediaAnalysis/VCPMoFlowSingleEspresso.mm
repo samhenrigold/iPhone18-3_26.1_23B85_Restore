@@ -21,7 +21,7 @@
 - (int)prepareWithLightweightOption:(BOOL)option aspectRatio:(id)ratio forceCPU:(BOOL)u sharedModel:(BOOL)model flushModel:(BOOL)flushModel
 {
   optionCopy = option;
-  v33[2] = *MEMORY[0x1E69E9840];
+  v35[2] = *MEMORY[0x1E69E9840];
   ratioCopy = ratio;
   vcp_mediaAnalysisBundle = [MEMORY[0x1E696AAE8] vcp_mediaAnalysisBundle];
   resourceURL = [vcp_mediaAnalysisBundle resourceURL];
@@ -61,28 +61,28 @@
   self->_forceCPU = u;
   self->_sharedModel = model;
   self->_flushModel = flushModel;
-  if (DeviceHasANE() && !self->_forceCPU && self->_sharedModel)
+  if (DeviceHasANE(v20, v21) && !self->_forceCPU && self->_sharedModel)
   {
-    v20 = [objc_opt_class() sharedModel:self->_netFileUrl inputNames:self->_inputNames];
+    v22 = [objc_opt_class() sharedModel:self->_netFileUrl inputNames:self->_inputNames];
     modelEspresso = self->_modelEspresso;
-    self->_modelEspresso = v20;
+    self->_modelEspresso = v22;
   }
 
   else
   {
-    v22 = [VCPCNNModelEspresso alloc];
-    v23 = self->_netFileUrl;
-    v24 = self->_inputNames;
-    v32[0] = @"forceCPU";
-    v25 = [MEMORY[0x1E696AD98] numberWithBool:self->_forceCPU];
-    v32[1] = @"sharedContext";
-    v33[0] = v25;
-    v26 = [MEMORY[0x1E696AD98] numberWithBool:self->_sharedModel];
-    v33[1] = v26;
-    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2];
-    v28 = [(VCPCNNModelEspresso *)v22 initWithParameters:v23 inputNames:v24 outputNames:0 properties:v27];
-    v29 = self->_modelEspresso;
-    self->_modelEspresso = v28;
+    v24 = [VCPCNNModelEspresso alloc];
+    v25 = self->_netFileUrl;
+    v26 = self->_inputNames;
+    v34[0] = @"forceCPU";
+    v27 = [MEMORY[0x1E696AD98] numberWithBool:self->_forceCPU];
+    v34[1] = @"sharedContext";
+    v35[0] = v27;
+    v28 = [MEMORY[0x1E696AD98] numberWithBool:self->_sharedModel];
+    v35[1] = v28;
+    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:2];
+    v30 = [(VCPCNNModelEspresso *)v24 initWithParameters:v25 inputNames:v26 outputNames:0 properties:v29];
+    v31 = self->_modelEspresso;
+    self->_modelEspresso = v30;
   }
 
   if (self->_modelEspresso)
@@ -137,11 +137,11 @@ LABEL_13:
       v9 = MEMORY[0x1E69E5398];
       while (1)
       {
-        [(VCPCNNModelEspresso *)self->_modelEspresso inputBlobs];
+        objc_msgSend_inputBlobs(self->_modelEspresso);
         v10 = *&v17[v7 + 88];
-        [(VCPCNNModelEspresso *)self->_modelEspresso inputBlobs];
+        objc_msgSend_inputBlobs(self->_modelEspresso);
         v11 = *&v16[v7 + 80];
-        [(VCPCNNModelEspresso *)self->_modelEspresso inputBlobs];
+        objc_msgSend_inputBlobs(self->_modelEspresso);
         v12 = v11 * v10 * *&__p[v7 + 96];
         if (v12 >> 62)
         {
@@ -490,10 +490,10 @@ LABEL_15:
     }
   }
 
-  [(VCPCNNModelEspresso *)self->_modelEspresso inputBlobs];
+  objc_msgSend_inputBlobs(self->_modelEspresso, 162);
   v14 = __p[106];
   operator delete(__p);
-  [(VCPCNNModelEspresso *)self->_modelEspresso inputBlobs];
+  objc_msgSend_inputBlobs(self->_modelEspresso);
   v15 = __p[104];
   operator delete(__p);
   p_inputsData = &self->_inputsData;
@@ -508,7 +508,7 @@ LABEL_15:
   begin = p_inputsData->__begin_;
   if (2 * v14 * v15 >= 1)
   {
-    bzero(*(begin + 16), 4 * (2 * v14 * v15));
+    bzero(begin[2], 4 * (2 * v14 * v15));
   }
 
   modelEspresso = self->_modelEspresso;
@@ -531,7 +531,7 @@ LABEL_15:
   v32 = self->_modelEspresso;
   if (v32)
   {
-    [(VCPCNNModelEspresso *)v32 outputBlob];
+    objc_msgSend_outputBlob(v32);
     v33 = v44;
   }
 
@@ -544,7 +544,7 @@ LABEL_15:
   v34 = self->_modelEspresso;
   if (v34)
   {
-    [(VCPCNNModelEspresso *)v34 outputBlob];
+    objc_msgSend_outputBlob(v34);
     v35 = v45;
   }
 
@@ -583,7 +583,7 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  [(VCPCNNModelEspresso *)v23 outputBlob];
+  objc_msgSend_outputBlob(v23);
   v24 = self->_modelEspresso;
   v25 = __p;
   if (!v24)
@@ -591,14 +591,14 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  [(VCPCNNModelEspresso *)v24 outputBlob];
+  objc_msgSend_outputBlob(v24);
   v26 = self->_modelEspresso;
   if (!v26)
   {
     goto LABEL_23;
   }
 
-  [(VCPCNNModelEspresso *)v26 outputBlob];
+  objc_msgSend_outputBlob(v26);
   v27 = self->_modelEspresso;
   v28 = v41 * 4 * v42;
   if (!v27)
@@ -608,7 +608,7 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  [(VCPCNNModelEspresso *)v27 outputBlob];
+  objc_msgSend_outputBlob(v27);
   v29 = v40;
 LABEL_25:
   memcpy(flow, v25, v29 * v28);
@@ -843,6 +843,7 @@ LABEL_25:
     if (!v17 || (v18 = v17, os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR)) && (*buf = 134218240, pixelBuffer[0] = to, LOWORD(pixelBuffer[1]) = 1024, *(&pixelBuffer[1] + 2) = v18, _os_log_error_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to lock CVPixelBuffer (%p, %d)", buf, 0x12u), (v18 = v39) == 0))
     {
       *(pixelBuffer + 4) = y;
+      *(&pixelBuffer[1] + 4) = 0;
       if (y)
       {
         v18 = CVPixelBufferLockBaseAddress(y, 0);

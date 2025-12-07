@@ -54,31 +54,30 @@
   wifi = [(PLNetworkUsageSnapshot *)self wifi];
   [(PLNetworkUsageSnapshot *)v5 setWifi:wifi];
 
-  [(PLNetworkUsageSnapshot *)v5 computeEnergyDiff:self];
-  v11 = v10;
+  v10 = [(PLNetworkUsageSnapshot *)v5 computeEnergyDiff:self];
+  v12 = v11;
   if (nowCopy)
   {
-    v12 = PLLogDiscretionaryEnergyMonitor();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = PLLogDiscretionaryEnergyMonitor(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [PLNetworkUsageSnapshot computeEnergyDiffUntilNow:];
     }
 
-    [(PLNetworkUsageSnapshot *)self snapshotNetworkState];
-    v13 = PLLogDiscretionaryEnergyMonitor();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = PLLogDiscretionaryEnergyMonitor([(PLNetworkUsageSnapshot *)self snapshotNetworkState]);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       [PLNetworkUsageSnapshot computeEnergyDiffUntilNow:];
     }
   }
 
-  return v11;
+  return v12;
 }
 
 - (double)computeEnergyDiff:(id)diff
 {
   diffCopy = diff;
-  v5 = PLLogDiscretionaryEnergyMonitor();
+  v5 = PLLogDiscretionaryEnergyMonitor(diffCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [PLNetworkUsageSnapshot computeEnergyDiff:];
@@ -149,28 +148,16 @@
 
 - (void)computeEnergyDiffUntilNow:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)computeEnergyDiffUntilNow:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)computeEnergyDiff:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1BACB7000, v0, v1, "computing network energy diff between self=%@ and otherSnapshot=%@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

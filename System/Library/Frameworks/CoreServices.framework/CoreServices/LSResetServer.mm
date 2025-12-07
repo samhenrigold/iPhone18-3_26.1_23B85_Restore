@@ -26,20 +26,4 @@ void ___LSResetServer_block_invoke_127(uint64_t a1, char a2, void *a3)
   }
 }
 
-void ___LSResetServer_block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "XPC error resetting server: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void ___LSResetServer_block_invoke_127_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "Error resetting server: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 @end

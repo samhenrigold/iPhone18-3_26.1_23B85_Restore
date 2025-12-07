@@ -25,6 +25,7 @@
 - (void)_createModelAndRunInferenceForRcId:(unint64_t)id withRequestContext:(id)context withCompletion:(id)completion;
 - (void)_fetchMitigationConfigForRecordCtx:(id)ctx;
 - (void)_holdTransactionForUresProcessing;
+- (void)_logFinalMitigationDecisionToSelf:(BOOL)self forMhId:(id)id;
 - (void)_logLRNNFailMsgForMhId:(id)id;
 - (void)_logLatticeRNNResults:(id)results forMhId:(id)id;
 - (void)_logURESEndMessageWithScore:(float)score threshold:(float)threshold spkrIDThreshold:(float)dThreshold assetVersion:(id)version withMhId:(id)id;
@@ -33,6 +34,7 @@
 - (void)_readAllowListVocabFromFile:(id)file;
 - (void)_releaseUresProcessingTransaction;
 - (void)_runLRNNOnlyMitigationForRCId:(unint64_t)id speechPackage:(id)package requestId:(id)requestId completion:(id)completion;
+- (void)_storeMitigationDecision:(BOOL)decision forRCId:(unint64_t)id requestContext:(id)context;
 - (void)_updateInputFeats:(id)feats forSignalsFrom:(unint64_t)from to:(unint64_t)to;
 - (void)_updateSupportedInputOrigins;
 - (void)addReceiver:(id)receiver;
@@ -42,6 +44,7 @@
 - (void)attSiriNode:(id)node didUpdateOSDFeatures:(id)features withFrameDurationMs:(double)ms withMHID:(id)d;
 - (void)attSiriNode:(id)node didUpdateWithSpeakerInfo:(id)info forReqId:(id)id;
 - (void)didReceiveTCUUpdateForTCUId:(id)id withTCUAccepted:(BOOL)accepted forRequestId:(id)requestId isFinal:(BOOL)final;
+- (void)didStartRecognitionRequest:(id)request successfully:(BOOL)successfully isRecognitionModeClassic:(BOOL)classic error:(id)error;
 - (void)getUresInvocationTypeForRequestId:(id)id withCompletion:(id)completion;
 - (void)processResultCandidate:(id)candidate forRCId:(unint64_t)id forTask:(id)task forRequestId:(id)requestId completion:(id)completion;
 - (void)registerGazeNode:(id)node;
@@ -436,6 +439,14 @@ LABEL_18:
   selfCopy = self;
   v11 = requestIdCopy;
   dispatch_async(queue, block);
+}
+
+- (void)didStartRecognitionRequest:(id)request successfully:(BOOL)successfully isRecognitionModeClassic:(BOOL)classic error:(id)error
+{
+  if (successfully)
+  {
+    [(CSAttSiriUresNode *)self asrStartedForRequestId:request isRecognitionModeClassic:classic];
+  }
 }
 
 - (id)constructTCUIntendedInfoForRequestId:(id)id withResultCandidate:(id)candidate
@@ -902,6 +913,35 @@ LABEL_15:
   _Block_object_dispose(v19, 8);
 }
 
+- (void)_storeMitigationDecision:(BOOL)decision forRCId:(unint64_t)id requestContext:(id)context
+{
+  decisionCopy = decision;
+  contextCopy = context;
+  mitigationDecisions = [contextCopy mitigationDecisions];
+  v9 = [NSNumber numberWithUnsignedInteger:id];
+  v10 = [mitigationDecisions objectForKey:v9];
+
+  if (v10)
+  {
+    v11 = CSLogCategorySDSD;
+    if (os_log_type_enabled(CSLogCategorySDSD, OS_LOG_TYPE_ERROR))
+    {
+      v15 = 136315394;
+      v16 = "[CSAttSiriUresNode _storeMitigationDecision:forRCId:requestContext:]";
+      v17 = 2050;
+      idCopy = id;
+      _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%s Replacing already made decision for RCId: %{public}lu", &v15, 0x16u);
+    }
+  }
+
+  mitigationDecisions2 = [contextCopy mitigationDecisions];
+  v13 = [NSNumber numberWithBool:decisionCopy];
+  v14 = [NSNumber numberWithUnsignedInteger:id];
+  [mitigationDecisions2 setObject:v13 forKey:v14];
+
+  [contextCopy setShouldUpdateMitigationResult:1];
+}
+
 - (void)_logURESFailureMsgInput:(unint64_t)input forMhId:(id)id
 {
   idCopy = id;
@@ -1149,6 +1189,49 @@ LABEL_15:
       v23 = 136315138;
       v24 = "[CSAttSiriUresNode _logLatticeRNNResults:forMhId:]";
       _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%s MHID not set, skipping SELF Logging", &v23, 0xCu);
+    }
+  }
+}
+
+- (void)_logFinalMitigationDecisionToSelf:(BOOL)self forMhId:(id)id
+{
+  selfCopy = self;
+  idCopy = id;
+  if (idCopy)
+  {
+    v6 = objc_alloc_init(MHSchemaMHMitigationDecisionRecommended);
+    [v6 setIsMitigationRecommended:selfCopy];
+    v7 = [SISchemaUUID alloc];
+    v8 = [[NSUUID alloc] initWithUUIDString:idCopy];
+    v9 = [v7 initWithNSUUID:v8];
+
+    v10 = objc_alloc_init(MHSchemaMHClientEventMetadata);
+    [v10 setMhId:v9];
+    v11 = objc_alloc_init(MHSchemaMHClientEvent);
+    [v11 setEventMetadata:v10];
+    [v11 setFinalMitigationRecommendation:v6];
+    v12 = +[AssistantSiriAnalytics sharedStream];
+    [v12 emitMessage:v11];
+
+    v13 = CSLogCategorySDSD;
+    if (os_log_type_enabled(CSLogCategorySDSD, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = 136315394;
+      v16 = "[CSAttSiriUresNode _logFinalMitigationDecisionToSelf:forMhId:]";
+      v17 = 2112;
+      v18 = idCopy;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%s Submit Final mitigation decision to SELF metrics for MH ID: %@", &v15, 0x16u);
+    }
+  }
+
+  else
+  {
+    v14 = CSLogCategorySDSD;
+    if (os_log_type_enabled(CSLogCategorySDSD, OS_LOG_TYPE_ERROR))
+    {
+      v15 = 136315138;
+      v16 = "[CSAttSiriUresNode _logFinalMitigationDecisionToSelf:forMhId:]";
+      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%s MHID not set, skipping SELF Logging", &v15, 0xCu);
     }
   }
 }

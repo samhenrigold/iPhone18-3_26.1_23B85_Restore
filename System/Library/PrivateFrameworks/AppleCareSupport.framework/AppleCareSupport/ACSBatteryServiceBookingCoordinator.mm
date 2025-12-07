@@ -41,20 +41,19 @@
 
 - (BOOL)respondsToSelector:(SEL)selector
 {
-  v7.receiver = self;
-  v7.super_class = ACSBatteryServiceBookingCoordinator;
-  if ([(ACSBatteryServiceBookingCoordinator *)&v7 respondsToSelector:?])
+  v5.receiver = self;
+  v5.super_class = ACSBatteryServiceBookingCoordinator;
+  if ([(ACSBatteryServiceBookingCoordinator *)&v5 respondsToSelector:?])
   {
-    v4 = 1;
+    v3 = 1;
   }
 
   else
   {
-    coordinator = self->coordinator;
-    v4 = objc_opt_respondsToSelector();
+    v3 = objc_opt_respondsToSelector();
   }
 
-  return v4 & 1;
+  return v3 & 1;
 }
 
 @end

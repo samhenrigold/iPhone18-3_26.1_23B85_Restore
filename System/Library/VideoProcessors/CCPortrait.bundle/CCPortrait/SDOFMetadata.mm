@@ -34,7 +34,7 @@
     if (*(v7 + 4) >= 6)
     {
       v12 = 0;
-      sub_2956ADBB0(v7, 0x4B0u, 2u, &v12);
+      sub_2956ADBB0(v7, 1200, 2u, &v12);
       LOBYTE(hasValidHeader) = v12 > 0;
     }
 
@@ -128,7 +128,7 @@
     if (EffectiveVersion == 4)
     {
       v10 = 0.0;
-      sub_2956ADBB0(aperture, 0x259u, 1u, &v10);
+      sub_2956ADBB0(aperture, 601, 1u, &v10);
       return v10;
     }
 
@@ -151,7 +151,7 @@
     if (EffectiveVersion == 4)
     {
       v10 = 0.0;
-      sub_2956ADBB0(aperture, 0x25Au, 1u, &v10);
+      sub_2956ADBB0(aperture, 602, 1u, &v10);
       return v10;
     }
 
@@ -279,7 +279,7 @@ LABEL_27:
   if (EffectiveVersion == 4)
   {
     v9 = -1;
-    sub_2956ADBB0(version, 0x64u, 2u, &v9);
+    sub_2956ADBB0(version, 100, 2u, &v9);
     return v9;
   }
 
@@ -301,7 +301,7 @@ LABEL_27:
     if (EffectiveVersion == 4)
     {
       v10 = 0.0;
-      sub_2956ADBB0(aperture, 0x258u, 1u, &v10);
+      sub_2956ADBB0(aperture, 600, 1u, &v10);
       return v10;
     }
 
@@ -337,17 +337,17 @@ LABEL_27:
       v30 = height;
       retstr->var2 = v29;
       retstr->var3 = v30;
-      sub_2956ADBB0(aperture, 0xC9u, 1u, &retstr->var4);
+      sub_2956ADBB0(aperture, 201, 1u, &retstr->var4);
       retstr->var5 = blur * 36.0;
       retstr->var6 = window;
-      sub_2956ADBB0(aperture, 0x259u, 1u, &retstr->var7);
-      sub_2956ADBB0(aperture, 0x25Au, 1u, &retstr->var8);
+      sub_2956ADBB0(aperture, 601, 1u, &retstr->var7);
+      sub_2956ADBB0(aperture, 602, 1u, &retstr->var8);
       retstr->var9 = blur;
-      sub_2956ADBB0(aperture, 0xCAu, 1u, &retstr->var10);
+      sub_2956ADBB0(aperture, 202, 1u, &retstr->var10);
       retstr->var11 = a8;
-      sub_2956ADBB0(aperture, 0xC8u, 1u, &retstr->var12);
+      sub_2956ADBB0(aperture, 200, 1u, &retstr->var12);
 
-      return sub_2956ADBB0(aperture, 0x25Bu, 1u, &retstr->var13);
+      return sub_2956ADBB0(aperture, 603, 1u, &retstr->var13);
     }
 
     else if (result == 3)
@@ -390,18 +390,18 @@ LABEL_27:
     *config = *byte_2956D2CD0;
     if ((*(params + 1) - 10) >= 0xFFFFFFFB)
     {
-      v7 = sub_2956ADBB0(params, 0x75u, 1u, config);
-      v8 = sub_2956ADBB0(params, 0x76u, 1u, &config->var1) | v7;
-      v9 = sub_2956ADBB0(params, 0x77u, 1u, &config->var2);
-      v10 = v8 | v9 | sub_2956ADBB0(params, 0x78u, 1u, &config->var3);
-      v11 = sub_2956ADBB0(params, 0x79u, 1u, &config->var4);
-      v12 = v11 | sub_2956ADBB0(params, 0x7Au, 1u, &config->var5);
-      v13 = v10 | v12 | sub_2956ADBB0(params, 0x7Bu, 1u, &config->var6);
-      v14 = sub_2956ADBB0(params, 0x7Cu, 1u, &config->var7);
-      v15 = v14 | sub_2956ADBB0(params, 0x7Du, 1u, &config->var8);
-      v16 = v15 | sub_2956ADBB0(params, 0x7Eu, 1u, &config->var9);
-      v17 = v13 | v16 | sub_2956ADBB0(params, 0x7Fu, 2u, &config->var11);
-      return v17 | sub_2956ADBB0(params, 0x80u, 1u, &config->var10);
+      v7 = sub_2956ADBB0(params, 117, 1u, config);
+      v8 = sub_2956ADBB0(params, 118, 1u, &config->var1) | v7;
+      v9 = sub_2956ADBB0(params, 119, 1u, &config->var2);
+      v10 = v8 | v9 | sub_2956ADBB0(params, 120, 1u, &config->var3);
+      v11 = sub_2956ADBB0(params, 121, 1u, &config->var4);
+      v12 = v11 | sub_2956ADBB0(params, 122, 1u, &config->var5);
+      v13 = v10 | v12 | sub_2956ADBB0(params, 123, 1u, &config->var6);
+      v14 = sub_2956ADBB0(params, 124, 1u, &config->var7);
+      v15 = v14 | sub_2956ADBB0(params, 125, 1u, &config->var8);
+      v16 = v15 | sub_2956ADBB0(params, 126, 1u, &config->var9);
+      v17 = v13 | v16 | sub_2956ADBB0(params, 127, 2u, &config->var11);
+      return v17 | sub_2956ADBB0(params, 128, 1u, &config->var10);
     }
 
     else
@@ -422,12 +422,12 @@ LABEL_27:
   {
     *&retstr->var0 = xmmword_2956D2D00;
     retstr->var4 = 0.4;
-    sub_2956ADBB0(a4, 0x44Cu, 1u, retstr);
-    sub_2956ADBB0(a4, 0x44Du, 1u, &retstr->var1);
-    sub_2956ADBB0(a4, 0x44Eu, 1u, &retstr->var2);
-    sub_2956ADBB0(a4, 0x44Fu, 1u, &retstr->var3);
+    sub_2956ADBB0(a4, 1100, 1u, retstr);
+    sub_2956ADBB0(a4, 1101, 1u, &retstr->var1);
+    sub_2956ADBB0(a4, 1102, 1u, &retstr->var2);
+    sub_2956ADBB0(a4, 1103, 1u, &retstr->var3);
 
-    return sub_2956ADBB0(a4, 0x450u, 1u, &retstr->var4);
+    return sub_2956ADBB0(a4, 1104, 1u, &retstr->var4);
   }
 
   return result;
@@ -446,22 +446,22 @@ LABEL_27:
     result = objc_msgSend_getEffectiveVersion_(SDOFMetadata, params, a4);
     if (result == 4)
     {
-      sub_2956ADBB0(a4, 0x65u, 2u, retstr);
-      sub_2956ADBB0(a4, 0x6Au, 1u, &retstr->weightScaling);
-      sub_2956ADBB0(a4, 0x6Bu, 1u, &retstr->maxReconstructionWeight);
-      sub_2956ADBB0(a4, 0x6Cu, 1u, &retstr->innerSamplingRadius);
-      sub_2956ADBB0(a4, 0x6Du, 1u, &retstr->outerSamplingRadius);
-      sub_2956ADBB0(a4, 0x6Eu, 2u, &retstr->nSamples);
-      sub_2956ADBB0(a4, 0x6Fu, 1u, &retstr->lumaSigma);
-      sub_2956ADBB0(a4, 0x70u, 1u, &retstr->chromaSigma);
-      sub_2956ADBB0(a4, 0x73u, 1u, &retstr->segmentationSigma);
-      sub_2956ADBB0(a4, 0x66u, 1u, &retstr->disparitySigma);
-      sub_2956ADBB0(a4, 0x71u, 1u, &retstr->accumulatedWeightT0);
-      sub_2956ADBB0(a4, 0x72u, 1u, &retstr->accumulatedWeightT1);
-      sub_2956ADBB0(a4, 0x67u, 1u, &retstr->aaLumaSigma);
-      sub_2956ADBB0(a4, 0x68u, 1u, &retstr->aaChromaSigma);
-      sub_2956ADBB0(a4, 0x74u, 1u, &retstr->aaSegmentationSigma);
-      result = sub_2956ADBB0(a4, 0x69u, 1u, &retstr->aaSpatialSigma);
+      sub_2956ADBB0(a4, 101, 2u, retstr);
+      sub_2956ADBB0(a4, 106, 1u, &retstr->weightScaling);
+      sub_2956ADBB0(a4, 107, 1u, &retstr->maxReconstructionWeight);
+      sub_2956ADBB0(a4, 108, 1u, &retstr->innerSamplingRadius);
+      sub_2956ADBB0(a4, 109, 1u, &retstr->outerSamplingRadius);
+      sub_2956ADBB0(a4, 110, 2u, &retstr->nSamples);
+      sub_2956ADBB0(a4, 111, 1u, &retstr->lumaSigma);
+      sub_2956ADBB0(a4, 112, 1u, &retstr->chromaSigma);
+      sub_2956ADBB0(a4, 115, 1u, &retstr->segmentationSigma);
+      sub_2956ADBB0(a4, 102, 1u, &retstr->disparitySigma);
+      sub_2956ADBB0(a4, 113, 1u, &retstr->accumulatedWeightT0);
+      sub_2956ADBB0(a4, 114, 1u, &retstr->accumulatedWeightT1);
+      sub_2956ADBB0(a4, 103, 1u, &retstr->aaLumaSigma);
+      sub_2956ADBB0(a4, 104, 1u, &retstr->aaChromaSigma);
+      sub_2956ADBB0(a4, 116, 1u, &retstr->aaSegmentationSigma);
+      result = sub_2956ADBB0(a4, 105, 1u, &retstr->aaSpatialSigma);
       if (*(a4 + 1) < 6)
       {
         *&retstr->fgBlurScale = 0;
@@ -471,54 +471,58 @@ LABEL_27:
 
       else
       {
-        if (sub_2956ADBB0(a4, 0x4B5u, 1u, &retstr->fgBlurScale))
+        v12 = sub_2956ADBB0(a4, 1205, 1u, &retstr->fgBlurScale);
+        if (v12)
         {
           retstr->fgBlurScale = 1.0;
-          v12 = uni_logger_api();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+          v13 = uni_logger_api(v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
             sub_2956CC3A0();
           }
         }
 
-        if (sub_2956ADBB0(a4, 0x4B6u, 1u, &retstr->fgBlurClamp))
+        v14 = sub_2956ADBB0(a4, 1206, 1u, &retstr->fgBlurClamp);
+        if (v14)
         {
           retstr->fgBlurClamp = 1.0;
-          v13 = uni_logger_api();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          v15 = uni_logger_api(v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
             sub_2956CC3E0();
           }
         }
 
-        if (sub_2956ADBB0(a4, 0x4BBu, 1u, &retstr->fgDeadZoneOffset))
+        v16 = sub_2956ADBB0(a4, 1211, 1u, &retstr->fgDeadZoneOffset);
+        if (v16)
         {
           retstr->fgDeadZoneOffset = 0.0;
-          v14 = uni_logger_api();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+          v17 = uni_logger_api(v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
-            sub_2956CC420(v14, v15, v16, v17, v18, v19, v20, v21);
+            sub_2956CC420(v17, v18, v19, v20, v21, v22, v23, v24);
           }
         }
 
-        if (sub_2956ADBB0(a4, 0x4BDu, 1u, &retstr->fgFgBgThreshold))
+        v25 = sub_2956ADBB0(a4, 1213, 1u, &retstr->fgFgBgThreshold);
+        if (v25)
         {
           retstr->fgFgBgThreshold = 0.05;
-          v22 = uni_logger_api();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+          v26 = uni_logger_api(v25);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
           {
             sub_2956CC464();
           }
         }
 
-        result = sub_2956ADBB0(a4, 0x4BEu, 2u, &retstr->fgBgDilationSize);
+        result = sub_2956ADBB0(a4, 1214, 2u, &retstr->fgBgDilationSize);
         if (result)
         {
           retstr->fgBgDilationSize = 7;
-          v23 = uni_logger_api();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+          v27 = uni_logger_api(result);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
           {
-            sub_2956CC4B0(v23);
+            sub_2956CC4B0(v27);
           }
         }
       }
@@ -563,14 +567,14 @@ LABEL_27:
     {
       retstr->var0 = blur;
       retstr->var2 = a6;
-      sub_2956ADBB0(aperture, 0x258u, 1u, &retstr->var1);
-      sub_2956ADBB0(aperture, 0x384u, 1u, &retstr->var3);
-      sub_2956ADBB0(aperture, 0x385u, 1u, &retstr->var4);
-      sub_2956ADBB0(aperture, 0x386u, 1u, &retstr->var5);
-      sub_2956ADBB0(aperture, 0x387u, 1u, &retstr->var6);
-      sub_2956ADBB0(aperture, 0x388u, 1u, &retstr->var7);
+      sub_2956ADBB0(aperture, 600, 1u, &retstr->var1);
+      sub_2956ADBB0(aperture, 900, 1u, &retstr->var3);
+      sub_2956ADBB0(aperture, 901, 1u, &retstr->var4);
+      sub_2956ADBB0(aperture, 902, 1u, &retstr->var5);
+      sub_2956ADBB0(aperture, 903, 1u, &retstr->var6);
+      sub_2956ADBB0(aperture, 904, 1u, &retstr->var7);
 
-      return sub_2956ADBB0(aperture, 0x389u, 1u, &retstr->var8);
+      return sub_2956ADBB0(aperture, 905, 1u, &retstr->var8);
     }
 
     else if (result == 3)
@@ -613,47 +617,47 @@ LABEL_27:
     {
       *&retstr->var0.var0.var0 = *&a8->var3;
       *&retstr->var0.var0.var4 = *&a8->var7;
-      sub_2956ADBB0(scaling, 0x3F3u, 2u, &retstr->var0.var1);
-      sub_2956ADBB0(scaling, 0x3F4u, 1u, &retstr->var0.var2);
-      sub_2956ADBB0(scaling, 0x3F5u, 1u, &retstr->var0.var3);
-      sub_2956ADBB0(scaling, 0x3F9u, 1u, &retstr->var1.var0.var0);
-      sub_2956ADBB0(scaling, 0x3FAu, 1u, &retstr->var1.var0.var1);
-      sub_2956ADBB0(scaling, 0x3FEu, 1u, &retstr->var1.var0.var2);
-      sub_2956ADBB0(scaling, 0x3FBu, 1u, &retstr->var1.var0.var3);
-      sub_2956ADBB0(scaling, 0x3FCu, 1u, &retstr->var1.var0.var4);
-      sub_2956ADBB0(scaling, 0x3FDu, 1u, &retstr->var1.var0.var5);
-      sub_2956ADBB0(scaling, 0x3F6u, 2u, &retstr->var1.var1);
-      sub_2956ADBB0(scaling, 0x3F7u, 1u, &retstr->var1.var2);
-      sub_2956ADBB0(scaling, 0x3F8u, 1u, &retstr->var1.var3);
-      sub_2956ADBB0(scaling, 0x3ECu, 1u, &retstr->var2);
+      sub_2956ADBB0(scaling, 1011, 2u, &retstr->var0.var1);
+      sub_2956ADBB0(scaling, 1012, 1u, &retstr->var0.var2);
+      sub_2956ADBB0(scaling, 1013, 1u, &retstr->var0.var3);
+      sub_2956ADBB0(scaling, 1017, 1u, &retstr->var1.var0.var0);
+      sub_2956ADBB0(scaling, 1018, 1u, &retstr->var1.var0.var1);
+      sub_2956ADBB0(scaling, 1022, 1u, &retstr->var1.var0.var2);
+      sub_2956ADBB0(scaling, 1019, 1u, &retstr->var1.var0.var3);
+      sub_2956ADBB0(scaling, 1020, 1u, &retstr->var1.var0.var4);
+      sub_2956ADBB0(scaling, 1021, 1u, &retstr->var1.var0.var5);
+      sub_2956ADBB0(scaling, 1014, 2u, &retstr->var1.var1);
+      sub_2956ADBB0(scaling, 1015, 1u, &retstr->var1.var2);
+      sub_2956ADBB0(scaling, 1016, 1u, &retstr->var1.var3);
+      sub_2956ADBB0(scaling, 1004, 1u, &retstr->var2);
       retstr->var3 = scale;
-      sub_2956ADBB0(scaling, 0x3FFu, 1u, &retstr->var4);
-      sub_2956ADBB0(scaling, 0x3EEu, 1u, &retstr->var5);
-      sub_2956ADBB0(scaling, 0x3EFu, 1u, &retstr->var6);
-      sub_2956ADBB0(scaling, 0x3EDu, 1u, &retstr->var7);
-      sub_2956ADBB0(scaling, 0x3F0u, 1u, &retstr->var8);
-      sub_2956ADBB0(scaling, 0x3E8u, 1u, &retstr->var9.var0);
-      sub_2956ADBB0(scaling, 0x3E9u, 1u, &retstr->var9.var1);
-      sub_2956ADBB0(scaling, 0x3EAu, 1u, &retstr->var9.var2);
-      sub_2956ADBB0(scaling, 0x3EBu, 1u, &retstr->var9.var3);
-      sub_2956ADBB0(scaling, 0x400u, 2u, &retstr->var10.var0);
-      sub_2956ADBB0(scaling, 0x401u, 1u, &retstr->var10.var1);
-      sub_2956ADBB0(scaling, 0x402u, 1u, &retstr->var10.var2);
-      sub_2956ADBB0(scaling, 0x403u, 1u, &retstr->var10.var3);
-      sub_2956ADBB0(scaling, 0x404u, 1u, &retstr->var10.var4);
-      sub_2956ADBB0(scaling, 0x405u, 1u, &retstr->var10.var5);
-      sub_2956ADBB0(scaling, 0x406u, 1u, &retstr->var10.var6);
-      sub_2956ADBB0(scaling, 0x407u, 1u, &retstr->var10.var7);
-      sub_2956ADBB0(scaling, 0x408u, 1u, &retstr->var10.var8);
-      sub_2956ADBB0(scaling, 0x409u, 1u, &retstr->var10.var9);
-      sub_2956ADBB0(scaling, 0x40Au, 1u, &retstr->var10.var10);
-      sub_2956ADBB0(scaling, 0x40Bu, 1u, &retstr->var10.var11);
-      sub_2956ADBB0(scaling, 0x40Cu, 1u, &retstr->var10.var12);
-      sub_2956ADBB0(scaling, 0x40Du, 1u, &retstr->var10.var13);
-      sub_2956ADBB0(scaling, 0x40Eu, 1u, &retstr->var10.var14);
-      sub_2956ADBB0(scaling, 0x40Fu, 1u, &retstr->var10.var15);
-      sub_2956ADBB0(scaling, 0x3F1u, 1u, &retstr->var11);
-      result = sub_2956ADBB0(scaling, 0x3F2u, 1u, &retstr->var12);
+      sub_2956ADBB0(scaling, 1023, 1u, &retstr->var4);
+      sub_2956ADBB0(scaling, 1006, 1u, &retstr->var5);
+      sub_2956ADBB0(scaling, 1007, 1u, &retstr->var6);
+      sub_2956ADBB0(scaling, 1005, 1u, &retstr->var7);
+      sub_2956ADBB0(scaling, 1008, 1u, &retstr->var8);
+      sub_2956ADBB0(scaling, 1000, 1u, &retstr->var9.var0);
+      sub_2956ADBB0(scaling, 1001, 1u, &retstr->var9.var1);
+      sub_2956ADBB0(scaling, 1002, 1u, &retstr->var9.var2);
+      sub_2956ADBB0(scaling, 1003, 1u, &retstr->var9.var3);
+      sub_2956ADBB0(scaling, 1024, 2u, &retstr->var10.var0);
+      sub_2956ADBB0(scaling, 1025, 1u, &retstr->var10.var1);
+      sub_2956ADBB0(scaling, 1026, 1u, &retstr->var10.var2);
+      sub_2956ADBB0(scaling, 1027, 1u, &retstr->var10.var3);
+      sub_2956ADBB0(scaling, 1028, 1u, &retstr->var10.var4);
+      sub_2956ADBB0(scaling, 1029, 1u, &retstr->var10.var5);
+      sub_2956ADBB0(scaling, 1030, 1u, &retstr->var10.var6);
+      sub_2956ADBB0(scaling, 1031, 1u, &retstr->var10.var7);
+      sub_2956ADBB0(scaling, 1032, 1u, &retstr->var10.var8);
+      sub_2956ADBB0(scaling, 1033, 1u, &retstr->var10.var9);
+      sub_2956ADBB0(scaling, 1034, 1u, &retstr->var10.var10);
+      sub_2956ADBB0(scaling, 1035, 1u, &retstr->var10.var11);
+      sub_2956ADBB0(scaling, 1036, 1u, &retstr->var10.var12);
+      sub_2956ADBB0(scaling, 1037, 1u, &retstr->var10.var13);
+      sub_2956ADBB0(scaling, 1038, 1u, &retstr->var10.var14);
+      sub_2956ADBB0(scaling, 1039, 1u, &retstr->var10.var15);
+      sub_2956ADBB0(scaling, 1009, 1u, &retstr->var11);
+      result = sub_2956ADBB0(scaling, 1010, 1u, &retstr->var12);
       v27 = x;
       retstr->var13 = v27;
       v25 = y;
@@ -736,7 +740,7 @@ LABEL_7:
     {
       retstr->var0 = a8;
       retstr->var1 = ratio;
-      sub_2956ADBB0(points, 0x258u, 1u, &retstr->var2);
+      sub_2956ADBB0(points, 600, 1u, &retstr->var2);
       v34.f64[0] = aperture[8].x;
       v35.f64[0] = aperture[8].y;
       v34.f64[1] = aperture[12].x;
@@ -777,14 +781,14 @@ LABEL_7:
       v37.f64[1] = aperture[7].y;
       *&retstr[1].var13 = vcvt_hight_f32_f64(vcvt_f32_f64(v36), v34);
       *&retstr[2].var2 = vcvt_hight_f32_f64(vcvt_f32_f64(v37), v35);
-      sub_2956ADBB0(points, 0x130u, 1u, &retstr[2].var6);
-      sub_2956ADBB0(points, 0x131u, 1u, &retstr[2].var7);
-      sub_2956ADBB0(points, 0x12Fu, 1u, &retstr[2].var8);
-      sub_2956ADBB0(points, 0x12Cu, 1u, &retstr[2].var9);
-      sub_2956ADBB0(points, 0x12Du, 1u, &retstr[2].var10);
-      sub_2956ADBB0(points, 0x12Eu, 1u, &retstr[2].var11);
-      sub_2956ADBB0(points, 0x132u, 1u, &retstr[2].var12);
-      result = sub_2956ADBB0(points, 0x133u, 1u, &retstr[2].var13);
+      sub_2956ADBB0(points, 304, 1u, &retstr[2].var6);
+      sub_2956ADBB0(points, 305, 1u, &retstr[2].var7);
+      sub_2956ADBB0(points, 303, 1u, &retstr[2].var8);
+      sub_2956ADBB0(points, 300, 1u, &retstr[2].var9);
+      sub_2956ADBB0(points, 301, 1u, &retstr[2].var10);
+      sub_2956ADBB0(points, 302, 1u, &retstr[2].var11);
+      sub_2956ADBB0(points, 306, 1u, &retstr[2].var12);
+      result = sub_2956ADBB0(points, 307, 1u, &retstr[2].var13);
     }
 
     else
@@ -876,12 +880,12 @@ LABEL_7:
     result = objc_msgSend_getEffectiveVersion_(SDOFMetadata, params, a4);
     if (result == 4)
     {
-      sub_2956ADBB0(a4, 0x320u, 2u, retstr);
-      sub_2956ADBB0(a4, 0x321u, 1u, &retstr->var1);
-      sub_2956ADBB0(a4, 0x322u, 1u, &retstr->var2);
-      sub_2956ADBB0(a4, 0x323u, 1u, &retstr->var3);
+      sub_2956ADBB0(a4, 800, 2u, retstr);
+      sub_2956ADBB0(a4, 801, 1u, &retstr->var1);
+      sub_2956ADBB0(a4, 802, 1u, &retstr->var2);
+      sub_2956ADBB0(a4, 803, 1u, &retstr->var3);
 
-      return sub_2956ADBB0(a4, 0x324u, 1u, &retstr->var4);
+      return sub_2956ADBB0(a4, 804, 1u, &retstr->var4);
     }
 
     else if (result == 3)
@@ -980,51 +984,51 @@ LABEL_7:
   }
 
   retstr->simulatedAperture = amplitude;
-  sub_2956ADBB0(aperture, 0x258u, 1u, &retstr->defaultSimulatedAperture);
-  sub_2956ADBB0(aperture, 0x1FAu, 1u, &retstr->preFilterBlurStrength);
-  sub_2956ADBB0(aperture, 0x1FCu, 2u, &retstr->preFilterRadius);
+  sub_2956ADBB0(aperture, 600, 1u, &retstr->defaultSimulatedAperture);
+  sub_2956ADBB0(aperture, 506, 1u, &retstr->preFilterBlurStrength);
+  sub_2956ADBB0(aperture, 508, 2u, &retstr->preFilterRadius);
   retstr->maxBlur = a7;
-  sub_2956ADBB0(aperture, 0x1FDu, 1u, &retstr->sharpRadius);
-  sub_2956ADBB0(aperture, 0x1FEu, 1u, &retstr->softRadius);
-  sub_2956ADBB0(aperture, 0x1FFu, 1u, &retstr->lumaNoiseModelCoeff);
+  sub_2956ADBB0(aperture, 509, 1u, &retstr->sharpRadius);
+  sub_2956ADBB0(aperture, 510, 1u, &retstr->softRadius);
+  sub_2956ADBB0(aperture, 511, 1u, &retstr->lumaNoiseModelCoeff);
   retstr->lumaNoiseAmplitude = blur;
-  sub_2956ADBB0(aperture, 0x1F6u, 1u, &retstr->highlightBoostGain);
-  sub_2956ADBB0(aperture, 0x1F4u, 2u, &retstr->nRings);
-  if (sub_2956ADBB0(aperture, 0x1F2u, 2u, &retstr->minNRings))
+  sub_2956ADBB0(aperture, 502, 1u, &retstr->highlightBoostGain);
+  sub_2956ADBB0(aperture, 500, 2u, &retstr->nRings);
+  if (sub_2956ADBB0(aperture, 498, 2u, &retstr->minNRings))
   {
     retstr->minNRings = retstr->nRings;
   }
 
-  if (sub_2956ADBB0(aperture, 0x1F3u, 2u, &retstr->maxNRings))
+  if (sub_2956ADBB0(aperture, 499, 2u, &retstr->maxNRings))
   {
     retstr->maxNRings = retstr->nRings;
   }
 
   retstr->basePixelWeight = 1.0e-12;
-  sub_2956ADBB0(aperture, 0x1FBu, 1u, &retstr->antiAliasBlurStrength);
-  sub_2956ADBB0(aperture, 0x200u, 2u, &retstr->antiAliasRadius);
-  sub_2956ADBB0(aperture, 0x1F5u, 1u, &retstr->relativeWeightThreshold);
-  sub_2956ADBB0(aperture, 0x201u, 1u, &retstr->alphaEpsilon);
-  sub_2956ADBB0(aperture, 0x202u, 1u, &retstr->alphaGain);
-  sub_2956ADBB0(aperture, 0x1F7u, 1u, &retstr->shapeObstructionCoeff);
-  sub_2956ADBB0(aperture, 0x1F8u, 1u, &retstr->ringAmplitude);
-  sub_2956ADBB0(aperture, 0x1F9u, 1u, &retstr->ringSharpness);
-  sub_2956ADBB0(aperture, 0x2BCu, 1u, &retstr->blendingQuarterResAlphaGain);
-  sub_2956ADBB0(aperture, 0x2BDu, 1u, &retstr->blendingFullResAlphaGain);
-  sub_2956ADBB0(aperture, 0x190u, 2u, &retstr->xhlrbIterations);
-  sub_2956ADBB0(aperture, 0x194u, 1u, &retstr->xhlrbBlurRadiusT0);
-  sub_2956ADBB0(aperture, 0x195u, 1u, &retstr->xhlrbBlurRadiusT1);
-  sub_2956ADBB0(aperture, 0x196u, 1u, &retstr->xhlrbMaxIntensityT0);
-  sub_2956ADBB0(aperture, 0x197u, 1u, &retstr->xhlrbMaxIntensityT1);
-  sub_2956ADBB0(aperture, 0x198u, 1u, &retstr->xhlrbMinIntensityT0);
-  sub_2956ADBB0(aperture, 0x199u, 1u, &retstr->xhlrbMinIntensityT1);
-  sub_2956ADBB0(aperture, 0x191u, 1u, &retstr->xhlrbPreFilterGain);
-  sub_2956ADBB0(aperture, 0x192u, 1u, &retstr->xhlrbWeightGain);
-  sub_2956ADBB0(aperture, 0x193u, 1u, &retstr->xhlrbIntensityGain);
-  sub_2956ADBB0(aperture, 0x1C2u, 1u, &retstr->ohlbPreFilterGain);
-  sub_2956ADBB0(aperture, 0x1C3u, 1u, &retstr->ohlbWeightGain);
-  sub_2956ADBB0(aperture, 0x1C4u, 1u, &retstr->ohlbIntensityGain);
-  result = sub_2956ADBB0(aperture, 0x1C5u, 1u, &retstr->gainMapHeadroom);
+  sub_2956ADBB0(aperture, 507, 1u, &retstr->antiAliasBlurStrength);
+  sub_2956ADBB0(aperture, 512, 2u, &retstr->antiAliasRadius);
+  sub_2956ADBB0(aperture, 501, 1u, &retstr->relativeWeightThreshold);
+  sub_2956ADBB0(aperture, 513, 1u, &retstr->alphaEpsilon);
+  sub_2956ADBB0(aperture, 514, 1u, &retstr->alphaGain);
+  sub_2956ADBB0(aperture, 503, 1u, &retstr->shapeObstructionCoeff);
+  sub_2956ADBB0(aperture, 504, 1u, &retstr->ringAmplitude);
+  sub_2956ADBB0(aperture, 505, 1u, &retstr->ringSharpness);
+  sub_2956ADBB0(aperture, 700, 1u, &retstr->blendingQuarterResAlphaGain);
+  sub_2956ADBB0(aperture, 701, 1u, &retstr->blendingFullResAlphaGain);
+  sub_2956ADBB0(aperture, 400, 2u, &retstr->xhlrbIterations);
+  sub_2956ADBB0(aperture, 404, 1u, &retstr->xhlrbBlurRadiusT0);
+  sub_2956ADBB0(aperture, 405, 1u, &retstr->xhlrbBlurRadiusT1);
+  sub_2956ADBB0(aperture, 406, 1u, &retstr->xhlrbMaxIntensityT0);
+  sub_2956ADBB0(aperture, 407, 1u, &retstr->xhlrbMaxIntensityT1);
+  sub_2956ADBB0(aperture, 408, 1u, &retstr->xhlrbMinIntensityT0);
+  sub_2956ADBB0(aperture, 409, 1u, &retstr->xhlrbMinIntensityT1);
+  sub_2956ADBB0(aperture, 401, 1u, &retstr->xhlrbPreFilterGain);
+  sub_2956ADBB0(aperture, 402, 1u, &retstr->xhlrbWeightGain);
+  sub_2956ADBB0(aperture, 403, 1u, &retstr->xhlrbIntensityGain);
+  sub_2956ADBB0(aperture, 450, 1u, &retstr->ohlbPreFilterGain);
+  sub_2956ADBB0(aperture, 451, 1u, &retstr->ohlbWeightGain);
+  sub_2956ADBB0(aperture, 452, 1u, &retstr->ohlbIntensityGain);
+  result = sub_2956ADBB0(aperture, 453, 1u, &retstr->gainMapHeadroom);
   v34 = *(aperture + 1);
   if (v34 <= 4)
   {
@@ -1033,88 +1037,94 @@ LABEL_7:
 
   else
   {
-    result = sub_2956ADBB0(aperture, 0x1C6u, 1u, &retstr->linearBoostGain);
+    result = sub_2956ADBB0(aperture, 454, 1u, &retstr->linearBoostGain);
     if (v34 != 5)
     {
-      sub_2956ADBB0(aperture, 0x4B0u, 2u, &retstr->fgNRings);
-      if (sub_2956ADBB0(aperture, 0x4B1u, 2u, &retstr->fgMinNRings))
+      sub_2956ADBB0(aperture, 1200, 2u, &retstr->fgNRings);
+      if (sub_2956ADBB0(aperture, 1201, 2u, &retstr->fgMinNRings))
       {
         retstr->fgMinNRings = retstr->fgNRings;
       }
 
-      if (sub_2956ADBB0(aperture, 0x4B2u, 2u, &retstr->fgMaxNRings))
+      if (sub_2956ADBB0(aperture, 1202, 2u, &retstr->fgMaxNRings))
       {
         retstr->fgMaxNRings = retstr->fgNRings;
       }
 
-      if (sub_2956ADBB0(aperture, 0x4B3u, 1u, &retstr->fgTraceStepScale))
+      v35 = sub_2956ADBB0(aperture, 1203, 1u, &retstr->fgTraceStepScale);
+      if (v35)
       {
         retstr->fgTraceStepScale = 1.0;
-        v35 = uni_logger_api();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+        v36 = uni_logger_api(v35);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
         {
           sub_2956CC504();
         }
       }
 
-      if (sub_2956ADBB0(aperture, 0x4B4u, 1u, &retstr->fgHitThreshold))
+      v37 = sub_2956ADBB0(aperture, 1204, 1u, &retstr->fgHitThreshold);
+      if (v37)
       {
         retstr->fgHitThreshold = 1.0;
-        v36 = uni_logger_api();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+        v38 = uni_logger_api(v37);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
         {
           sub_2956CC544();
         }
       }
 
-      if (sub_2956ADBB0(aperture, 0x4B7u, 1u, &retstr->fgAlphaSmoothstepStart))
+      v39 = sub_2956ADBB0(aperture, 1207, 1u, &retstr->fgAlphaSmoothstepStart);
+      if (v39)
       {
         retstr->fgAlphaSmoothstepStart = -2.0;
-        v37 = uni_logger_api();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+        v40 = uni_logger_api(v39);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
         {
-          sub_2956CC584(v37, v38, v39, v40, v41, v42, v43, v44);
+          sub_2956CC584(v40, v41, v42, v43, v44, v45, v46, v47);
         }
       }
 
-      if (sub_2956ADBB0(aperture, 0x4B8u, 1u, &retstr->fgAlphaSmoothstepEnd))
+      v48 = sub_2956ADBB0(aperture, 1208, 1u, &retstr->fgAlphaSmoothstepEnd);
+      if (v48)
       {
         retstr->fgAlphaSmoothstepEnd = 0.0;
-        v45 = uni_logger_api();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+        v49 = uni_logger_api(v48);
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
         {
-          sub_2956CC5CC(v45, v46, v47, v48, v49, v50, v51, v52);
+          sub_2956CC5CC(v49, v50, v51, v52, v53, v54, v55, v56);
         }
       }
 
-      if (sub_2956ADBB0(aperture, 0x4B9u, 1u, &retstr->fgBlurWeightSmoothstepStart))
+      v57 = sub_2956ADBB0(aperture, 1209, 1u, &retstr->fgBlurWeightSmoothstepStart);
+      if (v57)
       {
         retstr->fgBlurWeightSmoothstepStart = -1.0;
-        v53 = uni_logger_api();
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
+        v58 = uni_logger_api(v57);
+        if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
         {
-          sub_2956CC610(v53, v54, v55, v56, v57, v58, v59, v60);
+          sub_2956CC610(v58, v59, v60, v61, v62, v63, v64, v65);
         }
       }
 
-      if (sub_2956ADBB0(aperture, 0x4BAu, 1u, &retstr->fgBlurWeightSmoothstepEnd))
+      v66 = sub_2956ADBB0(aperture, 1210, 1u, &retstr->fgBlurWeightSmoothstepEnd);
+      if (v66)
       {
         retstr->fgBlurWeightSmoothstepEnd = 0.3;
-        v61 = uni_logger_api();
-        if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
+        v67 = uni_logger_api(v66);
+        if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
         {
           sub_2956CC658();
         }
       }
 
-      result = sub_2956ADBB0(aperture, 0x4BCu, 1u, &retstr->fgAARadius);
+      result = sub_2956ADBB0(aperture, 1212, 1u, &retstr->fgAARadius);
       if (result)
       {
         retstr->fgAARadius = 2.0;
-        v62 = uni_logger_api();
-        if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
+        v68 = uni_logger_api(result);
+        if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
         {
-          sub_2956CC6A0(v62, v63, v64, v65, v66, v67, v68, v69);
+          sub_2956CC6A0(v68, v69, v70, v71, v72, v73, v74, v75);
         }
       }
 
@@ -1138,24 +1148,25 @@ LABEL_45:
 
   else
   {
-    if (sub_2956ADBB0(aperture, 0x522u, 1u, &retstr->bicubicDownsampleParamB))
+    v77 = sub_2956ADBB0(aperture, 1314, 1u, &retstr->bicubicDownsampleParamB);
+    if (v77)
     {
       retstr->bicubicDownsampleParamB = 0.0;
-      v71 = uni_logger_api();
-      if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
+      v78 = uni_logger_api(v77);
+      if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
       {
-        sub_2956CC6E8(v71, v72, v73, v74, v75, v76, v77, v78);
+        sub_2956CC6E8(v78, v79, v80, v81, v82, v83, v84, v85);
       }
     }
 
-    result = sub_2956ADBB0(aperture, 0x523u, 1u, &retstr->bicubicDownsampleParamC);
+    result = sub_2956ADBB0(aperture, 1315, 1u, &retstr->bicubicDownsampleParamC);
     if (result)
     {
       retstr->bicubicDownsampleParamC = 0.75;
-      v79 = uni_logger_api();
-      if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
+      v86 = uni_logger_api(result);
+      if (os_log_type_enabled(v86, OS_LOG_TYPE_DEBUG))
       {
-        sub_2956CC72C(v79, v80, v81, v82, v83, v84, v85, v86);
+        sub_2956CC72C(v86, v87, v88, v89, v90, v91, v92, v93);
       }
     }
   }
@@ -1175,164 +1186,179 @@ LABEL_45:
     result = objc_msgSend_getEffectiveVersion_(SDOFMetadata, params, a4);
     if (result >= 4 && *(a4 + 1) >= 7)
     {
-      if (sub_2956ADBB0(a4, 0x514u, 1u, retstr))
+      v6 = sub_2956ADBB0(a4, 1300, 1u, retstr);
+      if (v6)
       {
         retstr->var0 = 0.25;
-        v6 = uni_logger_api();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+        v7 = uni_logger_api(v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
         {
-          sub_2956CC774(v6, v7, v8, v9, v10, v11, v12, v13);
+          sub_2956CC774(v7, v8, v9, v10, v11, v12, v13, v14);
         }
       }
 
-      if (sub_2956ADBB0(a4, 0x515u, 1u, &retstr->var1))
+      v15 = sub_2956ADBB0(a4, 1301, 1u, &retstr->var1);
+      if (v15)
       {
         retstr->var1 = 0.2163;
-        v14 = uni_logger_api();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v16 = uni_logger_api(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
-          sub_2956CC7BC(v14, v15, v16, v17, v18, v19, v20, v21);
+          sub_2956CC7BC(v16, v17, v18, v19, v20, v21, v22, v23);
         }
       }
 
-      if (sub_2956ADBB0(a4, 0x516u, 1u, &retstr->var2))
+      v24 = sub_2956ADBB0(a4, 1302, 1u, &retstr->var2);
+      if (v24)
       {
         retstr->var2 = 0.029762;
-        v22 = uni_logger_api();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+        v25 = uni_logger_api(v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
           sub_2956CC80C();
         }
       }
 
-      if (sub_2956ADBB0(a4, 0x517u, 1u, &retstr->var3))
+      v26 = sub_2956ADBB0(a4, 1303, 1u, &retstr->var3);
+      if (v26)
       {
         retstr->var3 = 0.02;
-        v23 = uni_logger_api();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        v27 = uni_logger_api(v26);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
         {
-          sub_2956CC858(v23, v24, v25, v26, v27, v28, v29, v30);
+          sub_2956CC858(v27, v28, v29, v30, v31, v32, v33, v34);
         }
       }
 
-      if (sub_2956ADBB0(a4, 0x518u, 1u, &retstr->var4))
+      v35 = sub_2956ADBB0(a4, 1304, 1u, &retstr->var4);
+      if (v35)
       {
         retstr->var4 = 0.85;
-        v31 = uni_logger_api();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+        v36 = uni_logger_api(v35);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
         {
           sub_2956CC8A8();
         }
       }
 
-      if (sub_2956ADBB0(a4, 0x519u, 1u, &retstr->var5))
+      v37 = sub_2956ADBB0(a4, 1305, 1u, &retstr->var5);
+      if (v37)
       {
         retstr->var5 = 0.029762;
-        v32 = uni_logger_api();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+        v38 = uni_logger_api(v37);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
         {
           sub_2956CC8F0();
         }
       }
 
-      if (sub_2956ADBB0(a4, 0x51Au, 1u, &retstr->var6))
+      v39 = sub_2956ADBB0(a4, 1306, 1u, &retstr->var6);
+      if (v39)
       {
         retstr->var6 = 0.001;
-        v33 = uni_logger_api();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+        v40 = uni_logger_api(v39);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
         {
-          sub_2956CC93C(v33, v34, v35, v36, v37, v38, v39, v40);
+          sub_2956CC93C(v40, v41, v42, v43, v44, v45, v46, v47);
         }
       }
 
-      if (sub_2956ADBB0(a4, 0x51Bu, 1u, &retstr->var7))
+      v48 = sub_2956ADBB0(a4, 1307, 1u, &retstr->var7);
+      if (v48)
       {
         retstr->var7 = 0.0014881;
-        v41 = uni_logger_api();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+        v49 = uni_logger_api(v48);
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
         {
-          sub_2956CC98C(v41, v42, v43, v44, v45, v46, v47, v48);
+          sub_2956CC98C(v49, v50, v51, v52, v53, v54, v55, v56);
         }
       }
 
-      if (sub_2956ADBB0(a4, 0x51Cu, 1u, &retstr->var8))
+      v57 = sub_2956ADBB0(a4, 1308, 1u, &retstr->var8);
+      if (v57)
       {
         retstr->var8 = 0.2;
-        v49 = uni_logger_api();
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+        v58 = uni_logger_api(v57);
+        if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
         {
           sub_2956CC9DC();
         }
       }
 
-      if (sub_2956ADBB0(a4, 0x51Du, 1u, &retstr->var9))
+      v59 = sub_2956ADBB0(a4, 1309, 1u, &retstr->var9);
+      if (v59)
       {
         retstr->var9 = 0.0044643;
-        v50 = uni_logger_api();
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+        v60 = uni_logger_api(v59);
+        if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
         {
           sub_2956CCA28();
         }
       }
 
-      if (sub_2956ADBB0(a4, 0x51Eu, 1u, &retstr->var10))
+      v61 = sub_2956ADBB0(a4, 1310, 1u, &retstr->var10);
+      if (v61)
       {
         retstr->var10 = 0.1;
-        v51 = uni_logger_api();
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+        v62 = uni_logger_api(v61);
+        if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
         {
           sub_2956CCA74();
         }
       }
 
-      if (sub_2956ADBB0(a4, 0x51Fu, 1u, &retstr->var11))
+      v63 = sub_2956ADBB0(a4, 1311, 1u, &retstr->var11);
+      if (v63)
       {
         retstr->var11 = 1.5;
-        v52 = uni_logger_api();
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
+        v64 = uni_logger_api(v63);
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
         {
-          sub_2956CCAC0(v52, v53, v54, v55, v56, v57, v58, v59);
+          sub_2956CCAC0(v64, v65, v66, v67, v68, v69, v70, v71);
         }
       }
 
-      if (sub_2956ADBB0(a4, 0x520u, 1u, &retstr->var12))
+      v72 = sub_2956ADBB0(a4, 1312, 1u, &retstr->var12);
+      if (v72)
       {
         retstr->var12 = 0.6;
-        v60 = uni_logger_api();
-        if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+        v73 = uni_logger_api(v72);
+        if (os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
         {
           sub_2956CCB08();
         }
       }
 
-      if (sub_2956ADBB0(a4, 0x521u, 1u, &retstr->var13))
+      v74 = sub_2956ADBB0(a4, 1313, 1u, &retstr->var13);
+      if (v74)
       {
         retstr->var13 = 0.0019841;
-        v61 = uni_logger_api();
-        if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
+        v75 = uni_logger_api(v74);
+        if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
         {
-          sub_2956CCB50(v61, v62, v63, v64, v65, v66, v67, v68);
+          sub_2956CCB50(v75, v76, v77, v78, v79, v80, v81, v82);
         }
       }
 
-      if (sub_2956ADBB0(a4, 0x524u, 1u, &retstr->var14))
+      v83 = sub_2956ADBB0(a4, 1316, 1u, &retstr->var14);
+      if (v83)
       {
         retstr->var14 = 0.33;
-        v69 = uni_logger_api();
-        if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
+        v84 = uni_logger_api(v83);
+        if (os_log_type_enabled(v84, OS_LOG_TYPE_DEBUG))
         {
-          sub_2956CCB9C(v69, v70, v71, v72, v73, v74, v75, v76);
+          sub_2956CCB9C(v84, v85, v86, v87, v88, v89, v90, v91);
         }
       }
 
-      result = sub_2956ADBB0(a4, 0x525u, 1u, &retstr->var15);
+      result = sub_2956ADBB0(a4, 1317, 1u, &retstr->var15);
       if (result)
       {
         retstr->var15 = 1.5;
-        v77 = uni_logger_api();
-        if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
+        v92 = uni_logger_api(result);
+        if (os_log_type_enabled(v92, OS_LOG_TYPE_DEBUG))
         {
-          sub_2956CCBEC(v77, v78, v79, v80, v81, v82, v83, v84);
+          sub_2956CCBEC(v92, v93, v94, v95, v96, v97, v98, v99);
         }
       }
     }

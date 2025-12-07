@@ -220,11 +220,11 @@ void sub_1000051CC(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-_OWORD *sub_1000052E4@<X0>(_OWORD *result@<X0>, int a2@<W1>, void *a3@<X8>)
+_OWORD *sub_1000052E4@<X0>(_OWORD *result@<X0>, int a2@<W1>, uint64_t a3@<X8>)
 {
   v3 = result[1];
   *a3 = *result;
-  *(a3 + 1) = v3;
+  *(a3 + 16) = v3;
   if (a2)
   {
     v6 = a2 - 128;
@@ -234,26 +234,26 @@ _OWORD *sub_1000052E4@<X0>(_OWORD *result@<X0>, int a2@<W1>, void *a3@<X8>)
       {
         v7 = sub_100005464(a3, 128 - a2);
         v9 = v8;
-        a3[2] = sub_100005418(a3 + 2, a2) | v7;
-        a3[3] = v10 | v9;
+        *(a3 + 16) = sub_100005418(a3 + 16, a2) | v7;
+        *(a3 + 24) = v10 | v9;
         result = sub_100005418(a3, a2);
         *a3 = result;
-        a3[1] = v11;
+        *(a3 + 8) = v11;
         return result;
       }
 
       result = sub_100005418(a3, v6);
-      a3[2] = result;
-      a3[3] = v12;
+      *(a3 + 16) = result;
+      *(a3 + 24) = v12;
     }
 
     else
     {
-      *(a3 + 1) = *a3;
+      *(a3 + 16) = *a3;
     }
 
     *a3 = 0;
-    a3[1] = 0;
+    *(a3 + 8) = 0;
   }
 
   return result;
@@ -286,37 +286,27 @@ uint64_t sub_10000538C(__int128 *a1, unint64_t *a2)
   return result;
 }
 
-uint64_t sub_100005418(void *a1, int a2)
+uint64_t sub_100005418(uint64_t a1, int a2)
 {
   v2 = *a1 << a2;
-  if (a2 <= 63)
-  {
-    v3 = (a1[1] << a2) | (*a1 >> 1 >> ~a2);
-  }
-
-  else
+  if (a2 > 63)
   {
     v2 = 0;
   }
 
   if (a2 == 64)
   {
-    v4 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v4 = v2;
-  }
-
-  if (a2 == 64)
-  {
-    v5 = *a1;
+    v3 = v2;
   }
 
   if (a2)
   {
-    return v4;
+    return v3;
   }
 
   else
@@ -520,10 +510,11 @@ void sub_1000061C4(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_100006A68(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100006A68(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x3Au);
+  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, va, 0x3Au);
 }
 
 void sub_100006A84(id a1)
@@ -553,6 +544,17 @@ void sub_100006EB8(id a1)
     *v5 = 0;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "IODConnection registerProcess failed\n", v5, 2u);
   }
+}
+
+void sub_100006F8C(id a1, unsigned int a2, int a3, const unint64_t *a4, unsigned int a5)
+{
+  v5 = *&a5;
+  v7 = *&a3;
+  v8 = *&a2;
+  v9 = objc_autoreleasePoolPush();
+  [IODConnection dispatchNotificationForClientID:v8 ioResult:v7 args:a4 numArgs:v5];
+
+  objc_autoreleasePoolPop(v9);
 }
 
 void sub_100007874(id a1)
@@ -798,6 +800,14 @@ void sub_100008968(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
+void sub_100009BBC(id a1, TSDMSGExtSyncSession *a2, unsigned __int16 a3, const ScalarArgsArrayUserReference *a4)
+{
+  v5 = a3;
+  v7 = a2;
+  v6 = +[TSDMSGService sharedMSGService];
+  [v6 extSyncCallbackHandler:v7 msgType:v5 args:a4];
+}
+
 void sub_100009F2C(id a1)
 {
   if ((_os_feature_enabled_impl() & 1) != 0 || _os_feature_enabled_impl())
@@ -869,33 +879,33 @@ id sub_10000AA04(uint64_t a1)
     }
 
     v34[0] = @"syncId";
-    [v2 config];
+    objc_msgSend_config(v2);
     v22 = [NSNumber numberWithUnsignedInt:v32];
     v35[0] = v22;
     v34[1] = @"triggerId";
-    [v2 config];
+    objc_msgSend_config(v2);
     v21 = [NSNumber numberWithUnsignedInt:v31];
     v35[1] = v21;
     v34[2] = @"nominalTriggerRate";
-    [v2 config];
-    [v2 config];
+    objc_msgSend_config(v2);
+    objc_msgSend_config(v2);
     v20 = [NSNumber numberWithDouble:v30 / v29];
     v35[2] = v20;
     v34[3] = @"syncMultiplier";
-    [v2 config];
-    [v2 config];
+    objc_msgSend_config(v2);
+    objc_msgSend_config(v2);
     v19 = [NSNumber numberWithDouble:v28 / v27];
     v35[3] = v19;
     v34[4] = @"toleranceExternalTriggerMicros";
-    [v2 config];
+    objc_msgSend_config(v2);
     v18 = [NSNumber numberWithUnsignedLongLong:v26 / 0x3E8];
     v35[4] = v18;
     v34[5] = @"toleranceSyncOutputMicros";
-    [v2 config];
+    objc_msgSend_config(v2);
     v9 = [NSNumber numberWithUnsignedLongLong:v25 / 0x3E8];
     v35[5] = v9;
     v34[6] = @"timeoutMicros";
-    [v2 config];
+    objc_msgSend_config(v2);
     v10 = [NSNumber numberWithUnsignedLongLong:v24 / 0x3E8];
     v35[6] = v10;
     v34[7] = @"procName";
@@ -905,7 +915,7 @@ id sub_10000AA04(uint64_t a1)
     v12 = [NSNumber numberWithUnsignedLongLong:v3];
     v35[8] = v12;
     v34[9] = @"isSimulation";
-    [v2 config];
+    objc_msgSend_config(v2);
     v13 = [NSNumber numberWithBool:v23 != 0];
     v35[9] = v13;
     v34[10] = @"timeToLockMicros";
@@ -1398,42 +1408,41 @@ _DWORD *sub_100017C24(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v3 = *(a1 + 32);
-  v4 = [objc_opt_class() diagnosticInfoForClockIdentifier:*(a1 + 40)];
-  v5 = [NSPropertyListSerialization dataWithPropertyList:v4 format:200 options:0 error:0];
-  v6 = v5;
-  if (v5)
+  v3 = [objc_opt_class() diagnosticInfoForClockIdentifier:*(a1 + 40)];
+  v4 = [NSPropertyListSerialization dataWithPropertyList:v3 format:200 options:0 error:0];
+  v5 = v4;
+  if (v4)
   {
-    v7 = [v5 length];
-    v8 = malloc_type_calloc(1uLL, v7 + 200, 0x1000040BEF03554uLL);
-    if (v8)
+    v6 = [v4 length];
+    v7 = malloc_type_calloc(1uLL, v6 + 200, 0x1000040BEF03554uLL);
+    if (v7)
     {
-      v9 = [*(a1 + 32) clockName];
-      v10 = [NSString stringWithFormat:@"%@ State:", v9];
+      v8 = [*(a1 + 32) clockName];
+      v9 = [NSString stringWithFormat:@"%@ State:", v8];
 
-      *v8 = 1;
-      v8[1] = v7;
-      [v10 UTF8String];
+      *v7 = 1;
+      v7[1] = v6;
+      [v9 UTF8String];
       __strlcpy_chk();
-      memcpy(v8 + 50, [v6 bytes], v7);
+      memcpy(v7 + 50, [v5 bytes], v6);
     }
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v8;
+  return v7;
 }
 
-unint64_t sub_100017D7C(int a1)
+unint64_t sub_100017D7C(uint64_t a1)
 {
   if (a1 < 4)
   {
     if (a1 > -7)
     {
-      if (a1 < 0)
+      if ((a1 & 0x80000000) != 0)
       {
         return 0x3B9ACA00uLL >> -a1;
       }
@@ -1696,79 +1705,77 @@ void sub_10001BC2C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
 void sub_10001BD44(uint64_t a1)
 {
-  v22 = 0u;
-  v23 = 0u;
   v20 = 0u;
   v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v2 = *(*(a1 + 32) + 24);
-  v3 = [v2 countByEnumeratingWithState:&v20 objects:v29 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v18 objects:v27 count:16];
   if (v3)
   {
-    v4 = *v21;
+    v4 = *v19;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v21 != v4)
+        if (*v19 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v20 + 1) + 8 * i);
+        v6 = *(*(&v18 + 1) + 8 * i);
         if ([v6[1] processIdentifier] == *(a1 + 48) && *(a1 + 40) && *(a1 + 52) <= 0x10u)
         {
           v7 = [v6[1] remoteObjectProxy];
-          v19 = 0;
-          memset(v18, 0, sizeof(v18));
-          v8 = *(a1 + 52);
-          v9 = *(a1 + 40);
+          v17 = 0;
+          memset(v16, 0, sizeof(v16));
           __memmove_chk();
-          LODWORD(v19) = *(a1 + 52);
+          LODWORD(v17) = *(a1 + 52);
           if ([v6[2] armAndTestIfExpired])
           {
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
             {
-              v10 = *(a1 + 48);
-              v11 = *(a1 + 56);
-              v12 = *(a1 + 40);
-              if (v12)
+              v8 = *(a1 + 48);
+              v9 = *(a1 + 56);
+              v10 = *(a1 + 40);
+              if (v10)
               {
                 if (*(a1 + 52))
                 {
-                  v12 = *v12;
+                  v10 = *v10;
                 }
 
                 else
                 {
-                  v12 = 0;
+                  v10 = 0;
                 }
               }
 
               LODWORD(location) = 67109632;
-              HIDWORD(location) = v10;
-              v25 = 1024;
-              v26 = v11;
-              v27 = 2048;
-              v28 = v12;
+              HIDWORD(location) = v8;
+              v23 = 1024;
+              v24 = v9;
+              v25 = 2048;
+              v26 = v10;
               _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "dispatchDaemonServiceCallbackForProcess process %u appears suspended, dropping message to client %u arg0 %llu\n", &location, 0x18u);
             }
           }
 
           else
           {
-            [v7 daemonClientNotification:*(a1 + 56) ioResult:*(a1 + 60) arguments:v18];
+            [v7 daemonClientNotification:*(a1 + 56) ioResult:*(a1 + 60) arguments:v16];
             objc_initWeak(&location, v6);
-            v13 = v6[1];
-            v14[0] = _NSConcreteStackBlock;
-            v14[1] = 3221225472;
-            v14[2] = sub_10001C01C;
-            v14[3] = &unk_10004D060;
-            objc_copyWeak(&v16, &location);
-            v17 = *(a1 + 48);
-            v15 = v7;
-            [v13 scheduleSendBarrierBlock:v14];
+            v11 = v6[1];
+            v12[0] = _NSConcreteStackBlock;
+            v12[1] = 3221225472;
+            v12[2] = sub_10001C01C;
+            v12[3] = &unk_10004D060;
+            objc_copyWeak(&v14, &location);
+            v15 = *(a1 + 48);
+            v13 = v7;
+            [v11 scheduleSendBarrierBlock:v12];
 
-            objc_destroyWeak(&v16);
+            objc_destroyWeak(&v14);
             objc_destroyWeak(&location);
           }
 
@@ -1776,7 +1783,7 @@ void sub_10001BD44(uint64_t a1)
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v20 objects:v29 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v18 objects:v27 count:16];
       if (v3)
       {
         continue;
@@ -1924,16 +1931,18 @@ void sub_10001D988(uint64_t a1)
   [WeakRetained runClockSessionThread];
 }
 
-void sub_10001E95C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, id location, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint8_t buf)
+void sub_10001E95C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, id location, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
 {
-  MSGController::~MSGController(&buf);
+  va_start(va, a48);
+
+  MSGController::~MSGController(va);
   if (a2 == 1)
   {
-    v55 = __cxa_begin_catch(a1);
+    v54 = __cxa_begin_catch(a1);
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v56 = (*(*v55 + 16))(v55);
-      sub_10002DC44(v56, &buf, [v49 syncId]);
+      v55 = (*(*v54 + 16))(v54);
+      sub_10002DC44(v55, va, [v48 syncId]);
     }
 
     __cxa_end_catch();
@@ -1958,35 +1967,27 @@ uint64_t sub_10001ECC0(uint64_t result, int a2, int a3, float a4)
   return result;
 }
 
-void sub_10001ECF0()
-{
-  *v1 = -536870199;
-  *v0 = 0;
-  v3 = *(v2 - 24);
-}
-
 void sub_10001ED08(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
 {
 
   _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, a5, 0xEu);
 }
 
-void sub_10001EEC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_10001EEC4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = TSDMSGExtSyncSession;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
 void sub_10001F2D4(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  v6 = NSStringFromClass(v2);
-  v3 = [NSString stringWithFormat:@"com.apple.private.timesync.%@.syncsession", v6];
-  v4 = dispatch_queue_create([v3 UTF8String], &_dispatch_queue_attr_concurrent);
-  v5 = qword_1000588B8;
-  qword_1000588B8 = v4;
+  v1 = objc_opt_class();
+  v5 = NSStringFromClass(v1);
+  v2 = [NSString stringWithFormat:@"com.apple.private.timesync.%@.syncsession", v5];
+  v3 = dispatch_queue_create([v2 UTF8String], &_dispatch_queue_attr_concurrent);
+  v4 = qword_1000588B8;
+  qword_1000588B8 = v3;
 }
 
 void sub_10001F398(timespec *__tp, uint64_t a2, uint64_t a3)
@@ -2042,137 +2043,137 @@ void sub_10001FA4C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
-void sub_100020018(uint64_t a1)
+void sub_100020018(uint64_t a1, const char *a2)
 {
-  v18 = 0;
-  v16 = 0u;
+  v19 = 0;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v14 = 0u;
   v13 = 0u;
   v12 = 0u;
-  v11 = 0u;
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 config];
-    v3 = DWORD1(v5);
-    v2 = *(a1 + 32);
+    objc_msgSend_config(v3, a2);
+    v4 = DWORD1(v6);
+    v3 = *(a1 + 32);
   }
 
   else
   {
-    v3 = 0;
-    v9 = 0;
-    v7 = 0uLL;
+    v4 = 0;
+    v10 = 0;
     v8 = 0uLL;
-    v5 = 0uLL;
+    v9 = 0uLL;
     v6 = 0uLL;
+    v7 = 0uLL;
   }
 
-  v10[1] = [v2 syncSessionLocked];
-  LODWORD(v18) = 2;
-  v4 = [*(a1 + 32) callback];
-  (v4)[2](v4, *(a1 + 32), 1, v10);
+  v11[1] = [v3 syncSessionLocked];
+  LODWORD(v19) = 2;
+  v5 = [*(a1 + 32) callback];
+  (v5)[2](v5, *(a1 + 32), 1, v11);
 }
 
-void sub_1000200E0(uint64_t a1)
+void sub_1000200E0(uint64_t a1, const char *a2)
 {
-  v18 = 0;
-  v16 = 0u;
+  v19 = 0;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v14 = 0u;
   v13 = 0u;
   v12 = 0u;
-  v11 = 0u;
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 config];
-    v3 = DWORD1(v5);
-    v2 = *(a1 + 32);
+    objc_msgSend_config(v3, a2);
+    v4 = DWORD1(v6);
+    v3 = *(a1 + 32);
   }
 
   else
   {
-    v3 = 0;
-    v9 = 0;
-    v7 = 0uLL;
+    v4 = 0;
+    v10 = 0;
     v8 = 0uLL;
-    v5 = 0uLL;
+    v9 = 0uLL;
     v6 = 0uLL;
+    v7 = 0uLL;
   }
 
-  v10[1] = [v2 triggerPresent];
-  LODWORD(v18) = 2;
-  v4 = [*(a1 + 32) callback];
-  (v4)[2](v4, *(a1 + 32), 3, v10);
+  v11[1] = [v3 triggerPresent];
+  LODWORD(v19) = 2;
+  v5 = [*(a1 + 32) callback];
+  (v5)[2](v5, *(a1 + 32), 3, v11);
 }
 
-void sub_1000201A8(uint64_t a1)
+void sub_1000201A8(uint64_t a1, const char *a2)
 {
-  v15 = 0;
-  v13 = 0u;
+  v16 = 0;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v11 = 0u;
   v10 = 0u;
   v9 = 0u;
-  v8 = 0u;
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 config];
-    v3 = v6;
-    v2 = *(a1 + 32);
+    objc_msgSend_config(v3, a2);
+    v4 = v7;
+    v3 = *(a1 + 32);
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  v4 = *(a1 + 40);
-  v7[0] = v3;
-  v7[1] = v4;
-  LODWORD(v15) = 2;
-  v5 = [v2 callback];
-  (v5)[2](v5, *(a1 + 32), 0, v7);
+  v5 = *(a1 + 40);
+  v8[0] = v4;
+  v8[1] = v5;
+  LODWORD(v16) = 2;
+  v6 = [v3 callback];
+  (v6)[2](v6, *(a1 + 32), 0, v8);
 }
 
-void sub_100020258(uint64_t a1)
+void sub_100020258(uint64_t a1, const char *a2)
 {
-  v18 = 0;
-  v16 = 0u;
+  v19 = 0;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v14 = 0u;
   v13 = 0u;
   v12 = 0u;
-  v11 = 0u;
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 config];
-    v3 = DWORD1(v5);
-    v2 = *(a1 + 32);
+    objc_msgSend_config(v3, a2);
+    v4 = DWORD1(v6);
+    v3 = *(a1 + 32);
   }
 
   else
   {
-    v3 = 0;
-    v9 = 0;
-    v7 = 0uLL;
+    v4 = 0;
+    v10 = 0;
     v8 = 0uLL;
-    v5 = 0uLL;
+    v9 = 0uLL;
     v6 = 0uLL;
+    v7 = 0uLL;
   }
 
-  v10[1] = [v2 exitStatus];
-  LODWORD(v18) = 2;
-  v4 = [*(a1 + 32) callback];
-  (v4)[2](v4, *(a1 + 32), 2, v10);
+  v11[1] = [v3 exitStatus];
+  LODWORD(v19) = 2;
+  v5 = [*(a1 + 32) callback];
+  (v5)[2](v5, *(a1 + 32), 2, v11);
 }
 
 void *sub_1000204C8(void *result, void *a2)
@@ -2188,7 +2189,7 @@ void *sub_1000204C8(void *result, void *a2)
   return result;
 }
 
-void sub_100020500(void *a1, uint64_t *a2)
+void sub_100020500(void *result, uint64_t *a2)
 {
   v3 = *a2;
   v2 = a2[1];
@@ -2197,9 +2198,9 @@ void sub_100020500(void *a1, uint64_t *a2)
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v4 = a1[1];
-  *a1 = v3;
-  a1[1] = v2;
+  v4 = result[1];
+  *result = v3;
+  result[1] = v2;
   if (v4)
   {
     sub_100020860(v4);
@@ -2566,9 +2567,9 @@ void sub_100025E78(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_100027650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100027650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2698,72 +2699,71 @@ __n128 sub_1000283A4@<Q0>(unint64_t *a1@<X0>, unint64_t *a2@<X1>, _OWORD *a3@<X8
   v17 = HIDWORD(v5);
   v18 = v5;
   v19 = HIDWORD(v7);
-  v20 = *a2;
-  v21 = v7 * HIDWORD(v5);
-  v22 = HIDWORD(v7) * v5;
-  v13 = __CFADD__(v21, v22);
-  v23 = v21 + v22;
+  v20 = v7 * HIDWORD(v5);
+  v21 = HIDWORD(v7) * v5;
+  v13 = __CFADD__(v20, v21);
+  v22 = v20 + v21;
   if (v13)
   {
-    v24 = &_mh_execute_header;
+    v23 = &_mh_execute_header;
   }
 
   else
   {
-    v24 = 0;
+    v23 = 0;
   }
 
-  v25 = __PAIR128__(v24, v7 * v5) + __PAIR128__(HIDWORD(v23) + HIDWORD(v7) * HIDWORD(v5), v23 << 32);
-  v26 = v7 * v4;
-  v27 = v7 * v8;
-  v28 = v19 * v9;
-  v13 = __CFADD__(v27, v28);
-  v29 = v27 + v28;
+  v24 = __PAIR128__(v23, v7 * v5) + __PAIR128__(HIDWORD(v22) + HIDWORD(v7) * HIDWORD(v5), v22 << 32);
+  v25 = v7 * v4;
+  v26 = v7 * v8;
+  v27 = v19 * v9;
+  v13 = __CFADD__(v26, v27);
+  v28 = v26 + v27;
   if (v13)
   {
-    v30 = &_mh_execute_header;
+    v29 = &_mh_execute_header;
   }
 
   else
   {
-    v30 = 0;
+    v29 = 0;
   }
 
-  v31 = __PAIR128__(v30, v26) + __PAIR128__(HIDWORD(v29) + v19 * v8, v29 << 32);
-  v32 = v6 * v5;
-  v33 = a2[1] * v17;
-  v34 = v10 * v18;
-  v13 = __CFADD__(v33, v34);
-  v35 = v33 + v34;
+  v30 = __PAIR128__(v29, v25) + __PAIR128__(HIDWORD(v28) + v19 * v8, v28 << 32);
+  v31 = v6 * v5;
+  v32 = a2[1] * v17;
+  v33 = v10 * v18;
+  v13 = __CFADD__(v32, v33);
+  v34 = v32 + v33;
   if (v13)
   {
-    v36 = &_mh_execute_header;
+    v35 = &_mh_execute_header;
   }
 
   else
   {
-    v36 = 0;
+    v35 = 0;
   }
 
-  v45 = v31;
-  v46 = 0uLL;
-  v43 = __PAIR128__(v36, v32) + __PAIR128__(HIDWORD(v35) + v10 * v17, v35 << 32);
-  v44 = 0uLL;
-  sub_100028510(&v45, &v43, v47);
-  v46 = v16;
+  v44 = v30;
   v45 = 0uLL;
-  sub_1000052E4(v47, 64, &v41);
+  v42 = __PAIR128__(v35, v31) + __PAIR128__(HIDWORD(v34) + v10 * v17, v34 << 32);
+  v43 = 0uLL;
+  sub_100028510(&v44, &v42, v46);
+  v45 = v16;
+  v44 = 0uLL;
+  sub_1000052E4(v46, 64, &v40);
+  v42 = v40;
   v43 = v41;
-  v44 = v42;
-  v42 = 0uLL;
-  v41 = v25;
-  sub_100028510(&v45, &v43, &v39);
-  v37 = v40;
-  *a3 = v39;
-  a3[1] = v37;
-  sub_100028510(a3, &v41, &v39);
-  result = v40;
-  *a3 = v39;
+  v41 = 0uLL;
+  v40 = v24;
+  sub_100028510(&v44, &v42, &v38);
+  v36 = v39;
+  *a3 = v38;
+  a3[1] = v36;
+  sub_100028510(a3, &v40, &v38);
+  result = v39;
+  *a3 = v38;
   a3[1] = result;
   return result;
 }
@@ -2820,9 +2820,10 @@ void sub_100028978(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -2830,9 +2831,10 @@ void sub_100028A3C(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -2840,9 +2842,10 @@ void sub_100028B00(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -2850,9 +2853,10 @@ void sub_100028BC4(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -2860,9 +2864,10 @@ void sub_100028C88(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -2870,9 +2875,10 @@ void sub_100028D4C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -2880,9 +2886,10 @@ void sub_100028DFC()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -2890,9 +2897,10 @@ void sub_100028EAC()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -2900,9 +2908,10 @@ void sub_100028F5C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -2910,9 +2919,10 @@ void sub_10002900C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -2920,9 +2930,10 @@ void sub_1000290BC()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -2930,9 +2941,10 @@ void sub_10002916C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -2940,9 +2952,10 @@ void sub_10002921C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -2950,9 +2963,10 @@ void sub_1000292CC()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -2960,9 +2974,10 @@ void sub_10002937C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -2970,9 +2985,10 @@ void sub_10002942C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -2980,9 +2996,10 @@ void sub_1000294DC(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 
   *a1 = 0;
@@ -2992,9 +3009,10 @@ void sub_1000295EC()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3002,9 +3020,10 @@ void sub_10002969C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3012,9 +3031,10 @@ void sub_10002974C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3022,9 +3042,10 @@ void sub_1000297FC()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3032,9 +3053,10 @@ void sub_1000298AC(id *a1, id *a2)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v9 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v4, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v5, v6, v7, v8, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v4, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v5, v6, v7, v8, v9);
   }
 
   objc_destroyWeak(a1);
@@ -3045,9 +3067,10 @@ void sub_100029980()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3055,9 +3078,10 @@ void sub_100029A30()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3065,9 +3089,10 @@ void sub_100029AE0()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3075,9 +3100,10 @@ void sub_100029B90()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3085,9 +3111,10 @@ void sub_100029C40(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -3095,9 +3122,10 @@ void sub_100029D00(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -3105,9 +3133,10 @@ void sub_100029DC0(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -3115,9 +3144,10 @@ void sub_100029E80()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3125,9 +3155,10 @@ void sub_100029F30()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3135,9 +3166,10 @@ void sub_100029FE0(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v8 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v8);
   }
 
   v7 = +[TSDCallbackRefconMap sharedTSDCallbackRefconMap];
@@ -3197,9 +3229,10 @@ void sub_10002A60C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3207,9 +3240,10 @@ void sub_10002A6BC()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3217,9 +3251,10 @@ void sub_10002A76C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3227,9 +3262,10 @@ void sub_10002A81C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3237,9 +3273,10 @@ void sub_10002A8CC(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 
   *a1 = 0;
@@ -3249,9 +3286,10 @@ void sub_10002A98C(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -3259,9 +3297,10 @@ void sub_10002AA4C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3269,9 +3308,10 @@ void sub_10002AAFC()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3279,9 +3319,10 @@ void sub_10002ABAC()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3289,9 +3330,10 @@ void sub_10002AC5C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3299,9 +3341,10 @@ void sub_10002AD0C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3309,9 +3352,10 @@ void sub_10002ADBC()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3319,9 +3363,10 @@ void sub_10002AEBC(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -3329,9 +3374,10 @@ void sub_10002AF7C(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -3339,9 +3385,10 @@ void sub_10002B03C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3349,9 +3396,10 @@ void sub_10002B0EC()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3359,9 +3407,10 @@ void sub_10002B19C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   sub_100017AB0();
@@ -3371,9 +3420,10 @@ void sub_10002B258()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3381,9 +3431,10 @@ void sub_10002B308(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -3391,9 +3442,10 @@ void sub_10002B3C8()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   sub_100017AB0();
@@ -3403,9 +3455,10 @@ void sub_10002B484()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   sub_100017AB0();
@@ -3415,9 +3468,10 @@ void sub_10002B540()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   sub_100017AB0();
@@ -3427,9 +3481,10 @@ void sub_10002B5FC()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3437,9 +3492,10 @@ void sub_10002B6AC(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v8 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v8);
   }
 
   v7 = +[TSDCallbackRefconMap sharedTSDCallbackRefconMap];
@@ -3450,9 +3506,10 @@ void sub_10002B788()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3486,9 +3543,10 @@ void sub_10002BAC8(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -3496,9 +3554,10 @@ void sub_10002BB8C(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -3506,9 +3565,10 @@ void sub_10002BC50(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -3516,9 +3576,10 @@ void sub_10002BD14(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -3526,9 +3587,10 @@ void sub_10002BDD8(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -3536,9 +3598,10 @@ void sub_10002BE9C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3546,9 +3609,10 @@ void sub_10002BF4C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3556,9 +3620,10 @@ void sub_10002BFFC()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   sub_10001B378();
@@ -3568,9 +3633,10 @@ void sub_10002C0B8()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   sub_10001B378();
@@ -3580,9 +3646,10 @@ void sub_10002C174()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3590,9 +3657,10 @@ void sub_10002C224()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3600,9 +3668,10 @@ void sub_10002C2D4(_DWORD *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 
   *a1 = 0;
@@ -3612,9 +3681,10 @@ void sub_10002C394(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 
   *a1 = 0x3FF0000000000000;
@@ -3624,9 +3694,10 @@ void sub_10002C458()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3634,9 +3705,10 @@ void sub_10002C508()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3644,9 +3716,10 @@ void sub_10002C5B8()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3654,9 +3727,10 @@ void sub_10002C668()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   sub_10001B378();
@@ -3666,9 +3740,10 @@ void sub_10002C724()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   sub_10001B378();
@@ -3678,9 +3753,10 @@ void sub_10002C7E0()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3688,9 +3764,10 @@ void sub_10002C890()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3698,9 +3775,10 @@ void sub_10002C940()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3708,9 +3786,10 @@ void sub_10002C9F0()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3718,9 +3797,10 @@ void sub_10002CAA0()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -3728,9 +3808,10 @@ void sub_10002CB50(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v8 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v8);
   }
 
   v7 = +[TSDCallbackRefconMap sharedTSDCallbackRefconMap];
@@ -3826,8 +3907,15 @@ void sub_10002D2A8(uint64_t a1, int a2, void *a3, _DWORD *a4)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    *v13 = 136316418;
+    *&v13[4] = "status == 0 ";
+    *&v13[12] = 2048;
+    *&v13[14] = a1;
+    *&v13[22] = 2048;
+    LOWORD(v14) = 2080;
+    *(&v14 + 2) = "";
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v7, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v8, v9, v10, v11, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v8, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16], a1, v14, WORD4(v14));
   }
 
   *a4 = a2;
@@ -3838,9 +3926,10 @@ void sub_10002D39C(int a1, uint64_t a2, uint64_t a3, _DWORD *a4, void *a5, void 
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v17 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v12, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v13, v14, v15, v16, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v12, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v13, v14, v15, v16, v17);
   }
 
   *a6 = a3;
@@ -3852,9 +3941,10 @@ void sub_10002D488()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   sub_10001ECF0();
@@ -3866,7 +3956,7 @@ BOOL sub_10002D548(char a1, uint64_t a2)
   {
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v3, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v4, v5, v6, v7, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v3, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v4, v5, v6, v7, 136316418);
   }
 
   return a2 == 0;
@@ -3876,9 +3966,10 @@ void sub_10002D5FC()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   sub_10001ECF0();
@@ -3921,13 +4012,6 @@ void sub_10002D95C(uint8_t *buf, uint64_t a2, uint64_t a3, int a4)
   *(buf + 11) = 1024;
   *(buf + 6) = a4;
   _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Unexpected frame detected after sleep. detected: %llu, desired: %llu, syncId: %u\n", buf, 0x1Cu);
-}
-
-void sub_10002D9C0(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_10000CA68();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_10002DA40(uint8_t *buf, int a2)
@@ -4001,9 +4085,10 @@ void sub_10002E208()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4011,9 +4096,10 @@ void sub_10002E2B8()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4021,9 +4107,10 @@ void sub_10002E368()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4031,9 +4118,10 @@ void sub_10002E418()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4041,9 +4129,10 @@ void sub_10002E4DC(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -4051,9 +4140,10 @@ void sub_10002E59C(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -4061,9 +4151,10 @@ void sub_10002E65C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4071,9 +4162,10 @@ void sub_10002E70C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4081,9 +4173,10 @@ void sub_10002E7BC()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4091,9 +4184,10 @@ void sub_10002E86C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4101,9 +4195,10 @@ void sub_10002E91C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4111,9 +4206,10 @@ void sub_10002E9CC()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4121,9 +4217,10 @@ void sub_10002EA7C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4131,9 +4228,10 @@ void sub_10002EB2C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4141,9 +4239,10 @@ void sub_10002EBDC()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4151,9 +4250,10 @@ void sub_10002EC8C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4161,9 +4261,10 @@ void sub_10002ED3C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4171,9 +4272,10 @@ void sub_10002EDEC(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 
   *a1 = 0;
@@ -4183,9 +4285,10 @@ void sub_10002EEAC(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 
   *a1 = 0;
@@ -4195,9 +4298,10 @@ void sub_10002EF6C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4205,9 +4309,10 @@ void sub_10002F01C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4215,9 +4320,10 @@ void sub_10002F0CC()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4225,9 +4331,10 @@ void sub_10002F17C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4235,9 +4342,10 @@ void sub_10002F240(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -4245,9 +4353,10 @@ void sub_10002F304(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -4255,9 +4364,10 @@ void sub_10002F3C8()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4265,9 +4375,10 @@ void sub_10002F478()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4275,9 +4386,10 @@ void sub_10002F528()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4285,9 +4397,10 @@ void sub_10002F5D8()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4295,9 +4408,10 @@ void sub_10002F688()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4305,9 +4419,10 @@ void sub_10002F738()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4315,9 +4430,10 @@ void sub_10002F7E8()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4325,9 +4441,10 @@ void sub_10002F898()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4335,9 +4452,10 @@ void sub_10002F948()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4345,9 +4463,10 @@ void sub_10002F9F8()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4355,9 +4474,10 @@ void sub_10002FAA8()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   sub_1000240B8();
@@ -4367,9 +4487,10 @@ void sub_10002FB64()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4377,9 +4498,10 @@ void sub_10002FC14()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4387,9 +4509,10 @@ void sub_10002FCC4()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4397,9 +4520,10 @@ void sub_10002FD74()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4407,9 +4531,10 @@ void sub_10002FE24()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4417,9 +4542,10 @@ void sub_10002FED4()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4427,9 +4553,10 @@ void sub_10002FF84()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   sub_1000240B8();
@@ -4439,9 +4566,10 @@ void sub_100030040()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   sub_1000240B8();
@@ -4451,9 +4579,10 @@ void sub_1000300FC(uint64_t a1, void *a2)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v8 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v3, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v4, v5, v6, v7, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v3, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v4, v5, v6, v7, v8);
   }
 
   *a2 = 0;
@@ -4464,9 +4593,10 @@ void sub_1000301C0()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   sub_1000240B8();
@@ -4476,9 +4606,10 @@ void sub_10003027C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4486,9 +4617,10 @@ void sub_10003032C(_BYTE *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 
   *a1 = 0;
@@ -4498,9 +4630,10 @@ void sub_1000303EC(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 
   *a1 = 0;
@@ -4510,9 +4643,10 @@ void sub_1000304AC()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4520,9 +4654,10 @@ void sub_10003055C(uint64_t a1, void *a2, void *a3)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v11 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v6, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v7, v8, v9, v10, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v6, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v7, v8, v9, v10, v11);
   }
 
   *a3 = a1;
@@ -4534,9 +4669,10 @@ void sub_100030630()
   sub_100028380();
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   sub_10002838C();
@@ -4547,9 +4683,10 @@ void sub_1000306EC()
   sub_100028380();
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   sub_10002838C();
@@ -4560,9 +4697,10 @@ void sub_1000307A8()
   sub_100028380();
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   sub_10002838C();
@@ -4572,9 +4710,10 @@ void sub_100030864()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4582,9 +4721,10 @@ void sub_100030914()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4592,9 +4732,10 @@ void sub_1000309C4(_BYTE *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 
   *a1 = 0;
@@ -4604,9 +4745,10 @@ void sub_100030A84(void *a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 
   *a1 = 0;
@@ -4616,9 +4758,10 @@ void sub_100030B44()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4626,9 +4769,10 @@ void sub_100030BF4(uint64_t a1, void *a2, void *a3)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v11 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v6, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v7, v8, v9, v10, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v6, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v7, v8, v9, v10, v11);
   }
 
   *a3 = a1;
@@ -4640,9 +4784,10 @@ void sub_100030CC8()
   sub_100028380();
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   sub_10002838C();
@@ -4653,9 +4798,10 @@ void sub_100030D84()
   sub_100028380();
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   sub_10002838C();
@@ -4666,9 +4812,10 @@ void sub_100030E40()
   sub_100028380();
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   sub_10002838C();
@@ -4678,9 +4825,10 @@ void sub_100030EFC()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4688,9 +4836,10 @@ BOOL sub_100030FAC(uint64_t a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v8 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v8);
   }
 
   return a1 == 0;
@@ -4700,9 +4849,10 @@ void sub_100031070()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4710,9 +4860,10 @@ BOOL sub_100031120(uint64_t a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v8 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v8);
   }
 
   return a1 == 0;
@@ -4722,9 +4873,10 @@ void sub_1000311E4()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4732,9 +4884,10 @@ BOOL sub_100031294(uint64_t a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v8 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v8);
   }
 
   return a1 == 0;
@@ -4744,9 +4897,10 @@ void sub_100031358()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4754,9 +4908,10 @@ BOOL sub_100031408(uint64_t a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v8 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v8);
   }
 
   return a1 == 0;
@@ -4766,9 +4921,10 @@ void sub_1000314CC()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4776,9 +4932,10 @@ BOOL sub_10003157C(uint64_t a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v8 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v8);
   }
 
   return a1 == 0;
@@ -4788,9 +4945,10 @@ void sub_100031640()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4798,9 +4956,10 @@ BOOL sub_1000316F0(uint64_t a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v8 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v8);
   }
 
   return a1 == 0;
@@ -4810,9 +4969,10 @@ void sub_1000317B4()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4820,9 +4980,10 @@ BOOL sub_100031864(uint64_t a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v8 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v8);
   }
 
   return a1 == 0;
@@ -4832,9 +4993,10 @@ void sub_100031928()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4842,9 +5004,10 @@ void sub_1000319D8()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4852,9 +5015,10 @@ void sub_100031A88()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -4862,9 +5026,10 @@ void sub_100031B38()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_100006A30();
     sub_100006A54();
-    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_100006A68(&_mh_execute_header, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 

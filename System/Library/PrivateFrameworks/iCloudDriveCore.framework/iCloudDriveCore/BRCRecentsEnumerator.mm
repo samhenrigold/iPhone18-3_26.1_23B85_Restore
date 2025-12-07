@@ -24,10 +24,20 @@
 
 - (void)_activeSetDidChange
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] active set did change, notifying fileproviderd%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = brc_bread_crumbs();
+  v4 = brc_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    [BRCRecentsEnumerator _activeSetDidChange];
+  }
+
+  dispatch_assert_queue_V2(self->_queue);
+  if (![(BRCRecentsEnumerator *)self isCancelled])
+  {
+    br_getDomainIdentifierForCurrentPersona = [MEMORY[0x277CFAE58] br_getDomainIdentifierForCurrentPersona];
+    v6 = [MEMORY[0x277CC64A8] br_sharedProviderManagerWithDomainID:br_getDomainIdentifierForCurrentPersona];
+    [v6 br_signalWorkingSetEnumeratorWithCompletionHandler:&__block_literal_global_102_0];
+  }
 }
 
 void __43__BRCRecentsEnumerator__activeSetDidChange__block_invoke(uint64_t a1, void *a2)
@@ -44,14 +54,14 @@ void __43__BRCRecentsEnumerator__activeSetDidChange__block_invoke(uint64_t a1, v
   }
 }
 
-uint64_t __46__BRCRecentsEnumerator_maxNotifRankWasFlushed__block_invoke(uint64_t result)
+void *__46__BRCRecentsEnumerator_maxNotifRankWasFlushed__block_invoke(void *result)
 {
-  v1 = *(result + 32);
-  v2 = *(result + 40);
+  v1 = *(result + 4);
+  v2 = *(result + 5);
   if (*(v1 + 40) < v2)
   {
     *(v1 + 40) = v2;
-    return [*(result + 32) _signalActiveSetDidChange];
+    return [*(result + 4) _signalActiveSetDidChange];
   }
 
   return result;
@@ -78,7 +88,7 @@ uint64_t __46__BRCRecentsEnumerator_maxNotifRankWasFlushed__block_invoke(uint64_
 
 + (void)dropLegacyCoreSpotlightIndexIfNeededWithCompletionHandler:(id)handler
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (([MEMORY[0x277CC34A8] isIndexingAvailable] & 1) == 0)
   {
@@ -118,7 +128,7 @@ LABEL_8:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = v7;
+    v15 = v7;
     _os_log_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEFAULT, "[WARNING] dropping CoreSpotlight index%@", buf, 0xCu);
   }
 
@@ -129,15 +139,14 @@ LABEL_8:
     +[BRCRecentsEnumerator dropLegacyCoreSpotlightIndexIfNeededWithCompletionHandler:];
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __82__BRCRecentsEnumerator_dropLegacyCoreSpotlightIndexIfNeededWithCompletionHandler___block_invoke;
-  v12[3] = &unk_278501F20;
-  v13 = handlerCopy;
-  [v10 deleteAllSearchableItemsWithCompletionHandler:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __82__BRCRecentsEnumerator_dropLegacyCoreSpotlightIndexIfNeededWithCompletionHandler___block_invoke;
+  v11[3] = &unk_278501F20;
+  v12 = handlerCopy;
+  [v10 deleteAllSearchableItemsWithCompletionHandler:v11];
 
 LABEL_15:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __82__BRCRecentsEnumerator_dropLegacyCoreSpotlightIndexIfNeededWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -241,20 +250,20 @@ void __53__BRCRecentsEnumerator_garbageCollectRanksPreceding___block_invoke()
 
 - (void)_readyForIndexingWithAckedRank:(unint64_t)rank
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v5 = brc_bread_crumbs();
   v6 = brc_default_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     flushedNotifRank = self->_flushedNotifRank;
-    v11 = 134218498;
+    v10 = 134218498;
     rankCopy = rank;
-    v13 = 2048;
-    v14 = flushedNotifRank;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_debug_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] Learning index acked rank %llu (flushed rank %llu)%@", &v11, 0x20u);
+    v12 = 2048;
+    v13 = flushedNotifRank;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_debug_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] Learning index acked rank %llu (flushed rank %llu)%@", &v10, 0x20u);
   }
 
   if (rank + 1 > self->_flushedNotifRank)
@@ -268,7 +277,6 @@ void __53__BRCRecentsEnumerator_garbageCollectRanksPreceding___block_invoke()
   }
 
   [(BRCRecentsEnumerator *)self _signalActiveSetDidChange];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)changeTokenForNotifRank:(unint64_t)rank
@@ -283,7 +291,7 @@ void __53__BRCRecentsEnumerator_garbageCollectRanksPreceding___block_invoke()
 
 - (void)_handleResetForRowID:(int64_t)d notifRank:(unint64_t)rank completionHandler:(id)handler
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v9 = brc_bread_crumbs();
   v10 = brc_default_log();
@@ -291,10 +299,10 @@ void __53__BRCRecentsEnumerator_garbageCollectRanksPreceding___block_invoke()
   {
     *buf = 134218498;
     dCopy = d;
-    v45 = 2048;
+    v44 = 2048;
     rankCopy = rank;
-    v47 = 2112;
-    v48 = v9;
+    v46 = 2112;
+    v47 = v9;
     _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] handling reset for rowID %lld, notif rank: %llu%@", buf, 0x20u);
   }
 
@@ -306,35 +314,35 @@ void __53__BRCRecentsEnumerator_garbageCollectRanksPreceding___block_invoke()
 
   if ([clientZone isPrivateZone])
   {
-    v32 = br_sharedProviderManager;
+    v31 = br_sharedProviderManager;
     rankCopy2 = rank;
     asPrivateClientZone = [clientZone asPrivateClientZone];
     appLibraries = [asPrivateClientZone appLibraries];
 
     v18 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(appLibraries, "count")}];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
     asPrivateClientZone2 = [clientZone asPrivateClientZone];
     appLibraries2 = [asPrivateClientZone2 appLibraries];
 
-    v21 = [appLibraries2 countByEnumeratingWithState:&v38 objects:v42 count:16];
+    v21 = [appLibraries2 countByEnumeratingWithState:&v37 objects:v41 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v39;
+      v23 = *v38;
       do
       {
         v24 = 0;
         do
         {
-          if (*v39 != v23)
+          if (*v38 != v23)
           {
             objc_enumerationMutation(appLibraries2);
           }
 
-          appLibraryID = [*(*(&v38 + 1) + 8 * v24) appLibraryID];
+          appLibraryID = [*(*(&v37 + 1) + 8 * v24) appLibraryID];
           if (appLibraryID)
           {
             [v18 addObject:appLibraryID];
@@ -344,7 +352,7 @@ void __53__BRCRecentsEnumerator_garbageCollectRanksPreceding___block_invoke()
         }
 
         while (v22 != v24);
-        v22 = [appLibraries2 countByEnumeratingWithState:&v38 objects:v42 count:16];
+        v22 = [appLibraries2 countByEnumeratingWithState:&v37 objects:v41 count:16];
       }
 
       while (v22);
@@ -356,22 +364,22 @@ void __53__BRCRecentsEnumerator_garbageCollectRanksPreceding___block_invoke()
     {
       *buf = 138412546;
       dCopy = v18;
-      v45 = 2112;
+      v44 = 2112;
       rankCopy = v26;
       _os_log_impl(&dword_223E7A000, v27, OS_LOG_TYPE_DEFAULT, "[WARNING] Dropping spotlight index for %@ due to a reset%@", buf, 0x16u);
     }
 
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __73__BRCRecentsEnumerator__handleResetForRowID_notifRank_completionHandler___block_invoke;
-    v34[3] = &unk_278500338;
-    v34[4] = self;
-    v35 = v18;
-    v37 = rankCopy2;
-    v36 = handlerCopy;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __73__BRCRecentsEnumerator__handleResetForRowID_notifRank_completionHandler___block_invoke;
+    v33[3] = &unk_278500338;
+    v33[4] = self;
+    v34 = v18;
+    v36 = rankCopy2;
+    v35 = handlerCopy;
     v28 = v18;
-    br_sharedProviderManager = v32;
-    [v32 deleteSearchableItemsWithSpotlightDomainIdentifiers:v28 completionHandler:v34];
+    br_sharedProviderManager = v31;
+    [v31 deleteSearchableItemsWithSpotlightDomainIdentifiers:v28 completionHandler:v33];
 
     goto LABEL_20;
   }
@@ -392,8 +400,6 @@ void __53__BRCRecentsEnumerator_garbageCollectRanksPreceding___block_invoke()
     (*(handlerCopy + 2))(handlerCopy, appLibraries, 0);
 LABEL_20:
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __73__BRCRecentsEnumerator__handleResetForRowID_notifRank_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -418,7 +424,7 @@ void __73__BRCRecentsEnumerator__handleResetForRowID_notifRank_completionHandler
 
 void __73__BRCRecentsEnumerator__handleResetForRowID_notifRank_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 32))
   {
     goto LABEL_6;
@@ -428,15 +434,15 @@ void __73__BRCRecentsEnumerator__handleResetForRowID_notifRank_completionHandler
   v3 = brc_default_log();
   if (os_log_type_enabled(v3, 0x90u))
   {
-    v9 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v10 = 138412802;
-    v11 = v8;
+    v7 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v2;
-    _os_log_error_impl(&dword_223E7A000, v3, 0x90u, "[ERROR] Failed to delete searchable items for mangledIDs %@: %@%@", &v10, 0x20u);
+    v13 = v2;
+    _os_log_error_impl(&dword_223E7A000, v3, 0x90u, "[ERROR] Failed to delete searchable items for mangledIDs %@: %@%@", &v8, 0x20u);
   }
 
   if (*(a1 + 32))
@@ -452,10 +458,7 @@ LABEL_6:
 
   [*(a1 + 48) _readyForIndexingWithAckedRank:v4];
   v5 = [*(a1 + 48) changeTokenForNotifRank:v4];
-  v6 = *(a1 + 32);
   (*(*(a1 + 56) + 16))();
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_deletedDocIdResultSetFromNotifRank:(unint64_t)rank batchSize:(unint64_t)size
@@ -468,23 +471,23 @@ LABEL_6:
 
 - (void)_enumerateChangesFromChangeToken:(id)token limit:(unint64_t)limit completion:(id)completion
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_queue);
-  v86 = 0;
-  v87 = &v86;
-  v88 = 0x2020000000;
-  v89 = 0;
-  v82 = 0;
-  v83 = &v82;
-  v84 = 0x2020000000;
   v85 = 0;
-  v78 = 0;
-  v79 = &v78;
-  v80 = 0x2020000000;
+  v86 = &v85;
+  v87 = 0x2020000000;
+  v88 = 0;
   v81 = 0;
-  v48 = tokenCopy;
+  v82 = &v81;
+  v83 = 0x2020000000;
+  v84 = 0;
+  v77 = 0;
+  v78 = &v77;
+  v79 = 0x2020000000;
+  v80 = 0;
+  v47 = tokenCopy;
   selfCopy = self;
   if (tokenCopy)
   {
@@ -499,13 +502,13 @@ LABEL_6:
       }
 
       clientTruthWorkloop = [(BRCAccountSession *)self->_session clientTruthWorkloop];
-      v76[0] = MEMORY[0x277D85DD0];
-      v76[1] = 3221225472;
-      v76[2] = __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke;
-      v76[3] = &unk_278500048;
-      v76[4] = self;
-      v77 = completionCopy;
-      dispatch_async(clientTruthWorkloop, v76);
+      v75[0] = MEMORY[0x277D85DD0];
+      v75[1] = 3221225472;
+      v75[2] = __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke;
+      v75[3] = &unk_278500048;
+      v75[4] = self;
+      v76 = completionCopy;
+      dispatch_async(clientTruthWorkloop, v75);
 
       goto LABEL_42;
     }
@@ -519,13 +522,13 @@ LABEL_6:
       v12 = brc_default_log();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v40 = *p_flushedNotifRank;
+        v39 = *p_flushedNotifRank;
         *buf = 134218498;
-        v92 = tokenCopy;
-        v93 = 2048;
-        v94 = v40;
-        v95 = 2112;
-        v96 = v11;
+        v91 = tokenCopy;
+        v92 = 2048;
+        v93 = v39;
+        v94 = 2112;
+        v95 = v11;
         _os_log_debug_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] incoming rank is newer than what we know about: %lld > %lld, stopping here%@", buf, 0x20u);
       }
 
@@ -549,28 +552,28 @@ LABEL_6:
   limitCopy = limit;
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    v39 = *p_flushedNotifRank;
+    v38 = *p_flushedNotifRank;
     *buf = 134218498;
-    v92 = tokenCopy;
-    v93 = 2048;
-    v94 = v39;
-    v95 = 2112;
-    v96 = v14;
+    v91 = tokenCopy;
+    v92 = 2048;
+    v93 = v38;
+    v94 = 2112;
+    v95 = v14;
     _os_log_debug_impl(&dword_223E7A000, v15, OS_LOG_TYPE_DEBUG, "[DEBUG] enumerating changes from notif rank %llu (max %llu)%@", buf, 0x20u);
   }
 
-  v47 = tokenCopy;
+  v46 = tokenCopy;
 
-  v75[0] = MEMORY[0x277D85DD0];
-  v75[1] = 3221225472;
-  v75[2] = __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke_85;
-  v75[3] = &unk_278505318;
-  v75[4] = &v86;
-  v75[5] = &v82;
-  v75[6] = &v78;
-  v46 = MEMORY[0x22AA4A310](v75);
-  v44 = [(BRCAccountSession *)self->_session itemsNeedingIndexingEnumeratorFromNotifRank:tokenCopy batchSize:limit db:self->_indexingDB];
-  v45 = [(BRCRecentsEnumerator *)self _deletedDocIdResultSetFromNotifRank:tokenCopy batchSize:limit];
+  v74[0] = MEMORY[0x277D85DD0];
+  v74[1] = 3221225472;
+  v74[2] = __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke_85;
+  v74[3] = &unk_278505318;
+  v74[4] = &v85;
+  v74[5] = &v81;
+  v74[6] = &v77;
+  v45 = MEMORY[0x22AA4A310](v74);
+  v43 = [(BRCAccountSession *)self->_session itemsNeedingIndexingEnumeratorFromNotifRank:tokenCopy batchSize:limit db:self->_indexingDB];
+  v44 = [(BRCRecentsEnumerator *)self _deletedDocIdResultSetFromNotifRank:tokenCopy batchSize:limit];
   clientTruthWorkloop2 = [(BRCAccountSession *)self->_session clientTruthWorkloop];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -580,16 +583,16 @@ LABEL_6:
   block[5] = tokenCopy;
   dispatch_async(clientTruthWorkloop2, block);
 
-  (v46)[2](v46, v45);
-  if (v79[3] == tokenCopy && *(v83 + 24) == 2)
+  (v45)[2](v45, v44);
+  if (v78[3] == tokenCopy && *(v82 + 24) == 2)
   {
-    v17 = v87[3];
-    v72[0] = MEMORY[0x277D85DD0];
-    v72[1] = 3221225472;
-    v72[2] = __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke_2_92;
-    v72[3] = &unk_278505360;
-    v73 = completionCopy;
-    [(BRCRecentsEnumerator *)self _handleResetForRowID:v17 notifRank:tokenCopy completionHandler:v72];
+    v17 = v86[3];
+    v71[0] = MEMORY[0x277D85DD0];
+    v71[1] = 3221225472;
+    v71[2] = __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke_2_92;
+    v71[3] = &unk_278505360;
+    v72 = completionCopy;
+    [(BRCRecentsEnumerator *)self _handleResetForRowID:v17 notifRank:tokenCopy completionHandler:v71];
   }
 
   else
@@ -598,45 +601,45 @@ LABEL_6:
     v18 = objc_alloc_init(BRCRecentsChangeToken);
     v19 = [[BRCRecentsEnumeratorBatch alloc] initWithBatchSize:limit];
     [(BRCRecentsChangeToken *)v18 setDatabaseID:[(BRCAccountSession *)selfCopy->_session databaseIDHash]];
-    v43 = v18;
-    v63[0] = MEMORY[0x277D85DD0];
-    v63[1] = 3221225472;
-    v63[2] = __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke_3;
-    v63[3] = &unk_278505388;
-    v68 = &v78;
-    v63[4] = selfCopy;
-    v69 = &v82;
-    v70 = &v86;
+    v42 = v18;
+    v62[0] = MEMORY[0x277D85DD0];
+    v62[1] = 3221225472;
+    v62[2] = __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke_3;
+    v62[3] = &unk_278505388;
+    v67 = &v77;
+    v62[4] = selfCopy;
+    v68 = &v81;
+    v69 = &v85;
     v20 = v19;
-    v64 = v20;
-    v66 = &__block_literal_global_89_2;
+    v63 = v20;
+    v65 = &__block_literal_global_89_2;
     limitCopy2 = limit;
-    v67 = v46;
-    v65 = v45;
-    v21 = MEMORY[0x22AA4A310](v63);
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
+    v66 = v45;
+    v64 = v44;
+    v21 = MEMORY[0x22AA4A310](v62);
     v60 = 0u;
-    v22 = v44;
-    v23 = [v22 countByEnumeratingWithState:&v59 objects:v90 count:16];
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
+    v22 = v43;
+    v23 = [v22 countByEnumeratingWithState:&v58 objects:v89 count:16];
     if (v23)
     {
-      v24 = *v60;
+      v24 = *v59;
       while (2)
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v60 != v24)
+          if (*v59 != v24)
           {
             objc_enumerationMutation(v22);
           }
 
-          v26 = *(*(&v59 + 1) + 8 * i);
+          v26 = *(*(&v58 + 1) + 8 * i);
           v27 = objc_autoreleasePoolPush();
           while (1)
           {
-            v28 = v79[3];
+            v28 = v78[3];
             if (v28 >= [v26 notifsRank])
             {
               break;
@@ -669,7 +672,7 @@ LABEL_27:
           }
         }
 
-        v23 = [v22 countByEnumeratingWithState:&v59 objects:v90 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v58 objects:v89 count:16];
         if (v23)
         {
           continue;
@@ -681,7 +684,7 @@ LABEL_27:
 
     do
     {
-      if (v79[3] == -1)
+      if (v78[3] == -1)
       {
         break;
       }
@@ -700,29 +703,27 @@ LABEL_38:
       rank = *p_flushedNotifRank;
     }
 
-    [(BRCRecentsChangeToken *)v43 setNotifRank:rank];
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke_96;
-    v53[3] = &unk_2785053D8;
-    v58 = v47;
+    [(BRCRecentsChangeToken *)v42 setNotifRank:rank];
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke_96;
+    v52[3] = &unk_2785053D8;
+    v57 = v46;
     v36 = v20;
-    v54 = v36;
-    v55 = selfCopy;
-    v37 = v43;
-    v56 = v37;
-    v57 = completionCopy;
-    [(BRCRecentsEnumeratorBatch *)v36 listItems:v53];
+    v53 = v36;
+    v54 = selfCopy;
+    v37 = v42;
+    v55 = v37;
+    v56 = completionCopy;
+    [(BRCRecentsEnumeratorBatch *)v36 listItems:v52];
 
     objc_autoreleasePoolPop(contexta);
   }
 
 LABEL_42:
-  _Block_object_dispose(&v78, 8);
-  _Block_object_dispose(&v82, 8);
-  _Block_object_dispose(&v86, 8);
-
-  v38 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v77, 8);
+  _Block_object_dispose(&v81, 8);
+  _Block_object_dispose(&v85, 8);
 }
 
 void __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke(uint64_t a1)
@@ -754,7 +755,7 @@ void __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completio
   *(*(a1[6] + 8) + 24) = v3;
 }
 
-id __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke_2(uint64_t a1, uint64_t a2, int a3)
+id __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   switch(a3)
   {
@@ -814,17 +815,15 @@ uint64_t __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_compl
     v3 = brc_default_log();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke_3_cold_1(a1);
+      __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke_3_cold_1();
     }
 
     [*(a1 + 40) setRank:*(*(*(a1 + 72) + 8) + 24) - 1];
     return 0;
   }
 
-  v5 = *(a1 + 56);
-  v6 = *(*(*(a1 + 88) + 8) + 24);
-  v7 = (*(*(a1 + 56) + 16))();
-  [*(a1 + 40) addDeletionOfFileObjectID:v7 rank:*(*(*(a1 + 72) + 8) + 24)];
+  v5 = (*(*(a1 + 56) + 16))();
+  [*(a1 + 40) addDeletionOfFileObjectID:v5 rank:*(*(*(a1 + 72) + 8) + 24)];
   if ([*(a1 + 40) batchCount] >= *(a1 + 96) || objc_msgSend(*(a1 + 40), "rank") >= *(*(a1 + 32) + 40))
   {
     v4 = 0;
@@ -832,7 +831,6 @@ uint64_t __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_compl
 
   else
   {
-    v8 = *(a1 + 48);
     (*(*(a1 + 64) + 16))();
     v4 = 1;
   }
@@ -842,25 +840,25 @@ uint64_t __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_compl
 
 void __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke_96(uint64_t a1, void *a2, void *a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = brc_bread_crumbs();
   v8 = brc_default_log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v18 = *(a1 + 64);
-    v19 = [*(a1 + 32) rank];
+    v17 = *(a1 + 64);
+    v18 = [*(a1 + 32) rank];
     *buf = 134219010;
-    v31 = v18;
-    v32 = 2048;
-    v33 = v19;
-    v34 = 2112;
-    v35 = v5;
-    v36 = 2112;
-    v37 = v6;
-    v38 = 2112;
-    v39 = v7;
+    v30 = v17;
+    v31 = 2048;
+    v32 = v18;
+    v33 = 2112;
+    v34 = v5;
+    v35 = 2112;
+    v36 = v6;
+    v37 = 2112;
+    v38 = v7;
     _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] sending batch from %llu to %llu\n updatedItems = %@\n deletedItems = %@%@", buf, 0x34u);
   }
 
@@ -868,31 +866,29 @@ void __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completio
   v9 = *(a1 + 48);
   v11 = *(v10 + 48);
   v12 = *(v10 + 16);
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke_97;
-  v25[3] = &unk_2785053B0;
-  v25[4] = v10;
-  v26 = v9;
-  v29 = *(a1 + 56);
-  v27 = v5;
-  v28 = v6;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke_2_98;
-  v20[3] = &unk_2785053B0;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke_97;
+  v24[3] = &unk_2785053B0;
+  v24[4] = v10;
+  v25 = v9;
+  v28 = *(a1 + 56);
+  v26 = v5;
+  v27 = v6;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke_2_98;
+  v19[3] = &unk_2785053B0;
   v13 = *(a1 + 48);
-  v20[4] = *(a1 + 40);
-  v21 = v13;
+  v19[4] = *(a1 + 40);
+  v20 = v13;
   v14 = *(a1 + 56);
-  v23 = v28;
-  v24 = v14;
   v22 = v27;
-  v15 = v28;
-  v16 = v27;
-  brc_task_tracker_async_with_logs(v11, v12, v25, v20);
-
-  v17 = *MEMORY[0x277D85DE8];
+  v23 = v14;
+  v21 = v26;
+  v15 = v27;
+  v16 = v26;
+  brc_task_tracker_async_with_logs(v11, v12, v24, v19);
 }
 
 void __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke_97(uint64_t a1)
@@ -1005,9 +1001,9 @@ void __73__BRCRecentsEnumerator_enumerateChangesFromChangeToken_limit_completion
 - (BRCRecentsEnumerator)initWithAccountSession:(id)session
 {
   sessionCopy = session;
-  v25.receiver = self;
-  v25.super_class = BRCRecentsEnumerator;
-  v6 = [(BRCRecentsEnumerator *)&v25 init];
+  v23.receiver = self;
+  v23.super_class = BRCRecentsEnumerator;
+  v6 = [(BRCRecentsEnumerator *)&v23 init];
   v7 = v6;
   if (v6)
   {
@@ -1026,20 +1022,18 @@ void __73__BRCRecentsEnumerator_enumerateChangesFromChangeToken_limit_completion
     indexingDB = v7->_indexingDB;
     v7->_indexingDB = readOnlyDB;
 
-    v16 = v7->_queue;
-    v17 = br_pacer_create();
+    v16 = br_pacer_create();
     pacer = v7->_pacer;
-    v7->_pacer = v17;
+    v7->_pacer = v16;
 
     objc_initWeak(&location, v7);
-    v19 = v7->_pacer;
-    objc_copyWeak(&v23, &location);
+    objc_copyWeak(&v21, &location);
     br_pacer_set_event_handler();
-    v20 = brc_task_tracker_create("recents-enumerator-tracker");
+    v18 = brc_task_tracker_create("recents-enumerator-tracker");
     tracker = v7->_tracker;
-    v7->_tracker = v20;
+    v7->_tracker = v18;
 
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(&location);
   }
 
@@ -1054,7 +1048,6 @@ void __47__BRCRecentsEnumerator_initWithAccountSession___block_invoke(uint64_t a
 
 - (void)resume
 {
-  pacer = self->_pacer;
   br_pacer_resume();
 
   [(BRCRecentsEnumerator *)self _signalActiveSetDidChange];
@@ -1074,10 +1067,15 @@ void __47__BRCRecentsEnumerator_initWithAccountSession___block_invoke(uint64_t a
 
 - (void)cancel
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Canceling spotlight indexer.%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = brc_bread_crumbs();
+  v4 = brc_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    [BRCRecentsEnumerator cancel];
+  }
+
+  brc_task_tracker_cancel(self->_tracker);
+  br_pacer_cancel();
 }
 
 - (void)dealloc
@@ -1089,7 +1087,7 @@ void __47__BRCRecentsEnumerator_initWithAccountSession___block_invoke(uint64_t a
 
 - (void)itemWasDeletedWithFileObjectID:(id)d notifRank:(unint64_t)rank
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   clientDB = [(BRCAccountSession *)self->_session clientDB];
   [clientDB assertOnQueue];
@@ -1099,19 +1097,17 @@ void __47__BRCRecentsEnumerator_initWithAccountSession___block_invoke(uint64_t a
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v14 = dCopy;
-    v15 = 2048;
+    v13 = dCopy;
+    v14 = 2048;
     rankCopy = rank;
-    v17 = 2112;
-    v18 = v8;
+    v16 = 2112;
+    v17 = v8;
     _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] dropping item which was deleted %@ with notif rank %llu%@", buf, 0x20u);
   }
 
   v10 = [(BRCRecentsEnumerator *)self computeTombstoneEntryType:dCopy];
   clientDB2 = [(BRCAccountSession *)self->_session clientDB];
   [clientDB2 execute:{@"INSERT INTO tombstones (file_object_id, file_object_id_type, notif_rank, expiration) VALUES (%lld, %d, %lld, NULL)", objc_msgSend(dCopy, "rawID"), v10, rank}];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasDeletedFileObjectID:(id)d
@@ -1127,103 +1123,52 @@ void __47__BRCRecentsEnumerator_initWithAccountSession___block_invoke(uint64_t a
   return rawID;
 }
 
-+ (void)dropLegacyCoreSpotlightIndexIfNeededWithCompletionHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] device does not support CoreSpotlight indexing, no need to drop any index%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 + (void)dropLegacyCoreSpotlightIndexIfNeededWithCompletionHandler:.cold.2()
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = brc_bread_crumbs();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: index%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: index%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)dropLegacyCoreSpotlightIndexIfNeededWithCompletionHandler:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] CoreSpotlight index has already been dropped%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __82__BRCRecentsEnumerator_dropLegacyCoreSpotlightIndexIfNeededWithCompletionHandler___block_invoke_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   _os_log_error_impl(v0, v1, 0x90u, v2, v3, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __82__BRCRecentsEnumerator_dropLegacyCoreSpotlightIndexIfNeededWithCompletionHandler___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] dropped Spotlight index successfully%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __82__BRCRecentsEnumerator_dropLegacyCoreSpotlightIndexIfNeededWithCompletionHandler___block_invoke_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v0 = *MEMORY[0x277CFAC08];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_0();
-  v5 = v1;
-  _os_log_error_impl(&dword_223E7A000, v2, 0x90u, "[ERROR] failed to synchronize user defaults for %@%@", v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_readyForIndexingWithAckedRank:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Finished indexing for now%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_error_impl(&dword_223E7A000, v1, 0x90u, "[ERROR] failed to synchronize user defaults for %@%@", v2, 0x16u);
 }
 
 - (void)_enumerateChangesFromChangeToken:limit:completion:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] change token has expired, index should be dropped%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] change token has expired, index should be dropped%@", v1, 0xCu);
 }
 
-void __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke_2_cold_1()
+void __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke_3_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_9();
-  _os_log_fault_impl(v0, v1, OS_LOG_TYPE_FAULT, v2, v3, 0x12u);
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __74__BRCRecentsEnumerator__enumerateChangesFromChangeToken_limit_completion___block_invoke_3_cold_1(uint64_t a1)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v1 = *(*(*(a1 + 88) + 8) + 24);
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_9();
-  _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x16u);
 }
 
 void __43__BRCRecentsEnumerator__activeSetDidChange__block_invoke_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   _os_log_error_impl(v0, v1, 0x90u, v2, v3, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

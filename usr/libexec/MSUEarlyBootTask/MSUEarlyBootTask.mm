@@ -511,6 +511,1266 @@ LABEL_17:
   return v10;
 }
 
+int main(int argc, const char **argv, const char **envp)
+{
+  __chkstk_darwin(*&argc, argv, envp);
+  bzero(&v201, 0x878uLL);
+  if (statfs("/", &v201))
+  {
+    main_cold_1();
+  }
+
+  if ((v201.f_flags & 0x40000000) == 0)
+  {
+    v3 = access("/usr/appleinternal/bin/snapshottool", 0);
+    v4 = "/usr/local/bin/snapshottool";
+    if (!v3)
+    {
+      v4 = "/usr/appleinternal/bin/snapshottool";
+    }
+
+    *&v227[0] = v4;
+    *(&v227[0] + 1) = "golive";
+    *&v227[1] = "cryptexes";
+    *(&v227[1] + 1) = 0;
+    execForMSUEarlyBootTask(v227);
+  }
+
+  v5 = +[NSFileManager defaultManager];
+  v191 = 0;
+  puts("MSUEarlyBootTask: MSUEarlyBootTask running");
+  v190 = 0;
+  time(&v190);
+  v6 = copy_path_for_booted_os_data();
+  if (!v6)
+  {
+    printf("%s: Unable to get path for booted OS data\n", "main");
+    goto LABEL_60;
+  }
+
+  v7 = v6;
+  v8 = [[NSString alloc] initWithFormat:@"%s", v6];
+  if (&_os_variant_uses_ephemeral_storage)
+  {
+    v9 = os_variant_uses_ephemeral_storage();
+    if (v9)
+    {
+      v10 = "MSUEarlyBootTask running in limited env";
+    }
+
+    else
+    {
+      v10 = "MSUEarlyBootTask running in normal env";
+    }
+
+    puts(v10);
+    if (v9)
+    {
+      printf("%s: MSUEarlyBootTask running in a limited environment and is not supported..Goodbye!\n", "main");
+LABEL_59:
+
+      goto LABEL_60;
+    }
+  }
+
+  else
+  {
+    puts("MSUEarlyBootTask is running in normal env(default)");
+  }
+
+  printf("%s: Content from the ramdisk will be present at %s if it exists\n", "main", v7);
+  v11 = [[NSString alloc] initWithFormat:@"%@/%s", v8, "EarlyBootTaskHasCompleted.txt"];
+  [v5 fileExistsAtPath:v8 isDirectory:&v191];
+  if (v191 != 1)
+  {
+    init_log(1, 3);
+
+    goto LABEL_59;
+  }
+
+  v12 = [[NSString alloc] initWithFormat:@"%@/%s", v8, "PluginHasCompleted.txt"];
+  if ([v5 fileExistsAtPath:v12])
+  {
+    init_log(1, 3);
+    v13 = ctime(&v190);
+    debug("MSUEarlyBootTask running. Found cookie written by DataMigrator indicating the first boot operations have already completed: %s\n", v13);
+    v189 = 0;
+    [v5 removeItemAtPath:v8 error:&v189];
+    v14 = v189;
+    v15 = v14;
+    if (v14)
+    {
+      memset(v227, 0, 512);
+      v16 = [v14 description];
+      [v16 getCString:v227 maxLength:511 encoding:4];
+
+      if (LOBYTE(v227[0]))
+      {
+        v17 = v227;
+      }
+
+      else
+      {
+        v17 = "Unable to parse error reason";
+      }
+
+      error("%s: Failed to remove folder stashed by previous ramdisk : %s : Task exiting cleanly\n", "main", v17);
+    }
+
+    else
+    {
+      debug("%s: Successfully removed folder stashed by previous ramdisk\n", "main");
+    }
+
+    v19 = ctime(&v190);
+    printf("%s: MSUDataMigrator has nothing more to do(%s)..Goodbye!!\n", "main", v19);
+
+    goto LABEL_59;
+  }
+
+  init_log(0, 3);
+  debug("=========================MSUEarlyBootTask: Running on first boot after update==========================\n");
+  v18 = ctime(&v190);
+  debug("%s: MSUEarlyBootTask running..Found data created by previous ramdisk. Assuming first boot after update at time %s\n", "main", v18);
+  debug("%s: MSUEarlyBootTask: Enabling vnode rapid aging\n", "main");
+  *&v227[0] = 0x4400000001;
+  __str.st_dev = 1;
+  if (sysctl(v227, 2u, 0, 0, &__str, 0))
+  {
+    error("%s: MSUEarlyBootTask: Failed to enable vnode rapid aging\n", "main");
+  }
+
+  else
+  {
+    debug("%s: MSUEarlyBootTask: Successfully enabled rapid vnode aging\n", "main");
+  }
+
+  if (MSUEarlyBootTaskSetupACLForPath(v8))
+  {
+    debug("MSUEarlyBootTask: Successfully set up ACL for folder stashed by ramdisk\n");
+  }
+
+  else
+  {
+    error("MSUEarlyBootTask: Failed to set up ACL for folder stashed by ramdisk\n");
+  }
+
+  v20 = [[NSString alloc] initWithFormat:@"%@/%s", v8, "LOW_SPACE_CLEANUP_RUN.txt"];
+  v21 = [[NSString alloc] initWithFormat:@"%@/%s", v8, "SYSTEM_APPS_STAGE_FAILED.txt"];
+  if ([v5 fileExistsAtPath:v20])
+  {
+    debug("MSUEarlyBootTask: Low space cleanup was done on last restore\n");
+  }
+
+  if ([v5 fileExistsAtPath:v21])
+  {
+    debug("MSUEarlyBootTask: Staging of staged_system_apps failed during the last restore\n");
+  }
+
+  debug("MSUEarlyBootTasks: Cleaning up stale stashed paths\n");
+  v188 = 0;
+  v22 = [v5 contentsOfDirectoryAtPath:@"/private/var/MobileSoftwareUpdate/" error:&v188];
+  v23 = v188;
+  if (v23)
+  {
+    memset(v227, 0, 512);
+    v178 = v23;
+    v24 = [v23 description];
+    [v24 getCString:v227 maxLength:511 encoding:4];
+
+    v25 = v227;
+    if (!LOBYTE(v227[0]))
+    {
+      v25 = "Unable to parse error reason";
+    }
+
+    error("%s: Failed to search for stale stashed folders: %s\n", "main", v25);
+  }
+
+  else
+  {
+    v166 = v21;
+    v169 = v20;
+    v171 = v7;
+    v173 = v11;
+    v176 = v8;
+    v186 = 0u;
+    v187 = 0u;
+    v184 = 0u;
+    v185 = 0u;
+    v26 = v22;
+    v27 = [v26 countByEnumeratingWithState:&v184 objects:v200 count:16];
+    if (v27)
+    {
+      v28 = v27;
+      v178 = 0;
+      v29 = *v185;
+      v30 = &IOObjectRelease_ptr;
+      do
+      {
+        for (i = 0; i != v28; i = i + 1)
+        {
+          if (*v185 != v29)
+          {
+            objc_enumerationMutation(v26);
+          }
+
+          v32 = *(*(&v184 + 1) + 8 * i);
+          bzero(v227, 0x400uLL);
+          v33 = [objc_alloc(v30[121]) initWithFormat:@"%s/%@", "/private/var/MobileSoftwareUpdate/", v32];
+          if ([v33 containsString:@"-MSUData"] && (objc_msgSend(v33, "isEqualToString:", v176) & 1) == 0)
+          {
+            [v33 getCString:v227 maxLength:1023 encoding:1];
+            debug("%s: Removing folder :%s:\n", "main", v227);
+
+            v183 = 0;
+            [v5 removeItemAtPath:v33 error:&v183];
+            v34 = v183;
+            if (v34)
+            {
+              v226 = 0u;
+              v225 = 0u;
+              v224 = 0u;
+              v223 = 0u;
+              v222 = 0u;
+              v221 = 0u;
+              v220 = 0u;
+              v219 = 0u;
+              v218 = 0u;
+              v217 = 0u;
+              v216 = 0u;
+              v215 = 0u;
+              v214 = 0u;
+              v213 = 0u;
+              v212 = 0u;
+              v211 = 0u;
+              v210 = 0u;
+              v209 = 0u;
+              v208 = 0u;
+              v207 = 0u;
+              v206 = 0u;
+              v205 = 0u;
+              v204 = 0u;
+              memset(&__str, 0, sizeof(__str));
+              v178 = v34;
+              v35 = [v34 description];
+              [v35 getCString:&__str maxLength:511 encoding:4];
+
+              p_str = &__str;
+              if (!LOBYTE(__str.st_dev))
+              {
+                p_str = "Unable to parse error reason";
+              }
+
+              error("%s: Failed to erase folder %s : %s\n", "main", v227, p_str);
+            }
+
+            else
+            {
+              v178 = 0;
+            }
+
+            v30 = &IOObjectRelease_ptr;
+          }
+        }
+
+        v28 = [v26 countByEnumeratingWithState:&v184 objects:v200 count:16];
+      }
+
+      while (v28);
+    }
+
+    else
+    {
+      v178 = 0;
+    }
+
+    v8 = v176;
+    v7 = v171;
+    v11 = v173;
+    v20 = v169;
+    v21 = v166;
+  }
+
+  if ([v5 fileExistsAtPath:v11])
+  {
+    debug("EarlyBootTask has already completed but DataMigrator plugin has not been run for this build\n");
+
+    goto LABEL_59;
+  }
+
+  v167 = v21;
+  v168 = v22;
+  v170 = v20;
+  v172 = v7;
+  v174 = v11;
+  MSUCleanupUUIDTextFolder(@"/");
+  debug("%s: Running fixup var operations\n", "main");
+  debug("entering %s\n", "update_var_directory_hierarchy");
+  if (mkdir("/private/var/MobileSoftwareUpdate/mnt1", 0x1C0u) && *__error() != 17)
+  {
+    v41 = __error();
+    v42 = strerror(*v41);
+    error("Failed to create system volume mount point at %s : %s\n", "/private/var/MobileSoftwareUpdate/mnt1", v42);
+    v43 = v11;
+    goto LABEL_68;
+  }
+
+  debug("Created system mount point at %s\n", "/private/var/MobileSoftwareUpdate/mnt1");
+  v38 = &IOObjectRelease_ptr;
+  if ((v201.f_flags & 0x40000000) != 0)
+  {
+    v40 = strrchr(v201.f_mntfromname, 64);
+    if (v40)
+    {
+      f_mntfromname = v40 + 1;
+    }
+
+    else
+    {
+      f_mntfromname = v201.f_mntfromname;
+    }
+  }
+
+  else
+  {
+    f_mntfromname = v201.f_mntfromname;
+  }
+
+  v44 = [NSString stringWithUTF8String:f_mntfromname];
+  if (!v44)
+  {
+    error("Failed to get bsd node for root dev...\n");
+LABEL_79:
+    v43 = v174;
+    goto LABEL_80;
+  }
+
+  if ((v201.f_flags & 0x40000000) == 0)
+  {
+    debug("System is currently rooted from a live filesystem\n");
+    v45 = copy_root_snapshot_name_from_dt();
+    if (!v45)
+    {
+      error("Failed to copy default boot snapshot name");
+
+      v43 = v174;
+LABEL_95:
+      debug("%s: Successfully completed fixup_var operations\n", "main");
+      goto LABEL_81;
+    }
+
+    v46 = v45;
+    debug("Will attempt to mount snapshot %s at %s\n", v45, "/private/var/MobileSoftwareUpdate/mnt1");
+    if (msuearlyboottask_mount_filesystem([v44 fileSystemRepresentation], v46, 1))
+    {
+      free(v46);
+      error("Failed to mount snapshot..\n");
+LABEL_78:
+
+      goto LABEL_79;
+    }
+
+    debug("Successfully mounted system snapshot..\n");
+    msuearlyboottask_dump_mounted_filesystem_info();
+    free(v46);
+    goto LABEL_106;
+  }
+
+  debug("System is currently rooted from a snapshot\n");
+  if (msuearlyboottask_mount_filesystem([v44 fileSystemRepresentation], 0, 0))
+  {
+    error("Failed to mount system volume..\n");
+    goto LABEL_78;
+  }
+
+  v59 = [NSString stringWithUTF8String:v201.f_mntfromname];
+  v60 = v59;
+  if (v59)
+  {
+    v61 = v8;
+    v62 = v59;
+    *&__str.st_dev = 0;
+    v63 = [NSRegularExpression regularExpressionWithPattern:@"(.+@)?(\\/dev\\/.+$)" options:1 error:&__str];
+    v64 = *&__str.st_dev;
+    if (v64)
+    {
+      bzero(v227, 0x400uLL);
+      [v64 description];
+      v66 = v65 = v63;
+      [v66 getCString:v227 maxLength:1024 encoding:4];
+
+      v63 = v65;
+      if (LOBYTE(v227[0]))
+      {
+        v67 = v227;
+      }
+
+      else
+      {
+        v67 = "Unknown";
+      }
+
+      error("Error %s encountered creating regular expression..\n", v67);
+      v68 = &stru_10000C688;
+    }
+
+    else
+    {
+      v87 = [v63 firstMatchInString:v62 options:0 range:{0, objc_msgSend(v62, "length")}];
+      v88 = v87;
+      if (v87)
+      {
+        v89 = [v87 rangeAtIndex:1];
+        if (v90)
+        {
+          v91 = v89;
+        }
+
+        else
+        {
+          v91 = 0;
+        }
+
+        v68 = [v62 substringWithRange:{v91, v90}];
+      }
+
+      else
+      {
+        v68 = &stru_10000C688;
+      }
+    }
+
+    if ([(__CFString *)v68 hasSuffix:@"@"])
+    {
+      v100 = [(__CFString *)v68 substringToIndex:[(__CFString *)v68 length]- 1];
+
+      v68 = v100;
+    }
+
+    v8 = v61;
+    v38 = &IOObjectRelease_ptr;
+  }
+
+  else
+  {
+    error("could not create string from f_mntfromname %s\n", v201.f_mntfromname);
+    v68 = &stru_10000C688;
+  }
+
+  bzero(v227, 0x400uLL);
+  [(__CFString *)v68 getCString:v227 maxLength:1024 encoding:4];
+  v101 = open("/private/var/MobileSoftwareUpdate/mnt1", 0);
+  if (v101 < 0)
+  {
+    v104 = __error();
+    strerror(*v104);
+    error("Failed to open system volume mount point(%s): %s\n");
+LABEL_165:
+
+    goto LABEL_78;
+  }
+
+  v102 = v101;
+  debug("Reverting to snapshot(%s)\n", v227);
+  if (fs_snapshot_revert(v102, v227, 0))
+  {
+    v103 = __error();
+    strerror(*v103);
+    error("revert snapshot operation failed: %s\n");
+LABEL_168:
+
+    close(v102);
+    goto LABEL_78;
+  }
+
+  debug("Reverting system snapshot succeeded. Remounting.\n");
+  if (close(v102))
+  {
+    v105 = __error();
+    strerror(*v105);
+    error("Unable to close dir(%s): %s\n");
+    goto LABEL_168;
+  }
+
+  debug("Unmounting system volume..\n");
+  msuearlyboottask_unmount_filesystem();
+  debug("Remounting system volume at %s\n", "/private/var/MobileSoftwareUpdate/mnt1");
+  if (msuearlyboottask_mount_filesystem([v44 fileSystemRepresentation], 0, 0))
+  {
+    error("Failed to mount system volume..\n");
+    goto LABEL_165;
+  }
+
+  debug("Successfully re-mounted system volume...\n");
+  msuearlyboottask_dump_mounted_filesystem_info();
+
+LABEL_106:
+  *v202 = off_10000C418;
+  v69 = fts_open(v202, 84, 0);
+  if (!v69)
+  {
+    v85 = __error();
+    v86 = strerror(*v85);
+    error("unable to open restored /private/var: %s\n", v86);
+    debug("Unmounting system volume from %s.\n", "/private/var/MobileSoftwareUpdate/mnt1");
+    msuearlyboottask_unmount_filesystem();
+    msuearlyboottask_dump_mounted_filesystem_info();
+    goto LABEL_78;
+  }
+
+  v70 = v69;
+  v71 = fts_read(v69);
+  if (!v71)
+  {
+    goto LABEL_127;
+  }
+
+  v72 = v71;
+  while (1)
+  {
+    fts_info = v72->fts_info;
+    if (fts_info == 1)
+    {
+      memset(&__str, 0, sizeof(__str));
+      memcpy(v227, "/private/var", sizeof(v227));
+      __strlcat_chk();
+      if (lstat(v227, &__str))
+      {
+        if (*__error() == 2)
+        {
+          if (ramrod_create_directory_with_class(v227, v72->fts_statp->st_mode, v72->fts_statp->st_uid, v72->fts_statp->st_gid, -1, 0))
+          {
+            error("ramrod_create_directory failed for %s\n");
+          }
+
+          else
+          {
+            debug("Successfully created directory %s\n");
+          }
+        }
+
+        else
+        {
+          v81 = __error();
+          strerror(*v81);
+          debug("stat failed on %s: %s\n");
+        }
+      }
+
+      else if ((__str.st_mode & 0xF000) == 0x4000)
+      {
+        st_mode = v72->fts_statp->st_mode;
+        if (__str.st_mode != st_mode)
+        {
+          debug("fixing permissions on %s: %o -> %o\n", v227, __str.st_mode, st_mode);
+          if (chmod(v227, v72->fts_statp->st_mode))
+          {
+            v75 = __error();
+            v76 = strerror(*v75);
+            error("unable to fix permissions: %s\n", v76);
+          }
+        }
+
+        fts_statp = v72->fts_statp;
+        st_uid = fts_statp->st_uid;
+        st_gid = fts_statp->st_gid;
+        if (*&__str.st_uid != __PAIR64__(st_gid, st_uid))
+        {
+          debug("fixing ownership on %s: %d:%d -> %d:%d\n", v227, __str.st_uid, __str.st_gid, st_uid, st_gid);
+          if (chown(v227, v72->fts_statp->st_uid, v72->fts_statp->st_gid))
+          {
+            v80 = __error();
+            strerror(*v80);
+            error("unable to fix ownership: %s\n");
+          }
+        }
+      }
+
+      else
+      {
+        debug("%s is a directory in the new image but not on the existing partition\n");
+      }
+
+      goto LABEL_126;
+    }
+
+    if (fts_info == 7)
+    {
+      break;
+    }
+
+LABEL_126:
+    v72 = fts_read(v70);
+    if (!v72)
+    {
+      goto LABEL_127;
+    }
+  }
+
+  v106 = strerror(v72->fts_errno);
+  error("fts_read error %d: %s\n", 7, v106);
+  if (!v72->fts_errno)
+  {
+LABEL_127:
+    if (*__error())
+    {
+      v82 = *__error();
+      v83 = __error();
+      v84 = strerror(*v83);
+      error("fts_read failed: %s\n", v84);
+      fts_close(v70);
+      debug("Unmounting system volume from %s.\n", "/private/var/MobileSoftwareUpdate/mnt1");
+      msuearlyboottask_unmount_filesystem();
+      msuearlyboottask_dump_mounted_filesystem_info();
+
+      v43 = v174;
+      v38 = &IOObjectRelease_ptr;
+      if (v82)
+      {
+        goto LABEL_80;
+      }
+    }
+
+    else
+    {
+      fts_close(v70);
+      debug("Unmounting system volume from %s.\n", "/private/var/MobileSoftwareUpdate/mnt1");
+      msuearlyboottask_unmount_filesystem();
+      msuearlyboottask_dump_mounted_filesystem_info();
+
+      v43 = v174;
+      v38 = &IOObjectRelease_ptr;
+    }
+
+    goto LABEL_95;
+  }
+
+  fts_close(v70);
+  debug("Unmounting system volume from %s.\n", "/private/var/MobileSoftwareUpdate/mnt1");
+  msuearlyboottask_unmount_filesystem();
+  msuearlyboottask_dump_mounted_filesystem_info();
+
+  v43 = v174;
+LABEL_68:
+  v38 = &IOObjectRelease_ptr;
+LABEL_80:
+  error("%s: Failed to fixup var(Not fatal)..\n", "main");
+LABEL_81:
+  debug("%s: Checking for and creating overprovisioning file if needed\n", "main");
+  v47 = APFSOverProvModel();
+  if (v47 != 1)
+  {
+    debug("%s: APFS overprovisioning model is %d. Not reserving space for overprovisioning file \n", "msu_reserve_space_for_overprovisioning", v47);
+LABEL_92:
+    debug("%s: Succesfully handled checks for overprovisioning file/volume\n", "main");
+    goto LABEL_177;
+  }
+
+  v197 = 0u;
+  memset(&v198, 0, sizeof(v198));
+  v196 = 0u;
+  v194 = 0;
+  v195 = 0;
+  v232[0] = @"IOParentMatch";
+  v230 = @"IOPropertyMatch";
+  v228 = @"EmbeddedDeviceTypeRoot";
+  v229 = &__kCFBooleanTrue;
+  v48 = [NSDictionary dictionaryWithObjects:&v229 forKeys:&v228 count:1];
+  v231 = v48;
+  v49 = [NSDictionary dictionaryWithObjects:&v231 forKeys:&v230 count:1];
+  v232[1] = @"IOPropertyMatch";
+  v233[0] = v49;
+  v233[1] = &off_10000C7C0;
+  v50 = [NSDictionary dictionaryWithObjects:v233 forKeys:v232 count:2];
+
+  if (!stat("/private/var/.overprovisioning_file", &v198))
+  {
+    debug("%s: Space already reserved for overprovisioning\n", "msu_reserve_space_for_overprovisioning");
+
+    goto LABEL_92;
+  }
+
+  v51 = v50;
+  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v51);
+  if (!MatchingService)
+  {
+    error("%s: Failed to get IOService for %s\n");
+LABEL_103:
+
+    goto LABEL_176;
+  }
+
+  v53 = MatchingService;
+  debug("%s: Successfully obtained ioService for %s\n", "msu_reserve_space_for_overprovisioning", "EmbeddedDeviceTypeRoot");
+  CFProperty = IORegistryEntryCreateCFProperty(v53, @"BSD Name", kCFAllocatorDefault, 0);
+  if (!CFProperty)
+  {
+    v43 = v174;
+    error("%s: no BSD device name for service %s");
+    goto LABEL_103;
+  }
+
+  v55 = CFProperty;
+  v56 = CFGetTypeID(CFProperty);
+  if (v56 != CFStringGetTypeID())
+  {
+    error("%s: returned BSD device name for service %s is wrong type");
+LABEL_132:
+    v57 = 5;
+LABEL_174:
+    CFRelease(v55);
+    v43 = v174;
+    goto LABEL_175;
+  }
+
+  bzero(v227, 0x400uLL);
+  if (!CFStringGetCString(v55, v227, 1023, 0x8000100u))
+  {
+    error("%s: failed to create C string from BSD name\n");
+    goto LABEL_132;
+  }
+
+  bzero(&__str, 0x400uLL);
+  snprintf(&__str, 0x3FFuLL, "/dev/%s", v227);
+  debug("%s: Full path to device node for service %s is :%s:\n", "msu_reserve_space_for_overprovisioning", "EmbeddedDeviceTypeRoot", &__str);
+  bzero(v202, 0x400uLL);
+  memset(&v199, 0, sizeof(v199));
+  if (!stat(&__str, &v199))
+  {
+    if ((v199.st_mode & 0xF000) == 0x6000)
+    {
+      memset(buf, 0, sizeof(buf));
+      devname_r(v199.st_rdev, 0x2000u, buf, 32);
+      snprintf(v202, 0x3FFuLL, "/dev/%s", buf);
+      goto LABEL_141;
+    }
+
+    error("%s: %s is not a block device\n", "msu_partition_raw_device_for_block_device", &__str);
+    v57 = -1;
+    goto LABEL_155;
+  }
+
+  v57 = *__error();
+  v58 = strerror(v57);
+  error("%s: unable to stat block device %s: %s\n", "msu_partition_raw_device_for_block_device", &__str, v58);
+  if (v57)
+  {
+LABEL_155:
+    error("%s: Failed to get raw device node for block device %s\n");
+    goto LABEL_174;
+  }
+
+LABEL_141:
+  v92 = open(v202, 0);
+  if (v92 == -1)
+  {
+    v57 = *__error();
+    v107 = __error();
+    strerror(*v107);
+    error("%s: Unable to open device: %s\n");
+    goto LABEL_174;
+  }
+
+  v93 = v92;
+  v193 = 0;
+  v192 = 0;
+  v177 = v8;
+  if (ioctl(v92, 0x40046418uLL, &v193) == -1)
+  {
+    v57 = *__error();
+    v149 = __error();
+    strerror(*v149);
+    error("%s: unable to get DKIOCGETBLOCKSIZE: %s\n");
+LABEL_251:
+    v98 = -1;
+    goto LABEL_261;
+  }
+
+  if (ioctl(v93, 0x40086419uLL, &v192) == -1)
+  {
+    v57 = *__error();
+    v150 = __error();
+    strerror(*v150);
+    error("%s: unable to get DKIOCGETBLOCKCOUNT: %s \n");
+    goto LABEL_251;
+  }
+
+  v94 = v192 * v193;
+  v95 = v94 + 0x3FFFFFFF;
+  if (v94 >= 0)
+  {
+    v95 = v192 * v193;
+  }
+
+  debug("%s: device_size = %llu (%lld GB)\n", "msu_reserve_space_for_overprovisioning", v192 * v193, v95 >> 30);
+  if (v94 <= 0x1900000063)
+  {
+    v96 = v94 / 100;
+  }
+
+  else
+  {
+    v96 = 0x40000000;
+  }
+
+  debug("%s: file_size = %llu (%lld GB)\n", "msu_reserve_space_for_overprovisioning", v96, v96 / 0x40000000);
+  v97 = open_dprotected_np("/private/var/.overprovisioning_file", 2562, 4, 0, 384);
+  v98 = v97;
+  if (v97 == -1)
+  {
+    v57 = *__error();
+    v151 = __error();
+    strerror(*v151);
+    error("%s: Could not open %s with error %s\n");
+    goto LABEL_260;
+  }
+
+  v196 = 0x30000000EuLL;
+  *&v197 = v96;
+  if (fcntl(v97, 42, &v196) != -1)
+  {
+    goto LABEL_151;
+  }
+
+  if (*__error() != 28)
+  {
+    if (!*__error())
+    {
+      goto LABEL_151;
+    }
+
+    v154 = __error();
+    v155 = strerror(*v154);
+    error("%s: fcntl(2) failed trying to allocate contiguous space all at once with error: %s", "msu_reserve_space_for_overprovisioning", v155);
+    goto LABEL_269;
+  }
+
+  LODWORD(v196) = 10;
+  if (fcntl(v98, 42, &v196) != -1)
+  {
+    goto LABEL_151;
+  }
+
+  if (*__error() == 28)
+  {
+    LODWORD(v196) = 8;
+    if (fcntl(v98, 42, &v196) == -1)
+    {
+      v57 = *__error();
+      v152 = __error();
+      strerror(*v152);
+      error("%s: preallocation of %llu bytes failed with error: (%s). (Allocated %llu bytes)\n");
+      goto LABEL_260;
+    }
+
+LABEL_151:
+    if (ftruncate(v98, v96))
+    {
+      v57 = *__error();
+      v99 = __error();
+      strerror(*v99);
+      error("%s: failed to write to %s file to establish the size (%s).\n");
+      goto LABEL_260;
+    }
+
+    if (fcntl(v98, 51, 0))
+    {
+      v57 = *__error();
+      v153 = __error();
+      strerror(*v153);
+      error("%s: failed to fullsync %s file with %s.\n");
+      goto LABEL_260;
+    }
+
+    v194 = 0;
+    v195 = v96;
+    if (fcntl(v98, 100, &v194) == -1)
+    {
+      v57 = *__error();
+      v156 = __error();
+      v157 = strerror(*v156);
+      error("%s: F_TRIM_ACTIVE_FILE failed with: %s \n", "msu_reserve_space_for_overprovisioning", v157);
+      close(v98);
+      if (unlink("/private/var/.overprovisioning_file"))
+      {
+        v158 = __error();
+        v159 = strerror(*v158);
+        error("%s: failed to unlink %s: %s \n", "msu_reserve_space_for_overprovisioning", "/private/var/.overprovisioning_file", v159);
+        v57 = *__error();
+      }
+
+      v98 = -1;
+    }
+
+    else
+    {
+LABEL_269:
+      v57 = 0;
+    }
+  }
+
+  else
+  {
+    if (!*__error())
+    {
+      goto LABEL_151;
+    }
+
+    v57 = *__error();
+    v160 = __error();
+    strerror(*v160);
+    error("%s: fcntl(2) failed trying to allocate contiguous space with error: %s");
+  }
+
+LABEL_260:
+  v38 = &IOObjectRelease_ptr;
+LABEL_261:
+  CFRelease(v55);
+  if ((v93 & 0x80000000) == 0)
+  {
+    close(v93);
+  }
+
+  v43 = v174;
+  if ((v98 & 0x80000000) == 0)
+  {
+    close(v98);
+  }
+
+  v8 = v177;
+LABEL_175:
+
+  if (!v57)
+  {
+    goto LABEL_92;
+  }
+
+LABEL_176:
+  error("%s: Unable to reserve space for overprovisioning. Continuing anyways\n", "main");
+LABEL_177:
+  debug("%s: Checking if clearing out of FIPS data file is needed\n", "main");
+  v108 = [objc_alloc(v38[121]) initWithFormat:@"%@/ClearFIPSDataFile.txt", v8];
+  if ([v5 fileExistsAtPath:v108])
+  {
+    v109 = [objc_alloc(v38[121]) initWithFormat:@"%s/db/FIPS/fips_data", "/private/var"];
+    v165 = v109;
+    if (![v5 fileExistsAtPath:v109])
+    {
+      debug("%s: Nothing to do since no FIPS data file present at %s/db/FIPS/fips_data\n", "main", "/private/var");
+      v111 = v178;
+      goto LABEL_186;
+    }
+
+    debug("%s: Clearing out FIPS data file\n", "main");
+
+    v182 = 0;
+    [v5 removeItemAtPath:v109 error:&v182];
+    v110 = v182;
+    if (v110)
+    {
+      memset(v227, 0, 512);
+      v111 = v110;
+      v112 = [v110 description];
+      [v112 getCString:v227 maxLength:511 encoding:4];
+
+      if (LOBYTE(v227[0]))
+      {
+        v113 = v227;
+      }
+
+      else
+      {
+        v113 = "Unable to parse error reason";
+      }
+
+      v38 = &IOObjectRelease_ptr;
+      error("%s: Failed to clear fips data file: %s\n", "main", v113);
+LABEL_186:
+    }
+
+    v181 = 0;
+    [v5 removeItemAtPath:v108 error:&v181];
+    v114 = v181;
+    if (v114)
+    {
+      memset(v227, 0, 512);
+      v178 = v114;
+      v115 = [v114 description];
+      [v115 getCString:v227 maxLength:511 encoding:4];
+
+      if (LOBYTE(v227[0]))
+      {
+        v116 = v227;
+      }
+
+      else
+      {
+        v116 = "Unable to parse error reason";
+      }
+
+      v38 = &IOObjectRelease_ptr;
+      error("%s: Failed to clear fips data cookie: %s\n", "main", v116);
+    }
+
+    else
+    {
+      v178 = 0;
+    }
+  }
+
+  else
+  {
+    debug("%s: Clearing of FIPS data file not required.\n", "main");
+    v165 = 0;
+  }
+
+  v117 = [objc_alloc(v38[121]) initWithFormat:@"%@/MobileAsset/PreinstalledAssetsV2", v8];
+  v163 = [objc_alloc(v38[121]) initWithFormat:@"%s", "/private/var/MobileAsset/PreinstalledAssetsV2"];
+  v164 = v117;
+  if (moveFolderContentsIfItExists(v117, v163))
+  {
+    debug("Done moving of preinstalled MobileAssets to data volume\n");
+  }
+
+  else
+  {
+    error("Failed to move preinstalled MobileAssets to data volume\n");
+  }
+
+  v118 = [objc_alloc(v38[121]) initWithFormat:@"%@/wireless/Library/Logs", v8];
+  v161 = [objc_alloc(v38[121]) initWithFormat:@"%s", "/private/var/wireless/Library"];
+  v162 = v118;
+  if (moveFolderContentsIfItExists(v118, v161))
+  {
+    debug("Done moving of Wireless/Library folder to data volume\n");
+  }
+
+  else
+  {
+    error("Failed to move Wireless/Library folder to data volume\n");
+  }
+
+  debug("Creating cookie file for earlyBootTaskHasCompletedOnce\n");
+  v175 = v108;
+  if ([v5 createFileAtPath:v43 contents:0 attributes:0])
+  {
+    debug("Successfully created earlyBootTaskHasCompletedOnceCookie\n");
+  }
+
+  else
+  {
+    error("Failed to create earlyBootTaskHasCompletedOnceCookie\n");
+  }
+
+  v119 = objc_alloc(v38[121]);
+  v120 = v38;
+  v121 = v8;
+  v122 = [v119 initWithFormat:@"%@/staged_system_apps", v8];
+  v123 = [v5 fileExistsAtPath:v122];
+  v124 = [v122 UTF8String];
+  if (v124)
+  {
+    v125 = v124;
+  }
+
+  else
+  {
+    v125 = "(update volume MSUData staged_system_apps directory)";
+  }
+
+  v126 = [objc_alloc(v120[121]) initWithFormat:@"%s", "/private/var/staged_system_apps"];
+  v127 = [v5 fileExistsAtPath:v126];
+  v128 = [v126 UTF8String];
+  v129 = v128;
+  if (v128)
+  {
+    v130 = v128;
+  }
+
+  else
+  {
+    v130 = "(data volume staged_system_apps directory)";
+  }
+
+  v131 = "does not exist";
+  if (v127)
+  {
+    v132 = "exists";
+  }
+
+  else
+  {
+    v132 = "does not exist";
+  }
+
+  v133 = "Creating the latter.";
+  if (v127)
+  {
+    v133 = "Clearing the latter.";
+  }
+
+  if (v123)
+  {
+    v131 = "exists";
+  }
+
+  v134 = "Skipping.";
+  if (v123)
+  {
+    v134 = v133;
+  }
+
+  debug("%s: Datamigrator is supported on target. %s %s, and %s %s. %s\n", "main", v125, v131, v130, v132, v134);
+  if (!v123)
+  {
+    goto LABEL_247;
+  }
+
+  if (v127)
+  {
+
+    v180 = 0;
+    [v5 removeItemAtPath:v126 error:&v180];
+    v135 = v180;
+    if (v135)
+    {
+      memset(v227, 0, 512);
+      v178 = v135;
+      v136 = [v135 description];
+      [v136 getCString:v227 maxLength:511 encoding:4];
+
+      if (LOBYTE(v227[0]))
+      {
+        v137 = v227;
+      }
+
+      else
+      {
+        v137 = "Unable to parse error reason";
+      }
+
+      error("%s: Failed to remove %s on the data volume: %s. Skipping.\n", "main", v130, v137);
+    }
+
+    else
+    {
+      v178 = 0;
+    }
+  }
+
+  v227[0] = [v122 fileSystemRepresentation];
+  v138 = fts_open(v227, 84, 0);
+  if (!v138)
+  {
+    goto LABEL_240;
+  }
+
+  v139 = v138;
+  debug("Setting up ACL's for the staged_system_apps on update volume\n");
+  v140 = fts_read(v139);
+  if (!v140)
+  {
+    goto LABEL_239;
+  }
+
+  v141 = v140;
+  while (2)
+  {
+    v142 = objc_autoreleasePoolPush();
+    v143 = v141->fts_info;
+    if (v143 <= 6)
+    {
+      if (v143 != 1)
+      {
+        if (v143 != 6)
+        {
+LABEL_235:
+          error("fts_read found unsupported file type: %d\n", v141->fts_info);
+        }
+
+LABEL_236:
+        objc_autoreleasePoolPop(v142);
+        v141 = fts_read(v139);
+        if (!v141)
+        {
+          goto LABEL_239;
+        }
+
+        continue;
+      }
+
+LABEL_233:
+      v144 = [NSString stringWithUTF8String:v141->fts_path];
+      MSUEarlyBootTaskSetupACLForPath(v144);
+
+      goto LABEL_236;
+    }
+
+    break;
+  }
+
+  if (v143 == 8)
+  {
+    goto LABEL_233;
+  }
+
+  if (v143 != 7)
+  {
+    goto LABEL_235;
+  }
+
+  v145 = strerror(v141->fts_errno);
+  error("fts_read error %d: %s\n", 7, v145);
+  error("Failed to setup ACL for staged system apps\n");
+  objc_autoreleasePoolPop(v142);
+LABEL_239:
+  fts_close(v139);
+  v43 = v174;
+LABEL_240:
+  debug("Done setting up ACL's for staged_system_apps\n");
+  if (v129)
+  {
+    if (ramrod_create_directory_with_class(v129, 509, 0x1F5u, 0x1F5u, 4, 1))
+    {
+      error("%s: Failed to create %s - ramrod_create_directory_with_class error %lld. Skipping\n");
+    }
+
+    else
+    {
+      debug("MSUEarlyBootTask: Created staged_system_apps folder. Updating permissions\n");
+      v146 = [NSString stringWithUTF8String:v129];
+      v147 = MSUEarlyBootTaskSetupACLForPath(v146);
+
+      if (v147)
+      {
+        debug("Successfully setup ACL for staged_system_apps folder\n");
+      }
+
+      else
+      {
+        error("Failed to setup ACL for staged_system_apps folder\n");
+      }
+    }
+  }
+
+  else
+  {
+    error("%s: Failed to create %s - path was NULL. Skipping.\n");
+  }
+
+LABEL_247:
+  v179 = 0;
+  time(&v179);
+  v148 = ctime(&v179);
+  debug("Operations completed at %s\n", v148);
+  flush_log();
+  free(v172);
+
+LABEL_60:
+  return 0;
+}
+
 uint64_t execForMSUEarlyBootTask(const char **a1)
 {
   v24 = 0;

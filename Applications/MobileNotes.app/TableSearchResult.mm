@@ -19,7 +19,7 @@
 {
   Hasher.init()();
   type metadata accessor for TableID();
-  sub_10040B6EC(&qword_1006C7CC0, &type metadata accessor for TableID);
+  sub_10040B6EC(&qword_1006C7CC0, &type metadata accessor for TableID, &protocol conformance descriptor for TableID);
   selfCopy = self;
   dispatch thunk of Hashable.hash(into:)();
   String.hash(into:)();
@@ -46,7 +46,7 @@
 
   v6 = sub_100401448(v8);
 
-  sub_1000073B4(v8, &qword_1006BE7A0);
+  sub_1000073B4(v8, &qword_1006BE7A0, &unk_100535E20);
   return v6 & 1;
 }
 

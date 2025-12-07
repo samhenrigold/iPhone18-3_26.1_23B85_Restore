@@ -4,6 +4,7 @@
 - (BOOL)_updateFlagForMessage:(id)message key:(id)key value:(BOOL)value;
 - (BOOL)hasCachedDataForMimePart:(id)part;
 - (BOOL)hasMessageForAccount:(id)account;
+- (BOOL)setPreferredEncoding:(unsigned int)encoding forMessage:(id)message;
 - (BOOL)shouldArchive;
 - (BOOL)shouldDeleteInPlace;
 - (BOOL)shouldDownloadBodyDataForMessage:(id)message;
@@ -13,9 +14,12 @@
 - (id)_setOrGetBody:(id)body forMessage:(id)message updateFlags:(BOOL)flags;
 - (id)displayName;
 - (id)finishRoutingMessages:(id)messages routed:(id)routed;
+- (id)headerDataForMessage:(id)message downloadIfNecessary:(BOOL)necessary;
 - (id)lastViewedMessageDate;
+- (id)lastViewedMessageWithOptions:(unsigned int)options;
 - (id)setFlagsFromDictionary:(id)dictionary forMessages:(id)messages;
 - (id)storeSearchResultMatchingCriterion:(id)criterion limit:(unsigned int)limit offset:(id)offset error:(id *)error;
+- (id)storeSearchResultMatchingSearchText:(id)text criterion:(id)criterion limit:(unsigned int)limit offset:(id)offset error:(id *)error;
 - (int)archiveDestination;
 - (int64_t)fetchMobileSynchronously:(unint64_t)lastFetchCount preservingUID:(id)d options:(unint64_t)options;
 - (void)_flushAllMessageData;
@@ -31,6 +35,7 @@
 - (void)messagesWereCompacted:(id)compacted;
 - (void)messagesWillBeCompacted:(id)compacted;
 - (void)openAsynchronously;
+- (void)setFlag:(id)flag state:(BOOL)state forMessages:(id)messages;
 - (void)setFlagForAllMessages:(id)messages state:(BOOL)state;
 - (void)setFlagsForAllMessagesFromDictionary:(id)dictionary;
 - (void)setNumberOfAttachments:(unsigned int)attachments isSigned:(BOOL)signed isEncrypted:(BOOL)encrypted forMessage:(id)message;
@@ -187,12 +192,11 @@
 
 - (void)allMessageFlagsDidChange:(id)change
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"flags";
-  v7[0] = change;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"flags";
+  v6[0] = change;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   [objc_msgSend(MEMORY[0x277CCAB98] "defaultCenter")];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)structureDidChange
@@ -211,30 +215,26 @@
 
 - (void)messagesWereCompacted:(id)compacted
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   if ([compacted count])
   {
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    v7 = @"messages";
-    v8[0] = compacted;
-    [defaultCenter postNotificationName:@"MailMessageStoreMessagesRemoved" object:self userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v8, &v7, 1)}];
+    v6 = @"messages";
+    v7[0] = compacted;
+    [defaultCenter postNotificationName:@"MailMessageStoreMessagesRemoved" object:self userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v7, &v6, 1)}];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messagesWillBeCompacted:(id)compacted
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   if ([compacted count])
   {
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    v7 = @"messages";
-    v8[0] = compacted;
-    [defaultCenter postNotificationName:@"MailMessageStoreMessagesWillBeCompacted" object:self userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v8, &v7, 1)}];
+    v6 = @"messages";
+    v7[0] = compacted;
+    [defaultCenter postNotificationName:@"MailMessageStoreMessagesWillBeCompacted" object:self userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v7, &v6, 1)}];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldGrowFetchWindow
@@ -251,55 +251,51 @@
 
 - (BOOL)hasMessageForAccount:(id)account
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([(MFMailMessageStore *)self account]== account)
   {
-    v10 = 1;
+    return 1;
   }
 
-  else
+  v5 = [(MFMailMessageStore *)self copyOfAllMessagesWithOptions:128];
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v6)
   {
-    v5 = [(MFMailMessageStore *)self copyOfAllMessagesWithOptions:128];
-    v13 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v6)
+    v7 = v6;
+    v8 = *v13;
+    while (2)
     {
-      v7 = v6;
-      v8 = *v14;
-      while (2)
+      for (i = 0; i != v7; ++i)
       {
-        for (i = 0; i != v7; ++i)
+        if (*v13 != v8)
         {
-          if (*v14 != v8)
-          {
-            objc_enumerationMutation(v5);
-          }
-
-          if ([MailAccount accountThatMessageIsFrom:*(*(&v13 + 1) + 8 * i)]== account)
-          {
-            v10 = 1;
-            goto LABEL_12;
-          }
+          objc_enumerationMutation(v5);
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
-        if (v7)
+        if ([MailAccount accountThatMessageIsFrom:*(*(&v12 + 1) + 8 * i)]== account)
         {
-          continue;
+          v10 = 1;
+          goto LABEL_12;
         }
-
-        break;
       }
-    }
 
-    v10 = 0;
-LABEL_12:
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      if (v7)
+      {
+        continue;
+      }
+
+      break;
+    }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = 0;
+LABEL_12:
+
   return v10;
 }
 
@@ -311,6 +307,19 @@ LABEL_12:
   }
 
   return 0;
+}
+
+- (id)storeSearchResultMatchingSearchText:(id)text criterion:(id)criterion limit:(unsigned int)limit offset:(id)offset error:(id *)error
+{
+  if (criterion)
+  {
+    return [(MFMailMessageStore *)self storeSearchResultMatchingCriterion:criterion limit:*&limit offset:offset error:error];
+  }
+
+  else
+  {
+    return 0;
+  }
 }
 
 - (id)finishRoutingMessages:(id)messages routed:(id)routed
@@ -387,22 +396,22 @@ LABEL_12:
 - (void)deleteMessages:(id)messages moveToTrash:(BOOL)trash
 {
   trashCopy = trash;
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   v7 = MEMORY[0x277CBEC38];
-  v26[0] = @"MessageIsDeleted";
-  v26[1] = @"MessageIsRead";
-  v27[0] = MEMORY[0x277CBEC38];
-  v27[1] = MEMORY[0x277CBEC38];
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+  v25[0] = @"MessageIsDeleted";
+  v25[1] = @"MessageIsRead";
+  v26[0] = MEMORY[0x277CBEC38];
+  v26[1] = MEMORY[0x277CBEC38];
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
   if (trashCopy)
   {
     v9 = [(MailAccount *)self->_account storeForMailboxUid:[(MailAccount *)self->_account mailboxUidOfType:3 createIfNeeded:1]];
     if (v9)
     {
       v10 = v9;
-      v24 = @"MessageIsRead";
-      v25 = v7;
-      -[MFMailMessageStore setFlagsFromDictionary:forMessages:](self, "setFlagsFromDictionary:forMessages:", [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1], messages);
+      v23 = @"MessageIsRead";
+      v24 = v7;
+      -[MFMailMessageStore setFlagsFromDictionary:forMessages:](self, "setFlagsFromDictionary:forMessages:", [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1], messages);
       v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
       [v10 mf_lock];
       [v10 appendMessages:messages unsuccessfulOnes:v11];
@@ -410,32 +419,32 @@ LABEL_12:
       if ([v11 count])
       {
         array = [MEMORY[0x277CBEB18] array];
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
-        v13 = [messages countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v13 = [messages countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v20;
+          v15 = *v19;
           do
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v20 != v15)
+              if (*v19 != v15)
               {
                 objc_enumerationMutation(messages);
               }
 
-              v17 = *(*(&v19 + 1) + 8 * i);
+              v17 = *(*(&v18 + 1) + 8 * i);
               if ([v11 indexOfObjectIdenticalTo:v17] == 0x7FFFFFFFFFFFFFFFLL)
               {
                 [array addObject:v17];
               }
             }
 
-            v14 = [messages countByEnumeratingWithState:&v19 objects:v23 count:16];
+            v14 = [messages countByEnumeratingWithState:&v18 objects:v22 count:16];
           }
 
           while (v14);
@@ -448,25 +457,22 @@ LABEL_12:
   }
 
   [(MFMailMessageStore *)self setFlagsFromDictionary:v8 forMessages:messages];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)undeleteMessages:(id)messages
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   if ((*&self->_flags & 1) == 0)
   {
-    v4 = @"MessageIsDeleted";
-    v5[0] = MEMORY[0x277CBEC28];
-    -[MFMailMessageStore setFlagsFromDictionary:forMessages:](self, "setFlagsFromDictionary:forMessages:", [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1], messages);
+    v3 = @"MessageIsDeleted";
+    v4[0] = MEMORY[0x277CBEC28];
+    -[MFMailMessageStore setFlagsFromDictionary:forMessages:](self, "setFlagsFromDictionary:forMessages:", [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1], messages);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (id)copyMessages:(id)messages toMailbox:(id)mailbox markAsRead:(BOOL)read deleteOriginals:(BOOL)originals isDeletion:(BOOL)deletion
 {
-  v39[2] = *MEMORY[0x277D85DE8];
+  v38[2] = *MEMORY[0x277D85DE8];
   if (messages)
   {
     if (mailbox)
@@ -489,29 +495,29 @@ LABEL_3:
   v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
   Current = CFAbsoluteTimeGetCurrent();
-  v38[0] = @"MessageIsDeleted";
-  v38[1] = @"MessageIsRead";
-  v39[0] = MEMORY[0x277CBEC38];
-  v39[1] = MEMORY[0x277CBEC38];
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
+  v37[0] = @"MessageIsDeleted";
+  v37[1] = @"MessageIsRead";
+  v38[0] = MEMORY[0x277CBEC38];
+  v38[1] = MEMORY[0x277CBEC38];
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
   store = [mailbox store];
   v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v20 = v19;
   if (store)
   {
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __83__MFMailMessageStore_copyMessages_toMailbox_markAsRead_deleteOriginals_isDeletion___block_invoke;
-    v28[3] = &unk_2798B69E8;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __83__MFMailMessageStore_copyMessages_toMailbox_markAsRead_deleteOriginals_isDeletion___block_invoke;
+    v27[3] = &unk_2798B69E8;
     originalsCopy = originals;
     readCopy = read;
-    v28[4] = mailbox;
-    v28[5] = v15;
-    v28[6] = store;
-    v28[7] = v17;
+    v27[4] = mailbox;
+    v27[5] = v15;
+    v27[6] = store;
+    v27[7] = v17;
     deletionCopy = deletion;
-    v28[8] = v19;
-    [messages mf_enumerateByStoreUsingBlock:v28];
+    v27[8] = v19;
+    [messages mf_enumerateByStoreUsingBlock:v27];
   }
 
   else
@@ -528,24 +534,22 @@ LABEL_3:
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218496;
-    v33 = v23;
-    v34 = 2048;
-    v35 = v22 - Current;
-    v36 = 2048;
-    v37 = (v22 - Current) / v23;
+    v32 = v23;
+    v33 = 2048;
+    v34 = v22 - Current;
+    v35 = 2048;
+    v36 = (v22 - Current) / v23;
     _os_log_debug_impl(&dword_258BDA000, v24, OS_LOG_TYPE_DEBUG, "[LogMessageTransferTimes] Transferring %lu messages took %4.5f seconds (%4.5f s/msg).", buf, 0x20u);
   }
 
   v25 = [[MFMessageTransferResult alloc] initWithResultCode:v21 == 0 failedMessages:v14 transferedMessage:v15];
 
-  result = v25;
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
+  return v25;
 }
 
 void __83__MFMailMessageStore_copyMessages_toMailbox_markAsRead_deleteOriginals_isDeletion___block_invoke(uint64_t a1, void *a2, id a3)
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v7 = [objc_msgSend(a2 "mailboxUid")];
   if (!v7)
@@ -561,39 +565,39 @@ void __83__MFMailMessageStore_copyMessages_toMailbox_markAsRead_deleteOriginals_
       {
         if (*(a1 + 73) == 1 && [a3 count])
         {
-          v26 = @"MessageIsRead";
-          v27[0] = MEMORY[0x277CBEC38];
-          [a2 setFlagsFromDictionary:objc_msgSend(MEMORY[0x277CBEAC0] forMessages:{"dictionaryWithObjects:forKeys:count:", v27, &v26, 1), a3}];
+          v25 = @"MessageIsRead";
+          v26[0] = MEMORY[0x277CBEC38];
+          [a2 setFlagsFromDictionary:objc_msgSend(MEMORY[0x277CBEAC0] forMessages:{"dictionaryWithObjects:forKeys:count:", v26, &v25, 1), a3}];
         }
 
         v10 = [MEMORY[0x277CBEB18] array];
         v11 = [MEMORY[0x277CBEB18] array];
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
-        v12 = [a3 countByEnumeratingWithState:&v19 objects:v25 count:16];
+        v12 = [a3 countByEnumeratingWithState:&v18 objects:v24 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v20;
+          v14 = *v19;
           do
           {
             v15 = 0;
             do
             {
-              if (*v20 != v14)
+              if (*v19 != v14)
               {
                 objc_enumerationMutation(a3);
               }
 
-              v16 = [*(*(&v19 + 1) + 8 * v15) messageFlags];
+              v16 = [*(*(&v18 + 1) + 8 * v15) messageFlags];
               [v10 addObject:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithUnsignedLongLong:", v16 & 0xFFFFFFFFFFFFFFFDLL)}];
               ++v15;
             }
 
             while (v13 != v15);
-            v13 = [a3 countByEnumeratingWithState:&v19 objects:v25 count:16];
+            v13 = [a3 countByEnumeratingWithState:&v18 objects:v24 count:16];
           }
 
           while (v13);
@@ -619,9 +623,9 @@ void __83__MFMailMessageStore_copyMessages_toMailbox_markAsRead_deleteOriginals_
 
           else
           {
-            v23 = @"MessageIsDeleted";
-            v24 = MEMORY[0x277CBEC28];
-            v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+            v22 = @"MessageIsDeleted";
+            v23 = MEMORY[0x277CBEC28];
+            v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
           }
 
           [a2 setFlagsFromDictionary:v17 forMessages:v6];
@@ -636,8 +640,14 @@ void __83__MFMailMessageStore_copyMessages_toMailbox_markAsRead_deleteOriginals_
   }
 
   [*(a1 + 64) addObjectsFromArray:v6];
+}
 
-  v18 = *MEMORY[0x277D85DE8];
+- (id)lastViewedMessageWithOptions:(unsigned int)options
+{
+  v3 = *&options;
+  v5 = [-[MFMailMessageStore mailboxUid](self "mailboxUid")];
+
+  return [(MFMailMessageStore *)self messageForMessageID:v5 options:v3];
 }
 
 - (id)lastViewedMessageDate
@@ -645,6 +655,23 @@ void __83__MFMailMessageStore_copyMessages_toMailbox_markAsRead_deleteOriginals_
   mailboxUid = [(MFMailMessageStore *)self mailboxUid];
 
   return [mailboxUid lastViewedMessageDate];
+}
+
+- (id)headerDataForMessage:(id)message downloadIfNecessary:(BOOL)necessary
+{
+  necessaryCopy = necessary;
+  result = [(MFMailMessageStore *)self _cachedHeaderDataForMessage:message valueIfNotPresent:0];
+  if (!result)
+  {
+    result = [(MFMailMessageStore *)self _fetchHeaderDataForMessage:message downloadIfNecessary:necessaryCopy];
+    if (result)
+    {
+
+      return [(MFMailMessageStore *)self _cachedHeaderDataForMessage:message valueIfNotPresent:result];
+    }
+  }
+
+  return result;
 }
 
 - (BOOL)hasCachedDataForMimePart:(id)part
@@ -656,82 +683,85 @@ void __83__MFMailMessageStore_copyMessages_toMailbox_markAsRead_deleteOriginals_
 
 - (id)setFlagsFromDictionary:(id)dictionary forMessages:(id)messages
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v7 = [dictionary count];
-  v8 = &v21 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v20 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   messagesCopy = messages;
   v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(messages, "count")}];
   allKeys = [dictionary allKeys];
   if (*&self->_flags)
   {
-    v9 = 0;
+    return 0;
   }
 
-  else
+  v11 = allKeys;
+  if (v7)
   {
-    v11 = allKeys;
-    if (v7)
+    for (i = 0; i != v7; ++i)
     {
-      for (i = 0; i != v7; ++i)
-      {
-        v8[i] = [dictionary mf_BOOLForKey:{objc_msgSend(v11, "objectAtIndex:", i)}];
-      }
+      v8[i] = [dictionary mf_BOOLForKey:{objc_msgSend(v11, "objectAtIndex:", i)}];
     }
+  }
 
-    v25 = 0u;
-    v26 = 0u;
-    v24 = 0u;
-    v23 = 0u;
-    v13 = [messagesCopy countByEnumeratingWithState:&v23 objects:v27 count:16];
-    if (v13)
+  v24 = 0u;
+  v25 = 0u;
+  v23 = 0u;
+  v22 = 0u;
+  v13 = [messagesCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
+  if (v13)
+  {
+    v14 = v13;
+    v15 = *v23;
+    do
     {
-      v14 = v13;
-      v15 = *v24;
-      do
+      for (j = 0; j != v14; ++j)
       {
-        for (j = 0; j != v14; ++j)
+        if (*v23 != v15)
         {
-          if (*v24 != v15)
-          {
-            objc_enumerationMutation(messagesCopy);
-          }
-
-          if (v7)
-          {
-            v17 = 0;
-            v18 = *(*(&v23 + 1) + 8 * j);
-            do
-            {
-              if (-[MFMailMessageStore _updateFlagForMessage:key:value:](self, "_updateFlagForMessage:key:value:", v18, [v11 objectAtIndex:v17], v8[v17]))
-              {
-                [v9 ef_addObjectIfAbsent:v18];
-              }
-
-              ++v17;
-            }
-
-            while (v7 != v17);
-          }
+          objc_enumerationMutation(messagesCopy);
         }
 
-        v14 = [messagesCopy countByEnumeratingWithState:&v23 objects:v27 count:16];
+        if (v7)
+        {
+          v17 = 0;
+          v18 = *(*(&v22 + 1) + 8 * j);
+          do
+          {
+            if (-[MFMailMessageStore _updateFlagForMessage:key:value:](self, "_updateFlagForMessage:key:value:", v18, [v11 objectAtIndex:v17], v8[v17]))
+            {
+              [v9 ef_addObjectIfAbsent:v18];
+            }
+
+            ++v17;
+          }
+
+          while (v7 != v17);
+        }
       }
 
-      while (v14);
+      v14 = [messagesCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
+
+    while (v14);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v9;
+}
+
+- (void)setFlag:(id)flag state:(BOOL)state forMessages:(id)messages
+{
+  v8[1] = *MEMORY[0x277D85DE8];
+  flagCopy = flag;
+  v8[0] = [MEMORY[0x277CCABB0] numberWithBool:state];
+  -[MFMailMessageStore setFlagsFromDictionary:forMessages:](self, "setFlagsFromDictionary:forMessages:", [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&flagCopy count:1], messages);
 }
 
 - (void)setFlagForAllMessages:(id)messages state:(BOOL)state
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
-  v7[0] = NSStringFromBOOL();
-  -[MFMailMessageStore setFlagsForAllMessagesFromDictionary:](self, "setFlagsForAllMessagesFromDictionary:", [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&messagesCopy count:1]);
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = NSStringFromBOOL();
+  -[MFMailMessageStore setFlagsForAllMessagesFromDictionary:](self, "setFlagsForAllMessagesFromDictionary:", [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&messagesCopy count:1]);
 }
 
 - (void)setFlagsForAllMessagesFromDictionary:(id)dictionary
@@ -822,6 +852,30 @@ void __83__MFMailMessageStore_copyMessages_toMailbox_markAsRead_deleteOriginals_
   }
 
   return [i integerValue];
+}
+
+- (BOOL)setPreferredEncoding:(unsigned int)encoding forMessage:(id)message
+{
+  v5 = *&encoding;
+  v12[1] = *MEMORY[0x277D85DE8];
+  preferredEncoding = [message preferredEncoding];
+  if (preferredEncoding != v5)
+  {
+    [message setPreferredEncoding:v5];
+    headers = [message headers];
+    if (headers)
+    {
+      v9 = headers;
+      [headers setPreferredEncoding:v5];
+      v10 = [v9 firstHeaderForKey:*MEMORY[0x277D07030]];
+      [message setSubject:{objc_msgSend(MEMORY[0x277D070D0], "subjectWithString:", v10)}];
+    }
+
+    v12[0] = message;
+    -[MFMailMessageStore messageFlagsDidChange:flags:](self, "messageFlagsDidChange:flags:", [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1], 0);
+  }
+
+  return preferredEncoding != v5;
 }
 
 - (void)_flushAllMessageData

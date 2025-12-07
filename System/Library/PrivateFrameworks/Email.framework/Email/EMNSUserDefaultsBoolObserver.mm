@@ -1,4 +1,5 @@
 @interface EMNSUserDefaultsBoolObserver
+- (EMNSUserDefaultsBoolObserver)initWithUserDefaultKey:(id)key keyRepresentsDisabled:(BOOL)disabled handler:(id)handler;
 - (EMNSUserDefaultsBoolObserver)initWithUserDefaults:(id)defaults keyPath:(id)path keyRepresentsDisabled:(BOOL)disabled handler:(id)handler;
 - (uint64_t)_getEnabledWithUserDefaults:(void *)defaults keyPath:(int)path keyRepresentsDisabled:;
 @end
@@ -68,6 +69,17 @@ void __91__EMNSUserDefaultsBoolObserver_initWithUserDefaults_keyPath_keyRepresen
       (*(v2 + 16))(v2, *(a1 + 40));
     }
   }
+}
+
+- (EMNSUserDefaultsBoolObserver)initWithUserDefaultKey:(id)key keyRepresentsDisabled:(BOOL)disabled handler:(id)handler
+{
+  disabledCopy = disabled;
+  keyCopy = key;
+  handlerCopy = handler;
+  em_userDefaults = [MEMORY[0x1E695E000] em_userDefaults];
+  v11 = [(EMNSUserDefaultsBoolObserver *)self initWithUserDefaults:em_userDefaults keyPath:keyCopy keyRepresentsDisabled:disabledCopy handler:handlerCopy];
+
+  return v11;
 }
 
 @end

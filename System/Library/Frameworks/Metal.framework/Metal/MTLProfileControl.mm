@@ -32,14 +32,12 @@
 
 - (unint64_t)hash
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   uscEmitPosition = self->_uscEmitPosition;
-  v5[0] = self->_uscCliqueTraceLevel;
-  v5[1] = uscEmitPosition;
-  v5[2] = self->_uscEmitThreadControlFlow;
-  LODWORD(result) = _MTLHashState(v5, 0xCuLL);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v4[0] = self->_uscCliqueTraceLevel;
+  v4[1] = uscEmitPosition;
+  v4[2] = self->_uscEmitThreadControlFlow;
+  return _MTLHashState(v4, 0xCuLL);
 }
 
 - (id)formattedDescription:(unint64_t)description

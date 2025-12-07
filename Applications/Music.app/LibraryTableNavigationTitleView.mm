@@ -24,18 +24,18 @@
 
 - (void)layoutSubviews
 {
-  v8[0].receiver = self;
-  v8[0].super_class = type metadata accessor for LibraryTableNavigationTitleView();
-  v2 = v8[0].receiver;
-  [(objc_super *)v8 layoutSubviews];
+  v10[0].receiver = self;
+  v10[0].super_class = type metadata accessor for LibraryTableNavigationTitleView();
+  v2 = v10[0].receiver;
+  [(objc_super *)v10 layoutSubviews];
   v3 = OBJC_IVAR____TtC5Music31LibraryTableNavigationTitleView_filterButton;
   v4 = *&v2[OBJC_IVAR____TtC5Music31LibraryTableNavigationTitleView_filterButton];
   [v2 bounds];
   [v4 sizeThatFits:{v5, v6}];
   v7 = *&v2[v3];
-  CGRect.centeringAlong(axes:in:)();
-  memset(&v8[1], 0, 32);
-  v9 = 1;
+  CGRect.centeringAlong(axes:in:)(0.0, 0.0, v8, v9);
+  memset(&v10[1], 0, 32);
+  v11 = 1;
   CGRect.applyingLayoutDirection(in:bounds:)();
   [v7 setFrame:?];
 }

@@ -1,217 +1,3 @@
-void sub_2675735DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, void **a46)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  v49 = v46[22];
-  if (v49)
-  {
-    v46[23] = v49;
-    operator delete(v49);
-  }
-
-  v50 = v46[25];
-  if (v50)
-  {
-    v46[26] = v50;
-    operator delete(v50);
-  }
-
-  sentencepiece::unigram::Lattice::~Lattice(&a46);
-  a46 = (v47 - 160);
-  std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__destroy_vector::operator()[abi:ne200100](&a46);
-  _Unwind_Resume(a1);
-}
-
-float sentencepiece::unigram::Model::CalculateEntropy(sentencepiece::unigram::Model *a1, unsigned __int8 *a2, uint64_t a3, float a4)
-{
-  v8 = &unk_2878A2838;
-  v9 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0;
-  v15 = &unk_2878A2980;
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0;
-  v19 = 1024;
-  sentencepiece::unigram::Lattice::SetSentence(&v8, a2, a3);
-  sentencepiece::unigram::Model::PopulateNodes(a1, &v8);
-  v6 = sentencepiece::unigram::Lattice::CalculateEntropy(&v8, a4);
-  sentencepiece::unigram::Lattice::~Lattice(&v8);
-  return v6;
-}
-
-void sub_2675737EC(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sentencepiece::unigram::Lattice::~Lattice(va);
-  _Unwind_Resume(a1);
-}
-
-BOOL sentencepiece::unigram::Model::VerifyOutputsEquivalent(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5)
-{
-  strcpy(__s, " ");
-  v10 = strlen(__s);
-  absl::internal::Splitter::Splitter(&v45, a2, a3, __s, v10, 0);
-  v48 = 0;
-  v49 = 0;
-  __p = 0;
-  std::vector<std::string_view>::__init_with_size[abi:ne200100]<std::string_view*,std::string_view*>(&__p, v45, v46, (v46 - v45) >> 4);
-  v11 = __p;
-  v12 = v48;
-  if (__p == v48)
-  {
-    v14 = 0.0;
-    if (__p)
-    {
-LABEL_11:
-      v48 = v11;
-      operator delete(v11);
-    }
-  }
-
-  else
-  {
-    v13 = *(a1 + 104) + -10.0;
-    v14 = 0.0;
-    do
-    {
-      v15 = v11[1];
-      v16 = (*(*a1 + 112))(a1, *v11, v15);
-      if (v16 == *(a1 + 88))
-      {
-        v14 = v13 + v14;
-      }
-
-      else
-      {
-        if ((*(**(a1 + 8) + 136))(*(a1 + 8), v16))
-        {
-          v17 = (*(a1 + 108) * v15) + -0.1;
-        }
-
-        else
-        {
-          v17 = (*(**(a1 + 8) + 96))(*(a1 + 8), v16);
-        }
-
-        v14 = v17 + v14;
-      }
-
-      v11 += 2;
-    }
-
-    while (v11 != v12);
-    v11 = __p;
-    if (__p)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  if (v45)
-  {
-    v46 = v45;
-    operator delete(v45);
-  }
-
-  strcpy(__s, " ");
-  v18 = strlen(__s);
-  absl::internal::Splitter::Splitter(&v45, a4, a5, __s, v18, 0);
-  v43 = 0;
-  v44 = 0;
-  v42 = 0;
-  std::vector<std::string_view>::__init_with_size[abi:ne200100]<std::string_view*,std::string_view*>(&v42, v45, v46, (v46 - v45) >> 4);
-  v19 = v42;
-  v20 = v43;
-  if (v42 != v43)
-  {
-    v21 = *(a1 + 104) + -10.0;
-    v22 = 0.0;
-    do
-    {
-      v23 = v19[1];
-      v24 = (*(*a1 + 112))(a1, *v19, v23);
-      if (v24 == *(a1 + 88))
-      {
-        v22 = v21 + v22;
-      }
-
-      else
-      {
-        if ((*(**(a1 + 8) + 136))(*(a1 + 8), v24))
-        {
-          v25 = (*(a1 + 108) * v23) + -0.1;
-        }
-
-        else
-        {
-          v25 = (*(**(a1 + 8) + 96))(*(a1 + 8), v24);
-        }
-
-        v22 = v25 + v22;
-      }
-
-      v19 += 2;
-    }
-
-    while (v19 != v20);
-    v19 = v42;
-    if (!v42)
-    {
-      goto LABEL_25;
-    }
-
-    goto LABEL_24;
-  }
-
-  v22 = 0.0;
-  if (v42)
-  {
-LABEL_24:
-    v43 = v19;
-    operator delete(v19);
-  }
-
-LABEL_25:
-  v26 = v45;
-  if (v45)
-  {
-    v46 = v45;
-    operator delete(v45);
-  }
-
-  v27 = vabds_f32(v14, v22);
-  if (v27 > 0.0000001 && sentencepiece::logging::GetMinLogLevel(v26) <= 1)
-  {
-    LOBYTE(v45) = 0;
-    v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82670], "unigram_model.cc", 16);
-    v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, "(", 1);
-    v30 = MEMORY[0x26D5F9210](v29, 840);
-    v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, ") ", 2);
-    v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, "LOG(", 4);
-    v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, "WARNING", 7);
-    v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, ") ", 2);
-    v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, "Two sentence piece sequences are not equivalent! Left: ", 55);
-    v36 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v35, a2, a3);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36, ", Score: ", 9);
-    v37 = std::ostream::operator<<();
-    v38 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v37, ". Right: ", 9);
-    v39 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, a4, a5);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, ", Score: ", 9);
-    v40 = std::ostream::operator<<();
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, ".", 1);
-    sentencepiece::error::Die::~Die(&v45);
-  }
-
-  return v27 <= 0.0000001;
-}
-
 void sub_267573C68(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   if (__p)
@@ -224,8 +10,7 @@ void sub_267573C68(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sentencepiece::unigram::Model::MemoryMappableString(sentencepiece::unigram::Model *this@<X0>, std::string *a2@<X8>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   sentencepiece::ModelInterface::MemoryMappableString(this, &v13);
   memset(&__p, 0, sizeof(__p));
@@ -348,7 +133,7 @@ void sub_267573E04(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<sentencepiece::unigram::Lattice::Node *>::__init_with_size[abi:ne200100]<sentencepiece::unigram::Lattice::Node **,sentencepiece::unigram::Lattice::Node **>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<sentencepiece::unigram::Lattice::Node *>::__init_with_size[abi:ne200100]<sentencepiece::unigram::Lattice::Node **,sentencepiece::unigram::Lattice::Node **>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -370,7 +155,7 @@ void sub_267573EDC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<sentencepiece::unigram::Lattice::Node *>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<sentencepiece::unigram::Lattice::Node *>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -380,7 +165,7 @@ void std::vector<sentencepiece::unigram::Lattice::Node *>::__vallocate[abi:ne200
   std::vector<Darts::DoubleArrayImpl<void,void,int,void>::result_pair_type,std::allocator<Darts::DoubleArrayImpl<void,void,int,void>::result_pair_type>>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<std::string_view>::__init_with_size[abi:ne200100]<std::string_view*,std::string_view*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string_view>::__init_with_size[abi:ne200100]<std::string_view*,std::string_view*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -516,7 +301,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<sentencep
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<sentencepiece::unigram::anonymous namespace::Hypothesis *>::push_back[abi:ne200100](uint64_t a1, void *a2)
+void std::vector<sentencepiece::unigram::anonymous namespace::Hypothesis *>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -578,7 +363,7 @@ void std::vector<sentencepiece::unigram::anonymous namespace::Hypothesis *>::pus
   *(a1 + 8) = v5;
 }
 
-uint64_t std::vector<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>::__init_with_size[abi:ne200100]<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float> const*,std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float> const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>::__init_with_size[abi:ne200100]<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float> const*,std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float> const*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -595,7 +380,7 @@ void sub_2675743A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -615,7 +400,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::vector
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>,std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float> const*,std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float> const*,std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>,std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float> const*,std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float> const*,std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -630,13 +415,13 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<s
     do
     {
       *v4 = 0;
-      *(v4 + 8) = 0;
-      *(v4 + 16) = 0;
+      v4[1] = 0;
+      v4[2] = 0;
       std::vector<sentencepiece::unigram::Lattice::Node *>::__init_with_size[abi:ne200100]<sentencepiece::unigram::Lattice::Node **,sentencepiece::unigram::Lattice::Node **>(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 3);
-      *(v4 + 24) = *(v6 + 24);
+      *(v4 + 6) = *(v6 + 24);
       v6 += 32;
-      v4 = v11 + 32;
-      v11 += 32;
+      v4 = v11 + 4;
+      v11 += 4;
     }
 
     while (v6 != a3);
@@ -699,24 +484,24 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,sentencepiece::unig
   return result;
 }
 
-uint64_t std::vector<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>::__append(uint64_t result, unint64_t a2)
+const void **std::vector<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>::__append(const void **result, unint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (a2 <= (v5 - v4) >> 5)
   {
     if (a2)
     {
       v11 = 32 * a2;
-      v12 = v4 + 32 * a2;
+      v12 = &v4[4 * a2];
       do
       {
         *v4 = 0;
-        *(v4 + 8) = 0;
-        *(v4 + 24) = 0;
-        *(v4 + 16) = 0;
-        v4 += 32;
+        v4[1] = 0;
+        *(v4 + 6) = 0;
+        v4[2] = 0;
+        v4 += 4;
         v11 -= 32;
       }
 
@@ -724,7 +509,7 @@ uint64_t std::vector<std::pair<std::vector<sentencepiece::unigram::Lattice::Node
       v4 = v12;
     }
 
-    *(result + 8) = v4;
+    result[1] = v4;
   }
 
   else
@@ -774,8 +559,8 @@ uint64_t std::vector<std::pair<std::vector<sentencepiece::unigram::Lattice::Node
     }
 
     while (v14);
-    v17 = *(result + 8) - *result;
-    v18 = v13 - v17;
+    v17 = result[1] - *result;
+    v18 = (v13 - v17);
     memcpy((v13 - v17), *result, v17);
     v19 = *v3;
     *v3 = v18;
@@ -792,6 +577,19 @@ uint64_t std::vector<std::pair<std::vector<sentencepiece::unigram::Lattice::Node
   return result;
 }
 
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<double>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
 void sub_2675747B8(_Unwind_Exception *exception_object)
 {
   v3 = *v1;
@@ -804,7 +602,7 @@ void sub_2675747B8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-float std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__construct_one_at_end[abi:ne200100]<std::vector<std::pair<std::string_view,int>>&,float const&>(uint64_t a1, uint64_t *a2, float *a3)
+float std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__construct_one_at_end[abi:ne200100]<std::vector<std::pair<std::string_view,int>>&,float const&>(uint64_t a1, __int128 **a2, float *a3)
 {
   v5 = *(a1 + 8);
   *v5 = 0;
@@ -817,16 +615,16 @@ float std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>
   return result;
 }
 
-char *std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__emplace_back_slow_path<std::vector<std::pair<std::string_view,int>>&,float const&>(uint64_t a1, uint64_t *a2, _DWORD *a3)
+char *std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__emplace_back_slow_path<std::vector<std::pair<std::string_view,int>>&,float const&>(char **a1, __int128 **a2, _DWORD *a3)
 {
-  v3 = (*(a1 + 8) - *a1) >> 5;
+  v3 = (a1[1] - *a1) >> 5;
   v4 = v3 + 1;
   if ((v3 + 1) >> 59)
   {
     std::vector<Darts::DoubleArrayImpl<void,void,int,void>::result_pair_type,std::allocator<Darts::DoubleArrayImpl<void,void,int,void>::result_pair_type>>::__throw_length_error[abi:ne200100]();
   }
 
-  v8 = *(a1 + 16) - *a1;
+  v8 = a1[2] - *a1;
   if (v8 >> 4 > v4)
   {
     v4 = v8 >> 4;
@@ -859,14 +657,14 @@ char *std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>
   std::vector<std::pair<std::string_view,int>>::__init_with_size[abi:ne200100]<std::pair<std::string_view,int>*,std::pair<std::string_view,int>*>(v10, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
   *(v10 + 24) = *a3;
   v11 = v19 + 32;
-  v12 = *(a1 + 8) - *a1;
+  v12 = a1[1] - *a1;
   v13 = &v18[-v12];
   memcpy(&v18[-v12], *a1, v12);
   v14 = *a1;
   *a1 = v13;
-  *(a1 + 8) = v11;
-  v15 = *(a1 + 16);
-  *(a1 + 16) = v20;
+  a1[1] = v11;
+  v15 = a1[2];
+  a1[2] = v20;
   v19 = v14;
   v20 = v15;
   v17 = v14;
@@ -875,23 +673,23 @@ char *std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>
   return v11;
 }
 
-void sub_26757495C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26757495C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::pair<std::vector<int>,float>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-char *std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__emplace_back_slow_path<std::vector<std::pair<std::string_view,int>>&,double>(uint64_t a1, uint64_t *a2, double *a3)
+char *std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__emplace_back_slow_path<std::vector<std::pair<std::string_view,int>>&,double>(char **a1, __int128 **a2, double *a3)
 {
-  v3 = (*(a1 + 8) - *a1) >> 5;
+  v3 = (a1[1] - *a1) >> 5;
   v4 = v3 + 1;
   if ((v3 + 1) >> 59)
   {
     std::vector<Darts::DoubleArrayImpl<void,void,int,void>::result_pair_type,std::allocator<Darts::DoubleArrayImpl<void,void,int,void>::result_pair_type>>::__throw_length_error[abi:ne200100]();
   }
 
-  v8 = *(a1 + 16) - *a1;
+  v8 = a1[2] - *a1;
   if (v8 >> 4 > v4)
   {
     v4 = v8 >> 4;
@@ -925,14 +723,14 @@ char *std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>
   v11 = *a3;
   *(v10 + 24) = v11;
   v12 = v20 + 32;
-  v13 = *(a1 + 8) - *a1;
+  v13 = a1[1] - *a1;
   v14 = &v19[-v13];
   memcpy(&v19[-v13], *a1, v13);
   v15 = *a1;
   *a1 = v14;
-  *(a1 + 8) = v12;
-  v16 = *(a1 + 16);
-  *(a1 + 16) = v21;
+  a1[1] = v12;
+  v16 = a1[2];
+  a1[2] = v21;
   v20 = v15;
   v21 = v16;
   v18 = v15;
@@ -941,27 +739,27 @@ char *std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>
   return v12;
 }
 
-void sub_267574A88(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_267574A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::pair<std::vector<int>,float>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<std::vector<sentencepiece::unigram::Lattice::Node *>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::vector<sentencepiece::unigram::Lattice::Node *>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::vector<sentencepiece::unigram::Lattice::Node *>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::vector<sentencepiece::unigram::Lattice::Node *>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::vector<sentencepiece::unigram::Lattice::Node *>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<sentencepiece::unigram::Lattice::Node *>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -971,7 +769,7 @@ void std::vector<std::vector<sentencepiece::unigram::Lattice::Node *>>::__valloc
   std::vector<Darts::DoubleArrayImpl<void,void,int,void>::result_pair_type,std::allocator<Darts::DoubleArrayImpl<void,void,int,void>::result_pair_type>>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::vector<sentencepiece::unigram::Lattice::Node *>::__assign_with_size[abi:ne200100]<sentencepiece::unigram::Lattice::Node **,sentencepiece::unigram::Lattice::Node **>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<sentencepiece::unigram::Lattice::Node *>::__assign_with_size[abi:ne200100]<sentencepiece::unigram::Lattice::Node **,sentencepiece::unigram::Lattice::Node **>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -1067,16 +865,16 @@ __n128 std::vector<sentencepiece::unigram::Lattice::Node *>::__move_assign(uint6
   return result;
 }
 
-char *std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__emplace_back_slow_path<std::vector<std::pair<std::string_view,int>>&,float>(uint64_t a1, uint64_t *a2, _DWORD *a3)
+char *std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__emplace_back_slow_path<std::vector<std::pair<std::string_view,int>>&,float>(char **a1, __int128 **a2, _DWORD *a3)
 {
-  v3 = (*(a1 + 8) - *a1) >> 5;
+  v3 = (a1[1] - *a1) >> 5;
   v4 = v3 + 1;
   if ((v3 + 1) >> 59)
   {
     std::vector<Darts::DoubleArrayImpl<void,void,int,void>::result_pair_type,std::allocator<Darts::DoubleArrayImpl<void,void,int,void>::result_pair_type>>::__throw_length_error[abi:ne200100]();
   }
 
-  v8 = *(a1 + 16) - *a1;
+  v8 = a1[2] - *a1;
   if (v8 >> 4 > v4)
   {
     v4 = v8 >> 4;
@@ -1109,14 +907,14 @@ char *std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>
   std::vector<std::pair<std::string_view,int>>::__init_with_size[abi:ne200100]<std::pair<std::string_view,int>*,std::pair<std::string_view,int>*>(v10, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
   *(v10 + 24) = *a3;
   v11 = v19 + 32;
-  v12 = *(a1 + 8) - *a1;
+  v12 = a1[1] - *a1;
   v13 = &v18[-v12];
   memcpy(&v18[-v12], *a1, v12);
   v14 = *a1;
   *a1 = v13;
-  *(a1 + 8) = v11;
-  v15 = *(a1 + 16);
-  *(a1 + 16) = v20;
+  a1[1] = v11;
+  v15 = a1[2];
+  a1[2] = v20;
   v19 = v14;
   v20 = v15;
   v17 = v14;
@@ -1125,9 +923,9 @@ char *std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>
   return v11;
 }
 
-void sub_267574E20(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_267574E20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::pair<std::vector<int>,float>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1410,7 +1208,7 @@ void InitDefaultsscc_info_SentencePieceText_SentencePiece_sentencepiece_2eproto(
   google::protobuf::internal::OnShutdownRun(google::protobuf::internal::DestroyMessage, &sentencepiece::_SentencePieceText_SentencePiece_default_instance_, v4);
 }
 
-uint64_t sentencepiece::SentencePieceText_SentencePiece::SentencePieceText_SentencePiece(uint64_t a1, uint64_t a2)
+uint64_t sentencepiece::SentencePieceText_SentencePiece::SentencePieceText_SentencePiece(uint64_t a1, google::protobuf::Arena *a2)
 {
   *a1 = &unk_2878A2C10;
   *(a1 + 8) = a2;
@@ -1494,9 +1292,9 @@ LABEL_4:
   return result;
 }
 
-void sub_2675756C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2675756C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1674,7 +1472,7 @@ LABEL_43:
             v28 = *(this + 1);
             if (v28)
             {
-              v29 = ((v28 & 0xFFFFFFFFFFFFFFFELL) + 8);
+              v29 = (v28 & 0xFFFFFFFFFFFFFFFELL) + 8;
             }
 
             else
@@ -1838,7 +1636,7 @@ LABEL_2:
   return v36;
 }
 
-unsigned __int8 *sentencepiece::SentencePieceText_SentencePiece::_InternalSerialize(sentencepiece::SentencePieceText_SentencePiece *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+char *sentencepiece::SentencePieceText_SentencePiece::_InternalSerialize(sentencepiece::SentencePieceText_SentencePiece *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v4 = a2;
   v6 = *(this + 10);
@@ -2063,7 +1861,7 @@ LABEL_39:
   return google::protobuf::io::EpsCopyOutputStream::WriteRawFallback(a3, v25, v24, v19);
 }
 
-unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAliased(google::protobuf::io::EpsCopyOutputStream *a1, int a2, const void **a3, char *a4)
+char *google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAliased(google::protobuf::io::EpsCopyOutputStream *a1, int a2, const void ***a3, char *a4)
 {
   v4 = *(a3 + 23);
   if ((v4 & 0x8000000000000000) == 0 || (v4 = a3[1], v4 <= 127))
@@ -2243,7 +2041,6 @@ LABEL_8:
 
 void sentencepiece::SentencePieceText_SentencePiece::CheckTypeAndMergeFrom(sentencepiece::SentencePieceText_SentencePiece *this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     sentencepiece::SentencePieceText_SentencePiece::CheckTypeAndMergeFrom();
   }
@@ -2381,9 +2178,9 @@ LABEL_29:
   }
 }
 
-void sub_2675762CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2675762CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2420,22 +2217,22 @@ LABEL_21:
     goto LABEL_9;
   }
 
-  v9 = ((v6 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  v9 = (v6 & 0xFFFFFFFFFFFFFFFELL) + 8;
   if ((v5 & 1) == 0)
   {
     goto LABEL_21;
   }
 
 LABEL_6:
-  v10 = ((v5 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  v10 = (v5 & 0xFFFFFFFFFFFFFFFELL) + 8;
 LABEL_7:
-  v11 = *(v10 + 2);
+  v11 = *(v10 + 16);
   v12 = *v10;
-  v13 = *(v9 + 2);
+  v13 = *(v9 + 16);
   *v10 = *v9;
-  *(v10 + 2) = v13;
+  *(v10 + 16) = v13;
   *v9 = v12;
-  *(v9 + 2) = v11;
+  *(v9 + 16) = v11;
   v5 = *(this + 1);
   LODWORD(v11) = *(this + 10);
   *(this + 10) = *(a2 + 10);
@@ -2494,7 +2291,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sentencepiece::SentencePieceText::SentencePieceText(uint64_t a1, uint64_t a2)
+uint64_t sentencepiece::SentencePieceText::SentencePieceText(uint64_t a1, google::protobuf::Arena *a2)
 {
   *a1 = &unk_2878A2C90;
   *(a1 + 8) = a2;
@@ -2572,9 +2369,9 @@ LABEL_4:
   }
 }
 
-void sub_26757669C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26757669C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2679,7 +2476,7 @@ LABEL_7:
       {
         if (v8 == 18)
         {
-          v14 = v7 - 1;
+          v14 = (v7 - 1);
           while (1)
           {
             v15 = (v14 + 1);
@@ -2728,7 +2525,7 @@ LABEL_27:
 
           v17 = *(this + 15);
 LABEL_23:
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 12, v17 + 1);
+          google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 48), v17 + 1);
           v16 = *(this + 8);
           v17 = *v16;
           goto LABEL_24;
@@ -2756,7 +2553,7 @@ LABEL_13:
           v26 = *(this + 1);
           if (v26)
           {
-            v27 = ((v26 & 0xFFFFFFFFFFFFFFFELL) + 8);
+            v27 = (v26 & 0xFFFFFFFFFFFFFFFELL) + 8;
           }
 
           else
@@ -2817,7 +2614,7 @@ LABEL_2:
   return v28;
 }
 
-unsigned __int8 *sentencepiece::SentencePieceText::_InternalSerialize(sentencepiece::SentencePieceText *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+char *sentencepiece::SentencePieceText::_InternalSerialize(sentencepiece::SentencePieceText *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v4 = a2;
   v6 = *(this + 10);
@@ -2992,7 +2789,6 @@ uint64_t sentencepiece::SentencePieceText::ByteSizeLong(sentencepiece::SentenceP
 
 void sentencepiece::SentencePieceText::CheckTypeAndMergeFrom(sentencepiece::SentencePieceText *this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     sentencepiece::SentencePieceText_SentencePiece::CheckTypeAndMergeFrom();
   }
@@ -3077,9 +2873,9 @@ void sentencepiece::SentencePieceText::MergeFrom(sentencepiece::SentencePieceTex
   }
 }
 
-void sub_267576F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_267576F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3165,9 +2961,9 @@ LABEL_4:
   JUMPOUT(0x26D5F93A0);
 }
 
-void sub_2675770F0(void *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2675770F0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   __clang_call_terminate(a1);
 }
@@ -3226,7 +3022,7 @@ google::protobuf::internal *sentencepiece::NBestSentencePieceText::_InternalPars
 LABEL_6:
       if (v6 == 10)
       {
-        v11 = v5 - 1;
+        v11 = (v5 - 1);
         while (1)
         {
           v12 = (v11 + 1);
@@ -3275,7 +3071,7 @@ LABEL_23:
 
         v14 = *(this + 7);
 LABEL_19:
-        google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 4, v14 + 1);
+        google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 16), v14 + 1);
         v13 = *(this + 4);
         v14 = *v13;
         goto LABEL_20;
@@ -3300,7 +3096,7 @@ LABEL_19:
       v9 = *(this + 1);
       if (v9)
       {
-        v10 = ((v9 & 0xFFFFFFFFFFFFFFFELL) + 8);
+        v10 = (v9 & 0xFFFFFFFFFFFFFFFELL) + 8;
       }
 
       else
@@ -3331,7 +3127,7 @@ LABEL_5:
   return v22;
 }
 
-unsigned __int8 *sentencepiece::NBestSentencePieceText::_InternalSerialize(sentencepiece::NBestSentencePieceText *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+char *sentencepiece::NBestSentencePieceText::_InternalSerialize(sentencepiece::NBestSentencePieceText *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v6 = *(this + 6);
   if (v6)
@@ -3465,7 +3261,6 @@ uint64_t sentencepiece::NBestSentencePieceText::ByteSizeLong(sentencepiece::NBes
 
 void sentencepiece::NBestSentencePieceText::CheckTypeAndMergeFrom(sentencepiece::NBestSentencePieceText *this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     sentencepiece::SentencePieceText_SentencePiece::CheckTypeAndMergeFrom();
   }
@@ -3526,9 +3321,9 @@ void sentencepiece::NBestSentencePieceText::MergeFrom(sentencepiece::NBestSenten
   google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<sentencepiece::SentencePieceText>::TypeHandler>(this + 16, a2 + 16);
 }
 
-void sub_2675776D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2675776D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3628,9 +3423,9 @@ uint64_t google::protobuf::internal::ArenaStringPtr::UnsafeMutablePointer(google
   return result;
 }
 
-void sub_267577ADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_267577ADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3682,14 +3477,14 @@ uint64_t google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(google::p
   return v8 & 1;
 }
 
-void sub_267577C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_267577C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-char *google::protobuf::internal::InternalMetadata::mutable_unknown_fields_slow<std::string>(unint64_t *a1)
+unint64_t google::protobuf::internal::InternalMetadata::mutable_unknown_fields_slow<std::string>(unint64_t *a1)
 {
   v2 = *a1;
   if ((*a1 & 1) == 0)
@@ -3719,7 +3514,7 @@ LABEL_3:
   *(AlignedAndAddCleanup + 16) = 0u;
   *a1 = AlignedAndAddCleanup | 1;
   *AlignedAndAddCleanup = v2;
-  return (AlignedAndAddCleanup + 8);
+  return AlignedAndAddCleanup + 8;
 }
 
 void google::protobuf::internal::arena_destruct_object<google::protobuf::internal::InternalMetadata::Container<std::string>>(uint64_t a1)
@@ -3756,9 +3551,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::R
   }
 }
 
-void sub_267577DB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_267577DB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3789,9 +3584,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::R
   }
 }
 
-void sub_267577E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_267577E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3862,9 +3657,9 @@ uint64_t google::protobuf::internal::EpsCopyInputStream::PushLimit(google::proto
   return (v7 - v8);
 }
 
-void sub_267578010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_267578010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3895,14 +3690,14 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_2675780FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2675780FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<sentencepiece::SentencePieceText_SentencePiece>::TypeHandler>(uint64_t *a1, sentencepiece::SentencePieceText_SentencePiece **a2, sentencepiece::SentencePieceText_SentencePiece **a3, unsigned int a4, unsigned int a5)
+void google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<sentencepiece::SentencePieceText_SentencePiece>::TypeHandler>(uint64_t *result, sentencepiece::SentencePieceText_SentencePiece **a2, sentencepiece::SentencePieceText_SentencePiece **a3, int a4, int a5)
 {
   if (a5 >= a4)
   {
@@ -3934,7 +3729,7 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google
   v17 = a4 - a5;
   if (!((v17 < 0) ^ v16 | (v17 == 0)))
   {
-    v18 = *a1;
+    v18 = *result;
     v19 = &a3[a5];
     v20 = &a2[a5];
     do
@@ -4014,14 +3809,14 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_267578368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_267578368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<sentencepiece::SentencePieceText>::TypeHandler>(uint64_t *a1, sentencepiece::SentencePieceText **a2, sentencepiece::SentencePieceText **a3, unsigned int a4, unsigned int a5)
+void google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<sentencepiece::SentencePieceText>::TypeHandler>(uint64_t *result, sentencepiece::SentencePieceText **a2, sentencepiece::SentencePieceText **a3, int a4, int a5)
 {
   if (a5 >= a4)
   {
@@ -4053,7 +3848,7 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google
   v17 = a4 - a5;
   if (!((v17 < 0) ^ v16 | (v17 == 0)))
   {
-    v18 = *a1;
+    v18 = *result;
     v19 = &a3[a5];
     v20 = &a2[a5];
     do
@@ -4117,7 +3912,7 @@ void InitDefaultsscc_info_TrainerSpec_sentencepiece_5fmodel_2eproto(uint64_t a1,
   google::protobuf::internal::OnShutdownRun(google::protobuf::internal::DestroyMessage, &sentencepiece::_TrainerSpec_default_instance_, v4);
 }
 
-uint64_t sentencepiece::TrainerSpec::TrainerSpec(uint64_t a1, uint64_t a2)
+uint64_t sentencepiece::TrainerSpec::TrainerSpec(uint64_t a1, google::protobuf::Arena *a2)
 {
   *a1 = &unk_2878A2E00;
   *(a1 + 8) = a2;
@@ -4176,10 +3971,10 @@ void sentencepiece::TrainerSpec::~TrainerSpec(sentencepiece::TrainerSpec *this)
 {
   sentencepiece::TrainerSpec::SharedDtor(this);
   google::protobuf::internal::InternalMetadata::Delete<std::string>(this + 1);
-  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(this + 128);
-  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(this + 104);
-  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(this + 80);
-  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(this + 56);
+  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(this + 16);
+  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(this + 13);
+  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(this + 10);
+  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(this + 7);
   google::protobuf::internal::ExtensionSet::~ExtensionSet((this + 16));
 }
 
@@ -4326,9 +4121,9 @@ LABEL_4:
   return result;
 }
 
-void sub_267578B38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_267578B38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4403,7 +4198,7 @@ LABEL_6:
       goto LABEL_7;
     }
 
-    goto LABEL_27;
+    goto LABEL_25;
   }
 
   if ((v2 & 2) == 0)
@@ -4440,12 +4235,6 @@ LABEL_5:
   }
 
 LABEL_24:
-  v6 = *(this + 1);
-  if (v6)
-  {
-    v14 = *(v6 & 0xFFFFFFFFFFFFFFFELL);
-  }
-
   google::protobuf::internal::ArenaStringPtr::ClearToDefault((this + 176), &sentencepiece::TrainerSpec::_i_give_permission_to_break_this_code_default_unk_surface_);
   if ((v2 & 0x10) == 0)
   {
@@ -4455,16 +4244,10 @@ LABEL_7:
       goto LABEL_8;
     }
 
-    goto LABEL_30;
+    goto LABEL_26;
   }
 
-LABEL_27:
-  v7 = *(this + 1);
-  if (v7)
-  {
-    v15 = *(v7 & 0xFFFFFFFFFFFFFFFELL);
-  }
-
+LABEL_25:
   google::protobuf::internal::ArenaStringPtr::ClearToDefault((this + 184), &sentencepiece::TrainerSpec::_i_give_permission_to_break_this_code_default_unk_piece_);
   if ((v2 & 0x20) == 0)
   {
@@ -4474,39 +4257,27 @@ LABEL_8:
       goto LABEL_9;
     }
 
-    goto LABEL_33;
+    goto LABEL_27;
   }
 
-LABEL_30:
-  v8 = *(this + 1);
-  if (v8)
-  {
-    v16 = *(v8 & 0xFFFFFFFFFFFFFFFELL);
-  }
-
+LABEL_26:
   google::protobuf::internal::ArenaStringPtr::ClearToDefault(this + 8, &sentencepiece::TrainerSpec::_i_give_permission_to_break_this_code_default_bos_piece_);
   if ((v2 & 0x40) != 0)
   {
-LABEL_33:
-    v9 = *(this + 1);
-    if (v9)
-    {
-      v17 = *(v9 & 0xFFFFFFFFFFFFFFFELL);
-    }
-
+LABEL_27:
     google::protobuf::internal::ArenaStringPtr::ClearToDefault((this + 200), &sentencepiece::TrainerSpec::_i_give_permission_to_break_this_code_default_eos_piece_);
     if ((v2 & 0x80) != 0)
     {
-      goto LABEL_36;
+      goto LABEL_28;
     }
 
 LABEL_10:
     if ((v2 & 0x100) == 0)
     {
-      goto LABEL_42;
+      goto LABEL_32;
     }
 
-    goto LABEL_39;
+    goto LABEL_29;
   }
 
 LABEL_9:
@@ -4515,32 +4286,28 @@ LABEL_9:
     goto LABEL_10;
   }
 
-LABEL_36:
-  v10 = *(this + 1);
-  if (v10)
-  {
-    v18 = *(v10 & 0xFFFFFFFFFFFFFFFELL);
-  }
-
+LABEL_28:
   google::protobuf::internal::ArenaStringPtr::ClearToDefault((this + 208), &sentencepiece::TrainerSpec::_i_give_permission_to_break_this_code_default_pad_piece_);
-  if ((v2 & 0x100) != 0)
+  if ((v2 & 0x100) == 0)
   {
-LABEL_39:
-    v11 = *(this + 27) & 0xFFFFFFFFFFFFFFFELL;
-    if (*(v11 + 23) < 0)
-    {
-      **v11 = 0;
-      *(v11 + 8) = 0;
-    }
-
-    else
-    {
-      *v11 = 0;
-      *(v11 + 23) = 0;
-    }
+    goto LABEL_32;
   }
 
-LABEL_42:
+LABEL_29:
+  v6 = *(this + 27) & 0xFFFFFFFFFFFFFFFELL;
+  if (*(v6 + 23) < 0)
+  {
+    **v6 = 0;
+    *(v6 + 8) = 0;
+  }
+
+  else
+  {
+    *v6 = 0;
+    *(v6 + 23) = 0;
+  }
+
+LABEL_32:
   if ((v2 & 0xFE00) != 0)
   {
     *(this + 28) = 0;
@@ -4573,25 +4340,25 @@ LABEL_42:
 
   *(this + 81) = -1;
   *(this + 5) = 0;
-  v12 = *(this + 1);
-  if (v12)
+  v7 = *(this + 1);
+  if (v7)
   {
-    v13 = v12 & 0xFFFFFFFFFFFFFFFELL;
-    if (*(v13 + 31) < 0)
+    v8 = v7 & 0xFFFFFFFFFFFFFFFELL;
+    if (*(v8 + 31) < 0)
     {
-      **(v13 + 8) = 0;
-      *(v13 + 16) = 0;
+      **(v8 + 8) = 0;
+      *(v8 + 16) = 0;
     }
 
     else
     {
-      *(v13 + 8) = 0;
-      *(v13 + 31) = 0;
+      *(v8 + 8) = 0;
+      *(v8 + 31) = 0;
     }
   }
 }
 
-unsigned __int8 *sentencepiece::TrainerSpec::_InternalSerialize(sentencepiece::TrainerSpec *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+char *sentencepiece::TrainerSpec::_InternalSerialize(sentencepiece::TrainerSpec *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v6 = *(this + 16);
   if (v6 >= 1)
@@ -6727,7 +6494,6 @@ LABEL_94:
 
 void sentencepiece::TrainerSpec::CheckTypeAndMergeFrom(sentencepiece::TrainerSpec *this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     sentencepiece::SentencePieceText_SentencePiece::CheckTypeAndMergeFrom();
   }
@@ -7371,14 +7137,14 @@ LABEL_90:
   }
 }
 
-void sub_26757AE5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26757AE5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sentencepiece::NormalizerSpec::NormalizerSpec(uint64_t a1, uint64_t a2)
+uint64_t sentencepiece::NormalizerSpec::NormalizerSpec(uint64_t a1, google::protobuf::Arena *a2)
 {
   *a1 = &unk_2878A2E80;
   *(a1 + 8) = a2;
@@ -7475,9 +7241,9 @@ LABEL_4:
   return result;
 }
 
-void sub_26757B0C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26757B0C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -7746,7 +7512,7 @@ LABEL_57:
             v31 = *(this + 1);
             if (v31)
             {
-              v32 = ((v31 & 0xFFFFFFFFFFFFFFFELL) + 8);
+              v32 = (v31 & 0xFFFFFFFFFFFFFFFELL) + 8;
             }
 
             else
@@ -7894,7 +7660,7 @@ LABEL_2:
   return v41;
 }
 
-unsigned __int8 *sentencepiece::NormalizerSpec::_InternalSerialize(sentencepiece::NormalizerSpec *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+char *sentencepiece::NormalizerSpec::_InternalSerialize(sentencepiece::NormalizerSpec *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v4 = a2;
   v6 = *(this + 12);
@@ -8134,7 +7900,6 @@ LABEL_11:
 
 void sentencepiece::NormalizerSpec::CheckTypeAndMergeFrom(sentencepiece::NormalizerSpec *this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     sentencepiece::SentencePieceText_SentencePiece::CheckTypeAndMergeFrom();
   }
@@ -8306,9 +8071,9 @@ LABEL_35:
   }
 }
 
-void sub_26757BC24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26757BC24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8393,9 +8158,9 @@ LABEL_4:
   return result;
 }
 
-void sub_26757BE00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26757BE00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8549,7 +8314,7 @@ LABEL_26:
     v11 = *(this + 1);
     if (v11)
     {
-      v12 = ((v11 & 0xFFFFFFFFFFFFFFFELL) + 8);
+      v12 = (v11 & 0xFFFFFFFFFFFFFFFELL) + 8;
     }
 
     else
@@ -8570,7 +8335,7 @@ LABEL_27:
   return v20;
 }
 
-unsigned __int8 *sentencepiece::SelfTestData_Sample::_InternalSerialize(sentencepiece::SelfTestData_Sample *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+char *sentencepiece::SelfTestData_Sample::_InternalSerialize(sentencepiece::SelfTestData_Sample *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v4 = a2;
   v6 = *(this + 4);
@@ -8677,7 +8442,6 @@ LABEL_12:
 
 void sentencepiece::SelfTestData_Sample::CheckTypeAndMergeFrom(sentencepiece::SelfTestData_Sample *this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     sentencepiece::SentencePieceText_SentencePiece::CheckTypeAndMergeFrom();
   }
@@ -8766,14 +8530,14 @@ void sentencepiece::SelfTestData_Sample::MergeFrom(sentencepiece::SelfTestData_S
   }
 }
 
-void sub_26757C3E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26757C3E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sentencepiece::SelfTestData::SelfTestData(uint64_t a1, uint64_t a2)
+uint64_t sentencepiece::SelfTestData::SelfTestData(uint64_t a1, google::protobuf::Arena *a2)
 {
   *a1 = &unk_2878A2FE0;
   *(a1 + 8) = a2;
@@ -8832,9 +8596,9 @@ LABEL_4:
   JUMPOUT(0x26D5F93A0);
 }
 
-void sub_26757C554(void *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26757C554(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   __clang_call_terminate(a1);
 }
@@ -8894,7 +8658,7 @@ google::protobuf::internal *sentencepiece::SelfTestData::_InternalParse(sentence
 LABEL_6:
       if (v6 == 10)
       {
-        v10 = v5 - 1;
+        v10 = (v5 - 1);
         while (1)
         {
           v11 = (v10 + 1);
@@ -8943,7 +8707,7 @@ LABEL_20:
 
         v13 = *(this + 13);
 LABEL_16:
-        google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 10, v13 + 1);
+        google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 40), v13 + 1);
         v12 = *(this + 7);
         v13 = *v12;
         goto LABEL_17;
@@ -8970,7 +8734,7 @@ LABEL_16:
         v18 = *(this + 1);
         if (v18)
         {
-          v19 = ((v18 & 0xFFFFFFFFFFFFFFFELL) + 8);
+          v19 = (v18 & 0xFFFFFFFFFFFFFFFELL) + 8;
         }
 
         else
@@ -9009,7 +8773,7 @@ LABEL_5:
   return v23;
 }
 
-unsigned __int8 *sentencepiece::SelfTestData::_InternalSerialize(sentencepiece::SelfTestData *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+char *sentencepiece::SelfTestData::_InternalSerialize(sentencepiece::SelfTestData *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v6 = *(this + 12);
   if (v6)
@@ -9142,7 +8906,6 @@ uint64_t sentencepiece::SelfTestData::ByteSizeLong(sentencepiece::SelfTestData *
 
 void sentencepiece::SelfTestData::CheckTypeAndMergeFrom(sentencepiece::SelfTestData *this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     sentencepiece::SentencePieceText_SentencePiece::CheckTypeAndMergeFrom();
   }
@@ -9204,14 +8967,14 @@ void sentencepiece::SelfTestData::MergeFrom(sentencepiece::SelfTestData *this, c
   google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<sentencepiece::SelfTestData_Sample>::TypeHandler>(this + 40, a2 + 40);
 }
 
-void sub_26757CB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26757CB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void *sentencepiece::ModelProto_SentencePiece::ModelProto_SentencePiece(void *a1, uint64_t a2)
+void *sentencepiece::ModelProto_SentencePiece::ModelProto_SentencePiece(void *a1, google::protobuf::Arena *a2)
 {
   *a1 = &unk_2878A3060;
   a1[1] = a2;
@@ -9278,9 +9041,9 @@ LABEL_4:
   }
 }
 
-void sub_26757CD54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26757CD54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9454,7 +9217,7 @@ LABEL_25:
         v21 = *(this + 1);
         if (v21)
         {
-          v22 = ((v21 & 0xFFFFFFFFFFFFFFFELL) + 8);
+          v22 = (v21 & 0xFFFFFFFFFFFFFFFELL) + 8;
         }
 
         else
@@ -9496,7 +9259,7 @@ LABEL_2:
   return v23;
 }
 
-unsigned __int8 *sentencepiece::ModelProto_SentencePiece::_InternalSerialize(sentencepiece::ModelProto_SentencePiece *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+char *sentencepiece::ModelProto_SentencePiece::_InternalSerialize(sentencepiece::ModelProto_SentencePiece *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v4 = a2;
   v6 = *(this + 10);
@@ -9666,7 +9429,6 @@ uint64_t sentencepiece::ModelProto_SentencePiece::ByteSizeLong(sentencepiece::Mo
 
 void sentencepiece::ModelProto_SentencePiece::CheckTypeAndMergeFrom(sentencepiece::ModelProto_SentencePiece *this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     sentencepiece::SentencePieceText_SentencePiece::CheckTypeAndMergeFrom();
   }
@@ -9770,14 +9532,14 @@ LABEL_17:
   }
 }
 
-void sub_26757D4D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26757D4D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sentencepiece::ModelProto::ModelProto(uint64_t a1, uint64_t a2)
+uint64_t sentencepiece::ModelProto::ModelProto(uint64_t a1, google::protobuf::Arena *a2)
 {
   *a1 = &unk_2878A30E0;
   *(a1 + 8) = a2;
@@ -9816,4 +9578,423 @@ void sentencepiece::ModelProto::~ModelProto(sentencepiece::ModelProto *this)
   sentencepiece::ModelProto::~ModelProto(this);
 
   JUMPOUT(0x26D5F93A0);
+}
+
+void sentencepiece::ModelProto::SharedDtor(sentencepiece::ModelProto *this)
+{
+  v2 = *(this + 1);
+  if ((v2 & 1) == 0)
+  {
+    if (!v2)
+    {
+      goto LABEL_4;
+    }
+
+    goto LABEL_3;
+  }
+
+  if (*(v2 & 0xFFFFFFFFFFFFFFFELL))
+  {
+LABEL_3:
+    google::protobuf::internal::LogMessage::LogMessage(v9, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/builtin_pb/sentencepiece_model.pb.cc", 3145);
+    v3 = google::protobuf::internal::LogMessage::operator<<(v9, "CHECK failed: GetArena() == nullptr: ");
+    google::protobuf::internal::LogFinisher::operator=(&v8, &v3->__r_.__value_.__l.__data_);
+    google::protobuf::internal::LogMessage::~LogMessage(&v9[0].__r_.__value_.__l.__data_);
+  }
+
+LABEL_4:
+  if (this != &sentencepiece::_ModelProto_default_instance_)
+  {
+    v4 = *(this + 10);
+    if (v4)
+    {
+      sentencepiece::TrainerSpec::~TrainerSpec(v4);
+      MEMORY[0x26D5F93A0]();
+    }
+
+    v5 = *(this + 11);
+    if (v5)
+    {
+      sentencepiece::NormalizerSpec::~NormalizerSpec(v5);
+      MEMORY[0x26D5F93A0]();
+    }
+
+    v6 = *(this + 12);
+    if (v6)
+    {
+      sentencepiece::SelfTestData::~SelfTestData(v6);
+      MEMORY[0x26D5F93A0]();
+    }
+
+    v7 = *(this + 13);
+    if (v7)
+    {
+      sentencepiece::NormalizerSpec::~NormalizerSpec(v7);
+      MEMORY[0x26D5F93A0]();
+    }
+  }
+}
+
+void sub_26757D718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+void non-virtual thunk tosentencepiece::ModelProto::~ModelProto(sentencepiece::ModelProto *this)
+{
+  sentencepiece::ModelProto::~ModelProto((this - 16));
+}
+
+{
+  sentencepiece::ModelProto::~ModelProto((this - 16));
+
+  JUMPOUT(0x26D5F93A0);
+}
+
+void sentencepiece::ModelProto::Clear(sentencepiece::ModelProto *this)
+{
+  google::protobuf::internal::ExtensionSet::Clear((this + 24));
+  google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::RepeatedPtrField<sentencepiece::ModelProto_SentencePiece>::TypeHandler>(this + 56);
+  v2 = *(this + 12);
+  if ((v2 & 0xF) != 0)
+  {
+    if (v2)
+    {
+      v3 = *(this + 10);
+      if (!v3)
+      {
+        google::protobuf::internal::LogMessage::LogMessage(v14, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/builtin_pb/sentencepiece_model.pb.cc", 3178);
+        v4 = google::protobuf::internal::LogMessage::operator<<(v14, "CHECK failed: trainer_spec_ != nullptr: ");
+        google::protobuf::internal::LogFinisher::operator=(&v13, &v4->__r_.__value_.__l.__data_);
+        google::protobuf::internal::LogMessage::~LogMessage(&v14[0].__r_.__value_.__l.__data_);
+        v3 = *(this + 10);
+      }
+
+      sentencepiece::TrainerSpec::Clear(v3);
+    }
+
+    if ((v2 & 2) != 0)
+    {
+      v5 = *(this + 11);
+      if (!v5)
+      {
+        google::protobuf::internal::LogMessage::LogMessage(v14, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/builtin_pb/sentencepiece_model.pb.cc", 3182);
+        v6 = google::protobuf::internal::LogMessage::operator<<(v14, "CHECK failed: normalizer_spec_ != nullptr: ");
+        google::protobuf::internal::LogFinisher::operator=(&v13, &v6->__r_.__value_.__l.__data_);
+        google::protobuf::internal::LogMessage::~LogMessage(&v14[0].__r_.__value_.__l.__data_);
+        v5 = *(this + 11);
+      }
+
+      sentencepiece::NormalizerSpec::Clear(v5);
+    }
+
+    if ((v2 & 4) != 0)
+    {
+      v7 = *(this + 12);
+      if (!v7)
+      {
+        google::protobuf::internal::LogMessage::LogMessage(v14, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/builtin_pb/sentencepiece_model.pb.cc", 3186);
+        v8 = google::protobuf::internal::LogMessage::operator<<(v14, "CHECK failed: self_test_data_ != nullptr: ");
+        google::protobuf::internal::LogFinisher::operator=(&v13, &v8->__r_.__value_.__l.__data_);
+        google::protobuf::internal::LogMessage::~LogMessage(&v14[0].__r_.__value_.__l.__data_);
+        v7 = *(this + 12);
+      }
+
+      sentencepiece::SelfTestData::Clear(v7);
+    }
+
+    if ((v2 & 8) != 0)
+    {
+      v9 = *(this + 13);
+      if (!v9)
+      {
+        google::protobuf::internal::LogMessage::LogMessage(v14, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/builtin_pb/sentencepiece_model.pb.cc", 3190);
+        v10 = google::protobuf::internal::LogMessage::operator<<(v14, "CHECK failed: denormalizer_spec_ != nullptr: ");
+        google::protobuf::internal::LogFinisher::operator=(&v13, &v10->__r_.__value_.__l.__data_);
+        google::protobuf::internal::LogMessage::~LogMessage(&v14[0].__r_.__value_.__l.__data_);
+        v9 = *(this + 13);
+      }
+
+      sentencepiece::NormalizerSpec::Clear(v9);
+    }
+  }
+
+  *(this + 12) = 0;
+  v11 = *(this + 1);
+  if (v11)
+  {
+    v12 = v11 & 0xFFFFFFFFFFFFFFFELL;
+    if (*(v12 + 31) < 0)
+    {
+      **(v12 + 8) = 0;
+      *(v12 + 16) = 0;
+    }
+
+    else
+    {
+      *(v12 + 8) = 0;
+      *(v12 + 31) = 0;
+    }
+  }
+}
+
+void sub_26757D964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+google::protobuf::internal *sentencepiece::ModelProto::_InternalParse(sentencepiece::ModelProto *this, google::protobuf::internal *a2, google::protobuf::internal::ParseContext *a3)
+{
+  v32 = a2;
+  if ((google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(a3, &v32, *(a3 + 23)) & 1) == 0)
+  {
+    while (1)
+    {
+      v6 = (v32 + 1);
+      v7 = *v32;
+      if ((*v32 & 0x80000000) == 0)
+      {
+        goto LABEL_6;
+      }
+
+      v8 = v7 + (*v6 << 7);
+      v7 = v8 - 128;
+      if ((*v6 & 0x80000000) == 0)
+      {
+        break;
+      }
+
+      TagFallback = google::protobuf::internal::ReadTagFallback(v32, (v8 - 128));
+      v32 = TagFallback;
+      if (!TagFallback)
+      {
+        return 0;
+      }
+
+      v6 = TagFallback;
+      v7 = v29;
+LABEL_7:
+      v9 = v7 >> 3;
+      if (v7 >> 3 > 2)
+      {
+        if (v9 == 3)
+        {
+          if (v7 == 26)
+          {
+            *(this + 12) |= 2u;
+            v10 = *(this + 11);
+            if (!v10)
+            {
+              v16 = *(this + 1);
+              if (v16)
+              {
+                v16 = *(v16 & 0xFFFFFFFFFFFFFFFELL);
+              }
+
+              v10 = google::protobuf::Arena::CreateMaybeMessage<sentencepiece::NormalizerSpec>(v16);
+              *(this + 11) = v10;
+LABEL_32:
+              v6 = v32;
+            }
+
+LABEL_33:
+            v15 = google::protobuf::internal::ParseContext::ParseMessage<sentencepiece::NormalizerSpec>(a3, v10, v6);
+            goto LABEL_65;
+          }
+        }
+
+        else if (v9 == 4)
+        {
+          if (v7 == 34)
+          {
+            *(this + 12) |= 4u;
+            v17 = *(this + 12);
+            if (!v17)
+            {
+              v18 = *(this + 1);
+              if (v18)
+              {
+                v18 = *(v18 & 0xFFFFFFFFFFFFFFFELL);
+              }
+
+              v17 = google::protobuf::Arena::CreateMaybeMessage<sentencepiece::SelfTestData>(v18);
+              *(this + 12) = v17;
+              v6 = v32;
+            }
+
+            v15 = google::protobuf::internal::ParseContext::ParseMessage<sentencepiece::SelfTestData>(a3, v17, v6);
+            goto LABEL_65;
+          }
+        }
+
+        else if (v9 == 5 && v7 == 42)
+        {
+          *(this + 12) |= 8u;
+          v10 = *(this + 13);
+          if (!v10)
+          {
+            v11 = *(this + 1);
+            if (v11)
+            {
+              v11 = *(v11 & 0xFFFFFFFFFFFFFFFELL);
+            }
+
+            v10 = google::protobuf::Arena::CreateMaybeMessage<sentencepiece::NormalizerSpec>(v11);
+            *(this + 13) = v10;
+            goto LABEL_32;
+          }
+
+          goto LABEL_33;
+        }
+
+        goto LABEL_54;
+      }
+
+      if (v9 == 1)
+      {
+        if (v7 != 10)
+        {
+          goto LABEL_54;
+        }
+
+        v19 = (v6 - 1);
+        while (2)
+        {
+          v20 = (v19 + 1);
+          v32 = (v19 + 1);
+          v21 = *(this + 9);
+          if (!v21)
+          {
+            v22 = *(this + 17);
+            goto LABEL_44;
+          }
+
+          v26 = *(this + 16);
+          v22 = *v21;
+          if (v26 >= *v21)
+          {
+            if (v22 == *(this + 17))
+            {
+LABEL_44:
+              google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 56), v22 + 1);
+              v21 = *(this + 9);
+              v22 = *v21;
+            }
+
+            *v21 = v22 + 1;
+            v23 = google::protobuf::Arena::CreateMaybeMessage<sentencepiece::ModelProto_SentencePiece>(*(this + 7));
+            v24 = *(this + 16);
+            v25 = *(this + 9) + 8 * v24;
+            *(this + 16) = v24 + 1;
+            *(v25 + 8) = v23;
+            v20 = v32;
+          }
+
+          else
+          {
+            *(this + 16) = v26 + 1;
+            v23 = *&v21[2 * v26 + 2];
+          }
+
+          v19 = google::protobuf::internal::ParseContext::ParseMessage<sentencepiece::ModelProto_SentencePiece>(a3, v23, v20);
+          v32 = v19;
+          if (!v19)
+          {
+            return 0;
+          }
+
+          if (*a3 <= v19 || *v19 != 10)
+          {
+            goto LABEL_66;
+          }
+
+          continue;
+        }
+      }
+
+      if (v9 == 2 && v7 == 18)
+      {
+        *(this + 12) |= 1u;
+        v13 = *(this + 10);
+        if (!v13)
+        {
+          v14 = *(this + 1);
+          if (v14)
+          {
+            v14 = *(v14 & 0xFFFFFFFFFFFFFFFELL);
+          }
+
+          v13 = google::protobuf::Arena::CreateMaybeMessage<sentencepiece::TrainerSpec>(v14);
+          *(this + 10) = v13;
+          v6 = v32;
+        }
+
+        google::protobuf::internal::ParseContext::ParseMessage<sentencepiece::TrainerSpec>(a3, v13, v6);
+        goto LABEL_65;
+      }
+
+LABEL_54:
+      if (v7)
+      {
+        v27 = (v7 & 7) == 4;
+      }
+
+      else
+      {
+        v27 = 1;
+      }
+
+      if (v27)
+      {
+        *(a3 + 20) = v7 - 1;
+        return v32;
+      }
+
+      if (v7 < 0x640)
+      {
+        v30 = *(this + 1);
+        if (v30)
+        {
+          v31 = (v30 & 0xFFFFFFFFFFFFFFFELL) + 8;
+        }
+
+        else
+        {
+          v31 = google::protobuf::internal::InternalMetadata::mutable_unknown_fields_slow<std::string>(this + 1);
+          v6 = v32;
+        }
+
+        v15 = google::protobuf::internal::UnknownFieldParse(v7, v31, v6, a3);
+      }
+
+      else
+      {
+        v15 = google::protobuf::internal::ExtensionSet::ParseField((this + 24), v7, v6, &sentencepiece::_ModelProto_default_instance_, this + 1, a3);
+      }
+
+LABEL_65:
+      v32 = v15;
+      if (!v15)
+      {
+        return 0;
+      }
+
+LABEL_66:
+      if (google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(a3, &v32, *(a3 + 23)))
+      {
+        return v32;
+      }
+    }
+
+    v6 = (v32 + 2);
+LABEL_6:
+    v32 = v6;
+    goto LABEL_7;
+  }
+
+  return v32;
 }

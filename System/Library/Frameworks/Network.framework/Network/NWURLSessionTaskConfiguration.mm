@@ -1,6 +1,6 @@
 @interface NWURLSessionTaskConfiguration
 - (NWConcrete_nw_http_cookie_storage)HTTPCookieStorage;
-- (id)activity;
+- (_DWORD)activity;
 - (id)connectionStateStorage;
 - (id)createRegistrableDomain:(void *)domain;
 - (id)initWithConfiguration:(void *)configuration task:(void *)task request:;
@@ -113,10 +113,10 @@ LABEL_20:
       v8 = v13;
       if (v13)
       {
-        isa = v13[3].super.isa;
-        if (!isa)
+        v14 = v13[6];
+        if (!v14)
         {
-          hTTPCookieStorage = [(objc_class *)v13[6].super.isa HTTPCookieStorage];
+          hTTPCookieStorage = [v13[12] HTTPCookieStorage];
           v16 = hTTPCookieStorage;
           if (hTTPCookieStorage)
           {
@@ -125,14 +125,14 @@ LABEL_20:
             v19 = v18->cookieStorage;
             v18->cookieStorage = v17;
 
-            v20 = v8[3].super.isa;
+            isa = v8[3].super.isa;
             v8[3].super.isa = v18;
           }
 
-          isa = v8[3].super.isa;
+          v14 = v8[3].super.isa;
         }
 
-        v11 = isa;
+        v11 = v14;
         goto LABEL_19;
       }
     }
@@ -214,7 +214,7 @@ LABEL_13:
   return self;
 }
 
-- (id)activity
+- (_DWORD)activity
 {
   if (self)
   {
@@ -305,7 +305,7 @@ LABEL_13:
 
 - (void)configureParameters:(id *)parameters
 {
-  v110 = *MEMORY[0x1E69E9840];
+  v104 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!parameters)
   {
@@ -508,7 +508,7 @@ LABEL_55:
       aBlock[1] = 3221225472;
       aBlock[2] = __53__NWURLSessionTaskConfiguration_configureParameters___block_invoke;
       aBlock[3] = &unk_1E6A3CCB8;
-      v106 = v3;
+      v100 = v3;
       _nw_array_apply(v5, aBlock);
     }
 
@@ -528,7 +528,7 @@ LABEL_55:
 
       else
       {
-        nw_parameters_set_source_application_by_bundle_id_internal(v3, uTF8String);
+        nw_parameters_set_source_application_by_bundle_id_internal(v3, uTF8String, 0);
       }
     }
 
@@ -590,87 +590,85 @@ LABEL_66:
 
   if ([*v12 _requiresSecureHTTPSProxyConnection])
   {
-    nw_parameters_set_https_proxy_over_tls(v3, 1);
+    nw_parameters_set_https_proxy_over_tls(v3);
   }
 
   if ([*v12 _preventsSystemHTTPProxyAuthentication])
   {
     if (v3)
     {
-      _nw_parameters_set_prevents_system_http_proxy_authentication(v3, 1);
+      _nw_parameters_set_prevents_system_http_proxy_authentication();
       goto LABEL_76;
     }
 
-    v72 = __nwlog_obj();
+    v69 = __nwlog_obj();
     *objects = 136446210;
     *&objects[4] = "nw_parameters_set_prevents_system_http_proxy_authentication";
-    LODWORD(v100) = 12;
-    v98 = objects;
-    v73 = _os_log_send_and_compose_impl();
+    v70 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v69, 16, "%{public}s called with null parameters", objects, 12);
 
     type = OS_LOG_TYPE_ERROR;
-    v107 = 0;
-    if (__nwlog_fault(v73, &type, &v107))
+    v101 = 0;
+    if (__nwlog_fault(v70, &type, &v101))
     {
       if (type != OS_LOG_TYPE_FAULT)
       {
-        if (v107 == 1)
+        if (v101 == 1)
         {
           backtrace_string = __nw_create_backtrace_string();
-          v74 = __nwlog_obj();
-          v75 = type;
-          v88 = os_log_type_enabled(v74, type);
+          v71 = __nwlog_obj();
+          v72 = type;
+          v85 = os_log_type_enabled(v71, type);
           if (backtrace_string)
           {
-            if (v88)
+            if (v85)
             {
               *objects = 136446466;
               *&objects[4] = "nw_parameters_set_prevents_system_http_proxy_authentication";
               *&objects[12] = 2082;
               *&objects[14] = backtrace_string;
-              _os_log_impl(&dword_181A37000, v74, v75, "%{public}s called with null parameters, dumping backtrace:%{public}s", objects, 0x16u);
+              _os_log_impl(&dword_181A37000, v71, v72, "%{public}s called with null parameters, dumping backtrace:%{public}s", objects, 0x16u);
             }
 
             free(backtrace_string);
             goto LABEL_173;
           }
 
-          if (!v88)
+          if (!v85)
           {
             goto LABEL_172;
           }
 
           *objects = 136446210;
           *&objects[4] = "nw_parameters_set_prevents_system_http_proxy_authentication";
-          v76 = "%{public}s called with null parameters, no backtrace";
+          v73 = "%{public}s called with null parameters, no backtrace";
         }
 
         else
         {
-          v74 = __nwlog_obj();
-          v75 = type;
-          if (!os_log_type_enabled(v74, type))
+          v71 = __nwlog_obj();
+          v72 = type;
+          if (!os_log_type_enabled(v71, type))
           {
             goto LABEL_172;
           }
 
           *objects = 136446210;
           *&objects[4] = "nw_parameters_set_prevents_system_http_proxy_authentication";
-          v76 = "%{public}s called with null parameters, backtrace limit exceeded";
+          v73 = "%{public}s called with null parameters, backtrace limit exceeded";
         }
 
 LABEL_171:
-        _os_log_impl(&dword_181A37000, v74, v75, v76, objects, 0xCu);
+        _os_log_impl(&dword_181A37000, v71, v72, v73, objects, 0xCu);
         goto LABEL_172;
       }
 
-      v74 = __nwlog_obj();
-      v75 = type;
-      if (os_log_type_enabled(v74, type))
+      v71 = __nwlog_obj();
+      v72 = type;
+      if (os_log_type_enabled(v71, type))
       {
         *objects = 136446210;
         *&objects[4] = "nw_parameters_set_prevents_system_http_proxy_authentication";
-        v76 = "%{public}s called with null parameters";
+        v73 = "%{public}s called with null parameters";
         goto LABEL_171;
       }
 
@@ -678,14 +676,14 @@ LABEL_172:
     }
 
 LABEL_173:
-    if (v73)
+    if (v70)
     {
-      free(v73);
+      free(v70);
     }
   }
 
 LABEL_76:
-  v104 = v5;
+  v98 = v5;
   _attributedBundleIdentifier = [*v12 _attributedBundleIdentifier];
 
   if (_attributedBundleIdentifier)
@@ -694,11 +692,10 @@ LABEL_76:
     nw_parameters_set_attributed_bundle_identifier(v3, [_attributedBundleIdentifier2 UTF8String]);
   }
 
-  nw_parameters_set_skip_stack_trace_capture(v3, 1);
-  countOfBytesClientExpectsToSend = [parameters[3] countOfBytesClientExpectsToSend];
-  v54 = countOfBytesClientExpectsToSend & ~(countOfBytesClientExpectsToSend >> 63);
-  countOfBytesClientExpectsToReceive = [parameters[3] countOfBytesClientExpectsToReceive];
-  nw_parameters_set_expected_workload(v3, (countOfBytesClientExpectsToReceive & ~(countOfBytesClientExpectsToReceive >> 63)) + v54);
+  nw_parameters_set_skip_stack_trace_capture(v3);
+  [parameters[3] countOfBytesClientExpectsToSend];
+  [parameters[3] countOfBytesClientExpectsToReceive];
+  nw_parameters_set_expected_workload(v3);
   if ([parameters[4] attribution] == 1)
   {
     nw_parameters_set_attribution(v3, nw_parameters_attribution_user);
@@ -712,15 +709,15 @@ LABEL_76:
   mainDocumentURL = [*v10 mainDocumentURL];
   host = [mainDocumentURL host];
 
-  v58 = [NWURLSessionTaskConfiguration createRegistrableDomain:host];
-  v59 = *v10;
-  v60 = [v59 URL];
-  host2 = [v60 host];
+  v55 = [NWURLSessionTaskConfiguration createRegistrableDomain:host];
+  v56 = *v10;
+  v57 = [v56 URL];
+  host2 = [v57 host];
 
-  v62 = [NWURLSessionTaskConfiguration createRegistrableDomain:host2];
+  v59 = [NWURLSessionTaskConfiguration createRegistrableDomain:host2];
   _trackerContext = [*v10 _trackerContext];
-  v64 = _trackerContext;
-  if (_trackerContext || ([*v10 mainDocumentURL], v66 = objc_claimAutoreleasedReturnValue(), v67 = -[NSURL _NW_isHTTPish](v66), v66, v67) && ((_trackerContext = v58) != 0 || (_trackerContext = host) != 0))
+  v61 = _trackerContext;
+  if (_trackerContext || ([*v10 mainDocumentURL], v63 = objc_claimAutoreleasedReturnValue(), v64 = -[NSURL _NW_isHTTPish](v63), v63, v64) && ((_trackerContext = v55) != 0 || (_trackerContext = host) != 0))
   {
     nw_parameters_set_attribution_context(v3, [_trackerContext UTF8String]);
   }
@@ -729,9 +726,9 @@ LABEL_76:
 
   if (mainDocumentURL2)
   {
-    if (v58 && v62)
+    if (v55 && v59)
     {
-      if ([v58 isEqualToString:v62])
+      if ([v55 isEqualToString:v59])
       {
 LABEL_95:
         mainDocumentURL3 = [*v10 mainDocumentURL];
@@ -756,33 +753,33 @@ LABEL_96:
   if (boundInterfaceIdentifier2)
   {
     boundInterfaceIdentifier3 = [*v10 boundInterfaceIdentifier];
-    v71 = nw_interface_create_with_name([boundInterfaceIdentifier3 UTF8String]);
-    nw_parameters_require_interface(v3, v71);
+    v68 = nw_interface_create_with_name([boundInterfaceIdentifier3 UTF8String]);
+    nw_parameters_require_interface(v3, v68);
   }
 
   if ([*v10 _prohibitPrivacyProxy])
   {
-    nw_parameters_set_prohibit_privacy_proxy(v3, 1);
+    nw_parameters_set_prohibit_privacy_proxy(v3);
   }
 
   if ([*v10 _privacyProxyFailClosed])
   {
-    nw_parameters_set_privacy_proxy_fail_closed(v3, 1);
+    nw_parameters_set_privacy_proxy_fail_closed(v3);
   }
 
   if ([*v10 _privacyProxyStrictFailClosed])
   {
-    nw_parameters_set_privacy_proxy_strict_fail_closed(v3, 1);
+    nw_parameters_set_privacy_proxy_strict_fail_closed(v3);
   }
 
   if ([*v10 _privacyProxyFailClosedForUnreachableHosts])
   {
-    nw_parameters_set_privacy_proxy_fail_closed_for_unreachable_hosts(v3, 1);
+    nw_parameters_set_privacy_proxy_fail_closed_for_unreachable_hosts(v3);
   }
 
   if ([*v10 _privacyProxyFailClosedForUnreachableNonMainHosts] && host && objc_msgSend(host, "caseInsensitiveCompare:", host2))
   {
-    nw_parameters_set_privacy_proxy_fail_closed_for_unreachable_hosts(v3, 1);
+    nw_parameters_set_privacy_proxy_fail_closed_for_unreachable_hosts(v3);
   }
 
   if ([*v10 _needsNetworkTrackingPrevention])
@@ -792,12 +789,12 @@ LABEL_96:
 
   if ([*v10 _useEnhancedPrivacyMode])
   {
-    nw_parameters_set_use_enhanced_privacy_mode(v3);
+    nw_parameters_set_use_enhanced_privacy_mode(v3, 1);
   }
 
   if ([*v10 _blockTrackers])
   {
-    nw_parameters_set_block_trackers(v3, 1);
+    nw_parameters_set_block_trackers(v3);
   }
 
   if ([*v10 _isWebSearchContent])
@@ -812,25 +809,24 @@ LABEL_96:
 
   if (v3)
   {
-    _nw_parameters_set_allow_private_access_tokens_for_third_party(v3, 1);
+    _nw_parameters_set_allow_private_access_tokens_for_third_party();
     goto LABEL_121;
   }
 
-  v77 = __nwlog_obj();
+  v74 = __nwlog_obj();
   *objects = 136446210;
   *&objects[4] = "nw_parameters_set_allow_private_access_tokens_for_third_party";
-  LODWORD(v101) = 12;
-  v99 = objects;
-  v78 = _os_log_send_and_compose_impl();
+  LODWORD(v95) = 12;
+  v75 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v74, 16, "%{public}s called with null parameters", objects, v95);
 
   type = OS_LOG_TYPE_ERROR;
-  v107 = 0;
-  v103 = v78;
-  if (!__nwlog_fault(v78, &type, &v107))
+  v101 = 0;
+  v97 = v75;
+  if (!__nwlog_fault(v75, &type, &v101))
   {
 LABEL_160:
-    v93 = v78;
-    if (!v78)
+    v90 = v75;
+    if (!v75)
     {
       goto LABEL_121;
     }
@@ -840,30 +836,30 @@ LABEL_160:
 
   if (type == OS_LOG_TYPE_FAULT)
   {
-    v79 = __nwlog_obj();
-    v80 = type;
-    if (os_log_type_enabled(v79, type))
+    v76 = __nwlog_obj();
+    v77 = type;
+    if (os_log_type_enabled(v76, type))
     {
       *objects = 136446210;
       *&objects[4] = "nw_parameters_set_allow_private_access_tokens_for_third_party";
-      v81 = "%{public}s called with null parameters";
+      v78 = "%{public}s called with null parameters";
       goto LABEL_158;
     }
 
     goto LABEL_159;
   }
 
-  if (v107 != 1)
+  if (v101 != 1)
   {
-    v79 = __nwlog_obj();
-    v80 = type;
-    if (os_log_type_enabled(v79, type))
+    v76 = __nwlog_obj();
+    v77 = type;
+    if (os_log_type_enabled(v76, type))
     {
       *objects = 136446210;
       *&objects[4] = "nw_parameters_set_allow_private_access_tokens_for_third_party";
-      v81 = "%{public}s called with null parameters, backtrace limit exceeded";
+      v78 = "%{public}s called with null parameters, backtrace limit exceeded";
 LABEL_158:
-      _os_log_impl(&dword_181A37000, v79, v80, v81, objects, 0xCu);
+      _os_log_impl(&dword_181A37000, v76, v77, v78, objects, 0xCu);
     }
 
 LABEL_159:
@@ -871,42 +867,42 @@ LABEL_159:
     goto LABEL_160;
   }
 
-  v89 = __nw_create_backtrace_string();
-  v90 = __nwlog_obj();
-  v91 = type;
-  v92 = os_log_type_enabled(v90, type);
-  if (v89)
+  v86 = __nw_create_backtrace_string();
+  v87 = __nwlog_obj();
+  v88 = type;
+  v89 = os_log_type_enabled(v87, type);
+  if (v86)
   {
-    if (v92)
+    if (v89)
     {
       *objects = 136446466;
       *&objects[4] = "nw_parameters_set_allow_private_access_tokens_for_third_party";
       *&objects[12] = 2082;
-      *&objects[14] = v89;
-      _os_log_impl(&dword_181A37000, v90, v91, "%{public}s called with null parameters, dumping backtrace:%{public}s", objects, 0x16u);
+      *&objects[14] = v86;
+      _os_log_impl(&dword_181A37000, v87, v88, "%{public}s called with null parameters, dumping backtrace:%{public}s", objects, 0x16u);
     }
 
-    free(v89);
-    v93 = v103;
-    if (!v103)
+    free(v86);
+    v90 = v97;
+    if (!v97)
     {
       goto LABEL_121;
     }
 
 LABEL_161:
-    free(v93);
+    free(v90);
     goto LABEL_121;
   }
 
-  if (v92)
+  if (v89)
   {
     *objects = 136446210;
     *&objects[4] = "nw_parameters_set_allow_private_access_tokens_for_third_party";
-    _os_log_impl(&dword_181A37000, v90, v91, "%{public}s called with null parameters, no backtrace", objects, 0xCu);
+    _os_log_impl(&dword_181A37000, v87, v88, "%{public}s called with null parameters, no backtrace", objects, 0xCu);
   }
 
-  v93 = v103;
-  if (v103)
+  v90 = v97;
+  if (v97)
   {
     goto LABEL_161;
   }
@@ -916,82 +912,83 @@ LABEL_121:
   {
     if (v3)
     {
-      _nw_parameters_set_using_ephemeral_configuration(v3, 1);
+      _nw_parameters_set_using_ephemeral_configuration();
       goto LABEL_124;
     }
 
-    v82 = __nwlog_obj();
+    v79 = __nwlog_obj();
     *objects = 136446210;
     *&objects[4] = "nw_parameters_set_using_ephemeral_configuration";
-    v83 = _os_log_send_and_compose_impl();
+    LODWORD(v95) = 12;
+    v80 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v79, 16, "%{public}s called with null parameters", objects, v95);
 
     type = OS_LOG_TYPE_ERROR;
-    v107 = 0;
-    if (__nwlog_fault(v83, &type, &v107))
+    v101 = 0;
+    if (__nwlog_fault(v80, &type, &v101))
     {
       if (type != OS_LOG_TYPE_FAULT)
       {
-        if (v107 == 1)
+        if (v101 == 1)
         {
-          v94 = __nw_create_backtrace_string();
-          v84 = __nwlog_obj();
-          v102 = type;
-          v95 = os_log_type_enabled(v84, type);
-          if (v94)
+          v91 = __nw_create_backtrace_string();
+          v81 = __nwlog_obj();
+          v96 = type;
+          v92 = os_log_type_enabled(v81, type);
+          if (v91)
           {
-            if (v95)
+            if (v92)
             {
               *objects = 136446466;
               *&objects[4] = "nw_parameters_set_using_ephemeral_configuration";
               *&objects[12] = 2082;
-              *&objects[14] = v94;
-              _os_log_impl(&dword_181A37000, v84, v102, "%{public}s called with null parameters, dumping backtrace:%{public}s", objects, 0x16u);
+              *&objects[14] = v91;
+              _os_log_impl(&dword_181A37000, v81, v96, "%{public}s called with null parameters, dumping backtrace:%{public}s", objects, 0x16u);
             }
 
-            free(v94);
+            free(v91);
             goto LABEL_167;
           }
 
-          if (!v95)
+          if (!v92)
           {
             goto LABEL_166;
           }
 
           *objects = 136446210;
           *&objects[4] = "nw_parameters_set_using_ephemeral_configuration";
-          v86 = "%{public}s called with null parameters, no backtrace";
-          v96 = v84;
-          v97 = v102;
+          v83 = "%{public}s called with null parameters, no backtrace";
+          v93 = v81;
+          v94 = v96;
         }
 
         else
         {
-          v84 = __nwlog_obj();
-          v85 = type;
-          if (!os_log_type_enabled(v84, type))
+          v81 = __nwlog_obj();
+          v82 = type;
+          if (!os_log_type_enabled(v81, type))
           {
             goto LABEL_166;
           }
 
           *objects = 136446210;
           *&objects[4] = "nw_parameters_set_using_ephemeral_configuration";
-          v86 = "%{public}s called with null parameters, backtrace limit exceeded";
+          v83 = "%{public}s called with null parameters, backtrace limit exceeded";
 LABEL_164:
-          v96 = v84;
-          v97 = v85;
+          v93 = v81;
+          v94 = v82;
         }
 
-        _os_log_impl(&dword_181A37000, v96, v97, v86, objects, 0xCu);
+        _os_log_impl(&dword_181A37000, v93, v94, v83, objects, 0xCu);
         goto LABEL_166;
       }
 
-      v84 = __nwlog_obj();
-      v85 = type;
-      if (os_log_type_enabled(v84, type))
+      v81 = __nwlog_obj();
+      v82 = type;
+      if (os_log_type_enabled(v81, type))
       {
         *objects = 136446210;
         *&objects[4] = "nw_parameters_set_using_ephemeral_configuration";
-        v86 = "%{public}s called with null parameters";
+        v83 = "%{public}s called with null parameters";
         goto LABEL_164;
       }
 
@@ -999,9 +996,9 @@ LABEL_166:
     }
 
 LABEL_167:
-    if (v83)
+    if (v80)
     {
-      free(v83);
+      free(v80);
     }
   }
 
@@ -1035,7 +1032,7 @@ LABEL_125:
 
 - (id)createRegistrableDomain:(void *)domain
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   v2 = domainCopy;
   if (domainCopy)
@@ -1044,27 +1041,34 @@ LABEL_125:
     v5 = [v4 length];
     if (v5 >= 0x101)
     {
-      goto LABEL_25;
+      goto LABEL_28;
     }
 
     v6 = v5;
     if (!v5)
     {
-      v24 = __nwlog_obj();
-      os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
-      *dest = 136446210;
-      v31 = "[NWURLSessionTaskConfiguration createIDNAEncodedDomain:]";
-      LODWORD(v27) = 12;
-      v26 = dest;
-      v25 = _os_log_send_and_compose_impl();
-
-      result = __nwlog_should_abort(v25);
-      if (result)
+      v25 = __nwlog_obj();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_43;
+        v26 = 3;
       }
 
-      free(v25);
+      else
+      {
+        v26 = 2;
+      }
+
+      *dest = 136446210;
+      v32 = "[NWURLSessionTaskConfiguration createIDNAEncodedDomain:]";
+      v27 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &dword_181A37000, v25, 16, "%{public}s strict_malloc called with size 0", dest, 12);
+
+      result = __nwlog_should_abort(v27);
+      if (result)
+      {
+        goto LABEL_49;
+      }
+
+      free(v27);
     }
 
     v7 = malloc_type_malloc(2 * v6, 0x3202746FuLL);
@@ -1073,48 +1077,48 @@ LABEL_125:
       [v4 getCharacters:v7 range:{0, v6}];
       if (!v6)
       {
-        goto LABEL_24;
+        goto LABEL_27;
       }
 
-LABEL_10:
-      v11 = 0;
+LABEL_13:
       v12 = 0;
-      v13 = 1;
+      v13 = 0;
+      v14 = 1;
       do
       {
-        v14 = v7[v11];
-        if ((v14 - 65) <= 0x19)
+        v15 = v7[v12];
+        if ((v15 - 65) <= 0x19)
         {
-          v14 |= 0x20u;
-          v7[v11] = v14;
-          v12 = 1;
+          v15 |= 0x20u;
+          v7[v12] = v15;
+          v13 = 1;
         }
 
-        v13 &= (v14 - 32) < 0x60;
-        ++v11;
+        v14 &= (v15 - 32) < 0x60;
+        ++v12;
       }
 
-      while (v6 != v11);
-      if (v13)
+      while (v6 != v12);
+      if (v14)
       {
-        if ((v12 & 1) == 0)
+        if ((v13 & 1) == 0)
         {
-LABEL_24:
+LABEL_27:
           free(v7);
-LABEL_25:
-          v19 = [v4 copy];
+LABEL_28:
+          v20 = [v4 copy];
 
-          if (!v19)
+          if (!v20)
           {
-            goto LABEL_36;
+            goto LABEL_39;
           }
 
-          goto LABEL_26;
+          goto LABEL_29;
         }
 
-        v15 = MEMORY[0x1E696AEC0];
-        v16 = v7;
-        v17 = v6;
+        v16 = MEMORY[0x1E696AEC0];
+        v17 = v7;
+        v18 = v6;
       }
 
       else
@@ -1126,123 +1130,142 @@ LABEL_25:
 
         pErrorCode = U_ZERO_ERROR;
         pInfo = xmmword_182B08EA0;
-        v18 = uidna_nameToASCII(createIDNAEncodedDomain__idna, v7, v6, dest, 256, &pInfo, &pErrorCode);
+        v19 = uidna_nameToASCII(createIDNAEncodedDomain__idna, v7, v6, dest, 256, &pInfo, &pErrorCode);
         if (pErrorCode > U_ZERO_ERROR || pInfo.errors >= 0x40)
         {
-          goto LABEL_24;
+          goto LABEL_27;
         }
 
-        v17 = v18;
-        v16 = dest;
-        v15 = MEMORY[0x1E696AEC0];
+        v18 = v19;
+        v17 = dest;
+        v16 = MEMORY[0x1E696AEC0];
       }
 
-      v19 = [v15 stringWithCharacters:v16 length:{v17, v26, v27}];
+      v20 = [v16 stringWithCharacters:v17 length:v18];
       free(v7);
 
-      if (!v19)
+      if (!v20)
       {
-        goto LABEL_36;
+        goto LABEL_39;
       }
 
-LABEL_26:
-      if ([v19 getCString:dest maxLength:256 encoding:1])
+LABEL_29:
+      if ([v20 getCString:dest maxLength:256 encoding:1])
       {
-        v20 = strlen(dest);
-        if (v20 && *(dest + v20 - 1) == 46)
+        v21 = strlen(dest);
+        if (v21 && *(dest + v21 - 1) == 46)
         {
-          *(dest + v20 - 1) = 0;
+          *(dest + v21 - 1) = 0;
         }
 
         TopLevelDomain = _CFHostGetTopLevelDomain();
         v3 = 0;
         if (TopLevelDomain && TopLevelDomain > dest + 1)
         {
-          v22 = (TopLevelDomain - 2);
+          v23 = (TopLevelDomain - 2);
           do
           {
-            v23 = v22;
-            if (v22 < dest)
+            v24 = v23;
+            if (v23 < dest)
             {
               break;
             }
 
-            v22 = (v22 - 1);
+            v23 = (v23 - 1);
           }
 
-          while (*v23 != 46);
-          v3 = [MEMORY[0x1E696AEC0] stringWithCString:v23 + 1 encoding:1];
+          while (*v24 != 46);
+          v3 = [MEMORY[0x1E696AEC0] stringWithCString:v24 + 1 encoding:1];
         }
 
-        goto LABEL_37;
+        goto LABEL_40;
       }
 
-LABEL_36:
+LABEL_39:
       v3 = 0;
-LABEL_37:
+LABEL_40:
 
-      goto LABEL_38;
+      goto LABEL_41;
     }
 
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
     v8 = gLogObj;
-    os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-    *dest = 136446210;
-    v31 = "[NWURLSessionTaskConfiguration createIDNAEncodedDomain:]";
-    LODWORD(v27) = 12;
-    v9 = _os_log_send_and_compose_impl();
-
-    result = __nwlog_should_abort(v9);
-    if (!result)
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      free(v9);
-      [v4 getCharacters:0 range:{0, v6, dest, v27}];
-      if (!v6)
-      {
-        goto LABEL_25;
-      }
-
-      goto LABEL_10;
+      v9 = 3;
     }
 
-LABEL_43:
+    else
+    {
+      v9 = 2;
+    }
+
+    *dest = 136446210;
+    v32 = "[NWURLSessionTaskConfiguration createIDNAEncodedDomain:]";
+    LODWORD(v28) = 12;
+    v10 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s strict allocator failed", dest, v28);
+
+    result = __nwlog_should_abort(v10);
+    if (!result)
+    {
+      free(v10);
+      [v4 getCharacters:0 range:{0, v6}];
+      if (!v6)
+      {
+        goto LABEL_28;
+      }
+
+      goto LABEL_13;
+    }
+
+LABEL_49:
     __break(1u);
     return result;
   }
 
   v3 = 0;
-LABEL_38:
+LABEL_41:
 
   return v3;
 }
 
 void __57__NWURLSessionTaskConfiguration_createIDNAEncodedDomain___block_invoke()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  code[0] = U_ZERO_ERROR;
-  createIDNAEncodedDomain__idna = MEMORY[0x1865DF7A0](60, code);
-  if (code[0] >= U_ILLEGAL_ARGUMENT_ERROR)
+  v9 = *MEMORY[0x1E69E9840];
+  HIDWORD(v4) = 0;
+  createIDNAEncodedDomain__idna = MEMORY[0x1865DF7A0](60, &v4 + 4);
+  if (SHIDWORD(v4) >= 1)
   {
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
     v0 = gLogObj;
-    os_log_type_enabled(v0, OS_LOG_TYPE_ERROR);
-    v1 = u_errorName(code[0]);
-    code[1] = 136446466;
-    v4 = "[NWURLSessionTaskConfiguration createIDNAEncodedDomain:]_block_invoke";
-    v5 = 2080;
-    v6 = v1;
-    v2 = _os_log_send_and_compose_impl();
+    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    {
+      v1 = 3;
+    }
 
-    if (__nwlog_should_abort(v2))
+    else
+    {
+      v1 = 2;
+    }
+
+    v2 = u_errorName(SHIDWORD(v4));
+    v5 = 136446466;
+    v6 = "[NWURLSessionTaskConfiguration createIDNAEncodedDomain:]_block_invoke";
+    v7 = 2080;
+    v8 = v2;
+    LODWORD(v4) = 22;
+    v3 = _os_log_send_and_compose_impl(v1, 0, 0, 0, &dword_181A37000, v0, 16, "%{public}s uidna_openUTS46 failed with error: %s", &v5, v4);
+
+    if (__nwlog_should_abort(v3))
     {
       __break(1u);
     }
 
     else
     {
-      free(v2);
+      free(v3);
     }
   }
 }

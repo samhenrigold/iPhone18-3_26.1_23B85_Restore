@@ -186,7 +186,7 @@
   memset(&v8, 0, sizeof(v8));
   if (animation2)
   {
-    [animation2 transform];
+    objc_msgSend_transform(animation2);
     v5 = 0uLL;
   }
 
@@ -329,7 +329,7 @@
     [layer setShadowOffset:{5.0, 5.0}];
     LODWORD(v17) = 1.0;
     [layer setShadowOpacity:v17];
-    [layer setShadowColor:{-[UIColor CGColor](+[UIColor blackColor](UIColor, "blackColor"), "CGColor")}];
+    [layer setShadowColor:{objc_msgSend(objc_msgSend_blackColor(UIColor), "CGColor")}];
   }
 
   if (animatedCopy)
@@ -980,7 +980,7 @@
     layer = [(UIView *)superview layer];
     if (layer)
     {
-      [(CALayer *)layer transform];
+      objc_msgSend_transform(layer);
       [objc_msgSend(objc_opt_self() "mainScreen")];
       [layer setContentsScale:v7 * v6];
     }

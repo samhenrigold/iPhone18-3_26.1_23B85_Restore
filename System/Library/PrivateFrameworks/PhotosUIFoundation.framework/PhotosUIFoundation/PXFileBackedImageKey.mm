@@ -42,7 +42,7 @@
     v5 = 123;
   }
 
-  return v5 - (v4 - v3 + 32 * v3) + 32 * (v4 - v3 + 32 * v3) + 29791;
+  return v5 - &v4[32 * v3 - v3] + 32 * &v4[32 * v3 - v3] + 29791;
 }
 
 - (PXFileBackedImageKey)initWithUrl:(id)url size:(CGSize)size preferHDR:(BOOL)r

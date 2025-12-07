@@ -5,6 +5,7 @@
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_accessibilityUpdateAccessibilityElements;
 - (void)_updateBatteryLevelLeft:(double)left levelRight:(double)right levelCase:(double)case;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ProximityStatusViewControllerAccessibility
@@ -62,11 +63,20 @@
   return v2;
 }
 
-uint64_t __72__ProximityStatusViewControllerAccessibility_accessibilityPerformEscape__block_invoke(uint64_t a1)
+void *__72__ProximityStatusViewControllerAccessibility_accessibilityPerformEscape__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) handleTapOutsideView:0];
   *(*(*(a1 + 40) + 8) + 24) = 1;
   return result;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ProximityStatusViewControllerAccessibility;
+  [(ProximityStatusViewControllerAccessibility *)&v4 viewWillAppear:appear];
+  [(ProximityStatusViewControllerAccessibility *)self _accessibilityUpdateAccessibilityElements];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7380], 0);
 }
 
 - (void)_updateBatteryLevelLeft:(double)left levelRight:(double)right levelCase:(double)case

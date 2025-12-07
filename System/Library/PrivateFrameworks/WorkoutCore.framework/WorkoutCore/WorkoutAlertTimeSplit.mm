@@ -50,18 +50,16 @@
 {
   v4 = type metadata accessor for TimeSplitModel();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *(&self->super.super.isa + OBJC_IVAR____TtC11WorkoutCore21WorkoutAlertTimeSplit_elapsedTime);
+  MEMORY[0x28223BE20](v4, v6);
+  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   TimeSplitModel.init(duration:)();
   specialized VoiceFeedbackAlerting.toDictionary()();
 
   (*(v5 + 8))(v8, v4);
-  v11.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+  v10.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-  return v11.super.isa;
+  return v10.super.isa;
 }
 
 - (_TtC11WorkoutCore21WorkoutAlertTimeSplit)init

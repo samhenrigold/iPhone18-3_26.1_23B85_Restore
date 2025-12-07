@@ -6,7 +6,7 @@
 
 - (void)_gkEnumerateKeysAndObjectsUsingBlock:()GKAdditions
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (!v5)
   {
@@ -20,38 +20,38 @@
     [MEMORY[0x277CBEAD8] raise:@"GameKit Exception" format:{@"%@", v11}];
   }
 
-  v24 = 0;
+  v23 = 0;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   selfCopy = self;
-  v13 = [selfCopy countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v13 = [selfCopy countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v21;
+    v15 = *v20;
 LABEL_5:
     v16 = 0;
     while (1)
     {
-      if (*v21 != v15)
+      if (*v20 != v15)
       {
         objc_enumerationMutation(selfCopy);
       }
 
-      v17 = *(*(&v20 + 1) + 8 * v16);
+      v17 = *(*(&v19 + 1) + 8 * v16);
       v18 = [selfCopy objectForKey:v17];
-      v5[2](v5, v17, v18, &v24);
+      v5[2](v5, v17, v18, &v23);
 
-      if (v24)
+      if (v23)
       {
         break;
       }
 
       if (v14 == ++v16)
       {
-        v14 = [selfCopy countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v14 = [selfCopy countByEnumeratingWithState:&v19 objects:v24 count:16];
         if (v14)
         {
           goto LABEL_5;
@@ -61,8 +61,6 @@ LABEL_5:
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

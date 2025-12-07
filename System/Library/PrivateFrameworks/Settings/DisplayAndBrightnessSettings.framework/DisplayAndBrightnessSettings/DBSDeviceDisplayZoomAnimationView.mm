@@ -18,9 +18,9 @@
 
 - (DBSDeviceDisplayZoomAnimationView)initWithDisplayZoomOption:(unint64_t)option
 {
-  v11.receiver = self;
-  v11.super_class = DBSDeviceDisplayZoomAnimationView;
-  v4 = [(DBSDeviceDisplayZoomAnimationView *)&v11 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v13.receiver = self;
+  v13.super_class = DBSDeviceDisplayZoomAnimationView;
+  v4 = [(DBSDeviceDisplayZoomAnimationView *)&v13 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
   v5 = v4;
   if (v4)
   {
@@ -30,17 +30,17 @@
 
     v5->_displayZoomOption = option;
     v5->_duration = 3.0;
-    if (DBSReverseZoomEnabled())
+    if (DBSReverseZoomEnabled(v7, v8))
     {
       currentDevice = [MEMORY[0x277D75418] currentDevice];
       sf_isiPad = [currentDevice sf_isiPad];
-      v9 = 1.0;
+      v11 = 1.0;
       if (sf_isiPad)
       {
-        v9 = 0.5;
+        v11 = 0.5;
       }
 
-      v5->_scale = v9;
+      v5->_scale = v11;
     }
 
     else
@@ -117,7 +117,7 @@
   v11 = packageLayer3;
   if (packageLayer3)
   {
-    [packageLayer3 contentsTransform];
+    objc_msgSend_contentsTransform(packageLayer3);
   }
 
   else
@@ -151,7 +151,7 @@
   v11 = packageLayer2;
   if (packageLayer2)
   {
-    [packageLayer2 contentsTransform];
+    objc_msgSend_contentsTransform(packageLayer2, v20, v21);
   }
 
   else
@@ -248,7 +248,7 @@
   v10 = packageLayer2;
   if (packageLayer2)
   {
-    [packageLayer2 contentsTransform];
+    objc_msgSend_contentsTransform(packageLayer2, v19, v20);
   }
 
   else

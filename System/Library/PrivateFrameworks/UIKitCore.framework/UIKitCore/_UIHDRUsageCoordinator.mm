@@ -1,7 +1,7 @@
 @interface _UIHDRUsageCoordinator
++ (BOOL)useCALayerDynamicRange;
 + (id)convertDynamicRange:(uint64_t)range;
 + (id)sharedInstance;
-+ (uint64_t)useCALayerDynamicRange;
 - (char)traitCollectionSuppressingHDR:(char *)r;
 - (id)_init;
 - (id)animationForHDRHeadroomUsage:(void *)usage layer:;
@@ -17,7 +17,7 @@
 
 @implementation _UIHDRUsageCoordinator
 
-+ (uint64_t)useCALayerDynamicRange
++ (BOOL)useCALayerDynamicRange
 {
   objc_opt_self();
   if (_UIInternalPreferencesRevisionOnce != -1)
@@ -25,30 +25,30 @@
     dispatch_once(&_UIInternalPreferencesRevisionOnce, &__block_literal_global_5_11);
   }
 
-  v0 = _UIInternalPreferencesRevisionVar;
-  if (_UIInternalPreferencesRevisionVar < 1 || (v3 = _UIInternalPreference_UseLayerPreferredDynamicRange, _UIInternalPreferencesRevisionVar == _UIInternalPreference_UseLayerPreferredDynamicRange))
+  v1 = _UIInternalPreferencesRevisionVar;
+  if (_UIInternalPreferencesRevisionVar < 1 || (v4 = _UIInternalPreference_UseLayerPreferredDynamicRange, _UIInternalPreferencesRevisionVar == _UIInternalPreference_UseLayerPreferredDynamicRange))
   {
-    v1 = 1;
+    v2 = 1;
   }
 
   else
   {
     do
     {
-      v1 = v0 >= v3;
-      if (v0 < v3)
+      v2 = v1 >= v4;
+      if (v1 < v4)
       {
         break;
       }
 
-      _UIInternalPreferenceSync(v0, &_UIInternalPreference_UseLayerPreferredDynamicRange, @"UseLayerPreferredDynamicRange", _UIInternalPreferenceUpdateBool);
-      v3 = _UIInternalPreference_UseLayerPreferredDynamicRange;
+      _UIInternalPreferenceSync(v1, &_UIInternalPreference_UseLayerPreferredDynamicRange, @"UseLayerPreferredDynamicRange", _UIInternalPreferenceUpdateBool);
+      v4 = _UIInternalPreference_UseLayerPreferredDynamicRange;
     }
 
-    while (v0 != _UIInternalPreference_UseLayerPreferredDynamicRange);
+    while (v1 != _UIInternalPreference_UseLayerPreferredDynamicRange);
   }
 
-  return byte_1ED48B19C || v1;
+  return byte_1ED48B19C || v2;
 }
 
 + (id)sharedInstance
@@ -60,9 +60,9 @@
     dispatch_once(&qword_1ED49E578, &__block_literal_global_294);
   }
 
-  v0 = qword_1ED49E570;
+  v1 = qword_1ED49E570;
 
-  return v0;
+  return v1;
 }
 
 - (id)_init

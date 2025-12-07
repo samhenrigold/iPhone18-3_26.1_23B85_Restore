@@ -530,7 +530,7 @@ void sub_8914(void ***a1)
   }
 }
 
-uint64_t sub_8954(uint64_t a1, int a2, float a3, double a4, double a5, float a6)
+uint64_t sub_8954(uint64_t a1, uint64_t a2, float a3, double a4, double a5, float a6)
 {
   if (a3 < 0.0 || a3 > 1.0)
   {
@@ -569,7 +569,7 @@ LABEL_10:
   return (((v15 * (LODWORD(a6) / 255.0)) + ((1.0 - v15) * (v14 / 255.0))) * 255.0);
 }
 
-uint64_t sub_8A38(uint64_t result, int a2, int a3, float *a4, int a5, int a6, uint64_t a7, int a8, double a9, double a10, double a11, float a12, int a13)
+uint64_t sub_8A38(uint64_t result, unsigned int a2, unsigned int a3, float *a4, int a5, int a6, uint64_t a7, int a8, double a9, double a10, double a11, float a12, int a13)
 {
   if (a3 >= 1)
   {
@@ -663,9 +663,9 @@ uint64_t sub_C3D8(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -674,9 +674,9 @@ uint64_t sub_C484(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -685,9 +685,9 @@ uint64_t sub_C530(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -696,9 +696,9 @@ uint64_t sub_C5DC(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -707,9 +707,9 @@ uint64_t sub_C688(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -718,9 +718,9 @@ uint64_t sub_C734(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -729,9 +729,9 @@ uint64_t sub_C7E0(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -740,9 +740,9 @@ uint64_t sub_C88C(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -751,9 +751,9 @@ uint64_t sub_C938(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -762,9 +762,9 @@ uint64_t sub_C9E4(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -773,9 +773,9 @@ uint64_t sub_CA90(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -784,9 +784,9 @@ uint64_t sub_CB3C(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -795,28 +795,20 @@ uint64_t sub_CBE8(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t sub_CC94(uint64_t a1, _DWORD *a2)
-{
-  sub_18A0(a1, a2);
-  fig_log_get_emitter();
-  sub_1820();
-  return FigDebugAssert3();
 }
 
 uint64_t sub_CD10(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -825,182 +817,80 @@ uint64_t sub_CDBC(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
 
-uint64_t sub_CE68()
-{
-  fig_log_get_emitter();
-  sub_1820();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_CEE4(uint64_t a1, _DWORD *a2)
-{
-  sub_18A0(a1, a2);
-  fig_log_get_emitter();
-  sub_1820();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_CF60(uint64_t a1, _DWORD *a2)
-{
-  sub_18A0(a1, a2);
-  fig_log_get_emitter();
-  sub_1820();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_CFDC(uint64_t a1, _DWORD *a2)
-{
-  sub_18A0(a1, a2);
-  fig_log_get_emitter();
-  sub_1820();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_D058(uint64_t a1, _DWORD *a2)
-{
-  sub_18A0(a1, a2);
-  fig_log_get_emitter();
-  sub_1820();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_D0D4()
-{
-  fig_log_get_emitter();
-  sub_1820();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_D150(uint64_t a1, _DWORD *a2)
-{
-  sub_18A0(a1, a2);
-  fig_log_get_emitter();
-  sub_1820();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_D1CC(uint64_t a1, _DWORD *a2)
-{
-  sub_18A0(a1, a2);
-  fig_log_get_emitter();
-  sub_1820();
-  return FigDebugAssert3();
-}
-
-void sub_D248(void *a1, _DWORD *a2)
+void sub_D248(const char *a1, _DWORD *a2)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, a1, v11, v12, v13, v14);
   sub_7834();
-  *a2 = FigSignalErrorAtGM();
+  *a2 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
 }
 
-void sub_D30C(uint64_t a1, void *a2)
+void sub_D30C(uint64_t a1, const char *a2)
 {
   fig_log_get_emitter();
   sub_1820();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, a2, v7, v8, vars0, vars8);
 }
 
-void sub_D3A0(__int16 a1, void *a2, _DWORD *a3)
+void sub_D3A0(__int16 a1, const char *a2, _DWORD *a3)
 {
   *a3 = a1;
   fig_log_get_emitter();
   sub_1820();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, a2, v8, v9, vars0, vars8);
 }
 
-void sub_D438(uint64_t a1, void *a2)
+void sub_D438(uint64_t a1, const char *a2)
 {
   fig_log_get_emitter();
   sub_1820();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, a2, v7, v8, vars0, vars8);
 }
 
-void sub_D4CC(void *a1, _DWORD *a2)
+void sub_D4CC(const char *a1, _DWORD *a2)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, a1, v11, v12, v13, v14);
   sub_7834();
-  *a2 = FigSignalErrorAtGM();
+  *a2 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
 }
 
 uint64_t sub_D590(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
 
-void sub_D63C(void *a1, _DWORD *a2)
+void sub_D63C(const char *a1, _DWORD *a2)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, a1, v11, v12, v13, v14);
   sub_7834();
-  *a2 = FigSignalErrorAtGM();
-}
-
-uint64_t sub_D700()
-{
-  fig_log_get_emitter();
-  sub_17E0();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_D77C()
-{
-  fig_log_get_emitter();
-  sub_17E0();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_D7F8()
-{
-  fig_log_get_emitter();
-  sub_17E0();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_D874()
-{
-  fig_log_get_emitter();
-  sub_17E0();
-  return FigDebugAssert3();
-}
-
-void sub_DD6C()
-{
-  sub_1874();
-  sub_17F4();
-  sub_18AC();
-  sub_18D8();
-  FigDebugAssert3();
-  sub_18AC();
-  *v0 = FigSignalErrorAtGM();
-  sub_9BA0();
+  *a2 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
 }
 
 uint64_t sub_DE1C(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1009,9 +899,9 @@ uint64_t sub_DEC8(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1019,7 +909,7 @@ uint64_t sub_DEC8(_DWORD *a1)
 uint64_t sub_DF74(_DWORD *a1)
 {
   fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -1028,9 +918,9 @@ uint64_t sub_DFD8(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1039,9 +929,9 @@ uint64_t sub_E084(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1050,9 +940,9 @@ uint64_t sub_E130(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1061,9 +951,9 @@ uint64_t sub_E1DC(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1072,44 +962,20 @@ uint64_t sub_E288(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-void sub_E334()
-{
-  sub_1874();
-  sub_17F4();
-  sub_18AC();
-  sub_18D8();
-  FigDebugAssert3();
-  sub_18AC();
-  *v0 = FigSignalErrorAtGM();
-  sub_9BA0();
-}
-
-void sub_E3E4()
-{
-  sub_1874();
-  sub_17F4();
-  sub_18AC();
-  sub_18D8();
-  FigDebugAssert3();
-  sub_18AC();
-  *v0 = FigSignalErrorAtGM();
-  sub_9BA0();
 }
 
 uint64_t sub_E494(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1118,91 +984,31 @@ uint64_t sub_E5C4(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-void sub_E670()
-{
-  sub_1874();
-  sub_17F4();
-  sub_18AC();
-  sub_18D8();
-  FigDebugAssert3();
-  sub_18AC();
-  *v0 = FigSignalErrorAtGM();
-  sub_9BA0();
 }
 
 uint64_t sub_E720(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-void sub_E7CC()
-{
-  sub_1874();
-  sub_17F4();
-  sub_18AC();
-  sub_18D8();
-  FigDebugAssert3();
-  sub_18AC();
-  *v0 = FigSignalErrorAtGM();
-  sub_9BA0();
-}
-
-void sub_E87C()
-{
-  sub_1874();
-  sub_17F4();
-  sub_18AC();
-  sub_18D8();
-  FigDebugAssert3();
-  sub_18AC();
-  *v0 = FigSignalErrorAtGM();
-  sub_9BA0();
-}
-
-void sub_E92C()
-{
-  sub_1874();
-  sub_17F4();
-  sub_18AC();
-  sub_18D8();
-  FigDebugAssert3();
-  sub_18AC();
-  *v0 = FigSignalErrorAtGM();
-  sub_9BA0();
-}
-
-void sub_E9DC()
-{
-  sub_1874();
-  sub_17F4();
-  sub_18AC();
-  sub_18D8();
-  FigDebugAssert3();
-  sub_18AC();
-  *v0 = FigSignalErrorAtGM();
-  sub_9BA0();
 }
 
 uint64_t sub_EA8C(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1211,9 +1017,9 @@ uint64_t sub_EB38(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1222,9 +1028,9 @@ uint64_t sub_EBE4(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1233,9 +1039,9 @@ uint64_t sub_EC90(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1244,9 +1050,9 @@ uint64_t sub_ED3C(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1255,9 +1061,9 @@ uint64_t sub_EDE8(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1266,9 +1072,9 @@ uint64_t sub_EE94(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1277,9 +1083,9 @@ uint64_t sub_EF40(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1288,9 +1094,9 @@ uint64_t sub_EFEC(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1299,9 +1105,9 @@ uint64_t sub_F09C(_DWORD *a1)
 {
   sub_7834();
   sub_1838();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_7834();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }

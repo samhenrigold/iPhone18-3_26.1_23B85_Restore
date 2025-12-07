@@ -10,7 +10,7 @@
   selfCopy = self;
   [v2 removeObserver:selfCopy];
   v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for ALBacklight();
+  v4.super_class = type metadata accessor for ALBacklight(0);
   [(ALBacklight *)&v4 dealloc];
 }
 

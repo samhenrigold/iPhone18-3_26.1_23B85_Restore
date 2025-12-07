@@ -50,7 +50,7 @@
   if (WeakRetained)
   {
     transitionContext = self->super._transitionContext;
-    [WeakRetained targetTransform];
+    objc_msgSend_targetTransform(WeakRetained);
     [(_PLViewControllerOneToOneTransitionContext *)transitionContext setTargetTransform:&v10];
     backgroundView = [v7 backgroundView];
     [(PLClickPresentationTransition *)self setBackgroundView:backgroundView];

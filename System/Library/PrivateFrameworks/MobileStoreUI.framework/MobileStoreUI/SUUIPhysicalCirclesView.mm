@@ -40,46 +40,47 @@
 
 - (SUUIPhysicalCirclesView)initWithFrame:(CGRect)frame
 {
-  v16.receiver = self;
-  v16.super_class = SUUIPhysicalCirclesView;
-  v3 = [(SUUIPhysicalCirclesView *)&v16 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v18.receiver = self;
+  v18.super_class = SUUIPhysicalCirclesView;
+  v3 = [(SUUIPhysicalCirclesView *)&v18 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v5 = v3;
   if (v3)
   {
-    v4 = SUUIPhysicsKitFramework();
-    *(v3 + 70) = v4;
-    v5 = objc_alloc_init(SUUIWeakLinkedClassForString(&cfstr_Pkphysicsworld.isa, v4));
-    v6 = *(v3 + 71);
-    *(v3 + 71) = v5;
+    v6 = SUUIPhysicsKitFramework(v3, v4);
+    v5->_physicsKitFramework = v6;
+    v7 = objc_alloc_init(SUUIWeakLinkedClassForString(&cfstr_Pkphysicsworld.isa, v6));
+    physicsWorld = v5->_physicsWorld;
+    v5->_physicsWorld = v7;
 
-    [*(v3 + 71) setContactDelegate:v3];
-    [*(v3 + 71) setGravity:{0.0, 0.0}];
-    v7 = objc_alloc_init(SUUIWeakLinkedClassForString(&cfstr_Pkphysicsbody.isa, *(v3 + 70)));
-    v8 = *(v3 + 64);
-    *(v3 + 64) = v7;
+    [(PKPhysicsWorld *)v5->_physicsWorld setContactDelegate:v5];
+    [(PKPhysicsWorld *)v5->_physicsWorld setGravity:0.0, 0.0];
+    v9 = objc_alloc_init(SUUIWeakLinkedClassForString(&cfstr_Pkphysicsbody.isa, v5->_physicsKitFramework));
+    groundBody = v5->_groundBody;
+    v5->_groundBody = v9;
 
-    [*(v3 + 64) setPosition:{0.0, 0.0}];
-    [*(v3 + 71) addBody:*(v3 + 64)];
-    [*(v3 + 64) setDynamic:0];
-    *(v3 + 65) = 0x7FFFFFFFFFFFFFFFLL;
-    v9 = [objc_alloc(MEMORY[0x277D75708]) initWithTarget:v3 action:sel__longPressAction_];
-    v10 = *(v3 + 66);
-    *(v3 + 66) = v9;
+    [(PKPhysicsBody *)v5->_groundBody setPosition:0.0, 0.0];
+    [(PKPhysicsWorld *)v5->_physicsWorld addBody:v5->_groundBody];
+    [(PKPhysicsBody *)v5->_groundBody setDynamic:0];
+    v5->_longPressCircleIndex = 0x7FFFFFFFFFFFFFFFLL;
+    v11 = [objc_alloc(MEMORY[0x277D75708]) initWithTarget:v5 action:sel__longPressAction_];
+    longPressRecognizer = v5->_longPressRecognizer;
+    v5->_longPressRecognizer = v11;
 
-    [v3 addGestureRecognizer:*(v3 + 66)];
-    v11 = [objc_alloc(MEMORY[0x277D757F8]) initWithTarget:v3 action:sel__panGestureAction_];
-    v12 = *(v3 + 69);
-    *(v3 + 69) = v11;
+    [(SUUIPhysicalCirclesView *)v5 addGestureRecognizer:v5->_longPressRecognizer];
+    v13 = [objc_alloc(MEMORY[0x277D757F8]) initWithTarget:v5 action:sel__panGestureAction_];
+    panRecognizer = v5->_panRecognizer;
+    v5->_panRecognizer = v13;
 
-    [v3 addGestureRecognizer:*(v3 + 69)];
-    v13 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:v3 action:sel__tapGestureAction_];
-    v14 = *(v3 + 73);
-    *(v3 + 73) = v13;
+    [(SUUIPhysicalCirclesView *)v5 addGestureRecognizer:v5->_panRecognizer];
+    v15 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:v5 action:sel__tapGestureAction_];
+    tapRecognizer = v5->_tapRecognizer;
+    v5->_tapRecognizer = v15;
 
-    [v3 addGestureRecognizer:*(v3 + 73)];
-    [v3 setClipsToBounds:1];
+    [(SUUIPhysicalCirclesView *)v5 addGestureRecognizer:v5->_tapRecognizer];
+    [(SUUIPhysicalCirclesView *)v5 setClipsToBounds:1];
   }
 
-  return v3;
+  return v5;
 }
 
 - (void)dealloc

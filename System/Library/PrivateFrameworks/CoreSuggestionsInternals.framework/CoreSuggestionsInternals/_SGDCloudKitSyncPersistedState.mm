@@ -28,29 +28,29 @@
 
 - (id)description
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v4 = objc_opt_new();
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = +[_SGDCloudKitSyncPersistedState properties];
-  v5 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v5 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v28;
+    v7 = *v27;
     do
     {
       v8 = 0;
       do
       {
-        if (*v28 != v7)
+        if (*v27 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v27 + 1) + 8 * v8);
+        v9 = *(*(&v26 + 1) + 8 * v8);
         v10 = objc_opt_class();
         second = [v9 second];
         Property = class_getProperty(v10, [second UTF8String]);
@@ -81,49 +81,47 @@
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v6 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v6);
   }
 
   v18 = objc_alloc(MEMORY[0x277CCACA8]);
-  v26.receiver = self;
-  v26.super_class = _SGDCloudKitSyncPersistedState;
-  v19 = [(_SGDCloudKitSyncPersistedState *)&v26 description];
+  v25.receiver = self;
+  v25.super_class = _SGDCloudKitSyncPersistedState;
+  v19 = [(_SGDCloudKitSyncPersistedState *)&v25 description];
   v20 = [v4 description];
   v21 = [v18 initWithFormat:@"<%@ %@>", v19, v20];
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v5 = +[_SGDCloudKitSyncPersistedState properties];
-  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       v9 = 0;
       do
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * v9);
+        v10 = *(*(&v19 + 1) + 8 * v9);
         v11 = objc_opt_class();
         second = [v10 second];
         Property = class_getProperty(v11, [second UTF8String]);
@@ -143,18 +141,16 @@
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v7);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -163,13 +159,13 @@
     v12 = sgLogHandle();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v16 = 138412802;
-      v17 = pathCopy;
-      v18 = 2112;
-      v19 = changeCopy;
-      v20 = 2112;
-      v21 = objectCopy;
-      _os_log_debug_impl(&dword_231E60000, v12, OS_LOG_TYPE_DEBUG, "SGCK Persisted state changed (keyPath: %@, change: %@, self: %@)", &v16, 0x20u);
+      v15 = 138412802;
+      v16 = pathCopy;
+      v17 = 2112;
+      v18 = changeCopy;
+      v19 = 2112;
+      v20 = objectCopy;
+      _os_log_debug_impl(&dword_231E60000, v12, OS_LOG_TYPE_DEBUG, "SGCK Persisted state changed (keyPath: %@, change: %@, self: %@)", &v15, 0x20u);
     }
 
     changeCallback = [(_SGDCloudKitSyncPersistedState *)self changeCallback];
@@ -180,86 +176,80 @@
       (changeCallback2)[2](changeCallback2, self);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopKvo
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = +[_SGDCloudKitSyncPersistedState properties];
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        second = [*(*(&v10 + 1) + 8 * v7) second];
+        second = [*(*(&v9 + 1) + 8 * v7) second];
         [(_SGDCloudKitSyncPersistedState *)self removeObserver:self forKeyPath:second context:0];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupKvo
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = +[_SGDCloudKitSyncPersistedState properties];
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        second = [*(*(&v10 + 1) + 8 * v7) second];
+        second = [*(*(&v9 + 1) + 8 * v7) second];
         [(_SGDCloudKitSyncPersistedState *)self addObserver:self forKeyPath:second options:0 context:0];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -272,34 +262,34 @@
 
 - (_SGDCloudKitSyncPersistedState)initWithCoder:(id)coder
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v31.receiver = self;
-  v31.super_class = _SGDCloudKitSyncPersistedState;
-  v6 = [(_SGDCloudKitSyncPersistedState *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = _SGDCloudKitSyncPersistedState;
+  v6 = [(_SGDCloudKitSyncPersistedState *)&v30 init];
   if (v6)
   {
-    v26 = a2;
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
+    v25 = a2;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v7 = +[_SGDCloudKitSyncPersistedState properties];
-    v8 = [v7 countByEnumeratingWithState:&v27 objects:v34 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v26 objects:v33 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v28;
+      v10 = *v27;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v28 != v10)
+          if (*v27 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v27 + 1) + 8 * i);
+          v12 = *(*(&v26 + 1) + 8 * i);
           first = [v12 first];
           v14 = NSClassFromString(first);
 
@@ -309,7 +299,7 @@
             if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v33 = v12;
+              v32 = v12;
               _os_log_error_impl(&dword_231E60000, v23, OS_LOG_TYPE_ERROR, "_SGDCloudKitSyncPersistedState got invalid class name in property: %@", buf, 0xCu);
             }
 
@@ -327,14 +317,14 @@
           if (!Property)
           {
             currentHandler = [MEMORY[0x277CCA890] currentHandler];
-            [currentHandler handleFailureInMethod:v26 object:v6 file:@"SGDCloudKitSync.m" lineNumber:164 description:{@"Invalid parameter not satisfying: %@", @"objcProperty != nil"}];
+            [currentHandler handleFailureInMethod:v25 object:v6 file:@"SGDCloudKitSync.m" lineNumber:164 description:{@"Invalid parameter not satisfying: %@", @"objcProperty != nil"}];
           }
 
           v20 = [(_SGDCloudKitSyncPersistedState *)v6 _setterForProperty:Property];
           ([(_SGDCloudKitSyncPersistedState *)v6 methodForSelector:v20])(v6, v20, v16);
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v27 objects:v34 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v26 objects:v33 count:16];
         if (v9)
         {
           continue;
@@ -350,7 +340,6 @@
   v22 = v6;
 LABEL_17:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v22;
 }
 

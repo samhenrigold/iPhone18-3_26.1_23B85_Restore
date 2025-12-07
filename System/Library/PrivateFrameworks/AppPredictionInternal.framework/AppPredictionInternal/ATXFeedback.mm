@@ -372,10 +372,9 @@ double __30___ATXFeedback_doDecayAtTime___block_invoke_2(uint64_t a1, uint64_t a
 
 void __97___ATXFeedback_feedbackLaunchedWithConsumerType_forBundleId_rejected_explicitlyRejected_context___block_invoke(uint64_t a1, void *a2, double *a3)
 {
-  v13 = a2;
+  v11 = a2;
   if ([*(a1 + 32) isEqualToString:?])
   {
-    v5 = *(a1 + 40);
     if ([objc_opt_class() isWidgetOrSpotlight:*(a1 + 88)])
     {
       *a3 = *a3 + 1.0;
@@ -383,26 +382,25 @@ void __97___ATXFeedback_feedbackLaunchedWithConsumerType_forBundleId_rejected_ex
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 80));
-    v7 = WeakRetained;
-    v8 = *(a1 + 88);
-    v9 = *(a1 + 48);
-    v10 = v13;
-    v11 = 0;
+    v6 = WeakRetained;
+    v7 = *(a1 + 88);
+    v8 = *(a1 + 48);
+    v9 = v11;
+    v10 = 0;
   }
 
-  else if ([*(a1 + 56) containsObject:v13])
+  else if ([*(a1 + 56) containsObject:v11])
   {
     WeakRetained = objc_loadWeakRetained((a1 + 80));
-    v7 = WeakRetained;
-    v8 = *(a1 + 88);
-    v9 = *(a1 + 48);
-    v10 = v13;
-    v11 = 2;
+    v6 = WeakRetained;
+    v7 = *(a1 + 88);
+    v8 = *(a1 + 48);
+    v9 = v11;
+    v10 = 2;
   }
 
   else
   {
-    v12 = *(a1 + 40);
     if ([objc_opt_class() isWidgetOrSpotlight:*(a1 + 88)])
     {
       a3[1] = a3[1] + 1.0;
@@ -410,14 +408,14 @@ void __97___ATXFeedback_feedbackLaunchedWithConsumerType_forBundleId_rejected_ex
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 80));
-    v7 = WeakRetained;
-    v8 = *(a1 + 88);
-    v9 = *(a1 + 48);
-    v10 = v13;
-    v11 = 1;
+    v6 = WeakRetained;
+    v7 = *(a1 + 88);
+    v8 = *(a1 + 48);
+    v9 = v11;
+    v10 = 1;
   }
 
-  [WeakRetained populateFeedbackForConsumerType:v8 forBundleId:v10 withContext:v9 forFeedbackCategory:v11];
+  [WeakRetained populateFeedbackForConsumerType:v7 forBundleId:v9 withContext:v8 forFeedbackCategory:v10];
 }
 
 double __97___ATXFeedback_feedbackLaunchedWithConsumerType_forBundleId_rejected_explicitlyRejected_context___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -512,7 +510,7 @@ void __92___ATXFeedback_populateFeedbackForConsumerType_forBundleId_withContext_
         goto LABEL_26;
       }
 
-      v92 = __atxlog_handle_default();
+      v92 = __atxlog_handle_default(v3);
       if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_34;
@@ -533,10 +531,10 @@ void __92___ATXFeedback_populateFeedbackForConsumerType_forBundleId_withContext_
     {
       if (v50 == 1)
       {
-        v113 = __atxlog_handle_feedback();
+        v113 = __atxlog_handle_feedback(v3);
         if (os_log_type_enabled(v113, OS_LOG_TYPE_DEBUG))
         {
-          __92___ATXFeedback_populateFeedbackForConsumerType_forBundleId_withContext_forFeedbackCategory___block_invoke_cold_2(a1);
+          __92___ATXFeedback_populateFeedbackForConsumerType_forBundleId_withContext_forFeedbackCategory___block_invoke_cold_2();
         }
 
         v114 = v4[33];
@@ -575,10 +573,10 @@ void __92___ATXFeedback_populateFeedbackForConsumerType_forBundleId_withContext_
 
       if (!v50)
       {
-        v51 = __atxlog_handle_feedback();
+        v51 = __atxlog_handle_feedback(v3);
         if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
         {
-          __92___ATXFeedback_populateFeedbackForConsumerType_forBundleId_withContext_forFeedbackCategory___block_invoke_cold_3(a1);
+          __92___ATXFeedback_populateFeedbackForConsumerType_forBundleId_withContext_forFeedbackCategory___block_invoke_cold_3();
         }
 
         v52 = v4[27];
@@ -615,11 +613,11 @@ void __92___ATXFeedback_populateFeedbackForConsumerType_forBundleId_withContext_
         goto LABEL_26;
       }
 
-      v92 = __atxlog_handle_default();
+      v92 = __atxlog_handle_default(v3);
       if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
       {
 LABEL_34:
-        __92___ATXFeedback_populateFeedbackForConsumerType_forBundleId_withContext_forFeedbackCategory___block_invoke_cold_1(v7);
+        __92___ATXFeedback_populateFeedbackForConsumerType_forBundleId_withContext_forFeedbackCategory___block_invoke_cold_1();
       }
 
 LABEL_35:
@@ -723,7 +721,7 @@ LABEL_30:
         goto LABEL_36;
       }
 
-      v92 = __atxlog_handle_default();
+      v92 = __atxlog_handle_default(v3);
       if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_34;
@@ -778,36 +776,23 @@ void __69___ATXFeedback_putFeedbackScoresForApps_intoScores_confirms_rejects___b
   {
     v16 = *(a1[7] + 8);
     v17 = *(v16 + 24);
-    *v17 = *(a3 + 1);
+    *v17 = a3[1];
     *(v16 + 24) = v17 + 1;
   }
 }
 
-void __92___ATXFeedback_populateFeedbackForConsumerType_forBundleId_withContext_forFeedbackCategory___block_invoke_cold_1(uint64_t *a1)
+void __92___ATXFeedback_populateFeedbackForConsumerType_forBundleId_withContext_forFeedbackCategory___block_invoke_cold_2()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v2, v3, "populateFeedbackForConsumerType called with invalid _ATXFeedbackCategory value of %lu", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_2263AA000, v0, OS_LOG_TYPE_DEBUG, "ATXConsumerTypeAppDirectory got reject for %@", v1, 0xCu);
 }
 
-void __92___ATXFeedback_populateFeedbackForConsumerType_forBundleId_withContext_forFeedbackCategory___block_invoke_cold_2(uint64_t a1)
+void __92___ATXFeedback_populateFeedbackForConsumerType_forBundleId_withContext_forFeedbackCategory___block_invoke_cold_3()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_2();
-  _os_log_debug_impl(&dword_2263AA000, v2, OS_LOG_TYPE_DEBUG, "ATXConsumerTypeAppDirectory got reject for %@", v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __92___ATXFeedback_populateFeedbackForConsumerType_forBundleId_withContext_forFeedbackCategory___block_invoke_cold_3(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_2_2();
-  _os_log_debug_impl(&dword_2263AA000, v2, OS_LOG_TYPE_DEBUG, "ATXConsumerTypeAppDirectory got confirm for %@", v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_2263AA000, v0, OS_LOG_TYPE_DEBUG, "ATXConsumerTypeAppDirectory got confirm for %@", v1, 0xCu);
 }
 
 @end

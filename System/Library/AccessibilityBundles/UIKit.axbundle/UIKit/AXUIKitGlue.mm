@@ -47,7 +47,7 @@
   [MEMORY[0x29EDBDE08] performValidations];
 }
 
-uint64_t __63__AXUIKitGlue__accessibilityInitializeSubclassRuntimeOverrides__block_invoke()
+double __63__AXUIKitGlue__accessibilityInitializeSubclassRuntimeOverrides__block_invoke()
 {
   v4 = [MEMORY[0x29EDBD6E8] sharedInstance];
   [v4 performValidations:&__block_literal_global withPreValidationHandler:&__block_literal_global_1880 postValidationHandler:0 safeCategoryInstallationHandler:&__block_literal_global_1886];
@@ -67,10 +67,10 @@ uint64_t __63__AXUIKitGlue__accessibilityInitializeSubclassRuntimeOverrides__blo
   QSInstallSharedSafeCategoriesIfNeeded();
   v6 = [MEMORY[0x29EDBD690] sharedInstance];
   [v6 addHandler:? forFramework:?];
-  MEMORY[0x29EDC9740](v6);
   v7 = [MEMORY[0x29EDBD690] sharedInstance];
   [v7 addHandler:&__block_literal_global_3117 forFramework:@"TVMLKit"];
-  return MEMORY[0x29EDC9740](v7);
+  *&result = MEMORY[0x29EDC9740](v7).n128_u64[0];
+  return result;
 }
 
 uint64_t __63__AXUIKitGlue__accessibilityInitializeSubclassRuntimeOverrides__block_invoke_2(void *a1, void *a2)
@@ -1095,22 +1095,23 @@ void __63__AXUIKitGlue__accessibilityInitializeSubclassRuntimeOverrides__block_i
 + (void)_handleWebKitLegacyInstallation
 {
   objc_opt_self();
-  v1 = &_handleWebKitLegacyInstallation_onceToken;
+  v2 = &_handleWebKitLegacyInstallation_onceToken;
   location = 0;
   objc_storeStrong(&location, &__block_literal_global_3136);
-  if (*v1 != -1)
+  if (*v2 != -1)
   {
-    dispatch_once(v1, location);
+    dispatch_once(v2, location);
   }
 
   objc_storeStrong(&location, 0);
 }
 
-uint64_t __63__AXUIKitGlue__accessibilityInitializeSubclassRuntimeOverrides__block_invoke_8()
+double __63__AXUIKitGlue__accessibilityInitializeSubclassRuntimeOverrides__block_invoke_8()
 {
   v1 = [MEMORY[0x29EDBD6E8] sharedInstance];
   [v1 performValidations:&__block_literal_global_3119 withPreValidationHandler:&__block_literal_global_3124 postValidationHandler:0];
-  return MEMORY[0x29EDC9740](v1);
+  *&result = MEMORY[0x29EDC9740](v1).n128_u64[0];
+  return result;
 }
 
 uint64_t __63__AXUIKitGlue__accessibilityInitializeSubclassRuntimeOverrides__block_invoke_9(void *a1, void *a2)
@@ -1142,8 +1143,7 @@ void __46__AXUIKitGlue__handleWebKitLegacyInstallation__block_invoke(void *a1)
   location[1] = a1;
   v1 = [MEMORY[0x29EDBD6E8] sharedInstance];
   [v1 performValidations:&__block_literal_global_3138 withPreValidationHandler:&__block_literal_global_3162 postValidationHandler:0 safeCategoryInstallationHandler:&__block_literal_global_3170];
-  MEMORY[0x29EDC9740](v1);
-  location[0] = [MEMORY[0x29EDB9F48] accessibilityBundleWithLastPathComponent:@"WebKit.axbundle"];
+  location[0] = [MEMORY[0x29EDB9F48] accessibilityBundleWithLastPathComponent:{@"WebKit.axbundle", MEMORY[0x29EDC9740](v1).n128_f64[0]}];
   if (location[0])
   {
     [MEMORY[0x29EDC7358] loadAccessibilityBundle:location[0] didLoadCallback:0 loadSubbundles:0];

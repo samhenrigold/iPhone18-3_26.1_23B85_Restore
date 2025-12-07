@@ -1,9 +1,17 @@
 @interface HKECGAvailabilityResult
++ (id)resultWithAdvertiseDirectOnboarding:(BOOL)onboarding advertiseDirectOnboardingSecondary:(BOOL)secondary advertiseUpgrade:(BOOL)upgrade advertiseUpgradeSecondary:(BOOL)upgradeSecondary advertiseUpgradeBackgroundDelivered:(BOOL)delivered;
 + (id)resultWithNoAdvertisements;
 - (HKECGAvailabilityResult)initWithAdvertiseDirectOnboarding:(BOOL)onboarding advertiseDirectOnboardingSecondary:(BOOL)secondary advertiseUpgrade:(BOOL)upgrade advertiseUpgradeSecondary:(BOOL)upgradeSecondary advertiseUpgradeBackgroundDelivered:(BOOL)delivered;
 @end
 
 @implementation HKECGAvailabilityResult
+
++ (id)resultWithAdvertiseDirectOnboarding:(BOOL)onboarding advertiseDirectOnboardingSecondary:(BOOL)secondary advertiseUpgrade:(BOOL)upgrade advertiseUpgradeSecondary:(BOOL)upgradeSecondary advertiseUpgradeBackgroundDelivered:(BOOL)delivered
+{
+  v7 = [[self alloc] initWithAdvertiseDirectOnboarding:onboarding advertiseDirectOnboardingSecondary:secondary advertiseUpgrade:upgrade advertiseUpgradeSecondary:upgradeSecondary advertiseUpgradeBackgroundDelivered:delivered];
+
+  return v7;
+}
 
 + (id)resultWithNoAdvertisements
 {

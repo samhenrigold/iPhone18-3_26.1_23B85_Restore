@@ -62,11 +62,11 @@
 
 - (CKRecordXPCMetadata)initWithCoder:(id)coder
 {
-  v64[2] = *MEMORY[0x1E69E9840];
+  v63[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v63.receiver = self;
-  v63.super_class = CKRecordXPCMetadata;
-  v5 = [(CKRecordXPCMetadata *)&v63 init];
+  v62.receiver = self;
+  v62.super_class = CKRecordXPCMetadata;
+  v5 = [(CKRecordXPCMetadata *)&v62 init];
   if (v5)
   {
     v6 = objc_autoreleasePoolPush();
@@ -119,9 +119,9 @@
     v5->_pcsKeyID = v45;
 
     v47 = MEMORY[0x1E695DFD8];
-    v64[0] = objc_opt_class();
-    v64[1] = objc_opt_class();
-    v49 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v48, v64, 2);
+    v63[0] = objc_opt_class();
+    v63[1] = objc_opt_class();
+    v49 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v48, v63, 2);
     v51 = objc_msgSend_setWithArray_(v47, v50, v49);
     v52 = NSStringFromSelector(sel_allPCSKeyIDs);
     v54 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v53, v51, v52);
@@ -137,7 +137,6 @@
     objc_autoreleasePoolPop(v6);
   }
 
-  v61 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

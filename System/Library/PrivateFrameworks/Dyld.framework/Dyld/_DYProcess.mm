@@ -4,6 +4,7 @@
 - (_DYProcess)init;
 - (id)getCurrentSnapshotAndReturnError:(id *)error;
 - (id)registerChangeNotificationsWithError:(id *)error handler:(id)handler;
+- (id)registerForEvent:(unsigned int)event error:(id *)error handler:(id)handler;
 - (void)setQueue:(id)queue;
 - (void)unregisterForEvent:(id)event;
 @end
@@ -61,6 +62,34 @@
 
     sub_1AE4D2730(v10, sub_1AE4E4FCC, v6);
     v12 = v11;
+
+    initWithValue_ = [objc_allocWithZone(_DYEventHandlerToken) initWithValue_];
+
+    return initWithValue_;
+  }
+
+  else
+  {
+    __break(1u);
+  }
+
+  return result;
+}
+
+- (id)registerForEvent:(unsigned int)event error:(id *)error handler:(id)handler
+{
+  v5 = *&event;
+  v7 = _Block_copy(handler);
+  v8 = swift_allocObject();
+  *(v8 + 16) = v7;
+  v9 = OBJC_IVAR____DYProcess_impl;
+  result = swift_beginAccess();
+  if (*(&self->super.isa + v9))
+  {
+    selfCopy = self;
+
+    sub_1AE4D3038(v5, sub_1AE4E4FBC, v8);
+    v13 = v12;
 
     initWithValue_ = [objc_allocWithZone(_DYEventHandlerToken) initWithValue_];
 

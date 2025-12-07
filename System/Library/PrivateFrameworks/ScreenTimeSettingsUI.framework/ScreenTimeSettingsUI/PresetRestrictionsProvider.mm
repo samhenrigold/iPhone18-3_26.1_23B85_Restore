@@ -8,7 +8,7 @@
 
 - (void)fetchPresetRestrictionsForAge:(int64_t)age storefront:(NSString *)storefront completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FFAA380);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FFAA380, &qword_264CD24E8);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -36,7 +36,7 @@
 
 - (void)fetchPresetRestrictionsFromCacheForAge:(int64_t)age storefront:(NSString *)storefront completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FFAA380);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FFAA380, &qword_264CD24E8);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);

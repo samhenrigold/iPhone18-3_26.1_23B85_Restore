@@ -13,6 +13,7 @@
 - (void)sendEventForProtocol:(id)protocol topic:(id)topic payload:(id)payload completion:(id)completion;
 - (void)sendRequestForProtocol:(id)protocol topic:(id)topic identifier:(unint64_t)identifier payload:(id)payload completion:(id)completion;
 - (void)sendRequestForProtocol:(id)protocol topic:(id)topic payload:(id)payload completion:(id)completion;
+- (void)sendResponseForRequestHeader:(id)header payload:(id)payload status:(unsigned __int16)status completion:(id)completion;
 - (void)setActive:(BOOL)active;
 - (void)setTrafficClass:(unint64_t)class;
 - (void)timerDidFire:(id)fire;
@@ -33,7 +34,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   workQueue = [(HMDDataStream *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -48,8 +49,8 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v11;
+      v14 = 138543362;
+      v15 = v11;
       v12 = "%{public}@Data stream failed to connect in time; closing!";
       goto LABEL_7;
     }
@@ -71,11 +72,11 @@ LABEL_8:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v11;
+      v14 = 138543362;
+      v15 = v11;
       v12 = "%{public}@Data stream failed to receive first message in time; closing!";
 LABEL_7:
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, v12, &v15, 0xCu);
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, v12, &v14, 0xCu);
 
       goto LABEL_8;
     }
@@ -84,13 +85,11 @@ LABEL_7:
   }
 
 LABEL_9:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transport:(id)transport didReceiveRawFrame:(id)frame
 {
-  v154 = *MEMORY[0x277D85DE8];
+  v153 = *MEMORY[0x277D85DE8];
   transportCopy = transport;
   frameCopy = frame;
   delegate = [(HMDDataStream *)self delegate];
@@ -104,7 +103,7 @@ LABEL_9:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v145 = v13;
+      v144 = v13;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Data stream received frame", buf, 0xCu);
     }
 
@@ -118,7 +117,7 @@ LABEL_9:
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v145 = v14;
+      v144 = v14;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Data stream received frame; but no delegate", buf, 0xCu);
     }
 
@@ -144,13 +143,13 @@ LABEL_9:
 
         if (!sessionEncryption)
         {
-          v135 = 0;
-          v136 = 0;
           v134 = 0;
-          v19 = [HMDDataStreamMessageCoder unpackUnencryptedOPACKFrame:frameCopy receivedHeader:&v136 receivedPayload:&v135 error:&v134];
-          v15 = v136;
-          v20 = v135;
-          v21 = v134;
+          v135 = 0;
+          v133 = 0;
+          v19 = [HMDDataStreamMessageCoder unpackUnencryptedOPACKFrame:frameCopy receivedHeader:&v135 receivedPayload:&v134 error:&v133];
+          v15 = v135;
+          v20 = v134;
+          v21 = v133;
           if (v21)
           {
             goto LABEL_29;
@@ -166,7 +165,7 @@ LABEL_9:
         {
           v30 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v145 = v30;
+          v144 = v30;
           v31 = "%{public}@Data stream failed due to receiving encrypted frame";
 LABEL_26:
           v33 = v29;
@@ -191,13 +190,13 @@ LABEL_28:
       if (sessionEncryption2)
       {
         sessionEncryption3 = [(HMDDataStream *)selfCopy sessionEncryption];
-        v138 = 0;
-        v139 = 0;
         v137 = 0;
-        v19 = [HMDDataStreamMessageCoder decryptEncryptedOPACKFrame:frameCopy sessionEncryption:sessionEncryption3 receivedHeader:&v139 receivedPayload:&v138 error:&v137];
-        v15 = v139;
-        v20 = v138;
-        v21 = v137;
+        v138 = 0;
+        v136 = 0;
+        v19 = [HMDDataStreamMessageCoder decryptEncryptedOPACKFrame:frameCopy sessionEncryption:sessionEncryption3 receivedHeader:&v138 receivedPayload:&v137 error:&v136];
+        v15 = v138;
+        v20 = v137;
+        v21 = v136;
 
         if (v21)
         {
@@ -209,21 +208,21 @@ LABEL_35:
         {
           if ([(HMDDataStream *)selfCopy firstMessageReceived])
           {
-            v42 = [v15 objectForKeyedSubscript:@"response"];
+            v41 = [v15 objectForKeyedSubscript:@"response"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v43 = v42;
+              v42 = v41;
             }
 
             else
             {
-              v43 = 0;
+              v42 = 0;
             }
 
-            v44 = v43;
+            v43 = v42;
 
-            if (v44)
+            if (v43)
             {
               [(HMDDataStream *)selfCopy fulfillPendingRequestWithResponseHeader:v15 payload:v20];
 LABEL_123:
@@ -232,218 +231,218 @@ LABEL_32:
               goto LABEL_33;
             }
 
-            v58 = [v15 objectForKeyedSubscript:@"protocol"];
+            v57 = [v15 objectForKeyedSubscript:@"protocol"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v59 = v58;
+              v58 = v57;
             }
 
             else
             {
-              v59 = 0;
+              v58 = 0;
             }
 
-            v60 = v59;
+            v59 = v58;
 
-            v130 = v60;
-            if (!v60)
+            v129 = v59;
+            if (!v59)
             {
-              v106 = objc_autoreleasePoolPush();
-              v107 = selfCopy;
-              v108 = HMFGetOSLogHandle();
-              if (os_log_type_enabled(v108, OS_LOG_TYPE_INFO))
+              v105 = objc_autoreleasePoolPush();
+              v106 = selfCopy;
+              v107 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v107, OS_LOG_TYPE_INFO))
               {
-                v109 = HMFGetLogIdentifier();
+                v108 = HMFGetLogIdentifier();
                 *buf = 138543362;
-                v145 = v109;
-                _os_log_impl(&dword_2531F8000, v108, OS_LOG_TYPE_INFO, "%{public}@DataStream dropping incoming message (header missing protocol)", buf, 0xCu);
+                v144 = v108;
+                _os_log_impl(&dword_2531F8000, v107, OS_LOG_TYPE_INFO, "%{public}@DataStream dropping incoming message (header missing protocol)", buf, 0xCu);
               }
 
               goto LABEL_121;
             }
 
-            if ([(__CFString *)v60 isEqual:@"control"])
+            if ([(__CFString *)v59 isEqual:@"control"])
             {
-              v42 = [v15 objectForKeyedSubscript:@"event"];
+              v41 = [v15 objectForKeyedSubscript:@"event"];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v61 = v42;
+                v60 = v41;
               }
 
               else
               {
-                v61 = 0;
+                v60 = 0;
               }
 
-              v62 = v61;
+              v61 = v60;
 
-              if (v62)
+              if (v61)
               {
                 controlProtocol = [(HMDDataStream *)selfCopy controlProtocol];
-                [controlProtocol dataStream:selfCopy didReceiveEvent:v62 header:v15 payload:v20];
+                [controlProtocol dataStream:selfCopy didReceiveEvent:v61 header:v15 payload:v20];
 LABEL_108:
 
 LABEL_122:
                 goto LABEL_123;
               }
 
-              v42 = [v15 objectForKeyedSubscript:@"request"];
+              v41 = [v15 objectForKeyedSubscript:@"request"];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v114 = v42;
+                v113 = v41;
               }
 
               else
               {
-                v114 = 0;
+                v113 = 0;
               }
 
-              v115 = v114;
+              v114 = v113;
 
-              if (v115)
+              if (v114)
               {
                 controlProtocol = [(HMDDataStream *)selfCopy controlProtocol];
-                [controlProtocol dataStream:selfCopy didReceiveRequest:v115 header:v15 payload:v20];
+                [controlProtocol dataStream:selfCopy didReceiveRequest:v114 header:v15 payload:v20];
                 goto LABEL_108;
               }
 
               goto LABEL_119;
             }
 
-            v133 = delegate;
+            v132 = delegate;
             protocols = [(HMDDataStream *)selfCopy protocols];
-            v111 = [protocols objectForKey:v60];
+            v110 = [protocols objectForKey:v59];
 
-            if (v111)
+            if (v110)
             {
-              v42 = [v15 objectForKeyedSubscript:@"event"];
+              v41 = [v15 objectForKeyedSubscript:@"event"];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v112 = v42;
+                v111 = v41;
               }
 
               else
               {
-                v112 = 0;
+                v111 = 0;
               }
 
-              v113 = v112;
+              v112 = v111;
 
-              if (v113)
+              if (v112)
               {
-                [v111 dataStream:selfCopy didReceiveEvent:v113 header:v15 payload:v20];
+                [v110 dataStream:selfCopy didReceiveEvent:v112 header:v15 payload:v20];
               }
 
               else
               {
-                v42 = [v15 objectForKeyedSubscript:@"request"];
+                v41 = [v15 objectForKeyedSubscript:@"request"];
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v120 = v42;
+                  v119 = v41;
                 }
 
                 else
                 {
-                  v120 = 0;
+                  v119 = 0;
                 }
 
-                v121 = v120;
+                v120 = v119;
 
-                if (!v121)
+                if (!v120)
                 {
 
-                  delegate = v133;
+                  delegate = v132;
 LABEL_119:
-                  v106 = objc_autoreleasePoolPush();
-                  v107 = selfCopy;
-                  v108 = HMFGetOSLogHandle();
-                  if (os_log_type_enabled(v108, OS_LOG_TYPE_INFO))
+                  v105 = objc_autoreleasePoolPush();
+                  v106 = selfCopy;
+                  v107 = HMFGetOSLogHandle();
+                  if (os_log_type_enabled(v107, OS_LOG_TYPE_INFO))
                   {
-                    v122 = HMFGetLogIdentifier();
+                    v121 = HMFGetLogIdentifier();
                     *buf = 138543362;
-                    v145 = v122;
-                    _os_log_impl(&dword_2531F8000, v108, OS_LOG_TYPE_INFO, "%{public}@Message received but no protocol accepted it; dropped!", buf, 0xCu);
+                    v144 = v121;
+                    _os_log_impl(&dword_2531F8000, v107, OS_LOG_TYPE_INFO, "%{public}@Message received but no protocol accepted it; dropped!", buf, 0xCu);
                   }
 
 LABEL_121:
 
-                  objc_autoreleasePoolPop(v106);
-                  v42 = 0;
+                  objc_autoreleasePoolPop(v105);
+                  v41 = 0;
                   goto LABEL_122;
                 }
 
-                [v111 dataStream:selfCopy didReceiveRequest:v121 header:v15 payload:v20];
+                [v110 dataStream:selfCopy didReceiveRequest:v120 header:v15 payload:v20];
               }
             }
 
             else
             {
-              v116 = objc_autoreleasePoolPush();
-              v117 = selfCopy;
-              v118 = HMFGetOSLogHandle();
-              if (os_log_type_enabled(v118, OS_LOG_TYPE_INFO))
+              v115 = objc_autoreleasePoolPush();
+              v116 = selfCopy;
+              v117 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v117, OS_LOG_TYPE_INFO))
               {
-                v119 = HMFGetLogIdentifier();
+                v118 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v145 = v119;
-                v146 = 2112;
-                v147 = v130;
-                _os_log_impl(&dword_2531F8000, v118, OS_LOG_TYPE_INFO, "%{public}@DataStream dropping incoming message (no protocol named %@)", buf, 0x16u);
+                v144 = v118;
+                v145 = 2112;
+                v146 = v129;
+                _os_log_impl(&dword_2531F8000, v117, OS_LOG_TYPE_INFO, "%{public}@DataStream dropping incoming message (no protocol named %@)", buf, 0x16u);
               }
 
-              objc_autoreleasePoolPop(v116);
-              v42 = 0;
+              objc_autoreleasePoolPop(v115);
+              v41 = 0;
             }
 
-            delegate = v133;
+            delegate = v132;
             goto LABEL_122;
           }
 
           v15 = v15;
           v20 = v20;
-          v132 = delegate;
+          v131 = delegate;
           if (selfCopy)
           {
-            v45 = [v15 objectForKeyedSubscript:@"protocol"];
+            v44 = [v15 objectForKeyedSubscript:@"protocol"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v46 = v45;
+              v45 = v44;
             }
 
             else
             {
-              v46 = 0;
+              v45 = 0;
             }
 
-            v47 = v46;
+            v46 = v45;
 
-            v129 = v47;
-            if ([v47 isEqualToString:@"control"])
+            v128 = v46;
+            if ([v46 isEqualToString:@"control"])
             {
-              v48 = [v15 objectForKeyedSubscript:@"response"];
+              v47 = [v15 objectForKeyedSubscript:@"response"];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v49 = v48;
+                v48 = v47;
               }
 
               else
               {
-                v49 = 0;
+                v48 = 0;
               }
 
-              v50 = v49;
+              v49 = v48;
 
-              if (v50)
+              if (v49)
               {
                 controlProtocol2 = [(HMDDataStream *)selfCopy controlProtocol];
-                [controlProtocol2 dataStream:selfCopy didReceiveResponse:v48 header:v15 payload:v20];
+                [controlProtocol2 dataStream:selfCopy didReceiveResponse:v47 header:v15 payload:v20];
 
                 controlProtocol3 = [(HMDDataStream *)selfCopy controlProtocol];
                 helloMessageResponseReceived = [controlProtocol3 helloMessageResponseReceived];
@@ -459,186 +458,186 @@ LABEL_74:
                   if (selfCopy)
                   {
                     pendingRequests = [(HMDDataStream *)selfCopy pendingRequests];
-                    v71 = [pendingRequests copy];
+                    v70 = objc_msgSend_copy(pendingRequests);
 
-                    v72 = objc_autoreleasePoolPush();
-                    v73 = selfCopy;
-                    v74 = HMFGetOSLogHandle();
-                    if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
+                    v71 = objc_autoreleasePoolPush();
+                    v72 = selfCopy;
+                    v73 = HMFGetOSLogHandle();
+                    if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
                     {
-                      v75 = HMFGetLogIdentifier();
-                      v76 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v71, "count")}];
-                      *v150 = 138543618;
-                      v151 = v75;
-                      v152 = 2112;
-                      v153 = v76;
-                      _os_log_impl(&dword_2531F8000, v74, OS_LOG_TYPE_INFO, "%{public}@Sending out all pending requests [%@]", v150, 0x16u);
+                      v74 = HMFGetLogIdentifier();
+                      v75 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v70, "count")}];
+                      *v149 = 138543618;
+                      v150 = v74;
+                      v151 = 2112;
+                      v152 = v75;
+                      _os_log_impl(&dword_2531F8000, v73, OS_LOG_TYPE_INFO, "%{public}@Sending out all pending requests [%@]", v149, 0x16u);
                     }
 
                     contextb = v15;
-                    v131 = transportCopy;
+                    v130 = transportCopy;
 
-                    objc_autoreleasePoolPop(v72);
-                    pendingRequests2 = [(HMDDataStream *)v73 pendingRequests];
+                    objc_autoreleasePoolPop(v71);
+                    pendingRequests2 = [(HMDDataStream *)v72 pendingRequests];
                     [pendingRequests2 removeAllObjects];
 
-                    v142 = 0u;
-                    v143 = 0u;
-                    v140 = 0u;
                     v141 = 0u;
-                    v78 = v71;
-                    v79 = [v78 countByEnumeratingWithState:&v140 objects:buf count:16];
-                    v125 = v20;
-                    if (v79)
+                    v142 = 0u;
+                    v139 = 0u;
+                    v140 = 0u;
+                    v77 = v70;
+                    v78 = [v77 countByEnumeratingWithState:&v139 objects:buf count:16];
+                    v124 = v20;
+                    if (v78)
                     {
-                      v80 = v79;
-                      v81 = *v141;
+                      v79 = v78;
+                      v80 = *v140;
                       do
                       {
-                        for (i = 0; i != v80; ++i)
+                        for (i = 0; i != v79; ++i)
                         {
-                          if (*v141 != v81)
+                          if (*v140 != v80)
                           {
-                            objc_enumerationMutation(v78);
+                            objc_enumerationMutation(v77);
                           }
 
-                          v83 = *(*(&v140 + 1) + 8 * i);
-                          protocol = [v83 protocol];
-                          topic = [v83 topic];
-                          payload = [v83 payload];
-                          callback = [v83 callback];
-                          [(HMDDataStream *)v73 sendRequestForProtocol:protocol topic:topic payload:payload completion:callback];
+                          v82 = *(*(&v139 + 1) + 8 * i);
+                          protocol = [v82 protocol];
+                          topic = [v82 topic];
+                          payload = [v82 payload];
+                          callback = [v82 callback];
+                          [(HMDDataStream *)v72 sendRequestForProtocol:protocol topic:topic payload:payload completion:callback];
                         }
 
-                        v80 = [v78 countByEnumeratingWithState:&v140 objects:buf count:16];
+                        v79 = [v77 countByEnumeratingWithState:&v139 objects:buf count:16];
                       }
 
-                      while (v80);
+                      while (v79);
                     }
 
-                    pendingEvents = [(HMDDataStream *)v73 pendingEvents];
-                    v89 = [pendingEvents copy];
+                    pendingEvents = [(HMDDataStream *)v72 pendingEvents];
+                    v88 = objc_msgSend_copy(pendingEvents);
 
-                    v90 = objc_autoreleasePoolPush();
-                    v91 = v73;
-                    v92 = HMFGetOSLogHandle();
-                    if (os_log_type_enabled(v92, OS_LOG_TYPE_INFO))
+                    v89 = objc_autoreleasePoolPush();
+                    v90 = v72;
+                    v91 = HMFGetOSLogHandle();
+                    if (os_log_type_enabled(v91, OS_LOG_TYPE_INFO))
                     {
-                      v93 = HMFGetLogIdentifier();
-                      v94 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v89, "count")}];
-                      *v150 = 138543618;
-                      v151 = v93;
-                      v152 = 2112;
-                      v153 = v94;
-                      _os_log_impl(&dword_2531F8000, v92, OS_LOG_TYPE_INFO, "%{public}@Sending out all pending events [%@]", v150, 0x16u);
+                      v92 = HMFGetLogIdentifier();
+                      v93 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v88, "count")}];
+                      *v149 = 138543618;
+                      v150 = v92;
+                      v151 = 2112;
+                      v152 = v93;
+                      _os_log_impl(&dword_2531F8000, v91, OS_LOG_TYPE_INFO, "%{public}@Sending out all pending events [%@]", v149, 0x16u);
                     }
 
-                    objc_autoreleasePoolPop(v90);
-                    pendingEvents2 = [(HMDDataStream *)v91 pendingEvents];
+                    objc_autoreleasePoolPop(v89);
+                    pendingEvents2 = [(HMDDataStream *)v90 pendingEvents];
                     [pendingEvents2 removeAllObjects];
 
-                    v142 = 0u;
-                    v143 = 0u;
-                    v140 = 0u;
                     v141 = 0u;
-                    v96 = v89;
-                    v97 = [v96 countByEnumeratingWithState:&v140 objects:buf count:16];
-                    if (v97)
+                    v142 = 0u;
+                    v139 = 0u;
+                    v140 = 0u;
+                    v95 = v88;
+                    v96 = [v95 countByEnumeratingWithState:&v139 objects:buf count:16];
+                    if (v96)
                     {
-                      v98 = v97;
-                      v99 = *v141;
+                      v97 = v96;
+                      v98 = *v140;
                       do
                       {
-                        for (j = 0; j != v98; ++j)
+                        for (j = 0; j != v97; ++j)
                         {
-                          if (*v141 != v99)
+                          if (*v140 != v98)
                           {
-                            objc_enumerationMutation(v96);
+                            objc_enumerationMutation(v95);
                           }
 
-                          v101 = *(*(&v140 + 1) + 8 * j);
-                          protocol2 = [v101 protocol];
-                          topic2 = [v101 topic];
-                          payload2 = [v101 payload];
-                          completion = [v101 completion];
-                          [(HMDDataStream *)v91 sendEventForProtocol:protocol2 topic:topic2 payload:payload2 completion:completion];
+                          v100 = *(*(&v139 + 1) + 8 * j);
+                          protocol2 = [v100 protocol];
+                          topic2 = [v100 topic];
+                          payload2 = [v100 payload];
+                          completion = [v100 completion];
+                          [(HMDDataStream *)v90 sendEventForProtocol:protocol2 topic:topic2 payload:payload2 completion:completion];
                         }
 
-                        v98 = [v96 countByEnumeratingWithState:&v140 objects:buf count:16];
+                        v97 = [v95 countByEnumeratingWithState:&v139 objects:buf count:16];
                       }
 
-                      while (v98);
+                      while (v97);
                     }
 
-                    transportCopy = v131;
-                    delegate = v132;
-                    v20 = v125;
+                    transportCopy = v130;
+                    delegate = v131;
+                    v20 = v124;
                     v15 = contextb;
                   }
 
                   else
                   {
-                    delegate = v132;
+                    delegate = v131;
                   }
 
                   goto LABEL_32;
                 }
 
 LABEL_71:
-                v65 = objc_autoreleasePoolPush();
-                v66 = selfCopy;
-                v67 = HMFGetOSLogHandle();
-                if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+                v64 = objc_autoreleasePoolPush();
+                v65 = selfCopy;
+                v66 = HMFGetOSLogHandle();
+                if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
                 {
-                  v68 = HMFGetLogIdentifier();
+                  v67 = HMFGetLogIdentifier();
                   *buf = 138543362;
-                  v145 = v68;
-                  _os_log_impl(&dword_2531F8000, v67, OS_LOG_TYPE_ERROR, "%{public}@Received unexpected first message on the data stream", buf, 0xCu);
+                  v144 = v67;
+                  _os_log_impl(&dword_2531F8000, v66, OS_LOG_TYPE_ERROR, "%{public}@Received unexpected first message on the data stream", buf, 0xCu);
                 }
 
-                objc_autoreleasePoolPop(v65);
-                [(HMDDataStream *)v66 close];
+                objc_autoreleasePoolPop(v64);
+                [(HMDDataStream *)v65 close];
                 goto LABEL_74;
               }
 
-              v124 = objc_autoreleasePoolPush();
+              v123 = objc_autoreleasePoolPush();
               contexta = selfCopy;
-              v64 = HMFGetOSLogHandle();
-              v57 = v129;
-              if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+              v63 = HMFGetOSLogHandle();
+              v56 = v128;
+              if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
               {
-                v123 = HMFGetLogIdentifier();
+                v122 = HMFGetLogIdentifier();
                 *buf = 138543874;
-                v145 = v123;
-                v146 = 2112;
-                v147 = @"response";
-                v148 = 2112;
-                v149 = v48;
-                _os_log_impl(&dword_2531F8000, v64, OS_LOG_TYPE_ERROR, "%{public}@Received unexpected %@ key value: %@", buf, 0x20u);
+                v144 = v122;
+                v145 = 2112;
+                v146 = @"response";
+                v147 = 2112;
+                v148 = v47;
+                _os_log_impl(&dword_2531F8000, v63, OS_LOG_TYPE_ERROR, "%{public}@Received unexpected %@ key value: %@", buf, 0x20u);
               }
 
-              objc_autoreleasePoolPop(v124);
+              objc_autoreleasePoolPop(v123);
             }
 
             else
             {
               context = objc_autoreleasePoolPush();
-              v54 = selfCopy;
-              v55 = HMFGetOSLogHandle();
-              if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+              v53 = selfCopy;
+              v54 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
               {
-                v56 = HMFGetLogIdentifier();
+                v55 = HMFGetLogIdentifier();
                 *buf = 138543874;
-                v145 = v56;
-                v146 = 2112;
-                v147 = @"control";
-                v148 = 2112;
-                v149 = v45;
-                _os_log_impl(&dword_2531F8000, v55, OS_LOG_TYPE_ERROR, "%{public}@Expected protocol name: %@ received: %@", buf, 0x20u);
+                v144 = v55;
+                v145 = 2112;
+                v146 = @"control";
+                v147 = 2112;
+                v148 = v44;
+                _os_log_impl(&dword_2531F8000, v54, OS_LOG_TYPE_ERROR, "%{public}@Expected protocol name: %@ received: %@", buf, 0x20u);
               }
 
               objc_autoreleasePoolPop(context);
-              v57 = v129;
+              v56 = v128;
             }
           }
 
@@ -654,9 +653,9 @@ LABEL_29:
           HMFGetLogIdentifier();
           v40 = v39 = delegate;
           *buf = 138543618;
-          v145 = v40;
-          v146 = 2112;
-          v147 = v21;
+          v144 = v40;
+          v145 = 2112;
+          v146 = v21;
           _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_INFO, "%{public}@DataStream dropping incoming message (%@)", buf, 0x16u);
 
           delegate = v39;
@@ -673,7 +672,7 @@ LABEL_29:
       {
         v30 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v145 = v30;
+        v144 = v30;
         v31 = "%{public}@Data stream failed due to receiving unencrypted frame";
         goto LABEL_26;
       }
@@ -688,9 +687,9 @@ LABEL_29:
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v145 = v30;
-      v146 = 1024;
-      LODWORD(v147) = v16;
+      v144 = v30;
+      v145 = 1024;
+      LODWORD(v146) = v16;
       v31 = "%{public}@Data stream failed due to unrecognized frame type 0x%02x";
       v33 = v29;
       v34 = 18;
@@ -710,19 +709,17 @@ LABEL_27:
   {
     v25 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v145 = v25;
+    v144 = v25;
     _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@DataStream dropping truncated frame of zero-length", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v22);
 LABEL_33:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fulfillPendingRequestWithResponseHeader:(void *)header payload:
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v5 = a2;
   headerCopy = header;
   v7 = headerCopy;
@@ -732,34 +729,34 @@ LABEL_33:
   }
 
   selfCopy = self;
-  v32 = headerCopy;
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
+  v31 = headerCopy;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   pendingRequests = [self pendingRequests];
-  v9 = [pendingRequests countByEnumeratingWithState:&v37 objects:v47 count:16];
+  v9 = [pendingRequests countByEnumeratingWithState:&v36 objects:v46 count:16];
   if (!v9)
   {
     goto LABEL_16;
   }
 
   v10 = v9;
-  v11 = *v38;
-  v33 = *v38;
-  v34 = pendingRequests;
+  v11 = *v37;
+  v32 = *v37;
+  v33 = pendingRequests;
   do
   {
     v12 = 0;
-    v36 = v10;
+    v35 = v10;
     do
     {
-      if (*v38 != v11)
+      if (*v37 != v11)
       {
         objc_enumerationMutation(pendingRequests);
       }
 
-      v13 = *(*(&v37 + 1) + 8 * v12);
+      v13 = *(*(&v36 + 1) + 8 * v12);
       v14 = v5;
       if (v13)
       {
@@ -775,7 +772,7 @@ LABEL_33:
         if (![identifier isEqual:v18])
         {
 
-          v10 = v36;
+          v10 = v35;
 LABEL_13:
 
           goto LABEL_14;
@@ -784,20 +781,20 @@ LABEL_13:
         protocol = [v13 protocol];
         [v14 objectForKeyedSubscript:@"protocol"];
         v21 = v20 = v5;
-        v35 = [protocol isEqual:v21];
+        v34 = [protocol isEqual:v21];
 
         v5 = v20;
-        v11 = v33;
+        v11 = v32;
 
-        pendingRequests = v34;
-        v10 = v36;
-        if (v35)
+        pendingRequests = v33;
+        v10 = v35;
+        if (v34)
         {
 
           v27 = v13;
           callback = [v27 callback];
-          v7 = v32;
-          (callback)[2](callback, 0, v14, v32);
+          v7 = v31;
+          (callback)[2](callback, 0, v14, v31);
 
           pendingRequests2 = [selfCopy pendingRequests];
           [pendingRequests2 removeObject:v27];
@@ -812,7 +809,7 @@ LABEL_14:
     }
 
     while (v10 != v12);
-    v10 = [pendingRequests countByEnumeratingWithState:&v37 objects:v47 count:16];
+    v10 = [pendingRequests countByEnumeratingWithState:&v36 objects:v46 count:16];
   }
 
   while (v10);
@@ -826,24 +823,22 @@ LABEL_16:
     v25 = HMFGetLogIdentifier();
     pendingRequests3 = [v23 pendingRequests];
     *buf = 138543874;
-    v42 = v25;
-    v43 = 2112;
-    v44 = v5;
-    v45 = 2112;
-    v46 = pendingRequests3;
+    v41 = v25;
+    v42 = 2112;
+    v43 = v5;
+    v44 = 2112;
+    v45 = pendingRequests3;
     _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_INFO, "%{public}@No pending request found for response with header: %@. Pending %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v22);
-  v7 = v32;
+  v7 = v31;
 LABEL_19:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transportDidOpen:(id)open
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   openCopy = open;
   [(HMDDataStream *)self setConnectionTimer:0];
   delegate = [(HMDDataStream *)self delegate];
@@ -857,7 +852,7 @@ LABEL_19:
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v31 = v10;
+      v30 = v10;
       _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Data stream OPEN!", buf, 0xCu);
     }
 
@@ -871,7 +866,7 @@ LABEL_19:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v31 = v11;
+      v30 = v11;
       _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Data stream OPEN (but no delegate!)", buf, 0xCu);
     }
 
@@ -894,29 +889,29 @@ LABEL_19:
     [helloMessageResponseTimer3 resume];
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   protocols = [(HMDDataStream *)selfCopy protocols];
   objectEnumerator = [protocols objectEnumerator];
 
-  v19 = [objectEnumerator countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v19 = [objectEnumerator countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v26;
+    v21 = *v25;
     do
     {
       v22 = 0;
       do
       {
-        if (*v26 != v21)
+        if (*v25 != v21)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v23 = *(*(&v25 + 1) + 8 * v22);
+        v23 = *(*(&v24 + 1) + 8 * v22);
         if (v23)
         {
           [v23 dataStreamDidOpen:selfCopy];
@@ -926,18 +921,16 @@ LABEL_19:
       }
 
       while (v20 != v22);
-      v20 = [objectEnumerator countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v20 = [objectEnumerator countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v20);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transportDidClose:(id)close
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   closeCopy = close;
   delegate = [(HMDDataStream *)self delegate];
   v6 = objc_autoreleasePoolPush();
@@ -950,7 +943,7 @@ LABEL_19:
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v10;
+      v25 = v10;
       _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Data stream closed", buf, 0xCu);
     }
 
@@ -964,40 +957,40 @@ LABEL_19:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v11;
+      v25 = v11;
       _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Data stream closed (but no delegate!)", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   protocols = [(HMDDataStream *)selfCopy protocols];
   objectEnumerator = [protocols objectEnumerator];
 
-  v14 = [objectEnumerator countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v14 = [objectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v21;
+    v16 = *v20;
     do
     {
       v17 = 0;
       do
       {
-        if (*v21 != v16)
+        if (*v20 != v16)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        [*(*(&v20 + 1) + 8 * v17++) dataStreamDidClose:selfCopy];
+        [*(*(&v19 + 1) + 8 * v17++) dataStreamDidClose:selfCopy];
       }
 
       while (v15 != v17);
-      v15 = [objectEnumerator countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v15 = [objectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v15);
@@ -1005,44 +998,42 @@ LABEL_19:
 
   v18 = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:1061];
   [(HMDDataStream *)selfCopy _failPendingMessagesWithError:v18];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_failPendingMessagesWithError:(void *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (error)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     pendingRequests = [error pendingRequests];
-    v5 = [pendingRequests countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v5 = [pendingRequests countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v24;
+      v7 = *v23;
       do
       {
         v8 = 0;
         do
         {
-          if (*v24 != v7)
+          if (*v23 != v7)
           {
             objc_enumerationMutation(pendingRequests);
           }
 
-          callback = [*(*(&v23 + 1) + 8 * v8) callback];
+          callback = [*(*(&v22 + 1) + 8 * v8) callback];
           (callback)[2](callback, v3, 0, 0);
 
           ++v8;
         }
 
         while (v6 != v8);
-        v6 = [pendingRequests countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v6 = [pendingRequests countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v6);
@@ -1051,34 +1042,34 @@ LABEL_19:
     pendingRequests2 = [error pendingRequests];
     [pendingRequests2 removeAllObjects];
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     pendingEvents = [error pendingEvents];
-    v12 = [pendingEvents countByEnumeratingWithState:&v19 objects:v27 count:16];
+    v12 = [pendingEvents countByEnumeratingWithState:&v18 objects:v26 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v20;
+      v14 = *v19;
       do
       {
         v15 = 0;
         do
         {
-          if (*v20 != v14)
+          if (*v19 != v14)
           {
             objc_enumerationMutation(pendingEvents);
           }
 
-          completion = [*(*(&v19 + 1) + 8 * v15) completion];
+          completion = [*(*(&v18 + 1) + 8 * v15) completion];
           (completion)[2](completion, v3);
 
           ++v15;
         }
 
         while (v13 != v15);
-        v13 = [pendingEvents countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v13 = [pendingEvents countByEnumeratingWithState:&v18 objects:v26 count:16];
       }
 
       while (v13);
@@ -1087,13 +1078,11 @@ LABEL_19:
     pendingEvents2 = [error pendingEvents];
     [pendingEvents2 removeAllObjects];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transport:(id)transport didFailWithError:(id)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   transportCopy = transport;
   errorCopy = error;
   delegate = [(HMDDataStream *)self delegate];
@@ -1107,9 +1096,9 @@ LABEL_19:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v13;
-      v30 = 2112;
-      v31 = errorCopy;
+      v28 = v13;
+      v29 = 2112;
+      v30 = errorCopy;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Data stream failure (%@)", buf, 0x16u);
     }
 
@@ -1123,38 +1112,38 @@ LABEL_19:
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v14;
-      v30 = 2112;
-      v31 = errorCopy;
+      v28 = v14;
+      v29 = 2112;
+      v30 = errorCopy;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Data stream failure (%@); but no delegate", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   protocols = [(HMDDataStream *)selfCopy protocols];
   objectEnumerator = [protocols objectEnumerator];
 
-  v17 = [objectEnumerator countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v17 = [objectEnumerator countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v24;
+    v19 = *v23;
     do
     {
       v20 = 0;
       do
       {
-        if (*v24 != v19)
+        if (*v23 != v19)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v21 = *(*(&v23 + 1) + 8 * v20);
+        v21 = *(*(&v22 + 1) + 8 * v20);
         if (v21)
         {
           [v21 dataStream:selfCopy didFailWithError:errorCopy];
@@ -1164,67 +1153,64 @@ LABEL_19:
       }
 
       while (v18 != v20);
-      v18 = [objectEnumerator countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v18 = [objectEnumerator countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v18);
   }
 
   [(HMDDataStream *)selfCopy _failPendingMessagesWithError:errorCopy];
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTrafficClass:(unint64_t)class
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2048;
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2048;
     classCopy = class;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Setting traffic class %lu on transport", &v11, 0x16u);
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Setting traffic class %lu on transport", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   transport = [(HMDDataStream *)selfCopy transport];
   [transport setTrafficClass:class];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_evaluateActiveStatusChange
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
     workQueue = [result workQueue];
     dispatch_assert_queue_V2(workQueue);
 
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     protocols = [v1 protocols];
-    v4 = [protocols countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [protocols countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
-      v5 = *v13;
+      v5 = *v12;
       while (2)
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v13 != v5)
+          if (*v12 != v5)
           {
             objc_enumerationMutation(protocols);
           }
 
-          v7 = *(*(&v12 + 1) + 8 * i);
+          v7 = *(*(&v11 + 1) + 8 * i);
           protocols2 = [v1 protocols];
           v9 = [protocols2 objectForKey:v7];
           isActive = [v9 isActive];
@@ -1236,7 +1222,7 @@ LABEL_19:
           }
         }
 
-        v4 = [protocols countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v4 = [protocols countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v4)
         {
           continue;
@@ -1248,10 +1234,9 @@ LABEL_19:
 
 LABEL_12:
 
-    result = [v1 setActive:v4];
+    return [v1 setActive:v4];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1312,7 +1297,7 @@ LABEL_9:
 
 void __65__HMDDataStream_sendRequestForProtocol_topic_payload_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1331,22 +1316,20 @@ void __65__HMDDataStream_sendRequestForProtocol_topic_payload_completion___block
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v9;
-      v13 = 2112;
-      v14 = v4;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEBUG, "%{public}@DataStream pending the request: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v4;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEBUG, "%{public}@DataStream pending the request: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendMessageWithHeader:(void *)header payload:(void *)payload completion:
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v7 = a2;
   headerCopy = header;
   payloadCopy = payload;
@@ -1357,16 +1340,16 @@ void __65__HMDDataStream_sendRequestForProtocol_topic_payload_completion___block
     if (sessionEncryption)
     {
       sessionEncryption2 = [self sessionEncryption];
-      v24 = 0;
-      v12 = [HMDDataStreamMessageCoder encryptEncryptedOPACKHeader:v7 payload:headerCopy sessionEncryption:sessionEncryption2 error:&v24];
-      v13 = v24;
+      v23 = 0;
+      v12 = [HMDDataStreamMessageCoder encryptEncryptedOPACKHeader:v7 payload:headerCopy sessionEncryption:sessionEncryption2 error:&v23];
+      v13 = v23;
     }
 
     else
     {
-      v23 = 0;
-      v12 = [HMDDataStreamMessageCoder buildUnencryptedOPACKHeader:v7 payload:headerCopy error:&v23];
-      v13 = v23;
+      v22 = 0;
+      v12 = [HMDDataStreamMessageCoder buildUnencryptedOPACKHeader:v7 payload:headerCopy error:&v22];
+      v13 = v22;
     }
 
     v14 = objc_autoreleasePoolPush();
@@ -1379,9 +1362,9 @@ void __65__HMDDataStream_sendRequestForProtocol_topic_payload_completion___block
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v26 = v18;
-        v27 = 2112;
-        v28 = v13;
+        v25 = v18;
+        v26 = 2112;
+        v27 = v13;
         _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@DataStream encoding message failed (%@)", buf, 0x16u);
       }
 
@@ -1396,11 +1379,11 @@ void __65__HMDDataStream_sendRequestForProtocol_topic_payload_completion___block
         v19 = HMFGetLogIdentifier();
         pendingRequests = [selfCopy pendingRequests];
         *buf = 138543874;
-        v26 = v19;
-        v27 = 2112;
-        v28 = v7;
-        v29 = 2112;
-        v30 = pendingRequests;
+        v25 = v19;
+        v26 = 2112;
+        v27 = v7;
+        v28 = 2112;
+        v29 = pendingRequests;
         _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_DEBUG, "%{public}@DataStream Sending Message: %@ --> %@", buf, 0x20u);
       }
 
@@ -1409,8 +1392,6 @@ void __65__HMDDataStream_sendRequestForProtocol_topic_payload_completion___block
       [transport sendRawFrame:v12 completion:payloadCopy];
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendRequestForProtocol:(id)protocol topic:(id)topic identifier:(unint64_t)identifier payload:(id)payload completion:(id)completion
@@ -1424,6 +1405,15 @@ void __65__HMDDataStream_sendRequestForProtocol_topic_payload_completion___block
   v18 = [HMDDataStreamMessageCoder requestHeaderForProtocol:protocolCopy topic:topicCopy identifier:v17];
 
   [(HMDDataStream *)self _sendMessageWithHeader:v18 payload:payloadCopy completion:completionCopy];
+}
+
+- (void)sendResponseForRequestHeader:(id)header payload:(id)payload status:(unsigned __int16)status completion:(id)completion
+{
+  statusCopy = status;
+  completionCopy = completion;
+  payloadCopy = payload;
+  v12 = [HMDDataStreamMessageCoder responseHeaderForRequestHeader:header status:statusCopy];
+  [(HMDDataStream *)self _sendMessageWithHeader:v12 payload:payloadCopy completion:completionCopy];
 }
 
 - (void)sendEventForProtocol:(id)protocol topic:(id)topic payload:(id)payload completion:(id)completion
@@ -1482,7 +1472,7 @@ void __65__HMDDataStream_sendRequestForProtocol_topic_payload_completion___block
 
 - (void)close
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -1490,7 +1480,7 @@ void __65__HMDDataStream_sendRequestForProtocol_topic_payload_completion___block
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v21 = v6;
+    v20 = v6;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@DataStream closing", buf, 0xCu);
   }
 
@@ -1498,53 +1488,51 @@ void __65__HMDDataStream_sendRequestForProtocol_topic_payload_completion___block
   transport = [(HMDDataStream *)selfCopy transport];
   [transport close];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   protocols = [(HMDDataStream *)selfCopy protocols];
   objectEnumerator = [protocols objectEnumerator];
 
-  v10 = [objectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v10 = [objectEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v16;
+    v12 = *v15;
     do
     {
       v13 = 0;
       do
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        [*(*(&v15 + 1) + 8 * v13++) dataStreamInitiatedClose:selfCopy];
+        [*(*(&v14 + 1) + 8 * v13++) dataStreamInitiatedClose:selfCopy];
       }
 
       while (v11 != v13);
-      v11 = [objectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [objectEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v11);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connect
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v13 = 138543362;
-    v14 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@DataStream connecting", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@DataStream connecting", &v12, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -1563,14 +1551,12 @@ void __65__HMDDataStream_sendRequestForProtocol_topic_payload_completion___block
 
   transport = [(HMDDataStream *)selfCopy transport];
   [transport connect];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setActive:(BOOL)active
 {
   activeCopy = active;
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDDataStream *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -1583,21 +1569,18 @@ void __65__HMDDataStream_sendRequestForProtocol_topic_payload_completion___block
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      active = self->_active;
-      v11 = HMFBooleanToString();
-      v14 = 138543618;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@DataStream changes active to %@", &v14, 0x16u);
+      v10 = HMFBooleanToString();
+      v12 = 138543618;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v10;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@DataStream changes active to %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
     delegate = [(HMDDataStream *)selfCopy delegate];
     [delegate dataStreamDidUpdateActiveStatus:selfCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDDataStream)initWithTransport:(id)transport sessionEncryption:(id)encryption workQueue:(id)queue logIdentifier:(id)identifier connectionTimer:(id)timer helloMessageResponseTimer:(id)responseTimer
@@ -1617,7 +1600,7 @@ void __65__HMDDataStream_sendRequestForProtocol_topic_payload_completion___block
     objc_storeStrong(&v19->_transport, transport);
     objc_storeStrong(&v20->_sessionEncryption, encryption);
     objc_storeStrong(&v20->_workQueue, queue);
-    v21 = [identifierCopy copy];
+    v21 = objc_msgSend_copy(identifierCopy, encryptionCopy, transportCopy);
     logIdentifier = v20->_logIdentifier;
     v20->_logIdentifier = v21;
 

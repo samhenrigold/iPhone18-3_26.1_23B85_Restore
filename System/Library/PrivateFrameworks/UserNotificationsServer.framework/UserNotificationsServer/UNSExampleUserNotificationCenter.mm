@@ -204,27 +204,27 @@ void __77__UNSExampleUserNotificationCenter_publish_numberOfUniqueThreads_comple
 
 void __78__UNSExampleUserNotificationCenter__existingNotificationRequestForIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v14 + 1) + 8 * i) request];
+        v8 = [*(*(&v13 + 1) + 8 * i) request];
         v9 = [v8 identifier];
         v10 = [v9 isEqualToString:*(a1 + 32)];
 
@@ -238,7 +238,7 @@ void __78__UNSExampleUserNotificationCenter__existingNotificationRequestForIdent
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v5)
       {
         continue;
@@ -251,7 +251,6 @@ void __78__UNSExampleUserNotificationCenter__existingNotificationRequestForIdent
 LABEL_11:
 
   dispatch_group_leave(*(a1 + 40));
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_userNotificationCenter

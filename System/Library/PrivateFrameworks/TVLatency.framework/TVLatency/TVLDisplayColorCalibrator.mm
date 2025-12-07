@@ -74,7 +74,7 @@
 
 void __53__TVLDisplayColorCalibrator__initWithMessageSession___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -89,18 +89,18 @@ void __53__TVLDisplayColorCalibrator__initWithMessageSession___block_invoke(uint
     if (os_log_type_enabled(_TVLLogDefault_log_4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v39 = v6;
+      v38 = v6;
       _os_log_impl(&dword_26CD78000, v9, OS_LOG_TYPE_DEFAULT, "Incoming Message: %{public}@", buf, 0xCu);
     }
 
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __53__TVLDisplayColorCalibrator__initWithMessageSession___block_invoke_21;
-    v31[3] = &unk_279D6BBB0;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __53__TVLDisplayColorCalibrator__initWithMessageSession___block_invoke_21;
+    v30[3] = &unk_279D6BBB0;
     v10 = v6;
-    v32 = v10;
-    v33 = v7;
-    v11 = MEMORY[0x26D6AEC20](v31);
+    v31 = v10;
+    v32 = v7;
+    v11 = MEMORY[0x26D6AEC20](v30);
     v12 = [v10 objectForKey:@"MESSAGE"];
     if ([v12 isEqualToString:@"READ_ALS"])
     {
@@ -128,14 +128,14 @@ void __53__TVLDisplayColorCalibrator__initWithMessageSession___block_invoke(uint
           v18 = 256;
         }
 
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __53__TVLDisplayColorCalibrator__initWithMessageSession___block_invoke_45;
-        v28[3] = &unk_279D6C0B8;
-        v30 = v18;
-        v28[4] = WeakRetained;
-        v29 = v11;
-        [TVLALSDataExtractor extract:v18 + v16 ALSReadings:v28];
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __53__TVLDisplayColorCalibrator__initWithMessageSession___block_invoke_45;
+        v27[3] = &unk_279D6C0B8;
+        v29 = v18;
+        v27[4] = WeakRetained;
+        v28 = v11;
+        [TVLALSDataExtractor extract:v18 + v16 ALSReadings:v27];
 
         goto LABEL_24;
       }
@@ -147,10 +147,10 @@ void __53__TVLDisplayColorCalibrator__initWithMessageSession___block_invoke(uint
     {
       if ([v12 isEqualToString:@"ASK_RETRY"])
       {
-        v36 = @"MESSAGE";
+        v35 = @"MESSAGE";
         v19 = [MEMORY[0x277CBEB68] null];
-        v37 = v19;
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+        v36 = v19;
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
         (v11)[2](v11, 0, 0, v20);
 
         v21 = WeakRetained;
@@ -169,10 +169,10 @@ LABEL_24:
           goto LABEL_25;
         }
 
-        v34 = @"MESSAGE";
+        v33 = @"MESSAGE";
         v24 = [MEMORY[0x277CBEB68] null];
-        v35 = v24;
-        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+        v34 = v24;
+        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
         (v11)[2](v11, 0, 0, v25);
 
         v26 = [v10 objectForKey:@"STATUS"];
@@ -197,13 +197,11 @@ LABEL_24:
 
 LABEL_25:
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __53__TVLDisplayColorCalibrator__initWithMessageSession___block_invoke_21(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   if (_TVLLogDefault_onceToken_4 != -1)
@@ -225,43 +223,42 @@ void __53__TVLDisplayColorCalibrator__initWithMessageSession___block_invoke_21(u
       v11 = 0;
     }
 
-    v13 = 138543874;
-    v14 = v10;
-    v15 = 2114;
-    v16 = v8;
-    v17 = 2114;
-    v18 = v11;
-    _os_log_impl(&dword_26CD78000, v9, OS_LOG_TYPE_DEFAULT, "Responding To Message: %{public}@ | Response: %{public}@ | Error: %{public}@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v10;
+    v14 = 2114;
+    v15 = v8;
+    v16 = 2114;
+    v17 = v11;
+    _os_log_impl(&dword_26CD78000, v9, OS_LOG_TYPE_DEFAULT, "Responding To Message: %{public}@ | Response: %{public}@ | Error: %{public}@", &v12, 0x20u);
     if (a2)
     {
     }
   }
 
   (*(*(a1 + 40) + 16))();
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __53__TVLDisplayColorCalibrator__initWithMessageSession___block_invoke_45(void *a1, void *a2)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v3, "count")}];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __53__TVLDisplayColorCalibrator__initWithMessageSession___block_invoke_2;
-    v13[3] = &unk_279D6C090;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __53__TVLDisplayColorCalibrator__initWithMessageSession___block_invoke_2;
+    v12[3] = &unk_279D6C090;
     v5 = a1[6];
-    v14 = v4;
-    v15 = v5;
+    v13 = v4;
+    v14 = v5;
     v6 = v4;
-    [v3 enumerateObjectsUsingBlock:v13];
+    [v3 enumerateObjectsUsingBlock:v12];
     v7 = a1[5];
-    v16 = @"ALS_DATA";
+    v15 = @"ALS_DATA";
     v8 = [v6 copy];
-    v17[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v16[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     (*(v7 + 16))(v7, 0, 0, v9);
   }
 
@@ -271,8 +268,6 @@ void __53__TVLDisplayColorCalibrator__initWithMessageSession___block_invoke_45(v
     v11 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TVLatencyErrorDomain" code:1207 userInfo:0];
     [v10 _respondAndInvalidateWithError:v11 responseHandler:a1[5]];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __53__TVLDisplayColorCalibrator__initWithMessageSession___block_invoke_2(uint64_t a1, void *a2, unint64_t a3)
@@ -354,7 +349,7 @@ void __53__TVLDisplayColorCalibrator__initWithMessageSession___block_invoke_2(ui
 
 void __38__TVLDisplayColorCalibrator_calibrate__block_invoke(uint64_t a1, void *a2)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (v3)
@@ -364,26 +359,25 @@ void __38__TVLDisplayColorCalibrator_calibrate__block_invoke(uint64_t a1, void *
     [v5 setObject:v6 forKey:@"ALS_DATA"];
   }
 
-  v12[0] = @"MESSAGE";
-  v12[1] = @"OPTIONS";
+  v11[0] = @"MESSAGE";
+  v11[1] = @"OPTIONS";
   v7 = *(a1 + 32);
-  v13[0] = @"DISPLAY_COLOR_CALIBRATION";
-  v13[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __38__TVLDisplayColorCalibrator_calibrate__block_invoke_2;
-  v10[3] = &unk_279D6BF28;
-  objc_copyWeak(&v11, (a1 + 40));
-  [WeakRetained _sendMessage:v8 withResponse:v10];
+  v12[0] = @"DISPLAY_COLOR_CALIBRATION";
+  v12[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __38__TVLDisplayColorCalibrator_calibrate__block_invoke_2;
+  v9[3] = &unk_279D6BF28;
+  objc_copyWeak(&v10, (a1 + 40));
+  [WeakRetained _sendMessage:v8 withResponse:v9];
 
-  objc_destroyWeak(&v11);
-  v9 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v10);
 }
 
 void __38__TVLDisplayColorCalibrator_calibrate__block_invoke_2(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -397,7 +391,7 @@ void __38__TVLDisplayColorCalibrator_calibrate__block_invoke_2(uint64_t a1, void
     if (os_log_type_enabled(_TVLLogDefault_log_4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = v3;
+      v18 = v3;
       _os_log_impl(&dword_26CD78000, v5, OS_LOG_TYPE_DEFAULT, "TVLDisplayColorCalibrator:calibrate:response %@", buf, 0xCu);
     }
 
@@ -450,13 +444,11 @@ void __38__TVLDisplayColorCalibrator_calibrate__block_invoke_2(uint64_t a1, void
       block[1] = 3221225472;
       block[2] = __38__TVLDisplayColorCalibrator_calibrate__block_invoke_98;
       block[3] = &unk_279D6C0E0;
-      objc_copyWeak(&v17, (a1 + 32));
+      objc_copyWeak(&v16, (a1 + 32));
       dispatch_async(MEMORY[0x277D85CD0], block);
-      objc_destroyWeak(&v17);
+      objc_destroyWeak(&v16);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __38__TVLDisplayColorCalibrator_calibrate__block_invoke_98(uint64_t a1)
@@ -552,7 +544,7 @@ void __38__TVLDisplayColorCalibrator_calibrate__block_invoke_98(uint64_t a1)
 
 - (void)_startReadings
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   if (_TVLLogDefault_onceToken_4 != -1)
   {
     __53__TVLDisplayColorCalibrator__initWithMessageSession___block_invoke_cold_1();
@@ -568,22 +560,20 @@ void __38__TVLDisplayColorCalibrator_calibrate__block_invoke_98(uint64_t a1)
   self->_state = 2;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
   objc_initWeak(&buf, self);
-  v10[0] = @"MESSAGE";
-  v10[1] = @"OPTIONS";
-  v11[0] = @"READY";
-  v11[1] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __43__TVLDisplayColorCalibrator__startReadings__block_invoke;
-  v7[3] = &unk_279D6BF28;
-  objc_copyWeak(&v8, &buf);
-  [(TVLDisplayColorCalibrator *)self _sendMessage:v5 withResponse:v7];
+  v9[0] = @"MESSAGE";
+  v9[1] = @"OPTIONS";
+  v10[0] = @"READY";
+  v10[1] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __43__TVLDisplayColorCalibrator__startReadings__block_invoke;
+  v6[3] = &unk_279D6BF28;
+  objc_copyWeak(&v7, &buf);
+  [(TVLDisplayColorCalibrator *)self _sendMessage:v5 withResponse:v6];
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(&buf);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __43__TVLDisplayColorCalibrator__startReadings__block_invoke(uint64_t a1)
@@ -593,14 +583,14 @@ void __43__TVLDisplayColorCalibrator__startReadings__block_invoke(uint64_t a1)
 
 - (void)_invalidateWithError:(id)error
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   [(TVLDisplayColorCalibrator *)self _tearDown];
   if (errorCopy)
   {
-    v7 = @"TVLDisplayColorCalibratorProgressEventErrorObjectKey";
-    v8[0] = errorCopy;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v6 = @"TVLDisplayColorCalibratorProgressEventErrorObjectKey";
+    v7[0] = errorCopy;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
     [(TVLDisplayColorCalibrator *)self _postProgressEvent:2 withInfo:v5];
   }
 
@@ -608,8 +598,6 @@ void __43__TVLDisplayColorCalibrator__startReadings__block_invoke(uint64_t a1)
   {
     [(TVLDisplayColorCalibrator *)self _postProgressEvent:3 withInfo:0];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_tearDown
@@ -621,7 +609,7 @@ void __43__TVLDisplayColorCalibrator__startReadings__block_invoke(uint64_t a1)
 
 - (void)_sendMessage:(id)message withResponse:(id)response
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   responseCopy = response;
   if (_TVLLogDefault_onceToken_4 != -1)
@@ -633,32 +621,30 @@ void __43__TVLDisplayColorCalibrator__startReadings__block_invoke(uint64_t a1)
   if (os_log_type_enabled(_TVLLogDefault_log_4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v18 = messageCopy;
+    v17 = messageCopy;
     _os_log_impl(&dword_26CD78000, v8, OS_LOG_TYPE_DEFAULT, "Outgoing Message: %{public}@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   session = [(TVLDisplayColorCalibrator *)self session];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __55__TVLDisplayColorCalibrator__sendMessage_withResponse___block_invoke;
-  v13[3] = &unk_279D6BF50;
-  objc_copyWeak(&v16, buf);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __55__TVLDisplayColorCalibrator__sendMessage_withResponse___block_invoke;
+  v12[3] = &unk_279D6BF50;
+  objc_copyWeak(&v15, buf);
   v10 = messageCopy;
-  v14 = v10;
+  v13 = v10;
   v11 = responseCopy;
-  v15 = v11;
-  [session sendRequestID:@"com.apple.tvlatency" options:0 request:v10 responseHandler:v13];
+  v14 = v11;
+  [session sendRequestID:@"com.apple.tvlatency" options:0 request:v10 responseHandler:v12];
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __55__TVLDisplayColorCalibrator__sendMessage_withResponse___block_invoke(uint64_t a1, int a2, uint64_t a3, void *a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v6 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -683,11 +669,11 @@ void __55__TVLDisplayColorCalibrator__sendMessage_withResponse___block_invoke(ui
       }
 
       *buf = 138543874;
-      v27 = v9;
-      v28 = 2114;
-      v29 = v6;
-      v30 = 2114;
-      v31 = v10;
+      v26 = v9;
+      v27 = 2114;
+      v28 = v6;
+      v29 = 2114;
+      v30 = v10;
       _os_log_impl(&dword_26CD78000, v8, OS_LOG_TYPE_DEFAULT, "Responding To Message: %{public}@ | Response: %{public}@ | Error: %{public}@", buf, 0x20u);
       if (a2)
       {
@@ -709,72 +695,69 @@ LABEL_14:
       goto LABEL_15;
     }
 
-    v14 = [MEMORY[0x277CBEB68] null];
-    v25 = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-    if ([v6 isEqualToDictionary:v15])
+    v13 = [MEMORY[0x277CBEB68] null];
+    v24 = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    if ([v6 isEqualToDictionary:v14])
     {
     }
 
     else
     {
-      v16 = [v6 objectForKey:@"MESSAGE"];
-      v17 = [v16 isEqualToString:@"FAILURE"];
+      v15 = [v6 objectForKey:@"MESSAGE"];
+      v16 = [v15 isEqualToString:@"FAILURE"];
 
-      if (v17)
+      if (v16)
       {
-        v18 = *(a1 + 40);
-        if (v18)
+        v17 = *(a1 + 40);
+        if (v17)
         {
-          (*(v18 + 16))(v18, 0);
+          (*(v17 + 16))(v17, 0);
         }
 
         v12 = [v6 objectForKey:@"OPTIONS"];
-        v19 = [v12 objectForKey:@"ERROR_DOMAIN"];
-        v20 = [v12 objectForKey:@"ERROR_CODE"];
-        v21 = [v20 integerValue];
+        v18 = [v12 objectForKey:@"ERROR_DOMAIN"];
+        v19 = [v12 objectForKey:@"ERROR_CODE"];
+        v20 = [v19 integerValue];
 
-        v22 = [MEMORY[0x277CCA9B8] errorWithDomain:v19 code:v21 userInfo:0];
-        [WeakRetained _invalidateWithError:v22];
+        v21 = [MEMORY[0x277CCA9B8] errorWithDomain:v18 code:v20 userInfo:0];
+        [WeakRetained _invalidateWithError:v21];
 
         goto LABEL_14;
       }
     }
 
-    v23 = *(a1 + 40);
-    if (v23)
+    v22 = *(a1 + 40);
+    if (v22)
     {
-      (*(v23 + 16))(v23, v6);
+      (*(v22 + 16))(v22, v6);
     }
   }
 
 LABEL_15:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_respondAndInvalidateWithError:(id)error responseHandler:(id)handler
 {
-  v18[2] = *MEMORY[0x277D85DE8];
-  v17[0] = @"MESSAGE";
-  v17[1] = @"OPTIONS";
-  v18[0] = @"FAILURE";
-  v15[0] = @"ERROR_CODE";
+  v17[2] = *MEMORY[0x277D85DE8];
+  v16[0] = @"MESSAGE";
+  v16[1] = @"OPTIONS";
+  v17[0] = @"FAILURE";
+  v14[0] = @"ERROR_CODE";
   v7 = MEMORY[0x277CCABB0];
   handlerCopy = handler;
   errorCopy = error;
   v10 = [v7 numberWithInteger:{objc_msgSend(errorCopy, "code")}];
-  v15[1] = @"ERROR_DOMAIN";
-  v16[0] = v10;
+  v14[1] = @"ERROR_DOMAIN";
+  v15[0] = v10;
   domain = [errorCopy domain];
-  v16[1] = domain;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
-  v18[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v15[1] = domain;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v17[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
   (*(handler + 2))(handlerCopy, 0, 0, v13);
 
   [(TVLDisplayColorCalibrator *)self _invalidateWithError:errorCopy];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postProgressEvent:(unint64_t)event withInfo:(id)info
@@ -804,7 +787,7 @@ LABEL_15:
   dispatch_async(MEMORY[0x277D85CD0], v10);
 }
 
-uint64_t __57__TVLDisplayColorCalibrator__postProgressEvent_withInfo___block_invoke(uint64_t a1)
+uint64_t __57__TVLDisplayColorCalibrator__postProgressEvent_withInfo___block_invoke(uint64_t a1, uint64_t a2)
 {
   v24 = *MEMORY[0x277D85DE8];
   if (_TVLLogDefault_onceToken_4 != -1)
@@ -812,39 +795,39 @@ uint64_t __57__TVLDisplayColorCalibrator__postProgressEvent_withInfo___block_inv
     __53__TVLDisplayColorCalibrator__initWithMessageSession___block_invoke_cold_1();
   }
 
-  v2 = _TVLLogDefault_log_4;
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _TVLLogDefault_log_4;
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) progressEventHandler];
-    v4 = MEMORY[0x26D6AEC20]();
-    v5 = v4;
-    v6 = *(a1 + 56) - 1;
-    if (v6 > 3)
+    v4 = [*(a1 + 32) progressEventHandler];
+    v5 = MEMORY[0x26D6AEC20]();
+    v6 = v5;
+    v7 = *(a1 + 56) - 1;
+    if (v7 > 3)
     {
-      v7 = "Start";
+      v8 = "Start";
     }
 
     else
     {
-      v7 = off_279D6C198[v6];
+      v8 = off_279D6C198[v7];
     }
 
-    v8 = *(a1 + 40);
+    v9 = *(a1 + 40);
     v18 = 138412802;
-    v19 = v4;
+    v19 = v5;
     v20 = 2082;
-    v21 = v7;
+    v21 = v8;
     v22 = 2114;
-    v23 = v8;
-    _os_log_impl(&dword_26CD78000, v2, OS_LOG_TYPE_DEFAULT, "Calling Progress Event Handler: %@ with Event: %{public}s | Info %{public}@", &v18, 0x20u);
+    v23 = v9;
+    _os_log_impl(&dword_26CD78000, v3, OS_LOG_TYPE_DEFAULT, "Calling Progress Event Handler: %@ with Event: %{public}s | Info %{public}@", &v18, 0x20u);
   }
 
-  v9 = [*(a1 + 32) progressEventHandler];
+  v10 = [*(a1 + 32) progressEventHandler];
 
-  if (v9)
+  if (v10)
   {
-    v10 = [*(a1 + 32) progressEventHandler];
-    v10[2](v10, *(a1 + 56), *(a1 + 40));
+    v11 = [*(a1 + 32) progressEventHandler];
+    v11[2](v11, *(a1 + 56), *(a1 + 40));
 
     if (*(a1 + 56) == 3)
     {
@@ -853,41 +836,39 @@ uint64_t __57__TVLDisplayColorCalibrator__postProgressEvent_withInfo___block_inv
         [TVLDisplayColorCalibrator _startPositioning];
       }
 
-      v11 = _TVLLogDefault_log_4;
+      v12 = _TVLLogDefault_log_4;
       if (os_log_type_enabled(_TVLLogDefault_log_4, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = *(a1 + 32);
-        v13 = v11;
-        v14 = [v12 progressEventHandler];
-        v15 = MEMORY[0x26D6AEC20]();
+        v13 = *(a1 + 32);
+        v14 = v12;
+        v15 = [v13 progressEventHandler];
+        v16 = MEMORY[0x26D6AEC20]();
         v18 = 138412290;
-        v19 = v15;
-        _os_log_impl(&dword_26CD78000, v13, OS_LOG_TYPE_DEFAULT, "Deleting Progress Event Handler: %@ | This should not be invoked again!", &v18, 0xCu);
+        v19 = v16;
+        _os_log_impl(&dword_26CD78000, v14, OS_LOG_TYPE_DEFAULT, "Deleting Progress Event Handler: %@ | This should not be invoked again!", &v18, 0xCu);
       }
 
       [*(a1 + 32) setProgressEventHandler:0];
     }
   }
 
-  result = [*(a1 + 48) notificationOccurred:2];
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 48) notificationOccurred:2];
 }
 
 - (void)colorDetector:(id)detector metThresholdConditionsWithColor:(id)color
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (self->_state == 1)
   {
     v5 = MEMORY[0x277D757B8];
     colorCopy = color;
     v7 = objc_alloc_init(v5);
     [v7 prepare];
-    v16 = 0.0;
-    v17 = 0.0;
-    v14 = 0;
     v15 = 0.0;
-    [colorCopy getHue:&v17 saturation:&v16 brightness:&v15 alpha:&v14];
+    v16 = 0.0;
+    v13 = 0;
+    v14 = 0.0;
+    [colorCopy getHue:&v16 saturation:&v15 brightness:&v14 alpha:&v13];
 
     if (_TVLLogDefault_onceToken_4 != -1)
     {
@@ -898,25 +879,23 @@ uint64_t __57__TVLDisplayColorCalibrator__postProgressEvent_withInfo___block_inv
     if (os_log_type_enabled(_TVLLogDefault_log_4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218496;
-      v19 = v17 * 360.0;
-      v20 = 2048;
-      v21 = v16 * 100.0;
-      v22 = 2048;
-      v23 = v15 * 100.0;
+      v18 = v16 * 360.0;
+      v19 = 2048;
+      v20 = v15 * 100.0;
+      v21 = 2048;
+      v22 = v14 * 100.0;
       _os_log_impl(&dword_26CD78000, v8, OS_LOG_TYPE_DEFAULT, "TVLRGBColorDetector:metThresholdConditionsWithColor H:%.0f S:%.0f B:%.0f", buf, 0x20u);
     }
 
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __75__TVLDisplayColorCalibrator_colorDetector_metThresholdConditionsWithColor___block_invoke;
-    v11[3] = &unk_279D6C158;
-    v12 = v7;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __75__TVLDisplayColorCalibrator_colorDetector_metThresholdConditionsWithColor___block_invoke;
+    v10[3] = &unk_279D6C158;
+    v11 = v7;
     selfCopy = self;
     v9 = v7;
-    dispatch_async(MEMORY[0x277D85CD0], v11);
+    dispatch_async(MEMORY[0x277D85CD0], v10);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __75__TVLDisplayColorCalibrator_colorDetector_metThresholdConditionsWithColor___block_invoke(uint64_t a1)
@@ -930,7 +909,7 @@ uint64_t __75__TVLDisplayColorCalibrator_colorDetector_metThresholdConditionsWit
 - (void)colorDetector:(id)detector backlightStateChanged:(BOOL)changed
 {
   changedCopy = changed;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   detectorCopy = detector;
   if (changedCopy)
   {
@@ -956,9 +935,9 @@ uint64_t __75__TVLDisplayColorCalibrator_colorDetector_metThresholdConditionsWit
       block[1] = 3221225472;
       block[2] = __65__TVLDisplayColorCalibrator_colorDetector_backlightStateChanged___block_invoke;
       block[3] = &unk_279D6C0E0;
-      objc_copyWeak(&v15, &buf);
+      objc_copyWeak(&v14, &buf);
       dispatch_after(v8, MEMORY[0x277D85CD0], block);
-      objc_destroyWeak(&v15);
+      objc_destroyWeak(&v14);
       objc_destroyWeak(&buf);
     }
   }
@@ -967,15 +946,13 @@ uint64_t __75__TVLDisplayColorCalibrator_colorDetector_metThresholdConditionsWit
   {
     useSlowALS = self->_useSlowALS;
     v10 = dispatch_time(0, 200000000);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __65__TVLDisplayColorCalibrator_colorDetector_backlightStateChanged___block_invoke_2;
-    v12[3] = &__block_descriptor_33_e5_v8__0l;
-    v13 = useSlowALS;
-    dispatch_after(v10, MEMORY[0x277D85CD0], v12);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __65__TVLDisplayColorCalibrator_colorDetector_backlightStateChanged___block_invoke_2;
+    v11[3] = &__block_descriptor_33_e5_v8__0l;
+    v12 = useSlowALS;
+    dispatch_after(v10, MEMORY[0x277D85CD0], v11);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __65__TVLDisplayColorCalibrator_colorDetector_backlightStateChanged___block_invoke(uint64_t a1)
@@ -984,7 +961,7 @@ void __65__TVLDisplayColorCalibrator_colorDetector_backlightStateChanged___block
   [WeakRetained _startPositioning];
 }
 
-void __65__TVLDisplayColorCalibrator_colorDetector_backlightStateChanged___block_invoke_2(uint64_t a1)
+void __65__TVLDisplayColorCalibrator_colorDetector_backlightStateChanged___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
   if (_TVLLogDefault_onceToken_4 != -1)
@@ -992,37 +969,35 @@ void __65__TVLDisplayColorCalibrator_colorDetector_backlightStateChanged___block
     __53__TVLDisplayColorCalibrator__initWithMessageSession___block_invoke_cold_1();
   }
 
-  v2 = _TVLLogDefault_log_4;
+  v3 = _TVLLogDefault_log_4;
   if (os_log_type_enabled(_TVLLogDefault_log_4, OS_LOG_TYPE_DEFAULT))
   {
     if (*(a1 + 32))
     {
-      v3 = @"slow";
+      v4 = @"slow";
     }
 
     else
     {
-      v3 = @"fast";
+      v4 = @"fast";
     }
 
     v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_26CD78000, v2, OS_LOG_TYPE_DEFAULT, "Activate ALS in %{public}@ mode", &v6, 0xCu);
+    v7 = v4;
+    _os_log_impl(&dword_26CD78000, v3, OS_LOG_TYPE_DEFAULT, "Activate ALS in %{public}@ mode", &v6, 0xCu);
   }
 
-  v4 = objc_alloc_init(MEMORY[0x277CFD390]);
-  [v4 setProperty:MEMORY[0x277CBEC38] forKey:@"ActivateALS"];
+  v5 = objc_alloc_init(MEMORY[0x277CFD390]);
+  [v5 setProperty:MEMORY[0x277CBEC38] forKey:@"ActivateALS"];
   if (*(a1 + 32) == 1)
   {
-    [v4 setProperty:MEMORY[0x277CBEC38] forKey:@"UserInteractedWithUI"];
+    [v5 setProperty:MEMORY[0x277CBEC38] forKey:@"UserInteractedWithUI"];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)colorDetector:(id)detector movementDetected:(double)detected
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   detectorCopy = detector;
   if (self->_state == 2)
   {
@@ -1047,13 +1022,11 @@ void __65__TVLDisplayColorCalibrator_colorDetector_backlightStateChanged___block
     block[1] = 3221225472;
     block[2] = __60__TVLDisplayColorCalibrator_colorDetector_movementDetected___block_invoke;
     block[3] = &unk_279D6C0E0;
-    objc_copyWeak(&v11, buf);
+    objc_copyWeak(&v10, buf);
     dispatch_after(v8, MEMORY[0x277D85CD0], block);
-    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v10);
     objc_destroyWeak(buf);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __60__TVLDisplayColorCalibrator_colorDetector_movementDetected___block_invoke(uint64_t a1)

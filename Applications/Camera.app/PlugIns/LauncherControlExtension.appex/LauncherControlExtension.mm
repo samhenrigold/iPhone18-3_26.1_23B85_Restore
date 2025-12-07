@@ -2,14 +2,13 @@ uint64_t sub_1000014C4()
 {
   v0 = sub_100001670(&qword_100008098, qword_100002648);
   v1 = *(v0 - 8);
-  v2 = (*(v1 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin();
-  v4 = &v6 - v3;
+  v3 = &v5 - v2;
   sub_1000016B8();
   sub_100002478();
   sub_10000170C();
   sub_100002468();
-  return (*(v1 + 8))(v4, v0);
+  return (*(v1 + 8))(v3, v0);
 }
 
 int main(int argc, const char **argv, const char **envp)
@@ -36,7 +35,6 @@ uint64_t sub_100001670(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -74,7 +72,6 @@ uint64_t sub_100001770(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -91,101 +88,95 @@ uint64_t sub_1000017B8()
 
 uint64_t sub_100001848@<X0>(uint64_t a1@<X8>)
 {
-  v54 = a1;
-  v52 = sub_1000023F8();
-  v56 = *(v52 - 8);
-  v1 = *(v56 + 64);
+  v46 = a1;
+  v44 = sub_1000023F8();
+  v48 = *(v44 - 8);
   __chkstk_darwin();
-  v3 = &v37 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = *(*(sub_100002438() - 8) + 64);
+  v2 = &v29 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_100002438();
   __chkstk_darwin();
-  v5 = *(*(sub_100002548() - 8) + 64);
+  sub_100002548();
   __chkstk_darwin();
-  v55 = sub_100002408();
-  v46 = *(v55 - 8);
-  v6 = *(v46 + 64);
+  v47 = sub_100002408();
+  v38 = *(v47 - 8);
   __chkstk_darwin();
-  v8 = &v37 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v42 = sub_100001670(&qword_1000080B0, &qword_1000026D8);
-  v44 = *(v42 - 8);
-  v9 = (*(v44 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v4 = &v29 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v34 = sub_100001670(&qword_1000080B0, &qword_1000026D8);
+  v36 = *(v34 - 8);
   __chkstk_darwin();
-  v11 = &v37 - v10;
-  v12 = sub_100001670(&qword_1000080B8, &qword_1000026E0);
-  v13 = *(v12 - 8);
-  v47 = v12;
-  v48 = v13;
-  v14 = (*(v13 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v6 = &v29 - v5;
+  v7 = sub_100001670(&qword_1000080B8, &qword_1000026E0);
+  v8 = *(v7 - 8);
+  v39 = v7;
+  v40 = v8;
   __chkstk_darwin();
-  v41 = &v37 - v15;
-  v16 = sub_100001670(&qword_1000080C0, &qword_1000026E8);
-  v17 = *(v16 - 8);
-  v49 = v16;
-  v50 = v17;
-  v18 = (*(v17 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v33 = &v29 - v9;
+  v10 = sub_100001670(&qword_1000080C0, &qword_1000026E8);
+  v11 = *(v10 - 8);
+  v41 = v10;
+  v42 = v11;
   __chkstk_darwin();
-  v43 = &v37 - v19;
-  v51 = sub_100001670(&qword_1000080C8, &qword_1000026F0);
-  v53 = *(v51 - 8);
-  v20 = (*(v53 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v35 = &v29 - v12;
+  v43 = sub_100001670(&qword_1000080C8, &qword_1000026F0);
+  v45 = *(v43 - 8);
   __chkstk_darwin();
-  v45 = &v37 - v21;
+  v37 = &v29 - v13;
   sub_100001670(&qword_1000080D0, &qword_1000026F8);
-  sub_1000021D0(&qword_1000080D8, &qword_1000080D0, &qword_1000026F8);
+  sub_1000021D0(&qword_1000080D8, &qword_1000080D0, &qword_1000026F8, &protocol conformance descriptor for ControlWidgetButton<A, B, C>);
   sub_100002528();
   sub_100002538();
-  v40 = &unk_100002640;
+  v32 = &unk_100002640;
   sub_100002428();
-  v39 = enum case for LocalizedStringResource.BundleDescription.main(_:);
-  v22 = *(v56 + 104);
-  v56 += 104;
-  v38 = v22;
-  v23 = v3;
-  v24 = v3;
-  v25 = v52;
-  v22(v24);
+  v31 = enum case for LocalizedStringResource.BundleDescription.main(_:);
+  v14 = *(v48 + 104);
+  v48 += 104;
+  v30 = v14;
+  v15 = v2;
+  v16 = v2;
+  v17 = v44;
+  v14(v16);
   sub_100002418();
-  v26 = sub_1000021D0(&qword_1000080E0, &qword_1000080B0, &qword_1000026D8);
-  v27 = v42;
+  v18 = sub_1000021D0(&qword_1000080E0, &qword_1000080B0, &qword_1000026D8, &protocol conformance descriptor for StaticControlConfiguration<A>);
+  v19 = v34;
   sub_100002498();
-  v46 = *(v46 + 8);
-  (v46)(v8, v55);
-  (*(v44 + 8))(v11, v27);
+  v38 = *(v38 + 8);
+  (v38)(v4, v47);
+  (*(v36 + 8))(v6, v19);
   sub_100002538();
   sub_100002428();
-  v38(v23, v39, v25);
+  v30(v15, v31, v17);
   sub_100002418();
-  v57 = v27;
-  v58 = v26;
+  v49 = v19;
+  v50 = v18;
   OpaqueTypeConformance2 = swift_getOpaqueTypeConformance2();
-  v29 = v43;
-  v30 = v47;
-  v31 = v41;
+  v21 = v35;
+  v22 = v39;
+  v23 = v33;
   sub_100002488();
-  (v46)(v8, v55);
-  (*(v48 + 8))(v31, v30);
-  v57 = v30;
-  v58 = OpaqueTypeConformance2;
-  v32 = swift_getOpaqueTypeConformance2();
-  v33 = v45;
-  v34 = v49;
+  (v38)(v4, v47);
+  (*(v40 + 8))(v23, v22);
+  v49 = v22;
+  v50 = OpaqueTypeConformance2;
+  v24 = swift_getOpaqueTypeConformance2();
+  v25 = v37;
+  v26 = v41;
   sub_1000024A8();
-  (*(v50 + 8))(v29, v34);
-  v57 = v34;
-  v58 = v32;
+  (*(v42 + 8))(v21, v26);
+  v49 = v26;
+  v50 = v24;
   swift_getOpaqueTypeConformance2();
-  v35 = v51;
+  v27 = v43;
   sub_1000024B8();
-  return (*(v53 + 8))(v33, v35);
+  return (*(v45 + 8))(v25, v27);
 }
 
 uint64_t sub_100001F9C()
 {
-  v0 = *(*(sub_100002508() - 8) + 64);
+  sub_100002508();
   __chkstk_darwin();
   sub_1000024F8();
   sub_100001670(&qword_1000080E8, &unk_100002700);
-  sub_1000021D0(&qword_1000080F0, &qword_1000080E8, &unk_100002700);
+  sub_1000021D0(&qword_1000080F0, &qword_1000080E8, &unk_100002700, &protocol conformance descriptor for Label<A, B>);
   sub_100002218();
   return sub_100002518();
 }
@@ -208,7 +199,7 @@ uint64_t sub_100002188@<X0>(uint64_t *a1@<X8>)
   return result;
 }
 
-uint64_t sub_1000021D0(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t sub_1000021D0(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -240,7 +231,7 @@ uint64_t sub_100002270()
   sub_100001770(&qword_1000080C0, &qword_1000026E8);
   sub_100001770(&qword_1000080B8, &qword_1000026E0);
   sub_100001770(&qword_1000080B0, &qword_1000026D8);
-  sub_1000021D0(&qword_1000080E0, &qword_1000080B0, &qword_1000026D8);
+  sub_1000021D0(&qword_1000080E0, &qword_1000080B0, &qword_1000026D8, &protocol conformance descriptor for StaticControlConfiguration<A>);
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();

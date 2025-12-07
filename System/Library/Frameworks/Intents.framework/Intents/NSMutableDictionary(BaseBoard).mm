@@ -89,7 +89,7 @@ LABEL_5:
 
 - (void)intents_setPlistSafeObject:()BaseBoard forKey:
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   v8 = v7;
@@ -121,22 +121,20 @@ LABEL_13:
       goto LABEL_13;
     }
 
-    v12 = INSiriLogContextIntents;
+    v11 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_FAULT))
     {
-      v13 = 136315650;
-      v14 = "[NSMutableDictionary(BaseBoard) intents_setPlistSafeObject:forKey:]";
-      v15 = 2114;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v6;
-      _os_log_fault_impl(&dword_18E991000, v12, OS_LOG_TYPE_FAULT, "%s Unsupported plistable type attempting to be encoded for key [%{public}@]: %@", &v13, 0x20u);
+      v12 = 136315650;
+      v13 = "[NSMutableDictionary(BaseBoard) intents_setPlistSafeObject:forKey:]";
+      v14 = 2114;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v6;
+      _os_log_fault_impl(&dword_18E991000, v11, OS_LOG_TYPE_FAULT, "%s Unsupported plistable type attempting to be encoded for key [%{public}@]: %@", &v12, 0x20u);
     }
   }
 
 LABEL_14:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)intents_setIntegerIfNonZero:()BaseBoard forKey:

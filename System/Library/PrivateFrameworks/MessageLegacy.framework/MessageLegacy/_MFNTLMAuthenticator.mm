@@ -77,104 +77,94 @@
 
 - (id)responseForServerData:(id)data
 {
-  v22 = *MEMORY[0x277D85DE8];
-  if (!self->_ntlmError)
+  v19 = *MEMORY[0x277D85DE8];
+  if (self->_ntlmError)
   {
-    if (self->_ntlmGeneratorRef)
+    return 0;
+  }
+
+  if (self->_ntlmGeneratorRef)
+  {
+    account = [(MFSASLAuthenticator *)self account];
+    domain = [account domain];
+    username = [account username];
+    if (username)
     {
-      account = [(MFSASLAuthenticator *)self account];
-      domain = [account domain];
-      username = [account username];
-      if (username)
-      {
-        v8 = username;
-      }
-
-      else
-      {
-        v8 = &stru_2869ED3E0;
-      }
-
-      [account password];
-      v9 = MFLogGeneral();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
-      {
-        if (domain)
-        {
-          v10 = domain;
-        }
-
-        else
-        {
-          v10 = &stru_2869ED3E0;
-        }
-
-        *buf = 138412546;
-        v19 = v8;
-        v20 = 2112;
-        v21 = v10;
-        _os_log_impl(&dword_258BDA000, v9, OS_LOG_TYPE_INFO, "NTLM - respond to server challenge; user = %@; domain = %@", buf, 0x16u);
-      }
-
-      ntlmGeneratorRef = self->_ntlmGeneratorRef;
-      ClientResponse = NtlmCreateClientResponse();
+      v8 = username;
     }
 
     else
     {
-      if ([data length])
+      v8 = &stru_2869ED3E0;
+    }
+
+    [account password];
+    v9 = MFLogGeneral();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      if (domain)
       {
-        v13 = MFLogGeneral();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_258BDA000, v13, OS_LOG_TYPE_INFO, "*** Unexpected server response during NTLM authentication", buf, 2u);
-        }
+        v10 = domain;
       }
 
-      v14 = NtlmGeneratorCreate();
-      self->_ntlmError = v14;
-      if (v14)
+      else
       {
-        goto LABEL_19;
+        v10 = &stru_2869ED3E0;
       }
 
-      v17 = self->_ntlmGeneratorRef;
-      ClientResponse = NtlmCreateClientRequest();
+      *buf = 138412546;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v10;
+      _os_log_impl(&dword_258BDA000, v9, OS_LOG_TYPE_INFO, "NTLM - respond to server challenge; user = %@; domain = %@", buf, 0x16u);
     }
 
-    self->_ntlmError = ClientResponse;
-    if (!ClientResponse)
-    {
-LABEL_21:
-      result = 0;
-      goto LABEL_22;
-    }
-
-LABEL_19:
-    v15 = MFLogGeneral();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-    {
-      [(_MFNTLMAuthenticator *)&self->_ntlmError responseForServerData:v15];
-    }
-
-    goto LABEL_21;
+    ClientResponse = NtlmCreateClientResponse();
   }
 
-  result = 0;
-LABEL_22:
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  else
+  {
+    if ([data length])
+    {
+      v12 = MFLogGeneral();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_258BDA000, v12, OS_LOG_TYPE_INFO, "*** Unexpected server response during NTLM authentication", buf, 2u);
+      }
+    }
+
+    v13 = NtlmGeneratorCreate();
+    self->_ntlmError = v13;
+    if (v13)
+    {
+      goto LABEL_19;
+    }
+
+    ClientResponse = NtlmCreateClientRequest();
+  }
+
+  self->_ntlmError = ClientResponse;
+  if (ClientResponse)
+  {
+LABEL_19:
+    v14 = MFLogGeneral();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      [(_MFNTLMAuthenticator *)&self->_ntlmError responseForServerData:v14];
+    }
+  }
+
+  return 0;
 }
 
 - (void)responseForServerData:(int *)a1 .cold.1(int *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_error_impl(&dword_258BDA000, a2, OS_LOG_TYPE_ERROR, "*** Error %ld occurred during NTLM authentication", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_error_impl(&dword_258BDA000, a2, OS_LOG_TYPE_ERROR, "*** Error %ld occurred during NTLM authentication", &v3, 0xCu);
 }
 
 @end

@@ -83,7 +83,7 @@
   v7 = linedPaperLayerDelegate;
   if (linedPaperLayerDelegate)
   {
-    [linedPaperLayerDelegate drawingTransform];
+    objc_msgSend_drawingTransform(linedPaperLayerDelegate);
   }
 
   else

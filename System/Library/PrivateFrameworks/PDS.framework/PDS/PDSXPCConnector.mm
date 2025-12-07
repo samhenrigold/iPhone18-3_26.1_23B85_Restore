@@ -329,19 +329,19 @@ uint64_t __78__PDSXPCConnector__genericSyncProxyWithErrorHandler_localStorage_re
       v10 = self->_handshakeProxy;
       if (v26[5])
       {
-        v11 = self->_handshakeProxy;
+        v12 = self->_handshakeProxy;
         self->_handshakeProxy = 0;
       }
 
-      v12 = pds_defaultLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = pds_defaultLog(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = v26[5];
+        v14 = v26[5];
         *buf = 134218242;
         *&buf[4] = self;
         *&buf[12] = 2112;
-        *&buf[14] = v13;
-        _os_log_impl(&dword_25DECA000, v12, OS_LOG_TYPE_DEFAULT, "PDSXPCConnection acquired handshake proxy {selfPointer: %p, XPCError: %@}", buf, 0x16u);
+        *&buf[14] = v14;
+        _os_log_impl(&dword_25DECA000, v13, OS_LOG_TYPE_DEFAULT, "PDSXPCConnection acquired handshake proxy {selfPointer: %p, XPCError: %@}", buf, 0x16u);
       }
 
       v6 = v10;
@@ -367,7 +367,7 @@ uint64_t __78__PDSXPCConnector__genericSyncProxyWithErrorHandler_localStorage_re
     if (v26[5] || v20[5])
     {
       [(PDSXPCConnector *)self setConnectionError:?];
-      v14 = self->_handshakeProxy;
+      v15 = self->_handshakeProxy;
       self->_handshakeProxy = 0;
     }
 
@@ -377,8 +377,6 @@ uint64_t __78__PDSXPCConnector__genericSyncProxyWithErrorHandler_localStorage_re
     _Block_object_dispose(&v19, 8);
     _Block_object_dispose(&v25, 8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -433,71 +431,69 @@ void __39__PDSXPCConnector__lockedXPCConnection__block_invoke(uint64_t a1)
 {
   v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = pds_defaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = pds_defaultLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 134217984;
-      v8 = WeakRetained;
-      _os_log_impl(&dword_25DECA000, v2, OS_LOG_TYPE_DEFAULT, "PDSXPCConnection interrupted {selfPointer: %p}", &v7, 0xCu);
+      v8 = v2;
+      _os_log_impl(&dword_25DECA000, v3, OS_LOG_TYPE_DEFAULT, "PDSXPCConnection interrupted {selfPointer: %p}", &v7, 0xCu);
     }
 
-    if (os_unfair_lock_trylock(WeakRetained + 2))
+    if (os_unfair_lock_trylock(v2 + 2))
     {
-      v3 = *&WeakRetained[10]._os_unfair_lock_opaque;
-      *&WeakRetained[10]._os_unfair_lock_opaque = 0;
+      v4 = *&v2[10]._os_unfair_lock_opaque;
+      *&v2[10]._os_unfair_lock_opaque = 0;
 
-      v4 = *&WeakRetained[12]._os_unfair_lock_opaque;
-      *&WeakRetained[12]._os_unfair_lock_opaque = 0;
+      v5 = *&v2[12]._os_unfair_lock_opaque;
+      *&v2[12]._os_unfair_lock_opaque = 0;
 
-      v5 = *&WeakRetained[8]._os_unfair_lock_opaque;
-      *&WeakRetained[8]._os_unfair_lock_opaque = 0;
+      v6 = *&v2[8]._os_unfair_lock_opaque;
+      *&v2[8]._os_unfair_lock_opaque = 0;
 
-      os_unfair_lock_unlock(WeakRetained + 2);
+      os_unfair_lock_unlock(v2 + 2);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __39__PDSXPCConnector__lockedXPCConnection__block_invoke_21(uint64_t a1)
 {
   v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = pds_defaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = pds_defaultLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 134217984;
-      v11 = WeakRetained;
-      _os_log_impl(&dword_25DECA000, v2, OS_LOG_TYPE_DEFAULT, "PDSXPCConnection interrupted {selfPointer: %p}", &v10, 0xCu);
+      v11 = v2;
+      _os_log_impl(&dword_25DECA000, v3, OS_LOG_TYPE_DEFAULT, "PDSXPCConnection interrupted {selfPointer: %p}", &v10, 0xCu);
     }
 
-    if (os_unfair_lock_trylock(WeakRetained + 2))
+    if (os_unfair_lock_trylock(v2 + 2))
     {
-      v3 = *&WeakRetained[10]._os_unfair_lock_opaque;
-      *&WeakRetained[10]._os_unfair_lock_opaque = 0;
+      v4 = *&v2[10]._os_unfair_lock_opaque;
+      *&v2[10]._os_unfair_lock_opaque = 0;
 
-      v4 = *&WeakRetained[12]._os_unfair_lock_opaque;
-      *&WeakRetained[12]._os_unfair_lock_opaque = 0;
+      v5 = *&v2[12]._os_unfair_lock_opaque;
+      *&v2[12]._os_unfair_lock_opaque = 0;
 
-      v5 = *&WeakRetained[6]._os_unfair_lock_opaque;
-      *&WeakRetained[6]._os_unfair_lock_opaque = 0;
+      v6 = *&v2[6]._os_unfair_lock_opaque;
+      *&v2[6]._os_unfair_lock_opaque = 0;
 
-      v6 = [MEMORY[0x277CCA9B8] errorWithDomain:PDSXPCErrorDomain code:-300 userInfo:0];
-      v7 = *&WeakRetained[18]._os_unfair_lock_opaque;
-      *&WeakRetained[18]._os_unfair_lock_opaque = v6;
+      v7 = [MEMORY[0x277CCA9B8] errorWithDomain:PDSXPCErrorDomain code:-300 userInfo:0];
+      v8 = *&v2[18]._os_unfair_lock_opaque;
+      *&v2[18]._os_unfair_lock_opaque = v7;
 
-      v8 = *&WeakRetained[6]._os_unfair_lock_opaque;
-      *&WeakRetained[6]._os_unfair_lock_opaque = 0;
+      v9 = *&v2[6]._os_unfair_lock_opaque;
+      *&v2[6]._os_unfair_lock_opaque = 0;
 
-      os_unfair_lock_unlock(WeakRetained + 2);
+      os_unfair_lock_unlock(v2 + 2);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithClientID:(uint64_t)a1 interfaceVendor:(uint64_t)a2 connectionVendor:.cold.1(uint64_t a1, uint64_t a2)

@@ -7,27 +7,25 @@
 
 - (id)attributeDescriptions
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   location = [(HMDLocationTuple *)self location];
   v5 = locationAsString(location);
   v6 = [v3 initWithName:@"Location" value:v5];
-  v19[0] = v6;
+  v18[0] = v6;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDLocationTuple reachableIPAccessoryCount](self, "reachableIPAccessoryCount")}];
   v9 = [v7 initWithName:@"Reachable IP Accessory Count" value:v8];
-  v19[1] = v9;
+  v18[1] = v9;
   v10 = objc_alloc(MEMORY[0x277D0F778]);
   v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDLocationTuple reachableBTLEAccessoryCount](self, "reachableBTLEAccessoryCount")}];
   v12 = [v10 initWithName:@"Reachable BTLE Accessory Count" value:v11];
-  v19[2] = v12;
+  v18[2] = v12;
   v13 = objc_alloc(MEMORY[0x277D0F778]);
   v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDLocationTuple reachableMediaAccessoryCount](self, "reachableMediaAccessoryCount")}];
   v15 = [v13 initWithName:@"Reachable Media Accessory Count" value:v14];
-  v19[3] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v18[3] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
 
   return v16;
 }

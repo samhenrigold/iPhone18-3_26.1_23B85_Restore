@@ -1,5 +1,6 @@
 @interface CalDAVModifyCalendarSharingLevelTaskGroup
 - (CalDAVModifyCalendarSharingLevelTaskGroup)initWithAccountInfoProvider:(id)provider taskManager:(id)manager;
+- (CalDAVModifyCalendarSharingLevelTaskGroup)initWithSharingAction:(int)action atCalendarURL:(id)l accountInfoProvider:(id)provider taskManager:(id)manager;
 - (void)startTaskGroup;
 - (void)task:(id)task didFinishWithError:(id)error;
 @end
@@ -12,6 +13,24 @@
   managerCopy = manager;
   v7 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE648] reason:@"Initializing this class instance with an inherited initializer not allowed." userInfo:0];
   objc_exception_throw(v7);
+}
+
+- (CalDAVModifyCalendarSharingLevelTaskGroup)initWithSharingAction:(int)action atCalendarURL:(id)l accountInfoProvider:(id)provider taskManager:(id)manager
+{
+  v8 = *&action;
+  lCopy = l;
+  v14.receiver = self;
+  v14.super_class = CalDAVModifyCalendarSharingLevelTaskGroup;
+  v11 = [(CoreDAVTaskGroup *)&v14 initWithAccountInfoProvider:provider taskManager:manager];
+  v12 = v11;
+  if (v11)
+  {
+    [(CalDAVModifyCalendarSharingLevelTaskGroup *)v11 setAction:v8];
+    [(CalDAVModifyCalendarSharingLevelTaskGroup *)v12 setUrl:lCopy];
+    [(CalDAVModifyCalendarSharingLevelTaskGroup *)v12 setState:0];
+  }
+
+  return v12;
 }
 
 - (void)startTaskGroup

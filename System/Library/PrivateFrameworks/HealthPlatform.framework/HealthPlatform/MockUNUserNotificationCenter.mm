@@ -50,7 +50,7 @@
   requestCopy = request;
   selfCopy = self;
   sub_22847A088(requestCopy, v6, v7);
-  sub_228416CF8(v6);
+  sub_228416CF8(v6, v7);
 }
 
 - (void)getPendingNotificationRequestsWithCompletionHandler:(id)handler
@@ -68,15 +68,14 @@
 {
   v2 = *(&self->super.super.isa + OBJC_IVAR____TtC14HealthPlatform28MockUNUserNotificationCenter_mockNotificationState);
   selfCopy = self;
-  os_unfair_lock_lock((v2 + 40));
-  v4 = *(v2 + 16);
+  os_unfair_lock_lock(v2 + 10);
 
-  os_unfair_lock_unlock((v2 + 40));
+  os_unfair_lock_unlock(v2 + 10);
 
   sub_2283EF310(0, &qword_280DE92E8, 0x277CE1FC0);
-  v5 = sub_22855D39C();
+  v4 = sub_22855D39C();
 
-  return v5;
+  return v4;
 }
 
 - (void)getDeliveredNotificationsWithCompletionHandler:(id)handler
@@ -94,15 +93,14 @@
 {
   v2 = *(&self->super.super.isa + OBJC_IVAR____TtC14HealthPlatform28MockUNUserNotificationCenter_mockNotificationState);
   selfCopy = self;
-  os_unfair_lock_lock((v2 + 40));
-  v4 = *(v2 + 24);
+  os_unfair_lock_lock(v2 + 10);
 
-  os_unfair_lock_unlock((v2 + 40));
+  os_unfair_lock_unlock(v2 + 10);
 
   sub_2283EF310(0, &qword_27D83F918, 0x277CE1F78);
-  v5 = sub_22855D39C();
+  v4 = sub_22855D39C();
 
-  return v5;
+  return v4;
 }
 
 - (void)removeAllPendingNotificationRequests
@@ -110,7 +108,6 @@
   v2 = *(&self->super.super.isa + OBJC_IVAR____TtC14HealthPlatform28MockUNUserNotificationCenter_mockNotificationState);
   selfCopy = self;
   os_unfair_lock_lock((v2 + 40));
-  v3 = *(v2 + 16);
 
   *(v2 + 16) = MEMORY[0x277D84F90];
   os_unfair_lock_unlock((v2 + 40));
@@ -121,7 +118,6 @@
   v2 = *(&self->super.super.isa + OBJC_IVAR____TtC14HealthPlatform28MockUNUserNotificationCenter_mockNotificationState);
   selfCopy = self;
   os_unfair_lock_lock((v2 + 40));
-  v3 = *(v2 + 24);
 
   *(v2 + 24) = MEMORY[0x277D84F90];
   os_unfair_lock_unlock((v2 + 40));
@@ -163,26 +159,25 @@
 - (void)requestAuthorizationWithOptions:(unint64_t)options completionHandler:(id)handler
 {
   v6 = _Block_copy(handler);
-  v7 = self + OBJC_IVAR____TtC14HealthPlatform28MockUNUserNotificationCenter_requestAuthorization;
+  v7 = (self + OBJC_IVAR____TtC14HealthPlatform28MockUNUserNotificationCenter_requestAuthorization);
   swift_beginAccess();
-  v9 = *v7;
-  v8 = *(v7 + 1);
+  v8 = *v7;
   selfCopy = self;
 
-  v11 = v9(options);
-  v13 = v12;
+  v10 = v8(options);
+  v12 = v11;
 
-  if (v13)
+  if (v12)
   {
-    v14 = sub_22855BF2C();
+    v13 = sub_22855BF2C();
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  v6[2](v6, v11 & 1, v14);
+  v6[2](v6, v10 & 1, v13);
 
   _Block_release(v6);
 }

@@ -6,14 +6,21 @@
 - (BOOL)_areProfilesRestrictingSettings:(id)settings outMDMName:(id *)name outExchangeName:(id *)exchangeName outExchangeCount:(int64_t *)count outProfileName:(id *)profileName outProfileCount:(int64_t *)profileCount;
 - (BOOL)_checkRemoteProcessHasMDMEntitlement;
 - (BOOL)_managedMayWriteUnmanagedContacts;
+- (BOOL)_openSensitiveURLString:(id)string unlock:(BOOL)unlock;
 - (BOOL)_shouldApplyContactsFilterForBundleID:(id)d sourceAccountManagement:(int)management outAllowManagedAccounts:(BOOL *)accounts outAllowUnmanagedAccounts:(BOOL *)unmanagedAccounts;
 - (BOOL)_shouldApplyContactsFilterForTargetBundleID:(id)d targetAccountManagement:(int)management outAllowManagedAccounts:(BOOL *)accounts outAllowUnmanagedAccounts:(BOOL *)unmanagedAccounts;
 - (BOOL)_unmanagedMayReadManagedContacts;
 - (BOOL)activationRecordIndicatesCloudConfigurationIsAvailableAndKeyExists:(BOOL *)exists;
 - (BOOL)allMarketplacesAllowed;
 - (BOOL)anyMarketplaceAllowed;
+- (BOOL)applyRestrictionDictionary:(id)dictionary toSystem:(BOOL)system overrideRestrictions:(BOOL)restrictions appsAndOptions:(id)options clientType:(id)type clientUUID:(id)d localizedClientDescription:(id)description localizedWarningMessage:(id)self0 outRestrictionChanged:(BOOL *)self1 outEffectiveSettingsChanged:(BOOL *)self2 outError:(id *)self3;
 - (BOOL)applySingleAppModeConfiguration:(id)configuration clientType:(id)type clientUUID:(id)d localizedClientDescription:(id)description outError:(id *)error;
 - (BOOL)areSettingsLockedDownByRestrictions:(id)restrictions;
+- (BOOL)canSendMail:(id)mail sourceAccountManagement:(int)management;
+- (BOOL)changePasscodeFrom:(id)from to:(id)to skipRecovery:(BOOL)recovery outError:(id *)error;
+- (BOOL)changePasscodeWithOldPasscodeContext:(id)context newPasscodeContext:(id)passcodeContext skipRecovery:(BOOL)recovery outError:(id *)error;
+- (BOOL)changePasscodeWithRecoveryPasscode:(id)passcode to:(id)to skipRecovery:(BOOL)recovery outError:(id *)error;
+- (BOOL)changePasscodeWithRecoveryPasscodeContext:(id)context newPasscodeContext:(id)passcodeContext skipRecovery:(BOOL)recovery outError:(id *)error;
 - (BOOL)checkApplicationIdentifierEntitlement;
 - (BOOL)clearPasscodeWithEscrowKeybagData:(id)data secret:(id)secret outError:(id *)error;
 - (BOOL)clearPasscodeWithEscrowKeybagData:(id)data secretContext:(id)context outError:(id *)error;
@@ -89,6 +96,14 @@
 - (BOOL)mayEnterPasscodeToAccessNonWhitelistedApps;
 - (BOOL)mayOpenFromManagedToUnmanaged;
 - (BOOL)mayOpenFromUnmanagedToManaged;
+- (BOOL)mayShareToAirDropForOriginatingAppBundleID:(id)d originatingAccountIsManaged:(BOOL)managed;
+- (BOOL)mayShareToAirDropOriginatingAccountIsManaged:(BOOL)managed;
+- (BOOL)mayShareToMessagesForOriginatingAppBundleID:(id)d originatingAccountIsManaged:(BOOL)managed;
+- (BOOL)mayShareToMessagesOriginatingAccountIsManaged:(BOOL)managed;
+- (BOOL)mayShowLocalAccountsForBundleID:(id)d sourceAccountManagement:(int)management;
+- (BOOL)mayShowLocalAccountsForTargetBundleID:(id)d targetAccountManagement:(int)management;
+- (BOOL)mayShowLocalContactsAccountsForBundleID:(id)d sourceAccountManagement:(int)management;
+- (BOOL)mayShowLocalContactsAccountsForTargetBundleID:(id)d targetAccountManagement:(int)management;
 - (BOOL)mustInstallProfileNonInteractively:(id)interactively;
 - (BOOL)needsCheckIn;
 - (BOOL)passcode:(id)passcode meetsCurrentConstraintsOutError:(id *)error;
@@ -118,6 +133,7 @@
 - (id)_handleQueueProfileError:(id)error targetDevice:(unint64_t)device;
 - (id)_lacksEntitlementError;
 - (id)_localizedSourceDescriptionForType:(int64_t)type MDMName:(id)name exchangeName:(id)exchangeName exchangeCount:(int64_t)count profileName:(id)profileName profileCount:(int64_t)profileCount;
+- (id)_queueDataForAcceptance:(id)acceptance originalFileName:(id)name originatingBundleID:(id)d transitionToUI:(BOOL)i outError:(id *)error;
 - (id)_restrictionEnforcedNotificationSettingsForBundleID:(id)d settingsArray:(id)array;
 - (id)_settingsLockedDownByRestrictions:(id)restrictions;
 - (id)_sharedDeviceConfiguration;
@@ -126,7 +142,11 @@
 - (id)activationLockBypassKey;
 - (id)activeClassroomRoles;
 - (id)allClientUUIDsForClientType:(id)type;
+- (id)allowedAppBundleIDsForBidirectionalDataMovementAfterApplyingFilterToBundleIDs:(id)ds localAppBundleID:(id)d localAccountIsManaged:(BOOL)managed;
+- (id)allowedImportFromAppBundleIDsAfterApplyingFilterToBundleIDs:(id)ds importingAppBundleID:(id)d importingAccountIsManaged:(BOOL)managed;
+- (id)allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs:(id)ds hostAppBundleID:(id)d accountIsManaged:(BOOL)managed;
 - (id)allowedMarketplaces;
+- (id)allowedOpenInAppBundleIDsAfterApplyingFilterToAppBundleIDs:(id)ds originatingAppBundleID:(id)d originatingAccountIsManaged:(BOOL)managed;
 - (id)appleConnect_installMDMAssociatedProfileData:(id)data outError:(id *)error;
 - (id)associatedDomainsForManagedApps;
 - (id)autonomousSingleAppModePermittedBundleIDs;
@@ -177,7 +197,13 @@
 - (id)effectiveValuesForWatchUnionSetting:(id)setting pairedDevice:(id)device outError:(id *)error;
 - (id)effectiveWhitelistedAppBundleIDs;
 - (id)effectiveWhitelistedAppsAndOptions;
+- (id)errorCheckedSetBoolValue:(BOOL)value forSetting:(id)setting;
 - (id)fetchActivationLockBypassKeyWithError:(id *)error;
+- (id)filteredMailSheetAccountsForBundleID:(id)d sourceAccountManagement:(int)management;
+- (id)filteredOpenInAccounts:(id)accounts originatingAppBundleID:(id)d sourceAccountManagement:(int)management;
+- (id)filteredOpenInContactsAccounts:(id)accounts originatingAppBundleID:(id)d sourceAccountManagement:(int)management;
+- (id)filteredOpenInOriginatingAccounts:(id)accounts targetAppBundleID:(id)d targetAccountManagement:(int)management;
+- (id)filteredOpenInOriginatingContactsAccounts:(id)accounts targetAppBundleID:(id)d targetAccountManagement:(int)management;
 - (id)getMachineInfoWithAdditionalInfo:(id)info;
 - (id)getReducedMachineInfo;
 - (id)installProfileData:(id)data options:(id)options outError:(id *)error;
@@ -187,8 +213,10 @@
 - (id)installedProfileDataWithIdentifier:(id)identifier;
 - (id)installedProfileIdentifiers;
 - (id)installedProfileIdentifiersInstalledBy:(id)by;
+- (id)installedProfileIdentifiersWithFilterFlags:(int)flags;
 - (id)installedProfileWithIdentifier:(id)identifier;
 - (id)installedProfilesInstalledBy:(id)by;
+- (id)installedProfilesWithFilterFlags:(int)flags;
 - (id)installedSystemProfileDataWithIdentifier:(id)identifier;
 - (id)installedSystemProfileWithIdentifier:(id)identifier;
 - (id)installedUserProfileDataWithIdentifier:(id)identifier;
@@ -230,6 +258,7 @@
 - (id)restrictionEnforcedNotificationSettings;
 - (id)restrictionEnforcedNotificationSettingsForBundleID:(id)d;
 - (id)restrictionEnforcedWhitelistedAppBundleIDs;
+- (id)setPasscodeRecoveryAllowed:(BOOL)allowed;
 - (id)signerIdentityForBundleID:(id)d;
 - (id)skipSetupKeys;
 - (id)trustedCodeSigningIdentities;
@@ -297,19 +326,23 @@
 - (void)_profileListDidChange;
 - (void)_queueCreateAndResumePublicXPCConnection;
 - (void)_queueCreateAndResumeXPCConnection;
+- (void)_queueDataForAcceptance:(id)acceptance originalFileName:(id)name originatingBundleID:(id)d transitionToUI:(BOOL)i completion:(id)completion;
 - (void)_restrictionDidChange;
 - (void)_setAllowedGrandfatheredRestrictionFeature:(id)feature forRestrictionKey:(id)key;
 - (void)addActiveClassroomRole:(id)role;
 - (void)addTrustedCodeSigningIdentities:(id)identities;
 - (void)allProfilesOutMDMProfileInfo:(id *)info outConfigurationProfilesInfo:(id *)profilesInfo outUninstalledProfilesInfo:(id *)uninstalledProfilesInfo forDeviceType:(unint64_t)type;
+- (void)allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs:(id)ds hostAppBundleID:(id)d accountIsManaged:(BOOL)managed completion:(id)completion;
 - (void)applyPairingWatchMDMEnrollmentData:(id)data completion:(id)completion;
 - (void)cancelRequestEffectiveBoolValue:(id)value completion:(id)completion;
 - (void)cancelUserInputResponses;
+- (void)checkCarrierProfileForceInstallation:(BOOL)installation;
 - (void)checkIn;
 - (void)checkInAsynchronously;
 - (void)checkInIfNeeded;
 - (void)checkInWithCompletion:(id)completion;
 - (void)clearRecoveryPasscodeWithCompletion:(id)completion;
+- (void)cloudConfigurationUIDidCompleteWasApplied:(BOOL)applied completionHandler:(id)handler;
 - (void)createMDMUnlockTokenIfNeededWithPasscode:(id)passcode completionBlock:(id)block;
 - (void)createMDMUnlockTokenIfNeededWithPasscodeContext:(id)context completionBlock:(id)block;
 - (void)dealloc;
@@ -317,6 +350,7 @@
 - (void)doMCICDidBeginInstallingNextProfileData:(id)data completion:(id)completion;
 - (void)doMCICDidFinishInstallationWithIdentifier:(id)identifier error:(id)error completion:(id)completion;
 - (void)doMCICDidFinishPreflightWithError:(id)error completion:(id)completion;
+- (void)doMCICDidRequestCurrentPasscodeNeedsExtractable:(BOOL)extractable withCompletion:(id)completion;
 - (void)doMCICDidRequestMAIDSignIn:(id)in personaID:(id)d completion:(id)completion;
 - (void)doMCICDidRequestManagedRestoreWithManagedAppleID:(id)d personaID:(id)iD completion:(id)completion;
 - (void)doMCICDidRequestShowUserWarnings:(id)warnings completion:(id)completion;
@@ -335,8 +369,11 @@
 - (void)invalidateRestrictionCache;
 - (void)isProfileInstalledWithIdentifier:(id)identifier completion:(id)completion;
 - (void)lockDevice;
+- (void)lockDeviceImmediately:(BOOL)immediately;
 - (void)lockdownDidReceiveActivationRecord:(id)record;
 - (void)markStoredProfileAsInstalled;
+- (void)migrateCleanupMigratorWithContext:(int)context completion:(id)completion;
+- (void)migrateWithContext:(int)context passcodeWasSetInBackup:(BOOL)backup completion:(id)completion;
 - (void)notifyClientsToRecomputeCompliance;
 - (void)notifyDeviceUnlocked;
 - (void)notifyDeviceUnlockedAndPasscodeRequired;
@@ -363,31 +400,65 @@
 - (void)removeUninstalledProfileWithIdentifier:(id)identifier installationType:(int64_t)type targetDeviceType:(unint64_t)deviceType completion:(id)completion;
 - (void)removeValueSetting:(id)setting;
 - (void)rereadManagedAppAttributes;
+- (void)resetAllSettingsToDefaultsIsUserInitiated:(BOOL)initiated waitUntilCompleted:(BOOL)completed completion:(id)completion;
 - (void)resetPasscodeMetadataWithCompletion:(id)completion;
+- (void)respondToCurrentPasscodeRequestContinue:(BOOL)continue passcode:(id)passcode;
+- (void)respondToCurrentPasscodeRequestContinue:(BOOL)continue passcodeContext:(id)context;
+- (void)respondToMAIDAuthenticationRequest:(BOOL)request error:(id)error isCancelled:(BOOL)cancelled;
+- (void)respondToManagedRestoreRequest:(BOOL)request error:(id)error isCancelled:(BOOL)cancelled;
+- (void)respondToWarningsContinueInstallation:(BOOL)installation;
 - (void)restoreCloudConfigAndMDMProfileFromSetAsideDataWithCompletion:(id)completion;
 - (void)retrieveAndStoreCloudConfigurationDetailsCompletionBlock:(id)block;
 - (void)retrieveCloudConfigurationDetailsCompletionBlock:(id)block;
 - (void)retrieveCloudConfigurationFromURL:(id)l username:(id)username password:(id)password anchorCertificates:(id)certificates additionalMachineInfo:(id)info completionBlock:(id)block;
 - (void)retrieveCloudConfigurationWithoutValidationCompletionBlock:(id)block;
 - (void)setActiveClassroomRoles:(id)roles;
+- (void)setAsk:(BOOL)ask forBoolSetting:(id)setting configurationUUID:(id)d toSystem:(BOOL)system user:(BOOL)user credentialSet:(id)set waitUntilCompleted:(BOOL)completed completion:(id)self0;
+- (void)setAsk:(BOOL)ask forBoolSetting:(id)setting configurationUUID:(id)d toSystem:(BOOL)system user:(BOOL)user passcode:(id)passcode waitUntilCompleted:(BOOL)completed completion:(id)self0;
+- (void)setAutoCorrectionAllowed:(BOOL)allowed;
+- (void)setAutoCorrectionAllowed:(BOOL)allowed completion:(id)completion;
+- (void)setBoolValue:(BOOL)value ask:(BOOL)ask forSetting:(id)setting configurationUUID:(id)d toSystem:(BOOL)system user:(BOOL)user credentialSet:(id)set waitUntilCompleted:(BOOL)self0 completion:(id)self1;
+- (void)setBoolValue:(BOOL)value ask:(BOOL)ask forSetting:(id)setting configurationUUID:(id)d toSystem:(BOOL)system user:(BOOL)user passcode:(id)passcode credentialSet:(id)self0 waitUntilCompleted:(BOOL)self1 completion:(id)self2;
+- (void)setBoolValue:(BOOL)value forSetting:(id)setting errorCompletionBlock:(id)block;
 - (void)setClassroomInstructorRoleEnabled:(BOOL)enabled;
 - (void)setClassroomStudentRoleEnabled:(BOOL)enabled;
+- (void)setContinuousPathKeyboardAllowed:(BOOL)allowed;
+- (void)setContinuousPathKeyboardAllowed:(BOOL)allowed completion:(id)completion;
+- (void)setFingerprintUnlockAllowed:(BOOL)allowed credentialSet:(id)set completionBlock:(id)block;
+- (void)setFingerprintUnlockAllowed:(BOOL)allowed passcode:(id)passcode completionBlock:(id)block;
 - (void)setGracePeriod:(unint64_t)period passcode:(id)passcode completionBlock:(id)block;
+- (void)setKeyboardShortcutsAllowed:(BOOL)allowed;
+- (void)setKeyboardShortcutsAllowed:(BOOL)allowed completion:(id)completion;
 - (void)setParameters:(id)parameters forBoolSetting:(id)setting;
 - (void)setParameters:(id)parameters forValueSetting:(id)setting;
+- (void)setParametersForSettingsByType:(id)type configurationUUID:(id)d toSystem:(BOOL)system user:(BOOL)user credentialSet:(id)set waitUntilCompleted:(BOOL)completed completion:(id)completion;
 - (void)setParametersForSettingsByType:(id)type configurationUUID:(id)d toSystem:(BOOL)system user:(BOOL)user credentialSet:(id)set waitUntilCompleted:(BOOL)completed errorCompletionBlock:(id)block;
+- (void)setParametersForSettingsByType:(id)type configurationUUID:(id)d toSystem:(BOOL)system user:(BOOL)user passcode:(id)passcode credentialSet:(id)set waitUntilCompleted:(BOOL)completed completion:(id)self0;
 - (void)setParametersForSettingsByType:(id)type configurationUUID:(id)d toSystem:(BOOL)system user:(BOOL)user passcode:(id)passcode credentialSet:(id)set waitUntilCompleted:(BOOL)completed errorCompletionBlock:(id)self0;
 - (void)setParentalControlsBlockedAppBundleIDs:(id)ds;
 - (void)setParentalControlsWhitelistedAppBundleIDs:(id)ds;
+- (void)setPasscodeRecoveryAllowed:(BOOL)allowed completionBlock:(id)block;
+- (void)setPasscodeRecoveryAllowed:(BOOL)allowed passcode:(id)passcode completionBlock:(id)block;
+- (void)setPredictiveKeyboardAllowed:(BOOL)allowed;
+- (void)setPredictiveKeyboardAllowed:(BOOL)allowed completion:(id)completion;
+- (void)setSmartPunctuationAllowed:(BOOL)allowed;
+- (void)setSmartPunctuationAllowed:(BOOL)allowed completion:(id)completion;
+- (void)setSpellCheckAllowed:(BOOL)allowed;
+- (void)setSpellCheckAllowed:(BOOL)allowed completion:(id)completion;
 - (void)setUserBookmarks:(id)bookmarks;
 - (void)setUserInfo:(id)info forClientUUID:(id)d;
 - (void)setValue:(id)value forSetting:(id)setting;
 - (void)setValue:(id)value forSetting:(id)setting credentialSet:(id)set completion:(id)completion;
 - (void)setValue:(id)value forSetting:(id)setting passcode:(id)passcode completion:(id)completion;
+- (void)setValue:(id)value forSetting:(id)setting toSystem:(BOOL)system user:(BOOL)user credentialSet:(id)set;
+- (void)setValue:(id)value forSetting:(id)setting toSystem:(BOOL)system user:(BOOL)user passcode:(id)passcode;
+- (void)setValues:(id)values forIntersectionSetting:(id)setting toSystem:(BOOL)system user:(BOOL)user waitUntilCompleted:(BOOL)completed completion:(id)completion;
+- (void)setValues:(id)values forUnionSetting:(id)setting toSystem:(BOOL)system user:(BOOL)user waitUntilCompleted:(BOOL)completed completion:(id)completion;
 - (void)setWebContentFilterAutoPermittedURLStrings:(id)strings;
 - (void)setWebContentFilterUserBlacklistedURLStrings:(id)strings;
 - (void)setupAssistantDidFinishWithCompletion:(id)completion;
 - (void)shutDownWithCompletion:(id)completion;
+- (void)stageMDMEnrollmentInfoForPairingWatchWithProfileData:(id)data orServiceURL:(id)l anchorCertificates:(id)certificates supervised:(BOOL)supervised declarationKeys:(id)keys declarationConfiguration:(id)configuration completion:(id)completion;
 - (void)startMonitoringEnrollmentStateWithPersonaID:(id)d;
 - (void)stopMonitoringEnrollmentState;
 - (void)storeCertificateData:(id)data forHostIdentifier:(id)identifier;
@@ -399,11 +470,13 @@
 - (void)unenrollWithCompletionBlock:(id)block;
 - (void)unregisterObserver:(id)observer;
 - (void)unstageMDMEnrollmentInfoForPairingWatchWithCompletion:(id)completion;
+- (void)updateCloudConfigWithSupervision:(BOOL)supervision replaceExistingConfig:(BOOL)config completion:(id)completion;
 - (void)updateCloudConfigurationWithLastPushTokenHash:(id)hash;
 - (void)updateCloudConfigurationWithRMAccountIdentifier:(id)identifier;
 - (void)updateMDMEnrollmentInfoForPairingWatch:(id)watch completion:(id)completion;
 - (void)updateProfileWithIdentifier:(id)identifier interactionDelegate:(id)delegate;
 - (void)validateAppBundleIDs:(id)ds waitUntilCompleted:(BOOL)completed completion:(id)completion;
+- (void)waitForMigrationIncludingPostRestoreMigration:(BOOL)migration waitUntilCompleted:(BOOL)completed completion:(id)completion;
 @end
 
 @implementation MCProfileConnection
@@ -428,7 +501,7 @@
 
 - (BOOL)needsCheckIn
 {
-  if (MCHasMigrated())
+  if (MCHasMigrated(self))
   {
     goto LABEL_9;
   }
@@ -476,7 +549,7 @@ LABEL_9:
 
 - (void)checkInIfNeeded
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if ([(MCProfileConnection *)self needsCheckIn])
   {
     v3 = mach_absolute_time();
@@ -488,14 +561,12 @@ LABEL_9:
       v6 = qword_1ED4ADE28;
       if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
       {
-        v8 = 134217984;
-        v9 = v5;
-        _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "A call was blocked for a significant time waiting for ManagedConfiguration migration to complete. checkInIfNeeded time elapsed: %f", &v8, 0xCu);
+        v7 = 134217984;
+        v8 = v5;
+        _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "A call was blocked for a significant time waiting for ManagedConfiguration migration to complete. checkInIfNeeded time elapsed: %f", &v7, 0xCu);
       }
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (MCProfileConnection)init
@@ -532,7 +603,7 @@ LABEL_9:
 
     out_token = 0;
     v16 = [@"com.apple.managedconfiguration.restrictionchanged" cStringUsingEncoding:4];
-    v17 = notificationQueue();
+    v17 = notificationQueue(v16);
     handler[0] = MEMORY[0x1E69E9820];
     handler[1] = 3221225472;
     handler[2] = __27__MCProfileConnection_init__block_invoke;
@@ -546,7 +617,7 @@ LABEL_9:
     [(NSMutableArray *)v19 addObject:v20];
 
     v21 = [@"com.apple.managedconfiguration.passcodechanged" cStringUsingEncoding:4];
-    v22 = notificationQueue();
+    v22 = notificationQueue(v21);
     v158[0] = MEMORY[0x1E69E9820];
     v158[1] = 3221225472;
     v158[2] = __27__MCProfileConnection_init__block_invoke_13;
@@ -560,7 +631,7 @@ LABEL_9:
     [(NSMutableArray *)v24 addObject:v25];
 
     v26 = [@"PINPolicyChangedNotification" cStringUsingEncoding:4];
-    v27 = notificationQueue();
+    v27 = notificationQueue(v26);
     v156[0] = MEMORY[0x1E69E9820];
     v156[1] = 3221225472;
     v156[2] = __27__MCProfileConnection_init__block_invoke_14;
@@ -574,7 +645,7 @@ LABEL_9:
     [(NSMutableArray *)v29 addObject:v30];
 
     v31 = [@"com.apple.ManagedConfiguration.profileListChanged" cStringUsingEncoding:4];
-    v32 = notificationQueue();
+    v32 = notificationQueue(v31);
     v154[0] = MEMORY[0x1E69E9820];
     v154[1] = 3221225472;
     v154[2] = __27__MCProfileConnection_init__block_invoke_15;
@@ -588,7 +659,7 @@ LABEL_9:
     [(NSMutableArray *)v34 addObject:v35];
 
     v36 = [@"com.apple.managedconfiguration.settingschanged" cStringUsingEncoding:4];
-    v37 = notificationQueue();
+    v37 = notificationQueue(v36);
     v152[0] = MEMORY[0x1E69E9820];
     v152[1] = 3221225472;
     v152[2] = __27__MCProfileConnection_init__block_invoke_18;
@@ -602,7 +673,7 @@ LABEL_9:
     [(NSMutableArray *)v39 addObject:v40];
 
     v41 = [@"com.apple.managedconfiguration.effectivesettingschanged" cStringUsingEncoding:4];
-    v42 = notificationQueue();
+    v42 = notificationQueue(v41);
     v150[0] = MEMORY[0x1E69E9820];
     v150[1] = 3221225472;
     v150[2] = __27__MCProfileConnection_init__block_invoke_19;
@@ -616,7 +687,7 @@ LABEL_9:
     [(NSMutableArray *)v44 addObject:v45];
 
     uTF8String = [@"com.apple.managedconfiguration.appwhitelistdidchange" UTF8String];
-    v47 = notificationQueue();
+    v47 = notificationQueue(uTF8String);
     v148[0] = MEMORY[0x1E69E9820];
     v148[1] = 3221225472;
     v148[2] = __27__MCProfileConnection_init__block_invoke_21;
@@ -630,7 +701,7 @@ LABEL_9:
     [(NSMutableArray *)v49 addObject:v50];
 
     uTF8String2 = [@"com.apple.managedconfiguration.defaultsdidchange" UTF8String];
-    v52 = notificationQueue();
+    v52 = notificationQueue(uTF8String2);
     v146[0] = MEMORY[0x1E69E9820];
     v146[1] = 3221225472;
     v146[2] = __27__MCProfileConnection_init__block_invoke_22;
@@ -644,7 +715,7 @@ LABEL_9:
     [(NSMutableArray *)v54 addObject:v55];
 
     uTF8String3 = [@"com.apple.managedconfiguration.keyboardsettingschanged" UTF8String];
-    v57 = notificationQueue();
+    v57 = notificationQueue(uTF8String3);
     v144[0] = MEMORY[0x1E69E9820];
     v144[1] = 3221225472;
     v144[2] = __27__MCProfileConnection_init__block_invoke_23;
@@ -658,7 +729,7 @@ LABEL_9:
     [(NSMutableArray *)v59 addObject:v60];
 
     uTF8String4 = [@"com.apple.managedconfiguration.newssettingschanged" UTF8String];
-    v62 = notificationQueue();
+    v62 = notificationQueue(uTF8String4);
     v142[0] = MEMORY[0x1E69E9820];
     v142[1] = 3221225472;
     v142[2] = __27__MCProfileConnection_init__block_invoke_24;
@@ -672,7 +743,7 @@ LABEL_9:
     [(NSMutableArray *)v64 addObject:v65];
 
     v66 = [@"com.apple.managedconfiguration.clientrestrictionschanged" cStringUsingEncoding:4];
-    v67 = notificationQueue();
+    v67 = notificationQueue(v66);
     v140[0] = MEMORY[0x1E69E9820];
     v140[1] = 3221225472;
     v140[2] = __27__MCProfileConnection_init__block_invoke_25;
@@ -725,7 +796,7 @@ LABEL_9:
     [(NSMutableArray *)v82 addObject:v83];
 
     uTF8String8 = [@"com.apple.managedconfiguration.allowpasscodemodificationchanged" UTF8String];
-    v85 = notificationQueue();
+    v85 = notificationQueue(uTF8String8);
     v132[0] = MEMORY[0x1E69E9820];
     v132[1] = 3221225472;
     v132[2] = __27__MCProfileConnection_init__block_invoke_29;
@@ -791,7 +862,7 @@ LABEL_9:
     [(NSMutableArray *)v103 addObject:v104];
 
     v105 = [@"com.apple.managedconfiguration.clearpasscodegenerationcaches" cStringUsingEncoding:4];
-    v106 = notificationQueue();
+    v106 = notificationQueue(v105);
     notify_register_dispatch(v105, &out_token, v106, &__block_literal_global_2);
 
     v107 = v3->_notificationTokens;
@@ -799,7 +870,7 @@ LABEL_9:
     [(NSMutableArray *)v107 addObject:v108];
 
     v109 = [*MEMORY[0x1E69AD418] cStringUsingEncoding:4];
-    v110 = notificationQueue();
+    v110 = notificationQueue(v109);
     v122[0] = MEMORY[0x1E69E9820];
     v122[1] = 3221225472;
     v122[2] = __27__MCProfileConnection_init__block_invoke_35;
@@ -855,7 +926,7 @@ LABEL_9:
 
 - (BOOL)mayOpenFromManagedToUnmanaged
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   [(MCProfileConnection *)self checkInIfNeeded];
   v2 = +[MCRestrictionManager sharedManager];
   v3 = [v2 effectiveRestrictedBoolForSetting:@"allowOpenFromManagedToUnmanaged"];
@@ -869,14 +940,12 @@ LABEL_9:
       v5 = @"YES";
     }
 
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEBUG, "mayOpenFromManagedToUnmanaged: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEBUG, "mayOpenFromManagedToUnmanaged: %@", &v7, 0xCu);
   }
 
-  result = v3 != 2;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return v3 != 2;
 }
 
 - (NSXPCConnection)publicXPCConnection
@@ -922,29 +991,29 @@ void __42__MCProfileConnection_publicXPCConnection__block_invoke(uint64_t a1)
   publicXPCConnection = self->_publicXPCConnection;
   self->_publicXPCConnection = v3;
 
-  v5 = MCXPCProtocolInterface();
-  [(NSXPCConnection *)self->_publicXPCConnection setRemoteObjectInterface:v5];
+  v6 = MCXPCProtocolInterface(v5);
+  [(NSXPCConnection *)self->_publicXPCConnection setRemoteObjectInterface:v6];
 
-  v6 = MCProfileConnectionXPCProtocolInterface();
-  [(NSXPCConnection *)self->_publicXPCConnection setExportedInterface:v6];
+  v8 = MCProfileConnectionXPCProtocolInterface(v7);
+  [(NSXPCConnection *)self->_publicXPCConnection setExportedInterface:v8];
 
   [(NSXPCConnection *)self->_publicXPCConnection setExportedObject:self];
   objc_initWeak(&location, self);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __63__MCProfileConnection__queueCreateAndResumePublicXPCConnection__block_invoke;
+  v11[3] = &unk_1E77D01D0;
+  objc_copyWeak(&v12, &location);
+  [(NSXPCConnection *)self->_publicXPCConnection setInvalidationHandler:v11];
   v9[0] = MEMORY[0x1E69E9820];
   v9[1] = 3221225472;
-  v9[2] = __63__MCProfileConnection__queueCreateAndResumePublicXPCConnection__block_invoke;
+  v9[2] = __63__MCProfileConnection__queueCreateAndResumePublicXPCConnection__block_invoke_2;
   v9[3] = &unk_1E77D01D0;
   objc_copyWeak(&v10, &location);
-  [(NSXPCConnection *)self->_publicXPCConnection setInvalidationHandler:v9];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __63__MCProfileConnection__queueCreateAndResumePublicXPCConnection__block_invoke_2;
-  v7[3] = &unk_1E77D01D0;
-  objc_copyWeak(&v8, &location);
-  [(NSXPCConnection *)self->_publicXPCConnection setInterruptionHandler:v7];
+  [(NSXPCConnection *)self->_publicXPCConnection setInterruptionHandler:v9];
   [(NSXPCConnection *)self->_publicXPCConnection resume];
-  objc_destroyWeak(&v8);
   objc_destroyWeak(&v10);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(&location);
 }
 
@@ -1011,7 +1080,7 @@ void __42__MCProfileConnection_publicXPCConnection__block_invoke(uint64_t a1)
 
 - (BOOL)isOpenInRestrictionInEffect
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   [(MCProfileConnection *)self checkInIfNeeded];
   if ([(MCProfileConnection *)self mayOpenFromManagedToUnmanaged])
   {
@@ -1032,18 +1101,17 @@ void __42__MCProfileConnection_publicXPCConnection__block_invoke(uint64_t a1)
       v5 = @"YES";
     }
 
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEBUG, "isOpenInRestrictionInEffect: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEBUG, "isOpenInRestrictionInEffect: %@", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (BOOL)mayOpenFromUnmanagedToManaged
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   [(MCProfileConnection *)self checkInIfNeeded];
   v2 = +[MCRestrictionManager sharedManager];
   v3 = [v2 effectiveRestrictedBoolForSetting:@"allowOpenFromUnmanagedToManaged"];
@@ -1057,14 +1125,12 @@ void __42__MCProfileConnection_publicXPCConnection__block_invoke(uint64_t a1)
       v5 = @"YES";
     }
 
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEBUG, "mayOpenFromUnmanagedToManaged: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEBUG, "mayOpenFromUnmanagedToManaged: %@", &v7, 0xCu);
   }
 
-  result = v3 != 2;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return v3 != 2;
 }
 
 - (BOOL)isLocalStorageAllowed
@@ -1110,9 +1176,9 @@ void __42__MCProfileConnection_publicXPCConnection__block_invoke(uint64_t a1)
 
   if (!v4)
   {
-    v5 = MEMORY[0x1E695DEC8];
-    v6 = MCSystemHomeScreenLayoutFilePath();
-    v4 = [v5 arrayWithContentsOfFile:v6];
+    v6 = MEMORY[0x1E695DEC8];
+    v7 = MCSystemHomeScreenLayoutFilePath(v5);
+    v4 = [v6 arrayWithContentsOfFile:v7];
   }
 
   return v4;
@@ -1288,29 +1354,29 @@ void __58__MCProfileConnection__destroyXPCConnectionAndInvalidate___block_invoke
   xpcConnection = self->_xpcConnection;
   self->_xpcConnection = v3;
 
-  v5 = MCXPCProtocolInterface();
-  [(NSXPCConnection *)self->_xpcConnection setRemoteObjectInterface:v5];
+  v6 = MCXPCProtocolInterface(v5);
+  [(NSXPCConnection *)self->_xpcConnection setRemoteObjectInterface:v6];
 
-  v6 = MCProfileConnectionXPCProtocolInterface();
-  [(NSXPCConnection *)self->_xpcConnection setExportedInterface:v6];
+  v8 = MCProfileConnectionXPCProtocolInterface(v7);
+  [(NSXPCConnection *)self->_xpcConnection setExportedInterface:v8];
 
   [(NSXPCConnection *)self->_xpcConnection setExportedObject:self];
   objc_initWeak(&location, self);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __57__MCProfileConnection__queueCreateAndResumeXPCConnection__block_invoke;
+  v11[3] = &unk_1E77D01D0;
+  objc_copyWeak(&v12, &location);
+  [(NSXPCConnection *)self->_xpcConnection setInvalidationHandler:v11];
   v9[0] = MEMORY[0x1E69E9820];
   v9[1] = 3221225472;
-  v9[2] = __57__MCProfileConnection__queueCreateAndResumeXPCConnection__block_invoke;
+  v9[2] = __57__MCProfileConnection__queueCreateAndResumeXPCConnection__block_invoke_1;
   v9[3] = &unk_1E77D01D0;
   objc_copyWeak(&v10, &location);
-  [(NSXPCConnection *)self->_xpcConnection setInvalidationHandler:v9];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __57__MCProfileConnection__queueCreateAndResumeXPCConnection__block_invoke_1;
-  v7[3] = &unk_1E77D01D0;
-  objc_copyWeak(&v8, &location);
-  [(NSXPCConnection *)self->_xpcConnection setInterruptionHandler:v7];
+  [(NSXPCConnection *)self->_xpcConnection setInterruptionHandler:v9];
   [(NSXPCConnection *)self->_xpcConnection resume];
-  objc_destroyWeak(&v8);
   objc_destroyWeak(&v10);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(&location);
 }
 
@@ -1537,12 +1603,12 @@ void __27__MCProfileConnection_init__block_invoke_15(uint64_t a1)
 
 void __27__MCProfileConnection_init__block_invoke_19(uint64_t a1, int a2)
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v4 = qword_1ED4ADE28;
   if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v14) = 0;
-    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEBUG, "Received effective settings changed notification", &v14, 2u);
+    LOWORD(v13) = 0;
+    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEBUG, "Received effective settings changed notification", &v13, 2u);
   }
 
   v5 = MCIsDaemonProcess;
@@ -1552,8 +1618,8 @@ void __27__MCProfileConnection_init__block_invoke_19(uint64_t a1, int a2)
   {
     if (v7)
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_DEBUG, "Not invalidating cache because we're running inside profiled.", &v14, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_DEBUG, "Not invalidating cache because we're running inside profiled.", &v13, 2u);
     }
   }
 
@@ -1561,25 +1627,23 @@ void __27__MCProfileConnection_init__block_invoke_19(uint64_t a1, int a2)
   {
     if (v7)
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_DEBUG, "Invalidating cache", &v14, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_DEBUG, "Invalidating cache", &v13, 2u);
     }
 
     v8 = +[MCRestrictionManager sharedManager];
     [v8 invalidateSettings];
   }
 
-  v14 = 0;
-  notify_get_state(a2, &v14);
+  v13 = 0;
+  notify_get_state(a2, &v13);
   v9 = [MEMORY[0x1E696AD88] defaultCenter];
   v10 = *(a1 + 32);
-  v15 = @"senderPID";
-  v11 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v14];
-  v16[0] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v14 = @"senderPID";
+  v11 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v13];
+  v15[0] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   [v9 postNotificationName:@"com.apple.managedconfiguration.effectivesettingschanged" object:v10 userInfo:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __27__MCProfileConnection_init__block_invoke_21(uint64_t a1)
@@ -1815,7 +1879,7 @@ void __27__MCProfileConnection_init__block_invoke_35(uint64_t a1)
 
 - (void)dealloc
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   [(NSXPCConnection *)self->_xpcConnection setInvalidationHandler:0];
   [(NSXPCConnection *)self->_xpcConnection invalidate];
   [(NSXPCConnection *)self->_publicXPCConnection setInvalidationHandler:0];
@@ -1823,40 +1887,39 @@ void __27__MCProfileConnection_init__block_invoke_35(uint64_t a1)
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter removeObserver:self];
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = self->_notificationTokens;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        notify_cancel([*(*(&v11 + 1) + 8 * v8++) intValue]);
+        notify_cancel([*(*(&v10 + 1) + 8 * v8++) intValue]);
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
-  v10.receiver = self;
-  v10.super_class = MCProfileConnection;
-  [(MCProfileConnection *)&v10 dealloc];
-  v9 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = MCProfileConnection;
+  [(MCProfileConnection *)&v9 dealloc];
 }
 
 - (void)checkIn
@@ -1868,7 +1931,7 @@ void __27__MCProfileConnection_init__block_invoke_35(uint64_t a1)
 
 void __30__MCProfileConnection_checkIn__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -1877,13 +1940,11 @@ void __30__MCProfileConnection_checkIn__block_invoke(uint64_t a1, void *a2)
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Check-in error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Check-in error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkInWithCompletion:(id)completion
@@ -1902,7 +1963,7 @@ void __30__MCProfileConnection_checkIn__block_invoke(uint64_t a1, void *a2)
 
 void __45__MCProfileConnection_checkInWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -1911,13 +1972,11 @@ void __45__MCProfileConnection_checkInWithCompletion___block_invoke(uint64_t a1,
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Check-in error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Check-in error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkInAsynchronously
@@ -1929,7 +1988,7 @@ void __45__MCProfileConnection_checkInWithCompletion___block_invoke(uint64_t a1,
 
 void __44__MCProfileConnection_checkInAsynchronously__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -1938,53 +1997,51 @@ void __44__MCProfileConnection_checkInAsynchronously__block_invoke(uint64_t a1, 
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Check-in async error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Check-in async error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_applyToObservers:(id)observers
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   observersCopy = observers;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__0;
-  v22 = __Block_byref_object_dispose__0;
-  v23 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__0;
+  v21 = __Block_byref_object_dispose__0;
+  v22 = 0;
   notificationSyncQueue = self->_notificationSyncQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __41__MCProfileConnection__applyToObservers___block_invoke;
   block[3] = &unk_1E77D0260;
   block[4] = self;
-  block[5] = &v18;
+  block[5] = &v17;
   dispatch_sync(notificationSyncQueue, block);
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
-  v6 = v19[5];
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v24 count:16];
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v6 = v18[5];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v23 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         v11 = objc_autoreleasePoolPush();
         observersCopy[2](observersCopy, v10);
         objc_autoreleasePoolPop(v11);
@@ -1992,22 +2049,18 @@ void __44__MCProfileConnection_checkInAsynchronously__block_invoke(uint64_t a1, 
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v13 objects:v24 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v12 objects:v23 count:16];
     }
 
     while (v7);
   }
 
-  _Block_object_dispose(&v18, 8);
-  v12 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v17, 8);
 }
 
 uint64_t __41__MCProfileConnection__applyToObservers___block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 8) allObjects];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 8) allObjects];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -2378,50 +2431,50 @@ void __51__MCProfileConnection__effectiveSettingsDidChange___block_invoke_2(uint
 
 - (id)installedMDMProfileIdentifier
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   [(MCProfileConnection *)self checkInIfNeeded];
   unverifiedInstalledMDMProfileIdentifier = [(MCProfileConnection *)self unverifiedInstalledMDMProfileIdentifier];
   if (unverifiedInstalledMDMProfileIdentifier)
   {
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x3032000000;
-    v23 = __Block_byref_object_copy__8;
-    v24 = __Block_byref_object_dispose__8;
-    v25 = 0;
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x3032000000;
-    v17 = __Block_byref_object_copy__8;
-    v18 = __Block_byref_object_dispose__8;
     v19 = 0;
+    v20 = &v19;
+    v21 = 0x3032000000;
+    v22 = __Block_byref_object_copy__8;
+    v23 = __Block_byref_object_dispose__8;
+    v24 = 0;
+    v13 = 0;
+    v14 = &v13;
+    v15 = 0x3032000000;
+    v16 = __Block_byref_object_copy__8;
+    v17 = __Block_byref_object_dispose__8;
+    v18 = 0;
     xpcConnection = [(MCProfileConnection *)self xpcConnection];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __62__MCProfileConnection_Profiles__installedMDMProfileIdentifier__block_invoke;
-    v13[3] = &unk_1E77D2620;
-    v13[4] = &v14;
-    v5 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v13];
     v12[0] = MEMORY[0x1E69E9820];
     v12[1] = 3221225472;
-    v12[2] = __62__MCProfileConnection_Profiles__installedMDMProfileIdentifier__block_invoke_2;
-    v12[3] = &unk_1E77D2648;
-    v12[4] = &v14;
-    v12[5] = &v20;
-    [v5 verifiedMDMProfileIdentifierWithCompletion:v12];
+    v12[2] = __62__MCProfileConnection_Profiles__installedMDMProfileIdentifier__block_invoke;
+    v12[3] = &unk_1E77D2620;
+    v12[4] = &v13;
+    v5 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __62__MCProfileConnection_Profiles__installedMDMProfileIdentifier__block_invoke_2;
+    v11[3] = &unk_1E77D2648;
+    v11[4] = &v13;
+    v11[5] = &v19;
+    [v5 verifiedMDMProfileIdentifierWithCompletion:v11];
 
-    if (v15[5])
+    if (v14[5])
     {
       v6 = qword_1ED4ADE28;
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        mCVerboseDescription = [v15[5] MCVerboseDescription];
+        mCVerboseDescription = [v14[5] MCVerboseDescription];
         *buf = 138543362;
-        v27 = mCVerboseDescription;
+        v26 = mCVerboseDescription;
         _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "MDM profile installation check failed with error: %{public}@", buf, 0xCu);
       }
 
-      v8 = v21[5];
+      v8 = v20[5];
       if (!v8)
       {
         v8 = unverifiedInstalledMDMProfileIdentifier;
@@ -2430,21 +2483,19 @@ void __51__MCProfileConnection__effectiveSettingsDidChange___block_invoke_2(uint
 
     else
     {
-      v8 = v21[5];
+      v8 = v20[5];
     }
 
     v9 = v8;
-    _Block_object_dispose(&v14, 8);
+    _Block_object_dispose(&v13, 8);
 
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v19, 8);
   }
 
   else
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -2502,30 +2553,30 @@ void __62__MCProfileConnection_Profiles__installedMDMProfileIdentifier__block_in
 
 - (id)installedProfileIdentifiersInstalledBy:(id)by
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   byCopy = by;
   [(MCProfileConnection *)self checkInIfNeeded];
-  v17 = objc_opt_new();
+  v16 = objc_opt_new();
   [(MCProfileConnection *)self installedProfileIdentifiers];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  obj = v23 = 0u;
-  v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  obj = v22 = 0u;
+  v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v20;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * i);
+        v8 = *(*(&v19 + 1) + 8 * i);
         v9 = objc_autoreleasePoolPush();
         v10 = +[MCManifest sharedManifest];
         v11 = [v10 installedProfileWithIdentifier:v8];
@@ -2537,51 +2588,50 @@ void __62__MCProfileConnection_Profiles__installedMDMProfileIdentifier__block_in
 
           if (v13 && [v13 isEqualToString:byCopy])
           {
-            [v17 addObject:v8];
+            [v16 addObject:v8];
           }
         }
 
         objc_autoreleasePoolPop(v9);
       }
 
-      v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v5);
   }
 
-  v14 = [v17 copy];
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = [v16 copy];
 
   return v14;
 }
 
 - (id)installedProfilesInstalledBy:(id)by
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   byCopy = by;
   [(MCProfileConnection *)self checkInIfNeeded];
-  v18 = objc_opt_new();
+  v17 = objc_opt_new();
   [(MCProfileConnection *)self installedProfileIdentifiers];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v4 = v23 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = v22 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v20;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * i);
+        v9 = *(*(&v19 + 1) + 8 * i);
         v10 = objc_autoreleasePoolPush();
         v11 = +[MCManifest sharedManifest];
         v12 = [v11 installedProfileWithIdentifier:v9];
@@ -2593,60 +2643,211 @@ void __62__MCProfileConnection_Profiles__installedMDMProfileIdentifier__block_in
 
           if (v14 && [v14 isEqualToString:byCopy])
           {
-            [v18 addObject:v12];
+            [v17 addObject:v12];
           }
         }
 
         objc_autoreleasePoolPop(v10);
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v6);
   }
 
-  v15 = [v18 copy];
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = [v17 copy];
 
   return v15;
 }
 
+- (id)installedProfileIdentifiersWithFilterFlags:(int)flags
+{
+  v3 = *&flags;
+  v25 = *MEMORY[0x1E69E9840];
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v4 = +[MCManifest sharedManifest];
+  v5 = [v4 identifiersOfProfilesWithFilterFlags:v3];
+
+  if ((v3 & 0x24) != 0)
+  {
+    v19 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v5, "count")}];
+    v20 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v6 = v5;
+    v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    if (v7)
+    {
+      v8 = v7;
+      v9 = *v21;
+      do
+      {
+        for (i = 0; i != v8; ++i)
+        {
+          if (*v21 != v9)
+          {
+            objc_enumerationMutation(v6);
+          }
+
+          v11 = *(*(&v20 + 1) + 8 * i);
+          v12 = objc_autoreleasePoolPush();
+          v13 = +[MCManifest sharedManifest];
+          v14 = [v13 installedProfileWithIdentifier:v11];
+
+          if (v14)
+          {
+            if (objc_opt_class(), (objc_opt_isKindOfClass()) && (v15 = [v14 isMDMProfile], (v3 & 0x40) != 0) && (v15 & 1) != 0 || ((v16 = objc_msgSend(v14, "isManagedByMDM"), (v3 & 0x20) == 0) ? (v17 = 1) : (v17 = v16), (v16 & (v3 >> 2) & 1) == 0 && v17))
+            {
+              [v19 addObject:v11];
+            }
+          }
+
+          objc_autoreleasePoolPop(v12);
+        }
+
+        v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      }
+
+      while (v8);
+    }
+
+    v5 = [v19 copy];
+  }
+
+  return v5;
+}
+
+- (id)installedProfilesWithFilterFlags:(int)flags
+{
+  v3 = *&flags;
+  v30 = *MEMORY[0x1E69E9840];
+  [(MCProfileConnection *)self checkInIfNeeded];
+  if ((v3 & 4) != 0)
+  {
+    unverifiedInstalledMDMProfileIdentifier = [(MCProfileConnection *)self unverifiedInstalledMDMProfileIdentifier];
+  }
+
+  else
+  {
+    unverifiedInstalledMDMProfileIdentifier = 0;
+  }
+
+  v5 = [(MCProfileConnection *)self installedProfileIdentifiersWithFilterFlags:v3];
+  v23 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v5, "count")}];
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  obj = v5;
+  v6 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v26;
+    v21 = @"managingProfileIdentifier";
+    do
+    {
+      for (i = 0; i != v7; ++i)
+      {
+        if (*v26 != v8)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v10 = *(*(&v25 + 1) + 8 * i);
+        v11 = objc_autoreleasePoolPush();
+        v12 = +[MCManifest sharedManifest];
+        v13 = [v12 installedProfileWithIdentifier:v10 filterFlags:v3];
+
+        if (v13)
+        {
+          if ((v3 & 4) == 0)
+          {
+            goto LABEL_11;
+          }
+
+          managingProfileIdentifier = [v13 managingProfileIdentifier];
+          v15 = managingProfileIdentifier;
+          if (managingProfileIdentifier)
+          {
+            v16 = managingProfileIdentifier;
+          }
+
+          else
+          {
+            installOptions = [v13 installOptions];
+            v16 = [installOptions objectForKey:v21];
+          }
+
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            v18 = [v13 isMDMProfile] ^ 1;
+          }
+
+          else
+          {
+            LOBYTE(v18) = 1;
+          }
+
+          v19 = [unverifiedInstalledMDMProfileIdentifier isEqualToString:v16];
+
+          if (!v19 || !(((v3 & 0x40) == 0) | v18 & 1))
+          {
+LABEL_11:
+            [v23 addObject:{v13, v21}];
+          }
+        }
+
+        objc_autoreleasePoolPop(v11);
+      }
+
+      v7 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+    }
+
+    while (v7);
+  }
+
+  return v23;
+}
+
 - (id)installedConfigurationProfileInfoWithOutMDMProfileInfo:(id *)info
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   [(MCProfileConnection *)self checkInIfNeeded];
   unverifiedInstalledMDMProfileIdentifier = [(MCProfileConnection *)self unverifiedInstalledMDMProfileIdentifier];
   v5 = [(MCProfileConnection *)self installedProfileIdentifiersWithFilterFlags:1];
-  v28 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v5, "count")}];
+  v27 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v5, "count")}];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v6 = v5;
-  v30 = [v6 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v29 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
   v7 = 0;
-  if (v30)
+  if (v29)
   {
-    v8 = *v33;
-    v29 = *v33;
+    v8 = *v32;
+    v28 = *v32;
     do
     {
-      for (i = 0; i != v30; ++i)
+      for (i = 0; i != v29; ++i)
       {
-        if (*v33 != v8)
+        if (*v32 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v32 + 1) + 8 * i);
+        v10 = *(*(&v31 + 1) + 8 * i);
         v11 = objc_autoreleasePoolPush();
         v12 = +[MCManifest sharedManifest];
         v13 = [v12 installedProfileWithIdentifier:v10];
 
         if (v13)
         {
-          v31 = v11;
+          v30 = v11;
           v14 = [[MCProfileInfo alloc] initWithProfile:v13];
           managingProfileIdentifier = [v13 managingProfileIdentifier];
           v16 = managingProfileIdentifier;
@@ -2666,7 +2867,7 @@ void __62__MCProfileConnection_Profiles__installedMDMProfileIdentifier__block_in
             unverifiedInstalledMDMProfileIdentifier = v20;
             v6 = v19;
             v7 = v18;
-            v8 = v29;
+            v8 = v28;
           }
 
           if ([v10 isEqualToString:unverifiedInstalledMDMProfileIdentifier])
@@ -2674,15 +2875,15 @@ void __62__MCProfileConnection_Profiles__installedMDMProfileIdentifier__block_in
             v22 = v14;
 
             v7 = v22;
-            v11 = v31;
+            v11 = v30;
           }
 
           else
           {
-            v11 = v31;
+            v11 = v30;
             if (([unverifiedInstalledMDMProfileIdentifier isEqualToString:v17] & 1) == 0)
             {
-              [v28 addObject:v14];
+              [v27 addObject:v14];
             }
           }
         }
@@ -2690,10 +2891,10 @@ void __62__MCProfileConnection_Profiles__installedMDMProfileIdentifier__block_in
         objc_autoreleasePoolPop(v11);
       }
 
-      v30 = [v6 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v29 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
-    while (v30);
+    while (v29);
   }
 
   if (info)
@@ -2702,9 +2903,7 @@ void __62__MCProfileConnection_Profiles__installedMDMProfileIdentifier__block_in
     *info = v7;
   }
 
-  v24 = [v28 copy];
-
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = [v27 copy];
 
   return v24;
 }
@@ -2779,21 +2978,19 @@ void __62__MCProfileConnection_Profiles__installedMDMProfileIdentifier__block_in
 
 void __75__MCProfileConnection_Profiles__isProfileInstalledWithIdentifier_outError___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = qword_1ED4ADE28;
   if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138543362;
-    v9 = v3;
-    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Cannot query if a profile is installed. Error: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v3;
+    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Cannot query if a profile is installed. Error: %{public}@", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __75__MCProfileConnection_Profiles__isProfileInstalledWithIdentifier_outError___block_invoke_7(uint64_t a1, void *a2, char a3)
@@ -2827,14 +3024,14 @@ void __75__MCProfileConnection_Profiles__isProfileInstalledWithIdentifier_outErr
 
 void __77__MCProfileConnection_Profiles__isProfileInstalledWithIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = qword_1ED4ADE28;
   if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138543362;
-    v8 = v3;
-    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Cannot query if a profile is installed. Error: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v3;
+    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Cannot query if a profile is installed. Error: %{public}@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -2842,8 +3039,6 @@ void __77__MCProfileConnection_Profiles__isProfileInstalledWithIdentifier_comple
   {
     (*(v5 + 16))(v5, v3, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __77__MCProfileConnection_Profiles__isProfileInstalledWithIdentifier_completion___block_invoke_9(uint64_t a1)
@@ -2907,7 +3102,7 @@ uint64_t __77__MCProfileConnection_Profiles__isProfileInstalledWithIdentifier_co
 
 - (void)allProfilesOutMDMProfileInfo:(id *)info outConfigurationProfilesInfo:(id *)profilesInfo outUninstalledProfilesInfo:(id *)uninstalledProfilesInfo forDeviceType:(unint64_t)type
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   [(MCProfileConnection *)self checkInIfNeeded];
   v11 = [(MCProfileConnection *)self installedConfigurationProfileInfoWithOutMDMProfileInfo:info];
   if (profilesInfo)
@@ -2918,32 +3113,32 @@ uint64_t __77__MCProfileConnection_Profiles__isProfileInstalledWithIdentifier_co
 
   if (uninstalledProfilesInfo)
   {
-    v26 = v11;
+    v25 = v11;
     uninstalledProfilesInfoCopy = uninstalledProfilesInfo;
     v12 = +[MCHoldingTankManifest sharedManifest];
     v13 = [(MCProfileConnection *)self uninstalledProfileIdentifiersForDevice:type];
     v14 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v13, "count")}];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v15 = v13;
-    v16 = [v15 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v29;
+      v18 = *v28;
       do
       {
         v19 = 0;
         do
         {
-          if (*v29 != v18)
+          if (*v28 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v28 + 1) + 8 * v19);
+          v20 = *(*(&v27 + 1) + 8 * v19);
           v21 = objc_autoreleasePoolPush();
           v22 = [v12 uninstalledProfileWithIdentifier:v20 targetDevice:type];
           if (v22)
@@ -2957,7 +3152,7 @@ uint64_t __77__MCProfileConnection_Profiles__isProfileInstalledWithIdentifier_co
         }
 
         while (v17 != v19);
-        v17 = [v15 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v17);
@@ -2966,10 +3161,8 @@ uint64_t __77__MCProfileConnection_Profiles__isProfileInstalledWithIdentifier_co
     v24 = v14;
     *uninstalledProfilesInfoCopy = v14;
 
-    v11 = v26;
+    v11 = v25;
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (id)popProfileDataFromHeadOfInstallationQueue
@@ -2998,7 +3191,7 @@ uint64_t __77__MCProfileConnection_Profiles__isProfileInstalledWithIdentifier_co
 
 void __74__MCProfileConnection_Profiles__popProfileDataFromHeadOfInstallationQueue__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -3007,18 +3200,16 @@ void __74__MCProfileConnection_Profiles__popProfileDataFromHeadOfInstallationQue
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Pop profile data error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Pop profile data error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __74__MCProfileConnection_Profiles__popProfileDataFromHeadOfInstallationQueue__block_invoke_11(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -3028,17 +3219,15 @@ void __74__MCProfileConnection_Profiles__popProfileDataFromHeadOfInstallationQue
     {
       v8 = v7;
       v9 = [v6 MCVerboseDescription];
-      v13 = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Pop profile data error. Error: %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v9;
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Pop profile data error. Error: %{public}@", &v12, 0xCu);
     }
   }
 
   v10 = *(*(a1 + 32) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v5;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)peekProfileDataFromPurgatoryForDeviceType:(unint64_t)type
@@ -3067,7 +3256,7 @@ void __74__MCProfileConnection_Profiles__popProfileDataFromHeadOfInstallationQue
 
 void __75__MCProfileConnection_Profiles__peekProfileDataFromPurgatoryForDeviceType___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -3076,18 +3265,16 @@ void __75__MCProfileConnection_Profiles__peekProfileDataFromPurgatoryForDeviceTy
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Peek profile data from Purgatory error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Peek profile data from Purgatory error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __75__MCProfileConnection_Profiles__peekProfileDataFromPurgatoryForDeviceType___block_invoke_15(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -3097,22 +3284,20 @@ void __75__MCProfileConnection_Profiles__peekProfileDataFromPurgatoryForDeviceTy
     {
       v8 = v7;
       v9 = [v6 MCVerboseDescription];
-      v13 = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Peek profile data from Purgatory error. Error: %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v9;
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Peek profile data from Purgatory error. Error: %{public}@", &v12, 0xCu);
     }
   }
 
   v10 = *(*(a1 + 32) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v5;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_handleQueueProfileError:(id)error targetDevice:(unint64_t)device
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v6 = +[MCUserNotificationManager sharedManager];
   v7 = [v6 displayQueueProfileError:errorCopy targetDevice:device];
@@ -3129,17 +3314,50 @@ void __75__MCProfileConnection_Profiles__peekProfileDataFromPurgatoryForDeviceTy
     {
       v10 = v9;
       mCVerboseDescription = [errorCopy MCVerboseDescription];
-      v14 = 138543362;
-      v15 = mCVerboseDescription;
-      _os_log_impl(&dword_1A795B000, v10, OS_LOG_TYPE_ERROR, "Profile data failed to queue with error: %{public}@", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = mCVerboseDescription;
+      _os_log_impl(&dword_1A795B000, v10, OS_LOG_TYPE_ERROR, "Profile data failed to queue with error: %{public}@", &v13, 0xCu);
     }
 
     v8 = v7;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v8;
+}
+
+- (void)_queueDataForAcceptance:(id)acceptance originalFileName:(id)name originatingBundleID:(id)d transitionToUI:(BOOL)i completion:(id)completion
+{
+  iCopy = i;
+  dCopy = d;
+  completionCopy = completion;
+  nameCopy = name;
+  acceptanceCopy = acceptance;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  [(MCProfileConnection *)self checkApplicationIdentifierEntitlement];
+  if (!dCopy)
+  {
+    mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
+    dCopy = [mainBundle bundleIdentifier];
+  }
+
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __120__MCProfileConnection_Profiles___queueDataForAcceptance_originalFileName_originatingBundleID_transitionToUI_completion___block_invoke;
+  v24[3] = &unk_1E77D2710;
+  v17 = completionCopy;
+  v24[4] = self;
+  v25 = v17;
+  v18 = MEMORY[0x1AC55F990](v24);
+  xpcConnection = [(MCProfileConnection *)self xpcConnection];
+  v20 = [xpcConnection remoteObjectProxyWithErrorHandler:v18];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __120__MCProfileConnection_Profiles___queueDataForAcceptance_originalFileName_originatingBundleID_transitionToUI_completion___block_invoke_2;
+  v22[3] = &unk_1E77D2738;
+  v22[4] = self;
+  v23 = v17;
+  v21 = v17;
+  [v20 queueProfileDataForInstallation:acceptanceCopy originalFileName:nameCopy originatingBundleID:dCopy transitionToUI:iCopy completion:v22];
 }
 
 void __120__MCProfileConnection_Profiles___queueDataForAcceptance_originalFileName_originatingBundleID_transitionToUI_completion___block_invoke(uint64_t a1, uint64_t a2)
@@ -3163,6 +3381,76 @@ void __120__MCProfileConnection_Profiles___queueDataForAcceptance_originalFileNa
   }
 
   (*(*(a1 + 40) + 16))();
+}
+
+- (id)_queueDataForAcceptance:(id)acceptance originalFileName:(id)name originatingBundleID:(id)d transitionToUI:(BOOL)i outError:(id *)error
+{
+  iCopy = i;
+  acceptanceCopy = acceptance;
+  nameCopy = name;
+  dCopy = d;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  [(MCProfileConnection *)self checkApplicationIdentifierEntitlement];
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = __Block_byref_object_copy__8;
+  v40 = __Block_byref_object_dispose__8;
+  v41 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__8;
+  v34 = __Block_byref_object_dispose__8;
+  v35 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
+  if (!dCopy)
+  {
+    mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
+    dCopy = [mainBundle bundleIdentifier];
+  }
+
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __118__MCProfileConnection_Profiles___queueDataForAcceptance_originalFileName_originatingBundleID_transitionToUI_outError___block_invoke;
+  v25[3] = &unk_1E77D2620;
+  v25[4] = &v30;
+  v16 = MEMORY[0x1AC55F990](v25);
+  xpcConnection = [(MCProfileConnection *)self xpcConnection];
+  v18 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v16];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __118__MCProfileConnection_Profiles___queueDataForAcceptance_originalFileName_originatingBundleID_transitionToUI_outError___block_invoke_2;
+  v24[3] = &unk_1E77D2760;
+  v24[4] = &v36;
+  v24[5] = &v30;
+  v24[6] = &v26;
+  [v18 queueProfileDataForInstallation:acceptanceCopy originalFileName:nameCopy originatingBundleID:dCopy transitionToUI:iCopy completion:v24];
+
+  v19 = v31[5];
+  if (v19)
+  {
+    v20 = [(MCProfileConnection *)self _handleQueueProfileError:v19 targetDevice:v27[3]];
+    v21 = v31[5];
+    v31[5] = v20;
+
+    if (error)
+    {
+      *error = v31[5];
+    }
+  }
+
+  v22 = v37[5];
+
+  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v30, 8);
+
+  _Block_object_dispose(&v36, 8);
+
+  return v22;
 }
 
 void __118__MCProfileConnection_Profiles___queueDataForAcceptance_originalFileName_originatingBundleID_transitionToUI_outError___block_invoke_2(void *a1, void *a2, uint64_t a3, void *a4)
@@ -3271,7 +3559,7 @@ void __118__MCProfileConnection_Profiles___queueDataForAcceptance_originalFileNa
 
 void __69__MCProfileConnection_Profiles__installProfileData_options_outError___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -3280,22 +3568,20 @@ void __69__MCProfileConnection_Profiles__installProfileData_options_outError___b
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Install profile data connection error. Error: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Install profile data connection error. Error: %{public}@", &v9, 0xCu);
     }
   }
 
   v7 = *(*(a1 + 32) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v3;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __69__MCProfileConnection_Profiles__installProfileData_options_outError___block_invoke_19(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -3305,9 +3591,9 @@ void __69__MCProfileConnection_Profiles__installProfileData_options_outError___b
     {
       v8 = v7;
       v9 = [v6 MCVerboseDescription];
-      v16 = 138543362;
-      v17 = v9;
-      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Install profile data error. Error: %{public}@", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v9;
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Install profile data error. Error: %{public}@", &v15, 0xCu);
     }
   }
 
@@ -3319,13 +3605,11 @@ void __69__MCProfileConnection_Profiles__installProfileData_options_outError___b
   v13 = *(*(a1 + 40) + 8);
   v14 = *(v13 + 40);
   *(v13 + 40) = v5;
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)appleConnect_installMDMAssociatedProfileData:(id)data outError:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   [(MCProfileConnection *)self checkInIfNeeded];
   [(MCProfileConnection *)self checkApplicationIdentifierEntitlement];
@@ -3345,40 +3629,40 @@ void __69__MCProfileConnection_Profiles__installProfileData_options_outError___b
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v33 = 0x3032000000;
-    v34 = __Block_byref_object_copy__8;
-    v35 = __Block_byref_object_dispose__8;
-    v36 = 0;
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy__8;
-    v30 = __Block_byref_object_dispose__8;
-    v31 = 0;
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __87__MCProfileConnection_Profiles__appleConnect_installMDMAssociatedProfileData_outError___block_invoke;
-    v25[3] = &unk_1E77D2620;
-    v25[4] = &v26;
-    v17 = MEMORY[0x1AC55F990](v25);
-    xpcConnection = [(MCProfileConnection *)self xpcConnection];
-    v19 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v17];
+    v32 = 0x3032000000;
+    v33 = __Block_byref_object_copy__8;
+    v34 = __Block_byref_object_dispose__8;
+    v35 = 0;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x3032000000;
+    v28 = __Block_byref_object_copy__8;
+    v29 = __Block_byref_object_dispose__8;
+    v30 = 0;
     v24[0] = MEMORY[0x1E69E9820];
     v24[1] = 3221225472;
-    v24[2] = __87__MCProfileConnection_Profiles__appleConnect_installMDMAssociatedProfileData_outError___block_invoke_24;
-    v24[3] = &unk_1E77D2788;
-    v24[4] = &v26;
-    v24[5] = &buf;
-    [v19 appleConnect_installMDMAssociatedProfileData:dataCopy interactive:0 options:v15 completion:v24];
+    v24[2] = __87__MCProfileConnection_Profiles__appleConnect_installMDMAssociatedProfileData_outError___block_invoke;
+    v24[3] = &unk_1E77D2620;
+    v24[4] = &v25;
+    v17 = MEMORY[0x1AC55F990](v24);
+    xpcConnection = [(MCProfileConnection *)self xpcConnection];
+    v19 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v17];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __87__MCProfileConnection_Profiles__appleConnect_installMDMAssociatedProfileData_outError___block_invoke_24;
+    v23[3] = &unk_1E77D2788;
+    v23[4] = &v25;
+    v23[5] = &buf;
+    [v19 appleConnect_installMDMAssociatedProfileData:dataCopy interactive:0 options:v15 completion:v23];
 
     if (error)
     {
-      *error = v27[5];
+      *error = v26[5];
     }
 
     error = *(*(&buf + 1) + 40);
 
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v25, 8);
     _Block_object_dispose(&buf, 8);
   }
 
@@ -3391,14 +3675,12 @@ void __69__MCProfileConnection_Profiles__installProfileData_options_outError___b
     error = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return error;
 }
 
 void __87__MCProfileConnection_Profiles__appleConnect_installMDMAssociatedProfileData_outError___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -3407,22 +3689,20 @@ void __87__MCProfileConnection_Profiles__appleConnect_installMDMAssociatedProfil
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "AppleConnect install profile data connection error. Error: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "AppleConnect install profile data connection error. Error: %{public}@", &v9, 0xCu);
     }
   }
 
   v7 = *(*(a1 + 32) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v3;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __87__MCProfileConnection_Profiles__appleConnect_installMDMAssociatedProfileData_outError___block_invoke_24(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -3432,9 +3712,9 @@ void __87__MCProfileConnection_Profiles__appleConnect_installMDMAssociatedProfil
     {
       v8 = v7;
       v9 = [v6 MCVerboseDescription];
-      v16 = 138543362;
-      v17 = v9;
-      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "AppleConnect install profile data error. Error: %{public}@", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v9;
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "AppleConnect install profile data error. Error: %{public}@", &v15, 0xCu);
     }
   }
 
@@ -3446,8 +3726,6 @@ void __87__MCProfileConnection_Profiles__appleConnect_installMDMAssociatedProfil
   v13 = *(*(a1 + 40) + 8);
   v14 = *(v13 + 40);
   *(v13 + 40) = v5;
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeProfileWithIdentifier:(id)identifier installationType:(int64_t)type
@@ -3463,7 +3741,7 @@ void __87__MCProfileConnection_Profiles__appleConnect_installMDMAssociatedProfil
 
 void __78__MCProfileConnection_Profiles__removeProfileWithIdentifier_installationType___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -3472,13 +3750,11 @@ void __78__MCProfileConnection_Profiles__removeProfileWithIdentifier_installatio
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Remove profile error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Remove profile error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeProfileAsyncWithIdentifier:(id)identifier installationType:(int64_t)type completion:(id)completion
@@ -3502,7 +3778,7 @@ void __78__MCProfileConnection_Profiles__removeProfileWithIdentifier_installatio
 
 void __94__MCProfileConnection_Profiles__removeProfileAsyncWithIdentifier_installationType_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -3511,9 +3787,9 @@ void __94__MCProfileConnection_Profiles__removeProfileAsyncWithIdentifier_instal
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Remove profile async error. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Remove profile async error. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -3522,8 +3798,6 @@ void __94__MCProfileConnection_Profiles__removeProfileAsyncWithIdentifier_instal
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeProtectedProfileAsyncWithIdentifier:(id)identifier installationType:(int64_t)type completion:(id)completion
@@ -3547,7 +3821,7 @@ void __94__MCProfileConnection_Profiles__removeProfileAsyncWithIdentifier_instal
 
 void __103__MCProfileConnection_Profiles__removeProtectedProfileAsyncWithIdentifier_installationType_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -3556,9 +3830,9 @@ void __103__MCProfileConnection_Profiles__removeProtectedProfileAsyncWithIdentif
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Remove protected profile async error. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Remove protected profile async error. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -3567,8 +3841,6 @@ void __103__MCProfileConnection_Profiles__removeProtectedProfileAsyncWithIdentif
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeProfileWithIdentifier:(id)identifier installationType:(int64_t)type completion:(id)completion
@@ -3615,7 +3887,7 @@ void __103__MCProfileConnection_Profiles__removeProtectedProfileAsyncWithIdentif
 
 void __94__MCProfileConnection_Profiles__removeProfileWithIdentifier_installationType_errorCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -3624,9 +3896,9 @@ void __94__MCProfileConnection_Profiles__removeProfileWithIdentifier_installatio
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Remove profile error. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Remove profile error. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -3635,8 +3907,6 @@ void __94__MCProfileConnection_Profiles__removeProfileWithIdentifier_installatio
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeUninstalledProfileWithIdentifier:(id)identifier installationType:(int64_t)type targetDeviceType:(unint64_t)deviceType completion:(id)completion
@@ -3660,7 +3930,7 @@ void __94__MCProfileConnection_Profiles__removeProfileWithIdentifier_installatio
 
 void __117__MCProfileConnection_Profiles__removeUninstalledProfileWithIdentifier_installationType_targetDeviceType_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -3669,9 +3939,9 @@ void __117__MCProfileConnection_Profiles__removeUninstalledProfileWithIdentifier
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Remove uninstalled profile error. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Remove uninstalled profile error. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -3680,8 +3950,6 @@ void __117__MCProfileConnection_Profiles__removeUninstalledProfileWithIdentifier
   {
     (*(v7 + 16))();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removePostSetupAutoInstallSetAsideProfileWithCompletion:(id)completion
@@ -3703,7 +3971,7 @@ void __117__MCProfileConnection_Profiles__removeUninstalledProfileWithIdentifier
 
 void __89__MCProfileConnection_Profiles__removePostSetupAutoInstallSetAsideProfileWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -3712,9 +3980,9 @@ void __89__MCProfileConnection_Profiles__removePostSetupAutoInstallSetAsideProfi
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "XPC connection failed when removing set aside MDM profile. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "XPC connection failed when removing set aside MDM profile. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -3723,8 +3991,6 @@ void __89__MCProfileConnection_Profiles__removePostSetupAutoInstallSetAsideProfi
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)updateProfileWithIdentifier:(id)identifier outError:(id *)error
@@ -3775,7 +4041,7 @@ void __89__MCProfileConnection_Profiles__removePostSetupAutoInstallSetAsideProfi
 
 void __70__MCProfileConnection_Profiles__updateProfileWithIdentifier_outError___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -3784,20 +4050,18 @@ void __70__MCProfileConnection_Profiles__updateProfileWithIdentifier_outError___
     {
       v6 = v5;
       v7 = [v4 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Update profile, interactive error. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Update profile, interactive error. Error: %{public}@", &v8, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __70__MCProfileConnection_Profiles__updateProfileWithIdentifier_outError___block_invoke_27(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -3807,9 +4071,9 @@ void __70__MCProfileConnection_Profiles__updateProfileWithIdentifier_outError___
     {
       v8 = v7;
       v9 = [v6 MCVerboseDescription];
-      v13 = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Update profile, interactive error. Error: %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v9;
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Update profile, interactive error. Error: %{public}@", &v12, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
@@ -3818,13 +4082,36 @@ void __70__MCProfileConnection_Profiles__updateProfileWithIdentifier_outError___
   v10 = *(*(a1 + 40) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v5;
+}
 
-  v12 = *MEMORY[0x1E69E9840];
+- (BOOL)_openSensitiveURLString:(id)string unlock:(BOOL)unlock
+{
+  unlockCopy = unlock;
+  stringCopy = string;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 1;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __64__MCProfileConnection_Profiles___openSensitiveURLString_unlock___block_invoke;
+  v11[3] = &unk_1E77D2620;
+  v11[4] = &v12;
+  v7 = MEMORY[0x1AC55F990](v11);
+  xpcConnection = [(MCProfileConnection *)self xpcConnection];
+  v9 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v7];
+  [v9 openSensitiveURL:stringCopy unlock:unlockCopy completion:v7];
+
+  LOBYTE(unlockCopy) = *(v13 + 24);
+  _Block_object_dispose(&v12, 8);
+
+  return unlockCopy;
 }
 
 void __64__MCProfileConnection_Profiles___openSensitiveURLString_unlock___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -3833,20 +4120,18 @@ void __64__MCProfileConnection_Profiles___openSensitiveURLString_unlock___block_
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Open sensitive URL error. Error: %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Open sensitive URL error. Error: %{public}@", &v7, 0xCu);
     }
 
     *(*(*(a1 + 32) + 8) + 24) = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)showProfileErrorUIWithProfileIdentifier:(id)identifier outError:(id *)error
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   [(MCProfileConnection *)self checkInIfNeeded];
   if (![identifierCopy length])
@@ -3864,25 +4149,25 @@ void __64__MCProfileConnection_Profiles___openSensitiveURLString_unlock___block_
   }
 
   [(MCProfileConnection *)self installedProfilesWithFilterFlags:1];
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
-  v14 = v53 = 0u;
-  v15 = [v14 countByEnumeratingWithState:&v50 objects:v58 count:16];
+  v14 = v52 = 0u;
+  v15 = [v14 countByEnumeratingWithState:&v49 objects:v57 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v51;
+    v17 = *v50;
     while (2)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v51 != v17)
+        if (*v50 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        identifier = [*(*(&v50 + 1) + 8 * i) identifier];
+        identifier = [*(*(&v49 + 1) + 8 * i) identifier];
         v20 = [identifier isEqualToString:identifierCopy];
 
         if (v20)
@@ -3891,7 +4176,7 @@ void __64__MCProfileConnection_Profiles___openSensitiveURLString_unlock___block_
           uRLQueryAllowedCharacterSet = [MEMORY[0x1E696AB08] URLQueryAllowedCharacterSet];
           v29 = [identifierCopy stringByAddingPercentEncodingWithAllowedCharacters:uRLQueryAllowedCharacterSet];
 
-          v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@&profileID=%@", @"prefs:root=General&path=ManagedConfigurationList/ProfileError", v29, v50];
+          v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@&profileID=%@", @"prefs:root=General&path=ManagedConfigurationList/ProfileError", v29, v49];
           if ([(MCProfileConnection *)self _openSensitiveURLString:v32 unlock:0])
           {
             v30 = 0;
@@ -3908,7 +4193,7 @@ void __64__MCProfileConnection_Profiles___openSensitiveURLString_unlock___block_
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v50 objects:v58 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v49 objects:v57 count:16];
       if (v16)
       {
         continue;
@@ -3932,9 +4217,9 @@ LABEL_18:
       v45 = v44;
       mCVerboseDescription = [v30 MCVerboseDescription];
       *buf = 138543618;
-      v55 = identifierCopy;
-      v56 = 2114;
-      v57 = mCVerboseDescription;
+      v54 = identifierCopy;
+      v55 = 2114;
+      v56 = mCVerboseDescription;
       _os_log_impl(&dword_1A795B000, v45, OS_LOG_TYPE_ERROR, "Cannot display profile with identifier “%{public}@”. Error: %{public}@", buf, 0x16u);
     }
 
@@ -3947,7 +4232,6 @@ LABEL_18:
 
 LABEL_22:
 
-  v48 = *MEMORY[0x1E69E9840];
   return v30 == 0;
 }
 
@@ -3976,35 +4260,35 @@ LABEL_22:
   return v6;
 }
 
-BOOL __86__MCProfileConnection_Profiles__listInstalledProvisioningProfileUUIDsWithManagedOnly___block_invoke(uint64_t a1)
+BOOL __86__MCProfileConnection_Profiles__listInstalledProvisioningProfileUUIDsWithManagedOnly___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = MISProvisioningProfileGetUUID();
-  if (v3)
+  v3 = objc_autoreleasePoolPush();
+  v4 = MISProvisioningProfileGetUUID();
+  if (v4)
   {
-    if (*(a1 + 48) != 1 || ([*(a1 + 32) dependentsOfParent:v3 inDomain:@"ProvisioningProfileToManagingProfile"], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "count"), v4, v5))
+    if (*(a1 + 48) != 1 || ([*(a1 + 32) dependentsOfParent:v4 inDomain:@"ProvisioningProfileToManagingProfile"], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "count"), v5, v6))
     {
-      [*(*(*(a1 + 40) + 8) + 40) addObject:v3];
+      [*(*(*(a1 + 40) + 8) + 40) addObject:v4];
     }
   }
 
   else
   {
-    v6 = qword_1ED4ADE28;
+    v7 = qword_1ED4ADE28;
     if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Cannot get UUID of installed provisioning profile.", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_ERROR, "Cannot get UUID of installed provisioning profile.", v12, 2u);
     }
 
-    v7 = [MEMORY[0x1E695DF70] array];
-    v8 = *(*(a1 + 40) + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    v8 = [MEMORY[0x1E695DF70] array];
+    v9 = *(*(a1 + 40) + 8);
+    v10 = *(v9 + 40);
+    *(v9 + 40) = v8;
   }
 
-  objc_autoreleasePoolPop(v2);
-  return v3 != 0;
+  objc_autoreleasePoolPop(v3);
+  return v4 != 0;
 }
 
 - (BOOL)installProvisioningProfileData:(id)data managingProfileIdentifier:(id)identifier outError:(id *)error
@@ -4048,7 +4332,7 @@ BOOL __86__MCProfileConnection_Profiles__listInstalledProvisioningProfileUUIDsWi
 
 void __99__MCProfileConnection_Profiles__installProvisioningProfileData_managingProfileIdentifier_outError___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -4057,9 +4341,9 @@ void __99__MCProfileConnection_Profiles__installProvisioningProfileData_managing
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Install provisioning profile error. Error: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Install provisioning profile error. Error: %{public}@", &v9, 0xCu);
     }
 
     *(*(*(a1 + 32) + 8) + 24) = 0;
@@ -4068,8 +4352,6 @@ void __99__MCProfileConnection_Profiles__installProvisioningProfileData_managing
   v7 = *(*(a1 + 40) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v3;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)removeProvisioningProfileWithUUID:(id)d managingProfileIdentifier:(id)identifier outError:(id *)error
@@ -4118,7 +4400,7 @@ void __99__MCProfileConnection_Profiles__installProvisioningProfileData_managing
 
 void __102__MCProfileConnection_Profiles__removeProvisioningProfileWithUUID_managingProfileIdentifier_outError___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -4127,22 +4409,20 @@ void __102__MCProfileConnection_Profiles__removeProvisioningProfileWithUUID_mana
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Remove provisioning profile error. Error: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Remove provisioning profile error. Error: %{public}@", &v9, 0xCu);
     }
   }
 
   v7 = *(*(a1 + 32) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v3;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __102__MCProfileConnection_Profiles__removeProvisioningProfileWithUUID_managingProfileIdentifier_outError___block_invoke_76(uint64_t a1, char a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
@@ -4151,9 +4431,9 @@ void __102__MCProfileConnection_Profiles__removeProvisioningProfileWithUUID_mana
     {
       v7 = v6;
       v8 = [v5 MCVerboseDescription];
-      v12 = 138543362;
-      v13 = v8;
-      _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_ERROR, "Remove provisioning profile error. Error: %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v8;
+      _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_ERROR, "Remove provisioning profile error. Error: %{public}@", &v11, 0xCu);
     }
   }
 
@@ -4161,8 +4441,6 @@ void __102__MCProfileConnection_Profiles__removeProvisioningProfileWithUUID_mana
   v9 = *(*(a1 + 40) + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v5;
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)verifiedTrustedCodeSigningIdentities
@@ -4191,7 +4469,7 @@ void __102__MCProfileConnection_Profiles__removeProvisioningProfileWithUUID_mana
 
 void __69__MCProfileConnection_Profiles__verifiedTrustedCodeSigningIdentities__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -4200,18 +4478,16 @@ void __69__MCProfileConnection_Profiles__verifiedTrustedCodeSigningIdentities__b
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "MCProfileConnection+Profiles XPC failed to get trusted code signing identities with error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "MCProfileConnection+Profiles XPC failed to get trusted code signing identities with error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __69__MCProfileConnection_Profiles__verifiedTrustedCodeSigningIdentities__block_invoke_81(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -4221,17 +4497,15 @@ void __69__MCProfileConnection_Profiles__verifiedTrustedCodeSigningIdentities__b
     {
       v8 = v7;
       v9 = [v6 MCVerboseDescription];
-      v13 = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "MCProfileConnection+Profiles failed to get trusted code signing identities with error: %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v9;
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "MCProfileConnection+Profiles failed to get trusted code signing identities with error: %{public}@", &v12, 0xCu);
     }
   }
 
   v10 = *(*(a1 + 32) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v5;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addTrustedCodeSigningIdentities:(id)identities
@@ -4293,7 +4567,7 @@ void __69__MCProfileConnection_Profiles__verifiedTrustedCodeSigningIdentities__b
 
 void __78__MCProfileConnection_Profiles__syncTrustedCodeSigningIdentitiesWithOutError___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -4302,22 +4576,20 @@ void __78__MCProfileConnection_Profiles__syncTrustedCodeSigningIdentitiesWithOut
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "MCProfileConnection+Profiles XPC failed to sync trusted code signing identities with error: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "MCProfileConnection+Profiles XPC failed to sync trusted code signing identities with error: %{public}@", &v9, 0xCu);
     }
   }
 
   v7 = *(*(a1 + 32) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v3;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __78__MCProfileConnection_Profiles__syncTrustedCodeSigningIdentitiesWithOutError___block_invoke_84(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -4326,17 +4598,15 @@ void __78__MCProfileConnection_Profiles__syncTrustedCodeSigningIdentitiesWithOut
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "MCProfileConnection+Profiles failed to sync trusted code signing identities with error: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "MCProfileConnection+Profiles failed to sync trusted code signing identities with error: %{public}@", &v9, 0xCu);
     }
   }
 
   v7 = *(*(a1 + 32) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v3;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)provisiongProfileUUIDsForSignerIdentity:(id)identity
@@ -4375,7 +4645,7 @@ void __78__MCProfileConnection_Profiles__syncTrustedCodeSigningIdentitiesWithOut
 
 void __73__MCProfileConnection_Profiles__provisiongProfileUUIDsForSignerIdentity___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -4385,20 +4655,18 @@ void __73__MCProfileConnection_Profiles__provisiongProfileUUIDsForSignerIdentity
       v5 = *(a1 + 32);
       v6 = v4;
       v7 = [v3 MCVerboseDescription];
-      v9 = 138543618;
-      v10 = v5;
-      v11 = 2114;
-      v12 = v7;
-      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "MCProfileConnection+Profiles XPC failed to get provisioning profile UUIDs for signer identity '%{public}@' with error: %{public}@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v5;
+      v10 = 2114;
+      v11 = v7;
+      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "MCProfileConnection+Profiles XPC failed to get provisioning profile UUIDs for signer identity '%{public}@' with error: %{public}@", &v8, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __73__MCProfileConnection_Profiles__provisiongProfileUUIDsForSignerIdentity___block_invoke_85(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -4409,19 +4677,17 @@ void __73__MCProfileConnection_Profiles__provisiongProfileUUIDsForSignerIdentity
       v8 = *(a1 + 32);
       v9 = v7;
       v10 = [v6 MCVerboseDescription];
-      v14 = 138543618;
-      v15 = v8;
-      v16 = 2114;
-      v17 = v10;
-      _os_log_impl(&dword_1A795B000, v9, OS_LOG_TYPE_ERROR, "MCProfileConnection+Profiles failed to get provisioning profile UUIDs for signer identity '%{public}@' with error: %{public}@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2114;
+      v16 = v10;
+      _os_log_impl(&dword_1A795B000, v9, OS_LOG_TYPE_ERROR, "MCProfileConnection+Profiles failed to get provisioning profile UUIDs for signer identity '%{public}@' with error: %{public}@", &v13, 0x16u);
     }
   }
 
   v11 = *(*(a1 + 40) + 8);
   v12 = *(v11 + 40);
   *(v11 + 40) = v5;
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)signerIdentityForBundleID:(id)d
@@ -4460,7 +4726,7 @@ void __73__MCProfileConnection_Profiles__provisiongProfileUUIDsForSignerIdentity
 
 void __59__MCProfileConnection_Profiles__signerIdentityForBundleID___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -4470,20 +4736,18 @@ void __59__MCProfileConnection_Profiles__signerIdentityForBundleID___block_invok
       v5 = *(a1 + 32);
       v6 = v4;
       v7 = [v3 MCVerboseDescription];
-      v9 = 138543618;
-      v10 = v5;
-      v11 = 2114;
-      v12 = v7;
-      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "MCProfileConnection+Profiles XPC failed to get signer identity for bundle ID '%{public}@' with error: %{public}@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v5;
+      v10 = 2114;
+      v11 = v7;
+      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "MCProfileConnection+Profiles XPC failed to get signer identity for bundle ID '%{public}@' with error: %{public}@", &v8, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __59__MCProfileConnection_Profiles__signerIdentityForBundleID___block_invoke_86(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -4494,19 +4758,17 @@ void __59__MCProfileConnection_Profiles__signerIdentityForBundleID___block_invok
       v8 = *(a1 + 32);
       v9 = v7;
       v10 = [v6 MCVerboseDescription];
-      v14 = 138543618;
-      v15 = v8;
-      v16 = 2114;
-      v17 = v10;
-      _os_log_impl(&dword_1A795B000, v9, OS_LOG_TYPE_ERROR, "MCProfileConnection+Profiles failed to get signer identity for bundle ID '%{public}@' with error: %{public}@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2114;
+      v16 = v10;
+      _os_log_impl(&dword_1A795B000, v9, OS_LOG_TYPE_ERROR, "MCProfileConnection+Profiles failed to get signer identity for bundle ID '%{public}@' with error: %{public}@", &v13, 0x16u);
     }
   }
 
   v11 = *(*(a1 + 40) + 8);
   v12 = *(v11 + 40);
   *(v11 + 40) = v5;
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isProvisioningProfilesWithUUID:(id)d managedByProfileWithIdentifier:(id)identifier
@@ -4597,7 +4859,7 @@ void __59__MCProfileConnection_Profiles__signerIdentityForBundleID___block_invok
 
 void __92__MCProfileConnection_Profiles__getIsBundleBlocked_bundlePath_outHash_outHashType_outError___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -4606,22 +4868,20 @@ void __92__MCProfileConnection_Profiles__getIsBundleBlocked_bundlePath_outHash_o
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "MCProfileConnection isBundleBlocked XPC error: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "MCProfileConnection isBundleBlocked XPC error: %{public}@", &v9, 0xCu);
     }
   }
 
   v7 = *(*(a1 + 32) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v3;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __92__MCProfileConnection_Profiles__getIsBundleBlocked_bundlePath_outHash_outHashType_outError___block_invoke_87(void *a1, char a2, void *a3, void *a4, void *a5)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v9 = a3;
   v10 = a4;
   v11 = a5;
@@ -4632,9 +4892,9 @@ void __92__MCProfileConnection_Profiles__getIsBundleBlocked_bundlePath_outHash_o
     {
       v13 = v12;
       v14 = [v11 MCVerboseDescription];
-      v24 = 138543362;
-      v25 = v14;
-      _os_log_impl(&dword_1A795B000, v13, OS_LOG_TYPE_ERROR, "MCProfileConnection isBundleBlocked error: %{public}@", &v24, 0xCu);
+      v23 = 138543362;
+      v24 = v14;
+      _os_log_impl(&dword_1A795B000, v13, OS_LOG_TYPE_ERROR, "MCProfileConnection isBundleBlocked error: %{public}@", &v23, 0xCu);
     }
   }
 
@@ -4652,8 +4912,6 @@ void __92__MCProfileConnection_Profiles__getIsBundleBlocked_bundlePath_outHash_o
   v21 = *(a1[7] + 8);
   v22 = *(v21 + 40);
   *(v21 + 40) = v11;
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)getAreBundlesBlocked:(id *)blocked bundlePaths:(id)paths outError:(id *)error
@@ -4703,7 +4961,7 @@ void __92__MCProfileConnection_Profiles__getIsBundleBlocked_bundlePath_outHash_o
 
 void __75__MCProfileConnection_Profiles__getAreBundlesBlocked_bundlePaths_outError___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -4712,22 +4970,20 @@ void __75__MCProfileConnection_Profiles__getAreBundlesBlocked_bundlePaths_outErr
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "MCProfileConnection areBundlesBlocked XPC error: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "MCProfileConnection areBundlesBlocked XPC error: %{public}@", &v9, 0xCu);
     }
   }
 
   v7 = *(*(a1 + 32) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v3;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __75__MCProfileConnection_Profiles__getAreBundlesBlocked_bundlePaths_outError___block_invoke_89(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -4737,9 +4993,9 @@ void __75__MCProfileConnection_Profiles__getAreBundlesBlocked_bundlePaths_outErr
     {
       v8 = v7;
       v9 = [v6 MCVerboseDescription];
-      v16 = 138543362;
-      v17 = v9;
-      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "MCProfileConnection areBundlesBlocked error: %{public}@", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v9;
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "MCProfileConnection areBundlesBlocked error: %{public}@", &v15, 0xCu);
     }
   }
 
@@ -4751,8 +5007,6 @@ void __75__MCProfileConnection_Profiles__getAreBundlesBlocked_bundlePaths_outErr
   v13 = *(*(a1 + 40) + 8);
   v14 = *(v13 + 40);
   *(v13 + 40) = v6;
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_detectProfiledCrashes
@@ -4826,7 +5080,7 @@ void __75__MCProfileConnection_Profiles__getAreBundlesBlocked_bundlePaths_outErr
 
 void __80__MCProfileConnection_Profiles__installProfileData_options_interactionDelegate___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -4835,9 +5089,9 @@ void __80__MCProfileConnection_Profiles__installProfileData_options_interactionD
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v11 = 138543362;
-      v12 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Install profile data, interactive error. Error: %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Install profile data, interactive error. Error: %{public}@", &v10, 0xCu);
     }
   }
 
@@ -4845,13 +5099,11 @@ void __80__MCProfileConnection_Profiles__installProfileData_options_interactionD
   v8 = objc_loadWeakRetained((a1 + 40));
   v9 = [MCProfileConnection profileDaemonConnectionErrorWithUnderlyingError:v3];
   [WeakRetained profileConnection:v8 didFinishInstallationWithIdentifier:0 error:v9];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __80__MCProfileConnection_Profiles__installProfileData_options_interactionDelegate___block_invoke_95(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -4861,9 +5113,9 @@ void __80__MCProfileConnection_Profiles__installProfileData_options_interactionD
     {
       v8 = v7;
       v9 = [v6 MCVerboseDescription];
-      v14 = 138543362;
-      v15 = v9;
-      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Install profile data, interactive error. Error: %{public}@", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v9;
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Install profile data, interactive error. Error: %{public}@", &v13, 0xCu);
     }
   }
 
@@ -4871,8 +5123,6 @@ void __80__MCProfileConnection_Profiles__installProfileData_options_interactionD
   v11 = objc_loadWeakRetained((a1 + 40));
   v12 = [MCProfileConnection profileInstallationErrorWithUnderlyingError:v6];
   [WeakRetained profileConnection:v11 didFinishInstallationWithIdentifier:0 error:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateProfileWithIdentifier:(id)identifier interactionDelegate:(id)delegate
@@ -4906,7 +5156,7 @@ void __80__MCProfileConnection_Profiles__installProfileData_options_interactionD
 
 void __81__MCProfileConnection_Profiles__updateProfileWithIdentifier_interactionDelegate___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -4915,9 +5165,9 @@ void __81__MCProfileConnection_Profiles__updateProfileWithIdentifier_interaction
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v11 = 138543362;
-      v12 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Update profile, interactive error. Error: %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Update profile, interactive error. Error: %{public}@", &v10, 0xCu);
     }
   }
 
@@ -4925,13 +5175,11 @@ void __81__MCProfileConnection_Profiles__updateProfileWithIdentifier_interaction
   v8 = objc_loadWeakRetained((a1 + 40));
   v9 = [MCProfileConnection profileDaemonConnectionErrorWithUnderlyingError:v3];
   [WeakRetained profileConnection:v8 didFinishInstallationWithIdentifier:0 error:v9];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __81__MCProfileConnection_Profiles__updateProfileWithIdentifier_interactionDelegate___block_invoke_96(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -4941,9 +5189,9 @@ void __81__MCProfileConnection_Profiles__updateProfileWithIdentifier_interaction
     {
       v8 = v7;
       v9 = [v6 MCVerboseDescription];
-      v14 = 138543362;
-      v15 = v9;
-      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Update profile, interactive error. Error: %{public}@", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v9;
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Update profile, interactive error. Error: %{public}@", &v13, 0xCu);
     }
   }
 
@@ -4951,8 +5199,6 @@ void __81__MCProfileConnection_Profiles__updateProfileWithIdentifier_interaction
   v11 = objc_loadWeakRetained((a1 + 40));
   v12 = [MCProfileConnection profileInstallationErrorWithUnderlyingError:v6];
   [WeakRetained profileConnection:v11 didFinishInstallationWithIdentifier:0 error:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isProfileUIInstallationEffectivelyAllowed
@@ -4981,15 +5227,7 @@ void __81__MCProfileConnection_Profiles__updateProfileWithIdentifier_interaction
 {
   interactivelyCopy = interactively;
   [(MCProfileConnection *)self checkInIfNeeded];
-  if (-[MCProfileConnection isProfileUIInstallationEffectivelyAllowed](self, "isProfileUIInstallationEffectivelyAllowed") && ([interactivelyCopy mustInstallNonInteractively] & 1) == 0)
-  {
-    v5 = MCIsEffectivelyInAppWhitelistMode();
-  }
-
-  else
-  {
-    v5 = 1;
-  }
+  v5 = !-[MCProfileConnection isProfileUIInstallationEffectivelyAllowed](self, "isProfileUIInstallationEffectivelyAllowed") || ([interactivelyCopy mustInstallNonInteractively] & 1) != 0 || MCIsEffectivelyInAppWhitelistMode();
 
   return v5;
 }
@@ -5069,6 +5307,102 @@ void __81__MCProfileConnection_Profiles__updateProfileWithIdentifier_interaction
   }
 }
 
+- (void)respondToMAIDAuthenticationRequest:(BOOL)request error:(id)error isCancelled:(BOOL)cancelled
+{
+  cancelledCopy = cancelled;
+  requestCopy = request;
+  errorCopy = error;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEBUG))
+  {
+    [MCProfileConnection(Profiles) respondToMAIDAuthenticationRequest:error:isCancelled:];
+  }
+
+  MAIDSignInReplyBlock = self->MAIDSignInReplyBlock;
+  if (MAIDSignInReplyBlock)
+  {
+    MAIDSignInReplyBlock[2](MAIDSignInReplyBlock, requestCopy, errorCopy, cancelledCopy);
+    v10 = self->MAIDSignInReplyBlock;
+    self->MAIDSignInReplyBlock = 0;
+  }
+}
+
+- (void)respondToManagedRestoreRequest:(BOOL)request error:(id)error isCancelled:(BOOL)cancelled
+{
+  cancelledCopy = cancelled;
+  requestCopy = request;
+  errorCopy = error;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEBUG))
+  {
+    [MCProfileConnection(Profiles) respondToManagedRestoreRequest:error:isCancelled:];
+  }
+
+  restoreReplyBlock = self->restoreReplyBlock;
+  if (restoreReplyBlock)
+  {
+    restoreReplyBlock[2](restoreReplyBlock, requestCopy, errorCopy, cancelledCopy);
+    v10 = self->restoreReplyBlock;
+    self->restoreReplyBlock = 0;
+  }
+}
+
+- (void)respondToWarningsContinueInstallation:(BOOL)installation
+{
+  installationCopy = installation;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEBUG))
+  {
+    [MCProfileConnection(Profiles) respondToWarningsContinueInstallation:];
+  }
+
+  showWarningsReplyBlock = self->showWarningsReplyBlock;
+  if (showWarningsReplyBlock)
+  {
+    showWarningsReplyBlock[2](showWarningsReplyBlock, installationCopy, 0);
+    v6 = self->showWarningsReplyBlock;
+    self->showWarningsReplyBlock = 0;
+  }
+}
+
+- (void)respondToCurrentPasscodeRequestContinue:(BOOL)continue passcode:(id)passcode
+{
+  continueCopy = continue;
+  passcodeCopy = passcode;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEBUG))
+  {
+    [MCProfileConnection(Profiles) respondToCurrentPasscodeRequestContinue:passcode:];
+  }
+
+  passcodeReplyBlock = self->passcodeReplyBlock;
+  if (passcodeReplyBlock)
+  {
+    (*(passcodeReplyBlock + 2))(passcodeReplyBlock, continueCopy, passcodeCopy, 0, 0);
+    v8 = self->passcodeReplyBlock;
+    self->passcodeReplyBlock = 0;
+  }
+}
+
+- (void)respondToCurrentPasscodeRequestContinue:(BOOL)continue passcodeContext:(id)context
+{
+  continueCopy = continue;
+  contextCopy = context;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEBUG))
+  {
+    [MCProfileConnection(Profiles) respondToCurrentPasscodeRequestContinue:passcodeContext:];
+  }
+
+  passcodeReplyBlock = self->passcodeReplyBlock;
+  if (passcodeReplyBlock)
+  {
+    (*(passcodeReplyBlock + 2))(passcodeReplyBlock, continueCopy, 0, contextCopy, 0);
+    v8 = self->passcodeReplyBlock;
+    self->passcodeReplyBlock = 0;
+  }
+}
+
 - (BOOL)isChaperoned
 {
   [(MCProfileConnection *)self checkInIfNeeded];
@@ -5134,9 +5468,74 @@ void __81__MCProfileConnection_Profiles__updateProfileWithIdentifier_interaction
   return v6;
 }
 
+- (BOOL)applyRestrictionDictionary:(id)dictionary toSystem:(BOOL)system overrideRestrictions:(BOOL)restrictions appsAndOptions:(id)options clientType:(id)type clientUUID:(id)d localizedClientDescription:(id)description localizedWarningMessage:(id)self0 outRestrictionChanged:(BOOL *)self1 outEffectiveSettingsChanged:(BOOL *)self2 outError:(id *)self3
+{
+  restrictionsCopy = restrictions;
+  systemCopy = system;
+  v49 = *MEMORY[0x1E69E9840];
+  dictionaryCopy = dictionary;
+  optionsCopy = options;
+  typeCopy = type;
+  dCopy = d;
+  descriptionCopy = description;
+  messageCopy = message;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
+  v42 = 0;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = __Block_byref_object_copy__9;
+  v37 = __Block_byref_object_dispose__9;
+  v38 = 0;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __241__MCProfileConnection_Restrictions__applyRestrictionDictionary_toSystem_overrideRestrictions_appsAndOptions_clientType_clientUUID_localizedClientDescription_localizedWarningMessage_outRestrictionChanged_outEffectiveSettingsChanged_outError___block_invoke;
+  v32[3] = &unk_1E77D2620;
+  v32[4] = &v33;
+  v24 = MEMORY[0x1AC55F990](v32);
+  v25 = qword_1ED4ADE28;
+  if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543874;
+    v44 = dCopy;
+    v45 = 2114;
+    v46 = typeCopy;
+    v47 = 2114;
+    v48 = dictionaryCopy;
+    _os_log_impl(&dword_1A795B000, v25, OS_LOG_TYPE_DEFAULT, "Setting client truth of UUID %{public}@ type %{public}@ to %{public}@", buf, 0x20u);
+  }
+
+  xpcConnection = [(MCProfileConnection *)self xpcConnection];
+  v27 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v24];
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __241__MCProfileConnection_Restrictions__applyRestrictionDictionary_toSystem_overrideRestrictions_appsAndOptions_clientType_clientUUID_localizedClientDescription_localizedWarningMessage_outRestrictionChanged_outEffectiveSettingsChanged_outError___block_invoke_2;
+  v31[3] = &unk_1E77D2968;
+  v31[6] = changed;
+  v31[7] = settingsChanged;
+  v31[4] = &v39;
+  v31[5] = &v33;
+  [v27 applyRestrictionDictionary:dictionaryCopy toSystem:systemCopy overrideRestrictions:restrictionsCopy appsAndOptions:optionsCopy clientType:typeCopy clientUUID:dCopy localizedClientDescription:descriptionCopy localizedWarningMessage:messageCopy completion:v31];
+
+  if (error)
+  {
+    *error = v34[5];
+  }
+
+  v28 = *(v40 + 24);
+
+  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v39, 8);
+
+  return v28 & 1;
+}
+
 void __241__MCProfileConnection_Restrictions__applyRestrictionDictionary_toSystem_overrideRestrictions_appsAndOptions_clientType_clientUUID_localizedClientDescription_localizedWarningMessage_outRestrictionChanged_outEffectiveSettingsChanged_outError___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -5145,22 +5544,20 @@ void __241__MCProfileConnection_Restrictions__applyRestrictionDictionary_toSyste
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Apply restriction dict error. Error: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Apply restriction dict error. Error: %{public}@", &v9, 0xCu);
     }
   }
 
   v7 = *(*(a1 + 32) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v3;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __241__MCProfileConnection_Restrictions__applyRestrictionDictionary_toSystem_overrideRestrictions_appsAndOptions_clientType_clientUUID_localizedClientDescription_localizedWarningMessage_outRestrictionChanged_outEffectiveSettingsChanged_outError___block_invoke_2(void *a1, char a2, char a3, void *a4)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v7 = a4;
   v8 = v7;
   v9 = a1[6];
@@ -5182,9 +5579,9 @@ void __241__MCProfileConnection_Restrictions__applyRestrictionDictionary_toSyste
     {
       v12 = v11;
       v13 = [v8 MCVerboseDescription];
-      v17 = 138543362;
-      v18 = v13;
-      _os_log_impl(&dword_1A795B000, v12, OS_LOG_TYPE_ERROR, "Apply restriction dict error. Error: %{public}@", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v13;
+      _os_log_impl(&dword_1A795B000, v12, OS_LOG_TYPE_ERROR, "Apply restriction dict error. Error: %{public}@", &v16, 0xCu);
     }
   }
 
@@ -5192,13 +5589,11 @@ void __241__MCProfileConnection_Restrictions__applyRestrictionDictionary_toSyste
   v14 = *(a1[5] + 8);
   v15 = *(v14 + 40);
   *(v14 + 40) = v8;
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (int)applyRestrictionDictionary:(id)dictionary clientType:(id)type clientUUID:(id)d localizedClientDescription:(id)description localizedWarningMessage:(id)message complianceBlocking:(int)blocking displayImmediateAlert:(BOOL)alert limitForUserEnrollment:(BOOL)self0 outRestrictionChanged:(BOOL *)self1 outEffectiveSettingsChanged:(BOOL *)self2 outError:(id *)self3
 {
-  v108 = *MEMORY[0x1E69E9840];
+  v107 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   typeCopy = type;
   dCopy = d;
@@ -5219,22 +5614,22 @@ void __241__MCProfileConnection_Restrictions__applyRestrictionDictionary_toSyste
       if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v105 = dictionaryCopy;
+        v104 = dictionaryCopy;
         _os_log_impl(&dword_1A795B000, v34, OS_LOG_TYPE_DEBUG, "Transmogrifying client restrictions from: %{public}@", buf, 0xCu);
       }
 
-      v103 = 0;
-      v35 = [(MCProfileConnection *)self _transmogrifyRestrictionDictionaryForUserEnrollment:dictionaryCopy outError:&v103];
-      v36 = v103;
+      v102 = 0;
+      v35 = [(MCProfileConnection *)self _transmogrifyRestrictionDictionaryForUserEnrollment:dictionaryCopy outError:&v102];
+      v36 = v102;
       v37 = qword_1ED4ADE28;
       v38 = os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEBUG);
-      v93 = v35;
+      v92 = v35;
       if (!v35)
       {
         if (v38)
         {
           *buf = 138543362;
-          v105 = v36;
+          v104 = v36;
           _os_log_impl(&dword_1A795B000, v37, OS_LOG_TYPE_DEBUG, "Rejecting client restrictions: %{public}@", buf, 0xCu);
         }
 
@@ -5263,7 +5658,7 @@ LABEL_48:
       if (v38)
       {
         *buf = 138543362;
-        v105 = v35;
+        v104 = v35;
         _os_log_impl(&dword_1A795B000, v37, OS_LOG_TYPE_DEBUG, "Transmogrifying client restrictions to: %{public}@", buf, 0xCu);
       }
 
@@ -5272,7 +5667,7 @@ LABEL_48:
 
     else
     {
-      v93 = dictionaryCopy;
+      v92 = dictionaryCopy;
     }
 
     v36 = +[MCRestrictionManager sharedManager];
@@ -5286,10 +5681,10 @@ LABEL_48:
 
       if (v51)
       {
-        v86 = dCopy;
-        v88 = v36;
+        v85 = dCopy;
+        v87 = v36;
         v52 = [v49 objectForKey:@"clientRestrictions"];
-        mCMutableDeepCopy = [(__CFString *)v93 MCMutableDeepCopy];
+        mCMutableDeepCopy = [(__CFString *)v92 MCMutableDeepCopy];
         v54 = +[MCHacks sharedHacks];
         [v54 _applyHeuristicsToRestrictions:mCMutableDeepCopy forProfile:0 ignoresUnrestrictableApps:0];
 
@@ -5303,26 +5698,26 @@ LABEL_48:
           {
 
             v46 = 0;
-            v58 = v93;
+            v58 = v92;
             v47 = messageCopy;
             v59 = v55;
-            dCopy = v86;
-            v36 = v88;
+            dCopy = v85;
+            v36 = v87;
 LABEL_46:
 
             goto LABEL_47;
           }
         }
 
-        dCopy = v86;
-        v36 = v88;
+        dCopy = v85;
+        v36 = v87;
       }
     }
 
     selfCopy = self;
-    v58 = v93;
+    v58 = v92;
     v47 = messageCopy;
-    if ([(MCProfileConnection *)selfCopy applyRestrictionDictionary:v93 clientType:typeCopy clientUUID:dCopy localizedClientDescription:descriptionCopy localizedWarningMessage:messageCopy outRestrictionChanged:changed outEffectiveSettingsChanged:settingsChanged outError:error])
+    if ([(MCProfileConnection *)selfCopy applyRestrictionDictionary:v92 clientType:typeCopy clientUUID:dCopy localizedClientDescription:descriptionCopy localizedWarningMessage:messageCopy outRestrictionChanged:changed outEffectiveSettingsChanged:settingsChanged outError:error])
     {
       v59 = +[MCPasscodeManager sharedManager];
       isDeviceLocked = [v59 isDeviceLocked];
@@ -5330,8 +5725,8 @@ LABEL_46:
       {
         if (isDeviceLocked)
         {
-          v87 = v59;
-          v89 = v36;
+          v86 = v59;
+          v88 = v36;
           v62 = dispatch_semaphore_create(0);
           out_token = 0;
           v63 = *MEMORY[0x1E69B1A70];
@@ -5341,48 +5736,48 @@ LABEL_46:
           handler[2] = __260__MCProfileConnection_Restrictions__applyRestrictionDictionary_clientType_clientUUID_localizedClientDescription_localizedWarningMessage_complianceBlocking_displayImmediateAlert_limitForUserEnrollment_outRestrictionChanged_outEffectiveSettingsChanged_outError___block_invoke;
           handler[3] = &unk_1E77D01F8;
           v65 = v62;
-          v101 = v65;
-          v84 = v63;
+          v100 = v65;
+          v83 = v63;
           v66 = notify_register_dispatch(v63, &out_token, v64, handler);
 
           if (v66)
           {
             v67 = qword_1ED4ADE28;
-            v36 = v89;
+            v36 = v88;
             if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
             {
               *buf = 136446466;
-              v105 = v84;
-              v106 = 1024;
-              v107 = v66;
+              v104 = v83;
+              v105 = 1024;
+              v106 = v66;
               _os_log_impl(&dword_1A795B000, v67, OS_LOG_TYPE_ERROR, "Unable to register for message %{public}s: %d", buf, 0x12u);
             }
 
-            v68 = v101;
+            v68 = v100;
 LABEL_45:
 
             v46 = 3;
-            v58 = v93;
+            v58 = v92;
             v47 = messageCopy;
-            v59 = v87;
+            v59 = v86;
             goto LABEL_46;
           }
 
-          v59 = v87;
-          v36 = v89;
-          if ([v87 isDeviceLocked])
+          v59 = v86;
+          v36 = v88;
+          if ([v86 isDeviceLocked])
           {
             do
             {
               dispatch_semaphore_wait(v65, 0xFFFFFFFFFFFFFFFFLL);
             }
 
-            while (([v87 isDeviceLocked] & 1) != 0);
+            while (([v86 isDeviceLocked] & 1) != 0);
           }
 
           notify_cancel(out_token);
 
-          v58 = v93;
+          v58 = v92;
         }
 
         v72 = [v59 currentPasscodeCompliesWithPolicyFromRestrictions:v58 outError:0];
@@ -5390,63 +5785,63 @@ LABEL_45:
         {
           if ((v72 & 1) == 0)
           {
-            v87 = v59;
-            v90 = v36;
-            v92 = v49;
+            v86 = v59;
+            v89 = v36;
+            v91 = v49;
             v73 = dispatch_semaphore_create(0);
             out_token = 0;
             v74 = [@"com.apple.managedconfiguration.passcodechanged" cStringUsingEncoding:4];
             v75 = dispatch_get_global_queue(0, 0);
-            v98[0] = MEMORY[0x1E69E9820];
-            v98[1] = 3221225472;
-            v98[2] = __260__MCProfileConnection_Restrictions__applyRestrictionDictionary_clientType_clientUUID_localizedClientDescription_localizedWarningMessage_complianceBlocking_displayImmediateAlert_limitForUserEnrollment_outRestrictionChanged_outEffectiveSettingsChanged_outError___block_invoke_13;
-            v98[3] = &unk_1E77D01F8;
+            v97[0] = MEMORY[0x1E69E9820];
+            v97[1] = 3221225472;
+            v97[2] = __260__MCProfileConnection_Restrictions__applyRestrictionDictionary_clientType_clientUUID_localizedClientDescription_localizedWarningMessage_complianceBlocking_displayImmediateAlert_limitForUserEnrollment_outRestrictionChanged_outEffectiveSettingsChanged_outError___block_invoke_13;
+            v97[3] = &unk_1E77D01F8;
             v65 = v73;
-            v99 = v65;
-            v76 = notify_register_dispatch(v74, &out_token, v75, v98);
+            v98 = v65;
+            v76 = notify_register_dispatch(v74, &out_token, v75, v97);
 
             if (v76)
             {
               v77 = qword_1ED4ADE28;
-              v36 = v90;
-              v49 = v92;
+              v36 = v89;
+              v49 = v91;
               if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543618;
-                v105 = @"com.apple.managedconfiguration.passcodechanged";
-                v106 = 1024;
-                v107 = v76;
+                v104 = @"com.apple.managedconfiguration.passcodechanged";
+                v105 = 1024;
+                v106 = v76;
                 _os_log_impl(&dword_1A795B000, v77, OS_LOG_TYPE_ERROR, "Unable to register for message %{public}@: %d", buf, 0x12u);
               }
 
-              v68 = v99;
+              v68 = v98;
               goto LABEL_45;
             }
 
-            v97 = 0;
-            v80 = [@"com.apple.managedconfiguration.restrictionchanged" cStringUsingEncoding:4];
-            v95[0] = MEMORY[0x1E69E9820];
-            v95[1] = 3221225472;
-            v95[2] = __260__MCProfileConnection_Restrictions__applyRestrictionDictionary_clientType_clientUUID_localizedClientDescription_localizedWarningMessage_complianceBlocking_displayImmediateAlert_limitForUserEnrollment_outRestrictionChanged_outEffectiveSettingsChanged_outError___block_invoke_14;
-            v95[3] = &unk_1E77D01F8;
-            v81 = v65;
-            v96 = v81;
-            LODWORD(v80) = notify_register_dispatch(v80, &v97, v75, v95);
+            v96 = 0;
+            v79 = [@"com.apple.managedconfiguration.restrictionchanged" cStringUsingEncoding:4];
+            v94[0] = MEMORY[0x1E69E9820];
+            v94[1] = 3221225472;
+            v94[2] = __260__MCProfileConnection_Restrictions__applyRestrictionDictionary_clientType_clientUUID_localizedClientDescription_localizedWarningMessage_complianceBlocking_displayImmediateAlert_limitForUserEnrollment_outRestrictionChanged_outEffectiveSettingsChanged_outError___block_invoke_14;
+            v94[3] = &unk_1E77D01F8;
+            v80 = v65;
+            v95 = v80;
+            LODWORD(v79) = notify_register_dispatch(v79, &v96, v75, v94);
 
-            v85 = v80;
-            if (v80)
+            v84 = v79;
+            if (v79)
             {
-              v82 = qword_1ED4ADE28;
-              v36 = v90;
-              v49 = v92;
-              v58 = v93;
+              v81 = qword_1ED4ADE28;
+              v36 = v89;
+              v49 = v91;
+              v58 = v92;
               if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543618;
-                v105 = @"com.apple.managedconfiguration.restrictionchanged";
-                v106 = 1024;
-                v107 = v85;
-                _os_log_impl(&dword_1A795B000, v82, OS_LOG_TYPE_ERROR, "Unable to register for message %{public}@: %d", buf, 0x12u);
+                v104 = @"com.apple.managedconfiguration.restrictionchanged";
+                v105 = 1024;
+                v106 = v84;
+                _os_log_impl(&dword_1A795B000, v81, OS_LOG_TYPE_ERROR, "Unable to register for message %{public}@: %d", buf, 0x12u);
               }
 
               v46 = 3;
@@ -5455,29 +5850,29 @@ LABEL_45:
 
             else
             {
-              v58 = v93;
-              v36 = v90;
-              v49 = v92;
-              if (([v87 currentPasscodeCompliesWithPolicyFromRestrictions:v93 outError:0] & 1) == 0)
+              v58 = v92;
+              v36 = v89;
+              v49 = v91;
+              if (([v86 currentPasscodeCompliesWithPolicyFromRestrictions:v92 outError:0] & 1) == 0)
               {
                 do
                 {
-                  dispatch_semaphore_wait(v81, 0xFFFFFFFFFFFFFFFFLL);
+                  dispatch_semaphore_wait(v80, 0xFFFFFFFFFFFFFFFFLL);
                 }
 
-                while (![v87 currentPasscodeCompliesWithPolicyFromRestrictions:v93 outError:0]);
+                while (![v86 currentPasscodeCompliesWithPolicyFromRestrictions:v92 outError:0]);
               }
 
               notify_cancel(out_token);
               v46 = 2;
-              p_out_token = &v97;
+              p_out_token = &v96;
             }
 
             v47 = messageCopy;
             notify_cancel(*p_out_token);
 
-            v59 = v87;
-            if (v85)
+            v59 = v86;
+            if (v84)
             {
               goto LABEL_46;
             }
@@ -5496,7 +5891,7 @@ LABEL_45:
           goto LABEL_46;
         }
 
-        v72 = [v59 currentPasscodeCompliesWithPolicyFromRestrictions:v93 outError:0];
+        v72 = [v59 currentPasscodeCompliesWithPolicyFromRestrictions:v92 outError:0];
       }
 
       v46 = v72 ^ 1;
@@ -5514,7 +5909,6 @@ LABEL_47:
   v47 = messageCopy;
 LABEL_49:
 
-  v78 = *MEMORY[0x1E69E9840];
   return v46;
 }
 
@@ -5575,7 +5969,7 @@ LABEL_49:
 
 void __63__MCProfileConnection_Restrictions__setUserInfo_forClientUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -5584,54 +5978,51 @@ void __63__MCProfileConnection_Restrictions__setUserInfo_forClientUUID___block_i
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Set user info error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Set user info error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)clearUserInfoForClientUUIDs:(id)ds
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v4 = MCIsDaemonProcess;
   if (MCIsDaemonProcess == 1)
   {
     nSClassFromString(&cfstr_Mcrestrictionm.isa) = [NSClassFromString(&cfstr_Mcrestrictionm.isa) sharedManager];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v6 = dsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       v10 = MEMORY[0x1E695E0F8];
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [nSClassFromString(&cfstr_Mcrestrictionm.isa) setUserInfo:v10 forClientUUID:*(*(&v14 + 1) + 8 * i) sender:{@"profiled", v14}];
+          [nSClassFromString(&cfstr_Mcrestrictionm.isa) setUserInfo:v10 forClientUUID:*(*(&v13 + 1) + 8 * i) sender:{@"profiled", v13}];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -5645,7 +6036,7 @@ void __63__MCProfileConnection_Restrictions__setUserInfo_forClientUUID___block_i
 
 void __69__MCProfileConnection_Restrictions__removeOrphanedClientRestrictions__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -5654,13 +6045,11 @@ void __69__MCProfileConnection_Restrictions__removeOrphanedClientRestrictions__b
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Remove orphaned client restrictions error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Remove orphaned client restrictions error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeOrphanedClientRestrictionsWithCompletion:(id)completion
@@ -5681,7 +6070,7 @@ void __69__MCProfileConnection_Restrictions__removeOrphanedClientRestrictions__b
 
 void __84__MCProfileConnection_Restrictions__removeOrphanedClientRestrictionsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -5690,9 +6079,9 @@ void __84__MCProfileConnection_Restrictions__removeOrphanedClientRestrictionsWit
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Remove orphaned client restrictions error. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Remove orphaned client restrictions error. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -5701,8 +6090,6 @@ void __84__MCProfileConnection_Restrictions__removeOrphanedClientRestrictionsWit
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)effectiveWhitelistedAppsAndOptions
@@ -5757,9 +6144,28 @@ void __41__MCProfileConnection_Settings__features__block_invoke()
   features_features = v12;
 }
 
+- (void)setParametersForSettingsByType:(id)type configurationUUID:(id)d toSystem:(BOOL)system user:(BOOL)user credentialSet:(id)set waitUntilCompleted:(BOOL)completed completion:(id)completion
+{
+  completedCopy = completed;
+  userCopy = user;
+  systemCopy = system;
+  completionCopy = completion;
+  v22 = MEMORY[0x1E69E9820];
+  v23 = 3221225472;
+  v24 = __140__MCProfileConnection_Settings__setParametersForSettingsByType_configurationUUID_toSystem_user_credentialSet_waitUntilCompleted_completion___block_invoke;
+  v25 = &unk_1E77D2698;
+  v26 = completionCopy;
+  v17 = completionCopy;
+  setCopy = set;
+  dCopy = d;
+  typeCopy = type;
+  v21 = MEMORY[0x1AC55F990](&v22);
+  [(MCProfileConnection *)self setParametersForSettingsByType:typeCopy configurationUUID:dCopy toSystem:systemCopy user:userCopy credentialSet:setCopy waitUntilCompleted:completedCopy errorCompletionBlock:v21, v22, v23, v24, v25];
+}
+
 void __140__MCProfileConnection_Settings__setParametersForSettingsByType_configurationUUID_toSystem_user_credentialSet_waitUntilCompleted_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -5771,9 +6177,9 @@ void __140__MCProfileConnection_Settings__setParametersForSettingsByType_configu
 
     v5 = v4;
     v6 = [v3 MCVerboseDescription];
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Set parameters for settings error. Error: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Set parameters for settings error. Error: %{public}@", &v8, 0xCu);
   }
 
   else
@@ -5788,8 +6194,6 @@ LABEL_6:
   {
     (*(v7 + 16))();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setParametersForSettingsByType:(id)type configurationUUID:(id)d toSystem:(BOOL)system user:(BOOL)user credentialSet:(id)set waitUntilCompleted:(BOOL)completed errorCompletionBlock:(id)block
@@ -5797,7 +6201,7 @@ LABEL_6:
   completedCopy = completed;
   systemCopy = system;
   userCopy = user;
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   dCopy = d;
   setCopy = set;
@@ -5814,78 +6218,97 @@ LABEL_6:
   {
     [xpcConnection remoteObjectProxyWithErrorHandler:blockCopy];
   }
-  v29 = ;
-  v30 = blockCopy;
+  v28 = ;
+  v29 = blockCopy;
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v17 = typeCopy;
-  v18 = [v17 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v41;
-    v35 = v17;
+    v20 = *v40;
+    v34 = v17;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v41 != v20)
+        if (*v40 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = [v17 objectForKeyedSubscript:{*(*(&v40 + 1) + 8 * i), v29, v30}];
+        v22 = [v17 objectForKeyedSubscript:{*(*(&v39 + 1) + 8 * i), v28, v29}];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v38 = 0u;
-          v39 = 0u;
-          v36 = 0u;
           v37 = 0u;
+          v38 = 0u;
+          v35 = 0u;
+          v36 = 0u;
           v23 = v22;
-          v24 = [v23 countByEnumeratingWithState:&v36 objects:v44 count:16];
+          v24 = [v23 countByEnumeratingWithState:&v35 objects:v43 count:16];
           if (v24)
           {
             v25 = v24;
-            v26 = *v37;
+            v26 = *v36;
             do
             {
               for (j = 0; j != v25; ++j)
               {
-                if (*v37 != v26)
+                if (*v36 != v26)
                 {
                   objc_enumerationMutation(v23);
                 }
 
-                [MCSignpostManager willSetFeature:*(*(&v36 + 1) + 8 * j)];
+                [MCSignpostManager willSetFeature:*(*(&v35 + 1) + 8 * j)];
               }
 
-              v25 = [v23 countByEnumeratingWithState:&v36 objects:v44 count:16];
+              v25 = [v23 countByEnumeratingWithState:&v35 objects:v43 count:16];
             }
 
             while (v25);
           }
 
-          v17 = v35;
+          v17 = v34;
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v39 objects:v44 count:16];
     }
 
     while (v19);
   }
 
-  [v29 setParametersForSettingsByType:v17 configurationUUID:dCopy toSystem:systemCopy user:userCopy credentialSet:setCopy completion:v30];
-  v28 = *MEMORY[0x1E69E9840];
+  [v28 setParametersForSettingsByType:v17 configurationUUID:dCopy toSystem:systemCopy user:userCopy credentialSet:setCopy completion:v29];
+}
+
+- (void)setParametersForSettingsByType:(id)type configurationUUID:(id)d toSystem:(BOOL)system user:(BOOL)user passcode:(id)passcode credentialSet:(id)set waitUntilCompleted:(BOOL)completed completion:(id)self0
+{
+  userCopy = user;
+  systemCopy = system;
+  completionCopy = completion;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __149__MCProfileConnection_Settings__setParametersForSettingsByType_configurationUUID_toSystem_user_passcode_credentialSet_waitUntilCompleted_completion___block_invoke;
+  v25[3] = &unk_1E77D2698;
+  v26 = completionCopy;
+  v18 = completionCopy;
+  setCopy = set;
+  passcodeCopy = passcode;
+  dCopy = d;
+  typeCopy = type;
+  v23 = MEMORY[0x1AC55F990](v25);
+  LOBYTE(v24) = completed;
+  [(MCProfileConnection *)self setParametersForSettingsByType:typeCopy configurationUUID:dCopy toSystem:systemCopy user:userCopy passcode:passcodeCopy credentialSet:setCopy waitUntilCompleted:v24 errorCompletionBlock:v23];
 }
 
 void __149__MCProfileConnection_Settings__setParametersForSettingsByType_configurationUUID_toSystem_user_passcode_credentialSet_waitUntilCompleted_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -5897,9 +6320,9 @@ void __149__MCProfileConnection_Settings__setParametersForSettingsByType_configu
 
     v5 = v4;
     v6 = [v3 MCVerboseDescription];
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Set parameters for settings error. Error: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Set parameters for settings error. Error: %{public}@", &v8, 0xCu);
   }
 
   else
@@ -5914,15 +6337,13 @@ LABEL_6:
   {
     (*(v7 + 16))();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setParametersForSettingsByType:(id)type configurationUUID:(id)d toSystem:(BOOL)system user:(BOOL)user passcode:(id)passcode credentialSet:(id)set waitUntilCompleted:(BOOL)completed errorCompletionBlock:(id)self0
 {
   systemCopy = system;
   userCopy = user;
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   dCopy = d;
   passcodeCopy = passcode;
@@ -5940,106 +6361,128 @@ LABEL_6:
   {
     [xpcConnection remoteObjectProxyWithErrorHandler:blockCopy];
   }
-  v30 = ;
+  v29 = ;
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v18 = typeCopy;
-  v19 = [v18 countByEnumeratingWithState:&v41 objects:v46 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v40 objects:v45 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v42;
-    v36 = v18;
+    v21 = *v41;
+    v35 = v18;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v42 != v21)
+        if (*v41 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = [v18 objectForKeyedSubscript:*(*(&v41 + 1) + 8 * i)];
+        v23 = [v18 objectForKeyedSubscript:*(*(&v40 + 1) + 8 * i)];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v39 = 0u;
-          v40 = 0u;
-          v37 = 0u;
           v38 = 0u;
+          v39 = 0u;
+          v36 = 0u;
+          v37 = 0u;
           v24 = v23;
-          v25 = [v24 countByEnumeratingWithState:&v37 objects:v45 count:16];
+          v25 = [v24 countByEnumeratingWithState:&v36 objects:v44 count:16];
           if (v25)
           {
             v26 = v25;
-            v27 = *v38;
+            v27 = *v37;
             do
             {
               for (j = 0; j != v26; ++j)
               {
-                if (*v38 != v27)
+                if (*v37 != v27)
                 {
                   objc_enumerationMutation(v24);
                 }
 
-                [MCSignpostManager willSetFeature:*(*(&v37 + 1) + 8 * j)];
+                [MCSignpostManager willSetFeature:*(*(&v36 + 1) + 8 * j)];
               }
 
-              v26 = [v24 countByEnumeratingWithState:&v37 objects:v45 count:16];
+              v26 = [v24 countByEnumeratingWithState:&v36 objects:v44 count:16];
             }
 
             while (v26);
           }
 
-          v18 = v36;
+          v18 = v35;
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v41 objects:v46 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v40 objects:v45 count:16];
     }
 
     while (v20);
   }
 
-  [v30 setParametersForSettingsByType:v18 configurationUUID:dCopy toSystem:systemCopy user:userCopy passcode:passcodeCopy credentialSet:setCopy completion:blockCopy];
-  v29 = *MEMORY[0x1E69E9840];
+  [v29 setParametersForSettingsByType:v18 configurationUUID:dCopy toSystem:systemCopy user:userCopy passcode:passcodeCopy credentialSet:setCopy completion:blockCopy];
 }
 
 - (void)setParameters:(id)parameters forBoolSetting:(id)setting
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   settingCopy = setting;
   parametersCopy = parameters;
   [(MCProfileConnection *)self checkInIfNeeded];
-  v12 = parametersCopy;
-  v13 = @"restrictedBool";
-  v11 = settingCopy;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-  v14[0] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v11 = parametersCopy;
+  v12 = @"restrictedBool";
+  v10 = settingCopy;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v13[0] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
 
   [(MCProfileConnection *)self setParametersForSettingsByType:v9];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setParameters:(id)parameters forValueSetting:(id)setting
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   settingCopy = setting;
   parametersCopy = parameters;
   [(MCProfileConnection *)self checkInIfNeeded];
-  v12 = parametersCopy;
-  v13 = @"restrictedValue";
-  v11 = settingCopy;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-  v14[0] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v11 = parametersCopy;
+  v12 = @"restrictedValue";
+  v10 = settingCopy;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v13[0] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
 
   [(MCProfileConnection *)self setParametersForSettingsByType:v9];
-  v10 = *MEMORY[0x1E69E9840];
+}
+
+- (void)setAsk:(BOOL)ask forBoolSetting:(id)setting configurationUUID:(id)d toSystem:(BOOL)system user:(BOOL)user credentialSet:(id)set waitUntilCompleted:(BOOL)completed completion:(id)self0
+{
+  systemCopy = system;
+  userCopy = user;
+  askCopy = ask;
+  v30[1] = *MEMORY[0x1E69E9840];
+  completionCopy = completion;
+  setCopy = set;
+  dCopy = d;
+  settingCopy = setting;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v29 = @"restrictedBool";
+  v27 = settingCopy;
+  v25 = @"ask";
+  v19 = [MEMORY[0x1E696AD98] numberWithBool:askCopy];
+  v26 = v19;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+  v28 = v20;
+  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+  v30[0] = v21;
+  v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+
+  [(MCProfileConnection *)self setParametersForSettingsByType:v22 configurationUUID:dCopy toSystem:systemCopy user:userCopy credentialSet:setCopy waitUntilCompleted:completed completion:completionCopy];
 }
 
 - (void)setValue:(id)value forSetting:(id)setting
@@ -6052,11 +6495,393 @@ LABEL_6:
 
 - (void)setValue:(id)value forSetting:(id)setting credentialSet:(id)set completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   settingCopy = setting;
   completionCopy = completion;
   setCopy = set;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v14 = qword_1ED4ADE28;
+  if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = v14;
+    *buf = 67109378;
+    unsignedIntValue = [valueCopy unsignedIntValue];
+    v27 = 2114;
+    v28 = settingCopy;
+    _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_DEFAULT, "Set value %u for settings: %{public}@", buf, 0x12u);
+  }
+
+  v23 = @"restrictedValue";
+  v20 = valueCopy;
+  v21 = settingCopy;
+  v19 = @"value";
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+  v22 = v16;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+  v24 = v17;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+  [(MCProfileConnection *)self setParametersForSettingsByType:v18 configurationUUID:0 toSystem:1 user:0 credentialSet:setCopy waitUntilCompleted:0 completion:completionCopy];
+}
+
+- (id)errorCheckedSetBoolValue:(BOOL)value forSetting:(id)setting
+{
+  valueCopy = value;
+  v26[1] = *MEMORY[0x1E69E9840];
+  settingCopy = setting;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__10;
+  v19 = __Block_byref_object_dispose__10;
+  v20 = 0;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __69__MCProfileConnection_Settings__errorCheckedSetBoolValue_forSetting___block_invoke;
+  v14[3] = &unk_1E77D2620;
+  v14[4] = &v15;
+  v7 = MEMORY[0x1AC55F990](v14);
+  v25 = @"restrictedBool";
+  v23 = settingCopy;
+  v21 = @"value";
+  v8 = [MEMORY[0x1E696AD98] numberWithBool:valueCopy];
+  v22 = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+  v24 = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+  v26[0] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+
+  [(MCProfileConnection *)self setParametersForSettingsByType:v11 configurationUUID:0 toSystem:1 user:0 credentialSet:0 waitUntilCompleted:1 errorCompletionBlock:v7];
+  v12 = v16[5];
+
+  _Block_object_dispose(&v15, 8);
+
+  return v12;
+}
+
+void __69__MCProfileConnection_Settings__errorCheckedSetBoolValue_forSetting___block_invoke(uint64_t a1, void *a2)
+{
+  v11 = *MEMORY[0x1E69E9840];
+  v4 = a2;
+  if (v4)
+  {
+    v5 = qword_1ED4ADE28;
+    if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
+    {
+      v6 = v5;
+      v7 = [v4 MCVerboseDescription];
+      v9 = 138543362;
+      v10 = v7;
+      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Set parameters for settings error. Error: %{public}@", &v9, 0xCu);
+    }
+
+    objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
+  }
+
+  else
+  {
+    v8 = +[MCRestrictionManager sharedManager];
+    [v8 invalidateSettings];
+  }
+}
+
+- (void)setBoolValue:(BOOL)value forSetting:(id)setting errorCompletionBlock:(id)block
+{
+  valueCopy = value;
+  v23[1] = *MEMORY[0x1E69E9840];
+  blockCopy = block;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __78__MCProfileConnection_Settings__setBoolValue_forSetting_errorCompletionBlock___block_invoke;
+  v16[3] = &unk_1E77D2698;
+  v17 = blockCopy;
+  v9 = blockCopy;
+  settingCopy = setting;
+  v11 = MEMORY[0x1AC55F990](v16);
+  v22 = @"restrictedBool";
+  v20 = settingCopy;
+  v18 = @"value";
+  v12 = [MEMORY[0x1E696AD98] numberWithBool:valueCopy];
+  v19 = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+  v21 = v13;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+  v23[0] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+
+  [(MCProfileConnection *)self setParametersForSettingsByType:v15 configurationUUID:0 toSystem:1 user:0 credentialSet:0 waitUntilCompleted:0 errorCompletionBlock:v11];
+}
+
+void __78__MCProfileConnection_Settings__setBoolValue_forSetting_errorCompletionBlock___block_invoke(uint64_t a1, void *a2)
+{
+  v10 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  if (v3)
+  {
+    v4 = qword_1ED4ADE28;
+    if (!os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_6;
+    }
+
+    v5 = v4;
+    v6 = [v3 MCVerboseDescription];
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Set parameters for settings error. Error: %{public}@", &v8, 0xCu);
+  }
+
+  else
+  {
+    v5 = +[MCRestrictionManager sharedManager];
+    [v5 invalidateSettings];
+  }
+
+LABEL_6:
+  v7 = *(a1 + 32);
+  if (v7)
+  {
+    (*(v7 + 16))(v7, v3);
+  }
+}
+
+- (void)setBoolValue:(BOOL)value ask:(BOOL)ask forSetting:(id)setting configurationUUID:(id)d toSystem:(BOOL)system user:(BOOL)user credentialSet:(id)set waitUntilCompleted:(BOOL)self0 completion:(id)self1
+{
+  systemCopy = system;
+  userCopy = user;
+  askCopy = ask;
+  valueCopy = value;
+  v36 = *MEMORY[0x1E69E9840];
+  settingCopy = setting;
+  completionCopy = completion;
+  setCopy = set;
+  dCopy = d;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v19 = qword_1ED4ADE28;
+  if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEFAULT))
+  {
+    v20 = @"NO";
+    if (valueCopy)
+    {
+      v20 = @"YES";
+    }
+
+    *buf = 138543618;
+    v33 = v20;
+    v34 = 2114;
+    v35 = settingCopy;
+    _os_log_impl(&dword_1A795B000, v19, OS_LOG_TYPE_DEFAULT, "Set Bool value %{public}@ for settings: %{public}@", buf, 0x16u);
+  }
+
+  dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v22 = [MEMORY[0x1E696AD98] numberWithBool:valueCopy];
+  [dictionary setObject:v22 forKeyedSubscript:@"value"];
+
+  if (valueCopy)
+  {
+    v23 = [MEMORY[0x1E696AD98] numberWithBool:askCopy];
+    [dictionary setObject:v23 forKeyedSubscript:@"ask"];
+  }
+
+  else
+  {
+    [dictionary setObject:MEMORY[0x1E695E110] forKeyedSubscript:@"ask"];
+  }
+
+  v29 = dictionary;
+  v30 = @"restrictedBool";
+  v28 = settingCopy;
+  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+  v31 = v24;
+  v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+  [(MCProfileConnection *)self setParametersForSettingsByType:v25 configurationUUID:dCopy toSystem:systemCopy user:userCopy credentialSet:setCopy waitUntilCompleted:completed completion:completionCopy];
+}
+
+- (void)setValue:(id)value forSetting:(id)setting toSystem:(BOOL)system user:(BOOL)user credentialSet:(id)set
+{
+  userCopy = user;
+  systemCopy = system;
+  v30 = *MEMORY[0x1E69E9840];
+  valueCopy = value;
+  settingCopy = setting;
+  setCopy = set;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v15 = qword_1ED4ADE28;
+  if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEFAULT))
+  {
+    v16 = v15;
+    *buf = 67109378;
+    unsignedIntValue = [valueCopy unsignedIntValue];
+    v28 = 2114;
+    v29 = settingCopy;
+    _os_log_impl(&dword_1A795B000, v16, OS_LOG_TYPE_DEFAULT, "Set value %u for settings: %{public}@", buf, 0x12u);
+  }
+
+  v24 = @"restrictedValue";
+  v21 = valueCopy;
+  v22 = settingCopy;
+  v20 = @"value";
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+  v23 = v17;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+  v25 = v18;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+  [(MCProfileConnection *)self setParametersForSettingsByType:v19 toSystem:systemCopy user:userCopy credentialSet:setCopy];
+}
+
+- (void)setValues:(id)values forIntersectionSetting:(id)setting toSystem:(BOOL)system user:(BOOL)user waitUntilCompleted:(BOOL)completed completion:(id)completion
+{
+  completedCopy = completed;
+  userCopy = user;
+  systemCopy = system;
+  v31 = *MEMORY[0x1E69E9840];
+  valuesCopy = values;
+  settingCopy = setting;
+  completionCopy = completion;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v17 = qword_1ED4ADE28;
+  if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543618;
+    v28 = valuesCopy;
+    v29 = 2114;
+    v30 = settingCopy;
+    _os_log_impl(&dword_1A795B000, v17, OS_LOG_TYPE_DEFAULT, "Set values %{public}@ for intersection settings: %{public}@", buf, 0x16u);
+  }
+
+  v25 = @"intersection";
+  v23 = settingCopy;
+  if (valuesCopy)
+  {
+    v21 = @"values";
+    v22 = valuesCopy;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+  }
+
+  else
+  {
+    v18 = MEMORY[0x1E695E0F8];
+  }
+
+  v24 = v18;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+  v26 = v19;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+  [(MCProfileConnection *)self setParametersForSettingsByType:v20 configurationUUID:0 toSystem:systemCopy user:userCopy credentialSet:0 waitUntilCompleted:completedCopy completion:completionCopy];
+
+  if (valuesCopy)
+  {
+  }
+}
+
+- (void)setValues:(id)values forUnionSetting:(id)setting toSystem:(BOOL)system user:(BOOL)user waitUntilCompleted:(BOOL)completed completion:(id)completion
+{
+  completedCopy = completed;
+  userCopy = user;
+  systemCopy = system;
+  v31 = *MEMORY[0x1E69E9840];
+  valuesCopy = values;
+  settingCopy = setting;
+  completionCopy = completion;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v17 = qword_1ED4ADE28;
+  if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543618;
+    v28 = valuesCopy;
+    v29 = 2114;
+    v30 = settingCopy;
+    _os_log_impl(&dword_1A795B000, v17, OS_LOG_TYPE_DEFAULT, "Set values %{public}@ for union settings: %{public}@", buf, 0x16u);
+  }
+
+  v25 = @"union";
+  v23 = settingCopy;
+  if (valuesCopy)
+  {
+    v21 = @"values";
+    v22 = valuesCopy;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+  }
+
+  else
+  {
+    v18 = MEMORY[0x1E695E0F8];
+  }
+
+  v24 = v18;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+  v26 = v19;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+  [(MCProfileConnection *)self setParametersForSettingsByType:v20 configurationUUID:0 toSystem:systemCopy user:userCopy credentialSet:0 waitUntilCompleted:completedCopy completion:completionCopy];
+
+  if (valuesCopy)
+  {
+  }
+}
+
+- (void)setBoolValue:(BOOL)value ask:(BOOL)ask forSetting:(id)setting configurationUUID:(id)d toSystem:(BOOL)system user:(BOOL)user passcode:(id)passcode credentialSet:(id)self0 waitUntilCompleted:(BOOL)self1 completion:(id)self2
+{
+  systemCopy = system;
+  userCopy = user;
+  askCopy = ask;
+  valueCopy = value;
+  v40 = *MEMORY[0x1E69E9840];
+  settingCopy = setting;
+  completionCopy = completion;
+  setCopy = set;
+  passcodeCopy = passcode;
+  dCopy = d;
+  selfCopy = self;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v20 = qword_1ED4ADE28;
+  if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEFAULT))
+  {
+    v21 = @"NO";
+    if (valueCopy)
+    {
+      v21 = @"YES";
+    }
+
+    *buf = 138543618;
+    v37 = v21;
+    v38 = 2114;
+    v39 = settingCopy;
+    _os_log_impl(&dword_1A795B000, v20, OS_LOG_TYPE_DEFAULT, "Set Bool value %{public}@ for settings: %{public}@", buf, 0x16u);
+  }
+
+  dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v23 = [MEMORY[0x1E696AD98] numberWithBool:valueCopy];
+  [dictionary setObject:v23 forKeyedSubscript:@"value"];
+
+  if (valueCopy)
+  {
+    v24 = [MEMORY[0x1E696AD98] numberWithBool:askCopy];
+    [dictionary setObject:v24 forKeyedSubscript:@"ask"];
+  }
+
+  else
+  {
+    [dictionary setObject:MEMORY[0x1E695E110] forKeyedSubscript:@"ask"];
+  }
+
+  v33 = dictionary;
+  v34 = @"restrictedBool";
+  v32 = settingCopy;
+  v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+  v35 = v25;
+  v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+  LOBYTE(v27) = completed;
+  [(MCProfileConnection *)selfCopy setParametersForSettingsByType:v26 configurationUUID:dCopy toSystem:systemCopy user:userCopy passcode:passcodeCopy credentialSet:setCopy waitUntilCompleted:v27 completion:completionCopy];
+}
+
+- (void)setValue:(id)value forSetting:(id)setting passcode:(id)passcode completion:(id)completion
+{
+  v30 = *MEMORY[0x1E69E9840];
+  valueCopy = value;
+  settingCopy = setting;
+  completionCopy = completion;
+  passcodeCopy = passcode;
   [(MCProfileConnection *)self checkInIfNeeded];
   v14 = qword_1ED4ADE28;
   if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEFAULT))
@@ -6078,106 +6903,66 @@ LABEL_6:
   v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
   v25 = v17;
   v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-  [(MCProfileConnection *)self setParametersForSettingsByType:v18 configurationUUID:0 toSystem:1 user:0 credentialSet:setCopy waitUntilCompleted:0 completion:completionCopy];
-
-  v19 = *MEMORY[0x1E69E9840];
+  LOBYTE(v19) = 0;
+  [(MCProfileConnection *)self setParametersForSettingsByType:v18 configurationUUID:0 toSystem:1 user:0 passcode:passcodeCopy credentialSet:0 waitUntilCompleted:v19 completion:completionCopy];
 }
 
-void __69__MCProfileConnection_Settings__errorCheckedSetBoolValue_forSetting___block_invoke(uint64_t a1, void *a2)
+- (void)setValue:(id)value forSetting:(id)setting toSystem:(BOOL)system user:(BOOL)user passcode:(id)passcode
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v4 = a2;
-  if (v4)
-  {
-    v5 = qword_1ED4ADE28;
-    if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
-    {
-      v6 = v5;
-      v7 = [v4 MCVerboseDescription];
-      v10 = 138543362;
-      v11 = v7;
-      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Set parameters for settings error. Error: %{public}@", &v10, 0xCu);
-    }
-
-    objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
-  }
-
-  else
-  {
-    v8 = +[MCRestrictionManager sharedManager];
-    [v8 invalidateSettings];
-  }
-
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-void __78__MCProfileConnection_Settings__setBoolValue_forSetting_errorCompletionBlock___block_invoke(uint64_t a1, void *a2)
-{
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  if (v3)
-  {
-    v4 = qword_1ED4ADE28;
-    if (!os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_6;
-    }
-
-    v5 = v4;
-    v6 = [v3 MCVerboseDescription];
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Set parameters for settings error. Error: %{public}@", &v9, 0xCu);
-  }
-
-  else
-  {
-    v5 = +[MCRestrictionManager sharedManager];
-    [v5 invalidateSettings];
-  }
-
-LABEL_6:
-  v7 = *(a1 + 32);
-  if (v7)
-  {
-    (*(v7 + 16))(v7, v3);
-  }
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setValue:(id)value forSetting:(id)setting passcode:(id)passcode completion:(id)completion
-{
-  v31 = *MEMORY[0x1E69E9840];
+  userCopy = user;
+  systemCopy = system;
+  v30 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   settingCopy = setting;
-  completionCopy = completion;
   passcodeCopy = passcode;
   [(MCProfileConnection *)self checkInIfNeeded];
-  v14 = qword_1ED4ADE28;
+  v15 = qword_1ED4ADE28;
   if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = v14;
+    v16 = v15;
     *buf = 67109378;
     unsignedIntValue = [valueCopy unsignedIntValue];
-    v29 = 2114;
-    v30 = settingCopy;
-    _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_DEFAULT, "Set value %u for settings: %{public}@", buf, 0x12u);
+    v28 = 2114;
+    v29 = settingCopy;
+    _os_log_impl(&dword_1A795B000, v16, OS_LOG_TYPE_DEFAULT, "Set value %u for settings: %{public}@", buf, 0x12u);
   }
 
-  v25 = @"restrictedValue";
-  v22 = valueCopy;
-  v23 = settingCopy;
-  v21 = @"value";
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-  v24 = v16;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-  v26 = v17;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-  LOBYTE(v20) = 0;
-  [(MCProfileConnection *)self setParametersForSettingsByType:v18 configurationUUID:0 toSystem:1 user:0 passcode:passcodeCopy credentialSet:0 waitUntilCompleted:v20 completion:completionCopy];
+  v24 = @"restrictedValue";
+  v21 = valueCopy;
+  v22 = settingCopy;
+  v20 = @"value";
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+  v23 = v17;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+  v25 = v18;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+  [(MCProfileConnection *)self setParametersForSettingsByType:v19 toSystem:systemCopy user:userCopy passcode:passcodeCopy];
+}
 
-  v19 = *MEMORY[0x1E69E9840];
+- (void)setAsk:(BOOL)ask forBoolSetting:(id)setting configurationUUID:(id)d toSystem:(BOOL)system user:(BOOL)user passcode:(id)passcode waitUntilCompleted:(BOOL)completed completion:(id)self0
+{
+  systemCopy = system;
+  userCopy = user;
+  askCopy = ask;
+  v31[1] = *MEMORY[0x1E69E9840];
+  completionCopy = completion;
+  passcodeCopy = passcode;
+  dCopy = d;
+  settingCopy = setting;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v30 = @"restrictedBool";
+  v28 = settingCopy;
+  v26 = @"ask";
+  v19 = [MEMORY[0x1E696AD98] numberWithBool:askCopy];
+  v27 = v19;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+  v29 = v20;
+  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+  v31[0] = v21;
+  v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+
+  LOBYTE(v23) = completed;
+  [(MCProfileConnection *)self setParametersForSettingsByType:v22 configurationUUID:dCopy toSystem:systemCopy user:userCopy passcode:passcodeCopy credentialSet:0 waitUntilCompleted:v23 completion:completionCopy];
 }
 
 - (id)userSettingsForSystem
@@ -6522,7 +7307,7 @@ LABEL_19:
 
 - (int)effectiveBoolValueForWatchSetting:(id)setting pairedDevice:(id)device outError:(id *)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   settingCopy = setting;
   deviceCopy = device;
   if ([(MCProfileConnection *)self needsCheckIn])
@@ -6534,62 +7319,61 @@ LABEL_19:
   {
     v11 = [deviceCopy valueForProperty:*MEMORY[0x1E69B3610]];
     v12 = [deviceCopy valueForProperty:*MEMORY[0x1E69B35F8]];
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x2020000000;
-    v30 = 0;
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy__10;
-    v25 = __Block_byref_object_dispose__10;
     v26 = 0;
+    v27 = &v26;
+    v28 = 0x2020000000;
+    v29 = 0;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy__10;
+    v24 = __Block_byref_object_dispose__10;
+    v25 = 0;
     xpcConnection = [(MCProfileConnection *)self xpcConnection];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __89__MCProfileConnection_Settings__effectiveBoolValueForWatchSetting_pairedDevice_outError___block_invoke;
-    v20[3] = &unk_1E77D2620;
-    v20[4] = &v21;
-    v14 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v20];
     v19[0] = MEMORY[0x1E69E9820];
     v19[1] = 3221225472;
-    v19[2] = __89__MCProfileConnection_Settings__effectiveBoolValueForWatchSetting_pairedDevice_outError___block_invoke_2;
-    v19[3] = &unk_1E77D2990;
-    v19[4] = &v21;
-    v19[5] = &v27;
-    [v14 effectiveBoolValueForWatchSetting:settingCopy pairingID:v11 pairingDataStore:v12 completion:v19];
+    v19[2] = __89__MCProfileConnection_Settings__effectiveBoolValueForWatchSetting_pairedDevice_outError___block_invoke;
+    v19[3] = &unk_1E77D2620;
+    v19[4] = &v20;
+    v14 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __89__MCProfileConnection_Settings__effectiveBoolValueForWatchSetting_pairedDevice_outError___block_invoke_2;
+    v18[3] = &unk_1E77D2990;
+    v18[4] = &v20;
+    v18[5] = &v26;
+    [v14 effectiveBoolValueForWatchSetting:settingCopy pairingID:v11 pairingDataStore:v12 completion:v18];
 
-    if (v22[5])
+    if (v21[5])
     {
       v15 = qword_1ED4ADE28;
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        mCVerboseDescription = [v22[5] MCVerboseDescription];
+        mCVerboseDescription = [v21[5] MCVerboseDescription];
         *buf = 138543618;
-        v32 = settingCopy;
-        v33 = 2114;
-        v34 = mCVerboseDescription;
+        v31 = settingCopy;
+        v32 = 2114;
+        v33 = mCVerboseDescription;
         _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_ERROR, "Failed to retrieve effective BOOL for feature “%{public}@” with error: %{public}@", buf, 0x16u);
       }
 
       v10 = 0;
       if (error)
       {
-        *error = v22[5];
+        *error = v21[5];
       }
     }
 
     else
     {
-      v10 = *(v28 + 6);
+      v10 = *(v27 + 6);
     }
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v20, 8);
 
-    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v26, 8);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -6616,7 +7400,7 @@ void __89__MCProfileConnection_Settings__effectiveBoolValueForWatchSetting_paire
 
 - (id)effectiveValueForWatchSetting:(id)setting pairedDevice:(id)device outError:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   settingCopy = setting;
   deviceCopy = device;
   if ([(MCProfileConnection *)self needsCheckIn])
@@ -6628,64 +7412,62 @@ void __89__MCProfileConnection_Settings__effectiveBoolValueForWatchSetting_paire
   {
     v11 = [deviceCopy valueForProperty:*MEMORY[0x1E69B3610]];
     v12 = [deviceCopy valueForProperty:*MEMORY[0x1E69B35F8]];
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x3032000000;
-    v30 = __Block_byref_object_copy__10;
-    v31 = __Block_byref_object_dispose__10;
-    v32 = 0;
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy__10;
-    v25 = __Block_byref_object_dispose__10;
     v26 = 0;
+    v27 = &v26;
+    v28 = 0x3032000000;
+    v29 = __Block_byref_object_copy__10;
+    v30 = __Block_byref_object_dispose__10;
+    v31 = 0;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy__10;
+    v24 = __Block_byref_object_dispose__10;
+    v25 = 0;
     xpcConnection = [(MCProfileConnection *)self xpcConnection];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __85__MCProfileConnection_Settings__effectiveValueForWatchSetting_pairedDevice_outError___block_invoke;
-    v20[3] = &unk_1E77D2620;
-    v20[4] = &v21;
-    v14 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v20];
     v19[0] = MEMORY[0x1E69E9820];
     v19[1] = 3221225472;
-    v19[2] = __85__MCProfileConnection_Settings__effectiveValueForWatchSetting_pairedDevice_outError___block_invoke_2;
-    v19[3] = &unk_1E77D2990;
-    v19[4] = &v21;
-    v19[5] = &v27;
-    [v14 effectiveValueForWatchSetting:settingCopy pairingID:v11 pairingDataStore:v12 completion:v19];
+    v19[2] = __85__MCProfileConnection_Settings__effectiveValueForWatchSetting_pairedDevice_outError___block_invoke;
+    v19[3] = &unk_1E77D2620;
+    v19[4] = &v20;
+    v14 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __85__MCProfileConnection_Settings__effectiveValueForWatchSetting_pairedDevice_outError___block_invoke_2;
+    v18[3] = &unk_1E77D2990;
+    v18[4] = &v20;
+    v18[5] = &v26;
+    [v14 effectiveValueForWatchSetting:settingCopy pairingID:v11 pairingDataStore:v12 completion:v18];
 
-    if (v22[5])
+    if (v21[5])
     {
       v15 = qword_1ED4ADE28;
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        mCVerboseDescription = [v22[5] MCVerboseDescription];
+        mCVerboseDescription = [v21[5] MCVerboseDescription];
         *buf = 138543618;
-        v34 = settingCopy;
-        v35 = 2114;
-        v36 = mCVerboseDescription;
+        v33 = settingCopy;
+        v34 = 2114;
+        v35 = mCVerboseDescription;
         _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_ERROR, "Failed to retrieve effective value for feature “%{public}@” with error: %{public}@", buf, 0x16u);
       }
 
       v10 = 0;
       if (error)
       {
-        *error = v22[5];
+        *error = v21[5];
       }
     }
 
     else
     {
-      v10 = v28[5];
+      v10 = v27[5];
     }
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v20, 8);
 
-    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v26, 8);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -6702,7 +7484,7 @@ void __85__MCProfileConnection_Settings__effectiveValueForWatchSetting_pairedDev
 
 - (id)effectiveValuesForWatchIntersectionSetting:(id)setting pairedDevice:(id)device outError:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   settingCopy = setting;
   deviceCopy = device;
   if ([(MCProfileConnection *)self needsCheckIn])
@@ -6714,64 +7496,62 @@ void __85__MCProfileConnection_Settings__effectiveValueForWatchSetting_pairedDev
   {
     v11 = [deviceCopy valueForProperty:*MEMORY[0x1E69B3610]];
     v12 = [deviceCopy valueForProperty:*MEMORY[0x1E69B35F8]];
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x3032000000;
-    v30 = __Block_byref_object_copy__10;
-    v31 = __Block_byref_object_dispose__10;
-    v32 = 0;
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy__10;
-    v25 = __Block_byref_object_dispose__10;
     v26 = 0;
+    v27 = &v26;
+    v28 = 0x3032000000;
+    v29 = __Block_byref_object_copy__10;
+    v30 = __Block_byref_object_dispose__10;
+    v31 = 0;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy__10;
+    v24 = __Block_byref_object_dispose__10;
+    v25 = 0;
     xpcConnection = [(MCProfileConnection *)self xpcConnection];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __98__MCProfileConnection_Settings__effectiveValuesForWatchIntersectionSetting_pairedDevice_outError___block_invoke;
-    v20[3] = &unk_1E77D2620;
-    v20[4] = &v21;
-    v14 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v20];
     v19[0] = MEMORY[0x1E69E9820];
     v19[1] = 3221225472;
-    v19[2] = __98__MCProfileConnection_Settings__effectiveValuesForWatchIntersectionSetting_pairedDevice_outError___block_invoke_2;
-    v19[3] = &unk_1E77D29B8;
-    v19[4] = &v21;
-    v19[5] = &v27;
-    [v14 effectiveValuesForWatchIntersectionSetting:settingCopy pairingID:v11 pairingDataStore:v12 completion:v19];
+    v19[2] = __98__MCProfileConnection_Settings__effectiveValuesForWatchIntersectionSetting_pairedDevice_outError___block_invoke;
+    v19[3] = &unk_1E77D2620;
+    v19[4] = &v20;
+    v14 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __98__MCProfileConnection_Settings__effectiveValuesForWatchIntersectionSetting_pairedDevice_outError___block_invoke_2;
+    v18[3] = &unk_1E77D29B8;
+    v18[4] = &v20;
+    v18[5] = &v26;
+    [v14 effectiveValuesForWatchIntersectionSetting:settingCopy pairingID:v11 pairingDataStore:v12 completion:v18];
 
-    if (v22[5])
+    if (v21[5])
     {
       v15 = qword_1ED4ADE28;
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        mCVerboseDescription = [v22[5] MCVerboseDescription];
+        mCVerboseDescription = [v21[5] MCVerboseDescription];
         *buf = 138543618;
-        v34 = settingCopy;
-        v35 = 2114;
-        v36 = mCVerboseDescription;
+        v33 = settingCopy;
+        v34 = 2114;
+        v35 = mCVerboseDescription;
         _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_ERROR, "Failed to retrieve effective intersection values for feature “%{public}@” with error: %{public}@", buf, 0x16u);
       }
 
       v10 = 0;
       if (error)
       {
-        *error = v22[5];
+        *error = v21[5];
       }
     }
 
     else
     {
-      v10 = v28[5];
+      v10 = v27[5];
     }
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v20, 8);
 
-    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v26, 8);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -6788,7 +7568,7 @@ void __98__MCProfileConnection_Settings__effectiveValuesForWatchIntersectionSett
 
 - (id)effectiveValuesForWatchUnionSetting:(id)setting pairedDevice:(id)device outError:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   settingCopy = setting;
   deviceCopy = device;
   if ([(MCProfileConnection *)self needsCheckIn])
@@ -6800,64 +7580,62 @@ void __98__MCProfileConnection_Settings__effectiveValuesForWatchIntersectionSett
   {
     v11 = [deviceCopy valueForProperty:*MEMORY[0x1E69B3610]];
     v12 = [deviceCopy valueForProperty:*MEMORY[0x1E69B35F8]];
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x3032000000;
-    v30 = __Block_byref_object_copy__10;
-    v31 = __Block_byref_object_dispose__10;
-    v32 = 0;
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy__10;
-    v25 = __Block_byref_object_dispose__10;
     v26 = 0;
+    v27 = &v26;
+    v28 = 0x3032000000;
+    v29 = __Block_byref_object_copy__10;
+    v30 = __Block_byref_object_dispose__10;
+    v31 = 0;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy__10;
+    v24 = __Block_byref_object_dispose__10;
+    v25 = 0;
     xpcConnection = [(MCProfileConnection *)self xpcConnection];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __91__MCProfileConnection_Settings__effectiveValuesForWatchUnionSetting_pairedDevice_outError___block_invoke;
-    v20[3] = &unk_1E77D2620;
-    v20[4] = &v21;
-    v14 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v20];
     v19[0] = MEMORY[0x1E69E9820];
     v19[1] = 3221225472;
-    v19[2] = __91__MCProfileConnection_Settings__effectiveValuesForWatchUnionSetting_pairedDevice_outError___block_invoke_2;
-    v19[3] = &unk_1E77D29B8;
-    v19[4] = &v21;
-    v19[5] = &v27;
-    [v14 effectiveValuesForWatchUnionSetting:settingCopy pairingID:v11 pairingDataStore:v12 completion:v19];
+    v19[2] = __91__MCProfileConnection_Settings__effectiveValuesForWatchUnionSetting_pairedDevice_outError___block_invoke;
+    v19[3] = &unk_1E77D2620;
+    v19[4] = &v20;
+    v14 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __91__MCProfileConnection_Settings__effectiveValuesForWatchUnionSetting_pairedDevice_outError___block_invoke_2;
+    v18[3] = &unk_1E77D29B8;
+    v18[4] = &v20;
+    v18[5] = &v26;
+    [v14 effectiveValuesForWatchUnionSetting:settingCopy pairingID:v11 pairingDataStore:v12 completion:v18];
 
-    if (v22[5])
+    if (v21[5])
     {
       v15 = qword_1ED4ADE28;
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        mCVerboseDescription = [v22[5] MCVerboseDescription];
+        mCVerboseDescription = [v21[5] MCVerboseDescription];
         *buf = 138543618;
-        v34 = settingCopy;
-        v35 = 2114;
-        v36 = mCVerboseDescription;
+        v33 = settingCopy;
+        v34 = 2114;
+        v35 = mCVerboseDescription;
         _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_ERROR, "Failed to retrieve effective union values for feature “%{public}@” with error: %{public}@", buf, 0x16u);
       }
 
       v10 = 0;
       if (error)
       {
-        *error = v22[5];
+        *error = v21[5];
       }
     }
 
     else
     {
-      v10 = v28[5];
+      v10 = v27[5];
     }
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v20, 8);
 
-    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v26, 8);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -6903,7 +7681,7 @@ void __91__MCProfileConnection_Settings__effectiveValuesForWatchUnionSetting_pai
 
 void __112__MCProfileConnection_Settings__requestEffectiveBoolValueForSetting_configurationUUID_promptOptions_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
@@ -6913,7 +7691,7 @@ void __112__MCProfileConnection_Settings__requestEffectiveBoolValueForSetting_co
       v7 = v6;
       v8 = [v5 MCVerboseDescription];
       *buf = 138543362;
-      v17 = v8;
+      v16 = v8;
       _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_ERROR, "Request effective restricted BOOL value error. Error: %{public}@", buf, 0xCu);
     }
   }
@@ -6926,13 +7704,11 @@ void __112__MCProfileConnection_Settings__requestEffectiveBoolValueForSetting_co
     block[1] = 3221225472;
     block[2] = __112__MCProfileConnection_Settings__requestEffectiveBoolValueForSetting_configurationUUID_promptOptions_completion___block_invoke_14;
     block[3] = &unk_1E77D29E0;
-    v14 = v9;
-    v15 = a2;
-    v13 = v5;
+    v13 = v9;
+    v14 = a2;
+    v12 = v5;
     dispatch_async(v10, block);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (int)requestEffectiveBoolValueForSetting:(id)setting configurationUUID:(id)d promptOptions:(id)options outError:(id *)error
@@ -7012,7 +7788,7 @@ void __110__MCProfileConnection_Settings__requestEffectiveBoolValueForSetting_co
 
 void __76__MCProfileConnection_Settings__cancelRequestEffectiveBoolValue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -7022,7 +7798,7 @@ void __76__MCProfileConnection_Settings__cancelRequestEffectiveBoolValue_complet
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
       *buf = 138543362;
-      v14 = v6;
+      v13 = v6;
       _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Cancel request effective restricted BOOL value error. Error: %{public}@", buf, 0xCu);
     }
   }
@@ -7031,16 +7807,14 @@ void __76__MCProfileConnection_Settings__cancelRequestEffectiveBoolValue_complet
   if (v7)
   {
     v8 = dispatch_get_global_queue(0, 0);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __76__MCProfileConnection_Settings__cancelRequestEffectiveBoolValue_completion___block_invoke_17;
-    v10[3] = &unk_1E77D2A58;
-    v12 = v7;
-    v11 = v3;
-    dispatch_async(v8, v10);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __76__MCProfileConnection_Settings__cancelRequestEffectiveBoolValue_completion___block_invoke_17;
+    v9[3] = &unk_1E77D2A58;
+    v11 = v7;
+    v10 = v3;
+    dispatch_async(v8, v9);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isSettingLockedDownByRestrictions:(id)restrictions
@@ -7055,53 +7829,53 @@ void __76__MCProfileConnection_Settings__cancelRequestEffectiveBoolValue_complet
 
 - (BOOL)_areProfilesRestrictingSettings:(id)settings outMDMName:(id *)name outExchangeName:(id *)exchangeName outExchangeCount:(int64_t *)count outProfileName:(id *)profileName outProfileCount:(int64_t *)profileCount
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   settingsCopy = settings;
   [(MCProfileConnection *)self checkInIfNeeded];
-  v49 = settingsCopy;
-  v50 = [(MCProfileConnection *)self _settingsLockedDownByRestrictions:settingsCopy];
+  v48 = settingsCopy;
+  v49 = [(MCProfileConnection *)self _settingsLockedDownByRestrictions:settingsCopy];
   v10 = MEMORY[0x1E695DF20];
   v11 = MDMFilePath();
   v12 = [v10 dictionaryWithContentsOfFile:v11];
 
   if (v12)
   {
-    v54 = [v12 objectForKeyedSubscript:*MEMORY[0x1E69AD4E8]];
+    v53 = [v12 objectForKeyedSubscript:*MEMORY[0x1E69AD4E8]];
   }
 
   else
   {
-    v54 = 0;
+    v53 = 0;
   }
 
   v13 = +[MCRestrictionManager sharedManager];
-  v14 = [v13 profileIdentifiersRestrictingSettings:v50];
+  v14 = [v13 profileIdentifiersRestrictingSettings:v49];
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   obj = v14;
-  v15 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
+  v15 = [obj countByEnumeratingWithState:&v58 objects:v63 count:16];
   if (v15)
   {
     v16 = v15;
     v17 = 0;
     friendlyName2 = 0;
-    v52 = 0;
-    v19 = *v60;
+    v51 = 0;
+    v19 = *v59;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v60 != v19)
+        if (*v59 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v59 + 1) + 8 * i);
+        v21 = *(*(&v58 + 1) + 8 * i);
         v22 = objc_autoreleasePoolPush();
-        if (v12 && [v21 isEqualToString:v54])
+        if (v12 && [v21 isEqualToString:v53])
         {
           v23 = [MCManifest installedProfileWithIdentifier:v21];
           organization = [v23 organization];
@@ -7110,7 +7884,7 @@ void __76__MCProfileConnection_Settings__cancelRequestEffectiveBoolValue_complet
           {
             organization2 = [v23 organization];
 
-            v52 = organization2;
+            v51 = organization2;
           }
 
           else
@@ -7136,7 +7910,7 @@ void __76__MCProfileConnection_Settings__cancelRequestEffectiveBoolValue_complet
         objc_autoreleasePoolPop(v22);
       }
 
-      v16 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
+      v16 = [obj countByEnumeratingWithState:&v58 objects:v63 count:16];
     }
 
     while (v16);
@@ -7146,35 +7920,35 @@ void __76__MCProfileConnection_Settings__cancelRequestEffectiveBoolValue_complet
   {
     v17 = 0;
     friendlyName2 = 0;
-    v52 = 0;
+    v51 = 0;
   }
 
   v28 = +[MCRestrictionManager sharedManager];
-  v29 = [v28 exchangeUUIDsRestrictingSettings:v50];
+  v29 = [v28 exchangeUUIDsRestrictingSettings:v49];
 
   defaultStore = [MEMORY[0x1E6959A48] defaultStore];
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
   v31 = v29;
-  v32 = [v31 countByEnumeratingWithState:&v55 objects:v63 count:16];
+  v32 = [v31 countByEnumeratingWithState:&v54 objects:v62 count:16];
   if (v32)
   {
     v33 = v32;
-    v51 = 0;
+    v50 = 0;
     accountDescription = 0;
-    v35 = *v56;
+    v35 = *v55;
     do
     {
       for (j = 0; j != v33; ++j)
       {
-        if (*v56 != v35)
+        if (*v55 != v35)
         {
           objc_enumerationMutation(v31);
         }
 
-        v37 = [defaultStore accountWithIdentifier:*(*(&v55 + 1) + 8 * j)];
+        v37 = [defaultStore accountWithIdentifier:*(*(&v54 + 1) + 8 * j)];
         v38 = v37;
         if (!accountDescription)
         {
@@ -7182,8 +7956,8 @@ void __76__MCProfileConnection_Settings__cancelRequestEffectiveBoolValue_complet
         }
       }
 
-      v51 += v33;
-      v33 = [v31 countByEnumeratingWithState:&v55 objects:v63 count:16];
+      v50 += v33;
+      v33 = [v31 countByEnumeratingWithState:&v54 objects:v62 count:16];
     }
 
     while (v33);
@@ -7191,14 +7965,14 @@ void __76__MCProfileConnection_Settings__cancelRequestEffectiveBoolValue_complet
 
   else
   {
-    v51 = 0;
+    v50 = 0;
     accountDescription = 0;
   }
 
   if (name)
   {
-    v39 = v52;
-    *name = v52;
+    v39 = v51;
+    *name = v51;
   }
 
   if (exchangeName)
@@ -7209,7 +7983,7 @@ void __76__MCProfileConnection_Settings__cancelRequestEffectiveBoolValue_complet
 
   if (count)
   {
-    *count = v51;
+    *count = v50;
   }
 
   if (profileName)
@@ -7223,8 +7997,7 @@ void __76__MCProfileConnection_Settings__cancelRequestEffectiveBoolValue_complet
     *profileCount = v17;
   }
 
-  v42 = *MEMORY[0x1E69E9840];
-  return (v52 | friendlyName2 | accountDescription) != 0;
+  return (v51 | friendlyName2 | accountDescription) != 0;
 }
 
 - (id)localizedRestrictionSourceDescriptionForFeatures:(id)features
@@ -7252,79 +8025,78 @@ void __76__MCProfileConnection_Settings__cancelRequestEffectiveBoolValue_complet
 
 - (id)_settingsLockedDownByRestrictions:(id)restrictions
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   restrictionsCopy = restrictions;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = restrictionsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
-        if ([(MCProfileConnection *)self isSettingLockedDownByRestrictions:v11, v15])
+        v11 = *(*(&v14 + 1) + 8 * i);
+        if ([(MCProfileConnection *)self isSettingLockedDownByRestrictions:v11, v14])
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v12 = [v5 copy];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (BOOL)areSettingsLockedDownByRestrictions:(id)restrictions
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   restrictionsCopy = restrictions;
   [(MCProfileConnection *)self checkInIfNeeded];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = restrictionsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        if ([(MCProfileConnection *)self isSettingLockedDownByRestrictions:*(*(&v13 + 1) + 8 * i), v13])
+        if ([(MCProfileConnection *)self isSettingLockedDownByRestrictions:*(*(&v12 + 1) + 8 * i), v12])
         {
           v10 = 1;
           goto LABEL_11;
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -7337,7 +8109,6 @@ void __76__MCProfileConnection_Settings__cancelRequestEffectiveBoolValue_complet
   v10 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -7383,27 +8154,25 @@ LABEL_11:
 
 - (void)removeBoolSetting:(id)setting
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   settingCopy = setting;
   [(MCProfileConnection *)self checkInIfNeeded];
   v5 = qword_1ED4ADE28;
   if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = settingCopy;
-    _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_DEFAULT, "Remove Bool settings: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = settingCopy;
+    _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_DEFAULT, "Remove Bool settings: %{public}@", &v8, 0xCu);
   }
 
   xpcConnection = [(MCProfileConnection *)self xpcConnection];
   v7 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_21];
   [v7 removeBoolSetting:settingCopy completion:&__block_literal_global_21];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __51__MCProfileConnection_Settings__removeBoolSetting___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -7412,38 +8181,34 @@ void __51__MCProfileConnection_Settings__removeBoolSetting___block_invoke(uint64
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Remove BOOL setting error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Remove BOOL setting error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeValueSetting:(id)setting
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   settingCopy = setting;
   [(MCProfileConnection *)self checkInIfNeeded];
   v5 = qword_1ED4ADE28;
   if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = settingCopy;
-    _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_DEFAULT, "Remove Value settings: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = settingCopy;
+    _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_DEFAULT, "Remove Value settings: %{public}@", &v8, 0xCu);
   }
 
   xpcConnection = [(MCProfileConnection *)self xpcConnection];
   v7 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_23];
   [v7 removeValueSetting:settingCopy completion:&__block_literal_global_23];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __52__MCProfileConnection_Settings__removeValueSetting___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -7452,18 +8217,16 @@ void __52__MCProfileConnection_Settings__removeValueSetting___block_invoke(uint6
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Remove value setting error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Remove value setting error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __59__MCProfileConnection_Settings__resetAllSettingsToDefaults__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -7472,18 +8235,60 @@ void __59__MCProfileConnection_Settings__resetAllSettingsToDefaults__block_invok
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Reset all settings error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Reset all settings error. Error: %{public}@", &v6, 0xCu);
     }
   }
+}
 
-  v6 = *MEMORY[0x1E69E9840];
+- (void)resetAllSettingsToDefaultsIsUserInitiated:(BOOL)initiated waitUntilCompleted:(BOOL)completed completion:(id)completion
+{
+  completedCopy = completed;
+  initiatedCopy = initiated;
+  v20 = *MEMORY[0x1E69E9840];
+  completionCopy = completion;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v9 = qword_1ED4ADE28;
+  if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = @"NO";
+    if (initiatedCopy)
+    {
+      v10 = @"YES";
+    }
+
+    *buf = 138543362;
+    v19 = v10;
+    _os_log_impl(&dword_1A795B000, v9, OS_LOG_TYPE_DEFAULT, "Reset all settings to defaults. User Initiated: %{public}@", buf, 0xCu);
+  }
+
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __105__MCProfileConnection_Settings__resetAllSettingsToDefaultsIsUserInitiated_waitUntilCompleted_completion___block_invoke;
+  v16[3] = &unk_1E77D2698;
+  v17 = completionCopy;
+  v11 = completionCopy;
+  v12 = MEMORY[0x1AC55F990](v16);
+  xpcConnection = [(MCProfileConnection *)self xpcConnection];
+  v14 = xpcConnection;
+  if (completedCopy)
+  {
+    [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v12];
+  }
+
+  else
+  {
+    [xpcConnection remoteObjectProxyWithErrorHandler:v12];
+  }
+  v15 = ;
+
+  [v15 resetAllSettingsToDefaultsIsUserInitiated:initiatedCopy completion:v12];
 }
 
 void __105__MCProfileConnection_Settings__resetAllSettingsToDefaultsIsUserInitiated_waitUntilCompleted_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -7492,9 +8297,9 @@ void __105__MCProfileConnection_Settings__resetAllSettingsToDefaultsIsUserInitia
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Reset all settings error. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Reset all settings error. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -7503,8 +8308,6 @@ void __105__MCProfileConnection_Settings__resetAllSettingsToDefaultsIsUserInitia
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (int)userBoolValueForSetting:(id)setting
@@ -7549,13 +8352,13 @@ void __105__MCProfileConnection_Settings__resetAllSettingsToDefaultsIsUserInitia
 
 - (id)lockedDownRootCertificatesWithOutLocalizedSourceDescription:(id *)description
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   [(MCProfileConnection *)self checkInIfNeeded];
   array = [MEMORY[0x1E695DF70] array];
   v5 = +[MCManifest sharedManifest];
   v6 = [v5 allProfileIdentifiersInstalledNonInteractivelyWithFilterFlags:1];
 
-  v38 = v6;
+  v37 = v6;
   v7 = [MEMORY[0x1E695DF70] arrayWithArray:v6];
   v8 = [(MCProfileConnection *)self installedProfileIdentifiersWithFilterFlags:2];
   [v7 addObjectsFromArray:v8];
@@ -7567,68 +8370,68 @@ void __105__MCProfileConnection_Settings__resetAllSettingsToDefaultsIsUserInitia
     [v7 addObject:installedMDMProfileIdentifier];
   }
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   v10 = v7;
-  v42 = [v10 countByEnumeratingWithState:&v56 objects:v61 count:16];
-  if (!v42)
+  v41 = [v10 countByEnumeratingWithState:&v55 objects:v60 count:16];
+  if (!v41)
   {
     friendlyName = 0;
-    v50 = 0;
+    v49 = 0;
     friendlyName2 = 0;
     v29 = v10;
     goto LABEL_35;
   }
 
-  v45 = 0;
-  v50 = 0;
+  v44 = 0;
+  v49 = 0;
   friendlyName = 0;
-  v41 = *v57;
-  v48 = array;
-  v40 = v10;
+  v40 = *v56;
+  v47 = array;
+  v39 = v10;
   do
   {
-    for (i = 0; i != v42; ++i)
+    for (i = 0; i != v41; ++i)
     {
-      if (*v57 != v41)
+      if (*v56 != v40)
       {
         objc_enumerationMutation(v10);
       }
 
-      v12 = *(*(&v56 + 1) + 8 * i);
+      v12 = *(*(&v55 + 1) + 8 * i);
       v13 = objc_autoreleasePoolPush();
       v14 = +[MCManifest sharedManifest];
-      v46 = v12;
+      v45 = v12;
       v15 = [v14 installedProfileWithIdentifier:v12];
 
       if (v15)
       {
-        v43 = v13;
-        v44 = i;
-        v54 = 0u;
-        v55 = 0u;
-        v52 = 0u;
+        v42 = v13;
+        v43 = i;
         v53 = 0u;
-        v51 = v15;
+        v54 = 0u;
+        v51 = 0u;
+        v52 = 0u;
+        v50 = v15;
         payloads = [v15 payloads];
-        v17 = [payloads countByEnumeratingWithState:&v52 objects:v60 count:16];
+        v17 = [payloads countByEnumeratingWithState:&v51 objects:v59 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v53;
-          v49 = payloads;
+          v19 = *v52;
+          v48 = payloads;
           do
           {
             for (j = 0; j != v18; ++j)
             {
-              if (*v53 != v19)
+              if (*v52 != v19)
               {
                 objc_enumerationMutation(payloads);
               }
 
-              v21 = *(*(&v52 + 1) + 8 * j);
+              v21 = *(*(&v51 + 1) + 8 * j);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -7641,56 +8444,56 @@ void __105__MCProfileConnection_Settings__resetAllSettingsToDefaultsIsUserInitia
                     v24 = copyCertificate;
                     v25 = SecCertificateCopyData(copyCertificate);
                     [array addObject:v25];
-                    [v51 installOptions];
+                    [v50 installOptions];
                     v27 = v26 = installedMDMProfileIdentifier;
                     v28 = [v27 objectForKey:@"managingProfileIdentifier"];
 
                     installedMDMProfileIdentifier = v26;
-                    if (v26 && (([v46 isEqualToString:v26] & 1) != 0 || v28 && (objc_msgSend(v28, "isEqualToString:", v26) & 1) != 0))
+                    if (v26 && (([v45 isEqualToString:v26] & 1) != 0 || v28 && (objc_msgSend(v28, "isEqualToString:", v26) & 1) != 0))
                     {
-                      v45 = 1;
+                      v44 = 1;
                     }
 
                     else
                     {
                       if (!friendlyName)
                       {
-                        friendlyName = [v51 friendlyName];
+                        friendlyName = [v50 friendlyName];
                       }
 
-                      ++v50;
+                      ++v49;
                     }
 
                     CFRelease(v24);
 
-                    array = v48;
-                    payloads = v49;
+                    array = v47;
+                    payloads = v48;
                   }
                 }
               }
             }
 
-            v18 = [payloads countByEnumeratingWithState:&v52 objects:v60 count:16];
+            v18 = [payloads countByEnumeratingWithState:&v51 objects:v59 count:16];
           }
 
           while (v18);
         }
 
-        v10 = v40;
-        v13 = v43;
-        i = v44;
-        v15 = v51;
+        v10 = v39;
+        v13 = v42;
+        i = v43;
+        v15 = v50;
       }
 
       objc_autoreleasePoolPop(v13);
     }
 
-    v42 = [v10 countByEnumeratingWithState:&v56 objects:v61 count:16];
+    v41 = [v10 countByEnumeratingWithState:&v55 objects:v60 count:16];
   }
 
-  while (v42);
+  while (v41);
 
-  if (v45)
+  if (v44)
   {
     v29 = [(MCProfileConnection *)selfCopy installedProfileWithIdentifier:installedMDMProfileIdentifier];
     friendlyName2 = [v29 friendlyName];
@@ -7701,7 +8504,7 @@ LABEL_35:
 
   friendlyName2 = 0;
 LABEL_37:
-  v31 = [(MCProfileConnection *)selfCopy _localizedCertificateSourceDescriptionFromMDMName:friendlyName2 exchangeName:0 exchangeCount:0 profileName:friendlyName profileCount:v50];
+  v31 = [(MCProfileConnection *)selfCopy _localizedCertificateSourceDescriptionFromMDMName:friendlyName2 exchangeName:0 exchangeCount:0 profileName:friendlyName profileCount:v49];
   v32 = v31;
   if (description)
   {
@@ -7711,7 +8514,6 @@ LABEL_37:
 
   v34 = array;
 
-  v35 = *MEMORY[0x1E69E9840];
   return array;
 }
 
@@ -7725,7 +8527,7 @@ LABEL_37:
 
 - (void)_setAllowedGrandfatheredRestrictionFeature:(id)feature forRestrictionKey:(id)key
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   featureCopy = feature;
   keyCopy = key;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -7764,8 +8566,8 @@ LABEL_37:
 
     else
     {
-      v23[0] = featureCopy;
-      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+      v22[0] = featureCopy;
+      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
 
       v15 = v18;
     }
@@ -7773,8 +8575,8 @@ LABEL_37:
 
   else
   {
-    v22 = featureCopy;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
+    v21 = featureCopy;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
   }
 
   [v14 setObject:v15 forKeyedSubscript:keyCopy];
@@ -7784,8 +8586,14 @@ LABEL_37:
 
   v20 = MCSystemMetadataFilePath();
   [v12 MCWriteToBinaryFile:v20];
+}
 
-  v21 = *MEMORY[0x1E69E9840];
+- (void)lockDeviceImmediately:(BOOL)immediately
+{
+  immediatelyCopy = immediately;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v4 = +[MCPasscodeManager sharedManager];
+  [v4 lockDeviceImmediately:immediatelyCopy];
 }
 
 - (void)lockDevice
@@ -7806,31 +8614,31 @@ LABEL_37:
 
 - (BOOL)isPasscodeRequiredByProfiles
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   [(MCProfileConnection *)self checkInIfNeeded];
   v2 = +[MCRestrictionManager sharedManager];
   systemProfileRestrictions = [v2 systemProfileRestrictions];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   keyEnumerator = [systemProfileRestrictions keyEnumerator];
-  v5 = [keyEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [keyEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        v9 = [systemProfileRestrictions objectForKey:*(*(&v14 + 1) + 8 * i)];
+        v9 = [systemProfileRestrictions objectForKey:*(*(&v13 + 1) + 8 * i)];
         v10 = [MCRestrictionManager restrictedBoolForFeature:@"forcePIN" withRestrictionsDictionary:v9];
 
         if (v10 == 1)
@@ -7840,7 +8648,7 @@ LABEL_37:
         }
       }
 
-      v6 = [keyEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [keyEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -7853,7 +8661,6 @@ LABEL_37:
   v11 = 0;
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -7878,6 +8685,38 @@ LABEL_11:
   return [(MCProfileConnection *)self isLockdownModeEnabled];
 }
 
+- (id)setPasscodeRecoveryAllowed:(BOOL)allowed
+{
+  allowedCopy = allowed;
+  if ([(MCProfileConnection *)self isPasscodeRecoverySupported])
+  {
+    v12 = [(MCProfileConnection *)self errorCheckedSetBoolValue:allowedCopy forSetting:@"allowPasscodeRecovery"];
+  }
+
+  else
+  {
+    v13 = MEMORY[0x1E696ABC0];
+    v14 = MCErrorArray(@"SETTINGS_SETTING_IS_RESTRICTED", v5, v6, v7, v8, v9, v10, v11, 0);
+    v15 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:3328 userInfo:0];
+    v12 = [v13 MCErrorWithDomain:@"MCSettingsErrorDomain" code:28003 descriptionArray:v14 underlyingError:v15 errorType:@"MCFatalError"];
+  }
+
+  return v12;
+}
+
+- (void)setPasscodeRecoveryAllowed:(BOOL)allowed passcode:(id)passcode completionBlock:(id)block
+{
+  allowedCopy = allowed;
+  blockCopy = block;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __85__MCProfileConnection_Passcode__setPasscodeRecoveryAllowed_passcode_completionBlock___block_invoke;
+  v9[3] = &unk_1E77D2698;
+  v10 = blockCopy;
+  v8 = blockCopy;
+  [(MCProfileConnection *)self setPasscodeRecoveryAllowed:allowedCopy completionBlock:v9];
+}
+
 uint64_t __85__MCProfileConnection_Passcode__setPasscodeRecoveryAllowed_passcode_completionBlock___block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
@@ -7887,6 +8726,26 @@ uint64_t __85__MCProfileConnection_Passcode__setPasscodeRecoveryAllowed_passcode
   }
 
   return result;
+}
+
+- (void)setPasscodeRecoveryAllowed:(BOOL)allowed completionBlock:(id)block
+{
+  allowedCopy = allowed;
+  blockCopy = block;
+  if ([(MCProfileConnection *)self isPasscodeRecoverySupported])
+  {
+    [(MCProfileConnection *)self setBoolValue:allowedCopy forSetting:@"allowPasscodeRecovery" errorCompletionBlock:blockCopy];
+  }
+
+  else if (blockCopy)
+  {
+    v13 = MEMORY[0x1E696ABC0];
+    v14 = MCErrorArray(@"SETTINGS_SETTING_IS_RESTRICTED", v6, v7, v8, v9, v10, v11, v12, 0);
+    v15 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:3328 userInfo:0];
+    v16 = [v13 MCErrorWithDomain:@"MCSettingsErrorDomain" code:28003 descriptionArray:v14 underlyingError:v15 errorType:@"MCFatalError"];
+
+    blockCopy[2](blockCopy, v16);
+  }
 }
 
 - (BOOL)recoveryPasscodeAvailable
@@ -7933,7 +8792,7 @@ uint64_t __85__MCProfileConnection_Passcode__setPasscodeRecoveryAllowed_passcode
 
 void __54__MCProfileConnection_Passcode__clearRecoveryPasscode__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -7942,20 +8801,18 @@ void __54__MCProfileConnection_Passcode__clearRecoveryPasscode__block_invoke(uin
     {
       v6 = v5;
       v7 = [v4 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Clear recovery passcode error. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Clear recovery passcode error. Error: %{public}@", &v8, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __54__MCProfileConnection_Passcode__clearRecoveryPasscode__block_invoke_5(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -7964,15 +8821,13 @@ void __54__MCProfileConnection_Passcode__clearRecoveryPasscode__block_invoke_5(u
     {
       v6 = v5;
       v7 = [v4 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Clear recovery passcode error. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Clear recovery passcode error. Error: %{public}@", &v8, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearRecoveryPasscodeWithCompletion:(id)completion
@@ -7993,7 +8848,7 @@ void __54__MCProfileConnection_Passcode__clearRecoveryPasscode__block_invoke_5(u
 
 void __69__MCProfileConnection_Passcode__clearRecoveryPasscodeWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -8002,15 +8857,13 @@ void __69__MCProfileConnection_Passcode__clearRecoveryPasscodeWithCompletion___b
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Clear recovery passcode error. Error: %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Clear recovery passcode error. Error: %{public}@", &v7, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isPasscodeCompliantWithNamedPolicy:(id)policy outError:(id *)error
@@ -8058,7 +8911,7 @@ void __69__MCProfileConnection_Passcode__clearRecoveryPasscodeWithCompletion___b
 
 void __77__MCProfileConnection_Passcode__isPasscodeCompliantWithNamedPolicy_outError___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -8068,20 +8921,18 @@ void __77__MCProfileConnection_Passcode__isPasscodeCompliantWithNamedPolicy_outE
       v6 = *(*(*(a1 + 32) + 8) + 40);
       v7 = v5;
       v8 = [v6 MCVerboseDescription];
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_ERROR, "Unable to determine passcode compliance. Error: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_ERROR, "Unable to determine passcode compliance. Error: %{public}@", &v9, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __77__MCProfileConnection_Passcode__isPasscodeCompliantWithNamedPolicy_outError___block_invoke_6(uint64_t a1, char a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (v6)
   {
@@ -8091,22 +8942,65 @@ void __77__MCProfileConnection_Passcode__isPasscodeCompliantWithNamedPolicy_outE
       v8 = *(*(*(a1 + 32) + 8) + 40);
       v9 = v7;
       v10 = [v8 MCVerboseDescription];
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_1A795B000, v9, OS_LOG_TYPE_ERROR, "Unable to determine passcode compliance. Error: %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_1A795B000, v9, OS_LOG_TYPE_ERROR, "Unable to determine passcode compliance. Error: %{public}@", &v11, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
+}
 
-  v11 = *MEMORY[0x1E69E9840];
+- (BOOL)changePasscodeFrom:(id)from to:(id)to skipRecovery:(BOOL)recovery outError:(id *)error
+{
+  recoveryCopy = recovery;
+  fromCopy = from;
+  toCopy = to;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__11;
+  v23 = __Block_byref_object_dispose__11;
+  v24 = 0;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __77__MCProfileConnection_Passcode__changePasscodeFrom_to_skipRecovery_outError___block_invoke;
+  v18[3] = &unk_1E77D2620;
+  v18[4] = &v19;
+  v12 = MEMORY[0x1AC55F990](v18);
+  xpcConnection = [(MCProfileConnection *)self xpcConnection];
+  v14 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v12];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __77__MCProfileConnection_Passcode__changePasscodeFrom_to_skipRecovery_outError___block_invoke_8;
+  v17[3] = &unk_1E77D2800;
+  v17[4] = &v19;
+  v17[5] = &v25;
+  [v14 changePasscode:toCopy oldPasscode:fromCopy isRecovery:0 skipRecovery:recoveryCopy completion:v17];
+
+  if (error)
+  {
+    *error = v20[5];
+  }
+
+  v15 = *(v26 + 24);
+
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v25, 8);
+
+  return v15;
 }
 
 void __77__MCProfileConnection_Passcode__changePasscodeFrom_to_skipRecovery_outError___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -8115,20 +9009,18 @@ void __77__MCProfileConnection_Passcode__changePasscodeFrom_to_skipRecovery_outE
     {
       v6 = v5;
       v7 = [v4 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Change passcode error. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Change passcode error. Error: %{public}@", &v8, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __77__MCProfileConnection_Passcode__changePasscodeFrom_to_skipRecovery_outError___block_invoke_8(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (v6)
   {
@@ -8137,22 +9029,65 @@ void __77__MCProfileConnection_Passcode__changePasscodeFrom_to_skipRecovery_outE
     {
       v8 = v7;
       v9 = [v6 MCVerboseDescription];
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Change passcode error. Error: %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Change passcode error. Error: %{public}@", &v10, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
+}
 
-  v10 = *MEMORY[0x1E69E9840];
+- (BOOL)changePasscodeWithOldPasscodeContext:(id)context newPasscodeContext:(id)passcodeContext skipRecovery:(BOOL)recovery outError:(id *)error
+{
+  recoveryCopy = recovery;
+  contextCopy = context;
+  passcodeContextCopy = passcodeContext;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__11;
+  v23 = __Block_byref_object_dispose__11;
+  v24 = 0;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __111__MCProfileConnection_Passcode__changePasscodeWithOldPasscodeContext_newPasscodeContext_skipRecovery_outError___block_invoke;
+  v18[3] = &unk_1E77D2620;
+  v18[4] = &v19;
+  v12 = MEMORY[0x1AC55F990](v18);
+  xpcConnection = [(MCProfileConnection *)self xpcConnection];
+  v14 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v12];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __111__MCProfileConnection_Passcode__changePasscodeWithOldPasscodeContext_newPasscodeContext_skipRecovery_outError___block_invoke_9;
+  v17[3] = &unk_1E77D2800;
+  v17[4] = &v19;
+  v17[5] = &v25;
+  [v14 changePasscodeWithOldPasscodeContext:contextCopy newPasscodeContext:passcodeContextCopy isRecovery:0 skipRecovery:recoveryCopy completion:v17];
+
+  if (error)
+  {
+    *error = v20[5];
+  }
+
+  v15 = *(v26 + 24);
+
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v25, 8);
+
+  return v15;
 }
 
 void __111__MCProfileConnection_Passcode__changePasscodeWithOldPasscodeContext_newPasscodeContext_skipRecovery_outError___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -8161,20 +9096,18 @@ void __111__MCProfileConnection_Passcode__changePasscodeWithOldPasscodeContext_n
     {
       v6 = v5;
       v7 = [v4 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Change passcode with context error. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Change passcode with context error. Error: %{public}@", &v8, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __111__MCProfileConnection_Passcode__changePasscodeWithOldPasscodeContext_newPasscodeContext_skipRecovery_outError___block_invoke_9(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (v6)
   {
@@ -8183,22 +9116,65 @@ void __111__MCProfileConnection_Passcode__changePasscodeWithOldPasscodeContext_n
     {
       v8 = v7;
       v9 = [v6 MCVerboseDescription];
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Change passcode with context error. Error: %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Change passcode with context error. Error: %{public}@", &v10, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
+}
 
-  v10 = *MEMORY[0x1E69E9840];
+- (BOOL)changePasscodeWithRecoveryPasscode:(id)passcode to:(id)to skipRecovery:(BOOL)recovery outError:(id *)error
+{
+  recoveryCopy = recovery;
+  passcodeCopy = passcode;
+  toCopy = to;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__11;
+  v23 = __Block_byref_object_dispose__11;
+  v24 = 0;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __93__MCProfileConnection_Passcode__changePasscodeWithRecoveryPasscode_to_skipRecovery_outError___block_invoke;
+  v18[3] = &unk_1E77D2620;
+  v18[4] = &v19;
+  v12 = MEMORY[0x1AC55F990](v18);
+  xpcConnection = [(MCProfileConnection *)self xpcConnection];
+  v14 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v12];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __93__MCProfileConnection_Passcode__changePasscodeWithRecoveryPasscode_to_skipRecovery_outError___block_invoke_10;
+  v17[3] = &unk_1E77D2800;
+  v17[4] = &v19;
+  v17[5] = &v25;
+  [v14 changePasscode:toCopy oldPasscode:passcodeCopy isRecovery:1 skipRecovery:recoveryCopy completion:v17];
+
+  if (error)
+  {
+    *error = v20[5];
+  }
+
+  v15 = *(v26 + 24);
+
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v25, 8);
+
+  return v15;
 }
 
 void __93__MCProfileConnection_Passcode__changePasscodeWithRecoveryPasscode_to_skipRecovery_outError___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -8207,20 +9183,18 @@ void __93__MCProfileConnection_Passcode__changePasscodeWithRecoveryPasscode_to_s
     {
       v6 = v5;
       v7 = [v4 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Change passcode with recovery passcode error. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Change passcode with recovery passcode error. Error: %{public}@", &v8, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __93__MCProfileConnection_Passcode__changePasscodeWithRecoveryPasscode_to_skipRecovery_outError___block_invoke_10(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (v6)
   {
@@ -8229,22 +9203,65 @@ void __93__MCProfileConnection_Passcode__changePasscodeWithRecoveryPasscode_to_s
     {
       v8 = v7;
       v9 = [v6 MCVerboseDescription];
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Change passcode with recovery passcode error. Error: %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Change passcode with recovery passcode error. Error: %{public}@", &v10, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
+}
 
-  v10 = *MEMORY[0x1E69E9840];
+- (BOOL)changePasscodeWithRecoveryPasscodeContext:(id)context newPasscodeContext:(id)passcodeContext skipRecovery:(BOOL)recovery outError:(id *)error
+{
+  recoveryCopy = recovery;
+  contextCopy = context;
+  passcodeContextCopy = passcodeContext;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__11;
+  v23 = __Block_byref_object_dispose__11;
+  v24 = 0;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __116__MCProfileConnection_Passcode__changePasscodeWithRecoveryPasscodeContext_newPasscodeContext_skipRecovery_outError___block_invoke;
+  v18[3] = &unk_1E77D2620;
+  v18[4] = &v19;
+  v12 = MEMORY[0x1AC55F990](v18);
+  xpcConnection = [(MCProfileConnection *)self xpcConnection];
+  v14 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v12];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __116__MCProfileConnection_Passcode__changePasscodeWithRecoveryPasscodeContext_newPasscodeContext_skipRecovery_outError___block_invoke_11;
+  v17[3] = &unk_1E77D2800;
+  v17[4] = &v19;
+  v17[5] = &v25;
+  [v14 changePasscodeWithOldPasscodeContext:contextCopy newPasscodeContext:passcodeContextCopy isRecovery:1 skipRecovery:recoveryCopy completion:v17];
+
+  if (error)
+  {
+    *error = v20[5];
+  }
+
+  v15 = *(v26 + 24);
+
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v25, 8);
+
+  return v15;
 }
 
 void __116__MCProfileConnection_Passcode__changePasscodeWithRecoveryPasscodeContext_newPasscodeContext_skipRecovery_outError___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -8253,20 +9270,18 @@ void __116__MCProfileConnection_Passcode__changePasscodeWithRecoveryPasscodeCont
     {
       v6 = v5;
       v7 = [v4 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Change passcode with recovery passcode context error. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Change passcode with recovery passcode context error. Error: %{public}@", &v8, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __116__MCProfileConnection_Passcode__changePasscodeWithRecoveryPasscodeContext_newPasscodeContext_skipRecovery_outError___block_invoke_11(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (v6)
   {
@@ -8275,17 +9290,15 @@ void __116__MCProfileConnection_Passcode__changePasscodeWithRecoveryPasscodeCont
     {
       v8 = v7;
       v9 = [v6 MCVerboseDescription];
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Change passcode with recovery passcode context error. Error: %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Change passcode with recovery passcode context error. Error: %{public}@", &v10, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)clearPasscodeWithEscrowKeybagData:(id)data secret:(id)secret outError:(id *)error
@@ -8336,7 +9349,7 @@ void __116__MCProfileConnection_Passcode__changePasscodeWithRecoveryPasscodeCont
 
 void __83__MCProfileConnection_Passcode__clearPasscodeWithEscrowKeybagData_secret_outError___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -8345,16 +9358,14 @@ void __83__MCProfileConnection_Passcode__clearPasscodeWithEscrowKeybagData_secre
     {
       v6 = v5;
       v7 = [v4 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Clear passcode error. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Clear passcode error. Error: %{public}@", &v8, 0xCu);
     }
 
     *(*(*(a1 + 32) + 8) + 24) = 0;
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)clearPasscodeWithEscrowKeybagData:(id)data secretContext:(id)context outError:(id *)error
@@ -8405,7 +9416,7 @@ void __83__MCProfileConnection_Passcode__clearPasscodeWithEscrowKeybagData_secre
 
 void __90__MCProfileConnection_Passcode__clearPasscodeWithEscrowKeybagData_secretContext_outError___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -8414,16 +9425,14 @@ void __90__MCProfileConnection_Passcode__clearPasscodeWithEscrowKeybagData_secre
     {
       v6 = v5;
       v7 = [v4 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Clear passcode with escrow keybag context error. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Clear passcode with escrow keybag context error. Error: %{public}@", &v8, 0xCu);
     }
 
     *(*(*(a1 + 32) + 8) + 24) = 0;
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)unlockDeviceWithPasscode:(id)passcode outError:(id *)error
@@ -8500,15 +9509,15 @@ void __90__MCProfileConnection_Passcode__clearPasscodeWithEscrowKeybagData_secre
 
 - (int)_getPasscodeComplianceWarningExpiryDate:(id)date lastLockDate:(id)lockDate outLocalizedTitle:(id *)title outLocalizedMessage:(id *)message
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   lockDateCopy = lockDate;
   [(MCProfileConnection *)self checkInIfNeeded];
   if (!+[MCRestrictionManager mayChangePasscode])
   {
-    v18 = 0;
-    v17 = 0;
     v19 = 0;
+    v18 = 0;
+    v20 = 0;
     if (!title)
     {
       goto LABEL_9;
@@ -8517,14 +9526,14 @@ void __90__MCProfileConnection_Passcode__clearPasscodeWithEscrowKeybagData_secre
     goto LABEL_8;
   }
 
-  [dateCopy timeIntervalSinceNow];
-  if (v12 >= 0.0)
+  timeIntervalSinceNow = [dateCopy timeIntervalSinceNow];
+  if (v13 >= 0.0)
   {
     titleCopy = title;
     messageCopy = message;
-    v78 = dateCopy;
+    v79 = dateCopy;
     v24 = MEMORY[0x1E695DF20];
-    v25 = MCNagUIMetaFilePath();
+    v25 = MCNagUIMetaFilePath(timeIntervalSinceNow);
     v26 = [v24 dictionaryWithContentsOfFile:v25];
 
     if ([v26 count])
@@ -8540,8 +9549,8 @@ void __90__MCProfileConnection_Passcode__clearPasscodeWithEscrowKeybagData_secre
         if (!v31 || (v32 = v31, v33 = [localeIdentifier isEqualToString:v30], v32, (v33 & 1) != 0))
         {
 
-          v18 = 0;
-          v38 = v26;
+          v19 = 0;
+          v39 = v26;
           goto LABEL_26;
         }
 
@@ -8555,23 +9564,23 @@ void __90__MCProfileConnection_Passcode__clearPasscodeWithEscrowKeybagData_secre
         if (v35)
         {
           *buf = 138543874;
-          v80 = v30;
-          v81 = 2114;
-          v82 = localeIdentifier;
-          v83 = 1024;
-          v84 = 1;
+          v81 = v30;
+          v82 = 2114;
+          v83 = localeIdentifier;
+          v84 = 1024;
+          v85 = 1;
           _os_log_impl(&dword_1A795B000, v34, OS_LOG_TYPE_DEFAULT, "Cached nag may be in an old locale (it's %{public}@, we're %{public}@), asking to regenerate it (%d more tries)", buf, 0x1Cu);
         }
 
         [(MCProfileConnection *)self recomputeUserComplianceWarningSynchronously];
 
         v36 = MEMORY[0x1E695DF20];
-        v37 = MCNagUIMetaFilePath();
-        v38 = [v36 dictionaryWithContentsOfFile:v37];
+        v38 = MCNagUIMetaFilePath(v37);
+        v39 = [v36 dictionaryWithContentsOfFile:v38];
 
         v27 = 1;
-        v26 = v38;
-        if (![v38 count])
+        v26 = v39;
+        if (![v39 count])
         {
           goto LABEL_22;
         }
@@ -8580,19 +9589,19 @@ void __90__MCProfileConnection_Passcode__clearPasscodeWithEscrowKeybagData_secre
       if (v35)
       {
         *buf = 138543618;
-        v80 = v30;
-        v81 = 2114;
-        v82 = localeIdentifier;
+        v81 = v30;
+        v82 = 2114;
+        v83 = localeIdentifier;
         _os_log_impl(&dword_1A795B000, v34, OS_LOG_TYPE_DEFAULT, "Cached nag may be in an old locale (it's %{public}@, we're %{public}@), continuing anyway", buf, 0x16u);
       }
 
-      v18 = 0;
-      v17 = 0;
       v19 = 0;
+      v18 = 0;
+      v20 = 0;
 LABEL_59:
 
       message = messageCopy;
-      dateCopy = v78;
+      dateCopy = v79;
       title = titleCopy;
       if (!titleCopy)
       {
@@ -8600,169 +9609,169 @@ LABEL_59:
       }
 
 LABEL_8:
-      v20 = v17;
-      *title = v17;
+      v21 = v18;
+      *title = v18;
       goto LABEL_9;
     }
 
-    v38 = v26;
+    v39 = v26;
 LABEL_22:
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v40 = MCBackupContainsPasscodeFilePath();
-    v41 = [defaultManager fileExistsAtPath:v40];
+    v41 = MCBackupContainsPasscodeFilePath(defaultManager);
+    v42 = [defaultManager fileExistsAtPath:v41];
 
-    if (!v41)
+    if (!v42)
     {
-      v18 = 0;
-      v17 = 0;
       v19 = 0;
-      v26 = v38;
+      v18 = 0;
+      v20 = 0;
+      v26 = v39;
       goto LABEL_59;
     }
 
     if ([(MCProfileConnection *)self isPasscodeSet])
     {
       [(MCProfileConnection *)self notifyUserHasSeenComplianceMessageWithLastLockDate:lockDateCopy];
-      v18 = 0;
-      v17 = 0;
       v19 = 0;
+      v18 = 0;
+      v20 = 0;
 LABEL_58:
-      v26 = v38;
+      v26 = v39;
       goto LABEL_59;
     }
 
-    v56 = qword_1ED4ADE28;
+    v57 = qword_1ED4ADE28;
     if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A795B000, v56, OS_LOG_TYPE_DEFAULT, "Advising user to set passcode since they've restored a backup", buf, 2u);
+      _os_log_impl(&dword_1A795B000, v57, OS_LOG_TYPE_DEFAULT, "Advising user to set passcode since they've restored a backup", buf, 2u);
     }
 
-    v17 = MCLocalizedString(@"NAG_UI_PASSCODE_REMINDER_TITLE");
-    v18 = MCLocalizedStringByDevice(@"NAG_UI_PASSCODE_REMINDER_MESSAGE");
-    if (!v17)
+    v18 = MCLocalizedString(@"NAG_UI_PASSCODE_REMINDER_TITLE");
+    v19 = MCLocalizedStringByDevice(@"NAG_UI_PASSCODE_REMINDER_MESSAGE");
+    if (!v18)
     {
 LABEL_26:
-      v17 = MCLocalizedFormat(@"NAG_UI_COMPLIANCE_TITLE", v42, v43, v44, v45, v46, v47, v48, 0);
+      v18 = MCLocalizedFormat(@"NAG_UI_COMPLIANCE_TITLE", v43, v44, v45, v46, v47, v48, v49, 0);
     }
 
-    v49 = [v38 objectForKeyedSubscript:@"mandatory"];
-    bOOLValue = [v49 BOOLValue];
+    v50 = [v39 objectForKeyedSubscript:@"mandatory"];
+    bOOLValue = [v50 BOOLValue];
 
     if (!bOOLValue)
     {
-      v55 = [v38 objectForKeyedSubscript:@"message"];
-      v52 = v55;
-      if (v55)
+      v56 = [v39 objectForKeyedSubscript:@"message"];
+      v53 = v56;
+      if (v56)
       {
-        v52 = v55;
+        v53 = v56;
 
-        v18 = v52;
+        v19 = v53;
       }
 
-      else if (!v18)
+      else if (!v19)
       {
-        v18 = MCLocalizedStringByDevice(@"NAG_UI_GENERIC_WARNING");
+        v19 = MCLocalizedStringByDevice(@"NAG_UI_GENERIC_WARNING");
       }
 
 LABEL_54:
 
-      v74 = [v38 objectForKeyedSubscript:@"lastLockDate"];
-      v75 = v74;
-      if (v74)
+      v75 = [v39 objectForKeyedSubscript:@"lastLockDate"];
+      v76 = v75;
+      if (v75)
       {
-        v19 = 2 * ([v74 compare:lockDateCopy] == -1);
+        v20 = 2 * ([v75 compare:lockDateCopy] == -1);
       }
 
       else
       {
-        v19 = 2;
+        v20 = 2;
       }
 
       goto LABEL_58;
     }
 
-    v51 = [v38 objectForKeyedSubscript:@"expiryDate"];
-    if (v51)
+    v52 = [v39 objectForKeyedSubscript:@"expiryDate"];
+    if (v52)
     {
-      v52 = v51;
-      [v51 timeIntervalSinceNow];
-      if (v53 <= 3600.0)
+      v53 = v52;
+      [v52 timeIntervalSinceNow];
+      if (v54 <= 3600.0)
       {
 LABEL_43:
-        [v52 timeIntervalSinceNow];
-        v60 = v59;
-        v61 = MCFormattedStringForTimeInterval(v59);
+        [v53 timeIntervalSinceNow];
+        v61 = v60;
+        v62 = MCFormattedStringForTimeInterval(v60);
         isPasscodeSet = [(MCProfileConnection *)self isPasscodeSet];
-        if (v60 <= 60.0)
+        if (v61 <= 60.0)
         {
           if (isPasscodeSet)
           {
-            v72 = @"NAG_UI_MANDATORY_MESSAGE";
+            v73 = @"NAG_UI_MANDATORY_MESSAGE";
           }
 
           else
           {
-            v72 = @"NAG_UI_MANDATORY_NOPASS_MESSAGE";
+            v73 = @"NAG_UI_MANDATORY_NOPASS_MESSAGE";
           }
 
-          v73 = MCLocalizedFormatByDevice(v72, v63, v64, v65, v66, v67, v68, v69, v61);
+          v74 = MCLocalizedFormatByDevice(v73, v64, v65, v66, v67, v68, v69, v70, v62);
 
-          v19 = 1;
-          v26 = v38;
-          v18 = v73;
+          v20 = 1;
+          v26 = v39;
+          v19 = v74;
           goto LABEL_59;
         }
 
         if (isPasscodeSet)
         {
-          v70 = @"NAG_UI_COUNTDOWN_MESSAGE_P_MINUTES";
+          v71 = @"NAG_UI_COUNTDOWN_MESSAGE_P_MINUTES";
         }
 
         else
         {
-          v70 = @"NAG_UI_COUNTDOWN_NOPASS_MESSAGE_P_MINUTES";
+          v71 = @"NAG_UI_COUNTDOWN_NOPASS_MESSAGE_P_MINUTES";
         }
 
-        v71 = MCLocalizedFormatByDevice(v70, v63, v64, v65, v66, v67, v68, v69, v61);
+        v72 = MCLocalizedFormatByDevice(v71, v64, v65, v66, v67, v68, v69, v70, v62);
 
-        v18 = v71;
+        v19 = v72;
         goto LABEL_54;
       }
 
-      v54 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:?];
+      v55 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:?];
 
-      v52 = v54;
+      v53 = v55;
     }
 
     else
     {
-      v52 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:3600.0];
+      v53 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:3600.0];
     }
 
     xpcConnection = [(MCProfileConnection *)self xpcConnection];
-    v58 = [xpcConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_33];
-    [v58 notifyStartComplianceTimer:v52 completion:&__block_literal_global_33];
+    v59 = [xpcConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_33];
+    [v59 notifyStartComplianceTimer:v53 completion:&__block_literal_global_33];
 
     goto LABEL_43;
   }
 
-  v13 = qword_1ED4ADE28;
+  v14 = qword_1ED4ADE28;
   if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = MEMORY[0x1E695DF00];
-    v15 = v13;
-    date = [v14 date];
+    v15 = MEMORY[0x1E695DF00];
+    v16 = v14;
+    date = [v15 date];
     *buf = 138543618;
-    v80 = dateCopy;
-    v81 = 2114;
-    v82 = date;
-    _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_DEFAULT, "Current passcode expired at %{public}@ and current date is %{public}@. Requiring mandatory passcode change.", buf, 0x16u);
+    v81 = dateCopy;
+    v82 = 2114;
+    v83 = date;
+    _os_log_impl(&dword_1A795B000, v16, OS_LOG_TYPE_DEFAULT, "Current passcode expired at %{public}@ and current date is %{public}@. Requiring mandatory passcode change.", buf, 0x16u);
   }
 
-  v17 = MCLocalizedString(@"NAG_UI_EXPIRY_TITLE");
-  v18 = MCLocalizedStringByDevice(@"NAG_UI_EXPIRY_MESSAGE");
-  v19 = 1;
+  v18 = MCLocalizedString(@"NAG_UI_EXPIRY_TITLE");
+  v19 = MCLocalizedStringByDevice(@"NAG_UI_EXPIRY_MESSAGE");
+  v20 = 1;
   if (title)
   {
     goto LABEL_8;
@@ -8771,17 +9780,16 @@ LABEL_43:
 LABEL_9:
   if (message)
   {
-    v21 = v18;
-    *message = v18;
+    v22 = v19;
+    *message = v19;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-  return v19;
+  return v20;
 }
 
 void __124__MCProfileConnection_Passcode___getPasscodeComplianceWarningExpiryDate_lastLockDate_outLocalizedTitle_outLocalizedMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -8790,13 +9798,11 @@ void __124__MCProfileConnection_Passcode___getPasscodeComplianceWarningExpiryDat
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Notify start compliance timer error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Notify start compliance timer error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (int)getPasscodeComplianceWarningLastLockDate:(id)date outLocalizedTitle:(id *)title outLocalizedMessage:(id *)message
@@ -8839,7 +9845,7 @@ void __124__MCProfileConnection_Passcode___getPasscodeComplianceWarningExpiryDat
 
 void __76__MCProfileConnection_Passcode__recomputeUserComplianceWarningSynchronously__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -8848,13 +9854,11 @@ void __76__MCProfileConnection_Passcode__recomputeUserComplianceWarningSynchrono
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Recompute user compliance warning error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Recompute user compliance warning error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recomputeUserComplianceWarning
@@ -8867,7 +9871,7 @@ void __76__MCProfileConnection_Passcode__recomputeUserComplianceWarningSynchrono
 
 void __63__MCProfileConnection_Passcode__recomputeUserComplianceWarning__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -8876,13 +9880,11 @@ void __63__MCProfileConnection_Passcode__recomputeUserComplianceWarning__block_i
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Recompute user compliance warning error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Recompute user compliance warning error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyClientsToRecomputeCompliance
@@ -8895,7 +9897,7 @@ void __63__MCProfileConnection_Passcode__recomputeUserComplianceWarning__block_i
 
 void __67__MCProfileConnection_Passcode__notifyClientsToRecomputeCompliance__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -8904,13 +9906,11 @@ void __67__MCProfileConnection_Passcode__notifyClientsToRecomputeCompliance__blo
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Notify clients to recompute compliance error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Notify clients to recompute compliance error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyUserHasSeenComplianceMessageWithLastLockDate:(id)date
@@ -8926,7 +9926,7 @@ void __67__MCProfileConnection_Passcode__notifyClientsToRecomputeCompliance__blo
 
 void __84__MCProfileConnection_Passcode__notifyUserHasSeenComplianceMessageWithLastLockDate___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -8935,13 +9935,11 @@ void __84__MCProfileConnection_Passcode__notifyUserHasSeenComplianceMessageWithL
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Notify user seen compliance error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Notify user seen compliance error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)passcodeCreationDate
@@ -9140,7 +10138,7 @@ void __84__MCProfileConnection_Passcode__notifyUserHasSeenComplianceMessageWithL
 
 void __52__MCProfileConnection_Misc__managedWiFiNetworkNames__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -9149,18 +10147,16 @@ void __52__MCProfileConnection_Misc__managedWiFiNetworkNames__block_invoke(uint6
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Managed WLAN names error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Managed WLAN names error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __52__MCProfileConnection_Misc__managedWiFiNetworkNames__block_invoke_1(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -9170,17 +10166,15 @@ void __52__MCProfileConnection_Misc__managedWiFiNetworkNames__block_invoke_1(uin
     {
       v8 = v7;
       v9 = [v6 MCVerboseDescription];
-      v13 = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Managed WLAN names error. Error: %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v9;
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Managed WLAN names error. Error: %{public}@", &v12, 0xCu);
     }
   }
 
   v10 = *(*(a1 + 32) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v5;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidateRestrictionCache
@@ -9203,7 +10197,7 @@ void __52__MCProfileConnection_Misc__managedWiFiNetworkNames__block_invoke_1(uin
 
 void __77__MCProfileConnection_Misc__recomputeProfileRestrictionsWithCompletionBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -9212,13 +10206,11 @@ void __77__MCProfileConnection_Misc__recomputeProfileRestrictionsWithCompletionB
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Remove Profile Restrictions remote object proxy error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Remove Profile Restrictions remote object proxy error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)shutDownWithCompletion:(id)completion
@@ -9273,7 +10265,7 @@ void __77__MCProfileConnection_Misc__recomputeProfileRestrictionsWithCompletionB
 
 void __52__MCProfileConnection_Misc__shutDownWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -9282,9 +10274,9 @@ void __52__MCProfileConnection_Misc__shutDownWithCompletion___block_invoke(uint6
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Shut down connection error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Shut down connection error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -9293,8 +10285,6 @@ void __52__MCProfileConnection_Misc__shutDownWithCompletion___block_invoke(uint6
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __52__MCProfileConnection_Misc__shutDownWithCompletion___block_invoke_5(uint64_t a1)
@@ -9322,7 +10312,7 @@ void __52__MCProfileConnection_Misc__shutDownWithCompletion___block_invoke_5(uin
 
 void __52__MCProfileConnection_Misc__shutDownWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -9330,7 +10320,7 @@ void __52__MCProfileConnection_Misc__shutDownWithCompletion___block_invoke_2(uin
     if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v16 = v3;
+      v15 = v3;
       _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Failed to shut down profiled with error: %{public}@", buf, 0xCu);
     }
 
@@ -9351,15 +10341,13 @@ void __52__MCProfileConnection_Misc__shutDownWithCompletion___block_invoke_2(uin
     v7 = *(a1 + 56);
     *&v8 = *(a1 + 40);
     *(&v8 + 1) = *(a1 + 32);
-    v11 = v8;
+    v10 = v8;
     *&v9 = *(a1 + 48);
     *(&v9 + 1) = v7;
-    v13 = v11;
-    v14 = v9;
+    v12 = v10;
+    v13 = v9;
     dispatch_async_and_wait(v6, block);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __52__MCProfileConnection_Misc__shutDownWithCompletion___block_invoke_8(void *a1)
@@ -9463,7 +10451,7 @@ void __52__MCProfileConnection_Misc__shutDownWithCompletion___block_invoke_9(uin
 
 void __65__MCProfileConnection_Misc__managedSystemConfigurationServiceIDs__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -9472,18 +10460,16 @@ void __65__MCProfileConnection_Misc__managedSystemConfigurationServiceIDs__block
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Managed system config service IDs error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Managed system config service IDs error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __65__MCProfileConnection_Misc__managedSystemConfigurationServiceIDs__block_invoke_18(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -9493,17 +10479,15 @@ void __65__MCProfileConnection_Misc__managedSystemConfigurationServiceIDs__block
     {
       v8 = v7;
       v9 = [v6 MCVerboseDescription];
-      v13 = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Managed system config service IDs error. Error: %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v9;
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Managed system config service IDs error. Error: %{public}@", &v12, 0xCu);
     }
   }
 
   v10 = *(*(a1 + 32) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v5;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)doNotBackupAppIDs
@@ -9514,9 +10498,36 @@ void __65__MCProfileConnection_Misc__managedSystemConfigurationServiceIDs__block
   return [v2 managedAppIDsWithFlags:4];
 }
 
+- (void)migrateWithContext:(int)context passcodeWasSetInBackup:(BOOL)backup completion:(id)completion
+{
+  backupCopy = backup;
+  v6 = *&context;
+  completionCopy = completion;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __82__MCProfileConnection_Misc__migrateWithContext_passcodeWasSetInBackup_completion___block_invoke;
+  v23[3] = &unk_1E77D2698;
+  v24 = completionCopy;
+  v9 = completionCopy;
+  v10 = MEMORY[0x1AC55F990](v23);
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 3221225472;
+  v17 = __82__MCProfileConnection_Misc__migrateWithContext_passcodeWasSetInBackup_completion___block_invoke_20;
+  v18 = &unk_1E77D2B48;
+  selfCopy = self;
+  v20 = v10;
+  v21 = v6;
+  v22 = backupCopy;
+  v11 = v10;
+  v12 = MEMORY[0x1AC55F990](&v15);
+  v13 = [(MCProfileConnection *)self xpcConnection:v15];
+  v14 = [v13 synchronousRemoteObjectProxyWithErrorHandler:v12];
+  [v14 migrateWithContext:v6 passcodeWasSetInBackup:backupCopy completion:v12];
+}
+
 void __82__MCProfileConnection_Misc__migrateWithContext_passcodeWasSetInBackup_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -9525,9 +10536,9 @@ void __82__MCProfileConnection_Misc__migrateWithContext_passcodeWasSetInBackup_c
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Migrate with context error. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Migrate with context error. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -9536,8 +10547,6 @@ void __82__MCProfileConnection_Misc__migrateWithContext_passcodeWasSetInBackup_c
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __82__MCProfileConnection_Misc__migrateWithContext_passcodeWasSetInBackup_completion___block_invoke_20(uint64_t a1, void *a2)
@@ -9572,9 +10581,31 @@ LABEL_7:
 LABEL_8:
 }
 
+- (void)migrateCleanupMigratorWithContext:(int)context completion:(id)completion
+{
+  v4 = *&context;
+  completionCopy = completion;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __74__MCProfileConnection_Misc__migrateCleanupMigratorWithContext_completion___block_invoke;
+  v14[3] = &unk_1E77D2698;
+  v7 = completionCopy;
+  v15 = v7;
+  v8 = MEMORY[0x1AC55F990](v14);
+  xpcConnection = [(MCProfileConnection *)self xpcConnection];
+  v10 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v8];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __74__MCProfileConnection_Misc__migrateCleanupMigratorWithContext_completion___block_invoke_21;
+  v12[3] = &unk_1E77D2698;
+  v13 = v7;
+  v11 = v7;
+  [v10 migrateCleanupMigratorWithContext:v4 completion:v12];
+}
+
 void __74__MCProfileConnection_Misc__migrateCleanupMigratorWithContext_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -9583,9 +10614,9 @@ void __74__MCProfileConnection_Misc__migrateCleanupMigratorWithContext_completio
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "MCCleanupMigrator: Error in handler: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "MCCleanupMigrator: Error in handler: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -9594,13 +10625,11 @@ void __74__MCProfileConnection_Misc__migrateCleanupMigratorWithContext_completio
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __74__MCProfileConnection_Misc__migrateCleanupMigratorWithContext_completion___block_invoke_21(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -9609,9 +10638,9 @@ void __74__MCProfileConnection_Misc__migrateCleanupMigratorWithContext_completio
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "MCCleanupMigrator: Error in completion: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "MCCleanupMigrator: Error in completion: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -9620,71 +10649,69 @@ void __74__MCProfileConnection_Misc__migrateCleanupMigratorWithContext_completio
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)associatedDomainsForManagedApps
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   [(MCProfileConnection *)self checkInIfNeeded];
   attributesByAppID = [MEMORY[0x1E69AD440] attributesByAppID];
   v3 = attributesByAppID;
   if (attributesByAppID)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    v4 = [attributesByAppID countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v4 = [attributesByAppID countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v4)
     {
       v5 = v4;
-      v22 = 0;
-      v6 = *v24;
-      v19 = @"BundleID";
-      v20 = v3;
+      v21 = 0;
+      v6 = *v23;
+      v18 = @"BundleID";
+      v19 = v3;
       do
       {
         v7 = 0;
-        v21 = v5;
+        v20 = v5;
         do
         {
-          if (*v24 != v6)
+          if (*v23 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v23 + 1) + 8 * v7);
-          v9 = [v3 objectForKeyedSubscript:{v8, v19}];
+          v8 = *(*(&v22 + 1) + 8 * v7);
+          v9 = [v3 objectForKeyedSubscript:{v8, v18}];
           v10 = [v9 objectForKeyedSubscript:@"AssociatedDomains"];
           v11 = [v9 objectForKeyedSubscript:@"AssociatedDomainsEnableDirectDownloads"];
           if (v10 | v11)
           {
             v12 = v6;
             v13 = objc_alloc_init(MEMORY[0x1E695DF90]);
-            [v13 setObject:v8 forKeyedSubscript:v19];
+            [v13 setObject:v8 forKeyedSubscript:v18];
             [v13 setObject:v10 forKeyedSubscript:@"AssociatedDomains"];
             [v13 setObject:v11 forKeyedSubscript:@"AssociatedDomainsEnableDirectDownloads"];
-            v14 = v22;
-            if (!v22)
+            v14 = v21;
+            if (!v21)
             {
               v14 = objc_alloc_init(MEMORY[0x1E695DF70]);
             }
 
-            v22 = v14;
+            v21 = v14;
             [v14 addObject:v13];
 
             v6 = v12;
-            v5 = v21;
-            v3 = v20;
+            v5 = v20;
+            v3 = v19;
           }
 
           ++v7;
         }
 
         while (v5 != v7);
-        v5 = [v3 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v5);
@@ -9692,11 +10719,11 @@ void __74__MCProfileConnection_Misc__migrateCleanupMigratorWithContext_completio
 
     else
     {
-      v22 = 0;
+      v21 = 0;
     }
 
-    v15 = v22;
-    v16 = [v22 copy];
+    v15 = v21;
+    v16 = [v21 copy];
   }
 
   else
@@ -9704,8 +10731,6 @@ void __74__MCProfileConnection_Misc__migrateCleanupMigratorWithContext_completio
     v15 = 0;
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -9751,7 +10776,7 @@ void __74__MCProfileConnection_Misc__migrateCleanupMigratorWithContext_completio
 
 void __80__MCProfileConnection_Misc__validateAppBundleIDs_waitUntilCompleted_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -9760,9 +10785,9 @@ void __80__MCProfileConnection_Misc__validateAppBundleIDs_waitUntilCompleted_com
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Validate app bundle IDs error. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Validate app bundle IDs error. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -9771,8 +10796,6 @@ void __80__MCProfileConnection_Misc__validateAppBundleIDs_waitUntilCompleted_com
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isWebContentFilteringInEffect
@@ -9970,9 +10993,21 @@ LABEL_6:
   return v3;
 }
 
+- (void)setAutoCorrectionAllowed:(BOOL)allowed
+{
+  allowedCopy = allowed;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  publicXPCConnection = [(MCProfileConnection *)self publicXPCConnection];
+  v6 = [publicXPCConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_32_1];
+  [v6 setAutoCorrectionAllowed:allowedCopy completion:&__block_literal_global_32_1];
+
+  v7 = +[MCRestrictionManager sharedManager];
+  [v7 invalidateSettings];
+}
+
 void __54__MCProfileConnection_Misc__setAutoCorrectionAllowed___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -9981,18 +11016,28 @@ void __54__MCProfileConnection_Misc__setAutoCorrectionAllowed___block_invoke(uin
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Set auto-correction allowed error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Set auto-correction allowed error. Error: %{public}@", &v6, 0xCu);
     }
   }
+}
 
-  v6 = *MEMORY[0x1E69E9840];
+- (void)setSmartPunctuationAllowed:(BOOL)allowed
+{
+  allowedCopy = allowed;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  publicXPCConnection = [(MCProfileConnection *)self publicXPCConnection];
+  v6 = [publicXPCConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_34];
+  [v6 setSmartPunctuationAllowed:allowedCopy completion:&__block_literal_global_34];
+
+  v7 = +[MCRestrictionManager sharedManager];
+  [v7 invalidateSettings];
 }
 
 void __56__MCProfileConnection_Misc__setSmartPunctuationAllowed___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -10001,18 +11046,28 @@ void __56__MCProfileConnection_Misc__setSmartPunctuationAllowed___block_invoke(u
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Set smart punctuation allowed error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Set smart punctuation allowed error. Error: %{public}@", &v6, 0xCu);
     }
   }
+}
 
-  v6 = *MEMORY[0x1E69E9840];
+- (void)setPredictiveKeyboardAllowed:(BOOL)allowed
+{
+  allowedCopy = allowed;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  publicXPCConnection = [(MCProfileConnection *)self publicXPCConnection];
+  v6 = [publicXPCConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_36];
+  [v6 setPredictiveKeyboardAllowed:allowedCopy completion:&__block_literal_global_36];
+
+  v7 = +[MCRestrictionManager sharedManager];
+  [v7 invalidateSettings];
 }
 
 void __58__MCProfileConnection_Misc__setPredictiveKeyboardAllowed___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -10021,18 +11076,28 @@ void __58__MCProfileConnection_Misc__setPredictiveKeyboardAllowed___block_invoke
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Set predictive keyboard allowed error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Set predictive keyboard allowed error. Error: %{public}@", &v6, 0xCu);
     }
   }
+}
 
-  v6 = *MEMORY[0x1E69E9840];
+- (void)setContinuousPathKeyboardAllowed:(BOOL)allowed
+{
+  allowedCopy = allowed;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  publicXPCConnection = [(MCProfileConnection *)self publicXPCConnection];
+  v6 = [publicXPCConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_38];
+  [v6 setContinuousPathKeyboardAllowed:allowedCopy completion:&__block_literal_global_38];
+
+  v7 = +[MCRestrictionManager sharedManager];
+  [v7 invalidateSettings];
 }
 
 void __62__MCProfileConnection_Misc__setContinuousPathKeyboardAllowed___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -10041,18 +11106,28 @@ void __62__MCProfileConnection_Misc__setContinuousPathKeyboardAllowed___block_in
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Set predictive keyboard allowed error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Set predictive keyboard allowed error. Error: %{public}@", &v6, 0xCu);
     }
   }
+}
 
-  v6 = *MEMORY[0x1E69E9840];
+- (void)setKeyboardShortcutsAllowed:(BOOL)allowed
+{
+  allowedCopy = allowed;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  publicXPCConnection = [(MCProfileConnection *)self publicXPCConnection];
+  v6 = [publicXPCConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_40];
+  [v6 setKeyboardShortcutsAllowed:allowedCopy completion:&__block_literal_global_40];
+
+  v7 = +[MCRestrictionManager sharedManager];
+  [v7 invalidateSettings];
 }
 
 void __57__MCProfileConnection_Misc__setKeyboardShortcutsAllowed___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -10061,18 +11136,28 @@ void __57__MCProfileConnection_Misc__setKeyboardShortcutsAllowed___block_invoke(
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Set keyboard shortcuts allowed error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Set keyboard shortcuts allowed error. Error: %{public}@", &v6, 0xCu);
     }
   }
+}
 
-  v6 = *MEMORY[0x1E69E9840];
+- (void)setSpellCheckAllowed:(BOOL)allowed
+{
+  allowedCopy = allowed;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  publicXPCConnection = [(MCProfileConnection *)self publicXPCConnection];
+  v6 = [publicXPCConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_42_0];
+  [v6 setSpellCheckAllowed:allowedCopy completion:&__block_literal_global_42_0];
+
+  v7 = +[MCRestrictionManager sharedManager];
+  [v7 invalidateSettings];
 }
 
 void __50__MCProfileConnection_Misc__setSpellCheckAllowed___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -10081,18 +11166,33 @@ void __50__MCProfileConnection_Misc__setSpellCheckAllowed___block_invoke(uint64_
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Set spell-check allowed error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Set spell-check allowed error. Error: %{public}@", &v6, 0xCu);
     }
   }
+}
 
-  v6 = *MEMORY[0x1E69E9840];
+- (void)setAutoCorrectionAllowed:(BOOL)allowed completion:(id)completion
+{
+  allowedCopy = allowed;
+  completionCopy = completion;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __65__MCProfileConnection_Misc__setAutoCorrectionAllowed_completion___block_invoke;
+  v11[3] = &unk_1E77D2698;
+  v12 = completionCopy;
+  v7 = completionCopy;
+  v8 = MEMORY[0x1AC55F990](v11);
+  publicXPCConnection = [(MCProfileConnection *)self publicXPCConnection];
+  v10 = [publicXPCConnection remoteObjectProxyWithErrorHandler:v8];
+  [v10 setAutoCorrectionAllowed:allowedCopy completion:v8];
 }
 
 void __65__MCProfileConnection_Misc__setAutoCorrectionAllowed_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -10101,9 +11201,9 @@ void __65__MCProfileConnection_Misc__setAutoCorrectionAllowed_completion___block
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Set auto-correction allowed error. Error: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Set auto-correction allowed error. Error: %{public}@", &v9, 0xCu);
     }
   }
 
@@ -10115,13 +11215,28 @@ void __65__MCProfileConnection_Misc__setAutoCorrectionAllowed_completion___block
   {
     (*(v8 + 16))(v8, v3);
   }
+}
 
-  v9 = *MEMORY[0x1E69E9840];
+- (void)setSmartPunctuationAllowed:(BOOL)allowed completion:(id)completion
+{
+  allowedCopy = allowed;
+  completionCopy = completion;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __67__MCProfileConnection_Misc__setSmartPunctuationAllowed_completion___block_invoke;
+  v11[3] = &unk_1E77D2698;
+  v12 = completionCopy;
+  v7 = completionCopy;
+  v8 = MEMORY[0x1AC55F990](v11);
+  publicXPCConnection = [(MCProfileConnection *)self publicXPCConnection];
+  v10 = [publicXPCConnection remoteObjectProxyWithErrorHandler:v8];
+  [v10 setSmartPunctuationAllowed:allowedCopy completion:v8];
 }
 
 void __67__MCProfileConnection_Misc__setSmartPunctuationAllowed_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -10130,9 +11245,9 @@ void __67__MCProfileConnection_Misc__setSmartPunctuationAllowed_completion___blo
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Set smart punctuation allowed error. Error: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Set smart punctuation allowed error. Error: %{public}@", &v9, 0xCu);
     }
   }
 
@@ -10144,13 +11259,28 @@ void __67__MCProfileConnection_Misc__setSmartPunctuationAllowed_completion___blo
   {
     (*(v8 + 16))(v8, v3);
   }
+}
 
-  v9 = *MEMORY[0x1E69E9840];
+- (void)setPredictiveKeyboardAllowed:(BOOL)allowed completion:(id)completion
+{
+  allowedCopy = allowed;
+  completionCopy = completion;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __69__MCProfileConnection_Misc__setPredictiveKeyboardAllowed_completion___block_invoke;
+  v11[3] = &unk_1E77D2698;
+  v12 = completionCopy;
+  v7 = completionCopy;
+  v8 = MEMORY[0x1AC55F990](v11);
+  publicXPCConnection = [(MCProfileConnection *)self publicXPCConnection];
+  v10 = [publicXPCConnection remoteObjectProxyWithErrorHandler:v8];
+  [v10 setPredictiveKeyboardAllowed:allowedCopy completion:v8];
 }
 
 void __69__MCProfileConnection_Misc__setPredictiveKeyboardAllowed_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -10159,9 +11289,9 @@ void __69__MCProfileConnection_Misc__setPredictiveKeyboardAllowed_completion___b
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Set predictive keyboard allowed error. Error: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Set predictive keyboard allowed error. Error: %{public}@", &v9, 0xCu);
     }
   }
 
@@ -10173,13 +11303,28 @@ void __69__MCProfileConnection_Misc__setPredictiveKeyboardAllowed_completion___b
   {
     (*(v8 + 16))(v8, v3);
   }
+}
 
-  v9 = *MEMORY[0x1E69E9840];
+- (void)setContinuousPathKeyboardAllowed:(BOOL)allowed completion:(id)completion
+{
+  allowedCopy = allowed;
+  completionCopy = completion;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __73__MCProfileConnection_Misc__setContinuousPathKeyboardAllowed_completion___block_invoke;
+  v11[3] = &unk_1E77D2698;
+  v12 = completionCopy;
+  v7 = completionCopy;
+  v8 = MEMORY[0x1AC55F990](v11);
+  publicXPCConnection = [(MCProfileConnection *)self publicXPCConnection];
+  v10 = [publicXPCConnection remoteObjectProxyWithErrorHandler:v8];
+  [v10 setContinuousPathKeyboardAllowed:allowedCopy completion:v8];
 }
 
 void __73__MCProfileConnection_Misc__setContinuousPathKeyboardAllowed_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -10188,9 +11333,9 @@ void __73__MCProfileConnection_Misc__setContinuousPathKeyboardAllowed_completion
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Set predictive keyboard allowed error. Error: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Set predictive keyboard allowed error. Error: %{public}@", &v9, 0xCu);
     }
   }
 
@@ -10202,13 +11347,28 @@ void __73__MCProfileConnection_Misc__setContinuousPathKeyboardAllowed_completion
   {
     (*(v8 + 16))(v8, v3);
   }
+}
 
-  v9 = *MEMORY[0x1E69E9840];
+- (void)setKeyboardShortcutsAllowed:(BOOL)allowed completion:(id)completion
+{
+  allowedCopy = allowed;
+  completionCopy = completion;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __68__MCProfileConnection_Misc__setKeyboardShortcutsAllowed_completion___block_invoke;
+  v11[3] = &unk_1E77D2698;
+  v12 = completionCopy;
+  v7 = completionCopy;
+  v8 = MEMORY[0x1AC55F990](v11);
+  publicXPCConnection = [(MCProfileConnection *)self publicXPCConnection];
+  v10 = [publicXPCConnection remoteObjectProxyWithErrorHandler:v8];
+  [v10 setKeyboardShortcutsAllowed:allowedCopy completion:v8];
 }
 
 void __68__MCProfileConnection_Misc__setKeyboardShortcutsAllowed_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -10217,9 +11377,9 @@ void __68__MCProfileConnection_Misc__setKeyboardShortcutsAllowed_completion___bl
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Set keyboard shortcuts allowed error. Error: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Set keyboard shortcuts allowed error. Error: %{public}@", &v9, 0xCu);
     }
   }
 
@@ -10231,13 +11391,28 @@ void __68__MCProfileConnection_Misc__setKeyboardShortcutsAllowed_completion___bl
   {
     (*(v8 + 16))(v8, v3);
   }
+}
 
-  v9 = *MEMORY[0x1E69E9840];
+- (void)setSpellCheckAllowed:(BOOL)allowed completion:(id)completion
+{
+  allowedCopy = allowed;
+  completionCopy = completion;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __61__MCProfileConnection_Misc__setSpellCheckAllowed_completion___block_invoke;
+  v11[3] = &unk_1E77D2698;
+  v12 = completionCopy;
+  v7 = completionCopy;
+  v8 = MEMORY[0x1AC55F990](v11);
+  publicXPCConnection = [(MCProfileConnection *)self publicXPCConnection];
+  v10 = [publicXPCConnection remoteObjectProxyWithErrorHandler:v8];
+  [v10 setSpellCheckAllowed:allowedCopy completion:v8];
 }
 
 void __61__MCProfileConnection_Misc__setSpellCheckAllowed_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -10246,9 +11421,9 @@ void __61__MCProfileConnection_Misc__setSpellCheckAllowed_completion___block_inv
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Set spell-check allowed error. Error: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Set spell-check allowed error. Error: %{public}@", &v9, 0xCu);
     }
   }
 
@@ -10260,8 +11435,6 @@ void __61__MCProfileConnection_Misc__setSpellCheckAllowed_completion___block_inv
   {
     (*(v8 + 16))(v8, v3);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)enforcedSoftwareUpdateDelayInDays
@@ -10418,92 +11591,90 @@ void __61__MCProfileConnection_Misc__setSpellCheckAllowed_completion___block_inv
 
 - (id)restrictionEnforcedNotificationSettings
 {
-  v37 = *MEMORY[0x1E69E9840];
-  [(MCProfileConnection *)self checkInIfNeeded];
-  v3 = MEMORY[0x1E695DEC8];
-  v4 = MCUserNotificationSettingsFilePath();
-  v5 = [v3 arrayWithContentsOfFile:v4];
+  v38 = *MEMORY[0x1E69E9840];
+  checkInIfNeeded = [(MCProfileConnection *)self checkInIfNeeded];
+  v4 = MEMORY[0x1E695DEC8];
+  v5 = MCUserNotificationSettingsFilePath(checkInIfNeeded);
+  v6 = [v4 arrayWithContentsOfFile:v5];
 
-  if (!v5)
+  if (!v6)
   {
-    v6 = MEMORY[0x1E695DEC8];
-    v7 = MCSystemNotificationSettingsFilePath();
-    v5 = [v6 arrayWithContentsOfFile:v7];
+    v8 = MEMORY[0x1E695DEC8];
+    v9 = MCSystemNotificationSettingsFilePath(v7);
+    v6 = [v8 arrayWithContentsOfFile:v9];
   }
 
   _notificationRestrictedApps = [(MCProfileConnection *)self _notificationRestrictedApps];
   if ([_notificationRestrictedApps count])
   {
-    v9 = [v5 mutableCopy];
-    v10 = v9;
-    v26 = v5;
-    if (v9)
+    v11 = [v6 mutableCopy];
+    v12 = v11;
+    v27 = v6;
+    if (v11)
     {
-      v11 = v9;
+      v13 = v11;
     }
 
     else
     {
-      v11 = objc_opt_new();
+      v13 = objc_opt_new();
     }
 
-    v12 = v11;
+    v14 = v13;
 
-    v13 = MEMORY[0x1E696AE18];
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __68__MCProfileConnection_Misc__restrictionEnforcedNotificationSettings__block_invoke;
-    v32[3] = &unk_1E77D2B80;
-    v25 = _notificationRestrictedApps;
-    v14 = _notificationRestrictedApps;
-    v33 = v14;
-    v15 = [v13 predicateWithBlock:v32];
-    [v12 filterUsingPredicate:v15];
+    v15 = MEMORY[0x1E696AE18];
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __68__MCProfileConnection_Misc__restrictionEnforcedNotificationSettings__block_invoke;
+    v33[3] = &unk_1E77D2B80;
+    v26 = _notificationRestrictedApps;
+    v16 = _notificationRestrictedApps;
+    v34 = v16;
+    v17 = [v15 predicateWithBlock:v33];
+    [v14 filterUsingPredicate:v17];
 
-    v30 = 0u;
     v31 = 0u;
-    v28 = 0u;
+    v32 = 0u;
     v29 = 0u;
-    obj = v14;
-    v16 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
-    if (v16)
+    v30 = 0u;
+    obj = v16;
+    v18 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+    if (v18)
     {
-      v17 = v16;
-      v18 = *v29;
-      v19 = MEMORY[0x1E695E110];
+      v19 = v18;
+      v20 = *v30;
+      v21 = MEMORY[0x1E695E110];
       do
       {
-        for (i = 0; i != v17; ++i)
+        for (i = 0; i != v19; ++i)
         {
-          if (*v29 != v18)
+          if (*v30 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v28 + 1) + 8 * i);
-          v34[0] = @"BundleIdentifier";
-          v34[1] = @"NotificationsEnabled";
-          v35[0] = v21;
-          v35[1] = v19;
-          v34[2] = @"CriticalAlertEnabled";
-          v35[2] = v19;
-          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:3];
-          [v12 addObject:v22];
+          v23 = *(*(&v29 + 1) + 8 * i);
+          v35[0] = @"BundleIdentifier";
+          v35[1] = @"NotificationsEnabled";
+          v36[0] = v23;
+          v36[1] = v21;
+          v35[2] = @"CriticalAlertEnabled";
+          v36[2] = v21;
+          v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:3];
+          [v14 addObject:v24];
         }
 
-        v17 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v19 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
-      while (v17);
+      while (v19);
     }
 
-    v5 = [v12 copy];
-    _notificationRestrictedApps = v25;
+    v6 = [v14 copy];
+    _notificationRestrictedApps = v26;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-
-  return v5;
+  return v6;
 }
 
 uint64_t __68__MCProfileConnection_Misc__restrictionEnforcedNotificationSettings__block_invoke(uint64_t a1, void *a2)
@@ -10517,29 +11688,29 @@ uint64_t __68__MCProfileConnection_Misc__restrictionEnforcedNotificationSettings
 
 - (id)_restrictionEnforcedNotificationSettingsForBundleID:(id)d settingsArray:(id)array
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dCopy = d;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   arrayCopy = array;
-  v7 = [arrayCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [arrayCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(arrayCopy);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
-        v12 = [v11 objectForKeyedSubscript:{@"BundleIdentifier", v17}];
+        v11 = *(*(&v16 + 1) + 8 * i);
+        v12 = [v11 objectForKeyedSubscript:{@"BundleIdentifier", v16}];
         v13 = [v12 isEqualToString:dCopy];
 
         if (v13)
@@ -10549,7 +11720,7 @@ uint64_t __68__MCProfileConnection_Misc__restrictionEnforcedNotificationSettings
         }
       }
 
-      v8 = [arrayCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [arrayCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
         continue;
@@ -10562,15 +11733,13 @@ uint64_t __68__MCProfileConnection_Misc__restrictionEnforcedNotificationSettings
   v14 = 0;
 LABEL_11:
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 - (id)_sharedDeviceConfiguration
 {
   v2 = MEMORY[0x1E695DF20];
-  v3 = MCSharedDeviceConfigurationFilePath();
+  v3 = MCSharedDeviceConfigurationFilePath(self);
   v4 = [v2 dictionaryWithContentsOfFile:v3];
 
   return v4;
@@ -10700,7 +11869,7 @@ LABEL_11:
 
 void __100__MCProfileConnection_Misc__defaultAppBundleIDForCommunicationServiceType_forAccountWithIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -10709,18 +11878,16 @@ void __100__MCProfileConnection_Misc__defaultAppBundleIDForCommunicationServiceT
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Default app bundle identifier for comm service type error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Default app bundle identifier for comm service type error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __100__MCProfileConnection_Misc__defaultAppBundleIDForCommunicationServiceType_forAccountWithIdentifier___block_invoke_62(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -10730,17 +11897,15 @@ void __100__MCProfileConnection_Misc__defaultAppBundleIDForCommunicationServiceT
     {
       v8 = v7;
       v9 = [v6 MCVerboseDescription];
-      v13 = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Default app bundle identifier for comm service type error. Error: %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v9;
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Default app bundle identifier for comm service type error. Error: %{public}@", &v12, 0xCu);
     }
   }
 
   v10 = *(*(a1 + 32) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v5;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isCloudSyncAllowed:(id)allowed
@@ -10770,18 +11935,16 @@ void __100__MCProfileConnection_Misc__defaultAppBundleIDForCommunicationServiceT
 
 - (id)activationLockBypassKey
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   [(MCProfileConnection *)self checkInIfNeeded];
   v3 = [(MCProfileConnection *)self fetchActivationLockBypassKeyWithError:0];
   v4 = qword_1ED4ADE28;
   if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = v3 != 0;
-    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEFAULT, "Requested activation lock bypass code, it exists: %d", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = v3 != 0;
+    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEFAULT, "Requested activation lock bypass code, it exists: %d", v6, 8u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -10795,25 +11958,52 @@ void __100__MCProfileConnection_Misc__defaultAppBundleIDForCommunicationServiceT
 
 - (id)activationLockBypassHash
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   [(MCProfileConnection *)self checkInIfNeeded];
   v2 = +[MCCrypto storedActivationLockBypassCodeHash];
   v3 = qword_1ED4ADE28;
   if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109120;
-    v6[1] = v2 != 0;
-    _os_log_impl(&dword_1A795B000, v3, OS_LOG_TYPE_DEFAULT, "Requested activation lock bypass code hash, it exists: %d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = v2 != 0;
+    _os_log_impl(&dword_1A795B000, v3, OS_LOG_TYPE_DEFAULT, "Requested activation lock bypass code hash, it exists: %d", v5, 8u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
+- (void)waitForMigrationIncludingPostRestoreMigration:(BOOL)migration waitUntilCompleted:(BOOL)completed completion:(id)completion
+{
+  completedCopy = completed;
+  migrationCopy = migration;
+  completionCopy = completion;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __105__MCProfileConnection_Misc__waitForMigrationIncludingPostRestoreMigration_waitUntilCompleted_completion___block_invoke;
+  v14[3] = &unk_1E77D2698;
+  v15 = completionCopy;
+  v9 = completionCopy;
+  v10 = MEMORY[0x1AC55F990](v14);
+  publicXPCConnection = [(MCProfileConnection *)self publicXPCConnection];
+  v12 = publicXPCConnection;
+  if (completedCopy)
+  {
+    [publicXPCConnection synchronousRemoteObjectProxyWithErrorHandler:v10];
+  }
+
+  else
+  {
+    [publicXPCConnection remoteObjectProxyWithErrorHandler:v10];
+  }
+  v13 = ;
+
+  [v13 waitForMigrationIncludingPostRestoreMigration:migrationCopy completion:v10];
+}
+
 void __105__MCProfileConnection_Misc__waitForMigrationIncludingPostRestoreMigration_waitUntilCompleted_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -10822,9 +12012,9 @@ void __105__MCProfileConnection_Misc__waitForMigrationIncludingPostRestoreMigrat
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Wait for migration including post restore error. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Wait for migration including post restore error. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -10833,8 +12023,6 @@ void __105__MCProfileConnection_Misc__waitForMigrationIncludingPostRestoreMigrat
   {
     (*(v7 + 16))();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setGracePeriod:(unint64_t)period passcode:(id)passcode completionBlock:(id)block
@@ -10861,6 +12049,33 @@ void __105__MCProfileConnection_Misc__waitForMigrationIncludingPostRestoreMigrat
   unsignedIntegerValue = [v3 unsignedIntegerValue];
 
   return unsignedIntegerValue;
+}
+
+- (void)setFingerprintUnlockAllowed:(BOOL)allowed passcode:(id)passcode completionBlock:(id)block
+{
+  allowedCopy = allowed;
+  blockCopy = block;
+  [(MCProfileConnection *)self setFingerprintUnlockAllowed:allowedCopy passcode:passcode];
+  v8 = blockCopy;
+  if (blockCopy)
+  {
+    (*(blockCopy + 2))(blockCopy, 0);
+    v8 = blockCopy;
+  }
+}
+
+- (void)setFingerprintUnlockAllowed:(BOOL)allowed credentialSet:(id)set completionBlock:(id)block
+{
+  allowedCopy = allowed;
+  blockCopy = block;
+  LOBYTE(v9) = 1;
+  [(MCProfileConnection *)self setBoolValue:allowedCopy ask:0 forSetting:@"allowFingerprintForUnlock" configurationUUID:0 toSystem:1 user:0 passcode:0 credentialSet:set waitUntilCompleted:v9 completion:0];
+  v8 = blockCopy;
+  if (blockCopy)
+  {
+    (*(blockCopy + 2))(blockCopy, 0);
+    v8 = blockCopy;
+  }
 }
 
 - (BOOL)shouldDestroyOldKeybag
@@ -10928,7 +12143,7 @@ void __105__MCProfileConnection_Misc__waitForMigrationIncludingPostRestoreMigrat
 
 void __86__MCProfileConnection_Misc__createMDMUnlockTokenIfNeededWithPasscode_completionBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -10937,9 +12152,9 @@ void __86__MCProfileConnection_Misc__createMDMUnlockTokenIfNeededWithPasscode_co
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Failed to create MDM unlock token. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Failed to create MDM unlock token. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -10948,8 +12163,6 @@ void __86__MCProfileConnection_Misc__createMDMUnlockTokenIfNeededWithPasscode_co
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createMDMUnlockTokenIfNeededWithPasscodeContext:(id)context completionBlock:(id)block
@@ -10971,7 +12184,7 @@ void __86__MCProfileConnection_Misc__createMDMUnlockTokenIfNeededWithPasscode_co
 
 void __93__MCProfileConnection_Misc__createMDMUnlockTokenIfNeededWithPasscodeContext_completionBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -10980,9 +12193,9 @@ void __93__MCProfileConnection_Misc__createMDMUnlockTokenIfNeededWithPasscodeCon
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Failed to create MDM unlock token with context. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Failed to create MDM unlock token with context. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -10991,8 +12204,6 @@ void __93__MCProfileConnection_Misc__createMDMUnlockTokenIfNeededWithPasscodeCon
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)allowedGameCenterPlayerTypes
@@ -11081,39 +12292,39 @@ void __93__MCProfileConnection_Misc__createMDMUnlockTokenIfNeededWithPasscodeCon
 
 - (BOOL)isAppleIntelligenceRestricted
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (isAppleIntelligenceRestricted_onceToken != -1)
   {
     [MCProfileConnection(Misc) isAppleIntelligenceRestricted];
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v3 = isAppleIntelligenceRestricted_BOOLeans;
-  v4 = [v3 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v20;
 LABEL_5:
     v7 = 0;
     while (1)
     {
-      if (*v21 != v6)
+      if (*v20 != v6)
       {
         objc_enumerationMutation(v3);
       }
 
-      if ([(MCProfileConnection *)self effectiveBoolValueForSetting:*(*(&v20 + 1) + 8 * v7)]== 2)
+      if ([(MCProfileConnection *)self effectiveBoolValueForSetting:*(*(&v19 + 1) + 8 * v7)]== 2)
       {
         goto LABEL_20;
       }
 
       if (v5 == ++v7)
       {
-        v5 = [v3 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v19 objects:v24 count:16];
         if (v5)
         {
           goto LABEL_5;
@@ -11124,26 +12335,26 @@ LABEL_5:
     }
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v3 = isAppleIntelligenceRestricted_intersections;
-  v8 = [v3 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v8 = [v3 countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
 LABEL_13:
     v11 = 0;
     while (1)
     {
-      if (*v17 != v10)
+      if (*v16 != v10)
       {
         objc_enumerationMutation(v3);
       }
 
-      v12 = [(MCProfileConnection *)self effectiveValuesForIntersectionSetting:*(*(&v16 + 1) + 8 * v11), v16];
+      v12 = [(MCProfileConnection *)self effectiveValuesForIntersectionSetting:*(*(&v15 + 1) + 8 * v11), v15];
 
       if (v12)
       {
@@ -11152,7 +12363,7 @@ LABEL_13:
 
       if (v9 == ++v11)
       {
-        v9 = [v3 countByEnumeratingWithState:&v16 objects:v24 count:16];
+        v9 = [v3 countByEnumeratingWithState:&v15 objects:v23 count:16];
         if (v9)
         {
           goto LABEL_13;
@@ -11171,41 +12382,47 @@ LABEL_19:
   v13 = 0;
 LABEL_21:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 void __58__MCProfileConnection_Misc__isAppleIntelligenceRestricted__block_invoke()
 {
-  v6[13] = *MEMORY[0x1E69E9840];
-  v6[0] = @"allowExternalIntelligenceIntegrations";
-  v6[1] = @"allowExternalIntelligenceIntegrationsSignIn";
-  v6[2] = @"allowPersonalizedHandwritingResults";
-  v6[3] = @"allowWritingTools";
-  v6[4] = @"allowGenmoji";
-  v6[5] = @"allowImagePlayground";
-  v6[6] = @"allowImageWand";
-  v6[7] = @"allowMailSummary";
-  v6[8] = @"allowVisualIntelligenceSummary";
-  v6[9] = @"allowMailSmartReplies";
-  v6[10] = @"allowSafariSummary";
-  v6[11] = @"allowNotesTranscription";
-  v6[12] = @"allowNotesTranscriptionSummary";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:13];
+  v5[13] = *MEMORY[0x1E69E9840];
+  v5[0] = @"allowExternalIntelligenceIntegrations";
+  v5[1] = @"allowExternalIntelligenceIntegrationsSignIn";
+  v5[2] = @"allowPersonalizedHandwritingResults";
+  v5[3] = @"allowWritingTools";
+  v5[4] = @"allowGenmoji";
+  v5[5] = @"allowImagePlayground";
+  v5[6] = @"allowImageWand";
+  v5[7] = @"allowMailSummary";
+  v5[8] = @"allowVisualIntelligenceSummary";
+  v5[9] = @"allowMailSmartReplies";
+  v5[10] = @"allowSafariSummary";
+  v5[11] = @"allowNotesTranscription";
+  v5[12] = @"allowNotesTranscriptionSummary";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:13];
   v1 = isAppleIntelligenceRestricted_BOOLeans;
   isAppleIntelligenceRestricted_BOOLeans = v0;
 
-  v5 = @"allowedExternalIntelligenceWorkspaceIDs";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v5 count:1];
+  v4 = @"allowedExternalIntelligenceWorkspaceIDs";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v4 count:1];
   v3 = isAppleIntelligenceRestricted_intersections;
   isAppleIntelligenceRestricted_intersections = v2;
+}
 
-  v4 = *MEMORY[0x1E69E9840];
+- (void)checkCarrierProfileForceInstallation:(BOOL)installation
+{
+  installationCopy = installation;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  publicXPCConnection = [(MCProfileConnection *)self publicXPCConnection];
+  v5 = [publicXPCConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_35];
+  [v5 checkCarrierProfileAndForceReinstallation:installationCopy completion:&__block_literal_global_35];
 }
 
 void __69__MCProfileConnection_Private__checkCarrierProfileForceInstallation___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -11214,13 +12431,11 @@ void __69__MCProfileConnection_Private__checkCarrierProfileForceInstallation___b
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Check carrier profile error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Check carrier profile error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyDeviceUnlocked
@@ -11233,7 +12448,7 @@ void __69__MCProfileConnection_Private__checkCarrierProfileForceInstallation___b
 
 void __52__MCProfileConnection_Private__notifyDeviceUnlocked__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -11242,13 +12457,11 @@ void __52__MCProfileConnection_Private__notifyDeviceUnlocked__block_invoke(uint6
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Notify device unlocked error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Notify device unlocked error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyDeviceUnlockedAndPasscodeRequired
@@ -11261,7 +12474,7 @@ void __52__MCProfileConnection_Private__notifyDeviceUnlocked__block_invoke(uint6
 
 void __71__MCProfileConnection_Private__notifyDeviceUnlockedAndPasscodeRequired__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -11270,13 +12483,11 @@ void __71__MCProfileConnection_Private__notifyDeviceUnlockedAndPasscodeRequired_
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Notify device unlocked and passcode required error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Notify device unlocked and passcode required error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeExpiredProfiles
@@ -11289,7 +12500,7 @@ void __71__MCProfileConnection_Private__notifyDeviceUnlockedAndPasscodeRequired_
 
 void __53__MCProfileConnection_Private__removeExpiredProfiles__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -11298,13 +12509,11 @@ void __53__MCProfileConnection_Private__removeExpiredProfiles__block_invoke(uint
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Remove expired profiles error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Remove expired profiles error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)rereadManagedAppAttributes
@@ -11317,7 +12526,7 @@ void __53__MCProfileConnection_Private__removeExpiredProfiles__block_invoke(uint
 
 void __58__MCProfileConnection_Private__rereadManagedAppAttributes__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -11326,13 +12535,11 @@ void __58__MCProfileConnection_Private__rereadManagedAppAttributes__block_invoke
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Reread managed app attributes error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Reread managed app attributes error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetPasscodeMetadataWithCompletion:(id)completion
@@ -11353,7 +12560,7 @@ void __58__MCProfileConnection_Private__rereadManagedAppAttributes__block_invoke
 
 void __68__MCProfileConnection_Private__resetPasscodeMetadataWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -11362,15 +12569,13 @@ void __68__MCProfileConnection_Private__resetPasscodeMetadataWithCompletion___bl
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Reset passcode metadata failed. Error: %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Reset passcode metadata failed. Error: %{public}@", &v7, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)doMCICDidUpdateStatus:(id)status completion:(id)completion
@@ -11394,6 +12599,50 @@ void __68__MCProfileConnection_Private__resetPasscodeMetadataWithCompletion___bl
   if (completionCopy)
   {
     completionCopy[2](completionCopy, 0);
+  }
+}
+
+- (void)doMCICDidRequestCurrentPasscodeNeedsExtractable:(BOOL)extractable withCompletion:(id)completion
+{
+  extractableCopy = extractable;
+  completionCopy = completion;
+  if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEBUG))
+  {
+    [MCProfileConnection(Private) doMCICDidRequestCurrentPasscodeNeedsExtractable:withCompletion:];
+  }
+
+  WeakRetained = objc_loadWeakRetained(&self->_interactionDelegate);
+  v8 = objc_opt_respondsToSelector();
+
+  if (v8)
+  {
+    v9 = MEMORY[0x1AC55F990](completionCopy);
+    passcodeReplyBlock = self->passcodeReplyBlock;
+    self->passcodeReplyBlock = v9;
+
+    v11 = objc_loadWeakRetained(&self->_interactionDelegate);
+    [v11 profileConnectionDidRequestCurrentPasscodeContext:self needsExtractablePasscode:extractableCopy];
+  }
+
+  else
+  {
+    v12 = objc_loadWeakRetained(&self->_interactionDelegate);
+    v13 = objc_opt_respondsToSelector();
+
+    if (v13)
+    {
+      v14 = MEMORY[0x1AC55F990](completionCopy);
+      v15 = self->passcodeReplyBlock;
+      self->passcodeReplyBlock = v14;
+
+      v16 = objc_loadWeakRetained(&self->_interactionDelegate);
+      [v16 profileConnectionDidRequestCurrentPasscode:self];
+    }
+
+    else if (completionCopy)
+    {
+      (*(completionCopy + 2))(completionCopy, 0, 0, 0, 0);
+    }
   }
 }
 
@@ -11454,7 +12703,7 @@ void __68__MCProfileConnection_Private__resetPasscodeMetadataWithCompletion___bl
 
 - (void)doMCICDidRequestUserInput:(id)input completion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   inputCopy = input;
   completionCopy = completion;
   if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_DEBUG))
@@ -11478,19 +12727,19 @@ void __68__MCProfileConnection_Private__resetPasscodeMetadataWithCompletion___bl
   else
   {
     v12 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(inputCopy, "count")}];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v13 = inputCopy;
-    v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v20;
+      v16 = *v19;
       while (1)
       {
-        if (*v20 != v16)
+        if (*v19 != v16)
         {
           objc_enumerationMutation(v13);
         }
@@ -11500,7 +12749,7 @@ void __68__MCProfileConnection_Private__resetPasscodeMetadataWithCompletion___bl
 
         if (!--v15)
         {
-          v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
           if (!v15)
           {
             break;
@@ -11514,8 +12763,6 @@ void __68__MCProfileConnection_Private__resetPasscodeMetadataWithCompletion___bl
       (*(completionCopy + 2))(completionCopy, v12, 0, 0, 0);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)doMCICDidRequestMAIDSignIn:(id)in personaID:(id)d completion:(id)completion
@@ -11652,11 +12899,11 @@ LABEL_6:
 
 - (id)fetchActivationLockBypassKeyWithError:(id *)error
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   [(MCProfileConnection *)self checkInIfNeeded];
-  v12 = 0;
-  v4 = [MCCrypto storedActivationLockBypassCodeWithOutError:&v12];
-  v5 = v12;
+  v11 = 0;
+  v4 = [MCCrypto storedActivationLockBypassCodeWithOutError:&v11];
+  v5 = v11;
   if (v5)
   {
     v6 = qword_1ED4ADE28;
@@ -11665,7 +12912,7 @@ LABEL_6:
       v7 = v6;
       mCVerboseDescription = [v5 MCVerboseDescription];
       *buf = 138543362;
-      v14 = mCVerboseDescription;
+      v13 = mCVerboseDescription;
       _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_ERROR, "Activation lock bypass key fetch error. Error: %{public}@", buf, 0xCu);
     }
 
@@ -11676,14 +12923,12 @@ LABEL_6:
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (id)_localizedSourceDescriptionForType:(int64_t)type MDMName:(id)name exchangeName:(id)exchangeName exchangeCount:(int64_t)count profileName:(id)profileName profileCount:(int64_t)profileCount
 {
-  v135 = *MEMORY[0x1E69E9840];
+  v134 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   exchangeNameCopy = exchangeName;
   profileNameCopy = profileName;
@@ -11742,8 +12987,8 @@ LABEL_21:
   {
     [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_RESTRICTED_BY_MDM_NAME_AND_MULTIPLE_PROFILES", v17];
     v23 = LABEL_29:;
-    v34 = [MEMORY[0x1E696AD98] numberWithInteger:profileCount];
-    MCLocalizedFormat(v23, v35, v36, v37, v38, v39, v40, v41, nameCopy);
+    v33 = [MEMORY[0x1E696AD98] numberWithInteger:profileCount];
+    MCLocalizedFormat(v23, v34, v35, v36, v37, v38, v39, v40, nameCopy);
     v31 = LABEL_30:;
 
     goto LABEL_21;
@@ -11751,16 +12996,16 @@ LABEL_21:
 
   if (nameCopy)
   {
-    v42 = count == 1;
+    v41 = count == 1;
   }
 
   else
   {
-    v42 = 0;
+    v41 = 0;
   }
 
-  v43 = v42;
-  if (v42 && profileCount <= 0)
+  v42 = v41;
+  if (v41 && profileCount <= 0)
   {
     [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_RESTRICTED_BY_MDM_NAME_AND_ONE_EXCHANGE", v17];
     goto LABEL_19;
@@ -11768,39 +13013,39 @@ LABEL_21:
 
   if (nameCopy)
   {
-    v44 = count <= 1;
+    v43 = count <= 1;
   }
 
   else
   {
-    v44 = 1;
+    v43 = 1;
   }
 
-  v45 = !v44;
-  if (v45 == 1 && profileCount <= 0)
+  v44 = !v43;
+  if (v44 == 1 && profileCount <= 0)
   {
     [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_RESTRICTED_BY_MDM_NAME_AND_MULTIPLE_EXCHANGES", v17];
-    v46 = LABEL_50:;
-    v47 = [MEMORY[0x1E696AD98] numberWithInteger:count];
-    MCLocalizedFormat(v46, v48, v49, v50, v51, v52, v53, v54, nameCopy);
+    v45 = LABEL_50:;
+    v46 = [MEMORY[0x1E696AD98] numberWithInteger:count];
+    MCLocalizedFormat(v45, v47, v48, v49, v50, v51, v52, v53, nameCopy);
     v31 = LABEL_51:;
 LABEL_52:
 
     goto LABEL_22;
   }
 
-  v55 = v43 ^ 1;
+  v54 = v42 ^ 1;
   if (profileCount == 1)
   {
-    v56 = v55;
+    v55 = v54;
   }
 
   else
   {
-    v56 = 1;
+    v55 = 1;
   }
 
-  if ((v56 & 1) == 0)
+  if ((v55 & 1) == 0)
   {
     [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_RESTRICTED_BY_MDM_NAME_ONE_EXCHANGE_AND_ONE_PROFILE", v17];
     goto LABEL_19;
@@ -11808,27 +13053,27 @@ LABEL_52:
 
   if (profileCount < 2)
   {
-    v55 = 1;
+    v54 = 1;
   }
 
-  if ((v55 & 1) == 0)
+  if ((v54 & 1) == 0)
   {
     [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_RESTRICTED_BY_MDM_NAME_ONE_EXCHANGE_AND_MULTIPLE_PROFILES", v17];
     goto LABEL_29;
   }
 
-  v57 = v45 ^ 1;
+  v56 = v44 ^ 1;
   if (profileCount == 1)
   {
-    v58 = v57;
+    v57 = v56;
   }
 
   else
   {
-    v58 = 1;
+    v57 = 1;
   }
 
-  if ((v58 & 1) == 0)
+  if ((v57 & 1) == 0)
   {
     [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_RESTRICTED_BY_MDM_NAME_MULTIPLE_EXCHANGES_AND_ONE_PROFILE", v17];
     goto LABEL_50;
@@ -11836,15 +13081,15 @@ LABEL_52:
 
   if (profileCount < 2)
   {
-    v57 = 1;
+    v56 = 1;
   }
 
-  if ((v57 & 1) == 0)
+  if ((v56 & 1) == 0)
   {
-    v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_RESTRICTED_BY_MDM_NAME_MULTIPLE_EXCHANGES_AND_MULTIPLE_PROFILES", v17];
-    v47 = [MEMORY[0x1E696AD98] numberWithInteger:count];
-    v59 = [MEMORY[0x1E696AD98] numberWithInteger:profileCount];
-    MCLocalizedFormat(v46, v60, v61, v62, v63, v64, v65, v66, nameCopy);
+    v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_RESTRICTED_BY_MDM_NAME_MULTIPLE_EXCHANGES_AND_MULTIPLE_PROFILES", v17];
+    v46 = [MEMORY[0x1E696AD98] numberWithInteger:count];
+    v58 = [MEMORY[0x1E696AD98] numberWithInteger:profileCount];
+    MCLocalizedFormat(v45, v59, v60, v61, v62, v63, v64, v65, nameCopy);
     v31 = LABEL_71:;
 
     goto LABEL_52;
@@ -11852,20 +13097,20 @@ LABEL_52:
 
   if (exchangeNameCopy)
   {
-    v67 = count == 1;
+    v66 = count == 1;
   }
 
   else
   {
-    v67 = 0;
+    v66 = 0;
   }
 
-  v68 = v67;
-  if (v67 && profileCount <= 0)
+  v67 = v66;
+  if (v66 && profileCount <= 0)
   {
     [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_RESTRICTED_BY_EXCHANGE_NAME", v17];
     v23 = LABEL_86:;
-    MCLocalizedFormat(v23, v69, v70, v71, v72, v73, v74, v75, exchangeNameCopy);
+    MCLocalizedFormat(v23, v68, v69, v70, v71, v72, v73, v74, exchangeNameCopy);
     goto LABEL_20;
   }
 
@@ -11877,24 +13122,24 @@ LABEL_52:
 
   if (exchangeNameCopy && count >= 3 && profileCount <= 0)
   {
-    v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_RESTRICTED_BY_EXCHANGE_NAME_AND_MULTIPLE_OTHERS", v17];
-    v47 = [MEMORY[0x1E696AD98] numberWithInteger:count - 1];
-    MCLocalizedFormat(v46, v76, v77, v78, v79, v80, v81, v82, exchangeNameCopy);
+    v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_RESTRICTED_BY_EXCHANGE_NAME_AND_MULTIPLE_OTHERS", v17];
+    v46 = [MEMORY[0x1E696AD98] numberWithInteger:count - 1];
+    MCLocalizedFormat(v45, v75, v76, v77, v78, v79, v80, v81, exchangeNameCopy);
     goto LABEL_51;
   }
 
-  v83 = v68 ^ 1;
+  v82 = v67 ^ 1;
   if (profileCount == 1)
   {
-    v84 = v83;
+    v83 = v82;
   }
 
   else
   {
-    v84 = 1;
+    v83 = 1;
   }
 
-  if ((v84 & 1) == 0)
+  if ((v83 & 1) == 0)
   {
     [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_RESTRICTED_BY_EXCHANGE_NAME_AND_ONE_PROFILE", v17];
     goto LABEL_86;
@@ -11902,31 +13147,31 @@ LABEL_52:
 
   if (profileCount < 2)
   {
-    v83 = 1;
+    v82 = 1;
   }
 
-  if ((v83 & 1) == 0)
+  if ((v82 & 1) == 0)
   {
     v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_RESTRICTED_BY_EXCHANGE_NAME_AND_MULTIPLE_PROFILES", v17];
-    v34 = [MEMORY[0x1E696AD98] numberWithInteger:profileCount];
-    MCLocalizedFormat(v23, v85, v86, v87, v88, v89, v90, v91, exchangeNameCopy);
+    v33 = [MEMORY[0x1E696AD98] numberWithInteger:profileCount];
+    MCLocalizedFormat(v23, v84, v85, v86, v87, v88, v89, v90, exchangeNameCopy);
     goto LABEL_30;
   }
 
   if (count >= 2 && profileCount == 1)
   {
-    v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_RESTRICTED_BY_MULTIPLE_EXCHANGES_AND_ONE_PROFILE", v17];
-    v47 = [MEMORY[0x1E696AD98] numberWithInteger:count];
-    MCLocalizedFormat(v46, v92, v93, v94, v95, v96, v97, v98, v47);
+    v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_RESTRICTED_BY_MULTIPLE_EXCHANGES_AND_ONE_PROFILE", v17];
+    v46 = [MEMORY[0x1E696AD98] numberWithInteger:count];
+    MCLocalizedFormat(v45, v91, v92, v93, v94, v95, v96, v97, v46);
     goto LABEL_51;
   }
 
   if (count >= 2 && profileCount >= 2)
   {
-    v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_RESTRICTED_BY_MULTIPLE_EXCHANGES_AND_MULTIPLE_PROFILES", v17];
-    v47 = [MEMORY[0x1E696AD98] numberWithInteger:count];
-    v59 = [MEMORY[0x1E696AD98] numberWithInteger:profileCount];
-    MCLocalizedFormat(v46, v99, v100, v101, v102, v103, v104, v105, v47);
+    v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_RESTRICTED_BY_MULTIPLE_EXCHANGES_AND_MULTIPLE_PROFILES", v17];
+    v46 = [MEMORY[0x1E696AD98] numberWithInteger:count];
+    v58 = [MEMORY[0x1E696AD98] numberWithInteger:profileCount];
+    MCLocalizedFormat(v45, v98, v99, v100, v101, v102, v103, v104, v46);
     goto LABEL_71;
   }
 
@@ -11934,7 +13179,7 @@ LABEL_52:
   {
     [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_RESTRICTED_BY_PROFILE_NAME", v17];
     v23 = LABEL_112:;
-    MCLocalizedFormat(v23, v106, v107, v108, v109, v110, v111, v112, v16);
+    MCLocalizedFormat(v23, v105, v106, v107, v108, v109, v110, v111, v16);
     goto LABEL_20;
   }
 
@@ -11947,35 +13192,33 @@ LABEL_52:
   if (profileNameCopy && profileCount >= 3)
   {
     v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_RESTRICTED_BY_PROFILE_NAME_AND_MULTIPLE_OTHERS", v17];
-    v34 = [MEMORY[0x1E696AD98] numberWithInteger:profileCount - 1];
-    MCLocalizedFormat(v23, v113, v114, v115, v116, v117, v118, v119, v16);
+    v33 = [MEMORY[0x1E696AD98] numberWithInteger:profileCount - 1];
+    MCLocalizedFormat(v23, v112, v113, v114, v115, v116, v117, v118, v16);
     goto LABEL_30;
   }
 
-  v120 = qword_1ED4ADE28;
+  v119 = qword_1ED4ADE28;
   if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
   {
-    v121 = MEMORY[0x1E696AD98];
-    v122 = v120;
-    v123 = [v121 numberWithInteger:count];
-    v124 = [MEMORY[0x1E696AD98] numberWithInteger:profileCount];
+    v120 = MEMORY[0x1E696AD98];
+    v121 = v119;
+    v122 = [v120 numberWithInteger:count];
+    v123 = [MEMORY[0x1E696AD98] numberWithInteger:profileCount];
     *buf = 138544386;
-    v126 = nameCopy;
-    v127 = 2114;
-    v128 = exchangeNameCopy;
-    v129 = 2114;
-    v130 = v123;
-    v131 = 2114;
-    v132 = v16;
-    v133 = 2114;
-    v134 = v124;
-    _os_log_impl(&dword_1A795B000, v122, OS_LOG_TYPE_ERROR, "Couldn't craft proper restriction info string for (%{public}@, %{public}@, %{public}@, %{public}@, %{public}@)", buf, 0x34u);
+    v125 = nameCopy;
+    v126 = 2114;
+    v127 = exchangeNameCopy;
+    v128 = 2114;
+    v129 = v122;
+    v130 = 2114;
+    v131 = v16;
+    v132 = 2114;
+    v133 = v123;
+    _os_log_impl(&dword_1A795B000, v121, OS_LOG_TYPE_ERROR, "Couldn't craft proper restriction info string for (%{public}@, %{public}@, %{public}@, %{public}@, %{public}@)", buf, 0x34u);
   }
 
   v31 = 0;
 LABEL_22:
-
-  v32 = *MEMORY[0x1E69E9840];
 
   return v31;
 }
@@ -12166,7 +13409,7 @@ LABEL_12:
 
 - (BOOL)checkApplicationIdentifierEntitlement
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = SecTaskCreateFromSelf(*MEMORY[0x1E695E480]);
   if (v2)
   {
@@ -12182,7 +13425,7 @@ LABEL_12:
         if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v16 = error;
+          v15 = error;
           v7 = "Failed to retrieve application-identifier entitlement with error: %{public}@";
           v8 = v6;
           v9 = OS_LOG_TYPE_ERROR;
@@ -12205,7 +13448,7 @@ LABEL_11:
 
     CFRelease(v3);
 
-    goto LABEL_13;
+    return v5;
   }
 
   v11 = qword_1ED4ADE28;
@@ -12215,48 +13458,76 @@ LABEL_11:
     _os_log_impl(&dword_1A795B000, v11, OS_LOG_TYPE_ERROR, "Failed to construct SecTask for client application-identifier entitlement check", buf, 2u);
   }
 
-  v5 = 0;
-LABEL_13:
-  v12 = *MEMORY[0x1E69E9840];
-  return v5;
+  return 0;
+}
+
+- (void)updateCloudConfigWithSupervision:(BOOL)supervision replaceExistingConfig:(BOOL)config completion:(id)completion
+{
+  supervisionCopy = supervision;
+  completionCopy = completion;
+  mEMORY[0x1E69AD420] = [MEMORY[0x1E69AD420] sharedConfiguration];
+  details = [mEMORY[0x1E69AD420] details];
+  v11 = [details mutableCopy];
+
+  if (config || !v11)
+  {
+    dictionary = [MEMORY[0x1E695DF90] dictionary];
+
+    [dictionary setObject:&unk_1F1AA5818 forKeyedSubscript:*MEMORY[0x1E6999718]];
+    [dictionary setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E69996F8]];
+    [dictionary setObject:MEMORY[0x1E695E110] forKeyedSubscript:*MEMORY[0x1E69997A0]];
+    v11 = dictionary;
+  }
+
+  v13 = [MEMORY[0x1E696AD98] numberWithBool:supervisionCopy];
+  [v11 setObject:v13 forKeyedSubscript:*MEMORY[0x1E6999740]];
+
+  [v11 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E6999708]];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __98__MCProfileConnection_Private__updateCloudConfigWithSupervision_replaceExistingConfig_completion___block_invoke;
+  v15[3] = &unk_1E77D2698;
+  v16 = completionCopy;
+  v14 = completionCopy;
+  [(MCProfileConnection *)self storeCloudConfigurationDetails:v11 completion:v15];
 }
 
 - (void)setUserBookmarks:(id)bookmarks
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   bookmarksCopy = bookmarks;
   [(MCProfileConnection *)self checkInIfNeeded];
   if (bookmarksCopy)
   {
     v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(bookmarksCopy, "count")}];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v6 = bookmarksCopy;
-    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         v10 = 0;
         do
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          serializableDictionary = [*(*(&v15 + 1) + 8 * v10) serializableDictionary];
+          serializableDictionary = [*(*(&v14 + 1) + 8 * v10) serializableDictionary];
           [v5 addObject:serializableDictionary];
 
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -12271,13 +13542,11 @@ LABEL_13:
   xpcConnection = [(MCProfileConnection *)self xpcConnection];
   v13 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_38];
   [v13 setUserBookmarks:v5 completion:&__block_literal_global_38];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __57__MCProfileConnection_SafariBookmarks__setUserBookmarks___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -12286,13 +13555,11 @@ void __57__MCProfileConnection_SafariBookmarks__setUserBookmarks___block_invoke(
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Set user bookmarks error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Set user bookmarks error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)userBookmarks
@@ -12306,7 +13573,7 @@ void __57__MCProfileConnection_SafariBookmarks__setUserBookmarks___block_invoke(
 
 - (id)defaultUserBookmarks
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   [(MCProfileConnection *)self checkInIfNeeded];
   v2 = MCSystemRootDirectory();
   v3 = [v2 stringByAppendingPathComponent:@"/System/Library/PrivateFrameworks/WebContentAnalysis.framework"];
@@ -12325,32 +13592,32 @@ LABEL_5:
     v13 = [v12 objectForKeyedSubscript:@"siteWhitelist"];
     if ([v13 count])
     {
-      v30 = v12;
-      v31 = v9;
-      v32 = currentLocale;
-      v33 = v4;
+      v29 = v12;
+      v30 = v9;
+      v31 = currentLocale;
+      v32 = v4;
       v14 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v13, "count")}];
+      v34 = 0u;
       v35 = 0u;
       v36 = 0u;
       v37 = 0u;
-      v38 = 0u;
-      v29 = v13;
+      v28 = v13;
       obj = v13;
-      v15 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v15 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v36;
+        v17 = *v35;
         do
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v36 != v17)
+            if (*v35 != v17)
             {
               objc_enumerationMutation(obj);
             }
 
-            v19 = *(*(&v35 + 1) + 8 * i);
+            v19 = *(*(&v34 + 1) + 8 * i);
             v20 = objc_alloc_init(MCBookmark);
             v21 = MEMORY[0x1E695DFF8];
             v22 = [v19 objectForKeyedSubscript:@"address"];
@@ -12366,17 +13633,17 @@ LABEL_5:
             [v14 addObject:v20];
           }
 
-          v16 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+          v16 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
         }
 
         while (v16);
       }
 
-      v4 = v33;
-      currentLocale = v32;
-      v12 = v30;
-      v9 = v31;
-      v13 = v29;
+      v4 = v32;
+      currentLocale = v31;
+      v12 = v29;
+      v9 = v30;
+      v13 = v28;
     }
 
     else
@@ -12397,18 +13664,16 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v28 = qword_1ED4ADE28;
+  v27 = qword_1ED4ADE28;
   if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_1A795B000, v28, OS_LOG_TYPE_ERROR, "Could not find English default bookmarks file", buf, 2u);
+    _os_log_impl(&dword_1A795B000, v27, OS_LOG_TYPE_ERROR, "Could not find English default bookmarks file", buf, 2u);
   }
 
   v14 = 0;
   v7 = v10;
 LABEL_16:
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -12424,7 +13689,7 @@ LABEL_16:
 
 void __83__MCProfileConnection_SafariBookmarks__setWebContentFilterAutoPermittedURLStrings___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -12433,13 +13698,11 @@ void __83__MCProfileConnection_SafariBookmarks__setWebContentFilterAutoPermitted
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Set webcontentfilter autopermitted URLs error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Set webcontentfilter autopermitted URLs error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setWebContentFilterUserBlacklistedURLStrings:(id)strings
@@ -12451,7 +13714,7 @@ void __83__MCProfileConnection_SafariBookmarks__setWebContentFilterAutoPermitted
 
 - (int)hostMayPairWithOptions:(id)options challenge:(id)challenge
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   challengeCopy = challenge;
   [(MCProfileConnection *)self checkInIfNeeded];
@@ -12586,72 +13849,72 @@ LABEL_33:
   }
 
   v21 = BasicX509;
-  v40 = 0;
+  v39 = 0;
   *buf = 0;
-  v38 = v19;
+  v37 = v19;
   if (SecCMSVerifyCopyDataAndAttributes())
   {
     v22 = qword_1ED4ADE28;
     if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
     {
-      *v39 = 0;
-      _os_log_impl(&dword_1A795B000, v22, OS_LOG_TYPE_ERROR, "Could not extract the signing certificate from the response.", v39, 2u);
+      *v38 = 0;
+      _os_log_impl(&dword_1A795B000, v22, OS_LOG_TYPE_ERROR, "Could not extract the signing certificate from the response.", v38, 2u);
     }
 
     CFRelease(v21);
-    v19 = v38;
+    v19 = v37;
     goto LABEL_33;
   }
 
-  v37 = v40;
+  v36 = v39;
   if (![challengeCopy isEqualToData:?])
   {
-    v32 = qword_1ED4ADE28;
+    v31 = qword_1ED4ADE28;
     if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
     {
-      *v39 = 0;
-      v33 = "Response data does not match challenge.";
+      *v38 = 0;
+      v32 = "Response data does not match challenge.";
 LABEL_53:
-      _os_log_impl(&dword_1A795B000, v32, OS_LOG_TYPE_ERROR, v33, v39, 2u);
+      _os_log_impl(&dword_1A795B000, v31, OS_LOG_TYPE_ERROR, v32, v38, 2u);
     }
 
 LABEL_54:
-    v36 = 0;
+    v35 = 0;
     v18 = 0;
     goto LABEL_55;
   }
 
   if (!*buf || SecTrustGetCertificateCount(*buf) < 1)
   {
-    v32 = qword_1ED4ADE28;
+    v31 = qword_1ED4ADE28;
     if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
     {
-      *v39 = 0;
-      v33 = "Could not determine challenge signer.";
+      *v38 = 0;
+      v32 = "Could not determine challenge signer.";
       goto LABEL_53;
     }
 
     goto LABEL_54;
   }
 
-  v28 = [MCCrypto copyLeafCertificateFromTrust:*buf];
-  v34 = SecCertificateCopyData(v28);
-  if (v28)
+  v27 = [MCCrypto copyLeafCertificateFromTrust:*buf];
+  v33 = SecCertificateCopyData(v27);
+  if (v27)
   {
-    CFRelease(v28);
+    CFRelease(v27);
   }
 
-  v29 = [v11 containsObject:{v34, v34}];
-  v30 = qword_1ED4ADE28;
-  v36 = v29;
-  if (v29)
+  v28 = [v11 containsObject:{v33, v33}];
+  v29 = qword_1ED4ADE28;
+  v35 = v28;
+  if (v28)
   {
     if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_INFO))
     {
-      *v39 = 0;
-      v31 = v30;
+      *v38 = 0;
+      v30 = v29;
       v18 = 2;
-      _os_log_impl(&dword_1A795B000, v31, OS_LOG_TYPE_INFO, "Pairing approved without prompting.", v39, 2u);
+      _os_log_impl(&dword_1A795B000, v30, OS_LOG_TYPE_INFO, "Pairing approved without prompting.", v38, 2u);
     }
 
     else
@@ -12664,8 +13927,8 @@ LABEL_54:
   {
     if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
     {
-      *v39 = 0;
-      _os_log_impl(&dword_1A795B000, v30, OS_LOG_TYPE_ERROR, "The signing certificate is not among the list of approved certificates.", v39, 2u);
+      *v38 = 0;
+      _os_log_impl(&dword_1A795B000, v29, OS_LOG_TYPE_ERROR, "The signing certificate is not among the list of approved certificates.", v38, 2u);
     }
 
     v18 = 0;
@@ -12678,20 +13941,19 @@ LABEL_55:
   }
 
   CFRelease(v21);
-  if ((v36 & 1) == 0)
+  if ((v35 & 1) == 0)
   {
     goto LABEL_34;
   }
 
 LABEL_40:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (void)lockdownDidReceiveActivationRecord:(id)record
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   [(MCProfileConnection *)self checkInIfNeeded];
   objc_opt_class();
@@ -12701,9 +13963,9 @@ LABEL_40:
   {
     if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_INFO))
     {
-      v10 = 138543362;
-      v11 = recordCopy;
-      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_INFO, "Received activation record: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = recordCopy;
+      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_INFO, "Received activation record: %{public}@", &v9, 0xCu);
     }
 
     xpcConnection = [(MCProfileConnection *)self xpcConnection];
@@ -12713,16 +13975,14 @@ LABEL_40:
 
   else if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Activation record configuration is not a dictionary. Ignoring.", &v10, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Activation record configuration is not a dictionary. Ignoring.", &v9, 2u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __68__MCProfileConnection_Lockdown__lockdownDidReceiveActivationRecord___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -12731,31 +13991,30 @@ void __68__MCProfileConnection_Lockdown__lockdownDidReceiveActivationRecord___bl
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Lockdown did receive activation record error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Lockdown did receive activation record error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isHomeScreenLayoutApplied
 {
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v3 = MCUserHomeScreenLayoutFilePath();
-  if ([defaultManager fileExistsAtPath:v3])
+  v4 = [defaultManager fileExistsAtPath:v3];
+  if (v4)
   {
-    v4 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v5 = MCSystemHomeScreenLayoutFilePath();
-    v4 = [defaultManager fileExistsAtPath:v5];
+    v6 = MCSystemHomeScreenLayoutFilePath(v4);
+    v5 = [defaultManager fileExistsAtPath:v6];
   }
 
-  return v4;
+  return v5;
 }
 
 - (id)removedSystemAppBundleIDs
@@ -12987,7 +14246,7 @@ void __68__MCProfileConnection_Lockdown__lockdownDidReceiveActivationRecord___bl
 
 void __67__MCProfileConnection_MDM__storeCertificateData_forHostIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -12996,18 +14255,38 @@ void __67__MCProfileConnection_MDM__storeCertificateData_forHostIdentifier___blo
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Store certificate data error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Store certificate data error. Error: %{public}@", &v6, 0xCu);
     }
   }
+}
 
-  v6 = *MEMORY[0x1E69E9840];
+- (void)stageMDMEnrollmentInfoForPairingWatchWithProfileData:(id)data orServiceURL:(id)l anchorCertificates:(id)certificates supervised:(BOOL)supervised declarationKeys:(id)keys declarationConfiguration:(id)configuration completion:(id)completion
+{
+  supervisedCopy = supervised;
+  completionCopy = completion;
+  configurationCopy = configuration;
+  keysCopy = keys;
+  certificatesCopy = certificates;
+  lCopy = l;
+  dataCopy = data;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v26 = MEMORY[0x1E69E9820];
+  v27 = 3221225472;
+  v28 = __176__MCProfileConnection_MDM__stageMDMEnrollmentInfoForPairingWatchWithProfileData_orServiceURL_anchorCertificates_supervised_declarationKeys_declarationConfiguration_completion___block_invoke;
+  v29 = &unk_1E77D2698;
+  v30 = completionCopy;
+  v22 = completionCopy;
+  v23 = MEMORY[0x1AC55F990](&v26);
+  xpcConnection = [(MCProfileConnection *)self xpcConnection];
+  v25 = [xpcConnection remoteObjectProxyWithErrorHandler:v23];
+  [v25 stageMDMEnrollmentInfoForPairingWatchWithProfileData:dataCopy orServiceURL:lCopy anchorCertificates:certificatesCopy supervised:supervisedCopy declarationKeys:keysCopy declarationConfiguration:configurationCopy completion:{v22, v26, v27, v28, v29}];
 }
 
 void __176__MCProfileConnection_MDM__stageMDMEnrollmentInfoForPairingWatchWithProfileData_orServiceURL_anchorCertificates_supervised_declarationKeys_declarationConfiguration_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -13016,15 +14295,13 @@ void __176__MCProfileConnection_MDM__stageMDMEnrollmentInfoForPairingWatchWithPr
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "XPC error staging enrollment data: %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "XPC error staging enrollment data: %{public}@", &v7, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unstageMDMEnrollmentInfoForPairingWatchWithCompletion:(id)completion
@@ -13045,7 +14322,7 @@ void __176__MCProfileConnection_MDM__stageMDMEnrollmentInfoForPairingWatchWithPr
 
 void __82__MCProfileConnection_MDM__unstageMDMEnrollmentInfoForPairingWatchWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -13054,15 +14331,13 @@ void __82__MCProfileConnection_MDM__unstageMDMEnrollmentInfoForPairingWatchWithC
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "XPC error unstaging enrollment data: %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "XPC error unstaging enrollment data: %{public}@", &v7, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchStagedMDMEnrollmentDataForPairingWatchWithCompletion:(id)completion
@@ -13083,7 +14358,7 @@ void __82__MCProfileConnection_MDM__unstageMDMEnrollmentInfoForPairingWatchWithC
 
 void __86__MCProfileConnection_MDM__fetchStagedMDMEnrollmentDataForPairingWatchWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -13092,15 +14367,13 @@ void __86__MCProfileConnection_MDM__fetchStagedMDMEnrollmentDataForPairingWatchW
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "XPC error fetching staged enrollment data: %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "XPC error fetching staged enrollment data: %{public}@", &v7, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchStagedMDMEnrollmentDataForPairingWatchWithPairingToken:(id)token completion:(id)completion
@@ -13122,7 +14395,7 @@ void __86__MCProfileConnection_MDM__fetchStagedMDMEnrollmentDataForPairingWatchW
 
 void __99__MCProfileConnection_MDM__fetchStagedMDMEnrollmentDataForPairingWatchWithPairingToken_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -13131,15 +14404,13 @@ void __99__MCProfileConnection_MDM__fetchStagedMDMEnrollmentDataForPairingWatchW
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "XPC error fetching staged enrollment data: %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "XPC error fetching staged enrollment data: %{public}@", &v7, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchStagedMDMEnrollmentDeclarationKeysForPairingWatchWithCompletion:(id)completion
@@ -13160,7 +14431,7 @@ void __99__MCProfileConnection_MDM__fetchStagedMDMEnrollmentDataForPairingWatchW
 
 void __97__MCProfileConnection_MDM__fetchStagedMDMEnrollmentDeclarationKeysForPairingWatchWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -13169,15 +14440,13 @@ void __97__MCProfileConnection_MDM__fetchStagedMDMEnrollmentDeclarationKeysForPa
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "XPC error fetching staged declaration keys: %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "XPC error fetching staged declaration keys: %{public}@", &v7, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)applyPairingWatchMDMEnrollmentData:(id)data completion:(id)completion
@@ -13199,7 +14468,7 @@ void __97__MCProfileConnection_MDM__fetchStagedMDMEnrollmentDeclarationKeysForPa
 
 void __74__MCProfileConnection_MDM__applyPairingWatchMDMEnrollmentData_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -13208,15 +14477,13 @@ void __74__MCProfileConnection_MDM__applyPairingWatchMDMEnrollmentData_completio
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "XPC error applying enrollment data: %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "XPC error applying enrollment data: %{public}@", &v7, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateMDMEnrollmentInfoForPairingWatch:(id)watch completion:(id)completion
@@ -13245,7 +14512,7 @@ void __74__MCProfileConnection_MDM__applyPairingWatchMDMEnrollmentData_completio
 
 void __78__MCProfileConnection_MDM__updateMDMEnrollmentInfoForPairingWatch_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -13254,15 +14521,13 @@ void __78__MCProfileConnection_MDM__updateMDMEnrollmentInfoForPairingWatch_compl
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "XPC error updating enrollment data for pairing watch: %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "XPC error updating enrollment data for pairing watch: %{public}@", &v7, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_checkRemoteProcessHasMDMEntitlement
@@ -13560,7 +14825,7 @@ LABEL_7:
 
 void __76__MCProfileConnection_CloudConfiguration__getMachineInfoWithAdditionalInfo___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -13569,18 +14834,16 @@ void __76__MCProfileConnection_CloudConfiguration__getMachineInfoWithAdditionalI
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Failed to communicate with profiled. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Failed to communicate with profiled. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __76__MCProfileConnection_CloudConfiguration__getMachineInfoWithAdditionalInfo___block_invoke_13(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -13590,17 +14853,15 @@ void __76__MCProfileConnection_CloudConfiguration__getMachineInfoWithAdditionalI
     {
       v8 = v7;
       v9 = [v6 MCVerboseDescription];
-      v13 = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Cloud config machine info error. Error: %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v9;
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Cloud config machine info error. Error: %{public}@", &v12, 0xCu);
     }
   }
 
   v10 = *(*(a1 + 32) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v5;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getReducedMachineInfo
@@ -13628,7 +14889,7 @@ void __76__MCProfileConnection_CloudConfiguration__getMachineInfoWithAdditionalI
 
 void __64__MCProfileConnection_CloudConfiguration__getReducedMachineInfo__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -13637,18 +14898,16 @@ void __64__MCProfileConnection_CloudConfiguration__getReducedMachineInfo__block_
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "User enrollment machine info error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "User enrollment machine info error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __64__MCProfileConnection_CloudConfiguration__getReducedMachineInfo__block_invoke_17(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -13658,17 +14917,15 @@ void __64__MCProfileConnection_CloudConfiguration__getReducedMachineInfo__block_
     {
       v8 = v7;
       v9 = [v6 MCVerboseDescription];
-      v13 = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "User enrollment machine info error. Error: %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v9;
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "User enrollment machine info error. Error: %{public}@", &v12, 0xCu);
     }
   }
 
   v10 = *(*(a1 + 32) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v5;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)retrieveCloudConfigurationFromURL:(id)l username:(id)username password:(id)password anchorCertificates:(id)certificates additionalMachineInfo:(id)info completionBlock:(id)block
@@ -13749,15 +15006,15 @@ void __152__MCProfileConnection_CloudConfiguration__retrieveCloudConfigurationFr
 
 void __152__MCProfileConnection_CloudConfiguration__retrieveCloudConfigurationFromURL_username_password_anchorCertificates_additionalMachineInfo_completionBlock___block_invoke_3(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   if (!v9)
   {
-    v25 = 0;
-    v16 = [MCProfile profileWithData:v7 fileName:0 outError:&v25];
-    v17 = v25;
+    v24 = 0;
+    v16 = [MCProfile profileWithData:v7 fileName:0 outError:&v24];
+    v17 = v24;
     if (v17)
     {
       v18 = v17;
@@ -13766,12 +15023,12 @@ void __152__MCProfileConnection_CloudConfiguration__retrieveCloudConfigurationFr
 
     else
     {
-      v26 = @"isCloudProfile";
-      v27[0] = MEMORY[0x1E695E118];
-      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
-      v24 = 0;
-      v21 = [v16 mayInstallWithOptions:v20 hasInteractionClient:0 outError:&v24];
-      v18 = v24;
+      v25 = @"isCloudProfile";
+      v26[0] = MEMORY[0x1E695E118];
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+      v23 = 0;
+      v21 = [v16 mayInstallWithOptions:v20 hasInteractionClient:0 outError:&v23];
+      v18 = v23;
 
       v19 = *(a1 + 32);
       if (v21)
@@ -13825,8 +15082,6 @@ LABEL_6:
   }
 
 LABEL_17:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)wasCloudConfigurationApplied
@@ -13927,7 +15182,7 @@ LABEL_17:
 
 void __105__MCProfileConnection_CloudConfiguration__restoreCloudConfigAndMDMProfileFromSetAsideDataWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -13936,13 +15191,27 @@ void __105__MCProfileConnection_CloudConfiguration__restoreCloudConfigAndMDMProf
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Failed to restore set aside cloud config and MDM profile. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Failed to restore set aside cloud config and MDM profile. Error: %{public}@", &v6, 0xCu);
     }
   }
+}
 
-  v6 = *MEMORY[0x1E69E9840];
+- (void)cloudConfigurationUIDidCompleteWasApplied:(BOOL)applied completionHandler:(id)handler
+{
+  appliedCopy = applied;
+  handlerCopy = handler;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  mEMORY[0x1E69AD420] = [MEMORY[0x1E69AD420] sharedConfiguration];
+  details = [mEMORY[0x1E69AD420] details];
+  v10 = [details mutableCopy];
+
+  [v10 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E6999708]];
+  v9 = [MEMORY[0x1E696AD98] numberWithBool:appliedCopy];
+  [v10 setObject:v9 forKeyedSubscript:*MEMORY[0x1E6999710]];
+
+  [(MCProfileConnection *)self storeCloudConfigurationDetails:v10 waitUntilCompleted:1 completion:handlerCopy];
 }
 
 - (void)storeCloudConfigurationDetails:(id)details waitUntilCompleted:(BOOL)completed completion:(id)completion
@@ -13976,7 +15245,7 @@ void __105__MCProfileConnection_CloudConfiguration__restoreCloudConfigAndMDMProf
 
 void __104__MCProfileConnection_CloudConfiguration__storeCloudConfigurationDetails_waitUntilCompleted_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -13988,9 +15257,9 @@ void __104__MCProfileConnection_CloudConfiguration__storeCloudConfigurationDetai
 
     v5 = v4;
     v6 = [v3 MCVerboseDescription];
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Store cloud config details error. Error: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Store cloud config details error. Error: %{public}@", &v8, 0xCu);
   }
 
   else
@@ -14005,8 +15274,6 @@ LABEL_6:
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)storePendingCloudConfigurationDetailsForMigration:(id)migration completionHandler:(id)handler
@@ -14029,7 +15296,7 @@ LABEL_6:
 
 void __111__MCProfileConnection_CloudConfiguration__storePendingCloudConfigurationDetailsForMigration_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -14038,9 +15305,9 @@ void __111__MCProfileConnection_CloudConfiguration__storePendingCloudConfigurati
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Store cloud config details error. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Store cloud config details error. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -14049,8 +15316,6 @@ void __111__MCProfileConnection_CloudConfiguration__storePendingCloudConfigurati
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeSetAsideCloudConfigurationProfileWithCompletion:(id)completion
@@ -14072,7 +15337,7 @@ void __111__MCProfileConnection_CloudConfiguration__storePendingCloudConfigurati
 
 void __97__MCProfileConnection_CloudConfiguration__removeSetAsideCloudConfigurationProfileWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -14081,9 +15346,9 @@ void __97__MCProfileConnection_CloudConfiguration__removeSetAsideCloudConfigurat
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "XPC connection failed when removing set aside cloud config profile. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "XPC connection failed when removing set aside cloud config profile. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -14092,8 +15357,6 @@ void __97__MCProfileConnection_CloudConfiguration__removeSetAsideCloudConfigurat
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)activationRecordIndicatesCloudConfigurationIsAvailableAndKeyExists:(BOOL *)exists
@@ -14348,7 +15611,7 @@ LABEL_16:
 
 void __75__MCProfileConnection_CloudConfiguration__storedProfileDataWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -14358,7 +15621,7 @@ void __75__MCProfileConnection_CloudConfiguration__storedProfileDataWithCompleti
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
       *buf = 138543362;
-      v14 = v6;
+      v13 = v6;
       _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Profile data stored for purpose error. Error: %{public}@", buf, 0xCu);
     }
   }
@@ -14367,21 +15630,19 @@ void __75__MCProfileConnection_CloudConfiguration__storedProfileDataWithCompleti
   if (v7)
   {
     v8 = dispatch_get_global_queue(0, 0);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __75__MCProfileConnection_CloudConfiguration__storedProfileDataWithCompletion___block_invoke_48;
-    v10[3] = &unk_1E77D2A58;
-    v12 = v7;
-    v11 = v3;
-    dispatch_async(v8, v10);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __75__MCProfileConnection_CloudConfiguration__storedProfileDataWithCompletion___block_invoke_48;
+    v9[3] = &unk_1E77D2A58;
+    v11 = v7;
+    v10 = v3;
+    dispatch_async(v8, v9);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __75__MCProfileConnection_CloudConfiguration__storedProfileDataWithCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -14392,7 +15653,7 @@ void __75__MCProfileConnection_CloudConfiguration__storedProfileDataWithCompleti
       v8 = v7;
       v9 = [v6 MCVerboseDescription];
       *buf = 138543362;
-      v18 = v9;
+      v17 = v9;
       _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Profile data stored for purpose error. Error: %{public}@", buf, 0xCu);
     }
   }
@@ -14405,13 +15666,11 @@ void __75__MCProfileConnection_CloudConfiguration__storedProfileDataWithCompleti
     block[1] = 3221225472;
     block[2] = __75__MCProfileConnection_CloudConfiguration__storedProfileDataWithCompletion___block_invoke_49;
     block[3] = &unk_1E77D33C8;
-    v16 = v10;
-    v14 = v5;
-    v15 = v6;
+    v15 = v10;
+    v13 = v5;
+    v14 = v6;
     dispatch_async(v11, block);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)installStoredProfileDataWithExtraOptions:(id)options completion:(id)completion
@@ -14470,7 +15729,7 @@ void __95__MCProfileConnection_CloudConfiguration__installStoredProfileDataWithE
 
 void __95__MCProfileConnection_CloudConfiguration__installStoredProfileDataWithExtraOptions_completion___block_invoke_2(uint64_t a1)
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) cloudConfigurationDetails];
   v3 = [v2 objectForKeyedSubscript:*MEMORY[0x1E6999730]];
   v4 = [v3 BOOLValue];
@@ -14479,13 +15738,13 @@ void __95__MCProfileConnection_CloudConfiguration__installStoredProfileDataWithE
   v6 = [v5 objectForKeyedSubscript:*MEMORY[0x1E6999718]];
   v7 = [v6 intValue] == 1;
 
-  v19[0] = @"isCloudLocked";
+  v18[0] = @"isCloudLocked";
   v8 = [MEMORY[0x1E696AD98] numberWithBool:v4];
-  v20[0] = v8;
-  v19[1] = @"isCloudProfile";
+  v19[0] = v8;
+  v18[1] = @"isCloudProfile";
   v9 = [MEMORY[0x1E696AD98] numberWithBool:v7];
-  v20[1] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v19[1] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
   v11 = [v10 mutableCopy];
 
   if (*(a1 + 40))
@@ -14495,9 +15754,9 @@ void __95__MCProfileConnection_CloudConfiguration__installStoredProfileDataWithE
 
   v12 = *(a1 + 32);
   v13 = *(a1 + 48);
-  v18 = 0;
-  v14 = [v12 installProfileData:v13 options:v11 outError:&v18];
-  v15 = v18;
+  v17 = 0;
+  v14 = [v12 installProfileData:v13 options:v11 outError:&v17];
+  v15 = v17;
   if (!v15)
   {
     [*(a1 + 32) markStoredProfileAsInstalled];
@@ -14508,8 +15767,6 @@ void __95__MCProfileConnection_CloudConfiguration__installStoredProfileDataWithE
   {
     (*(v16 + 16))(v16, v15);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)storeProfileData:(id)data completion:(id)completion
@@ -14526,7 +15783,7 @@ void __95__MCProfileConnection_CloudConfiguration__installStoredProfileDataWithE
 {
   [(MCProfileConnection *)self checkInIfNeeded];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v3 = MCPostSetupAutoInstallProfilePathNF();
+  v3 = MCPostSetupAutoInstallProfilePathNF(defaultManager);
   v4 = [defaultManager fileExistsAtPath:v3];
 
   if (v4)
@@ -14560,7 +15817,7 @@ void __95__MCProfileConnection_CloudConfiguration__installStoredProfileDataWithE
 
 void __71__MCProfileConnection_CloudConfiguration__markStoredProfileAsInstalled__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -14569,13 +15826,11 @@ void __71__MCProfileConnection_CloudConfiguration__markStoredProfileAsInstalled_
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Mark stored profile for purpose as installed error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Mark stored profile for purpose as installed error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setupAssistantDidFinishWithCompletion:(id)completion
@@ -14649,7 +15904,7 @@ LABEL_9:
 
 void __81__MCProfileConnection_CloudConfiguration__setupAssistantDidFinishWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (*(a1 + 48) == 1)
   {
@@ -14663,9 +15918,9 @@ void __81__MCProfileConnection_CloudConfiguration__setupAssistantDidFinishWithCo
     v4 = qword_1ED4ADE28;
     if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138543362;
-      v8 = v3;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Could not tell profiled that Setup Assistant has completed. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v3;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Could not tell profiled that Setup Assistant has completed. Error: %{public}@", &v6, 0xCu);
     }
   }
 
@@ -14674,44 +15929,38 @@ void __81__MCProfileConnection_CloudConfiguration__setupAssistantDidFinishWithCo
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __81__MCProfileConnection_CloudConfiguration__setupAssistantDidFinishWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = qword_1ED4ADE28;
     if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138543362;
-      v6 = v2;
-      _os_log_impl(&dword_1A795B000, v3, OS_LOG_TYPE_ERROR, "Failed to remove set aside cloud config profile with error: %{public}@", &v5, 0xCu);
+      v4 = 138543362;
+      v5 = v2;
+      _os_log_impl(&dword_1A795B000, v3, OS_LOG_TYPE_ERROR, "Failed to remove set aside cloud config profile with error: %{public}@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __81__MCProfileConnection_CloudConfiguration__setupAssistantDidFinishWithCompletion___block_invoke_61(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = qword_1ED4ADE28;
     if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138543362;
-      v6 = v2;
-      _os_log_impl(&dword_1A795B000, v3, OS_LOG_TYPE_ERROR, "Failed to remove auto install set aside profile with error: %{public}@", &v5, 0xCu);
+      v4 = 138543362;
+      v5 = v2;
+      _os_log_impl(&dword_1A795B000, v3, OS_LOG_TYPE_ERROR, "Failed to remove auto install set aside profile with error: %{public}@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __81__MCProfileConnection_CloudConfiguration__setupAssistantDidFinishWithCompletion___block_invoke_64(uint64_t a1)
@@ -14901,7 +16150,7 @@ void __81__MCProfileConnection_CloudConfiguration__setupAssistantDidFinishWithCo
 
 void __74__MCProfileConnection_CloudConfiguration__managingOrganizationInformation__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -14910,18 +16159,16 @@ void __74__MCProfileConnection_CloudConfiguration__managingOrganizationInformati
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Failed to fetch organization info. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Failed to fetch organization info. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __74__MCProfileConnection_CloudConfiguration__managingOrganizationInformation__block_invoke_68(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -14931,65 +16178,62 @@ void __74__MCProfileConnection_CloudConfiguration__managingOrganizationInformati
     {
       v8 = v7;
       v9 = [v6 MCVerboseDescription];
-      v13 = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Failed to fetch organization info. Error: %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v9;
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Failed to fetch organization info. Error: %{public}@", &v12, 0xCu);
     }
   }
 
   v10 = *(*(a1 + 32) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v5;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)applySingleAppModeConfiguration:(id)configuration clientType:(id)type clientUUID:(id)d localizedClientDescription:(id)description outError:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   typeCopy = type;
   dCopy = d;
   descriptionCopy = description;
   v14 = objc_opt_new();
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v15 = configurationCopy;
-  v16 = [v15 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v28;
+    v18 = *v27;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v28 != v18)
+        if (*v27 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v27 + 1) + 8 * i);
+        v20 = *(*(&v26 + 1) + 8 * i);
         v21 = [v15 objectForKeyedSubscript:v20];
         [v14 MCSetBoolRestriction:v20 value:{objc_msgSend(v21, "BOOLValue")}];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v17);
   }
 
   v22 = [(MCProfileConnection *)self applyRestrictionDictionary:v14 appsAndOptions:0 clientType:typeCopy clientUUID:dCopy localizedClientDescription:descriptionCopy localizedWarningMessage:0 outRestrictionChanged:0 outEffectiveSettingsChanged:0 outError:error];
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (BOOL)isAirDropUnmanagedForced
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   [(MCProfileConnection *)self checkInIfNeeded];
   v2 = +[MCRestrictionManager sharedManager];
   v3 = [v2 effectiveRestrictedBoolForSetting:@"forceAirDropUnmanaged"];
@@ -15003,19 +16247,17 @@ void __74__MCProfileConnection_CloudConfiguration__managingOrganizationInformati
       v5 = @"YES";
     }
 
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEBUG, "isAirDropUnmanagedForced: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEBUG, "isAirDropUnmanagedForced: %@", &v7, 0xCu);
   }
 
-  result = v3 == 1;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return v3 == 1;
 }
 
 - (BOOL)isURLManaged:(id)managed
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   managedCopy = managed;
   [(MCProfileConnection *)self checkInIfNeeded];
   v5 = +[MCManagedDomainsCache sharedCache];
@@ -15030,20 +16272,117 @@ void __74__MCProfileConnection_CloudConfiguration__managingOrganizationInformati
       v8 = @"YES";
     }
 
-    v11 = 138412546;
-    v12 = managedCopy;
-    v13 = 2112;
-    v14 = v8;
-    _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_DEBUG, "isURLManaged(%@): %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = managedCopy;
+    v12 = 2112;
+    v13 = v8;
+    _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_DEBUG, "isURLManaged(%@): %@", &v10, 0x16u);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
+}
+
+- (BOOL)mayShareToMessagesOriginatingAccountIsManaged:(BOOL)managed
+{
+  managedCopy = managed;
+  v13 = *MEMORY[0x1E69E9840];
+  v4 = [(MCProfileConnection *)self mayShareToMessagesForOriginatingAppBundleID:0 originatingAccountIsManaged:managed];
+  v5 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = @"NO";
+    if (managedCopy)
+    {
+      v7 = @"YES";
+    }
+
+    else
+    {
+      v7 = @"NO";
+    }
+
+    if (v4)
+    {
+      v6 = @"YES";
+    }
+
+    v9 = 138412546;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_DEBUG, "mayShareToMessagesOriginatingAccountIsManaged:%@ => %@", &v9, 0x16u);
+  }
+
+  return v4;
+}
+
+- (BOOL)mayShareToMessagesForOriginatingAppBundleID:(id)d originatingAccountIsManaged:(BOOL)managed
+{
+  managedCopy = managed;
+  v29 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 1;
+  if ([(MCProfileConnection *)self isOpenInRestrictionInEffect])
+  {
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __110__MCProfileConnection_ManagedOpenIn__mayShareToMessagesForOriginatingAppBundleID_originatingAccountIsManaged___block_invoke;
+    v17[3] = &unk_1E77D3520;
+    v17[4] = &v19;
+    v18 = managedCopy;
+    v7 = MEMORY[0x1AC55F990](v17);
+    publicXPCConnection = [(MCProfileConnection *)self publicXPCConnection];
+    v9 = [publicXPCConnection synchronousRemoteObjectProxyWithErrorHandler:v7];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __110__MCProfileConnection_ManagedOpenIn__mayShareToMessagesForOriginatingAppBundleID_originatingAccountIsManaged___block_invoke_6;
+    v16[3] = &unk_1E77D3548;
+    v16[4] = &v19;
+    [v9 mayShareToMessagesForOriginatingAppBundleID:dCopy originatingAccountIsManaged:managedCopy completion:v16];
+  }
+
+  v10 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    v11 = @"NO";
+    v12 = *(v20 + 24);
+    if (managedCopy)
+    {
+      v13 = @"YES";
+    }
+
+    else
+    {
+      v13 = @"NO";
+    }
+
+    *buf = 138412802;
+    if (v12)
+    {
+      v11 = @"YES";
+    }
+
+    v24 = dCopy;
+    v25 = 2112;
+    v26 = v13;
+    v27 = 2112;
+    v28 = v11;
+    _os_log_impl(&dword_1A795B000, v10, OS_LOG_TYPE_DEBUG, "mayShareToMessagesForOriginatingAppBundleID:%@ originatingAccountIsManaged:%@ => %@", buf, 0x20u);
+  }
+
+  v14 = *(v20 + 24);
+  _Block_object_dispose(&v19, 8);
+
+  return v14 & 1;
 }
 
 void __110__MCProfileConnection_ManagedOpenIn__mayShareToMessagesForOriginatingAppBundleID_originatingAccountIsManaged___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -15052,20 +16391,18 @@ void __110__MCProfileConnection_ManagedOpenIn__mayShareToMessagesForOriginatingA
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "May share to Messages error. Error: %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "May share to Messages error. Error: %{public}@", &v7, 0xCu);
     }
   }
 
   *(*(*(a1 + 32) + 8) + 24) = *(a1 + 40) ^ 1;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __110__MCProfileConnection_ManagedOpenIn__mayShareToMessagesForOriginatingAppBundleID_originatingAccountIsManaged___block_invoke_6(uint64_t a1, char a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
@@ -15074,20 +16411,116 @@ void __110__MCProfileConnection_ManagedOpenIn__mayShareToMessagesForOriginatingA
     {
       v7 = v6;
       v8 = [v5 MCVerboseDescription];
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_ERROR, "May share to Messages error. Error: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_ERROR, "May share to Messages error. Error: %{public}@", &v9, 0xCu);
     }
   }
 
   *(*(*(a1 + 32) + 8) + 24) = a2;
+}
 
-  v9 = *MEMORY[0x1E69E9840];
+- (BOOL)mayShareToAirDropOriginatingAccountIsManaged:(BOOL)managed
+{
+  managedCopy = managed;
+  v13 = *MEMORY[0x1E69E9840];
+  v4 = [(MCProfileConnection *)self mayShareToAirDropForOriginatingAppBundleID:0 originatingAccountIsManaged:managed];
+  v5 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = @"NO";
+    if (managedCopy)
+    {
+      v7 = @"YES";
+    }
+
+    else
+    {
+      v7 = @"NO";
+    }
+
+    if (v4)
+    {
+      v6 = @"YES";
+    }
+
+    v9 = 138412546;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_DEBUG, "mayShareToAirDropOriginatingAccountIsManaged:%@ => %@", &v9, 0x16u);
+  }
+
+  return v4;
+}
+
+- (BOOL)mayShareToAirDropForOriginatingAppBundleID:(id)d originatingAccountIsManaged:(BOOL)managed
+{
+  managedCopy = managed;
+  v29 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 1;
+  if ([(MCProfileConnection *)self isAirDropUnmanagedForced]&& ![(MCProfileConnection *)self mayOpenFromManagedToUnmanaged])
+  {
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __109__MCProfileConnection_ManagedOpenIn__mayShareToAirDropForOriginatingAppBundleID_originatingAccountIsManaged___block_invoke;
+    v17[3] = &unk_1E77D3520;
+    v17[4] = &v19;
+    v18 = managedCopy;
+    v7 = MEMORY[0x1AC55F990](v17);
+    publicXPCConnection = [(MCProfileConnection *)self publicXPCConnection];
+    v9 = [publicXPCConnection synchronousRemoteObjectProxyWithErrorHandler:v7];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __109__MCProfileConnection_ManagedOpenIn__mayShareToAirDropForOriginatingAppBundleID_originatingAccountIsManaged___block_invoke_8;
+    v16[3] = &unk_1E77D3548;
+    v16[4] = &v19;
+    [v9 mayShareToAirDropForOriginatingAppBundleID:dCopy originatingAccountIsManaged:managedCopy completion:v16];
+  }
+
+  v10 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    v11 = @"NO";
+    v12 = *(v20 + 24);
+    if (managedCopy)
+    {
+      v13 = @"YES";
+    }
+
+    else
+    {
+      v13 = @"NO";
+    }
+
+    *buf = 138412802;
+    if (v12)
+    {
+      v11 = @"YES";
+    }
+
+    v24 = dCopy;
+    v25 = 2112;
+    v26 = v13;
+    v27 = 2112;
+    v28 = v11;
+    _os_log_impl(&dword_1A795B000, v10, OS_LOG_TYPE_DEBUG, "mayShareToAirDropForOriginatingAppBundleID:%@ originatingAccountIsManaged:%@ => %@", buf, 0x20u);
+  }
+
+  v14 = *(v20 + 24);
+  _Block_object_dispose(&v19, 8);
+
+  return v14 & 1;
 }
 
 void __109__MCProfileConnection_ManagedOpenIn__mayShareToAirDropForOriginatingAppBundleID_originatingAccountIsManaged___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -15096,20 +16529,18 @@ void __109__MCProfileConnection_ManagedOpenIn__mayShareToAirDropForOriginatingAp
     {
       v5 = v4;
       v6 = [v3 MCVerboseDescription];
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "May share to AirDrop error. Error: %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "May share to AirDrop error. Error: %{public}@", &v7, 0xCu);
     }
   }
 
   *(*(*(a1 + 32) + 8) + 24) = *(a1 + 40) ^ 1;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __109__MCProfileConnection_ManagedOpenIn__mayShareToAirDropForOriginatingAppBundleID_originatingAccountIsManaged___block_invoke_8(uint64_t a1, char a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
@@ -15118,20 +16549,77 @@ void __109__MCProfileConnection_ManagedOpenIn__mayShareToAirDropForOriginatingAp
     {
       v7 = v6;
       v8 = [v5 MCVerboseDescription];
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_ERROR, "May share to AirDrop error. Error: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_ERROR, "May share to AirDrop error. Error: %{public}@", &v9, 0xCu);
     }
   }
 
   *(*(*(a1 + 32) + 8) + 24) = a2;
+}
 
-  v9 = *MEMORY[0x1E69E9840];
+- (id)allowedOpenInAppBundleIDsAfterApplyingFilterToAppBundleIDs:(id)ds originatingAppBundleID:(id)d originatingAccountIsManaged:(BOOL)managed
+{
+  managedCopy = managed;
+  v34 = *MEMORY[0x1E69E9840];
+  dsCopy = ds;
+  dCopy = d;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__17;
+  v24 = __Block_byref_object_dispose__17;
+  v25 = 0;
+  if ([(MCProfileConnection *)self isOpenInRestrictionInEffect])
+  {
+    publicXPCConnection = [(MCProfileConnection *)self publicXPCConnection];
+    v11 = [publicXPCConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_51];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __148__MCProfileConnection_ManagedOpenIn__allowedOpenInAppBundleIDsAfterApplyingFilterToAppBundleIDs_originatingAppBundleID_originatingAccountIsManaged___block_invoke_9;
+    v19[3] = &unk_1E77D2A80;
+    v19[4] = &v20;
+    [v11 allowedOpenInAppBundleIDs:dsCopy originatingAppBundleID:dCopy originatingIsManaged:managedCopy completion:v19];
+  }
+
+  else
+  {
+    v12 = v21;
+    v13 = dsCopy;
+    publicXPCConnection = v12[5];
+    v12[5] = v13;
+  }
+
+  v14 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    v15 = @"NO";
+    v16 = v21[5];
+    if (managedCopy)
+    {
+      v15 = @"YES";
+    }
+
+    *buf = 138413058;
+    v27 = dsCopy;
+    v28 = 2112;
+    v29 = dCopy;
+    v30 = 2112;
+    v31 = v15;
+    v32 = 2112;
+    v33 = v16;
+    _os_log_impl(&dword_1A795B000, v14, OS_LOG_TYPE_DEBUG, "allowedOpenInAppBundleIDsAfterApplyingFilterToAppBundleIDs:%@ originatingAppBundleID:%@ originatingAccountIsManaged:%@ => %@", buf, 0x2Au);
+  }
+
+  v17 = v21[5];
+  _Block_object_dispose(&v20, 8);
+
+  return v17;
 }
 
 void __148__MCProfileConnection_ManagedOpenIn__allowedOpenInAppBundleIDsAfterApplyingFilterToAppBundleIDs_originatingAppBundleID_originatingAccountIsManaged___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -15140,18 +16628,16 @@ void __148__MCProfileConnection_ManagedOpenIn__allowedOpenInAppBundleIDsAfterApp
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Allowed open in app bundleIDs error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Allowed open in app bundleIDs error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __148__MCProfileConnection_ManagedOpenIn__allowedOpenInAppBundleIDsAfterApplyingFilterToAppBundleIDs_originatingAppBundleID_originatingAccountIsManaged___block_invoke_9(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -15161,22 +16647,69 @@ void __148__MCProfileConnection_ManagedOpenIn__allowedOpenInAppBundleIDsAfterApp
     {
       v8 = v7;
       v9 = [v6 MCVerboseDescription];
-      v13 = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Allowed open in app bundleIDs error. Error: %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v9;
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Allowed open in app bundleIDs error. Error: %{public}@", &v12, 0xCu);
     }
   }
 
   v10 = *(*(a1 + 32) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v5;
+}
 
-  v12 = *MEMORY[0x1E69E9840];
+- (id)allowedImportFromAppBundleIDsAfterApplyingFilterToBundleIDs:(id)ds importingAppBundleID:(id)d importingAccountIsManaged:(BOOL)managed
+{
+  managedCopy = managed;
+  v32 = *MEMORY[0x1E69E9840];
+  dsCopy = ds;
+  dCopy = d;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__17;
+  v22 = __Block_byref_object_dispose__17;
+  v23 = 0;
+  publicXPCConnection = [(MCProfileConnection *)self publicXPCConnection];
+  v11 = [publicXPCConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_12_0];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __145__MCProfileConnection_ManagedOpenIn__allowedImportFromAppBundleIDsAfterApplyingFilterToBundleIDs_importingAppBundleID_importingAccountIsManaged___block_invoke_13;
+  v17[3] = &unk_1E77D2A80;
+  v17[4] = &v18;
+  [v11 allowedImportFromAppBundleIDs:dsCopy importingAppBundleID:dCopy importingIsManaged:managedCopy completion:v17];
+
+  v12 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    v13 = @"NO";
+    v14 = v19[5];
+    if (managedCopy)
+    {
+      v13 = @"YES";
+    }
+
+    *buf = 138413058;
+    v25 = dsCopy;
+    v26 = 2112;
+    v27 = dCopy;
+    v28 = 2112;
+    v29 = v13;
+    v30 = 2112;
+    v31 = v14;
+    _os_log_impl(&dword_1A795B000, v12, OS_LOG_TYPE_DEBUG, "allowedImportFromAppBundleIDsAfterApplyingFilterToBundleIDs:%@ importingAppBundleID:%@ importingAccountIsManaged:%@ => %@", buf, 0x2Au);
+  }
+
+  v15 = v19[5];
+  _Block_object_dispose(&v18, 8);
+
+  return v15;
 }
 
 void __145__MCProfileConnection_ManagedOpenIn__allowedImportFromAppBundleIDsAfterApplyingFilterToBundleIDs_importingAppBundleID_importingAccountIsManaged___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -15185,18 +16718,16 @@ void __145__MCProfileConnection_ManagedOpenIn__allowedImportFromAppBundleIDsAfte
     {
       v4 = v3;
       v5 = [v2 MCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Allowed import from app bundleIDs error. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Allowed import from app bundleIDs error. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __145__MCProfileConnection_ManagedOpenIn__allowedImportFromAppBundleIDsAfterApplyingFilterToBundleIDs_importingAppBundleID_importingAccountIsManaged___block_invoke_13(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -15206,22 +16737,52 @@ void __145__MCProfileConnection_ManagedOpenIn__allowedImportFromAppBundleIDsAfte
     {
       v8 = v7;
       v9 = [v6 MCVerboseDescription];
-      v13 = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Allowed import from app bundleIDs error. Error: %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v9;
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Allowed import from app bundleIDs error. Error: %{public}@", &v12, 0xCu);
     }
   }
 
   v10 = *(*(a1 + 32) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v5;
+}
 
-  v12 = *MEMORY[0x1E69E9840];
+- (id)allowedAppBundleIDsForBidirectionalDataMovementAfterApplyingFilterToBundleIDs:(id)ds localAppBundleID:(id)d localAccountIsManaged:(BOOL)managed
+{
+  managedCopy = managed;
+  v23 = *MEMORY[0x1E69E9840];
+  dsCopy = ds;
+  dCopy = d;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v10 = [(MCProfileConnection *)self allowedOpenInAppBundleIDsAfterApplyingFilterToAppBundleIDs:dsCopy originatingAppBundleID:dCopy originatingAccountIsManaged:managedCopy];
+  v11 = [(MCProfileConnection *)self allowedImportFromAppBundleIDsAfterApplyingFilterToBundleIDs:v10 importingAppBundleID:dCopy importingAccountIsManaged:managedCopy];
+  v12 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    v13 = @"NO";
+    v15 = 138413058;
+    v16 = dsCopy;
+    v17 = 2112;
+    if (managedCopy)
+    {
+      v13 = @"YES";
+    }
+
+    v18 = dCopy;
+    v19 = 2112;
+    v20 = v13;
+    v21 = 2112;
+    v22 = v11;
+    _os_log_impl(&dword_1A795B000, v12, OS_LOG_TYPE_DEBUG, "allowedAppBundleIDsForBidirectionalDataMovementAfterApplyingFilterToBundleIDs:%@ originatingAppBundleID:%@ localAccountIsManaged:%@ => %@", &v15, 0x2Au);
+  }
+
+  return v11;
 }
 
 - (BOOL)isAppManaged:(id)managed
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   managedCopy = managed;
   [(MCProfileConnection *)self checkInIfNeeded];
   v5 = MCContainingBundleIDForBundleID(managedCopy);
@@ -15238,20 +16799,19 @@ void __145__MCProfileConnection_ManagedOpenIn__allowedImportFromAppBundleIDsAfte
       v10 = @"YES";
     }
 
-    v13 = 138412546;
-    v14 = managedCopy;
-    v15 = 2112;
-    v16 = v10;
-    _os_log_impl(&dword_1A795B000, v9, OS_LOG_TYPE_DEBUG, "isAppManaged:%@ => %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = managedCopy;
+    v14 = 2112;
+    v15 = v10;
+    _os_log_impl(&dword_1A795B000, v9, OS_LOG_TYPE_DEBUG, "isAppManaged:%@ => %@", &v12, 0x16u);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (id)managedAppBundleIDs
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   [(MCProfileConnection *)self checkInIfNeeded];
   attributesByAppID = [MEMORY[0x1E69AD440] attributesByAppID];
   allKeys = [attributesByAppID allKeys];
@@ -15259,19 +16819,17 @@ void __145__MCProfileConnection_ManagedOpenIn__allowedImportFromAppBundleIDsAfte
   v4 = qword_1ED4ADE08;
   if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = allKeys;
-    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEBUG, "managedAppBundleIDs => %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = allKeys;
+    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEBUG, "managedAppBundleIDs => %@", &v6, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return allKeys;
 }
 
 - (BOOL)isBidirectionalDataTransferAllowedWithBundleID:(id)d
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dCopy = d;
   [(MCProfileConnection *)self checkInIfNeeded];
   if ([(MCProfileConnection *)self isOpenInRestrictionInEffect])
@@ -15303,14 +16861,13 @@ void __145__MCProfileConnection_ManagedOpenIn__allowedImportFromAppBundleIDsAfte
       v9 = @"YES";
     }
 
-    v12 = 138412546;
-    v13 = dCopy;
-    v14 = 2112;
-    v15 = v9;
-    _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_DEBUG, "isBidirectionalDataTransferAllowedWithBundleID:%@ => %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = dCopy;
+    v13 = 2112;
+    v14 = v9;
+    _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_DEBUG, "isBidirectionalDataTransferAllowedWithBundleID:%@ => %@", &v11, 0x16u);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -15345,7 +16902,7 @@ void __145__MCProfileConnection_ManagedOpenIn__allowedImportFromAppBundleIDsAfte
 
 - (int64_t)dragDropSourceManagementStateForBundleID:(id)d
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = MCContainingBundleIDForBundleID(dCopy);
   if ([v5 isEqualToString:@"com.apple.MobileSMS"])
@@ -15361,20 +16918,19 @@ void __145__MCProfileConnection_ManagedOpenIn__allowedImportFromAppBundleIDsAfte
   v7 = qword_1ED4ADE08;
   if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 138412546;
-    v11 = dCopy;
-    v12 = 2048;
-    v13 = v6;
-    _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_DEBUG, "dragDropSourceManagementStateForBundleID:%@ => %li", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = dCopy;
+    v11 = 2048;
+    v12 = v6;
+    _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_DEBUG, "dragDropSourceManagementStateForBundleID:%@ => %li", &v9, 0x16u);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (int64_t)dragDropTargetManagementStateForBundleID:(id)d
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = MCContainingBundleIDForBundleID(dCopy);
   if ([v5 isEqualToString:@"com.apple.MobileSMS"])
@@ -15390,20 +16946,19 @@ void __145__MCProfileConnection_ManagedOpenIn__allowedImportFromAppBundleIDsAfte
   v7 = qword_1ED4ADE08;
   if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 138412546;
-    v11 = dCopy;
-    v12 = 2048;
-    v13 = v6;
-    _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_DEBUG, "dragDropTargetManagementStateForBundleID:%@ => %li", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = dCopy;
+    v11 = 2048;
+    v12 = v6;
+    _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_DEBUG, "dragDropTargetManagementStateForBundleID:%@ => %li", &v9, 0x16u);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)isContactsReadAffectedByOpenInRestrictionsForTargetBundleID:(id)d
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dCopy = d;
   [(MCProfileConnection *)self checkInIfNeeded];
   v5 = (MCIsAppExemptFromImportFromTargetRestrictionsForContacts(dCopy) & 1) == 0 && [(MCProfileConnection *)self _shouldApplyContactsFilterForTargetBundleID:dCopy targetAccountManagement:0 outAllowManagedAccounts:0 outAllowUnmanagedAccounts:0];
@@ -15416,54 +16971,550 @@ void __145__MCProfileConnection_ManagedOpenIn__allowedImportFromAppBundleIDsAfte
       v7 = @"YES";
     }
 
-    v10 = 138412546;
-    v11 = dCopy;
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_DEBUG, "isContactsReadAffectedByOpenInRestrictionsForTargetBundleID:%@ => %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = dCopy;
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_DEBUG, "isContactsReadAffectedByOpenInRestrictionsForTargetBundleID:%@ => %@", &v9, 0x16u);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
+}
+
+- (BOOL)mayShowLocalContactsAccountsForBundleID:(id)d sourceAccountManagement:(int)management
+{
+  v4 = *&management;
+  v19 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v12 = 0;
+  [(MCProfileConnection *)self _shouldApplyContactsFilterForBundleID:dCopy sourceAccountManagement:v4 outAllowManagedAccounts:&v12 + 1 outAllowUnmanagedAccounts:&v12];
+  v7 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    v8 = @"UNMANAGED";
+    if (v4 == 2)
+    {
+      v8 = @"MANAGED";
+    }
+
+    if (!v4)
+    {
+      v8 = @"NONE";
+    }
+
+    *buf = 138412802;
+    v14 = dCopy;
+    v15 = 2112;
+    v16 = v8;
+    if (v12)
+    {
+      v9 = @"YES";
+    }
+
+    else
+    {
+      v9 = @"NO";
+    }
+
+    v17 = 2112;
+    v18 = v9;
+    _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_DEBUG, "mayShowLocalContactsAccountsForBundleID:%@ sourceAccountManagement:%@ => %@", buf, 0x20u);
+  }
+
+  v10 = v12;
+
+  return v10;
+}
+
+- (id)filteredOpenInContactsAccounts:(id)accounts originatingAppBundleID:(id)d sourceAccountManagement:(int)management
+{
+  v5 = *&management;
+  v35 = *MEMORY[0x1E69E9840];
+  accountsCopy = accounts;
+  dCopy = d;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v10 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138543874;
+    *v30 = dCopy;
+    *&v30[8] = 1024;
+    *v31 = v5;
+    *&v31[4] = 2114;
+    *&v31[6] = accountsCopy;
+    _os_log_impl(&dword_1A795B000, v10, OS_LOG_TYPE_DEBUG, "Filtering contacts accounts for bundle ID: %{public}@, source account management: %d, contacts accounts: %{public}@", buf, 0x1Cu);
+  }
+
+  v28 = 0;
+  v11 = [(MCProfileConnection *)self _shouldApplyContactsFilterForBundleID:dCopy sourceAccountManagement:v5 outAllowManagedAccounts:&v28 + 1 outAllowUnmanagedAccounts:&v28];
+  v12 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 67109632;
+    *v30 = v11;
+    *&v30[4] = 1024;
+    *&v30[6] = HIBYTE(v28);
+    *v31 = 1024;
+    *&v31[2] = v28;
+    _os_log_impl(&dword_1A795B000, v12, OS_LOG_TYPE_DEBUG, "Apply contacts filter: %d, allowManaged: %d, allowUnmanaged: %d", buf, 0x14u);
+  }
+
+  if (v11)
+  {
+    v13 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(accountsCopy, "count")}];
+    v24 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v14 = accountsCopy;
+    v15 = [v14 countByEnumeratingWithState:&v24 objects:v34 count:16];
+    if (!v15)
+    {
+      goto LABEL_19;
+    }
+
+    v16 = v15;
+    v17 = *v25;
+    while (1)
+    {
+      v18 = 0;
+      do
+      {
+        if (*v25 != v17)
+        {
+          objc_enumerationMutation(v14);
+        }
+
+        v19 = *(*(&v24 + 1) + 8 * v18);
+        if ([v19 MCIsManaged])
+        {
+          if ((v28 & 0x100) == 0)
+          {
+            goto LABEL_14;
+          }
+
+LABEL_13:
+          [v13 addObject:v19];
+          goto LABEL_14;
+        }
+
+        if (v28 == 1)
+        {
+          goto LABEL_13;
+        }
+
+LABEL_14:
+        ++v18;
+      }
+
+      while (v16 != v18);
+      v20 = [v14 countByEnumeratingWithState:&v24 objects:v34 count:16];
+      v16 = v20;
+      if (!v20)
+      {
+LABEL_19:
+
+        goto LABEL_21;
+      }
+    }
+  }
+
+  v13 = accountsCopy;
+LABEL_21:
+  v21 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    v22 = @"UNMANAGED";
+    if (v5 == 2)
+    {
+      v22 = @"MANAGED";
+    }
+
+    *buf = 138413058;
+    *v30 = accountsCopy;
+    *&v30[8] = 2112;
+    *v31 = dCopy;
+    *&v31[8] = 2112;
+    if (!v5)
+    {
+      v22 = @"NONE";
+    }
+
+    *&v31[10] = v22;
+    v32 = 2112;
+    v33 = v13;
+    _os_log_impl(&dword_1A795B000, v21, OS_LOG_TYPE_DEBUG, "filteredOpenInContactsAccounts:%@ originatingAppBundleID:%@ sourceAccountManagement:%@ => %@", buf, 0x2Au);
+  }
+
+  return v13;
+}
+
+- (id)filteredOpenInOriginatingContactsAccounts:(id)accounts targetAppBundleID:(id)d targetAccountManagement:(int)management
+{
+  v5 = *&management;
+  v35 = *MEMORY[0x1E69E9840];
+  accountsCopy = accounts;
+  dCopy = d;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v10 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138543874;
+    *v30 = dCopy;
+    *&v30[8] = 1024;
+    *v31 = v5;
+    *&v31[4] = 2114;
+    *&v31[6] = accountsCopy;
+    _os_log_impl(&dword_1A795B000, v10, OS_LOG_TYPE_DEBUG, "Filtering originating contacts accounts for target bundle ID: %{public}@, target account management: %d, accounts: %{public}@", buf, 0x1Cu);
+  }
+
+  v28 = 0;
+  v11 = [(MCProfileConnection *)self _shouldApplyContactsFilterForTargetBundleID:dCopy targetAccountManagement:v5 outAllowManagedAccounts:&v28 + 1 outAllowUnmanagedAccounts:&v28];
+  v12 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 67109632;
+    *v30 = v11;
+    *&v30[4] = 1024;
+    *&v30[6] = HIBYTE(v28);
+    *v31 = 1024;
+    *&v31[2] = v28;
+    _os_log_impl(&dword_1A795B000, v12, OS_LOG_TYPE_DEBUG, "Apply contacts filter: %d, allowManaged: %d, allowUnmanaged: %d", buf, 0x14u);
+  }
+
+  if (v11)
+  {
+    v13 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(accountsCopy, "count")}];
+    v24 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v14 = accountsCopy;
+    v15 = [v14 countByEnumeratingWithState:&v24 objects:v34 count:16];
+    if (!v15)
+    {
+      goto LABEL_19;
+    }
+
+    v16 = v15;
+    v17 = *v25;
+    while (1)
+    {
+      v18 = 0;
+      do
+      {
+        if (*v25 != v17)
+        {
+          objc_enumerationMutation(v14);
+        }
+
+        v19 = *(*(&v24 + 1) + 8 * v18);
+        if ([v19 MCIsManaged])
+        {
+          if ((v28 & 0x100) == 0)
+          {
+            goto LABEL_14;
+          }
+
+LABEL_13:
+          [v13 addObject:v19];
+          goto LABEL_14;
+        }
+
+        if (v28 == 1)
+        {
+          goto LABEL_13;
+        }
+
+LABEL_14:
+        ++v18;
+      }
+
+      while (v16 != v18);
+      v20 = [v14 countByEnumeratingWithState:&v24 objects:v34 count:16];
+      v16 = v20;
+      if (!v20)
+      {
+LABEL_19:
+
+        goto LABEL_21;
+      }
+    }
+  }
+
+  v13 = accountsCopy;
+LABEL_21:
+  v21 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    v22 = @"UNMANAGED";
+    if (v5 == 2)
+    {
+      v22 = @"MANAGED";
+    }
+
+    *buf = 138413058;
+    *v30 = accountsCopy;
+    *&v30[8] = 2112;
+    *v31 = dCopy;
+    *&v31[8] = 2112;
+    if (!v5)
+    {
+      v22 = @"NONE";
+    }
+
+    *&v31[10] = v22;
+    v32 = 2112;
+    v33 = v13;
+    _os_log_impl(&dword_1A795B000, v21, OS_LOG_TYPE_DEBUG, "filteredOpenInOriginatingContactsAccounts:%@ targetAppBundleID:%@ targetAccountManagement:%@ => %@", buf, 0x2Au);
+  }
+
+  return v13;
+}
+
+- (BOOL)mayShowLocalContactsAccountsForTargetBundleID:(id)d targetAccountManagement:(int)management
+{
+  v4 = *&management;
+  v19 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v12 = 0;
+  [(MCProfileConnection *)self _shouldApplyContactsFilterForTargetBundleID:dCopy targetAccountManagement:v4 outAllowManagedAccounts:&v12 + 1 outAllowUnmanagedAccounts:&v12];
+  v7 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    v8 = @"UNMANAGED";
+    if (v4 == 2)
+    {
+      v8 = @"MANAGED";
+    }
+
+    if (!v4)
+    {
+      v8 = @"NONE";
+    }
+
+    *buf = 138412802;
+    v14 = dCopy;
+    v15 = 2112;
+    v16 = v8;
+    if (v12)
+    {
+      v9 = @"YES";
+    }
+
+    else
+    {
+      v9 = @"NO";
+    }
+
+    v17 = 2112;
+    v18 = v9;
+    _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_DEBUG, "mayShowLocalContactsAccountsForTargetBundleID:%@ targetAccountManagement:%@ => %@", buf, 0x20u);
+  }
+
+  v10 = v12;
+
+  return v10;
+}
+
+- (BOOL)mayShowLocalAccountsForBundleID:(id)d sourceAccountManagement:(int)management
+{
+  v4 = *&management;
+  v19 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v12 = 0;
+  [(MCProfileConnection *)self shouldApplyFilterForBundleID:dCopy sourceAccountManagement:v4 outAllowManagedAccounts:&v12 + 1 outAllowUnmanagedAccounts:&v12];
+  v7 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    v8 = @"UNMANAGED";
+    if (v4 == 2)
+    {
+      v8 = @"MANAGED";
+    }
+
+    if (!v4)
+    {
+      v8 = @"NONE";
+    }
+
+    *buf = 138412802;
+    v14 = dCopy;
+    v15 = 2112;
+    v16 = v8;
+    if (v12)
+    {
+      v9 = @"YES";
+    }
+
+    else
+    {
+      v9 = @"NO";
+    }
+
+    v17 = 2112;
+    v18 = v9;
+    _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_DEBUG, "mayShowLocalAccountsForBundleID:%@ sourceAccountManagement:%@ => %@", buf, 0x20u);
+  }
+
+  v10 = v12;
+
+  return v10;
+}
+
+- (BOOL)mayShowLocalAccountsForTargetBundleID:(id)d targetAccountManagement:(int)management
+{
+  v4 = *&management;
+  v19 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v12 = 0;
+  [(MCProfileConnection *)self shouldApplyFilterForTargetBundleID:dCopy targetAccountManagement:v4 outAllowManagedAccounts:&v12 + 1 outAllowUnmanagedAccounts:&v12];
+  v7 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    v8 = @"UNMANAGED";
+    if (v4 == 2)
+    {
+      v8 = @"MANAGED";
+    }
+
+    if (!v4)
+    {
+      v8 = @"NONE";
+    }
+
+    *buf = 138412802;
+    v14 = dCopy;
+    v15 = 2112;
+    v16 = v8;
+    if (v12)
+    {
+      v9 = @"YES";
+    }
+
+    else
+    {
+      v9 = @"NO";
+    }
+
+    v17 = 2112;
+    v18 = v9;
+    _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_DEBUG, "mayShowLocalAccountsForTargetBundleID:%@ targetAccountManagement:%@ => %@", buf, 0x20u);
+  }
+
+  v10 = v12;
+
+  return v10;
+}
+
+- (BOOL)canSendMail:(id)mail sourceAccountManagement:(int)management
+{
+  v4 = *&management;
+  v25 = *MEMORY[0x1E69E9840];
+  mailCopy = mail;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v7 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138543618;
+    *&buf[4] = mailCopy;
+    *&buf[12] = 1024;
+    *&buf[14] = v4;
+    _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_DEBUG, "Filtering mail sheet accounts for bundle ID: %{public}@, source account management: %d", buf, 0x12u);
+  }
+
+  *buf = 0;
+  *&buf[8] = buf;
+  *&buf[16] = 0x2020000000;
+  v24 = 0;
+  publicXPCConnection = [(MCProfileConnection *)self publicXPCConnection];
+  v9 = [publicXPCConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_27];
+
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __74__MCProfileConnection_ManagedOpenIn__canSendMail_sourceAccountManagement___block_invoke_28;
+  v16[3] = &unk_1E77D3548;
+  v16[4] = buf;
+  [v9 hasMailAccountsWithFilteringEnabled:1 sourceAccountManagement:v4 completion:v16];
+  v10 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    v11 = @"UNMANAGED";
+    if (v4 == 2)
+    {
+      v11 = @"MANAGED";
+    }
+
+    if (!v4)
+    {
+      v11 = @"NONE";
+    }
+
+    v12 = *(*&buf[8] + 24);
+    *v17 = 138412802;
+    v18 = mailCopy;
+    v19 = 2112;
+    v20 = v11;
+    if (v12)
+    {
+      v13 = @"YES";
+    }
+
+    else
+    {
+      v13 = @"NO";
+    }
+
+    v21 = 2112;
+    v22 = v13;
+    _os_log_impl(&dword_1A795B000, v10, OS_LOG_TYPE_DEBUG, "canSendMail:%@ sourceAccountManagement:%@ => %@", v17, 0x20u);
+  }
+
+  v14 = *(*&buf[8] + 24);
+
+  _Block_object_dispose(buf, 8);
+  return v14 & 1;
 }
 
 void __74__MCProfileConnection_ManagedOpenIn__canSendMail_sourceAccountManagement___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = qword_1ED4ADE28;
   if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
   {
     v4 = v3;
     v5 = [a2 MCVerboseDescription];
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Could not filter accounts. Error: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Could not filter accounts. Error: %{public}@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasAnyMailAccountIgnoringFiltering
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   [(MCProfileConnection *)self checkInIfNeeded];
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
-  v14 = 0;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
+  v13 = 0;
   publicXPCConnection = [(MCProfileConnection *)self publicXPCConnection];
   v4 = [publicXPCConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_30_3];
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __72__MCProfileConnection_ManagedOpenIn__hasAnyMailAccountIgnoringFiltering__block_invoke_31;
-  v10[3] = &unk_1E77D3548;
-  v10[4] = &v11;
-  [v4 hasMailAccountsWithFilteringEnabled:0 sourceAccountManagement:0 completion:v10];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __72__MCProfileConnection_ManagedOpenIn__hasAnyMailAccountIgnoringFiltering__block_invoke_31;
+  v9[3] = &unk_1E77D3548;
+  v9[4] = &v10;
+  [v4 hasMailAccountsWithFilteringEnabled:0 sourceAccountManagement:0 completion:v9];
   v5 = qword_1ED4ADE08;
   if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
   {
-    if (*(v12 + 24))
+    if (*(v11 + 24))
     {
       v6 = @"YES";
     }
@@ -15474,36 +17525,128 @@ void __74__MCProfileConnection_ManagedOpenIn__canSendMail_sourceAccountManagemen
     }
 
     *buf = 138412290;
-    v16 = v6;
+    v15 = v6;
     _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_DEBUG, "canSendMailIgnoringAllFiltering => %@", buf, 0xCu);
   }
 
-  v7 = *(v12 + 24);
+  v7 = *(v11 + 24);
 
-  _Block_object_dispose(&v11, 8);
-  v8 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v10, 8);
   return v7 & 1;
 }
 
 void __72__MCProfileConnection_ManagedOpenIn__hasAnyMailAccountIgnoringFiltering__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = qword_1ED4ADE28;
   if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
   {
     v4 = v3;
     v5 = [a2 MCVerboseDescription];
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Could not filter accounts. Error: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Could not filter accounts. Error: %{public}@", &v6, 0xCu);
+  }
+}
+
+- (id)filteredMailSheetAccountsForBundleID:(id)d sourceAccountManagement:(int)management
+{
+  v4 = *&management;
+  v36 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v7 = qword_1ED4ADE08;
+  v8 = os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG);
+  if (v8)
+  {
+    *buf = 138543618;
+    v30 = dCopy;
+    v31 = 1024;
+    LODWORD(v32) = v4;
+    _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_DEBUG, "Filtering mail sheet accounts for bundle ID: %{public}@, source account management: %d", buf, 0x12u);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
+  v9 = MCMailAccountClass(v8);
+  v28 = 0;
+  v10 = [(MCProfileConnection *)self shouldApplyFilterForBundleID:dCopy sourceAccountManagement:v4 outAllowManagedAccounts:&v28 + 1 outAllowUnmanagedAccounts:&v28];
+  activeAccounts = [v9 activeAccounts];
+  v12 = activeAccounts;
+  if (v10)
+  {
+    v13 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(activeAccounts, "count")}];
+    v24 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v14 = v12;
+    v15 = [v14 countByEnumeratingWithState:&v24 objects:v35 count:16];
+    if (v15)
+    {
+      v16 = v15;
+      v17 = *v25;
+      do
+      {
+        for (i = 0; i != v16; ++i)
+        {
+          if (*v25 != v17)
+          {
+            objc_enumerationMutation(v14);
+          }
+
+          v19 = *(*(&v24 + 1) + 8 * i);
+          if ([v19 sourceIsManaged] && (v28 & 0x100) != 0 || (objc_msgSend(v19, "sourceIsManaged") & 1) == 0 && v28 == 1)
+          {
+            [v13 addObject:v19];
+          }
+        }
+
+        v16 = [v14 countByEnumeratingWithState:&v24 objects:v35 count:16];
+      }
+
+      while (v16);
+    }
+  }
+
+  else
+  {
+    v13 = activeAccounts;
+  }
+
+  v20 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    v21 = @"UNMANAGED";
+    if (v4 == 2)
+    {
+      v21 = @"MANAGED";
+    }
+
+    if (!v4)
+    {
+      v21 = @"NONE";
+    }
+
+    v22 = @"YES";
+    *buf = 138412802;
+    v30 = dCopy;
+    v32 = v21;
+    v31 = 2112;
+    if (!v13)
+    {
+      v22 = @"NO";
+    }
+
+    v33 = 2112;
+    v34 = v22;
+    _os_log_impl(&dword_1A795B000, v20, OS_LOG_TYPE_DEBUG, "filteredMailSheetAccountsForBundleID:%@ sourceAccountManagement:%@ => %@", buf, 0x20u);
+  }
+
+  return v13;
 }
 
 - (BOOL)shouldApplyFilterForBundleID:(id)d sourceAccountManagement:(int)management outAllowManagedAccounts:(BOOL *)accounts outAllowUnmanagedAccounts:(BOOL *)unmanagedAccounts
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dCopy = d;
   [(MCProfileConnection *)self checkInIfNeeded];
   if (![(MCProfileConnection *)self isOpenInRestrictionInEffect]|| (MCIsAppExemptFromOpenInSourceRestrictions(dCopy) & 1) != 0)
@@ -15535,10 +17678,10 @@ LABEL_34:
 
   else
   {
-    v22 = +[MCProfileConnection sharedConnection];
-    v23 = [v22 isAppManaged:dCopy];
+    v21 = +[MCProfileConnection sharedConnection];
+    v22 = [v21 isAppManaged:dCopy];
 
-    if (v23)
+    if (v22)
     {
       goto LABEL_34;
     }
@@ -15625,26 +17768,25 @@ LABEL_22:
 
     v17 = @"NOT RETURNED";
 LABEL_31:
-    v25 = 138413314;
-    v26 = dCopy;
-    v27 = 2112;
-    v28 = v16;
-    v29 = 2112;
-    v30 = v18;
-    v31 = 2112;
-    v32 = v19;
-    v33 = 2112;
-    v34 = v17;
-    _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_DEBUG, "shouldApplyFilterForBundleID:%@ sourceAccountManagement:%@ => %@, allowManagedAccounts:%@, allowUnamangedAccounts:%@", &v25, 0x34u);
+    v24 = 138413314;
+    v25 = dCopy;
+    v26 = 2112;
+    v27 = v16;
+    v28 = 2112;
+    v29 = v18;
+    v30 = 2112;
+    v31 = v19;
+    v32 = 2112;
+    v33 = v17;
+    _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_DEBUG, "shouldApplyFilterForBundleID:%@ sourceAccountManagement:%@ => %@, allowManagedAccounts:%@, allowUnamangedAccounts:%@", &v24, 0x34u);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14 & 1;
 }
 
 - (BOOL)shouldApplyFilterForTargetBundleID:(id)d targetAccountManagement:(int)management outAllowManagedAccounts:(BOOL *)accounts outAllowUnmanagedAccounts:(BOOL *)unmanagedAccounts
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dCopy = d;
   [(MCProfileConnection *)self checkInIfNeeded];
   if (![(MCProfileConnection *)self isOpenInRestrictionInEffect]|| (MCIsAppExemptFromImportFromTargetRestrictions(dCopy) & 1) != 0)
@@ -15676,10 +17818,10 @@ LABEL_34:
 
   else
   {
-    v22 = +[MCProfileConnection sharedConnection];
-    v23 = [v22 isAppManaged:dCopy];
+    v21 = +[MCProfileConnection sharedConnection];
+    v22 = [v21 isAppManaged:dCopy];
 
-    if (v23)
+    if (v22)
     {
       goto LABEL_34;
     }
@@ -15766,35 +17908,332 @@ LABEL_22:
 
     v17 = @"NOT RETURNED";
 LABEL_31:
-    v25 = 138413314;
-    v26 = dCopy;
-    v27 = 2112;
-    v28 = v16;
-    v29 = 2112;
-    v30 = v18;
-    v31 = 2112;
-    v32 = v19;
-    v33 = 2112;
-    v34 = v17;
-    _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_DEBUG, "shouldApplyFilterForTargetBundleID:%@ targetAccountManagement:%@ => %@, allowManagedAccounts:%@, allowUnamangedAccounts:%@", &v25, 0x34u);
+    v24 = 138413314;
+    v25 = dCopy;
+    v26 = 2112;
+    v27 = v16;
+    v28 = 2112;
+    v29 = v18;
+    v30 = 2112;
+    v31 = v19;
+    v32 = 2112;
+    v33 = v17;
+    _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_DEBUG, "shouldApplyFilterForTargetBundleID:%@ targetAccountManagement:%@ => %@, allowManagedAccounts:%@, allowUnamangedAccounts:%@", &v24, 0x34u);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14 & 1;
+}
+
+- (id)filteredOpenInAccounts:(id)accounts originatingAppBundleID:(id)d sourceAccountManagement:(int)management
+{
+  v5 = *&management;
+  v35 = *MEMORY[0x1E69E9840];
+  accountsCopy = accounts;
+  dCopy = d;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v10 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138543874;
+    *v30 = dCopy;
+    *&v30[8] = 1024;
+    *v31 = v5;
+    *&v31[4] = 2114;
+    *&v31[6] = accountsCopy;
+    _os_log_impl(&dword_1A795B000, v10, OS_LOG_TYPE_DEBUG, "Filtering accounts for bundle ID: %{public}@, source account management: %d, accounts: %{public}@", buf, 0x1Cu);
+  }
+
+  v28 = 0;
+  v11 = [(MCProfileConnection *)self shouldApplyFilterForBundleID:dCopy sourceAccountManagement:v5 outAllowManagedAccounts:&v28 + 1 outAllowUnmanagedAccounts:&v28];
+  v12 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 67109632;
+    *v30 = v11;
+    *&v30[4] = 1024;
+    *&v30[6] = HIBYTE(v28);
+    *v31 = 1024;
+    *&v31[2] = v28;
+    _os_log_impl(&dword_1A795B000, v12, OS_LOG_TYPE_DEBUG, "Apply filter: %d, allowManaged: %d, allowUnmanaged: %d", buf, 0x14u);
+  }
+
+  if (v11)
+  {
+    v13 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(accountsCopy, "count")}];
+    v24 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v14 = accountsCopy;
+    v15 = [v14 countByEnumeratingWithState:&v24 objects:v34 count:16];
+    if (!v15)
+    {
+      goto LABEL_19;
+    }
+
+    v16 = v15;
+    v17 = *v25;
+    while (1)
+    {
+      v18 = 0;
+      do
+      {
+        if (*v25 != v17)
+        {
+          objc_enumerationMutation(v14);
+        }
+
+        v19 = *(*(&v24 + 1) + 8 * v18);
+        if ([v19 MCIsManaged])
+        {
+          if ((v28 & 0x100) == 0)
+          {
+            goto LABEL_14;
+          }
+
+LABEL_13:
+          [v13 addObject:v19];
+          goto LABEL_14;
+        }
+
+        if (v28 == 1)
+        {
+          goto LABEL_13;
+        }
+
+LABEL_14:
+        ++v18;
+      }
+
+      while (v16 != v18);
+      v20 = [v14 countByEnumeratingWithState:&v24 objects:v34 count:16];
+      v16 = v20;
+      if (!v20)
+      {
+LABEL_19:
+
+        goto LABEL_21;
+      }
+    }
+  }
+
+  v13 = accountsCopy;
+LABEL_21:
+  v21 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    v22 = @"UNMANAGED";
+    if (v5 == 2)
+    {
+      v22 = @"MANAGED";
+    }
+
+    *buf = 138413058;
+    *v30 = accountsCopy;
+    *&v30[8] = 2112;
+    *v31 = dCopy;
+    *&v31[8] = 2112;
+    if (!v5)
+    {
+      v22 = @"NONE";
+    }
+
+    *&v31[10] = v22;
+    v32 = 2112;
+    v33 = v13;
+    _os_log_impl(&dword_1A795B000, v21, OS_LOG_TYPE_DEBUG, "filteredOpenInAccounts:%@ originatingAppBundleID:%@ sourceAccountManagement:%@ => %@", buf, 0x2Au);
+  }
+
+  return v13;
+}
+
+- (id)filteredOpenInOriginatingAccounts:(id)accounts targetAppBundleID:(id)d targetAccountManagement:(int)management
+{
+  v5 = *&management;
+  v35 = *MEMORY[0x1E69E9840];
+  accountsCopy = accounts;
+  dCopy = d;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v10 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138543874;
+    *v30 = dCopy;
+    *&v30[8] = 1024;
+    *v31 = v5;
+    *&v31[4] = 2114;
+    *&v31[6] = accountsCopy;
+    _os_log_impl(&dword_1A795B000, v10, OS_LOG_TYPE_DEBUG, "Filtering originating accounts for target bundle ID: %{public}@, target account management: %d, accounts: %{public}@", buf, 0x1Cu);
+  }
+
+  v28 = 0;
+  v11 = [(MCProfileConnection *)self shouldApplyFilterForTargetBundleID:dCopy targetAccountManagement:v5 outAllowManagedAccounts:&v28 + 1 outAllowUnmanagedAccounts:&v28];
+  v12 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 67109632;
+    *v30 = v11;
+    *&v30[4] = 1024;
+    *&v30[6] = HIBYTE(v28);
+    *v31 = 1024;
+    *&v31[2] = v28;
+    _os_log_impl(&dword_1A795B000, v12, OS_LOG_TYPE_DEBUG, "Apply filter: %d, allowManaged: %d, allowUnmanaged: %d", buf, 0x14u);
+  }
+
+  if (v11)
+  {
+    v13 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(accountsCopy, "count")}];
+    v24 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v14 = accountsCopy;
+    v15 = [v14 countByEnumeratingWithState:&v24 objects:v34 count:16];
+    if (!v15)
+    {
+      goto LABEL_19;
+    }
+
+    v16 = v15;
+    v17 = *v25;
+    while (1)
+    {
+      v18 = 0;
+      do
+      {
+        if (*v25 != v17)
+        {
+          objc_enumerationMutation(v14);
+        }
+
+        v19 = *(*(&v24 + 1) + 8 * v18);
+        if ([v19 MCIsManaged])
+        {
+          if ((v28 & 0x100) == 0)
+          {
+            goto LABEL_14;
+          }
+
+LABEL_13:
+          [v13 addObject:v19];
+          goto LABEL_14;
+        }
+
+        if (v28 == 1)
+        {
+          goto LABEL_13;
+        }
+
+LABEL_14:
+        ++v18;
+      }
+
+      while (v16 != v18);
+      v20 = [v14 countByEnumeratingWithState:&v24 objects:v34 count:16];
+      v16 = v20;
+      if (!v20)
+      {
+LABEL_19:
+
+        goto LABEL_21;
+      }
+    }
+  }
+
+  v13 = accountsCopy;
+LABEL_21:
+  v21 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    v22 = @"UNMANAGED";
+    if (v5 == 2)
+    {
+      v22 = @"MANAGED";
+    }
+
+    *buf = 138413058;
+    *v30 = accountsCopy;
+    *&v30[8] = 2112;
+    *v31 = dCopy;
+    *&v31[8] = 2112;
+    if (!v5)
+    {
+      v22 = @"NONE";
+    }
+
+    *&v31[10] = v22;
+    v32 = 2112;
+    v33 = v13;
+    _os_log_impl(&dword_1A795B000, v21, OS_LOG_TYPE_DEBUG, "filteredOpenInOriginatingAccounts:%@ targetAppBundleID:%@ targetAccountManagement:%@ => %@", buf, 0x2Au);
+  }
+
+  return v13;
+}
+
+- (void)allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs:(id)ds hostAppBundleID:(id)d accountIsManaged:(BOOL)managed completion:(id)completion
+{
+  managedCopy = managed;
+  dsCopy = ds;
+  dCopy = d;
+  completionCopy = completion;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  if ([(MCProfileConnection *)self isOpenInRestrictionInEffect])
+  {
+    publicXPCConnection = [(MCProfileConnection *)self publicXPCConnection];
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __137__MCProfileConnection_ManagedOpenIn__allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs_hostAppBundleID_accountIsManaged_completion___block_invoke;
+    v26[3] = &unk_1E77D2698;
+    v14 = &v27;
+    v15 = completionCopy;
+    v27 = v15;
+    v16 = [publicXPCConnection remoteObjectProxyWithErrorHandler:v26];
+
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __137__MCProfileConnection_ManagedOpenIn__allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs_hostAppBundleID_accountIsManaged_completion___block_invoke_36;
+    v21[3] = &unk_1E77D3570;
+    v22 = dsCopy;
+    v23 = dCopy;
+    v25 = managedCopy;
+    v24 = v15;
+    [v16 allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs:v22 hostAppBundleID:v23 accountIsManaged:managedCopy completion:v21];
+
+LABEL_5:
+    goto LABEL_6;
+  }
+
+  if (completionCopy)
+  {
+    v17 = dispatch_get_global_queue(0, 0);
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __137__MCProfileConnection_ManagedOpenIn__allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs_hostAppBundleID_accountIsManaged_completion___block_invoke_38;
+    block[3] = &unk_1E77D2A58;
+    v14 = &v20;
+    v20 = completionCopy;
+    v19 = dsCopy;
+    dispatch_async(v17, block);
+
+    v16 = v19;
+    goto LABEL_5;
+  }
+
+LABEL_6:
 }
 
 void __137__MCProfileConnection_ManagedOpenIn__allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs_hostAppBundleID_accountIsManaged_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = qword_1ED4ADE28;
   if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
   {
     v5 = v4;
     v6 = [v3 MCVerboseDescription];
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Could not filter keyboards. Error: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Could not filter keyboards. Error: %{public}@", &v8, 0xCu);
   }
 
   v7 = *(a1 + 32);
@@ -15802,11 +18241,102 @@ void __137__MCProfileConnection_ManagedOpenIn__allowedKeyboardBundleIDsAfterAppl
   {
     (*(v7 + 16))(v7, MEMORY[0x1E695E0F0]);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __137__MCProfileConnection_ManagedOpenIn__allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs_hostAppBundleID_accountIsManaged_completion___block_invoke_36(uint64_t a1, void *a2)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  v4 = qword_1ED4ADE08;
+  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
+  {
+    v5 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    if (*(a1 + 56))
+    {
+      v7 = @"YES";
+    }
+
+    else
+    {
+      v7 = @"NO";
+    }
+
+    v9 = 138413058;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEBUG, "allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs:%@ hostAppBundleID:%@ accountIsManaged:%@ => %@", &v9, 0x2Au);
+  }
+
+  v8 = *(a1 + 48);
+  if (v8)
+  {
+    (*(v8 + 16))(v8, v3);
+  }
+}
+
+- (id)allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs:(id)ds hostAppBundleID:(id)d accountIsManaged:(BOOL)managed
+{
+  managedCopy = managed;
+  dsCopy = ds;
+  dCopy = d;
+  [(MCProfileConnection *)self checkInIfNeeded];
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__17;
+  v25 = __Block_byref_object_dispose__17;
+  v26 = MEMORY[0x1E695E0F0];
+  if ([(MCProfileConnection *)self isOpenInRestrictionInEffect])
+  {
+    publicXPCConnection = [(MCProfileConnection *)self publicXPCConnection];
+    v11 = [publicXPCConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_41_0];
+
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __126__MCProfileConnection_ManagedOpenIn__allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs_hostAppBundleID_accountIsManaged___block_invoke_42;
+    v16[3] = &unk_1E77D3598;
+    v17 = dsCopy;
+    v20 = managedCopy;
+    v18 = dCopy;
+    v19 = &v21;
+    [v11 allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs:v17 hostAppBundleID:v18 accountIsManaged:managedCopy completion:v16];
+  }
+
+  else
+  {
+    v12 = v22;
+    v13 = dsCopy;
+    v11 = v12[5];
+    v12[5] = v13;
+  }
+
+  v14 = v22[5];
+  _Block_object_dispose(&v21, 8);
+
+  return v14;
+}
+
+void __126__MCProfileConnection_ManagedOpenIn__allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs_hostAppBundleID_accountIsManaged___block_invoke(uint64_t a1, void *a2)
+{
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = qword_1ED4ADE28;
+  if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
+  {
+    v4 = v3;
+    v5 = [a2 MCVerboseDescription];
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Could not filter keyboards synchronously. Error: %{public}@", &v6, 0xCu);
+  }
+}
+
+void __126__MCProfileConnection_ManagedOpenIn__allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs_hostAppBundleID_accountIsManaged___block_invoke_42(uint64_t a1, void *a2)
 {
   v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -15836,66 +18366,9 @@ void __137__MCProfileConnection_ManagedOpenIn__allowedKeyboardBundleIDsAfterAppl
     _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEBUG, "allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs:%@ hostAppBundleID:%@ accountIsManaged:%@ => %@", &v10, 0x2Au);
   }
 
-  v8 = *(a1 + 48);
-  if (v8)
-  {
-    (*(v8 + 16))(v8, v3);
-  }
-
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-void __126__MCProfileConnection_ManagedOpenIn__allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs_hostAppBundleID_accountIsManaged___block_invoke(uint64_t a1, void *a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v3 = qword_1ED4ADE28;
-  if (os_log_type_enabled(qword_1ED4ADE28, OS_LOG_TYPE_ERROR))
-  {
-    v4 = v3;
-    v5 = [a2 MCVerboseDescription];
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Could not filter keyboards synchronously. Error: %{public}@", &v7, 0xCu);
-  }
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __126__MCProfileConnection_ManagedOpenIn__allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs_hostAppBundleID_accountIsManaged___block_invoke_42(uint64_t a1, void *a2)
-{
-  v19 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = qword_1ED4ADE08;
-  if (os_log_type_enabled(qword_1ED4ADE08, OS_LOG_TYPE_DEBUG))
-  {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    if (*(a1 + 56))
-    {
-      v7 = @"YES";
-    }
-
-    else
-    {
-      v7 = @"NO";
-    }
-
-    v11 = 138413058;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
-    v15 = 2112;
-    v16 = v7;
-    v17 = 2112;
-    v18 = v3;
-    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEBUG, "allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs:%@ hostAppBundleID:%@ accountIsManaged:%@ => %@", &v11, 0x2Au);
-  }
-
   v8 = *(*(a1 + 48) + 8);
   v9 = *(v8 + 40);
   *(v8 + 40) = v3;
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isManagedPasteboardRequired
@@ -15909,7 +18382,7 @@ void __126__MCProfileConnection_ManagedOpenIn__allowedKeyboardBundleIDsAfterAppl
 
 - (BOOL)_unmanagedMayReadManagedContacts
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   [(MCProfileConnection *)self checkInIfNeeded];
   v2 = +[MCRestrictionManager sharedManager];
   v3 = [v2 effectiveRestrictedBoolForSetting:@"allowUnmanagedToReadManagedContacts"];
@@ -15923,19 +18396,17 @@ void __126__MCProfileConnection_ManagedOpenIn__allowedKeyboardBundleIDsAfterAppl
       v5 = @"YES";
     }
 
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEBUG, "unmanagedMayReadManagedContacts: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEBUG, "unmanagedMayReadManagedContacts: %@", &v7, 0xCu);
   }
 
-  result = v3 != 2;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return v3 != 2;
 }
 
 - (BOOL)_managedMayWriteUnmanagedContacts
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   [(MCProfileConnection *)self checkInIfNeeded];
   v2 = +[MCRestrictionManager sharedManager];
   v3 = [v2 effectiveRestrictedBoolForSetting:@"allowManagedToWriteUnmanagedContacts"];
@@ -15949,19 +18420,17 @@ void __126__MCProfileConnection_ManagedOpenIn__allowedKeyboardBundleIDsAfterAppl
       v5 = @"YES";
     }
 
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEBUG, "managedMayWriteUnmanagedContacts: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_DEBUG, "managedMayWriteUnmanagedContacts: %@", &v7, 0xCu);
   }
 
-  result = v3 != 2;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return v3 != 2;
 }
 
 - (BOOL)_shouldApplyContactsFilterForBundleID:(id)d sourceAccountManagement:(int)management outAllowManagedAccounts:(BOOL *)accounts outAllowUnmanagedAccounts:(BOOL *)unmanagedAccounts
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dCopy = d;
   [(MCProfileConnection *)self checkInIfNeeded];
   if (![(MCProfileConnection *)self isOpenInRestrictionInEffect]|| (MCIsAppExemptFromOpenInSourceRestrictions(dCopy) & 1) != 0)
@@ -15984,10 +18453,10 @@ void __126__MCProfileConnection_ManagedOpenIn__allowedKeyboardBundleIDsAfterAppl
 
   else
   {
-    v22 = +[MCProfileConnection sharedConnection];
-    v23 = [v22 isAppManaged:dCopy];
+    v21 = +[MCProfileConnection sharedConnection];
+    v22 = [v21 isAppManaged:dCopy];
 
-    if (v23)
+    if (v22)
     {
 LABEL_34:
       if (![(MCProfileConnection *)self mayOpenFromManagedToUnmanaged]&& ![(MCProfileConnection *)self _managedMayWriteUnmanagedContacts])
@@ -16088,26 +18557,25 @@ LABEL_22:
 
     v17 = @"NOT RETURNED";
 LABEL_31:
-    v25 = 138413314;
-    v26 = dCopy;
-    v27 = 2112;
-    v28 = v16;
-    v29 = 2112;
-    v30 = v18;
-    v31 = 2112;
-    v32 = v19;
-    v33 = 2112;
-    v34 = v17;
-    _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_DEBUG, "shouldApplyContactsFilterForBundleID:%@ sourceAccountManagement:%@ => %@, allowManagedAccounts:%@, allowUnamangedAccounts:%@", &v25, 0x34u);
+    v24 = 138413314;
+    v25 = dCopy;
+    v26 = 2112;
+    v27 = v16;
+    v28 = 2112;
+    v29 = v18;
+    v30 = 2112;
+    v31 = v19;
+    v32 = 2112;
+    v33 = v17;
+    _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_DEBUG, "shouldApplyContactsFilterForBundleID:%@ sourceAccountManagement:%@ => %@, allowManagedAccounts:%@, allowUnamangedAccounts:%@", &v24, 0x34u);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)_shouldApplyContactsFilterForTargetBundleID:(id)d targetAccountManagement:(int)management outAllowManagedAccounts:(BOOL *)accounts outAllowUnmanagedAccounts:(BOOL *)unmanagedAccounts
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dCopy = d;
   [(MCProfileConnection *)self checkInIfNeeded];
   if (![(MCProfileConnection *)self isOpenInRestrictionInEffect]|| (MCIsAppExemptFromImportFromTargetRestrictionsForContacts(dCopy) & 1) != 0)
@@ -16133,10 +18601,10 @@ LABEL_34:
 
   else
   {
-    v22 = +[MCProfileConnection sharedConnection];
-    v23 = [v22 isAppManaged:dCopy];
+    v21 = +[MCProfileConnection sharedConnection];
+    v22 = [v21 isAppManaged:dCopy];
 
-    if (v23)
+    if (v22)
     {
       goto LABEL_34;
     }
@@ -16234,20 +18702,19 @@ LABEL_22:
 
     v17 = @"NOT RETURNED";
 LABEL_31:
-    v25 = 138413314;
-    v26 = dCopy;
-    v27 = 2112;
-    v28 = v16;
-    v29 = 2112;
-    v30 = v18;
-    v31 = 2112;
-    v32 = v19;
-    v33 = 2112;
-    v34 = v17;
-    _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_DEBUG, "shouldApplyContactsFilterForTargetBundleID:%@ targetAccountManagement:%@ => %@, allowManagedAccounts:%@, allowUnamangedAccounts:%@", &v25, 0x34u);
+    v24 = 138413314;
+    v25 = dCopy;
+    v26 = 2112;
+    v27 = v16;
+    v28 = 2112;
+    v29 = v18;
+    v30 = 2112;
+    v31 = v19;
+    v32 = 2112;
+    v33 = v17;
+    _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_DEBUG, "shouldApplyContactsFilterForTargetBundleID:%@ targetAccountManagement:%@ => %@, allowManagedAccounts:%@, allowUnamangedAccounts:%@", &v24, 0x34u);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14 & 1;
 }
 

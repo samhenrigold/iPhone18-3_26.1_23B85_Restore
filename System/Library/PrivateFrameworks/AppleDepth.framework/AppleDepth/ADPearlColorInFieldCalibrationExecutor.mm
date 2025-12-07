@@ -553,36 +553,36 @@ LABEL_8:
 - (uint64_t)preprocessInputColorFrame:(double)frame pearlNormalizedDX:(double)x pearlPoses:(double)poses disparityNormalizationMultiplier:(double)multiplier disparityNormalizationOffset:(double)offset pceCameraCalibration:(uint64_t)calibration pearlCameraCalibrationTransform:(uint64_t)transform colorCameraCalibration:(__CVBuffer *)self0 timestamp:(void *)self1
 {
   timestampCopy = timestamp;
-  v30 = a12;
+  v32 = a12;
   Width = CVPixelBufferGetWidth(cameraCalibration);
   Height = CVPixelBufferGetHeight(cameraCalibration);
   pixelBufferOut = 0;
   BufferAttributes = getBufferAttributes();
-  v34 = CVPixelBufferCreate(*MEMORY[0x277CBECE8], Width, Height, 0x31332E33u, BufferAttributes, &pixelBufferOut);
-  v35 = pixelBufferOut;
-  if (v34)
+  v36 = CVPixelBufferCreate(*MEMORY[0x277CBECE8], Width, Height, 0x31332E33u, BufferAttributes, &pixelBufferOut);
+  v37 = pixelBufferOut;
+  if (v36)
   {
-    v36 = 1;
+    v38 = 1;
   }
 
   else
   {
-    v36 = pixelBufferOut == 0;
+    v38 = pixelBufferOut == 0;
   }
 
-  if (v36)
+  if (v38)
   {
-    v37 = -22950;
+    v39 = -22950;
   }
 
   else
   {
     [self normalizedDX:cameraCalibration toDepth:pixelBufferOut withMultiplier:multiplier andOffset:offset];
-    v37 = [self preprocessInputColorFrame:transform pearlDepth:v35 pearlPoses:timestampCopy pceCameraCalibration:v30 pearlCameraCalibrationTransform:a2 colorCameraCalibration:frame timestamp:{x, poses, a17, a19, a21, a23, a25}];
-    CVPixelBufferRelease(v35);
+    v39 = [self preprocessInputColorFrame:transform pearlDepth:v37 pearlPoses:timestampCopy pceCameraCalibration:v32 pearlCameraCalibrationTransform:a2 colorCameraCalibration:frame timestamp:{x, poses, a17, a19, a21, a23, a25}];
+    CVPixelBufferRelease(v37);
   }
 
-  return v37;
+  return v39;
 }
 
 - (BOOL)normalizedDX:(__CVBuffer *)x toDepth:(__CVBuffer *)depth withMultiplier:(double)multiplier andOffset:(double)offset

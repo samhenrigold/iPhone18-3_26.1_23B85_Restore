@@ -1,6 +1,8 @@
 @interface ACCFeaturePluginHIDDescriptor
 - (ACCFeaturePluginHIDDescriptor)initWithDecriptorInfo:(id)info sendOutReport:(id)report sendGetReport:(id)getReport sendComponentUpdate:(id)update;
+- (BOOL)handleGetReport:(int)report reportID:(unsigned __int8)d report:(id)a5;
 - (BOOL)handleGetReportResponse:(unsigned __int8)response reportID:(unsigned __int8)d report:(id)report;
+- (BOOL)handleHIDComponentUpdate:(BOOL)update;
 - (BOOL)handleInReport:(id)report;
 - (BOOL)handleOutReport:(id)report;
 - (void)dealloc;
@@ -12,7 +14,7 @@
 
 - (ACCFeaturePluginHIDDescriptor)initWithDecriptorInfo:(id)info sendOutReport:(id)report sendGetReport:(id)getReport sendComponentUpdate:(id)update
 {
-  v106 = *MEMORY[0x277D85DE8];
+  v99 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   reportCopy = report;
   getReportCopy = getReport;
@@ -46,15 +48,15 @@
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v103 = "[ACCFeaturePluginHIDDescriptor initWithDecriptorInfo:sendOutReport:sendGetReport:sendComponentUpdate:]";
-    v104 = 2112;
-    v105 = infoCopy;
+    v96 = "[ACCFeaturePluginHIDDescriptor initWithDecriptorInfo:sendOutReport:sendGetReport:sendComponentUpdate:]";
+    v97 = 2112;
+    v98 = infoCopy;
     _os_log_impl(&dword_2335CB000, v16, OS_LOG_TYPE_DEFAULT, "%s: descriptorInfo %@ ", buf, 0x16u);
   }
 
-  v101.receiver = self;
-  v101.super_class = ACCFeaturePluginHIDDescriptor;
-  v17 = [(ACCFeaturePluginHIDDescriptor *)&v101 init];
+  v94.receiver = self;
+  v94.super_class = ACCFeaturePluginHIDDescriptor;
+  v17 = [(ACCFeaturePluginHIDDescriptor *)&v94 init];
   if (v17)
   {
     v18 = v17;
@@ -212,46 +214,40 @@
       handler[2] = __103__ACCFeaturePluginHIDDescriptor_initWithDecriptorInfo_sendOutReport_sendGetReport_sendComponentUpdate___block_invoke;
       handler[3] = &unk_2789E2AE8;
       v78 = v18;
-      v100 = v78;
+      v93 = v78;
       dispatch_source_set_event_handler(v77, handler);
       dispatch_source_set_timer(*(v18 + 64), 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0);
       dispatch_resume(*(v18 + 64));
       [(ACCFeaturePluginHIDDescriptor *)v78 startHIDEventSystemListener:*(v18 + 24)];
-      v79 = *MEMORY[0x277CBECE8];
-      v80 = IOHIDUserDeviceCreate();
-      v78->_deviceRef = v80;
-      if (v80)
+      v79 = IOHIDUserDeviceCreate();
+      v78->_deviceRef = v79;
+      if (v79)
       {
-        v81 = *(v18 + 48);
         IOHIDUserDeviceScheduleWithDispatchQueue();
-        deviceRef = v78->_deviceRef;
-        v83 = *(v18 + 24);
         IOHIDUserDeviceRegisterGetReportCallback();
-        v84 = v78->_deviceRef;
-        v85 = *(v18 + 24);
         IOHIDUserDeviceRegisterSetReportCallback();
-        v86 = dispatch_semaphore_create(0);
+        v80 = dispatch_semaphore_create(0);
         getReportSemaphore = v78->_getReportSemaphore;
-        v78->_getReportSemaphore = v86;
+        v78->_getReportSemaphore = v80;
 
-        v88 = MEMORY[0x2383A6230](reportCopy);
+        v82 = MEMORY[0x2383A6230](reportCopy);
         sendOutReport = v78->_sendOutReport;
-        v78->_sendOutReport = v88;
+        v78->_sendOutReport = v82;
 
-        v90 = MEMORY[0x2383A6230](getReportCopy);
+        v84 = MEMORY[0x2383A6230](getReportCopy);
         sendGetReport = v78->_sendGetReport;
-        v78->_sendGetReport = v90;
+        v78->_sendGetReport = v84;
 
-        v92 = MEMORY[0x2383A6230](updateCopy);
+        v86 = MEMORY[0x2383A6230](updateCopy);
         sendComponentUpdate = v78->_sendComponentUpdate;
-        v78->_sendComponentUpdate = v92;
+        v78->_sendComponentUpdate = v86;
       }
 
       else
       {
         if (gLogObjects && gNumLogObjects >= 1)
         {
-          v94 = *gLogObjects;
+          v88 = *gLogObjects;
         }
 
         else
@@ -261,11 +257,11 @@
             [ACCFeaturePluginHIDDescriptor initWithDecriptorInfo:sendOutReport:sendGetReport:sendComponentUpdate:];
           }
 
-          v94 = MEMORY[0x277D86220];
-          v96 = MEMORY[0x277D86220];
+          v88 = MEMORY[0x277D86220];
+          v90 = MEMORY[0x277D86220];
         }
 
-        if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
         {
           [ACCFeaturePluginHIDDescriptor initWithDecriptorInfo:sendOutReport:sendGetReport:sendComponentUpdate:];
         }
@@ -292,7 +288,7 @@
         }
 
         v72 = MEMORY[0x277D86220];
-        v95 = MEMORY[0x277D86220];
+        v89 = MEMORY[0x277D86220];
       }
 
       if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
@@ -309,13 +305,12 @@
     v78 = 0;
   }
 
-  v97 = *MEMORY[0x277D85DE8];
   return v78;
 }
 
 _BYTE *__103__ACCFeaturePluginHIDDescriptor_initWithDecriptorInfo_sendOutReport_sendGetReport_sendComponentUpdate___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v2 = gNumLogObjects < 1;
@@ -345,18 +340,17 @@ _BYTE *__103__ACCFeaturePluginHIDDescriptor_initWithDecriptorInfo_sendOutReport_
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(*(a1 + 32) + 24);
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_2335CB000, v4, OS_LOG_TYPE_DEFAULT, "registerDeviceMatchingTimer fired! %@ call handleHIDComponentUpdate true", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_2335CB000, v4, OS_LOG_TYPE_DEFAULT, "registerDeviceMatchingTimer fired! %@ call handleHIDComponentUpdate true", &v7, 0xCu);
   }
 
   result = *(a1 + 32);
   if ((result[8] & 1) == 0)
   {
-    result = [result handleHIDComponentUpdate:1];
+    return [result handleHIDComponentUpdate:1];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -376,23 +370,20 @@ _BYTE *__103__ACCFeaturePluginHIDDescriptor_initWithDecriptorInfo_sendOutReport_
 
 - (void)startHIDEventSystemListener:(id)listener
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   v5 = listenerCopy;
   if (!self->_hidEventSystemClientRef)
   {
-    v19 = @"PhysicalDeviceUniqueID";
-    v20[0] = listenerCopy;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
-    v7 = *MEMORY[0x277CBECE8];
+    v14 = @"PhysicalDeviceUniqueID";
+    v15[0] = listenerCopy;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     self->_hidEventSystemClientRef = IOHIDEventSystemClientCreate();
-    hidCallbackQueue = self->_hidCallbackQueue;
     IOHIDEventSystemClientScheduleWithDispatchQueue();
-    hidEventSystemClientRef = self->_hidEventSystemClientRef;
     IOHIDEventSystemClientSetMatching();
     if (gLogObjects && gNumLogObjects >= 1)
     {
-      v10 = *gLogObjects;
+      v7 = *gLogObjects;
     }
 
     else
@@ -402,26 +393,23 @@ _BYTE *__103__ACCFeaturePluginHIDDescriptor_initWithDecriptorInfo_sendOutReport_
         [ACCFeaturePluginHIDDescriptor initWithDecriptorInfo:sendOutReport:sendGetReport:sendComponentUpdate:];
       }
 
-      v10 = MEMORY[0x277D86220];
-      v11 = MEMORY[0x277D86220];
+      v7 = MEMORY[0x277D86220];
+      v8 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       hidDeviceUUIDStr = self->_hidDeviceUUIDStr;
-      v17 = 138412290;
-      v18 = hidDeviceUUIDStr;
-      _os_log_impl(&dword_2335CB000, v10, OS_LOG_TYPE_DEFAULT, "start registerDeviceMatchingTimer, %@", &v17, 0xCu);
+      v12 = 138412290;
+      v13 = hidDeviceUUIDStr;
+      _os_log_impl(&dword_2335CB000, v7, OS_LOG_TYPE_DEFAULT, "start registerDeviceMatchingTimer, %@", &v12, 0xCu);
     }
 
     registerDeviceMatchingTimerSource = self->_registerDeviceMatchingTimerSource;
-    v14 = dispatch_time(0, 2000000000);
-    dispatch_source_set_timer(registerDeviceMatchingTimerSource, v14, 0xFFFFFFFFFFFFFFFFLL, 0);
-    v15 = self->_hidEventSystemClientRef;
+    v11 = dispatch_time(0, 2000000000);
+    dispatch_source_set_timer(registerDeviceMatchingTimerSource, v11, 0xFFFFFFFFFFFFFFFFLL, 0);
     IOHIDEventSystemClientRegisterDeviceMatchingCallback();
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)handleInReport:(id)report
@@ -522,6 +510,49 @@ LABEL_27:
   return report != 0;
 }
 
+- (BOOL)handleGetReport:(int)report reportID:(unsigned __int8)d report:(id)a5
+{
+  dCopy = d;
+  v6 = *&report;
+  v8 = a5;
+  [(ACCFeaturePluginHIDDescriptor *)self setGetReportResult:3758097084];
+  [(ACCFeaturePluginHIDDescriptor *)self setGetReportType:v6];
+  [(ACCFeaturePluginHIDDescriptor *)self setGetReportID:dCopy];
+  [(ACCFeaturePluginHIDDescriptor *)self setGetReportBuffer:v8];
+  sendGetReport = [(ACCFeaturePluginHIDDescriptor *)self sendGetReport];
+  hidDeviceUUIDStr = [(ACCFeaturePluginHIDDescriptor *)self hidDeviceUUIDStr];
+  v11 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v6];
+  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:dCopy];
+  (sendGetReport)[2](sendGetReport, hidDeviceUUIDStr, v11, v12);
+
+  v13 = dispatch_time(0, 1000000000);
+  getReportSemaphore = [(ACCFeaturePluginHIDDescriptor *)self getReportSemaphore];
+  v15 = dispatch_semaphore_wait(getReportSemaphore, v13);
+
+  v16 = 0;
+  if (![(ACCFeaturePluginHIDDescriptor *)self isShuttingDown]&& !v15)
+  {
+    if ([(ACCFeaturePluginHIDDescriptor *)self getReportResult])
+    {
+      v16 = 0;
+    }
+
+    else
+    {
+      getReportBuffer = [(ACCFeaturePluginHIDDescriptor *)self getReportBuffer];
+      [getReportBuffer getBytes:objc_msgSend(v8 length:{"bytes"), objc_msgSend(v8, "length")}];
+
+      v16 = 1;
+    }
+  }
+
+  [(ACCFeaturePluginHIDDescriptor *)self setGetReportType:3];
+  [(ACCFeaturePluginHIDDescriptor *)self setGetReportID:0];
+  [(ACCFeaturePluginHIDDescriptor *)self setGetReportBuffer:0];
+
+  return v16;
+}
+
 - (BOOL)handleGetReportResponse:(unsigned __int8)response reportID:(unsigned __int8)d report:(id)report
 {
   dCopy = d;
@@ -564,12 +595,174 @@ LABEL_27:
   return v17;
 }
 
-- (void)initWithDecriptorInfo:sendOutReport:sendGetReport:sendComponentUpdate:.cold.1()
+- (BOOL)handleHIDComponentUpdate:(BOOL)update
 {
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2335CB000, MEMORY[0x277D86220], v0, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
+  updateCopy = update;
+  v34 = *MEMORY[0x277D85DE8];
+  if (gLogObjects)
+  {
+    v5 = gNumLogObjects < 1;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (v5)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [ACCFeaturePluginHIDDescriptor initWithDecriptorInfo:sendOutReport:sendGetReport:sendComponentUpdate:];
+    }
+
+    v7 = MEMORY[0x277D86220];
+    v6 = MEMORY[0x277D86220];
+  }
+
+  else
+  {
+    v7 = *gLogObjects;
+  }
+
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    hidDeviceUUIDStr = self->_hidDeviceUUIDStr;
+    *buf = 138412290;
+    v33 = hidDeviceUUIDStr;
+    _os_log_impl(&dword_2335CB000, v7, OS_LOG_TYPE_DEFAULT, "stop registerDeviceMatchingTimer, %@", buf, 0xCu);
+  }
+
+  dispatch_source_set_timer(self->_registerDeviceMatchingTimerSource, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0);
+  sendComponentUpdate = [(ACCFeaturePluginHIDDescriptor *)self sendComponentUpdate];
+  hidDeviceUUIDStr = [(ACCFeaturePluginHIDDescriptor *)self hidDeviceUUIDStr];
+  (sendComponentUpdate)[2](sendComponentUpdate, hidDeviceUUIDStr, updateCopy);
+
+  self->_isReady = updateCopy;
+  if (!updateCopy)
+  {
+    if (gLogObjects && gNumLogObjects >= 1)
+    {
+      v15 = *gLogObjects;
+    }
+
+    else
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        [ACCFeaturePluginHIDDescriptor initWithDecriptorInfo:sendOutReport:sendGetReport:sendComponentUpdate:];
+      }
+
+      v15 = MEMORY[0x277D86220];
+      v16 = MEMORY[0x277D86220];
+    }
+
+    if (os_log_type_enabled(&v15->super.super, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = [(NSMutableArray *)self->_initialReportCache count];
+      *buf = 134217984;
+      v33 = v17;
+      _os_log_impl(&dword_2335CB000, &v15->super.super, OS_LOG_TYPE_DEFAULT, "handleHIDComponentUpdate: not ready, remove %lu cached reports.", buf, 0xCu);
+    }
+
+    goto LABEL_43;
+  }
+
+  v11 = [(NSMutableArray *)self->_initialReportCache count];
+  if (gLogObjects)
+  {
+    v12 = gNumLogObjects <= 0;
+  }
+
+  else
+  {
+    v12 = 1;
+  }
+
+  v13 = !v12;
+  if (v11)
+  {
+    if (v13)
+    {
+      v14 = *gLogObjects;
+    }
+
+    else
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        [ACCFeaturePluginHIDDescriptor initWithDecriptorInfo:sendOutReport:sendGetReport:sendComponentUpdate:];
+      }
+
+      v14 = MEMORY[0x277D86220];
+      v19 = MEMORY[0x277D86220];
+    }
+
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      v20 = [(NSMutableArray *)self->_initialReportCache count];
+      *buf = 134217984;
+      v33 = v20;
+      _os_log_impl(&dword_2335CB000, v14, OS_LOG_TYPE_DEFAULT, "handleHIDComponentUpdate: ready, handle %lu cached reports.", buf, 0xCu);
+    }
+
+    v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v15 = self->_initialReportCache;
+    v21 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    if (v21)
+    {
+      v22 = v21;
+      v23 = *v28;
+      do
+      {
+        for (i = 0; i != v22; ++i)
+        {
+          if (*v28 != v23)
+          {
+            objc_enumerationMutation(v15);
+          }
+
+          [(ACCFeaturePluginHIDDescriptor *)self handleInReport:*(*(&v27 + 1) + 8 * i), v27];
+        }
+
+        v22 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      }
+
+      while (v22);
+    }
+
+LABEL_43:
+
+    [(NSMutableArray *)self->_initialReportCache removeAllObjects];
+    return 1;
+  }
+
+  if (v13)
+  {
+    v18 = *gLogObjects;
+  }
+
+  else
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [ACCFeaturePluginHIDDescriptor initWithDecriptorInfo:sendOutReport:sendGetReport:sendComponentUpdate:];
+    }
+
+    v18 = MEMORY[0x277D86220];
+    v26 = MEMORY[0x277D86220];
+  }
+
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_2335CB000, v18, OS_LOG_TYPE_DEFAULT, "handleHIDComponentUpdate: ready, no cached reports.", buf, 2u);
+  }
+
+  return 1;
 }
 
 - (void)initWithDecriptorInfo:sendOutReport:sendGetReport:sendComponentUpdate:.cold.3()
@@ -591,14 +784,6 @@ LABEL_27:
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)handleInReport:.cold.4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

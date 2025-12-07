@@ -57,7 +57,7 @@
 
 + (uint64_t)hf_areAlarms:()HFAlarmUtilities equalToAlarms:includeModificationDate:
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   [MEMORY[0x277D296D0] hf_verifyThatAlarmsAreConsistent:v7];
@@ -69,32 +69,32 @@
 
   else if ((v7 || !v8) && (!v7 || v8) && (v9 = [v7 count], v9 == objc_msgSend(v8, "count")))
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     obj = v7;
-    v10 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v10 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v23;
+      v12 = *v22;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v23 != v12)
+          if (*v22 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v22 + 1) + 8 * i);
-          v21[0] = MEMORY[0x277D85DD0];
-          v21[1] = 3221225472;
-          v21[2] = __80__MTAlarm_HFAlarmUtilities__hf_areAlarms_equalToAlarms_includeModificationDate___block_invoke;
-          v21[3] = &unk_277DFBFA0;
-          v21[4] = v14;
-          v15 = [v8 na_firstObjectPassingTest:v21];
+          v14 = *(*(&v21 + 1) + 8 * i);
+          v20[0] = MEMORY[0x277D85DD0];
+          v20[1] = 3221225472;
+          v20[2] = __80__MTAlarm_HFAlarmUtilities__hf_areAlarms_equalToAlarms_includeModificationDate___block_invoke;
+          v20[3] = &unk_277DFBFA0;
+          v20[4] = v14;
+          v15 = [v8 na_firstObjectPassingTest:v20];
           v16 = v15;
           if (a5)
           {
@@ -113,7 +113,7 @@ LABEL_22:
           }
         }
 
-        v11 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v11 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v11)
         {
           continue;
@@ -132,7 +132,6 @@ LABEL_23:
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -164,31 +163,31 @@ LABEL_23:
 
 + (uint64_t)hf_verifyThatAlarmsAreConsistent:()HFAlarmUtilities
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = [a3 na_dictionaryByBucketingObjectsUsingKeyGenerator:&__block_literal_global_25_7];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v19;
+    v7 = *v18;
     v8 = 1;
     *&v5 = 138412290;
-    v17 = v5;
+    v16 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
-        v11 = [v3 objectForKeyedSubscript:{v10, v17}];
+        v10 = *(*(&v17 + 1) + 8 * i);
+        v11 = [v3 objectForKeyedSubscript:{v10, v16}];
         v12 = [v11 count];
 
         if (v12 >= 2)
@@ -197,8 +196,8 @@ LABEL_23:
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             v14 = [v3 objectForKeyedSubscript:v10];
-            *buf = v17;
-            v23 = v14;
+            *buf = v16;
+            v22 = v14;
             _os_log_error_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_ERROR, "FOUND DUPLICATE ALARMS: %@", buf, 0xCu);
           }
 
@@ -206,7 +205,7 @@ LABEL_23:
         }
       }
 
-      v6 = [v3 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v6 = [v3 countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v6);
@@ -217,7 +216,6 @@ LABEL_23:
     v8 = 1;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8 & 1;
 }
 

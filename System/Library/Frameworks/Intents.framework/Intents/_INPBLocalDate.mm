@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (_INPBLocalDate)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)dayOfWeekAsString:(int)string;
 - (id)dictionaryRepresentation;
 - (int)StringAsDayOfWeek:(id)week;
 - (unint64_t)hash;
@@ -103,38 +104,38 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
+  v12 = 0;
+  if ([equalCopy isMemberOfClass:objc_opt_class()])
   {
-    goto LABEL_15;
-  }
-
-  hasDayOfMonth = [(_INPBLocalDate *)self hasDayOfMonth];
-  if (hasDayOfMonth != [equalCopy hasDayOfMonth])
-  {
-    goto LABEL_15;
-  }
-
-  if ([(_INPBLocalDate *)self hasDayOfMonth])
-  {
-    if ([equalCopy hasDayOfMonth])
+    hasDayOfMonth = [(_INPBLocalDate *)self hasDayOfMonth];
+    if (hasDayOfMonth == [equalCopy hasDayOfMonth])
     {
-      dayOfMonth = self->_dayOfMonth;
-      if (dayOfMonth != [equalCopy dayOfMonth])
+      if (!-[_INPBLocalDate hasDayOfMonth](self, "hasDayOfMonth") || ![equalCopy hasDayOfMonth] || (dayOfMonth = self->_dayOfMonth, dayOfMonth == objc_msgSend(equalCopy, "dayOfMonth")))
       {
-        goto LABEL_15;
+        hasDayOfWeek = [(_INPBLocalDate *)self hasDayOfWeek];
+        if (hasDayOfWeek == [equalCopy hasDayOfWeek])
+        {
+          if (!-[_INPBLocalDate hasDayOfWeek](self, "hasDayOfWeek") || ![equalCopy hasDayOfWeek] || (dayOfWeek = self->_dayOfWeek, dayOfWeek == objc_msgSend(equalCopy, "dayOfWeek")))
+          {
+            hasMonth = [(_INPBLocalDate *)self hasMonth];
+            if (hasMonth == [equalCopy hasMonth])
+            {
+              if (!-[_INPBLocalDate hasMonth](self, "hasMonth") || ![equalCopy hasMonth] || (month = self->_month, month == objc_msgSend(equalCopy, "month")))
+              {
+                hasYear = [(_INPBLocalDate *)self hasYear];
+                if (hasYear == [equalCopy hasYear])
+                {
+                  if (!-[_INPBLocalDate hasYear](self, "hasYear") || ![equalCopy hasYear] || (year = self->_year, year == objc_msgSend(equalCopy, "year")))
+                  {
+                    v12 = 1;
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
-  }
-
-  if ((v7 = -[_INPBLocalDate hasDayOfWeek](self, "hasDayOfWeek"), v7 == [equalCopy hasDayOfWeek]) && (!-[_INPBLocalDate hasDayOfWeek](self, "hasDayOfWeek") || !objc_msgSend(equalCopy, "hasDayOfWeek") || (dayOfWeek = self->_dayOfWeek, dayOfWeek == objc_msgSend(equalCopy, "dayOfWeek"))) && (v9 = -[_INPBLocalDate hasMonth](self, "hasMonth"), v9 == objc_msgSend(equalCopy, "hasMonth")) && (!-[_INPBLocalDate hasMonth](self, "hasMonth") || !objc_msgSend(equalCopy, "hasMonth") || (month = self->_month, month == objc_msgSend(equalCopy, "month"))) && (v11 = -[_INPBLocalDate hasYear](self, "hasYear"), v11 == objc_msgSend(equalCopy, "hasYear")) && (!-[_INPBLocalDate hasYear](self, "hasYear") || !objc_msgSend(equalCopy, "hasYear") || (year = self->_year, year == objc_msgSend(equalCopy, "year"))))
-  {
-    v12 = 1;
-  }
-
-  else
-  {
-LABEL_15:
-    v12 = 0;
   }
 
   return v12;
@@ -195,25 +196,21 @@ LABEL_15:
   toCopy = to;
   if ([(_INPBLocalDate *)self hasDayOfMonth])
   {
-    dayOfMonth = self->_dayOfMonth;
     PBDataWriterWriteInt64Field();
   }
 
   if ([(_INPBLocalDate *)self hasDayOfWeek])
   {
-    dayOfWeek = self->_dayOfWeek;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBLocalDate *)self hasMonth])
   {
-    month = self->_month;
     PBDataWriterWriteInt64Field();
   }
 
   if ([(_INPBLocalDate *)self hasYear])
   {
-    year = self->_year;
     PBDataWriterWriteInt64Field();
   }
 }
@@ -294,6 +291,21 @@ LABEL_15:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)dayOfWeekAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E7281788 + string);
   }
 
   return v4;

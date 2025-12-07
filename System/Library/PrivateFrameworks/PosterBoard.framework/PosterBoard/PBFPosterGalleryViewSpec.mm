@@ -29,19 +29,19 @@
   contextCopy = context;
   mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
   connectedScenes = [mEMORY[0x277D75128] connectedScenes];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __50__PBFPosterGalleryViewSpec_specForDisplayContext___block_invoke;
-  v29[3] = &unk_2782C9DA0;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __50__PBFPosterGalleryViewSpec_specForDisplayContext___block_invoke;
+  v30[3] = &unk_2782C9DA0;
   v7 = contextCopy;
-  v30 = v7;
-  v8 = [connectedScenes bs_firstObjectPassingTest:v29];
+  v31 = v7;
+  v8 = [connectedScenes bs_firstObjectPassingTest:v30];
 
   _FBSScene = [v8 _FBSScene];
   settings = [_FBSScene settings];
   displayIdentity = [settings displayIdentity];
 
-  if (displayIdentity || ([MEMORY[0x277D75128] sharedApplication], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "openSessions"), v13 = objc_claimAutoreleasedReturnValue(), v24 = MEMORY[0x277D85DD0], v25 = 3221225472, v26 = __50__PBFPosterGalleryViewSpec_specForDisplayContext___block_invoke_2, v27 = &unk_2782C9DC8, v14 = v7, v28 = v14, objc_msgSend(v13, "bs_firstObjectPassingTest:", &v24), v15 = objc_claimAutoreleasedReturnValue(), v13, v12, objc_msgSend(v15, "scene", v24, v25, v26, v27), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "_FBSScene"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "settings"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "displayIdentity"), displayIdentity = objc_claimAutoreleasedReturnValue(), v18, v17, v16, v15, v28, displayIdentity))
+  if (displayIdentity || ([MEMORY[0x277D75128] sharedApplication], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "openSessions"), v13 = objc_claimAutoreleasedReturnValue(), v25 = MEMORY[0x277D85DD0], v26 = 3221225472, v27 = __50__PBFPosterGalleryViewSpec_specForDisplayContext___block_invoke_2, v28 = &unk_2782C9DC8, v14 = v7, v29 = v14, objc_msgSend(v13, "bs_firstObjectPassingTest:", &v25), v15 = objc_claimAutoreleasedReturnValue(), v13, v12, objc_msgSend(v15, "scene", v25, v26, v27, v28), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "_FBSScene"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "settings"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "displayIdentity"), displayIdentity = objc_claimAutoreleasedReturnValue(), v18, v17, v16, v15, v29, displayIdentity))
   {
     mainScreen = [MEMORY[0x277D759A0] _screenWithFBSDisplayIdentity:displayIdentity];
 LABEL_4:
@@ -61,21 +61,21 @@ LABEL_5:
 
   if (v20)
   {
-    v21 = [self specForScreen:v20];
+    v22 = [self specForScreen:v20];
   }
 
   else
   {
-    v22 = PBFLogCommon();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+    v23 = PBFLogCommon(v21);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
-      [(PBFPosterGalleryViewSpec *)v7 specForDisplayContext:v22];
+      [(PBFPosterGalleryViewSpec *)v7 specForDisplayContext:v23];
     }
 
-    v21 = 0;
+    v22 = 0;
   }
 
-  return v21;
+  return v22;
 }
 
 uint64_t __50__PBFPosterGalleryViewSpec_specForDisplayContext___block_invoke(uint64_t a1, void *a2)

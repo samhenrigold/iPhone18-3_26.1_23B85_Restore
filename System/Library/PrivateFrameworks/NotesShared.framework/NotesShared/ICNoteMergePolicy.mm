@@ -1736,7 +1736,7 @@ LABEL_20:
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_4() objectID];
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_1(&dword_214D51000, v4, v5, "Not resolving attachment vs inline attachment constraint conflict (%@) between (%@) and (%@)", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_2_1(&dword_214D51000, v4, v5, "Not resolving attachment vs inline attachment constraint conflict (%@) between (%@) and (%@)", v6, v7, v8, v9);
 }
 
 - (void)resolveConflictingAttachment:withInlineAttachment:.cold.2()
@@ -1764,7 +1764,7 @@ LABEL_20:
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_4() objectID];
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_1(&dword_214D51000, v4, v5, "Not resolving folder constraint conflict (%@) between (%@) and (%@)", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_2_1(&dword_214D51000, v4, v5, "Not resolving folder constraint conflict (%@) between (%@) and (%@)", v6, v7, v8, v9);
 }
 
 - (void)resolveConflictingInlineAttachment:with:.cold.1()
@@ -1776,7 +1776,7 @@ LABEL_20:
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_4() objectID];
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_1(&dword_214D51000, v4, v5, "Not resolving inline attachment constraint conflict (%@) between (%@) and (%@)", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_2_1(&dword_214D51000, v4, v5, "Not resolving inline attachment constraint conflict (%@) between (%@) and (%@)", v6, v7, v8, v9);
 }
 
 - (void)resolveConflictingNote:with:.cold.1()
@@ -1788,7 +1788,7 @@ LABEL_20:
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_4() objectID];
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_1(&dword_214D51000, v4, v5, "Not resolving note constraint conflict (%@) between (%@) and (%@)", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_2_1(&dword_214D51000, v4, v5, "Not resolving note constraint conflict (%@) between (%@) and (%@)", v6, v7, v8, v9);
 }
 
 - (void)resolveConflictingAttachment:with:.cold.1()
@@ -1800,7 +1800,7 @@ LABEL_20:
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_4() objectID];
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_1(&dword_214D51000, v4, v5, "Not resolving attachment constraint conflict (%@) between (%@) and (%@)", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_2_1(&dword_214D51000, v4, v5, "Not resolving attachment constraint conflict (%@) between (%@) and (%@)", v6, v7, v8, v9);
 }
 
 - (void)resolveConflictingAttachmentPreviewImage:with:.cold.1()
@@ -1812,7 +1812,7 @@ LABEL_20:
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_4() objectID];
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_1(&dword_214D51000, v4, v5, "Not resolving attachment preview image constraint conflict (%@) between (%@) and (%@)", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_2_1(&dword_214D51000, v4, v5, "Not resolving attachment preview image constraint conflict (%@) between (%@) and (%@)", v6, v7, v8, v9);
 }
 
 @end

@@ -1,5 +1,6 @@
 @interface HFServiceStateCharacteristicRecipe
 + (NAIdentity)na_identity;
++ (id)recipeForRootServiceCharacteristicType:(id)type required:(BOOL)required;
 + (id)recipesForRootServiceCharacteristicTypes:(id)types required:(BOOL)required;
 - (BOOL)isEqual:(id)equal;
 - (HFServiceStateCharacteristicRecipe)initWithCharacteristicType:(id)type servicePredicate:(id)predicate required:(BOOL)required;
@@ -10,6 +11,17 @@
 @end
 
 @implementation HFServiceStateCharacteristicRecipe
+
++ (id)recipeForRootServiceCharacteristicType:(id)type required:(BOOL)required
+{
+  requiredCopy = required;
+  typeCopy = type;
+  v7 = [self alloc];
+  v8 = +[HFServiceTreeTypePredicate anyServiceTypePredicate];
+  v9 = [v7 initWithCharacteristicType:typeCopy servicePredicate:v8 required:requiredCopy];
+
+  return v9;
+}
 
 + (id)recipesForRootServiceCharacteristicTypes:(id)types required:(BOOL)required
 {
@@ -56,57 +68,57 @@
 
 - (id)matchResultForServices:(id)services
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   servicesCopy = services;
-  v24 = [MEMORY[0x277CBEB58] set];
+  v23 = [MEMORY[0x277CBEB58] set];
   v5 = objc_opt_new();
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   obj = servicesCopy;
-  v26 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
-  if (v26)
+  v25 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+  if (v25)
   {
-    v25 = *v34;
+    v24 = *v33;
     do
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v25; ++i)
       {
-        if (*v34 != v25)
+        if (*v33 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v33 + 1) + 8 * i);
+        v7 = *(*(&v32 + 1) + 8 * i);
         servicePredicate = [(HFServiceStateCharacteristicRecipe *)self servicePredicate];
         v9 = [servicePredicate matchingServicesForRootService:v7];
 
         if ([v9 count])
         {
-          v28 = i;
-          [v24 unionSet:v9];
-          v31 = 0u;
-          v32 = 0u;
-          v29 = 0u;
+          v27 = i;
+          [v23 unionSet:v9];
           v30 = 0u;
-          v27 = v9;
+          v31 = 0u;
+          v28 = 0u;
+          v29 = 0u;
+          v26 = v9;
           v10 = v9;
-          v11 = [v10 countByEnumeratingWithState:&v29 objects:v37 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v28 objects:v36 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v30;
+            v13 = *v29;
             do
             {
               for (j = 0; j != v12; ++j)
               {
-                if (*v30 != v13)
+                if (*v29 != v13)
                 {
                   objc_enumerationMutation(v10);
                 }
 
-                v15 = *(*(&v29 + 1) + 8 * j);
+                v15 = *(*(&v28 + 1) + 8 * j);
                 characteristicType = [(HFServiceStateCharacteristicRecipe *)self characteristicType];
                 v17 = [v15 hf_characteristicOfType:characteristicType];
 
@@ -118,25 +130,24 @@
                 }
               }
 
-              v12 = [v10 countByEnumeratingWithState:&v29 objects:v37 count:16];
+              v12 = [v10 countByEnumeratingWithState:&v28 objects:v36 count:16];
             }
 
             while (v12);
           }
 
-          v9 = v27;
-          i = v28;
+          v9 = v26;
+          i = v27;
         }
       }
 
-      v26 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v25 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
 
-  v20 = [[HFServiceStateCharacteristicMatchResult alloc] initWithServices:v24 characteristicsByServiceUUID:v5];
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = [[HFServiceStateCharacteristicMatchResult alloc] initWithServices:v23 characteristicsByServiceUUID:v5];
 
   return v20;
 }

@@ -12,6 +12,7 @@
 - (void)stopLocationUpdates;
 - (void)updateDisplay:(id)display;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CompassController
@@ -45,15 +46,11 @@
 {
   sharedLocManager = [(CompassController *)self sharedLocManager];
 
-  if (sharedLocManager)
+  if (sharedLocManager && (objc_opt_respondsToSelector() & 1) != 0)
   {
     compassPageController = self->_compassPageController;
-    if (objc_opt_respondsToSelector())
-    {
-      v5 = self->_compassPageController;
-      sharedLocManager2 = [(CompassController *)self sharedLocManager];
-      [(CompassPageViewController *)v5 setSharedLocationManager:sharedLocManager2];
-    }
+    sharedLocManager2 = [(CompassController *)self sharedLocManager];
+    [(CompassPageViewController *)compassPageController setSharedLocationManager:sharedLocManager2];
   }
 }
 
@@ -119,6 +116,17 @@
   self->_displayLink = 0;
 }
 
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = CompassController;
+  [(CompassController *)&v4 viewWillDisappear:disappear];
+  if ([(CompassController *)self isMovingFromParentViewController])
+  {
+    [(CompassController *)self stopAnimations];
+  }
+}
+
 - (void)dealloc
 {
   [(CLLocationManager *)self->_sharedLocManager stopUpdatingLocation];
@@ -141,7 +149,6 @@
   authorizationCopy = authorization;
   authorizationStatus = [authorizationCopy authorizationStatus];
   self->_canUseLocation = (authorizationStatus - 3) < 0xFFFFFFFE;
-  compassPageController = self->_compassPageController;
   if (objc_opt_respondsToSelector())
   {
     [(CompassPageViewController *)self->_compassPageController locationAuthorizationDidChange:authorizationStatus];

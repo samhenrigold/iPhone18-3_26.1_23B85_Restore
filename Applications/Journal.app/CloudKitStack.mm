@@ -44,14 +44,14 @@ LABEL_3:
   {
 LABEL_4:
     type metadata accessor for NSKeyValueChangeKey(0);
-    sub_100022924(&qword_100AD1B30, type metadata accessor for NSKeyValueChangeKey);
+    sub_100022924(&qword_100AD1B30, type metadata accessor for NSKeyValueChangeKey, &unk_10093F67C);
     static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
 LABEL_7:
   sub_1004C1354(v8, v10, v13);
 
-  sub_100004F84(v13, &qword_100AD13D0);
+  sub_100004F84(v13, &qword_100AD13D0, &unk_100942DB0);
 }
 
 - (void)prioritizeDownloadNotification:(id)notification
@@ -59,10 +59,10 @@ LABEL_7:
   v3 = type metadata accessor for Notification();
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
-  v6 = &v7 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
-  sub_1004C1AE8(v6);
-  (*(v4 + 8))(v6, v3);
+  v7 = sub_1004C1AE8(v6);
+  (*(v4 + 8))(v6, v3, v7);
 }
 
 - (_TtC7Journal13CloudKitStack)init

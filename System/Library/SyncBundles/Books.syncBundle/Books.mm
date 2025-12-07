@@ -1,23 +1,25 @@
-void sub_13DC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_13DC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_32DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_32DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   if (a2 == 1)
   {
-    v12 = objc_begin_catch(exception_object);
-    v13 = BCDefaultLog();
+    v11 = objc_begin_catch(exception_object);
+    v13 = BCDefaultLog(v11, v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_1203C([v12 description], &a11);
+      sub_1203C([v11 description], va);
     }
 
-    if (v11)
+    if (v10)
     {
-      *v11 = [[NSError alloc] initWithDomain:@"com.apple.atc.Books" code:-2 userInfo:{+[NSDictionary dictionaryWithObjectsAndKeys:](NSDictionary, "dictionaryWithObjectsAndKeys:", v12)}];
+      *v10 = [[NSError alloc] initWithDomain:@"com.apple.atc.Books" code:-2 userInfo:{+[NSDictionary dictionaryWithObjectsAndKeys:](NSDictionary, "dictionaryWithObjectsAndKeys:", v11)}];
     }
 
     objc_end_catch();
@@ -27,15 +29,16 @@ void sub_32DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a
   _Unwind_Resume(exception_object);
 }
 
-void sub_3A88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_3A88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   if (a2 == 1)
   {
-    v11 = objc_begin_catch(exception_object);
-    v12 = BCDefaultLog();
+    v10 = objc_begin_catch(exception_object);
+    v12 = BCDefaultLog(v10, v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_120F4([v11 description], &a11);
+      sub_120F4([v10 description], va);
     }
 
     objc_end_catch();
@@ -45,15 +48,16 @@ void sub_3A88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a
   _Unwind_Resume(exception_object);
 }
 
-void sub_3D84(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_3D84(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   if (a2 == 1)
   {
-    v11 = objc_begin_catch(exception_object);
-    v12 = BCDefaultLog();
+    v10 = objc_begin_catch(exception_object);
+    v12 = BCDefaultLog(v10, v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_1219C([v11 description], &a11);
+      sub_1219C([v10 description], va);
     }
 
     objc_end_catch();
@@ -63,15 +67,16 @@ void sub_3D84(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a
   _Unwind_Resume(exception_object);
 }
 
-void sub_4014(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_4014(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
+  va_start(va, a16);
   if (a2 == 1)
   {
-    v17 = objc_begin_catch(exception_object);
-    v18 = BCDefaultLog();
+    v16 = objc_begin_catch(exception_object);
+    v18 = BCDefaultLog(v16, v17);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_1219C([v17 description], &a17);
+      sub_1219C([v16 description], va);
     }
 
     objc_end_catch();
@@ -87,8 +92,8 @@ void sub_44AC(_Unwind_Exception *exception_object, int a2, ...)
   if (a2 == 1)
   {
     v2 = objc_begin_catch(exception_object);
-    v3 = BCDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = BCDefaultLog(v2, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_12244(@"/var/mobile/Media/Books/Sync/Upload.plist", [v2 description], va);
     }
@@ -106,8 +111,8 @@ void sub_45F8(_Unwind_Exception *exception_object, int a2, ...)
   if (a2 == 1)
   {
     v3 = objc_begin_catch(exception_object);
-    v4 = BCDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = BCDefaultLog(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_12284(v2, [v3 description], va);
     }
@@ -125,8 +130,8 @@ void sub_4824(_Unwind_Exception *exception_object, int a2, ...)
   if (a2 == 1)
   {
     v3 = objc_begin_catch(exception_object);
-    v4 = BCDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = BCDefaultLog(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_122C4([v2 identifier], objc_msgSend(v3, "description"), va);
     }
@@ -144,8 +149,8 @@ void sub_49C4(_Unwind_Exception *exception_object, int a2, ...)
   if (a2 == 1)
   {
     v2 = objc_begin_catch(exception_object);
-    v3 = BCDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = BCDefaultLog(v2, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_12454([v2 description], va);
     }
@@ -157,9 +162,9 @@ void sub_49C4(_Unwind_Exception *exception_object, int a2, ...)
   _Unwind_Resume(exception_object);
 }
 
-void sub_53D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_53D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -182,56 +187,58 @@ void sub_5CEC(uint64_t a1, void *a2, void *a3)
 {
   v6 = objc_autoreleasePoolPush();
   v7 = [*(a1 + 32) accountInfoForAssetAtPath:a2];
-  if ([objc_msgSend(v7 "appleID")] && objc_msgSend(*(a1 + 32), "_stringFromObject:", objc_msgSend(a3, "objectForKey:", @"DSID")))
+  v8 = [objc_msgSend(v7 "appleID")];
+  if (v8 && (v8 = [*(a1 + 32) _stringFromObject:{objc_msgSend(a3, "objectForKey:", @"DSID"}]) != 0)
   {
-    v8 = [a2 hasPrefix:@"/var/mobile/Media/Books/Purchases"];
-    v9 = BCDefaultLog();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-    if (v8)
+    v10 = [a2 hasPrefix:@"/var/mobile/Media/Books/Purchases"];
+    v11 = v10;
+    v13 = BCDefaultLog(v10, v12);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    if (v11)
     {
-      if (v10)
+      if (v14)
       {
-        v14 = 138412290;
-        v15 = a2;
-        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "#D2D: Adding storeAsset D2D Local path: %@", &v14, 0xCu);
+        v20 = 138412290;
+        v21 = a2;
+        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "#D2D: Adding storeAsset D2D Local path: %@", &v20, 0xCu);
       }
 
-      v11 = [*(a1 + 32) pathsForDevice2DeviceRestoreRedownloadable];
+      v15 = [*(a1 + 32) pathsForDevice2DeviceRestoreRedownloadable];
     }
 
     else
     {
-      if (v10)
+      if (v14)
       {
-        v14 = 138412290;
-        v15 = a2;
-        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "#D2D: Adding storeAsset D2D Redownloadable path: %@", &v14, 0xCu);
+        v20 = 138412290;
+        v21 = a2;
+        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "#D2D: Adding storeAsset D2D Redownloadable path: %@", &v20, 0xCu);
       }
 
-      v11 = [*(a1 + 32) pathsForDevice2DeviceRestoreLocal];
+      v15 = [*(a1 + 32) pathsForDevice2DeviceRestoreLocal];
     }
 
-    [v11 addObject:a2];
+    [v15 addObject:a2];
     [*(a1 + 32) addKnownAccountInfo:v7];
   }
 
   else
   {
-    v12 = BCDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v16 = BCDefaultLog(v8, v9);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = a2;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "#D2D: Adding !storeAsset D2D Local path: %@", &v14, 0xCu);
+      v20 = 138412290;
+      v21 = a2;
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "#D2D: Adding !storeAsset D2D Local path: %@", &v20, 0xCu);
     }
 
-    [objc_msgSend(*(a1 + 32) "pathsForDevice2DeviceRestoreLocal")];
-    v13 = BCDefaultLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v17 = [objc_msgSend(*(a1 + 32) "pathsForDevice2DeviceRestoreLocal")];
+    v19 = BCDefaultLog(v17, v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = a2;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Adding !storeAsset path: %@", &v14, 0xCu);
+      v20 = 138412290;
+      v21 = a2;
+      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "Adding !storeAsset path: %@", &v20, 0xCu);
     }
 
     [*(a1 + 40) addObject:a2];
@@ -242,49 +249,54 @@ void sub_5CEC(uint64_t a1, void *a2, void *a3)
 
 uint64_t sub_624C(uint64_t a1, void *a2, uint64_t a3)
 {
-  v19 = 0;
-  v15 = 0u;
+  v20 = 0;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v6 = [a2 countByEnumeratingWithState:&v15 objects:v26 count:16];
+  v19 = 0u;
+  v6 = [a2 countByEnumeratingWithState:&v16 objects:v27 count:16];
   if (v6)
   {
-    v7 = v6;
-    v8 = *v16;
+    v8 = v6;
+    v9 = *v17;
     while (2)
     {
-      for (i = 0; i != v7; i = i + 1)
+      v10 = 0;
+      do
       {
-        if (*v16 != v8)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(a2);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
-        v11 = BCDefaultLog();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+        v11 = *(*(&v16 + 1) + 8 * v10);
+        v12 = BCDefaultLog(v6, v7);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
-          v12 = *(a1 + 40);
+          v13 = *(a1 + 40);
           *buf = 67109634;
-          v21 = v12;
-          v22 = 2048;
-          v23 = a3;
-          v24 = 2112;
-          v25 = v10;
-          _os_log_debug_impl(&dword_0, v11, OS_LOG_TYPE_DEBUG, "#D2D: enumeratePathsForBackupType:%u pathAttributes: %llu enumerating: %@", buf, 0x1Cu);
+          v22 = v13;
+          v23 = 2048;
+          v24 = a3;
+          v25 = 2112;
+          v26 = v11;
+          _os_log_debug_impl(&dword_0, v12, OS_LOG_TYPE_DEBUG, "#D2D: enumeratePathsForBackupType:%u pathAttributes: %llu enumerating: %@", buf, 0x1Cu);
         }
 
-        (*(*(a1 + 32) + 16))();
-        if (v19)
+        v6 = (*(*(a1 + 32) + 16))();
+        if (v20)
         {
-          v13 = 1;
-          return v13 & 1;
+          v14 = 1;
+          return v14 & 1;
         }
+
+        v10 = v10 + 1;
       }
 
-      v7 = [a2 countByEnumeratingWithState:&v15 objects:v26 count:16];
-      if (v7)
+      while (v8 != v10);
+      v6 = [a2 countByEnumeratingWithState:&v16 objects:v27 count:16];
+      v8 = v6;
+      if (v6)
       {
         continue;
       }
@@ -292,15 +304,15 @@ uint64_t sub_624C(uint64_t a1, void *a2, uint64_t a3)
       break;
     }
 
-    v13 = v19;
+    v14 = v20;
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13 & 1;
+  return v14 & 1;
 }
 
 void sub_8990(void *a1)
@@ -332,37 +344,36 @@ id sub_9148(uint64_t a1)
 
 void sub_9BA4(uint64_t a1, uint64_t a2)
 {
-  v3 = (a1 + 32);
   if (*(a1 + 32))
   {
-    v4 = BCDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = BCDefaultLog(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_1312C(a1, v3);
+      sub_1312C(a1);
     }
   }
 
   else
   {
-    v9 = 0;
-    [*(a1 + 40) removeItemAtURL:a2 error:&v9];
-    v5 = v9;
-    v6 = BCDefaultLog();
-    v7 = v6;
+    v10 = 0;
+    v4 = [*(a1 + 40) removeItemAtURL:a2 error:&v10];
+    v5 = v10;
+    v7 = BCDefaultLog(v4, v6);
+    v8 = v7;
     if (v5)
     {
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        sub_1312C(a1, &v9);
+        sub_1312C(a1);
       }
     }
 
-    else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 48);
+      v9 = *(a1 + 48);
       *buf = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "deleted: %@", buf, 0xCu);
+      v12 = v9;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "deleted: %@", buf, 0xCu);
     }
   }
 }
@@ -393,14 +404,6 @@ uint64_t sub_B25C(uint64_t result, uint64_t a2, float a3)
 {
   *a2 = a3;
   *(a2 + 4) = result;
-  return result;
-}
-
-uint64_t *sub_B2A4@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  v4 = result[1];
   return result;
 }
 
@@ -546,58 +549,59 @@ CFTypeRef BCCFTypeCast(uint64_t a1, CFTypeRef cf)
   return 0;
 }
 
-void sub_E4CC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_E4CC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 id sub_F084(uint64_t a1)
 {
-  v2 = (a1 + 40);
-  v3 = [*(a1 + 32) entities:*(a1 + 40) byPredicate:*(a1 + 48) fromMOC:*(a1 + 56)];
-  v15 = 0u;
+  v2 = [*(a1 + 32) entities:*(a1 + 40) byPredicate:*(a1 + 48) fromMOC:*(a1 + 56)];
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v24 count:16];
-  if (v4)
+  v19 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v16 objects:v25 count:16];
+  if (v3)
   {
-    v5 = v4;
-    v6 = *v16;
+    v5 = v3;
+    v6 = *v17;
     do
     {
       v7 = 0;
       do
       {
-        if (*v16 != v6)
+        if (*v17 != v6)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 56) deleteObject:*(*(&v15 + 1) + 8 * v7)];
+        [*(a1 + 56) deleteObject:*(*(&v16 + 1) + 8 * v7)];
         v7 = v7 + 1;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v15 objects:v24 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v16 objects:v25 count:16];
+      v5 = v3;
     }
 
-    while (v5);
+    while (v3);
   }
 
-  v8 = BCDefaultLog();
+  v8 = BCDefaultLog(v3, v4);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(a1 + 40);
     v10 = *(a1 + 48);
-    v11 = [v3 count];
+    v11 = [v2 count];
     *buf = 138412802;
     *&buf[4] = v9;
-    v20 = 2112;
-    v21 = v10;
-    v22 = 1024;
-    v23 = v11;
+    v21 = 2112;
+    v22 = v10;
+    v23 = 1024;
+    v24 = v11;
     _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Removing %@ with predicate: %@ -- [Matched: %d]", buf, 0x1Cu);
   }
 
@@ -607,23 +611,23 @@ id sub_F084(uint64_t a1)
   {
     if (*buf)
     {
-      v13 = BCDefaultLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = BCDefaultLog(result, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        sub_13BB0(v2);
+        sub_13BB0();
       }
     }
 
-    v14 = +[NSAssertionHandler currentHandler];
-    return -[NSAssertionHandler handleFailureInMethod:object:file:lineNumber:description:](v14, "handleFailureInMethod:object:file:lineNumber:description:", *(a1 + 64), *(a1 + 32), @"BCAssetDatabase.m", 129, @"{%@} - Error saving MOC: %@ -- User Info: %@", *(a1 + 40), *buf, [*buf userInfo]);
+    v15 = +[NSAssertionHandler currentHandler];
+    return -[NSAssertionHandler handleFailureInMethod:object:file:lineNumber:description:](v15, "handleFailureInMethod:object:file:lineNumber:description:", *(a1 + 64), *(a1 + 32), @"BCAssetDatabase.m", 129, @"{%@} - Error saving MOC: %@ -- User Info: %@", *(a1 + 40), *buf, [*buf userInfo]);
   }
 
   return result;
 }
 
-void sub_F4B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_F4B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -638,75 +642,75 @@ void sub_F4F4(uint64_t a1)
   [v5 setPredicate:v4];
   [v5 setResultType:2];
   [v5 setPropertiesToFetch:{+[NSArray arrayWithObjects:](NSArray, "arrayWithObjects:", @"persistentID", 0)}];
-  v17 = 0;
-  v6 = [*(a1 + 40) executeFetchRequest:v5 error:&v17];
-  if (!v6 && v17)
+  v21 = 0;
+  v7 = [*(a1 + 40) executeFetchRequest:v5 error:&v21];
+  if (!v7 && v21)
   {
-    v7 = BCDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = BCDefaultLog(0, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_13CDC(&v17);
+      sub_13CDC();
     }
 
     goto LABEL_8;
   }
 
-  if (!v6)
+  if (!v7)
   {
 LABEL_8:
-    v8 = objc_alloc_init(NSSet);
+    v9 = objc_alloc_init(NSSet);
     goto LABEL_9;
   }
 
-  v8 = [[NSSet alloc] initWithArray:{objc_msgSend(v6, "valueForKeyPath:", @"persistentID"}];
+  v9 = [[NSSet alloc] initWithArray:{objc_msgSend(v7, "valueForKeyPath:", @"persistentID"}];
 LABEL_9:
-  *(*(*(a1 + 56) + 8) + 40) = v8;
+  *(*(*(a1 + 56) + 8) + 40) = v9;
 
   if (*(a1 + 64) && [*(*(*(a1 + 56) + 8) + 40) count])
   {
-    v9 = [NSPredicate predicateWithFormat:@"persistentID IN %@", *(*(*(a1 + 56) + 8) + 40)];
-    v10 = [NSExpression expressionForFunction:@"sum:" arguments:[NSArray arrayWithObject:[NSExpression expressionForKeyPath:@"computedSize"]]];
-    v11 = objc_alloc_init(NSExpressionDescription);
-    [v11 setName:@"sum_computedSize"];
-    [v11 setExpression:v10];
-    [v11 setExpressionResultType:300];
-    v12 = objc_alloc_init(NSFetchRequest);
-    [v12 setEntity:v2];
-    [v12 setPredicate:v9];
-    [v12 setResultType:2];
-    [v12 setPropertiesToFetch:{+[NSArray arrayWithObjects:](NSArray, "arrayWithObjects:", v11, 0)}];
+    v10 = [NSPredicate predicateWithFormat:@"persistentID IN %@", *(*(*(a1 + 56) + 8) + 40)];
+    v11 = [NSExpression expressionForFunction:@"sum:" arguments:[NSArray arrayWithObject:[NSExpression expressionForKeyPath:@"computedSize"]]];
+    v12 = objc_alloc_init(NSExpressionDescription);
+    [v12 setName:@"sum_computedSize"];
+    [v12 setExpression:v11];
+    [v12 setExpressionResultType:300];
+    v13 = objc_alloc_init(NSFetchRequest);
+    [v13 setEntity:v2];
+    [v13 setPredicate:v10];
+    [v13 setResultType:2];
+    [v13 setPropertiesToFetch:{+[NSArray arrayWithObjects:](NSArray, "arrayWithObjects:", v12, 0)}];
 
-    v17 = 0;
-    v13 = [*(a1 + 40) executeFetchRequest:v12 error:&v17];
-    if (!v13)
+    v21 = 0;
+    v15 = [*(a1 + 40) executeFetchRequest:v13 error:&v21];
+    if (!v15)
     {
-      if (v17)
+      if (v21)
       {
-        v14 = BCDefaultLog();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v16 = BCDefaultLog(0, v14);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          sub_13CDC(&v17);
+          sub_13CDC();
         }
       }
     }
 
-    v15 = BCDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v19 = BCDefaultLog(v17, v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       sub_13D44();
     }
 
-    if ([v13 count] == &dword_0 + 1)
+    if ([v15 count] == &dword_0 + 1)
     {
-      **(a1 + 64) = [objc_msgSend(objc_msgSend(v13 "lastObject")];
+      **(a1 + 64) = [objc_msgSend(objc_msgSend(v15 "lastObject")];
       *(*(a1 + 64) + 8) = [*(*(*(a1 + 56) + 8) + 40) count];
     }
 
     else
     {
-      v16 = *(a1 + 64);
-      *v16 = 0;
-      v16[1] = 0;
+      v20 = *(a1 + 64);
+      *v20 = 0;
+      v20[1] = 0;
     }
   }
 }
@@ -714,124 +718,124 @@ LABEL_9:
 void sub_F950(uint64_t a1)
 {
   v2 = [*(a1 + 32) entities:@"BCOutstandingAsset" byPredicate:+[NSPredicate predicateWithFormat:](NSPredicate fromMOC:{"predicateWithFormat:", @"restoreRelated == %d", *(a1 + 56)), *(a1 + 40)}];
-  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v19 count:16];
+  v15 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v20 count:16];
   if (v3)
   {
-    v4 = v3;
-    v5 = *v12;
+    v5 = v3;
+    v6 = *v13;
     do
     {
-      v6 = 0;
+      v7 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(*(&v11 + 1) + 8 * v6) assetDictionaryAsDictionary];
-        if (v7)
+        v8 = [*(*(&v12 + 1) + 8 * v7) assetDictionaryAsDictionary];
+        if (v8)
         {
-          [*(a1 + 48) addObject:v7];
+          [*(a1 + 48) addObject:v8];
         }
 
-        v6 = v6 + 1;
+        v7 = v7 + 1;
       }
 
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v19 count:16];
+      while (v5 != v7);
+      v3 = [v2 countByEnumeratingWithState:&v12 objects:v20 count:16];
+      v5 = v3;
     }
 
-    while (v4);
+    while (v3);
   }
 
-  v8 = BCDefaultLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = BCDefaultLog(v3, v4);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = [v2 count];
-    v10 = *(a1 + 56);
+    v10 = [v2 count];
+    v11 = *(a1 + 56);
     *buf = 67109376;
-    v16 = v9;
-    v17 = 1024;
-    v18 = v10;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Assets by Restore Flag: %d Assets [Flag: %d]", buf, 0xEu);
+    v17 = v10;
+    v18 = 1024;
+    v19 = v11;
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Assets by Restore Flag: %d Assets [Flag: %d]", buf, 0xEu);
   }
 }
 
 id sub_FC14(uint64_t a1)
 {
-  v31 = [NSNumber numberWithBool:*(a1 + 64)];
-  v34 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v37 = 0u;
+  v35 = [NSNumber numberWithBool:*(a1 + 64)];
+  v38 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   obj = *(a1 + 32);
-  v33 = a1;
-  v2 = [obj countByEnumeratingWithState:&v34 objects:v41 count:16];
+  v37 = a1;
+  v2 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
   if (v2)
   {
     v3 = v2;
     v4 = 0;
-    v5 = *v35;
+    v5 = *v39;
     v6 = &ATGetDiskUsageForPath_ptr;
     do
     {
       v7 = 0;
       do
       {
-        if (*v35 != v5)
+        if (*v39 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v34 + 1) + 8 * v7);
-        v9 = v6[100];
-        v10 = objc_opt_class();
-        v11 = BCDynamicCast(v10, v8);
-        v12 = objc_opt_class();
-        v13 = BCDynamicCast(v12, [v11 objectForKey:@"Persistent ID"]);
-        if ([v13 length])
+        v8 = *(*(&v38 + 1) + 8 * v7);
+        v9 = objc_opt_class();
+        v10 = BCDynamicCast(v9, v8);
+        v11 = objc_opt_class();
+        v12 = BCDynamicCast(v11, [v10 objectForKey:@"Persistent ID"]);
+        if ([v12 length])
         {
-          if (([v13 isEqualToString:v4] & 1) == 0)
+          if (([v12 isEqualToString:v4] & 1) == 0)
           {
             v14 = v6;
             v15 = objc_opt_class();
-            v16 = BCDynamicCast(v15, [v11 objectForKey:@"Path"]);
+            v16 = BCDynamicCast(v15, [v10 objectForKey:@"Path"]);
             v17 = objc_opt_class();
-            v18 = BCDynamicCast(v17, [v11 objectForKey:@"Backup-Path"]);
-            if (*(v33 + 64) != 1 || (v19 = v18, [v16 length]) || objc_msgSend(v19, "length"))
+            v18 = BCDynamicCast(v17, [v10 objectForKey:@"Backup-Path"]);
+            if (*(v37 + 64) != 1 || (v19 = v18, [v16 length]) || objc_msgSend(v19, "length"))
             {
-              v20 = [NSEntityDescription insertNewObjectForEntityForName:@"BCOutstandingAsset" inManagedObjectContext:*(v33 + 40)];
-              [(NSManagedObject *)v20 setPersistentID:v13];
-              [(NSManagedObject *)v20 setRestoreRelated:v31];
-              [(NSManagedObject *)v20 setAssetDictionaryAsDictionary:v11];
-              v21 = BCDefaultLog();
-              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+              v21 = [NSEntityDescription insertNewObjectForEntityForName:@"BCOutstandingAsset" inManagedObjectContext:*(v37 + 40)];
+              [(NSManagedObject *)v21 setPersistentID:v12];
+              [(NSManagedObject *)v21 setRestoreRelated:v35];
+              v22 = [(NSManagedObject *)v21 setAssetDictionaryAsDictionary:v10];
+              v24 = BCDefaultLog(v22, v23);
+              if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
               {
-                v22 = *(v33 + 64);
+                v25 = *(v37 + 64);
                 *buf = 138412546;
-                *&buf[4] = v13;
-                v39 = 1024;
-                LODWORD(v40) = v22;
-                _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "Inserting asset row: %@ -- [Restore Flag: %d]", buf, 0x12u);
+                *&buf[4] = v12;
+                v43 = 1024;
+                LODWORD(v44) = v25;
+                _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "Inserting asset row: %@ -- [Restore Flag: %d]", buf, 0x12u);
               }
 
               v6 = v14;
-              v4 = v13;
+              v4 = v12;
             }
 
             else
             {
-              v26 = BCDefaultLog();
-              if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+              v29 = BCDefaultLog(0, v20);
+              if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                *&buf[4] = v13;
-                _os_log_error_impl(&dword_0, v26, OS_LOG_TYPE_ERROR, "Wanted to insert restore asset without a path: %@", buf, 0xCu);
+                *&buf[4] = v12;
+                _os_log_error_impl(&dword_0, v29, OS_LOG_TYPE_ERROR, "Wanted to insert restore asset without a path: %@", buf, 0xCu);
               }
 
               v6 = v14;
@@ -841,16 +845,16 @@ id sub_FC14(uint64_t a1)
 
         else
         {
-          v23 = BCDefaultLog();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v26 = BCDefaultLog(0, v13);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
-            v24 = [v11 objectForKey:@"Artist"];
-            v25 = [v11 objectForKey:@"Name"];
+            v27 = [v10 objectForKey:@"Artist"];
+            v28 = [v10 objectForKey:@"Name"];
             *buf = 138412546;
-            *&buf[4] = v24;
-            v39 = 2112;
-            v40 = v25;
-            _os_log_error_impl(&dword_0, v23, OS_LOG_TYPE_ERROR, "Wanted to insert asset without a PID: {%@ - %@}", buf, 0x16u);
+            *&buf[4] = v27;
+            v43 = 2112;
+            v44 = v28;
+            _os_log_error_impl(&dword_0, v26, OS_LOG_TYPE_ERROR, "Wanted to insert asset without a PID: {%@ - %@}", buf, 0x16u);
           }
         }
 
@@ -858,28 +862,28 @@ id sub_FC14(uint64_t a1)
       }
 
       while (v3 != v7);
-      v27 = [obj countByEnumeratingWithState:&v34 objects:v41 count:16];
-      v3 = v27;
+      v30 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
+      v3 = v30;
     }
 
-    while (v27);
+    while (v30);
   }
 
   *buf = 0;
-  result = [*(v33 + 40) save:buf];
+  result = [*(v37 + 40) save:buf];
   if ((result & 1) == 0)
   {
     if (*buf)
     {
-      v29 = BCDefaultLog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v33 = BCDefaultLog(result, v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        sub_13DB8(buf);
+        sub_13DB8();
       }
     }
 
-    v30 = +[NSAssertionHandler currentHandler];
-    return -[NSAssertionHandler handleFailureInMethod:object:file:lineNumber:description:](v30, "handleFailureInMethod:object:file:lineNumber:description:", *(v33 + 56), *(v33 + 48), @"BCAssetDatabase.m", 329, @"Error saving MOC: %@ -- User Info: %@", *buf, [*buf userInfo]);
+    v34 = +[NSAssertionHandler currentHandler];
+    return -[NSAssertionHandler handleFailureInMethod:object:file:lineNumber:description:](v34, "handleFailureInMethod:object:file:lineNumber:description:", *(v37 + 56), *(v37 + 48), @"BCAssetDatabase.m", 329, @"Error saving MOC: %@ -- User Info: %@", *buf, [*buf userInfo]);
   }
 
   return result;
@@ -887,117 +891,117 @@ id sub_FC14(uint64_t a1)
 
 id sub_101B8(uint64_t a1)
 {
-  v36 = [NSNumber numberWithBool:*(a1 + 64)];
-  v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
+  v43 = [NSNumber numberWithBool:*(a1 + 64)];
+  v45 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
+  v2 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v39;
+    v4 = *v46;
     do
     {
       v5 = 0;
       do
       {
-        if (*v39 != v4)
+        if (*v46 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v38 + 1) + 8 * v5);
+        v6 = *(*(&v45 + 1) + 8 * v5);
         v7 = objc_opt_class();
         v8 = BCDynamicCast(v7, v6);
         v9 = objc_opt_class();
         v10 = BCDynamicCast(v9, [v8 objectForKey:@"Persistent ID"]);
         if (![v10 length])
         {
-          v23 = BCDefaultLog();
-          if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v27 = BCDefaultLog(0, v11);
+          if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_21;
           }
 
-          v24 = [v8 objectForKey:@"Artist"];
-          v25 = [v8 objectForKey:@"Name"];
+          v28 = [v8 objectForKey:@"Artist"];
+          v29 = [v8 objectForKey:@"Name"];
           *buf = 138412546;
-          *&buf[4] = v24;
-          v43 = 2112;
-          v44 = v25;
-          v26 = v23;
-          v27 = "Wanted to insert asset without a PID: {%@ - %@}";
-          v28 = 22;
+          *&buf[4] = v28;
+          v50 = 2112;
+          v51 = v29;
+          v30 = v27;
+          v31 = "Wanted to insert asset without a PID: {%@ - %@}";
+          v32 = 22;
           goto LABEL_17;
         }
 
-        v11 = objc_opt_class();
-        v12 = BCDynamicCast(v11, [v8 objectForKey:@"Path"]);
-        v13 = objc_opt_class();
-        v14 = BCDynamicCast(v13, [v8 objectForKey:@"Backup-Path"]);
-        if (*(a1 + 64) != 1 || (v15 = v14, [v12 length]) || objc_msgSend(v15, "length"))
+        v12 = objc_opt_class();
+        v13 = BCDynamicCast(v12, [v8 objectForKey:@"Path"]);
+        v14 = objc_opt_class();
+        v15 = BCDynamicCast(v14, [v8 objectForKey:@"Backup-Path"]);
+        if (*(a1 + 64) != 1 || (v16 = v15, [v13 length]) || objc_msgSend(v16, "length"))
         {
-          v16 = [*(a1 + 40) entities:@"BCOutstandingAsset" byPredicate:+[NSPredicate predicateWithFormat:](NSPredicate fromMOC:{"predicateWithFormat:", @"persistentID == %@", v10), *(a1 + 48)}];
-          if (![v16 count])
+          v18 = [*(a1 + 40) entities:@"BCOutstandingAsset" byPredicate:+[NSPredicate predicateWithFormat:](NSPredicate fromMOC:{"predicateWithFormat:", @"persistentID == %@", v10), *(a1 + 48)}];
+          if (![v18 count])
           {
             goto LABEL_21;
           }
 
-          v17 = [v16 lastObject];
-          v18 = v17;
-          if ((*(a1 + 64) & 1) != 0 || ![objc_msgSend(v17 "restoreRelated")])
+          v19 = [v18 lastObject];
+          v20 = v19;
+          if ((*(a1 + 64) & 1) != 0 || (v21 = [objc_msgSend(v19 "restoreRelated")], !v21))
           {
-            [v18 setPersistentID:v10];
-            [v18 setRestoreRelated:v36];
-            [v18 setAssetDictionaryAsDictionary:v8];
-            v29 = BCDefaultLog();
-            if (!os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+            [v20 setPersistentID:v10];
+            [v20 setRestoreRelated:v43];
+            v33 = [v20 setAssetDictionaryAsDictionary:v8];
+            v35 = BCDefaultLog(v33, v34);
+            if (!os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_21;
             }
 
-            v30 = *(a1 + 64);
+            v36 = *(a1 + 64);
             *buf = 138412546;
             *&buf[4] = v10;
-            v43 = 1024;
-            LODWORD(v44) = v30;
-            v20 = v29;
-            v21 = "Patching existing asset row: %@ -- [Restore Flag: %d]";
-            v22 = 18;
+            v50 = 1024;
+            LODWORD(v51) = v36;
+            v24 = v35;
+            v25 = "Patching existing asset row: %@ -- [Restore Flag: %d]";
+            v26 = 18;
           }
 
           else
           {
-            v19 = BCDefaultLog();
-            if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+            v23 = BCDefaultLog(v21, v22);
+            if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_21;
             }
 
             *buf = 138412290;
             *&buf[4] = v10;
-            v20 = v19;
-            v21 = "Skipping existing asset row due to restore flag mismatch: %@";
-            v22 = 12;
+            v24 = v23;
+            v25 = "Skipping existing asset row due to restore flag mismatch: %@";
+            v26 = 12;
           }
 
-          _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, v21, buf, v22);
+          _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, v25, buf, v26);
         }
 
         else
         {
-          v31 = BCDefaultLog();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          v37 = BCDefaultLog(0, v17);
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
             *&buf[4] = v10;
-            v26 = v31;
-            v27 = "Wanted to update restore asset without a path: %@";
-            v28 = 12;
+            v30 = v37;
+            v31 = "Wanted to update restore asset without a path: %@";
+            v32 = 12;
 LABEL_17:
-            _os_log_error_impl(&dword_0, v26, OS_LOG_TYPE_ERROR, v27, buf, v28);
+            _os_log_error_impl(&dword_0, v30, OS_LOG_TYPE_ERROR, v31, buf, v32);
           }
         }
 
@@ -1006,11 +1010,11 @@ LABEL_21:
       }
 
       while (v3 != v5);
-      v32 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
-      v3 = v32;
+      v38 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
+      v3 = v38;
     }
 
-    while (v32);
+    while (v38);
   }
 
   *buf = 0;
@@ -1019,15 +1023,15 @@ LABEL_21:
   {
     if (*buf)
     {
-      v34 = BCDefaultLog();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v41 = BCDefaultLog(result, v40);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
-        sub_13DB8(buf);
+        sub_13DB8();
       }
     }
 
-    v35 = +[NSAssertionHandler currentHandler];
-    return -[NSAssertionHandler handleFailureInMethod:object:file:lineNumber:description:](v35, "handleFailureInMethod:object:file:lineNumber:description:", *(a1 + 56), *(a1 + 40), @"BCAssetDatabase.m", 389, @"Error saving MOC: %@ -- User Info: %@", *buf, [*buf userInfo]);
+    v42 = +[NSAssertionHandler currentHandler];
+    return -[NSAssertionHandler handleFailureInMethod:object:file:lineNumber:description:](v42, "handleFailureInMethod:object:file:lineNumber:description:", *(a1 + 56), *(a1 + 40), @"BCAssetDatabase.m", 389, @"Error saving MOC: %@ -- User Info: %@", *buf, [*buf userInfo]);
   }
 
   return result;
@@ -1038,94 +1042,103 @@ id sub_10774(uint64_t a1)
   v2 = [NSPredicate predicateWithFormat:@"NOT (persistentID IN %@)", *(a1 + 32)];
   v3 = +[NSMutableArray array];
   v4 = [*(a1 + 40) entities:@"BCOutstandingAsset" byPredicate:v2 fromMOC:*(a1 + 48)];
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (v5)
   {
-    v6 = v5;
-    v7 = *v29;
+    v7 = v5;
+    v8 = *v34;
     do
     {
-      for (i = 0; i != v6; i = i + 1)
+      v9 = 0;
+      do
       {
-        if (*v29 != v7)
+        if (*v34 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v28 + 1) + 8 * i);
-        if ([objc_msgSend(v9 "downloadCompletePath")])
+        v10 = *(*(&v33 + 1) + 8 * v9);
+        v11 = [objc_msgSend(v10 "downloadCompletePath")];
+        if (v11)
         {
-          [v3 addObject:{objc_msgSend(v9, "downloadCompletePath")}];
+          v11 = [v3 addObject:{objc_msgSend(v10, "downloadCompletePath")}];
         }
 
-        v10 = BCDefaultLog();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v13 = BCDefaultLog(v11, v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          *&buf[4] = v9;
-          _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Removing outstanding asset %@", buf, 0xCu);
+          *&buf[4] = v10;
+          _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Removing outstanding asset %@", buf, 0xCu);
         }
 
-        [*(a1 + 48) deleteObject:v9];
+        [*(a1 + 48) deleteObject:v10];
+        v9 = v9 + 1;
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v28 objects:v34 count:16];
+      while (v7 != v9);
+      v5 = [v4 countByEnumeratingWithState:&v33 objects:v39 count:16];
+      v7 = v5;
     }
 
-    while (v6);
+    while (v5);
   }
 
-  v11 = BCDefaultLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v14 = BCDefaultLog(v5, v6);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = [v4 count];
-    v13 = [v3 count];
+    v15 = [v4 count];
+    v16 = [v3 count];
     *buf = 67109376;
-    *&buf[4] = v12;
+    *&buf[4] = v15;
     *&buf[8] = 1024;
-    *&buf[10] = v13;
-    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Removing unnecessary outstanding assets -- [Matched: %d] [Paths to delete: %d]", buf, 0xEu);
+    *&buf[10] = v16;
+    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Removing unnecessary outstanding assets -- [Matched: %d] [Paths to delete: %d]", buf, 0xEu);
   }
 
-  v14 = +[NSFileManager defaultManager];
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v15 = [v3 countByEnumeratingWithState:&v24 objects:v32 count:16];
-  if (v15)
+  v17 = +[NSFileManager defaultManager];
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v18 = [v3 countByEnumeratingWithState:&v29 objects:v37 count:16];
+  if (v18)
   {
-    v16 = v15;
-    v17 = *v25;
+    v20 = v18;
+    v21 = *v30;
     do
     {
-      for (j = 0; j != v16; j = j + 1)
+      v22 = 0;
+      do
       {
-        if (*v25 != v17)
+        if (*v30 != v21)
         {
           objc_enumerationMutation(v3);
         }
 
-        v19 = *(*(&v24 + 1) + 8 * j);
-        v20 = BCDefaultLog();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v23 = *(*(&v29 + 1) + 8 * v22);
+        v24 = BCDefaultLog(v18, v19);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          *&buf[4] = v19;
-          _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "Removing file at path %@", buf, 0xCu);
+          *&buf[4] = v23;
+          _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "Removing file at path %@", buf, 0xCu);
         }
 
-        [(NSFileManager *)v14 removeItemAtPath:v19 error:0];
+        v18 = [(NSFileManager *)v17 removeItemAtPath:v23 error:0];
+        ++v22;
       }
 
-      v16 = [v3 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      while (v20 != v22);
+      v18 = [v3 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v20 = v18;
     }
 
-    while (v16);
+    while (v18);
   }
 
   *buf = 0;
@@ -1134,15 +1147,15 @@ id sub_10774(uint64_t a1)
   {
     if (*buf)
     {
-      v22 = BCDefaultLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v27 = BCDefaultLog(result, v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        sub_13E20(buf);
+        sub_13E20();
       }
     }
 
-    v23 = +[NSAssertionHandler currentHandler];
-    return -[NSAssertionHandler handleFailureInMethod:object:file:lineNumber:description:](v23, "handleFailureInMethod:object:file:lineNumber:description:", *(a1 + 56), *(a1 + 40), @"BCAssetDatabase.m", 435, @"{%@} - Error saving MOC: %@ -- User Info: %@", @"BCOutstandingAsset", *buf, [*buf userInfo]);
+    v28 = +[NSAssertionHandler currentHandler];
+    return -[NSAssertionHandler handleFailureInMethod:object:file:lineNumber:description:](v28, "handleFailureInMethod:object:file:lineNumber:description:", *(a1 + 56), *(a1 + 40), @"BCAssetDatabase.m", 435, @"{%@} - Error saving MOC: %@ -- User Info: %@", @"BCOutstandingAsset", *buf, [*buf userInfo]);
   }
 
   return result;
@@ -1155,37 +1168,38 @@ id sub_10F30(uint64_t a1)
     v2 = [*(a1 + 40) entities:@"BCOutstandingAsset" byPredicate:+[NSPredicate predicateWithFormat:](NSPredicate fromMOC:{"predicateWithFormat:", @"persistentID == %@", *(a1 + 32)), *(a1 + 48)}];
     if ([v2 count])
     {
-      v3 = [v2 lastObject];
-      if ([objc_msgSend(v3 "downloadCompletePath")])
+      v4 = [v2 lastObject];
+      v5 = [objc_msgSend(v4 "downloadCompletePath")];
+      if (v5)
       {
-        v4 = BCDefaultLog();
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+        v7 = BCDefaultLog(v5, v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v5 = *(a1 + 32);
-          v6 = *(a1 + 56);
+          v8 = *(a1 + 32);
+          v9 = *(a1 + 56);
           *buf = 138412546;
-          *&buf[4] = v5;
-          v16 = 2112;
-          v17 = v6;
-          v7 = "Existing asset row: %@ -- [Same Path: %@]";
+          *&buf[4] = v8;
+          v22 = 2112;
+          v23 = v9;
+          v10 = "Existing asset row: %@ -- [Same Path: %@]";
 LABEL_10:
-          _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, v7, buf, 0x16u);
+          _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, v10, buf, 0x16u);
         }
       }
 
       else
       {
-        [v3 setDownloadCompletePath:*(a1 + 56)];
-        v4 = BCDefaultLog();
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+        v13 = [v4 setDownloadCompletePath:*(a1 + 56)];
+        v7 = BCDefaultLog(v13, v14);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = *(a1 + 32);
-          v11 = *(a1 + 56);
+          v15 = *(a1 + 32);
+          v16 = *(a1 + 56);
           *buf = 138412546;
-          *&buf[4] = v10;
-          v16 = 2112;
-          v17 = v11;
-          v7 = "Updating existing asset row: %@ -- [Path: %@]";
+          *&buf[4] = v15;
+          v22 = 2112;
+          v23 = v16;
+          v10 = "Updating existing asset row: %@ -- [Path: %@]";
           goto LABEL_10;
         }
       }
@@ -1193,16 +1207,16 @@ LABEL_10:
 
     else
     {
-      v4 = BCDefaultLog();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v7 = BCDefaultLog(0, v3);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(a1 + 32);
-        v9 = *(a1 + 56);
+        v11 = *(a1 + 32);
+        v12 = *(a1 + 56);
         *buf = 138412546;
-        *&buf[4] = v8;
-        v16 = 2112;
-        v17 = v9;
-        v7 = "No existing asset row: %@ -- [Path: %@]";
+        *&buf[4] = v11;
+        v22 = 2112;
+        v23 = v12;
+        v10 = "No existing asset row: %@ -- [Path: %@]";
         goto LABEL_10;
       }
     }
@@ -1217,24 +1231,24 @@ LABEL_10:
     {
       if (*buf)
       {
-        v13 = BCDefaultLog();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v19 = BCDefaultLog(result, v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          sub_13DB8(buf);
+          sub_13DB8();
         }
       }
 
-      v14 = +[NSAssertionHandler currentHandler];
-      return -[NSAssertionHandler handleFailureInMethod:object:file:lineNumber:description:](v14, "handleFailureInMethod:object:file:lineNumber:description:", *(a1 + 64), *(a1 + 40), @"BCAssetDatabase.m", 508, @"Error saving MOC: %@ -- User Info: %@", *buf, [*buf userInfo]);
+      v20 = +[NSAssertionHandler currentHandler];
+      return -[NSAssertionHandler handleFailureInMethod:object:file:lineNumber:description:](v20, "handleFailureInMethod:object:file:lineNumber:description:", *(a1 + 64), *(a1 + 40), @"BCAssetDatabase.m", 508, @"Error saving MOC: %@ -- User Info: %@", *buf, [*buf userInfo]);
     }
   }
 
   return result;
 }
 
-void sub_11308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_11308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1248,40 +1262,40 @@ id sub_11324(uint64_t a1)
   [v4 setPredicate:v3];
   [v4 setResultType:2];
   [v4 setPropertiesToFetch:{+[NSArray arrayWithObjects:](NSArray, "arrayWithObjects:", @"downloadCompletePath", 0)}];
-  v11 = 0;
-  v5 = [*(a1 + 32) executeFetchRequest:v4 error:&v11];
-  if (!v5)
+  v14 = 0;
+  v6 = [*(a1 + 32) executeFetchRequest:v4 error:&v14];
+  if (!v6)
   {
-    if (v11)
+    if (v14)
     {
-      v6 = BCDefaultLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = BCDefaultLog(0, v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        sub_13CDC(&v11);
+        sub_13CDC();
       }
     }
   }
 
-  v7 = BCDefaultLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v10 = BCDefaultLog(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = [*(a1 + 40) count];
-    v9 = [v5 count];
+    v11 = [*(a1 + 40) count];
+    v12 = [v6 count];
     *buf = 67109376;
-    v13 = v8;
-    v14 = 1024;
-    v15 = v9;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Input count: %d; Output count: %d", buf, 0xEu);
+    v16 = v11;
+    v17 = 1024;
+    v18 = v12;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Input count: %d; Output count: %d", buf, 0xEu);
   }
 
-  result = [v5 valueForKeyPath:@"downloadCompletePath"];
+  result = [v6 valueForKeyPath:@"downloadCompletePath"];
   *(*(*(a1 + 48) + 8) + 40) = result;
   return result;
 }
 
-void sub_115E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_115E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1295,26 +1309,26 @@ NSDictionary *sub_115FC(uint64_t a1)
   [v4 setPredicate:v3];
   [v4 setResultType:2];
   [v4 setPropertiesToFetch:{+[NSArray arrayWithObjects:](NSArray, "arrayWithObjects:", @"downloadCompletePath", @"persistentID", 0)}];
-  v10 = 0;
-  v5 = [*(a1 + 32) executeFetchRequest:v4 error:&v10];
-  if (!v5)
+  v11 = 0;
+  v6 = [*(a1 + 32) executeFetchRequest:v4 error:&v11];
+  if (!v6)
   {
-    if (v10)
+    if (v11)
     {
-      v6 = BCDefaultLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = BCDefaultLog(0, v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        sub_13CDC(&v10);
+        sub_13CDC();
       }
     }
   }
 
-  v7 = [v5 valueForKeyPath:@"persistentID"];
-  v8 = [v5 valueForKeyPath:@"downloadCompletePath"];
-  result = [v7 count];
+  v8 = [v6 valueForKeyPath:@"persistentID"];
+  v9 = [v6 valueForKeyPath:@"downloadCompletePath"];
+  result = [v8 count];
   if (result)
   {
-    result = [NSDictionary dictionaryWithObjects:v8 forKeys:v7];
+    result = [NSDictionary dictionaryWithObjects:v9 forKeys:v8];
     *(*(*(a1 + 40) + 8) + 40) = result;
   }
 
@@ -1327,41 +1341,41 @@ id sub_118FC(uint64_t a1)
   v3 = [*(a1 + 40) entities:@"BCInstalledAsset" byPredicate:+[NSPredicate predicateWithFormat:](NSPredicate fromMOC:{"predicateWithFormat:", @"persistentID == %@", *(a1 + 32)), *(a1 + 48)}];
   if ([v3 count])
   {
-    [objc_msgSend(v3 "lastObject")];
-    v4 = BCDefaultLog();
-    if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v4 = [objc_msgSend(v3 "lastObject")];
+    v6 = BCDefaultLog(v4, v5);
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_7;
     }
 
-    v5 = *(a1 + 32);
+    v7 = *(a1 + 32);
     *buf = 138412546;
-    *&buf[4] = v5;
-    v13 = 2112;
-    v14 = v2;
-    v6 = "Updating installed asset row: %@ -- [Computed Size: %@]";
+    *&buf[4] = v7;
+    v18 = 2112;
+    v19 = v2;
+    v8 = "Updating installed asset row: %@ -- [Computed Size: %@]";
   }
 
   else
   {
-    v7 = [NSEntityDescription insertNewObjectForEntityForName:@"BCInstalledAsset" inManagedObjectContext:*(a1 + 48)];
-    [(NSManagedObject *)v7 setPersistentID:*(a1 + 32)];
-    [(NSManagedObject *)v7 setComputedSize:v2];
-    v4 = BCDefaultLog();
-    if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v9 = [NSEntityDescription insertNewObjectForEntityForName:@"BCInstalledAsset" inManagedObjectContext:*(a1 + 48)];
+    [(NSManagedObject *)v9 setPersistentID:*(a1 + 32)];
+    v10 = [(NSManagedObject *)v9 setComputedSize:v2];
+    v6 = BCDefaultLog(v10, v11);
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_7;
     }
 
-    v8 = *(a1 + 32);
+    v12 = *(a1 + 32);
     *buf = 138412546;
-    *&buf[4] = v8;
-    v13 = 2112;
-    v14 = v2;
-    v6 = "Inserting installed asset row: %@ -- [Computed Size: %@]";
+    *&buf[4] = v12;
+    v18 = 2112;
+    v19 = v2;
+    v8 = "Inserting installed asset row: %@ -- [Computed Size: %@]";
   }
 
-  _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, v6, buf, 0x16u);
+  _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, v8, buf, 0x16u);
 LABEL_7:
   *buf = 0;
   result = [*(a1 + 48) save:buf];
@@ -1369,28 +1383,21 @@ LABEL_7:
   {
     if (*buf)
     {
-      v10 = BCDefaultLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v15 = BCDefaultLog(result, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        sub_13DB8(buf);
+        sub_13DB8();
       }
     }
 
-    v11 = +[NSAssertionHandler currentHandler];
-    return -[NSAssertionHandler handleFailureInMethod:object:file:lineNumber:description:](v11, "handleFailureInMethod:object:file:lineNumber:description:", *(a1 + 64), *(a1 + 40), @"BCAssetDatabase.m", 645, @"Error saving MOC: %@ -- User Info: %@", *buf, [*buf userInfo]);
+    v16 = +[NSAssertionHandler currentHandler];
+    return -[NSAssertionHandler handleFailureInMethod:object:file:lineNumber:description:](v16, "handleFailureInMethod:object:file:lineNumber:description:", *(a1 + 64), *(a1 + 40), @"BCAssetDatabase.m", 645, @"Error saving MOC: %@ -- User Info: %@", *buf, [*buf userInfo]);
   }
 
   return result;
 }
 
-uint64_t *sub_11B14@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
-}
-
-uint64_t BCDefaultLog()
+uint64_t BCDefaultLog(uint64_t a1, uint64_t a2)
 {
   if (qword_267F8 != -1)
   {
@@ -1398,6 +1405,27 @@ uint64_t BCDefaultLog()
   }
 
   return qword_267F0;
+}
+
+void sub_11D20(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_13DC(&dword_0, a2, a3, "raiseLockout initially failed -- spinning %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_11D8C(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_13DC(&dword_0, a2, a3, "Lockout raise failed -- sync fails %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_11DF8(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_13DC(&dword_0, a2, a3, "Lockout raise failed -- no path %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_11EEC()
@@ -1428,13 +1456,6 @@ void sub_1203C(uint64_t a1, uint64_t a2)
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-void sub_1207C(uint64_t a1, uint64_t *a2)
-{
-  v2 = *a2;
-  sub_B1E8();
-  sub_B218(&dword_0, v3, v4, "Error changing modification date of %@ -- %@");
-}
-
 void sub_120F4(uint64_t a1, uint64_t a2)
 {
   sub_B25C(a1, a2, 5.7779e-34);
@@ -1453,51 +1474,8 @@ segment_command_64 *sub_12304()
 {
   sub_B298();
   result = [v2 code];
-  if (result == (&dword_4 + 3))
+  if (result == (&dword_4 + 3) || (result = [v1 code], result == &dword_8) || (result = objc_msgSend(v1, "code"), result == (&dword_C + 2)) || (result = objc_msgSend(v1, "code"), result == &dword_10) || (result = objc_msgSend(v1, "code"), result == (&dword_8 + 1)) || (result = objc_msgSend(v1, "code"), result == (&dword_10 + 2)) || (result = objc_msgSend(v1, "code"), result == &dword_4) || (result = objc_msgSend(v1, "code"), result == (&dword_10 + 3)) || (result = objc_msgSend(v1, "code"), result == &dword_14) || (result = objc_msgSend(v1, "code"), result == (&dword_18 + 1)) || (result = objc_msgSend(v1, "code"), result == (&dword_18 + 3)) || (result = objc_msgSend(v1, "code"), result == &dword_18) || (result = objc_msgSend(v1, "code"), result == (&dword_1C + 3)) || (result = objc_msgSend(v1, "code"), result == &stru_20) || (result = objc_msgSend(v1, "code"), result == (&stru_20.cmd + 1)))
   {
-    goto LABEL_16;
-  }
-
-  result = [v1 code];
-  if (result == &dword_8)
-  {
-    goto LABEL_16;
-  }
-
-  result = [v1 code];
-  if (result == (&dword_C + 2))
-  {
-    goto LABEL_16;
-  }
-
-  result = [v1 code];
-  if (result == &dword_10)
-  {
-    goto LABEL_16;
-  }
-
-  result = [v1 code];
-  if (result == (&dword_8 + 1))
-  {
-    goto LABEL_16;
-  }
-
-  result = [v1 code];
-  if (result == (&dword_10 + 2))
-  {
-    goto LABEL_16;
-  }
-
-  result = [v1 code];
-  if (result == &dword_4)
-  {
-    goto LABEL_16;
-  }
-
-  result = [v1 code];
-  if (result == (&dword_10 + 3) || (result = [v1 code], result == &dword_14) || (result = objc_msgSend(v1, "code"), result == (&dword_18 + 1)) || (result = objc_msgSend(v1, "code"), result == (&dword_18 + 3)) || (result = objc_msgSend(v1, "code"), result == &dword_18) || (result = objc_msgSend(v1, "code"), result == (&dword_1C + 3)) || (result = objc_msgSend(v1, "code"), result == &stru_20) || (result = objc_msgSend(v1, "code"), result == (&stru_20.cmd + 1)))
-  {
-LABEL_16:
     v4 = @"Recoverable";
   }
 
@@ -1538,36 +1516,43 @@ void sub_12494()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_12538(uint64_t *a1)
+void sub_12538()
 {
-  sub_B2A4(a1, __stack_chk_guard);
+  sub_B2A4(__stack_chk_guard);
   sub_B1D0();
   sub_B1F4();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_125A8(uint64_t *a1)
+void sub_125A8()
 {
-  sub_B2A4(a1, __stack_chk_guard);
+  sub_B2A4(__stack_chk_guard);
   sub_B1D0();
   sub_B1F4();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_12618(uint64_t *a1)
+void sub_12618()
 {
-  sub_B2A4(a1, __stack_chk_guard);
+  sub_B2A4(__stack_chk_guard);
   sub_B1D0();
   sub_B1F4();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_12688(uint64_t *a1)
+void sub_12688()
 {
-  sub_B2A4(a1, __stack_chk_guard);
+  sub_B2A4(__stack_chk_guard);
   sub_B1D0();
   sub_B1F4();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void sub_12898(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  sub_13DC(&dword_0, a2, a3, "reconcileWithError returning an error %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_12948()
@@ -1656,14 +1641,13 @@ void sub_130BC()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1312C(uint64_t a1, uint64_t *a2)
+void sub_1312C(uint64_t a1)
 {
-  v2 = *a2;
-  LODWORD(v6) = 138412546;
-  *(&v6 + 4) = *(a1 + 48);
+  LODWORD(v4) = 138412546;
+  *(&v4 + 4) = *(a1 + 48);
   sub_B274();
-  *v7 = v3;
-  sub_B218(&dword_0, v4, v5, "Failed to delete file [%@] -- [Error: %@]", v6, DWORD2(v6), *&v7[2]);
+  *v5 = v1;
+  sub_B218(&dword_0, v2, v3, "Failed to delete file [%@] -- [Error: %@]", v4, DWORD2(v4), *&v5[2]);
 }
 
 void sub_131A8()
@@ -1702,7 +1686,7 @@ void sub_13424(void *a1)
   [a1 objectForKeyedSubscript:@"Artist"];
   [a1 objectForKeyedSubscript:@"Name"];
   sub_E4B4();
-  sub_E4CC(&dword_0, v2, v3, "[BCGenerateDownloadSizePlistProducer] Cannot read itunesMetadata.plist for {%@ - %@}", v4, v5, v6, v7, v8);
+  sub_E4CC(&dword_0, v2, v3, "[BCGenerateDownloadSizePlistProducer] Cannot read itunesMetadata.plist for {%@ - %@}", v4, v5, v6, v7);
 }
 
 void sub_134CC(void *a1)
@@ -1710,7 +1694,7 @@ void sub_134CC(void *a1)
   [a1 objectForKeyedSubscript:@"Artist"];
   [a1 objectForKeyedSubscript:@"Name"];
   sub_E4B4();
-  sub_E4CC(&dword_0, v2, v3, "[BCGenerateDownloadSizePlistProducer] Path is empty for {%@ - %@}", v4, v5, v6, v7, v8);
+  sub_E4CC(&dword_0, v2, v3, "[BCGenerateDownloadSizePlistProducer] Path is empty for {%@ - %@}", v4, v5, v6, v7);
 }
 
 void sub_13574(void *a1)
@@ -1718,7 +1702,7 @@ void sub_13574(void *a1)
   [a1 objectForKeyedSubscript:@"Artist"];
   [a1 objectForKeyedSubscript:@"Name"];
   sub_E4B4();
-  sub_E4CC(&dword_0, v2, v3, "[BCGenerateDownloadSizePlistProducer] Path not found for {%@ - %@}", v4, v5, v6, v7, v8);
+  sub_E4CC(&dword_0, v2, v3, "[BCGenerateDownloadSizePlistProducer] Path not found for {%@ - %@}", v4, v5, v6, v7);
 }
 
 void sub_1361C(uint64_t a1, NSObject *a2)
@@ -1765,51 +1749,48 @@ void sub_139D4(int *a1, NSObject *a2)
   _os_log_error_impl(&dword_0, a2, OS_LOG_TYPE_ERROR, "Could not add PS to PSC, but retry-count exceeded: %d", v3, 8u);
 }
 
-void sub_13AD8(uint64_t a1, uint64_t *a2)
+void sub_13AD8()
 {
-  v2 = *a2;
   sub_B1E8();
   sub_11B2C();
-  sub_B218(&dword_0, v3, v4, "Failed to delete file [%@] -- [Error: %@]");
+  sub_B218(&dword_0, v0, v1, "Failed to delete file [%@] -- [Error: %@]");
 }
 
-void sub_13BB0(uint64_t *a1)
+void sub_13BB0()
 {
-  sub_11B14(a1, __stack_chk_guard);
-  v2 = *v1;
+  sub_11B14(__stack_chk_guard);
   sub_11B20();
-  sub_B218(&dword_0, v3, v4, "{%@} - Error saving MOC: %@");
+  sub_B218(&dword_0, v0, v1, "{%@} - Error saving MOC: %@");
 }
 
-void sub_13C28(uint64_t a1, uint64_t *a2)
+void sub_13C28()
 {
-  v2 = *a2;
   sub_B1E8();
   sub_11B2C();
-  sub_B218(&dword_0, v3, v4, "Fetching %@: Error fetching from MOC: %@");
+  sub_B218(&dword_0, v0, v1, "Fetching %@: Error fetching from MOC: %@");
 }
 
-void sub_13CDC(uint64_t *a1)
+void sub_13CDC()
 {
-  sub_11B14(a1, __stack_chk_guard);
+  sub_11B14(__stack_chk_guard);
   sub_11B20();
-  sub_13DC(&dword_0, v1, v2, "Fetching: Error fetching from MOC: %@", v3, v4, v5, v6, v7);
+  sub_13DC(&dword_0, v0, v1, "Fetching: Error fetching from MOC: %@", v2, v3, v4, v5);
 }
 
-void sub_13DB8(uint64_t *a1)
+void sub_13DB8()
 {
-  sub_11B14(a1, __stack_chk_guard);
+  sub_11B14(__stack_chk_guard);
   sub_11B20();
-  sub_13DC(&dword_0, v1, v2, "Error saving MOC: %@", v3, v4, v5, v6, v7);
+  sub_13DC(&dword_0, v0, v1, "Error saving MOC: %@", v2, v3, v4, v5);
 }
 
-void sub_13E20(uint64_t *a1)
+void sub_13E20()
 {
-  sub_11B14(a1, __stack_chk_guard);
-  v2 = 138412546;
-  v3 = @"BCOutstandingAsset";
+  sub_11B14(__stack_chk_guard);
+  v1 = 138412546;
+  v2 = @"BCOutstandingAsset";
   sub_11B2C();
-  _os_log_error_impl(&dword_0, v1, OS_LOG_TYPE_ERROR, "{%@} - Error saving MOC: %@", &v2, 0x16u);
+  _os_log_error_impl(&dword_0, v0, OS_LOG_TYPE_ERROR, "{%@} - Error saving MOC: %@", &v1, 0x16u);
 }
 
 CFUUIDBytes CFUUIDGetUUIDBytes(CFUUIDRef uuid)

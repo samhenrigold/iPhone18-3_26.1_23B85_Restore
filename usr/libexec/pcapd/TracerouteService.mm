@@ -15,7 +15,7 @@
 {
   Logger.init(subsystem:category:)();
   v4.receiver = self;
-  v4.super_class = type metadata accessor for TracerouteService();
+  v4.super_class = type metadata accessor for TracerouteService(0);
   return [(TracerouteService *)&v4 init];
 }
 

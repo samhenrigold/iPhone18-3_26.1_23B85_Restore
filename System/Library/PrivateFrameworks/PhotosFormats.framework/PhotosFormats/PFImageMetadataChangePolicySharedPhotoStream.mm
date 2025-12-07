@@ -15,7 +15,7 @@
   v4 = [(PFImageMetadataChangePolicyDefault *)&v12 processMetadata:metadata];
   if ([(PFImageMetadataChangePolicySharedPhotoStream *)self metadataNeedsProcessing:v4])
   {
-    v5 = [v4 mutableCopy];
+    v5 = objc_msgSend_mutableCopy(v4);
     [v5 removeObjectForKey:*MEMORY[0x1E696DD90]];
     v6 = objc_opt_class();
     v7 = *MEMORY[0x1E696DF28];

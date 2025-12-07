@@ -11,7 +11,7 @@
 
 + (id)graphicSymbolResourceWithRecipe:(id)recipe url:(id)url
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   recipeCopy = recipe;
   urlCopy = url;
   v7 = [ISGraphicSymbolDescriptor descriptorFromGraphicSymbolRecipe:recipeCopy];
@@ -31,14 +31,14 @@
 
     else
     {
-      v15 = _ISDefaultLog();
+      v15 = _ISDefaultLog(0);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         name3 = [v7 name];
-        v19 = 138412546;
-        v20 = name3;
-        v21 = 2112;
-        v22 = urlCopy;
+        v18 = 138412546;
+        v19 = name3;
+        v20 = 2112;
+        v21 = urlCopy;
       }
 
       v14 = 0;
@@ -47,7 +47,7 @@
 
   else
   {
-    v10 = _ISDefaultLog();
+    v10 = _ISDefaultLog(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(ISGraphicSymbolResource *)recipeCopy graphicSymbolResourceWithRecipe:urlCopy url:v10];
@@ -56,14 +56,12 @@
     v14 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 + (id)graphicSymbolResourceWithConfiguration:(id)configuration symbolName:(id)name url:(id)url
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   nameCopy = name;
   urlCopy = url;
@@ -86,16 +84,16 @@
 
     else
     {
-      v19 = _ISDefaultLog();
+      v19 = _ISDefaultLog(0);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         name3 = [v11 name];
-        v23 = 138412802;
-        v24 = name3;
-        v25 = 2112;
-        v26 = urlCopy;
-        v27 = 2112;
-        v28 = configurationCopy;
+        v22 = 138412802;
+        v23 = name3;
+        v24 = 2112;
+        v25 = urlCopy;
+        v26 = 2112;
+        v27 = configurationCopy;
       }
 
       v18 = 0;
@@ -104,22 +102,20 @@
 
   else
   {
-    v14 = _ISDefaultLog();
+    v14 = _ISDefaultLog(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v23 = 138412802;
-      v24 = configurationCopy;
-      v25 = 2112;
-      v26 = nameCopy;
-      v27 = 2112;
-      v28 = urlCopy;
-      _os_log_error_impl(&dword_1A77B8000, v14, OS_LOG_TYPE_ERROR, "Failed to read config %@ - %@ - %@.", &v23, 0x20u);
+      v22 = 138412802;
+      v23 = configurationCopy;
+      v24 = 2112;
+      v25 = nameCopy;
+      v26 = 2112;
+      v27 = urlCopy;
+      _os_log_error_impl(&dword_1A77B8000, v14, OS_LOG_TYPE_ERROR, "Failed to read config %@ - %@ - %@.", &v22, 0x20u);
     }
 
     v18 = 0;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -165,7 +161,7 @@
 {
   height = size.height;
   width = size.width;
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v8 = objc_alloc(MEMORY[0x1E69A89B0]);
   symbolName = [(ISGraphicSymbolResource *)self symbolName];
   v10 = [(ISGraphicSymbolResource *)self url];
@@ -180,40 +176,38 @@
     [descriptor2 setScale:scale];
 
     descriptor3 = [(ISGraphicSymbolResource *)self descriptor];
-    v15 = [v11 imageForGraphicSymbolDescriptor:descriptor3];
+    v16 = [v11 imageForGraphicSymbolDescriptor:descriptor3];
 
-    if (v15)
+    if (v16)
     {
-      v16 = [objc_alloc(MEMORY[0x1E69A8988]) initWithCGImage:-[NSObject CGImage](v15 scale:{"CGImage"), scale}];
+      v18 = [objc_alloc(MEMORY[0x1E69A8988]) initWithCGImage:-[NSObject CGImage](v16 scale:{"CGImage"), scale}];
       goto LABEL_10;
     }
 
-    v18 = _ISDefaultLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v20 = _ISDefaultLog(v17);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       symbolName2 = [(ISGraphicSymbolResource *)self symbolName];
-      v22 = 138412290;
-      v23 = symbolName2;
+      v23 = 138412290;
+      v24 = symbolName2;
     }
   }
 
   else
   {
-    v15 = _ISDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v16 = _ISDefaultLog(v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       symbolName3 = [(ISGraphicSymbolResource *)self symbolName];
-      v22 = 138412290;
-      v23 = symbolName3;
+      v23 = 138412290;
+      v24 = symbolName3;
     }
   }
 
-  v16 = 0;
+  v18 = 0;
 LABEL_10:
 
-  v20 = *MEMORY[0x1E69E9840];
-
-  return v16;
+  return v18;
 }
 
 - (void)updateDescriptorWithImageDescriptor:(id)descriptor
@@ -274,13 +268,12 @@ LABEL_10:
 
 + (void)graphicSymbolResourceWithRecipe:(os_log_t)log url:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1A77B8000, log, OS_LOG_TYPE_ERROR, "Failed to read recipe %@ - %@.", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1A77B8000, log, OS_LOG_TYPE_ERROR, "Failed to read recipe %@ - %@.", &v3, 0x16u);
 }
 
 @end

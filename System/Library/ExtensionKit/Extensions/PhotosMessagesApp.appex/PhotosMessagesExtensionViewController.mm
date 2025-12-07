@@ -15,6 +15,7 @@
 - (void)_dismissDrawerViewControllerWithDesiredState:(int64_t)state;
 - (void)_finishPicking:(id)picking withPreparationOptions:(id)options;
 - (void)_presentChildViewController:(id)controller animated:(BOOL)animated;
+- (void)_presentViewControllerForConversation:(id)conversation presentationStyle:(unint64_t)style animated:(BOOL)animated;
 - (void)_removeAllChildViewControllersAnimated:(BOOL)animated;
 - (void)_stageMessageForConversation:(id)conversation withTemplateItem:(id)item messageURL:(id)l summaryText:(id)text;
 - (void)_updatePresentedViewController;
@@ -24,6 +25,7 @@
 - (void)didCancelSendingMessage:(id)message conversation:(id)conversation;
 - (void)didResignActiveWithConversation:(id)conversation;
 - (void)didTransitionToPresentationStyle:(unint64_t)style;
+- (void)explorerViewController:(id)controller dismissViewControllerAnimated:(BOOL)animated completion:(id)completion;
 - (void)explorerViewController:(id)controller presentViewController:(id)viewController animated:(BOOL)animated completion:(id)completion;
 - (void)incrementShareCountAndLogAnalyticsForStagedAssetIDs:(id)ds;
 - (void)observable:(id)observable didChange:(unint64_t)change context:(void *)context;
@@ -33,8 +35,10 @@
 - (void)requestResizeForBubble:(id)bubble;
 - (void)transcriptBubbleViewController:(id)controller didSelectMomentShare:(id)share;
 - (void)updateSnapshotWithCompletionBlock:(id)block;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 - (void)viewSafeAreaInsetsDidChange;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)willBecomeActiveWithConversation:(id)conversation;
 - (void)willResignActiveWithConversation:(id)conversation;
 - (void)willTransitionToPresentationStyle:(unint64_t)style;
@@ -601,6 +605,15 @@ LABEL_17:
   }
 }
 
+- (void)explorerViewController:(id)controller dismissViewControllerAnimated:(BOOL)animated completion:(id)completion
+{
+  v6 = [PXMessagesExtensionViewModel sharedRootViewModel:controller];
+  [v6 performChanges:&stru_10000C7F0];
+  [qword_1000111F0 dismiss];
+  v5 = qword_1000111F0;
+  qword_1000111F0 = 0;
+}
+
 - (void)explorerViewController:(id)controller presentViewController:(id)viewController animated:(BOOL)animated completion:(id)completion
 {
   viewControllerCopy = viewController;
@@ -1056,6 +1069,187 @@ LABEL_16:
   }
 
   return supportedInterfaceOrientations;
+}
+
+- (void)_presentViewControllerForConversation:(id)conversation presentationStyle:(unint64_t)style animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  conversationCopy = conversation;
+  [(PhotosMessagesExtensionViewController *)self _removeAllChildViewControllersAnimated:animatedCopy];
+  if (style == 3)
+  {
+    viewController = +[PXMessagesExtensionViewModel sharedRootViewModel];
+    presentedViewController = [viewController presentedViewController];
+    selectedURL = [viewController selectedURL];
+    selectedActivityType = [viewController selectedActivityType];
+    if (selectedURL && (v18 = selectedActivityType, -[PhotosMessagesExtensionViewController _assetCollectionForURL:](self, "_assetCollectionForURL:", selectedURL), (v19 = objc_claimAutoreleasedReturnValue()) != 0) && (v20 = [[PXCMMPhotoKitContext alloc] initWithAssetCollection:v19 activityType:v18 sourceType:1], v19, v20))
+    {
+      [v20 setSourceType:1];
+      v21 = [(PhotosMessagesExtensionViewController *)self _recipientsForConversation:conversationCopy];
+      [v20 setRecipients:v21];
+
+      workflowCoordinator = self->_workflowCoordinator;
+      if (!workflowCoordinator)
+      {
+        v23 = objc_alloc_init(PXCMMWorkflowCoordinator);
+        v24 = self->_workflowCoordinator;
+        self->_workflowCoordinator = v23;
+
+        [(PXCMMWorkflowCoordinator *)self->_workflowCoordinator setDelegate:self];
+        workflowCoordinator = self->_workflowCoordinator;
+      }
+
+      v25 = [(PXCMMWorkflowCoordinator *)workflowCoordinator workflowViewControllerWithContext:v20 embedInNavigationControllerOfClass:objc_opt_class()];
+      [(PhotosMessagesExtensionViewController *)self _presentChildViewController:v25 animated:1];
+    }
+
+    else if (presentedViewController)
+    {
+      [(PhotosMessagesExtensionViewController *)self _presentChildViewController:presentedViewController animated:0];
+    }
+
+    else
+    {
+      v45 = PLUIGetLog();
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      {
+        LOWORD(buf) = 0;
+        _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "Requested a full screen view controller to present over Messages but failed to load content for it", &buf, 2u);
+      }
+
+      if (selectedURL)
+      {
+        v46 = PLSharingGetLog();
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+        {
+          pl_redactedShareURL = [selectedURL pl_redactedShareURL];
+          LODWORD(buf) = 138412290;
+          *(&buf + 4) = pl_redactedShareURL;
+          _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "Failed to load a CMM context for a CMM bubble URL %@", &buf, 0xCu);
+        }
+      }
+
+      v48 = PXLocalizedString();
+      v49 = PXLocalizedString();
+      v50 = [UIAlertController alertControllerWithTitle:v48 message:v49 preferredStyle:1];
+
+      v51 = PXLocalizedString();
+      v54[0] = _NSConcreteStackBlock;
+      v54[1] = 3221225472;
+      v54[2] = sub_100004910;
+      v54[3] = &unk_10000C610;
+      v54[4] = self;
+      v52 = [UIAlertAction actionWithTitle:v51 style:0 handler:v54];
+      [v50 addAction:v52];
+
+      [(PhotosMessagesExtensionViewController *)self presentViewController:v50 animated:1 completion:0];
+    }
+
+    goto LABEL_34;
+  }
+
+  if (style == 2)
+  {
+    selectedMessage = [conversationCopy selectedMessage];
+    senderParticipantIdentifier = [selectedMessage senderParticipantIdentifier];
+    localParticipantIdentifier = [conversationCopy localParticipantIdentifier];
+    v11 = [senderParticipantIdentifier isEqual:localParticipantIdentifier];
+
+    v12 = [PXCMMTranscriptBubbleViewController alloc];
+    v13 = [selectedMessage URL];
+    viewController = [v12 initWithURL:v13 isSender:v11];
+
+    [viewController setDelegate:self];
+    [viewController setTouchDelegate:self];
+    objc_storeStrong(&self->_transcriptBubbleViewController, viewController);
+  }
+
+  else
+  {
+    v26 = PLAssetExplorerGetLog();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(buf) = 0;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Presenting default picker", &buf, 2u);
+    }
+
+    v27 = objc_alloc_init(AEPackageTransport);
+    [v27 setDelegate:self];
+    *&buf = 0;
+    *(&buf + 1) = &buf;
+    v58 = 0x2020000000;
+    v59 = 0;
+    draftAssetArchives = [conversationCopy draftAssetArchives];
+    v29 = PXMap();
+
+    if ([v29 count])
+    {
+      v30 = PLAssetExplorerGetLog();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      {
+        *v55 = 134217984;
+        v56 = [v29 count];
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Selecting %lu initial asset draft(s)", v55, 0xCu);
+      }
+
+      [v27 stagePackages:v29 andNotify:0];
+    }
+
+    v31 = [PHPickerConfiguration alloc];
+    v32 = +[PHPhotoLibrary px_deprecated_appPhotoLibrary];
+    v33 = [v31 initWithPhotoLibraryAndOnlyReturnsIdentifiers:v32];
+
+    [v33 setSelectionLimit:20];
+    [v33 setSelection:3];
+    v34 = PXMap();
+    [v33 setPreselectedAssetIdentifiers:v34];
+
+    preselectedAssetIdentifiers = [v33 preselectedAssetIdentifiers];
+    self->_numberOfPreselectedAssets = [preselectedAssetIdentifiers count];
+
+    if (style)
+    {
+      v36 = 10;
+    }
+
+    else
+    {
+      v36 = 15;
+    }
+
+    [v33 setEdgesWithoutContentMargins:v36];
+    [v33 setDisabledCapabilities:18];
+    [v33 _setAllowsEncodingPolicyModification:0];
+    v37 = objc_alloc_init(PXLoadingStatusManager);
+    v38 = [PUPickerConfiguration alloc];
+    extensionContext = [(PhotosMessagesExtensionViewController *)self extensionContext];
+    _auxiliaryConnection = [extensionContext _auxiliaryConnection];
+    v41 = [v38 initWithPHPickerConfiguration:v33 connection:_auxiliaryConnection];
+
+    traitCollection = [(PhotosMessagesExtensionViewController *)self traitCollection];
+    self->_supportsNavigationBarTransition = [traitCollection userInterfaceIdiom] == 0;
+
+    if (self->_supportsNavigationBarTransition)
+    {
+      [v41 performChanges:&stru_10000C6B8];
+    }
+
+    v43 = [[PUPickerCoordinator alloc] initWithPUConfiguration:v41 coordinatorActionHandler:self loadingStatusManager:v37];
+    viewController = [v43 viewController];
+    [(PhotosMessagesExtensionViewController *)self setPickerCoordinator:v43];
+    [(PhotosMessagesExtensionViewController *)self setTransport:v27];
+    [(PhotosMessagesExtensionViewController *)self setLoadingStatusManager:v37];
+    v44 = objc_alloc_init(NSMutableDictionary);
+    [(PhotosMessagesExtensionViewController *)self setLoadingProgresses:v44];
+
+    _Block_object_dispose(&buf, 8);
+  }
+
+  if (viewController)
+  {
+    [(PhotosMessagesExtensionViewController *)self _presentChildViewController:viewController animated:animatedCopy];
+LABEL_34:
+  }
 }
 
 - (void)updateSnapshotWithCompletionBlock:(id)block
@@ -1516,6 +1710,15 @@ LABEL_16:
   return firstObject;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  self->_contentReadyForDisplay = [(PhotosMessagesExtensionViewController *)self presentationStyle]!= 2;
+  v5.receiver = self;
+  v5.super_class = PhotosMessagesExtensionViewController;
+  [(PhotosMessagesExtensionViewController *)&v5 viewWillAppear:appearCopy];
+}
+
 - (void)viewDidLoad
 {
   v10.receiver = self;
@@ -1544,6 +1747,17 @@ LABEL_16:
   [view setBackgroundColor:v8];
 
   [(PhotosMessagesExtensionViewController *)self setAdditionalSafeAreaInsets:0.0, 0.0, 1.0, 0.0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = PhotosMessagesExtensionViewController;
+  [(PhotosMessagesExtensionViewController *)&v3 viewDidAppear:appear];
+  if (qword_100011208 != -1)
+  {
+    dispatch_once(&qword_100011208, &stru_10000C458);
+  }
 }
 
 - (PhotosMessagesExtensionViewController)initWithNibName:(id)name bundle:(id)bundle

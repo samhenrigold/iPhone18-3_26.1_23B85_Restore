@@ -7,7 +7,6 @@
 - (id).cxx_construct;
 - (id)objectForJSON;
 - (uint64_t)_q_passedAllConditions;
-- (uint64_t)_q_scheduleStopRun;
 - (void)_q_fetchEntries;
 - (void)_q_fetchLatestAutomobileOptions;
 - (void)_q_passedAllConditions;
@@ -162,23 +161,18 @@
   OUTLINED_FUNCTION_0_8(&dword_1C5126000, a2, a3, "Avoid Highways:%@", a2);
 }
 
-- (uint64_t)_q_scheduleStopRun
+- (void)_q_scheduleStopRun
 {
-  if (result)
-  {
-    v1 = result;
-    v2 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
-    {
-      [v1 uniqueName];
-      objc_claimAutoreleasedReturnValue();
-      [MapsSuggestionsEngineRunner _q_scheduleStopRun];
-    }
-
-    return [(MapsSuggestionsEngineRunner *)v2 _q_scheduleStopRun];
-  }
-
-  return result;
+  OUTLINED_FUNCTION_1_4();
+  v2 = *(v1 + 72);
+  v3 = *(v1 + 96);
+  *v4 = 138412802;
+  *(v4 + 4) = v5;
+  *(v4 + 12) = 2048;
+  *(v4 + 14) = v2;
+  *(v4 + 22) = 2048;
+  *(v4 + 24) = v3;
+  _os_log_impl(&dword_1C5126000, v7, OS_LOG_TYPE_DEBUG, "{%@} scheduling _q_stopRun in %.3f sec (+ %.3f sec)", v6, 0x20u);
 }
 
 - (void)_q_fetchEntries
@@ -1874,20 +1868,6 @@ void __44__MapsSuggestionsEngineRunner_objectForJSON__block_invoke(uint64_t a1)
   *self->_anon_b8 = 0u;
   *&self->_anon_b8[16] = 0;
   return self;
-}
-
-- (void)_q_scheduleStopRun
-{
-  OUTLINED_FUNCTION_1_4();
-  v2 = *(v1 + 72);
-  v3 = *(v1 + 96);
-  *v4 = 138412802;
-  *(v4 + 4) = v5;
-  *(v4 + 12) = 2048;
-  *(v4 + 14) = v2;
-  *(v4 + 22) = 2048;
-  *(v4 + 24) = v3;
-  _os_log_impl(&dword_1C5126000, v7, OS_LOG_TYPE_DEBUG, "{%@} scheduling _q_stopRun in %.3f sec (+ %.3f sec)", v6, 0x20u);
 }
 
 - (void)_q_triggerFired:.cold.1()

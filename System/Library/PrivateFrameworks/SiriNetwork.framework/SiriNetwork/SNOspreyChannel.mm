@@ -44,7 +44,7 @@
   selfCopy = self;
   v19 = SiriNetworkOspreyChannel.bidirectionalStreamingRequest(withMethodName:requestBuilder:streamingResponseHandler:completion:)(v12, v14, v9, v15, partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned NSData) -> (), v16, partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned NSError?) -> (), v17);
 
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v9);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v9, v15);
 
   return v19;
 }
@@ -52,21 +52,19 @@
 - (SNOspreyChannel)initWithURL:(id)l configuration:(id)configuration
 {
   v5 = type metadata accessor for URL();
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
-  return SiriNetworkOspreyChannel.init(url:configuration:)(v8, configuration);
+  return SiriNetworkOspreyChannel.init(url:configuration:)(v7, configuration);
 }
 
 - (SNOspreyChannel)initWithURL:(id)l configuration:(id)configuration useCache:(BOOL)cache
 {
   v7 = type metadata accessor for URL();
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
-  return SiriNetworkOspreyChannel.init(url:configuration:useCache:)(v10, configuration, cache);
+  return SiriNetworkOspreyChannel.init(url:configuration:useCache:)(v9, configuration, cache);
 }
 
 @end

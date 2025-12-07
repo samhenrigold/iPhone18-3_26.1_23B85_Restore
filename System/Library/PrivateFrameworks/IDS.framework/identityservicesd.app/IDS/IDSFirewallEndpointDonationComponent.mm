@@ -27,7 +27,7 @@
 {
   excludedCopy = excluded;
   identifier = [service identifier];
-  if (![identifier isEqualToIgnoringCase:IDSServiceNameFaceTimeMulti])
+  if (!objc_msgSend_isEqualToIgnoringCase_(identifier))
   {
 
     goto LABEL_5;

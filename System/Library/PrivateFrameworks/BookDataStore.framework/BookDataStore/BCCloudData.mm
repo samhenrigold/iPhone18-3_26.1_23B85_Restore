@@ -217,20 +217,8 @@ LABEL_12:
 {
   recordCopy = record;
   systemFields = [(BCCloudData *)self systemFields];
-  if (!systemFields)
+  if (!systemFields || (v6 = systemFields, -[BCCloudData systemFields](self, "systemFields"), v7 = objc_claimAutoreleasedReturnValue(), [v7 recordChangeTag], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(recordCopy, "recordChangeTag"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "isEqualToString:", v9), v9, v8, v7, v6, (v10 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  v6 = systemFields;
-  systemFields2 = [(BCCloudData *)self systemFields];
-  recordChangeTag = [systemFields2 recordChangeTag];
-  recordChangeTag2 = [recordCopy recordChangeTag];
-  v10 = [recordChangeTag isEqualToString:recordChangeTag2];
-
-  if ((v10 & 1) == 0)
-  {
-LABEL_3:
     [(BCCloudData *)self setSystemFields:recordCopy];
     recordID = [recordCopy recordID];
     recordName = [recordID recordName];
@@ -261,8 +249,8 @@ LABEL_3:
 
     if (recordName)
     {
-      v16 = BDSCloudKitDevelopmentLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = BDSCloudKitDevelopmentLog(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         recordID2 = [v8 recordID];
         recordName2 = [recordID2 recordName];
@@ -272,14 +260,14 @@ LABEL_3:
         v24 = v11;
         v25 = 1024;
         v26 = v14;
-        _os_log_impl(&dword_1E45E0000, v16, OS_LOG_TYPE_DEFAULT, "\\Comparing %{public}@ record name %{public}@  hasValidSalt:%{BOOL}d\\"", &v21, 0x1Cu);
+        _os_log_impl(&dword_1E45E0000, v17, OS_LOG_TYPE_DEFAULT, "\\Comparing %{public}@ record name %{public}@  hasValidSalt:%{BOOL}d\", &v21, 0x1Cu);
       }
     }
   }
 
   else
   {
-    v8 = BDSCloudKitLog();
+    v8 = BDSCloudKitLog(ckSystemFields);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1E4705594(privacyDelegate, self);
@@ -288,7 +276,6 @@ LABEL_3:
     LOBYTE(v14) = 1;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -314,10 +301,10 @@ LABEL_3:
 
       if ((v11 & 1) == 0)
       {
-        v12 = BDSCloudKitLog();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = BDSCloudKitLog(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          sub_1E470565C(self);
+          sub_1E470565C(self, v8);
         }
 
         [(BCCloudData *)self setSystemFields:0];
@@ -338,36 +325,36 @@ LABEL_3:
       {
         recordType2 = [(BCCloudData *)self recordType];
         identifier3 = [(BCCloudData *)self identifier];
-        v17 = [privacyDelegate recordNameFromRecordType:recordType2 identifier:identifier3];
+        v18 = [privacyDelegate recordNameFromRecordType:recordType2 identifier:identifier3];
 
-        if (v17)
+        if (v18)
         {
           saltedHashedID = [(BCCloudData *)self saltedHashedID];
 
           if (!saltedHashedID)
           {
-            [(BCCloudData *)self setSaltedHashedID:v17];
+            [(BCCloudData *)self setSaltedHashedID:v18];
           }
 
-          v19 = objc_alloc(MEMORY[0x1E695BA90]);
+          v21 = objc_alloc(MEMORY[0x1E695BA90]);
           zoneName = [(BCCloudData *)self zoneName];
-          v21 = [v19 initWithZoneName:zoneName ownerName:*MEMORY[0x1E695B728]];
+          v23 = [v21 initWithZoneName:zoneName ownerName:*MEMORY[0x1E695B728]];
 
-          v22 = [objc_alloc(MEMORY[0x1E695BA70]) initWithRecordName:v17 zoneID:v21];
-          v23 = objc_alloc(MEMORY[0x1E695BA60]);
+          v24 = [objc_alloc(MEMORY[0x1E695BA70]) initWithRecordName:v18 zoneID:v23];
+          v25 = objc_alloc(MEMORY[0x1E695BA60]);
           recordType3 = [(BCCloudData *)self recordType];
-          v25 = [v23 initWithRecordType:recordType3 recordID:v22];
+          v27 = [v25 initWithRecordType:recordType3 recordID:v24];
 
-          [(BCCloudData *)self setSystemFields:v25];
+          [(BCCloudData *)self setSystemFields:v27];
           [(BCCloudData *)self incrementEditGeneration];
 
-          ckSystemFields = v25;
+          ckSystemFields = v27;
         }
 
         else
         {
-          v21 = BDSCloudKitLog();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v23 = BDSCloudKitLog(v19);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             sub_1E4705728(self);
           }
@@ -443,18 +430,16 @@ LABEL_8:
 
   if (verboseLoggingEnabled)
   {
-    v5 = BDSCloudKitDevelopmentLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = BDSCloudKitDevelopmentLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 134218242;
       editGeneration = [(BCCloudData *)self editGeneration];
       v9 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_1E45E0000, v5, OS_LOG_TYPE_DEFAULT, "\\Incrementing edit generation to: %lld for %@\\"", &v7, 0x16u);
+      _os_log_impl(&dword_1E45E0000, v6, OS_LOG_TYPE_DEFAULT, "\\Incrementing edit generation to: %lld for %@\", &v7, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)configuredRecordFromAttributes
@@ -469,7 +454,7 @@ LABEL_8:
 
 - (id)recordType
 {
-  v2 = BDSCloudKitLog();
+  v2 = BDSCloudKitLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     sub_1E47057B8();
@@ -480,7 +465,7 @@ LABEL_8:
 
 - (id)identifier
 {
-  v2 = BDSCloudKitLog();
+  v2 = BDSCloudKitLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     sub_1E47057EC();
@@ -491,7 +476,7 @@ LABEL_8:
 
 - (id)zoneName
 {
-  v2 = BDSCloudKitLog();
+  v2 = BDSCloudKitLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     sub_1E4705820();
@@ -502,7 +487,7 @@ LABEL_8:
 
 + (id)propertyIDKey
 {
-  v2 = BDSCloudKitLog();
+  v2 = BDSCloudKitLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     sub_1E4705854();

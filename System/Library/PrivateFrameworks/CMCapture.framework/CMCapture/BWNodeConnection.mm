@@ -493,7 +493,7 @@ LABEL_8:
   v4 = [*(result + 16) mediaPropertiesForAttachedMediaKey:a2];
   if (!v4)
   {
-    if ([v2 isEqualToString:@"PrimaryFormat"])
+    if (objc_msgSend_isEqualToString_(v2))
     {
       v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Output primary format has no requirements BWNodeOutput %p node: %@", *(v3 + 16), objc_msgSend(*(v3 + 16), "node"), v46, v47];
 LABEL_51:
@@ -513,7 +513,7 @@ LABEL_51:
     goto LABEL_8;
   }
 
-  if ([v2 isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(v2))
   {
     v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Input primary format has no requirements BWNodeInput %p node: %@", *(v3 + 8), objc_msgSend(*(v3 + 8), "node"), v46, v47];
     goto LABEL_51;
@@ -541,7 +541,7 @@ LABEL_11:
   v9 = [objc_msgSend(*(v3 + 16) mediaConfigurationForAttachedMediaKey:{v2), "formatRequirements"}];
   if (!v9)
   {
-    if ([v2 isEqualToString:@"PrimaryFormat"])
+    if (objc_msgSend_isEqualToString_(v2))
     {
       v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Missing output requirements for the primary format.  BWNodeOutput %p node: %@", *(v3 + 16), objc_msgSend(*(v3 + 16), "node"), v46, v47];
       goto LABEL_51;
@@ -665,17 +665,21 @@ LABEL_11:
                           }
 
                           v31 = *(*(&v72 + 1) + 8 * i);
-                          if ([v25 _passthroughModeForAttachedMediaKey:v18] && objc_msgSend(v23, "isEqualToString:", objc_msgSend(v22, "attachedMediaKeyDrivenByInputAttachedMediaKey:inputIndex:", v31, objc_msgSend(v25, "index"))))
+                          if ([v25 _passthroughModeForAttachedMediaKey:v18])
                           {
-                            v32 = [v21 mediaConfigurationForAttachedMediaKey:v18];
-                            if (([v32 conversionToPassthroughModeNeverAllowed] & 1) == 0)
+                            [v22 attachedMediaKeyDrivenByInputAttachedMediaKey:v31 inputIndex:{objc_msgSend(v25, "index")}];
+                            if (objc_msgSend_isEqualToString_(v23))
                             {
-                              v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Input %@[%@] is not marked as passthroughOptional while input %@[%@] is and both drive the same output", objc_msgSend(v62, "name"), v18, v25, v31];
-                              goto LABEL_51;
-                            }
+                              v32 = [v21 mediaConfigurationForAttachedMediaKey:v18];
+                              if (([v32 conversionToPassthroughModeNeverAllowed] & 1) == 0)
+                              {
+                                v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Input %@[%@] is not marked as passthroughOptional while input %@[%@] is and both drive the same output", objc_msgSend(v62, "name"), v18, v25, v31];
+                                goto LABEL_51;
+                              }
 
-                            [v32 setPassthroughMode:0];
-                            v21 = v62;
+                              [v32 setPassthroughMode:0];
+                              v21 = v62;
+                            }
                           }
                         }
 
@@ -739,7 +743,7 @@ LABEL_58:
     goto LABEL_11;
   }
 
-  if ([v2 isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(v2))
   {
     v35 = MEMORY[0x1E695DF30];
     v36 = *MEMORY[0x1E695D930];
@@ -1024,7 +1028,7 @@ void __40__BWNodeConnection_resumeForEventsOnly___block_invoke_3(uint64_t a1)
   return result;
 }
 
-- (unint64_t)discardMessagesBeforeLiveConfigurationID:(void *)a3 .cold.1(id *a1, uint64_t a2, void *a3)
+- (void)discardMessagesBeforeLiveConfigurationID:(void *)a3 .cold.1(id *a1, uint64_t a2, void *a3)
 {
   v6 = 0;
   do

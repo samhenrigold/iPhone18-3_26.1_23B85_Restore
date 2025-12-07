@@ -257,7 +257,7 @@
 
 - (void)dealloc
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   p_flags = &self->_flags;
   v5 = atomic_load(&self->_flags);
   if ((v5 & 0x4000000) != 0)
@@ -269,21 +269,20 @@
   if ((v6 & 0xD0000) == 0x10000)
   {
     v7 = _NSOSLog();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
-    if (v8)
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138413058;
-      v19 = _NSMethodExceptionProem(self, a2);
-      v20 = 2048;
+      v15 = _NSMethodExceptionProem(self, a2);
+      v16 = 2048;
       selfCopy2 = self;
-      v22 = 2112;
+      v18 = 2112;
       bundleIdentifier = [(NSBundle *)self bundleIdentifier];
-      v24 = 2112;
+      v20 = 2112;
       bundleURL = [(NSBundle *)self bundleURL];
       _os_log_error_impl(&dword_18075C000, v7, OS_LOG_TYPE_ERROR, "%@: attempt to deallocate static bundle - break on _NSBundleDeallocatingStaticBundle to debug. This bundle %p would have been overreleased, but will instead be preserved.\n\tBundle Identifier: %@\n\tBundle URL: %@", buf, 0x2Au);
     }
 
-    _NSBundleDeallocatingImmortalBundle(v8, v9);
+    _NSBundleDeallocatingImmortalBundle();
     if (NSZombieEnabled == 1)
     {
 LABEL_18:
@@ -293,25 +292,24 @@ LABEL_18:
 
   else
   {
-    v10 = atomic_load(&self->_flags);
-    if ((v10 & 8) != 0)
+    v8 = atomic_load(&self->_flags);
+    if ((v8 & 8) != 0)
     {
-      v11 = _NSOSLog();
-      v12 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
-      if (v12)
+      v9 = _NSOSLog();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138413058;
-        v19 = _NSMethodExceptionProem(self, a2);
-        v20 = 2048;
+        v15 = _NSMethodExceptionProem(self, a2);
+        v16 = 2048;
         selfCopy2 = self;
-        v22 = 2112;
+        v18 = 2112;
         bundleIdentifier = [(NSBundle *)self bundleIdentifier];
-        v24 = 2112;
+        v20 = 2112;
         bundleURL = [(NSBundle *)self bundleURL];
-        _os_log_error_impl(&dword_18075C000, v11, OS_LOG_TYPE_ERROR, "%@: attempting to deallocate an immortal bundle - break on _NSBundleDeallocatingImmortalBundle to debug. This bundle %p has been overreleased.\n\tBundle Identifier: %@\n\tBundle URL: %@", buf, 0x2Au);
+        _os_log_error_impl(&dword_18075C000, v9, OS_LOG_TYPE_ERROR, "%@: attempting to deallocate an immortal bundle - break on _NSBundleDeallocatingImmortalBundle to debug. This bundle %p has been overreleased.\n\tBundle Identifier: %@\n\tBundle URL: %@", buf, 0x2Au);
       }
 
-      _NSBundleDeallocatingImmortalBundle(v12, v13);
+      _NSBundleDeallocatingImmortalBundle();
       if (NSZombieEnabled == 1)
       {
         goto LABEL_18;
@@ -320,7 +318,7 @@ LABEL_18:
 
     if (atomic_load(&self->_cfBundle))
     {
-      v15 = atomic_load(&self->_cfBundle);
+      v11 = atomic_load(&self->_cfBundle);
     }
 
     attributedStringTable = self->_attributedStringTable;
@@ -328,9 +326,9 @@ LABEL_18:
     {
     }
 
-    v17.receiver = self;
-    v17.super_class = NSBundle;
-    [(NSBundle *)&v17 dealloc];
+    v13.receiver = self;
+    v13.super_class = NSBundle;
+    [(NSBundle *)&v13 dealloc];
   }
 }
 
@@ -1348,26 +1346,26 @@ LABEL_8:
     return 0;
   }
 
-  v6 = +[NSBundle mainBundle];
-  if (![(NSString *)[(NSBundle *)v6 bundleIdentifier] isEqualToString:identifier])
+  v5 = +[NSBundle mainBundle];
+  if ((objc_msgSend_isEqualToString_([(NSBundle *)v5 bundleIdentifier]) & 1) == 0)
   {
     BundleWithIdentifierAndLibraryName = _CFBundleGetBundleWithIdentifierAndLibraryName();
     if (BundleWithIdentifierAndLibraryName)
     {
-      v8 = CFBundleCopyBundleURL(BundleWithIdentifierAndLibraryName);
-      if (v8)
+      v7 = CFBundleCopyBundleURL(BundleWithIdentifierAndLibraryName);
+      if (v7)
       {
-        v9 = v8;
-        v10 = [self bundleWithURL:v8];
-        CFRelease(v9);
-        return v10;
+        v8 = v7;
+        v9 = [self bundleWithURL:v7];
+        CFRelease(v8);
+        return v9;
       }
     }
 
     return 0;
   }
 
-  return v6;
+  return v5;
 }
 
 - (NSBundle)initWithPath:(NSString *)path
@@ -1782,7 +1780,7 @@ LABEL_23:
   return [(__NSBundleTables *)v2 allFrameworks];
 }
 
-uint64_t __25__NSBundle_allFrameworks__block_invoke()
+id *__25__NSBundle_allFrameworks__block_invoke()
 {
   v19 = *MEMORY[0x1E69E9840];
   v0 = objc_alloc_init(MEMORY[0x1E695DFA8]);
@@ -1996,7 +1994,7 @@ LABEL_18:
   }
 
   tableCopy = @"Localizable";
-  if (table && ![table isEqualToString:&stru_1EEEFDF90])
+  if (table && !objc_msgSend_isEqualToString_(table, a2, &stru_1EEEFDF90))
   {
     tableCopy = table;
   }

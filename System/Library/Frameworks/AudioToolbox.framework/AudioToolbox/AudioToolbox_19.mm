@@ -1098,8 +1098,8 @@ void AUSpatialMixerV2DynamicXTCFilter::createDynamicFilters(AUSpatialMixerV2Dyna
       v24[1] = v25;
       AUSpatialMixerV2DynamicXTCFilter::getFFT(*(v48[0] + v22 * 8), (&v62 + v21), *(this + 13), &v56, v26);
       v27 = v41[v22];
-      v28 = (&v58.realp + v21);
-      v29 = &v27[4 * v40];
+      v28 = (&v58 + v21);
+      v29 = v27 + 4 * v40;
       *v28 = v27;
       v28[1] = v29;
       v22 += 3;
@@ -1333,7 +1333,7 @@ uint64_t AUSpatialMixerV2DynamicXTCFilter::readAUXTCFilter(uint64_t a1, uint64_t
   }
 
   *v59 = 0;
-  std::vector<float>::vector[abi:ne200100](&v47, 0x100uLL);
+  std::vector<float>::vector[abi:ne200100](&v47, 0x100uLL, v59);
   std::vector<std::vector<float>>::resize(a2, 4uLL, &v47);
   if (v47)
   {
@@ -1816,12 +1816,12 @@ void AUSpatialMixerV2DynamicXTCFilter::applyCrossover(AUSpatialMixerV2DynamicXTC
     v4 = (v31 - ((v3 + 15) & 0x7FFFFFFF0));
     v5 = *(this + 13);
     LODWORD(v35.__r_.__value_.__l.__data_) = 0;
-    std::vector<float>::vector[abi:ne200100](&v36, v5);
+    std::vector<float>::vector[abi:ne200100](&v36, v5, &v35);
     std::vector<float>::vector[abi:ne200100](&v35, *(this + 13));
     LODWORD(buf) = 0;
-    std::vector<float>::vector[abi:ne200100](v33, 0xAuLL);
+    std::vector<float>::vector[abi:ne200100](v33, 0xAuLL, &buf);
     v32 = 0;
-    std::vector<float>::vector[abi:ne200100](&buf, 0xAuLL);
+    std::vector<float>::vector[abi:ne200100](&buf, 0xAuLL, &v32);
     v6 = *(this + 105);
     if (*(this + 106) != v6)
     {
@@ -4238,7 +4238,7 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<C
       *(v4 + 24) = 0;
       *(v4 + 32) = 0;
       *(v4 + 16) = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4 + 16, *(v6 + 16), *(v6 + 24), (*(v6 + 24) - *(v6 + 16)) >> 2);
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v4 + 16), *(v6 + 16), *(v6 + 24), (*(v6 + 24) - *(v6 + 16)) >> 2);
       v6 += 40;
       v4 = v11 + 40;
       v11 += 40;
@@ -7846,21 +7846,21 @@ void sub_1DDCD025C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1DDCD1470(uint64_t a1, int a2)
+void sub_1DDCD1470(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDCD1424);
 }
 
-void sub_1DDCD1478(uint64_t a1, int a2)
+void sub_1DDCD1478(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDCD1424);
@@ -7876,14 +7876,14 @@ void sub_1DDCD1480(uint64_t a1, int a2)
   JUMPOUT(0x1DDCD1424);
 }
 
-void sub_1DDCD1488(uint64_t a1, int a2)
+void sub_1DDCD1488(void *a1, int a2)
 {
   if (!a2)
   {
     JUMPOUT(0x1DDCD148CLL);
   }
 
-  __clang_call_terminate();
+  __clang_call_terminate(a1);
 }
 
 HOA *std::unique_ptr<HOA>::reset[abi:ne200100](HOA **a1, HOA *a2)
@@ -8382,7 +8382,7 @@ void ParametricProcessor::convertHRIRtoHRTF(int *a1, uint64_t a2, unint64_t **a3
   v10 = *(a2 + 28);
   LODWORD(v85[0]) = 0;
   v80 = a1;
-  std::vector<float>::vector[abi:ne200100](&v100, v10);
+  std::vector<float>::vector[abi:ne200100](&v100, v10, v85);
   CLiteMatrix::CLiteMatrix(&v96, 1, 1, v11);
   CLiteMatrix::CLiteMatrix(&v92, 1, 1, v12);
   LiteMatrix<float>::LiteMatrix(&v88, 1, (*a3)[1]);

@@ -10,7 +10,7 @@
 - (BOOL)isHighlighted
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for RoutePickerItemCell();
+  v3.super_class = type metadata accessor for RoutePickerItemCell(0);
   return [(RoutePickerItemCell *)&v3 isHighlighted];
 }
 
@@ -18,7 +18,7 @@
 {
   highlightedCopy = highlighted;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for RoutePickerItemCell();
+  v7.super_class = type metadata accessor for RoutePickerItemCell(0);
   v4 = v7.receiver;
   [(RoutePickerItemCell *)&v7 setHighlighted:highlightedCopy];
   v5 = *&v4[OBJC_IVAR____TtC13MediaControls19RoutePickerItemCell_itemView];
@@ -46,7 +46,7 @@
 - (void)prepareForReuse
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for RoutePickerItemCell();
+  v4.super_class = type metadata accessor for RoutePickerItemCell(0);
   v2 = v4.receiver;
   prepareForReuse = [(RoutePickerItemCell *)&v4 prepareForReuse];
   (*((*MEMORY[0x1E69E7D40] & **&v2[OBJC_IVAR____TtC13MediaControls19RoutePickerItemCell_itemView]) + 0x128))(prepareForReuse);

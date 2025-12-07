@@ -9,7 +9,7 @@
 
 - (id)description
 {
-  if ([(NSMutableArray *)self->_reasons count]|| self->_condition)
+  if (objc_msgSend_count(self->_reasons, a2) || self->_condition)
   {
     v3 = +[NSMutableString string];
     [(__CFString *)v3 appendString:@"["];

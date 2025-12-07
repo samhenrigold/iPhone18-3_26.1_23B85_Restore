@@ -1,9 +1,9 @@
 @interface PKPassGroupViewVerticalPanAnimator
 - (double)currentTouchPosition;
+- (id)createAnimationWithInitialVelocity:(id *)velocity;
 - (id)initWithGroupView:(void *)view gestureRecognizer:(void *)recognizer updater:;
-- (uint64_t)createAnimationWithInitialVelocity:(uint64_t)velocity;
+- (id)updateRecognizingWithAllowed:(id *)result;
 - (uint64_t)layoutViewsWithY:(uint64_t)result;
-- (uint64_t)updateRecognizingWithAllowed:(uint64_t)result;
 - (uint64_t)updateUpdating;
 - (void)beginPanningFromStartingTouchPosition:(double)position to:(double)to anchoredAt:(double)at scalingFrom:(double)from to:(double)a7;
 - (void)dealloc;
@@ -68,23 +68,23 @@
 
 - (void)invalidate
 {
-  if (self)
+  if (result)
   {
-    if ((*(self + 96) & 1) == 0)
+    if ((*(result + 96) & 1) == 0)
     {
-      *(self + 96) = 1;
-      [*(self + 112) setEnabled:0];
-      [*(self + 104) removeGestureRecognizer:*(self + 112)];
-      v2 = *(self + 8);
-      *(self + 8) = 0;
+      *(result + 96) = 1;
+      [*(result + 112) setEnabled:0];
+      [*(result + 104) removeGestureRecognizer:*(result + 112)];
+      v2 = *(result + 8);
+      *(result + 8) = 0;
 
-      [(PKPassGroupViewVerticalPanAnimator *)self setDismissAnimation:?];
-      if (*(self + 97) == 1)
+      [(PKPassGroupViewVerticalPanAnimator *)result setDismissAnimation:?];
+      if (*(result + 97) == 1)
       {
-        *(self + 97) = 0;
-        v3 = *(self + 72);
+        *(result + 97) = 0;
+        v3 = *(result + 72);
 
-        MEMORY[0x1EEE4E390](self + 40, v3);
+        MEMORY[0x1EEE4E390](result + 40, v3);
       }
     }
   }
@@ -160,15 +160,15 @@
   }
 }
 
-- (uint64_t)updateRecognizingWithAllowed:(uint64_t)result
+- (id)updateRecognizingWithAllowed:(id *)result
 {
   if (result)
   {
     v2 = result;
     if (a2)
     {
-      result = [*(result + 112) state];
-      v3 = (result - 1) < 2;
+      result = [result[14] state];
+      v3 = result - 1 < 2;
     }
 
     else
@@ -311,7 +311,7 @@
   v6 = v5;
   if (self)
   {
-    if (self[96] == 1)
+    if (*(self + 96) == 1)
     {
       if (v5)
       {
@@ -348,19 +348,19 @@
   }
 }
 
-- (uint64_t)createAnimationWithInitialVelocity:(uint64_t)velocity
+- (id)createAnimationWithInitialVelocity:(id *)velocity
 {
   velocityCopy = velocity;
   if (velocity)
   {
-    [*(velocity + 104) center];
+    [velocity[13] center];
     v5 = v4;
-    v6 = *(velocityCopy + 16);
-    [*(velocityCopy + 104) bounds];
+    v6 = *(velocityCopy + 2);
+    [velocityCopy[13] bounds];
     v8 = v7;
-    [*(velocityCopy + 104) anchorPoint];
-    v10 = v5 + (*(velocityCopy + 160) - v9) * (v6 * v8);
-    v11 = *(velocityCopy + 192);
+    [velocityCopy[13] anchorPoint];
+    v10 = v5 + (*(velocityCopy + 20) - v9) * (v6 * v8);
+    v11 = *(velocityCopy + 24);
     v12 = objc_alloc(MEMORY[0x1E69DD4A0]);
     velocityCopy = [v12 initWithValue:v10 velocity:a2 unitSize:*MEMORY[0x1E69DE8A0]];
     v13 = [MEMORY[0x1E69DD490] upperBoundary:2 ofType:v11];

@@ -19,6 +19,7 @@
 - (void)_unsafe_handleVFSRiseAboveDesiredDisk;
 - (void)_unsafe_handleVFSRiseAboveLowDisk;
 - (void)appLaunchLinkDidPresentForBundleIdentifier:(id)identifier;
+- (void)calculateExtraQuotaNeededToSyncForAccountWithID:(id)d isAccountFull:(BOOL)full completion:(id)completion;
 - (void)commonHeadersForRequest:(id)request withCompletion:(id)completion;
 - (void)getCacheDataForLink:(id)link completion:(id)completion;
 - (void)handleICloudQuotaPush:(id)push;
@@ -26,6 +27,7 @@
 - (void)notifyDeviceStorageLevel:(int64_t)level completion:(id)completion;
 - (void)observeFPItem:(id)item notifyURL:(id)l completion:(id)completion;
 - (void)presentHiddenFreshmintWithContext:(id)context completion:(id)completion;
+- (void)remoteFreshmintFlowCompletedWithSuccess:(BOOL)success error:(id)error;
 - (void)renewCredentialsWithCompletion:(id)completion;
 - (void)start;
 - (void)startDelayedOfferFailsafeActivityWithDelaySecs:(int64_t)secs completion:(id)completion;
@@ -322,18 +324,18 @@
 
 - (id)pushTopics
 {
-  v6 = @"com.me.setupservice";
-  v2 = [NSArray arrayWithObjects:&v6 count:1];
+  v8 = @"com.me.setupservice";
+  v2 = [NSArray arrayWithObjects:&v8 count:1];
   v3 = [v2 mutableCopy];
 
-  if (sub_100002168())
+  if (sub_100002168(v4, v5))
   {
     [v3 addObject:@"com.icloud.quota"];
   }
 
-  v4 = [v3 copy];
+  v6 = [v3 copy];
 
-  return v4;
+  return v6;
 }
 
 - (void)handleICloudQuotaPush:(id)push
@@ -462,51 +464,51 @@ LABEL_21:
   v11 = _INLogSystem();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138412290;
-    v20 = dCopy;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Received offer request for account %@ over XPC.", &v19, 0xCu);
+    v21 = 138412290;
+    v22 = dCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Received offer request for account %@ over XPC.", &v21, 0xCu);
   }
 
-  if ((sub_100002168() & 1) != 0 && dCopy && (-[INDaemon accountStore](self, "accountStore"), v12 = objc_claimAutoreleasedReturnValue(), [v12 accountWithIdentifier:dCopy], v13 = objc_claimAutoreleasedReturnValue(), v12, v13))
+  if ((sub_100002168(v12, v13) & 1) != 0 && dCopy && (-[INDaemon accountStore](self, "accountStore"), v14 = objc_claimAutoreleasedReturnValue(), [v14 accountWithIdentifier:dCopy], v15 = objc_claimAutoreleasedReturnValue(), v14, v15))
   {
-    accountType = [v13 accountType];
+    accountType = [v15 accountType];
     identifier = [accountType identifier];
-    v16 = [identifier isEqualToString:ACAccountTypeIdentifierAppleAccount];
+    v18 = [identifier isEqualToString:ACAccountTypeIdentifierAppleAccount];
 
-    if (v16)
+    if (v18)
     {
-      v17 = +[ICQDaemonOfferManager sharedDaemonOfferManager];
-      if (!v17)
+      v19 = +[ICQDaemonOfferManager sharedDaemonOfferManager];
+      if (!v19)
       {
         sub_100038AC0();
       }
 
-      v18 = +[ICQDaemonOfferManager sharedDaemonOfferManager];
-      [v18 daemonOfferDictionaryForAccount:v13 options:optionsCopy completion:completionCopy];
+      v20 = +[ICQDaemonOfferManager sharedDaemonOfferManager];
+      [v20 daemonOfferDictionaryForAccount:v15 options:optionsCopy completion:completionCopy];
     }
 
     else
     {
-      v18 = INCreateError();
-      completionCopy[2](completionCopy, 0, v18);
+      v20 = INCreateError();
+      completionCopy[2](completionCopy, 0, v20);
     }
   }
 
   else
   {
-    v13 = INCreateError();
-    completionCopy[2](completionCopy, 0, v13);
+    v15 = INCreateError();
+    completionCopy[2](completionCopy, 0, v15);
   }
 }
 
 - (void)notifyDeviceStorageLevel:(int64_t)level completion:(id)completion
 {
   completionCopy = completion;
-  if ((sub_100002168() & 1) == 0)
+  if ((sub_100002168(completionCopy, v7) & 1) == 0)
   {
 LABEL_17:
-    v8 = INCreateError();
-    completionCopy[2](completionCopy, 0, v8);
+    v9 = INCreateError();
+    completionCopy[2](completionCopy, 0, v9);
 
     goto LABEL_18;
   }
@@ -543,8 +545,8 @@ LABEL_17:
   if (level != 6)
   {
 LABEL_14:
-    v7 = _INLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _INLogSystem();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_100038AEC();
     }
@@ -566,42 +568,88 @@ LABEL_18:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = contextCopy;
+    v23 = contextCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "presenting freshmint flow with context %@", buf, 0xCu);
   }
 
-  if (sub_100002168())
+  if (sub_100002168(v9, v10))
   {
-    v9 = objc_retainBlock(completionCopy);
+    v11 = objc_retainBlock(completionCopy);
     freshmintCompletion = self->_freshmintCompletion;
-    self->_freshmintCompletion = v9;
+    self->_freshmintCompletion = v11;
 
-    v11 = [[ICQRemotePresentationManager alloc] initWithRemoteContext:contextCopy];
+    v13 = [[ICQRemotePresentationManager alloc] initWithRemoteContext:contextCopy];
     presentationManager = self->_presentationManager;
-    self->_presentationManager = v11;
+    self->_presentationManager = v13;
 
     objc_initWeak(buf, self);
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_10001A254;
-    v18[3] = &unk_100055C58;
-    objc_copyWeak(&v19, buf);
-    [(ICQRemotePresentationManager *)self->_presentationManager setPresentationWasInvalidated:v18];
-    v13 = self->_presentationManager;
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_10001A254;
+    v20[3] = &unk_100055C58;
+    objc_copyWeak(&v21, buf);
+    [(ICQRemotePresentationManager *)self->_presentationManager setPresentationWasInvalidated:v20];
+    v15 = self->_presentationManager;
     listener = [(INDaemon *)self listener];
     endpoint = [listener endpoint];
     _endpoint = [endpoint _endpoint];
-    [(ICQRemotePresentationManager *)v13 presentHiddenFreshmintFlowWithEndpoint:_endpoint];
+    [(ICQRemotePresentationManager *)v15 presentHiddenFreshmintFlowWithEndpoint:_endpoint];
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v17 = INCreateError();
-    (*(completionCopy + 2))(completionCopy, 0, v17);
+    v19 = INCreateError();
+    (*(completionCopy + 2))(completionCopy, 0, v19);
   }
+}
+
+- (void)remoteFreshmintFlowCompletedWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  errorCopy = error;
+  v7 = _INLogSystem();
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if (successCopy)
+  {
+    if (!v8)
+    {
+      goto LABEL_7;
+    }
+
+    LOWORD(v14) = 0;
+    v9 = "remoteFreshmintFlowCompletedWithSuccess: YES";
+    v10 = v7;
+    v11 = 2;
+  }
+
+  else
+  {
+    if (!v8)
+    {
+      goto LABEL_7;
+    }
+
+    v14 = 138412290;
+    v15 = errorCopy;
+    v9 = "remoteFreshmintFlowCompletedWithSuccess: NO (user possibly canceled) with error: %@";
+    v10 = v7;
+    v11 = 12;
+  }
+
+  _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, v9, &v14, v11);
+LABEL_7:
+
+  freshmintCompletion = self->_freshmintCompletion;
+  if (freshmintCompletion)
+  {
+    freshmintCompletion[2](freshmintCompletion, successCopy, errorCopy);
+  }
+
+  presentationManager = self->_presentationManager;
+  self->_presentationManager = 0;
 }
 
 - (void)appLaunchLinkDidPresentForBundleIdentifier:(id)identifier
@@ -638,20 +686,20 @@ LABEL_18:
 {
   completionCopy = completion;
   requestCopy = request;
-  v7 = sub_100002168();
-  v8 = _INLogSystem();
-  v9 = v8;
-  if (v7)
+  v8 = sub_100002168(requestCopy, v7);
+  v9 = _INLogSystem();
+  v10 = v9;
+  if (v8)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v13[0] = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Adding common headers to request", v13, 2u);
+      v14[0] = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Adding common headers to request", v14, 2u);
     }
 
     allHTTPHeaderFields2 = [requestCopy mutableCopy];
-    v11 = +[ICQDaemonOfferManager sharedDaemonOfferManager];
-    [v11 addCommonHeadersToRequest:allHTTPHeaderFields2];
+    v12 = +[ICQDaemonOfferManager sharedDaemonOfferManager];
+    [v12 addCommonHeadersToRequest:allHTTPHeaderFields2];
 
     allHTTPHeaderFields = [allHTTPHeaderFields2 allHTTPHeaderFields];
     completionCopy[2](completionCopy, allHTTPHeaderFields);
@@ -661,7 +709,7 @@ LABEL_18:
 
   else
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_100038B98();
     }
@@ -675,25 +723,25 @@ LABEL_18:
 - (void)renewCredentialsWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v4 = sub_100002168();
-  v5 = _INLogSystem();
-  v6 = v5;
-  if (v4)
+  v5 = sub_100002168(completionCopy, v4);
+  v6 = _INLogSystem();
+  v7 = v6;
+  if (v5)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      sub_100038C10(v6);
+      sub_100038C10(v7);
     }
 
-    v7 = +[ICQDaemonOfferManager sharedDaemonOfferManager];
-    [v7 renewCredentialsWithCompletion:completionCopy];
+    v8 = +[ICQDaemonOfferManager sharedDaemonOfferManager];
+    [v8 renewCredentialsWithCompletion:completionCopy];
 
-    completionCopy = v7;
+    completionCopy = v8;
   }
 
   else
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_100038BD4();
     }
@@ -836,6 +884,22 @@ LABEL_18:
   [delayedOfferFailsafeActivity stopActivity];
 
   completionCopy[2](completionCopy, 0);
+}
+
+- (void)calculateExtraQuotaNeededToSyncForAccountWithID:(id)d isAccountFull:(BOOL)full completion:(id)completion
+{
+  fullCopy = full;
+  completionCopy = completion;
+  dCopy = d;
+  v9 = _INLogSystem();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = 136315138;
+    v11 = "[INDaemon_iOS calculateExtraQuotaNeededToSyncForAccountWithID:isAccountFull:completion:]";
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s", &v10, 0xCu);
+  }
+
+  [ICQDaemonPlanRecommendation calculateExtraQuotaNeededToSyncForAccountWithID:dCopy isAccountFull:fullCopy completion:completionCopy];
 }
 
 - (void)observeFPItem:(id)item notifyURL:(id)l completion:(id)completion

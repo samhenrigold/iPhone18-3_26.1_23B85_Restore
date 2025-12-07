@@ -127,7 +127,7 @@
   [(VUISeasonPickerViewController *)self setCurrentSeasonViewController:0];
 }
 
-uint64_t __48__VUISeasonPickerViewController_viewWillAppear___block_invoke_2(uint64_t a1, void *a2)
+void *__48__VUISeasonPickerViewController_viewWillAppear___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if (result)

@@ -51,7 +51,7 @@
     self->_transitionAutomatic = 0;
     self->_transitionFraction = fraction;
     self->_transitionState = state;
-    MEMORY[0x2821F9670]();
+    MEMORY[0x2821F9670](self, sel__updateWeights);
   }
 }
 
@@ -79,95 +79,89 @@
     self->_state = transitionState;
     self->_transitionFraction = 0.0;
     self->_transitionAutomatic = 0;
+    objc_msgSend__weightForState_(self, a2, transitionState);
   }
 
   else
   {
     if (transitionFraction > 0.0)
     {
-      [(NTKSnowglobeEyeController *)self _weightForState:self->_state];
-      LODWORD(v35) = 0;
-      [(NTKSnowglobeEyeController *)self _weightForState:self->_transitionState, 0, 0, v35];
-      v4 = self->_transitionFraction;
+      objc_msgSend__weightForState_(self, a2, self->_state);
+      objc_msgSend__weightForState_(self, 0, 0, 0);
       CLKInterpolateBetweenFloatsClipped();
-      v5 = self->_transitionFraction;
+      CLKInterpolateBetweenFloatsClipped();
+      v5 = v4;
       CLKInterpolateBetweenFloatsClipped();
       v7 = v6;
-      v8 = self->_transitionFraction;
       CLKInterpolateBetweenFloatsClipped();
-      v10 = v9;
-      v11 = self->_transitionFraction;
+      v9 = v8;
       CLKInterpolateBetweenFloatsClipped();
-      v13 = v12;
-      v14 = self->_transitionFraction;
-      CLKInterpolateBetweenFloatsClipped();
-      v16 = v15;
+      v11 = v10;
       goto LABEL_7;
     }
 
-    transitionState = self->_state;
+    objc_msgSend__weightForState_(self, a2, self->_state);
   }
 
-  [(NTKSnowglobeEyeController *)self _weightForState:transitionState];
-  v7 = v36;
-  v13 = v38;
-  v10 = v37;
-  v16 = v39;
+  v5 = v30;
+  v9 = v32;
+  v7 = v31;
+  v11 = v33;
 LABEL_7:
-  v18 = v16 * 2.0 + -1.0;
-  v19 = 1.0 - fabs(v18);
-  if (v19 >= 0.0)
+  v13 = v11 * 2.0 + -1.0;
+  v14 = 1.0 - fabs(v13);
+  if (v14 >= 0.0)
   {
-    v20 = v19;
+    v15 = v14;
   }
 
   else
   {
-    v20 = 0.0;
+    v15 = 0.0;
   }
 
-  if (v18 >= 0.0)
+  if (v13 >= 0.0)
   {
-    v21 = v18;
+    v16 = v13;
   }
 
   else
   {
-    v21 = 0.0;
+    v16 = 0.0;
   }
 
   morpher = [(SCNNode *)self->_leftEyeNode morpher];
-  v23 = v10;
-  [morpher setWeight:@"eyeContent_LShape" forTargetNamed:v23];
+  v18 = v7;
+  [morpher setWeight:@"eyeContent_LShape" forTargetNamed:v18];
 
   morpher2 = [(SCNNode *)self->_leftEyeNode morpher];
-  v25 = v7;
-  [morpher2 setWeight:@"eyeAngry_LShape" forTargetNamed:v25];
+  v20 = v5;
+  [morpher2 setWeight:@"eyeAngry_LShape" forTargetNamed:v20];
 
   morpher3 = [(SCNNode *)self->_leftEyeNode morpher];
-  v27 = v13;
-  [morpher3 setWeight:@"eyeFullBlink_LShape" forTargetNamed:v27];
+  v22 = v9;
+  [morpher3 setWeight:@"eyeFullBlink_LShape" forTargetNamed:v22];
 
   morpher4 = [(SCNNode *)self->_leftEyeNode morpher];
-  [morpher4 setWeight:@"eyeHalfSquint_LShape" forTargetNamed:v20];
+  [morpher4 setWeight:@"eyeHalfSquint_LShape" forTargetNamed:v15];
 
   morpher5 = [(SCNNode *)self->_leftEyeNode morpher];
-  [morpher5 setWeight:@"eyeSquint_LShape" forTargetNamed:v21];
+  [morpher5 setWeight:@"eyeSquint_LShape" forTargetNamed:v16];
 
   morpher6 = [(SCNNode *)self->_rightEyeNode morpher];
-  [morpher6 setWeight:@"eyeContent_RShape" forTargetNamed:v23];
+  [morpher6 setWeight:@"eyeContent_RShape" forTargetNamed:v18];
 
   morpher7 = [(SCNNode *)self->_rightEyeNode morpher];
-  [morpher7 setWeight:@"eyeAngry_RShape" forTargetNamed:v25];
+  [morpher7 setWeight:@"eyeAngry_RShape" forTargetNamed:v20];
 
   morpher8 = [(SCNNode *)self->_rightEyeNode morpher];
-  [morpher8 setWeight:@"eyeFullBlink_RShape" forTargetNamed:v27];
+  [morpher8 setWeight:@"eyeFullBlink_RShape" forTargetNamed:v22];
 
   morpher9 = [(SCNNode *)self->_rightEyeNode morpher];
-  [morpher9 setWeight:@"eyeHalfSquint_RShape" forTargetNamed:v20];
+  [morpher9 setWeight:@"eyeHalfSquint_RShape" forTargetNamed:v15];
 
   morpher10 = [(SCNNode *)self->_rightEyeNode morpher];
-  [morpher10 setWeight:@"eyeSquint_RShape" forTargetNamed:v21];
+  [morpher10 setWeight:@"eyeSquint_RShape" forTargetNamed:v16];
 }
 
 - ($599F175E452E455E49EC8439362DB023)_weightForState:(SEL)state

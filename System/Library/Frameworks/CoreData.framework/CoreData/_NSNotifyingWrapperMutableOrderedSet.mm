@@ -81,10 +81,10 @@
 
 - (id)allObjects
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = [(NSMutableOrderedSet *)self->_mutableOrderedSet count];
   v4 = MEMORY[0x1EEE9AC00](v3);
-  v7 = v11 - v6;
+  v7 = v10 - v6;
   if (v4 > 0x200)
   {
     v7 = NSAllocateScannedUncollectable();
@@ -92,7 +92,7 @@
 
   else
   {
-    bzero(v11 - v6, 8 * v5);
+    bzero(v10 - v6, 8 * v5);
   }
 
   [(NSMutableOrderedSet *)self->_mutableOrderedSet getObjects:v7 range:0, v3];
@@ -102,9 +102,7 @@
     NSZoneFree(0, v7);
   }
 
-  result = v8;
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return v8;
 }
 
 - (void)getObjects:(id *)objects
@@ -200,9 +198,9 @@
 
 - (void)addObjects:(const void *)objects count:(unint64_t)count
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   MEMORY[0x1EEE9AC00](self);
-  v9 = v16 - v8;
+  v9 = v15 - v8;
   if (v10 >= 0x201)
   {
     v9 = NSAllocateScannedUncollectable();
@@ -210,10 +208,10 @@
 
   else
   {
-    bzero(v16 - v8, 8 * v7);
+    bzero(v15 - v8, 8 * v7);
     if (!count)
     {
-      goto LABEL_13;
+      return;
     }
   }
 
@@ -244,20 +242,17 @@
   {
     NSZoneFree(0, v9);
   }
-
-LABEL_13:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addObjectsFromArray:(id)array
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v5 = [array count];
   if (v5)
   {
     v6 = v5;
     v7 = MEMORY[0x1EEE9AC00](v5);
-    v9 = v11 - v8;
+    v9 = v10 - v8;
     if (v7 > 0x200)
     {
       v9 = NSAllocateScannedUncollectable();
@@ -265,7 +260,7 @@ LABEL_13:
 
     else
     {
-      bzero(v11 - v8, 8 * v7);
+      bzero(v10 - v8, 8 * v7);
     }
 
     [array getObjects:v9 range:{0, v6}];
@@ -275,8 +270,6 @@ LABEL_13:
       NSZoneFree(0, v9);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)exchangeObjectAtIndex:(unint64_t)index withObjectAtIndex:(unint64_t)atIndex
@@ -352,7 +345,7 @@ LABEL_13:
 {
   length = range.length;
   location = range.location;
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   _shouldProcessKVOChange = [(NSMutableOrderedSet *)self->_mutableOrderedSet _shouldProcessKVOChange];
   if (_shouldProcessKVOChange)
   {
@@ -369,40 +362,40 @@ LABEL_13:
     goto LABEL_23;
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
-  v51 = 0u;
+  v55 = 0u;
   v52 = 0u;
-  v49 = 0u;
+  v53 = 0u;
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v45 = 0u;
+  v49 = 0u;
   v46 = 0u;
-  v43 = 0u;
+  v47 = 0u;
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0uLL;
-  v28 = 0uLL;
-  v25 = 0uLL;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v26 = 0uLL;
+  v27 = 0uLL;
+  v24 = 0uLL;
+  v25 = 0uLL;
   MEMORY[0x1EEE9AC00](_shouldProcessKVOChange);
-  v14 = (v23 - v13);
+  v14 = (v22 - v13);
   if (count > 0x200)
   {
     v14 = NSAllocateScannedUncollectable();
@@ -410,14 +403,14 @@ LABEL_13:
 
   else
   {
-    bzero(v23 - v13, 8 * v12);
+    bzero(v22 - v13, 8 * v12);
   }
 
   [(NSMutableOrderedSet *)self->_mutableOrderedSet getObjects:v14 range:location, length];
-  v15 = _PFStackAllocatorCreate(&v25, 1024);
+  v15 = _PFStackAllocatorCreate(&v24, 1024);
   v16 = CFSetCreate(v15, v14, count, 0);
   v17 = v16;
-  v23[1] = v23;
+  v22[1] = v22;
   if (count)
   {
     if (CFSetContainsValue(v16, *objects))
@@ -455,7 +448,7 @@ LABEL_13:
     v21 = 0;
   }
 
-  if (*(&v26 + 1))
+  if (*(&v25 + 1))
   {
     if (v17)
     {
@@ -466,28 +459,26 @@ LABEL_13:
     {
       goto LABEL_23;
     }
-
-LABEL_25:
-    [(NSMutableOrderedSet *)self->_mutableOrderedSet _setProcessingIdempotentKVO:1];
-    v24.receiver = self;
-    v24.super_class = _NSNotifyingWrapperMutableOrderedSet;
-    [(_NSNotifyingWrapperMutableOrderedSet *)&v24 replaceObjectsInRange:location withObjects:length count:objects, count];
-    [(NSMutableOrderedSet *)self->_mutableOrderedSet _setProcessingIdempotentKVO:0];
-    goto LABEL_26;
   }
 
-  *(&v25 + 1) = v25;
-  if (!v21)
+  else
   {
-    goto LABEL_25;
+    *(&v24 + 1) = v24;
+    if (v21)
+    {
+LABEL_23:
+      v23.receiver = self;
+      v23.super_class = _NSNotifyingWrapperMutableOrderedSet;
+      [(_NSNotifyingWrapperMutableOrderedSet *)&v23 replaceObjectsInRange:location withObjects:length count:objects, count];
+      return;
+    }
   }
 
-LABEL_23:
-  v24.receiver = self;
-  v24.super_class = _NSNotifyingWrapperMutableOrderedSet;
-  [(_NSNotifyingWrapperMutableOrderedSet *)&v24 replaceObjectsInRange:location withObjects:length count:objects, count];
-LABEL_26:
-  v22 = *MEMORY[0x1E69E9840];
+  [(NSMutableOrderedSet *)self->_mutableOrderedSet _setProcessingIdempotentKVO:1];
+  v23.receiver = self;
+  v23.super_class = _NSNotifyingWrapperMutableOrderedSet;
+  [(_NSNotifyingWrapperMutableOrderedSet *)&v23 replaceObjectsInRange:location withObjects:length count:objects, count];
+  [(NSMutableOrderedSet *)self->_mutableOrderedSet _setProcessingIdempotentKVO:0];
 }
 
 - (void)replaceObjectsAtIndexes:(id)indexes withObjects:(id)objects
@@ -544,30 +535,30 @@ LABEL_26:
 
 - (void)removeObjectsInArray:(id)array
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ([array count])
   {
     v5 = objc_alloc_init(MEMORY[0x1E696AD50]);
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
-    v6 = [array countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v6 = [array countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v13;
+      v8 = *v12;
       do
       {
         v9 = 0;
         do
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(array);
           }
 
-          v10 = [(NSMutableOrderedSet *)self->_mutableOrderedSet indexOfObject:*(*(&v12 + 1) + 8 * v9)];
+          v10 = [(NSMutableOrderedSet *)self->_mutableOrderedSet indexOfObject:*(*(&v11 + 1) + 8 * v9)];
           if (v10 != 0x7FFFFFFFFFFFFFFFLL)
           {
             [v5 addIndex:v10];
@@ -577,7 +568,7 @@ LABEL_26:
         }
 
         while (v7 != v9);
-        v7 = [array countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [array countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v7);
@@ -590,62 +581,9 @@ LABEL_26:
       [(NSManagedObject *)self->_container didChange:3 valuesAtIndexes:v5 forKey:self->_key];
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)intersectOrderedSet:(id)set
-{
-  v18 = *MEMORY[0x1E69E9840];
-  if ([set count])
-  {
-    v5 = objc_alloc_init(MEMORY[0x1E696AD50]);
-    v13 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    mutableOrderedSet = self->_mutableOrderedSet;
-    v7 = [(NSMutableOrderedSet *)mutableOrderedSet countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v7)
-    {
-      v8 = v7;
-      v9 = 0;
-      v10 = *v14;
-      do
-      {
-        for (i = 0; i != v8; ++i)
-        {
-          if (*v14 != v10)
-          {
-            objc_enumerationMutation(mutableOrderedSet);
-          }
-
-          if ([set indexOfObject:*(*(&v13 + 1) + 8 * i)] == 0x7FFFFFFFFFFFFFFFLL)
-          {
-            [v5 addIndex:v9];
-          }
-
-          ++v9;
-        }
-
-        v8 = [(NSMutableOrderedSet *)mutableOrderedSet countByEnumeratingWithState:&v13 objects:v17 count:16];
-      }
-
-      while (v8);
-    }
-
-    if ([v5 count])
-    {
-      [(NSManagedObject *)self->_container willChange:3 valuesAtIndexes:v5 forKey:self->_key];
-      [(NSMutableOrderedSet *)self->_mutableOrderedSet removeObjectsAtIndexes:v5];
-      [(NSManagedObject *)self->_container didChange:3 valuesAtIndexes:v5 forKey:self->_key];
-    }
-  }
-
-  v12 = *MEMORY[0x1E69E9840];
-}
-
-- (void)minusOrderedSet:(id)set
 {
   v17 = *MEMORY[0x1E69E9840];
   if ([set count])
@@ -655,22 +593,71 @@ LABEL_26:
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v6 = [set countByEnumeratingWithState:&v12 objects:v16 count:16];
+    mutableOrderedSet = self->_mutableOrderedSet;
+    v7 = [(NSMutableOrderedSet *)mutableOrderedSet countByEnumeratingWithState:&v12 objects:v16 count:16];
+    if (v7)
+    {
+      v8 = v7;
+      v9 = 0;
+      v10 = *v13;
+      do
+      {
+        for (i = 0; i != v8; ++i)
+        {
+          if (*v13 != v10)
+          {
+            objc_enumerationMutation(mutableOrderedSet);
+          }
+
+          if ([set indexOfObject:*(*(&v12 + 1) + 8 * i)] == 0x7FFFFFFFFFFFFFFFLL)
+          {
+            [v5 addIndex:v9];
+          }
+
+          ++v9;
+        }
+
+        v8 = [(NSMutableOrderedSet *)mutableOrderedSet countByEnumeratingWithState:&v12 objects:v16 count:16];
+      }
+
+      while (v8);
+    }
+
+    if ([v5 count])
+    {
+      [(NSManagedObject *)self->_container willChange:3 valuesAtIndexes:v5 forKey:self->_key];
+      [(NSMutableOrderedSet *)self->_mutableOrderedSet removeObjectsAtIndexes:v5];
+      [(NSManagedObject *)self->_container didChange:3 valuesAtIndexes:v5 forKey:self->_key];
+    }
+  }
+}
+
+- (void)minusOrderedSet:(id)set
+{
+  v16 = *MEMORY[0x1E69E9840];
+  if ([set count])
+  {
+    v5 = objc_alloc_init(MEMORY[0x1E696AD50]);
+    v11 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v6 = [set countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v13;
+      v8 = *v12;
       do
       {
         v9 = 0;
         do
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(set);
           }
 
-          v10 = [(NSMutableOrderedSet *)self->_mutableOrderedSet indexOfObject:*(*(&v12 + 1) + 8 * v9)];
+          v10 = [(NSMutableOrderedSet *)self->_mutableOrderedSet indexOfObject:*(*(&v11 + 1) + 8 * v9)];
           if (v10 != 0x7FFFFFFFFFFFFFFFLL)
           {
             [v5 addIndex:v10];
@@ -680,7 +667,7 @@ LABEL_26:
         }
 
         while (v7 != v9);
-        v7 = [set countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [set countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v7);
@@ -693,13 +680,11 @@ LABEL_26:
       [(NSManagedObject *)self->_container didChange:3 valuesAtIndexes:v5 forKey:self->_key];
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unionOrderedSet:(id)set
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v5 = [set count];
   if (v5)
   {
@@ -715,7 +700,7 @@ LABEL_26:
     }
 
     v8 = (8 * v7 + 15) & 0xFFFFFFFFFFFFFFF0;
-    v9 = v11 - v8;
+    v9 = v10 - v8;
     if (v5 > 0x200)
     {
       v9 = NSAllocateScannedUncollectable();
@@ -723,7 +708,7 @@ LABEL_26:
 
     else
     {
-      bzero(v11 - v8, 8 * v5);
+      bzero(v10 - v8, 8 * v5);
     }
 
     [set getObjects:v9];
@@ -733,37 +718,35 @@ LABEL_26:
       NSZoneFree(0, v9);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)intersectSet:(id)set
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ([set count])
   {
     v5 = objc_alloc_init(MEMORY[0x1E696AD50]);
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     mutableOrderedSet = self->_mutableOrderedSet;
-    v7 = [(NSMutableOrderedSet *)mutableOrderedSet countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [(NSMutableOrderedSet *)mutableOrderedSet countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(mutableOrderedSet);
           }
 
-          if (([set containsObject:*(*(&v13 + 1) + 8 * i)] & 1) == 0)
+          if (([set containsObject:*(*(&v12 + 1) + 8 * i)] & 1) == 0)
           {
             [v5 addIndex:v9];
           }
@@ -771,7 +754,7 @@ LABEL_26:
           ++v9;
         }
 
-        v8 = [(NSMutableOrderedSet *)mutableOrderedSet countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [(NSMutableOrderedSet *)mutableOrderedSet countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
@@ -784,37 +767,35 @@ LABEL_26:
       [(NSManagedObject *)self->_container didChange:3 valuesAtIndexes:v5 forKey:self->_key];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)minusSet:(id)set
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ([set count])
   {
     v5 = objc_alloc_init(MEMORY[0x1E696AD50]);
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     mutableOrderedSet = self->_mutableOrderedSet;
-    v7 = [(NSMutableOrderedSet *)mutableOrderedSet countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [(NSMutableOrderedSet *)mutableOrderedSet countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(mutableOrderedSet);
           }
 
-          if ([set containsObject:*(*(&v13 + 1) + 8 * i)])
+          if ([set containsObject:*(*(&v12 + 1) + 8 * i)])
           {
             [v5 addIndex:v9];
           }
@@ -822,7 +803,7 @@ LABEL_26:
           ++v9;
         }
 
-        v8 = [(NSMutableOrderedSet *)mutableOrderedSet countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [(NSMutableOrderedSet *)mutableOrderedSet countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
@@ -835,13 +816,11 @@ LABEL_26:
       [(NSManagedObject *)self->_container didChange:3 valuesAtIndexes:v5 forKey:self->_key];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unionSet:(id)set
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v5 = [set count];
   if (v5)
   {
@@ -857,7 +836,7 @@ LABEL_26:
     }
 
     v8 = (8 * v7 + 15) & 0xFFFFFFFFFFFFFFF0;
-    v9 = v11 - v8;
+    v9 = v10 - v8;
     if (v5 > 0x200)
     {
       v9 = NSAllocateScannedUncollectable();
@@ -865,7 +844,7 @@ LABEL_26:
 
     else
     {
-      bzero(v11 - v8, 8 * v5);
+      bzero(v10 - v8, 8 * v5);
     }
 
     [set getObjects:v9];
@@ -875,15 +854,13 @@ LABEL_26:
       NSZoneFree(0, v9);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sortRange:(_NSRange)range options:(unint64_t)options usingComparator:(id)comparator
 {
   length = range.length;
   location = range.location;
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v9 = [(NSManagedObject *)self->_container hasFaultForRelationshipNamed:self->_key];
   optionsCopy = options;
   comparatorCopy = comparator;
@@ -905,7 +882,7 @@ LABEL_33:
     goto LABEL_34;
   }
 
-  v11 = [(NSManagedObject *)self->_container valueForKey:self->_key];
+  v11 = objc_msgSend_valueForKey_(self->_container);
   v12 = [v11 count];
   if (length == 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -915,10 +892,10 @@ LABEL_33:
   if (v12)
   {
     v13 = v12;
-    v27[1] = v27;
+    v26[1] = v26;
     v14 = v12 >= 0x201 ? 1 : v12;
     v15 = (8 * v14 + 15) & 0xFFFFFFFFFFFFFFF0;
-    v16 = v27 - v15;
+    v16 = v26 - v15;
     if (v12 > 0x200)
     {
       v16 = NSAllocateScannedUncollectable();
@@ -926,7 +903,7 @@ LABEL_33:
 
     else
     {
-      bzero(v27 - v15, 8 * v12);
+      bzero(v26 - v15, 8 * v12);
     }
 
     [v11 getObjects:v16];
@@ -1012,15 +989,13 @@ LABEL_34:
     length = [(NSMutableOrderedSet *)self->_mutableOrderedSet count];
   }
 
-  v31.receiver = self;
-  v31.super_class = _NSNotifyingWrapperMutableOrderedSet;
-  [(_NSNotifyingWrapperMutableOrderedSet *)&v31 sortRange:location options:length usingComparator:optionsCopy, comparatorCopy];
+  v30.receiver = self;
+  v30.super_class = _NSNotifyingWrapperMutableOrderedSet;
+  [(_NSNotifyingWrapperMutableOrderedSet *)&v30 sortRange:location options:length usingComparator:optionsCopy, comparatorCopy];
   if (_shouldProcessKVOChange)
   {
     [(NSMutableOrderedSet *)self->_mutableOrderedSet _setProcessingIdempotentKVO:0];
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 @end

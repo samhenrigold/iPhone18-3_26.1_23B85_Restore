@@ -80,39 +80,8 @@ LABEL_3:
 {
   verCopy = ver;
   v5 = verCopy;
-  if (!verCopy)
+  if (!verCopy || (v6 = self->_specifier == 0, [verCopy specifier], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (specifier = self->_specifier) != 0 && (objc_msgSend(v5, "specifier"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](specifier, "isEqual:", v10), v10, !v11) || (v12 = self->_version == 0, objc_msgSend(v5, "version"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14))
   {
-    goto LABEL_8;
-  }
-
-  v6 = self->_specifier == 0;
-  specifier = [verCopy specifier];
-  v8 = specifier != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_8;
-  }
-
-  specifier = self->_specifier;
-  if (specifier)
-  {
-    specifier2 = [v5 specifier];
-    v11 = [(NSString *)specifier isEqual:specifier2];
-
-    if (!v11)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  v12 = self->_version == 0;
-  version = [v5 version];
-  v14 = version != 0;
-
-  if (v12 == v14)
-  {
-LABEL_8:
     v17 = 0;
   }
 
@@ -121,8 +90,8 @@ LABEL_8:
     version = self->_version;
     if (version)
     {
-      version2 = [v5 version];
-      v17 = [(NSString *)version isEqual:version2];
+      version = [v5 version];
+      v17 = [(NSString *)version isEqual:version];
     }
 
     else

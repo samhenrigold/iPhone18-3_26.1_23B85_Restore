@@ -7,6 +7,7 @@
 - (void)loadContentViewLayoutConstraints;
 - (void)pauseButtonTapped:(id)tapped withEvent:(id)event;
 - (void)playButtonTapped:(id)tapped withEvent:(id)event;
+- (void)setEnabled:(BOOL)enabled;
 - (void)setState:(int64_t)state animated:(BOOL)animated;
 - (void)stopButtonTapped:(id)tapped withEvent:(id)event;
 - (void)transitionToState:(int64_t)state animated:(BOOL)animated;
@@ -61,6 +62,40 @@
   result.height = v7;
   result.width = v8;
   return result;
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+  if (self->_enabled != enabled)
+  {
+    enabledCopy = enabled;
+    self->_enabled = enabled;
+    v13 = +[UIColor systemGrayColor];
+    if (enabledCopy)
+    {
+      v6 = +[UIColor systemBlueColor];
+
+      v13 = v6;
+    }
+
+    pauseButton = [(NCAudioPlayerControlsView *)self pauseButton];
+    [pauseButton setEnabled:enabledCopy];
+
+    pauseButton2 = [(NCAudioPlayerControlsView *)self pauseButton];
+    [pauseButton2 setTintColor:v13];
+
+    playButton = [(NCAudioPlayerControlsView *)self playButton];
+    [playButton setEnabled:enabledCopy];
+
+    playButton2 = [(NCAudioPlayerControlsView *)self playButton];
+    [playButton2 setTintColor:v13];
+
+    timelineSlider = [(NCAudioPlayerControlsView *)self timelineSlider];
+    [timelineSlider setEnabled:enabledCopy];
+
+    timelineSlider2 = [(NCAudioPlayerControlsView *)self timelineSlider];
+    [timelineSlider2 setTintColor:v13];
+  }
 }
 
 - (void)setState:(int64_t)state animated:(BOOL)animated

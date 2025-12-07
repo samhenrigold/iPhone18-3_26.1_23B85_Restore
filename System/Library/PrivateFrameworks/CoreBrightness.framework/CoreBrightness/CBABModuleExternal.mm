@@ -265,7 +265,6 @@
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -469,7 +468,6 @@
     _os_log_impl(&dword_1DE8E5000, v7, OS_LOG_TYPE_DEFAULT, "key = %{public}@ | property = %@ | result = %d", v15, 0x1Cu);
   }
 
-  *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -764,8 +762,6 @@
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)newALSService:(__IOHIDServiceClient *)service
@@ -937,7 +933,6 @@
 
   MEMORY[0x1E69E5920](v27);
   MEMORY[0x1E69E5920](v29);
-  *MEMORY[0x1E69E9840];
   return v30 & 1;
 }
 
@@ -984,7 +979,7 @@
   return 1;
 }
 
-uint64_t __45__CBABModuleExternal_removeHIDServiceClient___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__45__CBABModuleExternal_removeHIDServiceClient___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 conformsToHIDService:*(a1 + 40)];
   if (result)
@@ -1047,7 +1042,7 @@ uint64_t __45__CBABModuleExternal_removeHIDServiceClient___block_invoke(uint64_t
   return 1;
 }
 
-uint64_t __42__CBABModuleExternal_handleHIDEvent_from___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__42__CBABModuleExternal_handleHIDEvent_from___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 conformsToHIDService:a1[5]];
   if (result)
@@ -1141,7 +1136,6 @@ uint64_t __42__CBABModuleExternal_handleHIDEvent_from___block_invoke(void *a1, v
   }
 
   MEMORY[0x1E69E5920](v14);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)storeCurveToPreferences
@@ -1251,8 +1245,6 @@ uint64_t __42__CBABModuleExternal_handleHIDEvent_from___block_invoke(void *a1, v
   {
     (*(self->super._notificationBlock + 2))();
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)getAggregatedLux:(float *)lux
@@ -1302,11 +1294,10 @@ uint64_t __42__CBABModuleExternal_handleHIDEvent_from___block_invoke(void *a1, v
   v4 = *(v13 + 24);
   _Block_object_dispose(&v7, 8);
   _Block_object_dispose(&v12, 8);
-  *MEMORY[0x1E69E9840];
   return v4 & 1;
 }
 
-uint64_t __39__CBABModuleExternal_getAggregatedLux___block_invoke(uint64_t a1, void *a2)
+void *__39__CBABModuleExternal_getAggregatedLux___block_invoke(uint64_t a1, void *a2)
 {
   v6 = *(*(*(a1 + 32) + 8) + 24);
   result = [a2 lux];

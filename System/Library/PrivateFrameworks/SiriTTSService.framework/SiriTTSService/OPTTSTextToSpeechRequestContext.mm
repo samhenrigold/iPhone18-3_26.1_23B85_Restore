@@ -42,53 +42,53 @@ apple::aiml::flatbuffers2::DetachedBuffer *__47__OPTTSTextToSpeechRequestContext
 
 - (Offset<siri::speech::schema_fb::TextToSpeechRequestContext>)addObjectToBuffer:(void *)buffer
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
+  v27 = 0;
   v28 = 0;
   v29 = 0;
-  v30 = 0;
   context_info = [(OPTTSTextToSpeechRequestContext *)self context_info];
-  std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>::reserve(&v28, [context_info count]);
+  std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>::reserve(&v27, [context_info count]);
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   context_info2 = [(OPTTSTextToSpeechRequestContext *)self context_info];
-  v7 = [context_info2 countByEnumeratingWithState:&v24 objects:v31 count:16];
+  v7 = [context_info2 countByEnumeratingWithState:&v23 objects:v30 count:16];
   if (v7)
   {
-    v8 = *v25;
+    v8 = *v24;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(context_info2);
         }
 
-        v23 = [*(*(&v24 + 1) + 8 * i) addObjectToBuffer:buffer];
-        std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>::push_back[abi:ne200100](&v28, &v23);
+        v22 = [*(*(&v23 + 1) + 8 * i) addObjectToBuffer:buffer];
+        std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>::push_back[abi:ne200100](&v27, &v22);
       }
 
-      v7 = [context_info2 countByEnumeratingWithState:&v24 objects:v31 count:16];
+      v7 = [context_info2 countByEnumeratingWithState:&v23 objects:v30 count:16];
     }
 
     while (v7);
   }
 
-  v10 = v28;
-  if (v29 == v28)
+  v10 = v27;
+  if (v28 == v27)
   {
     v11 = &apple::aiml::flatbuffers2::data<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>,std::allocator<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>>(std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>> const&)::t;
   }
 
   else
   {
-    v11 = v28;
+    v11 = v27;
   }
 
-  v12 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateVector<apple::aiml::flatbuffers2::String>(buffer, v11, (v29 - v28) >> 2);
+  v12 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateVector<apple::aiml::flatbuffers2::String>(buffer, v11, (v28 - v27) >> 2);
   dialog_identifier = [(OPTTSTextToSpeechRequestContext *)self dialog_identifier];
   v14 = dialog_identifier;
   if (!dialog_identifier)
@@ -113,7 +113,6 @@ apple::aiml::flatbuffers2::DetachedBuffer *__47__OPTTSTextToSpeechRequestContext
     operator delete(v10);
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 

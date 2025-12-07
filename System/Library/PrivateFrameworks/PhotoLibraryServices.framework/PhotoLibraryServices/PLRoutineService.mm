@@ -26,7 +26,7 @@
 - (void)_pinPendingVisits
 {
   v54 = *MEMORY[0x1E69E9840];
-  v3 = [(NSMutableSet *)self->_pendingPinningVisitIdentifiers count];
+  v3 = objc_msgSend_count(self->_pendingPinningVisitIdentifiers, a2);
   if (self->_routineIsAvailable && v3 != 0)
   {
     v5 = v3;
@@ -61,7 +61,7 @@
             }
 
             visits = [*(*(&v44 + 1) + 8 * i) visits];
-            v15 += [visits count];
+            v15 += objc_msgSend_count(visits);
           }
 
           v14 = [defaultManager countByEnumeratingWithState:&v44 objects:v53 count:16];
@@ -98,7 +98,7 @@
             }
 
             visits2 = [*(*(&v40 + 1) + 8 * j) visits];
-            v15 += [visits2 count];
+            v15 += objc_msgSend_count(visits2);
           }
 
           v23 = [(PLRoutineServiceResult *)v21 countByEnumeratingWithState:&v40 objects:v52 count:16];
@@ -271,7 +271,7 @@ LABEL_16:
         v16 = PLBackendGetLog();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
-          v17 = [v10 count];
+          v17 = objc_msgSend_count(v10);
           *buf = 134218242;
           v22 = v17;
           v23 = 2112;
@@ -359,7 +359,7 @@ LABEL_20:
         {
           if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
           {
-            v20 = [result count];
+            v20 = objc_msgSend_count(result);
             *buf = 134217984;
             v27 = v20;
             _os_log_impl(&dword_19BF1F000, v19, OS_LOG_TYPE_INFO, "CoreRoutine found %lu lois", buf, 0xCu);
@@ -584,7 +584,7 @@ LABEL_20:
   [(PLRoutineService *)selfCopy visitsCache];
   v33 = v32 = intervalCopy;
   v31 = [v33 locationsOfInterestVisitsInDateInterval:intervalCopy];
-  if ([v31 count])
+  if (objc_msgSend_count(v31))
   {
     earliestVisitStartDate = [v33 earliestVisitStartDate];
     startDate = [intervalCopy startDate];
@@ -639,7 +639,7 @@ LABEL_20:
       }
 
       v24 = v12;
-      v25 = [v24 count];
+      v25 = objc_msgSend_count(v24);
       if (!v25)
       {
         v22 = 0;
@@ -653,7 +653,7 @@ LABEL_20:
 
       anyObject = [v24 anyObject];
       visitInterval = [anyObject visitInterval];
-      [visitInterval duration];
+      objc_msgSend_duration(visitInterval);
       v29 = v28;
 
       if (v29 < 43200.0)

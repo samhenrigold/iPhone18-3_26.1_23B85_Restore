@@ -254,4 +254,22 @@ void __100__SKUIViewControllerContainerCollectionView__beginDynamicHysteresisInc
   }
 }
 
+- (void)observeValueForKeyPath:(uint64_t)a3 ofObject:(uint64_t)a4 change:(uint64_t)a5 context:(uint64_t)a6 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIViewControllerContainerCollectionView observeValueForKeyPath:ofObject:change:context:]";
+}
+
+- (void)gestureRecognizer:(uint64_t)a3 shouldBeRequiredToFailByGestureRecognizer:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIViewControllerContainerCollectionView gestureRecognizer:shouldBeRequiredToFailByGestureRecognizer:]";
+}
+
+- (void)gestureRecognizer:(uint64_t)a3 shouldRequireFailureOfGestureRecognizer:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIViewControllerContainerCollectionView gestureRecognizer:shouldRequireFailureOfGestureRecognizer:]";
+}
+
 @end

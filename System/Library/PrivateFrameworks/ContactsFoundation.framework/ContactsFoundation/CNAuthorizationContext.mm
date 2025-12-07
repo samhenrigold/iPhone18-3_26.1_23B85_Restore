@@ -42,6 +42,8 @@
 - (void)isThirdPartyNotesEntitled;
 - (void)requestAuthorization:(int64_t)authorization completionHandler:(id)handler;
 - (void)resetCachedStatus;
+- (void)saveAuthorizationRecord:(id)record dontKillApp:(BOOL)app;
+- (void)setAuthorizationStatus:(int64_t)status forBundleIdentifier:(id)identifier noKillApp:(BOOL)app;
 - (void)simulateStatus:(int64_t)status;
 - (void)stopSimulation;
 @end
@@ -62,9 +64,11 @@
 
 uint64_t __40__CNAuthorizationContext_sharedInstance__block_invoke()
 {
-  sharedInstance_cn_once_object_2_1 = [[CNAuthorizationContext alloc] initWithAuditToken:0 assumedIdentity:0 tccServices:0];
+  v0 = [[CNAuthorizationContext alloc] initWithAuditToken:0 assumedIdentity:0 tccServices:0];
+  v1 = sharedInstance_cn_once_object_2_1;
+  sharedInstance_cn_once_object_2_1 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (BOOL)isAccessGrantedRequestingAccessIfNeeded
@@ -320,13 +324,12 @@ id __44__CNAuthorizationContext_isClientTCCAllowed__block_invoke(uint64_t a1)
 
 - (BOOL)isClientTCCAllowedImpl
 {
-  v6[2] = *MEMORY[0x1E69E9840];
-  v6[0] = @"com.apple.private.tcc.allow";
-  v6[1] = @"com.apple.private.tcc.allow.overridable";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
+  v5[2] = *MEMORY[0x1E69E9840];
+  v5[0] = @"com.apple.private.tcc.allow";
+  v5[1] = @"com.apple.private.tcc.allow.overridable";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
   LOBYTE(self) = [(CNAuthorizationContext *)self checkTCCEntitlementNamesAllowContacts:v3];
 
-  v4 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -384,13 +387,12 @@ id __52__CNAuthorizationContext_isClientTCCRegionalAllowed__block_invoke(uint64_
 
 - (BOOL)isClientTCCRegionalAllowedImpl
 {
-  v6[2] = *MEMORY[0x1E69E9840];
-  v6[0] = @"com.apple.private.tcc.allow-or-regional-prompt";
-  v6[1] = @"com.apple.private.tcc.allow-or-regional-prompt.overridable";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
+  v5[2] = *MEMORY[0x1E69E9840];
+  v5[0] = @"com.apple.private.tcc.allow-or-regional-prompt";
+  v5[1] = @"com.apple.private.tcc.allow-or-regional-prompt.overridable";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
   LOBYTE(self) = [(CNAuthorizationContext *)self checkTCCEntitlementNamesAllowContacts:v3];
 
-  v4 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -408,9 +410,11 @@ id __52__CNAuthorizationContext_isClientTCCRegionalAllowed__block_invoke(uint64_
 
 uint64_t __32__CNAuthorizationContext_os_log__block_invoke()
 {
-  os_log_cn_once_object_1_4 = os_log_create("com.apple.contacts", "authorization-context");
+  v0 = os_log_create("com.apple.contacts", "authorization-context");
+  v1 = os_log_cn_once_object_1_4;
+  os_log_cn_once_object_1_4 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (CNAuthorizationContext)initWithAuditToken:(id)token assumedIdentity:(id)identity
@@ -676,7 +680,7 @@ void __65__CNAuthorizationContext_requestAuthorization_completionHandler___block
 
 - (BOOL)doesClientHaveEntitlement:(id)entitlement
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   entitlementCopy = entitlement;
   cnAuditToken = [(CNAuthorizationContext *)self cnAuditToken];
 
@@ -688,7 +692,7 @@ void __65__CNAuthorizationContext_requestAuthorization_completionHandler___block
     v9 = cnAuditToken2;
     if (cnAuditToken2)
     {
-      [cnAuditToken2 audit_token];
+      objc_msgSend_audit_token(cnAuditToken2);
     }
 
     else
@@ -696,20 +700,20 @@ void __65__CNAuthorizationContext_requestAuthorization_completionHandler___block
       memset(buf, 0, sizeof(buf));
     }
 
-    v26[0] = entitlementCopy;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
-    v21 = 0;
-    v10 = [entitlementVerifier valuesForAuditToken:buf forEntitlements:v12 error:&v21];
-    v11 = v21;
+    v25[0] = entitlementCopy;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+    v20 = 0;
+    v10 = [entitlementVerifier valuesForAuditToken:buf forEntitlements:v12 error:&v20];
+    v11 = v20;
   }
 
   else
   {
-    v25 = entitlementCopy;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
-    v20 = 0;
-    v10 = [entitlementVerifier valuesForCurrentProcessForEntitlements:v9 error:&v20];
-    v11 = v20;
+    v24 = entitlementCopy;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
+    v19 = 0;
+    v10 = [entitlementVerifier valuesForCurrentProcessForEntitlements:v9 error:&v19];
+    v11 = v19;
   }
 
   if (v11)
@@ -720,31 +724,30 @@ void __65__CNAuthorizationContext_requestAuthorization_completionHandler___block
       cnAuditToken3 = [(CNAuthorizationContext *)self cnAuditToken];
       if (cnAuditToken3)
       {
-        v18 = @"audit token";
+        v17 = @"audit token";
       }
 
       else
       {
-        v18 = @"current process";
+        v17 = @"current process";
       }
 
       userInfo = [v11 userInfo];
       *buf = 138413058;
-      *&buf[4] = v18;
+      *&buf[4] = v17;
       *&buf[12] = 2112;
       *&buf[14] = entitlementCopy;
       *&buf[22] = 2112;
       *&buf[24] = v11;
-      v23 = 2112;
-      v24 = userInfo;
+      v22 = 2112;
+      v23 = userInfo;
       _os_log_error_impl(&dword_1859F0000, os_log, OS_LOG_TYPE_ERROR, "Error checking %@ entitlement %@: %@ %@", buf, 0x2Au);
     }
   }
 
   v14 = off_1EF43F068(&__block_literal_global_44_0, v10);
 
-  v15 = *MEMORY[0x1E69E9840];
-  return !v14;
+  return v14 ^ 1;
 }
 
 - (BOOL)isClientTCCKilledOnAuthorizationChange
@@ -760,7 +763,7 @@ void __65__CNAuthorizationContext_requestAuthorization_completionHandler___block
     v8 = cnAuditToken2;
     if (cnAuditToken2)
     {
-      [cnAuditToken2 audit_token];
+      objc_msgSend_audit_token(cnAuditToken2);
     }
 
     else
@@ -805,7 +808,7 @@ void __65__CNAuthorizationContext_requestAuthorization_completionHandler___block
     v8 = cnAuditToken2;
     if (cnAuditToken2)
     {
-      [cnAuditToken2 audit_token];
+      objc_msgSend_audit_token(cnAuditToken2);
     }
 
     else
@@ -851,7 +854,7 @@ void __65__CNAuthorizationContext_requestAuthorization_completionHandler___block
     v10 = cnAuditToken2;
     if (cnAuditToken2)
     {
-      [cnAuditToken2 audit_token];
+      objc_msgSend_audit_token(cnAuditToken2);
     }
 
     else
@@ -906,7 +909,7 @@ void __65__CNAuthorizationContext_requestAuthorization_completionHandler___block
     v8 = cnAuditToken2;
     if (cnAuditToken2)
     {
-      [cnAuditToken2 audit_token];
+      objc_msgSend_audit_token(cnAuditToken2);
     }
 
     else
@@ -1007,6 +1010,22 @@ void __53__CNAuthorizationContext_requestAuthorizationFuture___block_invoke(uint
   return integerValue;
 }
 
+- (void)saveAuthorizationRecord:(id)record dontKillApp:(BOOL)app
+{
+  appCopy = app;
+  recordCopy = record;
+  tccServices = [(CNAuthorizationContext *)self tccServices];
+  [tccServices saveAuthorizationRecord:recordCopy dontKillApp:appCopy];
+}
+
+- (void)setAuthorizationStatus:(int64_t)status forBundleIdentifier:(id)identifier noKillApp:(BOOL)app
+{
+  appCopy = app;
+  identifierCopy = identifier;
+  tccServices = [(CNAuthorizationContext *)self tccServices];
+  [tccServices setAuthorizationStatus:status forBundleIdentifier:identifierCopy noKillApp:appCopy];
+}
+
 - (void)resetCachedStatus
 {
   authorizationStatusLock = [(CNAuthorizationContext *)self authorizationStatusLock];
@@ -1057,81 +1076,65 @@ void __43__CNAuthorizationContext_resetCachedStatus__block_invoke_3(uint64_t a1)
 
 + (void)shouldIgnoreAssumedIdentity:(os_log_t)log .cold.1(char a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = @"ignore";
   if ((a1 & 1) == 0)
   {
     v3 = @"honor";
   }
 
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_debug_impl(&dword_1859F0000, log, OS_LOG_TYPE_DEBUG, "Will %@ assumed identity for assumed bundle identifier %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_debug_impl(&dword_1859F0000, log, OS_LOG_TYPE_DEBUG, "Will %@ assumed identity for assumed bundle identifier %@", &v4, 0x16u);
 }
 
 - (void)isClientTCCKilledOnAuthorizationChange
 {
   OUTLINED_FUNCTION_3_0();
-  v9 = *MEMORY[0x1E69E9840];
   cnAuditToken = [v0 cnAuditToken];
   userInfo = [OUTLINED_FUNCTION_2_0() userInfo];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isThirdPartyNotesEntitled
 {
   OUTLINED_FUNCTION_3_0();
-  v9 = *MEMORY[0x1E69E9840];
   cnAuditToken = [v0 cnAuditToken];
   userInfo = [OUTLINED_FUNCTION_2_0() userInfo];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkTCCEntitlementNamesAllowContacts:.cold.1()
 {
   OUTLINED_FUNCTION_3_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [v0 cnAuditToken];
   v2 = [OUTLINED_FUNCTION_2_0() userInfo];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkClientIsFirstOrSecondParty
 {
   OUTLINED_FUNCTION_3_0();
-  v9 = *MEMORY[0x1E69E9840];
   cnAuditToken = [v0 cnAuditToken];
   userInfo = [OUTLINED_FUNCTION_2_0() userInfo];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resolveRequestAuthorizationFuture:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = [a1 userInfo];
+  v6 = [a1 userInfo];
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -47,7 +47,7 @@
 
 void __38__BPSFuture_initWithAttemptToFulfill___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -79,31 +79,31 @@ void __38__BPSFuture_initWithAttemptToFulfill___block_invoke(uint64_t a1, void *
         v8 = [v7 claimAll];
 
         os_unfair_lock_unlock(WeakRetained + 2);
-        v17 = 0u;
-        v18 = 0u;
-        v15 = 0u;
         v16 = 0u;
+        v17 = 0u;
+        v14 = 0u;
+        v15 = 0u;
         v9 = v8;
-        v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v16;
+          v12 = *v15;
           do
           {
             v13 = 0;
             do
             {
-              if (*v16 != v12)
+              if (*v15 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              [*(*(&v15 + 1) + 8 * v13++) fulfill:{v3, v15}];
+              [*(*(&v14 + 1) + 8 * v13++) fulfill:{v3, v14}];
             }
 
             while (v11 != v13);
-            v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
           }
 
           while (v11);
@@ -111,8 +111,6 @@ void __38__BPSFuture_initWithAttemptToFulfill___block_invoke(uint64_t a1, void *
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)subscribe:(id)subscribe

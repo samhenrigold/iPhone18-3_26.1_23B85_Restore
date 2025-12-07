@@ -245,10 +245,10 @@ void __67__PUContentSyndicationSaveToLibraryActivity_activityViewController__blo
   {
     v7 = PXFilter();
     PXMediaTypeForAssets();
-    [(__CFString *)v7 count];
+    v10 = [(__CFString *)v7 count];
     v8 = PXLocalizationKeyForMediaType();
-    v10 = PXLocalizedString();
-    v9 = PULocalizedStringWithValidatedFormat(v10, @"%lu");
+    v11 = PXLocalizedString();
+    v9 = PULocalizedStringWithValidatedFormat(v11, @"%lu", v12, v13, v14, v15, v16, v17, v10);
   }
 
   return v9;

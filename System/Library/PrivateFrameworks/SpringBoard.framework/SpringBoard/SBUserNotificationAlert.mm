@@ -190,7 +190,7 @@
       v22 = MEMORY[0x277D0AAF8];
       if (tokenCopy)
       {
-        [tokenCopy realToken];
+        objc_msgSend_realToken(tokenCopy);
       }
 
       else
@@ -216,7 +216,7 @@
   return v12;
 }
 
-uint64_t __77__SBUserNotificationAlert_initWithMessage_replyPort_requestFlags_auditToken___block_invoke_2(uint64_t a1)
+void *__77__SBUserNotificationAlert_initWithMessage_replyPort_requestFlags_auditToken___block_invoke_2(uint64_t a1)
 {
   v2 = SBLogCFUserNotifications();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
@@ -225,15 +225,15 @@ uint64_t __77__SBUserNotificationAlert_initWithMessage_replyPort_requestFlags_au
   }
 
   result = *(a1 + 32);
-  v4 = *(result + 128);
+  v4 = result[16];
   if (v4)
   {
-    *(result + 128) = 0;
+    result[16] = 0;
 
     result = *(a1 + 32);
   }
 
-  if ((~*(result + 160) & 3) == 0 || (*(result + 160) & 0x20) != 0 && !*(result + 216) && !*(result + 224) && !*(result + 232))
+  if ((~*(result + 40) & 3) == 0 || (result[20] & 0x20) != 0 && !result[27] && !result[28] && !result[29])
   {
     return [result cancel];
   }
@@ -921,7 +921,7 @@ void __58__SBUserNotificationAlert_updateWithMessage_requestFlags___block_invoke
   }
 }
 
-uint64_t __58__SBUserNotificationAlert_updateWithMessage_requestFlags___block_invoke_2(uint64_t a1)
+void *__58__SBUserNotificationAlert_updateWithMessage_requestFlags___block_invoke_2(uint64_t a1)
 {
   *(*(a1 + 32) + 450) |= 2u;
   result = [*(a1 + 40) deactivateAlertItem:*(a1 + 32) reason:5 animated:0];

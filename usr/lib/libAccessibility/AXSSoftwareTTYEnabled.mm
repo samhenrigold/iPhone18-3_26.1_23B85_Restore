@@ -3,7 +3,7 @@
 
 @implementation AXSSoftwareTTYEnabled
 
-uint64_t ___AXSSoftwareTTYEnabled_block_invoke()
+void *___AXSSoftwareTTYEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

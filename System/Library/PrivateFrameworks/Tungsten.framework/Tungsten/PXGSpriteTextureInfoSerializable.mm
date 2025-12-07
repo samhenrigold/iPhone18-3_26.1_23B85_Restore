@@ -34,7 +34,7 @@
 
 - (id)createSerializableObject
 {
-  [(PXGSpriteTextureInfoSerializable *)self spriteTextureInfo];
+  objc_msgSend_spriteTextureInfo(self, a2);
   v2 = PXGSerializeSpriteTextureInfo(&v4);
 
   return v2;

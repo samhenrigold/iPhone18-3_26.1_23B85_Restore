@@ -89,43 +89,42 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@, length:%llu", label, -[MTLBuffer length](v6, "length"), v21];
+  v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@, length:%llu", label, -[MTLBuffer length](v6, "length"), v20];
 LABEL_23:
   label = v9;
 LABEL_24:
   v11 = MEMORY[0x277CCACA8];
   addressSpace = self->_addressSpace;
-  operation = self->_operation;
-  v14 = MTLGPUOperationString();
+  v13 = MTLGPUOperationString();
   offset = self->_offset;
   functionDescription = [(MTLGPUDebugGPULog *)self functionDescription];
-  v17 = [(MTLArgument *)self->_argument formattedDescription:4];
+  v16 = [(MTLArgument *)self->_argument formattedDescription:4];
   if (label)
   {
-    v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"buffer: %@", label];
+    v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"buffer: %@", label];
   }
 
   else
-  {
-    v18 = &stru_2841C04D0;
-  }
-
-  if (!v17)
   {
     v17 = &stru_2841C04D0;
   }
 
+  if (!v16)
+  {
+    v16 = &stru_2841C04D0;
+  }
+
   if (addressSpace == 1)
   {
-    v19 = @"device";
+    v18 = @"device";
   }
 
   else
   {
-    v19 = @"threadgroup";
+    v18 = @"threadgroup";
   }
 
-  return [v11 stringWithFormat:@"Invalid %@ %@ at offset %llu, executing %@ %@\n%@\n%@\n", v19, v14, offset, functionDescription, v17, v18, -[MTLGPUDebugGPULog locationDescription](self, "locationDescription")];
+  return [v11 stringWithFormat:@"Invalid %@ %@ at offset %llu, executing %@ %@\n%@\n%@\n", v18, v13, offset, functionDescription, v16, v17, -[MTLGPUDebugGPULog locationDescription](self, "locationDescription")];
 }
 
 - (void)dealloc

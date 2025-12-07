@@ -37,84 +37,82 @@
 
 - (id)overridingEditingAttributesForAttributes:(id)attributes withOverrides:(id)overrides
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
   overridesCopy = overrides;
-  v7 = *off_1E70EC920;
-  v8 = [overridesCopy objectForKeyedSubscript:*off_1E70EC920];
-  v9 = *off_1E70EC918;
-  v10 = [overridesCopy objectForKeyedSubscript:*off_1E70EC918];
-  if (v8 | v10)
+  v7 = [overridesCopy objectForKeyedSubscript:*off_1E70EC920];
+  v8 = [overridesCopy objectForKeyedSubscript:*off_1E70EC918];
+  if (v7 | v8)
   {
-    v25 = attributesCopy;
-    v11 = objc_opt_new();
+    v23 = attributesCopy;
+    v9 = objc_opt_new();
+    v24 = 0u;
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v24 = overridesCopy;
+    v22 = overridesCopy;
     allKeys = [overridesCopy allKeys];
-    v13 = [allKeys countByEnumeratingWithState:&v26 objects:v30 count:16];
-    if (v13)
+    v11 = [allKeys countByEnumeratingWithState:&v24 objects:v28 count:16];
+    if (v11)
     {
-      v14 = v13;
-      v15 = *v27;
+      v12 = v11;
+      v13 = *v25;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v27 != v15)
+          if (*v25 != v13)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v17 = *(*(&v26 + 1) + 8 * i);
-          if (!v8 || (v18 = [*(*(&v26 + 1) + 8 * i) isEqualToString:v7], v19 = v8, (v18 & 1) == 0))
+          v15 = *(*(&v24 + 1) + 8 * i);
+          if (!v7 || (v16 = objc_msgSend_isEqualToString_(*(*(&v24 + 1) + 8 * i)), v17 = v7, (v16 & 1) == 0))
           {
-            if (!v10)
+            if (!v8)
             {
               continue;
             }
 
-            v20 = [v17 isEqualToString:v9];
-            v19 = v10;
-            if (!v20)
+            isEqualToString = objc_msgSend_isEqualToString_(v15);
+            v17 = v8;
+            if (!isEqualToString)
             {
               continue;
             }
           }
 
-          [v11 setObject:v19 forKeyedSubscript:v17];
+          [v9 setObject:v17 forKeyedSubscript:v15];
         }
 
-        v14 = [allKeys countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v12 = [allKeys countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
-      while (v14);
+      while (v12);
     }
 
-    attributesCopy = v25;
-    if (v25)
+    attributesCopy = v23;
+    if (v23)
     {
-      v21 = [v25 objectForKeyedSubscript:@"_UILastStoredDefaultTextAttributesName"];
+      v19 = [v23 objectForKeyedSubscript:@"_UILastStoredDefaultTextAttributesName"];
 
-      if (!v21)
+      if (!v19)
       {
-        [v11 setObject:v25 forKeyedSubscript:@"_UILastStoredDefaultTextAttributesName"];
+        [v9 setObject:v23 forKeyedSubscript:@"_UILastStoredDefaultTextAttributesName"];
       }
     }
 
-    v22 = [v11 copy];
+    v20 = [v9 copy];
 
-    overridesCopy = v24;
+    overridesCopy = v22;
   }
 
   else
   {
-    v22 = MEMORY[0x1E695E0F8];
+    v20 = MEMORY[0x1E695E0F8];
   }
 
-  return v22;
+  return v20;
 }
 
 - (_UITextFieldEditingProcessorDelegate)delegate

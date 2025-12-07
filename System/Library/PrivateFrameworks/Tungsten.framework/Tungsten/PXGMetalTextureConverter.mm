@@ -837,9 +837,9 @@ LABEL_30:
   var2 = alpha.var2;
   v11 = *&alpha.var0;
   v12 = v6;
-  v69 = *&transform;
-  v81 = *MEMORY[0x277D85DE8];
-  v74 = 0;
+  v67 = *&transform;
+  v79 = *MEMORY[0x277D85DE8];
+  v72 = 0;
   metalRenderContext = [(PXGMetalTextureConverter *)self metalRenderContext];
   device = [metalRenderContext device];
   limits = [device limits];
@@ -851,11 +851,11 @@ LABEL_30:
   {
     v19 = Property;
     metalRenderContext2 = [(PXGMetalTextureConverter *)self metalRenderContext];
-    v72 = 0;
-    v73 = 0;
-    PXGCreateMetalTexturesFromIOSurface(v19, metalRenderContext2, &v73, &v72, &v74);
-    v21 = v73;
-    v22 = v72;
+    v70 = 0;
+    v71 = 0;
+    PXGCreateMetalTexturesFromIOSurface(v19, metalRenderContext2, &v71, &v70, &v72);
+    v21 = v71;
+    v22 = v70;
 
     if (v21)
     {
@@ -867,11 +867,11 @@ LABEL_30:
   {
     v24 = v23;
     metalRenderContext3 = [(PXGMetalTextureConverter *)self metalRenderContext];
-    v70 = 0;
-    v71 = 0;
-    PXGCreateMetalTexturesFromIOSurface(v24, metalRenderContext3, &v71, &v70, &v74);
-    v21 = v71;
-    v22 = v70;
+    v68 = 0;
+    v69 = 0;
+    PXGCreateMetalTexturesFromIOSurface(v24, metalRenderContext3, &v69, &v68, &v72);
+    v21 = v69;
+    v22 = v68;
 
     CFRelease(v24);
     if (v21)
@@ -886,7 +886,7 @@ LABEL_30:
   }
 
   metalRenderContext4 = [(PXGMetalTextureConverter *)self metalRenderContext];
-  v21 = PXGCreateMetalTextureFromBytesInCGImage(image, metalRenderContext4, &v74);
+  v21 = PXGCreateMetalTextureFromBytesInCGImage(image, metalRenderContext4, &v72);
 
   if (!v21)
   {
@@ -901,28 +901,26 @@ LABEL_30:
     }
 
     kdebug_trace();
-    [(PXGMetalTextureConverter *)self destinationColorSpaceName];
-    [(PXGMetalTextureConverter *)self hasExtendedColorTarget];
-    v30 = PXGMetalCompatibleImageByRedrawingCGImage(image, v27, v28);
+    v30 = PXGMetalCompatibleImageByRedrawingCGImage(image, [(PXGMetalTextureConverter *)self destinationColorSpaceName], [(PXGMetalTextureConverter *)self hasExtendedColorTarget], v27, v28);
     kdebug_trace();
     metalRenderContext5 = [(PXGMetalTextureConverter *)self metalRenderContext];
-    v21 = PXGCreateMetalTextureFromBytesInCGImage(v30, metalRenderContext5, &v74);
+    v21 = PXGCreateMetalTextureFromBytesInCGImage(v30, metalRenderContext5, &v72);
 
     if (!v21)
     {
-      v52 = PXAssertGetLog();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
+      v50 = PXAssertGetLog();
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412546;
         imageCopy = v30;
-        v77 = 2112;
+        v75 = 2112;
         imageCopy3 = image;
-        _os_log_fault_impl(&dword_21AD38000, v52, OS_LOG_TYPE_FAULT, "Failed to create metal texture from redrawn image:%@ sourceImage:%@", buf, 0x16u);
+        _os_log_fault_impl(&dword_21AD38000, v50, OS_LOG_TYPE_FAULT, "Failed to create metal texture from redrawn image:%@ sourceImage:%@", buf, 0x16u);
       }
 
-      v53 = [MEMORY[0x277CCA9B8] px_genericErrorWithDebugDescription:{@"Unable to create texture for image:%@", image}];
+      v51 = [MEMORY[0x277CCA9B8] px_genericErrorWithDebugDescription:{@"Unable to create texture for image:%@", image}];
       v38 = 0;
-      v54 = 0;
+      v52 = 0;
       if (options)
       {
         goto LABEL_39;
@@ -949,7 +947,7 @@ LABEL_14:
   ColorSpace = CGImageGetColorSpace(image);
   if (PXGRequiresColorMatching(ColorSpace, [(PXGMetalTextureConverter *)self destinationColorSpace]))
   {
-    v68 = v11;
+    v66 = v11;
     colorProgramLibrary = [(PXGMetalTextureConverter *)self colorProgramLibrary];
     v36 = [colorProgramLibrary colorProgramForSourceColorSpace:CGImageGetColorSpace(image) flags:v33];
 
@@ -967,7 +965,7 @@ LABEL_14:
         v40 = CGImageGetColorSpace(image);
         *buf = 138543618;
         imageCopy = v40;
-        v77 = 2114;
+        v75 = 2114;
         imageCopy3 = image;
         _os_log_impl(&dword_21AD38000, v39, OS_LOG_TYPE_ERROR, "Unable to convert color space:%{public}@ to color program for image:%{public}@", buf, 0x16u);
       }
@@ -978,23 +976,19 @@ LABEL_14:
       limits2 = [device2 limits];
       LODWORD(v44) = *(limits2 + 132);
       LODWORD(v45) = *(limits2 + 136);
-      v46 = v44;
-      v47 = v45;
-      [(PXGMetalTextureConverter *)self destinationColorSpaceName];
-      [(PXGMetalTextureConverter *)self hasExtendedColorTarget];
-      v48 = PXGMetalCompatibleImageByRedrawingCGImage(image, v46, v47);
+      v46 = PXGMetalCompatibleImageByRedrawingCGImage(image, [(PXGMetalTextureConverter *)self destinationColorSpaceName], [(PXGMetalTextureConverter *)self hasExtendedColorTarget], v44, v45);
 
       metalRenderContext7 = [(PXGMetalTextureConverter *)self metalRenderContext];
-      v38 = PXGCreateMetalTextureFromBytesInCGImage(v48, metalRenderContext7, &v74);
+      v38 = PXGCreateMetalTextureFromBytesInCGImage(v46, metalRenderContext7, &v72);
 
       kdebug_trace();
-      v50 = CGImageGetColorSpace(v48);
-      if (PXGRequiresColorMatching(v50, [(PXGMetalTextureConverter *)self destinationColorSpace]))
+      v48 = CGImageGetColorSpace(v46);
+      if (PXGRequiresColorMatching(v48, [(PXGMetalTextureConverter *)self destinationColorSpace]))
       {
         if (v33)
         {
-          v51 = CGImageGetAlphaInfo(v48);
-          v37 = (v51 < kCGImageAlphaOnly) & (0x61u >> v51);
+          v49 = CGImageGetAlphaInfo(v46);
+          v37 = (v49 < kCGImageAlphaOnly) & (0x61u >> v49);
         }
 
         else
@@ -1003,22 +997,22 @@ LABEL_14:
         }
 
         colorProgramLibrary2 = [(PXGMetalTextureConverter *)self colorProgramLibrary];
-        v36 = [colorProgramLibrary2 colorProgramForSourceColorSpace:CGImageGetColorSpace(v48) flags:v33 | v37];
+        v36 = [colorProgramLibrary2 colorProgramForSourceColorSpace:CGImageGetColorSpace(v46) flags:v33 | v37];
 
         if (!v36)
         {
-          v56 = PXAssertGetLog();
-          if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+          v54 = PXAssertGetLog();
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
           {
-            v66 = CGImageGetColorSpace(v48);
+            v64 = CGImageGetColorSpace(v46);
             destinationColorSpace = [(PXGMetalTextureConverter *)self destinationColorSpace];
             *buf = 138412802;
-            imageCopy = v66;
-            v77 = 2112;
+            imageCopy = v64;
+            v75 = 2112;
             imageCopy3 = destinationColorSpace;
-            v79 = 2112;
-            v80 = v48;
-            _os_log_error_impl(&dword_21AD38000, v56, OS_LOG_TYPE_ERROR, "Unable to color match re-drawn image with colorSpace:%@ destinationColorSpace:%@ image:%@", buf, 0x20u);
+            v77 = 2112;
+            v78 = v46;
+            _os_log_error_impl(&dword_21AD38000, v54, OS_LOG_TYPE_ERROR, "Unable to color match re-drawn image with colorSpace:%@ destinationColorSpace:%@ image:%@", buf, 0x20u);
           }
 
           v36 = 0;
@@ -1035,7 +1029,7 @@ LABEL_14:
       }
     }
 
-    v11 = v68;
+    v11 = v66;
   }
 
   else
@@ -1045,27 +1039,27 @@ LABEL_14:
     v38 = v21;
   }
 
-  v57 = [PXGMetalImageTexture alloc];
-  v58 = v74;
+  v55 = [PXGMetalImageTexture alloc];
+  v56 = v72;
   presentationType = [(PXGMetalTextureConverter *)self presentationType];
-  *&v60 = v12;
-  *&v61 = var2;
-  v54 = [(PXGMetalImageTexture *)v57 initWithTexture:v38 chromaTexture:v22 colorProgram:v36 isOpaque:v37 shaderFlags:v58 orientationTransform:presentationType alpha:v69 suppressContentsRect:v60 presentationType:v61];
+  *&v58 = v12;
+  *&v59 = var2;
+  v52 = [(PXGMetalImageTexture *)v55 initWithTexture:v38 chromaTexture:v22 colorProgram:v36 isOpaque:v37 shaderFlags:v56 orientationTransform:presentationType alpha:v67 suppressContentsRect:v58 presentationType:v59];
   delegate = [(PXGMetalTextureConverter *)self delegate];
-  [delegate metalTextureConverter:self didCreateTexture:v54 options:{v11, LODWORD(var2)}];
+  [delegate metalTextureConverter:self didCreateTexture:v52 options:{v11, LODWORD(var2)}];
 
-  v53 = 0;
+  v51 = 0;
   if (options)
   {
 LABEL_39:
-    v63 = v53;
-    *options = v53;
+    v61 = v51;
+    *options = v51;
   }
 
 LABEL_40:
-  v64 = v54;
+  v62 = v52;
 
-  return v64;
+  return v62;
 }
 
 - (PXGMetalTextureCache)renderTextureCache

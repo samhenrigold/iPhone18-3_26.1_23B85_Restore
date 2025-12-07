@@ -15,39 +15,39 @@
 
 - (BOOL)enumerateItemsWithError:(id *)error usingBlock:(id)block
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   blockCopy = block;
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
   obj = self->_items;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v49, v57, 16, v8);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v48, v56, 16, v8);
   if (!v9)
   {
     v30 = 1;
     goto LABEL_24;
   }
 
-  v10 = *v50;
+  v10 = *v49;
   while (2)
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v50 != v10)
+      if (*v49 != v10)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v49 + 1) + 8 * i);
+      v12 = *(*(&v48 + 1) + 8 * i);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         v31 = MEMORY[0x277CCA9B8];
-        v55 = *MEMORY[0x277CCA450];
+        v54 = *MEMORY[0x277CCA450];
         v17 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v13, @"Unexpected item outer dictionary: %@", v14, v15, v16, v12);
-        v56 = v17;
-        v34 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v32, &v56, &v55, 1, v33);
+        v55 = v17;
+        v34 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v32, &v55, &v54, 1, v33);
         v37 = objc_msgSend_errorWithDomain_code_userInfo_(v31, v35, @"com.apple.koa.profile", 10, v34, v36);
         v38 = v37;
         if (error && v37)
@@ -69,10 +69,10 @@ LABEL_23:
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         v40 = MEMORY[0x277CCA9B8];
-        v53 = *MEMORY[0x277CCA450];
+        v52 = *MEMORY[0x277CCA450];
         v34 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v18, @"Unexpected item inner dictionary: %@", v19, v20, v21, v17);
-        v54 = v34;
-        v38 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v41, &v54, &v53, 1, v42);
+        v53 = v34;
+        v38 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v41, &v53, &v52, 1, v42);
         v45 = objc_msgSend_errorWithDomain_code_userInfo_(v40, v43, @"com.apple.koa.profile", 10, v38, v44);
         if (error && v45)
         {
@@ -98,7 +98,7 @@ LABEL_23:
       }
     }
 
-    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v28, &v49, v57, 16, v29);
+    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v28, &v48, v56, 16, v29);
     v30 = 1;
     if (v9)
     {
@@ -110,17 +110,16 @@ LABEL_23:
 
 LABEL_24:
 
-  v46 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
 - (KVJSONDatasetReader)initWithDictionary:(id)dictionary error:(id *)error
 {
-  v59[1] = *MEMORY[0x277D85DE8];
+  v57[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v55.receiver = self;
-  v55.super_class = KVJSONDatasetReader;
-  v11 = [(KVJSONDatasetReader *)&v55 init];
+  v53.receiver = self;
+  v53.super_class = KVJSONDatasetReader;
+  v11 = [(KVJSONDatasetReader *)&v53 init];
   if (!v11)
   {
     goto LABEL_7;
@@ -131,13 +130,13 @@ LABEL_24:
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     v26 = MEMORY[0x277CCA9B8];
-    v58 = *MEMORY[0x277CCA450];
+    v56 = *MEMORY[0x277CCA450];
     v27 = MEMORY[0x277CCACA8];
     v28 = objc_opt_class();
     v29 = NSStringFromClass(v28);
     v34 = objc_msgSend_stringWithFormat_(v27, v30, @"Unexpected DatasetInfo dictionary class: %@", v31, v32, v33, v29);
-    v59[0] = v34;
-    v37 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v35, v59, &v58, 1, v36);
+    v57[0] = v34;
+    v37 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v35, v57, &v56, 1, v36);
     v40 = objc_msgSend_errorWithDomain_code_userInfo_(v26, v38, @"com.apple.koa.profile", 10, v37, v39);
     goto LABEL_9;
   }
@@ -164,16 +163,15 @@ LABEL_13:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v43 = MEMORY[0x277CCA9B8];
-      v56 = *MEMORY[0x277CCA450];
-      v44 = MEMORY[0x277CCACA8];
-      v45 = v11->_items;
-      v46 = objc_opt_class();
-      v29 = NSStringFromClass(v46);
-      v34 = objc_msgSend_stringWithFormat_(v44, v47, @"Unexpected items array class: %@", v48, v49, v50, v29);
-      v57 = v34;
-      v37 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v51, &v57, &v56, 1, v52);
-      v40 = objc_msgSend_errorWithDomain_code_userInfo_(v43, v53, @"com.apple.koa.profile", 10, v37, v54);
+      v42 = MEMORY[0x277CCA9B8];
+      v54 = *MEMORY[0x277CCA450];
+      v43 = MEMORY[0x277CCACA8];
+      v44 = objc_opt_class();
+      v29 = NSStringFromClass(v44);
+      v34 = objc_msgSend_stringWithFormat_(v43, v45, @"Unexpected items array class: %@", v46, v47, v48, v29);
+      v55 = v34;
+      v37 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v49, &v55, &v54, 1, v50);
+      v40 = objc_msgSend_errorWithDomain_code_userInfo_(v42, v51, @"com.apple.koa.profile", 10, v37, v52);
 LABEL_9:
       if (error && v40)
       {
@@ -189,7 +187,6 @@ LABEL_7:
   v25 = v11;
 LABEL_14:
 
-  v41 = *MEMORY[0x277D85DE8];
   return v25;
 }
 

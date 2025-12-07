@@ -1,4 +1,4 @@
-uint64_t __supportedAnimationPropertyKey(void *a1)
+void *__supportedAnimationPropertyKey(void *a1)
 {
   v1 = __supportedAnimationPropertyKey_onceToken;
   v2 = a1;
@@ -7,7 +7,7 @@ uint64_t __supportedAnimationPropertyKey(void *a1)
     __supportedAnimationPropertyKey_cold_1();
   }
 
-  v3 = [__supportedAnimationPropertyKey___animatableKeys containsObject:v2];
+  v3 = [__supportedAnimationPropertyKey___animatableKeys containsObject:?];
 
   return v3;
 }
@@ -16,7 +16,7 @@ __CFString *NSStringFromMTLumaDodgePillStyle(unint64_t a1)
 {
   if (a1 >= 5)
   {
-    v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"(%li)", a1];
+    v2 = [MEMORY[0x277CCACA8] stringWithFormat:a1];
   }
 
   else
@@ -212,9 +212,11 @@ uint64_t __MTRegisterMaterialKitLogging_block_invoke()
   v1 = MTLogMaterials;
   MTLogMaterials = v0;
 
-  MTLogLuma = os_log_create(MTLogSubsystem, "Luma");
+  v2 = os_log_create(MTLogSubsystem, "Luma");
+  v3 = MTLogLuma;
+  MTLogLuma = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 void sub_21E603D28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id location)
@@ -238,7 +240,7 @@ uint64_t MTMaterialRecipeForUIBlurEffectStyle(uint64_t a1)
   }
 }
 
-double _MainScreenReferenceBounds()
+double _MainScreenReferenceBounds(uint64_t a1, uint64_t a2)
 {
   if (_MainScreenReferenceBounds___once != -1)
   {
@@ -329,7 +331,7 @@ __CFString *NSStringFromMTLumaDodgePillBackgroundLuminance(unint64_t a1)
 {
   if (a1 >= 3)
   {
-    v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"(%li)", a1];
+    v2 = [MEMORY[0x277CCACA8] stringWithFormat:a1];
   }
 
   else
@@ -351,7 +353,7 @@ __CFString *NSStringFromMTLumaDodgeGraphicsQuality(uint64_t a1)
 
     else
     {
-      v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"(%li)", a1];
+      v2 = [MEMORY[0x277CCACA8] stringWithFormat:a1];
     }
   }
 
@@ -365,22 +367,24 @@ __CFString *NSStringFromMTLumaDodgeGraphicsQuality(uint64_t a1)
 
 uint64_t ____supportedAnimationPropertyKey_block_invoke()
 {
-  __supportedAnimationPropertyKey___animatableKeys = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{@"filters.homeAffordanceBase.inputAddWhite", @"filters.homeAffordanceBase.inputAmount", @"filters.homeAffordanceBase.inputOverlayOpacity", @"filters.gaussianBlur.inputRadius", @"filters.colorBrightness.inputAmount", @"filters.colorSaturate.inputAmount", @"filters.colorMatrix.inputColorMatrix", 0}];
+  v0 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{@"filters.homeAffordanceBase.inputAmount", @"filters.homeAffordanceBase.inputOverlayOpacity", @"filters.gaussianBlur.inputRadius", @"filters.colorBrightness.inputAmount", @"filters.colorSaturate.inputAmount", @"filters.colorMatrix.inputColorMatrix", 0}];
+  v1 = __supportedAnimationPropertyKey___animatableKeys;
+  __supportedAnimationPropertyKey___animatableKeys = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 uint64_t MTIsValidBlurInputQuality(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"default"] & 1) != 0 || (objc_msgSend(v1, "isEqualToString:", @"low") & 1) != 0 || (objc_msgSend(v1, "isEqualToString:", @"medium"))
+  if ([v1 isEqualToString:?] & 1) != 0 || (objc_msgSend(v1, "isEqualToString:") & 1) != 0 || (objc_msgSend(v1, "isEqualToString:"))
   {
     v2 = 1;
   }
 
   else
   {
-    v2 = [v1 isEqualToString:@"high"];
+    v2 = [v1 isEqualToString:?];
   }
 
   return v2;
@@ -395,7 +399,7 @@ uint64_t MTCompareBlurInputQualities(void *a1, void *a2)
     MTCompareBlurInputQualities_cold_1();
   }
 
-  if ([(__CFString *)v4 isEqualToString:@"default"])
+  if ([(__CFString *)v4 isEqualToString:?])
   {
     v5 = @"medium";
   }
@@ -407,7 +411,7 @@ uint64_t MTCompareBlurInputQualities(void *a1, void *a2)
 
   v6 = v5;
 
-  if ([(__CFString *)v3 isEqualToString:@"default"])
+  if ([(__CFString *)v3 isEqualToString:?])
   {
     v7 = @"medium";
   }
@@ -419,22 +423,22 @@ uint64_t MTCompareBlurInputQualities(void *a1, void *a2)
 
   v8 = v7;
 
-  if (([(__CFString *)v6 isEqualToString:v8]& 1) != 0)
+  if (([(__CFString *)v6 isEqualToString:?]& 1) != 0)
   {
     v9 = 0;
   }
 
-  else if (([(__CFString *)v6 isEqualToString:@"low"]& 1) != 0)
+  else if (([(__CFString *)v6 isEqualToString:?]& 1) != 0)
   {
     v9 = -1;
   }
 
-  else if (([(__CFString *)v6 isEqualToString:@"high"]& 1) != 0)
+  else if (([(__CFString *)v6 isEqualToString:?]& 1) != 0)
   {
     v9 = 1;
   }
 
-  else if ([(__CFString *)v8 isEqualToString:@"low"])
+  else if ([(__CFString *)v8 isEqualToString:?])
   {
     v9 = 1;
   }
@@ -447,15 +451,16 @@ uint64_t MTCompareBlurInputQualities(void *a1, void *a2)
   return v9;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_21E60D328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21E60D328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -715,6 +720,6 @@ id _MTCoreMaterialRecipeNameForSystemColor(uint64_t a1)
 void MTCompareBlurInputQualities_cold_1()
 {
   v1 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"NSComparisonResult MTCompareBlurInputQualities(NSString *__strong, NSString *__strong)"}];
-  [v1 handleFailureInFunction:v0 file:@"MTUtilities.m" lineNumber:18 description:{@"Invalid parameter not satisfying: %@", @"MTIsValidBlurInputQuality(inputQuality1) && MTIsValidBlurInputQuality(inputQuality2)"}];
+  v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:?];
+  [v1 handleFailureInFunction:@"MTIsValidBlurInputQuality(inputQuality1) && MTIsValidBlurInputQuality(inputQuality2)" file:? lineNumber:? description:?];
 }

@@ -20,7 +20,7 @@
 
 - (id)prepareDataFromRecords:(id)records modelBundle:(id)bundle error:(id *)error
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   bundleCopy = bundle;
   evaluationTask = [(NLPLearnerShadowEvaluator *)self evaluationTask];
@@ -63,9 +63,9 @@ LABEL_6:
   if (error)
   {
     v18 = MEMORY[0x277CCA9B8];
-    v22 = *MEMORY[0x277CCA450];
-    v23[0] = @"unknown evaluation task for PFL";
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v21 = *MEMORY[0x277CCA450];
+    v22[0] = @"unknown evaluation task for PFL";
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
     *error = [v18 errorWithDomain:@"com.apple.NLPLearner.NLPShadowEvaluationErrorDomain" code:4 userInfo:v19];
   }
 
@@ -73,14 +73,12 @@ LABEL_13:
   v17 = 0;
 LABEL_14:
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (id)evaluateModel:(id)model onRecords:(id)records options:(id)options completion:(id)completion error:(id *)error
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   modelCopy = model;
   recordsCopy = records;
   optionsCopy = options;
@@ -95,9 +93,9 @@ LABEL_14:
       if (error)
       {
         v23 = MEMORY[0x277CCA9B8];
-        v34 = *MEMORY[0x277CCA450];
-        v35[0] = @"missing evaluation data for PFL";
-        v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+        v33 = *MEMORY[0x277CCA450];
+        v34[0] = @"missing evaluation data for PFL";
+        v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
         *error = [v23 errorWithDomain:@"com.apple.NLPLearner.NLPShadowEvaluationErrorDomain" code:9 userInfo:v24];
 
         error = 0;
@@ -106,9 +104,9 @@ LABEL_14:
       goto LABEL_16;
     }
 
-    v32 = *MEMORY[0x277D2A280];
-    v33 = modelCopy;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v31 = *MEMORY[0x277D2A280];
+    v32 = modelCopy;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
     v19 = MRLNeuralNetworkCreate();
     v20 = sLog_1;
     if (v19)
@@ -141,12 +139,12 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    v29 = MEMORY[0x277CCA9B8];
-    v30 = *MEMORY[0x277CCA450];
+    v28 = MEMORY[0x277CCA9B8];
+    v29 = *MEMORY[0x277CCA450];
     v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"error loading nlmodel: %@", 0];
-    v31 = v25;
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
-    *error = [v29 errorWithDomain:@"com.apple.NLPLearner.NLPShadowEvaluationErrorDomain" code:6 userInfo:v26];
+    v30 = v25;
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    *error = [v28 errorWithDomain:@"com.apple.NLPLearner.NLPShadowEvaluationErrorDomain" code:6 userInfo:v26];
 
     error = 0;
     goto LABEL_15;
@@ -161,128 +159,114 @@ LABEL_16:
   error = 0;
 LABEL_17:
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return error;
 }
 
 + (BOOL)isInTopKPredictions:(unint64_t)predictions scores:(float *)scores total:(unint64_t)total topK:(unint64_t)k
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   if (k >= total)
   {
-    result = 1;
+    return 1;
+  }
+
+  v6 = (v18 - ((8 * k + 15) & 0xFFFFFFFFFFFFFFF0));
+  v7 = *scores;
+  if (k)
+  {
+    v8 = 0;
+    v9 = 0;
+    do
+    {
+      v6[v8] = v8;
+      if (scores[v8] < v7)
+      {
+        v9 = v8;
+        v7 = scores[v8];
+      }
+
+      ++v8;
+    }
+
+    while (k != v8);
   }
 
   else
   {
-    v6 = (v19 - ((8 * k + 15) & 0xFFFFFFFFFFFFFFF0));
-    v7 = *scores;
-    if (k)
-    {
-      v8 = 0;
-      v9 = 0;
-      do
-      {
-        v6[v8] = v8;
-        if (scores[v8] < v7)
-        {
-          v9 = v8;
-          v7 = scores[v8];
-        }
+    v9 = 0;
+  }
 
-        ++v8;
+  kCopy = k;
+  while (2)
+  {
+    v12 = kCopy;
+    v13 = v7;
+    while (1)
+    {
+      v7 = scores[v12];
+      if (v7 <= v13)
+      {
+        v7 = v13;
+        goto LABEL_21;
       }
 
-      while (k != v8);
-    }
+      v6[v9] = v12;
+      if (k)
+      {
+        break;
+      }
 
-    else
-    {
-      v9 = 0;
-    }
-
-    kCopy = k;
-    while (2)
-    {
-      v12 = kCopy;
+      ++v12;
       v13 = v7;
-      while (1)
+      if (total == v12)
       {
-        v7 = scores[v12];
-        if (v7 <= v13)
-        {
-          v7 = v13;
-          goto LABEL_21;
-        }
-
-        v6[v9] = v12;
-        if (k)
-        {
-          break;
-        }
-
-        ++v12;
-        v13 = v7;
-        if (total == v12)
-        {
-          goto LABEL_25;
-        }
+        return 0;
       }
+    }
 
-      for (i = 0; i != k; ++i)
+    for (i = 0; i != k; ++i)
+    {
+      if (scores[v6[i]] < v7)
       {
-        if (scores[v6[i]] < v7)
-        {
-          v9 = i;
-          v7 = scores[v6[i]];
-        }
+        v9 = i;
+        v7 = scores[v6[i]];
       }
+    }
 
 LABEL_21:
-      kCopy = v12 + 1;
-      if (total - 1 != v12)
-      {
-        continue;
-      }
+    kCopy = v12 + 1;
+    if (total - 1 != v12)
+    {
+      continue;
+    }
 
+    break;
+  }
+
+  if (!k)
+  {
+    return 0;
+  }
+
+  if (*v6 == predictions)
+  {
+    return 1;
+  }
+
+  v15 = 1;
+  do
+  {
+    v16 = v15;
+    if (k == v15)
+    {
       break;
     }
 
-    if (!k)
-    {
-LABEL_25:
-      result = 0;
-      goto LABEL_26;
-    }
-
-    if (*v6 == predictions)
-    {
-      result = 1;
-    }
-
-    else
-    {
-      v16 = 1;
-      do
-      {
-        v17 = v16;
-        if (k == v16)
-        {
-          break;
-        }
-
-        v18 = v6[v16++];
-      }
-
-      while (v18 != predictions);
-      result = v17 < k;
-    }
+    v17 = v6[v15++];
   }
 
-LABEL_26:
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  while (v17 != predictions);
+  return v16 < k;
 }
 
 - (id)evaluateModel:(MontrealNeuralNetwork *)model onData:(id)data options:(id)options completion:(id)completion
@@ -432,20 +416,18 @@ void *__77__NLPLearnerMontrealShadowEvaluator_evaluateModel_onData_options_compl
 
 - (void)evaluateModel:(uint64_t)a1 onRecords:(NSObject *)a2 options:completion:error:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_25AE22000, a2, OS_LOG_TYPE_DEBUG, "running evaluation for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_25AE22000, a2, OS_LOG_TYPE_DEBUG, "running evaluation for %@", &v2, 0xCu);
 }
 
 - (void)evaluateModel:(uint64_t)a1 onRecords:(NSObject *)a2 options:completion:error:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25AE22000, a2, OS_LOG_TYPE_ERROR, "error loading nlmodel %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25AE22000, a2, OS_LOG_TYPE_ERROR, "error loading nlmodel %@", &v2, 0xCu);
 }
 
 @end

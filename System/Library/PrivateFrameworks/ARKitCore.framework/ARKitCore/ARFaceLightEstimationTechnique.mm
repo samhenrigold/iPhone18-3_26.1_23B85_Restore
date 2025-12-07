@@ -25,7 +25,7 @@
     v2->_temperature = 6500.0;
     [ARFaceLightEstimationTechnique _computeShSmoothingAlpha:0.0166666675];
     v2->_shSmoothingAlpha = v5;
-    v6 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.technique.faceLightEstimation");
+    v6 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.technique.faceLightEstimation", 4294967285);
     lightEstimationQueue = v2->_lightEstimationQueue;
     v2->_lightEstimationQueue = v6;
 
@@ -96,7 +96,7 @@
         }
 
         v17 = *(*(&v45 + 1) + 8 * i);
-        [v17 transform];
+        objc_msgSend_transform(v17);
         v19 = vmulq_f32(v18, v18);
         v20 = sqrtf(v19.f32[2] + vaddv_f32(*v19.f32));
         if (v20 < v15 && [v17 isValid])
@@ -213,7 +213,7 @@ intptr_t __71__ARFaceLightEstimationTechnique_requestResultDataAtTimestamp_conte
   v11 = objc_opt_class();
   if (v11)
   {
-    [v11 _transformFaceTrackingData:backgroundCopy];
+    objc_msgSend__transformFaceTrackingData_(v11);
   }
 
   else
@@ -223,7 +223,7 @@ intptr_t __71__ARFaceLightEstimationTechnique_requestResultDataAtTimestamp_conte
   }
 
   CVPixelBufferLockBaseAddress(buffer, 1uLL);
-  arkit::wrap(buffer, v33);
+  arkit::wrap(v33, buffer);
   v31 = 0x3F19999A00000032;
   v32 = 1;
   v29 = [(ARTechnique *)self powerUsage]== 0;
@@ -282,15 +282,15 @@ intptr_t __71__ARFaceLightEstimationTechnique_requestResultDataAtTimestamp_conte
   imageVertices = [dataCopy imageVertices];
   vertices = [dataCopy vertices];
   normals = [dataCopy normals];
-  [dataCopy transform];
-  v32 = __invert_f4(v31);
-  v19 = v32.columns[0];
-  v20 = v32.columns[1];
-  v21 = v32.columns[3];
-  v22 = v32.columns[2];
+  objc_msgSend_transform(dataCopy);
+  v31 = __invert_f4(v30);
+  v19 = v31.columns[0];
+  v20 = v31.columns[1];
+  v21 = v31.columns[3];
+  v22 = v31.columns[2];
   __p = 0;
+  v26 = 0;
   v27 = 0;
-  v28 = 0;
   std::vector<arkit::Landmark>::reserve(&__p, vertexCount);
   if (vertexCount)
   {
@@ -314,31 +314,32 @@ intptr_t __71__ARFaceLightEstimationTechnique_requestResultDataAtTimestamp_conte
       *&v15 = v14.f32[2] + vaddv_f32(*v14.f32);
       *v14.f32 = vrsqrte_f32(v15);
       *v14.f32 = vmul_f32(*v14.f32, vrsqrts_f32(v15, vmul_f32(*v14.f32, *v14.f32)));
-      v24 = *(imageVertices + 8 * v8);
+      v24[0].i64[0] = *(imageVertices + 8 * v8);
       v16 = vmulq_f32(vmulq_n_f32(v13, vmul_f32(*v14.f32, vrsqrts_f32(v15, vmul_f32(*v14.f32, *v14.f32))).f32[0]), v12);
-      v25 = (v16.f32[2] + vaddv_f32(*v16.f32)) > 0.34202;
-      v17 = v27;
-      if (v27 >= v28)
+      v24[0].i8[8] = (v16.f32[2] + vaddv_f32(*v16.f32)) > 0.34202;
+      v17 = v26;
+      if (v26 >= v27)
       {
-        v18 = std::vector<arkit::Landmark>::__emplace_back_slow_path<arkit::Landmark const&>(&__p, &v24);
+        v18 = std::vector<arkit::Landmark>::__emplace_back_slow_path<arkit::Landmark const&>(&__p, v24);
       }
 
       else
       {
-        *v27 = v24;
-        *(v17 + 8) = v25;
+        *v26 = v24[0].i64[0];
+        *(v17 + 8) = v24[0].i8[8];
         v18 = v17 + 12;
       }
 
-      v27 = v18;
+      v26 = v18;
       ++v8;
     }
 
     while (vertexCount != v8);
   }
 
-  *v30.columns[0].i64 = ARMatrix3x3FromMatrix4x4([dataCopy transform]);
-  ARCVAMatrixFromMatrix(v30, &v24);
+  objc_msgSend_transform(dataCopy, *&v19, *&v20, *&v21);
+  ARMatrix3x3FromMatrix4x4();
+  ARCVAMatrixFromMatrix(v24, v29);
   operator new();
 }
 

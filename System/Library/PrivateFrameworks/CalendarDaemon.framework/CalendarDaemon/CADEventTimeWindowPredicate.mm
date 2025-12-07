@@ -74,42 +74,42 @@
 
 - (id)copyMatchingItemsWithDatabase:(CalDatabase *)database
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = [(CADPredicate *)self->_wrappedPredicate copyMatchingItemsWithDatabase:database];
-  v24 = objc_opt_new();
+  v22 = objc_opt_new();
   [(NSDate *)self->_startDate timeIntervalSinceReferenceDate];
   v6 = v5;
   [(NSDate *)self->_endDate timeIntervalSinceReferenceDate];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __61__CADEventTimeWindowPredicate_copyMatchingItemsWithDatabase___block_invoke;
-  v29[3] = &unk_27851AD30;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __61__CADEventTimeWindowPredicate_copyMatchingItemsWithDatabase___block_invoke;
+  v27[3] = &unk_27851AD30;
   selfCopy = self;
-  v29[4] = self;
-  v29[5] = v6;
-  v29[6] = v7;
-  v8 = MEMORY[0x22AA4DCD0](v29);
+  v27[4] = self;
+  v27[5] = v6;
+  v27[6] = v7;
+  v8 = MEMORY[0x22AA4DCD0](v27);
+  v23 = 0u;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
   v9 = v4;
-  v10 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v26;
-    v22 = *v26;
+    v12 = *v24;
+    v20 = *v24;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v26 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v25 + 1) + 8 * i);
+        v14 = *(*(&v23 + 1) + 8 * i);
         v15 = CFGetTypeID(v14);
         if (v15 == CalEventOccurrenceGetTypeID())
         {
@@ -117,7 +117,7 @@
           CalEventOccurrenceGetDate();
           if (v8[2](v8, Event))
           {
-            [v24 addObject:v14];
+            [v22 addObject:v14];
           }
         }
 
@@ -130,25 +130,24 @@
           [(NSDate *)selfCopy->_endDate timeIntervalSinceReferenceDate];
           CalAbsoluteTimeGetGregorianDateWithFallbackToDefaultTimeZone();
           CalEventGetStartDate();
-          if (((v8[2])(v8, v14) & 1) != 0 || (mustStartInInterval = selfCopy->_mustStartInInterval, CalEventOccurrencesExistForEventInDateRange()))
+          if (((v8[2])(v8, v14) & 1) != 0 || CalEventOccurrencesExistForEventInDateRange())
           {
-            [v24 addObject:{v14, v22}];
+            [v22 addObject:{v14, v20}];
           }
 
           CFRelease(v18);
           v9 = v17;
-          v12 = v22;
+          v12 = v20;
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v11);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v24;
+  return v22;
 }
 
 - (CADEventTimeWindowPredicate)initWithCoder:(id)coder

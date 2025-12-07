@@ -37,43 +37,44 @@
   v15 = [NSSet setWithObject:v14];
   [v10 synchronizeUserDefaultsDomain:@"group.com.apple.iBooks" keys:v15 container:@"com.apple.iBooks" appGroupContainer:@"group.com.apple.iBooks"];
 
-  v16 = BKSettingsLog();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  v17 = BKSettingsLog(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
-    v17 = 138412802;
-    v18 = v9;
-    v19 = 2112;
-    v20 = v14;
-    v21 = 2112;
-    v22 = watchCopy;
-    _os_log_impl(&dword_0, v16, OS_LOG_TYPE_INFO, "Synced setting to watch: %@(%@) = %@", &v17, 0x20u);
+    v18 = 138412802;
+    v19 = v9;
+    v20 = 2112;
+    v21 = v14;
+    v22 = 2112;
+    v23 = watchCopy;
+    _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "Synced setting to watch: %@(%@) = %@", &v18, 0x20u);
   }
 }
 
 - (id)bk_appLocalDefaults
 {
-  v8 = 0;
-  v2 = [LSBundleRecord bundleRecordWithApplicationIdentifier:@"com.apple.iBooks" error:&v8];
-  v3 = v8;
+  v9 = 0;
+  v2 = [LSBundleRecord bundleRecordWithApplicationIdentifier:@"com.apple.iBooks" error:&v9];
+  v3 = v9;
+  v4 = v3;
   if (v3)
   {
-    dataContainerURL = BKSettingsLog();
+    dataContainerURL = BKSettingsLog(v3);
     if (os_log_type_enabled(dataContainerURL, OS_LOG_TYPE_ERROR))
     {
-      sub_C164(v3, dataContainerURL);
+      sub_C164(v4, dataContainerURL);
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v6 = [NSUserDefaults alloc];
+    v7 = [NSUserDefaults alloc];
     dataContainerURL = [v2 dataContainerURL];
-    v5 = [v6 _initWithSuiteName:@"com.apple.iBooks" container:dataContainerURL];
+    v6 = [v7 _initWithSuiteName:@"com.apple.iBooks" container:dataContainerURL];
   }
 
-  return v5;
+  return v6;
 }
 
 @end

@@ -21,9 +21,7 @@
 - (void)commonInit
 {
   self->_isMultiSelect = 0;
-  v3 = [NSMutableSet setWithCapacity:10];
-  selectedDevices = self->_selectedDevices;
-  self->_selectedDevices = v3;
+  self->_selectedDevices = [NSMutableSet setWithCapacity:10];
 
   _objc_release_x1();
 }

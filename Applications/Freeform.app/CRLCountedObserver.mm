@@ -82,14 +82,14 @@
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_observer);
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d CRLCountedObserver - attempted to decrement past 0 for observer %@!", v7, v8, v9, v10, v11, v12, v13, "[CRLCountedObserver decrementCount]");
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d CRLCountedObserver - attempted to decrement past 0 for observer %@!", "[CRLCountedObserver decrementCount]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCommands/CRLChangeNotifier.m", 59, WeakRetained);
 
-    v14 = [NSString stringWithUTF8String:"[CRLCountedObserver decrementCount]"];
-    v15 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCommands/CRLChangeNotifier.m"];
-    v16 = objc_loadWeakRetained(&self->_observer);
-    [CRLAssertionHandler handleFailureInFunction:v14 file:v15 lineNumber:59 isFatal:1 description:"CRLCountedObserver - attempted to decrement past 0 for observer %@!", v16, "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCommands/CRLChangeNotifier.m", 59, WeakRetained];
+    v8 = [NSString stringWithUTF8String:"[CRLCountedObserver decrementCount]"];
+    v9 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCommands/CRLChangeNotifier.m"];
+    v10 = objc_loadWeakRetained(&self->_observer);
+    [CRLAssertionHandler handleFailureInFunction:v8 file:v9 lineNumber:59 isFatal:1 description:"CRLCountedObserver - attempted to decrement past 0 for observer %@!", v10];
 
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v17, v18);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v11, v12);
     abort();
   }
 

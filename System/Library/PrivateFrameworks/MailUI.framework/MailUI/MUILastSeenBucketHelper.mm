@@ -49,7 +49,7 @@
   v23 = (*(v21 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   MEMORY[0x28223BE20](v20);
   v24 = v14 - v23;
-  v26 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA35A48) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v26 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA35A48, &qword_214CF1370) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   MEMORY[0x28223BE20](v25);
   v27 = v14 - v26;
   v28 = sub_214CCD254();
@@ -58,7 +58,7 @@
   v31 = (*(v29 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   MEMORY[0x28223BE20](v28);
   v32 = v14 - v31;
-  v34 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA35560) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v34 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA35560, &qword_214CF2350) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   MEMORY[0x28223BE20](storageCopy);
   v35 = v14 - v34;
   v36 = (v8 + 15) & 0xFFFFFFFFFFFFFFF0;

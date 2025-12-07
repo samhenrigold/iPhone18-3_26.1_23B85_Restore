@@ -65,7 +65,7 @@ void __86__WFURLStringParameterState_processWithContext_userInputRequiredHandler
 
 + (id)forceStringToURL:(id)l error:(id *)error
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   whitespaceAndNewlineCharacterSet = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
   v7 = [lCopy stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
@@ -117,18 +117,16 @@ LABEL_5:
 LABEL_13:
   v18 = MEMORY[0x1E696ABC0];
   v19 = *MEMORY[0x1E696A978];
-  v26 = *MEMORY[0x1E696A578];
+  v25 = *MEMORY[0x1E696A578];
   v20 = MEMORY[0x1E696AEC0];
   v21 = WFLocalizedString(@"Invalid URL: %@");
-  v22 = [v20 localizedStringWithFormat:v21, lCopy, v26];
-  v27[0] = v22;
-  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+  v22 = [v20 localizedStringWithFormat:v21, lCopy, v25];
+  v26[0] = v22;
+  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
   *error = [v18 errorWithDomain:v19 code:-1000 userInfo:v23];
 
   v16 = 0;
 LABEL_14:
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

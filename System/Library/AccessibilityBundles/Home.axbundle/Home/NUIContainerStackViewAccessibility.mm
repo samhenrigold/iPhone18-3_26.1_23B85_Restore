@@ -33,29 +33,28 @@
 
 - (BOOL)canBecomeFocused
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
+  v8 = 0u;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
   objc_opt_class();
   v2 = __UIAccessibilityCastAsClass();
   gestureRecognizers = [v2 gestureRecognizers];
 
-  v4 = [gestureRecognizers countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [gestureRecognizers countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(gestureRecognizers);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -64,7 +63,7 @@
         }
       }
 
-      v4 = [gestureRecognizers countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [gestureRecognizers countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -76,7 +75,6 @@
 
 LABEL_11:
 
-  v8 = *MEMORY[0x29EDCA608];
   return v4;
 }
 

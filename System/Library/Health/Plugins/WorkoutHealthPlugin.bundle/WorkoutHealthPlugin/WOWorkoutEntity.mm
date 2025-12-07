@@ -1458,61 +1458,61 @@ uint64_t __70__WOWorkoutEntity_receiveSyncObjects_version_syncStore_profile_erro
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v73 = a3;
-  v72 = a1;
-  v71 = 1;
+  v72 = a3;
+  v71 = a1;
+  v70 = 1;
   memset(__b, 0, sizeof(__b));
   obj = *(a1 + 32);
-  v44 = [obj countByEnumeratingWithState:__b objects:v83 count:16];
-  if (v44)
+  v43 = [obj countByEnumeratingWithState:__b objects:v82 count:16];
+  if (v43)
   {
-    v38 = *__b[2];
-    v39 = 0;
-    v40 = v44;
+    v37 = *__b[2];
+    v38 = 0;
+    v39 = v43;
     while (1)
     {
-      v37 = v39;
-      if (*__b[2] != v38)
+      v36 = v38;
+      if (*__b[2] != v37)
       {
         objc_enumerationMutation(obj);
       }
 
-      v70 = *(__b[1] + 8 * v39);
-      v36 = [v70 uuid];
-      v3 = [v70 type];
-      v68 = [WOWorkoutEntity _lookup:v36 ofType:v3 profile:*(a1 + 40) transaction:location[0]];
+      v69 = *(__b[1] + 8 * v38);
+      v35 = [v69 uuid];
+      v3 = [v69 type];
+      v67 = [WOWorkoutEntity _lookup:v35 ofType:v3 profile:*(a1 + 40) transaction:location[0]];
 
-      if (!v68 || (v67 = [WOWorkoutEntity _shouldInsertOrReplaceLocal:v68 withRemote:v70], (v67 & 1) != 0))
+      if (!v67 || (v66 = [WOWorkoutEntity _shouldInsertOrReplaceLocal:v67 withRemote:v69], (v66 & 1) != 0))
       {
-        v34 = [*(a1 + 40) syncIdentityManager];
-        v65 = [v34 legacySyncIdentity];
+        v33 = [*(a1 + 40) syncIdentityManager];
+        v64 = [v33 legacySyncIdentity];
 
-        v35 = [v68 syncIdentity];
-        if (!v35)
+        v34 = [v67 syncIdentity];
+        if (!v34)
         {
           goto LABEL_21;
         }
 
-        v25 = [HDSyncIdentity alloc];
-        v31 = [v68 syncIdentity];
-        v30 = [v31 hardwareIdentifier];
-        v29 = [v68 syncIdentity];
-        v28 = [v29 databaseIdentifier];
-        v27 = [v68 syncIdentity];
-        v26 = [v27 instanceDiscriminator];
-        v64 = [v25 initWithHardwareIdentifier:v30 databaseIdentifier:v28 instanceDiscriminator:?];
+        v24 = [HDSyncIdentity alloc];
+        v30 = [v67 syncIdentity];
+        v29 = [v30 hardwareIdentifier];
+        v28 = [v67 syncIdentity];
+        v27 = [v28 databaseIdentifier];
+        v26 = [v67 syncIdentity];
+        v25 = [v26 instanceDiscriminator];
+        v63 = [v24 initWithHardwareIdentifier:v29 databaseIdentifier:v27 instanceDiscriminator:?];
 
-        v63 = 0;
-        v33 = [*(a1 + 40) syncIdentityManager];
-        v62 = v63;
-        v32 = [v33 concreteIdentityForIdentity:v64 shouldCreate:1 transaction:location[0] error:&v62];
-        objc_storeStrong(&v63, v62);
-        v4 = v65;
-        v65 = v32;
+        v62 = 0;
+        v32 = [*(a1 + 40) syncIdentityManager];
+        v61 = v62;
+        v31 = [v32 concreteIdentityForIdentity:v63 shouldCreate:1 transaction:location[0] error:&v61];
+        objc_storeStrong(&v62, v61);
+        v4 = v64;
+        v64 = v31;
 
-        if (v65)
+        if (v64)
         {
-          v66 = 0;
+          v65 = 0;
         }
 
         else
@@ -1523,22 +1523,22 @@ uint64_t __70__WOWorkoutEntity_receiveSyncObjects_version_syncStore_profile_erro
           if (os_log_type_enabled(oslog, OS_LOG_TYPE_FAULT))
           {
             log = oslog;
-            v24 = type;
-            __os_log_helper_16_2_1_8_66(v82, v63);
-            _os_log_fault_impl(&dword_0, log, v24, "ConcreteSyncIdentity from received codable is nil %{public}@", v82, 0xCu);
+            v23 = type;
+            __os_log_helper_16_2_1_8_66(v81, v62);
+            _os_log_fault_impl(&dword_0, log, v23, "ConcreteSyncIdentity from received codable is nil %{public}@", v81, 0xCu);
           }
 
           objc_storeStrong(&oslog, 0);
-          v78 = v73;
-          v77 = 0;
-          objc_storeStrong(&v77, v63);
-          if (v77)
+          v77 = v72;
+          v76 = 0;
+          objc_storeStrong(&v76, v62);
+          if (v76)
           {
-            if (v78)
+            if (v77)
             {
-              v22 = v77;
-              v5 = v77;
-              *v78 = v22;
+              v21 = v76;
+              v5 = v76;
+              *v77 = v21;
             }
 
             else
@@ -1546,127 +1546,126 @@ uint64_t __70__WOWorkoutEntity_receiveSyncObjects_version_syncStore_profile_erro
               _HKLogDroppedError();
             }
 
-            v79 = 0;
-            v76 = 1;
+            v78 = 0;
+            v75 = 1;
           }
 
           else
           {
-            v79 = 1;
-            v76 = 1;
+            v78 = 1;
+            v75 = 1;
           }
 
-          objc_storeStrong(&v77, 0);
-          v75 = 0;
-          v66 = 1;
+          objc_storeStrong(&v76, 0);
+          v74 = 0;
+          v65 = 1;
         }
 
+        objc_storeStrong(&v62, 0);
         objc_storeStrong(&v63, 0);
-        objc_storeStrong(&v64, 0);
-        if (!v66)
+        if (!v65)
         {
 LABEL_21:
-          v19 = *(a1 + 72);
-          v21 = [location[0] unprotectedDatabase];
-          v20 = [*(a1 + 72) allProperties];
-          v18 = v73;
-          v51 = _NSConcreteStackBlock;
-          v52 = -1073741824;
-          v53 = 0;
-          v54 = __70__WOWorkoutEntity_receiveSyncObjects_version_syncStore_profile_error___block_invoke_344;
-          v55 = &unk_20678;
-          v58[1] = *(a1 + 72);
-          v56 = v70;
-          v57 = *(a1 + 48);
-          v58[0] = v65;
-          v59 = [v19 insertOrReplaceEntity:1 database:v21 properties:v20 error:v18 bindingHandler:&v51];
+          v18 = *(a1 + 72);
+          v20 = [location[0] unprotectedDatabase];
+          v19 = [*(a1 + 72) allProperties];
+          v17 = v72;
+          v50 = _NSConcreteStackBlock;
+          v51 = -1073741824;
+          v52 = 0;
+          v53 = __70__WOWorkoutEntity_receiveSyncObjects_version_syncStore_profile_error___block_invoke_344;
+          v54 = &unk_20678;
+          v57[1] = *(a1 + 72);
+          v55 = v69;
+          v56 = *(a1 + 48);
+          v57[0] = v64;
+          v58 = [v18 insertOrReplaceEntity:1 database:v20 properties:v19 error:v17 bindingHandler:&v50];
 
-          if (v59)
+          if (v58)
           {
             ++*(*(*(a1 + 64) + 8) + 24);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v12 = *(a1 + 56);
+              v11 = *(a1 + 56);
               [objc_opt_class() persistenceType];
-              v13 = NSNotificationNameForSyncedPersistenceType();
-              [v12 addObject:?];
+              v12 = NSNotificationNameForSyncedPersistenceType();
+              [v11 addObject:?];
             }
 
             else
             {
               _HKInitializeLogging();
-              v47 = HKLogWorkouts;
-              v46 = OS_LOG_TYPE_ERROR;
-              if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+              v46 = HKLogWorkouts;
+              v45 = OS_LOG_TYPE_ERROR;
+              if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
               {
-                v10 = v47;
-                v11 = v46;
-                v8 = objc_opt_class();
-                v45 = v8;
-                __os_log_helper_16_2_1_8_66(v80, v45);
-                _os_log_error_impl(&dword_0, v10, v11, "[WOSync] Unexpected entity class: %{public}@", v80, 0xCu);
-                objc_storeStrong(&v45, 0);
+                v9 = v46;
+                v10 = v45;
+                v7 = objc_opt_class();
+                v44 = v7;
+                __os_log_helper_16_2_1_8_66(v79, v44);
+                _os_log_error_impl(&dword_0, v9, v10, "[WOSync] Unexpected entity class: %{public}@", v79, 0xCu);
+                objc_storeStrong(&v44, 0);
               }
 
-              objc_storeStrong(&v47, 0);
+              objc_storeStrong(&v46, 0);
             }
           }
 
           else
           {
             _HKInitializeLogging();
-            v50 = HKLogWorkouts;
-            v49 = OS_LOG_TYPE_ERROR;
-            if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+            v49 = HKLogWorkouts;
+            v48 = OS_LOG_TYPE_ERROR;
+            if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
             {
-              v15 = v50;
-              v16 = v49;
-              v6 = *(a1 + 72);
-              v7 = objc_opt_class();
-              v14 = v7;
-              v48 = v14;
-              v17 = [v70 uuid];
-              __os_log_helper_16_2_3_8_66_8_64_8_64(v81, v14, v17, *v73);
-              _os_log_error_impl(&dword_0, v15, v16, "[WOSync] %{public}@ unable to store entity of uuid %@, error: %@", v81, 0x20u);
+              v14 = v49;
+              v15 = v48;
+              v6 = objc_opt_class();
+              v13 = v6;
+              v47 = v13;
+              v16 = [v69 uuid];
+              __os_log_helper_16_2_3_8_66_8_64_8_64(v80, v13, v16, *v72);
+              _os_log_error_impl(&dword_0, v14, v15, "[WOSync] %{public}@ unable to store entity of uuid %@, error: %@", v80, 0x20u);
 
-              objc_storeStrong(&v48, 0);
+              objc_storeStrong(&v47, 0);
             }
 
-            objc_storeStrong(&v50, 0);
-            v71 = 0;
+            objc_storeStrong(&v49, 0);
+            v70 = 0;
           }
 
-          objc_storeStrong(&v59, 0);
-          objc_storeStrong(v58, 0);
-          objc_storeStrong(&v57, 0);
+          objc_storeStrong(&v58, 0);
+          objc_storeStrong(v57, 0);
           objc_storeStrong(&v56, 0);
-          v66 = 0;
+          objc_storeStrong(&v55, 0);
+          v65 = 0;
         }
 
-        objc_storeStrong(&v65, 0);
+        objc_storeStrong(&v64, 0);
       }
 
       else
       {
-        v66 = 3;
+        v65 = 3;
       }
 
-      objc_storeStrong(&v68, 0);
-      if (v66)
+      objc_storeStrong(&v67, 0);
+      if (v65)
       {
-        if (v66 != 3)
+        if (v65 != 3)
         {
           break;
         }
       }
 
-      ++v39;
-      if (v37 + 1 >= v40)
+      ++v38;
+      if (v36 + 1 >= v39)
       {
-        v39 = 0;
-        v40 = [obj countByEnumeratingWithState:__b objects:v83 count:16];
-        if (!v40)
+        v38 = 0;
+        v39 = [obj countByEnumeratingWithState:__b objects:v82 count:16];
+        if (!v39)
         {
           goto LABEL_36;
         }
@@ -1677,17 +1676,17 @@ LABEL_21:
   else
   {
 LABEL_36:
-    v66 = 0;
+    v65 = 0;
   }
 
-  if (!v66)
+  if (!v65)
   {
-    v75 = v71 & 1;
-    v66 = 1;
+    v74 = v70 & 1;
+    v65 = 1;
   }
 
   objc_storeStrong(location, 0);
-  return v75 & 1;
+  return v74 & 1;
 }
 
 void __70__WOWorkoutEntity_receiveSyncObjects_version_syncStore_profile_error___block_invoke_344(uint64_t a1, uint64_t a2)
@@ -2023,78 +2022,77 @@ uint64_t __58__WOWorkoutEntity__cleanupDeletedObjectsWithProfile_type___block_in
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, session);
-  v46 = 0;
-  objc_storeStrong(&v46, profile);
-  v45 = 0;
-  objc_storeStrong(&v45, handler);
+  v44 = 0;
+  objc_storeStrong(&v44, profile);
+  v43 = 0;
+  objc_storeStrong(&v43, handler);
   errorCopy = error;
-  v43 = +[NSMutableSet set];
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x20000000;
-  v41 = 32;
-  v42 = -1;
-  v37 = [location[0] maxEncodedBytesPerCodableChangeForSyncEntityClass:selfCopy] / 3;
-  v33[0] = 0;
-  v33[1] = v33;
-  v34 = 0x20000000;
-  v35 = 32;
-  v36 = 0;
-  v15 = selfCopy;
-  database = [v46 database];
-  v13 = errorCopy;
-  v22 = _NSConcreteStackBlock;
-  v23 = -1073741824;
-  v24 = 0;
-  v25 = __94__WOWorkoutEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke;
-  v26 = &unk_20740;
-  v29[3] = selfCopy;
-  v27 = location[0];
-  v30 = rangeCopy;
-  v29[1] = &v38;
-  v28 = v46;
-  v29[0] = v43;
-  v29[2] = v33;
-  v31 = v37;
-  v14 = [v15 performReadTransactionWithHealthDatabase:database error:v13 block:&v22];
+  v41 = +[NSMutableSet set];
+  v37[0] = 0;
+  v37[1] = v37;
+  v38 = 0x20000000;
+  v39 = 32;
+  v40 = -1;
+  v36 = [location[0] maxEncodedBytesPerCodableChangeForSyncEntityClass:selfCopy] / 3;
+  v32[0] = 0;
+  v32[1] = v32;
+  v33 = 0x20000000;
+  v34 = 32;
+  v35 = 0;
+  v14 = selfCopy;
+  database = [v44 database];
+  v12 = errorCopy;
+  v21 = _NSConcreteStackBlock;
+  v22 = -1073741824;
+  v23 = 0;
+  v24 = __94__WOWorkoutEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke;
+  v25 = &unk_20740;
+  v28[3] = selfCopy;
+  v26 = location[0];
+  v29 = rangeCopy;
+  v28[1] = v37;
+  v27 = v44;
+  v28[0] = v41;
+  v28[2] = v32;
+  v30 = v36;
+  v13 = [v14 performReadTransactionWithHealthDatabase:database error:v12 block:&v21];
 
-  v32 = v14;
-  if (v14)
+  v31 = v13;
+  if (v13)
   {
     _HKInitializeLogging();
     oslog = HKLogWorkouts;
     type = OS_LOG_TYPE_DEFAULT;
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = objc_opt_class();
-      v19 = v11;
-      __os_log_helper_16_2_2_8_66_8_2(v51, v19, [v43 count]);
-      _os_log_impl(&dword_0, oslog, type, "[WOSync] %{public}@ sync generated %{public}lu objects for sync", v51, 0x16u);
-      objc_storeStrong(&v19, 0);
+      v10 = objc_opt_class();
+      v18 = v10;
+      __os_log_helper_16_2_2_8_66_8_2(v49, v18, [v41 count]);
+      _os_log_impl(&dword_0, oslog, type, "[WOSync] %{public}@ sync generated %{public}lu objects for sync", v49, 0x16u);
+      objc_storeStrong(&v18, 0);
     }
 
     objc_storeStrong(&oslog, 0);
-    v10 = v45;
-    allObjects = [v43 allObjects];
-    v7 = v39[3];
-    v50 = [v10 sendCodableChange:? resultAnchor:? sequence:? done:? error:?] & 1;
+    v9 = v43;
+    allObjects = [v41 allObjects];
+    v48 = [v9 sendCodableChange:? resultAnchor:? sequence:? done:? error:?] & 1;
   }
 
   else
   {
-    v50 = 0;
+    v48 = 0;
   }
 
-  objc_storeStrong(v29, 0);
-  objc_storeStrong(&v28, 0);
+  objc_storeStrong(v28, 0);
   objc_storeStrong(&v27, 0);
-  _Block_object_dispose(v33, 8);
-  _Block_object_dispose(&v38, 8);
+  objc_storeStrong(&v26, 0);
+  _Block_object_dispose(v32, 8);
+  _Block_object_dispose(v37, 8);
+  objc_storeStrong(&v41, 0);
   objc_storeStrong(&v43, 0);
-  objc_storeStrong(&v45, 0);
-  objc_storeStrong(&v46, 0);
+  objc_storeStrong(&v44, 0);
   objc_storeStrong(location, 0);
-  return v50 & 1;
+  return v48 & 1;
 }
 
 uint64_t __94__WOWorkoutEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2136,19 +2134,19 @@ uint64_t __94__WOWorkoutEntity_generateSyncObjectsForSession_syncAnchorRange_pro
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v31 = 0;
-  objc_storeStrong(&v31, a3);
-  v30 = a4;
-  v29 = a5;
-  v28 = a6;
-  v27 = a7;
-  v26[2] = a8;
-  v26[1] = a1;
-  v26[0] = [*(a1 + 72) persistenceFromRow:a4 type:objc_msgSend(*(a1 + 72) profile:"persistenceType") transaction:{*(a1 + 32), *(a1 + 40)}];
-  if (v26[0])
+  v30 = 0;
+  objc_storeStrong(&v30, a3);
+  v29 = a4;
+  v28 = a5;
+  v27 = a6;
+  v26 = a7;
+  v25[2] = a8;
+  v25[1] = a1;
+  v25[0] = [*(a1 + 72) persistenceFromRow:a4 type:objc_msgSend(*(a1 + 72) profile:"persistenceType") transaction:{*(a1 + 32), *(a1 + 40)}];
+  if (v25[0])
   {
-    [*(a1 + 48) addObject:v26[0]];
-    *(*(*(a1 + 64) + 8) + 24) += [v26[0] encodedByteCount];
+    [*(a1 + 48) addObject:v25[0]];
+    *(*(*(a1 + 64) + 8) + 24) += [v25[0] encodedByteCount];
     if (*(*(*(a1 + 64) + 8) + 24) >= *(a1 + 80))
     {
       _HKInitializeLogging();
@@ -2156,44 +2154,43 @@ uint64_t __94__WOWorkoutEntity_generateSyncObjectsForSession_syncAnchorRange_pro
       type = OS_LOG_TYPE_DEFAULT;
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_2_5_8_66_8_2_8_64_8_2_8_2(v35, *(a1 + 72), [*(a1 + 48) count], *(a1 + 56), *(*(*(a1 + 64) + 8) + 24), *(a1 + 80));
-        _os_log_impl(&dword_0, oslog, type, "[WOSync] %{public}@ limit syncing to %{public}lu objects for session (%@). accumulatedBytes=%{public}lu, maxBytes=%{public}lu", v35, 0x34u);
+        __os_log_helper_16_2_5_8_66_8_2_8_64_8_2_8_2(v34, *(a1 + 72), [*(a1 + 48) count], *(a1 + 56), *(*(*(a1 + 64) + 8) + 24), *(a1 + 80));
+        _os_log_impl(&dword_0, oslog, type, "[WOSync] %{public}@ limit syncing to %{public}lu objects for session (%@). accumulatedBytes=%{public}lu, maxBytes=%{public}lu", v34, 0x34u);
       }
 
       objc_storeStrong(&oslog, 0);
-      *v27 = 1;
+      *v26 = 1;
     }
 
-    v33 = 1;
-    v23 = 1;
+    v32 = 1;
+    v22 = 1;
   }
 
   else
   {
     _HKInitializeLogging();
-    v22 = HKLogWorkouts;
-    v21 = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = HKLogWorkouts;
+    v20 = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v11 = v22;
-      v12 = v21;
-      v8 = *(a1 + 72);
-      v9 = objc_opt_class();
-      v20 = v9;
-      __os_log_helper_16_2_1_8_66(v34, v20);
-      _os_log_error_impl(&dword_0, v11, v12, "[WOSync] %{public}@ error creating WOPersistence from row", v34, 0xCu);
-      objc_storeStrong(&v20, 0);
+      v10 = v21;
+      v11 = v20;
+      v8 = objc_opt_class();
+      v19 = v8;
+      __os_log_helper_16_2_1_8_66(v33, v19);
+      _os_log_error_impl(&dword_0, v10, v11, "[WOSync] %{public}@ error creating WOPersistence from row", v33, 0xCu);
+      objc_storeStrong(&v19, 0);
     }
 
-    objc_storeStrong(&v22, 0);
-    v33 = 0;
-    v23 = 1;
+    objc_storeStrong(&v21, 0);
+    v32 = 0;
+    v22 = 1;
   }
 
-  objc_storeStrong(v26, 0);
-  objc_storeStrong(&v31, 0);
+  objc_storeStrong(v25, 0);
+  objc_storeStrong(&v30, 0);
   objc_storeStrong(location, 0);
-  return v33 & 1;
+  return v32 & 1;
 }
 
 + (id)decodeSyncObjectWithData:(id)data

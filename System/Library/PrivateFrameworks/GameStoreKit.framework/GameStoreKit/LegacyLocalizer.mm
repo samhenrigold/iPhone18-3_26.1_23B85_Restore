@@ -52,11 +52,11 @@
   v4 = sub_24F92B0D8();
   v6 = v5;
   selfCopy = self;
-  sub_24ED018E0(v4, v6);
+  sub_24ED018E0(v4, v6, v8);
 
-  v8 = sub_24F92B098();
+  v9 = sub_24F92B098();
 
-  return v8;
+  return v9;
 }
 
 - (id)string:(id)string with:(id)with
@@ -69,11 +69,11 @@
   }
 
   selfCopy = self;
-  sub_24ED018E0(v6, v8);
+  sub_24ED018E0(v6, v8, v10);
 
-  v10 = sub_24F92B098();
+  v11 = sub_24F92B098();
 
-  return v10;
+  return v11;
 }
 
 - (id)stringForPreferredLocale:(id)locale :(id)a4
@@ -92,11 +92,11 @@
   }
 
   selfCopy = self;
-  sub_24ED01BB0(v6, v8, v9, a4);
+  sub_24ED01BB0(v6, v8, v9, a4, v12);
 
-  v12 = sub_24F92B098();
+  v13 = sub_24F92B098();
 
-  return v12;
+  return v13;
 }
 
 - (id)stringWithCount:(id)count :(int64_t)a4
@@ -149,13 +149,36 @@
   v5 = sub_24F91F7C8();
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
-  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   countCopy = count;
   Locale.normalizedLocale.getter(v8);
-  sub_24F91F708();
+  v11 = sub_24F91F708();
+  v13 = v12;
   (*(v6 + 8))(v8, v5);
-  sub_24ED02D38(count);
+  sub_24ED02D38(count, v11, v13);
+  v15 = v14;
+
+  if (v15)
+  {
+    v16 = sub_24F92B098();
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  return v16;
+}
+
+- (id)formattedCountForPreferredLocale:(id)locale :(id)a4
+{
+  v6 = sub_24F92B0D8();
+  v8 = v7;
+  selfCopy = self;
+  localeCopy = locale;
+  sub_24ED02D38(locale, v6, v8);
   v12 = v11;
 
   if (v12)
@@ -171,30 +194,9 @@
   return v13;
 }
 
-- (id)formattedCountForPreferredLocale:(id)locale :(id)a4
-{
-  sub_24F92B0D8();
-  selfCopy = self;
-  localeCopy = locale;
-  sub_24ED02D38(locale);
-  v9 = v8;
-
-  if (v9)
-  {
-    v10 = sub_24F92B098();
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  return v10;
-}
-
 - (id)timeAgoWithContext:(id)context :(id)a4
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F22EC30);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F22EC30, &qword_24F939880);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = &v19 - v7;
   if (context)
@@ -216,7 +218,7 @@
   sub_24ED032DC(v8, v11, v13);
   v16 = v15;
 
-  sub_24E601704(v8, &unk_27F22EC30);
+  sub_24E601704(v8, &unk_27F22EC30, &qword_24F939880);
   if (v16)
   {
     v17 = sub_24F92B098();
@@ -232,7 +234,7 @@
 
 - (id)formatDateInSentence:(id)sentence :(id)a4 :(id)a5
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F22EC30);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F22EC30, &qword_24F939880);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v23 - v8;
   v10 = sub_24F92B0D8();
@@ -256,7 +258,7 @@
   sub_24ED03990(v10, v12, v13, v15, v9);
   v20 = v19;
 
-  sub_24E601704(v9, &unk_27F22EC30);
+  sub_24E601704(v9, &unk_27F22EC30, &qword_24F939880);
   if (v20)
   {
     v21 = sub_24F92B098();
@@ -272,7 +274,7 @@
 
 - (id)formatDate:(id)date :(id)a4
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F22EC30);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F22EC30, &qword_24F939880);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = &v19 - v7;
   v9 = sub_24F92B0D8();
@@ -294,7 +296,7 @@
   sub_24ED04240(v9, v11, v8, 0xD000000000000013, 0x800000024FA3FB80);
   v16 = v15;
 
-  sub_24E601704(v8, &unk_27F22EC30);
+  sub_24E601704(v8, &unk_27F22EC30, &qword_24F939880);
   if (v16)
   {
     v17 = sub_24F92B098();
@@ -310,7 +312,7 @@
 
 - (id)formatDateWithContext:(id)context :(id)a4 :(id)a5
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F22EC30);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F22EC30, &qword_24F939880);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v23 - v8;
   v10 = sub_24F92B0D8();
@@ -334,7 +336,7 @@
   sub_24ED04240(v10, v12, v9, v15, v17);
   v20 = v19;
 
-  sub_24E601704(v9, &unk_27F22EC30);
+  sub_24E601704(v9, &unk_27F22EC30, &qword_24F939880);
   if (v20)
   {
     v21 = sub_24F92B098();
@@ -350,22 +352,23 @@
 
 - (id)formatDuration:(int64_t)duration :(id)a4
 {
-  sub_24F92B0D8();
-  selfCopy = self;
-  sub_24ED05224(duration);
+  v6 = sub_24F92B0D8();
   v8 = v7;
+  selfCopy = self;
+  sub_24ED05224(duration, v6, v8);
+  v11 = v10;
 
-  if (v8)
+  if (v11)
   {
-    v9 = sub_24F92B098();
+    v12 = sub_24F92B098();
   }
 
   else
   {
-    v9 = 0;
+    v12 = 0;
   }
 
-  return v9;
+  return v12;
 }
 
 - (_TtC12GameStoreKit15LegacyLocalizer)init

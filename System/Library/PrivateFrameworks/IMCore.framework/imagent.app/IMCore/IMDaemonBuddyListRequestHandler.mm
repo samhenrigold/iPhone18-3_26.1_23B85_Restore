@@ -1,4 +1,5 @@
 @interface IMDaemonBuddyListRequestHandler
+- (void)acceptSubscriptionRequest:(BOOL)request from:(id)from account:(id)account;
 - (void)changeGroup:(id)group changes:(id)changes account:(id)account;
 - (void)changeGroups:(id)groups account:(id)account;
 - (void)renameGroup:(id)group to:(id)to account:(id)account;
@@ -149,6 +150,55 @@ LABEL_7:
       v19 = 138412290;
       v20 = accountCopy;
       _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "FIND_SESSION: No session ever found for account: %@", &v19, 0xCu);
+    }
+  }
+}
+
+- (void)acceptSubscriptionRequest:(BOOL)request from:(id)from account:(id)account
+{
+  requestCopy = request;
+  fromCopy = from;
+  accountCopy = account;
+  v9 = +[IMDAccountController sharedAccountController];
+  v10 = [v9 sessionForAccount:accountCopy];
+
+  if (v10)
+  {
+    goto LABEL_7;
+  }
+
+  if (IMOSLoggingEnabled())
+  {
+    v11 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    {
+      v18 = 138412290;
+      v19 = accountCopy;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "FIND_SESSION: No session found for account, attempting to find ANYTHING for the service: %@", &v18, 0xCu);
+    }
+  }
+
+  v12 = +[IMDAccountController sharedAccountController];
+  v13 = +[IMDAccountController sharedAccountController];
+  v14 = [v13 accountForAccountID:accountCopy];
+  service = [v14 service];
+  internalName = [service internalName];
+  v10 = [v12 anySessionForServiceName:internalName];
+
+  if (v10)
+  {
+LABEL_7:
+    [v10 acceptSubscriptionRequest:requestCopy from:fromCopy];
+  }
+
+  else if (IMOSLoggingEnabled())
+  {
+    v17 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    {
+      v18 = 138412290;
+      v19 = accountCopy;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "FIND_SESSION: No session ever found for account: %@", &v18, 0xCu);
     }
   }
 }

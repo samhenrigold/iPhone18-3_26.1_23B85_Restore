@@ -88,24 +88,17 @@ LABEL_15:
     objc_storeWeak((v13 + 24), v3);
   }
 
-  v25 = v3;
-  CFAutorelease(v25);
+  v22 = v3;
+  CFAutorelease(v22);
   v21 = a1[5];
   if (v21)
   {
-    [v25 getBytes:v21 range:{0, 8 * a1[6]}];
+    [v22 getBytes:v21 range:{0, 8 * a1[6]}];
   }
 
   if (a1[7])
   {
-    v22 = *(a1[4] + 16);
-    if (v22)
-    {
-      v23 = 8 * *(v22 + 16);
-    }
-
-    v24 = a1[6];
-    [v25 getBytes:? range:?];
+    [v22 getBytes:? range:?];
   }
 }
 

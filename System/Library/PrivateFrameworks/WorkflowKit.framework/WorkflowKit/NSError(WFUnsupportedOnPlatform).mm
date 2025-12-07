@@ -39,9 +39,9 @@ LABEL_34:
         goto LABEL_35;
       }
 
-      v17 = [v9 isEqualToString:@"NotAvailableOnSpecifiedPlatform"];
+      isEqualToString = objc_msgSend_isEqualToString_(v9);
       v18 = MEMORY[0x1E696AEC0];
-      if (v17)
+      if (isEqualToString)
       {
         v19 = @"The action “%@” is not supported on %@.";
       }
@@ -63,7 +63,7 @@ LABEL_34:
         goto LABEL_35;
       }
 
-      v23 = [v9 isEqualToString:@"NotAvailableOnSpecifiedPlatform"];
+      v23 = objc_msgSend_isEqualToString_(v9);
       v24 = MEMORY[0x1E696AEC0];
       if (v23)
       {
@@ -87,7 +87,7 @@ LABEL_34:
 
   if (v10)
   {
-    v13 = [v9 isEqualToString:@"NotAvailableOnSpecifiedPlatform"];
+    v13 = objc_msgSend_isEqualToString_(v9);
     v14 = MEMORY[0x1E696AEC0];
     if (v13)
     {
@@ -143,14 +143,14 @@ LABEL_36:
 - (uint64_t)wf_isUnsupportedOnPlatformError
 {
   domain = [self domain];
-  v2 = [domain isEqualToString:@"WFUnsupportedOnPlatformErrorDomain"];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-  return v2;
+  return isEqualToString;
 }
 
 + (id)wf_unsupportedParameterErrorWithParameterName:()WFUnsupportedOnPlatform errorType:platformIdiom:
 {
-  v19[3] = *MEMORY[0x1E69E9840];
+  v18[3] = *MEMORY[0x1E69E9840];
   v9 = a3;
   v10 = a4;
   if (!v10)
@@ -160,24 +160,22 @@ LABEL_36:
   }
 
   v11 = MEMORY[0x1E696ABC0];
-  v19[0] = v9;
-  v18[0] = @"WFUnsupportedOnPlatformParameterName";
-  v18[1] = @"WFUnsupportedOnPlatformIdiom";
+  v18[0] = v9;
+  v17[0] = @"WFUnsupportedOnPlatformParameterName";
+  v17[1] = @"WFUnsupportedOnPlatformIdiom";
   v12 = [MEMORY[0x1E696AD98] numberWithInteger:a5];
-  v18[2] = @"WFUnsupportedOnPlatformErrorType";
-  v19[1] = v12;
-  v19[2] = v10;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:3];
+  v17[2] = @"WFUnsupportedOnPlatformErrorType";
+  v18[1] = v12;
+  v18[2] = v10;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:3];
   v14 = [v11 errorWithDomain:@"WFUnsupportedOnPlatformErrorDomain" code:1 userInfo:v13];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 + (id)wf_unsupportedActionErrorWithType:()WFUnsupportedOnPlatform platformIdiom:
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   v7 = a3;
   if (!v7)
   {
@@ -186,15 +184,13 @@ LABEL_36:
   }
 
   v8 = MEMORY[0x1E696ABC0];
-  v15[0] = @"WFUnsupportedOnPlatformIdiom";
+  v14[0] = @"WFUnsupportedOnPlatformIdiom";
   v9 = [MEMORY[0x1E696AD98] numberWithInteger:a4];
-  v15[1] = @"WFUnsupportedOnPlatformErrorType";
-  v16[0] = v9;
-  v16[1] = v7;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v14[1] = @"WFUnsupportedOnPlatformErrorType";
+  v15[0] = v9;
+  v15[1] = v7;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
   v11 = [v8 errorWithDomain:@"WFUnsupportedOnPlatformErrorDomain" code:0 userInfo:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

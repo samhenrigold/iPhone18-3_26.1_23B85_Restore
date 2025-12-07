@@ -16,7 +16,7 @@
   [defaultCenter removeObserver:selfCopy name:v6 object:sharedInstance];
 
   v8.receiver = selfCopy;
-  v8.super_class = type metadata accessor for AudioManager();
+  v8.super_class = type metadata accessor for AudioManager(0);
   [(AudioManager *)&v8 dealloc];
 }
 
@@ -24,14 +24,13 @@
 {
   v4 = sub_25AEA0BB8();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_25AEA0B98();
   selfCopy = self;
   sub_25AE51E84();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)audioPlayerDidFinishPlaying:(id)playing successfully:(BOOL)successfully

@@ -213,7 +213,7 @@
   v16 = v5;
   externalCopy = external;
   v11 = MEMORY[0x277CBEB98];
-  v12 = TSABundle();
+  v12 = TSABundle(self, a2);
   if (externalCopy)
   {
     v13 = @"Some external movies are missing because they\\U2019re no longer available.";
@@ -231,7 +231,7 @@
 
 - (NSSet)missingFontWarningMessages
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   unavailableDocumentFonts = [(TSKDocumentRoot *)self unavailableDocumentFonts];
   v3 = [unavailableDocumentFonts count];
   if (!v3)
@@ -240,31 +240,34 @@
   }
 
   v4 = [MEMORY[0x277CBEB58] setWithCapacity:v3];
-  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v5 = [unavailableDocumentFonts countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v14 = 0u;
+  v5 = [unavailableDocumentFonts countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = v5;
-    v7 = *v11;
+    v7 = v5;
+    v8 = *v12;
     do
     {
-      for (i = 0; i != v6; ++i)
+      v9 = 0;
+      do
       {
-        if (*v11 != v7)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(unavailableDocumentFonts);
         }
 
-        -[NSSet addObject:](v4, "addObject:", [MEMORY[0x277CCACA8] stringWithFormat:objc_msgSend(TSABundle(), "localizedStringForKey:value:table:", @"The font %@ is missing. Your text might look different.", &stru_287D36338, @"TSApplication", *(*(&v10 + 1) + 8 * i)]);
+        v5 = -[NSSet addObject:](v4, "addObject:", [MEMORY[0x277CCACA8] stringWithFormat:objc_msgSend(TSABundle(v5, v6), "localizedStringForKey:value:table:", @"The font %@ is missing. Your text might look different.", &stru_287D36338, @"TSApplication", *(*(&v11 + 1) + 8 * v9++)]);
       }
 
-      v6 = [unavailableDocumentFonts countByEnumeratingWithState:&v10 objects:v14 count:16];
+      while (v7 != v9);
+      v5 = [unavailableDocumentFonts countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = v5;
     }
 
-    while (v6);
+    while (v5);
   }
 
   return v4;
@@ -531,7 +534,7 @@ uint64_t __91__TSADocumentRoot_insertTextPresetDisplayItemsPreservingGrouping_in
 {
   v8 = 0;
   v7 = 0;
-  result = [objc_msgSend(*(a1 + 32) p_parseNumberOutOfBasename:objc_msgSend(a2 hasNumber:"name") number:{&v8, &v7), "isEqualToString:", *(a1 + 40)}];
+  result = [objc_msgSend(*(a1 + 32) p_parseNumberOutOfBasename:objc_msgSend(a2 hasNumber:"name" number:{a3), &v8, &v7), "isEqualToString:", *(a1 + 40)}];
   if (result)
   {
     if (*(a1 + 56) == 1 && v8 == 1 && v7 >= *(a1 + 48))
@@ -553,7 +556,7 @@ uint64_t __91__TSADocumentRoot_insertTextPresetDisplayItemsPreservingGrouping_in
 {
   v9 = 0;
   v8 = 0;
-  v6 = [*(a1 + 40) indexOfObject:{objc_msgSend(*(a1 + 32), "p_parseNumberOutOfBasename:hasNumber:number:", objc_msgSend(a2, "name", 0), &v9, &v8)}];
+  v6 = [*(a1 + 40) indexOfObject:{objc_msgSend(*(a1 + 32), "p_parseNumberOutOfBasename:hasNumber:number:", objc_msgSend(a2, "name", a3, 0), &v9, &v8)}];
   if (v6 == 0x7FFFFFFFFFFFFFFFLL || v6 > *(a1 + 48))
   {
     return 0;
@@ -834,7 +837,7 @@ uint64_t __91__TSADocumentRoot_insertTextPresetDisplayItemsPreservingGrouping_in
   [(TSADocumentRoot *)self p_removeStyles:v6];
 }
 
-uint64_t __67__TSADocumentRoot_p_replaceStyles_andChildrenWithVariationOfStyle___block_invoke(uint64_t a1, void *a2)
+void *__67__TSADocumentRoot_p_replaceStyles_andChildrenWithVariationOfStyle___block_invoke(uint64_t a1, void *a2)
 {
   result = [objc_msgSend(a2 "referencedStyles")];
   if (result)

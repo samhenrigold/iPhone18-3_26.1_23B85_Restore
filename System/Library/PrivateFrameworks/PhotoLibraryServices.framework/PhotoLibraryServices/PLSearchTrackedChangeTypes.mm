@@ -64,9 +64,9 @@
   v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:5];
 
   v15 = +[PLManagedAsset entityName];
-  LOBYTE(v10) = [v8 isEqualToString:v15];
+  LOBYTE(v10) = objc_msgSend_isEqualToString_(v8);
 
-  if (v10 & 1) != 0 || (+[PLManagedAlbum entityName](PLManagedAlbum, "entityName"), v16 = objc_claimAutoreleasedReturnValue(), v17 = [v8 isEqualToString:v16], v16, (v17) || (+[PLMemory entityName](PLMemory, "entityName"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v8, "isEqualToString:", v18), v18, (v19) || (+[PLPhotosHighlight entityName](PLPhotosHighlight, "entityName"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v8, "isEqualToString:", v20), v20, (v21))
+  if (v10 & 1) != 0 || (+[PLManagedAlbum entityName](PLManagedAlbum, "entityName"), v16 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v8), v16, (isEqualToString) || (+[PLMemory entityName](PLMemory, "entityName"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend_isEqualToString_(v8), v18, (v19) || (+[PLPhotosHighlight entityName], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend_isEqualToString_(v8), v20, (v21))
   {
     v22 = @"uuid";
 LABEL_7:
@@ -77,7 +77,7 @@ LABEL_7:
   }
 
   v27 = +[PLPerson entityName];
-  v28 = [v8 isEqualToString:v27];
+  v28 = objc_msgSend_isEqualToString_(v8);
 
   if (v28)
   {
@@ -139,8 +139,8 @@ LABEL_15:
   v25 = +[PLDetectedFace entityName];
   v26 = [v24 entityForName:v25 inManagedObjectContext:managedObjectContext];
 
-  entity = [changedObjectID entity];
-  LOBYTE(v13) = [entity isEqual:v10];
+  v27 = objc_msgSend_entity(changedObjectID);
+  LOBYTE(v13) = [v27 isEqual:v10];
 
   v28 = off_1E75601A8;
   if (v13)
@@ -148,8 +148,8 @@ LABEL_15:
     goto LABEL_14;
   }
 
-  entity2 = [changedObjectID entity];
-  v30 = [entity2 isEqual:v44];
+  v29 = objc_msgSend_entity(changedObjectID);
+  v30 = [v29 isEqual:v44];
 
   if (v30)
   {
@@ -159,8 +159,8 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  entity3 = [changedObjectID entity];
-  v32 = [entity3 isEqual:v43];
+  v31 = objc_msgSend_entity(changedObjectID);
+  v32 = [v31 isEqual:v43];
 
   if (v32)
   {
@@ -168,8 +168,8 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  entity4 = [changedObjectID entity];
-  v34 = [entity4 isEqual:v17];
+  v33 = objc_msgSend_entity(changedObjectID);
+  v34 = [v33 isEqual:v17];
 
   if (v34)
   {
@@ -177,8 +177,8 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  entity5 = [changedObjectID entity];
-  v36 = [entity5 isEqual:v20];
+  v35 = objc_msgSend_entity(changedObjectID);
+  v36 = [v35 isEqual:v20];
 
   if (v36)
   {
@@ -186,8 +186,8 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  entity6 = [changedObjectID entity];
-  v38 = [entity6 isEqual:v23];
+  v37 = objc_msgSend_entity(changedObjectID);
+  v38 = [v37 isEqual:v23];
 
   if (v38)
   {
@@ -195,8 +195,8 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  entity7 = [changedObjectID entity];
-  v40 = [entity7 isEqual:v26];
+  v39 = objc_msgSend_entity(changedObjectID);
+  v40 = [v39 isEqual:v26];
 
   if (v40)
   {
@@ -215,9 +215,9 @@ LABEL_15:
   v28 = *MEMORY[0x1E69E9840];
   entityCopy = entity;
   v5 = +[PLManagedAsset entityName];
-  v6 = [entityCopy isEqualToString:v5];
+  isEqualToString = objc_msgSend_isEqualToString_(entityCopy);
 
-  if (v6)
+  if (isEqualToString)
   {
     searchTrackedAttributes = [(PLSearchTrackedChangeTypes *)self searchTrackedAttributes];
     assetAttributesTrackedForSearch = [searchTrackedAttributes assetAttributesTrackedForSearch];
@@ -228,7 +228,7 @@ LABEL_17:
   }
 
   v9 = +[PLMediaAnalysisAssetAttributes entityName];
-  v10 = [entityCopy isEqualToString:v9];
+  v10 = objc_msgSend_isEqualToString_(entityCopy);
 
   if (v10)
   {
@@ -238,7 +238,7 @@ LABEL_17:
   }
 
   v11 = +[PLManagedAlbum entityName];
-  v12 = [entityCopy isEqualToString:v11];
+  v12 = objc_msgSend_isEqualToString_(entityCopy);
 
   if (v12)
   {
@@ -248,7 +248,7 @@ LABEL_17:
   }
 
   v13 = +[PLFetchingAlbum entityName];
-  v14 = [entityCopy isEqualToString:v13];
+  v14 = objc_msgSend_isEqualToString_(entityCopy);
 
   if (v14)
   {
@@ -258,7 +258,7 @@ LABEL_17:
   }
 
   v15 = +[PLMemory entityName];
-  v16 = [entityCopy isEqualToString:v15];
+  v16 = objc_msgSend_isEqualToString_(entityCopy);
 
   if (v16)
   {
@@ -268,7 +268,7 @@ LABEL_17:
   }
 
   v17 = +[PLPhotosHighlight entityName];
-  v18 = [entityCopy isEqualToString:v17];
+  v18 = objc_msgSend_isEqualToString_(entityCopy);
 
   if (v18)
   {
@@ -278,7 +278,7 @@ LABEL_17:
   }
 
   v19 = +[PLPerson entityName];
-  v20 = [entityCopy isEqualToString:v19];
+  v20 = objc_msgSend_isEqualToString_(entityCopy);
 
   if (v20)
   {
@@ -288,7 +288,7 @@ LABEL_17:
   }
 
   v21 = +[PLDetectedFace entityName];
-  v22 = [entityCopy isEqualToString:v21];
+  v22 = objc_msgSend_isEqualToString_(entityCopy);
 
   if (v22)
   {

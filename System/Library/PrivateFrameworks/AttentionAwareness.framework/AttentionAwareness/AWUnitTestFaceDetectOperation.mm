@@ -36,15 +36,15 @@
   dispatch_sync(awQueue, v4);
 }
 
-uint64_t __54__AWUnitTestFaceDetectOperation_awSetFaceDetectError___block_invoke(uint64_t result)
+unsigned __int8 *__54__AWUnitTestFaceDetectOperation_awSetFaceDetectError___block_invoke(unsigned __int8 *result)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v1 = *(result + 40);
-  *(*(result + 32) + 122) = v1;
+  v17 = *MEMORY[0x1E69E9840];
+  v1 = result[40];
+  *(*(result + 4) + 122) = v1;
   if (v1 == 1)
   {
     v2 = result;
-    result = [*(result + 32) mode];
+    result = [*(result + 4) mode];
     if (result != 1)
     {
       if (currentLogLevel == 5)
@@ -63,16 +63,16 @@ uint64_t __54__AWUnitTestFaceDetectOperation_awSetFaceDetectError___block_invoke
             v5 = v4 / 1000000000.0;
           }
 
-          v10 = *(v2 + 32);
-          *v17 = 134218240;
-          *&v17[4] = v5;
-          *&v17[12] = 2048;
-          *&v17[14] = v10;
+          v10 = *(v2 + 4);
+          *v16 = 134218240;
+          *&v16[4] = v5;
+          *&v16[12] = 2048;
+          *&v16[14] = v10;
           v11 = "%13.5f: UNIT TEST: delivering error for operation %p";
           v12 = v3;
           v13 = 22;
 LABEL_21:
-          _os_log_impl(&dword_1BB2EF000, v12, OS_LOG_TYPE_DEFAULT, v11, v17, v13);
+          _os_log_impl(&dword_1BB2EF000, v12, OS_LOG_TYPE_DEFAULT, v11, v16, v13);
         }
       }
 
@@ -81,11 +81,10 @@ LABEL_21:
         if (currentLogLevel < 6)
         {
 LABEL_23:
-          v15 = [AWUnitTestPearlDevice sharedDevice:*v17];
+          v15 = [AWUnitTestPearlDevice sharedDevice:*v16];
           [v15 deliverPearlDeviceState:5];
 
-          result = [*(v2 + 32) awFinishWithReason:3];
-          goto LABEL_24;
+          return [*(v2 + 4) awFinishWithReason:3];
         }
 
         v3 = _AALog();
@@ -112,15 +111,15 @@ LABEL_23:
                 v9 = v8 / 1000000000.0;
               }
 
-              v14 = *(v2 + 32);
-              *v17 = 136315906;
-              *&v17[4] = v6;
-              *&v17[12] = 1024;
-              *&v17[14] = 600;
-              *&v17[18] = 2048;
-              *&v17[20] = v9;
-              *&v17[28] = 2048;
-              *&v17[30] = v14;
+              v14 = *(v2 + 4);
+              *v16 = 136315906;
+              *&v16[4] = v6;
+              *&v16[12] = 1024;
+              *&v16[14] = 600;
+              *&v16[18] = 2048;
+              *&v16[20] = v9;
+              *&v16[28] = 2048;
+              *&v16[30] = v14;
               v11 = "%30s:%-4d: %13.5f: UNIT TEST: delivering error for operation %p";
               v12 = v3;
               v13 = 38;
@@ -134,8 +133,6 @@ LABEL_23:
     }
   }
 
-LABEL_24:
-  v16 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -152,7 +149,7 @@ LABEL_24:
 
 uint64_t __47__AWUnitTestFaceDetectOperation_awSetFaceFound__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (currentLogLevel == 5)
   {
     v2 = _AALog();
@@ -170,20 +167,20 @@ uint64_t __47__AWUnitTestFaceDetectOperation_awSetFaceFound__block_invoke(uint64
       }
 
       v9 = *(a1 + 32);
-      *v16 = 134218240;
-      *&v16[4] = v4;
-      *&v16[12] = 2048;
-      *&v16[14] = v9;
+      *v15 = 134218240;
+      *&v15[4] = v4;
+      *&v15[12] = 2048;
+      *&v15[14] = v9;
       v10 = "%13.5f: UNIT TEST: delivering face present event for operation %p";
       v11 = v2;
       v12 = 22;
 LABEL_19:
-      _os_log_impl(&dword_1BB2EF000, v11, OS_LOG_TYPE_DEFAULT, v10, v16, v12);
+      _os_log_impl(&dword_1BB2EF000, v11, OS_LOG_TYPE_DEFAULT, v10, v15, v12);
     }
 
 LABEL_20:
 
-    goto LABEL_21;
+    return [*(a1 + 32) awDeliverFaceFound];
   }
 
   if (currentLogLevel >= 6)
@@ -213,14 +210,14 @@ LABEL_20:
           }
 
           v13 = *(a1 + 32);
-          *v16 = 136315906;
-          *&v16[4] = v5;
-          *&v16[12] = 1024;
-          *&v16[14] = 589;
-          *&v16[18] = 2048;
-          *&v16[20] = v8;
-          *&v16[28] = 2048;
-          *&v16[30] = v13;
+          *v15 = 136315906;
+          *&v15[4] = v5;
+          *&v15[12] = 1024;
+          *&v15[14] = 589;
+          *&v15[18] = 2048;
+          *&v15[20] = v8;
+          *&v15[28] = 2048;
+          *&v15[30] = v13;
           v10 = "%30s:%-4d: %13.5f: UNIT TEST: delivering face present event for operation %p";
           v11 = v2;
           v12 = 38;
@@ -232,10 +229,7 @@ LABEL_20:
     goto LABEL_20;
   }
 
-LABEL_21:
-  result = [*(a1 + 32) awDeliverFaceFound];
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) awDeliverFaceFound];
 }
 
 - (void)cancel
@@ -251,7 +245,7 @@ LABEL_21:
 
 - (void)awDeliverFaceFound
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_awQueue);
   if (self->_finished)
   {
@@ -271,15 +265,15 @@ LABEL_21:
           v5 = v4 / 1000000000.0;
         }
 
-        v16 = 134218240;
-        v17 = v5;
-        v18 = 2048;
-        *v19 = self;
-        v12 = "%13.5f: UNIT TEST: face found for already finished operation %p";
-        v13 = v3;
-        v14 = 22;
+        v14 = 134218240;
+        v15 = v5;
+        v16 = 2048;
+        *v17 = self;
+        v11 = "%13.5f: UNIT TEST: face found for already finished operation %p";
+        v12 = v3;
+        v13 = 22;
 LABEL_23:
-        _os_log_impl(&dword_1BB2EF000, v13, OS_LOG_TYPE_DEFAULT, v12, &v16, v14);
+        _os_log_impl(&dword_1BB2EF000, v12, OS_LOG_TYPE_DEFAULT, v11, &v14, v13);
       }
     }
 
@@ -287,175 +281,166 @@ LABEL_23:
     {
       if (currentLogLevel < 6)
       {
-LABEL_25:
-        v15 = *MEMORY[0x1E69E9840];
         return;
       }
 
       v3 = _AALog();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/Unit Testing/PearlUnitTestSupport.m";
+        v7 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/Unit Testing/PearlUnitTestSupport.m";
         for (i = "Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/Unit Testing/PearlUnitTestSupport.m"; ; ++i)
         {
           if (*(i - 1) == 47)
           {
-            v8 = i;
+            v7 = i;
           }
 
           else if (!*(i - 1))
           {
-            v10 = absTimeNS();
-            if (v10 == -1)
+            v9 = absTimeNS();
+            if (v9 == -1)
             {
-              v11 = INFINITY;
+              v10 = INFINITY;
             }
 
             else
             {
-              v11 = v10 / 1000000000.0;
+              v10 = v9 / 1000000000.0;
             }
 
-            v16 = 136315906;
-            v17 = *&v8;
-            v18 = 1024;
-            *v19 = 570;
-            *&v19[4] = 2048;
-            *&v19[6] = v11;
-            v20 = 2048;
+            v14 = 136315906;
+            v15 = *&v7;
+            v16 = 1024;
+            *v17 = 570;
+            *&v17[4] = 2048;
+            *&v17[6] = v10;
+            v18 = 2048;
             selfCopy = self;
-            v12 = "%30s:%-4d: %13.5f: UNIT TEST: face found for already finished operation %p";
-            v13 = v3;
-            v14 = 38;
+            v11 = "%30s:%-4d: %13.5f: UNIT TEST: face found for already finished operation %p";
+            v12 = v3;
+            v13 = 38;
             goto LABEL_23;
           }
         }
       }
     }
-
-    goto LABEL_25;
   }
 
-  v6 = +[AWUnitTestPearlDevice sharedDevice];
-  [v6 deliverPearlDeviceEvent:3];
+  else
+  {
+    v6 = +[AWUnitTestPearlDevice sharedDevice];
+    [v6 deliverPearlDeviceEvent:3];
 
-  v7 = *MEMORY[0x1E69E9840];
-
-  [(AWUnitTestFaceDetectOperation *)self awFinishWithReason:1];
+    [(AWUnitTestFaceDetectOperation *)self awFinishWithReason:1];
+  }
 }
 
 - (void)awFinishWithReason:(int64_t)reason
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_awQueue);
-  if (self->_finished)
-  {
-    if (currentLogLevel == 5)
-    {
-      v5 = _AALog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-      {
-        v6 = absTimeNS();
-        if (v6 == -1)
-        {
-          v7 = INFINITY;
-        }
-
-        else
-        {
-          v7 = v6 / 1000000000.0;
-        }
-
-        *buf = 134218498;
-        v19 = v7;
-        v20 = 2080;
-        *v21 = getEndReasonDescriptions(reason);
-        *&v21[8] = 2048;
-        *&v21[10] = self;
-        v13 = "%13.5f: UNIT TEST: %s for already finished operation %p";
-        v14 = v5;
-        v15 = 32;
-LABEL_21:
-        _os_log_impl(&dword_1BB2EF000, v14, OS_LOG_TYPE_DEFAULT, v13, buf, v15);
-      }
-
-LABEL_22:
-
-      goto LABEL_23;
-    }
-
-    if (currentLogLevel >= 6)
-    {
-      v5 = _AALog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-      {
-        v9 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/Unit Testing/PearlUnitTestSupport.m";
-        for (i = "Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/Unit Testing/PearlUnitTestSupport.m"; ; ++i)
-        {
-          if (*(i - 1) == 47)
-          {
-            v9 = i;
-          }
-
-          else if (!*(i - 1))
-          {
-            v11 = absTimeNS();
-            if (v11 == -1)
-            {
-              v12 = INFINITY;
-            }
-
-            else
-            {
-              v12 = v11 / 1000000000.0;
-            }
-
-            *buf = 136316162;
-            v19 = *&v9;
-            v20 = 1024;
-            *v21 = 545;
-            *&v21[4] = 2048;
-            *&v21[6] = v12;
-            *&v21[14] = 2080;
-            *&v21[16] = getEndReasonDescriptions(reason);
-            v22 = 2048;
-            selfCopy = self;
-            v13 = "%30s:%-4d: %13.5f: UNIT TEST: %s for already finished operation %p";
-            v14 = v5;
-            v15 = 48;
-            goto LABEL_21;
-          }
-        }
-      }
-
-      goto LABEL_22;
-    }
-  }
-
-  else
+  if (!self->_finished)
   {
     self->_finished = 1;
     dispatch_source_cancel(self->_awInitTimer);
     dispatch_source_cancel(self->_deadlineTimer);
     queue = [(BKOperation *)self queue];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __52__AWUnitTestFaceDetectOperation_awFinishWithReason___block_invoke;
-    v17[3] = &unk_1E7F37F50;
-    v17[4] = self;
-    v17[5] = reason;
-    dispatch_async(queue, v17);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __52__AWUnitTestFaceDetectOperation_awFinishWithReason___block_invoke;
+    v16[3] = &unk_1E7F37F50;
+    v16[4] = self;
+    v16[5] = reason;
+    dispatch_async(queue, v16);
 
     dispatch_source_cancel(self->_streamingTimer);
+    return;
   }
 
-LABEL_23:
-  v16 = *MEMORY[0x1E69E9840];
+  if (currentLogLevel == 5)
+  {
+    v5 = _AALog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = absTimeNS();
+      if (v6 == -1)
+      {
+        v7 = INFINITY;
+      }
+
+      else
+      {
+        v7 = v6 / 1000000000.0;
+      }
+
+      *buf = 134218498;
+      v18 = v7;
+      v19 = 2080;
+      *v20 = getEndReasonDescriptions(reason);
+      *&v20[8] = 2048;
+      *&v20[10] = self;
+      v13 = "%13.5f: UNIT TEST: %s for already finished operation %p";
+      v14 = v5;
+      v15 = 32;
+LABEL_21:
+      _os_log_impl(&dword_1BB2EF000, v14, OS_LOG_TYPE_DEFAULT, v13, buf, v15);
+    }
+  }
+
+  else
+  {
+    if (currentLogLevel < 6)
+    {
+      return;
+    }
+
+    v5 = _AALog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/Unit Testing/PearlUnitTestSupport.m";
+      for (i = "Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/Unit Testing/PearlUnitTestSupport.m"; ; ++i)
+      {
+        if (*(i - 1) == 47)
+        {
+          v9 = i;
+        }
+
+        else if (!*(i - 1))
+        {
+          v11 = absTimeNS();
+          if (v11 == -1)
+          {
+            v12 = INFINITY;
+          }
+
+          else
+          {
+            v12 = v11 / 1000000000.0;
+          }
+
+          *buf = 136316162;
+          v18 = *&v9;
+          v19 = 1024;
+          *v20 = 545;
+          *&v20[4] = 2048;
+          *&v20[6] = v12;
+          *&v20[14] = 2080;
+          *&v20[16] = getEndReasonDescriptions(reason);
+          v21 = 2048;
+          selfCopy = self;
+          v13 = "%30s:%-4d: %13.5f: UNIT TEST: %s for already finished operation %p";
+          v14 = v5;
+          v15 = 48;
+          goto LABEL_21;
+        }
+      }
+    }
+  }
 }
 
 void __52__AWUnitTestFaceDetectOperation_awFinishWithReason___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (currentLogLevel == 5)
   {
     v2 = _AALog();
@@ -474,17 +459,17 @@ void __52__AWUnitTestFaceDetectOperation_awFinishWithReason___block_invoke(uint6
 
       EndReasonDescriptions = getEndReasonDescriptions(*(a1 + 40));
       v10 = *(a1 + 32);
-      *v20 = 134218498;
-      *&v20[4] = v4;
-      *&v20[12] = 2080;
-      *&v20[14] = EndReasonDescriptions;
-      *&v20[22] = 2048;
-      *&v20[24] = v10;
+      *v19 = 134218498;
+      *&v19[4] = v4;
+      *&v19[12] = 2080;
+      *&v19[14] = EndReasonDescriptions;
+      *&v19[22] = 2048;
+      *&v19[24] = v10;
       v11 = "%13.5f: UNIT TEST: delivering %s for operation %p";
       v12 = v2;
       v13 = 32;
 LABEL_19:
-      _os_log_impl(&dword_1BB2EF000, v12, OS_LOG_TYPE_DEFAULT, v11, v20, v13);
+      _os_log_impl(&dword_1BB2EF000, v12, OS_LOG_TYPE_DEFAULT, v11, v19, v13);
     }
   }
 
@@ -521,16 +506,16 @@ LABEL_19:
 
           v14 = getEndReasonDescriptions(*(a1 + 40));
           v15 = *(a1 + 32);
-          *v20 = 136316162;
-          *&v20[4] = v5;
-          *&v20[12] = 1024;
-          *&v20[14] = 553;
-          *&v20[18] = 2048;
-          *&v20[20] = v8;
-          *&v20[28] = 2080;
-          *&v20[30] = v14;
-          *&v20[38] = 2048;
-          v21 = v15;
+          *v19 = 136316162;
+          *&v19[4] = v5;
+          *&v19[12] = 1024;
+          *&v19[14] = 553;
+          *&v19[18] = 2048;
+          *&v19[20] = v8;
+          *&v19[28] = 2080;
+          *&v19[30] = v14;
+          *&v19[38] = 2048;
+          v20 = v15;
           v11 = "%30s:%-4d: %13.5f: UNIT TEST: delivering %s for operation %p";
           v12 = v2;
           v13 = 48;
@@ -549,8 +534,6 @@ LABEL_21:
     v18 = [*(a1 + 32) delegate];
     [v18 operation:*(a1 + 32) finishedWithReason:*(a1 + 40)];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startWithReply:(id)reply
@@ -606,7 +589,7 @@ void __48__AWUnitTestFaceDetectOperation_startWithReply___block_invoke_2(uint64_
 
 - (void)awDeliverStreamingEvent
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (currentLogLevel == 5)
   {
     v3 = _AALog();
@@ -624,7 +607,7 @@ void __48__AWUnitTestFaceDetectOperation_startWithReply___block_invoke_2(uint64_
       }
 
       *buf = 134217984;
-      v24 = v5;
+      v23 = v5;
       v10 = "%13.5f: UNIT TEST: Delivering streaming event";
       v11 = v3;
       v12 = 12;
@@ -665,11 +648,11 @@ LABEL_19:
           }
 
           *buf = 136315650;
-          v24 = *&v6;
-          v25 = 1024;
-          v26 = 499;
-          v27 = 2048;
-          v28 = v9;
+          v23 = *&v6;
+          v24 = 1024;
+          v25 = 499;
+          v26 = 2048;
+          v27 = v9;
           v10 = "%30s:%-4d: %13.5f: UNIT TEST: Delivering streaming event";
           v11 = v3;
           v12 = 28;
@@ -698,16 +681,14 @@ LABEL_21:
   [v13 setDistance:v17];
 
   queue = [(BKOperation *)self queue];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __56__AWUnitTestFaceDetectOperation_awDeliverStreamingEvent__block_invoke;
-  v21[3] = &unk_1E7F38060;
-  v21[4] = self;
-  v22 = v13;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __56__AWUnitTestFaceDetectOperation_awDeliverStreamingEvent__block_invoke;
+  v20[3] = &unk_1E7F38060;
+  v20[4] = self;
+  v21 = v13;
   v19 = v13;
-  dispatch_sync(queue, v21);
-
-  v20 = *MEMORY[0x1E69E9840];
+  dispatch_sync(queue, v20);
 }
 
 void __56__AWUnitTestFaceDetectOperation_awDeliverStreamingEvent__block_invoke(uint64_t a1)
@@ -736,7 +717,7 @@ void __56__AWUnitTestFaceDetectOperation_awDeliverStreamingEvent__block_invoke(u
 
 - (BOOL)startStreamWithError:(id *)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (currentLogLevel == 5)
   {
     v5 = _AALog();
@@ -815,8 +796,8 @@ void __56__AWUnitTestFaceDetectOperation_awDeliverStreamingEvent__block_invoke(u
 
         *&buf[18] = 2048;
         *&buf[20] = v11;
-        v31 = 2080;
-        v32 = v18;
+        v30 = 2080;
+        v31 = v18;
         v14 = "%30s:%-4d: %13.5f: UNIT TEST: Starting stream %s eyeRelief";
         v15 = v5;
         v16 = 38;
@@ -847,17 +828,17 @@ LABEL_24:
   if (v20)
   {
     queue = [(BKOperation *)self queue];
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __54__AWUnitTestFaceDetectOperation_startStreamWithError___block_invoke_2;
-    v26[3] = &unk_1E7F38038;
-    v26[4] = self;
-    dispatch_sync(queue, v26);
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __54__AWUnitTestFaceDetectOperation_startStreamWithError___block_invoke_2;
+    v25[3] = &unk_1E7F38038;
+    v25[4] = self;
+    dispatch_sync(queue, v25);
 
     v22 = MEMORY[0x1E696ABC0];
-    v28 = *MEMORY[0x1E696A578];
-    v29 = @" Pearl is in error state";
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v27 = *MEMORY[0x1E696A578];
+    v28 = @" Pearl is in error state";
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
     *error = [v22 errorWithDomain:*MEMORY[0x1E696A798] code:1 userInfo:v23];
   }
 
@@ -868,7 +849,6 @@ LABEL_24:
   }
 
   _Block_object_dispose(buf, 8);
-  v24 = *MEMORY[0x1E69E9840];
   return v20 ^ 1;
 }
 
@@ -886,7 +866,7 @@ void __54__AWUnitTestFaceDetectOperation_startStreamWithError___block_invoke_2(u
 
 - (BOOL)startWithError:(id *)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (currentLogLevel == 5)
   {
     v4 = _AALog();
@@ -904,17 +884,17 @@ void __54__AWUnitTestFaceDetectOperation_startStreamWithError___block_invoke_2(u
       }
 
       [(BKFaceDetectOperation *)self timeout];
-      v27 = 134218496;
-      v28 = v6;
-      v29 = 2048;
-      *v30 = self;
-      *&v30[8] = 2048;
-      *&v30[10] = v11;
+      v26 = 134218496;
+      v27 = v6;
+      v28 = 2048;
+      *v29 = self;
+      *&v29[8] = 2048;
+      *&v29[10] = v11;
       v12 = "%13.5f: UNIT TEST: start operation %p with timeout %f";
       v13 = v4;
       v14 = 32;
 LABEL_19:
-      _os_log_impl(&dword_1BB2EF000, v13, OS_LOG_TYPE_DEFAULT, v12, &v27, v14);
+      _os_log_impl(&dword_1BB2EF000, v13, OS_LOG_TYPE_DEFAULT, v12, &v26, v14);
     }
   }
 
@@ -950,16 +930,16 @@ LABEL_19:
           }
 
           [(BKFaceDetectOperation *)self timeout];
-          v27 = 136316162;
-          v28 = *&v7;
-          v29 = 1024;
-          *v30 = 436;
-          *&v30[4] = 2048;
-          *&v30[6] = v10;
-          *&v30[14] = 2048;
-          *&v30[16] = self;
-          v31 = 2048;
-          v32 = v15;
+          v26 = 136316162;
+          v27 = *&v7;
+          v28 = 1024;
+          *v29 = 436;
+          *&v29[4] = 2048;
+          *&v29[6] = v10;
+          *&v29[14] = 2048;
+          *&v29[16] = self;
+          v30 = 2048;
+          v31 = v15;
           v12 = "%30s:%-4d: %13.5f: UNIT TEST: start operation %p with timeout %f";
           v13 = v4;
           v14 = 48;
@@ -998,7 +978,6 @@ LABEL_21:
   dispatch_source_set_timer(deadlineTimer, v24, 0xFFFFFFFFFFFFFFFFLL, 0);
   dispatch_resume(self->_deadlineTimer);
   dispatch_activate(self->_streamingTimer);
-  v25 = *MEMORY[0x1E69E9840];
   return 1;
 }
 

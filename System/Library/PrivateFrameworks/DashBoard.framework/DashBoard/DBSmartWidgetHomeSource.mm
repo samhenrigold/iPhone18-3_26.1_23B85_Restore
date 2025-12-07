@@ -4,6 +4,7 @@
 - (DBSmartWidgetHomeSource)initWithDelegate:(id)delegate resourceProvider:(id)provider;
 - (id)freshPredictions;
 - (void)dealloc;
+- (void)freshPredictions;
 - (void)home:(id)home didUpdateLastUsedServiceOfType:(id)type;
 - (void)homeDidChangeInRange:(id)range;
 - (void)homeDidUpdateAccess:(id)access;
@@ -211,6 +212,13 @@ void __43__DBSmartWidgetHomeSource_freshPredictions__block_invoke(uint64_t a1, u
   [(DBSmartWidgetSource *)self refreshPredictions];
 }
 
+- (void)freshPredictions
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"com.apple.Home";
+  OUTLINED_FUNCTION_0(&dword_248146000, self, a3, "%@ not found in the application library", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)home:(os_log_t)log didUpdateLastUsedServiceOfType:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
   v7 = *MEMORY[0x277D85DE8];
@@ -219,6 +227,20 @@ void __43__DBSmartWidgetHomeSource_freshPredictions__block_invoke(uint64_t a1, u
   v5 = 2114;
   v6 = a2;
   _os_log_debug_impl(&dword_248146000, log, OS_LOG_TYPE_DEBUG, "Home did update last used service of type %{public}@ %{public}@", &v3, 0x16u);
+}
+
+- (void)homeDidChangeInRange:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_248146000, a2, a3, "Home did change in range %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)homeDidUpdateAccess:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_248146000, a2, a3, "Home did update access %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

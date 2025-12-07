@@ -41,30 +41,30 @@
 
 - (void)trackAssets:(id)assets
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   assetsCopy = assets;
   obj = objc_msgSend_assetsByUUID(self, v5, v6);
   objc_sync_enter(obj);
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v7 = assetsCopy;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v25, v29, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v24, v28, 16);
   if (v9)
   {
-    v10 = *v26;
+    v10 = *v25;
     do
     {
       v11 = 0;
       do
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * v11);
+        v12 = *(*(&v24 + 1) + 8 * v11);
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
@@ -83,14 +83,13 @@
       }
 
       while (v9 != v11);
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v13, &v25, v29, 16);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v13, &v24, v28, 16);
     }
 
     while (v9);
   }
 
   objc_sync_exit(obj);
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (id)trackedAssetForUUID:(id)d
@@ -188,7 +187,7 @@ LABEL_11:
 
 - (void)openFileWithOpenInfo:(id)info reply:(id)reply
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   replyCopy = reply;
   v11 = objc_msgSend_UUID(infoCopy, v8, v9);
@@ -215,17 +214,17 @@ LABEL_11:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v27 = 0;
-      v20 = &v27;
-      v21 = objc_msgSend_openWithError_(v13, v12, &v27);
+      v26 = 0;
+      v20 = &v26;
+      v21 = objc_msgSend_openWithError_(v13, v12, &v26);
     }
 
     else
     {
 LABEL_12:
-      v26 = 0;
-      v20 = &v26;
-      v21 = objc_msgSend_openWithOpenInfo_error_(CKAsset, v12, infoCopy, &v26);
+      v25 = 0;
+      v20 = &v25;
+      v21 = objc_msgSend_openWithOpenInfo_error_(CKAsset, v12, infoCopy, &v25);
     }
 
     v22 = v21;
@@ -241,9 +240,9 @@ LABEL_12:
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412546;
-        v29 = infoCopy;
-        v30 = 2112;
-        v31 = v19;
+        v28 = infoCopy;
+        v29 = 2112;
+        v30 = v19;
         _os_log_debug_impl(&dword_1883EA000, v24, OS_LOG_TYPE_DEBUG, "Failed to open %@: %@", buf, 0x16u);
         if (!replyCopy)
         {
@@ -269,7 +268,7 @@ LABEL_12:
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v29 = infoCopy;
+      v28 = infoCopy;
       _os_log_debug_impl(&dword_1883EA000, v23, OS_LOG_TYPE_DEBUG, "Opened %@", buf, 0xCu);
       if (!replyCopy)
       {
@@ -296,8 +295,6 @@ LABEL_25:
   }
 
 LABEL_26:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)readBytesOfInMemoryAssetContentWithUUID:(id)d offset:(unint64_t)offset length:(unint64_t)length reply:(id)reply

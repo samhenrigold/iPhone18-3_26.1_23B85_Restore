@@ -5,6 +5,7 @@
 - (UIImage)itemImage;
 - (void)_reloadHighlight;
 - (void)_removeOverlay;
+- (void)countdown;
 - (void)itemImage;
 - (void)layoutSubviews;
 - (void)setAccessibilityLabel:(id)label;
@@ -17,6 +18,7 @@
 - (void)setItemImageInsets:(UIEdgeInsets)insets;
 - (void)setSelected:(BOOL)selected;
 - (void)setTitle:(id)title;
+- (void)title;
 @end
 
 @implementation SKUIBrickCollectionViewCell
@@ -92,11 +94,11 @@
     }
   }
 
-  primaryTextColor = [schemeCopy primaryTextColor];
+  v13 = objc_msgSend_primaryTextColor(schemeCopy);
   titleColor = self->_titleColor;
-  if (primaryTextColor != titleColor && ([(UIColor *)titleColor isEqual:primaryTextColor]& 1) == 0)
+  if (v13 != titleColor && ([(UIColor *)titleColor isEqual:v13]& 1) == 0)
   {
-    objc_storeStrong(&self->_titleColor, primaryTextColor);
+    objc_storeStrong(&self->_titleColor, v13);
     titleLabel = self->_titleLabel;
     if (self->_titleColor)
     {
@@ -314,7 +316,7 @@
   }
 
   title = [(SKUIBrickCollectionViewCell *)self title];
-  if (title != titleCopy && ([titleCopy isEqualToString:title] & 1) == 0)
+  if (title != titleCopy && (objc_msgSend_isEqualToString_(titleCopy) & 1) == 0)
   {
     titleLabel = self->_titleLabel;
     if (titleCopy)
@@ -407,42 +409,8 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIBrickCollectionViewCell *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  [(UIImageView *)self->_itemImageView frame];
-  v12 = v11;
-  v14 = v13;
-  top = self->_itemImageInsets.top;
-  left = self->_itemImageInsets.left;
-  [(UIImageView *)self->_itemImageView setFrame:left, top];
-  [(UIImageView *)self->_overlayImageView setFrame:left, top, v12, v14];
-  titleLabel = self->_titleLabel;
-  if (titleLabel)
-  {
-    [(UILabel *)titleLabel frame];
-    v19 = v18;
-    v21.origin.x = left;
-    v21.origin.y = top;
-    v21.size.width = v12;
-    v21.size.height = v14;
-    [(UILabel *)self->_titleLabel setFrame:left, CGRectGetMaxY(v21) + 6.0, v12, v19];
-  }
-
-  countdownView = self->_countdownView;
-  if (countdownView)
-  {
-    [(SKUICountdownView *)countdownView setFrame:left, top, v12, v14];
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBrickCollectionViewCell layoutSubviews]";
 }
 
 - (void)_reloadHighlight
@@ -525,11 +493,83 @@
   return result;
 }
 
+- (void)countdown
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBrickCollectionViewCell countdown]";
+}
+
 - (void)itemImage
 {
   v2 = *MEMORY[0x277D85DE8];
   v0 = 136446210;
   v1 = "[SKUIBrickCollectionViewCell itemImage]";
+}
+
+- (void)setAccessibilityLabel:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBrickCollectionViewCell setAccessibilityLabel:]";
+}
+
+- (void)setColoringWithColorScheme:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBrickCollectionViewCell setColoringWithColorScheme:]";
+}
+
+- (void)setCountdown:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBrickCollectionViewCell setCountdown:]";
+}
+
+- (void)setHighlighted:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBrickCollectionViewCell setHighlighted:]";
+}
+
+- (void)setSelected:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBrickCollectionViewCell setSelected:]";
+}
+
+- (void)setItemImage:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBrickCollectionViewCell setItemImage:]";
+}
+
+- (void)setItemImageHidden:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBrickCollectionViewCell setItemImageHidden:]";
+}
+
+- (void)setItemImageInsets:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBrickCollectionViewCell setItemImageInsets:]";
+}
+
+- (void)setTitle:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBrickCollectionViewCell setTitle:]";
+}
+
+- (void)title
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBrickCollectionViewCell title]";
+}
+
+- (void)setBackgroundColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBrickCollectionViewCell setBackgroundColor:]";
 }
 
 @end

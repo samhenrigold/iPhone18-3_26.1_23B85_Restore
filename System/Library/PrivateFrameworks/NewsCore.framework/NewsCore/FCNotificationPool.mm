@@ -143,19 +143,19 @@
 
 - (FCNotificationPool)initWithURL:(id)l error:(id *)error
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   array = [MEMORY[0x1E695DF70] array];
   value = 0;
   if (getxattr([lCopy fileSystemRepresentation], "com.apple.news.notification_pool_version", &value, 2uLL, 0, 0) == -1)
   {
     v15 = MEMORY[0x1E696ABC0];
-    v27 = @"errno";
+    v26 = @"errno";
     v16 = MEMORY[0x1E696AEC0];
     v17 = __error();
     v8 = [v16 stringWithCString:strerror(*v17)];
-    v28[0] = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v27[0] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     v18 = @"Failed to read notification pool version";
 LABEL_10:
     streamError2 = [v15 fc_errorWithCode:16 description:v18 additionalUserInfo:v9];
@@ -165,10 +165,10 @@ LABEL_10:
   if (value != 769)
   {
     v15 = MEMORY[0x1E696ABC0];
-    v25 = @"version";
+    v24 = @"version";
     v8 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:?];
-    v26 = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+    v25 = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
     v18 = @"Notification pool was written with a different version";
     goto LABEL_10;
   }
@@ -201,9 +201,9 @@ LABEL_10:
   if (!streamError)
   {
 
-    v23 = 0;
-    [lCopy getResourceValue:&v23 forKey:*MEMORY[0x1E695DAA8] error:0];
-    self = [(FCNotificationPool *)self initWithItems:array creationDate:v23];
+    v22 = 0;
+    [lCopy getResourceValue:&v22 forKey:*MEMORY[0x1E695DAA8] error:0];
+    self = [(FCNotificationPool *)self initWithItems:array creationDate:v22];
     selfCopy = self;
     goto LABEL_15;
   }
@@ -226,48 +226,47 @@ LABEL_11:
 
 LABEL_15:
 
-  v21 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (BOOL)writeToURL:(id)l error:(id *)error
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   v7 = [MEMORY[0x1E695DFC0] outputStreamWithURL:lCopy append:0];
   v8 = v7;
   if (!v7)
   {
     v17 = MEMORY[0x1E696ABC0];
-    v28 = @"URL";
+    v27 = @"URL";
     absoluteString = [lCopy absoluteString];
-    v29[0] = absoluteString;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v28[0] = absoluteString;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
     streamError2 = [v17 fc_errorWithCode:16 description:@"Failed to create output stream for notification pool" additionalUserInfo:v11];
     goto LABEL_15;
   }
 
   [v7 open];
   absoluteString = [objc_alloc(MEMORY[0x1E69C65D0]) initWithOutputStream:v8];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   items = [(FCNotificationPool *)self items];
-  v11 = [items countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v11 = [items countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v11)
   {
-    v12 = *v24;
+    v12 = *v23;
     while (2)
     {
       for (i = 0; i != v11; i = i + 1)
       {
-        if (*v24 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(items);
         }
 
-        if (([absoluteString writeMessage:*(*(&v23 + 1) + 8 * i)] & 1) == 0)
+        if (([absoluteString writeMessage:*(*(&v22 + 1) + 8 * i)] & 1) == 0)
         {
           v11 = [MEMORY[0x1E696ABC0] fc_errorWithCode:16 description:@"Failed to write feed item protobuf message"];
           v14 = 0;
@@ -275,7 +274,7 @@ LABEL_15:
         }
       }
 
-      v11 = [items countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [items countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v11)
       {
         continue;
@@ -313,7 +312,6 @@ LABEL_15:
     setxattr([lCopy fileSystemRepresentation], "com.apple.news.notification_pool_version", &value, 2uLL, 0, 0);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

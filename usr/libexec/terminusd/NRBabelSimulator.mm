@@ -6,9 +6,9 @@
 
 - (NRBabelSimulator)init
 {
-  v19.receiver = self;
-  v19.super_class = NRBabelSimulator;
-  v2 = [(NRBabelSimulator *)&v19 init];
+  v21.receiver = self;
+  v21.super_class = NRBabelSimulator;
+  v2 = [(NRBabelSimulator *)&v21 init];
   if (!v2)
   {
     v14 = sub_1000CB9A8();
@@ -17,14 +17,14 @@
     if (IsLevelEnabled)
     {
       v16 = sub_1000CB9A8();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v16, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRBabelSimulator init]"", 4010);
     }
 
-    _os_log_pack_size();
-    v17 = *__error();
-    v18 = _os_log_pack_fill();
-    *v18 = 136446210;
-    *(v18 + 4) = "[NRBabelSimulator init]";
+    v17 = _os_log_pack_size();
+    v18 = __error();
+    v19 = _os_log_pack_fill(&v20 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0), v17, *v18, &_mh_execute_header, "%{public}s [super init] failed");
+    *v19 = 136446210;
+    *(v19 + 4) = "[NRBabelSimulator init]";
     sub_1000CB9A8();
     _NRLogAbortWithPack();
   }

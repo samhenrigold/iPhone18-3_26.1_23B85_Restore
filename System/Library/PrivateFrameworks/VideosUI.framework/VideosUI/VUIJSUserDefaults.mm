@@ -78,9 +78,11 @@
       toString = [v7 toNumber];
     }
 
-    if ([v7 isArray] && !toString)
+    isArray = [v7 isArray];
+    if (isArray && !toString)
     {
-      toString = [v7 toArray];
+      isArray = [v7 toArray];
+      toString = isArray;
     }
 
     if (toString)
@@ -90,8 +92,8 @@
 
     else
     {
-      v10 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = VUIDefaultLogObject(isArray);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [VUIJSUserDefaults setData:dataCopy];
       }

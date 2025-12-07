@@ -39,7 +39,7 @@
 
 - (void)vmDataResponse:(id)response forRequestID:(id)d withError:(id)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   dCopy = d;
   errorCopy = error;
@@ -51,13 +51,13 @@
   {
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412802;
-      v17 = dCopy;
-      v18 = 2112;
-      v19 = responseCopy;
-      v20 = 2112;
-      v21 = errorCopy;
-      _os_log_impl(&dword_1959FF000, v14, OS_LOG_TYPE_DEFAULT, "Calling out to completion block for vm request %@ data %@ error %@", &v16, 0x20u);
+      v15 = 138412802;
+      v16 = dCopy;
+      v17 = 2112;
+      v18 = responseCopy;
+      v19 = 2112;
+      v20 = errorCopy;
+      _os_log_impl(&dword_1959FF000, v14, OS_LOG_TYPE_DEFAULT, "Calling out to completion block for vm request %@ data %@ error %@", &v15, 0x20u);
     }
 
     (block)[2](block, responseCopy, errorCopy);
@@ -70,8 +70,6 @@
       sub_195B2AAA0(dCopy, v14);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

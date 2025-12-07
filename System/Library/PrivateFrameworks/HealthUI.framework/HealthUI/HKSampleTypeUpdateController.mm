@@ -609,11 +609,11 @@ void __52__HKSampleTypeUpdateController__createQueryForType___block_invoke(uint6
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __52__HKSampleTypeUpdateController__createQueryForType___block_invoke_318(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__52__HKSampleTypeUpdateController__createQueryForType___block_invoke_318(id *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (!a4)
   {
-    return [*(result + 32) _handleHighFrequencyObserverCallbacksForType:*(*(*(result + 40) + 8) + 40)];
+    return [result[4] _handleHighFrequencyObserverCallbacksForType:*(*(result[5] + 1) + 40)];
   }
 
   return result;
@@ -715,13 +715,13 @@ uint64_t __52__HKSampleTypeUpdateController__createQueryForType___block_invoke_3
   }
 }
 
-uint64_t __63__HKSampleTypeUpdateController__handleQueryErrorForType_error___block_invoke(uint64_t a1)
+uint64_t __63__HKSampleTypeUpdateController__handleQueryErrorForType_error___block_invoke(uint64_t a1, uint64_t a2)
 {
   _HKInitializeLogging();
-  v2 = HKLogWellnessDashboard();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = HKLogWellnessDashboard();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __63__HKSampleTypeUpdateController__handleQueryErrorForType_error___block_invoke_cold_1(a1, v2);
+    __63__HKSampleTypeUpdateController__handleQueryErrorForType_error___block_invoke_cold_1(a1, v3);
   }
 
   [*(a1 + 32) _errorRecoveryCallbacksForType:*(a1 + 40)];

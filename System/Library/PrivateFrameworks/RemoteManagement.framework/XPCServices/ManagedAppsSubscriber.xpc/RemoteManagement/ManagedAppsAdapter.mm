@@ -12,17 +12,17 @@
 
 - (_TtC21ManagedAppsSubscriber18ManagedAppsAdapter)init
 {
-  v3 = type metadata accessor for MACAPIImpl();
-  v4 = swift_allocObject();
-  *(v4 + 16) = 0;
-  *(v4 + 24) = 0;
-  v5 = (self + OBJC_IVAR____TtC21ManagedAppsSubscriber18ManagedAppsAdapter_macapi);
-  v5[3] = v3;
-  v5[4] = &protocol witness table for MACAPIImpl;
-  *v5 = v4;
-  v7.receiver = self;
-  v7.super_class = type metadata accessor for ManagedAppsAdapter();
-  return [(ManagedAppsAdapter *)&v7 init];
+  v4 = type metadata accessor for MACAPIImpl(0, a2, v2);
+  v5 = swift_allocObject();
+  *(v5 + 16) = 0;
+  *(v5 + 24) = 0;
+  v6 = (self + OBJC_IVAR____TtC21ManagedAppsSubscriber18ManagedAppsAdapter_macapi);
+  v6[3] = v4;
+  v6[4] = &protocol witness table for MACAPIImpl;
+  *v6 = v5;
+  v10.receiver = self;
+  v10.super_class = type metadata accessor for ManagedAppsAdapter(v5, v7, v8);
+  return [(ManagedAppsAdapter *)&v10 init];
 }
 
 - (id)configurationClasses
@@ -39,8 +39,8 @@
 
 - (void)allDeclarationKeysForScope:(int64_t)scope completionHandler:(id)handler
 {
-  v7 = (*(*(sub_100001658(&qword_100020CC8, &qword_100017E28) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v7 = sub_100001658(&qword_100020CC8, &qword_100017E28);
+  __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
   v11 = swift_allocObject();
@@ -65,8 +65,8 @@
 
 - (void)applyConfiguration:(RMSubscribedConfigurationReference *)configuration replaceKey:(RMStoreDeclarationKey *)key scope:(int64_t)scope completionHandler:(id)handler
 {
-  v11 = (*(*(sub_100001658(&qword_100020CC8, &qword_100017E28) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v11 = sub_100001658(&qword_100020CC8, &qword_100017E28);
+  __chkstk_darwin(v11 - 8);
   v13 = &v22 - v12;
   v14 = _Block_copy(handler);
   v15 = swift_allocObject();
@@ -95,8 +95,8 @@
 
 - (void)removeDeclarationKey:(RMStoreDeclarationKey *)key scope:(int64_t)scope completionHandler:(id)handler
 {
-  v9 = (*(*(sub_100001658(&qword_100020CC8, &qword_100017E28) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v9 = sub_100001658(&qword_100020CC8, &qword_100017E28);
+  __chkstk_darwin(v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
   v13 = swift_allocObject();
@@ -133,8 +133,8 @@
 
 - (void)configurationUIForConfiguration:(RMSubscribedConfigurationReference *)configuration scope:(int64_t)scope completionHandler:(id)handler
 {
-  v9 = (*(*(sub_100001658(&qword_100020CC8, &qword_100017E28) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v9 = sub_100001658(&qword_100020CC8, &qword_100017E28);
+  __chkstk_darwin(v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
   v13 = swift_allocObject();

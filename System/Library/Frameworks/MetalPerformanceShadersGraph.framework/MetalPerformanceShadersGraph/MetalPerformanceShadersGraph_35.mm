@@ -243,7 +243,7 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   *result = &unk_1F5AF6410;
   result[1] = v5;
   *(result + 16) = 0;
-  v6 = (result + 2);
+  v6 = result + 2;
   *(result + 48) = 0;
   if (*(a1 + 48) == 1)
   {
@@ -279,17 +279,17 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   return result;
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned int ()(long)>,unsigned int>,unsigned int>::at(uint64_t a1, uint64_t a2)
+uint64_t *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned int ()(long)>,unsigned int>,unsigned int>::at(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned long long>(v4);
+  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned long long>(v4, v5);
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned long long>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X8>)
@@ -580,7 +580,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
   *result = &unk_1F5AF6500;
   result[1] = v4;
   *(result + 16) = 0;
-  v8 = (result + 2);
+  v8 = result + 2;
   *(result + 48) = 0;
   if ((v5 & 1) == 0)
   {
@@ -597,7 +597,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
       v13 = result;
       (*(*v9 + 24))(v9);
       result = v13;
-      v13[48] = 1;
+      *(v13 + 48) = 1;
       v14 = v18;
       *(a3 + 8) = v13;
       if ((v14 & 1) == 0)
@@ -893,7 +893,7 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   *result = &unk_1F5AF6500;
   result[1] = v5;
   *(result + 16) = 0;
-  v6 = (result + 2);
+  v6 = result + 2;
   *(result + 48) = 0;
   if (*(a1 + 48) == 1)
   {
@@ -929,17 +929,17 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   return result;
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned long long ()(long)>,unsigned long long>,unsigned long long>::at(uint64_t a1, uint64_t a2)
+uint64_t *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned long long ()(long)>,unsigned long long>,unsigned long long>::at(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<signed char>(v4);
+  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<signed char>(v4, v5);
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<signed char>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X8>)
@@ -1175,7 +1175,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
   *result = &unk_1F5AF65F0;
   result[1] = v4;
   *(result + 16) = 0;
-  v8 = (result + 2);
+  v8 = result + 2;
   *(result + 48) = 0;
   if ((v5 & 1) == 0)
   {
@@ -1192,7 +1192,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
       v13 = result;
       (*(*v9 + 24))(v9);
       result = v13;
-      v13[48] = 1;
+      *(v13 + 48) = 1;
       v14 = v18;
       *(a3 + 8) = v13;
       if ((v14 & 1) == 0)
@@ -1490,7 +1490,7 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   *result = &unk_1F5AF65F0;
   result[1] = v5;
   *(result + 16) = 0;
-  v6 = (result + 2);
+  v6 = result + 2;
   *(result + 48) = 0;
   if (*(a1 + 48) == 1)
   {
@@ -1526,17 +1526,17 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   return result;
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<signed char ()(long)>,signed char>,signed char>::at(uint64_t a1, uint64_t a2)
+uint64_t *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<signed char ()(long)>,signed char>,signed char>::at(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<short>(v4);
+  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<short>(v4, v5);
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<short>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X8>)
@@ -1827,7 +1827,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
   *result = &unk_1F5AF66E0;
   result[1] = v4;
   *(result + 16) = 0;
-  v8 = (result + 2);
+  v8 = result + 2;
   *(result + 48) = 0;
   if ((v5 & 1) == 0)
   {
@@ -1844,7 +1844,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
       v13 = result;
       (*(*v9 + 24))(v9);
       result = v13;
-      v13[48] = 1;
+      *(v13 + 48) = 1;
       v14 = v18;
       *(a3 + 8) = v13;
       if ((v14 & 1) == 0)
@@ -2142,7 +2142,7 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   *result = &unk_1F5AF66E0;
   result[1] = v5;
   *(result + 16) = 0;
-  v6 = (result + 2);
+  v6 = result + 2;
   *(result + 48) = 0;
   if (*(a1 + 48) == 1)
   {
@@ -2178,17 +2178,17 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   return result;
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<short ()(long)>,short>,short>::at(uint64_t a1, uint64_t a2)
+uint64_t *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<short ()(long)>,short>,short>::at(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<int>(v4);
+  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<int>(v4, v5);
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<int>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X8>)
@@ -2424,7 +2424,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
   *result = &unk_1F5AF67D0;
   result[1] = v4;
   *(result + 16) = 0;
-  v8 = (result + 2);
+  v8 = result + 2;
   *(result + 48) = 0;
   if ((v5 & 1) == 0)
   {
@@ -2441,7 +2441,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
       v13 = result;
       (*(*v9 + 24))(v9);
       result = v13;
-      v13[48] = 1;
+      *(v13 + 48) = 1;
       v14 = v18;
       *(a3 + 8) = v13;
       if ((v14 & 1) == 0)
@@ -2737,7 +2737,7 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   *result = &unk_1F5AF67D0;
   result[1] = v5;
   *(result + 16) = 0;
-  v6 = (result + 2);
+  v6 = result + 2;
   *(result + 48) = 0;
   if (*(a1 + 48) == 1)
   {
@@ -2773,17 +2773,17 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   return result;
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<int ()(long)>,int>,int>::at(uint64_t a1, uint64_t a2)
+uint64_t *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<int ()(long)>,int>,int>::at(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<long long>(v4);
+  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<long long>(v4, v5);
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<long long>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X8>)
@@ -3074,7 +3074,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
   *result = &unk_1F5AF68C0;
   result[1] = v4;
   *(result + 16) = 0;
-  v8 = (result + 2);
+  v8 = result + 2;
   *(result + 48) = 0;
   if ((v5 & 1) == 0)
   {
@@ -3091,7 +3091,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
       v13 = result;
       (*(*v9 + 24))(v9);
       result = v13;
-      v13[48] = 1;
+      *(v13 + 48) = 1;
       v14 = v18;
       *(a3 + 8) = v13;
       if ((v14 & 1) == 0)
@@ -3387,7 +3387,7 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   *result = &unk_1F5AF68C0;
   result[1] = v5;
   *(result + 16) = 0;
-  v6 = (result + 2);
+  v6 = result + 2;
   *(result + 48) = 0;
   if (*(a1 + 48) == 1)
   {
@@ -3423,17 +3423,17 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   return result;
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<long long ()(long)>,long long>,long long>::at(uint64_t a1, uint64_t a2)
+uint64_t *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<long long ()(long)>,long long>,long long>::at(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v7 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v7);
   }
 
   v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::getValueImpl<int,unsigned int,long,unsigned long,std::complex<llvm::APInt>,std::complex<unsigned char>,std::complex<unsigned short>,std::complex<unsigned int>,std::complex<unsigned long long>,std::complex<signed char>,std::complex<short>,std::complex<int>,std::complex<long long>,llvm::APFloat,float,double,std::complex<llvm::APFloat>,std::complex<float>,std::complex<double>,llvm::StringRef,std::integral_constant<BOOL,false>>(v4);
+  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::getValueImpl<int,unsigned int,long,unsigned long,std::complex<llvm::APInt>,std::complex<unsigned char>,std::complex<unsigned short>,std::complex<unsigned int>,std::complex<unsigned long long>,std::complex<signed char>,std::complex<short>,std::complex<int>,std::complex<long long>,llvm::APFloat,float,double,std::complex<llvm::APFloat>,std::complex<float>,std::complex<double>,llvm::StringRef,std::integral_constant<BOOL,false>>(v4, v5, v6);
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::getValueImpl<int,unsigned int,long,unsigned long,std::complex<llvm::APInt>,std::complex<unsigned char>,std::complex<unsigned short>,std::complex<unsigned int>,std::complex<unsigned long long>,std::complex<signed char>,std::complex<short>,std::complex<int>,std::complex<long long>,llvm::APFloat,float,double,std::complex<llvm::APFloat>,std::complex<float>,std::complex<double>,llvm::StringRef,std::integral_constant<BOOL,false>>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
@@ -3779,7 +3779,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
   *result = &unk_1F5AF69B0;
   result[1] = v4;
   *(result + 16) = 0;
-  v8 = (result + 2);
+  v8 = result + 2;
   *(result + 48) = 0;
   if ((v5 & 1) == 0)
   {
@@ -3796,7 +3796,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
       v13 = result;
       (*(*v9 + 24))(v9);
       result = v13;
-      v13[48] = 1;
+      *(v13 + 48) = 1;
       v14 = v18;
       *(a3 + 8) = v13;
       if ((v14 & 1) == 0)
@@ -4092,7 +4092,7 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   *result = &unk_1F5AF69B0;
   result[1] = v5;
   *(result + 16) = 0;
-  v6 = (result + 2);
+  v6 = result + 2;
   *(result + 48) = 0;
   if (*(a1 + 48) == 1)
   {
@@ -4128,17 +4128,17 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   return result;
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<long ()(long)>,long>,long>::at(uint64_t a1, uint64_t a2)
+uint64_t *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<long ()(long)>,long>,long>::at(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned long>(v4);
+  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned long>(v4, v5);
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned long>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X8>)
@@ -4429,7 +4429,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
   *result = &unk_1F5AF6AA0;
   result[1] = v4;
   *(result + 16) = 0;
-  v8 = (result + 2);
+  v8 = result + 2;
   *(result + 48) = 0;
   if ((v5 & 1) == 0)
   {
@@ -4446,7 +4446,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
       v13 = result;
       (*(*v9 + 24))(v9);
       result = v13;
-      v13[48] = 1;
+      *(v13 + 48) = 1;
       v14 = v18;
       *(a3 + 8) = v13;
       if ((v14 & 1) == 0)
@@ -4742,7 +4742,7 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   *result = &unk_1F5AF6AA0;
   result[1] = v5;
   *(result + 16) = 0;
-  v6 = (result + 2);
+  v6 = result + 2;
   *(result + 48) = 0;
   if (*(a1 + 48) == 1)
   {
@@ -4778,17 +4778,17 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   return result;
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned long ()(long)>,unsigned long>,unsigned long>::at(uint64_t a1, uint64_t a2)
+uint64_t *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned long ()(long)>,unsigned long>,unsigned long>::at(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<llvm::APInt>>(v4);
+  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<llvm::APInt>>(v4, v5);
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<llvm::APInt>>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X8>)
@@ -4828,7 +4828,7 @@ void mlir::SparseElementsAttr::try_value_begin_impl<std::complex<llvm::APInt>>(m
   v36 = *MEMORY[0x1E69E9840];
   mlir::SparseElementsAttr::getZeroValue<std::complex<llvm::APInt>>(a1, &v23);
   v29[0] = *(*a1 + 32);
-  mlir::DenseElementsAttr::tryGetComplexIntValues(v29, v32);
+  mlir::DenseElementsAttr::tryGetComplexIntValues(v32, v29);
   if ((v35 & 1) == 0)
   {
     *a2 = 0;
@@ -5074,7 +5074,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
   *result = &unk_1F5AF6B90;
   result[1] = v4;
   *(result + 16) = 0;
-  v8 = (result + 2);
+  v8 = result + 2;
   *(result + 48) = 0;
   if ((v5 & 1) == 0)
   {
@@ -5091,7 +5091,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
       v13 = result;
       (*(*v9 + 24))(v9);
       result = v13;
-      v13[48] = 1;
+      *(v13 + 48) = 1;
       v14 = v18;
       *(a3 + 8) = v13;
       if ((v14 & 1) == 0)
@@ -5142,7 +5142,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
   return result;
 }
 
-void mlir::SparseElementsAttr::getZeroValue<std::complex<llvm::APInt>>(void **a1@<X0>, uint64_t a2@<X8>)
+void mlir::SparseElementsAttr::getZeroValue<std::complex<llvm::APInt>>(void **a1@<X0>, void **a2@<X8>)
 {
   ElementType = mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::getElementType(a1);
   Width = mlir::IntegerType::getWidth(&ElementType);
@@ -5151,11 +5151,11 @@ void mlir::SparseElementsAttr::getZeroValue<std::complex<llvm::APInt>>(void **a1
   {
     v4 = 0;
     __p = 0;
-    *(a2 + 8) = Width;
+    *(a2 + 2) = Width;
 LABEL_5:
     *a2 = v4;
-    v5 = (a2 + 16);
-    *(a2 + 24) = Width;
+    v5 = a2 + 2;
+    *(a2 + 6) = Width;
 LABEL_6:
     *v5 = __p;
     return;
@@ -5163,7 +5163,7 @@ LABEL_6:
 
   llvm::APInt::initSlowCase(&__p, 0, 0);
   Width = v8;
-  *(a2 + 8) = v8;
+  *(a2 + 2) = v8;
   if (Width <= 0x40)
   {
     v4 = __p;
@@ -5172,14 +5172,14 @@ LABEL_6:
 
   llvm::APInt::initSlowCase(a2, &__p);
   v6 = v8;
-  v5 = (a2 + 16);
-  *(a2 + 24) = v8;
+  v5 = a2 + 2;
+  *(a2 + 6) = v8;
   if (v6 <= 0x40)
   {
     goto LABEL_6;
   }
 
-  llvm::APInt::initSlowCase(a2 + 16, &__p);
+  llvm::APInt::initSlowCase((a2 + 2), &__p);
   if (v8 >= 0x41)
   {
     if (__p)
@@ -5428,7 +5428,7 @@ void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_
   operator delete(__p);
 }
 
-void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implINS_7complexIN4llvm5APIntEEEEENS6_9FailureOrINS6_15mapped_iteratorINS6_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISH_EEdeclL_ZNS_7declvalB8nn200100ISD_EEDTclsr3stdE9__declvalISF_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISF_EEEUllE_NS_9allocatorISS_EEFS8_lEEclEOl(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implINS_7complexIN4llvm5APIntEEEEENS6_9FailureOrINS6_15mapped_iteratorINS6_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISH_EEdeclL_ZNS_7declvalB8nn200100ISD_EEDTclsr3stdE9__declvalISF_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISF_EEEUllE_NS_9allocatorISS_EEFS8_lEEclEOl(uint64_t a1@<X0>, void *a2@<X1>, _DWORD *a3@<X8>)
 {
   v4 = *(a1 + 8);
   v5 = *(a1 + 16) - v4;
@@ -5436,14 +5436,14 @@ void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_
   {
 LABEL_5:
     v9 = *(a1 + 72);
-    *(a3 + 8) = v9;
+    a3[2] = v9;
     if (v9 > 0x40)
     {
       v11 = a3;
       llvm::APInt::initSlowCase(a3, (a1 + 64));
       a3 = v11;
       v12 = *(a1 + 88);
-      *(v11 + 24) = v12;
+      v11[6] = v12;
       if (v12 > 0x40)
       {
         goto LABEL_7;
@@ -5454,17 +5454,17 @@ LABEL_5:
     {
       *a3 = *(a1 + 64);
       v10 = *(a1 + 88);
-      *(a3 + 24) = v10;
+      a3[6] = v10;
       if (v10 > 0x40)
       {
 LABEL_7:
 
-        llvm::APInt::initSlowCase(a3 + 16, (a1 + 80));
+        llvm::APInt::initSlowCase((a3 + 4), (a1 + 80));
         return;
       }
     }
 
-    *(a3 + 16) = *(a1 + 80);
+    *(a3 + 2) = *(a1 + 80);
     return;
   }
 
@@ -5582,7 +5582,7 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   *result = &unk_1F5AF6B90;
   result[1] = v5;
   *(result + 16) = 0;
-  v6 = (result + 2);
+  v6 = result + 2;
   *(result + 48) = 0;
   if (*(a1 + 48) == 1)
   {
@@ -5618,17 +5618,17 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   return result;
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<llvm::APInt> ()(long)>,std::complex<llvm::APInt>>,std::complex<llvm::APInt>>::at(uint64_t a1, uint64_t a2)
+uint64_t *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<llvm::APInt> ()(long)>,std::complex<llvm::APInt>>,std::complex<llvm::APInt>>::at(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned char>>(v4);
+  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned char>>(v4, v5);
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned char>>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X8>)
@@ -5919,7 +5919,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
   *result = &unk_1F5AF6C68;
   result[1] = v4;
   *(result + 16) = 0;
-  v8 = (result + 2);
+  v8 = result + 2;
   *(result + 48) = 0;
   if ((v5 & 1) == 0)
   {
@@ -5936,7 +5936,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
       v13 = result;
       (*(*v9 + 24))(v9);
       result = v13;
-      v13[48] = 1;
+      *(v13 + 48) = 1;
       v14 = v18;
       *(a3 + 8) = v13;
       if ((v14 & 1) == 0)
@@ -6234,7 +6234,7 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   *result = &unk_1F5AF6C68;
   result[1] = v5;
   *(result + 16) = 0;
-  v6 = (result + 2);
+  v6 = result + 2;
   *(result + 48) = 0;
   if (*(a1 + 48) == 1)
   {
@@ -6270,17 +6270,17 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   return result;
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned char> ()(long)>,std::complex<unsigned char>>,std::complex<unsigned char>>::at(uint64_t a1, uint64_t a2)
+uint64_t *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned char> ()(long)>,std::complex<unsigned char>>,std::complex<unsigned char>>::at(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned short>>(v4);
+  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned short>>(v4, v5);
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned short>>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X8>)
@@ -6516,7 +6516,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
   *result = &unk_1F5AF6D58;
   result[1] = v4;
   *(result + 16) = 0;
-  v8 = (result + 2);
+  v8 = result + 2;
   *(result + 48) = 0;
   if ((v5 & 1) == 0)
   {
@@ -6533,7 +6533,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
       v13 = result;
       (*(*v9 + 24))(v9);
       result = v13;
-      v13[48] = 1;
+      *(v13 + 48) = 1;
       v14 = v18;
       *(a3 + 8) = v13;
       if ((v14 & 1) == 0)
@@ -6829,7 +6829,7 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   *result = &unk_1F5AF6D58;
   result[1] = v5;
   *(result + 16) = 0;
-  v6 = (result + 2);
+  v6 = result + 2;
   *(result + 48) = 0;
   if (*(a1 + 48) == 1)
   {
@@ -6865,17 +6865,17 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   return result;
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned short> ()(long)>,std::complex<unsigned short>>,std::complex<unsigned short>>::at(uint64_t a1, uint64_t a2)
+uint64_t *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned short> ()(long)>,std::complex<unsigned short>>,std::complex<unsigned short>>::at(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned int>>(v4);
+  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned int>>(v4, v5);
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned int>>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X8>)
@@ -7166,7 +7166,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
   *result = &unk_1F5AF6E48;
   result[1] = v4;
   *(result + 16) = 0;
-  v8 = (result + 2);
+  v8 = result + 2;
   *(result + 48) = 0;
   if ((v5 & 1) == 0)
   {
@@ -7183,7 +7183,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
       v13 = result;
       (*(*v9 + 24))(v9);
       result = v13;
-      v13[48] = 1;
+      *(v13 + 48) = 1;
       v14 = v18;
       *(a3 + 8) = v13;
       if ((v14 & 1) == 0)
@@ -7479,7 +7479,7 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   *result = &unk_1F5AF6E48;
   result[1] = v5;
   *(result + 16) = 0;
-  v6 = (result + 2);
+  v6 = result + 2;
   *(result + 48) = 0;
   if (*(a1 + 48) == 1)
   {
@@ -7515,17 +7515,17 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   return result;
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned int> ()(long)>,std::complex<unsigned int>>,std::complex<unsigned int>>::at(uint64_t a1, uint64_t a2)
+uint64_t *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned int> ()(long)>,std::complex<unsigned int>>,std::complex<unsigned int>>::at(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned long long>>(v4);
+  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned long long>>(v4, v5);
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned long long>>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X8>)
@@ -7763,7 +7763,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
   *result = &unk_1F5AF6F38;
   result[1] = v4;
   *(result + 16) = 0;
-  v8 = (result + 2);
+  v8 = result + 2;
   *(result + 48) = 0;
   if ((v5 & 1) == 0)
   {
@@ -7780,7 +7780,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
       v13 = result;
       (*(*v9 + 24))(v9);
       result = v13;
-      v13[48] = 1;
+      *(v13 + 48) = 1;
       v14 = v18;
       *(a3 + 8) = v13;
       if ((v14 & 1) == 0)
@@ -8078,7 +8078,7 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   *result = &unk_1F5AF6F38;
   result[1] = v5;
   *(result + 16) = 0;
-  v6 = (result + 2);
+  v6 = result + 2;
   *(result + 48) = 0;
   if (*(a1 + 48) == 1)
   {
@@ -8114,17 +8114,17 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   return result;
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned long long> ()(long)>,std::complex<unsigned long long>>,std::complex<unsigned long long>>::at(uint64_t a1, uint64_t a2)
+uint64_t *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned long long> ()(long)>,std::complex<unsigned long long>>,std::complex<unsigned long long>>::at(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<signed char>>(v4);
+  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<signed char>>(v4, v5);
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<signed char>>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X8>)
@@ -8415,7 +8415,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
   *result = &unk_1F5AF7028;
   result[1] = v4;
   *(result + 16) = 0;
-  v8 = (result + 2);
+  v8 = result + 2;
   *(result + 48) = 0;
   if ((v5 & 1) == 0)
   {
@@ -8432,7 +8432,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
       v13 = result;
       (*(*v9 + 24))(v9);
       result = v13;
-      v13[48] = 1;
+      *(v13 + 48) = 1;
       v14 = v18;
       *(a3 + 8) = v13;
       if ((v14 & 1) == 0)
@@ -8730,7 +8730,7 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   *result = &unk_1F5AF7028;
   result[1] = v5;
   *(result + 16) = 0;
-  v6 = (result + 2);
+  v6 = result + 2;
   *(result + 48) = 0;
   if (*(a1 + 48) == 1)
   {
@@ -8766,17 +8766,17 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   return result;
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<signed char> ()(long)>,std::complex<signed char>>,std::complex<signed char>>::at(uint64_t a1, uint64_t a2)
+uint64_t *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<signed char> ()(long)>,std::complex<signed char>>,std::complex<signed char>>::at(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<short>>(v4);
+  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<short>>(v4, v5);
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<short>>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X8>)
@@ -9012,7 +9012,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
   *result = &unk_1F5AF7118;
   result[1] = v4;
   *(result + 16) = 0;
-  v8 = (result + 2);
+  v8 = result + 2;
   *(result + 48) = 0;
   if ((v5 & 1) == 0)
   {
@@ -9029,7 +9029,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
       v13 = result;
       (*(*v9 + 24))(v9);
       result = v13;
-      v13[48] = 1;
+      *(v13 + 48) = 1;
       v14 = v18;
       *(a3 + 8) = v13;
       if ((v14 & 1) == 0)
@@ -9325,7 +9325,7 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   *result = &unk_1F5AF7118;
   result[1] = v5;
   *(result + 16) = 0;
-  v6 = (result + 2);
+  v6 = result + 2;
   *(result + 48) = 0;
   if (*(a1 + 48) == 1)
   {
@@ -9361,17 +9361,17 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   return result;
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<short> ()(long)>,std::complex<short>>,std::complex<short>>::at(uint64_t a1, uint64_t a2)
+uint64_t *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<short> ()(long)>,std::complex<short>>,std::complex<short>>::at(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<int>>(v4);
+  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<int>>(v4, v5);
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<int>>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X8>)
@@ -9662,7 +9662,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
   *result = &unk_1F5AF7208;
   result[1] = v4;
   *(result + 16) = 0;
-  v8 = (result + 2);
+  v8 = result + 2;
   *(result + 48) = 0;
   if ((v5 & 1) == 0)
   {
@@ -9679,7 +9679,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
       v13 = result;
       (*(*v9 + 24))(v9);
       result = v13;
-      v13[48] = 1;
+      *(v13 + 48) = 1;
       v14 = v18;
       *(a3 + 8) = v13;
       if ((v14 & 1) == 0)

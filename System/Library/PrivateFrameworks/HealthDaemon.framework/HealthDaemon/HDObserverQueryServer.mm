@@ -1,6 +1,7 @@
 @interface HDObserverQueryServer
 - (HDObserverQueryServer)initWithUUID:(id)d configuration:(id)configuration client:(id)client delegate:(id)delegate;
 - (id)_sampleTypesToUpdateWithSamples:(uint64_t)samples;
+- (id)transactionalQuantityInsertHandlerForProfile:(id)profile journaled:(BOOL)journaled count:(int64_t)count;
 - (void)_deliverDataWasUpdatedForTypes:(void *)types withAnchor:;
 - (void)_queue_start;
 - (void)_queue_stop;
@@ -15,46 +16,46 @@
 
 - (void)_queue_start
 {
-  v67 = *MEMORY[0x277D85DE8];
-  v59.receiver = self;
-  v59.super_class = HDObserverQueryServer;
-  [(HDQueryServer *)&v59 _queue_start];
+  v66 = *MEMORY[0x277D85DE8];
+  v58.receiver = self;
+  v58.super_class = HDObserverQueryServer;
+  [(HDQueryServer *)&v58 _queue_start];
   self->_deliverOnUnlock = 0;
-  v55 = 0;
-  v56 = &v55;
-  v57 = 0x2020000000;
-  v58 = 0;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x3032000000;
-  v52 = __Block_byref_object_copy__113;
-  v53 = __Block_byref_object_dispose__113;
-  v54 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v54 = 0;
+  v55 = &v54;
+  v56 = 0x2020000000;
+  v57 = 0;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x3032000000;
+  v51 = __Block_byref_object_copy__113;
+  v52 = __Block_byref_object_dispose__113;
+  v53 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   objectTypes = [(HDObserverQueryServer *)self objectTypes];
-  v4 = [objectTypes countByEnumeratingWithState:&v45 objects:v66 count:16];
+  v4 = [objectTypes countByEnumeratingWithState:&v44 objects:v65 count:16];
   if (v4)
   {
     v5 = 0;
-    v6 = *v46;
-    v36 = *MEMORY[0x277D10A40];
+    v6 = *v45;
+    v35 = *MEMORY[0x277D10A40];
     obj = objectTypes;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v46 != v6)
+        if (*v45 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v45 + 1) + 8 * i);
-        v44 = v5;
+        v8 = *(*(&v44 + 1) + 8 * i);
+        v43 = v5;
         v9 = v8;
-        v10 = [(HDQueryServer *)self authorizationStatusRecordForType:v9 error:&v44];
+        v10 = [(HDQueryServer *)self authorizationStatusRecordForType:v9 error:&v43];
         if (v10)
         {
           profile = [(HDQueryServer *)self profile];
@@ -70,7 +71,7 @@
           [v12 setFilter:v15];
 
           [v12 setLimitCount:1];
-          v16 = [MEMORY[0x277D10B68] orderingTermWithProperty:v36 entityClass:objc_opt_class() ascending:0];
+          v16 = [MEMORY[0x277D10B68] orderingTermWithProperty:v35 entityClass:objc_opt_class() ascending:0];
           *buf = v16;
           v17 = [MEMORY[0x277CBEA60] arrayWithObjects:buf count:1];
           [v12 setOrderingTerms:v17];
@@ -81,19 +82,19 @@
           v12 = 0;
         }
 
-        v18 = v44;
-        v42[0] = MEMORY[0x277D85DD0];
-        v42[1] = 3221225472;
-        v42[2] = __37__HDObserverQueryServer__queue_start__block_invoke;
-        v42[3] = &unk_27861B5A8;
-        v42[4] = &v49;
-        v42[5] = &v55;
-        v43 = v18;
-        [v12 enumerateWithError:&v43 handler:v42];
-        v5 = v43;
+        v18 = v43;
+        v41[0] = MEMORY[0x277D85DD0];
+        v41[1] = 3221225472;
+        v41[2] = __37__HDObserverQueryServer__queue_start__block_invoke;
+        v41[3] = &unk_27861B5A8;
+        v41[4] = &v48;
+        v41[5] = &v54;
+        v42 = v18;
+        [v12 enumerateWithError:&v42 handler:v41];
+        v5 = v42;
       }
 
-      v4 = [obj countByEnumeratingWithState:&v45 objects:v66 count:16];
+      v4 = [obj countByEnumeratingWithState:&v44 objects:v65 count:16];
     }
 
     while (v4);
@@ -136,25 +137,25 @@
   quantitySeriesManager = [dataManager quantitySeriesManager];
 
   queryQueue = [(HDQueryServer *)self queryQueue];
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   objectTypes2 = [(HDObserverQueryServer *)self objectTypes];
-  v25 = [objectTypes2 countByEnumeratingWithState:&v38 objects:v65 count:16];
+  v25 = [objectTypes2 countByEnumeratingWithState:&v37 objects:v64 count:16];
   if (v25)
   {
-    v26 = *v39;
+    v26 = *v38;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v39 != v26)
+        if (*v38 != v26)
         {
           objc_enumerationMutation(objectTypes2);
         }
 
-        v28 = *(*(&v38 + 1) + 8 * j);
+        v28 = *(*(&v37 + 1) + 8 * j);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) != 0 && self->_observeUnfrozenSeries)
         {
@@ -162,7 +163,7 @@
         }
       }
 
-      v25 = [objectTypes2 countByEnumeratingWithState:&v38 objects:v65 count:16];
+      v25 = [objectTypes2 countByEnumeratingWithState:&v37 objects:v64 count:16];
     }
 
     while (v25);
@@ -172,24 +173,23 @@
   v29 = *MEMORY[0x277CCC308];
   if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_DEFAULT))
   {
-    v30 = v50[5];
-    v31 = v56[3];
+    v30 = v49[5];
+    v31 = v55[3];
     *buf = 138543874;
     *&buf[4] = self;
-    v61 = 2114;
-    v62 = v30;
-    v63 = 2050;
-    v64 = v31;
+    v60 = 2114;
+    v61 = v30;
+    v62 = 2050;
+    v63 = v31;
     _os_log_impl(&dword_228986000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@: Queue start for types: %{public}@, anchor: %{public}lli", buf, 0x20u);
   }
 
-  v32 = v50[5];
-  v33 = [MEMORY[0x277CCABB0] numberWithLongLong:v56[3]];
+  v32 = v49[5];
+  v33 = [MEMORY[0x277CCABB0] numberWithLongLong:v55[3]];
   [(HDObserverQueryServer *)self _deliverDataWasUpdatedForTypes:v32 withAnchor:v33];
 
-  _Block_object_dispose(&v49, 8);
-  _Block_object_dispose(&v55, 8);
-  v34 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v54, 8);
 }
 
 - (void)_queue_stop
@@ -286,7 +286,7 @@ uint64_t __37__HDObserverQueryServer__queue_start__block_invoke(uint64_t a1, voi
 
 - (void)samplesAdded:(id)added anchor:(id)anchor
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   anchorCopy = anchor;
   _HKInitializeLogging();
@@ -296,18 +296,18 @@ uint64_t __37__HDObserverQueryServer__queue_start__block_invoke(uint64_t a1, voi
   {
     *buf = 138543874;
     selfCopy2 = self;
-    v20 = 2114;
-    v21 = addedCopy;
-    v22 = 2114;
-    v23 = anchorCopy;
+    v19 = 2114;
+    v20 = addedCopy;
+    v21 = 2114;
+    v22 = anchorCopy;
     _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: samplesAdded: %{public}@, anchor: %{public}@", buf, 0x20u);
   }
 
   client = [(HDQueryServer *)self client];
   authorizationOracle = [client authorizationOracle];
-  v17 = 0;
-  v12 = [authorizationOracle filteredObjectsForReadAuthorization:addedCopy anchor:anchorCopy error:&v17];
-  v13 = v17;
+  v16 = 0;
+  v12 = [authorizationOracle filteredObjectsForReadAuthorization:addedCopy anchor:anchorCopy error:&v16];
+  v13 = v16;
 
   if (v12)
   {
@@ -326,44 +326,42 @@ uint64_t __37__HDObserverQueryServer__queue_start__block_invoke(uint64_t a1, voi
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v20 = 2114;
-      v21 = v13;
+      v19 = 2114;
+      v20 = v13;
       _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "%{public}@: Failed to filter samples for authorization: %{public}@", buf, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_sampleTypesToUpdateWithSamples:(uint64_t)samples
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v20 = v3;
+  v19 = v3;
   if (samples)
   {
     v4 = v3;
     v5 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v22;
+      v9 = *v21;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v22 != v9)
+          if (*v21 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v21 + 1) + 8 * i);
+          v11 = *(*(&v20 + 1) + 8 * i);
           sampleType = [v11 sampleType];
           v13 = [v5 containsObject:sampleType];
 
@@ -381,7 +379,7 @@ uint64_t __37__HDObserverQueryServer__queue_start__block_invoke(uint64_t a1, voi
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v8);
@@ -392,8 +390,6 @@ uint64_t __37__HDObserverQueryServer__queue_start__block_invoke(uint64_t a1, voi
   {
     v5 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -410,7 +406,7 @@ uint64_t __37__HDObserverQueryServer__queue_start__block_invoke(uint64_t a1, voi
 
 - (void)associationsUpdatedForObject:(id)object subObject:(id)subObject type:(unint64_t)type behavior:(unint64_t)behavior objects:(id)objects anchor:(id)anchor
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   anchorCopy = anchor;
   v12 = [objects arrayByAddingObject:object];
   _HKInitializeLogging();
@@ -420,32 +416,32 @@ uint64_t __37__HDObserverQueryServer__queue_start__block_invoke(uint64_t a1, voi
   {
     *buf = 138543874;
     selfCopy2 = self;
-    v28 = 2114;
-    v29 = v12;
-    v30 = 2114;
-    v31 = anchorCopy;
+    v27 = 2114;
+    v28 = v12;
+    v29 = 2114;
+    v30 = anchorCopy;
     _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: associationsUpdated: %{public}@, anchor: %{public}@", buf, 0x20u);
   }
 
   client = [(HDQueryServer *)self client];
   authorizationOracle = [client authorizationOracle];
-  v25 = 0;
-  v17 = [authorizationOracle filteredObjectsForReadAuthorization:v12 anchor:anchorCopy error:&v25];
-  v18 = v25;
+  v24 = 0;
+  v17 = [authorizationOracle filteredObjectsForReadAuthorization:v12 anchor:anchorCopy error:&v24];
+  v18 = v24;
 
   if (v17)
   {
     v19 = [(HDObserverQueryServer *)self _sampleTypesToUpdateWithSamples:v17];
     if ([v19 count])
     {
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __93__HDObserverQueryServer_associationsUpdatedForObject_subObject_type_behavior_objects_anchor___block_invoke;
-      v22[3] = &unk_278613830;
-      v22[4] = self;
-      v23 = anchorCopy;
-      v24 = v19;
-      [(HDQueryServer *)self onQueue:v22];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __93__HDObserverQueryServer_associationsUpdatedForObject_subObject_type_behavior_objects_anchor___block_invoke;
+      v21[3] = &unk_278613830;
+      v21[4] = self;
+      v22 = anchorCopy;
+      v23 = v19;
+      [(HDQueryServer *)self onQueue:v21];
     }
   }
 
@@ -457,13 +453,11 @@ uint64_t __37__HDObserverQueryServer__queue_start__block_invoke(uint64_t a1, voi
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v28 = 2114;
-      v29 = v18;
+      v27 = 2114;
+      v28 = v18;
       _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "%{public}@: Failed to filter samples for authorization: %{public}@", buf, 0x16u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __93__HDObserverQueryServer_associationsUpdatedForObject_subObject_type_behavior_objects_anchor___block_invoke(uint64_t a1)
@@ -498,9 +492,38 @@ uint64_t __93__HDObserverQueryServer_associationsUpdatedForObject_subObject_type
   return MEMORY[0x2821F96F8](v8, v9);
 }
 
+- (id)transactionalQuantityInsertHandlerForProfile:(id)profile journaled:(BOOL)journaled count:(int64_t)count
+{
+  if (journaled)
+  {
+    v6 = 0;
+    self->_deliverOnUnlock = 1;
+  }
+
+  else
+  {
+    v7 = [(HDQueryServer *)self client:profile];
+    authorizationOracle = [v7 authorizationOracle];
+
+    v9 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    aBlock[0] = MEMORY[0x277D85DD0];
+    aBlock[1] = 3221225472;
+    aBlock[2] = __86__HDObserverQueryServer_transactionalQuantityInsertHandlerForProfile_journaled_count___block_invoke;
+    aBlock[3] = &unk_278623368;
+    v14 = v9;
+    v15 = authorizationOracle;
+    selfCopy = self;
+    v10 = authorizationOracle;
+    v11 = v9;
+    v6 = _Block_copy(aBlock);
+  }
+
+  return v6;
+}
+
 void __86__HDObserverQueryServer_transactionalQuantityInsertHandlerForProfile_journaled_count___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, int a7)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v13 = a2;
   v14 = a3;
   v15 = a4;
@@ -512,20 +535,20 @@ void __86__HDObserverQueryServer_transactionalQuantityInsertHandlerForProfile_jo
   {
     v19 = *(a1 + 40);
     v20 = [*(a1 + 32) allObjects];
-    v31 = 0;
-    v21 = [v19 filteredObjectsForReadAuthorization:v20 anchor:v17 error:&v31];
-    v22 = v31;
+    v30 = 0;
+    v21 = [v19 filteredObjectsForReadAuthorization:v20 anchor:v17 error:&v30];
+    v22 = v30;
 
     if (v21)
     {
       v23 = [(HDObserverQueryServer *)*(a1 + 48) _sampleTypesToUpdateWithSamples:v21];
       if ([v23 count])
       {
-        v30 = *(a1 + 48);
+        v29 = *(a1 + 48);
         v24 = v13;
         v25 = v22;
         v26 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{v14, 0}];
-        [(HDObserverQueryServer *)v30 _deliverDataWasUpdatedForTypes:v26 withAnchor:0];
+        [(HDObserverQueryServer *)v29 _deliverDataWasUpdatedForTypes:v26 withAnchor:0];
 
         v22 = v25;
         v13 = v24;
@@ -538,19 +561,17 @@ void __86__HDObserverQueryServer_transactionalQuantityInsertHandlerForProfile_jo
       v27 = *MEMORY[0x277CCC308];
       if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_ERROR))
       {
-        v29 = *(a1 + 48);
+        v28 = *(a1 + 48);
         *buf = 138543618;
-        v33 = v29;
-        v34 = 2114;
-        v35 = v22;
+        v32 = v28;
+        v33 = 2114;
+        v34 = v22;
         _os_log_error_impl(&dword_228986000, v27, OS_LOG_TYPE_ERROR, "%{public}@: Failed to filter series for authorization: %{public}@", buf, 0x16u);
       }
     }
   }
 
   objc_autoreleasePoolPop(v18);
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)profile:(id)profile didDiscardSeriesOfType:(id)type
@@ -622,6 +643,7 @@ uint64_t __67__HDObserverQueryServer__deliverDataWasUpdatedForTypes_withAnchor__
     v11 = [*(a1 + 32) queryUUID];
     [v9 client_dataUpdatedInDatabaseForTypes:v10 withAnchor:v13 query:v11];
 
+    v8 = v13;
     *(*(a1 + 32) + 208) = 0;
   }
 
@@ -636,7 +658,7 @@ uint64_t __67__HDObserverQueryServer__deliverDataWasUpdatedForTypes_withAnchor__
     *(v6 + 232) = v7;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v7, v8);
 }
 
 @end

@@ -1,5 +1,6 @@
 @interface WLPhotoLibrary
 - (BOOL)copy:(id)copy filename:(id)filename error:(id *)error;
+- (BOOL)photoLibraryDidComplete:(id)complete filename:(id)filename success:(BOOL)success error:(id *)error;
 - (WLPhotoLibrary)init;
 - (WLPhotoLibrary)initWithContentType:(unint64_t)type;
 - (id)assetCollectionChangeRequest:(id)request;
@@ -69,7 +70,7 @@
 
 - (void)addAsset:(id)asset filename:(id)filename size:(unint64_t)size collection:(id)collection completion:(id)completion
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   filenameCopy = filename;
   collectionCopy = collection;
@@ -81,26 +82,26 @@
       _WLLog();
       objc_initWeak(&location, self);
       mEMORY[0x277CD9948] = [MEMORY[0x277CD9948] sharedPhotoLibrary];
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __63__WLPhotoLibrary_addAsset_filename_size_collection_completion___block_invoke;
-      v27[3] = &unk_279EB56E8;
-      objc_copyWeak(&v30, &location);
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __63__WLPhotoLibrary_addAsset_filename_size_collection_completion___block_invoke;
+      v26[3] = &unk_279EB56E8;
+      objc_copyWeak(&v29, &location);
       v17 = assetCopy;
-      v28 = v17;
-      v29 = collectionCopy;
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __63__WLPhotoLibrary_addAsset_filename_size_collection_completion___block_invoke_2;
-      v22[3] = &unk_279EB5710;
-      objc_copyWeak(&v26, &location);
-      v23 = v17;
-      v24 = filenameCopy;
-      v25 = completionCopy;
-      [mEMORY[0x277CD9948] performChanges:v27 completionHandler:v22];
+      v27 = v17;
+      v28 = collectionCopy;
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __63__WLPhotoLibrary_addAsset_filename_size_collection_completion___block_invoke_2;
+      v21[3] = &unk_279EB5710;
+      objc_copyWeak(&v25, &location);
+      v22 = v17;
+      v23 = filenameCopy;
+      v24 = completionCopy;
+      [mEMORY[0x277CD9948] performChanges:v26 completionHandler:v21];
 
-      objc_destroyWeak(&v26);
-      objc_destroyWeak(&v30);
+      objc_destroyWeak(&v25);
+      objc_destroyWeak(&v29);
       objc_destroyWeak(&location);
     }
 
@@ -120,16 +121,14 @@
     if (completionCopy)
     {
       v18 = MEMORY[0x277CCA9B8];
-      v32 = *MEMORY[0x277CCA450];
-      v33[0] = @"WLPhotoLibrary did receive nil.";
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+      v31 = *MEMORY[0x277CCA450];
+      v32[0] = @"WLPhotoLibrary did receive nil.";
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
       v20 = [v18 errorWithDomain:*MEMORY[0x277D7B8F8] code:1 userInfo:v19];
 
       (*(completionCopy + 2))(completionCopy, 0, v20);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __63__WLPhotoLibrary_addAsset_filename_size_collection_completion___block_invoke(uint64_t a1)
@@ -207,6 +206,29 @@ LABEL_10:
     [v7 addAssets:{v8, v14, placeholderForCreatedAsset2, assetCopy}];
     _WLLog();
   }
+}
+
+- (BOOL)photoLibraryDidComplete:(id)complete filename:(id)filename success:(BOOL)success error:(id *)error
+{
+  successCopy = success;
+  completeCopy = complete;
+  filenameCopy = filename;
+  v12 = [MEMORY[0x277CCABB0] numberWithBool:successCopy];
+  v19 = *error;
+  _WLLog();
+
+  if (successCopy || (++self->_errorCount, v13 = -[WLPhotoLibrary copy:filename:error:](self, "copy:filename:error:", completeCopy, filenameCopy, error, v12, v19, completeCopy), [completeCopy pathExtension], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "lowercaseString"), v15 = objc_claimAutoreleasedReturnValue(), v14, objc_msgSend(MEMORY[0x277D7B8D0], "sharedInstance"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "photoLibraryDidFailWithExtension:", v15), v16, v15, v13))
+  {
+    *error = 0;
+    v17 = 1;
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  return v17;
 }
 
 - (BOOL)copy:(id)copy filename:(id)filename error:(id *)error

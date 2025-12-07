@@ -124,7 +124,7 @@ uint64_t __95__PLSearchIndexSceneTaxonomy_enumerateKeywordAndSynonymsForScenes_i
   return dogSceneIDs;
 }
 
-uint64_t __41__PLSearchIndexSceneTaxonomy_dogSceneIDs__block_invoke(uint64_t a1)
+uint64_t __41__PLSearchIndexSceneTaxonomy_dogSceneIDs__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (PFSceneTaxonomyNodeIsIndexed())
   {

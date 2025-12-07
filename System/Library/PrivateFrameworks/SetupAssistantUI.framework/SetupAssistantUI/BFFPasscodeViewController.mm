@@ -652,17 +652,17 @@ void __50__BFFPasscodeViewController__showWeakWarningAlert__block_invoke(uint64_
   [v1 acceptWeakPasscode:0];
 }
 
-void __50__BFFPasscodeViewController__showWeakWarningAlert__block_invoke_2(uint64_t a1)
+void __50__BFFPasscodeViewController__showWeakWarningAlert__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _BYLoggingFacility();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = _BYLoggingFacility();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_265AC5000, v2, OS_LOG_TYPE_DEFAULT, "User accepted weak passcode", v4, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_265AC5000, v4, OS_LOG_TYPE_DEFAULT, "User accepted weak passcode", v6, 2u);
   }
 
-  v3 = [*(a1 + 32) passcodeManager];
-  [v3 acceptWeakPasscode:1];
+  v5 = [*(a1 + 32) passcodeManager];
+  [v5 acceptWeakPasscode:1];
 }
 
 - (void)_showSkipPasscodeAlert
@@ -696,13 +696,13 @@ void __50__BFFPasscodeViewController__showWeakWarningAlert__block_invoke_2(uint6
   [(BFFPasscodeViewController *)self presentViewController:v8 animated:1 completion:0];
 }
 
-uint64_t __51__BFFPasscodeViewController__showSkipPasscodeAlert__block_invoke(uint64_t a1)
+uint64_t __51__BFFPasscodeViewController__showSkipPasscodeAlert__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _BYLoggingFacility();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = _BYLoggingFacility();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_265AC5000, v2, OS_LOG_TYPE_DEFAULT, "User opted out of passcode", v4, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_265AC5000, v4, OS_LOG_TYPE_DEFAULT, "User opted out of passcode", v6, 2u);
   }
 
   return [*(a1 + 32) _finishedWithPasscode:0];

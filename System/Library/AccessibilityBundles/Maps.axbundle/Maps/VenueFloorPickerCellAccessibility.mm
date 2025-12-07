@@ -52,42 +52,42 @@
 
 - (id)accessibilityLabel
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   _axVenueFloorViewController = [(VenueFloorPickerCellAccessibility *)self _axVenueFloorViewController];
   v4 = [_axVenueFloorViewController safeValueForKey:@"venue"];
 
-  v30 = 0;
+  v29 = 0;
   objc_opt_class();
-  v24 = v4;
+  v23 = v4;
   v5 = [v4 safeValueForKey:@"buildings"];
   v6 = __UIAccessibilityCastAsClass();
 
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = v6;
-  v7 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v7 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v27;
+    v9 = *v26;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * i);
-        v30 = 0;
+        v11 = *(*(&v25 + 1) + 8 * i);
+        v29 = 0;
         objc_opt_class();
         v12 = [v11 safeValueForKey:@"floorNames"];
         v13 = __UIAccessibilityCastAsClass();
 
-        if (v30 == 1)
+        if (v29 == 1)
         {
 LABEL_22:
           abort();
@@ -96,12 +96,12 @@ LABEL_22:
         v14 = [(VenueFloorPickerCellAccessibility *)self safeValueForKey:@"floorOrdinal"];
         if (v14)
         {
-          v30 = 0;
+          v29 = 0;
           objc_opt_class();
           v15 = [v13 objectForKeyedSubscript:v14];
           v16 = __UIAccessibilityCastAsClass();
 
-          if (v30 == 1)
+          if (v29 == 1)
           {
             goto LABEL_22;
           }
@@ -114,7 +114,7 @@ LABEL_22:
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v8 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
       if (v8)
       {
         continue;
@@ -128,22 +128,20 @@ LABEL_22:
 LABEL_15:
   if ([(VenueFloorPickerCellAccessibility *)self safeBoolForKey:@"isUserLocation"])
   {
-    v21 = AXMapsLocString(@"CURRENT_FLOOR");
-    v23 = @"__AXStringForVariablesSentinel";
+    v20 = AXMapsLocString(@"CURRENT_FLOOR");
+    v22 = @"__AXStringForVariablesSentinel";
     v17 = __AXStringForVariables();
 
     v16 = v17;
   }
 
-  if ([(VenueFloorPickerCellAccessibility *)self safeBoolForKey:@"lacksSearchResults", v21, v23])
+  if ([(VenueFloorPickerCellAccessibility *)self safeBoolForKey:@"lacksSearchResults", v20, v22])
   {
-    v22 = AXMapsLocString(@"NO_POIS_ON_FLOOR");
+    v21 = AXMapsLocString(@"NO_POIS_ON_FLOOR");
     v18 = __AXStringForVariables();
 
     v16 = v18;
   }
-
-  v19 = *MEMORY[0x29EDCA608];
 
   return v16;
 }

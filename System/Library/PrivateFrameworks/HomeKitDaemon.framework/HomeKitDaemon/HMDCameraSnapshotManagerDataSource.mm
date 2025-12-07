@@ -1,9 +1,23 @@
 @interface HMDCameraSnapshotManagerDataSource
+- (id)createLocalSnapshotSessionWithID:(id)d accessory:(id)accessory snapshotGetter:(id)getter message:(id)message waitPeriod:(double)period reachabilityPath:(unint64_t)path cameraLocallyReachable:(BOOL)reachable snapshotForNotification:(BOOL)self0;
 - (id)createSnapshotLocalWithSessionID:(id)d workQueue:(id)queue accessory:(id)accessory delegate:(id)delegate snapshotRequestHandler:(id)handler;
 - (id)createSnapshotRemoteRelayReceiverWithSessionID:(id)d workQueue:(id)queue accessory:(id)accessory delegate:(id)delegate uniqueIdentifier:(id)identifier snapshotRequestHandler:(id)handler residentMessageHandler:(id)messageHandler remoteDevice:(id)self0;
 @end
 
 @implementation HMDCameraSnapshotManagerDataSource
+
+- (id)createLocalSnapshotSessionWithID:(id)d accessory:(id)accessory snapshotGetter:(id)getter message:(id)message waitPeriod:(double)period reachabilityPath:(unint64_t)path cameraLocallyReachable:(BOOL)reachable snapshotForNotification:(BOOL)self0
+{
+  reachableCopy = reachable;
+  messageCopy = message;
+  getterCopy = getter;
+  accessoryCopy = accessory;
+  dCopy = d;
+  LOBYTE(v22) = notification;
+  v20 = [[HMDCameraSnapshotLocalSession alloc] initWithSessionID:dCopy accessory:accessoryCopy snapshotGetter:getterCopy message:messageCopy waitPeriod:path reachabilityPath:reachableCopy cameraLocallyReachable:period snapshotForNotification:v22];
+
+  return v20;
+}
 
 - (id)createSnapshotRemoteRelayReceiverWithSessionID:(id)d workQueue:(id)queue accessory:(id)accessory delegate:(id)delegate uniqueIdentifier:(id)identifier snapshotRequestHandler:(id)handler residentMessageHandler:(id)messageHandler remoteDevice:(id)self0
 {

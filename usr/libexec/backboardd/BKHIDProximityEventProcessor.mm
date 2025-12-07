@@ -8,6 +8,7 @@
 - (void)_lock_postDetectionMaskChangeToObservers;
 - (void)_lock_postSyntheticEventWithDetectionMaskToClients:(unsigned int)clients;
 - (void)_locked_notifyIfNeededCurrentDetectionMaskChangeWithTimstamp:(unint64_t)timstamp;
+- (void)_locked_postEventWithDetectionMask:(unsigned int)mask toDestinations:(id)destinations dispatcher:(id)dispatcher reason:(id)reason;
 - (void)_locked_setObjectWithinProximity:(BOOL)proximity notify:(BOOL)notify;
 - (void)_locked_updateTouchSuppressionAssertion;
 - (void)connectionDidTerminate:(id)terminate;
@@ -383,6 +384,77 @@ LABEL_21:
   }
 }
 
+- (void)_locked_postEventWithDetectionMask:(unsigned int)mask toDestinations:(id)destinations dispatcher:(id)dispatcher reason:(id)reason
+{
+  v8 = *&mask;
+  destinationsCopy = destinations;
+  dispatcherCopy = dispatcher;
+  reasonCopy = reason;
+  os_unfair_lock_assert_owner(&self->_lock);
+  WeakRetained = objc_loadWeakRetained(&self->_lastProximitySender);
+  senderID = [WeakRetained senderID];
+
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  obj = destinationsCopy;
+  v28 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
+  if (v28)
+  {
+    v14 = *v30;
+    v25 = *v30;
+    do
+    {
+      for (i = 0; i != v28; i = i + 1)
+      {
+        if (*v30 != v14)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v16 = *(*(&v29 + 1) + 8 * i);
+        mach_absolute_time();
+        ProximtyEvent = IOHIDEventCreateProximtyEvent();
+        IOHIDEventSetSenderID();
+        IOHIDEventSetIntegerValue();
+        v18 = [BKSHIDEventProximityAttributes baseAttributesFromProvider:v16];
+        [v18 setProximityDetectionMode:self->_detectionMode];
+        BKSHIDEventSetAttributes();
+        v19 = BKLogUISensor();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        {
+          BKSHIDEventGetConciseDescription();
+          v20 = senderID;
+          v21 = dispatcherCopy;
+          selfCopy = self;
+          v24 = v23 = v8;
+          *buf = 138543874;
+          v34 = v24;
+          v35 = 2114;
+          v36 = v16;
+          v37 = 2114;
+          v38 = reasonCopy;
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "send prox event:%{public}@ to %{public}@ [%{public}@]", buf, 0x20u);
+
+          v8 = v23;
+          self = selfCopy;
+          dispatcherCopy = v21;
+          senderID = v20;
+          v14 = v25;
+        }
+
+        [dispatcherCopy postEvent:ProximtyEvent toDestination:v16];
+        CFRelease(ProximtyEvent);
+      }
+
+      v28 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
+    }
+
+    while (v28);
+  }
+}
+
 - (void)_locked_notifyIfNeededCurrentDetectionMaskChangeWithTimstamp:(unint64_t)timstamp
 {
   modeDetectionMask = self->_modeDetectionMask;
@@ -414,10 +486,9 @@ LABEL_21:
   v11 = BKLogUISensor();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = *event;
-    v13 = BKSHIDEventGetConciseDescription();
+    v12 = BKSHIDEventGetConciseDescription();
     *buf = 138543362;
-    v48 = v13;
+    v47 = v12;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "-> %{public}@", buf, 0xCu);
   }
 
@@ -426,17 +497,17 @@ LABEL_21:
   objc_storeWeak(&self->_lastProximityDispatcher, dispatcherCopy);
   if ([(SLGNotificationActivatedLogger *)self->_studyLog isEnabled])
   {
-    v14 = IOHIDEventGetIntegerValue() != 0;
-    if (self->_studyLogProxState != v14)
+    v13 = IOHIDEventGetIntegerValue() != 0;
+    if (self->_studyLogProxState != v13)
     {
       studyLog = self->_studyLog;
-      v44[0] = _NSConcreteStackBlock;
-      v44[1] = 3221225472;
-      v44[2] = sub_10003B618;
-      v44[3] = &unk_1000FAE40;
-      v45 = v14;
-      [(SLGNotificationActivatedLogger *)studyLog logBlock:v44 domain:@"com.apple.backboard.hid.proximity"];
-      self->_studyLogProxState = v14;
+      v43[0] = _NSConcreteStackBlock;
+      v43[1] = 3221225472;
+      v43[2] = sub_10003B618;
+      v43[3] = &unk_1000FAE40;
+      v44 = v13;
+      [(SLGNotificationActivatedLogger *)studyLog logBlock:v43 domain:@"com.apple.backboard.hid.proximity"];
+      self->_studyLogProxState = v13;
     }
   }
 
@@ -444,121 +515,121 @@ LABEL_21:
   self->_rawDetectionMask = IntegerValue;
   if (self->_proximityDetectionActive)
   {
-    v17 = 1088;
+    v16 = 1088;
   }
 
   else
   {
-    v17 = 1024;
+    v16 = 1024;
   }
 
-  v18 = v17 & IntegerValue;
+  v17 = v16 & IntegerValue;
   kdebug_trace();
-  v39 = +[NSMutableSet set];
-  if (self->_modeDetectionMask != v18)
+  v38 = +[NSMutableSet set];
+  if (self->_modeDetectionMask != v17)
   {
-    self->_modeDetectionMask = v18;
+    self->_modeDetectionMask = v17;
     if (self->_proximityDetectionActive)
     {
-      [(BKHIDProximityEventProcessor *)self _locked_setObjectWithinProximity:(v18 >> 6) & 1 notify:1];
+      [(BKHIDProximityEventProcessor *)self _locked_setObjectWithinProximity:(v17 >> 6) & 1 notify:1];
     }
 
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
-    v19 = [(BSMutableIntegerMap *)self->_eventClients allValues:v10];
-    v20 = [v19 countByEnumeratingWithState:&v40 objects:v46 count:16];
-    if (v20)
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    v18 = [(BSMutableIntegerMap *)self->_eventClients allValues:v10];
+    v19 = [v18 countByEnumeratingWithState:&v39 objects:v45 count:16];
+    if (v19)
     {
-      v21 = v20;
-      v22 = *v41;
+      v20 = v19;
+      v21 = *v40;
       do
       {
-        v23 = 0;
+        v22 = 0;
         do
         {
-          if (*v41 != v22)
+          if (*v40 != v21)
           {
-            objc_enumerationMutation(v19);
+            objc_enumerationMutation(v18);
           }
 
-          v24 = *(*(&v40 + 1) + 8 * v23);
-          if (v24)
+          v23 = *(*(&v39 + 1) + 8 * v22);
+          if (v23)
           {
-            v25 = v24[1];
+            v24 = v23[1];
           }
 
           else
           {
-            v25 = 0;
+            v24 = 0;
           }
 
-          if (([v25 unsignedIntValue] & v18) == 0)
+          if (([v24 unsignedIntValue] & v17) == 0)
           {
-            if (v24)
+            if (v23)
             {
-              v26 = v24[3];
+              v25 = v23[3];
             }
 
             else
             {
-              v26 = 0;
+              v25 = 0;
             }
 
-            v27 = v26;
-            v28 = [NSSet setWithObject:v27];
-            if (v24)
+            v26 = v25;
+            v27 = [NSSet setWithObject:v26];
+            if (v23)
             {
-              v29 = v24[2];
+              v28 = v23[2];
             }
 
             else
             {
-              v29 = 0;
+              v28 = 0;
             }
 
-            [(BKHIDProximityEventProcessor *)self _locked_postEventWithDetectionMask:0 toDestinations:v28 dispatcher:v29 reason:@"client mask mismatch"];
+            [(BKHIDProximityEventProcessor *)self _locked_postEventWithDetectionMask:0 toDestinations:v27 dispatcher:v28 reason:@"client mask mismatch"];
 
-            [v39 addObject:v27];
-            -[BSMutableIntegerMap removeObjectForKey:](self->_eventClients, "removeObjectForKey:", [v27 pid]);
+            [v38 addObject:v26];
+            -[BSMutableIntegerMap removeObjectForKey:](self->_eventClients, "removeObjectForKey:", [v26 pid]);
           }
 
-          v23 = v23 + 1;
+          v22 = v22 + 1;
         }
 
-        while (v21 != v23);
-        v30 = [v19 countByEnumeratingWithState:&v40 objects:v46 count:16];
-        v21 = v30;
+        while (v20 != v22);
+        v29 = [v18 countByEnumeratingWithState:&v39 objects:v45 count:16];
+        v20 = v29;
       }
 
-      while (v30);
+      while (v29);
     }
 
-    if (v18 && self->_proximityDetectionActive)
+    if (v17 && self->_proximityDetectionActive)
     {
-      [(BKHIDProximityEventProcessor *)self _lock_postSyntheticEventWithDetectionMaskToClients:v18];
-      dispatcherCopy = v37;
-      senderCopy = v38;
-      v10 = v36;
+      [(BKHIDProximityEventProcessor *)self _lock_postSyntheticEventWithDetectionMaskToClients:v17];
+      dispatcherCopy = v36;
+      senderCopy = v37;
+      v10 = v35;
     }
 
     else
     {
-      dispatcherCopy = v37;
-      senderCopy = v38;
-      v10 = v36;
-      if (v18 < 0x400)
+      dispatcherCopy = v36;
+      senderCopy = v37;
+      v10 = v35;
+      if (v17 < 0x400)
       {
-        if (v18)
+        if (v17)
         {
-          v31 = BKLogUISensor();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+          v30 = BKLogUISensor();
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
           {
-            v32 = BKSHIDEventGetConciseDescription();
+            v31 = BKSHIDEventGetConciseDescription();
             *buf = 138543362;
-            v48 = v32;
-            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "Ignoring %{public}@", buf, 0xCu);
+            v47 = v31;
+            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "Ignoring %{public}@", buf, 0xCu);
           }
         }
       }
@@ -572,12 +643,12 @@ LABEL_21:
 
   if (!self->_rawDetectionMask)
   {
-    v33 = [dispatcherCopy destinationsForEvent:v10 fromSender:senderCopy];
-    if ([v33 count])
+    v32 = [dispatcherCopy destinationsForEvent:v10 fromSender:senderCopy];
+    if ([v32 count])
     {
-      v34 = [v33 mutableCopy];
-      [v34 minusSet:v39];
-      [(BKHIDProximityEventProcessor *)self _locked_postEventWithDetectionMask:0 toDestinations:v34 dispatcher:dispatcherCopy reason:@"HID zero mask"];
+      v33 = [v32 mutableCopy];
+      [v33 minusSet:v38];
+      [(BKHIDProximityEventProcessor *)self _locked_postEventWithDetectionMask:0 toDestinations:v33 dispatcher:dispatcherCopy reason:@"HID zero mask"];
     }
   }
 

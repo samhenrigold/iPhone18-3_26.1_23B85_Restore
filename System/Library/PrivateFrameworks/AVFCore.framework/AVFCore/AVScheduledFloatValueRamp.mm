@@ -57,7 +57,7 @@
 {
   memset(v21, 0, sizeof(v21));
   v20 = 0u;
-  if (self && ([(AVScheduledParameterRamp *)self timeRange], (BYTE4(v21[1]) & 0x1D) == 1))
+  if (self && (objc_msgSend_timeRange(self, a2), (BYTE4(v21[1]) & 0x1D) == 1))
   {
     time = *(v21 + 8);
     Seconds = CMTimeGetSeconds(&time);
@@ -121,7 +121,7 @@
   memset(&v19, 0, sizeof(v19));
   if (self)
   {
-    [(AVScheduledParameterRamp *)self timeRange];
+    objc_msgSend_timeRange(self);
   }
 
   range = v19;
@@ -248,7 +248,7 @@ LABEL_9:
   v13 = 0u;
   if (self)
   {
-    [(AVScheduledParameterRamp *)self timeRange];
+    objc_msgSend_timeRange(self, a2);
     v3 = (BYTE4(v15) & 0x1D) == 1;
   }
 

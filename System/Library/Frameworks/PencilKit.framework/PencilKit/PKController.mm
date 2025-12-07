@@ -1,12 +1,12 @@
 @interface PKController
-- (id)initWithPixelSize:(uint64_t)size actualSize:(int)actualSize singleComponent:(void *)component sixChannelBlendingMode:(double)mode wantsExtendedDynamicRangeContent:(double)content metalConfig:(double)config;
+- (id)initWithPixelSize:(uint64_t)size actualSize:(uint64_t)actualSize singleComponent:(void *)component sixChannelBlendingMode:(double)mode wantsExtendedDynamicRangeContent:(double)content metalConfig:(double)config;
 - (id)renderedStrokes;
 - (id)teardown;
 - (void)_addNewStrokes:(int)strokes wasAddedEarly:(int)early hidden:(void *)hidden preDrawingChangedBlock:;
 - (void)_didUpdateMutableRenderedStrokes;
 - (void)_setDrawing:(void *)drawing imageTexture:;
 - (void)addLiveStrokeEarly:(void *)early completionBlock:;
-- (void)addNewRenderedStrokes:(int)strokes wasAddedEarly:(int)early hidden:(void *)hidden preDrawingChangedBlock:;
+- (void)addNewRenderedStrokes:(uint64_t)strokes wasAddedEarly:(uint64_t)early hidden:(void *)hidden preDrawingChangedBlock:;
 - (void)cancelLiveStroke;
 - (void)didStartLiveInteraction;
 - (void)hideStrokesWithoutUpdating:(void *)updating completion:;
@@ -20,8 +20,9 @@
 
 @implementation PKController
 
-- (id)initWithPixelSize:(uint64_t)size actualSize:(int)actualSize singleComponent:(void *)component sixChannelBlendingMode:(double)mode wantsExtendedDynamicRangeContent:(double)content metalConfig:(double)config
+- (id)initWithPixelSize:(uint64_t)size actualSize:(uint64_t)actualSize singleComponent:(void *)component sixChannelBlendingMode:(double)mode wantsExtendedDynamicRangeContent:(double)content metalConfig:(double)config
 {
+  actualSizeCopy = actualSize;
   componentCopy = component;
   if (self && +[PKMetalUtility isMetalAvailable])
   {
@@ -70,7 +71,7 @@
         v35 = 80;
       }
 
-      v36 = [(PKMetalRendererController *)v34 initWithPixelSize:v35 actualSize:size pixelFormat:actualSize sixChannelBlendingMode:componentCopy wantsExtendedDynamicRangeContent:mode metalConfig:content, config, a9];
+      v36 = [(PKMetalRendererController *)v34 initWithPixelSize:v35 actualSize:size pixelFormat:actualSizeCopy sixChannelBlendingMode:componentCopy wantsExtendedDynamicRangeContent:mode metalConfig:content, config, a9];
       v37 = *(v19 + 8);
       *(v19 + 8) = v36;
 
@@ -657,15 +658,17 @@ void __32__PKController_cancelLiveStroke__block_invoke(uint64_t a1)
   }
 }
 
-- (void)addNewRenderedStrokes:(int)strokes wasAddedEarly:(int)early hidden:(void *)hidden preDrawingChangedBlock:
+- (void)addNewRenderedStrokes:(uint64_t)strokes wasAddedEarly:(uint64_t)early hidden:(void *)hidden preDrawingChangedBlock:
 {
+  earlyCopy = early;
+  strokesCopy = strokes;
   v9 = a2;
   hiddenCopy = hidden;
   if (self)
   {
     if (*(self + 50))
     {
-      [(PKController *)self _addNewStrokes:v9 wasAddedEarly:strokes hidden:early preDrawingChangedBlock:hiddenCopy];
+      [(PKController *)self _addNewStrokes:v9 wasAddedEarly:strokesCopy hidden:earlyCopy preDrawingChangedBlock:hiddenCopy];
     }
 
     else
@@ -680,8 +683,8 @@ void __32__PKController_cancelLiveStroke__block_invoke(uint64_t a1)
         block[4] = self;
         v12 = &v20;
         v20 = v9;
-        strokesCopy = strokes;
-        earlyCopy = early;
+        v22 = strokesCopy;
+        v23 = earlyCopy;
         v13 = &v21;
         v21 = hiddenCopy;
         dispatch_sync(v11, block);
@@ -696,8 +699,8 @@ void __32__PKController_cancelLiveStroke__block_invoke(uint64_t a1)
         v14[4] = self;
         v12 = &v15;
         v15 = v9;
-        strokesCopy2 = strokes;
-        earlyCopy2 = early;
+        v17 = strokesCopy;
+        v18 = earlyCopy;
         v13 = &v16;
         v16 = hiddenCopy;
         [(PKController *)self performAsyncInteractBlock:v14];

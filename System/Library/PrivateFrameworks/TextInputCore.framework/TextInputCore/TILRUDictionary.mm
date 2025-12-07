@@ -37,12 +37,15 @@
 - (void)removeObjectForKey:(id)key
 {
   v4 = CFDictionaryGetValue(self->_dictionary, key);
+  v5 = v4;
   if (v4)
   {
-    [(TILRUDictionary *)self _removeNode:v4];
+    v6 = v4;
+    v4 = [(TILRUDictionary *)self _removeNode:v4];
+    v5 = v6;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, v5);
 }
 
 - (void)setObject:(id)object forKey:(id)key

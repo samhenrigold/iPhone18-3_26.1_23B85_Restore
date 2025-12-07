@@ -1,11 +1,11 @@
 @interface NSMutableAttributedString(TextEffects)
 - (id)_ck_intersectingTextAnimationOnRange:()TextEffects getExistingAnimationRange:;
-- (uint64_t)ck_applyTextStyle:()TextEffects options:range:;
-- (uint64_t)ck_canApplyTextEffectInRange:()TextEffects;
-- (uint64_t)ck_removeAnimatedTextEffectsFromRange:()TextEffects;
 - (void)ck_addTextStyle:()TextEffects options:range:;
 - (void)ck_applyTextEffectType:()TextEffects range:;
+- (void)ck_applyTextStyle:()TextEffects options:range:;
+- (void)ck_canApplyTextEffectInRange:()TextEffects;
 - (void)ck_convertAttributesUsingConversionHandler:()TextEffects range:;
+- (void)ck_removeAnimatedTextEffectsFromRange:()TextEffects;
 - (void)ck_toggleTextEffectNamed:()TextEffects range:getAdded:;
 - (void)ck_toggleTextEffectType:()TextEffects range:getAdded:;
 @end
@@ -56,18 +56,26 @@
   _Block_object_dispose(&v16, 8);
 }
 
-- (uint64_t)ck_canApplyTextEffectInRange:()TextEffects
+- (void)ck_canApplyTextEffectInRange:()TextEffects
 {
   result = [self length];
   if (result)
   {
-    return a3 < [self length] && a3 + a4 <= objc_msgSend(self, "length");
+    if (a3 >= [self length])
+    {
+      return 0;
+    }
+
+    else
+    {
+      return (a3 + a4 <= [self length]);
+    }
   }
 
   return result;
 }
 
-- (uint64_t)ck_removeAnimatedTextEffectsFromRange:()TextEffects
+- (void)ck_removeAnimatedTextEffectsFromRange:()TextEffects
 {
   result = [self ck_canApplyTextEffectInRange:?];
   if (result)
@@ -254,7 +262,7 @@
   }
 }
 
-- (uint64_t)ck_applyTextStyle:()TextEffects options:range:
+- (void)ck_applyTextStyle:()TextEffects options:range:
 {
   result = [self ck_actionForIMTextStyle:a3 range:{a5, a6}];
   if (result == 1)

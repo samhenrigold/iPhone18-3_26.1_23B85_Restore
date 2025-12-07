@@ -29,12 +29,12 @@
     v11 = typeCopy;
     v5 = OBJC_IVAR___AFDeviceContext__serializedBackingStore;
     v6 = AFDeviceContextKeyContexts;
-    v7 = [*&self->AFDeviceContext_opaque[OBJC_IVAR___AFDeviceContext__serializedBackingStore] objectForKey:AFDeviceContextKeyContexts];
+    v7 = objc_msgSend_objectForKey_(*&self->AFDeviceContext_opaque[OBJC_IVAR___AFDeviceContext__serializedBackingStore]);
     v8 = [v7 mutableCopy];
 
     if (v8)
     {
-      v9 = [v8 objectForKey:v11];
+      v9 = objc_msgSend_objectForKey_(v8);
       v10 = [v9 mutableCopy];
 
       if (v10)
@@ -57,12 +57,12 @@
     v11 = typeCopy;
     v5 = OBJC_IVAR___AFDeviceContext__serializedBackingStore;
     v6 = AFDeviceContextKeyContexts;
-    v7 = [*&self->AFDeviceContext_opaque[OBJC_IVAR___AFDeviceContext__serializedBackingStore] objectForKey:AFDeviceContextKeyContexts];
+    v7 = objc_msgSend_objectForKey_(*&self->AFDeviceContext_opaque[OBJC_IVAR___AFDeviceContext__serializedBackingStore]);
     v8 = [v7 mutableCopy];
 
     if (v8)
     {
-      v9 = [v8 objectForKey:v11];
+      v9 = objc_msgSend_objectForKey_(v8);
       v10 = [v9 mutableCopy];
 
       if (v10)
@@ -85,7 +85,7 @@
   v7 = *&self->AFDeviceContext_opaque[OBJC_IVAR___AFDeviceContext__serializedBackingStore];
   v8 = AFDeviceContextKeyContexts;
   snapshotCopy = snapshot;
-  v10 = [v7 objectForKey:v8];
+  v10 = objc_msgSend_objectForKey_(v7);
   v11 = [v10 mutableCopy];
 
   if (!v11)
@@ -94,7 +94,7 @@
   }
 
   type = [metadataCopy type];
-  v13 = [v11 objectForKey:type];
+  v13 = objc_msgSend_objectForKey_(v11);
   v14 = [v13 mutableCopy];
 
   if (v14)
@@ -105,15 +105,15 @@
       v27 = v6;
       selfCopy = self;
       v26 = AFDeviceContextKeyHistoricalData;
-      v16 = [v14 objectForKey:?];
+      v16 = objc_msgSend_objectForKey_(v14);
       v17 = AFNonNilMutableCopyOfArray();
 
-      v25 = [v14 objectForKey:AFDeviceContextKeyData];
+      v25 = objc_msgSend_objectForKey_(v14);
       v24 = AFDeviceContextKeyHistoricalMetadata;
-      v18 = [v14 objectForKey:?];
+      v18 = objc_msgSend_objectForKey_(v14);
       v19 = AFNonNilMutableCopyOfArray();
 
-      v20 = [v14 objectForKey:AFDeviceContextKeyMetadata];
+      v20 = objc_msgSend_objectForKey_(v14);
       historyBufferSize = [historyConfiguration historyBufferSize];
       v22 = ([v17 count] - historyBufferSize);
       if (v22 >= 0)

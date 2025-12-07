@@ -23,7 +23,7 @@
 
 - (id)processUpdateOperationForExistingExperimentWithEndDate:(id)date withExperimentDeployment:(id)deployment
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   deploymentCopy = deployment;
   v8 = [(TRIExperimentDatabase *)self->_experimentDatabase experimentRecordWithExperimentDeployment:deploymentCopy];
@@ -38,9 +38,9 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         experimentId = [deploymentCopy experimentId];
-        v24 = 138543362;
-        v25 = experimentId;
-        _os_log_impl(&dword_26F567000, v12, OS_LOG_TYPE_INFO, "Experiment update end date occurs in the past, will schedule task for now if relevant. ID: %{public}@", &v24, 0xCu);
+        v23 = 138543362;
+        v24 = experimentId;
+        _os_log_impl(&dword_26F567000, v12, OS_LOG_TYPE_INFO, "Experiment update end date occurs in the past, will schedule task for now if relevant. ID: %{public}@", &v23, 0xCu);
       }
 
       v14 = 1;
@@ -82,11 +82,11 @@ LABEL_24:
 
         experimentId2 = [deploymentCopy experimentId];
         status2 = [v8 status];
-        v24 = 138543618;
-        v25 = experimentId2;
-        v26 = 2048;
-        v27 = status2;
-        _os_log_impl(&dword_26F567000, v18, OS_LOG_TYPE_INFO, "Experiment update for an experiment in finished state, ignoring. ID: %{public}@, state:%ld", &v24, 0x16u);
+        v23 = 138543618;
+        v24 = experimentId2;
+        v25 = 2048;
+        v26 = status2;
+        _os_log_impl(&dword_26F567000, v18, OS_LOG_TYPE_INFO, "Experiment update for an experiment in finished state, ignoring. ID: %{public}@, state:%ld", &v23, 0x16u);
 LABEL_22:
 
         goto LABEL_24;
@@ -103,11 +103,11 @@ LABEL_23:
 
         experimentId2 = [deploymentCopy experimentId];
         status3 = [v8 status];
-        v24 = 138543618;
-        v25 = experimentId2;
-        v26 = 2048;
-        v27 = status3;
-        _os_log_error_impl(&dword_26F567000, v18, OS_LOG_TYPE_ERROR, "Experiment update for an experiment in unknown experiment state, ignoring. ID: %{public}@, state:%ld", &v24, 0x16u);
+        v23 = 138543618;
+        v24 = experimentId2;
+        v25 = 2048;
+        v26 = status3;
+        _os_log_error_impl(&dword_26F567000, v18, OS_LOG_TYPE_ERROR, "Experiment update for an experiment in unknown experiment state, ignoring. ID: %{public}@, state:%ld", &v23, 0x16u);
         goto LABEL_22;
       }
     }
@@ -121,14 +121,12 @@ LABEL_25:
   v9 = TRILogCategory_Server();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v24) = 0;
-    _os_log_error_impl(&dword_26F567000, v9, OS_LOG_TYPE_ERROR, "Failed to update experiment end date due to missing existing experiment record.", &v24, 2u);
+    LOWORD(v23) = 0;
+    _os_log_error_impl(&dword_26F567000, v9, OS_LOG_TYPE_ERROR, "Failed to update experiment end date due to missing existing experiment record.", &v23, 2u);
   }
 
   v16 = 0;
 LABEL_27:
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -172,7 +170,7 @@ LABEL_27:
 
 uint64_t __135__TRIExperimentUpdateProcessor__updateExperimentEndDateWithDeployment_withNewEndDate_scheduleDeactivationTask_scheduleDeactivationNow___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = [*(*(a1 + 32) + 8) updateEndDate:*(a1 + 40) forExperimentDeployment:*(a1 + 48) usingTransaction:a2];
   v4 = TRILogCategory_Server();
   v5 = v4;
@@ -183,13 +181,13 @@ uint64_t __135__TRIExperimentUpdateProcessor__updateExperimentEndDateWithDeploym
       v6 = [*(a1 + 48) experimentId];
       v7 = [*(a1 + 48) deploymentId];
       v8 = *(a1 + 40);
-      v14 = 138543874;
-      v15 = v6;
-      v16 = 1024;
-      v17 = v7;
-      v18 = 2114;
-      v19 = v8;
-      _os_log_impl(&dword_26F567000, v5, OS_LOG_TYPE_DEFAULT, "Updated experiment end date for experiment id: %{public}@.%d. New End Date: %{public}@", &v14, 0x1Cu);
+      v13 = 138543874;
+      v14 = v6;
+      v15 = 1024;
+      v16 = v7;
+      v17 = 2114;
+      v18 = v8;
+      _os_log_impl(&dword_26F567000, v5, OS_LOG_TYPE_DEFAULT, "Updated experiment end date for experiment id: %{public}@.%d. New End Date: %{public}@", &v13, 0x1Cu);
     }
 
     v9 = MEMORY[0x277D42670];
@@ -199,21 +197,19 @@ uint64_t __135__TRIExperimentUpdateProcessor__updateExperimentEndDateWithDeploym
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v12 = [*(a1 + 48) experimentId];
-      v13 = [*(a1 + 48) deploymentId];
-      v14 = 138543618;
-      v15 = v12;
-      v16 = 1024;
-      v17 = v13;
-      _os_log_error_impl(&dword_26F567000, v5, OS_LOG_TYPE_ERROR, "Failed to update experiment end date, ignoring. For experiment: %{public}@.%d", &v14, 0x12u);
+      v11 = [*(a1 + 48) experimentId];
+      v12 = [*(a1 + 48) deploymentId];
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 1024;
+      v16 = v12;
+      _os_log_error_impl(&dword_26F567000, v5, OS_LOG_TYPE_ERROR, "Failed to update experiment end date, ignoring. For experiment: %{public}@.%d", &v13, 0x12u);
     }
 
     v9 = MEMORY[0x277D42678];
   }
 
-  result = *v9;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return *v9;
 }
 
 @end

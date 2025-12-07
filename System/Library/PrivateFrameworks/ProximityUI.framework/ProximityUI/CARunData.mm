@@ -128,7 +128,7 @@
 
 - (void)vioRevoke:(id)revoke
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCABB0];
   numberOfVIORevokes = [(CARunData *)self numberOfVIORevokes];
   v6 = [v4 numberWithInt:{objc_msgSend(numberOfVIORevokes, "intValue") + 1}];
@@ -138,17 +138,15 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     numberOfVIORevokes2 = [(CARunData *)self numberOfVIORevokes];
-    v10[0] = 67109120;
-    v10[1] = [numberOfVIORevokes2 intValue];
-    _os_log_impl(&dword_2613DF000, v7, OS_LOG_TYPE_DEFAULT, "VIO Revoke %d", v10, 8u);
+    v9[0] = 67109120;
+    v9[1] = [numberOfVIORevokes2 intValue];
+    _os_log_impl(&dword_2613DF000, v7, OS_LOG_TYPE_DEFAULT, "VIO Revoke %d", v9, 8u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)targetMotionRevoke:(id)revoke
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCABB0];
   numberOfTargetMotionRevokes = [(CARunData *)self numberOfTargetMotionRevokes];
   v6 = [v4 numberWithInt:{objc_msgSend(numberOfTargetMotionRevokes, "intValue") + 1}];
@@ -158,17 +156,15 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     numberOfTargetMotionRevokes2 = [(CARunData *)self numberOfTargetMotionRevokes];
-    v10[0] = 67109120;
-    v10[1] = [numberOfTargetMotionRevokes2 intValue];
-    _os_log_impl(&dword_2613DF000, v7, OS_LOG_TYPE_DEFAULT, "Target Motion Revoke %d", v10, 8u);
+    v9[0] = 67109120;
+    v9[1] = [numberOfTargetMotionRevokes2 intValue];
+    _os_log_impl(&dword_2613DF000, v7, OS_LOG_TYPE_DEFAULT, "Target Motion Revoke %d", v9, 8u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)rangeRevoke:(id)revoke
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCABB0];
   numberOfRangeRevokes = [(CARunData *)self numberOfRangeRevokes];
   v6 = [v4 numberWithInt:{objc_msgSend(numberOfRangeRevokes, "intValue") + 1}];
@@ -178,17 +174,15 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     numberOfRangeRevokes2 = [(CARunData *)self numberOfRangeRevokes];
-    v10[0] = 67109120;
-    v10[1] = [numberOfRangeRevokes2 intValue];
-    _os_log_impl(&dword_2613DF000, v7, OS_LOG_TYPE_DEFAULT, "Range Revoke %d", v10, 8u);
+    v9[0] = 67109120;
+    v9[1] = [numberOfRangeRevokes2 intValue];
+    _os_log_impl(&dword_2613DF000, v7, OS_LOG_TYPE_DEFAULT, "Range Revoke %d", v9, 8u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)aoaRevoke:(id)revoke
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCABB0];
   numberOfAoARevokes = [(CARunData *)self numberOfAoARevokes];
   v6 = [v4 numberWithInt:{objc_msgSend(numberOfAoARevokes, "intValue") + 1}];
@@ -198,17 +192,15 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     numberOfAoARevokes2 = [(CARunData *)self numberOfAoARevokes];
-    v10[0] = 67109120;
-    v10[1] = [numberOfAoARevokes2 intValue];
-    _os_log_impl(&dword_2613DF000, v7, OS_LOG_TYPE_DEFAULT, "AoA Revoke %d", v10, 8u);
+    v9[0] = 67109120;
+    v9[1] = [numberOfAoARevokes2 intValue];
+    _os_log_impl(&dword_2613DF000, v7, OS_LOG_TYPE_DEFAULT, "AoA Revoke %d", v9, 8u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)straightPathRevoke:(id)revoke
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCABB0];
   numberOfStraightPathRevokes = [(CARunData *)self numberOfStraightPathRevokes];
   v6 = [v4 numberWithInt:{objc_msgSend(numberOfStraightPathRevokes, "intValue") + 1}];
@@ -218,17 +210,15 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     numberOfStraightPathRevokes2 = [(CARunData *)self numberOfStraightPathRevokes];
-    v10[0] = 67109120;
-    v10[1] = [numberOfStraightPathRevokes2 intValue];
-    _os_log_impl(&dword_2613DF000, v7, OS_LOG_TYPE_DEFAULT, "Straight Path Revoke %d", v10, 8u);
+    v9[0] = 67109120;
+    v9[1] = [numberOfStraightPathRevokes2 intValue];
+    _os_log_impl(&dword_2613DF000, v7, OS_LOG_TYPE_DEFAULT, "Straight Path Revoke %d", v9, 8u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)highResidualRevoke:(id)revoke
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCABB0];
   numberOfHighResidualRevokes = [(CARunData *)self numberOfHighResidualRevokes];
   v6 = [v4 numberWithInt:{objc_msgSend(numberOfHighResidualRevokes, "intValue") + 1}];
@@ -238,12 +228,10 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     numberOfHighResidualRevokes2 = [(CARunData *)self numberOfHighResidualRevokes];
-    v10[0] = 67109120;
-    v10[1] = [numberOfHighResidualRevokes2 intValue];
-    _os_log_impl(&dword_2613DF000, v7, OS_LOG_TYPE_DEFAULT, "High Residual Revoke %d", v10, 8u);
+    v9[0] = 67109120;
+    v9[1] = [numberOfHighResidualRevokes2 intValue];
+    _os_log_impl(&dword_2613DF000, v7, OS_LOG_TYPE_DEFAULT, "High Residual Revoke %d", v9, 8u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)firstPose:(id)pose
@@ -278,20 +266,20 @@
 
 - (void)error:(id)error
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = MEMORY[0x277CCABB0];
   numberOfErrorEvents = [(CARunData *)self numberOfErrorEvents];
   v7 = [v5 numberWithInt:{objc_msgSend(numberOfErrorEvents, "intValue") + 1}];
   [(CARunData *)self setNumberOfErrorEvents:v7];
 
-  v20[0] = @"status";
+  v19[0] = @"status";
   v8 = [errorCopy objectForKeyedSubscript:?];
-  v20[1] = @"errorDescription";
-  v21[0] = v8;
+  v19[1] = @"errorDescription";
+  v20[0] = v8;
   v9 = [errorCopy objectForKeyedSubscript:?];
-  v21[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v20[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
   v11 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v10];
   productUUID = [(CARunData *)self productUUID];
@@ -313,26 +301,24 @@
     [v11 setObject:isOwner2 forKeyedSubscript:@"IsOwner"];
   }
 
-  v19 = v11;
+  v18 = v11;
   AnalyticsSendEventLazy();
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logData
 {
-  v148 = *MEMORY[0x277D85DE8];
+  v147 = *MEMORY[0x277D85DE8];
   startEvent = [(CARunData *)self startEvent];
   if (!startEvent)
   {
-    goto LABEL_31;
+    return;
   }
 
   stopEvent = [(CARunData *)self stopEvent];
 
   if (!stopEvent)
   {
-    goto LABEL_31;
+    return;
   }
 
   startEvent2 = [(CARunData *)self startEvent];
@@ -343,7 +329,7 @@
   stopEvent2 = [(CARunData *)self stopEvent];
   v10 = [stopEvent2 objectForKeyedSubscript:@"timeElapsed"];
   [v10 doubleValue];
-  v141 = v11;
+  v140 = v11;
 
   firstRangeEvent = [(CARunData *)self firstRangeEvent];
 
@@ -352,7 +338,7 @@
     firstRangeEvent2 = [(CARunData *)self firstRangeEvent];
     v14 = [firstRangeEvent2 objectForKeyedSubscript:@"rangeEstimate"];
     [v14 doubleValue];
-    v138 = v15;
+    v137 = v15;
 
     firstRangeEvent3 = [(CARunData *)self firstRangeEvent];
     v17 = [firstRangeEvent3 objectForKeyedSubscript:@"timeElapsed"];
@@ -366,15 +352,15 @@
     startEvent3 = [(CARunData *)self startEvent];
     v25 = [startEvent3 objectForKeyedSubscript:@"traveledDistanceOfUser"];
     [v25 doubleValue];
-    v136 = v19 - v8;
-    v131 = v23 - v26;
+    v135 = v19 - v8;
+    v130 = v23 - v26;
   }
 
   else
   {
-    v131 = -1.0;
-    v136 = -1.0;
-    v138 = -1.0;
+    v130 = -1.0;
+    v135 = -1.0;
+    v137 = -1.0;
   }
 
   firstPoseEvent = [(CARunData *)self firstPoseEvent];
@@ -384,12 +370,12 @@
     firstPoseEvent2 = [(CARunData *)self firstPoseEvent];
     v29 = [firstPoseEvent2 objectForKeyedSubscript:@"timeElapsed"];
     [v29 doubleValue];
-    v134 = v30 - v8;
+    v133 = v30 - v8;
   }
 
   else
   {
-    v134 = -1.0;
+    v133 = -1.0;
   }
 
   armsReachEvent = [(CARunData *)self armsReachEvent];
@@ -413,16 +399,16 @@
     armsReachEvent4 = [(CARunData *)self armsReachEvent];
     v45 = [armsReachEvent4 objectForKeyedSubscript:@"straightLineDistance"];
     [v45 doubleValue];
-    v129 = v46;
-    v132 = v35 - v8;
-    v130 = v39 - v43;
+    v128 = v46;
+    v131 = v35 - v8;
+    v129 = v39 - v43;
   }
 
   else
   {
-    v132 = -1.0;
+    v131 = -1.0;
+    v128 = -1.0;
     v129 = -1.0;
-    v130 = -1.0;
   }
 
   firstTargetFoundEvent = [(CARunData *)self firstTargetFoundEvent];
@@ -514,7 +500,7 @@ LABEL_24:
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v147 = v81;
+    v146 = v81;
     _os_log_impl(&dword_2613DF000, logger, OS_LOG_TYPE_DEFAULT, "Time between first range arrow and first aoa arrow (s) = %f", buf, 0xCu);
   }
 
@@ -528,105 +514,105 @@ LABEL_24:
   v90 = v89;
 
   v91 = MEMORY[0x277CBEB38];
-  v144[0] = @"NumberOfMotionEvents";
+  v143[0] = @"NumberOfMotionEvents";
   numberOfMotionEvents = [(CARunData *)self numberOfMotionEvents];
-  v145[0] = numberOfMotionEvents;
-  v144[1] = @"NumberOfTargetFoundEvents";
+  v144[0] = numberOfMotionEvents;
+  v143[1] = @"NumberOfTargetFoundEvents";
   numberOfTargetFoundEvents = [(CARunData *)self numberOfTargetFoundEvents];
-  v145[1] = numberOfTargetFoundEvents;
-  v144[2] = @"NumberOfTargetRevokedEvents";
+  v144[1] = numberOfTargetFoundEvents;
+  v143[2] = @"NumberOfTargetRevokedEvents";
   numberOfTargetRevokedEvents = [(CARunData *)self numberOfTargetRevokedEvents];
-  v145[2] = numberOfTargetRevokedEvents;
-  v144[3] = @"NumberOfInvalidPoseEvents";
+  v144[2] = numberOfTargetRevokedEvents;
+  v143[3] = @"NumberOfInvalidPoseEvents";
   numberOfInvalidPoseEvents = [(CARunData *)self numberOfInvalidPoseEvents];
-  v145[3] = numberOfInvalidPoseEvents;
-  v144[4] = @"NumberOfErrorEvents";
+  v144[3] = numberOfInvalidPoseEvents;
+  v143[4] = @"NumberOfErrorEvents";
   numberOfErrorEvents = [(CARunData *)self numberOfErrorEvents];
-  v145[4] = numberOfErrorEvents;
-  v144[5] = @"NumberOfVIORevokes";
+  v144[4] = numberOfErrorEvents;
+  v143[5] = @"NumberOfVIORevokes";
   numberOfVIORevokes = [(CARunData *)self numberOfVIORevokes];
-  v145[5] = numberOfVIORevokes;
-  v144[6] = @"NumberOfTargetMotionRevokes";
+  v144[5] = numberOfVIORevokes;
+  v143[6] = @"NumberOfTargetMotionRevokes";
   numberOfTargetMotionRevokes = [(CARunData *)self numberOfTargetMotionRevokes];
-  v145[6] = numberOfTargetMotionRevokes;
-  v144[7] = @"NumberOfRangeRevokes";
+  v144[6] = numberOfTargetMotionRevokes;
+  v143[7] = @"NumberOfRangeRevokes";
   numberOfRangeRevokes = [(CARunData *)self numberOfRangeRevokes];
-  v145[7] = numberOfRangeRevokes;
-  v144[8] = @"NumberOfAoARevokes";
+  v144[7] = numberOfRangeRevokes;
+  v143[8] = @"NumberOfAoARevokes";
   numberOfAoARevokes = [(CARunData *)self numberOfAoARevokes];
-  v145[8] = numberOfAoARevokes;
-  v144[9] = @"NumberOfStraightPathRevokes";
+  v144[8] = numberOfAoARevokes;
+  v143[9] = @"NumberOfStraightPathRevokes";
   numberOfStraightPathRevokes = [(CARunData *)self numberOfStraightPathRevokes];
-  v145[9] = numberOfStraightPathRevokes;
-  v144[10] = @"NumberOfHighResidualRevokes";
+  v144[9] = numberOfStraightPathRevokes;
+  v143[10] = @"NumberOfHighResidualRevokes";
   numberOfHighResidualRevokes = [(CARunData *)self numberOfHighResidualRevokes];
-  v145[10] = numberOfHighResidualRevokes;
-  v144[11] = @"TorchButtonPresented";
-  v126 = [MEMORY[0x277CCABB0] numberWithBool:{-[CARunData torchButtonPresented](self, "torchButtonPresented")}];
-  v145[11] = v126;
-  v144[12] = @"TorchTurnedOn";
-  v117 = [MEMORY[0x277CCABB0] numberWithBool:{-[CARunData torchTurnedOn](self, "torchTurnedOn")}];
-  v145[12] = v117;
-  v144[13] = @"TorchTurnedOff";
-  v116 = [MEMORY[0x277CCABB0] numberWithBool:{-[CARunData torchTurnedOff](self, "torchTurnedOff")}];
-  v145[13] = v116;
-  v144[14] = @"TimeToFirstRange";
-  v110 = [MEMORY[0x277CCABB0] numberWithDouble:v136];
-  v145[14] = v110;
-  v144[15] = @"TimeToFirstPose";
-  v115 = [MEMORY[0x277CCABB0] numberWithDouble:v134];
-  v145[15] = v115;
-  v144[16] = @"TimeToFirstArrow";
-  v109 = [MEMORY[0x277CCABB0] numberWithDouble:v68];
-  v145[16] = v109;
-  v144[17] = @"TimeToArmsReach";
-  v133 = [MEMORY[0x277CCABB0] numberWithDouble:v132];
-  v145[17] = v133;
-  v144[18] = @"RunDuration";
-  v114 = [MEMORY[0x277CCABB0] numberWithDouble:v141 - v8];
-  v145[18] = v114;
-  v144[19] = @"TimeBetweenRangeAndAoAArrows";
-  v137 = [MEMORY[0x277CCABB0] numberWithDouble:v81];
-  v145[19] = v137;
-  v144[20] = @"FirstRange";
-  v113 = [MEMORY[0x277CCABB0] numberWithDouble:v138];
-  v145[20] = v113;
-  v144[21] = @"RangeAtFirstArrow";
-  v139 = [MEMORY[0x277CCABB0] numberWithDouble:v55];
-  v145[21] = v139;
-  v144[22] = @"FinalRange";
+  v144[10] = numberOfHighResidualRevokes;
+  v143[11] = @"TorchButtonPresented";
+  v125 = [MEMORY[0x277CCABB0] numberWithBool:{-[CARunData torchButtonPresented](self, "torchButtonPresented")}];
+  v144[11] = v125;
+  v143[12] = @"TorchTurnedOn";
+  v116 = [MEMORY[0x277CCABB0] numberWithBool:{-[CARunData torchTurnedOn](self, "torchTurnedOn")}];
+  v144[12] = v116;
+  v143[13] = @"TorchTurnedOff";
+  v115 = [MEMORY[0x277CCABB0] numberWithBool:{-[CARunData torchTurnedOff](self, "torchTurnedOff")}];
+  v144[13] = v115;
+  v143[14] = @"TimeToFirstRange";
+  v109 = [MEMORY[0x277CCABB0] numberWithDouble:v135];
+  v144[14] = v109;
+  v143[15] = @"TimeToFirstPose";
+  v114 = [MEMORY[0x277CCABB0] numberWithDouble:v133];
+  v144[15] = v114;
+  v143[16] = @"TimeToFirstArrow";
+  v108 = [MEMORY[0x277CCABB0] numberWithDouble:v68];
+  v144[16] = v108;
+  v143[17] = @"TimeToArmsReach";
+  v132 = [MEMORY[0x277CCABB0] numberWithDouble:v131];
+  v144[17] = v132;
+  v143[18] = @"RunDuration";
+  v113 = [MEMORY[0x277CCABB0] numberWithDouble:v140 - v8];
+  v144[18] = v113;
+  v143[19] = @"TimeBetweenRangeAndAoAArrows";
+  v136 = [MEMORY[0x277CCABB0] numberWithDouble:v81];
+  v144[19] = v136;
+  v143[20] = @"FirstRange";
+  v112 = [MEMORY[0x277CCABB0] numberWithDouble:v137];
+  v144[20] = v112;
+  v143[21] = @"RangeAtFirstArrow";
+  v138 = [MEMORY[0x277CCABB0] numberWithDouble:v55];
+  v144[21] = v138;
+  v143[22] = @"FinalRange";
   stopEvent4 = [(CARunData *)self stopEvent];
-  v135 = [stopEvent4 objectForKeyedSubscript:@"rangeEstimate"];
-  v145[22] = v135;
-  v144[23] = @"EnteredArmsReach";
-  v111 = [MEMORY[0x277CCABB0] numberWithBool:armsReachEvent != 0];
-  v145[23] = v111;
-  v144[24] = @"TotalDistanceMoved";
+  v134 = [stopEvent4 objectForKeyedSubscript:@"rangeEstimate"];
+  v144[22] = v134;
+  v143[23] = @"EnteredArmsReach";
+  v110 = [MEMORY[0x277CCABB0] numberWithBool:armsReachEvent != 0];
+  v144[23] = v110;
+  v143[24] = @"TotalDistanceMoved";
   v92 = [MEMORY[0x277CCABB0] numberWithDouble:v86 - v90];
-  v145[24] = v92;
-  v144[25] = @"DistanceMovedToFirstArrow";
+  v144[24] = v92;
+  v143[25] = @"DistanceMovedToFirstArrow";
   v93 = [MEMORY[0x277CCABB0] numberWithDouble:v69];
-  v145[25] = v93;
-  v144[26] = @"StraightLineDistanceToFirstArrow";
+  v144[25] = v93;
+  v143[26] = @"StraightLineDistanceToFirstArrow";
   v94 = [MEMORY[0x277CCABB0] numberWithDouble:v67];
-  v145[26] = v94;
-  v144[27] = @"DistanceMovedToArmsReach";
-  v95 = [MEMORY[0x277CCABB0] numberWithDouble:v130];
-  v145[27] = v95;
-  v144[28] = @"DistanceMovedByUserToFirstRange";
-  v96 = [MEMORY[0x277CCABB0] numberWithDouble:v131];
-  v145[28] = v96;
-  v144[29] = @"StraightLineDistanceToArmsReach";
-  v97 = [MEMORY[0x277CCABB0] numberWithDouble:v129];
+  v144[26] = v94;
+  v143[27] = @"DistanceMovedToArmsReach";
+  v95 = [MEMORY[0x277CCABB0] numberWithDouble:v129];
+  v144[27] = v95;
+  v143[28] = @"DistanceMovedByUserToFirstRange";
+  v96 = [MEMORY[0x277CCABB0] numberWithDouble:v130];
+  v144[28] = v96;
+  v143[29] = @"StraightLineDistanceToArmsReach";
+  v97 = [MEMORY[0x277CCABB0] numberWithDouble:v128];
   v98 = v91;
-  v145[29] = v97;
-  v144[30] = @"FirstSOIRSSI";
+  v144[29] = v97;
+  v143[30] = @"FirstSOIRSSI";
   v99 = MEMORY[0x277CCABB0];
   [(CARunData *)self firstSOIRSSI];
   v100 = [v99 numberWithDouble:?];
-  v145[30] = v100;
-  v101 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v145 forKeys:v144 count:31];
-  v142 = [v98 dictionaryWithDictionary:v101];
+  v144[30] = v100;
+  v101 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v144 forKeys:v143 count:31];
+  v141 = [v98 dictionaryWithDictionary:v101];
 
   productUUID = [(CARunData *)self productUUID];
   LOBYTE(v98) = productUUID == 0;
@@ -635,7 +621,7 @@ LABEL_24:
   {
     productUUID2 = [(CARunData *)self productUUID];
     uUIDString = [productUUID2 UUIDString];
-    [v142 setObject:uUIDString forKeyedSubscript:@"ProductUUID"];
+    [v141 setObject:uUIDString forKeyedSubscript:@"ProductUUID"];
   }
 
   isOwner = [(CARunData *)self isOwner];
@@ -644,14 +630,11 @@ LABEL_24:
   if (!v106)
   {
     isOwner2 = [(CARunData *)self isOwner];
-    [v142 setObject:isOwner2 forKeyedSubscript:@"IsOwner"];
+    [v141 setObject:isOwner2 forKeyedSubscript:@"IsOwner"];
   }
 
-  v143 = v142;
+  v142 = v141;
   AnalyticsSendEventLazy();
-
-LABEL_31:
-  v108 = *MEMORY[0x277D85DE8];
 }
 
 @end

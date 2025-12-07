@@ -78,9 +78,9 @@ __CFString *__97__WFVariableStringParameterState_parameterStateByRemovingAskVari
 
   v5 = v4;
   v6 = [v5 type];
-  v7 = [v6 isEqualToString:@"Ask"];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if (v7)
+  if (isEqualToString)
   {
     *(*(*(a1 + 32) + 8) + 24) = *(*(*(a1 + 40) + 8) + 24);
     v8 = &stru_1F4A1C408;
@@ -139,26 +139,24 @@ __CFString *__97__WFVariableStringParameterState_parameterStateByRemovingAskVari
 
 void __91__WFVariableStringParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke(void *a1, void *a2, uint64_t a3, void *a4, uint64_t a5)
 {
-  v18 = a4;
+  v16 = a4;
   if (a1[4])
   {
-    v11 = a1 + 5;
-    v10 = a1[5];
-    v9 = v11[1];
-    v12 = a2;
-    v13 = objc_alloc(objc_opt_class());
-    v14 = [[WFVariableString alloc] initWithString:v12];
+    v9 = a1[6];
+    v10 = a2;
+    v11 = objc_alloc(objc_opt_class());
+    v12 = [[WFVariableString alloc] initWithString:v10];
 
-    v15 = [v13 initWithVariableString:v14 userInputInsertionIndex:a3];
-    (*(v9 + 16))(v9, v18, v15);
+    v13 = [v11 initWithVariableString:v12 userInputInsertionIndex:a3];
+    (*(v9 + 16))(v9, v16, v13);
   }
 
   else
   {
-    v16 = a1[7];
-    v17 = *(v16 + 16);
-    v14 = a2;
-    v17(v16, v14, a5);
+    v14 = a1[7];
+    v15 = *(v14 + 16);
+    v12 = a2;
+    v15(v14, v12, a5);
   }
 }
 

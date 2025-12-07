@@ -72,42 +72,41 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_request)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_playerPath)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    errorCode = self->_errorCode;
     PBDataWriterWriteInt64Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_errorDescription)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_error)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_setPlaybackSessionCommandStatus)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -210,7 +209,6 @@
     }
   }
 
-  v7 = *(equalCopy + 56);
   if (*&self->_has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_errorCode != *(equalCopy + 1))
@@ -222,7 +220,7 @@
   else if (*(equalCopy + 56))
   {
 LABEL_17:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_18;
   }
 
@@ -244,17 +242,17 @@ LABEL_17:
   setPlaybackSessionCommandStatus = self->_setPlaybackSessionCommandStatus;
   if (setPlaybackSessionCommandStatus | *(equalCopy + 6))
   {
-    v11 = [(_MRSendCommandResultStatusProtobuf *)setPlaybackSessionCommandStatus isEqual:?];
+    v10 = [(_MRSendCommandResultStatusProtobuf *)setPlaybackSessionCommandStatus isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v10 = 1;
   }
 
 LABEL_18:
 
-  return v11;
+  return v10;
 }
 
 - (unint64_t)hash

@@ -659,35 +659,34 @@ LABEL_8:
 
 - (id)metadata
 {
-  v56[2] = *MEMORY[0x277D85DE8];
-  v36 = objc_opt_new();
+  v54[2] = *MEMORY[0x277D85DE8];
+  v34 = objc_opt_new();
   v3 = objc_opt_new();
-  v51 = 0;
-  v52[0] = 0;
-  v52[1] = 0;
-  pxrInternal__aapl__pxrReserved__::UsdObject::GetAllAuthoredMetadata(&v51, &self->_prim);
-  v5 = v51;
-  if (v51 != v52)
+  v49 = 0;
+  v50[0] = 0;
+  v50[1] = 0;
+  pxrInternal__aapl__pxrReserved__::UsdObject::GetAllAuthoredMetadata(&v49, &self->_prim);
+  v5 = v49;
+  if (v49 != v50)
   {
-    v6 = *(MEMORY[0x277D82818] + 64);
-    v34 = v6;
-    v35 = *MEMORY[0x277D82818];
-    v33 = *(MEMORY[0x277D82818] + 72);
+    v32 = *(MEMORY[0x277D82818] + 64);
+    v33 = *MEMORY[0x277D82818];
+    v31 = *(MEMORY[0x277D82818] + 72);
     do
     {
-      v55 = 0;
-      v56[0] = 0;
-      v56[1] = 0;
-      v7 = sub_27033E814(&v55, v5 + 4);
-      v10 = MEMORY[0x277CCACA8];
-      if ((v55 & 0xFFFFFFFFFFFFFFF8) != 0)
+      v53 = 0;
+      v54[0] = 0;
+      v54[1] = 0;
+      v6 = sub_27033E814(&v53, v5 + 4);
+      v9 = MEMORY[0x277CCACA8];
+      if ((v53 & 0xFFFFFFFFFFFFFFF8) != 0)
       {
-        EmptyString = (v55 & 0xFFFFFFFFFFFFFFF8) + 16;
+        EmptyString = (v53 & 0xFFFFFFFFFFFFFFF8) + 16;
       }
 
       else
       {
-        EmptyString = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v7);
+        EmptyString = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v6);
       }
 
       if (*(EmptyString + 23) < 0)
@@ -695,182 +694,180 @@ LABEL_8:
         EmptyString = *EmptyString;
       }
 
-      v12 = objc_msgSend_stringWithUTF8String_(v10, v8, EmptyString, v9);
-      objc_msgSend_addObject_(v36, v13, v12, v14);
+      v11 = objc_msgSend_stringWithUTF8String_(v9, v7, EmptyString, v8);
+      objc_msgSend_addObject_(v34, v12, v11, v13);
 
-      v50 = 0;
-      v15 = atomic_load(off_279E01258);
-      if (!v15)
+      v48 = 0;
+      v14 = atomic_load(off_279E01258);
+      if (!v14)
       {
         pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::SdfSchema>::_CreateInstance();
       }
 
       __p[0] = 0;
-      *&v42 = pxrInternal__aapl__pxrReserved__::SdfSchemaBase::FindType(v15, v56, __p);
-      pxrInternal__aapl__pxrReserved__::SdfValueTypeName::GetAsToken(&v50, &v42);
+      *&v40 = pxrInternal__aapl__pxrReserved__::SdfSchemaBase::FindType(v14, v54, __p);
+      pxrInternal__aapl__pxrReserved__::SdfValueTypeName::GetAsToken(&v48, &v40);
       if ((__p[0] & 7) != 0)
       {
         atomic_fetch_add_explicit((__p[0] & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
       }
 
-      if (v50)
+      if (v48)
       {
-        v16 = [USKData alloc];
-        sub_270313C14(v53, v56);
-        v37 = v50;
-        if ((v50 & 7) != 0 && (atomic_fetch_add_explicit((v50 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+        v15 = [USKData alloc];
+        sub_270313C14(v51, v54);
+        v35 = v48;
+        if ((v48 & 7) != 0 && (atomic_fetch_add_explicit((v48 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
         {
-          v37 &= 0xFFFFFFFFFFFFFFF8;
+          v35 &= 0xFFFFFFFFFFFFFFF8;
         }
 
-        v18 = objc_msgSend_initWithVtValue_typeName_withNodeOwner_(v16, v17, v53, &v37, self);
-        objc_msgSend_addObject_(v3, v19, v18, v20);
+        v17 = objc_msgSend_initWithVtValue_typeName_withNodeOwner_(v15, v16, v51, &v35, self);
+        objc_msgSend_addObject_(v3, v18, v17, v19);
 
-        if ((v37 & 7) != 0)
+        if ((v35 & 7) != 0)
         {
-          atomic_fetch_add_explicit((v37 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((v35 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
 
-        sub_270311D34(v53);
+        sub_270311D34(v51);
       }
 
       else
       {
-        v49 = 0;
-        v47 = 0u;
-        memset(v48, 0, sizeof(v48));
-        *v45 = 0u;
-        v46 = 0u;
-        v43 = 0u;
-        memset(v44, 0, sizeof(v44));
-        v42 = 0u;
-        sub_27031AD44(&v42);
+        v47 = 0;
+        v45 = 0u;
+        memset(v46, 0, sizeof(v46));
+        *v43 = 0u;
+        v44 = 0u;
+        v41 = 0u;
+        memset(v42, 0, sizeof(v42));
+        v40 = 0u;
+        sub_27031AD44(&v40);
         pxrInternal__aapl__pxrReserved__::operator<<();
-        v21 = [USKData alloc];
+        v20 = [USKData alloc];
         std::stringbuf::str();
-        MEMORY[0x27439E620](&v41, __p);
-        v54[0] = v41;
-        v54[1] = &off_288040298 + 1;
-        if ((v41 & 7) != 0 && (atomic_fetch_add_explicit((v41 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+        MEMORY[0x27439E620](&v39, __p);
+        v52[0] = v39;
+        v52[1] = &off_288040298 + 1;
+        if ((v39 & 7) != 0 && (atomic_fetch_add_explicit((v39 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
         {
-          v54[0] &= 0xFFFFFFFFFFFFFFF8;
+          v52[0] &= 0xFFFFFFFFFFFFFFF8;
         }
 
-        v22 = atomic_load(MEMORY[0x277D86578]);
-        if (!v22)
+        v21 = atomic_load(MEMORY[0x277D86578]);
+        if (!v21)
         {
-          v22 = sub_270318AF4(MEMORY[0x277D86578]);
+          v21 = sub_270318AF4(MEMORY[0x277D86578]);
         }
 
-        pxrInternal__aapl__pxrReserved__::SdfValueTypeName::GetAsToken(&v38, (v22 + 88));
-        v24 = objc_msgSend_initWithVtValue_typeName_withNodeOwner_(v21, v23, v54, &v38, self);
-        objc_msgSend_addObject_(v3, v25, v24, v26);
+        pxrInternal__aapl__pxrReserved__::SdfValueTypeName::GetAsToken(&v36, (v21 + 88));
+        v23 = objc_msgSend_initWithVtValue_typeName_withNodeOwner_(v20, v22, v52, &v36, self);
+        objc_msgSend_addObject_(v3, v24, v23, v25);
 
-        if ((v38 & 7) != 0)
+        if ((v36 & 7) != 0)
         {
-          atomic_fetch_add_explicit((v38 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((v36 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
 
-        sub_270311D34(v54);
-        if ((v41 & 7) != 0)
+        sub_270311D34(v52);
+        if ((v39 & 7) != 0)
         {
-          atomic_fetch_add_explicit((v41 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((v39 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
 
-        if (v40 < 0)
+        if (v38 < 0)
         {
           operator delete(__p[0]);
         }
 
-        *&v42 = v35;
-        *(&v42 + *(v35 - 24)) = v34;
-        *&v43 = v33;
-        *(&v43 + 1) = MEMORY[0x277D82878] + 16;
-        if (SHIBYTE(v46) < 0)
+        *&v40 = v33;
+        *(&v40 + *(v33 - 24)) = v32;
+        *&v41 = v31;
+        *(&v41 + 1) = MEMORY[0x277D82878] + 16;
+        if (SHIBYTE(v44) < 0)
         {
-          operator delete(v45[1]);
+          operator delete(v43[1]);
         }
 
-        *(&v43 + 1) = MEMORY[0x277D82868] + 16;
-        std::locale::~locale(v44);
+        *(&v41 + 1) = MEMORY[0x277D82868] + 16;
+        std::locale::~locale(v42);
         std::iostream::~basic_iostream();
-        MEMORY[0x27439F390](v48);
+        MEMORY[0x27439F390](v46);
       }
 
-      if ((v50 & 7) != 0)
+      if ((v48 & 7) != 0)
       {
-        atomic_fetch_add_explicit((v50 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+        atomic_fetch_add_explicit((v48 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
       }
 
-      sub_270311D34(v56);
-      if ((v55 & 7) != 0)
+      sub_270311D34(v54);
+      if ((v53 & 7) != 0)
       {
-        atomic_fetch_add_explicit((v55 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+        atomic_fetch_add_explicit((v53 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
       }
 
-      v27 = v5[1];
-      if (v27)
+      v26 = v5[1];
+      if (v26)
       {
         do
         {
-          v28 = v27;
-          v27 = *v27;
+          v27 = v26;
+          v26 = *v26;
         }
 
-        while (v27);
+        while (v26);
       }
 
       else
       {
         do
         {
-          v28 = v5[2];
-          v29 = *v28 == v5;
-          v5 = v28;
+          v27 = v5[2];
+          v28 = *v27 == v5;
+          v5 = v27;
         }
 
-        while (!v29);
+        while (!v28);
       }
 
-      v5 = v28;
+      v5 = v27;
     }
 
-    while (v28 != v52);
+    while (v27 != v50);
   }
 
-  v30 = objc_msgSend_dictionaryWithObjects_forKeys_(MEMORY[0x277CBEAC0], v4, v3, v36);
-  sub_27033F310(&v51, v52[0]);
+  v29 = objc_msgSend_dictionaryWithObjects_forKeys_(MEMORY[0x277CBEAC0], v4, v3, v34);
+  sub_27033F310(&v49, v50[0]);
 
-  v31 = *MEMORY[0x277D85DE8];
-
-  return v30;
+  return v29;
 }
 
 - (BOOL)setMetadataWithKey:(id)key value:(id)value
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   valueCopy = value;
-  v26 = 0;
+  v25 = 0;
   v8 = keyCopy;
   v12 = objc_msgSend_UTF8String(v8, v9, v10, v11);
-  MEMORY[0x27439E610](&v26, v12);
-  v31._storage = 0;
-  v31._info._ptrAndBits = 0;
+  MEMORY[0x27439E610](&v25, v12);
+  v30._storage = 0;
+  v30._info._ptrAndBits = 0;
   v13 = atomic_load(off_279E01258);
   if (!v13)
   {
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::SdfSchema>::_CreateInstance();
   }
 
-  if (pxrInternal__aapl__pxrReserved__::SdfSchemaBase::IsRegistered(v13, &v26, &v31))
+  if (pxrInternal__aapl__pxrReserved__::SdfSchemaBase::IsRegistered(v13, &v25, &v30))
   {
-    if (!v31._info._ptrAndBits)
+    if (!v30._info._ptrAndBits)
     {
       goto LABEL_10;
     }
 
-    Type = pxrInternal__aapl__pxrReserved__::VtValue::GetType(&v31);
+    Type = pxrInternal__aapl__pxrReserved__::VtValue::GetType(&v30);
     if (valueCopy)
     {
       objc_msgSend_value(valueCopy, v17, v18, v19);
@@ -878,16 +875,16 @@ LABEL_8:
 
     else
     {
+      v28 = 0;
       v29 = 0;
-      v30 = 0;
     }
 
-    v22 = pxrInternal__aapl__pxrReserved__::VtValue::GetType(&v29);
-    sub_270311D34(&v29);
+    v22 = pxrInternal__aapl__pxrReserved__::VtValue::GetType(&v28);
+    sub_270311D34(&v28);
     if (Type != v22)
     {
+      v28 = 0;
       v29 = 0;
-      v30 = 0;
       if (valueCopy)
       {
         objc_msgSend_value(valueCopy, v14, v15, v16);
@@ -895,15 +892,15 @@ LABEL_8:
 
       else
       {
-        v27[0] = 0;
-        v27[1] = 0;
+        v26[0] = 0;
+        v26[1] = 0;
       }
 
-      pxrInternal__aapl__pxrReserved__::VtValue::CastToTypeOf(v28, v27, &v31, v15);
-      sub_270312D2C(&v29, v28);
-      sub_270311D34(v28);
+      pxrInternal__aapl__pxrReserved__::VtValue::CastToTypeOf(v27, v26, &v30, v15);
+      sub_270312D2C(&v28, v27);
       sub_270311D34(v27);
-      v23 = pxrInternal__aapl__pxrReserved__::UsdObject::SetMetadata(&self->_prim, &v26, &v29);
+      sub_270311D34(v26);
+      v23 = pxrInternal__aapl__pxrReserved__::UsdObject::SetMetadata(&self->_prim, &v25, &v28);
     }
 
     else
@@ -916,15 +913,15 @@ LABEL_10:
 
       else
       {
+        v28 = 0;
         v29 = 0;
-        v30 = 0;
       }
 
-      v23 = pxrInternal__aapl__pxrReserved__::UsdObject::SetMetadata(&self->_prim, &v26, &v29);
+      v23 = pxrInternal__aapl__pxrReserved__::UsdObject::SetMetadata(&self->_prim, &v25, &v28);
     }
 
     v21 = v23;
-    sub_270311D34(&v29);
+    sub_270311D34(&v28);
   }
 
   else
@@ -932,51 +929,50 @@ LABEL_10:
     v21 = 0;
   }
 
-  sub_270311D34(&v31);
-  if ((v26 & 7) != 0)
+  sub_270311D34(&v30);
+  if ((v25 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v26 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v25 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (BOOL)setDictionaryMetadataWithKey:(id)key dictionaryKey:(id)dictionaryKey value:(id)value
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   dictionaryKeyCopy = dictionaryKey;
   valueCopy = value;
-  v40 = 0;
+  v39 = 0;
   v11 = keyCopy;
   v15 = objc_msgSend_UTF8String(v11, v12, v13, v14);
-  MEMORY[0x27439E610](&v40, v15);
-  v39 = 0;
+  MEMORY[0x27439E610](&v39, v15);
+  v38 = 0;
   v16 = dictionaryKeyCopy;
   v20 = objc_msgSend_UTF8String(dictionaryKeyCopy, v17, v18, v19);
-  MEMORY[0x27439E610](&v39, v20);
-  v43._storage = 0;
-  v43._info._ptrAndBits = 0;
+  MEMORY[0x27439E610](&v38, v20);
+  v42._storage = 0;
+  v42._info._ptrAndBits = 0;
   v21 = atomic_load(off_279E01258);
   if (!v21)
   {
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::SdfSchema>::_CreateInstance();
   }
 
-  IsRegistered = pxrInternal__aapl__pxrReserved__::SdfSchemaBase::IsRegistered(v21, &v40, &v43);
+  IsRegistered = pxrInternal__aapl__pxrReserved__::SdfSchemaBase::IsRegistered(v21, &v39, &v42);
   if (!IsRegistered)
   {
     v23 = 0;
     goto LABEL_37;
   }
 
-  if ((v43._info._ptrAndBits & 4) != 0)
+  if ((v42._info._ptrAndBits & 4) != 0)
   {
-    IsRegistered = (*((v43._info._ptrAndBits & 0xFFFFFFFFFFFFFFF8) + 168))(&v43);
+    IsRegistered = (*((v42._info._ptrAndBits & 0xFFFFFFFFFFFFFFF8) + 168))(&v42);
   }
 
-  if ((v39 & 0xFFFFFFFFFFFFFFF8) == 0)
+  if ((v38 & 0xFFFFFFFFFFFFFFF8) == 0)
   {
     pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(IsRegistered);
   }
@@ -985,52 +981,52 @@ LABEL_10:
   p_storage = &ValueAtPath->_storage;
   if (ValueAtPath)
   {
-    if (&v43 != ValueAtPath)
+    if (&v42 != ValueAtPath)
     {
       if (!ValueAtPath->_info._ptrAndBits)
       {
-        if (v43._info._ptrAndBits && (v43._info._ptrAndBits & 3) != 3)
+        if (v42._info._ptrAndBits && (v42._info._ptrAndBits & 3) != 3)
         {
-          (*((v43._info._ptrAndBits & 0xFFFFFFFFFFFFFFF8) + 32))(&v43);
+          (*((v42._info._ptrAndBits & 0xFFFFFFFFFFFFFFF8) + 32))(&v42);
         }
 
-        v43._info._ptrAndBits = 0;
+        v42._info._ptrAndBits = 0;
         goto LABEL_28;
       }
 
+      v43 = 0;
       v44 = 0;
-      v45 = 0;
-      sub_270311CD0(&v44, &v43);
+      sub_270311CD0(&v43, &v42);
       v29 = p_storage[1];
       v30 = ~*p_storage[1].__data;
-      v43._info._ptrAndBits = v29;
+      v42._info._ptrAndBits = v29;
       if ((v30 & 3) != 0)
       {
-        (*((v29 & 0xFFFFFFFFFFFFFFF8) + 24))(p_storage, &v43);
+        (*((v29 & 0xFFFFFFFFFFFFFFF8) + 24))(p_storage, &v42);
       }
 
       else
       {
-        v43._storage = *p_storage;
+        v42._storage = *p_storage;
       }
 
-      if (v45)
+      if (v44)
       {
-        (*(v45 + 32))(&v44);
+        (*(v44 + 32))(&v43);
       }
     }
   }
 
   else
   {
-    v45 = 0;
-    sub_270312D2C(&v43, &v44);
-    sub_270311D34(&v44);
+    v44 = 0;
+    sub_270312D2C(&v42, &v43);
+    sub_270311D34(&v43);
   }
 
-  if (v43._info._ptrAndBits)
+  if (v42._info._ptrAndBits)
   {
-    Type = pxrInternal__aapl__pxrReserved__::VtValue::GetType(&v43);
+    Type = pxrInternal__aapl__pxrReserved__::VtValue::GetType(&v42);
     if (valueCopy)
     {
       objc_msgSend_value(valueCopy, v31, v32, v33);
@@ -1038,16 +1034,16 @@ LABEL_10:
 
     else
     {
+      v43 = 0;
       v44 = 0;
-      v45 = 0;
     }
 
-    v35 = pxrInternal__aapl__pxrReserved__::VtValue::GetType(&v44);
-    sub_270311D34(&v44);
+    v35 = pxrInternal__aapl__pxrReserved__::VtValue::GetType(&v43);
+    sub_270311D34(&v43);
     if (Type != v35)
     {
+      v43 = 0;
       v44 = 0;
-      v45 = 0;
       if (valueCopy)
       {
         objc_msgSend_value(valueCopy, v25, v26, v27);
@@ -1055,15 +1051,15 @@ LABEL_10:
 
       else
       {
-        v41[0] = 0;
-        v41[1] = 0;
+        v40[0] = 0;
+        v40[1] = 0;
       }
 
-      pxrInternal__aapl__pxrReserved__::VtValue::CastToTypeOf(v42, v41, &v43, v26);
-      sub_270312D2C(&v44, v42);
-      sub_270311D34(v42);
+      pxrInternal__aapl__pxrReserved__::VtValue::CastToTypeOf(v41, v40, &v42, v26);
+      sub_270312D2C(&v43, v41);
       sub_270311D34(v41);
-      v36 = pxrInternal__aapl__pxrReserved__::UsdObject::SetMetadataByDictKey(&self->_prim, &v40, &v39, &v44);
+      sub_270311D34(v40);
+      v36 = pxrInternal__aapl__pxrReserved__::UsdObject::SetMetadataByDictKey(&self->_prim, &v39, &v38, &v43);
       goto LABEL_36;
     }
   }
@@ -1076,57 +1072,56 @@ LABEL_28:
 
   else
   {
+    v43 = 0;
     v44 = 0;
-    v45 = 0;
   }
 
-  v36 = pxrInternal__aapl__pxrReserved__::UsdObject::SetMetadataByDictKey(&self->_prim, &v40, &v39, &v44);
+  v36 = pxrInternal__aapl__pxrReserved__::UsdObject::SetMetadataByDictKey(&self->_prim, &v39, &v38, &v43);
 LABEL_36:
   v23 = v36;
-  sub_270311D34(&v44);
-LABEL_37:
   sub_270311D34(&v43);
+LABEL_37:
+  sub_270311D34(&v42);
+  if ((v38 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v38 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
   if ((v39 & 7) != 0)
   {
     atomic_fetch_add_explicit((v39 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  if ((v40 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v40 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  v37 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 - (BOOL)setCustomMetadata:(id)metadata value:(id)value
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   valueCopy = value;
-  v23 = 0;
+  v22 = 0;
   v8 = atomic_load(MEMORY[0x277D86540]);
   if (!v8)
   {
-    sub_27033E930();
+    sub_27033E930(MEMORY[0x277D86540]);
   }
 
   v9 = *(v8 + 72);
-  v23 = v9;
+  v22 = v9;
   if ((v9 & 7) != 0)
   {
     v10 = (v9 & 0xFFFFFFFFFFFFFFF8);
     if ((atomic_fetch_add_explicit(v10, 2u, memory_order_relaxed) & 1) == 0)
     {
-      v23 = v10;
+      v22 = v10;
     }
   }
 
-  v22 = 0;
+  v21 = 0;
   v11 = metadataCopy;
   v15 = objc_msgSend_UTF8String(v11, v12, v13, v14);
-  MEMORY[0x27439E610](&v22, v15);
+  MEMORY[0x27439E610](&v21, v15);
   if (valueCopy)
   {
     objc_msgSend_value(valueCopy, v16, v17, v18);
@@ -1134,36 +1129,156 @@ LABEL_37:
 
   else
   {
-    v24[0] = 0;
-    v24[1] = 0;
+    v23[0] = 0;
+    v23[1] = 0;
   }
 
-  v19 = pxrInternal__aapl__pxrReserved__::UsdObject::SetMetadataByDictKey(&self->_prim, &v23, &v22, v24);
-  sub_270311D34(v24);
+  v19 = pxrInternal__aapl__pxrReserved__::UsdObject::SetMetadataByDictKey(&self->_prim, &v22, &v21, v23);
+  sub_270311D34(v23);
+  if ((v21 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v21 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
   if ((v22 & 7) != 0)
   {
     atomic_fetch_add_explicit((v22 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  if ((v23 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v23 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (id)metadataWithKey:(id)key
 {
+  v22 = *MEMORY[0x277D85DE8];
+  keyCopy = key;
+  v20 = 0;
+  v21 = 0;
+  v5 = keyCopy;
+  v9 = objc_msgSend_UTF8String(v5, v6, v7, v8);
+  MEMORY[0x27439E610](&v18, v9);
+  pxrInternal__aapl__pxrReserved__::UsdObject::GetMetadata(&self->_prim, &v18, &v20);
+  if ((v18 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v18 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  if (v21)
+  {
+    v10 = [USKData alloc];
+    sub_270313C14(v19, &v20);
+    v11 = atomic_load(off_279E01258);
+    if (!v11)
+    {
+      pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::SdfSchema>::_CreateInstance();
+    }
+
+    v15 = 0;
+    Type = pxrInternal__aapl__pxrReserved__::VtValue::GetType(&v20);
+    v18 = pxrInternal__aapl__pxrReserved__::SdfSchemaBase::FindType(v11, &Type, &v15);
+    pxrInternal__aapl__pxrReserved__::SdfValueTypeName::GetAsToken(&v17, &v18);
+    v13 = objc_msgSend_initWithVtValue_typeName_withNodeOwner_(v10, v12, v19, &v17, self);
+    if ((v17 & 7) != 0)
+    {
+      atomic_fetch_add_explicit((v17 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    }
+
+    if ((v15 & 7) != 0)
+    {
+      atomic_fetch_add_explicit((v15 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    }
+
+    sub_270311D34(v19);
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  sub_270311D34(&v20);
+
+  return v13;
+}
+
+- (id)dictionaryMetadataWithKey:(id)key dictionaryKey:(id)dictionaryKey
+{
+  v30 = *MEMORY[0x277D85DE8];
+  keyCopy = key;
+  dictionaryKeyCopy = dictionaryKey;
+  v28 = 0;
+  v29 = 0;
+  v8 = keyCopy;
+  v12 = objc_msgSend_UTF8String(v8, v9, v10, v11);
+  MEMORY[0x27439E610](&v26, v12);
+  v13 = dictionaryKeyCopy;
+  v17 = objc_msgSend_UTF8String(dictionaryKeyCopy, v14, v15, v16);
+  MEMORY[0x27439E610](&Type, v17);
+  pxrInternal__aapl__pxrReserved__::UsdObject::GetMetadataByDictKey(&self->_prim, &v26, &Type, &v28);
+  if ((Type & 7) != 0)
+  {
+    atomic_fetch_add_explicit((Type & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  if ((v26 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v26 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  if (v29)
+  {
+    v18 = [USKData alloc];
+    sub_270313C14(v27, &v28);
+    v19 = atomic_load(off_279E01258);
+    if (!v19)
+    {
+      pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::SdfSchema>::_CreateInstance();
+    }
+
+    Type = pxrInternal__aapl__pxrReserved__::VtValue::GetType(&v28);
+    v23 = 0;
+    v26 = pxrInternal__aapl__pxrReserved__::SdfSchemaBase::FindType(v19, &Type, &v23);
+    pxrInternal__aapl__pxrReserved__::SdfValueTypeName::GetAsToken(&v24, &v26);
+    v21 = objc_msgSend_initWithVtValue_typeName_withNodeOwner_(v18, v20, v27, &v24, self);
+    if ((v24 & 7) != 0)
+    {
+      atomic_fetch_add_explicit((v24 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    }
+
+    if ((v23 & 7) != 0)
+    {
+      atomic_fetch_add_explicit((v23 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    }
+
+    sub_270311D34(v27);
+  }
+
+  else
+  {
+    v21 = 0;
+  }
+
+  sub_270311D34(&v28);
+
+  return v21;
+}
+
+- (id)customMetadataWithKey:(id)key
+{
   v23 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v21 = 0;
   v22 = 0;
-  v5 = keyCopy;
-  v9 = objc_msgSend_UTF8String(v5, v6, v7, v8);
-  MEMORY[0x27439E610](&v19, v9);
-  pxrInternal__aapl__pxrReserved__::UsdObject::GetMetadata(&self->_prim, &v19, &v21);
+  v5 = atomic_load(MEMORY[0x277D86540]);
+  if (!v5)
+  {
+    sub_27033E930(MEMORY[0x277D86540]);
+  }
+
+  v6 = keyCopy;
+  v10 = objc_msgSend_UTF8String(v6, v7, v8, v9);
+  MEMORY[0x27439E610](&v19, v10);
+  pxrInternal__aapl__pxrReserved__::UsdObject::GetMetadataByDictKey(&self->_prim, (v5 + 72), &v19, &v21);
   if ((v19 & 7) != 0)
   {
     atomic_fetch_add_explicit((v19 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
@@ -1171,19 +1286,19 @@ LABEL_37:
 
   if (v22)
   {
-    v10 = [USKData alloc];
+    v11 = [USKData alloc];
     sub_270313C14(v20, &v21);
-    v11 = atomic_load(off_279E01258);
-    if (!v11)
+    v12 = atomic_load(off_279E01258);
+    if (!v12)
     {
       pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::SdfSchema>::_CreateInstance();
     }
 
     v16 = 0;
     Type = pxrInternal__aapl__pxrReserved__::VtValue::GetType(&v21);
-    v19 = pxrInternal__aapl__pxrReserved__::SdfSchemaBase::FindType(v11, &Type, &v16);
+    v19 = pxrInternal__aapl__pxrReserved__::SdfSchemaBase::FindType(v12, &Type, &v16);
     pxrInternal__aapl__pxrReserved__::SdfValueTypeName::GetAsToken(&v18, &v19);
-    v13 = objc_msgSend_initWithVtValue_typeName_withNodeOwner_(v10, v12, v20, &v18, self);
+    v14 = objc_msgSend_initWithVtValue_typeName_withNodeOwner_(v11, v13, v20, &v18, self);
     if ((v18 & 7) != 0)
     {
       atomic_fetch_add_explicit((v18 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
@@ -1199,137 +1314,10 @@ LABEL_37:
 
   else
   {
-    v13 = 0;
-  }
-
-  sub_270311D34(&v21);
-
-  v14 = *MEMORY[0x277D85DE8];
-
-  return v13;
-}
-
-- (id)dictionaryMetadataWithKey:(id)key dictionaryKey:(id)dictionaryKey
-{
-  v31 = *MEMORY[0x277D85DE8];
-  keyCopy = key;
-  dictionaryKeyCopy = dictionaryKey;
-  v29 = 0;
-  v30 = 0;
-  v8 = keyCopy;
-  v12 = objc_msgSend_UTF8String(v8, v9, v10, v11);
-  MEMORY[0x27439E610](&v27, v12);
-  v13 = dictionaryKeyCopy;
-  v17 = objc_msgSend_UTF8String(dictionaryKeyCopy, v14, v15, v16);
-  MEMORY[0x27439E610](&Type, v17);
-  pxrInternal__aapl__pxrReserved__::UsdObject::GetMetadataByDictKey(&self->_prim, &v27, &Type, &v29);
-  if ((Type & 7) != 0)
-  {
-    atomic_fetch_add_explicit((Type & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  if ((v27 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v27 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  if (v30)
-  {
-    v18 = [USKData alloc];
-    sub_270313C14(v28, &v29);
-    v19 = atomic_load(off_279E01258);
-    if (!v19)
-    {
-      pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::SdfSchema>::_CreateInstance();
-    }
-
-    Type = pxrInternal__aapl__pxrReserved__::VtValue::GetType(&v29);
-    v24 = 0;
-    v27 = pxrInternal__aapl__pxrReserved__::SdfSchemaBase::FindType(v19, &Type, &v24);
-    pxrInternal__aapl__pxrReserved__::SdfValueTypeName::GetAsToken(&v25, &v27);
-    v21 = objc_msgSend_initWithVtValue_typeName_withNodeOwner_(v18, v20, v28, &v25, self);
-    if ((v25 & 7) != 0)
-    {
-      atomic_fetch_add_explicit((v25 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-    }
-
-    if ((v24 & 7) != 0)
-    {
-      atomic_fetch_add_explicit((v24 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-    }
-
-    sub_270311D34(v28);
-  }
-
-  else
-  {
-    v21 = 0;
-  }
-
-  sub_270311D34(&v29);
-
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v21;
-}
-
-- (id)customMetadataWithKey:(id)key
-{
-  v24 = *MEMORY[0x277D85DE8];
-  keyCopy = key;
-  v22 = 0;
-  v23 = 0;
-  v5 = atomic_load(MEMORY[0x277D86540]);
-  if (!v5)
-  {
-    sub_27033E930();
-  }
-
-  v6 = keyCopy;
-  v10 = objc_msgSend_UTF8String(v6, v7, v8, v9);
-  MEMORY[0x27439E610](&v20, v10);
-  pxrInternal__aapl__pxrReserved__::UsdObject::GetMetadataByDictKey(&self->_prim, (v5 + 72), &v20, &v22);
-  if ((v20 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v20 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  if (v23)
-  {
-    v11 = [USKData alloc];
-    sub_270313C14(v21, &v22);
-    v12 = atomic_load(off_279E01258);
-    if (!v12)
-    {
-      pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::SdfSchema>::_CreateInstance();
-    }
-
-    v17 = 0;
-    Type = pxrInternal__aapl__pxrReserved__::VtValue::GetType(&v22);
-    v20 = pxrInternal__aapl__pxrReserved__::SdfSchemaBase::FindType(v12, &Type, &v17);
-    pxrInternal__aapl__pxrReserved__::SdfValueTypeName::GetAsToken(&v19, &v20);
-    v14 = objc_msgSend_initWithVtValue_typeName_withNodeOwner_(v11, v13, v21, &v19, self);
-    if ((v19 & 7) != 0)
-    {
-      atomic_fetch_add_explicit((v19 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-    }
-
-    if ((v17 & 7) != 0)
-    {
-      atomic_fetch_add_explicit((v17 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-    }
-
-    sub_270311D34(v21);
-  }
-
-  else
-  {
     v14 = 0;
   }
 
-  sub_270311D34(&v22);
-
-  v15 = *MEMORY[0x277D85DE8];
+  sub_270311D34(&v21);
 
   return v14;
 }
@@ -1623,101 +1611,101 @@ LABEL_37:
 {
   variantCopy = variant;
   setCopy = set;
-  pxrInternal__aapl__pxrReserved__::UsdPrim::GetVariantSets(&v32, &self->_prim);
+  pxrInternal__aapl__pxrReserved__::UsdPrim::GetVariantSets(&v33, &self->_prim);
   v8 = setCopy;
   v12 = objc_msgSend_UTF8String(v8, v9, v10, v11);
   sub_2703122D4(&__p, v12);
   HasVariantSet = pxrInternal__aapl__pxrReserved__::UsdVariantSets::HasVariantSet();
-  if (SHIBYTE(v30) < 0)
+  if (SHIBYTE(v31) < 0)
   {
     operator delete(__p);
   }
 
-  if ((BYTE8(v33) & 7) != 0)
+  if ((BYTE8(v34) & 7) != 0)
   {
-    atomic_fetch_add_explicit((*(&v33 + 1) & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((*(&v34 + 1) & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-  sub_2703143D8(&v33);
-  if (*(&v32 + 1))
+  sub_2703143D8(&v34);
+  if (*(&v33 + 1))
   {
-    sub_270314574(*(&v32 + 1));
+    sub_270314574(*(&v33 + 1));
   }
 
   if (HasVariantSet)
   {
-    v35 = 0;
+    v36 = 0;
+    v34 = 0u;
+    *v35 = 0u;
     v33 = 0u;
-    *v34 = 0u;
-    v32 = 0u;
     pxrInternal__aapl__pxrReserved__::UsdPrim::GetVariantSets(&__p, &self->_prim);
-    v14 = setCopy;
-    v18 = objc_msgSend_UTF8String(v14, v15, v16, v17);
-    sub_2703122D4(&v26, v18);
+    v15 = setCopy;
+    v19 = objc_msgSend_UTF8String(v15, v16, v17, v18);
+    sub_2703122D4(&v27, v19);
     pxrInternal__aapl__pxrReserved__::UsdVariantSets::GetVariantSet();
-    if (v27 < 0)
+    if (v28 < 0)
     {
-      operator delete(v26);
+      operator delete(v27);
     }
 
-    if ((v31 & 7) != 0)
+    if ((v32 & 7) != 0)
     {
-      atomic_fetch_add_explicit((v31 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+      atomic_fetch_add_explicit((v32 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
     }
 
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-    sub_2703143D8(&v30);
-    if (v29)
+    sub_2703143D8(&v31);
+    if (v30)
     {
-      sub_270314574(v29);
+      sub_270314574(v30);
     }
 
-    v19 = variantCopy;
-    v23 = objc_msgSend_UTF8String(v19, v20, v21, v22);
-    sub_2703122D4(&__p, v23);
+    v20 = variantCopy;
+    v24 = objc_msgSend_UTF8String(v20, v21, v22, v23);
+    sub_2703122D4(&__p, v24);
     pxrInternal__aapl__pxrReserved__::UsdVariantSet::AddVariant();
-    if (SHIBYTE(v30) < 0)
+    if (SHIBYTE(v31) < 0)
     {
       operator delete(__p);
     }
 
-    if (SHIBYTE(v35) < 0)
+    if (SHIBYTE(v36) < 0)
     {
-      operator delete(v34[0]);
+      operator delete(v35[0]);
     }
 
-    if ((BYTE8(v33) & 7) != 0)
+    if ((BYTE8(v34) & 7) != 0)
     {
-      atomic_fetch_add_explicit((*(&v33 + 1) & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+      atomic_fetch_add_explicit((*(&v34 + 1) & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
     }
 
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-    sub_2703143D8(&v33);
-    if (*(&v32 + 1))
+    sub_2703143D8(&v34);
+    if (*(&v33 + 1))
     {
-      sub_270314574(*(&v32 + 1));
+      sub_270314574(*(&v33 + 1));
     }
   }
 
   else
   {
-    v24 = *sub_2703428CC(&self->_prim._type) & 0xFFFFFFFFFFFFFFF8;
-    if (v24)
+    v25 = *sub_2703428CC(&self->_prim._type, v14) & 0xFFFFFFFFFFFFFFF8;
+    if (v25)
     {
-      v25 = (v24 + 16);
-      if (*(v24 + 39) < 0)
+      v26 = (v25 + 16);
+      if (*(v25 + 39) < 0)
       {
-        v25 = *v25;
+        v26 = *v26;
       }
     }
 
     else
     {
-      v25 = "";
+      v26 = "";
     }
 
-    NSLog(&cfstr_WarningVariant.isa, setCopy, v25);
+    NSLog(&cfstr_WarningVariant.isa, setCopy, v26);
   }
 }
 
@@ -1917,72 +1905,72 @@ LABEL_37:
 {
   variantCopy = variant;
   setCopy = set;
-  pxrInternal__aapl__pxrReserved__::UsdPrim::GetVariantSets(&v40, &self->_prim);
+  pxrInternal__aapl__pxrReserved__::UsdPrim::GetVariantSets(&v41, &self->_prim);
   v8 = setCopy;
   v12 = objc_msgSend_UTF8String(v8, v9, v10, v11);
   sub_2703122D4(&__p, v12);
   HasVariantSet = pxrInternal__aapl__pxrReserved__::UsdVariantSets::HasVariantSet();
-  if (SHIBYTE(v38) < 0)
+  if (SHIBYTE(v39) < 0)
   {
     operator delete(__p);
   }
 
-  if ((BYTE8(v41) & 7) != 0)
+  if ((BYTE8(v42) & 7) != 0)
   {
-    atomic_fetch_add_explicit((*(&v41 + 1) & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((*(&v42 + 1) & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-  sub_2703143D8(&v41);
-  if (*(&v40 + 1))
+  sub_2703143D8(&v42);
+  if (*(&v41 + 1))
   {
-    sub_270314574(*(&v40 + 1));
+    sub_270314574(*(&v41 + 1));
   }
 
   if (HasVariantSet)
   {
-    v43 = 0;
+    v44 = 0;
+    v42 = 0u;
+    *v43 = 0u;
     v41 = 0u;
-    *v42 = 0u;
-    v40 = 0u;
     pxrInternal__aapl__pxrReserved__::UsdPrim::GetVariantSets(&__p, &self->_prim);
-    v14 = setCopy;
-    v18 = objc_msgSend_UTF8String(v14, v15, v16, v17);
-    sub_2703122D4(&v34, v18);
+    v15 = setCopy;
+    v19 = objc_msgSend_UTF8String(v15, v16, v17, v18);
+    sub_2703122D4(&v35, v19);
     pxrInternal__aapl__pxrReserved__::UsdVariantSets::GetVariantSet();
-    if (v35 < 0)
+    if (v36 < 0)
     {
-      operator delete(v34);
+      operator delete(v35);
     }
 
-    if ((v39 & 7) != 0)
+    if ((v40 & 7) != 0)
     {
-      atomic_fetch_add_explicit((v39 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+      atomic_fetch_add_explicit((v40 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
     }
 
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-    sub_2703143D8(&v38);
-    if (v37)
+    sub_2703143D8(&v39);
+    if (v38)
     {
-      sub_270314574(v37);
+      sub_270314574(v38);
     }
 
-    v19 = variantCopy;
-    v23 = objc_msgSend_UTF8String(v19, v20, v21, v22);
-    sub_2703122D4(&__p, v23);
+    v20 = variantCopy;
+    v24 = objc_msgSend_UTF8String(v20, v21, v22, v23);
+    sub_2703122D4(&__p, v24);
     HasAuthoredVariant = pxrInternal__aapl__pxrReserved__::UsdVariantSet::HasAuthoredVariant();
-    v25 = HasAuthoredVariant;
-    if (SHIBYTE(v38) < 0)
+    v26 = HasAuthoredVariant;
+    if (SHIBYTE(v39) < 0)
     {
       operator delete(__p);
-      if (v25)
+      if (v26)
       {
 LABEL_16:
-        v26 = variantCopy;
-        v30 = objc_msgSend_UTF8String(v26, v27, v28, v29);
-        sub_2703122D4(&__p, v30);
+        v27 = variantCopy;
+        v31 = objc_msgSend_UTF8String(v27, v28, v29, v30);
+        sub_2703122D4(&__p, v31);
         pxrInternal__aapl__pxrReserved__::UsdVariantSet::SetVariantSelection();
-        if (SHIBYTE(v38) < 0)
+        if (SHIBYTE(v39) < 0)
         {
           operator delete(__p);
         }
@@ -1998,104 +1986,103 @@ LABEL_16:
 
     NSLog(&cfstr_WarningVariant_0.isa, variantCopy, setCopy);
 LABEL_25:
-    if (SHIBYTE(v43) < 0)
+    if (SHIBYTE(v44) < 0)
     {
-      operator delete(v42[0]);
+      operator delete(v43[0]);
     }
 
-    if ((BYTE8(v41) & 7) != 0)
+    if ((BYTE8(v42) & 7) != 0)
     {
-      atomic_fetch_add_explicit((*(&v41 + 1) & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+      atomic_fetch_add_explicit((*(&v42 + 1) & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
     }
 
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-    sub_2703143D8(&v41);
-    if (*(&v40 + 1))
+    sub_2703143D8(&v42);
+    if (*(&v41 + 1))
     {
-      sub_270314574(*(&v40 + 1));
+      sub_270314574(*(&v41 + 1));
     }
 
     goto LABEL_31;
   }
 
-  v31 = *sub_2703428CC(&self->_prim._type) & 0xFFFFFFFFFFFFFFF8;
-  if (v31)
+  v32 = *sub_2703428CC(&self->_prim._type, v14) & 0xFFFFFFFFFFFFFFF8;
+  if (v32)
   {
-    v32 = (v31 + 16);
-    if (*(v31 + 39) < 0)
+    v33 = (v32 + 16);
+    if (*(v32 + 39) < 0)
     {
-      v32 = *v32;
+      v33 = *v33;
     }
   }
 
   else
   {
-    v32 = "";
+    v33 = "";
   }
 
-  NSLog(&cfstr_WarningVariant.isa, setCopy, v32);
-  v25 = 0;
+  NSLog(&cfstr_WarningVariant.isa, setCopy, v33);
+  v26 = 0;
 LABEL_31:
 
-  return v25;
+  return v26;
 }
 
 - (BOOL)editVariant:(id)variant variantSet:(id)set block:(id)block
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   variantCopy = variant;
   setCopy = set;
   blockCopy = block;
   v12 = objc_msgSend_selectVariant_variantSet_(self, v11, variantCopy, setCopy);
   if (v12)
   {
-    v23 = 0;
-    memset(v22, 0, sizeof(v22));
-    v21 = 0u;
-    pxrInternal__aapl__pxrReserved__::UsdPrim::GetVariantSets(&v26, &self->_prim);
+    v22 = 0;
+    memset(v21, 0, sizeof(v21));
+    v20 = 0u;
+    pxrInternal__aapl__pxrReserved__::UsdPrim::GetVariantSets(&v25, &self->_prim);
     v13 = setCopy;
     v17 = objc_msgSend_UTF8String(setCopy, v14, v15, v16);
     sub_2703122D4(__p, v17);
     pxrInternal__aapl__pxrReserved__::UsdVariantSets::GetVariantSet();
-    if (v25 < 0)
+    if (v24 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if ((BYTE8(v27[0]) & 7) != 0)
+    if ((BYTE8(v26[0]) & 7) != 0)
     {
-      atomic_fetch_add_explicit((*(&v27[0] + 1) & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+      atomic_fetch_add_explicit((*(&v26[0] + 1) & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
     }
 
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-    sub_2703143D8(v27);
-    if (*(&v26 + 1))
+    sub_2703143D8(v26);
+    if (*(&v25 + 1))
     {
-      sub_270314574(*(&v26 + 1));
+      sub_270314574(*(&v25 + 1));
     }
 
-    v28 = 0;
-    memset(v27, 0, sizeof(v27));
-    v26 = 0u;
-    v20[0] = 0;
-    v20[1] = 0;
+    v27 = 0;
+    memset(v26, 0, sizeof(v26));
+    v25 = 0u;
+    v19[0] = 0;
+    v19[1] = 0;
     pxrInternal__aapl__pxrReserved__::UsdVariantSet::GetVariantEditContext();
-    MEMORY[0x27439E150](&v26, __p);
-    sub_27036D8C4(__p, v20);
+    MEMORY[0x27439E150](&v25, __p);
+    sub_27036D8C4(__p, v19);
     __p[0] = 0;
     __p[1] = 0;
     pxrInternal__aapl__pxrReserved__::UsdObject::GetStage(__p, &self->_prim);
     blockCopy[2](blockCopy);
-    sub_27036D980(__p, &v26, &v21);
+    sub_27036D980(__p, &v25, &v20);
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-    sub_2703143D8(v22);
-    if (*(&v21 + 1))
+    sub_2703143D8(v21);
+    if (*(&v20 + 1))
     {
-      sub_270314574(*(&v21 + 1));
+      sub_270314574(*(&v20 + 1));
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -2185,10 +2172,10 @@ LABEL_31:
   v2 = atomic_load(MEMORY[0x277D86568]);
   if (!v2)
   {
-    sub_27036663C();
+    sub_27036663C(MEMORY[0x277D86568]);
   }
 
-  pxrInternal__aapl__pxrReserved__::UsdShadeMaterialBindingAPI::ComputeBoundMaterial(v12, v2, 0);
+  pxrInternal__aapl__pxrReserved__::UsdShadeMaterialBindingAPI::ComputeBoundMaterial(&v13, v12, v2, 0);
   MEMORY[0x27439E470](v12);
   if (v14 && (*(v14 + 57) & 8) == 0 && (*(v13 + 32))(&v13))
   {
@@ -2383,19 +2370,18 @@ LABEL_31:
 
 - (NSDictionary)properties
 {
-  v12 = *MEMORY[0x277D85DE8];
-  memset(v9, 0, sizeof(v9));
-  v11 = 0;
+  v11 = *MEMORY[0x277D85DE8];
+  memset(v8, 0, sizeof(v8));
+  v10 = 0;
   pxrInternal__aapl__pxrReserved__::UsdPrim::GetAuthoredProperties();
-  sub_270366AC4(&v10);
+  sub_270366AC4(&v9);
   v2 = objc_opt_new();
   v3 = objc_opt_new();
   v4 = objc_alloc(MEMORY[0x277CBEAC0]);
   v6 = objc_msgSend_initWithObjects_forKeys_(v4, v5, v3, v2);
 
-  *&v10 = v9;
-  sub_270366B44(&v10);
-  v7 = *MEMORY[0x277D85DE8];
+  *&v9 = v8;
+  sub_270366B44(&v9);
 
   return v6;
 }
@@ -2610,88 +2596,103 @@ LABEL_31:
 - (void)setSpecifier:(id)specifier
 {
   specifierCopy = specifier;
-  if (@"SdfSpecifierDef" == specifierCopy || @"SdfSpecifierOver" == specifierCopy || @"SdfSpecifierClass" == specifierCopy)
+  if (@"SdfSpecifierDef" == specifierCopy)
   {
-    sub_270362568(&self->_prim);
+    v5 = 0;
+    goto LABEL_7;
+  }
+
+  if (@"SdfSpecifierOver" == specifierCopy)
+  {
+    v5 = 1;
+LABEL_7:
+    sub_270362568(&self->_prim, v5);
+  }
+
+  if (@"SdfSpecifierClass" == specifierCopy)
+  {
+    v5 = 2;
+    goto LABEL_7;
   }
 }
 
 - (id)newPropertyWithName:(id)name type:(id)type role:(id)role variability:(BOOL)variability
 {
+  variabilityCopy = variability;
   nameCopy = name;
   typeCopy = type;
   roleCopy = role;
-  v14 = objc_msgSend_tokenWithDataType_(USKToken, v12, typeCopy, v13);
-  v17 = objc_msgSend_tokenWithRoleType_(USKToken, v15, roleCopy, v16);
+  v15 = objc_msgSend_tokenWithDataType_(USKToken, v13, typeCopy, v14);
+  v18 = objc_msgSend_tokenWithRoleType_(USKToken, v16, roleCopy, v17);
+  v71 = 0;
+  v19 = nameCopy;
+  v23 = objc_msgSend_UTF8String(v19, v20, v21, v22);
+  MEMORY[0x27439E610](&v71, v23);
   v70 = 0;
-  v18 = nameCopy;
-  v22 = objc_msgSend_UTF8String(v18, v19, v20, v21);
-  MEMORY[0x27439E610](&v70, v22);
-  v69 = 0;
-  v24 = sub_270363214(&self->_prim, v23);
-  pxrInternal__aapl__pxrReserved__::UsdPrimDefinition::GetSchemaPropertySpec(&v69, v24, &v70);
-  if (pxrInternal__aapl__pxrReserved__::SdfSpec::IsDormant(&v69))
+  v25 = sub_270363214(&self->_prim, v24);
+  pxrInternal__aapl__pxrReserved__::UsdPrimDefinition::GetSchemaPropertySpec(&v70, v25, &v71);
+  if (pxrInternal__aapl__pxrReserved__::SdfSpec::IsDormant(&v70))
   {
 LABEL_2:
     type = self->_prim._type;
     pointer = self->_prim._prim._p._pointer;
-    v46 = pointer;
+    v47 = pointer;
     if (pointer)
     {
       atomic_fetch_add_explicit(pointer + 6, 1uLL, memory_order_relaxed);
     }
 
-    sub_2703256DC(&v47, &self->_prim._proxyPrimPath);
-    sub_270325728(&v48, &self->_prim._proxyPrimPath._primPart._poolHandle + 1);
+    sub_2703256DC(&v48, &self->_prim._proxyPrimPath);
+    sub_270325728(&v49, &self->_prim._proxyPrimPath._primPart._poolHandle + 1);
     poolHandle = self->_prim._proxyPrimPath._propPart._poolHandle;
-    v49 = poolHandle;
+    v50 = poolHandle;
     if ((poolHandle & 7) != 0 && (atomic_fetch_add_explicit((poolHandle & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
     {
-      v49 &= 0xFFFFFFFFFFFFFFF8;
+      v50 &= 0xFFFFFFFFFFFFFFF8;
     }
 
-    if (v14)
+    if (v15)
     {
-      objc_msgSend_token(v14, v26, v27, v28);
-      if (v17)
+      objc_msgSend_token(v15, v27, v28, v29);
+      if (v18)
       {
 LABEL_9:
-        objc_msgSend_token(v17, v26, v27, v28);
+        objc_msgSend_token(v18, v27, v28, v29);
         goto LABEL_48;
       }
     }
 
     else
     {
-      v44 = 0;
-      if (v17)
+      v45 = 0;
+      if (v18)
       {
         goto LABEL_9;
       }
     }
 
-    v43 = 0;
+    v44 = 0;
 LABEL_48:
-    v36 = sub_270362600(&type, nameCopy, &v44, &v43);
-    if ((v43 & 7) != 0)
-    {
-      atomic_fetch_add_explicit((v43 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-    }
-
+    v37 = sub_270362600(&type, nameCopy, &v45, &v44, 0, variabilityCopy);
     if ((v44 & 7) != 0)
     {
       atomic_fetch_add_explicit((v44 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
     }
 
-    if ((v49 & 7) != 0)
+    if ((v45 & 7) != 0)
     {
-      atomic_fetch_add_explicit((v49 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+      atomic_fetch_add_explicit((v45 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    }
+
+    if ((v50 & 7) != 0)
+    {
+      atomic_fetch_add_explicit((v50 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
     }
 
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-    sub_2703143D8(&v47);
-    v41 = v46;
-    if (v46)
+    sub_2703143D8(&v48);
+    v42 = v47;
+    if (v47)
     {
       goto LABEL_55;
     }
@@ -2699,71 +2700,71 @@ LABEL_48:
     goto LABEL_56;
   }
 
-  v30 = sub_270363278(&v69);
-  if (pxrInternal__aapl__pxrReserved__::SdfSpec::GetSpecType(v30) == 1)
+  v31 = sub_270363278(&v70);
+  if (pxrInternal__aapl__pxrReserved__::SdfSpec::GetSpecType(v31) == 1)
   {
-    v67 = 0u;
     v68 = 0u;
-    v31 = sub_270363278(&v69);
-    pxrInternal__aapl__pxrReserved__::SdfPropertySpec::GetNameToken(&v61, v31);
-    v32 = sub_270363278(&v69);
-    TypeName = pxrInternal__aapl__pxrReserved__::SdfPropertySpec::GetTypeName(v32);
-    v33 = sub_270363278(&v69);
-    pxrInternal__aapl__pxrReserved__::SdfPropertySpec::GetVariability(v33);
+    v69 = 0u;
+    v32 = sub_270363278(&v70);
+    pxrInternal__aapl__pxrReserved__::SdfPropertySpec::GetNameToken(&v62, v32);
+    v33 = sub_270363278(&v70);
+    TypeName = pxrInternal__aapl__pxrReserved__::SdfPropertySpec::GetTypeName(v33);
+    v34 = sub_270363278(&v70);
+    pxrInternal__aapl__pxrReserved__::SdfPropertySpec::GetVariability(v34);
     pxrInternal__aapl__pxrReserved__::UsdPrim::CreateAttribute();
-    LODWORD(v67) = v62;
-    *(&v67 + 1) = v63;
-    v63 = 0;
-    LODWORD(v68) = v64;
+    LODWORD(v68) = v63;
+    *(&v68 + 1) = v64;
+    v64 = 0;
+    LODWORD(v69) = v65;
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::operator=();
-    DWORD1(v68) = v65;
+    DWORD1(v69) = v66;
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator=();
-    *(&v68 + 1) = v66;
-    v66 = 0;
+    *(&v69 + 1) = v67;
+    v67 = 0;
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-    sub_2703143D8(&v64);
-    if (v63)
+    sub_2703143D8(&v65);
+    if (v64)
     {
-      sub_270314574(v63);
+      sub_270314574(v64);
     }
 
-    if ((v61 & 7) != 0)
+    if ((v62 & 7) != 0)
     {
-      atomic_fetch_add_explicit((v61 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+      atomic_fetch_add_explicit((v62 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
     }
 
-    v34 = [USKProperty alloc];
-    v55 = v67;
-    v56 = *(&v67 + 1);
-    if (*(&v67 + 1))
+    v35 = [USKProperty alloc];
+    v56 = v68;
+    v57 = *(&v68 + 1);
+    if (*(&v68 + 1))
     {
-      atomic_fetch_add_explicit((*(&v67 + 1) + 48), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((*(&v68 + 1) + 48), 1uLL, memory_order_relaxed);
     }
 
-    sub_2703256DC(&v57, &v68);
-    sub_270325728(&v58, &v68 + 1);
-    v59 = *(&v68 + 1);
-    if ((BYTE8(v68) & 7) != 0 && (atomic_fetch_add_explicit((*(&v68 + 1) & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+    sub_2703256DC(&v58, &v69);
+    sub_270325728(&v59, &v69 + 1);
+    v60 = *(&v69 + 1);
+    if ((BYTE8(v69) & 7) != 0 && (atomic_fetch_add_explicit((*(&v69 + 1) & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
     {
-      v59 &= 0xFFFFFFFFFFFFFFF8;
+      v60 &= 0xFFFFFFFFFFFFFFF8;
     }
 
-    v36 = objc_msgSend_initWithUsdProperty_withNodeOwner_(v34, v35, &v55, self);
-    if ((v59 & 7) != 0)
+    v37 = objc_msgSend_initWithUsdProperty_withNodeOwner_(v35, v36, &v56, self);
+    if ((v60 & 7) != 0)
     {
-      atomic_fetch_add_explicit((v59 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+      atomic_fetch_add_explicit((v60 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
     }
 
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-    sub_2703143D8(&v57);
-    if (v56)
+    sub_2703143D8(&v58);
+    if (v57)
     {
-      sub_270314574(v56);
+      sub_270314574(v57);
     }
 
-    if ((BYTE8(v68) & 7) != 0)
+    if ((BYTE8(v69) & 7) != 0)
     {
-      atomic_fetch_add_explicit((*(&v68 + 1) & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+      atomic_fetch_add_explicit((*(&v69 + 1) & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
     }
 
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
@@ -2771,91 +2772,91 @@ LABEL_48:
 
   else
   {
-    v37 = sub_270363278(&v69);
-    if (pxrInternal__aapl__pxrReserved__::SdfSpec::GetSpecType(v37) != 8)
+    v38 = sub_270363278(&v70);
+    if (pxrInternal__aapl__pxrReserved__::SdfSpec::GetSpecType(v38) != 8)
     {
       goto LABEL_2;
     }
 
-    v67 = 0u;
     v68 = 0u;
-    v38 = sub_270363278(&v69);
-    pxrInternal__aapl__pxrReserved__::SdfPropertySpec::GetNameToken(&v61, v38);
-    pxrInternal__aapl__pxrReserved__::UsdPrim::CreateRelationship(&self->_prim, &v61);
-    LODWORD(v67) = v62;
-    *(&v67 + 1) = v63;
-    v63 = 0;
-    LODWORD(v68) = v64;
+    v69 = 0u;
+    v39 = sub_270363278(&v70);
+    pxrInternal__aapl__pxrReserved__::SdfPropertySpec::GetNameToken(&v62, v39);
+    pxrInternal__aapl__pxrReserved__::UsdPrim::CreateRelationship(&v63, &self->_prim, &v62);
+    LODWORD(v68) = v63;
+    *(&v68 + 1) = v64;
+    v64 = 0;
+    LODWORD(v69) = v65;
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::operator=();
-    DWORD1(v68) = v65;
+    DWORD1(v69) = v66;
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator=();
-    *(&v68 + 1) = v66;
-    v66 = 0;
+    *(&v69 + 1) = v67;
+    v67 = 0;
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-    sub_2703143D8(&v64);
-    if (v63)
+    sub_2703143D8(&v65);
+    if (v64)
     {
-      sub_270314574(v63);
+      sub_270314574(v64);
     }
 
-    if ((v61 & 7) != 0)
+    if ((v62 & 7) != 0)
     {
-      atomic_fetch_add_explicit((v61 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+      atomic_fetch_add_explicit((v62 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
     }
 
-    v39 = [USKProperty alloc];
-    v50 = v67;
-    v51 = *(&v67 + 1);
-    if (*(&v67 + 1))
+    v40 = [USKProperty alloc];
+    v51 = v68;
+    v52 = *(&v68 + 1);
+    if (*(&v68 + 1))
     {
-      atomic_fetch_add_explicit((*(&v67 + 1) + 48), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((*(&v68 + 1) + 48), 1uLL, memory_order_relaxed);
     }
 
-    sub_2703256DC(&v52, &v68);
-    sub_270325728(&v53, &v68 + 1);
-    v54 = *(&v68 + 1);
-    if ((BYTE8(v68) & 7) != 0 && (atomic_fetch_add_explicit((*(&v68 + 1) & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+    sub_2703256DC(&v53, &v69);
+    sub_270325728(&v54, &v69 + 1);
+    v55 = *(&v69 + 1);
+    if ((BYTE8(v69) & 7) != 0 && (atomic_fetch_add_explicit((*(&v69 + 1) & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
     {
-      v54 &= 0xFFFFFFFFFFFFFFF8;
+      v55 &= 0xFFFFFFFFFFFFFFF8;
     }
 
-    v36 = objc_msgSend_initWithUsdProperty_withNodeOwner_(v39, v40, &v50, self);
-    if ((v54 & 7) != 0)
+    v37 = objc_msgSend_initWithUsdProperty_withNodeOwner_(v40, v41, &v51, self);
+    if ((v55 & 7) != 0)
     {
-      atomic_fetch_add_explicit((v54 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+      atomic_fetch_add_explicit((v55 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
     }
 
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-    sub_2703143D8(&v52);
-    if (v51)
+    sub_2703143D8(&v53);
+    if (v52)
     {
-      sub_270314574(v51);
+      sub_270314574(v52);
     }
 
-    if ((BYTE8(v68) & 7) != 0)
+    if ((BYTE8(v69) & 7) != 0)
     {
-      atomic_fetch_add_explicit((*(&v68 + 1) & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+      atomic_fetch_add_explicit((*(&v69 + 1) & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
     }
 
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
   }
 
-  sub_2703143D8(&v68);
-  v41 = *(&v67 + 1);
-  if (*(&v67 + 1))
+  sub_2703143D8(&v69);
+  v42 = *(&v68 + 1);
+  if (*(&v68 + 1))
   {
 LABEL_55:
-    sub_270314574(v41);
+    sub_270314574(v42);
   }
 
 LABEL_56:
-  pxrInternal__aapl__pxrReserved__::SdfSpec::~SdfSpec(&v69);
-  if ((v70 & 7) != 0)
+  pxrInternal__aapl__pxrReserved__::SdfSpec::~SdfSpec(&v70);
+  if ((v71 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v70 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v71 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  return v36;
+  return v37;
 }
 
 - (id)newCustomPropertyWithName:(id)name type:(id)type role:(id)role
@@ -2905,7 +2906,7 @@ LABEL_8:
 
   v25 = 0;
 LABEL_11:
-  v23 = sub_270362600(&type, nameCopy, &v26, &v25);
+  v23 = sub_270362600(&type, nameCopy, &v26, &v25, 1, 1);
   if ((v25 & 7) != 0)
   {
     atomic_fetch_add_explicit((v25 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
@@ -2934,24 +2935,24 @@ LABEL_11:
 - (id)name
 {
   v3 = [USKToken alloc];
-  v6 = *sub_2703428CC(&self->_prim._type);
-  v10 = v6;
-  if ((v6 & 7) != 0)
+  v7 = *sub_2703428CC(&self->_prim._type, v4);
+  v11 = v7;
+  if ((v7 & 7) != 0)
   {
-    v7 = (v6 & 0xFFFFFFFFFFFFFFF8);
-    if ((atomic_fetch_add_explicit(v7, 2u, memory_order_relaxed) & 1) == 0)
+    v8 = (v7 & 0xFFFFFFFFFFFFFFF8);
+    if ((atomic_fetch_add_explicit(v8, 2u, memory_order_relaxed) & 1) == 0)
     {
-      v10 = v7;
+      v11 = v8;
     }
   }
 
-  v8 = objc_msgSend_initWithTfToken_(v3, v4, &v10, v5);
-  if ((v10 & 7) != 0)
+  v9 = objc_msgSend_initWithTfToken_(v3, v5, &v11, v6);
+  if ((v11 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v10 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v11 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)path
@@ -3003,15 +3004,14 @@ LABEL_11:
 
 - (id)propertyList
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [USKPropertyIterator alloc];
-  v11 = 0;
+  v10 = 0;
   pxrInternal__aapl__pxrReserved__::UsdPrim::GetAuthoredProperties();
-  v5 = objc_msgSend_initWithProperties_(v2, v3, v8, v4);
-  v9 = v8;
-  sub_270366B44(&v9);
-  sub_270366AC4(v10);
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = objc_msgSend_initWithProperties_(v2, v3, v7, v4);
+  v8 = v7;
+  sub_270366B44(&v8);
+  sub_270366AC4(v9);
 
   return v5;
 }
@@ -3021,7 +3021,7 @@ LABEL_11:
   v10 = 0;
   MEMORY[0x27439E610](&v9, "typeName");
   v11 = 0;
-  sub_270366C20(&self->_prim, &v9);
+  sub_270366C20(&self->_prim, &v9, &v10, &v11);
   if ((v11 & 7) != 0)
   {
     atomic_fetch_add_explicit((v11 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
@@ -3061,7 +3061,7 @@ LABEL_11:
   v11 = 0;
   MEMORY[0x27439E610](&v10, "typeName");
   v12 = 0;
-  sub_270366C20(&self->_prim, &v10);
+  sub_270366C20(&self->_prim, &v10, &v11, &v12);
   if ((v12 & 7) != 0)
   {
     atomic_fetch_add_explicit((v12 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);

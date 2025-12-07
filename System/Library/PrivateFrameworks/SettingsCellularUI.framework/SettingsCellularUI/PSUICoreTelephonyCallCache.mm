@@ -81,37 +81,37 @@ void __44__PSUICoreTelephonyCallCache_sharedInstance__block_invoke()
 
 - (BOOL)isAnyCallActiveForProviderIdentifier:(id)identifier
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   callObserver = [(PSUICoreTelephonyCallCache *)self callObserver];
   calls = [callObserver calls];
 
-  v7 = [calls countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v7 = [calls countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v7)
   {
-    v9 = *v21;
+    v9 = *v20;
     *&v8 = 138412290;
-    v19 = v8;
+    v18 = v8;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(calls);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         getLogger = [(PSUICoreTelephonyCallCache *)self getLogger];
         if (os_log_type_enabled(getLogger, OS_LOG_TYPE_INFO))
         {
           providerIdentifier = [v11 providerIdentifier];
-          *buf = v19;
-          v25 = providerIdentifier;
+          *buf = v18;
+          v24 = providerIdentifier;
           _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_INFO, "Call provider identifier: %@", buf, 0xCu);
         }
 
@@ -125,7 +125,7 @@ void __44__PSUICoreTelephonyCallCache_sharedInstance__block_invoke()
         }
       }
 
-      v7 = [calls countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v7 = [calls countByEnumeratingWithState:&v19 objects:v25 count:16];
       if (v7)
       {
         continue;
@@ -138,7 +138,6 @@ void __44__PSUICoreTelephonyCallCache_sharedInstance__block_invoke()
   v16 = 0;
 LABEL_13:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -158,7 +157,7 @@ LABEL_13:
 
 uint64_t __50__PSUICoreTelephonyCallCache_isActiveCallSubtype___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 providerContext];
   v5 = [v4 objectForKey:@"kCallSubType"];
@@ -166,21 +165,20 @@ uint64_t __50__PSUICoreTelephonyCallCache_isActiveCallSubtype___block_invoke(uin
   v6 = [*(a1 + 32) getLogger];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v5;
-    _os_log_impl(&dword_2658DE000, v6, OS_LOG_TYPE_DEFAULT, "Call subtype: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v5;
+    _os_log_impl(&dword_2658DE000, v6, OS_LOG_TYPE_DEFAULT, "Call subtype: %@", &v10, 0xCu);
   }
 
   v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:*(a1 + 40)];
   v8 = [v5 isEqualToString:v7];
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)localizedPhoneNumber:(id)number context:(id)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   contextCopy = context;
   if (contextCopy)
@@ -194,9 +192,8 @@ uint64_t __50__PSUICoreTelephonyCallCache_isActiveCallSubtype___block_invoke(uin
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x277CBECE8];
-  v11 = CFPhoneNumberCreate();
-  if (v11)
+  v10 = CFPhoneNumberCreate();
+  if (v10)
   {
     String = CFPhoneNumberCreateString();
     if (!String)
@@ -204,15 +201,15 @@ uint64_t __50__PSUICoreTelephonyCallCache_isActiveCallSubtype___block_invoke(uin
       getLogger = [(PSUICoreTelephonyCallCache *)self getLogger];
       if (os_log_type_enabled(getLogger, OS_LOG_TYPE_ERROR))
       {
-        v20 = 138412546;
-        v21 = numberCopy;
-        v22 = 2112;
-        v23 = contextCopy;
-        _os_log_error_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_ERROR, "Failed to localize CF phone number %@, %@", &v20, 0x16u);
+        v18 = 138412546;
+        v19 = numberCopy;
+        v20 = 2112;
+        v21 = contextCopy;
+        _os_log_error_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_ERROR, "Failed to localize CF phone number %@, %@", &v18, 0x16u);
       }
     }
 
-    CFRelease(v11);
+    CFRelease(v10);
   }
 
   else
@@ -220,33 +217,31 @@ uint64_t __50__PSUICoreTelephonyCallCache_isActiveCallSubtype___block_invoke(uin
     getLogger2 = [(PSUICoreTelephonyCallCache *)self getLogger];
     if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_ERROR))
     {
-      v20 = 138412546;
-      v21 = numberCopy;
-      v22 = 2112;
-      v23 = contextCopy;
-      _os_log_error_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_ERROR, "Failed to allocate CF phone number for %@, %@", &v20, 0x16u);
+      v18 = 138412546;
+      v19 = numberCopy;
+      v20 = 2112;
+      v21 = contextCopy;
+      _os_log_error_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_ERROR, "Failed to allocate CF phone number for %@, %@", &v18, 0x16u);
     }
 
     String = 0;
   }
 
-  v15 = [(__CFString *)String length];
-  v16 = &stru_287733598;
+  v14 = [(__CFString *)String length];
+  v15 = &stru_287733598;
   if (numberCopy)
   {
-    v16 = numberCopy;
+    v15 = numberCopy;
   }
 
-  if (v15)
+  if (v14)
   {
-    v16 = String;
+    v15 = String;
   }
 
-  v17 = v16;
+  v16 = v15;
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v17;
+  return v16;
 }
 
 @end

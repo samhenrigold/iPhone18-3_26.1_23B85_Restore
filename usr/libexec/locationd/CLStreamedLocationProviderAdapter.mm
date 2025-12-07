@@ -107,21 +107,21 @@
 {
   adaptee = [(CLStreamedLocationProviderAdapter *)self adaptee];
 
-  sub_10048965C(adaptee);
+  sub_10048965C(adaptee, v3);
 }
 
 - (void)takeEmergencyEnablementAssertion
 {
   adaptee = [(CLStreamedLocationProviderAdapter *)self adaptee];
 
-  sub_1004899CC(adaptee);
+  sub_1004899CC(adaptee, v3);
 }
 
 - (void)releaseEmergencyEnablementAssertion
 {
   adaptee = [(CLStreamedLocationProviderAdapter *)self adaptee];
 
-  sub_100489D08(adaptee);
+  sub_100489D08(adaptee, v3);
 }
 
 - (void)receivedMessageOfType:(id)type withPayload:(id)payload

@@ -146,10 +146,10 @@
   dispatch_async(stateQueue, v9);
 }
 
-uint64_t __48__VCTransportSessionIDSMultiLink_setWiFiAssist___block_invoke(uint64_t result)
+void *__48__VCTransportSessionIDSMultiLink_setWiFiAssist___block_invoke(void *result)
 {
   v15 = *MEMORY[0x1E69E9840];
-  v1 = *(result + 32);
+  v1 = result[4];
   v2 = *(result + 40);
   if (*(v1 + 288) != v2)
   {
@@ -161,7 +161,7 @@ uint64_t __48__VCTransportSessionIDSMultiLink_setWiFiAssist___block_invoke(uint6
       v5 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v6 = *(*(v3 + 32) + 288);
+        v6 = *(v3[4] + 288);
         v7 = 136315906;
         v8 = v4;
         v9 = 2080;
@@ -174,7 +174,7 @@ uint64_t __48__VCTransportSessionIDSMultiLink_setWiFiAssist___block_invoke(uint6
       }
     }
 
-    return [*(*(v3 + 32) + 232) setWiFiAssist:*(*(v3 + 32) + 288)];
+    return [*(v3[4] + 232) setWiFiAssist:*(v3[4] + 288)];
   }
 
   return result;
@@ -195,29 +195,29 @@ uint64_t __48__VCTransportSessionIDSMultiLink_setWiFiAssist___block_invoke(uint6
 
 uint64_t __49__VCTransportSessionIDSMultiLink_setDefaultLink___block_invoke(uint64_t a1)
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v2 = VCConnectionIDS_LinkID(*(a1 + 32));
-  v18 = *MEMORY[0x1E69A4740];
-  v19[0] = [MEMORY[0x1E696AD98] numberWithUnsignedChar:v2];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v19 = *MEMORY[0x1E69A4740];
+  v20[0] = [MEMORY[0x1E696AD98] numberWithUnsignedChar:v2];
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
   if (VRTraceGetErrorLogLevelForModule() > 6)
   {
     v4 = VRTraceErrorLogLevelToCSTR();
     v5 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v6 = VCDatagramChannelIDS_Token(*(*(a1 + 40) + 232));
-      v8 = 136316162;
-      v9 = v4;
-      v10 = 2080;
-      v11 = "[VCTransportSessionIDSMultiLink setDefaultLink:]_block_invoke";
-      v12 = 1024;
-      v13 = 181;
-      v14 = 1024;
-      v15 = v2;
-      v16 = 1024;
-      v17 = v6;
-      _os_log_impl(&dword_1DB56E000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d HandoverReport: set default link %d on datagram channel %d", &v8, 0x28u);
+      v7 = VCDatagramChannelIDS_Token(*(*(a1 + 40) + 232), v6);
+      v9 = 136316162;
+      v10 = v4;
+      v11 = 2080;
+      v12 = "[VCTransportSessionIDSMultiLink setDefaultLink:]_block_invoke";
+      v13 = 1024;
+      v14 = 181;
+      v15 = 1024;
+      v16 = v2;
+      v17 = 1024;
+      v18 = v7;
+      _os_log_impl(&dword_1DB56E000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d HandoverReport: set default link %d on datagram channel %d", &v9, 0x28u);
     }
   }
 
@@ -376,39 +376,39 @@ LABEL_12:
 
 uint64_t __52__VCTransportSessionIDSMultiLink_discardConnection___block_invoke(uint64_t a1)
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v2 = VCConnectionIDS_LinkID(*(a1 + 32));
-  v24[0] = [MEMORY[0x1E696AD98] numberWithUnsignedChar:v2];
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
-  v22 = *MEMORY[0x1E69A4748];
-  v23 = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+  v25[0] = [MEMORY[0x1E696AD98] numberWithUnsignedChar:v2];
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+  v23 = *MEMORY[0x1E69A4748];
+  v24 = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
   if (VRTraceGetErrorLogLevelForModule() > 5)
   {
     v5 = VRTraceErrorLogLevelToCSTR();
     v6 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = VCDatagramChannelIDS_Token(*(*(a1 + 40) + 232));
+      v8 = VCDatagramChannelIDS_Token(*(*(a1 + 40) + 232), v7);
       *buf = 136316162;
-      v13 = v5;
-      v14 = 2080;
-      v15 = "[VCTransportSessionIDSMultiLink discardConnection:]_block_invoke";
-      v16 = 1024;
-      v17 = 254;
-      v18 = 1024;
-      v19 = v2;
-      v20 = 1024;
-      v21 = v7;
+      v14 = v5;
+      v15 = 2080;
+      v16 = "[VCTransportSessionIDSMultiLink discardConnection:]_block_invoke";
+      v17 = 1024;
+      v18 = 254;
+      v19 = 1024;
+      v20 = v2;
+      v21 = 1024;
+      v22 = v8;
       _os_log_impl(&dword_1DB56E000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d HandoverReport: discard link %d on datagram channel %d", buf, 0x28u);
     }
   }
 
   [*(*(a1 + 40) + 232) setChannelPreferences:v4];
-  v8 = *(a1 + 32);
-  v10 = @"transportSessionEventInfoDisconnectedLink";
-  v11 = v8;
-  return [*(a1 + 40) callEventHandlerWithEvent:2 info:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v11, &v10, 1)}];
+  v9 = *(a1 + 32);
+  v11 = @"transportSessionEventInfoDisconnectedLink";
+  v12 = v9;
+  return [*(a1 + 40) callEventHandlerWithEvent:2 info:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v12, &v11, 1)}];
 }
 
 - (void)didEnableDuplication:(BOOL)duplication activeConnection:(id)connection
@@ -637,32 +637,32 @@ void *__69__VCTransportSessionIDSMultiLink_setOneToOneModeEnabled_isInitiator___
 
 uint64_t __64__VCTransportSessionIDSMultiLink_startActiveProbingWithOptions___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (VRTraceGetErrorLogLevelForModule() > 6)
   {
     v2 = VRTraceErrorLogLevelToCSTR();
     v3 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v4 = VCDatagramChannelIDS_Token(*(*(a1 + 32) + 232));
-      v5 = [*(a1 + 40) objectForKeyedSubscript:*MEMORY[0x1E69A4AB8]];
-      v6 = [*(a1 + 40) objectForKeyedSubscript:*MEMORY[0x1E69A4AB0]];
-      v7 = [*(a1 + 40) objectForKeyedSubscript:*MEMORY[0x1E69A4AC8]];
-      v9 = 136316674;
-      v10 = v2;
-      v11 = 2080;
-      v12 = "[VCTransportSessionIDSMultiLink startActiveProbingWithOptions:]_block_invoke";
-      v13 = 1024;
-      v14 = 360;
-      v15 = 1024;
-      v16 = v4;
-      v17 = 2112;
-      v18 = v5;
-      v19 = 2112;
-      v20 = v6;
-      v21 = 2112;
-      v22 = v7;
-      _os_log_impl(&dword_1DB56E000, v3, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d HandoverReport: Start active probing on datagram channel %d on connections with link IDs: %@ with interval: %@ and timeout: %@", &v9, 0x40u);
+      v5 = VCDatagramChannelIDS_Token(*(*(a1 + 32) + 232), v4);
+      v6 = [*(a1 + 40) objectForKeyedSubscript:*MEMORY[0x1E69A4AB8]];
+      v7 = [*(a1 + 40) objectForKeyedSubscript:*MEMORY[0x1E69A4AB0]];
+      v8 = [*(a1 + 40) objectForKeyedSubscript:*MEMORY[0x1E69A4AC8]];
+      v10 = 136316674;
+      v11 = v2;
+      v12 = 2080;
+      v13 = "[VCTransportSessionIDSMultiLink startActiveProbingWithOptions:]_block_invoke";
+      v14 = 1024;
+      v15 = 360;
+      v16 = 1024;
+      v17 = v5;
+      v18 = 2112;
+      v19 = v6;
+      v20 = 2112;
+      v21 = v7;
+      v22 = 2112;
+      v23 = v8;
+      _os_log_impl(&dword_1DB56E000, v3, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d HandoverReport: Start active probing on datagram channel %d on connections with link IDs: %@ with interval: %@ and timeout: %@", &v10, 0x40u);
     }
   }
 
@@ -684,26 +684,26 @@ uint64_t __64__VCTransportSessionIDSMultiLink_startActiveProbingWithOptions___bl
 
 uint64_t __63__VCTransportSessionIDSMultiLink_stopActiveProbingWithOptions___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (VRTraceGetErrorLogLevelForModule() > 6)
   {
     v2 = VRTraceErrorLogLevelToCSTR();
     v3 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v4 = VCDatagramChannelIDS_Token(*(*(a1 + 32) + 232));
-      v5 = [*(a1 + 40) objectForKeyedSubscript:*MEMORY[0x1E69A4AB8]];
-      v7 = 136316162;
-      v8 = v2;
-      v9 = 2080;
-      v10 = "[VCTransportSessionIDSMultiLink stopActiveProbingWithOptions:]_block_invoke";
-      v11 = 1024;
-      v12 = 367;
-      v13 = 1024;
-      v14 = v4;
-      v15 = 2112;
-      v16 = v5;
-      _os_log_impl(&dword_1DB56E000, v3, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d HandoverReport: Stop active probing on datagram channel %d on connections with link IDs: %@", &v7, 0x2Cu);
+      v5 = VCDatagramChannelIDS_Token(*(*(a1 + 32) + 232), v4);
+      v6 = [*(a1 + 40) objectForKeyedSubscript:*MEMORY[0x1E69A4AB8]];
+      v8 = 136316162;
+      v9 = v2;
+      v10 = 2080;
+      v11 = "[VCTransportSessionIDSMultiLink stopActiveProbingWithOptions:]_block_invoke";
+      v12 = 1024;
+      v13 = 367;
+      v14 = 1024;
+      v15 = v5;
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_1DB56E000, v3, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d HandoverReport: Stop active probing on datagram channel %d on connections with link IDs: %@", &v8, 0x2Cu);
     }
   }
 
@@ -725,26 +725,26 @@ uint64_t __63__VCTransportSessionIDSMultiLink_stopActiveProbingWithOptions___blo
 
 uint64_t __65__VCTransportSessionIDSMultiLink_queryProbingResultsWithOptions___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (VRTraceGetErrorLogLevelForModule() > 6)
   {
     v2 = VRTraceErrorLogLevelToCSTR();
     v3 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v4 = VCDatagramChannelIDS_Token(*(*(a1 + 32) + 232));
-      v5 = [*(a1 + 40) objectForKeyedSubscript:*MEMORY[0x1E69A4AB8]];
-      v7 = 136316162;
-      v8 = v2;
-      v9 = 2080;
-      v10 = "[VCTransportSessionIDSMultiLink queryProbingResultsWithOptions:]_block_invoke";
-      v11 = 1024;
-      v12 = 374;
-      v13 = 1024;
-      v14 = v4;
-      v15 = 2112;
-      v16 = v5;
-      _os_log_impl(&dword_1DB56E000, v3, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d HandoverReport: Query probing results on datagram channel %d on connections with link IDs: %@", &v7, 0x2Cu);
+      v5 = VCDatagramChannelIDS_Token(*(*(a1 + 32) + 232), v4);
+      v6 = [*(a1 + 40) objectForKeyedSubscript:*MEMORY[0x1E69A4AB8]];
+      v8 = 136316162;
+      v9 = v2;
+      v10 = 2080;
+      v11 = "[VCTransportSessionIDSMultiLink queryProbingResultsWithOptions:]_block_invoke";
+      v12 = 1024;
+      v13 = 374;
+      v14 = 1024;
+      v15 = v5;
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_1DB56E000, v3, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d HandoverReport: Query probing results on datagram channel %d on connections with link IDs: %@", &v8, 0x2Cu);
     }
   }
 
@@ -766,26 +766,26 @@ uint64_t __65__VCTransportSessionIDSMultiLink_queryProbingResultsWithOptions___b
 
 uint64_t __68__VCTransportSessionIDSMultiLink_flushLinkProbingStatusWithOptions___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (VRTraceGetErrorLogLevelForModule() > 6)
   {
     v2 = VRTraceErrorLogLevelToCSTR();
     v3 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v4 = VCDatagramChannelIDS_Token(*(*(a1 + 32) + 232));
-      v5 = [*(a1 + 40) objectForKeyedSubscript:*MEMORY[0x1E69A4AB8]];
-      v7 = 136316162;
-      v8 = v2;
-      v9 = 2080;
-      v10 = "[VCTransportSessionIDSMultiLink flushLinkProbingStatusWithOptions:]_block_invoke";
-      v11 = 1024;
-      v12 = 381;
-      v13 = 1024;
-      v14 = v4;
-      v15 = 2112;
-      v16 = v5;
-      _os_log_impl(&dword_1DB56E000, v3, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d HandoverReport: Flush link probing results on datagram channel %d on connections with link IDs: %@", &v7, 0x2Cu);
+      v5 = VCDatagramChannelIDS_Token(*(*(a1 + 32) + 232), v4);
+      v6 = [*(a1 + 40) objectForKeyedSubscript:*MEMORY[0x1E69A4AB8]];
+      v8 = 136316162;
+      v9 = v2;
+      v10 = 2080;
+      v11 = "[VCTransportSessionIDSMultiLink flushLinkProbingStatusWithOptions:]_block_invoke";
+      v12 = 1024;
+      v13 = 381;
+      v14 = 1024;
+      v15 = v5;
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_1DB56E000, v3, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d HandoverReport: Flush link probing results on datagram channel %d on connections with link IDs: %@", &v8, 0x2Cu);
     }
   }
 
@@ -845,29 +845,29 @@ uint64_t __59__VCTransportSessionIDSMultiLink_setRemoteDeviceVersionIDS__block_i
 
 uint64_t __58__VCTransportSessionIDSMultiLink_requestStatsWithOptions___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (VRTraceGetErrorLogLevelForModule() > 6)
   {
     v2 = VRTraceErrorLogLevelToCSTR();
     v3 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v4 = VCDatagramChannelIDS_Token(*(*(a1 + 32) + 232));
-      v5 = [*(a1 + 40) objectForKeyedSubscript:*MEMORY[0x1E69A4A40]];
-      v6 = [*(a1 + 40) objectForKeyedSubscript:*MEMORY[0x1E69A4B10]];
-      v8 = 136316418;
-      v9 = v2;
-      v10 = 2080;
-      v11 = "[VCTransportSessionIDSMultiLink requestStatsWithOptions:]_block_invoke";
-      v12 = 1024;
-      v13 = 397;
-      v14 = 1024;
-      v15 = v4;
-      v16 = 2112;
-      v17 = v5;
-      v18 = 2112;
-      v19 = v6;
-      _os_log_impl(&dword_1DB56E000, v3, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d HandoverReport: Request stats for datagram channel=%d on connection with link ID=%@ statsID=%@", &v8, 0x36u);
+      v5 = VCDatagramChannelIDS_Token(*(*(a1 + 32) + 232), v4);
+      v6 = [*(a1 + 40) objectForKeyedSubscript:*MEMORY[0x1E69A4A40]];
+      v7 = [*(a1 + 40) objectForKeyedSubscript:*MEMORY[0x1E69A4B10]];
+      v9 = 136316418;
+      v10 = v2;
+      v11 = 2080;
+      v12 = "[VCTransportSessionIDSMultiLink requestStatsWithOptions:]_block_invoke";
+      v13 = 1024;
+      v14 = 397;
+      v15 = 1024;
+      v16 = v5;
+      v17 = 2112;
+      v18 = v6;
+      v19 = 2112;
+      v20 = v7;
+      _os_log_impl(&dword_1DB56E000, v3, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d HandoverReport: Request stats for datagram channel=%d on connection with link ID=%@ statsID=%@", &v9, 0x36u);
     }
   }
 
@@ -941,7 +941,7 @@ uint64_t __58__VCTransportSessionIDSMultiLink_requestStatsWithOptions___block_in
 
 - (void)handleLinkConnectedWithInfo:(id)info
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v4 = [info objectForKeyedSubscript:*MEMORY[0x1E69A46B0]];
   if (v4)
   {
@@ -951,40 +951,40 @@ uint64_t __58__VCTransportSessionIDSMultiLink_requestStatsWithOptions___block_in
     if (v8)
     {
       v10 = v8;
-      v11 = *v34;
+      v11 = *v36;
       *&v9 = 136315906;
-      v22 = v9;
+      v24 = v9;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v34 != v11)
+          if (*v36 != v11)
           {
             objc_enumerationMutation(v5);
           }
 
-          v13 = *(v33 + 8 * i);
+          v13 = *(v35 + 8 * i);
           if (!VCConnectionIDSIsKnownRATType([v13 RATType]) || !VCConnectionIDSIsKnownRATType(objc_msgSend(v13, "remoteRATType")))
           {
             if (VRTraceGetErrorLogLevelForModule() >= 3)
             {
-              v18 = VRTraceErrorLogLevelToCSTR();
-              v19 = *MEMORY[0x1E6986650];
+              v20 = VRTraceErrorLogLevelToCSTR();
+              v21 = *MEMORY[0x1E6986650];
               if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
               {
                 rATType = [v13 RATType];
                 remoteRATType = [v13 remoteRATType];
                 *buf = 136316162;
-                v24 = v18;
-                v25 = 2080;
-                v26 = "[VCTransportSessionIDSMultiLink handleLinkConnectedWithInfo:]";
-                v27 = 1024;
-                v28 = 99;
+                v26 = v20;
+                v27 = 2080;
+                v28 = "[VCTransportSessionIDSMultiLink handleLinkConnectedWithInfo:]";
                 v29 = 1024;
-                LODWORD(v30[0]) = rATType;
-                WORD2(v30[0]) = 1024;
-                *(v30 + 6) = remoteRATType;
-                _os_log_error_impl(&dword_1DB56E000, v19, OS_LOG_TYPE_ERROR, " [%s] %s:%d Discarding link with unknown RAT local %d remote %d", buf, 0x28u);
+                v30 = 99;
+                v31 = 1024;
+                LODWORD(v32[0]) = rATType;
+                WORD2(v32[0]) = 1024;
+                *(v32 + 6) = remoteRATType;
+                _os_log_error_impl(&dword_1DB56E000, v21, OS_LOG_TYPE_ERROR, " [%s] %s:%d Discarding link with unknown RAT local %d remote %d", buf, 0x28u);
               }
             }
 
@@ -1012,23 +1012,24 @@ uint64_t __58__VCTransportSessionIDSMultiLink_requestStatsWithOptions___block_in
                 v16 = "<nil>";
               }
 
-              *buf = v22;
-              v24 = v14;
-              v25 = 2080;
-              v26 = "[VCTransportSessionIDSMultiLink handleLinkConnectedWithInfo:]";
-              v27 = 1024;
-              v28 = 104;
-              v29 = 2080;
-              v30[0] = v16;
+              *buf = v24;
+              v26 = v14;
+              v27 = 2080;
+              v28 = "[VCTransportSessionIDSMultiLink handleLinkConnectedWithInfo:]";
+              v29 = 1024;
+              v30 = 104;
+              v31 = 2080;
+              v32[0] = v16;
               _os_log_impl(&dword_1DB56E000, v15, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d HandoverReport: new link established with link context %s", buf, 0x26u);
             }
           }
 
-          v17 = [[VCConnectionIDS alloc] initWithLinkContext:v13 dataChannelToken:VCDatagramChannelIDS_Token(self->super._datagramChannel)];
-          [(VCConnectionManager *)self->super.super._connectionManager addConnection:v17];
+          v17 = [VCConnectionIDS alloc];
+          v19 = [(VCConnectionIDS *)v17 initWithLinkContext:v13 dataChannelToken:VCDatagramChannelIDS_Token(self->super._datagramChannel, v18)];
+          [(VCConnectionManager *)self->super.super._connectionManager addConnection:v19];
         }
 
-        v10 = [v5 countByEnumeratingWithState:v32 objects:v31 count:16];
+        v10 = [v5 countByEnumeratingWithState:v34 objects:v33 count:16];
         if (v10)
         {
           continue;
@@ -1042,7 +1043,7 @@ uint64_t __58__VCTransportSessionIDSMultiLink_requestStatsWithOptions___block_in
 
 - (void)handleLinkDisconnectedWithInfo:(id)info
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   obj = [info objectForKeyedSubscript:*MEMORY[0x1E69A46C0]];
   if (obj)
   {
@@ -1050,17 +1051,17 @@ uint64_t __58__VCTransportSessionIDSMultiLink_requestStatsWithOptions___block_in
     if (v4)
     {
       v5 = v4;
-      v6 = *v25;
+      v6 = *v27;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v25 != v6)
+          if (*v27 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(v24 + 8 * i);
+          v8 = *(v26 + 8 * i);
           if (VRTraceGetErrorLogLevelForModule() >= 7)
           {
             v9 = VRTraceErrorLogLevelToCSTR();
@@ -1078,22 +1079,23 @@ uint64_t __58__VCTransportSessionIDSMultiLink_requestStatsWithOptions___block_in
               }
 
               *buf = 136315906;
-              v15 = v9;
-              v16 = 2080;
-              v17 = "[VCTransportSessionIDSMultiLink handleLinkDisconnectedWithInfo:]";
-              v18 = 1024;
-              v19 = 122;
-              v20 = 2080;
-              v21 = v11;
+              v17 = v9;
+              v18 = 2080;
+              v19 = "[VCTransportSessionIDSMultiLink handleLinkDisconnectedWithInfo:]";
+              v20 = 1024;
+              v21 = 122;
+              v22 = 2080;
+              v23 = v11;
               _os_log_impl(&dword_1DB56E000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d HandoverReport: link %s disconnected", buf, 0x26u);
             }
           }
 
-          v12 = [[VCConnectionIDS alloc] initWithLinkContext:v8 dataChannelToken:VCDatagramChannelIDS_Token(self->super._datagramChannel)];
-          [(VCConnectionManager *)self->super.super._connectionManager removeConnection:v12];
+          v12 = [VCConnectionIDS alloc];
+          v14 = [(VCConnectionIDS *)v12 initWithLinkContext:v8 dataChannelToken:VCDatagramChannelIDS_Token(self->super._datagramChannel, v13)];
+          [(VCConnectionManager *)self->super.super._connectionManager removeConnection:v14];
         }
 
-        v5 = [obj countByEnumeratingWithState:v23 objects:v22 count:16];
+        v5 = [obj countByEnumeratingWithState:v25 objects:v24 count:16];
       }
 
       while (v5);
@@ -1105,7 +1107,7 @@ uint64_t __58__VCTransportSessionIDSMultiLink_requestStatsWithOptions___block_in
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Probing response received is invalid", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Probing response received is invalid", v2, v3, v4, v5);
 }
 
 - (void)setWiFiAssist:(os_log_t)log .cold.1(uint64_t a1, char a2, os_log_t log)
@@ -1126,21 +1128,21 @@ uint64_t __58__VCTransportSessionIDSMultiLink_requestStatsWithOptions___block_in
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Primary connection changed to an end-to-end connection in GFT", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Primary connection changed to an end-to-end connection in GFT", v2, v3, v4, v5);
 }
 
 - (void)discardConnection:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d got a nil connection, return", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d got a nil connection, return", v2, v3, v4, v5);
 }
 
 - (void)didEnableDuplication:activeConnection:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Active connection is end-to-end when updating duplication state", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Active connection is end-to-end when updating duplication state", v2, v3, v4, v5);
 }
 
 @end

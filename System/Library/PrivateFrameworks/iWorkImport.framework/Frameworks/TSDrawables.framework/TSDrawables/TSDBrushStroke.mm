@@ -965,53 +965,57 @@ LABEL_56:
   optionsCopy = options;
   if (directlyCopy)
   {
-    objc_msgSend_transform(directlyCopy, v15, v16);
+    CTM = objc_msgSend_transform(directlyCopy, v15, v16);
   }
 
   else
   {
-    CGContextGetCTM(&v29, context);
+    CTM = CGContextGetCTM(&v30, context);
   }
 
-  v19 = sqrt(v29.b * v29.b + v29.a * v29.a);
-  if (context && objc_msgSend_p_isDrawingRasterizedIntoPDFWithContext_(self, v18, context))
+  v20 = sqrt(v30.b * v30.b + v30.a * v30.a);
+  if (context)
   {
-    v19 = 1.0;
+    CTM = objc_msgSend_p_isDrawingRasterizedIntoPDFWithContext_(self, v19, context);
+    if (CTM)
+    {
+      v20 = 1.0;
+    }
   }
 
-  v29.a = 0.0;
-  *&v29.b = &v29;
-  *&v29.c = 0x2020000000;
-  LOBYTE(v29.d) = 0;
-  v20 = sub_2766BFD14();
+  v30.a = 0.0;
+  *&v30.b = &v30;
+  *&v30.c = 0x2020000000;
+  LOBYTE(v30.d) = 0;
+  v21 = sub_2766BFD14(CTM, v19);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_27678E05C;
   block[3] = &unk_27A6CDCC0;
-  block[4] = &v29;
-  dispatch_sync(v20, block);
+  block[4] = &v30;
+  dispatch_sync(v21, block);
 
-  if (*(*&v29.b + 24) == 1)
+  if (*(*&v30.b + 24) == 1)
   {
-    objc_msgSend_p_glContextArray(TSDBrushStroke, v21, v22);
+    objc_msgSend_p_glContextArray(TSDBrushStroke, v22, v23);
 
-    v23 = atomic_load(byte_280A4CA00);
-    *(*&v29.b + 24) = (v23 & 1) == 0;
+    v24 = atomic_load(byte_280A4CA00);
+    *(*&v30.b + 24) = (v24 & 1) == 0;
   }
 
-  if ((!objc_msgSend_usesOpenGL(self, v21, v22) || *(*&v29.b + 24)) && (directlyCopy || parameterizedCopy || (objc_msgSend_width(self, v24, v25), v26 > 0.5 / v19)))
+  if ((!objc_msgSend_usesOpenGL(self, v22, v23) || *(*&v30.b + 24)) && (directlyCopy || parameterizedCopy || (objc_msgSend_width(self, v25, v26), v27 > 0.5 / v20)))
   {
-    objc_msgSend_p_brushPath_inContext_orDirectly_parameterized_drawRasterized_shouldReverseDrawOrder_withLayoutOptions_(self, v24, path, context, directlyCopy, parameterizedCopy, 1, orderCopy, optionsCopy);
+    objc_msgSend_p_brushPath_inContext_orDirectly_parameterized_drawRasterized_shouldReverseDrawOrder_withLayoutOptions_(self, v25, path, context, directlyCopy, parameterizedCopy, 1, orderCopy, optionsCopy);
   }
 
   else if (context)
   {
-    v27.receiver = self;
-    v27.super_class = TSDBrushStroke;
-    [(TSDStroke *)&v27 paintPath:path wantsInteriorStroke:0 inContext:context useFastDrawing:0 parameterized:parameterizedCopy shouldReverseDrawOrder:0];
+    v28.receiver = self;
+    v28.super_class = TSDBrushStroke;
+    [(TSDStroke *)&v28 paintPath:path wantsInteriorStroke:0 inContext:context useFastDrawing:0 parameterized:parameterizedCopy shouldReverseDrawOrder:0];
   }
 
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v30, 8);
 }
 
 - (void)p_rasterRenderSection:(id)section sectionIndex:(unint64_t)index ontoPath:(id)path inElementRange:(_NSRange)range into:(void *)into viewScale:(double)scale strokeTileLayout:(id)layout cachedCurrentElementPercentage:(id *)self0
@@ -1775,7 +1779,7 @@ LABEL_119:
       }
 
       while (v72 < v68);
-      v73 = v70 + 32 * v67;
+      v73 = (v70 + 32 * v67);
       v67 += v69;
       memset(&transform, 0, 24);
       sub_27679156C(&transform, v73, v70 + 32 * v67, (32 * v69) >> 5);

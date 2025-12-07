@@ -48,117 +48,117 @@ uint64_t __45__CNCoreImageDerivedColorGenerator_scheduler__block_invoke()
 
 - (id)fetchColorsForImage:(id)image
 {
-  v63[1] = *MEMORY[0x1E69E9840];
+  v66[1] = *MEMORY[0x1E69E9840];
   imageCopy = image;
-  v5 = background_color_os_log();
+  v5 = background_color_os_log(imageCopy);
   v6 = v5;
   if (imageCopy)
   {
     v7 = os_signpost_id_make_with_pointer(v5, imageCopy);
 
-    v8 = background_color_os_log();
-    v9 = v8;
-    v57 = v7 - 1;
-    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+    v9 = background_color_os_log(v8);
+    v10 = v9;
+    v60 = v7 - 1;
+    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
     {
       LOWORD(buf.a) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1954A0000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "CNImageDerivedColorFetchColors", "", &buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1954A0000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v7, "CNImageDerivedColorFetchColors", "", &buf, 2u);
     }
 
-    v10 = [imageCopy imageByScalingToFit:{100.0, 100.0}];
-    [v10 extent];
-    v12 = v11;
-    v14 = v13;
-    v15 = objc_alloc(MEMORY[0x1E69845B8]);
-    v16 = [v15 initWithCIImage:v10 options:MEMORY[0x1E695E0F8]];
-    v17 = objc_opt_new();
-    [v17 setRevision:2];
-    v18 = objc_autoreleasePoolPush();
-    v63[0] = v17;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v63 count:1];
-    v60 = 0;
-    v20 = [v16 performRequests:v19 error:&v60];
-    v21 = v60;
+    v11 = [imageCopy imageByScalingToFit:{100.0, 100.0}];
+    [v11 extent];
+    v13 = v12;
+    v15 = v14;
+    v16 = objc_alloc(MEMORY[0x1E69845B8]);
+    v17 = [v16 initWithCIImage:v11 options:MEMORY[0x1E695E0F8]];
+    v18 = objc_opt_new();
+    [v18 setRevision:2];
+    v19 = objc_autoreleasePoolPush();
+    v66[0] = v18;
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:1];
+    v63 = 0;
+    v21 = [v17 performRequests:v20 error:&v63];
+    v22 = v63;
 
-    if (v21 || (v20 & 1) == 0)
+    if (v22 || (v21 & 1) == 0)
     {
-      v44 = background_color_os_log();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v47 = background_color_os_log(v23);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
-        [(CNCoreImageDerivedColorGenerator *)v21 fetchColorsForImage:v44];
+        [(CNCoreImageDerivedColorGenerator *)v22 fetchColorsForImage:v47];
       }
 
       defaultGrayColors = [objc_opt_class() defaultGrayColors];
 
-      objc_autoreleasePoolPop(v18);
+      objc_autoreleasePoolPop(v19);
     }
 
     else
     {
-      objc_autoreleasePoolPop(v18);
-      results = [v17 results];
+      objc_autoreleasePoolPop(v19);
+      results = [v18 results];
       firstObject = [results firstObject];
 
       if (firstObject)
       {
         spid = v7;
-        v55 = firstObject;
-        v56 = v16;
-        v24 = [MEMORY[0x1E695F658] imageWithCVPixelBuffer:{objc_msgSend(firstObject, "pixelBuffer")}];
-        [v24 extent];
+        v58 = firstObject;
+        v59 = v17;
+        v27 = [MEMORY[0x1E695F658] imageWithCVPixelBuffer:{objc_msgSend(firstObject, "pixelBuffer")}];
+        [v27 extent];
         memset(&buf, 0, sizeof(buf));
-        CGAffineTransformMakeScale(&buf, v12 / v25, v14 / v26);
-        v58 = buf;
-        v54 = v24;
-        v27 = [v24 imageByApplyingTransform:&v58];
+        CGAffineTransformMakeScale(&buf, v13 / v28, v15 / v29);
+        v61 = buf;
+        v57 = v27;
+        v30 = [v27 imageByApplyingTransform:&v61];
         colorThresholdFilter = [MEMORY[0x1E695F648] colorThresholdFilter];
-        v53 = v27;
-        [colorThresholdFilter setInputImage:v27];
-        LODWORD(v29) = 0.5;
-        [colorThresholdFilter setThreshold:v29];
-        v52 = colorThresholdFilter;
+        v56 = v30;
+        [colorThresholdFilter setInputImage:v30];
+        LODWORD(v32) = 0.5;
+        [colorThresholdFilter setThreshold:v32];
+        v55 = colorThresholdFilter;
         outputImage = [colorThresholdFilter outputImage];
         maskToAlphaFilter = [MEMORY[0x1E695F648] maskToAlphaFilter];
-        v51 = outputImage;
+        v54 = outputImage;
         [maskToAlphaFilter setInputImage:outputImage];
-        v50 = maskToAlphaFilter;
+        v53 = maskToAlphaFilter;
         outputImage2 = [maskToAlphaFilter outputImage];
         sourceOutCompositingFilter = [MEMORY[0x1E695F648] sourceOutCompositingFilter];
-        [sourceOutCompositingFilter setInputImage:v10];
-        v49 = outputImage2;
+        [sourceOutCompositingFilter setInputImage:v11];
+        v52 = outputImage2;
         [sourceOutCompositingFilter setBackgroundImage:outputImage2];
         outputImage3 = [sourceOutCompositingFilter outputImage];
-        v35 = objc_autoreleasePoolPush();
-        v61[0] = @"inputWidth";
-        v36 = [MEMORY[0x1E696AD98] numberWithDouble:v12];
-        v61[1] = @"inputHeight";
-        v62[0] = v36;
-        v37 = [MEMORY[0x1E696AD98] numberWithDouble:v14];
-        v62[1] = v37;
-        v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:v61 count:2];
-        v48 = outputImage3;
-        v39 = [outputImage3 imageByApplyingFilter:@"CISmartGradient" withInputParameters:v38];
+        v38 = objc_autoreleasePoolPush();
+        v64[0] = @"inputWidth";
+        v39 = [MEMORY[0x1E696AD98] numberWithDouble:v13];
+        v64[1] = @"inputHeight";
+        v65[0] = v39;
+        v40 = [MEMORY[0x1E696AD98] numberWithDouble:v15];
+        v65[1] = v40;
+        v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v65 forKeys:v64 count:2];
+        v51 = outputImage3;
+        v42 = [outputImage3 imageByApplyingFilter:@"CISmartGradient" withInputParameters:v41];
 
-        objc_autoreleasePoolPop(v35);
-        [v39 extent];
-        v40 = [v39 imageByCroppingToRect:?];
-        defaultGrayColors = [(FastMetalColorSampler *)self->colorSampler sampleColors:v40 sampleCount:8];
-        v42 = background_color_os_log();
-        v43 = v42;
-        if (v57 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v42))
+        objc_autoreleasePoolPop(v38);
+        [v42 extent];
+        v43 = [v42 imageByCroppingToRect:?];
+        defaultGrayColors = [(FastMetalColorSampler *)self->colorSampler sampleColors:v43 sampleCount:8];
+        v45 = background_color_os_log(defaultGrayColors);
+        v46 = v45;
+        if (v60 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
         {
-          LOWORD(v58.a) = 0;
-          _os_signpost_emit_with_name_impl(&dword_1954A0000, v43, OS_SIGNPOST_INTERVAL_END, spid, "CNImageDerivedColorFetchColors", "", &v58, 2u);
+          LOWORD(v61.a) = 0;
+          _os_signpost_emit_with_name_impl(&dword_1954A0000, v46, OS_SIGNPOST_INTERVAL_END, spid, "CNImageDerivedColorFetchColors", "", &v61, 2u);
         }
 
-        firstObject = v55;
-        v16 = v56;
+        firstObject = v58;
+        v17 = v59;
       }
 
       else
       {
-        v45 = background_color_os_log();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+        v48 = background_color_os_log(v26);
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
         {
           [CNCoreImageDerivedColorGenerator fetchColorsForImage:];
         }

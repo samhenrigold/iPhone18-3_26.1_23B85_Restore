@@ -21,7 +21,6 @@
 - (id)_morphunConstraints;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
-- (uint64_t)mergeMorphology:(char)morphology override:;
 - (unint64_t)hash;
 - (void)_overrideUserInflectionInBlock:(void *)block;
 - (void)_setCustomPronouns:(id)pronouns;
@@ -29,6 +28,7 @@
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
 - (void)isIdentity;
+- (void)mergeMorphology:(char)morphology override:;
 @end
 
 @implementation NSMorphology
@@ -75,7 +75,7 @@
   return v3;
 }
 
-- (uint64_t)mergeMorphology:(char)morphology override:
+- (void)mergeMorphology:(char)morphology override:
 {
   if (!result)
   {
@@ -840,20 +840,20 @@ uint64_t __84__NSMorphology_NSMorphologyUserSettingsInternal___getUserMorphology
 
 + (id)_userMorphologyWithOverrides
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_self();
+  v4[1] = *MEMORY[0x1E69E9840];
+  v1 = objc_opt_self();
   if (_NSMorphologyUserInflectionTemporaryOverride)
   {
-    v1 = _NSMorphologyUserInflectionTemporaryOverride;
+    v2 = _NSMorphologyUserInflectionTemporaryOverride;
 
-    return v1;
+    return v2;
   }
 
   else
   {
-    v3[0] = 0;
-    [v0 _getUserMorphology:v3 userInflection:0];
-    return v3[0];
+    v4[0] = 0;
+    [v1 _getUserMorphology:v4 userInflection:0];
+    return v4[0];
   }
 }
 
@@ -1564,7 +1564,7 @@ LABEL_27:
           CFRelease(cf);
         }
 
-        v8 |= [v12 isEqualToString:@"pos"] ^ 1;
+        v8 |= objc_msgSend_isEqualToString_(v12) ^ 1;
         ++v10;
       }
 

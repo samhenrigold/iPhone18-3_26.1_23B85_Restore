@@ -12,7 +12,7 @@
 
 - (void)prune
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   v4 = objc_alloc(MEMORY[0x1E698F130]);
   path = [(NSURL *)self->_url path];
@@ -30,11 +30,11 @@
   v10 = SiriAnalyticsLogContextUnifiedBiomeStream;
   if (os_log_type_enabled(SiriAnalyticsLogContextUnifiedBiomeStream, OS_LOG_TYPE_DEBUG))
   {
-    v17 = 136315394;
-    v18 = "[SiriAnalyticsUnifiedBiomeStream prune]";
-    v19 = 2048;
-    v20 = 52428800;
-    _os_log_debug_impl(&dword_1D9863000, v10, OS_LOG_TYPE_DEBUG, "%s Pruning stream with max size: %lu bytes", &v17, 0x16u);
+    v16 = 136315394;
+    v17 = "[SiriAnalyticsUnifiedBiomeStream prune]";
+    v18 = 2048;
+    v19 = 52428800;
+    _os_log_debug_impl(&dword_1D9863000, v10, OS_LOG_TYPE_DEBUG, "%s Pruning stream with max size: %lu bytes", &v16, 0x16u);
   }
 
   [v9 pruneStreamToMaxStreamSizeInBytes:52428800];
@@ -46,11 +46,11 @@
   v11 = SiriAnalyticsLogContextUnifiedBiomeStream;
   if (os_log_type_enabled(SiriAnalyticsLogContextUnifiedBiomeStream, OS_LOG_TYPE_DEBUG))
   {
-    v17 = 136315394;
-    v18 = "[SiriAnalyticsUnifiedBiomeStream prune]";
-    v19 = 2048;
-    v20 = 0x4122750000000000;
-    _os_log_debug_impl(&dword_1D9863000, v11, OS_LOG_TYPE_DEBUG, "%s Pruning stream with max age: %.1f seconds", &v17, 0x16u);
+    v16 = 136315394;
+    v17 = "[SiriAnalyticsUnifiedBiomeStream prune]";
+    v18 = 2048;
+    v19 = 0x4122750000000000;
+    _os_log_debug_impl(&dword_1D9863000, v11, OS_LOG_TYPE_DEBUG, "%s Pruning stream with max age: %.1f seconds", &v16, 0x16u);
   }
 
   v12 = [objc_alloc(MEMORY[0x1E698F120]) initPruneOnAccess:0 filterByAgeOnRead:0 maxAge:0 maxStreamSize:604800.0];
@@ -61,7 +61,6 @@
 
   [v15 pruneExpiredEventsWithBlock:&__block_literal_global_615];
   objc_autoreleasePoolPop(v3);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchMessagesBatchSinceBookmark:(id)bookmark batchSize:(unint64_t)size completion:(id)completion
@@ -169,7 +168,7 @@ void __88__SiriAnalyticsUnifiedBiomeStream_fetchMessagesSinceBookmark_receiveMes
 
 uint64_t __88__SiriAnalyticsUnifiedBiomeStream_fetchMessagesSinceBookmark_receiveMessage_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 eventBody];
 
@@ -190,17 +189,16 @@ uint64_t __88__SiriAnalyticsUnifiedBiomeStream_fetchMessagesSinceBookmark_receiv
     v8 = SiriAnalyticsLogContextStreaming;
     if (os_log_type_enabled(SiriAnalyticsLogContextStreaming, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315394;
-      v12 = "[SiriAnalyticsUnifiedBiomeStream fetchMessagesSinceBookmark:receiveMessage:completion:]_block_invoke_2";
-      v13 = 2112;
-      v14 = v3;
-      _os_log_error_impl(&dword_1D9863000, v8, OS_LOG_TYPE_ERROR, "%s Event had no eventBody: %@", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[SiriAnalyticsUnifiedBiomeStream fetchMessagesSinceBookmark:receiveMessage:completion:]_block_invoke_2";
+      v12 = 2112;
+      v13 = v3;
+      _os_log_error_impl(&dword_1D9863000, v8, OS_LOG_TYPE_ERROR, "%s Event had no eventBody: %@", &v10, 0x16u);
     }
 
     v7 = 1;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -234,7 +232,7 @@ uint64_t __88__SiriAnalyticsUnifiedBiomeStream_fetchMessagesSinceBookmark_receiv
 
 void __80__SiriAnalyticsUnifiedBiomeStream_fetchMessagesSince_receiveMessage_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -244,16 +242,16 @@ void __80__SiriAnalyticsUnifiedBiomeStream_fetchMessagesSince_receiveMessage_com
   v4 = SiriAnalyticsLogContextUnifiedBiomeStream;
   if (os_log_type_enabled(SiriAnalyticsLogContextUnifiedBiomeStream, OS_LOG_TYPE_DEBUG))
   {
-    v10 = v4;
-    v11 = [v3 state];
-    v12 = [v3 error];
-    v13 = 136315650;
-    v14 = "[SiriAnalyticsUnifiedBiomeStream fetchMessagesSince:receiveMessage:completion:]_block_invoke";
-    v15 = 2048;
-    v16 = v11;
-    v17 = 2112;
-    v18 = v12;
-    _os_log_debug_impl(&dword_1D9863000, v10, OS_LOG_TYPE_DEBUG, "%s Sink completion with state: %ld, error: %@", &v13, 0x20u);
+    v9 = v4;
+    v10 = [v3 state];
+    v11 = [v3 error];
+    v12 = 136315650;
+    v13 = "[SiriAnalyticsUnifiedBiomeStream fetchMessagesSince:receiveMessage:completion:]_block_invoke";
+    v14 = 2048;
+    v15 = v10;
+    v16 = 2112;
+    v17 = v11;
+    _os_log_debug_impl(&dword_1D9863000, v9, OS_LOG_TYPE_DEBUG, "%s Sink completion with state: %ld, error: %@", &v12, 0x20u);
   }
 
   v5 = *(a1 + 32);
@@ -261,8 +259,6 @@ void __80__SiriAnalyticsUnifiedBiomeStream_fetchMessagesSince_receiveMessage_com
   v7 = [v3 state] == 0;
   v8 = [v3 error];
   (*(v5 + 16))(v5, v7, v8, v6);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __80__SiriAnalyticsUnifiedBiomeStream_fetchMessagesSince_receiveMessage_completion___block_invoke_63(uint64_t a1, void *a2)
@@ -282,38 +278,36 @@ void __80__SiriAnalyticsUnifiedBiomeStream_fetchMessagesSince_receiveMessage_com
 
 - (void)sendEvents:(id)events
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [eventsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [eventsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(eventsCopy);
         }
 
-        [(BMSource *)self->_source sendEvent:*(*(&v10 + 1) + 8 * v8++)];
+        [(BMSource *)self->_source sendEvent:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [eventsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [eventsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (SiriAnalyticsUnifiedBiomeStream)initWithReadOnlyStorageURL:(id)l prefs:(id)prefs

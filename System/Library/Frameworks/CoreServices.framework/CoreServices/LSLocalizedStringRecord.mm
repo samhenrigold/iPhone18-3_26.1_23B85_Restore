@@ -11,7 +11,7 @@ void __46___LSLocalizedStringRecord_defaultStringValue__block_invoke(uint64_t a1
   *(v7 + 40) = v6;
 }
 
-void __66___LSLocalizedStringRecord_stringValueWithPreferredLocalizations___block_invoke(uint64_t a1, void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void __66___LSLocalizedStringRecord_stringValueWithPreferredLocalizations___block_invoke(uint64_t a1, void **a2, uint64_t a3, uint64_t a4, unsigned int *a5)
 {
   v6 = LaunchServices::LocalizedString::localizeUnsafely(a5, *a2, *(a1 + 32));
   v7 = *(*(a1 + 40) + 8);
@@ -21,7 +21,7 @@ void __66___LSLocalizedStringRecord_stringValueWithPreferredLocalizations___bloc
 
 void __66___LSLocalizedStringRecord_stringValueWithPreferredLocalizations___block_invoke_2(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _resolvedPropertyValueForGetter:sel__allUnsanitizedStringValues];
   v3 = v2;
   if (!v2)
@@ -40,7 +40,7 @@ void __66___LSLocalizedStringRecord_stringValueWithPreferredLocalizations___bloc
 
   else
   {
-    v7 = _LSDefaultLog();
+    v7 = _LSDefaultLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       Name = sel_getName(*(a1 + 56));
@@ -53,17 +53,17 @@ void __66___LSLocalizedStringRecord_stringValueWithPreferredLocalizations___bloc
     v9 = *(a1 + 40);
     if (v9)
     {
-      v10 = v9;
+      v11 = v9;
     }
 
     else
     {
-      v10 = [__LSDefaultsGetSharedInstance() preferredLocalizations];
-      if (!v10)
+      v11 = [__LSDefaultsGetSharedInstance(0 v10)];
+      if (!v11)
       {
-        if ([__LSDefaultsGetSharedInstance() isServer])
+        if ([__LSDefaultsGetSharedInstance(0 v12)])
         {
-          v10 = 0;
+          v11 = 0;
         }
 
         else
@@ -76,96 +76,95 @@ void __66___LSLocalizedStringRecord_stringValueWithPreferredLocalizations___bloc
           os_unfair_lock_lock(&_LSGetDefaultPreferredLocalizationsWithFallbackForImproperlyLocalizedProcesses(void)::cacheLock);
           if (!_LSGetDefaultPreferredLocalizationsWithFallbackForImproperlyLocalizedProcesses(void)::cache || mach_absolute_time() - _LSGetDefaultPreferredLocalizationsWithFallbackForImproperlyLocalizedProcesses(void)::cacheTime > _LSGetDefaultPreferredLocalizationsWithFallbackForImproperlyLocalizedProcesses(void)::maxCacheTimeAbsolute)
           {
-            v31 = 0;
-            v32[0] = &v31;
-            v32[1] = 0x3032000000;
-            v32[2] = __Block_byref_object_copy__35;
-            v32[3] = __Block_byref_object_dispose__35;
             v33 = 0;
-            v25 = 0;
-            v26 = &v25;
-            v27 = 0x3032000000;
-            v28 = __Block_byref_object_copy__35;
-            v29 = __Block_byref_object_dispose__35;
-            v30 = 0;
-            v20 = 11;
+            v34[0] = &v33;
+            v34[1] = 0x3032000000;
+            v34[2] = __Block_byref_object_copy__35;
+            v34[3] = __Block_byref_object_dispose__35;
+            v35 = 0;
+            v27 = 0;
+            v28 = &v27;
+            v29 = 0x3032000000;
+            v30 = __Block_byref_object_copy__35;
+            v31 = __Block_byref_object_dispose__35;
+            v32 = 0;
+            v21 = 11;
             while (1)
             {
-              v21 = [(_LSDService *)_LSDReadService synchronousXPCProxyWithErrorHandler:?];
-              v24[0] = MEMORY[0x1E69E9820];
-              v24[1] = 3221225472;
-              v24[2] = ___ZL78_LSGetDefaultPreferredLocalizationsWithFallbackForImproperlyLocalizedProcessesv_block_invoke_43;
-              v24[3] = &unk_1E6A1D2F0;
-              v24[4] = &v25;
-              v24[5] = &v31;
-              [v21 getSessionLanguagesForImproperlyLocalizedProcessWithCompletionHandler:v24];
-              if (v26[5] || !_LSNSErrorIsXPCConnectionInterrupted(*(v32[0] + 40)))
+              v22 = [(_LSDService *)_LSDReadService synchronousXPCProxyWithErrorHandler:?];
+              v26[0] = MEMORY[0x1E69E9820];
+              v26[1] = 3221225472;
+              v26[2] = ___ZL78_LSGetDefaultPreferredLocalizationsWithFallbackForImproperlyLocalizedProcessesv_block_invoke_43;
+              v26[3] = &unk_1E6A1D2F0;
+              v26[4] = &v27;
+              v26[5] = &v33;
+              [v22 getSessionLanguagesForImproperlyLocalizedProcessWithCompletionHandler:v26];
+              if (v28[5] || !_LSNSErrorIsXPCConnectionInterrupted(*(v34[0] + 40)))
               {
                 break;
               }
 
-              if (--v20 <= 1)
+              if (--v21 <= 1)
               {
                 goto LABEL_31;
               }
             }
 
 LABEL_31:
-            v22 = v26[5];
-            if (!v22)
+            v24 = v28[5];
+            if (!v24)
             {
-              v23 = _LSDefaultLog();
-              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+              v25 = _LSDefaultLog(v23);
+              if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
-                __66___LSLocalizedStringRecord_stringValueWithPreferredLocalizations___block_invoke_2_cold_3(v32, v23);
+                __66___LSLocalizedStringRecord_stringValueWithPreferredLocalizations___block_invoke_2_cold_3(v34, v25);
               }
 
-              v22 = v26[5];
+              v24 = v28[5];
             }
 
-            objc_storeStrong(&_LSGetDefaultPreferredLocalizationsWithFallbackForImproperlyLocalizedProcesses(void)::cache, v22);
+            objc_storeStrong(&_LSGetDefaultPreferredLocalizationsWithFallbackForImproperlyLocalizedProcesses(void)::cache, v24);
             _LSGetDefaultPreferredLocalizationsWithFallbackForImproperlyLocalizedProcesses(void)::cacheTime = mach_absolute_time();
-            _Block_object_dispose(&v25, 8);
+            _Block_object_dispose(&v27, 8);
 
-            _Block_object_dispose(&v31, 8);
+            _Block_object_dispose(&v33, 8);
           }
 
-          v10 = _LSGetDefaultPreferredLocalizationsWithFallbackForImproperlyLocalizedProcesses(void)::cache;
+          v11 = _LSGetDefaultPreferredLocalizationsWithFallbackForImproperlyLocalizedProcesses(void)::cache;
           os_unfair_lock_unlock(&_LSGetDefaultPreferredLocalizationsWithFallbackForImproperlyLocalizedProcesses(void)::cacheLock);
-          if (v10)
+          if (v11)
           {
             goto LABEL_11;
           }
         }
 
-        v11 = 0;
+        v13 = 0;
         goto LABEL_12;
       }
     }
 
 LABEL_11:
-    v11 = CFBundleCopyLocalizationsForPreferences(v4, v10);
+    v13 = CFBundleCopyLocalizationsForPreferences(v4, v11);
 LABEL_12:
-    if ([(__CFArray *)v11 count])
+    if ([(__CFArray *)v13 count])
     {
-      v12 = [(__CFArray *)v11 objectAtIndexedSubscript:0];
-      v13 = [v3 objectForKeyedSubscript:v12];
-      v14 = *(*(a1 + 48) + 8);
-      v15 = *(v14 + 40);
-      *(v14 + 40) = v13;
+      v14 = [(__CFArray *)v13 objectAtIndexedSubscript:0];
+      v15 = [v3 objectForKeyedSubscript:v14];
+      v16 = *(*(a1 + 48) + 8);
+      v17 = *(v16 + 40);
+      *(v16 + 40) = v15;
     }
   }
 
   if (!*(*(*(a1 + 48) + 8) + 40))
   {
-    v16 = [v3 objectForKeyedSubscript:@"LSDefaultLocalizedValue"];
-    v17 = *(*(a1 + 48) + 8);
-    v18 = *(v17 + 40);
-    *(v17 + 40) = v16;
+    v18 = [v3 objectForKeyedSubscript:@"LSDefaultLocalizedValue"];
+    v19 = *(*(a1 + 48) + 8);
+    v20 = *(v19 + 40);
+    *(v19 + 40) = v18;
   }
 
 LABEL_18:
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __43___LSLocalizedStringRecord_allStringValues__block_invoke(uint64_t a1)
@@ -198,12 +197,11 @@ void __66___LSLocalizedStringRecord_stringValueWithPreferredLocalizations___bloc
 
 void __66___LSLocalizedStringRecord_stringValueWithPreferredLocalizations___block_invoke_2_cold_3(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(*a1 + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "could not fetch preferred locales for LSLocalizedStringRecord: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "could not fetch preferred locales for LSLocalizedStringRecord: %@", &v3, 0xCu);
 }
 
 @end

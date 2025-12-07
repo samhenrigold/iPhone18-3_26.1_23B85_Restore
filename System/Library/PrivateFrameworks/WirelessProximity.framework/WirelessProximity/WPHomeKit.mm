@@ -10,9 +10,13 @@
 - (unsigned)clientTypeFromHomeKitType:(int64_t)type;
 - (void)checkAllowDuplicate;
 - (void)deviceDiscovered:(id)discovered;
+- (void)deviceFoundHandler:(id)handler cached:(BOOL)cached;
 - (void)deviceLostHandler:(id)handler;
 - (void)invalidate;
 - (void)invalidateWHBScanSession;
+- (void)scanningFailedToStart:(id)start ofType:(unsigned __int8)type;
+- (void)scanningStartedOfType:(unsigned __int8)type;
+- (void)scanningStoppedOfType:(unsigned __int8)type;
 - (void)setStartScanParametersfor:(id)parametersfor withValues:(id)values forType:(int64_t)type;
 - (void)setStopScanParametersforType:(int64_t)type;
 - (void)startScanningWithData:(id)data forType:(int64_t)type;
@@ -122,7 +126,7 @@ LABEL_8:
 
 - (void)startScanningWithData:(id)data forType:(int64_t)type
 {
-  v53[1] = *MEMORY[0x277D85DE8];
+  v52[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (WPLogInitOnce != -1)
   {
@@ -157,14 +161,14 @@ LABEL_8:
   }
 
   [dataCopy objectForKeyedSubscript:@"WPHomeKitScanOptionRetainDuplicates"];
-  v41 = v40 = v12;
+  v40 = v39 = v12;
   if (!v9 && v10)
   {
     v16 = MEMORY[0x277CCA9B8];
-    v52 = *MEMORY[0x277CCA450];
+    v51 = *MEMORY[0x277CCA450];
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid blob data provided, Blob Data: %@ is null but Mask data: %@ is not null", 0, v10];
-    v53[0] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:&v52 count:1];
+    v52[0] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:&v51 count:1];
     v19 = [v16 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v18];
 
     goto LABEL_22;
@@ -176,10 +180,10 @@ LABEL_8:
     if (v20 > [v9 length])
     {
       v21 = MEMORY[0x277CCA9B8];
-      v50 = *MEMORY[0x277CCA450];
+      v49 = *MEMORY[0x277CCA450];
       v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid mask data provided, Mask data length: %lu > Blob data length: %lu", objc_msgSend(v10, "length"), objc_msgSend(v9, "length")];
-      v51 = v17;
-      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+      v50 = v17;
+      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
       v19 = [v21 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v22];
 
       goto LABEL_22;
@@ -195,10 +199,10 @@ LABEL_8:
   {
 LABEL_21:
     v23 = MEMORY[0x277CCA9B8];
-    v48 = *MEMORY[0x277CCA450];
+    v47 = *MEMORY[0x277CCA450];
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid data provided, Blob data: %@, Mask data: %@, Duty Cycle: %@", v9, v10, v11];
-    v49 = v17;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+    v48 = v17;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
     v19 = [v23 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v24];
 
     goto LABEL_22;
@@ -220,11 +224,11 @@ LABEL_17:
     [WPHomeKit startScanningWithData:forType:];
   }
 
-  v34 = WiProxLog;
+  v33 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_274327000, v34, OS_LOG_TYPE_DEFAULT, "HomeKit WHB scan requested", buf, 2u);
+    _os_log_impl(&dword_274327000, v33, OS_LOG_TYPE_DEFAULT, "HomeKit WHB scan requested", buf, 2u);
   }
 
   if (![(WPHomeKit *)self isWHBSupported])
@@ -233,10 +237,10 @@ LABEL_17:
     [currentHandler handleFailureInMethod:a2 object:self file:@"WPHomeKit.m" lineNumber:185 description:@"WHB Scan is only allowed on tvOS"];
   }
 
-  v28 = v40;
+  v28 = v39;
   if (_os_feature_enabled_impl())
   {
-    v36 = [(WPHomeKit *)self startCBDiscoveryScan:dataCopy forType:typeCopy];
+    v35 = [(WPHomeKit *)self startCBDiscoveryScan:dataCopy forType:typeCopy];
 LABEL_42:
     v19 = 0;
     goto LABEL_43;
@@ -247,36 +251,37 @@ LABEL_42:
     [WPHomeKit startScanningWithData:forType:];
   }
 
-  v37 = WiProxLog;
+  v36 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
   {
-    [WPHomeKit startScanningWithData:v37 forType:?];
+    [WPHomeKit startScanningWithData:v36 forType:?];
   }
 
-  v38 = MEMORY[0x277CCA9B8];
-  v46 = *MEMORY[0x277CCA450];
-  v47 = @"WHB scan is not enabled.";
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
-  v19 = [v38 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v17];
+  v37 = MEMORY[0x277CCA9B8];
+  v45 = *MEMORY[0x277CCA450];
+  v46 = @"WHB scan is not enabled.";
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+  v19 = [v37 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v17];
 LABEL_22:
 
   if (!v19)
   {
 LABEL_27:
     v29 = objc_opt_new();
-    -[WPHomeKit dutyCycleToScanningRates:](self, "dutyCycleToScanningRates:", [v11 integerValue]);
-    *buf = v43;
-    *&buf[16] = v44;
+    [v11 integerValue];
+    objc_msgSend_dutyCycleToScanningRates_(self);
+    *buf = v42;
+    *&buf[16] = v43;
     [v29 setScanningRates:buf];
     [v29 setAllowDuplicates:0];
     [v29 setClientType:{-[WPHomeKit clientTypeFromHomeKitType:](self, "clientTypeFromHomeKitType:", typeCopy)}];
     [v29 setActiveScanning:{objc_msgSend(v11, "integerValue") == 2}];
     [v29 setBlobValue:v9];
     [v29 setMaskValue:v10];
-    v28 = v40;
-    if (v40)
+    v28 = v39;
+    if (v39)
     {
-      bOOLValue = [v40 BOOLValue];
+      bOOLValue = [v39 BOOLValue];
     }
 
     else
@@ -285,11 +290,11 @@ LABEL_27:
     }
 
     [v29 setRange:bOOLValue];
-    if (v41)
+    if (v40)
     {
       if (_os_feature_enabled_impl())
       {
-        [v29 setRetainDuplicates:{objc_msgSend(v41, "BOOLValue")}];
+        [v29 setRetainDuplicates:{objc_msgSend(v40, "BOOLValue")}];
       }
 
       else
@@ -321,9 +326,9 @@ LABEL_27:
       _os_log_impl(&dword_274327000, v32, OS_LOG_TYPE_DEFAULT, "HomeKit start scan with %@", buf, 0xCu);
     }
 
-    v42.receiver = self;
-    v42.super_class = WPHomeKit;
-    [(WPClient *)&v42 startScanning:v29];
+    v41.receiver = self;
+    v41.super_class = WPHomeKit;
+    [(WPClient *)&v41 startScanning:v29];
 
     goto LABEL_42;
   }
@@ -337,15 +342,13 @@ LABEL_27:
     [delegate2 homeKit:self failedToStartScanningWithError:v19 forType:typeCopy];
   }
 
-  v28 = v40;
+  v28 = v39;
 LABEL_43:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopScanningForType:(int64_t)type
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     [WPHomeKit stopScanningForType:];
@@ -394,12 +397,10 @@ LABEL_43:
       _os_log_impl(&dword_274327000, v8, OS_LOG_TYPE_DEFAULT, "HomeKit stop scan with %@", buf, 0xCu);
     }
 
-    v10.receiver = self;
-    v10.super_class = WPHomeKit;
-    [(WPClient *)&v10 stopScanning:v7];
+    v9.receiver = self;
+    v9.super_class = WPHomeKit;
+    [(WPClient *)&v9 stopScanning:v7];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stateDidChange:(int64_t)change
@@ -464,6 +465,46 @@ void __32__WPHomeKit_checkAllowDuplicate__block_invoke(uint64_t a1, uint64_t a2)
   }
 }
 
+- (void)scanningStartedOfType:(unsigned __int8)type
+{
+  typeCopy = type;
+  delegate = [(WPHomeKit *)self delegate];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    delegate2 = [(WPHomeKit *)self delegate];
+    [delegate2 homeKitStartedScanning:self forType:{-[WPHomeKit homeKitTypeFromClientType:](self, "homeKitTypeFromClientType:", typeCopy)}];
+  }
+}
+
+- (void)scanningStoppedOfType:(unsigned __int8)type
+{
+  typeCopy = type;
+  delegate = [(WPHomeKit *)self delegate];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    delegate2 = [(WPHomeKit *)self delegate];
+    [delegate2 homeKitStoppedScanning:self forType:{-[WPHomeKit homeKitTypeFromClientType:](self, "homeKitTypeFromClientType:", typeCopy)}];
+  }
+}
+
+- (void)scanningFailedToStart:(id)start ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  startCopy = start;
+  delegate = [(WPHomeKit *)self delegate];
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    delegate2 = [(WPHomeKit *)self delegate];
+    [delegate2 homeKit:self failedToStartScanningWithError:startCopy forType:{-[WPHomeKit homeKitTypeFromClientType:](self, "homeKitTypeFromClientType:", typeCopy)}];
+  }
+}
+
 - (void)setStartScanParametersfor:(id)parametersfor withValues:(id)values forType:(int64_t)type
 {
   valuesCopy = values;
@@ -516,9 +557,94 @@ void __32__WPHomeKit_checkAllowDuplicate__block_invoke(uint64_t a1, uint64_t a2)
   [homeKitCBDiscovery setDiscoveryFlags:v7];
 }
 
+- (void)deviceFoundHandler:(id)handler cached:(BOOL)cached
+{
+  cachedCopy = cached;
+  v29[5] = *MEMORY[0x277D85DE8];
+  handlerCopy = handler;
+  if (WPLogInitOnce != -1)
+  {
+    [WPHomeKit deviceFoundHandler:cached:];
+  }
+
+  v7 = WiProxLog;
+  if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
+  {
+    [WPHomeKit deviceFoundHandler:handlerCopy cached:v7];
+  }
+
+  v8 = objc_alloc(MEMORY[0x277CCAD78]);
+  identifier = [handlerCopy identifier];
+  v25 = [v8 initWithUUIDString:identifier];
+
+  v24 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(handlerCopy, "bleRSSI")}];
+  v23 = -[WPHomeKit homeKitTypeFromCBDiscoveryFlag:](self, "homeKitTypeFromCBDiscoveryFlag:", [handlerCopy discoveryFlags]);
+  btAddressData = [handlerCopy btAddressData];
+  v28[0] = *MEMORY[0x277CBDD10];
+  bleAppleManufacturerData = [handlerCopy bleAppleManufacturerData];
+  v29[0] = bleAppleManufacturerData;
+  v28[1] = *MEMORY[0x277CBDD08];
+  name = [handlerCopy name];
+  v13 = name;
+  if (name)
+  {
+    v14 = name;
+  }
+
+  else
+  {
+    v14 = &stru_2883572B8;
+  }
+
+  v29[1] = v14;
+  v28[2] = @"kDeviceStableIdentifier";
+  stableIdentifier = [handlerCopy stableIdentifier];
+  v16 = stableIdentifier;
+  if (stableIdentifier)
+  {
+    v17 = stableIdentifier;
+  }
+
+  else
+  {
+    v17 = &stru_2883572B8;
+  }
+
+  v29[2] = v17;
+  v28[3] = *MEMORY[0x277CBDCE0];
+  data = btAddressData;
+  if (!btAddressData)
+  {
+    data = [MEMORY[0x277CBEA90] data];
+  }
+
+  v29[3] = data;
+  v28[4] = @"kCachedAdvertisement";
+  v19 = [MEMORY[0x277CCABB0] numberWithBool:cachedCopy];
+  v29[4] = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:5];
+
+  if (!btAddressData)
+  {
+  }
+
+  v26[0] = @"kDeviceAdvertisingPacket";
+  v26[1] = @"kDevicePeripheralUUID";
+  v27[0] = v20;
+  v27[1] = v25;
+  v27[2] = v24;
+  v26[2] = @"kDeviceRSSI";
+  v26[3] = @"kDeviceType";
+  v21 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[WPHomeKit clientTypeFromHomeKitType:](self, "clientTypeFromHomeKitType:", v23)}];
+  v27[3] = v21;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
+
+  [(WPHomeKit *)self deviceDiscovered:v22];
+}
+
 - (void)deviceLostHandler:(id)handler
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (WPLogInitOnce != -1)
   {
@@ -536,7 +662,7 @@ void __32__WPHomeKit_checkAllowDuplicate__block_invoke(uint64_t a1, uint64_t a2)
   v8 = [v6 initWithUUIDString:identifier];
 
   btAddressData = [handlerCopy btAddressData];
-  v19[0] = @"kDeviceStableIdentifier";
+  v18[0] = @"kDeviceStableIdentifier";
   stableIdentifier = [handlerCopy stableIdentifier];
   v11 = stableIdentifier;
   v12 = &stru_2883572B8;
@@ -545,16 +671,16 @@ void __32__WPHomeKit_checkAllowDuplicate__block_invoke(uint64_t a1, uint64_t a2)
     v12 = stableIdentifier;
   }
 
-  v20[0] = v12;
-  v19[1] = *MEMORY[0x277CBDCE0];
+  v19[0] = v12;
+  v18[1] = *MEMORY[0x277CBDCE0];
   data = btAddressData;
   if (!btAddressData)
   {
     data = [MEMORY[0x277CBEA90] data];
   }
 
-  v20[1] = data;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v19[1] = data;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
   if (!btAddressData)
   {
   }
@@ -567,13 +693,11 @@ void __32__WPHomeKit_checkAllowDuplicate__block_invoke(uint64_t a1, uint64_t a2)
     delegate2 = [(WPHomeKit *)self delegate];
     [delegate2 homeKit:self lostDevice:v8 withData:v14];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)startCBDiscoveryScan:(id)scan forType:(int64_t)type
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   scanCopy = scan;
   if (WPLogInitOnce != -1)
   {
@@ -584,8 +708,8 @@ void __32__WPHomeKit_checkAllowDuplicate__block_invoke(uint64_t a1, uint64_t a2)
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v27 = scanCopy;
-    v28 = 2048;
+    v26 = scanCopy;
+    v27 = 2048;
     typeCopy = type;
     _os_log_impl(&dword_274327000, v7, OS_LOG_TYPE_DEFAULT, "HomeKit CBDiscovery startCBDiscoveryScan %@, type %ld", buf, 0x16u);
   }
@@ -623,27 +747,27 @@ void __32__WPHomeKit_checkAllowDuplicate__block_invoke(uint64_t a1, uint64_t a2)
 
     [v11 setDispatchQueue:v14];
     [(WPHomeKit *)self setStartScanParametersfor:v11 withValues:scanCopy forType:type];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __42__WPHomeKit_startCBDiscoveryScan_forType___block_invoke_239;
-    v25[3] = &unk_279ED7358;
-    v25[4] = self;
-    [v11 setDeviceFoundHandler:v25];
     v24[0] = MEMORY[0x277D85DD0];
     v24[1] = 3221225472;
-    v24[2] = __42__WPHomeKit_startCBDiscoveryScan_forType___block_invoke_2;
+    v24[2] = __42__WPHomeKit_startCBDiscoveryScan_forType___block_invoke_239;
     v24[3] = &unk_279ED7358;
     v24[4] = self;
-    [v11 setDeviceLostHandler:v24];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __42__WPHomeKit_startCBDiscoveryScan_forType___block_invoke_3;
-    v20[3] = &unk_279ED7380;
+    [v11 setDeviceFoundHandler:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __42__WPHomeKit_startCBDiscoveryScan_forType___block_invoke_2;
+    v23[3] = &unk_279ED7358;
+    v23[4] = self;
+    [v11 setDeviceLostHandler:v23];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __42__WPHomeKit_startCBDiscoveryScan_forType___block_invoke_3;
+    v19[3] = &unk_279ED7380;
     v10 = v11;
-    v21 = v10;
+    v20 = v10;
     selfCopy = self;
     typeCopy2 = type;
-    [v10 activateWithCompletion:v20];
+    [v10 activateWithCompletion:v19];
     objc_storeStrong(&self->_homeKitCBDiscovery, v11);
   }
 
@@ -651,13 +775,12 @@ void __32__WPHomeKit_checkAllowDuplicate__block_invoke(uint64_t a1, uint64_t a2)
   v15 = self->_homeKitCBDiscovery;
   v16 = v15;
 
-  v17 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 void __42__WPHomeKit_startCBDiscoveryScan_forType___block_invoke_3(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -670,16 +793,16 @@ void __42__WPHomeKit_startCBDiscoveryScan_forType___block_invoke_3(uint64_t a1, 
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v14 = v3;
+      v13 = v3;
       _os_log_impl(&dword_274327000, v4, OS_LOG_TYPE_DEFAULT, "### HomeKit CBDiscovery activation failed : %@", buf, 0xCu);
     }
 
     [*(a1 + 32) invalidate];
     [*(a1 + 40) setHomeKitCBDiscovery:0];
     v5 = MEMORY[0x277CCA9B8];
-    v11 = *MEMORY[0x277CCA450];
-    v12 = @"HomeKit WHB scan via CBDiscovery failed";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA450];
+    v11 = @"HomeKit WHB scan via CBDiscovery failed";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
     v7 = [v5 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v6];
 
     [*(a1 + 40) scanningFailedToStart:v7 ofType:{objc_msgSend(*(a1 + 40), "clientTypeFromHomeKitType:", *(a1 + 48))}];
@@ -697,43 +820,41 @@ void __42__WPHomeKit_startCBDiscoveryScan_forType___block_invoke_3(uint64_t a1, 
     {
       v9 = *(a1 + 32);
       *buf = 138412290;
-      v14 = v9;
+      v13 = v9;
       _os_log_impl(&dword_274327000, v8, OS_LOG_TYPE_DEFAULT, "HomeKit CBDiscovery activatied: %@", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __42__WPHomeKit_startCBDiscoveryScan_forType___block_invoke_250(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) homeKitCBDiscovery];
   v3 = [v2 discoveredDevices];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v16;
+    v8 = *v15;
     *&v6 = 138412290;
-    v14 = v6;
+    v13 = v6;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * v9);
+        v10 = *(*(&v14 + 1) + 8 * v9);
         v11 = [v10 discoveryFlags];
         if (([*(a1 + 32) homeKitTypeToCBDiscoveryFlag:*(a1 + 40)] & v11) != 0)
         {
@@ -745,8 +866,8 @@ void __42__WPHomeKit_startCBDiscoveryScan_forType___block_invoke_250(uint64_t a1
           v12 = WiProxLog;
           if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v14;
-            v20 = v10;
+            *buf = v13;
+            v19 = v10;
             _os_log_debug_impl(&dword_274327000, v12, OS_LOG_TYPE_DEBUG, "HomeKit CBDiscovery reporting cached device: %@", buf, 0xCu);
           }
 
@@ -757,13 +878,11 @@ void __42__WPHomeKit_startCBDiscoveryScan_forType___block_invoke_250(uint64_t a1
       }
 
       while (v7 != v9);
-      v7 = [v4 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopCBDiscoveryScan:(int64_t)scan
@@ -885,29 +1004,26 @@ void __42__WPHomeKit_startCBDiscoveryScan_forType___block_invoke_250(uint64_t a1
 
 - (void)startScanningWithData:(os_log_t)log forType:.cold.4(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = @"WHB scan is not enabled.";
-  _os_log_error_impl(&dword_274327000, log, OS_LOG_TYPE_ERROR, "HomeKit %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = @"WHB scan is not enabled.";
+  _os_log_error_impl(&dword_274327000, log, OS_LOG_TYPE_ERROR, "HomeKit %@", &v1, 0xCu);
 }
 
 - (void)deviceFoundHandler:(uint64_t)a1 cached:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_274327000, a2, OS_LOG_TYPE_DEBUG, "HomeKit CBDiscovery Device found or updated: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_274327000, a2, OS_LOG_TYPE_DEBUG, "HomeKit CBDiscovery Device found or updated: %@", &v2, 0xCu);
 }
 
 - (void)deviceLostHandler:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_274327000, a2, OS_LOG_TYPE_DEBUG, "HomeKit CBDiscovery Device lost: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_274327000, a2, OS_LOG_TYPE_DEBUG, "HomeKit CBDiscovery Device lost: %@", &v2, 0xCu);
 }
 
 @end

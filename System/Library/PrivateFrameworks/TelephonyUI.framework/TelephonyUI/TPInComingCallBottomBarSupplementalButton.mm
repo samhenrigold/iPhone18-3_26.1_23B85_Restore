@@ -9,10 +9,10 @@
 
 - (TPInComingCallBottomBarSupplementalButton)initWithFrame:(CGRect)frame
 {
-  v39[1] = *MEMORY[0x1E69E9840];
-  v37.receiver = self;
-  v37.super_class = TPInComingCallBottomBarSupplementalButton;
-  v3 = [(TPInComingCallBottomBarSupplementalButton *)&v37 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v38[1] = *MEMORY[0x1E69E9840];
+  v36.receiver = self;
+  v36.super_class = TPInComingCallBottomBarSupplementalButton;
+  v3 = [(TPInComingCallBottomBarSupplementalButton *)&v36 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   v4 = v3;
   if (v3)
   {
@@ -32,10 +32,10 @@
     titleLabel4 = [(TPInComingCallBottomBarSupplementalButton *)v4 titleLabel];
     [titleLabel4 setNumberOfLines:2];
 
-    v36 = [MEMORY[0x1E69DC730] effectWithBlurRadius:40.0];
-    v11 = [objc_alloc(MEMORY[0x1E69DD298]) initWithEffect:v36];
-    v39[0] = v36;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
+    v35 = [MEMORY[0x1E69DC730] effectWithBlurRadius:40.0];
+    v11 = [objc_alloc(MEMORY[0x1E69DD298]) initWithEffect:v35];
+    v38[0] = v35;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:1];
     [(UIView *)v11 setBackgroundEffects:v12];
 
     blackColor = [MEMORY[0x1E69DC888] blackColor];
@@ -52,32 +52,31 @@
     imageView = [(TPInComingCallBottomBarSupplementalButton *)v4 imageView];
     [(TPInComingCallBottomBarSupplementalButton *)v4 insertSubview:v11 belowSubview:imageView];
 
-    v29 = MEMORY[0x1E696ACD8];
+    v28 = MEMORY[0x1E696ACD8];
     centerXAnchor = [(UIView *)v11 centerXAnchor];
     imageView2 = [(TPInComingCallBottomBarSupplementalButton *)v4 imageView];
     centerXAnchor2 = [imageView2 centerXAnchor];
-    v32 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v38[0] = v32;
+    v31 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+    v37[0] = v31;
     centerYAnchor = [(UIView *)v11 centerYAnchor];
     imageView3 = [(TPInComingCallBottomBarSupplementalButton *)v4 imageView];
     centerYAnchor2 = [imageView3 centerYAnchor];
     v19 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v38[1] = v19;
+    v37[1] = v19;
     widthAnchor = [(UIView *)v11 widthAnchor];
     v21 = [widthAnchor constraintEqualToConstant:44.0];
-    v38[2] = v21;
+    v37[2] = v21;
     heightAnchor = [(UIView *)v11 heightAnchor];
     widthAnchor2 = [(UIView *)v11 widthAnchor];
     v24 = [heightAnchor constraintEqualToAnchor:widthAnchor2];
-    v38[3] = v24;
-    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:4];
-    [v29 activateConstraints:v25];
+    v37[3] = v24;
+    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:4];
+    [v28 activateConstraints:v25];
 
     backdropEffectView = v4->_backdropEffectView;
     v4->_backdropEffectView = v11;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -145,10 +144,10 @@
 - (CGRect)titleRectForContentRect:(CGRect)rect
 {
   width = rect.size.width;
-  v22[1] = *MEMORY[0x1E69E9840];
-  v20.receiver = self;
-  v20.super_class = TPInComingCallBottomBarSupplementalButton;
-  [(TPInComingCallBottomBarSupplementalButton *)&v20 titleRectForContentRect:rect.origin.x, rect.origin.y, rect.size.width, rect.size.height];
+  v21[1] = *MEMORY[0x1E69E9840];
+  v19.receiver = self;
+  v19.super_class = TPInComingCallBottomBarSupplementalButton;
+  [(TPInComingCallBottomBarSupplementalButton *)&v19 titleRectForContentRect:rect.origin.x, rect.origin.y, rect.size.width, rect.size.height];
   v5 = [(TPInComingCallBottomBarSupplementalButton *)self imageForState:0];
   [v5 size];
   v7 = v6 + 20.0;
@@ -156,10 +155,10 @@
   +[TPUIConfiguration defaultHeight];
   v9 = v8 - v7;
   currentTitle = [(TPInComingCallBottomBarSupplementalButton *)self currentTitle];
-  v21 = *MEMORY[0x1E69DB648];
+  v20 = *MEMORY[0x1E69DB648];
   v11 = +[TPUIConfiguration defaultFont];
-  v22[0] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+  v21[0] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
   [currentTitle boundingRectWithSize:1 options:v12 attributes:0 context:{width, 3.40282347e38}];
   v14 = v13;
 
@@ -173,14 +172,13 @@
     v15 = v9;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-  v17 = 0.0;
-  v18 = v7;
-  v19 = width;
+  v16 = 0.0;
+  v17 = v7;
+  v18 = width;
   result.size.height = v15;
-  result.size.width = v19;
-  result.origin.y = v18;
-  result.origin.x = v17;
+  result.size.width = v18;
+  result.origin.y = v17;
+  result.origin.x = v16;
   return result;
 }
 

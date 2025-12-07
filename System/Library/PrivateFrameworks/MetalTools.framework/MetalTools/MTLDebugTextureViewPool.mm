@@ -47,10 +47,10 @@
 
 - (MTLResourceID)setTextureView:(id)view descriptor:(id)descriptor atIndex:(unint64_t)index
 {
-  v15 = 0;
-  v13 = 0u;
+  v16 = 0;
   v14 = 0u;
-  v12 = 0u;
+  v15 = 0u;
+  v13 = 0u;
   [(MTLToolsObject *)self baseObject];
   _MTLMessageContextBegin_();
   if ([-[MTLToolsObject baseObject](self "baseObject")] <= index)
@@ -58,21 +58,21 @@
     [MTLDebugTextureViewPool setTextureView:index atIndex:self];
   }
 
-  _validateTextureView(view, [descriptor pixelFormat], objc_msgSend(descriptor, "textureType"));
-  if (v12)
+  v9 = _validateTextureView(view, [descriptor pixelFormat], objc_msgSend(descriptor, "textureType"));
+  if (v13)
   {
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v11.receiver = self;
-    v11.super_class = MTLDebugTextureViewPool;
-    v9 = [(MTLToolsTextureViewPool *)&v11 setTextureView:view descriptor:descriptor atIndex:index];
+    v12.receiver = self;
+    v12.super_class = MTLDebugTextureViewPool;
+    v10 = [(MTLToolsTextureViewPool *)&v12 setTextureView:view descriptor:descriptor atIndex:index, v9];
   }
 
   _MTLMessageContextEnd();
-  return v9;
+  return v10;
 }
 
 - (MTLResourceID)setTextureViewFromBuffer:(id)buffer descriptor:(id)descriptor offset:(unint64_t)offset bytesPerRow:(unint64_t)row atIndex:(unint64_t)index

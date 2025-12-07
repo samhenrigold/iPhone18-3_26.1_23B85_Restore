@@ -28,46 +28,44 @@
 
 - (void)deleteExpiredCounters
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dateProvider = [(HMDHouseholdMetricsClient *)self dateProvider];
   v4 = [dateProvider startOfDayByAddingDayCount:-3];
 
   dateProvider2 = [(HMDHouseholdMetricsClient *)self dateProvider];
   v6 = [dateProvider2 startOfDayByAddingDayCount:1];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   logEventFactories = [(HMDHouseholdMetricsClient *)self logEventFactories];
   objectEnumerator = [logEventFactories objectEnumerator];
 
-  v9 = [objectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [objectEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * i);
+        v13 = *(*(&v14 + 1) + 8 * i);
         [v13 deleteCountersBeforeDate:v4];
         [v13 deleteCountersAfterDate:v6];
       }
 
-      v10 = [objectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [objectEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)householdMetricsForHomeWithUUID:(id)d associatedWithDate:(id)date
@@ -94,7 +92,7 @@
   v15 = dCopy;
   [logEventFactories2 enumerateKeysAndObjectsUsingBlock:v18];
 
-  v16 = [v13 copy];
+  v16 = objc_msgSend_copy(v13);
 
   return v16;
 }
@@ -111,7 +109,7 @@ void __80__HMDHouseholdMetricsClient_householdMetricsForHomeWithUUID_associatedW
 
 - (id)handleRequestMessageWithPayload:(id)payload outError:(id *)error
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -120,9 +118,9 @@ void __80__HMDHouseholdMetricsClient_householdMetricsForHomeWithUUID_associatedW
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v45 = v10;
-    v46 = 2112;
-    v47 = payloadCopy;
+    v44 = v10;
+    v45 = 2112;
+    v46 = payloadCopy;
     _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Processing request, payload=%@", buf, 0x16u);
   }
 
@@ -174,32 +172,32 @@ void __80__HMDHouseholdMetricsClient_householdMetricsForHomeWithUUID_associatedW
     if (v17 && v25)
     {
       v26 = [(HMDHouseholdMetricsClient *)selfCopy householdMetricsForHomeWithUUID:v17 associatedWithDate:v25];
-      v42[0] = MEMORY[0x277D85DD0];
-      v42[1] = 3221225472;
-      v42[2] = __70__HMDHouseholdMetricsClient_handleRequestMessageWithPayload_outError___block_invoke;
-      v42[3] = &unk_279733E68;
-      v42[4] = selfCopy;
+      v41[0] = MEMORY[0x277D85DD0];
+      v41[1] = 3221225472;
+      v41[2] = __70__HMDHouseholdMetricsClient_handleRequestMessageWithPayload_outError___block_invoke;
+      v41[3] = &unk_279733E68;
+      v41[4] = selfCopy;
       v27 = dictionary;
-      v43 = v27;
-      [v26 enumerateKeysAndObjectsUsingBlock:v42];
+      v42 = v27;
+      [v26 enumerateKeysAndObjectsUsingBlock:v41];
       v28 = objc_autoreleasePoolPush();
       v29 = selfCopy;
       v30 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
         HMFGetLogIdentifier();
-        v31 = v41 = dictionary;
+        v31 = v40 = dictionary;
         *buf = 138543618;
-        v45 = v31;
-        v46 = 2112;
-        v47 = v27;
+        v44 = v31;
+        v45 = 2112;
+        v46 = v27;
         _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_DEBUG, "%{public}@Responding with payload=%@", buf, 0x16u);
 
-        dictionary = v41;
+        dictionary = v40;
       }
 
       objc_autoreleasePoolPop(v28);
-      v22 = [v27 copy];
+      v22 = objc_msgSend_copy(v27);
     }
 
     else
@@ -229,9 +227,9 @@ void __80__HMDHouseholdMetricsClient_householdMetricsForHomeWithUUID_associatedW
         }
 
         *buf = 138543618;
-        v45 = v35;
-        v46 = 2080;
-        v47 = v37;
+        v44 = v35;
+        v45 = 2080;
+        v46 = v37;
         _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_ERROR, "%{public}@Missing %s in request, responding with error", buf, 0x16u);
       }
 
@@ -258,7 +256,7 @@ void __80__HMDHouseholdMetricsClient_householdMetricsForHomeWithUUID_associatedW
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v45 = v21;
+      v44 = v21;
       _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@DNU disabled, responding with error", buf, 0xCu);
     }
 
@@ -275,14 +273,12 @@ void __80__HMDHouseholdMetricsClient_householdMetricsForHomeWithUUID_associatedW
     }
   }
 
-  v39 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 void __70__HMDHouseholdMetricsClient_handleRequestMessageWithPayload_outError___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) logEventFactories];
@@ -307,10 +303,10 @@ LABEL_15:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         v17 = HMFGetLogIdentifier();
-        v22 = 138543618;
-        v23 = v17;
-        v24 = 2114;
-        v25 = v5;
+        v21 = 138543618;
+        v22 = v17;
+        v23 = 2114;
+        v24 = v5;
         v18 = "%{public}@Dropping %{public}@ because the metrics can't be serialized as a property list";
         v19 = v16;
         v20 = OS_LOG_TYPE_ERROR;
@@ -326,15 +322,15 @@ LABEL_15:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         v17 = HMFGetLogIdentifier();
-        v22 = 138543618;
-        v23 = v17;
-        v24 = 2114;
-        v25 = v5;
+        v21 = 138543618;
+        v22 = v17;
+        v23 = 2114;
+        v24 = v5;
         v18 = "%{public}@Factory didn't return serialized data for %{public}@";
         v19 = v16;
         v20 = OS_LOG_TYPE_DEFAULT;
 LABEL_13:
-        _os_log_impl(&dword_2531F8000, v19, v20, v18, &v22, 0x16u);
+        _os_log_impl(&dword_2531F8000, v19, v20, v18, &v21, 0x16u);
       }
     }
 
@@ -348,17 +344,15 @@ LABEL_13:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     v13 = HMFGetLogIdentifier();
-    v22 = 138543618;
-    v23 = v13;
-    v24 = 2114;
-    v25 = v5;
-    _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Dropping %{public}@ because it's factory doesn't serialize", &v22, 0x16u);
+    v21 = 138543618;
+    v22 = v13;
+    v23 = 2114;
+    v24 = v5;
+    _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Dropping %{public}@ because it's factory doesn't serialize", &v21, 0x16u);
   }
 
   objc_autoreleasePoolPop(v10);
 LABEL_16:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRequest:(id)request
@@ -433,10 +427,11 @@ uint64_t __129__HMDHouseholdMetricsClient_initWithCountersManager_dateProvider_r
 
 uint64_t __40__HMDHouseholdMetricsClient_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v10 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v10;
+  logCategory__hmf_once_v10 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

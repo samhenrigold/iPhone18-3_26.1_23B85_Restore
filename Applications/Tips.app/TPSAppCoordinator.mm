@@ -61,18 +61,17 @@
 {
   v4 = type metadata accessor for URL();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
-  v9 = *(&self->super.isa + OBJC_IVAR___TPSAppCoordinator_mainViewController);
+  v8 = *(&self->super.isa + OBJC_IVAR___TPSAppCoordinator_mainViewController);
   selfCopy = self;
-  v11 = v9;
-  URL._bridgeToObjectiveC()(v12);
-  v14 = v13;
-  [v11 openURL:v13];
+  v10 = v8;
+  URL._bridgeToObjectiveC()(v11);
+  v13 = v12;
+  [v10 openURL:v12];
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)displayCollectionID:(id)d tipID:(id)iD

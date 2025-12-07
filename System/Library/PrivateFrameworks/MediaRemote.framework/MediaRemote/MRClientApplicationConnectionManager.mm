@@ -63,7 +63,7 @@ void __53__MRClientApplicationConnectionManager_sharedManager__block_invoke()
 
 - (void)registerListener:(id)listener
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   os_unfair_lock_lock(&self->_lock);
   serviceName = [listenerCopy serviceName];
@@ -92,44 +92,44 @@ void __53__MRClientApplicationConnectionManager_sharedManager__block_invoke()
     }
   }
 
-  v34 = v12;
-  v36 = serviceName;
+  v33 = v12;
+  v35 = serviceName;
   [v12 setObject:listenerCopy forKey:serviceName];
   v15 = _MRLogForCategory(0);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     serviceName2 = [listenerCopy serviceName];
     *buf = 138412546;
-    v52 = serviceName2;
-    v53 = 2112;
-    v54 = playerPath;
+    v51 = serviceName2;
+    v52 = 2112;
+    v53 = playerPath;
     _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_DEFAULT, "[MRClientApplicationConnectionManager] Registered listener for service: %@, path: %@", buf, 0x16u);
   }
 
-  v35 = playerPath;
+  v34 = playerPath;
 
   array = [MEMORY[0x1E695DF70] array];
   selfCopy = self;
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   obj = self->_listenerPendingConnections;
-  v17 = [(NSMapTable *)obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+  v17 = [(NSMapTable *)obj countByEnumeratingWithState:&v44 objects:v49 count:16];
   if (v17)
   {
     v18 = v17;
-    v40 = *v46;
+    v39 = *v45;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v46 != v40)
+        if (*v45 != v39)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v45 + 1) + 8 * i);
+        v20 = *(*(&v44 + 1) + 8 * i);
         context = [v20 context];
         destinationPlayerPath = [context destinationPlayerPath];
         playerPath2 = [listenerCopy playerPath];
@@ -162,42 +162,40 @@ LABEL_22:
         }
       }
 
-      v18 = [(NSMapTable *)obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+      v18 = [(NSMapTable *)obj countByEnumeratingWithState:&v44 objects:v49 count:16];
     }
 
     while (v18);
   }
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v28 = array;
-  v29 = [v28 countByEnumeratingWithState:&v41 objects:v49 count:16];
+  v29 = [v28 countByEnumeratingWithState:&v40 objects:v48 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v42;
+    v31 = *v41;
     do
     {
       for (j = 0; j != v30; ++j)
       {
-        if (*v42 != v31)
+        if (*v41 != v31)
         {
           objc_enumerationMutation(v28);
         }
 
-        (*(*(*(&v41 + 1) + 8 * j) + 16))();
+        (*(*(*(&v40 + 1) + 8 * j) + 16))();
       }
 
-      v30 = [v28 countByEnumeratingWithState:&v41 objects:v49 count:16];
+      v30 = [v28 countByEnumeratingWithState:&v40 objects:v48 count:16];
     }
 
     while (v30);
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (id)listenerForServiceName:(id)name playerPath:(id)path
@@ -306,13 +304,12 @@ LABEL_22:
 
 - (void)registerListener:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_fault_impl(&dword_1A2860000, log, OS_LOG_TYPE_FAULT, "[MRClientApplicationConnectionManager] registerListener - registering duplicate listener for service: %@, playerPath: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_fault_impl(&dword_1A2860000, log, OS_LOG_TYPE_FAULT, "[MRClientApplicationConnectionManager] registerListener - registering duplicate listener for service: %@, playerPath: %@", &v3, 0x16u);
 }
 
 @end

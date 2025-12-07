@@ -147,7 +147,7 @@ LABEL_9:
 
 - (PHBottomBarButtonConfiguration)initWithAction:(int64_t)action diameter:(double)diameter callState:(int64_t)state sizeCategory:(int64_t)category captureView:(id)view gameControllerContext:(id)context
 {
-  v182[2] = *MEMORY[0x277D85DE8];
+  v181[2] = *MEMORY[0x277D85DE8];
   obj = view;
   contextCopy = context;
   v15 = [objc_opt_class() imageColorForState:0];
@@ -155,7 +155,7 @@ LABEL_9:
   userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
   [MEMORY[0x277D3A7E0] ambientInCallControlSize];
-  v175 = v15;
+  v174 = v15;
   v19 = v18;
   switch(action)
   {
@@ -176,7 +176,7 @@ LABEL_9:
       }
 
       categoryCopy32 = category;
-      v174 = contextCopy;
+      v173 = contextCopy;
       stateCopy35 = state;
       if (state == 1)
       {
@@ -207,7 +207,7 @@ LABEL_9:
       v24 = [v84 localizedStringForKey:@"ACCEPT" value:&stru_285532CB8 table:@"BottomBar"];
 
       v77 = [contextCopy sfSymbolForButton:1];
-      v174 = contextCopy;
+      v173 = contextCopy;
       stateCopy35 = state;
       if (v77)
       {
@@ -227,7 +227,7 @@ LABEL_9:
       v24 = [v76 localizedStringForKey:@"ACCEPT" value:&stru_285532CB8 table:@"BottomBar"];
 
       v77 = [contextCopy sfSymbolForButton:1];
-      v174 = contextCopy;
+      v173 = contextCopy;
       stateCopy35 = state;
       if (v77)
       {
@@ -246,7 +246,7 @@ LABEL_134:
       systemTintColor = [objc_opt_class() systemTintColor];
       goto LABEL_173;
     case 4:
-      v174 = contextCopy;
+      v173 = contextCopy;
       actionCopy6 = action;
       if (state > 2)
       {
@@ -294,7 +294,7 @@ LABEL_134:
       v127 = @"END_+_ACCEPT";
       goto LABEL_168;
     case 5:
-      v174 = contextCopy;
+      v173 = contextCopy;
       actionCopy32 = action;
       if ((state - 1) > 3)
       {
@@ -332,7 +332,7 @@ LABEL_152:
       goto LABEL_153;
     case 6:
       v77 = 0;
-      v174 = contextCopy;
+      v173 = contextCopy;
       actionCopy6 = action;
       if (state > 2)
       {
@@ -354,7 +354,7 @@ LABEL_117:
 LABEL_168:
           v24 = [v125 localizedStringForKey:v127 value:&stru_285532CB8 table:{@"BottomBar", actionCopy6}];
 
-          whiteColor4 = [v174 sfSymbolForButton:1];
+          whiteColor4 = [v173 sfSymbolForButton:1];
           stateCopy35 = state;
           categoryCopy32 = category;
           if (whiteColor4)
@@ -442,7 +442,7 @@ LABEL_156:
       v146 = +[PHBottomBarButtonConfiguration usesGlass];
       systemRedColor = [MEMORY[0x277D75348] systemRedColor];
       systemTintColor = systemRedColor;
-      v174 = contextCopy;
+      v173 = contextCopy;
       if (v146)
       {
         v148 = [systemRedColor colorWithAlphaComponent:0.8];
@@ -475,7 +475,7 @@ LABEL_153:
       v132 = +[PHBottomBarButtonConfiguration usesGlass];
       systemRedColor2 = [MEMORY[0x277D75348] systemRedColor];
       systemTintColor = systemRedColor2;
-      v174 = contextCopy;
+      v173 = contextCopy;
       if (v132)
       {
         v134 = [systemRedColor2 colorWithAlphaComponent:0.8];
@@ -487,7 +487,7 @@ LABEL_153:
     case 9:
       actionCopy11 = action;
       stateCopy35 = state;
-      v174 = contextCopy;
+      v173 = contextCopy;
       v92 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v24 = [v92 localizedStringForKey:@"SEND_MESSAGE" value:&stru_285532CB8 table:@"BottomBar"];
 
@@ -496,7 +496,7 @@ LABEL_153:
     case 10:
       actionCopy32 = action;
       stateCopy35 = state;
-      v174 = contextCopy;
+      v173 = contextCopy;
       v70 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v24 = [v70 localizedStringForKey:@"SCREENING_BLOCK" value:&stru_285532CB8 table:@"BottomBar"];
 
@@ -507,7 +507,7 @@ LABEL_153:
     case 11:
       actionCopy11 = action;
       stateCopy35 = state;
-      v174 = contextCopy;
+      v173 = contextCopy;
       v89 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v24 = [v89 localizedStringForKey:@"SCREENING_STOP" value:&stru_285532CB8 table:@"BottomBar"];
 
@@ -528,14 +528,14 @@ LABEL_60:
       actionCopy13 = action;
       stateCopy35 = state;
       categoryCopy32 = category;
-      v174 = contextCopy;
+      v173 = contextCopy;
       v52 = MEMORY[0x277D755B8];
       v53 = *MEMORY[0x277D76A20];
       whiteColor = [MEMORY[0x277D75348] whiteColor];
-      v182[0] = whiteColor;
+      v181[0] = whiteColor;
       clearColor2 = [MEMORY[0x277D75348] clearColor];
-      v182[1] = clearColor2;
-      v56 = [MEMORY[0x277CBEA60] arrayWithObjects:v182 count:2];
+      v181[1] = clearColor2;
+      v56 = [MEMORY[0x277CBEA60] arrayWithObjects:v181 count:2];
       actionCopy3 = [v52 tpImageForSymbolType:14 textStyle:v53 scale:1 paletteColors:v56 isStaticSize:1];
 
       v57 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -546,17 +546,17 @@ LABEL_60:
       actionCopy13 = action;
       stateCopy35 = state;
       categoryCopy32 = category;
-      v174 = contextCopy;
+      v173 = contextCopy;
       v59 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v24 = [v59 localizedStringForKey:@"CALL_BACK_LATER" value:&stru_285532CB8 table:@"BottomBar"];
 
       v60 = MEMORY[0x277D755B8];
       v61 = *MEMORY[0x277D76A20];
       whiteColor2 = [MEMORY[0x277D75348] whiteColor];
-      v178[0] = whiteColor2;
+      v177[0] = whiteColor2;
       clearColor3 = [MEMORY[0x277D75348] clearColor];
-      v178[1] = clearColor3;
-      v64 = [MEMORY[0x277CBEA60] arrayWithObjects:v178 count:2];
+      v177[1] = clearColor3;
+      v64 = [MEMORY[0x277CBEA60] arrayWithObjects:v177 count:2];
       actionCopy3 = [v60 tpImageForSymbolType:39 textStyle:v61 scale:1 paletteColors:v64 isStaticSize:1];
 
 LABEL_21:
@@ -588,7 +588,7 @@ LABEL_21:
       }
 
       categoryCopy32 = category;
-      v174 = contextCopy;
+      v173 = contextCopy;
       stateCopy35 = state;
       if (state == 1)
       {
@@ -633,7 +633,7 @@ LABEL_21:
     case 18:
       actionCopy22 = action;
       stateCopy35 = state;
-      v174 = contextCopy;
+      v173 = contextCopy;
       v87 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v24 = [v87 localizedStringForKey:@"CALL_BACK" value:&stru_285532CB8 table:@"BottomBar"];
 
@@ -648,7 +648,7 @@ LABEL_21:
 
       v77 = [contextCopy sfSymbolForButton:2];
       categoryCopy32 = category;
-      v174 = contextCopy;
+      v173 = contextCopy;
       stateCopy35 = state;
       if (v77)
       {
@@ -670,14 +670,14 @@ LABEL_21:
       actionCopy32 = action;
       stateCopy35 = state;
       categoryCopy32 = category;
-      v174 = contextCopy;
+      v173 = contextCopy;
       v50 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v51 = [PHBottomBarButtonConfiguration bottomBarImageWithName:@"in-call-camera-flip" color:v15 inBundle:v50];
       goto LABEL_67;
     case 21:
       actionCopy32 = action;
       categoryCopy32 = category;
-      v174 = contextCopy;
+      v173 = contextCopy;
       stateCopy35 = state;
       v99 = [objc_opt_class() imageForAction:21 callState:state];
       v100 = [objc_opt_class() imageColorForState:0];
@@ -700,7 +700,7 @@ LABEL_21:
       goto LABEL_164;
     case 22:
       categoryCopy32 = category;
-      v174 = contextCopy;
+      v173 = contextCopy;
       actionCopy32 = action;
       stateCopy35 = state;
       if (!category)
@@ -759,14 +759,14 @@ LABEL_113:
 LABEL_175:
       v22 = 0;
 LABEL_176:
-      v177.receiver = self;
-      v177.super_class = PHBottomBarButtonConfiguration;
-      v154 = [(PHBottomBarButtonConfiguration *)&v177 init];
+      v176.receiver = self;
+      v176.super_class = PHBottomBarButtonConfiguration;
+      v154 = [(PHBottomBarButtonConfiguration *)&v176 init];
       p_isa = &v154->super.isa;
       if (v154)
       {
         v154->_diameter = diameter;
-        v154->_action = v171;
+        v154->_action = v170;
         v154->_callState = stateCopy35;
         if (categoryCopy32 == 1)
         {
@@ -794,16 +794,15 @@ LABEL_176:
       self = p_isa;
 
       selfCopy = self;
-      contextCopy = v174;
+      contextCopy = v173;
 LABEL_182:
 
-      v157 = *MEMORY[0x277D85DE8];
       return selfCopy;
     case 24:
       actionCopy32 = action;
       stateCopy35 = state;
       categoryCopy32 = category;
-      v174 = contextCopy;
+      v173 = contextCopy;
       v72 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v24 = [v72 localizedStringForKey:@"SEND_TO_VOICEMAL" value:&stru_285532CB8 table:@"BottomBar"];
 
@@ -816,7 +815,7 @@ LABEL_182:
     case 25:
       stateCopy35 = state;
       categoryCopy32 = category;
-      v174 = contextCopy;
+      v173 = contextCopy;
       v113 = MEMORY[0x277D755B8];
       v114 = MEMORY[0x277D76A08];
       if (v18 != diameter)
@@ -836,10 +835,10 @@ LABEL_182:
       }
 
       whiteColor9 = [MEMORY[0x277D75348] whiteColor];
-      v181[0] = whiteColor9;
+      v180[0] = whiteColor9;
       clearColor4 = [MEMORY[0x277D75348] clearColor];
-      v181[1] = clearColor4;
-      v119 = [MEMORY[0x277CBEA60] arrayWithObjects:v181 count:2];
+      v180[1] = clearColor4;
+      v119 = [MEMORY[0x277CBEA60] arrayWithObjects:v180 count:2];
       actionCopy3 = [v113 tpImageForSymbolType:31 textStyle:v115 scale:v116 paletteColors:v119 isStaticSize:1];
 
       v45 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -849,7 +848,7 @@ LABEL_182:
     case 26:
       stateCopy35 = state;
       categoryCopy32 = category;
-      v174 = contextCopy;
+      v173 = contextCopy;
       v38 = MEMORY[0x277D755B8];
       v39 = MEMORY[0x277D76A08];
       if (v18 != diameter)
@@ -869,10 +868,10 @@ LABEL_182:
       }
 
       whiteColor10 = [MEMORY[0x277D75348] whiteColor];
-      v180[0] = whiteColor10;
+      v179[0] = whiteColor10;
       clearColor5 = [MEMORY[0x277D75348] clearColor];
-      v180[1] = clearColor5;
-      v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v180 count:2];
+      v179[1] = clearColor5;
+      v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v179 count:2];
       actionCopy3 = [v38 tpImageForSymbolType:96 textStyle:v40 scale:v41 paletteColors:v44 isStaticSize:1];
 
       v45 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -882,7 +881,7 @@ LABEL_182:
     case 27:
       stateCopy35 = state;
       categoryCopy32 = category;
-      v174 = contextCopy;
+      v173 = contextCopy;
       v104 = MEMORY[0x277D755B8];
       v105 = MEMORY[0x277D76A08];
       if (v18 != diameter)
@@ -902,10 +901,10 @@ LABEL_182:
       }
 
       whiteColor11 = [MEMORY[0x277D75348] whiteColor];
-      v179[0] = whiteColor11;
+      v178[0] = whiteColor11;
       clearColor6 = [MEMORY[0x277D75348] clearColor];
-      v179[1] = clearColor6;
-      v110 = [MEMORY[0x277CBEA60] arrayWithObjects:v179 count:2];
+      v178[1] = clearColor6;
+      v110 = [MEMORY[0x277CBEA60] arrayWithObjects:v178 count:2];
       actionCopy3 = [v104 tpImageForSymbolType:94 textStyle:v106 scale:v107 paletteColors:v110 isStaticSize:1];
 
       v45 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -928,7 +927,7 @@ LABEL_91:
       actionCopy32 = action;
       stateCopy35 = state;
       categoryCopy32 = category;
-      v174 = contextCopy;
+      v173 = contextCopy;
       actionCopy3 = [PHBottomBarButtonConfiguration bottomBarGlyphWithSymbolType:1 sizeCategory:category];
       systemTintColor = [MEMORY[0x277D75348] systemGreenColor];
       goto LABEL_81;
@@ -936,7 +935,7 @@ LABEL_91:
       actionCopy22 = action;
       stateCopy35 = state;
       categoryCopy32 = category;
-      v174 = contextCopy;
+      v173 = contextCopy;
       v93 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v24 = [v93 localizedStringForKey:@"LEAVE_A_MESSAGE" value:&stru_285532CB8 table:@"BottomBar"];
 
@@ -951,7 +950,7 @@ LABEL_63:
     case 30:
       actionCopy23 = action;
       stateCopy35 = state;
-      v174 = contextCopy;
+      v173 = contextCopy;
       v85 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v24 = [v85 localizedStringForKey:@"SEND_MESSAGE" value:&stru_285532CB8 table:@"BottomBar"];
 
@@ -974,7 +973,7 @@ LABEL_63:
       actionCopy32 = action;
       stateCopy35 = state;
       categoryCopy32 = category;
-      v174 = contextCopy;
+      v173 = contextCopy;
       systemTintColor = [MEMORY[0x277D75348] whiteColor];
       inCallControls = 0;
       whiteColor7 = 0;
@@ -985,7 +984,7 @@ LABEL_63:
       actionCopy32 = action;
       stateCopy35 = state;
       categoryCopy32 = category;
-      v174 = contextCopy;
+      v173 = contextCopy;
       v49 = MEMORY[0x277D755B8];
       v50 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v51 = [v49 imageNamed:@"in-call-button-effects" inBundle:v50];
@@ -998,7 +997,7 @@ LABEL_67:
     case 35:
       actionCopy27 = action;
       stateCopy35 = state;
-      v174 = contextCopy;
+      v173 = contextCopy;
       v48 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v24 = [v48 localizedStringForKey:@"BLOCK_CALLER" value:&stru_285532CB8 table:@"BottomBar"];
 
@@ -1007,7 +1006,7 @@ LABEL_67:
     case 36:
       actionCopy27 = action;
       stateCopy35 = state;
-      v174 = contextCopy;
+      v173 = contextCopy;
       v33 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v24 = [v33 localizedStringForKey:@"CREATE_CONTACT" value:&stru_285532CB8 table:@"BottomBar"];
 
@@ -1030,7 +1029,7 @@ LABEL_105:
     case 37:
       actionCopy28 = action;
       stateCopy35 = state;
-      v174 = contextCopy;
+      v173 = contextCopy;
       v35 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v24 = [v35 localizedStringForKey:@"Close" value:&stru_285532CB8 table:@"BottomBar"];
 
@@ -1057,7 +1056,7 @@ LABEL_105:
       actionCopy32 = action;
       stateCopy35 = state;
       categoryCopy32 = category;
-      v174 = contextCopy;
+      v173 = contextCopy;
       v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v24 = [v26 localizedStringForKey:@"ALERT_ACTION_TEXT_BUTTON_LABEL" value:&stru_285532CB8 table:@"Localizable-Stewie"];
 
@@ -1073,7 +1072,7 @@ LABEL_105:
       goto LABEL_113;
     case 39:
       categoryCopy32 = category;
-      v174 = contextCopy;
+      v173 = contextCopy;
       stateCopy35 = state;
       if (state == 1)
       {
@@ -1095,7 +1094,7 @@ LABEL_105:
     case 40:
       actionCopy32 = action;
       stateCopy35 = state;
-      v174 = contextCopy;
+      v173 = contextCopy;
       v97 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v24 = [v97 localizedStringForKey:@"PICK_UP" value:&stru_285532CB8 table:@"BottomBar"];
 
@@ -1109,7 +1108,7 @@ LABEL_105:
       v66 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v24 = [v66 localizedStringForKey:@"GAME_CONTROLLER_FOCUS" value:&stru_285532CB8 table:@"BottomBar"];
 
-      v174 = contextCopy;
+      v173 = contextCopy;
       v67 = [contextCopy sfSymbolForButton:0];
       categoryCopy32 = category;
       v68 = [PHBottomBarButtonConfiguration bottomBarGlyphWithGameControllerSFSymbol:v67 sizeCategory:category];
@@ -1131,7 +1130,7 @@ LABEL_105:
       actionCopy32 = action;
       stateCopy35 = state;
       categoryCopy32 = category;
-      v174 = contextCopy;
+      v173 = contextCopy;
       goto LABEL_52;
   }
 }

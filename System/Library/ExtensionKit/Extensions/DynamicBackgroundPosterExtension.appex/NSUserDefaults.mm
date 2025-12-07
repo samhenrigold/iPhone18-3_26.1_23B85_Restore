@@ -16,6 +16,8 @@
 - (float)luminance;
 - (void)setCustomGlitterVariant:(id)variant;
 - (void)setCustomVariant:(id)variant;
+- (void)setDeleteSnaphotsAtLaunch:(BOOL)launch;
+- (void)setEnableCustomGlitter:(BOOL)glitter;
 - (void)setGlitterAmbientContrast:(float)contrast;
 - (void)setGlitterAmbientIntensity:(float)intensity;
 - (void)setGlitterBackgroundGlitterIntensity:(float)intensity;
@@ -26,6 +28,7 @@
 - (void)setGlitterRotateOnGround:(float)ground;
 - (void)setGlitterTapStrength:(float)strength;
 - (void)setLuminance:(float)luminance;
+- (void)setResumeFromLastPlayTime:(BOOL)time;
 @end
 
 @implementation NSUserDefaults
@@ -201,6 +204,14 @@
   return v4;
 }
 
+- (void)setEnableCustomGlitter:(BOOL)glitter
+{
+  glitterCopy = glitter;
+  selfCopy = self;
+  v4 = sub_10004D05C();
+  [(NSUserDefaults *)selfCopy setBool:glitterCopy forKey:v4];
+}
+
 - (float)luminance
 {
   selfCopy = self;
@@ -314,6 +325,14 @@
   return v4;
 }
 
+- (void)setDeleteSnaphotsAtLaunch:(BOOL)launch
+{
+  launchCopy = launch;
+  selfCopy = self;
+  v4 = sub_10004D05C();
+  [(NSUserDefaults *)selfCopy setBool:launchCopy forKey:v4];
+}
+
 - (BOOL)resumeFromLastPlayTime
 {
   selfCopy = self;
@@ -321,6 +340,14 @@
   v4 = [(NSUserDefaults *)selfCopy BOOLForKey:v3];
 
   return v4;
+}
+
+- (void)setResumeFromLastPlayTime:(BOOL)time
+{
+  timeCopy = time;
+  selfCopy = self;
+  v4 = sub_10004D05C();
+  [(NSUserDefaults *)selfCopy setBool:timeCopy forKey:v4];
 }
 
 @end

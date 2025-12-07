@@ -19,8 +19,8 @@
   v17 = [v14 tracksWithMediaType:*MEMORY[0x277CE5E48]];
   v18 = [v17 count];
 
-  v19 = blt_general_log();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v20 = blt_general_log(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
     v27 = v14;
@@ -30,7 +30,7 @@
     v31 = v16;
     v32 = 1024;
     v33 = v18;
-    _os_log_impl(&dword_241FB3000, v19, OS_LOG_TYPE_DEFAULT, "Transcoding: created asset %@ from URL: %@ with %d video tracks, %d audio tracks", buf, 0x22u);
+    _os_log_impl(&dword_241FB3000, v20, OS_LOG_TYPE_DEFAULT, "Transcoding: created asset %@ from URL: %@ with %d video tracks, %d audio tracks", buf, 0x22u);
   }
 
   v23[0] = MEMORY[0x277D85DD0];
@@ -39,11 +39,9 @@
   v23[3] = &unk_278D31D98;
   v24 = rLCopy;
   v25 = completionCopy;
-  v20 = completionCopy;
-  v21 = rLCopy;
-  [self _transcodeVideoAsync:v14 outURL:v21 maxBytes:bytes completionHandler:v23];
-
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = completionCopy;
+  v22 = rLCopy;
+  [self _transcodeVideoAsync:v14 outURL:v22 maxBytes:bytes completionHandler:v23];
 }
 
 void __53__BLTAVUtil_transcodeURL_outURL_maxBytes_completion___block_invoke(uint64_t a1, void *a2)
@@ -58,31 +56,29 @@ void __53__BLTAVUtil_transcodeURL_outURL_maxBytes_completion___block_invoke(uint
   v8 = v14;
   v9 = [v7 fileSize];
 
-  v10 = blt_general_log();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = blt_general_log(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = *(a1 + 32);
+    v12 = *(a1 + 32);
     *buf = 138412802;
-    v16 = v11;
+    v16 = v12;
     v17 = 2048;
     v18 = v9;
     v19 = 2112;
     v20 = v8;
-    _os_log_impl(&dword_241FB3000, v10, OS_LOG_TYPE_DEFAULT, "Transcoding: File %@ has size %llu with error %@", buf, 0x20u);
+    _os_log_impl(&dword_241FB3000, v11, OS_LOG_TYPE_DEFAULT, "Transcoding: File %@ has size %llu with error %@", buf, 0x20u);
   }
 
-  v12 = *(a1 + 40);
-  if (v12)
+  v13 = *(a1 + 40);
+  if (v13)
   {
-    (*(v12 + 16))(v12, v3);
+    (*(v13 + 16))(v13, v3);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_transcodeVideoAsync:(id)async outURL:(id)l maxBytes:(unint64_t)bytes completionHandler:(id)handler
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   asyncCopy = async;
   lCopy = l;
   handlerCopy = handler;
@@ -105,7 +101,7 @@ void __53__BLTAVUtil_transcodeURL_outURL_maxBytes_completion___block_invoke(uint
     v16 = v17;
 LABEL_4:
     v18 = [objc_alloc(MEMORY[0x277CE6400]) initWithAsset:asyncCopy presetName:v16];
-    v19 = blt_general_log();
+    v19 = blt_general_log(v18);
     v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
     if (v18)
     {
@@ -113,61 +109,60 @@ LABEL_4:
       {
         supportedFileTypes = [v18 supportedFileTypes];
         *buf = 138412290;
-        v34 = supportedFileTypes;
+        v35 = supportedFileTypes;
         _os_log_impl(&dword_241FB3000, v19, OS_LOG_TYPE_DEFAULT, "Transcoding: Supported file types: %@", buf, 0xCu);
       }
 
       supportedFileTypes2 = [v18 supportedFileTypes];
       v23 = [supportedFileTypes2 objectAtIndex:0];
 
-      v24 = blt_general_log();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v25 = blt_general_log(v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v34 = v23;
-        _os_log_impl(&dword_241FB3000, v24, OS_LOG_TYPE_DEFAULT, "Transcoding:   outputFileType: %@", buf, 0xCu);
+        v35 = v23;
+        _os_log_impl(&dword_241FB3000, v25, OS_LOG_TYPE_DEFAULT, "Transcoding:   outputFileType: %@", buf, 0xCu);
       }
 
       if (v23)
       {
         [v18 setOutputFileType:v23];
         [v18 setFileLengthLimit:bytes];
-        [v18 setOutputURL:lCopy];
-        v25 = blt_general_log();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v27 = blt_general_log([v18 setOutputURL:lCopy]);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
           outputURL = [v18 outputURL];
           *buf = 138412546;
-          v34 = v16;
-          v35 = 2112;
-          v36 = outputURL;
-          _os_log_impl(&dword_241FB3000, v25, OS_LOG_TYPE_DEFAULT, "Transcoding:     Preset name: %@, outputURL: %@", buf, 0x16u);
+          v35 = v16;
+          v36 = 2112;
+          v37 = outputURL;
+          _os_log_impl(&dword_241FB3000, v27, OS_LOG_TYPE_DEFAULT, "Transcoding:     Preset name: %@, outputURL: %@", buf, 0x16u);
         }
 
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __68__BLTAVUtil__transcodeVideoAsync_outURL_maxBytes_completionHandler___block_invoke;
-        v30[3] = &unk_278D31980;
-        v31 = v18;
-        v32 = handlerCopy;
-        [v31 exportAsynchronouslyWithCompletionHandler:v30];
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __68__BLTAVUtil__transcodeVideoAsync_outURL_maxBytes_completionHandler___block_invoke;
+        v31[3] = &unk_278D31980;
+        v32 = v18;
+        v33 = handlerCopy;
+        [v32 exportAsynchronouslyWithCompletionHandler:v31];
 
-        v27 = v31;
+        v29 = v32;
       }
 
       else
       {
-        v28 = blt_general_log();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        v30 = blt_general_log(v26);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_241FB3000, v28, OS_LOG_TYPE_DEFAULT, "Transcoding: Could not find a valid outputType for Message presets", buf, 2u);
+          _os_log_impl(&dword_241FB3000, v30, OS_LOG_TYPE_DEFAULT, "Transcoding: Could not find a valid outputType for Message presets", buf, 2u);
         }
 
-        v27 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.bulletindistributor.avutil" code:3 userInfo:0];
+        v29 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.bulletindistributor.avutil" code:3 userInfo:0];
         if (handlerCopy)
         {
-          (*(handlerCopy + 2))(handlerCopy, v27);
+          (*(handlerCopy + 2))(handlerCopy, v29);
         }
       }
     }
@@ -197,22 +192,20 @@ LABEL_4:
   }
 
 LABEL_23:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __68__BLTAVUtil__transcodeVideoAsync_outURL_maxBytes_completionHandler___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) status];
-  v3 = blt_general_log();
+  v3 = blt_general_log(v2);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
   if (v2 == 5)
   {
     if (v4)
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_241FB3000, v3, OS_LOG_TYPE_DEFAULT, "Transcoding: Export canceled", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_241FB3000, v3, OS_LOG_TYPE_DEFAULT, "Transcoding: Export canceled", &v10, 2u);
     }
 
     v6 = MEMORY[0x277CCA9B8];
@@ -225,9 +218,9 @@ void __68__BLTAVUtil__transcodeVideoAsync_outURL_maxBytes_completionHandler___bl
     if (v4)
     {
       v5 = [*(a1 + 32) error];
-      v11 = 138412290;
-      v12 = v5;
-      _os_log_impl(&dword_241FB3000, v3, OS_LOG_TYPE_DEFAULT, "Transcoding: Export failed: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v5;
+      _os_log_impl(&dword_241FB3000, v3, OS_LOG_TYPE_DEFAULT, "Transcoding: Export failed: %@", &v10, 0xCu);
     }
 
     v6 = MEMORY[0x277CCA9B8];
@@ -239,8 +232,8 @@ LABEL_9:
 
   if (v4)
   {
-    LOWORD(v11) = 0;
-    _os_log_impl(&dword_241FB3000, v3, OS_LOG_TYPE_DEFAULT, "Transcoding: Export succeeded!", &v11, 2u);
+    LOWORD(v10) = 0;
+    _os_log_impl(&dword_241FB3000, v3, OS_LOG_TYPE_DEFAULT, "Transcoding: Export succeeded!", &v10, 2u);
   }
 
   [*(a1 + 32) outputURL];
@@ -251,8 +244,6 @@ LABEL_13:
   {
     (*(v9 + 16))(v9, v8);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

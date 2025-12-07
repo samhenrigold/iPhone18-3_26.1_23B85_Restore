@@ -13,7 +13,7 @@
 
 + (int64_t)_defaultIconSize
 {
-  if (_SFDeviceIsPad())
+  if (_SFDeviceIsPad(self, a2))
   {
     return 2;
   }

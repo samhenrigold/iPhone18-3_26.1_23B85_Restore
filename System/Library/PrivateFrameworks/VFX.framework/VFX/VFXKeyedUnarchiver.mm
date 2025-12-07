@@ -10,27 +10,27 @@
 - (id)initForReadingWithData:(id)data secure:(BOOL)secure
 {
   secureCopy = secure;
-  v15.receiver = self;
-  v15.super_class = VFXKeyedUnarchiver;
-  v16 = 0;
-  v5 = [(VFXKeyedUnarchiver *)&v15 initForReadingFromData:data error:&v16];
-  v8 = v5;
+  v12.receiver = self;
+  v12.super_class = VFXKeyedUnarchiver;
+  v13 = 0;
+  v5 = [(VFXKeyedUnarchiver *)&v12 initForReadingFromData:data error:&v13];
+  v7 = v5;
   if (v5)
   {
-    objc_msgSend_setDecodingFailurePolicy_(v5, v6, 0, v7);
-    objc_msgSend_setRequiresSecureCoding_(v8, v9, secureCopy, v10);
+    objc_msgSend_setDecodingFailurePolicy_(v5, v6, 0);
+    v5 = objc_msgSend_setRequiresSecureCoding_(v7, v8, secureCopy);
   }
 
-  if (v16)
+  if (v13)
   {
-    v11 = sub_1AF0D5194();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v9 = sub_1AF0D5194(v5, v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_1AFDF5770(&v16, v11, v12, v13);
+      sub_1AFDF5770(&v13, v9, v10);
     }
   }
 
-  return v8;
+  return v7;
 }
 
 - (void)dealloc
@@ -42,9 +42,9 @@
 
 - (NSURL)documentEnclosingURL
 {
-  v4 = objc_msgSend_documentURL(self, a2, v2, v3);
+  v3 = objc_msgSend_documentURL(self, a2, v2);
 
-  return objc_msgSend_URLByDeletingLastPathComponent(v4, v5, v6, v7);
+  return objc_msgSend_URLByDeletingLastPathComponent(v3, v4, v5);
 }
 
 - (void)decodeValueOfObjCType:(const char *)type at:(void *)at
@@ -52,15 +52,15 @@
   if (!strcmp(type, "{CATransform3D=dddddddddddddddd}"))
   {
     v17 = 0;
-    v9 = objc_msgSend_decodeBytesWithReturnedLength_(self, v7, &v17, v8);
+    v8 = objc_msgSend_decodeBytesWithReturnedLength_(self, v7, &v17);
     if (v17 == 64)
     {
-      sub_1AF3BAED8(v9, at);
+      sub_1AF3BAED8(v8, at);
     }
 
     else
     {
-      v10 = sub_1AF0D5194();
+      v10 = sub_1AF0D5194(v8, v9);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_1AFDF5800(v10);

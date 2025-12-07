@@ -79,7 +79,7 @@
 
 - (void)analyzeMemgraph
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   debugTimer = [(VMUHeapAndVMAggregatorOptions *)self->_heapAndVMOptions debugTimer];
   if (debugTimer)
   {
@@ -151,14 +151,14 @@
     }
   }
 
-  v88[0] = 0;
-  v88[1] = v88;
-  v88[2] = 0x2020000000;
-  v89 = 0;
+  v87[0] = 0;
+  v87[1] = v87;
+  v87[2] = 0x2020000000;
+  v88 = 0;
   selfCopy2 = self;
   nodeNamespaceSize = [(VMUCommonGraphInterface *)self->_graph nodeNamespaceSize];
   zoneCount = [(VMUCommonGraphInterface *)self->_graph zoneCount];
-  v67 = objc_opt_new();
+  v66 = objc_opt_new();
   if ([(VMUHeapAndVMAggregatorOptions *)self->_heapAndVMOptions guessNonObjects])
   {
     __b = malloc_type_malloc(4 * nodeNamespaceSize, 0x100004052888210uLL);
@@ -174,43 +174,43 @@
   if (([(VMUHeapAndVMAggregatorOptions *)self->_heapAndVMOptions scope]== 2 || [(VMUHeapAndVMAggregatorOptions *)self->_heapAndVMOptions scope]== 1) && [(VMUCommonGraphInterface *)self->_graph isMemberOfClass:objc_opt_class()])
   {
     v24 = [[VMUVMRegionIdentifier alloc] initWithGraph:self->_graph options:0];
-    v86 = 0u;
-    v87 = 0u;
-    v84 = 0u;
     v85 = 0u;
+    v86 = 0u;
+    v83 = 0u;
+    v84 = 0u;
     zoneNames = [(VMUVMRegionIdentifier *)v24 zoneNames];
-    v26 = [zoneNames countByEnumeratingWithState:&v84 objects:v90 count:16];
+    v26 = [zoneNames countByEnumeratingWithState:&v83 objects:v89 count:16];
     if (v26)
     {
-      v27 = *v85;
+      v27 = *v84;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v85 != v27)
+          if (*v84 != v27)
           {
             objc_enumerationMutation(zoneNames);
           }
 
-          v29 = *(*(&v84 + 1) + 8 * i);
-          v82 = 0u;
-          v83 = 0u;
-          v80 = 0u;
+          v29 = *(*(&v83 + 1) + 8 * i);
           v81 = 0u;
+          v82 = 0u;
+          v79 = 0u;
+          v80 = 0u;
           *buf = 0u;
           if (v24)
           {
-            [(VMUVMRegionIdentifier *)v24 computedStatisticsForZoneWithName:v29];
-            if (*(&v83 + 1))
+            objc_msgSend_computedStatisticsForZoneWithName_(v24);
+            if (*(&v82 + 1))
             {
               v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"VM: %@ fragmentation", v29];
               v31 = [VMUClassInfo classInfoWithClassName:v30 binaryPath:&stru_1F461F9C8 type:0];
-              [(VMUMallocZoneAggregate *)self->_allZonesAggregate modifySize:*(&v83 + 1) count:1 forClassInfo:v31];
+              [(VMUMallocZoneAggregate *)self->_allZonesAggregate modifySize:*(&v82 + 1) count:1 forClassInfo:v31];
             }
           }
         }
 
-        v26 = [zoneNames countByEnumeratingWithState:&v84 objects:v90 count:16];
+        v26 = [zoneNames countByEnumeratingWithState:&v83 objects:v89 count:16];
       }
 
       while (v26);
@@ -220,18 +220,18 @@
   }
 
   graph = selfCopy2->_graph;
-  v73[0] = MEMORY[0x1E69E9820];
-  v73[1] = 3221225472;
-  v73[2] = __41__VMUHeapAndVMAggregator_analyzeMemgraph__block_invoke;
-  v73[3] = &unk_1E827AB10;
-  v77 = nodeNamespaceSize;
-  v75 = v88;
-  v73[4] = selfCopy2;
-  v76 = __b;
-  v33 = v67;
-  v74 = v33;
-  v78 = zoneCount;
-  [(VMUCommonGraphInterface *)graph enumerateRegionsWithBlock:v73];
+  v72[0] = MEMORY[0x1E69E9820];
+  v72[1] = 3221225472;
+  v72[2] = __41__VMUHeapAndVMAggregator_analyzeMemgraph__block_invoke;
+  v72[3] = &unk_1E827AB10;
+  v76 = nodeNamespaceSize;
+  v74 = v87;
+  v72[4] = selfCopy2;
+  v75 = __b;
+  v33 = v66;
+  v73 = v33;
+  v77 = zoneCount;
+  [(VMUCommonGraphInterface *)graph enumerateRegionsWithBlock:v72];
 
   debugTimer10 = [(VMUHeapAndVMAggregatorOptions *)self->_heapAndVMOptions debugTimer];
   if (debugTimer10)
@@ -307,13 +307,13 @@
 
     v56 = objc_autoreleasePoolPush();
     v57 = self->_graph;
-    v72[0] = MEMORY[0x1E69E9820];
-    v72[1] = 3221225472;
-    v72[2] = __41__VMUHeapAndVMAggregator_analyzeMemgraph__block_invoke_23;
-    v72[3] = &unk_1E827AB38;
-    v72[4] = self;
-    v72[5] = __b;
-    [(VMUCommonGraphInterface *)v57 enumerateReferencesWithBlock:v72];
+    v71[0] = MEMORY[0x1E69E9820];
+    v71[1] = 3221225472;
+    v71[2] = __41__VMUHeapAndVMAggregator_analyzeMemgraph__block_invoke_23;
+    v71[3] = &unk_1E827AB38;
+    v71[4] = self;
+    v71[5] = __b;
+    [(VMUCommonGraphInterface *)v57 enumerateReferencesWithBlock:v71];
     objc_autoreleasePoolPop(v56);
     debugTimer24 = [(VMUHeapAndVMAggregatorOptions *)self->_heapAndVMOptions debugTimer];
     if (debugTimer24)
@@ -343,119 +343,115 @@
     free(__b);
   }
 
-  _Block_object_dispose(v88, 8);
-  v66 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v87, 8);
 }
 
 void __41__VMUHeapAndVMAggregator_analyzeMemgraph__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 48);
-  v6 = *(v4 + 8);
-  v5 = v4 + 8;
-  if (*(v6 + 24) < *(a1 + 64))
+  if (*(*(*(a1 + 48) + 8) + 24) < *(a1 + 64))
   {
-    v7 = 0x1E8277000uLL;
+    v4 = 0x1E8277000uLL;
     do
     {
-      v26 = 0;
-      v25 = 0uLL;
-      v8 = *(a1 + 32);
-      v9 = *(v8 + 16);
-      if (v9)
+      v21 = 0;
+      v20 = 0uLL;
+      v5 = *(a1 + 32);
+      v6 = *(v5 + 16);
+      if (v6)
       {
-        [v9 nodeDetails:*(*v5 + 24)];
-        v8 = *(a1 + 32);
+        objc_msgSend_nodeDetails_(v6);
+        v5 = *(a1 + 32);
       }
 
-      v10 = [*(v8 + 8) scope];
-      if (v10 == 2)
+      v7 = [*(v5 + 8) scope];
+      if (v7 == 2)
       {
-        v11 = *(&v25 + 1);
-        if (*(&v25 + 1) >> 60 != 5)
+        v8 = *(&v20 + 1);
+        if (*(&v20 + 1) >> 60 != 5)
         {
           goto LABEL_28;
         }
       }
 
-      else if (v10 == 1)
+      else if (v7 == 1)
       {
-        v11 = *(&v25 + 1);
-        if (*(&v25 + 1) >> 60 != 1)
+        v8 = *(&v20 + 1);
+        if (*(&v20 + 1) >> 60 != 1)
         {
-          if (!VMUGraphNodeType_IsVMRegion(*(&v25 + 1) >> 60))
+          if (!VMUGraphNodeType_IsVMRegion(*(&v20 + 1) >> 60))
           {
             goto LABEL_28;
           }
 
-          v11 = *(&v25 + 1);
+          v8 = *(&v20 + 1);
         }
       }
 
       else
       {
-        if (v10)
+        if (v7)
         {
           abort();
         }
 
-        v11 = *(&v25 + 1);
-        if (*(&v25 + 1) >> 60 != 1)
+        v8 = *(&v20 + 1);
+        if (*(&v20 + 1) >> 60 != 1)
         {
           goto LABEL_28;
         }
       }
 
-      if ((v11 & 0xFFFFFFFFFFFFFFFLL) != 0)
+      if ((v8 & 0xFFFFFFFFFFFFFFFLL) != 0)
       {
-        if (v25 >= v3[2] + v3[1])
+        if (v20 >= v3[2] + v3[1])
         {
           break;
         }
 
-        v12 = *(*(a1 + 32) + 48);
-        if (!v12)
+        v9 = *(*(a1 + 32) + 48);
+        if (!v9)
         {
           goto LABEL_19;
         }
 
-        v23 = v25;
-        v24 = v26;
-        if ([v12 matchesNodeDetails:&v23 orNodeDescription:0])
+        v18 = v20;
+        v19 = v21;
+        if ([v9 matchesNodeDetails:&v18 orNodeDescription:0])
         {
-          v11 = *(&v25 + 1);
+          v8 = *(&v20 + 1);
 LABEL_19:
-          if (v11 >> 60 == 1)
+          if (v8 >> 60 == 1)
           {
-            v13 = *(a1 + 32);
-            v23 = v25;
-            v24 = v26;
-            [v13 _countAllocation:&v23 inRegion:v3];
+            v10 = *(a1 + 32);
+            v18 = v20;
+            v19 = v21;
+            [v10 _countAllocation:&v18 inRegion:v3];
             if ([*(*(a1 + 32) + 8) guessNonObjects])
             {
               *(*(a1 + 56) + 4 * *(*(*(a1 + 48) + 8) + 24)) = *(v3 + 37) + 1;
             }
           }
 
-          else if (VMUGraphNodeType_IsVMRegion(v11 >> 60) && ([v3 isMallocHeapRelated] & 1) == 0)
+          else if (VMUGraphNodeType_IsVMRegion(v8 >> 60) && ([v3 isMallocHeapRelated] & 1) == 0)
           {
-            v14 = v3[22] + v3[23];
-            v15 = v3[24];
-            v16 = v14 - v15;
-            if (v14 != v15)
+            v11 = v3[22] + v3[23];
+            v12 = v3[24];
+            v13 = v11 - v12;
+            if (v11 != v12)
             {
-              v17 = v7;
-              v18 = [*(a1 + 40) objectForKeyedSubscript:v3[4]];
-              if (!v18)
+              v14 = v4;
+              v15 = [*(a1 + 40) objectForKeyedSubscript:v3[4]];
+              if (!v15)
               {
-                v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"VM: %@", v3[4]];
-                v18 = [*(v17 + 408) classInfoWithClassName:v19 binaryPath:&stru_1F461F9C8 type:0];
-                [*(a1 + 40) setObject:v18 forKeyedSubscript:v3[4]];
+                v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"VM: %@", v3[4]];
+                v15 = [*(v14 + 408) classInfoWithClassName:v16 binaryPath:&stru_1F461F9C8 type:0];
+                [*(a1 + 40) setObject:v15 forKeyedSubscript:v3[4]];
               }
 
-              [*(*(a1 + 32) + 24) modifySize:v16 count:1 forClassInfo:v18];
+              [*(*(a1 + 32) + 24) modifySize:v13 count:1 forClassInfo:v15];
 
-              v7 = v17;
+              v4 = v14;
             }
           }
         }
@@ -463,27 +459,24 @@ LABEL_19:
 
 LABEL_28:
       ++*(*(*(a1 + 48) + 8) + 24);
-      v20 = *(a1 + 48);
-      v21 = *(v20 + 8);
-      v5 = v20 + 8;
     }
 
-    while (*(v21 + 24) < *(a1 + 64));
+    while (*(*(*(a1 + 48) + 8) + 24) < *(a1 + 64));
   }
 
   if ([*(*(a1 + 32) + 8) separateByZone] && *(v3 + 37) < *(a1 + 68))
   {
-    v22 = [*(*(a1 + 32) + 32) objectAtIndexedSubscript:?];
-    [v22 incrementVirtualSize:v3[2]];
+    v17 = [*(*(a1 + 32) + 32) objectAtIndexedSubscript:?];
+    [v17 incrementVirtualSize:v3[2]];
   }
 }
 
-void __41__VMUHeapAndVMAggregator_analyzeMemgraph__block_invoke_23(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void __41__VMUHeapAndVMAggregator_analyzeMemgraph__block_invoke_23(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (!*(a5 + 24))
   {
-    v35 = v5;
-    v36 = v6;
+    v34 = v5;
+    v35 = v6;
     v7 = a4;
     v9 = *(a1 + 40);
     v10 = *(v9 + 4 * a4);
@@ -491,54 +484,54 @@ void __41__VMUHeapAndVMAggregator_analyzeMemgraph__block_invoke_23(uint64_t a1, 
     {
       if (*(v9 + 4 * a3) == v10)
       {
-        v33 = 0;
-        v34 = 0;
         v32 = 0;
-        v12 = *(*(a1 + 32) + 16);
-        if (v12 && ([v12 nodeDetails:a4], v14 = *(*(a1 + 32) + 16), v30 = 0uLL, v31 = 0, v14))
+        v33 = 0;
+        v31 = 0;
+        v11 = *(*(a1 + 32) + 16);
+        if (v11 && (objc_msgSend_nodeDetails_(v11, a2, a4), v13 = *(*(a1 + 32) + 16), v29 = 0uLL, v30 = 0, v13))
         {
-          [v14 nodeDetails:a3];
-          v15 = v31;
-          v16 = v15;
-          if (v15)
+          objc_msgSend_nodeDetails_(v13);
+          v14 = v30;
+          v15 = v14;
+          if (v14)
           {
-            if (!v34)
+            if (!v33)
             {
-              v17 = [v15 className];
-              v18 = [v17 hasSuffix:@"Storage"]);
+              v16 = [v14 className];
+              v17 = [v16 hasSuffix:@"Storage"]);
 
-              if ((v18 & 1) == 0)
+              if ((v17 & 1) == 0)
               {
-                v19 = *(a1 + 32);
-                v20 = *(v19 + 48);
-                if (!v20)
+                v18 = *(a1 + 32);
+                v19 = *(v18 + 48);
+                if (!v19)
                 {
 LABEL_12:
-                  v21 = *(v19 + 24);
+                  v20 = *(v18 + 24);
                   if ([*(*(a1 + 32) + 8) separateByZone])
                   {
-                    v22 = [*(*(a1 + 32) + 32) objectAtIndexedSubscript:(*(*(a1 + 40) + 4 * v7) - 1)];
+                    v21 = [*(*(a1 + 32) + 32) objectAtIndexedSubscript:(*(*(a1 + 40) + 4 * v7) - 1)];
 
-                    v21 = v22;
+                    v20 = v21;
                   }
 
-                  [v21 modifySize:-(v33 & 0xFFFFFFFFFFFFFFFLL) count:-1 forClassInfo:*(*(a1 + 32) + 40)];
+                  [v20 modifySize:-(v32 & 0xFFFFFFFFFFFFFFFLL) count:-1 forClassInfo:*(*(a1 + 32) + 40)];
                   if ([*(*(a1 + 32) + 8) sumObjectFields])
                   {
-                    [v21 modifySize:v33 & 0xFFFFFFFFFFFFFFFLL count:0 forClassInfo:v16];
+                    [v20 modifySize:v32 & 0xFFFFFFFFFFFFFFFLL count:0 forClassInfo:v15];
                   }
 
                   else
                   {
-                    v23 = objc_autoreleasePoolPush();
-                    v24 = [*(a1 + 32) _classDisplayName:v16];
-                    v25 = [v24 stringByAppendingFormat:@"[%llu]", *(a5 + 8)];
+                    v22 = objc_autoreleasePoolPush();
+                    v23 = [*(a1 + 32) _classDisplayName:v15];
+                    v24 = [v23 stringByAppendingFormat:@"[%llu]", *(a5 + 8)];
 
-                    v26 = [v16 binaryPath];
-                    v27 = +[VMUClassInfo classInfoWithClassName:binaryPath:type:](VMUClassInfo, "classInfoWithClassName:binaryPath:type:", v25, v26, [v16 infoType]);
+                    v25 = [v15 binaryPath];
+                    v26 = +[VMUClassInfo classInfoWithClassName:binaryPath:type:](VMUClassInfo, "classInfoWithClassName:binaryPath:type:", v24, v25, [v15 infoType]);
 
-                    [v21 modifySize:v33 & 0xFFFFFFFFFFFFFFFLL count:1 forClassInfo:v27];
-                    objc_autoreleasePoolPop(v23);
+                    [v20 modifySize:v32 & 0xFFFFFFFFFFFFFFFLL count:1 forClassInfo:v26];
+                    objc_autoreleasePoolPop(v22);
                   }
 
                   *(*(a1 + 40) + 4 * v7) = 0;
@@ -546,11 +539,11 @@ LABEL_12:
                   goto LABEL_17;
                 }
 
+                v27 = v29;
                 v28 = v30;
-                v29 = v31;
-                if ([v20 matchesNodeDetails:&v28 orNodeDescription:0])
+                if ([v19 matchesNodeDetails:&v27 orNodeDescription:0])
                 {
-                  v19 = *(a1 + 32);
+                  v18 = *(a1 + 32);
                   goto LABEL_12;
                 }
               }
@@ -560,9 +553,9 @@ LABEL_12:
 
         else
         {
-          v16 = 0;
-          v30 = 0uLL;
-          v31 = 0;
+          v15 = 0;
+          v29 = 0uLL;
+          v30 = 0;
         }
 
 LABEL_17:

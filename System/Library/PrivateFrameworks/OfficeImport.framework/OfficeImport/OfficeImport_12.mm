@@ -222,41 +222,41 @@ BOOL addArea3DOperandFromArea3DExtendedData(void *a1, int a2, unsigned __int16 *
   return v19;
 }
 
-void *std::__tree<std::__value_type<long,unsigned long>,std::__map_value_compare<long,std::__value_type<long,unsigned long>,std::less<long>,true>,std::allocator<std::__value_type<long,unsigned long>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(uint64_t a1, uint64_t *a2)
+void *std::__tree<std::__value_type<long,unsigned long>,std::__map_value_compare<long,std::__value_type<long,unsigned long>,std::less<long>,true>,std::allocator<std::__value_type<long,unsigned long>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(uint64_t a1, uint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -287,7 +287,7 @@ void sub_25D54FC7C(_Unwind_Exception *a1)
 void non-virtual thunk toXlChartScatterPlot::~XlChartScatterPlot(XlChartScatterPlot *this)
 {
   v1 = (this - 144);
-  TSURectWithOriginAndSize(this);
+  TSURectWithOriginAndSize();
 
   XlChartPlot::~XlChartPlot(v1);
 }
@@ -325,7 +325,7 @@ void EDBuildablePtg::EDBuildablePtg(EDBuildablePtg *this, const EDBuildablePtg *
   }
 }
 
-uint64_t EDBuildablePtg::EDBuildablePtg(uint64_t a1, int a2)
+uint64_t EDBuildablePtg::EDBuildablePtg(uint64_t a1, uint64_t a2)
 {
   XlPtg::XlPtg(a1 + 8, a2);
   *a1 = &unk_286ECA1C0;
@@ -897,10 +897,10 @@ void XlChartColSel::~XlChartColSel(XlChartColSel *this)
   JUMPOUT(0x25F897000);
 }
 
-_WORD *XlChartColSel::getSelectedColumnIndices(uint64_t a1, void *a2)
+__int16 *XlChartColSel::getSelectedColumnIndices(uint64_t a1, uint64_t a2)
 {
   result = *a2;
-  a2[1] = *a2;
+  *(a2 + 8) = *a2;
   v4 = *(a1 + 24);
   if (*(a1 + 24))
   {
@@ -929,7 +929,7 @@ _WORD *XlChartColSel::getSelectedColumnIndices(uint64_t a1, void *a2)
       {
         do
         {
-          if (result >= a2[2])
+          if (result >= *(a2 + 16))
           {
             result = std::vector<unsigned short,ChAllocator<unsigned short>>::__emplace_back_slow_path<unsigned short const&>(a2, &v11);
             v7 = *(a1 + 16);
@@ -940,7 +940,7 @@ _WORD *XlChartColSel::getSelectedColumnIndices(uint64_t a1, void *a2)
             *result++ = v9;
           }
 
-          a2[1] = result;
+          *(a2 + 8) = result;
           LOWORD(v9) = v11 + 1;
           v11 = v9;
         }
@@ -958,10 +958,10 @@ _WORD *XlChartColSel::getSelectedColumnIndices(uint64_t a1, void *a2)
   return result;
 }
 
-uint64_t std::vector<unsigned short,ChAllocator<unsigned short>>::__emplace_back_slow_path<unsigned short const&>(uint64_t a1, _WORD *a2)
+__int16 *std::vector<unsigned short,ChAllocator<unsigned short>>::__emplace_back_slow_path<unsigned short const&>(__int16 **a1, _WORD *a2)
 {
-  v4 = *(a1 + 8) - *a1;
-  v5 = (*(a1 + 16) - *a1) >> 1;
+  v4 = a1[1] - *a1;
+  v5 = (a1[2] - *a1) >> 1;
   if (2 * v5 <= (v4 >> 1) + 1)
   {
     v6 = (v4 >> 1) + 1;
@@ -994,7 +994,7 @@ uint64_t std::vector<unsigned short,ChAllocator<unsigned short>>::__emplace_back
   v12 = (v4 & 0x1FFFFFFFELL) + 2;
   v13 = 0;
   std::vector<unsigned short,ChAllocator<unsigned short>>::__swap_out_circular_buffer(a1, &__p);
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   if (v12 != v11)
   {
     v12 += (v11 - v12 + 1) & 0xFFFFFFFFFFFFFFFELL;
@@ -1142,7 +1142,7 @@ void XlChartSeriesList::setCountOfSeriesNumbers(XlChartSeriesList *this, unsigne
   }
 
   *(this + 2) = 0;
-  operator new[](2 * a2);
+  operator new[](2 * a2, 0x1000C80BDFB0063);
 }
 
 uint64_t XlChartSeriesList::setSeriesNumber(uint64_t this, unsigned int a2, __int16 a3)
@@ -1487,41 +1487,41 @@ void XlChartDropBarFormat::~XlChartDropBarFormat(XlChartDropBarFormat *this)
   JUMPOUT(0x25F897000);
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -1531,7 +1531,7 @@ LABEL_8:
 void non-virtual thunk toXlChartAreaPlot::~XlChartAreaPlot(XlChartAreaPlot *this)
 {
   v1 = (this - 144);
-  TSURectWithOriginAndSize(this);
+  TSURectWithOriginAndSize();
 
   XlChartPlot::~XlChartPlot(v1);
 }
@@ -1543,7 +1543,7 @@ void non-virtual thunk toXlChartAreaPlot::~XlChartAreaPlot(XlChartAreaPlot *this
 void non-virtual thunk toXlChartBarPlot::~XlChartBarPlot(XlChartBarPlot *this)
 {
   v1 = (this - 144);
-  TSURectWithOriginAndSize(this);
+  TSURectWithOriginAndSize();
 
   XlChartPlot::~XlChartPlot(v1);
 }
@@ -1555,7 +1555,7 @@ void non-virtual thunk toXlChartBarPlot::~XlChartBarPlot(XlChartBarPlot *this)
 void non-virtual thunk toXlChartLinePlot::~XlChartLinePlot(XlChartLinePlot *this)
 {
   v1 = (this - 144);
-  TSURectWithOriginAndSize(this);
+  TSURectWithOriginAndSize();
 
   XlChartPlot::~XlChartPlot(v1);
 }
@@ -1567,7 +1567,7 @@ void non-virtual thunk toXlChartLinePlot::~XlChartLinePlot(XlChartLinePlot *this
 void non-virtual thunk toXlChartPiePlot::~XlChartPiePlot(XlChartPiePlot *this)
 {
   v1 = (this - 144);
-  TSURectWithOriginAndSize(this);
+  TSURectWithOriginAndSize();
 
   XlChartPlot::~XlChartPlot(v1);
 }
@@ -1586,13 +1586,13 @@ void XlChartPieSubPlot::XlChartPieSubPlot(XlChartPieSubPlot *this)
 
 void XlChartPieSubPlot::~XlChartPieSubPlot(XlChartPieSubPlot *this)
 {
-  TSURectWithOriginAndSize(this + 144);
+  TSURectWithOriginAndSize();
 
   XlChartPlot::~XlChartPlot(this);
 }
 
 {
-  TSURectWithOriginAndSize(this + 144);
+  TSURectWithOriginAndSize();
   XlChartPlot::~XlChartPlot(this);
 
   JUMPOUT(0x25F897000);
@@ -1601,7 +1601,7 @@ void XlChartPieSubPlot::~XlChartPieSubPlot(XlChartPieSubPlot *this)
 void non-virtual thunk toXlChartPieSubPlot::~XlChartPieSubPlot(XlChartPieSubPlot *this)
 {
   v1 = (this - 144);
-  TSURectWithOriginAndSize(this);
+  TSURectWithOriginAndSize();
 
   XlChartPlot::~XlChartPlot(v1);
 }
@@ -1613,7 +1613,7 @@ void non-virtual thunk toXlChartPieSubPlot::~XlChartPieSubPlot(XlChartPieSubPlot
 void non-virtual thunk toXlChartRadarAreaPlot::~XlChartRadarAreaPlot(XlChartRadarAreaPlot *this)
 {
   v1 = (this - 144);
-  TSURectWithOriginAndSize(this);
+  TSURectWithOriginAndSize();
 
   XlChartPlot::~XlChartPlot(v1);
 }
@@ -1625,7 +1625,7 @@ void non-virtual thunk toXlChartRadarAreaPlot::~XlChartRadarAreaPlot(XlChartRada
 void non-virtual thunk toXlChartRadarPlot::~XlChartRadarPlot(XlChartRadarPlot *this)
 {
   v1 = (this - 144);
-  TSURectWithOriginAndSize(this);
+  TSURectWithOriginAndSize();
 
   XlChartPlot::~XlChartPlot(v1);
 }
@@ -1637,7 +1637,7 @@ void non-virtual thunk toXlChartRadarPlot::~XlChartRadarPlot(XlChartRadarPlot *t
 void non-virtual thunk toXlChartSurfacePlot::~XlChartSurfacePlot(XlChartSurfacePlot *this)
 {
   v1 = (this - 144);
-  TSURectWithOriginAndSize(this);
+  TSURectWithOriginAndSize();
 
   XlChartPlot::~XlChartPlot(v1);
 }
@@ -1649,7 +1649,7 @@ void non-virtual thunk toXlChartSurfacePlot::~XlChartSurfacePlot(XlChartSurfaceP
 void non-virtual thunk toXlChartTrendLine::~XlChartTrendLine(XlChartTrendLine *this)
 {
   v1 = (this - 200);
-  TSURectWithOriginAndSize(this);
+  TSURectWithOriginAndSize();
 
   XlChartDataSeries::~XlChartDataSeries(v1);
 }
@@ -1792,7 +1792,7 @@ void XlChartParserVisitor::visit(uint64_t a1, uint64_t a2)
 
   if (!*(a1 + 24))
   {
-    operator new[](v6);
+    operator new[](v6, 0x1000C8077774924);
   }
 
   exception = __cxa_allocate_exception(4uLL);
@@ -1807,17 +1807,17 @@ uint64_t XlChartParserVisitor::visit(XlChartParserVisitor *this, XlChartDat *a2)
   return XlParserVisitor::endRead(this, a2);
 }
 
-uint64_t XlChartParserVisitor::visit(XlChartParserVisitor *this, XlChartTextPropsStream *a2)
+uint64_t XlChartParserVisitor::visit(unsigned __int8 **this, XlChartTextPropsStream *a2)
 {
   XlParserVisitor::beginRead(this);
-  (*(**(this + 2) + 16))(*(this + 2), 12, 1);
-  *(a2 + 7) = (*(**(this + 2) + 104))(*(this + 2));
-  v4 = (*(**(this + 2) + 104))(*(this + 2));
+  (*(*this[2] + 16))(this[2], 12, 1);
+  *(a2 + 7) = (*(*this[2] + 104))(this[2]);
+  v4 = (*(*this[2] + 104))(this[2]);
   if (v4)
   {
     if (v4 == *(a2 + 2) - 20)
     {
-      operator new[](v4);
+      operator new[](v4, 0x1000C8077774924);
     }
 
     exception = __cxa_allocate_exception(4uLL);
@@ -1827,19 +1827,19 @@ uint64_t XlChartParserVisitor::visit(XlChartParserVisitor *this, XlChartTextProp
   return XlParserVisitor::endRead(this, a2);
 }
 
-uint64_t XlChartParserVisitor::visit(XlChartParserVisitor *this, XlChartShapePropsStream *a2)
+uint64_t XlChartParserVisitor::visit(unsigned __int8 **this, XlChartShapePropsStream *a2)
 {
   XlParserVisitor::beginRead(this);
-  (*(**(this + 2) + 16))(*(this + 2), 12, 1);
-  *(a2 + 8) = (*(**(this + 2) + 80))(*(this + 2));
-  (*(**(this + 2) + 16))(*(this + 2), 2, 1);
-  *(a2 + 7) = (*(**(this + 2) + 104))(*(this + 2));
-  v4 = (*(**(this + 2) + 104))(*(this + 2));
+  (*(*this[2] + 16))(this[2], 12, 1);
+  *(a2 + 8) = (*(*this[2] + 80))(this[2]);
+  (*(*this[2] + 16))(this[2], 2, 1);
+  *(a2 + 7) = (*(*this[2] + 104))(this[2]);
+  v4 = (*(*this[2] + 104))(this[2]);
   if (v4)
   {
     if (v4 == *(a2 + 2) - 24)
     {
-      operator new[](v4);
+      operator new[](v4, 0x1000C8077774924);
     }
 
     exception = __cxa_allocate_exception(4uLL);
@@ -1849,17 +1849,17 @@ uint64_t XlChartParserVisitor::visit(XlChartParserVisitor *this, XlChartShapePro
   return XlParserVisitor::endRead(this, a2);
 }
 
-uint64_t XlChartParserVisitor::visit(XlChartParserVisitor *this, XlChartRichTextPropsStream *a2)
+uint64_t XlChartParserVisitor::visit(unsigned __int8 **this, XlChartRichTextPropsStream *a2)
 {
   XlParserVisitor::beginRead(this);
-  (*(**(this + 2) + 16))(*(this + 2), 12, 1);
-  *(a2 + 7) = (*(**(this + 2) + 104))(*(this + 2));
-  v4 = (*(**(this + 2) + 104))(*(this + 2));
+  (*(*this[2] + 16))(this[2], 12, 1);
+  *(a2 + 7) = (*(*this[2] + 104))(this[2]);
+  v4 = (*(*this[2] + 104))(this[2]);
   if (v4)
   {
     if (v4 == *(a2 + 2) - 20)
     {
-      operator new[](v4);
+      operator new[](v4, 0x1000C8077774924);
     }
 
     exception = __cxa_allocate_exception(4uLL);
@@ -1885,7 +1885,7 @@ uint64_t XlChartParserVisitor::visit(XlChartParserVisitor *this, XlChartColSel *
     *(a2 + 12) = v4 >> 2;
     if (!*(this + 3))
     {
-      operator new[](v4);
+      operator new[](v4, 0x1000C8077774924);
     }
 
     exception = __cxa_allocate_exception(4uLL);
@@ -1904,7 +1904,7 @@ uint64_t XlChartParserVisitor::visit(XlChartParserVisitor *this, XlChartRowSel *
     *(a2 + 12) = v4 >> 2;
     if (!*(this + 3))
     {
-      operator new[](v4);
+      operator new[](v4, 0x1000C8077774924);
     }
 
     exception = __cxa_allocate_exception(4uLL);
@@ -1953,9 +1953,9 @@ void virtual thunk toXlChartBinaryReader::~XlChartBinaryReader(XlChartBinaryRead
   XlChartBinaryReader::~XlChartBinaryReader((this + *(*this - 24)));
 }
 
-uint64_t XlChartBinaryReader::read(uint64_t this, XlChartDataTable *a2)
+int *XlChartBinaryReader::read(int *this, XlChartDataTable *a2)
 {
-  if (*(this + 1604) >= 1)
+  if (this[401] >= 1)
   {
     operator new();
   }
@@ -1970,12 +1970,12 @@ void sub_25D5544E4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void XlChartBinaryReader::read(XlChartBinaryReader *this, XlChartSeriesFormat *a2)
+void XlChartBinaryReader::read(uint64_t (***this)(XlParserVisitor **), XlChartSeriesFormat *a2)
 {
   var9_low = LOWORD(a2->var9);
   p_var9_low = &var9_low;
-  v3 = *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 1880, &var9_low) + 8);
-  v4 = (*(*this + 624))(this);
+  v3 = *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((this + 235), &var9_low, &std::piecewise_construct, &p_var9_low) + 8);
+  v4 = (*this)[78](this);
   (*(*v4 + 16))(v4, v3, 0);
   operator new();
 }
@@ -2186,41 +2186,41 @@ void sub_25D554D70(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, unsigned int **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 28);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -2800,11 +2800,11 @@ void XlCrn::~XlCrn(XlCrn *this)
   JUMPOUT(0x25F897000);
 }
 
-void *XlCrn::clearOperands(void *this)
+XlOper *XlCrn::clearOperands(XlOper *this)
 {
   v1 = this;
-  v2 = this[3];
-  v3 = this[4];
+  v2 = *(this + 3);
+  v3 = *(this + 4);
   if (((v3 - v2) & 0x7FFFFFFF8) != 0)
   {
     v4 = 0;
@@ -2815,8 +2815,8 @@ void *XlCrn::clearOperands(void *this)
       {
         XlOper::~XlOper(this);
         this = MEMORY[0x25F897000]();
-        v2 = v1[3];
-        v3 = v1[4];
+        v2 = *(v1 + 3);
+        v3 = *(v1 + 4);
       }
 
       ++v4;
@@ -2825,7 +2825,7 @@ void *XlCrn::clearOperands(void *this)
     while (v4 < ((v3 - v2) >> 3));
   }
 
-  v1[4] = v2;
+  *(v1 + 4) = v2;
   return this;
 }
 
@@ -7810,7 +7810,7 @@ char *std::vector<XlCell *,ChAllocator<XlCell *>>::insert(void *a1, char *__src,
     else
     {
       *v6 = *(v6 - 1);
-      v9 = v6 + 8;
+      v9 = (v6 + 8);
     }
 
     a1[1] = v9;
@@ -8496,7 +8496,7 @@ uint64_t XlFileProtection::operator=(uint64_t a1, uint64_t a2)
     *(a1 + 128) = v4;
     if (*(a2 + 120))
     {
-      operator new[](v4);
+      operator new[](v4, 0x1000C8077774924);
     }
 
     *(a1 + 120) = 0;
@@ -8505,7 +8505,7 @@ uint64_t XlFileProtection::operator=(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-uint64_t XlFileProtection::setEncryptionInfo(XlFileProtection *this, const unsigned __int8 *a2, unsigned int a3)
+void *XlFileProtection::setEncryptionInfo(XlFileProtection *this, const unsigned __int8 *a2, unsigned int a3)
 {
   result = *(this + 15);
   if (result)
@@ -8520,7 +8520,7 @@ uint64_t XlFileProtection::setEncryptionInfo(XlFileProtection *this, const unsig
     if (a3)
     {
       *(this + 32) = a3;
-      operator new[](a3);
+      operator new[](a3, 0x1000C8077774924);
     }
   }
 
@@ -8534,7 +8534,7 @@ void sub_25D5637B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     XlFontTable::setDefault();
   }
 
-  (*(*v10 + 8))(v10);
+  (*(*v10 + 8))(v10, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -9135,7 +9135,7 @@ char *std::vector<XlCellRow *,ChAllocator<XlCellRow *>>::insert(void *a1, char *
     else
     {
       *v6 = *(v6 - 1);
-      v9 = v6 + 8;
+      v9 = (v6 + 8);
     }
 
     a1[1] = v9;
@@ -9347,7 +9347,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlDbCell *a2)
 
   if ((v4 >> 1))
   {
-    operator new[](v4 & 0x1FFFE);
+    operator new[](v4 & 0x1FFFE, 0x1000C80BDFB0063);
   }
 
   XlDbCell::takeCellOffsets(a2, *(this + 6), 0);
@@ -9366,7 +9366,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlRString *a2)
   v5 = v4;
   if (v4 >= 1)
   {
-    operator new[]((v4 + 1));
+    operator new[]((v4 + 1), 0x1000C8077774924);
   }
 
   XlRString::clearRuns(a2);
@@ -9384,7 +9384,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlRString *a2)
 
   if (v8)
   {
-    operator new[](2);
+    operator new[](2, 0x1000C8077774924);
   }
 
   return XlParserVisitor::endRead(this, a2);
@@ -9397,7 +9397,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlContinue *a2)
   v6 = v4;
   if (v4)
   {
-    operator new[](v4);
+    operator new[](v4, 0x1000C8077774924);
   }
 
   XlContinue::takeContent(a2, *(this + 3), 0);
@@ -9412,7 +9412,7 @@ void XlParserVisitor::visit(XlParserVisitor *this, XlContinueFrt12 *a2)
   v6 = v4;
   if (v4 < 0x2016)
   {
-    operator new[](v4);
+    operator new[](v4, 0x1000C8077774924);
   }
 
   exception = __cxa_allocate_exception(4uLL);
@@ -9587,7 +9587,7 @@ LABEL_11:
   v8 = (*(**(this + 2) + 40))(*(this + 2));
   if ((*(a2 + 36) & 1) == 0 && v5)
   {
-    operator new[](v5);
+    operator new[](v5, 0x1000C8077774924);
   }
 
   (*(**(this + 2) + 16))(*(this + 2), 4294967292, 1);
@@ -9676,16 +9676,18 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlAddMenu *a2)
 
 void XlParserVisitor::visit(XlParserVisitor *this, XlAutoFilter *a2)
 {
-  (*(**(this + 2) + 40))(*(this + 2));
+  v4 = (*(**(this + 2) + 40))(*(this + 2));
+  v5 = *(a2 + 2);
   *(this + 18) = (*(**(this + 2) + 40))(*(this + 2));
-  XlParserVisitor::parse(this, (a2 + 16));
+  XlParserVisitor::parse(this, (a2 + 16), v5 + v4);
 }
 
-void sub_25D566C08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, XlDoper *a9, XlDoper *a10)
+void sub_25D566C08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  MEMORY[0x25F897000](v10, 0x10B1C40B84AEDEBLL);
+  va_start(va, a9);
+  MEMORY[0x25F897000](v9, 0x10B1C40B84AEDEBLL, a3, a4, a5, a6, a7, a8);
   ChAutoPtr<XlDoper>::~ChAutoPtr(&a9);
-  ChAutoPtr<XlDoper>::~ChAutoPtr(&a10);
+  ChAutoPtr<XlDoper>::~ChAutoPtr(va);
   _Unwind_Resume(a1);
 }
 
@@ -9883,7 +9885,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlDelMenu *a2)
     v6 = (*(**(this + 2) + 64))(*(this + 2));
     if (v6)
     {
-      operator new[]((v6 + 1));
+      operator new[]((v6 + 1), 0x1000C8077774924);
     }
 
     *(this + 3) = 0;
@@ -9915,48 +9917,48 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlDocRoute *a2)
   v13 = v6;
   if (v6)
   {
-    operator new[](v6);
+    operator new[](v6, 0x1000C8077774924);
   }
 
   v7 = *(a2 + 16);
   v13 = v7;
   if (v7)
   {
-    operator new[](v7);
+    operator new[](v7, 0x1000C8077774924);
   }
 
   v8 = *(a2 + 17);
   v13 = v8;
   if (v8)
   {
-    operator new[](v8);
+    operator new[](v8, 0x1000C8077774924);
   }
 
   v9 = *(a2 + 18);
   v13 = v9;
   if (v9)
   {
-    operator new[](v9);
+    operator new[](v9, 0x1000C8077774924);
   }
 
   v10 = *(a2 + 19);
   v13 = v10;
   if (v10)
   {
-    operator new[](v10);
+    operator new[](v10, 0x1000C8077774924);
   }
 
   v11 = *(a2 + 20);
   v13 = v11;
   if (v11)
   {
-    operator new[](v11);
+    operator new[](v11, 0x1000C8077774924);
   }
 
   v13 = v5;
   if (v5)
   {
-    operator new[](v5);
+    operator new[](v5, 0x1000C8077774924);
   }
 
   return XlParserVisitor::endRead(this, a2);

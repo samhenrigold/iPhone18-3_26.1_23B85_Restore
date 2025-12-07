@@ -32,10 +32,12 @@
 - (void)notifyProxyOfDownloadError:(id)error;
 - (void)onConnectionQueueShutdown;
 - (void)onQueueInterruptDownloads:(int)downloads;
+- (void)onQueueInvalidate:(int)invalidate;
 - (void)onQueueLocalizeOnSelection:(const void *)selection withParameterOverrides:(optional<proto::params::LocalizerParameters>)overrides;
 - (void)onQueueNotify:(const void *)notify onFloor:(const void *)floor;
 - (void)onQueueNotifyLocationContext:(BOOL)context withLocationContext:(int)locationContext;
 - (void)onQueueSelectedLocationDownloadCompleted:(const void *)completed forAction:(unsigned __int8)action;
+- (void)onQueueStopUpdatingLocation:(int)location;
 - (void)outdoorLocationAvailable:(id)available;
 - (void)playbackDatarun:(id)datarun;
 - (void)requestForegroundTileDownload;
@@ -96,9 +98,9 @@
 - (CLIndoorProvider)initWithConnection:(id)connection
 {
   connectionCopy = connection;
-  v55.receiver = self;
-  v55.super_class = CLIndoorProvider;
-  v5 = [(CLIndoorProvider *)&v55 init];
+  v63.receiver = self;
+  v63.super_class = CLIndoorProvider;
+  v5 = [(CLIndoorProvider *)&v63 init];
   if (v5)
   {
     if (qword_10045B070 != -1)
@@ -168,21 +170,22 @@
       }
 
       v21 = qword_10045B078;
-      if (os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_INFO))
+      v22 = os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_INFO);
+      if (v22)
       {
         isRegionalEnabled = v5->_isRegionalEnabled;
         *buf = 67109120;
         *&buf[4] = isRegionalEnabled;
-        v23 = "Regional enabled %d";
+        v25 = "Regional enabled %d";
 LABEL_19:
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, v23, buf, 8u);
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, v25, buf, 8u);
       }
     }
 
     else
     {
       *buf = sub_100006234();
-      buf[8] = v24;
+      buf[8] = v26;
       LOBYTE(to) = 0;
       v5->_isRegionalEnabled = sub_100008F80(buf, &to) & 1;
       if (qword_10045B070 != -1)
@@ -191,118 +194,121 @@ LABEL_19:
       }
 
       v21 = qword_10045B078;
-      if (os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_INFO))
+      v22 = os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_INFO);
+      if (v22)
       {
-        v25 = v5->_isRegionalEnabled;
+        v27 = v5->_isRegionalEnabled;
         *buf = 67109120;
-        *&buf[4] = v25;
-        v23 = "WARNING: Regional enabled overriden %d";
+        *&buf[4] = v27;
+        v25 = "WARNING: Regional enabled overriden %d";
         goto LABEL_19;
       }
     }
 
-    v26 = sub_100007FA8();
-    v27 = sub_1000080C0();
-    v28 = atomic_load(v27 + 26);
-    if ((v28 & 1) == 0 && (v27[2] & 1) == 0)
+    v28 = sub_100007FA8(v22, v23);
+    v29 = sub_1000080C0();
+    v30 = atomic_load(v29 + 26);
+    if ((v30 & 1) == 0 && (v29[2] & 1) == 0)
     {
-      v29 = v27;
-      v30 = sub_100005F78(v27, v27 + 3);
-      v27 = v29;
-      *(v29 + 5) = v30;
-      *(v29 + 16) = 1;
-      atomic_store(1u, v29 + 26);
+      v31 = v29;
+      v32 = sub_100005F78(v29, v29 + 3);
+      v29 = v31;
+      *(v31 + 5) = v32;
+      *(v31 + 16) = 1;
+      atomic_store(1u, v31 + 26);
     }
 
-    sub_100007FE8(v26, *(v27 + 5));
-    v31 = sub_100007FA8();
+    sub_100007FE8(v28, *(v29 + 5));
+    v35 = sub_100007FA8(v33, v34);
     *buf = sub_100008250();
-    *&buf[8] = v32;
-    v33 = sub_100005C94(buf, &buf[12]);
-    sub_100008F78(v31, v33);
+    *&buf[8] = v36;
+    v37 = sub_100005C94(buf, &buf[12]);
+    sub_100008F78(v35, v37);
     *buf = sub_10000AEA0();
-    *&buf[8] = v34;
-    if (sub_100008F80(buf, &buf[9]))
+    *&buf[8] = v38;
+    v39 = sub_100008F80(buf, &buf[9]);
+    if (v39)
     {
-      v35 = sub_100007FA8();
-      sub_10000AEB0(v35, 2);
+      v41 = sub_100007FA8(v39, v40);
+      sub_10000AEB0(v41, 2);
     }
 
     *buf = sub_100009DF8();
-    *&buf[8] = v36;
+    *&buf[8] = v42;
     if (sub_100005C94(buf, &buf[12]) >= 1)
     {
       to = sub_10000AEA0();
-      LOWORD(_queue) = v37;
-      if ((sub_100008F80(&to, &_queue + 1) & 1) == 0)
+      LOWORD(_queue) = v43;
+      v44 = sub_100008F80(&to, &_queue + 1);
+      if ((v44 & 1) == 0)
       {
-        v38 = sub_100007FA8();
-        sub_10000AEB0(v38, 3);
+        v46 = sub_100007FA8(v44, v45);
+        sub_10000AEB0(v46, 3);
       }
     }
 
     objc_initWeak(&location, v5);
-    v50[0] = _NSConcreteStackBlock;
-    v50[1] = 3321888768;
-    v50[2] = sub_100356E80;
-    v50[3] = &unk_10044B168;
+    v58[0] = _NSConcreteStackBlock;
+    v58[1] = 3321888768;
+    v58[2] = sub_100356E80;
+    v58[3] = &unk_10044B168;
     objc_copyWeak(&to, &location);
     _queue = [connectionCopy _queue];
-    objc_copyWeak(v51, &to);
-    v51[1] = _queue;
+    objc_copyWeak(v59, &to);
+    v59[1] = _queue;
     *buf = off_10044B338;
-    v39 = objc_retainBlock(v50);
+    v47 = objc_retainBlock(v58);
     if (v5->_localizerObserver.m_initialized)
     {
       *&buf[8] = 0;
-      v40 = *&v5->_anon_d1[7];
-      *&v5->_anon_d1[7] = v39;
+      v48 = *&v5->_anon_d1[7];
+      *&v5->_anon_d1[7] = v47;
 
-      v41 = *&buf[8];
+      v49 = *&buf[8];
     }
 
     else
     {
-      v41 = 0;
+      v49 = 0;
       *&buf[8] = 0;
       *(&v5->_localizerObserver.m_storage.dummy_.aligner_ + 7) = off_10044B338;
-      *&v5->_anon_d1[7] = v39;
+      *&v5->_anon_d1[7] = v47;
       v5->_localizerObserver.m_initialized = 1;
     }
 
     objc_destroyWeak(&to);
     objc_initWeak(&from, v5);
-    v47[0] = _NSConcreteStackBlock;
-    v47[1] = 3321888768;
-    v47[2] = sub_100357110;
-    v47[3] = &unk_10044B198;
+    v55[0] = _NSConcreteStackBlock;
+    v55[1] = 3321888768;
+    v55[2] = sub_100357110;
+    v55[3] = &unk_10044B198;
     objc_copyWeak(&to, &from);
     _queue = [connectionCopy _queue];
-    objc_copyWeak(v48, &to);
-    v48[1] = _queue;
+    objc_copyWeak(v56, &to);
+    v56[1] = _queue;
     *buf = off_10044B3B8;
-    v42 = objc_retainBlock(v47);
+    v50 = objc_retainBlock(v55);
     if (v5->_possibleLocationObserver.m_initialized)
     {
       *&buf[8] = 0;
-      v43 = *&v5->_anon_e9[7];
-      *&v5->_anon_e9[7] = v42;
+      v51 = *&v5->_anon_e9[7];
+      *&v5->_anon_e9[7] = v50;
 
-      v44 = *&buf[8];
+      v52 = *&buf[8];
     }
 
     else
     {
-      v44 = 0;
+      v52 = 0;
       *&buf[8] = 0;
       *(&v5->_possibleLocationObserver.m_storage.dummy_.aligner_ + 7) = off_10044B3B8;
-      *&v5->_anon_e9[7] = v42;
+      *&v5->_anon_e9[7] = v50;
       v5->_possibleLocationObserver.m_initialized = 1;
     }
 
     objc_destroyWeak(&to);
-    objc_initWeak(&v46, v5);
-    objc_copyWeak(&to, &v46);
+    objc_initWeak(&v54, v5);
+    objc_copyWeak(&to, &v54);
     _queue = [connectionCopy _queue];
     operator new();
   }
@@ -344,7 +350,7 @@ LABEL_19:
   if (v7 && v7 != v8)
   {
     sub_1000474A4(buf, "");
-    sub_1002114B8("Cannot change the localizer DB being used", &v18);
+    sub_1002114B8(&v18, "Cannot change the localizer DB being used");
     sub_100383AA4(&v18, __p, buf);
     sub_10003F5D0(__p);
   }
@@ -501,21 +507,21 @@ LABEL_34:
             goto LABEL_35;
           }
 
-          [v18 location];
-          [v18 location];
+          objc_msgSend_location(v18);
+          objc_msgSend_location(v18, v34);
           v23 = v34;
-          [v18 location];
+          objc_msgSend_location(v18);
           if (v23 > 0.0)
           {
             [remoteObjectProxy indoorDidUpdateToLocation:v18 fromLocation:self->_latestFix];
-            [v18 location];
+            objc_msgSend_location(v18);
             [(CLIndoorProvider *)self updateUniverseIfAllowedAndNecessary:buf];
             sub_10034DA20(&self->_localizationSessionMetrics, notify);
             goto LABEL_34;
           }
 
           sub_1000474A4(v26, "");
-          sub_1003675F4("lifespan = ", &v35);
+          sub_1003675F4(&v35, "lifespan = ");
           sub_1000DE42C(&v24, &v36);
           sub_1000E661C(v26, &v35, 2);
           if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
@@ -598,8 +604,8 @@ LABEL_36:
   if (locationContext == 1)
   {
     v5 = sub_10033987C();
-    v6 = atomic_load(v5 + 26);
-    if (v6 & 1) != 0 || (v5[2])
+    v7 = atomic_load(v5 + 26);
+    if (v7 & 1) != 0 || (v5[2])
     {
       goto LABEL_8;
     }
@@ -608,26 +614,26 @@ LABEL_36:
   else
   {
     v5 = sub_1000080C0();
-    v7 = atomic_load(v5 + 26);
-    if (v7 & 1) != 0 || (v5[2])
+    v8 = atomic_load(v5 + 26);
+    if (v8 & 1) != 0 || (v5[2])
     {
       goto LABEL_8;
     }
   }
 
-  v8 = v5;
-  v9 = sub_100005F78(v5, v5 + 3);
-  v5 = v8;
-  *(v8 + 5) = v9;
-  *(v8 + 16) = 1;
-  atomic_store(1u, v8 + 26);
+  v9 = v5;
+  v10 = sub_100005F78(v5, v5 + 3);
+  v5 = v9;
+  *(v9 + 5) = v10;
+  *(v9 + 16) = 1;
+  atomic_store(1u, v9 + 26);
 LABEL_8:
-  v10 = *(v5 + 5);
-  v11 = sub_100007FA8();
-  if (sub_1002FA9E4(v11) != v10)
+  v11 = *(v5 + 5);
+  v12 = sub_100007FA8(v5, v6);
+  if (sub_1002FA9E4(v12) != v11)
   {
-    v12 = sub_100007FA8();
-    sub_100007FE8(v12, v10);
+    v15 = sub_100007FA8(v13, v14);
+    sub_100007FE8(v15, v11);
     ++self->_localizationSessionMetrics.numOfLocationContextChange;
   }
 }
@@ -675,6 +681,172 @@ LABEL_8:
   v6.receiver = self;
   v6.super_class = CLIndoorProvider;
   [(CLIndoorProvider *)&v6 dealloc];
+}
+
+- (void)onQueueInvalidate:(int)invalidate
+{
+  v3 = *&invalidate;
+  WeakRetained = objc_loadWeakRetained(&self->_xpcConnection);
+  if (qword_10045B070 != -1)
+  {
+    sub_100387BC0();
+  }
+
+  v6 = qword_10045B078;
+  if (os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_INFO))
+  {
+    LODWORD(buf.__r_.__value_.__l.__data_) = 134217984;
+    *(buf.__r_.__value_.__r.__words + 4) = WeakRetained;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "invalidating for connection %p", &buf, 0xCu);
+  }
+
+  if (qword_10045B070 != -1)
+  {
+    sub_100387B98();
+  }
+
+  v7 = qword_10045B078;
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    v8 = +[CLIndoorServiceDelegate versionString];
+    v9 = v8;
+    uTF8String = [v8 UTF8String];
+    LODWORD(buf.__r_.__value_.__l.__data_) = 134218498;
+    *(buf.__r_.__value_.__r.__words + 4) = self;
+    WORD2(buf.__r_.__value_.__r.__words[1]) = 2048;
+    *(&buf.__r_.__value_.__r.__words[1] + 6) = WeakRetained;
+    HIWORD(buf.__r_.__value_.__r.__words[2]) = 2080;
+    v27 = uTF8String;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Tearing down server-side state %p for connection %p to %s", &buf, 0x20u);
+  }
+
+  [(CLIndoorProvider *)self onQueueInterruptDownloads:v3];
+  [(CLIndoorProvider *)self stopLocalizer];
+  [(CLIndoorProvider *)self onQueueStopUpdatingLocation:v3];
+  if (self->_serviceLocalizer.__ptr_)
+  {
+    sub_1000474A4(__p, "");
+    sub_100218D54(&buf, "Service localizer should have already been torne down");
+    sub_1000E661C(__p, &buf, 1);
+    if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(buf.__r_.__value_.__l.__data_);
+    }
+
+    if (v25 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    sub_10003F5D0(v23);
+  }
+
+  if (self->_sensorLogger.__ptr_)
+  {
+    sub_1000474A4(&buf, "");
+    sub_100383A74(__p, &buf);
+    sub_10003F5D0(__p);
+  }
+
+  cntrl = self->_localizationSensorCollection.__cntrl_;
+  if (cntrl && *(cntrl + 1) >= 1)
+  {
+    sub_1000474A4(&buf, "");
+    sub_100383A74(__p, &buf);
+    sub_10003F5D0(__p);
+  }
+
+  ptr = self->_localizationSensorCollection.__ptr_;
+  if (ptr)
+  {
+    v13 = self->_localizationSensorCollection.__cntrl_;
+    if (v13)
+    {
+      atomic_fetch_add_explicit(v13 + 2, 1uLL, memory_order_relaxed);
+      ptr = self->_localizationSensorCollection.__ptr_;
+    }
+
+    v14 = sub_1003366E0(ptr);
+    v16 = v15;
+    if (v14 | v15)
+    {
+      if (qword_10045B070 != -1)
+      {
+        sub_100387B98();
+      }
+
+      v17 = qword_10045B078;
+      if (os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_DEFAULT))
+      {
+        LODWORD(buf.__r_.__value_.__l.__data_) = 134218240;
+        *(buf.__r_.__value_.__r.__words + 4) = v14;
+        WORD2(buf.__r_.__value_.__r.__words[1]) = 2048;
+        *(&buf.__r_.__value_.__r.__words[1] + 6) = v16;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Still have %lu activ sensor observers, %lu inactive sensor observers", &buf, 0x16u);
+      }
+    }
+
+    v18 = self->_localizationSensorCollection.__cntrl_;
+    self->_localizationSensorCollection.__ptr_ = 0;
+    self->_localizationSensorCollection.__cntrl_ = 0;
+    if (v18 && !atomic_fetch_add(v18 + 1, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (*(*v18 + 16))(v18);
+      std::__shared_weak_count::__release_weak(v18);
+      if (!v13)
+      {
+        goto LABEL_26;
+      }
+    }
+
+    else if (!v13)
+    {
+      goto LABEL_26;
+    }
+
+    if (*(v13 + 1) != -1)
+    {
+      sub_1000474A4(__p, "");
+      sub_1002B218C(&buf, "MEMORY LEAK!? sensor collection still alive");
+      sub_1000E661C(__p, &buf, 1);
+      if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(buf.__r_.__value_.__l.__data_);
+      }
+
+      if (v25 < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      sub_10003F5D0(v23);
+    }
+
+    std::__shared_weak_count::__release_weak(v13);
+  }
+
+LABEL_26:
+  [(CLIndoorProvider *)self setLocalizationStarted:0];
+  [(CLIndoorProvider *)self setLocalizationActive:0];
+  objc_storeWeak(&self->_xpcConnection, 0);
+  [WeakRetained invalidate];
+  if (qword_10045B070 != -1)
+  {
+    sub_100387B98();
+  }
+
+  v19 = qword_10045B078;
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  {
+    v20 = +[CLIndoorServiceDelegate versionString];
+    v21 = v20;
+    uTF8String2 = [v20 UTF8String];
+    LODWORD(buf.__r_.__value_.__l.__data_) = 134218242;
+    *(buf.__r_.__value_.__r.__words + 4) = WeakRetained;
+    WORD2(buf.__r_.__value_.__r.__words[1]) = 2080;
+    *(&buf.__r_.__value_.__r.__words[1] + 6) = uTF8String2;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Client state torn-down (mostly) for connection %p to %s", &buf, 0x16u);
+  }
 }
 
 - (void)onConnectionQueueShutdown
@@ -1016,66 +1188,66 @@ LABEL_13:
 {
   actionCopy = action;
   requestsCopy = requests;
-  v69 = +[NSMutableArray array];
-  v88 = 0u;
-  v89 = 0u;
-  v86 = 0u;
+  v68 = +[NSMutableArray array];
   v87 = 0u;
+  v88 = 0u;
+  v85 = 0u;
+  v86 = 0u;
   obj = requestsCopy;
-  v64 = [obj countByEnumeratingWithState:&v86 objects:v99 count:16];
-  if (v64)
+  v63 = [obj countByEnumeratingWithState:&v85 objects:v98 count:16];
+  if (v63)
   {
-    v73 = 0;
-    v62 = *v87;
+    v72 = 0;
+    v61 = *v86;
     while (1)
     {
-      for (i = 0; i != v64; i = i + 1)
+      for (i = 0; i != v63; i = i + 1)
       {
-        if (*v87 != v62)
+        if (*v86 != v61)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v86 + 1) + 8 * i);
-        v70 = v6;
+        v6 = *(*(&v85 + 1) + 8 * i);
+        v69 = v6;
         if (v6)
         {
-          [v6 ps_STLString];
+          objc_msgSend_ps_STLString(v6);
         }
 
         else
         {
+          v82 = 0;
           v83 = 0;
           v84 = 0;
-          v85 = 0;
         }
 
-        v81 = 0u;
-        v82 = 0u;
-        v79 = 0u;
         v80 = 0u;
-        v66 = *(tile + 1);
-        v7 = [v66 countByEnumeratingWithState:&v79 objects:v98 count:16];
+        v81 = 0u;
+        v78 = 0u;
+        v79 = 0u;
+        v65 = *(tile + 1);
+        v7 = [v65 countByEnumeratingWithState:&v78 objects:v97 count:16];
         if (v7)
         {
-          v68 = *v80;
+          v67 = *v79;
           do
           {
-            v67 = v7;
-            for (j = 0; j != v67; j = j + 1)
+            v66 = v7;
+            for (j = 0; j != v66; j = j + 1)
             {
-              if (*v80 != v68)
+              if (*v79 != v67)
               {
-                objc_enumerationMutation(v66);
+                objc_enumerationMutation(v65);
               }
 
-              v9 = *(*(&v79 + 1) + 8 * j);
+              v9 = *(*(&v78 + 1) + 8 * j);
               v10 = v9;
               if (v9)
               {
-                [v9 getGroupId];
-                v11 = HIBYTE(v78);
-                v12 = v77;
+                objc_msgSend_getGroupId(v9);
+                v11 = HIBYTE(v77);
+                v12 = v76;
               }
 
               else
@@ -1083,18 +1255,18 @@ LABEL_13:
                 v12 = 0;
                 v11 = 0;
                 __p = 0;
+                v76 = 0;
                 v77 = 0;
-                v78 = 0;
               }
 
-              if (v85 >= 0)
+              if (v84 >= 0)
               {
-                v13 = HIBYTE(v85);
+                v13 = HIBYTE(v84);
               }
 
               else
               {
-                v13 = v84;
+                v13 = v83;
               }
 
               v14 = v11;
@@ -1103,11 +1275,11 @@ LABEL_13:
                 v11 = v12;
               }
 
-              if (v13 != v11 || (v85 >= 0 ? (v15 = &v83) : (v15 = v83), v14 >= 0 ? (p_p = &__p) : (p_p = __p), memcmp(v15, p_p, v13)))
+              if (v13 != v11 || (v84 >= 0 ? (v15 = &v82) : (v15 = v82), v14 >= 0 ? (p_p = &__p) : (p_p = __p), memcmp(v15, p_p, v13)))
               {
 LABEL_30:
                 v17 = 1;
-                if ((SHIBYTE(v78) & 0x80000000) == 0)
+                if ((SHIBYTE(v77) & 0x80000000) == 0)
                 {
                   goto LABEL_32;
                 }
@@ -1129,16 +1301,16 @@ LABEL_31:
                 if (os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_INFO))
                 {
                   v20 = &__p;
-                  if (v78 < 0)
+                  if (v77 < 0)
                   {
                     v20 = __p;
                   }
 
                   v21 = 0xAAAAAAAAAAAAAAABLL * ((getLocationIds[1] - *getLocationIds) >> 3);
                   *buf = 136380931;
-                  v91 = v20;
-                  v92 = 2050;
-                  v93 = v21;
+                  v90 = v20;
+                  v91 = 2050;
+                  v92 = v21;
                   _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "TileLookup, groupId, %{private}s, %{public}lu", buf, 0x16u);
                 }
 
@@ -1195,14 +1367,13 @@ LABEL_114:
 LABEL_63:
                           if (v31 < 0x17)
                           {
-                            v75 = v31;
+                            v74 = v31;
                             if (v31)
                             {
                               memmove(&__dst, v26 + 1, v31);
                             }
 
                             *(&__dst + v31) = 0;
-                            ptr = self->_fsDb.__ptr_;
                             sub_1001181E4(buf, &__dst);
                           }
 
@@ -1223,7 +1394,7 @@ LABEL_63:
                 }
 
                 v17 = 0;
-                if (SHIBYTE(v78) < 0)
+                if (SHIBYTE(v77) < 0)
                 {
                   goto LABEL_31;
                 }
@@ -1245,7 +1416,7 @@ LABEL_63:
                 *buf = 0;
                 _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "locationRequests include not allowed regional tile", buf, 2u);
                 v17 = 1;
-                if (SHIBYTE(v78) < 0)
+                if (SHIBYTE(v77) < 0)
                 {
                   goto LABEL_31;
                 }
@@ -1259,7 +1430,7 @@ LABEL_32:
               }
             }
 
-            v7 = [v66 countByEnumeratingWithState:&v79 objects:v98 count:16];
+            v7 = [v65 countByEnumeratingWithState:&v78 objects:v97 count:16];
           }
 
           while (v7);
@@ -1267,33 +1438,33 @@ LABEL_32:
 
 LABEL_72:
 
-        if ([v69 count])
+        if ([v68 count])
         {
           if (qword_10045B070 != -1)
           {
             sub_100387B98();
           }
 
-          v34 = qword_10045B078;
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+          v33 = qword_10045B078;
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
           {
-            v35 = [v69 count];
-            v36 = v70;
-            uTF8String = [v70 UTF8String];
+            v34 = [v68 count];
+            v35 = v69;
+            uTF8String = [v69 UTF8String];
             *buf = 134218755;
-            v91 = v35;
-            v92 = 2081;
-            v93 = uTF8String;
-            v94 = 2048;
-            v95 = 0;
-            v96 = 2048;
-            v97 = 0;
-            v38 = v34;
-            v39 = OS_LOG_TYPE_INFO;
-            v40 = "Found %lu floors in availability tile for %{private}s, found %zu floors with data already, %zu floors without data";
-            v41 = 42;
+            v90 = v34;
+            v91 = 2081;
+            v92 = uTF8String;
+            v93 = 2048;
+            v94 = 0;
+            v95 = 2048;
+            v96 = 0;
+            v37 = v33;
+            v38 = OS_LOG_TYPE_INFO;
+            v39 = "Found %lu floors in availability tile for %{private}s, found %zu floors with data already, %zu floors without data";
+            v40 = 42;
 LABEL_81:
-            _os_log_impl(&_mh_execute_header, v38, v39, v40, buf, v41);
+            _os_log_impl(&_mh_execute_header, v37, v38, v39, buf, v40);
           }
         }
 
@@ -1304,66 +1475,66 @@ LABEL_81:
             sub_100387B98();
           }
 
-          v34 = qword_10045B078;
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+          v33 = qword_10045B078;
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
-            v42 = v70;
-            uTF8String2 = [v70 UTF8String];
+            v41 = v69;
+            uTF8String2 = [v69 UTF8String];
             *buf = 136380675;
-            v91 = uTF8String2;
-            v38 = v34;
-            v39 = OS_LOG_TYPE_ERROR;
-            v40 = "Couldn't find any floors within %{private}s in availability tile.";
-            v41 = 12;
+            v90 = uTF8String2;
+            v37 = v33;
+            v38 = OS_LOG_TYPE_ERROR;
+            v39 = "Couldn't find any floors within %{private}s in availability tile.";
+            v40 = 12;
             goto LABEL_81;
           }
         }
 
-        if (SHIBYTE(v85) < 0)
+        if (SHIBYTE(v84) < 0)
         {
-          operator delete(v83);
+          operator delete(v82);
         }
       }
 
-      v64 = [obj countByEnumeratingWithState:&v86 objects:v99 count:16];
-      if (!v64)
+      v63 = [obj countByEnumeratingWithState:&v85 objects:v98 count:16];
+      if (!v63)
       {
         goto LABEL_88;
       }
     }
   }
 
-  v73 = 0;
+  v72 = 0;
 LABEL_88:
 
-  v44 = sub_10033990C();
-  v45 = atomic_load(v44 + 20);
-  if ((v45 & 1) != 0 || *(v44 + 16) == 1)
+  v43 = sub_10033990C();
+  v44 = atomic_load(v43 + 20);
+  if ((v44 & 1) != 0 || *(v43 + 16) == 1)
   {
-    if (*(v44 + 17))
+    if (*(v43 + 17))
     {
 LABEL_91:
-      v46 = [v69 indexesOfObjectsPassingTest:&stru_10044B210];
-      v47 = [v46 count];
+      v45 = [v68 indexesOfObjectsPassingTest:&stru_10044B210];
+      v46 = [v45 count];
       if (qword_10045B070 != -1)
       {
         sub_100387B98();
       }
 
-      v48 = qword_10045B078;
+      v47 = qword_10045B078;
       if (os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_DEBUG))
       {
-        v49 = "s";
-        if (v47 == 1)
+        v48 = "s";
+        if (v46 == 1)
         {
-          v49 = "";
+          v48 = "";
         }
 
         *buf = 134218242;
-        v91 = v47;
-        v92 = 2080;
-        v93 = v49;
-        _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEBUG, "Ignoring %lu Indoor tile %s", buf, 0x16u);
+        v90 = v46;
+        v91 = 2080;
+        v92 = v48;
+        _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEBUG, "Ignoring %lu Indoor tile %s", buf, 0x16u);
       }
 
       goto LABEL_106;
@@ -1372,47 +1543,47 @@ LABEL_91:
 
   else
   {
-    v50 = v44;
-    v51 = sub_100008F80(v44, v44 + 9);
-    *(v50 + 17) = v51 & 1;
-    *(v50 + 16) = 1;
-    atomic_store(1u, v50 + 20);
-    if (v51)
+    v49 = v43;
+    v50 = sub_100008F80(v43, v43 + 9);
+    *(v49 + 17) = v50 & 1;
+    *(v49 + 16) = 1;
+    atomic_store(1u, v49 + 20);
+    if (v50)
     {
       goto LABEL_91;
     }
   }
 
-  if (actionCopy != 0 || (v73 & 1) == 0)
+  if (actionCopy != 0 || (v72 & 1) == 0)
   {
     goto LABEL_107;
   }
 
-  v46 = [v69 indexesOfObjectsPassingTest:&stru_10044B230];
-  v52 = [v46 count];
+  v45 = [v68 indexesOfObjectsPassingTest:&stru_10044B230];
+  v51 = [v45 count];
   if (qword_10045B070 != -1)
   {
     sub_100387B98();
   }
 
-  v53 = qword_10045B078;
+  v52 = qword_10045B078;
   if (os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_DEBUG))
   {
-    v54 = "s";
-    if (v52 == 1)
+    v53 = "s";
+    if (v51 == 1)
     {
-      v54 = "";
+      v53 = "";
     }
 
     *buf = 134218242;
-    v91 = v52;
-    v92 = 2080;
-    v93 = v54;
-    _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEBUG, "Ignoring %lu Regional tile %s", buf, 0x16u);
+    v90 = v51;
+    v91 = 2080;
+    v92 = v53;
+    _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEBUG, "Ignoring %lu Regional tile %s", buf, 0x16u);
   }
 
 LABEL_106:
-  [v69 removeObjectsAtIndexes:v46];
+  [v68 removeObjectsAtIndexes:v45];
 
 LABEL_107:
   if (qword_10045B070 != -1)
@@ -1420,22 +1591,22 @@ LABEL_107:
     sub_100387B98();
   }
 
-  v55 = qword_10045B078;
-  if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+  v54 = qword_10045B078;
+  if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
   {
-    v56 = [*(tile + 1) count];
-    v57 = [obj count];
-    v58 = [v69 count];
+    v55 = [*(tile + 1) count];
+    v56 = [obj count];
+    v57 = [v68 count];
     *buf = 134349568;
-    v91 = v56;
-    v92 = 2050;
-    v93 = v57;
-    v94 = 2050;
-    v95 = v58;
-    _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "@TileLookup, avlVenues, %{public}lu, groupIds, %{public}lu, requested, %{public}lu", buf, 0x20u);
+    v90 = v55;
+    v91 = 2050;
+    v92 = v56;
+    v93 = 2050;
+    v94 = v57;
+    _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "@TileLookup, avlVenues, %{public}lu, groupIds, %{public}lu, requested, %{public}lu", buf, 0x20u);
   }
 
-  return v69;
+  return v68;
 }
 
 - (void)requestLocationTilesForGroup:(id)group usingAvailabilityTile:(const void *)tile forAction:(unsigned __int8)action
@@ -1478,12 +1649,12 @@ LABEL_107:
   v16 = v15;
   if (v15)
   {
-    [v15 ps_STLStringOnNil:@"<nil location groups>"];
+    objc_msgSend_ps_STLStringOnNil_(v15);
     if (!v14)
     {
 LABEL_17:
       sub_1000474A4(v22, "");
-      sub_10022679C("No floors found in availability tile? Group Ids: ", &buf);
+      sub_10022679C(&buf, "No floors found in availability tile? Group Ids: ");
       if (SHIBYTE(v19) < 0)
       {
         sub_100003228(&v25, __p[0], __p[1]);
@@ -1711,9 +1882,9 @@ LABEL_4:
   objc_autoreleasePoolPop(v5);
   if ([(CLIndoorProvider *)self onQueueProcessCompletedFetch:floorRequests])
   {
-    *v41 = 0u;
-    v42 = 0u;
-    v43 = 1.0;
+    *v34 = 0u;
+    v35 = 0u;
+    v36 = 1.0;
     prime = vcvtps_u32_f32([floorRequests count] / 1.0);
     if (prime == 1)
     {
@@ -1725,104 +1896,98 @@ LABEL_4:
       prime = std::__next_prime(prime);
     }
 
-    if (prime > v41[1])
+    if (prime > v34[1])
     {
       goto LABEL_14;
     }
 
-    if (prime < v41[1])
+    if (prime < v34[1])
     {
-      v13 = vcvtps_u32_f32(*(&v42 + 1) / v43);
-      if (v41[1] < 3 || (v14 = vcnt_s8(v41[1]), v14.i16[0] = vaddlv_u8(v14), v14.u32[0] > 1uLL))
+      v12 = vcvtps_u32_f32(*(&v35 + 1) / v36);
+      if (v34[1] < 3 || (v13 = vcnt_s8(v34[1]), v13.i16[0] = vaddlv_u8(v13), v13.u32[0] > 1uLL))
       {
-        v13 = std::__next_prime(v13);
+        v12 = std::__next_prime(v12);
       }
 
       else
       {
-        v15 = 1 << -__clz(v13 - 1);
-        if (v13 >= 2)
+        v14 = 1 << -__clz(v12 - 1);
+        if (v12 >= 2)
         {
-          v13 = v15;
+          v12 = v14;
         }
       }
 
-      if (prime <= v13)
+      if (prime <= v12)
       {
-        prime = v13;
+        prime = v12;
       }
 
-      if (prime < v41[1])
+      if (prime < v34[1])
       {
 LABEL_14:
-        sub_10000FE58(v41, prime);
+        sub_10000FE58(v34, prime);
       }
     }
 
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
-    v38 = 0u;
-    v16 = floorRequests;
-    if ([v16 countByEnumeratingWithState:&v37 objects:v47 count:16])
+    memset(v33, 0, sizeof(v33));
+    v15 = floorRequests;
+    if ([v15 countByEnumeratingWithState:v33 objects:v40 count:16])
     {
-      *v38;
-      *v38;
-      floorUuid = [**(&v37 + 1) floorUuid];
-      v18 = floorUuid;
-      [floorUuid UTF8String];
-      sub_1001180E4();
+      floorUuid = [**(&v33[0] + 1) floorUuid];
+      v17 = floorUuid;
+      sub_1001180E4(&v37, [floorUuid UTF8String]);
     }
 
     ptr = self->_fsDb.__ptr_;
-    sub_10035B044(__p, v41);
+    sub_10035B044(__p, v34);
     sub_1001F0D28(buf, ptr, __p);
     [(CLIndoorProvider *)self onQueueSelectedLocationDownloadCompleted:buf forAction:action];
     sub_10035B188(buf);
-    v20 = v36;
-    while (v20)
+    v19 = v32;
+    while (v19)
     {
-      v21 = v20;
-      v20 = *v20;
-      sub_10011B04C(v21 + 4);
-      v22 = v21[3];
-      if (v22 && !atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      v20 = v19;
+      v19 = *v19;
+      sub_10011B04C((v20 + 4));
+      v21 = v20[3];
+      if (v21 && !atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v22->__on_zero_shared)(v22);
-        std::__shared_weak_count::__release_weak(v22);
+        (v21->__on_zero_shared)(v21);
+        std::__shared_weak_count::__release_weak(v21);
       }
 
-      operator delete(v21);
+      operator delete(v20);
     }
 
-    v23 = __p[0];
+    v22 = __p[0];
     __p[0] = 0;
-    if (v23)
+    if (v22)
     {
-      operator delete(v23);
+      operator delete(v22);
     }
 
-    v24 = v42;
-    while (v24)
+    v23 = v35;
+    while (v23)
     {
-      v25 = v24;
-      v24 = *v24;
-      sub_10011B04C(v25 + 4);
-      v26 = v25[3];
-      if (v26 && !atomic_fetch_add(&v26->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      v24 = v23;
+      v23 = *v23;
+      sub_10011B04C((v24 + 4));
+      v25 = v24[3];
+      if (v25 && !atomic_fetch_add(&v25->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v26->__on_zero_shared)(v26);
-        std::__shared_weak_count::__release_weak(v26);
+        (v25->__on_zero_shared)(v25);
+        std::__shared_weak_count::__release_weak(v25);
       }
 
-      operator delete(v25);
+      operator delete(v24);
     }
 
-    v27 = v41[0];
-    v41[0] = 0;
-    if (v27)
+    v26 = v34[0];
+    v34[0] = 0;
+    if (v26)
     {
-      operator delete(v27);
+      operator delete(v26);
     }
   }
 
@@ -1840,24 +2005,17 @@ LABEL_14:
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "WARNING: Import failed. Signalling download is available and retrying fetch", buf, 2u);
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
-    v32 = 0u;
+    memset(v30, 0, sizeof(v30));
     v8 = floorRequests;
-    if ([v8 countByEnumeratingWithState:&v31 objects:v45 count:16])
+    if ([v8 countByEnumeratingWithState:v30 objects:v38 count:16])
     {
-      *v32;
-      *v32;
-      v9 = self->_fsDb.__ptr_;
-      floorUuid2 = [**(&v31 + 1) floorUuid];
-      v11 = floorUuid2;
-      [floorUuid2 UTF8String];
-      sub_1001180E4();
+      floorUuid2 = [**(&v30[0] + 1) floorUuid];
+      v10 = floorUuid2;
+      sub_1001180E4(buf, [floorUuid2 UTF8String]);
     }
 
-    v12 = [[CLIndoorForegroundFetchRequest alloc] initWithFloorRequests:v8 forAction:action];
-    [(CLIndoorProvider *)self setCurrentForegroundFetchRequest:v12];
+    v11 = [[CLIndoorForegroundFetchRequest alloc] initWithFloorRequests:v8 forAction:action];
+    [(CLIndoorProvider *)self setCurrentForegroundFetchRequest:v11];
 
     [(CLIndoorProvider *)self requestForegroundTileDownload];
   }
@@ -1865,20 +2023,20 @@ LABEL_14:
   WeakRetained = objc_loadWeakRetained(&self->_prefetcher);
   if (!WeakRetained)
   {
-    sub_1000474A4(v41, "");
-    sub_100211ECC("No prefetcher initialized", buf);
-    sub_1000E661C(v41, buf, 1);
+    sub_1000474A4(v34, "");
+    sub_100211ECC(buf, "No prefetcher initialized");
+    sub_1000E661C(v34, buf, 1);
     if (SHIBYTE(buf[0].__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(buf[0].__r_.__value_.__l.__data_);
     }
 
-    if (SBYTE7(v42) < 0)
+    if (SBYTE7(v35) < 0)
     {
-      operator delete(v41[0]);
+      operator delete(v34[0]);
     }
 
-    sub_10003F5D0(&v44);
+    sub_10003F5D0(&v37);
   }
 
   [WeakRetained allDownloadItemsCompleted];
@@ -1963,7 +2121,7 @@ LABEL_14:
     v13 = v12;
     if (v12)
     {
-      [v12 ps_STLStringOnNil:&stru_10044D120];
+      objc_msgSend_ps_STLStringOnNil_(v12);
       if (v23 >= 0)
       {
         v14 = __p;
@@ -2036,7 +2194,7 @@ LABEL_14:
   if (!WeakRetained)
   {
     sub_1000474A4(__p, "");
-    sub_100211ECC("No prefetcher initialized", &buf);
+    sub_100211ECC(&buf, "No prefetcher initialized");
     sub_1000E661C(__p, &buf, 1);
     if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -2088,29 +2246,29 @@ LABEL_14:
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Immediate fetch completed.  Importing into localizer", buf, 2u);
   }
 
-  v49 = 0;
   v50 = 0;
   v51 = 0;
-  sub_10035C4EC(&v49, [fetchCopy count]);
-  v47 = 0u;
+  v52 = 0;
+  sub_10035C4EC(&v50, [fetchCopy count]);
   v48 = 0u;
-  v45 = 0u;
+  v49 = 0u;
   v46 = 0u;
+  v47 = 0u;
   obj = fetchCopy;
-  v4 = [obj countByEnumeratingWithState:&v45 objects:v62 count:16];
+  v4 = [obj countByEnumeratingWithState:&v46 objects:v63 count:16];
   if (v4)
   {
-    v5 = *v46;
+    v5 = *v47;
     do
     {
       for (i = 0; i != v4; i = i + 1)
       {
-        if (*v46 != v5)
+        if (*v47 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v45 + 1) + 8 * i);
+        v7 = *(*(&v46 + 1) + 8 * i);
         floorUuid = [v7 floorUuid];
         v9 = floorUuid;
         uTF8String = [floorUuid UTF8String];
@@ -2126,7 +2284,7 @@ LABEL_14:
           operator new();
         }
 
-        v44 = v11;
+        v45 = v11;
         if (v11)
         {
           memmove(&__dst, uTF8String, v11);
@@ -2148,7 +2306,7 @@ LABEL_14:
           operator new();
         }
 
-        v42 = v16;
+        v43 = v16;
         if (v16)
         {
           memmove(&__p, uTF8String2, v16);
@@ -2156,20 +2314,20 @@ LABEL_14:
 
         __p.n128_u8[v17] = 0;
         sub_100261BAC(buf, &__dst, &__p, +[CLLocationContextConversions fromCLPipelinedLocationContext:](CLLocationContextConversions, "fromCLPipelinedLocationContext:", [v7 locationContext]));
-        if (v42 < 0)
+        if (v43 < 0)
         {
           operator delete(__p.n128_u64[0]);
         }
 
-        if (v44 < 0)
+        if (v45 < 0)
         {
           operator delete(__dst);
         }
 
-        v18 = v50;
-        if (v50 >= v51)
+        v18 = v51;
+        if (v51 >= v52)
         {
-          v50 = sub_1003691DC(&v49, buf);
+          v51 = sub_1003691DC(&v50, buf);
           if (qword_10045B070 == -1)
           {
             goto LABEL_31;
@@ -2182,30 +2340,30 @@ LABEL_52:
 
         if ((buf[23] & 0x80000000) != 0)
         {
-          sub_100003228(v50, *buf, *&buf[8]);
+          sub_100003228(v51, *buf, *&buf[8]);
         }
 
         else
         {
           v19 = *buf;
-          *(v50 + 2) = *&buf[16];
+          *(v51 + 2) = *&buf[16];
           *v18 = v19;
         }
 
-        if (SHIBYTE(v60) < 0)
+        if (SHIBYTE(v61) < 0)
         {
-          sub_100003228(v18 + 24, v59, *(&v59 + 1));
+          sub_100003228(v18 + 24, v60, *(&v60 + 1));
         }
 
         else
         {
-          v29 = v59;
-          *(v18 + 5) = v60;
-          *(v18 + 24) = v29;
+          v30 = v60;
+          *(v18 + 5) = v61;
+          *(v18 + 24) = v30;
         }
 
-        *(v18 + 12) = v61;
-        v50 = v18 + 56;
+        *(v18 + 12) = v62;
+        v51 = v18 + 56;
         if (qword_10045B070 != -1)
         {
           goto LABEL_52;
@@ -2226,42 +2384,43 @@ LABEL_31:
             v22 = *v21;
           }
 
-          v23 = nullsub_35(buf);
-          v24 = *(v23 + 23);
-          v25 = *v23;
-          v26 = sub_100261BE4(buf);
-          if (v24 >= 0)
+          nullsub_35();
+          v24 = v23;
+          v25 = *(v23 + 23);
+          v26 = *v23;
+          v27 = sub_100261BE4(buf);
+          if (v25 >= 0)
           {
-            v27 = v23;
+            v28 = v24;
           }
 
           else
           {
-            v27 = v25;
+            v28 = v26;
           }
 
-          *v52 = 136381187;
-          v53 = v22;
-          if (v26 == 1)
+          *v53 = 136381187;
+          v54 = v22;
+          if (v27 == 1)
           {
-            v28 = 82;
+            v29 = 82;
           }
 
           else
           {
-            v28 = 73;
+            v29 = 73;
           }
 
-          v54 = 2081;
-          v55 = v27;
-          v56 = 1026;
-          v57 = v28;
-          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "TileVisit, fetch, %{private}s, %{private}s, %{public}c", v52, 0x1Cu);
+          v55 = 2081;
+          v56 = v28;
+          v57 = 1026;
+          v58 = v29;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "TileVisit, fetch, %{private}s, %{private}s, %{public}c", v53, 0x1Cu);
         }
 
-        if (SHIBYTE(v60) < 0)
+        if (SHIBYTE(v61) < 0)
         {
-          operator delete(v59);
+          operator delete(v60);
           if ((buf[23] & 0x80000000) == 0)
           {
             continue;
@@ -2276,68 +2435,68 @@ LABEL_31:
         operator delete(*buf);
       }
 
-      v4 = [obj countByEnumeratingWithState:&v45 objects:v62 count:16];
+      v4 = [obj countByEnumeratingWithState:&v46 objects:v63 count:16];
     }
 
     while (v4);
   }
 
-  v30.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
-  (*(**(v38 + 856) + 184))(*(v38 + 856), v30.__d_.__rep_ - 1000000 * (v30.__d_.__rep_ % 21600), &v49);
+  v31.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
+  (*(**(v39 + 856) + 184))(*(v39 + 856), v31.__d_.__rep_ - 1000000 * (v31.__d_.__rep_ % 21600), &v50);
   if (qword_10045B070 != -1)
   {
     sub_100387B98();
   }
 
-  v31 = qword_10045B078;
+  v32 = qword_10045B078;
   if (os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_INFO))
   {
     *buf = 134283777;
-    *&buf[4] = v30;
+    *&buf[4] = v31;
     *&buf[12] = 2049;
-    *&buf[14] = v30.__d_.__rep_ - 1000000 * (v30.__d_.__rep_ % 21600);
-    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "Prefetch complete, fuzz, %{private}lld, %{private}lld", buf, 0x16u);
+    *&buf[14] = v31.__d_.__rep_ - 1000000 * (v31.__d_.__rep_ % 21600);
+    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "Prefetch complete, fuzz, %{private}lld, %{private}lld", buf, 0x16u);
   }
 
-  v32 = v49;
-  if (v49)
+  v33 = v50;
+  if (v50)
   {
-    v33 = v50;
-    v34 = v49;
-    if (v50 == v49)
+    v34 = v51;
+    v35 = v50;
+    if (v51 == v50)
     {
 LABEL_68:
-      v50 = v32;
-      operator delete(v34);
+      v51 = v33;
+      operator delete(v35);
       goto LABEL_69;
     }
 
     while (1)
     {
-      if (*(v33 - 9) < 0)
+      if (*(v34 - 9) < 0)
       {
-        operator delete(*(v33 - 4));
-        v35 = v33 - 7;
-        if (*(v33 - 33) < 0)
+        operator delete(*(v34 - 4));
+        v36 = v34 - 7;
+        if (*(v34 - 33) < 0)
         {
 LABEL_66:
-          operator delete(*v35);
+          operator delete(*v36);
         }
       }
 
       else
       {
-        v35 = v33 - 7;
-        if (*(v33 - 33) < 0)
+        v36 = v34 - 7;
+        if (*(v34 - 33) < 0)
         {
           goto LABEL_66;
         }
       }
 
-      v33 = v35;
-      if (v35 == v32)
+      v34 = v36;
+      if (v36 == v33)
       {
-        v34 = v49;
+        v35 = v50;
         goto LABEL_68;
       }
     }
@@ -2358,7 +2517,7 @@ LABEL_69:
     if (!ptr)
     {
       sub_1000474A4(v14, "");
-      sub_100211E7C("Localizer DB must be unlocked to playback dataruns", &v20);
+      sub_100211E7C(&v20, "Localizer DB must be unlocked to playback dataruns");
       sub_1000E661C(v14, &v20, 1);
       if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -2377,7 +2536,7 @@ LABEL_69:
     sub_100353C18(v14, v7, 0);
     if (datarunCopy)
     {
-      [datarunCopy ps_STLString];
+      objc_msgSend_ps_STLString(datarunCopy);
     }
 
     else
@@ -2498,7 +2657,7 @@ LABEL_21:
   if (!self->_fsDb.__ptr_)
   {
     sub_1000474A4(__p, "");
-    sub_1000D8214("setLocationGroups fsDb is not set", buf);
+    sub_1000D8214(buf, "setLocationGroups fsDb is not set");
     sub_1000E661C(__p, buf, 1);
     if ((buf[23] & 0x80000000) != 0)
     {
@@ -2516,7 +2675,7 @@ LABEL_21:
   if (!self->_indoorUniverse)
   {
     sub_1000474A4(__p, "");
-    sub_1001F2B44("setLocationGroups, indoorUniverse is not set", buf);
+    sub_1001F2B44(buf, "setLocationGroups, indoorUniverse is not set");
     sub_1000E661C(__p, buf, 1);
     if ((buf[23] & 0x80000000) != 0)
     {
@@ -2535,7 +2694,7 @@ LABEL_21:
   if (!v5)
   {
     sub_1000474A4(__p, "");
-    sub_1002B218C("setLocationGroups, xpcConnection is not set", buf);
+    sub_1002B218C(buf, "setLocationGroups, xpcConnection is not set");
     sub_1000E661C(__p, buf, 1);
     if ((buf[23] & 0x80000000) != 0)
     {
@@ -2647,13 +2806,13 @@ LABEL_21:
 
 - (void)onQueueLocalizeOnSelection:(const void *)selection withParameterOverrides:(optional<proto::params::LocalizerParameters>)overrides
 {
-  [(CLIndoorProvider *)self selectedLocation];
+  objc_msgSend_selectedLocation(self, a2);
   if (buf[0] != 1)
   {
     goto LABEL_6;
   }
 
-  [(CLIndoorProvider *)self selectedLocation];
+  objc_msgSend_selectedLocation(self);
   v6 = sub_1001F0D2C(selection, v16);
   if (v15 == 1)
   {
@@ -2737,7 +2896,7 @@ LABEL_18:
   if (self->_deferredState.m_initialized)
   {
     sub_1000474A4(v27, "");
-    sub_10020A050("startUpdatingLocationDeferred must be entered without a deferredState", __p);
+    sub_10020A050(__p, "startUpdatingLocationDeferred must be entered without a deferredState");
     sub_1000E661C(v27, __p, 1);
     if ((__p[23] & 0x80000000) != 0)
     {
@@ -2764,11 +2923,11 @@ LABEL_18:
     {
       if (deferredCopy)
       {
-        [deferredCopy gpsLocation];
+        objc_msgSend_gpsLocation(deferredCopy);
         v6 = *(v38 + 12);
-        [deferredCopy gpsLocation];
+        objc_msgSend_gpsLocation(deferredCopy);
         v7 = *(&v31 + 1);
-        [deferredCopy gpsLocation];
+        objc_msgSend_gpsLocation(deferredCopy);
         v8 = *(&v19 + 4);
       }
 
@@ -2849,11 +3008,11 @@ LABEL_18:
     {
       if (deferredCopy)
       {
-        [deferredCopy gpsLocation];
+        objc_msgSend_gpsLocation(deferredCopy);
         v10 = *&__p[4];
-        [deferredCopy gpsLocation];
+        objc_msgSend_gpsLocation(deferredCopy);
         v11 = *(&v27[1] + 4);
-        [deferredCopy gpsLocation];
+        objc_msgSend_gpsLocation(deferredCopy);
         v12 = *(&v19 + 4);
       }
 
@@ -2907,7 +3066,7 @@ LABEL_18:
   if (self->_indoorUniverse)
   {
     sub_1000474A4(__p, "");
-    sub_10036A0C0("startUpdatingLocationAtLocation, indoorUniverse already initialized", buf);
+    sub_10036A0C0(buf, "startUpdatingLocationAtLocation, indoorUniverse already initialized");
     sub_1000E661C(__p, buf, 1);
     if (SHIBYTE(buf[0].__r_.__value_.__r.__words[2]) < 0)
     {
@@ -3019,7 +3178,7 @@ LABEL_18:
       v14 = sub_10010C670();
       if (*p_lastOutdoorPositionAvailable)
       {
-        [(CLGpsPosition *)*p_lastOutdoorPositionAvailable gpsLocation];
+        objc_msgSend_gpsLocation(*p_lastOutdoorPositionAvailable);
       }
 
       else
@@ -3292,11 +3451,11 @@ LABEL_70:
   *&self->_localizationSessionMetrics.ttffNanos.__rep_ = v8;
   *&self->_localizationSessionMetrics.avgHorizontalAccuracy = v19[2];
   self->_localizationSessionMetrics.sessionStartTimeNanos.__rep_ = sub_10010C670();
-  [(CLIndoorProvider *)self selectedLocation];
+  objc_msgSend_selectedLocation(self);
   if (buf[0])
   {
     sub_10035B188(v19);
-    [(CLIndoorProvider *)self selectedLocation];
+    objc_msgSend_selectedLocation(self);
     sub_1001F10C8(v19, v15);
     v9.n128_f64[0] = sub_10034D9F0(&self->_localizationSessionMetrics, v17);
     v10 = v16;
@@ -3341,6 +3500,89 @@ LABEL_70:
   [(CLIndoorProvider *)self setCurrentForegroundFetchRequest:0];
 
   objc_autoreleasePoolPop(v4);
+}
+
+- (void)onQueueStopUpdatingLocation:(int)location
+{
+  v3 = *&location;
+  if (qword_10045B070 != -1)
+  {
+    sub_100387BC0();
+    v5 = qword_10045B078;
+    if (!os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_4;
+    }
+
+    goto LABEL_3;
+  }
+
+  v5 = qword_10045B078;
+  if (os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_DEFAULT))
+  {
+LABEL_3:
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "stopUpdatingLocation", buf, 2u);
+  }
+
+LABEL_4:
+  if (self->_deferredState.m_initialized && self->_anon_11[7] == 1)
+  {
+    sub_100364D88(&self->_anon_11[15]);
+    self->_anon_11[7] = 0;
+  }
+
+  if (!self->_serviceLocalizer.__ptr_ && ![(CLIndoorProvider *)self localizationStarted])
+  {
+    if (qword_10045B070 == -1)
+    {
+      v7 = qword_10045B078;
+      if (!os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_INFO))
+      {
+        goto LABEL_13;
+      }
+    }
+
+    else
+    {
+      sub_100387B98();
+      v7 = qword_10045B078;
+      if (!os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_INFO))
+      {
+        goto LABEL_13;
+      }
+    }
+
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "request to stop localizing indoor is ignored because no localization active", v8, 2u);
+    goto LABEL_13;
+  }
+
+  if (qword_10045B070 != -1)
+  {
+    sub_100387B98();
+    v6 = qword_10045B078;
+    if (!os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_INFO))
+    {
+      goto LABEL_12;
+    }
+
+    goto LABEL_11;
+  }
+
+  v6 = qword_10045B078;
+  if (os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_INFO))
+  {
+LABEL_11:
+    *v9 = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "request to stop localizing indoor", v9, 2u);
+  }
+
+LABEL_12:
+  [(CLIndoorProvider *)self stopLocalizer];
+LABEL_13:
+  [(CLIndoorProvider *)self onQueueInterruptDownloads:v3];
+  [(CLIndoorProvider *)self setLocalizationActive:0];
 }
 
 - (void)stopLocalizer
@@ -3481,11 +3723,11 @@ LABEL_70:
     if (locationCopy)
     {
       v11 = [GeographicCoordinate alloc];
-      [locationCopy gpsLocation];
+      objc_msgSend_gpsLocation(locationCopy);
       v12 = *(__p[0].__r_.__value_.__r.__words + 4);
-      [locationCopy gpsLocation];
+      objc_msgSend_gpsLocation(locationCopy);
       v13 = *&v21[12];
-      [locationCopy gpsLocation];
+      objc_msgSend_gpsLocation(locationCopy);
       v14 = [(GeographicCoordinate *)v11 initWithLatitude:v12 longitude:v13 andAltitude:*(&v20[3] + 4)];
     }
 
@@ -3535,7 +3777,7 @@ LABEL_6:
     if (!self->_indoorUniverse)
     {
       sub_1000474A4(v12, "");
-      sub_100258AB0("IndoorUniverse not initialzied prior to requesting update.", &buf);
+      sub_100258AB0(&buf, "IndoorUniverse not initialzied prior to requesting update.");
       sub_100383AA4(&buf, __p, v12);
       sub_10003F5D0(__p);
     }
@@ -3579,7 +3821,7 @@ LABEL_6:
   memset(v37, 0, sizeof(v37));
   if (self->_lastOutdoorPositionAvailable)
   {
-    [(CLGpsPosition *)self->_lastOutdoorPositionAvailable gpsLocation];
+    objc_msgSend_gpsLocation(self->_lastOutdoorPositionAvailable);
     v6 = *(v37 + 4);
     v7 = v36 & 0xFC;
   }
@@ -3686,13 +3928,13 @@ LABEL_6:
     else if (availableCopy)
     {
 LABEL_14:
-      [availableCopy gpsLocationPrivate];
+      objc_msgSend_gpsLocationPrivate(availableCopy);
       v17 = *&buf[40];
 LABEL_17:
       sub_10013D0FC(v25, v17);
       if (availableCopy)
       {
-        [availableCopy gpsLocationPrivate];
+        objc_msgSend_gpsLocationPrivate(availableCopy);
         v18 = *&buf[44];
       }
 
@@ -3705,7 +3947,7 @@ LABEL_17:
       sub_10013D110(v25, v18);
       if (availableCopy)
       {
-        [availableCopy gpsLocationPrivate];
+        objc_msgSend_gpsLocationPrivate(availableCopy);
         v19 = *&v44;
       }
 
@@ -3730,7 +3972,7 @@ LABEL_17:
           _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "Ignoring outdoor position estimate - not localizing yet", buf, 2u);
         }
 
-        sub_1003245E4();
+        sub_1003245E4(buf, v25);
         operator new();
       }
 
@@ -3791,7 +4033,7 @@ LABEL_17:
         }
       }
 
-      nullsub_76(v23);
+      nullsub_76();
       sub_10013CFA4(v25);
       goto LABEL_53;
     }
@@ -3802,14 +4044,14 @@ LABEL_17:
   }
 
 LABEL_53:
-  nullsub_76(&v33);
+  nullsub_76();
 }
 
 - (void)gpsEstimateAvailable:(id)available
 {
   availableCopy = available;
   v6 = availableCopy;
-  if (!availableCopy || ([availableCopy gpsLocation], v56 != 1) && (objc_msgSend(v6, "gpsLocation"), v25 != 9))
+  if (!availableCopy || (objc_msgSend_gpsLocation(availableCopy), v56 != 1) && (objc_msgSend_gpsLocation(v6), v25 != 9))
   {
     objc_storeStrong(&self->_lastNonGpsPositionAvailable, available);
     v9 = 0;
@@ -3832,7 +4074,7 @@ LABEL_11:
     memset(v45, 0, sizeof(v45));
     if (v6)
     {
-      [v6 gpsLocation];
+      objc_msgSend_gpsLocation(v6);
       v81 = 0u;
       v80 = 0u;
       v79 = 0u;
@@ -3865,7 +4107,7 @@ LABEL_11:
       v53 = 0u;
       *buf = 0u;
       v51 = 0u;
-      [v6 gpsLocationPrivate];
+      objc_msgSend_gpsLocationPrivate(v6);
     }
 
     else
@@ -4082,7 +4324,7 @@ LABEL_9:
   {
     if (qword_10045B070 == -1)
     {
-      v6 = qword_10045B078;
+      v5 = qword_10045B078;
       if (!os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_6;
@@ -4092,7 +4334,7 @@ LABEL_9:
     else
     {
       sub_100387BC0();
-      v6 = qword_10045B078;
+      v5 = qword_10045B078;
       if (!os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_6;
@@ -4100,36 +4342,36 @@ LABEL_9:
     }
 
     LOWORD(__p[0]) = 0;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "Receiving CLPOutdoorEstimatorLogEntry notification", __p, 2u);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "Receiving CLPOutdoorEstimatorLogEntry notification", __p, 2u);
 LABEL_6:
-    sub_10031A37C(v13);
-    sub_10006D430(v12);
+    sub_10031A37C(v12);
+    sub_10006D430(v11);
     if (availableCopy)
     {
-      [availableCopy serializedOutdoorEstimatorLogEntry];
+      objc_msgSend_serializedOutdoorEstimatorLogEntry(availableCopy);
     }
 
     else
     {
       __p[0] = 0;
       __p[1] = 0;
-      v11 = 0;
+      v10 = 0;
     }
 
     wireless_diagnostics::google::protobuf::MessageLite::ParseFromString();
-    if (SHIBYTE(v11) < 0)
+    if (SHIBYTE(v10) < 0)
     {
       operator delete(__p[0]);
     }
 
-    v5 = *(*(*self->_serviceLocalizer.__ptr_ + 120))(self->_serviceLocalizer.__ptr_);
-    sub_1003250D4(__p, v13, v12);
+    (*(*self->_serviceLocalizer.__ptr_ + 120))(self->_serviceLocalizer.__ptr_);
+    sub_1003250D4(__p, v12, v11);
     operator new();
   }
 
   if (qword_10045B070 == -1)
   {
-    v8 = qword_10045B078;
+    v7 = qword_10045B078;
     if (!os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_INFO))
     {
       goto LABEL_16;
@@ -4137,12 +4379,12 @@ LABEL_6:
 
 LABEL_11:
     LOWORD(__p[0]) = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Ignoring outdoor estimator update notification - not localizing yet", __p, 2u);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Ignoring outdoor estimator update notification - not localizing yet", __p, 2u);
     goto LABEL_16;
   }
 
   sub_100387BC0();
-  v8 = qword_10045B078;
+  v7 = qword_10045B078;
   if (os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_INFO))
   {
     goto LABEL_11;
@@ -4199,17 +4441,17 @@ LABEL_16:
       v7 = -1;
     }
 
-    v12 = v7;
+    v11 = v7;
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  sub_10031A37C(v11);
-  v10 = *(*(*self->_serviceLocalizer.__ptr_ + 120))(self->_serviceLocalizer.__ptr_);
-  sub_100324B40(&buf, v11, &v12);
+  sub_10031A37C(v10);
+  (*(*self->_serviceLocalizer.__ptr_ + 120))(self->_serviceLocalizer.__ptr_);
+  sub_100324B40(&buf, v10, &v11);
   operator new();
 }
 
@@ -4232,28 +4474,28 @@ LABEL_16:
     if (!os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_DEBUG))
     {
 LABEL_4:
-      sub_10031A37C(v10);
-      sub_10005810C(v9);
+      sub_10031A37C(v9);
+      sub_10005810C(v8);
       if (availableCopy)
       {
-        [availableCopy serializedVIOEstimation];
+        objc_msgSend_serializedVIOEstimation(availableCopy);
       }
 
       else
       {
         __p[0] = 0;
         __p[1] = 0;
-        v8 = 0;
+        v7 = 0;
       }
 
       wireless_diagnostics::google::protobuf::MessageLite::ParseFromString();
-      if (SHIBYTE(v8) < 0)
+      if (SHIBYTE(v7) < 0)
       {
         operator delete(__p[0]);
       }
 
-      v6 = *(*(*self->_serviceLocalizer.__ptr_ + 120))(self->_serviceLocalizer.__ptr_);
-      sub_100324CA4(__p, v10, v9);
+      (*(*self->_serviceLocalizer.__ptr_ + 120))(self->_serviceLocalizer.__ptr_);
+      sub_100324CA4(__p, v9, v8);
       operator new();
     }
   }
@@ -4282,28 +4524,28 @@ LABEL_4:
     if (!os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_DEBUG))
     {
 LABEL_4:
-      sub_10031A37C(v10);
-      sub_100058258(v9);
+      sub_10031A37C(v9);
+      sub_100058258(v8);
       if (availableCopy)
       {
-        [availableCopy serializedVLLocalizationResult];
+        objc_msgSend_serializedVLLocalizationResult(availableCopy);
       }
 
       else
       {
         __p[0] = 0;
         __p[1] = 0;
-        v8 = 0;
+        v7 = 0;
       }
 
       wireless_diagnostics::google::protobuf::MessageLite::ParseFromString();
-      if (SHIBYTE(v8) < 0)
+      if (SHIBYTE(v7) < 0)
       {
         operator delete(__p[0]);
       }
 
-      v6 = *(*(*self->_serviceLocalizer.__ptr_ + 120))(self->_serviceLocalizer.__ptr_);
-      sub_100324E10(__p, v10, v9);
+      (*(*self->_serviceLocalizer.__ptr_ + 120))(self->_serviceLocalizer.__ptr_);
+      sub_100324E10(__p, v9, v8);
       operator new();
     }
   }
@@ -4373,7 +4615,6 @@ LABEL_4:
 
 - (void)setSelectedLocation:(optional<SelectedLocations>)location
 {
-  v4 = **&location.m_initialized;
   if (self->_selectedLocation.m_initialized)
   {
     if (**&location.m_initialized)
@@ -4392,25 +4633,25 @@ LABEL_4:
 
   else if (**&location.m_initialized)
   {
-    v6 = *(*&location.m_initialized + 16);
+    v5 = *(*&location.m_initialized + 16);
     *(&self->_selectedLocation.m_storage.dummy_.aligner_ + 7) = *(*&location.m_initialized + 8);
-    self[1].super.isa = v6;
-    if (v6)
+    self[1].super.isa = v5;
+    if (v5)
     {
-      atomic_fetch_add_explicit(v6 + 1, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(v5 + 1, 1uLL, memory_order_relaxed);
     }
 
-    v7 = *&location.m_initialized;
+    v6 = *&location.m_initialized;
     sub_10035B044(&self[1]._deferredState, *&location.m_initialized + 24);
-    v8 = *(v7 + 72);
-    *&self[1]._anon_11[31] = *(v7 + 64);
-    *&self[1]._anon_11[39] = v8;
-    if (v8)
+    v7 = *(v6 + 72);
+    *&self[1]._anon_11[31] = *(v6 + 64);
+    *&self[1]._anon_11[39] = v7;
+    if (v7)
     {
-      atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
     }
 
-    LOBYTE(self[1]._floorEnvironmentLoader.__ptr_) = *(v7 + 80);
+    LOBYTE(self[1]._floorEnvironmentLoader.__ptr_) = *(v6 + 80);
     self->_selectedLocation.m_initialized = 1;
   }
 }

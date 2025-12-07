@@ -231,7 +231,7 @@ LABEL_34:
 LABEL_36:
         self->_local = v25;
         self->_kindType = 1;
-        v36 = self->_remote;
+        v35 = self->_remote;
         self->_remote = 0;
       }
 
@@ -240,7 +240,6 @@ LABEL_36:
         v32 = objc_opt_class();
         NSStringFromClass(v32);
         v34 = v33 = dataCopy;
-        v35 = *&v6[*v9];
         v10 = CCSkipFieldErrorForMessage();
 
         dataCopy = v33;
@@ -267,22 +266,21 @@ LABEL_38:
 LABEL_41:
   if (!*&v6[*v9])
   {
-    v40 = 1;
+    v38 = 1;
     goto LABEL_45;
   }
 
 LABEL_42:
-  v37 = objc_opt_class();
-  v10 = NSStringFromClass(v37);
-  v38 = *&v6[*v9];
-  v39 = CCInvalidBufferErrorForMessage();
+  v36 = objc_opt_class();
+  v10 = NSStringFromClass(v36);
+  v37 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_43:
-  v40 = 0;
+  v38 = 0;
 LABEL_45:
 
-  return v40;
+  return v38;
 }
 
 - (CCToolKitToolContainerDefinitionDevice)initWithKind:(id)kind kindType:(unsigned int)type error:(id *)error

@@ -591,7 +591,7 @@ LABEL_52:
       v2 = 0;
       goto LABEL_91;
     case 5:
-      v16 = [(NSMutableSet *)self->_senderNames count];
+      v16 = objc_msgSend_count(self->_senderNames, a2);
       if (self->_forMultipleAsset)
       {
         if (v16 == 1)
@@ -714,7 +714,7 @@ LABEL_99:
         goto LABEL_91;
       }
 
-      [(NSArray *)self->_momentShareUUIDs count];
+      objc_msgSend_count(self->_momentShareUUIDs);
       v5 = PLServicesLocalizedFrameworkStringForAssetsd();
       goto LABEL_67;
     case 0xALL:
@@ -916,8 +916,8 @@ LABEL_11:
 - (double)completionPercentage
 {
   assetCount = self->_assetCount;
-  v4 = [(NSMutableOrderedSet *)self->_placeholderAssetUUIDs count];
-  v5 = [(NSMutableOrderedSet *)self->_lowResThumbAssetUUIDs count];
+  v4 = objc_msgSend_count(self->_placeholderAssetUUIDs, a2);
+  v5 = objc_msgSend_count(self->_lowResThumbAssetUUIDs);
   if (assetCount)
   {
     return (v5 + v4) / assetCount;
@@ -958,7 +958,7 @@ LABEL_11:
   {
     if (notificationType == 3)
     {
-      if ([(NSString *)self->_albumUUID isEqualToString:v12])
+      if (objc_msgSend_isEqualToString_(self->_albumUUID))
       {
         v14 = [[PLNotification alloc] _initWithPhotosAddedNotification:self mergedWithNotificationDictionary:dictionaryCopy];
         thumbnailImageData = [v14 thumbnailImageData];
@@ -976,7 +976,7 @@ LABEL_11:
       notificationType = self->_notificationType;
     }
 
-    if ((notificationType & 0xFFFFFFFFFFFFFFFELL) == 4 && [(NSString *)self->_albumUUID isEqualToString:v12])
+    if ((notificationType & 0xFFFFFFFFFFFFFFFELL) == 4 && objc_msgSend_isEqualToString_(self->_albumUUID))
     {
       v17 = [dictionaryCopy objectForKey:*MEMORY[0x1E69C01C8]];
       v63 = [(NSDate *)self->_commentDate earlierDate:v17];
@@ -1044,7 +1044,7 @@ LABEL_11:
       {
         mainAssetUUID = self->_mainAssetUUID;
         v32 = [dictionaryCopy objectForKey:*MEMORY[0x1E69C01B0]];
-        v60 = ![(NSString *)mainAssetUUID isEqualToString:v32];
+        v60 = objc_msgSend_isEqualToString_(mainAssetUUID) ^ 1;
       }
 
       v33 = *MEMORY[0x1E69C0230];
@@ -1143,10 +1143,10 @@ LABEL_50:
 
   notificationType = [(PLNotification *)notificationCopy notificationType];
   notificationType = self->_notificationType;
-  if (notificationType != 3 || (v8 = [(NSString *)self->_albumUUID isEqualToString:v5->_albumUUID], notificationType = self->_notificationType, !v8))
+  if (notificationType != 3 || (isEqualToString = objc_msgSend_isEqualToString_(self->_albumUUID), notificationType = self->_notificationType, !isEqualToString))
   {
     v12 = notificationType == notificationType && (notificationType & 0xFFFFFFFFFFFFFFFELL) == 4;
-    if (!v12 || ![(NSString *)self->_albumUUID isEqualToString:v5->_albumUUID]|| self->_commentIsCaption || v5->_commentIsCaption)
+    if (!v12 || !objc_msgSend_isEqualToString_(self->_albumUUID) || self->_commentIsCaption || v5->_commentIsCaption)
     {
       goto LABEL_26;
     }
@@ -1199,7 +1199,7 @@ LABEL_50:
 
     else
     {
-      v28 = ![(NSString *)selfCopy->_mainAssetUUID isEqualToString:v5->_mainAssetUUID];
+      v28 = objc_msgSend_isEqualToString_(selfCopy->_mainAssetUUID) ^ 1;
     }
 
     if (selfCopy->_isMixedType)
@@ -1400,7 +1400,7 @@ LABEL_3:
   dataCopy = data;
   titleCopy = title;
   subtitleCopy = subtitle;
-  if (![dsCopy count])
+  if (!objc_msgSend_count(dsCopy))
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"PLNotification.m" lineNumber:763 description:{@"Invalid parameter not satisfying: %@", @"UUIDs.count"}];
@@ -1450,7 +1450,7 @@ LABEL_3:
   v8 = [(PLNotification *)self _initWithType:9];
   if (v8)
   {
-    v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(sharesCopy, "count")}];
+    v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(sharesCopy)];
     v24[0] = MEMORY[0x1E69E9820];
     v24[1] = 3221225472;
     v24[2] = __47__PLNotification_initWithExpiringMomentShares___block_invoke;
@@ -1699,7 +1699,7 @@ LABEL_5:
     v28[4] = 0;
 
     objc_storeStrong(v28 + 9, ds);
-    v28[10] = [dsCopy count];
+    v28[10] = objc_msgSend_count(dsCopy);
     objc_storeStrong(v28 + 35, uID);
     objc_storeStrong(v28 + 36, gUID);
     objc_storeStrong(v28 + 11, iDs);
@@ -1749,7 +1749,7 @@ LABEL_5:
     v23[4] = 0;
 
     objc_storeStrong(v23 + 9, ds);
-    v23[10] = [dsCopy count];
+    v23[10] = objc_msgSend_count(dsCopy);
     objc_storeStrong(v23 + 35, uID);
     objc_storeStrong(v23 + 36, gUID);
     objc_storeStrong(v23 + 11, iDs);
@@ -2095,7 +2095,7 @@ LABEL_9:
     notificationType = [notificationCopy notificationType];
     if (notificationType == [withNotificationCopy notificationType])
     {
-      v16 = [v9[9] count];
+      v16 = objc_msgSend_count(v9[9]);
     }
 
     else
@@ -2141,7 +2141,7 @@ LABEL_9:
     [currentHandler handleFailureInMethod:a2 object:self file:@"PLNotification.m" lineNumber:371 description:{@"Invalid parameter not satisfying: %@", @"assetsAdded"}];
   }
 
-  if ([addedCopy count])
+  if (objc_msgSend_count(addedCopy))
   {
     if (albumCopy)
     {
@@ -2233,7 +2233,7 @@ LABEL_5:
     assetUUIDs = v9->_assetUUIDs;
     v9->_assetUUIDs = v35;
 
-    v9->_assetCount = [v11 count];
+    v9->_assetCount = objc_msgSend_count(v11);
     v37 = objc_alloc_init(MEMORY[0x1E695DFA0]);
     placeholderAssetUUIDs = v9->_placeholderAssetUUIDs;
     v9->_placeholderAssetUUIDs = v37;
@@ -2409,7 +2409,7 @@ LABEL_10:
 
     cloudBatchID2 = [addedCopy cloudBatchID];
     cloudBatchID3 = [v45 cloudBatchID];
-    v12->_containsBatchFirstKnownAsset = [cloudBatchID2 isEqualToString:cloudBatchID3] ^ 1;
+    v12->_containsBatchFirstKnownAsset = objc_msgSend_isEqualToString_(cloudBatchID2) ^ 1;
   }
 
 LABEL_12:
@@ -2427,7 +2427,7 @@ LABEL_12:
     [currentHandler handleFailureInMethod:a2 object:self file:@"PLNotification.m" lineNumber:267 description:{@"Invalid parameter not satisfying: %@", @"assetsAdded"}];
   }
 
-  if ([addedCopy count])
+  if (objc_msgSend_count(addedCopy))
   {
     if (shareCopy)
     {
@@ -2519,7 +2519,7 @@ LABEL_5:
     assetUUIDs = v9->_assetUUIDs;
     v9->_assetUUIDs = v35;
 
-    v9->_assetCount = [v11 count];
+    v9->_assetCount = objc_msgSend_count(v11);
     v37 = objc_alloc_init(MEMORY[0x1E695DFA0]);
     placeholderAssetUUIDs = v9->_placeholderAssetUUIDs;
     v9->_placeholderAssetUUIDs = v37;

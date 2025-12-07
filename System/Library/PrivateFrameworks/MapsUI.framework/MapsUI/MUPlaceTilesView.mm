@@ -274,29 +274,29 @@ LABEL_6:
 
 - (void)enumerateImageViewsWithBlock:(id)block
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   blockCopy = block;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   visibleCells = [(UICollectionView *)self->_contentCollectionView visibleCells];
-  v6 = [visibleCells countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [visibleCells countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(visibleCells);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -308,49 +308,45 @@ LABEL_6:
       }
 
       while (v7 != v9);
-      v7 = [visibleCells countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [visibleCells countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateViewsWithAlpha:(double)alpha
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   visibleCells = [(UICollectionView *)self->_contentCollectionView visibleCells];
-  v5 = [visibleCells countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [visibleCells countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(visibleCells);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) setAlpha:alpha];
+        [*(*(&v9 + 1) + 8 * v8++) setAlpha:alpha];
       }
 
       while (v6 != v8);
-      v6 = [visibleCells countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [visibleCells countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)imageViewForIndex:(unint64_t)index
@@ -371,17 +367,17 @@ LABEL_6:
 
 - (void)_updateContent
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = MUGetMUPlaceTilesViewLog();
   if (os_signpost_enabled(v3))
   {
-    *v9 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C5620000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "MUPlaceTilesViewUpdateContent", "", v9, 2u);
+    *v8 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C5620000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "MUPlaceTilesViewUpdateContent", "", v8, 2u);
   }
 
   v4 = objc_alloc_init(MEMORY[0x1E69955A0]);
-  v11[0] = @"kPlaceTilesSection";
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = @"kPlaceTilesSection";
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   [v4 appendSectionsWithIdentifiers:v5];
 
   [v4 appendItemsWithIdentifiers:self->_viewModels intoSectionWithIdentifier:@"kPlaceTilesSection"];
@@ -396,11 +392,9 @@ LABEL_6:
   v7 = MUGetMUPlaceTilesViewLog();
   if (os_signpost_enabled(v7))
   {
-    *v9 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C5620000, v7, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "MUPlaceTilesViewUpdateContent", "", v9, 2u);
+    *v8 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C5620000, v7, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "MUPlaceTilesViewUpdateContent", "", v8, 2u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateTileMetrics
@@ -434,7 +428,7 @@ LABEL_6:
 
 - (void)_setupStackView
 {
-  v46[5] = *MEMORY[0x1E69E9840];
+  v45[5] = *MEMORY[0x1E69E9840];
   [(MUPlaceTilesView *)self setClipsToBounds:0];
   v3 = objc_alloc_init(MEMORY[0x1E69DC840]);
   [(UICollectionViewFlowLayout *)v3 setScrollDirection:1];
@@ -442,10 +436,10 @@ LABEL_6:
   [(UICollectionViewFlowLayout *)v3 setMinimumLineSpacing:10.0];
   flowLayout = self->_flowLayout;
   self->_flowLayout = v3;
-  v44 = v3;
+  v43 = v3;
 
   v5 = objc_alloc(MEMORY[0x1E69DC7F0]);
-  v6 = [v5 initWithFrame:v44 collectionViewLayout:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
+  v6 = [v5 initWithFrame:v43 collectionViewLayout:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
   contentCollectionView = self->_contentCollectionView;
   self->_contentCollectionView = v6;
 
@@ -482,34 +476,32 @@ LABEL_6:
   heightConstraint = self->_heightConstraint;
   self->_heightConstraint = v23;
 
-  v38 = MEMORY[0x1E696ACD8];
+  v37 = MEMORY[0x1E696ACD8];
   leadingAnchor = [(UICollectionView *)v21 leadingAnchor];
   leadingAnchor2 = [(MUPlaceTilesView *)self leadingAnchor];
-  v41 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v46[0] = v41;
+  v40 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v45[0] = v40;
   trailingAnchor = [(UICollectionView *)v21 trailingAnchor];
   trailingAnchor2 = [(MUPlaceTilesView *)self trailingAnchor];
   v25 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v46[1] = v25;
+  v45[1] = v25;
   topAnchor = [(UICollectionView *)v21 topAnchor];
   topAnchor2 = [(MUPlaceTilesView *)self topAnchor];
   v28 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v46[2] = v28;
+  v45[2] = v28;
   bottomAnchor = [(UICollectionView *)v21 bottomAnchor];
   bottomAnchor2 = [(MUPlaceTilesView *)self bottomAnchor];
   v31 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
   v32 = self->_heightConstraint;
-  v46[3] = v31;
-  v46[4] = v32;
-  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:5];
-  [v38 activateConstraints:v33];
+  v45[3] = v31;
+  v45[4] = v32;
+  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:5];
+  [v37 activateConstraints:v33];
 
   v34 = objc_opt_self();
-  v45 = v34;
-  v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v45 count:1];
+  v44 = v34;
+  v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v44 count:1];
   v36 = [(MUPlaceTilesView *)self registerForTraitChanges:v35 withAction:sel__contentSizeDidChange];
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (MUPlaceTilesView)initWithConfiguration:(id)configuration

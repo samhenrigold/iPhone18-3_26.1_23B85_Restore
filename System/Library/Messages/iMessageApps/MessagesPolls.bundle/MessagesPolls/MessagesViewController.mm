@@ -2,6 +2,7 @@
 - (BOOL)_handleTextInputPayload:(id)payload withPayloadID:(id)d;
 - (CGSize)contentSizeThatFits:(CGSize)fits;
 - (_TtC13MessagesPolls22MessagesViewController)initWithNibName:(id)name bundle:(id)bundle;
+- (_TtC13MessagesPolls22MessagesViewController)initWithShouldBeSheetPresentationControllerDelegate:(BOOL)delegate;
 - (void)_didUpdateMessage:(id)message conversation:(id)conversation;
 - (void)didBecomeActiveWithConversation:(id)conversation;
 - (void)didChangeBackgroundLuminance:(double)luminance;
@@ -43,6 +44,20 @@
 
   bundleCopy = bundle;
   return sub_1613C(v5, v7, bundle);
+}
+
+- (_TtC13MessagesPolls22MessagesViewController)initWithShouldBeSheetPresentationControllerDelegate:(BOOL)delegate
+{
+  delegateCopy = delegate;
+  *(&self->super.super.super.super.isa + OBJC_IVAR____TtC13MessagesPolls22MessagesViewController_contentHost) = 0;
+  v5 = OBJC_IVAR____TtC13MessagesPolls22MessagesViewController_contentView;
+  v6 = type metadata accessor for ContentView(0);
+  (*(*(v6 - 8) + 56))(self + v5, 1, 1, v6);
+  *(&self->super.super.super.super.isa + OBJC_IVAR____TtC13MessagesPolls22MessagesViewController_pollViewModel) = 0;
+  *(&self->super.super.super.super.isa + OBJC_IVAR____TtC13MessagesPolls22MessagesViewController_pollNetworking) = 0;
+  v8.receiver = self;
+  v8.super_class = type metadata accessor for MessagesViewController(0);
+  return [(MessagesViewController *)&v8 initWithShouldBeSheetPresentationControllerDelegate:delegateCopy];
 }
 
 - (void)willBecomeActiveWithConversation:(id)conversation

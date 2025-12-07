@@ -130,7 +130,7 @@
   self->_lastCoordinate.longitude = v8;
   self->_lookAroundViewHeading = v10;
   self->_lastHeading = v10;
-  [(LookAroundPIPDataCoordinatorImpl *)self _notifyObservers:16, *v15];
+  [(LookAroundPIPDataCoordinatorImpl *)self _notifyObservers:16, *v15, *&v15[8]];
 }
 
 - (void)_willEndMovingLookAroundView:(BOOL)view shouldZoomIfFinished:(BOOL)finished
@@ -230,7 +230,7 @@ LABEL_23:
       [v26 centerCoordinateDistance];
     }
 
-    [v26 setCenterCoordinateDistance:*v30];
+    [v26 setCenterCoordinateDistance:{*v30, *&v30[8]}];
     [(MKMapView *)self->_mapView setCamera:v26 animated:1];
     goto LABEL_23;
   }

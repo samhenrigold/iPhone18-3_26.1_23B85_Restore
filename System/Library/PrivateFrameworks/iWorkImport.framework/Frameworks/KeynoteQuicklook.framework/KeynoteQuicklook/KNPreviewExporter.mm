@@ -7,21 +7,20 @@
 
 - (id)p_renderingExporterDelegate
 {
-  v3 = objc_alloc(MEMORY[0x277D7FFC0]);
-  v5 = objc_msgSend_initWithRenderingExporter_(v3, v4, self);
+  v2 = [objc_alloc(MEMORY[0x277D7FFC0]) initWithRenderingExporter:self];
 
-  return v5;
+  return v2;
 }
 
 - (void)setup
 {
-  v7.receiver = self;
-  v7.super_class = KNPreviewExporter;
-  [(KNSlideExporter *)&v7 setup];
-  objc_msgSend_setPrintingBackgrounds_(self, v3, 1);
-  objc_msgSend_setPrintingBuilds_(self, v4, 0);
-  objc_msgSend_setPrintingBorders_(self, v5, 0);
-  objc_msgSend_setPrintingSlideNumbers_(self, v6, 0);
+  v3.receiver = self;
+  v3.super_class = KNPreviewExporter;
+  [(KNSlideExporter *)&v3 setup];
+  [(KNRenderingExporter *)self setPrintingBackgrounds:1];
+  [(KNRenderingExporter *)self setPrintingBuilds:0];
+  [(KNRenderingExporter *)self setPrintingBorders:0];
+  [(KNRenderingExporter *)self setPrintingSlideNumbers:0];
 }
 
 @end

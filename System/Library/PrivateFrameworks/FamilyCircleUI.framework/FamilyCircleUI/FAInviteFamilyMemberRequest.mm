@@ -32,13 +32,13 @@
 
   if (v14)
   {
-    v15 = [v7 stringByAppendingFormat:@"&inviteeCompositeName=%@", v14];
+    v16 = [v7 stringByAppendingFormat:@"&inviteeCompositeName=%@", v14];
 
-    v7 = v15;
+    v7 = v16;
   }
 
-  v16 = _FALogSystem();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v17 = _FALogSystem(v15);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     [FAInviteFamilyMemberRequest _queryString];
   }
@@ -48,10 +48,9 @@
 
 - (void)_queryString
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_21BB35000, v0, OS_LOG_TYPE_DEBUG, "Query string %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_21BB35000, v0, OS_LOG_TYPE_DEBUG, "Query string %@", v1, 0xCu);
 }
 
 @end

@@ -158,14 +158,14 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_1901E6230;
   v3 = MEMORY[0x193AEA8E0](32, 0xE100000000000000);
   v4 = [objc_opt_self() keyCommandWithInput:v3 modifierFlags:0 action:sel_didPressSpacebar];
 
   *(v2 + 32) = v4;
-  type metadata accessor for PXContentFilterState(0, &lazy cache variable for type metadata for UIKeyCommand);
+  type metadata accessor for PXContentFilterState(0, &lazy cache variable for type metadata for UIKeyCommand, 0x1E69DCBA0);
   v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v5.super.isa;

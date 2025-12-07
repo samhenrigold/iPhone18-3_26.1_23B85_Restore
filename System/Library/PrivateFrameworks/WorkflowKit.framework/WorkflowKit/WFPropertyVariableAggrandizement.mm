@@ -59,7 +59,7 @@ void __79__WFPropertyVariableAggrandizement_applyToContentCollection_completionH
 
 id __79__WFPropertyVariableAggrandizement_applyToContentCollection_completionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
@@ -80,40 +80,38 @@ LABEL_4:
   v5 = v3;
   if ([*(a1 + 32) negativeProperty])
   {
-    v8 = MEMORY[0x1E696AD98];
-    v9 = objc_opt_class();
-    v10 = v5;
-    if (v10 && (objc_opt_isKindOfClass() & 1) == 0)
+    v7 = MEMORY[0x1E696AD98];
+    v8 = objc_opt_class();
+    v9 = v5;
+    if (v9 && (objc_opt_isKindOfClass() & 1) == 0)
     {
-      v12 = getWFGeneralLogObject();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+      v11 = getWFGeneralLogObject();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        v14 = 136315906;
-        v15 = "WFEnforceClass";
-        v16 = 2114;
-        v17 = v10;
-        v18 = 2114;
-        v19 = objc_opt_class();
-        v20 = 2114;
-        v21 = v9;
-        v13 = v19;
-        _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v14, 0x2Au);
+        v13 = 136315906;
+        v14 = "WFEnforceClass";
+        v15 = 2114;
+        v16 = v9;
+        v17 = 2114;
+        v18 = objc_opt_class();
+        v19 = 2114;
+        v20 = v8;
+        v12 = v18;
+        _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v13, 0x2Au);
       }
 
-      v11 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v11 = v10;
+      v10 = v9;
     }
 
-    v5 = [v8 numberWithBool:{objc_msgSend(v11, "BOOLValue") ^ 1}];
+    v5 = [v7 numberWithBool:{objc_msgSend(v10, "BOOLValue") ^ 1}];
   }
 
 LABEL_5:
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

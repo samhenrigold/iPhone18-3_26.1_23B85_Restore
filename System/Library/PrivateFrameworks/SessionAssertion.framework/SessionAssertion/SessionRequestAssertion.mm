@@ -26,14 +26,11 @@
 
 - (NSString)explanation
 {
-  v2 = (self + OBJC_IVAR____TtC16SessionAssertion23SessionRequestAssertion_explanation);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_26579E494();
+  v2 = sub_26579E494();
 
-  return v5;
+  return v2;
 }
 
 - (void)setExplanation:(id)explanation
@@ -42,7 +39,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR____TtC16SessionAssertion23SessionRequestAssertion_explanation);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
@@ -126,17 +122,16 @@
 
 - (SNAAssertionTarget)snaTarget
 {
-  v3 = self + OBJC_IVAR____TtC16SessionAssertion23SessionRequestAssertion_target;
+  v3 = (self + OBJC_IVAR____TtC16SessionAssertion23SessionRequestAssertion_target);
   swift_beginAccess();
   v4 = *v3;
-  v5 = *(v3 + 1);
-  v6 = v3[16];
-  v7 = objc_allocWithZone(SNAAssertionTarget);
+  v5 = v3[1];
+  v6 = objc_allocWithZone(SNAAssertionTarget);
   selfCopy = self;
-  sub_265790CE4();
-  v9 = sub_26579E494();
-  sub_265796744();
-  initWithBundleIdentifier_ = [v7 initWithBundleIdentifier_];
+  sub_265790CE4(v4, v5);
+  v8 = sub_26579E494();
+  sub_265796744(v4, v5);
+  initWithBundleIdentifier_ = [v6 initWithBundleIdentifier_];
 
   return initWithBundleIdentifier_;
 }

@@ -185,7 +185,7 @@
       v30 = nr_daemon_log();
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        sub_1000FF654(&self->_phoneMEID);
+        sub_1000FF654();
       }
     }
   }

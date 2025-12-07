@@ -70,7 +70,7 @@
 
 - (id)controlDescriptorFromProvider
 {
-  v3 = PRSharedWidgetExtensionProvider();
+  v3 = PRSharedWidgetExtensionProvider(self);
   v4 = [v3 controlDescriptorForControl:self->_controlIdentity];
 
   return v4;

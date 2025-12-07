@@ -23,9 +23,9 @@ void __78___UIPhysicalKeyTranslationMap_populateAllCombinationsOfModifiers_trans
 void __124___UIPhysicalKeyTranslationMap_areModifiers_minimalExcessOfMask_matching_translator_matchedModifierSubset_betterMatchFound___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   v6 = [*(a1 + 32) keyTranslationWithModifiers:a2 translator:*(a1 + 40)];
-  v7 = [v6 isEqualToString:*(a1 + 48)];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if (v7)
+  if (isEqualToString)
   {
     v8.i32[0] = *(a1 + 72) | a2;
     v9 = vcnt_s8(v8);

@@ -35,15 +35,15 @@
     v8 = [v6 stringFromNumber:v7];
 
     v9 = PELocalizedString(@"PlaybackRateOptionFPS");
-    v10 = PEStringWithValidatedFormat();
+    v16 = PEStringWithValidatedFormat(v9, @"%@", v10, v11, v12, v13, v14, v15, v8);
   }
 
   else
   {
-    v10 = 0;
+    v16 = 0;
   }
 
-  return v10;
+  return v16;
 }
 
 - (NSString)localizedTitle

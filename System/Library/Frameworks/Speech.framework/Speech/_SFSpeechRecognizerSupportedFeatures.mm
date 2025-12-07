@@ -11,10 +11,9 @@
 {
   v3 = MEMORY[0x1E696AEC0];
   localeIdentifier = [(NSLocale *)self->_locale localeIdentifier];
-  speechDetectionOptions = self->_speechDetectionOptions;
-  v6 = [v3 stringWithFormat:@"<_SFSpeechRecognizerSupportedFeatures (%p): locale %@, taskNames %@, singleUtterance %d, concatenateUtterances %d, modelOptions %@, endpointDetectionOptions %@, speechDetectionOptions %@, flags %#lx>", self, localeIdentifier, self->_taskNames, self->_isSingleUtteranceTask, self->_concatenateUtterances, self->_modelOptions, self->_endpointDetectionOptions, speechDetectionOptions, self->_flags];
+  v5 = [v3 stringWithFormat:@"<_SFSpeechRecognizerSupportedFeatures (%p): locale %@, taskNames %@, singleUtterance %d, concatenateUtterances %d, modelOptions %@, endpointDetectionOptions %@, speechDetectionOptions %@, flags %#lx>", self, localeIdentifier, self->_taskNames, self->_isSingleUtteranceTask, self->_concatenateUtterances, self->_modelOptions, self->_endpointDetectionOptions, self->_speechDetectionOptions, self->_flags];
 
-  return v6;
+  return v5;
 }
 
 - (_SFSpeechRecognizerSupportedFeatures)initWithCoder:(id)coder

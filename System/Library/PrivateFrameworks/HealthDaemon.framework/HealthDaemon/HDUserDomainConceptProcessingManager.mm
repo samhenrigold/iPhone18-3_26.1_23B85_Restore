@@ -80,8 +80,8 @@
 
 - (void)_scheduleProcessingOperationIfEnabledWithReason:(uint64_t)reason
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v20 = a2;
+  v30 = *MEMORY[0x277D85DE8];
+  v19 = a2;
   if (reason)
   {
     WeakRetained = objc_loadWeakRetained((reason + 64));
@@ -98,7 +98,7 @@
 
       if ((v7 & 1) == 0)
       {
-        [(HDUserDomainConceptProcessingManager *)reason _scheduleProcessingOperationWithReason:v20];
+        [(HDUserDomainConceptProcessingManager *)reason _scheduleProcessingOperationWithReason:v19];
         goto LABEL_8;
       }
     }
@@ -121,20 +121,19 @@
       v18 = HKStringFromBool();
       *buf = 138544386;
       reasonCopy = reason;
-      v23 = 2114;
-      v24 = v12;
-      v25 = 2114;
-      v26 = v16;
-      v27 = 2114;
-      v28 = v17;
-      v29 = 2114;
-      v30 = v18;
+      v22 = 2114;
+      v23 = v12;
+      v24 = 2114;
+      v25 = v16;
+      v26 = 2114;
+      v27 = v17;
+      v28 = 2114;
+      v29 = v18;
       _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Cannot automatically schedule UDC processing. Health App Installed %{public}@, performsAutomaticUserDomainConceptProcessing %{public}@, ignoresAutomaticProcessingTriggers %{public}@, _isDisabledForHealthDaemonLifetime %{public}@", buf, 0x34u);
     }
   }
 
 LABEL_8:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -154,7 +153,7 @@ LABEL_8:
 
 - (void)_scheduleProcessingOperationWithReason:(uint64_t)reason
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (reason)
   {
@@ -171,12 +170,11 @@ LABEL_8:
         if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
         {
           CFAbsoluteTimeGetCurrent();
-          v7 = *(reason + 40);
-          v8 = HKDiagnosticStringFromDuration();
+          v7 = HKDiagnosticStringFromDuration();
           *buf = 138543618;
           reasonCopy3 = reason;
-          v39 = 2114;
-          v40 = v8;
+          v37 = 2114;
+          v38 = v7;
           _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_INFO, "%{public}@: Already scheduled processing %{public}@ ago", buf, 0x16u);
         }
       }
@@ -190,79 +188,79 @@ LABEL_8:
       *(reason + 40) = CFAbsoluteTimeGetCurrent();
       os_unfair_lock_unlock((reason + 8));
       os_unfair_lock_lock((reason + 8));
-      v9 = *(reason + 48);
-      if (v9)
+      v8 = *(reason + 48);
+      if (v8)
       {
-        v10 = 0;
+        v9 = 0;
       }
 
       else
       {
-        v11 = MEMORY[0x277CCACA8];
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
+        v10 = MEMORY[0x277CCACA8];
+        v11 = objc_opt_class();
+        v12 = NSStringFromClass(v11);
         uUID = [MEMORY[0x277CCAD78] UUID];
         uUIDString = [uUID UUIDString];
-        v16 = [v11 stringWithFormat:@"%@-%@", v13, uUIDString];
+        v15 = [v10 stringWithFormat:@"%@-%@", v12, uUIDString];
 
         WeakRetained = objc_loadWeakRetained((reason + 64));
         database = [WeakRetained database];
-        v36 = 0;
-        v19 = [database takeAccessibilityAssertionWithOwnerIdentifier:v16 timeout:&v36 error:300.0];
-        v10 = v36;
-        v20 = *(reason + 48);
-        *(reason + 48) = v19;
+        v34 = 0;
+        v18 = [database takeAccessibilityAssertionWithOwnerIdentifier:v15 timeout:&v34 error:300.0];
+        v9 = v34;
+        v19 = *(reason + 48);
+        *(reason + 48) = v18;
 
-        v9 = *(reason + 48);
+        v8 = *(reason + 48);
       }
 
-      v21 = v9;
+      v20 = v8;
       os_unfair_lock_unlock((reason + 8));
-      if (v21)
+      if (v20)
       {
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __79__HDUserDomainConceptProcessingManager__scheduleProcessingOperationWithReason___block_invoke;
-        v33[3] = &unk_27861F330;
-        v33[4] = reason;
-        v22 = v3;
-        v34 = v22;
-        v35 = v21;
-        v23 = [HDMaintenanceOperation maintenanceOperationWithName:v22 asynchronousBlock:v33];
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __79__HDUserDomainConceptProcessingManager__scheduleProcessingOperationWithReason___block_invoke;
+        v31[3] = &unk_27861F330;
+        v31[4] = reason;
+        v21 = v3;
+        v32 = v21;
+        v33 = v20;
+        v22 = [HDMaintenanceOperation maintenanceOperationWithName:v21 asynchronousBlock:v31];
         _HKInitializeLogging();
-        v24 = HKLogHealthOntology();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v23 = HKLogHealthOntology();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
           reasonCopy3 = reason;
-          v39 = 2114;
-          v40 = v22;
-          _os_log_impl(&dword_228986000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@: Scheduling User Domain Concept processing on maintenance coordinator with reason: %{public}@", buf, 0x16u);
+          v37 = 2114;
+          v38 = v21;
+          _os_log_impl(&dword_228986000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@: Scheduling User Domain Concept processing on maintenance coordinator with reason: %{public}@", buf, 0x16u);
         }
 
-        v25 = objc_loadWeakRetained((reason + 64));
-        daemon = [v25 daemon];
+        v24 = objc_loadWeakRetained((reason + 64));
+        daemon = [v24 daemon];
         maintenanceWorkCoordinator = [daemon maintenanceWorkCoordinator];
-        [maintenanceWorkCoordinator enqueueMaintenanceOperation:v23];
+        [maintenanceWorkCoordinator enqueueMaintenanceOperation:v22];
       }
 
       else
       {
         _HKInitializeLogging();
-        v28 = HKLogHealthOntology();
-        v29 = os_log_type_enabled(v28, OS_LOG_TYPE_INFO);
+        v27 = HKLogHealthOntology();
+        v28 = os_log_type_enabled(v27, OS_LOG_TYPE_INFO);
 
-        if (v29)
+        if (v28)
         {
-          v30 = HKLogHealthOntology();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+          v29 = HKLogHealthOntology();
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
           {
-            localizedDescription = [v10 localizedDescription];
+            localizedDescription = [v9 localizedDescription];
             *buf = 138543618;
             reasonCopy3 = reason;
-            v39 = 2114;
-            v40 = localizedDescription;
-            _os_log_impl(&dword_228986000, v30, OS_LOG_TYPE_INFO, "%{public}@: unable to take accessibility assertion with error: %{public}@.", buf, 0x16u);
+            v37 = 2114;
+            v38 = localizedDescription;
+            _os_log_impl(&dword_228986000, v29, OS_LOG_TYPE_INFO, "%{public}@: unable to take accessibility assertion with error: %{public}@.", buf, 0x16u);
           }
         }
 
@@ -272,17 +270,15 @@ LABEL_8:
       }
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
-void __79__HDUserDomainConceptProcessingManager__scheduleProcessingOperationWithReason___block_invoke(uint64_t a1, void *a2)
+void __79__HDUserDomainConceptProcessingManager__scheduleProcessingOperationWithReason___block_invoke(void *a1, void *a2)
 {
   v7 = a2;
-  v3 = [(HKDaemonTransaction *)HDDaemonTransaction transactionWithOwner:*(a1 + 32) activityName:@"processing"];
-  if (([(HDUserDomainConceptProcessingManager *)*(a1 + 32) _processUserDomainConceptsWithReason:*(a1 + 48) accessibilityAssertion:?]& 1) == 0)
+  v3 = [(HKDaemonTransaction *)HDDaemonTransaction transactionWithOwner:a1[4] activityName:@"processing"];
+  if (([(HDUserDomainConceptProcessingManager *)a1[4] _processUserDomainConceptsWithReason:a1[6] accessibilityAssertion:?]& 1) == 0)
   {
-    v4 = *(a1 + 32);
+    v4 = a1[4];
     if (v4)
     {
       os_unfair_lock_lock((v4 + 8));
@@ -292,19 +288,19 @@ void __79__HDUserDomainConceptProcessingManager__scheduleProcessingOperationWith
   }
 
   v7[2]();
-  os_unfair_lock_lock((*(a1 + 32) + 8));
-  [*(*(a1 + 32) + 48) invalidate];
-  v5 = *(a1 + 32);
+  os_unfair_lock_lock((a1[4] + 8));
+  [*(a1[4] + 48) invalidate];
+  v5 = a1[4];
   v6 = *(v5 + 48);
   *(v5 + 48) = 0;
 
-  os_unfair_lock_unlock((*(a1 + 32) + 8));
+  os_unfair_lock_unlock((a1[4] + 8));
   [v3 invalidate];
 }
 
 - (uint64_t)_processUserDomainConceptsWithReason:(void *)reason accessibilityAssertion:
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   v5 = a2;
   reasonCopy = reason;
   if (self)
@@ -346,19 +342,19 @@ void __79__HDUserDomainConceptProcessingManager__scheduleProcessingOperationWith
       {
         *buf = 138543618;
         selfCopy4 = self;
-        v48 = 2114;
-        v49 = v5;
+        v47 = 2114;
+        v48 = v5;
         _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Beginning processing of user domain concepts with reason: %{public}@.", buf, 0x16u);
       }
 
-      v42 = 0;
-      v43 = &v42;
-      v44 = 0x2020000000;
-      v45 = 0;
-      v38 = 0;
-      v39 = &v38;
-      v40 = 0x2020000000;
       v41 = 0;
+      v42 = &v41;
+      v43 = 0x2020000000;
+      v44 = 0;
+      v37 = 0;
+      v38 = &v37;
+      v39 = 0x2020000000;
+      v40 = 0;
       Current = CFAbsoluteTimeGetCurrent();
       profile = [self profile];
       userDomainConceptManager = [profile userDomainConceptManager];
@@ -366,18 +362,18 @@ void __79__HDUserDomainConceptProcessingManager__scheduleProcessingOperationWith
 
       WeakRetained = objc_loadWeakRetained((self + 64));
       database = [WeakRetained database];
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __100__HDUserDomainConceptProcessingManager__processUserDomainConceptsWithReason_accessibilityAssertion___block_invoke;
-      v36[3] = &unk_27861F358;
-      v36[4] = self;
-      v36[5] = &v42;
-      v36[6] = &v38;
-      v37 = 0;
-      v11 = [database performWithTransactionContext:v10 error:&v37 block:v36];
-      v18 = v37;
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __100__HDUserDomainConceptProcessingManager__processUserDomainConceptsWithReason_accessibilityAssertion___block_invoke;
+      v35[3] = &unk_27861F358;
+      v35[4] = self;
+      v35[5] = &v41;
+      v35[6] = &v37;
+      v36 = 0;
+      v11 = [database performWithTransactionContext:v10 error:&v36 block:v35];
+      v18 = v36;
 
-      if (*(v39 + 24) == 1)
+      if (*(v38 + 24) == 1)
       {
         _HKInitializeLogging();
         v19 = HKLogHealthOntology();
@@ -391,7 +387,7 @@ void __79__HDUserDomainConceptProcessingManager__scheduleProcessingOperationWith
         atomic_store(1u, (self + 56));
       }
 
-      v20 = v43[3];
+      v20 = v42[3];
       v21 = *(self + 16);
       if (v20 % v21 <= 0)
       {
@@ -407,7 +403,7 @@ void __79__HDUserDomainConceptProcessingManager__scheduleProcessingOperationWith
       v23 = HKLogHealthOntology();
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v35 = reasonCopy;
+        v34 = reasonCopy;
         v24 = v5;
         if (v11)
         {
@@ -419,27 +415,27 @@ void __79__HDUserDomainConceptProcessingManager__scheduleProcessingOperationWith
           v25 = @"Failure";
         }
 
-        v26 = v43[3];
+        v26 = v42[3];
         v27 = CFAbsoluteTimeGetCurrent();
         localizedDescription = [v18 localizedDescription];
         *buf = 138544898;
         selfCopy4 = self;
-        v48 = 2114;
-        v49 = v25;
-        v50 = 2048;
-        v51 = v26;
-        v52 = 2048;
-        v53 = v22;
-        v54 = 2114;
+        v47 = 2114;
+        v48 = v25;
+        v49 = 2048;
+        v50 = v26;
+        v51 = 2048;
+        v52 = v22;
+        v53 = 2114;
         v5 = v24;
-        v55 = v24;
-        v56 = 2048;
-        v57 = v27 - Current;
-        v58 = 2114;
-        v59 = localizedDescription;
+        v54 = v24;
+        v55 = 2048;
+        v56 = v27 - Current;
+        v57 = 2114;
+        v58 = localizedDescription;
         _os_log_impl(&dword_228986000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ processing %ld user domain concepts in %ld batches with reason %{public}@, duration: %.3f seconds, Error: %{public}@", buf, 0x48u);
 
-        reasonCopy = v35;
+        reasonCopy = v34;
       }
 
       profile2 = [self profile];
@@ -450,11 +446,11 @@ void __79__HDUserDomainConceptProcessingManager__scheduleProcessingOperationWith
       v32 = v31;
       if (v31)
       {
-        (*(v31 + 2))(v31, v11, v43[3], v18);
+        (*(v31 + 2))(v31, v11, v42[3], v18);
       }
 
-      _Block_object_dispose(&v38, 8);
-      _Block_object_dispose(&v42, 8);
+      _Block_object_dispose(&v37, 8);
+      _Block_object_dispose(&v41, 8);
     }
   }
 
@@ -463,105 +459,104 @@ void __79__HDUserDomainConceptProcessingManager__scheduleProcessingOperationWith
     v11 = 0;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 BOOL __100__HDUserDomainConceptProcessingManager__processUserDomainConceptsWithReason_accessibilityAssertion___block_invoke(void *a1, uint64_t a2)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v3 = a1[4];
   v5 = *(v3 + 16);
   v4 = *(v3 + 24);
-  v28 = *(a1[6] + 8);
-  v29 = *(a1[5] + 8);
+  v27 = *(a1[6] + 8);
+  v28 = *(a1[5] + 8);
   v6 = objc_loadWeakRetained((v3 + 64));
-  v32 = objc_opt_self();
-  v33 = v6;
+  v31 = objc_opt_self();
+  v32 = v6;
   v7 = [v6 userDomainConceptManager];
-  v31 = [v7 keyValueDomain];
+  v30 = [v7 keyValueDomain];
 
   v8 = 0;
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x2020000000;
-  v50 = 0;
-  v46[0] = 0;
-  v46[1] = v46;
-  v46[2] = 0x2020000000;
-  v46[3] = -1;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x2020000000;
+  v49 = 0;
+  v45[0] = 0;
+  v45[1] = v45;
+  v45[2] = 0x2020000000;
+  v45[3] = -1;
   while (1)
   {
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x2020000000;
-    v45 = 0;
+    v41 = 0;
+    v42 = &v41;
+    v43 = 0x2020000000;
+    v44 = 0;
     Current = CFAbsoluteTimeGetCurrent();
-    v10 = [v33 database];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __169__HDUserDomainConceptProcessingManager__performUserDomainConceptProcessingOperationWithBatchSize_batchLimit_outNumberOfConceptsProcessed_outDidDetectLoop_profile_error___block_invoke;
-    v34[3] = &unk_27861F380;
-    v37 = &v47;
-    v11 = v31;
-    v40 = v32;
-    v35 = v11;
-    v38 = v46;
-    v12 = v33;
-    v41 = v5;
-    v36 = v12;
-    v39 = &v42;
-    v13 = [(HDHealthEntity *)HDUserDomainConceptEntity performWriteTransactionWithHealthDatabase:v10 error:a2 block:v34];
+    v10 = [v32 database];
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __169__HDUserDomainConceptProcessingManager__performUserDomainConceptProcessingOperationWithBatchSize_batchLimit_outNumberOfConceptsProcessed_outDidDetectLoop_profile_error___block_invoke;
+    v33[3] = &unk_27861F380;
+    v36 = &v46;
+    v11 = v30;
+    v39 = v31;
+    v34 = v11;
+    v37 = v45;
+    v12 = v32;
+    v40 = v5;
+    v35 = v12;
+    v38 = &v41;
+    v13 = [(HDHealthEntity *)HDUserDomainConceptEntity performWriteTransactionWithHealthDatabase:v10 error:a2 block:v33];
 
     if (!v13)
     {
-      *(v29 + 24) = v8;
+      *(v28 + 24) = v8;
 
-      _Block_object_dispose(&v42, 8);
+      _Block_object_dispose(&v41, 8);
       goto LABEL_13;
     }
 
-    v14 = v43[3];
+    v14 = v42[3];
     _HKInitializeLogging();
     v15 = HKLogHealthOntology();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = v8;
+      v29 = v8;
       v16 = v13;
       v17 = v11;
       v18 = v12;
       v19 = v4;
       v20 = a2;
-      v21 = v48[3];
-      v22 = v43[3];
+      v21 = v47[3];
+      v22 = v42[3];
       v23 = CFAbsoluteTimeGetCurrent();
       *buf = 138544386;
-      v52 = v32;
-      v53 = 2048;
-      v54 = v21;
-      v55 = 2048;
-      v56 = v22;
-      v57 = 2048;
-      v58 = v5;
-      v59 = 2048;
-      v60 = v23 - Current;
+      v51 = v31;
+      v52 = 2048;
+      v53 = v21;
+      v54 = 2048;
+      v55 = v22;
+      v56 = 2048;
+      v57 = v5;
+      v58 = 2048;
+      v59 = v23 - Current;
       _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished batch %ld of size %ld / %lld. Duration: %.3f seconds", buf, 0x34u);
       a2 = v20;
       v4 = v19;
       v12 = v18;
       v11 = v17;
       v13 = v16;
-      v8 = v30;
+      v8 = v29;
     }
 
     v8 += v14;
-    v24 = v48[3] >= v4 && v14 >= v5;
+    v24 = v47[3] >= v4 && v14 >= v5;
     if (v24)
     {
       break;
     }
 
-    _Block_object_dispose(&v42, 8);
+    _Block_object_dispose(&v41, 8);
     if (v14 < v5)
     {
       goto LABEL_12;
@@ -573,25 +568,24 @@ BOOL __100__HDUserDomainConceptProcessingManager__processUserDomainConceptsWithR
   if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
   {
     *buf = 138543362;
-    v52 = v32;
+    v51 = v31;
     _os_log_fault_impl(&dword_228986000, v25, OS_LOG_TYPE_FAULT, "%{public}@: Reached batch limit during UDC Processing. This usually happens during an infinite processing loop.", buf, 0xCu);
   }
 
-  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v41, 8);
 LABEL_12:
-  *(v28 + 24) = v24;
-  *(v29 + 24) = v8;
+  *(v27 + 24) = v24;
+  *(v28 + 24) = v8;
 LABEL_13:
-  _Block_object_dispose(v46, 8);
-  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(v45, 8);
+  _Block_object_dispose(&v46, 8);
 
-  v26 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 uint64_t __169__HDUserDomainConceptProcessingManager__performUserDomainConceptProcessingOperationWithBatchSize_batchLimit_outNumberOfConceptsProcessed_outDidDetectLoop_profile_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v7 = a2;
   ++*(*(*(a1 + 48) + 8) + 24);
   v8 = [HDUserDomainConceptProcessingState fetchFromKeyValueDomain:*(a1 + 32) error:a3];
@@ -606,10 +600,10 @@ uint64_t __169__HDUserDomainConceptProcessingManager__performUserDomainConceptPr
       v12 = *(*(*(a1 + 48) + 8) + 24);
       *buf = 138543874;
       *&buf[4] = v11;
-      v38 = 2048;
-      v39 = v12;
-      v40 = 2114;
-      v41 = v9;
+      v33 = 2048;
+      v34 = v12;
+      v35 = 2114;
+      v36 = v9;
       _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Start batch %ld, current state %{public}@", buf, 0x20u);
     }
 
@@ -652,50 +646,46 @@ LABEL_15:
 
     if (*(*(*(a1 + 56) + 8) + 24) != -1 && [v9 maximumPropertyType] >= 184000)
     {
-      v34 = [v15 longLongValue];
-      v35 = *(*(*(a1 + 56) + 8) + 24);
-      v36 = v34;
+      v29 = [v15 longLongValue];
+      v30 = *(*(*(a1 + 56) + 8) + 24);
+      v31 = v29;
       if (v14 != v16)
       {
       }
 
-      if (v36 >= v35)
+      if (v31 >= v30)
       {
 LABEL_18:
-        v20 = *(a1 + 64);
         *buf = *(*(*(a1 + 56) + 8) + 24);
-        v21 = *(a1 + 80);
-        v22 = *(v20 + 8);
-        v23 = *(a1 + 40);
         if ([HDUserDomainConceptProcessor processUserDomainConceptsAfter:"processUserDomainConceptsAfter:transactionLimit:outAnchor:outProcessedConceptsCount:profile:transaction:error:" transactionLimit:a3 outAnchor:? outProcessedConceptsCount:? profile:? transaction:? error:?])
         {
           if (*(*(*(a1 + 64) + 8) + 24) >= *(a1 + 80))
           {
-            v33 = [v9 copyByUpdatingAnchor:*buf];
+            v28 = [v9 copyByUpdatingAnchor:*buf];
 
-            v18 = [v33 persistInKeyValueDomain:*(a1 + 32) error:a3];
-            v9 = v33;
+            v18 = [v28 persistInKeyValueDomain:*(a1 + 32) error:a3];
+            v9 = v28;
           }
 
           else
           {
-            v24 = [*(a1 + 40) userDomainConceptManager];
-            v25 = [v24 processingManager];
-            v26 = *(a1 + 32);
+            v20 = [*(a1 + 40) userDomainConceptManager];
+            v21 = [v20 processingManager];
+            v22 = *(a1 + 32);
             v9 = v9;
-            v27 = v26;
-            if (v25)
+            v23 = v22;
+            if (v21)
             {
-              v28 = v7;
-              os_unfair_lock_lock((v25 + 8));
-              *(v25 + 32) = 0;
-              os_unfair_lock_unlock((v25 + 8));
-              v29 = [HDUserDomainConceptProcessingManager _maximumSyncAnchorForUserDomainConceptsWithTransaction:v28 error:a3];
+              v24 = v7;
+              os_unfair_lock_lock((v21 + 8));
+              *(v21 + 32) = 0;
+              os_unfair_lock_unlock((v21 + 8));
+              v25 = [HDUserDomainConceptProcessingManager _maximumSyncAnchorForUserDomainConceptsWithTransaction:v24 error:a3];
 
-              if (v29)
+              if (v25)
               {
-                v30 = [v9 copyByUpdatingAnchor:{objc_msgSend(v29, "longLongValue")}];
-                v18 = [v30 persistInKeyValueDomain:v27 error:a3];
+                v26 = [v9 copyByUpdatingAnchor:{objc_msgSend(v25, "longLongValue")}];
+                v18 = [v26 persistInKeyValueDomain:v23 error:a3];
               }
 
               else
@@ -741,7 +731,6 @@ LABEL_16:
   v18 = 0;
 LABEL_26:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -783,11 +772,11 @@ LABEL_26:
 
 - (void)setUnitTesting_userDomainConceptProcessingManagerDidFinishProcessing:(id)processing
 {
-  v4 = [processing copy];
+  v4 = objc_msgSend_copy(processing, a2);
   unitTesting_userDomainConceptProcessingManagerDidFinishProcessing = self->_unitTesting_userDomainConceptProcessingManagerDidFinishProcessing;
   self->_unitTesting_userDomainConceptProcessingManagerDidFinishProcessing = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, unitTesting_userDomainConceptProcessingManagerDidFinishProcessing);
 }
 
 - (HDProfile)profile

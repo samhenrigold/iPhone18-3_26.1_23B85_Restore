@@ -8,8 +8,8 @@
 - (BOOL)updateForNewData:(id)data actions:(int)actions
 {
   doubleHeightStatus = [data doubleHeightStatus];
-  v6 = [doubleHeightStatus isEqualToString:self->_contentsString];
-  if ((v6 & 1) == 0)
+  isEqualToString = objc_msgSend_isEqualToString_(doubleHeightStatus);
+  if ((isEqualToString & 1) == 0)
   {
     objc_storeStrong(&self->_contentsString, doubleHeightStatus);
     textFont = [(UIStatusBarItemView *)self textFont];
@@ -43,7 +43,7 @@
     }
   }
 
-  return v6 ^ 1;
+  return isEqualToString ^ 1;
 }
 
 - (id)contentsImage

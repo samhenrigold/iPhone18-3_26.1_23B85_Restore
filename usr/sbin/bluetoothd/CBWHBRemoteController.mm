@@ -9,10 +9,10 @@
 
 - (id)description
 {
-  v4 = sub_100119550(self->_remoteDevice);
-  v2 = NSPrintF_safe();
+  v2 = sub_100119550(self->_remoteDevice);
+  v3 = NSPrintF_safe("CBWHBRemoteController: %@", v2);
 
-  return v2;
+  return v3;
 }
 
 - (void)setDiscoveryFlags:(unint64_t)flags
@@ -45,39 +45,39 @@
     if (xpcListenerEndpoint)
     {
       [(CBDiscovery *)v3 setTestListenerEndpoint:xpcListenerEndpoint];
-      v6 = objc_alloc_init(CBDevice);
+      v8 = objc_alloc_init(CBDevice);
       idsDeviceIdentifier = [(RPCompanionLinkDevice *)self->_remoteDevice idsDeviceIdentifier];
-      [v6 setIdentifier:idsDeviceIdentifier];
+      [v8 setIdentifier:idsDeviceIdentifier];
 
-      [(CBDiscovery *)v3 setRemoteDevice:v6];
-      v16[0] = _NSConcreteStackBlock;
-      v16[1] = 3221225472;
-      v16[2] = sub_100119888;
-      v16[3] = &unk_100ADF718;
-      v8 = v3;
-      v17 = v8;
+      [(CBDiscovery *)v3 setRemoteDevice:v8];
+      v18[0] = _NSConcreteStackBlock;
+      v18[1] = 3221225472;
+      v18[2] = sub_100119888;
+      v18[3] = &unk_100ADF718;
+      v10 = v3;
+      v19 = v10;
       selfCopy = self;
-      [(CBDiscovery *)v8 setDeviceFoundHandler:v16];
-      v13[0] = _NSConcreteStackBlock;
-      v13[1] = 3221225472;
-      v13[2] = sub_1001198A8;
-      v13[3] = &unk_100ADF718;
-      v9 = v8;
-      v14 = v9;
+      [(CBDiscovery *)v10 setDeviceFoundHandler:v18];
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = sub_1001198A8;
+      v15[3] = &unk_100ADF718;
+      v11 = v10;
+      v16 = v11;
       selfCopy2 = self;
-      [(CBDiscovery *)v9 setDeviceLostHandler:v13];
-      v10[0] = _NSConcreteStackBlock;
-      v10[1] = 3221225472;
-      v10[2] = sub_1001198C8;
-      v10[3] = &unk_100ADF740;
-      v11 = v9;
+      [(CBDiscovery *)v11 setDeviceLostHandler:v15];
+      v12[0] = _NSConcreteStackBlock;
+      v12[1] = 3221225472;
+      v12[2] = sub_1001198C8;
+      v12[3] = &unk_100ADF740;
+      v13 = v11;
       selfCopy3 = self;
-      [(CBDiscovery *)v11 activateWithCompletion:v10];
+      [(CBDiscovery *)v13 activateWithCompletion:v12];
     }
 
     else
     {
-      sub_100806EF4();
+      sub_100806EF4(0, v5, v6);
     }
   }
 }

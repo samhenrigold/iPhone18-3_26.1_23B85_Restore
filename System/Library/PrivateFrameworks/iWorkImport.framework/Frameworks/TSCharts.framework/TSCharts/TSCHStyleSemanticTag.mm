@@ -34,9 +34,9 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  v26.receiver = self;
-  v26.super_class = TSCHStyleSemanticTag;
-  if ([(TSCHStyleSemanticTag *)&v26 isEqual:equalCopy])
+  v24.receiver = self;
+  v24.super_class = TSCHStyleSemanticTag;
+  if ([(TSCHStyleSemanticTag *)&v24 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -47,8 +47,8 @@
     v7 = TSUDynamicCast();
     if (v7 && (v11 = objc_msgSend_type(self, v6, v8, v9, v10), v11 == objc_msgSend_type(v7, v12, v13, v14, v15)))
     {
-      v20 = objc_msgSend_index(self, v16, v17, v18, v19);
-      v5 = v20 == objc_msgSend_index(v7, v21, v22, v23, v24);
+      v19 = objc_msgSend_index(self, v16, v17, v18);
+      v5 = v19 == objc_msgSend_index(v7, v20, v21, v22);
     }
 
     else
@@ -62,21 +62,21 @@
 
 - (id)description
 {
-  v42.receiver = self;
-  v42.super_class = TSCHStyleSemanticTag;
-  v3 = [(TSCHStyleSemanticTag *)&v42 description];
+  v41.receiver = self;
+  v41.super_class = TSCHStyleSemanticTag;
+  v3 = [(TSCHStyleSemanticTag *)&v41 description];
   v8 = objc_msgSend_mutableCopy(v3, v4, v5, v6, v7);
 
   v9 = MEMORY[0x277CCACA8];
   v14 = objc_msgSend_type(self, v10, v11, v12, v13);
   v15 = sub_2762E6140(v14);
   v16 = MEMORY[0x277CCABB0];
-  v21 = objc_msgSend_index(self, v17, v18, v19, v20);
-  v26 = objc_msgSend_numberWithUnsignedInteger_(v16, v22, v23, v24, v25, v21);
-  v31 = objc_msgSend_stringWithFormat_(v9, v27, v28, v29, v30, @" type: %@ index: %@", v15, v26);
+  v20 = objc_msgSend_index(self, v17, v18, v19);
+  v25 = objc_msgSend_numberWithUnsignedInteger_(v16, v21, v22, v23, v24, v20);
+  v30 = objc_msgSend_stringWithFormat_(v9, v26, v27, v28, v29, @" type: %@ index: %@", v15, v25);
 
-  v36 = objc_msgSend_length(v8, v32, v33, v34, v35);
-  objc_msgSend_insertString_atIndex_(v8, v37, v38, v39, v40, v31, v36 - 1);
+  v35 = objc_msgSend_length(v8, v31, v32, v33, v34);
+  objc_msgSend_insertString_atIndex_(v8, v36, v37, v38, v39, v30, v35 - 1);
 
   return v8;
 }

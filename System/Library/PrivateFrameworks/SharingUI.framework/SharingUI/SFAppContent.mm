@@ -218,14 +218,14 @@ void __32__SFAppContent__amsFetchResults__block_invoke_2(uint64_t a1)
 {
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  bagSubProfile = [getAMSMediaTaskClass[0]() bagSubProfile];
-  bagSubProfileVersion = [getAMSMediaTaskClass[0]() bagSubProfileVersion];
-  v7 = getAMSBagKeySetClass[0]();
-  bagKeySet = [getAMSMediaTaskClass[0]() bagKeySet];
-  [(objc_class *)v7 registerBagKeySet:bagKeySet forProfile:bagSubProfile profileVersion:bagSubProfileVersion];
+  bagSubProfile = [(objc_class *)getAMSMediaTaskClass() bagSubProfile];
+  bagSubProfileVersion = [(objc_class *)getAMSMediaTaskClass() bagSubProfileVersion];
+  AMSBagKeySetClass = getAMSBagKeySetClass();
+  bagKeySet = [(objc_class *)getAMSMediaTaskClass() bagKeySet];
+  [(objc_class *)AMSBagKeySetClass registerBagKeySet:bagKeySet forProfile:bagSubProfile profileVersion:bagSubProfileVersion];
 
-  v9 = [getAMSBagClass[0]() bagForProfile:bagSubProfile profileVersion:bagSubProfileVersion];
-  v10 = [objc_alloc(getAMSMediaTaskClass[0]()) initWithType:0 clientIdentifier:@"com.apple.sharing" clientVersion:@"1" bag:v9];
+  v9 = [(objc_class *)getAMSBagClass() bagForProfile:bagSubProfile profileVersion:bagSubProfileVersion];
+  v10 = [objc_alloc(getAMSMediaTaskClass()) initWithType:0 clientIdentifier:@"com.apple.sharing" clientVersion:@"1" bag:v9];
   [v10 setItemIdentifiers:self->_adamIDs];
   [v10 setIncludedResultKeys:&unk_1F37F3F90];
   if (gLogCategory_SFSubCredentialAppContent <= 50 && (gLogCategory_SFSubCredentialAppContent != -1 || _LogCategory_Initialize()))
@@ -285,26 +285,26 @@ uint64_t __50__SFAppContent__amsFetchAppResultsWithCompletion___block_invoke_2(u
 {
   requestCopy = request;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v5 = [objc_alloc(getAMSMediaArtworkClass[0]()) initWithDictionary:self->_amsArtworkDict];
-  [requestCopy iconSize];
-  v7 = v6;
-  v9 = v8;
-  v10 = getAMSMediaArtworkCropStyleBoundedBox[0]();
-  v11 = [v5 URLWithSize:v10 cropStyle:getAMSMediaArtworkFormatPNG[0]() format:{v7, v9}];
-  v12 = objc_alloc_init(MEMORY[0x1E696AD68]);
-  [v12 setURL:v11];
-  [v12 setTimeoutInterval:5.0];
+  v5 = [objc_alloc(getAMSMediaArtworkClass()) initWithDictionary:self->_amsArtworkDict];
+  iconSize = [requestCopy iconSize];
+  v8 = v7;
+  v10 = v9;
+  AMSMediaArtworkCropStyleBoundedBox = getAMSMediaArtworkCropStyleBoundedBox(iconSize);
+  v12 = [v5 URLWithSize:AMSMediaArtworkCropStyleBoundedBox cropStyle:getAMSMediaArtworkFormatPNG() format:{v8, v10}];
+  v13 = objc_alloc_init(MEMORY[0x1E696AD68]);
+  [v13 setURL:v12];
+  [v13 setTimeoutInterval:5.0];
   mEMORY[0x1E696AF78] = [MEMORY[0x1E696AF78] sharedSession];
-  v16 = MEMORY[0x1E69E9820];
-  v17 = 3221225472;
-  v18 = __44__SFAppContent__amsFetchArtworkWithRequest___block_invoke;
-  v19 = &unk_1E7EE3948;
+  v17 = MEMORY[0x1E69E9820];
+  v18 = 3221225472;
+  v19 = __44__SFAppContent__amsFetchArtworkWithRequest___block_invoke;
+  v20 = &unk_1E7EE3948;
   selfCopy = self;
-  v21 = requestCopy;
-  v14 = requestCopy;
-  v15 = [mEMORY[0x1E696AF78] dataTaskWithRequest:v12 completionHandler:&v16];
+  v22 = requestCopy;
+  v15 = requestCopy;
+  v16 = [mEMORY[0x1E696AF78] dataTaskWithRequest:v13 completionHandler:&v17];
 
-  [v15 resume];
+  [v16 resume];
 }
 
 void __44__SFAppContent__amsFetchArtworkWithRequest___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -496,13 +496,13 @@ void __44__SFAppContent__amsFetchArtworkWithRequest___block_invoke_2(uint64_t a1
       bundleIdentifier = [(LSApplicationProxy *)self->_appProxy bundleIdentifier];
       if (bundleIdentifier)
       {
-        v9 = [objc_alloc(getISIconClass[0]()) initWithBundleIdentifier:bundleIdentifier];
+        v9 = [objc_alloc(getISIconClass()) initWithBundleIdentifier:bundleIdentifier];
         if (gLogCategory_SFSubCredentialAppContent <= 50 && (gLogCategory_SFSubCredentialAppContent != -1 || _LogCategory_Initialize()))
         {
           [SFAppContent _fetchNameAndIconWithSize:completion:];
         }
 
-        v10 = [objc_alloc(getISImageDescriptorClass[0]()) initWithSize:width scale:{height, 2.0}];
+        v10 = [objc_alloc(getISImageDescriptorClass()) initWithSize:width scale:{height, 2.0}];
         v15[0] = v10;
         v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
         [v9 prepareImagesForImageDescriptors:v11];

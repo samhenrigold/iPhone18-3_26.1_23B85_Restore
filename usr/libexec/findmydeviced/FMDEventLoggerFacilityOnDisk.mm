@@ -72,10 +72,10 @@
     v6 = [logs count];
     if (v6 > qword_100313450)
     {
-      [logs removeObjectAtIndex:0];
+      v6 = [logs removeObjectAtIndex:0];
     }
 
-    v7 = sub_100002880();
+    v7 = sub_100002880(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       sub_10022D614(logs, v7);
@@ -86,10 +86,10 @@
 
     if (v9)
     {
-      v10 = sub_100002880();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = sub_100002880(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        sub_10022D68C(v9, v10);
+        sub_10022D68C(v9, v11);
       }
     }
   }
@@ -100,16 +100,16 @@
   v3 = +[NSFileManager defaultManager];
   cachedLogFileURL = [(FMDEventLoggerFacilityOnDisk *)self cachedLogFileURL];
   path = [cachedLogFileURL path];
-  v8 = 0;
-  [v3 removeItemAtPath:path error:&v8];
-  v6 = v8;
+  v9 = 0;
+  [v3 removeItemAtPath:path error:&v9];
+  v6 = v9;
 
   if (v6)
   {
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100002880(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_100228DE0(self, v6, v7);
+      sub_100228DE0(self, v6, v8);
     }
   }
 
@@ -143,29 +143,29 @@
 {
   archiver = [(FMDEventLoggerFacilityOnDisk *)self archiver];
   v4 = [NSSet setWithObject:objc_opt_class()];
-  v15 = 0;
-  v5 = [archiver readArrayAndClasses:v4 error:&v15];
-  v6 = v15;
+  v16 = 0;
+  v5 = [archiver readArrayAndClasses:v4 error:&v16];
+  v6 = v16;
 
   if (v6)
   {
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = sub_100002880(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v17 = v6;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "FMDEventLoggerFacilityOnDisk read error %@", buf, 0xCu);
+      v18 = v6;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "FMDEventLoggerFacilityOnDisk read error %@", buf, 0xCu);
     }
 
-    v8 = +[FMDEventLoggerGeneral sharedInstance];
-    [v8 sendError:v6 forEventName:@"FMDEventLoggerFacilityOnDiskFailedReadEventName"];
+    v9 = +[FMDEventLoggerGeneral sharedInstance];
+    [v9 sendError:v6 forEventName:@"FMDEventLoggerFacilityOnDiskFailedReadEventName"];
 
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v9 = [v5 mutableCopy];
+    v10 = [v5 mutableCopy];
   }
 
   objc_initWeak(buf, self);
@@ -174,12 +174,12 @@
   block[1] = 3221225472;
   block[2] = sub_1001B4730;
   block[3] = &unk_1002CD288;
-  objc_copyWeak(&v14, buf);
-  v13 = v9;
-  v11 = v9;
+  objc_copyWeak(&v15, buf);
+  v14 = v10;
+  v12 = v10;
   dispatch_async(serialQueue, block);
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
 }
 

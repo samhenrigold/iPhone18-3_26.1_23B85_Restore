@@ -338,32 +338,20 @@ LABEL_6:
 - (BOOL)shouldIgnoreThermalsForActivity:(id)activity withState:(id)state
 {
   stateCopy = state;
-  if (![_DASPhotosPolicy isiCPLActivity:activity])
+  v12 = 0;
+  if ([_DASPhotosPolicy isiCPLActivity:activity])
   {
-    goto LABEL_5;
-  }
+    v7 = +[_DASPhotosPolicy keyPathForPhotosBudgetOverride];
+    v8 = [stateCopy objectForKeyedSubscript:v7];
+    unsignedIntegerValue = [v8 unsignedIntegerValue];
 
-  v7 = +[_DASPhotosPolicy keyPathForPhotosBudgetOverride];
-  v8 = [stateCopy objectForKeyedSubscript:v7];
-  unsignedIntegerValue = [v8 unsignedIntegerValue];
+    v10 = [stateCopy objectForKeyedSubscript:self->_thermalPressureLevelKeyPath];
+    unsignedIntValue = [v10 unsignedIntValue];
 
-  v10 = [stateCopy objectForKeyedSubscript:self->_thermalPressureLevelKeyPath];
-  unsignedIntValue = [v10 unsignedIntValue];
-
-  if ((unsignedIntegerValue & 0x800) == 0)
-  {
-    goto LABEL_5;
-  }
-
-  if (unsignedIntValue < 0x15)
-  {
-    v12 = 1;
-  }
-
-  else
-  {
-LABEL_5:
-    v12 = 0;
+    if ((unsignedIntegerValue & 0x800) != 0 && unsignedIntValue < 0x15)
+    {
+      v12 = 1;
+    }
   }
 
   return v12;

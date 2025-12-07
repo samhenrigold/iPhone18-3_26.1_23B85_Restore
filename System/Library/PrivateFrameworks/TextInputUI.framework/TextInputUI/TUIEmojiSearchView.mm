@@ -2071,23 +2071,23 @@ uint64_t __45__TUIEmojiSearchView_isNotificationExtension__block_invoke()
 
 + (BOOL)shouldShowImages
 {
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
   v2 = getMKBGetDeviceLockStateSymbolLoc_ptr;
-  v19 = getMKBGetDeviceLockStateSymbolLoc_ptr;
+  v20 = getMKBGetDeviceLockStateSymbolLoc_ptr;
   if (!getMKBGetDeviceLockStateSymbolLoc_ptr)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __getMKBGetDeviceLockStateSymbolLoc_block_invoke;
-    v15[3] = &unk_1E72D8058;
-    v15[4] = &v16;
-    __getMKBGetDeviceLockStateSymbolLoc_block_invoke(v15);
-    v2 = v17[3];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __getMKBGetDeviceLockStateSymbolLoc_block_invoke;
+    v16[3] = &unk_1E72D8058;
+    v16[4] = &v17;
+    __getMKBGetDeviceLockStateSymbolLoc_block_invoke(v16);
+    v2 = v18[3];
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v17, 8);
   if (v2)
   {
     v3 = v2(0);
@@ -2133,9 +2133,9 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  dlerror();
-  v14 = abort_report_np();
-  return __getMKBGetDeviceLockStateSymbolLoc_block_invoke(v14);
+  v14 = dlerror();
+  v15 = abort_report_np("%s", v14);
+  return __getMKBGetDeviceLockStateSymbolLoc_block_invoke(v15);
 }
 
 + (BOOL)canInsertStickerAsTextInputPayload

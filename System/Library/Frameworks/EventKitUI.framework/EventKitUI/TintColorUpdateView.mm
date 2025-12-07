@@ -14,8 +14,8 @@
   if (tintColorUpdateDelegate)
   {
     tintColorUpdateDelegate2 = [(TintColorUpdateView *)self tintColorUpdateDelegate];
-    tintColor = [(TintColorUpdateView *)self tintColor];
-    [tintColorUpdateDelegate2 viewTintColorDidChangeForView:self toColor:tintColor];
+    v5 = objc_msgSend_tintColor(self);
+    [tintColorUpdateDelegate2 viewTintColorDidChangeForView:self toColor:v5];
   }
 }
 

@@ -59,26 +59,26 @@
 
 - (BOOL)hasPropertyError
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   propStats = [(CoreDAVMkcolResponseItem *)self propStats];
-  v3 = [propStats countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [propStats countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
-    v4 = *v12;
+    v4 = *v11;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(propStats);
         }
 
-        status = [*(*(&v11 + 1) + 8 * i) status];
+        status = [*(*(&v10 + 1) + 8 * i) status];
         payloadAsString = [status payloadAsString];
         v8 = [payloadAsString CDVIsHTTPStatusLineWithStatusCode:200];
 
@@ -89,7 +89,7 @@
         }
       }
 
-      v3 = [propStats countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v3 = [propStats countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v3)
       {
         continue;
@@ -101,7 +101,6 @@
 
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

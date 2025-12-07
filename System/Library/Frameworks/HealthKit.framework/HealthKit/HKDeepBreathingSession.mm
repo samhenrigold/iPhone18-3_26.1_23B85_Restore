@@ -37,21 +37,22 @@ void __64___HKDeepBreathingSession_startSessionWithStartDate_completion___block_
 void __64___HKDeepBreathingSession_startSessionWithStartDate_completion___block_invoke_4(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if (a2)
   {
-    v6 = *(a1 + 32);
-    v7 = *(v6 + 8);
+    v8 = *(a1 + 32);
+    v9 = *(v8 + 8);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __64___HKDeepBreathingSession_startSessionWithStartDate_completion___block_invoke_5;
     block[3] = &unk_1E7376780;
-    block[4] = v6;
-    dispatch_sync(v7, block);
+    block[4] = v8;
+    dispatch_sync(v9, block);
   }
 
   else
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v5, v6);
     if (os_log_type_enabled(HKLogDeepBreathing, OS_LOG_TYPE_ERROR))
     {
       __64___HKDeepBreathingSession_startSessionWithStartDate_completion___block_invoke_4_cold_1();
@@ -64,7 +65,7 @@ void __64___HKDeepBreathingSession_startSessionWithStartDate_completion___block_
 void __64___HKDeepBreathingSession_startSessionWithStartDate_completion___block_invoke_18(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v3, v4);
   if (os_log_type_enabled(HKLogDeepBreathing, OS_LOG_TYPE_ERROR))
   {
     __64___HKDeepBreathingSession_startSessionWithStartDate_completion___block_invoke_18_cold_1();
@@ -76,7 +77,7 @@ void __64___HKDeepBreathingSession_startSessionWithStartDate_completion___block_
 void __39___HKDeepBreathingSession_startGuiding__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogDeepBreathing, OS_LOG_TYPE_ERROR))
   {
     __64___HKDeepBreathingSession_startSessionWithStartDate_completion___block_invoke_18_cold_1();
@@ -86,7 +87,7 @@ void __39___HKDeepBreathingSession_startGuiding__block_invoke_2(uint64_t a1, voi
 void __51___HKDeepBreathingSession_endSessionWithEndReason___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogDeepBreathing, OS_LOG_TYPE_ERROR))
   {
     __64___HKDeepBreathingSession_startSessionWithStartDate_completion___block_invoke_18_cold_1();
@@ -102,7 +103,7 @@ uint64_t __56___HKDeepBreathingSession__connectionDidEncounterError___block_invo
   return [v2 _queue_alertDelegateDidEncounterError:v3];
 }
 
-uint64_t __44___HKDeepBreathingSession__isServerAttached__block_invoke(uint64_t a1)
+void *__44___HKDeepBreathingSession__isServerAttached__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_isServerAttached];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -127,22 +128,6 @@ void __65___HKDeepBreathingSession__queue_alertDelegateDidEncounterError___block
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   [WeakRetained deepBreathingSession:*(a1 + 32) didEncounterError:*(a1 + 40)];
-}
-
-void __64___HKDeepBreathingSession_startSessionWithStartDate_completion___block_invoke_4_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_2(&dword_19197B000, v0, v1, "error starting session: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __64___HKDeepBreathingSession_startSessionWithStartDate_completion___block_invoke_18_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_2(&dword_19197B000, v0, v1, "received server error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

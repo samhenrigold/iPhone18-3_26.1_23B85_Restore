@@ -219,7 +219,7 @@
   completionCopy = completion;
   if (dword_1001D36C0 <= 30 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011649C(deviceCopy);
+    sub_10011649C(deviceCopy, mappingCopy);
     if (mappingCopy)
     {
       goto LABEL_5;
@@ -268,7 +268,7 @@ LABEL_5:
 
       if (dword_1001D36C0 <= 30 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
       {
-        sub_100116508();
+        sub_100116508(v11);
       }
     }
 
@@ -279,9 +279,12 @@ LABEL_5:
     {
       if (agentClient)
       {
-        if (dword_1001D36C0 <= 30 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
+        if (dword_1001D36C0 <= 30)
         {
-          sub_100116548();
+          if (dword_1001D36C0 != -1 || (v15 = _LogCategory_Initialize(), v15))
+          {
+            sub_100116548(v15, v16, v17);
+          }
         }
 
         mappingID = [(RPNWListener *)v11 mappingID];
@@ -290,14 +293,17 @@ LABEL_5:
 
       else
       {
-        if (dword_1001D36C0 <= 30 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
+        if (dword_1001D36C0 <= 30)
         {
-          sub_100116564();
+          if (dword_1001D36C0 != -1 || (v15 = _LogCategory_Initialize(), v15))
+          {
+            sub_100116564(v15, v16, v17);
+          }
         }
 
         mappingID = [(RPNWListener *)v11 listenerNotifications];
-        v16 = objc_retainBlock(completionCopy);
-        [mappingID addObject:v16];
+        v19 = objc_retainBlock(completionCopy);
+        [mappingID addObject:v19];
       }
     }
 
@@ -322,48 +328,49 @@ LABEL_32:
   completionCopy = completion;
   if (dword_1001D36C0 <= 30 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001165A0(deviceCopy);
+    sub_1001165A0(deviceCopy, mappingCopy);
   }
 
   v10 = [qword_1001D6120 objectForKeyedSubscript:mappingCopy];
-  v11 = v10;
-  if (v10 && ([v10 agentClient], v12 = objc_claimAutoreleasedReturnValue(), v12, v12))
+  v13 = v10;
+  if (v10 && ([v10 agentClient], v14 = objc_claimAutoreleasedReturnValue(), v14, v14))
   {
-    v21 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v22 = 0u;
-    v19 = 0u;
-    v20 = 0u;
-    peerDevices = [v11 peerDevices];
-    v14 = [peerDevices countByEnumeratingWithState:&v19 objects:v23 count:16];
-    if (v14)
+    v23 = 0u;
+    peerDevices = [v13 peerDevices];
+    v16 = [peerDevices countByEnumeratingWithState:&v22 objects:v26 count:16];
+    if (v16)
     {
-      v15 = v14;
-      v16 = *v20;
+      v17 = v16;
+      v18 = *v23;
       while (2)
       {
-        for (i = 0; i != v15; i = i + 1)
+        for (i = 0; i != v17; i = i + 1)
         {
-          if (*v20 != v16)
+          if (*v23 != v18)
           {
             objc_enumerationMutation(peerDevices);
           }
 
-          if ([*(*(&v19 + 1) + 8 * i) isEqualToDevice:deviceCopy])
+          v20 = *(*(&v22 + 1) + 8 * i);
+          if ([v20 isEqualToDevice:deviceCopy])
           {
             if (dword_1001D36C0 <= 30 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
             {
-              sub_10011660C();
+              sub_10011660C(v20);
             }
 
-            mappingID = [v11 mappingID];
+            mappingID = [v13 mappingID];
             completionCopy[2](completionCopy, mappingID, 0);
 
             goto LABEL_26;
           }
         }
 
-        v15 = [peerDevices countByEnumeratingWithState:&v19 objects:v23 count:16];
-        if (v15)
+        v17 = [peerDevices countByEnumeratingWithState:&v22 objects:v26 count:16];
+        if (v17)
         {
           continue;
         }
@@ -378,9 +385,12 @@ LABEL_32:
     }
   }
 
-  else if (dword_1001D36C0 <= 30 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
+  else if (dword_1001D36C0 <= 30)
   {
-    sub_100116680();
+    if (dword_1001D36C0 != -1 || (v10 = _LogCategory_Initialize(), v10))
+    {
+      sub_100116680(v10, v11, v12);
+    }
   }
 
   completionCopy[2](completionCopy, 0, 0);
@@ -406,7 +416,7 @@ LABEL_26:
 
   if (dword_1001D36C0 <= 40 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011669C(clientCopy);
+    sub_10011669C(clientCopy, v6);
   }
 
   if ([v6 pid])
@@ -423,23 +433,26 @@ LABEL_26:
       [RPNWListener removeListenerForApplicationService:applicationService2];
 
 LABEL_43:
-      v24 = 0;
+      v27 = 0;
       goto LABEL_44;
     }
   }
 
   if (dword_1001D36C0 <= 30 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100116764(clientCopy);
+    sub_100116764(clientCopy, v6);
   }
 
   ageOutListenerTimer = [v6 ageOutListenerTimer];
 
   if (ageOutListenerTimer)
   {
-    if (dword_1001D36C0 <= 40 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D36C0 <= 40)
     {
-      sub_100116800();
+      if (dword_1001D36C0 != -1 || (v9 = _LogCategory_Initialize(), v9))
+      {
+        sub_100116800(v9, v10, v11);
+      }
     }
 
     ageOutListenerTimer2 = [v6 ageOutListenerTimer];
@@ -449,163 +462,167 @@ LABEL_43:
     [v6 setAgeOutListenerTimer:0];
   }
 
-  v33 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
+  v35 = 0u;
   incomingConnections = [v6 incomingConnections];
-  v11 = [incomingConnections countByEnumeratingWithState:&v31 objects:v36 count:16];
-  if (v11)
+  v14 = [incomingConnections countByEnumeratingWithState:&v34 objects:v39 count:16];
+  if (v14)
   {
-    v12 = v11;
-    v13 = *v32;
+    v15 = v14;
+    v16 = *v35;
     do
     {
-      for (i = 0; i != v12; i = i + 1)
+      for (i = 0; i != v15; i = i + 1)
       {
-        if (*v32 != v13)
+        if (*v35 != v16)
         {
           objc_enumerationMutation(incomingConnections);
         }
 
-        [*(*(&v31 + 1) + 8 * i) sendStatusUpdate:3];
+        [*(*(&v34 + 1) + 8 * i) sendStatusUpdate:3];
       }
 
-      v12 = [incomingConnections countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v15 = [incomingConnections countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
-    while (v12);
+    while (v15);
   }
 
   [v6 setAgentClient:clientCopy];
   [v6 setPid:{objc_msgSend(clientCopy, "pid")}];
-  v29 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
+  v31 = 0u;
   listenerNotifications = [v6 listenerNotifications];
-  v16 = [listenerNotifications countByEnumeratingWithState:&v27 objects:v35 count:16];
-  if (v16)
+  v19 = [listenerNotifications countByEnumeratingWithState:&v30 objects:v38 count:16];
+  if (v19)
   {
-    v17 = v16;
-    v18 = *v28;
+    v20 = v19;
+    v21 = *v31;
     do
     {
-      v19 = 0;
+      v22 = 0;
       do
       {
-        if (*v28 != v18)
+        if (*v31 != v21)
         {
           objc_enumerationMutation(listenerNotifications);
         }
 
-        v20 = *(*(&v27 + 1) + 8 * v19);
+        v23 = *(*(&v30 + 1) + 8 * v22);
         if (dword_1001D36C0 <= 30 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
         {
           sub_10011681C();
         }
 
         mappingID = [v6 mappingID];
-        (*(v20 + 16))(v20, mappingID, 0);
+        (*(v23 + 16))(v23, mappingID, 0);
 
-        v19 = v19 + 1;
+        v22 = v22 + 1;
       }
 
-      while (v17 != v19);
-      v22 = [listenerNotifications countByEnumeratingWithState:&v27 objects:v35 count:16];
-      v17 = v22;
+      while (v20 != v22);
+      v25 = [listenerNotifications countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v20 = v25;
     }
 
-    while (v22);
+    while (v25);
   }
 
   listenerNotifications2 = [v6 listenerNotifications];
   [listenerNotifications2 removeAllObjects];
 
-  v24 = 1;
+  v27 = 1;
 LABEL_44:
 
-  return v24;
+  return v27;
 }
 
 + (void)startListenerMappingTimeout:(id)timeout
 {
   timeoutCopy = timeout;
   v4 = [qword_1001D6120 objectForKeyedSubscript:timeoutCopy];
+  v7 = v4;
   if (v4)
   {
-    if (dword_1001D36C0 <= 40 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D36C0 <= 40)
     {
-      sub_1001168AC();
+      if (dword_1001D36C0 != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        sub_1001168AC(v4, v5, v6);
+      }
     }
 
-    v28 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v29 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    incomingConnections = [v4 incomingConnections];
-    v6 = [incomingConnections countByEnumeratingWithState:&v26 objects:v30 count:16];
-    if (v6)
+    v30 = 0u;
+    incomingConnections = [v7 incomingConnections];
+    v9 = [incomingConnections countByEnumeratingWithState:&v29 objects:v33 count:16];
+    if (v9)
     {
-      v7 = v6;
-      v8 = *v27;
+      v10 = v9;
+      v11 = *v30;
       do
       {
-        v9 = 0;
+        v12 = 0;
         do
         {
-          if (*v27 != v8)
+          if (*v30 != v11)
           {
             objc_enumerationMutation(incomingConnections);
           }
 
-          v10 = *(*(&v26 + 1) + 8 * v9);
+          v13 = *(*(&v29 + 1) + 8 * v12);
           if (dword_1001D36C0 <= 40 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
           {
-            sub_1001168C8();
+            sub_1001168C8(v13);
           }
 
-          [v10 sendStatusUpdate:2];
-          v9 = v9 + 1;
+          [v13 sendStatusUpdate:2];
+          v12 = v12 + 1;
         }
 
-        while (v7 != v9);
-        v11 = [incomingConnections countByEnumeratingWithState:&v26 objects:v30 count:16];
-        v7 = v11;
+        while (v10 != v12);
+        v14 = [incomingConnections countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v10 = v14;
       }
 
-      while (v11);
+      while (v14);
     }
 
-    [v4 clearIncomingConnections];
+    [v7 clearIncomingConnections];
     if (dword_1001D36C0 <= 40 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
     {
-      sub_100116908();
+      sub_100116908(v7);
     }
 
-    [v4 setAgentClient:0];
-    v12 = [NSDate dateWithTimeIntervalSinceNow:180.0];
-    [v4 setAgeOutTimeout:v12];
+    [v7 setAgentClient:0];
+    v15 = [NSDate dateWithTimeIntervalSinceNow:180.0];
+    [v7 setAgeOutTimeout:v15];
 
-    v13 = +[RPNWNetworkAgent sharedNetworkAgent];
-    dispatchQueue = [v13 dispatchQueue];
-    v15 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, dispatchQueue);
-    [v4 setAgeOutListenerTimer:v15];
+    v16 = +[RPNWNetworkAgent sharedNetworkAgent];
+    dispatchQueue = [v16 dispatchQueue];
+    v18 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, dispatchQueue);
+    [v7 setAgeOutListenerTimer:v18];
 
-    ageOutListenerTimer = [v4 ageOutListenerTimer];
-    v20 = _NSConcreteStackBlock;
-    v21 = 3221225472;
-    v22 = sub_100049A4C;
-    v23 = &unk_1001AB488;
-    v17 = v4;
-    v24 = v17;
-    v25 = timeoutCopy;
-    dispatch_source_set_event_handler(ageOutListenerTimer, &v20);
+    ageOutListenerTimer = [v7 ageOutListenerTimer];
+    v23 = _NSConcreteStackBlock;
+    v24 = 3221225472;
+    v25 = sub_100049A4C;
+    v26 = &unk_1001AB488;
+    v20 = v7;
+    v27 = v20;
+    v28 = timeoutCopy;
+    dispatch_source_set_event_handler(ageOutListenerTimer, &v23);
 
-    ageOutListenerTimer2 = [v17 ageOutListenerTimer];
+    ageOutListenerTimer2 = [v20 ageOutListenerTimer];
     CUDispatchTimerSet();
 
-    ageOutListenerTimer3 = [v17 ageOutListenerTimer];
+    ageOutListenerTimer3 = [v20 ageOutListenerTimer];
     dispatch_activate(ageOutListenerTimer3);
   }
 }
@@ -617,62 +634,67 @@ LABEL_44:
   peerCopy = peer;
   if (dword_1001D36C0 <= 30 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001169D8(peerCopy);
+    sub_1001169D8(peerCopy, dCopy, serviceCopy);
   }
 
   v10 = [qword_1001D6120 objectForKeyedSubscript:serviceCopy];
+  v13 = v10;
   if (!v10)
   {
-    if (dword_1001D36C0 <= 30 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D36C0 <= 30)
     {
-      sub_100116B34();
+      if (dword_1001D36C0 != -1 || (v10 = _LogCategory_Initialize(), v10))
+      {
+        sub_100116B34(v10, v11, v12);
+      }
     }
 
 LABEL_33:
-    v18 = 0;
+    v27 = 0;
     goto LABEL_39;
   }
 
   if (dword_1001D36C0 <= 30 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100116A48();
+    sub_100116A48(v13);
   }
 
-  if (![v10 automapped])
+  automapped = [v13 automapped];
+  if (!automapped)
   {
-    mappingID = [v10 mappingID];
-    v12 = [mappingID isEqual:dCopy];
+    mappingID = [v13 mappingID];
+    v18 = [mappingID isEqual:dCopy];
 
-    if (v12)
+    if (v18)
     {
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
-      v21 = 0u;
-      peerDevices = [v10 peerDevices];
-      v14 = [peerDevices countByEnumeratingWithState:&v20 objects:v24 count:16];
-      if (v14)
+      v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
+      peerDevices = [v13 peerDevices];
+      v23 = [peerDevices countByEnumeratingWithState:&v29 objects:v33 count:16];
+      if (v23)
       {
-        v15 = v14;
-        v16 = *v21;
+        v24 = v23;
+        v25 = *v30;
         while (2)
         {
-          for (i = 0; i != v15; i = i + 1)
+          for (i = 0; i != v24; i = i + 1)
           {
-            if (*v21 != v16)
+            if (*v30 != v25)
             {
               objc_enumerationMutation(peerDevices);
             }
 
-            if ([*(*(&v20 + 1) + 8 * i) isEqualToDevice:peerCopy])
+            if ([*(*(&v29 + 1) + 8 * i) isEqualToDevice:peerCopy])
             {
 
               goto LABEL_35;
             }
           }
 
-          v15 = [peerDevices countByEnumeratingWithState:&v20 objects:v24 count:16];
-          if (v15)
+          v24 = [peerDevices countByEnumeratingWithState:&v29 objects:v33 count:16];
+          if (v24)
           {
             continue;
           }
@@ -687,9 +709,12 @@ LABEL_33:
       }
     }
 
-    else if (dword_1001D36C0 <= 30 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
+    else if (dword_1001D36C0 <= 30)
     {
-      sub_100116A88();
+      if (dword_1001D36C0 != -1 || (v19 = _LogCategory_Initialize(), v19))
+      {
+        sub_100116A88(v19, v20, v21);
+      }
     }
 
     goto LABEL_33;
@@ -697,22 +722,22 @@ LABEL_33:
 
   if (dword_1001D36C0 <= 30)
   {
-    if (dword_1001D36C0 != -1 || _LogCategory_Initialize())
+    if (dword_1001D36C0 != -1 || (automapped = _LogCategory_Initialize(), automapped))
     {
-      sub_100116AD8();
+      sub_100116AD8(automapped, v15, v16);
     }
 
 LABEL_35:
     if (dword_1001D36C0 <= 30 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
     {
-      sub_100116AF4();
+      sub_100116AF4(peerCopy);
     }
   }
 
-  v18 = v10;
+  v27 = v13;
 LABEL_39:
 
-  return v18;
+  return v27;
 }
 
 + (id)findListenerForAgentClient:(id)client sender:(id)sender browseRequest:(BOOL)request
@@ -722,7 +747,7 @@ LABEL_39:
   senderCopy = sender;
   if (dword_1001D36C0 <= 30 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100116B50();
+    sub_100116B50(clientCopy);
   }
 
   v19 = 0u;
@@ -806,7 +831,7 @@ LABEL_24:
   {
     if (dword_1001D36C0 <= 40 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
     {
-      sub_100116CE0(connectionCopy, self);
+      sub_100116CE0(connectionCopy, self, idsDeviceIdentifier);
     }
 
     peer2 = [connectionCopy peer];
@@ -899,56 +924,66 @@ LABEL_11:
 
 - (BOOL)hasTriggeredConnection
 {
-  if (dword_1001D36C0 <= 40 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1001D36C0 <= 40)
   {
-    sub_100116D54();
+    if (dword_1001D36C0 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      self = sub_100116D54(self, a2, v2);
+    }
   }
 
-  if (!self->_triggeredConnection)
+  if (!selfCopy->_triggeredConnection)
   {
     if (dword_1001D36C0 <= 40)
     {
       if (dword_1001D36C0 == -1)
       {
-        v7 = _LogCategory_Initialize();
-        if (!v7)
+        self = _LogCategory_Initialize();
+        if (!self)
         {
-          return v7;
+          return self;
         }
       }
 
-      sub_100116E0C();
+      sub_100116E0C(self, a2, v2);
     }
 
 LABEL_22:
-    LOBYTE(v7) = 0;
-    return v7;
+    LOBYTE(self) = 0;
+    return self;
   }
 
-  triggerTime = self->_triggerTime;
-  v4 = +[NSDate now];
-  [(NSDate *)triggerTime timeIntervalSinceDate:v4];
-  v6 = v5;
+  triggerTime = selfCopy->_triggerTime;
+  v5 = +[NSDate now];
+  [(NSDate *)triggerTime timeIntervalSinceDate:v5];
+  v7 = v6;
 
-  if (v6 < 0.0)
+  if (v7 < 0.0)
   {
-    if (dword_1001D36C0 <= 40 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D36C0 <= 40)
     {
-      sub_100116D70();
+      if (dword_1001D36C0 != -1 || (v8 = _LogCategory_Initialize(), v8))
+      {
+        v8 = sub_100116D70(v7);
+      }
     }
 
-    if (!self->_doneABC)
+    if (!selfCopy->_doneABC)
     {
-      if (dword_1001D36C0 <= 40 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
+      if (dword_1001D36C0 <= 40)
       {
-        sub_100116DB0();
+        if (dword_1001D36C0 != -1 || (v8 = _LogCategory_Initialize(), v8))
+        {
+          sub_100116DB0(v8, v9, v10);
+        }
       }
 
-      v8 = sub_10001B924(self->_pid);
-      v9 = +[RPAutoBugCapture sharedReporter];
-      [v9 reportIssueOfType:2 issueContext:@"Stale Client Process" processName:v8];
+      v11 = sub_10001B924(selfCopy->_pid);
+      v12 = +[RPAutoBugCapture sharedReporter];
+      [v12 reportIssueOfType:2 issueContext:@"Stale Client Process" processName:v11];
 
-      self->_doneABC = 1;
+      selfCopy->_doneABC = 1;
     }
 
     goto LABEL_22;
@@ -956,11 +991,11 @@ LABEL_22:
 
   if (dword_1001D36C0 <= 40 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100116DCC();
+    sub_100116DCC(v7);
   }
 
-  LOBYTE(v7) = 1;
-  return v7;
+  LOBYTE(self) = 1;
+  return self;
 }
 
 - (void)markConnectionAsTriggered:(id)triggered
@@ -1000,7 +1035,7 @@ LABEL_22:
 
           if (dword_1001D36C0 <= 40 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
           {
-            sub_100116E28();
+            sub_100116E28(triggeredCopy);
           }
 
           [(NSMutableArray *)selfCopy->_incomingConnections removeObjectAtIndex:v12];
@@ -1110,7 +1145,7 @@ LABEL_14:
 {
   if (dword_1001D36C0 <= 40 && (dword_1001D36C0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100116EAC();
+    sub_100116EAC(mapping);
   }
 
   byte_1001D6128 = mapping;

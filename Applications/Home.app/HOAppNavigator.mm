@@ -3,8 +3,12 @@
 + (void)addViewControllersToRegistry;
 - (HOHomePodProfileInstaller)homePodProfileInstaller;
 - (id)_cameraProfileWithName:(id)name home:(id)home room:(id)room;
+- (id)_selectCurrentTabAnimated:(BOOL)animated;
 - (id)_selectHome:(id)home;
+- (id)_selectTabWithIdentifier:(id)identifier animated:(BOOL)animated;
 - (id)_serviceWithName:(id)name type:(id)type home:(id)home room:(id)room;
+- (id)_showDashboardForRoomContainedObject:(id)object animated:(BOOL)animated;
+- (id)_showHomeTabForHome:(id)home animated:(BOOL)animated;
 - (id)_showLocationListWithHome:(id)home customizationBlock:(id)block;
 - (id)_showRoom:(id)room animated:(BOOL)animated;
 - (id)_showRoomContainedCamera:(id)camera forCameraClip:(id)clip;
@@ -16,6 +20,7 @@
 - (id)createOrShowRoomWithName:(id)name home:(id)home;
 - (id)currentViewController;
 - (id)dashboardContextTypeDescriptionForAnalytics;
+- (id)finishPresentation:(id)presentation animated:(BOOL)animated;
 - (id)presentConfirmationAlertForExecutingTriggerWithIdentifier:(id)identifier;
 - (id)showAboutResidentDeviceView;
 - (id)showAccessory:(id)accessory secondaryDestination:(unint64_t)destination;
@@ -55,6 +60,7 @@
 - (id)showUserDetails:(id)details;
 - (id)showUserLockSettingsForHome:(id)home;
 - (void)_configureDashboardContextWithAccessoryTypeGroup:(id)group home:(id)home navigationController:(id)controller animated:(BOOL)animated;
+- (void)_configureDashboardContextWithHome:(id)home navigationController:(id)controller animated:(BOOL)animated;
 - (void)_configureDashboardContextWithRoom:(id)room navigationController:(id)controller animated:(BOOL)animated;
 - (void)_createActionSetWithName:(id)name home:(id)home;
 - (void)_createHomeWithName:(id)name;
@@ -1050,6 +1056,39 @@
   return v3;
 }
 
+- (id)_selectTabWithIdentifier:(id)identifier animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  identifierCopy = identifier;
+  rootViewController = [(HOAppNavigator *)self rootViewController];
+  v8 = [rootViewController hu_dismissViewControllerAnimated:animatedCopy];
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_100029ED4;
+  v12[3] = &unk_1000C3848;
+  v12[4] = self;
+  v13 = identifierCopy;
+  v9 = identifierCopy;
+  v10 = [v8 flatMap:v12];
+
+  return v10;
+}
+
+- (id)_selectCurrentTabAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  rootViewController = [(HOAppNavigator *)self rootViewController];
+  v6 = [rootViewController hu_dismissViewControllerAnimated:animatedCopy];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100029FF0;
+  v9[3] = &unk_1000C2DF0;
+  v9[4] = self;
+  v7 = [v6 flatMap:v9];
+
+  return v7;
+}
+
 - (void)_createHomeWithName:(id)name
 {
   nameCopy = name;
@@ -1089,6 +1128,50 @@
   [v9 setModalPresentationStyle:2];
   rootViewController = [(HOAppNavigator *)self rootViewController];
   v11 = [rootViewController hu_presentPreloadableViewController:v9 animated:1];
+}
+
+- (id)_showDashboardForRoomContainedObject:(id)object animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_10002A4AC;
+  v13[3] = &unk_1000C3898;
+  objectCopy = object;
+  v6 = objectCopy;
+  v7 = sub_10002A4AC(v13);
+  hf_parentRoom = [v6 hf_parentRoom];
+  v9 = hf_parentRoom;
+  if (v7)
+  {
+    home = [hf_parentRoom home];
+    v11 = [(HOAppNavigator *)self _showHomeTabForHome:home animated:animatedCopy];
+  }
+
+  else
+  {
+    v11 = [(HOAppNavigator *)self _showRoom:hf_parentRoom animated:animatedCopy];
+  }
+
+  return v11;
+}
+
+- (id)_showHomeTabForHome:(id)home animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  homeCopy = home;
+  v7 = [(HOAppNavigator *)self _selectTabWithIdentifier:HFHomeAppTabIdentifierHome animated:animatedCopy];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_10002A66C;
+  v11[3] = &unk_1000C38C0;
+  v11[4] = self;
+  v12 = homeCopy;
+  v13 = animatedCopy;
+  v8 = homeCopy;
+  v9 = [v7 flatMap:v11];
+
+  return v9;
 }
 
 - (id)_showRoom:(id)room animated:(BOOL)animated
@@ -1691,6 +1774,14 @@ LABEL_12:
   }
 }
 
+- (id)finishPresentation:(id)presentation animated:(BOOL)animated
+{
+  v4 = [(HOAppNavigator *)self rootViewController:presentation];
+  v5 = [v4 hu_dismissViewControllerAnimated:1];
+
+  return v5;
+}
+
 - (void)addLocationViewController:(id)controller didFinishWithHome:(id)home
 {
   homeCopy = home;
@@ -1715,6 +1806,29 @@ LABEL_12:
 {
   rootViewController = [(HOAppNavigator *)self rootViewController];
   [rootViewController dismissViewControllerAnimated:1 completion:0];
+}
+
+- (void)_configureDashboardContextWithHome:(id)home navigationController:(id)controller animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  viewControllers = [controllerCopy viewControllers];
+  sub_10005B9DC(0, &qword_1000D9C90, UIViewController_ptr);
+  v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+
+  if (v7 >> 62)
+  {
+    v8 = _CocoaArrayWrapper.endIndex.getter();
+  }
+
+  else
+  {
+    v8 = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  }
+
+  if (v8 >= 2)
+  {
+  }
 }
 
 - (void)_configureDashboardContextWithAccessoryTypeGroup:(id)group home:(id)home navigationController:(id)controller animated:(BOOL)animated

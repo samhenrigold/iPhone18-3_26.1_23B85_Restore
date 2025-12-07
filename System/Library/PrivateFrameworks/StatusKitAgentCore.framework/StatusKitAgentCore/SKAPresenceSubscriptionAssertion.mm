@@ -12,19 +12,19 @@
 
 - (SKAPresenceSubscriptionAssertion)initWithChannelIdentifier:(id)identifier presenceIdentifier:(id)presenceIdentifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   presenceIdentifierCopy = presenceIdentifier;
-  v18.receiver = self;
-  v18.super_class = SKAPresenceSubscriptionAssertion;
-  v8 = [(SKAPresenceSubscriptionAssertion *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = SKAPresenceSubscriptionAssertion;
+  v8 = [(SKAPresenceSubscriptionAssertion *)&v17 init];
   if (v8)
   {
     v9 = +[SKAPresenceSubscriptionAssertion logger];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = identifierCopy;
+      v19 = identifierCopy;
       _os_log_impl(&dword_220099000, v9, OS_LOG_TYPE_DEFAULT, "Creating PresenceSubscriptionAssertion for channel %@", buf, 0xCu);
     }
 
@@ -41,7 +41,6 @@
     v8->_osActivity = v14;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -118,20 +117,19 @@
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = +[SKAPresenceSubscriptionAssertion logger];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [(SKAPresenceSubscriptionAssertion *)self description];
     *buf = 138412290;
-    v8 = v4;
+    v7 = v4;
     _os_log_impl(&dword_220099000, v3, OS_LOG_TYPE_DEFAULT, "Deallocing PresenceSubscriptionAssertion for channel %@, releasing os_activity", buf, 0xCu);
   }
 
-  v6.receiver = self;
-  v6.super_class = SKAPresenceSubscriptionAssertion;
-  [(SKAPresenceSubscriptionAssertion *)&v6 dealloc];
-  v5 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = SKAPresenceSubscriptionAssertion;
+  [(SKAPresenceSubscriptionAssertion *)&v5 dealloc];
 }
 
 + (id)logger

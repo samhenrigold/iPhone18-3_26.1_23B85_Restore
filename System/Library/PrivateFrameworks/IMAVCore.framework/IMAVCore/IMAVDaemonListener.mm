@@ -4,6 +4,7 @@
 - (void)addHandler:(id)handler;
 - (void)forwardInvocation:(id)invocation;
 - (void)removeHandler:(id)handler;
+- (void)setupComplete:(BOOL)complete info:(id)info;
 @end
 
 @implementation IMAVDaemonListener
@@ -52,6 +53,13 @@
   }
 }
 
+- (void)setupComplete:(BOOL)complete info:(id)info
+{
+  self->_setupComplete = 1;
+  v9 = objc_msgSend_sharedInstance(IMAVDaemonController, a2, complete, info, v4);
+  objc_msgSend__noteSetupComplete(v9, v5, v6, v7, v8);
+}
+
 - (id)methodSignatureForSelector:(SEL)selector
 {
   types = protocol_getMethodDescription(&unk_28669E058, selector, 1, 1).types;
@@ -62,29 +70,29 @@
 
 - (void)forwardInvocation:(id)invocation
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   invocationCopy = invocation;
   v5 = objc_autoreleasePoolPush();
   v10 = objc_msgSend__copyForEnumerating(self->_handlers, v6, v7, v8, v9);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v11 = v10;
-  v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v26, v30, 16);
+  v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v25, v29, 16);
   if (v17)
   {
-    v18 = *v27;
+    v18 = *v26;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v27 != v18)
+        if (*v26 != v18)
         {
           objc_enumerationMutation(v11);
         }
 
-        v20 = *(*(&v26 + 1) + 8 * i);
+        v20 = *(*(&v25 + 1) + 8 * i);
         objc_msgSend_selector(invocationCopy, v13, v14, v15, v16);
         if (objc_opt_respondsToSelector())
         {
@@ -94,14 +102,13 @@
         }
       }
 
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v13, &v26, v30, 16);
+      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v13, &v25, v29, 16);
     }
 
     while (v17);
   }
 
   objc_autoreleasePoolPop(v5);
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

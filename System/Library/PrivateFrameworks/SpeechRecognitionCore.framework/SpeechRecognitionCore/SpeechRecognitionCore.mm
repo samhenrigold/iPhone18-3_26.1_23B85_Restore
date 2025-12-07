@@ -1,7 +1,7 @@
 void RXCFFinalize(void *a1)
 {
   v1 = (a1 + 2);
-  v2 = (*(a1[2] + 56))(a1 + 16);
+  v2 = (*(a1[2] + 56))(a1 + 2);
   (**v1)(v1);
   if (v2)
   {
@@ -85,7 +85,7 @@ void __RXAbort(int a1, uint64_t a2, uint64_t a3, uint64_t a4, CFStringRef format
   }
 }
 
-uint64_t RXIsAppleInternal()
+uint64_t RXIsAppleInternal(uint64_t a1, uint64_t a2)
 {
   if (RXIsAppleInternal::onceToken != -1)
   {
@@ -104,13 +104,13 @@ uint64_t __RXIsAppleInternal_block_invoke()
 
 void reportBacktrace()
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  *v14 = 0u;
-  memset(v15, 0, sizeof(v15));
-  v0 = backtrace(v14, 33);
+  v22 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  *v13 = 0u;
+  memset(v14, 0, sizeof(v14));
+  v0 = backtrace(v13, 33);
   v1 = (v0 - 2);
-  v2 = backtrace_symbols(v15, v1);
+  v2 = backtrace_symbols(v14, v1);
   if (v2)
   {
     v3 = v2;
@@ -119,19 +119,19 @@ void reportBacktrace()
       for (i = 0; v1 != i; ++i)
       {
         v5 = v3[i];
-        v6 = RXOSLog();
+        v6 = RXOSLog(v2);
         v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
         if (v5)
         {
           if (v7)
           {
-            v8 = *(v15 + i);
+            v8 = *(v14 + i);
             *buf = 67109634;
-            v18 = i + 1;
-            v19 = 2048;
-            v20 = v8;
-            v21 = 2080;
-            v22 = v5;
+            v17 = i + 1;
+            v18 = 2048;
+            v19 = v8;
+            v20 = 2080;
+            v21 = v5;
             v9 = v6;
             v10 = "BACKTRACE: %-3d %p %s\n";
             v11 = 28;
@@ -142,11 +142,11 @@ LABEL_9:
 
         else if (v7)
         {
-          v12 = *(v15 + i);
+          v12 = *(v14 + i);
           *buf = 67109376;
-          v18 = i + 1;
-          v19 = 2048;
-          v20 = v12;
+          v17 = i + 1;
+          v18 = 2048;
+          v19 = v12;
           v9 = v6;
           v10 = "BACKTRACE: %-3d %p\n";
           v11 = 18;
@@ -157,20 +157,18 @@ LABEL_9:
 
     free(v3);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-id RXSignpostLog()
+id RXSignpostLog(uint64_t a1)
 {
   if (RXSignpostLog::onceToken != -1)
   {
     RXSignpostLog_cold_1();
   }
 
-  v1 = RXSignpostLog::signpostLog;
+  v2 = RXSignpostLog::signpostLog;
 
-  return v1;
+  return v2;
 }
 
 void __RXSignpostLog_block_invoke()
@@ -180,16 +178,16 @@ void __RXSignpostLog_block_invoke()
   RXSignpostLog::signpostLog = v0;
 }
 
-id RXOSLog()
+id RXOSLog(uint64_t a1)
 {
   if (RXOSLog::onceToken != -1)
   {
     RXOSLog_cold_1();
   }
 
-  v1 = RXOSLog::signpostLog;
+  v2 = RXOSLog::signpostLog;
 
-  return v1;
+  return v2;
 }
 
 void __RXOSLog_block_invoke()
@@ -205,7 +203,6 @@ id xpc_wrap2_uint64(uint64_t a1)
   bytes[0] = 0xDAC2C32E4DF4864CLL;
   bytes[1] = a1;
   v1 = xpc_data_create(bytes, 0x10uLL);
-  v2 = *MEMORY[0x277D85DE8];
 
   return v1;
 }
@@ -229,16 +226,16 @@ uint64_t xpc_unwrap2_uint64(void *a1)
 
 id xpc_wrap_uint64s_in_object(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if (MEMORY[0x26D679EE0]() == MEMORY[0x277D86468])
   {
     bytes = 0;
     p_bytes = &bytes;
-    v10 = 0x3032000000;
-    v11 = __Block_byref_object_copy_;
-    v12 = __Block_byref_object_dispose_;
-    v13 = xpc_copy(v1);
+    v9 = 0x3032000000;
+    v10 = __Block_byref_object_copy_;
+    v11 = __Block_byref_object_dispose_;
+    v12 = xpc_copy(v1);
     applier[0] = MEMORY[0x277D85DD0];
     applier[1] = 3221225472;
     applier[2] = __xpc_wrap_uint64s_in_object_block_invoke;
@@ -253,16 +250,16 @@ id xpc_wrap_uint64s_in_object(void *a1)
   {
     bytes = 0;
     p_bytes = &bytes;
-    v10 = 0x3032000000;
-    v11 = __Block_byref_object_copy_;
-    v12 = __Block_byref_object_dispose_;
-    v13 = xpc_copy(v1);
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __xpc_wrap_uint64s_in_object_block_invoke_2;
-    v6[3] = &unk_279CF68D0;
-    v6[4] = &bytes;
-    xpc_array_apply(v1, v6);
+    v9 = 0x3032000000;
+    v10 = __Block_byref_object_copy_;
+    v11 = __Block_byref_object_dispose_;
+    v12 = xpc_copy(v1);
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __xpc_wrap_uint64s_in_object_block_invoke_2;
+    v5[3] = &unk_279CF68D0;
+    v5[4] = &bytes;
+    xpc_array_apply(v1, v5);
     v3 = p_bytes[5];
     _Block_object_dispose(&bytes, 8);
   }
@@ -284,8 +281,6 @@ id xpc_wrap_uint64s_in_object(void *a1)
     v3 = v2;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
@@ -303,7 +298,7 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t __xpc_wrap_uint64s_in_object_block_invoke(uint64_t a1, const char *a2, uint64_t a3)
+uint64_t __xpc_wrap_uint64s_in_object_block_invoke(uint64_t a1, const char *a2, void *a3)
 {
   v4 = *(*(*(a1 + 32) + 8) + 40);
   v5 = xpc_wrap_uint64s_in_object(a3);
@@ -312,7 +307,7 @@ uint64_t __xpc_wrap_uint64s_in_object_block_invoke(uint64_t a1, const char *a2, 
   return 1;
 }
 
-uint64_t __xpc_wrap_uint64s_in_object_block_invoke_2(uint64_t a1, size_t a2, uint64_t a3)
+uint64_t __xpc_wrap_uint64s_in_object_block_invoke_2(uint64_t a1, size_t a2, void *a3)
 {
   v4 = *(*(*(a1 + 32) + 8) + 40);
   v5 = xpc_wrap_uint64s_in_object(a3);
@@ -386,7 +381,7 @@ void sub_26B585B18(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t __xpc_unwrap_uint64s_in_object_block_invoke(uint64_t a1, const char *a2, uint64_t a3)
+uint64_t __xpc_unwrap_uint64s_in_object_block_invoke(uint64_t a1, const char *a2, void *a3)
 {
   v5 = xpc_unwrap_uint64s_in_object(a3);
   xpc_dictionary_set_value(*(*(*(a1 + 32) + 8) + 40), a2, v5);
@@ -394,7 +389,7 @@ uint64_t __xpc_unwrap_uint64s_in_object_block_invoke(uint64_t a1, const char *a2
   return 1;
 }
 
-uint64_t __xpc_unwrap_uint64s_in_object_block_invoke_2(uint64_t a1, size_t a2, uint64_t a3)
+uint64_t __xpc_unwrap_uint64s_in_object_block_invoke_2(uint64_t a1, size_t a2, void *a3)
 {
   v5 = xpc_unwrap_uint64s_in_object(a3);
   xpc_array_set_value(*(*(*(a1 + 32) + 8) + 40), a2, v5);
@@ -668,10 +663,10 @@ void RXObject::RXObject(RXObject *this)
   *(this + 4) = 0;
 }
 
-void RXObject::~RXObject(RXObject *this, uint64_t a2, RXObject *a3)
+void RXObject::~RXObject(RXRecognitionSystem **this, uint64_t a2, RXObject *a3)
 {
   *this = &unk_287C0DF10;
-  RXRecognitionSystem::DeadObject(*(this + 2), this, a3);
+  RXRecognitionSystem::DeadObject(this[2], this, a3);
   RXCFProp<void const*>::~RXCFProp(this + 4);
 
   RXCFType::~RXCFType(this);
@@ -819,7 +814,7 @@ id RXObject::CreateXPCDesc(RXObject *this, int64_t a2, RXRecognitionSystem *a3)
   return v5;
 }
 
-uint64_t RXGetSupportedQuasarLocaleIdentifiers()
+uint64_t RXGetSupportedQuasarLocaleIdentifiers(uint64_t a1, uint64_t a2)
 {
   if (RXGetSupportedQuasarLocaleIdentifiers::onceToken != -1)
   {
@@ -831,7 +826,7 @@ uint64_t RXGetSupportedQuasarLocaleIdentifiers()
 
 void __RXGetSupportedQuasarLocaleIdentifiers_block_invoke()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   BundleWithIdentifier = CFBundleGetBundleWithIdentifier(@"com.apple.SpeechRecognitionCore");
   if (BundleWithIdentifier)
   {
@@ -875,11 +870,9 @@ void __RXGetSupportedQuasarLocaleIdentifiers_block_invoke()
       CFRelease(v4);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t RXGetSupportedNashvilleLocaleIdentifiers()
+uint64_t RXGetSupportedNashvilleLocaleIdentifiers(uint64_t a1, uint64_t a2)
 {
   if (RXGetSupportedNashvilleLocaleIdentifiers::onceToken != -1)
   {
@@ -924,17 +917,21 @@ void __RXGetSupportedNashvilleLocaleIdentifiers_block_invoke()
 
         *buffer = 0u;
         v13 = 0u;
-        if (CFStringGetCString(v7, buffer, 32, 0x8000100u) && _os_feature_enabled_impl())
+        if (CFStringGetCString(v7, buffer, 32, 0x8000100u))
         {
-          v8 = RXOSLog();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+          v8 = _os_feature_enabled_impl();
+          if (v8)
           {
-            *buf = 136315138;
-            v11 = buffer;
-            _os_log_impl(&dword_26B583000, v8, OS_LOG_TYPE_DEBUG, "Disabling Nashville locale support for Feature Flag %s", buf, 0xCu);
-          }
+            v9 = RXOSLog(v8);
+            if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+            {
+              *buf = 136315138;
+              v11 = buffer;
+              _os_log_impl(&dword_26B583000, v9, OS_LOG_TYPE_DEBUG, "Disabling Nashville locale support for Feature Flag %s", buf, 0xCu);
+            }
 
-          CFArrayRemoveValueAtIndex(RXGetSupportedNashvilleLocaleIdentifiers::supportedNashvilleLocaleIdentifiers, v5 - 2);
+            CFArrayRemoveValueAtIndex(RXGetSupportedNashvilleLocaleIdentifiers::supportedNashvilleLocaleIdentifiers, v5 - 2);
+          }
         }
 
         --v5;
@@ -943,8 +940,6 @@ void __RXGetSupportedNashvilleLocaleIdentifiers_block_invoke()
       while (v5 > 1);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t RXObjectCopyProperty(RXXPC *a1, int a2)
@@ -968,9 +963,9 @@ uint64_t RXObjectCopyProperty(RXXPC *a1, int a2)
   return v5;
 }
 
-void sub_26B586BBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26B586BBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1184,9 +1179,9 @@ uint64_t RXObjectCopyPropertyWithLocale(RXXPC *a1, int a2, uint64_t a3)
   return v7;
 }
 
-void sub_26B5871E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26B5871E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1392,14 +1387,14 @@ LABEL_14:
   }
 
   RXRecognitionSystem::StartChanges(v17[2]);
-  (*(*v17 + 10))(v17, *(a1 + 48), *(a1 + 40));
+  (*(*v17 + 80))(v17, *(a1 + 48), *(a1 + 40));
   RXRecognitionSystem::CommitChanges(v17[2]);
 }
 
-void sub_26B587750(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26B587750(_Unwind_Exception *a1, unint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  RXTransaction<RXObject>::~RXTransaction(va);
+  va_start(va, a3);
+  RXTransaction<RXObject>::~RXTransaction(va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -1469,35 +1464,30 @@ unint64_t RXEngineTypeForLocaleIdentifier(CFStringRef localeIdentifier)
 
 BOOL RXIsLocaleWithNoSpaceInPostITN(CFStringRef theString)
 {
-  v8[5] = *MEMORY[0x277D85DE8];
-  v8[0] = @"zh_CN";
-  v8[1] = @"zh_HK";
-  v8[2] = @"zh_TW";
-  v8[3] = @"ja_JP";
-  v8[4] = @"yue_CN";
+  v7[5] = *MEMORY[0x277D85DE8];
+  v7[0] = @"zh_CN";
+  v7[1] = @"zh_HK";
+  v7[2] = @"zh_TW";
+  v7[3] = @"ja_JP";
+  v7[4] = @"yue_CN";
   MutableCopy = CFStringCreateMutableCopy(0, 0, theString);
-  if (MutableCopy)
+  if (!MutableCopy)
   {
-    v2 = MutableCopy;
-    v10.length = CFStringGetLength(MutableCopy);
-    v10.location = 0;
-    CFStringFindAndReplace(v2, @"-", @"_", v10, 0);
-    v3 = CFArrayCreate(0, v8, 5, MEMORY[0x277CBF128]);
-    if (v3)
-    {
-      v4 = v3;
-      v9.length = CFArrayGetCount(v3);
-      v9.location = 0;
-      v5 = CFArrayContainsValue(v4, v9, v2) != 0;
-      CFRelease(v4);
-    }
+    return 0;
+  }
 
-    else
-    {
-      v5 = 0;
-    }
-
-    CFRelease(v2);
+  v2 = MutableCopy;
+  v9.length = CFStringGetLength(MutableCopy);
+  v9.location = 0;
+  CFStringFindAndReplace(v2, @"-", @"_", v9, 0);
+  v3 = CFArrayCreate(0, v7, 5, MEMORY[0x277CBF128]);
+  if (v3)
+  {
+    v4 = v3;
+    v8.length = CFArrayGetCount(v3);
+    v8.location = 0;
+    v5 = CFArrayContainsValue(v4, v8, v2) != 0;
+    CFRelease(v4);
   }
 
   else
@@ -1505,7 +1495,7 @@ BOOL RXIsLocaleWithNoSpaceInPostITN(CFStringRef theString)
     v5 = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
+  CFRelease(v2);
   return v5;
 }
 
@@ -1547,28 +1537,23 @@ BOOL RXIsLocaleSupportingOndeviceSpeechDetection(CFStringRef theString)
   values[0] = @"en_US";
   values[1] = @"en_CA";
   MutableCopy = CFStringCreateMutableCopy(0, 0, theString);
-  if (MutableCopy)
+  if (!MutableCopy)
   {
-    v2 = MutableCopy;
-    v10.length = CFStringGetLength(MutableCopy);
-    v10.location = 0;
-    CFStringFindAndReplace(v2, @"-", @"_", v10, 0);
-    v3 = CFArrayCreate(0, values, 2, MEMORY[0x277CBF128]);
-    if (v3)
-    {
-      v4 = v3;
-      v9.length = CFArrayGetCount(v3);
-      v9.location = 0;
-      v5 = CFArrayContainsValue(v4, v9, v2) != 0;
-      CFRelease(v4);
-    }
+    return 0;
+  }
 
-    else
-    {
-      v5 = 0;
-    }
-
-    CFRelease(v2);
+  v2 = MutableCopy;
+  v9.length = CFStringGetLength(MutableCopy);
+  v9.location = 0;
+  CFStringFindAndReplace(v2, @"-", @"_", v9, 0);
+  v3 = CFArrayCreate(0, values, 2, MEMORY[0x277CBF128]);
+  if (v3)
+  {
+    v4 = v3;
+    v8.length = CFArrayGetCount(v3);
+    v8.location = 0;
+    v5 = CFArrayContainsValue(v4, v8, v2) != 0;
+    CFRelease(v4);
   }
 
   else
@@ -1576,7 +1561,7 @@ BOOL RXIsLocaleSupportingOndeviceSpeechDetection(CFStringRef theString)
     v5 = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
+  CFRelease(v2);
   return v5;
 }
 
@@ -1586,28 +1571,23 @@ BOOL RXIsLocaleSupportingKeywordSpotter(CFStringRef theString)
   values[0] = @"en_US";
   values[1] = @"en_CA";
   MutableCopy = CFStringCreateMutableCopy(0, 0, theString);
-  if (MutableCopy)
+  if (!MutableCopy)
   {
-    v2 = MutableCopy;
-    v10.length = CFStringGetLength(MutableCopy);
-    v10.location = 0;
-    CFStringFindAndReplace(v2, @"-", @"_", v10, 0);
-    v3 = CFArrayCreate(0, values, 2, MEMORY[0x277CBF128]);
-    if (v3)
-    {
-      v4 = v3;
-      v9.length = CFArrayGetCount(v3);
-      v9.location = 0;
-      v5 = CFArrayContainsValue(v4, v9, v2) != 0;
-      CFRelease(v4);
-    }
+    return 0;
+  }
 
-    else
-    {
-      v5 = 0;
-    }
-
-    CFRelease(v2);
+  v2 = MutableCopy;
+  v9.length = CFStringGetLength(MutableCopy);
+  v9.location = 0;
+  CFStringFindAndReplace(v2, @"-", @"_", v9, 0);
+  v3 = CFArrayCreate(0, values, 2, MEMORY[0x277CBF128]);
+  if (v3)
+  {
+    v4 = v3;
+    v8.length = CFArrayGetCount(v3);
+    v8.location = 0;
+    v5 = CFArrayContainsValue(v4, v8, v2) != 0;
+    CFRelease(v4);
   }
 
   else
@@ -1615,7 +1595,7 @@ BOOL RXIsLocaleSupportingKeywordSpotter(CFStringRef theString)
     v5 = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
+  CFRelease(v2);
   return v5;
 }
 
@@ -1888,7 +1868,7 @@ BOOL RXRecognitionSystem::DoesOwnRecognizer(uint64_t a1, uint64_t a2)
   return a1 != 0;
 }
 
-void RXRecognitionSystem::StartChanges(RXRecognitionSystem *this)
+void RXRecognitionSystem::StartChanges(uint64_t this)
 {
   if (this)
   {
@@ -1931,7 +1911,7 @@ void RXRecognitionSystem::StartChanges(RXXPC **this)
   }
 }
 
-void RXRecognitionSystem::CommitChanges(RXRecognitionSystem *this)
+void RXRecognitionSystem::CommitChanges(uint64_t this)
 {
   if (this)
   {
@@ -1960,6 +1940,7 @@ void RXRecognitionSystem::CommitChanges(RXRecognitionSystem *this)
   }
 }
 
+void RXRecognitionSystem::CommitChanges(RXRecognitionSystem *this)
 {
   if (!*(this + 11))
   {
@@ -2061,7 +2042,7 @@ void RXRecognitionSystem::CommitChanges(RXRecognitionSystem *this)
     v16 = *(this + 28);
     v34 = *(this + 14);
     v32 = v16;
-    v33 = (this + 120);
+    v33 = this + 120;
     p_p = &__p;
     v31 = this + 232;
     std::__set_difference[abi:ne200100]<std::__less<void,void>,std::__tree_const_iterator<RXObject *,std::__tree_node<RXObject *,void *> *,long> &,std::__tree_const_iterator<RXObject *,std::__tree_node<RXObject *,void *> *,long> &,std::__tree_const_iterator<RXObject *,std::__tree_node<RXObject *,void *> *,long> &,std::__tree_const_iterator<RXObject *,std::__tree_node<RXObject *,void *> *,long> &,std::back_insert_iterator<std::vector<RXObject *>> &>(&v34, &v33, &v32, &v31, &p_p);
@@ -2164,7 +2145,7 @@ uint64_t RXRecognitionSystem::DeadObject(RXRecognitionSystem *this, RXObject *a2
 {
   v4 = a2;
   pthread_mutex_lock((this + 160));
-  std::__tree<RXObject *>::__emplace_unique_key_args<RXObject *,RXObject * const&>(this + 136, &v4);
+  std::__tree<RXObject *>::__emplace_unique_key_args<RXObject *,RXObject * const&>(this + 136, &v4, &v4);
   return pthread_mutex_unlock((this + 160));
 }
 
@@ -2321,7 +2302,7 @@ LABEL_21:
 
 void RXRecognitionSystem::SetProperty(CFTypeRef *this, int a2, const __CFString *cf)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (a2 > 1936487277)
   {
     if (a2 > 1936946545)
@@ -2373,14 +2354,14 @@ LABEL_32:
     switch(a2)
     {
       case 1935832436:
-        v14 = MEMORY[0x26D679B00](cf);
+        v16 = MEMORY[0x26D679B00](cf);
         v6 = this[31];
-        this[31] = v14;
+        this[31] = v16;
         goto LABEL_37;
       case 1936027494:
-        v15 = MEMORY[0x26D679B00](cf);
+        v17 = MEMORY[0x26D679B00](cf);
         v6 = this[32];
-        this[32] = v15;
+        this[32] = v17;
         goto LABEL_37;
       case 1936028274:
         v5 = MEMORY[0x26D679B00](cf);
@@ -2402,47 +2383,43 @@ LABEL_38:
     if (RXVeryVerbose())
     {
       Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-      if (CFStringGetLength(cf) >= 1)
+      Length = CFStringGetLength(cf);
+      if (Length >= 1)
       {
-        v8 = 0;
-        do
+        for (i = 0; i < Length; ++i)
         {
-          v20.location = v8;
-          v20.length = 1;
-          v9 = CFStringCreateWithSubstring(0, cf, v20);
-          CFArrayAppendValue(Mutable, v9);
-          ++v8;
+          v21.location = i;
+          v21.length = 1;
+          v10 = CFStringCreateWithSubstring(0, cf, v21);
+          CFArrayAppendValue(Mutable, v10);
+          Length = CFStringGetLength(cf);
         }
-
-        while (v8 < CFStringGetLength(cf));
       }
 
-      v10 = RXOSLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v11 = RXOSLog(Length);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v18 = cf;
-        _os_log_impl(&dword_26B583000, v10, OS_LOG_TYPE_INFO, "input phrase=%@", buf, 0xCu);
+        v19 = cf;
+        _os_log_impl(&dword_26B583000, v11, OS_LOG_TYPE_INFO, "input phrase=%@", buf, 0xCu);
       }
 
-      if (CFArrayGetCount(Mutable) >= 1)
+      Count = CFArrayGetCount(Mutable);
+      if (Count >= 1)
       {
-        v11 = 0;
-        do
+        for (j = 0; j < Count; ++j)
         {
-          v12 = RXOSLog();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+          v14 = RXOSLog(Count);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
           {
-            ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v11);
+            ValueAtIndex = CFArrayGetValueAtIndex(Mutable, j);
             *buf = 138412290;
-            v18 = ValueAtIndex;
-            _os_log_impl(&dword_26B583000, v12, OS_LOG_TYPE_INFO, "input phrase tokens=%@", buf, 0xCu);
+            v19 = ValueAtIndex;
+            _os_log_impl(&dword_26B583000, v14, OS_LOG_TYPE_INFO, "input phrase tokens=%@", buf, 0xCu);
           }
 
-          ++v11;
+          Count = CFArrayGetCount(Mutable);
         }
-
-        while (CFArrayGetCount(Mutable) > v11);
       }
     }
 
@@ -2461,13 +2438,12 @@ LABEL_38:
 
 LABEL_39:
   this[3] = -1;
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-BOOL RXRecognitionSystem::Initialize(uint64_t a1, const void *a2, uint64_t a3, void *a4)
+BOOL RXRecognitionSystem::Initialize(uint64_t a1, const void *a2, unint64_t a3, void *a4)
 {
   v7 = a4;
-  v8 = RXOSLog();
+  v8 = RXOSLog(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -2851,9 +2827,9 @@ uint64_t RXRecognitionSystem::PhoneticNeighborsForText(RXXPC **this, const __CFS
   return v4;
 }
 
-void sub_26B589C8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26B589C8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -2908,7 +2884,7 @@ void RXRecognitionSystem::BrokerEvent(void *a1)
 
     else
     {
-      v10 = RXOSLog();
+      v10 = RXOSLog(v1);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *v19 = 0;
@@ -3003,7 +2979,7 @@ uint64_t RXRecognitionSystemGetTypeID()
   return result;
 }
 
-const void *RXRecognitionSystemCreate(uint64_t a1, const void *a2, uint64_t a3)
+const void *RXRecognitionSystemCreate(uint64_t a1, const void *a2, unint64_t a3)
 {
   if (!gRXCFTypeID_RXRecognitionSystem)
   {
@@ -3021,7 +2997,7 @@ const void *RXRecognitionSystemCreate(uint64_t a1, const void *a2, uint64_t a3)
   return v6;
 }
 
-const void *RXRecognitionSystemCreateWithServiceClient(uint64_t a1, const void *a2, uint64_t a3, void *a4)
+const void *RXRecognitionSystemCreateWithServiceClient(uint64_t a1, const void *a2, unint64_t a3, void *a4)
 {
   v6 = a4;
   if (!gRXCFTypeID_RXRecognitionSystem)
@@ -3229,48 +3205,48 @@ void std::__tree<RXObject *>::destroy(uint64_t a1, void *a2)
   }
 }
 
-void *std::__tree<RXObject *>::__emplace_unique_key_args<RXObject *,RXObject * const&>(uint64_t a1, unint64_t *a2)
+void *std::__tree<RXObject *>::__emplace_unique_key_args<RXObject *,RXObject * const&>(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<RXObject *>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<RXObject *>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -3296,12 +3272,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -3315,22 +3291,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -3364,13 +3340,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -3412,7 +3388,7 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   return result;
 }
 
-void *std::__set_difference[abi:ne200100]<std::__less<void,void>,std::__tree_const_iterator<RXObject *,std::__tree_node<RXObject *,void *> *,long> &,std::__tree_const_iterator<RXObject *,std::__tree_node<RXObject *,void *> *,long> &,std::__tree_const_iterator<RXObject *,std::__tree_node<RXObject *,void *> *,long> &,std::__tree_const_iterator<RXObject *,std::__tree_node<RXObject *,void *> *,long> &,std::back_insert_iterator<std::vector<RXObject *>> &>(uint64_t a1, void **a2, uint64_t a3, void *a4, uint64_t *a5)
+void *std::__set_difference[abi:ne200100]<std::__less<void,void>,std::__tree_const_iterator<RXObject *,std::__tree_node<RXObject *,void *> *,long> &,std::__tree_const_iterator<RXObject *,std::__tree_node<RXObject *,void *> *,long> &,std::__tree_const_iterator<RXObject *,std::__tree_node<RXObject *,void *> *,long> &,std::__tree_const_iterator<RXObject *,std::__tree_node<RXObject *,void *> *,long> &,std::back_insert_iterator<std::vector<RXObject *>> &>(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t *a5)
 {
   v8 = *a1;
   v9 = *a2;
@@ -3673,14 +3649,14 @@ void *std::__copy_impl::operator()[abi:ne200100]<std::__tree_const_iterator<RXOb
   return v5;
 }
 
-uint64_t *std::__tree<RXObject *>::swap(uint64_t *result, uint64_t a2)
+uint64_t **std::__tree<RXObject *>::swap(uint64_t **result, uint64_t a2)
 {
   v2 = *result;
   *result = *a2;
   *a2 = v2;
   v5 = result[1];
   v4 = result[2];
-  v3 = result + 1;
+  v3 = (result + 1);
   *(result + 1) = *(a2 + 8);
   *(a2 + 8) = v5;
   *(a2 + 16) = v4;
@@ -4358,13 +4334,13 @@ void ___ZN12RXRecognizer5ChokeExb_block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
   RXRecognitionSystem::StartChanges(v1[2]);
-  (*(*v1 + 11))(v1);
+  (*(*v1 + 88))(v1);
   RXRecognitionSystem::CommitChanges(v1[2]);
 }
 
-void sub_26B58BF00(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26B58BF00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   RXTransaction<RXRecognizer>::~RXTransaction(va);
   _Unwind_Resume(a1);
 }
@@ -4692,7 +4668,7 @@ uint64_t RXCFRegister_RXLanguageObject(void)
   return _CFRuntimeRegisterClass();
 }
 
-CFArrayRef RXLanguageObject::CopyProperty(RXLanguageObject *this, int a2)
+CFDataRef RXLanguageObject::CopyProperty(RXLanguageObject *this, int a2)
 {
   if ((*(this + 10) & 0xFFFFFFFE) == 4)
   {
@@ -6207,7 +6183,7 @@ uint64_t RXLanguageObject::CreateFromSerialized(void *a1, void *a2)
   return v5;
 }
 
-void std::vector<unsigned long long>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<unsigned long long>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -6265,66 +6241,65 @@ void std::vector<unsigned long long>::push_back[abi:ne200100](const void **a1, v
 uint64_t ___ZN16RXLanguageObject20CreateFromSerializedEPU24objcproto13OS_xpc_object8NSObjectP12RXResultDesc_block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v7 = RXLanguageObject::CreateFromSerialized();
-  v9 = v6[22];
-  v8 = v6[23];
-  if (v9 >= v8)
+  v5 = *(a1 + 32);
+  v6 = RXLanguageObject::CreateFromSerialized(v4, *(a1 + 40));
+  v8 = v5[22];
+  v7 = v5[23];
+  if (v8 >= v7)
   {
-    v11 = v6[21];
-    v12 = (v9 - v11) >> 3;
-    if ((v12 + 1) >> 61)
+    v10 = v5[21];
+    v11 = (v8 - v10) >> 3;
+    if ((v11 + 1) >> 61)
     {
       std::vector<RXRecognitionSystem *>::__throw_length_error[abi:ne200100]();
     }
 
-    v13 = v8 - v11;
-    v14 = v13 >> 2;
-    if (v13 >> 2 <= (v12 + 1))
+    v12 = v7 - v10;
+    v13 = v12 >> 2;
+    if (v12 >> 2 <= (v11 + 1))
     {
-      v14 = v12 + 1;
+      v13 = v11 + 1;
     }
 
-    if (v13 >= 0x7FFFFFFFFFFFFFF8)
+    if (v12 >= 0x7FFFFFFFFFFFFFF8)
     {
-      v15 = 0x1FFFFFFFFFFFFFFFLL;
+      v14 = 0x1FFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v15 = v14;
+      v14 = v13;
     }
 
-    if (v15)
+    if (v14)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<RXRecognitionSystem *>>((v6 + 21), v15);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<RXRecognitionSystem *>>((v5 + 21), v14);
     }
 
-    v16 = (8 * v12);
-    *v16 = v7;
-    v10 = 8 * v12 + 8;
-    v17 = v6[21];
-    v18 = v6[22] - v17;
-    v19 = v16 - v18;
-    memcpy(v16 - v18, v17, v18);
-    v20 = v6[21];
-    v6[21] = v19;
-    v6[22] = v10;
-    v6[23] = 0;
-    if (v20)
+    v15 = (8 * v11);
+    *v15 = v6;
+    v9 = 8 * v11 + 8;
+    v16 = v5[21];
+    v17 = v5[22] - v16;
+    v18 = v15 - v17;
+    memcpy(v15 - v17, v16, v17);
+    v19 = v5[21];
+    v5[21] = v18;
+    v5[22] = v9;
+    v5[23] = 0;
+    if (v19)
     {
-      operator delete(v20);
+      operator delete(v19);
     }
   }
 
   else
   {
-    *v9 = v7;
-    v10 = (v9 + 1);
+    *v8 = v6;
+    v9 = (v8 + 1);
   }
 
-  v6[22] = v10;
+  v5[22] = v9;
 
   return 1;
 }
@@ -6352,9 +6327,9 @@ CFStringRef RXLanguageObject::CopyDebugDesc(RXLanguageObject *this)
 
   else
   {
-    v29 = 10;
+    v28 = 10;
     chars = 123;
-    v27 = 125;
+    v26 = 125;
     MutableCopy = CFStringCreateMutableCopy(0, 0, @"\n  ");
     v3 = MutableCopy;
     if (*(this + 10))
@@ -6401,98 +6376,98 @@ CFStringRef RXLanguageObject::CopyDebugDesc(RXLanguageObject *this)
 
           if (CFArrayGetCount(ValueAtIndex) != 1)
           {
-            CFStringAppendCharacters(v3, &v27, 1);
+            CFStringAppendCharacters(v3, &v26, 1);
           }
 
-          v9 = *(*(this + 14) + 8 * v4);
-          CFStringAppendFormat(v3, 0, @" (%llu:%llu)\n", v9, *(*(this + 17) + 8 * v4++));
+          CFStringAppendFormat(v3, 0, @" (%llu:%llu)\n", *(*(this + 14) + 8 * v4), *(*(this + 17) + 8 * v4));
+          ++v4;
         }
 
         while (v4 < CFArrayGetCount(*(this + 10)));
       }
 
-      CFStringAppendCharacters(v3, &v27, 1);
-      CFStringAppendCharacters(v3, &v29, 1);
+      CFStringAppendCharacters(v3, &v26, 1);
+      CFStringAppendCharacters(v3, &v28, 1);
     }
 
-    v10 = *(this + 21);
-    if (*(this + 22) != v10)
+    v9 = *(this + 21);
+    if (*(this + 22) != v9)
     {
-      v11 = 0;
+      v10 = 0;
       do
       {
-        v12 = (*(**(v10 + 8 * v11) + 48))(*(v10 + 8 * v11));
-        CFStringAppend(v3, v12);
-        CFStringAppendCharacters(v3, &v29, 1);
-        CFRelease(v12);
-        ++v11;
-        v10 = *(this + 21);
+        v11 = (*(**(v9 + 8 * v10) + 48))(*(v9 + 8 * v10));
+        CFStringAppend(v3, v11);
+        CFStringAppendCharacters(v3, &v28, 1);
+        CFRelease(v11);
+        ++v10;
+        v9 = *(this + 21);
       }
 
-      while (v11 < (*(this + 22) - v10) >> 3);
+      while (v10 < (*(this + 22) - v9) >> 3);
     }
 
-    v30.length = CFStringGetLength(v3) - 2;
-    v30.location = 1;
-    CFStringFindAndReplace(v3, @"\n", @"\n  ", v30, 0);
+    v29.length = CFStringGetLength(v3) - 2;
+    v29.location = 1;
+    CFStringFindAndReplace(v3, @"\n", @"\n  ", v29, 0);
   }
 
-  v13 = *(this + 6);
-  v14 = *(this + 7);
-  v15 = v14 == 0;
-  v16 = "";
-  v17 = " ";
-  if (!v14)
-  {
-    v14 = &stru_287C0EB30;
-    v17 = "";
-  }
-
-  v18 = "";
-  if (v15)
-  {
-    v18 = "";
-  }
-
-  v19 = v13 == 0;
+  v12 = *(this + 6);
+  v13 = *(this + 7);
+  v14 = v13 == 0;
+  v15 = "";
+  v16 = " ";
   if (!v13)
   {
     v13 = &stru_287C0EB30;
+    v16 = "";
   }
 
-  v20 = *(this + 4);
-  v21 = "] ";
-  if (v19)
+  v17 = "";
+  if (v14)
+  {
+    v17 = "";
+  }
+
+  v18 = v12 == 0;
+  if (!v12)
+  {
+    v12 = &stru_287C0EB30;
+  }
+
+  v19 = *(this + 4);
+  v20 = "] ";
+  if (v18)
+  {
+    v20 = "";
+  }
+
+  v21 = "[";
+  if (v18)
   {
     v21 = "";
   }
 
-  v22 = "[";
-  if (v19)
+  v22 = v19 == 0;
+  if (!v19)
   {
-    v22 = "";
+    v19 = &stru_287C0EB30;
   }
 
-  v23 = v20 == 0;
-  if (!v20)
+  v23 = " [";
+  if (v22)
   {
-    v20 = &stru_287C0EB30;
-  }
-
-  v24 = " [";
-  if (v23)
-  {
-    v24 = "";
+    v23 = "";
   }
 
   else
   {
-    v16 = "]";
+    v15 = "]";
   }
 
-  v25 = CFStringCreateWithFormat(0, 0, @"<%@ %p %s%@%s%s%@%s(%llu:%llu) <%llu> %s%@%s%@>", sRXTypeNames[*(this + 10)], this - 16, v22, v13, v21, v18, v14, v17, *(this + 200), *(this + 27), v24, v20, v16, v3);
+  v24 = CFStringCreateWithFormat(0, 0, @"<%@ %p %s%@%s%s%@%s(%llu:%llu) <%llu> %s%@%s%@>", sRXTypeNames[*(this + 10)], this - 16, v21, v12, v20, v17, v13, v16, *(this + 200), *(this + 27), v23, v19, v15, v3);
   CFRelease(v3);
-  return v25;
+  return v24;
 }
 
 uint64_t RXLanguageObjectGetTypeID()
@@ -6719,9 +6694,9 @@ uint64_t RXLanguageObjectGetCount(RXXPC *a1)
   return v3;
 }
 
-void sub_26B58F3A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26B58F3A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6785,9 +6760,9 @@ void __RXLanguageObjectAddObject_block_invoke(uint64_t a1)
   RXRecognitionSystem::CommitChanges(v3[2]);
 }
 
-void sub_26B58F4F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26B58F4F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   RXTransaction<RXLanguageObject>::~RXTransaction(va);
   _Unwind_Resume(a1);
 }
@@ -6813,9 +6788,9 @@ uint64_t RXLanguageObjectGetObjectAtIndex(RXXPC *a1, uint64_t a2)
   return v5;
 }
 
-void sub_26B58F5D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26B58F5D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6885,9 +6860,9 @@ void __RXLanguageObjectSetObjectAtIndex_block_invoke(void *a1)
   RXRecognitionSystem::CommitChanges(v3[2]);
 }
 
-void sub_26B58F758(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26B58F758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   RXTransaction<RXLanguageObject>::~RXTransaction(va);
   _Unwind_Resume(a1);
 }
@@ -6922,9 +6897,9 @@ void __RXLanguageObjectRemoveObjectAtIndex_block_invoke(uint64_t a1)
   RXRecognitionSystem::CommitChanges(v3[2]);
 }
 
-void sub_26B58F85C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26B58F85C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   RXTransaction<RXLanguageObject>::~RXTransaction(va);
   _Unwind_Resume(a1);
 }
@@ -6947,54 +6922,52 @@ uint64_t RXLanguageObjectApplyBlock(uint64_t a1, void *a2, unint64_t a3)
 CFMutableStringRef RXReplaceHyphensWithSpace(__CFString *a1, _DWORD *a2)
 {
   MutableCopy = a1;
-  v10[5] = *MEMORY[0x277D85DE8];
+  v9[5] = *MEMORY[0x277D85DE8];
   if (a1 && a2)
   {
     MEMORY[0x28223BE20]();
-    v10[0] = @"-";
-    v10[1] = @"­";
-    v10[2] = @"‐";
-    v10[3] = @"‑";
+    v9[0] = @"-";
+    v9[1] = @"­";
+    v9[2] = @"‐";
+    v9[3] = @"‑";
     v4 = *MEMORY[0x277CBECE8];
     Length = CFStringGetLength(MutableCopy);
     MutableCopy = CFStringCreateMutableCopy(v4, Length, MutableCopy);
     for (i = 0; i != 4; ++i)
     {
-      v7 = v10[i];
-      v11.length = CFStringGetLength(MutableCopy);
-      v11.location = 0;
-      *a2 += CFStringFindAndReplace(MutableCopy, v7, @" ", v11, 0);
+      v7 = v9[i];
+      v10.length = CFStringGetLength(MutableCopy);
+      v10.location = 0;
+      *a2 += CFStringFindAndReplace(MutableCopy, v7, @" ", v10, 0);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return MutableCopy;
 }
 
 CFMutableStringRef RXCopyReplaceHyphensWithSpace(__CFString *a1, _DWORD *a2)
 {
   MutableCopy = a1;
-  v10[5] = *MEMORY[0x277D85DE8];
+  v9[5] = *MEMORY[0x277D85DE8];
   if (a1 && a2)
   {
     MEMORY[0x28223BE20]();
-    v10[0] = @"-";
-    v10[1] = @"­";
-    v10[2] = @"‐";
-    v10[3] = @"‑";
+    v9[0] = @"-";
+    v9[1] = @"­";
+    v9[2] = @"‐";
+    v9[3] = @"‑";
     v4 = *MEMORY[0x277CBECE8];
     Length = CFStringGetLength(MutableCopy);
     MutableCopy = CFStringCreateMutableCopy(v4, Length, MutableCopy);
     for (i = 0; i != 4; ++i)
     {
-      v7 = v10[i];
-      v11.length = CFStringGetLength(MutableCopy);
-      v11.location = 0;
-      *a2 += CFStringFindAndReplace(MutableCopy, v7, @" ", v11, 0);
+      v7 = v9[i];
+      v10.length = CFStringGetLength(MutableCopy);
+      v10.location = 0;
+      *a2 += CFStringFindAndReplace(MutableCopy, v7, @" ", v10, 0);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return MutableCopy;
 }
 
@@ -7042,7 +7015,7 @@ void RXLanguageObjectAddPhrase(uint64_t a1, RXXPC *a2, uint64_t a3, void *a4, co
 __CFArray *RXLanguageObjectCharacterTokenize(const __CFString *a1, const __CFLocale *a2)
 {
   Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-  CreateCppStringFromCFString(a1, &__p);
+  CreateCppStringFromCFString(&__p, a1);
   if ((v14 & 0x8000000000000000) != 0)
   {
     p_p = __p;
@@ -7301,31 +7274,27 @@ void RXResultDesc::RXResultDesc(RXResultDesc *this, RXRecognizer *a2, uint64_t a
   CFRetain(a2 - 16);
 }
 
-_BYTE *CreateCppStringFromCFString@<X0>(const __CFString *a1@<X0>, _BYTE *a2@<X8>)
+void *CreateCppStringFromCFString@<X0>(void *__return_ptr a1@<X8>, const __CFString *a2@<X0>)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  if (a1)
+  v9[1] = *MEMORY[0x277D85DE8];
+  if (a2)
   {
-    Length = CFStringGetLength(a1);
+    Length = CFStringGetLength(a2);
     CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
     v5 = MEMORY[0x28223BE20]();
-    v7 = v11 - v6;
-    CFStringGetCString(a1, v11 - v6, v5 + 1, 0x8000100u);
-    result = std::string::basic_string[abi:ne200100]<0>(a2, v7);
-    v9 = *MEMORY[0x277D85DE8];
+    v7 = v9 - v6;
+    CFStringGetCString(a2, v9 - v6, v5 + 1, 0x8000100u);
+    return std::string::basic_string[abi:ne200100]<0>(a1, v7);
   }
 
   else
   {
-    v10 = *MEMORY[0x277D85DE8];
 
-    return std::string::basic_string[abi:ne200100]<0>(a2, 0);
+    return std::string::basic_string[abi:ne200100]<0>(a1, 0);
   }
-
-  return result;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -7339,13 +7308,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -7485,17 +7454,17 @@ id RXXPC::Queue(RXXPC *this)
   return v2;
 }
 
-uint64_t RXXPC::CreateInstance(uint64_t a1, uint64_t a2, void *a3)
+RXXPC *RXXPC::CreateInstance(uint64_t a1, unint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = MEMORY[0x26D679270](a1);
-  v6 = RXOSLog();
+  v6 = RXOSLog(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138543362;
-    v14 = v5;
-    _os_log_impl(&dword_26B583000, v6, OS_LOG_TYPE_DEFAULT, "RXXPC creating instance for locale = %{public}@", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = v5;
+    _os_log_impl(&dword_26B583000, v6, OS_LOG_TYPE_DEFAULT, "RXXPC creating instance for locale = %{public}@", &v12, 0xCu);
   }
 
   if (RXEngineTypeForLocaleIdentifier(v5) != 1)
@@ -7509,7 +7478,7 @@ LABEL_8:
     operator new();
   }
 
-  if (RXXPC::RDIsQuasarModelLanguageInstalledForLocaleIdentifier(v5, v7) && v5)
+  if ((RXXPC::RDIsQuasarModelLanguageInstalledForLocaleIdentifier(v5, v7) & 1) != 0 && v5)
   {
     goto LABEL_8;
   }
@@ -7521,7 +7490,6 @@ LABEL_6:
   RXXPC::SerializeCFString(v8, v9, v10);
   RXXPC::SendBrokerMessageWithReplySync(v8, 1);
 
-  v11 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -7532,7 +7500,7 @@ void sub_26B591008(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-BOOL RXXPC::RDIsQuasarModelLanguageInstalledForLocaleIdentifier(RXXPC *this, const __CFString *a2)
+uint64_t RXXPC::RDIsQuasarModelLanguageInstalledForLocaleIdentifier(RXXPC *this, const __CFString *a2)
 {
   v3 = RXXPC::CopyLanguageInstallationStatus(this);
   if (!v3)
@@ -7642,7 +7610,7 @@ void RXXPC::SerializeCFString(void *a1, const char *a2, const __CFString *a3)
 
 id RXXPC::SendBrokerMessageWithReplySync(void *a1, int a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a1;
   if (RXXPC::SendBrokerMessageWithReplySync(NSObject  {objcproto13OS_xpc_object}*,BOOL)::sRXXBrokerInit != -1)
   {
@@ -7650,45 +7618,45 @@ id RXXPC::SendBrokerMessageWithReplySync(void *a1, int a2)
   }
 
   v4 = MEMORY[0x26D679DD0](v3);
-  if (RXLogClientUpdates())
+  v5 = RXLogClientUpdates();
+  if (v5)
   {
-    v5 = RXOSLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = RXOSLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v11 = 136315138;
-      v12 = v4;
-      _os_log_impl(&dword_26B583000, v5, OS_LOG_TYPE_INFO, "Broker <- %s", &v11, 0xCu);
+      v12 = 136315138;
+      v13 = v4;
+      _os_log_impl(&dword_26B583000, v6, OS_LOG_TYPE_INFO, "Broker <- %s", &v12, 0xCu);
     }
   }
 
   free(v4);
   if (a2)
   {
-    v6 = xpc_connection_send_message_with_reply_sync(RXXPC::SendBrokerMessageWithReplySync(NSObject  {objcproto13OS_xpc_object}*,BOOL)::sRXXBrokerConn, v3);
-    v7 = MEMORY[0x26D679DD0]();
-    if (RXLogClientUpdates())
+    v7 = xpc_connection_send_message_with_reply_sync(RXXPC::SendBrokerMessageWithReplySync(NSObject  {objcproto13OS_xpc_object}*,BOOL)::sRXXBrokerConn, v3);
+    v8 = MEMORY[0x26D679DD0]();
+    v9 = RXLogClientUpdates();
+    if (v9)
     {
-      v8 = RXOSLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v10 = RXOSLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v11 = 136315138;
-        v12 = v7;
-        _os_log_impl(&dword_26B583000, v8, OS_LOG_TYPE_INFO, "Broker -> %s", &v11, 0xCu);
+        v12 = 136315138;
+        v13 = v8;
+        _os_log_impl(&dword_26B583000, v10, OS_LOG_TYPE_INFO, "Broker -> %s", &v12, 0xCu);
       }
     }
 
-    free(v7);
+    free(v8);
   }
 
   else
   {
     xpc_connection_send_message(RXXPC::SendBrokerMessageWithReplySync(NSObject  {objcproto13OS_xpc_object}*,BOOL)::sRXXBrokerConn, v3);
-    v6 = 0;
+    v7 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v6;
+  return v7;
 }
 
 void ___ZN5RXXPC5QueueEv_block_invoke()
@@ -7727,71 +7695,69 @@ void sub_26B591654(_Unwind_Exception *a1)
 void RXXPC::SetAudioDevice(RXXPC *this, AudioObjectID inObjectID)
 {
   v2 = inObjectID;
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   outData = inObjectID;
-  if (inObjectID)
+  if (!inObjectID)
   {
-LABEL_2:
-    ioDataSize = 8;
-    v9 = 0;
-    *&inAddress.mSelector = *" diubolg";
+    LODWORD(v10) = 4;
+    *&inAddress.mSelector = *" nIdbolg";
     inAddress.mElement = 0;
-    if (!AudioObjectGetPropertyData(v2, &inAddress, 0, 0, &ioDataSize, &v9))
+    PropertyData = AudioObjectGetPropertyData(1u, &inAddress, 0, 0, &v10, &outData);
+    if (PropertyData)
     {
-      RXXPC::SetAudioDevice(this, v9);
-      goto LABEL_11;
+      v5 = RXOSLog(PropertyData);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        v6 = "Unable to obtain default input device\n";
+        v7 = v5;
+        v8 = 2;
+        goto LABEL_8;
+      }
+
+LABEL_9:
+
+      return;
     }
 
-    v4 = RXOSLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v2 = outData;
+  }
+
+  ioDataSize = 8;
+  v10 = 0;
+  *&inAddress.mSelector = *" diubolg";
+  inAddress.mElement = 0;
+  v4 = AudioObjectGetPropertyData(v2, &inAddress, 0, 0, &ioDataSize, &v10);
+  if (v4)
+  {
+    v5 = RXOSLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v14 = outData;
-      v5 = "Unable to obtain device UID for audio input device %d\n";
-      v6 = v4;
-      v7 = 8;
+      v15 = outData;
+      v6 = "Unable to obtain device UID for audio input device %d\n";
+      v7 = v5;
+      v8 = 8;
 LABEL_8:
-      _os_log_impl(&dword_26B583000, v6, OS_LOG_TYPE_ERROR, v5, buf, v7);
+      _os_log_impl(&dword_26B583000, v7, OS_LOG_TYPE_ERROR, v6, buf, v8);
       goto LABEL_9;
     }
 
     goto LABEL_9;
   }
 
-  LODWORD(v9) = 4;
-  *&inAddress.mSelector = *" nIdbolg";
-  inAddress.mElement = 0;
-  if (!AudioObjectGetPropertyData(1u, &inAddress, 0, 0, &v9, &outData))
-  {
-    v2 = outData;
-    goto LABEL_2;
-  }
-
-  v4 = RXOSLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 0;
-    v5 = "Unable to obtain default input device\n";
-    v6 = v4;
-    v7 = 2;
-    goto LABEL_8;
-  }
-
-LABEL_9:
-
-LABEL_11:
-  v8 = *MEMORY[0x277D85DE8];
+  RXXPC::SetAudioDevice(this, v10);
 }
 
 void RXXPC::SetAudioDevice(RXXPC *this, __CFString *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v4 = RXOSLog();
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = RXOSLog(this);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = a2;
-    _os_log_impl(&dword_26B583000, v4, OS_LOG_TYPE_DEFAULT, "RXXPC SetAudioDevice = %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = a2;
+    _os_log_impl(&dword_26B583000, v4, OS_LOG_TYPE_DEFAULT, "RXXPC SetAudioDevice = %{public}@", &v6, 0xCu);
   }
 
   if (a2)
@@ -7806,7 +7772,6 @@ void RXXPC::SetAudioDevice(RXXPC *this, __CFString *a2)
   }
 
   this->var5 = a2;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void RXXPC::SetAudioDevice(RXXPC *this, __CFString *cf)
@@ -7850,21 +7815,20 @@ void ___ZN5RXXPC30SendBrokerMessageWithReplySyncEPU24objcproto13OS_xpc_object8NS
   v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = MEMORY[0x26D679DD0]();
-  if (RXLogClientUpdates())
+  v4 = RXLogClientUpdates();
+  if (v4)
   {
-    v4 = RXOSLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = RXOSLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = 136315138;
       v7 = v3;
-      _os_log_impl(&dword_26B583000, v4, OS_LOG_TYPE_INFO, "Broker -> %s", &v6, 0xCu);
+      _os_log_impl(&dword_26B583000, v5, OS_LOG_TYPE_INFO, "Broker -> %s", &v6, 0xCu);
     }
   }
 
   free(v3);
   RXRecognitionSystem::BrokerEvent(v2);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 id RXXPC::RemoteService(RXXPC *this)
@@ -7927,8 +7891,8 @@ id RXXPC::RemoteSynchronousService(RXXPC *this)
 
 void RXXPC::EstablishConnection(RXXPC *this)
 {
-  v75 = *MEMORY[0x277D85DE8];
-  v2 = RXOSLog();
+  v72 = *MEMORY[0x277D85DE8];
+  v2 = RXOSLog(this);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -7964,164 +7928,159 @@ void RXXPC::EstablishConnection(RXXPC *this)
   }
 
 LABEL_10:
-  v9 = MEMORY[0x277D6C1A8];
-  v10 = *MEMORY[0x277D6C1A8];
-  v11 = TCCAccessPreflight();
-  if (v11)
+  v9 = TCCAccessPreflight();
+  if (v9)
   {
-    if (v11 == 2)
+    if (v9 == 2)
     {
-      v12 = *v9;
       TCCAccessRequest();
     }
 
-    goto LABEL_28;
+    return;
   }
 
 LABEL_13:
-  v13 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v13, kRDKeyMessage, 101);
-  xpc_dictionary_set_uint64(v13, kRDKeyObjectID, this);
-  xpc_dictionary_set_BOOL(v13, kRDKeyLiveAudio, this->var0);
+  v10 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v10, kRDKeyMessage, 101);
+  xpc_dictionary_set_uint64(v10, kRDKeyObjectID, this);
+  xpc_dictionary_set_BOOL(v10, kRDKeyLiveAudio, this->var0);
   if (this->var0 && this->var5)
   {
-    v14 = _CFXPCCreateXPCObjectFromCFObject();
-    xpc_dictionary_set_value(v13, kRDKeyAudioDevice, v14);
+    v11 = _CFXPCCreateXPCObjectFromCFObject();
+    xpc_dictionary_set_value(v10, kRDKeyAudioDevice, v11);
   }
 
-  RXXPC::SerializeCFString(v13, kRDKeyLocale, this->var4);
-  xpc_dictionary_set_uint64(v13, kRDKeyOptions, this->var3);
-  v15 = RXXPC::SendBrokerMessageWithReplySync(v13, 1);
+  RXXPC::SerializeCFString(v10, kRDKeyLocale, this->var4);
+  xpc_dictionary_set_uint64(v10, kRDKeyOptions, this->var3);
+  v12 = RXXPC::SendBrokerMessageWithReplySync(v10, 1);
   *buf = 0;
-  v66 = buf;
-  v67 = 0x3032000000;
-  v68 = __Block_byref_object_copy__0;
-  v69 = __Block_byref_object_dispose__0;
-  v70 = 0;
+  v63 = buf;
+  v64 = 0x3032000000;
+  v65 = __Block_byref_object_copy__0;
+  v66 = __Block_byref_object_dispose__0;
+  v67 = 0;
   if (MEMORY[0x26D679EE0]() == MEMORY[0x277D86468])
   {
-    v49 = objc_alloc_init(MEMORY[0x277CCAEA0]);
-    v16 = xpc_dictionary_get_value(v15, kRDKeyConnection);
-    [v49 _setEndpoint:v16];
+    v46 = objc_alloc_init(MEMORY[0x277CCAEA0]);
+    v13 = xpc_dictionary_get_value(v12, kRDKeyConnection);
+    [v46 _setEndpoint:v13];
 
-    v17 = [objc_alloc(MEMORY[0x277CCAE80]) initWithListenerEndpoint:v49];
-    this->var9 = xpc_dictionary_get_uint64(v15, kRDKeyObjectID);
-    v18 = RXOSLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v14 = [objc_alloc(MEMORY[0x277CCAE80]) initWithListenerEndpoint:v46];
+    uint64 = xpc_dictionary_get_uint64(v12, kRDKeyObjectID);
+    this->var9 = uint64;
+    v16 = RXOSLog(uint64);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       var9 = this->var9;
-      *v71 = 134218242;
-      v72 = var9;
-      v73 = 2112;
-      v74 = v17;
-      _os_log_impl(&dword_26B583000, v18, OS_LOG_TYPE_DEFAULT, "PeerConnection: SRD Connection created [%lld] %@", v71, 0x16u);
+      *v68 = 134218242;
+      v69 = var9;
+      v70 = 2112;
+      v71 = v14;
+      _os_log_impl(&dword_26B583000, v16, OS_LOG_TYPE_DEFAULT, "PeerConnection: SRD Connection created [%lld] %@", v68, 0x16u);
     }
 
-    v20 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_287C11560];
-    [v17 setRemoteObjectInterface:v20];
+    v18 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_287C11560];
+    [v14 setRemoteObjectInterface:v18];
 
-    v21 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_287C115C0];
-    [v17 setExportedInterface:v21];
+    v19 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_287C115C0];
+    [v14 setExportedInterface:v19];
 
-    v22 = MEMORY[0x277CBEB98];
-    v23 = objc_opt_class();
-    v24 = objc_opt_class();
-    v48 = [v22 setWithObjects:{v23, v24, objc_opt_class(), 0}];
-    v25 = [v17 exportedInterface];
-    [v25 setClasses:v48 forSelector:sel_recognizedEventWithLegacyMessage_result_ argumentIndex:1 ofReply:0];
+    v20 = MEMORY[0x277CBEB98];
+    v21 = objc_opt_class();
+    v22 = objc_opt_class();
+    v45 = [v20 setWithObjects:{v21, v22, objc_opt_class(), 0}];
+    v23 = [v14 exportedInterface];
+    [v23 setClasses:v45 forSelector:sel_recognizedEventWithLegacyMessage_result_ argumentIndex:1 ofReply:0];
 
-    v26 = [RXXPCCSpeechRecognitionClientService alloc];
+    v24 = [RXXPCCSpeechRecognitionClientService alloc];
     WeakRetained = objc_loadWeakRetained(&this->var8);
-    v28 = [(RXXPCCSpeechRecognitionClientService *)v26 initWithRXXPC:this externalServiceClient:WeakRetained];
+    v26 = [(RXXPCCSpeechRecognitionClientService *)v24 initWithRXXPC:this externalServiceClient:WeakRetained];
     var7 = this->var7;
-    this->var7 = v28;
+    this->var7 = v26;
 
-    [v17 setExportedObject:this->var7];
-    v62[0] = MEMORY[0x277D85DD0];
-    v62[1] = 3221225472;
-    v62[2] = ___ZN5RXXPC19EstablishConnectionEv_block_invoke_125;
-    v62[3] = &unk_279CF6BC0;
-    v64 = this;
-    v30 = v17;
-    v63 = v30;
-    v31 = MEMORY[0x26D679B00](v62);
-    v32 = dispatch_semaphore_create(0);
-    objc_initWeak(v71, v30);
-    v58[0] = MEMORY[0x277D85DD0];
-    v58[1] = 3221225472;
-    v58[2] = ___ZN5RXXPC19EstablishConnectionEv_block_invoke_3;
-    v58[3] = &unk_279CF6BE8;
-    objc_copyWeak(&v61, v71);
-    v47 = v31;
-    v60 = v47;
-    v46 = v32;
-    v59 = v46;
-    [v30 setInterruptionHandler:v58];
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = ___ZN5RXXPC19EstablishConnectionEv_block_invoke_127;
-    v54[3] = &unk_279CF6BE8;
-    objc_copyWeak(&v57, v71);
-    v33 = v47;
-    v56 = v33;
-    v34 = v46;
-    v55 = v34;
-    v45 = v15;
-    [v30 setInvalidationHandler:v54];
-    objc_storeStrong(&this->var6, v17);
+    [v14 setExportedObject:this->var7];
+    v59[0] = MEMORY[0x277D85DD0];
+    v59[1] = 3221225472;
+    v59[2] = ___ZN5RXXPC19EstablishConnectionEv_block_invoke_125;
+    v59[3] = &unk_279CF6BC0;
+    v61 = this;
+    v28 = v14;
+    v60 = v28;
+    v29 = MEMORY[0x26D679B00](v59);
+    v30 = dispatch_semaphore_create(0);
+    objc_initWeak(v68, v28);
+    v55[0] = MEMORY[0x277D85DD0];
+    v55[1] = 3221225472;
+    v55[2] = ___ZN5RXXPC19EstablishConnectionEv_block_invoke_3;
+    v55[3] = &unk_279CF6BE8;
+    objc_copyWeak(&v58, v68);
+    v44 = v29;
+    v57 = v44;
+    v43 = v30;
+    v56 = v43;
+    [v28 setInterruptionHandler:v55];
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = ___ZN5RXXPC19EstablishConnectionEv_block_invoke_127;
+    v51[3] = &unk_279CF6BE8;
+    objc_copyWeak(&v54, v68);
+    v31 = v44;
+    v53 = v31;
+    v32 = v43;
+    v52 = v32;
+    v42 = v12;
+    [v28 setInvalidationHandler:v51];
+    objc_storeStrong(&this->var6, v14);
     [this->var6 resume];
     if (this->var0)
     {
-      v35 = this->var5;
+      v33 = this->var5;
     }
 
     else
     {
-      v35 = 0;
+      v33 = 0;
     }
 
-    v36 = [this->var6 remoteObjectProxy];
+    v34 = [this->var6 remoteObjectProxy];
     var0 = this->var0;
     var3 = this->var3;
     var4 = this->var4;
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = ___ZN5RXXPC19EstablishConnectionEv_block_invoke_128;
-    v50[3] = &unk_279CF6C10;
-    v51 = v13;
-    v53 = buf;
-    v40 = v34;
-    v52 = v40;
-    [v36 helloWithObjectID:this liveAudio:var0 deviceUID:v35 locale:var4 flags:var3 reply:v50];
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = ___ZN5RXXPC19EstablishConnectionEv_block_invoke_128;
+    v47[3] = &unk_279CF6C10;
+    v48 = v10;
+    v50 = buf;
+    v38 = v32;
+    v49 = v38;
+    [v34 helloWithObjectID:this liveAudio:var0 deviceUID:v33 locale:var4 flags:var3 reply:v47];
 
-    v15 = v45;
-    v41 = [this->var6 remoteObjectProxy];
-    [v41 pingWithObjectID:1337];
+    v12 = v42;
+    v39 = [this->var6 remoteObjectProxy];
+    [v39 pingWithObjectID:1337];
 
-    dispatch_semaphore_wait(v40, 0xFFFFFFFFFFFFFFFFLL);
-    objc_destroyWeak(&v57);
+    dispatch_semaphore_wait(v38, 0xFFFFFFFFFFFFFFFFLL);
+    objc_destroyWeak(&v54);
 
-    objc_destroyWeak(&v61);
-    objc_destroyWeak(v71);
+    objc_destroyWeak(&v58);
+    objc_destroyWeak(v68);
   }
 
-  if (*(v66 + 5))
+  if (*(v63 + 5))
   {
     RXDebugFlagsUpdate();
     if (RXLogClientUpdates())
     {
-      v42 = RXXPC::RemoteService(this);
-      [v42 logUpdates];
+      v40 = RXXPC::RemoteService(this);
+      [v40 logUpdates];
     }
 
-    v43 = RXXPC::RemoteService(this);
-    [v43 sendVitamins];
+    v41 = RXXPC::RemoteService(this);
+    [v41 sendVitamins];
   }
 
   _Block_object_dispose(buf, 8);
-
-LABEL_28:
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void sub_26B5923F4(_Unwind_Exception *a1)
@@ -8133,8 +8092,8 @@ void sub_26B5923F4(_Unwind_Exception *a1)
 
 void ___ZN5RXXPC19EstablishConnectionEv_block_invoke(uint64_t a1, int a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = RXOSLog();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = RXOSLog(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = @"YES";
@@ -8143,12 +8102,10 @@ void ___ZN5RXXPC19EstablishConnectionEv_block_invoke(uint64_t a1, int a2)
       v4 = @"NO";
     }
 
-    v6 = 138543362;
-    v7 = v4;
-    _os_log_impl(&dword_26B583000, v3, OS_LOG_TYPE_DEFAULT, "PeerConnection: TCC service granted: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v4;
+    _os_log_impl(&dword_26B583000, v3, OS_LOG_TYPE_DEFAULT, "PeerConnection: TCC service granted: %{public}@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
@@ -8161,7 +8118,7 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
 void ___ZN5RXXPC19EstablishConnectionEv_block_invoke_125(uint64_t a1)
 {
   v2 = *(a1 + 40);
-  v3 = RXOSLog();
+  v3 = RXOSLog(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
@@ -8193,7 +8150,7 @@ void ___ZN5RXXPC19EstablishConnectionEv_block_invoke_125(uint64_t a1)
 
   else
   {
-    v6 = RXOSLog();
+    v6 = RXOSLog(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -8239,53 +8196,49 @@ uint64_t ___ZN5RXXPC19EstablishConnectionEv_block_invoke_2(uint64_t a1)
 
 intptr_t ___ZN5RXXPC19EstablishConnectionEv_block_invoke_3(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = RXOSLog();
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = RXOSLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
-    v6 = 138412290;
-    v7 = WeakRetained;
-    _os_log_impl(&dword_26B583000, v2, OS_LOG_TYPE_ERROR, "PeerConnection: SRD Connection interrupted %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = WeakRetained;
+    _os_log_impl(&dword_26B583000, v2, OS_LOG_TYPE_ERROR, "PeerConnection: SRD Connection interrupted %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
-  result = dispatch_semaphore_signal(*(a1 + 32));
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 32));
 }
 
 intptr_t ___ZN5RXXPC19EstablishConnectionEv_block_invoke_127(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = RXOSLog();
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = RXOSLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
-    v6 = 138412290;
-    v7 = WeakRetained;
-    _os_log_impl(&dword_26B583000, v2, OS_LOG_TYPE_ERROR, "PeerConnection: SRD Connection invalidated %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = WeakRetained;
+    _os_log_impl(&dword_26B583000, v2, OS_LOG_TYPE_ERROR, "PeerConnection: SRD Connection invalidated %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
-  result = dispatch_semaphore_signal(*(a1 + 32));
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 32));
 }
 
 void ___ZN5RXXPC19EstablishConnectionEv_block_invoke_128(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x26D679DD0](*(a1 + 32));
-  v5 = RXOSLog();
+  v5 = RXOSLog(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315394;
-    v11 = v4;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_26B583000, v5, OS_LOG_TYPE_DEFAULT, "PeerConnection: Hello %s -> %@\n", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_26B583000, v5, OS_LOG_TYPE_DEFAULT, "PeerConnection: Hello %s -> %@\n", &v9, 0x16u);
   }
 
   free(v4);
@@ -8295,13 +8248,12 @@ void ___ZN5RXXPC19EstablishConnectionEv_block_invoke_128(uint64_t a1, void *a2)
   v8 = v3;
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void ___ZN5RXXPC11ClientEventEPU24objcproto13OS_xpc_object8NSObject_block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = RXOSLog();
+  v2 = RXOSLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -8455,7 +8407,7 @@ id RXXPC::SendMessageWithReplySync(uint64_t a1, void *a2)
   return v8;
 }
 
-void sub_26B593178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_26B593178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -8478,7 +8430,7 @@ void ___ZN5RXXPC24SendMessageWithReplySyncEPU24objcproto13OS_xpc_object8NSObject
 
 void RXXPC::SendMessage(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   pthread_mutex_lock((a1 + 80));
   v4 = *(a1 + 32);
@@ -8489,12 +8441,12 @@ void RXXPC::SendMessage(uint64_t a1, void *a2)
     v7 = _CFXPCCreateCFObjectFromXPCObject();
     if (!v7)
     {
-      v8 = RXOSLog();
+      v8 = RXOSLog(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 136315138;
-        v11 = MEMORY[0x26D679DD0](v6);
-        _os_log_impl(&dword_26B583000, v8, OS_LOG_TYPE_DEFAULT, "PeerConnection: failed to convert message %s", &v10, 0xCu);
+        v9 = 136315138;
+        v10 = MEMORY[0x26D679DD0](v6);
+        _os_log_impl(&dword_26B583000, v8, OS_LOG_TYPE_DEFAULT, "PeerConnection: failed to convert message %s", &v9, 0xCu);
       }
     }
 
@@ -8506,8 +8458,6 @@ void RXXPC::SendMessage(uint64_t a1, void *a2)
   }
 
   pthread_mutex_unlock((a1 + 80));
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void RXXPC::AddHandler(uint64_t a1, void *a2)
@@ -8764,21 +8714,24 @@ const __CFURL *RDCopyCacheURL(void)
       closedir(v5);
     }
 
-    else if (mkdir(buffer, 0x1EDu))
+    else
     {
-      v6 = RXOSLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v6 = mkdir(buffer, 0x1EDu);
+      if (v6)
       {
-        v9 = 138412290;
-        v10 = v2;
-        _os_log_impl(&dword_26B583000, v6, OS_LOG_TYPE_ERROR, "Error creating %@", &v9, 0xCu);
+        v7 = RXOSLog(v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        {
+          v9 = 138412290;
+          v10 = v2;
+          _os_log_impl(&dword_26B583000, v7, OS_LOG_TYPE_ERROR, "Error creating %@", &v9, 0xCu);
+        }
       }
     }
 
     CFRelease(v4);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

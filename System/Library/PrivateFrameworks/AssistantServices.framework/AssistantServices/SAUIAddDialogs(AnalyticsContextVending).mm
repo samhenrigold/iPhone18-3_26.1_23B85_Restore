@@ -7,28 +7,28 @@
 
 - (id)af_dialogIdentifiersForAnalyticsContext
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   dialogs = [self dialogs];
-  v2 = [dialogs countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v2 = [dialogs countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v2)
   {
     v3 = v2;
     v4 = 0;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(dialogs);
         }
 
-        af_dialogIdentifiersForAnalyticsContext = [*(*(&v11 + 1) + 8 * i) af_dialogIdentifiersForAnalyticsContext];
+        af_dialogIdentifiersForAnalyticsContext = [*(*(&v10 + 1) + 8 * i) af_dialogIdentifiersForAnalyticsContext];
         if ([af_dialogIdentifiersForAnalyticsContext count])
         {
           if (!v4)
@@ -40,7 +40,7 @@
         }
       }
 
-      v3 = [dialogs countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v3 = [dialogs countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v3);
@@ -52,18 +52,17 @@
   }
 
   v8 = [v4 copy];
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (void)af_addEntriesToAnalyticsContext:()AnalyticsContextVending
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v18.receiver = self;
-  v18.super_class = &off_1F05B0980;
-  objc_msgSendSuper2(&v18, sel_af_addEntriesToAnalyticsContext_, v4);
+  v17.receiver = self;
+  v17.super_class = &off_1F05B0980;
+  objc_msgSendSuper2(&v17, sel_af_addEntriesToAnalyticsContext_, v4);
   af_dialogIdentifiersForAnalyticsContext = [self af_dialogIdentifiersForAnalyticsContext];
   if ([af_dialogIdentifiersForAnalyticsContext count])
   {
@@ -71,27 +70,27 @@
   }
 
   v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   dialogs = [self dialogs];
-  v8 = [dialogs countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v8 = [dialogs countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(dialogs);
         }
 
-        af_analyticsContext = [*(*(&v14 + 1) + 8 * v11) af_analyticsContext];
+        af_analyticsContext = [*(*(&v13 + 1) + 8 * v11) af_analyticsContext];
         if (af_analyticsContext)
         {
           [v6 addObject:af_analyticsContext];
@@ -101,7 +100,7 @@
       }
 
       while (v9 != v11);
-      v9 = [dialogs countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v9 = [dialogs countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
     while (v9);
@@ -111,8 +110,6 @@
   {
     [v4 setObject:v6 forKey:@"dialogs"];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

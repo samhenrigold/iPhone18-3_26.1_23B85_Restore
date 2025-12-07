@@ -218,15 +218,15 @@ void __52__AVTCoreDataCloudKitMirroringHandler_didResetSync___block_invoke(uint6
 
 void __127__AVTCoreDataCloudKitMirroringHandler_scheduleExportChangesWithManagedObjectContext_discretionary_workQueue_completionHandler___block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) exportInFlight])
   {
     v2 = *(a1 + 56);
     if (v2)
     {
-      v8 = *MEMORY[0x277CCA470];
-      v9[0] = @"Export already in flight, try again later";
-      v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+      v7 = *MEMORY[0x277CCA470];
+      v8[0] = @"Export already in flight, try again later";
+      v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
       v4 = [AVTError errorWithCode:720 userInfo:v3];
       (*(v2 + 16))(v2, 0, v4);
     }
@@ -237,15 +237,13 @@ void __127__AVTCoreDataCloudKitMirroringHandler_scheduleExportChangesWithManaged
     [*(a1 + 32) setExportInFlight:1];
     [*(a1 + 32) exportChangesWithManagedObjectContext:*(a1 + 40) discretionary:*(a1 + 64) workQueue:*(a1 + 48) completionHandler:*(a1 + 56)];
     v5 = [*(a1 + 32) blockScheduler];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __127__AVTCoreDataCloudKitMirroringHandler_scheduleExportChangesWithManagedObjectContext_discretionary_workQueue_completionHandler___block_invoke_2;
-    v7[3] = &unk_278CFA4E8;
-    v7[4] = *(a1 + 32);
-    [v5 performBlock:v7 afterDelay:*(a1 + 48) onQueue:3.0];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __127__AVTCoreDataCloudKitMirroringHandler_scheduleExportChangesWithManagedObjectContext_discretionary_workQueue_completionHandler___block_invoke_2;
+    v6[3] = &unk_278CFA4E8;
+    v6[4] = *(a1 + 32);
+    [v5 performBlock:v6 afterDelay:*(a1 + 48) onQueue:3.0];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)importChangesWithManagedObjectContext:(id)context discretionary:(BOOL)discretionary workQueue:(id)queue completionHandler:(id)handler

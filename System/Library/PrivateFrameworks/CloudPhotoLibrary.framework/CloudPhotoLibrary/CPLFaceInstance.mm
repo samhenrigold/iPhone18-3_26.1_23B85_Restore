@@ -66,26 +66,26 @@
 
 - (int64_t)compare:(id)compare
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   compareCopy = compare;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v14 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v13 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v19 = objc_opt_class();
-        v15 = v19;
-        _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_ERROR, "Unexpected class type: %@", buf, 0xCu);
+        v18 = objc_opt_class();
+        v14 = v18;
+        _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_ERROR, "Unexpected class type: %@", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLFaceAnalysisReference.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v17 lineNumber:31 description:{@"Unexpected class type: %@", objc_opt_class()}];
+    v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLFaceAnalysisReference.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v16 lineNumber:31 description:{@"Unexpected class type: %@", objc_opt_class()}];
 
     abort();
   }
@@ -100,10 +100,10 @@
       if (!personIdentifier)
       {
         personIdentifier2 = [MEMORY[0x1E696AD98] numberWithDouble:self->_size];
-        v12 = MEMORY[0x1E696AD98];
+        v11 = MEMORY[0x1E696AD98];
         [compareCopy size];
-        v13 = [v12 numberWithDouble:?];
-        v6 = [personIdentifier2 compare:v13];
+        v12 = [v11 numberWithDouble:?];
+        v6 = [personIdentifier2 compare:v12];
 
         goto LABEL_6;
       }
@@ -126,13 +126,12 @@ LABEL_6:
   v6 = 0;
 LABEL_7:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)mergeFrom:(id)from
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (*(fromCopy + 10))
   {
@@ -187,29 +186,29 @@ LABEL_7:
   }
 
 LABEL_8:
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = *(fromCopy + 11);
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(CPLFaceInstance *)self addRejectedPersonIdentifiers:*(*(&v13 + 1) + 8 * i), v13];
+        [(CPLFaceInstance *)self addRejectedPersonIdentifiers:*(*(&v12 + 1) + 8 * i), v12];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
@@ -293,8 +292,6 @@ LABEL_21:
   }
 
 LABEL_22:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)hash
@@ -751,7 +748,7 @@ LABEL_58:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_personIdentifier copyWithZone:zone];
   v7 = *(v5 + 80);
@@ -805,30 +802,30 @@ LABEL_5:
   }
 
 LABEL_6:
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v9 = self->_rejectedPersonIdentifiers;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [*(*(&v18 + 1) + 8 * i) copyWithZone:{zone, v18}];
+        v14 = [*(*(&v17 + 1) + 8 * i) copyWithZone:{zone, v17}];
         [v5 addRejectedPersonIdentifiers:v14];
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
@@ -888,7 +885,7 @@ LABEL_29:
     *(v5 + 96) |= 8u;
     if ((*&self->_has & 4) == 0)
     {
-      goto LABEL_20;
+      return v5;
     }
 
     goto LABEL_19;
@@ -911,8 +908,6 @@ LABEL_19:
     *(v5 + 96) |= 4u;
   }
 
-LABEL_20:
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -1071,7 +1066,7 @@ LABEL_19:
 
 - (void)writeTo:(id)to
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_personIdentifier)
   {
@@ -1081,7 +1076,6 @@ LABEL_19:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    centerX = self->_centerX;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -1101,7 +1095,6 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  centerY = self->_centerY;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -1116,55 +1109,51 @@ LABEL_6:
   }
 
 LABEL_25:
-  size = self->_size;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_7:
-    faceState = self->_faceState;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_8:
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v7 = self->_rejectedPersonIdentifiers;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
-  if (v8)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v6 = self->_rejectedPersonIdentifiers;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v25;
+    v8 = v7;
+    v9 = *v13;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v10)
+        if (*v13 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
-  v13 = self->_has;
-  if ((v13 & 0x200) != 0)
+  v11 = self->_has;
+  if ((v11 & 0x200) != 0)
   {
-    nameSource = self->_nameSource;
     PBDataWriterWriteUint32Field();
-    v13 = self->_has;
-    if ((v13 & 0x80) == 0)
+    v11 = self->_has;
+    if ((v11 & 0x80) == 0)
     {
 LABEL_17:
-      if ((v13 & 1) == 0)
+      if ((v11 & 1) == 0)
       {
         goto LABEL_18;
       }
@@ -1173,18 +1162,17 @@ LABEL_17:
     }
   }
 
-  else if ((v13 & 0x80) == 0)
+  else if ((v11 & 0x80) == 0)
   {
     goto LABEL_17;
   }
 
-  detectionType = self->_detectionType;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((v13 & 1) == 0)
+  v11 = self->_has;
+  if ((v11 & 1) == 0)
   {
 LABEL_18:
-    if ((v13 & 2) == 0)
+    if ((v11 & 2) == 0)
     {
       goto LABEL_19;
     }
@@ -1193,19 +1181,17 @@ LABEL_18:
   }
 
 LABEL_29:
-  bodyCenterX = self->_bodyCenterX;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((v13 & 2) == 0)
+  v11 = self->_has;
+  if ((v11 & 2) == 0)
   {
 LABEL_19:
-    if ((v13 & 8) == 0)
+    if ((v11 & 8) == 0)
     {
       goto LABEL_20;
     }
 
 LABEL_31:
-    bodyWidth = self->_bodyWidth;
     PBDataWriterWriteDoubleField();
     if ((*&self->_has & 4) == 0)
     {
@@ -1216,25 +1202,21 @@ LABEL_31:
   }
 
 LABEL_30:
-  bodyCenterY = self->_bodyCenterY;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((v13 & 8) != 0)
+  v11 = self->_has;
+  if ((v11 & 8) != 0)
   {
     goto LABEL_31;
   }
 
 LABEL_20:
-  if ((v13 & 4) != 0)
+  if ((v11 & 4) != 0)
   {
 LABEL_21:
-    bodyHeight = self->_bodyHeight;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_22:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dictionaryRepresentation

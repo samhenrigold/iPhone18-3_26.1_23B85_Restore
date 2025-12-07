@@ -1,14 +1,3 @@
-void std::__destroy_at[abi:nn200100]<KB::LanguageModelLexiconGroup,0>(uint64_t a1)
-{
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(a1 + 16);
-  v2 = *(a1 + 8);
-  if (v2)
-  {
-
-    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
-  }
-}
-
 void std::__shared_ptr_emplace<KB::UnigramCandidateRefinery>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
 {
   a1->__vftable = &unk_283FDB8B8;
@@ -47,14 +36,12 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<KB::LanguageModelLexi
 
 __n128 __Block_byref_object_copy__84(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -154,183 +141,177 @@ id TIStatisticsEngagementDescriptionToLegacyDescriptionDictionary()
 
 void __TIStatisticsEngagementDescriptionToLegacyDescriptionDictionary_block_invoke()
 {
-  v4[4] = *MEMORY[0x277D85DE8];
+  v3[4] = *MEMORY[0x277D85DE8];
+  v2[0] = @"noMatchUserInpt";
+  v2[1] = @"moderatMatchUserInpt";
   v3[0] = @"noMatchUserInpt";
   v3[1] = @"moderatMatchUserInpt";
-  v4[0] = @"noMatchUserInpt";
-  v4[1] = @"moderatMatchUserInpt";
+  v2[2] = @"mildMatchUserInpt";
+  v2[3] = @"exactMatchUserInpt";
   v3[2] = @"mildMatchUserInpt";
   v3[3] = @"exactMatchUserInpt";
-  v4[2] = @"mildMatchUserInpt";
-  v4[3] = @"exactMatchUserInpt";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:4];
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:4];
   v1 = TIStatisticsEngagementDescriptionToLegacyDescriptionDictionary_dict;
   TIStatisticsEngagementDescriptionToLegacyDescriptionDictionary_dict = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __TIStatisticsDescriptionToLegacyDescriptionDictionary_block_invoke()
 {
-  v4[49] = *MEMORY[0x277D85DE8];
+  v3[49] = *MEMORY[0x277D85DE8];
+  v2[0] = @"None";
+  v2[1] = @"NotSupByAp";
   v3[0] = @"None";
   v3[1] = @"NotSupByAp";
-  v4[0] = @"None";
-  v4[1] = @"NotSupByAp";
+  v2[2] = @"DevLocked";
+  v2[3] = @"ItemCrFail";
   v3[2] = @"DevLocked";
   v3[3] = @"ItemCrFail";
-  v4[2] = @"DevLocked";
-  v4[3] = @"ItemCrFail";
+  v2[4] = @"UnsupSmTyp";
+  v2[5] = @"UnauSemClt";
   v3[4] = @"UnsupSmTyp";
   v3[5] = @"UnauSemClt";
-  v4[4] = @"UnsupSmTyp";
-  v4[5] = @"UnauSemClt";
+  v2[6] = @"DtCoTmExc";
+  v2[7] = @"PBCutoff";
   v3[6] = @"DtCoTmExc";
   v3[7] = @"PBCutoff";
-  v4[6] = @"DtCoTmExc";
-  v4[7] = @"PBCutoff";
+  v2[8] = @"PBEmpty";
+  v2[9] = @"CntSInitTO";
   v3[8] = @"PBEmpty";
   v3[9] = @"CntSInitTO";
-  v4[8] = @"PBEmpty";
-  v4[9] = @"CntSInitTO";
+  v2[10] = @"FieldsNone";
+  v2[11] = @"NoMeCard";
   v3[10] = @"FieldsNone";
   v3[11] = @"NoMeCard";
-  v4[10] = @"FieldsNone";
-  v4[11] = @"NoMeCard";
+  v2[12] = @"CntNotHvFd";
+  v2[13] = @"SGNmLupFEr";
   v3[12] = @"CntNotHvFd";
   v3[13] = @"SGNmLupFEr";
-  v4[12] = @"CntNotHvFd";
-  v4[13] = @"SGNmLupFEr";
+  v2[14] = @"CNNmLupFEr";
+  v2[15] = @"NoNamMatch";
   v3[14] = @"CNNmLupFEr";
   v3[15] = @"NoNamMatch";
-  v4[14] = @"CNNmLupFEr";
-  v4[15] = @"NoNamMatch";
+  v2[16] = @"TooAmbigus";
+  v2[17] = @"3PWoName";
   v3[16] = @"TooAmbigus";
   v3[17] = @"3PWoName";
-  v4[16] = @"TooAmbigus";
-  v4[17] = @"3PWoName";
+  v2[18] = @"ESrvInitTO";
+  v2[19] = @"EKAccDen";
   v3[18] = @"ESrvInitTO";
   v3[19] = @"EKAccDen";
-  v4[18] = @"ESrvInitTO";
-  v4[19] = @"EKAccDen";
+  v2[20] = @"EKAccTO";
+  v2[21] = @"NoEvents";
   v3[20] = @"EKAccTO";
   v3[21] = @"NoEvents";
-  v4[20] = @"EKAccTO";
-  v4[21] = @"NoEvents";
+  v2[22] = @"RPoINoRecp";
+  v2[23] = @"NAPoIInEvt";
   v3[22] = @"RPoINoRecp";
   v3[23] = @"NAPoIInEvt";
-  v4[22] = @"RPoINoRecp";
-  v4[23] = @"NAPoIInEvt";
+  v2[24] = @"NoFrEvents";
+  v2[25] = @"NoBsEvents";
   v3[24] = @"NoFrEvents";
   v3[25] = @"NoBsEvents";
-  v4[24] = @"NoFrEvents";
-  v4[25] = @"NoBsEvents";
+  v2[26] = @"EventNoLoc";
+  v2[27] = @"UnsupTimeC";
   v3[26] = @"EventNoLoc";
   v3[27] = @"UnsupTimeC";
-  v4[26] = @"EventNoLoc";
-  v4[27] = @"UnsupTimeC";
+  v2[28] = @"DuetNoAct";
+  v2[29] = @"DuetQryTO";
   v3[28] = @"DuetNoAct";
   v3[29] = @"DuetQryTO";
-  v4[28] = @"DuetNoAct";
-  v4[29] = @"DuetQryTO";
+  v2[30] = @"CalSrcNoEv";
+  v2[31] = @"CalSrcInel";
   v3[30] = @"CalSrcNoEv";
   v3[31] = @"CalSrcInel";
-  v4[30] = @"CalSrcNoEv";
-  v4[31] = @"CalSrcInel";
+  v2[32] = @"StreetTO";
+  v2[33] = @"RouteTO";
   v3[32] = @"StreetTO";
   v3[33] = @"RouteTO";
-  v4[32] = @"StreetTO";
-  v4[33] = @"RouteTO";
+  v2[34] = @"NavTimeMis";
+  v2[35] = @"NavStrMis";
   v3[34] = @"NavTimeMis";
   v3[35] = @"NavStrMis";
-  v4[34] = @"NavTimeMis";
-  v4[35] = @"NavStrMis";
+  v2[36] = @"NavDistMis";
+  v2[37] = @"NavDstMiss";
   v3[36] = @"NavDistMis";
   v3[37] = @"NavDstMiss";
-  v4[36] = @"NavDistMis";
-  v4[37] = @"NavDstMiss";
+  v2[38] = @"NavNotNav";
+  v2[39] = @"NavEnded";
   v3[38] = @"NavNotNav";
   v3[39] = @"NavEnded";
-  v4[38] = @"NavNotNav";
-  v4[39] = @"NavEnded";
+  v2[40] = @"NavGuideTO";
+  v2[41] = @"NavInitTO";
   v3[40] = @"NavGuideTO";
   v3[41] = @"NavInitTO";
-  v4[40] = @"NavGuideTO";
-  v4[41] = @"NavInitTO";
+  v2[42] = @"HKQueryTO";
+  v2[43] = @"HKDataNAvl";
   v3[42] = @"HKQueryTO";
   v3[43] = @"HKDataNAvl";
-  v4[42] = @"HKQueryTO";
-  v4[43] = @"HKDataNAvl";
+  v2[44] = @"HKSvInitTO";
+  v2[45] = @"HKSvNoSamp";
   v3[44] = @"HKSvInitTO";
   v3[45] = @"HKSvNoSamp";
-  v4[44] = @"HKSvInitTO";
-  v4[45] = @"HKSvNoSamp";
+  v2[46] = @"HKError";
+  v2[47] = @"CntMkVlSmp";
   v3[46] = @"HKError";
   v3[47] = @"CntMkVlSmp";
-  v4[46] = @"HKError";
-  v4[47] = @"CntMkVlSmp";
+  v2[48] = @"PerAppSet";
   v3[48] = @"PerAppSet";
-  v4[48] = @"PerAppSet";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:49];
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:49];
   v1 = TIStatisticsDescriptionToLegacyDescriptionDictionary_dict;
   TIStatisticsDescriptionToLegacyDescriptionDictionary_dict = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __TIStatisticsCategoryToLegacyCategoryDictionary_block_invoke()
 {
-  v4[21] = *MEMORY[0x277D85DE8];
-  v3[0] = @"1stPerson";
-  v3[1] = @"3rdPerson";
-  v4[0] = @"1stPersonCategory";
-  v4[1] = @"3rdPersonCategory";
-  v3[2] = @"contactAnyPhone";
-  v3[3] = @"contactSpecificPhone";
-  v4[2] = @"contactCategory.anyPhone";
-  v4[3] = @"contactCategory.specificPhone";
-  v3[4] = @"contactAddressWork";
-  v3[5] = @"contactAddressHome";
-  v4[4] = @"contactCategory.addressWork";
-  v4[5] = @"contactCategory.addressHome";
-  v3[6] = @"contactAnyAddress";
-  v3[7] = @"contactFax";
-  v4[6] = @"contactCategory.anyAddress";
-  v4[7] = @"contactCategory.fax";
-  v3[8] = @"contactEmail";
-  v3[9] = @"contactFaceTime";
-  v4[8] = @"contactCategory.email";
-  v4[9] = @"contactCategory.facetime";
-  v3[10] = @"contactBio";
-  v3[11] = @"locationAutocompleteSendCurrentButton";
-  v4[10] = @"contactCategory.bio";
-  v4[11] = @"locationAutocomplete.sendCurrentButton";
-  v3[12] = @"recentGenericAddress";
-  v3[13] = @"recentAddress";
-  v4[12] = @"recentCategory.genericAddress";
-  v4[13] = @"recentCategory.address";
-  v3[14] = @"recentPhone";
-  v3[15] = @"eventAvailability";
-  v4[14] = @"recentCategory.phone";
-  v4[15] = @"eventCategory.availability";
-  v3[16] = @"eventNext";
-  v3[17] = @"money";
-  v4[16] = @"eventCategory.next";
-  v4[17] = @"moneyCategory";
-  v3[18] = @"socialMedia";
-  v3[19] = @"health";
-  v4[18] = @"socialMediaCategory";
-  v4[19] = @"healthCategory";
-  v3[20] = @"navigation";
-  v4[20] = @"navigationCategory";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:21];
+  v3[21] = *MEMORY[0x277D85DE8];
+  v2[0] = @"1stPerson";
+  v2[1] = @"3rdPerson";
+  v3[0] = @"1stPersonCategory";
+  v3[1] = @"3rdPersonCategory";
+  v2[2] = @"contactAnyPhone";
+  v2[3] = @"contactSpecificPhone";
+  v3[2] = @"contactCategory.anyPhone";
+  v3[3] = @"contactCategory.specificPhone";
+  v2[4] = @"contactAddressWork";
+  v2[5] = @"contactAddressHome";
+  v3[4] = @"contactCategory.addressWork";
+  v3[5] = @"contactCategory.addressHome";
+  v2[6] = @"contactAnyAddress";
+  v2[7] = @"contactFax";
+  v3[6] = @"contactCategory.anyAddress";
+  v3[7] = @"contactCategory.fax";
+  v2[8] = @"contactEmail";
+  v2[9] = @"contactFaceTime";
+  v3[8] = @"contactCategory.email";
+  v3[9] = @"contactCategory.facetime";
+  v2[10] = @"contactBio";
+  v2[11] = @"locationAutocompleteSendCurrentButton";
+  v3[10] = @"contactCategory.bio";
+  v3[11] = @"locationAutocomplete.sendCurrentButton";
+  v2[12] = @"recentGenericAddress";
+  v2[13] = @"recentAddress";
+  v3[12] = @"recentCategory.genericAddress";
+  v3[13] = @"recentCategory.address";
+  v2[14] = @"recentPhone";
+  v2[15] = @"eventAvailability";
+  v3[14] = @"recentCategory.phone";
+  v3[15] = @"eventCategory.availability";
+  v2[16] = @"eventNext";
+  v2[17] = @"money";
+  v3[16] = @"eventCategory.next";
+  v3[17] = @"moneyCategory";
+  v2[18] = @"socialMedia";
+  v2[19] = @"health";
+  v3[18] = @"socialMediaCategory";
+  v3[19] = @"healthCategory";
+  v2[20] = @"navigation";
+  v3[20] = @"navigationCategory";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:21];
   v1 = TIStatisticsCategoryToLegacyCategoryDictionary_dict;
   TIStatisticsCategoryToLegacyCategoryDictionary_dict = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __TIStatisticsReportCPStats_block_invoke(uint64_t a1)
+void *__TIStatisticsReportCPStats_block_invoke(uint64_t a1)
 {
   TIStatisticsReportCPStats_usageCountDefaults = [*(a1 + 32) integerForKey:@"kbUserDidPath"];
   result = [*(a1 + 32) BOOLForKey:*MEMORY[0x277D6FC20]];
@@ -406,19 +387,19 @@ id TIStatisticsCategoriesForProactiveTrigger(void *a1)
 
   v20 = v19;
 
-  if (([(__CFString *)v12 isEqualToString:*MEMORY[0x277D22F68]]& 1) != 0 || ([(__CFString *)v12 isEqualToString:*MEMORY[0x277D23018]]? (v21 = v2 == 1) : (v21 = 0), v21))
+  if ((objc_msgSend_isEqualToString_(v12) & 1) != 0 || (objc_msgSend_isEqualToString_(v12) ? (v21 = v2 == 1) : (v21 = 0), v21))
   {
     [v4 addObject:@"1stPerson"];
   }
 
-  if ([(__CFString *)v12 isEqualToString:*MEMORY[0x277D23040]])
+  if (objc_msgSend_isEqualToString_(v12))
   {
     [v4 addObject:@"3rdPerson"];
   }
 
-  if ([(__CFString *)v8 isEqualToString:*MEMORY[0x277D22FE0]])
+  if (objc_msgSend_isEqualToString_(v8))
   {
-    if (([(__CFString *)v16 isEqualToString:*MEMORY[0x277D22FE8]]& 1) != 0)
+    if (objc_msgSend_isEqualToString_(v16))
     {
       v22 = @"contactAnyPhone";
 LABEL_60:
@@ -426,79 +407,79 @@ LABEL_60:
       goto LABEL_61;
     }
 
-    if (([(__CFString *)v16 isEqualToString:*MEMORY[0x277D22FC0]]& 1) != 0 || ([(__CFString *)v16 isEqualToString:*MEMORY[0x277D22FA0]]& 1) != 0 || ([(__CFString *)v16 isEqualToString:*MEMORY[0x277D23070]]& 1) != 0)
+    if (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16))
     {
       v22 = @"contactSpecificPhone";
       goto LABEL_60;
     }
 
-    if (([(__CFString *)v16 isEqualToString:*MEMORY[0x277D22F60]]& 1) != 0)
+    if (objc_msgSend_isEqualToString_(v16))
     {
       v22 = @"contactFax";
       goto LABEL_60;
     }
 
-    if (([(__CFString *)v16 isEqualToString:*MEMORY[0x277D22F18]]& 1) != 0 || ([(__CFString *)v16 isEqualToString:*MEMORY[0x277D22FF0]]& 1) != 0)
+    if (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16))
     {
       v22 = @"contactAnyAddress";
       goto LABEL_60;
     }
 
-    if (([(__CFString *)v16 isEqualToString:*MEMORY[0x277D22F90]]& 1) != 0 || ([(__CFString *)v16 isEqualToString:*MEMORY[0x277D22F98]]& 1) != 0)
+    if (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16))
     {
       v22 = @"contactAddressHome";
       goto LABEL_60;
     }
 
-    if (([(__CFString *)v16 isEqualToString:*MEMORY[0x277D23060]]& 1) != 0 || ([(__CFString *)v16 isEqualToString:*MEMORY[0x277D23068]]& 1) != 0)
+    if (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16))
     {
       v22 = @"contactAddressWork";
       goto LABEL_60;
     }
 
-    if (([(__CFString *)v16 isEqualToString:*MEMORY[0x277D22F40]]& 1) != 0)
+    if (objc_msgSend_isEqualToString_(v16))
     {
       v22 = @"contactEmail";
       goto LABEL_60;
     }
 
-    if (([(__CFString *)v16 isEqualToString:*MEMORY[0x277D22F50]]& 1) != 0)
+    if (objc_msgSend_isEqualToString_(v16))
     {
       v22 = @"contactFaceTime";
       goto LABEL_60;
     }
 
-    if (([(__CFString *)v16 isEqualToString:*MEMORY[0x277D22F20]]& 1) != 0 || ([(__CFString *)v16 isEqualToString:*MEMORY[0x277D22F78]]& 1) != 0 || ([(__CFString *)v16 isEqualToString:*MEMORY[0x277D23030]]& 1) != 0)
+    if (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16))
     {
       v22 = @"contactBio";
       goto LABEL_60;
     }
 
-    if (([(__CFString *)v16 isEqualToString:*MEMORY[0x277D23020]]& 1) != 0)
+    if (objc_msgSend_isEqualToString_(v16))
     {
       v22 = @"socialMedia";
       goto LABEL_60;
     }
   }
 
-  else if ([(__CFString *)v8 isEqualToString:*MEMORY[0x277D22FB8]])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
-    if (([(__CFString *)v12 isEqualToString:*MEMORY[0x277D22F28]]& 1) != 0)
+    if (objc_msgSend_isEqualToString_(v12))
     {
       v22 = @"locationAutocompleteSendCurrentButton";
       goto LABEL_60;
     }
 
-    if ([(__CFString *)v12 isEqualToString:*MEMORY[0x277D23008]])
+    if (objc_msgSend_isEqualToString_(v12))
     {
-      if (([(__CFString *)v16 isEqualToString:*MEMORY[0x277D22F18]]& 1) != 0)
+      if (objc_msgSend_isEqualToString_(v16))
       {
         v22 = @"recentGenericAddress";
       }
 
       else
       {
-        if (([(__CFString *)v16 isEqualToString:*MEMORY[0x277D22FE8]]& 1) == 0)
+        if ((objc_msgSend_isEqualToString_(v16) & 1) == 0)
         {
           goto LABEL_61;
         }
@@ -509,7 +490,7 @@ LABEL_60:
       goto LABEL_60;
     }
 
-    if ([(__CFString *)v12 isEqualToString:*MEMORY[0x277D23000]]&& ([(__CFString *)v16 isEqualToString:*MEMORY[0x277D22F18]]& 1) != 0)
+    if (objc_msgSend_isEqualToString_(v12) && (objc_msgSend_isEqualToString_(v16) & 1) != 0)
     {
       v22 = @"recentAddress";
       goto LABEL_60;
@@ -518,21 +499,21 @@ LABEL_60:
 
   else
   {
-    if (![(__CFString *)v8 isEqualToString:*MEMORY[0x277D22F48]])
+    if (!objc_msgSend_isEqualToString_(v8))
     {
-      if (([(__CFString *)v8 isEqualToString:*MEMORY[0x277D46C00]]& 1) != 0)
+      if (objc_msgSend_isEqualToString_(v8))
       {
         v22 = @"money";
       }
 
-      else if (([(__CFString *)v8 isEqualToString:*MEMORY[0x277D22F88]]& 1) != 0)
+      else if (objc_msgSend_isEqualToString_(v8))
       {
         v22 = @"health";
       }
 
       else
       {
-        if (![(__CFString *)v8 isEqualToString:*MEMORY[0x277D22FC8]])
+        if (!objc_msgSend_isEqualToString_(v8))
         {
           goto LABEL_61;
         }
@@ -543,13 +524,13 @@ LABEL_60:
       goto LABEL_60;
     }
 
-    if (([(__CFString *)v20 isEqualToString:*MEMORY[0x277D22FD8]]& 1) != 0 || ([(__CFString *)v20 isEqualToString:*MEMORY[0x277D22F38]]& 1) != 0 || ([(__CFString *)v20 isEqualToString:*MEMORY[0x277D22FA8]]& 1) != 0)
+    if (objc_msgSend_isEqualToString_(v20) & 1) != 0 || (objc_msgSend_isEqualToString_(v20) & 1) != 0 || (objc_msgSend_isEqualToString_(v20))
     {
       v22 = @"eventAvailability";
       goto LABEL_60;
     }
 
-    if (([(__CFString *)v20 isEqualToString:*MEMORY[0x277D22FD0]]& 1) != 0 || ([(__CFString *)v20 isEqualToString:*MEMORY[0x277D23048]]& 1) != 0 || ([(__CFString *)v20 isEqualToString:*MEMORY[0x277D22FB0]]& 1) != 0)
+    if (objc_msgSend_isEqualToString_(v20) & 1) != 0 || (objc_msgSend_isEqualToString_(v20) & 1) != 0 || (objc_msgSend_isEqualToString_(v20))
     {
       v22 = @"eventNext";
       goto LABEL_60;
@@ -563,15 +544,15 @@ LABEL_61:
 
 void TIStatisticLogProactiveInfo(void *a1, void *a2, void *a3, void *a4)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a2;
   v9 = a3;
   v10 = a4;
   context = objc_autoreleasePoolPush();
-  v11 = [MEMORY[0x277CCAB68] string];
+  v11 = objc_msgSend_string(MEMORY[0x277CCAB68]);
   [v11 appendString:@"proactive."];
-  v30 = v8;
+  v29 = v8;
   [v11 appendString:v8];
   [v11 appendString:@"."];
   v12 = v11;
@@ -579,33 +560,33 @@ void TIStatisticLogProactiveInfo(void *a1, void *a2, void *a3, void *a4)
   v14 = v10;
   [v13 appendString:v10];
   [v13 appendString:@"."];
-  v32 = v7;
+  v31 = v7;
   [v13 appendString:v7];
-  v28 = v13;
+  v27 = v13;
   v15 = TIStatisticGetKey();
   TIStatisticScalarIncrement();
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obj = v9;
-  v16 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v16 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v34;
+    v18 = *v33;
     do
     {
       v19 = 0;
       do
       {
-        if (*v34 != v18)
+        if (*v33 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v33 + 1) + 8 * v19);
+        v20 = *(*(&v32 + 1) + 8 * v19);
         v21 = objc_autoreleasePoolPush();
         v22 = v20;
         v23 = TIStatisticsCategoryToLegacyCategoryDictionary();
@@ -616,7 +597,7 @@ void TIStatisticLogProactiveInfo(void *a1, void *a2, void *a3, void *a4)
         [v25 appendString:@"."];
         [v25 appendString:v14];
         [v25 appendString:@"."];
-        [v25 appendString:v32];
+        [v25 appendString:v31];
         v26 = TIStatisticGetKey();
         TIStatisticScalarIncrement();
 
@@ -625,19 +606,18 @@ void TIStatisticLogProactiveInfo(void *a1, void *a2, void *a3, void *a4)
       }
 
       while (v17 != v19);
-      v17 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v17 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v17);
   }
 
   objc_autoreleasePoolPop(context);
-  v27 = *MEMORY[0x277D85DE8];
 }
 
-void TIStatisticLogProactive(void *a1, void *a2, uint64_t a3, void *a4, void *a5)
+void TIStatisticLogProactive(void *a1, void *a2, char a3, void *a4, void *a5)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v8 = a1;
   v9 = a2;
   v10 = a4;
@@ -645,13 +625,13 @@ void TIStatisticLogProactive(void *a1, void *a2, uint64_t a3, void *a4, void *a5
   if (v9)
   {
     v12 = _TIQueueBackground();
-    v16 = v9;
-    v17 = v10;
-    v18 = v8;
-    v19 = v11;
+    v15 = v9;
+    v16 = v10;
+    v17 = v8;
+    v18 = v11;
     TIDispatchAsync();
 
-    v13 = v16;
+    v13 = v15;
   }
 
   else
@@ -659,19 +639,17 @@ void TIStatisticLogProactive(void *a1, void *a2, uint64_t a3, void *a4, void *a5
     v13 = TIProactiveQuickTypeOSLogFacility();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s %s", "TIStatisticLogProactive", "Unexpected nil trigger"];
+      v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s %s", "TIStatisticLogProactive", "Unexpected nil trigger"];
       *buf = 138412290;
-      v21 = v15;
+      v20 = v14;
       _os_log_error_impl(&dword_22CA55000, v13, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __TIStatisticLogProactive_block_invoke(uint64_t a1)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = [*(a1 + 32) attributes];
   v4 = [v3 objectForKey:*MEMORY[0x277D23050]];
@@ -683,12 +661,12 @@ void __TIStatisticLogProactive_block_invoke(uint64_t a1)
   }
 
   v7 = v6;
-  if (![v4 isEqualToString:*MEMORY[0x277D22FE0]] || v5 && (objc_msgSend(MEMORY[0x277CBEB68], "null"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v5, "isEqual:", v8), v8, (v9 & 1) == 0))
+  if (!objc_msgSend_isEqualToString_(v4) || v5 && ([MEMORY[0x277CBEB68] null], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v5, "isEqual:", v8), v8, (v9 & 1) == 0))
   {
     v10 = *(a1 + 64);
     v11 = *(a1 + 32);
-    v48 = v5;
-    v47 = v7;
+    v47 = v5;
+    v46 = v7;
     if (TIStatisticCheckRecentTriggersForTrigger_onceToken != -1)
     {
       dispatch_once(&TIStatisticCheckRecentTriggersForTrigger_onceToken, &__block_literal_global_632);
@@ -718,10 +696,10 @@ void __TIStatisticLogProactive_block_invoke(uint64_t a1)
     v21 = _TIQueueLow();
     *&block = MEMORY[0x277D85DD0];
     *(&block + 1) = 3221225472;
-    v55 = __TIStatisticCheckRecentTriggersForTrigger_block_invoke_2;
-    v56 = &unk_278733738;
-    v57 = v18;
-    v58 = v11;
+    v54 = __TIStatisticCheckRecentTriggersForTrigger_block_invoke_2;
+    v55 = &unk_278733738;
+    v56 = v18;
+    v57 = v11;
     v22 = v18;
     v23 = v11;
     dispatch_after(v20, v21, &block);
@@ -730,7 +708,7 @@ void __TIStatisticLogProactive_block_invoke(uint64_t a1)
     if (v19 && (*(a1 + 64) & 0xFE) != 6)
     {
       v26 = TIProactiveQuickTypeOSLogFacility();
-      v7 = v47;
+      v7 = v46;
       if (!os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
 LABEL_44:
@@ -747,7 +725,7 @@ LABEL_44:
     else
     {
       v24 = [*(a1 + 32) triggerSourceType];
-      v7 = v47;
+      v7 = v46;
       if (v24 > 2)
       {
         v25 = 0;
@@ -781,13 +759,13 @@ LABEL_44:
         {
           if (!*(a1 + 64))
           {
-            [v30 trackTriggeredWithSource:objc_msgSend(*(a1 + 32) categories:"triggerSourceType") locale:v26 fieldType:{*(a1 + 48), v47}];
+            [v30 trackTriggeredWithSource:objc_msgSend(*(a1 + 32) categories:"triggerSourceType") locale:v26 fieldType:{*(a1 + 48), v46}];
           }
         }
 
         else
         {
-          [v30 trackFailureWithSource:objc_msgSend(*(a1 + 32) reason:"triggerSourceType") categories:*(a1 + 64) locale:v26 fieldType:{*(a1 + 48), v47}];
+          [v30 trackFailureWithSource:objc_msgSend(*(a1 + 32) reason:"triggerSourceType") categories:*(a1 + 64) locale:v26 fieldType:{*(a1 + 48), v46}];
         }
 
         goto LABEL_43;
@@ -797,54 +775,54 @@ LABEL_44:
       {
         if (v31 == 6)
         {
-          v46 = v2;
-          v45 = v30;
-          [v30 trackSelectedWithSource:objc_msgSend(*(a1 + 32) position:"triggerSourceType") categories:0 locale:v26 fieldType:{*(a1 + 48), v47}];
+          v45 = v2;
+          v44 = v30;
+          [v30 trackSelectedWithSource:objc_msgSend(*(a1 + 32) position:"triggerSourceType") categories:0 locale:v26 fieldType:{*(a1 + 48), v46}];
           v36 = 1;
           goto LABEL_35;
         }
 
         if (v31 == 7)
         {
-          v46 = v2;
+          v45 = v2;
           v36 = 1;
-          v45 = v30;
-          [v30 trackSelectedWithSource:objc_msgSend(*(a1 + 32) position:"triggerSourceType") categories:1 locale:v26 fieldType:{*(a1 + 48), v47}];
+          v44 = v30;
+          [v30 trackSelectedWithSource:objc_msgSend(*(a1 + 32) position:"triggerSourceType") categories:1 locale:v26 fieldType:{*(a1 + 48), v46}];
 LABEL_35:
-          v51 = 0u;
-          v52 = 0u;
-          v49 = 0u;
           v50 = 0u;
+          v51 = 0u;
+          v48 = 0u;
+          v49 = 0u;
           v37 = *(a1 + 56);
-          v38 = [v37 countByEnumeratingWithState:&v49 objects:v53 count:16];
+          v38 = [v37 countByEnumeratingWithState:&v48 objects:v52 count:16];
           if (v38)
           {
             v39 = v38;
-            v40 = *v50;
+            v40 = *v49;
             do
             {
               for (i = 0; i != v39; ++i)
               {
-                if (*v50 != v40)
+                if (*v49 != v40)
                 {
                   objc_enumerationMutation(v37);
                 }
 
-                v42 = *(*(&v49 + 1) + 8 * i);
+                v42 = *(*(&v48 + 1) + 8 * i);
                 v43 = +[TIProactiveQuickTypeManager sharedInstance];
                 [v43 provideFeedbackForString:v42 type:v36 style:1];
               }
 
-              v39 = [v37 countByEnumeratingWithState:&v49 objects:v53 count:16];
+              v39 = [v37 countByEnumeratingWithState:&v48 objects:v52 count:16];
             }
 
             while (v39);
           }
 
-          v2 = v46;
-          v7 = v47;
-          v5 = v48;
-          v30 = v45;
+          v2 = v45;
+          v7 = v46;
+          v5 = v47;
+          v30 = v44;
         }
       }
 
@@ -852,10 +830,10 @@ LABEL_35:
       {
         if (v31 == 4)
         {
-          v46 = v2;
+          v45 = v2;
           v32 = [*(a1 + 32) triggerSourceType];
           v33 = *(a1 + 48);
-          v45 = v30;
+          v44 = v30;
           v34 = v30;
           v35 = 1;
           goto LABEL_33;
@@ -863,14 +841,14 @@ LABEL_35:
 
         if (v31 == 5)
         {
-          v46 = v2;
+          v45 = v2;
           v32 = [*(a1 + 32) triggerSourceType];
           v33 = *(a1 + 48);
-          v45 = v30;
+          v44 = v30;
           v34 = v30;
           v35 = 2;
 LABEL_33:
-          [v34 trackSuggestedWithSource:v32 count:v35 categories:v26 locale:v33 fieldType:v47];
+          [v34 trackSuggestedWithSource:v32 count:v35 categories:v26 locale:v33 fieldType:v46];
           v36 = 3;
           goto LABEL_35;
         }
@@ -885,7 +863,6 @@ LABEL_43:
 LABEL_45:
 
   objc_autoreleasePoolPop(v2);
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __TIStatisticCheckRecentTriggersForTrigger_block_invoke_2(uint64_t a1)
@@ -898,9 +875,11 @@ void __TIStatisticCheckRecentTriggersForTrigger_block_invoke_2(uint64_t a1)
 
 uint64_t __TIStatisticCheckRecentTriggersForTrigger_block_invoke()
 {
-  TIStatisticCheckRecentTriggersForTrigger_recentByMetricType = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:8];
+  v0 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:8];
+  v1 = TIStatisticCheckRecentTriggersForTrigger_recentByMetricType;
+  TIStatisticCheckRecentTriggersForTrigger_recentByMetricType = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void TIStatisticLogProactiveDescription(void *a1, void *a2, void *a3, void *a4, void *a5)
@@ -935,7 +914,7 @@ void __TIStatisticLogProactiveDescription_block_invoke(uint64_t a1)
   }
 
   v7 = v6;
-  if (![v4 isEqualToString:*MEMORY[0x277D22FE0]] || v5 && (objc_msgSend(MEMORY[0x277CBEB68], "null"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v5, "isEqual:", v8), v8, (v9 & 1) == 0))
+  if (!objc_msgSend_isEqualToString_(v4) || v5 && ([MEMORY[0x277CBEB68] null], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v5, "isEqual:", v8), v8, (v9 & 1) == 0))
   {
     v10 = [*(a1 + 32) triggerSourceType];
     if (v10 > 2)
@@ -951,7 +930,7 @@ void __TIStatisticLogProactiveDescription_block_invoke(uint64_t a1)
     v12 = TIStatisticsCategoriesForProactiveTrigger(*(a1 + 32));
     TIStatisticLogProactiveInfo(*(a1 + 48), v11, v12, *(a1 + 56));
     v13 = +[_TIStatisticsProactiveTracker sharedInstance];
-    if ([*(a1 + 64) isEqualToString:@"suggestion"])
+    if (objc_msgSend_isEqualToString_(*(a1 + 64)))
     {
       v14 = TIStatisticsDescriptionToLegacyDescriptionDictionary();
       v15 = [v14 allKeys];
@@ -964,7 +943,7 @@ void __TIStatisticLogProactiveDescription_block_invoke(uint64_t a1)
 
     else
     {
-      if (![*(a1 + 64) isEqualToString:@"engagement"])
+      if (!objc_msgSend_isEqualToString_(*(a1 + 64)))
       {
 LABEL_16:
 
@@ -988,17 +967,17 @@ LABEL_17:
   objc_autoreleasePoolPop(v2);
 }
 
-void TIStatisticsLogProactiveTimeOnScreen(void *a1, void *a2, uint64_t a3, void *a4)
+void TIStatisticsLogProactiveTimeOnScreen(void *a1, void *a2, char a3, void *a4, double a5)
 {
-  v6 = a1;
-  v7 = a2;
-  v8 = a4;
-  v9 = _TIQueueBackground();
-  v13 = v8;
-  v14 = v7;
-  v10 = v6;
+  v7 = a1;
+  v8 = a2;
+  v9 = a4;
+  v10 = _TIQueueBackground();
+  v14 = v9;
+  v15 = v8;
   v11 = v7;
   v12 = v8;
+  v13 = v9;
   TIDispatchAsync();
 }
 
@@ -1146,36 +1125,35 @@ uint64_t ___Z34nameVariationsForContactCollectionP12NSDictionaryIP8NSStringP10_I
 
 id fieldNameSuffices()
 {
-  v3[3] = *MEMORY[0x277D85DE8];
-  v3[0] = @"_input";
-  v3[1] = @"_autocorrection";
-  v3[2] = @"_alternate";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:3];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[3] = *MEMORY[0x277D85DE8];
+  v2[0] = @"_input";
+  v2[1] = @"_autocorrection";
+  v2[2] = @"_alternate";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:3];
 
   return v0;
 }
 
 id payloadForCandidate(void *a1, void *a2, void *a3)
 {
-  v59[1] = *MEMORY[0x277D85DE8];
+  v58[1] = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = a3;
   v8 = [@"sourceBitset" stringByAppendingString:v6];
-  v58 = v8;
+  v57 = v8;
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v5, "sourceMask")}];
-  v59[0] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:&v58 count:1];
+  v58[0] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:&v57 count:1];
 
   v11 = [MEMORY[0x277CBEB38] dictionary];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v49 = v10;
+    v48 = v10;
     v12 = v5;
     v13 = [@"geometryScore" stringByAppendingString:v6];
-    v56[0] = v13;
+    v55[0] = v13;
     v14 = MEMORY[0x277CCABB0];
     [v12 geometryScore];
     v17 = fmax(v16, -10.0) * 10.0;
@@ -1190,10 +1168,10 @@ id payloadForCandidate(void *a1, void *a2, void *a3)
     }
 
     LODWORD(v15) = vcvtmd_s64_f64(v18);
-    v19 = [v14 numberWithInt:{v15, v49}];
-    v57[0] = v19;
+    v19 = [v14 numberWithInt:{v15, v48}];
+    v56[0] = v19;
     v20 = [@"languageModelScore" stringByAppendingString:v6];
-    v56[1] = v20;
+    v55[1] = v20;
     v21 = MEMORY[0x277CCABB0];
     [v12 wordScore];
     v24 = fmax(v23, -10.0) * 10.0;
@@ -1209,8 +1187,8 @@ id payloadForCandidate(void *a1, void *a2, void *a3)
 
     LODWORD(v22) = vcvtmd_s64_f64(v25);
     v26 = [v21 numberWithInt:v22];
-    v57[1] = v26;
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:2];
+    v56[1] = v26;
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:2];
     [v11 addEntriesFromDictionary:v27];
 
     v28 = [v12 lexiconLocale];
@@ -1218,17 +1196,17 @@ id payloadForCandidate(void *a1, void *a2, void *a3)
     if (v28)
     {
       v29 = [@"language" stringByAppendingString:v6];
-      v54 = v29;
+      v53 = v29;
       v30 = [v12 lexiconLocale];
-      v55 = v30;
-      v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+      v54 = v30;
+      v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
       [v11 addEntriesFromDictionary:v31];
     }
 
     if (([v12 dynamicUsageCount] & 0x80000000) == 0)
     {
       v32 = [@"localUsageCount" stringByAppendingString:v6];
-      v52[0] = v32;
+      v51[0] = v32;
       v33 = MEMORY[0x277CCABB0];
       v34 = [v12 dynamicUsageCount];
       if (v34 > 4095)
@@ -1248,9 +1226,9 @@ id payloadForCandidate(void *a1, void *a2, void *a3)
       }
 
       v36 = [v33 numberWithInt:v35];
-      v53[0] = v36;
+      v52[0] = v36;
       v37 = [@"localPenaltyCount" stringByAppendingString:v6];
-      v52[1] = v37;
+      v51[1] = v37;
       v38 = MEMORY[0x277CCABB0];
       v39 = [v12 dynamicPenaltyCount];
       if (v39 > 4095)
@@ -1270,40 +1248,38 @@ id payloadForCandidate(void *a1, void *a2, void *a3)
       }
 
       v41 = [v38 numberWithInt:v40];
-      v53[1] = v41;
-      v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:2];
+      v52[1] = v41;
+      v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:2];
       [v11 addEntriesFromDictionary:v42];
     }
 
-    v10 = v50;
+    v10 = v49;
   }
 
-  v51[0] = v10;
-  v51[1] = v11;
+  v50[0] = v10;
+  v50[1] = v11;
   v43 = [v5 candidate];
   v44 = payloadForText(v43, v6, v7);
 
-  v51[2] = v44;
-  v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:3];
+  v50[2] = v44;
+  v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:3];
   v46 = mergeDicts(v45);
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return v46;
 }
 
-void KB::CandidateFilter::remove_candidates_satisfying_predicate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void KB::CandidateFilter::remove_candidates_satisfying_predicate(KB::Candidate **a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v18 = 0x100000;
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0x100000;
+  v18 = 0;
   v19 = 0;
   v20 = 0;
   v21 = 0;
-  v22 = 0;
   if (a2)
   {
-    v8 = &v18;
-    KB::String::ensure_capacity(&v18, 256);
+    v8 = &v17;
+    KB::String::ensure_capacity(&v17, 256);
   }
 
   else
@@ -1311,18 +1287,18 @@ void KB::CandidateFilter::remove_candidates_satisfying_predicate(uint64_t a1, ui
     v8 = 0;
   }
 
-  *&v15 = a2;
-  *(&v15 + 1) = a3;
-  std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::__value_func[abi:nn200100](v16, a4);
-  v17 = v8;
+  *&v14 = a2;
+  *(&v14 + 1) = a3;
+  std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::__value_func[abi:nn200100](v15, a4);
+  v16 = v8;
   v9 = *a1;
-  v10 = *(a1 + 8);
-  v13 = v15;
-  std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::__value_func[abi:nn200100](v14, v16);
-  v14[4] = v17;
+  v10 = a1[1];
+  v12 = v14;
+  std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::__value_func[abi:nn200100](v13, v15);
+  v13[4] = v16;
   if (v9 != v10)
   {
-    while ((KB::CandidateFilter::remove_candidates_satisfying_predicate(std::vector<KB::Candidate> &,__CFString *,char const*,std::function<BOOL ()(KB::Candidate const&,KB::String *)>)::$_0::operator()(&v13, v9) & 1) == 0)
+    while ((KB::CandidateFilter::remove_candidates_satisfying_predicate(std::vector<KB::Candidate> &,__CFString *,char const*,std::function<BOOL ()(KB::Candidate const&,KB::String *)>)::$_0::operator()(&v12, v9) & 1) == 0)
     {
       v9 = (v9 + 1000);
       if (v9 == v10)
@@ -1336,7 +1312,7 @@ void KB::CandidateFilter::remove_candidates_satisfying_predicate(uint64_t a1, ui
     {
       for (i = (v9 + 1000); i != v10; i += 125)
       {
-        if ((KB::CandidateFilter::remove_candidates_satisfying_predicate(std::vector<KB::Candidate> &,__CFString *,char const*,std::function<BOOL ()(KB::Candidate const&,KB::String *)>)::$_0::operator()(&v13, i) & 1) == 0)
+        if ((KB::CandidateFilter::remove_candidates_satisfying_predicate(std::vector<KB::Candidate> &,__CFString *,char const*,std::function<BOOL ()(KB::Candidate const&,KB::String *)>)::$_0::operator()(&v12, i) & 1) == 0)
         {
           KB::Candidate::operator=(v9, i);
           v9 = (v9 + 1000);
@@ -1346,15 +1322,16 @@ void KB::CandidateFilter::remove_candidates_satisfying_predicate(uint64_t a1, ui
   }
 
 LABEL_14:
-  std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::~__value_func[abi:nn200100](v14);
-  std::vector<KB::Candidate>::erase(a1, v9, *(a1 + 8));
-  std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::~__value_func[abi:nn200100](v16);
-  if (v21 && v20 == 1)
+  std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::~__value_func[abi:nn200100](v13);
+  std::vector<KB::Candidate>::erase(a1, v9, a1[1]);
+  std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::~__value_func[abi:nn200100](v15);
+  if (v20)
   {
-    free(v21);
+    if (v19 == 1)
+    {
+      free(v20);
+    }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::__value_func[abi:nn200100](uint64_t a1, uint64_t a2)
@@ -1384,30 +1361,30 @@ uint64_t std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *
 
 uint64_t KB::CandidateFilter::remove_candidates_satisfying_predicate(std::vector<KB::Candidate> &,__CFString *,char const*,std::function<BOOL ()(KB::Candidate const&,KB::String *)>)::$_0::operator()(uint64_t a1, KB::Candidate *a2)
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   v4 = a1 + 40;
   v3 = *(a1 + 40);
-  v24 = *(v4 + 8);
+  v22 = *(v4 + 8);
   if (!v3)
   {
     std::__throw_bad_function_call[abi:nn200100]();
   }
 
-  v6 = (*(*v3 + 48))(v3, a2, &v24);
+  v6 = (*(*v3 + 48))(v3, a2, &v22);
   if (v6)
   {
     v7 = *a1;
     if (*a1)
     {
-      KB::Candidate::capitalized_string(a2, &v24);
-      v8 = v25;
-      if (!v25)
+      KB::Candidate::capitalized_string(&v22, a2);
+      v8 = v23;
+      if (!v23)
       {
-        v8 = v26;
+        v8 = v24;
       }
 
       v9 = "";
-      if (v24)
+      if (v22)
       {
         v10 = v8;
       }
@@ -1417,14 +1394,14 @@ uint64_t KB::CandidateFilter::remove_candidates_satisfying_predicate(std::vector
         v10 = "";
       }
 
-      KB::Candidate::token_ids_as_string(a2, v20);
-      v12 = v22;
-      if (!v22)
+      KB::Candidate::token_ids_as_string(&v19, a2);
+      v12 = v20;
+      if (!v20)
       {
-        v12 = &v23;
+        v12 = &v21;
       }
 
-      if (v20[0])
+      if (v19)
       {
         v13 = v12;
       }
@@ -1451,14 +1428,14 @@ uint64_t KB::CandidateFilter::remove_candidates_satisfying_predicate(std::vector
       }
 
       KB::append_format(v7, "[%s] {%s} removed by %s (%s)\n", v11, v10, v13, *(a1 + 8), v9);
-      if (v22 && v21 == 1)
+      if (v20 && BYTE6(v19) == 1)
       {
-        free(v22);
+        free(v20);
       }
 
-      if (v25 && BYTE6(v24) == 1)
+      if (v23 && BYTE6(v22) == 1)
       {
-        free(v25);
+        free(v23);
       }
     }
   }
@@ -1469,60 +1446,55 @@ uint64_t KB::CandidateFilter::remove_candidates_satisfying_predicate(std::vector
     KB::String::clear(v17);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
-void KB::CandidateFilter::remove_candidates_with_input_mismatch(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void KB::CandidateFilter::remove_candidates_with_input_mismatch(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v11 = a6;
-  v8 = *(a5 + 16);
-  if (v8)
+  v7 = *(a5 + 16);
+  if (v7)
   {
-    atomic_fetch_add(v8, 1u);
+    atomic_fetch_add(v7, 1u);
   }
 
-  v9 = *(v8 + 8) + 144;
-  WTF::RefCounted<KB::DictionaryContainer>::deref(v8);
-  v10 = *(a5 + 56);
+  WTF::RefCounted<KB::DictionaryContainer>::deref(v7);
   (*(*a1 + 16))(a1);
   operator new();
 }
 
-BOOL std::__function::__func<KB::CandidateFilter::remove_candidates_with_input_mismatch(std::vector<KB::Candidate> &,unsigned int,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&,char const*)::$_0,std::allocator<KB::CandidateFilter::remove_candidates_with_input_mismatch(std::vector<KB::Candidate> &,unsigned int,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&,char const*)::$_0>,BOOL ()(KB::Candidate const&,KB::String *)>::operator()(uint64_t a1, void *a2, KB::String **a3)
+BOOL std::__function::__func<KB::CandidateFilter::remove_candidates_with_input_mismatch(std::vector<KB::Candidate> &,unsigned int,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&,char const*)::$_0,std::allocator<KB::CandidateFilter::remove_candidates_with_input_mismatch(std::vector<KB::Candidate> &,unsigned int,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&,char const*)::$_0>,BOOL ()(KB::Candidate const&,KB::String *)>::operator()(uint64_t a1, void *a2, KB::String **a3, uint64_t a4, uint64_t a5)
 {
-  v5 = *a3;
-  v6 = KB::Candidate::num_words_matching_input(a2, *(a1 + 16), *(a1 + 32));
-  v7 = *(a1 + 24);
-  if (*(v7 + 1000) == 1)
+  v7 = *a3;
+  v10 = KB::Candidate::num_words_matching_input(a2, *(a1 + 16), *(a1 + 32), a4, a5);
+  v11 = *(a1 + 24);
+  if (*(v11 + 1000) == 1)
   {
-    v8 = KB::Candidate::num_words_matching_input(a2, v7, *(a1 + 32));
+    v12 = KB::Candidate::num_words_matching_input(a2, v11, *(a1 + 32), v8, v9);
   }
 
   else
   {
-    v8 = 0;
+    v12 = 0;
   }
 
-  v9 = *(a1 + 8);
-  v12 = v6 < v9 && v8 < v9 && v9 != 0;
-  if (v5)
+  v13 = *(a1 + 8);
+  v16 = v10 < v13 && v12 < v13 && v13 != 0;
+  if (v7)
   {
-    v13 = !v12;
+    v17 = !v16;
   }
 
   else
   {
-    v13 = 1;
+    v17 = 1;
   }
 
-  if (!v13)
+  if (!v17)
   {
-    KB::String::append_format(v5, "# candidates words matching input == %u, converted input == %u < %u == required words matching input (%s)", v6, v8, *(a1 + 8), **(a1 + 40));
+    KB::String::append_format(v7, "# candidates words matching input == %u, converted input == %u < %u == required words matching input (%s)", v10, v12, *(a1 + 8), **(a1 + 40));
   }
 
-  return v12;
+  return v16;
 }
 
 __n128 std::__function::__func<KB::CandidateFilter::remove_candidates_with_input_mismatch(std::vector<KB::Candidate> &,unsigned int,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&,char const*)::$_0,std::allocator<KB::CandidateFilter::remove_candidates_with_input_mismatch(std::vector<KB::Candidate> &,unsigned int,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&,char const*)::$_0>,BOOL ()(KB::Candidate const&,KB::String *)>::__clone(uint64_t a1, uint64_t a2)
@@ -1538,26 +1510,26 @@ __n128 std::__function::__func<KB::CandidateFilter::remove_candidates_with_input
 
 uint64_t KB::CandidateFilter::is_suggestible_for_input(uint64_t *a1, void *a2, int a3, uint64_t a4, uint64_t a5, KB::String *a6)
 {
-  v45[2] = *MEMORY[0x277D85DE8];
+  v43[2] = *MEMORY[0x277D85DE8];
   if (a3)
   {
     if (a3 == 1)
     {
       v11 = *a1;
       v12 = a1[1];
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 0x40000000;
-      v38 = ___ZN2KB15CandidateFilter24is_suggestible_for_inputERKNS_9CandidateES3_NS0_19WordEquivalenceTypeERKNS_20WordSuggestionPolicyERKNSt3__18functionIFiRKNS_6StringESC_EEEPSA__block_invoke;
-      v39 = &__block_descriptor_tmp_3716;
-      v40 = a4;
-      v41 = a6;
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 0x40000000;
+      v37 = ___ZN2KB15CandidateFilter24is_suggestible_for_inputERKNS_9CandidateES3_NS0_19WordEquivalenceTypeERKNS_20WordSuggestionPolicyERKNSt3__18functionIFiRKNS_6StringESC_EEEPSA__block_invoke;
+      v38 = &__block_descriptor_tmp_3716;
+      v39 = a4;
+      v40 = a6;
       if (v11)
       {
-        v13 = (v12 + 240 * v11);
+        v13 = v12 + 240 * v11;
         v14 = 240 * v11;
-        while (((v38)(v37, v12) & 1) == 0)
+        while (((v37)(v36, v12) & 1) == 0)
         {
-          v12 = (v12 + 240);
+          v12 += 240;
           v14 -= 240;
           if (!v14)
           {
@@ -1579,14 +1551,14 @@ uint64_t KB::CandidateFilter::is_suggestible_for_input(uint64_t *a1, void *a2, i
       v17 = (v12 + 240 * v11);
       if (a6 && v15 != v17)
       {
-        KB::Word::capitalized_string(v15, v42);
-        v18 = v44;
-        if (!v44)
+        KB::Word::capitalized_string(&v41, v15);
+        v18 = v42;
+        if (!v42)
         {
-          v18 = v45;
+          v18 = v43;
         }
 
-        if (v42[0])
+        if (v41)
         {
           v19 = v18;
         }
@@ -1597,18 +1569,18 @@ uint64_t KB::CandidateFilter::is_suggestible_for_input(uint64_t *a1, void *a2, i
         }
 
         KB::String::append_format(a6, " => '%s' is never suggestible", v19);
-        if (v44 && v43 == 1)
+        if (v42 && BYTE6(v41) == 1)
         {
-          free(v44);
+          free(v42);
         }
       }
 
       if (v15 != v17)
       {
-        goto LABEL_73;
+        return 0;
       }
 
-      v16 = KB::Candidate::num_words_preserving_input(a1, a2, a5);
+      v16 = KB::Candidate::num_words_preserving_input(a1, a2, a5, a4, a5);
     }
 
     else
@@ -1619,14 +1591,12 @@ uint64_t KB::CandidateFilter::is_suggestible_for_input(uint64_t *a1, void *a2, i
 
   else
   {
-    v16 = KB::Candidate::num_words_matching_input(a1, a2, a5);
+    v16 = KB::Candidate::num_words_matching_input(a1, a2, a5, a4, a5);
   }
 
   if (*a1 <= v16)
   {
-LABEL_52:
-    result = 1;
-    goto LABEL_74;
+    return 1;
   }
 
   v20 = v16;
@@ -1638,7 +1608,7 @@ LABEL_52:
     {
       if (!a6)
       {
-        goto LABEL_73;
+        return 0;
       }
 
       v33 = "out-of-vocabulary";
@@ -1657,7 +1627,7 @@ LABEL_52:
       {
         if (!a6)
         {
-          goto LABEL_73;
+          return 0;
         }
 
         v33 = "user acquired word is not learnable";
@@ -1669,7 +1639,7 @@ LABEL_52:
       {
         if (!a6)
         {
-          goto LABEL_73;
+          return 0;
         }
 
         v33 = "user acquired word that is not sufficiently learned";
@@ -1688,7 +1658,7 @@ LABEL_52:
           {
             if (!a6)
             {
-              goto LABEL_73;
+              return 0;
             }
 
             v33 = "suggest_if_learned under policy, but not sufficiently learned";
@@ -1729,24 +1699,24 @@ LABEL_51:
     v20 = v21;
     if (*a1 <= v21++)
     {
-      goto LABEL_52;
+      return 1;
     }
   }
 
   if (!a6)
   {
-    goto LABEL_73;
+    return 0;
   }
 
 LABEL_65:
-  KB::Word::capitalized_string(v22, v42);
-  v34 = v44;
-  if (!v44)
+  KB::Word::capitalized_string(&v41, v22);
+  v34 = v42;
+  if (!v42)
   {
-    v34 = v45;
+    v34 = v43;
   }
 
-  if (v42[0])
+  if (v41)
   {
     v35 = v34;
   }
@@ -1757,26 +1727,25 @@ LABEL_65:
   }
 
   KB::String::append_format(a6, " => '%s' does not preserve input and is not predictible", v35);
-  if (v44 && v43 == 1)
+  if (v42)
   {
-    free(v44);
+    if (BYTE6(v41) == 1)
+    {
+      free(v42);
+    }
   }
 
-LABEL_73:
-  result = 0;
-LABEL_74:
-  v36 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
-uint64_t KB::CandidateFilter::candidate_matches_input(unsigned __int16 *a1, unsigned __int16 *a2, uint64_t a3)
+uint64_t KB::CandidateFilter::candidate_matches_input(KB::Candidate *a1, KB::Candidate *a2, uint64_t a3)
 {
-  if (!a1[444])
+  if (!*(a1 + 444))
   {
     KB::Candidate::compute_string(a1);
   }
 
-  if (!a2[444])
+  if (!*(a2 + 444))
   {
     KB::Candidate::compute_string(a2);
   }
@@ -1784,15 +1753,15 @@ uint64_t KB::CandidateFilter::candidate_matches_input(unsigned __int16 *a1, unsi
   v6 = *(a3 + 24);
   if (v6)
   {
-    result = (*(*v6 + 48))(v6, a1 + 444, a2 + 444);
+    result = (*(*v6 + 48))(v6, a1 + 888, a2 + 888);
     if (result)
     {
-      if (!a1[444])
+      if (!*(a1 + 444))
       {
         KB::Candidate::compute_string(a1);
       }
 
-      if (!a2[444])
+      if (!*(a2 + 444))
       {
         KB::Candidate::compute_string(a2);
       }
@@ -1806,7 +1775,7 @@ uint64_t KB::CandidateFilter::candidate_matches_input(unsigned __int16 *a1, unsi
   else
   {
     v8 = std::__throw_bad_function_call[abi:nn200100]();
-    return KB::CandidateFilter::language_id_for_context_with_confidence(v8, v9, v11, v10);
+    return KB::CandidateFilter::language_id_for_context_with_confidence(v8, v9, v10, v11);
   }
 
   return result;
@@ -1839,7 +1808,7 @@ uint64_t KB::CandidateFilter::language_id_for_context_with_confidence(uint64_t a
 
 uint64_t KB::CandidateFilter::language_id_for_context_and_candidate_with_confidence(KB::CandidateFilter *this, const KB::LanguageModelContext *a2, const KB::Candidate *a3, float a4, const KB::CandidateFilterResources *a5)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (*a2)
   {
     v8 = 0;
@@ -1867,7 +1836,7 @@ uint64_t KB::CandidateFilter::language_id_for_context_and_candidate_with_confide
     v8 = 0;
   }
 
-  KB::LanguageModelContext::LanguageModelContext(&v25, this);
+  KB::LanguageModelContext::LanguageModelContext(&v24, this);
   v15 = *a2;
   if (*a2)
   {
@@ -1885,12 +1854,12 @@ uint64_t KB::CandidateFilter::language_id_for_context_and_candidate_with_confide
       if ((*(v17 + 135) & 4) == 0)
       {
         v20 = *(v17 + 136);
-        KB::Word::capitalized_string(v17, &v32);
+        KB::Word::capitalized_string(&v31, v17);
         v21 = v20;
-        KB::LanguageModelContext::append(&v25, v21, &v32, 0);
-        if (v33 && BYTE6(v32) == 1)
+        KB::LanguageModelContext::append(&v24, v21, &v31, 0);
+        if (v32 && BYTE6(v31) == 1)
         {
-          free(v33);
+          free(v32);
         }
 
         v16 = v19;
@@ -1903,32 +1872,31 @@ uint64_t KB::CandidateFilter::language_id_for_context_and_candidate_with_confide
     while (v18);
   }
 
-  if (KB::LanguageModelContext::is_linguistically_void(&v25))
+  if (KB::LanguageModelContext::is_linguistically_void(&v24))
   {
     v22 = 0;
   }
 
   else
   {
-    v22 = KB::CandidateFilter::language_id_for_context_with_confidence(&v25, *(a3 + 3), *(a3 + 4), a4);
+    v22 = KB::CandidateFilter::language_id_for_context_with_confidence(&v24, *(a3 + 3), *(a3 + 4), a4);
   }
 
-  v32 = &v31;
-  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v32);
-  language_modeling::v1::LinguisticContext::~LinguisticContext(&v30);
+  v31 = &v30;
+  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v31);
   language_modeling::v1::LinguisticContext::~LinguisticContext(&v29);
+  language_modeling::v1::LinguisticContext::~LinguisticContext(&v28);
   if (__p)
   {
-    v28 = __p;
+    v27 = __p;
     operator delete(__p);
   }
 
-  if (v26)
+  if (v25)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v26);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v25);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -1947,7 +1915,7 @@ uint64_t KB::CandidateFilter::candidate_static_words_from_same_language(KB::Cand
   v4 = 240 * this - 240;
   do
   {
-    result = v8(v7, a2);
+    result = (v8)(v7, a2);
     a2 = (a2 + 240);
     if (result)
     {
@@ -1966,7 +1934,7 @@ uint64_t KB::CandidateFilter::candidate_static_words_from_same_language(KB::Cand
   return result;
 }
 
-uint64_t ___ZN2KB15CandidateFilter41candidate_static_words_from_same_languageERKNS_9CandidateEj_block_invoke(uint64_t a1, uint64_t a2)
+BOOL ___ZN2KB15CandidateFilter41candidate_static_words_from_same_languageERKNS_9CandidateEj_block_invoke(uint64_t a1, uint64_t a2)
 {
   if ((*(a2 + 106) & 4) == 0)
   {
@@ -1990,7 +1958,7 @@ unsigned int *KB::CandidateFilter::_sortkey_for_string(KB::CandidateFilter *this
     atomic_fetch_add(a3, 1u);
   }
 
-  KB::CollatorWrapper::sortkey_for_string((*(a3 + 1) + 72), a2, this);
+  KB::CollatorWrapper::sortkey_for_string(this, (*(a3 + 1) + 72), a2);
 
   return WTF::RefCounted<KB::DictionaryContainer>::deref(a3);
 }
@@ -2009,26 +1977,22 @@ CFTypeRef KB::LanguageModel::engine_string_to_surface_form@<X0>(CFTypeRef cf@<X1
 
 uint64_t KB::LanguageModel::id_for_dynamic_word(uint64_t a1, const __CFString *a2, uint64_t *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  if ((*(*a1 + 16))(a1))
+  v12 = *MEMORY[0x277D85DE8];
+  if (!(*(*a1 + 16))(a1))
   {
-    v5 = *a3;
-    KB::utf8_string(a2, v9);
-    KB::DynamicDictionary::word_with_string(v11, *(v5 + 24), v9);
-    v6 = v12;
-    KB::Word::~Word(v11);
-    if (v10 && v9[6] == 1)
-    {
-      free(v10);
-    }
+    return 0;
   }
 
-  else
+  v5 = *a3;
+  KB::utf8_string(v8, a2);
+  KB::DynamicDictionary::word_with_string(v10, *(v5 + 24), v8);
+  v6 = v11;
+  KB::Word::~Word(v10);
+  if (v9 && v8[6] == 1)
   {
-    v6 = 0;
+    free(v9);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -2067,9 +2031,9 @@ double KB::DynamicDictionary::word_with_string(KB::DynamicDictionary *this, cons
 
 void KB::LanguageModel::copyLinguisticDataFiles(CFDictionaryRef *a1@<X8>)
 {
-  v3 = *MEMORY[0x277CBECE8];
+  v2 = *MEMORY[0x277CBECE8];
   values = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
-  *a1 = CFDictionaryCreate(v3, MEMORY[0x277D23128], &values, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  *a1 = CFDictionaryCreate(v2, MEMORY[0x277D23128], &values, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (values)
   {
     CFRelease(values);
@@ -2132,91 +2096,87 @@ BOOL KB::LanguageModel::lexicon_id_active(KB::LanguageModel *this, int a2)
   return v4 != v3;
 }
 
-uint64_t KB::LanguageModel::get_prediction_count(KB::LanguageModel *this)
+CFIndex KB::LanguageModel::get_prediction_count(KB::LanguageModel *this)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   keyExistsAndHasValidFormat = 0;
   AppIntegerValue = CFPreferencesGetAppIntegerValue(@"LanguageModelPredictionCount", @"com.apple.keyboard", &keyExistsAndHasValidFormat);
-  if (keyExistsAndHasValidFormat)
+  if (!keyExistsAndHasValidFormat)
   {
-    v2 = AppIntegerValue;
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 136315650;
-      v7 = "get_prediction_count";
-      v8 = 2080;
-      v9 = "get_prediction_count";
-      v10 = 2048;
-      v11 = v2;
-      _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s  %s: prediction_count=%zu (overridden by user preferences)", buf, 0x20u);
-    }
+    return 50;
   }
 
-  else
+  v2 = AppIntegerValue;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 50;
+    *buf = 136315650;
+    v6 = "get_prediction_count";
+    v7 = 2080;
+    v8 = "get_prediction_count";
+    v9 = 2048;
+    v10 = v2;
+    _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s  %s: prediction_count=%zu (overridden by user preferences)", buf, 0x20u);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 uint64_t KB::LanguageModel::id_for_static_word_with_surface_form(uint64_t a1, const KB::String *a2, uint64_t a3, uint64_t a4, int a5, unsigned int a6, uint64_t a7)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   if ((*(*a1 + 16))(a1))
   {
-    (*(*a1 + 312))(&v36, a1, a2, a3, a4, (a6 >> 5) & 1, 1);
+    (*(*a1 + 312))(&v39, a1, a2, a3, a4, (a6 >> 5) & 1, 1);
     if ((a6 & 3) == 0)
     {
       goto LABEL_57;
     }
 
-    v14 = v36;
-    v15 = v37;
-    if (v36 != v37)
+    v14 = v39;
+    v15 = v40;
+    if (v39 != v40)
     {
       v17 = (a6 & 4) == 0 || a5 == 0;
       do
       {
-        KB::Word::capitalized_string(v14, &v38);
-        if (&v38 == a2)
+        KB::Word::capitalized_string(&v41, v14);
+        if (&v41 == a2)
         {
-          if (v39)
+          if (v42)
           {
-            v20 = BYTE6(v38) == 1;
+            v22 = BYTE6(v41) == 1;
           }
 
           else
           {
-            v20 = 0;
+            v22 = 0;
           }
 
-          if (v20)
+          if (v22)
           {
-            free(v39);
+            free(v42);
           }
         }
 
         else
         {
-          v18 = KB::String::equal(&v38, a2, 1);
-          if (v39)
+          v20 = KB::String::equal(&v41, a2, 1, v18, v19);
+          if (v42)
           {
-            v19 = BYTE6(v38) == 1;
+            v21 = BYTE6(v41) == 1;
           }
 
           else
           {
-            v19 = 0;
+            v21 = 0;
           }
 
-          if (v19)
+          if (v21)
           {
-            free(v39);
+            free(v42);
           }
 
-          if (!v18)
+          if (!v20)
           {
             goto LABEL_27;
           }
@@ -2227,8 +2187,8 @@ uint64_t KB::LanguageModel::id_for_static_word_with_surface_form(uint64_t a1, co
           goto LABEL_70;
         }
 
-        v21 = *(v14 + 17);
-        if (v21 == a5)
+        v23 = *(v14 + 17);
+        if (v23 == a5)
         {
           goto LABEL_71;
         }
@@ -2242,68 +2202,68 @@ LABEL_27:
 
     if ((a6 & 4) != 0)
     {
-      v14 = v36;
-      v22 = v37;
-      if (v36 != v37)
+      v14 = v39;
+      v24 = v40;
+      if (v39 != v40)
       {
-        v23 = v36;
+        v25 = v39;
         while (1)
         {
-          KB::Word::capitalized_string(v23, &v38);
-          if (&v38 == a2)
+          KB::Word::capitalized_string(&v41, v25);
+          if (&v41 == a2)
           {
             break;
           }
 
-          v24 = KB::String::equal(&v38, a2, 1);
-          if (v39)
+          v28 = KB::String::equal(&v41, a2, 1, v26, v27);
+          if (v42)
           {
-            v25 = BYTE6(v38) == 1;
+            v29 = BYTE6(v41) == 1;
           }
 
           else
           {
-            v25 = 0;
+            v29 = 0;
           }
 
-          if (v25)
+          if (v29)
           {
-            free(v39);
+            free(v42);
           }
 
-          if (v24)
+          if (v28)
           {
-            v14 = v23;
+            v14 = v25;
             goto LABEL_70;
           }
 
-          v23 = (v23 + 240);
-          if (v23 == v22)
+          v25 = (v25 + 240);
+          if (v25 == v24)
           {
             goto LABEL_40;
           }
         }
 
-        v32 = v39;
-        if (v39)
+        v36 = v42;
+        if (v42)
         {
-          v33 = BYTE6(v38) == 1;
+          v37 = BYTE6(v41) == 1;
         }
 
         else
         {
-          v33 = 0;
+          v37 = 0;
         }
 
-        if (!v33)
+        if (!v37)
         {
           goto LABEL_70;
         }
 
 LABEL_61:
-        free(v32);
+        free(v36);
 LABEL_70:
-        v21 = *(v14 + 17);
+        v23 = *(v14 + 17);
         goto LABEL_71;
       }
     }
@@ -2312,49 +2272,49 @@ LABEL_40:
     if ((a6 & 2) == 0)
     {
 LABEL_57:
-      if (v36 != v37)
+      if (v39 != v40)
       {
-        v26 = 0;
-        v27 = (a6 & 4) == 0 || a5 == 0;
-        v28 = v27;
-        v29 = 0.0;
-        v30 = -1;
-        v31 = v36;
+        v30 = 0;
+        v31 = (a6 & 4) == 0 || a5 == 0;
+        v32 = v31;
+        v33 = 0.0;
+        v34 = -1;
+        v35 = v39;
         do
         {
-          if (v28 || *(v31 + 34) == a5)
+          if (v32 || *(v35 + 34) == a5)
           {
-            if (v30 == -1)
+            if (v34 == -1)
             {
-              v30 = 0;
-              v29 = *(v31 + 12);
+              v34 = 0;
+              v33 = *(v35 + 12);
             }
 
-            else if (*(v31 + 12) > v29)
+            else if (*(v35 + 12) > v33)
             {
-              v29 = *(v31 + 12);
-              v30 = v26;
+              v33 = *(v35 + 12);
+              v34 = v30;
             }
 
-            ++v26;
+            ++v30;
           }
 
-          v31 = (v31 + 240);
+          v35 = (v35 + 240);
         }
 
-        while (v31 != v37);
-        if ((v30 & 0x80000000) == 0)
+        while (v35 != v40);
+        if ((v34 & 0x80000000) == 0)
         {
-          if (0xEEEEEEEEEEEEEEEFLL * ((v37 - v36) >> 4) <= v30)
+          if (0xEEEEEEEEEEEEEEEFLL * ((v40 - v39) >> 4) <= v34)
           {
             std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
           }
 
-          v14 = (v36 + 240 * v30);
-          KB::Word::capitalized_string(v14, &v38);
-          KB::String::operator=(a7, &v38);
-          v32 = v39;
-          if (!v39 || BYTE6(v38) != 1)
+          v14 = (v39 + 240 * v34);
+          KB::Word::capitalized_string(&v41, v14);
+          KB::String::operator=(a7, &v41);
+          v36 = v42;
+          if (!v42 || BYTE6(v41) != 1)
           {
             goto LABEL_70;
           }
@@ -2364,27 +2324,24 @@ LABEL_57:
       }
     }
 
-    v21 = 0;
+    v23 = 0;
 LABEL_71:
-    v38 = &v36;
-    std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v38);
-    goto LABEL_72;
+    v41 = &v39;
+    std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v41);
+    return v23;
   }
 
-  v21 = 0;
-LABEL_72:
-  v34 = *MEMORY[0x277D85DE8];
-  return v21;
+  return 0;
 }
 
 uint64_t KB::LanguageModel::id_for_static_word(uint64_t a1, const KB::String *a2, uint64_t a3, uint64_t a4, int a5)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v14 = 0x100000;
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0x100000;
+  v14 = 0;
   v15 = 0;
   v16 = 0;
   v17 = 0;
-  v18 = 0;
   if (a5)
   {
     v9 = 45;
@@ -2396,13 +2353,12 @@ uint64_t KB::LanguageModel::id_for_static_word(uint64_t a1, const KB::String *a2
   }
 
   v10 = (*(*a1 + 440))(a1, a4);
-  v11 = KB::LanguageModel::id_for_static_word_with_surface_form(a1, a2, a3, a4, v10, v9, &v14);
-  if (v17 && v16 == 1)
+  v11 = KB::LanguageModel::id_for_static_word_with_surface_form(a1, a2, a3, a4, v10, v9, &v13);
+  if (v16 && v15 == 1)
   {
-    free(v17);
+    free(v16);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -2439,22 +2395,22 @@ uint64_t KB::LanguageModel::id_for_maximum_likelihood_static_word(uint64_t *a1)
 
 unint64_t KB::LanguageModel::id_for_maximum_likelihood_word(uint64_t a1, KB::Word **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v9 = *a2;
   v10 = a2[1];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v18 = ___ZN2KB13LanguageModel30id_for_maximum_likelihood_wordERKNSt3__16vectorINS_4WordENS1_9allocatorIS3_EEEERKN3WTF6RefPtrINS_19DictionaryContainerEEERKNS_20LanguageModelContextERNS_6StringE_block_invoke;
-  v19 = &__block_descriptor_48_e15_B24__0r_v8r_v16l;
-  v20 = a1;
-  v21 = a4;
-  v11 = v17;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v17 = ___ZN2KB13LanguageModel30id_for_maximum_likelihood_wordERKNSt3__16vectorINS_4WordENS1_9allocatorIS3_EEEERKN3WTF6RefPtrINS_19DictionaryContainerEEERKNS_20LanguageModelContextERNS_6StringE_block_invoke;
+  v18 = &__block_descriptor_48_e15_B24__0r_v8r_v16l;
+  v19 = a1;
+  v20 = a4;
+  v11 = v16;
   v12 = (v9 + 240);
   if (v9 != v10 && v12 != v10)
   {
     do
     {
-      if (v18(v11, v9, v12))
+      if ((v17)(v11, v9, v12))
       {
         v9 = v12;
       }
@@ -2467,57 +2423,53 @@ unint64_t KB::LanguageModel::id_for_maximum_likelihood_word(uint64_t a1, KB::Wor
 
   if (v9 == a2[1])
   {
-    v14 = 0;
+    return 0;
   }
 
-  else
+  v14 = *(v9 + 17);
+  if (!HIDWORD(v14))
   {
-    v14 = *(v9 + 17);
-    if (!HIDWORD(v14))
+    KB::Word::capitalized_string(&v21, v9);
+    v14 = KB::LanguageModel::id_for_dynamic_engine_word(a1, &v21, a3);
+    if (v22)
     {
-      KB::Word::capitalized_string(v9, v22);
-      v14 = KB::LanguageModel::id_for_dynamic_engine_word(a1, v22, a3);
-      if (v24)
+      if (BYTE6(v21) == 1)
       {
-        if (v23 == 1)
-        {
-          free(v24);
-        }
+        free(v22);
       }
     }
-
-    KB::Word::capitalized_string(v9, v22);
-    KB::String::operator=(a5, v22);
-    if (v24 && v23 == 1)
-    {
-      free(v24);
-    }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
+  KB::Word::capitalized_string(&v21, v9);
+  KB::String::operator=(a5, &v21);
+  if (v22 && BYTE6(v21) == 1)
+  {
+    free(v22);
+  }
+
   return v14;
 }
 
-uint64_t ___ZN2KB13LanguageModel30id_for_maximum_likelihood_wordERKNSt3__16vectorINS_4WordENS1_9allocatorIS3_EEEERKN3WTF6RefPtrINS_19DictionaryContainerEEERKNS_20LanguageModelContextERNS_6StringE_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL ___ZN2KB13LanguageModel30id_for_maximum_likelihood_wordERKNSt3__16vectorINS_4WordENS1_9allocatorIS3_EEEERKN3WTF6RefPtrINS_19DictionaryContainerEEERKNS_20LanguageModelContextERNS_6StringE_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   result = (*(a3 + 106) >> 2) & 1;
   if (result == (*(a2 + 106) & 4) >> 2)
   {
     v7 = *(a1 + 32);
     if (*(a2 + 52) == 1.0)
     {
-      KB::Word::capitalized_string(a2, v16);
-      v12 = *(a2 + 136);
+      KB::Word::capitalized_string(&v15, a2);
+      v11 = *(a2 + 136);
       v8.n128_u32[0] = *(a2 + 52);
-      (*(*v7 + 424))(v13, v7, v16, &v12, *(a1 + 40), 0, v8);
-      if (v18 && v17 == 1)
+      (*(*v7 + 424))(v12, v7, &v15, &v11, *(a1 + 40), 0, v8);
+      if (v16 && BYTE6(v15) == 1)
       {
-        free(v18);
+        free(v16);
       }
 
-      *(a2 + 52) = v13[0];
-      if (v15 < 0)
+      *(a2 + 52) = v12[0];
+      if (v14 < 0)
       {
         operator delete(__p);
       }
@@ -2526,28 +2478,27 @@ uint64_t ___ZN2KB13LanguageModel30id_for_maximum_likelihood_wordERKNSt3__16vecto
     v9 = *(a3 + 52);
     if (v9 == 1.0)
     {
-      KB::Word::capitalized_string(a3, v16);
-      v12 = *(a3 + 136);
+      KB::Word::capitalized_string(&v15, a3);
+      v11 = *(a3 + 136);
       v10.n128_u32[0] = *(a3 + 52);
-      (*(*v7 + 424))(v13, v7, v16, &v12, *(a1 + 40), 0, v10);
-      if (v18 && v17 == 1)
+      (*(*v7 + 424))(v12, v7, &v15, &v11, *(a1 + 40), 0, v10);
+      if (v16 && BYTE6(v15) == 1)
       {
-        free(v18);
+        free(v16);
       }
 
-      v9 = *v13;
-      *(a3 + 52) = v13[0];
-      if (v15 < 0)
+      v9 = *v12;
+      *(a3 + 52) = v12[0];
+      if (v14 < 0)
       {
         operator delete(__p);
         v9 = *(a3 + 52);
       }
     }
 
-    result = *(a2 + 52) < v9;
+    return *(a2 + 52) < v9;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2589,17 +2540,17 @@ uint64_t KB::LanguageModel::is_language_appropriate_vocabulary_word(KB::Language
 
 uint64_t KB::LanguageModel::find_vocabulary_words(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, KB::Word **a5, uint64_t a6)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   result = LMVocabularyGetSharedVocabulary();
   for (i = *a5; i != a5[1]; i = (i + 240))
   {
     if (!HIDWORD(*(i + 17)))
     {
-      KB::Word::capitalized_string(i, v15);
-      KB::LanguageModel::id_for_dynamic_engine_word(a1, v15, a3);
-      if (v17 && v16 == 1)
+      KB::Word::capitalized_string(&v14, i);
+      KB::LanguageModel::id_for_dynamic_engine_word(a1, &v14, a3);
+      if (v15 && BYTE6(v14) == 1)
       {
-        free(v17);
+        free(v15);
       }
     }
 
@@ -2613,7 +2564,6 @@ uint64_t KB::LanguageModel::find_vocabulary_words(uint64_t a1, void *a2, uint64_
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2680,29 +2630,29 @@ uint64_t std::vector<KB::Word>::push_back[abi:nn200100](uint64_t a1, size_t *a2)
   return result;
 }
 
-void KB::LanguageModel::find_words_for_sentence_beginning(int a1, __CFString *this, uint64_t *a3, uint64_t a4, char a5, uint64_t *a6)
+void KB::LanguageModel::find_words_for_sentence_beginning(int a1, __CFString *this, uint64_t a3, uint64_t a4, char a5, const KB::Word **a6)
 {
-  v43 = *MEMORY[0x277D85DE8];
-  KB::utf8_string(this, v41);
+  v46 = *MEMORY[0x277D85DE8];
+  KB::utf8_string(v44, this);
   v11 = [(__CFString *)this lowercaseStringWithLocale:a4];
-  KB::utf8_string(v11, v39);
+  KB::utf8_string(v11, v42);
   v12 = this;
-  KB::utf8_string(v12, v37);
+  KB::utf8_string(v12, v40);
+  v35 = 0;
+  v36 = 0;
+  v37 = 0;
   v32 = 0;
   v33 = 0;
   v34 = 0;
-  v29 = 0;
-  v30 = 0;
-  v31 = 0;
   v13 = *a3;
-  if (*a3 == a3[1])
+  if (*a3 == *(a3 + 8))
   {
-    v25 = *a6;
-    v24 = a6[1];
+    v29 = *a6;
+    v28 = a6[1];
 LABEL_30:
-    if (a6 != a3 && (a5 & 2) == 0 && v24 == v25)
+    if (a6 != a3 && (a5 & 2) == 0 && v28 == v29)
     {
-      std::vector<KB::Word>::__assign_with_size[abi:nn200100]<KB::Word*,KB::Word*>(a6, *a3, a3[1], 0xEEEEEEEEEEEEEEEFLL * ((a3[1] - *a3) >> 4));
+      std::vector<KB::Word>::__assign_with_size[abi:nn200100]<KB::Word*,KB::Word*>(a6, *a3, *(a3 + 8), 0xEEEEEEEEEEEEEEEFLL * ((*(a3 + 8) - *a3) >> 4));
     }
 
     goto LABEL_34;
@@ -2710,112 +2660,113 @@ LABEL_30:
 
   do
   {
-    KB::Word::capitalized_string(v13, &v35);
-    v14 = KB::String::equal(&v35, v39, 1);
-    if (v36)
+    KB::Word::capitalized_string(&v38, v13);
+    v16 = KB::String::equal(&v38, v42, 1, v14, v15);
+    if (v39)
     {
-      v15 = BYTE6(v35) == 1;
+      v17 = BYTE6(v38) == 1;
     }
 
     else
     {
-      v15 = 0;
+      v17 = 0;
     }
 
-    if (v15)
+    if (v17)
     {
-      free(v36);
-    }
-
-    if (v14)
-    {
-      std::vector<KB::Word>::push_back[abi:nn200100](&v32, v13);
-    }
-
-    KB::Word::capitalized_string(v13, &v35);
-    v16 = KB::String::equal(&v35, v37, 1);
-    if (v36 && BYTE6(v35) == 1)
-    {
-      free(v36);
+      free(v39);
     }
 
     if (v16)
     {
-      std::vector<KB::Word>::push_back[abi:nn200100](&v29, v13);
+      std::vector<KB::Word>::push_back[abi:nn200100](&v35, v13);
+    }
+
+    KB::Word::capitalized_string(&v38, v13);
+    v20 = KB::String::equal(&v38, v40, 1, v18, v19);
+    if (v39 && BYTE6(v38) == 1)
+    {
+      free(v39);
+    }
+
+    if (v20)
+    {
+      std::vector<KB::Word>::push_back[abi:nn200100](&v32, v13);
     }
 
     v13 = (v13 + 240);
   }
 
-  while (v13 != a3[1]);
-  v18 = v32;
-  v17 = v33;
-  v20 = v29;
-  v19 = v30;
-  v21 = v33 == v32;
-  if (v33 != v32 && v30 != v29)
+  while (v13 != *(a3 + 8));
+  v22 = v35;
+  v21 = v36;
+  v24 = v32;
+  v23 = v33;
+  v25 = v36 == v35;
+  if (v36 != v35 && v33 != v32)
   {
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = ___ZN2KB13LanguageModel33find_words_for_sentence_beginningEPK10__CFStringRKNSt3__16vectorINS_4WordENS4_9allocatorIS6_EEEEPK10__CFLocalejRS9__block_invoke;
-    v28[3] = &__block_descriptor_40_e10_v16__0r_v8l;
-    v28[4] = a6;
-    v22 = std::for_each[abi:nn200100]<std::__wrap_iter<KB::Word *>,void({block_pointer} {__strong})(KB::Word const&)>(v29, v30, v28);
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = ___ZN2KB13LanguageModel33find_words_for_sentence_beginningEPK10__CFStringRKNSt3__16vectorINS_4WordENS4_9allocatorIS6_EEEEPK10__CFLocalejRS9__block_invoke_2;
-    v27[3] = &__block_descriptor_40_e10_v16__0r_v8l;
-    v27[4] = a6;
-    v23 = std::for_each[abi:nn200100]<std::__wrap_iter<KB::Word *>,void({block_pointer} {__strong})(KB::Word const&)>(v32, v33, v27);
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = ___ZN2KB13LanguageModel33find_words_for_sentence_beginningEPK10__CFStringRKNSt3__16vectorINS_4WordENS4_9allocatorIS6_EEEEPK10__CFLocalejRS9__block_invoke;
+    v31[3] = &__block_descriptor_40_e10_v16__0r_v8l;
+    v31[4] = a6;
+    v26 = std::for_each[abi:nn200100]<std::__wrap_iter<KB::Word *>,void({block_pointer} {__strong})(KB::Word const&)>(v32, v33, v31);
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = ___ZN2KB13LanguageModel33find_words_for_sentence_beginningEPK10__CFStringRKNSt3__16vectorINS_4WordENS4_9allocatorIS6_EEEEPK10__CFLocalejRS9__block_invoke_2;
+    v30[3] = &__block_descriptor_40_e10_v16__0r_v8l;
+    v30[4] = a6;
+    v27 = std::for_each[abi:nn200100]<std::__wrap_iter<KB::Word *>,void({block_pointer} {__strong})(KB::Word const&)>(v35, v36, v30);
   }
 
-  v25 = *a6;
-  v24 = a6[1];
-  if (v17 != v18 && &v32 != a6 && v24 == v25)
+  v29 = *a6;
+  v28 = a6[1];
+  if (v21 != v22 && &v35 != a6 && v28 == v29)
+  {
+    std::vector<KB::Word>::__assign_with_size[abi:nn200100]<KB::Word*,KB::Word*>(a6, v35, v36, 0xEEEEEEEEEEEEEEEFLL * ((v36 - v35) >> 4));
+    v29 = *a6;
+    v28 = a6[1];
+  }
+
+  if (&v32 != a6 && v28 == v29 && v23 != v24)
   {
     std::vector<KB::Word>::__assign_with_size[abi:nn200100]<KB::Word*,KB::Word*>(a6, v32, v33, 0xEEEEEEEEEEEEEEEFLL * ((v33 - v32) >> 4));
-    v25 = *a6;
-    v24 = a6[1];
+    v29 = *a6;
+    v28 = a6[1];
   }
 
-  if (&v29 != a6 && v24 == v25 && v19 != v20)
-  {
-    std::vector<KB::Word>::__assign_with_size[abi:nn200100]<KB::Word*,KB::Word*>(a6, v29, v30, 0xEEEEEEEEEEEEEEEFLL * ((v30 - v29) >> 4));
-    v25 = *a6;
-    v24 = a6[1];
-  }
-
-  if (v21)
+  if (v25)
   {
     goto LABEL_30;
   }
 
 LABEL_34:
-  v35 = &v29;
-  std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v35);
-  v35 = &v32;
-  std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v35);
-  if (v38 && v37[6] == 1)
+  v38 = &v32;
+  std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v38);
+  v38 = &v35;
+  std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v38);
+  if (v41 && v40[6] == 1)
   {
-    free(v38);
+    free(v41);
   }
 
-  if (v40 && v39[6] == 1)
+  if (v43 && v42[6] == 1)
   {
-    free(v40);
+    free(v43);
   }
 
-  if (v42 && v41[6] == 1)
+  if (v45)
   {
-    free(v42);
+    if (v44[6] == 1)
+    {
+      free(v45);
+    }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t ___ZN2KB13LanguageModel33find_words_for_sentence_beginningEPK10__CFStringRKNSt3__16vectorINS_4WordENS4_9allocatorIS6_EEEEPK10__CFLocalejRS9__block_invoke(uint64_t result, uint64_t a2)
+uint64_t ___ZN2KB13LanguageModel33find_words_for_sentence_beginningEPK10__CFStringRKNSt3__16vectorINS_4WordENS4_9allocatorIS6_EEEEPK10__CFLocalejRS9__block_invoke(uint64_t result, size_t *a2)
 {
-  if ((*(a2 + 104) & 0x2080) != 0x80)
+  if ((a2[13] & 0x2080) != 0x80)
   {
     return std::vector<KB::Word>::push_back[abi:nn200100](*(result + 32), a2);
   }
@@ -2835,9 +2786,9 @@ id std::for_each[abi:nn200100]<std::__wrap_iter<KB::Word *>,void({block_pointer}
   return v6;
 }
 
-uint64_t ___ZN2KB13LanguageModel33find_words_for_sentence_beginningEPK10__CFStringRKNSt3__16vectorINS_4WordENS4_9allocatorIS6_EEEEPK10__CFLocalejRS9__block_invoke_2(uint64_t result, uint64_t a2)
+uint64_t ___ZN2KB13LanguageModel33find_words_for_sentence_beginningEPK10__CFStringRKNSt3__16vectorINS_4WordENS4_9allocatorIS6_EEEEPK10__CFLocalejRS9__block_invoke_2(uint64_t result, size_t *a2)
 {
-  if ((*(a2 + 104) & 0x2080) != 0x80)
+  if ((a2[13] & 0x2080) != 0x80)
   {
     return std::vector<KB::Word>::push_back[abi:nn200100](*(result + 32), a2);
   }
@@ -2845,21 +2796,21 @@ uint64_t ___ZN2KB13LanguageModel33find_words_for_sentence_beginningEPK10__CFStri
   return result;
 }
 
-void std::vector<KB::Word>::__assign_with_size[abi:nn200100]<KB::Word*,KB::Word*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<KB::Word>::__assign_with_size[abi:nn200100]<KB::Word*,KB::Word*>(KB::Word **a1, const KB::Word *a2, size_t *a3, unint64_t a4)
 {
   v7 = *a1;
-  if (0xEEEEEEEEEEEEEEEFLL * ((*(a1 + 16) - *a1) >> 4) < a4)
+  if (0xEEEEEEEEEEEEEEEFLL * ((a1[2] - *a1) >> 4) < a4)
   {
     std::vector<KB::Word>::__vdeallocate(a1);
     if (a4 <= 0x111111111111111)
     {
-      v8 = 0xDDDDDDDDDDDDDDDELL * ((*(a1 + 16) - *a1) >> 4);
+      v8 = 0xDDDDDDDDDDDDDDDELL * ((a1[2] - *a1) >> 4);
       if (v8 <= a4)
       {
         v8 = a4;
       }
 
-      if (0xEEEEEEEEEEEEEEEFLL * ((*(a1 + 16) - *a1) >> 4) >= 0x88888888888888)
+      if (0xEEEEEEEEEEEEEEEFLL * ((a1[2] - *a1) >> 4) >= 0x88888888888888)
       {
         v9 = 0x111111111111111;
       }
@@ -2878,21 +2829,21 @@ void std::vector<KB::Word>::__assign_with_size[abi:nn200100]<KB::Word*,KB::Word*
     std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
   }
 
-  v10 = *(a1 + 8) - v7;
+  v10 = a1[1] - v7;
   if (0xEEEEEEEEEEEEEEEFLL * (v10 >> 4) >= a4)
   {
     v14 = std::__copy_impl::operator()[abi:nn200100]<KB::Word *,KB::Word *,KB::Word *>(a2, a3, v7);
       ;
     }
 
-    *(a1 + 8) = v14;
+    a1[1] = v14;
   }
 
   else
   {
     v11 = (a2 + v10);
     std::__copy_impl::operator()[abi:nn200100]<KB::Word *,KB::Word *,KB::Word *>(a2, a2 + v10, v7);
-    v12 = *(a1 + 8);
+    v12 = a1[1];
     while (v11 != a3)
     {
       v13 = KB::Word::Word(v12, v11);
@@ -2900,7 +2851,7 @@ void std::vector<KB::Word>::__assign_with_size[abi:nn200100]<KB::Word*,KB::Word*
       v12 = (v13 + 240);
     }
 
-    *(a1 + 8) = v12;
+    a1[1] = v12;
   }
 }
 
@@ -2944,7 +2895,7 @@ uint64_t std::__copy_impl::operator()[abi:nn200100]<KB::Word *,KB::Word *,KB::Wo
   return a3;
 }
 
-void std::vector<KB::Word>::__vdeallocate(void **a1)
+void std::vector<KB::Word>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -2998,9 +2949,9 @@ void KB::LanguageModel::merge_words(uint64_t a1, size_t **a2, uint64_t *a3, int 
       v10 += 30;
     }
 
-    v42 = 0;
     v43 = 0;
-    v41 = &v42;
+    v44 = 0;
+    v42 = &v43;
     if (a4)
     {
       if (a5[1] == *a5)
@@ -3011,7 +2962,8 @@ void KB::LanguageModel::merge_words(uint64_t a1, size_t **a2, uint64_t *a3, int 
           do
           {
             std::vector<KB::Word>::push_back[abi:nn200100](a5, v29);
-            std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int>(&v41, HIDWORD(v29[17]));
+            v41 = v29[17];
+            std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int>(&v42, HIDWORD(v41), &v41 + 1);
             v29 += 30;
           }
 
@@ -3040,11 +2992,11 @@ void KB::LanguageModel::merge_words(uint64_t a1, size_t **a2, uint64_t *a3, int 
             goto LABEL_81;
           }
 
-          v35 = v42;
-          if (v42)
+          v35 = v43;
+          if (v43)
           {
             v36 = HIDWORD(v32);
-            v37 = &v42;
+            v37 = &v43;
             do
             {
               v38 = v35;
@@ -3059,7 +3011,7 @@ void KB::LanguageModel::merge_words(uint64_t a1, size_t **a2, uint64_t *a3, int 
             }
 
             while (v35);
-            if (v37 != &v42)
+            if (v37 != &v43)
             {
               if (v40 < v36)
               {
@@ -3085,9 +3037,9 @@ LABEL_81:
 
   else
   {
-    v42 = 0;
     v43 = 0;
-    v41 = &v42;
+    v44 = 0;
+    v42 = &v43;
     v14 = *a3;
     v15 = a3[1];
     if (*a3 != v15)
@@ -3099,7 +3051,8 @@ LABEL_81:
           if (!a4 || ((v16 = *(v14 + 136), v16 != -2) ? (v17 = v16 == 0) : (v17 = 1), !v17 ? (v18 = v16 == a4) : (v18 = 1), v18))
           {
             std::vector<KB::Word>::push_back[abi:nn200100](a5, v14);
-            std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int>(&v41, *(v14 + 136));
+            LODWORD(v41) = *(v14 + 136);
+            std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int>(&v42, v41, &v41);
           }
         }
 
@@ -3120,7 +3073,8 @@ LABEL_81:
           if ((*(v14 + 106) & 4) != 0)
           {
             std::vector<KB::Word>::push_back[abi:nn200100](a5, v14);
-            std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int>(&v41, *(v14 + 136));
+            LODWORD(v41) = *(v14 + 136);
+            std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int>(&v42, v41, &v41);
           }
 
           v14 += 240;
@@ -3132,17 +3086,17 @@ LABEL_81:
       }
     }
 
-    if (v43)
+    if (v44)
     {
       while (v14 != v15)
       {
         if ((*(v14 + 106) & 4) == 0)
         {
-          v20 = v42;
-          if (v42)
+          v20 = v43;
+          if (v43)
           {
             v21 = *(v14 + 136);
-            v22 = &v42;
+            v22 = &v43;
             do
             {
               v23 = v20;
@@ -3157,7 +3111,7 @@ LABEL_81:
             }
 
             while (v20);
-            if (v22 != &v42)
+            if (v22 != &v43)
             {
               if (v25 < v21)
               {
@@ -3193,13 +3147,13 @@ LABEL_81:
     }
   }
 
-  std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy(v42);
+  std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy(v43);
 }
 
-uint64_t std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int>(uint64_t result, unsigned int a2)
+uint64_t *std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int>(uint64_t *result, unsigned int a2, _DWORD *a3)
 {
-  v2 = *(result + 8);
-  if (!v2)
+  v3 = result[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -3209,127 +3163,118 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = *(v2 + 28);
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 28);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
       return result;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
   }
 }
 
-unint64_t KB::LanguageModel::select_token_id_from_words(uint64_t a1, KB::Word **a2, uint64_t a3, uint64_t a4, KB::String *a5, uint64_t a6, char a7, char a8, uint64_t a9)
+unint64_t KB::LanguageModel::select_token_id_from_words(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, KB::String *a5, uint64_t a6, char a7, char a8, uint64_t a9)
 {
   v26 = *MEMORY[0x277D85DE8];
   v9 = *a2;
-  if (a2[1] == *a2)
+  if (*(a2 + 8) == *a2)
   {
-LABEL_17:
-    result = 0;
+    return 0;
   }
 
-  else
+  if (((a7 & 0x10) == 0 || (a8 & 1) == 0) && (a7 & 3) != 0)
   {
-    if (((a7 & 0x10) == 0 || (a8 & 1) == 0) && (a7 & 3) != 0)
+    v16 = *a2;
+    do
     {
-      v16 = *a2;
-      do
+      KB::Word::capitalized_string(&v24, v16);
+      if (&v24 == a5)
       {
-        KB::Word::capitalized_string(v16, v23);
-        if (v23 == a5)
-        {
-          if (v25)
-          {
-            v21 = v24 == 1;
-          }
-
-          else
-          {
-            v21 = 0;
-          }
-
-          if (v21)
-          {
-            free(v25);
-          }
-
-          goto LABEL_26;
-        }
-
-        v17 = KB::String::equal(a5, v23, 1);
         if (v25)
         {
-          v18 = v24 == 1;
+          v22 = BYTE6(v24) == 1;
         }
 
         else
         {
-          v18 = 0;
+          v22 = 0;
         }
 
-        if (v18)
+        if (v22)
         {
           free(v25);
         }
 
-        if (v17)
-        {
-          v9 = v16;
-LABEL_26:
-          result = *(v9 + 17);
-          if (!HIDWORD(result))
-          {
-            result = (*(*a1 + 320))(a1, a4, a3);
-          }
+        goto LABEL_26;
+      }
 
-          goto LABEL_18;
+      v19 = KB::String::equal(a5, &v24, 1, v17, v18);
+      if (v25)
+      {
+        v20 = BYTE6(v24) == 1;
+      }
+
+      else
+      {
+        v20 = 0;
+      }
+
+      if (v20)
+      {
+        free(v25);
+      }
+
+      if (v19)
+      {
+        v9 = v16;
+LABEL_26:
+        result = *(v9 + 17);
+        if (!HIDWORD(result))
+        {
+          return (*(*a1 + 320))(a1, a4, a3);
         }
 
-        v16 = (v16 + 240);
+        return result;
       }
 
-      while (v16 != a2[1]);
-      if ((a7 & 2) != 0)
-      {
-        goto LABEL_17;
-      }
+      v16 = (v16 + 240);
     }
 
-    result = KB::LanguageModel::id_for_maximum_likelihood_word(a1, a2, a3, a6, a9);
+    while (v16 != *(a2 + 8));
+    if ((a7 & 2) != 0)
+    {
+      return 0;
+    }
   }
 
-LABEL_18:
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return KB::LanguageModel::id_for_maximum_likelihood_word(a1, a2, a3, a6, a9);
 }
 
-unint64_t KB::LanguageModel::find_token_id_for_word(uint64_t a1, __CFString *a2, uint64_t *a3, uint64_t a4, unsigned int a5, uint64_t a6, KB::String *this, BOOL *a8)
+unint64_t KB::LanguageModel::find_token_id_for_word(uint64_t a1, __CFString *a2, atomic_uint **a3, uint64_t a4, unsigned int a5, uint64_t a6, KB::String *this, BOOL *a8)
 {
   v58 = *MEMORY[0x277D85DE8];
   KB::String::clear(this);
   *a8 = 0;
   if (![(__CFString *)a2 length])
   {
-    v17 = 0;
-    goto LABEL_49;
+    return 0;
   }
 
   if (KB::LanguageModelContext::is_linguistically_void(a4))
@@ -3342,7 +3287,7 @@ unint64_t KB::LanguageModel::find_token_id_for_word(uint64_t a1, __CFString *a2,
     v16 = (*(*a1 + 440))(a1, a4);
   }
 
-  KB::utf8_string(a2, v56);
+  KB::utf8_string(v56, a2);
   (*(*a1 + 312))(&v48, a1, v56, a3, a4, (a5 >> 5) & 1, 1);
   if (v48 != v49)
   {
@@ -3366,7 +3311,7 @@ LABEL_12:
   if ((a5 & 8) == 0 || ((*(*a1 + 32))(a1) & 1) == 0)
   {
     v39 = v16;
-    KB::DictionaryContainer::lookup(*a3, v50);
+    KB::DictionaryContainer::lookup(v50, *a3, v56);
     std::vector<KB::Word>::__vdeallocate(&v46);
     v37 = *v50;
     v46 = *v50;
@@ -3488,13 +3433,13 @@ LABEL_25:
     if (v31 && *(v30 + 32 * v31 - 8) == 1)
     {
       v32 = [(__CFString *)a2 capitalizedStringWithLocale:a6];
-      v33 = [(__CFString *)a2 isEqualToString:v32];
-      if (v33)
+      isEqualToString = objc_msgSend_isEqualToString_(a2);
+      if (isEqualToString)
       {
         v50[0] = 0;
         v50[1] = 0;
         v51 = 0;
-        KB::LanguageModel::find_words_for_sentence_beginning(v33, a2, &v43, a6, a5, v50);
+        KB::LanguageModel::find_words_for_sentence_beginning(isEqualToString, a2, &v43, a6, a5, v50);
         if (v50[1] == v50[0] || (v17 = KB::LanguageModel::id_for_maximum_likelihood_word(a1, v50, a3, a4, this), !HIDWORD(v17)))
         {
           v17 = KB::LanguageModel::select_token_id_from_words(a1, v50, a3, a2, v56, a4, 1, 0, this);
@@ -3508,7 +3453,8 @@ LABEL_25:
     }
 
     v34 = [(__CFString *)a2 uppercaseStringWithLocale:a6];
-    v17 = KB::LanguageModel::select_token_id_from_words(a1, &v43, a3, a2, v56, a4, a5, [(__CFString *)a2 isEqualToString:v34], this);
+    v35 = objc_msgSend_isEqualToString_(a2);
+    v17 = KB::LanguageModel::select_token_id_from_words(a1, &v43, a3, a2, v56, a4, a5, v35, this);
   }
 
 LABEL_46:
@@ -3523,14 +3469,12 @@ LABEL_46:
     free(v57);
   }
 
-LABEL_49:
-  v35 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
-BOOL ___ZN2KB13LanguageModel22find_token_id_for_wordEPK10__CFStringRKN3WTF6RefPtrINS_19DictionaryContainerEEERKNS_20LanguageModelContextEjPK10__CFLocaleRNS_6StringERb_block_invoke_2(uint64_t a1, KB::String *this)
+BOOL ___ZN2KB13LanguageModel22find_token_id_for_wordEPK10__CFStringRKN3WTF6RefPtrINS_19DictionaryContainerEEERKNS_20LanguageModelContextEjPK10__CFLocaleRNS_6StringERb_block_invoke_2(uint64_t a1, KB::String *this, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  if (!KB::String::equal(this, (a1 + 32), 0))
+  if (!KB::String::equal(this, (a1 + 32), 0, a4, a5))
   {
     return 1;
   }
@@ -3560,29 +3504,29 @@ KB::Word *std::vector<KB::Word>::erase(void *a1, KB::Word *a2, KB::Word *a3)
       v8 = a3 + *a1;
       do
       {
-        v9 = v7 + v6;
-        KB::String::operator=(v7 + v6, &v8[v6]);
-        KB::ByteString::operator=((v7 + v6 + 32), &v8[v6 + 32]);
+        v9 = &v7[v6];
+        KB::String::operator=(&v7[v6], &v8[v6]);
+        KB::ByteString::operator=(&v7[v6 + 32], &v8[v6 + 32]);
         v10 = *&v8[v6 + 48];
-        *(v9 + 56) = *&v8[v6 + 56];
-        *(v9 + 48) = v10;
-        KB::String::operator=(v7 + v6 + 64, &v8[v6 + 64]);
+        *(v9 + 14) = *&v8[v6 + 56];
+        *(v9 + 6) = v10;
+        KB::String::operator=(&v7[v6 + 64], &v8[v6 + 64]);
         v11 = *&v8[v6 + 96];
         v12 = *&v8[v6 + 112];
         v13 = *&v8[v6 + 144];
-        *(v9 + 128) = *&v8[v6 + 128];
-        *(v9 + 144) = v13;
-        *(v9 + 96) = v11;
-        *(v9 + 112) = v12;
-        KB::String::operator=(v7 + v6 + 160, &v8[v6 + 160]);
-        *(v9 + 192) = v8[v6 + 192];
-        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__move_assign(v7 + v6 + 200, &v8[v6 + 200]);
+        *(v9 + 8) = *&v8[v6 + 128];
+        *(v9 + 9) = v13;
+        *(v9 + 6) = v11;
+        *(v9 + 7) = v12;
+        KB::String::operator=(&v7[v6 + 160], &v8[v6 + 160]);
+        v9[192] = v8[v6 + 192];
+        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__move_assign(&v7[v6 + 200], &v8[v6 + 200]);
         v7 += 240;
         v8 += 240;
       }
 
       while (&v8[v6] != v5);
-      v14 = (v7 + v6);
+      v14 = &v7[v6];
       v5 = a1[1];
     }
 
@@ -3686,20 +3630,19 @@ void KB::LanguageModel::background_load(uint64_t *a1, void *a2)
 {
   v3 = a2;
   v4 = v3;
-  v6 = *a1;
   v5 = a1[1];
   if (v5)
   {
     atomic_fetch_add_explicit(&v5->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v7 = KB::LanguageModel::background_loading_queue(v3);
+  v6 = KB::LanguageModel::background_loading_queue(v3);
   if (v5)
   {
     atomic_fetch_add_explicit(&v5->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v8 = v4;
+  v7 = v4;
   TIDispatchAsync();
 
   if (v5)
@@ -3798,14 +3741,14 @@ void ___ZN2KB13LanguageModel19perform_maintenanceEU13block_pointerFvvE_block_inv
   TIDispatchSync();
 }
 
-void KB::LanguageModel::get_static_unigrams_filepath(KB *a1@<X1>, uint64_t a2@<X8>)
+void KB::LanguageModel::get_static_unigrams_filepath(KB *a2@<X1>, uint64_t x8_0@<X8>)
 {
-  v4 = KB::ns_string(a1, a1);
-  v3 = UIKeyboardStaticUnigramsFile(v4);
-  KB::utf8_string(v3, a2);
+  v5 = KB::ns_string(a2, a2);
+  v4 = UIKeyboardStaticUnigramsFile(v5);
+  KB::utf8_string(v4, x8_0);
 }
 
-float *KB::LanguageModel::PredictionInfo::PredictionInfo(void *a1, void *a2, uint64_t a3, int a4, float a5)
+float *KB::LanguageModel::PredictionInfo::PredictionInfo(uint64_t *a1, void *a2, uint64_t a3, int a4, float a5)
 {
   result = std::vector<TITokenID>::vector[abi:nn200100](a1, a2);
   result[6] = a5;
@@ -3848,7 +3791,7 @@ float *KB::LanguageModel::PredictionInfo::PredictionInfo(void *a1, void *a2, uin
 
 uint64_t KB::LanguageModel::PredictionInfo::PredictionInfo(uint64_t a1, __int128 *a2, int a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
@@ -3932,21 +3875,21 @@ uint64_t KB::LanguageModel::PredictionInfo::PredictionInfo(uint64_t a1, __int128
     p_p = __p.__r_.__value_.__r.__words[0];
   }
 
-  KB::String::String(v30, p_p);
+  KB::String::String(v29, p_p);
+  v25 = 0;
   v26 = 0;
-  v27 = 0;
-  v28 = " \t\n";
-  v25 = 1048579;
-  v29 = 0;
-  KB::sbs_string_tokenize(v30, &v25, &v23);
-  if (v28 && v27 == 1)
+  v27 = " \t\n";
+  v24 = 1048579;
+  v28 = 0;
+  KB::sbs_string_tokenize(&v22, v29, &v24);
+  if (v27 && v26 == 1)
   {
-    free(v28);
+    free(v27);
   }
 
-  if (v30[1] && BYTE6(v30[0]) == 1)
+  if (v29[1] && BYTE6(v29[0]) == 1)
   {
-    free(v30[1]);
+    free(v29[1]);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -3954,8 +3897,8 @@ uint64_t KB::LanguageModel::PredictionInfo::PredictionInfo(uint64_t a1, __int128
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  v16 = v23;
-  for (i = v24; v16 != i; v16 += 32)
+  v16 = v22;
+  for (i = v23; v16 != i; v16 += 32)
   {
     if (*v16)
     {
@@ -3975,11 +3918,11 @@ uint64_t KB::LanguageModel::PredictionInfo::PredictionInfo(uint64_t a1, __int128
       v18 = "";
     }
 
-    std::string::basic_string[abi:nn200100]<0>(v30, v18);
-    std::vector<std::string>::push_back[abi:nn200100](a1 + 96, v30);
-    if (v31 < 0)
+    std::string::basic_string[abi:nn200100]<0>(v29, v18);
+    std::vector<std::string>::push_back[abi:nn200100](a1 + 96, v29);
+    if (v30 < 0)
     {
-      operator delete(v30[0]);
+      operator delete(v29[0]);
     }
 
     if (*v16)
@@ -4000,17 +3943,16 @@ uint64_t KB::LanguageModel::PredictionInfo::PredictionInfo(uint64_t a1, __int128
       v19 = "";
     }
 
-    std::string::basic_string[abi:nn200100]<0>(v30, v19);
-    std::vector<std::string>::push_back[abi:nn200100](a1 + 120, v30);
-    if (v31 < 0)
+    std::string::basic_string[abi:nn200100]<0>(v29, v19);
+    std::vector<std::string>::push_back[abi:nn200100](a1 + 120, v29);
+    if (v30 < 0)
     {
-      operator delete(v30[0]);
+      operator delete(v29[0]);
     }
   }
 
-  v30[0] = &v23;
-  std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](v30);
-  v20 = *MEMORY[0x277D85DE8];
+  v29[0] = &v22;
+  std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](v29);
   return a1;
 }
 
@@ -4053,8 +3995,7 @@ void std::vector<std::string>::push_back[abi:nn200100](uint64_t a1, __int128 *a2
     v12 = *a2;
     *(v11 + 16) = *(a2 + 2);
     *v11 = v12;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v6 = 24 * v7 + 24;
     v13 = *(a1 + 8) - *a1;
@@ -4077,8 +4018,7 @@ void std::vector<std::string>::push_back[abi:nn200100](uint64_t a1, __int128 *a2
     v5 = *a2;
     *(v3 + 16) = *(a2 + 2);
     *v3 = v5;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v6 = v3 + 24;
   }
@@ -4168,7 +4108,7 @@ KB::LanguageModel::PredictionInfo *KB::LanguageModel::PredictionInfo::Prediction
   return this;
 }
 
-uint64_t TI_KB_USER_DIRECTORY()
+void *TI_KB_USER_DIRECTORY()
 {
   result = s_kb_user_directory;
   if (!s_kb_user_directory)
@@ -4284,17 +4224,17 @@ void *TI_DIALECT_LM_PATH()
   return v0;
 }
 
-double TI_GET_SCALED_POINT(double a1, double a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6, double a7, double a8, double a9, CGFloat a10, double a11, CGFloat a12)
+CGFloat TI_GET_SCALED_POINT(double a1, double a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6, double a7, double a8, CGFloat a9, CGFloat a10, CGFloat a11, CGFloat a12)
 {
-  v22.origin.x = a3;
-  v22.origin.y = a4;
-  v22.size.width = a5;
-  v22.size.height = a6;
-  v23.origin.x = a9;
-  v23.origin.y = a10;
-  v23.size.width = a11;
-  v23.size.height = a12;
-  if (!CGRectEqualToRect(v22, v23))
+  v16.origin.x = a3;
+  v16.origin.y = a4;
+  v16.size.width = a5;
+  v16.size.height = a6;
+  v17.origin.x = a9;
+  v17.origin.y = a10;
+  v17.size.width = a11;
+  v17.size.height = a12;
+  if (!CGRectEqualToRect(v16, v17))
   {
     return a9 + (a1 - a3) / a5 * a11;
   }
@@ -4416,7 +4356,7 @@ LABEL_15:
             v66 = v17;
             v19 = v5 + 36 * v17;
             v67 = (v19 + 24);
-            v20 = v11 - 43 > 0x17 || ((1 << (v11 - 43)) & 0xA00003) == 0;
+            v20 = (v11 - 43) > 0x17 || ((1 << (v11 - 43)) & 0xA00003) == 0;
             v69 = *(v19 + 24);
             if (v20)
             {
@@ -4437,7 +4377,7 @@ LABEL_15:
 
               else
               {
-                v23 = -1;
+                v23 = 0xFFFFFFFFLL;
               }
 
               v24 = 1;
@@ -4513,10 +4453,10 @@ LABEL_15:
               {
                 v26 = *(a1 + 28);
                 v27 = *(v5 + 36 * v26 + 4);
-                v28 = v27 == -1 ? -1 : *(v5 + 36 * (v26 - v27) + 16);
+                v28 = v27 == -1 ? 0xFFFFFFFFLL : *(v5 + 36 * (v26 - v27) + 16);
                 v40 = v16;
                 v48 = *(v5 + 36 * v26 + 12);
-                v49 = v48 == -1 ? -1 : *(v5 + 36 * (v26 - v48) + 16);
+                v49 = v48 == -1 ? 0xFFFFFFFFLL : *(v5 + 36 * (v26 - v48) + 16);
                 if (isValidCVC(v28, v23, v49))
                 {
                   v50 = v16;
@@ -4624,7 +4564,7 @@ LABEL_68:
 uint64_t UkEngine::processAppend(UkEngine *this, _DWORD *a2)
 {
   v4 = 0;
-  v131[8] = *MEMORY[0x277D85DE8];
+  v129[8] = *MEMORY[0x277D85DE8];
   v5 = a2[1];
   if (v5 > 1)
   {
@@ -4638,31 +4578,31 @@ uint64_t UkEngine::processAppend(UkEngine *this, _DWORD *a2)
         *(this + 3116) = 0;
       }
 
-      goto LABEL_185;
+      return v4;
     }
 
-    v44 = *(this + 1);
-    if (*(v44 + 4))
+    v43 = *(this + 1);
+    if (*(v43 + 4))
     {
-      if (*(v44 + 2104) == 10)
+      if (*(v43 + 2104) == 10)
       {
-        v45 = *(this + 7);
-        if ((v45 & 0x80000000) != 0)
+        v44 = *(this + 7);
+        if ((v44 & 0x80000000) != 0)
         {
           goto LABEL_125;
         }
 
-        v46 = (this + 36 * v45 + 3144);
-        if ((*v46 - 3) < 2)
+        v45 = (this + 36 * v44 + 3144);
+        if ((*v45 - 3) < 2)
         {
-          v47 = a2[3];
-          if (v47 <= 62)
+          v46 = a2[3];
+          if (v46 <= 62)
           {
-            if (v47 <= 42)
+            if (v46 <= 42)
             {
-              if (v47 != 39)
+              if (v46 != 39)
               {
-                if (v47 != 40 || v46[7] != 1)
+                if (v46 != 40 || v45[7] != 1)
                 {
                   goto LABEL_125;
                 }
@@ -4673,9 +4613,9 @@ uint64_t UkEngine::processAppend(UkEngine *this, _DWORD *a2)
               goto LABEL_124;
             }
 
-            if (v47 != 43)
+            if (v46 != 43)
             {
-              if (v47 != 46)
+              if (v46 != 46)
               {
                 goto LABEL_125;
               }
@@ -4683,15 +4623,15 @@ uint64_t UkEngine::processAppend(UkEngine *this, _DWORD *a2)
               goto LABEL_124;
             }
 
-            v93 = v46[7];
-            v91 = v93 == 143;
-            if (v93 == 97)
+            v92 = v45[7];
+            v90 = v92 == 143;
+            if (v92 == 97)
             {
               goto LABEL_188;
             }
 
 LABEL_146:
-            if (v91)
+            if (v90)
             {
               goto LABEL_188;
             }
@@ -4699,51 +4639,51 @@ LABEL_146:
             goto LABEL_125;
           }
 
-          if (v47 > 95)
+          if (v46 > 95)
           {
-            if (v47 != 96 && v47 != 126)
+            if (v46 != 96 && v46 != 126)
             {
               goto LABEL_125;
             }
           }
 
-          else if (v47 != 63)
+          else if (v46 != 63)
           {
-            if (v47 != 94)
+            if (v46 != 94)
             {
               goto LABEL_125;
             }
 
-            v69 = v46[7];
-            if (v69 != 1 && v69 != 45 && v69 != 97)
+            v68 = v45[7];
+            if (v68 != 1 && v68 != 45 && v68 != 97)
             {
               goto LABEL_125;
             }
 
 LABEL_188:
-            v116 = *(this + 7);
-            v117 = this + 36 * v116 + 3180;
-            v118 = a2[1] == 1;
-            *v117 = v118;
-            *(v117 + 3) = -1;
-            *(v117 + 4) = -1;
-            *(v117 + 28) = 0x3FFFFFFFFFLL;
-            *(this + 7) = v116 + 2;
-            *(v117 + 9) = v118;
-            *(v117 + 12) = -1;
-            *(v117 + 5) = -1;
-            *(v117 + 16) = -1;
-            *(v117 + 17) = v47;
+            v114 = *(this + 7);
+            v115 = this + 36 * v114 + 3180;
+            v116 = a2[1] == 1;
+            *v115 = v116;
+            *(v115 + 3) = -1;
+            *(v115 + 4) = -1;
+            *(v115 + 28) = 0x3FFFFFFFFFLL;
+            *(this + 7) = v114 + 2;
+            *(v115 + 9) = v116;
+            *(v115 + 12) = -1;
+            *(v115 + 5) = -1;
+            *(v115 + 16) = -1;
+            *(v115 + 17) = v46;
             **(this + 390) = 92;
             *(*(this + 390) + 1) = a2[3];
             **(this + 391) = 2;
             v4 = 1;
             *(this + 3136) = 1;
-            goto LABEL_185;
+            return v4;
           }
 
 LABEL_124:
-          if (!v46[6])
+          if (!v45[6])
           {
             goto LABEL_188;
           }
@@ -4751,52 +4691,52 @@ LABEL_124:
           goto LABEL_125;
         }
 
-        if (*v46)
+        if (*v45)
         {
           goto LABEL_125;
         }
 
-        v65 = __toupper(v46[8]);
-        v47 = a2[3];
-        if (v47 > 62)
+        v64 = __toupper(v45[8]);
+        v46 = a2[3];
+        if (v46 > 62)
         {
-          if (v47 > 95)
+          if (v46 > 95)
           {
-            if (v47 != 96 && v47 != 126)
+            if (v46 != 96 && v46 != 126)
             {
               goto LABEL_125;
             }
           }
 
-          else if (v47 != 63)
+          else if (v46 != 63)
           {
-            if (v47 == 94)
+            if (v46 == 94)
             {
-              if (v65 == 65 || v65 == 79)
+              if (v64 == 65 || v64 == 79)
               {
                 goto LABEL_188;
               }
 
-              if (v65 == 69)
+              if (v64 == 69)
               {
-                v47 = 94;
+                v46 = 94;
                 goto LABEL_188;
               }
             }
 
 LABEL_125:
-            v44 = *(this + 1);
-            v56 = a2[1] == 1;
-            v57 = *(v44 + 4) == 0;
+            v43 = *(this + 1);
+            v55 = a2[1] == 1;
+            v56 = *(v43 + 4) == 0;
             goto LABEL_126;
           }
         }
 
-        else if (v47 > 42)
+        else if (v46 > 42)
         {
-          if (v47 == 43)
+          if (v46 == 43)
           {
-            if (v65 != 79 && v65 != 85)
+            if (v64 != 79 && v64 != 85)
             {
               goto LABEL_125;
             }
@@ -4804,31 +4744,31 @@ LABEL_125:
             goto LABEL_188;
           }
 
-          if (v47 != 46)
+          if (v46 != 46)
           {
             goto LABEL_125;
           }
         }
 
-        else if (v47 != 39)
+        else if (v46 != 39)
         {
-          if (v47 != 40 || v65 != 65)
+          if (v46 != 40 || v64 != 65)
           {
             goto LABEL_125;
           }
 
 LABEL_91:
-          v47 = 40;
+          v46 = 40;
           goto LABEL_188;
         }
 
-        if ((v65 & 0xFB) == 0x41)
+        if ((v64 & 0xFB) == 0x41)
         {
           goto LABEL_188;
         }
 
-        v91 = v65 == 89;
-        if (v65 - 73 <= 0xC && ((1 << (v65 - 73)) & 0x1041) != 0)
+        v90 = v64 == 89;
+        if (v64 - 73 <= 0xC && ((1 << (v64 - 73)) & 0x1041) != 0)
         {
           goto LABEL_188;
         }
@@ -4836,43 +4776,43 @@ LABEL_91:
         goto LABEL_146;
       }
 
-      v57 = 0;
       v56 = 0;
+      v55 = 0;
     }
 
     else
     {
-      v56 = 0;
-      v57 = 1;
+      v55 = 0;
+      v56 = 1;
     }
 
 LABEL_126:
-    v82 = *(this + 7);
-    v83 = v82 + 1;
-    *(this + 7) = v82 + 1;
-    v84 = this + 36 * v82;
-    *(v84 + 795) = v56;
-    *(v84 + 798) = -1;
-    *(v84 + 398) = -1;
-    *(v84 + 803) = a2[3];
-    v85 = a2[2];
-    *(v84 + 802) = v85 | 1;
-    *(v84 + 801) = 0;
-    *(v84 + 800) = (v85 | 1) != v85;
-    if (!v57 && *(v44 + 2104) == 6)
+    v81 = *(this + 7);
+    v82 = v81 + 1;
+    *(this + 7) = v81 + 1;
+    v83 = this + 36 * v81;
+    *(v83 + 795) = v55;
+    *(v83 + 798) = -1;
+    *(v83 + 398) = -1;
+    *(v83 + 803) = a2[3];
+    v84 = a2[2];
+    *(v83 + 802) = v84 | 1;
+    *(v83 + 801) = 0;
+    *(v83 + 800) = (v84 | 1) != v84;
+    if (!v56 && *(v43 + 2104) == 6)
     {
-      v86 = *(this + 4);
-      if (v86 > v83)
+      v85 = *(this + 4);
+      if (v85 > v82)
       {
-        v87 = *(this + 5) + UkEngine::getSeqSteps(this, v83, v86 - 1);
-        *(this + 4) = v83;
-        *(this + 5) = v87;
+        v86 = *(this + 5) + UkEngine::getSeqSteps(this, v82, v85 - 1);
+        *(this + 4) = v82;
+        *(this + 5) = v86;
       }
 
-      goto LABEL_184;
+      return 1;
     }
 
-    goto LABEL_181;
+    return 0;
   }
 
   if (v5)
@@ -4883,9 +4823,9 @@ LABEL_126:
       v6 = *(this + 1);
       if (v6[5])
       {
-        v128 = 0;
-        v129 = 0;
-        if (!*this || ((*this)(&v128, &v129), !v128) || (v7 = a2[3], v7 != 13) && v7 != 32)
+        v126 = 0;
+        v127 = 0;
+        if (!*this || ((*this)(&v126, &v127), !v126) || (v7 = a2[3], v7 != 13) && v7 != 32)
         {
           v8 = *(this + 7);
           if ((v8 & 0x80000000) == 0)
@@ -4948,7 +4888,7 @@ LABEL_23:
               {
                 v20 = v9 + 1;
                 v21 = (this + 36 * v8 + 3212);
-                v22 = v131;
+                v22 = v129;
                 do
                 {
                   v23 = *(v21 - 1);
@@ -4984,7 +4924,7 @@ LABEL_23:
               v26 = *(this + 1);
               v27 = v26 + 10300;
               MacCompareStartMem = v26 + 10300;
-              v28 = bsearch(v131, (v26 + 2108), *(v26 + 141372), 8uLL, macKeyCompare);
+              v28 = bsearch(v129, (v26 + 2108), *(v26 + 141372), 8uLL, macKeyCompare);
               if (v28)
               {
                 break;
@@ -4998,7 +4938,7 @@ LABEL_23:
                 v31 = bsearch(&__key, (v29 + 2108), *(v29 + 141372), 8uLL, macKeyCompare);
                 if (v31)
                 {
-                  v90 = (v30 + v31[1]);
+                  v89 = (v30 + v31[1]);
                   goto LABEL_158;
                 }
               }
@@ -5010,48 +4950,48 @@ LABEL_23:
               }
             }
 
-            v90 = (v27 + v28[1]);
+            v89 = (v27 + v28[1]);
             ++v8;
 LABEL_158:
-            v97 = *(this + 4);
-            if (v97 > v8)
+            v96 = *(this + 4);
+            if (v96 > v8)
             {
-              v98 = *(this + 5) + UkEngine::getSeqSteps(this, v8, v97 - 1);
+              v97 = *(this + 5) + UkEngine::getSeqSteps(this, v8, v96 - 1);
               *(this + 4) = v8;
-              *(this + 5) = v98;
+              *(this + 5) = v97;
             }
 
-            v99 = 0;
+            v98 = 0;
             do
             {
-              v100 = v99;
+              v99 = v98;
             }
 
-            while (v90[v99++]);
-            v126 = **(this + 391);
-            v127 = 4 * v100;
-            VnConvert(*(*(this + 1) + 2104), v90, *(this + 390), &v127, &v126);
-            v102 = v126;
-            v103 = *(this + 391);
-            if (*v103 > v126)
+            while (v89[v98++]);
+            v124 = **(this + 391);
+            v125 = 4 * v99;
+            VnConvert(*(*(this + 1) + 2104), v89, *(this + 390), &v125, &v124);
+            v101 = v124;
+            v102 = *(this + 391);
+            if (*v102 > v124)
             {
-              v126 = *v103 - v126;
-              v104 = a2[2];
-              if (v104 == -1)
+              v124 = *v102 - v124;
+              v103 = a2[2];
+              if (v103 == -1)
               {
-                v105 = a2[3];
+                v104 = a2[3];
               }
 
               else
               {
-                v105 = v104 + 0x10000;
+                v104 = v103 + 0x10000;
               }
 
-              v125 = v105;
-              v127 = 4;
-              VnConvert(*(*(this + 1) + 2104), &v125, *(this + 390) + v102, &v127, &v126);
-              v102 += v126;
-              v103 = *(this + 391);
+              v123 = v104;
+              v125 = 4;
+              VnConvert(*(*(this + 1) + 2104), &v123, *(this + 390) + v101, &v125, &v124);
+              v101 += v124;
+              v102 = *(this + 391);
             }
 
             *(this + 778) = -1;
@@ -5059,8 +4999,8 @@ LABEL_158:
             *(this + 3116) = 0;
             v4 = 1;
             *(this + 3136) = 1;
-            *v103 = v102;
-            goto LABEL_185;
+            *v102 = v101;
+            return v4;
           }
         }
 
@@ -5084,29 +5024,27 @@ LABEL_39:
           }
         }
 
-        v60 = *(this + 7);
-        *(this + 7) = v60 + 1;
-        v61 = this + 36 * v60;
-        *(v61 + 3180) = xmmword_22CC88A00;
-        v62 = a2[3];
-        *(v61 + 803) = v62;
-        v63 = a2[2];
-        *(v61 + 802) = v63 | 1;
-        *(v61 + 800) = (v63 | 1) != v63;
+        v59 = *(this + 7);
+        *(this + 7) = v59 + 1;
+        v60 = this + 36 * v59;
+        *(v60 + 3180) = xmmword_22CC88A00;
+        v61 = a2[3];
+        *(v60 + 803) = v61;
+        v62 = a2[2];
+        *(v60 + 802) = v62 | 1;
+        *(v60 + 800) = (v62 | 1) != v62;
         if (*(this + 3138) == 1)
         {
-          v64 = __key;
+          v63 = __key;
           if (__key < **(this + 391))
           {
-            *(*(this + 390) + __key) = v62;
-            **(this + 391) = v64 + 1;
-LABEL_184:
-            v4 = 1;
-            goto LABEL_185;
+            *(*(this + 390) + __key) = v61;
+            **(this + 391) = v63 + 1;
+            return 1;
           }
         }
 
-        goto LABEL_181;
+        return 0;
       }
 
       v4 = 0;
@@ -5120,8 +5058,6 @@ LABEL_184:
       *(v33 + 800) = (v34 | 1) != v34;
     }
 
-LABEL_185:
-    v115 = *MEMORY[0x277D85DE8];
     return v4;
   }
 
@@ -5130,83 +5066,83 @@ LABEL_185:
   {
     if ((v36 = v35 | 1, v37 = StdVnNoTone[(v35 | 1)], v38 = *(this + 7), (v38 & 0x80000000) != 0) || (v39 = this + 36 * v38, *(v39 + 786) != 2) || ((v40 = *(v39 + 790), v40 != 20) || v37 != 143) && (v40 != 6 || v37 != 75))
     {
-      v48 = *(this + 7);
-      v49 = v38 + 1;
-      *(this + 7) = v49;
-      v50 = this + 3144;
-      v51 = this + 36 * v49 + 3144;
-      v52 = v36 - v37;
-      v53 = (v36 - v37) / 2;
-      *(v51 + 5) = v36 != v35;
-      *(v51 + 6) = v53;
-      *(v51 + 7) = v37;
-      *(v51 + 8) = a2[3];
-      if (v49 && *(*(this + 1) + 4))
+      v47 = *(this + 7);
+      v48 = v38 + 1;
+      *(this + 7) = v48;
+      v49 = this + 3144;
+      v50 = this + 36 * v48 + 3144;
+      v51 = v36 - v37;
+      v52 = (v36 - v37) / 2;
+      *(v50 + 5) = v36 != v35;
+      *(v50 + 6) = v52;
+      *(v50 + 7) = v37;
+      *(v50 + 8) = a2[3];
+      if (v48 && *(*(this + 1) + 4))
       {
-        v54 = &v50[36 * v48];
-        v55 = *v54;
-        if (*v54 <= 2)
+        v53 = &v49[36 * v47];
+        v54 = *v53;
+        if (*v53 <= 2)
         {
-          if (v55)
+          if (v54)
           {
-            if (v55 == 1)
+            if (v54 == 1)
             {
-              *v51 = xmmword_22CC889F0;
+              *v50 = xmmword_22CC889F0;
               __key = v37;
-              v131[0] = -1;
-              v88 = bsearch(&__key, &SortedVSeqList, 0x46uLL, 0x10uLL, tripleVowelCompare);
-              if (v88)
+              v129[0] = -1;
+              v87 = bsearch(&__key, &SortedVSeqList, 0x46uLL, 0x10uLL, tripleVowelCompare);
+              if (v87)
               {
-                v89 = v88[3];
+                v88 = v87[3];
               }
 
               else
               {
-                v89 = -1;
+                v88 = -1;
               }
 
-              v96 = 16;
+              v95 = 16;
               goto LABEL_174;
             }
 
-            if (v55 != 2)
+            if (v54 != 2)
             {
 LABEL_175:
-              v66 = *(this + 1);
+              v65 = *(this + 1);
               goto LABEL_176;
             }
 
             __key = v37;
-            v131[0] = -1;
-            v67 = bsearch(&__key, &SortedVSeqList, 0x46uLL, 0x10uLL, tripleVowelCompare);
-            if (v67)
+            v129[0] = -1;
+            v66 = bsearch(&__key, &SortedVSeqList, 0x46uLL, 0x10uLL, tripleVowelCompare);
+            if (v66)
             {
-              v68 = v67[3];
+              v67 = v66[3];
             }
 
             else
             {
-              v68 = -1;
+              v67 = -1;
             }
 
-            v94 = v54[4];
-            if (isValidCV(v94, v68))
+            v93 = v53[4];
+            if (isValidCV(v93, v67))
             {
-              *v51 = xmmword_22CC889E0;
-              *(v51 + 4) = v68;
-              if (v94 == 8)
+              *v50 = xmmword_22CC889E0;
+              *(v50 + 4) = v67;
+              if (v93 == 8)
               {
-                v95 = v54[6];
-                if (v95)
+                v94 = v53[6];
+                if (v94)
                 {
-                  if (!*(v51 + 6))
+                  if (!*(v50 + 6))
                   {
-                    *(v51 + 6) = v95;
+                    *(v50 + 6) = v94;
                   }
 
                   UkEngine::markChange(this, *(this + 7) - 1);
-                  v54[6] = 0;
-                  goto LABEL_184;
+                  v53[6] = 0;
+                  return 1;
                 }
               }
 
@@ -5217,9 +5153,9 @@ LABEL_175:
 
         else
         {
-          if ((v55 - 3) >= 2)
+          if ((v54 - 3) >= 2)
           {
-            if ((v55 - 5) >= 2)
+            if ((v54 - 5) >= 2)
             {
               goto LABEL_175;
             }
@@ -5227,95 +5163,95 @@ LABEL_175:
             goto LABEL_173;
           }
 
-          v70 = v54[4];
-          v71 = (&VSeqList + 52 * v70);
-          v124 = *v71;
-          v72 = v49 - *v71;
-          v73 = v72 + UkEngine::getTonePosition(this, v70, 1);
-          v74 = &v50[36 * v73];
-          v77 = *(v74 + 6);
-          v76 = (v74 + 24);
-          v75 = v77;
-          if ((v36 == v37 || !v75) && v124 != 3)
+          v69 = v53[4];
+          v70 = (&VSeqList + 52 * v69);
+          v122 = *v70;
+          v71 = v48 - *v70;
+          v72 = v71 + UkEngine::getTonePosition(this, v69, 1);
+          v73 = &v49[36 * v72];
+          v76 = *(v73 + 6);
+          v75 = (v73 + 24);
+          v74 = v76;
+          if ((v36 == v37 || !v74) && v122 != 3)
           {
-            v123 = v73;
-            v78 = v75;
-            if (v124 == 2)
+            v121 = v72;
+            v77 = v74;
+            if (v122 == 2)
             {
-              v79 = v71[3];
-              v80 = v71[4];
-              v81 = v37;
+              v78 = v70[3];
+              v79 = v70[4];
+              v80 = v37;
             }
 
             else
             {
-              v79 = v71[3];
-              v80 = v37;
-              v81 = -1;
+              v78 = v70[3];
+              v79 = v37;
+              v80 = -1;
             }
 
-            v106 = lookupVSeq(v79, v80, v81);
-            if (v106 != -1)
+            v105 = lookupVSeq(v78, v79, v80);
+            if (v105 != -1)
             {
-              if (*v54 != 4)
+              if (*v53 != 4)
               {
-                v108 = v78;
-                *v51 = *v54;
-                v109 = -1;
+                v107 = v77;
+                *v50 = *v53;
+                v108 = -1;
 LABEL_190:
-                *(v51 + 1) = v109;
-                *(v51 + 1) = 0xFFFFFFFF00000000;
-                *(v51 + 4) = v106;
-                *(v51 + 6) = 0;
-                if (v108)
+                *(v50 + 1) = v108;
+                *(v50 + 1) = 0xFFFFFFFF00000000;
+                *(v50 + 4) = v105;
+                *(v50 + 6) = 0;
+                if (v107)
                 {
-                  v119 = *(this + 7) - v124 + UkEngine::getTonePosition(this, v106, 1);
-                  if (v119 != v123)
+                  v117 = *(this + 7) - v122 + UkEngine::getTonePosition(this, v105, 1);
+                  if (v117 != v121)
                   {
-                    UkEngine::markChange(this, v123);
-                    *v76 = 0;
-                    UkEngine::markChange(this, v119);
-                    if ((v52 + 1) >= 3)
+                    UkEngine::markChange(this, v121);
+                    *v75 = 0;
+                    UkEngine::markChange(this, v117);
+                    if ((v51 + 1) >= 3)
                     {
-                      v122 = v53;
+                      v120 = v52;
                     }
 
                     else
                     {
-                      v122 = v78;
+                      v120 = v77;
                     }
 
-                    *&v50[36 * v119 + 24] = v122;
-                    goto LABEL_184;
+                    *&v49[36 * v117 + 24] = v120;
+                    return 1;
                   }
 
-                  if ((v52 + 1) >= 3 && v53 != v78)
+                  if ((v51 + 1) >= 3 && v52 != v77)
                   {
-                    UkEngine::markChange(this, v123);
-                    *v76 = v53;
-                    goto LABEL_184;
+                    UkEngine::markChange(this, v121);
+                    *v75 = v52;
+                    return 1;
                   }
                 }
 
-                else if ((v52 + 1) >= 3)
+                else if ((v51 + 1) >= 3)
                 {
-                  v120 = v106;
+                  v118 = v105;
                   v4 = 1;
-                  v121 = *(this + 7) - v124 + UkEngine::getTonePosition(this, v120, 1);
-                  UkEngine::markChange(this, v121);
-                  *&v50[36 * v121 + 24] = v53;
-                  goto LABEL_185;
+                  v119 = *(this + 7) - v122 + UkEngine::getTonePosition(this, v118, 1);
+                  UkEngine::markChange(this, v119);
+                  *&v49[36 * v119 + 24] = v52;
+                  return v4;
                 }
 
                 goto LABEL_175;
               }
 
-              v107 = v54[1];
-              if (isValidCV(*&v50[36 * *(this + 7) + 16 + 36 * ~v107], v106))
+              v106 = v53[1];
+              if (isValidCV(*&v49[36 * *(this + 7) + 16 + 36 * ~v106], v105))
               {
-                v108 = v78;
-                *v51 = 4;
-                v109 = v107 + 1;
+                v107 = v77;
+                *v50 = 4;
+                v108 = v106 + 1;
                 goto LABEL_190;
               }
             }
@@ -5323,62 +5259,59 @@ LABEL_190:
         }
 
 LABEL_173:
-        *v51 = 0;
-        *(v51 + 1) = -1;
-        v89 = -1;
-        v96 = 4;
+        *v50 = 0;
+        *(v50 + 1) = -1;
+        v88 = -1;
+        v95 = 4;
 LABEL_174:
-        *&v51[v96] = v89;
+        *&v50[v95] = v88;
         goto LABEL_175;
       }
 
-      *v51 = xmmword_22CC889F0;
+      *v50 = xmmword_22CC889F0;
       __key = v37;
-      v131[0] = -1;
-      v58 = bsearch(&__key, &SortedVSeqList, 0x46uLL, 0x10uLL, tripleVowelCompare);
-      if (v58)
+      v129[0] = -1;
+      v57 = bsearch(&__key, &SortedVSeqList, 0x46uLL, 0x10uLL, tripleVowelCompare);
+      if (v57)
       {
-        v59 = v58[3];
+        v58 = v57[3];
       }
 
       else
       {
-        v59 = -1;
+        v58 = -1;
       }
 
-      *(v51 + 4) = v59;
-      v66 = *(this + 1);
-      if (*(v66 + 4))
+      *(v50 + 4) = v58;
+      v65 = *(this + 1);
+      if (*(v65 + 4))
       {
 LABEL_176:
-        if (*(v66 + 2104) == 6 || ((v110 = *(v51 + 8), v110 <= 0x7F) ? (v111 = *(MEMORY[0x277D85DE0] + 4 * v110 + 60) & 0x100) : (v111 = __maskrune(v110, 0x100uLL)), !v111))
+        if (*(v65 + 2104) == 6 || ((v109 = *(v50 + 8), v109 <= 0x7F) ? (v110 = *(MEMORY[0x277D85DE0] + 4 * v109 + 60) & 0x100) : (v110 = __maskrune(v109, 0x100uLL)), !v110))
         {
-          v112 = *(this + 7);
-          v113 = *(this + 4);
-          if (v113 > v112)
+          v111 = *(this + 7);
+          v112 = *(this + 4);
+          if (v112 > v111)
           {
-            v114 = *(this + 5) + UkEngine::getSeqSteps(this, *(this + 7), v113 - 1);
-            *(this + 4) = v112;
-            *(this + 5) = v114;
+            v113 = *(this + 5) + UkEngine::getSeqSteps(this, *(this + 7), v112 - 1);
+            *(this + 4) = v111;
+            *(this + 5) = v113;
           }
 
-          goto LABEL_184;
+          return 1;
         }
       }
 
-LABEL_181:
-      v4 = 0;
-      goto LABEL_185;
+      return 0;
     }
   }
 
   v41 = a2[3];
-  v42 = *MEMORY[0x277D85DE8];
 
   return UkEngine::appendConsonnant(this, v35, v41);
 }
 
-uint64_t UkEngine::getTonePosition(uint64_t a1, unsigned int a2, int a3)
+uint64_t UkEngine::getTonePosition(uint64_t a1, int a2, int a3)
 {
   v3 = (&VSeqList + 52 * a2);
   v4 = *v3;
@@ -5406,7 +5339,7 @@ uint64_t UkEngine::getTonePosition(uint64_t a1, unsigned int a2, int a3)
 
     else
     {
-      if (a2 - 44 > 0x17)
+      if ((a2 - 44) > 0x17)
       {
         return v7;
       }
@@ -5500,19 +5433,22 @@ uint64_t UkEngine::getSeqSteps(UkEngine *this, int a2, int a3)
   }
 }
 
-uint64_t isValidCVC(int a1, int a2, int a3)
+BOOL isValidCVC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a1;
   if (a2 == -1)
   {
     return a1 == -1 || a3 != -1;
   }
 
+  v5 = a2;
   if (a1 != -1)
   {
     valid = isValidCV(a1, a2);
-    if (a3 != -1)
+    if (v3 != -1)
     {
-      v7 = isValidVC(a2, a3);
+      v7 = isValidVC(v5, v3);
       if (valid && v7)
       {
         return 1;
@@ -5523,16 +5459,16 @@ uint64_t isValidCVC(int a1, int a2, int a3)
         return 0;
       }
 
-      if (a1 == 21 && a2 == 11)
+      if (v4 == 21 && v5 == 11)
       {
         valid = 1;
-        if (a3 == 14 || a3 == 17)
+        if (v3 == 14 || v3 == 17)
         {
           return valid;
         }
       }
 
-      return a1 == 8 && (a2 - 3) <= 1 && (a3 & 0xFFFFFFFE) == 0xE;
+      return v4 == 8 && (v5 - 3) <= 1 && (v3 & 0xFFFFFFFE) == 0xE;
     }
 
     return valid;
@@ -5682,7 +5618,7 @@ uint64_t UkEngine::appendConsonnant(UkEngine *this, int a2, int a3)
       v20 = bsearch(v54, &SortedCSeqList, 0x1DuLL, 0x10uLL, tripleConCompare);
       if (!v20)
       {
-        v21 = -1;
+        v21 = 0xFFFFFFFFLL;
         goto LABEL_32;
       }
     }
@@ -5691,7 +5627,7 @@ uint64_t UkEngine::appendConsonnant(UkEngine *this, int a2, int a3)
     {
       *v54 = *(v19 + 1);
       *&v54[4] = a2 | 1;
-      v21 = -1;
+      v21 = 0xFFFFFFFFLL;
       *&v54[8] = -1;
       v20 = bsearch(v54, &SortedCSeqList, 0x1DuLL, 0x10uLL, tripleConCompare);
       if (!v20)
@@ -5741,7 +5677,7 @@ LABEL_63:
       v26 = *(this + 7);
       if (v25 == -1)
       {
-        v27 = -1;
+        v27 = 0xFFFFFFFFLL;
       }
 
       else
@@ -5762,7 +5698,7 @@ LABEL_66:
     *(v7 + 2) = -1;
     v47 = 4;
     v48 = 12;
-    v21 = -1;
+    LODWORD(v21) = -1;
 LABEL_70:
     *&v7[v48] = v46;
     *&v7[v47] = v21;
@@ -5813,13 +5749,13 @@ LABEL_26:
 
   else
   {
-    v13 = *(v9 + 4);
+    v13 = v11;
   }
 
   v14 = *(v9 + 1);
   if (v14 == -1)
   {
-    v15 = -1;
+    v15 = 0xFFFFFFFFLL;
   }
 
   else
@@ -5837,7 +5773,7 @@ LABEL_26:
 
   else
   {
-    v29 = -1;
+    v29 = 0xFFFFFFFFLL;
   }
 
   if (isValidCVC(v15, v13, v29))
@@ -5940,16 +5876,16 @@ LABEL_74:
   return 0;
 }
 
-_DWORD *UkEngine::markChange(_DWORD *this, int a2)
+UkEngine *UkEngine::markChange(UkEngine *this, int a2)
 {
-  v2 = this[4];
+  v2 = *(this + 4);
   if (v2 > a2)
   {
     v4 = this;
     this = UkEngine::getSeqSteps(this, a2, v2 - 1);
-    v5 = v4[5] + this;
-    v4[4] = a2;
-    v4[5] = v5;
+    v5 = *(v4 + 5) + this;
+    *(v4 + 4) = a2;
+    *(v4 + 5) = v5;
   }
 
   return this;
@@ -6000,7 +5936,7 @@ LABEL_11:
   {
     v10 = v4[4];
     v11 = v4[1];
-    v12 = v11 == -1 ? -1 : *&v3[36 * (v1 - v11) + 16];
+    v12 = v11 == -1 ? 0xFFFFFFFFLL : *&v3[36 * (v1 - v11) + 16];
     valid = isValidCVC(v12, *&v3[36 * v7 + 16], v10);
     result = 1;
     if (valid)
@@ -6017,131 +5953,154 @@ uint64_t UkEngine::restoreKeyStrokes(UkEngine *this, _DWORD *a2, uint64_t a3, _D
 {
   *a5 = 1;
   v8 = *(this + 7);
-  if ((v8 & 0x80000000) == 0)
+  if (v8 < 0)
   {
-    v10 = this + 3144;
-    v11 = *(this + 7);
-    do
+    goto LABEL_25;
+  }
+
+  v10 = this + 3144;
+  v11 = *(this + 7);
+  while (1)
+  {
+    v12 = &v10[36 * v11];
+    if (*v12 == 1)
     {
-      v12 = &v10[36 * v11];
-      if (*v12 == 1)
+      goto LABEL_25;
+    }
+
+    v13 = *(v12 + 7);
+    if (v13 != -1 && (*(&IsVnVowel + v13) == 1 && *(v12 + 6) || v13 != StdVnRootChar[v13]))
+    {
+      break;
+    }
+
+    v14 = v11-- <= 0;
+    if (v14)
+    {
+      goto LABEL_25;
+    }
+  }
+
+  *(this + 2) = (v8 + 1);
+  v15 = *(this + 778);
+  if (v15 < 0)
+  {
+    goto LABEL_25;
+  }
+
+  v16 = 0;
+  while (1)
+  {
+    v17 = this + 24 * v15 + 40;
+    if (*(v17 + 1) == 1)
+    {
+      break;
+    }
+
+    v16 |= v17[20];
+    v14 = v15-- <= 0;
+    if (v14)
+    {
+      v15 = -1;
+      break;
+    }
+  }
+
+  if ((v16 & 1) == 0)
+  {
+LABEL_25:
+    result = 0;
+    *a2 = 0;
+    *a4 = 0;
+  }
+
+  else
+  {
+    v18 = v8;
+    while (*&v10[36 * v18] != 1)
+    {
+      *(this + 7) = v18 - 1;
+      v14 = v18-- <= 0;
+      if (v14)
       {
+        v18 = -1;
         break;
       }
+    }
 
-      v13 = *(v12 + 7);
-      if (v13 != -1 && (*(&IsVnVowel + v13) == 1 && *(v12 + 6) || v13 != StdVnRootChar[v13]))
+    if (v8 <= v18)
+    {
+      v20 = 0;
+    }
+
+    else
+    {
+      v19 = v18 + 1;
+      v20 = *(this + 5) + UkEngine::getSeqSteps(this, v18 + 1, v8);
+      *(this + 4) = v19;
+      *(this + 5) = v20;
+    }
+
+    *a2 = v20;
+    *(this + 3139) = 1;
+    if (v15 < *(this + 778))
+    {
+      v22 = 0;
+      v23 = v15;
+      v24 = (this + 24 * v15 + 76);
+      while (1)
       {
-        *(this + 2) = (v8 + 1);
-        v15 = *(this + 778);
-        if ((v15 & 0x80000000) == 0)
+        if (v22 < *a4)
         {
-          v16 = 0;
-          while (1)
-          {
-            v17 = this + 24 * v15 + 40;
-            if (*(v17 + 1) == 1)
-            {
-              break;
-            }
+          *(a3 + v22++) = *v24;
+        }
 
-            v16 |= v17[20];
-            v14 = v15-- <= 0;
-            if (v14)
-            {
-              v15 = -1;
-              break;
-            }
+        v25 = *v24;
+        v30 = v25;
+        v28[0] = 19;
+        if (v25 < 256)
+        {
+          v27 = *(&IsoVnLexiMap + v25);
+          v29 = v27;
+          if (v25 < 0x100)
+          {
+            v26 = UkcMap[v25];
+            goto LABEL_39;
           }
 
-          if (v16)
+          if (v27 != -1)
           {
-            v18 = v8;
-            while (*&v10[36 * v18] != 1)
-            {
-              *(this + 7) = v18 - 1;
-              v14 = v18-- <= 0;
-              if (v14)
-              {
-                v18 = -1;
-                break;
-              }
-            }
-
-            if (v8 <= v18)
-            {
-              v20 = 0;
-            }
-
-            else
-            {
-              v19 = v18 + 1;
-              v20 = *(this + 5) + UkEngine::getSeqSteps(this, v18 + 1, v8);
-              *(this + 4) = v19;
-              *(this + 5) = v20;
-            }
-
-            *a2 = v20;
-            *(this + 3139) = 1;
-            if (v15 >= *(this + 778))
-            {
-              v22 = 0;
-            }
-
-            else
-            {
-              v22 = 0;
-              v23 = v15;
-              v24 = (this + 24 * v15 + 76);
-              do
-              {
-                if (v22 < *a4)
-                {
-                  *(a3 + v22++) = *v24;
-                }
-
-                v25 = *v24;
-                if (v25 < 256)
-                {
-                  v27 = *(&IsoVnLexiMap + v25);
-                  if (v25 < 0x100)
-                  {
-                    v26 = UkcMap[v25];
-                  }
-
-                  else
-                  {
-                    *(&IsoVnLexiMap + v25);
-                  }
-                }
-
-                ++v23;
-                *(v24 + 8) = 0;
-                UkEngine::processAppend(this);
-                v24 += 6;
-              }
-
-              while (v23 < *(this + 778));
-            }
-
-            *a4 = v22;
-            *(this + 3139) = 0;
-            return 1;
+            v26 = 0;
+            goto LABEL_39;
           }
         }
 
-        break;
-      }
+        else
+        {
+          v29 = -1;
+        }
 
-      v14 = v11-- <= 0;
+        v26 = 2;
+LABEL_39:
+        ++v23;
+        v28[1] = v26;
+        *(v24 + 8) = 0;
+        UkEngine::processAppend(this, v28);
+        v24 += 6;
+        if (v23 >= *(this + 778))
+        {
+          goto LABEL_42;
+        }
+      }
     }
 
-    while (!v14);
+    v22 = 0;
+LABEL_42:
+    *a4 = v22;
+    *(this + 3139) = 0;
+    return 1;
   }
 
-  result = 0;
-  *a2 = 0;
-  *a4 = 0;
   return result;
 }
 
@@ -6219,7 +6178,7 @@ uint64_t UkEngine::processHook(UkEngine *this, int *a2)
       v47 = *&v129[36 * v5 + 4];
       if (v47 == -1)
       {
-        v48 = -1;
+        v48 = 0xFFFFFFFFLL;
       }
 
       else
@@ -6232,7 +6191,7 @@ uint64_t UkEngine::processHook(UkEngine *this, int *a2)
       v50 = v33;
       if (v49 == -1)
       {
-        v51 = -1;
+        v51 = 0xFFFFFFFFLL;
       }
 
       else
@@ -6240,7 +6199,7 @@ uint64_t UkEngine::processHook(UkEngine *this, int *a2)
         v51 = *&v129[36 * (v5 - v49) + 16];
       }
 
-      if ((isValidCVC(v48, v36, v51) & 1) == 0)
+      if (!isValidCVC(v48, v36, v51))
       {
         goto LABEL_91;
       }
@@ -7233,7 +7192,7 @@ id dynamicFilePathForInputMode(void *a1, void *a2)
   v6 = 0;
   if (v4 && v5)
   {
-    if ([v3 isEqualToString:@"en_US"])
+    if (objc_msgSend_isEqualToString_(v3))
     {
       v7 = @"dynamic-text.dat";
     }
@@ -7268,49 +7227,49 @@ id deltaUnigramsFilePathForInputMode(uint64_t a1)
 
 void __createAndLoadDictionaryContainer(NSString *a1, NSString *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v3 = a1;
-  v4 = a2;
-  if (v4)
+  v21 = *MEMORY[0x277D85DE8];
+  v4 = a1;
+  v5 = a2;
+  if (v5)
   {
-    v5 = UIKeyboardDynamicDictionaryFileWithSiriMode(v3, v4, 0);
+    v6 = UIKeyboardDynamicDictionaryFileWithSiriMode(v4, v5, 0);
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  __getLexiconInfo(v3, v5, 1.0, v13);
-  KB::String::String(&v6, v13);
+  __getLexiconInfo(&v14, v4, v6, 1.0);
   KB::String::String(&v7, &v14);
   KB::String::String(&v8, &v15);
   KB::String::String(&v9, &v16);
   KB::String::String(&v10, &v17);
-  v11 = v18;
+  KB::String::String(&v11, &v18);
   v12 = v19;
+  v13 = v20;
   operator new();
 }
 
-void __getLexiconInfo(NSString *a1@<X0>, NSString *a2@<X1>, float a3@<S0>, uint64_t a4@<X8>)
+void __getLexiconInfo(uint64_t *__return_ptr a1@<X8>, NSString *a2@<X0>, NSString *a3@<X1>, float a4@<S0>)
 {
-  v7 = a2;
-  v8 = a1;
+  v7 = a3;
+  v8 = a2;
   v12 = UIKeyboardStaticUnigramsFile(v8);
   v9 = deltaUnigramsFilePathForInputMode(v8);
   v10 = phrasesFilePathForInputMode(v8);
   v11 = dynamicFilePathForInputMode(v8, v7);
 
   LODWORD(v7) = TILexiconIDForLocaleIdentifier([(NSString *)v8 UTF8String]);
-  KB::utf8_string(v8, a4);
+  KB::utf8_string(v8, a1);
 
-  KB::utf8_string(v12, a4 + 32);
-  KB::utf8_string(v9, a4 + 64);
-  KB::utf8_string(v10, a4 + 96);
-  KB::utf8_string(v11, a4 + 128);
-  *(a4 + 160) = v7;
-  *(a4 + 164) = 0;
-  *(a4 + 168) = a3;
+  KB::utf8_string(v12, (a1 + 4));
+  KB::utf8_string(v9, (a1 + 8));
+  KB::utf8_string(v10, (a1 + 12));
+  KB::utf8_string(v11, (a1 + 16));
+  *(a1 + 40) = v7;
+  *(a1 + 164) = 0;
+  *(a1 + 42) = a4;
 }
 
 uint64_t std::__uninitialized_allocator_copy_impl[abi:nn200100]<std::allocator<KB::LexiconInfo>,KB::LexiconInfo const*,KB::LexiconInfo const*,KB::LexiconInfo*>(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -7370,16 +7329,16 @@ uint64_t std::construct_at[abi:nn200100]<KB::LexiconInfo,KB::String const&,KB::S
 
 void __createAndLoadLanguageModel(NSString *a1, NSString *a2, int a3)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  v5 = MEMORY[0x277CBEAF8];
-  v6 = a2;
-  v7 = a1;
-  v8 = [v5 localeWithLocaleIdentifier:v7];
-  v12[0] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-  [TIInputMode inputModeWithIdentifier:v7];
-  v10 = [objc_claimAutoreleasedReturnValue() doesSupportInlineCompletion];
-  KB::LanguageModelConfig::LanguageModelConfig(&v11, v8, 0, v9, 0, v6, 0, 0, 0, a3 ^ 1, 0, 0, 1, 90, v10);
+  v13[1] = *MEMORY[0x277D85DE8];
+  v6 = MEMORY[0x277CBEAF8];
+  v7 = a2;
+  v8 = a1;
+  v9 = [v6 localeWithLocaleIdentifier:v8];
+  v13[0] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  [TIInputMode inputModeWithIdentifier:v8];
+  v11 = [objc_claimAutoreleasedReturnValue() doesSupportInlineCompletion];
+  KB::LanguageModelConfig::LanguageModelConfig(&v12, v9, 0, v10, 0, v7, 0, 0, 0, a3 ^ 1, 0, 0, 1, 90, v11);
   operator new();
 }
 
@@ -7514,25 +7473,25 @@ void ___ZL62TIGetKeyboardLanguageModelingDisableDynamicLanguageModelsValuev_bloc
   [v0 _configureKey:@"KeyboardLanguageModelingDisableDynamicLanguageModels" domain:@"com.apple.keyboard" defaultValue:MEMORY[0x277CBEC28]];
 }
 
-void KB::LanguageModelConfig::trial_parameters(KB::LanguageModelConfig *this@<X0>, const __CFDictionary *a2@<X1>, uint64_t a3@<X8>)
+void KB::LanguageModelConfig::trial_parameters(uint64_t *__return_ptr a1@<X8>, KB::LanguageModelConfig *this@<X0>, const __CFDictionary *a3@<X1>)
 {
   v4 = *(this + 2);
   if (v4)
   {
-    LM::TrialParameters::createWithEncodedRepresentation(__p, v4, a2);
-    *a3 = *__p;
+    LM::TrialParameters::createWithEncodedRepresentation(__p, v4, a3);
+    *a1 = *__p;
     v5 = v11;
     v6 = v12;
     __p[1] = 0;
     v11 = 0;
     __p[0] = 0;
-    *(a3 + 16) = v5;
-    *(a3 + 24) = v6;
+    a1[2] = v5;
+    a1[3] = v6;
     v7 = v13;
     v8 = v14;
-    *(a3 + 32) = v13;
-    v9 = a3 + 32;
-    *(a3 + 40) = v8;
+    a1[4] = v13;
+    v9 = a1 + 4;
+    a1[5] = v8;
     if (v8)
     {
       v7[2] = v9;
@@ -7544,10 +7503,10 @@ void KB::LanguageModelConfig::trial_parameters(KB::LanguageModelConfig *this@<X0
 
     else
     {
-      *(a3 + 24) = v9;
+      a1[3] = v9;
     }
 
-    *(a3 + 48) = 1;
+    *(a1 + 48) = 1;
     std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v7);
     if (SHIBYTE(v11) < 0)
     {
@@ -7557,8 +7516,8 @@ void KB::LanguageModelConfig::trial_parameters(KB::LanguageModelConfig *this@<X0
 
   else
   {
-    *a3 = 0;
-    *(a3 + 48) = 0;
+    *a1 = 0;
+    *(a1 + 48) = 0;
   }
 }
 
@@ -7638,9 +7597,11 @@ id TITypologyProfileStateLog()
 
 uint64_t __TITypologyProfileStateLog_block_invoke()
 {
-  TITypologyProfileStateLog_log = os_log_create("com.apple.TextInput", "typologyProfileState");
+  v0 = os_log_create("com.apple.TextInput", "typologyProfileState");
+  v1 = TITypologyProfileStateLog_log;
+  TITypologyProfileStateLog_log = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 uint64_t _areValidFieldValues(void *a1, void *a2, void *a3)
@@ -7675,15 +7636,15 @@ uint64_t _areValidFieldValues(void *a1, void *a2, void *a3)
           goto LABEL_5;
         }
 
-        if (([v18 isEqualToString:@"None"] & 1) != 0 || (objc_msgSend(v18, "isEqualToString:", @"Enable") & 1) != 0 || objc_msgSend(v18, "isEqualToString:", @"NotNow"))
+        if ((objc_msgSend_isEqualToString_(v18) & 1) != 0 || (objc_msgSend_isEqualToString_(v18) & 1) != 0 || objc_msgSend_isEqualToString_(v18))
         {
         }
 
         else
         {
-          v22 = [v18 isEqualToString:@"Disabled"];
+          isEqualToString = objc_msgSend_isEqualToString_(v18);
 
-          if (!v22)
+          if (!isEqualToString)
           {
             goto LABEL_5;
           }
@@ -7694,7 +7655,7 @@ uint64_t _areValidFieldValues(void *a1, void *a2, void *a3)
 
         if (v20)
         {
-          if (([v18 isEqualToString:@"None"] & 1) == 0)
+          if ((objc_msgSend_isEqualToString_(v18) & 1) == 0)
           {
             goto LABEL_5;
           }
@@ -7773,16 +7734,16 @@ uint64_t KB::CandidateFilterFactory::FilterStackDefinition::FilterStackDefinitio
       for (i = 0; i < CFArrayGetCount(v7); ++i)
       {
         cf[0] = 0;
-        applesauce::CF::at_or<applesauce::CF::DictionaryRef>(v29, v7, i, cf);
+        applesauce::CF::at_or<applesauce::CF::DictionaryRef>(&v29, v7, i, cf);
         if (cf[0])
         {
           CFRelease(cf[0]);
         }
 
-        v9 = v29[0];
-        if (v29[0])
+        v9 = v29;
+        if (v29)
         {
-          CFRetain(v29[0]);
+          CFRetain(v29);
           extract_name(cf, v9);
           CFRelease(v9);
           applesauce::CF::at_or<char const(&)[1],__CFString const* const&>(&__p, v9, @"Operation");
@@ -7809,7 +7770,7 @@ LABEL_16:
             }
 
 LABEL_17:
-            std::vector<applesauce::CF::DictionaryRef>::push_back[abi:nn200100]((a1 + 24), v29);
+            std::vector<applesauce::CF::DictionaryRef>::push_back[abi:nn200100]((a1 + 24), &v29);
           }
 
           else
@@ -7831,8 +7792,8 @@ LABEL_17:
             }
 
 LABEL_29:
-            v29[1] = cf;
-            v12 = std::__hash_table<std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v4, cf);
+            v30 = cf;
+            v12 = std::__hash_table<std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v4, cf, &v30);
             v13 = v12[5];
             v12[5] = v9;
             CFRetain(v9);
@@ -7906,7 +7867,7 @@ LABEL_45:
   return a1;
 }
 
-void std::__stable_sort<std::_ClassicAlgPolicy,KB::CandidateFilterFactory::FilterStackDefinition::FilterStackDefinition(std::vector<applesauce::CF::ArrayRef> const&)::$_0 &,std::__wrap_iter<applesauce::CF::DictionaryRef *>>(uint64_t *a1, CFTypeRef *a2, unint64_t a3, uint64_t *a4, uint64_t a5)
+void std::__stable_sort<std::_ClassicAlgPolicy,KB::CandidateFilterFactory::FilterStackDefinition::FilterStackDefinition(std::vector<applesauce::CF::ArrayRef> const&)::$_0 &,std::__wrap_iter<applesauce::CF::DictionaryRef *>>(CFTypeRef *a1, CFTypeRef *a2, unint64_t a3, CFTypeRef *a4, int64_t a5)
 {
   if (a3 < 2)
   {
@@ -7972,7 +7933,7 @@ LABEL_62:
       return;
     }
 
-    v22 = (a1 + 1);
+    v22 = a1 + 1;
     if (a1 + 1 == a2)
     {
       return;
@@ -8236,7 +8197,7 @@ LABEL_8:
 
 void extract_name(uint64_t a1, CFDictionaryRef theDict)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (!theDict)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -8247,30 +8208,30 @@ void extract_name(uint64_t a1, CFDictionaryRef theDict)
   if (!Value)
   {
     LOBYTE(__p[0]) = 0;
-    v12 = 0;
+    v11 = 0;
     goto LABEL_7;
   }
 
   applesauce::CF::convert_as<std::string,0>(__p, Value);
-  if ((v12 & 1) == 0)
+  if ((v11 & 1) == 0)
   {
 LABEL_7:
     std::string::basic_string[abi:nn200100]<0>(a1, "");
-    v4 = v11 < 0;
+    v4 = v10 < 0;
     goto LABEL_8;
   }
 
-  if ((SHIBYTE(v11) & 0x80000000) == 0)
+  if ((SHIBYTE(v10) & 0x80000000) == 0)
   {
     *a1 = *__p;
-    *(a1 + 16) = v11;
+    *(a1 + 16) = v10;
     goto LABEL_11;
   }
 
   std::string::__init_copy_ctor_external(a1, __p[0], __p[1]);
   v4 = 1;
 LABEL_8:
-  if (v12 == 1 && v4)
+  if (v11 == 1 && v4)
   {
     operator delete(__p[0]);
   }
@@ -8287,28 +8248,26 @@ LABEL_11:
     v6 = filter_factory_log();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      KB::std_string(@"FilterName", __p);
-      if (v11 >= 0)
+      KB::std_string(__p, @"FilterName");
+      if (v10 >= 0)
       {
-        v8 = __p;
+        v7 = __p;
       }
 
       else
       {
-        v8 = __p[0];
+        v7 = __p[0];
       }
 
       *buf = 136315138;
-      v14 = v8;
+      v13 = v7;
       _os_log_error_impl(&dword_22CA55000, v6, OS_LOG_TYPE_ERROR, "Filter specification must include key '%s' with string value.", buf, 0xCu);
-      if (SHIBYTE(v11) < 0)
+      if (SHIBYTE(v10) < 0)
       {
         operator delete(__p[0]);
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void applesauce::CF::at_or<char const(&)[1],__CFString const* const&>(std::string *a1, CFDictionaryRef theDict, void *key)
@@ -8347,56 +8306,56 @@ LABEL_8:
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(float *a1, uint64_t a2, __int128 **a3)
 {
-  v4 = *(a2 + 23);
-  if (v4 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v5 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v6 = *a2;
   }
 
-  if (v4 >= 0)
+  if (v5 >= 0)
   {
-    v6 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
-    v6 = *(a2 + 8);
+    v7 = *(a2 + 8);
   }
 
-  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v5, v6);
-  v8 = v7;
-  v9 = a1[1];
-  if (!*&v9)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v6, v7);
+  v9 = v8;
+  v10 = *(a1 + 2);
+  if (!*&v10)
   {
     goto LABEL_24;
   }
 
-  v10 = vcnt_s8(v9);
-  v10.i16[0] = vaddlv_u8(v10);
-  v11 = v10.u32[0];
-  if (v10.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v12 = v7;
-    if (v7 >= *&v9)
+    v13 = v8;
+    if (v8 >= *&v10)
     {
-      v12 = v7 % *&v9;
+      v13 = v8 % *&v10;
     }
   }
 
   else
   {
-    v12 = (*&v9 - 1) & v7;
+    v13 = (*&v10 - 1) & v8;
   }
 
-  v13 = *(*a1 + 8 * v12);
-  if (!v13 || (v14 = *v13) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_24:
     operator new();
@@ -8404,53 +8363,53 @@ LABEL_24:
 
   while (1)
   {
-    v15 = v14[1];
-    if (v15 == v8)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v11 > 1)
+    if (v12 > 1)
     {
-      if (v15 >= *&v9)
+      if (v16 >= *&v10)
       {
-        v15 %= *&v9;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v15 &= *&v9 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v15 != v12)
+    if (v16 != v13)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v14 = *v14;
-    if (!v14)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_24;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:nn200100](v14 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v15 + 2, a2))
   {
     goto LABEL_23;
   }
 
-  return v14;
+  return v15;
 }
 
-void std::vector<applesauce::CF::DictionaryRef>::push_back[abi:nn200100](uint64_t *a1, CFTypeRef *a2)
+void std::vector<applesauce::CF::DictionaryRef>::push_back[abi:nn200100](CFTypeRef **a1, CFTypeRef *a2)
 {
   v4 = a1[1];
   v3 = a1[2];
   if (v4 >= v3)
   {
-    v7 = (v4 - *a1) >> 3;
+    v7 = v4 - *a1;
     if ((v7 + 1) >> 61)
     {
       std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
@@ -8493,9 +8452,9 @@ void std::vector<applesauce::CF::DictionaryRef>::push_back[abi:nn200100](uint64_
     v13 = *a1;
     v14 = a1[1];
     v15 = *a1 == v14;
-    v16 = 8 * v7 + *a1 - v14;
+    v16 = (8 * v7 + *a1 - v14);
     *v12 = v11;
-    v6 = v12 + 1;
+    v6 = (v12 + 1);
     if (!v15)
     {
       v17 = v13;
@@ -8624,9 +8583,11 @@ id filter_factory_log(void)
 
 uint64_t ___ZL18filter_factory_logv_block_invoke()
 {
-  filter_factory_log(void)::log = os_log_create("com.apple.TextInput", "candidateFilterFactory");
+  v0 = os_log_create("com.apple.TextInput", "candidateFilterFactory");
+  v1 = filter_factory_log(void)::log;
+  filter_factory_log(void)::log = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 unint64_t applesauce::CF::details::find_at_key_or_optional<unsigned long,__CFString const* const&>(const __CFDictionary *a1)
@@ -8816,7 +8777,7 @@ LABEL_44:
   return v7 | v6;
 }
 
-uint64_t *std::__stable_sort_move<std::_ClassicAlgPolicy,KB::CandidateFilterFactory::FilterStackDefinition::FilterStackDefinition(std::vector<applesauce::CF::ArrayRef> const&)::$_0 &,std::__wrap_iter<applesauce::CF::DictionaryRef *>>(uint64_t *result, CFTypeRef *a2, unint64_t a3, uint64_t *a4)
+CFTypeRef *std::__stable_sort_move<std::_ClassicAlgPolicy,KB::CandidateFilterFactory::FilterStackDefinition::FilterStackDefinition(std::vector<applesauce::CF::ArrayRef> const&)::$_0 &,std::__wrap_iter<applesauce::CF::DictionaryRef *>>(CFTypeRef *result, CFTypeRef *a2, unint64_t a3, CFTypeRef *a4)
 {
   if (!a3)
   {
@@ -9016,7 +8977,7 @@ LABEL_17:
     v60 = &v61;
     *a4 = *result;
     *result = 0;
-    v22 = (result + 1);
+    v22 = result + 1;
     v61 = 1;
     if (result + 1 == a2)
     {

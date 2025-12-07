@@ -15,19 +15,18 @@
 
 + (id)JSONKeyPathsByPropertyKey
 {
-  v6[5] = *MEMORY[0x277D85DE8];
+  v5[5] = *MEMORY[0x277D85DE8];
+  v4[0] = @"title";
+  v4[1] = @"uuid";
   v5[0] = @"title";
   v5[1] = @"uuid";
-  v6[0] = @"title";
-  v6[1] = @"uuid";
+  v4[2] = @"storeId";
+  v4[3] = @"feedURL";
   v5[2] = @"storeId";
-  v5[3] = @"feedURL";
-  v6[2] = @"storeId";
-  v6[3] = @"feedUrl";
+  v5[3] = @"feedUrl";
+  v4[4] = @"children";
   v5[4] = @"children";
-  v6[4] = @"children";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:5];
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:5];
 
   return v2;
 }

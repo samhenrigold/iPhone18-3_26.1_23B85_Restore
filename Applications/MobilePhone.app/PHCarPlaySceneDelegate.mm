@@ -14,35 +14,36 @@
   sceneCopy = scene;
   sessionCopy = session;
   optionsCopy = options;
-  v11 = PHDefaultLog();
+  v11 = PHDefaultLog(optionsCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412546;
-    v17 = sessionCopy;
-    v18 = 2112;
-    v19 = optionsCopy;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "CarPlay scene did connect to session: %@ options: %@", &v16, 0x16u);
+    v17 = 138412546;
+    v18 = sessionCopy;
+    v19 = 2112;
+    v20 = optionsCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "CarPlay scene did connect to session: %@ options: %@", &v17, 0x16u);
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     [(PHCarPlaySceneDelegate *)self attachCarPlayToWindowScene:sceneCopy];
   }
 
   else
   {
-    v12 = PHDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = PHDefaultLog(isKindOfClass);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [PHCarPlaySceneDelegate scene:sceneCopy willConnectToSession:v12 options:?];
+      [PHCarPlaySceneDelegate scene:sceneCopy willConnectToSession:v13 options:?];
     }
   }
 
   uRLContexts = [optionsCopy URLContexts];
-  v14 = [uRLContexts count];
+  v15 = [uRLContexts count];
 
-  if (v14)
+  if (v15)
   {
     uRLContexts2 = [optionsCopy URLContexts];
     [(PHCarPlaySceneDelegate *)self scene:sceneCopy openURLContexts:uRLContexts2];
@@ -51,7 +52,7 @@
 
 - (void)sceneDidDisconnect:(id)disconnect
 {
-  v4 = PHDefaultLog();
+  v4 = PHDefaultLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -64,7 +65,7 @@
 - (void)attachCarPlayToWindowScene:(id)scene
 {
   sceneCopy = scene;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(sceneCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138412290;
@@ -101,7 +102,7 @@
 - (void)scene:(id)scene openURLContexts:(id)contexts
 {
   contextsCopy = contexts;
-  v6 = PHDefaultLog();
+  v6 = PHDefaultLog(contextsCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -148,7 +149,7 @@
 
 - (void)detachCarPlay
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     carPlayWindow = [(PHCarPlaySceneDelegate *)self carPlayWindow];

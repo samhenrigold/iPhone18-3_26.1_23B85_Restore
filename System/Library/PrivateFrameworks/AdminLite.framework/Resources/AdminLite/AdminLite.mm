@@ -24,7 +24,7 @@ uint64_t start()
   return 0;
 }
 
-void sub_1000007B8(const char *a1, uint64_t a2)
+void sub_1000007B8(const char *a1, uint64_t a2, ...)
 {
   fwrite("AdminLite", 9uLL, 1uLL, __stderrp);
   fprintf(__stderrp, a1, a2);

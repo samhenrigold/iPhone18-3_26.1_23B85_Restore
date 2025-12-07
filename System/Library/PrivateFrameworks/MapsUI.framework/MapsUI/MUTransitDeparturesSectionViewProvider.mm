@@ -27,10 +27,10 @@
 {
   sourceCopy = source;
   swift_unknownObjectRetain();
-  v5 = sub_1C5720138(sourceCopy);
+  v6 = sub_1C5720138(sourceCopy, delegate);
 
   swift_unknownObjectRelease();
-  return v5;
+  return v6;
 }
 
 - (id)sectionViewsForCurrentState
@@ -46,7 +46,6 @@
 
 - (void)filterView:(id)view didChangeSystemSelection:(id)selection
 {
-  v6 = *(&self->super.isa + OBJC_IVAR___MUTransitDeparturesSectionViewProvider_dataSource);
   swift_unknownObjectRetain_n();
   selfCopy = self;
   sub_1C57103C4(selection);

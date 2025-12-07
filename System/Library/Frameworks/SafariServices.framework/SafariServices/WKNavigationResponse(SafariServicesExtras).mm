@@ -59,25 +59,25 @@ LABEL_5:
   {
     _request = [self _request];
     hTTPMethod = [_request HTTPMethod];
-    v9 = [hTTPMethod safari_isCaseInsensitiveEqualToString:@"GET"];
+    v11 = [hTTPMethod safari_isCaseInsensitiveEqualToString:@"GET"];
 
-    if (v9)
+    if (v11)
     {
       response2 = [self response];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
         allHeaderFields = [response2 allHeaderFields];
-        v12 = [allHeaderFields safari_stringForKey:@"Accept-Ranges"];
-        v13 = [v12 safari_isCaseInsensitiveEqualToString:@"bytes"];
+        v16 = [allHeaderFields safari_stringForKey:@"Accept-Ranges"];
+        v17 = [v16 safari_isCaseInsensitiveEqualToString:@"bytes"];
 
-        if (v13)
+        if (v17)
         {
-          v14 = WBS_LOG_CHANNEL_PREFIXDownloads();
-          v6 = 1;
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+          v20 = WBS_LOG_CHANNEL_PREFIXDownloads(v18, v19);
+          v8 = 1;
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
           {
-            *v20 = 0;
+            *v26 = 0;
           }
 
           goto LABEL_16;
@@ -88,44 +88,44 @@ LABEL_5:
       {
       }
 
-      v15 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v21 = WBS_LOG_CHANNEL_PREFIXDownloads(v18, v19);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
-        v19 = 0;
-        v16 = "Assuming reload-in-main-frame is not supported";
-        v17 = &v19;
+        v25 = 0;
+        v22 = "Assuming reload-in-main-frame is not supported";
+        v23 = &v25;
         goto LABEL_14;
       }
     }
 
     else
     {
-      v15 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v21 = WBS_LOG_CHANNEL_PREFIXDownloads(v12, v13);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
-        v21 = 0;
-        v16 = "Not allowing reload-in-main-frame because the request was not a GET request";
-        v17 = &v21;
+        v27 = 0;
+        v22 = "Not allowing reload-in-main-frame because the request was not a GET request";
+        v23 = &v27;
 LABEL_14:
-        _os_log_impl(&dword_1D4644000, v15, OS_LOG_TYPE_INFO, v16, v17, 2u);
+        _os_log_impl(&dword_1D4644000, v21, OS_LOG_TYPE_INFO, v22, v23, 2u);
       }
     }
 
-    v6 = 0;
+    v8 = 0;
 LABEL_16:
 
-    return v6;
+    return v8;
   }
 
-  v5 = WBS_LOG_CHANNEL_PREFIXDownloads();
-  v6 = 1;
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v7 = WBS_LOG_CHANNEL_PREFIXDownloads(v5, v6);
+  v8 = 1;
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1D4644000, v5, OS_LOG_TYPE_INFO, "Allowing reload-in-main-frame for a data: URL", buf, 2u);
+    _os_log_impl(&dword_1D4644000, v7, OS_LOG_TYPE_INFO, "Allowing reload-in-main-frame for a data: URL", buf, 2u);
   }
 
-  return v6;
+  return v8;
 }
 
 - (uint64_t)_sf_responsePolicy:()SafariServicesExtras uti:
@@ -150,28 +150,29 @@ LABEL_16:
 
     else
     {
-      v27 = 0;
-      v28 = &v27;
-      v29 = 0x2020000000;
+      v28 = 0;
+      v29 = &v28;
+      v30 = 0x2020000000;
       v15 = getQLPreviewGetSupportedMIMETypesSymbolLoc_ptr;
-      v30 = getQLPreviewGetSupportedMIMETypesSymbolLoc_ptr;
+      v31 = getQLPreviewGetSupportedMIMETypesSymbolLoc_ptr;
       if (!getQLPreviewGetSupportedMIMETypesSymbolLoc_ptr)
       {
-        v26[0] = MEMORY[0x1E69E9820];
-        v26[1] = 3221225472;
-        v26[2] = __getQLPreviewGetSupportedMIMETypesSymbolLoc_block_invoke;
-        v26[3] = &unk_1E848F710;
-        v26[4] = &v27;
-        __getQLPreviewGetSupportedMIMETypesSymbolLoc_block_invoke(v26);
-        v15 = v28[3];
+        v27[0] = MEMORY[0x1E69E9820];
+        v27[1] = 3221225472;
+        v27[2] = __getQLPreviewGetSupportedMIMETypesSymbolLoc_block_invoke;
+        v27[3] = &unk_1E848F710;
+        v27[4] = &v28;
+        __getQLPreviewGetSupportedMIMETypesSymbolLoc_block_invoke(v27);
+        v15 = v29[3];
       }
 
-      _Block_object_dispose(&v27, 8);
+      _Block_object_dispose(&v28, 8);
       if (!v15)
       {
-        v25 = [SFDefaultBrowserListView productDetailsUserDidInteractWithApp:interactionType:];
-        _Block_object_dispose(&v27, 8);
-        _Unwind_Resume(v25);
+        [SFDefaultBrowserListView productDetailsUserDidInteractWithApp:interactionType:];
+        v26 = v25;
+        _Block_object_dispose(&v28, 8);
+        _Unwind_Resume(v26);
       }
 
       v16 = v15();

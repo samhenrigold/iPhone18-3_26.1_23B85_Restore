@@ -658,7 +658,6 @@
   MEMORY[0x277D82BD8](v47);
   MEMORY[0x277D82BD8](accelerometerSampleRateInHzKey);
   MEMORY[0x277D82BD8](dataKey);
-  *MEMORY[0x277D85DE8];
 
   return v5;
 }

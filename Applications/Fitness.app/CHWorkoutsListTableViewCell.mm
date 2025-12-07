@@ -53,7 +53,7 @@
   managerCopy = manager;
   selfCopy = self;
   sub_100174518(workoutCopy, contextCopy, managerCopy, count, v12, v13);
-  sub_1000245E0(v12);
+  sub_1000245E0(v12, v13);
 }
 
 - (CHWorkoutsListTableViewCell)initWithCoder:(id)coder

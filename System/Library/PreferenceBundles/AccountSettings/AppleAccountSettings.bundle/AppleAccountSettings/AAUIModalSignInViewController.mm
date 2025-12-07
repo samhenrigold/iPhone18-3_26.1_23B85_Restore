@@ -58,7 +58,8 @@
   if (window)
   {
     v10 = [lCopy objectForKeyedSubscript:@"aaaction"];
-    if ([v10 isEqual:@"resetPassword"])
+    v11 = [v10 isEqual:@"resetPassword"];
+    if (v11)
     {
       [(AAUIModalSignInViewController *)self _handleiForgotActionURL:lCopy];
       if (completionCopy)
@@ -69,34 +70,34 @@
 
     else
     {
-      v11 = _AAUILogSystem();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = _AAUILogSystem(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v15 = v10;
-        v16 = 2112;
-        v17 = lCopy;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Unknown action (%@) sent to AAUIModalSignInViewController. %@", buf, 0x16u);
+        v16 = v10;
+        v17 = 2112;
+        v18 = lCopy;
+        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Unknown action (%@) sent to AAUIModalSignInViewController. %@", buf, 0x16u);
       }
 
-      v12.receiver = self;
-      v12.super_class = AAUIModalSignInViewController;
-      [(AAUIModalSignInViewController *)&v12 handleURL:lCopy withCompletion:completionCopy];
+      v13.receiver = self;
+      v13.super_class = AAUIModalSignInViewController;
+      [(AAUIModalSignInViewController *)&v13 handleURL:lCopy withCompletion:completionCopy];
     }
   }
 
   else
   {
-    v13.receiver = self;
-    v13.super_class = AAUIModalSignInViewController;
-    [(AAUIModalSignInViewController *)&v13 handleURL:lCopy withCompletion:completionCopy];
+    v14.receiver = self;
+    v14.super_class = AAUIModalSignInViewController;
+    [(AAUIModalSignInViewController *)&v14 handleURL:lCopy withCompletion:completionCopy];
   }
 }
 
 - (void)_handleiForgotActionURL:(id)l
 {
   lCopy = l;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -132,8 +133,7 @@
   {
     [contextCopy setShouldOfferSecurityUpgrade:1];
     [contextCopy setAnticipateEscrowAttempt:1];
-    [contextCopy setSupportsPiggybacking:1];
-    v7 = _AAUILogSystem();
+    v7 = _AAUILogSystem([contextCopy setSupportsPiggybacking:1]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;

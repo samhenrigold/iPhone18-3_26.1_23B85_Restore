@@ -122,9 +122,9 @@
   v152 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:20];
   if (requestCopy)
   {
-    [requestCopy hangoverDuration];
+    objc_msgSend_hangoverDuration(requestCopy);
     Seconds = CMTimeGetSeconds(&buf.start);
-    [requestCopy minSegmentDuration];
+    objc_msgSend_minSegmentDuration(requestCopy);
   }
 
   else
@@ -367,7 +367,7 @@ LABEL_30:
             v65 = lastObject;
             if (lastObject)
             {
-              [lastObject timeRange];
+              objc_msgSend_timeRange(lastObject);
             }
 
             else
@@ -383,7 +383,7 @@ LABEL_30:
             v68 = v67;
             if (v67)
             {
-              [v67 timeRange];
+              objc_msgSend_timeRange(v67);
             }
 
             else
@@ -408,7 +408,7 @@ LABEL_30:
           v71 = v70;
           if (v70)
           {
-            [v70 timeRange];
+            objc_msgSend_timeRange(v70);
           }
 
           else
@@ -422,7 +422,7 @@ LABEL_30:
           v74 = lastObject3;
           if (lastObject3)
           {
-            [lastObject3 timeRange];
+            objc_msgSend_timeRange(lastObject3);
           }
 
           else
@@ -443,7 +443,7 @@ LABEL_30:
             v77 = lastObject4;
             if (lastObject4)
             {
-              [lastObject4 timeRange];
+              objc_msgSend_timeRange(lastObject4);
             }
 
             else
@@ -475,7 +475,7 @@ LABEL_30:
     v81 = v80;
     if (v80)
     {
-      [v80 timeRange];
+      objc_msgSend_timeRange(v80);
     }
 
     else
@@ -489,7 +489,7 @@ LABEL_30:
     v84 = v83;
     if (v83)
     {
-      [v83 timeRange];
+      objc_msgSend_timeRange(v83);
       v85 = v191;
     }
 
@@ -506,7 +506,7 @@ LABEL_30:
     v87 = v86;
     if (v86)
     {
-      [v86 timeRange];
+      objc_msgSend_timeRange(v86);
       v88 = DWORD2(v188);
     }
 
@@ -532,10 +532,10 @@ LABEL_30:
         v92 = v91;
         if (v91)
         {
-          [v91 timeRange];
+          objc_msgSend_timeRange(v91);
           CMTimeRangeGetEnd(&v187, &buf);
           v93 = v187.value;
-          [v92 timeRange];
+          objc_msgSend_timeRange(v92);
           v94 = v184;
           if (!v89)
           {
@@ -566,10 +566,10 @@ LABEL_100:
           }
         }
 
-        [v89 timeRange];
+        objc_msgSend_timeRange(v89);
         CMTimeRangeGetEnd(&v183, &buf);
         v95 = v183.value;
-        [v89 timeRange];
+        objc_msgSend_timeRange(v89);
         v96 = v180;
 LABEL_101:
         if (v93 - v94 < v95 - v96)
@@ -582,7 +582,7 @@ LABEL_101:
 
         if (v92)
         {
-          [v92 timeRange];
+          objc_msgSend_timeRange(v92);
         }
 
         else
@@ -595,7 +595,7 @@ LABEL_101:
         buf.start.epoch = v179[3];
         if (v89)
         {
-          [v89 timeRange];
+          objc_msgSend_timeRange(v89);
         }
 
         else
@@ -609,10 +609,10 @@ LABEL_101:
         {
           if (v92)
           {
-            [v92 timeRange];
+            objc_msgSend_timeRange(v92);
             *&buf.start.value = v172;
             buf.start.epoch = v173;
-            [v92 timeRange];
+            objc_msgSend_timeRange(v92);
             v98 = DWORD2(v169);
           }
 
@@ -897,7 +897,7 @@ LABEL_142:
     [(SNKShotFeaturizationResult *)v24 setTrainingDataLabels:v19];
     [(SNKShotFeaturizationResult *)v24 setValidationDataEmbeddings:v20];
     [(SNKShotFeaturizationResult *)v24 setValidationDataLabels:v21];
-    [v23 inferenceWindowSize];
+    objc_msgSend_inferenceWindowSize(v23);
     v29 = v31;
     v30 = v32;
     [(SNKShotFeaturizationResult *)v24 setInferenceWindowSize:&v29];
@@ -1208,7 +1208,7 @@ LABEL_6:
   v4 = objc_alloc_init(SNKShotFeaturizationStreamCompletion);
   if (resultCopy)
   {
-    [resultCopy inferenceWindowSize];
+    objc_msgSend_inferenceWindowSize(resultCopy);
   }
 
   else

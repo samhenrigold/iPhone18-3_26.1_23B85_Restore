@@ -38,7 +38,7 @@
 
 - (void)handleDelete:(id)delete
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280435B08);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280435B08, qword_26BA9E430);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v12 - v5;
   v7 = self + OBJC_IVAR____TtC10StickersUI28StickerCollectionStickerCell_delegate;
@@ -52,7 +52,7 @@
     (*(v8 + 32))(v6, ObjectType, v8);
 
     swift_unknownObjectRelease();
-    sub_26BA3E6F8(v6, &qword_280435B08);
+    sub_26BA3E6F8(v6, &qword_280435B08, qword_26BA9E430);
   }
 }
 

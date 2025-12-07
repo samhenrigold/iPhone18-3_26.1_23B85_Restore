@@ -271,70 +271,71 @@ LABEL_6:
   attributeSet = [item attributeSet];
   __ck_spotlightItemSnippet = [attributeSet __ck_spotlightItemSnippet];
 
-  if (([__ck_spotlightItemSnippet isEqualToString:@"Current Location"] & 1) != 0 || (CKFrameworkBundle(), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "localizedStringForKey:value:table:", @"Current Location", &stru_1F04268F8, @"ChatKit"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(__ck_spotlightItemSnippet, "isEqualToString:", v10), v10, v9, v11))
+  v9 = [__ck_spotlightItemSnippet isEqualToString:@"Current Location"];
+  if ((v9 & 1) != 0 || (CKFrameworkBundle(v9), v10 = objc_claimAutoreleasedReturnValue(), [v10 localizedStringForKey:@"Current Location" value:&stru_1F04268F8 table:@"ChatKit"], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(__ck_spotlightItemSnippet, "isEqualToString:", v11), v11, v10, v12))
   {
     attributeSet2 = [item attributeSet];
     __ck_itemContentCreationDate = [attributeSet2 __ck_itemContentCreationDate];
 
-    v14 = +[CKUIBehavior sharedBehaviors];
-    locationRelativeDateFormatter = [v14 locationRelativeDateFormatter];
+    v15 = +[CKUIBehavior sharedBehaviors];
+    locationRelativeDateFormatter = [v15 locationRelativeDateFormatter];
 
-    v16 = [locationRelativeDateFormatter stringFromDate:__ck_itemContentCreationDate];
-    v17 = MEMORY[0x1E696AEC0];
-    v18 = CKFrameworkBundle();
-    v19 = [v18 localizedStringForKey:@"LOCATION_FOOTER_DETAILS_VIEW" value:&stru_1F04268F8 table:@"ChatKit"];
-    v20 = [v17 stringWithFormat:v19, v16];
+    v17 = [locationRelativeDateFormatter stringFromDate:__ck_itemContentCreationDate];
+    v18 = MEMORY[0x1E696AEC0];
+    v19 = CKFrameworkBundle(v17);
+    v20 = [v19 localizedStringForKey:@"LOCATION_FOOTER_DETAILS_VIEW" value:&stru_1F04268F8 table:@"ChatKit"];
+    v21 = [v18 stringWithFormat:v20, v17];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v23 = @"\u200F";
+      v24 = @"\u200F";
     }
 
     else
     {
-      v23 = @"\u200E";
+      v24 = @"\u200E";
     }
 
-    v24 = [(__CFString *)v23 stringByAppendingString:v20];
+    v25 = [(__CFString *)v24 stringByAppendingString:v21];
 
-    __ck_spotlightItemSnippet = v24;
+    __ck_spotlightItemSnippet = v25;
   }
 
-  v25 = [__ck_spotlightItemSnippet length];
-  v26 = +[CKUIBehavior sharedBehaviors];
-  conversationListCellMaxSummaryLength = [v26 conversationListCellMaxSummaryLength];
+  v26 = [__ck_spotlightItemSnippet length];
+  v27 = +[CKUIBehavior sharedBehaviors];
+  conversationListCellMaxSummaryLength = [v27 conversationListCellMaxSummaryLength];
 
-  if (v25 > conversationListCellMaxSummaryLength)
+  if (v26 > conversationListCellMaxSummaryLength)
   {
-    v28 = +[CKUIBehavior sharedBehaviors];
-    v29 = [__ck_spotlightItemSnippet substringWithRange:{0, objc_msgSend(v28, "conversationListCellMaxSummaryLength")}];
+    v29 = +[CKUIBehavior sharedBehaviors];
+    v30 = [__ck_spotlightItemSnippet substringWithRange:{0, objc_msgSend(v29, "conversationListCellMaxSummaryLength")}];
 
-    __ck_spotlightItemSnippet = v29;
+    __ck_spotlightItemSnippet = v30;
   }
 
   if (__ck_spotlightItemSnippet)
   {
-    v42 = +[CKUIBehavior sharedBehaviors];
-    theme = [v42 theme];
+    v43 = +[CKUIBehavior sharedBehaviors];
+    theme = [v43 theme];
     conversationListSummaryColor = [theme conversationListSummaryColor];
-    v31 = +[CKUIBehavior sharedBehaviors];
-    searchResultLabelFont = [v31 searchResultLabelFont];
-    v33 = +[CKUIBehavior sharedBehaviors];
-    [v33 theme];
-    v34 = v40 = self;
-    [v34 conversationListSenderColor];
-    v35 = v43 = item;
-    v36 = +[CKUIBehavior sharedBehaviors];
-    searchResultLabelFont2 = [v36 searchResultLabelFont];
-    v38 = [CKSpotlightQueryUtilities annotatedResultStringWithSearchText:textCopy resultText:__ck_spotlightItemSnippet primaryTextColor:conversationListSummaryColor primaryFont:searchResultLabelFont annotatedTextColor:v35 annotatedFont:searchResultLabelFont2];
+    v32 = +[CKUIBehavior sharedBehaviors];
+    searchResultLabelFont = [v32 searchResultLabelFont];
+    v34 = +[CKUIBehavior sharedBehaviors];
+    [v34 theme];
+    v35 = v41 = self;
+    [v35 conversationListSenderColor];
+    v36 = v44 = item;
+    v37 = +[CKUIBehavior sharedBehaviors];
+    searchResultLabelFont2 = [v37 searchResultLabelFont];
+    v39 = [CKSpotlightQueryUtilities annotatedResultStringWithSearchText:textCopy resultText:__ck_spotlightItemSnippet primaryTextColor:conversationListSummaryColor primaryFont:searchResultLabelFont annotatedTextColor:v36 annotatedFont:searchResultLabelFont2];
 
-    placeLabel = [(CKLocationSearchResultCell *)v40 placeLabel];
-    [placeLabel setAttributedText:v38];
+    placeLabel = [(CKLocationSearchResultCell *)v41 placeLabel];
+    [placeLabel setAttributedText:v39];
 
-    item = v43;
+    item = v44;
   }
 }
 

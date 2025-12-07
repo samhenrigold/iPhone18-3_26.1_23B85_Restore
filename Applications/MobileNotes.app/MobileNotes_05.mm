@@ -1,3 +1,108 @@
+void sub_10014C5A4(uint64_t a1, void *a2, void *a3, void *a4)
+{
+  v7 = a2;
+  v8 = a3;
+  v9 = a4;
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  [v7 setHasGroupInset:{objc_msgSend(WeakRetained, "hasGroupInset")}];
+
+  v11 = _NSConcreteStackBlock;
+  v12 = 3221225472;
+  v13 = sub_10014C6C4;
+  v14 = &unk_10064B288;
+  objc_copyWeak(&v16, (a1 + 40));
+  v15 = *(a1 + 32);
+  [v7 setSelectionDidChange:&v11];
+  [v7 setAllowsExclusion:{1, v11, v12, v13, v14}];
+
+  objc_destroyWeak(&v16);
+}
+
+void sub_10014C6C4(uint64_t a1, void *a2)
+{
+  v5 = a2;
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  [WeakRetained setTagSelection:v5];
+
+  v4 = *(a1 + 32);
+  if (v4)
+  {
+    (*(v4 + 16))(v4, v5);
+  }
+}
+
+void sub_10014C738(uint64_t a1, void *a2, void *a3, void *a4)
+{
+  v7 = a2;
+  v8 = a3;
+  v9 = a4;
+  v13 = _NSConcreteStackBlock;
+  v14 = 3221225472;
+  v15 = sub_10014C874;
+  v16 = &unk_10064B288;
+  objc_copyWeak(&v18, (a1 + 40));
+  v17 = *(a1 + 32);
+  [v7 setSelectionChangeHandler:&v13];
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v11 = [WeakRetained tagSelection];
+  [v7 setTagSelection:v11];
+
+  v12 = objc_loadWeakRetained((a1 + 40));
+  [v12 updateTagOperatorVisibility];
+
+  objc_destroyWeak(&v18);
+}
+
+void sub_10014C874(uint64_t a1, void *a2)
+{
+  v5 = a2;
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  [WeakRetained setTagSelection:v5];
+
+  v4 = *(a1 + 32);
+  if (v4)
+  {
+    (*(v4 + 16))(v4, v5);
+  }
+}
+
+id sub_10014C8E8(uint64_t a1, uint64_t a2, void *a3, void *a4)
+{
+  v6 = a4;
+  v7 = a3;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v8 = 32;
+  }
+
+  else
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v8 = 40;
+    }
+
+    else
+    {
+      objc_opt_class();
+      isKindOfClass = objc_opt_isKindOfClass();
+      v8 = 56;
+      if (isKindOfClass)
+      {
+        v8 = 48;
+      }
+    }
+  }
+
+  v10 = *(a1 + v8);
+  WeakRetained = objc_loadWeakRetained((a1 + 64));
+  v12 = [WeakRetained dequeueConfiguredReusableCellWithRegistration:v10 forIndexPath:v7 item:v6];
+
+  return v12;
+}
+
 void sub_10014C9F4(uint64_t a1, void *a2)
 {
   v4 = a2;
@@ -269,9 +374,9 @@ void sub_1001506C4(uint64_t a1)
   }
 }
 
-void sub_1001531BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1001531BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -503,9 +608,9 @@ void sub_100154860(uint64_t a1)
   }
 }
 
-void sub_100154F28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100154F28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -898,9 +1003,9 @@ void sub_100155F4C(void *a1, void *a2)
   }
 }
 
-void sub_1001565DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001565DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1372,9 +1477,9 @@ NSString *__cdecl sub_10015BC18(id a1, unint64_t a2, unint64_t a3)
   return v7;
 }
 
-void sub_10015C000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10015C000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1437,8 +1542,8 @@ objc_class *sub_10015C490()
 
   else
   {
-    sub_1000054A4(0, &unk_1006C6410);
-    sub_10015DA04(&unk_1006BD390);
+    sub_1000054A4(0, &unk_1006C6410, UIMenu_ptr);
+    sub_10015DA04(&unk_1006BD390, &unk_100532CB0);
     preferredElementSize = swift_allocObject();
     *(preferredElementSize + 16) = xmmword_100531E10;
     v5 = v0;
@@ -1567,7 +1672,7 @@ id sub_10015C7F0()
 
   else
   {
-    sub_1000054A4(0, &unk_1006BD380);
+    sub_1000054A4(0, &unk_1006BD380, UIAction_ptr);
     v4 = [objc_opt_self() mainBundle];
     v5 = String._bridgeToObjectiveC()();
     v6 = [v4 localizedStringForKey:v5 value:0 table:0];
@@ -1598,10 +1703,11 @@ void sub_10015C95C(uint64_t a1, char *a2)
   v4 = *&a2[OBJC_IVAR____TtC11MobileNotes24FolderComposerFilterCell_filterTypeSelectionDidChange];
   if (v4)
   {
+    v5 = *&a2[OBJC_IVAR____TtC11MobileNotes24FolderComposerFilterCell_filterTypeSelectionDidChange + 8];
 
-    v4(v5);
+    v4(v6);
 
-    sub_10000C840(v4);
+    sub_10000C840(v4, v5);
   }
 }
 
@@ -1616,7 +1722,7 @@ id sub_10015C9F8()
 
   else
   {
-    sub_1000054A4(0, &unk_1006BD380);
+    sub_1000054A4(0, &unk_1006BD380, UIAction_ptr);
     v4 = [objc_opt_self() mainBundle];
     v5 = String._bridgeToObjectiveC()();
     v6 = [v4 localizedStringForKey:v5 value:0 table:0];
@@ -1648,7 +1754,7 @@ id sub_10015CB68()
 
   else
   {
-    sub_1000054A4(0, &unk_1006BD380);
+    sub_1000054A4(0, &unk_1006BD380, UIAction_ptr);
     v4 = [objc_opt_self() mainBundle];
     v5 = String._bridgeToObjectiveC()();
     v6 = [v4 localizedStringForKey:v5 value:0 table:0];
@@ -1680,7 +1786,7 @@ id sub_10015CCD0()
 
   else
   {
-    sub_1000054A4(0, &unk_1006BD380);
+    sub_1000054A4(0, &unk_1006BD380, UIAction_ptr);
     v4 = [objc_opt_self() mainBundle];
     v5 = String._bridgeToObjectiveC()();
     v6 = [v4 localizedStringForKey:v5 value:0 table:0];
@@ -1712,7 +1818,7 @@ id sub_10015CE50()
 
   else
   {
-    sub_1000054A4(0, &unk_1006BD380);
+    sub_1000054A4(0, &unk_1006BD380, UIAction_ptr);
     v4 = [objc_opt_self() mainBundle];
     v5 = String._bridgeToObjectiveC()();
     v6 = [v4 localizedStringForKey:v5 value:0 table:0];
@@ -1733,7 +1839,7 @@ id sub_10015CE50()
   return v3;
 }
 
-uint64_t sub_10015CFBC(uint64_t a1, char a2)
+void sub_10015CFBC(uint64_t a1, char a2)
 {
   if ((a2 & 1) == 0)
   {
@@ -1762,22 +1868,21 @@ uint64_t sub_10015CFBC(uint64_t a1, char a2)
     }
   }
 
-  v14 = *&v2[OBJC_IVAR____TtC11MobileNotes24FolderComposerFilterCell_filterTypeSelection];
+  v13 = *&v2[OBJC_IVAR____TtC11MobileNotes24FolderComposerFilterCell_filterTypeSelection];
   *&v2[OBJC_IVAR____TtC11MobileNotes24FolderComposerFilterCell_filterTypeSelection] = 0;
 
-  v13 = [v2 setNeedsUpdateConfiguration];
+  [v2 setNeedsUpdateConfiguration];
 LABEL_8:
-  result = sub_10015C5F8(v13);
-  v16 = *&v2[OBJC_IVAR____TtC11MobileNotes24FolderComposerFilterCell_filterTypeSelectionDidChange];
-  if (v16)
+  sub_10015C5F8();
+  v14 = *&v2[OBJC_IVAR____TtC11MobileNotes24FolderComposerFilterCell_filterTypeSelectionDidChange];
+  if (v14)
   {
+    v15 = *&v2[OBJC_IVAR____TtC11MobileNotes24FolderComposerFilterCell_filterTypeSelectionDidChange + 8];
 
-    v16(v17);
+    v14(v16);
 
-    return sub_10000C840(v16);
+    sub_10000C840(v14, v15);
   }
-
-  return result;
 }
 
 id sub_10015D20C(void *a1)
@@ -1818,15 +1923,15 @@ uint64_t variable initialization expression of OpenAccountIntent._target()
   v33 = v0;
   __chkstk_darwin(v0);
   v31 = &v25 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v30 = &v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v29 = &v25 - v5;
-  v6 = sub_10015DA04(&unk_1006BCA20);
+  v6 = sub_10015DA04(&unk_1006BCA20, qword_1005343D0);
   __chkstk_darwin(v6 - 8);
   v28 = &v25 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v26 = &v25 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -1840,7 +1945,7 @@ uint64_t variable initialization expression of OpenAccountIntent._target()
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v27 = sub_10015DA04(&unk_1006BCA30);
+  v27 = sub_10015DA04(&unk_1006BCA30, &qword_100531E58);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -1853,18 +1958,18 @@ uint64_t variable initialization expression of OpenAccountIntent._target()
   v20 = v26;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v17 + 56))(v20, 0, 1, v16);
-  v21 = type metadata accessor for AccountEntity();
+  v21 = type metadata accessor for AccountEntity(0);
   (*(*(v21 - 8) + 56))(v28, 1, 1, v21);
   v22 = type metadata accessor for IntentDialog();
   v23 = *(*(v22 - 8) + 56);
   v23(v29, 1, 1, v22);
   v23(v30, 1, 1, v22);
   (*(v32 + 104))(v31, enum case for InputConnectionBehavior.default(_:), v33);
-  sub_10015DF68(&qword_1006C4160, type metadata accessor for AccountEntity);
+  sub_10015DF68(&qword_1006C4160, type metadata accessor for AccountEntity, &protocol conformance descriptor for AccountEntity);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
 }
 
-uint64_t sub_10015DA04(uint64_t *a1)
+uint64_t sub_10015DA04(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -1883,12 +1988,12 @@ uint64_t variable initialization expression of DeleteChecklistItemsIntent._entit
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -1902,7 +2007,7 @@ uint64_t variable initialization expression of DeleteChecklistItemsIntent._entit
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22[1] = sub_10015DA04(&unk_1006BCA50);
+  v22[1] = sub_10015DA04(&unk_1006BCA50, &unk_100531E70);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -1921,11 +2026,11 @@ uint64_t variable initialization expression of DeleteChecklistItemsIntent._entit
   v20(v24, 1, 1, v19);
   v20(v25, 1, 1, v19);
   (*(v27 + 104))(v26, enum case for InputConnectionBehavior.default(_:), v28);
-  sub_10015DF68(&qword_1006BE070, type metadata accessor for ChecklistItemEntity);
+  sub_10015DF68(&qword_1006BE070, type metadata accessor for ChecklistItemEntity, &protocol conformance descriptor for ChecklistItemEntity);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
 }
 
-uint64_t sub_10015DF68(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10015DF68(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1945,13 +2050,13 @@ uint64_t variable initialization expression of AppendToNoteIntent._text()
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   __chkstk_darwin(v2 - 8);
   v25 = &v22 - v3;
-  v4 = sub_10015DA04(&unk_1006C5400);
+  v4 = sub_10015DA04(&unk_1006C5400, &unk_100545A50);
   __chkstk_darwin(v4 - 8);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -1965,7 +2070,7 @@ uint64_t variable initialization expression of AppendToNoteIntent._text()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&unk_1006BCAE0);
+  v22 = sub_10015DA04(&unk_1006BCAE0, &unk_100531E90);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -1998,7 +2103,7 @@ uint64_t variable initialization expression of TableEntity._title()
   __chkstk_darwin(v5 - 8);
   v6 = type metadata accessor for LocalizedStringResource();
   __chkstk_darwin(v6 - 8);
-  sub_10015DA04(&unk_1006C1870);
+  sub_10015DA04(&unk_1006C1870, &qword_100534CA0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   (*(v1 + 104))(v3, enum case for LocalizedStringResource.BundleDescription.main(_:), v0);
@@ -2013,12 +2118,12 @@ uint64_t variable initialization expression of AddTagsToNotesIntent._notes()
   v33 = v0;
   __chkstk_darwin(v0);
   v31 = &v26 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v30 = &v26 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v29 = &v26 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v27 = &v26 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -2032,7 +2137,7 @@ uint64_t variable initialization expression of AddTagsToNotesIntent._notes()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v28 = sub_10015DA04(&unk_1006BCAF0);
+  v28 = sub_10015DA04(&unk_1006BCAF0, &unk_100531EA0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -2067,12 +2172,12 @@ uint64_t variable initialization expression of AddTagsToNotesIntent._tags()
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -2086,7 +2191,7 @@ uint64_t variable initialization expression of AddTagsToNotesIntent._tags()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22[1] = sub_10015DA04(&qword_1006BCB00);
+  v22[1] = sub_10015DA04(&qword_1006BCB00, &qword_10053C970);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -2105,7 +2210,7 @@ uint64_t variable initialization expression of AddTagsToNotesIntent._tags()
   v20(v24, 1, 1, v19);
   v20(v25, 1, 1, v19);
   (*(v27 + 104))(v26, enum case for InputConnectionBehavior.default(_:), v28);
-  sub_10015DF68(&qword_1006BCB08, type metadata accessor for TagEntity);
+  sub_10015DF68(&qword_1006BCB08, type metadata accessor for TagEntity, &protocol conformance descriptor for TagEntity);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
 }
 
@@ -2116,15 +2221,15 @@ uint64_t variable initialization expression of ChangeFolderViewSettingIntent._ch
   v31 = v0;
   __chkstk_darwin(v0);
   v29 = v25 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v28 = v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v27 = v25 - v5;
-  v6 = sub_10015DA04(&qword_1006BCB10);
+  v6 = sub_10015DA04(&qword_1006BCB10, &unk_100531EB0);
   __chkstk_darwin(v6 - 8);
   v26 = v25 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v25[0] = v25 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -2138,7 +2243,7 @@ uint64_t variable initialization expression of ChangeFolderViewSettingIntent._ch
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v25[1] = sub_10015DA04(&qword_1006BCB18);
+  v25[1] = sub_10015DA04(&qword_1006BCB18, &unk_100538F30);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -2158,9 +2263,9 @@ uint64_t variable initialization expression of ChangeFolderViewSettingIntent._ch
   v23(v27, 1, 1, v22);
   v23(v28, 1, 1, v22);
   (*(v30 + 104))(v29, enum case for InputConnectionBehavior.default(_:), v31);
-  sub_10015DF68(&qword_1006BCB20, &type metadata accessor for ChangeOperation);
+  sub_10015DF68(&qword_1006BCB20, &type metadata accessor for ChangeOperation, &protocol conformance descriptor for ChangeOperation);
   dispatch thunk of static CaseIterable.allCases.getter();
-  sub_10015DF68(&qword_1006BCB28, &type metadata accessor for ChangeOperation);
+  sub_10015DF68(&qword_1006BCB28, &type metadata accessor for ChangeOperation, &protocol conformance descriptor for ChangeOperation);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:supportedValues:)();
 }
 
@@ -2171,12 +2276,12 @@ uint64_t variable initialization expression of ChangeFolderViewSettingIntent._se
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = &v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -2190,7 +2295,7 @@ uint64_t variable initialization expression of ChangeFolderViewSettingIntent._se
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&qword_1006BCB30);
+  v22 = sub_10015DA04(&qword_1006BCB30, &unk_100531EC0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -2203,7 +2308,7 @@ uint64_t variable initialization expression of ChangeFolderViewSettingIntent._se
   v18 = v23;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v15 + 56))(v18, 0, 1, v14);
-  v29 = 2;
+  v29[0] = 2;
   v19 = type metadata accessor for IntentDialog();
   v20 = *(*(v19 - 8) + 56);
   v20(v24, 1, 1, v19);
@@ -2220,13 +2325,13 @@ uint64_t variable initialization expression of CreateNoteIntent._contents()
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   __chkstk_darwin(v2 - 8);
   v25 = &v22 - v3;
-  v4 = sub_10015DA04(&unk_1006C5400);
+  v4 = sub_10015DA04(&unk_1006C5400, &unk_100545A50);
   __chkstk_darwin(v4 - 8);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -2240,7 +2345,7 @@ uint64_t variable initialization expression of CreateNoteIntent._contents()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&unk_1006BCB50);
+  v22 = sub_10015DA04(&unk_1006BCB50, &unk_100539250);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -2268,15 +2373,15 @@ uint64_t _s11MobileNotes18AppendToNoteIntentV7_entity33_1B409668634D5C5878571926
   v33 = v0;
   __chkstk_darwin(v0);
   v31 = &v25 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v30 = &v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v29 = &v25 - v5;
-  v6 = sub_10015DA04(&unk_1006BCAC0);
+  v6 = sub_10015DA04(&unk_1006BCAC0, &unk_1005395D0);
   __chkstk_darwin(v6 - 8);
   v28 = &v25 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v26 = &v25 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -2290,7 +2395,7 @@ uint64_t _s11MobileNotes18AppendToNoteIntentV7_entity33_1B409668634D5C5878571926
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v27 = sub_10015DA04(&unk_1006BE580);
+  v27 = sub_10015DA04(&unk_1006BE580, &unk_100531E80);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -2310,7 +2415,7 @@ uint64_t _s11MobileNotes18AppendToNoteIntentV7_entity33_1B409668634D5C5878571926
   v23(v29, 1, 1, v22);
   v23(v30, 1, 1, v22);
   (*(v32 + 104))(v31, enum case for InputConnectionBehavior.default(_:), v33);
-  sub_10015DF68(&qword_1006BCAD0, type metadata accessor for NoteEntity);
+  sub_10015DF68(&qword_1006BCAD0, type metadata accessor for NoteEntity, &protocol conformance descriptor for NoteEntity);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
 }
 
@@ -2321,13 +2426,13 @@ uint64_t variable initialization expression of AppendMarkdownToNoteIntent._markd
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   __chkstk_darwin(v2 - 8);
   v25 = &v22 - v3;
-  v4 = sub_10015DA04(&qword_1006BCB40);
+  v4 = sub_10015DA04(&qword_1006BCB40, &unk_100539240);
   __chkstk_darwin(v4 - 8);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -2341,7 +2446,7 @@ uint64_t variable initialization expression of AppendMarkdownToNoteIntent._markd
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&unk_1006BCB70);
+  v22 = sub_10015DA04(&unk_1006BCB70, &unk_100531EF0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -2374,11 +2479,11 @@ uint64_t variable initialization expression of ICNavigableQueue.accessQueue()
   __chkstk_darwin(v4);
   v5 = type metadata accessor for DispatchQoS();
   __chkstk_darwin(v5 - 8);
-  sub_1000054A4(0, &qword_1006BE9E0);
+  sub_1000054A4(0, &qword_1006BE9E0, OS_dispatch_queue_ptr);
   static DispatchQoS.unspecified.getter();
   v7[1] = _swiftEmptyArrayStorage;
-  sub_10015DF68(&qword_1006BCB80, &type metadata accessor for OS_dispatch_queue.Attributes);
-  sub_10015DA04(&unk_1006BFD50);
+  sub_10015DF68(&qword_1006BCB80, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+  sub_10015DA04(&unk_1006BFD50, &qword_1005398C0);
   sub_1001798C8();
   dispatch thunk of SetAlgebra.init<A>(_:)();
   (*(v1 + 104))(v3, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v0);
@@ -2397,7 +2502,7 @@ uint64_t variable initialization expression of AttachmentEntity._title()
   __chkstk_darwin(v5 - 8);
   v6 = type metadata accessor for LocalizedStringResource();
   __chkstk_darwin(v6 - 8);
-  sub_10015DA04(&unk_1006C1870);
+  sub_10015DA04(&unk_1006C1870, &qword_100534CA0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   (*(v1 + 104))(v3, enum case for LocalizedStringResource.BundleDescription.main(_:), v0);
@@ -2412,13 +2517,13 @@ uint64_t variable initialization expression of CreateTagIntent._name()
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   __chkstk_darwin(v2 - 8);
   v25 = &v22 - v3;
-  v4 = sub_10015DA04(&qword_1006BCB40);
+  v4 = sub_10015DA04(&qword_1006BCB40, &unk_100539240);
   __chkstk_darwin(v4 - 8);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -2432,7 +2537,7 @@ uint64_t variable initialization expression of CreateTagIntent._name()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&qword_1006BCB48);
+  v22 = sub_10015DA04(&qword_1006BCB48, &unk_100531ED0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -2462,13 +2567,13 @@ uint64_t variable initialization expression of CreateChecklistItemIntent._name()
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   __chkstk_darwin(v2 - 8);
   v25 = &v22 - v3;
-  v4 = sub_10015DA04(&qword_1006BCB40);
+  v4 = sub_10015DA04(&qword_1006BCB40, &unk_100539240);
   __chkstk_darwin(v4 - 8);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -2482,7 +2587,7 @@ uint64_t variable initialization expression of CreateChecklistItemIntent._name()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&qword_1006BCB48);
+  v22 = sub_10015DA04(&qword_1006BCB48, &unk_100531ED0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -2512,15 +2617,15 @@ uint64_t variable initialization expression of CreateChecklistItemIntent._noteEn
   v35 = v0;
   __chkstk_darwin(v0);
   v33 = v29 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v32 = v29 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v31 = v29 - v5;
-  v6 = sub_10015DA04(&unk_1006BCAC0);
+  v6 = sub_10015DA04(&unk_1006BCAC0, &unk_1005395D0);
   __chkstk_darwin(v6 - 8);
   v30 = v29 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v29[0] = v29 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -2534,7 +2639,7 @@ uint64_t variable initialization expression of CreateChecklistItemIntent._noteEn
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v29[1] = sub_10015DA04(&qword_1006BCB98);
+  v29[1] = sub_10015DA04(&qword_1006BCB98, &qword_100531F00);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -2570,12 +2675,12 @@ uint64_t variable initialization expression of ChangeTagSelectionIntent._include
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -2589,7 +2694,7 @@ uint64_t variable initialization expression of ChangeTagSelectionIntent._include
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22[1] = sub_10015DA04(&qword_1006BCB00);
+  v22[1] = sub_10015DA04(&qword_1006BCB00, &qword_10053C970);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -2608,7 +2713,7 @@ uint64_t variable initialization expression of ChangeTagSelectionIntent._include
   v20(v24, 1, 1, v19);
   v20(v25, 1, 1, v19);
   (*(v27 + 104))(v26, enum case for InputConnectionBehavior.default(_:), v28);
-  sub_10015DF68(&qword_1006BCB08, type metadata accessor for TagEntity);
+  sub_10015DF68(&qword_1006BCB08, type metadata accessor for TagEntity, &protocol conformance descriptor for TagEntity);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
 }
 
@@ -2619,12 +2724,12 @@ uint64_t variable initialization expression of ChangeTagSelectionIntent._exclude
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -2638,7 +2743,7 @@ uint64_t variable initialization expression of ChangeTagSelectionIntent._exclude
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22[1] = sub_10015DA04(&qword_1006BCB00);
+  v22[1] = sub_10015DA04(&qword_1006BCB00, &qword_10053C970);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -2657,7 +2762,7 @@ uint64_t variable initialization expression of ChangeTagSelectionIntent._exclude
   v20(v24, 1, 1, v19);
   v20(v25, 1, 1, v19);
   (*(v27 + 104))(v26, enum case for InputConnectionBehavior.default(_:), v28);
-  sub_10015DF68(&qword_1006BCB08, type metadata accessor for TagEntity);
+  sub_10015DF68(&qword_1006BCB08, type metadata accessor for TagEntity, &protocol conformance descriptor for TagEntity);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
 }
 
@@ -2668,12 +2773,12 @@ uint64_t variable initialization expression of ChangeTagSelectionIntent._selecti
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = &v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -2687,7 +2792,7 @@ uint64_t variable initialization expression of ChangeTagSelectionIntent._selecti
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&qword_1006BCBA0);
+  v22 = sub_10015DA04(&qword_1006BCBA0, &qword_100531F08);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -2700,7 +2805,7 @@ uint64_t variable initialization expression of ChangeTagSelectionIntent._selecti
   v18 = v23;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v15 + 56))(v18, 0, 1, v14);
-  v29 = 1;
+  v29[0] = 1;
   v19 = type metadata accessor for IntentDialog();
   v20 = *(*(v19 - 8) + 56);
   v20(v24, 1, 1, v19);
@@ -2724,13 +2829,13 @@ uint64_t variable initialization expression of AddLinkAttachmentIntent._name()
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   __chkstk_darwin(v2 - 8);
   v25 = &v22 - v3;
-  v4 = sub_10015DA04(&qword_1006BCB40);
+  v4 = sub_10015DA04(&qword_1006BCB40, &unk_100539240);
   __chkstk_darwin(v4 - 8);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -2744,7 +2849,7 @@ uint64_t variable initialization expression of AddLinkAttachmentIntent._name()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&qword_1006BCB48);
+  v22 = sub_10015DA04(&qword_1006BCB48, &unk_100531ED0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -2774,13 +2879,13 @@ uint64_t variable initialization expression of AddLinkAttachmentIntent._url()
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   __chkstk_darwin(v2 - 8);
   v25 = &v22 - v3;
-  v4 = sub_10015DA04(&qword_1006BCC20);
+  v4 = sub_10015DA04(&qword_1006BCC20, &qword_100531F40);
   __chkstk_darwin(v4 - 8);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -2794,7 +2899,7 @@ uint64_t variable initialization expression of AddLinkAttachmentIntent._url()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&qword_1006BCC28);
+  v22 = sub_10015DA04(&qword_1006BCC28, &qword_100531F48);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -2822,15 +2927,15 @@ uint64_t variable initialization expression of AddLinkAttachmentIntent._note()
   v35 = v0;
   __chkstk_darwin(v0);
   v33 = v29 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v32 = v29 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v31 = v29 - v5;
-  v6 = sub_10015DA04(&unk_1006BCAC0);
+  v6 = sub_10015DA04(&unk_1006BCAC0, &unk_1005395D0);
   __chkstk_darwin(v6 - 8);
   v30 = v29 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v29[0] = v29 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -2844,7 +2949,7 @@ uint64_t variable initialization expression of AddLinkAttachmentIntent._note()
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v29[1] = sub_10015DA04(&unk_1006BE580);
+  v29[1] = sub_10015DA04(&unk_1006BE580, &unk_100531E80);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -2880,15 +2985,15 @@ uint64_t variable initialization expression of OpenFolderIntent._target()
   v33 = v0;
   __chkstk_darwin(v0);
   v31 = &v25 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v30 = &v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v29 = &v25 - v5;
-  v6 = sub_10015DA04(&unk_1006BF9D0);
+  v6 = sub_10015DA04(&unk_1006BF9D0, &unk_100531EE0);
   __chkstk_darwin(v6 - 8);
   v28 = &v25 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v26 = &v25 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -2902,7 +3007,7 @@ uint64_t variable initialization expression of OpenFolderIntent._target()
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v27 = sub_10015DA04(&unk_1006BCC30);
+  v27 = sub_10015DA04(&unk_1006BCC30, &unk_100531F50);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -2915,14 +3020,14 @@ uint64_t variable initialization expression of OpenFolderIntent._target()
   v20 = v26;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v17 + 56))(v20, 0, 1, v16);
-  v21 = type metadata accessor for FolderEntity();
+  v21 = type metadata accessor for FolderEntity(0);
   (*(*(v21 - 8) + 56))(v28, 1, 1, v21);
   v22 = type metadata accessor for IntentDialog();
   v23 = *(*(v22 - 8) + 56);
   v23(v29, 1, 1, v22);
   v23(v30, 1, 1, v22);
   (*(v32 + 104))(v31, enum case for InputConnectionBehavior.default(_:), v33);
-  sub_10015DF68(&qword_1006C45A0, type metadata accessor for FolderEntity);
+  sub_10015DF68(&qword_1006C45A0, type metadata accessor for FolderEntity, &protocol conformance descriptor for FolderEntity);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
 }
 
@@ -2933,12 +3038,12 @@ uint64_t variable initialization expression of ApplyFormattingIntent._bold()
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = &v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -2952,7 +3057,7 @@ uint64_t variable initialization expression of ApplyFormattingIntent._bold()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&qword_1006BCC40);
+  v22 = sub_10015DA04(&qword_1006BCC40, &unk_10053EEE0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -2965,7 +3070,7 @@ uint64_t variable initialization expression of ApplyFormattingIntent._bold()
   v18 = v23;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v15 + 56))(v18, 0, 1, v14);
-  v29 = 3;
+  v29[0] = 3;
   v19 = type metadata accessor for IntentDialog();
   v20 = *(*(v19 - 8) + 56);
   v20(v24, 1, 1, v19);
@@ -2982,12 +3087,12 @@ uint64_t variable initialization expression of ApplyFormattingIntent._italic()
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = &v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -3001,7 +3106,7 @@ uint64_t variable initialization expression of ApplyFormattingIntent._italic()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&qword_1006BCC40);
+  v22 = sub_10015DA04(&qword_1006BCC40, &unk_10053EEE0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -3014,7 +3119,7 @@ uint64_t variable initialization expression of ApplyFormattingIntent._italic()
   v18 = v23;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v15 + 56))(v18, 0, 1, v14);
-  v29 = 3;
+  v29[0] = 3;
   v19 = type metadata accessor for IntentDialog();
   v20 = *(*(v19 - 8) + 56);
   v20(v24, 1, 1, v19);
@@ -3031,12 +3136,12 @@ uint64_t variable initialization expression of ApplyFormattingIntent._underline(
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = &v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -3050,7 +3155,7 @@ uint64_t variable initialization expression of ApplyFormattingIntent._underline(
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&qword_1006BCC40);
+  v22 = sub_10015DA04(&qword_1006BCC40, &unk_10053EEE0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -3063,7 +3168,7 @@ uint64_t variable initialization expression of ApplyFormattingIntent._underline(
   v18 = v23;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v15 + 56))(v18, 0, 1, v14);
-  v29 = 3;
+  v29[0] = 3;
   v19 = type metadata accessor for IntentDialog();
   v20 = *(*(v19 - 8) + 56);
   v20(v24, 1, 1, v19);
@@ -3080,12 +3185,12 @@ uint64_t variable initialization expression of ApplyFormattingIntent._strikethro
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = &v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -3099,7 +3204,7 @@ uint64_t variable initialization expression of ApplyFormattingIntent._strikethro
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&qword_1006BCC40);
+  v22 = sub_10015DA04(&qword_1006BCC40, &unk_10053EEE0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -3112,7 +3217,7 @@ uint64_t variable initialization expression of ApplyFormattingIntent._strikethro
   v18 = v23;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v15 + 56))(v18, 0, 1, v14);
-  v29 = 3;
+  v29[0] = 3;
   v19 = type metadata accessor for IntentDialog();
   v20 = *(*(v19 - 8) + 56);
   v20(v24, 1, 1, v19);
@@ -3129,12 +3234,12 @@ uint64_t variable initialization expression of SetParagraphStyleIntent._paragrap
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = &v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -3148,7 +3253,7 @@ uint64_t variable initialization expression of SetParagraphStyleIntent._paragrap
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&qword_1006BCC50);
+  v22 = sub_10015DA04(&qword_1006BCC50, &unk_100531F60);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -3161,7 +3266,7 @@ uint64_t variable initialization expression of SetParagraphStyleIntent._paragrap
   v18 = v23;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v15 + 56))(v18, 0, 1, v14);
-  v29 = 10;
+  v29[0] = 10;
   v19 = type metadata accessor for IntentDialog();
   v20 = *(*(v19 - 8) + 56);
   v20(v24, 1, 1, v19);
@@ -3186,13 +3291,13 @@ uint64_t _s11MobileNotes16CreateNoteIntentV5_name33_FF81D7DC729AA96A8BAE0481A3D0
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   __chkstk_darwin(v2 - 8);
   v25 = &v22 - v3;
-  v4 = sub_10015DA04(&qword_1006BCB40);
+  v4 = sub_10015DA04(&qword_1006BCB40, &unk_100539240);
   __chkstk_darwin(v4 - 8);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -3206,7 +3311,7 @@ uint64_t _s11MobileNotes16CreateNoteIntentV5_name33_FF81D7DC729AA96A8BAE0481A3D0
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&qword_1006BCB48);
+  v22 = sub_10015DA04(&qword_1006BCB48, &unk_100531ED0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -3236,13 +3341,13 @@ uint64_t variable initialization expression of CreateNoteFromMarkdownIntent._mar
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   __chkstk_darwin(v2 - 8);
   v25 = &v22 - v3;
-  v4 = sub_10015DA04(&qword_1006BCB40);
+  v4 = sub_10015DA04(&qword_1006BCB40, &unk_100539240);
   __chkstk_darwin(v4 - 8);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -3256,7 +3361,7 @@ uint64_t variable initialization expression of CreateNoteFromMarkdownIntent._mar
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&qword_1006BCB48);
+  v22 = sub_10015DA04(&qword_1006BCB48, &unk_100531ED0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -3286,15 +3391,15 @@ uint64_t _s11MobileNotes16CreateNoteIntentV7_folder33_FF81D7DC729AA96A8BAE0481A3
   v38 = v0;
   __chkstk_darwin(v0);
   v36 = &v30 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v35 = &v30 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v34 = &v30 - v5;
-  v6 = sub_10015DA04(&unk_1006BF9D0);
+  v6 = sub_10015DA04(&unk_1006BF9D0, &unk_100531EE0);
   __chkstk_darwin(v6 - 8);
   v33 = &v30 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v31 = &v30 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -3308,7 +3413,7 @@ uint64_t _s11MobileNotes16CreateNoteIntentV7_folder33_FF81D7DC729AA96A8BAE0481A3
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v32 = sub_10015DA04(&unk_1006BCB60);
+  v32 = sub_10015DA04(&unk_1006BCB60, &unk_100540B10);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -3321,7 +3426,7 @@ uint64_t _s11MobileNotes16CreateNoteIntentV7_folder33_FF81D7DC729AA96A8BAE0481A3
   v20 = v31;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v17 + 56))(v20, 0, 1, v16);
-  v21 = type metadata accessor for FolderEntity();
+  v21 = type metadata accessor for FolderEntity(0);
   (*(*(v21 - 8) + 56))(v33, 1, 1, v21);
   v22 = type metadata accessor for IntentDialog();
   v23 = *(*(v22 - 8) + 56);
@@ -3345,15 +3450,15 @@ uint64_t variable initialization expression of InsertMentionIntent._target()
   v35 = v0;
   __chkstk_darwin(v0);
   v33 = v29 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v32 = v29 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v31 = v29 - v5;
-  v6 = sub_10015DA04(&unk_1006BCAC0);
+  v6 = sub_10015DA04(&unk_1006BCAC0, &unk_1005395D0);
   __chkstk_darwin(v6 - 8);
   v30 = v29 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v29[0] = v29 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -3367,7 +3472,7 @@ uint64_t variable initialization expression of InsertMentionIntent._target()
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v29[1] = sub_10015DA04(&qword_1006BCB98);
+  v29[1] = sub_10015DA04(&qword_1006BCB98, &qword_100531F00);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -3403,13 +3508,13 @@ uint64_t variable initialization expression of InsertMentionIntent._mentionText(
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   __chkstk_darwin(v2 - 8);
   v25 = &v22 - v3;
-  v4 = sub_10015DA04(&qword_1006BCB40);
+  v4 = sub_10015DA04(&qword_1006BCB40, &unk_100539240);
   __chkstk_darwin(v4 - 8);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -3423,7 +3528,7 @@ uint64_t variable initialization expression of InsertMentionIntent._mentionText(
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&unk_1006BCB70);
+  v22 = sub_10015DA04(&unk_1006BCB70, &unk_100531EF0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -3453,12 +3558,12 @@ uint64_t variable initialization expression of OpenNotesViewIntent._target()
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = &v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -3472,7 +3577,7 @@ uint64_t variable initialization expression of OpenNotesViewIntent._target()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&qword_1006BCCC0);
+  v22 = sub_10015DA04(&qword_1006BCCC0, &unk_100540F50);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -3485,7 +3590,7 @@ uint64_t variable initialization expression of OpenNotesViewIntent._target()
   v18 = v23;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v15 + 56))(v18, 0, 1, v14);
-  v29 = 2;
+  v29[0] = 2;
   v19 = type metadata accessor for IntentDialog();
   v20 = *(*(v19 - 8) + 56);
   v20(v24, 1, 1, v19);
@@ -3502,15 +3607,15 @@ uint64_t variable initialization expression of OpenTableIntent._target()
   v33 = v0;
   __chkstk_darwin(v0);
   v31 = &v25 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v30 = &v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v29 = &v25 - v5;
-  v6 = sub_10015DA04(&qword_1006BCCD0);
+  v6 = sub_10015DA04(&qword_1006BCCD0, &qword_100531F70);
   __chkstk_darwin(v6 - 8);
   v28 = &v25 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v26 = &v25 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -3524,7 +3629,7 @@ uint64_t variable initialization expression of OpenTableIntent._target()
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v27 = sub_10015DA04(&qword_1006BCCD8);
+  v27 = sub_10015DA04(&qword_1006BCCD8, &qword_100531F78);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -3537,14 +3642,14 @@ uint64_t variable initialization expression of OpenTableIntent._target()
   v20 = v26;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v17 + 56))(v20, 0, 1, v16);
-  v21 = type metadata accessor for TableEntity();
+  v21 = type metadata accessor for TableEntity(0);
   (*(*(v21 - 8) + 56))(v28, 1, 1, v21);
   v22 = type metadata accessor for IntentDialog();
   v23 = *(*(v22 - 8) + 56);
   v23(v29, 1, 1, v22);
   v23(v30, 1, 1, v22);
   (*(v32 + 104))(v31, enum case for InputConnectionBehavior.default(_:), v33);
-  sub_10015DF68(&qword_1006BCCE0, type metadata accessor for TableEntity);
+  sub_10015DF68(&qword_1006BCCE0, type metadata accessor for TableEntity, &protocol conformance descriptor for TableEntity);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
 }
 
@@ -3555,12 +3660,12 @@ uint64_t variable initialization expression of DeleteAttachmentsIntent._entities
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -3574,7 +3679,7 @@ uint64_t variable initialization expression of DeleteAttachmentsIntent._entities
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22[1] = sub_10015DA04(&qword_1006BCCE8);
+  v22[1] = sub_10015DA04(&qword_1006BCCE8, &qword_100531F80);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -3593,7 +3698,7 @@ uint64_t variable initialization expression of DeleteAttachmentsIntent._entities
   v20(v24, 1, 1, v19);
   v20(v25, 1, 1, v19);
   (*(v27 + 104))(v26, enum case for InputConnectionBehavior.default(_:), v28);
-  sub_10015DF68(&qword_1006BCCF0, type metadata accessor for AttachmentEntity);
+  sub_10015DF68(&qword_1006BCCF0, type metadata accessor for AttachmentEntity, &protocol conformance descriptor for AttachmentEntity);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
 }
 
@@ -3604,15 +3709,15 @@ uint64_t variable initialization expression of RenameFolderIntent._entity()
   v38 = v0;
   __chkstk_darwin(v0);
   v36 = &v30 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v35 = &v30 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v34 = &v30 - v5;
-  v6 = sub_10015DA04(&unk_1006BF9D0);
+  v6 = sub_10015DA04(&unk_1006BF9D0, &unk_100531EE0);
   __chkstk_darwin(v6 - 8);
   v33 = &v30 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v31 = &v30 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -3626,7 +3731,7 @@ uint64_t variable initialization expression of RenameFolderIntent._entity()
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v32 = sub_10015DA04(&unk_1006BCC30);
+  v32 = sub_10015DA04(&unk_1006BCC30, &unk_100531F50);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -3639,7 +3744,7 @@ uint64_t variable initialization expression of RenameFolderIntent._entity()
   v20 = v31;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v17 + 56))(v20, 0, 1, v16);
-  v21 = type metadata accessor for FolderEntity();
+  v21 = type metadata accessor for FolderEntity(0);
   (*(*(v21 - 8) + 56))(v33, 1, 1, v21);
   v22 = type metadata accessor for IntentDialog();
   v23 = *(*(v22 - 8) + 56);
@@ -3663,13 +3768,13 @@ uint64_t variable initialization expression of RenameFolderIntent._name()
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   __chkstk_darwin(v2 - 8);
   v25 = &v22 - v3;
-  v4 = sub_10015DA04(&qword_1006BCB40);
+  v4 = sub_10015DA04(&qword_1006BCB40, &unk_100539240);
   __chkstk_darwin(v4 - 8);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -3683,7 +3788,7 @@ uint64_t variable initialization expression of RenameFolderIntent._name()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&unk_1006BCB70);
+  v22 = sub_10015DA04(&unk_1006BCB70, &unk_100531EF0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -3713,12 +3818,12 @@ uint64_t variable initialization expression of DeleteTablesIntent._entities()
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -3732,7 +3837,7 @@ uint64_t variable initialization expression of DeleteTablesIntent._entities()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22[1] = sub_10015DA04(&unk_1006C44C0);
+  v22[1] = sub_10015DA04(&unk_1006C44C0, &qword_100531F88);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -3751,7 +3856,7 @@ uint64_t variable initialization expression of DeleteTablesIntent._entities()
   v20(v24, 1, 1, v19);
   v20(v25, 1, 1, v19);
   (*(v27 + 104))(v26, enum case for InputConnectionBehavior.default(_:), v28);
-  sub_10015DF68(&qword_1006BCCE0, type metadata accessor for TableEntity);
+  sub_10015DF68(&qword_1006BCCE0, type metadata accessor for TableEntity, &protocol conformance descriptor for TableEntity);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
 }
 
@@ -3762,13 +3867,13 @@ uint64_t variable initialization expression of CreateFolderIntent._name()
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   __chkstk_darwin(v2 - 8);
   v25 = &v22 - v3;
-  v4 = sub_10015DA04(&qword_1006BCB40);
+  v4 = sub_10015DA04(&qword_1006BCB40, &unk_100539240);
   __chkstk_darwin(v4 - 8);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -3782,7 +3887,7 @@ uint64_t variable initialization expression of CreateFolderIntent._name()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&qword_1006BCB48);
+  v22 = sub_10015DA04(&qword_1006BCB48, &unk_100531ED0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -3808,7 +3913,7 @@ uint64_t variable initialization expression of CreateFolderIntent._name()
 id variable initialization expression of RealtimeCollaborationController.eventReporter()
 {
   type metadata accessor for RealtimeCollaborationController(0);
-  sub_10015DA04(&qword_1006BCD00);
+  sub_10015DA04(&qword_1006BCD00, &qword_100531F90);
   String.init<A>(describing:)();
   v0 = objc_allocWithZone(ICNAEventReporter);
   v1 = String._bridgeToObjectiveC()();
@@ -3820,11 +3925,11 @@ id variable initialization expression of RealtimeCollaborationController.eventRe
 
 uint64_t variable initialization expression of RealtimeCollaborationController.contextNotifications()
 {
-  v0 = sub_10015DA04(&qword_1006BCD10);
+  v0 = sub_10015DA04(&qword_1006BCD10, &unk_100531FA0);
   __chkstk_darwin(v0);
   v2 = &v5 - v1;
   (*(v3 + 104))(&v5 - v1, enum case for AsyncStream.Continuation.BufferingPolicy.unbounded<A>(_:));
-  sub_10015DA04(&qword_1006BCD18);
+  sub_10015DA04(&qword_1006BCD18, &qword_100543AF0);
   swift_allocObject();
   return sub_10017618C(v2);
 }
@@ -3836,12 +3941,12 @@ uint64_t variable initialization expression of OpenTopLevelFolderIntent._target(
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = &v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -3855,7 +3960,7 @@ uint64_t variable initialization expression of OpenTopLevelFolderIntent._target(
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&qword_1006BCD20);
+  v22 = sub_10015DA04(&qword_1006BCD20, &qword_100531FB0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -3868,7 +3973,7 @@ uint64_t variable initialization expression of OpenTopLevelFolderIntent._target(
   v18 = v23;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v15 + 56))(v18, 0, 1, v14);
-  v29 = 4;
+  v29[0] = 4;
   v19 = type metadata accessor for IntentDialog();
   v20 = *(*(v19 - 8) + 56);
   v20(v24, 1, 1, v19);
@@ -3885,15 +3990,15 @@ uint64_t variable initialization expression of MoveNotesToFolderIntent._containe
   v38 = v0;
   __chkstk_darwin(v0);
   v36 = &v30 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v35 = &v30 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v34 = &v30 - v5;
-  v6 = sub_10015DA04(&unk_1006BF9D0);
+  v6 = sub_10015DA04(&unk_1006BF9D0, &unk_100531EE0);
   __chkstk_darwin(v6 - 8);
   v33 = &v30 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v31 = &v30 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -3907,7 +4012,7 @@ uint64_t variable initialization expression of MoveNotesToFolderIntent._containe
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v32 = sub_10015DA04(&unk_1006BCC30);
+  v32 = sub_10015DA04(&unk_1006BCC30, &unk_100531F50);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -3920,7 +4025,7 @@ uint64_t variable initialization expression of MoveNotesToFolderIntent._containe
   v20 = v31;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v17 + 56))(v20, 0, 1, v16);
-  v21 = type metadata accessor for FolderEntity();
+  v21 = type metadata accessor for FolderEntity(0);
   (*(*(v21 - 8) + 56))(v33, 1, 1, v21);
   v22 = type metadata accessor for IntentDialog();
   v23 = *(*(v22 - 8) + 56);
@@ -3944,12 +4049,12 @@ uint64_t variable initialization expression of MoveNotesToFolderIntent._entities
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -3963,7 +4068,7 @@ uint64_t variable initialization expression of MoveNotesToFolderIntent._entities
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22[1] = sub_10015DA04(&unk_1006BCAF0);
+  v22[1] = sub_10015DA04(&unk_1006BCAF0, &unk_100531EA0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -3982,7 +4087,7 @@ uint64_t variable initialization expression of MoveNotesToFolderIntent._entities
   v20(v24, 1, 1, v19);
   v20(v25, 1, 1, v19);
   (*(v27 + 104))(v26, enum case for InputConnectionBehavior.default(_:), v28);
-  sub_10015DF68(&qword_1006BCAD0, type metadata accessor for NoteEntity);
+  sub_10015DF68(&qword_1006BCAD0, type metadata accessor for NoteEntity, &protocol conformance descriptor for NoteEntity);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
 }
 
@@ -3993,15 +4098,15 @@ uint64_t variable initialization expression of GetLinkedNotesIntent._entity()
   v33 = v0;
   __chkstk_darwin(v0);
   v31 = &v25 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v30 = &v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v29 = &v25 - v5;
-  v6 = sub_10015DA04(&unk_1006BCAC0);
+  v6 = sub_10015DA04(&unk_1006BCAC0, &unk_1005395D0);
   __chkstk_darwin(v6 - 8);
   v28 = &v25 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v26 = &v25 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -4015,7 +4120,7 @@ uint64_t variable initialization expression of GetLinkedNotesIntent._entity()
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v27 = sub_10015DA04(&unk_1006BE580);
+  v27 = sub_10015DA04(&unk_1006BE580, &unk_100531E80);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -4035,7 +4140,7 @@ uint64_t variable initialization expression of GetLinkedNotesIntent._entity()
   v23(v29, 1, 1, v22);
   v23(v30, 1, 1, v22);
   (*(v32 + 104))(v31, enum case for InputConnectionBehavior.default(_:), v33);
-  sub_10015DF68(&qword_1006BCAD0, type metadata accessor for NoteEntity);
+  sub_10015DF68(&qword_1006BCAD0, type metadata accessor for NoteEntity, &protocol conformance descriptor for NoteEntity);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
 }
 
@@ -4046,15 +4151,15 @@ uint64_t variable initialization expression of PinNotesIntent._operation()
   v31 = v0;
   __chkstk_darwin(v0);
   v29 = v25 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v28 = v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v27 = v25 - v5;
-  v6 = sub_10015DA04(&qword_1006BCD30);
+  v6 = sub_10015DA04(&qword_1006BCD30, &qword_100531FB8);
   __chkstk_darwin(v6 - 8);
   v26 = v25 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v25[0] = v25 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -4068,7 +4173,7 @@ uint64_t variable initialization expression of PinNotesIntent._operation()
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v25[1] = sub_10015DA04(&qword_1006BCD38);
+  v25[1] = sub_10015DA04(&qword_1006BCD38, &unk_100531FC0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -4088,9 +4193,9 @@ uint64_t variable initialization expression of PinNotesIntent._operation()
   v23(v27, 1, 1, v22);
   v23(v28, 1, 1, v22);
   (*(v30 + 104))(v29, enum case for InputConnectionBehavior.default(_:), v31);
-  sub_10015DF68(&qword_1006BCD40, &type metadata accessor for FavoriteOperation);
+  sub_10015DF68(&qword_1006BCD40, &type metadata accessor for FavoriteOperation, &protocol conformance descriptor for FavoriteOperation);
   dispatch thunk of static CaseIterable.allCases.getter();
-  sub_10015DF68(&qword_1006BCD48, &type metadata accessor for FavoriteOperation);
+  sub_10015DF68(&qword_1006BCD48, &type metadata accessor for FavoriteOperation, &protocol conformance descriptor for FavoriteOperation);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:supportedValues:)();
 }
 
@@ -4101,12 +4206,12 @@ uint64_t variable initialization expression of PinNotesIntent._entities()
   v33 = v0;
   __chkstk_darwin(v0);
   v31 = &v26 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v30 = &v26 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v29 = &v26 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v27 = &v26 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -4120,7 +4225,7 @@ uint64_t variable initialization expression of PinNotesIntent._entities()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v28 = sub_10015DA04(&unk_1006BCAF0);
+  v28 = sub_10015DA04(&unk_1006BCAF0, &unk_100531EA0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -4155,12 +4260,12 @@ uint64_t variable initialization expression of DeleteTagsIntent._entities()
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -4174,7 +4279,7 @@ uint64_t variable initialization expression of DeleteTagsIntent._entities()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22[1] = sub_10015DA04(&qword_1006BCB00);
+  v22[1] = sub_10015DA04(&qword_1006BCB00, &qword_10053C970);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -4193,7 +4298,7 @@ uint64_t variable initialization expression of DeleteTagsIntent._entities()
   v20(v24, 1, 1, v19);
   v20(v25, 1, 1, v19);
   (*(v27 + 104))(v26, enum case for InputConnectionBehavior.default(_:), v28);
-  sub_10015DF68(&qword_1006BCB08, type metadata accessor for TagEntity);
+  sub_10015DF68(&qword_1006BCB08, type metadata accessor for TagEntity, &protocol conformance descriptor for TagEntity);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
 }
 
@@ -4204,15 +4309,15 @@ uint64_t variable initialization expression of OpenAttachmentIntent._target()
   v33 = v0;
   __chkstk_darwin(v0);
   v31 = &v25 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v30 = &v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v29 = &v25 - v5;
-  v6 = sub_10015DA04(&unk_1006BCD50);
+  v6 = sub_10015DA04(&unk_1006BCD50, &qword_100545690);
   __chkstk_darwin(v6 - 8);
   v28 = &v25 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v26 = &v25 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -4226,7 +4331,7 @@ uint64_t variable initialization expression of OpenAttachmentIntent._target()
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v27 = sub_10015DA04(&unk_1006C6BF0);
+  v27 = sub_10015DA04(&unk_1006C6BF0, &unk_100531FD0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -4239,14 +4344,14 @@ uint64_t variable initialization expression of OpenAttachmentIntent._target()
   v20 = v26;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v17 + 56))(v20, 0, 1, v16);
-  v21 = type metadata accessor for AttachmentEntity();
+  v21 = type metadata accessor for AttachmentEntity(0);
   (*(*(v21 - 8) + 56))(v28, 1, 1, v21);
   v22 = type metadata accessor for IntentDialog();
   v23 = *(*(v22 - 8) + 56);
   v23(v29, 1, 1, v22);
   v23(v30, 1, 1, v22);
   (*(v32 + 104))(v31, enum case for InputConnectionBehavior.default(_:), v33);
-  sub_10015DF68(&qword_1006BCCF0, type metadata accessor for AttachmentEntity);
+  sub_10015DF68(&qword_1006BCCF0, type metadata accessor for AttachmentEntity, &protocol conformance descriptor for AttachmentEntity);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
 }
 
@@ -4262,7 +4367,7 @@ uint64_t variable initialization expression of NoteEntity._title()
   __chkstk_darwin(v5 - 8);
   v6 = type metadata accessor for LocalizedStringResource();
   __chkstk_darwin(v6 - 8);
-  sub_10015DA04(&unk_1006C1870);
+  sub_10015DA04(&unk_1006C1870, &qword_100534CA0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   (*(v1 + 104))(v3, enum case for LocalizedStringResource.BundleDescription.main(_:), v0);
@@ -4282,7 +4387,7 @@ uint64_t variable initialization expression of NoteEntity._subtitle()
   __chkstk_darwin(v5 - 8);
   v6 = type metadata accessor for LocalizedStringResource();
   __chkstk_darwin(v6 - 8);
-  sub_10015DA04(&unk_1006C1870);
+  sub_10015DA04(&unk_1006C1870, &qword_100534CA0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   (*(v1 + 104))(v3, enum case for LocalizedStringResource.BundleDescription.main(_:), v0);
@@ -4302,7 +4407,7 @@ uint64_t variable initialization expression of NoteEntity._contents()
   __chkstk_darwin(v5 - 8);
   v6 = type metadata accessor for LocalizedStringResource();
   __chkstk_darwin(v6 - 8);
-  sub_10015DA04(&unk_1006BCD60);
+  sub_10015DA04(&unk_1006BCD60, &unk_1005456D0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   (*(v1 + 104))(v3, enum case for LocalizedStringResource.BundleDescription.main(_:), v0);
@@ -4322,12 +4427,12 @@ uint64_t variable initialization expression of NoteEntity._folder()
   __chkstk_darwin(v5 - 8);
   v6 = type metadata accessor for LocalizedStringResource();
   __chkstk_darwin(v6 - 8);
-  sub_10015DA04(&unk_1006C5290);
+  sub_10015DA04(&unk_1006C5290, &unk_100531FE0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   (*(v1 + 104))(v3, enum case for LocalizedStringResource.BundleDescription.main(_:), v0);
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-  sub_10015DF68(&qword_1006C45A0, type metadata accessor for FolderEntity);
+  sub_10015DF68(&qword_1006C45A0, type metadata accessor for FolderEntity, &protocol conformance descriptor for FolderEntity);
   return EntityProperty<>.init(title:)();
 }
 
@@ -4343,12 +4448,12 @@ uint64_t variable initialization expression of NoteEntity._tags()
   __chkstk_darwin(v5 - 8);
   v6 = type metadata accessor for LocalizedStringResource();
   __chkstk_darwin(v6 - 8);
-  sub_10015DA04(&unk_1006BCD70);
+  sub_10015DA04(&unk_1006BCD70, &qword_10053D2D0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   (*(v1 + 104))(v3, enum case for LocalizedStringResource.BundleDescription.main(_:), v0);
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-  sub_10015DF68(&qword_1006BCB08, type metadata accessor for TagEntity);
+  sub_10015DF68(&qword_1006BCB08, type metadata accessor for TagEntity, &protocol conformance descriptor for TagEntity);
   return EntityProperty<>.init(title:)();
 }
 
@@ -4364,7 +4469,7 @@ uint64_t variable initialization expression of NoteEntity._creationDate()
   __chkstk_darwin(v5 - 8);
   v6 = type metadata accessor for LocalizedStringResource();
   __chkstk_darwin(v6 - 8);
-  sub_10015DA04(&unk_1006C52A0);
+  sub_10015DA04(&unk_1006C52A0, &unk_100531FF0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   (*(v1 + 104))(v3, enum case for LocalizedStringResource.BundleDescription.main(_:), v0);
@@ -4384,7 +4489,7 @@ uint64_t variable initialization expression of NoteEntity._modificationDate()
   __chkstk_darwin(v5 - 8);
   v6 = type metadata accessor for LocalizedStringResource();
   __chkstk_darwin(v6 - 8);
-  sub_10015DA04(&unk_1006C52A0);
+  sub_10015DA04(&unk_1006C52A0, &unk_100531FF0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   (*(v1 + 104))(v3, enum case for LocalizedStringResource.BundleDescription.main(_:), v0);
@@ -4392,12 +4497,12 @@ uint64_t variable initialization expression of NoteEntity._modificationDate()
   return EntityProperty<>.init(title:)();
 }
 
-uint64_t sub_10016D838@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_10016D838@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
-  v3 = sub_10015DA04(a1);
-  v4 = *(*(v3 - 8) + 56);
+  v4 = sub_10015DA04(a1, a2);
+  v5 = *(*(v4 - 8) + 56);
 
-  return v4(a2, 1, 1, v3);
+  return v5(a3, 1, 1, v4);
 }
 
 id variable initialization expression of TagCreateOrRenameAlertController.sizingCell()
@@ -4434,7 +4539,7 @@ uint64_t variable initialization expression of ChecklistItemEntity._text()
   __chkstk_darwin(v5 - 8);
   v6 = type metadata accessor for LocalizedStringResource();
   __chkstk_darwin(v6 - 8);
-  sub_10015DA04(&unk_1006C1870);
+  sub_10015DA04(&unk_1006C1870, &qword_100534CA0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   (*(v1 + 104))(v3, enum case for LocalizedStringResource.BundleDescription.main(_:), v0);
@@ -4454,7 +4559,7 @@ uint64_t variable initialization expression of ChecklistItemEntity._checked()
   __chkstk_darwin(v5 - 8);
   v6 = type metadata accessor for LocalizedStringResource();
   __chkstk_darwin(v6 - 8);
-  sub_10015DA04(&unk_1006BCD90);
+  sub_10015DA04(&unk_1006BCD90, &qword_1005470B0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   (*(v1 + 104))(v3, enum case for LocalizedStringResource.BundleDescription.main(_:), v0);
@@ -4474,18 +4579,18 @@ uint64_t variable initialization expression of ChecklistItemEntity._note()
   __chkstk_darwin(v5 - 8);
   v6 = type metadata accessor for LocalizedStringResource();
   __chkstk_darwin(v6 - 8);
-  sub_10015DA04(&qword_1006C60E0);
+  sub_10015DA04(&qword_1006C60E0, &qword_100532010);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   (*(v1 + 104))(v3, enum case for LocalizedStringResource.BundleDescription.main(_:), v0);
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-  sub_10015DF68(&qword_1006BCAD0, type metadata accessor for NoteEntity);
+  sub_10015DF68(&qword_1006BCAD0, type metadata accessor for NoteEntity, &protocol conformance descriptor for NoteEntity);
   return EntityProperty<>.init(title:)();
 }
 
-uint64_t sub_10016DFD4(uint64_t *a1)
+uint64_t sub_10016DFD4(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
-  sub_10015DA04(a1);
+  sub_10015DA04(a1, a2);
   swift_getKeyPath();
   return IntentParameterDependency.__allocating_init<A, B>(_:)();
 }
@@ -4504,12 +4609,12 @@ uint64_t variable initialization expression of DeleteFoldersIntent._entities()
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -4523,7 +4628,7 @@ uint64_t variable initialization expression of DeleteFoldersIntent._entities()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22[1] = sub_10015DA04(&qword_1006BCDA8);
+  v22[1] = sub_10015DA04(&qword_1006BCDA8, &qword_100532048);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -4542,7 +4647,7 @@ uint64_t variable initialization expression of DeleteFoldersIntent._entities()
   v20(v24, 1, 1, v19);
   v20(v25, 1, 1, v19);
   (*(v27 + 104))(v26, enum case for InputConnectionBehavior.default(_:), v28);
-  sub_10015DF68(&qword_1006C45A0, type metadata accessor for FolderEntity);
+  sub_10015DF68(&qword_1006C45A0, type metadata accessor for FolderEntity, &protocol conformance descriptor for FolderEntity);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
 }
 
@@ -4553,15 +4658,15 @@ uint64_t variable initialization expression of SetAttachmentSizeIntent._target()
   v35 = v0;
   __chkstk_darwin(v0);
   v33 = &v27 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v32 = &v27 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v31 = &v27 - v5;
-  v6 = sub_10015DA04(&unk_1006BCD50);
+  v6 = sub_10015DA04(&unk_1006BCD50, &qword_100545690);
   __chkstk_darwin(v6 - 8);
   v30 = &v27 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v28 = &v27 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -4575,7 +4680,7 @@ uint64_t variable initialization expression of SetAttachmentSizeIntent._target()
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v29 = sub_10015DA04(&unk_1006C6BF0);
+  v29 = sub_10015DA04(&unk_1006C6BF0, &unk_100531FD0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -4588,7 +4693,7 @@ uint64_t variable initialization expression of SetAttachmentSizeIntent._target()
   v20 = v28;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v17 + 56))(v20, 0, 1, v16);
-  v21 = type metadata accessor for AttachmentEntity();
+  v21 = type metadata accessor for AttachmentEntity(0);
   (*(*(v21 - 8) + 56))(v30, 1, 1, v21);
   v22 = type metadata accessor for IntentDialog();
   v23 = *(*(v22 - 8) + 56);
@@ -4609,12 +4714,12 @@ uint64_t variable initialization expression of SetAttachmentSizeIntent._attachme
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = &v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -4628,7 +4733,7 @@ uint64_t variable initialization expression of SetAttachmentSizeIntent._attachme
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&qword_1006C6C00);
+  v22 = sub_10015DA04(&qword_1006C6C00, &qword_100532050);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -4641,7 +4746,7 @@ uint64_t variable initialization expression of SetAttachmentSizeIntent._attachme
   v18 = v23;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v15 + 56))(v18, 0, 1, v14);
-  v29 = 4;
+  v29[0] = 4;
   v19 = type metadata accessor for IntentDialog();
   v20 = *(*(v19 - 8) + 56);
   v20(v24, 1, 1, v19);
@@ -4658,13 +4763,13 @@ uint64_t variable initialization expression of ReplaceSelectionIntent._text()
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   __chkstk_darwin(v2 - 8);
   v25 = &v22 - v3;
-  v4 = sub_10015DA04(&unk_1006C5400);
+  v4 = sub_10015DA04(&unk_1006C5400, &unk_100545A50);
   __chkstk_darwin(v4 - 8);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -4678,7 +4783,7 @@ uint64_t variable initialization expression of ReplaceSelectionIntent._text()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&unk_1006BCAE0);
+  v22 = sub_10015DA04(&unk_1006BCAE0, &unk_100531E90);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -4706,15 +4811,15 @@ uint64_t variable initialization expression of InsertNoteLinkIntent._linkedNote(
   v40 = v0;
   __chkstk_darwin(v0);
   v38 = &v31 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v37 = &v31 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v36 = &v31 - v5;
-  v6 = sub_10015DA04(&unk_1006BCAC0);
+  v6 = sub_10015DA04(&unk_1006BCAC0, &unk_1005395D0);
   __chkstk_darwin(v6 - 8);
   v34 = &v31 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v32 = &v31 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -4730,7 +4835,7 @@ uint64_t variable initialization expression of InsertNoteLinkIntent._linkedNote(
   v17 = __chkstk_darwin(v31);
   __chkstk_darwin(v17);
   v33 = &v31 - v18;
-  v35 = sub_10015DA04(&unk_1006BE580);
+  v35 = sub_10015DA04(&unk_1006BE580, &unk_100531E80);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v19 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -4772,15 +4877,15 @@ uint64_t variable initialization expression of InsertNoteLinkIntent._target()
   v35 = v0;
   __chkstk_darwin(v0);
   v33 = v29 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v32 = v29 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v31 = v29 - v5;
-  v6 = sub_10015DA04(&unk_1006BCAC0);
+  v6 = sub_10015DA04(&unk_1006BCAC0, &unk_1005395D0);
   __chkstk_darwin(v6 - 8);
   v30 = v29 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v29[0] = v29 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -4794,7 +4899,7 @@ uint64_t variable initialization expression of InsertNoteLinkIntent._target()
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v29[1] = sub_10015DA04(&qword_1006BCB98);
+  v29[1] = sub_10015DA04(&qword_1006BCB98, &qword_100531F00);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -4830,13 +4935,13 @@ uint64_t variable initialization expression of InsertNoteLinkIntent._useNoteTitl
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   __chkstk_darwin(v2 - 8);
   v25 = &v22 - v3;
-  v4 = sub_10015DA04(&qword_1006BCE28);
+  v4 = sub_10015DA04(&qword_1006BCE28, &qword_100532058);
   __chkstk_darwin(v4 - 8);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -4850,7 +4955,7 @@ uint64_t variable initialization expression of InsertNoteLinkIntent._useNoteTitl
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&unk_1006BCE30);
+  v22 = sub_10015DA04(&unk_1006BCE30, &unk_100532060);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -4863,7 +4968,7 @@ uint64_t variable initialization expression of InsertNoteLinkIntent._useNoteTitl
   v18 = v23;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v15 + 56))(v18, 0, 1, v14);
-  v29 = 1;
+  v29[0] = 1;
   v19 = type metadata accessor for Bool.IntentDisplayName();
   (*(*(v19 - 8) + 56))(v24, 1, 1, v19);
   v20 = type metadata accessor for IntentDialog();
@@ -4974,15 +5079,15 @@ uint64_t variable initialization expression of OpenChecklistItemIntent._target()
   v33 = v0;
   __chkstk_darwin(v0);
   v31 = &v25 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v30 = &v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v29 = &v25 - v5;
-  v6 = sub_10015DA04(&qword_1006C6490);
+  v6 = sub_10015DA04(&qword_1006C6490, &qword_10053BF10);
   __chkstk_darwin(v6 - 8);
   v28 = &v25 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v26 = &v25 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -4996,7 +5101,7 @@ uint64_t variable initialization expression of OpenChecklistItemIntent._target()
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v27 = sub_10015DA04(&qword_1006BCE40);
+  v27 = sub_10015DA04(&qword_1006BCE40, &qword_100532070);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -5009,14 +5114,14 @@ uint64_t variable initialization expression of OpenChecklistItemIntent._target()
   v20 = v26;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v17 + 56))(v20, 0, 1, v16);
-  v21 = type metadata accessor for ChecklistItemEntity();
+  v21 = type metadata accessor for ChecklistItemEntity(0);
   (*(*(v21 - 8) + 56))(v28, 1, 1, v21);
   v22 = type metadata accessor for IntentDialog();
   v23 = *(*(v22 - 8) + 56);
   v23(v29, 1, 1, v22);
   v23(v30, 1, 1, v22);
   (*(v32 + 104))(v31, enum case for InputConnectionBehavior.default(_:), v33);
-  sub_10015DF68(&qword_1006BE070, type metadata accessor for ChecklistItemEntity);
+  sub_10015DF68(&qword_1006BE070, type metadata accessor for ChecklistItemEntity, &protocol conformance descriptor for ChecklistItemEntity);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
 }
 
@@ -5027,12 +5132,12 @@ uint64_t variable initialization expression of DeleteNotesIntent._entities()
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -5046,7 +5151,7 @@ uint64_t variable initialization expression of DeleteNotesIntent._entities()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22[1] = sub_10015DA04(&unk_1006BCAF0);
+  v22[1] = sub_10015DA04(&unk_1006BCAF0, &unk_100531EA0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -5065,7 +5170,7 @@ uint64_t variable initialization expression of DeleteNotesIntent._entities()
   v20(v24, 1, 1, v19);
   v20(v25, 1, 1, v19);
   (*(v27 + 104))(v26, enum case for InputConnectionBehavior.default(_:), v28);
-  sub_10015DF68(&qword_1006BCAD0, type metadata accessor for NoteEntity);
+  sub_10015DF68(&qword_1006BCAD0, type metadata accessor for NoteEntity, &protocol conformance descriptor for NoteEntity);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
 }
 
@@ -5076,13 +5181,13 @@ uint64_t variable initialization expression of CreateTableIntent._name()
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   __chkstk_darwin(v2 - 8);
   v25 = &v22 - v3;
-  v4 = sub_10015DA04(&qword_1006BCB40);
+  v4 = sub_10015DA04(&qword_1006BCB40, &unk_100539240);
   __chkstk_darwin(v4 - 8);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -5096,7 +5201,7 @@ uint64_t variable initialization expression of CreateTableIntent._name()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&qword_1006BCB48);
+  v22 = sub_10015DA04(&qword_1006BCB48, &unk_100531ED0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -5126,13 +5231,13 @@ uint64_t variable initialization expression of CreateTableIntent._csvString()
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   __chkstk_darwin(v2 - 8);
   v25 = &v22 - v3;
-  v4 = sub_10015DA04(&qword_1006BCB40);
+  v4 = sub_10015DA04(&qword_1006BCB40, &unk_100539240);
   __chkstk_darwin(v4 - 8);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -5146,7 +5251,7 @@ uint64_t variable initialization expression of CreateTableIntent._csvString()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&qword_1006BCB48);
+  v22 = sub_10015DA04(&qword_1006BCB48, &unk_100531ED0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -5176,15 +5281,15 @@ uint64_t variable initialization expression of CreateTableIntent._note()
   v35 = v0;
   __chkstk_darwin(v0);
   v33 = v29 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v32 = v29 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v31 = v29 - v5;
-  v6 = sub_10015DA04(&unk_1006BCAC0);
+  v6 = sub_10015DA04(&unk_1006BCAC0, &unk_1005395D0);
   __chkstk_darwin(v6 - 8);
   v30 = v29 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v29[0] = v29 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -5198,7 +5303,7 @@ uint64_t variable initialization expression of CreateTableIntent._note()
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v29[1] = sub_10015DA04(&unk_1006BE580);
+  v29[1] = sub_10015DA04(&unk_1006BE580, &unk_100531E80);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -5245,7 +5350,7 @@ uint64_t variable initialization expression of ICArchiveExporterConfiguration.cr
 
 uint64_t variable initialization expression of RealtimeCollaborationMessageController.cloudKitRecords()
 {
-  v0 = sub_10015DA04(&qword_1006BCE48);
+  v0 = sub_10015DA04(&qword_1006BCE48, &qword_100532078);
   v1 = *(v0 - 8);
   v2 = __chkstk_darwin(v0);
   v4 = &v10 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -5254,7 +5359,7 @@ uint64_t variable initialization expression of RealtimeCollaborationMessageContr
   (*(v1 + 104))(&v10 - v5, enum case for AsyncStream.Continuation.BufferingPolicy.unbounded<A>(_:), v0);
   v7 = *(v1 + 16);
   v7(v4, v6, v0);
-  sub_10015DA04(&unk_1006BCE50);
+  sub_10015DA04(&unk_1006BCE50, &unk_100532080);
   swift_allocObject();
   v8 = sub_100176B74(v4);
   v7(v4, v6, v0);
@@ -5266,7 +5371,7 @@ uint64_t variable initialization expression of RealtimeCollaborationMessageContr
 
 uint64_t variable initialization expression of RealtimeCollaborationMessageController.selectionMessages()
 {
-  v0 = sub_10015DA04(&unk_1006C86D0);
+  v0 = sub_10015DA04(&unk_1006C86D0, &unk_10054AEE0);
   v1 = *(v0 - 8);
   v2 = __chkstk_darwin(v0);
   v4 = &v10 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -5275,7 +5380,7 @@ uint64_t variable initialization expression of RealtimeCollaborationMessageContr
   (*(v1 + 104))(&v10 - v5, enum case for AsyncStream.Continuation.BufferingPolicy.unbounded<A>(_:), v0);
   v7 = *(v1 + 16);
   v7(v4, v6, v0);
-  sub_10015DA04(&unk_1006BCE60);
+  sub_10015DA04(&unk_1006BCE60, &unk_100532090);
   swift_allocObject();
   v8 = sub_100176828(v4);
   v7(v4, v6, v0);
@@ -5287,18 +5392,18 @@ uint64_t variable initialization expression of RealtimeCollaborationMessageContr
 
 uint64_t variable initialization expression of RealtimeCollaborationMessageController.paperKitOutbox()
 {
-  v0 = sub_10015DA04(&qword_1006BCE70);
+  v0 = sub_10015DA04(&qword_1006BCE70, &unk_1005320A0);
   __chkstk_darwin(v0);
   v2 = &v5 - v1;
   (*(v3 + 104))(&v5 - v1, enum case for AsyncStream.Continuation.BufferingPolicy.unbounded<A>(_:));
-  sub_10015DA04(&qword_1006BCE78);
+  sub_10015DA04(&qword_1006BCE78, &qword_100543C90);
   swift_allocObject();
   return sub_1001764D8(v2);
 }
 
-uint64_t sub_10017283C(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_10017283C(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
-  sub_10015DA04(a1);
+  sub_10015DA04(a1, a2);
   result = swift_allocObject();
   *(result + 24) = 0;
   *(result + 16) = a3;
@@ -5312,15 +5417,15 @@ uint64_t variable initialization expression of OpenTagIntent._target()
   v33 = v0;
   __chkstk_darwin(v0);
   v31 = &v25 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v30 = &v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v29 = &v25 - v5;
-  v6 = sub_10015DA04(&qword_1006C8B80);
+  v6 = sub_10015DA04(&qword_1006C8B80, &qword_10054B2B0);
   __chkstk_darwin(v6 - 8);
   v28 = &v25 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v26 = &v25 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -5334,7 +5439,7 @@ uint64_t variable initialization expression of OpenTagIntent._target()
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v27 = sub_10015DA04(&qword_1006BCE90);
+  v27 = sub_10015DA04(&qword_1006BCE90, &unk_1005320C0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -5347,14 +5452,14 @@ uint64_t variable initialization expression of OpenTagIntent._target()
   v20 = v26;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v17 + 56))(v20, 0, 1, v16);
-  v21 = type metadata accessor for TagEntity();
+  v21 = type metadata accessor for TagEntity(0);
   (*(*(v21 - 8) + 56))(v28, 1, 1, v21);
   v22 = type metadata accessor for IntentDialog();
   v23 = *(*(v22 - 8) + 56);
   v23(v29, 1, 1, v22);
   v23(v30, 1, 1, v22);
   (*(v32 + 104))(v31, enum case for InputConnectionBehavior.default(_:), v33);
-  sub_10015DF68(&qword_1006BCB08, type metadata accessor for TagEntity);
+  sub_10015DF68(&qword_1006BCB08, type metadata accessor for TagEntity, &protocol conformance descriptor for TagEntity);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
 }
 
@@ -5365,15 +5470,15 @@ uint64_t variable initialization expression of OpenNoteIntent._target()
   v33 = v0;
   __chkstk_darwin(v0);
   v31 = &v25 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v30 = &v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v29 = &v25 - v5;
-  v6 = sub_10015DA04(&unk_1006BCAC0);
+  v6 = sub_10015DA04(&unk_1006BCAC0, &unk_1005395D0);
   __chkstk_darwin(v6 - 8);
   v28 = &v25 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v26 = &v25 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -5387,7 +5492,7 @@ uint64_t variable initialization expression of OpenNoteIntent._target()
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v27 = sub_10015DA04(&unk_1006BE580);
+  v27 = sub_10015DA04(&unk_1006BE580, &unk_100531E80);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -5407,7 +5512,7 @@ uint64_t variable initialization expression of OpenNoteIntent._target()
   v23(v29, 1, 1, v22);
   v23(v30, 1, 1, v22);
   (*(v32 + 104))(v31, enum case for InputConnectionBehavior.default(_:), v33);
-  sub_10015DF68(&qword_1006BCAD0, type metadata accessor for NoteEntity);
+  sub_10015DF68(&qword_1006BCAD0, type metadata accessor for NoteEntity, &protocol conformance descriptor for NoteEntity);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
 }
 
@@ -5468,13 +5573,13 @@ uint64_t variable initialization expression of AddFileAttachmentIntent._name()
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   __chkstk_darwin(v2 - 8);
   v25 = &v22 - v3;
-  v4 = sub_10015DA04(&qword_1006BCB40);
+  v4 = sub_10015DA04(&qword_1006BCB40, &unk_100539240);
   __chkstk_darwin(v4 - 8);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -5488,7 +5593,7 @@ uint64_t variable initialization expression of AddFileAttachmentIntent._name()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&qword_1006BCB48);
+  v22 = sub_10015DA04(&qword_1006BCB48, &unk_100531ED0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -5518,13 +5623,13 @@ uint64_t variable initialization expression of AddFileAttachmentIntent._file()
   v27 = v0;
   __chkstk_darwin(v0);
   v25 = v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   __chkstk_darwin(v2 - 8);
   v24 = v22 - v3;
-  v4 = sub_10015DA04(&qword_1006BCE98);
+  v4 = sub_10015DA04(&qword_1006BCE98, &unk_10054C4B0);
   __chkstk_darwin(v4 - 8);
   v23 = v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v22[0] = v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -5538,7 +5643,7 @@ uint64_t variable initialization expression of AddFileAttachmentIntent._file()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22[1] = sub_10015DA04(&unk_1006BCEA0);
+  v22[1] = sub_10015DA04(&unk_1006BCEA0, &unk_1005320D0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -5555,7 +5660,7 @@ uint64_t variable initialization expression of AddFileAttachmentIntent._file()
   (*(*(v19 - 8) + 56))(v23, 1, 1, v19);
   v20 = type metadata accessor for IntentDialog();
   (*(*(v20 - 8) + 56))(v24, 1, 1, v20);
-  sub_10015DA04(&unk_1006C9010);
+  sub_10015DA04(&unk_1006C9010, &unk_10054BAA0);
   type metadata accessor for UTType();
   *(swift_allocObject() + 16) = xmmword_100531E30;
   static UTType.item.getter();
@@ -5570,15 +5675,15 @@ uint64_t variable initialization expression of AddFileAttachmentIntent._note()
   v35 = v0;
   __chkstk_darwin(v0);
   v33 = v29 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v32 = v29 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v31 = v29 - v5;
-  v6 = sub_10015DA04(&unk_1006BCAC0);
+  v6 = sub_10015DA04(&unk_1006BCAC0, &unk_1005395D0);
   __chkstk_darwin(v6 - 8);
   v30 = v29 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v29[0] = v29 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -5592,7 +5697,7 @@ uint64_t variable initialization expression of AddFileAttachmentIntent._note()
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v29[1] = sub_10015DA04(&unk_1006BE580);
+  v29[1] = sub_10015DA04(&unk_1006BE580, &unk_100531E80);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -5628,15 +5733,15 @@ uint64_t variable initialization expression of InsertAllMentionIntent._target()
   v35 = v0;
   __chkstk_darwin(v0);
   v33 = v29 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v32 = v29 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v31 = v29 - v5;
-  v6 = sub_10015DA04(&unk_1006BCAC0);
+  v6 = sub_10015DA04(&unk_1006BCAC0, &unk_1005395D0);
   __chkstk_darwin(v6 - 8);
   v30 = v29 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v29[0] = v29 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -5650,7 +5755,7 @@ uint64_t variable initialization expression of InsertAllMentionIntent._target()
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v29[1] = sub_10015DA04(&qword_1006BCB98);
+  v29[1] = sub_10015DA04(&qword_1006BCB98, &qword_100531F00);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -5686,12 +5791,12 @@ uint64_t variable initialization expression of AddOrRemoveNoteLockIntent._operat
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = &v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -5705,7 +5810,7 @@ uint64_t variable initialization expression of AddOrRemoveNoteLockIntent._operat
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&unk_1006BCEB0);
+  v22 = sub_10015DA04(&unk_1006BCEB0, &unk_1005320E0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -5718,7 +5823,7 @@ uint64_t variable initialization expression of AddOrRemoveNoteLockIntent._operat
   v18 = v23;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v15 + 56))(v18, 0, 1, v14);
-  v29 = 3;
+  v29[0] = 3;
   v19 = type metadata accessor for IntentDialog();
   v20 = *(*(v19 - 8) + 56);
   v20(v24, 1, 1, v19);
@@ -5735,15 +5840,15 @@ uint64_t variable initialization expression of AddOrRemoveNoteLockIntent._target
   v35 = v0;
   __chkstk_darwin(v0);
   v33 = v29 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v32 = v29 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v31 = v29 - v5;
-  v6 = sub_10015DA04(&unk_1006BCAC0);
+  v6 = sub_10015DA04(&unk_1006BCAC0, &unk_1005395D0);
   __chkstk_darwin(v6 - 8);
   v30 = v29 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v29[0] = v29 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -5757,7 +5862,7 @@ uint64_t variable initialization expression of AddOrRemoveNoteLockIntent._target
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v29[1] = sub_10015DA04(&qword_1006BCB98);
+  v29[1] = sub_10015DA04(&qword_1006BCB98, &qword_100531F00);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -5812,15 +5917,15 @@ uint64_t variable initialization expression of ChangeSettingIntent._changeOperat
   v31 = v0;
   __chkstk_darwin(v0);
   v29 = v25 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v28 = v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v27 = v25 - v5;
-  v6 = sub_10015DA04(&qword_1006BCB10);
+  v6 = sub_10015DA04(&qword_1006BCB10, &unk_100531EB0);
   __chkstk_darwin(v6 - 8);
   v26 = v25 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v25[0] = v25 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -5834,7 +5939,7 @@ uint64_t variable initialization expression of ChangeSettingIntent._changeOperat
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v25[1] = sub_10015DA04(&qword_1006BCB18);
+  v25[1] = sub_10015DA04(&qword_1006BCB18, &unk_100538F30);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -5854,9 +5959,9 @@ uint64_t variable initialization expression of ChangeSettingIntent._changeOperat
   v23(v27, 1, 1, v22);
   v23(v28, 1, 1, v22);
   (*(v30 + 104))(v29, enum case for InputConnectionBehavior.default(_:), v31);
-  sub_10015DF68(&qword_1006BCB20, &type metadata accessor for ChangeOperation);
+  sub_10015DF68(&qword_1006BCB20, &type metadata accessor for ChangeOperation, &protocol conformance descriptor for ChangeOperation);
   dispatch thunk of static CaseIterable.allCases.getter();
-  sub_10015DF68(&qword_1006BCB28, &type metadata accessor for ChangeOperation);
+  sub_10015DF68(&qword_1006BCB28, &type metadata accessor for ChangeOperation, &protocol conformance descriptor for ChangeOperation);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:supportedValues:)();
 }
 
@@ -5867,12 +5972,12 @@ uint64_t variable initialization expression of ChangeSettingIntent._setting()
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = &v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -5886,7 +5991,7 @@ uint64_t variable initialization expression of ChangeSettingIntent._setting()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&qword_1006BCEC0);
+  v22 = sub_10015DA04(&qword_1006BCEC0, &unk_10054DC80);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -5899,7 +6004,7 @@ uint64_t variable initialization expression of ChangeSettingIntent._setting()
   v18 = v23;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v15 + 56))(v18, 0, 1, v14);
-  v29 = 5;
+  v29[0] = 5;
   v19 = type metadata accessor for IntentDialog();
   v20 = *(*(v19 - 8) + 56);
   v20(v24, 1, 1, v19);
@@ -5912,20 +6017,20 @@ uint64_t variable initialization expression of ChangeSettingIntent._setting()
 uint64_t sub_10017618C(uint64_t a1)
 {
   v19 = a1;
-  v2 = sub_10015DA04(&qword_1006BCD10);
+  v2 = sub_10015DA04(&qword_1006BCD10, &unk_100531FA0);
   v3 = *(v2 - 8);
   __chkstk_darwin(v2);
   v5 = &v18 - v4;
-  v18 = sub_10015DA04(&qword_1006BD3E8);
+  v18 = sub_10015DA04(&qword_1006BD3E8, &qword_100532D08);
   v6 = *(v18 - 8);
   __chkstk_darwin(v18);
   v8 = &v18 - v7;
-  v9 = sub_10015DA04(&qword_1006BD3F0);
+  v9 = sub_10015DA04(&qword_1006BD3F0, &qword_100532D10);
   v10 = __chkstk_darwin(v9 - 8);
   v12 = &v18 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10);
   v14 = &v18 - v13;
-  v15 = sub_10015DA04(&qword_1006BD3F8);
+  v15 = sub_10015DA04(&qword_1006BD3F8, &qword_100532D18);
   v16 = *(v15 - 8);
   (*(v16 + 56))(v14, 1, 1, v15);
   (*(v3 + 16))(v5, v19, v2);
@@ -5933,7 +6038,7 @@ uint64_t sub_10017618C(uint64_t a1)
   type metadata accessor for Notification();
   AsyncStream.init(_:bufferingPolicy:_:)();
   (*(v6 + 32))(v1 + *(*v1 + 96), v8, v18);
-  sub_100006038(v14, v12, &qword_1006BD3F0);
+  sub_100006038(v14, v12, &qword_1006BD3F0, &qword_100532D10);
   result = (*(v16 + 48))(v12, 1, v15);
   if (result == 1)
   {
@@ -5944,7 +6049,7 @@ uint64_t sub_10017618C(uint64_t a1)
   {
     (*(v3 + 8))(v19, v2);
     (*(v16 + 32))(v1 + *(*v1 + 88), v12, v15);
-    sub_1000073B4(v14, &qword_1006BD3F0);
+    sub_1000073B4(v14, &qword_1006BD3F0, &qword_100532D10);
     return v1;
   }
 
@@ -5954,20 +6059,20 @@ uint64_t sub_10017618C(uint64_t a1)
 uint64_t sub_1001764D8(uint64_t a1)
 {
   v22 = a1;
-  v2 = sub_10015DA04(&qword_1006BCE70);
+  v2 = sub_10015DA04(&qword_1006BCE70, &unk_1005320A0);
   v3 = *(v2 - 8);
   __chkstk_darwin(v2);
   v5 = &v19 - v4;
-  v21 = sub_10015DA04(&qword_1006C8890);
+  v21 = sub_10015DA04(&qword_1006C8890, &qword_10054AFC0);
   v6 = *(v21 - 8);
   __chkstk_darwin(v21);
   v8 = &v19 - v7;
-  v9 = sub_10015DA04(&qword_1006BD3A0);
+  v9 = sub_10015DA04(&qword_1006BD3A0, &unk_100532CC0);
   v10 = __chkstk_darwin(v9 - 8);
   v12 = &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10);
   v14 = &v19 - v13;
-  v15 = sub_10015DA04(&qword_1006BD3A8);
+  v15 = sub_10015DA04(&qword_1006BD3A8, &unk_100543CE0);
   v16 = *(v15 - 8);
   (*(v16 + 56))(v14, 1, 1, v15);
   v17 = *(v3 + 16);
@@ -5976,7 +6081,7 @@ uint64_t sub_1001764D8(uint64_t a1)
   v23 = v14;
   AsyncStream.init(_:bufferingPolicy:_:)();
   (*(v6 + 32))(v1 + *(*v1 + 96), v8, v21);
-  sub_100006038(v14, v12, &qword_1006BD3A0);
+  sub_100006038(v14, v12, &qword_1006BD3A0, &unk_100532CC0);
   result = (*(v16 + 48))(v12, 1, v15);
   if (result == 1)
   {
@@ -5987,7 +6092,7 @@ uint64_t sub_1001764D8(uint64_t a1)
   {
     (*(v3 + 8))(v22, v20);
     (*(v16 + 32))(v1 + *(*v1 + 88), v12, v15);
-    sub_1000073B4(v14, &qword_1006BD3A0);
+    sub_1000073B4(v14, &qword_1006BD3A0, &unk_100532CC0);
     return v1;
   }
 
@@ -5997,20 +6102,20 @@ uint64_t sub_1001764D8(uint64_t a1)
 uint64_t sub_100176828(uint64_t a1)
 {
   v19 = a1;
-  v2 = sub_10015DA04(&unk_1006C86D0);
+  v2 = sub_10015DA04(&unk_1006C86D0, &unk_10054AEE0);
   v3 = *(v2 - 8);
   __chkstk_darwin(v2);
   v5 = &v18 - v4;
-  v18 = sub_10015DA04(&qword_1006BD3B0);
+  v18 = sub_10015DA04(&qword_1006BD3B0, &qword_100532CD0);
   v6 = *(v18 - 8);
   __chkstk_darwin(v18);
   v8 = &v18 - v7;
-  v9 = sub_10015DA04(&qword_1006BD3B8);
+  v9 = sub_10015DA04(&qword_1006BD3B8, &qword_100532CD8);
   v10 = __chkstk_darwin(v9 - 8);
   v12 = &v18 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10);
   v14 = &v18 - v13;
-  v15 = sub_10015DA04(&qword_1006BD3C0);
+  v15 = sub_10015DA04(&qword_1006BD3C0, &unk_100532CE0);
   v16 = *(v15 - 8);
   (*(v16 + 56))(v14, 1, 1, v15);
   (*(v3 + 16))(v5, v19, v2);
@@ -6018,7 +6123,7 @@ uint64_t sub_100176828(uint64_t a1)
   type metadata accessor for FastSync.SelectionMessage();
   AsyncStream.init(_:bufferingPolicy:_:)();
   (*(v6 + 32))(v1 + *(*v1 + 96), v8, v18);
-  sub_100006038(v14, v12, &qword_1006BD3B8);
+  sub_100006038(v14, v12, &qword_1006BD3B8, &qword_100532CD8);
   result = (*(v16 + 48))(v12, 1, v15);
   if (result == 1)
   {
@@ -6029,7 +6134,7 @@ uint64_t sub_100176828(uint64_t a1)
   {
     (*(v3 + 8))(v19, v2);
     (*(v16 + 32))(v1 + *(*v1 + 88), v12, v15);
-    sub_1000073B4(v14, &qword_1006BD3B8);
+    sub_1000073B4(v14, &qword_1006BD3B8, &qword_100532CD8);
     return v1;
   }
 
@@ -6039,28 +6144,28 @@ uint64_t sub_100176828(uint64_t a1)
 uint64_t sub_100176B74(uint64_t a1)
 {
   v19 = a1;
-  v2 = sub_10015DA04(&qword_1006BCE48);
+  v2 = sub_10015DA04(&qword_1006BCE48, &qword_100532078);
   v3 = *(v2 - 8);
   __chkstk_darwin(v2);
   v5 = &v18 - v4;
-  v18 = sub_10015DA04(&qword_1006BD3C8);
+  v18 = sub_10015DA04(&qword_1006BD3C8, &unk_100543E00);
   v6 = *(v18 - 8);
   __chkstk_darwin(v18);
   v8 = &v18 - v7;
-  v9 = sub_10015DA04(&qword_1006BD3D0);
+  v9 = sub_10015DA04(&qword_1006BD3D0, &unk_100532CF0);
   v10 = __chkstk_darwin(v9 - 8);
   v12 = &v18 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10);
   v14 = &v18 - v13;
-  v15 = sub_10015DA04(&qword_1006BD3D8);
+  v15 = sub_10015DA04(&qword_1006BD3D8, &qword_10054AF20);
   v16 = *(v15 - 8);
   (*(v16 + 56))(v14, 1, 1, v15);
   (*(v3 + 16))(v5, v19, v2);
   v20 = v14;
-  sub_10015DA04(&qword_1006BD3E0);
+  sub_10015DA04(&qword_1006BD3E0, &qword_100532D00);
   AsyncStream.init(_:bufferingPolicy:_:)();
   (*(v6 + 32))(v1 + *(*v1 + 96), v8, v18);
-  sub_100006038(v14, v12, &qword_1006BD3D0);
+  sub_100006038(v14, v12, &qword_1006BD3D0, &unk_100532CF0);
   result = (*(v16 + 48))(v12, 1, v15);
   if (result == 1)
   {
@@ -6071,32 +6176,32 @@ uint64_t sub_100176B74(uint64_t a1)
   {
     (*(v3 + 8))(v19, v2);
     (*(v16 + 32))(v1 + *(*v1 + 88), v12, v15);
-    sub_1000073B4(v14, &qword_1006BD3D0);
+    sub_1000073B4(v14, &qword_1006BD3D0, &unk_100532CF0);
     return v1;
   }
 
   return result;
 }
 
-uint64_t sub_100176ECC(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t *a5)
+uint64_t sub_100176ECC(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
 {
-  sub_1000073B4(a2, a3);
-  v8 = sub_10015DA04(a5);
-  v11 = *(v8 - 8);
-  (*(v11 + 16))(a2, a1, v8);
-  v9 = *(v11 + 56);
+  sub_1000073B4(a2, a3, a4);
+  v10 = sub_10015DA04(a5, a6);
+  v13 = *(v10 - 8);
+  (*(v13 + 16))(a2, a1, v10);
+  v11 = *(v13 + 56);
 
-  return v9(a2, 0, 1, v8);
+  return v11(a2, 0, 1, v10);
 }
 
-uint64_t variable initialization expression of AsyncBufferedMulticastManager.streams()
+uint64_t variable initialization expression of AsyncBufferedMulticastManager.streams(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for AsyncBufferedQueue();
-  Array.init()();
-  type metadata accessor for Array();
-  v0 = sub_100179CA0();
+  type metadata accessor for AsyncBufferedQueue(0, a1, a3, a4);
+  v7 = Array.init()();
+  v4 = type metadata accessor for Array();
+  v5 = sub_100179CA0(&v7, v4);
 
-  return v0;
+  return v5;
 }
 
 uint64_t variable initialization expression of SetChecklistItemsCheckedIntent._changeOperation()
@@ -6106,12 +6211,12 @@ uint64_t variable initialization expression of SetChecklistItemsCheckedIntent._c
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = &v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = &v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = &v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = &v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -6125,7 +6230,7 @@ uint64_t variable initialization expression of SetChecklistItemsCheckedIntent._c
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22 = sub_10015DA04(&qword_1006BCED0);
+  v22 = sub_10015DA04(&qword_1006BCED0, &qword_1005320F0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -6138,7 +6243,7 @@ uint64_t variable initialization expression of SetChecklistItemsCheckedIntent._c
   v18 = v23;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v15 + 56))(v18, 0, 1, v14);
-  v29 = 2;
+  v29[0] = 2;
   v19 = type metadata accessor for IntentDialog();
   v20 = *(*(v19 - 8) + 56);
   v20(v24, 1, 1, v19);
@@ -6155,12 +6260,12 @@ uint64_t variable initialization expression of SetChecklistItemsCheckedIntent._e
   v28 = v0;
   __chkstk_darwin(v0);
   v26 = v22 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v25 = v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v24 = v22 - v5;
-  v6 = sub_10015DA04(&qword_1006BE030);
+  v6 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v6 - 8);
   v23 = v22 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -6174,7 +6279,7 @@ uint64_t variable initialization expression of SetChecklistItemsCheckedIntent._e
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v22[1] = sub_10015DA04(&unk_1006BCA50);
+  v22[1] = sub_10015DA04(&unk_1006BCA50, &unk_100531E70);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -6193,7 +6298,7 @@ uint64_t variable initialization expression of SetChecklistItemsCheckedIntent._e
   v20(v24, 1, 1, v19);
   v20(v25, 1, 1, v19);
   (*(v27 + 104))(v26, enum case for InputConnectionBehavior.default(_:), v28);
-  sub_10015DF68(&qword_1006BE070, type metadata accessor for ChecklistItemEntity);
+  sub_10015DF68(&qword_1006BE070, type metadata accessor for ChecklistItemEntity, &protocol conformance descriptor for ChecklistItemEntity);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
 }
 
@@ -6204,15 +6309,15 @@ uint64_t variable initialization expression of SetChecklistItemsCheckedIntent._n
   v33 = v0;
   __chkstk_darwin(v0);
   v31 = &v25 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v30 = &v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v29 = &v25 - v5;
-  v6 = sub_10015DA04(&unk_1006BCAC0);
+  v6 = sub_10015DA04(&unk_1006BCAC0, &unk_1005395D0);
   __chkstk_darwin(v6 - 8);
   v28 = &v25 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v26 = &v25 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -6226,7 +6331,7 @@ uint64_t variable initialization expression of SetChecklistItemsCheckedIntent._n
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v27 = sub_10015DA04(&qword_1006BCB98);
+  v27 = sub_10015DA04(&qword_1006BCB98, &qword_100531F00);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -6246,13 +6351,13 @@ uint64_t variable initialization expression of SetChecklistItemsCheckedIntent._n
   v23(v29, 1, 1, v22);
   v23(v30, 1, 1, v22);
   (*(v32 + 104))(v31, enum case for InputConnectionBehavior.default(_:), v33);
-  sub_10015DF68(&qword_1006BCAD0, type metadata accessor for NoteEntity);
+  sub_10015DF68(&qword_1006BCAD0, type metadata accessor for NoteEntity, &protocol conformance descriptor for NoteEntity);
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
 }
 
 uint64_t _s11MobileNotes03PinB6IntentV8_context33_52A02AAC27D0B7014C7B94315114B535LL10AppIntents0M10DependencyCySo20ICUnifiedNoteContextCGvpfi_0()
 {
-  sub_10015DA04(&qword_1006C34B0);
+  sub_10015DA04(&qword_1006C34B0, &unk_1005348C0);
   AnyHashable.init<A>(_:)();
   type metadata accessor for AppDependencyManager();
   static AppDependencyManager.shared.getter();
@@ -6261,7 +6366,7 @@ uint64_t _s11MobileNotes03PinB6IntentV8_context33_52A02AAC27D0B7014C7B94315114B5
 
 uint64_t _s11MobileNotes03PinB6IntentV21_loggingConfiguration33_52A02AAC27D0B7014C7B94315114B535LL10AppIntents0N10DependencyCy0B6Shared07LoggingF0VGvpfi_0()
 {
-  sub_10015DA04(&unk_1006BCA40);
+  sub_10015DA04(&unk_1006BCA40, &unk_100531E60);
   AnyHashable.init<A>(_:)();
   type metadata accessor for AppDependencyManager();
   static AppDependencyManager.shared.getter();
@@ -6270,21 +6375,21 @@ uint64_t _s11MobileNotes03PinB6IntentV21_loggingConfiguration33_52A02AAC27D0B701
 
 uint64_t sub_1001780B4(uint64_t a1)
 {
-  v2 = sub_10015DF68(&qword_1006BD1A0, type metadata accessor for ICError);
+  v2 = sub_10015DF68(&qword_1006BD1A0, type metadata accessor for ICError, &unk_1005325F0);
 
   return Error<>._domain.getter(a1, v2);
 }
 
 uint64_t sub_100178120(uint64_t a1)
 {
-  v2 = sub_10015DF68(&qword_1006BD1A0, type metadata accessor for ICError);
+  v2 = sub_10015DF68(&qword_1006BD1A0, type metadata accessor for ICError, &unk_1005325F0);
 
   return Error<>._code.getter(a1, v2);
 }
 
 uint64_t sub_10017818C(uint64_t a1)
 {
-  v2 = sub_10015DF68(&qword_1006BE4D0, type metadata accessor for ICError);
+  v2 = sub_10015DF68(&qword_1006BE4D0, type metadata accessor for ICError, &unk_100532C04);
 
   return _BridgedStoredNSError._getEmbeddedNSError()(a1, v2);
 }
@@ -6296,11 +6401,11 @@ uint64_t sub_100178230@<X0>(uint64_t *a1@<X8>)
   return result;
 }
 
-uint64_t sub_100178278(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t *))
+uint64_t sub_100178278(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t *, uint64_t, uint64_t))
 {
   v9 = 0;
   v10 = 1;
-  result = a5(a1, &v9);
+  result = a5(a1, &v9, a3, a4);
   v7 = v9;
   v8 = v10;
   if (v10)
@@ -6313,11 +6418,11 @@ uint64_t sub_100178278(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return result;
 }
 
-uint64_t sub_1001782E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t *))
+uint64_t sub_1001782E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t *, uint64_t, uint64_t))
 {
   v10 = 0;
   v11 = 1;
-  v6 = a5(a1, &v10);
+  v6 = a5(a1, &v10, a3, a4);
   v7 = v10;
   v8 = v11;
   if (v11)
@@ -6328,13 +6433,6 @@ uint64_t sub_1001782E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *a2 = v7;
   *(a2 + 8) = v8;
   return v6 & 1;
-}
-
-uint64_t sub_100178344@<X0>(void *a1@<X8>)
-{
-  result = static CGFloat._unconditionallyBridgeFromObjectiveC(_:)();
-  *a1 = v3;
-  return result;
 }
 
 uint64_t sub_10017836C(uint64_t a1, id *a2)
@@ -6351,12 +6449,12 @@ uint64_t sub_1001783E4(uint64_t a1, id *a2)
   return v3 & 1;
 }
 
-uint64_t sub_100178464@<X0>(void *a1@<X8>)
+uint64_t sub_100178464@<X0>(void *a2@<X8>)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
@@ -6368,31 +6466,31 @@ Swift::Int sub_1001784A8()
   return Hasher._finalize()();
 }
 
-Swift::Int sub_1001784F0()
+Swift::Int sub_1001784F0(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(v1);
+  Hasher._combine(_:)(v2);
   return Hasher._finalize()();
 }
 
 uint64_t sub_100178544(uint64_t a1)
 {
-  v2 = sub_10015DF68(&qword_1006BE4D0, type metadata accessor for ICError);
+  v2 = sub_10015DF68(&qword_1006BE4D0, type metadata accessor for ICError, &unk_100532C04);
 
   return _BridgedStoredNSError.errorCode.getter(a1, v2);
 }
 
 uint64_t sub_1001785B0(uint64_t a1)
 {
-  v2 = sub_10015DF68(&qword_1006BE4D0, type metadata accessor for ICError);
+  v2 = sub_10015DF68(&qword_1006BE4D0, type metadata accessor for ICError, &unk_100532C04);
 
   return _BridgedStoredNSError.errorUserInfo.getter(a1, v2);
 }
 
 uint64_t sub_10017861C(void *a1, uint64_t a2)
 {
-  v4 = sub_10015DF68(&qword_1006BE4D0, type metadata accessor for ICError);
+  v4 = sub_10015DF68(&qword_1006BE4D0, type metadata accessor for ICError, &unk_100532C04);
   v5 = a1;
 
   return _BridgedStoredNSError.init(_bridgedNSError:)(v5, a2, v4);
@@ -6400,7 +6498,7 @@ uint64_t sub_10017861C(void *a1, uint64_t a2)
 
 uint64_t sub_1001786AC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10015DF68(&qword_1006BE4D0, type metadata accessor for ICError);
+  v4 = sub_10015DF68(&qword_1006BE4D0, type metadata accessor for ICError, &unk_100532C04);
 
   return _BridgedStoredNSError.hash(into:)(a1, a2, v4);
 }
@@ -6451,21 +6549,21 @@ int *sub_1001787BC@<X0>(int *result@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_10017887C(uint64_t a1)
 {
-  v2 = sub_10015DF68(&qword_1006BD590, type metadata accessor for CKError);
+  v2 = sub_10015DF68(&qword_1006BD590, type metadata accessor for CKError, &unk_100533F1C);
 
   return _BridgedStoredNSError.errorCode.getter(a1, v2);
 }
 
 uint64_t sub_1001788E8(uint64_t a1)
 {
-  v2 = sub_10015DF68(&qword_1006BD590, type metadata accessor for CKError);
+  v2 = sub_10015DF68(&qword_1006BD590, type metadata accessor for CKError, &unk_100533F1C);
 
   return _BridgedStoredNSError.errorUserInfo.getter(a1, v2);
 }
 
 uint64_t sub_100178954(void *a1, uint64_t a2)
 {
-  v4 = sub_10015DF68(&qword_1006BD590, type metadata accessor for CKError);
+  v4 = sub_10015DF68(&qword_1006BD590, type metadata accessor for CKError, &unk_100533F1C);
   v5 = a1;
 
   return _BridgedStoredNSError.init(_bridgedNSError:)(v5, a2, v4);
@@ -6473,69 +6571,69 @@ uint64_t sub_100178954(void *a1, uint64_t a2)
 
 uint64_t sub_1001789E4(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10015DF68(&qword_1006BD590, type metadata accessor for CKError);
+  v4 = sub_10015DF68(&qword_1006BD590, type metadata accessor for CKError, &unk_100533F1C);
 
   return _BridgedStoredNSError.hash(into:)(a1, a2, v4);
 }
 
-Swift::Int sub_100178A60()
+Swift::Int sub_100178A60(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   Hasher.init(_seed:)();
   dispatch thunk of Hashable.hash(into:)();
   return Hasher._finalize()();
 }
 
-uint64_t sub_100178AC0()
+uint64_t sub_100178AC0(uint64_t a1)
 {
-  sub_10015DF68(&qword_1006BD240, type metadata accessor for TextStyle);
-  sub_10015DF68(&qword_1006BD248, type metadata accessor for TextStyle);
+  sub_10015DF68(&qword_1006BD240, type metadata accessor for TextStyle, &unk_100532AB8);
+  sub_10015DF68(&qword_1006BD248, type metadata accessor for TextStyle, &unk_100532A58);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t sub_100178B7C()
+uint64_t sub_100178B7C(uint64_t a1)
 {
-  sub_10015DF68(&qword_1006C95D0, type metadata accessor for Key);
-  sub_10015DF68(&qword_1006BD670, type metadata accessor for Key);
+  sub_10015DF68(&qword_1006C95D0, type metadata accessor for Key, &unk_1005340F8);
+  sub_10015DF68(&qword_1006BD670, type metadata accessor for Key, &unk_1005330D4);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t sub_100178C38()
+uint64_t sub_100178C38(uint64_t a1)
 {
-  sub_10015DF68(&qword_1006BD610, type metadata accessor for OpenExternalURLOptionsKey);
-  sub_10015DF68(&qword_1006BD618, type metadata accessor for OpenExternalURLOptionsKey);
+  sub_10015DF68(&qword_1006BD610, type metadata accessor for OpenExternalURLOptionsKey, &unk_1005340B4);
+  sub_10015DF68(&qword_1006BD618, type metadata accessor for OpenExternalURLOptionsKey, &unk_1005338C8);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
 uint64_t sub_100178CF4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = sub_10015DF68(&qword_1006BE4D0, type metadata accessor for ICError);
+  v6 = sub_10015DF68(&qword_1006BE4D0, type metadata accessor for ICError, &unk_100532C04);
 
   return static _BridgedStoredNSError.== infix(_:_:)(a1, a2, a3, v6);
 }
 
-uint64_t sub_100178D78()
+uint64_t sub_100178D78(uint64_t a1)
 {
-  sub_10015DF68(&qword_1006BD638, type metadata accessor for VirtualSmartFolderItemIdentifierTypes);
-  sub_10015DF68(&qword_1006BD640, type metadata accessor for VirtualSmartFolderItemIdentifierTypes);
+  sub_10015DF68(&qword_1006BD638, type metadata accessor for VirtualSmartFolderItemIdentifierTypes, &unk_100533678);
+  sub_10015DF68(&qword_1006BD640, type metadata accessor for VirtualSmartFolderItemIdentifierTypes, &unk_100533618);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t sub_100178E34()
+uint64_t sub_100178E34(uint64_t a1)
 {
-  sub_10015DF68(&qword_1006BD600, type metadata accessor for Name);
-  sub_10015DF68(&qword_1006BD608, type metadata accessor for Name);
+  sub_10015DF68(&qword_1006BD600, type metadata accessor for Name, &unk_100533AB0);
+  sub_10015DF68(&qword_1006BD608, type metadata accessor for Name, &unk_100533A50);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t sub_100178EF0()
+uint64_t sub_100178EF0(uint64_t a1)
 {
-  sub_10015DF68(&qword_1006BD250, type metadata accessor for UIBackgroundTaskIdentifier);
-  sub_10015DF68(&qword_1006BD258, type metadata accessor for UIBackgroundTaskIdentifier);
+  sub_10015DF68(&qword_1006BD250, type metadata accessor for UIBackgroundTaskIdentifier, &unk_100532708);
+  sub_10015DF68(&qword_1006BD258, type metadata accessor for UIBackgroundTaskIdentifier, &unk_1005326A8);
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
@@ -6546,50 +6644,50 @@ double sub_100178FAC@<D0>(void *a1@<X8>)
   return result;
 }
 
-uint64_t sub_100178FB8()
+uint64_t sub_100178FB8(uint64_t a1)
 {
-  sub_10015DF68(&qword_1006BD620, type metadata accessor for Level);
-  sub_10015DF68(&qword_1006BD628, type metadata accessor for Level);
+  sub_10015DF68(&qword_1006BD620, type metadata accessor for Level, &unk_1005337D0);
+  sub_10015DF68(&qword_1006BD628, type metadata accessor for Level, &unk_100533770);
   sub_10017B398();
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t sub_100179080()
+uint64_t sub_100179080(uint64_t a1)
 {
-  sub_10015DF68(&qword_1006BD648, type metadata accessor for ActivityType);
-  sub_10015DF68(&qword_1006BD650, type metadata accessor for ActivityType);
+  sub_10015DF68(&qword_1006BD648, type metadata accessor for ActivityType, &unk_100533520);
+  sub_10015DF68(&qword_1006BD650, type metadata accessor for ActivityType, &unk_1005334C8);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t sub_10017913C()
+uint64_t sub_10017913C(uint64_t a1)
 {
-  sub_10015DF68(&qword_1006BD658, type metadata accessor for URLResourceKey);
-  sub_10015DF68(&unk_1006BD660, type metadata accessor for URLResourceKey);
+  sub_10015DF68(&qword_1006BD658, type metadata accessor for URLResourceKey, &unk_100533248);
+  sub_10015DF68(&unk_1006BD660, type metadata accessor for URLResourceKey, &unk_1005331E8);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t sub_1001791F8()
+uint64_t sub_1001791F8(uint64_t a1)
 {
-  sub_10015DF68(&qword_1006BD5E0, type metadata accessor for DocumentAttributeKey);
-  sub_10015DF68(&qword_1006BD5E8, type metadata accessor for DocumentAttributeKey);
+  sub_10015DF68(&qword_1006BD5E0, type metadata accessor for DocumentAttributeKey, &unk_100533E60);
+  sub_10015DF68(&qword_1006BD5E8, type metadata accessor for DocumentAttributeKey, &unk_100533DC0);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t sub_1001792B4@<X0>(void *a1@<X8>)
+uint64_t sub_1001792B4@<X0>(void *a2@<X8>)
 {
-  v2 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
-uint64_t sub_1001792FC()
+uint64_t sub_1001792FC(uint64_t a1)
 {
-  sub_10015DF68(&qword_1006BD5F0, type metadata accessor for DocumentReadingOptionKey);
-  sub_10015DF68(&qword_1006BD5F8, type metadata accessor for DocumentReadingOptionKey);
+  sub_10015DF68(&qword_1006BD5F0, type metadata accessor for DocumentReadingOptionKey, &unk_100533EA0);
+  sub_10015DF68(&qword_1006BD5F8, type metadata accessor for DocumentReadingOptionKey, &unk_100533CC0);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
@@ -6604,28 +6702,28 @@ uint64_t sub_1001793B8@<X0>(uint64_t a1@<X0>, _DWORD *a2@<X8>)
 
 uint64_t sub_1001793F8(uint64_t a1)
 {
-  v2 = sub_10015DF68(&qword_1006BD598, type metadata accessor for CKError);
+  v2 = sub_10015DF68(&qword_1006BD598, type metadata accessor for CKError, &unk_100534070);
 
   return Error<>._domain.getter(a1, v2);
 }
 
 uint64_t sub_100179464(uint64_t a1)
 {
-  v2 = sub_10015DF68(&qword_1006BD598, type metadata accessor for CKError);
+  v2 = sub_10015DF68(&qword_1006BD598, type metadata accessor for CKError, &unk_100534070);
 
   return Error<>._code.getter(a1, v2);
 }
 
 uint64_t sub_1001794D0(uint64_t a1)
 {
-  v2 = sub_10015DF68(&qword_1006BD590, type metadata accessor for CKError);
+  v2 = sub_10015DF68(&qword_1006BD590, type metadata accessor for CKError, &unk_100533F1C);
 
   return _BridgedStoredNSError._getEmbeddedNSError()(a1, v2);
 }
 
 uint64_t sub_10017953C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = sub_10015DF68(&qword_1006BD590, type metadata accessor for CKError);
+  v6 = sub_10015DF68(&qword_1006BD590, type metadata accessor for CKError, &unk_100533F1C);
 
   return static _BridgedStoredNSError.== infix(_:_:)(a1, a2, a3, v6);
 }
@@ -6649,37 +6747,37 @@ uint64_t sub_10017962C()
   return v0;
 }
 
-uint64_t sub_100179668()
+uint64_t sub_100179668(uint64_t a1)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   String.hash(into:)();
 }
 
-Swift::Int sub_1001796BC()
+Swift::Int sub_1001796BC(uint64_t a1)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v0 = Hasher._finalize()();
+  v1 = Hasher._finalize()();
 
-  return v0;
+  return v1;
 }
 
-uint64_t sub_100179744()
+uint64_t sub_100179744(void *a1, uint64_t *a2)
 {
-  v0 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = v1;
-  if (v0 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v2 == v3)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v5 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v5 & 1;
+  return v7 & 1;
 }
 
 unint64_t sub_1001797CC()
@@ -6723,7 +6821,7 @@ unint64_t sub_1001798C8()
   result = qword_1006BCB90;
   if (!qword_1006BCB90)
   {
-    sub_10017992C(&unk_1006BFD50);
+    sub_10017992C(&unk_1006BFD50, &qword_1005398C0);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1006BCB90);
   }
@@ -6731,7 +6829,7 @@ unint64_t sub_1001798C8()
   return result;
 }
 
-uint64_t sub_10017992C(uint64_t *a1)
+uint64_t sub_10017992C(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -6879,7 +6977,7 @@ unint64_t sub_100179C4C()
   return result;
 }
 
-uint64_t sub_100179CA0()
+uint64_t sub_100179CA0(uint64_t a1, uint64_t a2)
 {
   type metadata accessor for os_unfair_lock_s(255);
   type metadata accessor for ManagedBuffer();
@@ -7053,7 +7151,7 @@ id sub_10017B628()
   sub_10017CC14();
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  sub_10015DA04(&qword_1006BD800);
+  sub_10015DA04(&qword_1006BD800, &qword_100534168);
   sub_10017CCA4();
   Collection.only.getter();
 
@@ -7261,7 +7359,7 @@ void sub_10017BE98()
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   aBlock[0] = v4;
-  sub_10015DA04(&qword_1006BD800);
+  sub_10015DA04(&qword_1006BD800, &qword_100534168);
   sub_10017CCA4();
   Collection.only.getter();
 
@@ -7288,13 +7386,13 @@ void sub_10017BE98()
   }
 }
 
-uint64_t sub_10017C07C(uint64_t a1, uint64_t a2)
+uint64_t sub_10017C07C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *(a1 + 32);
-  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v6 = v5;
+  v4 = *(a1 + 32);
+  v5 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v7 = v6;
 
-  v3(a2, v4, v6);
+  v4(a2, v5, v7);
 }
 
 uint64_t sub_10017C110(void *a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t))
@@ -7305,7 +7403,7 @@ uint64_t sub_10017C110(void *a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t))
   v7 = swift_unknownObjectRelease();
   a4(v7);
 
-  return sub_100009F60(&v9);
+  return sub_100009F60(v9);
 }
 
 uint64_t sub_10017C1AC(void *a1, uint64_t a2, uint64_t a3, SEL *a4, SEL *a5)
@@ -7691,7 +7789,7 @@ unint64_t sub_10017CCA4()
   result = qword_1006BD808;
   if (!qword_1006BD808)
   {
-    sub_10017992C(&qword_1006BD800);
+    sub_10017992C(&qword_1006BD800, &qword_100534168);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1006BD808);
   }
@@ -7746,7 +7844,7 @@ uint64_t static OpenAccountIntent.title.getter@<X0>(uint64_t a1@<X8>)
 
 uint64_t static OpenAccountIntent.description.getter@<X0>(uint64_t a1@<X8>)
 {
-  v2 = sub_10015DA04(&qword_1006BE030);
+  v2 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v2 - 8);
   v4 = &v15[-v3];
   v5 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -7772,9 +7870,9 @@ uint64_t static OpenAccountIntent.description.getter@<X0>(uint64_t a1@<X8>)
 
 uint64_t static OpenAccountIntent.parameterSummary.getter()
 {
-  v0 = sub_10015DA04(&qword_1006BD810);
+  v0 = sub_10015DA04(&qword_1006BD810, &qword_100534180);
   __chkstk_darwin(v0 - 8);
-  v1 = sub_10015DA04(&qword_1006BD818);
+  v1 = sub_10015DA04(&qword_1006BD818, &qword_100534188);
   __chkstk_darwin(v1);
   sub_100020E0C();
   ParameterSummaryString.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -7782,7 +7880,7 @@ uint64_t static OpenAccountIntent.parameterSummary.getter()
   v2._object = 0xE900000000000020;
   ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v2);
   swift_getKeyPath();
-  sub_10015DA04(&qword_1006BD820);
+  sub_10015DA04(&qword_1006BD820, &qword_1005341B8);
   ParameterSummaryString.StringInterpolation.appendInterpolation<A, B>(_:)();
 
   v3._countAndFlagsBits = 0x746E756F63636120;
@@ -7794,7 +7892,7 @@ uint64_t static OpenAccountIntent.parameterSummary.getter()
 
 uint64_t OpenAccountIntent.target.setter(uint64_t a1)
 {
-  v2 = type metadata accessor for AccountEntity();
+  v2 = type metadata accessor for AccountEntity(0);
   __chkstk_darwin(v2 - 8);
   sub_10017E280(a1, &v5 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
   IntentParameter.wrappedValue.setter();
@@ -7856,7 +7954,7 @@ uint64_t sub_10017D7DC()
 
 uint64_t sub_10017D8D8(uint64_t a1)
 {
-  v2 = type metadata accessor for AccountEntity();
+  v2 = type metadata accessor for AccountEntity(0);
   __chkstk_darwin(v2 - 8);
   sub_10017E280(a1, &v5 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
   IntentParameter.wrappedValue.setter();
@@ -7888,23 +7986,23 @@ void sub_10017D9E0(void *a1)
   free(v1);
 }
 
-uint64_t sub_10017DA38()
+uint64_t sub_10017DA38(uint64_t a1, uint64_t a2)
 {
-  v0 = sub_10015DA04(&qword_1006BD810);
-  __chkstk_darwin(v0 - 8);
-  v1 = sub_10015DA04(&qword_1006BD818);
-  __chkstk_darwin(v1);
+  v2 = sub_10015DA04(&qword_1006BD810, &qword_100534180);
+  __chkstk_darwin(v2 - 8);
+  v3 = sub_10015DA04(&qword_1006BD818, &qword_100534188);
+  __chkstk_darwin(v3);
   ParameterSummaryString.StringInterpolation.init(literalCapacity:interpolationCount:)();
-  v2._countAndFlagsBits = 0x656874206E65704FLL;
-  v2._object = 0xE900000000000020;
-  ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v2);
+  v4._countAndFlagsBits = 0x656874206E65704FLL;
+  v4._object = 0xE900000000000020;
+  ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v4);
   swift_getKeyPath();
-  sub_10015DA04(&qword_1006BD820);
+  sub_10015DA04(&qword_1006BD820, &qword_1005341B8);
   ParameterSummaryString.StringInterpolation.appendInterpolation<A, B>(_:)();
 
-  v3._countAndFlagsBits = 0x746E756F63636120;
-  v3._object = 0xE800000000000000;
-  ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v3);
+  v5._countAndFlagsBits = 0x746E756F63636120;
+  v5._object = 0xE800000000000000;
+  ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v5);
   ParameterSummaryString.init(stringInterpolation:)();
   return IntentParameterSummary.init(_:table:)();
 }
@@ -7925,15 +8023,15 @@ uint64_t _s11MobileNotes17OpenAccountIntentVACycfC_0()
   v33 = v0;
   __chkstk_darwin(v0);
   v31 = &v26 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_10015DA04(&unk_1006BE0D0);
+  v2 = sub_10015DA04(&unk_1006BE0D0, &unk_100531E40);
   v3 = __chkstk_darwin(v2 - 8);
   v30 = &v26 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v29 = &v26 - v5;
-  v6 = sub_10015DA04(&unk_1006BCA20);
+  v6 = sub_10015DA04(&unk_1006BCA20, qword_1005343D0);
   __chkstk_darwin(v6 - 8);
   v28 = &v26 - v7;
-  v8 = sub_10015DA04(&qword_1006BE030);
+  v8 = sub_10015DA04(&qword_1006BE030, &qword_100531E50);
   __chkstk_darwin(v8 - 8);
   v27 = &v26 - v9;
   v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -7947,7 +8045,7 @@ uint64_t _s11MobileNotes17OpenAccountIntentVACycfC_0()
   v16 = type metadata accessor for LocalizedStringResource();
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
-  v26 = sub_10015DA04(&unk_1006BCA30);
+  v26 = sub_10015DA04(&unk_1006BCA30, &qword_100531E58);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v18 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -7960,23 +8058,23 @@ uint64_t _s11MobileNotes17OpenAccountIntentVACycfC_0()
   v20 = v27;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   (*(v17 + 56))(v20, 0, 1, v16);
-  v21 = type metadata accessor for AccountEntity();
+  v21 = type metadata accessor for AccountEntity(0);
   (*(*(v21 - 8) + 56))(v28, 1, 1, v21);
   v22 = type metadata accessor for IntentDialog();
   v23 = *(*(v22 - 8) + 56);
   v23(v29, 1, 1, v22);
   v23(v30, 1, 1, v22);
   (*(v32 + 104))(v31, enum case for InputConnectionBehavior.default(_:), v33);
-  sub_10017E550(&qword_1006C4160);
+  sub_10017E550(&qword_1006C4160, &protocol conformance descriptor for AccountEntity);
   v24 = IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
-  sub_10015DA04(&unk_1006BCA40);
+  sub_10015DA04(&unk_1006BCA40, &unk_100531E60);
   v34 = 0xD000000000000024;
   v35 = 0x800000010055CF90;
   AnyHashable.init<A>(_:)();
   type metadata accessor for AppDependencyManager();
   static AppDependencyManager.shared.getter();
   AppDependency.__allocating_init(key:manager:)();
-  sub_10015DA04(&qword_1006C34B0);
+  sub_10015DA04(&qword_1006C34B0, &unk_1005348C0);
   v34 = 0xD000000000000021;
   v35 = 0x800000010055CFC0;
   AnyHashable.init<A>(_:)();
@@ -7987,14 +8085,14 @@ uint64_t _s11MobileNotes17OpenAccountIntentVACycfC_0()
 
 uint64_t sub_10017E280(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for AccountEntity();
+  v4 = type metadata accessor for AccountEntity(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_10017E2E4(uint64_t a1)
 {
-  v2 = type metadata accessor for AccountEntity();
+  v2 = type metadata accessor for AccountEntity(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -8088,12 +8186,12 @@ LABEL_8:
   return result;
 }
 
-uint64_t sub_10017E550(unint64_t *a1)
+uint64_t sub_10017E550(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
-    type metadata accessor for AccountEntity();
+    type metadata accessor for AccountEntity(255);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -8109,11 +8207,11 @@ Swift::Int sub_10017E5A8()
   return Hasher._finalize()();
 }
 
-Swift::Int sub_10017E5F0()
+Swift::Int sub_10017E5F0(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(v1);
+  Hasher._combine(_:)(v2);
   return Hasher._finalize()();
 }
 
@@ -8124,7 +8222,7 @@ uint64_t sub_10017E644()
   v3 = *(v2 - 8);
   __chkstk_darwin(v2);
   v5 = &v17[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v6 = sub_10015DA04(&unk_1006C3FD0);
+  v6 = sub_10015DA04(&unk_1006C3FD0, &qword_10053D560);
   v7 = __chkstk_darwin(v6 - 8);
   v9 = &v17[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
   __chkstk_darwin(v7);
@@ -8303,14 +8401,14 @@ uint64_t sub_10017EBBC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
 uint64_t sub_10017ECA4(uint64_t a1)
 {
-  v28 = sub_10015DA04(&qword_1006BD9B8);
+  v28 = sub_10015DA04(&qword_1006BD9B8, &qword_100534620);
   v2 = *(v28 - 8);
   v3 = *(v2 + 64);
   v4 = __chkstk_darwin(v28);
   v27 = &v24 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v4);
   v29 = &v24 - v5;
-  v25 = sub_10015DA04(&qword_1006BD9C0);
+  v25 = sub_10015DA04(&qword_1006BD9C0, &qword_100534628);
   v6 = *(v25 - 8);
   v7 = *(v6 + 64);
   v8 = __chkstk_darwin(v25);
@@ -8321,7 +8419,7 @@ uint64_t sub_10017ECA4(uint64_t a1)
 
   v26 = v11;
   UICollectionView.CellRegistration.init(handler:)();
-  sub_1000054A4(0, &qword_1006BD9C8);
+  sub_1000054A4(0, &qword_1006BD9C8, UICollectionViewListCell_ptr);
 
   v12 = v29;
   UICollectionView.CellRegistration.init(handler:)();
@@ -8337,7 +8435,7 @@ uint64_t sub_10017ECA4(uint64_t a1)
   v19 = swift_allocObject();
   (*(v6 + 32))(v19 + v17, v9, v13);
   (*(v2 + 32))(v19 + v18, v14, v16);
-  v20 = objc_allocWithZone(sub_10015DA04(&qword_1006BD9D0));
+  v20 = objc_allocWithZone(sub_10015DA04(&qword_1006BD9D0, &unk_100534630));
   v21 = v24;
   v22 = UICollectionViewDiffableDataSource.init(collectionView:cellProvider:)();
   (*(v2 + 8))(v29, v16);
@@ -8379,10 +8477,11 @@ uint64_t sub_10017F01C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   v15 = (a1 + OBJC_IVAR____TtC11MobileNotes32SmartFolderComposerTextFieldCell_textDidChange);
   v16 = *(a1 + OBJC_IVAR____TtC11MobileNotes32SmartFolderComposerTextFieldCell_textDidChange);
+  v17 = v15[1];
   *v15 = sub_1001802A4;
   v15[1] = a4;
 
-  return sub_10000C840(v16);
+  return sub_10000C840(v16, v17);
 }
 
 void sub_10017F1BC(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -8390,24 +8489,24 @@ void sub_10017F1BC(uint64_t a1, uint64_t a2, uint64_t a3)
   *(a3 + 40) = a1;
   *(a3 + 48) = a2;
 
-  v5 = sub_10017E644(v4);
-  if (v5)
+  v4 = sub_10017E644();
+  if (v4)
   {
-    v6 = v5;
-    v7 = *(a3 + 48);
+    v5 = v4;
+    v6 = *(a3 + 48);
 
-    v8 = sub_100435D90();
-    if (v7)
+    v7 = sub_100435D90();
+    if (v6)
     {
-      v9 = String._bridgeToObjectiveC()();
+      v8 = String._bridgeToObjectiveC()();
     }
 
     else
     {
-      v9 = 0;
+      v8 = 0;
     }
 
-    [v8 setText:v9];
+    [v7 setText:v8];
   }
 
   *(a3 + 72) = 1;
@@ -8415,7 +8514,7 @@ void sub_10017F1BC(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_10017F274(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = sub_10015DA04(&qword_1006BD9D8);
+  v6 = sub_10015DA04(&qword_1006BD9D8, "f?\n");
   __chkstk_darwin(v6 - 8);
   v63 = &v56 - v7;
   v64 = type metadata accessor for UICellAccessory.DisclosureIndicatorOptions();
@@ -8456,7 +8555,7 @@ uint64_t sub_10017F274(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
     if (v34)
     {
       v35 = [v34 filterTypeSelections];
-      sub_1000054A4(0, &unk_1006C2B90);
+      sub_1000054A4(0, &unk_1006C2B90, ICFilterTypeSelection_ptr);
       v36 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
       if (v36 >> 62)
@@ -8475,7 +8574,7 @@ uint64_t sub_10017F274(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
       v37 = 0;
     }
 
-    sub_10015DA04(&qword_1006C1A30);
+    sub_10015DA04(&qword_1006C1A30, &unk_100534640);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_100531E30;
     *(inited + 56) = &type metadata for Int;
@@ -8491,7 +8590,7 @@ uint64_t sub_10017F274(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
     sub_10035B3E8(inited, v42, v44);
     swift_bridgeObjectRelease_n();
     swift_setDeallocating();
-    sub_10015DA04(&unk_1006C5D10);
+    sub_10015DA04(&unk_1006C5D10, &unk_10053BA70);
     swift_arrayDestroy();
   }
 
@@ -8520,7 +8619,7 @@ uint64_t sub_10017F274(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v47 = v60;
   (*(v60 + 16))(v46, v21, v45);
   UICollectionViewCell.contentConfiguration.setter();
-  sub_10015DA04(&unk_1006BD9E0);
+  sub_10015DA04(&unk_1006BD9E0, &unk_100534650);
   type metadata accessor for UICellAccessory();
   *(swift_allocObject() + 16) = xmmword_100531E30;
   v48 = v57;
@@ -8550,11 +8649,11 @@ uint64_t sub_10017F274(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return (*(v47 + 8))(v56, v45);
 }
 
-uint64_t sub_10017FAE0(uint64_t a1, uint64_t a2, _BYTE *a3)
+uint64_t sub_10017FAE0(uint64_t a1, uint64_t a2, _BYTE *a3, uint64_t a4, uint64_t a5)
 {
   if (*a3)
   {
-    sub_1000054A4(0, &qword_1006BD9C8);
+    sub_1000054A4(0, &qword_1006BD9C8, UICollectionViewListCell_ptr);
   }
 
   else
@@ -8752,12 +8851,12 @@ unint64_t sub_10017FDD0()
   return result;
 }
 
-uint64_t sub_10017FE54(unint64_t *a1, uint64_t *a2)
+uint64_t sub_10017FE54(unint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   result = *a1;
   if (!result)
   {
-    sub_10017992C(a2);
+    sub_10017992C(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -8779,7 +8878,7 @@ unint64_t sub_10017FEAC()
 
 uint64_t sub_10017FF00()
 {
-  v1 = sub_10015DA04(&qword_1006BD9A0);
+  v1 = sub_10015DA04(&qword_1006BD9A0, &qword_100534618);
   v2 = *(v1 - 8);
   __chkstk_darwin(v1);
   v4 = &v9[-v3];
@@ -8829,10 +8928,13 @@ unint64_t sub_1001800D8()
 
 uint64_t sub_10018013C(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  sub_10015DA04(&qword_1006BD9C0);
-  sub_10015DA04(&qword_1006BD9B8);
+  v7 = *(sub_10015DA04(&qword_1006BD9C0, &qword_100534628) - 8);
+  v8 = (*(v7 + 80) + 16) & ~*(v7 + 80);
+  v9 = *(v7 + 64);
+  v10 = *(sub_10015DA04(&qword_1006BD9B8, &qword_100534620) - 8);
+  v11 = v3 + ((v8 + v9 + *(v10 + 80)) & ~*(v10 + 80));
 
-  return sub_10017FAE0(a1, a2, a3);
+  return sub_10017FAE0(a1, a2, a3, v3 + v8, v11);
 }
 
 uint64_t *sub_100180240(uint64_t *result)
@@ -8848,14 +8950,14 @@ uint64_t *sub_100180240(uint64_t *result)
 
 uint64_t sub_1001802AC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10015DA04(&unk_1006C3FD0);
+  v4 = sub_10015DA04(&unk_1006C3FD0, &qword_10053D560);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_10018031C(uint64_t a1)
 {
-  v2 = sub_10015DA04(&unk_1006C3FD0);
+  v2 = sub_10015DA04(&unk_1006C3FD0, &qword_10053D560);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -8909,7 +9011,7 @@ id sub_100180418()
 void sub_100180478()
 {
   v1 = v0;
-  v2 = sub_10015DA04(&qword_1006C6810);
+  v2 = sub_10015DA04(&qword_1006C6810, &unk_1005346B0);
   v3 = __chkstk_darwin(v2 - 8);
   v5 = &v33 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = __chkstk_darwin(v3);
@@ -8966,14 +9068,14 @@ void sub_100180478()
 
     v19 = objc_opt_self();
     v20 = [v19 configurationWithPointSize:4 weight:2 scale:v15];
-    sub_10015DA04(&unk_1006BD390);
+    sub_10015DA04(&unk_1006BD390, &unk_100532CB0);
     v21 = swift_allocObject();
     *(v21 + 16) = xmmword_100531E20;
     v22 = objc_opt_self();
     v23 = v20;
     *(v21 + 32) = [v22 secondaryLabelColor];
     *(v21 + 40) = [v22 tertiarySystemFillColor];
-    sub_1000054A4(0, &qword_1006BDAC0);
+    sub_1000054A4(0, &qword_1006BDAC0, UIColor_ptr);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
     v25 = [v19 configurationWithPaletteColors:isa];
@@ -9085,7 +9187,7 @@ id sub_100180BC8(void *a1)
 
   v13 = [v9 ic_actionWithImage:0 handler:v11];
   _Block_release(v11);
-  sub_1000054A4(0, &qword_1006BDAC8);
+  sub_1000054A4(0, &qword_1006BDAC8, UIButton_ptr);
   (*(v3 + 16))(v6, v8, v2);
   v14 = v13;
   v15 = UIButton.init(configuration:primaryAction:)();
@@ -9108,7 +9210,7 @@ id sub_100180BC8(void *a1)
   return v17;
 }
 
-void *sub_100180EDC()
+void *sub_100180EDC(uint64_t a1, uint64_t a2)
 {
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
@@ -9221,7 +9323,7 @@ char *sub_100181070(uint64_t a1, char a2)
 
     v77 = v29;
 
-    v75 = sub_10015DA04(&unk_1006BD390);
+    v75 = sub_10015DA04(&unk_1006BD390, &unk_100532CB0);
     v30 = swift_allocObject();
     *(v30 + 16) = xmmword_100534660;
     v31 = sub_100180418();
@@ -9292,14 +9394,14 @@ char *sub_100181070(uint64_t a1, char a2)
     *(inited + 32) = v77;
     v12 = v77;
     sub_1002DBA90(inited);
-    sub_1000054A4(0, &qword_1006C5D90);
+    sub_1000054A4(0, &qword_1006C5D90, NSLayoutConstraint_ptr);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
     [v57 activateConstraints:isa];
   }
 
   v63 = objc_opt_self();
-  sub_10015DA04(&unk_1006BD390);
+  sub_10015DA04(&unk_1006BD390, &unk_100532CB0);
   v64 = swift_allocObject();
   *(v64 + 16) = xmmword_100531E20;
   v65 = [v10 topAnchor];
@@ -9314,13 +9416,13 @@ char *sub_100181070(uint64_t a1, char a2)
   v71 = [v68 constraintEqualToAnchor:v70];
 
   *(v64 + 40) = v71;
-  sub_1000054A4(0, &qword_1006C5D90);
+  sub_1000054A4(0, &qword_1006C5D90, NSLayoutConstraint_ptr);
   v72 = Array._bridgeToObjectiveC()().super.isa;
 
   [v63 activateConstraints:v72];
 
   sub_100180478();
-  sub_1000054A4(0, &qword_1006BDAB0);
+  sub_1000054A4(0, &qword_1006BDAB0, UITraitCollection_ptr);
   static UITraitCollection.traitsAffectingSizeAndColor.getter();
   UIView.registerForTraitChanges(_:action:)();
   swift_unknownObjectRelease();
@@ -9333,14 +9435,14 @@ char *sub_100181070(uint64_t a1, char a2)
 
 uint64_t sub_1001819E8(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10015DA04(&qword_1006C6810);
+  v4 = sub_10015DA04(&qword_1006C6810, &unk_1005346B0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_100181A58(uint64_t a1)
 {
-  v2 = sub_10015DA04(&qword_1006C6810);
+  v2 = sub_10015DA04(&qword_1006C6810, &unk_1005346B0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -9356,8 +9458,8 @@ objc_class *sub_100181AD0()
 
   else
   {
-    sub_1000054A4(0, &unk_1006C6410);
-    sub_10015DA04(&unk_1006BD390);
+    sub_1000054A4(0, &unk_1006C6410, UIMenu_ptr);
+    sub_10015DA04(&unk_1006BD390, &unk_100532CB0);
     preferredElementSize = swift_allocObject();
     *(preferredElementSize + 16) = xmmword_1005346C0;
     v5 = v0;
@@ -9576,120 +9678,7 @@ id sub_100182014()
 
   else
   {
-    sub_1000054A4(0, &unk_1006BD380);
-    v4 = [objc_opt_self() mainBundle];
-    v5 = String._bridgeToObjectiveC()();
-    v6 = [v4 localizedStringForKey:v5 value:0 table:0];
-
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
-    *(swift_allocObject() + 16) = v0;
-    v7 = v0;
-    v8 = v0;
-    v9 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
-    v10 = *&v0[v1];
-    *&v8[v1] = v9;
-    v3 = v9;
-
-    v2 = 0;
-  }
-
-  v11 = v2;
-  return v3;
-}
-
-void sub_100182180(uint64_t a1, char *a2)
-{
-  v3 = *&a2[OBJC_IVAR____TtC11MobileNotes24FolderComposerFilterCell_filterTypeSelection];
-  *&a2[OBJC_IVAR____TtC11MobileNotes24FolderComposerFilterCell_filterTypeSelection] = 0;
-
-  [a2 setNeedsUpdateConfiguration];
-  sub_100181C60();
-  v4 = *&a2[OBJC_IVAR____TtC11MobileNotes24FolderComposerFilterCell_filterTypeSelectionDidChange];
-  if (v4)
-  {
-
-    v4(v5);
-
-    sub_10000C840(v4);
-  }
-}
-
-id sub_10018221C()
-{
-  v1 = OBJC_IVAR____TtC11MobileNotes35FolderComposerFilterCellAttachments____lazy_storage___menuActionAny;
-  v2 = *&v0[OBJC_IVAR____TtC11MobileNotes35FolderComposerFilterCellAttachments____lazy_storage___menuActionAny];
-  if (v2)
-  {
-    v3 = *&v0[OBJC_IVAR____TtC11MobileNotes35FolderComposerFilterCellAttachments____lazy_storage___menuActionAny];
-  }
-
-  else
-  {
-    sub_1000054A4(0, &unk_1006BD380);
-    v4 = [objc_opt_self() mainBundle];
-    v5 = String._bridgeToObjectiveC()();
-    v6 = [v4 localizedStringForKey:v5 value:0 table:0];
-
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
-    *(swift_allocObject() + 16) = v0;
-    v7 = v0;
-    v8 = v0;
-    v9 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
-    v10 = *&v0[v1];
-    *&v8[v1] = v9;
-    v3 = v9;
-
-    v2 = 0;
-  }
-
-  v11 = v2;
-  return v3;
-}
-
-id sub_100182388()
-{
-  v1 = OBJC_IVAR____TtC11MobileNotes35FolderComposerFilterCellAttachments____lazy_storage___menuActionPhotoVideo;
-  v2 = *&v0[OBJC_IVAR____TtC11MobileNotes35FolderComposerFilterCellAttachments____lazy_storage___menuActionPhotoVideo];
-  if (v2)
-  {
-    v3 = *&v0[OBJC_IVAR____TtC11MobileNotes35FolderComposerFilterCellAttachments____lazy_storage___menuActionPhotoVideo];
-  }
-
-  else
-  {
-    sub_1000054A4(0, &unk_1006BD380);
-    v4 = [objc_opt_self() mainBundle];
-    v5 = String._bridgeToObjectiveC()();
-    v6 = [v4 localizedStringForKey:v5 value:0 table:0];
-
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
-    *(swift_allocObject() + 16) = v0;
-    v7 = v0;
-    v8 = v0;
-    v9 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
-    v10 = *&v0[v1];
-    *&v8[v1] = v9;
-    v3 = v9;
-
-    v2 = 0;
-  }
-
-  v11 = v2;
-  return v3;
-}
-
-id sub_100182508()
-{
-  v1 = OBJC_IVAR____TtC11MobileNotes35FolderComposerFilterCellAttachments____lazy_storage___menuActionScan;
-  v2 = *&v0[OBJC_IVAR____TtC11MobileNotes35FolderComposerFilterCellAttachments____lazy_storage___menuActionScan];
-  if (v2)
-  {
-    v3 = *&v0[OBJC_IVAR____TtC11MobileNotes35FolderComposerFilterCellAttachments____lazy_storage___menuActionScan];
-  }
-
-  else
-  {
-    sub_1000054A4(0, &unk_1006BD380);
+    sub_1000054A4(0, &unk_1006BD380, UIAction_ptr);
     v4 = [objc_opt_self() mainBundle];
     v5 = String._bridgeToObjectiveC()();
     v6 = [v4 localizedStringForKey:v5 value:0 table:0];

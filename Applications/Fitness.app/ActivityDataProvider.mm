@@ -29,7 +29,7 @@
   selfCopy = self;
   [v2 removeObserver:selfCopy];
   v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for ActivityDataProvider();
+  v4.super_class = type metadata accessor for ActivityDataProvider(0);
   [(ActivityDataProvider *)&v4 dealloc];
 }
 

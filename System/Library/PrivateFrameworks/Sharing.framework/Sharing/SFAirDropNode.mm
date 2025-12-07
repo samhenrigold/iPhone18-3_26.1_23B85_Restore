@@ -11,6 +11,7 @@
 - (void)dealloc;
 - (void)handleOperationCallback:(__SFOperation *)callback event:(int64_t)event withResults:(id)results;
 - (void)setRangingMeasurement:(id)measurement;
+- (void)startSendForBundleID:(id)d sessionID:(id)iD items:(id)items description:(id)description previewImage:(CGImage *)image fromShareSheet:(BOOL)sheet;
 - (void)updateDisplayName;
 - (void)updateWithSFNode:(__SFNode *)node;
 @end
@@ -89,58 +90,121 @@
 
 - (NSString)description
 {
-  objc_opt_class();
-  NSAppendPrintF();
-  v18 = 0;
-  realName = self->_realName;
-  NSAppendPrintF();
-  v3 = v18;
+  v36 = 0;
+  v3 = objc_opt_class();
+  NSAppendPrintF(&v36, "<%@: %{ptr}", v3, self);
+  v4 = v36;
+  v35 = v4;
+  NSAppendPrintF(&v35, ", realName: %@", self->_realName);
+  v5 = v35;
 
-  v4 = [(NSString *)self->_displayName stringByReplacingOccurrencesOfString:@"\n" withString:@" ", realName, self];
-  NSAppendPrintF();
-  v5 = v3;
+  v34 = v5;
+  v6 = [(NSString *)self->_displayName stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+  NSAppendPrintF(&v34, ", displayName: %@", v6);
+  v7 = v34;
 
-  secondaryName = self->_secondaryName;
-  NSAppendPrintF();
-  v6 = v5;
+  v33 = v7;
+  NSAppendPrintF(&v33, ", secondaryName: %@", self->_secondaryName);
+  v8 = v33;
 
-  self->_me;
-  NSAppendPrintF();
-  v7 = v6;
+  v32 = v8;
+  if (self->_me)
+  {
+    v9 = "yes";
+  }
 
-  self->_unknown;
-  NSAppendPrintF();
-  v8 = v7;
+  else
+  {
+    v9 = "no";
+  }
 
-  self->_rapport;
-  NSAppendPrintF();
-  v9 = v8;
+  NSAppendPrintF(&v32, ", isMe: %s", v9);
+  v10 = v32;
 
-  self->_ultraWideBindCapable;
-  NSAppendPrintF();
-  v10 = v9;
+  v31 = v10;
+  if (self->_unknown)
+  {
+    v11 = "no";
+  }
+
+  else
+  {
+    v11 = "yes";
+  }
+
+  NSAppendPrintF(&v31, ", isKnown: %s", v11);
+  v12 = v31;
+
+  v30 = v12;
+  if (self->_rapport)
+  {
+    v13 = "yes";
+  }
+
+  else
+  {
+    v13 = "no";
+  }
+
+  NSAppendPrintF(&v30, ", isRapport: %s", v13);
+  v14 = v30;
+
+  v29 = v14;
+  if (self->_ultraWideBindCapable)
+  {
+    v15 = "yes";
+  }
+
+  else
+  {
+    v15 = "no";
+  }
+
+  NSAppendPrintF(&v29, ", uwbCapable: %s", v15);
+  v16 = v29;
 
   selectionReason = self->_selectionReason;
   if (selectionReason >= 1)
   {
-    NSAppendPrintF();
-    v12 = v10;
+    v28 = v16;
+    v18 = "?";
+    if (selectionReason == 1)
+    {
+      v18 = "Pointing";
+    }
 
-    v10 = v12;
+    if (selectionReason == 2)
+    {
+      v19 = "CozyUp";
+    }
+
+    else
+    {
+      v19 = v18;
+    }
+
+    NSAppendPrintF(&v28, ", selected (%s)", v19);
+    v20 = v28;
+
+    v16 = v20;
   }
 
-  if (self->_rangingMeasurement)
+  rangingMeasurement = self->_rangingMeasurement;
+  if (rangingMeasurement)
   {
-    NSAppendPrintF();
-    v13 = v10;
+    v27 = v16;
+    NSAppendPrintF(&v27, ", rangingMeasurement: %@", rangingMeasurement);
+    v22 = v27;
 
-    v10 = v13;
+    v16 = v22;
   }
 
-  NSAppendPrintF();
-  v14 = v10;
+  v26 = v16;
+  NSAppendPrintF(&v26, ">");
+  v23 = v26;
+  v24 = v26;
 
-  return v10;
+  return v23;
 }
 
 - (void)updateWithSFNode:(__SFNode *)node
@@ -433,17 +497,17 @@ LABEL_19:
 
 - (void)appendDiscoveryInfoToDisplayName:(id)name
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   node = [(SFAirDropNode *)self node];
   v6 = SFNodeCopySiblingNodes(node);
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v7 = v6;
-  v8 = [(__CFArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [(__CFArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (!v8)
   {
 
@@ -453,17 +517,17 @@ LABEL_19:
   v9 = v8;
   v10 = 0;
   v11 = 0;
-  v12 = *v18;
+  v12 = *v17;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v18 != v12)
+      if (*v17 != v12)
       {
         objc_enumerationMutation(v7);
       }
 
-      v14 = SFNodeCopyKinds(*(*(&v17 + 1) + 8 * i));
+      v14 = SFNodeCopyKinds(*(*(&v16 + 1) + 8 * i));
       v15 = v14;
       if (v11 & v10)
       {
@@ -473,7 +537,7 @@ LABEL_9:
         goto LABEL_11;
       }
 
-      if (([(__CFSet *)v14 containsObject:@"Rapport", v17]& 1) != 0)
+      if (([(__CFSet *)v14 containsObject:@"Rapport", v16]& 1) != 0)
       {
         goto LABEL_9;
       }
@@ -482,7 +546,7 @@ LABEL_9:
 LABEL_11:
     }
 
-    v9 = [(__CFArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [(__CFArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   }
 
   while (v9);
@@ -498,8 +562,6 @@ LABEL_11:
   }
 
 LABEL_18:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)displayNameForLocale:(id)locale
@@ -520,7 +582,7 @@ LABEL_18:
     if (!currentLocale)
     {
       currentLocale = [MEMORY[0x1E695DF58] currentLocale];
-      v10 = airdrop_log();
+      v10 = airdrop_log(currentLocale);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [(SFAirDropNode *)currentLocale displayNameForLocale:v10];
@@ -545,6 +607,58 @@ LABEL_18:
   return displayName;
 }
 
+- (void)startSendForBundleID:(id)d sessionID:(id)iD items:(id)items description:(id)description previewImage:(CGImage *)image fromShareSheet:(BOOL)sheet
+{
+  sheetCopy = sheet;
+  dCopy = d;
+  iDCopy = iD;
+  itemsCopy = items;
+  descriptionCopy = description;
+  v19 = descriptionCopy;
+  if (!self->_sender)
+  {
+    v20 = airdrop_log(descriptionCopy);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    {
+      [SFAirDropNode startSendForBundleID:a2 sessionID:itemsCopy items:v20 description:? previewImage:? fromShareSheet:?];
+    }
+
+    v21 = SFOperationCreate(0, @"Sender");
+    self->_sender = v21;
+    *&v22 = 0;
+    *(&v22 + 1) = self;
+    v23 = MEMORY[0x1E695D7C8];
+    v24 = MEMORY[0x1E695D7C0];
+    v25 = 0;
+    SFOperationSetClient(v21, operationCallBack, &v22);
+    SFOperationSetDispatchQueue(self->_sender, MEMORY[0x1E69E96A0]);
+    SFOperationSetProperty(self->_sender, @"Node", self->_node);
+    if (dCopy)
+    {
+      SFOperationSetProperty(self->_sender, @"BundleID", dCopy);
+    }
+
+    if (image)
+    {
+      SFOperationSetProperty(self->_sender, @"FileIcon", image);
+    }
+
+    SFOperationSetProperty(self->_sender, @"FromShareSheet", [MEMORY[0x1E696AD98] numberWithBool:sheetCopy]);
+    SFOperationSetProperty(self->_sender, @"Items", itemsCopy);
+    if (iDCopy)
+    {
+      SFOperationSetProperty(self->_sender, @"SessionID", iDCopy);
+    }
+
+    if (v19)
+    {
+      SFOperationSetProperty(self->_sender, @"ItemsDescription", v19);
+    }
+
+    SFOperationResume(self->_sender);
+  }
+}
+
 - (void)cancelSend
 {
   sender = self->_sender;
@@ -559,6 +673,7 @@ LABEL_18:
 - (void)handleOperationCallback:(__SFOperation *)callback event:(int64_t)event withResults:(id)results
 {
   resultsCopy = results;
+  v9 = resultsCopy;
   if (event > 4)
   {
     if (event <= 0xF)
@@ -572,10 +687,10 @@ LABEL_18:
       {
         if (event == 10)
         {
-          v9 = airdrop_log();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          v10 = airdrop_log(resultsCopy);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
-            [SFAirDropNode handleOperationCallback:resultsCopy event:v9 withResults:?];
+            [SFAirDropNode handleOperationCallback:v9 event:v10 withResults:?];
           }
 
           goto LABEL_12;
@@ -590,10 +705,10 @@ LABEL_12:
     }
 
 LABEL_14:
-    v10 = airdrop_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = airdrop_log(resultsCopy);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [SFAirDropNode handleOperationCallback:event event:resultsCopy withResults:v10];
+      [SFAirDropNode handleOperationCallback:event event:v9 withResults:v11];
     }
 
     goto LABEL_17;
@@ -620,50 +735,45 @@ LABEL_17:
 
 - (void)displayNameForLocale:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A9662000, a2, OS_LOG_TYPE_ERROR, "displayNameForLocale: inLocale = nil, using currentLocale: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A9662000, a2, OS_LOG_TYPE_ERROR, "displayNameForLocale: inLocale = nil, using currentLocale: %@", &v2, 0xCu);
 }
 
 - (void)startSendForBundleID:(NSObject *)a3 sessionID:items:description:previewImage:fromShareSheet:.cold.1(const char *a1, void *a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = NSStringFromSelector(a1);
   v6 = [a2 valueForKeyPath:@"class"];
-  v8 = 138412802;
-  v9 = v5;
-  v10 = 2112;
-  v11 = v6;
-  v12 = 2112;
-  v13 = a2;
-  _os_log_debug_impl(&dword_1A9662000, a3, OS_LOG_TYPE_DEBUG, "AirDrop %@ Items \nTypes: [%@], \nValues: [%@]", &v8, 0x20u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412802;
+  v8 = v5;
+  v9 = 2112;
+  v10 = v6;
+  v11 = 2112;
+  v12 = a2;
+  _os_log_debug_impl(&dword_1A9662000, a3, OS_LOG_TYPE_DEBUG, "AirDrop %@ Items \nTypes: [%@], \nValues: [%@]", &v7, 0x20u);
 }
 
 - (void)handleOperationCallback:(uint64_t)a1 event:(NSObject *)a2 withResults:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A9662000, a2, OS_LOG_TYPE_ERROR, "Sender kSFOperationEventErrorOccured %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A9662000, a2, OS_LOG_TYPE_ERROR, "Sender kSFOperationEventErrorOccured %@", &v2, 0xCu);
 }
 
 - (void)handleOperationCallback:(uint64_t)a1 event:(uint64_t)a2 withResults:(NSObject *)a3 .cold.2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
   v5 = a1;
-  v13 = *MEMORY[0x1E69E9840];
-  v7 = 138412802;
-  v8 = SFOperationEventToString(a1);
-  v9 = 1024;
-  v10 = v5;
-  v11 = 2112;
-  v12 = a2;
-  _os_log_error_impl(&dword_1A9662000, a3, OS_LOG_TYPE_ERROR, "Sender UNHANDLED EVENT %@ [%d] %@", &v7, 0x1Cu);
-  v6 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v6 = 138412802;
+  v7 = SFOperationEventToString(a1);
+  v8 = 1024;
+  v9 = v5;
+  v10 = 2112;
+  v11 = a2;
+  _os_log_error_impl(&dword_1A9662000, a3, OS_LOG_TYPE_ERROR, "Sender UNHANDLED EVENT %@ [%d] %@", &v6, 0x1Cu);
 }
 
 @end

@@ -29,7 +29,7 @@
 
 - (void)cancelIfNeededForBacklightState:(uint64_t)state
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   if (state)
   {
     os_unfair_lock_lock((state + 40));
@@ -41,15 +41,13 @@
       assertion = [state assertion];
       v7 = MEMORY[0x277CCA9B8];
       v8 = *MEMORY[0x277CF0828];
-      v12 = *MEMORY[0x277CCA450];
-      v13[0] = @"canceled due to backlight inactive";
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+      v11 = *MEMORY[0x277CCA450];
+      v12[0] = @"canceled due to backlight inactive";
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
       v10 = [v7 errorWithDomain:v8 code:12 userInfo:v9];
       [service cancelAssertion:assertion withError:v10];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (os_unfair_lock_s)activate

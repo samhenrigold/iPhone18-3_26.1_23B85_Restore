@@ -189,17 +189,17 @@
 
 - (void)remote_addEmergencyContact:(id)contact completion:(id)completion
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   completionCopy = completion;
-  v30 = 0;
+  v29 = 0;
   v8 = [(HDMedicalIDStoreTaskServer *)self medicalIDDataManagerWithError:?];
-  v9 = v30;
+  v9 = v29;
   if (v8)
   {
-    v29 = 0;
-    v10 = [v8 fetchMedicalIDIfSetUpWithError:&v29];
-    v11 = v29;
+    v28 = 0;
+    v10 = [v8 fetchMedicalIDIfSetUpWithError:&v28];
+    v11 = v28;
     v12 = v11;
     if (v10)
     {
@@ -214,13 +214,13 @@
       else
       {
         emergencyContacts2 = [v10 emergencyContacts];
-        v17 = [emergencyContacts2 count];
-        v18 = *MEMORY[0x277CCDF30];
+        v16 = [emergencyContacts2 count];
+        v17 = *MEMORY[0x277CCDF30];
 
-        if (v17 >= v18)
+        if (v16 >= v17)
         {
-          v22 = [MEMORY[0x277CCA9B8] hk_error:130 format:@"Medical ID emergency contact limit exceeded. Unable to add additional emergency contacts."];
-          (completionCopy)[2](completionCopy, 0, v22);
+          v21 = [MEMORY[0x277CCA9B8] hk_error:130 format:@"Medical ID emergency contact limit exceeded. Unable to add additional emergency contacts."];
+          (completionCopy)[2](completionCopy, 0, v21);
         }
 
         else
@@ -229,35 +229,35 @@
           if (emergencyContacts3)
           {
             emergencyContacts4 = [v10 emergencyContacts];
-            v21 = [emergencyContacts4 arrayByAddingObject:contactCopy];
-            [v10 setEmergencyContacts:v21];
+            v20 = [emergencyContacts4 arrayByAddingObject:contactCopy];
+            [v10 setEmergencyContacts:v20];
           }
 
           else
           {
-            v31[0] = contactCopy;
-            emergencyContacts4 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+            v30[0] = contactCopy;
+            emergencyContacts4 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
             [v10 setEmergencyContacts:emergencyContacts4];
           }
 
           date = [MEMORY[0x277CBEAA8] date];
           [v10 setEmergencyContactsModifiedDate:date];
 
-          v28 = 0;
-          v24 = [v8 updateMedicalIDWithLocalData:v10 error:&v28];
-          v25 = v28;
-          v26 = v25;
-          if (v24)
+          v27 = 0;
+          v23 = [v8 updateMedicalIDWithLocalData:v10 error:&v27];
+          v24 = v27;
+          v25 = v24;
+          if (v23)
           {
-            v27 = 0;
+            v26 = 0;
           }
 
           else
           {
-            v27 = v25;
+            v26 = v24;
           }
 
-          (completionCopy)[2](completionCopy, v24, v27);
+          (completionCopy)[2](completionCopy, v23, v26);
         }
       }
     }
@@ -277,8 +277,6 @@
   {
     (completionCopy)[2](completionCopy, 0, v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_removeEmergencyContact:(id)contact completion:(id)completion

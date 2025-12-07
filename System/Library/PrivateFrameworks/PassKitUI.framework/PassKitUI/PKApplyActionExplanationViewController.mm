@@ -227,7 +227,7 @@ void __68__PKApplyActionExplanationViewController__withdrawApplicationTapped__bl
   }
 }
 
-uint64_t __68__PKApplyActionExplanationViewController__withdrawApplicationTapped__block_invoke_2(uint64_t a1, char a2)
+void *__68__PKApplyActionExplanationViewController__withdrawApplicationTapped__block_invoke_2(uint64_t a1, char a2)
 {
   result = [*(a1 + 32) showNavigationBarSpinner:0];
   if ((a2 & 1) == 0)

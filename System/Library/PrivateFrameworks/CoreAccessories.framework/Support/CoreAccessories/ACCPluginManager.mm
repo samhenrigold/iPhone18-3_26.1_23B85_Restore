@@ -6,27 +6,36 @@
 - (id)initClass:(Class)class;
 - (id)pluginInstancesWithClasses:(id)classes;
 - (id)pluginInstancesWithProtocols:(id)protocols matchAny:(BOOL)any;
+- (unint64_t)addBundleSearchPath:(id)path recursive:(BOOL)recursive;
+- (unint64_t)addBundleSearchPathsForDirectory:(unint64_t)directory inDomain:(unint64_t)domain subpath:(id)subpath recursive:(BOOL)recursive;
 - (unint64_t)initPlugInsWithBundleNames:(id)names orClasses:(id)classes orProtocols:(id)protocols matchAny:(BOOL)any;
 - (unint64_t)loadAllBundles;
 - (unint64_t)loadBundlesWithClasses:(id)classes;
+- (unint64_t)loadBundlesWithClasses:(id)classes orProtocols:(id)protocols matchAny:(BOOL)any;
 - (unint64_t)loadBundlesWithExtension:(id)extension;
 - (unint64_t)loadBundlesWithExtension:(id)extension andClasses:(id)classes;
+- (unint64_t)loadBundlesWithExtension:(id)extension andClasses:(id)classes orProtocols:(id)protocols matchAny:(BOOL)any;
 - (unint64_t)loadBundlesWithExtension:(id)extension andNames:(id)names;
+- (unint64_t)loadBundlesWithExtension:(id)extension andProtocols:(id)protocols matchAny:(BOOL)any;
 - (unint64_t)loadBundlesWithIdentifiers:(id)identifiers;
 - (unint64_t)loadBundlesWithNames:(id)names;
 - (unint64_t)loadBundlesWithPaths:(id)paths andIdentifiers:(id)identifiers orClasses:(id)classes orProtocols:(id)protocols matchAny:(BOOL)any;
+- (unint64_t)loadBundlesWithProtocols:(id)protocols matchAny:(BOOL)any;
 - (unint64_t)removeAllBundleSearchPaths;
 - (unint64_t)removeAllBundles;
 - (unint64_t)removeAllPlugIns;
 - (unint64_t)removeBundleSearchPath:(id)path;
 - (unint64_t)removePlugIns:(id)ins;
 - (unint64_t)removePlugInsWithClasses:(id)classes;
+- (unint64_t)removePlugInsWithProtocols:(id)protocols matchAny:(BOOL)any;
 - (unint64_t)startAllPlugIns;
 - (unint64_t)startPlugIns:(id)ins;
 - (unint64_t)startPlugInsWithClasses:(id)classes;
+- (unint64_t)startPlugInsWithProtocols:(id)protocols matchAny:(BOOL)any;
 - (unint64_t)stopAllPlugIns;
 - (unint64_t)stopPlugIns:(id)ins;
 - (unint64_t)stopPlugInsWithClasses:(id)classes;
+- (unint64_t)stopPlugInsWithProtocols:(id)protocols matchAny:(BOOL)any;
 @end
 
 @implementation ACCPluginManager
@@ -54,6 +63,82 @@
   }
 
   return v2;
+}
+
+- (unint64_t)addBundleSearchPath:(id)path recursive:(BOOL)recursive
+{
+  recursiveCopy = recursive;
+  pathCopy = path;
+  if (pathCopy)
+  {
+    v7 = [PathEntry entryWithPath:pathCopy recursive:recursiveCopy];
+    pluginBundleSearchPathsMutable = [(ACCPluginManager *)self pluginBundleSearchPathsMutable];
+    objc_sync_enter(pluginBundleSearchPathsMutable);
+    pluginBundleSearchPathsMutable2 = [(ACCPluginManager *)self pluginBundleSearchPathsMutable];
+    [pluginBundleSearchPathsMutable2 addObject:v7];
+
+    objc_sync_exit(pluginBundleSearchPathsMutable);
+    v10 = 1;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  return v10;
+}
+
+- (unint64_t)addBundleSearchPathsForDirectory:(unint64_t)directory inDomain:(unint64_t)domain subpath:(id)subpath recursive:(BOOL)recursive
+{
+  recursiveCopy = recursive;
+  subpathCopy = subpath;
+  NSSearchPathForDirectoriesInDomains(directory, domain, 1);
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  obj = v22 = 0u;
+  v11 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v11)
+  {
+    v19 = 0;
+    v12 = *v22;
+    do
+    {
+      v13 = 0;
+      v19 += v11;
+      do
+      {
+        if (*v22 != v12)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v14 = [*(*(&v21 + 1) + 8 * v13) stringByAppendingPathComponent:{subpathCopy, v19}];
+        v15 = [PathEntry entryWithPath:v14 recursive:recursiveCopy];
+
+        pluginBundleSearchPathsMutable = [(ACCPluginManager *)self pluginBundleSearchPathsMutable];
+        objc_sync_enter(pluginBundleSearchPathsMutable);
+        pluginBundleSearchPathsMutable2 = [(ACCPluginManager *)self pluginBundleSearchPathsMutable];
+        [pluginBundleSearchPathsMutable2 addObject:v15];
+
+        objc_sync_exit(pluginBundleSearchPathsMutable);
+        v13 = v13 + 1;
+      }
+
+      while (v11 != v13);
+      v11 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+    }
+
+    while (v11);
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  return v19;
 }
 
 - (unint64_t)removeBundleSearchPath:(id)path
@@ -158,6 +243,31 @@
   return v10;
 }
 
+- (unint64_t)loadBundlesWithExtension:(id)extension andProtocols:(id)protocols matchAny:(BOOL)any
+{
+  anyCopy = any;
+  protocolsCopy = protocols;
+  extensionCopy = extension;
+  pluginBundleSearchPaths = [(ACCPluginManager *)self pluginBundleSearchPaths];
+  v11 = [PathEntry bundlePathsWithinEntries:pluginBundleSearchPaths withExtension:extensionCopy];
+
+  v12 = [(ACCPluginManager *)self loadBundlesWithPaths:v11 andIdentifiers:0 orClasses:0 orProtocols:protocolsCopy matchAny:anyCopy];
+  return v12;
+}
+
+- (unint64_t)loadBundlesWithExtension:(id)extension andClasses:(id)classes orProtocols:(id)protocols matchAny:(BOOL)any
+{
+  anyCopy = any;
+  protocolsCopy = protocols;
+  classesCopy = classes;
+  extensionCopy = extension;
+  pluginBundleSearchPaths = [(ACCPluginManager *)self pluginBundleSearchPaths];
+  v14 = [PathEntry bundlePathsWithinEntries:pluginBundleSearchPaths withExtension:extensionCopy];
+
+  v15 = [(ACCPluginManager *)self loadBundlesWithPaths:v14 andIdentifiers:0 orClasses:classesCopy orProtocols:protocolsCopy matchAny:anyCopy];
+  return v15;
+}
+
 - (unint64_t)loadBundlesWithNames:(id)names
 {
   namesCopy = names;
@@ -186,6 +296,29 @@
   v7 = [(ACCPluginManager *)self loadBundlesWithPaths:v6 andIdentifiers:0 orClasses:classesCopy orProtocols:0 matchAny:1];
 
   return v7;
+}
+
+- (unint64_t)loadBundlesWithProtocols:(id)protocols matchAny:(BOOL)any
+{
+  anyCopy = any;
+  protocolsCopy = protocols;
+  pluginBundleSearchPaths = [(ACCPluginManager *)self pluginBundleSearchPaths];
+  v8 = [PathEntry bundlePathsWithinEntries:pluginBundleSearchPaths];
+  v9 = [(ACCPluginManager *)self loadBundlesWithPaths:v8 andIdentifiers:0 orClasses:0 orProtocols:protocolsCopy matchAny:anyCopy];
+
+  return v9;
+}
+
+- (unint64_t)loadBundlesWithClasses:(id)classes orProtocols:(id)protocols matchAny:(BOOL)any
+{
+  anyCopy = any;
+  protocolsCopy = protocols;
+  classesCopy = classes;
+  pluginBundleSearchPaths = [(ACCPluginManager *)self pluginBundleSearchPaths];
+  v11 = [PathEntry bundlePathsWithinEntries:pluginBundleSearchPaths];
+  v12 = [(ACCPluginManager *)self loadBundlesWithPaths:v11 andIdentifiers:0 orClasses:classesCopy orProtocols:protocolsCopy matchAny:anyCopy];
+
+  return v12;
 }
 
 - (unint64_t)loadBundlesWithPaths:(id)paths andIdentifiers:(id)identifiers orClasses:(id)classes orProtocols:(id)protocols matchAny:(BOOL)any
@@ -597,23 +730,8 @@ LABEL_46:
 
           if ((v30 & ~(v47 | v16) & 1) == 0 || (v36 & 1) == 0)
           {
-            if ([(ACCPluginManager *)selfCopy allowDuplicateClassTypes])
+            if (-[ACCPluginManager allowDuplicateClassTypes](selfCopy, "allowDuplicateClassTypes") || (-[ACCPluginManager pluginInstances](selfCopy, "pluginInstances"), v37 = objc_claimAutoreleasedReturnValue(), v58[0] = _NSConcreteStackBlock, v58[1] = 3221225472, v58[2] = __78__ACCPluginManager_initPlugInsWithBundleNames_orClasses_orProtocols_matchAny___block_invoke, v58[3] = &__block_descriptor_40_e33_B24__0___ACCPluginProtocol__8_B16lu32l8, v58[4] = principalClass, [v37 objectsPassingTest:v58], v38 = objc_claimAutoreleasedReturnValue(), v39 = objc_msgSend(v38, "count") == 0, v38, v37, v39))
             {
-              goto LABEL_59;
-            }
-
-            pluginInstances = [(ACCPluginManager *)selfCopy pluginInstances];
-            v58[0] = _NSConcreteStackBlock;
-            v58[1] = 3221225472;
-            v58[2] = __78__ACCPluginManager_initPlugInsWithBundleNames_orClasses_orProtocols_matchAny___block_invoke;
-            v58[3] = &__block_descriptor_40_e33_B24__0___ACCPluginProtocol__8_B16lu32l8;
-            v58[4] = principalClass;
-            v38 = [pluginInstances objectsPassingTest:v58];
-            v39 = [v38 count] == 0;
-
-            if (v39)
-            {
-LABEL_59:
               v40 = selfCopy;
               v41 = [(ACCPluginManager *)v40 initClass:principalClass];
 
@@ -665,7 +783,6 @@ LABEL_59:
 
 uint64_t __78__ACCPluginManager_initPlugInsWithBundleNames_orClasses_orProtocols_matchAny___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v4 = *(a1 + 32);
   isKindOfClass = objc_opt_isKindOfClass();
   if (isKindOfClass)
   {
@@ -689,6 +806,14 @@ uint64_t __78__ACCPluginManager_initPlugInsWithBundleNames_orClasses_orProtocols
   v5 = [(ACCPluginManager *)self startPlugIns:v4];
 
   return v5;
+}
+
+- (unint64_t)startPlugInsWithProtocols:(id)protocols matchAny:(BOOL)any
+{
+  v5 = [(ACCPluginManager *)self pluginInstancesWithProtocols:protocols matchAny:any];
+  v6 = [(ACCPluginManager *)self startPlugIns:v5];
+
+  return v6;
 }
 
 - (unint64_t)startPlugIns:(id)ins
@@ -761,6 +886,14 @@ uint64_t __78__ACCPluginManager_initPlugInsWithBundleNames_orClasses_orProtocols
   return v5;
 }
 
+- (unint64_t)stopPlugInsWithProtocols:(id)protocols matchAny:(BOOL)any
+{
+  v5 = [(ACCPluginManager *)self pluginInstancesWithProtocols:protocols matchAny:any];
+  v6 = [(ACCPluginManager *)self stopPlugIns:v5];
+
+  return v6;
+}
+
 - (unint64_t)stopPlugIns:(id)ins
 {
   insCopy = ins;
@@ -829,6 +962,14 @@ uint64_t __78__ACCPluginManager_initPlugInsWithBundleNames_orClasses_orProtocols
   v5 = [(ACCPluginManager *)self removePlugIns:v4];
 
   return v5;
+}
+
+- (unint64_t)removePlugInsWithProtocols:(id)protocols matchAny:(BOOL)any
+{
+  v5 = [(ACCPluginManager *)self pluginInstancesWithProtocols:protocols matchAny:any];
+  v6 = [(ACCPluginManager *)self removePlugIns:v5];
+
+  return v6;
 }
 
 - (unint64_t)removePlugIns:(id)ins

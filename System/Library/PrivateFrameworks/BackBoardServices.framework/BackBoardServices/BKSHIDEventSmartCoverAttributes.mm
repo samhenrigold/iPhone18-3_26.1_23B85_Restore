@@ -13,8 +13,8 @@
   v7.receiver = self;
   v7.super_class = BKSHIDEventSmartCoverAttributes;
   [(BKSHIDEventBaseAttributes *)&v7 appendDescriptionToFormatter:formatterCopy];
-  v5 = [formatterCopy appendUnsignedInteger:self->_smartCoverState withName:@"smartCoverState"];
-  v6 = [formatterCopy appendUnsignedInteger:self->_wakeAnimationStyle withName:@"wakeAnimationStyle"];
+  v5 = [formatterCopy appendUnsignedInteger:? withName:?];
+  v6 = [formatterCopy appendUnsignedInteger:? withName:?];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -56,16 +56,18 @@
 
 uint64_t __49__BKSHIDEventSmartCoverAttributes_protobufSchema__block_invoke(uint64_t a1)
 {
-  protobufSchema_schema_692 = [MEMORY[0x1E698E750] buildSchemaForClass:*(a1 + 32) builder:&__block_literal_global_695];
+  v1 = [MEMORY[0x1E698E750] buildSchemaForClass:? builder:?];
+  v2 = protobufSchema_schema_692;
+  protobufSchema_schema_692 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 void __49__BKSHIDEventSmartCoverAttributes_protobufSchema__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  [v2 addField:"_smartCoverState"];
-  [v2 addField:"_wakeAnimationStyle"];
+  [v2 addField:?];
+  [v2 addField:?];
 }
 
 @end

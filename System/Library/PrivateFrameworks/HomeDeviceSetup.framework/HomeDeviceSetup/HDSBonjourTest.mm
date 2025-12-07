@@ -37,7 +37,7 @@
 
 void __26__HDSBonjourTest_activate__block_invoke(uint64_t a1)
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   if (gLogCategory_HDSBonjourTest <= 30 && (gLogCategory_HDSBonjourTest != -1 || _LogCategory_Initialize()))
   {
     __26__HDSBonjourTest_activate__block_invoke_cold_1();
@@ -54,7 +54,7 @@ void __26__HDSBonjourTest_activate__block_invoke(uint64_t a1)
 
   if (gLogCategory_HDSBonjourTest <= 30 && (gLogCategory_HDSBonjourTest != -1 || _LogCategory_Initialize()))
   {
-    __26__HDSBonjourTest_activate__block_invoke_cold_2(v2);
+    __26__HDSBonjourTest_activate__block_invoke_cold_2();
   }
 
   [*(*v2 + 1) invalidate];
@@ -68,31 +68,31 @@ void __26__HDSBonjourTest_activate__block_invoke(uint64_t a1)
   [*(*v2 + 1) setDomain:@"local."];
   [*(*v2 + 1) setLabel:@"HDSBonjour"];
   objc_initWeak(&location, *v2);
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __26__HDSBonjourTest_activate__block_invoke_2;
-  v21[3] = &unk_279714748;
-  objc_copyWeak(&v22, &location);
-  [*(*v2 + 1) setDeviceFoundHandler:v21];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __26__HDSBonjourTest_activate__block_invoke_3;
-  v19[3] = &unk_279714770;
-  objc_copyWeak(&v20, &location);
-  [*(*v2 + 1) setDeviceChangedHandler:v19];
-  [*(*v2 + 1) activate];
-  v8 = *(*v2 + 2);
-  v24 = @"bjtID";
-  v25[0] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
-  v10 = *v2;
-  v11 = *(*v2 + 6);
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __26__HDSBonjourTest_activate__block_invoke_2;
+  v20[3] = &unk_279714748;
+  objc_copyWeak(&v21, &location);
+  [*(*v2 + 1) setDeviceFoundHandler:v20];
   v18[0] = MEMORY[0x277D85DD0];
   v18[1] = 3221225472;
-  v18[2] = __26__HDSBonjourTest_activate__block_invoke_4;
-  v18[3] = &unk_2797145F0;
-  v18[4] = v10;
-  [v11 sendRequestID:@"_bjtS" options:0 request:v9 responseHandler:v18];
+  v18[2] = __26__HDSBonjourTest_activate__block_invoke_3;
+  v18[3] = &unk_279714770;
+  objc_copyWeak(&v19, &location);
+  [*(*v2 + 1) setDeviceChangedHandler:v18];
+  [*(*v2 + 1) activate];
+  v8 = *(*v2 + 2);
+  v23 = @"bjtID";
+  v24[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+  v10 = *v2;
+  v11 = *(*v2 + 6);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __26__HDSBonjourTest_activate__block_invoke_4;
+  v17[3] = &unk_2797145F0;
+  v17[4] = v10;
+  [v11 sendRequestID:@"_bjtS" options:0 request:v9 responseHandler:v17];
   if (*(*v2 + 10) > 0.0)
   {
     v12 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, *(*v2 + 7));
@@ -111,10 +111,9 @@ void __26__HDSBonjourTest_activate__block_invoke(uint64_t a1)
     dispatch_resume(*(*v2 + 4));
   }
 
-  objc_destroyWeak(&v20);
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(&location);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __26__HDSBonjourTest_activate__block_invoke_2(uint64_t a1, void *a2)
@@ -211,17 +210,16 @@ void __28__HDSBonjourTest_invalidate__block_invoke(uint64_t a1)
 
 void __37__HDSBonjourTest__handleFoundDevice___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v13 = a2;
+  v12 = a2;
   v6 = a4;
   if ((*(*(a1 + 32) + 40) & 1) == 0)
   {
     mach_absolute_time();
-    v7 = *(*(a1 + 32) + 24);
     UpTicksToSecondsF();
-    *(*(a1 + 32) + 72) = v8;
+    *(*(a1 + 32) + 72) = v7;
     if (gLogCategory_HDSBonjourTest <= 30 && (gLogCategory_HDSBonjourTest != -1 || _LogCategory_Initialize()))
     {
-      v10 = *(*(a1 + 32) + 72);
+      v9 = *(*(a1 + 32) + 72);
       LogPrintF();
       [*(a1 + 32) _complete];
     }
@@ -235,34 +233,20 @@ void __37__HDSBonjourTest__handleFoundDevice___block_invoke(uint64_t a1, void *a
 
 - (void)_handleTimeout
 {
-  if (self->_invalidateCalled)
+  if (!self->_invalidateCalled)
   {
-    return;
-  }
-
-  mach_absolute_time();
-  startTicks = self->_startTicks;
-  UpTicksToSecondsF();
-  self->_metricTotalSeconds = v5;
-  if (gLogCategory_HDSBonjourTest <= 90)
-  {
-    if (gLogCategory_HDSBonjourTest == -1)
+    mach_absolute_time();
+    UpTicksToSecondsF();
+    self->_metricTotalSeconds = v4;
+    if (gLogCategory_HDSBonjourTest <= 90 && (gLogCategory_HDSBonjourTest != -1 || _LogCategory_Initialize()))
     {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_6;
-      }
-
-      metricTotalSeconds = self->_metricTotalSeconds;
+      LogPrintF();
     }
 
-    LogPrintF();
+    self->_bonjourTestState = 3;
+
+    [(HDSBonjourTest *)self _complete];
   }
-
-LABEL_6:
-  self->_bonjourTestState = 3;
-
-  [(HDSBonjourTest *)self _complete];
 }
 
 - (void)_complete
@@ -270,14 +254,13 @@ LABEL_6:
   if (!self->_invalidateCalled)
   {
     mach_absolute_time();
-    startTicks = self->_startTicks;
     UpTicksToSecondsF();
-    self->_metricTotalSeconds = v4;
+    self->_metricTotalSeconds = v3;
     completionHandler = self->_completionHandler;
     if (completionHandler)
     {
       completionHandler[2]();
-      v6 = self->_completionHandler;
+      v5 = self->_completionHandler;
       self->_completionHandler = 0;
     }
   }

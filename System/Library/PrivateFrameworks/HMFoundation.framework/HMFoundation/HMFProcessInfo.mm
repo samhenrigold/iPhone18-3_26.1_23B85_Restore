@@ -31,9 +31,11 @@
 
 uint64_t __29__HMFProcessInfo_processInfo__block_invoke()
 {
-  qword_280AFC3F0 = objc_alloc_init(HMFProcessInfo);
+  v0 = objc_alloc_init(HMFProcessInfo);
+  v1 = qword_280AFC3F0;
+  qword_280AFC3F0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (HMFProcessInfo)init
@@ -48,19 +50,19 @@ uint64_t __29__HMFProcessInfo_processInfo__block_invoke()
     v4 = v3;
     v5 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v7 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = HMFGetOSLogHandle(selfCopy, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      v8 = HMFGetLogIdentifier(selfCopy);
+      v9 = HMFGetLogIdentifier(selfCopy);
       *buf = 138543618;
-      *&buf[4] = v8;
+      *&buf[4] = v9;
       *&buf[12] = 1024;
       *&buf[14] = v4;
-      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_FAULT, "%{public}@Failed to get audit token for current process: %d", buf, 0x12u);
+      _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_FAULT, "%{public}@Failed to get audit token for current process: %d", buf, 0x12u);
     }
 
     objc_autoreleasePoolPop(v5);
-    v9 = 0;
+    v10 = 0;
   }
 
   else
@@ -68,30 +70,27 @@ uint64_t __29__HMFProcessInfo_processInfo__block_invoke()
     *buf = *task_info_out;
     *&buf[16] = v14;
     selfCopy = [(HMFProcessInfo *)self initWithAuditToken:buf];
-    v9 = selfCopy;
+    v10 = selfCopy;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v10;
 }
 
 - (id)attributeDescriptions
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v3 = [HMFAttributeDescription alloc];
   v4 = [MEMORY[0x277CCABB0] numberWithInt:{-[HMFProcessInfo identifier](self, "identifier")}];
   v5 = [(HMFAttributeDescription *)v3 initWithName:@"Identifier" value:v4];
   v6 = [HMFAttributeDescription alloc];
   name = [(HMFProcessInfo *)self name];
   v8 = [(HMFAttributeDescription *)v6 initWithName:@"Name" value:name];
-  v15[1] = v8;
+  v14[1] = v8;
   v9 = [HMFAttributeDescription alloc];
   applicationIdentifier = [(HMFProcessInfo *)self applicationIdentifier];
   v11 = [(HMFAttributeDescription *)v9 initWithName:@"Application Identifier" value:applicationIdentifier];
-  v15[2] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14[2] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
 
   return v12;
 }
@@ -108,7 +107,7 @@ uint64_t __29__HMFProcessInfo_processInfo__block_invoke()
 {
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection, a2);
   }
 
   else
@@ -123,10 +122,10 @@ uint64_t __29__HMFProcessInfo_processInfo__block_invoke()
 {
   v3 = MEMORY[0x28223BE20](self, a2);
   v5 = v4;
-  v30 = *MEMORY[0x277D85DE8];
-  v28.receiver = v3;
-  v28.super_class = HMFProcessInfo;
-  v6 = [(HMFProcessInfo *)&v28 init];
+  v29 = *MEMORY[0x277D85DE8];
+  v27.receiver = v3;
+  v27.super_class = HMFProcessInfo;
+  v6 = [(HMFProcessInfo *)&v27 init];
   if (v6)
   {
     v7 = v5[1];
@@ -202,7 +201,6 @@ uint64_t __29__HMFProcessInfo_processInfo__block_invoke()
     }
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -325,7 +323,6 @@ uint64_t __29__HMFProcessInfo_logCategory__block_invoke()
 
 - (BOOL)isCodeSigned
 {
-  identifier = self->_identifier;
   if (csops_audittoken())
   {
     return 0;
@@ -339,7 +336,6 @@ uint64_t __29__HMFProcessInfo_logCategory__block_invoke()
 
 - (BOOL)isPlatformBinary
 {
-  identifier = self->_identifier;
   if (csops_audittoken())
   {
     return 0;

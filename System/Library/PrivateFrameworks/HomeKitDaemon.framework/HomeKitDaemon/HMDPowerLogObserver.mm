@@ -14,6 +14,26 @@
 
 - (void)stop
 {
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v5 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    v6 = HMFGetLogIdentifier();
+    v9 = 138543362;
+    v10 = v6;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping", &v9, 0xCu);
+  }
+
+  objc_autoreleasePoolPop(v3);
+  context = [(HMDPowerLogObserver *)selfCopy context];
+  logEventDispatcher = [context logEventDispatcher];
+  [logEventDispatcher removeObserver:selfCopy];
+}
+
+- (void)start
+{
   v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -23,29 +43,7 @@
     v6 = HMFGetLogIdentifier();
     v10 = 138543362;
     v11 = v6;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping", &v10, 0xCu);
-  }
-
-  objc_autoreleasePoolPop(v3);
-  context = [(HMDPowerLogObserver *)selfCopy context];
-  logEventDispatcher = [context logEventDispatcher];
-  [logEventDispatcher removeObserver:selfCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-- (void)start
-{
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = objc_autoreleasePoolPush();
-  selfCopy = self;
-  v5 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
-  {
-    v6 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v6;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting", &v11, 0xCu);
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -53,8 +51,6 @@
   logEventDispatcher = [context logEventDispatcher];
   supportedEventClasses = [objc_opt_class() supportedEventClasses];
   [logEventDispatcher addObserver:selfCopy forEventClasses:supportedEventClasses];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleHH2CloudKitOperationEvent:(id)event
@@ -69,58 +65,58 @@
 
 - (void)_reportCameraSettingsConfiguration:(id)configuration
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   obj = [configurationCopy homeSettingsConfigurations];
-  v46 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
-  v43 = configurationCopy;
+  v45 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
+  v42 = configurationCopy;
   selfCopy = self;
   v5 = 0;
   v6 = 0;
   v7 = 0;
   v8 = 0;
   v9 = 0;
-  if (v46)
+  if (v45)
   {
-    v48 = 0;
-    v45 = *v54;
+    v47 = 0;
+    v44 = *v53;
     do
     {
       v10 = 0;
       do
       {
-        if (*v54 != v45)
+        if (*v53 != v44)
         {
           objc_enumerationMutation(obj);
         }
 
-        v47 = v10;
-        v11 = *(*(&v53 + 1) + 8 * v10);
+        v46 = v10;
+        v11 = *(*(&v52 + 1) + 8 * v10);
+        v48 = 0u;
         v49 = 0u;
         v50 = 0u;
         v51 = 0u;
-        v52 = 0u;
         cameraSettings = [v11 cameraSettings];
-        v13 = [cameraSettings countByEnumeratingWithState:&v49 objects:v57 count:16];
+        v13 = [cameraSettings countByEnumeratingWithState:&v48 objects:v56 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v50;
+          v15 = *v49;
           do
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v50 != v15)
+              if (*v49 != v15)
               {
                 objc_enumerationMutation(cameraSettings);
               }
 
-              v17 = *(*(&v49 + 1) + 8 * i);
+              v17 = *(*(&v48 + 1) + 8 * i);
               v9 += [v17 isRecordingEnabled];
               v5 += [v17 smartBulletinBoardNotificationEnabled];
               v6 += [v17 reachabilityNotificationEnabled];
@@ -131,32 +127,32 @@
               }
             }
 
-            v48 += v14;
-            v14 = [cameraSettings countByEnumeratingWithState:&v49 objects:v57 count:16];
+            v47 += v14;
+            v14 = [cameraSettings countByEnumeratingWithState:&v48 objects:v56 count:16];
           }
 
           while (v14);
         }
 
-        v10 = v47 + 1;
+        v10 = v46 + 1;
       }
 
-      while (v47 + 1 != v46);
-      v46 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
+      while (v46 + 1 != v45);
+      v45 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
     }
 
-    while (v46);
+    while (v45);
   }
 
   else
   {
-    v48 = 0;
+    v47 = 0;
   }
 
   [dictionary setObject:@"HomeKit Camera Configuration" forKeyedSubscript:*MEMORY[0x277D0F1E0]];
   context = [(HMDPowerLogObserver *)selfCopy context];
   cameraConfigurationEventHistogram = [context cameraConfigurationEventHistogram];
-  v20 = [cameraConfigurationEventHistogram intervalIndexForValue:v48];
+  v20 = [cameraConfigurationEventHistogram intervalIndexForValue:v47];
   [dictionary setObject:v20 forKeyedSubscript:@"numCameras"];
 
   context2 = [(HMDPowerLogObserver *)selfCopy context];
@@ -187,10 +183,8 @@
   context7 = [(HMDPowerLogObserver *)selfCopy context];
   powerLogger = [context7 powerLogger];
   v38 = *MEMORY[0x277D0F1E8];
-  v39 = [dictionary copy];
+  v39 = objc_msgSend_copy(dictionary);
   [powerLogger reportToPowerLogDestinationTable:v38 withEventDictionary:v39];
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportConfiguration:(id)configuration
@@ -237,7 +231,7 @@
   context6 = [(HMDPowerLogObserver *)self context];
   powerLogger = [context6 powerLogger];
   v27 = *MEMORY[0x277D0F1F0];
-  v28 = [dictionary copy];
+  v28 = objc_msgSend_copy(dictionary);
   [powerLogger reportToPowerLogDestinationTable:v27 withEventDictionary:v28];
 }
 
@@ -352,15 +346,13 @@ LABEL_17:
 
 void __44__HMDPowerLogObserver_supportedEventClasses__block_invoke()
 {
-  v3[3] = *MEMORY[0x277D85DE8];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v3[2] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:3];
+  v2[3] = *MEMORY[0x277D85DE8];
+  v2[0] = objc_opt_class();
+  v2[1] = objc_opt_class();
+  v2[2] = objc_opt_class();
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:3];
   v1 = supportedEventClasses_supportedEventClasses;
   supportedEventClasses_supportedEventClasses = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

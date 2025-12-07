@@ -9,7 +9,7 @@
 - (_TtC20ProductPageExtension25AccountPageViewController)initWithAccountURL:(id)l
 {
   ObjectType = swift_getObjectType();
-  v6 = sub_10000A5D4(&unk_1009435D0);
+  v6 = sub_10000A5D4(&unk_1009435D0, &qword_100785850);
   __chkstk_darwin(v6 - 8);
   v8 = &v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v9);

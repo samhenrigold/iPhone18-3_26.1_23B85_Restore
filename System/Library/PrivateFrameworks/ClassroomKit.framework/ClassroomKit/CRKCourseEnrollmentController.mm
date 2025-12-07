@@ -380,15 +380,15 @@ uint64_t __71__CRKCourseEnrollmentController_isStudentScreenBeingObservedForCour
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [CRKCourseEnrollmentController disconnectOperationDidFinish:];
+    [CRKCourseEnrollmentController disconnectOperationDidFinish:request];
   }
 
   error = [finishCopy error];
 
   if (error)
   {
-    v6 = _CRKLogSettings();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _CRKLogSettings(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [CRKCourseEnrollmentController disconnectOperationDidFinish:];
     }
@@ -397,7 +397,7 @@ uint64_t __71__CRKCourseEnrollmentController_isStudentScreenBeingObservedForCour
 
 - (void)userDidActivateSettingsPane
 {
-  v3 = _CRKLogGeneral_2();
+  v3 = _CRKLogGeneral_2(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -414,7 +414,7 @@ uint64_t __71__CRKCourseEnrollmentController_isStudentScreenBeingObservedForCour
 - (void)notifyDaemonOfSettingsPaneActivationOperationDidFail:(id)fail
 {
   failCopy = fail;
-  v4 = _CRKLogGeneral_2();
+  v4 = _CRKLogGeneral_2(failCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [CRKCourseEnrollmentController notifyDaemonOfSettingsPaneActivationOperationDidFail:failCopy];
@@ -450,7 +450,7 @@ uint64_t __71__CRKCourseEnrollmentController_isStudentScreenBeingObservedForCour
 
 - (void)applicationWillEnterForeground:(id)foreground
 {
-  v4 = _CRKLogSettings();
+  v4 = _CRKLogSettings(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -463,7 +463,7 @@ uint64_t __71__CRKCourseEnrollmentController_isStudentScreenBeingObservedForCour
 
 - (void)applicationDidEnterBackground:(id)background
 {
-  v4 = _CRKLogSettings();
+  v4 = _CRKLogSettings(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -562,8 +562,8 @@ uint64_t __71__CRKCourseEnrollmentController_isStudentScreenBeingObservedForCour
 
   if (error)
   {
-    v6 = _CRKLogSettings();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _CRKLogSettings(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [CRKCourseEnrollmentController fetchConfigurationTypeOperationDidFinish:finishCopy];
     }
@@ -688,42 +688,43 @@ uint64_t __71__CRKCourseEnrollmentController_isStudentScreenBeingObservedForCour
   {
     [(CRKCourseEnrollmentController *)self setFetchActiveInstructorsOperation:0];
     error = [finishCopy error];
+    v7 = error;
     if (error)
     {
-      v7 = _CRKLogGeneral_2();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = _CRKLogGeneral_2(error);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [(CRKCourseEnrollmentController *)error fetchActiveInstructorsOperationDidFinish:v7];
+        [(CRKCourseEnrollmentController *)v7 fetchActiveInstructorsOperationDidFinish:v8];
       }
     }
 
     else
     {
       resultObject = [finishCopy resultObject];
-      v9 = MEMORY[0x277CBEB98];
+      v10 = MEMORY[0x277CBEB98];
       instructors = [resultObject instructors];
-      v11 = [v9 setWithArray:instructors];
+      v12 = [v10 setWithArray:instructors];
 
       activeInstructors = [(CRKCourseEnrollmentController *)self activeInstructors];
-      if (activeInstructors | v11)
+      if (activeInstructors | v12)
       {
-        v13 = activeInstructors;
+        v14 = activeInstructors;
         activeInstructors2 = [(CRKCourseEnrollmentController *)self activeInstructors];
-        v15 = [activeInstructors2 isEqual:v11];
+        v16 = [activeInstructors2 isEqual:v12];
 
-        if ((v15 & 1) == 0)
+        if ((v16 & 1) == 0)
         {
           [(CRKCourseEnrollmentController *)self willChangeValueForKey:@"activeInstructors"];
           activeCourseIdentifiers = [(CRKCourseEnrollmentController *)self activeCourseIdentifiers];
-          objc_storeStrong(&self->_activeInstructors, v11);
+          objc_storeStrong(&self->_activeInstructors, v12);
           activeCourseIdentifiers2 = [(CRKCourseEnrollmentController *)self activeCourseIdentifiers];
           updateScreenObservingInstructors = [(CRKCourseEnrollmentController *)self updateScreenObservingInstructors];
           [(CRKCourseEnrollmentController *)self didChangeValueForKey:@"activeInstructors"];
           if (activeCourseIdentifiers != activeCourseIdentifiers2)
           {
             courses = [(CRKCourseEnrollmentController *)self courses];
-            v20 = [(CRKCourseEnrollmentController *)self coursesBySortingCourses:courses];
-            [(CRKCourseEnrollmentController *)self setCourses:v20];
+            v21 = [(CRKCourseEnrollmentController *)self coursesBySortingCourses:courses];
+            [(CRKCourseEnrollmentController *)self setCourses:v21];
 
             [(CRKCourseEnrollmentController *)self didUpdateActiveCourses];
           }
@@ -1291,15 +1292,15 @@ LABEL_13:
   [v2 handleFailureInMethod:v1 object:v0 file:@"CRKCourseEnrollmentController.m" lineNumber:77 description:{@"Invalid parameter not satisfying: %@", @"daemonProxy"}];
 }
 
-- (void)disconnectOperationDidFinish:.cold.1()
+- (void)disconnectOperationDidFinish:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v5 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKCourseEnrollmentController disconnectOperationDidFinish:]"];
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  [v5 handleFailureInFunction:v0 file:@"CRKCourseEnrollmentController.m" lineNumber:201 description:{@"expected %@, got %@", v2, v4}];
+  v6 = [MEMORY[0x277CCA890] currentHandler];
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKCourseEnrollmentController disconnectOperationDidFinish:]"];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  [v6 handleFailureInFunction:v1 file:@"CRKCourseEnrollmentController.m" lineNumber:201 description:{@"expected %@, got %@", v3, v5}];
 }
 
 - (void)disconnectOperationDidFinish:.cold.2()

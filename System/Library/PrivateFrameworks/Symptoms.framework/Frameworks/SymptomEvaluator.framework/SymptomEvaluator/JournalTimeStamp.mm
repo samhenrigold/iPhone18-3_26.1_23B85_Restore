@@ -27,7 +27,7 @@
 
 + (id)getDateFromJournalName:(id)name
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (([nameCopy hasPrefix:@"AnalyticsJournal"] & 1) != 0 || objc_msgSend(nameCopy, "hasPrefix:", @"AnalyticsMixedJournal"))
   {
@@ -48,9 +48,9 @@
         v12 = scoringLogHandle;
         if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_ERROR))
         {
-          v15 = 138412290;
-          v16 = nameCopy;
-          _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "Invalid journal date format: %@", &v15, 0xCu);
+          v14 = 138412290;
+          v15 = nameCopy;
+          _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "Invalid journal date format: %@", &v14, 0xCu);
         }
 
         v9 = 0;
@@ -62,9 +62,9 @@
       v10 = scoringLogHandle;
       if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v15 = 138412290;
-        v16 = nameCopy;
-        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Invalid journal format: %@", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = nameCopy;
+        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Invalid journal format: %@", &v14, 0xCu);
       }
 
       v9 = 0;
@@ -76,26 +76,24 @@
     v11 = scoringLogHandle;
     if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 138412802;
-      v16 = nameCopy;
-      v17 = 2112;
-      v18 = @"AnalyticsJournal";
-      v19 = 2112;
-      v20 = @"AnalyticsMixedJournal";
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "journal name %@ does not have a known prefix (%@, %@)", &v15, 0x20u);
+      v14 = 138412802;
+      v15 = nameCopy;
+      v16 = 2112;
+      v17 = @"AnalyticsJournal";
+      v18 = 2112;
+      v19 = @"AnalyticsMixedJournal";
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "journal name %@ does not have a known prefix (%@, %@)", &v14, 0x20u);
     }
 
     v9 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 + (BOOL)shouldPurgeJournal:(id)journal olderThan:(id)than
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   journalCopy = journal;
   thanCopy = than;
   v7 = [JournalTimeStamp getDateFromJournalName:journalCopy];
@@ -114,15 +112,14 @@
     v14 = scoringLogHandle;
     if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138412290;
-      v18 = journalCopy;
-      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "Failed to get NSDate from journal %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = journalCopy;
+      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "Failed to get NSDate from journal %@", &v16, 0xCu);
     }
 
     v13 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

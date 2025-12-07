@@ -12,35 +12,35 @@
 
 - (BOOL)_isAppVisibleWithBundleId:(id)id
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   idCopy = id;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   currentLayout = [(FBSDisplayLayoutMonitor *)self->_monitor currentLayout];
   elements = [currentLayout elements];
 
   obj = elements;
-  v6 = [elements countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v6 = [elements countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v24 = *v26;
+    v23 = *v25;
     v9 = *MEMORY[0x277D0ABA0];
     v10 = *MEMORY[0x277D0ABA8];
-    v23 = *MEMORY[0x277D0AB88];
+    v22 = *MEMORY[0x277D0AB88];
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v26 != v24)
+        if (*v25 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * i);
+        v12 = *(*(&v24 + 1) + 8 * i);
         identifier = [v12 identifier];
         if ([identifier isEqualToString:v9])
         {
@@ -56,7 +56,7 @@ LABEL_15:
         }
 
         identifier3 = [v12 identifier];
-        v16 = [identifier3 isEqualToString:v23];
+        v16 = [identifier3 isEqualToString:v22];
 
         if (v16)
         {
@@ -72,7 +72,7 @@ LABEL_15:
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v7 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v7)
       {
         continue;
@@ -88,7 +88,6 @@ LABEL_16:
     v8 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v8 & 1;
 }
 
@@ -176,91 +175,87 @@ void __94__PSUCurrentActivityManager_fetchUserActivityContentIdentifiersForBundl
 
 void __94__PSUCurrentActivityManager_fetchUserActivityContentIdentifiersForBundleId_completionHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (a3)
   {
-    v4 = *(a1 + 48);
-    v5 = *(*(a1 + 48) + 16);
-    v6 = *MEMORY[0x277D85DE8];
+    v4 = *(*(a1 + 48) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __94__PSUCurrentActivityManager_fetchUserActivityContentIdentifiersForBundleId_completionHandler___block_invoke_3;
-    v37[3] = &unk_278947628;
-    v38 = *(a1 + 32);
-    v8 = [a2 _pas_filteredArrayWithTest:v37];
-    if ([v8 count])
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __94__PSUCurrentActivityManager_fetchUserActivityContentIdentifiersForBundleId_completionHandler___block_invoke_3;
+    v34[3] = &unk_278947628;
+    v35 = *(a1 + 32);
+    v6 = [a2 _pas_filteredArrayWithTest:v34];
+    if ([v6 count])
     {
-      v25 = a1;
-      v9 = dispatch_group_create();
-      v10 = objc_opt_new();
+      v22 = a1;
+      v7 = dispatch_group_create();
+      v8 = objc_opt_new();
+      v30 = 0u;
+      v31 = 0u;
+      v32 = 0u;
       v33 = 0u;
-      v34 = 0u;
-      v35 = 0u;
-      v36 = 0u;
-      obj = v8;
-      v11 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
-      if (v11)
+      obj = v6;
+      v9 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+      if (v9)
       {
-        v12 = v11;
-        v13 = *v34;
+        v10 = v9;
+        v11 = *v31;
         do
         {
-          for (i = 0; i != v12; ++i)
+          for (i = 0; i != v10; ++i)
           {
-            if (*v34 != v13)
+            if (*v31 != v11)
             {
               objc_enumerationMutation(obj);
             }
 
-            v15 = *(*(&v33 + 1) + 8 * i);
-            dispatch_group_enter(v9);
-            v16 = MEMORY[0x277CC1EF0];
-            v17 = [v15 uuid];
-            v30[0] = MEMORY[0x277D85DD0];
-            v30[1] = 3221225472;
-            v30[2] = __94__PSUCurrentActivityManager_fetchUserActivityContentIdentifiersForBundleId_completionHandler___block_invoke_4;
-            v30[3] = &unk_278947650;
-            v30[4] = v15;
-            v31 = v10;
-            v32 = v9;
-            [v16 _fetchUserActivityWithUUID:v17 completionHandler:v30];
+            v13 = *(*(&v30 + 1) + 8 * i);
+            dispatch_group_enter(v7);
+            v14 = MEMORY[0x277CC1EF0];
+            v15 = [v13 uuid];
+            v27[0] = MEMORY[0x277D85DD0];
+            v27[1] = 3221225472;
+            v27[2] = __94__PSUCurrentActivityManager_fetchUserActivityContentIdentifiersForBundleId_completionHandler___block_invoke_4;
+            v27[3] = &unk_278947650;
+            v27[4] = v13;
+            v28 = v8;
+            v29 = v7;
+            [v14 _fetchUserActivityWithUUID:v15 completionHandler:v27];
           }
 
-          v12 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
+          v10 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
         }
 
-        while (v12);
+        while (v10);
       }
 
-      v18 = MEMORY[0x277D425A0];
-      v19 = qos_class_self();
-      v20 = dispatch_get_global_queue(v19, 0);
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __94__PSUCurrentActivityManager_fetchUserActivityContentIdentifiersForBundleId_completionHandler___block_invoke_15;
-      v27[3] = &unk_278947678;
-      v21 = *(v25 + 48);
-      v28 = v10;
-      v29 = v21;
-      v27[4] = *(v25 + 40);
-      v22 = v10;
-      [v18 notifyGroup:v9 onQueue:v20 withTimeout:v27 block:5.0];
+      v16 = MEMORY[0x277D425A0];
+      v17 = qos_class_self();
+      v18 = dispatch_get_global_queue(v17, 0);
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __94__PSUCurrentActivityManager_fetchUserActivityContentIdentifiersForBundleId_completionHandler___block_invoke_15;
+      v24[3] = &unk_278947678;
+      v19 = *(v22 + 48);
+      v25 = v8;
+      v26 = v19;
+      v24[4] = *(v22 + 40);
+      v20 = v8;
+      [v16 notifyGroup:v7 onQueue:v18 withTimeout:v24 block:5.0];
     }
 
     else
     {
-      v23 = *(a1 + 48);
-      v9 = objc_opt_new();
-      (*(v23 + 16))(v23, v9, 0);
+      v21 = *(a1 + 48);
+      v7 = objc_opt_new();
+      (*(v21 + 16))(v21, v7, 0);
     }
-
-    v24 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -274,7 +269,7 @@ uint64_t __94__PSUCurrentActivityManager_fetchUserActivityContentIdentifiersForB
 
 void __94__PSUCurrentActivityManager_fetchUserActivityContentIdentifiersForBundleId_completionHandler___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -282,12 +277,12 @@ void __94__PSUCurrentActivityManager_fetchUserActivityContentIdentifiersForBundl
     v7 = PSUSummarizationLogging();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v13 = [*(a1 + 32) uuid];
-      v14 = 138412546;
-      v15 = v13;
-      v16 = 2112;
-      v17 = v6;
-      _os_log_error_impl(&dword_231CAE000, v7, OS_LOG_TYPE_ERROR, "Could not fetch user activity for UUID: %@; error: %@", &v14, 0x16u);
+      v12 = [*(a1 + 32) uuid];
+      v13 = 138412546;
+      v14 = v12;
+      v15 = 2112;
+      v16 = v6;
+      _os_log_error_impl(&dword_231CAE000, v7, OS_LOG_TYPE_ERROR, "Could not fetch user activity for UUID: %@; error: %@", &v13, 0x16u);
     }
   }
 
@@ -305,37 +300,30 @@ void __94__PSUCurrentActivityManager_fetchUserActivityContentIdentifiersForBundl
   }
 
   dispatch_group_leave(*(a1 + 48));
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __94__PSUCurrentActivityManager_fetchUserActivityContentIdentifiersForBundleId_completionHandler___block_invoke_15(uint64_t a1, char a2)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (a2)
   {
     obj = *(a1 + 40);
     objc_sync_enter(obj);
-    v3 = *(a1 + 40);
     (*(*(a1 + 48) + 16))();
     objc_sync_exit(obj);
-    v4 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v5 = *(a1 + 48);
-    v6 = MEMORY[0x277CCA9B8];
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
-    v14 = *MEMORY[0x277CCA450];
-    v15[0] = @"Timed out";
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
-    v11 = [v6 errorWithDomain:v9 code:-1 userInfo:v10];
-    (*(v5 + 16))(v5, 0, v11);
-
-    v12 = *MEMORY[0x277D85DE8];
+    v3 = *(a1 + 48);
+    v4 = MEMORY[0x277CCA9B8];
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v10 = *MEMORY[0x277CCA450];
+    v11[0] = @"Timed out";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v8 = [v4 errorWithDomain:v6 code:-1 userInfo:v7];
+    (*(v3 + 16))(v3, 0, v8);
   }
 }
 

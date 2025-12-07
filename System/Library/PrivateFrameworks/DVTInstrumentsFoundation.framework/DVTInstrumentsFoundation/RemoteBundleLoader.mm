@@ -242,7 +242,7 @@ LABEL_17:
 
 - (void)scheduleLibraryLoad:(id)load calling:(id)calling arguments:(id)arguments callback:(id)callback
 {
-  v119[1] = *MEMORY[0x277D85DE8];
+  v115[1] = *MEMORY[0x277D85DE8];
   loadCopy = load;
   callingCopy = calling;
   argumentsCopy = arguments;
@@ -258,7 +258,7 @@ LABEL_17:
       if (callingCopy)
       {
         *task_info_out = 0u;
-        v92 = 0u;
+        v88 = 0u;
         task_info_outCnt = 8;
         v17 = task_info(self->_targetTask, 0xFu, task_info_out, &task_info_outCnt);
         if (v17)
@@ -266,10 +266,10 @@ LABEL_17:
           if (v14)
           {
             v18 = MEMORY[0x277CCA9B8];
-            v105 = *MEMORY[0x277CCA450];
+            v101 = *MEMORY[0x277CCA450];
             v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to audit target sandbox: %d (target %d likely exited)", v17, self->_targetPid];
-            v106 = v19;
-            v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
+            v102 = v19;
+            v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
             v21 = [v18 errorWithDomain:@"RemoteBundleLoaderError" code:1 userInfo:v20];
             (v14)[2](v14, v21);
           }
@@ -278,9 +278,9 @@ LABEL_17:
           goto LABEL_38;
         }
 
-        v80 = v14;
-        v107 = *task_info_out;
-        v108 = v92;
+        v76 = v14;
+        v103 = *task_info_out;
+        v104 = v88;
         v42 = loadCopy;
         v43 = [MEMORY[0x277CBEB58] setWithObject:v42];
         stringByResolvingSymlinksInPath = [v42 stringByResolvingSymlinksInPath];
@@ -292,26 +292,14 @@ LABEL_17:
         callback[2] = sub_247FDC05C;
         callback[3] = &unk_278EF39E8;
         v47 = v42;
-        v98 = v47;
-        v79 = stringByDeletingLastPathComponent;
-        v99 = v79;
+        v94 = v47;
+        v75 = stringByDeletingLastPathComponent;
+        v95 = v75;
         v48 = v43;
-        v100 = v48;
+        v96 = v48;
         v49 = macho_for_each_slice(uTF8String, callback);
-        v78 = v48;
-        if (!v49)
-        {
-          goto LABEL_25;
-        }
-
-        v50 = MEMORY[0x277CCA9B8];
-        v118 = *MEMORY[0x277CCA450];
-        v51 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to iterate through the mach-o file at path: '%@': due to an error: %s", v47, strerror(v49)];
-        v119[0] = v51;
-        v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v119 forKeys:&v118 count:1];
-        v53 = [v50 errorWithDomain:@"RemoteBundleLoaderError" code:0 userInfo:v52];
-
-        if (v53)
+        v74 = v48;
+        if (v49 && (v50 = MEMORY[0x277CCA9B8], v114 = *MEMORY[0x277CCA450], [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to iterate through the mach-o file at path: '%@': due to an error: %s", v47, strerror(v49)], v51 = objc_claimAutoreleasedReturnValue(), v115[0] = v51, objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v115, &v114, 1), v52 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v50, "errorWithDomain:code:userInfo:", @"RemoteBundleLoaderError", 0, v52), v53 = objc_claimAutoreleasedReturnValue(), v52, v51, v53))
         {
           v54 = v53;
           loadCopy = 0;
@@ -320,59 +308,55 @@ LABEL_17:
 
         else
         {
-LABEL_25:
-          v75 = v47;
-          v76 = argumentsCopy;
-          v77 = callingCopy;
+          v72 = v47;
+          v73 = callingCopy;
           v53 = objc_opt_new();
-          v93 = 0u;
-          v94 = 0u;
-          v95 = 0u;
-          v96 = 0u;
+          v89 = 0u;
+          v90 = 0u;
+          v91 = 0u;
+          v92 = 0u;
           obj = v48;
-          v56 = [obj countByEnumeratingWithState:&v93 objects:v117 count:16];
+          v56 = [obj countByEnumeratingWithState:&v89 objects:v113 count:16];
           if (v56)
           {
             v57 = v56;
-            v58 = *v94;
-            v59 = *MEMORY[0x277D861B8];
-            v60 = *MEMORY[0x277D861E8];
+            v58 = *v90;
             while (2)
             {
               for (i = 0; i != v57; ++i)
               {
-                if (*v94 != v58)
+                if (*v90 != v58)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v62 = *(*(&v93 + 1) + 8 * i);
-                [v62 UTF8String];
-                v116[0] = v107;
-                v116[1] = v108;
-                v63 = sandbox_extension_issue_file_to_process();
-                if (!v63)
+                v60 = *(*(&v89 + 1) + 8 * i);
+                [v60 UTF8String];
+                v112[0] = v103;
+                v112[1] = v104;
+                v61 = sandbox_extension_issue_file_to_process();
+                if (!v61)
                 {
-                  v69 = MEMORY[0x277CCA9B8];
-                  v115 = *MEMORY[0x277CCA450];
-                  v70 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to issue sandbox extension for path: %@", v62];
-                  *&v116[0] = v70;
-                  v71 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v116 forKeys:&v115 count:1];
-                  v55 = [v69 errorWithDomain:@"RemoteBundleLoaderError" code:2 userInfo:v71];
-                  v72 = v55;
+                  v66 = MEMORY[0x277CCA9B8];
+                  v111 = *MEMORY[0x277CCA450];
+                  v67 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to issue sandbox extension for path: %@", v60];
+                  *&v112[0] = v67;
+                  v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v112 forKeys:&v111 count:1];
+                  v55 = [v66 errorWithDomain:@"RemoteBundleLoaderError" code:2 userInfo:v68];
+                  v69 = v55;
 
                   loadCopy = 0;
                   goto LABEL_41;
                 }
 
-                v64 = v63;
-                v65 = [MEMORY[0x277CCACA8] stringWithUTF8String:v63];
-                [v53 addObject:v65];
+                v62 = v61;
+                v63 = [MEMORY[0x277CCACA8] stringWithUTF8String:v61];
+                [v53 addObject:v63];
 
-                free(v64);
+                free(v62);
               }
 
-              v57 = [obj countByEnumeratingWithState:&v93 objects:v117 count:16];
+              v57 = [obj countByEnumeratingWithState:&v89 objects:v113 count:16];
               if (v57)
               {
                 continue;
@@ -386,29 +370,28 @@ LABEL_25:
           v55 = 0;
           loadCopy = v53;
 LABEL_41:
-          argumentsCopy = v76;
-          callingCopy = v77;
-          v47 = v75;
+          callingCopy = v73;
+          v47 = v72;
         }
 
-        v73 = v55;
-        if (v73)
+        v70 = v55;
+        if (v70)
         {
-          v74 = v73;
-          v14 = v80;
-          (v80)[2](v80, v73);
+          v71 = v70;
+          v14 = v76;
+          (v76)[2](v76, v70);
 
           goto LABEL_38;
         }
 
-        v14 = v80;
+        v14 = v76;
 LABEL_12:
         helperLaunchPath = self->_helperLaunchPath;
         targetTask = self->_targetTask;
         targetPid = self->_targetPid;
-        v89 = 0;
-        v30 = DVTLaunchHelperProcess(helperLaunchPath, targetPid, 0, targetTask, &v89);
-        v31 = v89;
+        v85 = 0;
+        v30 = DVTLaunchHelperProcess(helperLaunchPath, targetPid, 0, targetTask, &v85);
+        v31 = v85;
         v32 = v31;
         if (v30)
         {
@@ -419,12 +402,12 @@ LABEL_12:
           block[2] = sub_247FDB940;
           block[3] = &unk_278EF3970;
           block[4] = self;
-          v88 = v14;
-          v83 = loadCopy;
-          v84 = loadCopy;
-          v85 = callingCopy;
-          v86 = argumentsCopy;
-          v87 = v30;
+          v84 = v14;
+          v79 = loadCopy;
+          v80 = loadCopy;
+          v81 = callingCopy;
+          v82 = argumentsCopy;
+          v83 = v30;
           dispatch_async(injectionQueue, block);
 
 LABEL_37:
@@ -439,14 +422,14 @@ LABEL_37:
           }
 
           v36 = MEMORY[0x277CCA9B8];
-          v103[0] = *MEMORY[0x277CCA450];
+          v99[0] = *MEMORY[0x277CCA450];
           v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to launch RemoteInjectionAgent"];
-          v103[1] = *MEMORY[0x277CCA7E8];
-          v104[0] = v37;
-          v104[1] = v32;
+          v99[1] = *MEMORY[0x277CCA7E8];
+          v100[0] = v37;
+          v100[1] = v32;
           v38 = MEMORY[0x277CBEAC0];
-          v39 = v104;
-          v40 = v103;
+          v39 = v100;
+          v40 = v99;
           v41 = 2;
         }
 
@@ -458,18 +441,18 @@ LABEL_37:
           }
 
           v36 = MEMORY[0x277CCA9B8];
-          v101 = *MEMORY[0x277CCA450];
+          v97 = *MEMORY[0x277CCA450];
           v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to launch RemoteInjectionAgent"];
-          v102 = v37;
+          v98 = v37;
           v38 = MEMORY[0x277CBEAC0];
-          v39 = &v102;
-          v40 = &v101;
+          v39 = &v98;
+          v40 = &v97;
           v41 = 1;
         }
 
-        v66 = [v38 dictionaryWithObjects:v39 forKeys:v40 count:v41];
-        v67 = [v36 errorWithDomain:@"RemoteBundleLoaderError" code:2 userInfo:v66];
-        (v14)[2](v14, v67);
+        v64 = [v38 dictionaryWithObjects:v39 forKeys:v40 count:v41];
+        v65 = [v36 errorWithDomain:@"RemoteBundleLoaderError" code:2 userInfo:v64];
+        (v14)[2](v14, v65);
 
         goto LABEL_37;
       }
@@ -477,12 +460,12 @@ LABEL_37:
       if (v14)
       {
         v23 = MEMORY[0x277CCA9B8];
-        v109 = *MEMORY[0x277CCA450];
+        v105 = *MEMORY[0x277CCA450];
         loadCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"No function specified"];
-        v110 = loadCopy;
+        v106 = loadCopy;
         v24 = MEMORY[0x277CBEAC0];
-        v25 = &v110;
-        v26 = &v109;
+        v25 = &v106;
+        v26 = &v105;
         goto LABEL_18;
       }
     }
@@ -499,12 +482,12 @@ LABEL_37:
       if (v14)
       {
         v23 = MEMORY[0x277CCA9B8];
-        v111 = *MEMORY[0x277CCA450];
+        v107 = *MEMORY[0x277CCA450];
         loadCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"No dylib found at path: %@", loadCopy];
-        v112 = loadCopy;
+        v108 = loadCopy;
         v24 = MEMORY[0x277CBEAC0];
-        v25 = &v112;
-        v26 = &v111;
+        v25 = &v108;
+        v26 = &v107;
         goto LABEL_18;
       }
     }
@@ -513,12 +496,12 @@ LABEL_37:
   else if (callbackCopy)
   {
     v23 = MEMORY[0x277CCA9B8];
-    v113 = *MEMORY[0x277CCA450];
+    v109 = *MEMORY[0x277CCA450];
     loadCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"No dylib path specified"];
-    v114 = loadCopy;
+    v110 = loadCopy;
     v24 = MEMORY[0x277CBEAC0];
-    v25 = &v114;
-    v26 = &v113;
+    v25 = &v110;
+    v26 = &v109;
 LABEL_18:
     v34 = [v24 dictionaryWithObjects:v25 forKeys:v26 count:1];
     v35 = [v23 errorWithDomain:@"RemoteBundleLoaderError" code:0 userInfo:v34];
@@ -526,8 +509,6 @@ LABEL_18:
 
 LABEL_38:
   }
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 @end

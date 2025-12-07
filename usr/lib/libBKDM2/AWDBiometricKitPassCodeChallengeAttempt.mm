@@ -455,7 +455,6 @@ LABEL_16:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -475,7 +474,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  overallTime = self->_overallTime;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -490,7 +488,6 @@ LABEL_4:
   }
 
 LABEL_21:
-  passcodeChallengeResult = self->_passcodeChallengeResult;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -505,7 +502,6 @@ LABEL_5:
   }
 
 LABEL_22:
-  passcodeChallengeTemplateUpdated = self->_passcodeChallengeTemplateUpdated;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 4) == 0)
@@ -520,7 +516,6 @@ LABEL_6:
   }
 
 LABEL_23:
-  ambientLux = self->_ambientLux;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -535,7 +530,6 @@ LABEL_7:
   }
 
 LABEL_24:
-  sensorTemperature = self->_sensorTemperature;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -550,7 +544,6 @@ LABEL_8:
   }
 
 LABEL_25:
-  faceDistance = self->_faceDistance;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -565,7 +558,6 @@ LABEL_9:
   }
 
 LABEL_26:
-  attentionScore = self->_attentionScore;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -580,7 +572,6 @@ LABEL_10:
   }
 
 LABEL_27:
-  hasOcclusion = self->_hasOcclusion;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -595,7 +586,6 @@ LABEL_11:
   }
 
 LABEL_28:
-  ppmRequestedBudget = self->_ppmRequestedBudget;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -610,7 +600,6 @@ LABEL_12:
   }
 
 LABEL_29:
-  ppmAllocatedBudget = self->_ppmAllocatedBudget;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -625,7 +614,6 @@ LABEL_13:
   }
 
 LABEL_30:
-  deviceOrientation = self->_deviceOrientation;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -640,12 +628,10 @@ LABEL_14:
   }
 
 LABEL_31:
-  matchIdentityCount = self->_matchIdentityCount;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_15:
-    matchType = self->_matchType;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1102,7 +1088,6 @@ LABEL_15:
       goto LABEL_81;
     }
 
-    v7 = *(equalCopy + 61);
     if (self->_passcodeChallengeResult)
     {
       if ((*(equalCopy + 61) & 1) == 0)
@@ -1129,7 +1114,6 @@ LABEL_15:
       goto LABEL_81;
     }
 
-    v8 = *(equalCopy + 62);
     if (self->_passcodeChallengeTemplateUpdated)
     {
       if ((*(equalCopy + 62) & 1) == 0)
@@ -1209,7 +1193,7 @@ LABEL_15:
     }
 
 LABEL_81:
-    v10 = 0;
+    v7 = 0;
     goto LABEL_82;
   }
 
@@ -1218,7 +1202,6 @@ LABEL_81:
     goto LABEL_81;
   }
 
-  v9 = *(equalCopy + 60);
   if (self->_hasOcclusion)
   {
     if ((*(equalCopy + 60) & 1) == 0)
@@ -1292,17 +1275,17 @@ LABEL_50:
       goto LABEL_81;
     }
 
-    v10 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v10 = (v6 & 0x80) == 0;
+    v7 = (v6 & 0x80) == 0;
   }
 
 LABEL_82:
 
-  return v10;
+  return v7;
 }
 
 - (unint64_t)hash

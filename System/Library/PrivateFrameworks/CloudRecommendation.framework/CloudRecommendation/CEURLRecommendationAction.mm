@@ -27,26 +27,27 @@
 - (CEURLRecommendationAction)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v10.receiver = self;
-  v10.super_class = CEURLRecommendationAction;
-  v5 = [(CERecommendationAction *)&v10 initWithDictionary:dictionaryCopy];
+  v11.receiver = self;
+  v11.super_class = CEURLRecommendationAction;
+  v5 = [(CERecommendationAction *)&v11 initWithDictionary:dictionaryCopy];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"actionUrl"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v7 = [MEMORY[0x277CBEBC0] URLWithString:v6];
+      v8 = [MEMORY[0x277CBEBC0] URLWithString:v6];
       p_super = &v5->_actionURL->super;
-      v5->_actionURL = v7;
+      v5->_actionURL = v8;
     }
 
     else
     {
-      p_super = _CELogSystem();
+      p_super = _CELogSystem(isKindOfClass);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEBUG))
       {
-        [CEURLRecommendationAction initWithDictionary:];
+        [CEURLRecommendationAction initWithDictionary:v5];
       }
     }
   }
@@ -98,14 +99,11 @@
   return v4;
 }
 
-- (void)initWithDictionary:.cold.1()
+- (void)initWithDictionary:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse url from dictionary.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse url from dictionary.", v5, v6, v7, v8);
 }
 
 @end

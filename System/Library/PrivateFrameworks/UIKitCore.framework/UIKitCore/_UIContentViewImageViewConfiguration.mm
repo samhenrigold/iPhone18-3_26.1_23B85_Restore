@@ -232,9 +232,9 @@
       goto LABEL_21;
     }
 
-    v9 = [v6 isEqual:v7];
+    isEqual = objc_msgSend_isEqual_(v6);
 
-    if (!v9)
+    if (!isEqual)
     {
       goto LABEL_22;
     }
@@ -257,7 +257,7 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v12 = [v6 isEqual:v11];
+  v12 = objc_msgSend_isEqual_(v6);
 
   if (!v12)
   {
@@ -280,7 +280,7 @@ LABEL_16:
     goto LABEL_21;
   }
 
-  v15 = [v6 isEqual:v14];
+  v15 = objc_msgSend_isEqual_(v6);
 
   if (!v15)
   {
@@ -334,9 +334,9 @@ LABEL_23:
   {
     if (v8 && v9)
     {
-      v11 = [v8 isEqual:v9];
+      isEqual = objc_msgSend_isEqual_(v8);
 
-      if (v11)
+      if (isEqual)
       {
         goto LABEL_14;
       }

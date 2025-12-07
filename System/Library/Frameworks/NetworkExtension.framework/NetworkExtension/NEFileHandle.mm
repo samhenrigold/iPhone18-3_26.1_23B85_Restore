@@ -1,4 +1,5 @@
 @interface NEFileHandle
+- (NEFileHandle)initWithFileDescriptor:(int)descriptor launchOwnerWhenReadable:(BOOL)readable;
 - (OS_xpc_object)dictionary;
 - (id)initFromDictionary:(id)dictionary;
 @end
@@ -26,6 +27,24 @@
   }
 
   return v5;
+}
+
+- (NEFileHandle)initWithFileDescriptor:(int)descriptor launchOwnerWhenReadable:(BOOL)readable
+{
+  v5 = *&descriptor;
+  v10.receiver = self;
+  v10.super_class = NEFileHandle;
+  v6 = [(NEFileHandle *)&v10 init];
+  if (v6)
+  {
+    v7 = [objc_alloc(MEMORY[0x1E696AC00]) initWithFileDescriptor:v5 closeOnDealloc:1];
+    handle = v6->_handle;
+    v6->_handle = v7;
+
+    v6->_launchOwnerWhenReadable = readable;
+  }
+
+  return v6;
 }
 
 - (id)initFromDictionary:(id)dictionary

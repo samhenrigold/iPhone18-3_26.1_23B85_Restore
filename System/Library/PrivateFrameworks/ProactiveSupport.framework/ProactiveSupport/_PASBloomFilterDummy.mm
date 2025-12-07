@@ -1,4 +1,5 @@
 @interface _PASBloomFilterDummy
++ (id)instanceThatAlwaysReturns:(BOOL)returns;
 - (_PASBloomFilterDummy)initWithResult:(BOOL)result;
 @end
 
@@ -15,6 +16,13 @@
   }
 
   return result;
+}
+
++ (id)instanceThatAlwaysReturns:(BOOL)returns
+{
+  v3 = [[_PASBloomFilterDummy alloc] initWithResult:returns];
+
+  return v3;
 }
 
 @end

@@ -10,7 +10,7 @@ void sub_240EA80FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__formatter::__format_buffer_hexadecimal_upper_case[abi:ne200100]<double,double>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int8 *a3@<X2>, unsigned __int8 **a4@<X8>)
+char *std::__formatter::__format_buffer_hexadecimal_upper_case[abi:ne200100]<double,double>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int8 *a3@<X2>, unsigned __int8 **a4@<X8>)
 {
   v4 = a3;
   a4[1] = 0xAAAAAAAAAAAAAAAALL;
@@ -25,7 +25,7 @@ uint64_t std::__formatter::__format_buffer_hexadecimal_upper_case[abi:ne200100]<
     {
 LABEL_3:
       v8 = result - 2;
-      result = memchr((result - 6), 112, 4uLL);
+      result = memchr(result - 6, 112, 4uLL);
       if (result)
       {
         v9 = result;
@@ -82,12 +82,12 @@ LABEL_13:
 uint64_t std::__formatter::__format_floating_point[abi:ne200100]<long double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unint64_t a2, unint64_t a3, double a4)
 {
   v5 = a2;
-  v83[130] = *MEMORY[0x277D85DE8];
+  v81[130] = *MEMORY[0x277D85DE8];
   if ((*&a4 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
   {
     v8 = a2 >> 8;
     v9 = fabs(a4);
-    memset(v83, 170, 0x410uLL);
+    memset(v81, 170, 0x410uLL);
     if (a3 == -1)
     {
       v10 = 1074;
@@ -98,14 +98,14 @@ uint64_t std::__formatter::__format_floating_point[abi:ne200100]<long double,cha
       v10 = a3;
     }
 
-    v81 = v10;
-    v82 = 0;
+    v79 = v10;
+    v80 = 0;
     if (v10 < 1075)
     {
-      v83[0] = v10 + 316;
+      v81[0] = v10 + 316;
       if ((v10 + 316) < 0x401)
       {
-        v11 = &v83[2];
+        v11 = &v81[2];
       }
 
       else
@@ -116,50 +116,51 @@ uint64_t std::__formatter::__format_floating_point[abi:ne200100]<long double,cha
 
     else
     {
-      v81 = 1074;
-      v82 = v10 - 1074;
-      v83[0] = 1390;
+      v79 = 1074;
+      v80 = v10 - 1074;
+      v81[0] = 1390;
       v11 = operator new(0x56EuLL);
     }
 
-    v83[1] = v11;
-    *&v12 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v78 = v12;
-    *v79 = v12;
-    std::__formatter::__format_buffer[abi:ne200100]<double,long double>(&v81, a4 < 0.0, ((a3 & 0x80000000) == 0), (v5 >> 3) & 3, v8, &v78, v9);
+    v81[1] = v11;
+    v12.n128_u64[0] = 0xAAAAAAAAAAAAAAAALL;
+    v12.n128_u64[1] = 0xAAAAAAAAAAAAAAAALL;
+    v76 = v12;
+    *v77 = v12;
+    v12.n128_f64[0] = v9;
+    std::__formatter::__format_buffer[abi:ne200100]<double,long double>(&v79, a4 < 0.0, ((a3 & 0x80000000) == 0), (v5 >> 3) & 3, v8, &v76, v12);
     if ((v5 & 0x20) == 0)
     {
       goto LABEL_29;
     }
 
-    v13 = *(&v78 + 1);
-    v14 = v79[1];
-    if (*(&v78 + 1) == v79[1])
+    v13 = v76.n128_u64[1];
+    v14 = v77[1];
+    if (v76.n128_u64[1] == v77[1])
     {
-      ++v79[1];
+      ++v77[1];
       *v14 = 46;
-      v15 = v79[0];
-      v16 = v79[1] - 1;
-      if (v79[0] != v79[1] - 1)
+      v15 = v77[0];
+      v16 = v77[1] - 1;
+      if (v77[0] != v77[1] - 1)
       {
-        if (v79[0] + 1 == v16)
+        if (v77[0] + 1 == v16)
         {
-          v18 = *v79[0];
-          *v79[0] = *(v79[0] + 1);
+          v18 = *v77[0];
+          *v77[0] = *(v77[0] + 1);
           v15[1] = v18;
         }
 
         else
         {
-          v17 = *(v79[1] - 1);
-          memmove(v79[0] + 1, v79[0], v16 - v79[0]);
+          v17 = *(v77[1] - 1);
+          memmove(v77[0] + 1, v77[0], v16 - v77[0]);
           *v15 = v17;
         }
       }
 
-      v13 = v79[0];
-      *(&v78 + 1) = v79[0]++;
+      v13 = v77[0];
+      v76.n128_u64[1] = v77[0]++;
       if ((BYTE1(v5) - 17) > 1u)
       {
 LABEL_29:
@@ -168,40 +169,40 @@ LABEL_29:
           v37 = *a1;
           if ((*(a1 + 40) & 1) == 0)
           {
-            MEMORY[0x245CD2A30](&v80);
+            MEMORY[0x245CD2A30](&v78);
             v38 = (a1 + 32);
             if (*(a1 + 40) == 1)
             {
-              std::locale::operator=(v38, &v80);
+              std::locale::operator=(v38, &v78);
             }
 
             else
             {
-              std::locale::locale(v38, &v80);
+              std::locale::locale(v38, &v78);
               *(a1 + 40) = 1;
             }
 
-            std::locale::~locale(&v80);
+            std::locale::~locale(&v78);
           }
 
-          std::locale::locale(&v77, (a1 + 32));
-          v40 = std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,double,char>(v37, &v81, &v78, &v77, v5, a3);
-          std::locale::~locale(&v77);
+          std::locale::locale(&v75, (a1 + 32));
+          v40 = std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,double,char>(v37, &v79, &v76, &v75, v5, a3);
+          std::locale::~locale(&v75);
           goto LABEL_74;
         }
 
-        v23 = v79[1];
-        v24 = v83[1];
-        v25 = v79[1] - v83[1];
-        v26 = v82;
-        if (v79[1] + v82 - v83[1] < v5 >> 32)
+        v23 = v77[1];
+        v24 = v81[1];
+        v25 = v77[1] - v81[1];
+        v26 = v80;
+        if (v77[1] + v80 - v81[1] < v5 >> 32)
         {
           v27 = *a1;
           if ((v5 & 7) == 4)
           {
-            if (v83[1] != v78)
+            if (v81[1] != v76.n128_u64[0])
             {
-              v28 = *v83[1];
+              v28 = *v81[1];
               v29 = *(v27 + 32);
               if (!v29 || (v31 = *v29, v30 = v29[1], v29[1] = v30 + 1, v30 < v31))
               {
@@ -218,7 +219,7 @@ LABEL_29:
               }
 
               ++v24;
-              v23 = v79[1];
+              v23 = v77[1];
             }
 
             v5 = v5 & 0xFFFFFFFFFFFFFF00 | v5 & 0xB8 | 3;
@@ -232,34 +233,33 @@ LABEL_29:
           else
           {
             v35 = a3 & 0xFFFFFF00FFFFFFFFLL | (BYTE4(a3) << 32);
-            if (!v82)
+            if (!v80)
             {
 LABEL_39:
               v36 = std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v24, v23 - v24, v27, v5, v35, v25);
 LABEL_70:
               v40 = v36;
 LABEL_74:
-              if (v83[0] >= 0x401uLL)
+              if (v81[0] >= 0x401uLL)
               {
-                operator delete(v83[1]);
+                operator delete(v81[1]);
               }
 
-              v56 = *MEMORY[0x277D85DE8];
               return v40;
             }
           }
 
-          v36 = std::__formatter::__write_using_trailing_zeros[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v24, v23, v27, v5, v35, v25, v79[0], v26);
+          v36 = std::__formatter::__write_using_trailing_zeros[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v24, v23, v27, v5, v35, v25, v77[0], v26);
           goto LABEL_70;
         }
 
-        if (v82)
+        if (v80)
         {
-          v39 = v79[0];
-          if (v79[0] != v79[1])
+          v39 = v77[0];
+          if (v77[0] != v77[1])
           {
             v40 = *a1;
-            v41 = v79[0] - v83[1];
+            v41 = v77[0] - v81[1];
             v42 = *(*a1 + 32);
             if (v42)
             {
@@ -267,7 +267,7 @@ LABEL_74:
               v44 = v42[1];
               if (*v42 - v44 >= v41)
               {
-                v45 = v79[0] - v83[1];
+                v45 = v77[0] - v81[1];
               }
 
               else
@@ -285,41 +285,41 @@ LABEL_74:
 
             else
             {
-              v45 = v79[0] - v83[1];
+              v45 = v77[0] - v81[1];
             }
 
-            v62 = *(v40 + 16);
+            v61 = *(v40 + 16);
             do
             {
-              v63 = *(v40 + 8) - v62;
-              if (v63 < (v45 + 1))
+              v62 = *(v40 + 8) - v61;
+              if (v62 < (v45 + 1))
               {
                 (*(v40 + 24))(v40, v45 + 2);
-                v62 = *(v40 + 16);
-                v63 = *(v40 + 8) - v62;
+                v61 = *(v40 + 16);
+                v62 = *(v40 + 8) - v61;
               }
 
-              if (v63 >= v45)
+              if (v62 >= v45)
               {
-                v64 = v45;
+                v63 = v45;
               }
 
               else
               {
-                v64 = v63;
+                v63 = v62;
               }
 
-              if (v64)
+              if (v63)
               {
-                memmove((*v40 + v62), v24, v64);
-                v62 = *(v40 + 16);
+                memmove((*v40 + v61), v24, v63);
+                v61 = *(v40 + 16);
               }
 
-              v62 += v64;
-              *(v40 + 16) = v62;
-              v24 += v64;
-              v53 = v45 > v63;
-              v45 -= v64;
+              v61 += v63;
+              *(v40 + 16) = v61;
+              v24 += v63;
+              v53 = v45 > v62;
+              v45 -= v63;
             }
 
             while (v53);
@@ -332,92 +332,92 @@ LABEL_74:
             v43 = *v42;
             v46 = v42[1];
 LABEL_108:
-            v65 = &v46[v26];
+            v64 = &v46[v26];
             v42[1] = &v46[v26];
-            v66 = v43 >= v46;
-            v67 = v43 - v46;
-            if (v67 == 0 || !v66)
+            v65 = v43 >= v46;
+            v66 = v43 - v46;
+            if (v66 == 0 || !v65)
             {
-              v70 = v23 - v39;
+              v69 = v23 - v39;
               goto LABEL_124;
             }
 
-            if (v67 < v26)
+            if (v66 < v26)
             {
-              v26 = v67;
+              v26 = v66;
             }
 
-            v62 = *(v40 + 16);
+            v61 = *(v40 + 16);
             do
             {
 LABEL_115:
-              v68 = *(v40 + 8) - v62;
-              if (v68 < v26 + 1)
+              v67 = *(v40 + 8) - v61;
+              if (v67 < v26 + 1)
               {
                 (*(v40 + 24))(v40, v26 + 2);
-                v62 = *(v40 + 16);
-                v68 = *(v40 + 8) - v62;
+                v61 = *(v40 + 16);
+                v67 = *(v40 + 8) - v61;
               }
 
-              if (v68 >= v26)
+              if (v67 >= v26)
               {
-                v69 = v26;
+                v68 = v26;
               }
 
               else
               {
-                v69 = v68;
+                v68 = v67;
               }
 
-              if (v69)
+              if (v68)
               {
-                memset((*v40 + v62), 48, v69);
-                v62 = *(v40 + 16);
+                memset((*v40 + v61), 48, v68);
+                v61 = *(v40 + 16);
               }
 
-              v62 += v69;
-              *(v40 + 16) = v62;
-              v53 = v26 > v68;
-              v26 -= v69;
+              v61 += v68;
+              *(v40 + 16) = v61;
+              v53 = v26 > v67;
+              v26 -= v68;
             }
 
             while (v53);
             v42 = *(v40 + 32);
-            v70 = v23 - v39;
+            v69 = v23 - v39;
             if (!v42)
             {
               do
               {
 LABEL_133:
-                v73 = *(v40 + 8) - v62;
-                if (v73 < v70 + 1)
+                v72 = *(v40 + 8) - v61;
+                if (v72 < v69 + 1)
                 {
-                  (*(v40 + 24))(v40, v70 + 2);
-                  v62 = *(v40 + 16);
-                  v73 = *(v40 + 8) - v62;
+                  (*(v40 + 24))(v40, v69 + 2);
+                  v61 = *(v40 + 16);
+                  v72 = *(v40 + 8) - v61;
                 }
 
-                if (v73 >= v70)
+                if (v72 >= v69)
                 {
-                  v74 = v70;
+                  v73 = v69;
                 }
 
                 else
                 {
-                  v74 = v73;
+                  v73 = v72;
                 }
 
-                if (v74)
+                if (v73)
                 {
-                  memmove((*v40 + v62), v39, v74);
-                  v62 = *(v40 + 16);
+                  memmove((*v40 + v61), v39, v73);
+                  v61 = *(v40 + 16);
                 }
 
-                v62 += v74;
-                *(v40 + 16) = v62;
-                v39 += v74;
-                v53 = v70 > v73;
-                v70 -= v74;
+                v61 += v73;
+                *(v40 + 16) = v61;
+                v39 += v73;
+                v53 = v69 > v72;
+                v69 -= v73;
               }
 
               while (v53);
@@ -425,29 +425,29 @@ LABEL_133:
             }
 
             v43 = *v42;
-            v65 = v42[1];
+            v64 = v42[1];
 LABEL_124:
-            v71 = v43 - v65;
-            if (v43 - v65 >= v70)
+            v70 = v43 - v64;
+            if (v43 - v64 >= v69)
             {
-              v71 = v70;
+              v70 = v69;
             }
 
-            v42[1] = &v65[v70];
-            if (v43 <= v65 || v71 == 0)
+            v42[1] = &v64[v69];
+            if (v43 <= v64 || v70 == 0)
             {
               goto LABEL_74;
             }
 
-            v62 = *(v40 + 16);
-            v70 = v71;
+            v61 = *(v40 + 16);
+            v69 = v70;
             goto LABEL_133;
           }
         }
 
         v40 = *a1;
         v47 = *(*a1 + 32);
-        if (!v47 || ((v48 = *v47, v49 = v47[1], *v47 - v49 >= v25) ? (v50 = v79[1] - v83[1]) : (v50 = (*v47 - v49)), (v51 = &v25[v49], v47[1] = &v25[v49], v48 > v49) && (v25 = v50) != 0))
+        if (!v47 || ((v48 = *v47, v49 = v47[1], *v47 - v49 >= v25) ? (v50 = v77[1] - v81[1]) : (v50 = (*v47 - v49)), (v51 = &v25[v49], v47[1] = &v25[v49], v48 > v49) && (v25 = v50) != 0))
         {
           v52 = *(v40 + 16);
           do
@@ -490,34 +490,34 @@ LABEL_124:
             do
             {
 LABEL_88:
-              v60 = *(v40 + 8) - v52;
-              if (v60 < v26 + 1)
+              v59 = *(v40 + 8) - v52;
+              if (v59 < v26 + 1)
               {
                 (*(v40 + 24))(v40, v26 + 2);
                 v52 = *(v40 + 16);
-                v60 = *(v40 + 8) - v52;
+                v59 = *(v40 + 8) - v52;
               }
 
-              if (v60 >= v26)
+              if (v59 >= v26)
               {
-                v61 = v26;
+                v60 = v26;
               }
 
               else
               {
-                v61 = v60;
+                v60 = v59;
               }
 
-              if (v61)
+              if (v60)
               {
-                memset((*v40 + v52), 48, v61);
+                memset((*v40 + v52), 48, v60);
                 v52 = *(v40 + 16);
               }
 
-              v52 += v61;
+              v52 += v60;
               *(v40 + 16) = v52;
-              v53 = v26 > v60;
-              v26 -= v61;
+              v53 = v26 > v59;
+              v26 -= v60;
             }
 
             while (v53);
@@ -528,20 +528,20 @@ LABEL_88:
           v51 = v47[1];
         }
 
-        v58 = v48 - v51;
+        v57 = v48 - v51;
         if (v48 - v51 >= v26)
         {
-          v58 = v26;
+          v57 = v26;
         }
 
         v47[1] = &v51[v26];
-        if (v48 <= v51 || v58 == 0)
+        if (v48 <= v51 || v57 == 0)
         {
           goto LABEL_74;
         }
 
         v52 = *(v40 + 16);
-        v26 = v58;
+        v26 = v57;
         goto LABEL_88;
       }
     }
@@ -566,9 +566,9 @@ LABEL_88:
       v19 = 6;
     }
 
-    if (v79[0] == v79[1])
+    if (v77[0] == v77[1])
     {
-      v20 = v78 - v13;
+      v20 = v76.n128_u32[0] - v13;
     }
 
     else
@@ -577,19 +577,18 @@ LABEL_88:
     }
 
     v21 = v20 + v19;
-    v22 = v79[0] + ~v13;
+    v22 = v77[0] + ~v13;
     if (v22 < v21)
     {
-      v82 += v21 - v22;
+      v80 += v21 - v22;
     }
 
     goto LABEL_29;
   }
 
-  v75 = *a1;
-  v76 = *MEMORY[0x277D85DE8];
+  v74 = *a1;
 
-  return std::__formatter::__format_floating_point_non_finite[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>(v75, a2, a3, a4 < 0.0, 0);
+  return std::__formatter::__format_floating_point_non_finite[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>(v74, a2, a3, a4 < 0.0, 0);
 }
 
 void sub_240EA89E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::locale a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, unint64_t a18, void *__p)
@@ -602,7 +601,7 @@ void sub_240EA89E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__formatter::__format_buffer[abi:ne200100]<double,long double>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, char *a3@<X2>, int a4@<W3>, int a5@<W4>, uint64_t a6@<X8>, double a7@<D0>)
+char *std::__formatter::__format_buffer[abi:ne200100]<double,long double>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, char *a3@<X2>, int a4@<W3>, int a5@<W4>, char **a6@<X8>, __n128 a7@<Q0>)
 {
   v8 = *(a1 + 2);
   if (a2)
@@ -650,17 +649,17 @@ LABEL_8:
       {
         v10 = *a1;
         *a6 = v8;
-        result = MEMORY[0x245CD2AF0](v8, *(a1 + 2) + *(a1 + 1), 1, v10);
-        *(a6 + 24) = result;
+        result = MEMORY[0x245CD2AF0](v8, *(a1 + 2) + *(a1 + 1), 1, v10, a7);
+        a6[3] = result;
         v12 = v8 + 1;
         if (v8[1] == 46)
         {
-          *(a6 + 8) = v12;
+          a6[1] = v12;
           v13 = result - v8 - 2;
           if (v13 < 4)
           {
 LABEL_19:
-            *(a6 + 16) = result;
+            a6[2] = result;
           }
 
           else
@@ -671,7 +670,7 @@ LABEL_19:
             }
 
             v14 = -v13;
-            while (*(result + v14) != 101)
+            while (result[v14] != 101)
             {
               if (++v14 == -3)
               {
@@ -679,14 +678,14 @@ LABEL_19:
               }
             }
 
-            *(a6 + 16) = result + v14;
+            a6[2] = &result[v14];
           }
         }
 
         else
         {
-          *(a6 + 8) = result;
-          *(a6 + 16) = v12;
+          a6[1] = result;
+          a6[2] = v12;
         }
       }
 
@@ -694,12 +693,12 @@ LABEL_19:
       {
         v30 = *a1;
         *a6 = v8;
-        result = MEMORY[0x245CD2AF0](v8, *(a1 + 2) + *(a1 + 1), 1, v30);
-        *(a6 + 24) = result;
+        result = MEMORY[0x245CD2AF0](v8, *(a1 + 2) + *(a1 + 1), 1, v30, a7);
+        a6[3] = result;
         v31 = v8 + 1;
         if (v8[1] == 46)
         {
-          *(a6 + 8) = v31;
+          a6[1] = v31;
           v32 = result - v8 - 2;
           if (v32 < 4)
           {
@@ -715,7 +714,7 @@ LABEL_68:
             }
 
             v33 = -v32;
-            while (*(result + v33) != 101)
+            while (result[v33] != 101)
             {
               if (++v33 == -3)
               {
@@ -723,16 +722,16 @@ LABEL_68:
               }
             }
 
-            v31 = (result + v33);
+            v31 = &result[v33];
           }
         }
 
         else
         {
-          *(a6 + 8) = result;
+          a6[1] = result;
         }
 
-        *(a6 + 16) = v31;
+        a6[2] = v31;
         *v31 = 69;
       }
 
@@ -745,15 +744,15 @@ LABEL_68:
       {
         v22 = *a1;
         a1[1] = 0;
-        *(a6 + 8) = 0xAAAAAAAAAAAAAAAALL;
-        *(a6 + 16) = 0xAAAAAAAAAAAAAAAALL;
+        a6[1] = 0xAAAAAAAAAAAAAAAALL;
+        a6[2] = 0xAAAAAAAAAAAAAAAALL;
         *a6 = v8;
-        result = MEMORY[0x245CD2AF0](v8, *(a1 + 2) + *(a1 + 1), 3, v22);
-        *(a6 + 24) = result;
+        result = MEMORY[0x245CD2AF0](v8, *(a1 + 2) + *(a1 + 1), 3, v22, a7);
+        a6[3] = result;
         v18 = v8 + 1;
         if (v8 + 1 != result)
         {
-          v19 = result - v18;
+          v19 = (result - v18);
           if (result - v18 >= 4)
           {
             v23 = 6;
@@ -763,7 +762,7 @@ LABEL_68:
             }
 
             v21 = -v23;
-            while (*(result + v21) != 101)
+            while (result[v21] != 101)
             {
               if (++v21 == -3)
               {
@@ -772,14 +771,14 @@ LABEL_68:
             }
 
 LABEL_89:
-            v46 = result + v21;
+            v45 = &result[v21];
             if (*v18 != 46)
             {
               v18 = result;
             }
 
-            *(a6 + 8) = v18;
-            *(a6 + 16) = v46;
+            a6[1] = v18;
+            a6[2] = v45;
             return result;
           }
 
@@ -790,9 +789,9 @@ LABEL_89:
       }
 
       *a6 = v8;
-      v36 = std::to_chars(v8, (*(a1 + 2) + *(a1 + 1)), a3, a7);
+      v36 = std::to_chars(v8, (*(a1 + 2) + *(a1 + 1)), a3, a7.n128_f64[0]);
       v37 = v36;
-      *(a6 + 24) = v36;
+      a6[3] = v36;
       v38 = v36 - v8;
       if (v36 - v8 < 4)
       {
@@ -808,7 +807,7 @@ LABEL_81:
         }
 
         v39 = -v38;
-        while (*(v36 + v39) != 101)
+        while (v36[v39] != 101)
         {
           if (++v39 == -3)
           {
@@ -816,27 +815,27 @@ LABEL_81:
           }
         }
 
-        v40 = v36 + v39;
+        v40 = &v36[v39];
       }
 
-      *(a6 + 16) = v40;
+      a6[2] = v40;
       result = memchr(v8 + 1, 46, v40 - (v8 + 1));
       if (result)
       {
-        v47 = result;
+        v46 = result;
       }
 
       else
       {
-        v47 = v40;
+        v46 = v40;
       }
 
-      if (v47 == v40)
+      if (v46 == v40)
       {
-        v47 = v37;
+        v46 = v37;
       }
 
-      *(a6 + 8) = v47;
+      a6[1] = v46;
       return result;
     }
 
@@ -844,32 +843,32 @@ LABEL_81:
     {
       v34 = *a1;
       *a6 = v8;
-      v35 = (a6 + 24);
+      v35 = a6 + 3;
       if (v34 != -1)
       {
-        result = MEMORY[0x245CD2AF0](v8, *(a1 + 2) + *(a1 + 1), 4);
+        result = MEMORY[0x245CD2AF0](v8, *(a1 + 2) + *(a1 + 1), 4, a7);
 LABEL_84:
         *v35 = result;
-        v43 = v8[1];
-        v42 = v8 + 1;
-        if (v43 == 46)
+        v42 = v8[1];
+        v41 = v8 + 1;
+        if (v42 == 46)
         {
-          v44 = result - 2;
-          v45 = memchr((result - 6), 112, 4uLL);
-          result = v42;
-          if (v45)
+          v43 = result - 2;
+          v44 = memchr(result - 6, 112, 4uLL);
+          result = v41;
+          if (v44)
           {
-            v42 = v45;
+            v41 = v44;
           }
 
           else
           {
-            v42 = v44;
+            v41 = v43;
           }
         }
 
-        *(a6 + 8) = result;
-        *(a6 + 16) = v42;
+        a6[1] = result;
+        a6[2] = v41;
         return result;
       }
     }
@@ -877,8 +876,7 @@ LABEL_84:
     else
     {
       *a6 = v8;
-      v35 = (a6 + 24);
-      v41 = *(a1 + 2) + *(a1 + 1);
+      v35 = a6 + 3;
     }
 
     result = std::to_chars();
@@ -889,9 +887,9 @@ LABEL_84:
   {
     v15 = *a1;
     *a6 = v8;
-    result = MEMORY[0x245CD2AF0](v8, *(a1 + 2) + *(a1 + 1), 2, v15);
-    *(a6 + 16) = result;
-    *(a6 + 24) = result;
+    result = MEMORY[0x245CD2AF0](v8, *(a1 + 2) + *(a1 + 1), 2, v15, a7);
+    a6[2] = result;
+    a6[3] = result;
     if (v15)
     {
       v16 = v15 + 1;
@@ -902,7 +900,7 @@ LABEL_84:
       v16 = 0;
     }
 
-    *(a6 + 8) = result - v16;
+    a6[1] = &result[-v16];
     return result;
   }
 
@@ -910,15 +908,15 @@ LABEL_84:
   {
     v17 = *a1;
     a1[1] = 0;
-    *(a6 + 8) = 0xAAAAAAAAAAAAAAAALL;
-    *(a6 + 16) = 0xAAAAAAAAAAAAAAAALL;
+    a6[1] = 0xAAAAAAAAAAAAAAAALL;
+    a6[2] = 0xAAAAAAAAAAAAAAAALL;
     *a6 = v8;
-    result = MEMORY[0x245CD2AF0](v8, *(a1 + 2) + *(a1 + 1), 3, v17);
-    *(a6 + 24) = result;
+    result = MEMORY[0x245CD2AF0](v8, *(a1 + 2) + *(a1 + 1), 3, v17, a7);
+    a6[3] = result;
     v18 = v8 + 1;
     if (v8 + 1 != result)
     {
-      v19 = result - v18;
+      v19 = (result - v18);
       if (result - v18 >= 4)
       {
         v20 = 6;
@@ -928,7 +926,7 @@ LABEL_84:
         }
 
         v21 = -v20;
-        while (*(result + v21) != 101)
+        while (result[v21] != 101)
         {
           if (++v21 == -3)
           {
@@ -940,7 +938,7 @@ LABEL_84:
       }
 
 LABEL_57:
-      *(a6 + 16) = result;
+      a6[2] = result;
       v28 = result;
       result = memchr(v18, 46, v19);
       if (result)
@@ -953,30 +951,30 @@ LABEL_57:
         v29 = v28;
       }
 
-      *(a6 + 8) = v29;
+      a6[1] = v29;
       return result;
     }
 
 LABEL_72:
-    *(a6 + 8) = result;
-    *(a6 + 16) = result;
+    a6[1] = result;
+    a6[2] = result;
     return result;
   }
 
   v25 = *a1;
   a1[1] = 0;
-  *(a6 + 8) = 0xAAAAAAAAAAAAAAAALL;
-  *(a6 + 16) = 0xAAAAAAAAAAAAAAAALL;
+  a6[1] = 0xAAAAAAAAAAAAAAAALL;
+  a6[2] = 0xAAAAAAAAAAAAAAAALL;
   *a6 = v8;
-  result = MEMORY[0x245CD2AF0](v8, *(a1 + 2) + *(a1 + 1), 3, v25);
-  *(a6 + 24) = result;
+  result = MEMORY[0x245CD2AF0](v8, *(a1 + 2) + *(a1 + 1), 3, v25, a7);
+  a6[3] = result;
   v18 = v8 + 1;
   if (v8 + 1 == result)
   {
     goto LABEL_72;
   }
 
-  v19 = result - v18;
+  v19 = (result - v18);
   if (result - v18 < 4)
   {
     goto LABEL_57;
@@ -989,7 +987,7 @@ LABEL_72:
   }
 
   v27 = -v26;
-  while (*(result + v27) != 101)
+  while (result[v27] != 101)
   {
     if (++v27 == -3)
     {
@@ -1002,13 +1000,13 @@ LABEL_72:
     v18 = result;
   }
 
-  *(a6 + 8) = v18;
-  *(a6 + 16) = result + v27;
-  *(result + v27) = 69;
+  a6[1] = v18;
+  a6[2] = &result[v27];
+  result[v27] = 69;
   return result;
 }
 
-uint64_t std::__formatter::__format_buffer_hexadecimal_upper_case[abi:ne200100]<double,long double>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int8 *a3@<X2>, unsigned __int8 **a4@<X8>)
+char *std::__formatter::__format_buffer_hexadecimal_upper_case[abi:ne200100]<double,long double>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int8 *a3@<X2>, unsigned __int8 **a4@<X8>)
 {
   v4 = a3;
   a4[1] = 0xAAAAAAAAAAAAAAAALL;
@@ -1023,7 +1021,7 @@ uint64_t std::__formatter::__format_buffer_hexadecimal_upper_case[abi:ne200100]<
     {
 LABEL_3:
       v8 = result - 2;
-      result = memchr((result - 6), 112, 4uLL);
+      result = memchr(result - 6, 112, 4uLL);
       if (result)
       {
         v9 = result;
@@ -1146,7 +1144,7 @@ LABEL_18:
 
 uint64_t std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, char a5)
 {
-  *&v16[5] = *MEMORY[0x277D85DE8];
+  *&v15[5] = *MEMORY[0x277D85DE8];
   if (BYTE1(a3) <= 3u)
   {
     if (!BYTE1(a3))
@@ -1154,14 +1152,14 @@ uint64_t std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std
       goto LABEL_11;
     }
 
-    *&v15[15] = -1431655766;
+    *&v14[15] = -1431655766;
     *&v7 = 0xAAAAAAAAAAAAAAAALL;
     *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v14 = v7;
-    *v15 = v7;
-    *v13 = v7;
-    *&v13[16] = v7;
-    v12 = 2;
+    v13 = v7;
+    *v14 = v7;
+    *v12 = v7;
+    *&v12[16] = v7;
+    v11 = 2;
     if (BYTE1(a3) == 2)
     {
       v8 = "0b";
@@ -1174,16 +1172,14 @@ uint64_t std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std
       v9 = a3 & 0xFFFFFFFFFFFF00FFLL | 0x300;
     }
 
-    v10 = v16;
-LABEL_18:
-    result = std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, v9, a4, a5, v13, v10, v8, v12);
-    goto LABEL_19;
+    v10 = v15;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, v9, a4, a5, v12, v10, v8, v11);
   }
 
   if (BYTE1(a3) > 5u)
   {
-    memset(v13, 170, 19);
-    v12 = 16;
+    memset(v12, 170, 19);
+    v11 = 16;
     if (BYTE1(a3) == 6)
     {
       v8 = "0x";
@@ -1196,20 +1192,19 @@ LABEL_18:
       v9 = a3 & 0xFFFFFFFFFFFF00FFLL | 0x700;
     }
 
-    v10 = &v13[19];
-    goto LABEL_18;
+    v10 = &v12[19];
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, v9, a4, a5, v12, v10, v8, v11);
   }
 
   if (BYTE1(a3) != 4)
   {
 LABEL_11:
-    memset(v13, 170, 21);
-    result = std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v13, &v13[21], 0, 10);
-    goto LABEL_19;
+    memset(v12, 170, 21);
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v12, &v12[21], 0, 0xAu);
   }
 
-  *&v13[8] = 0xAAAAAAAAAAAAAAAALL;
-  *&v13[16] = 0xAAAAAAAAAAAAAAAALL;
+  *&v12[8] = 0xAAAAAAAAAAAAAAAALL;
+  *&v12[16] = 0xAAAAAAAAAAAAAAAALL;
   if (a1)
   {
     v5 = "0";
@@ -1220,14 +1215,11 @@ LABEL_11:
     v5 = 0;
   }
 
-  *v13 = 0xAAAAAAAAAAAAAAAALL;
-  result = std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, v13, &v13[24], v5, 8);
-LABEL_19:
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  *v12 = 0xAAAAAAAAAAAAAAAALL;
+  return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, v12, &v12[24], v5, 8u);
 }
 
-uint64_t std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, char a5, char *a6, uint64_t a7, _BYTE *a8, signed int a9)
+uint64_t std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, char a5, char *a6, char *a7, char *a8, unsigned int a9)
 {
   v9 = a6;
   v10 = a3;
@@ -1266,8 +1258,7 @@ LABEL_8:
         v17 = a8 + 1;
         do
         {
-          *v15 = v16;
-          v15 = (v15 + 1);
+          *v15++ = v16;
           v18 = *v17++;
           v16 = v18;
         }
@@ -2130,25 +2121,25 @@ LABEL_24:
   }
 
   v23 = this[34];
-  if (v23 == (this + 31))
+  if (v23 == this + 31)
   {
-    (*(*v23 + 32))(v23);
+    (*(*v23 + 4))(v23);
     v24 = this[30];
-    if (v24 != (this + 27))
+    if (v24 != this + 27)
     {
       goto LABEL_42;
     }
 
 LABEL_50:
-    (*(*v24 + 32))(v24);
+    (*(*v24 + 4))(v24);
     v25 = this[26];
-    if (v25 != (this + 23))
+    if (v25 != this + 23)
     {
       goto LABEL_45;
     }
 
 LABEL_51:
-    (*(*v25 + 32))(v25);
+    (*(*v25 + 4))(v25);
     v26 = this[21];
     if (!v26)
     {
@@ -2160,11 +2151,11 @@ LABEL_51:
 
   if (v23)
   {
-    (*(*v23 + 40))(v23);
+    (*(*v23 + 5))(v23);
   }
 
   v24 = this[30];
-  if (v24 == (this + 27))
+  if (v24 == this + 27)
   {
     goto LABEL_50;
   }
@@ -2172,11 +2163,11 @@ LABEL_51:
 LABEL_42:
   if (v24)
   {
-    (*(*v24 + 40))(v24);
+    (*(*v24 + 5))(v24);
   }
 
   v25 = this[26];
-  if (v25 == (this + 23))
+  if (v25 == this + 23)
   {
     goto LABEL_51;
   }
@@ -2184,7 +2175,7 @@ LABEL_42:
 LABEL_45:
   if (v25)
   {
-    (*(*v25 + 40))(v25);
+    (*(*v25 + 5))(v25);
   }
 
   v26 = this[21];
@@ -2459,7 +2450,7 @@ uint64_t abb::router::Gateway::Gateway(uint64_t a1, const char *a2)
   return a1;
 }
 
-void sub_240EAADF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+void sub_240EAADF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
 {
   if (*(v14 + 71) < 0)
   {
@@ -2469,7 +2460,7 @@ void sub_240EAADF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     _Unwind_Resume(a1);
   }
 
-  MEMORY[0x245CD26D0](v14 + 40);
+  MEMORY[0x245CD26D0](v14 + 40, a2, a3, a4, a5, a6, a7, a8);
   ctu::SharedSynchronizable<abb::router::Agent>::~SharedSynchronizable((v14 + 8));
   _Unwind_Resume(a1);
 }
@@ -2478,8 +2469,7 @@ void abb::router::Gateway::registerTransport(uint64_t a1, __int128 *a2)
 {
   v5 = a1;
   v6 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 0x40000000;
   block[2] = ___ZNK3ctu20SharedSynchronizableIN3abb6router7GatewayEE20execute_wrapped_syncIZNS3_17registerTransportENSt3__110shared_ptrINS2_9TransportEEEE3__0EEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOSB__block_invoke;
@@ -2787,28 +2777,28 @@ void abb::router::Gateway::statedump(void *a1, dispatch_object_t *a2)
   }
 }
 
-uint64_t abb::router::Gateway::registerErrorHandler(void *a1, uint64_t a2)
+_BYTE *abb::router::Gateway::registerErrorHandler(void *a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = *(a2 + 24);
   if (v3)
   {
     if (v3 == a2)
     {
-      v16 = v15;
-      (*(*v3 + 24))(v3, v15);
+      v15 = v14;
+      (*(*v3 + 24))(v3, v14);
     }
 
     else
     {
-      v16 = *(a2 + 24);
+      v15 = *(a2 + 24);
       *(a2 + 24) = 0;
     }
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
   v4 = a1[2];
@@ -2819,11 +2809,11 @@ uint64_t abb::router::Gateway::registerErrorHandler(void *a1, uint64_t a2)
 
   v7 = v6;
   v8 = operator new(0x28uLL);
-  v9 = v16;
+  v9 = v15;
   *v8 = a1;
   if (v9)
   {
-    if (v9 == v15)
+    if (v9 == v14)
     {
       v8[4] = v8 + 1;
       (*(*v9 + 24))(v9);
@@ -2832,7 +2822,7 @@ uint64_t abb::router::Gateway::registerErrorHandler(void *a1, uint64_t a2)
     else
     {
       v8[4] = v9;
-      v16 = 0;
+      v15 = 0;
     }
   }
 
@@ -2850,33 +2840,29 @@ uint64_t abb::router::Gateway::registerErrorHandler(void *a1, uint64_t a2)
   dispatch_async_f(v10, v11, dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0>(abb::router::Gateway::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0,std::default_delete<abb::router::Gateway::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0>>)::{lambda(void *)#1}::__invoke);
   if (atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    result = v16;
-    if (v16 != v15)
+    result = v15;
+    if (v15 != v14)
     {
       goto LABEL_15;
     }
 
-LABEL_18:
-    result = (*(*result + 32))(result);
-    goto LABEL_19;
+    return (*(*result + 32))(result);
   }
 
   (v7->__on_zero_shared)(v7);
   std::__shared_weak_count::__release_weak(v7);
-  result = v16;
-  if (v16 == v15)
+  result = v15;
+  if (v15 == v14)
   {
-    goto LABEL_18;
+    return (*(*result + 32))(result);
   }
 
 LABEL_15:
   if (result)
   {
-    result = (*(*result + 40))(result);
+    return (*(*result + 40))(result);
   }
 
-LABEL_19:
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2890,28 +2876,28 @@ void sub_240EABB18(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-uint64_t abb::router::Gateway::registerMetricSummaryHandler(void *a1, uint64_t a2)
+_BYTE *abb::router::Gateway::registerMetricSummaryHandler(void *a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = *(a2 + 24);
   if (v3)
   {
     if (v3 == a2)
     {
-      v16 = v15;
-      (*(*v3 + 24))(v3, v15);
+      v15 = v14;
+      (*(*v3 + 24))(v3, v14);
     }
 
     else
     {
-      v16 = *(a2 + 24);
+      v15 = *(a2 + 24);
       *(a2 + 24) = 0;
     }
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
   v4 = a1[2];
@@ -2922,11 +2908,11 @@ uint64_t abb::router::Gateway::registerMetricSummaryHandler(void *a1, uint64_t a
 
   v7 = v6;
   v8 = operator new(0x28uLL);
-  v9 = v16;
+  v9 = v15;
   *v8 = a1;
   if (v9)
   {
-    if (v9 == v15)
+    if (v9 == v14)
     {
       v8[4] = v8 + 1;
       (*(*v9 + 24))(v9);
@@ -2935,7 +2921,7 @@ uint64_t abb::router::Gateway::registerMetricSummaryHandler(void *a1, uint64_t a
     else
     {
       v8[4] = v9;
-      v16 = 0;
+      v15 = 0;
     }
   }
 
@@ -2953,33 +2939,29 @@ uint64_t abb::router::Gateway::registerMetricSummaryHandler(void *a1, uint64_t a
   dispatch_async_f(v10, v11, dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0>(abb::router::Gateway::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0,std::default_delete<abb::router::Gateway::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0>>)::{lambda(void *)#1}::__invoke);
   if (atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    result = v16;
-    if (v16 != v15)
+    result = v15;
+    if (v15 != v14)
     {
       goto LABEL_15;
     }
 
-LABEL_18:
-    result = (*(*result + 32))(result);
-    goto LABEL_19;
+    return (*(*result + 32))(result);
   }
 
   (v7->__on_zero_shared)(v7);
   std::__shared_weak_count::__release_weak(v7);
-  result = v16;
-  if (v16 == v15)
+  result = v15;
+  if (v15 == v14)
   {
-    goto LABEL_18;
+    return (*(*result + 32))(result);
   }
 
 LABEL_15:
   if (result)
   {
-    result = (*(*result + 40))(result);
+    return (*(*result + 40))(result);
   }
 
-LABEL_19:
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2993,28 +2975,28 @@ void sub_240EABD6C(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-uint64_t abb::router::Gateway::registerMetricStreamHandler(void *a1, uint64_t a2)
+_BYTE *abb::router::Gateway::registerMetricStreamHandler(void *a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = *(a2 + 24);
   if (v3)
   {
     if (v3 == a2)
     {
-      v16 = v15;
-      (*(*v3 + 24))(v3, v15);
+      v15 = v14;
+      (*(*v3 + 24))(v3, v14);
     }
 
     else
     {
-      v16 = *(a2 + 24);
+      v15 = *(a2 + 24);
       *(a2 + 24) = 0;
     }
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
   v4 = a1[2];
@@ -3025,11 +3007,11 @@ uint64_t abb::router::Gateway::registerMetricStreamHandler(void *a1, uint64_t a2
 
   v7 = v6;
   v8 = operator new(0x28uLL);
-  v9 = v16;
+  v9 = v15;
   *v8 = a1;
   if (v9)
   {
-    if (v9 == v15)
+    if (v9 == v14)
     {
       v8[4] = v8 + 1;
       (*(*v9 + 24))(v9);
@@ -3038,7 +3020,7 @@ uint64_t abb::router::Gateway::registerMetricStreamHandler(void *a1, uint64_t a2
     else
     {
       v8[4] = v9;
-      v16 = 0;
+      v15 = 0;
     }
   }
 
@@ -3056,33 +3038,29 @@ uint64_t abb::router::Gateway::registerMetricStreamHandler(void *a1, uint64_t a2
   dispatch_async_f(v10, v11, dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::registerMetricStreamHandler(std::function<void ()(xpc::dict)>)::$_0>(abb::router::Gateway::registerMetricStreamHandler(std::function<void ()(xpc::dict)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::registerMetricStreamHandler(std::function<void ()(xpc::dict)>)::$_0,std::default_delete<abb::router::Gateway::registerMetricStreamHandler(std::function<void ()(xpc::dict)>)::$_0>>)::{lambda(void *)#1}::__invoke);
   if (atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    result = v16;
-    if (v16 != v15)
+    result = v15;
+    if (v15 != v14)
     {
       goto LABEL_15;
     }
 
-LABEL_18:
-    result = (*(*result + 32))(result);
-    goto LABEL_19;
+    return (*(*result + 32))(result);
   }
 
   (v7->__on_zero_shared)(v7);
   std::__shared_weak_count::__release_weak(v7);
-  result = v16;
-  if (v16 == v15)
+  result = v15;
+  if (v15 == v14)
   {
-    goto LABEL_18;
+    return (*(*result + 32))(result);
   }
 
 LABEL_15:
   if (result)
   {
-    result = (*(*result + 40))(result);
+    return (*(*result + 40))(result);
   }
 
-LABEL_19:
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3101,8 +3079,7 @@ void abb::router::Gateway::addUserClient(uint64_t a1, int a2, __int128 *a3)
   v6 = a1;
   v7 = a2;
   v8 = *a3;
-  *a3 = 0;
-  *(a3 + 1) = 0;
+  *a3 = 0uLL;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 0x40000000;
   block[2] = ___ZNK3ctu20SharedSynchronizableIN3abb6router7GatewayEE20execute_wrapped_syncIZNS3_13addUserClientEjNSt3__110shared_ptrINS2_25GatewayClientDelegateBaseEEEE3__0EEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOSB__block_invoke;
@@ -3430,8 +3407,7 @@ void sub_240EAC7B4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
 void abb::router::Gateway::registerTransport_sync(uint64_t a1, __int128 *a2)
 {
   v2 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v3 = *(a1 + 152);
   *(a1 + 144) = v2;
   if (v3 && !atomic_fetch_add(&v3->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -3449,26 +3425,26 @@ void abb::router::Gateway::notifyReady_sync(abb::router::Gateway *this)
   CFNotificationCenterPostNotification(DarwinNotifyCenter, @"kMipcRouterServerReadyNotification", 0, 0, 1u);
 }
 
-void abb::router::Gateway::init_sync(uint64_t a1)
+void abb::router::Gateway::init_sync(uint64_t result)
 {
-  if (*(a1 + 176) - 1 >= 9)
+  if (*(result + 176) - 1 >= 9)
   {
     v6 = v1;
     v7 = v2;
-    v4 = *(a1 + 40);
+    v4 = *(result + 40);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
       _os_log_impl(&dword_240E91000, v4, OS_LOG_TYPE_DEFAULT, "#I Initializing gateway", v5, 2u);
     }
 
-    abb::router::Gateway::setStatus_sync(a1, 1u);
+    abb::router::Gateway::setStatus_sync(result, 1u);
   }
 }
 
 void abb::router::Gateway::setStatus_sync(uint64_t a1, unsigned int a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 176);
   *(a1 + 176) = a2;
   v4 = *(a1 + 40);
@@ -3491,21 +3467,18 @@ void abb::router::Gateway::setStatus_sync(uint64_t a1, unsigned int a2)
 LABEL_4:
         v6 = "(unknown)";
 LABEL_7:
-        v8 = 136315394;
-        v9 = v5;
-        v10 = 2080;
-        v11 = v6;
-        _os_log_impl(&dword_240E91000, v4, OS_LOG_TYPE_DEFAULT, "#I Gateway status changing from %s -> %s", &v8, 0x16u);
-        goto LABEL_8;
+        v7 = 136315394;
+        v8 = v5;
+        v9 = 2080;
+        v10 = v6;
+        _os_log_impl(&dword_240E91000, v4, OS_LOG_TYPE_DEFAULT, "#I Gateway status changing from %s -> %s", &v7, 0x16u);
+        return;
       }
     }
 
     v6 = off_278CBAF60[a2];
     goto LABEL_7;
   }
-
-LABEL_8:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void abb::router::Gateway::start_sync(uint64_t a1, dispatch_object_t *a2)
@@ -3742,68 +3715,68 @@ LABEL_5:
   }
 }
 
-void abb::router::Gateway::updateFlowControl_sync(uint64_t a1, void *a2, char *a3)
+void abb::router::Gateway::updateFlowControl_sync(char **a1, char *a2, abb::router::Message *a3)
 {
-  v58 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 432);
-  if (a3[136] != 1)
+  v57 = *MEMORY[0x277D85DE8];
+  v5 = a1[54];
+  if (*(a3 + 136) != 1)
   {
     goto LABEL_61;
   }
 
-  v7 = *(a1 + 424) + 1;
-  *(a1 + 432) = v7;
-  v8 = *(a1 + 40);
+  v7 = (a1[53] + 1);
+  a1[54] = v7;
+  v8 = a1[5];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     abb::router::Message::generatePrintString(a3);
     v9 = a3 + 112;
-    if (a3[135] < 0)
+    if (*(a3 + 135) < 0)
     {
       v9 = *v9;
     }
 
     *buf = 134218242;
     *&buf[4] = v7;
-    v56 = 2080;
-    v57 = v9;
+    v55 = 2080;
+    v56 = v9;
     _os_log_impl(&dword_240E91000, v8, OS_LOG_TYPE_DEFAULT, "#I Skip queue to send this message; use temporary flow-control [%zu]; %s", buf, 0x16u);
   }
 
-  v10 = (a1 + 408);
-  v11 = *(a1 + 408);
+  v10 = (a1 + 51);
+  v11 = a1[51];
   if (!v11)
   {
-    v13 = *(a1 + 384);
-    v12 = *(a1 + 392);
+    v13 = a1[48];
+    v12 = a1[49];
     v14 = 30 * ((v12 - v13) >> 3) - 1;
     if (v12 == v13)
     {
       v14 = 0;
     }
 
-    if ((v14 - *(a1 + 416)) >= 0x1E)
+    if ((v14 - a1[52]) >= 0x1E)
     {
-      *(a1 + 408) = 30;
+      a1[51] = 30;
       *buf = *(v12 - 1);
-      *(a1 + 392) = v12 - 8;
-      std::__split_buffer<abb::router::Message *>::emplace_front<abb::router::Message *>(a1 + 376, buf);
+      a1[49] = v12 - 8;
+      std::__split_buffer<abb::router::Message *>::emplace_front<abb::router::Message *>((a1 + 47), buf);
 LABEL_55:
       v11 = v10->i64[0];
       goto LABEL_56;
     }
 
-    v15 = *(a1 + 400);
-    v16 = *(a1 + 376);
+    v15 = a1[50];
+    v16 = a1[47];
     if (v12 - v13 < (v15 - v16))
     {
       if (v13 == v16)
       {
         *buf = operator new(0xFF0uLL);
-        std::__split_buffer<abb::router::Message *>::emplace_back<abb::router::Message *&>((a1 + 376), buf);
-        v44 = *(a1 + 392);
-        *buf = *(v44 - 8);
-        *(a1 + 392) = v44 - 8;
+        std::__split_buffer<abb::router::Message *>::emplace_back<abb::router::Message *&>(a1 + 47, buf);
+        v44 = a1[49];
+        *buf = *(v44 - 1);
+        a1[49] = v44 - 8;
       }
 
       else
@@ -3811,8 +3784,8 @@ LABEL_55:
         *buf = operator new(0xFF0uLL);
       }
 
-      std::__split_buffer<abb::router::Message *>::emplace_front<abb::router::Message *>(a1 + 376, buf);
-      if (*(a1 + 392) - *(a1 + 384) == 8)
+      std::__split_buffer<abb::router::Message *>::emplace_front<abb::router::Message *>((a1 + 47), buf);
+      if (a1[49] - a1[48] == 8)
       {
         v10->i64[0] = 15;
       }
@@ -3843,7 +3816,7 @@ LABEL_55:
     v18 = operator new(8 * v17);
     v19 = operator new(0xFF0uLL);
     v20 = v19;
-    v54 = v5;
+    v53 = v5;
     if (v17)
     {
       v21 = &v18[8 * v17];
@@ -3956,7 +3929,7 @@ LABEL_22:
           *v22 = v25;
           v22 += 8;
           v23 = v24;
-          if (v13 == *(a1 + 392))
+          if (v13 == a1[49])
           {
             goto LABEL_50;
           }
@@ -3969,8 +3942,8 @@ LABEL_22:
       v45 = operator new(8uLL);
       v21 = v45 + 8;
       operator delete(v18);
-      v13 = *(a1 + 384);
-      v46 = *(a1 + 392);
+      v13 = a1[48];
+      v46 = a1[49];
       v18 = v45;
       *v45 = v20;
       v22 = v45 + 8;
@@ -3982,23 +3955,23 @@ LABEL_22:
 
     v24 = v18;
 LABEL_50:
-    v47 = *(a1 + 376);
-    *(a1 + 376) = v18;
-    *(a1 + 384) = v24;
-    *(a1 + 392) = v22;
-    *(a1 + 400) = v21;
+    v47 = a1[47];
+    a1[47] = v18;
+    a1[48] = v24;
+    a1[49] = v22;
+    a1[50] = v21;
     if (v22 - v24 == 8)
     {
       v48 = 15;
-      v10 = (a1 + 408);
-      v5 = v54;
+      v10 = (a1 + 51);
+      v5 = v53;
     }
 
     else
     {
-      v10 = (a1 + 408);
-      v5 = v54;
-      v48 = *(a1 + 408) + 30;
+      v10 = (a1 + 51);
+      v5 = v53;
+      v48 = (a1[51] + 30);
     }
 
     v10->i64[0] = v48;
@@ -4011,10 +3984,10 @@ LABEL_50:
   }
 
 LABEL_56:
-  v49 = *(a1 + 384);
-  v50 = (v49 + 8 * (v11 / 0x1E));
+  v49 = a1[48];
+  v50 = &v49[8 * (v11 / 0x1E)];
   v51 = *v50 + 136 * (v11 % 0x1E);
-  if (*(a1 + 392) == v49)
+  if (a1[49] == v49)
   {
     v51 = 0;
   }
@@ -4028,18 +4001,17 @@ LABEL_56:
   *v10 = vaddq_s64(*v10, xmmword_240EDF870);
   abb::router::Gateway::trySendingMessage_sync(a1);
 LABEL_61:
-  v52 = *(a1 + 40);
+  v52 = a1[5];
   if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
     *&buf[4] = v5;
-    v56 = 2048;
-    v57 = a2;
+    v55 = 2048;
+    v56 = a2;
     _os_log_impl(&dword_240E91000, v52, OS_LOG_TYPE_DEFAULT, "#I Update flow-control from %zu -> %zu", buf, 0x16u);
   }
 
-  *(a1 + 432) = a2;
-  v53 = *MEMORY[0x277D85DE8];
+  a1[54] = a2;
 }
 
 void sub_240EAD474(_Unwind_Exception *a1)
@@ -4062,7 +4034,7 @@ void sub_240EAD4A4(_Unwind_Exception *exception_object)
 
 uint64_t abb::router::Gateway::openTransport_sync(abb::router::Gateway *this)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (!*(this + 18))
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -4080,7 +4052,7 @@ uint64_t abb::router::Gateway::openTransport_sync(abb::router::Gateway *this)
   *&v3 = 0xAAAAAAAAAAAAAAAALL;
   *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
   *buf = v3;
-  v27 = v3;
+  v26 = v3;
   v4 = *(this + 2);
   if (!v4 || (v5 = *(this + 1), (v6 = std::__shared_weak_count::lock(v4)) == 0))
   {
@@ -4100,7 +4072,7 @@ uint64_t abb::router::Gateway::openTransport_sync(abb::router::Gateway *this)
   v8[1] = this;
   v8[2] = v5;
   v8[3] = v7;
-  *(&v27 + 1) = v8;
+  *(&v26 + 1) = v8;
   v9 = *(this + 18);
   v10 = operator new(0x20uLL);
   *v10 = &unk_2852C8FD8;
@@ -4108,7 +4080,7 @@ uint64_t abb::router::Gateway::openTransport_sync(abb::router::Gateway *this)
   v10[2] = v5;
   v10[3] = v7;
   atomic_fetch_add_explicit(&v7->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  v25 = v10;
+  v24 = v10;
   v11 = *(this + 3);
   object = v11;
   if (v11)
@@ -4116,15 +4088,15 @@ uint64_t abb::router::Gateway::openTransport_sync(abb::router::Gateway *this)
     dispatch_retain(v11);
   }
 
-  v12 = (*(*v9 + 16))(v9, v24, &object);
+  v12 = (*(*v9 + 16))(v9, v23, &object);
   if (object)
   {
     dispatch_release(object);
   }
 
-  if (v25 == v24)
+  if (v24 == v23)
   {
-    (*(*v25 + 32))(v25);
+    (*(*v24 + 32))(v24);
     v13 = *(this + 5);
     v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
     if (v12)
@@ -4135,30 +4107,30 @@ uint64_t abb::router::Gateway::openTransport_sync(abb::router::Gateway *this)
 LABEL_22:
     if (v14)
     {
-      *v22 = 0;
-      _os_log_impl(&dword_240E91000, v13, OS_LOG_TYPE_DEFAULT, "#I Failed to open router transport", v22, 2u);
+      *v21 = 0;
+      _os_log_impl(&dword_240E91000, v13, OS_LOG_TYPE_DEFAULT, "#I Failed to open router transport", v21, 2u);
     }
 
     v16 = operator new(0x20uLL);
-    v20 = v16;
-    v21 = xmmword_240EDF880;
+    v19 = v16;
+    v20 = xmmword_240EDF880;
     strcpy(v16, "Failed to open router transport");
-    abb::router::Gateway::reportError_sync(this, 0, &v20);
+    abb::router::Gateway::reportError_sync(this, 0, &v19);
     operator delete(v16);
-    v15 = *(&v27 + 1);
-    if (*(&v27 + 1) != buf)
+    v15 = *(&v26 + 1);
+    if (*(&v26 + 1) != buf)
     {
       goto LABEL_19;
     }
 
 LABEL_25:
     (*(*v15 + 32))(v15);
-    goto LABEL_26;
+    return v12;
   }
 
-  if (v25)
+  if (v24)
   {
-    (*(*v25 + 40))();
+    (*(*v24 + 40))();
   }
 
   v13 = *(this + 5);
@@ -4171,12 +4143,12 @@ LABEL_25:
 LABEL_16:
   if (v14)
   {
-    *v22 = 0;
-    _os_log_impl(&dword_240E91000, v13, OS_LOG_TYPE_DEFAULT, "#I Router transport is open", v22, 2u);
+    *v21 = 0;
+    _os_log_impl(&dword_240E91000, v13, OS_LOG_TYPE_DEFAULT, "#I Router transport is open", v21, 2u);
   }
 
-  v15 = *(&v27 + 1);
-  if (*(&v27 + 1) == buf)
+  v15 = *(&v26 + 1);
+  if (*(&v26 + 1) == buf)
   {
     goto LABEL_25;
   }
@@ -4187,33 +4159,33 @@ LABEL_19:
     (*(*v15 + 40))(v15);
   }
 
-LABEL_26:
-  v17 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
-void sub_240EAD870(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
+void sub_240EAD870(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  operator delete(v19);
-  std::function<void ()(unsigned char const*,unsigned long)>::~function(&a19);
+  va_start(va, a18);
+  operator delete(v18);
+  std::function<void ()(unsigned char const*,unsigned long)>::~function(va);
   _Unwind_Resume(a1);
 }
 
-void sub_240EAD8A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, dispatch_object_t object, char a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
+void sub_240EAD8A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, dispatch_object_t object, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
+  va_start(va, a18);
   if (object)
   {
     dispatch_release(object);
   }
 
   std::function<void ()(unsigned char const*,unsigned long)>::~function(&a15);
-  std::function<void ()(unsigned char const*,unsigned long)>::~function(&a19);
+  std::function<void ()(unsigned char const*,unsigned long)>::~function(va);
   _Unwind_Resume(a1);
 }
 
-void sub_240EAD8DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_240EAD8DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   std::function<void ()(unsigned char const*,unsigned long)>::~function(va);
   _Unwind_Resume(a1);
 }
@@ -4579,17 +4551,17 @@ void sub_240EAE0B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 __int128 *ctu::TrackedGroup::fork(NSObject **a1, uint64_t a2, uint64_t *a3)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v5 = *a3;
-  v40[0] = a3[1];
-  *(v40 + 7) = *(a3 + 15);
+  v39[0] = a3[1];
+  *(v39 + 7) = *(a3 + 15);
   v6 = *(a3 + 23);
   a3[1] = 0;
   a3[2] = 0;
   *a3 = 0;
   *object = 0u;
+  v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v7 = dispatch_group_create();
   v8 = v7;
   *a1 = v7;
@@ -4605,13 +4577,13 @@ __int128 *ctu::TrackedGroup::fork(NSObject **a1, uint64_t a2, uint64_t *a3)
   v9[2] = 0;
   *v9 = &unk_2852C8E98;
   v9[3] = v5;
-  v9[4] = v40[0];
-  *(v9 + 39) = *(v40 + 7);
+  v9[4] = v39[0];
+  *(v9 + 39) = *(v39 + 7);
   *(v9 + 47) = v6;
-  v40[0] = 0;
-  *(v40 + 7) = 0;
-  *&v36 = v9 + 3;
-  *(&v36 + 1) = v9;
+  v39[0] = 0;
+  *(v39 + 7) = 0;
+  *&v35 = v9 + 3;
+  *(&v35 + 1) = v9;
   v10 = *a2;
   if (*a2)
   {
@@ -4626,35 +4598,35 @@ __int128 *ctu::TrackedGroup::fork(NSObject **a1, uint64_t a2, uint64_t *a3)
     dispatch_retain(global_queue);
   }
 
-  v41 = v9 + 3;
-  v42 = v9;
+  v40 = v9 + 3;
+  v41 = v9;
   atomic_fetch_add_explicit(v9 + 1, 1uLL, memory_order_relaxed);
-  v43 = v10;
+  v42 = v10;
   if (v10)
   {
     dispatch_retain(v10);
     dispatch_group_enter(v10);
   }
 
-  v47 = 0;
+  v46 = 0;
+  v43 = 0;
   v44 = 0;
-  v45 = 0;
   object[0] = 0;
   object[1] = 0;
-  *(&v39 + 1) = 0;
+  *(&v38 + 1) = 0;
   v13 = operator new(0x48uLL);
   *v13 = v9 + 3;
   v13[1] = v9;
-  v42 = 0;
-  v43 = 0;
   v41 = 0;
+  v42 = 0;
+  v40 = 0;
   v13[3] = 0;
   v13[4] = 0;
   v13[2] = v10;
-  v14 = v47;
-  if (v47)
+  v14 = v46;
+  if (v46)
   {
-    if (v47 == v46)
+    if (v46 == v45)
     {
       v13[8] = v13 + 5;
       (*(*v14 + 24))(v14);
@@ -4662,8 +4634,8 @@ __int128 *ctu::TrackedGroup::fork(NSObject **a1, uint64_t a2, uint64_t *a3)
 
     else
     {
-      v13[8] = v47;
-      v47 = 0;
+      v13[8] = v46;
+      v46 = 0;
     }
   }
 
@@ -4672,11 +4644,11 @@ __int128 *ctu::TrackedGroup::fork(NSObject **a1, uint64_t a2, uint64_t *a3)
     v13[8] = 0;
   }
 
+  v43 = 0;
   v44 = 0;
-  v45 = 0;
-  v15 = v47;
-  v47 = 0;
-  if (v15 == v46)
+  v15 = v46;
+  v46 = 0;
+  if (v15 == v45)
   {
     (*(*v15 + 32))(v15);
   }
@@ -4687,7 +4659,7 @@ __int128 *ctu::TrackedGroup::fork(NSObject **a1, uint64_t a2, uint64_t *a3)
   }
 
   dispatch_group_notify_f(v8, v12, v13, dispatch::detail::group_notify<ctu::TrackedGroup::fork(std::string,ctu::os::signpost_interval)::{lambda(void)#1}>(dispatch_group_s *,dispatch_queue_s *,ctu::TrackedGroup::fork(std::string,ctu::os::signpost_interval)::{lambda(void)#1} &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke);
-  ctu::TrackedGroup::fork(std::string,ctu::os::signpost_interval)::{lambda(void)#1}::~signpost_interval(&v41);
+  ctu::TrackedGroup::fork(std::string,ctu::os::signpost_interval)::{lambda(void)#1}::~signpost_interval(&v40);
   if (v12)
   {
     dispatch_release(v12);
@@ -4697,9 +4669,9 @@ __int128 *ctu::TrackedGroup::fork(NSObject **a1, uint64_t a2, uint64_t *a3)
   v17 = *(a2 + 24);
   if (v16 < v17)
   {
-    *v16 = v36;
-    v18 = *(&v36 + 1);
-    *(v16 + 1) = *(&v36 + 1);
+    *v16 = v35;
+    v18 = *(&v35 + 1);
+    *(v16 + 1) = *(&v35 + 1);
     if (v18)
     {
       atomic_fetch_add_explicit((v18 + 16), 1uLL, memory_order_relaxed);
@@ -4744,8 +4716,8 @@ __int128 *ctu::TrackedGroup::fork(NSObject **a1, uint64_t a2, uint64_t *a3)
     v26 = operator new(16 * v25);
     v27 = &v26[16 * v22];
     v28 = &v26[16 * v25];
-    v29 = *(&v36 + 1);
-    *v27 = v36;
+    v29 = *(&v35 + 1);
+    *v27 = v35;
     v30 = v29;
     if (!v29)
     {
@@ -4757,10 +4729,10 @@ __int128 *ctu::TrackedGroup::fork(NSObject **a1, uint64_t a2, uint64_t *a3)
 
   v27 = (16 * v22);
   v28 = 0;
-  v35 = *(&v36 + 1);
-  *(16 * v22) = v36;
-  v30 = v35;
-  if (v35)
+  v34 = *(&v35 + 1);
+  *(16 * v22) = v35;
+  v30 = v34;
+  if (v34)
   {
 LABEL_33:
     atomic_fetch_add_explicit((v30 + 16), 1uLL, memory_order_relaxed);
@@ -4789,12 +4761,12 @@ LABEL_36:
     dispatch_release(v10);
   }
 
-  if (*(&v36 + 1) && !atomic_fetch_add((*(&v36 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+  if (*(&v35 + 1) && !atomic_fetch_add((*(&v35 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    (*(**(&v36 + 1) + 16))(*(&v36 + 1));
-    std::__shared_weak_count::__release_weak(*(&v36 + 1));
-    v32 = *(&v39 + 1);
-    if (!*(&v39 + 1))
+    (*(**(&v35 + 1) + 16))(*(&v35 + 1));
+    std::__shared_weak_count::__release_weak(*(&v35 + 1));
+    v32 = *(&v38 + 1);
+    if (!*(&v38 + 1))
     {
       goto LABEL_43;
     }
@@ -4802,8 +4774,8 @@ LABEL_36:
 
   else
   {
-    v32 = *(&v39 + 1);
-    if (!*(&v39 + 1))
+    v32 = *(&v38 + 1);
+    if (!*(&v38 + 1))
     {
       goto LABEL_43;
     }
@@ -4811,9 +4783,9 @@ LABEL_36:
 
   if (object[0])
   {
-    v41 = object[1];
-    *&v36 = object[0];
-    (*(*v32 + 48))(v32, &v41, &v36);
+    v40 = object[1];
+    *&v35 = object[0];
+    (*(*v32 + 48))(v32, &v40, &v35);
   }
 
 LABEL_43:
@@ -4822,45 +4794,41 @@ LABEL_43:
     os_release(object[1]);
   }
 
-  result = *(&v39 + 1);
+  result = *(&v38 + 1);
   object[1] = 0;
-  *(&v39 + 1) = 0;
-  if (result == &v38)
+  *(&v38 + 1) = 0;
+  if (result != &v37)
   {
-    (*(*result + 32))(result);
-    result = *(&v39 + 1);
+    if (!result)
+    {
+      return result;
+    }
+
+    (*(*result + 40))(result);
+    result = *(&v38 + 1);
     object[0] = 0;
-    if (*(&v39 + 1) != &v38)
+    if (*(&v38 + 1) != &v37)
     {
       goto LABEL_48;
     }
 
-LABEL_51:
-    result = (*(*result + 32))(result);
-    goto LABEL_52;
+    return (*(*result + 32))(result);
   }
 
-  if (!result)
-  {
-    goto LABEL_52;
-  }
-
-  (*(*result + 40))(result);
-  result = *(&v39 + 1);
+  (*(*result + 32))(result);
+  result = *(&v38 + 1);
   object[0] = 0;
-  if (*(&v39 + 1) == &v38)
+  if (*(&v38 + 1) == &v37)
   {
-    goto LABEL_51;
+    return (*(*result + 32))(result);
   }
 
 LABEL_48:
   if (result)
   {
-    result = (*(*result + 40))(result);
+    return (*(*result + 40))(result);
   }
 
-LABEL_52:
-  v34 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4876,8 +4844,8 @@ void sub_240EAE688(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void abb::router::Gateway::trySendingMessage_sync(abb::router::Gateway *this)
 {
-  v38 = 0;
-  v52 = *MEMORY[0x277D85DE8];
+  v35 = 0;
+  v49 = *MEMORY[0x277D85DE8];
   v2 = *(this + 176);
   v3 = 1;
   if (v2 <= 0xA)
@@ -4885,228 +4853,243 @@ void abb::router::Gateway::trySendingMessage_sync(abb::router::Gateway *this)
     if (((1 << v2) & 0x471) != 0)
     {
       v3 = 0;
-      v38 = 1;
+      v35 = 1;
     }
 
     else if (((1 << v2) & 0x102) != 0)
     {
-      goto LABEL_48;
-    }
-  }
-
-  if (!*(this + 52))
-  {
-    v34 = *(this + 5);
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 0;
-      _os_log_debug_impl(&dword_240E91000, v34, OS_LOG_TYPE_DEBUG, "#D Pending queue is empty; nothing to send", buf, 2u);
-      v36 = *MEMORY[0x277D85DE8];
       return;
     }
-
-    goto LABEL_48;
   }
 
-  v37 = *(this + 52);
-  v4 = 0;
-  v5 = (this + 408);
-  v6 = (this + 312);
-  while ((v38 & 1) != 0 || *(this + 53) < *(this + 54))
+  if (*(this + 52))
   {
-    v8 = *(*(this + 48) + 8 * (*(this + 51) / 0x1EuLL)) + 136 * (*(this + 51) % 0x1EuLL);
-    v9 = *(v8 + 8);
-    v10 = *v9;
-    v11 = *(*v9 + 13);
-    if (v3)
+    v34 = *(this + 52);
+    v4 = 0;
+    v5 = (this + 408);
+    v6 = (this + 312);
+    while (1)
     {
-      v12 = *(this + 18);
-      *buf = *(v8 + 8);
-      v13 = *(v8 + 16);
-      *&buf[8] = v13;
-      if (v13)
+      if ((v35 & 1) == 0 && *(this + 53) >= *(this + 54))
       {
-        v14 = 1;
-        atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
-        v10 = *v9;
-        v9 = *(v8 + 8);
-        v15 = *(v8 + 16);
-        v43 = v9;
-        v44 = v15;
-        if (v15)
+LABEL_41:
+        std::deque<abb::router::Message>::shrink_to_fit(this + 47);
+        v29 = *(this + 5);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = 0;
-          atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
-        }
-      }
-
-      else
-      {
-        v15 = 0;
-        v43 = v9;
-        v44 = 0;
-        v14 = 1;
-      }
-
-      v16 = (*(*v12 + 32))(v12, v10, v9[1] - *v9, 0);
-      if ((v14 & 1) != 0 || atomic_fetch_add(&v15->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        v18 = *&buf[8];
-        if (*&buf[8])
-        {
-LABEL_19:
-          if (!atomic_fetch_add(&v18->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          v30 = *(this + 53);
+          v31 = *(this + 54);
+          v32 = "";
+          if (v35)
           {
-            (v18->__on_zero_shared)(v18);
-            std::__shared_weak_count::__release_weak(v18);
+            v32 = "skipped";
           }
+
+          *buf = 134219010;
+          *&buf[4] = v4;
+          *&buf[12] = 2048;
+          *&buf[14] = v34;
+          v43 = 2048;
+          v44 = v30;
+          v45 = 2048;
+          v46 = v31;
+          v47 = 2080;
+          v48 = v32;
+          _os_log_impl(&dword_240E91000, v29, OS_LOG_TYPE_DEFAULT, "#I Sent %zu of %zu messages from queue; pending-confirmation [%zu]; flow-control [%zu] %s", buf, 0x34u);
         }
+
+        return;
       }
 
-      else
+      v8 = *(*(this + 48) + 8 * (*(this + 51) / 0x1EuLL)) + 136 * (*(this + 51) % 0x1EuLL);
+      v9 = *(v8 + 8);
+      v10 = *v9;
+      v11 = *(*v9 + 13);
+      if (v3)
       {
-        (v15->__on_zero_shared)(v15);
-        std::__shared_weak_count::__release_weak(v15);
-        v18 = *&buf[8];
-        if (*&buf[8])
-        {
-          goto LABEL_19;
-        }
+        break;
       }
 
-      v19 = *(this + 5);
-      if (v16)
-      {
-        abb::router::Message::Message(v42, v8);
-        v20 = v42;
-        abb::router::LOG_WITH_MESSAGE_PAYLOAD(v19, "Sent request to transport", v42);
-      }
-
-      else
-      {
-        abb::router::Message::Message(v41, v8);
-        v20 = v41;
-        abb::router::LOG_WITH_MESSAGE_PAYLOAD(v19, "Failed to send request to transport", v41);
-      }
-
-      abb::router::Message::~Message(v20);
+      v16 = 0;
       v17 = *v6;
       if (!*v6)
       {
         goto LABEL_33;
       }
 
-      goto LABEL_26;
+LABEL_26:
+      v21 = (this + 312);
+      do
+      {
+        v22 = *(v17 + 8);
+        v23 = v22 >= v11;
+        v24 = v22 < v11;
+        if (v23)
+        {
+          v21 = v17;
+        }
+
+        v17 = *&v17[8 * v24];
+      }
+
+      while (v17);
+      if (v21 != v6 && *(v21 + 8) <= v11)
+      {
+        v27 = v21[5];
+        abb::router::Message::Message(v37, v8);
+        v26 = v37;
+        (*(*v27 + 48))(v27, v37, v16 ^ 1u);
+        goto LABEL_36;
+      }
+
+LABEL_33:
+      if (*(this + 88) == v11)
+      {
+        v25 = *(this + 45);
+        abb::router::Message::Message(v36, v8);
+        v26 = v36;
+        (*(*v25 + 48))(v25, v36, v16 ^ 1u);
+LABEL_36:
+        abb::router::Message::~Message(v26);
+      }
+
+      if (v16)
+      {
+        ++*(this + 53);
+      }
+
+      (**(*(*(this + 48) + 8 * (*(this + 51) / 0x1EuLL)) + 136 * (*(this + 51) % 0x1EuLL)))();
+      v28 = vaddq_s64(*v5, xmmword_240EDF890);
+      *v5 = v28;
+      if (v28.i64[0] >= 0x3CuLL)
+      {
+        operator delete(**(this + 48));
+        *(this + 48) += 8;
+        v7 = *(this + 52);
+        *(this + 51) -= 30;
+        ++v4;
+        if (!v7)
+        {
+          goto LABEL_41;
+        }
+      }
+
+      else
+      {
+        ++v4;
+        if (!v28.i64[1])
+        {
+          goto LABEL_41;
+        }
+      }
     }
 
-    v16 = 0;
+    v12 = *(this + 18);
+    *buf = *(v8 + 8);
+    v13 = *(v8 + 16);
+    *&buf[8] = v13;
+    if (v13)
+    {
+      v14 = 1;
+      atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
+      v10 = *v9;
+      v9 = *(v8 + 8);
+      v15 = *(v8 + 16);
+      v40 = v9;
+      v41 = v15;
+      if (v15)
+      {
+        v14 = 0;
+        atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+      }
+    }
+
+    else
+    {
+      v15 = 0;
+      v40 = v9;
+      v41 = 0;
+      v14 = 1;
+    }
+
+    v16 = (*(*v12 + 32))(v12, v10, v9[1] - *v9, 0);
+    if ((v14 & 1) != 0 || atomic_fetch_add(&v15->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      v18 = *&buf[8];
+      if (!*&buf[8])
+      {
+        goto LABEL_22;
+      }
+    }
+
+    else
+    {
+      (v15->__on_zero_shared)(v15);
+      std::__shared_weak_count::__release_weak(v15);
+      v18 = *&buf[8];
+      if (!*&buf[8])
+      {
+        goto LABEL_22;
+      }
+    }
+
+    if (!atomic_fetch_add(&v18->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v18->__on_zero_shared)(v18);
+      std::__shared_weak_count::__release_weak(v18);
+    }
+
+LABEL_22:
+    v19 = *(this + 5);
+    if (v16)
+    {
+      abb::router::Message::Message(v39, v8);
+      v20 = v39;
+      abb::router::LOG_WITH_MESSAGE_PAYLOAD(v19, "Sent request to transport", v39);
+    }
+
+    else
+    {
+      abb::router::Message::Message(v38, v8);
+      v20 = v38;
+      abb::router::LOG_WITH_MESSAGE_PAYLOAD(v19, "Failed to send request to transport", v38);
+    }
+
+    abb::router::Message::~Message(v20);
     v17 = *v6;
     if (!*v6)
     {
       goto LABEL_33;
     }
 
-LABEL_26:
-    v21 = (this + 312);
-    do
-    {
-      v22 = *(v17 + 8);
-      v23 = v22 >= v11;
-      v24 = v22 < v11;
-      if (v23)
-      {
-        v21 = v17;
-      }
-
-      v17 = *&v17[8 * v24];
-    }
-
-    while (v17);
-    if (v21 != v6 && *(v21 + 8) <= v11)
-    {
-      v27 = v21[5];
-      abb::router::Message::Message(v40, v8);
-      v26 = v40;
-      (*(*v27 + 48))(v27, v40, v16 ^ 1u);
-      goto LABEL_36;
-    }
-
-LABEL_33:
-    if (*(this + 88) == v11)
-    {
-      v25 = *(this + 45);
-      abb::router::Message::Message(v39, v8);
-      v26 = v39;
-      (*(*v25 + 48))(v25, v39, v16 ^ 1u);
-LABEL_36:
-      abb::router::Message::~Message(v26);
-    }
-
-    if (v16)
-    {
-      ++*(this + 53);
-    }
-
-    (**(*(*(this + 48) + 8 * (*(this + 51) / 0x1EuLL)) + 136 * (*(this + 51) % 0x1EuLL)))();
-    v28 = vaddq_s64(*v5, xmmword_240EDF890);
-    *v5 = v28;
-    if (v28.i64[0] >= 0x3CuLL)
-    {
-      operator delete(**(this + 48));
-      *(this + 48) += 8;
-      v7 = *(this + 52);
-      *(this + 51) -= 30;
-      ++v4;
-      if (!v7)
-      {
-        break;
-      }
-    }
-
-    else
-    {
-      ++v4;
-      if (!v28.i64[1])
-      {
-        break;
-      }
-    }
+    goto LABEL_26;
   }
 
-  std::deque<abb::router::Message>::shrink_to_fit(this + 47);
-  v29 = *(this + 5);
-  if (!os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  v33 = *(this + 5);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
   {
-LABEL_48:
-    v35 = *MEMORY[0x277D85DE8];
-    return;
+    *buf = 0;
+    _os_log_debug_impl(&dword_240E91000, v33, OS_LOG_TYPE_DEBUG, "#D Pending queue is empty; nothing to send", buf, 2u);
   }
-
-  v30 = *(this + 53);
-  v31 = *(this + 54);
-  v32 = "";
-  if (v38)
-  {
-    v32 = "skipped";
-  }
-
-  *buf = 134219010;
-  *&buf[4] = v4;
-  *&buf[12] = 2048;
-  *&buf[14] = v37;
-  v46 = 2048;
-  v47 = v30;
-  v48 = 2048;
-  v49 = v31;
-  v50 = 2080;
-  v51 = v32;
-  _os_log_impl(&dword_240E91000, v29, OS_LOG_TYPE_DEFAULT, "#I Sent %zu of %zu messages from queue; pending-confirmation [%zu]; flow-control [%zu] %s", buf, 0x34u);
-  v33 = *MEMORY[0x277D85DE8];
 }
 
-void sub_240EAECD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_240EAEC9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  va_start(va, a7);
+  va_start(va, a31);
+  abb::router::Message::~Message(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_240EAECC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
+{
+  va_start(va, a48);
+  abb::router::Message::~Message(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_240EAECD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   abb::router::Message::~Message(va);
   _Unwind_Resume(a1);
 }
@@ -5276,231 +5259,126 @@ void sub_240EAF05C(_Unwind_Exception *a1)
 
 void abb::router::Gateway::sleep_sync(uint64_t a1, dispatch_object_t *a2)
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 176);
-  if (v2 > 0xA)
+  if (v2 <= 0xA)
   {
-    goto LABEL_9;
-  }
-
-  if (((1 << v2) & 0x5F3) != 0)
-  {
-LABEL_3:
-    v3 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  if (v2 != 2)
-  {
-LABEL_9:
-    v9 = *(a1 + 40);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (((1 << v2) & 0x5F3) != 0)
     {
-      *buf = 0;
-      _os_log_impl(&dword_240E91000, v9, OS_LOG_TYPE_DEFAULT, "#I Sleeping gateway", buf, 2u);
+      return;
     }
 
-    abb::router::Gateway::setStatus_sync(a1, 7u);
-    v10 = *a2;
-    if (*a2)
+    if (v2 == 2)
     {
-      dispatch_retain(*a2);
-      dispatch_group_enter(v10);
-    }
-
-    v11 = *(a1 + 472);
-    *(a1 + 472) = v10;
-    if (v11)
-    {
-      dispatch_group_leave(v11);
-      dispatch_release(v11);
-    }
-
-    v12 = dispatch_group_create();
-    v13 = operator new(0x38uLL);
-    v14 = v13;
-    v13->__shared_owners_ = 0;
-    v13->__shared_weak_owners_ = 0;
-    v13->__vftable = &unk_2852C8F88;
-    v13[1].__vftable = v12;
-    v15 = &v13[1];
-    if (v12)
-    {
-      dispatch_retain(v12);
-      v14[1].__shared_owners_ = 0;
-      v14[1].__shared_weak_owners_ = 0;
-      v14[2].__vftable = 0;
-      dispatch_release(v12);
-      v71 = v15;
-      v72 = v14;
-      v16 = *(a1 + 304);
-      v58 = a1;
-      v17 = (a1 + 312);
-      if (v16 != (a1 + 312))
+      v3 = *a2;
+      v71 = v3;
+      if (v3)
       {
-        goto LABEL_22;
-      }
+        dispatch_retain(v3);
+        dispatch_group_enter(v3);
+        abb::router::Gateway::trackPendingActions_sync(a1, 7, &v71);
+        dispatch_group_leave(v3);
 
-      goto LABEL_76;
-    }
-
-    v13[1].__shared_owners_ = 0;
-    v13[1].__shared_weak_owners_ = 0;
-    v13[2].__vftable = 0;
-    v71 = &v13[1];
-    v72 = v13;
-    v16 = *(a1 + 304);
-    v58 = a1;
-    v17 = (a1 + 312);
-    if (v16 == (a1 + 312))
-    {
-LABEL_76:
-      v42 = *(v58 + 40);
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_240E91000, v42, OS_LOG_TYPE_DEFAULT, "#I Notified all clients to sleep", buf, 2u);
-      }
-
-      v43 = *(v58 + 16);
-      if (!v43 || (v44 = *(v58 + 8), (v45 = std::__shared_weak_count::lock(v43)) == 0))
-      {
-        std::__throw_bad_weak_ptr[abi:ne200100]();
-      }
-
-      v46 = v45;
-      atomic_fetch_add_explicit(&v45->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-      if (!atomic_fetch_add(&v45->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v45->__on_zero_shared)(v45);
-        std::__shared_weak_count::__release_weak(v46);
-      }
-
-      v70.__r_.__value_.__r.__words[0] = 0xAAAAAAAAAAAAAAAALL;
-      v47 = *(v58 + 160);
-      v76 = 29285;
-      v75 = *"leep timer";
-      v48 = *(v58 + 24);
-      if (v48)
-      {
-        dispatch_retain(*(v58 + 24));
-      }
-
-      aBlock[0] = MEMORY[0x277D85DD0];
-      aBlock[1] = 1174405120;
-      aBlock[2] = ___ZN3abb6router7Gateway10sleep_syncEN8dispatch13group_sessionE_block_invoke;
-      aBlock[3] = &__block_descriptor_tmp_2;
-      aBlock[4] = v58;
-      aBlock[5] = v44;
-      v60 = v46;
-      atomic_fetch_add_explicit(&v46->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-      v49 = v71;
-      v61 = v71;
-      v62 = v72;
-      if (v72)
-      {
-        atomic_fetch_add_explicit(&v72->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      v50 = _Block_copy(aBlock);
-      *buf = 0x7320726574756F52;
-      *&v79 = v75;
-      WORD4(v79) = v76;
-      BYTE10(v79) = 0;
-      *(&v79 + 11) = 0;
-      HIBYTE(v79) = 18;
-      v75 = 0;
-      v76 = 0;
-      object[0] = v48;
-      v74[0] = v50;
-      (*(*v47 + 16))(&v70, v47, buf, 0, 10000000, 0, object, v74);
-      if (v74[0])
-      {
-        _Block_release(v74[0]);
-      }
-
-      if (object[0])
-      {
-        dispatch_release(object[0]);
-      }
-
-      if (SHIBYTE(v79) < 0)
-      {
-        operator delete(*buf);
-      }
-
-      *buf = v58;
-      *&v79 = v44;
-      *(&v79 + 1) = v46;
-      atomic_fetch_add_explicit(&v46->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-      v51 = v70.__r_.__value_.__r.__words[0];
-      v70.__r_.__value_.__r.__words[0] = 0;
-      v80 = v51;
-      v52 = *v49;
-      v53 = *(v58 + 24);
-      v54 = operator new(0x20uLL);
-      *v54 = v58;
-      v54[1] = v44;
-      v54[2] = v46;
-      v54[3] = v51;
-      dispatch_group_notify_f(v52, v53, v54, dispatch::detail::group_notify<abb::router::Gateway::sleep_sync(dispatch::group_session)::$_0>(dispatch_group_s *,dispatch_queue_s *,abb::router::Gateway::sleep_sync(dispatch::group_session)::$_0 &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke);
-      v55 = v70.__r_.__value_.__r.__words[0];
-      v70.__r_.__value_.__r.__words[0] = 0;
-      if (v55)
-      {
-        (*(*v55 + 8))(v55);
-      }
-
-      v56 = v62;
-      if (v62 && !atomic_fetch_add(&v62->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v56->__on_zero_shared)(v56);
-        std::__shared_weak_count::__release_weak(v56);
-      }
-
-      if (v60)
-      {
-        std::__shared_weak_count::__release_weak(v60);
-      }
-
-      std::__shared_weak_count::__release_weak(v46);
-      v57 = v72;
-      if (v72 && !atomic_fetch_add(&v72->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v57->__on_zero_shared)(v57);
-        std::__shared_weak_count::__release_weak(v57);
-      }
-
-      goto LABEL_3;
-    }
-
-    while (1)
-    {
-LABEL_22:
-      (*(*v16[5] + 16))(v68);
-      v18 = v69;
-      if ((v69 & 0x80u) == 0)
-      {
-        v19 = v69;
+        dispatch_release(v3);
       }
 
       else
       {
-        v19 = v68[1];
+        abb::router::Gateway::trackPendingActions_sync(a1, 7, &v71);
       }
 
-      v20 = v19 + 1;
-      if (v19 + 1 > 0x7FFFFFFFFFFFFFF7)
+      return;
+    }
+  }
+
+  v7 = *(a1 + 40);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_240E91000, v7, OS_LOG_TYPE_DEFAULT, "#I Sleeping gateway", buf, 2u);
+  }
+
+  abb::router::Gateway::setStatus_sync(a1, 7u);
+  v8 = *a2;
+  if (*a2)
+  {
+    dispatch_retain(*a2);
+    dispatch_group_enter(v8);
+  }
+
+  v9 = *(a1 + 472);
+  *(a1 + 472) = v8;
+  if (v9)
+  {
+    dispatch_group_leave(v9);
+    dispatch_release(v9);
+  }
+
+  v10 = dispatch_group_create();
+  v11 = operator new(0x38uLL);
+  v12 = v11;
+  v11->__shared_owners_ = 0;
+  v11->__shared_weak_owners_ = 0;
+  v11->__vftable = &unk_2852C8F88;
+  v11[1].__vftable = v10;
+  v13 = &v11[1];
+  if (v10)
+  {
+    dispatch_retain(v10);
+    v12[1].__shared_owners_ = 0;
+    v12[1].__shared_weak_owners_ = 0;
+    v12[2].__vftable = 0;
+    dispatch_release(v10);
+    v69 = v13;
+    v70 = v12;
+    v14 = *(a1 + 304);
+    v56 = a1;
+    v15 = (a1 + 312);
+    if (v14 != (a1 + 312))
+    {
+      goto LABEL_22;
+    }
+
+    goto LABEL_76;
+  }
+
+  v11[1].__shared_owners_ = 0;
+  v11[1].__shared_weak_owners_ = 0;
+  v11[2].__vftable = 0;
+  v69 = &v11[1];
+  v70 = v11;
+  v14 = *(a1 + 304);
+  v56 = a1;
+  v15 = (a1 + 312);
+  if (v14 != (a1 + 312))
+  {
+    do
+    {
+LABEL_22:
+      (*(*v14[5] + 16))(v66);
+      v16 = v67;
+      if ((v67 & 0x80u) == 0)
+      {
+        v17 = v67;
+      }
+
+      else
+      {
+        v17 = v66[1];
+      }
+
+      v18 = v17 + 1;
+      if (v17 + 1 > 0x7FFFFFFFFFFFFFF7)
       {
         std::string::__throw_length_error[abi:ne200100]();
       }
 
-      if (v20 < 0x17)
+      if (v18 < 0x17)
       {
-        memset(&v70, 0, sizeof(v70));
-        v22 = &v70;
-        *(&v70.__r_.__value_.__s + 23) = v19 + 1;
-        if (!v19)
+        memset(&v68, 0, sizeof(v68));
+        v20 = &v68;
+        *(&v68.__r_.__value_.__s + 23) = v17 + 1;
+        if (!v17)
         {
           goto LABEL_36;
         }
@@ -5508,153 +5386,153 @@ LABEL_22:
 
       else
       {
-        if ((v20 | 7) == 0x17)
+        if ((v18 | 7) == 0x17)
         {
-          v21 = 25;
+          v19 = 25;
         }
 
         else
         {
-          v21 = (v20 | 7) + 1;
+          v19 = (v18 | 7) + 1;
         }
 
-        v22 = operator new(v21);
-        v70.__r_.__value_.__l.__size_ = v19 + 1;
-        v70.__r_.__value_.__r.__words[2] = v21 | 0x8000000000000000;
-        v70.__r_.__value_.__r.__words[0] = v22;
+        v20 = operator new(v19);
+        v68.__r_.__value_.__l.__size_ = v17 + 1;
+        v68.__r_.__value_.__r.__words[2] = v19 | 0x8000000000000000;
+        v68.__r_.__value_.__r.__words[0] = v20;
       }
 
-      if (v18 >= 0)
+      if (v16 >= 0)
       {
-        v23 = v68;
+        v21 = v66;
       }
 
       else
       {
-        v23 = v68[0];
+        v21 = v66[0];
       }
 
-      memmove(v22, v23, v19);
+      memmove(v20, v21, v17);
 LABEL_36:
-      *&v22[v19] = 46;
-      v24 = *(v16 + 8);
+      *&v20[v17] = 46;
+      v22 = *(v14 + 8);
       object[1] = 0;
       object[2] = 6;
-      object[0] = v24;
-      *&v25 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v82[14] = v25;
-      v82[15] = v25;
-      v82[12] = v25;
-      v82[13] = v25;
-      v82[10] = v25;
-      v82[11] = v25;
-      v82[8] = v25;
-      v82[9] = v25;
-      v82[6] = v25;
-      v82[7] = v25;
-      v82[4] = v25;
-      v82[5] = v25;
-      v82[2] = v25;
-      v82[3] = v25;
-      v82[0] = v25;
-      v82[1] = v25;
-      *buf = v82;
-      v79 = xmmword_240EDCC50;
-      v80 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
-      v81 = 0;
-      __p = v82;
-      v74[0] = 1;
-      v74[1] = object;
-      v74[2] = 6;
-      std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(buf, "{:#04x}", 7, v74);
-      v26 = *(&v79 + 1);
-      if (*(&v79 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
+      object[0] = v22;
+      *&v23 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v23 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v80[14] = v23;
+      v80[15] = v23;
+      v80[12] = v23;
+      v80[13] = v23;
+      v80[10] = v23;
+      v80[11] = v23;
+      v80[8] = v23;
+      v80[9] = v23;
+      v80[6] = v23;
+      v80[7] = v23;
+      v80[4] = v23;
+      v80[5] = v23;
+      v80[2] = v23;
+      v80[3] = v23;
+      v80[0] = v23;
+      v80[1] = v23;
+      *buf = v80;
+      v77 = xmmword_240EDCC50;
+      v78 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+      v79 = 0;
+      __p = v80;
+      v72[0] = 1;
+      v72[1] = object;
+      v72[2] = 6;
+      std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(buf, "{:#04x}", 7, v72);
+      v24 = *(&v77 + 1);
+      if (*(&v77 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
       {
         std::string::__throw_length_error[abi:ne200100]();
       }
 
-      v27 = __p;
-      if (*(&v79 + 1) >= 0x17uLL)
+      v25 = __p;
+      if (*(&v77 + 1) >= 0x17uLL)
       {
-        if ((*(&v79 + 1) | 7) == 0x17)
+        if ((*(&v77 + 1) | 7) == 0x17)
         {
-          v38 = 25;
+          v36 = 25;
         }
 
         else
         {
-          v38 = (*(&v79 + 1) | 7) + 1;
+          v36 = (*(&v77 + 1) | 7) + 1;
         }
 
-        p_dst = operator new(v38);
-        v66 = v26;
-        v67 = v38 | 0x8000000000000000;
+        p_dst = operator new(v36);
+        v64 = v24;
+        v65 = v36 | 0x8000000000000000;
         __dst = p_dst;
       }
 
       else
       {
-        HIBYTE(v67) = BYTE8(v79);
+        HIBYTE(v65) = BYTE8(v77);
         p_dst = &__dst;
-        if (!*(&v79 + 1))
+        if (!*(&v77 + 1))
         {
           LOBYTE(__dst) = 0;
-          v29 = __p;
-          if (__p == v82)
+          v27 = __p;
+          if (__p == v80)
           {
             goto LABEL_41;
           }
 
 LABEL_40:
-          operator delete(v29);
+          operator delete(v27);
           goto LABEL_41;
         }
       }
 
-      memmove(p_dst, v27, v26);
-      *(p_dst + v26) = 0;
-      v29 = __p;
-      if (__p != v82)
+      memmove(p_dst, v25, v24);
+      *(p_dst + v24) = 0;
+      v27 = __p;
+      if (__p != v80)
       {
         goto LABEL_40;
       }
 
 LABEL_41:
-      if (v67 >= 0)
+      if (v65 >= 0)
       {
-        v30 = &__dst;
+        v28 = &__dst;
       }
 
       else
       {
-        v30 = __dst;
+        v28 = __dst;
       }
 
-      if (v67 >= 0)
+      if (v65 >= 0)
       {
-        v31 = HIBYTE(v67);
+        v29 = HIBYTE(v65);
       }
 
       else
       {
-        v31 = v66;
+        v29 = v64;
       }
 
-      v32 = std::string::append(&v70, v30, v31);
-      v33 = v32->__r_.__value_.__r.__words[0];
-      size = v32->__r_.__value_.__l.__size_;
-      v35 = v32->__r_.__value_.__r.__words[2];
-      v32->__r_.__value_.__l.__size_ = 0;
-      v32->__r_.__value_.__r.__words[2] = 0;
-      v32->__r_.__value_.__r.__words[0] = 0;
-      if (SHIBYTE(v67) < 0)
+      v30 = std::string::append(&v68, v28, v29);
+      v31 = v30->__r_.__value_.__r.__words[0];
+      size = v30->__r_.__value_.__l.__size_;
+      v33 = v30->__r_.__value_.__r.__words[2];
+      v30->__r_.__value_.__l.__size_ = 0;
+      v30->__r_.__value_.__r.__words[2] = 0;
+      v30->__r_.__value_.__r.__words[0] = 0;
+      if (SHIBYTE(v65) < 0)
       {
         operator delete(__dst);
-        if ((SHIBYTE(v70.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        if ((SHIBYTE(v68.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
 LABEL_49:
-          if ((v69 & 0x80000000) == 0)
+          if ((v67 & 0x80000000) == 0)
           {
             goto LABEL_50;
           }
@@ -5663,18 +5541,18 @@ LABEL_49:
         }
       }
 
-      else if ((SHIBYTE(v70.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      else if ((SHIBYTE(v68.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_49;
       }
 
-      operator delete(v70.__r_.__value_.__l.__data_);
-      if ((v69 & 0x80000000) == 0)
+      operator delete(v68.__r_.__value_.__l.__data_);
+      if ((v67 & 0x80000000) == 0)
       {
 LABEL_50:
-        v36 = v16[5];
-        v37 = v71;
-        if ((v35 & 0x8000000000000000) != 0)
+        v34 = v14[5];
+        v35 = v69;
+        if ((v33 & 0x8000000000000000) != 0)
         {
           goto LABEL_61;
         }
@@ -5683,23 +5561,23 @@ LABEL_50:
       }
 
 LABEL_60:
-      operator delete(v68[0]);
-      v36 = v16[5];
-      v37 = v71;
-      if ((v35 & 0x8000000000000000) != 0)
+      operator delete(v66[0]);
+      v34 = v14[5];
+      v35 = v69;
+      if ((v33 & 0x8000000000000000) != 0)
       {
 LABEL_61:
-        std::string::__init_copy_ctor_external(&v63, v33, size);
+        std::string::__init_copy_ctor_external(&v61, v31, size);
         goto LABEL_62;
       }
 
 LABEL_51:
-      v63.__r_.__value_.__r.__words[0] = v33;
-      v63.__r_.__value_.__l.__size_ = size;
-      v63.__r_.__value_.__r.__words[2] = v35;
+      v61.__r_.__value_.__r.__words[0] = v31;
+      v61.__r_.__value_.__l.__size_ = size;
+      v61.__r_.__value_.__r.__words[2] = v33;
 LABEL_62:
-      ctu::TrackedGroup::fork(&group, v37, &v63);
-      (*(*v36 + 56))(v36, &group);
+      ctu::TrackedGroup::fork(&group, v35, &v61);
+      (*(*v34 + 56))(v34, &group);
       if (group)
       {
         dispatch_group_leave(group);
@@ -5709,14 +5587,14 @@ LABEL_62:
         }
       }
 
-      if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v63.__r_.__value_.__l.__data_);
-        if ((v35 & 0x8000000000000000) == 0)
+        operator delete(v61.__r_.__value_.__l.__data_);
+        if ((v33 & 0x8000000000000000) == 0)
         {
 LABEL_67:
-          v39 = v16[1];
-          if (v39)
+          v37 = v14[1];
+          if (v37)
           {
             goto LABEL_71;
           }
@@ -5725,59 +5603,158 @@ LABEL_67:
         }
       }
 
-      else if ((v35 & 0x8000000000000000) == 0)
+      else if ((v33 & 0x8000000000000000) == 0)
       {
         goto LABEL_67;
       }
 
-      operator delete(v33);
-      v39 = v16[1];
-      if (v39)
+      operator delete(v31);
+      v37 = v14[1];
+      if (v37)
       {
         do
         {
 LABEL_71:
-          v40 = v39;
-          v39 = *v39;
+          v38 = v37;
+          v37 = *v37;
         }
 
-        while (v39);
+        while (v37);
         goto LABEL_21;
       }
 
       do
       {
 LABEL_73:
-        v40 = v16[2];
-        v41 = *v40 == v16;
-        v16 = v40;
+        v38 = v14[2];
+        v39 = *v38 == v14;
+        v14 = v38;
       }
 
-      while (!v41);
+      while (!v39);
 LABEL_21:
-      v16 = v40;
-      if (v40 == v17)
-      {
-        goto LABEL_76;
-      }
+      v14 = v38;
     }
+
+    while (v38 != v15);
   }
 
-  v4 = *a2;
-  v73 = v4;
-  if (!v4)
+LABEL_76:
+  v40 = *(v56 + 40);
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
   {
-    abb::router::Gateway::trackPendingActions_sync(a1, 7, &v73);
-    goto LABEL_3;
+    *buf = 0;
+    _os_log_impl(&dword_240E91000, v40, OS_LOG_TYPE_DEFAULT, "#I Notified all clients to sleep", buf, 2u);
   }
 
-  dispatch_retain(v4);
-  dispatch_group_enter(v4);
-  abb::router::Gateway::trackPendingActions_sync(a1, 7, &v73);
-  dispatch_group_leave(v4);
-  v6 = *MEMORY[0x277D85DE8];
+  v41 = *(v56 + 16);
+  if (!v41 || (v42 = *(v56 + 8), (v43 = std::__shared_weak_count::lock(v41)) == 0))
+  {
+    std::__throw_bad_weak_ptr[abi:ne200100]();
+  }
 
-  dispatch_release(v4);
+  v44 = v43;
+  atomic_fetch_add_explicit(&v43->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  if (!atomic_fetch_add(&v43->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v43->__on_zero_shared)(v43);
+    std::__shared_weak_count::__release_weak(v44);
+  }
+
+  v68.__r_.__value_.__r.__words[0] = 0xAAAAAAAAAAAAAAAALL;
+  v45 = *(v56 + 160);
+  v74 = 29285;
+  v73 = *"leep timer";
+  v46 = *(v56 + 24);
+  if (v46)
+  {
+    dispatch_retain(*(v56 + 24));
+  }
+
+  aBlock[0] = MEMORY[0x277D85DD0];
+  aBlock[1] = 1174405120;
+  aBlock[2] = ___ZN3abb6router7Gateway10sleep_syncEN8dispatch13group_sessionE_block_invoke;
+  aBlock[3] = &__block_descriptor_tmp_2;
+  aBlock[4] = v56;
+  aBlock[5] = v42;
+  v58 = v44;
+  atomic_fetch_add_explicit(&v44->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  v47 = v69;
+  v59 = v69;
+  v60 = v70;
+  if (v70)
+  {
+    atomic_fetch_add_explicit(&v70->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v48 = _Block_copy(aBlock);
+  *buf = 0x7320726574756F52;
+  *&v77 = v73;
+  WORD4(v77) = v74;
+  BYTE10(v77) = 0;
+  *(&v77 + 11) = 0;
+  HIBYTE(v77) = 18;
+  v73 = 0;
+  v74 = 0;
+  object[0] = v46;
+  v72[0] = v48;
+  (*(*v45 + 16))(&v68, v45, buf, 0, 10000000, 0, object, v72);
+  if (v72[0])
+  {
+    _Block_release(v72[0]);
+  }
+
+  if (object[0])
+  {
+    dispatch_release(object[0]);
+  }
+
+  if (SHIBYTE(v77) < 0)
+  {
+    operator delete(*buf);
+  }
+
+  *buf = v56;
+  *&v77 = v42;
+  *(&v77 + 1) = v44;
+  atomic_fetch_add_explicit(&v44->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  v49 = v68.__r_.__value_.__r.__words[0];
+  v68.__r_.__value_.__r.__words[0] = 0;
+  v78 = v49;
+  v50 = *v47;
+  v51 = *(v56 + 24);
+  v52 = operator new(0x20uLL);
+  *v52 = v56;
+  v52[1] = v42;
+  v52[2] = v44;
+  v52[3] = v49;
+  dispatch_group_notify_f(v50, v51, v52, dispatch::detail::group_notify<abb::router::Gateway::sleep_sync(dispatch::group_session)::$_0>(dispatch_group_s *,dispatch_queue_s *,abb::router::Gateway::sleep_sync(dispatch::group_session)::$_0 &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke);
+  v53 = v68.__r_.__value_.__r.__words[0];
+  v68.__r_.__value_.__r.__words[0] = 0;
+  if (v53)
+  {
+    (*(*v53 + 8))(v53);
+  }
+
+  v54 = v60;
+  if (v60 && !atomic_fetch_add(&v60->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v54->__on_zero_shared)(v54);
+    std::__shared_weak_count::__release_weak(v54);
+  }
+
+  if (v58)
+  {
+    std::__shared_weak_count::__release_weak(v58);
+  }
+
+  std::__shared_weak_count::__release_weak(v44);
+  v55 = v70;
+  if (v70 && !atomic_fetch_add(&v70->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v55->__on_zero_shared)(v55);
+    std::__shared_weak_count::__release_weak(v55);
+  }
 }
 
 void sub_240EAF98C(_Unwind_Exception *a1, int a2)
@@ -5792,19 +5769,19 @@ void sub_240EAF98C(_Unwind_Exception *a1, int a2)
 
 void ___ZN3abb6router7Gateway10sleep_syncEN8dispatch13group_sessionE_block_invoke(void *a1)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v2 = a1[6];
   if (!v2)
   {
-    goto LABEL_67;
+    return;
   }
 
   v3 = a1[4];
   v4 = std::__shared_weak_count::lock(v2);
-  v55 = v4;
+  v53 = v4;
   if (!v4)
   {
-    goto LABEL_67;
+    return;
   }
 
   if (!a1[5])
@@ -5844,13 +5821,13 @@ LABEL_40:
 LABEL_6:
   __p[0] = 0;
   __p[1] = 0;
-  v53 = 0;
+  v51 = 0;
   v5 = a1[7];
   v6 = *(v5 + 8);
   v7 = *(v5 + 16);
   if (v6 == v7)
   {
-    memset(&v51, 0, sizeof(v51));
+    memset(&v49, 0, sizeof(v49));
   }
 
   else
@@ -5861,16 +5838,16 @@ LABEL_6:
       if (v8)
       {
         v9 = std::__shared_weak_count::lock(v8);
-        v51.__r_.__value_.__l.__size_ = v9;
+        v49.__r_.__value_.__l.__size_ = v9;
         if (v9)
         {
           v10 = v9;
           v11 = *v6;
-          v51.__r_.__value_.__r.__words[0] = v11;
+          v49.__r_.__value_.__r.__words[0] = v11;
           if (v11)
           {
             v12 = __p[1];
-            if (__p[1] >= v53)
+            if (__p[1] >= v51)
             {
               v15 = __p[0];
               v16 = __p[1] - __p[0];
@@ -5880,12 +5857,12 @@ LABEL_6:
                 std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
               }
 
-              if (0x5555555555555556 * ((v53 - __p[0]) >> 3) > v17)
+              if (0x5555555555555556 * ((v51 - __p[0]) >> 3) > v17)
               {
-                v17 = 0x5555555555555556 * ((v53 - __p[0]) >> 3);
+                v17 = 0x5555555555555556 * ((v51 - __p[0]) >> 3);
               }
 
-              if (0xAAAAAAAAAAAAAAABLL * ((v53 - __p[0]) >> 3) >= 0x555555555555555)
+              if (0xAAAAAAAAAAAAAAABLL * ((v51 - __p[0]) >> 3) >= 0x555555555555555)
               {
                 v18 = 0xAAAAAAAAAAAAAAALL;
               }
@@ -5895,7 +5872,7 @@ LABEL_6:
                 v18 = v17;
               }
 
-              v58 = __p;
+              v56 = __p;
               if (v18)
               {
                 if (v18 > 0xAAAAAAAAAAAAAAALL)
@@ -5916,14 +5893,14 @@ LABEL_6:
               *&buf[8] = v20;
               v21 = &v19[24 * v18];
               *&buf[16] = v20;
-              v57 = v21;
+              v55 = v21;
               if (*(v11 + 23) < 0)
               {
                 std::string::__init_copy_ctor_external(v20, *v11, *(v11 + 8));
                 v20 = *&buf[8];
                 v23 = *&buf[16];
                 v15 = __p[0];
-                v21 = v57;
+                v21 = v55;
                 v16 = __p[1] - __p[0];
               }
 
@@ -5941,7 +5918,7 @@ LABEL_6:
               v25 = __p[0];
               __p[0] = v24;
               __p[1] = v14;
-              v53 = v21;
+              v51 = v21;
               if (v25)
               {
                 operator delete(v25);
@@ -5982,21 +5959,21 @@ LABEL_6:
     while (v6 != v7);
     v26 = __p[1];
     v27 = __p[0];
-    memset(&v51, 0, sizeof(v51));
+    memset(&v49, 0, sizeof(v49));
     if (__p[0] != __p[1])
     {
-      if (__p[0] != &v51)
+      if (__p[0] != &v49)
       {
         if (*(__p[0] + 23) < 0)
         {
-          std::string::__assign_no_alias<true>(&v51, *__p[0], *(__p[0] + 1));
+          std::string::__assign_no_alias<true>(&v49, *__p[0], *(__p[0] + 1));
         }
 
         else
         {
           v28 = *__p[0];
-          v51.__r_.__value_.__r.__words[2] = *(__p[0] + 2);
-          *&v51.__r_.__value_.__l.__data_ = v28;
+          v49.__r_.__value_.__r.__words[2] = *(__p[0] + 2);
+          *&v49.__r_.__value_.__l.__data_ = v28;
         }
       }
 
@@ -6009,52 +5986,52 @@ LABEL_6:
           buf[1] = 0;
           if (buf[23] >= 0)
           {
-            v49 = buf;
+            v47 = buf;
           }
 
           else
           {
-            v49 = *buf;
+            v47 = *buf;
           }
 
           if (buf[23] >= 0)
           {
-            v50 = buf[23];
+            v48 = buf[23];
           }
 
           else
           {
-            v50 = *&buf[8];
+            v48 = *&buf[8];
           }
 
-          std::string::append(&v51, v49, v50);
+          std::string::append(&v49, v47, v48);
           if ((buf[23] & 0x80000000) != 0)
           {
             operator delete(*buf);
           }
 
-          v46 = i[23];
-          if (v46 >= 0)
+          v44 = i[23];
+          if (v44 >= 0)
           {
-            v47 = i;
+            v45 = i;
           }
 
           else
           {
-            v47 = *i;
+            v45 = *i;
           }
 
-          if (v46 >= 0)
+          if (v44 >= 0)
           {
-            v48 = i[23];
+            v46 = i[23];
           }
 
           else
           {
-            v48 = *(i + 1);
+            v46 = *(i + 1);
           }
 
-          std::string::append(&v51, v47, v48);
+          std::string::append(&v49, v45, v46);
         }
       }
 
@@ -6062,29 +6039,28 @@ LABEL_6:
       {
         for (j = v27 + 24; j != v26; j += 24)
         {
-          v41 = *(j + 1);
-          v42 = j[23];
-          if (v42 >= 0)
+          v40 = j[23];
+          if (v40 >= 0)
           {
-            v43 = j;
+            v41 = j;
           }
 
           else
           {
-            v43 = *j;
+            v41 = *j;
           }
 
-          if (v42 >= 0)
+          if (v40 >= 0)
           {
-            v44 = j[23];
+            v42 = j[23];
           }
 
           else
           {
-            v44 = *(j + 1);
+            v42 = *(j + 1);
           }
 
-          std::string::append(&v51, v43, v44);
+          std::string::append(&v49, v41, v42);
         }
       }
     }
@@ -6096,8 +6072,8 @@ LABEL_6:
     operator delete(*v31);
   }
 
-  *v31 = *&v51.__r_.__value_.__l.__data_;
-  *(v3 + 496) = *(&v51.__r_.__value_.__l + 2);
+  *v31 = *&v49.__r_.__value_.__l.__data_;
+  *(v3 + 496) = *(&v49.__r_.__value_.__l + 2);
   v32 = *(v3 + 40);
   if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
@@ -6148,8 +6124,8 @@ LABEL_6:
     operator delete(v36);
   }
 
-  v4 = v55;
-  if (v55)
+  v4 = v53;
+  if (v53)
   {
 LABEL_65:
     if (!atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -6159,12 +6135,9 @@ LABEL_65:
       std::__shared_weak_count::__release_weak(v38);
     }
   }
-
-LABEL_67:
-  v39 = *MEMORY[0x277D85DE8];
 }
 
-void sub_240EB019C(_Unwind_Exception *__p, uint64_t a2, int a3, __int16 a4, char a5, char a6, uint64_t a7, char a8, void *__pa, uint64_t a10, uint64_t a11, char a12, void **a13, std::__split_buffer<std::string> *a14, uint64_t a15, uint64_t a16, char a17)
+void sub_240EB019C(_Unwind_Exception *__p, uint64_t a2, int a3, __int16 a4, char a5, char a6, uint64_t a7, char a8, void *__pa, uint64_t a10, uint64_t a11, char a12, uint64_t a13, std::__split_buffer<std::string> *a14, uint64_t a15, uint64_t a16, __int128 a17)
 {
   if ((SHIBYTE(a11) & 0x80000000) == 0)
   {
@@ -6181,103 +6154,139 @@ void sub_240EB019C(_Unwind_Exception *__p, uint64_t a2, int a3, __int16 a4, char
 
 void abb::router::Gateway::handlePendingActions_sync(abb::router::Gateway *this)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (*(this + 296) != 1)
   {
-    goto LABEL_39;
+    return;
   }
 
   v2 = *(this + 280);
   v3 = *(this + 36);
-  v14 = 0xAAAAAAAAAAAAAAAALL;
-  v15 = v3;
-  LOBYTE(v14) = v2;
-  if (v3 && (dispatch_retain(v3), dispatch_group_enter(v3), (*(this + 296) & 1) == 0))
+  v13 = 0xAAAAAAAAAAAAAAAALL;
+  v14 = v3;
+  LOBYTE(v13) = v2;
+  if (v3)
   {
-    v6 = *(this + 5);
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    dispatch_retain(v3);
+    dispatch_group_enter(v3);
+    if ((*(this + 296) & 1) == 0)
     {
-      goto LABEL_8;
-    }
-  }
-
-  else
-  {
-    v4 = *(this + 36);
-    if (v4)
-    {
-      dispatch_group_leave(v4);
-      v5 = *(this + 36);
-      if (v5)
+      v6 = *(this + 5);
+      if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        dispatch_release(v5);
+        goto LABEL_8;
       }
-    }
 
-    *(this + 296) = 0;
-    v6 = *(this + 5);
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-LABEL_8:
+LABEL_16:
+      if (v2 > 0xA)
+      {
+        v7 = "(unknown)";
+      }
+
+      else
+      {
+        v7 = off_278CBAF60[v2];
+      }
+
+      *buf = 136315138;
+      v16 = v7;
+      _os_log_impl(&dword_240E91000, v6, OS_LOG_TYPE_DEFAULT, "#I Handling pending action for %s", buf, 0xCu);
       if (v2 > 3)
       {
         goto LABEL_9;
       }
 
-LABEL_23:
-      if (v2)
-      {
-        if (v2 != 2)
-        {
-          goto LABEL_28;
-        }
-
-        v13 = v3;
-        if (v3)
-        {
-          dispatch_retain(v3);
-          dispatch_group_enter(v3);
-        }
-
-        abb::router::Gateway::start_sync(this, &v13);
-      }
-
-      else
-      {
-        v9 = v3;
-        if (v3)
-        {
-          dispatch_retain(v3);
-          dispatch_group_enter(v3);
-        }
-
-        abb::router::Gateway::shutdown_sync(this, &v9);
-      }
-
-      goto LABEL_36;
+      goto LABEL_23;
     }
   }
 
-  if (v2 > 0xA)
+  v4 = *(this + 36);
+  if (v4)
   {
-    v7 = "(unknown)";
+    dispatch_group_leave(v4);
+    v5 = *(this + 36);
+    if (v5)
+    {
+      dispatch_release(v5);
+    }
   }
 
-  else
+  *(this + 296) = 0;
+  v6 = *(this + 5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = off_278CBAF60[v2];
+    goto LABEL_16;
   }
 
-  *buf = 136315138;
-  v17 = v7;
-  _os_log_impl(&dword_240E91000, v6, OS_LOG_TYPE_DEFAULT, "#I Handling pending action for %s", buf, 0xCu);
-  if (v2 <= 3)
+LABEL_8:
+  if (v2 > 3)
   {
-    goto LABEL_23;
-  }
-
 LABEL_9:
-  if ((v2 - 4) < 2)
+    if ((v2 - 4) < 2)
+    {
+      v11 = v3;
+      if (v3)
+      {
+        dispatch_retain(v3);
+        dispatch_group_enter(v3);
+      }
+
+      abb::router::Gateway::stop_sync(this, &v11);
+      goto LABEL_36;
+    }
+
+    if (v2 == 7)
+    {
+      v10 = v3;
+      if (v3)
+      {
+        dispatch_retain(v3);
+        dispatch_group_enter(v3);
+      }
+
+      abb::router::Gateway::sleep_sync(this, &v10);
+      goto LABEL_36;
+    }
+
+    if (v2 == 9)
+    {
+      v9 = v3;
+      if (v3)
+      {
+        dispatch_retain(v3);
+        dispatch_group_enter(v3);
+      }
+
+      abb::router::Gateway::wakeup_sync(this, &v9);
+LABEL_36:
+      if (!v3)
+      {
+        return;
+      }
+
+      dispatch_group_leave(v3);
+      dispatch_release(v3);
+      goto LABEL_38;
+    }
+
+    goto LABEL_28;
+  }
+
+LABEL_23:
+  if (!v2)
+  {
+    v8 = v3;
+    if (v3)
+    {
+      dispatch_retain(v3);
+      dispatch_group_enter(v3);
+    }
+
+    abb::router::Gateway::shutdown_sync(this, &v8);
+    goto LABEL_36;
+  }
+
+  if (v2 == 2)
   {
     v12 = v3;
     if (v3)
@@ -6286,68 +6295,29 @@ LABEL_9:
       dispatch_group_enter(v3);
     }
 
-    abb::router::Gateway::stop_sync(this, &v12);
+    abb::router::Gateway::start_sync(this, &v12);
+    goto LABEL_36;
   }
-
-  else
-  {
-    if (v2 != 7)
-    {
-      if (v2 == 9)
-      {
-        v10 = v3;
-        if (v3)
-        {
-          dispatch_retain(v3);
-          dispatch_group_enter(v3);
-        }
-
-        abb::router::Gateway::wakeup_sync(this, &v10);
-        goto LABEL_36;
-      }
 
 LABEL_28:
-      if (!v3)
-      {
-        goto LABEL_39;
-      }
-
-      goto LABEL_38;
-    }
-
-    v11 = v3;
-    if (v3)
-    {
-      dispatch_retain(v3);
-      dispatch_group_enter(v3);
-    }
-
-    abb::router::Gateway::sleep_sync(this, &v11);
-  }
-
-LABEL_36:
   if (v3)
   {
-    dispatch_group_leave(v3);
-    dispatch_release(v3);
 LABEL_38:
     dispatch_group_leave(v3);
     dispatch_release(v3);
   }
-
-LABEL_39:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_240EB0528(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_240EB0528(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  if (v15)
+  va_start(va, a14);
+  if (v14)
   {
-    dispatch_group_leave(v15);
-    dispatch_release(v15);
+    dispatch_group_leave(v14);
+    dispatch_release(v14);
   }
 
-  std::pair<abb::router::Gateway::Status,dispatch::group_session>::~pair(&a15);
+  std::pair<abb::router::Gateway::Status,dispatch::group_session>::~pair(va);
   _Unwind_Resume(a1);
 }
 
@@ -6418,263 +6388,256 @@ uint64_t abb::router::Gateway::sleep_sync(dispatch::group_session)::$_0::~$_0(ui
 
 void abb::router::Gateway::wakeup_sync(uint64_t a1, NSObject **a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 176);
   if (v4 <= 6)
   {
-    goto LABEL_2;
+    return;
   }
 
-  if (v4 == 10)
+  switch(v4)
   {
-    v8 = *(a1 + 40);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_240E91000, v8, OS_LOG_TYPE_DEFAULT, "#I Previous gateway sleep session failed for some reason", buf, 2u);
-    }
-
-    v9 = (a1 + 480);
-    memset(&__dst, 170, sizeof(__dst));
-    if (*(a1 + 503) < 0)
-    {
-      v9 = *v9;
-    }
-
-    v33[1] = 0xAAAAAAAAAAAAAAAALL;
-    v33[2] = 12;
-    v33[0] = v9;
-    *&v10 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v38[14] = v10;
-    v38[15] = v10;
-    v38[13] = v10;
-    v38[12] = v10;
-    v38[11] = v10;
-    v38[10] = v10;
-    v38[9] = v10;
-    v38[8] = v10;
-    v38[7] = v10;
-    v38[6] = v10;
-    v38[5] = v10;
-    v38[4] = v10;
-    v38[3] = v10;
-    v38[2] = v10;
-    v38[1] = v10;
-    v38[0] = v10;
-    *buf = v38;
-    v35 = xmmword_240EDCC50;
-    v36 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
-    v37 = 0;
-    __src = v38;
-    v32[0] = 1;
-    v32[1] = v33;
-    v32[2] = 12;
-    std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(buf, "AP sleep is blocked by clients: {}", 34, v32);
-    v11 = *(&v35 + 1);
-    if (*(&v35 + 1) >= 0x7FFFFFFFFFFFFFF8uLL)
-    {
-      std::string::__throw_length_error[abi:ne200100]();
-    }
-
-    v12 = __src;
-    if (*(&v35 + 1) >= 0x17uLL)
-    {
-      if ((*(&v35 + 1) | 7) == 0x17)
+    case 0xAu:
+      v6 = *(a1 + 40);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 25;
+        *buf = 0;
+        _os_log_impl(&dword_240E91000, v6, OS_LOG_TYPE_DEFAULT, "#I Previous gateway sleep session failed for some reason", buf, 2u);
+      }
+
+      v7 = (a1 + 480);
+      memset(&__dst, 170, sizeof(__dst));
+      if (*(a1 + 503) < 0)
+      {
+        v7 = *v7;
+      }
+
+      v31[1] = 0xAAAAAAAAAAAAAAAALL;
+      v31[2] = 12;
+      v31[0] = v7;
+      *&v8 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v36[14] = v8;
+      v36[15] = v8;
+      v36[13] = v8;
+      v36[12] = v8;
+      v36[11] = v8;
+      v36[10] = v8;
+      v36[9] = v8;
+      v36[8] = v8;
+      v36[7] = v8;
+      v36[6] = v8;
+      v36[5] = v8;
+      v36[4] = v8;
+      v36[3] = v8;
+      v36[2] = v8;
+      v36[1] = v8;
+      v36[0] = v8;
+      *buf = v36;
+      v33 = xmmword_240EDCC50;
+      v34 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+      v35 = 0;
+      __src = v36;
+      v30[0] = 1;
+      v30[1] = v31;
+      v30[2] = 12;
+      std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(buf, "AP sleep is blocked by clients: {}", 34, v30);
+      v9 = *(&v33 + 1);
+      if (*(&v33 + 1) >= 0x7FFFFFFFFFFFFFF8uLL)
+      {
+        std::string::__throw_length_error[abi:ne200100]();
+      }
+
+      v10 = __src;
+      if (*(&v33 + 1) >= 0x17uLL)
+      {
+        if ((*(&v33 + 1) | 7) == 0x17)
+        {
+          v12 = 25;
+        }
+
+        else
+        {
+          v12 = (*(&v33 + 1) | 7) + 1;
+        }
+
+        p_dst = operator new(v12);
+        __dst.__r_.__value_.__l.__size_ = v9;
+        __dst.__r_.__value_.__r.__words[2] = v12 | 0x8000000000000000;
+        __dst.__r_.__value_.__r.__words[0] = p_dst;
       }
 
       else
       {
-        v14 = (*(&v35 + 1) | 7) + 1;
+        *(&__dst.__r_.__value_.__s + 23) = BYTE8(v33);
+        p_dst = &__dst;
+        if (!*(&v33 + 1))
+        {
+          goto LABEL_23;
+        }
       }
 
-      p_dst = operator new(v14);
-      __dst.__r_.__value_.__l.__size_ = v11;
-      __dst.__r_.__value_.__r.__words[2] = v14 | 0x8000000000000000;
-      __dst.__r_.__value_.__r.__words[0] = p_dst;
-    }
-
-    else
-    {
-      *(&__dst.__r_.__value_.__s + 23) = BYTE8(v35);
-      p_dst = &__dst;
-      if (!*(&v35 + 1))
-      {
-        goto LABEL_23;
-      }
-    }
-
-    memmove(p_dst, v12, v11);
+      memmove(p_dst, v10, v9);
 LABEL_23:
-    p_dst->__r_.__value_.__s.__data_[v11] = 0;
-    if (__src != v38)
-    {
-      operator delete(__src);
-    }
+      p_dst->__r_.__value_.__s.__data_[v9] = 0;
+      if (__src != v36)
+      {
+        operator delete(__src);
+      }
 
-    v15 = SHIBYTE(__dst.__r_.__value_.__r.__words[2]);
-    if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v29, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
-    }
+      v13 = SHIBYTE(__dst.__r_.__value_.__r.__words[2]);
+      if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+      {
+        std::string::__init_copy_ctor_external(&v27, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
+      }
 
-    else
-    {
-      v29 = __dst;
-    }
+      else
+      {
+        v27 = __dst;
+      }
 
-    abb::router::Gateway::reportError_sync(a1, 2, &v29);
-    if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v29.__r_.__value_.__l.__data_);
-    }
+      abb::router::Gateway::reportError_sync(a1, 2, &v27);
+      if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v27.__r_.__value_.__l.__data_);
+      }
 
-    if (v15 < 0)
-    {
-      operator delete(__dst.__r_.__value_.__l.__data_);
-    }
+      if (v13 < 0)
+      {
+        operator delete(__dst.__r_.__value_.__l.__data_);
+      }
 
-    goto LABEL_33;
+      break;
+    case 9u:
+      return;
+    case 7u:
+      v5 = *a2;
+      v29 = v5;
+      if (v5)
+      {
+        dispatch_retain(v5);
+        dispatch_group_enter(v5);
+        abb::router::Gateway::trackPendingActions_sync(a1, 9, &v29);
+        dispatch_group_leave(v5);
+
+        dispatch_release(v5);
+      }
+
+      else
+      {
+        abb::router::Gateway::trackPendingActions_sync(a1, 9, &v29);
+      }
+
+      return;
   }
 
-  if (v4 == 9)
+  if (*(a1 + 503) < 0)
   {
-LABEL_2:
-    v5 = *MEMORY[0x277D85DE8];
-    return;
+    **(a1 + 480) = 0;
+    *(a1 + 488) = 0;
+    v14 = *(a1 + 40);
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_36;
+    }
+
+    goto LABEL_35;
   }
 
-  if (v4 != 7)
+  *(a1 + 480) = 0;
+  *(a1 + 503) = 0;
+  v14 = *(a1 + 40);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-LABEL_33:
-    if (*(a1 + 503) < 0)
-    {
-      **(a1 + 480) = 0;
-      *(a1 + 488) = 0;
-      v16 = *(a1 + 40);
-      if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_36;
-      }
-    }
-
-    else
-    {
-      *(a1 + 480) = 0;
-      *(a1 + 503) = 0;
-      v16 = *(a1 + 40);
-      if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-      {
-LABEL_36:
-        abb::router::Gateway::setStatus_sync(a1, 9u);
-        v17 = dispatch_group_create();
-        v18 = v17;
-        v19 = *(a1 + 360);
-        group = v17;
-        if (v17)
-        {
-          dispatch_retain(v17);
-          dispatch_group_enter(v18);
-        }
-
-        (*(*v19 + 64))(v19, &group);
-        if (group)
-        {
-          dispatch_group_leave(group);
-          if (group)
-          {
-            dispatch_release(group);
-          }
-        }
-
-        v20 = *(a1 + 16);
-        if (!v20 || (v21 = *(a1 + 8), (v22 = std::__shared_weak_count::lock(v20)) == 0))
-        {
-          std::__throw_bad_weak_ptr[abi:ne200100]();
-        }
-
-        v23 = v22;
-        p_shared_weak_owners = &v22->__shared_weak_owners_;
-        atomic_fetch_add_explicit(&v22->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-        if (!atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-        {
-          (v22->__on_zero_shared)(v22);
-          std::__shared_weak_count::__release_weak(v23);
-        }
-
-        *buf = a1;
-        *&v35 = v21;
-        *(&v35 + 1) = v23;
-        atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
-        v25 = *a2;
-        v36 = v25;
-        if (v25)
-        {
-          dispatch_retain(v25);
-          dispatch_group_enter(v25);
-        }
-
-        v26 = *(a1 + 24);
-        v27 = operator new(0x20uLL);
-        *v27 = a1;
-        v27[1] = v21;
-        v27[2] = v23;
-        v27[3] = v25;
-        dispatch_group_notify_f(v18, v26, v27, dispatch::detail::group_notify<abb::router::Gateway::wakeup_sync(dispatch::group_session)::$_0>(dispatch_group_s *,dispatch_queue_s *,abb::router::Gateway::wakeup_sync(dispatch::group_session)::$_0 &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke);
-        std::__shared_weak_count::__release_weak(v23);
-        if (v18)
-        {
-          dispatch_release(v18);
-        }
-
-        goto LABEL_2;
-      }
-    }
-
+LABEL_35:
     *buf = 0;
-    _os_log_impl(&dword_240E91000, v16, OS_LOG_TYPE_DEFAULT, "#I Wakingup gateway", buf, 2u);
-    goto LABEL_36;
+    _os_log_impl(&dword_240E91000, v14, OS_LOG_TYPE_DEFAULT, "#I Wakingup gateway", buf, 2u);
   }
 
-  v6 = *a2;
-  v31 = v6;
-  if (!v6)
+LABEL_36:
+  abb::router::Gateway::setStatus_sync(a1, 9u);
+  v15 = dispatch_group_create();
+  v16 = v15;
+  v17 = *(a1 + 360);
+  group = v15;
+  if (v15)
   {
-    abb::router::Gateway::trackPendingActions_sync(a1, 9, &v31);
-    goto LABEL_2;
+    dispatch_retain(v15);
+    dispatch_group_enter(v16);
   }
 
-  dispatch_retain(v6);
-  dispatch_group_enter(v6);
-  abb::router::Gateway::trackPendingActions_sync(a1, 9, &v31);
-  dispatch_group_leave(v6);
-  v7 = *MEMORY[0x277D85DE8];
+  (*(*v17 + 64))(v17, &group);
+  if (group)
+  {
+    dispatch_group_leave(group);
+    if (group)
+    {
+      dispatch_release(group);
+    }
+  }
 
-  dispatch_release(v6);
+  v18 = *(a1 + 16);
+  if (!v18 || (v19 = *(a1 + 8), (v20 = std::__shared_weak_count::lock(v18)) == 0))
+  {
+    std::__throw_bad_weak_ptr[abi:ne200100]();
+  }
+
+  v21 = v20;
+  p_shared_weak_owners = &v20->__shared_weak_owners_;
+  atomic_fetch_add_explicit(&v20->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  if (!atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v20->__on_zero_shared)(v20);
+    std::__shared_weak_count::__release_weak(v21);
+  }
+
+  *buf = a1;
+  *&v33 = v19;
+  *(&v33 + 1) = v21;
+  atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
+  v23 = *a2;
+  v34 = v23;
+  if (v23)
+  {
+    dispatch_retain(v23);
+    dispatch_group_enter(v23);
+  }
+
+  v24 = *(a1 + 24);
+  v25 = operator new(0x20uLL);
+  *v25 = a1;
+  v25[1] = v19;
+  v25[2] = v21;
+  v25[3] = v23;
+  dispatch_group_notify_f(v16, v24, v25, dispatch::detail::group_notify<abb::router::Gateway::wakeup_sync(dispatch::group_session)::$_0>(dispatch_group_s *,dispatch_queue_s *,abb::router::Gateway::wakeup_sync(dispatch::group_session)::$_0 &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke);
+  std::__shared_weak_count::__release_weak(v21);
+  if (v16)
+  {
+    dispatch_release(v16);
+  }
 }
 
-void sub_240EB0B9C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, dispatch_group_t group, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25)
+void sub_240EB0B9C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, dispatch_group_t group, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  abb::router::Agent::handleGatewaySleep_sync(dispatch::group_session)::$_0::~$_0(&a25);
-  std::__shared_weak_count::__release_weak(v26);
-  if (!v25)
+  va_start(va, a24);
+  abb::router::Agent::handleGatewaySleep_sync(dispatch::group_session)::$_0::~$_0(va);
+  std::__shared_weak_count::__release_weak(v25);
+  if (!v24)
   {
     JUMPOUT(0x240EB0BDCLL);
   }
 
-  dispatch_release(v25);
+  dispatch_release(v24);
   _Unwind_Resume(a1);
 }
 
 BOOL abb::router::Gateway::reportError_sync(uint64_t a1, int a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 208);
   if (!v3)
   {
-    goto LABEL_18;
+    return v3 != 0;
   }
 
   v4 = a1;
@@ -6686,7 +6649,7 @@ BOOL abb::router::Gateway::reportError_sync(uint64_t a1, int a2, uint64_t a3)
     if (!v5)
     {
 LABEL_7:
-      v15 = v5;
+      v14 = v5;
       goto LABEL_9;
     }
   }
@@ -6703,18 +6666,18 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v15 = v14;
-  (*(*v5 + 24))(v5, v14);
+  v14 = v13;
+  (*(*v5 + 24))(v5, v13);
 LABEL_9:
   global_queue = dispatch_get_global_queue(0, 0);
   v8 = operator new(0x40uLL);
   *v8 = a2;
   *(v8 + 8) = __p;
   memset(&__p, 0, sizeof(__p));
-  v9 = v15;
-  if (v15)
+  v9 = v14;
+  if (v14)
   {
-    if (v15 == v14)
+    if (v14 == v13)
     {
       *(v8 + 7) = v8 + 32;
       (*(*v9 + 24))(v9);
@@ -6722,8 +6685,8 @@ LABEL_9:
 
     else
     {
-      *(v8 + 7) = v15;
-      v15 = 0;
+      *(v8 + 7) = v14;
+      v14 = 0;
     }
   }
 
@@ -6733,22 +6696,22 @@ LABEL_9:
   }
 
   dispatch_async_f(global_queue, v8, dispatch::async<abb::router::Gateway::reportError_sync(abb::router::Error,std::string)::$_0>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::reportError_sync(abb::router::Error,std::string)::$_0,std::default_delete<abb::router::Gateway::reportError_sync(abb::router::Error,std::string)::$_0>>)::{lambda(void *)#1}::__invoke);
-  if (v15 == v14)
+  if (v14 == v13)
   {
-    (*(*v15 + 32))(v15);
+    (*(*v14 + 32))(v14);
     if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
-      goto LABEL_18;
+      return v3 != 0;
     }
 
 LABEL_20:
     operator delete(__p.__r_.__value_.__l.__data_);
-    goto LABEL_18;
+    return v3 != 0;
   }
 
-  if (v15)
+  if (v14)
   {
-    (*(*v15 + 40))();
+    (*(*v14 + 40))();
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -6756,10 +6719,7 @@ LABEL_20:
     goto LABEL_20;
   }
 
-LABEL_18:
-  result = v3 != 0;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return v3 != 0;
 }
 
 void sub_240EB0E40(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
@@ -6786,7 +6746,7 @@ void abb::router::Gateway::statedump_sync(uint64_t a1, NSObject **a2)
       v4 = *(a1 + 440);
     }
 
-    abb::router::Metrics::exportSummary(v4, &object);
+    abb::router::Metrics::exportSummary(&object, v4);
     abb::router::Gateway::reportMetricSummary_sync(a1, &v17, &object);
     xpc_release(object);
     object = 0;
@@ -6809,7 +6769,7 @@ void abb::router::Gateway::statedump_sync(uint64_t a1, NSObject **a2)
       v6 = *(a1 + 456);
     }
 
-    abb::router::Metrics::exportSummary(v6, &v14);
+    abb::router::Metrics::exportSummary(&v14, v6);
     abb::router::Gateway::reportMetricSummary_sync(a1, &v15, &v14);
     xpc_release(v14);
     v14 = 0;
@@ -6877,11 +6837,11 @@ void sub_240EB102C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 BOOL abb::router::Gateway::reportMetricSummary_sync(uint64_t a1, NSObject **a2, void **a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 240);
   if (!v3)
   {
-    goto LABEL_24;
+    return v3 != 0;
   }
 
   v6 = *a2;
@@ -6916,14 +6876,14 @@ BOOL abb::router::Gateway::reportMetricSummary_sync(uint64_t a1, NSObject **a2, 
 
   if (v8 == a1 + 216)
   {
-    v20 = v19;
-    (*(*v8 + 24))(v8, v19);
+    v19 = v18;
+    (*(*v8 + 24))(v8, v18);
     goto LABEL_12;
   }
 
   v8 = (*(*v8 + 16))(v8);
 LABEL_10:
-  v20 = v8;
+  v19 = v8;
 LABEL_12:
   global_queue = dispatch_get_global_queue(0, 0);
   v10 = operator new(0x30uLL);
@@ -6931,10 +6891,10 @@ LABEL_12:
   object[0] = 0;
   *v10 = v11;
   object[1] = xpc_null_create();
-  v12 = v20;
-  if (v20)
+  v12 = v19;
+  if (v19)
   {
-    if (v20 == v19)
+    if (v19 == v18)
     {
       v10[5] = v10 + 2;
       (*(*v12 + 24))(v12);
@@ -6942,8 +6902,8 @@ LABEL_12:
 
     else
     {
-      v10[5] = v20;
-      v20 = 0;
+      v10[5] = v19;
+      v19 = 0;
     }
   }
 
@@ -6952,19 +6912,19 @@ LABEL_12:
     v10[5] = 0;
   }
 
+  v15 = 0;
   v16 = 0;
-  v17 = 0;
   dispatch_async_f(global_queue, v10, dispatch::async<abb::router::Gateway::reportMetricSummary_sync(dispatch::group_session,xpc::dict)::$_0>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::reportMetricSummary_sync(dispatch::group_session,xpc::dict)::$_0,std::default_delete<abb::router::Gateway::reportMetricSummary_sync(dispatch::group_session,xpc::dict)::$_0>>)::{lambda(void *)#1}::__invoke);
+  std::unique_ptr<abb::router::Gateway::reportMetricSummary_sync(dispatch::group_session,xpc::dict)::$_0,std::default_delete<abb::router::Gateway::reportMetricSummary_sync(dispatch::group_session,xpc::dict)::$_0>>::~unique_ptr[abi:ne200100](&v15);
   std::unique_ptr<abb::router::Gateway::reportMetricSummary_sync(dispatch::group_session,xpc::dict)::$_0,std::default_delete<abb::router::Gateway::reportMetricSummary_sync(dispatch::group_session,xpc::dict)::$_0>>::~unique_ptr[abi:ne200100](&v16);
-  std::unique_ptr<abb::router::Gateway::reportMetricSummary_sync(dispatch::group_session,xpc::dict)::$_0,std::default_delete<abb::router::Gateway::reportMetricSummary_sync(dispatch::group_session,xpc::dict)::$_0>>::~unique_ptr[abi:ne200100](&v17);
-  if (v20 == v19)
+  if (v19 == v18)
   {
-    (*(*v20 + 32))(v20);
+    (*(*v19 + 32))(v19);
   }
 
-  else if (v20)
+  else if (v19)
   {
-    (*(*v20 + 40))(v20, v13);
+    (*(*v19 + 40))(v19, v13);
   }
 
   xpc_release(object[1]);
@@ -6978,10 +6938,7 @@ LABEL_12:
     }
   }
 
-LABEL_24:
-  result = v3 != 0;
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return v3 != 0;
 }
 
 void sub_240EB12F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, dispatch_group_t group, xpc_object_t object)
@@ -7061,33 +7018,33 @@ uint64_t std::function<void ()(unsigned char const*,unsigned long)>::~function(u
 
 void abb::router::Gateway::sendMessage_sync(uint64_t a1, uint64_t a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 40);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v24 = *(a1 + 176);
-    if (v24 > 0xA)
+    v23 = *(a1 + 176);
+    if (v23 > 0xA)
     {
-      v25 = "(unknown)";
+      v24 = "(unknown)";
     }
 
     else
     {
-      v25 = off_278CBAF60[v24];
+      v24 = off_278CBAF60[v23];
     }
 
     abb::router::Message::generatePrintString(a2);
-    v26 = (a2 + 112);
+    v25 = (a2 + 112);
     if (*(a2 + 135) < 0)
     {
-      v26 = *v26;
+      v25 = *v25;
     }
 
-    *v27 = 136315394;
-    *&v27[4] = v25;
-    *&v27[12] = 2080;
-    *&v27[14] = v26;
-    _os_log_debug_impl(&dword_240E91000, v4, OS_LOG_TYPE_DEBUG, "#D Queuing message to be sent in order [%s]; %s", v27, 0x16u);
+    *v26 = 136315394;
+    *&v26[4] = v24;
+    *&v26[12] = 2080;
+    *&v26[14] = v25;
+    _os_log_debug_impl(&dword_240E91000, v4, OS_LOG_TYPE_DEBUG, "#D Queuing message to be sent in order [%s]; %s", v26, 0x16u);
   }
 
   v5 = *(a1 + 384);
@@ -7100,7 +7057,7 @@ void abb::router::Gateway::sendMessage_sync(uint64_t a1, uint64_t a2)
 
   if (v7 == *(a1 + 416) + *(a1 + 408))
   {
-    std::deque<abb::router::Message>::__add_back_capacity(a1 + 376);
+    std::deque<abb::router::Message>::__add_back_capacity((a1 + 376));
     v5 = *(a1 + 384);
     v6 = *(a1 + 392);
   }
@@ -7125,8 +7082,8 @@ void abb::router::Gateway::sendMessage_sync(uint64_t a1, uint64_t a2)
     v12 = *(a2 + 16);
     v13 = *v11;
     v14 = *(*v11 + 10);
-    *v27 = v11;
-    *&v27[8] = v12;
+    *v26 = v11;
+    *&v26[8] = v12;
     if (v12)
     {
       atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -7162,8 +7119,6 @@ void abb::router::Gateway::sendMessage_sync(uint64_t a1, uint64_t a2)
     (v19->__on_zero_shared)(v19);
     std::__shared_weak_count::__release_weak(v19);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240EB1778(_Unwind_Exception *exception_object, int a2)
@@ -7178,7 +7133,7 @@ void sub_240EB1778(_Unwind_Exception *exception_object, int a2)
 
 void abb::router::LOG_WITH_MESSAGE_PAYLOAD(NSObject *a1, uint64_t a2, uint64_t a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (*(a3 + 83) == 1)
   {
     v6 = *(a3 + 82);
@@ -7191,23 +7146,22 @@ void abb::router::LOG_WITH_MESSAGE_PAYLOAD(NSObject *a1, uint64_t a2, uint64_t a
     goto LABEL_9;
   }
 
-  v11 = *(a3 + 8);
-  if (!v11)
+  if (!*(a3 + 8))
   {
     *(a3 + 82) = 256;
     if (!os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_16;
+      return;
     }
 
 LABEL_12:
     abb::router::Message::generatePrintString(a3);
-    v16 = (a3 + 112);
+    v12 = (a3 + 112);
     if (*(a3 + 135) < 0)
     {
-      v16 = *v16;
+      v12 = *v12;
       abb::router::Message::generatePrintString(a3);
-      v17 = (a3 + 88);
+      v13 = (a3 + 88);
       if ((*(a3 + 111) & 0x80000000) == 0)
       {
         goto LABEL_14;
@@ -7217,28 +7171,25 @@ LABEL_12:
     else
     {
       abb::router::Message::generatePrintString(a3);
-      v17 = (a3 + 88);
+      v13 = (a3 + 88);
       if ((*(a3 + 111) & 0x80000000) == 0)
       {
 LABEL_14:
-        v19 = 136315650;
-        v20 = a2;
-        v21 = 2080;
-        v22 = v16;
-        v23 = 2080;
-        v24 = v17;
+        v14 = 136315650;
+        v15 = a2;
+        v16 = 2080;
+        v17 = v12;
+        v18 = 2080;
+        v19 = v13;
         v10 = "%s; %s %s";
         goto LABEL_15;
       }
     }
 
-    v17 = *v17;
+    v13 = *v13;
     goto LABEL_14;
   }
 
-  v12 = *v11;
-  v13 = *(v12 + 10);
-  v14 = *(v12 + 9);
   IsSensitive = mipc::sdk_prop::msgIsSensitive();
   *(a3 + 82) = IsSensitive;
   *(a3 + 83) = 1;
@@ -7248,54 +7199,52 @@ LABEL_14:
 LABEL_9:
     if (!v7)
     {
-      goto LABEL_16;
+      return;
     }
 
     goto LABEL_12;
   }
 
 LABEL_3:
-  if (v7)
+  if (!v7)
   {
+    return;
+  }
+
+  abb::router::Message::generatePrintString(a3);
+  v8 = (a3 + 112);
+  if (*(a3 + 135) < 0)
+  {
+    v8 = *v8;
     abb::router::Message::generatePrintString(a3);
-    v8 = (a3 + 112);
-    if (*(a3 + 135) < 0)
+    v9 = (a3 + 88);
+    if ((*(a3 + 111) & 0x80000000) == 0)
     {
-      v8 = *v8;
-      abb::router::Message::generatePrintString(a3);
-      v9 = (a3 + 88);
-      if ((*(a3 + 111) & 0x80000000) == 0)
-      {
-        goto LABEL_6;
-      }
+      goto LABEL_6;
     }
 
-    else
-    {
-      abb::router::Message::generatePrintString(a3);
-      v9 = (a3 + 88);
-      if ((*(a3 + 111) & 0x80000000) == 0)
-      {
-LABEL_6:
-        v19 = 136315651;
-        v20 = a2;
-        v21 = 2080;
-        v22 = v8;
-        v23 = 2085;
-        v24 = v9;
-        v10 = "%s; %s %{sensitive}s";
-LABEL_15:
-        _os_log_impl(&dword_240E91000, a1, OS_LOG_TYPE_DEFAULT, v10, &v19, 0x20u);
-        goto LABEL_16;
-      }
-    }
-
+LABEL_20:
     v9 = *v9;
     goto LABEL_6;
   }
 
-LABEL_16:
-  v18 = *MEMORY[0x277D85DE8];
+  abb::router::Message::generatePrintString(a3);
+  v9 = (a3 + 88);
+  if (*(a3 + 111) < 0)
+  {
+    goto LABEL_20;
+  }
+
+LABEL_6:
+  v14 = 136315651;
+  v15 = a2;
+  v16 = 2080;
+  v17 = v8;
+  v18 = 2085;
+  v19 = v9;
+  v10 = "%s; %s %{sensitive}s";
+LABEL_15:
+  _os_log_impl(&dword_240E91000, a1, OS_LOG_TYPE_DEFAULT, v10, &v14, 0x20u);
 }
 
 void std::deque<abb::router::Message>::shrink_to_fit(void *a1)
@@ -7360,7 +7309,7 @@ void std::deque<abb::router::Message>::shrink_to_fit(void *a1)
 
 void abb::router::Gateway::handleMessage_sync(uint64_t a1, uint64_t a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 16);
   if (!v3 || (v5 = *(a1 + 8), (v6 = std::__shared_weak_count::lock(v3)) == 0))
   {
@@ -7387,16 +7336,16 @@ void abb::router::Gateway::handleMessage_sync(uint64_t a1, uint64_t a2)
 
 LABEL_13:
     v18 = *(a1 + 40);
-    abb::router::Message::Message(v32, a2);
-    abb::router::LOG_WITH_MESSAGE_PAYLOAD(v18, "Received confirmation from transport", v32);
-    abb::router::Message::~Message(v32);
+    abb::router::Message::Message(v31, a2);
+    abb::router::LOG_WITH_MESSAGE_PAYLOAD(v18, "Received confirmation from transport", v31);
+    abb::router::Message::~Message(v31);
     v19 = HIBYTE(*(**(a2 + 8) + 12));
     if (*(a1 + 352) == v19)
     {
       v20 = *(a1 + 360);
-      abb::router::Message::Message(v31, a2);
-      v21 = v31;
-      (*(*v20 + 32))(v20, v31);
+      abb::router::Message::Message(v30, a2);
+      v21 = v30;
+      (*(*v20 + 32))(v20, v30);
     }
 
     else
@@ -7427,16 +7376,16 @@ LABEL_13:
         goto LABEL_26;
       }
 
-      v29 = *(v24 + 40);
-      abb::router::Message::Message(v30, a2);
-      v21 = v30;
-      (*(*v29 + 32))(v29, v30);
+      v28 = *(v24 + 40);
+      abb::router::Message::Message(v29, a2);
+      v21 = v29;
+      (*(*v28 + 32))(v28, v29);
     }
 
     abb::router::Message::~Message(v21);
 LABEL_26:
     --*(a1 + 424);
-    goto LABEL_27;
+    return;
   }
 
   (v7->__on_zero_shared)(v7);
@@ -7450,9 +7399,9 @@ LABEL_26:
 LABEL_5:
   if (v11 == 3)
   {
-    abb::router::Message::Message(v33, a2);
-    abb::router::Gateway::handleIndication_sync(a1, v33);
-    abb::router::Message::~Message(v33);
+    abb::router::Message::Message(v32, a2);
+    abb::router::Gateway::handleIndication_sync(a1, v32);
+    abb::router::Message::~Message(v32);
     v12 = *(a1 + 440);
     if (v12)
     {
@@ -7461,7 +7410,7 @@ LABEL_5:
       v15 = *v13;
       v16 = *(*v13 + 10);
       *buf = v13;
-      v35 = v14;
+      v34 = v14;
       if (v14)
       {
         atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -7469,10 +7418,13 @@ LABEL_5:
       }
 
       v17 = abb::router::Metrics::recordMessage(v12, v16, v13[1] - v15);
-      if (v14 && !atomic_fetch_add(&v14->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      if (v14)
       {
-        (v14->__on_zero_shared)(v14, v17);
-        std::__shared_weak_count::__release_weak(v14);
+        if (!atomic_fetch_add(&v14->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          (v14->__on_zero_shared)(v14, v17);
+          std::__shared_weak_count::__release_weak(v14);
+        }
       }
     }
   }
@@ -7487,9 +7439,20 @@ LABEL_5:
       _os_log_error_impl(&dword_240E91000, v22, OS_LOG_TYPE_ERROR, "Received invalid message type [%u] from transport", buf, 8u);
     }
   }
+}
 
-LABEL_27:
-  v28 = *MEMORY[0x277D85DE8];
+void sub_240EB1DFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  abb::router::Message::~Message(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_240EB1E24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
+{
+  va_start(va, a42);
+  abb::router::Message::~Message(va);
+  _Unwind_Resume(a1);
 }
 
 void sub_240EB1E50(_Unwind_Exception *exception_object, int a2)
@@ -7681,9 +7644,16 @@ LABEL_36:
   }
 }
 
-void sub_240EB2144(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EB2130(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  va_start(va, a2);
+  va_start(va, a27);
+  abb::router::Message::~Message(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_240EB2144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
   abb::router::Message::~Message(va);
   _Unwind_Resume(a1);
 }
@@ -7706,11 +7676,11 @@ uint64_t std::pair<abb::router::Gateway::Status,dispatch::group_session>::~pair(
 
 BOOL abb::router::Gateway::reportMetricStream_sync(uint64_t a1, NSObject **a2, void **a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 272);
   if (!v3)
   {
-    goto LABEL_24;
+    return v3 != 0;
   }
 
   v6 = *a2;
@@ -7745,14 +7715,14 @@ BOOL abb::router::Gateway::reportMetricStream_sync(uint64_t a1, NSObject **a2, v
 
   if (v8 == a1 + 248)
   {
-    v20 = v19;
-    (*(*v8 + 24))(v8, v19);
+    v19 = v18;
+    (*(*v8 + 24))(v8, v18);
     goto LABEL_12;
   }
 
   v8 = (*(*v8 + 16))(v8);
 LABEL_10:
-  v20 = v8;
+  v19 = v8;
 LABEL_12:
   global_queue = dispatch_get_global_queue(0, 0);
   v10 = operator new(0x30uLL);
@@ -7760,10 +7730,10 @@ LABEL_12:
   object[0] = 0;
   *v10 = v11;
   object[1] = xpc_null_create();
-  v12 = v20;
-  if (v20)
+  v12 = v19;
+  if (v19)
   {
-    if (v20 == v19)
+    if (v19 == v18)
     {
       v10[5] = v10 + 2;
       (*(*v12 + 24))(v12);
@@ -7771,8 +7741,8 @@ LABEL_12:
 
     else
     {
-      v10[5] = v20;
-      v20 = 0;
+      v10[5] = v19;
+      v19 = 0;
     }
   }
 
@@ -7781,19 +7751,19 @@ LABEL_12:
     v10[5] = 0;
   }
 
+  v15 = 0;
   v16 = 0;
-  v17 = 0;
   dispatch_async_f(global_queue, v10, dispatch::async<abb::router::Gateway::reportMetricStream_sync(dispatch::group_session,xpc::dict)::$_0>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::reportMetricStream_sync(dispatch::group_session,xpc::dict)::$_0,std::default_delete<abb::router::Gateway::reportMetricStream_sync(dispatch::group_session,xpc::dict)::$_0>>)::{lambda(void *)#1}::__invoke);
+  std::unique_ptr<abb::router::Gateway::reportMetricStream_sync(dispatch::group_session,xpc::dict)::$_0,std::default_delete<abb::router::Gateway::reportMetricStream_sync(dispatch::group_session,xpc::dict)::$_0>>::~unique_ptr[abi:ne200100](&v15);
   std::unique_ptr<abb::router::Gateway::reportMetricStream_sync(dispatch::group_session,xpc::dict)::$_0,std::default_delete<abb::router::Gateway::reportMetricStream_sync(dispatch::group_session,xpc::dict)::$_0>>::~unique_ptr[abi:ne200100](&v16);
-  std::unique_ptr<abb::router::Gateway::reportMetricStream_sync(dispatch::group_session,xpc::dict)::$_0,std::default_delete<abb::router::Gateway::reportMetricStream_sync(dispatch::group_session,xpc::dict)::$_0>>::~unique_ptr[abi:ne200100](&v17);
-  if (v20 == v19)
+  if (v19 == v18)
   {
-    (*(*v20 + 32))(v20);
+    (*(*v19 + 32))(v19);
   }
 
-  else if (v20)
+  else if (v19)
   {
-    (*(*v20 + 40))(v20, v13);
+    (*(*v19 + 40))(v19, v13);
   }
 
   xpc_release(object[1]);
@@ -7807,10 +7777,7 @@ LABEL_12:
     }
   }
 
-LABEL_24:
-  result = v3 != 0;
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return v3 != 0;
 }
 
 void sub_240EB23F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, dispatch_group_t group, xpc_object_t object)
@@ -8374,11 +8341,11 @@ void ___ZNK3ctu20SharedSynchronizableIN3abb6router7GatewayEE20execute_wrapped_sy
   }
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::init(dispatch::group_session)::$_0>(abb::router::Gateway::init(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::init(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::Gateway::init(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::init(dispatch::group_session)::$_0>(abb::router::Gateway::init(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::init(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::Gateway::init(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   if (v3)
   {
     dispatch_retain(v2[1]);
@@ -8417,7 +8384,7 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execu
   }
 
   operator delete(v2);
-  v9 = *(a1 + 2);
+  v9 = a1[2];
   if (v9 && !atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v9->__on_zero_shared)(v9);
@@ -8434,11 +8401,11 @@ void sub_240EB31A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::start(dispatch::group_session)::$_0>(abb::router::Gateway::start(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::start(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::Gateway::start(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::start(dispatch::group_session)::$_0>(abb::router::Gateway::start(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::start(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::Gateway::start(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v8 = v3;
   if (v3)
   {
@@ -8465,7 +8432,7 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execu
   }
 
   operator delete(v2);
-  v7 = *(a1 + 2);
+  v7 = a1[2];
   if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v7->__on_zero_shared)(v7);
@@ -8488,11 +8455,11 @@ void sub_240EB32B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::stop(dispatch::group_session)::$_0>(abb::router::Gateway::stop(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::stop(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::Gateway::stop(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::stop(dispatch::group_session)::$_0>(abb::router::Gateway::stop(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::stop(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::Gateway::stop(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v8 = v3;
   if (v3)
   {
@@ -8519,7 +8486,7 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execu
   }
 
   operator delete(v2);
-  v7 = *(a1 + 2);
+  v7 = a1[2];
   if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v7->__on_zero_shared)(v7);
@@ -8542,11 +8509,11 @@ void sub_240EB33DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::abort(dispatch::group_session)::$_0>(abb::router::Gateway::abort(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::abort(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::Gateway::abort(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::abort(dispatch::group_session)::$_0>(abb::router::Gateway::abort(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::abort(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::Gateway::abort(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v8 = v3;
   if (v3)
   {
@@ -8573,7 +8540,7 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execu
   }
 
   operator delete(v2);
-  v7 = *(a1 + 2);
+  v7 = a1[2];
   if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v7->__on_zero_shared)(v7);
@@ -8596,11 +8563,11 @@ void sub_240EB3500(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::shutdown(dispatch::group_session)::$_0>(abb::router::Gateway::shutdown(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::shutdown(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::Gateway::shutdown(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::shutdown(dispatch::group_session)::$_0>(abb::router::Gateway::shutdown(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::shutdown(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::Gateway::shutdown(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v8 = v3;
   if (v3)
   {
@@ -8627,7 +8594,7 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execu
   }
 
   operator delete(v2);
-  v7 = *(a1 + 2);
+  v7 = a1[2];
   if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v7->__on_zero_shared)(v7);
@@ -8650,11 +8617,11 @@ void sub_240EB3624(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::sleep(dispatch::group_session)::$_0>(abb::router::Gateway::sleep(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::sleep(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::Gateway::sleep(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::sleep(dispatch::group_session)::$_0>(abb::router::Gateway::sleep(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::sleep(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::Gateway::sleep(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v8 = v3;
   if (v3)
   {
@@ -8681,7 +8648,7 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execu
   }
 
   operator delete(v2);
-  v7 = *(a1 + 2);
+  v7 = a1[2];
   if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v7->__on_zero_shared)(v7);
@@ -8704,11 +8671,11 @@ void sub_240EB3748(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::wakeup(dispatch::group_session)::$_0>(abb::router::Gateway::wakeup(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::wakeup(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::Gateway::wakeup(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::wakeup(dispatch::group_session)::$_0>(abb::router::Gateway::wakeup(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::wakeup(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::Gateway::wakeup(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v8 = v3;
   if (v3)
   {
@@ -8735,7 +8702,7 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execu
   }
 
   operator delete(v2);
-  v7 = *(a1 + 2);
+  v7 = a1[2];
   if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v7->__on_zero_shared)(v7);
@@ -8758,11 +8725,11 @@ void sub_240EB386C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::statedump(dispatch::group_session)::$_0>(abb::router::Gateway::statedump(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::statedump(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::Gateway::statedump(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::statedump(dispatch::group_session)::$_0>(abb::router::Gateway::statedump(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::statedump(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<abb::router::Gateway::statedump(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v8 = v3;
   if (v3)
   {
@@ -8789,7 +8756,7 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execu
   }
 
   operator delete(v2);
-  v7 = *(a1 + 2);
+  v7 = a1[2];
   if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v7->__on_zero_shared)(v7);
@@ -8814,7 +8781,7 @@ void sub_240EB3990(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0>(abb::router::Gateway::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0,std::default_delete<abb::router::Gateway::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0>>)::{lambda(void *)#1}::__invoke(std::__shared_weak_count **a1)
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = (*a1)->__vftable;
   p_shared_owners = &(*a1)->__shared_owners_;
@@ -8828,29 +8795,29 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execu
   {
     shared_owners = (*(*shared_owners + 16))(shared_owners);
 LABEL_4:
-    v15 = shared_owners;
+    v14 = shared_owners;
     goto LABEL_6;
   }
 
-  v15 = v14;
-  (*(*shared_owners + 24))(shared_owners, v14);
+  v14 = v13;
+  (*(*shared_owners + 24))(shared_owners, v13);
 LABEL_6:
   p_get_deleter = &v3[4].__get_deleter;
-  if (&v3[4].__get_deleter == v14)
+  if (&v3[4].__get_deleter == v13)
   {
     goto LABEL_15;
   }
 
-  v7 = v15;
+  v7 = v14;
   v8 = v3[5].~__shared_weak_count_0;
-  if (v15 != v14)
+  if (v14 != v13)
   {
     if (v8 != p_get_deleter)
     {
-      v15 = v3[5].~__shared_weak_count_0;
+      v14 = v3[5].~__shared_weak_count_0;
       v3[5].~__shared_weak_count_0 = v7;
       v9 = v8;
-      if (v8 == v14)
+      if (v8 == v13)
       {
         goto LABEL_24;
       }
@@ -8858,13 +8825,13 @@ LABEL_6:
       goto LABEL_16;
     }
 
-    (*(*v8 + 24))(v3[5].~__shared_weak_count_0, v14);
+    (*(*v8 + 24))(v3[5].~__shared_weak_count_0, v13);
     (*(*v3[5].~__shared_weak_count_0 + 32))(v3[5].~__shared_weak_count_0);
-    v3[5].~__shared_weak_count_0 = v15;
-    v15 = v14;
+    v3[5].~__shared_weak_count_0 = v14;
+    v14 = v13;
 LABEL_15:
-    v9 = v15;
-    if (v15 == v14)
+    v9 = v14;
+    if (v14 == v13)
     {
       goto LABEL_24;
     }
@@ -8874,19 +8841,19 @@ LABEL_15:
 
   if (v8 == p_get_deleter)
   {
-    memset(v16, 170, 24);
-    (*(*v15 + 24))(v15, v16);
-    (*(*v15 + 32))(v15);
-    v15 = 0;
-    (*(*v3[5].~__shared_weak_count_0 + 24))(v3[5].~__shared_weak_count_0, v14);
+    memset(v15, 170, 24);
+    (*(*v14 + 24))(v14, v15);
+    (*(*v14 + 32))(v14);
+    v14 = 0;
+    (*(*v3[5].~__shared_weak_count_0 + 24))(v3[5].~__shared_weak_count_0, v13);
     (*(*v3[5].~__shared_weak_count_0 + 32))(v3[5].~__shared_weak_count_0);
     v3[5].~__shared_weak_count_0 = 0;
-    v15 = v14;
-    (*(v16[0] + 24))(v16, &v3[4].__get_deleter);
-    (*(v16[0] + 32))(v16);
+    v14 = v13;
+    (*(v15[0] + 24))(v15, &v3[4].__get_deleter);
+    (*(v15[0] + 32))(v15);
     v3[5].~__shared_weak_count_0 = p_get_deleter;
-    v9 = v15;
-    if (v15 == v14)
+    v9 = v14;
+    if (v14 == v13)
     {
       goto LABEL_24;
     }
@@ -8894,17 +8861,17 @@ LABEL_15:
 
   else
   {
-    (*(*v15 + 24))(v15, &v3[4].__get_deleter);
-    (*(*v15 + 32))(v15);
-    v15 = v3[5].~__shared_weak_count_0;
-    v10 = v15;
+    (*(*v14 + 24))(v14, &v3[4].__get_deleter);
+    (*(*v14 + 32))(v14);
+    v14 = v3[5].~__shared_weak_count_0;
+    v10 = v14;
     v3[5].~__shared_weak_count_0 = p_get_deleter;
     v9 = v10;
-    if (v10 == v14)
+    if (v10 == v13)
     {
 LABEL_24:
       (*(*v9 + 32))(v9);
-      v11 = v2[1].__shared_owners_;
+      v11 = v2[4];
       if (v11 == p_shared_owners)
       {
         goto LABEL_25;
@@ -8920,7 +8887,7 @@ LABEL_16:
     (*(*v9 + 40))(v9);
   }
 
-  v11 = v2[1].__shared_owners_;
+  v11 = v2[4];
   if (v11 == p_shared_owners)
   {
 LABEL_25:
@@ -8955,7 +8922,6 @@ LABEL_26:
 
 LABEL_28:
   operator delete(a1);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240EB3E24(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
@@ -8995,7 +8961,7 @@ void **std::unique_ptr<abb::router::Gateway::registerErrorHandler(std::function<
 
 void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0>(abb::router::Gateway::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0,std::default_delete<abb::router::Gateway::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0>>)::{lambda(void *)#1}::__invoke(std::__shared_weak_count **a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = (*a1)->__vftable;
   p_shared_owners = &(*a1)->__shared_owners_;
@@ -9009,18 +8975,18 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execu
   {
     shared_owners = (*(*shared_owners + 16))(shared_owners);
 LABEL_4:
-    v10 = shared_owners;
+    v9 = shared_owners;
     goto LABEL_6;
   }
 
-  v10 = v9;
-  (*(*shared_owners + 24))(shared_owners, v9);
+  v9 = v8;
+  (*(*shared_owners + 24))(shared_owners, v8);
 LABEL_6:
-  std::__function::__value_func<void ()(xpc::dict)>::swap[abi:ne200100](v9, &v3[5].__on_zero_shared);
-  if (v10 == v9)
+  std::__function::__value_func<void ()(xpc::dict)>::swap[abi:ne200100](v8, &v3[5].__on_zero_shared);
+  if (v9 == v8)
   {
-    (*(*v10 + 32))(v10);
-    v6 = v2[1].__shared_owners_;
+    (*(*v9 + 32))(v9);
+    v6 = v2[4];
     if (v6 != p_shared_owners)
     {
       goto LABEL_10;
@@ -9038,12 +9004,12 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  if (v10)
+  if (v9)
   {
-    (*(*v10 + 40))();
+    (*(*v9 + 40))();
   }
 
-  v6 = v2[1].__shared_owners_;
+  v6 = v2[4];
   if (v6 == p_shared_owners)
   {
     goto LABEL_15;
@@ -9069,14 +9035,13 @@ LABEL_16:
 
 LABEL_18:
   operator delete(a1);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_240EB4108(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EB4108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   std::unique_ptr<abb::router::Gateway::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0,std::default_delete<abb::router::Gateway::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0>>::~unique_ptr[abi:ne200100](va1);
   std::unique_ptr<void ctu::SharedSynchronizable<abb::router::Agent>::execute_wrapped<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0>(abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -9109,57 +9074,53 @@ void **std::unique_ptr<abb::router::Gateway::registerMetricSummaryHandler(std::f
 
 void *std::__function::__value_func<void ()(xpc::dict)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v8[3] = *MEMORY[0x277D85DE8];
-  if (a2 == result)
+  v5[3] = *MEMORY[0x277D85DE8];
+  if (a2 != result)
   {
-LABEL_8:
-    v6 = *MEMORY[0x277D85DE8];
-    return result;
-  }
+    v3 = result;
+    result = result[3];
+    v4 = a2[3];
+    if (result == v3)
+    {
+      if (v4 == a2)
+      {
+        memset(v5, 170, 24);
+        (*(*result + 24))(result, v5);
+        (*(*v3[3] + 32))(v3[3]);
+        v3[3] = 0;
+        (*(*a2[3] + 24))(a2[3], v3);
+        (*(*a2[3] + 32))(a2[3]);
+        a2[3] = 0;
+        v3[3] = v3;
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
+      }
 
-  v3 = result;
-  result = result[3];
-  v4 = a2[3];
-  if (result != v3)
-  {
-    if (v4 != a2)
+      else
+      {
+        (*(*result + 24))(result, a2);
+        result = (*(*v3[3] + 32))(v3[3]);
+        v3[3] = a2[3];
+      }
+
+      a2[3] = a2;
+    }
+
+    else if (v4 == a2)
+    {
+      (*(*v4 + 24))(a2[3], v3);
+      result = (*(*a2[3] + 32))(a2[3]);
+      a2[3] = v3[3];
+      v3[3] = v3;
+    }
+
+    else
     {
       v3[3] = v4;
       a2[3] = result;
-      v5 = *MEMORY[0x277D85DE8];
-      return result;
     }
-
-    (*(*v4 + 24))(a2[3], v3);
-    result = (*(*a2[3] + 32))(a2[3]);
-    a2[3] = v3[3];
-    v3[3] = v3;
-    goto LABEL_8;
   }
 
-  if (v4 == a2)
-  {
-    memset(v8, 170, 24);
-    (*(*result + 24))(result, v8);
-    (*(*v3[3] + 32))(v3[3]);
-    v3[3] = 0;
-    (*(*a2[3] + 24))(a2[3], v3);
-    (*(*a2[3] + 32))(a2[3]);
-    a2[3] = 0;
-    v3[3] = v3;
-    (*(v8[0] + 24))(v8, a2);
-    result = (*(v8[0] + 32))(v8);
-  }
-
-  else
-  {
-    (*(*result + 24))(result, a2);
-    result = (*(*v3[3] + 32))(v3[3]);
-    v3[3] = a2[3];
-  }
-
-  a2[3] = a2;
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9175,7 +9136,7 @@ void sub_240EB444C(_Unwind_Exception *a1, int a2)
 
 void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::registerMetricStreamHandler(std::function<void ()(xpc::dict)>)::$_0>(abb::router::Gateway::registerMetricStreamHandler(std::function<void ()(xpc::dict)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::registerMetricStreamHandler(std::function<void ()(xpc::dict)>)::$_0,std::default_delete<abb::router::Gateway::registerMetricStreamHandler(std::function<void ()(xpc::dict)>)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = **a1;
   v4 = *(v3 + 440);
@@ -9188,7 +9149,7 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execu
   if (!v5)
   {
 LABEL_5:
-    v16 = v5;
+    v15 = v5;
     if (!v5)
     {
       goto LABEL_10;
@@ -9203,32 +9164,32 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v16 = v15;
-  (*(*v5 + 24))(v5, v15);
-  v5 = v16;
-  if (!v16)
+  v15 = v14;
+  (*(*v5 + 24))(v5, v14);
+  v5 = v15;
+  if (!v15)
   {
 LABEL_10:
-    v18 = v5;
+    v17 = v5;
     goto LABEL_12;
   }
 
 LABEL_8:
-  if (v5 != v15)
+  if (v5 != v14)
   {
     v5 = (*(*v5 + 16))(v5);
     goto LABEL_10;
   }
 
-  v18 = v17;
-  (*(*v5 + 24))(v5, v17);
+  v17 = v16;
+  (*(*v5 + 24))(v5, v16);
 LABEL_12:
-  std::__function::__value_func<void ()(xpc::dict)>::swap[abi:ne200100](v17, (v4 + 168));
-  if (v18 == v17)
+  std::__function::__value_func<void ()(xpc::dict)>::swap[abi:ne200100](v16, (v4 + 168));
+  if (v17 == v16)
   {
-    (*(*v18 + 32))(v18);
-    v6 = v16;
-    if (v16 != v15)
+    (*(*v17 + 32))(v17);
+    v6 = v15;
+    if (v15 != v14)
     {
 LABEL_16:
       if (v6)
@@ -9249,13 +9210,13 @@ LABEL_18:
 
   else
   {
-    if (v18)
+    if (v17)
     {
-      (*(*v18 + 40))();
+      (*(*v17 + 40))();
     }
 
-    v6 = v16;
-    if (v16 != v15)
+    v6 = v15;
+    if (v15 != v14)
     {
       goto LABEL_16;
     }
@@ -9279,7 +9240,7 @@ LABEL_19:
   {
     v8 = (*(*v8 + 16))(v8);
 LABEL_22:
-    v14 = v8;
+    v13 = v8;
     if (!v8)
     {
       goto LABEL_30;
@@ -9288,32 +9249,32 @@ LABEL_22:
     goto LABEL_28;
   }
 
-  v14 = v13;
-  (*(*v8 + 24))(v8, v13);
-  v8 = v14;
-  if (!v14)
+  v13 = v12;
+  (*(*v8 + 24))(v8, v12);
+  v8 = v13;
+  if (!v13)
   {
 LABEL_30:
-    v18 = v8;
+    v17 = v8;
     goto LABEL_32;
   }
 
 LABEL_28:
-  if (v8 != v13)
+  if (v8 != v12)
   {
     v8 = (*(*v8 + 16))(v8);
     goto LABEL_30;
   }
 
-  v18 = v17;
-  (*(*v8 + 24))(v8, v17);
+  v17 = v16;
+  (*(*v8 + 24))(v8, v16);
 LABEL_32:
-  std::__function::__value_func<void ()(xpc::dict)>::swap[abi:ne200100](v17, (v7 + 168));
-  if (v18 == v17)
+  std::__function::__value_func<void ()(xpc::dict)>::swap[abi:ne200100](v16, (v7 + 168));
+  if (v17 == v16)
   {
-    (*(*v18 + 32))(v18);
-    v9 = v14;
-    if (v14 != v13)
+    (*(*v17 + 32))(v17);
+    v9 = v13;
+    if (v13 != v12)
     {
 LABEL_36:
       if (v9)
@@ -9343,13 +9304,13 @@ LABEL_45:
 
   else
   {
-    if (v18)
+    if (v17)
     {
-      (*(*v18 + 40))();
+      (*(*v17 + 40))();
     }
 
-    v9 = v14;
-    if (v14 != v13)
+    v9 = v13;
+    if (v13 != v12)
     {
       goto LABEL_36;
     }
@@ -9382,28 +9343,27 @@ LABEL_46:
 
 LABEL_48:
   operator delete(a1);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-void sub_240EB4934(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EB4934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   va_copy(va2, va1);
-  v5 = va_arg(va2, void *);
+  v6 = va_arg(va2, void *);
   std::function<void ()(xpc::dict)>::~function(va2);
   std::unique_ptr<abb::router::Gateway::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0,std::default_delete<abb::router::Gateway::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0>>::~unique_ptr[abi:ne200100](va1);
   std::unique_ptr<void ctu::SharedSynchronizable<abb::router::Agent>::execute_wrapped<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0>(abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_240EB4964(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EB4964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   std::unique_ptr<abb::router::Gateway::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0,std::default_delete<abb::router::Gateway::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0>>::~unique_ptr[abi:ne200100](va1);
   std::unique_ptr<void ctu::SharedSynchronizable<abb::router::Agent>::execute_wrapped<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0>(abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -9512,8 +9472,6 @@ LABEL_16:
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240EB4B40(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, dispatch_group_t group)
@@ -9530,7 +9488,7 @@ void sub_240EB4B40(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::removeUserClient(unsigned int,BOOL)::$_0>(abb::router::Gateway::removeUserClient(unsigned int,BOOL)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::removeUserClient(unsigned int,BOOL)::$_0,dispatch_queue_s *::default_delete<abb::router::Gateway::removeUserClient(unsigned int,BOOL)::$_0>>)::{lambda(void *)#1}::__invoke(std::__shared_weak_count **a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v1 = *a1;
   v2 = (*a1)->__vftable;
   v3 = v2[1].~__shared_weak_count;
@@ -9548,9 +9506,9 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execu
     }
 
     *buf = 136315394;
-    v23 = v5;
-    v24 = 1024;
-    v25 = shared_owners;
+    v22 = v5;
+    v23 = 1024;
+    v24 = shared_owners;
     _os_log_impl(&dword_240E91000, v3, OS_LOG_TYPE_DEFAULT, "#I Removing user client %s indications; Client=0x%02x", buf, 0x12u);
   }
 
@@ -9593,7 +9551,7 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execu
         v15 = p_on_zero_shared_weak;
         do
         {
-          v14 = v15[2];
+          v14 = *(v15 + 2);
           v16 = *v14 == v15;
           v15 = v14;
         }
@@ -9625,17 +9583,18 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execu
   if (a1)
   {
     v19 = a1[2];
-    if (v19 && !atomic_fetch_add(&v19->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v19)
     {
-      (v19->__on_zero_shared)(v19);
-      std::__shared_weak_count::__release_weak(v19);
-      v18 = a1;
+      if (!atomic_fetch_add(&v19->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v19->__on_zero_shared)(v19);
+        std::__shared_weak_count::__release_weak(v19);
+        v18 = a1;
+      }
     }
 
     operator delete(v18);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240EB4DC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10)
@@ -9647,9 +9606,9 @@ void sub_240EB4DC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void dispatch::async<void ctu::SharedSynchronizable<abb::router::Gateway>::execute_wrapped<abb::router::Gateway::regClientIndications(dispatch::group_session,unsigned int,std::set<unsigned int>,std::set<unsigned int>)::$_0>(abb::router::Gateway::regClientIndications(dispatch::group_session,unsigned int,std::set<unsigned int>,std::set<unsigned int>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Gateway::regClientIndications(dispatch::group_session,unsigned int,std::set<unsigned int>,std::set<unsigned int>)::$_0,std::default_delete<abb::router::Gateway::regClientIndications(dispatch::group_session,unsigned int,std::set<unsigned int>,std::set<unsigned int>)::$_0>>)::{lambda(void *)#1}::__invoke(std::__shared_weak_count **a1)
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   v1 = *a1;
-  v63 = *a1;
+  v62 = *a1;
   v2 = (*a1)->__vftable;
   if ((*a1)[1].__shared_owners_)
   {
@@ -9719,7 +9678,7 @@ LABEL_117:
   }
 
   *buf = 0;
-  v68 = 0;
+  v67 = 0;
   v8 = v1->__shared_owners_;
   if (v8 == LODWORD(v2[8].__on_zero_shared_weak))
   {
@@ -9764,12 +9723,12 @@ LABEL_117:
   if (v10)
   {
 LABEL_15:
-    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v10 + 1, 1uLL, memory_order_relaxed);
   }
 
 LABEL_16:
   *buf = v9;
-  v68 = v10;
+  v67 = v10;
   if (((*(*v9 + 24))(v9) & 1) == 0)
   {
     goto LABEL_113;
@@ -9779,9 +9738,9 @@ LABEL_16:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     v41 = v1->__shared_owners_;
-    *v65 = 67109120;
-    v66 = v41;
-    _os_log_debug_impl(&dword_240E91000, v11, OS_LOG_TYPE_DEBUG, "#D Removing previous indications registered for client; Client=0x%02x", v65, 8u);
+    *v64 = 67109120;
+    v65 = v41;
+    _os_log_debug_impl(&dword_240E91000, v11, OS_LOG_TYPE_DEBUG, "#D Removing previous indications registered for client; Client=0x%02x", v64, 8u);
     v12 = v1->__shared_weak_owners_;
     v13 = &v1[1];
     if (v12 == &v1[1])
@@ -9844,7 +9803,7 @@ LABEL_21:
   {
     while (1)
     {
-      v18 = *(on_zero_shared + 32);
+      v18 = *(on_zero_shared + 8);
       if (v16 >= v18)
       {
         break;
@@ -9863,7 +9822,7 @@ LABEL_21:
       break;
     }
 
-    on_zero_shared = *(on_zero_shared + 8);
+    on_zero_shared = *(on_zero_shared + 1);
     if (!on_zero_shared)
     {
       goto LABEL_38;
@@ -9877,7 +9836,7 @@ LABEL_21:
     v20 = on_zero_shared;
     do
     {
-      v21 = *(v19 + 32);
+      v21 = *(v19 + 8);
       v22 = v21 >= v16;
       v23 = v21 < v16;
       if (v22)
@@ -9885,13 +9844,13 @@ LABEL_21:
         v20 = v19;
       }
 
-      v19 = *(v19 + 8 * v23);
+      v19 = *(v19 + v23);
     }
 
     while (v19);
   }
 
-  for (i = *(on_zero_shared + 8); i; i = *(i + 8 * (v16 >= *(i + 32))))
+  for (i = *(on_zero_shared + 1); i; i = *(i + 8 * (v16 >= *(i + 32))))
   {
     if (v16 < *(i + 32))
     {
@@ -10054,9 +10013,9 @@ LABEL_91:
   if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
   {
     v43 = v1->__shared_owners_;
-    *v65 = 67109120;
-    v66 = v43;
-    _os_log_impl(&dword_240E91000, v42, OS_LOG_TYPE_DEFAULT, "#I Registering new set of indications for client; Client=0x%02x", v65, 8u);
+    *v64 = 67109120;
+    v65 = v43;
+    _os_log_impl(&dword_240E91000, v42, OS_LOG_TYPE_DEFAULT, "#I Registering new set of indications for client; Client=0x%02x", v64, 8u);
   }
 
   v44 = v1[1].__shared_weak_owners_;
@@ -10069,7 +10028,7 @@ LABEL_91:
       v47 = operator new(0x38uLL);
       v48 = *(v44 + 7);
       v47[8] = v48;
-      v49 = v68;
+      v49 = v67;
       *(v47 + 5) = *buf;
       *(v47 + 6) = v49;
       if (v49)
@@ -10148,7 +10107,7 @@ LABEL_101:
         }
       }
 
-      v50 = v50[1];
+      v50 = *(v50 + 1);
     }
 
     while (v50);
@@ -10168,15 +10127,15 @@ LABEL_100:
   }
 
 LABEL_113:
-  v56 = v68;
-  if (v68 && !atomic_fetch_add(&v68->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v56 = v67;
+  if (v67 && !atomic_fetch_add(&v67->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v56->__on_zero_shared)(v56);
     std::__shared_weak_count::__release_weak(v56);
   }
 
-  v1 = v63;
-  if (v63)
+  v1 = v62;
+  if (v62)
   {
     goto LABEL_117;
   }
@@ -10186,15 +10145,16 @@ LABEL_121:
   if (a1)
   {
     v60 = a1[2];
-    if (v60 && !atomic_fetch_add(&v60->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v60)
     {
-      (v60->__on_zero_shared)(v60);
-      std::__shared_weak_count::__release_weak(v60);
-      v59 = a1;
+      if (!atomic_fetch_add(&v60->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v60->__on_zero_shared)(v60);
+        std::__shared_weak_count::__release_weak(v60);
+        v59 = a1;
+      }
     }
 
     operator delete(v59);
   }
-
-  v61 = *MEMORY[0x277D85DE8];
 }

@@ -5,12 +5,11 @@
 - (CGRect)regionOfInterestForCameraControls;
 - (id)_createCalibrationDictionaryFromSampleBuffer:(opaqueCMSampleBuffer *)buffer;
 - (id)_popHomography;
+- (id)_pushHomography:(__n128)homography pts:(__n128)pts;
 - (id)_supportedOutputPixelFormats;
 - (id)smartCropHomographyDataForPTS:(id *)s;
 - (int)_updateDetectedFacesArray:(id)array;
 - (int)_updateDetectedObjectsInfo:(id)info;
-- (uint64_t)_initRTSCProcessor;
-- (uint64_t)_pushHomography:(__n128)homography pts:(__n128)pts;
 - (void)_addMetadataInputsAndOutputsWithMetadataIdentifiers:(id)identifiers;
 - (void)_addVideoCaptureInputAndOutput;
 - (void)_initRTSCProcessor;
@@ -448,7 +447,7 @@ LABEL_9:
   return ScaledCalibrationDataDictionaryFromSampleBufferMetadata;
 }
 
-uint64_t __46__BWSmartCropNode__updateDetectedObjectsInfo___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+const __CFDictionary *__46__BWSmartCropNode__updateDetectedObjectsInfo___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 objectForKeyedSubscript:?];
   v7 = *(MEMORY[0x1E695F050] + 16);
@@ -468,7 +467,7 @@ uint64_t __46__BWSmartCropNode__updateDetectedObjectsInfo___block_invoke(uint64_
   return result;
 }
 
-uint64_t __45__BWSmartCropNode__updateDetectedFacesArray___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+const __CFDictionary *__45__BWSmartCropNode__updateDetectedFacesArray___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 objectForKeyedSubscript:?];
   v7 = *(MEMORY[0x1E695F050] + 16);
@@ -496,9 +495,9 @@ uint64_t __45__BWSmartCropNode__updateDetectedFacesArray___block_invoke(uint64_t
   output = self->super._output;
   if (self->_processingMode == 2)
   {
-    v9 = [objc_msgSend(v6 objectForKeyedSubscript:{*off_1E798B540), "isEqualToString:", *off_1E798A0D8}];
+    isEqualToString = objc_msgSend_isEqualToString_([v6 objectForKeyedSubscript:*off_1E798B540]);
     [objc_msgSend(v7 objectForKeyedSubscript:{*off_1E798B508), "floatValue"}];
-    if (v9)
+    if (isEqualToString)
     {
       v11 = v10 <= 1.0;
     }
@@ -534,13 +533,13 @@ LABEL_7:
 
     v15 = newPixelBuffer;
     ImageBuffer = CMSampleBufferGetImageBuffer(buffer);
-    memset(&v31, 0, sizeof(v31));
-    CMSampleBufferGetPresentationTimeStamp(&v31, buffer);
+    memset(&v34, 0, sizeof(v34));
+    CMSampleBufferGetPresentationTimeStamp(&v34, buffer);
     v17 = *off_1E798A420;
     if ([v7 objectForKeyedSubscript:*off_1E798A420])
     {
-      CMTimeMakeFromDictionary(v29, [v7 objectForKeyedSubscript:v17]);
-      v31 = *v29;
+      CMTimeMakeFromDictionary(v32, [v7 objectForKeyedSubscript:v17]);
+      v34 = *v32;
     }
 
     v18 = [(BWSmartCropNode *)self _createCalibrationDictionaryFromSampleBuffer:buffer];
@@ -548,15 +547,17 @@ LABEL_7:
     {
       [(RTSCProcessor *)self->_rtscProcessor setInputCalibrationData:v18];
       [(RTSCProcessor *)self->_rtscProcessor setInputPixelBuffer:ImageBuffer];
-      *v29 = v31;
-      [(RTSCProcessor *)self->_rtscProcessor setInputPTS:v29];
+      *v32 = v34;
+      [(RTSCProcessor *)self->_rtscProcessor setInputPTS:v32];
       [(RTSCProcessor *)self->_rtscProcessor setInputMetadata:v7];
       [(RTSCProcessor *)self->_rtscProcessor setOutputPixelBuffer:v15];
-      if ([(RTSCProcessor *)self->_rtscProcessor process]|| [(RTSCProcessor *)self->_rtscProcessor finishProcessing])
+      process = [(RTSCProcessor *)self->_rtscProcessor process];
+      if (process || (process = [(RTSCProcessor *)self->_rtscProcessor finishProcessing]) != 0)
       {
+        v30 = process;
         fig_log_get_emitter();
         OUTLINED_FUNCTION_1_8();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v30);
         CopyWithNewPixelBuffer = 1;
       }
 
@@ -569,34 +570,34 @@ LABEL_7:
 
         [(BWSmartCropNode *)self _updateDetectedObjectsInfo:v7];
         [(BWSmartCropNode *)self _updateDetectedFacesArray:v7];
-        v19 = *MEMORY[0x1E6960470];
+        v20 = *MEMORY[0x1E6960470];
         if (CMGetAttachment(buffer, *MEMORY[0x1E6960470], 0))
         {
-          v30 = 0u;
-          memset(v29, 0, sizeof(v29));
+          v33 = 0u;
+          memset(v32, 0, sizeof(v32));
           [(RTSCProcessor *)self->_rtscProcessor outputCameraIntrinsic];
-          *&v29[8] = v20;
-          *&v29[24] = v21;
-          *v29 = v22;
-          *&v29[16] = v23;
-          DWORD2(v30) = v24;
-          *&v30 = v25;
-          CMSetAttachment(buffer, v19, [MEMORY[0x1E695DEF0] dataWithBytes:v29 length:48], 1u);
+          *&v32[8] = v21;
+          *&v32[24] = v22;
+          *v32 = v23;
+          *&v32[16] = v24;
+          DWORD2(v33) = v25;
+          *&v33 = v26;
+          CMSetAttachment(buffer, v20, [MEMORY[0x1E695DEF0] dataWithBytes:v32 length:48], 1u);
         }
 
         CopyWithNewPixelBuffer = BWCMSampleBufferCreateCopyWithNewPixelBuffer(buffer, v15, &self->_outputFormatDescription, &cf);
         if (cf)
         {
-          v27 = CMSampleBufferGetImageBuffer(buffer);
-          CVBufferPropagateAttachments(v27, v15);
+          v28 = CMSampleBufferGetImageBuffer(buffer);
+          CVBufferPropagateAttachments(v28, v15);
           [(BWFigVideoCaptureDevice *)self->_captureDevice setSmartCropCandidateFramingRects:[(RTSCProcessor *)self->_rtscProcessor candidateFramingCropRects]];
           [(BWNodeOutput *)output emitSampleBuffer:cf];
           if (self->_stillCaptureEnabled)
           {
             os_unfair_lock_lock(&self->_stillHomographyQueueLock);
             [(RTSCProcessor *)self->_rtscProcessor renderingHomography];
-            *v29 = v31;
-            [(BWSmartCropNode *)self _pushHomography:v29 pts:?];
+            *v32 = v34;
+            [(BWSmartCropNode *)self _pushHomography:v32 pts:?];
             os_unfair_lock_unlock(&self->_stillHomographyQueueLock);
           }
         }
@@ -607,7 +608,7 @@ LABEL_7:
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_1_8();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v31, *v32, *&v32[8], *&v32[16], *&v32[24], v33, DWORD2(v33));
       CopyWithNewPixelBuffer = 0;
     }
 
@@ -620,23 +621,23 @@ LABEL_7:
     if (CopyWithNewPixelBuffer)
     {
 LABEL_31:
-      CMSampleBufferGetPresentationTimeStamp(v29, buffer);
-      v28 = [BWDroppedSample newDroppedSampleWithReason:0x1F219C0F0 pts:v29];
-      [(BWNodeOutput *)output emitDroppedSample:v28];
+      CMSampleBufferGetPresentationTimeStamp(v32, buffer);
+      v29 = [BWDroppedSample newDroppedSampleWithReason:0x1F219C0F0 pts:v32];
+      [(BWNodeOutput *)output emitDroppedSample:v29];
     }
   }
 }
 
 - (id)smartCropHomographyDataForPTS:(id *)s
 {
-  v43 = **&MEMORY[0x1E6960C88];
+  v42 = **&MEMORY[0x1E6960C88];
   os_unfair_lock_lock(&self->_stillHomographyQueueLock);
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   stillPTSQueue = self->_stillPTSQueue;
-  v14 = OUTLINED_FUNCTION_4_35(v6, v7, v8, v9, v10, v11, v12, v13, v30.value, *&v30.timescale, v30.epoch, v31, lhs.value, *&lhs.timescale, lhs.epoch, v33, time2.value, *&time2.timescale, time2.epoch, v35, time1.value, *&time1.timescale, time1.epoch, v37.value, *&v37.timescale, v37.epoch, v38);
+  v14 = OUTLINED_FUNCTION_4_35(v6, v7, v8, v9, v10, v11, v12, v13, v30.value, *&v30.timescale, v30.epoch, v31, lhs.value, *&lhs.timescale, lhs.epoch, v33, time2.value, *&time2.timescale, time2.epoch, v35, time1.value, *&time1.timescale, time1.epoch, v37.value, *&v37.timescale, v37.epoch);
   if (!v14)
   {
     goto LABEL_16;
@@ -644,17 +645,17 @@ LABEL_31:
 
   v15 = v14;
   v16 = 0;
-  v17 = *v40;
+  v17 = *v39;
   while (2)
   {
     for (i = 0; i != v15; ++i)
     {
-      if (*v40 != v17)
+      if (*v39 != v17)
       {
         objc_enumerationMutation(stillPTSQueue);
       }
 
-      v19 = *(*(&v39 + 1) + 8 * i);
+      v19 = *(*(&v38 + 1) + 8 * i);
       memset(&v37, 0, sizeof(v37));
       CMTimeMakeFromDictionary(&v37, v19);
       time1 = v37;
@@ -671,16 +672,16 @@ LABEL_31:
       CMTimeSubtract(&time2, &lhs, &v30);
       CMTimeAbsoluteValue(&time1, &time2);
       time2 = time1;
-      lhs = v43;
+      lhs = v42;
       v20 = CMTimeCompare(&time2, &lhs);
       if (v20 <= 0)
       {
-        v43 = time1;
+        v42 = time1;
         v16 = v19;
       }
     }
 
-    v15 = OUTLINED_FUNCTION_4_35(v20, v21, v22, v23, v24, v25, v26, v27, v30.value, *&v30.timescale, v30.epoch, v31, lhs.value, *&lhs.timescale, lhs.epoch, v33, time2.value, *&time2.timescale, time2.epoch, v35, time1.value, *&time1.timescale, time1.epoch, v37.value, *&v37.timescale, v37.epoch, v38);
+    v15 = OUTLINED_FUNCTION_4_35(v20, v21, v22, v23, v24, v25, v26, v27, v30.value, *&v30.timescale, v30.epoch, v31, lhs.value, *&lhs.timescale, lhs.epoch, v33, time2.value, *&time2.timescale, time2.epoch, v35, time1.value, *&time1.timescale, time1.epoch, v37.value, *&v37.timescale, v37.epoch);
     if (v15)
     {
       continue;
@@ -731,7 +732,7 @@ LABEL_16:
   return [v4 BOOLValue];
 }
 
-- (uint64_t)_pushHomography:(__n128)homography pts:(__n128)pts
+- (id)_pushHomography:(__n128)homography pts:(__n128)pts
 {
   v11[0] = a2;
   v11[1] = homography;
@@ -739,7 +740,7 @@ LABEL_16:
   if (*(a6 + 12))
   {
     v7 = result;
-    if ([*(result + 264) count] >= 2)
+    if ([result[33] count] >= 2)
     {
       [v7 _popHomography];
     }
@@ -772,10 +773,10 @@ LABEL_16:
 - (int)_updateDetectedObjectsInfo:(id)info
 {
   OUTLINED_FUNCTION_1_50();
-  v46 = 3221225472;
-  v47 = __46__BWSmartCropNode__updateDetectedObjectsInfo___block_invoke;
-  v48 = &unk_1E7990608;
-  v49 = v4;
+  v54 = 3221225472;
+  v55 = __46__BWSmartCropNode__updateDetectedObjectsInfo___block_invoke;
+  v56 = &unk_1E7990608;
+  v57 = v4;
   v5 = *off_1E798B220;
   v7 = [v6 objectForKeyedSubscript:*off_1E798B220];
   if (v7)
@@ -784,83 +785,87 @@ LABEL_16:
     if (DeepCopy)
     {
       v9 = DeepCopy;
-      v28 = v5;
+      v31 = v5;
       infoCopy = info;
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v33 = [DeepCopy countByEnumeratingWithState:&v42 objects:v41 count:16];
-      if (v33)
+      v52 = 0u;
+      v53 = 0u;
+      v50 = 0u;
+      v51 = 0u;
+      v41 = [DeepCopy countByEnumeratingWithState:&v50 objects:v49 count:16];
+      if (v41)
       {
-        v31 = *v43;
-        v30 = *off_1E798ACE8;
+        v37 = *v51;
+        v35 = *off_1E798ACE8;
         v10 = *off_1E798B5C0;
         v11 = *off_1E798ACB8;
-        v35 = *off_1E798B470;
+        v43 = *off_1E798B470;
         v12 = *off_1E798B5D0;
-        v32 = v9;
+        v39 = v9;
         do
         {
           v13 = 0;
           do
           {
-            if (*v43 != v31)
+            if (*v51 != v37)
             {
               objc_enumerationMutation(v9);
             }
 
-            v34 = v13;
-            v14 = *(*(&v42 + 1) + 8 * v13);
-            v37 = 0u;
-            v38 = 0u;
-            v39 = 0u;
-            v40 = 0u;
-            v15 = [objc_msgSend(v9 objectForKeyedSubscript:{v14), "objectForKeyedSubscript:", v30}];
-            v16 = [v15 countByEnumeratingWithState:&v37 objects:v36 count:16];
+            v42 = v13;
+            v14 = *(*(&v50 + 1) + 8 * v13);
+            v45 = 0u;
+            v46 = 0u;
+            v47 = 0u;
+            v48 = 0u;
+            v15 = [objc_msgSend(v9 objectForKeyedSubscript:{v14), "objectForKeyedSubscript:", v35}];
+            v16 = [v15 countByEnumeratingWithState:&v45 objects:v44 count:16];
             if (v16)
             {
               v17 = v16;
-              v18 = *v38;
+              v18 = *v46;
               do
               {
-                for (i = 0; i != v17; ++i)
+                v19 = 0;
+                do
                 {
-                  if (*v38 != v18)
+                  if (*v46 != v18)
                   {
                     objc_enumerationMutation(v15);
                   }
 
-                  v20 = *(*(&v37 + 1) + 8 * i);
+                  v20 = *(*(&v45 + 1) + 8 * v19);
                   v21 = OUTLINED_FUNCTION_3_38();
                   v22(v21, v20, v10);
                   if ([v14 isEqual:v11])
                   {
                     v23 = OUTLINED_FUNCTION_3_38();
-                    v24(v23, v20, v35);
+                    v24(v23, v20, v43);
                     v25 = OUTLINED_FUNCTION_3_38();
                     v26(v25, v20, v12);
                   }
+
+                  ++v19;
                 }
 
-                v17 = [v15 countByEnumeratingWithState:&v37 objects:v36 count:16];
+                while (v17 != v19);
+                v17 = [v15 countByEnumeratingWithState:&v45 objects:v44 count:16];
               }
 
               while (v17);
             }
 
-            v13 = v34 + 1;
-            v9 = v32;
+            v13 = v42 + 1;
+            v9 = v39;
           }
 
-          while (v34 + 1 != v33);
-          v33 = [v32 countByEnumeratingWithState:&v42 objects:v41 count:16];
+          while (v42 + 1 != v41);
+          v41 = [v39 countByEnumeratingWithState:&v50 objects:v49 count:16];
         }
 
-        while (v33);
+        while (v41);
       }
 
-      [infoCopy setObject:v9 forKeyedSubscript:v28];
+      [infoCopy setObject:v9 forKeyedSubscript:v31];
       CFRelease(v9);
       LODWORD(v7) = 0;
     }
@@ -869,7 +874,8 @@ LABEL_16:
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_1_6();
-      FigDebugAssert3();
+      v28 = 0;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v28, v29, v30, v32, v34, v36, v38, v40);
       LODWORD(v7) = -1;
     }
   }
@@ -890,12 +896,12 @@ LABEL_16:
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_1_8();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v42, v44, v46, v48, v50, v52, v54);
       v38 = -1;
       goto LABEL_12;
     }
 
-    v16 = OUTLINED_FUNCTION_5_4(DeepCopy, v8, v9, v10, v11, v12, v13, v14, v40, v42, v44, array, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, 0);
+    v16 = OUTLINED_FUNCTION_5_4(DeepCopy, v8, v9, v10, v11, v12, v13, v14, v40, v42, v44, array, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v78);
     if (v16)
     {
       v17 = v16;
@@ -921,13 +927,13 @@ LABEL_16:
           v30 = v29(v28, v23, v21);
         }
 
-        v17 = OUTLINED_FUNCTION_5_4(v30, v31, v32, v33, v34, v35, v36, v37, v41, v43, v45, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v78, v79);
+        v17 = OUTLINED_FUNCTION_5_4(v30, v31, v32, v33, v34, v35, v36, v37, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79);
       }
 
       while (v17);
     }
 
-    [v46 setObject:v15 forKeyedSubscript:v4];
+    [v47 setObject:v15 forKeyedSubscript:v4];
   }
 
   else
@@ -989,41 +995,6 @@ LABEL_12:
       self->_numFacesDetected = [v4 count];
     }
   }
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_initRTSCProcessor
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_createCalibrationDictionaryFromSampleBuffer:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_createCalibrationDictionaryFromSampleBuffer:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_createCalibrationDictionaryFromSampleBuffer:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 @end

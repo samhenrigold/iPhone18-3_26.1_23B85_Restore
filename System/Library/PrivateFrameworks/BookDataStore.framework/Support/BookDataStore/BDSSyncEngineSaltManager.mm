@@ -101,39 +101,39 @@
 - (void)wq_refreshSalt:(id)salt
 {
   saltCopy = salt;
-  if ([(BDSSyncEngineSaltManager *)self isSaltRefreshInProgress])
+  isSaltRefreshInProgress = [(BDSSyncEngineSaltManager *)self isSaltRefreshInProgress];
+  if (isSaltRefreshInProgress)
   {
-    v5 = sub_100002660();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100002660(isSaltRefreshInProgress);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "BDSSyncEngineSaltManager: Salt refresh already in progress. Ignoring -refreshSalt: call", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "BDSSyncEngineSaltManager: Salt refresh already in progress. Ignoring -refreshSalt: call", buf, 2u);
     }
   }
 
   else
   {
     [(BDSSyncEngineSaltManager *)self setIsSaltRefreshInProgress:1];
-    [(BDSSyncEngineSaltManager *)self wq_invalidateSalt];
-    v6 = sub_100002660();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100002660([(BDSSyncEngineSaltManager *)self wq_invalidateSalt]);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "BDSSyncEngineSaltManager: Establishing record salt", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "BDSSyncEngineSaltManager: Establishing record salt", buf, 2u);
     }
 
-    v5 = [[CKRecordID alloc] initWithRecordName:@"recordIDSalt"];
+    v6 = [[CKRecordID alloc] initWithRecordName:@"recordIDSalt"];
     objc_initWeak(buf, self);
     database = [(BDSSyncEngineSaltManager *)self database];
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_10005BBE4;
-    v8[3] = &unk_100241700;
-    objc_copyWeak(&v10, buf);
-    v9 = saltCopy;
-    [database fetchRecordWithID:v5 completionHandler:v8];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_10005BBE4;
+    v9[3] = &unk_100241700;
+    objc_copyWeak(&v11, buf);
+    v10 = saltCopy;
+    [database fetchRecordWithID:v6 completionHandler:v9];
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(buf);
   }
 }
@@ -155,7 +155,7 @@
 
 - (void)wq_invalidateSalt
 {
-  v3 = sub_100002660();
+  v3 = sub_100002660(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -241,7 +241,7 @@
 
   else
   {
-    v12 = sub_100002660();
+    v12 = sub_100002660(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1001C200C();
@@ -256,15 +256,16 @@
 - (void)_updatedReachability
 {
   v3 = +[BDSReachability isOffline];
-  v4 = sub_100002660();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v4 = v3;
+  v5 = sub_100002660(v3);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67109120;
-    v5[1] = v3 ^ 1;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "BDSSyncEngineSaltManager network reachability changed. Reachable: %{BOOL}d", v5, 8u);
+    v6[0] = 67109120;
+    v6[1] = v4 ^ 1;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "BDSSyncEngineSaltManager network reachability changed. Reachable: %{BOOL}d", v6, 8u);
   }
 
-  if ((v3 & 1) == 0)
+  if ((v4 & 1) == 0)
   {
     [(BDSSyncEngineSaltManager *)self refreshSaltIfNeeded:&stru_100241748];
   }

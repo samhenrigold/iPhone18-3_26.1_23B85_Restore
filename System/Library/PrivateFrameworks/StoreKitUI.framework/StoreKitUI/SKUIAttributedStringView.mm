@@ -334,49 +334,49 @@
 
 - (void)drawRect:(CGRect)rect
 {
-  v192 = *MEMORY[0x277D85DE8];
-  [(SKUIAttributedStringView *)self bounds:rect.origin.x];
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
-  ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection();
+  v194 = *MEMORY[0x277D85DE8];
+  v4 = [(SKUIAttributedStringView *)self bounds:rect.origin.x];
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection(v4, v13);
   rect.origin.x = *MEMORY[0x277CBF3A0];
-  v13 = v7 + self->_calculatedTopInset;
+  v15 = v8 + self->_calculatedTopInset;
   [(SKUIAttributedStringLayout *)self->_layout topInset];
-  v15 = v13 + v14;
+  v17 = v15 + v16;
   [(SKUIAttributedStringLayout *)self->_layout edgeInsetsForShadow];
-  v17.f64[1] = v16;
   v19.f64[1] = v18;
-  if ((vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(v17, *MEMORY[0x277D768C8]), vceqq_f64(v19, *(MEMORY[0x277D768C8] + 16))))) & 1) == 0)
+  v21.f64[1] = v20;
+  if ((vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(v19, *MEMORY[0x277D768C8]), vceqq_f64(v21, *(MEMORY[0x277D768C8] + 16))))) & 1) == 0)
   {
     [(SKUIAttributedStringLayout *)self->_layout edgeInsetsForShadow];
-    v15 = v15 + v20;
+    v17 = v17 + v22;
     [(SKUIAttributedStringLayout *)self->_layout edgeInsetsForShadow];
-    rect.origin.x = rect.origin.x + v21;
+    rect.origin.x = rect.origin.x + v23;
   }
 
   [(SKUIAttributedStringLayout *)self->_layout boundingSize];
-  v24 = self->_badgePlacement == 1;
-  if (v11 < v23 || self->_badgePlacement == 1)
+  v26 = self->_badgePlacement == 1;
+  if (v12 < v25 || self->_badgePlacement == 1)
   {
-    v23 = v11;
+    v25 = v12;
   }
 
-  v169 = v23;
-  if (v9 < v22)
+  v171 = v25;
+  if (v10 < v24)
   {
-    v24 = 1;
+    v26 = 1;
   }
 
-  if (v24)
+  if (v26)
   {
-    v26 = v9;
+    v28 = v10;
   }
 
   else
   {
-    v26 = v22;
+    v28 = v24;
   }
 
   if (self->_stringTreatment == 1)
@@ -385,28 +385,28 @@
     if (treatmentColor)
     {
       [(UIColor *)treatmentColor set];
-      v28 = [MEMORY[0x277D75208] bezierPathWithRoundedRect:v5 cornerRadius:{v7, v9, v11, 6.0}];
-      [v28 fill];
+      v30 = [MEMORY[0x277D75208] bezierPathWithRoundedRect:v6 cornerRadius:{v8, v10, v12, 6.0}];
+      [v30 fill];
 
-      v29 = self->_layout;
-      attributedString = [(SKUIAttributedStringLayout *)v29 attributedString];
-      v31 = [attributedString attribute:*MEMORY[0x277D740A8] atIndex:0 effectiveRange:0];
+      v31 = self->_layout;
+      attributedString = [(SKUIAttributedStringLayout *)v31 attributedString];
+      v33 = [attributedString attribute:*MEMORY[0x277D740A8] atIndex:0 effectiveRange:0];
 
-      [(SKUIAttributedStringLayout *)v29 baselineOffset];
-      v33 = v32;
-      [v31 capHeight];
-      v35 = v33 - v34;
-      [v31 _bodyLeading];
-      v37 = v35 - v36 * ([(SKUIAttributedStringLayout *)v29 numberOfLines]- 1);
-      [(SKUIAttributedStringLayout *)v29 topInset];
-      v39 = v38;
+      [(SKUIAttributedStringLayout *)v31 baselineOffset];
+      v35 = v34;
+      [v33 capHeight];
+      v37 = v35 - v36;
+      [v33 _bodyLeading];
+      v39 = v37 - v38 * ([(SKUIAttributedStringLayout *)v31 numberOfLines]- 1);
+      [(SKUIAttributedStringLayout *)v31 topInset];
+      v41 = v40;
 
-      v40 = v39 + v37;
-      v41 = ceilf(v40);
+      v42 = v41 + v39;
+      v43 = ceilf(v42);
 
       [(SKUIAttributedStringLayout *)self->_layout topInset];
-      *&v42 = v42 + (v11 - (v169 - v41)) * 0.5 - v41 * 0.5;
-      v15 = floorf(*&v42);
+      *&v44 = v44 + (v12 - (v171 - v43)) * 0.5 - v43 * 0.5;
+      v17 = floorf(*&v44);
       rect.origin.x = 7.0;
     }
   }
@@ -414,108 +414,108 @@
   attributedString2 = [(SKUIAttributedStringLayout *)self->_layout attributedString];
   if (attributedString2)
   {
-    v44 = attributedString2;
-    v45 = [(NSArray *)self->_requiredBadges count];
-    v167 = v45;
-    v170 = v26;
-    if (v45 < 1)
+    v46 = attributedString2;
+    v47 = [(NSArray *)self->_requiredBadges count];
+    v169 = v47;
+    v172 = v28;
+    if (v47 < 1)
     {
-      v46 = *MEMORY[0x277CBF3A8];
-      v51 = *(MEMORY[0x277CBF3A8] + 8);
+      v48 = *MEMORY[0x277CBF3A8];
+      v53 = *(MEMORY[0x277CBF3A8] + 8);
     }
 
     else
     {
-      rect.origin.y = v5;
-      v46 = ((v45 - 1) * 4.0);
+      rect.origin.y = v6;
+      v48 = ((v47 - 1) * 4.0);
+      v188 = 0u;
+      v189 = 0u;
       v186 = 0u;
       v187 = 0u;
-      v184 = 0u;
-      v185 = 0u;
-      v47 = self->_requiredBadges;
-      v48 = [(NSArray *)v47 countByEnumeratingWithState:&v184 objects:v191 count:16];
-      if (v48)
+      v49 = self->_requiredBadges;
+      v50 = [(NSArray *)v49 countByEnumeratingWithState:&v186 objects:v193 count:16];
+      if (v50)
       {
-        v49 = v48;
-        v50 = *v185;
-        v51 = 0.0;
+        v51 = v50;
+        v52 = *v187;
+        v53 = 0.0;
         do
         {
-          for (i = 0; i != v49; ++i)
+          for (i = 0; i != v51; ++i)
           {
-            if (*v185 != v50)
+            if (*v187 != v52)
             {
-              objc_enumerationMutation(v47);
+              objc_enumerationMutation(v49);
             }
 
-            [*(*(&v184 + 1) + 8 * i) badgeSize];
-            if (v51 < v54)
+            [*(*(&v186 + 1) + 8 * i) badgeSize];
+            if (v53 < v56)
             {
-              v51 = v54;
+              v53 = v56;
             }
 
-            v46 = v46 + v53;
+            v48 = v48 + v55;
           }
 
-          v49 = [(NSArray *)v47 countByEnumeratingWithState:&v184 objects:v191 count:16];
+          v51 = [(NSArray *)v49 countByEnumeratingWithState:&v186 objects:v193 count:16];
         }
 
-        while (v49);
+        while (v51);
       }
 
       else
       {
-        v51 = 0.0;
+        v53 = 0.0;
       }
 
       if (!self->_badgePlacement)
       {
         [(SKUIAttributedStringLayout *)self->_layout firstBaselineOffset];
-        v57 = v56;
-        v58 = v170;
-        v59 = v9;
-        if (v170 >= v9 - v46 + -4.0 - rect.origin.x)
+        v59 = v58;
+        v60 = v172;
+        v61 = v10;
+        if (v172 >= v10 - v48 + -4.0 - rect.origin.x)
         {
-          v58 = v9 - v46 + -4.0 - rect.origin.x;
+          v60 = v10 - v48 + -4.0 - rect.origin.x;
         }
 
-        v170 = v58;
+        v172 = v60;
         if (ShouldReverseLayoutDirection)
         {
           y = rect.origin.y;
-          v61 = v7;
-          v62 = v11;
-          MaxX = CGRectGetMaxX(*(&v59 - 2));
-          v194.origin.x = rect.origin.x;
-          v194.origin.y = v15;
-          v194.size.width = v58;
-          v194.size.height = v169;
-          rect.origin.y = MaxX - CGRectGetWidth(v194);
-          v195.origin.x = rect.origin.x;
-          v195.origin.y = v15;
-          v195.size.width = v58;
-          v64 = v169;
-          v195.size.height = v169;
-          rect.origin.x = rect.origin.y - CGRectGetMinX(v195);
+          v63 = v8;
+          v64 = v12;
+          MaxX = CGRectGetMaxX(*(&v61 - 2));
+          v196.origin.x = rect.origin.x;
+          v196.origin.y = v17;
+          v196.size.width = v60;
+          v196.size.height = v171;
+          rect.origin.y = MaxX - CGRectGetWidth(v196);
+          v197.origin.x = rect.origin.x;
+          v197.origin.y = v17;
+          v197.size.width = v60;
+          v66 = v171;
+          v197.size.height = v171;
+          rect.origin.x = rect.origin.y - CGRectGetMinX(v197);
         }
 
         else
         {
-          v64 = v169;
+          v66 = v171;
         }
 
-        if (v51 > v57)
+        if (v53 > v59)
         {
-          v65 = v51 - v57 + 3.0;
-          v15 = v15 + ceilf(v65);
+          v67 = v53 - v59 + 3.0;
+          v17 = v17 + ceilf(v67);
         }
 
-        v55 = v64;
+        v57 = v66;
         goto LABEL_40;
       }
     }
 
-    v55 = v169;
+    v57 = v171;
 LABEL_40:
     if (self->_textColorFollowsTintColor)
     {
@@ -527,33 +527,33 @@ LABEL_40:
       tintColor = self->_textColor;
     }
 
-    v67 = tintColor;
+    v69 = tintColor;
     if (tintColor)
     {
-      v68 = [v44 mutableCopy];
-      [v68 addAttribute:*MEMORY[0x277D740C0] value:v67 range:{0, objc_msgSend(v68, "length")}];
+      v70 = [v46 mutableCopy];
+      [v70 addAttribute:*MEMORY[0x277D740C0] value:v69 range:{0, objc_msgSend(v70, "length")}];
 
-      v44 = v68;
+      v46 = v70;
     }
 
     if (self->_containsLinks)
     {
-      v69 = [v44 mutableCopy];
-      v70 = [v44 length];
-      v182[0] = MEMORY[0x277D85DD0];
-      v182[1] = 3221225472;
-      v182[2] = __37__SKUIAttributedStringView_drawRect___block_invoke;
-      v182[3] = &unk_2781FFEB8;
-      v182[4] = self;
-      v71 = v69;
-      v183 = v71;
-      [v44 enumerateAttributesInRange:0 options:v70 usingBlock:{0, v182}];
-      v72 = v71;
+      v71 = [v46 mutableCopy];
+      v72 = [v46 length];
+      v184[0] = MEMORY[0x277D85DD0];
+      v184[1] = 3221225472;
+      v184[2] = __37__SKUIAttributedStringView_drawRect___block_invoke;
+      v184[3] = &unk_2781FFEB8;
+      v184[4] = self;
+      v73 = v71;
+      v185 = v73;
+      [v46 enumerateAttributesInRange:0 options:v72 usingBlock:{0, v184}];
+      v74 = v73;
 
       self->_textBounds.origin.x = rect.origin.x;
-      self->_textBounds.origin.y = v15;
-      self->_textBounds.size.width = v170 + 10.0;
-      self->_textBounds.size.height = v55;
+      self->_textBounds.origin.y = v17;
+      self->_textBounds.size.width = v172 + 10.0;
+      self->_textBounds.size.height = v57;
       textContainer = self->_textContainer;
       if (textContainer)
       {
@@ -563,286 +563,286 @@ LABEL_40:
 
     else
     {
-      v72 = v44;
+      v74 = v46;
     }
 
     shadow = [(SKUIAttributedStringLayout *)self->_layout shadow];
-    v168 = v15;
+    v170 = v17;
     if (shadow)
     {
-      v75 = [v72 mutableCopy];
-      [v75 removeAttribute:*MEMORY[0x277D74138] range:{0, objc_msgSend(v75, "length")}];
+      v77 = [v74 mutableCopy];
+      [v77 removeAttribute:*MEMORY[0x277D74138] range:{0, objc_msgSend(v77, "length")}];
 
       CurrentContext = UIGraphicsGetCurrentContext();
       [shadow shadowOffset];
-      v77 = v55;
-      v79 = v78;
+      v79 = v57;
       v81 = v80;
-      [shadow shadowBlurRadius];
       v83 = v82;
+      [shadow shadowBlurRadius];
+      v85 = v84;
       shadowColor = [shadow shadowColor];
       cGColor = [shadowColor CGColor];
-      v193.width = v79;
-      v55 = v77;
-      v193.height = v81;
-      v86 = v83;
-      v15 = v168;
-      CGContextSetShadowWithColor(CurrentContext, v193, v86, cGColor);
+      v195.width = v81;
+      v57 = v79;
+      v195.height = v83;
+      v88 = v85;
+      v17 = v170;
+      CGContextSetShadowWithColor(CurrentContext, v195, v88, cGColor);
 
-      v72 = v75;
+      v74 = v77;
     }
 
     if (self->_badgePlacement == 1)
     {
-      stringDrawingContext = [v72 mutableCopy];
-      v180 = 0;
-      v181 = [v72 length];
-      v88 = [stringDrawingContext length] - 1;
-      v89 = [stringDrawingContext attribute:*MEMORY[0x277D740A8] atIndex:v88 effectiveRange:&v180];
-      v162 = v89;
-      if (v89)
+      stringDrawingContext = [v74 mutableCopy];
+      v182 = 0;
+      v183 = [v74 length];
+      v90 = [stringDrawingContext length] - 1;
+      v91 = [stringDrawingContext attribute:*MEMORY[0x277D740A8] atIndex:v90 effectiveRange:&v182];
+      v164 = v91;
+      if (v91)
       {
-        [v89 descender];
+        [v91 descender];
       }
 
       else
       {
-        v90 = 0.0;
+        v92 = 0.0;
       }
 
-      rect.origin.y = v90;
-      v94 = *MEMORY[0x277D74118];
-      v95 = [stringDrawingContext attribute:*MEMORY[0x277D74118] atIndex:0 effectiveRange:&v180];
-      v163 = shadow;
-      v164 = v72;
-      v161 = v95;
-      if (v95 && (v96 = v95, [v95 lineBreakMode]))
+      rect.origin.y = v92;
+      v96 = *MEMORY[0x277D74118];
+      v97 = [stringDrawingContext attribute:*MEMORY[0x277D74118] atIndex:0 effectiveRange:&v182];
+      v165 = shadow;
+      v166 = v74;
+      v163 = v97;
+      if (v97 && (v98 = v97, [v97 lineBreakMode]))
       {
-        lineBreakMode = [v96 lineBreakMode];
-        v98 = [v96 mutableCopy];
-        [v98 setLineBreakMode:0];
-        [stringDrawingContext addAttribute:v94 value:v98 range:{v180, v181}];
+        lineBreakMode = [v98 lineBreakMode];
+        v100 = [v98 mutableCopy];
+        [v100 setLineBreakMode:0];
+        [stringDrawingContext addAttribute:v96 value:v100 range:{v182, v183}];
 
-        v99 = 1;
+        v101 = 1;
       }
 
       else
       {
-        v99 = 0;
+        v101 = 0;
         lineBreakMode = 4;
       }
 
-      v165 = v67;
-      v166 = v9;
-      v100 = [objc_alloc(MEMORY[0x277D742D8]) initWithAttributedString:stringDrawingContext];
-      v101 = objc_alloc_init(MEMORY[0x277D74238]);
-      v160 = v100;
-      [v100 addLayoutManager:v101];
-      v102 = [objc_alloc(MEMORY[0x277D74278]) initWithSize:{v170, v55}];
-      [v102 setLineFragmentPadding:0.0];
-      if (v99)
+      v167 = v69;
+      v168 = v10;
+      v102 = [objc_alloc(MEMORY[0x277D742D8]) initWithAttributedString:stringDrawingContext];
+      v103 = objc_alloc_init(MEMORY[0x277D74238]);
+      v162 = v102;
+      [v102 addLayoutManager:v103];
+      v104 = [objc_alloc(MEMORY[0x277D74278]) initWithSize:{v172, v57}];
+      [v104 setLineFragmentPadding:0.0];
+      if (v101)
       {
-        [v102 setLineBreakMode:lineBreakMode];
+        [v104 setLineBreakMode:lineBreakMode];
       }
 
-      [v101 addTextContainer:v102];
-      v103 = [v101 glyphRangeForTextContainer:v102];
-      v105 = v104;
-      v179[0] = v103;
-      v179[1] = v104;
-      [v101 lineFragmentUsedRectForGlyphAtIndex:v88 effectiveRange:v179];
+      [v103 addTextContainer:v104];
+      v105 = [v103 glyphRangeForTextContainer:v104];
       v107 = v106;
+      v181[0] = v105;
+      v181[1] = v106;
+      [v103 lineFragmentUsedRectForGlyphAtIndex:v90 effectiveRange:v181];
       v109 = v108;
       v111 = v110;
       v113 = v112;
-      [v101 locationForGlyphAtIndex:v88];
       v115 = v114;
-      v196.origin.x = v107;
-      v196.origin.y = v109;
-      v159 = v111;
-      v196.size.width = v111;
-      v196.size.height = v113;
-      MaxY = CGRectGetMaxY(v196);
-      v197.size.width = v170;
-      v197.origin.x = rect.origin.x;
-      v197.origin.y = v168;
-      v197.size.height = v55;
-      if (v46 > CGRectGetMaxX(v197) - v115)
+      [v103 locationForGlyphAtIndex:v90];
+      v117 = v116;
+      v198.origin.x = v109;
+      v198.origin.y = v111;
+      v161 = v113;
+      v198.size.width = v113;
+      v198.size.height = v115;
+      MaxY = CGRectGetMaxY(v198);
+      v199.size.width = v172;
+      v199.origin.x = rect.origin.x;
+      v199.origin.y = v170;
+      v199.size.height = v57;
+      if (v48 > CGRectGetMaxX(v199) - v117)
       {
-        v198.origin.x = rect.origin.x;
-        v157 = v107;
-        v198.size.height = v169;
-        v198.origin.y = v168;
-        v198.size.width = v170;
-        v158 = CGRectGetMaxX(v198) - (v46 + 4.0);
-        v199.origin.x = v107;
-        v199.origin.y = v109;
-        v199.size.width = v159;
-        v199.size.height = v113;
-        v116 = rect.origin.y + CGRectGetMaxY(v199) - v51;
         v200.origin.x = rect.origin.x;
-        v200.origin.y = v168;
-        v200.size.height = v169;
-        v200.size.width = v170;
-        v55 = v169;
-        v117 = [MEMORY[0x277D75208] bezierPathWithRect:{v158, v116, CGRectGetMaxX(v200) - v158, v51}];
-        v190 = v117;
-        v118 = [MEMORY[0x277CBEA60] arrayWithObjects:&v190 count:1];
-        [v102 setExclusionPaths:v118];
+        v159 = v109;
+        v200.size.height = v171;
+        v200.origin.y = v170;
+        v200.size.width = v172;
+        v160 = CGRectGetMaxX(v200) - (v48 + 4.0);
+        v201.origin.x = v109;
+        v201.origin.y = v111;
+        v201.size.width = v161;
+        v201.size.height = v115;
+        v118 = rect.origin.y + CGRectGetMaxY(v201) - v53;
+        v202.origin.x = rect.origin.x;
+        v202.origin.y = v170;
+        v202.size.height = v171;
+        v202.size.width = v172;
+        v57 = v171;
+        v119 = [MEMORY[0x277D75208] bezierPathWithRect:{v160, v118, CGRectGetMaxX(v202) - v160, v53}];
+        v192 = v119;
+        v120 = [MEMORY[0x277CBEA60] arrayWithObjects:&v192 count:1];
+        [v104 setExclusionPaths:v120];
 
-        v115 = v158 + -4.0;
+        v117 = v160 + -4.0;
       }
 
-      v92 = v115;
-      [v101 drawGlyphsForGlyphRange:v103 atPoint:{v105, *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8), *&v157}];
+      v94 = v117;
+      [v103 drawGlyphsForGlyphRange:v105 atPoint:{v107, *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8), *&v159}];
 
-      v9 = v166;
-      v15 = v168;
-      v93 = v170;
-      v67 = v165;
-      shadow = v163;
-      v72 = v164;
+      v10 = v168;
+      v17 = v170;
+      v95 = v172;
+      v69 = v167;
+      shadow = v165;
+      v74 = v166;
     }
 
     else
     {
-      v92 = *MEMORY[0x277CBF348];
+      v94 = *MEMORY[0x277CBF348];
       MaxY = *(MEMORY[0x277CBF348] + 8);
       stringDrawingContext = [(SKUIAttributedStringLayout *)self->_layout stringDrawingContext];
-      v93 = v170;
-      [v72 drawWithRect:33 options:stringDrawingContext context:{rect.origin.x, v15, v170, v55}];
+      v95 = v172;
+      [v74 drawWithRect:33 options:stringDrawingContext context:{rect.origin.x, v17, v172, v57}];
       rect.origin.y = 0.0;
     }
 
-    if (v167 >= 1)
+    if (v169 >= 1)
     {
       if (self->_badgePlacement == 1)
       {
+        v179 = 0u;
+        v180 = 0u;
         v177 = 0u;
         v178 = 0u;
-        v175 = 0u;
-        v176 = 0u;
-        v119 = self->_requiredBadges;
-        v120 = [(NSArray *)v119 countByEnumeratingWithState:&v175 objects:v189 count:16];
-        if (v120)
+        v121 = self->_requiredBadges;
+        v122 = [(NSArray *)v121 countByEnumeratingWithState:&v177 objects:v191 count:16];
+        if (v122)
         {
-          v121 = v120;
-          v122 = v72;
-          v123 = v92 + 4.0;
-          v124 = *v176;
+          v123 = v122;
+          v124 = v74;
+          v125 = v94 + 4.0;
+          v126 = *v178;
           do
           {
-            for (j = 0; j != v121; ++j)
+            for (j = 0; j != v123; ++j)
             {
-              if (*v176 != v124)
+              if (*v178 != v126)
               {
-                objc_enumerationMutation(v119);
+                objc_enumerationMutation(v121);
               }
 
-              v126 = *(*(&v175 + 1) + 8 * j);
-              [v126 badgeSize];
-              v128 = v127;
+              v128 = *(*(&v177 + 1) + 8 * j);
+              [v128 badgeSize];
               v130 = v129;
-              image = [v126 image];
+              v132 = v131;
+              image = [v128 image];
               if (image)
               {
-                v132 = v123;
-                v133 = roundf(v132);
+                v134 = v125;
+                v135 = roundf(v134);
                 mainScreen = [MEMORY[0x277D759A0] mainScreen];
                 [mainScreen scale];
-                *&v135 = rect.origin.y + MaxY - v130 + 1.0 / v135;
-                v136 = roundf(*&v135);
+                *&v137 = rect.origin.y + MaxY - v132 + 1.0 / v137;
+                v138 = roundf(*&v137);
 
-                [image drawInRect:{v133, v136, v128, v130}];
+                [image drawInRect:{v135, v138, v130, v132}];
               }
 
-              v123 = v123 + v128 + 4.0;
+              v125 = v125 + v130 + 4.0;
             }
 
-            v121 = [(NSArray *)v119 countByEnumeratingWithState:&v175 objects:v189 count:16];
+            v123 = [(NSArray *)v121 countByEnumeratingWithState:&v177 objects:v191 count:16];
           }
 
-          while (v121);
-          v72 = v122;
+          while (v123);
+          v74 = v124;
         }
       }
 
       else
       {
         [(SKUIAttributedStringLayout *)self->_layout firstBaselineOffset];
-        v138 = v137;
+        v140 = v139;
         if (ShouldReverseLayoutDirection)
         {
-          v201.origin.x = rect.origin.x;
-          v201.origin.y = v15;
-          v201.size.width = v93;
-          v201.size.height = v55;
-          v139 = fmax(CGRectGetMinX(v201) + -4.0 - v46, 0.0);
+          v203.origin.x = rect.origin.x;
+          v203.origin.y = v17;
+          v203.size.width = v95;
+          v203.size.height = v57;
+          v141 = fmax(CGRectGetMinX(v203) + -4.0 - v48, 0.0);
         }
 
         else
         {
-          v202.size.height = v55;
-          v139 = v9 - v46;
-          v202.origin.x = rect.origin.x;
-          v202.origin.y = v15;
-          v202.size.width = v93;
-          v140 = CGRectGetMaxX(v202) + 4.0;
-          if (v9 - v46 >= v140)
+          v204.size.height = v57;
+          v141 = v10 - v48;
+          v204.origin.x = rect.origin.x;
+          v204.origin.y = v17;
+          v204.size.width = v95;
+          v142 = CGRectGetMaxX(v204) + 4.0;
+          if (v10 - v48 >= v142)
           {
-            v139 = v140;
+            v141 = v142;
           }
         }
 
-        v173 = 0u;
-        v174 = 0u;
+        v175 = 0u;
+        v176 = 0u;
         rect.size = 0u;
-        v172 = 0u;
-        v119 = self->_requiredBadges;
-        v141 = [(NSArray *)v119 countByEnumeratingWithState:&rect.size objects:v188 count:16];
-        if (v141)
+        v174 = 0u;
+        v121 = self->_requiredBadges;
+        v143 = [(NSArray *)v121 countByEnumeratingWithState:&rect.size objects:v190 count:16];
+        if (v143)
         {
-          v142 = v141;
-          v143 = shadow;
-          v144 = v72;
-          v145 = *v172;
-          v146 = v15 + v138;
+          v144 = v143;
+          v145 = shadow;
+          v146 = v74;
+          v147 = *v174;
+          v148 = v17 + v140;
           do
           {
-            for (k = 0; k != v142; ++k)
+            for (k = 0; k != v144; ++k)
             {
-              if (*v172 != v145)
+              if (*v174 != v147)
               {
-                objc_enumerationMutation(v119);
+                objc_enumerationMutation(v121);
               }
 
-              v148 = *(*&rect.size.height + 8 * k);
-              [v148 badgeSize];
-              v150 = v149;
+              v150 = *(*&rect.size.height + 8 * k);
+              [v150 badgeSize];
               v152 = v151;
-              image2 = [v148 image];
-              v154 = image2;
+              v154 = v153;
+              image2 = [v150 image];
+              v156 = image2;
               if (image2)
               {
-                v155 = v146 - v152;
-                [image2 drawInRect:{v139, roundf(v155), v150, v152}];
+                v157 = v148 - v154;
+                [image2 drawInRect:{v141, roundf(v157), v152, v154}];
               }
 
-              v156 = v150 + 4.0;
+              v158 = v152 + 4.0;
               if (ShouldReverseLayoutDirection)
               {
-                v156 = -(v46 + -4.0);
+                v158 = -(v48 + -4.0);
               }
 
-              v139 = v139 + v156;
+              v141 = v141 + v158;
             }
 
-            v142 = [(NSArray *)v119 countByEnumeratingWithState:&rect.size objects:v188 count:16];
+            v144 = [(NSArray *)v121 countByEnumeratingWithState:&rect.size objects:v190 count:16];
           }
 
-          while (v142);
-          v72 = v144;
-          shadow = v143;
+          while (v144);
+          v74 = v146;
+          shadow = v145;
         }
       }
     }

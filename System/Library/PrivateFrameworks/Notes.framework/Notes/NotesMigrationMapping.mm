@@ -14,7 +14,7 @@
 
 + (id)descriptionStringFromSourceStoreNames:(id)names destinationStoreName:(id)name
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   nameCopy = name;
   v7 = objc_alloc_init(MEMORY[0x277CCAB68]);
@@ -23,27 +23,27 @@
     [v7 appendString:@"["];
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v8 = namesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
-        [v7 appendString:{v13, v19}];
+        v13 = *(*(&v18 + 1) + 8 * i);
+        [v7 appendString:{v13, v18}];
         lastObject = [v8 lastObject];
         LODWORD(v13) = [v13 isEqualToString:lastObject];
 
@@ -61,7 +61,7 @@
         [v7 appendString:v15];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
@@ -69,8 +69,6 @@
 
   [v7 appendString:@" -> "];
   [v7 appendString:nameCopy];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -109,34 +107,34 @@
 
 + (id)inferredMappingFromSourceModelNames:(id)names toDestinationModelName:(id)name
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   nameCopy = name;
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v9 = namesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [self modelForModelName:{*(*(&v20 + 1) + 8 * i), v20}];
+        v14 = [self modelForModelName:{*(*(&v19 + 1) + 8 * i), v19}];
         [v8 addObject:v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v11);
@@ -151,33 +149,30 @@
   v17 = [self descriptionStringFromSourceStoreNames:v9 destinationStoreName:nameCopy];
   [v15 setDescriptionString:v17];
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 + (id)customMappingFromSourceModelName:(id)name toDestinationModelName:(id)modelName
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   modelNameCopy = modelName;
   nameCopy = name;
   v8 = objc_alloc_init(objc_opt_class());
   v9 = [self modelForModelName:nameCopy];
-  v17[0] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16[0] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   [v8 setSourceModels:v10];
 
   v11 = [self modelForModelName:modelNameCopy];
   [v8 setDestinationModel:v11];
 
   [v8 setType:0];
-  v16 = nameCopy;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+  v15 = nameCopy;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
 
   v13 = [self descriptionStringFromSourceStoreNames:v12 destinationStoreName:modelNameCopy];
 
   [v8 setDescriptionString:v13];
-  v14 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -224,27 +219,27 @@
 
 - (BOOL)canMigrateStoreMetadata:(id)metadata
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = [metadata objectForKeyedSubscript:*MEMORY[0x277CBE2F0]];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   sourceModels = [(NotesMigrationMapping *)self sourceModels];
-  v6 = [sourceModels countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [sourceModels countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(sourceModels);
         }
 
-        entityVersionHashesByName = [*(*(&v13 + 1) + 8 * i) entityVersionHashesByName];
+        entityVersionHashesByName = [*(*(&v12 + 1) + 8 * i) entityVersionHashesByName];
         v10 = [entityVersionHashesByName isEqual:v4];
 
         if (v10)
@@ -254,7 +249,7 @@
         }
       }
 
-      v6 = [sourceModels countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [sourceModels countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -266,7 +261,6 @@
 
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

@@ -13,6 +13,8 @@
   registryCopy = registry;
   selfCopy = self;
   sub_1CF4F0C40(v6);
+
+  v6, v9, v10, v11, v12, v13, v14, v15;
 }
 
 - (void)appRegistry:(id)registry didRemoveAppsWithBundleIDs:(id)ds
@@ -21,6 +23,8 @@
   registryCopy = registry;
   selfCopy = self;
   sub_1CF4F0E30(v6);
+
+  v6, v9, v10, v11, v12, v13, v14, v15;
 }
 
 - (_TtC18FileProviderDaemon21LocalContainerMonitor)init

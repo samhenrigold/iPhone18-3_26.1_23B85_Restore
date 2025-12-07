@@ -19,40 +19,41 @@
 - (_LTDTTSAssetModel)initWithAssetIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if ([identifierCopy hasPrefix:@"TTS-"])
+  v6 = [identifierCopy hasPrefix:@"TTS-"];
+  if (v6)
   {
     objc_storeStrong(&self->_assetName, identifier);
-    v6 = [identifierCopy substringFromIndex:{objc_msgSend(@"TTS-", "length")}];
-    v7 = [_LTDTTSAssetService ttsAssetForLocaleIdentifier:v6 onDeviceOnly:0];
-    v8 = v7;
-    if (v7)
+    v8 = [identifierCopy substringFromIndex:{objc_msgSend(@"TTS-", "length")}];
+    v9 = [_LTDTTSAssetService ttsAssetForLocaleIdentifier:v8 onDeviceOnly:0];
+    v11 = v9;
+    if (v9)
     {
-      [(_LTDTTSAssetModel *)v7 setAssetName:identifierCopy];
-      v9 = v8;
+      [(_LTDTTSAssetModel *)v9 setAssetName:identifierCopy];
+      v12 = v11;
     }
 
     else
     {
-      v11 = _LTOSLogAssets();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v14 = _LTOSLogAssets(0, v10);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [(_LTDTTSAssetModel *)identifierCopy initWithAssetIdentifier:v11];
+        [(_LTDTTSAssetModel *)identifierCopy initWithAssetIdentifier:v14];
       }
     }
   }
 
   else
   {
-    v10 = _LTOSLogAssets();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v13 = _LTOSLogAssets(v6, v7);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(_LTDTTSAssetModel *)identifierCopy initWithAssetIdentifier:v10];
+      [(_LTDTTSAssetModel *)identifierCopy initWithAssetIdentifier:v13];
     }
 
-    v8 = 0;
+    v11 = 0;
   }
 
-  return v8;
+  return v11;
 }
 
 - (_LTDTTSAssetModel)initWithProvider:(id)provider
@@ -178,10 +179,9 @@ LABEL_11:
 
 - (NSArray)supportedLanguages
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = self->_language;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = self->_language;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -215,23 +215,21 @@ LABEL_11:
 
 - (NSArray)localeIdentifiers
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   identifier = [(_LTDTTSAssetModel *)self identifier];
   v3 = [identifier componentsSeparatedByString:@"-"];
 
   if ([v3 count] == 2)
   {
     v4 = [v3 objectAtIndexedSubscript:1];
-    v8[0] = v4;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = v4;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   }
 
   else
   {
     v5 = MEMORY[0x277CBEBF8];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -318,20 +316,18 @@ LABEL_11:
 
 - (void)initWithAssetIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_232E53000, a2, OS_LOG_TYPE_ERROR, "Cannot initialize a LTDTTSAssetModel using a non-TTS identifier: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_232E53000, a2, OS_LOG_TYPE_ERROR, "Cannot initialize a LTDTTSAssetModel using a non-TTS identifier: %{public}@", &v2, 0xCu);
 }
 
 - (void)initWithAssetIdentifier:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_232E53000, a2, OS_LOG_TYPE_ERROR, "Cannot locate a TTSAsset for identifier: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_232E53000, a2, OS_LOG_TYPE_ERROR, "Cannot locate a TTSAsset for identifier: %{public}@", &v2, 0xCu);
 }
 
 @end

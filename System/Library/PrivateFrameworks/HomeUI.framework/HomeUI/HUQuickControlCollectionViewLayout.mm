@@ -400,7 +400,7 @@ LABEL_10:
         v42[5] = &v43;
         [v31 enumerateObjectsUsingBlock:v42];
         [(HUQuickControlCollectionViewGridLayoutDetails *)v24 setRowLayouts:v31];
-        v35 = HUSizeRoundedToScreenScale();
+        v35 = HUSizeRoundedToScreenScale(v44[4], v44[5]);
         [(HUQuickControlCollectionViewGridLayoutDetails *)v24 setContentFrame:v20, v21, v35, v36];
         layoutDetailsArray = [(HUQuickControlCollectionViewLayoutInfo *)v41 layoutDetailsArray];
         [layoutDetailsArray addObject:v24];
@@ -462,14 +462,16 @@ void __62__HUQuickControlCollectionViewLayout__computeSizingLayoutInfo__block_in
       -[HUQuickControlCollectionViewGridLayoutRowInfo setNumberOfItems:](v12, "setNumberOfItems:", [layoutCopy numberOfColumnsInRow:v8]);
       [v34 addObject:v12];
       v13 = objc_opt_new();
+      v14 = v10;
+      v15 = v9;
       if ([(HUQuickControlCollectionViewGridLayoutRowInfo *)v12 numberOfItems])
       {
-        v14 = 0;
+        v16 = 0;
         v15 = v9;
-        v16 = v10;
+        v14 = v10;
         do
         {
-          v17 = [layoutCopy indexPathForRow:v8 column:{v14, v32}];
+          v17 = [layoutCopy indexPathForRow:v8 column:{v16, v32}];
           v18 = objc_alloc_init(HUQuickControlCollectionViewGridLayoutItemInfo);
           -[HUQuickControlCollectionViewGridLayoutItemInfo setTitlePosition:](v18, "setTitlePosition:", [settingsCopy titlePosition]);
           v19 = -[HUQuickControlCollectionViewLayout _intrinsicSizeDescriptorForItemAtIndexPath:itemSize:](self, "_intrinsicSizeDescriptorForItemAtIndexPath:itemSize:", v17, [settingsCopy itemSize]);
@@ -506,28 +508,28 @@ void __62__HUQuickControlCollectionViewLayout__computeSizingLayoutInfo__block_in
           [(HUQuickControlCollectionViewGridLayoutItemInfo *)v18 setSize:v22, v23];
           [(HUQuickControlCollectionViewGridLayoutItemInfo *)v18 size];
           v15 = v15 + v28;
-          if (v14)
+          if (v16)
           {
             [settingsCopy interitemSpacing];
             v15 = v15 + v29;
           }
 
           [(HUQuickControlCollectionViewGridLayoutItemInfo *)v18 size];
-          if (v16 < v30)
+          if (v14 < v30)
           {
-            v16 = v30;
+            v14 = v30;
           }
 
           [v13 addObject:v18];
 
-          ++v14;
+          ++v16;
         }
 
-        while (v14 < [(HUQuickControlCollectionViewGridLayoutRowInfo *)v12 numberOfItems]);
+        while (v16 < [(HUQuickControlCollectionViewGridLayoutRowInfo *)v12 numberOfItems]);
       }
 
       [(HUQuickControlCollectionViewGridLayoutRowInfo *)v12 setItemLayouts:v13, v32];
-      [(HUQuickControlCollectionViewGridLayoutRowInfo *)v12 setContentSize:HUSizeRoundedToScreenScale()];
+      [(HUQuickControlCollectionViewGridLayoutRowInfo *)v12 setContentSize:HUSizeRoundedToScreenScale(v15, v14)];
 
       ++v8;
     }

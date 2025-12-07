@@ -1,7 +1,14 @@
-uint64_t sub_24530195C()
-  v1 = {;
+uint64_t sub_24530195C(uint64_t a1)
+  v2 = {;
 
-  return v1;
+  return v2;
+}
+
+void sub_245304C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_2453055E4(_Unwind_Exception *a1)
@@ -46,9 +53,9 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_245314D34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_245314D34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -84,18 +91,20 @@ CFTypeRef _CoreDAVSecCopyIdentityFromPersist(CFTypeRef a1)
       v4 = +[CoreDAVLogging sharedLogging];
       v5 = [v4 logHandleForAccountInfoProvider:0];
       v6 = v5;
-      if (v5 && os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      if (v5)
       {
-        *buf = 67109120;
-        v10 = v3;
-        _os_log_impl(&dword_2452FB000, v6, OS_LOG_TYPE_ERROR, "Could not find identity for persistent ref. %d", buf, 8u);
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 67109120;
+          v9 = v3;
+          _os_log_impl(&dword_2452FB000, v6, OS_LOG_TYPE_ERROR, "Could not find identity for persistent ref. %d", buf, 8u);
+        }
       }
     }
 
-    a1 = result;
+    return result;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -170,13 +179,13 @@ __CFArray *_CoreDAVSecIdentityCopySSLClientAuthenticationChain(void *a1)
   return Mutable;
 }
 
-uint64_t CalDAVServerSimulatorLibraryCore()
+uint64_t CalDAVServerSimulatorLibraryCore(uint64_t a1)
 {
   v10 = *MEMORY[0x277D85DE8];
   v3 = 0;
   v4 = &v3;
   v5 = 0x2020000000;
-  v0 = CalDAVServerSimulatorLibraryCore_frameworkLibrary;
+  v1 = CalDAVServerSimulatorLibraryCore_frameworkLibrary;
   v6 = CalDAVServerSimulatorLibraryCore_frameworkLibrary;
   if (!CalDAVServerSimulatorLibraryCore_frameworkLibrary)
   {
@@ -185,42 +194,51 @@ uint64_t CalDAVServerSimulatorLibraryCore()
     v9 = 0;
     v4[3] = _sl_dlopen();
     CalDAVServerSimulatorLibraryCore_frameworkLibrary = v4[3];
-    v0 = v4[3];
+    v1 = v4[3];
   }
 
   _Block_object_dispose(&v3, 8);
-  v1 = *MEMORY[0x277D85DE8];
-  return v0;
+  return v1;
 }
 
-void sub_245318848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_245318848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __CalDAVServerSimulatorLibraryCore_block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 40);
   result = _sl_dlopen();
   *(*(*(a1 + 32) + 8) + 24) = result;
   CalDAVServerSimulatorLibraryCore_frameworkLibrary = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t CalDAVServerSimulatorLibrary()
 {
-  v1 = 0;
-  result = CalDAVServerSimulatorLibraryCore();
-  if (!result)
+  v3 = 0;
+  v0 = CalDAVServerSimulatorLibraryCore(&v3);
+  if (!v0)
   {
-    CalDAVServerSimulatorLibrary_cold_1(&v1);
+    CalDAVServerSimulatorLibrary_cold_1(&v3);
   }
 
-  return result;
+  v1 = v0;
+  if (v3)
+  {
+    free(v3);
+  }
+
+  return v1;
+}
+
+void sub_245319CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 Class __getCalDAVServerSimulatorClass_block_invoke(uint64_t a1)
@@ -237,7 +255,7 @@ Class __getCalDAVServerSimulatorClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t CDVHTTPStatusCodeFromStatusLine(void *a1)
+char *CDVHTTPStatusCodeFromStatusLine(void *a1)
 {
   v1 = a1;
   if ([v1 length])
@@ -567,16 +585,16 @@ id CDVExtractValuesFromRedirectString(void *a1)
   return v2;
 }
 
-id _systemVersionDict()
+id _systemVersionDict(uint64_t a1)
 {
   if (_systemVersionDict_once != -1)
   {
     _systemVersionDict_cold_1();
   }
 
-  v1 = _systemVersionDict_versionDictionary;
+  v2 = _systemVersionDict_versionDictionary;
 
-  return v1;
+  return v2;
 }
 
 void ___systemVersionDict_block_invoke()
@@ -604,17 +622,18 @@ id CDVDefaultUserAgent()
     v2 = [v1 infoDictionary];
     v3 = [v2 objectForKey:@"CFBundleVersion"];
 
-    if (![(__CFString *)v3 length])
+    v4 = [(__CFString *)v3 length];
+    if (!v4)
     {
 
       v3 = @"1.0";
     }
 
-    v4 = _systemVersionDict();
-    v5 = [v4 objectForKeyedSubscript:*MEMORY[0x277CBEC70]];
-    v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"CoreDAV/%@ (%@)", v3, v5];
-    v7 = CDVDefaultUserAgent__sUserAgentString;
-    CDVDefaultUserAgent__sUserAgentString = v6;
+    v5 = _systemVersionDict(v4);
+    v6 = [v5 objectForKeyedSubscript:*MEMORY[0x277CBEC70]];
+    v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"CoreDAV/%@ (%@)", v3, v6];
+    v8 = CDVDefaultUserAgent__sUserAgentString;
+    CDVDefaultUserAgent__sUserAgentString = v7;
 
     v0 = CDVDefaultUserAgent__sUserAgentString;
   }
@@ -622,16 +641,16 @@ id CDVDefaultUserAgent()
   return v0;
 }
 
-id CDVAppleClientInfoString()
+id CDVAppleClientInfoString(uint64_t a1)
 {
   if (CDVAppleClientInfoString_gotVersionString != -1)
   {
     CDVAppleClientInfoString_cold_1();
   }
 
-  v1 = CDVAppleClientInfoString__sVersionString;
+  v2 = CDVAppleClientInfoString__sVersionString;
 
-  return v1;
+  return v2;
 }
 
 void __CDVAppleClientInfoString_block_invoke()
@@ -766,7 +785,7 @@ id CDVRunLoopModesToPerformDelayedSelectorsInFromRunLoop(void *a1)
   return v5;
 }
 
-void initializeLibXMLParser()
+void initializeLibXMLParser(uint64_t result, uint64_t a2)
 {
   if (initializeLibXMLParser_didInitializeXMLParser != -1)
   {
@@ -776,33 +795,33 @@ void initializeLibXMLParser()
 
 id CDVCleanedStringsFromResponseHeaders(void *a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v17 = a2;
+  v16 = a2;
   v4 = [v3 CDVObjectForKeyCaseInsensitive:?];
   v5 = [v4 lowercaseString];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v6 = [v5 componentsSeparatedByString:{@", "}];
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         v13 = [MEMORY[0x277CCA900] whitespaceCharacterSet];
         v14 = [v12 stringByTrimmingCharactersInSet:v13];
 
@@ -820,7 +839,7 @@ id CDVCleanedStringsFromResponseHeaders(void *a1, void *a2)
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
@@ -831,21 +850,19 @@ id CDVCleanedStringsFromResponseHeaders(void *a1, void *a2)
     v9 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
-id CDVRelativeOrderHeaderString()
+id CDVRelativeOrderHeaderString(uint64_t a1)
 {
   if (CDVRelativeOrderHeaderString_onceToken != -1)
   {
     CDVRelativeOrderHeaderString_cold_1();
   }
 
-  v1 = CDVRelativeOrderHeaderString__sRelativeOrderString;
+  v2 = CDVRelativeOrderHeaderString__sRelativeOrderString;
 
-  return v1;
+  return v2;
 }
 
 void __CDVRelativeOrderHeaderString_block_invoke()
@@ -894,9 +911,9 @@ void ___logFormater_block_invoke()
   }
 }
 
-void sub_24532A8FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_24532A8FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -907,34 +924,34 @@ uint64_t OUTLINED_FUNCTION_2_0()
   return objc_opt_class();
 }
 
-uint64_t sub_24532C41C()
-  v1 = {;
+uint64_t sub_24532C41C(uint64_t a1)
+  v2 = {;
 
-  return v1;
+  return v2;
 }
 
-uint64_t sub_24532D0CC()
-  v1 = {;
+uint64_t sub_24532D0CC(uint64_t a1)
+  v2 = {;
 
-  return v1;
+  return v2;
 }
 
-uint64_t sub_2453310A0()
-  v1 = {;
+uint64_t sub_2453310A0(uint64_t a1)
+  v2 = {;
 
-  return v1;
+  return v2;
 }
 
-uint64_t sub_2453328CC()
-  v1 = {;
+uint64_t sub_2453328CC(uint64_t a1)
+  v2 = {;
 
-  return v1;
+  return v2;
 }
 
-uint64_t sub_2453474C4()
-  v1 = {;
+uint64_t sub_2453474C4(uint64_t a1)
+  v2 = {;
 
-  return v1;
+  return v2;
 }
 
 void sub_2453496F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)

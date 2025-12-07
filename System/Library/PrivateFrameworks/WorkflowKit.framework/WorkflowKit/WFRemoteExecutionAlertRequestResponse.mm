@@ -49,15 +49,15 @@
 
 - (BOOL)readMessageFromData:(id)data error:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E69C65B8];
   dataCopy = data;
   v8 = [[v6 alloc] initWithData:dataCopy];
 
   v9 = objc_alloc_init(WFREPBAlertRequestResponse);
-  v32 = 0;
-  v10 = [(PBCodable *)v9 readFrom:v8 error:&v32];
-  v11 = v32;
+  v31 = 0;
+  v10 = [(PBCodable *)v9 readFrom:v8 error:&v31];
+  v11 = v31;
   if (v10)
   {
     requestIdentifier = [(WFREPBAlertRequestResponse *)v9 requestIdentifier];
@@ -104,9 +104,9 @@
     if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v34 = "[WFRemoteExecutionAlertRequestResponse readMessageFromData:error:]";
-      v35 = 2114;
-      v36 = v11;
+      v33 = "[WFRemoteExecutionAlertRequestResponse readMessageFromData:error:]";
+      v34 = 2114;
+      v35 = v11;
       _os_log_impl(&dword_1CA256000, v28, OS_LOG_TYPE_FAULT, "%s Failed to read alert request response protobuf, %{public}@", buf, 0x16u);
     }
 
@@ -117,7 +117,6 @@
     }
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

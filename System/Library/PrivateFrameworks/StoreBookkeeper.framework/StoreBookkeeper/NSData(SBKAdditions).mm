@@ -25,7 +25,7 @@
 
 - (id)_SBKDataByDeflatingWithNoZipHeaderWithCompression:()SBKAdditions
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   if ([selfCopy length] >= 0xFFFFFFFF)
   {
@@ -62,7 +62,7 @@
       v10 = v9;
     }
 
-    strm.next_out = v19;
+    strm.next_out = v18;
     if (deflateInit2_(&strm, v10, 8, -15, 9, 0, "1.2.12", 112))
     {
       NSLog(&cfstr_Deflateinit2Fa.isa, strm.msg);
@@ -76,9 +76,9 @@
       {
         if (!strm.avail_out)
         {
-          [v8 appendBytes:v19 length:0x4000];
+          [v8 appendBytes:v18 length:0x4000];
           strm.avail_out = 0x4000;
-          strm.next_out = v19;
+          strm.next_out = v18;
         }
 
         v11 = deflate(&strm, 0);
@@ -91,19 +91,19 @@
         {
           do
           {
-            v14 = deflate(&strm, 4);
+            v13 = deflate(&strm, 4);
             next_out = strm.next_out;
-            [v8 appendBytes:v19 length:strm.next_out - v19];
-            v16 = next_out > v19 && v14 == -5;
+            [v8 appendBytes:v18 length:strm.next_out - v18];
+            v15 = next_out > v18 && v13 == -5;
             strm.avail_out = 0x4000;
-            strm.next_out = v19;
+            strm.next_out = v18;
           }
 
-          while (v16 || v14 == 0);
+          while (v15 || v13 == 0);
           strm.avail_out = 0;
           strm.next_out = 0;
           deflateEnd(&strm);
-          if (v14 != -5 && v14 != 1)
+          if (v13 != -5 && v13 != 1)
           {
             NSLog(&cfstr_DeflateFailedS.isa, strm.msg);
             goto LABEL_21;
@@ -130,14 +130,13 @@ LABEL_21:
 LABEL_22:
 
 LABEL_23:
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)_SBKDataByInflatingWithNoZipHeader
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   if ([selfCopy length] >> 32)
   {
@@ -157,7 +156,7 @@ LABEL_3:
     while (1)
     {
       strm.avail_out = 0x4000;
-      strm.next_out = v8;
+      strm.next_out = v7;
       v3 = inflate(&strm, 0);
       if (v3 > 1)
       {
@@ -167,7 +166,7 @@ LABEL_3:
       v4 = v3;
       if (strm.avail_out != 0x4000)
       {
-        [v2 appendBytes:v8 length:0x4000 - strm.avail_out];
+        [v2 appendBytes:v7 length:0x4000 - strm.avail_out];
       }
 
       if (v4)
@@ -184,35 +183,33 @@ LABEL_3:
 
 LABEL_11:
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
 + (__CFString)SBKStringByMD5HashingString:()SBKAdditions
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v3 = a3;
-  memset(v57, 0, sizeof(v57));
-  CC_MD5_Init(v57);
+  memset(v56, 0, sizeof(v56));
+  CC_MD5_Init(v56);
   v4 = v3;
-  CC_MD5_Update(v57, [v4 UTF8String], objc_msgSend(v4, "length"));
+  CC_MD5_Update(v56, [v4 UTF8String], objc_msgSend(v4, "length"));
 
-  memset(&v58[8], 0, 64);
-  *v58 = 4000;
-  CC_MD5_Final(&v58[8], v57);
-  v59[0] = *v58;
-  v59[1] = *&v58[16];
-  v59[2] = *&v58[32];
-  v59[3] = *&v58[48];
-  v60 = *&v58[64];
-  if (*v58 > 3999)
+  memset(&v57[8], 0, 64);
+  *v57 = 4000;
+  CC_MD5_Final(&v57[8], v56);
+  v58[0] = *v57;
+  v58[1] = *&v57[16];
+  v58[2] = *&v57[32];
+  v58[3] = *&v57[48];
+  v59 = *&v57[64];
+  if (*v57 > 3999)
   {
-    if (*v58 > 4255)
+    if (*v57 > 4255)
     {
-      if (*v58 == 4256)
+      if (*v57 == 4256)
       {
-        v46 = v59 + 8;
+        v46 = v58 + 8;
         v47 = malloc_type_calloc(0x40uLL, 1uLL, 0x100004077774924uLL);
         v48 = v47;
         for (i = 0; i != 64; i += 2)
@@ -230,12 +227,12 @@ LABEL_11:
 
       else
       {
-        if (*v58 != 4512)
+        if (*v57 != 4512)
         {
           goto LABEL_52;
         }
 
-        v24 = v59 + 8;
+        v24 = v58 + 8;
         v25 = malloc_type_calloc(0x80uLL, 1uLL, 0x100004077774924uLL);
         v26 = v25;
         for (j = 0; j != 128; j += 2)
@@ -252,9 +249,9 @@ LABEL_11:
       }
     }
 
-    else if (*v58 == 4000)
+    else if (*v57 == 4000)
     {
-      v36 = v59 + 8;
+      v36 = v58 + 8;
       v37 = malloc_type_calloc(0x20uLL, 1uLL, 0x100004077774924uLL);
       v38 = v37;
       for (k = 0; k != 32; k += 2)
@@ -272,12 +269,12 @@ LABEL_11:
 
     else
     {
-      if (*v58 != 4001)
+      if (*v57 != 4001)
       {
         goto LABEL_52;
       }
 
-      v11 = v59 + 8;
+      v11 = v58 + 8;
       v12 = malloc_type_calloc(0x28uLL, 1uLL, 0x100004077774924uLL);
       v13 = v12;
       for (m = 0; m != 40; m += 2)
@@ -294,21 +291,21 @@ LABEL_11:
     }
 
 LABEL_47:
-    v35 = [v17 initWithBytesNoCopy:v18 length:v19 encoding:4 freeWhenDone:{1, 4000, *v57}];
+    v35 = [v17 initWithBytesNoCopy:v18 length:v19 encoding:4 freeWhenDone:{1, 4000, *v56}];
     goto LABEL_48;
   }
 
-  if (*v58 > 2999)
+  if (*v57 > 2999)
   {
-    if (*v58 == 3000)
+    if (*v57 == 3000)
     {
-      LODWORD(v61[0]) = bswap32(DWORD2(v59[0]));
+      LODWORD(v60[0]) = bswap32(DWORD2(v58[0]));
       v42 = malloc_type_calloc(8uLL, 1uLL, 0x100004077774924uLL);
       v43 = 0;
       v44 = v42 + 1;
       do
       {
-        v45 = *(v61 + v43);
+        v45 = *(v60 + v43);
         *(v44 - 1) = MSVFastHexStringFromBytes_hexCharacters[v45 >> 4];
         *v44 = MSVFastHexStringFromBytes_hexCharacters[v45 & 0xF];
         v44 += 2;
@@ -323,18 +320,18 @@ LABEL_47:
 
     else
     {
-      if (*v58 != 3001)
+      if (*v57 != 3001)
       {
         goto LABEL_52;
       }
 
-      v61[0] = bswap64(*(&v59[0] + 1));
+      v60[0] = bswap64(*(&v58[0] + 1));
       v20 = malloc_type_calloc(0x10uLL, 1uLL, 0x100004077774924uLL);
       v21 = 0;
       v22 = v20 + 1;
       do
       {
-        v23 = *(v61 + v21);
+        v23 = *(v60 + v21);
         *(v22 - 1) = MSVFastHexStringFromBytes_hexCharacters[v23 >> 4];
         *v22 = MSVFastHexStringFromBytes_hexCharacters[v23 & 0xF];
         v22 += 2;
@@ -350,13 +347,13 @@ LABEL_47:
     goto LABEL_47;
   }
 
-  if (*v58 == 1000)
+  if (*v57 == 1000)
   {
-    v30 = *(&v59[0] + 1);
-    if (*(&v59[0] + 1))
+    v30 = *(&v58[0] + 1);
+    if (*(&v58[0] + 1))
     {
-      v31 = &v62 + 1;
-      quot = *(&v59[0] + 1);
+      v31 = &v61 + 1;
+      quot = *(&v58[0] + 1);
       do
       {
         v33 = lldiv(quot, 10);
@@ -383,28 +380,28 @@ LABEL_47:
         v10 = (v31 - 2);
       }
 
-      v9 = (&v62 - v10);
+      v9 = (&v61 - v10);
       goto LABEL_37;
     }
 
     goto LABEL_53;
   }
 
-  if (*v58 != 2000)
+  if (*v57 != 2000)
   {
 LABEL_52:
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    v56 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString * _Nonnull _MSVHashGetDigest(MSVHash)"];
-    [currentHandler handleFailureInFunction:v56 file:@"MSVHasher+Algorithms.h" lineNumber:356 description:@"Cannot obtain digest from unknown hasher algorithm"];
+    v55 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString * _Nonnull _MSVHashGetDigest(MSVHash)"];
+    [currentHandler handleFailureInFunction:v55 file:@"MSVHasher+Algorithms.h" lineNumber:356 description:@"Cannot obtain digest from unknown hasher algorithm"];
 
     v52 = &stru_287C9CB50;
     goto LABEL_49;
   }
 
-  v5 = DWORD2(v59[0]);
-  if (DWORD2(v59[0]))
+  v5 = DWORD2(v58[0]);
+  if (DWORD2(v58[0]))
   {
-    v6 = &v62;
+    v6 = &v61;
     do
     {
       v7 = ldiv(v5, 10);
@@ -424,7 +421,7 @@ LABEL_52:
     }
 
     while (v7.quot);
-    v9 = (&v62 - v6);
+    v9 = (&v61 - v6);
     v10 = v6;
 LABEL_37:
     v35 = CFStringCreateWithBytes(0, v10, v9, 0x8000100u, 0);
@@ -436,8 +433,6 @@ LABEL_48:
 LABEL_53:
   v52 = @"0";
 LABEL_49:
-
-  v53 = *MEMORY[0x277D85DE8];
 
   return v52;
 }

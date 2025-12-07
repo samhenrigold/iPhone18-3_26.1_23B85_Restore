@@ -7,10 +7,10 @@
 
 - (SRAppUsageCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
 {
-  v16[2] = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = SRAppUsageCell;
-  v4 = [(SRAppUsageCell *)&v14 initWithStyle:style reuseIdentifier:identifier];
+  v15[2] = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = SRAppUsageCell;
+  v4 = [(SRAppUsageCell *)&v13 initWithStyle:style reuseIdentifier:identifier];
   v5 = v4;
   if (v4)
   {
@@ -27,22 +27,21 @@
     [(UIButton *)v5->_button setContentVerticalAlignment:2];
     -[UILabel setFont:](-[UIButton titleLabel](v5->_button, "titleLabel"), "setFont:", [MEMORY[0x277D74300] preferredFontForTextStyle:v7]);
     v9 = objc_alloc(MEMORY[0x277D75A68]);
-    v16[0] = v5->_label;
-    v16[1] = v5->_button;
-    v10 = [v9 initWithArrangedSubviews:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v16, 2)}];
+    v15[0] = v5->_label;
+    v15[1] = v5->_button;
+    v10 = [v9 initWithArrangedSubviews:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v15, 2)}];
     [v10 setAxis:1];
     [v10 setSpacing:8.0];
     [v10 setTranslatesAutoresizingMaskIntoConstraints:0];
     [-[SRAppUsageCell contentView](v5 "contentView")];
     v11 = MEMORY[0x277CCAAD0];
-    v15[0] = [objc_msgSend(v10 "topAnchor")];
-    v15[1] = [objc_msgSend(v10 "leadingAnchor")];
-    v15[2] = [objc_msgSend(v10 "trailingAnchor")];
-    v15[3] = [objc_msgSend(v10 "bottomAnchor")];
-    [v11 activateConstraints:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v15, 4)}];
+    v14[0] = [objc_msgSend(v10 "topAnchor")];
+    v14[1] = [objc_msgSend(v10 "leadingAnchor")];
+    v14[2] = [objc_msgSend(v10 "trailingAnchor")];
+    v14[3] = [objc_msgSend(v10 "bottomAnchor")];
+    [v11 activateConstraints:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v14, 4)}];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

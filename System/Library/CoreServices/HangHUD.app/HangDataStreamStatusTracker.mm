@@ -51,30 +51,30 @@
   }
 
   v12 = [(NSMutableDictionary *)self->_hangHUDStatusDict objectForKeyedSubscript:dCopy];
-  [v12 previousDurationSinceLastUpdateMs];
-  v14 = v13;
-  v15 = sub_10000A9AC();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  previousDurationSinceLastUpdateMs = [v12 previousDurationSinceLastUpdateMs];
+  v15 = v14;
+  v16 = sub_10000A9AC(previousDurationSinceLastUpdateMs);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     [v12 previousDurationSinceLastUpdateMs];
-    v21 = 134219522;
+    v23 = 134219522;
     durationCopy = duration;
-    v23 = 2048;
-    v24 = v20;
-    v25 = 1024;
-    countsOfMeetingEndingConditions = [v12 countsOfMeetingEndingConditions];
+    v25 = 2048;
+    v26 = v22;
     v27 = 1024;
-    v28 = duration > interval;
+    countsOfMeetingEndingConditions = [v12 countsOfMeetingEndingConditions];
     v29 = 1024;
-    v30 = v14 < duration;
-    v31 = 2048;
+    v30 = duration > interval;
+    v31 = 1024;
+    v32 = v15 < duration;
+    v33 = 2048;
     intervalCopy = interval;
-    v33 = 2112;
-    v34 = dCopy;
-    _os_log_debug_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "isHangEndedWithDuration %f, previous_durationSinceLastUpdateMs:%f, counter:%i, is_latency_high:%i, is_latency_increasing:%i, hudUpdateInterval:%f, hangID:%@", &v21, 0x3Cu);
+    v35 = 2112;
+    v36 = dCopy;
+    _os_log_debug_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "isHangEndedWithDuration %f, previous_durationSinceLastUpdateMs:%f, counter:%i, is_latency_high:%i, is_latency_increasing:%i, hudUpdateInterval:%f, hangID:%@", &v23, 0x3Cu);
   }
 
-  if (duration <= interval || v14 >= duration)
+  if (duration <= interval || v15 >= duration)
   {
     [v12 initStatus];
   }
@@ -86,27 +86,28 @@
   }
 
   countsOfMeetingEndingConditions2 = [v12 countsOfMeetingEndingConditions];
-  v17 = sub_10000A9AC();
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
-  if (countsOfMeetingEndingConditions2 < 3)
+  v18 = countsOfMeetingEndingConditions2;
+  v19 = sub_10000A9AC(countsOfMeetingEndingConditions2);
+  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
+  if (v18 < 3)
   {
-    if (v18)
+    if (v20)
     {
-      sub_100018448(dCopy, v17);
+      sub_100018448(dCopy, v19);
     }
   }
 
   else
   {
-    if (v18)
+    if (v20)
     {
-      sub_1000184C0(dCopy, v17);
+      sub_1000184C0(dCopy, v19);
     }
 
     [v12 initStatus];
   }
 
-  return countsOfMeetingEndingConditions2 > 2;
+  return v18 > 2;
 }
 
 @end

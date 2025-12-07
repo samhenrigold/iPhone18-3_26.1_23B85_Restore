@@ -7,6 +7,7 @@
 - (id)objectForKey:(id)key;
 - (id)stringForKey:(id)key;
 - (void)removeObjectForKey:(id)key;
+- (void)setBool:(BOOL)bool forKey:(id)key;
 - (void)setObject:(id)object forKey:(id)key;
 - (void)synchronizeWithCompletionHandler:(id)handler;
 @end
@@ -87,6 +88,14 @@
   v6 = [userDefaults BOOLForKey:keyCopy];
 
   return v6;
+}
+
+- (void)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  keyCopy = key;
+  userDefaults = [(WeatherUserDefaults *)self userDefaults];
+  [userDefaults setBool:boolCopy forKey:keyCopy];
 }
 
 - (BOOL)synchronize

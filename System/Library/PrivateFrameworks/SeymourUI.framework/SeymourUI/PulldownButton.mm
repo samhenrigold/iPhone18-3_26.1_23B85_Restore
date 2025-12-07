@@ -10,7 +10,7 @@
 - (BOOL)isHighlighted
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for PulldownButton();
+  v3.super_class = type metadata accessor for PulldownButton(0);
   return [(PulldownButton *)&v3 isHighlighted];
 }
 
@@ -18,7 +18,7 @@
 {
   highlightedCopy = highlighted;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for PulldownButton();
+  v7.super_class = type metadata accessor for PulldownButton(0);
   v4 = v7.receiver;
   [(PulldownButton *)&v7 setHighlighted:highlightedCopy];
   isHighlighted = [v4 isHighlighted];

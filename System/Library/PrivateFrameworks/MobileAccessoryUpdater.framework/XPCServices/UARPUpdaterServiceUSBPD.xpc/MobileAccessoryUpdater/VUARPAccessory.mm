@@ -99,7 +99,7 @@
 {
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
   {
-    sub_100026510(self);
+    sub_100026510();
   }
 
   return uarpPlatformRemoteEndpointAdd(&self->_uarpAccessoryInternal, [(VUARPController *)self->_remoteEndpoint uarpRemoteEndpoint], &self->_uarpOptions, self->_remoteEndpoint) == 0;
@@ -109,7 +109,7 @@
 {
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
   {
-    sub_100026584(self);
+    sub_100026584();
   }
 
   return uarpPlatformRemoteEndpointRemove(&self->_uarpAccessoryInternal, [(VUARPController *)self->_remoteEndpoint uarpRemoteEndpoint]) == 0;

@@ -40,11 +40,11 @@
 
 - (NFCTag)initWithCoder:(id)coder
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v31.receiver = self;
-  v31.super_class = NFCTag;
-  v6 = [(NFCTag *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = NFCTag;
+  v6 = [(NFCTag *)&v30 init];
   if (v6)
   {
     v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"tag"];
@@ -111,13 +111,13 @@
         v25 = object_getClassName(v6);
         v26 = sel_getName(a2);
         *buf = 67109890;
-        v33 = v24;
-        v34 = 2082;
-        v35 = v25;
-        v36 = 2082;
-        v37 = v26;
-        v38 = 1024;
-        v39 = 72;
+        v32 = v24;
+        v33 = 2082;
+        v34 = v25;
+        v35 = 2082;
+        v36 = v26;
+        v37 = 1024;
+        v38 = 72;
         _os_log_impl(&dword_23728C000, delegateQueue, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Session has been invalidated", buf, 0x22u);
       }
     }
@@ -125,7 +125,6 @@
     v6->_lock._os_unfair_lock_opaque = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -155,22 +154,22 @@
 
 - (BOOL)isReadOnly
 {
-  v48 = *MEMORY[0x277D85DE8];
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = sub_2372B34DC;
-  v37[3] = &unk_278A29D20;
-  v37[4] = self;
+  v47 = *MEMORY[0x277D85DE8];
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = sub_2372B34DC;
+  v36[3] = &unk_278A29D20;
+  v36[4] = self;
   os_unfair_lock_lock(&self->_lock);
-  v4 = sub_2372B34DC(v37);
+  v4 = sub_2372B34DC(v36);
   os_unfair_lock_unlock(&self->_lock);
   _getInternalReaderSession = [(NFCTag *)self _getInternalReaderSession];
   currentTag = [_getInternalReaderSession currentTag];
   v7 = currentTag;
   if (_getInternalReaderSession && ([currentTag isEqualToNFTag:v4] & 1) != 0)
   {
-    v36 = 0;
-    v8 = [_getInternalReaderSession ndefStatus:&v36 maxMessageLength:0];
+    v35 = 0;
+    v8 = [_getInternalReaderSession ndefStatus:&v35 maxMessageLength:0];
     if (v8)
     {
       Logger = NFLogGetLogger();
@@ -207,15 +206,15 @@
         v17 = object_getClassName(self);
         v18 = sel_getName(a2);
         *buf = 67110146;
-        v39 = v16;
-        v40 = 2082;
-        v41 = v17;
-        v42 = 2082;
-        v43 = v18;
-        v44 = 1024;
-        v45 = 122;
-        v46 = 2112;
-        v47 = v8;
+        v38 = v16;
+        v39 = 2082;
+        v40 = v17;
+        v41 = 2082;
+        v42 = v18;
+        v43 = 1024;
+        v44 = 122;
+        v45 = 2112;
+        v46 = v8;
         _os_log_impl(&dword_23728C000, v14, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Error=%@", buf, 0x2Cu);
       }
 
@@ -224,7 +223,7 @@
 
     else
     {
-      v19 = v36 == 3;
+      v19 = v35 == 3;
     }
   }
 
@@ -237,14 +236,14 @@
       v22 = object_getClass(self);
       v23 = class_isMetaClass(v22);
       v24 = object_getClassName(self);
-      v35 = sel_getName(a2);
+      v34 = sel_getName(a2);
       v25 = 45;
       if (v23)
       {
         v25 = 43;
       }
 
-      v21(4, "%c[%{public}s %{public}s]:%i Tag is not connected", v25, v24, v35, 115);
+      v21(4, "%c[%{public}s %{public}s]:%i Tag is not connected", v25, v24, v34, 115);
     }
 
     v26 = NFSharedLogGetLogger();
@@ -264,41 +263,40 @@
       v29 = object_getClassName(self);
       v30 = sel_getName(a2);
       *buf = 67109890;
-      v39 = v28;
-      v40 = 2082;
-      v41 = v29;
-      v42 = 2082;
-      v43 = v30;
-      v44 = 1024;
-      v45 = 115;
+      v38 = v28;
+      v39 = 2082;
+      v40 = v29;
+      v41 = 2082;
+      v42 = v30;
+      v43 = 1024;
+      v44 = 115;
       _os_log_impl(&dword_23728C000, v26, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Tag is not connected", buf, 0x22u);
     }
 
     v19 = 0;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (BOOL)isNDEFFormatted
 {
-  v48 = *MEMORY[0x277D85DE8];
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = sub_2372B386C;
-  v37[3] = &unk_278A29D20;
-  v37[4] = self;
+  v47 = *MEMORY[0x277D85DE8];
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = sub_2372B386C;
+  v36[3] = &unk_278A29D20;
+  v36[4] = self;
   os_unfair_lock_lock(&self->_lock);
-  v4 = sub_2372B386C(v37);
+  v4 = sub_2372B386C(v36);
   os_unfair_lock_unlock(&self->_lock);
   _getInternalReaderSession = [(NFCTag *)self _getInternalReaderSession];
   currentTag = [_getInternalReaderSession currentTag];
   v7 = currentTag;
   if (_getInternalReaderSession && ([currentTag isEqualToNFTag:v4] & 1) != 0)
   {
-    v36 = 0;
-    v8 = [_getInternalReaderSession ndefStatus:&v36 maxMessageLength:0];
+    v35 = 0;
+    v8 = [_getInternalReaderSession ndefStatus:&v35 maxMessageLength:0];
     if (v8)
     {
       Logger = NFLogGetLogger();
@@ -335,15 +333,15 @@
         v17 = object_getClassName(self);
         v18 = sel_getName(a2);
         *buf = 67110146;
-        v39 = v16;
-        v40 = 2082;
-        v41 = v17;
-        v42 = 2082;
-        v43 = v18;
-        v44 = 1024;
-        v45 = 146;
-        v46 = 2112;
-        v47 = v8;
+        v38 = v16;
+        v39 = 2082;
+        v40 = v17;
+        v41 = 2082;
+        v42 = v18;
+        v43 = 1024;
+        v44 = 146;
+        v45 = 2112;
+        v46 = v8;
         _os_log_impl(&dword_23728C000, v14, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Error=%@", buf, 0x2Cu);
       }
 
@@ -352,7 +350,7 @@
 
     else
     {
-      v19 = v36 > 1;
+      v19 = v35 > 1;
     }
   }
 
@@ -365,14 +363,14 @@
       v22 = object_getClass(self);
       v23 = class_isMetaClass(v22);
       v24 = object_getClassName(self);
-      v35 = sel_getName(a2);
+      v34 = sel_getName(a2);
       v25 = 45;
       if (v23)
       {
         v25 = 43;
       }
 
-      v21(4, "%c[%{public}s %{public}s]:%i Tag is not connected", v25, v24, v35, 139);
+      v21(4, "%c[%{public}s %{public}s]:%i Tag is not connected", v25, v24, v34, 139);
     }
 
     v26 = NFSharedLogGetLogger();
@@ -392,41 +390,40 @@
       v29 = object_getClassName(self);
       v30 = sel_getName(a2);
       *buf = 67109890;
-      v39 = v28;
-      v40 = 2082;
-      v41 = v29;
-      v42 = 2082;
-      v43 = v30;
-      v44 = 1024;
-      v45 = 139;
+      v38 = v28;
+      v39 = 2082;
+      v40 = v29;
+      v41 = 2082;
+      v42 = v30;
+      v43 = 1024;
+      v44 = 139;
       _os_log_impl(&dword_23728C000, v26, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Tag is not connected", buf, 0x22u);
     }
 
     v19 = 0;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (unint64_t)capacity
 {
-  v48 = *MEMORY[0x277D85DE8];
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = sub_2372B3BF4;
-  v37[3] = &unk_278A29D20;
-  v37[4] = self;
+  v47 = *MEMORY[0x277D85DE8];
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = sub_2372B3BF4;
+  v36[3] = &unk_278A29D20;
+  v36[4] = self;
   os_unfair_lock_lock(&self->_lock);
-  v4 = sub_2372B3BF4(v37);
+  v4 = sub_2372B3BF4(v36);
   os_unfair_lock_unlock(&self->_lock);
   _getInternalReaderSession = [(NFCTag *)self _getInternalReaderSession];
   currentTag = [_getInternalReaderSession currentTag];
   v7 = currentTag;
   if (_getInternalReaderSession && ([currentTag isEqualToNFTag:v4] & 1) != 0)
   {
-    v36 = 0;
-    v8 = [_getInternalReaderSession ndefStatus:0 maxMessageLength:&v36];
+    v35 = 0;
+    v8 = [_getInternalReaderSession ndefStatus:0 maxMessageLength:&v35];
     if (v8)
     {
       Logger = NFLogGetLogger();
@@ -463,15 +460,15 @@
         v17 = object_getClassName(self);
         v18 = sel_getName(a2);
         *buf = 67110146;
-        v39 = v16;
-        v40 = 2082;
-        v41 = v17;
-        v42 = 2082;
-        v43 = v18;
-        v44 = 1024;
-        v45 = 174;
-        v46 = 2112;
-        v47 = v8;
+        v38 = v16;
+        v39 = 2082;
+        v40 = v17;
+        v41 = 2082;
+        v42 = v18;
+        v43 = 1024;
+        v44 = 174;
+        v45 = 2112;
+        v46 = v8;
         _os_log_impl(&dword_23728C000, v14, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Error=%@", buf, 0x2Cu);
       }
 
@@ -480,7 +477,7 @@
 
     else
     {
-      v19 = v36;
+      v19 = v35;
     }
   }
 
@@ -493,14 +490,14 @@
       v22 = object_getClass(self);
       v23 = class_isMetaClass(v22);
       v24 = object_getClassName(self);
-      v35 = sel_getName(a2);
+      v34 = sel_getName(a2);
       v25 = 45;
       if (v23)
       {
         v25 = 43;
       }
 
-      v21(4, "%c[%{public}s %{public}s]:%i Tag is not connected", v25, v24, v35, 167);
+      v21(4, "%c[%{public}s %{public}s]:%i Tag is not connected", v25, v24, v34, 167);
     }
 
     v26 = NFSharedLogGetLogger();
@@ -520,20 +517,19 @@
       v29 = object_getClassName(self);
       v30 = sel_getName(a2);
       *buf = 67109890;
-      v39 = v28;
-      v40 = 2082;
-      v41 = v29;
-      v42 = 2082;
-      v43 = v30;
-      v44 = 1024;
-      v45 = 167;
+      v38 = v28;
+      v39 = 2082;
+      v40 = v29;
+      v41 = 2082;
+      v42 = v30;
+      v43 = 1024;
+      v44 = 167;
       _os_log_impl(&dword_23728C000, v26, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Tag is not connected", buf, 0x22u);
     }
 
     v19 = 0;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -978,9 +974,7 @@ LABEL_3:
 
 - (void)_setSession:(id)session
 {
-  sessionId = [session sessionId];
-  sessionKey = self->_sessionKey;
-  self->_sessionKey = sessionId;
+  self->_sessionKey = [session sessionId];
 
   MEMORY[0x2821F96F8]();
 }
@@ -1030,7 +1024,7 @@ LABEL_3:
 
 - (void)dispatchOnDelegateQueueAsync:(id)async
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   delegateQueue = self->_delegateQueue;
   asyncCopy = async;
   if (delegateQueue)
@@ -1072,13 +1066,13 @@ LABEL_3:
       }
 
       *buf = 67109890;
-      v20 = v16;
-      v21 = 2082;
-      v22 = object_getClassName(self);
-      v23 = 2082;
-      v24 = sel_getName(a2);
-      v25 = 1024;
-      v26 = 543;
+      v19 = v16;
+      v20 = 2082;
+      v21 = object_getClassName(self);
+      v22 = 2082;
+      v23 = sel_getName(a2);
+      v24 = 1024;
+      v25 = 543;
       _os_log_impl(&dword_23728C000, v14, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Session queue is not available; dispatching on main queue", buf, 0x22u);
     }
 
@@ -1086,8 +1080,6 @@ LABEL_3:
   }
 
   dispatch_async(v7, asyncCopy);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_connectWithSession:(id)session outError:(id *)error

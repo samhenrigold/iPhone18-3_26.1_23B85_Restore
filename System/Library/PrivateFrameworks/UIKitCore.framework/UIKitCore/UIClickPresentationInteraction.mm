@@ -79,7 +79,7 @@ void __55___UIClickPresentationInteraction__performPresentation__block_invoke(ui
     }
 
     v6 = [WeakRetained presentationAssistant];
-    [v6 presentation];
+    objc_msgSend_presentation(v6);
     v10 = 0;
     v9 = v11 = 0;
 
@@ -213,7 +213,7 @@ void __64___UIClickPresentationInteraction_beginDragIfPossibleWithTouch___block_
   {
     v5 = [WeakRetained delegate];
     v6 = [v4 presentationAssistant];
-    v7 = [v6 presentation];
+    v7 = objc_msgSend_presentation(v6);
     v8 = [v5 _clickPresentationInteraction:v4 liveDragPreviewForPresentation:v7 dragItem:v9];
 
     if (v8)
@@ -309,7 +309,7 @@ _BYTE *__83___UIClickPresentationInteraction__handleDidTransitionToPossibleFromS
 
   if (!*(v2 + 24))
   {
-    v4 = [*(a1 + 32) presentation];
+    v4 = objc_msgSend_presentation(*(a1 + 32));
     v5 = *(a1 + 48);
     v6 = *(v5 + 24);
     *(v5 + 24) = v4;

@@ -164,8 +164,7 @@ LABEL_5:
     v24->_screenRecordingObservers = v31;
 
     objc_storeStrong(&v24->_screenshotManager, manager);
-    [(SBContinuityScreenshotManager *)v24->_screenshotManager setSceneManagerProvider:v24];
-    v33 = SBLogContinuitySession();
+    v33 = SBLogContinuitySession([(SBContinuityScreenshotManager *)v24->_screenshotManager setSceneManagerProvider:v24]);
     if (os_signpost_enabled(v33))
     {
       *buf = 0;
@@ -256,9 +255,9 @@ LABEL_5:
   v4 = observerCopy;
   if (observerCopy)
   {
-    v5 = [(NSHashTable *)self->_orientationObservers containsObject:observerCopy];
+    v5 = objc_msgSend_containsObject_(self->_orientationObservers, observerCopy, observerCopy);
     v4 = observerCopy;
-    if (!v5)
+    if ((v5 & 1) == 0)
     {
       [(NSHashTable *)self->_orientationObservers addObject:observerCopy];
       v4 = observerCopy;
@@ -328,24 +327,25 @@ LABEL_5:
 
 - (void)noteSceneConnected:(id)connected
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   connectedCopy = connected;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   WeakRetained = objc_loadWeakRetained(&self->_windowScene);
+  v6 = WeakRetained;
   if (WeakRetained)
   {
     [SBContinuitySession noteSceneConnected:];
   }
 
-  v6 = SBLogContinuitySession();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SBLogContinuitySession(WeakRetained);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     _sceneIdentifier = [connectedCopy _sceneIdentifier];
-    v8 = 134218242;
-    v9 = connectedCopy;
-    v10 = 2114;
-    v11 = _sceneIdentifier;
-    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[Session] scene connected: <%p>:%{public}@", &v8, 0x16u);
+    v9 = 134218242;
+    v10 = connectedCopy;
+    v11 = 2114;
+    v12 = _sceneIdentifier;
+    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "[Session] scene connected: <%p>:%{public}@", &v9, 0x16u);
   }
 
   objc_storeWeak(&self->_windowScene, connectedCopy);
@@ -354,29 +354,30 @@ LABEL_5:
 
 - (void)noteSceneDisconnected:(id)disconnected
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   disconnectedCopy = disconnected;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   WeakRetained = objc_loadWeakRetained(&self->_windowScene);
+  v7 = WeakRetained;
   if (WeakRetained != disconnectedCopy)
   {
-    [(SBContinuitySession *)disconnectedCopy noteSceneDisconnected:a2, self];
+    WeakRetained = [(SBContinuitySession *)disconnectedCopy noteSceneDisconnected:a2, self];
   }
 
-  v7 = SBLogContinuitySession();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = SBLogContinuitySession(WeakRetained);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     _sceneIdentifier = [disconnectedCopy _sceneIdentifier];
-    v10 = 134218242;
-    v11 = disconnectedCopy;
-    v12 = 2114;
-    v13 = _sceneIdentifier;
-    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "[Session] scene disconnected: <%p>:%{public}@", &v10, 0x16u);
+    v11 = 134218242;
+    v12 = disconnectedCopy;
+    v13 = 2114;
+    v14 = _sceneIdentifier;
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "[Session] scene disconnected: <%p>:%{public}@", &v11, 0x16u);
   }
 
   objc_storeWeak(&self->_windowScene, 0);
-  v9 = [MEMORY[0x277CBEB98] setWithObject:@"terminal.scene-disconnected"];
-  [(SBContinuitySession *)self _invalidateForReasons:v9];
+  v10 = [MEMORY[0x277CBEB98] setWithObject:@"terminal.scene-disconnected"];
+  [(SBContinuitySession *)self _invalidateForReasons:v10];
 }
 
 - (BOOL)isMainSceneConnected
@@ -396,24 +397,25 @@ LABEL_5:
 
 - (void)noteMainSceneConnected:(id)connected
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   connectedCopy = connected;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   WeakRetained = objc_loadWeakRetained(&self->_mainSBWindowScene);
+  v6 = WeakRetained;
   if (WeakRetained)
   {
     [SBContinuitySession noteMainSceneConnected:];
   }
 
-  v6 = SBLogContinuitySession();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SBLogContinuitySession(WeakRetained);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     _sceneIdentifier = [connectedCopy _sceneIdentifier];
-    v8 = 134218242;
-    v9 = connectedCopy;
-    v10 = 2114;
-    v11 = _sceneIdentifier;
-    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[Session] main scene connected: <%p>:%{public}@", &v8, 0x16u);
+    v9 = 134218242;
+    v10 = connectedCopy;
+    v11 = 2114;
+    v12 = _sceneIdentifier;
+    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "[Session] main scene connected: <%p>:%{public}@", &v9, 0x16u);
   }
 
   objc_storeWeak(&self->_mainSBWindowScene, connectedCopy);
@@ -422,24 +424,25 @@ LABEL_5:
 
 - (void)noteUIIsReady:(id)ready
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   readyCopy = ready;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   WeakRetained = objc_loadWeakRetained(&self->_mainSBWindowScene);
+  v7 = WeakRetained;
   if (WeakRetained != readyCopy)
   {
-    [(SBContinuitySession *)readyCopy noteUIIsReady:a2, self];
+    WeakRetained = [(SBContinuitySession *)readyCopy noteUIIsReady:a2, self];
   }
 
-  v7 = SBLogContinuitySession();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = SBLogContinuitySession(WeakRetained);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     _sceneIdentifier = [readyCopy _sceneIdentifier];
-    v9 = 134218242;
-    v10 = readyCopy;
-    v11 = 2114;
-    v12 = _sceneIdentifier;
-    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "[Session] ui is ready: <%p>:%{public}@", &v9, 0x16u);
+    v10 = 134218242;
+    v11 = readyCopy;
+    v12 = 2114;
+    v13 = _sceneIdentifier;
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "[Session] ui is ready: <%p>:%{public}@", &v10, 0x16u);
   }
 
   [(_SBContinuitySessionStateMachine *)self->_stateMachine noteUIIsReady];
@@ -447,7 +450,7 @@ LABEL_5:
 
 - (void)noteSceneHasValidDisplayUUID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   WeakRetained = objc_loadWeakRetained(&self->_mainSBWindowScene);
@@ -469,18 +472,18 @@ LABEL_5:
     [SBContinuitySession noteSceneHasValidDisplayUUID:];
   }
 
-  v13 = SBLogContinuitySession();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = SBLogContinuitySession(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     _sceneIdentifier = [dCopy _sceneIdentifier];
-    v15 = self->_displayHardwareIdentifier;
-    v16 = 134218498;
-    v17 = dCopy;
-    v18 = 2114;
-    v19 = _sceneIdentifier;
-    v20 = 2114;
-    v21 = v15;
-    _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "[Session] main scene <%p>:%{public}@ has valid displayUUID: %{public}@", &v16, 0x20u);
+    v16 = self->_displayHardwareIdentifier;
+    v17 = 134218498;
+    v18 = dCopy;
+    v19 = 2114;
+    v20 = _sceneIdentifier;
+    v21 = 2114;
+    v22 = v16;
+    _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "[Session] main scene <%p>:%{public}@ has valid displayUUID: %{public}@", &v17, 0x20u);
   }
 
   [(_SBContinuitySessionStateMachine *)self->_stateMachine noteSceneHasValidDisplayUUID];
@@ -488,51 +491,53 @@ LABEL_5:
 
 - (void)noteMainSceneDisconnected:(id)disconnected
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   disconnectedCopy = disconnected;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   WeakRetained = objc_loadWeakRetained(&self->_mainSBWindowScene);
+  v7 = WeakRetained;
   if (WeakRetained != disconnectedCopy)
   {
-    [(SBContinuitySession *)disconnectedCopy noteMainSceneDisconnected:a2, self];
+    WeakRetained = [(SBContinuitySession *)disconnectedCopy noteMainSceneDisconnected:a2, self];
   }
 
-  v7 = SBLogContinuitySession();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = SBLogContinuitySession(WeakRetained);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     _sceneIdentifier = [disconnectedCopy _sceneIdentifier];
-    v10 = 134218242;
-    v11 = disconnectedCopy;
-    v12 = 2114;
-    v13 = _sceneIdentifier;
-    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "[Session] main scene disconnected: <%p>:%{public}@", &v10, 0x16u);
+    v11 = 134218242;
+    v12 = disconnectedCopy;
+    v13 = 2114;
+    v14 = _sceneIdentifier;
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "[Session] main scene disconnected: <%p>:%{public}@", &v11, 0x16u);
   }
 
   objc_storeWeak(&self->_mainSBWindowScene, 0);
-  v9 = [MEMORY[0x277CBEB98] setWithObject:@"terminal.scene-disconnected"];
-  [(SBContinuitySession *)self _invalidateForReasons:v9];
+  v10 = [MEMORY[0x277CBEB98] setWithObject:@"terminal.scene-disconnected"];
+  [(SBContinuitySession *)self _invalidateForReasons:v10];
 }
 
 - (void)noteSystemApertureSceneConnected:(id)connected
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   connectedCopy = connected;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   WeakRetained = objc_loadWeakRetained(&self->_systemApertureScene);
+  v6 = WeakRetained;
   if (WeakRetained)
   {
     [SBContinuitySession noteSystemApertureSceneConnected:];
   }
 
-  v6 = SBLogContinuitySession();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SBLogContinuitySession(WeakRetained);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     _sceneIdentifier = [connectedCopy _sceneIdentifier];
-    v8 = 134218242;
-    v9 = connectedCopy;
-    v10 = 2114;
-    v11 = _sceneIdentifier;
-    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[Session] system aperture scene connected: <%p>:%{public}@", &v8, 0x16u);
+    v9 = 134218242;
+    v10 = connectedCopy;
+    v11 = 2114;
+    v12 = _sceneIdentifier;
+    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "[Session] system aperture scene connected: <%p>:%{public}@", &v9, 0x16u);
   }
 
   objc_storeWeak(&self->_systemApertureScene, connectedCopy);
@@ -541,24 +546,25 @@ LABEL_5:
 
 - (void)noteSystemApertureUIIsReady:(id)ready
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   readyCopy = ready;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   WeakRetained = objc_loadWeakRetained(&self->_systemApertureScene);
+  v7 = WeakRetained;
   if (WeakRetained != readyCopy)
   {
-    [(SBContinuitySession *)readyCopy noteSystemApertureUIIsReady:a2, self];
+    WeakRetained = [(SBContinuitySession *)readyCopy noteSystemApertureUIIsReady:a2, self];
   }
 
-  v7 = SBLogContinuitySession();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = SBLogContinuitySession(WeakRetained);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     _sceneIdentifier = [readyCopy _sceneIdentifier];
-    v9 = 134218242;
-    v10 = readyCopy;
-    v11 = 2114;
-    v12 = _sceneIdentifier;
-    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "[Session] system aperture ui is ready: <%p>:%{public}@", &v9, 0x16u);
+    v10 = 134218242;
+    v11 = readyCopy;
+    v12 = 2114;
+    v13 = _sceneIdentifier;
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "[Session] system aperture ui is ready: <%p>:%{public}@", &v10, 0x16u);
   }
 
   [(_SBContinuitySessionStateMachine *)self->_stateMachine noteSystemApertureUIIsReady];
@@ -566,51 +572,53 @@ LABEL_5:
 
 - (void)noteSystemApertureSceneDisconnected:(id)disconnected
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   disconnectedCopy = disconnected;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   WeakRetained = objc_loadWeakRetained(&self->_systemApertureScene);
+  v7 = WeakRetained;
   if (WeakRetained != disconnectedCopy)
   {
-    [(SBContinuitySession *)disconnectedCopy noteSystemApertureSceneDisconnected:a2, self];
+    WeakRetained = [(SBContinuitySession *)disconnectedCopy noteSystemApertureSceneDisconnected:a2, self];
   }
 
-  v7 = SBLogContinuitySession();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = SBLogContinuitySession(WeakRetained);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     _sceneIdentifier = [disconnectedCopy _sceneIdentifier];
-    v10 = 134218242;
-    v11 = disconnectedCopy;
-    v12 = 2114;
-    v13 = _sceneIdentifier;
-    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "[Session] system aperture scene disconnected: <%p>:%{public}@", &v10, 0x16u);
+    v11 = 134218242;
+    v12 = disconnectedCopy;
+    v13 = 2114;
+    v14 = _sceneIdentifier;
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "[Session] system aperture scene disconnected: <%p>:%{public}@", &v11, 0x16u);
   }
 
   objc_storeWeak(&self->_systemApertureScene, 0);
-  v9 = [MEMORY[0x277CBEB98] setWithObject:@"terminal.scene-disconnected"];
-  [(SBContinuitySession *)self _invalidateForReasons:v9];
+  v10 = [MEMORY[0x277CBEB98] setWithObject:@"terminal.scene-disconnected"];
+  [(SBContinuitySession *)self _invalidateForReasons:v10];
 }
 
 - (void)noteSystemApertureCurtainSceneConnected:(id)connected
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   connectedCopy = connected;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   WeakRetained = objc_loadWeakRetained(&self->_systemApertureCurtainScene);
+  v6 = WeakRetained;
   if (WeakRetained)
   {
     [SBContinuitySession noteSystemApertureCurtainSceneConnected:];
   }
 
-  v6 = SBLogContinuitySession();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SBLogContinuitySession(WeakRetained);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     _sceneIdentifier = [connectedCopy _sceneIdentifier];
-    v8 = 134218242;
-    v9 = connectedCopy;
-    v10 = 2114;
-    v11 = _sceneIdentifier;
-    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[Session] system aperture curtain scene connected: <%p>:%{public}@", &v8, 0x16u);
+    v9 = 134218242;
+    v10 = connectedCopy;
+    v11 = 2114;
+    v12 = _sceneIdentifier;
+    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "[Session] system aperture curtain scene connected: <%p>:%{public}@", &v9, 0x16u);
   }
 
   objc_storeWeak(&self->_systemApertureCurtainScene, connectedCopy);
@@ -619,24 +627,25 @@ LABEL_5:
 
 - (void)noteSystemApertureCurtainUIIsReady:(id)ready
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   readyCopy = ready;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   WeakRetained = objc_loadWeakRetained(&self->_systemApertureCurtainScene);
+  v7 = WeakRetained;
   if (WeakRetained != readyCopy)
   {
-    [(SBContinuitySession *)readyCopy noteSystemApertureCurtainUIIsReady:a2, self];
+    WeakRetained = [(SBContinuitySession *)readyCopy noteSystemApertureCurtainUIIsReady:a2, self];
   }
 
-  v7 = SBLogContinuitySession();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = SBLogContinuitySession(WeakRetained);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     _sceneIdentifier = [readyCopy _sceneIdentifier];
-    v9 = 134218242;
-    v10 = readyCopy;
-    v11 = 2114;
-    v12 = _sceneIdentifier;
-    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "[Session] system aperture curtain ui is ready: <%p>:%{public}@", &v9, 0x16u);
+    v10 = 134218242;
+    v11 = readyCopy;
+    v12 = 2114;
+    v13 = _sceneIdentifier;
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "[Session] system aperture curtain ui is ready: <%p>:%{public}@", &v10, 0x16u);
   }
 
   [(_SBContinuitySessionStateMachine *)self->_stateMachine noteSystemApertureCurtainUIIsReady];
@@ -644,29 +653,30 @@ LABEL_5:
 
 - (void)noteSystemApertureCurtainSceneDisconnected:(id)disconnected
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   disconnectedCopy = disconnected;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   WeakRetained = objc_loadWeakRetained(&self->_systemApertureCurtainScene);
+  v7 = WeakRetained;
   if (WeakRetained != disconnectedCopy)
   {
-    [(SBContinuitySession *)disconnectedCopy noteSystemApertureCurtainSceneDisconnected:a2, self];
+    WeakRetained = [(SBContinuitySession *)disconnectedCopy noteSystemApertureCurtainSceneDisconnected:a2, self];
   }
 
-  v7 = SBLogContinuitySession();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = SBLogContinuitySession(WeakRetained);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     _sceneIdentifier = [disconnectedCopy _sceneIdentifier];
-    v10 = 134218242;
-    v11 = disconnectedCopy;
-    v12 = 2114;
-    v13 = _sceneIdentifier;
-    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "[Session] system aperture curtain scene disconnected: <%p>:%{public}@", &v10, 0x16u);
+    v11 = 134218242;
+    v12 = disconnectedCopy;
+    v13 = 2114;
+    v14 = _sceneIdentifier;
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "[Session] system aperture curtain scene disconnected: <%p>:%{public}@", &v11, 0x16u);
   }
 
   objc_storeWeak(&self->_systemApertureCurtainScene, 0);
-  v9 = [MEMORY[0x277CBEB98] setWithObject:@"terminal.scene-disconnected"];
-  [(SBContinuitySession *)self _invalidateForReasons:v9];
+  v10 = [MEMORY[0x277CBEB98] setWithObject:@"terminal.scene-disconnected"];
+  [(SBContinuitySession *)self _invalidateForReasons:v10];
 }
 
 - (id)clientExternallyBlockedReasons
@@ -690,7 +700,7 @@ LABEL_5:
 
 - (void)continuitySessionServiceClientConnected:(id)connected
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   connectedCopy = connected;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   externallyBlockedReasons = [(_SBContinuitySessionServiceClient *)connectedCopy externallyBlockedReasons];
@@ -698,12 +708,12 @@ LABEL_5:
   self->_continuitySessionServiceClient = connectedCopy;
   v7 = connectedCopy;
 
-  v8 = SBLogContinuitySession();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = SBLogContinuitySession(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = externallyBlockedReasons;
-    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "[Session] client connected with initial blocked reasons: %{public}@", &v9, 0xCu);
+    v10 = 138543362;
+    v11 = externallyBlockedReasons;
+    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[Session] client connected with initial blocked reasons: %{public}@", &v10, 0xCu);
   }
 
   [(_SBContinuitySessionStateMachine *)self->_stateMachine noteClientConnectedWithInitialExternallyBlockedReasons:externallyBlockedReasons];
@@ -711,67 +721,68 @@ LABEL_5:
 
 - (void)continuitySessionServiceClient:(id)client handleLaunchEventOfType:(id)type payload:(id)payload
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   typeCopy = type;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   v9 = [[SBContinuitySessionLaunchEvent alloc] initWithType:typeCopy payload:payloadCopy];
 
-  if ([(SBContinuitySession *)self state]== 11)
+  state = [(SBContinuitySession *)self state];
+  if (state == 11)
   {
-    v10 = SBLogContinuitySession();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = SBLogContinuitySession(11);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v23 = v9;
-      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "[Session] received a launch event %{public}@ and we are .active so handling it now", buf, 0xCu);
+      v24 = v9;
+      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "[Session] received a launch event %{public}@ and we are .active so handling it now", buf, 0xCu);
     }
 
     launchEventExecutor = self->_launchEventExecutor;
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __86__SBContinuitySession_continuitySessionServiceClient_handleLaunchEventOfType_payload___block_invoke;
-    v20[3] = &unk_2783A8C18;
-    v21 = v9;
-    [(SBContinuitySessionLaunchEventExecutor *)launchEventExecutor executeLaunchEvent:v21 animatedly:1 completion:v20];
-    v12 = v21;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __86__SBContinuitySession_continuitySessionServiceClient_handleLaunchEventOfType_payload___block_invoke;
+    v21[3] = &unk_2783A8C18;
+    v22 = v9;
+    [(SBContinuitySessionLaunchEventExecutor *)launchEventExecutor executeLaunchEvent:v22 animatedly:1 completion:v21];
+    v13 = v22;
   }
 
   else
   {
     if (self->_pendingLaunchEvent)
     {
-      v13 = SBLogContinuitySession();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = SBLogContinuitySession(state);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         pendingLaunchEvent = self->_pendingLaunchEvent;
         *buf = 138543618;
-        v23 = v9;
-        v24 = 2114;
-        v25 = pendingLaunchEvent;
-        _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "[Session] received a launch event %{public}@ but we already have one pended %{public}@, dropping pended event in favor of latest launch event", buf, 0x16u);
+        v24 = v9;
+        v25 = 2114;
+        v26 = pendingLaunchEvent;
+        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "[Session] received a launch event %{public}@ but we already have one pended %{public}@, dropping pended event in favor of latest launch event", buf, 0x16u);
       }
     }
 
-    v15 = SBLogContinuitySession();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = SBLogContinuitySession(state);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v23 = v9;
-      _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "[Session] received a launch event %{public}@ but we aren't in the .active state so saving it for when the time is right", buf, 0xCu);
+      v24 = v9;
+      _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "[Session] received a launch event %{public}@ but we aren't in the .active state so saving it for when the time is right", buf, 0xCu);
     }
 
-    v12 = self->_pendingLaunchEvent;
+    v13 = self->_pendingLaunchEvent;
     objc_storeStrong(&self->_pendingLaunchEvent, v9);
     stateMachine = self->_stateMachine;
     identifier = [(SBContinuitySessionLaunchEvent *)v9 identifier];
     [(_SBContinuitySessionStateMachine *)stateMachine didReceiveLaunchEvent:identifier];
 
-    if (v12)
+    if (v13)
     {
-      v18 = self->_stateMachine;
-      identifier2 = [(SBContinuitySessionLaunchEvent *)v12 identifier];
-      [(_SBContinuitySessionStateMachine *)v18 didHandleLaunchEvent:identifier2];
+      v19 = self->_stateMachine;
+      identifier2 = [(SBContinuitySessionLaunchEvent *)v13 identifier];
+      [(_SBContinuitySessionStateMachine *)v19 didHandleLaunchEvent:identifier2];
     }
   }
 }
@@ -779,7 +790,7 @@ LABEL_5:
 void __86__SBContinuitySession_continuitySessionServiceClient_handleLaunchEventOfType_payload___block_invoke(uint64_t a1)
 {
   v6 = *MEMORY[0x277D85DE8];
-  v2 = SBLogContinuitySession();
+  v2 = SBLogContinuitySession(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -791,7 +802,7 @@ void __86__SBContinuitySession_continuitySessionServiceClient_handleLaunchEventO
 
 - (void)continuitySessionServiceClient:(id)client handleContinuityButtonEvent:(unint64_t)event
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   v7 = self->_continuitySessionServiceClient;
@@ -801,13 +812,13 @@ void __86__SBContinuitySession_continuitySessionServiceClient_handleLaunchEventO
     [SBContinuitySession continuitySessionServiceClient:handleContinuityButtonEvent:];
   }
 
-  v8 = SBLogContinuitySession();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = SBLogContinuitySession(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = NSStringFromSBUIContinuityButtonEventType();
-    v10 = 138543362;
-    v11 = v9;
-    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "[Session] client sent button event: %{public}@", &v10, 0xCu);
+    v10 = NSStringFromSBUIContinuityButtonEventType();
+    v11 = 138543362;
+    v12 = v10;
+    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[Session] client sent button event: %{public}@", &v11, 0xCu);
   }
 
   [(SBContinuitySession *)self _handleContinuityButtonEvent:event];
@@ -816,7 +827,7 @@ void __86__SBContinuitySession_continuitySessionServiceClient_handleLaunchEventO
 - (void)continuitySessionServiceClient:(id)client setHostedInterfaceOrientation:(int64_t)orientation
 {
   v10 = *MEMORY[0x277D85DE8];
-  v6 = SBLogContinuitySession();
+  v6 = SBLogContinuitySession(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 134217984;
@@ -839,11 +850,11 @@ void __86__SBContinuitySession_continuitySessionServiceClient_handleLaunchEventO
     [SBContinuitySession continuitySessionServiceClientDidUpdateExternallyBlockedReasons:];
   }
 
-  v6 = SBLogContinuitySession();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SBLogContinuitySession(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[Session] client updated externally blocked reasons", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "[Session] client updated externally blocked reasons", v8, 2u);
   }
 
   [(_SBContinuitySessionStateMachine *)self->_stateMachine noteClientDidUpdateExternallyBlockedReasons];
@@ -860,11 +871,11 @@ void __86__SBContinuitySession_continuitySessionServiceClient_handleLaunchEventO
     [SBContinuitySession continuitySessionServiceClientDidConfigureHIDServices:];
   }
 
-  v6 = SBLogContinuitySession();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SBLogContinuitySession(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[Session] client configured HID services", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "[Session] client configured HID services", v8, 2u);
   }
 
   [(_SBContinuitySessionStateMachine *)self->_stateMachine noteClientConfiguredHIDServices];
@@ -872,39 +883,40 @@ void __86__SBContinuitySession_continuitySessionServiceClient_handleLaunchEventO
 
 - (void)continuitySessionServiceClient:(id)client updatedAppearanceSettings:(id)settings transitionContext:(id)context completion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   settingsCopy = settings;
   contextCopy = context;
   completionCopy = completion;
   v14 = self->_continuitySessionServiceClient;
+  v15 = v14;
   if (v14 != clientCopy)
   {
     [SBContinuitySession continuitySessionServiceClient:updatedAppearanceSettings:transitionContext:completion:];
   }
 
-  v15 = SBLogContinuitySession();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = SBLogContinuitySession(v14);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v26 = settingsCopy;
-    v27 = 2114;
-    v28 = contextCopy;
-    _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "[Session] updated appearance settings %{public}@ with transitionContext %{public}@", buf, 0x16u);
+    v27 = settingsCopy;
+    v28 = 2114;
+    v29 = contextCopy;
+    _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "[Session] updated appearance settings %{public}@ with transitionContext %{public}@", buf, 0x16u);
   }
 
-  v16 = self->_appearanceSettings;
+  v17 = self->_appearanceSettings;
   objc_storeStrong(&self->_appearanceSettings, settings);
-  userInterfaceStyle = [(SBUIContinuitySessionAppearanceSettings *)v16 userInterfaceStyle];
+  userInterfaceStyle = [(SBUIContinuitySessionAppearanceSettings *)v17 userInterfaceStyle];
   userInterfaceStyle2 = [settingsCopy userInterfaceStyle];
-  v19 = SBLogContinuitySession();
-  v20 = v19;
+  v20 = SBLogContinuitySession(userInterfaceStyle2);
+  v21 = v20;
   if (userInterfaceStyle == userInterfaceStyle2)
   {
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, "[Session] updated appearance setting - no updates necessary", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_DEFAULT, "[Session] updated appearance setting - no updates necessary", buf, 2u);
     }
 
     completionCopy[2](completionCopy, 1, 0);
@@ -912,19 +924,19 @@ void __86__SBContinuitySession_continuitySessionServiceClient_handleLaunchEventO
 
   else
   {
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      [SBContinuitySession continuitySessionServiceClient:v20 updatedAppearanceSettings:? transitionContext:? completion:?];
+      [SBContinuitySession continuitySessionServiceClient:v21 updatedAppearanceSettings:? transitionContext:? completion:?];
     }
 
     userInterfaceStyleProvider = self->_userInterfaceStyleProvider;
     userInterfaceStyle3 = [settingsCopy userInterfaceStyle];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __109__SBContinuitySession_continuitySessionServiceClient_updatedAppearanceSettings_transitionContext_completion___block_invoke;
-    v23[3] = &unk_2783A9348;
-    v24 = completionCopy;
-    [(SBOverridableUserInterfaceStyleProvider *)userInterfaceStyleProvider setOverrideStyle:userInterfaceStyle3 completion:v23];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __109__SBContinuitySession_continuitySessionServiceClient_updatedAppearanceSettings_transitionContext_completion___block_invoke;
+    v24[3] = &unk_2783A9348;
+    v25 = completionCopy;
+    [(SBOverridableUserInterfaceStyleProvider *)userInterfaceStyleProvider setOverrideStyle:userInterfaceStyle3 completion:v24];
   }
 }
 
@@ -941,7 +953,7 @@ uint64_t __109__SBContinuitySession_continuitySessionServiceClient_updatedAppear
 
 - (void)continuitySessionServiceClientDidCaptureScreenshot:(id)screenshot
 {
-  v4 = SBLogContinuitySession();
+  v4 = SBLogContinuitySession(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -954,7 +966,7 @@ uint64_t __109__SBContinuitySession_continuitySessionServiceClient_updatedAppear
 - (void)continuitySessionServiceClientDidStartScreenRecording:(id)recording
 {
   isBeingScreenRecorded = self->_isBeingScreenRecorded;
-  v5 = SBLogContinuitySession();
+  v5 = SBLogContinuitySession(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (isBeingScreenRecorded)
   {
@@ -980,7 +992,7 @@ uint64_t __109__SBContinuitySession_continuitySessionServiceClient_updatedAppear
 - (void)continuitySessionServiceClientDidStopScreenRecording:(id)recording
 {
   isBeingScreenRecorded = self->_isBeingScreenRecorded;
-  v5 = SBLogContinuitySession();
+  v5 = SBLogContinuitySession(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (isBeingScreenRecorded)
   {
@@ -1018,7 +1030,7 @@ uint64_t __109__SBContinuitySession_continuitySessionServiceClient_updatedAppear
 
   else
   {
-    v6 = SBLogContinuitySession();
+    v6 = SBLogContinuitySession(self);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -1072,7 +1084,7 @@ LABEL_8:
   v16 = *MEMORY[0x277D85DE8];
   if (!self->_clientAdoptedScreenCaptureNotifications)
   {
-    v4 = SBLogContinuitySession();
+    v4 = SBLogContinuitySession(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -1117,7 +1129,7 @@ LABEL_8:
   v13 = *MEMORY[0x277D85DE8];
   if (self->_invalid)
   {
-    WeakRetained = SBLogContinuitySession();
+    WeakRetained = SBLogContinuitySession(self);
     if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT))
     {
       v5 = NSStringFromSBUIContinuityButtonEventType();
@@ -1130,7 +1142,7 @@ LABEL_8:
   }
 
   continuityButtonActions = self->_continuityButtonActions;
-  v8 = SBLogContinuitySession();
+  v8 = SBLogContinuitySession(self);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (continuityButtonActions)
   {
@@ -1171,7 +1183,7 @@ LABEL_10:
         [(SBMultiDisplayUserInteractionCoordinator *)self->_multiDisplayUserInteractionCoordinator updateActiveWindowScene:WeakRetained forUserInteraction:@"continuity.showSpotlight"];
       }
 
-      [(SBContinuityButtonActions *)self->_continuityButtonActions performSpotlightButtonAction];
+      [(SBContinuityButtonActions *)self->_continuityButtonActions performSpotlightButtonAction:*v12];
     }
 
     else
@@ -1187,7 +1199,7 @@ LABEL_10:
         [(SBMultiDisplayUserInteractionCoordinator *)self->_multiDisplayUserInteractionCoordinator updateActiveWindowScene:WeakRetained forUserInteraction:@"continuity.toggleControlCenter"];
       }
 
-      [(SBContinuityButtonActions *)self->_continuityButtonActions performControlCenterButtonAction];
+      [(SBContinuityButtonActions *)self->_continuityButtonActions performControlCenterButtonAction:*v12];
     }
   }
 
@@ -1199,7 +1211,7 @@ LABEL_10:
       [(SBMultiDisplayUserInteractionCoordinator *)self->_multiDisplayUserInteractionCoordinator updateActiveWindowScene:WeakRetained forUserInteraction:@"continuity.goToHome"];
     }
 
-    [(SBContinuityButtonActions *)self->_continuityButtonActions performHomeButtonAction];
+    [(SBContinuityButtonActions *)self->_continuityButtonActions performHomeButtonAction:*v12];
   }
 
   else
@@ -1215,7 +1227,7 @@ LABEL_10:
       [(SBMultiDisplayUserInteractionCoordinator *)self->_multiDisplayUserInteractionCoordinator updateActiveWindowScene:WeakRetained forUserInteraction:@"continuity.enterSwitcher"];
     }
 
-    [(SBContinuityButtonActions *)self->_continuityButtonActions performSwitcherButtonAction];
+    [(SBContinuityButtonActions *)self->_continuityButtonActions performSwitcherButtonAction:*v12];
   }
 
 LABEL_27:
@@ -1223,7 +1235,7 @@ LABEL_27:
 
 - (void)_handlePendedLaunchEventIfNecessaryAnimatedly:(BOOL)animatedly
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   pendingLaunchEvent = self->_pendingLaunchEvent;
   if (pendingLaunchEvent)
   {
@@ -1232,67 +1244,68 @@ LABEL_27:
     v7 = self->_pendingLaunchEvent;
     self->_pendingLaunchEvent = 0;
 
-    v8 = SBLogContinuitySession();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SBLogContinuitySession(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v16 = v6;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "[Session] handling pended launch event now %{public}@", buf, 0xCu);
+      v17 = v6;
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[Session] handling pended launch event now %{public}@", buf, 0xCu);
     }
 
     objc_initWeak(buf, self);
     launchEventExecutor = self->_launchEventExecutor;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __69__SBContinuitySession__handlePendedLaunchEventIfNecessaryAnimatedly___block_invoke;
-    v11[3] = &unk_2783B00B0;
-    objc_copyWeak(&v14, buf);
-    v10 = v6;
-    v12 = v10;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __69__SBContinuitySession__handlePendedLaunchEventIfNecessaryAnimatedly___block_invoke;
+    v12[3] = &unk_2783B00B0;
+    objc_copyWeak(&v15, buf);
+    v11 = v6;
+    v13 = v11;
     selfCopy = self;
-    [(SBContinuitySessionLaunchEventExecutor *)launchEventExecutor executeLaunchEvent:v10 animatedly:animatedlyCopy completion:v11];
+    [(SBContinuitySessionLaunchEventExecutor *)launchEventExecutor executeLaunchEvent:v11 animatedly:animatedlyCopy completion:v12];
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(buf);
   }
 }
 
 void __69__SBContinuitySession__handlePendedLaunchEventIfNecessaryAnimatedly___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = SBLogContinuitySession();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = SBLogContinuitySession(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 32);
-      v8 = 138543362;
-      v9 = v4;
-      _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "[Session] finished handling pended launch event %{public}@", &v8, 0xCu);
+      v5 = *(a1 + 32);
+      v9 = 138543362;
+      v10 = v5;
+      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "[Session] finished handling pended launch event %{public}@", &v9, 0xCu);
     }
 
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 40) + 8);
-    v7 = [v5 identifier];
-    [v6 didHandleLaunchEvent:v7];
+    v6 = *(a1 + 32);
+    v7 = *(*(a1 + 40) + 8);
+    v8 = [v6 identifier];
+    [v7 didHandleLaunchEvent:v8];
   }
 }
 
 - (void)continuitySessionStateMachineDidUpdateState:(id)state oldState:(unint64_t)oldState
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   state = [stateCopy state];
   WeakRetained = objc_loadWeakRetained(&self->_mainSBWindowScene);
-  v9 = SBLogContinuitySession();
+  v9 = SBLogContinuitySession(WeakRetained);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = NSStringFromSBContinuitySessionState(oldState);
     *buf = 138543618;
-    v48 = stateCopy;
-    v49 = 2114;
-    v50 = v10;
+    v50 = stateCopy;
+    v51 = 2114;
+    v52 = v10;
     _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[Session] State machine update - %{public}@ oldState: %{public}@", buf, 0x16u);
   }
 
@@ -1304,31 +1317,31 @@ void __69__SBContinuitySession__handlePendedLaunchEventIfNecessaryAnimatedly___b
       {
         if (state == 4)
         {
-          v19 = SBLogContinuitySession();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v20 = SBLogContinuitySession(v11);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "[Session] waitingForRemoteUnlock", buf, 2u);
+            _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, "[Session] waitingForRemoteUnlock", buf, 2u);
           }
         }
 
         else if (state == 5)
         {
-          v19 = SBLogContinuitySession();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v20 = SBLogContinuitySession(v11);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "[Session] waitingForScenes", buf, 2u);
+            _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, "[Session] waitingForScenes", buf, 2u);
           }
         }
 
         else
         {
-          v19 = SBLogContinuitySession();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v20 = SBLogContinuitySession(v11);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "[Session] waitingForHIDServices", buf, 2u);
+            _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, "[Session] waitingForHIDServices", buf, 2u);
           }
         }
       }
@@ -1341,11 +1354,11 @@ void __69__SBContinuitySession__handlePendedLaunchEventIfNecessaryAnimatedly___b
           {
             if (self->_authenticationSessionAssertion)
             {
-              v33 = SBLogContinuitySession();
-              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+              v35 = SBLogContinuitySession(v11);
+              if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_21ED4E000, v33, OS_LOG_TYPE_DEFAULT, "[Session] blocked: dropping lock state assertion", buf, 2u);
+                _os_log_impl(&dword_21ED4E000, v35, OS_LOG_TYPE_DEFAULT, "[Session] blocked: dropping lock state assertion", buf, 2u);
               }
 
               [(BSInvalidatable *)self->_authenticationSessionAssertion invalidate];
@@ -1358,11 +1371,11 @@ void __69__SBContinuitySession__handlePendedLaunchEventIfNecessaryAnimatedly___b
 
           else if (state == 3)
           {
-            v15 = SBLogContinuitySession();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+            v16 = SBLogContinuitySession(v11);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "[Session] preparing: acquiring lock state assertion", buf, 2u);
+              _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "[Session] preparing: acquiring lock state assertion", buf, 2u);
             }
 
             if (self->_authenticationSessionAssertion)
@@ -1370,9 +1383,9 @@ void __69__SBContinuitySession__handlePendedLaunchEventIfNecessaryAnimatedly___b
               [SBContinuitySession continuitySessionStateMachineDidUpdateState:oldState:];
             }
 
-            v16 = [(SBContinuityDisplayAuthenticationCoordinator *)self->_authenticationCoordinator acquireContinuityDisplayActiveAssertionForReason:@"ready"];
-            v17 = self->_authenticationSessionAssertion;
-            self->_authenticationSessionAssertion = v16;
+            v17 = [(SBContinuityDisplayAuthenticationCoordinator *)self->_authenticationCoordinator acquireContinuityDisplayActiveAssertionForReason:@"ready"];
+            v18 = self->_authenticationSessionAssertion;
+            self->_authenticationSessionAssertion = v17;
 
             [(_SBContinuitySessionStateMachine *)self->_stateMachine setAutomaticBiometricsDisabled:1];
           }
@@ -1380,11 +1393,11 @@ void __69__SBContinuitySession__handlePendedLaunchEventIfNecessaryAnimatedly___b
           goto LABEL_4;
         }
 
-        v19 = SBLogContinuitySession();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v20 = SBLogContinuitySession(v11);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "[Session] storeDemoPrep", buf, 2u);
+          _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, "[Session] storeDemoPrep", buf, 2u);
         }
       }
 
@@ -1396,30 +1409,30 @@ void __69__SBContinuitySession__handlePendedLaunchEventIfNecessaryAnimatedly___b
       switch(state)
       {
         case 10:
-          v31 = SBLogContinuitySession();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+          v33 = SBLogContinuitySession(v11);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_21ED4E000, v31, OS_LOG_TYPE_DEFAULT, "[Session] flushing: performing flush", buf, 2u);
+            _os_log_impl(&dword_21ED4E000, v33, OS_LOG_TYPE_DEFAULT, "[Session] flushing: performing flush", buf, 2u);
           }
 
           objc_initWeak(buf, self);
           uiFlusher = self->_uiFlusher;
-          v44[0] = MEMORY[0x277D85DD0];
-          v44[1] = 3221225472;
-          v44[2] = __76__SBContinuitySession_continuitySessionStateMachineDidUpdateState_oldState___block_invoke;
-          v44[3] = &unk_2783A8C68;
-          objc_copyWeak(&v45, buf);
-          [(SBContinuityUIFlushing *)uiFlusher flushUIWithCompletion:v44];
-          objc_destroyWeak(&v45);
+          v46[0] = MEMORY[0x277D85DD0];
+          v46[1] = 3221225472;
+          v46[2] = __76__SBContinuitySession_continuitySessionStateMachineDidUpdateState_oldState___block_invoke;
+          v46[3] = &unk_2783A8C68;
+          objc_copyWeak(&v47, buf);
+          [(SBContinuityUIFlushing *)uiFlusher flushUIWithCompletion:v46];
+          objc_destroyWeak(&v47);
           objc_destroyWeak(buf);
           break;
         case 11:
-          v37 = SBLogContinuitySession();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+          v39 = SBLogContinuitySession(v11);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_21ED4E000, v37, OS_LOG_TYPE_DEFAULT, "[Session] Lifecycle event: didActivateSession", buf, 2u);
+            _os_log_impl(&dword_21ED4E000, v39, OS_LOG_TYPE_DEFAULT, "[Session] Lifecycle event: didActivateSession", buf, 2u);
           }
 
           if (self->_continuityButtonActions)
@@ -1432,26 +1445,26 @@ void __69__SBContinuitySession__handlePendedLaunchEventIfNecessaryAnimatedly___b
             [SBContinuitySession continuitySessionStateMachineDidUpdateState:oldState:];
           }
 
-          v38 = [(SBContinuitySession *)self _newContinuityButtonActionsForWindowScene:WeakRetained];
+          v40 = [(SBContinuitySession *)self _newContinuityButtonActionsForWindowScene:WeakRetained];
           continuityButtonActions = self->_continuityButtonActions;
-          self->_continuityButtonActions = v38;
+          self->_continuityButtonActions = v40;
 
           [(SBContinuityDisplayLayoutPublisher *)self->_displayLayoutPublisher activate];
           [(SBContinuitySession *)self _handlePendedLaunchEventIfNecessaryAnimatedly:1];
           break;
         case 12:
-          v20 = SBLogContinuitySession();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v21 = SBLogContinuitySession(v11);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, "[Session] Lifecycle event: didEndSession", buf, 2u);
+            _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_DEFAULT, "[Session] Lifecycle event: didEndSession", buf, 2u);
           }
 
-          v21 = SBLogContinuitySession();
-          if (os_signpost_enabled(v21))
+          v23 = SBLogContinuitySession(v22);
+          if (os_signpost_enabled(v23))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_21ED4E000, v21, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SB_ONENESS_SESSION", &unk_21F8B82DE, buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_21ED4E000, v23, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SB_ONENESS_SESSION", &unk_21F8B82DE, buf, 2u);
           }
 
           stateMachine = self->_stateMachine;
@@ -1459,7 +1472,7 @@ void __69__SBContinuitySession__handlePendedLaunchEventIfNecessaryAnimatedly___b
           [(_SBContinuitySessionStateMachine *)stateMachine invalidateForReasons:reasons];
 
           [(BSInvalidatable *)self->_authenticationSessionAssertion invalidate];
-          v24 = self->_authenticationSessionAssertion;
+          v26 = self->_authenticationSessionAssertion;
           self->_authenticationSessionAssertion = 0;
 
           [(BSInvalidatable *)self->_keepDisplayLinkActiveAssertion invalidate];
@@ -1467,7 +1480,7 @@ void __69__SBContinuitySession__handlePendedLaunchEventIfNecessaryAnimatedly___b
           self->_keepDisplayLinkActiveAssertion = 0;
 
           [(SBContinuityButtonActions *)self->_continuityButtonActions invalidate];
-          v26 = self->_continuityButtonActions;
+          v28 = self->_continuityButtonActions;
           self->_continuityButtonActions = 0;
 
           [(SBContinuityDisplayLayoutPublisher *)self->_displayLayoutPublisher invalidate];
@@ -1481,47 +1494,47 @@ void __69__SBContinuitySession__handlePendedLaunchEventIfNecessaryAnimatedly___b
 
     else if (state == 7)
     {
-      v28 = SBLogContinuitySession();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v30 = SBLogContinuitySession(v11);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21ED4E000, v28, OS_LOG_TYPE_DEFAULT, "[Session] activating", buf, 2u);
+        _os_log_impl(&dword_21ED4E000, v30, OS_LOG_TYPE_DEFAULT, "[Session] activating", buf, 2u);
       }
 
       if (!self->_keepDisplayLinkActiveAssertion)
       {
-        v29 = [(SBDisplayLinkController *)self->_displayLinkController maintainDisplayLinkWhenBacklightIsOffForReason:@"SBContinuitySessionStateActivating"];
-        v30 = self->_keepDisplayLinkActiveAssertion;
-        self->_keepDisplayLinkActiveAssertion = v29;
+        v31 = [(SBDisplayLinkController *)self->_displayLinkController maintainDisplayLinkWhenBacklightIsOffForReason:@"SBContinuitySessionStateActivating"];
+        v32 = self->_keepDisplayLinkActiveAssertion;
+        self->_keepDisplayLinkActiveAssertion = v31;
       }
     }
 
     else if (state == 8)
     {
-      v35 = SBLogContinuitySession();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+      v37 = SBLogContinuitySession(v11);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21ED4E000, v35, OS_LOG_TYPE_DEFAULT, "[Session] updatingActiveDisplay", buf, 2u);
+        _os_log_impl(&dword_21ED4E000, v37, OS_LOG_TYPE_DEFAULT, "[Session] updatingActiveDisplay", buf, 2u);
       }
 
-      v36 = objc_loadWeakRetained(&self->_mainSBWindowScene);
-      if (!v36)
+      v38 = objc_loadWeakRetained(&self->_mainSBWindowScene);
+      if (!v38)
       {
         [SBContinuitySession continuitySessionStateMachineDidUpdateState:oldState:];
       }
 
-      [(SBMultiDisplayUserInteractionCoordinator *)self->_multiDisplayUserInteractionCoordinator updateActiveWindowScene:v36 forUserInteraction:@"continuity.activation"];
+      [(SBMultiDisplayUserInteractionCoordinator *)self->_multiDisplayUserInteractionCoordinator updateActiveWindowScene:v38 forUserInteraction:@"continuity.activation"];
       [(_SBContinuitySessionStateMachine *)self->_stateMachine noteActiveDisplayUpdated];
     }
 
     else
     {
-      v18 = SBLogContinuitySession();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v19 = SBLogContinuitySession(v11);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "[Session] launching", buf, 2u);
+        _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "[Session] launching", buf, 2u);
       }
 
       [(SBContinuitySession *)self _handlePendedLaunchEventIfNecessaryAnimatedly:0];
@@ -1529,31 +1542,31 @@ void __69__SBContinuitySession__handlePendedLaunchEventIfNecessaryAnimatedly___b
   }
 
 LABEL_4:
+  v44 = 0u;
+  v45 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
   allObjects = [(NSHashTable *)self->_observers allObjects];
-  v12 = [allObjects countByEnumeratingWithState:&v40 objects:v46 count:16];
-  if (v12)
+  v13 = [allObjects countByEnumeratingWithState:&v42 objects:v48 count:16];
+  if (v13)
   {
-    v13 = *v41;
+    v14 = *v43;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v13; ++i)
       {
-        if (*v41 != v13)
+        if (*v43 != v14)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        [*(*(&v40 + 1) + 8 * i) continuitySessionDidUpdateState:self];
+        [*(*(&v42 + 1) + 8 * i) continuitySessionDidUpdateState:self];
       }
 
-      v12 = [allObjects countByEnumeratingWithState:&v40 objects:v46 count:16];
+      v13 = [allObjects countByEnumeratingWithState:&v42 objects:v48 count:16];
     }
 
-    while (v12);
+    while (v13);
   }
 }
 
@@ -1736,7 +1749,7 @@ void __49__SBContinuitySession_appendDescriptionToStream___block_invoke_6(uint64
 {
   v12 = *MEMORY[0x277D85DE8];
   reasonsCopy = reasons;
-  v5 = SBLogContinuitySession();
+  v5 = SBLogContinuitySession(reasonsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = _SBFLoggingMethodProem();

@@ -6,7 +6,7 @@
 
 + (unint64_t)distanceBetweenStrings:(id)strings and:(id)and
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   stringsCopy = strings;
   andCopy = and;
   v9 = [(__CFString *)stringsCopy length];
@@ -93,15 +93,15 @@ LABEL_27:
     v19 = v9;
     v20 = 4 * v9;
     memptr = 0;
-    v40 = 0;
+    v39 = 0;
     if ((v20 | 3) > 0x7D0)
     {
       v23 = malloc_type_posix_memalign(&memptr, 8uLL, v20, 0x19F02D2DuLL);
-      LOBYTE(v40) = 0;
+      LOBYTE(v39) = 0;
       if (v23)
       {
-        v35 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA18] reason:@"malloc failed" userInfo:0];
-        objc_exception_throw(v35);
+        v34 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA18] reason:@"malloc failed" userInfo:0];
+        objc_exception_throw(v34);
       }
 
       v22 = memptr;
@@ -110,23 +110,23 @@ LABEL_27:
     else
     {
       MEMORY[0x1EEE9AC00](v16);
-      v22 = &v38[-1] - ((v21 + 15) & 0x7FFFFFFF0);
+      v22 = &v37[-1] - ((v21 + 15) & 0x7FFFFFFF0);
       bzero(v22, v21);
       memptr = v22;
-      LOBYTE(v40) = 1;
+      LOBYTE(v39) = 1;
     }
 
-    v24 = v40;
+    v24 = v39;
     memptr = 0;
-    v40 = 0;
+    v39 = 0;
     if ((v18 | 3) > 0x7D0)
     {
-      v34 = malloc_type_posix_memalign(&memptr, 8uLL, v18, 0xEA071E63uLL);
-      LOBYTE(v40) = 0;
-      if (v34)
+      v33 = malloc_type_posix_memalign(&memptr, 8uLL, v18, 0xEA071E63uLL);
+      LOBYTE(v39) = 0;
+      if (v33)
       {
-        v36 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA18] reason:@"malloc failed" userInfo:0];
-        objc_exception_throw(v36);
+        v35 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA18] reason:@"malloc failed" userInfo:0];
+        objc_exception_throw(v35);
       }
 
       v26 = memptr;
@@ -135,26 +135,26 @@ LABEL_27:
     else
     {
       MEMORY[0x1EEE9AC00](v23);
-      v26 = &v38[-1] - ((v25 + 15) & 0x7FFFFFFF0);
+      v26 = &v37[-1] - ((v25 + 15) & 0x7FFFFFFF0);
       bzero(v26, v25);
       memptr = v26;
-      LOBYTE(v40) = 1;
+      LOBYTE(v39) = 1;
     }
 
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __46___PASLevenshtein_distanceBetweenStrings_and___block_invoke;
-    v38[3] = &__block_descriptor_64_e5_v8__0l;
-    v38[4] = v22;
-    v38[5] = v24;
-    v38[6] = v26;
-    v38[7] = v40;
-    v27 = MEMORY[0x1AC566DD0](v38);
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __46___PASLevenshtein_distanceBetweenStrings_and___block_invoke;
+    v37[3] = &__block_descriptor_64_e5_v8__0l;
+    v37[4] = v22;
+    v37[5] = v24;
+    v37[6] = v26;
+    v37[7] = v39;
+    v27 = MEMORY[0x1AC566DD0](v37);
     memptr = 0;
-    v37 = 0;
+    v36 = 0;
     [(__CFString *)stringsCopy getBytes:v22 maxLength:v20 usedLength:&memptr encoding:2348810496 options:0 range:0 remainingRange:v19, 0];
-    [(__CFString *)andCopy getBytes:v26 maxLength:v18 usedLength:&v37 encoding:2348810496 options:0 range:0 remainingRange:v17, 0];
-    v12 = levenshtein<unsigned int>(v22, v26, memptr >> 2, v37 >> 2);
+    [(__CFString *)andCopy getBytes:v26 maxLength:v18 usedLength:&v36 encoding:2348810496 options:0 range:0 remainingRange:v17, 0];
+    v12 = levenshtein<unsigned int>(v22, v26, memptr >> 2, v36 >> 2);
     if (v27)
     {
       v27[2](v27);
@@ -163,7 +163,6 @@ LABEL_27:
 
 LABEL_30:
 
-  v30 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

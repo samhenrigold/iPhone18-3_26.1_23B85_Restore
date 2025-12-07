@@ -9,55 +9,55 @@
 
 - (BOOL)addSymmetricKeyEntryWithError:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = [(DIEncryptionFrontend *)self generateAuthTableWithError:?];
   if (!v5)
   {
     LOBYTE(v10) = 0;
-    goto LABEL_21;
+    return v10 & 1;
   }
 
   v6 = v5;
-  [(DIEncryptionFrontend *)self getSerializerWithAuthTable:v5];
-  if (v19)
+  objc_msgSend_getSerializerWithAuthTable_(self);
+  if (v18)
   {
     createParams = [(DIEncryptionCreator *)self createParams];
     mutableSymmetricKey = [createParams mutableSymmetricKey];
-    LODWORD(v23) = 8;
-    crypto::auth_entry_ns::symmetric_key::create(mutableSymmetricKey, v6, &v23, v18, &v27);
+    LODWORD(v22) = 8;
+    crypto::auth_entry_ns::symmetric_key::create(&v26, mutableSymmetricKey, v6, &v22, v17);
 
-    if (v29)
+    if (v28)
     {
-      (*(v18[0] + 3))(v16, v18, &v28 + 4);
-      if (v17)
+      (*(v17[0] + 3))(v15, v17, &v27 + 4);
+      if (v16)
       {
         v9 = *(v6 + 8);
-        v20[0] = v6;
-        v20[1] = v9;
-        v10 = v20;
-        v21[0] = 0;
-        v22 = 0;
-        crypto::auth_table::replace(v6, v16, v20, &v23);
-        if (v22 == 1)
+        v19[0] = v6;
+        v19[1] = v9;
+        v10 = v19;
+        v20[0] = 0;
+        v21 = 0;
+        crypto::auth_table::replace(v6, v15, v19, &v22);
+        if (v21 == 1)
         {
-          std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v21);
+          std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v20);
         }
 
-        v11 = v26;
-        if (v26 & 1) != 0 || (LOBYTE(v10) = [DIError failWithUnexpected:v23 verboseInfo:v24 error:@"Failed to add symmetric key entry to auth table", error], (v26))
+        v11 = v25;
+        if (v25 & 1) != 0 || (LOBYTE(v10) = [DIError failWithUnexpected:v22 verboseInfo:v23 error:@"Failed to add symmetric key entry to auth table", error], (v25))
         {
-          if (v25[640] == 1)
+          if (v24[640] == 1)
           {
-            std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v25);
+            std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v24);
           }
 
           if (v11)
           {
-            (*(v18[0] + 4))(&v23, v18, v6);
-            v12 = v25[0];
-            if ((v25[0] & 1) == 0)
+            (*(v17[0] + 4))(&v22, v17, v6);
+            v12 = v24[0];
+            if ((v24[0] & 1) == 0)
             {
-              LOBYTE(v10) = [DIError failWithUnexpected:v23 verboseInfo:v24 error:@"Failed to update crypto header", error];
+              LOBYTE(v10) = [DIError failWithUnexpected:v22 verboseInfo:v23 error:@"Failed to update crypto header", error];
             }
 
             LOBYTE(v10) = v12 | v10;
@@ -67,34 +67,32 @@
 
       else
       {
-        LOBYTE(v10) = [DIError failWithUnexpected:*&v16[0] verboseInfo:*(&v16[0] + 1) error:@"Failed to serialize symmetric key to crypto header", error];
+        LOBYTE(v10) = [DIError failWithUnexpected:*&v15[0] verboseInfo:*(&v15[0] + 1) error:@"Failed to serialize symmetric key to crypto header", error];
       }
 
-      if (v17 == 1)
+      if (v16 == 1)
       {
-        crypto::descriptor_handle_t::~descriptor_handle_t(v16);
+        crypto::descriptor_handle_t::~descriptor_handle_t(v15);
       }
 
       goto LABEL_19;
     }
 
-    error = [DIError failWithUnexpected:v27 verboseInfo:v28 error:@"Failed to create passphrase auth entry", error];
+    error = [DIError failWithUnexpected:v26 verboseInfo:v27 error:@"Failed to create passphrase auth entry", error];
   }
 
   else
   {
-    error = [DIError failWithUnexpected:v18[0] verboseInfo:v18[1] error:@"Failed to create crypto serializer", error];
+    error = [DIError failWithUnexpected:v17[0] verboseInfo:v17[1] error:@"Failed to create crypto serializer", error];
   }
 
   LOBYTE(v10) = error;
 LABEL_19:
-  if (v19 == 1)
+  if (v18 == 1)
   {
-    (*(v18[0] + 7))(v18);
+    (*(v17[0] + 7))(v17);
   }
 
-LABEL_21:
-  v14 = *MEMORY[0x277D85DE8];
   return v10 & 1;
 }
 
@@ -128,7 +126,7 @@ LABEL_6:
 
 - (BOOL)addPublicKeyEntryWithXpcHandler:(id)handler error:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   createParams = [(DIEncryptionCreator *)self createParams];
   certificate = [createParams certificate];
@@ -150,42 +148,42 @@ LABEL_27:
         goto LABEL_28;
       }
 
-      [(DIEncryptionFrontend *)self getSerializerWithAuthTable:v13];
-      if (v26)
+      objc_msgSend_getSerializerWithAuthTable_(self);
+      if (v25)
       {
-        LODWORD(v30) = 8;
-        crypto::auth_entry_ns::public_key::create(v13, v12, &v30, v25, &v34);
-        if (v36)
+        LODWORD(v29) = 8;
+        crypto::auth_entry_ns::public_key::create(v13, v12, &v29, v24, &v33);
+        if (v35)
         {
-          (*(v25[0] + 2))(v23, v25, &v35 + 4);
-          if (v24)
+          (*(v24[0] + 2))(v22, v24, &v34 + 4);
+          if (v23)
           {
             v14 = v13[1];
-            v27[0] = v13;
-            v27[1] = v14;
-            v28[0] = 0;
-            v29 = 0;
-            crypto::auth_table::replace(v13, v23, v27, &v30);
-            if (v29 == 1)
+            v26[0] = v13;
+            v26[1] = v14;
+            v27[0] = 0;
+            v28 = 0;
+            crypto::auth_table::replace(v13, v22, v26, &v29);
+            if (v28 == 1)
             {
-              std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v28);
+              std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v27);
             }
 
-            v15 = v33;
-            if (v33 & 1) != 0 || (LOBYTE(self) = [DIError failWithUnexpected:v30 verboseInfo:v31 error:@"Failed to add public key entry to auth table", error], (v33))
+            v15 = v32;
+            if (v32 & 1) != 0 || (LOBYTE(self) = [DIError failWithUnexpected:v29 verboseInfo:v30 error:@"Failed to add public key entry to auth table", error], (v32))
             {
-              if (v32[640] == 1)
+              if (v31[640] == 1)
               {
-                std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v32);
+                std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v31);
               }
 
               if (v15)
               {
-                (*(v25[0] + 4))(&v30, v25, v13);
-                v16 = v32[0];
-                if ((v32[0] & 1) == 0)
+                (*(v24[0] + 4))(&v29, v24, v13);
+                v16 = v31[0];
+                if ((v31[0] & 1) == 0)
                 {
-                  LOBYTE(self) = [DIError failWithUnexpected:v30 verboseInfo:v31 error:@"Failed to update crypto header", error];
+                  LOBYTE(self) = [DIError failWithUnexpected:v29 verboseInfo:v30 error:@"Failed to update crypto header", error];
                 }
 
                 LOBYTE(self) = v16 | self;
@@ -195,30 +193,30 @@ LABEL_27:
 
           else
           {
-            LOBYTE(self) = [DIError failWithUnexpected:*&v23[0] verboseInfo:*(&v23[0] + 1) error:@"Failed to serialize public key entry to crypto header", error];
+            LOBYTE(self) = [DIError failWithUnexpected:*&v22[0] verboseInfo:*(&v22[0] + 1) error:@"Failed to serialize public key entry to crypto header", error];
           }
 
-          if (v24 == 1)
+          if (v23 == 1)
           {
-            crypto::descriptor_handle_t::~descriptor_handle_t(v23);
+            crypto::descriptor_handle_t::~descriptor_handle_t(v22);
           }
 
           goto LABEL_25;
         }
 
-        error = [DIError failWithUnexpected:v34 verboseInfo:v35 error:@"Failed to create public key auth entry", error];
+        error = [DIError failWithUnexpected:v33 verboseInfo:v34 error:@"Failed to create public key auth entry", error];
       }
 
       else
       {
-        error = [DIError failWithUnexpected:v25[0] verboseInfo:v25[1] error:@"Failed to create crypto serializer", error];
+        error = [DIError failWithUnexpected:v24[0] verboseInfo:v24[1] error:@"Failed to create crypto serializer", error];
       }
 
       LOBYTE(self) = error;
 LABEL_25:
-      if (v26 == 1)
+      if (v25 == 1)
       {
-        (*(v25[0] + 7))(v25);
+        (*(v24[0] + 7))(v24);
       }
 
       goto LABEL_27;
@@ -232,18 +230,17 @@ LABEL_25:
 
     if (publicKey)
     {
-      v30 = 0;
+      v29 = 0;
       [(DIEncryptionCreator *)self createParams];
       [objc_claimAutoreleasedReturnValue() publicKey];
       uTF8String = [objc_claimAutoreleasedReturnValue() UTF8String];
-      convertHexToBytes(uTF8String, &v30);
+      convertHexToBytes(uTF8String, &v29);
     }
   }
 
   LOBYTE(self) = 0;
 LABEL_28:
 
-  v21 = *MEMORY[0x277D85DE8];
   return self & 1;
 }
 

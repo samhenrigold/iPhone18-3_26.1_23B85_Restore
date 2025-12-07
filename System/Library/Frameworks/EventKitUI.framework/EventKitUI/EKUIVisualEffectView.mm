@@ -30,8 +30,8 @@
     [(TintColorUpdateView *)v3->_updateView setBackgroundColor:clearColor];
 
     [(TintColorUpdateView *)v3->_updateView setTintColorUpdateDelegate:v3];
-    contentView = [(EKUIVisualEffectView *)v3 contentView];
-    [contentView addSubview:v3->_updateView];
+    v8 = objc_msgSend_contentView(v3);
+    [v8 addSubview:v3->_updateView];
   }
 
   return v3;

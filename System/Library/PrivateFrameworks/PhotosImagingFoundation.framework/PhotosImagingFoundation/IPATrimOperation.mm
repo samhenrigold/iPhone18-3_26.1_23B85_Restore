@@ -91,7 +91,7 @@
   if (CMTimeCompare(&time1.start, &time2.start) || (*&time1.start.value = *&self->_endTime.value, time1.start.epoch = self->_endTime.epoch, *&time2.start.value = v6, time2.start.epoch = v3, CMTimeCompare(&time1.start, &time2.start)))
   {
     memset(&time1, 0, sizeof(time1));
-    [(IPATrimOperation *)self trimRange];
+    objc_msgSend_trimRange(self, v6);
     time2 = time1;
     v4 = CMTimeRangeCopyAsDictionary(&time2, 0);
   }

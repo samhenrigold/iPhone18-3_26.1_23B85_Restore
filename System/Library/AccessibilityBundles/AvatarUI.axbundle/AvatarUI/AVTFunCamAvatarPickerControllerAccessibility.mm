@@ -28,10 +28,10 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v27 = *MEMORY[0x29EDCA608];
-  v25.receiver = self;
-  v25.super_class = AVTFunCamAvatarPickerControllerAccessibility;
-  [(AVTFunCamAvatarPickerControllerAccessibility *)&v25 _accessibilityLoadAccessibilityInformation];
+  v26 = *MEMORY[0x29EDCA608];
+  v24.receiver = self;
+  v24.super_class = AVTFunCamAvatarPickerControllerAccessibility;
+  [(AVTFunCamAvatarPickerControllerAccessibility *)&v24 _accessibilityLoadAccessibilityInformation];
   if (([(AVTFunCamAvatarPickerControllerAccessibility *)self safeBoolForKey:@"isDisplayingGridLayout"]& 1) == 0)
   {
     _axFunCamAvatarCarousel = [(AVTFunCamAvatarPickerControllerAccessibility *)self _axFunCamAvatarCarousel];
@@ -56,36 +56,36 @@
 
   if (![(AVTFunCamAvatarPickerControllerAccessibility *)self _axFunCamAvatarPickerDidSetupCells])
   {
-    v24 = 0;
+    v23 = 0;
     objc_opt_class();
     v10 = [(AVTFunCamAvatarPickerControllerAccessibility *)self safeValueForKey:@"collectionView"];
     v11 = __UIAccessibilityCastAsClass();
 
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     visibleCells = [v11 visibleCells];
-    v13 = [visibleCells countByEnumeratingWithState:&v20 objects:v26 count:16];
+    v13 = [visibleCells countByEnumeratingWithState:&v19 objects:v25 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v21;
+      v15 = *v20;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v21 != v15)
+          if (*v20 != v15)
           {
             objc_enumerationMutation(visibleCells);
           }
 
-          v17 = *(*(&v20 + 1) + 8 * i);
+          v17 = *(*(&v19 + 1) + 8 * i);
           v18 = [v11 indexPathForCell:v17];
           [(AVTFunCamAvatarPickerControllerAccessibility *)self _setupAccessibilityForCell:v17 atIndexPath:v18];
         }
 
-        v14 = [visibleCells countByEnumeratingWithState:&v20 objects:v26 count:16];
+        v14 = [visibleCells countByEnumeratingWithState:&v19 objects:v25 count:16];
       }
 
       while (v14);
@@ -93,8 +93,6 @@
 
     [(AVTFunCamAvatarPickerControllerAccessibility *)self _setAXFunCamAvatarPickerDidSetupCells:1];
   }
-
-  v19 = *MEMORY[0x29EDCA608];
 }
 
 - (id)_axLabelForIndexPath:(id)path
@@ -164,7 +162,7 @@
 
 - (void)_setupAccessibilityForCell:(id)cell atIndexPath:(id)path
 {
-  v27[1] = *MEMORY[0x29EDCA608];
+  v26[1] = *MEMORY[0x29EDCA608];
   cellCopy = cell;
   pathCopy = path;
   v8 = (-[AVTFunCamAvatarPickerControllerAccessibility safeBoolForKey:](self, "safeBoolForKey:", @"isDisplayingGridLayout") & 1) != 0 || [pathCopy item] == 0;
@@ -172,22 +170,22 @@
   accessibilityTraits = [cellCopy accessibilityTraits];
   [cellCopy setAccessibilityTraits:*MEMORY[0x29EDC7F70] | accessibilityTraits];
   objc_initWeak(&location, self);
-  v23[0] = MEMORY[0x29EDCA5F8];
-  v23[1] = 3221225472;
-  v23[2] = __87__AVTFunCamAvatarPickerControllerAccessibility__setupAccessibilityForCell_atIndexPath___block_invoke;
-  v23[3] = &unk_29F2A39F0;
-  objc_copyWeak(&v25, &location);
+  v22[0] = MEMORY[0x29EDCA5F8];
+  v22[1] = 3221225472;
+  v22[2] = __87__AVTFunCamAvatarPickerControllerAccessibility__setupAccessibilityForCell_atIndexPath___block_invoke;
+  v22[3] = &unk_29F2A39F0;
+  objc_copyWeak(&v24, &location);
   v10 = pathCopy;
-  v24 = v10;
-  [cellCopy _setAccessibilityLabelBlock:v23];
-  v20[0] = MEMORY[0x29EDCA5F8];
-  v20[1] = 3221225472;
-  v20[2] = __87__AVTFunCamAvatarPickerControllerAccessibility__setupAccessibilityForCell_atIndexPath___block_invoke_2;
-  v20[3] = &unk_29F2A3A18;
-  objc_copyWeak(&v22, &location);
+  v23 = v10;
+  [cellCopy _setAccessibilityLabelBlock:v22];
+  v19[0] = MEMORY[0x29EDCA5F8];
+  v19[1] = 3221225472;
+  v19[2] = __87__AVTFunCamAvatarPickerControllerAccessibility__setupAccessibilityForCell_atIndexPath___block_invoke_2;
+  v19[3] = &unk_29F2A3A18;
+  objc_copyWeak(&v21, &location);
   v11 = v10;
-  v21 = v11;
-  [cellCopy _setAccessibilityCustomContentBlock:v20];
+  v20 = v11;
+  [cellCopy _setAccessibilityCustomContentBlock:v19];
   objc_opt_class();
   v12 = [(AVTFunCamAvatarPickerControllerAccessibility *)self safeValueForKey:@"items"];
   v13 = __UIAccessibilityCastAsClass();
@@ -199,16 +197,14 @@
   if (v16)
   {
     v17 = accessibilityLocalizedString(@"starfish.avatar");
-    v27[0] = v17;
-    v18 = [MEMORY[0x29EDB8D80] arrayWithObjects:v27 count:1];
+    v26[0] = v17;
+    v18 = [MEMORY[0x29EDB8D80] arrayWithObjects:v26 count:1];
     [cellCopy setAccessibilityUserInputLabels:v18];
   }
 
-  objc_destroyWeak(&v22);
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v24);
   objc_destroyWeak(&location);
-
-  v19 = *MEMORY[0x29EDCA608];
 }
 
 id __87__AVTFunCamAvatarPickerControllerAccessibility__setupAccessibilityForCell_atIndexPath___block_invoke(uint64_t a1)

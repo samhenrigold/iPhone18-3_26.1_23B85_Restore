@@ -52,16 +52,16 @@
 
 + (void)writeMigrationVersionPrefForKey:(__CFString *)key
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   _currentSystemVersion = [self _currentSystemVersion];
-  v5 = _ACLogSystem();
+  v5 = _ACLogSystem(_currentSystemVersion);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
-    v8 = _currentSystemVersion;
-    v9 = 2112;
+    v6 = 138412546;
+    v7 = _currentSystemVersion;
+    v8 = 2112;
     keyCopy = key;
-    _os_log_impl(&dword_1AC3CD000, v5, OS_LOG_TYPE_DEFAULT, "Writing Accounts ACLastMigrationSystemVersion version pref %@ for key %@", &v7, 0x16u);
+    _os_log_impl(&dword_1AC3CD000, v5, OS_LOG_TYPE_DEFAULT, "Writing Accounts ACLastMigrationSystemVersion version pref %@ for key %@", &v6, 0x16u);
   }
 
   if (_currentSystemVersion)
@@ -69,8 +69,6 @@
     CFPreferencesSetAppValue(key, _currentSystemVersion, @"com.apple.accountsd");
     CFPreferencesAppSynchronize(@"com.apple.accountsd");
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

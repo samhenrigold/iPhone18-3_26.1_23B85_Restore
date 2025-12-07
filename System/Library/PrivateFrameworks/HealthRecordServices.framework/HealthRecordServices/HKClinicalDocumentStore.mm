@@ -369,24 +369,24 @@ uint64_t __52__HKClinicalDocumentStore__establishProxyConnection__block_invoke(u
 
 void __52__HKClinicalDocumentStore__establishProxyConnection__block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v5 = a3;
+  v4 = a3;
   if ((a2 & 1) == 0)
   {
     _HKInitializeLogging();
     if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
     {
-      __52__HKClinicalDocumentStore__establishProxyConnection__block_invoke_2_cold_1(a1);
+      __52__HKClinicalDocumentStore__establishProxyConnection__block_invoke_2_cold_1();
     }
   }
 }
 
 void __52__HKClinicalDocumentStore__establishProxyConnection__block_invoke_295(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   _HKInitializeLogging();
   if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
   {
-    __52__HKClinicalDocumentStore__establishProxyConnection__block_invoke_295_cold_1(a1);
+    __52__HKClinicalDocumentStore__establishProxyConnection__block_invoke_295_cold_1();
   }
 }
 
@@ -419,39 +419,19 @@ void __52__HKClinicalDocumentStore__establishProxyConnection__block_invoke_295(u
   [(HKObserverSet *)stateChangeListeners notifyObservers:v8];
 }
 
-void __52__HKClinicalDocumentStore__establishProxyConnection__block_invoke_2_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2519FE000, v2, v3, "%{public}@: error executing a ping: %{public}@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __52__HKClinicalDocumentStore__establishProxyConnection__block_invoke_295_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2519FE000, v2, v3, "%{public}@: error establishing proxy connection: %{public}@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
 - (void)clientRemote_downloadableAttachmentDidChangeState:(void *)a3 .cold.1(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [a3 identifier];
   v7 = NSStringFromAttachmentStatus([a3 status]);
-  v9 = 138543874;
-  v10 = a1;
-  v11 = 2114;
-  v12 = v6;
-  v13 = 2114;
-  v14 = v7;
-  _os_log_debug_impl(&dword_2519FE000, v5, OS_LOG_TYPE_DEBUG, "%{public}@: downloadable attachment with identifier %{public}@ did change, status: %{public}@", &v9, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138543874;
+  v9 = a1;
+  v10 = 2114;
+  v11 = v6;
+  v12 = 2114;
+  v13 = v7;
+  _os_log_debug_impl(&dword_2519FE000, v5, OS_LOG_TYPE_DEBUG, "%{public}@: downloadable attachment with identifier %{public}@ did change, status: %{public}@", &v8, 0x20u);
 }
 
 @end

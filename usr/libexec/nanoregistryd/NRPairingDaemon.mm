@@ -60,6 +60,7 @@
 - (void)_scheduleTimerOnQueue:(id)queue afterDelay:(double)delay block:(id)block;
 - (void)_setBridgeBadgeWithCollection:(id)collection;
 - (void)_transactionCoordinatorHasBecomeIdle;
+- (void)_updateActiveFlag:(id)flag andPost:(BOOL)post;
 - (void)_updateCompatibilityStateForDeviceID:(id)d withDeviceCollection:(id)collection;
 - (void)_updateCompatibilityStateForDeviceID:(id)d withDeviceCollection:(id)collection oldCompatibilityState:(id)state newCompatibilityState:(id)compatibilityState;
 - (void)_updateIsSetupPropertyForNewlyPairedDevice:(id)device;
@@ -102,6 +103,7 @@
 - (void)getPairedPairingIDForBluetoothID:(id)d completion:(id)completion;
 - (void)handleDeadPairingClient:(id)client;
 - (void)idsConnectivityTimeout;
+- (void)idsSendProperties:(id)properties thisIsAllOfThem:(BOOL)them;
 - (void)initBluetoothWithBlock:(id)block;
 - (void)initIDSService:(Class)service block:(id)block;
 - (void)initNetworkRelayPairerWithBlock:(id)block;
@@ -111,6 +113,7 @@
 - (void)invalidateIDSChannels;
 - (void)keychainSyncStatusDidChange:(BOOL)change;
 - (void)lastPairedDeviceWithBlock:(id)block;
+- (void)localMonitor:(id)monitor propertiesDidChange:(id)change thisIsAllOfThem:(BOOL)them;
 - (void)logIfVersionsAreOverridden;
 - (void)lostCandidateWithName:(id)name;
 - (void)normalizeDaemonStateWithBlock:(id)block;
@@ -202,6 +205,7 @@
 - (void)xpcFakePairedSyncStartWithCompletion:(id)completion;
 - (void)xpcGetChangeHistoryWithBlock:(id)block;
 - (void)xpcGetDeviceCollectionWithBlock:(id)block;
+- (void)xpcGetDiffSinceTokenValue:(unint64_t)value getSecureProperties:(BOOL)properties withBlock:(id)block;
 - (void)xpcGetInitialSyncCompletedForPairingID:(id)d completion:(id)completion;
 - (void)xpcGetLastMigrationRequestPhoneNameWithCompletion:(id)completion;
 - (void)xpcGetLastSwitchIndex:(id)index;
@@ -779,6 +783,51 @@ LABEL_10:
   v3 = [(NRPairingDaemon *)self addDiffObserverWithWriteBlock:v4];
   objc_destroyWeak(&v5);
   objc_destroyWeak(&location);
+}
+
+- (void)_updateActiveFlag:(id)flag andPost:(BOOL)post
+{
+  postCopy = post;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  flagCopy = flag;
+  v6 = [flagCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
+  {
+    v7 = *v11;
+    while (2)
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v11 != v7)
+        {
+          objc_enumerationMutation(flagCopy);
+        }
+
+        v9 = [flagCopy objectForKeyedSubscript:{*(*(&v10 + 1) + 8 * i), v10}];
+        if (([v9 isArchived] & 1) == 0 && ((objc_msgSend(v9, "isPaired") & 1) != 0 || objc_msgSend(v9, "isActive")))
+        {
+
+          v6 = 1;
+          goto LABEL_13;
+        }
+      }
+
+      v6 = [flagCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      if (v6)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+LABEL_13:
+
+  [NRPairingDaemon updateActiveFlag:v6 andPost:postCopy];
 }
 
 - (void)_setBridgeBadgeWithCollection:(id)collection
@@ -4171,6 +4220,101 @@ LABEL_14:
     v11 = +[NRQueue registryDaemonQueue];
     queue = [v11 queue];
     [v10 deletePairedStoreWithUUID:storeCopy withQueue:queue withCompletion:0];
+  }
+}
+
+- (void)localMonitor:(id)monitor propertiesDidChange:(id)change thisIsAllOfThem:(BOOL)them
+{
+  if (!self->_initRemoteProperties)
+  {
+    [(NRPairingDaemon *)self idsSendProperties:change thisIsAllOfThem:them];
+  }
+}
+
+- (void)idsSendProperties:(id)properties thisIsAllOfThem:(BOOL)them
+{
+  themCopy = them;
+  propertiesCopy = properties;
+  if ([propertiesCopy count])
+  {
+    v7 = nr_daemon_log();
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+
+    if (v8)
+    {
+      v9 = nr_daemon_log();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+        LODWORD(buf) = 138412290;
+        *(&buf + 4) = propertiesCopy;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Sending properties: %@", &buf, 0xCu);
+      }
+    }
+
+    v10 = [(EPServiceRegistry *)self->_serviceRegistry serviceFromClass:objc_opt_class()];
+    v11 = v10;
+    if (v10 && ([v10 defaultPairedDevice], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "isConnected"), v12, v13))
+    {
+      *&buf = 0;
+      *(&buf + 1) = &buf;
+      v32 = 0x3032000000;
+      v33 = sub_100023050;
+      v34 = sub_100023060;
+      v14 = [(NRMutableDevice *)self->_mirrorOfActiveDevice objectForKeyedSubscript:_NRDevicePropertyBluetoothIdentifier];
+      value = [v14 value];
+
+      if (*(*(&buf + 1) + 40) || ([v11 defaultPairedDevice], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "nsuuid"), v16 = objc_claimAutoreleasedReturnValue(), v17 = *(*(&buf + 1) + 40), *(*(&buf + 1) + 40) = v16, v17, v15, *(*(&buf + 1) + 40)))
+      {
+        selfCopy = self;
+        v19 = *(*(&buf + 1) + 40);
+        v27[0] = _NSConcreteStackBlock;
+        v27[1] = 3221225472;
+        v27[2] = sub_10003495C;
+        v27[3] = &unk_100176DA8;
+        v30 = themCopy;
+        v27[4] = selfCopy;
+        p_buf = &buf;
+        v20 = selfCopy;
+        v28 = v20;
+        [v11 sendPropertyChanges:propertiesCopy isAllProperties:themCopy toIDSBTUUID:v19 withSentBlock:v27];
+      }
+
+      else
+      {
+        v24 = nr_daemon_log();
+        v25 = os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
+
+        if (v25)
+        {
+          v26 = nr_daemon_log();
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+          {
+            sub_1000FE9AC();
+          }
+        }
+
+        self->_initRemoteProperties = 1;
+      }
+
+      _Block_object_dispose(&buf, 8);
+    }
+
+    else
+    {
+      v21 = nr_daemon_log();
+      v22 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
+
+      if (v22)
+      {
+        v23 = nr_daemon_log();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        {
+          sub_1000FE9E8();
+        }
+      }
+
+      self->_initRemoteProperties = 1;
+    }
   }
 }
 
@@ -8149,6 +8293,13 @@ LABEL_16:
   [(NRRegistryServer *)&v3 xpcGetDeviceCollectionWithBlock:block];
 }
 
+- (void)xpcGetDiffSinceTokenValue:(unint64_t)value getSecureProperties:(BOOL)properties withBlock:(id)block
+{
+  v5.receiver = self;
+  v5.super_class = NRPairingDaemon;
+  [(NRRegistryServer *)&v5 xpcGetDiffSinceTokenValue:value getSecureProperties:properties withBlock:block];
+}
+
 - (void)xpcRetrieveSecureProperties:(id)properties block:(id)block
 {
   v4.receiver = self;
@@ -8285,7 +8436,7 @@ LABEL_16:
   self->_idsConnectivityTimedOut = 1;
   idsConnectivityTimer = self->_idsConnectivityTimer;
   self->_idsConnectivityTimer = 0;
-  _objc_release_x1();
+  _objc_release_x1(self, idsConnectivityTimer);
 }
 
 - (void)getPairedPairingIDForBluetoothID:(id)d completion:(id)completion

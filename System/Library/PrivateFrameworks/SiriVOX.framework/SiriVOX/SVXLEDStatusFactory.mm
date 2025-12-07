@@ -42,20 +42,20 @@
 
 - (SVXLEDStatusFactory)init
 {
-  v12[3] = *MEMORY[0x277D85DE8];
-  v10.receiver = self;
-  v10.super_class = SVXLEDStatusFactory;
-  v2 = [(SVXLEDStatusFactory *)&v10 init];
+  v11[3] = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = SVXLEDStatusFactory;
+  v2 = [(SVXLEDStatusFactory *)&v9 init];
   if (v2)
   {
     v3 = *MEMORY[0x277D48CF0];
-    v11[0] = *MEMORY[0x277D48CE8];
-    v11[1] = v3;
-    v12[0] = @"0 190 0";
-    v12[1] = @"190 0 0";
-    v11[2] = *MEMORY[0x277D48CF8];
-    v12[2] = @"190 190 0";
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+    v10[0] = *MEMORY[0x277D48CE8];
+    v10[1] = v3;
+    v11[0] = @"0 190 0";
+    v11[1] = @"190 0 0";
+    v10[2] = *MEMORY[0x277D48CF8];
+    v11[2] = @"190 190 0";
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
     statusLEDCommands = v2->_statusLEDCommands;
     v2->_statusLEDCommands = v4;
 
@@ -64,7 +64,6 @@
     v2->_targetLEDSupplier = v6;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

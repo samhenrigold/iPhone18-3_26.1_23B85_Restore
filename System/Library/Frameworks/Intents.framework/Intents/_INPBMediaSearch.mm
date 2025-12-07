@@ -3,6 +3,9 @@
 - (_INPBMediaSearch)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)mediaTypeAsString:(int)string;
+- (id)referenceAsString:(int)string;
+- (id)sortOrderAsString:(int)string;
 - (int)StringAsMediaType:(id)type;
 - (int)StringAsReference:(id)reference;
 - (int)StringAsSortOrder:(id)order;
@@ -24,7 +27,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   albumName = [(_INPBMediaSearch *)self albumName];
   dictionaryRepresentation = [albumName dictionaryRepresentation];
@@ -37,30 +40,30 @@
   if ([(NSArray *)self->_genreNames count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v9 = self->_genreNames;
-    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v40 objects:v45 count:16];
+    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v39 objects:v44 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v41;
+      v12 = *v40;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v41 != v12)
+          if (*v40 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          dictionaryRepresentation3 = [*(*(&v40 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v39 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation3];
         }
 
-        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v40 objects:v45 count:16];
+        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v39 objects:v44 count:16];
       }
 
       while (v11);
@@ -96,30 +99,30 @@
   if ([(NSArray *)self->_moodNames count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     v22 = self->_moodNames;
-    v23 = [(NSArray *)v22 countByEnumeratingWithState:&v36 objects:v44 count:16];
+    v23 = [(NSArray *)v22 countByEnumeratingWithState:&v35 objects:v43 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v37;
+      v25 = *v36;
       do
       {
         for (j = 0; j != v24; ++j)
         {
-          if (*v37 != v25)
+          if (*v36 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          dictionaryRepresentation6 = [*(*(&v36 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation6 = [*(*(&v35 + 1) + 8 * j) dictionaryRepresentation];
           [array2 addObject:dictionaryRepresentation6];
         }
 
-        v24 = [(NSArray *)v22 countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v24 = [(NSArray *)v22 countByEnumeratingWithState:&v35 objects:v43 count:16];
       }
 
       while (v24);
@@ -163,8 +166,6 @@
 
     [dictionary setObject:v33 forKeyedSubscript:@"sortOrder"];
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -517,7 +518,7 @@ LABEL_46:
 
 - (void)writeTo:(id)to
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   toCopy = to;
   albumName = [(_INPBMediaSearch *)self albumName];
 
@@ -535,33 +536,32 @@ LABEL_46:
     PBDataWriterWriteSubmessage();
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v9 = self->_genreNames;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v36;
+    v12 = *v30;
     do
     {
       v13 = 0;
       do
       {
-        if (*v36 != v12)
+        if (*v30 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v35 + 1) + 8 * v13);
         PBDataWriterWriteSubmessage();
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v11);
@@ -585,45 +585,42 @@ LABEL_46:
 
   if ([(_INPBMediaSearch *)self hasMediaType])
   {
-    mediaType = self->_mediaType;
     PBDataWriterWriteInt32Field();
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v20 = self->_moodNames;
-  v21 = [(NSArray *)v20 countByEnumeratingWithState:&v31 objects:v39 count:16];
-  if (v21)
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v18 = self->_moodNames;
+  v19 = [(NSArray *)v18 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  if (v19)
   {
-    v22 = v21;
-    v23 = *v32;
+    v20 = v19;
+    v21 = *v26;
     do
     {
-      v24 = 0;
+      v22 = 0;
       do
       {
-        if (*v32 != v23)
+        if (*v26 != v21)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v18);
         }
 
-        v25 = *(*(&v31 + 1) + 8 * v24);
         PBDataWriterWriteSubmessage();
-        ++v24;
+        ++v22;
       }
 
-      while (v22 != v24);
-      v22 = [(NSArray *)v20 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      while (v20 != v22);
+      v20 = [(NSArray *)v18 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
-    while (v22);
+    while (v20);
   }
 
   if ([(_INPBMediaSearch *)self hasReference])
   {
-    reference = self->_reference;
     PBDataWriterWriteInt32Field();
   }
 
@@ -637,11 +634,8 @@ LABEL_46:
 
   if ([(_INPBMediaSearch *)self hasSortOrder])
   {
-    sortOrder = self->_sortOrder;
     PBDataWriterWriteInt32Field();
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (int)StringAsSortOrder:(id)order
@@ -700,6 +694,21 @@ LABEL_46:
   return v4;
 }
 
+- (id)sortOrderAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7286730[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasSortOrder:(BOOL)order
 {
   if (order)
@@ -751,6 +760,21 @@ LABEL_46:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)referenceAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7286718[string];
   }
 
   return v4;
@@ -924,6 +948,21 @@ LABEL_46:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)mediaTypeAsString:(int)string
+{
+  if (string >= 0x15)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7286670[string];
   }
 
   return v4;

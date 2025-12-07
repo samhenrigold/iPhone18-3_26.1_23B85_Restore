@@ -86,27 +86,27 @@ void __136___ASAccountAuthenticationModificationHostViewController_prepareToComp
 void __113___ASAccountAuthenticationModificationHostViewController_prepareToCancelRequestWithHostContext_error_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension();
-  v7 = v6;
+  v7 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension(v5, v6);
+  v8 = v7;
   if (a2)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B1C8D000, v7, OS_LOG_TYPE_DEFAULT, "Authorization controller successfully revoked the upgrade authorization.", buf, 2u);
+      _os_log_impl(&dword_1B1C8D000, v8, OS_LOG_TYPE_DEFAULT, "Authorization controller successfully revoked the upgrade authorization.", buf, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __113___ASAccountAuthenticationModificationHostViewController_prepareToCancelRequestWithHostContext_error_completion___block_invoke_cold_1(v7, v5);
+    __113___ASAccountAuthenticationModificationHostViewController_prepareToCancelRequestWithHostContext_error_completion___block_invoke_cold_1(v8, v5);
   }
 
-  v8 = *(a1 + 32);
-  v9 = *(a1 + 48);
-  v10.receiver = *(a1 + 40);
-  v10.super_class = _ASAccountAuthenticationModificationHostViewController;
-  objc_msgSendSuper2(&v10, sel_prepareToCancelRequestWithHostContext_error_completion_, v8, v5, v9);
+  v9 = *(a1 + 32);
+  v10 = *(a1 + 48);
+  v11.receiver = *(a1 + 40);
+  v11.super_class = _ASAccountAuthenticationModificationHostViewController;
+  objc_msgSendSuper2(&v11, sel_prepareToCancelRequestWithHostContext_error_completion_, v9, v5, v10);
 }
 
 void __116___ASAccountAuthenticationModificationHostViewController_getSignInWithAppleAuthorizationWithState_nonce_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -115,14 +115,14 @@ void __116___ASAccountAuthenticationModificationHostViewController_getSignInWith
   v6 = a2;
   v7 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v9 = WeakRetained;
+  v10 = WeakRetained;
   if (WeakRetained)
   {
     if (v6)
     {
       objc_storeStrong(WeakRetained + 133, a2);
-      v10 = [v6 credential];
-      v11 = [v10 authenticationServicesCredential];
+      v11 = [v6 credential];
+      v12 = [v11 authenticationServicesCredential];
 
       (*(*(a1 + 32) + 16))();
     }
@@ -131,79 +131,71 @@ void __116___ASAccountAuthenticationModificationHostViewController_getSignInWith
     {
       if (v7)
       {
-        v16 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v17 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension(WeakRetained, v9);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          __116___ASAccountAuthenticationModificationHostViewController_getSignInWithAppleAuthorizationWithState_nonce_completion___block_invoke_cold_1(v16, v7);
+          __116___ASAccountAuthenticationModificationHostViewController_getSignInWithAppleAuthorizationWithState_nonce_completion___block_invoke_cold_1(v17, v7);
         }
       }
 
-      v17 = *(a1 + 32);
-      v18 = *MEMORY[0x1E698DB28];
-      v19 = v7;
-      v20 = [v19 safari_matchesErrorDomain:v18 andCode:-7003];
-      v21 = MEMORY[0x1E696ABC0];
-      if (v20)
+      v18 = *(a1 + 32);
+      v19 = *MEMORY[0x1E698DB28];
+      v20 = v7;
+      v21 = [v20 safari_matchesErrorDomain:v19 andCode:-7003];
+      v22 = MEMORY[0x1E696ABC0];
+      if (v21)
       {
-        v22 = *MEMORY[0x1E696AA08];
+        v23 = *MEMORY[0x1E696AA08];
         v29[0] = *MEMORY[0x1E696A588];
-        v29[1] = v22;
+        v29[1] = v23;
         v30[0] = @"User tapped cancel on Sign in with Apple sheet.";
-        v30[1] = v19;
-        v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:2];
-        v24 = v21;
-        v25 = 1;
+        v30[1] = v20;
+        v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:2];
+        v25 = v22;
+        v26 = 1;
       }
 
       else
       {
         v29[0] = *MEMORY[0x1E696AA08];
-        v30[0] = v19;
-        v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:1];
-        v24 = v21;
-        v25 = 0;
+        v30[0] = v20;
+        v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:1];
+        v25 = v22;
+        v26 = 0;
       }
 
-      v11 = [v24 errorWithDomain:@"ASExtensionErrorDomain" code:v25 userInfo:v23];
+      v12 = [v25 errorWithDomain:@"ASExtensionErrorDomain" code:v26 userInfo:v24];
 
-      (*(v17 + 16))(v17, 0, v11);
+      (*(v18 + 16))(v18, 0, v12);
     }
   }
 
   else
   {
-    v12 = *(a1 + 32);
-    v13 = MEMORY[0x1E696ABC0];
+    v13 = *(a1 + 32);
+    v14 = MEMORY[0x1E696ABC0];
     v27 = *MEMORY[0x1E696A588];
     v28 = @"Host view controller deallocated.";
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-    v15 = [v13 errorWithDomain:@"ASExtensionErrorDomain" code:0 userInfo:v14];
-    (*(v12 + 16))(v12, 0, v15);
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    v16 = [v14 errorWithDomain:@"ASExtensionErrorDomain" code:0 userInfo:v15];
+    (*(v13 + 16))(v13, 0, v16);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __113___ASAccountAuthenticationModificationHostViewController_prepareToCancelRequestWithHostContext_error_completion___block_invoke_cold_1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B1C8D000, v5, v6, "Authorization controller attempted to revoke upgrade authorization and failed with error: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_0(&dword_1B1C8D000, v5, v6, "Authorization controller attempted to revoke upgrade authorization and failed with error: %@", v7, v8, v9, v10);
 }
 
 void __116___ASAccountAuthenticationModificationHostViewController_getSignInWithAppleAuthorizationWithState_nonce_completion___block_invoke_cold_1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B1C8D000, v5, v6, "Error when creating Sign in with Apple Authorization: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_0(&dword_1B1C8D000, v5, v6, "Error when creating Sign in with Apple Authorization: %{public}@", v7, v8, v9, v10);
 }
 
 @end

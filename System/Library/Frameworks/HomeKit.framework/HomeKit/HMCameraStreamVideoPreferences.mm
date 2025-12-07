@@ -13,18 +13,16 @@
 
 - (NSArray)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   resolutions = [(HMCameraStreamVideoPreferences *)self resolutions];
   v5 = [v3 initWithName:@"Resolutions" value:resolutions];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   v7 = HMStringFromCameraVideoResolutionQuality([(HMCameraStreamVideoPreferences *)self maximumQuality]);
   v8 = [v6 initWithName:@"Maximum Quality" value:v7];
-  v12[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
 
   return v9;
 }
@@ -94,20 +92,19 @@
 
 - (HMCameraStreamVideoPreferences)initWithCoder:(id)coder
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [(HMCameraStreamVideoPreferences *)self init];
   v6 = MEMORY[0x1E695DFD8];
-  v13[0] = objc_opt_class();
-  v13[1] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+  v12[0] = objc_opt_class();
+  v12[1] = objc_opt_class();
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
   v8 = [v6 setWithArray:v7];
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"HM.CameraStreamVideoResolutions"];
   [(HMCameraStreamVideoPreferences *)v5 setResolutions:v9];
 
   v10 = [coderCopy decodeIntegerForKey:@"HM.CameraStreamVideoResolutionQuality"];
   [(HMCameraStreamVideoPreferences *)v5 setMaximumQuality:v10];
-  v11 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

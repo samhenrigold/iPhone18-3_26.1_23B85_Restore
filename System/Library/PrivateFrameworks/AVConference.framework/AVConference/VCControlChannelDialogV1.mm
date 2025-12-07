@@ -218,7 +218,7 @@
 
     _os_log_impl(&dword_1DB56E000, v27, OS_LOG_TYPE_DEFAULT, v26, v50, v28);
 LABEL_29:
-    [(VCControlChannelDialog *)self confirmTransaction:d, *v50, *&v50[16], *v51, *&v51[16], participantCopy3, v53];
+    [(VCControlChannelDialog *)self confirmTransaction:d, *v50, *&v50[8], *v51, *&v51[16], participantCopy3, v53];
     goto LABEL_30;
   }
 
@@ -1829,7 +1829,7 @@ LABEL_65:
   *message = payloadCopy;
 }
 
-- (void)newDataFromMessage:(uint64_t)a3 topic:(uint64_t)a4 transactionID:(uint64_t)a5 isReliable:(uint64_t)a6 transactionDelegate:(uint64_t)a7 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9, uint64_t a10, uint64_t a11, int a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
+- (void)newDataFromMessage:(uint64_t)a3 topic:(uint64_t)a4 transactionID:(uint64_t)a5 isReliable:(uint64_t)a6 transactionDelegate:(uint64_t)a7 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   OUTLINED_FUNCTION_40_0();
   a23 = v25;

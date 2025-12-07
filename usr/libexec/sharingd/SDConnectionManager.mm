@@ -11,6 +11,7 @@
 - (void)createUnlockManagerWithReply:(id)reply;
 - (void)start;
 - (void)unlockSessionDidFinish:(id)finish;
+- (void)updateLowLatencyFilter:(id)filter isAddFilter:(BOOL)addFilter completion:(id)completion;
 @end
 
 @implementation SDConnectionManager
@@ -267,6 +268,31 @@ LABEL_20:
 
     [(SDHotspotAgent *)v10 addClientID:self->_identifier proxy:proxyCopy];
     (replyCopy)[2](replyCopy, v10, 0);
+  }
+}
+
+- (void)updateLowLatencyFilter:(id)filter isAddFilter:(BOOL)addFilter completion:(id)completion
+{
+  addFilterCopy = addFilter;
+  filterCopy = filter;
+  completionCopy = completion;
+  if ((SFIsDeviceAppleTV() & 1) != 0 || (+[SDHotspotAgent sharedAgent], (v10 = objc_claimAutoreleasedReturnValue()) == 0))
+  {
+    v14 = NSLocalizedDescriptionKey;
+    v15 = @"Could not create a hotspot agent";
+    v13 = [NSDictionary dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v12 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:v13];
+
+    completionCopy[2](completionCopy, v12);
+  }
+
+  else
+  {
+    hotspotAgent = self->_hotspotAgent;
+    self->_hotspotAgent = v10;
+    v12 = v10;
+
+    [(SDHotspotAgent *)v12 updateLowLatencyFilter:filterCopy isAddFilter:addFilterCopy completion:completionCopy];
   }
 }
 

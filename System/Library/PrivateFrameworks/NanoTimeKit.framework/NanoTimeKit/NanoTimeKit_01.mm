@@ -1,144 +1,3 @@
-void sub_1000361FC(uint64_t a1)
-{
-  sub_100007294(@"com.apple.ntkd.synccontroller.outgoingsession");
-  ++*(*(a1 + 32) + 168);
-  v2 = [*(*(a1 + 32) + 24) pdrDevice];
-  v3 = [v2 pairingID];
-
-  v4 = _NTKLoggingObjectForDomain();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    v5 = *(a1 + 40);
-    v6 = LogBool();
-    *buf = 138412546;
-    v55 = v6;
-    v56 = 2112;
-    v57 = v3;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "outgoing session (reset=%@) did start for device with UUID: %@", buf, 0x16u);
-  }
-
-  v7 = [*(a1 + 32) _queue_checkoutLibraryStoreForDeviceUUID:v3];
-  v8 = *(a1 + 32);
-  v9 = *(v8 + 120);
-  *(v8 + 120) = v7;
-
-  v10 = [*(a1 + 32) _queue_storeStatusForDeviceUUID:v3];
-  v11 = *(a1 + 32);
-  v12 = *(v11 + 104);
-  *(v11 + 104) = v10;
-
-  v13 = [*(a1 + 32) _queue_checkoutComplicationStoresForDeviceUUID:v3];
-  v14 = *(a1 + 32);
-  v15 = *(v14 + 128);
-  *(v14 + 128) = v13;
-
-  v16 = *(a1 + 32);
-  v17 = [v16[16] allKeys];
-  v18 = [v16 _queue_complicationStoreStatusesForDeviceUUID:v3 withIdentifiers:v17];
-  v19 = *(a1 + 32);
-  v20 = *(v19 + 112);
-  *(v19 + 112) = v18;
-
-  *(*(a1 + 32) + 136) = *(a1 + 40);
-  if ([*(*(a1 + 32) + 184) prepareForSyncing:?])
-  {
-    v21 = _NTKLoggingObjectForDomain();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "#color-sync Prepared for syncing pigment list.", buf, 2u);
-    }
-  }
-
-  v22 = *(a1 + 40);
-  v23 = [*(a1 + 32) _queue_outgoingMessageListForDeviceUUID:v3];
-  v24 = v23;
-  if (v22 == 1)
-  {
-    [v23 clearAllMessages];
-
-    v25 = [[_MessageList alloc] initWithPersistencePath:0];
-    v26 = *(a1 + 32);
-    v27 = *(v26 + 96);
-    *(v26 + 96) = v25;
-
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
-    v50 = 0u;
-    v28 = [*(*(a1 + 32) + 120) orderedUUIDs];
-    v29 = [v28 countByEnumeratingWithState:&v49 objects:v53 count:16];
-    if (v29)
-    {
-      v30 = v29;
-      v31 = *v50;
-      do
-      {
-        v32 = 0;
-        do
-        {
-          if (*v50 != v31)
-          {
-            objc_enumerationMutation(v28);
-          }
-
-          v33 = *(*(a1 + 32) + 96);
-          v34 = [NTKDSyncMessage messageOfType:0 withFaceUUID:*(*(&v49 + 1) + 8 * v32)];
-          [v33 enqueueMessage:v34];
-
-          v32 = v32 + 1;
-        }
-
-        while (v30 != v32);
-        v30 = [v28 countByEnumeratingWithState:&v49 objects:v53 count:16];
-      }
-
-      while (v30);
-    }
-
-    v35 = *(*(a1 + 32) + 96);
-    v36 = [NTKDSyncMessage messageOfType:5];
-    [v35 enqueueMessage:v36];
-
-    v37 = *(*(a1 + 32) + 96);
-    v38 = [NTKDSyncMessage messageOfType:4];
-    [v37 enqueueMessage:v38];
-
-    v39 = *(a1 + 32);
-    v40 = *(v39 + 128);
-    v48[0] = _NSConcreteStackBlock;
-    v48[1] = 3221225472;
-    v48[2] = sub_1000366BC;
-    v48[3] = &unk_10005E1F8;
-    v48[4] = v39;
-    [v40 enumerateKeysAndObjectsUsingBlock:v48];
-  }
-
-  else
-  {
-    v41 = *(a1 + 32);
-    v42 = *(v41 + 96);
-    *(v41 + 96) = v23;
-  }
-
-  *(*(a1 + 32) + 144) = [*(*(a1 + 32) + 96) count];
-  *(*(a1 + 32) + 152) = 0;
-  v43 = _NTKLoggingObjectForDomain();
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
-  {
-    v44 = *(*(a1 + 32) + 144);
-    *buf = 134217984;
-    v55 = v44;
-    _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "estimated number of messages to send (except color-sync): %lu", buf, 0xCu);
-  }
-
-  [*(*(a1 + 32) + 96) suspendCoalescing];
-  v45 = [*(*(a1 + 32) + 96) messageEnumerator];
-  v46 = *(a1 + 32);
-  v47 = *(v46 + 160);
-  *(v46 + 160) = v45;
-}
-
 void sub_1000366BC(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -192,9 +51,9 @@ void sub_1000368A0(void *a1, uint64_t a2)
   [v2 enqueueMessage:v3];
 }
 
-void sub_100036A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100036A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -385,41 +244,40 @@ void sub_100037208(uint64_t a1)
   v4 = _NTKLoggingObjectForDomain();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 40);
-    v6 = LogBool();
-    v24 = 138412546;
-    v25 = v6;
-    v26 = 2112;
-    v27 = v3;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "incoming session (reset=%@) did start for device with UUID: %@", &v24, 0x16u);
+    v5 = LogBool();
+    v23 = 138412546;
+    v24 = v5;
+    v25 = 2112;
+    v26 = v3;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "incoming session (reset=%@) did start for device with UUID: %@", &v23, 0x16u);
   }
 
-  v7 = [*(a1 + 32) _queue_checkoutLibraryStoreForDeviceUUID:v3];
-  v8 = *(a1 + 32);
-  v9 = *(v8 + 120);
-  *(v8 + 120) = v7;
+  v6 = [*(a1 + 32) _queue_checkoutLibraryStoreForDeviceUUID:v3];
+  v7 = *(a1 + 32);
+  v8 = *(v7 + 120);
+  *(v7 + 120) = v6;
 
-  v10 = [*(a1 + 32) _queue_storeStatusForDeviceUUID:v3];
-  v11 = *(a1 + 32);
-  v12 = *(v11 + 104);
-  *(v11 + 104) = v10;
+  v9 = [*(a1 + 32) _queue_storeStatusForDeviceUUID:v3];
+  v10 = *(a1 + 32);
+  v11 = *(v10 + 104);
+  *(v10 + 104) = v9;
 
-  v13 = [*(a1 + 32) _queue_checkoutComplicationStoresForDeviceUUID:v3];
-  v14 = *(a1 + 32);
-  v15 = *(v14 + 128);
-  *(v14 + 128) = v13;
+  v12 = [*(a1 + 32) _queue_checkoutComplicationStoresForDeviceUUID:v3];
+  v13 = *(a1 + 32);
+  v14 = *(v13 + 128);
+  *(v13 + 128) = v12;
 
-  v16 = *(a1 + 32);
-  v17 = [v16[16] allKeys];
-  v18 = [v16 _queue_complicationStoreStatusesForDeviceUUID:v3 withIdentifiers:v17];
-  v19 = *(a1 + 32);
-  v20 = *(v19 + 112);
-  *(v19 + 112) = v18;
+  v15 = *(a1 + 32);
+  v16 = [v15[16] allKeys];
+  v17 = [v15 _queue_complicationStoreStatusesForDeviceUUID:v3 withIdentifiers:v16];
+  v18 = *(a1 + 32);
+  v19 = *(v18 + 112);
+  *(v18 + 112) = v17;
 
-  v21 = [*(a1 + 32) _queue_incomingMessageListForDeviceUUID:v3];
-  v22 = *(a1 + 32);
-  v23 = *(v22 + 96);
-  *(v22 + 96) = v21;
+  v20 = [*(a1 + 32) _queue_incomingMessageListForDeviceUUID:v3];
+  v21 = *(a1 + 32);
+  v22 = *(v21 + 96);
+  *(v21 + 96) = v20;
 
   *(*(a1 + 32) + 136) = *(a1 + 40);
 }
@@ -664,7 +522,7 @@ uint64_t sub_100038010(uint64_t a1)
     v5 = _NTKLoggingObjectForDomain();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_10003FDDC(v2, v2 + 1);
+      sub_10003FDDC();
     }
 
     sub_100005A14(@"Validation Failure", @"A discrepancy between the clock faces on your Watch and iPhone has been detected. Tap 'OK' to raise a radar. Please compare the faces between your devices and note any differences in the radar. (Internal alert only.)", @"Sync: Inconsistent Clock Faces Library State Detected (via Prompt)");
@@ -675,7 +533,7 @@ uint64_t sub_100038010(uint64_t a1)
     v6 = _NTKLoggingObjectForDomain();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_10003FE58(v2, v2 + 1);
+      sub_10003FE58();
     }
 
     [*(*(a1 + 48) + 8) requestResetSync];
@@ -692,9 +550,9 @@ void sub_100038374(uint64_t a1)
   sub_1000074E0(@"com.apple.ntkd.synccontroller.busy");
 }
 
-void sub_10003866C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003866C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -891,16 +749,16 @@ void sub_10003A554(uint64_t a1, void *a2)
   [*(a1 + 40) setObject:v5 forKeyedSubscript:v3];
 }
 
-id sub_10003A5E8()
+id sub_10003A5E8(uint64_t a1)
 {
   if (qword_100066CF8 != -1)
   {
     sub_10003FFE0();
   }
 
-  v1 = qword_100066CF0;
+  v2 = qword_100066CF0;
 
-  return v1;
+  return v2;
 }
 
 void sub_10003A62C(uint64_t a1, void *a2)
@@ -972,7 +830,7 @@ void sub_10003C3CC(uint64_t a1, void *a2, unint64_t a3, _BYTE *a4)
 
   else
   {
-    v5 = [a2 objectForKey:@"payload-id"];
+    v5 = [a2 objectForKey:{@"payload-id", a4}];
     if (v5)
     {
       v8 = v5;
@@ -985,9 +843,9 @@ void sub_10003C3CC(uint64_t a1, void *a2, unint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_10003C540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003C540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1018,58 +876,52 @@ uint64_t sub_10003CD38(uint64_t a1, void *a2)
   v6 = *(a1 + 80);
   v7 = v5 == v6;
   v8 = [*(a1 + 32) _getFaceUUID:v4];
-  v9 = *(a1 + 40);
-  v10 = NTKEqualObjects();
+  v9 = NTKEqualObjects();
 
-  v11 = [*(a1 + 32) _getClientID:v4];
-  v12 = *(a1 + 48);
+  v10 = [*(a1 + 32) _getClientID:v4];
+  v11 = NTKEqualObjects();
+
+  v12 = [*(a1 + 32) _getFamily:v4];
   v13 = NTKEqualObjects();
 
-  v14 = [*(a1 + 32) _getFamily:v4];
-  v15 = *(a1 + 56);
-  v16 = NTKEqualObjects();
+  v14 = [*(a1 + 32) _getComplicationDescriptor:v4];
+  v15 = NTKEqualObjects();
 
-  v17 = [*(a1 + 32) _getComplicationDescriptor:v4];
-  v18 = *(a1 + 64);
-  v19 = NTKEqualObjects();
+  v16 = [*(a1 + 32) _getComplicationCollectionIdentifier:v4];
 
-  v20 = [*(a1 + 32) _getComplicationCollectionIdentifier:v4];
-
-  v21 = *(a1 + 72);
-  v22 = NTKEqualObjects();
-
-  v23 = *(a1 + 80);
-  if (v23 > 5)
+  v17 = NTKEqualObjects();
+  v18 = *(a1 + 80);
+  if (v18 > 5)
   {
-    if (v23 <= 8)
+    if (v18 <= 8)
     {
-      if ((v23 - 6) < 2)
+      if ((v18 - 6) < 2)
       {
-        return v13 & v19 & v22;
+        return v11 & v15 & v17;
       }
 
       v7 = 1;
-      if (v23 != 8)
+      if (v18 != 8)
       {
         return v7;
       }
 
-      v24 = v13 & v16;
-      v25 = v19 & v22;
-      return v24 & v25;
+      v19 = v11 & v13;
+      v20 = v15 & v17;
+      return v19 & v20;
     }
 
-    if (v23 != 9)
+    if (v18 != 9)
     {
-      if (v23 == 10)
+      if (v18 == 10)
       {
-        v24 = v5 == v6;
-        v25 = v13 & v22;
-        return v24 & v25;
+        v19 = v5 == v6;
+        v20 = v11 & v17;
+        return v19 & v20;
       }
 
       v7 = 1;
-      if (v23 != 11)
+      if (v18 != 11)
       {
         return v7;
       }
@@ -1078,28 +930,28 @@ uint64_t sub_10003CD38(uint64_t a1, void *a2)
     return 0;
   }
 
-  if (v23 <= 2)
+  if (v18 <= 2)
   {
-    if ((v23 - 1) < 2)
+    if ((v18 - 1) < 2)
     {
-      return (v5 == v6) & v10;
+      return (v5 == v6) & v9;
     }
 
     v7 = 1;
-    if (v23)
+    if (v18)
     {
       return v7;
     }
 
-    return v10;
+    return v9;
   }
 
-  if ((v23 - 4) >= 2)
+  if ((v18 - 4) >= 2)
   {
     v7 = 1;
-    if (v23 == 3)
+    if (v18 == 3)
     {
-      return v10;
+      return v9;
     }
   }
 
@@ -1145,7 +997,7 @@ void sub_10003D640(id a1)
 id sub_10003D6D0(void *a1)
 {
   v1 = a1;
-  v2 = sub_10003D76C();
+  v2 = sub_10003D76C(v1);
   v3 = v2;
   if (v1)
   {
@@ -1161,16 +1013,16 @@ id sub_10003D6D0(void *a1)
   return v5;
 }
 
-id sub_10003D76C()
+id sub_10003D76C(uint64_t a1)
 {
   if (qword_100066D08 != -1)
   {
     sub_1000401E0();
   }
 
-  v1 = qword_100066D00;
+  v2 = qword_100066D00;
 
-  return v1;
+  return v2;
 }
 
 void sub_10003D7B0(id a1)
@@ -1258,7 +1110,7 @@ void sub_10003DAF4(uint64_t a1, void *a2)
 
 void sub_10003DBBC(id a1)
 {
-  v1 = sub_10003D76C();
+  v1 = sub_10003D76C(a1);
   v2 = [v1 stringByAppendingPathComponent:@"MessagePayloads"];
   v3 = qword_100066D10;
   qword_100066D10 = v2;
@@ -1337,25 +1189,18 @@ void sub_10003E48C(void *a1, void *a2, uint8_t *buf, os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Unable to read removals dictionary at path %@: %@", buf, 0x16u);
 }
 
-void sub_10003E638(uint64_t a1)
+void sub_10003E638()
 {
-  v1 = *(*a1 + 96);
-  v2 = *(*a1 + 104);
-  v3 = *(*a1 + 24);
   sub_100020C94();
   sub_100015948();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void sub_10003E6B4(uint64_t a1)
+void sub_10003E6B4()
 {
-  v1 = *(a1 + 32);
-  v2 = v1[12];
-  v3 = v1[13];
-  v4 = v1[3];
   sub_100020C94();
   sub_100015948();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void sub_10003E7A4(uint64_t *a1, uint64_t a2, os_log_t log)
@@ -1399,12 +1244,11 @@ void sub_10003EBB8(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Corrupted manifest - manifest says we should have descriptor %@, but the file was corrupted or not found", &v2, 0xCu);
 }
 
-void sub_10003EC30(void *a1, uint64_t *a2)
+void sub_10003EC30(void *a1)
 {
   [a1 intValue];
-  v8 = *a2;
   sub_10002BAC4();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
 void sub_10003EDA0(uint64_t a1, uint64_t a2, NSObject *a3)
@@ -1417,11 +1261,11 @@ void sub_10003EDA0(uint64_t a1, uint64_t a2, NSObject *a3)
   _os_log_debug_impl(&_mh_execute_header, a3, OS_LOG_TYPE_DEBUG, "Failed to load complication sample template content hash for key %{public}@, family %{public}@: invalid UTF-8.", &v6, 0x16u);
 }
 
-void sub_10003EE54()
+void sub_10003EE54(uint64_t a1, uint64_t a2)
 {
-  v5 = CLKStringForComplicationFamily();
+  v7 = CLKStringForComplicationFamily();
   sub_10002BAC4();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void sub_10003EF00(void *a1)
@@ -1445,14 +1289,6 @@ void sub_10003F108()
   sub_1000078DC();
   sub_100015948();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-}
-
-void sub_10003F178(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  sub_10002FB84();
-  sub_10002FB48(&_mh_execute_header, v3, v4, "error sending out of band message [%ld, %@], error: %@");
 }
 
 void sub_10003F270()
@@ -1538,13 +1374,11 @@ void sub_10003F824()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10003F8B4(uint64_t *a1, uint64_t a2)
+void sub_10003F8B4()
 {
-  v2 = *a1;
-  v3 = *(a2 + 24);
-  v6 = 136315650;
+  v2 = 136315650;
   sub_10002FB68();
-  sub_10002FB48(&_mh_execute_header, v4, v5, "%s: trying to get a part from an empty outgoing queue (%lu/%lu)", v6, v7, v8);
+  sub_10002FB48(&_mh_execute_header, v0, v1, "%s: trying to get a part from an empty outgoing queue (%lu/%lu)", v2, v3, v4);
 }
 
 void sub_10003F930()
@@ -1554,13 +1388,11 @@ void sub_10003F930()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10003F9AC(uint64_t *a1, uint64_t *a2)
+void sub_10003F9AC()
 {
-  v2 = *a1;
-  v3 = *a2;
-  v6 = 136315650;
+  v2 = 136315650;
   sub_10002FB68();
-  sub_10002FB48(&_mh_execute_header, v4, v5, "%s: trying to add a part to an already full incoming queue (%lu/%lu)", v6, v7, v8);
+  sub_10002FB48(&_mh_execute_header, v0, v1, "%s: trying to add a part to an already full incoming queue (%lu/%lu)", v2, v3, v4);
 }
 
 void sub_10003FA28()
@@ -1606,22 +1438,18 @@ void sub_10003FD60(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Session failed with error: %@", &v3, 0xCu);
 }
 
-void sub_10003FDDC(uint64_t *a1, uint64_t *a2)
+void sub_10003FDDC()
 {
-  v2 = *a1;
-  v3 = *a2;
   sub_10003DC4C();
   sub_10003DC64();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10003FE58(uint64_t *a1, uint64_t *a2)
+void sub_10003FE58()
 {
-  v2 = *a1;
-  v3 = *a2;
   sub_10003DC4C();
   sub_10003DC64();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_10003FED4(_BYTE *a1, _BYTE *a2)

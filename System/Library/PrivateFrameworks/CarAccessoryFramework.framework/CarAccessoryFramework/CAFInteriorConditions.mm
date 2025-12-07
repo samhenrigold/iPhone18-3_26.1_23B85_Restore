@@ -7,6 +7,7 @@
 - (CAFMeasurementCharacteristic)aqiCharacteristic;
 - (CAFMeasurementRange)aqiMeasurementRange;
 - (NSMeasurement)aqi;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -123,6 +124,35 @@
   isInvalid = [aqiCharacteristic isInvalid];
 
   return isInvalid;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if (![characteristicType isEqual:@"0x0000000031000010"])
+  {
+    goto LABEL_4;
+  }
+
+  uniqueIdentifier = [updateCopy uniqueIdentifier];
+  aqiCharacteristic = [(CAFInteriorConditions *)self aqiCharacteristic];
+  uniqueIdentifier2 = [aqiCharacteristic uniqueIdentifier];
+  v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+  if (v11)
+  {
+    characteristicType = [(CAFService *)self observers];
+    v12 = [(CAFInteriorConditions *)self aqi];
+    [characteristicType interiorConditionsService:self didUpdateAqi:v12];
+
+LABEL_4:
+  }
+
+  v13.receiver = self;
+  v13.super_class = CAFInteriorConditions;
+  [(CAFService *)&v13 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForAQI

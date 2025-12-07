@@ -1,7 +1,6 @@
 @interface _UICollectionViewSubviewRouter
 - (id)description;
 - (id)initWithContainer:(void *)container;
-- (uint64_t)setContainer:(uint64_t)result;
 - (uint64_t)shouldAddSubview:(uint64_t *)subview atPosition:(uint64_t)position relativeTo:(int)to creatingBookmarkIfNecessary:;
 - (uint64_t)shouldBringSubviewToFront:(uint64_t)result;
 - (uint64_t)shouldExchangeSubviewAtIndex:(unint64_t)index withSubviewAtIndex:;
@@ -11,6 +10,7 @@
 - (void)addContainerView:(uint64_t)view;
 - (void)addControlledSubview:(int64_t)subview zIndex:(int64_t)index orderMode:;
 - (void)enumerateBookmarksWithEnumerator:(uint64_t)enumerator;
+- (void)setContainer:(void *)result;
 - (void)willRemoveSubview:(uint64_t)subview;
 @end
 
@@ -52,7 +52,7 @@
   return containerCopy;
 }
 
-- (uint64_t)setContainer:(uint64_t)result
+- (void)setContainer:(void *)result
 {
   if (result)
   {
@@ -66,9 +66,9 @@
       [currentHandler handleFailureInMethod:sel_setContainer_ object:v3 file:@"_UICollectionViewSubviewRouter.m" lineNumber:50 description:{@"UICollectionView internal inconsistency: the _UICollectionViewSubviewRouter's view should initially contain zero subviews. View: %@", a2}];
     }
 
-    *(v3 + 40) = a2;
-    [*(v3 + 8) removeAllObjects];
-    v6 = *(v3 + 16);
+    *(v3 + 5) = a2;
+    [*(v3 + 1) removeAllObjects];
+    v6 = *(v3 + 2);
 
     return [v6 removeAllObjects];
   }
@@ -425,7 +425,7 @@ LABEL_41:
       v14 = v13;
       if (v13 || to)
       {
-        if ((v13 || (+[_UICollectionViewSubviewRouterBookmark bookmarkForUncontrolledSubview](), v14 = objc_claimAutoreleasedReturnValue(), [*(self + 16) setObject:v14 forKey:a2], v14)) && v14[3] == -10000)
+        if ((v13 || (+[_UICollectionViewSubviewRouterBookmark bookmarkForUncontrolledSubview](_UICollectionViewSubviewRouterBookmark), v14 = objc_claimAutoreleasedReturnValue(), [*(self + 16) setObject:v14 forKey:a2], v14)) && v14[3] == -10000)
         {
           [(_UICollectionViewSubviewRouter *)self _adjustTargetPosition:subview forAddingUncontrolledSubviewWithBookmark:v14 relativeTo:position];
           v12 = 1;

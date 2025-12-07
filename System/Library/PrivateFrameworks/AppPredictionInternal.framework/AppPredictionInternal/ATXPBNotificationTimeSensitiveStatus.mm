@@ -70,27 +70,25 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_bundleId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    isTimeSensitiveNotification = self->_isTimeSensitiveNotification;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    isTimeSensitiveAndEngagedNotification = self->_isTimeSensitiveAndEngagedNotification;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -177,7 +175,6 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v8 = *(equalCopy + 17);
   if (self->_isTimeSensitiveNotification)
   {
     if ((*(equalCopy + 17) & 1) == 0)

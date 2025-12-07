@@ -43,7 +43,7 @@
 
 - (ACAccount)account
 {
-  v2 = DynamicViewController.account.getter();
+  v2 = DynamicViewController.account.getter(self);
 
   return v2;
 }
@@ -57,7 +57,7 @@
 
 - (AMSBagProtocol)bag
 {
-  v2 = DynamicViewController.bag.getter();
+  v2 = DynamicViewController.bag.getter(self);
 
   return v2;
 }
@@ -71,7 +71,7 @@
 
 - (AMSProcessInfo)clientInfo
 {
-  v2 = DynamicViewController.clientInfo.getter();
+  v2 = DynamicViewController.clientInfo.getter(self);
 
   return v2;
 }
@@ -94,7 +94,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  DynamicViewController.delegate.setter();
+  DynamicViewController.delegate.setter(delegate);
 }
 
 - (AMSUIMediaContentDelegate)mediaContentDelegate
@@ -108,7 +108,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  DynamicViewController.mediaContentDelegate.setter();
+  DynamicViewController.mediaContentDelegate.setter(delegate);
 }
 
 - (NSString)mediaClientIdentifier
@@ -158,7 +158,7 @@
 
   selfCopy = self;
   DynamicViewController.dismiss(animated:completion:)(animated, v6, v7);
-  sub_1CA0EBE84(v6);
+  sub_1CA0EBE84(v6, v7);
 }
 
 - (UINavigationItem)navigationItem

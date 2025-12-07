@@ -27,44 +27,42 @@ uint64_t mapNRGIconVariantToLI(uint64_t a1)
 
 void __mapNRGIconVariantToLI_block_invoke()
 {
-  v4[16] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_286CEB290;
-  v3[1] = &unk_286CEB2C0;
-  v4[0] = &unk_286CEB2A8;
-  v4[1] = &unk_286CEB2D8;
-  v3[2] = &unk_286CEB2F0;
-  v3[3] = &unk_286CEB320;
-  v4[2] = &unk_286CEB308;
-  v4[3] = &unk_286CEB338;
-  v3[4] = &unk_286CEB350;
-  v3[5] = &unk_286CEB380;
-  v4[4] = &unk_286CEB368;
-  v4[5] = &unk_286CEB398;
-  v3[6] = &unk_286CEB3B0;
-  v3[7] = &unk_286CEB3E0;
-  v4[6] = &unk_286CEB3C8;
-  v4[7] = &unk_286CEB3F8;
-  v3[8] = &unk_286CEB410;
-  v3[9] = &unk_286CEB440;
-  v4[8] = &unk_286CEB428;
-  v4[9] = &unk_286CEB458;
-  v3[10] = &unk_286CEB470;
-  v3[11] = &unk_286CEB4A0;
-  v4[10] = &unk_286CEB488;
-  v4[11] = &unk_286CEB4B8;
-  v3[12] = &unk_286CEB4D0;
-  v3[13] = &unk_286CEB500;
-  v4[12] = &unk_286CEB4E8;
-  v4[13] = &unk_286CEB518;
-  v3[14] = &unk_286CEB530;
-  v3[15] = &unk_286CEB560;
-  v4[14] = &unk_286CEB548;
-  v4[15] = &unk_286CEB578;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:16];
+  v3[16] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_286CEB290;
+  v2[1] = &unk_286CEB2C0;
+  v3[0] = &unk_286CEB2A8;
+  v3[1] = &unk_286CEB2D8;
+  v2[2] = &unk_286CEB2F0;
+  v2[3] = &unk_286CEB320;
+  v3[2] = &unk_286CEB308;
+  v3[3] = &unk_286CEB338;
+  v2[4] = &unk_286CEB350;
+  v2[5] = &unk_286CEB380;
+  v3[4] = &unk_286CEB368;
+  v3[5] = &unk_286CEB398;
+  v2[6] = &unk_286CEB3B0;
+  v2[7] = &unk_286CEB3E0;
+  v3[6] = &unk_286CEB3C8;
+  v3[7] = &unk_286CEB3F8;
+  v2[8] = &unk_286CEB410;
+  v2[9] = &unk_286CEB440;
+  v3[8] = &unk_286CEB428;
+  v3[9] = &unk_286CEB458;
+  v2[10] = &unk_286CEB470;
+  v2[11] = &unk_286CEB4A0;
+  v3[10] = &unk_286CEB488;
+  v3[11] = &unk_286CEB4B8;
+  v2[12] = &unk_286CEB4D0;
+  v2[13] = &unk_286CEB500;
+  v3[12] = &unk_286CEB4E8;
+  v3[13] = &unk_286CEB518;
+  v2[14] = &unk_286CEB530;
+  v2[15] = &unk_286CEB560;
+  v3[14] = &unk_286CEB548;
+  v3[15] = &unk_286CEB578;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:16];
   v1 = mapNRGIconVariantToLI_nrgToLIMap;
   mapNRGIconVariantToLI_nrgToLIMap = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t mapLIIconVariantToNRG(uint64_t a1)
@@ -89,44 +87,42 @@ uint64_t mapLIIconVariantToNRG(uint64_t a1)
 
 void __mapLIIconVariantToNRG_block_invoke()
 {
-  v4[16] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_286CEB2A8;
-  v3[1] = &unk_286CEB2D8;
-  v4[0] = &unk_286CEB290;
-  v4[1] = &unk_286CEB2C0;
-  v3[2] = &unk_286CEB308;
-  v3[3] = &unk_286CEB338;
-  v4[2] = &unk_286CEB2F0;
-  v4[3] = &unk_286CEB320;
-  v3[4] = &unk_286CEB368;
-  v3[5] = &unk_286CEB398;
-  v4[4] = &unk_286CEB350;
-  v4[5] = &unk_286CEB380;
-  v3[6] = &unk_286CEB3C8;
-  v3[7] = &unk_286CEB3F8;
-  v4[6] = &unk_286CEB3B0;
-  v4[7] = &unk_286CEB3E0;
-  v3[8] = &unk_286CEB428;
-  v3[9] = &unk_286CEB458;
-  v4[8] = &unk_286CEB410;
-  v4[9] = &unk_286CEB440;
-  v3[10] = &unk_286CEB488;
-  v3[11] = &unk_286CEB4B8;
-  v4[10] = &unk_286CEB470;
-  v4[11] = &unk_286CEB4A0;
-  v3[12] = &unk_286CEB4E8;
-  v3[13] = &unk_286CEB518;
-  v4[12] = &unk_286CEB4D0;
-  v4[13] = &unk_286CEB500;
-  v3[14] = &unk_286CEB548;
-  v3[15] = &unk_286CEB578;
-  v4[14] = &unk_286CEB530;
-  v4[15] = &unk_286CEB560;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:16];
+  v3[16] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_286CEB2A8;
+  v2[1] = &unk_286CEB2D8;
+  v3[0] = &unk_286CEB290;
+  v3[1] = &unk_286CEB2C0;
+  v2[2] = &unk_286CEB308;
+  v2[3] = &unk_286CEB338;
+  v3[2] = &unk_286CEB2F0;
+  v3[3] = &unk_286CEB320;
+  v2[4] = &unk_286CEB368;
+  v2[5] = &unk_286CEB398;
+  v3[4] = &unk_286CEB350;
+  v3[5] = &unk_286CEB380;
+  v2[6] = &unk_286CEB3C8;
+  v2[7] = &unk_286CEB3F8;
+  v3[6] = &unk_286CEB3B0;
+  v3[7] = &unk_286CEB3E0;
+  v2[8] = &unk_286CEB428;
+  v2[9] = &unk_286CEB458;
+  v3[8] = &unk_286CEB410;
+  v3[9] = &unk_286CEB440;
+  v2[10] = &unk_286CEB488;
+  v2[11] = &unk_286CEB4B8;
+  v3[10] = &unk_286CEB470;
+  v3[11] = &unk_286CEB4A0;
+  v2[12] = &unk_286CEB4E8;
+  v2[13] = &unk_286CEB518;
+  v3[12] = &unk_286CEB4D0;
+  v3[13] = &unk_286CEB500;
+  v2[14] = &unk_286CEB548;
+  v2[15] = &unk_286CEB578;
+  v3[14] = &unk_286CEB530;
+  v3[15] = &unk_286CEB560;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:16];
   v1 = mapLIIconVariantToNRG_liToNRGMap;
   mapLIIconVariantToNRG_liToNRGMap = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
@@ -143,9 +139,9 @@ void sub_25B670E98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25B67127C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25B67127C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -233,7 +229,7 @@ void saveGizmoBuild(void *a1)
 
 void __saveGizmoBuild_block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAA00];
   v4 = a2;
   v5 = [v3 defaultManager];
@@ -245,10 +241,10 @@ void __saveGizmoBuild_block_invoke(uint64_t a1, void *a2)
   v8 = v7;
   if (v7)
   {
-    v14 = 0;
-    [v7 writeToFile:v6 options:268435457 error:&v14];
-    v9 = v14;
-    v10 = nrg_framework_log();
+    v13 = 0;
+    [v7 writeToFile:v6 options:268435457 error:&v13];
+    v9 = v13;
+    v10 = nrg_framework_log(v9);
     v11 = v10;
     if (v9)
     {
@@ -262,25 +258,23 @@ void __saveGizmoBuild_block_invoke(uint64_t a1, void *a2)
     {
       v12 = *(a1 + 32);
       *buf = 138412802;
-      v16 = v12;
-      v17 = 2112;
-      v18 = v8;
-      v19 = 2112;
-      v20 = v6;
+      v15 = v12;
+      v16 = 2112;
+      v17 = v8;
+      v18 = 2112;
+      v19 = v6;
       _os_log_impl(&dword_25B66E000, v11, OS_LOG_TYPE_DEFAULT, "saveGizmoBuild: wrote %@ %@ to %@", buf, 0x20u);
     }
   }
 
   else
   {
-    v8 = nrg_framework_log();
+    v8 = nrg_framework_log(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __saveGizmoBuild_block_invoke_cold_2(v8);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void loadGizmoBuild(void *a1)
@@ -297,18 +291,18 @@ void loadGizmoBuild(void *a1)
 
 void __loadGizmoBuild_block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = [a2 stringByAppendingPathComponent:@"gizmoBuild.plist"];
   v4 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v3];
   v5 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v4 error:0];
-  v6 = nrg_framework_log();
+  v6 = nrg_framework_log(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_25B66E000, v6, OS_LOG_TYPE_DEFAULT, "loadGizmoBuild: gizmoBuild = %@ %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_25B66E000, v6, OS_LOG_TYPE_DEFAULT, "loadGizmoBuild: gizmoBuild = %@ %@", &v8, 0x16u);
   }
 
   v7 = *(a1 + 32);
@@ -316,8 +310,6 @@ void __loadGizmoBuild_block_invoke(uint64_t a1, void *a2)
   {
     (*(v7 + 16))(v7, v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25B6724C4(_Unwind_Exception *exception_object, int a2)
@@ -325,7 +317,7 @@ void sub_25B6724C4(_Unwind_Exception *exception_object, int a2)
   if (a2 == 1)
   {
     v4 = objc_begin_catch(exception_object);
-    v5 = nrg_framework_log();
+    v5 = nrg_framework_log(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __loadGizmoBuild_block_invoke_cold_1(v2, v5);
@@ -338,16 +330,16 @@ void sub_25B6724C4(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-id nrg_framework_log()
+id nrg_framework_log(uint64_t a1)
 {
   if (nrg_framework_log_onceToken != -1)
   {
     nrg_framework_log_cold_1();
   }
 
-  v1 = nrg_framework_log___logger;
+  v2 = nrg_framework_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __nrg_framework_log_block_invoke()
@@ -357,16 +349,16 @@ uint64_t __nrg_framework_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id nrg_daemon_log()
+id nrg_daemon_log(uint64_t a1)
 {
   if (nrg_daemon_log_onceToken != -1)
   {
     nrg_daemon_log_cold_1();
   }
 
-  v1 = nrg_daemon_log___logger;
+  v2 = nrg_daemon_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __nrg_daemon_log_block_invoke()
@@ -396,18 +388,16 @@ void mapLIIconVariantToNRG_cold_2(uint64_t a1, uint64_t a2)
 
 void __saveGizmoBuild_block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25B66E000, a2, OS_LOG_TYPE_ERROR, "saveGizmoBuild: writeToFile fail %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25B66E000, a2, OS_LOG_TYPE_ERROR, "saveGizmoBuild: writeToFile fail %@", &v2, 0xCu);
 }
 
 void __loadGizmoBuild_block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25B66E000, a2, OS_LOG_TYPE_ERROR, "loadGizmoBuild: failed to load gizmo build from %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25B66E000, a2, OS_LOG_TYPE_ERROR, "loadGizmoBuild: failed to load gizmo build from %@", &v2, 0xCu);
 }

@@ -8,58 +8,58 @@
 - (id)p_renderingExporterDelegate
 {
   v3 = objc_alloc(MEMORY[0x277D7FFC8]);
-  v9 = objc_msgSend_initWithRenderingExporter_(v3, v4, v5, v6, v7, v8, self);
+  v12 = objc_msgSend_initWithRenderingExporter_(v3, v4, v8, v9, v10, v11, self, v5, v6, v7);
 
-  return v9;
+  return v12;
 }
 
 - (void)setOptions:(id)options
 {
-  v87.receiver = self;
-  v87.super_class = TPPdfExporter;
+  v132.receiver = self;
+  v132.super_class = TPPdfExporter;
   optionsCopy = options;
-  [(TPRenderingExporter *)&v87 setOptions:optionsCopy];
-  v10 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v5, v6, v7, v8, v9, *MEMORY[0x277D80780], v87.receiver, v87.super_class);
+  [(TPRenderingExporter *)&v132 setOptions:optionsCopy];
+  v13 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v5, v9, v10, v11, v12, *MEMORY[0x277D80780], v6, v7, v8, v132.receiver, v132.super_class);
 
-  if (v10)
+  if (v13)
   {
-    v16 = *(&self->super.super.super.isa + *MEMORY[0x277D80000]);
-    v22 = objc_msgSend_intValue(v10, v17, v18, v19, v20, v21);
-    objc_msgSend_setRenderingQuality_(v16, v23, v24, v25, v26, v27, v22);
+    v22 = *(&self->super.super.super.isa + *MEMORY[0x277D80000]);
+    v32 = objc_msgSend_intValue(v13, v23, v28, v29, v30, v31, v24, v25, v26, v27);
+    objc_msgSend_setRenderingQuality_(v22, v33, v37, v38, v39, v40, v32, v34, v35, v36);
   }
 
-  v28 = *MEMORY[0x277D7FFF0];
-  v29 = objc_msgSend_objectForKeyedSubscript_(*(&self->super.super.super.isa + v28), v11, v12, v13, v14, v15, *MEMORY[0x277D807A0]);
-  v35 = v29;
-  if (v29)
-  {
-    v36 = objc_msgSend_BOOLValue(v29, v30, v31, v32, v33, v34);
-    objc_msgSend_setIncludePencilAnnotations_(self, v37, v38, v39, v40, v41, v36);
-  }
-
-  v42 = objc_msgSend_objectForKeyedSubscript_(*(&self->super.super.super.isa + v28), v30, v31, v32, v33, v34, *MEMORY[0x277D807B8]);
-  v48 = v42;
+  v41 = *MEMORY[0x277D7FFF0];
+  v42 = objc_msgSend_objectForKeyedSubscript_(*(&self->super.super.super.isa + v41), v14, v18, v19, v20, v21, *MEMORY[0x277D807A0], v15, v16, v17);
+  v52 = v42;
   if (v42)
   {
-    v49 = objc_msgSend_BOOLValue(v42, v43, v44, v45, v46, v47);
-    objc_msgSend_setIncludeComments_(self, v50, v51, v52, v53, v54, v49);
+    v53 = objc_msgSend_BOOLValue(v42, v43, v48, v49, v50, v51, v44, v45, v46, v47);
+    objc_msgSend_setIncludePencilAnnotations_(self, v54, v58, v59, v60, v61, v53, v55, v56, v57);
   }
 
-  v55 = objc_msgSend_objectForKeyedSubscript_(*(&self->super.super.super.isa + v28), v43, v44, v45, v46, v47, *MEMORY[0x277D807A8]);
-  v61 = v55;
-  if (v55)
+  v62 = objc_msgSend_objectForKeyedSubscript_(*(&self->super.super.super.isa + v41), v43, v48, v49, v50, v51, *MEMORY[0x277D807B8], v45, v46, v47);
+  v72 = v62;
+  if (v62)
   {
-    v62 = objc_msgSend_BOOLValue(v55, v56, v57, v58, v59, v60);
-    objc_msgSend_setIncludeBackgrounds_(self, v63, v64, v65, v66, v67, v62);
+    v73 = objc_msgSend_BOOLValue(v62, v63, v68, v69, v70, v71, v64, v65, v66, v67);
+    objc_msgSend_setIncludeComments_(self, v74, v78, v79, v80, v81, v73, v75, v76, v77);
   }
 
-  v68 = objc_msgSend_objectForKeyedSubscript_(*(&self->super.super.super.isa + v28), v56, v57, v58, v59, v60, *MEMORY[0x277D807B0]);
-  v74 = v68;
-  if (v68)
+  v82 = objc_msgSend_objectForKeyedSubscript_(*(&self->super.super.super.isa + v41), v63, v68, v69, v70, v71, *MEMORY[0x277D807A8], v65, v66, v67);
+  v92 = v82;
+  if (v82)
   {
-    v75 = objc_msgSend_BOOLValue(v68, v69, v70, v71, v72, v73);
-    v81 = objc_msgSend_documentRoot(self, v76, v77, v78, v79, v80);
-    objc_msgSend_setShouldShowChangeTrackingMarkup_(v81, v82, v83, v84, v85, v86, v75);
+    v93 = objc_msgSend_BOOLValue(v82, v83, v88, v89, v90, v91, v84, v85, v86, v87);
+    objc_msgSend_setIncludeBackgrounds_(self, v94, v98, v99, v100, v101, v93, v95, v96, v97);
+  }
+
+  v102 = objc_msgSend_objectForKeyedSubscript_(*(&self->super.super.super.isa + v41), v83, v88, v89, v90, v91, *MEMORY[0x277D807B0], v85, v86, v87);
+  v112 = v102;
+  if (v102)
+  {
+    v113 = objc_msgSend_BOOLValue(v102, v103, v108, v109, v110, v111, v104, v105, v106, v107);
+    v123 = objc_msgSend_documentRoot(self, v114, v119, v120, v121, v122, v115, v116, v117, v118);
+    objc_msgSend_setShouldShowChangeTrackingMarkup_(v123, v124, v128, v129, v130, v131, v113, v125, v126, v127);
   }
 }
 

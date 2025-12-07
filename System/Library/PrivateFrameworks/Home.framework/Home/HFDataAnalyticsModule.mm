@@ -42,7 +42,7 @@
 
 - (id)buildSectionsWithDisplayedItems:(id)items
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   v4 = [(HFItemSection *)[HFMutableItemSection alloc] initWithIdentifier:@"DataAnalyticsLogSection"];
   allObjects = [itemsCopy allObjects];
@@ -50,10 +50,8 @@
   v6 = [allObjects sortedArrayUsingComparator:&__block_literal_global_5];
   [(HFItemSection *)v4 setItems:v6];
 
-  v10[0] = v4;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = v4;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
 
   return v7;
 }

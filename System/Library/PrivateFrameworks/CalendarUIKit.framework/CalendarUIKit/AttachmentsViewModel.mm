@@ -12,7 +12,7 @@
 
 - (void)presentPreviewWithURL:(id)l fileName:(id)name ekAttachment:(id)attachment
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465450);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465450, &qword_1CAD5A1B0);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v18 - v10;
   if (l)
@@ -43,15 +43,15 @@
   selfCopy = self;
   sub_1CABC4680(v11, v14, name, attachmentCopy);
 
-  sub_1CAB21B68(v11, &qword_1EC465450);
+  sub_1CAB21B68(v11, &qword_1EC465450, &qword_1CAD5A1B0);
 }
 
 - (void)openExternalAttachmentURLInBrowser:(id)browser
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC463938);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC463938, &unk_1CAD5A1A0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v18 - v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465450);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465450, &qword_1CAD5A1B0);
   v9 = MEMORY[0x1EEE9AC00](v8 - 8);
   v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v9);
@@ -69,7 +69,7 @@
     (*(*(v14 - 8) + 56))(v13, 1, 1, v14);
   }
 
-  sub_1CAB23A9C(v13, v11, &qword_1EC465450);
+  sub_1CAB23A9C(v13, v11, &qword_1EC465450, &qword_1CAD5A1B0);
   sub_1CAD4BFF4();
   v15 = *(v14 - 8);
   if ((*(v15 + 48))(v11, 1, v14) == 1)
@@ -86,15 +86,15 @@
     selfCopy = self;
     sub_1CABC3F6C(v7);
 
-    sub_1CAB21B68(v13, &qword_1EC465450);
+    sub_1CAB21B68(v13, &qword_1EC465450, &qword_1CAD5A1B0);
   }
 }
 
 - (void)promptToDownloadAttachmentFromHost:(id)host promptToDownloadCallBack:(id)back
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC463938);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC463938, &unk_1CAD5A1A0);
   MEMORY[0x1EEE9AC00](v8 - 8);
-  v10 = (&v19 - v9);
+  v10 = (&v20 - v9);
   v11 = _Block_copy(back);
   v12 = v11;
   if (host)
@@ -108,18 +108,19 @@
       *(v16 + 16) = v12;
       if (v4)
       {
+        v17 = v16;
         *v10 = v15;
         v10[1] = v4;
         v10[2] = sub_1CABC6E74;
         v10[3] = v16;
-        v17 = type metadata accessor for AttachmentAlert(0);
+        v18 = type metadata accessor for AttachmentAlert(0);
         swift_storeEnumTagMultiPayload();
-        (*(*(v17 - 8) + 56))(v10, 0, 1, v17);
+        (*(*(v18 - 8) + 56))(v10, 0, 1, v18);
         selfCopy = self;
-        sub_1CAB380F0(sub_1CABC6E74);
+        sub_1CAB380F0(sub_1CABC6E74, v17);
         sub_1CABC3F6C(v10);
 
-        sub_1CABC6E64(sub_1CABC6E74);
+        sub_1CABC6E64(sub_1CABC6E74, v17);
         return;
       }
 
@@ -151,7 +152,7 @@ LABEL_9:
 
 - (void)attachmentDownloadErrorWithIsSubscribedCalendar:(BOOL)calendar
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC463938);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC463938, &unk_1CAD5A1A0);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v9 - v5;
   v7 = type metadata accessor for AttachmentAlert(0);

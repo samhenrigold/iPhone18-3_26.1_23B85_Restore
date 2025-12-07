@@ -19,6 +19,7 @@
 - (void)_mainQueue_requestLocalOOBDataWithCompletion:(id)completion errorHandler:(id)handler;
 - (void)_mainQueue_unblockSessionQueue;
 - (void)cancelPairing;
+- (void)handlePairingPromptResponse:(BOOL)response;
 - (void)initializeForVehicleAddress:(id)address keyIdentifier:(id)identifier completion:(id)completion;
 - (void)invalidate;
 - (void)requestPairingForIntent:(unint64_t)intent completion:(id)completion;
@@ -101,6 +102,45 @@
   }
 
   return isCarPlayAllowed;
+}
+
+- (void)handlePairingPromptResponse:(BOOL)response
+{
+  responseCopy = response;
+  dispatch_assert_queue_V2(&_dispatch_main_q);
+  promptResponseHandler = [(CRWirelessPairingServiceSession *)self promptResponseHandler];
+  if (promptResponseHandler)
+  {
+    v6 = CarPairingLogging();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = @"NO";
+      if (responseCopy)
+      {
+        v7 = @"YES";
+      }
+
+      v11 = 138543362;
+      v12 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "handlePairingPromptResponse %{public}@", &v11, 0xCu);
+    }
+
+    promptResponseHandler[2](promptResponseHandler, responseCopy);
+    [(CRWirelessPairingServiceSession *)self setPromptResponseHandler:0];
+    v8 = +[CARAnalytics sharedInstance];
+    v9 = v8;
+    if (responseCopy)
+    {
+      v10 = 2;
+    }
+
+    else
+    {
+      v10 = 1;
+    }
+
+    [v8 setCarKeyPairingResult:v10];
+  }
 }
 
 - (void)initializeForVehicleAddress:(id)address keyIdentifier:(id)identifier completion:(id)completion

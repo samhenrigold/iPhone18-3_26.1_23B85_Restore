@@ -19,27 +19,27 @@
 {
   sub_1C3D20104();
   selfCopy = self;
-  StateOfMindChartPoint.yValue(forKey:)(v12);
+  StateOfMindChartPoint.yValue(forKey:)(v13);
 
-  v5 = v13;
-  if (v13)
+  v5 = v14;
+  if (v14)
   {
-    v6 = __swift_project_boxed_opaque_existential_0(v12, v13);
+    v6 = __swift_project_boxed_opaque_existential_0(v13, v14);
     v7 = *(v5 - 8);
-    MEMORY[0x1EEE9AC00](v6);
-    v9 = v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v7 + 16))(v9);
-    v10 = sub_1C3D20A44();
-    (*(v7 + 8))(v9, v5);
-    __swift_destroy_boxed_opaque_existential_0(v12);
+    v8 = MEMORY[0x1EEE9AC00](v6);
+    v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v7 + 16))(v10, v8);
+    v11 = sub_1C3D20A44();
+    (*(v7 + 8))(v10, v5);
+    __swift_destroy_boxed_opaque_existential_0(v13);
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (id)allYValues
@@ -54,26 +54,26 @@
 
 - (id)maxYValue
 {
-  StateOfMindChartPoint.maxYValue()(v9);
-  v2 = v10;
-  if (v10)
+  StateOfMindChartPoint.maxYValue()(v10);
+  v2 = v11;
+  if (v11)
   {
-    v3 = __swift_project_boxed_opaque_existential_0(v9, v10);
+    v3 = __swift_project_boxed_opaque_existential_0(v10, v11);
     v4 = *(v2 - 8);
-    MEMORY[0x1EEE9AC00](v3);
-    v6 = v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v4 + 16))(v6);
-    v7 = sub_1C3D20A44();
-    (*(v4 + 8))(v6, v2);
-    __swift_destroy_boxed_opaque_existential_0(v9);
+    v5 = MEMORY[0x1EEE9AC00](v3);
+    v7 = v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v4 + 16))(v7, v5);
+    v8 = sub_1C3D20A44();
+    (*(v4 + 8))(v7, v2);
+    __swift_destroy_boxed_opaque_existential_0(v10);
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (id)userInfo

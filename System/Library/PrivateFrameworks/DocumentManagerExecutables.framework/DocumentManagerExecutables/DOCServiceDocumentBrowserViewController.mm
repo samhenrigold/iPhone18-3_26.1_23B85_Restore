@@ -208,7 +208,7 @@
 
 - (void)_setCustomActions:(id)actions
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDocumentBrowserAction);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDocumentBrowserAction, 0x277D05F28);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = swift_allocObject();
   *(v5 + 16) = self;

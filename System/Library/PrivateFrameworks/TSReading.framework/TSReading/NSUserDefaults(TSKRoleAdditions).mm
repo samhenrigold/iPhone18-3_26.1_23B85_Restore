@@ -3,11 +3,8 @@
 - (double)floatForKey:()TSKRoleAdditions inRole:;
 - (uint64_t)BOOLForKey:()TSKRoleAdditions inRole:;
 - (uint64_t)BOOLForKeyInCurrentRole:()TSKRoleAdditions;
-- (uint64_t)arrayForKey:()TSKRoleAdditions inRole:;
 - (uint64_t)arrayForKeyInCurrentRole:()TSKRoleAdditions;
-- (uint64_t)dataForKey:()TSKRoleAdditions inRole:;
 - (uint64_t)dataForKeyInCurrentRole:()TSKRoleAdditions;
-- (uint64_t)dictionaryForKey:()TSKRoleAdditions inRole:;
 - (uint64_t)dictionaryForKeyInCurrentRole:()TSKRoleAdditions;
 - (uint64_t)doubleForKeyInCurrentRole:()TSKRoleAdditions;
 - (uint64_t)floatForKeyInCurrentRole:()TSKRoleAdditions;
@@ -28,8 +25,11 @@
 - (uint64_t)setInteger:()TSKRoleAdditions forKeyInCurrentRole:;
 - (uint64_t)setObject:()TSKRoleAdditions forKey:inRole:;
 - (uint64_t)setObject:()TSKRoleAdditions forKeyInCurrentRole:;
-- (uint64_t)stringForKey:()TSKRoleAdditions inRole:;
 - (uint64_t)stringForKeyInCurrentRole:()TSKRoleAdditions;
+- (void)arrayForKey:()TSKRoleAdditions inRole:;
+- (void)dataForKey:()TSKRoleAdditions inRole:;
+- (void)dictionaryForKey:()TSKRoleAdditions inRole:;
+- (void)stringForKey:()TSKRoleAdditions inRole:;
 @end
 
 @implementation NSUserDefaults(TSKRoleAdditions)
@@ -78,7 +78,7 @@
   return objc_sync_exit(self);
 }
 
-- (uint64_t)stringForKey:()TSKRoleAdditions inRole:
+- (void)stringForKey:()TSKRoleAdditions inRole:
 {
   result = [self objectForKey:? inRole:?];
   if (result)
@@ -99,7 +99,7 @@
   return result;
 }
 
-- (uint64_t)arrayForKey:()TSKRoleAdditions inRole:
+- (void)arrayForKey:()TSKRoleAdditions inRole:
 {
   result = [self objectForKey:? inRole:?];
   if (result)
@@ -120,7 +120,7 @@
   return result;
 }
 
-- (uint64_t)dictionaryForKey:()TSKRoleAdditions inRole:
+- (void)dictionaryForKey:()TSKRoleAdditions inRole:
 {
   result = [self objectForKey:? inRole:?];
   if (result)
@@ -141,7 +141,7 @@
   return result;
 }
 
-- (uint64_t)dataForKey:()TSKRoleAdditions inRole:
+- (void)dataForKey:()TSKRoleAdditions inRole:
 {
   result = [self objectForKey:? inRole:?];
   if (result)
@@ -272,7 +272,7 @@
 
 - (uint64_t)setInteger:()TSKRoleAdditions forKey:inRole:
 {
-  v8 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+  v8 = [MEMORY[0x277CCABB0] numberWithInteger:a3];
 
   return [self setObject:v8 forKey:a4 inRole:a5];
 }
@@ -294,7 +294,7 @@
 
 - (uint64_t)setBool:()TSKRoleAdditions forKey:inRole:
 {
-  v8 = [MEMORY[0x277CCABB0] numberWithBool:?];
+  v8 = [MEMORY[0x277CCABB0] numberWithBool:a3];
 
   return [self setObject:v8 forKey:a4 inRole:a5];
 }

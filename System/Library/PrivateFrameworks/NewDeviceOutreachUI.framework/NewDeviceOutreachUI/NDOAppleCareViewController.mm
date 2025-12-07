@@ -29,18 +29,16 @@
 {
   if (*(self + OBJC_IVAR___NDOAppleCareViewController_urlString + 8))
   {
-    v2 = *(self + OBJC_IVAR___NDOAppleCareViewController_urlString);
-    v3 = *(self + OBJC_IVAR___NDOAppleCareViewController_urlString + 8);
 
-    v4 = sub_25BDDFE38();
+    v2 = sub_25BDDFE38();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)setUrlString:(id)string
@@ -57,7 +55,6 @@
   }
 
   v6 = (self + OBJC_IVAR___NDOAppleCareViewController_urlString);
-  v7 = *(self + OBJC_IVAR___NDOAppleCareViewController_urlString + 8);
   *v6 = v4;
   v6[1] = v5;
 }
@@ -92,13 +89,19 @@
   v10 = v9;
   if (params)
   {
-    sub_25BDDFE48();
+    params = sub_25BDDFE48();
+    v12 = v11;
+  }
+
+  else
+  {
+    v12 = 0;
   }
 
   infoCopy = info;
-  v12 = sub_25BDBFE20(infoCopy, v8, v10);
+  v14 = sub_25BDBFE20(infoCopy, v8, v10, params, v12);
 
-  return v12;
+  return v14;
 }
 
 - (NDOAppleCareViewController)initWithWarranty:(id)warranty

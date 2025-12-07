@@ -82,9 +82,9 @@
 {
   v4 = MEMORY[0x1E695EFD0];
   v5 = *(MEMORY[0x1E695EFD0] + 16);
-  *x8_0 = *MEMORY[0x1E695EFD0];
-  x8_0[1] = v5;
-  x8_0[2] = *(v4 + 32);
+  *a2 = *MEMORY[0x1E695EFD0];
+  a2[1] = v5;
+  a2[2] = *(v4 + 32);
   return [self bs_getValue:? ofSize:?];
 }
 

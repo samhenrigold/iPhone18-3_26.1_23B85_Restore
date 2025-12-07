@@ -1,4 +1,5 @@
 @interface NWStatisticsSource
++ (id)createSourceForProvider:(unsigned int)provider srcRef:(unint64_t)ref manager:(id)manager;
 - (BOOL)_handleDescriptor:(void *)descriptor length:(unint64_t)length events:(unint64_t)events;
 - (BOOL)handleCounts:(const nstat_counts *)counts;
 - (BOOL)handleMessage:(nstat_msg_hdr *)message length:(int64_t)length;
@@ -20,6 +21,25 @@
   objc_sync_exit(selfCopy);
 
   return _currentSnapshot;
+}
+
++ (id)createSourceForProvider:(unsigned int)provider srcRef:(unint64_t)ref manager:(id)manager
+{
+  v6 = *&provider;
+  managerCopy = manager;
+  if ((v6 - 1) > 7)
+  {
+    v8 = off_27996D970;
+  }
+
+  else
+  {
+    v8 = off_27996DDE0[(v6 - 1)];
+  }
+
+  v9 = [objc_alloc(*v8) initWithManager:managerCopy source:ref provider:v6];
+
+  return v9;
 }
 
 - (BOOL)handleCounts:(const nstat_counts *)counts
@@ -95,27 +115,27 @@
 
 - (BOOL)handleMessage:(nstat_msg_hdr *)message length:(int64_t)length
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   manager = [(NWStatisticsSource *)self manager];
   mgrflags = [manager mgrflags];
 
   if ((mgrflags & 0x10) != 0)
   {
-    v9 = NStatGetLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = NStatGetLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       manager2 = [(NWStatisticsSource *)self manager];
       reference = [(NWStatisticsSource *)self reference];
       type = message->type;
       *buf = 134218752;
-      v34 = manager2;
-      v35 = 2048;
+      v27 = manager2;
+      v28 = 2048;
       selfCopy = self;
-      v37 = 2048;
-      v38 = reference;
-      v39 = 1024;
-      v40 = type;
-      _os_log_impl(&dword_25BA3A000, v9, OS_LOG_TYPE_DEBUG, "Manager %p: Entry for source %p, ref %llu  message type %d", buf, 0x26u);
+      v30 = 2048;
+      v31 = reference;
+      v32 = 1024;
+      v33 = type;
+      _os_log_impl(&dword_25BA3A000, v10, OS_LOG_TYPE_DEBUG, "Manager %p: Entry for source %p, ref %llu  message type %d", buf, 0x26u);
     }
   }
 
@@ -126,57 +146,53 @@
   {
     manager4 = [(NWStatisticsSource *)self manager];
     manager5 = [(NWStatisticsSource *)self manager];
-    [(NWStatisticsSource *)self reference];
-    v32 = message->type;
-    NStatMgrTraceF(manager4, "%s Manager %p: Entry for source %p, ref %llu  message type %d", v17, v18, v19, v20, v21, v22, "[NWStatisticsSource handleMessage:length:]");
+    NStatMgrTraceF(manager4, "%s Manager %p: Entry for source %p, ref %llu  message type %d", "[NWStatisticsSource handleMessage:length:]", manager5, self, [(NWStatisticsSource *)self reference], message->type);
   }
 
-  v23 = message->type;
-  if (v23 == 10006)
+  v18 = message->type;
+  if (v18 == 10006)
   {
     if (length >= 0x99)
     {
       selfCopy2 = self;
       objc_sync_enter(selfCopy2);
-      v29 = [(NWStatisticsSource *)selfCopy2 _handleDescriptor:&message[9].type length:length - 152 events:*&message[1].type];
-      v27 = [(NWStatisticsSource *)selfCopy2 handleCounts:&message[2]]|| v29;
+      v24 = [(NWStatisticsSource *)selfCopy2 _handleDescriptor:&message[9].type length:length - 152 events:*&message[1].type];
+      v22 = [(NWStatisticsSource *)selfCopy2 handleCounts:&message[2]]|| v24;
       goto LABEL_17;
     }
 
     goto LABEL_18;
   }
 
-  if (v23 == 10004)
+  if (v18 == 10004)
   {
     if (length >= 0x90)
     {
       selfCopy3 = self;
       objc_sync_enter(selfCopy3);
-      v25 = [(NWStatisticsSource *)selfCopy3 handleCounts:&message[2]];
+      v20 = [(NWStatisticsSource *)selfCopy3 handleCounts:&message[2]];
       goto LABEL_14;
     }
 
 LABEL_18:
-    v27 = 0;
-    goto LABEL_19;
+    v22 = 0;
+    return v22 & 1;
   }
 
-  if (v23 != 10003 || length < 0x29)
+  if (v18 != 10003 || length < 0x29)
   {
     goto LABEL_18;
   }
 
   selfCopy4 = self;
   objc_sync_enter(selfCopy4);
-  v25 = [(NWStatisticsSource *)selfCopy4 _handleDescriptor:&message[2].type length:length - 40 events:0];
+  v20 = [(NWStatisticsSource *)selfCopy4 _handleDescriptor:&message[2].type length:length - 40 events:0];
 LABEL_14:
-  v27 = v25;
+  v22 = v20;
 LABEL_17:
   objc_sync_exit(self);
 
-LABEL_19:
-  v30 = *MEMORY[0x277D85DE8];
-  return v27 & 1;
+  return v22 & 1;
 }
 
 - (NWStatisticsSource)initWithManager:(id)manager source:(unint64_t)source provider:(unsigned int)provider
@@ -199,23 +215,23 @@ LABEL_19:
 
 - (void)queryCounts
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   manager = [(NWStatisticsSource *)self manager];
   mgrflags = [manager mgrflags];
 
   if ((mgrflags & 0x10) != 0)
   {
-    v5 = NStatGetLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = NStatGetLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       manager2 = [(NWStatisticsSource *)self manager];
       *buf = 134218496;
-      v22 = manager2;
-      v23 = 2048;
+      v16 = manager2;
+      v17 = 2048;
       selfCopy = self;
-      v25 = 2048;
+      v19 = 2048;
       reference = [(NWStatisticsSource *)self reference];
-      _os_log_impl(&dword_25BA3A000, v5, OS_LOG_TYPE_DEBUG, "Manager %p: Entry for source %p, ref %llu", buf, 0x20u);
+      _os_log_impl(&dword_25BA3A000, v6, OS_LOG_TYPE_DEBUG, "Manager %p: Entry for source %p, ref %llu", buf, 0x20u);
     }
   }
 
@@ -226,8 +242,7 @@ LABEL_19:
   {
     manager4 = [(NWStatisticsSource *)self manager];
     manager5 = [(NWStatisticsSource *)self manager];
-    [(NWStatisticsSource *)self reference];
-    NStatMgrTraceF(manager4, "%s Manager %p: Entry for source %p, ref %llu", v11, v12, v13, v14, v15, v16, "[NWStatisticsSource queryCounts]");
+    NStatMgrTraceF(manager4, "%s Manager %p: Entry for source %p, ref %llu", "[NWStatisticsSource queryCounts]", manager5, self, [(NWStatisticsSource *)self reference]);
   }
 
   manager6 = [(NWStatisticsSource *)self manager];
@@ -238,8 +253,6 @@ LABEL_19:
   block[3] = &unk_27996DB98;
   block[4] = self;
   dispatch_async(internalQueue, block);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __33__NWStatisticsSource_queryCounts__block_invoke(uint64_t a1)
@@ -250,23 +263,23 @@ void __33__NWStatisticsSource_queryCounts__block_invoke(uint64_t a1)
 
 - (void)queryDescription
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   manager = [(NWStatisticsSource *)self manager];
   mgrflags = [manager mgrflags];
 
   if ((mgrflags & 0x10) != 0)
   {
-    v5 = NStatGetLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = NStatGetLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       manager2 = [(NWStatisticsSource *)self manager];
       *buf = 134218496;
-      v22 = manager2;
-      v23 = 2048;
+      v16 = manager2;
+      v17 = 2048;
       selfCopy = self;
-      v25 = 2048;
+      v19 = 2048;
       reference = [(NWStatisticsSource *)self reference];
-      _os_log_impl(&dword_25BA3A000, v5, OS_LOG_TYPE_DEBUG, "Manager %p: Entry for source %p, ref %llu", buf, 0x20u);
+      _os_log_impl(&dword_25BA3A000, v6, OS_LOG_TYPE_DEBUG, "Manager %p: Entry for source %p, ref %llu", buf, 0x20u);
     }
   }
 
@@ -277,8 +290,7 @@ void __33__NWStatisticsSource_queryCounts__block_invoke(uint64_t a1)
   {
     manager4 = [(NWStatisticsSource *)self manager];
     manager5 = [(NWStatisticsSource *)self manager];
-    [(NWStatisticsSource *)self reference];
-    NStatMgrTraceF(manager4, "%s Manager %p: Entry for source %p, ref %llu", v11, v12, v13, v14, v15, v16, "[NWStatisticsSource queryDescription]");
+    NStatMgrTraceF(manager4, "%s Manager %p: Entry for source %p, ref %llu", "[NWStatisticsSource queryDescription]", manager5, self, [(NWStatisticsSource *)self reference]);
   }
 
   manager6 = [(NWStatisticsSource *)self manager];
@@ -289,8 +301,6 @@ void __33__NWStatisticsSource_queryCounts__block_invoke(uint64_t a1)
   block[3] = &unk_27996DB98;
   block[4] = self;
   dispatch_async(internalQueue, block);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __38__NWStatisticsSource_queryDescription__block_invoke(uint64_t a1)
@@ -301,23 +311,23 @@ void __38__NWStatisticsSource_queryDescription__block_invoke(uint64_t a1)
 
 - (void)queryUpdate
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   manager = [(NWStatisticsSource *)self manager];
   mgrflags = [manager mgrflags];
 
   if ((mgrflags & 0x10) != 0)
   {
-    v5 = NStatGetLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = NStatGetLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       manager2 = [(NWStatisticsSource *)self manager];
       *buf = 134218496;
-      v22 = manager2;
-      v23 = 2048;
+      v16 = manager2;
+      v17 = 2048;
       selfCopy = self;
-      v25 = 2048;
+      v19 = 2048;
       reference = [(NWStatisticsSource *)self reference];
-      _os_log_impl(&dword_25BA3A000, v5, OS_LOG_TYPE_DEBUG, "Manager %p: Entry for source %p, ref %llu", buf, 0x20u);
+      _os_log_impl(&dword_25BA3A000, v6, OS_LOG_TYPE_DEBUG, "Manager %p: Entry for source %p, ref %llu", buf, 0x20u);
     }
   }
 
@@ -328,8 +338,7 @@ void __38__NWStatisticsSource_queryDescription__block_invoke(uint64_t a1)
   {
     manager4 = [(NWStatisticsSource *)self manager];
     manager5 = [(NWStatisticsSource *)self manager];
-    [(NWStatisticsSource *)self reference];
-    NStatMgrTraceF(manager4, "%s Manager %p: Entry for source %p, ref %llu", v11, v12, v13, v14, v15, v16, "[NWStatisticsSource queryUpdate]");
+    NStatMgrTraceF(manager4, "%s Manager %p: Entry for source %p, ref %llu", "[NWStatisticsSource queryUpdate]", manager5, self, [(NWStatisticsSource *)self reference]);
   }
 
   manager6 = [(NWStatisticsSource *)self manager];
@@ -340,8 +349,6 @@ void __38__NWStatisticsSource_queryDescription__block_invoke(uint64_t a1)
   block[3] = &unk_27996DB98;
   block[4] = self;
   dispatch_async(internalQueue, block);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __33__NWStatisticsSource_queryUpdate__block_invoke(uint64_t a1)
@@ -352,13 +359,13 @@ void __33__NWStatisticsSource_queryUpdate__block_invoke(uint64_t a1)
 
 - (id)_currentSnapshot
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v3 = NStatGetLog();
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = NStatGetLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     manager = [(NWStatisticsSource *)self manager];
     *buf = 134217984;
-    v17 = manager;
+    v11 = manager;
     _os_log_impl(&dword_25BA3A000, v3, OS_LOG_TYPE_ERROR, "Manager %p: Subclasses must provide an implementation for _currentSnapshot", buf, 0xCu);
   }
 
@@ -369,7 +376,7 @@ void __33__NWStatisticsSource_queryUpdate__block_invoke(uint64_t a1)
   {
     manager3 = [(NWStatisticsSource *)self manager];
     manager4 = [(NWStatisticsSource *)self manager];
-    NStatMgrTraceF(manager3, "%s Manager %p: Subclasses must provide an implementation for _currentSnapshot", v8, v9, v10, v11, v12, v13, "[NWStatisticsSource _currentSnapshot]");
+    NStatMgrTraceF(manager3, "%s Manager %p: Subclasses must provide an implementation for _currentSnapshot", "[NWStatisticsSource _currentSnapshot]", manager4);
   }
 
   __assert_rtn("[NWStatisticsSource _currentSnapshot]", "NWStatisticsSource.m", 241, "0");

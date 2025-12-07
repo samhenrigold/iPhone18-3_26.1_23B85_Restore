@@ -106,46 +106,43 @@
 {
   toCopy = to;
   has = self->_has;
-  v10 = toCopy;
+  v7 = toCopy;
   if (has)
   {
-    objectType = self->_objectType;
     PBDataWriterWriteInt64Field();
-    toCopy = v10;
+    toCopy = v7;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    userOrdered = self->_userOrdered;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v7;
   }
 
   if (self->_sourceUUIDs)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v7;
   }
 
   if (self->_modificationDates.count)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      v9 = self->_modificationDates.list[v8];
       PBDataWriterWriteDoubleField();
-      toCopy = v10;
-      ++v8;
+      toCopy = v7;
+      ++v6;
     }
 
-    while (v8 < self->_modificationDates.count);
+    while (v6 < self->_modificationDates.count);
   }
 
   if (self->_syncIdentity)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v7;
   }
 }
 
@@ -231,7 +228,6 @@
     goto LABEL_15;
   }
 
-  v5 = *(equalCopy + 60);
   if (*&self->_has)
   {
     if ((*(equalCopy + 60) & 1) == 0 || self->_objectType != *(equalCopy + 4))
@@ -253,7 +249,7 @@
     }
 
 LABEL_15:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_16;
   }
 
@@ -262,7 +258,6 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v10 = *(equalCopy + 56);
   if (self->_userOrdered)
   {
     if ((*(equalCopy + 56) & 1) == 0)
@@ -286,17 +281,17 @@ LABEL_9:
   syncIdentity = self->_syncIdentity;
   if (syncIdentity | *(equalCopy + 6))
   {
-    v8 = [(HDCodableSyncIdentity *)syncIdentity isEqual:?];
+    v7 = [(HDCodableSyncIdentity *)syncIdentity isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_16:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

@@ -69,7 +69,7 @@ uint64_t __36__CACSignPostLog__sFetchElementsLog__block_invoke()
 
 + (void)FetchElementsEventBeganWithReason:(id)reason expectedDelay:(double)delay
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   v6 = +[CACSignPostLog _sFetchElementsLog];
   v7 = os_signpost_id_generate(v6);
@@ -78,21 +78,21 @@ uint64_t __36__CACSignPostLog__sFetchElementsLog__block_invoke()
   v9 = v8;
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    v11 = 138412546;
-    v12 = reasonCopy;
-    v13 = 2048;
+    v12 = 138412546;
+    v13 = reasonCopy;
+    v14 = 2048;
     delayCopy2 = delay;
-    _os_signpost_emit_with_name_impl(&dword_26B354000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "FetchElements", "Requesting elements refreshed with reason %@; expected delay: %f", &v11, 0x16u);
+    _os_signpost_emit_with_name_impl(&dword_26B354000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "FetchElements", "Requesting elements refreshed with reason %@; expected delay: %f", &v12, 0x16u);
   }
 
-  v10 = CACLogElementCollection();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = CACLogElementCollection(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v11 = 138412546;
-    v12 = reasonCopy;
-    v13 = 2048;
+    v12 = 138412546;
+    v13 = reasonCopy;
+    v14 = 2048;
     delayCopy2 = delay;
-    _os_log_impl(&dword_26B354000, v10, OS_LOG_TYPE_INFO, "FetchElements: Requesting elements refreshed with reason %@; expected delay: %f", &v11, 0x16u);
+    _os_log_impl(&dword_26B354000, v11, OS_LOG_TYPE_INFO, "FetchElements: Requesting elements refreshed with reason %@; expected delay: %f", &v12, 0x16u);
   }
 }
 

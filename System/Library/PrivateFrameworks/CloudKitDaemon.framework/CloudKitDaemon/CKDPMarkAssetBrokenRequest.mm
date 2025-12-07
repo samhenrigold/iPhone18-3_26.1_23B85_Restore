@@ -163,7 +163,7 @@
 
 - (void)writeTo:(id)to
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_brokenAssetRecordID)
   {
@@ -177,77 +177,73 @@
 
   if (*&self->_has)
   {
-    listIndex = self->_listIndex;
     PBDataWriterWriteInt32Field();
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v6 = self->_fileSignatures;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v29, v34, 16);
-  if (v8)
-  {
-    v9 = v8;
-    v10 = *v30;
-    do
-    {
-      v11 = 0;
-      do
-      {
-        if (*v30 != v10)
-        {
-          objc_enumerationMutation(v6);
-        }
-
-        v12 = *(*(&v29 + 1) + 8 * v11);
-        PBDataWriterWriteDataField();
-        ++v11;
-      }
-
-      while (v9 != v11);
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v13, &v29, v34, 16);
-    }
-
-    while (v9);
-  }
-
-  v27 = 0u;
-  v28 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v14 = self->_referenceSignatures;
-  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v25, v33, 16);
-  if (v16)
+  v23 = 0u;
+  v24 = 0u;
+  v5 = self->_fileSignatures;
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v23, v28, 16);
+  if (v7)
   {
-    v17 = v16;
-    v18 = *v26;
+    v8 = v7;
+    v9 = *v24;
     do
     {
-      v19 = 0;
+      v10 = 0;
       do
       {
-        if (*v26 != v18)
+        if (*v24 != v9)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v5);
         }
 
-        v20 = *(*(&v25 + 1) + 8 * v19);
         PBDataWriterWriteDataField();
-        ++v19;
+        ++v10;
       }
 
-      while (v17 != v19);
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v21, &v25, v33, 16);
+      while (v8 != v10);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v11, &v23, v28, 16);
     }
 
-    while (v17);
+    while (v8);
+  }
+
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v12 = self->_referenceSignatures;
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v19, v27, 16);
+  if (v14)
+  {
+    v15 = v14;
+    v16 = *v20;
+    do
+    {
+      v17 = 0;
+      do
+      {
+        if (*v20 != v16)
+        {
+          objc_enumerationMutation(v12);
+        }
+
+        PBDataWriterWriteDataField();
+        ++v17;
+      }
+
+      while (v15 != v17);
+      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v18, &v19, v27, 16);
+    }
+
+    while (v15);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    isPackage = self->_isPackage;
     PBDataWriterWriteBOOLField();
   }
 
@@ -258,11 +254,8 @@
 
   if ((*&self->_has & 4) != 0)
   {
-    skipWriteMissingAssetStatusRecord = self->_skipWriteMissingAssetStatusRecord;
     PBDataWriterWriteBOOLField();
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -342,7 +335,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
   v10 = objc_msgSend_init(v7, v8, v9);
@@ -360,59 +353,59 @@
     *(v10 + 60) |= 1u;
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v17 = self->_fileSignatures;
-  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v44, v49, 16);
+  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v43, v48, 16);
   if (v19)
   {
     v21 = v19;
-    v22 = *v45;
+    v22 = *v44;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v45 != v22)
+        if (*v44 != v22)
         {
           objc_enumerationMutation(v17);
         }
 
-        v24 = objc_msgSend_copyWithZone_(*(*(&v44 + 1) + 8 * i), v20, zone);
+        v24 = objc_msgSend_copyWithZone_(*(*(&v43 + 1) + 8 * i), v20, zone);
         objc_msgSend_addFileSignature_(v10, v25, v24);
       }
 
-      v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v20, &v44, v49, 16);
+      v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v20, &v43, v48, 16);
     }
 
     while (v21);
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v26 = self->_referenceSignatures;
-  v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v40, v48, 16);
+  v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v39, v47, 16);
   if (v28)
   {
     v30 = v28;
-    v31 = *v41;
+    v31 = *v40;
     do
     {
       for (j = 0; j != v30; ++j)
       {
-        if (*v41 != v31)
+        if (*v40 != v31)
         {
           objc_enumerationMutation(v26);
         }
 
-        v33 = objc_msgSend_copyWithZone_(*(*(&v40 + 1) + 8 * j), v29, zone, v40);
+        v33 = objc_msgSend_copyWithZone_(*(*(&v39 + 1) + 8 * j), v29, zone, v39);
         objc_msgSend_addReferenceSignature_(v10, v34, v33);
       }
 
-      v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v29, &v40, v48, 16);
+      v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v29, &v39, v47, 16);
     }
 
     while (v30);
@@ -424,7 +417,7 @@
     *(v10 + 60) |= 2u;
   }
 
-  v36 = objc_msgSend_copyWithZone_(self->_affectedRecordType, v35, zone, v40);
+  v36 = objc_msgSend_copyWithZone_(self->_affectedRecordType, v35, zone, v39);
   v37 = *(v10 + 8);
   *(v10 + 8) = v36;
 
@@ -434,7 +427,6 @@
     *(v10 + 60) |= 4u;
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -467,7 +459,6 @@
     }
   }
 
-  v12 = *(equalCopy + 60);
   if (*&self->_has)
   {
     if ((*(equalCopy + 60) & 1) == 0 || self->_listIndex != *(equalCopy + 10))
@@ -482,24 +473,24 @@
   }
 
   fileSignatures = self->_fileSignatures;
-  v14 = equalCopy[4];
-  if (fileSignatures | v14 && !objc_msgSend_isEqual_(fileSignatures, v7, v14))
+  v13 = equalCopy[4];
+  if (fileSignatures | v13 && !objc_msgSend_isEqual_(fileSignatures, v7, v13))
   {
     goto LABEL_26;
   }
 
   referenceSignatures = self->_referenceSignatures;
-  v16 = equalCopy[6];
-  if (referenceSignatures | v16)
+  v15 = equalCopy[6];
+  if (referenceSignatures | v15)
   {
-    if (!objc_msgSend_isEqual_(referenceSignatures, v7, v16))
+    if (!objc_msgSend_isEqual_(referenceSignatures, v7, v15))
     {
       goto LABEL_26;
     }
   }
 
   has = self->_has;
-  v18 = *(equalCopy + 60);
+  v17 = *(equalCopy + 60);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 60) & 2) == 0)
@@ -507,7 +498,6 @@
       goto LABEL_26;
     }
 
-    v23 = *(equalCopy + 56);
     if (self->_isPackage)
     {
       if ((equalCopy[7] & 1) == 0)
@@ -528,22 +518,22 @@
   }
 
   affectedRecordType = self->_affectedRecordType;
-  v20 = equalCopy[1];
-  if (affectedRecordType | v20)
+  v19 = equalCopy[1];
+  if (affectedRecordType | v19)
   {
-    if (!objc_msgSend_isEqual_(affectedRecordType, v7, v20))
+    if (!objc_msgSend_isEqual_(affectedRecordType, v7, v19))
     {
       goto LABEL_26;
     }
 
     has = self->_has;
-    v18 = *(equalCopy + 60);
+    v17 = *(equalCopy + 60);
   }
 
-  v21 = (v18 & 4) == 0;
+  v20 = (v17 & 4) == 0;
   if ((has & 4) != 0)
   {
-    if ((v18 & 4) != 0)
+    if ((v17 & 4) != 0)
     {
       if (self->_skipWriteMissingAssetStatusRecord)
       {
@@ -556,18 +546,18 @@
       else if (!*(equalCopy + 57))
       {
 LABEL_34:
-        v21 = 1;
+        v20 = 1;
         goto LABEL_27;
       }
     }
 
 LABEL_26:
-    v21 = 0;
+    v20 = 0;
   }
 
 LABEL_27:
 
-  return v21;
+  return v20;
 }
 
 - (unint64_t)hash
@@ -612,7 +602,7 @@ LABEL_27:
 
 - (void)mergeFrom:(id)from
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   brokenAssetRecordID = self->_brokenAssetRecordID;
   v7 = *(fromCopy + 2);
@@ -641,57 +631,57 @@ LABEL_27:
     *&self->_has |= 1u;
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v9 = *(fromCopy + 4);
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v30, v35, 16);
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v29, v34, 16);
   if (v11)
   {
     v13 = v11;
-    v14 = *v31;
+    v14 = *v30;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v31 != v14)
+        if (*v30 != v14)
         {
           objc_enumerationMutation(v9);
         }
 
-        objc_msgSend_addFileSignature_(self, v12, *(*(&v30 + 1) + 8 * i));
+        objc_msgSend_addFileSignature_(self, v12, *(*(&v29 + 1) + 8 * i));
       }
 
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v30, v35, 16);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v29, v34, 16);
     }
 
     while (v13);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v16 = *(fromCopy + 6);
-  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v26, v34, 16);
+  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v25, v33, 16);
   if (v18)
   {
     v20 = v18;
-    v21 = *v27;
+    v21 = *v26;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v27 != v21)
+        if (*v26 != v21)
         {
           objc_enumerationMutation(v16);
         }
 
-        objc_msgSend_addReferenceSignature_(self, v19, *(*(&v26 + 1) + 8 * j), v26);
+        objc_msgSend_addReferenceSignature_(self, v19, *(*(&v25 + 1) + 8 * j), v25);
       }
 
-      v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v19, &v26, v34, 16);
+      v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v19, &v25, v33, 16);
     }
 
     while (v20);
@@ -714,8 +704,6 @@ LABEL_27:
     self->_skipWriteMissingAssetStatusRecord = *(fromCopy + 57);
     *&self->_has |= 4u;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

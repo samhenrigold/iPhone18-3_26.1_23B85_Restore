@@ -1,64 +1,60 @@
-void sub_1C2701608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C2701608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void *__getPBUIWallpaperSharedDirectoryDataStoreSharedDirectoryURLSymbolLoc_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!PaperBoardUILibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __PaperBoardUILibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E818CC48;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __PaperBoardUILibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E818CC48;
+    v6 = 0;
     PaperBoardUILibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v2 = PaperBoardUILibraryCore_frameworkLibrary;
   if (!PaperBoardUILibraryCore_frameworkLibrary)
   {
-    __getPBUIWallpaperSharedDirectoryDataStoreSharedDirectoryURLSymbolLoc_block_invoke_cold_1(v5);
+    __getPBUIWallpaperSharedDirectoryDataStoreSharedDirectoryURLSymbolLoc_block_invoke_cold_1(v4);
   }
 
-  if (v5[0])
+  if (v4[0])
   {
-    free(v5[0]);
+    free(v4[0]);
   }
 
   result = dlsym(v2, "PBUIWallpaperSharedDirectoryDataStoreSharedDirectoryURL");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getPBUIWallpaperSharedDirectoryDataStoreSharedDirectoryURLSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __PaperBoardUILibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PaperBoardUILibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-id PRSLogCommon()
+id PRSLogCommon(uint64_t a1)
 {
   if (PRSLogCommon_onceToken != -1)
   {
     PRSLogCommon_cold_1();
   }
 
-  v1 = PRSLogCommon___logObj;
+  v2 = PRSLogCommon___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PRSLogCommon_block_invoke()
@@ -68,16 +64,16 @@ uint64_t __PRSLogCommon_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id PRSLogObserver()
+id PRSLogObserver(uint64_t a1)
 {
   if (PRSLogObserver_onceToken != -1)
   {
     PRSLogObserver_cold_1();
   }
 
-  v1 = PRSLogObserver___logObj;
+  v2 = PRSLogObserver___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PRSLogObserver_block_invoke()
@@ -87,16 +83,16 @@ uint64_t __PRSLogObserver_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id PRSLogPosterContents()
+id PRSLogPosterContents(uint64_t a1)
 {
   if (PRSLogPosterContents_onceToken != -1)
   {
     PRSLogPosterContents_cold_1();
   }
 
-  v1 = PRSLogPosterContents___logObj;
+  v2 = PRSLogPosterContents___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PRSLogPosterContents_block_invoke()
@@ -106,16 +102,16 @@ uint64_t __PRSLogPosterContents_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id PRSLogArchiver()
+id PRSLogArchiver(uint64_t a1)
 {
   if (PRSLogArchiver_onceToken != -1)
   {
     PRSLogArchiver_cold_1();
   }
 
-  v1 = PRSLogArchiver___logObj;
+  v2 = PRSLogArchiver___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PRSLogArchiver_block_invoke()
@@ -125,16 +121,16 @@ uint64_t __PRSLogArchiver_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id PRSLogExternalSystemService()
+id PRSLogExternalSystemService(uint64_t a1)
 {
   if (PRSLogExternalSystemService_onceToken != -1)
   {
     PRSLogExternalSystemService_cold_1();
   }
 
-  v1 = PRSLogExternalSystemService___logObj;
+  v2 = PRSLogExternalSystemService___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PRSLogExternalSystemService_block_invoke()
@@ -144,6 +140,13 @@ uint64_t __PRSLogExternalSystemService_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
+void sub_1C270230C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -151,10 +154,11 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &buf, 0x3Au);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x3Au);
 }
 
 uint64_t OUTLINED_FUNCTION_2_0()
@@ -179,40 +183,35 @@ Class __getUIApplicationClass_block_invoke(uint64_t a1)
 
 void UIKitLibrary()
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1[0] = 0;
+  v3 = *MEMORY[0x1E69E9840];
+  v0[0] = 0;
   if (!UIKitLibraryCore_frameworkLibrary)
   {
-    v1[1] = MEMORY[0x1E69E9820];
-    v1[2] = 3221225472;
-    v1[3] = __UIKitLibraryCore_block_invoke;
-    v1[4] = &__block_descriptor_40_e5_v8__0l;
-    v1[5] = v1;
-    v2 = xmmword_1E818CE30;
-    v3 = 0;
+    v0[1] = MEMORY[0x1E69E9820];
+    v0[2] = 3221225472;
+    v0[3] = __UIKitLibraryCore_block_invoke;
+    v0[4] = &__block_descriptor_40_e5_v8__0l;
+    v0[5] = v0;
+    v1 = xmmword_1E818CE30;
+    v2 = 0;
     UIKitLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!UIKitLibraryCore_frameworkLibrary)
   {
-    UIKitLibrary_cold_1(v1);
+    UIKitLibrary_cold_1(v0);
   }
 
-  if (v1[0])
+  if (v0[0])
   {
-    free(v1[0]);
+    free(v0[0]);
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __UIKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   UIKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -244,54 +243,50 @@ Class __getUIWindowSceneClass_block_invoke(uint64_t a1)
   return result;
 }
 
-void sub_1C2708FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C2708FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void *__getPUIWritePNGFromCGImageRefSymbolLoc_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!PosterUIFoundationLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __PosterUIFoundationLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E818CE88;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __PosterUIFoundationLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E818CE88;
+    v6 = 0;
     PosterUIFoundationLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v2 = PosterUIFoundationLibraryCore_frameworkLibrary;
   if (!PosterUIFoundationLibraryCore_frameworkLibrary)
   {
-    __getPUIWritePNGFromCGImageRefSymbolLoc_block_invoke_cold_1(v5);
+    __getPUIWritePNGFromCGImageRefSymbolLoc_block_invoke_cold_1(v4);
   }
 
-  if (v5[0])
+  if (v4[0])
   {
-    free(v5[0]);
+    free(v4[0]);
   }
 
   result = dlsym(v2, "PUIWritePNGFromCGImageRef");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getPUIWritePNGFromCGImageRefSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __PosterUIFoundationLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PosterUIFoundationLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -476,10 +471,11 @@ void *__NSStringFromPRSPosterSnapshotOptions_block_invoke(uint64_t a1, uint64_t 
   return result;
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_1C2719F88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
@@ -497,25 +493,28 @@ void sub_1C271A3FC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C271B568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_1C271B568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
 {
+  va_start(va, a44);
   _Block_object_dispose(&a33, 8);
   _Block_object_dispose(&a37, 8);
   _Block_object_dispose(&a41, 8);
-  _Block_object_dispose(&a45, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x3Au);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x3Au);
 }
 
-void OUTLINED_FUNCTION_8(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void OUTLINED_FUNCTION_8(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &buf, 0x3Au);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x3Au);
 }
 
 uint64_t OUTLINED_FUNCTION_10()
@@ -555,9 +554,10 @@ uint64_t OUTLINED_FUNCTION_8_0()
   return objc_opt_class();
 }
 
-void sub_1C2721B58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id obj, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_1C2721B58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id obj, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  _Block_object_dispose(&a29, 8);
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
   objc_sync_exit(obj);
   _Unwind_Resume(a1);
 }
@@ -586,9 +586,9 @@ id getPRPosterPathUtilitiesClass()
   return v1;
 }
 
-void sub_1C2721C74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C2721C74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -609,40 +609,35 @@ Class __getPRPosterPathUtilitiesClass_block_invoke(uint64_t a1)
 
 void PosterKitLibrary()
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1[0] = 0;
+  v3 = *MEMORY[0x1E69E9840];
+  v0[0] = 0;
   if (!PosterKitLibraryCore_frameworkLibrary)
   {
-    v1[1] = MEMORY[0x1E69E9820];
-    v1[2] = 3221225472;
-    v1[3] = __PosterKitLibraryCore_block_invoke;
-    v1[4] = &__block_descriptor_40_e5_v8__0l;
-    v1[5] = v1;
-    v2 = xmmword_1E818D3E0;
-    v3 = 0;
+    v0[1] = MEMORY[0x1E69E9820];
+    v0[2] = 3221225472;
+    v0[3] = __PosterKitLibraryCore_block_invoke;
+    v0[4] = &__block_descriptor_40_e5_v8__0l;
+    v0[5] = v0;
+    v1 = xmmword_1E818D3E0;
+    v2 = 0;
     PosterKitLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!PosterKitLibraryCore_frameworkLibrary)
   {
-    PosterKitLibrary_cold_1(v1);
+    PosterKitLibrary_cold_1(v0);
   }
 
-  if (v1[0])
+  if (v0[0])
   {
-    free(v1[0]);
+    free(v0[0]);
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __PosterKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PosterKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -779,10 +774,11 @@ uint64_t PRSWallpaperObserverLocationsLockIndexIfHomeIndex(uint64_t a1)
   return result;
 }
 
-void OUTLINED_FUNCTION_3_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x26u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x26u);
 }
 
 id PRSDictionaryFromXPCObject(void *a1)
@@ -821,37 +817,37 @@ uint64_t __PRSDictionaryFromXPCObject_block_invoke(uint64_t a1, uint64_t a2, voi
 
 id PRSXPCDictionaryFromDictionary(void *a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1)
   {
     empty = xpc_dictionary_create_empty();
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v3 = [v1 keyEnumerator];
-    v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v14;
+      v6 = *v13;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v14 != v6)
+          if (*v13 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v13 + 1) + 8 * i);
+          v8 = *(*(&v12 + 1) + 8 * i);
           v9 = [v8 UTF8String];
           v10 = [v1 objectForKey:v8];
           xpc_dictionary_set_string(empty, v9, [v10 UTF8String]);
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v5);
@@ -863,14 +859,12 @@ id PRSXPCDictionaryFromDictionary(void *a1)
     empty = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return empty;
 }
 
 __CFString *PRSPosterUpdateAmbientWidgetsIdentifiers(void *a1)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [v1 bs_safeObjectForKey:@"AMUIIconStateKey" ofType:objc_opt_class()];
   v3 = [v2 bs_safeObjectForKey:@"iconLists" ofType:objc_opt_class()];
@@ -934,67 +928,67 @@ __CFString *PRSPosterUpdateAmbientWidgetsIdentifiers(void *a1)
 
     if (v10 | v15)
     {
-      v39 = v15;
-      v38 = v2;
+      v38 = v15;
+      v37 = v2;
       v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v43 = 0u;
       v44 = 0u;
       v45 = 0u;
       v46 = 0u;
-      v47 = 0u;
-      v37 = v10;
+      v36 = v10;
       v17 = [v10 bs_safeObjectForKey:@"elements" ofType:objc_opt_class()];
-      v18 = [v17 countByEnumeratingWithState:&v44 objects:v49 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v43 objects:v48 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v45;
+        v20 = *v44;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v45 != v20)
+            if (*v44 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
             v22 = MEMORY[0x1E696AEC0];
-            v23 = [*(*(&v44 + 1) + 8 * i) bs_safeObjectForKey:@"uniqueIdentifier" ofType:objc_opt_class()];
+            v23 = [*(*(&v43 + 1) + 8 * i) bs_safeObjectForKey:@"uniqueIdentifier" ofType:objc_opt_class()];
             v24 = [v22 stringWithFormat:@"lead-%@", v23];
             [v16 bs_safeAddObject:v24];
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v44 objects:v49 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v43 objects:v48 count:16];
         }
 
         while (v19);
       }
 
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
       v41 = 0u;
-      v25 = [v39 bs_safeObjectForKey:@"elements" ofType:objc_opt_class()];
-      v26 = [v25 countByEnumeratingWithState:&v40 objects:v48 count:16];
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
+      v25 = [v38 bs_safeObjectForKey:@"elements" ofType:objc_opt_class()];
+      v26 = [v25 countByEnumeratingWithState:&v39 objects:v47 count:16];
       if (v26)
       {
         v27 = v26;
-        v28 = *v41;
+        v28 = *v40;
         do
         {
           for (j = 0; j != v27; ++j)
           {
-            if (*v41 != v28)
+            if (*v40 != v28)
             {
               objc_enumerationMutation(v25);
             }
 
             v30 = MEMORY[0x1E696AEC0];
-            v31 = [*(*(&v40 + 1) + 8 * j) bs_safeObjectForKey:@"uniqueIdentifier" ofType:objc_opt_class()];
+            v31 = [*(*(&v39 + 1) + 8 * j) bs_safeObjectForKey:@"uniqueIdentifier" ofType:objc_opt_class()];
             v32 = [v30 stringWithFormat:@"trail-%@", v31];
             [v16 bs_safeAddObject:v32];
           }
 
-          v27 = [v25 countByEnumeratingWithState:&v40 objects:v48 count:16];
+          v27 = [v25 countByEnumeratingWithState:&v39 objects:v47 count:16];
         }
 
         while (v27);
@@ -1004,9 +998,9 @@ __CFString *PRSPosterUpdateAmbientWidgetsIdentifiers(void *a1)
       v34 = [v16 componentsJoinedByString:{@", "}];
       v9 = [v33 stringWithFormat:@"ambient widget identifiers %@", v34];;
 
-      v2 = v38;
-      v10 = v37;
-      v15 = v39;
+      v2 = v37;
+      v10 = v36;
+      v15 = v38;
     }
 
     else
@@ -1020,43 +1014,41 @@ __CFString *PRSPosterUpdateAmbientWidgetsIdentifiers(void *a1)
     v9 = @"(no stacks)";
   }
 
-  v35 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 void _validateUserInfo(void *a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v1 = a1;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v2 = [v1 keyEnumerator];
-  v3 = [v2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v19;
+    v5 = *v18;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v19 != v5)
+        if (*v18 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v18 + 1) + 8 * i);
+        v7 = *(*(&v17 + 1) + 8 * i);
         v8 = objc_opt_self();
         isKindOfClass = objc_opt_isKindOfClass();
 
         if ((isKindOfClass & 1) == 0)
         {
-          v14 = MEMORY[0x1E695DF30];
-          v15 = *MEMORY[0x1E695D940];
-          v16 = @"contains non-string key";
+          v13 = MEMORY[0x1E695DF30];
+          v14 = *MEMORY[0x1E695D940];
+          v15 = @"contains non-string key";
           goto LABEL_13;
         }
 
@@ -1066,22 +1058,20 @@ void _validateUserInfo(void *a1)
 
         if ((v12 & 1) == 0)
         {
-          v14 = MEMORY[0x1E695DF30];
-          v15 = *MEMORY[0x1E695D940];
-          v16 = @"contains non-string val";
+          v13 = MEMORY[0x1E695DF30];
+          v14 = *MEMORY[0x1E695D940];
+          v15 = @"contains non-string val";
 LABEL_13:
-          v17 = [v14 exceptionWithName:v15 reason:v16 userInfo:v1];
-          objc_exception_throw(v17);
+          v16 = [v13 exceptionWithName:v14 reason:v15 userInfo:v1];
+          objc_exception_throw(v16);
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v4);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 id _encodeContextDictionary(void *a1)
@@ -1161,16 +1151,16 @@ id _consumeSandboxExtensions(void *a1, void *a2)
   return v7;
 }
 
-void sub_1C2723804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C2723804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C2723E5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_1C2723E5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1234,9 +1224,9 @@ void ___consumeSandboxExtensions_block_invoke(uint64_t a1, id a2)
     if (v8 != -1)
     {
       v9 = __error();
-      strerror_r(*v9, __strerrbuf, 0x100uLL);
-      v10 = PRSLogPosterContents();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v10 = strerror_r(*v9, __strerrbuf, 0x100uLL);
+      v11 = PRSLogPosterContents(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v16 = *__error();
         v17 = *(a1 + 40);
@@ -1248,25 +1238,23 @@ void ___consumeSandboxExtensions_block_invoke(uint64_t a1, id a2)
         v23 = __strerrbuf;
         v24 = 2114;
         v25 = v17;
-        _os_log_error_impl(&dword_1C26FF000, v10, OS_LOG_TYPE_ERROR, "[asset] failed to consume sandboxToken %@ from bsxpc with errno=%i (%{public}s) : <PRSPosterUpdateSessionInfo assetURLs=%{public}@>", &v18, 0x26u);
+        _os_log_error_impl(&dword_1C26FF000, v11, OS_LOG_TYPE_ERROR, "[asset] failed to consume sandboxToken %@ from bsxpc with errno=%i (%{public}s) : <PRSPosterUpdateSessionInfo assetURLs=%{public}@>", &v18, 0x26u);
       }
     }
 
-    v11 = *(*(*(a1 + 48) + 8) + 40);
-    if (!v11)
+    v12 = *(*(*(a1 + 48) + 8) + 40);
+    if (!v12)
     {
       empty = xpc_dictionary_create_empty();
-      v13 = *(*(a1 + 48) + 8);
-      v14 = *(v13 + 40);
-      *(v13 + 40) = empty;
+      v14 = *(*(a1 + 48) + 8);
+      v15 = *(v14 + 40);
+      *(v14 + 40) = empty;
 
-      v11 = *(*(*(a1 + 48) + 8) + 40);
+      v12 = *(*(*(a1 + 48) + 8) + 40);
     }
 
-    xpc_dictionary_set_int64(v11, v5, v8);
+    xpc_dictionary_set_int64(v12, v5, v8);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 __CFString *PRSErrorCodeToDebugDescription(uint64_t a1)
@@ -1303,13 +1291,13 @@ __CFString *NSStringFromPRSPosterUpdateType(unint64_t a1)
 
 id PRSPosterGallerySuggestedComplicationErrorCreateWithCodeAndDescription(void *a1)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v1 = a1;
   if ([v1 length])
   {
-    v9 = *MEMORY[0x1E696A578];
-    v10[0] = v1;
-    v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = *MEMORY[0x1E696A578];
+    v9[0] = v1;
+    v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   }
 
   else
@@ -1321,8 +1309,6 @@ id PRSPosterGallerySuggestedComplicationErrorCreateWithCodeAndDescription(void *
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = [v3 initWithDomain:v5 code:1 userInfo:v2];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1353,9 +1339,9 @@ id getkPaperboardIOSurfaceDeviceOrientationPropertiesKey()
   return v2;
 }
 
-void sub_1C272D888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C272D888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1386,9 +1372,9 @@ id getkPaperboardIOSurfaceSalientContentRectPropertiesKey()
   return v2;
 }
 
-void sub_1C272DAE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C272DAE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1423,9 +1409,9 @@ double soft_CGRectFromString(void *a1)
   return v3;
 }
 
-void sub_1C272DBF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C272DBF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1441,42 +1427,38 @@ void *__getkPaperboardIOSurfaceDeviceOrientationPropertiesKeySymbolLoc_block_inv
 
 uint64_t PosterUIFoundationLibrary()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v3[0] = 0;
+  v5 = *MEMORY[0x1E69E9840];
+  v2[0] = 0;
   if (!PosterUIFoundationLibraryCore_frameworkLibrary_0)
   {
-    v3[1] = MEMORY[0x1E69E9820];
-    v3[2] = 3221225472;
-    v3[3] = __PosterUIFoundationLibraryCore_block_invoke_0;
-    v3[4] = &__block_descriptor_40_e5_v8__0l;
-    v3[5] = v3;
-    v4 = xmmword_1E818D608;
-    v5 = 0;
+    v2[1] = MEMORY[0x1E69E9820];
+    v2[2] = 3221225472;
+    v2[3] = __PosterUIFoundationLibraryCore_block_invoke_0;
+    v2[4] = &__block_descriptor_40_e5_v8__0l;
+    v2[5] = v2;
+    v3 = xmmword_1E818D608;
+    v4 = 0;
     PosterUIFoundationLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
 
   v0 = PosterUIFoundationLibraryCore_frameworkLibrary_0;
   if (!PosterUIFoundationLibraryCore_frameworkLibrary_0)
   {
-    PosterUIFoundationLibrary_cold_1(v3);
+    PosterUIFoundationLibrary_cold_1(v2);
   }
 
-  if (v3[0])
+  if (v2[0])
   {
-    free(v3[0]);
+    free(v2[0]);
   }
 
-  v1 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
 uint64_t __PosterUIFoundationLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PosterUIFoundationLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1491,45 +1473,41 @@ void *__getkPaperboardIOSurfaceSalientContentRectPropertiesKeySymbolLoc_block_in
 
 void *__getCGRectFromStringSymbolLoc_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!UIKitLibraryCore_frameworkLibrary_0)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __UIKitLibraryCore_block_invoke_0;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E818D620;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __UIKitLibraryCore_block_invoke_0;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E818D620;
+    v6 = 0;
     UIKitLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
 
   v2 = UIKitLibraryCore_frameworkLibrary_0;
   if (!UIKitLibraryCore_frameworkLibrary_0)
   {
-    __getCGRectFromStringSymbolLoc_block_invoke_cold_1(v5);
+    __getCGRectFromStringSymbolLoc_block_invoke_cold_1(v4);
   }
 
-  if (v5[0])
+  if (v4[0])
   {
-    free(v5[0]);
+    free(v4[0]);
   }
 
   result = dlsym(v2, "CGRectFromString");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCGRectFromStringSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __UIKitLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   UIKitLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1563,22 +1541,23 @@ void sub_1C272EA50(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-id PRSWallpaperObserverInterface()
+id PRSWallpaperObserverInterface(uint64_t a1)
 {
   if (PRSWallpaperObserverInterface_onceToken != -1)
   {
     PRSWallpaperObserverInterface_cold_1();
   }
 
-  v1 = PRSWallpaperObserverInterface___interface;
+  v2 = PRSWallpaperObserverInterface___interface;
 
-  return v1;
+  return v2;
 }
 
 void __PRSWallpaperObserverInterface_block_invoke()
@@ -1596,16 +1575,16 @@ void __PRSWallpaperObserverInterface_block_invoke()
   PRSWallpaperObserverInterface___interface = v2;
 }
 
-id PRSServiceInterface()
+id PRSServiceInterface(uint64_t a1)
 {
   if (PRSServiceInterface_onceToken != -1)
   {
     PRSServiceInterface_cold_1();
   }
 
-  v1 = PRSServiceInterface___interface;
+  v2 = PRSServiceInterface___interface;
 
-  return v1;
+  return v2;
 }
 
 void __PRSServiceInterface_block_invoke()
@@ -1619,30 +1598,37 @@ void __PRSServiceInterface_block_invoke()
   PRSServiceInterface___interface = v1;
 }
 
+void sub_1C2739550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 Class __getPFPosterConfigurationClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!PhotosFormatsLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __PhotosFormatsLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E818DD38;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __PhotosFormatsLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E818DD38;
+    v5 = 0;
     PhotosFormatsLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!PhotosFormatsLibraryCore_frameworkLibrary)
   {
-    __getPFPosterConfigurationClass_block_invoke_cold_2(v4);
+    __getPFPosterConfigurationClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("PFPosterConfiguration");
@@ -1653,24 +1639,21 @@ Class __getPFPosterConfigurationClass_block_invoke(uint64_t a1)
   }
 
   getPFPosterConfigurationClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __PhotosFormatsLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PhotosFormatsLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void OUTLINED_FUNCTION_7_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_7_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void __getPBUIWallpaperSharedDirectoryDataStoreSharedDirectoryURLSymbolLoc_block_invoke_cold_1(void *a1)
@@ -1756,38 +1739,29 @@ void __getPRPosterMutableConfiguredPropertiesClass_block_invoke_cold_1()
 
 void PRSWallpaperObserverLocationsToIndex_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"int PRSWallpaperObserverLocationsToIndex(PRSWallpaperObserverLocations)"];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_3_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v1, "failure in %{public}@ (%{public}@:%i) : %{public}@", v2, v3, v4, v5, v7);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v1, "failure in %{public}@ (%{public}@:%i) : %{public}@", v2, v3, v4, v5);
 }
 
 void PRSWallpaperObserverLocationsFromIndex_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"PRSWallpaperObserverLocations PRSWallpaperObserverLocationsFromIndex(int)"];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_3_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v1, "failure in %{public}@ (%{public}@:%i) : %{public}@", v2, v3, v4, v5, v7);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v1, "failure in %{public}@ (%{public}@:%i) : %{public}@", v2, v3, v4, v5);
 }
 
 void PRSWallpaperObserverLocationsLockIndexIfHomeIndex_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"int PRSWallpaperObserverLocationsLockIndexIfHomeIndex(int)"];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_3_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v1, "failure in %{public}@ (%{public}@:%i) : %{public}@", v2, v3, v4, v5, v7);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v1, "failure in %{public}@ (%{public}@:%i) : %{public}@", v2, v3, v4, v5);
 }
 
 void getkPaperboardIOSurfaceDeviceOrientationPropertiesKey_cold_1()

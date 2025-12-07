@@ -71,20 +71,20 @@
 - (WFDictateTextActionView)initWithFrame:(CGRect)frame padded:(BOOL)padded
 {
   paddedCopy = padded;
-  v31[1] = *MEMORY[0x277D85DE8];
-  v29.receiver = self;
-  v29.super_class = WFDictateTextActionView;
-  v5 = [(WFDictateTextActionView *)&v29 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v30[1] = *MEMORY[0x277D85DE8];
+  v28.receiver = self;
+  v28.super_class = WFDictateTextActionView;
+  v5 = [(WFDictateTextActionView *)&v28 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v5)
   {
     v6 = objc_alloc_init(MEMORY[0x277D75C40]);
     [v6 setEditable:0];
     v7 = objc_alloc(MEMORY[0x277CCA898]);
     v8 = WFLocalizedString(@"Now listening…");
-    v30 = *MEMORY[0x277D740C0];
+    v29 = *MEMORY[0x277D740C0];
     placeholderTextColor = [MEMORY[0x277D75348] placeholderTextColor];
-    v31[0] = placeholderTextColor;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v30[0] = placeholderTextColor;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
     v11 = [v7 initWithString:v8 attributes:v10];
     [v6 setAttributedPlaceholder:v11];
 
@@ -141,7 +141,6 @@
     v26 = v5;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

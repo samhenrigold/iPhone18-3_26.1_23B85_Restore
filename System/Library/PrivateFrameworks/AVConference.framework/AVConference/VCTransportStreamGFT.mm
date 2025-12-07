@@ -132,80 +132,80 @@ LABEL_13:
 
 - (int)VCTransportStreamSendPacket:(id *)packet
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (packet)
   {
     mediaQueue = self->_mediaQueue;
     if (mediaQueue)
     {
-      *&v22[0] = 0;
-      v6 = VCMediaQueue_AllocMediaPacket(mediaQueue, packet->var5.streamIDs[0], 1, v22);
-      if (v6 < 0)
+      *&v23[0] = 0;
+      v6 = VCMediaQueue_AllocMediaPacket(mediaQueue, packet->var5.streamIDs[0], 1, v23);
+      if ((v6 & 0x80000000) != 0)
       {
         [(VCTransportStreamGFT *)v6 VCTransportStreamSendPacket:?];
-        return v21;
+        return v22;
       }
 
       p_var5 = &packet->var5;
-      v8 = micro();
-      v9 = *&v22[0];
-      *(*&v22[0] + 272) = v8;
-      *(v9 + 16) = *p_var5->streamIDs;
-      v10 = *&p_var5->streamIDs[8];
-      v11 = *&p_var5->participantID;
-      v12 = *&p_var5->encryptionSequenceNumber;
-      *(v9 + 64) = *&p_var5->statsPayload.serverPacketInterval;
-      *(v9 + 80) = v12;
-      *(v9 + 32) = v10;
-      *(v9 + 48) = v11;
-      *(v9 + 228) = p_var5->streamIDs[0];
-      *(v9 + 264) = self->_vtpReceiveSocket;
-      *(v9 + 232) = self->_transportSessionID;
-      *(v9 + 176) = 0;
+      v9 = micro(v6, v7);
+      v10 = *&v23[0];
+      *(*&v23[0] + 272) = v9;
+      *(v10 + 16) = *p_var5->streamIDs;
+      v11 = *&p_var5->streamIDs[8];
+      v12 = *&p_var5->participantID;
+      v13 = *&p_var5->encryptionSequenceNumber;
+      *(v10 + 64) = *&p_var5->statsPayload.serverPacketInterval;
+      *(v10 + 80) = v13;
+      *(v10 + 32) = v11;
+      *(v10 + 48) = v12;
+      *(v10 + 228) = p_var5->streamIDs[0];
+      *(v10 + 264) = self->_vtpReceiveSocket;
+      *(v10 + 232) = self->_transportSessionID;
+      *(v10 + 176) = 0;
       IDSHeaderSizeWithChannelDataFormatArray = VCIDSChannelData_GetIDSHeaderSizeWithChannelDataFormatArray(p_var5, 1u);
-      v14 = *&v22[0];
-      **&v22[0] = IDSHeaderSizeWithChannelDataFormatArray;
-      *(v14 + 8) = self->_emptyBlockBuffer;
-      *(v14 + 294) = 1;
-      VCMediaQueue_AddPacket(self->_mediaQueue, v14);
-      v16 = v15;
-      if (v15 < 0)
+      v15 = *&v23[0];
+      **&v23[0] = IDSHeaderSizeWithChannelDataFormatArray;
+      *(v15 + 8) = self->_emptyBlockBuffer;
+      *(v15 + 294) = 1;
+      VCMediaQueue_AddPacket(self->_mediaQueue, v15);
+      v17 = v16;
+      if (v16 < 0)
       {
-        [(VCTransportStreamGFT *)v15 VCTransportStreamSendPacket:?];
-        return v21;
+        [(VCTransportStreamGFT *)v16 VCTransportStreamSendPacket:?];
+        return v22;
       }
     }
 
     else
     {
-      v23 = 0u;
       v24 = 0u;
-      v17 = *packet->var5.streamIDs;
-      v24 = *&packet->var5.streamIDs[8];
       v25 = 0u;
-      v18 = *&packet->var5.statsPayload.serverPacketInterval;
-      v25 = *&packet->var5.participantID;
-      v31 = 0u;
+      v18 = *packet->var5.streamIDs;
+      v25 = *&packet->var5.streamIDs[8];
+      v26 = 0u;
+      v19 = *&packet->var5.statsPayload.serverPacketInterval;
+      v26 = *&packet->var5.participantID;
       v32 = 0u;
-      v29 = 0u;
+      v33 = 0u;
       v30 = 0u;
-      memset(v22, 0, sizeof(v22));
-      v26 = v18;
-      v27 = 0u;
-      v27 = *&packet->var5.encryptionSequenceNumber;
+      v31 = 0u;
+      memset(v23, 0, sizeof(v23));
+      v27 = v19;
       v28 = 0u;
+      v28 = *&packet->var5.encryptionSequenceNumber;
+      v29 = 0u;
       vtpReceiveSocket = self->_vtpReceiveSocket;
-      DWORD2(v22[0]) = self->_transportSessionID;
-      v23 = v17;
-      BYTE13(v24) = 1;
-      VTP_Send(vtpReceiveSocket, packet->var2, packet->var3, packet->var4, v22);
+      DWORD2(v23[0]) = self->_transportSessionID;
+      v24 = v18;
+      BYTE13(v25) = 1;
+      VTP_Send(vtpReceiveSocket, packet->var2, packet->var3, packet->var4, v23);
       return 0;
     }
   }
 
   else
   {
-    v16 = -2144206847;
+    v17 = -2144206847;
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
       VRTraceErrorLogLevelToCSTR();
@@ -216,7 +216,7 @@ LABEL_13:
     }
   }
 
-  return v16;
+  return v17;
 }
 
 - (int)receivePacket:(id *)packet
@@ -506,7 +506,7 @@ uint64_t __63__VCTransportStreamGFT_registerPacketCallbackContext_callback___blo
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Out of memory when creating CMBlockBuffer!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Out of memory when creating CMBlockBuffer!", v2, v3, v4, v5);
 }
 
 - (void)initWithTransportSessionID:(os_log_t)log options:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
@@ -532,7 +532,7 @@ uint64_t __63__VCTransportStreamGFT_registerPacketCallbackContext_callback___blo
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
       OUTLINED_FUNCTION_5_0();
-      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v4, v5, " [%s] %s:%d Failed to add media packet. (%X)", v6, v7, v8, v9, v10);
+      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v4, v5, " [%s] %s:%d Failed to add media packet. (%X)", v6, v7, v8, v9);
     }
   }
 
@@ -547,7 +547,7 @@ uint64_t __63__VCTransportStreamGFT_registerPacketCallbackContext_callback___blo
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
       OUTLINED_FUNCTION_5_0();
-      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v4, v5, " [%s] %s:%d Failed to allocate media packet. (%X)", v6, v7, v8, v9, v10);
+      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v4, v5, " [%s] %s:%d Failed to allocate media packet. (%X)", v6, v7, v8, v9);
     }
   }
 
@@ -558,7 +558,7 @@ uint64_t __63__VCTransportStreamGFT_registerPacketCallbackContext_callback___blo
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d invalid packet", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d invalid packet", v2, v3, v4, v5);
 }
 
 - (void)receivePacket:(NSObject *)a3 .cold.1(uint64_t a1, int *a2, NSObject *a3)
@@ -585,7 +585,7 @@ uint64_t __63__VCTransportStreamGFT_registerPacketCallbackContext_callback___blo
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid socket, return", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid socket, return", v2, v3, v4, v5);
 }
 
 @end

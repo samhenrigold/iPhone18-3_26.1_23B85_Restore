@@ -153,7 +153,7 @@
   retstr->var10 = [transcriptTraitCollection userInterfaceStyle];
 
   transcriptTraitCollection2 = [(CKChatItem *)self transcriptTraitCollection];
-  retstr->var11 = CKBackgroundLevelForTraitCollection();
+  retstr->var11 = CKBackgroundLevelForTraitCollection(transcriptTraitCollection2);
 
   return result;
 }

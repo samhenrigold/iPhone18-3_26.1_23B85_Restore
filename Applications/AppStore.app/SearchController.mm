@@ -99,20 +99,20 @@
 - (NSArray)keyCommands
 {
   selfCopy = self;
-  v3 = sub_10038D56C();
+  v4 = sub_10038D56C(selfCopy, v3);
 
-  if (v3)
+  if (v4)
   {
-    sub_100005744(0, &qword_100982610);
-    v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
+    sub_100005744(0, &qword_100982610, UIKeyCommand_ptr);
+    v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
   else
   {
-    v4.super.isa = 0;
+    v5.super.isa = 0;
   }
 
-  return v4.super.isa;
+  return v5.super.isa;
 }
 
 - (void)handleCancelKeyCommandWithCommand:(id)command

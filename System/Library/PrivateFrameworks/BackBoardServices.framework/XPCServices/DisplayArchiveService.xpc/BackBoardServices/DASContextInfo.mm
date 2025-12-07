@@ -1,4 +1,5 @@
 @interface DASContextInfo
++ (DASContextInfo)contextInfoWithIdentifier:(unsigned int)identifier pid:(int)pid;
 - (BOOL)isEqual:(id)equal;
 - (id)_initWithIdentifier:(unsigned int)identifier pid:(int)pid raw:(id)raw;
 - (id)description;
@@ -71,6 +72,13 @@
   }
 
   return v10;
+}
+
++ (DASContextInfo)contextInfoWithIdentifier:(unsigned int)identifier pid:(int)pid
+{
+  v4 = [[self alloc] _initWithIdentifier:*&identifier pid:*&pid raw:0];
+
+  return v4;
 }
 
 @end

@@ -50,7 +50,7 @@
 
 - (void)_parseURL:(id)l
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   lCopy = l;
   absoluteString = [lCopy absoluteString];
   v6 = [MEMORY[0x1E696AF20] componentsWithString:absoluteString];
@@ -71,39 +71,39 @@
     goto LABEL_37;
   }
 
-  v36 = lCopy;
+  v35 = lCopy;
   selfCopy = self;
-  v34 = v6;
-  v35 = absoluteString;
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
+  v33 = v6;
+  v34 = absoluteString;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   queryItems = [v6 queryItems];
-  v12 = [queryItems countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v12 = [queryItems countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (!v12)
   {
     v14 = 0;
-    v38 = 0;
+    v37 = 0;
     v15 = 0;
     goto LABEL_21;
   }
 
   v13 = v12;
   v14 = 0;
-  v38 = 0;
+  v37 = 0;
   v15 = 0;
-  v16 = *v40;
+  v16 = *v39;
   do
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v40 != v16)
+      if (*v39 != v16)
       {
         objc_enumerationMutation(queryItems);
       }
 
-      v18 = *(*(&v39 + 1) + 8 * i);
+      v18 = *(*(&v38 + 1) + 8 * i);
       name = [v18 name];
       v20 = [name isEqualToString:@"type"];
 
@@ -132,7 +132,7 @@
           if (v25)
           {
             [v18 value];
-            v38 = value = v38;
+            v37 = value = v37;
           }
 
           else
@@ -152,7 +152,7 @@
       }
     }
 
-    v13 = [queryItems countByEnumeratingWithState:&v39 objects:v43 count:16];
+    v13 = [queryItems countByEnumeratingWithState:&v38 objects:v42 count:16];
   }
 
   while (v13);
@@ -161,7 +161,7 @@ LABEL_21:
   if ([v14 length])
   {
     -[TPSURLActionComponents setActionType:](selfCopy, "setActionType:", [objc_opt_class() _actionTypeForString:v15]);
-    v28 = v38;
+    v28 = v37;
     if ([(TPSURLActionComponents *)selfCopy actionType])
     {
       goto LABEL_23;
@@ -170,15 +170,15 @@ LABEL_21:
     goto LABEL_36;
   }
 
-  v28 = v38;
+  v28 = v37;
   if ([v15 isEqualToString:@"userGuide"])
   {
     [(TPSURLActionComponents *)selfCopy setActionType:9];
-    [(TPSURLActionComponents *)selfCopy setBundleID:v38];
+    [(TPSURLActionComponents *)selfCopy setBundleID:v37];
     goto LABEL_36;
   }
 
-  if ([v38 length])
+  if ([v37 length])
   {
     if (![v15 isEqualToString:@"app"])
     {
@@ -186,7 +186,7 @@ LABEL_21:
     }
 
     v30 = +[TPSCommonDefines sharedInstance];
-    v29 = [v30 appBundleIDForInstalledAppWithIdentifier:v38];
+    v29 = [v30 appBundleIDForInstalledAppWithIdentifier:v37];
 
     if (v29)
     {
@@ -227,12 +227,10 @@ LABEL_23:
 
 LABEL_36:
 
-  absoluteString = v35;
-  lCopy = v36;
-  v6 = v34;
+  absoluteString = v34;
+  lCopy = v35;
+  v6 = v33;
 LABEL_37:
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 + (unint64_t)_actionTypeForString:(id)string

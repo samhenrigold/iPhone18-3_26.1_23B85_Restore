@@ -27,7 +27,7 @@
     if (v5)
     {
       objc_storeWeak(&v5->_delegate, delegateCopy);
-      v7 = ARCreateNonFixedPriorityDispatchQueue("com.apple.arkit.bufferPopulationMonitor.delegateQueue");
+      v7 = ARCreateNonFixedPriorityDispatchQueue("com.apple.arkit.bufferPopulationMonitor.delegateQueue", 0, 0);
       delegateQueue = v6->_delegateQueue;
       v6->_delegateQueue = v7;
 
@@ -38,7 +38,7 @@
       v6->_bufferPopulationRegistry = v9;
 
       v6->_surfaceNotifier = IOSurfaceNotifierCreate();
-      v11 = ARCreateNonFixedPriorityDispatchQueue("com.apple.arkit.bufferPopulationMonitor.surfaceNotifierCallbackQueue");
+      v11 = ARCreateNonFixedPriorityDispatchQueue("com.apple.arkit.bufferPopulationMonitor.surfaceNotifierCallbackQueue", 0, 0);
       surfaceNotifierCallbackQueue = v6->_surfaceNotifierCallbackQueue;
       v6->_surfaceNotifierCallbackQueue = v11;
 

@@ -47,7 +47,7 @@
 - (BOOL)hasContent
 {
   selfCopy = self;
-  v3 = VisualAreaImageView.hasContent.getter();
+  v3 = VisualAreaImageView.hasContent.getter(selfCopy);
 
   return v3 & 1;
 }

@@ -1203,7 +1203,7 @@ LABEL_14:
     [(THBookViewController *)self dismissActivePopoverIsTransitioning:1];
     if (coordinator)
     {
-      [coordinator targetTransform];
+      objc_msgSend_targetTransform(coordinator);
     }
 
     else
@@ -1391,27 +1391,28 @@ LABEL_14:
 
 - (id)keyCommands
 {
-  v8.receiver = self;
-  v8.super_class = THBookViewController;
-  v3 = [-[THBookViewController keyCommands](&v8 "keyCommands")];
+  v12.receiver = self;
+  v12.super_class = THBookViewController;
+  v3 = [-[THBookViewController keyCommands](&v12 "keyCommands")];
   if (!v3)
   {
     v3 = +[NSMutableArray array];
   }
 
-  if ([-[THDocumentViewController canvasViewController](-[THBookViewController documentViewController](self "documentViewController")])
+  v4 = [-[THDocumentViewController canvasViewController](-[THBookViewController documentViewController](self "documentViewController")];
+  if (v4)
   {
-    v4 = +[UIKeyCommand commandWithTitle:image:action:input:modifierFlags:propertyList:](UIKeyCommand, "commandWithTitle:image:action:input:modifierFlags:propertyList:", [THBundle() localizedStringForKey:@"Next Page" value:&stru_471858 table:0], 0, "books_pageForward:", UIKeyInputRightArrow, 0, 0);
-    [(UIKeyCommand *)v4 setWantsPriorityOverSystemBehavior:1];
-    [(UIKeyCommand *)v4 setAllowsAutomaticMirroring:0];
-    [v3 addObject:v4];
-    v5 = [UIKeyCommand keyCommandWithInput:@" " modifierFlags:0 action:"books_pageForward:"];
-    [(UIKeyCommand *)v5 setWantsPriorityOverSystemBehavior:1];
-    [v3 addObject:v5];
-    v6 = +[UIKeyCommand commandWithTitle:image:action:input:modifierFlags:propertyList:](UIKeyCommand, "commandWithTitle:image:action:input:modifierFlags:propertyList:", [THBundle() localizedStringForKey:@"Previous Page" value:&stru_471858 table:0], 0, "books_pageBackward:", UIKeyInputLeftArrow, 0, 0);
+    v6 = +[UIKeyCommand commandWithTitle:image:action:input:modifierFlags:propertyList:](UIKeyCommand, "commandWithTitle:image:action:input:modifierFlags:propertyList:", [THBundle(v4 v5)], 0, "books_pageForward:", UIKeyInputRightArrow, 0, 0);
     [(UIKeyCommand *)v6 setWantsPriorityOverSystemBehavior:1];
     [(UIKeyCommand *)v6 setAllowsAutomaticMirroring:0];
     [v3 addObject:v6];
+    v7 = [UIKeyCommand keyCommandWithInput:@" " modifierFlags:0 action:"books_pageForward:"];
+    [(UIKeyCommand *)v7 setWantsPriorityOverSystemBehavior:1];
+    v8 = [v3 addObject:v7];
+    v10 = +[UIKeyCommand commandWithTitle:image:action:input:modifierFlags:propertyList:](UIKeyCommand, "commandWithTitle:image:action:input:modifierFlags:propertyList:", [THBundle(v8 v9)], 0, "books_pageBackward:", UIKeyInputLeftArrow, 0, 0);
+    [(UIKeyCommand *)v10 setWantsPriorityOverSystemBehavior:1];
+    [(UIKeyCommand *)v10 setAllowsAutomaticMirroring:0];
+    [v3 addObject:v10];
   }
 
   return v3;
@@ -1994,7 +1995,7 @@ LABEL_14:
     canvasScrollView = [(THDocumentViewController *)[(THBookViewController *)self documentViewController] canvasScrollView];
     if (canvasScrollView)
     {
-      [canvasScrollView transform];
+      objc_msgSend_transform(canvasScrollView);
     }
 
     else
@@ -2361,7 +2362,8 @@ LABEL_14:
 
 - (id)pageNumberStringForAnnotation:(id)annotation
 {
-  if ([(THBookViewController *)self canTrustCalculatedPageNumbers])
+  canTrustCalculatedPageNumbers = [(THBookViewController *)self canTrustCalculatedPageNumbers];
+  if (canTrustCalculatedPageNumbers)
   {
     documentRoot = [(THBookViewController *)self documentRoot];
 
@@ -2370,9 +2372,9 @@ LABEL_14:
 
   else
   {
-    v7 = THBundle();
+    v9 = THBundle(canTrustCalculatedPageNumbers, v6);
 
-    return [v7 localizedStringForKey:@"-" value:&stru_471858 table:0];
+    return [v9 localizedStringForKey:@"-" value:&stru_471858 table:0];
   }
 }
 
@@ -2765,98 +2767,103 @@ LABEL_32:
 
 - (void)p_alertUserAboutDenyingBookmarkEditing
 {
-  v3 = [THBundle() localizedStringForKey:@"OK" value:&stru_471858 table:0];
-  v4 = [THBundle() localizedStringForKey:@"Not Now" value:&stru_471858 table:0];
-  v5 = [THBundle() localizedStringForKey:@"New Version Available" value:&stru_471858 table:0];
-  v6 = +[UIAlertController alertControllerWithTitle:message:preferredStyle:](UIAlertController, "alertControllerWithTitle:message:preferredStyle:", v5, [THBundle() localizedStringForKey:@"You won\\U2019t be able to delete bookmarks until you update this book." value:&stru_471858 table:0], 1);
+  v3 = [THBundle(self a2)];
+  v5 = [THBundle(v3 v4)];
+  v7 = [THBundle(v5 v6)];
+  v9 = +[UIAlertController alertControllerWithTitle:message:preferredStyle:](UIAlertController, "alertControllerWithTitle:message:preferredStyle:", v7, [THBundle(v7 v8)], 1);
   if ([-[THBookViewController documentRoot](self "documentRoot")])
   {
-    v7 = v4;
+    v10 = v5;
   }
 
   else
   {
-    v7 = v3;
+    v10 = v3;
   }
 
-  [(UIAlertController *)v6 addAction:[UIAlertAction actionWithTitle:v7 style:1 handler:0]];
-  if ([-[THBookViewController documentRoot](self "documentRoot")])
+  [(UIAlertController *)v9 addAction:[UIAlertAction actionWithTitle:v10 style:1 handler:0]];
+  v11 = [-[THBookViewController documentRoot](self "documentRoot")];
+  if (v11)
   {
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_84574;
-    v8[3] = &unk_45B358;
-    v8[4] = self;
-    -[UIAlertController addAction:](v6, "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [THBundle() localizedStringForKey:@"Update" value:&stru_471858 table:0], 0, v8));
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_84574;
+    v13[3] = &unk_45B358;
+    v13[4] = self;
+    -[UIAlertController addAction:](v9, "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [THBundle(v11 v12)], 0, v13));
   }
 
-  [(THBookViewController *)self presentViewController:v6 animated:1 completion:0];
+  [(THBookViewController *)self presentViewController:v9 animated:1 completion:0];
 }
 
 - (void)p_alertUserAboutAnnotationBehavior
 {
-  v3 = [THBundle() localizedStringForKey:@"OK" value:&stru_471858 table:0];
-  v4 = [THBundle() localizedStringForKey:@"Not Now" value:&stru_471858 table:0];
-  v5 = [THBundle() localizedStringForKey:@"New Version Available" value:&stru_471858 table:0];
-  v6 = +[UIAlertController alertControllerWithTitle:message:preferredStyle:](UIAlertController, "alertControllerWithTitle:message:preferredStyle:", v5, [THBundle() localizedStringForKey:@"You won\\U2019t be able to add notes value:highlights or bookmarks until you update this book." table:{&stru_471858, 0}], 1);
+  v3 = [THBundle(self a2)];
+  v5 = [THBundle(v3 v4)];
+  v7 = [THBundle(v5 v6)];
+  v9 = +[UIAlertController alertControllerWithTitle:message:preferredStyle:](UIAlertController, "alertControllerWithTitle:message:preferredStyle:", v7, [THBundle(v7 v8)], 1);
   if ([-[THBookViewController documentRoot](self "documentRoot")])
   {
-    v7 = v4;
+    v10 = v5;
   }
 
   else
   {
-    v7 = v3;
+    v10 = v3;
   }
 
-  [(UIAlertController *)v6 addAction:[UIAlertAction actionWithTitle:v7 style:1 handler:0]];
-  if ([-[THBookViewController documentRoot](self "documentRoot")])
+  [(UIAlertController *)v9 addAction:[UIAlertAction actionWithTitle:v10 style:1 handler:0]];
+  v11 = [-[THBookViewController documentRoot](self "documentRoot")];
+  if (v11)
   {
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_8472C;
-    v8[3] = &unk_45B358;
-    v8[4] = self;
-    -[UIAlertController addAction:](v6, "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [THBundle() localizedStringForKey:@"Update" value:&stru_471858 table:0], 0, v8));
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_8472C;
+    v13[3] = &unk_45B358;
+    v13[4] = self;
+    -[UIAlertController addAction:](v9, "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [THBundle(v11 v12)], 0, v13));
   }
 
-  [(THBookViewController *)self presentViewController:v6 animated:1 completion:0];
+  [(THBookViewController *)self presentViewController:v9 animated:1 completion:0];
 }
 
 - (void)p_alertUserAboutFontDownload
 {
-  v3 = [THBundle() localizedStringForKey:@"Downloading Fonts" value:&stru_471858 table:0];
-  -[THBookViewController setFontDownloadAlertController:](self, "setFontDownloadAlertController:", +[UIAlertController alertControllerWithTitle:message:preferredStyle:](UIAlertController, "alertControllerWithTitle:message:preferredStyle:", v3, [THBundle() localizedStringForKey:@"This book will open when the download is complete." value:&stru_471858 table:0], 1));
-  v4[0] = _NSConcreteStackBlock;
-  v4[1] = 3221225472;
-  v4[2] = sub_848C8;
-  v4[3] = &unk_45B358;
-  v4[4] = self;
-  -[UIAlertController addAction:](-[THBookViewController fontDownloadAlertController](self, "fontDownloadAlertController"), "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [THBundle() localizedStringForKey:@"Cancel" value:&stru_471858 table:0], 0, v4));
-  -[UIAlertController addAction:](-[THBookViewController fontDownloadAlertController](self, "fontDownloadAlertController"), "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [THBundle() localizedStringForKey:@"OK" value:&stru_471858 table:0], 1, 0));
+  v3 = [THBundle(self a2)];
+  -[THBookViewController setFontDownloadAlertController:](self, "setFontDownloadAlertController:", +[UIAlertController alertControllerWithTitle:message:preferredStyle:](UIAlertController, "alertControllerWithTitle:message:preferredStyle:", v3, [THBundle(v3 v4)], 1));
+  fontDownloadAlertController = [(THBookViewController *)self fontDownloadAlertController];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_848C8;
+  v9[3] = &unk_45B358;
+  v9[4] = self;
+  -[UIAlertController addAction:](fontDownloadAlertController, "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [THBundle(fontDownloadAlertController v6)], 0, v9));
+  fontDownloadAlertController2 = [(THBookViewController *)self fontDownloadAlertController];
+  -[UIAlertController addAction:](fontDownloadAlertController2, "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [THBundle(fontDownloadAlertController2 v8)], 1, 0));
   [(THBookViewController *)self presentViewController:[(THBookViewController *)self fontDownloadAlertController] animated:1 completion:0];
 }
 
 - (void)p_alertUserAboutRetinaUpdate
 {
-  if ([-[THBookViewController documentRoot](self "documentRoot")])
+  v3 = [-[THBookViewController documentRoot](self "documentRoot")];
+  if (v3)
   {
-    v3 = [THBundle() localizedStringForKey:@"Not Now" value:&stru_471858 table:0];
-    v4 = [THBundle() localizedStringForKey:@"Retina Update Available" value:&stru_471858 table:0];
-    v5 = +[UIAlertController alertControllerWithTitle:message:preferredStyle:](UIAlertController, "alertControllerWithTitle:message:preferredStyle:", v4, [THBundle() localizedStringForKey:@"Update this book to get enhanced graphics for your device\\U2019s Retina display." value:&stru_471858 table:0], 1);
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_84AB4;
-    v7[3] = &unk_45B358;
-    v7[4] = self;
-    [(UIAlertController *)v5 addAction:[UIAlertAction actionWithTitle:v3 style:1 handler:v7]];
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_84ABC;
-    v6[3] = &unk_45B358;
-    v6[4] = self;
-    -[UIAlertController addAction:](v5, "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [THBundle() localizedStringForKey:@"Update" value:&stru_471858 table:0], 0, v6));
-    [(THBookViewController *)self presentViewController:v5 animated:1 completion:0];
+    v5 = [THBundle(v3 v4)];
+    v7 = [THBundle(v5 v6)];
+    v9 = +[UIAlertController alertControllerWithTitle:message:preferredStyle:](UIAlertController, "alertControllerWithTitle:message:preferredStyle:", v7, [THBundle(v7 v8)], 1);
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_84AB4;
+    v13[3] = &unk_45B358;
+    v13[4] = self;
+    v10 = [(UIAlertController *)v9 addAction:[UIAlertAction actionWithTitle:v5 style:1 handler:v13]];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_84ABC;
+    v12[3] = &unk_45B358;
+    v12[4] = self;
+    -[UIAlertController addAction:](v9, "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [THBundle(v10 v11)], 0, v12));
+    [(THBookViewController *)self presentViewController:v9 animated:1 completion:0];
   }
 }
 
@@ -4359,7 +4366,7 @@ LABEL_12:
   {
     v6 = @"toc.and.glossary.button";
 LABEL_11:
-    v7 = THAccessibilityLocalizedString(v6);
+    v7 = THAccessibilityLocalizedString(&v6->isa);
 
     [button setAccessibilityLabel:v7];
     return;
@@ -4657,7 +4664,7 @@ LABEL_11:
   result = self->_closeTOCButtonItem;
   if (!result)
   {
-    result = [[UIBarButtonItem alloc] initWithTitle:objc_msgSend(THBundle() style:"localizedStringForKey:value:table:" target:@"Resume" action:{&stru_471858, 0), 2, self, "closeTOC"}];
+    result = [[UIBarButtonItem alloc] initWithTitle:objc_msgSend(THBundle(0 style:a2) target:"localizedStringForKey:value:table:" action:{@"Resume", &stru_471858, 0), 2, self, "closeTOC"}];
     self->_closeTOCButtonItem = result;
   }
 
@@ -4750,8 +4757,9 @@ LABEL_7:
   result = self->_shareButtonItem;
   if (!result)
   {
-    self->_shareButtonItem = [(THBookViewController *)self createButtonItemConfigurationWithImageName:@"square.and.arrow.up" forSelector:"showSharePopover:"];
-    -[UIBarButtonItem setAccessibilityLabel:](self->_shareButtonItem, "setAccessibilityLabel:", [THBundle() localizedStringForKey:@"Share" value:&stru_471858 table:0]);
+    v4 = [(THBookViewController *)self createButtonItemConfigurationWithImageName:@"square.and.arrow.up" forSelector:"showSharePopover:"];
+    self->_shareButtonItem = v4;
+    -[UIBarButtonItem setAccessibilityLabel:](self->_shareButtonItem, "setAccessibilityLabel:", [THBundle(v4 v5)]);
     return self->_shareButtonItem;
   }
 
@@ -5497,32 +5505,32 @@ LABEL_20:
   else
   {
     [(THBookViewController *)self dismissActivePopover];
-    v10 = objc_alloc_init(THBookmarkMenuPopoverViewController);
-    -[THBookmarkMenuPopoverViewController setTitle:](v10, "setTitle:", [THBundle() localizedStringForKey:@"Bookmarks" value:&stru_471858 table:0]);
-    [(THBookmarkMenuPopoverViewController *)v10 setDelegate:self];
-    [(THBookmarkMenuPopoverViewController *)v10 setReflowablePaginationController:[(THDocumentViewController *)[(THBookViewController *)self documentViewController] reflowablePaginationController]];
-    [(THBookmarkMenuPopoverViewController *)v10 setOverrideUserInterfaceStyle:[(THBookViewController *)self overrideUserInterfaceStyle]];
-    [(THBookViewController *)self setBookmarkViewController:v10];
+    v11 = objc_alloc_init(THBookmarkMenuPopoverViewController);
+    -[THBookmarkMenuPopoverViewController setTitle:](v11, "setTitle:", [THBundle(v11 v6)]);
+    [(THBookmarkMenuPopoverViewController *)v11 setDelegate:self];
+    [(THBookmarkMenuPopoverViewController *)v11 setReflowablePaginationController:[(THDocumentViewController *)[(THBookViewController *)self documentViewController] reflowablePaginationController]];
+    [(THBookmarkMenuPopoverViewController *)v11 setOverrideUserInterfaceStyle:[(THBookViewController *)self overrideUserInterfaceStyle]];
+    [(THBookViewController *)self setBookmarkViewController:v11];
     [(THBookmarkMenuPopoverViewController *)[(THBookViewController *)self bookmarkViewController] setDelegate:self];
     [(THBookmarkMenuPopoverViewController *)[(THBookViewController *)self bookmarkViewController] setTheme:[(THBookViewController *)self theme]];
     [(THBookmarkMenuPopoverViewController *)[(THBookViewController *)self bookmarkViewController] setViewDelegate:self];
     [(THToolbarDelegate *)[(THDocumentViewController *)[(THBookViewController *)self documentViewController] toolbarDelegate] userWillInteractInToolbar];
     objc_opt_class();
-    v6 = BUDynamicCast();
-    if (v6)
+    v7 = BUDynamicCast();
+    if (v7)
     {
-      v7 = v6;
-      v8 = [[THNavigationController alloc] initWithRootViewController:[(THBookViewController *)self bookmarkViewController]];
-      [(THNavigationController *)v8 setModalPresentationStyle:7];
-      popoverPresentationController = [(THNavigationController *)v8 popoverPresentationController];
-      [popoverPresentationController setSourceView:v7];
-      [v7 bounds];
+      v8 = v7;
+      v9 = [[THNavigationController alloc] initWithRootViewController:[(THBookViewController *)self bookmarkViewController]];
+      [(THNavigationController *)v9 setModalPresentationStyle:7];
+      popoverPresentationController = [(THNavigationController *)v9 popoverPresentationController];
+      [popoverPresentationController setSourceView:v8];
+      [v8 bounds];
       [popoverPresentationController setSourceRect:?];
       [popoverPresentationController setPermittedArrowDirections:1];
       [popoverPresentationController setDelegate:self];
       [popoverPresentationController setPassthroughViews:{-[THBookViewController p_popoverPassthroughViews](self, "p_popoverPassthroughViews")}];
       [popoverPresentationController bc_applyTraitOverridesWithOverrideUserInterfaceStyleFromViewController:{-[THBookViewController bookmarkViewController](self, "bookmarkViewController")}];
-      [(THBookViewController *)self presentViewController:v8 animated:menuCopy completion:0];
+      [(THBookViewController *)self presentViewController:v9 animated:menuCopy completion:0];
     }
   }
 }
@@ -6139,17 +6147,18 @@ LABEL_9:
 
 - (void)p_setCenterTitleForTOC
 {
-  if ([(THBookViewController *)self shouldShowChapterTitle])
+  shouldShowChapterTitle = [(THBookViewController *)self shouldShowChapterTitle];
+  if (shouldShowChapterTitle)
   {
-    v3 = [THBundle() localizedStringForKey:@"Table of Contents" value:&stru_471858 table:0];
+    v5 = [THBundle(shouldShowChapterTitle v4)];
   }
 
   else
   {
-    v3 = &stru_471858;
+    v5 = &stru_471858;
   }
 
-  [(THBookViewController *)self setCenterTitle:v3];
+  [(THBookViewController *)self setCenterTitle:v5];
 }
 
 - (void)p_setCenterTitleForNavigationUnit:(id)unit
@@ -6805,16 +6814,17 @@ LABEL_15:
 
 - (void)bookOpenTransitionDidEnd
 {
-  if ([(THBookViewController *)self bookOpenFailed])
+  bookOpenFailed = [(THBookViewController *)self bookOpenFailed];
+  if (bookOpenFailed)
   {
-    v3 = +[UIAlertController alertControllerWithTitle:message:preferredStyle:](UIAlertController, "alertControllerWithTitle:message:preferredStyle:", [THBundle() localizedStringForKey:@"Unable to open book." value:&stru_471858 table:0], 0, 1);
-    v4[0] = _NSConcreteStackBlock;
-    v4[1] = 3221225472;
-    v4[2] = sub_8E7A0;
-    v4[3] = &unk_45B358;
-    v4[4] = self;
-    -[UIAlertController addAction:](v3, "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [THBundle() localizedStringForKey:@"OK" value:&stru_471858 table:0], 1, v4));
-    [(THBookViewController *)self presentViewController:v3 animated:1 completion:0];
+    v5 = +[UIAlertController alertControllerWithTitle:message:preferredStyle:](UIAlertController, "alertControllerWithTitle:message:preferredStyle:", [THBundle(bookOpenFailed v4)], 0, 1);
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_8E7A0;
+    v7[3] = &unk_45B358;
+    v7[4] = self;
+    -[UIAlertController addAction:](v5, "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [THBundle(v5 v6)], 1, v7));
+    [(THBookViewController *)self presentViewController:v5 animated:1 completion:0];
   }
 }
 
@@ -7527,26 +7537,27 @@ LABEL_15:
 
 - (void)validateCommand:(id)command
 {
-  v13.receiver = self;
-  v13.super_class = THBookViewController;
-  [(THBookViewController *)&v13 validateCommand:?];
+  v15.receiver = self;
+  v15.super_class = THBookViewController;
+  [(THBookViewController *)&v15 validateCommand:?];
   action = [command action];
   theme = [(THBookViewController *)self theme];
   if (action == "books_toggleBookmark:")
   {
     isPageBookmarked = [(THBookViewController *)self isPageBookmarked];
-    v11 = THBundle();
-    if (isPageBookmarked)
+    v11 = isPageBookmarked;
+    v13 = THBundle(isPageBookmarked, v12);
+    if (v11)
     {
-      v12 = @"Remove Bookmark";
+      v14 = @"Remove Bookmark";
     }
 
     else
     {
-      v12 = @"Bookmark Page";
+      v14 = @"Bookmark Page";
     }
 
-    [command setTitle:{objc_msgSend(v11, "localizedStringForKey:value:table:", v12, &stru_471858, 0)}];
+    [command setTitle:{objc_msgSend(v13, "localizedStringForKey:value:table:", v14, &stru_471858, 0)}];
   }
 
   else

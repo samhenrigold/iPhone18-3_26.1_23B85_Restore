@@ -21,7 +21,7 @@
     selfCopy2 = self;
     sub_1D1227904(reactionCopy2);
 
-    sub_1D106F934(0, &qword_1EC609BE8);
+    sub_1D106F934(0, &qword_1EC609BE8, off_1E83DAD48);
     v7 = sub_1D139044C();
 
     return v7;

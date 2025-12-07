@@ -62,7 +62,7 @@
 
 void __115__AXSSDocumentTextRuleWhitespace_issuesForWord_atRange_previousWord_previousWordRange_inText_ignoreRuleUntilIndex___block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = [a2 range];
   if (v4 >= 2)
   {
@@ -72,36 +72,36 @@ void __115__AXSSDocumentTextRuleWhitespace_issuesForWord_atRange_previousWord_pr
       v6 = v4;
       if (v5 + v4 <= [*(a1 + 32) length])
       {
-        v29 = 0u;
-        v30 = 0u;
-        v27 = 0u;
         v28 = 0u;
+        v29 = 0u;
+        v26 = 0u;
+        v27 = 0u;
         v7 = *(a1 + 40);
-        v8 = [v7 countByEnumeratingWithState:&v27 objects:v34 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v26 objects:v33 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v28;
+          v10 = *v27;
 LABEL_6:
           v11 = 0;
           while (1)
           {
-            if (*v28 != v10)
+            if (*v27 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v36.location = [*(*(&v27 + 1) + 8 * v11) range];
-            v37.location = v5;
-            v37.length = v6;
-            if (NSIntersectionRange(v36, v37).location != 0x7FFFFFFFFFFFFFFFLL)
+            v35.location = [*(*(&v26 + 1) + 8 * v11) range];
+            v36.location = v5;
+            v36.length = v6;
+            if (NSIntersectionRange(v35, v36).location != 0x7FFFFFFFFFFFFFFFLL)
             {
               break;
             }
 
             if (v9 == ++v11)
             {
-              v9 = [v7 countByEnumeratingWithState:&v27 objects:v34 count:16];
+              v9 = [v7 countByEnumeratingWithState:&v26 objects:v33 count:16];
               if (v9)
               {
                 goto LABEL_6;
@@ -133,8 +133,8 @@ LABEL_12:
             if (v15 == v6 - 1)
             {
               v20 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:@"\n"];
-              v32 = v20;
-              v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
+              v31 = v20;
+              v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
               [v16 setSuggestions:v21];
             }
 
@@ -144,8 +144,8 @@ LABEL_12:
               v23 = [v22 substringWithRange:{0, 1}];
 
               v24 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v23];
-              v31 = v24;
-              v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+              v30 = v24;
+              v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
               [v16 setSuggestions:v25];
 
               [*(a1 + 40) addObject:v16];
@@ -155,8 +155,8 @@ LABEL_12:
           else
           {
             v18 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:@"\n\n"];
-            v33 = v18;
-            v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
+            v32 = v18;
+            v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
             [v16 setSuggestions:v19];
 
             [*(a1 + 40) addObject:v16];
@@ -165,8 +165,6 @@ LABEL_12:
       }
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

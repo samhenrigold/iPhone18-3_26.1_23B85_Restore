@@ -57,7 +57,7 @@ void __39__HomeNetworkingHandler_sharedInstance__block_invoke(uint64_t a1)
 
 - (BOOL)noteSymptom:(id)symptom
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   eventKey = [symptom eventKey];
   v4 = [SymptomStore keyFromSymptomName:@"com.apple.homed.network-diagnostic"];
   v5 = [eventKey isEqualToString:v4];
@@ -67,13 +67,12 @@ void __39__HomeNetworkingHandler_sharedInstance__block_invoke(uint64_t a1)
     v6 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = eventKey;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "NDF: Received homed symptom %@ when NDF is enabled", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = eventKey;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "NDF: Received homed symptom %@ when NDF is enabled", &v8, 0xCu);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

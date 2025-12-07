@@ -11,16 +11,14 @@
 
 + (NSSet)allowedStatusKeys
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"activations";
-  v7[1] = @"assets";
-  v7[2] = @"configurations";
-  v7[3] = @"management";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
+  v6[0] = @"activations";
+  v6[1] = @"assets";
+  v6[2] = @"configurations";
+  v6[3] = @"management";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

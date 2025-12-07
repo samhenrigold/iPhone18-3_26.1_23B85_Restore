@@ -102,7 +102,7 @@ uint64_t sub_23B76D420(uint64_t a1, uint64_t a2, uint64_t a3)
   return MEMORY[0x28212E358](a1, a2, a3, v6);
 }
 
-void sub_23B76D484()
+void sub_23B76D484(uint64_t a1)
 {
   sub_23B76D4AC();
   sub_23B76D590();

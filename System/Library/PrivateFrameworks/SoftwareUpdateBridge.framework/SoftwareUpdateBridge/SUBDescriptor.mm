@@ -14,19 +14,19 @@
 
 - (SUBDescriptor)initWithCoder:(id)coder
 {
-  v36[4] = *MEMORY[0x277D85DE8];
+  v35[4] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v35.receiver = self;
-  v35.super_class = SUBDescriptor;
-  v5 = [(SUBDescriptor *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = SUBDescriptor;
+  v5 = [(SUBDescriptor *)&v34 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v36[0] = objc_opt_class();
-    v36[1] = objc_opt_class();
-    v36[2] = objc_opt_class();
-    v36[3] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:4];
+    v35[0] = objc_opt_class();
+    v35[1] = objc_opt_class();
+    v35[2] = objc_opt_class();
+    v35[3] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:4];
     v8 = [v6 setWithArray:v7];
 
     v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"documentation"];
@@ -89,7 +89,6 @@
     v5->_coreDescriptor = v31;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -154,7 +153,7 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
   if (equalCopy == self)
   {
@@ -174,7 +173,7 @@
       v9 = [(SUBDescriptor *)self stringsMatch:productBuildVersion second:self->_productBuildVersion];
 
       marketingVersion = [(SUBDescriptor *)v5 marketingVersion];
-      v33 = [(SUBDescriptor *)self stringsMatch:marketingVersion second:self->_marketingVersion];
+      v32 = [(SUBDescriptor *)self stringsMatch:marketingVersion second:self->_marketingVersion];
 
       documentationID = [(SUBDescriptor *)v5 documentationID];
       v12 = [(SUBDescriptor *)self stringsMatch:documentationID second:self->_documentationID];
@@ -186,7 +185,7 @@
       v16 = [(SUBDescriptor *)self stringsMatch:productSystemName second:self->_productSystemName];
 
       v17 = 0;
-      if (v7 && v9 && v33 && v12 && v14 && v16)
+      if (v7 && v9 && v32 && v12 && v14 && v16)
       {
         v17 = [(SUBDescriptor *)v5 downloadSize]== self->_downloadSize;
       }
@@ -224,9 +223,9 @@
           v21 = "NO";
         }
 
-        v30 = v19;
-        v31 = v21;
-        if (v33)
+        v29 = v19;
+        v30 = v21;
+        if (v32)
         {
           v22 = "YES";
         }
@@ -236,8 +235,8 @@
           v22 = "NO";
         }
 
-        v32 = v20;
-        v34 = v22;
+        v31 = v20;
+        v33 = v22;
         if (v12)
         {
           v23 = "YES";
@@ -280,21 +279,21 @@
         }
 
         *buf = 136316930;
-        v36 = v30;
-        v37 = 2080;
-        v38 = v32;
-        v39 = 2080;
-        v40 = v31;
-        v41 = 2080;
-        v42 = v34;
-        v43 = 2080;
-        v44 = v23;
-        v45 = 2080;
-        v46 = v24;
-        v47 = 2080;
-        v48 = v25;
-        v49 = 2080;
-        v50 = v27;
+        v35 = v29;
+        v36 = 2080;
+        v37 = v31;
+        v38 = 2080;
+        v39 = v30;
+        v40 = 2080;
+        v41 = v33;
+        v42 = 2080;
+        v43 = v23;
+        v44 = 2080;
+        v45 = v24;
+        v46 = 2080;
+        v47 = v25;
+        v48 = 2080;
+        v49 = v27;
         _os_log_impl(&dword_26AB06000, v26, OS_LOG_TYPE_DEFAULT, "Comparison result: isEqual: %s productVersionsMatch: %s productBuildVersionsMatch: %s productMarketingVersionsMatch: %s documentationIDsMatch: %s publishersMatch: %s productSystemNamesMatch: %s DownloadSize: %s", buf, 0x52u);
       }
     }
@@ -305,7 +304,6 @@
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

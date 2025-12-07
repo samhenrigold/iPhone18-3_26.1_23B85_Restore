@@ -44,9 +44,9 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
-  v12.receiver = self;
-  v12.super_class = MPIntentViewController;
-  [(MPIntentViewController *)&v12 viewDidAppear:appear];
+  v13.receiver = self;
+  v13.super_class = MPIntentViewController;
+  [(MPIntentViewController *)&v13 viewDidAppear:appear];
   intent = [(MPIntentViewController *)self intent];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -65,42 +65,43 @@
     }
   }
 
-  if (![(MPIntentViewController *)self countdownCancelled])
+  countdownCancelled = [(MPIntentViewController *)self countdownCancelled];
+  if ((countdownCancelled & 1) == 0)
   {
-    v7 = PHDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = PHDefaultLog(countdownCancelled);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Disabling application idleTimer for CallIntentCountdown: countdownStarted", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Disabling application idleTimer for CallIntentCountdown: countdownStarted", buf, 2u);
     }
 
-    v8 = +[UIApplication sharedApplication];
-    [v8 _setIdleTimerDisabled:1 forReason:@"CallIntentCountdown"];
+    v9 = +[UIApplication sharedApplication];
+    [v9 _setIdleTimerDisabled:1 forReason:@"CallIntentCountdown"];
 
     countdownView = [(MPIntentViewController *)self countdownView];
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_100007498;
-    v10[3] = &unk_1000B1B80;
-    v10[4] = self;
-    [countdownView startCountdownFromNumber:3 withTimeInterval:v10 completion:COERCE_DOUBLE(COERCE_UNSIGNED_INT(2.0))];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_100007498;
+    v11[3] = &unk_1000B1B80;
+    v11[4] = self;
+    [countdownView startCountdownFromNumber:3 withTimeInterval:v11 completion:COERCE_DOUBLE(COERCE_UNSIGNED_INT(2.0))];
   }
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
-  v6.receiver = self;
-  v6.super_class = MPIntentViewController;
-  [(MPIntentViewController *)&v6 viewWillDisappear:disappear];
-  v3 = PHDefaultLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v7.receiver = self;
+  v7.super_class = MPIntentViewController;
+  v3 = [(MPIntentViewController *)&v7 viewWillDisappear:disappear];
+  v4 = PHDefaultLog(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Enabling application idleTimer for CallIntentCountdown: viewWillDisappear", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Enabling application idleTimer for CallIntentCountdown: viewWillDisappear", v6, 2u);
   }
 
-  v4 = +[UIApplication sharedApplication];
-  [v4 _setIdleTimerDisabled:0 forReason:@"CallIntentCountdown"];
+  v5 = +[UIApplication sharedApplication];
+  [v5 _setIdleTimerDisabled:0 forReason:@"CallIntentCountdown"];
 }
 
 - (void)configureViewForParameters:(id)parameters ofInteraction:(id)interaction interactiveBehavior:(unint64_t)behavior context:(unint64_t)context completion:(id)completion
@@ -108,23 +109,22 @@
   interactionCopy = interaction;
   completionCopy = completion;
   parametersCopy = parameters;
-  [(MPIntentViewController *)self setInteraction:interactionCopy];
-  v13 = PHDefaultLog();
+  v13 = PHDefaultLog([(MPIntentViewController *)self setInteraction:interactionCopy]);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     intent = [interactionCopy intent];
-    v24 = 138412290;
-    v25 = intent;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Intent: %@", &v24, 0xCu);
+    v26 = 138412290;
+    v27 = intent;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Intent: %@", &v26, 0xCu);
   }
 
-  v15 = PHDefaultLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = PHDefaultLog(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     intentResponse = [interactionCopy intentResponse];
-    v24 = 138412290;
-    v25 = intentResponse;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "IntentResponse: %@", &v24, 0xCu);
+    v26 = 138412290;
+    v27 = intentResponse;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "IntentResponse: %@", &v26, 0xCu);
   }
 
   intent2 = [(MPIntentViewController *)self intent];
@@ -148,23 +148,23 @@ LABEL_8:
 
   intent4 = [(MPIntentViewController *)self intent];
   objc_opt_class();
-  v21 = objc_opt_isKindOfClass();
+  v22 = objc_opt_isKindOfClass();
 
-  if (v21)
+  if (v22)
   {
     [(MPIntentViewController *)self configureForCallHistory];
   }
 
   else
   {
-    v22 = PHDefaultLog();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v24 = PHDefaultLog(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       sub_10007A2E4(self);
     }
 
-    v23 = +[NSSet set];
-    completionCopy[2](completionCopy, 0, v23, CGSizeZero.width, CGSizeZero.height);
+    v25 = +[NSSet set];
+    completionCopy[2](completionCopy, 0, v25, CGSizeZero.width, CGSizeZero.height);
   }
 
 LABEL_9:
@@ -174,7 +174,7 @@ LABEL_9:
 
 - (void)viewWasCancelled
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -184,8 +184,7 @@ LABEL_9:
   countdownView = [(MPIntentViewController *)self countdownView];
   [countdownView cancel];
 
-  [(MPIntentViewController *)self setCountdownCancelled:1];
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog([(MPIntentViewController *)self setCountdownCancelled:1]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -210,7 +209,8 @@ LABEL_9:
   intentResponse = [interaction intentResponse];
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     callRecords = [intentResponse callRecords];
     if ([callRecords count])
@@ -218,8 +218,8 @@ LABEL_9:
       goto LABEL_9;
     }
 
-    v5 = PHDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = PHDefaultLog(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_10007A3C8();
     }
@@ -227,8 +227,8 @@ LABEL_9:
 
   else
   {
-    v5 = PHDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = PHDefaultLog(isKindOfClass);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_10007A388();
     }
@@ -274,37 +274,38 @@ LABEL_9:
 
   if (!v7)
   {
-    v8 = PHDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = PHDefaultLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = identifier;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Searching for calls with identifier: %@", buf, 0xCu);
+      v21 = identifier;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Searching for calls with identifier: %@", buf, 0xCu);
     }
 
-    v9 = [NSPredicate predicateWithFormat:@"unique_id == %@", identifier];
+    v10 = [NSPredicate predicateWithFormat:@"unique_id == %@", identifier];
     callHistoryManager = [(MPIntentViewController *)self callHistoryManager];
-    v7 = [callHistoryManager callsWithPredicate:v9 limit:1 offset:0 batchSize:1];
+    v7 = [callHistoryManager callsWithPredicate:v10 limit:1 offset:0 batchSize:1];
 
     callHistoryCache2 = [(MPIntentViewController *)self callHistoryCache];
-    v12 = callHistoryCache2;
+    v13 = callHistoryCache2;
     if (v7)
     {
-      v13 = v7;
+      v14 = v7;
     }
 
     else
     {
-      v13 = &__NSArray0__struct;
+      v14 = &__NSArray0__struct;
     }
 
-    [callHistoryCache2 setObject:v13 forKey:identifier];
+    [callHistoryCache2 setObject:v14 forKey:identifier];
   }
 
-  if ([v7 count] != 1)
+  v15 = [v7 count];
+  if (v15 != 1)
   {
-    v14 = PHDefaultLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = PHDefaultLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_10007A430(v7);
     }
@@ -313,8 +314,8 @@ LABEL_9:
   firstObject = [v7 firstObject];
   if (!firstObject)
   {
-    v16 = PHDefaultLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = PHDefaultLog(0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_10007A4C0();
     }
@@ -332,8 +333,8 @@ LABEL_9:
 
   if (!v7)
   {
-    v8 = PHDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = PHDefaultLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10007A530();
     }
@@ -469,7 +470,7 @@ LABEL_7:
 
 - (void)configureViewForEmergencyCountdown
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v20 = 0;
@@ -505,7 +506,7 @@ LABEL_7:
 
 - (void)configureForCallHistory
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -649,7 +650,7 @@ LABEL_7:
   -[MPVoicemailMessageViewModel setIsRead:](v5, "setIsRead:", [voicemailCopy isRead]);
   -[MPVoicemailMessageViewModel setIsDeleted:](v5, "setIsDeleted:", [voicemailCopy folder] == 2);
   isTranscriptionAvailable = [voicemailCopy isTranscriptionAvailable];
-  v17 = PHDefaultLog();
+  v17 = PHDefaultLog(isTranscriptionAvailable);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     sub_10007A5A0(isTranscriptionAvailable, voicemailCopy, v17);
@@ -705,7 +706,7 @@ LABEL_9:
 
 - (void)recentsController:(id)controller didChangeCalls:(id)calls
 {
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -801,31 +802,31 @@ LABEL_7:
   callCopy = call;
   cellCopy = cell;
   v10 = [(MPIntentViewController *)self recentsItemForCall:callCopy numberOfOccurences:occurences];
-  v11 = PHDefaultLog();
+  v11 = PHDefaultLog(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412290;
-    v17 = callCopy;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Recent Call: %@", &v16, 0xCu);
+    v17 = 138412290;
+    v18 = callCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Recent Call: %@", &v17, 0xCu);
   }
 
-  v12 = PHDefaultLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = PHDefaultLog(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412290;
-    v17 = v10;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Recents Item: %@", &v16, 0xCu);
+    v17 = 138412290;
+    v18 = v10;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Recents Item: %@", &v17, 0xCu);
   }
 
   [cellCopy configureWithRecentsItem:v10 recentCall:callCopy];
   [cellCopy setAccessoryType:0];
-  v13 = +[UIColor clearColor];
-  [cellCopy setBackgroundColor:v13];
-
   v14 = +[UIColor clearColor];
+  [cellCopy setBackgroundColor:v14];
+
+  v15 = +[UIColor clearColor];
   contentView = [cellCopy contentView];
 
-  [contentView setBackgroundColor:v14];
+  [contentView setBackgroundColor:v15];
 }
 
 - (void)configureVoicemailTableViewCell:(id)cell forVoicemail:(id)voicemail

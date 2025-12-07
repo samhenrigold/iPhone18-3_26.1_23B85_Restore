@@ -27,28 +27,26 @@
 
 - (id)_foodSpecification
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v2 = [PGAssetCollectionFeatureDefinition alloc];
   v3 = +[PGCustomFoodieAssetFilter name];
-  v13 = v3;
+  v12 = v3;
   v4 = objc_alloc_init(PGCustomFoodieAssetFilter);
-  v14[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v13[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v6 = [(PGAssetCollectionFeatureDefinition *)v2 initWithAssetFilterByName:v5];
 
   v7 = [PGAssetCollectionFeatureSpecification alloc];
-  v12 = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+  v11 = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
   v9 = [(PGAssetCollectionFeatureSpecification *)v7 initWithFeatureType:13 featureLabel:@"Food" featureDefinitions:v8 shouldRunAtMomentIngest:1 shouldCreateFeatureNodeIfNeeded:1];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)_excitementAudioSpecification
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CCAB58]);
   [v2 addIndex:8];
   [v2 addIndex:4];
@@ -56,80 +54,72 @@
   v3 = [[PGAudioAssetFilter alloc] initWithAudioClassifications:v2];
   v4 = [PGAssetCollectionFeatureDefinition alloc];
   v5 = +[PGAudioAssetFilter name];
-  v14 = v5;
-  v15[0] = v3;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v13 = v5;
+  v14[0] = v3;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v7 = [(PGAssetCollectionFeatureDefinition *)v4 initWithAssetFilterByName:v6];
 
   v8 = [PGAssetCollectionFeatureSpecification alloc];
-  v13 = v7;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+  v12 = v7;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
   v10 = [(PGAssetCollectionFeatureSpecification *)v8 initWithFeatureType:12 featureLabel:@"ExcitementAudio" featureDefinitions:v9 shouldRunAtMomentIngest:1 shouldCreateFeatureNodeIfNeeded:1];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (id)_petPersonSpecification
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v2 = [[PGPeopleAssetFilter alloc] initForPetWithMaximumNumberOfOtherFacesPresent:-1];
   v3 = [PGAssetCollectionFeatureDefinition alloc];
   v4 = +[PGPeopleAssetFilter name];
-  v13 = v4;
-  v14[0] = v2;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = v4;
+  v13[0] = v2;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v6 = [(PGAssetCollectionFeatureDefinition *)v3 initWithAssetFilterByName:v5];
 
   v7 = [PGAssetCollectionFeatureSpecification alloc];
-  v12 = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+  v11 = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
   v9 = [(PGAssetCollectionFeatureSpecification *)v7 initWithFeatureType:11 featureLabel:0 featureDefinitions:v8 shouldRunAtMomentIngest:0 shouldCreateFeatureNodeIfNeeded:0];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)_socialGroupSpecification
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(PGSocialGroupAssetFilter);
   v3 = [PGAssetCollectionFeatureDefinition alloc];
   v4 = +[PGSocialGroupAssetFilter name];
-  v13 = v4;
-  v14[0] = v2;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = v4;
+  v13[0] = v2;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v6 = [(PGAssetCollectionFeatureDefinition *)v3 initWithAssetFilterByName:v5];
 
   v7 = [PGAssetCollectionFeatureSpecification alloc];
-  v12 = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+  v11 = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
   v9 = [(PGAssetCollectionFeatureSpecification *)v7 initWithFeatureType:2 featureLabel:0 featureDefinitions:v8 shouldRunAtMomentIngest:0 shouldCreateFeatureNodeIfNeeded:0];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)_peopleSpecification
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v3 = [PGAssetCollectionFeatureDefinition alloc];
   v4 = +[PGPeopleAssetFilter name];
-  v14 = v4;
+  v13 = v4;
   defaultPeopleAssetFilter = [(PGMomentFeatureSpecificationFactory *)self defaultPeopleAssetFilter];
-  v15[0] = defaultPeopleAssetFilter;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v14[0] = defaultPeopleAssetFilter;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v7 = [(PGAssetCollectionFeatureDefinition *)v3 initWithAssetFilterByName:v6];
 
   v8 = [PGAssetCollectionFeatureSpecification alloc];
-  v13 = v7;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+  v12 = v7;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
   v10 = [(PGAssetCollectionFeatureSpecification *)v8 initWithFeatureType:1 featureLabel:0 featureDefinitions:v9 shouldRunAtMomentIngest:1 shouldCreateFeatureNodeIfNeeded:0];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -143,20 +133,20 @@
 
 - (id)_natureROISpecification
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v3 = [[PGSceneAssetFilter alloc] initWithPositiveScenes:&unk_284486210 negativeScenes:&unk_284486228 sceneTaxonomy:self->_sceneTaxonomy];
   if (v3)
   {
     v4 = [PGAssetCollectionFeatureDefinition alloc];
     v5 = +[PGSceneAssetFilter name];
-    v16 = v5;
-    v17[0] = v3;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = v5;
+    v16[0] = v3;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [(PGAssetCollectionFeatureDefinition *)v4 initWithAssetFilterByName:v6];
 
     v8 = [PGAssetCollectionFeatureSpecification alloc];
-    v15 = v7;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+    v14 = v7;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
     v10 = [(PGAssetCollectionFeatureSpecification *)v8 initWithFeatureType:5 featureLabel:0 featureDefinitions:v9 shouldRunAtMomentIngest:1 shouldCreateFeatureNodeIfNeeded:1];
   }
 
@@ -165,35 +155,33 @@
     loggingConnection = self->_loggingConnection;
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_FAULT))
     {
-      *v14 = 0;
-      _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "Nature ROI specification has an invalid scene asset filter, disabling", v14, 2u);
+      *v13 = 0;
+      _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "Nature ROI specification has an invalid scene asset filter, disabling", v13, 2u);
     }
 
     v10 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (id)_mountainROISpecification
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v3 = [PGSceneAssetFilter alloc];
   v4 = [(PGSceneAssetFilter *)v3 initWithPositiveScenes:&unk_2844861F8 negativeScenes:MEMORY[0x277CBEBF8] sceneTaxonomy:self->_sceneTaxonomy];
   if (v4)
   {
     v5 = [PGAssetCollectionFeatureDefinition alloc];
     v6 = +[PGSceneAssetFilter name];
-    v17 = v6;
-    v18[0] = v4;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = v6;
+    v17[0] = v4;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     v8 = [(PGAssetCollectionFeatureDefinition *)v5 initWithAssetFilterByName:v7];
 
     v9 = [PGAssetCollectionFeatureSpecification alloc];
-    v16 = v8;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+    v15 = v8;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
     v11 = [(PGAssetCollectionFeatureSpecification *)v9 initWithFeatureType:4 featureLabel:0 featureDefinitions:v10 shouldRunAtMomentIngest:1 shouldCreateFeatureNodeIfNeeded:1];
   }
 
@@ -202,34 +190,32 @@
     loggingConnection = self->_loggingConnection;
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_FAULT))
     {
-      *v15 = 0;
-      _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "Mountain ROI specification has an invalid scene asset filter, disabling", v15, 2u);
+      *v14 = 0;
+      _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "Mountain ROI specification has an invalid scene asset filter, disabling", v14, 2u);
     }
 
     v11 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)_waterROISpecification
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v3 = [[PGSceneAssetFilter alloc] initWithPositiveScenes:&unk_2844861C8 negativeScenes:&unk_2844861E0 sceneTaxonomy:self->_sceneTaxonomy];
   if (v3)
   {
     v4 = [PGAssetCollectionFeatureDefinition alloc];
     v5 = +[PGSceneAssetFilter name];
-    v16 = v5;
-    v17[0] = v3;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = v5;
+    v16[0] = v3;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [(PGAssetCollectionFeatureDefinition *)v4 initWithAssetFilterByName:v6];
 
     v8 = [PGAssetCollectionFeatureSpecification alloc];
-    v15 = v7;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+    v14 = v7;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
     v10 = [(PGAssetCollectionFeatureSpecification *)v8 initWithFeatureType:7 featureLabel:0 featureDefinitions:v9 shouldRunAtMomentIngest:1 shouldCreateFeatureNodeIfNeeded:1];
   }
 
@@ -238,35 +224,33 @@
     loggingConnection = self->_loggingConnection;
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_FAULT))
     {
-      *v14 = 0;
-      _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "Water ROI specification has an invalid scene asset filter, disabling", v14, 2u);
+      *v13 = 0;
+      _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "Water ROI specification has an invalid scene asset filter, disabling", v13, 2u);
     }
 
     v10 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (id)_urbanROISpecification
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v3 = [PGSceneAssetFilter alloc];
   v4 = [(PGSceneAssetFilter *)v3 initWithPositiveScenes:&unk_2844861B0 negativeScenes:MEMORY[0x277CBEBF8] sceneTaxonomy:self->_sceneTaxonomy];
   if (v4)
   {
     v5 = [PGAssetCollectionFeatureDefinition alloc];
     v6 = +[PGSceneAssetFilter name];
-    v17 = v6;
-    v18[0] = v4;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = v6;
+    v17[0] = v4;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     v8 = [(PGAssetCollectionFeatureDefinition *)v5 initWithAssetFilterByName:v7];
 
     v9 = [PGAssetCollectionFeatureSpecification alloc];
-    v16 = v8;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+    v15 = v8;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
     v11 = [(PGAssetCollectionFeatureSpecification *)v9 initWithFeatureType:6 featureLabel:0 featureDefinitions:v10 shouldRunAtMomentIngest:1 shouldCreateFeatureNodeIfNeeded:1];
   }
 
@@ -275,35 +259,33 @@
     loggingConnection = self->_loggingConnection;
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_FAULT))
     {
-      *v15 = 0;
-      _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "Urban ROI specification has an invalid scene asset filter, disabling", v15, 2u);
+      *v14 = 0;
+      _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "Urban ROI specification has an invalid scene asset filter, disabling", v14, 2u);
     }
 
     v11 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)_beachROISpecification
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v3 = [PGSceneAssetFilter alloc];
   v4 = [(PGSceneAssetFilter *)v3 initWithPositiveScenes:&unk_284486198 negativeScenes:MEMORY[0x277CBEBF8] sceneTaxonomy:self->_sceneTaxonomy];
   if (v4)
   {
     v5 = [PGAssetCollectionFeatureDefinition alloc];
     v6 = +[PGSceneAssetFilter name];
-    v17 = v6;
-    v18[0] = v4;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = v6;
+    v17[0] = v4;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     v8 = [(PGAssetCollectionFeatureDefinition *)v5 initWithAssetFilterByName:v7];
 
     v9 = [PGAssetCollectionFeatureSpecification alloc];
-    v16 = v8;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+    v15 = v8;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
     v11 = [(PGAssetCollectionFeatureSpecification *)v9 initWithFeatureType:3 featureLabel:0 featureDefinitions:v10 shouldRunAtMomentIngest:1 shouldCreateFeatureNodeIfNeeded:1];
   }
 
@@ -312,34 +294,32 @@
     loggingConnection = self->_loggingConnection;
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_FAULT))
     {
-      *v15 = 0;
-      _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "Beach ROI specification has an invalid scene asset filter, disabling", v15, 2u);
+      *v14 = 0;
+      _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "Beach ROI specification has an invalid scene asset filter, disabling", v14, 2u);
     }
 
     v11 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)_petSpecification
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v3 = [[PGSceneAssetFilter alloc] initWithPositiveScenes:&unk_284486168 negativeScenes:&unk_284486180 sceneTaxonomy:self->_sceneTaxonomy];
   if (v3)
   {
     v4 = [PGAssetCollectionFeatureDefinition alloc];
     v5 = +[PGSceneAssetFilter name];
-    v16 = v5;
-    v17[0] = v3;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = v5;
+    v16[0] = v3;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [(PGAssetCollectionFeatureDefinition *)v4 initWithAssetFilterByName:v6];
 
     v8 = [PGAssetCollectionFeatureSpecification alloc];
-    v15 = v7;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+    v14 = v7;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
     v10 = [(PGAssetCollectionFeatureSpecification *)v8 initWithFeatureType:8 featureLabel:@"Pet" featureDefinitions:v9 shouldRunAtMomentIngest:1 shouldCreateFeatureNodeIfNeeded:1];
   }
 
@@ -348,29 +328,27 @@
     loggingConnection = self->_loggingConnection;
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_FAULT))
     {
-      *v14 = 0;
-      _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "Pet specification has an invalid scene asset filter, disabling", v14, 2u);
+      *v13 = 0;
+      _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "Pet specification has an invalid scene asset filter, disabling", v13, 2u);
     }
 
     v10 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (BOOL)_vskIndexIsFullClusteredForCurrentEmbeddingVersionWithPhotoLibrary:(id)library
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CD9878];
   libraryCopy = library;
   v6 = objc_alloc_init(v4);
   [v6 setUseJustInTimeGraphAvailability:0];
-  v13 = 0;
-  v7 = [libraryCopy featureAvailabilityForFeature:1 readOptions:v6 error:&v13];
+  v12 = 0;
+  v7 = [libraryCopy featureAvailabilityForFeature:1 readOptions:v6 error:&v12];
 
-  v8 = v13;
+  v8 = v12;
   if (v7)
   {
     if ([v7 vuIndexIsFullClustered])
@@ -386,7 +364,7 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v15) = hasConsistentMediaAnalysisImageVersion;
+      LODWORD(v14) = hasConsistentMediaAnalysisImageVersion;
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "VSK Search Index is clustered with embeddings matching the most recent MAD model version = %d", buf, 8u);
     }
   }
@@ -397,14 +375,13 @@
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v15 = v8;
+      v14 = v8;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGMemoryProcessedScenesAndFacesCache] Failed to read feature availability with error: %@", buf, 0xCu);
     }
 
     LOBYTE(hasConsistentMediaAnalysisImageVersion) = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return hasConsistentMediaAnalysisImageVersion;
 }
 
@@ -422,7 +399,7 @@
 
 - (id)_v3TrendsFeatureSpecificationsForTrendsConfigurations:(id)configurations withProgress:(id)progress
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   configurationsCopy = configurations;
   progressCopy = progress;
   v7 = [configurationsCopy count];
@@ -430,35 +407,35 @@
   {
     v8 = v7;
     v9 = 0x277CBE000uLL;
-    v55 = configurationsCopy;
-    v56 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v54 = configurationsCopy;
+    v55 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v68 = 0u;
     v69 = 0u;
     v70 = 0u;
     v71 = 0u;
-    v72 = 0u;
     v10 = configurationsCopy;
-    v11 = [v10 countByEnumeratingWithState:&v69 objects:v77 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v68 objects:v76 count:16];
     if (v11)
     {
       v13 = v11;
       v14 = 1.0 / v8;
-      v15 = *v70;
+      v15 = *v69;
       v16 = 0.0;
       *&v12 = 138412290;
-      v54 = v12;
-      v58 = *v70;
-      v60 = v10;
+      v53 = v12;
+      v57 = *v69;
+      v59 = v10;
 LABEL_4:
       v17 = 0;
-      v59 = v13;
+      v58 = v13;
       while (1)
       {
-        if (*v70 != v15)
+        if (*v69 != v15)
         {
           objc_enumerationMutation(v10);
         }
 
-        v18 = *(*(&v69 + 1) + 8 * v17);
+        v18 = *(*(&v68 + 1) + 8 * v17);
         v19 = objc_autoreleasePoolPush();
         featureLabel = [v18 featureLabel];
         positiveQueries = [v18 positiveQueries];
@@ -468,8 +445,8 @@ LABEL_4:
           goto LABEL_37;
         }
 
-        v63 = featureLabel;
-        v64 = v22;
+        v62 = featureLabel;
+        v63 = v22;
         context = v19;
         v23 = objc_alloc_init(*(v9 + 2840));
         useAveragedEmbeddingAsNumber = [v18 useAveragedEmbeddingAsNumber];
@@ -480,7 +457,7 @@ LABEL_4:
           break;
         }
 
-        v26 = [MEMORY[0x277D3CAB0] encodeTextAverage:v64 textEncoder:self->_CLIPTextEncoder];
+        v26 = [MEMORY[0x277D3CAB0] encodeTextAverage:v63 textEncoder:self->_CLIPTextEncoder];
         v27 = 0x27887A000;
         if (v26)
         {
@@ -494,16 +471,16 @@ LABEL_22:
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
             {
               *buf = 67109378;
-              *v79 = 450;
-              *&v79[4] = 2080;
-              *&v79[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGMomentFeatureSpecificationFactory.m";
+              *v78 = 450;
+              *&v78[4] = 2080;
+              *&v78[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGMomentFeatureSpecificationFactory.m";
               _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
             }
 
             objc_autoreleasePoolPop(context);
             v50 = 0;
-            configurationsCopy = v55;
-            v49 = v56;
+            configurationsCopy = v54;
+            v49 = v55;
             goto LABEL_49;
           }
 
@@ -514,26 +491,26 @@ LABEL_22:
             v37 = [(PGMomentFeatureSpecificationFactory *)self _generateSceneAssetFilterForTrendsConfiguration:v18];
             v38 = [PGAssetCollectionFeatureDefinition alloc];
             name = [*(v27 + 1704) name];
-            v74[0] = name;
-            v75[0] = v36;
+            v73[0] = name;
+            v74[0] = v36;
             v40 = +[PGSceneAssetFilter name];
-            v74[1] = v40;
-            v75[1] = v37;
-            v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:v74 count:2];
+            v73[1] = v40;
+            v74[1] = v37;
+            v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:2];
             v42 = [(PGAssetCollectionFeatureDefinition *)v38 initWithAssetFilterByName:v41];
 
             v43 = [PGAssetCollectionFeatureSpecification alloc];
-            v73 = v42;
-            v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v73 count:1];
-            v45 = [(PGAssetCollectionFeatureSpecification *)v43 initWithFeatureType:10 featureLabel:v63 featureDefinitions:v44 shouldRunAtMomentIngest:1 shouldCreateFeatureNodeIfNeeded:1];
+            v72 = v42;
+            v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v72 count:1];
+            v45 = [(PGAssetCollectionFeatureSpecification *)v43 initWithFeatureType:10 featureLabel:v62 featureDefinitions:v44 shouldRunAtMomentIngest:1 shouldCreateFeatureNodeIfNeeded:1];
 
             if (v45)
             {
-              [v56 addObject:v45];
+              [v55 addObject:v45];
             }
 
-            v15 = v58;
-            v13 = v59;
+            v15 = v57;
+            v13 = v58;
             v19 = context;
           }
 
@@ -543,15 +520,15 @@ LABEL_22:
             v19 = context;
             if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_FAULT))
             {
-              *buf = v54;
-              *v79 = v63;
+              *buf = v53;
+              *v78 = v62;
               _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "Trend configuration '%@' has an invalid CLIP asset filter, disabling", buf, 0xCu);
             }
           }
 
-          featureLabel = v63;
+          featureLabel = v62;
           v9 = 0x277CBE000;
-          v10 = v60;
+          v10 = v59;
           goto LABEL_36;
         }
 
@@ -564,16 +541,16 @@ LABEL_22:
 
 LABEL_32:
         v19 = context;
-        featureLabel = v63;
+        featureLabel = v62;
 LABEL_36:
 
-        v22 = v64;
+        v22 = v63;
 LABEL_37:
 
         objc_autoreleasePoolPop(v19);
         if (++v17 == v13)
         {
-          v13 = [v10 countByEnumeratingWithState:&v69 objects:v77 count:16];
+          v13 = [v10 countByEnumeratingWithState:&v68 objects:v76 count:16];
           if (v13)
           {
             goto LABEL_4;
@@ -583,41 +560,41 @@ LABEL_37:
         }
       }
 
-      v67 = 0u;
-      v68 = 0u;
-      v65 = 0u;
       v66 = 0u;
-      v28 = v64;
-      v29 = [v28 countByEnumeratingWithState:&v65 objects:v76 count:16];
+      v67 = 0u;
+      v64 = 0u;
+      v65 = 0u;
+      v28 = v63;
+      v29 = [v28 countByEnumeratingWithState:&v64 objects:v75 count:16];
       if (v29)
       {
         v30 = v29;
-        v31 = *v66;
+        v31 = *v65;
         while (2)
         {
           for (i = 0; i != v30; ++i)
           {
-            if (*v66 != v31)
+            if (*v65 != v31)
             {
               objc_enumerationMutation(v28);
             }
 
-            v33 = *(*(&v65 + 1) + 8 * i);
-            v34 = [MEMORY[0x277D3CAB0] encodeText:v33 textEncoder:{self->_CLIPTextEncoder, v54}];
+            v33 = *(*(&v64 + 1) + 8 * i);
+            v34 = [MEMORY[0x277D3CAB0] encodeText:v33 textEncoder:{self->_CLIPTextEncoder, v53}];
             if (!v34)
             {
               v46 = self->_loggingConnection;
               if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
               {
-                *buf = v54;
-                *v79 = v33;
+                *buf = v53;
+                *v78 = v33;
                 _os_log_error_impl(&dword_22F0FC000, v46, OS_LOG_TYPE_ERROR, "[PGMomentFeatureSpecificationFactory] CLIP text encoder failed for text query %@", buf, 0xCu);
               }
 
-              v13 = v59;
-              v10 = v60;
+              v13 = v58;
+              v10 = v59;
               v9 = 0x277CBE000;
-              v15 = v58;
+              v15 = v57;
               goto LABEL_32;
             }
 
@@ -625,7 +602,7 @@ LABEL_37:
             [v23 addObject:v34];
           }
 
-          v30 = [v28 countByEnumeratingWithState:&v65 objects:v76 count:16];
+          v30 = [v28 countByEnumeratingWithState:&v64 objects:v75 count:16];
           if (v30)
           {
             continue;
@@ -634,9 +611,9 @@ LABEL_37:
           break;
         }
 
-        v13 = v59;
-        v10 = v60;
-        v15 = v58;
+        v13 = v58;
+        v10 = v59;
+        v15 = v57;
       }
 
       v27 = 0x27887A000uLL;
@@ -645,9 +622,9 @@ LABEL_37:
 
 LABEL_39:
 
-    v49 = v56;
-    v50 = v56;
-    configurationsCopy = v55;
+    v49 = v55;
+    v50 = v55;
+    configurationsCopy = v54;
 LABEL_49:
   }
 
@@ -663,16 +640,14 @@ LABEL_49:
     if ([progressCopy isCancelledWithProgress:1.0] && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      *v79 = 406;
-      *&v79[4] = 2080;
-      *&v79[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGMomentFeatureSpecificationFactory.m";
+      *v78 = 406;
+      *&v78[4] = 2080;
+      *&v78[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGMomentFeatureSpecificationFactory.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
     v50 = 0;
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 
   return v50;
 }
@@ -732,7 +707,7 @@ LABEL_49:
 
 void __93__PGMomentFeatureSpecificationFactory__performRetrievalSearchWithQueries_retrievalThreshold___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   if (v6)
@@ -756,55 +731,53 @@ void __93__PGMomentFeatureSpecificationFactory__performRetrievalSearchWithQuerie
     v10 = *(*(a1 + 32) + 24);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412546;
-      v13 = v9;
-      v14 = 2112;
-      v15 = v7;
-      _os_log_error_impl(&dword_22F0FC000, v10, OS_LOG_TYPE_ERROR, "[PGMomentFeatureSpecificationFactory] Embedding query retrieval for CLIP Trend Memory (%@ threshold) failed with error %@", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = v9;
+      v13 = 2112;
+      v14 = v7;
+      _os_log_error_impl(&dword_22F0FC000, v10, OS_LOG_TYPE_ERROR, "[PGMomentFeatureSpecificationFactory] Embedding query retrieval for CLIP Trend Memory (%@ threshold) failed with error %@", &v11, 0x16u);
     }
   }
 
   dispatch_group_leave(*(a1 + 40));
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_unifiedSearchTrendsFeatureSpecificationsForTrendsConfigurations:(id)configurations withProgress:(id)progress
 {
-  v104 = *MEMORY[0x277D85DE8];
+  v103 = *MEMORY[0x277D85DE8];
   configurationsCopy = configurations;
   progressCopy = progress;
   v8 = [configurationsCopy count];
   if (v8)
   {
-    v78 = v8;
+    v77 = v8;
     selfCopy = self;
-    v70 = progressCopy;
-    v71 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v69 = progressCopy;
+    v70 = objc_alloc_init(MEMORY[0x277CBEB18]);
     array = [MEMORY[0x277CBEB18] array];
     array2 = [MEMORY[0x277CBEB18] array];
+    v91 = 0u;
     v92 = 0u;
     v93 = 0u;
     v94 = 0u;
-    v95 = 0u;
-    v69 = configurationsCopy;
+    v68 = configurationsCopy;
     v10 = configurationsCopy;
-    v11 = [v10 countByEnumeratingWithState:&v92 objects:v103 count:16];
-    v81 = array;
+    v11 = [v10 countByEnumeratingWithState:&v91 objects:v102 count:16];
+    v80 = array;
     if (v11)
     {
       v12 = v11;
-      v13 = *v93;
+      v13 = *v92;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v93 != v13)
+          if (*v92 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v92 + 1) + 8 * i);
+          v15 = *(*(&v91 + 1) + 8 * i);
           v16 = +[PGUserDefaults retrievalThresholdForCLIPTrendsMemories];
           if (v16 == 2)
           {
@@ -846,19 +819,19 @@ void __93__PGMomentFeatureSpecificationFactory__performRetrievalSearchWithQuerie
             v23 = loggingConnection;
             featureLabel = [v15 featureLabel];
             *buf = 138412546;
-            *v102 = v17;
-            *&v102[8] = 2112;
-            *&v102[10] = featureLabel;
+            *v101 = v17;
+            *&v101[8] = 2112;
+            *&v101[10] = featureLabel;
             _os_log_debug_impl(&dword_22F0FC000, v23, OS_LOG_TYPE_DEBUG, "[PGMomentFeatureSpecificationFactory] Using %@ retrieval threshold for %@ trend.", buf, 0x16u);
 
-            array = v81;
+            array = v80;
           }
 
           positiveQueries = [v15 positiveQueries];
           [v20 addObjectsFromArray:positiveQueries];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v92 objects:v103 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v91 objects:v102 count:16];
       }
 
       while (v12);
@@ -871,77 +844,77 @@ void __93__PGMomentFeatureSpecificationFactory__performRetrievalSearchWithQuerie
       [dictionary addEntriesFromDictionary:v26];
     }
 
-    v27 = [(PGMomentFeatureSpecificationFactory *)selfCopy _performRetrievalSearchWithQueries:v81 retrievalThreshold:0];
+    v27 = [(PGMomentFeatureSpecificationFactory *)selfCopy _performRetrievalSearchWithQueries:v80 retrievalThreshold:0];
     if (v27)
     {
       [dictionary addEntriesFromDictionary:v27];
     }
 
-    progressCopy = v70;
+    progressCopy = v69;
     if ([dictionary count])
     {
-      v67 = v27;
-      v68 = v26;
-      v90 = 0u;
-      v91 = 0u;
-      v88 = 0u;
+      v66 = v27;
+      v67 = v26;
       v89 = 0u;
+      v90 = 0u;
+      v87 = 0u;
+      v88 = 0u;
       obj = v10;
-      v28 = [obj countByEnumeratingWithState:&v88 objects:v100 count:16];
+      v28 = [obj countByEnumeratingWithState:&v87 objects:v99 count:16];
       if (v28)
       {
         v30 = v28;
-        v77 = 0;
-        v31 = 1.0 / v78;
-        v32 = *v89;
+        v76 = 0;
+        v31 = 1.0 / v77;
+        v32 = *v88;
         v33 = 0.0;
         *&v29 = 138412290;
-        v66 = v29;
-        v72 = *v89;
+        v65 = v29;
+        v71 = *v88;
 LABEL_27:
         v34 = 0;
-        v73 = v30;
+        v72 = v30;
         while (1)
         {
-          if (*v89 != v32)
+          if (*v88 != v32)
           {
             objc_enumerationMutation(obj);
           }
 
-          v35 = *(*(&v88 + 1) + 8 * v34);
+          v35 = *(*(&v87 + 1) + 8 * v34);
           v36 = objc_autoreleasePoolPush();
           featureLabel2 = [v35 featureLabel];
           positiveQueries2 = [v35 positiveQueries];
           v39 = positiveQueries2;
           if (featureLabel2 && [positiveQueries2 count])
           {
-            v79 = featureLabel2;
+            v78 = featureLabel2;
             context = v36;
             v40 = objc_alloc_init(MEMORY[0x277CBEB58]);
+            v83 = 0u;
             v84 = 0u;
             v85 = 0u;
             v86 = 0u;
-            v87 = 0u;
             v39 = v39;
-            v41 = [v39 countByEnumeratingWithState:&v84 objects:v99 count:16];
+            v41 = [v39 countByEnumeratingWithState:&v83 objects:v98 count:16];
             if (v41)
             {
               v42 = v41;
-              v43 = *v85;
+              v43 = *v84;
               do
               {
                 for (j = 0; j != v42; ++j)
                 {
-                  if (*v85 != v43)
+                  if (*v84 != v43)
                   {
                     objc_enumerationMutation(v39);
                   }
 
-                  v45 = [dictionary objectForKeyedSubscript:{*(*(&v84 + 1) + 8 * j), v66}];
+                  v45 = [dictionary objectForKeyedSubscript:{*(*(&v83 + 1) + 8 * j), v65}];
                   [v40 addObjectsFromArray:v45];
                 }
 
-                v42 = [v39 countByEnumeratingWithState:&v84 objects:v99 count:16];
+                v42 = [v39 countByEnumeratingWithState:&v83 objects:v98 count:16];
               }
 
               while (v42);
@@ -954,41 +927,41 @@ LABEL_27:
               v48 = [(PGMomentFeatureSpecificationFactory *)selfCopy _generateSceneAssetFilterForTrendsConfiguration:v35];
               v49 = [PGAssetCollectionFeatureDefinition alloc];
               v50 = +[PGAllowlistAssetFilter name];
-              v97[0] = v50;
-              v75 = v47;
-              v98[0] = v47;
+              v96[0] = v50;
+              v74 = v47;
+              v97[0] = v47;
               v51 = +[PGSceneAssetFilter name];
-              v97[1] = v51;
-              v74 = v48;
-              v98[1] = v48;
-              v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v98 forKeys:v97 count:2];
+              v96[1] = v51;
+              v73 = v48;
+              v97[1] = v48;
+              v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v97 forKeys:v96 count:2];
               v53 = [(PGAssetCollectionFeatureDefinition *)v49 initWithAssetFilterByName:v52];
 
               v54 = v53;
               v55 = [PGAssetCollectionFeatureSpecification alloc];
-              v96 = v54;
-              v56 = [MEMORY[0x277CBEA60] arrayWithObjects:&v96 count:1];
-              v57 = [(PGAssetCollectionFeatureSpecification *)v55 initWithFeatureType:10 featureLabel:v79 featureDefinitions:v56 shouldRunAtMomentIngest:1 shouldCreateFeatureNodeIfNeeded:1];
+              v95 = v54;
+              v56 = [MEMORY[0x277CBEA60] arrayWithObjects:&v95 count:1];
+              v57 = [(PGAssetCollectionFeatureSpecification *)v55 initWithFeatureType:10 featureLabel:v78 featureDefinitions:v56 shouldRunAtMomentIngest:1 shouldCreateFeatureNodeIfNeeded:1];
 
-              v30 = v73;
+              v30 = v72;
               if (v57)
               {
-                [v71 addObject:v57];
+                [v70 addObject:v57];
               }
 
               v33 = v31 + v33;
-              v32 = v72;
+              v32 = v71;
               v58 = MEMORY[0x277D86220];
-              if ((v77 & 1) != 0 || [v70 isCancelledWithProgress:v33])
+              if ((v76 & 1) != 0 || [v69 isCancelledWithProgress:v33])
               {
-                v77 = 1;
+                v76 = 1;
                 if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
                 {
                   *buf = 67109378;
-                  *v102 = 367;
-                  *&v102[4] = 2080;
-                  *&v102[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGMomentFeatureSpecificationFactory.m";
-                  v77 = 1;
+                  *v101 = 367;
+                  *&v101[4] = 2080;
+                  *&v101[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGMomentFeatureSpecificationFactory.m";
+                  v76 = 1;
                   _os_log_impl(&dword_22F0FC000, v58, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                 }
 
@@ -997,7 +970,7 @@ LABEL_27:
 
               else
               {
-                v77 = 0;
+                v76 = 0;
                 v59 = 1;
               }
 
@@ -1006,7 +979,7 @@ LABEL_27:
               {
 
                 v62 = 0;
-                v61 = v71;
+                v61 = v70;
                 goto LABEL_64;
               }
 
@@ -1014,16 +987,16 @@ LABEL_27:
             }
 
             v60 = selfCopy->_loggingConnection;
-            v30 = v73;
-            featureLabel2 = v79;
+            v30 = v72;
+            featureLabel2 = v78;
             if (os_log_type_enabled(v60, OS_LOG_TYPE_FAULT))
             {
-              *buf = v66;
-              *v102 = v79;
+              *buf = v65;
+              *v101 = v78;
               _os_log_fault_impl(&dword_22F0FC000, v60, OS_LOG_TYPE_FAULT, "Trend configuration '%@' has an invalid allowlist asset filter, disabling", buf, 0xCu);
             }
 
-            v32 = v72;
+            v32 = v71;
             v36 = context;
           }
 
@@ -1031,7 +1004,7 @@ LABEL_27:
 LABEL_53:
           if (++v34 == v30)
           {
-            v30 = [obj countByEnumeratingWithState:&v88 objects:v100 count:16];
+            v30 = [obj countByEnumeratingWithState:&v87 objects:v99 count:16];
             if (v30)
             {
               goto LABEL_27;
@@ -1042,21 +1015,21 @@ LABEL_53:
         }
       }
 
-      v61 = v71;
-      v62 = v71;
+      v61 = v70;
+      v62 = v70;
 LABEL_64:
-      v27 = v67;
-      v26 = v68;
-      progressCopy = v70;
+      v27 = v66;
+      v26 = v67;
+      progressCopy = v69;
     }
 
     else
     {
-      v61 = v71;
-      v62 = v71;
+      v61 = v70;
+      v62 = v70;
     }
 
-    configurationsCopy = v69;
+    configurationsCopy = v68;
   }
 
   else
@@ -1071,23 +1044,21 @@ LABEL_64:
     if ([progressCopy isCancelledWithProgress:1.0] && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      *v102 = 291;
-      *&v102[4] = 2080;
-      *&v102[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGMomentFeatureSpecificationFactory.m";
+      *v101 = 291;
+      *&v101[4] = 2080;
+      *&v101[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGMomentFeatureSpecificationFactory.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
     v62 = 0;
   }
 
-  v64 = *MEMORY[0x277D85DE8];
-
   return v62;
 }
 
 - (id)_CLIPTrendsSpecificationsWithProgress:(id)progress
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   progressCopy = progress;
   if ([progressCopy isCancelledWithProgress:0.0])
   {
@@ -1099,9 +1070,9 @@ LABEL_5:
     }
 
     *buf = 67109378;
-    *v28 = 257;
-    *&v28[4] = 2080;
-    *&v28[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGMomentFeatureSpecificationFactory.m";
+    *v27 = 257;
+    *&v27[4] = 2080;
+    *&v27[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGMomentFeatureSpecificationFactory.m";
     v5 = MEMORY[0x277D86220];
     v6 = "Cancelled at line %d in file %s";
     v7 = 18;
@@ -1127,11 +1098,11 @@ LABEL_4:
 
   if (![(PGMomentFeatureSpecificationFactory *)self _isUnifiedEmbeddingModelAvailable]&& !self->_CLIPTextEncoder)
   {
-    v25 = self->_loggingConnection;
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v24 = self->_loggingConnection;
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_22F0FC000, v25, OS_LOG_TYPE_ERROR, "[PGMomentFeatureSpecificationFactory] No CLIP v3.1 text encoder available to generate CLIP Trends memory.", buf, 2u);
+      _os_log_error_impl(&dword_22F0FC000, v24, OS_LOG_TYPE_ERROR, "[PGMomentFeatureSpecificationFactory] No CLIP v3.1 text encoder available to generate CLIP Trends memory.", buf, 2u);
     }
 
     goto LABEL_5;
@@ -1144,9 +1115,9 @@ LABEL_4:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      *v28 = 271;
-      *&v28[4] = 2080;
-      *&v28[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGMomentFeatureSpecificationFactory.m";
+      *v27 = 271;
+      *&v27[4] = 2080;
+      *&v27[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGMomentFeatureSpecificationFactory.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -1192,9 +1163,9 @@ LABEL_4:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      *v28 = "CLIPTrendsMomentFeatureSpecifications";
-      *&v28[8] = 2048;
-      *&v28[10] = ((((v18 - v15) * numer) / denom) / 1000000.0);
+      *v27 = "CLIPTrendsMomentFeatureSpecifications";
+      *&v27[8] = 2048;
+      *&v27[10] = ((((v18 - v15) * numer) / denom) / 1000000.0);
       _os_log_impl(&dword_22F0FC000, v22, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
     }
 
@@ -1203,9 +1174,9 @@ LABEL_4:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        *v28 = 282;
-        *&v28[4] = 2080;
-        *&v28[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGMomentFeatureSpecificationFactory.m";
+        *v27 = 282;
+        *&v27[4] = 2080;
+        *&v27[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGMomentFeatureSpecificationFactory.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -1219,35 +1190,34 @@ LABEL_4:
   }
 
 LABEL_34:
-  v23 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)_trendsSpecifications
 {
-  v54 = *MEMORY[0x277D85DE8];
-  v39 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v53 = *MEMORY[0x277D85DE8];
+  v38 = objc_alloc_init(MEMORY[0x277CBEB18]);
   +[PGTrendsMemoryGenerator trendsConfigurations];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
-  obj = v47 = 0u;
-  v41 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
-  if (v41)
+  obj = v46 = 0u;
+  v40 = [obj countByEnumeratingWithState:&v43 objects:v52 count:16];
+  if (v40)
   {
-    v40 = *v45;
+    v39 = *v44;
     v2 = off_27887B000;
     do
     {
-      for (i = 0; i != v41; ++i)
+      for (i = 0; i != v40; ++i)
       {
-        if (*v45 != v40)
+        if (*v44 != v39)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v44 + 1) + 8 * i);
+        v4 = *(*(&v43 + 1) + 8 * i);
         featureLabel = [v4 featureLabel];
         positiveScenes = [v4 positiveScenes];
         v7 = positiveScenes;
@@ -1320,25 +1290,25 @@ LABEL_34:
 
         v26 = v25;
 
-        v43 = v22;
+        v42 = v22;
         v27 = [objc_alloc(v2[467]) initWithPositiveScenes:v10 positiveSceneCustomSignalModelBlock:&__block_literal_global_49722 secondaryPositiveScenes:v14 positiveDominantScenes:v18 positiveDominantSceneCustomSignalModelBlock:&__block_literal_global_49722 positiveSemDevScenes:v22 negativeScenes:v26 sceneTaxonomy:self->_sceneTaxonomy];
 
         if (v27)
         {
           v28 = [PGAssetCollectionFeatureDefinition alloc];
           name = [(__objc2_class *)v2[467] name];
-          v49 = name;
-          v50 = v27;
-          v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+          v48 = name;
+          v49 = v27;
+          v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
           v31 = [(PGAssetCollectionFeatureDefinition *)v28 initWithAssetFilterByName:v30];
 
           v32 = [PGAssetCollectionFeatureSpecification alloc];
-          v48 = v31;
-          v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
+          v47 = v31;
+          v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
           v34 = [(PGAssetCollectionFeatureSpecification *)v32 initWithFeatureType:9 featureLabel:featureLabel featureDefinitions:v33 shouldRunAtMomentIngest:1 shouldCreateFeatureNodeIfNeeded:1];
 
           v2 = off_27887B000;
-          [v39 addObject:v34];
+          [v38 addObject:v34];
         }
 
         else
@@ -1347,21 +1317,19 @@ LABEL_34:
           if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412290;
-            v52 = featureLabel;
+            v51 = featureLabel;
             _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "Trend configuration '%@' has an invalid scene asset filter, disabling", buf, 0xCu);
           }
         }
       }
 
-      v41 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
+      v40 = [obj countByEnumeratingWithState:&v43 objects:v52 count:16];
     }
 
-    while (v41);
+    while (v40);
   }
 
-  v36 = *MEMORY[0x277D85DE8];
-
-  return v39;
+  return v38;
 }
 
 - (id)specificationsForFeatureType:(unint64_t)type progressReporter:(id)reporter
@@ -1470,13 +1438,13 @@ LABEL_23:
 
 - (PGMomentFeatureSpecificationFactory)initWithSceneTaxonomy:(id)taxonomy photoLibrary:(id)library loggingConnection:(id)connection
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   taxonomyCopy = taxonomy;
   libraryCopy = library;
   connectionCopy = connection;
-  v30.receiver = self;
-  v30.super_class = PGMomentFeatureSpecificationFactory;
-  v12 = [(PGMomentFeatureSpecificationFactory *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = PGMomentFeatureSpecificationFactory;
+  v12 = [(PGMomentFeatureSpecificationFactory *)&v29 init];
   v13 = v12;
   if (!v12)
   {
@@ -1488,9 +1456,9 @@ LABEL_23:
   objc_storeStrong(&v13->_loggingConnection, connection);
   if (![(PGMomentFeatureSpecificationFactory *)v13 _isUnifiedEmbeddingModelAvailable])
   {
-    v29 = 0;
-    v18 = [MEMORY[0x277D014C0] CLIPTextEncoderV3ConfigurationForRevision:objc_msgSend(MEMORY[0x277D3CAB0] error:{"requiredCSUCLIPTextEncoderRevision"), &v29}];
-    v19 = v29;
+    v28 = 0;
+    v18 = [MEMORY[0x277D014C0] CLIPTextEncoderV3ConfigurationForRevision:objc_msgSend(MEMORY[0x277D3CAB0] error:{"requiredCSUCLIPTextEncoderRevision"), &v28}];
+    v19 = v28;
     if (v18)
     {
       v20 = [objc_alloc(MEMORY[0x277D014B8]) initWithConfiguration:v18];
@@ -1531,7 +1499,7 @@ LABEL_16:
       }
 
       *buf = 138412290;
-      v32 = v19;
+      v31 = v19;
       v24 = "[PGMomentFeatureSpecificationFactory] CLIP model CSUCLIPTextEncoderV3Configuration creation failed with error %@";
       v25 = v23;
       v26 = 12;
@@ -1570,7 +1538,6 @@ LABEL_12:
 
 LABEL_17:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

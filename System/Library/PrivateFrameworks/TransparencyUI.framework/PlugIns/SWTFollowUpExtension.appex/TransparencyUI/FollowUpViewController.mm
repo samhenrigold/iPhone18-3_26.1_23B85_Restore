@@ -12,15 +12,14 @@
 {
   v3 = sub_100003914();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  __chkstk_darwin();
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v3);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100003904();
-  (*(v4 + 32))(self + OBJC_IVAR____TtC20SWTFollowUpExtension22FollowUpViewController_log, v7, v3);
-  v8 = type metadata accessor for FollowUpViewController();
-  v10.receiver = self;
-  v10.super_class = v8;
-  return [(FollowUpViewController *)&v10 initWithNibName:0 bundle:0];
+  (*(v4 + 32))(self + OBJC_IVAR____TtC20SWTFollowUpExtension22FollowUpViewController_log, v6, v3);
+  v7 = type metadata accessor for FollowUpViewController(0);
+  v9.receiver = self;
+  v9.super_class = v7;
+  return [(FollowUpViewController *)&v9 initWithNibName:0 bundle:0];
 }
 
 - (_TtC20SWTFollowUpExtension22FollowUpViewController)initWithCoder:(id)coder
@@ -33,7 +32,7 @@
 - (void)viewDidLoad
 {
   v2.receiver = self;
-  v2.super_class = type metadata accessor for FollowUpViewController();
+  v2.super_class = type metadata accessor for FollowUpViewController(0);
   [(FollowUpViewController *)&v2 viewDidLoad];
 }
 
@@ -56,7 +55,7 @@
   actionCopy = action;
   selfCopy = self;
   FollowUpViewController.processFollowUpItem(_:selectedAction:completion:)(item, action, v8, v9);
-  sub_100003764(v8);
+  sub_100003764(v8, v9);
 }
 
 - (_TtC20SWTFollowUpExtension22FollowUpViewController)initWithNibName:(id)name bundle:(id)bundle

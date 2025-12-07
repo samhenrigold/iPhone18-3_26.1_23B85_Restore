@@ -72,37 +72,37 @@
   blockCopy = block;
   begin = self->_dataFields.__begin_;
   var0 = self->_dataFields.var0;
-  v10 = self->_dataValues.__begin_;
-  if (var0 - begin != self->_dataValues.var0 - v10)
+  v9 = self->_dataValues.__begin_;
+  if (var0 - begin != self->_dataValues.var0 - v9)
   {
-    v11 = MEMORY[0x277D81150];
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSCEGetPivotDataBundle enumerateDataKeyValuePairsUsingBlock:]", v5, v6);
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEGetPivotDataBundle.mm", v14, v15);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v17, v12, v16, 62, 0, "Size mismatch in data/value pairs");
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSCEGetPivotDataBundle enumerateDataKeyValuePairsUsingBlock:]", v5);
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEGetPivotDataBundle.mm", v13);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v15, v11, v14, 62, 0, "Size mismatch in data/value pairs");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v18, v19, v20, v21);
-    v10 = self->_dataValues.__begin_;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18);
+    v9 = self->_dataValues.__begin_;
     begin = self->_dataFields.__begin_;
     var0 = self->_dataFields.var0;
   }
 
-  v23 = 0;
+  v20 = 0;
   if (begin != var0)
   {
-    v22 = 0;
+    v19 = 0;
     do
     {
-      blockCopy[2](blockCopy, v22, *begin++, *v10, &v23);
+      blockCopy[2](blockCopy, v19, *begin++, *v9, &v20);
       if (begin == self->_dataFields.var0)
       {
         break;
       }
 
-      ++v22;
-      ++v10;
+      ++v19;
+      ++v9;
     }
 
-    while ((v23 & 1) == 0);
+    while ((v20 & 1) == 0);
   }
 }
 

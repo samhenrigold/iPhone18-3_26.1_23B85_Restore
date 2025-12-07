@@ -1,4 +1,5 @@
 @interface AXAuditRemoteDevice
+- (AXAuditRemoteDevice)initWithFileDescriptor:(int)descriptor identifier:(id)identifier deviceSize:(CGSize)size;
 - (AXAuditRemoteDeviceDelegate)delegate;
 - (BOOL)_setupConnectionForFileDescriptor:(int)descriptor;
 - (CGSize)deviceSize;
@@ -14,6 +15,44 @@
 @end
 
 @implementation AXAuditRemoteDevice
+
+- (AXAuditRemoteDevice)initWithFileDescriptor:(int)descriptor identifier:(id)identifier deviceSize:(CGSize)size
+{
+  height = size.height;
+  width = size.width;
+  v8 = *&descriptor;
+  identifierCopy = identifier;
+  v15.receiver = self;
+  v15.super_class = AXAuditRemoteDevice;
+  v11 = [(AXAuditRemoteDevice *)&v15 init];
+  if (v11)
+  {
+    v12 = objc_opt_new();
+    byteFormatter = v11->_byteFormatter;
+    v11->_byteFormatter = v12;
+
+    objc_storeStrong(&v11->_deviceID, identifier);
+    v11->_deviceSize.width = width;
+    v11->_deviceSize.height = height;
+    v11->_deviceOrientation = 1;
+    if ([(AXAuditRemoteDevice *)v11 _setupConnectionForFileDescriptor:v8])
+    {
+      [(AXAuditRemoteDevice *)v11 completeConnection];
+    }
+
+    else
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        [AXAuditRemoteDevice initWithFileDescriptor:identifier:deviceSize:];
+      }
+
+      v11 = 0;
+    }
+  }
+
+  return v11;
+}
 
 - (void)notifyDelegateOfConnectionCompletionIfNecessary
 {
@@ -35,31 +74,29 @@
 
 - (void)didDisconnect
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[AXAuditRemoteDevice didDisconnect]";
-    _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AXAuditRemoteDevice didDisconnect]";
+    _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s", &v4, 0xCu);
   }
 
   connection = [(AXAuditRemoteDevice *)self connection];
   [connection setDispatchTarget:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_setupConnectionForFileDescriptor:(int)descriptor
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = dup(descriptor);
   v5 = objc_alloc(MEMORY[0x277D03680]);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __57__AXAuditRemoteDevice__setupConnectionForFileDescriptor___block_invoke;
-  v10[3] = &__block_descriptor_36_e5_v8__0l;
-  v11 = v4;
-  v6 = [v5 initWithConnectedSocket:v4 disconnectAction:v10];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __57__AXAuditRemoteDevice__setupConnectionForFileDescriptor___block_invoke;
+  v9[3] = &__block_descriptor_36_e5_v8__0l;
+  v10 = v4;
+  v6 = [v5 initWithConnectedSocket:v4 disconnectAction:v9];
   v7 = [objc_alloc(MEMORY[0x277D03650]) initWithTransport:v6];
   [v7 setMaximumEnqueueSize:0x4000000];
   [v7 resume];
@@ -68,11 +105,10 @@
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v13 = "[AXAuditRemoteDevice _setupConnectionForFileDescriptor:]";
+    v12 = "[AXAuditRemoteDevice _setupConnectionForFileDescriptor:]";
     _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7 != 0;
 }
 
@@ -311,56 +347,31 @@ void __51__AXAuditRemoteDevice_processDataFromRemoteDevice___block_invoke(uint64
   return result;
 }
 
-- (void)initWithFileDescriptor:identifier:deviceSize:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __41__AXAuditRemoteDevice_startAccessibility__block_invoke_2_cold_1(id *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [*a1 errorStatus];
   v2 = [*a1 error];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x1Cu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __40__AXAuditRemoteDevice_stopAccessibility__block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 errorStatus];
   v2 = [a1 error];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x1Cu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __46__AXAuditRemoteDevice_requestDeviceAPIVersion__block_invoke_2_cold_1(id *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [*a1 errorStatus];
   v2 = [*a1 error];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x1Cu);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)processDataFromRemoteDevice:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

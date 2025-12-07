@@ -12,13 +12,13 @@
 
 - (RTElevation)initWithElevation:(double)elevation dateInterval:(id)interval elevationUncertainty:(double)uncertainty estimationStatus:(int64_t)status
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   intervalCopy = interval;
   if (intervalCopy)
   {
-    v22.receiver = self;
-    v22.super_class = RTElevation;
-    v11 = [(RTElevation *)&v22 init];
+    v21.receiver = self;
+    v21.super_class = RTElevation;
+    v11 = [(RTElevation *)&v21 init];
     v12 = v11;
     if (v11)
     {
@@ -41,7 +41,7 @@
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v24 = v12;
+        v23 = v12;
         _os_log_debug_impl(&dword_1BF1C4000, v17, OS_LOG_TYPE_DEBUG, "elevation, %@", buf, 0xCu);
       }
     }
@@ -62,7 +62,6 @@
     selfCopy = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

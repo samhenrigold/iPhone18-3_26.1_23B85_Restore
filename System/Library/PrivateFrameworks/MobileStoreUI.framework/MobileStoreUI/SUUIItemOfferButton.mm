@@ -240,7 +240,7 @@
   titleCopy = title;
   confirmationTitle = [(SUUIItemOfferButton *)self confirmationTitle];
   v6 = confirmationTitle;
-  if (confirmationTitle != titleCopy && ([confirmationTitle isEqualToString:titleCopy] & 1) == 0)
+  if (confirmationTitle != titleCopy && (objc_msgSend_isEqualToString_(confirmationTitle) & 1) == 0)
   {
     if (titleCopy)
     {
@@ -404,31 +404,31 @@
   }
 }
 
-uint64_t __48__SUUIItemOfferButton_setProgressType_animated___block_invoke(uint64_t result, int a2)
+id *__48__SUUIItemOfferButton_setProgressType_animated___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _reloadForCurrentState:0];
+    return [result[4] _reloadForCurrentState:0];
   }
 
   return result;
 }
 
-uint64_t __48__SUUIItemOfferButton_setProgressType_animated___block_invoke_2(uint64_t result, int a2)
+id *__48__SUUIItemOfferButton_setProgressType_animated___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _reloadForCurrentState:0];
+    return [result[4] _reloadForCurrentState:0];
   }
 
   return result;
 }
 
-uint64_t __48__SUUIItemOfferButton_setProgressType_animated___block_invoke_3(uint64_t result, int a2)
+id *__48__SUUIItemOfferButton_setProgressType_animated___block_invoke_3(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _reloadForCurrentState:0];
+    return [result[4] _reloadForCurrentState:0];
   }
 
   return result;
@@ -475,11 +475,11 @@ uint64_t __48__SUUIItemOfferButton_setProgressType_animated___block_invoke_3(uin
   }
 }
 
-uint64_t __55__SUUIItemOfferButton_setShowingConfirmation_animated___block_invoke(uint64_t result, int a2)
+id *__55__SUUIItemOfferButton_setShowingConfirmation_animated___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _reloadForCurrentState:0];
+    return [result[4] _reloadForCurrentState:0];
   }
 
   return result;
@@ -490,7 +490,7 @@ uint64_t __55__SUUIItemOfferButton_setShowingConfirmation_animated___block_invok
   titleCopy = title;
   title = [(SUUIItemOfferButton *)self title];
   v6 = title;
-  if (title != titleCopy && ([title isEqualToString:titleCopy] & 1) == 0)
+  if (title != titleCopy && (objc_msgSend_isEqualToString_(title) & 1) == 0)
   {
     if (titleCopy)
     {
@@ -1420,41 +1420,41 @@ LABEL_16:
   }
 }
 
-uint64_t __47__SUUIItemOfferButton_cancelTrackingWithEvent___block_invoke(uint64_t result, int a2)
+id *__47__SUUIItemOfferButton_cancelTrackingWithEvent___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _reloadForCurrentState:0];
+    return [result[4] _reloadForCurrentState:0];
   }
 
   return result;
 }
 
-uint64_t __47__SUUIItemOfferButton_cancelTrackingWithEvent___block_invoke_2(uint64_t result, int a2)
+id *__47__SUUIItemOfferButton_cancelTrackingWithEvent___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _reloadForCurrentState:0];
+    return [result[4] _reloadForCurrentState:0];
   }
 
   return result;
 }
 
-uint64_t __47__SUUIItemOfferButton_cancelTrackingWithEvent___block_invoke_3(uint64_t result, int a2)
+id *__47__SUUIItemOfferButton_cancelTrackingWithEvent___block_invoke_3(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _reloadForCurrentState:0];
+    return [result[4] _reloadForCurrentState:0];
   }
 
   return result;
 }
 
-uint64_t __47__SUUIItemOfferButton_cancelTrackingWithEvent___block_invoke_4(uint64_t result, int a2)
+id *__47__SUUIItemOfferButton_cancelTrackingWithEvent___block_invoke_4(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _reloadForCurrentState:0];
+    return [result[4] _reloadForCurrentState:0];
   }
 
   return result;
@@ -1565,11 +1565,11 @@ uint64_t __47__SUUIItemOfferButton_cancelTrackingWithEvent___block_invoke_4(uint
   }
 }
 
-uint64_t __54__SUUIItemOfferButton_endTrackingWithTouch_withEvent___block_invoke(uint64_t result, int a2)
+id *__54__SUUIItemOfferButton_endTrackingWithTouch_withEvent___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _reloadForCurrentState:0];
+    return [result[4] _reloadForCurrentState:0];
   }
 
   return result;
@@ -2107,7 +2107,7 @@ LABEL_33:
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
     bundleIdentifier = [mainBundle bundleIdentifier];
 
-    v6 = [bundleIdentifier isEqualToString:@"com.apple.MobileSMS"] ^ 1;
+    v6 = objc_msgSend_isEqualToString_(bundleIdentifier) ^ 1;
   }
 
   return v6;

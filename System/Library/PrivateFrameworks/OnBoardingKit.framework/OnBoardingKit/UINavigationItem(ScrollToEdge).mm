@@ -1,10 +1,10 @@
 @interface UINavigationItem(ScrollToEdge)
-- (uint64_t)ob_applyAutomaticScrollToEdgeBehaviorWithDistance:()ScrollToEdge;
+- (void)ob_applyAutomaticScrollToEdgeBehaviorWithDistance:()ScrollToEdge;
 @end
 
 @implementation UINavigationItem(ScrollToEdge)
 
-- (uint64_t)ob_applyAutomaticScrollToEdgeBehaviorWithDistance:()ScrollToEdge
+- (void)ob_applyAutomaticScrollToEdgeBehaviorWithDistance:()ScrollToEdge
 {
   result = [self _isManualScrollEdgeAppearanceEnabled];
   if ((result & 1) == 0)

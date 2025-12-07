@@ -20,7 +20,7 @@
 
 - (void)setScreenPotentialHeadroom:(double)headroom
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = type metadata accessor for TaskPriority();
@@ -43,7 +43,7 @@
 
 - (void)setEnableUndo:(BOOL)undo
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = type metadata accessor for TaskPriority();
@@ -72,7 +72,7 @@
 
 - (void)insertNewLineWithLineStartMarker:(BOOL)marker lineEndMarker:(BOOL)endMarker
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v16 - v8;
   v10 = type metadata accessor for TaskPriority();
@@ -96,7 +96,7 @@
 
 - (void)insertNewTextbox
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v12 - v4;
   v6 = type metadata accessor for TaskPriority();
@@ -122,7 +122,7 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v10 - 8);
   v12 = &v19 - v11;
   v13 = type metadata accessor for TaskPriority();
@@ -149,7 +149,7 @@
 
 - (void)setZoomRangeWithMin:(double)min max:(double)max
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v16 - v8;
   v10 = type metadata accessor for TaskPriority();
@@ -173,7 +173,7 @@
 
 - (void)xpc_receiveMulticastData:(id)data
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v18 - v6;
   dataCopy = data;
@@ -238,14 +238,14 @@
 {
   swift_getKeyPath();
   selfCopy = self;
-  _s8PaperKit0A20MarkupViewControllerCAC11Observation10ObservableAAWlTm_0(&lazy protocol witness table cache variable for type PaperMarkupViewController and conformance PaperMarkupViewController, 255, type metadata accessor for PaperMarkupViewController);
+  _s8PaperKit0A20MarkupViewControllerCAC11Observation10ObservableAAWlTm_0(&lazy protocol witness table cache variable for type PaperMarkupViewController and conformance PaperMarkupViewController, 255, type metadata accessor for PaperMarkupViewController, &protocol conformance descriptor for PaperMarkupViewController);
   selfCopy2 = self;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   if (*(&selfCopy2->super.super.super.isa + OBJC_IVAR____TtC8PaperKit25PaperMarkupViewController__undoIsEnabled) == 1)
   {
     v6.receiver = selfCopy2;
-    v6.super_class = type metadata accessor for PaperMarkupViewController();
+    v6.super_class = type metadata accessor for PaperMarkupViewController(0);
     undoManager = [(PaperMarkupViewController *)&v6 undoManager];
   }
 

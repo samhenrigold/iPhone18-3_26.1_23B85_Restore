@@ -26,7 +26,7 @@
 - (void)scene:(id)scene openURLContexts:(id)contexts
 {
   sub_100007AA8();
-  sub_1000096E4(&qword_10001D430, sub_100007AA8);
+  sub_1000096E4(&qword_10001D430, sub_100007AA8, &protocol conformance descriptor for NSObject);
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   sceneCopy = scene;
   selfCopy = self;

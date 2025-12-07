@@ -263,9 +263,9 @@ void sub_100003264(uint64_t a1, int a2, void *a3)
   [*(a1 + 32) finishProcessing];
 }
 
-void sub_100003808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100003808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -313,9 +313,9 @@ void sub_100003964(uint64_t a1)
     [v3 setFollowUpType:v4];
 
     v5 = [v2 cdpStateControllerWithContext:v3];
-    v18 = 0;
-    v6 = [v5 shouldPerformRepairWithOptionForceFetch:1 error:&v18];
-    v7 = v18;
+    v17 = 0;
+    v6 = [v5 shouldPerformRepairWithOptionForceFetch:1 error:&v17];
+    v7 = v17;
     v8 = _AAUILogSystem();
     v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     if (v6)
@@ -323,17 +323,17 @@ void sub_100003964(uint64_t a1)
       if (v9)
       {
         *buf = 138477827;
-        v20 = v7;
+        v19 = v7;
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Current state requires repair. Starting repair...: %{private}@", buf, 0xCu);
       }
 
-      v15[0] = _NSConcreteStackBlock;
-      v15[1] = 3221225472;
-      v15[2] = sub_100003C40;
-      v15[3] = &unk_100010558;
-      v16 = *(a1 + 56);
-      v17 = *(a1 + 80);
-      [v5 repairCloudDataProtectionStateWithCompletion:v15];
+      v14[0] = _NSConcreteStackBlock;
+      v14[1] = 3221225472;
+      v14[2] = sub_100003C40;
+      v14[3] = &unk_100010558;
+      v15 = *(a1 + 56);
+      v16 = *(a1 + 80);
+      [v5 repairCloudDataProtectionStateWithCompletion:v14];
     }
 
     else
@@ -342,7 +342,7 @@ void sub_100003964(uint64_t a1)
       {
         v13 = *(a1 + 56);
         *buf = 138477827;
-        v20 = v13;
+        v19 = v13;
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Successfully renewed credentials for account: %{private}@", buf, 0xCu);
       }
 
@@ -355,7 +355,7 @@ void sub_100003964(uint64_t a1)
     v10 = _AAUILogSystem();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_1000089A4(a1);
+      sub_1000089A4();
     }
 
     if (*(a1 + 72))
@@ -372,7 +372,6 @@ void sub_100003964(uint64_t a1)
 
     else
     {
-      v14 = *(a1 + 64);
       v12 = *(*(a1 + 80) + 16);
     }
 
@@ -494,9 +493,9 @@ void sub_100004554(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_10000481C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000481C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -569,9 +568,9 @@ void sub_100004834(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_100004AC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100004AC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -650,8 +649,9 @@ void sub_100004E64(uint64_t a1, int a2)
   }
 }
 
-void sub_100005074(uint64_t a1, int a2, void *a3)
+void sub_100005074(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
   v6 = _AAUILogSystem();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
@@ -659,7 +659,7 @@ void sub_100005074(uint64_t a1, int a2, void *a3)
     sub_100008C7C();
   }
 
-  if (a2)
+  if (v3)
   {
     v8[0] = _NSConcreteStackBlock;
     v8[1] = 3221225472;
@@ -720,7 +720,7 @@ void sub_10000570C(uint64_t a1, uint64_t a2)
   {
     if (v5)
     {
-      sub_100008DBC(a1);
+      sub_100008DBC();
     }
 
     [*(a1 + 40) dismissFollowUpWithIdentifier:*(a1 + 32) completion:&stru_100010708];
@@ -730,7 +730,7 @@ void sub_10000570C(uint64_t a1, uint64_t a2)
   {
     if (v5)
     {
-      sub_100008E34(a1);
+      sub_100008E34();
     }
   }
 }
@@ -803,8 +803,9 @@ LABEL_10:
   [v10 shouldAllowOpForContext:v8 completion:v15];
 }
 
-void sub_100005B04(uint64_t a1, int a2, void *a3)
+void sub_100005B04(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
   v6 = _AAUILogSystem();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
@@ -812,7 +813,7 @@ void sub_100005B04(uint64_t a1, int a2, void *a3)
     sub_100008C7C();
   }
 
-  if (a2)
+  if (v3)
   {
     v7[0] = _NSConcreteStackBlock;
     v7[1] = 3221225472;
@@ -902,7 +903,7 @@ id sub_10000636C(uint64_t a1, uint64_t a2, uint64_t a3)
     v4 = _AAUILogSystem();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_100008F1C(a1);
+      sub_100008F1C();
     }
   }
 
@@ -1160,7 +1161,7 @@ void sub_100007EA8(uint64_t a1, void *a2, void *a3)
     {
       if (v8)
       {
-        sub_1000091D0(a1);
+        sub_1000091D0();
       }
     }
 
@@ -1173,10 +1174,11 @@ void sub_100007EA8(uint64_t a1, void *a2, void *a3)
   (*(*(a1 + 48) + 16))();
 }
 
-void sub_1000085D8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000085D8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void sub_100008628(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -1256,12 +1258,11 @@ void sub_100008968()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1000089A4(uint64_t a1)
+void sub_1000089A4()
 {
-  v1 = *(a1 + 64);
   sub_10000861C();
   sub_1000085C0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_100008A18()
@@ -1306,20 +1307,6 @@ void sub_100008D4C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_100008DBC(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_10000861C();
-  _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "CFU %@ exists. Dismissing...", v3, 0xCu);
-}
-
-void sub_100008E34(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_10000861C();
-  _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "No previous %@ CFU exists. Nothing to dismiss", v3, 0xCu);
-}
-
 void sub_100008EAC()
 {
   sub_1000085F4();
@@ -1327,12 +1314,11 @@ void sub_100008EAC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_100008F1C(uint64_t a1)
+void sub_100008F1C()
 {
-  v1 = *(a1 + 32);
   sub_10000861C();
   sub_1000085C0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_100008F90()
@@ -1384,13 +1370,12 @@ void sub_100009160()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1000091D0(uint64_t a1)
+void sub_1000091D0()
 {
-  v1 = *(a1 + 40);
   sub_10000861C();
-  v5 = 2114;
-  v6 = v2;
-  _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Failed to verify credentials for account %{private}@, error: %{public}@", v4, 0x16u);
+  v3 = 2114;
+  v4 = v0;
+  _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "Failed to verify credentials for account %{private}@, error: %{public}@", v2, 0x16u);
 }
 
 void sub_100009258()

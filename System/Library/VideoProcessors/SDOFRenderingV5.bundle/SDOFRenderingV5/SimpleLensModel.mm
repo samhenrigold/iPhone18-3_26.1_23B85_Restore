@@ -287,67 +287,68 @@ LABEL_6:
   v13 = slmParamsCopy;
   if (!self->_minMaxAtomic_buf)
   {
-    sub_295EB9398(&v23);
+    sub_295EB9398(&v24);
 LABEL_21:
-    v21 = v23;
+    v22 = v24;
     goto LABEL_12;
   }
 
   if (!self->_minMaxResult_buf)
   {
-    sub_295EB92EC(&v23);
+    sub_295EB92EC(&v24);
     goto LABEL_21;
   }
 
   if (!mapCopy)
   {
-    sub_295EB9240(&v23);
+    sub_295EB9240(&v24);
     goto LABEL_21;
   }
 
   if (!slmParamsCopy)
   {
-    sub_295EB9194(&v23);
+    sub_295EB9194(&v24);
     goto LABEL_21;
   }
 
   if (!params)
   {
-    sub_295EB90E8(&v23);
+    sub_295EB90E8(&v24);
     goto LABEL_21;
   }
 
   if (objc_msgSend_pixelFormat(mapCopy, v10, v11, v12) != 25 && objc_msgSend_pixelFormat(mapCopy, v14, v15, v16) != 55)
   {
-    sub_295EB8EA0(&v23);
+    sub_295EB8EA0(&v24);
     goto LABEL_21;
   }
 
   if (objc_msgSend_length(v13, v14, v15, v16) <= 0xF)
   {
-    sub_295EB903C(&v23);
+    sub_295EB903C(&v24);
     goto LABEL_21;
   }
 
   v19 = objc_msgSend_enqueueMinMaxWithInputShiftMapTex_(self, v17, mapCopy, v18);
   if (v19)
   {
-    v21 = v19;
+    v22 = v19;
     sub_295EB8F4C();
   }
 
   else
   {
     v21 = objc_msgSend_enqueueSlmCalcWithInputShiftMap_slmParams_simpleLensParams_(self, v20, mapCopy, v13, params);
+    v22 = v21;
     if (v21)
     {
-      sub_295EB8FC4();
+      sub_295EB8FC4(v21);
     }
   }
 
 LABEL_12:
 
-  return v21;
+  return v22;
 }
 
 @end

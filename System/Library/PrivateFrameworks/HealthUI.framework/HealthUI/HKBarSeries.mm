@@ -449,7 +449,7 @@ LABEL_5:
   v72 = 0u;
   v69 = 0u;
   v70 = 0u;
-  [(HKGraphSeries *)self selectedPathRange];
+  objc_msgSend_selectedPathRange(self);
   v65 = 0;
   v66 = &v65;
   v67 = 0x2020000000;

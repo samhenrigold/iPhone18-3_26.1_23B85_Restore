@@ -18,19 +18,19 @@
     [SKUIVideoViewElement initWithDOMElement:parent:elementFactory:];
   }
 
-  v39.receiver = self;
-  v39.super_class = SKUIVideoViewElement;
-  v11 = [(SKUIViewElement *)&v39 initWithDOMElement:elementCopy parent:parentCopy elementFactory:factoryCopy];
+  v40.receiver = self;
+  v40.super_class = SKUIVideoViewElement;
+  v11 = [(SKUIViewElement *)&v40 initWithDOMElement:elementCopy parent:parentCopy elementFactory:factoryCopy];
   if (v11)
   {
-    v36 = [elementCopy getAttribute:@"playback"];
-    if ([v36 isEqualToString:@"inline"])
+    v37 = [elementCopy getAttribute:@"playback"];
+    if (objc_msgSend_isEqualToString_(v37))
     {
       v11->_playbackStyle = 1;
     }
 
-    v34 = [(SKUIViewElement *)v11 firstChildForElementType:49];
-    if (!v34)
+    v35 = [(SKUIViewElement *)v11 firstChildForElementType:49];
+    if (!v35)
     {
       v12 = objc_opt_class();
       [v12 registerClass:objc_opt_class() forElementName:@"video" elementType:{49, 0}];
@@ -50,7 +50,7 @@
       [v17 registerClass:objc_opt_class() forElementName:@"video" elementType:152];
     }
 
-    v18 = [elementCopy getAttribute:{@"disabled", v34}];
+    v18 = [elementCopy getAttribute:{@"disabled", v35}];
     if ([v18 length])
     {
       v19 = [v18 BOOLValue] ^ 1;
@@ -70,7 +70,7 @@
 
     v21 = [elementCopy getAttribute:@"data-metrics"];
     objc_opt_class();
-    v38 = parentCopy;
+    v39 = parentCopy;
     if (objc_opt_isKindOfClass())
     {
       v22 = v21;
@@ -92,7 +92,7 @@
 
     v26 = 0;
 LABEL_22:
-    v37 = factoryCopy;
+    v38 = factoryCopy;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -106,32 +106,34 @@ LABEL_27:
         if (objc_opt_isKindOfClass())
         {
           v30 = v29;
+          isEqualToString = objc_msgSend_isEqualToString_(v30);
         }
 
         else
         {
           v30 = 0;
+          isEqualToString = objc_msgSend_isEqualToString_(0);
         }
 
-        if ([v30 isEqualToString:@"movie"])
+        if (isEqualToString)
         {
-          v31 = 1;
+          v32 = 1;
         }
 
         else
         {
-          v32 = [v30 isEqualToString:@"tvEpisode"];
-          v31 = 2;
-          if (!v32)
+          v33 = objc_msgSend_isEqualToString_(v30);
+          v32 = 2;
+          if (!v33)
           {
-            v31 = 0;
+            v32 = 0;
           }
         }
 
-        v11->_kind = v31;
+        v11->_kind = v32;
 
-        factoryCopy = v37;
-        parentCopy = v38;
+        factoryCopy = v38;
+        parentCopy = v39;
         goto LABEL_35;
       }
     }

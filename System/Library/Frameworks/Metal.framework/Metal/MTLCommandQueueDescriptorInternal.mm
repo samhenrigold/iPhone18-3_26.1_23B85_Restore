@@ -109,44 +109,42 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v12[22] = *MEMORY[0x1E69E9840];
+  v11[22] = *MEMORY[0x1E69E9840];
   v4 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
-  v12[0] = v4;
-  v12[1] = @"maxCommandBufferCount =";
+  v11[0] = v4;
+  v11[1] = @"maxCommandBufferCount =";
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_maxCommandBufferCount];
   v6 = 0;
-  v12[2] = v5;
-  v12[3] = v4;
-  v12[4] = @"qosLevel =";
+  v11[2] = v5;
+  v11[3] = v4;
+  v11[4] = @"qosLevel =";
   qosLevel = self->_qosLevel;
   if (qosLevel <= 4)
   {
     v6 = *(&off_1E6EED660 + qosLevel);
   }
 
-  v12[5] = v6;
-  v12[6] = v4;
-  v12[7] = [MEMORY[0x1E696AEC0] stringWithFormat:@"commitQueue =%p", self->_commitQueue];
-  v12[8] = v4;
-  v12[9] = @"commitSynchronously =";
-  v12[10] = [MEMORY[0x1E696AD98] numberWithBool:self->_commitSynchronously];
-  v12[11] = v4;
-  v12[12] = [MEMORY[0x1E696AEC0] stringWithFormat:@"completionQueue =%p", self->_completionQueue];
-  v12[13] = v4;
-  v12[14] = @"disableCrossQueueHazardTracking =";
-  v12[15] = [MEMORY[0x1E696AD98] numberWithBool:self->_disableCrossQueueHazardTracking];
-  v12[16] = v4;
-  v12[17] = @"disableAsyncCompletionDispatch =";
-  v12[18] = [MEMORY[0x1E696AD98] numberWithBool:self->_disableAsyncCompletionDispatch];
-  v12[19] = v4;
-  v12[20] = @"lockParameterBufferSizeToMax =";
-  v12[21] = [MEMORY[0x1E696AD98] numberWithBool:self->_lockParameterBufferSizeToMax];
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:22];
-  v11.receiver = self;
-  v11.super_class = MTLCommandQueueDescriptorInternal;
-  result = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", -[MTLCommandQueueDescriptorInternal description](&v11, sel_description), objc_msgSend(v8, "componentsJoinedByString:", @" "];
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  v11[5] = v6;
+  v11[6] = v4;
+  v11[7] = [MEMORY[0x1E696AEC0] stringWithFormat:@"commitQueue =%p", self->_commitQueue];
+  v11[8] = v4;
+  v11[9] = @"commitSynchronously =";
+  v11[10] = [MEMORY[0x1E696AD98] numberWithBool:self->_commitSynchronously];
+  v11[11] = v4;
+  v11[12] = [MEMORY[0x1E696AEC0] stringWithFormat:@"completionQueue =%p", self->_completionQueue];
+  v11[13] = v4;
+  v11[14] = @"disableCrossQueueHazardTracking =";
+  v11[15] = [MEMORY[0x1E696AD98] numberWithBool:self->_disableCrossQueueHazardTracking];
+  v11[16] = v4;
+  v11[17] = @"disableAsyncCompletionDispatch =";
+  v11[18] = [MEMORY[0x1E696AD98] numberWithBool:self->_disableAsyncCompletionDispatch];
+  v11[19] = v4;
+  v11[20] = @"lockParameterBufferSizeToMax =";
+  v11[21] = [MEMORY[0x1E696AD98] numberWithBool:self->_lockParameterBufferSizeToMax];
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:22];
+  v10.receiver = self;
+  v10.super_class = MTLCommandQueueDescriptorInternal;
+  return [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", -[MTLCommandQueueDescriptorInternal description](&v10, sel_description), objc_msgSend(v8, "componentsJoinedByString:", @" "];
 }
 
 @end

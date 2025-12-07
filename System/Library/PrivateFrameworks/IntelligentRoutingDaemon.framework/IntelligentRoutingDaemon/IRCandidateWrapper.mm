@@ -1,5 +1,6 @@
 @interface IRCandidateWrapper
 - (IRCandidateWrapper)initWithCandidate:(id)candidate;
+- (IRCandidateWrapper)initWithCandidate:(id)candidate andDefaultClassification:(int64_t)classification logOrderOfExecution:(BOOL)execution;
 - (IRInspectionOrderOfExectionForCandidate)orderOfExecution;
 - (void)logOrderOfExecution:(int64_t)execution withRuleKey:(id)key ruleType:(id)type;
 - (void)setClassification:(int64_t)classification withDescription:(id)description;
@@ -25,6 +26,30 @@
   }
 
   return v6;
+}
+
+- (IRCandidateWrapper)initWithCandidate:(id)candidate andDefaultClassification:(int64_t)classification logOrderOfExecution:(BOOL)execution
+{
+  executionCopy = execution;
+  candidateCopy = candidate;
+  v14.receiver = self;
+  v14.super_class = IRCandidateWrapper;
+  v9 = [(IRCandidateWrapper *)&v14 init];
+  if (v9)
+  {
+    v10 = [objc_alloc(MEMORY[0x277D21298]) initWithCandidate:candidateCopy classification:classification andClassificationDescription:@"No classification assigned"];
+    [(IRCandidateWrapper *)v9 setCandidateResult:v10];
+
+    v11 = objc_opt_new();
+    [(IRCandidateWrapper *)v9 setRuleInspections:v11];
+
+    v12 = objc_opt_new();
+    [(IRCandidateWrapper *)v9 setInternalOrderOfExecution:v12];
+
+    [(IRCandidateWrapper *)v9 setEnableOrderOfExecutionLogging:executionCopy];
+  }
+
+  return v9;
 }
 
 - (void)setEvaluation:(id)evaluation forRuleKey:(id)key

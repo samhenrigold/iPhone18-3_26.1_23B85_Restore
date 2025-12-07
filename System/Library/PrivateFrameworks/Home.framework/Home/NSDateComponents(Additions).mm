@@ -388,51 +388,51 @@ LABEL_5:
 - (uint64_t)hf_validComponents
 {
   _hf_allPossibleComponents = [objc_opt_class() _hf_allPossibleComponents];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v17 = 0;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v10 = __49__NSDateComponents_Additions__hf_validComponents__block_invoke;
-  v11 = &unk_277DF58C8;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v11 = __49__NSDateComponents_Additions__hf_validComponents__block_invoke;
+  v12 = &unk_277DF58C8;
   selfCopy = self;
-  v13 = &v14;
-  v3 = v9;
+  v14 = &v15;
+  v4 = v10;
   if (_hf_allPossibleComponents)
   {
-    v4 = 0;
-    v18 = 0;
-    v5 = vcnt_s8(_hf_allPossibleComponents);
-    v5.i16[0] = vaddlv_u8(v5);
-    v6 = v5.i32[0];
+    v5 = 0;
+    v19 = 0;
+    v6 = vcnt_s8(_hf_allPossibleComponents);
+    v6.i16[0] = vaddlv_u8(v6);
+    v7 = v6.i32[0];
     do
     {
-      if ((*&_hf_allPossibleComponents & (1 << v4)) != 0)
+      if ((*&_hf_allPossibleComponents & (1 << v5)) != 0)
       {
-        (v10)(v3);
-        if (v18)
+        (v11)(v4);
+        if (v19)
         {
           break;
         }
 
-        --v6;
+        --v7;
       }
 
-      if (v4 > 0x3E)
+      if (v5 > 0x3E)
       {
         break;
       }
 
-      ++v4;
+      ++v5;
     }
 
-    while (v6 > 0);
+    while (v7 > 0);
   }
 
-  v7 = v15[3];
-  _Block_object_dispose(&v14, 8);
-  return v7;
+  v8 = v16[3];
+  _Block_object_dispose(&v15, 8);
+  return v8;
 }
 
 @end

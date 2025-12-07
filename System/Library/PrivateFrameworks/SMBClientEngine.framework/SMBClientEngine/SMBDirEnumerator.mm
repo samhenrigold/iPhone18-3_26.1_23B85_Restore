@@ -1,4 +1,5 @@
 @interface SMBDirEnumerator
++ (void)enumeratorWithParameters:(id)parameters onShareID:(unsigned int)d dirName:(id)name lookUpName:(id)upName searchFlags:(unsigned int)flags outParameters:(smb_dir_enum_out *)outParameters callBack:(id)back;
 - (id)init:(id)init onShareID:(unsigned int)d dirName:(id)name lookUpName:(id)upName searchFlags:(unsigned int)flags outParameters:(smb_dir_enum_out *)parameters callBack:(id)back;
 - (int)cleanup;
 - (int)commonInit:(id)init onShareID:(unsigned int)d dirName:(id)name lookUpName:(id)upName searchFlags:(unsigned int)flags outParameters:(smb_dir_enum_out *)parameters;
@@ -290,6 +291,42 @@ uint64_t __89__SMBDirEnumerator_init_onShareID_dirName_lookUpName_searchFlags_ou
   return result;
 }
 
++ (void)enumeratorWithParameters:(id)parameters onShareID:(unsigned int)d dirName:(id)name lookUpName:(id)upName searchFlags:(unsigned int)flags outParameters:(smb_dir_enum_out *)outParameters callBack:(id)back
+{
+  v10 = *&flags;
+  v13 = *&d;
+  parametersCopy = parameters;
+  nameCopy = name;
+  upNameCopy = upName;
+  backCopy = back;
+  v18 = objc_alloc_init(SMBDirEnumerator);
+  sock = [parametersCopy sock];
+
+  if (!sock)
+  {
+    v20 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    if (v20)
+    {
+      [(SMBDirEnumerator *)v20 enumeratorWithParameters:v21 onShareID:v22 dirName:v23 lookUpName:v24 searchFlags:v25 outParameters:v26 callBack:v27];
+    }
+
+    backCopy[2](backCopy, 57, 0);
+  }
+
+  v28 = [(SMBDirEnumerator *)v18 commonInit:parametersCopy onShareID:v13 dirName:nameCopy lookUpName:upNameCopy searchFlags:v10 outParameters:outParameters];
+  if (v28)
+  {
+    v29 = 0;
+  }
+
+  else
+  {
+    v29 = v18;
+  }
+
+  (backCopy)[2](backCopy, v28, v29);
+}
+
 - (void)nextEntry:(id)entry outParameters:(smb_dir_enum_out *)parameters callBack:(id)back
 {
   entryCopy = entry;
@@ -368,13 +405,13 @@ LABEL_13:
 
 uint64_t __53__SMBDirEnumerator_nextEntry_outParameters_callBack___block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v33 = 0;
+  v35 = *MEMORY[0x277D85DE8];
   v32 = 0;
+  v31 = 0;
   v2 = *(a1 + 32);
   while (1)
   {
-    v34 = *(v2 + 1288);
+    v33 = *(v2 + 1288);
     *(v2 + 1184) = 0u;
     *(v2 + 1200) = 0u;
     *(v2 + 1216) = 0u;
@@ -390,14 +427,14 @@ uint64_t __53__SMBDirEnumerator_nextEntry_outParameters_callBack___block_invoke(
     *(v2 + 1408) = 0u;
     *(v2 + 1280) = 0u;
     *(v2 + 1296) = 0u;
-    *(*(a1 + 32) + 1288) = v34;
+    *(*(a1 + 32) + 1288) = v33;
     WeakRetained = objc_loadWeakRetained((a1 + 56));
-    v4 = [WeakRetained smb2fs_smb_findnext:{&v33, v32}];
+    v4 = [WeakRetained smb2fs_smb_findnext:{&v32, v31}];
 
     if (v4 == 35)
     {
       v5 = *(a1 + 32);
-      v34 = *(v5 + 1288);
+      v33 = *(v5 + 1288);
       v5[74] = 0u;
       v5[75] = 0u;
       v5[76] = 0u;
@@ -413,9 +450,9 @@ uint64_t __53__SMBDirEnumerator_nextEntry_outParameters_callBack___block_invoke(
       v5[88] = 0u;
       v5[80] = 0u;
       v5[81] = 0u;
-      *(*(a1 + 32) + 1288) = v34;
+      *(*(a1 + 32) + 1288) = v33;
       v6 = objc_loadWeakRetained((a1 + 56));
-      v4 = [v6 smb2fs_smb_findnext:&v33];
+      v4 = [v6 smb2fs_smb_findnext:&v32];
     }
 
     if (v4)
@@ -436,7 +473,7 @@ uint64_t __53__SMBDirEnumerator_nextEntry_outParameters_callBack___block_invoke(
     else if (v7 != 2 || *(v2 + 156) != 46)
     {
 LABEL_10:
-      v32 = *(v2 + 1176);
+      v31 = *(v2 + 1176);
       if ((9 * v7) >= 0x1FFFF)
       {
         v8 = 0x1FFFFLL;
@@ -452,10 +489,10 @@ LABEL_10:
       {
         v10 = v9;
         bzero(v9, v8);
-        v4 = smbfs_ntwrkname_tolocal_buffer((*(a1 + 32) + 156), &v32, v10, v8, 1);
+        v4 = smbfs_ntwrkname_tolocal_buffer((*(a1 + 32) + 156), &v31, v10, v8, 1);
         if (!v4)
         {
-          [*(a1 + 40) setNtstatus:{v33, v32}];
+          [*(a1 + 40) setNtstatus:{v32, v31}];
           if (strnlen(v10, v8))
           {
             v11 = *(a1 + 40);
@@ -467,27 +504,27 @@ LABEL_10:
           v13 = *(a1 + 40);
           v15 = v14[85];
           v16 = v14[87];
-          v35[12] = v14[86];
-          v35[13] = v16;
-          v35[14] = v14[88];
+          v34[12] = v14[86];
+          v34[13] = v16;
+          v34[14] = v14[88];
           v17 = v14[81];
           v18 = v14[83];
-          v35[8] = v14[82];
-          v35[9] = v18;
-          v35[10] = v14[84];
-          v35[11] = v15;
+          v34[8] = v14[82];
+          v34[9] = v18;
+          v34[10] = v14[84];
+          v34[11] = v15;
           v19 = v14[77];
           v20 = v14[79];
-          v35[4] = v14[78];
-          v35[5] = v20;
-          v35[6] = v14[80];
-          v35[7] = v17;
+          v34[4] = v14[78];
+          v34[5] = v20;
+          v34[6] = v14[80];
+          v34[7] = v17;
           v21 = v14[75];
-          v35[0] = v14[74];
-          v35[1] = v21;
-          v35[2] = v14[76];
-          v35[3] = v19;
-          [v13 setAttributes:v35];
+          v34[0] = v14[74];
+          v34[1] = v21;
+          v34[2] = v14[76];
+          v34[3] = v19;
+          [v13 setAttributes:v34];
         }
 
         free(v10);
@@ -508,24 +545,23 @@ LABEL_10:
     }
   }
 
-  **(a1 + 64) = v33;
+  **(a1 + 64) = v32;
   pthread_mutex_unlock((*(a1 + 32) + 24));
   result = *(a1 + 48);
   if (result)
   {
-    result = (*(result + 16))(result, v4);
+    return (*(result + 16))(result, v4);
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (int)smb2fs_smb_findnext:(unsigned int *)smb2fs_smb_findnext
 {
-  *&v56[5] = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   getSessionPtr = [(SMBPiston *)self->pd getSessionPtr];
   objc_initWeak(&location, self);
-  v52 = 0;
+  v49 = 0;
   *smb2fs_smb_findnext = 0;
   if (!self->f_output_buf_len)
   {
@@ -535,14 +571,14 @@ LABEL_10:
       goto LABEL_42;
     }
 
-    v54.tv_sec = 0;
-    *&v54.tv_usec = 0;
-    gettimeofday(&v54, 0);
+    v51.tv_sec = 0;
+    *&v51.tv_usec = 0;
+    gettimeofday(&v51, 0);
     f_create_rqp = self->f_create_rqp;
     if (f_create_rqp)
     {
       [(SMB_rq *)f_create_rqp smb_rq_done];
-      v15 = self->f_create_rqp;
+      v13 = self->f_create_rqp;
       self->f_create_rqp = 0;
     }
 
@@ -550,19 +586,19 @@ LABEL_10:
     if (f_query_dir_rqp)
     {
       [(SMB_rq *)f_query_dir_rqp smb_rq_done];
-      v17 = self->f_query_dir_rqp;
+      v15 = self->f_query_dir_rqp;
       self->f_query_dir_rqp = 0;
     }
 
     f_flags = self->f_flags;
     self->f_flags = f_flags & 0xFFFFEFFF;
-    v19 = f_flags & 1 | (2 * ((f_flags >> 2) & 1));
-    v20 = MEMORY[0x277D86220];
-    v21 = 1;
+    v17 = f_flags & 1 | (2 * ((f_flags >> 2) & 1));
+    v18 = MEMORY[0x277D86220];
+    v19 = 1;
     while (1)
     {
       self->f_query_inp.fileInfoClass = self->f_infolevel;
-      self->f_query_inp.flags = v19;
+      self->f_query_inp.flags = v17;
       self->f_query_inp.fileIndex = 0;
       if ((getSessionPtr->option_flags & 4) != 0)
       {
@@ -583,30 +619,30 @@ LABEL_10:
       if (self->f_need_close)
       {
         self->f_output_buf_len = 0;
-        v23 = objc_loadWeakRetained(&location);
-        v24 = [v23 smb2_smb_query_dir:&v52];
+        v21 = objc_loadWeakRetained(&location);
+        v22 = [v21 smb2_smb_query_dir:&v49];
       }
 
       else
       {
-        v25 = [[SMBNode alloc] init:self->pd];
+        v23 = [[SMBNode alloc] init:self->pd];
         f_node = self->f_node;
-        self->f_node = v25;
+        self->f_node = v23;
 
-        v27 = self->f_node;
-        if (!v27)
+        v25 = self->f_node;
+        if (!v25)
         {
-          v44 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-          if (v44)
+          v41 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+          if (v41)
           {
-            [(SMBDirEnumerator *)v44 smb2fs_smb_findnext:v45, v46, v47, v48, v49, v50, v51];
+            [(SMBDirEnumerator *)v41 smb2fs_smb_findnext:v42, v43, v44, v45, v46, v47, v48];
           }
 
           fid = 12;
           goto LABEL_42;
         }
 
-        fid = [(SMBNode *)v27 commonInit:self->pd onShareID:self->f_shareID];
+        fid = [(SMBNode *)v25 commonInit:self->pd onShareID:self->f_shareID];
         if (fid)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -629,13 +665,13 @@ LABEL_10:
         }
 
         self->f_need_close = 1;
-        v23 = objc_loadWeakRetained(&location);
-        v24 = [v23 smb2_smb_query_dir:&v52];
+        v21 = objc_loadWeakRetained(&location);
+        v22 = [v21 smb2_smb_query_dir:&v49];
       }
 
-      fid = v24;
+      fid = v22;
 
-      *smb2fs_smb_findnext = v52;
+      *smb2fs_smb_findnext = v49;
       if (fid != 22)
       {
         break;
@@ -647,39 +683,39 @@ LABEL_10:
       }
 
       option_flags = getSessionPtr->option_flags;
-      if ((option_flags >> 2) & 1 | ((v21 & 1) == 0))
+      if ((option_flags >> 2) & 1 | ((v19 & 1) == 0))
       {
         goto LABEL_40;
       }
 
       if (piston_log_level)
       {
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          [(SMBDirEnumerator *)buf smb2fs_smb_findnext:v56];
+          [(SMBDirEnumerator *)buf smb2fs_smb_findnext:?];
         }
 
         option_flags = getSessionPtr->option_flags;
       }
 
       getSessionPtr->option_flags = option_flags | 4;
-      v29 = self->f_create_rqp;
-      if (v29)
+      v27 = self->f_create_rqp;
+      if (v27)
       {
-        [(SMB_rq *)v29 smb_rq_done];
-        v30 = self->f_create_rqp;
+        [(SMB_rq *)v27 smb_rq_done];
+        v28 = self->f_create_rqp;
         self->f_create_rqp = 0;
       }
 
-      v21 = 0;
-      v31 = self->f_query_dir_rqp;
-      if (v31)
+      v19 = 0;
+      v29 = self->f_query_dir_rqp;
+      if (v29)
       {
-        [(SMB_rq *)v31 smb_rq_done];
-        v32 = self->f_query_dir_rqp;
+        [(SMB_rq *)v29 smb_rq_done];
+        v30 = self->f_query_dir_rqp;
         self->f_query_dir_rqp = 0;
 
-        v21 = 0;
+        v19 = 0;
       }
     }
 
@@ -693,15 +729,15 @@ LABEL_10:
       goto LABEL_42;
     }
 
-    v43 = self->f_flags;
-    if (v43)
+    v40 = self->f_flags;
+    if (v40)
     {
-      self->f_flags = v43 & 0xFFFFFFFE;
+      self->f_flags = v40 & 0xFFFFFFFE;
     }
 
     self->f_eofs = 0;
-    self->f_attr.fa_reqtime.tv_sec = v54.tv_sec;
-    self->f_attr.fa_reqtime.tv_nsec = 1000 * v54.tv_usec;
+    self->f_attr.fa_reqtime.tv_sec = v51.tv_sec;
+    self->f_attr.fa_reqtime.tv_nsec = 1000 * v51.tv_usec;
   }
 
   self->f_NetworkNameLen = 0;
@@ -721,22 +757,20 @@ LABEL_10:
   smb_rq_getreply = [(SMB_rq *)v6 smb_rq_getreply];
   if (!smb_rq_getreply)
   {
-    v33 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    if (v33)
+    v31 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    if (v31)
     {
-      [(SMBDirEnumerator *)v33 smb2fs_smb_findnext:v34, v35, v36, v37, v38, v39, v40];
+      [(SMBDirEnumerator *)v31 smb2fs_smb_findnext:v32, v33, v34, v35, v36, v37, v38];
     }
 
     goto LABEL_40;
   }
 
-  f_infolevel = self->f_infolevel;
-  p_f_infolevel = &self->f_infolevel;
-  if ((f_infolevel - 37) > 1)
+  if (self->f_infolevel - 37 > 1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      [SMBDirEnumerator smb2fs_smb_findnext:?];
+      [SMBDirEnumerator smb2fs_smb_findnext:];
     }
 
 LABEL_40:
@@ -744,12 +778,11 @@ LABEL_40:
     goto LABEL_42;
   }
 
-  v12 = objc_loadWeakRetained(&location);
-  fid = [v12 smb2_smb_parse_query_dir_both_dir_info:smb_rq_getreply];
+  v10 = objc_loadWeakRetained(&location);
+  fid = [v10 smb2_smb_parse_query_dir_both_dir_info:smb_rq_getreply];
 
 LABEL_42:
   objc_destroyWeak(&location);
-  v41 = *MEMORY[0x277D85DE8];
   return fid;
 }
 
@@ -1422,80 +1455,72 @@ LABEL_2:
 
 - (void)cleanup
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)close:(uint64_t)a3 callBack:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: sock is NULL. \n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator close:callBack:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: sock is NULL. \n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)commonInit:onShareID:dirName:lookUpName:searchFlags:outParameters:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)init:(uint64_t)a3 onShareID:(uint64_t)a4 dirName:(uint64_t)a5 lookUpName:(uint64_t)a6 searchFlags:(uint64_t)a7 outParameters:(uint64_t)a8 callBack:.cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: sock is NULL. \n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator init:onShareID:dirName:lookUpName:searchFlags:outParameters:callBack:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: sock is NULL. \n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)enumeratorWithParameters:(uint64_t)a3 onShareID:(uint64_t)a4 dirName:(uint64_t)a5 lookUpName:(uint64_t)a6 searchFlags:(uint64_t)a7 outParameters:(uint64_t)a8 callBack:.cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: sock is NULL. \n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "+[SMBDirEnumerator enumeratorWithParameters:onShareID:dirName:lookUpName:searchFlags:outParameters:callBack:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: sock is NULL. \n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)nextEntry:(uint64_t)a3 outParameters:(uint64_t)a4 callBack:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: sock is NULL. \n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator nextEntry:outParameters:callBack:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: sock is NULL. \n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)nextEntry:(uint64_t)a3 outParameters:(uint64_t)a4 callBack:(uint64_t)a5 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: entry is NULL. \n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator nextEntry:outParameters:callBack:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: entry is NULL. \n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __53__SMBDirEnumerator_nextEntry_outParameters_callBack___block_invoke_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: malloc failed \n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator nextEntry:outParameters:callBack:]_block_invoke";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: malloc failed \n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2fs_smb_findnext:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)smb2fs_smb_findnext:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)smb2fs_smb_findnext:(uint8_t *)buf .cold.3(uint8_t *buf, void *a2)
@@ -1505,250 +1530,243 @@ void __53__SMBDirEnumerator_nextEntry_outParameters_callBack___block_invoke_cold
   _os_log_error_impl(&dword_264287000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: SMB 2/3 server cant handle large OutputBufferLength in Query_Dir. Reducing to 64Kb.\n", buf, 0xCu);
 }
 
-- (void)smb2fs_smb_findnext:(unsigned __int8 *)a1 .cold.4(unsigned __int8 *a1)
+- (void)smb2fs_smb_findnext:.cold.4()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 - (void)smb2fs_smb_findnext:(uint64_t)a3 .cold.5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: mdp is null? \n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2fs_smb_findnext:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: mdp is null? \n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2fs_smb_findnext:(uint64_t)a3 .cold.6(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: SMBNode failed\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2fs_smb_findnext:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: SMBNode failed\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting next\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting next\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting index\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting index\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting crtime\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting crtime\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting atime\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting atime\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting wrtime\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting wrtime\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.6(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting ctime\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting ctime\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting eof\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting eof\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting alloc size\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting alloc size\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.9(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting file attr\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting file attr\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting file name len\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting file name len\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.11(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting ea_size\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting ea_size\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.12(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting flags \n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting flags \n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.13(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting rsrc fork len\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting rsrc fork len\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.14(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting file finfo type\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting file finfo type\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.15(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting file finfo creator\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting file finfo creator\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.16(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting file finfo flags\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting file finfo flags\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.17(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting file finfo ext flags\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting file finfo ext flags\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.18(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting file finfo date added\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting file finfo date added\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.19(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting folder finfo reserved1\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting folder finfo reserved1\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.20(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting folder finfo flags\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting folder finfo flags\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.21(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting folder finfo ext flags\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting folder finfo ext flags\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.22(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting folder finfo date added\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting folder finfo date added\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.23(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting unix_mode\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting unix_mode\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.24(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting short name\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting short name\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.25(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting resv\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting resv\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.27(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting file name\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting file name\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.28(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: out of sync\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: out of sync\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_parse_query_dir_both_dir_info:(uint64_t)a3 .cold.29(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting add pad\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_parse_query_dir_both_dir_info:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting add pad\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_query_dir:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)smb2_smb_query_dir:(uint64_t)a3 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: c_lookup_namep is NULL\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBDirEnumerator smb2_smb_query_dir:]";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: c_lookup_namep is NULL\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)smb2_smb_query_dir:(id *)a1 .cold.3(id *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [*a1 sr_ntstatus];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

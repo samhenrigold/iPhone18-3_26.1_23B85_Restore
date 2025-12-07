@@ -93,50 +93,50 @@
 - (void)setCurrentPage:(int64_t)page animated:(BOOL)animated
 {
   selfCopy = self;
-  v24 = a2;
+  v25 = a2;
   pageCopy = page;
   animatedCopy = animated;
   if (animated)
   {
     scrollView = selfCopy->_scrollView;
     [(WKUIPagingTransitionController *)selfCopy contentFrameForPage:pageCopy];
-    [(UIScrollView *)scrollView scrollRectToVisible:1 animated:v8, v9, v10, v11];
+    [(UIScrollView *)scrollView scrollRectToVisible:1 animated:v9, v10, v11, v12];
   }
 
   else
   {
-    v21 = MEMORY[0x277D82BE0](selfCopy->_currentPageView);
+    v22 = MEMORY[0x277D82BE0](selfCopy->_currentPageView);
     delegate = [(WKUIPagingTransitionController *)selfCopy delegate];
-    v20 = [(WKUIPagingTransitionControllerDelegate *)delegate pagingTransitionController:selfCopy viewForPage:pageCopy];
-    MEMORY[0x277D82BD8](delegate);
-    if (v20 != selfCopy->_currentPageView)
+    v21 = [(WKUIPagingTransitionControllerDelegate *)delegate pagingTransitionController:selfCopy viewForPage:pageCopy];
+    *&v4 = MEMORY[0x277D82BD8](delegate).n128_u64[0];
+    if (v21 != selfCopy->_currentPageView)
     {
       [(UIView *)selfCopy->_currentPageView removeFromSuperview];
-      [(UIScrollView *)selfCopy->_scrollView addSubview:v20];
-      objc_storeStrong(&selfCopy->_currentPageView, v20);
+      [(UIScrollView *)selfCopy->_scrollView addSubview:v21];
+      objc_storeStrong(&selfCopy->_currentPageView, v21);
     }
 
     [(WKUIPagingTransitionController *)selfCopy contentFrameForPage:pageCopy];
-    v16 = v4;
     v17 = v5;
     v18 = v6;
     v19 = v7;
-    [(UIView *)v20 setFrame:v4, v5, v6, v7];
-    [(UIScrollView *)selfCopy->_scrollView scrollRectToVisible:0 animated:v16, v17, v18, v19];
+    v20 = v8;
+    [(UIView *)v21 setFrame:v5, v6, v7, v8];
+    [(UIScrollView *)selfCopy->_scrollView scrollRectToVisible:0 animated:v17, v18, v19, v20];
     [(WKUIPagingTransitionController *)selfCopy setCurrentPage:pageCopy];
     [(WKUIPagingTransitionController *)selfCopy _setActualPageNumber:pageCopy];
-    v27 = pageCopy;
-    v26 = 1;
     v28 = pageCopy;
-    v29 = 1;
-    v15.location = pageCopy;
-    v15.length = 1;
-    selfCopy->_lastVisibleRange = v15;
+    v27 = 1;
+    v29 = pageCopy;
+    v30 = 1;
+    v16.location = pageCopy;
+    v16.length = 1;
+    selfCopy->_lastVisibleRange = v16;
     delegate2 = [(WKUIPagingTransitionController *)selfCopy delegate];
-    [(WKUIPagingTransitionControllerDelegate *)delegate2 pagingTransitionController:selfCopy didFinishTransitionFromView:v21 toView:v20 page:pageCopy animated:0];
+    [(WKUIPagingTransitionControllerDelegate *)delegate2 pagingTransitionController:selfCopy didFinishTransitionFromView:v22 toView:v21 page:pageCopy animated:0];
     MEMORY[0x277D82BD8](delegate2);
-    objc_storeStrong(&v20, 0);
     objc_storeStrong(&v21, 0);
+    objc_storeStrong(&v22, 0);
   }
 }
 
@@ -170,8 +170,7 @@
     self->_actualPageNumber = number;
     delegate = [(WKUIPagingTransitionController *)self delegate];
     [(WKUIPagingTransitionControllerDelegate *)delegate pagingTransitionController:self didTransitionToPage:self->_actualPageNumber];
-    MEMORY[0x277D82BD8](delegate);
-    [(WKUIPagingTransitionController *)self setCurrentPage:number];
+    [(WKUIPagingTransitionController *)self setCurrentPage:number, MEMORY[0x277D82BD8](delegate).n128_f64[0]];
   }
 }
 
@@ -221,69 +220,68 @@
 - (void)_prepareViewForPage:(unint64_t)page pagingDirection:(int64_t)direction
 {
   selfCopy = self;
-  v26 = a2;
+  v29 = a2;
   pageCopy = page;
   directionCopy = direction;
   if ([(WKUIPagingTransitionController *)self _isValidPage:page])
   {
     delegate = [(WKUIPagingTransitionController *)selfCopy delegate];
-    v23 = [(WKUIPagingTransitionControllerDelegate *)delegate pagingTransitionController:selfCopy viewForPage:pageCopy];
-    MEMORY[0x277D82BD8](delegate);
-    superview = [v23 superview];
-    MEMORY[0x277D82BD8](superview);
+    v26 = [(WKUIPagingTransitionControllerDelegate *)delegate pagingTransitionController:selfCopy viewForPage:pageCopy];
+    superview = [v26 superview];
+    *&v4 = MEMORY[0x277D82BD8](superview).n128_u64[0];
     if (!superview)
     {
-      [(UIScrollView *)selfCopy->_scrollView addSubview:v23];
+      [(UIScrollView *)selfCopy->_scrollView addSubview:v26, v4];
     }
 
-    [(WKUIPagingTransitionController *)selfCopy contentFrameForPage:pageCopy];
-    *&v21 = v4;
-    *(&v21 + 1) = v5;
-    *&v22 = v6;
-    *(&v22 + 1) = v7;
-    v19 = v21;
-    v20 = v22;
-    [v23 setFrame:{v4, v5, v6, v7}];
+    [(WKUIPagingTransitionController *)selfCopy contentFrameForPage:pageCopy, v4];
+    *&v24 = v5;
+    *(&v24 + 1) = v6;
+    *&v25 = v7;
+    *(&v25 + 1) = v8;
+    v22 = v24;
+    v23 = v25;
+    [v26 setFrame:{v5, v6, v7, v8}];
     delegate2 = [(WKUIPagingTransitionController *)selfCopy delegate];
-    [(WKUIPagingTransitionControllerDelegate *)delegate2 pagingTransitionController:selfCopy willDisplayPageView:v23];
-    MEMORY[0x277D82BD8](delegate2);
+    [(WKUIPagingTransitionControllerDelegate *)delegate2 pagingTransitionController:selfCopy willDisplayPageView:v26];
+    *&v9 = MEMORY[0x277D82BD8](delegate2).n128_u64[0];
     if (directionCopy == 1)
     {
-      v11 = pageCopy - 1;
+      v14 = pageCopy - 1;
     }
 
     else
     {
-      v11 = pageCopy + 1;
+      v14 = pageCopy + 1;
     }
 
-    v18 = v11;
-    v16 = 0;
-    v10 = 0;
-    if ([(WKUIPagingTransitionController *)selfCopy _isValidPage:v11])
+    v21 = v14;
+    v19 = 0;
+    v13 = 0;
+    if ([(WKUIPagingTransitionController *)selfCopy _isValidPage:v14, v9])
     {
       delegate3 = [(WKUIPagingTransitionController *)selfCopy delegate];
-      v16 = 1;
-      v10 = objc_opt_respondsToSelector();
+      v19 = 1;
+      v13 = objc_opt_respondsToSelector();
     }
 
-    if (v16)
+    if (v19)
     {
       MEMORY[0x277D82BD8](delegate3);
     }
 
-    if (v10)
+    if (v13)
     {
       delegate4 = [(WKUIPagingTransitionController *)selfCopy delegate];
-      v15 = [(WKUIPagingTransitionControllerDelegate *)delegate4 pagingTransitionController:selfCopy viewForPage:v18];
-      MEMORY[0x277D82BD8](delegate4);
+      v18 = [(WKUIPagingTransitionControllerDelegate *)delegate4 pagingTransitionController:selfCopy viewForPage:v21];
+      *&v10 = MEMORY[0x277D82BD8](delegate4).n128_u64[0];
       delegate5 = [(WKUIPagingTransitionController *)selfCopy delegate];
-      [(WKUIPagingTransitionControllerDelegate *)delegate5 pagingTransitionController:selfCopy willTransitionFromView:v15 toView:v23];
+      [(WKUIPagingTransitionControllerDelegate *)delegate5 pagingTransitionController:selfCopy willTransitionFromView:v18 toView:v26];
       MEMORY[0x277D82BD8](delegate5);
-      objc_storeStrong(&v15, 0);
+      objc_storeStrong(&v18, 0);
     }
 
-    objc_storeStrong(&v23, 0);
+    objc_storeStrong(&v26, 0);
   }
 }
 
@@ -309,45 +307,45 @@
 - (void)resetCurrentView
 {
   selfCopy = self;
-  v4[1] = a2;
+  v5[1] = a2;
   delegate = [(WKUIPagingTransitionController *)self delegate];
-  v4[0] = [(WKUIPagingTransitionControllerDelegate *)delegate pagingTransitionController:selfCopy viewForPage:selfCopy->_currentPage];
-  MEMORY[0x277D82BD8](delegate);
+  v5[0] = [(WKUIPagingTransitionControllerDelegate *)delegate pagingTransitionController:selfCopy viewForPage:selfCopy->_currentPage];
+  *&v2 = MEMORY[0x277D82BD8](delegate).n128_u64[0];
   delegate2 = [(WKUIPagingTransitionController *)selfCopy delegate];
-  [(WKUIPagingTransitionControllerDelegate *)delegate2 pagingTransitionController:selfCopy willDisplayPageView:v4[0]];
+  [(WKUIPagingTransitionControllerDelegate *)delegate2 pagingTransitionController:selfCopy willDisplayPageView:v5[0]];
   MEMORY[0x277D82BD8](delegate2);
   objc_storeStrong(&selfCopy->_currentPageView, 0);
   [(WKUIPagingTransitionController *)selfCopy setCurrentPage:selfCopy->_currentPage animated:0];
-  objc_storeStrong(v4, 0);
+  objc_storeStrong(v5, 0);
 }
 
 - (void)_endAnimatedTransitionToPage:(int64_t)page
 {
   selfCopy = self;
-  v8 = a2;
+  v9 = a2;
   pageCopy = page;
-  v6 = MEMORY[0x277D82BE0](self->_currentPageView);
+  v7 = MEMORY[0x277D82BE0](self->_currentPageView);
   v3 = [(WKUIPagingTransitionController *)selfCopy _pageViewForPage:pageCopy];
   currentPageView = selfCopy->_currentPageView;
   selfCopy->_currentPageView = v3;
-  MEMORY[0x277D82BD8](currentPageView);
+  *&v5 = MEMORY[0x277D82BD8](currentPageView).n128_u64[0];
   delegate = [(WKUIPagingTransitionController *)selfCopy delegate];
-  [(WKUIPagingTransitionControllerDelegate *)delegate pagingTransitionController:selfCopy didFinishTransitionFromView:v6 toView:selfCopy->_currentPageView page:pageCopy animated:1];
+  [(WKUIPagingTransitionControllerDelegate *)delegate pagingTransitionController:selfCopy didFinishTransitionFromView:v7 toView:selfCopy->_currentPageView page:pageCopy animated:1];
   MEMORY[0x277D82BD8](delegate);
-  objc_storeStrong(&v6, 0);
+  objc_storeStrong(&v7, 0);
 }
 
 - (void)_cancelAnimatedTransitionFromPage:(int64_t)page
 {
   delegate = [(WKUIPagingTransitionController *)self delegate];
-  v6 = objc_opt_respondsToSelector();
-  MEMORY[0x277D82BD8](delegate);
-  if (v6)
+  v7 = objc_opt_respondsToSelector();
+  *&v3 = MEMORY[0x277D82BD8](delegate).n128_u64[0];
+  if (v7)
   {
     delegate2 = [(WKUIPagingTransitionController *)self delegate];
-    v3 = [(WKUIPagingTransitionController *)self _pageViewForPage:page];
+    v4 = [(WKUIPagingTransitionController *)self _pageViewForPage:page];
     [(WKUIPagingTransitionControllerDelegate *)delegate2 pagingTransitionController:self didCancelTransitionFromView:?];
-    MEMORY[0x277D82BD8](v3);
+    MEMORY[0x277D82BD8](v4);
     MEMORY[0x277D82BD8](delegate2);
   }
 }
@@ -428,135 +426,135 @@
   location[0] = 0;
   objc_storeStrong(location, scroll);
   delegate = [(WKUIPagingTransitionController *)selfCopy delegate];
-  v30 = objc_opt_respondsToSelector();
-  MEMORY[0x277D82BD8](delegate);
-  if (v30)
+  v32 = objc_opt_respondsToSelector();
+  v3 = MEMORY[0x277D82BD8](delegate).n128_u64[0];
+  if (v32)
   {
     delegate2 = [(WKUIPagingTransitionController *)selfCopy delegate];
     [(WKUIPagingTransitionControllerDelegate *)delegate2 pagingTransitionControllerDidScroll:selfCopy];
-    MEMORY[0x277D82BD8](delegate2);
+    v3 = MEMORY[0x277D82BD8](delegate2).n128_u64[0];
   }
 
   [(UIScrollView *)selfCopy->_scrollView contentOffset];
-  v55 = v3;
-  v56 = v4;
-  v57 = _contentOffsetAlongAxis(selfCopy->_pagingAxis, v3, v4);
+  v57 = v4;
+  v58 = v5;
+  v59 = _contentOffsetAlongAxis(selfCopy->_pagingAxis, v4, v5);
   _shouldReverseLayoutDirection = [(UIScrollView *)selfCopy->_scrollView _shouldReverseLayoutDirection];
-  v53 = v57;
+  v55 = v59;
   if (_shouldReverseLayoutDirection)
   {
     [(UIScrollView *)selfCopy->_scrollView contentSize];
-    v51 = v5;
-    v52 = v6;
-    v53 = v5 - v57 - selfCopy->_pageSize.width;
+    v53 = v6;
+    v54 = v7;
+    v55 = v6 - v59 - selfCopy->_pageSize.width;
   }
 
-  if (v53 == selfCopy->_lastContentOffset)
+  if (v55 == selfCopy->_lastContentOffset)
   {
-    v50 = 1;
+    v52 = 1;
   }
 
   else
   {
-    v49 = [(WKUIPagingTransitionController *)selfCopy _pageForOffset:v57];
-    v47 = 0;
-    v46 = v49;
-    if (v49 <= 0)
+    v51 = [(WKUIPagingTransitionController *)selfCopy _pageForOffset:v59];
+    v49 = 0;
+    v48 = v51;
+    if (v51 <= 0)
     {
-      v27 = v47;
+      v29 = v49;
     }
 
     else
     {
-      v27 = v46;
+      v29 = v48;
     }
 
-    v45 = v27;
-    v48 = v27;
-    v44 = selfCopy->_numberOfPages - 1;
-    if (v27 >= v44)
+    v47 = v29;
+    v50 = v29;
+    v46 = selfCopy->_numberOfPages - 1;
+    if (v29 >= v46)
     {
-      v26 = v44;
-    }
-
-    else
-    {
-      v26 = v48;
-    }
-
-    v43 = v26;
-    v49 = v26;
-    v42 = 0;
-    v7 = _pageSizeAlongAxis(selfCopy->_pagingAxis, selfCopy->_pageSize.width, selfCopy->_pageSize.height);
-    if (fmod(v53, v7) == 0.0 || v49 == selfCopy->_numberOfPages - 1)
-    {
-      v42 = 1;
+      v28 = v46;
     }
 
     else
     {
-      v42 = 2;
+      v28 = v50;
+    }
+
+    v45 = v28;
+    v51 = v28;
+    v44 = 0;
+    v8 = _pageSizeAlongAxis(selfCopy->_pagingAxis, selfCopy->_pageSize.width, selfCopy->_pageSize.height);
+    if (fmod(v55, v8) == 0.0 || v51 == selfCopy->_numberOfPages - 1)
+    {
+      v44 = 1;
+    }
+
+    else
+    {
+      v44 = 2;
       if (_shouldReverseLayoutDirection)
       {
-        --v49;
+        --v51;
       }
     }
 
-    v61 = v49;
-    v60 = v42;
-    v62 = v49;
-    v63 = v42;
-    range2.location = v49;
-    range2.length = v42;
-    v40 = v57 - selfCopy->_lastContentOffset > 0.0;
+    v63 = v51;
+    v62 = v44;
+    v64 = v51;
+    v65 = v44;
+    range2.location = v51;
+    range2.length = v44;
+    v42 = v59 - selfCopy->_lastContentOffset > 0.0;
     length = selfCopy->_lastVisibleRange.length;
-    v66 = selfCopy->_lastVisibleRange.location;
-    v67 = length;
-    v64 = v49;
-    v65 = v42;
-    v25 = 0;
-    if (v66 == v49)
+    v68 = selfCopy->_lastVisibleRange.location;
+    v69 = length;
+    v66 = v51;
+    v67 = v44;
+    v27 = 0;
+    if (v68 == v51)
     {
-      v25 = v67 == v65;
+      v27 = v69 == v67;
     }
 
-    if (!v25)
+    if (!v27)
     {
-      v39.location = 0;
-      v39.length = 0;
-      v39 = NSIntersectionRange(selfCopy->_lastVisibleRange, range2);
-      v38.location = 0;
-      v38.length = 0;
-      v38 = NSUnionRange(selfCopy->_lastVisibleRange, range2);
-      for (i = v38.location; ; ++i)
+      v41.location = 0;
+      v41.length = 0;
+      v41 = NSIntersectionRange(selfCopy->_lastVisibleRange, range2);
+      v40.location = 0;
+      v40.length = 0;
+      v40 = NSUnionRange(selfCopy->_lastVisibleRange, range2);
+      for (i = v40.location; ; ++i)
       {
-        v69 = v38;
-        if (i >= v38.location + v38.length)
+        v71 = v40;
+        if (i >= v40.location + v40.length)
         {
           break;
         }
 
-        v73 = v39;
-        v72 = i;
-        v24 = 0;
-        if (i >= v39.location)
+        v75 = v41;
+        v74 = i;
+        v26 = 0;
+        if (i >= v41.location)
         {
-          v24 = v72 - v73.location < v73.length;
+          v26 = v74 - v75.location < v75.length;
         }
 
-        if (!v24)
+        if (!v26)
         {
-          v71 = range2;
-          v70 = i;
-          v23 = 0;
+          v73 = range2;
+          v72 = i;
+          v25 = 0;
           if (i >= range2.location)
           {
-            v23 = v70 - v71.location < v71.length;
+            v25 = v72 - v73.location < v73.length;
           }
 
-          if (v23)
+          if (v25)
           {
-            [(WKUIPagingTransitionController *)selfCopy _prepareViewForPage:i pagingDirection:v40];
+            [(WKUIPagingTransitionController *)selfCopy _prepareViewForPage:i pagingDirection:v42];
           }
 
           else
@@ -569,83 +567,83 @@
 
     for (j = range2.location; ; ++j)
     {
-      v68 = range2;
+      v70 = range2;
       if (j >= range2.location + range2.length)
       {
         break;
       }
 
-      v35 = [(WKUIPagingTransitionController *)selfCopy _pageViewForPage:j];
+      v37 = [(WKUIPagingTransitionController *)selfCopy _pageViewForPage:j];
       animationDelegate = [(WKUIPagingTransitionController *)selfCopy animationDelegate];
       MEMORY[0x277D82BD8](animationDelegate);
       if (animationDelegate)
       {
-        v18 = v53;
-        v19 = j;
-        v20 = v18 - v19 * _pageSizeAlongAxis(selfCopy->_pagingAxis, selfCopy->_pageSize.width, selfCopy->_pageSize.height);
-        v34 = v20 / _pageSizeAlongAxis(selfCopy->_pagingAxis, selfCopy->_pageSize.width, selfCopy->_pageSize.height);
-        v21 = 0;
+        v20 = v55;
+        v21 = j;
+        v22 = v20 - v21 * _pageSizeAlongAxis(selfCopy->_pagingAxis, selfCopy->_pageSize.width, selfCopy->_pageSize.height);
+        v36 = v22 / _pageSizeAlongAxis(selfCopy->_pagingAxis, selfCopy->_pageSize.width, selfCopy->_pageSize.height);
+        v23 = 0;
         if (!j)
         {
-          v21 = v34 <= 0.0;
+          v23 = v36 <= 0.0;
         }
 
-        v17 = 0;
+        v19 = 0;
         if (j == selfCopy->_numberOfPages - 1)
         {
-          v17 = v34 > 0.0;
+          v19 = v36 > 0.0;
         }
 
-        if (v21 || v17)
+        if (v23 || v19)
         {
-          v33 = 100.0;
+          v35 = 100.0;
         }
 
         else
         {
-          v33 = 100.0 * (1.0 - fabs(v34));
+          v35 = 100.0 * (1.0 - fabs(v36));
         }
 
-        v32 = 1;
-        v9 = v34;
-        if (v34 < 0.0 && v40 || (v9 = v34, v34 >= 0.0) && !v40)
+        v34 = 1;
+        v10 = v36;
+        if (v36 < 0.0 && v42 || (v10 = v36, v36 >= 0.0) && !v42)
         {
-          v32 = 0;
+          v34 = 0;
         }
 
         if (selfCopy->_animationDelegateCache.supportsTransitioningView)
         {
           animationDelegate2 = [(WKUIPagingTransitionController *)selfCopy animationDelegate];
-          [(WKUIPagingTransitionControllerAnimationDelegate *)animationDelegate2 pagingTransitionController:selfCopy transitioningView:v35 percentageComplete:v32 & 1 isTransitioningOut:v33];
-          MEMORY[0x277D82BD8](animationDelegate2);
+          [(WKUIPagingTransitionControllerAnimationDelegate *)animationDelegate2 pagingTransitionController:selfCopy transitioningView:v37 percentageComplete:v34 & 1 isTransitioningOut:v35];
+          *&v10 = MEMORY[0x277D82BD8](animationDelegate2).n128_u64[0];
         }
 
         if (selfCopy->_animationDelegateCache.supportsTransitioningPage)
         {
           animationDelegate3 = [(WKUIPagingTransitionController *)selfCopy animationDelegate];
-          [(WKUIPagingTransitionControllerAnimationDelegate *)animationDelegate3 pagingTransitionController:selfCopy transitioningPage:j percentageComplete:v40 pagingDirection:v32 & 1 isTransitioningOut:v33];
+          [(WKUIPagingTransitionControllerAnimationDelegate *)animationDelegate3 pagingTransitionController:selfCopy transitioningPage:j percentageComplete:v42 pagingDirection:v34 & 1 isTransitioningOut:v35];
           MEMORY[0x277D82BD8](animationDelegate3);
         }
       }
 
-      objc_storeStrong(&v35, 0);
+      objc_storeStrong(&v37, 0);
     }
 
-    v31 = _pageSizeAlongAxis(selfCopy->_pagingAxis, selfCopy->_pageSize.width, selfCopy->_pageSize.height);
-    v12 = ((v31 / 2.0 + v57) / (selfCopy->_numberOfPages * v31) * selfCopy->_numberOfPages);
+    v33 = _pageSizeAlongAxis(selfCopy->_pagingAxis, selfCopy->_pageSize.width, selfCopy->_pageSize.height);
+    v14 = ((v33 / 2.0 + v59) / (selfCopy->_numberOfPages * v33) * selfCopy->_numberOfPages);
     numberOfPages = selfCopy->_numberOfPages;
     scrollView = [(WKUIPagingTransitionController *)selfCopy scrollView];
     _shouldReverseLayoutDirection2 = [(UIScrollView *)scrollView _shouldReverseLayoutDirection];
-    v14 = _visualPageForActualPage(v12, numberOfPages, _shouldReverseLayoutDirection2, selfCopy->_pagingAxis);
-    MEMORY[0x277D82BD8](scrollView);
-    if (selfCopy->_actualPageNumber != v14)
+    v16 = _visualPageForActualPage(v14, numberOfPages, _shouldReverseLayoutDirection2, selfCopy->_pagingAxis);
+    *&v12 = MEMORY[0x277D82BD8](scrollView).n128_u64[0];
+    if (selfCopy->_actualPageNumber != v16)
     {
-      [(WKUIPagingTransitionController *)selfCopy _setActualPageNumber:v14];
+      [(WKUIPagingTransitionController *)selfCopy _setActualPageNumber:v16, v12];
     }
 
-    selfCopy->_lastContentOffset = v53;
+    selfCopy->_lastContentOffset = v55;
     selfCopy->_lastVisibleRange = range2;
-    v50 = 0;
+    v52 = 0;
   }
 
   objc_storeStrong(location, 0);

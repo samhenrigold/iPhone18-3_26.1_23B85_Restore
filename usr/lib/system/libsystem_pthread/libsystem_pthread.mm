@@ -1,36 +1,20 @@
 void thread_chkstk_darwin(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v18 = v10;
-  v19 = v11;
   StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-  if (&a9 < *(StatusReg - 48))
+  if (&a9 >= *(StatusReg - 48) || (v11 = *(StatusReg - 40), &a9 <= v11) || &a9 < v9 || &a9 - v9 < v11)
   {
-    v13 = *(StatusReg - 40);
-    if (&a9 > v13)
+    v12 = &a9;
+    if (v9 >= 0x1000)
     {
-      if (&a9 >= v9 && &a9 - v9 >= v13)
+      do
       {
-        return;
+        v12 -= 512;
+        v9 -= 4096;
       }
 
-      v14 = *(v13 - 8);
+      while (v9 > 0x1000);
     }
   }
-
-  v15 = &a9;
-  if (v9 >= 0x1000)
-  {
-    do
-    {
-      v15 -= 512;
-      v16 = *v15;
-      v9 -= 4096;
-    }
-
-    while (v9 > 0x1000);
-  }
-
-  v17 = *(v15 - v9);
 }
 
 int pthread_mutex_lock(pthread_mutex_t *a1)
@@ -135,27 +119,28 @@ int pthread_mutex_unlock(pthread_mutex_t *a1)
   }
 }
 
-uint64_t _pthread_mutex_lock_init_slow(uint64_t a1, int a2)
+uint64_t _pthread_mutex_lock_init_slow(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if ((*a1 & 0xFFFFFFFDLL) == 0x4D555458 || (result = _pthread_mutex_check_init_slow(a1), !result))
   {
     v5 = *(a1 + 12);
     if ((v5 & 0x1C0) == 0x40)
     {
 
-      return _pthread_mutex_fairshare_lock_slow(a1, a2);
+      return _pthread_mutex_fairshare_lock_slow(a1, v2);
     }
 
     else if ((v5 & 0x4000) != 0)
     {
 
-      return _pthread_mutex_ulock_lock(a1, a2);
+      return _pthread_mutex_ulock_lock(a1, v2);
     }
 
     else
     {
 
-      return _pthread_mutex_firstfit_lock_slow(a1, a2);
+      return _pthread_mutex_firstfit_lock_slow(a1, v2);
     }
   }
 
@@ -229,13 +214,14 @@ LABEL_26:
     atomic_compare_exchange_strong_explicit(v3, &v9, (v4 + 256) | v4 & 0xFFFFFFFF00000000, memory_order_acquire, memory_order_acquire);
     if (v9 == v4)
     {
+      v4 = (v4 + 256) | v4 & 0xFFFFFFFF00000000;
       if (a2)
       {
         return 16;
       }
 
 LABEL_17:
-      _pthread_mutex_firstfit_lock_wait(a1);
+      _pthread_mutex_firstfit_lock_wait(a1, v4, v10);
       goto LABEL_19;
     }
 
@@ -474,16 +460,18 @@ LABEL_5:
         v8 = v3;
       }
 
-      v9 = v3;
-      atomic_compare_exchange_strong_explicit(v2, &v9, v8 & 0xFFFFFFFF00000000 | v3 & 0xFFFFFFFD, memory_order_release, memory_order_relaxed);
-      v10 = v9 == v3;
-      v3 = v9;
+      v9 = v8 & 0xFFFFFFFF00000000;
+      v10 = v3 & 0xFFFFFFFD;
+      v11 = v3;
+      atomic_compare_exchange_strong_explicit(v2, &v11, v9 | v10, memory_order_release, memory_order_relaxed);
+      v12 = v11 == v3;
+      v3 = v11;
     }
 
-    while (!v10);
+    while (!v12);
     if ((((v7 > 0) << 12) & 0x1000) != 0)
     {
-      _pthread_mutex_firstfit_wake();
+      _pthread_mutex_firstfit_wake(a1, v10 | v9, v1 & 0xFFFFEFFF | ((v7 > 0) << 12));
     }
 
     return 0;
@@ -492,16 +480,17 @@ LABEL_5:
   return 1;
 }
 
-uint64_t _pthread_set_properties_self(int a1, int a2)
+uint64_t _pthread_set_properties_self(unsigned int a1, uint64_t a2, unsigned int a3)
 {
   StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
   if ((_pthread_ptr_munge_token ^ *(StatusReg - 224)) != StatusReg - 224)
   {
-    v6 = _pthread_set_properties_self_cold_1();
-    return pthread_getschedparam(v6, v7, v8);
+    v7 = _pthread_set_properties_self_cold_1();
+    return pthread_getschedparam(v7, v8, v9);
   }
 
-  v4 = a1;
+  v4 = a2;
+  v5 = a1;
   if ((a1 & 0x2D) != 0 && (*(StatusReg - 60) & 1) != 0 && (a1 & 0xFFFFFFD2) == 0)
   {
     if ((a1 & 1) == 0)
@@ -513,7 +502,7 @@ uint64_t _pthread_set_properties_self(int a1, int a2)
   }
 
   result = __bsdthread_ctl();
-  if (v4)
+  if (v5)
   {
     if (result)
     {
@@ -529,7 +518,7 @@ uint64_t _pthread_set_properties_self(int a1, int a2)
 LABEL_13:
     result = 0;
 LABEL_14:
-    *(StatusReg + 32) = a2 & 0xFF403FFF;
+    *(StatusReg + 32) = v4 & 0xFF403FFF;
     return result;
   }
 
@@ -548,22 +537,22 @@ int pthread_getschedparam(pthread_t a1, int *a2, sched_param *a3)
     return 3;
   }
 
-  os_unfair_lock_lock_with_options();
-  v6 = __pthread_head;
+  v6 = os_unfair_lock_lock_with_options();
+  v8 = __pthread_head;
   if (__pthread_head)
   {
-    while (v6 != a1)
+    while (v8 != a1)
     {
-      v6 = *v6->__opaque;
-      if (!v6)
+      v8 = *v8->__opaque;
+      if (!v8)
       {
         goto LABEL_5;
       }
     }
 
-    if ((_pthread_ptr_munge_token ^ v6->__sig) != a1)
+    if ((_pthread_ptr_munge_token ^ v8->__sig) != a1)
     {
-      pthread_mach_thread_np_cold_1();
+      pthread_mach_thread_np_cold_1(v6, v7);
     }
 
     if (a2)
@@ -571,7 +560,7 @@ int pthread_getschedparam(pthread_t a1, int *a2, sched_param *a3)
       *a2 = a1->__opaque[32];
     }
 
-    v7 = 0;
+    v9 = 0;
     if (a3)
     {
       *a3 = *&a1->__opaque[40];
@@ -581,21 +570,22 @@ int pthread_getschedparam(pthread_t a1, int *a2, sched_param *a3)
   else
   {
 LABEL_5:
-    v7 = 3;
+    v9 = 3;
   }
 
   os_unfair_lock_unlock(&_pthread_list_lock);
-  return v7;
+  return v9;
 }
 
-uint64_t _pthread_wqthread(uint64_t a1, int a2, uint64_t a3, uint64_t a4, int a5, int a6)
+uint64_t _pthread_wqthread(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
 {
+  v7 = a5;
   if ((a5 & 0x20000) == 0)
   {
     _pthread_wqthread_setup(a1, a2, a3, a5);
   }
 
-  if ((a5 & 0x800000) != 0)
+  if ((v7 & 0x800000) != 0)
   {
     *(a1 + 164) = 1;
     v10 = 67111167;
@@ -604,27 +594,27 @@ uint64_t _pthread_wqthread(uint64_t a1, int a2, uint64_t a3, uint64_t a4, int a5
   else
   {
     *(a1 + 164) = 0;
-    if ((a5 & 0x100000) != 0)
+    if ((v7 & 0x100000) != 0)
     {
-      v10 = (32 * a5) & 0x1000000 | 0x2000000;
+      v10 = (32 * v7) & 0x1000000 | 0x2000000;
     }
 
     else
     {
-      v10 = (32 * a5) & 0x1000000 | (BYTE2(a5) << 31);
-      if ((a5 & 0x4000) != 0)
+      v10 = (32 * v7) & 0x1000000 | (BYTE2(v7) << 31);
+      if ((v7 & 0x4000) != 0)
       {
-        if (a5 - 1 <= 5)
+        if (v7 - 1 <= 5)
         {
-          v10 = (v10 + (1 << (a5 + 7))) | 0xFF;
+          v10 = (v10 + (1 << (v7 + 7))) | 0xFF;
         }
       }
 
       else
       {
-        if ((a5 & 0x8000) == 0)
+        if ((v7 & 0x8000) == 0)
         {
-          _pthread_wqthread_cold_1(a5);
+          _pthread_wqthread_cold_1(v7);
         }
 
         v10 |= 0xFFFFu;
@@ -638,7 +628,7 @@ uint64_t _pthread_wqthread(uint64_t a1, int a2, uint64_t a3, uint64_t a4, int a5
     _pthread_wqthread_exit(a1);
   }
 
-  if ((a5 & 0x400000) != 0)
+  if ((v7 & 0x400000) != 0)
   {
     v13 = __libdispatch_workloopfunction;
     *(a1 + 152) = a4;
@@ -647,16 +637,16 @@ uint64_t _pthread_wqthread(uint64_t a1, int a2, uint64_t a3, uint64_t a4, int a5
     (v13)(a4 - 8, a1 + 152, a1 + 160);
   }
 
-  if ((a5 & 0x80000) != 0)
+  if ((v7 & 0x80000) != 0)
   {
     v14 = __libdispatch_keventfunction;
     *(a1 + 152) = a4;
     *(a1 + 144) = v14;
     *(a1 + 160) = a6;
-    (v14)(a1 + 152, a1 + 160);
+    (v14)(a1 + 152, a1 + 160, a3);
   }
 
-  v11 = v10 | (8 * a5) & 0x8000000;
+  v11 = v10 | (8 * v7) & 0x8000000;
   v12 = __libdispatch_workerfunction;
   *(a1 + 144) = __libdispatch_workerfunction;
   *(a1 + 152) = v11;
@@ -719,23 +709,23 @@ uint64_t _pthread_exit_if_canceled(uint64_t result)
     if (!result)
     {
       StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-      v4 = *(StatusReg - 224);
-      v3 = StatusReg - 224;
-      if ((_pthread_ptr_munge_token ^ v4) == v3)
+      v5 = *(StatusReg - 224);
+      v4 = StatusReg - 224;
+      if ((_pthread_ptr_munge_token ^ v5) == v4)
       {
-        *(v3 + 168) = v1;
-        *(v3 + 165) = 1;
+        *(v4 + 168) = v1;
+        *(v4 + 165) = 1;
         pthread_exit(1);
       }
 
-      pthread_mach_thread_np_cold_1();
+      pthread_mach_thread_np_cold_1(result, v2);
     }
   }
 
   return result;
 }
 
-uint64_t _pthread_wqthread_setup(uint64_t result, int a2, uint64_t a3, int a4)
+uint64_t _pthread_wqthread_setup(uint64_t result, uint64_t a2, uint64_t a3, int a4)
 {
   v4 = MEMORY[0x1E69E9AC8];
   v5 = *MEMORY[0x1E69E9AC8];
@@ -814,12 +804,12 @@ LABEL_13:
 
 int pthread_cond_broadcast(pthread_cond_t *a1)
 {
-  v36 = 1129270852;
+  v35 = 1129270852;
   sig = a1->__sig;
   if ((LODWORD(a1->__sig) - 1129270853) < 2)
   {
     result = 0;
-    v36 = sig;
+    v35 = sig;
   }
 
   else
@@ -837,8 +827,8 @@ int pthread_cond_broadcast(pthread_cond_t *a1)
       }
     }
 
-    result = _pthread_cond_check_init_slow(a1, &v36, v1);
-    sig = v36;
+    result = _pthread_cond_check_init_slow(a1, &v35, v1);
+    sig = v35;
     if (result)
     {
       return result;
@@ -938,11 +928,10 @@ int pthread_cond_broadcast(pthread_cond_t *a1)
         atomic_compare_exchange_strong((a1 + v10), &v22, v14);
         if (v22 == v12)
         {
-          v34 = *&a1->__opaque[4] >> 30;
-          v35 = __psynch_cvbroad();
-          if ((v35 - 1) <= 0xFFFFFFFD)
+          v34 = __psynch_cvbroad();
+          if (v34 - 1 <= 0xFFFFFFFD)
           {
-            _pthread_cond_updateval(a1, 0, v35);
+            _pthread_cond_updateval(a1, 0, v34);
           }
 
           return 0;
@@ -1158,58 +1147,56 @@ pthread_t pthread_self(void)
   if ((_pthread_ptr_munge_token ^ v2) != result)
   {
     v3 = _pthread_set_properties_self_cold_1();
-    return _pthread_mutex_firstfit_lock_wait(v3);
+    return _pthread_mutex_firstfit_lock_wait(v3, v4, v5);
   }
 
   return result;
 }
 
-uint64_t _pthread_mutex_firstfit_lock_wait(uint64_t a1)
+uint64_t _pthread_mutex_firstfit_lock_wait(uint64_t a1, unint64_t a2, uint64_t a3)
 {
-  v2 = ((a1 + 31) & 0xFFFFFFFFFFFFFFF8);
-  v3 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) - 8);
-  v4 = ((a1 + 39) & 0xFFFFFFFFFFFFFFF8);
+  v3 = ((a1 + 31) & 0xFFFFFFFFFFFFFFF8);
+  v4 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) - 8);
+  v5 = ((a1 + 39) & 0xFFFFFFFFFFFFFFF8);
   do
   {
     do
     {
-      v5 = *(a1 + 12);
       result = __psynch_mutexwait();
-      v7 = *v2;
     }
 
     while (result == -1);
-    v8 = *v4;
+    v7 = *v5;
     do
     {
-      v9 = v8;
-      v10 = v8 + 256;
-      if ((v8 & 2) == 0)
+      v8 = v7;
+      v9 = v7 + 256;
+      if ((v7 & 2) == 0)
       {
-        v10 = v8 | 2;
+        v9 = v7 | 2;
       }
 
-      atomic_compare_exchange_strong_explicit(v4, &v8, v8 & 0xFFFFFFFF00000000 | v10, memory_order_acquire, memory_order_acquire);
+      atomic_compare_exchange_strong_explicit(v5, &v7, v7 & 0xFFFFFFFF00000000 | v9, memory_order_acquire, memory_order_acquire);
     }
 
-    while (v8 != v9);
+    while (v7 != v8);
   }
 
-  while ((v9 & 2) != 0);
-  *v2 = v3;
+  while ((v8 & 2) != 0);
+  *v3 = v4;
   return result;
 }
 
-uint64_t _pthread_mutex_firstfit_wake()
+uint64_t _pthread_mutex_firstfit_wake(uint64_t a1, unint64_t a2, uint64_t a3)
 {
   result = __psynch_mutexdrop();
   if (result == -1)
   {
-    v1 = **(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
-    if ((v1 & 0xFFFFFFFB) != 0)
+    v4 = **(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
+    if ((v4 & 0xFFFFFFFB) != 0)
     {
       qword_1ECE00010 = "BUG IN LIBPTHREAD: __psynch_mutexdrop failed";
-      qword_1ECE00040 = v1;
+      qword_1ECE00040 = v4;
       __break(0xB001u);
     }
   }
@@ -1309,62 +1296,62 @@ LABEL_19:
   return v9;
 }
 
-uint64_t __pthread_init(void *a1, uint64_t a2)
+uint64_t __pthread_init(void *a1, uint64_t a2, uint64_t a3)
 {
   if (a1)
   {
     exitf = a1[1];
     if (*a1 >= 2uLL)
     {
-      v3 = a1[3];
+      v4 = a1[3];
       _pthread_malloc = a1[2];
-      _pthread_free = v3;
+      _pthread_free = v4;
     }
   }
 
   StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-  v5 = StatusReg - 224;
+  v6 = StatusReg - 224;
   if (StatusReg == 224)
   {
     __pthread_init_cold_4();
   }
 
   _main_thread_ptr = StatusReg - 224;
-  *v5 = _pthread_ptr_munge_token ^ v5;
+  *v6 = _pthread_ptr_munge_token ^ v6;
   host_info_outCnt = 8;
   *host_info_out = 0u;
-  v33 = 0u;
-  v6 = MEMORY[0x1E12CEE30]();
-  v7 = host_info(v6, 5, host_info_out, &host_info_outCnt);
-  if (v7)
+  v34 = 0u;
+  v7 = MEMORY[0x1E12CEE30]();
+  v8 = host_info(v7, 5, host_info_out, &host_info_outCnt);
+  if (v8)
   {
-    __pthread_init_cold_1(v7);
+    __pthread_init_cold_1(v8);
   }
 
   default_priority = host_info_out[3];
-  mach_port_deallocate(*MEMORY[0x1E69E9A60], v6);
-  v31 = 0;
-  v8 = _simple_getenv();
-  if (v8)
+  mach_port_deallocate(*MEMORY[0x1E69E9A60], v7);
+  v32 = 0;
+  v9 = _simple_getenv();
+  if (v9)
   {
-    *&v29[0] = v8;
-    v9 = _pthread_strtoul(v8, v29);
-    v31 = v9;
-    if (**&v29[0] == 44)
+    *&v30[0] = v9;
+    v10 = _pthread_strtoul(v9, v30);
+    v32 = v10;
+    if (**&v30[0] == 44)
     {
-      v10 = _pthread_strtoul((*&v29[0] + 1), v29);
-      if (**&v29[0] == 44)
+      v11 = _pthread_strtoul((*&v30[0] + 1), v30);
+      if (**&v30[0] == 44)
       {
-        v11 = _pthread_strtoul((*&v29[0] + 1), v29);
-        if (**&v29[0] == 44)
+        v12 = _pthread_strtoul((*&v30[0] + 1), v30);
+        if (**&v30[0] == 44)
         {
-          v12 = _pthread_strtoul((*&v29[0] + 1), v29);
-          v13 = **&v29[0];
-          v15 = v13 != 44 && v13 != 0;
+          v13 = _pthread_strtoul((*&v30[0] + 1), v30);
+          v14 = **&v30[0];
+          v16 = v14 != 44 && v14 != 0;
 LABEL_19:
           _platform_strlen();
           _platform_bzero();
-          if (!v15 && v9 && v10)
+          if (!v16 && v10 && v11)
           {
             goto LABEL_25;
           }
@@ -1373,113 +1360,113 @@ LABEL_19:
         }
 
 LABEL_18:
-        v12 = 0;
-        v15 = 1;
+        v13 = 0;
+        v16 = 1;
         goto LABEL_19;
       }
     }
 
     else
     {
-      v10 = 0;
+      v11 = 0;
     }
 
-    v11 = 0;
+    v12 = 0;
     goto LABEL_18;
   }
 
 LABEL_22:
-  *&v29[0] = 8;
+  *&v30[0] = 8;
   address = 0x3B00000001;
   if (__sysctl())
   {
-    v31 = 0x16FE00000;
+    v32 = 0x16FE00000;
   }
 
-  v11 = 0;
   v12 = 0;
-  v10 = 1032192;
+  v13 = 0;
+  v11 = 1032192;
 LABEL_25:
-  v16 = _simple_getenv();
-  if (!v16 || (v17 = _pthread_strtoul(v16, v29), _platform_strlen(), _platform_bzero(), !v17))
+  v17 = _simple_getenv();
+  if (!v17 || (v18 = _pthread_strtoul(v17, v30), _platform_strlen(), _platform_bzero(), !v18))
   {
-    v18 = _simple_getenv();
-    if (!v18 || (v19 = _pthread_strtoul(v18, v29)) == 0)
+    v19 = _simple_getenv();
+    if (!v19 || (v20 = _pthread_strtoul(v19, v30)) == 0)
     {
       __pthread_init_cold_3();
     }
 
-    v17 = v19;
+    v18 = v20;
   }
 
-  _pthread_ptr_munge_token = v17;
-  *_main_thread_ptr = _main_thread_ptr ^ v17;
-  v20 = v31;
-  *v5 = _pthread_ptr_munge_token ^ v5;
-  *(v5 + 224) = v5;
-  *(v5 + 232) = v5 + 172;
-  *(v5 + 256) = 2303;
-  *(v5 + 280) = _pthread_ptr_munge_token;
-  v21 = *(v5 + 49);
-  *(v5 + 72) = 0;
-  *(v5 + 176) = v20;
-  *(v5 + 184) = v20 - v10;
-  *(v5 + 192) = v11;
-  *(v5 + 200) = v12;
-  *(v5 + 208) = *MEMORY[0x1E69E9AC8];
-  LOBYTE(v20) = v21 & 0xFA | 1;
-  v22 = *(v5 + 78);
-  *(v5 + 48) = 1;
-  *(v5 + 78) = v22 & 0xFD00 | 1;
-  *(v5 + 56) = default_priority;
-  *(v5 + 60) = 10;
-  *(v5 + 166) = 3;
-  *(v5 + 49) = v20;
-  v23 = _simple_getenv();
-  if (v23)
+  _pthread_ptr_munge_token = v18;
+  *_main_thread_ptr = _main_thread_ptr ^ v18;
+  v21 = v32;
+  *v6 = _pthread_ptr_munge_token ^ v6;
+  *(v6 + 224) = v6;
+  *(v6 + 232) = v6 + 172;
+  *(v6 + 256) = 2303;
+  *(v6 + 280) = _pthread_ptr_munge_token;
+  v22 = *(v6 + 49);
+  *(v6 + 72) = 0;
+  *(v6 + 176) = v21;
+  *(v6 + 184) = v21 - v11;
+  *(v6 + 192) = v12;
+  *(v6 + 200) = v13;
+  *(v6 + 208) = *MEMORY[0x1E69E9AC8];
+  LOBYTE(v21) = v22 & 0xFA | 1;
+  v23 = *(v6 + 78);
+  *(v6 + 48) = 1;
+  *(v6 + 78) = v23 & 0xFD00 | 1;
+  *(v6 + 56) = default_priority;
+  *(v6 + 60) = 10;
+  *(v6 + 166) = 3;
+  *(v6 + 49) = v21;
+  v24 = _simple_getenv();
+  if (v24)
   {
-    v24 = _pthread_strtoul(v23, v29);
+    v25 = _pthread_strtoul(v24, v30);
     _platform_strlen();
     _platform_bzero();
   }
 
   else
   {
-    v24 = 0;
+    v25 = 0;
   }
 
-  _pthread_main_thread_init(v5, v24);
-  v30 = 0;
-  memset(v29, 0, sizeof(v29));
-  _pthread_bsdthread_init(v29);
-  _pthread_key_global_init();
-  _pthread_mutex_global_init(a2, v29);
+  _pthread_main_thread_init(v6, v25);
+  v31 = 0;
+  memset(v30, 0, sizeof(v30));
+  _pthread_bsdthread_init(v30);
+  _pthread_key_global_init(a2);
+  _pthread_mutex_global_init(a2, v30);
   if (MEMORY[0xFFFFFC10C] && (__pthread_supported_features & 0x1000) != 0)
   {
-    address = &_pthread_jit_config;
-    v25 = mach_vm_map(*MEMORY[0x1E69E9A60], &address, 0x4000uLL, 0x3FFFuLL, 16512, 0, 0, 0, 3, 3, 1u);
-    if (v25 || address != &_pthread_jit_config)
+    address = _pthread_jit_config;
+    v26 = mach_vm_map(*MEMORY[0x1E69E9A60], &address, 0x4000uLL, 0x3FFFuLL, 16512, 0, 0, 0, 3, 3, 1u);
+    if (v26 || address != _pthread_jit_config)
     {
-      __pthread_init_cold_2(v25);
+      __pthread_init_cold_2(v26);
     }
 
-    _pthread_jit_config = 1;
+    _pthread_jit_config[0] = 1;
     if ((__pthread_supported_features & 0x800) != 0)
     {
       byte_1ECE08001 = 1;
     }
   }
 
-  v26 = _simple_getenv();
-  if (v26)
-  {
-    pthread_yield_to_zero = *v26 == 49;
-  }
-
   v27 = _simple_getenv();
   if (v27)
   {
-    pthread_has_sec_transition = *v27 == 49;
+    pthread_yield_to_zero = *v27 == 49;
+  }
+
+  v28 = _simple_getenv();
+  if (v28)
+  {
+    pthread_has_sec_transition = *v28 == 49;
   }
 
   return 0;
@@ -1527,7 +1514,7 @@ LABEL_14:
   return v2;
 }
 
-uint64_t _pthread_qos_override_end_direct()
+uint64_t _pthread_qos_override_end_direct(unsigned int a1, uint64_t a2)
 {
   result = __bsdthread_ctl();
   if (result == -1)
@@ -1800,7 +1787,7 @@ int pthread_rwlock_unlock(pthread_rwlock_t *a1)
   return 0;
 }
 
-void _pthread_cond_wait(uint64_t a1, pthread_mutex_t *a2, void **a3, int a4, int a5, __n128 a6)
+void _pthread_cond_wait(unsigned int *a1, pthread_mutex_t *a2, void **a3, int a4, int a5, __n128 a6)
 {
   v6 = (a2->__sig & 0xFFFFFFFDLL) == 0x4D555458 || (a2->__sig & 0xFFFFFFF0) == 850045856;
   if (!v6)
@@ -1819,19 +1806,19 @@ void _pthread_cond_wait(uint64_t a1, pthread_mutex_t *a2, void **a3, int a4, int
     v13 = 1129270853;
   }
 
-  v41 = v13;
+  v35 = v13;
   v14 = *a1;
-  if ((*a1 - 1129270853) < 2)
+  if (*a1 - 1129270853 < 2)
   {
     if (v13 != v14)
     {
-      goto LABEL_86;
+      goto LABEL_81;
     }
   }
 
   else if (v14 == 1018212795)
   {
-    if (_pthread_cond_check_init_slow(a1, &v41, a6))
+    if (_pthread_cond_check_init_slow(a1, &v35, a6))
     {
       return;
     }
@@ -1864,90 +1851,83 @@ void _pthread_cond_wait(uint64_t a1, pthread_mutex_t *a2, void **a3, int a4, int
     {
       v16 = *a3;
       v17 = (v16 | v15) == 0;
-LABEL_38:
+LABEL_34:
       if ((v12 & 0x4000) == 0)
       {
-        v23 = *(a1 + 16);
-        if (v23 && v23 != a2)
+        v19 = *(a1 + 2);
+        if (v19 && v19 != a2)
         {
           return;
         }
 
         if (!v17)
         {
-LABEL_42:
-          v47 = 0;
-          v46 = 0;
-          v42[0] = 0;
-          v24 = 28;
-          v25 = 24;
-          if ((*(a1 + 12) & 0x20000000) != 0)
+LABEL_38:
+          v41 = 0;
+          v40 = 0;
+          v36[0] = 0;
+          v20 = 7;
+          if ((a1[3] & 0x20000000) != 0)
           {
-            v26 = 28;
+            v21 = 7;
           }
 
           else
           {
-            v26 = 24;
+            v21 = 6;
           }
 
-          if ((*(a1 + 12) & 0x20000000) != 0)
+          if ((a1[3] & 0x20000000) != 0)
           {
-            v24 = 32;
+            v20 = 8;
           }
 
-          else
-          {
-            v25 = 32;
-          }
-
-          v27 = (a1 + v26);
+          v22 = &a1[v21];
           do
           {
-            v28 = *v27;
-            v29 = *(a1 + v25);
-            v30 = *(a1 + v24);
-            v31 = v28 | (v30 << 32);
-            atomic_compare_exchange_strong(v27, &v31, (v28 + 256) | (((v30 & 0xFFFFFF00) >> 8) << 40));
+            v23 = *v22;
+            v24 = a1[v20];
+            v25 = v23 | (v24 << 32);
+            atomic_compare_exchange_strong(v22, &v25, (v23 + 256) | (((v24 & 0xFFFFFF00) >> 8) << 40));
           }
 
-          while (v31 != (v28 | (v30 << 32)));
-          *(a1 + 16) = a2;
-          if (!_pthread_mutex_droplock(a2, &v46, v42, &v47 + 1, &v47))
+          while (v25 != (v23 | (v24 << 32)));
+          *(a1 + 2) = a2;
+          if (!_pthread_mutex_droplock(a2, &v40, v36, &v41 + 1, &v41))
           {
-            if ((v46 & 0x1000) == 0)
+            if ((v40 & 0x1000) == 0)
             {
-              v42[0] = 0;
+              v36[0] = 0;
             }
 
-            v46 &= ~0x2000u;
+            v40 &= ~0x2000u;
             if (a5 == 2)
             {
               StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-              v43 = _pthread_psynch_cond_cleanup;
-              v44 = a1;
-              v45 = *(StatusReg - 216);
-              *(StatusReg - 216) = &v43;
-              v38 = __psynch_cvwait();
+              v37 = _pthread_psynch_cond_cleanup;
+              v38 = a1;
+              v39 = *(StatusReg - 216);
+              *(StatusReg - 216) = &v37;
+              v32 = __psynch_cvwait();
               pthread_testcancel();
-              *(StatusReg - 216) = v45;
+              *(StatusReg - 216) = v39;
             }
 
             else
             {
-              v38 = __psynch_cvwait();
+              v32 = __psynch_cvwait();
             }
 
-            if (v38)
+            if (v32)
             {
-              if (v38 == -1)
+              if (v32 == -1)
               {
                 _pthread_cond_updateval(a1, **(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8), 0);
               }
 
               else
               {
-                _pthread_cond_updateval(a1, 0, v38);
+                _pthread_cond_updateval(a1, 0, v32);
               }
             }
 
@@ -1957,7 +1937,7 @@ LABEL_42:
           return;
         }
 
-LABEL_53:
+LABEL_48:
         if (!pthread_mutex_unlock(a2))
         {
           pthread_mutex_lock(a2);
@@ -1968,146 +1948,132 @@ LABEL_53:
 
       if (v17)
       {
-        goto LABEL_53;
+        goto LABEL_48;
       }
 
-      goto LABEL_55;
+      goto LABEL_50;
     }
 
-    v43 = 0;
-    v44 = 0;
+    v37 = 0;
+    v38 = 0;
     __gettimeofday();
-    v19 = 1000 * v44;
-    if (*a3 == v43)
+    if (*a3 == v37)
     {
-      v20 = a3[1];
-      if (v20 > v19)
+      if (a3[1] > 1000 * v38)
       {
-        goto LABEL_34;
+        goto LABEL_33;
       }
     }
 
-    else if (*a3 >= v43)
+    else if (*a3 >= v37)
     {
-      v20 = a3[1];
-LABEL_34:
-      v21 = v20 - v19;
-      if (v21 < 0)
-      {
-        v22 = *a3 - v43 - 1;
-      }
-
-      else
-      {
-        v22 = *a3 - v43;
-      }
-
+LABEL_33:
       v17 = 0;
-      goto LABEL_38;
+      goto LABEL_34;
     }
 
     v17 = 1;
-    goto LABEL_38;
+    goto LABEL_34;
   }
 
   if ((v12 & 0x4000) == 0)
   {
-    v18 = *(a1 + 16);
+    v18 = *(a1 + 2);
     if (v18 && v18 != a2)
     {
       return;
     }
 
-    goto LABEL_42;
+    goto LABEL_38;
   }
 
-LABEL_55:
-  v32 = (a1 + 4 * ((*(a1 + 12) >> 29) & 1) + 24);
-  add_explicit = atomic_fetch_add_explicit(v32, 0x100000000uLL, memory_order_relaxed);
+LABEL_50:
+  v26 = &a1[((a1[3] >> 29) & 1) + 6];
+  add_explicit = atomic_fetch_add_explicit(v26, 0x100000000uLL, memory_order_relaxed);
   if (_pthread_mutex_ulock_unlock(a2))
   {
-    v34 = *v32;
-    v35 = *v32;
+    v28 = *v26;
+    v29 = *v26;
     do
     {
-      LODWORD(v36) = HIWORD(v34) - 1;
-      if (HIWORD(v34))
+      LODWORD(v30) = HIWORD(v28) - 1;
+      if (HIWORD(v28))
       {
-        v36 = v36;
+        v30 = v30;
       }
 
       else
       {
-        v36 = 0;
+        v30 = 0;
       }
 
-      atomic_compare_exchange_strong_explicit(v32, &v35, (v34 + 0xFFFF00000000) & 0xFFFF00000000 | (v36 << 48) | v34, memory_order_acquire, memory_order_acquire);
-      v6 = v35 == v34;
-      v34 = v35;
+      atomic_compare_exchange_strong_explicit(v26, &v29, (v28 + 0xFFFF00000000) & 0xFFFF00000000 | (v30 << 48) | v28, memory_order_acquire, memory_order_acquire);
+      v6 = v29 == v28;
+      v28 = v29;
     }
 
     while (!v6);
     return;
   }
 
-  v39 = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
+  v33 = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
   while (1)
   {
     if (a5 == 2)
     {
-      v42[0] = a1;
-      v42[1] = a2;
-      v43 = _pthread_ulock_cond_cleanup;
-      v44 = v42;
-      v45 = 0;
-      v45 = *(v39 - 216);
-      *(v39 - 216) = &v43;
-      v40 = __ulock_wait2();
+      v36[0] = a1;
+      v36[1] = a2;
+      v37 = _pthread_ulock_cond_cleanup;
+      v38 = v36;
+      v39 = 0;
+      v39 = *(v33 - 216);
+      *(v33 - 216) = &v37;
+      v34 = __ulock_wait2();
       pthread_testcancel();
-      *(v39 - 216) = v45;
-      if ((v40 & 0x80000000) == 0)
+      *(v33 - 216) = v39;
+      if ((v34 & 0x80000000) == 0)
       {
-        goto LABEL_80;
+        goto LABEL_75;
       }
     }
 
     else
     {
-      v40 = __ulock_wait2();
-      if ((v40 & 0x80000000) == 0)
+      v34 = __ulock_wait2();
+      if ((v34 & 0x80000000) == 0)
       {
-        goto LABEL_80;
+        goto LABEL_75;
       }
     }
 
-    if (v40 != -14)
+    if (v34 != -14)
     {
       break;
     }
 
-LABEL_80:
-    if (*v32 != add_explicit)
+LABEL_75:
+    if (*v26 != add_explicit)
     {
-      goto LABEL_84;
+      goto LABEL_79;
     }
   }
 
-  if (v40 == -60 || v40 == -4)
+  if (v34 == -60 || v34 == -4)
   {
-LABEL_84:
-    _pthread_ulock_cond_wait_complete(v32, a2);
+LABEL_79:
+    _pthread_ulock_cond_wait_complete(v26, a2);
     return;
   }
 
   qword_1ECE00010 = "BUG IN LIBPTHREAD: ulock_wait failure";
-  qword_1ECE00040 = -v40;
+  qword_1ECE00040 = -v34;
   __break(0xB001u);
-LABEL_86:
+LABEL_81:
   qword_1ECE00010 = "BUG IN LIBPTHREAD: Mixed ulock and psych condvar use";
   __break(0xB001u);
 }
 
-uint64_t _pthread_cond_updateval(uint64_t result, unsigned int a2, int a3)
+uint64_t _pthread_cond_updateval(uint64_t result, unsigned int a2, unsigned int a3)
 {
   if ((a2 & 0x100) != 0)
   {
@@ -2128,77 +2094,69 @@ uint64_t _pthread_cond_updateval(uint64_t result, unsigned int a2, int a3)
   v5 = *(result + 12);
   v6 = (v5 & 0x20000000) == 0;
   v7 = 28;
-  v8 = 24;
   if ((v5 & 0x20000000) != 0)
   {
-    v9 = 28;
+    v8 = 28;
   }
 
   else
   {
-    v9 = 24;
+    v8 = 24;
   }
 
-  if (v6)
-  {
-    v8 = 32;
-  }
-
-  else
+  if (!v6)
   {
     v7 = 32;
   }
 
   do
   {
-    v10 = *(result + v9);
-    v11 = *(result + v8);
-    v12 = *(result + v7);
-    v13 = v10 & 0xFFFFFF00;
-    v14 = v12 & 0xFFFFFF00;
-    v15 = v10 | (v12 << 32);
-    v16 = (v12 & 0xFFFFFF00) + (v4 & 0xFFFFFF00);
-    v17 = (v12 | v4) & 3;
-    v18 = v16 | v17;
-    v19 = v16 == (v10 & 0xFFFFFF00) && v17 == 3;
-    v20 = !v19;
-    LODWORD(v21) = v18 & 0xFFFFFF01;
-    if (v19)
+    v9 = *(result + v8);
+    v10 = *(result + v7);
+    v11 = v9 & 0xFFFFFF00;
+    v12 = v10 & 0xFFFFFF00;
+    v13 = v9 | (v10 << 32);
+    v14 = (v10 & 0xFFFFFF00) + (v4 & 0xFFFFFF00);
+    v15 = (v10 | v4) & 3;
+    v16 = v14 | v15;
+    v17 = v14 == (v9 & 0xFFFFFF00) && v15 == 3;
+    v18 = !v17;
+    LODWORD(v19) = v16 & 0xFFFFFF01;
+    if (v17)
     {
-      v21 = v21;
+      v19 = v19;
     }
 
     else
     {
-      v21 = v18;
+      v19 = v16;
     }
 
-    v22 = v10 | (v21 << 32);
-    if (v13 == v14 && (v4 & 2) == 0)
+    v20 = v9 | (v19 << 32);
+    if (v11 == v12 && (v4 & 2) == 0)
     {
-      v22 = v15;
-      LODWORD(v21) = 0;
-      v24 = 1;
+      v20 = v13;
+      LODWORD(v19) = 0;
+      v22 = 1;
     }
 
     else
     {
-      v24 = v20;
+      v22 = v18;
     }
 
-    v25 = v15;
-    atomic_compare_exchange_strong((result + v9), &v25, v22);
+    v23 = v13;
+    atomic_compare_exchange_strong((result + v8), &v23, v20);
   }
 
-  while (v25 != v15);
-  if (v13 != v14 && (v21 ^ v10) <= 0xFF)
+  while (v23 != v13);
+  if (v11 != v12 && (v19 ^ v9) <= 0xFF)
   {
     *(result + 16) = 0;
   }
 
-  if ((v24 & 1) == 0)
+  if ((v22 & 1) == 0)
   {
-    v26 = *(result + 12) >> 30;
     return __psynch_cvclrprepost();
   }
 
@@ -2228,7 +2186,7 @@ int pthread_attr_getschedparam(const pthread_attr_t *a1, sched_param *a2)
   return result;
 }
 
-uint64_t _pthread_workqueue_addthreads()
+uint64_t _pthread_workqueue_addthreads(uint64_t a1, uint64_t a2)
 {
   if (!__libdispatch_workerfunction)
   {
@@ -2244,7 +2202,7 @@ uint64_t _pthread_workqueue_addthreads()
   return result;
 }
 
-uint64_t _pthread_workqueue_add_cooperativethreads()
+uint64_t _pthread_workqueue_add_cooperativethreads(uint64_t a1, uint64_t a2)
 {
   if (!__libdispatch_workerfunction)
   {
@@ -2270,40 +2228,40 @@ int pthread_threadid_np(pthread_t a1, __uint64_t *a2)
   v4 = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) - 224;
   if (!a1 || v4 == a1)
   {
-    v6 = 0;
+    v8 = 0;
     *a2 = *(v4 + 216);
   }
 
   else
   {
-    os_unfair_lock_lock_with_options();
-    v5 = __pthread_head;
+    v5 = os_unfair_lock_lock_with_options();
+    v7 = __pthread_head;
     if (__pthread_head)
     {
-      while (v5 != a1)
+      while (v7 != a1)
       {
-        v5 = *v5->__opaque;
-        if (!v5)
+        v7 = *v7->__opaque;
+        if (!v7)
         {
           goto LABEL_7;
         }
       }
 
-      if ((_pthread_ptr_munge_token ^ v5->__sig) != a1)
+      if ((_pthread_ptr_munge_token ^ v7->__sig) != a1)
       {
-        pthread_mach_thread_np_cold_1();
+        pthread_mach_thread_np_cold_1(v5, v6);
       }
 
-      v7 = *&a1->__opaque[200];
-      *a2 = v7;
-      if (v7)
+      v9 = *&a1->__opaque[200];
+      *a2 = v9;
+      if (v9)
       {
-        v6 = 0;
+        v8 = 0;
       }
 
       else
       {
-        v6 = _pthread_threadid_slow(a1, a2);
+        v8 = _pthread_threadid_slow(a1, a2);
       }
 
       os_unfair_lock_unlock(&_pthread_list_lock);
@@ -2317,10 +2275,10 @@ LABEL_7:
     }
   }
 
-  return v6;
+  return v8;
 }
 
-uint64_t _pthread_qos_override_start_direct()
+uint64_t _pthread_qos_override_start_direct(unsigned int a1, uint64_t a2, uint64_t a3)
 {
   result = __bsdthread_ctl();
   if (result == -1)
@@ -2331,7 +2289,7 @@ uint64_t _pthread_qos_override_start_direct()
   return result;
 }
 
-uint64_t _pthread_workqueue_set_event_manager_priority()
+uint64_t _pthread_workqueue_set_event_manager_priority(uint64_t a1)
 {
   result = __workq_kernreturn();
   if (result == -1)
@@ -2374,27 +2332,28 @@ int pthread_rwlock_wrlock(pthread_rwlock_t *a1)
 
 int pthread_setname_np(const char *a1)
 {
-  v1 = (_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) - 224);
+  v2 = (_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) - 224);
   if (a1)
   {
-    v2 = _platform_strlen();
+    a1 = _platform_strlen();
+    v3 = a1;
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  if ((_pthread_ptr_munge_token ^ *v1) != v1)
+  if ((_pthread_ptr_munge_token ^ *v2) != v2)
   {
-    pthread_mach_thread_np_cold_1();
+    pthread_mach_thread_np_cold_1(a1, v1);
   }
 
   getpid();
-  v3 = __proc_info();
-  if (!v3)
+  v4 = __proc_info();
+  if (!v4)
   {
-    if (v2)
+    if (v3)
     {
       _platform_strlcpy();
     }
@@ -2405,7 +2364,7 @@ int pthread_setname_np(const char *a1)
     }
   }
 
-  return v3;
+  return v4;
 }
 
 uint64_t pthread_workqueue_setup(uint64_t a1, unint64_t a2)
@@ -2447,7 +2406,6 @@ uint64_t pthread_workqueue_setup(uint64_t a1, unint64_t a2)
   }
 
   __workq_newapi = 1;
-  v7 = *(a1 + 32);
   if (__workq_kernreturn() == -1)
   {
     return **(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
@@ -2482,7 +2440,7 @@ int pthread_once(pthread_once_t *a1, void (*a2)(void))
   return 0;
 }
 
-uint64_t _pthread_workqueue_override_start_direct_check_owner(int a1, uint64_t a2, _DWORD *a3)
+uint64_t _pthread_workqueue_override_start_direct_check_owner(unsigned int a1, uint64_t a2, _DWORD *a3)
 {
   StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
   while (1)
@@ -2507,10 +2465,10 @@ uint64_t _pthread_workqueue_override_start_direct_check_owner(int a1, uint64_t a
   return result;
 }
 
-uint64_t _pthread_markcancel_if_canceled(uint64_t result)
+uint64_t _pthread_markcancel_if_canceled(uint64_t result, uint64_t a2)
 {
-  v1 = atomic_load((result + 166));
-  if ((~v1 & 0x11) == 0)
+  v2 = atomic_load((result + 166));
+  if ((~v2 & 0x11) == 0)
   {
     return __pthread_markcancel();
   }
@@ -2546,22 +2504,22 @@ int pthread_getname_np(pthread_t a1, char *a2, size_t a3)
   {
     if (a1)
     {
-      os_unfair_lock_lock_with_options();
-      v4 = __pthread_head;
+      v4 = os_unfair_lock_lock_with_options();
+      v6 = __pthread_head;
       if (__pthread_head)
       {
-        while (v4 != a1)
+        while (v6 != a1)
         {
-          v4 = *v4->__opaque;
-          if (!v4)
+          v6 = *v6->__opaque;
+          if (!v6)
           {
             goto LABEL_6;
           }
         }
 
-        if ((_pthread_ptr_munge_token ^ v4->__sig) != a1)
+        if ((_pthread_ptr_munge_token ^ v6->__sig) != a1)
         {
-          pthread_mach_thread_np_cold_1();
+          pthread_mach_thread_np_cold_1(v4, v5);
         }
 
         _platform_strlcpy();
@@ -2618,12 +2576,12 @@ uint64_t _pthread_workqueue_override_reset()
 
 int pthread_cond_signal(pthread_cond_t *a1)
 {
-  v36 = 1129270852;
+  v35 = 1129270852;
   sig = a1->__sig;
   if ((LODWORD(a1->__sig) - 1129270853) < 2)
   {
     result = 0;
-    v36 = sig;
+    v35 = sig;
   }
 
   else
@@ -2641,8 +2599,8 @@ int pthread_cond_signal(pthread_cond_t *a1)
       }
     }
 
-    result = _pthread_cond_check_init_slow(a1, &v36, v1);
-    sig = v36;
+    result = _pthread_cond_check_init_slow(a1, &v35, v1);
+    sig = v35;
     if (result)
     {
       return result;
@@ -2757,11 +2715,10 @@ int pthread_cond_signal(pthread_cond_t *a1)
         atomic_compare_exchange_strong((a1 + v10), &v23, v15 + 256);
         if (v23 == v12)
         {
-          v34 = *&a1->__opaque[4] >> 30;
-          v35 = __psynch_cvsignal();
-          if ((v35 - 1) <= 0xFFFFFFFD)
+          v34 = __psynch_cvsignal();
+          if (v34 - 1 <= 0xFFFFFFFD)
           {
-            _pthread_cond_updateval(a1, 0, v35);
+            _pthread_cond_updateval(a1, 0, v34);
           }
 
           return 0;
@@ -2888,7 +2845,7 @@ void pthread_testcancel(void)
   }
 }
 
-uint64_t pthread_install_workgroup_functions_np(uint64_t a1)
+uint64_t pthread_install_workgroup_functions_np(uint64_t a1, uint64_t a2)
 {
   result = _pthread_workgroup_functions;
   if (_pthread_workgroup_functions)
@@ -2912,8 +2869,9 @@ int pthread_attr_getschedpolicy(const pthread_attr_t *a1, int *a2)
   return result;
 }
 
-uint64_t _pthread_rwlock_lock_slow(void *a1, int a2, int a3)
+uint64_t _pthread_rwlock_lock_slow(void *a1, uint64_t a2, int a3)
 {
+  v4 = a2;
   if (*a1 == 1381452875 || (result = _pthread_rwlock_check_init_slow(a1), !result))
   {
     v7 = ((a1 + 47) & 0xFFFFFFFFFFFFFFF0);
@@ -2941,14 +2899,14 @@ uint64_t _pthread_rwlock_lock_slow(void *a1, int a2, int a3)
       return 11;
     }
 
-    v33 = v18;
-    v34 = ((a1 + 31) & 0xFFFFFFFFFFFFFFF8);
-    v35 = a1;
+    v35 = v18;
+    v36 = ((a1 + 31) & 0xFFFFFFFFFFFFFFF8);
+    v37 = a1;
     LODWORD(v19) = _X24;
     do
     {
       v20 = (v19 & 0x40) == 0;
-      if (a2)
+      if (v4)
       {
         v21 = (v19 & 5) != 0;
       }
@@ -2968,26 +2926,28 @@ LABEL_16:
         v26 = _X0 | (v22 << 32);
         v20 = 1;
         v27 = _X0;
+        v28 = _X1 | (v24 << 32);
       }
 
       else
       {
-        v28 = 0;
+        v29 = 0;
         v24 = v11;
         _X1 = _X25;
         v22 = v10;
         LODWORD(_X0) = v19;
         while (!v21)
         {
-          if (!a2)
+          if (!v4)
           {
             v26 = v19 | (v10 << 32);
-            v32 = v19 & 0xFFFFFF00 | 0x83;
+            v33 = v19 & 0xFFFFFF00 | 0x83;
             v24 = v11;
             _X1 = _X25;
             LODWORD(v22) = v10;
+            v28 = _X25 | (v11 << 32);
 LABEL_36:
-            v27 = v32 + 256;
+            v27 = v33 + 256;
             v22 = (v22 + 256);
             goto LABEL_37;
           }
@@ -2996,35 +2956,36 @@ LABEL_36:
           {
             v20 = 0;
             v26 = _X0 | (v22 << 32);
-            v32 = _X0 & 0xFFFFFFBF;
+            v33 = _X0 & 0xFFFFFFBF;
+            v28 = _X1 | (v24 << 32);
             goto LABEL_36;
           }
 
-          if (v28 == 1024)
+          if (v29 == 1024)
           {
             return 35;
           }
 
           sched_yield();
           _X2 = *v7;
-          v30 = v7[1];
+          v31 = v7[1];
           v22 = HIDWORD(*v7);
-          v24 = HIDWORD(v30);
+          v24 = HIDWORD(v31);
           do
           {
             _X2 = _X2 | (v22 << 32);
-            v30 = v30 | (v24 << 32);
-            _X1 = v30;
+            v31 = v31 | (v24 << 32);
+            _X1 = v31;
             __asm { CASP            X0, X1, X2, X3, [X22] }
 
             _ZF = _X0 == _X2;
             v22 = HIDWORD(_X0);
-            v24 = HIDWORD(v30);
+            v24 = HIDWORD(v31);
             LODWORD(_X2) = _X0;
           }
 
           while (!_ZF);
-          ++v28;
+          ++v29;
           v21 = (_X0 & 5) != 0;
           if (a3 && (_X0 & 5) != 0)
           {
@@ -3033,13 +2994,13 @@ LABEL_36:
         }
 
         v26 = _X0 | (v22 << 32);
-        v31 = _X0 | 5;
-        if (a2)
+        v32 = _X0 | 5;
+        if (v4)
         {
-          v31 = _X0 & 0xFFFFFFBF;
+          v32 = _X0 & 0xFFFFFFBF;
         }
 
-        v27 = v31 + 256;
+        v27 = v32 + 256;
         if (v22)
         {
           v22 = v22 & 0xFE | _X0 & 0xFFFFFF00;
@@ -3050,12 +3011,14 @@ LABEL_36:
           v22 = v22;
         }
 
+        v28 = _X1 | (v24 << 32);
         v20 = 1;
       }
 
 LABEL_37:
+      v34 = v27 | (v22 << 32);
       v19 = v26;
-      atomic_compare_exchange_strong_explicit(v7, &v19, v27 | (v22 << 32), memory_order_acquire, memory_order_acquire);
+      atomic_compare_exchange_strong_explicit(v7, &v19, v34, memory_order_acquire, memory_order_acquire);
       v10 = HIDWORD(v19);
       _X25 = _X1;
       v11 = v24;
@@ -3069,13 +3032,13 @@ LABEL_37:
         return 16;
       }
 
-      _pthread_rwlock_lock_wait(v35, a2);
+      _pthread_rwlock_lock_wait(v37, v4, v34, v28);
     }
 
-    else if ((a2 & 1) == 0)
+    else if ((v4 & 1) == 0)
     {
       result = 0;
-      *v34 = v33;
+      *v36 = v35;
       return result;
     }
 
@@ -3193,70 +3156,69 @@ uint64_t __pthread_once_handler(void *a1)
   return result;
 }
 
-uint64_t _pthread_create(uint64_t *a1, void *a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t _pthread_create(uint64_t *a1, const char *a2, uint64_t a3, uint64_t a4, char a5)
 {
   if (!a2)
   {
     v7 = _pthread_attr_default;
 LABEL_5:
-    v10 = *(v7 + 4);
     v9 = *(v7 + 5);
-    v11 = *(v7 + 3);
+    v10 = *(v7 + 3);
     __is_threaded = 1;
     address = __pthread_stack_hint;
-    if ((v11 - 1) <= 0x3FFE)
+    if ((v10 - 1) <= 0x3FFE)
     {
-      _pthread_create_cold_3(v11);
+      _pthread_create_cold_3(v10);
     }
 
-    v12 = *(v7 + 2);
-    if ((*MEMORY[0x1E69E9AB8] & v12) != 0)
+    v11 = *(v7 + 2);
+    if ((*MEMORY[0x1E69E9AB8] & v11) != 0)
     {
-      _pthread_create_cold_1(v12);
+      _pthread_create_cold_1(v11);
     }
 
-    v35 = a1;
-    if (v12)
+    v34 = a1;
+    if (v11)
     {
+      v12 = 0;
       v13 = 0;
-      v14 = 0;
-      v15 = ~*MEMORY[0x1E69E9AB8] & (*MEMORY[0x1E69E9AB8] + 4320);
+      v14 = ~*MEMORY[0x1E69E9AB8] & (*MEMORY[0x1E69E9AB8] + 4320);
     }
 
     else
     {
       if ((v9 & 0x10000000) != 0)
       {
-        v16 = MEMORY[0x1E69E9AC8];
+        v15 = MEMORY[0x1E69E9AC8];
       }
 
       else
       {
-        v16 = (v7 + 8);
+        v15 = (v7 + 8);
       }
 
-      v14 = *v16;
-      if (v11)
+      v13 = *v15;
+      if (v10)
       {
-        v11 += 12288;
+        v10 += 12288;
       }
 
       else
       {
-        v11 = 536576;
+        v10 = 536576;
       }
 
-      v13 = v14 + v11;
-      v15 = ((~*MEMORY[0x1E69E9AB8] & (*MEMORY[0x1E69E9AB8] + 4320)) + *MEMORY[0x1E69E9AB8] + v14 + v11) & ~*MEMORY[0x1E69E9AB8];
+      v12 = v13 + v10;
+      v14 = ((~*MEMORY[0x1E69E9AB8] & (*MEMORY[0x1E69E9AB8] + 4320)) + *MEMORY[0x1E69E9AB8] + v13 + v10) & ~*MEMORY[0x1E69E9AB8];
     }
 
-    v17 = MEMORY[0x1E69E9A60];
-    v18 = mach_vm_map(*MEMORY[0x1E69E9A60], &address, v15, *MEMORY[0x1E69E9AC8] - 1, 503316481, 0, 0, 0, 3, 7, 1u);
-    if (v18)
+    v16 = MEMORY[0x1E69E9A60];
+    v17 = mach_vm_map(*MEMORY[0x1E69E9A60], &address, v14, *MEMORY[0x1E69E9AC8] - 1, 503316481, 0, 0, 0, 3, 7, 1u);
+    if (v17)
     {
-      v19 = v17;
-      v18 = mach_vm_allocate(*v17, &address, v15, 503316481);
-      if (v18)
+      v18 = v16;
+      v17 = mach_vm_allocate(*v16, &address, v14, 503316481);
+      if (v17)
       {
         return 35;
       }
@@ -3264,115 +3226,115 @@ LABEL_5:
 
     else
     {
-      v19 = v17;
+      v18 = v16;
       if ((a5 & 1) == 0 && *MEMORY[0x1E69E99E8])
       {
-        v18 = (*MEMORY[0x1E69E99E8])(503316624, *v17, v15, 0, address, 0);
+        v17 = (*MEMORY[0x1E69E99E8])(503316624, *v16, v14, 0, address, 0);
       }
     }
 
     if ((a5 & 1) == 0 && *MEMORY[0x1E69E99E8])
     {
-      v18 = (*MEMORY[0x1E69E99E8])(503316496, *v19, v15, 0, address, 0);
+      v17 = (*MEMORY[0x1E69E99E8])(503316496, *v18, v14, 0, address, 0);
     }
 
-    if (v14)
+    if (v13)
     {
-      v18 = mach_vm_protect(*v19, address, v14, 0, 0);
+      v17 = mach_vm_protect(*v18, address, v13, 0, 0);
     }
 
-    v20 = address;
-    v21 = address + v13;
+    v19 = address;
+    v20 = address + v12;
     if (*(v7 + 2))
     {
-      v22 = *(v7 + 2);
+      v21 = *(v7 + 2);
     }
 
     else
     {
-      v22 = address + v13;
+      v21 = address + v12;
     }
 
-    *v21 = _pthread_ptr_munge_token ^ v21;
-    *(v21 + 224) = v21;
-    *(v21 + 232) = v21 + 172;
+    *v20 = _pthread_ptr_munge_token ^ v20;
+    *(v20 + 224) = v20;
+    *(v20 + 232) = v20 + 172;
     if (v7[43])
     {
-      v23 = 0;
+      v22 = 0;
     }
 
     else
     {
-      v23 = *(v7 + 4);
+      v22 = *(v7 + 4);
     }
 
-    v24 = MEMORY[0x1E69E9AC8];
-    *(v21 + 256) = v23;
-    *(v21 + 280) = _pthread_ptr_munge_token;
-    v25 = *(v21 + 49) & 0xFB | (4 * (*(v7 + 2) != 0));
-    *(v21 + 49) = v25;
-    *(v21 + 72) = 0;
-    *(v21 + 176) = v22;
-    *(v21 + 184) = v22 - v11;
-    *(v21 + 192) = v20;
-    *(v21 + 200) = v15;
+    v23 = MEMORY[0x1E69E9AC8];
+    *(v20 + 256) = v22;
+    *(v20 + 280) = _pthread_ptr_munge_token;
+    v24 = *(v20 + 49) & 0xFB | (4 * (*(v7 + 2) != 0));
+    *(v20 + 49) = v24;
+    *(v20 + 72) = 0;
+    *(v20 + 176) = v21;
+    *(v20 + 184) = v21 - v10;
+    *(v20 + 192) = v19;
+    *(v20 + 200) = v14;
     if ((*(v7 + 5) & 0x10000000) != 0)
     {
-      v26 = v24;
+      v25 = v23;
     }
 
     else
     {
-      v26 = v7 + 8;
+      v25 = v7 + 8;
     }
 
-    *(v21 + 208) = *v26;
-    v27 = v25 & 0xFE;
+    *(v20 + 208) = *v25;
+    v26 = v24 & 0xFE;
     if (v7[40] == 1)
     {
-      ++v27;
+      ++v26;
     }
 
-    *(v21 + 49) = v27;
-    v28 = v7[41] | (*(v21 + 79) << 8);
-    *(v21 + 78) = v28;
-    *(v21 + 48) = BYTE2(*(v7 + 5));
-    *(v21 + 78) = (*(v7 + 10) >> 15) & 0x200 | v28 & 0xFDFF;
+    *(v20 + 49) = v26;
+    v27 = *(v7 + 41) | (*(v20 + 79) << 8);
+    *(v20 + 78) = v27;
+    *(v20 + 48) = BYTE2(*(v7 + 5));
+    *(v20 + 78) = (*(v7 + 10) >> 15) & 0x200 | v27 & 0xFDFF;
     if (v7[43])
     {
-      *(v21 + 56) = *(v7 + 4);
+      *(v20 + 56) = *(v7 + 4);
     }
 
     else
     {
-      *(v21 + 56) = default_priority;
-      *(v21 + 60) = 10;
+      *(v20 + 56) = default_priority;
+      *(v20 + 60) = 10;
     }
 
-    *(v21 + 166) = 3;
+    *(v20 + 166) = 3;
     if (a5)
     {
-      v29 = MEMORY[0x1E12CEE70](v18);
+      v28 = MEMORY[0x1E12CEE70](v17);
     }
 
     else
     {
-      v29 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
+      v28 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
     }
 
-    *(v21 + 144) = a3;
-    *(v21 + 152) = a4;
+    *(v20 + 144) = a3;
+    *(v20 + 152) = a4;
     os_unfair_lock_lock_no_tsd();
-    *(v21 + 16) = 0;
-    v30 = off_1ED3F8028;
-    *(v21 + 24) = off_1ED3F8028;
-    *v30 = v21;
-    off_1ED3F8028 = (v21 + 16);
+    *(v20 + 16) = 0;
+    v29 = off_1ED3F8028;
+    *(v20 + 24) = off_1ED3F8028;
+    *v29 = v20;
+    off_1ED3F8028 = (v20 + 16);
     ++_pthread_count;
     os_unfair_lock_unlock_no_tsd();
     if ((a5 & 1) == 0 && _pthread_introspection_hook)
     {
-      _pthread_introspection_hook_callout_thread_create(v21);
+      _pthread_introspection_hook_callout_thread_create(v20);
     }
 
     if (__bsdthread_create() == -1)
@@ -3383,20 +3345,20 @@ LABEL_5:
       }
 
       os_unfair_lock_lock_no_tsd();
-      v32 = *(v21 + 16);
-      v33 = *(v21 + 24);
-      v34 = (v32 + 24);
-      if (!v32)
+      v31 = *(v20 + 16);
+      v32 = *(v20 + 24);
+      v33 = (v31 + 24);
+      if (!v31)
       {
-        v34 = &off_1ED3F8028;
+        v33 = &off_1ED3F8028;
       }
 
-      *v34 = v33;
       *v33 = v32;
+      *v32 = v31;
       --_pthread_count;
       os_unfair_lock_unlock_no_tsd();
-      _pthread_deallocate(v21, a5 & 1);
-      v21 = 0;
+      _pthread_deallocate(v20, a5 & 1);
+      v20 = 0;
       v8 = 35;
       if ((a5 & 1) == 0)
       {
@@ -3410,12 +3372,12 @@ LABEL_5:
       if ((a5 & 1) == 0)
       {
 LABEL_49:
-        *v35 = v21;
+        *v34 = v20;
         return v8;
       }
     }
 
-    mach_port_deallocate(*v19, v29);
+    mach_port_deallocate(*v18, v28);
     goto LABEL_49;
   }
 
@@ -3454,7 +3416,7 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  _pthread_markcancel_if_canceled(a1);
+  _pthread_markcancel_if_canceled(a1, a2);
   result = __thread_selfid();
   *(a1 + 216) = result;
   if (result == -1)
@@ -3480,14 +3442,14 @@ LABEL_11:
   return result;
 }
 
-void *_pthread_introspection_thread_start(void *a1)
+void *_pthread_introspection_thread_start(void *result)
 {
   if (_pthread_introspection_hook)
   {
-    return _pthread_introspection_hook_callout_thread_start(a1);
+    return _pthread_introspection_hook_callout_thread_start(result);
   }
 
-  return a1;
+  return result;
 }
 
 int pthread_attr_set_qos_class_np(pthread_attr_t *__attr, qos_class_t __qos_class, int __relative_priority)
@@ -3581,7 +3543,6 @@ uint64_t _pthread_bsdthread_init(uint64_t a1)
   *(a1 + 24) = 0x28000000E0;
   *(a1 + 32) = 24;
   *(a1 + 48) = 0x3C000000188;
-  v2 = *MEMORY[0x1E69E9AB8];
   result = __bsdthread_register();
   if (result >= 1)
   {
@@ -3593,11 +3554,11 @@ uint64_t _pthread_bsdthread_init(uint64_t a1)
     __pthread_supported_features = result;
   }
 
-  v4 = *(a1 + 16);
-  if ((v4 & 0x22000000) == 0 && (v4 & 0x3F00) != 0)
+  v3 = *(a1 + 16);
+  if ((v3 & 0x22000000) == 0 && (v3 & 0x3F00) != 0)
   {
     result = _pthread_set_main_qos(*(a1 + 16));
-    *(_main_thread_ptr + 256) = v4;
+    *(_main_thread_ptr + 256) = v3;
   }
 
   if (*(a1 + 36))
@@ -3987,82 +3948,80 @@ uint64_t _pthread_terminate(pthread_t a1, uint64_t a2)
   v5 = *&a1->__opaque[184];
   if (v4 < a1 && v4 + v5 > a1)
   {
-    v10 = (a1 - v4) & -*MEMORY[0x1E69E9AC8];
-    *&a1->__opaque[176] = v4 + v10;
-    *&a1->__opaque[184] = v5 - v10;
+    v7 = (a1 - v4) & -*MEMORY[0x1E69E9AC8];
+    *&a1->__opaque[176] = v4 + v7;
+    *&a1->__opaque[184] = v5 - v7;
   }
 
   else if (_main_thread_ptr == a1)
   {
-    v7 = *&a1->__opaque[160];
-    v8 = v7 - pthread_get_stacksize_np(a1);
-    v9 = (_pthread_current_stack_address() & -*MEMORY[0x1E69E9AC8]) - v8;
+    pthread_get_stacksize_np(a1);
+    _pthread_current_stack_address();
   }
 
-  v11 = *&a1->__opaque[232];
   if (*&a1->__opaque[272])
   {
     *&a1->__opaque[272] = 0;
     thread_destruct_special_reply_port();
   }
 
-  v12 = *&a1->__opaque[224];
-  if (v12)
+  v8 = *&a1->__opaque[224];
+  if (v8)
   {
-    mig_dealloc_reply_port(v12);
+    mig_dealloc_reply_port(v8);
   }
 
   os_unfair_lock_lock_with_options();
   *&a1->__opaque[36] = -1;
   *&a1->__opaque[24] = a2;
-  v13 = _pthread_count--;
-  v14 = *&a1->__opaque[16];
-  if (v14)
+  v9 = _pthread_count--;
+  v10 = *&a1->__opaque[16];
+  if (v10)
   {
     _pthread_joiner_prepost_wake(a1);
   }
 
-  v15 = a1->__opaque[33];
-  v16 = v15 & 1;
-  if (v15)
+  v11 = a1->__opaque[33];
+  v12 = v11 & 1;
+  if (v11)
   {
-    a1->__opaque[33] = v15 | 2;
+    a1->__opaque[33] = v11 | 2;
   }
 
   else
   {
-    v17 = *a1->__opaque;
-    v18 = *&a1->__opaque[8];
-    v19 = (v17 + 24);
-    if (!v17)
+    v13 = *a1->__opaque;
+    v14 = *&a1->__opaque[8];
+    v15 = (v13 + 24);
+    if (!v13)
     {
-      v19 = &off_1ED3F8028;
+      v15 = &off_1ED3F8028;
     }
 
-    *v19 = v18;
-    *v18 = v17;
+    *v15 = v14;
+    *v14 = v13;
   }
 
   os_unfair_lock_unlock(&_pthread_list_lock);
-  if (v14)
+  if (v10)
   {
-    _pthread_joiner_wake();
+    _pthread_joiner_wake(a1);
     os_unfair_lock_lock_with_options();
     if (*&a1->__opaque[16])
     {
       a1->__opaque[33] |= 2u;
-      v16 = 1;
+      v12 = 1;
     }
 
     os_unfair_lock_unlock(&_pthread_list_lock);
   }
 
-  if ((v16 & 1) == 0 && _main_thread_ptr != a1 && _pthread_introspection_hook)
+  if ((v12 & 1) == 0 && _main_thread_ptr != a1 && _pthread_introspection_hook)
   {
     _pthread_introspection_hook_callout_thread_destroy(a1);
   }
 
-  if (v13 <= 1)
+  if (v9 <= 1)
   {
     exitf(0);
   }
@@ -4103,8 +4062,8 @@ size_t pthread_get_stacksize_np(pthread_t a1)
     return 0x80000;
   }
 
-  os_unfair_lock_lock_with_options();
-  v4 = __pthread_head;
+  v4 = os_unfair_lock_lock_with_options();
+  v6 = __pthread_head;
   if (!__pthread_head)
   {
 LABEL_13:
@@ -4112,18 +4071,18 @@ LABEL_13:
     return 0x80000;
   }
 
-  while (v4 != a1)
+  while (v6 != a1)
   {
-    v4 = *v4->__opaque;
-    if (!v4)
+    v6 = *v6->__opaque;
+    if (!v6)
     {
       goto LABEL_13;
     }
   }
 
-  if ((_pthread_ptr_munge_token ^ v4->__sig) != a1)
+  if ((_pthread_ptr_munge_token ^ v6->__sig) != a1)
   {
-    pthread_mach_thread_np_cold_1();
+    pthread_mach_thread_np_cold_1(v4, v5);
   }
 
   v3 = *&a1->__opaque[160] - *&a1->__opaque[168];
@@ -4136,7 +4095,7 @@ LABEL_13:
   return v3;
 }
 
-uint64_t _pthread_key_global_init()
+uint64_t _pthread_key_global_init(uint64_t a1)
 {
   if (_simple_getenv())
   {
@@ -4271,25 +4230,24 @@ int pthread_setspecific(pthread_key_t a1, const void *a2)
   return v3;
 }
 
-uint64_t _pthread_rwlock_lock_wait(uint64_t a1, int a2)
+uint64_t _pthread_rwlock_lock_wait(uint64_t a1, int a2, unint64_t a3, uint64_t a4)
 {
   StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
   while (1)
   {
-    v5 = *(a1 + 16);
     result = a2 ? __psynch_rw_rdlock() : __psynch_rw_wrlock();
     if (result != -1)
     {
       break;
     }
 
-    v7 = **(StatusReg + 8);
-    if (v7 != 4)
+    v8 = **(StatusReg + 8);
+    if (v8 != 4)
     {
-      if (v7)
+      if (v8)
       {
         qword_1ECE00010 = "BUG IN LIBPTHREAD: kernel rwlock returned unknown error";
-        qword_1ECE00040 = v7;
+        qword_1ECE00040 = v8;
         __break(0xB001u);
         return result;
       }
@@ -4298,62 +4256,62 @@ uint64_t _pthread_rwlock_lock_wait(uint64_t a1, int a2)
     }
   }
 
-  v8 = ((a1 + 47) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *v8;
+  v9 = ((a1 + 47) & 0xFFFFFFFFFFFFFFF0);
+  v10 = *v9;
   do
   {
-    v10 = HIDWORD(v9);
-    if (result & 0x40 | BYTE4(v9) & 2)
+    v11 = HIDWORD(v10);
+    if (result & 0x40 | BYTE4(v10) & 2)
     {
-      v12 = result | v9;
-      if (v9 & 4 | result & 1)
+      v13 = result | v10;
+      if (v10 & 4 | result & 1)
       {
-        v13 = 191;
+        v14 = 191;
       }
 
       else
       {
-        v13 = 190;
+        v14 = 190;
       }
 
-      v14 = v13 & v12;
-      if ((((v12 & 6) == 0) & (HIDWORD(v9) >> 2)) != 0)
+      v15 = v14 & v13;
+      if ((((v13 & 6) == 0) & (HIDWORD(v10) >> 2)) != 0)
       {
-        v15 = v14 | 5;
+        v16 = v15 | 5;
       }
 
       else
       {
-        v15 = v14;
+        v16 = v15;
       }
 
-      v11 = v15 | v9 & 0xFFFFFF00;
-      v16 = (result & 0xFFFFFF00) + HIDWORD(v9);
+      v12 = v16 | v10 & 0xFFFFFF00;
+      v17 = (result & 0xFFFFFF00) + HIDWORD(v10);
       if ((result & 0x40) == 0)
       {
-        v16 &= 0xFFFFFF00;
+        v17 &= 0xFFFFFF00;
       }
 
-      v10 = v16 & 0xFFFFFFFB;
+      v11 = v17 & 0xFFFFFFFB;
     }
 
     else
     {
-      v11 = v9;
+      v12 = v10;
     }
 
-    v17 = v11 | (v10 << 32);
-    v18 = v9;
-    atomic_compare_exchange_strong_explicit(v8, &v18, v17, memory_order_relaxed, memory_order_relaxed);
-    v19 = v18 == v9;
-    v9 = v18;
+    v18 = v12 | (v11 << 32);
+    v19 = v10;
+    atomic_compare_exchange_strong_explicit(v9, &v19, v18, memory_order_relaxed, memory_order_relaxed);
+    v20 = v19 == v10;
+    v10 = v19;
   }
 
-  while (!v19);
+  while (!v20);
   return result;
 }
 
-uint64_t _pthread_mutex_fairshare_lock(uint64_t a1, int a2)
+uint64_t _pthread_mutex_fairshare_lock(uint64_t a1, uint64_t a2)
 {
   v2 = ((a1 + 39) & 0xFFFFFFFFFFFFFFF8);
   v3 = *v2;
@@ -4556,16 +4514,6 @@ uint64_t _pthread_workloop_create(uint64_t a1, unint64_t a2, uint64_t a3)
   result = 22;
   if (a2 <= 1 && a3)
   {
-    if ((*(a3 + 40) & 0x1000000) != 0)
-    {
-      v4 = *(a3 + 32);
-    }
-
-    if ((*(a3 + 48) + 1) >= 2)
-    {
-      v5 = *(a3 + 48);
-    }
-
     result = __kqueue_workloop_ctl();
     if (result == -1)
     {
@@ -4730,7 +4678,7 @@ int pthread_rwlock_trywrlock(pthread_rwlock_t *a1)
   return v8;
 }
 
-uint64_t _pthread_workqueue_override_start_direct()
+uint64_t _pthread_workqueue_override_start_direct(unsigned int a1, uint64_t a2)
 {
   result = __bsdthread_ctl();
   if (result == -1)
@@ -4784,13 +4732,8 @@ LABEL_11:
   return v5;
 }
 
-uint64_t pthread_dependency_init_np(void *a1, pthread_t a2, char *a3)
+uint64_t pthread_dependency_init_np(void *a1, pthread_t a2)
 {
-  if (a3)
-  {
-    v4 = *a3;
-  }
-
   result = pthread_mach_thread_np(a2);
   *a1 = result;
   a1[1] = 0;
@@ -4799,38 +4742,38 @@ uint64_t pthread_dependency_init_np(void *a1, pthread_t a2, char *a3)
 
 mach_port_t pthread_mach_thread_np(pthread_t a1)
 {
-  v1 = a1;
+  v2 = a1;
   if ((_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) - 224) == a1)
   {
     if ((_pthread_ptr_munge_token ^ a1->__sig) != a1)
     {
-      pthread_mach_thread_np_cold_1();
+      pthread_mach_thread_np_cold_1(a1, v1);
     }
 
-    LODWORD(v1) = *&a1->__opaque[232];
+    LODWORD(v2) = *&a1->__opaque[232];
   }
 
   else if (a1)
   {
-    os_unfair_lock_lock_with_options();
-    v2 = __pthread_head;
+    v3 = os_unfair_lock_lock_with_options();
+    v5 = __pthread_head;
     if (__pthread_head)
     {
-      while (v2 != v1)
+      while (v5 != v2)
       {
-        v2 = v2[2];
-        if (!v2)
+        v5 = v5[2];
+        if (!v5)
         {
           goto LABEL_6;
         }
       }
 
-      if ((_pthread_ptr_munge_token ^ *v2) != v1)
+      if ((_pthread_ptr_munge_token ^ *v5) != v2)
       {
-        pthread_mach_thread_np_cold_1();
+        pthread_mach_thread_np_cold_1(v3, v4);
       }
 
-      LODWORD(v1) = *&v1->__opaque[232];
+      LODWORD(v2) = *&v2->__opaque[232];
       os_unfair_lock_unlock(&_pthread_list_lock);
     }
 
@@ -4838,11 +4781,11 @@ mach_port_t pthread_mach_thread_np(pthread_t a1)
     {
 LABEL_6:
       os_unfair_lock_unlock(&_pthread_list_lock);
-      LODWORD(v1) = 0;
+      LODWORD(v2) = 0;
     }
   }
 
-  return v1;
+  return v2;
 }
 
 uint64_t pthread_dependency_fulfill_np(uint64_t result, uint64_t a2)
@@ -4874,7 +4817,7 @@ uint64_t pthread_dependency_wait_np(uint64_t a1)
           pthread_dependency_wait_np_cold_1(a1);
         }
 
-        pthread_dependency_wait_np_cold_3(v4);
+        pthread_dependency_wait_np_cold_3(v4, v5, v6, v7, v8);
       }
     }
 
@@ -4921,7 +4864,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t _pthread_workloop_destroy()
+uint64_t _pthread_workloop_destroy(uint64_t a1)
 {
   result = __kqueue_workloop_ctl();
   if (result == -1)
@@ -5028,7 +4971,7 @@ uint64_t _pthread_rwlock_unlock_slow(void *a1, int a2)
         {
           v13 = 0;
           v14 = v12 | 0xC0;
-          v15 = v12 | 1u;
+          v15 = v12 | 1;
         }
 
         else if ((_X2 & 7) != 0)
@@ -5096,7 +5039,7 @@ uint64_t _pthread_rwlock_unlock_slow(void *a1, int a2)
       while (v10 != a2);
       if (v13)
       {
-        _pthread_rwlock_unlock_drop(a1);
+        _pthread_rwlock_unlock_drop(a1, _X2 | (v8 << 32), _X3 | (v9 << 32), v14 | (v15 << 32), v12 | (v11 << 32));
       }
     }
 
@@ -5106,25 +5049,24 @@ uint64_t _pthread_rwlock_unlock_slow(void *a1, int a2)
   return result;
 }
 
-uint64_t _pthread_rwlock_unlock_drop(uint64_t a1)
+uint64_t _pthread_rwlock_unlock_drop(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5)
 {
   StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
   while (1)
   {
-    v3 = *(a1 + 16);
     result = __psynch_rw_unlock();
     if (result != -1)
     {
       break;
     }
 
-    v5 = **(StatusReg + 8);
-    if (v5 != 4)
+    v7 = **(StatusReg + 8);
+    if (v7 != 4)
     {
-      if (v5)
+      if (v7)
       {
         qword_1ECE00010 = "BUG IN LIBPTHREAD: kernel rwunlock returned unknown error";
-        qword_1ECE00040 = v5;
+        qword_1ECE00040 = v7;
         __break(0xB001u);
       }
 
@@ -5148,7 +5090,7 @@ int pthread_set_qos_class_self_np(qos_class_t __qos_class, int __relative_priori
     return 22;
   }
 
-  return _pthread_set_properties_self(1, (128 << v3) | (__relative_priority + 255));
+  return _pthread_set_properties_self(1u, (128 << v3) | (__relative_priority + 255), 0);
 }
 
 uint64_t __pthread_late_init()
@@ -5258,7 +5200,7 @@ uint64_t _pthread_introspection_hook_callout_thread_start(void *a1)
 
 uint64_t _pthread_jit_write_protect_freeze_config()
 {
-  result = mach_vm_protect(*MEMORY[0x1E69E9A60], &_pthread_jit_config, 0x4000uLL, 1, 1);
+  result = mach_vm_protect(*MEMORY[0x1E69E9A60], _pthread_jit_config, 0x4000uLL, 1, 1);
   if (result)
   {
     _pthread_jit_write_protect_freeze_config_cold_1(result);
@@ -5325,13 +5267,13 @@ pthread_override_t pthread_override_qos_class_start_np(pthread_t __pthread, qos_
 
   else
   {
-    if ((pthread_override_qos_class_start_np_cold_1(&address, &v16) & 1) == 0)
+    if ((pthread_override_qos_class_start_np_cold_1(&address, &v14) & 1) == 0)
     {
       return 0;
     }
 
     v9 = 0;
-    v8 = v16;
+    v8 = v14;
   }
 
   *v8 = 1870030194;
@@ -5353,8 +5295,6 @@ LABEL_12:
     return 0;
   }
 
-  v12 = *(v8 + 4);
-  v13 = *(v8 + 16);
   if (__bsdthread_ctl())
   {
     mach_port_mod_refs(*v11, *(v8 + 4), 0, -1);
@@ -5429,7 +5369,8 @@ uint64_t _pthread_mutex_fairshare_lock_slow(uint64_t a1, int a2)
         v11 = v4;
       }
 
-      atomic_compare_exchange_strong_explicit(v3, &v4, v4 & 0xFFFFFFFF00000000 | v11, memory_order_acquire, memory_order_acquire);
+      v12 = v4 & 0xFFFFFFFF00000000 | v11;
+      atomic_compare_exchange_strong_explicit(v3, &v4, v12, memory_order_acquire, memory_order_acquire);
     }
 
     while (v4 != v9);
@@ -5440,7 +5381,7 @@ uint64_t _pthread_mutex_fairshare_lock_slow(uint64_t a1, int a2)
         return 16;
       }
 
-      _pthread_mutex_fairshare_lock_wait(a1);
+      _pthread_mutex_fairshare_lock_wait(a1, v12, v10);
     }
 
     else
@@ -5448,14 +5389,14 @@ uint64_t _pthread_mutex_fairshare_lock_slow(uint64_t a1, int a2)
       *v5 = v6;
     }
 
-    v12 = *(a1 + 12);
-    if ((v12 & 0xC) != 8)
+    v13 = *(a1 + 12);
+    if ((v13 & 0xC) != 8)
     {
       return 0;
     }
 
     result = 0;
-    v13 = v12 & 0xFFFB | 0x10000;
+    v14 = v13 & 0xFFFB | 0x10000;
     goto LABEL_21;
   }
 
@@ -5467,9 +5408,9 @@ uint64_t _pthread_mutex_fairshare_lock_slow(uint64_t a1, int a2)
     }
 
     result = 0;
-    v13 = (v7 & 0xFFFFFFFB) + 0x10000;
+    v14 = (v7 & 0xFFFFFFFB) + 0x10000;
 LABEL_21:
-    *(a1 + 12) = v13;
+    *(a1 + 12) = v14;
     return result;
   }
 
@@ -5511,7 +5452,7 @@ int pthread_override_qos_class_end_np(pthread_override_t __override)
 uint64_t _pthread_mutex_fairshare_unlock_slow(uint64_t a1)
 {
   v1 = *(a1 + 12);
-  v2 = v1 & 0xFFFFEFFF;
+  LODWORD(v2) = v1 & 0xFFFFEFFF;
   v3 = ((a1 + 39) & 0xFFFFFFFFFFFFFFF8);
   v4 = *v3;
   v5 = ((a1 + 31) & 0xFFFFFFFFFFFFFFF8);
@@ -5538,9 +5479,9 @@ LABEL_5:
       v7 = *v5;
       if (((HIDWORD(v4) ^ v4) & 0xFFFFFF00) != 0)
       {
-        LODWORD(v6) = HIDWORD(v4) + 256;
-        v8 = (HIDWORD(v4) + 256) ^ v4;
-        if (v8 <= 0xFF)
+        v6 = (HIDWORD(v4) + 256);
+        v8 = v6 ^ v4;
+        if ((v6 ^ v4) <= 0xFF)
         {
           v9 = 0;
         }
@@ -5560,7 +5501,7 @@ LABEL_5:
 
         if (v10)
         {
-          v2 |= 0x1000u;
+          LODWORD(v2) = v2 | 0x1000;
         }
 
         if (v7 != v9)
@@ -5582,20 +5523,26 @@ LABEL_5:
 
       if (((HIDWORD(v4) ^ v4) & 0xFFFFFF00) == 0 || v11)
       {
-        v2 &= ~0x1000u;
+        v2 = v2 & 0xFFFFEFFF;
       }
 
-      v15 = v12 | (v6 << 32);
-      v16 = v4;
-      atomic_compare_exchange_strong_explicit(v3, &v16, v15, memory_order_release, memory_order_relaxed);
-      v17 = v16 == v4;
-      v4 = v16;
+      else
+      {
+        v2 = v2;
+      }
+
+      v15 = v12;
+      v16 = v12 | (v6 << 32);
+      v17 = v4;
+      atomic_compare_exchange_strong_explicit(v3, &v17, v16, memory_order_release, memory_order_relaxed);
+      v18 = v17 == v4;
+      v4 = v17;
     }
 
-    while (!v17);
+    while (!v18);
     if ((v2 & 0x1000) != 0)
     {
-      _pthread_mutex_fairshare_unlock_drop(a1);
+      _pthread_mutex_fairshare_unlock_drop(a1, (v6 << 32) | v15, v2);
     }
 
     return 0;
@@ -5871,7 +5818,7 @@ int pthread_cond_destroy(pthread_cond_t *a1)
       return result;
     }
 
-LABEL_21:
+LABEL_19:
     result = 0;
     LODWORD(a1->__sig) = 0;
     return result;
@@ -5879,7 +5826,7 @@ LABEL_21:
 
   if (sig == 1129270854)
   {
-    goto LABEL_21;
+    goto LABEL_19;
   }
 
   if (sig == 1129270853)
@@ -5895,58 +5842,46 @@ LABEL_21:
     v7 = *&a1->__opaque[4];
     v8 = (v7 & 0x20000000) == 0;
     v9 = 28;
-    v10 = 24;
     if ((v7 & 0x20000000) != 0)
     {
-      v11 = 28;
+      v10 = 28;
     }
 
     else
     {
-      v11 = 24;
+      v10 = 24;
     }
 
-    if (v8)
-    {
-      v10 = 32;
-    }
-
-    else
+    if (!v8)
     {
       v9 = 32;
     }
 
     do
     {
-      v12 = *(&a1->__sig + v11);
-      v13 = *(&a1->__sig + v10);
-      v14 = *(&a1->__sig + v9);
-      if ((v14 ^ v12) > 0xFF)
+      v11 = *(&a1->__sig + v10);
+      v12 = *(&a1->__sig + v9);
+      if ((v12 ^ v11) > 0xFF)
       {
         break;
       }
 
-      v15 = v12 | (v14 << 32);
-      v16 = v15;
-      atomic_compare_exchange_strong((&a1->__sig + v11), &v16, v15);
+      v13 = v11 | (v12 << 32);
+      v14 = v13;
+      atomic_compare_exchange_strong((&a1->__sig + v10), &v14, v13);
     }
 
-    while (v16 != v15);
-    if ((v14 & 2) != 0)
-    {
-      v17 = *&a1->__opaque[4] >> 30 == 1;
-    }
-
+    while (v14 != v13);
     LODWORD(a1->__sig) = 0;
-    v18 = *(StatusReg + 24);
-    v19 = v18;
-    atomic_compare_exchange_strong_explicit(a1->__opaque, &v19, 0, memory_order_release, memory_order_relaxed);
-    if (v19 != v18)
+    v15 = *(StatusReg + 24);
+    v16 = v15;
+    atomic_compare_exchange_strong_explicit(a1->__opaque, &v16, 0, memory_order_release, memory_order_relaxed);
+    if (v16 != v15)
     {
       os_unfair_lock_unlock(a1->__opaque);
     }
 
-    if ((v14 & 2) != 0)
+    if ((v12 & 2) != 0)
     {
       __psynch_cvclrprepost();
     }
@@ -5972,28 +5907,26 @@ void sched_yield(void)
 
 uint64_t pthread_override_qos_class_end_np_cold_1(uint64_t a1, int *a2)
 {
-  v4 = *(a1 + 4);
-  v5 = __bsdthread_ctl();
-  if (v5 == -1)
+  v4 = __bsdthread_ctl();
+  if (v4 == -1)
   {
-    v5 = **(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
+    v4 = **(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
   }
 
-  if (v5 == 14)
+  if (v4 == 14)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = v5;
+    v5 = v4;
   }
 
-  v7 = MEMORY[0x1E69E9A60];
   result = mach_port_mod_refs(*MEMORY[0x1E69E9A60], *(a1 + 4), 0, -1);
   if (result)
   {
-    v6 = 22;
+    v5 = 22;
   }
 
   if (*(a1 + 24))
@@ -6006,17 +5939,15 @@ uint64_t pthread_override_qos_class_end_np_cold_1(uint64_t a1, int *a2)
 
   else
   {
-    v9 = *v7;
-    v10 = *MEMORY[0x1E69E9AC8];
     OUTLINED_FUNCTION_0_0();
-    result = mach_vm_deallocate(v11, v12, v13);
+    result = mach_vm_deallocate(v7, v8, v9);
     if (result)
     {
-      v6 = 22;
+      v5 = 22;
     }
   }
 
-  *a2 = v6;
+  *a2 = v5;
   return result;
 }
 
@@ -6046,7 +5977,7 @@ uint64_t _pthread_joiner_prepost_wake(uint64_t a1)
   return v2;
 }
 
-uint64_t _pthread_joiner_wake()
+uint64_t _pthread_joiner_wake(uint64_t a1)
 {
   do
   {
@@ -6099,12 +6030,12 @@ int pthread_cond_signal_thread_np(pthread_cond_t *a1, pthread_t a2)
     v4 = 0;
   }
 
-  v38 = 1129270852;
+  v37 = 1129270852;
   sig = a1->__sig;
   if ((LODWORD(a1->__sig) - 1129270853) < 2)
   {
     result = 0;
-    v38 = a1->__sig;
+    v37 = a1->__sig;
   }
 
   else
@@ -6122,8 +6053,8 @@ int pthread_cond_signal_thread_np(pthread_cond_t *a1, pthread_t a2)
       }
     }
 
-    result = _pthread_cond_check_init_slow(a1, &v38, v2);
-    sig = v38;
+    result = _pthread_cond_check_init_slow(a1, &v37, v2);
+    sig = v37;
     if (result)
     {
       return result;
@@ -6205,11 +6136,10 @@ int pthread_cond_signal_thread_np(pthread_cond_t *a1, pthread_t a2)
       if (v4)
       {
 LABEL_68:
-        v36 = *&a1->__opaque[4] >> 30;
-        v37 = __psynch_cvsignal();
-        if ((v37 - 1) <= 0xFFFFFFFD)
+        v36 = __psynch_cvsignal();
+        if (v36 - 1 <= 0xFFFFFFFD)
         {
-          _pthread_cond_updateval(a1, 0, v37);
+          _pthread_cond_updateval(a1, 0, v36);
         }
 
         return 0;
@@ -6430,25 +6360,24 @@ int pthread_kill(pthread_t a1, int a2)
   {
     if (a1)
     {
-      os_unfair_lock_lock_with_options();
-      v5 = __pthread_head;
+      v5 = os_unfair_lock_lock_with_options();
+      v7 = __pthread_head;
       if (__pthread_head)
       {
-        while (v5 != a1)
+        while (v7 != a1)
         {
-          v5 = *v5->__opaque;
-          if (!v5)
+          v7 = *v7->__opaque;
+          if (!v7)
           {
             goto LABEL_8;
           }
         }
 
-        if ((_pthread_ptr_munge_token ^ v5->__sig) != a1)
+        if ((_pthread_ptr_munge_token ^ v7->__sig) != a1)
         {
-          pthread_mach_thread_np_cold_1();
+          pthread_mach_thread_np_cold_1(v5, v6);
         }
 
-        v7 = *&a1->__opaque[232];
         os_unfair_lock_unlock(&_pthread_list_lock);
         goto LABEL_14;
       }
@@ -6462,10 +6391,9 @@ LABEL_8:
 
   if ((_pthread_ptr_munge_token ^ a1->__sig) != a1)
   {
-    pthread_mach_thread_np_cold_1();
+    pthread_mach_thread_np_cold_1(a1, *&a2);
   }
 
-  v6 = *&a1->__opaque[232];
 LABEL_14:
   result = __pthread_kill();
   if (result == -1)
@@ -6804,8 +6732,8 @@ void *__cdecl pthread_get_stackaddr_np(pthread_t a1)
     return 3;
   }
 
-  os_unfair_lock_lock_with_options();
-  v4 = __pthread_head;
+  v4 = os_unfair_lock_lock_with_options();
+  v6 = __pthread_head;
   if (!__pthread_head)
   {
 LABEL_11:
@@ -6813,18 +6741,18 @@ LABEL_11:
     return 3;
   }
 
-  while (v4 != a1)
+  while (v6 != a1)
   {
-    v4 = *v4->__opaque;
-    if (!v4)
+    v6 = *v6->__opaque;
+    if (!v6)
     {
       goto LABEL_11;
     }
   }
 
-  if ((_pthread_ptr_munge_token ^ v4->__sig) != a1)
+  if ((_pthread_ptr_munge_token ^ v6->__sig) != a1)
   {
-    pthread_mach_thread_np_cold_1();
+    pthread_mach_thread_np_cold_1(v4, v5);
   }
 
   v3 = *&a1->__opaque[160];
@@ -7032,46 +6960,46 @@ void pthread_jit_write_freeze_callbacks_np(void)
   }
 }
 
-uint64_t pthread_create_with_workgroup_np()
+uint64_t pthread_create_with_workgroup_np(uint64_t a1, uint64_t a2)
 {
   if (!_pthread_workgroup_functions)
   {
     pthread_create_with_workgroup_np_cold_1();
   }
 
-  v1 = *(_pthread_workgroup_functions + 8);
+  v3 = *(_pthread_workgroup_functions + 8);
 
-  return v1();
+  return v3(a1, a2);
 }
 
 int pthread_detach(pthread_t a1)
 {
   if (a1)
   {
-    os_unfair_lock_lock_with_options();
-    v2 = __pthread_head;
+    v2 = os_unfair_lock_lock_with_options();
+    v4 = __pthread_head;
     if (__pthread_head)
     {
-      while (v2 != a1)
+      while (v4 != a1)
       {
-        v2 = *v2->__opaque;
-        if (!v2)
+        v4 = *v4->__opaque;
+        if (!v4)
         {
           goto LABEL_5;
         }
       }
 
-      if ((_pthread_ptr_munge_token ^ v2->__sig) != a1)
+      if ((_pthread_ptr_munge_token ^ v4->__sig) != a1)
       {
-        pthread_mach_thread_np_cold_1();
+        pthread_mach_thread_np_cold_1(v2, v3);
       }
 
       if ((a1->__opaque[33] & 1) == 0)
       {
-        v3 = 22;
+        v5 = 22;
 LABEL_11:
         os_unfair_lock_unlock(&_pthread_list_lock);
-        return v3;
+        return v5;
       }
 
       if (*&a1->__opaque[36] == -1)
@@ -7085,13 +7013,13 @@ LABEL_11:
         a1->__opaque[33] &= ~1u;
         if (!*&a1->__opaque[16])
         {
-          v3 = 0;
+          v5 = 0;
           goto LABEL_11;
         }
 
         _pthread_joiner_prepost_wake(a1);
         os_unfair_lock_unlock(&_pthread_list_lock);
-        _pthread_joiner_wake();
+        _pthread_joiner_wake(a1);
       }
 
       return 0;
@@ -7112,10 +7040,10 @@ int pthread_setschedparam(pthread_t a1, int a2, const sched_param *a3)
   {
     if ((_pthread_ptr_munge_token ^ a1->__sig) != a1)
     {
-      pthread_mach_thread_np_cold_1();
+      pthread_mach_thread_np_cold_1(a1, *&a2);
     }
 
-    v9 = *&a1->__opaque[232];
+    v11 = *&a1->__opaque[232];
   }
 
   else
@@ -7125,8 +7053,8 @@ int pthread_setschedparam(pthread_t a1, int a2, const sched_param *a3)
       return 3;
     }
 
-    os_unfair_lock_lock_with_options();
-    v8 = __pthread_head;
+    v8 = os_unfair_lock_lock_with_options();
+    v10 = __pthread_head;
     if (!__pthread_head)
     {
 LABEL_28:
@@ -7134,74 +7062,74 @@ LABEL_28:
       return 3;
     }
 
-    while (v8 != a1)
+    while (v10 != a1)
     {
-      v8 = *v8->__opaque;
-      if (!v8)
+      v10 = *v10->__opaque;
+      if (!v10)
       {
         goto LABEL_28;
       }
     }
 
-    if ((_pthread_ptr_munge_token ^ v8->__sig) != a1)
+    if ((_pthread_ptr_munge_token ^ v10->__sig) != a1)
     {
-      pthread_mach_thread_np_cold_1();
+      pthread_mach_thread_np_cold_1(v8, v9);
     }
 
-    v9 = *&a1->__opaque[232];
+    v11 = *&a1->__opaque[232];
     os_unfair_lock_unlock(&_pthread_list_lock);
   }
 
-  v14 = 0uLL;
+  v18 = 0uLL;
   if ((a1->__opaque[63] & 4) == 0)
   {
     switch(a2)
     {
       case 4:
-        v11 = &v14 + 3;
-        HIDWORD(v14) = a3->sched_priority;
-        v10 = 1;
+        v13 = &v18 + 3;
+        HIDWORD(v18) = a3->sched_priority;
+        v12 = 1;
         break;
       case 2:
-        v11 = &v14 + 1;
-        *(&v14 + 4) = *a3;
-        v10 = 2;
+        v13 = &v18 + 1;
+        *(&v18 + 4) = *a3;
+        v12 = 2;
         break;
       case 1:
-        LODWORD(v14) = a3->sched_priority;
-        v10 = 1;
-        v11 = &v14;
+        LODWORD(v18) = a3->sched_priority;
+        v12 = 1;
+        v13 = &v18;
         break;
       default:
         return 22;
     }
 
-    if (thread_policy(v9, a2, v11, v10, 1))
+    if (thread_policy(v11, a2, v13, v12, 1))
     {
       return 22;
     }
 
-    os_unfair_lock_lock_with_options();
+    v15 = os_unfair_lock_lock_with_options();
     if (!v7)
     {
       goto LABEL_33;
     }
 
-    v13 = __pthread_head;
+    v17 = __pthread_head;
     if (__pthread_head)
     {
-      while (v13 != a1)
+      while (v17 != a1)
       {
-        v13 = *v13->__opaque;
-        if (!v13)
+        v17 = *v17->__opaque;
+        if (!v17)
         {
           goto LABEL_28;
         }
       }
 
-      if ((_pthread_ptr_munge_token ^ v13->__sig) != a1)
+      if ((_pthread_ptr_munge_token ^ v17->__sig) != a1)
       {
-        pthread_mach_thread_np_cold_1();
+        pthread_mach_thread_np_cold_1(v15, v16);
       }
 
 LABEL_33:
@@ -7388,7 +7316,7 @@ uint64_t pthread_workqueue_setdispatch_np(uint64_t a1)
   return pthread_workqueue_setup(&v2, 0x30uLL);
 }
 
-uint64_t _pthread_workqueue_supported()
+uint64_t _pthread_workqueue_supported(uint64_t a1, uint64_t a2)
 {
   result = __pthread_supported_features;
   if (!__pthread_supported_features)
@@ -7399,7 +7327,7 @@ uint64_t _pthread_workqueue_supported()
   return result;
 }
 
-uint64_t pthread_workqueue_addthreads_np(__int16 a1, int a2)
+uint64_t pthread_workqueue_addthreads_np(__int16 a1, int a2, uint64_t a3)
 {
   if (!__libdispatch_workerfunction)
   {
@@ -7484,7 +7412,7 @@ void _pthread_jit_write_protect_bulk_image_load_callback(int a1, uint64_t a2)
   }
 }
 
-uint64_t OUTLINED_FUNCTION_0()
+uint64_t OUTLINED_FUNCTION_0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
   return abort_with_reason();
@@ -7492,12 +7420,13 @@ uint64_t OUTLINED_FUNCTION_0()
 
 int pthread_cancel(pthread_t a1)
 {
+  v2 = a1;
   StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
   if ((StatusReg - 224) == a1)
   {
     if ((_pthread_ptr_munge_token ^ a1->__sig) != a1)
     {
-      pthread_mach_thread_np_cold_1();
+      pthread_mach_thread_np_cold_1(a1, v1);
     }
 
     goto LABEL_12;
@@ -7508,21 +7437,21 @@ int pthread_cancel(pthread_t a1)
     return 3;
   }
 
-  v3 = 0;
-  atomic_compare_exchange_strong_explicit(&_pthread_list_lock, &v3, *(StatusReg + 24), memory_order_acquire, memory_order_acquire);
-  if (v3)
+  v4 = 0;
+  atomic_compare_exchange_strong_explicit(&_pthread_list_lock, &v4, *(StatusReg + 24), memory_order_acquire, memory_order_acquire);
+  if (v4)
   {
-    os_unfair_lock_lock_with_options();
+    a1 = os_unfair_lock_lock_with_options();
   }
 
-  v4 = __pthread_head;
+  v5 = __pthread_head;
   if (!__pthread_head)
   {
 LABEL_8:
-    v5 = *(StatusReg + 24);
-    v6 = v5;
-    atomic_compare_exchange_strong_explicit(&_pthread_list_lock, &v6, 0, memory_order_release, memory_order_relaxed);
-    if (v6 != v5)
+    v6 = *(StatusReg + 24);
+    v7 = v6;
+    atomic_compare_exchange_strong_explicit(&_pthread_list_lock, &v7, 0, memory_order_release, memory_order_relaxed);
+    if (v7 != v6)
     {
       os_unfair_lock_unlock(&_pthread_list_lock);
     }
@@ -7530,40 +7459,40 @@ LABEL_8:
     return 3;
   }
 
-  while (v4 != a1)
+  while (v5 != v2)
   {
-    v4 = *v4->__opaque;
-    if (!v4)
+    v5 = v5[2];
+    if (!v5)
     {
       goto LABEL_8;
     }
   }
 
-  if ((_pthread_ptr_munge_token ^ v4->__sig) != a1)
+  if ((_pthread_ptr_munge_token ^ *v5) != v2)
   {
-    pthread_mach_thread_np_cold_1();
+    pthread_mach_thread_np_cold_1(a1, v1);
   }
 
-  v8 = *(StatusReg + 24);
-  v9 = v8;
-  atomic_compare_exchange_strong_explicit(&_pthread_list_lock, &v9, 0, memory_order_release, memory_order_relaxed);
-  if (v9 != v8)
+  v9 = *(StatusReg + 24);
+  v10 = v9;
+  atomic_compare_exchange_strong_explicit(&_pthread_list_lock, &v10, 0, memory_order_release, memory_order_relaxed);
+  if (v10 != v9)
   {
     os_unfair_lock_unlock(&_pthread_list_lock);
   }
 
 LABEL_12:
-  if ((*&a1->__opaque[62] & 0x400) != 0)
+  if ((*&v2->__opaque[62] & 0x400) != 0)
   {
     return 45;
   }
 
-  if ((atomic_fetch_or_explicit(&a1->__opaque[150], 0x10u, memory_order_relaxed) & 1) == 0)
+  if ((atomic_fetch_or_explicit(&v2->__opaque[150], 0x10u, memory_order_relaxed) & 1) == 0)
   {
     return 0;
   }
 
-  result = *&a1->__opaque[232];
+  result = *&v2->__opaque[232];
   if (result)
   {
     __pthread_markcancel();
@@ -7580,7 +7509,7 @@ int pthread_setcancelstate(int a1, int *a2)
   v3 = StatusReg - 224;
   if ((_pthread_ptr_munge_token ^ v4) != v3)
   {
-    pthread_mach_thread_np_cold_1();
+    pthread_mach_thread_np_cold_1(*&a1, a2);
   }
 
   v6 = a1;
@@ -7614,7 +7543,7 @@ int pthread_setcanceltype(int a1, int *a2)
   v3 = StatusReg - 224;
   if ((_pthread_ptr_munge_token ^ v4) != v3)
   {
-    pthread_mach_thread_np_cold_1();
+    pthread_mach_thread_np_cold_1(*&a1, a2);
   }
 
   if ((a1 & 0xFFFFFFFD) != 0)
@@ -7968,23 +7897,21 @@ int pthread_mutexattr_setpshared(pthread_mutexattr_t *a1, int a2)
   return result;
 }
 
-uint64_t _pthread_mutex_fairshare_lock_wait(uint64_t a1)
+uint64_t _pthread_mutex_fairshare_lock_wait(uint64_t a1, unint64_t a2, uint64_t a3)
 {
-  v2 = ((a1 + 31) & 0xFFFFFFFFFFFFFFF8);
-  v3 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) - 8);
-  v4 = ((a1 + 39) & 0xFFFFFFFFFFFFFFF8);
+  v4 = ((a1 + 31) & 0xFFFFFFFFFFFFFFF8);
+  v5 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) - 8);
+  v6 = ((a1 + 39) & 0xFFFFFFFFFFFFFFF8);
   do
   {
     do
     {
-      v5 = *(a1 + 12);
       result = __psynch_mutexwait();
-      v7 = *v2;
     }
 
     while (result == -1);
     v8 = *(a1 + 12) & 0x1C0;
-    v9 = *v4;
+    v9 = *v6;
     v10 = 1;
     do
     {
@@ -7999,7 +7926,7 @@ uint64_t _pthread_mutex_fairshare_lock_wait(uint64_t a1)
       }
 
       v11 = v9;
-      atomic_compare_exchange_strong_explicit(v4, &v11, v9 | 3, memory_order_acquire, memory_order_acquire);
+      atomic_compare_exchange_strong_explicit(v6, &v11, v9 | 3, memory_order_acquire, memory_order_acquire);
       v12 = v11 == v9;
       v9 = v11;
     }
@@ -8008,21 +7935,20 @@ uint64_t _pthread_mutex_fairshare_lock_wait(uint64_t a1)
   }
 
   while (!v10);
-  *v2 = v3;
+  *v4 = v5;
   return result;
 }
 
-uint64_t _pthread_mutex_fairshare_unlock_drop(uint64_t a1)
+uint64_t _pthread_mutex_fairshare_unlock_drop(uint64_t a1, unint64_t a2, uint64_t a3)
 {
-  v1 = *((a1 + 31) & 0xFFFFFFFFFFFFFFF8);
   result = __psynch_mutexdrop();
   if (result == -1)
   {
-    v3 = **(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
-    if ((v3 & 0xFFFFFFFB) != 0)
+    v4 = **(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
+    if ((v4 & 0xFFFFFFFB) != 0)
     {
       qword_1ECE00010 = "BUG IN LIBPTHREAD: __psynch_mutexdrop failed";
-      qword_1ECE00040 = v3;
+      qword_1ECE00040 = v4;
       __break(0xB001u);
     }
   }
@@ -8138,7 +8064,7 @@ uint64_t _pthread_mutex_ulock_unlock(uint64_t a1)
   return 0;
 }
 
-void _pthread_mutex_ulock_unlock_slow(uint64_t a1, int a2, int a3)
+void _pthread_mutex_ulock_unlock_slow(uint64_t result, int a2, int a3)
 {
   if (a3)
   {
@@ -8464,7 +8390,7 @@ uint64_t _pthread_sched_pri_decode(uint64_t result, void *a2)
   }
 }
 
-uint64_t _pthread_qos_class_encode_workqueue(int a1, int a2)
+uint64_t _pthread_qos_class_encode_workqueue(uint64_t a1, uint64_t a2)
 {
   if (a1 <= 1)
   {
@@ -8502,7 +8428,7 @@ LABEL_12:
   return (128 << v2) | a2 & 0xFF000000 | 0xFF;
 }
 
-uint64_t _pthread_override_qos_class_start_direct()
+uint64_t _pthread_override_qos_class_start_direct(unsigned int a1, uint64_t a2)
 {
   StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
   result = __bsdthread_ctl();
@@ -8514,7 +8440,7 @@ uint64_t _pthread_override_qos_class_start_direct()
   return result;
 }
 
-uint64_t _pthread_override_qos_class_end_direct()
+uint64_t _pthread_override_qos_class_end_direct(unsigned int a1)
 {
   StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
   result = __bsdthread_ctl();
@@ -8526,7 +8452,7 @@ uint64_t _pthread_override_qos_class_end_direct()
   return result;
 }
 
-uint64_t _pthread_workqueue_asynchronous_override_add()
+uint64_t _pthread_workqueue_asynchronous_override_add(unsigned int a1, uint64_t a2, uint64_t a3)
 {
   result = __bsdthread_ctl();
   if (result == -1)
@@ -8537,7 +8463,7 @@ uint64_t _pthread_workqueue_asynchronous_override_add()
   return result;
 }
 
-uint64_t _pthread_workqueue_asynchronous_override_reset_self()
+uint64_t _pthread_workqueue_asynchronous_override_reset_self(uint64_t a1)
 {
   result = __bsdthread_ctl();
   if (result == -1)
@@ -9215,11 +9141,11 @@ uint64_t pthread_testcancel_cold_1(uint64_t a1, uint64_t a2)
     pthread_exit(1);
   }
 
-  v2 = OUTLINED_FUNCTION_0();
-  return _pthread_ulock_cond_wait_complete(v2);
+  v2 = OUTLINED_FUNCTION_0(a1, a2, "pthread_t was corrupted");
+  return _pthread_ulock_cond_wait_complete(v2, v3);
 }
 
-uint64_t _pthread_ulock_cond_wait_complete(uint64_t result, uint64_t a2)
+atomic_ullong *_pthread_ulock_cond_wait_complete(atomic_ullong *result, uint64_t a2)
 {
   v2 = result;
   if (a2)
@@ -9251,9 +9177,9 @@ uint64_t _pthread_ulock_cond_wait_complete(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t _pthread_ulock_cond_cleanup(uint64_t *a1)
+uint64_t _pthread_ulock_cond_cleanup(pthread_cond_t **a1)
 {
-  _pthread_ulock_cond_wait_complete(*a1 + 4 * ((*(*a1 + 12) >> 29) & 1) + 24, a1[1]);
+  _pthread_ulock_cond_wait_complete(&(*a1)->__opaque[4 * ((*&(*a1)->__opaque[4] >> 29) & 1) + 16], a1[1]);
   v2 = *a1;
 
   return pthread_cond_signal(v2);
@@ -9309,9 +9235,8 @@ void _pthread_qos_class_encode_workqueue_cold_1(int a1)
 uint64_t pthread_override_qos_class_start_np_cold_1(void *a1, void *a2)
 {
   *a1 = *MEMORY[0x1E69E9AC8];
-  v4 = *MEMORY[0x1E69E9A60];
   OUTLINED_FUNCTION_0_0();
-  if (mach_vm_allocate(v5, v6, v7, 1241513985))
+  if (mach_vm_allocate(v4, v5, v6, 1241513985))
   {
     result = 0;
     **(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8) = 12;
@@ -9355,7 +9280,7 @@ void pthread_dependency_wait_np_cold_2(unsigned int a1)
   __break(0xB001u);
 }
 
-void pthread_dependency_wait_np_cold_3(int a1)
+void pthread_dependency_wait_np_cold_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   qword_1ECE00010 = "BUG IN CLIENT OF LIBPTHREAD: __ulock_wait() failed";
   qword_1ECE00040 = -a1;

@@ -11,65 +11,65 @@
   elementCopy = element;
   objc_opt_class();
   v4 = TSUDynamicCast();
-  v9 = objc_msgSend_estimatedByteSize(v4, v5, v6, v7, v8);
+  v8 = objc_msgSend_estimatedByteSize(v4, v5, v6, v7);
 
-  return v9;
+  return v8;
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v7 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v5, sub_22116E4E8, off_2812E4498[126], v6);
+  v6 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v5, sub_22116E4E8, off_2812E4498[126]);
 
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = sub_22116E2E0;
-  v37[3] = &unk_27845FEF0;
-  v8 = archiverCopy;
-  v38 = v8;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = sub_22116E2E0;
+  v31[3] = &unk_27845FEF0;
+  v7 = archiverCopy;
+  v32 = v7;
   selfCopy = self;
-  objc_msgSend_pushScopeForField_message_usingBlock_(v8, v9, 1, v7, v37);
-  v14 = objc_msgSend_count(self, v10, v11, v12, v13);
-  sub_22116E554(__p, v14);
-  for (i = 0; i < objc_msgSend_count(self, v15, v16, v17, v18); ++i)
+  objc_msgSend_pushScopeForField_message_usingBlock_(v7, v8, 1, v6, v31);
+  v12 = objc_msgSend_count(self, v9, v10, v11);
+  sub_22116E554(__p, v12);
+  for (i = 0; i < objc_msgSend_count(self, v13, v14, v15); ++i)
   {
-    v23 = *(v7 + 40);
-    if (!v23)
+    v19 = *(v6 + 40);
+    if (!v19)
     {
       goto LABEL_8;
     }
 
-    v24 = *(v7 + 32);
-    v25 = *v23;
-    if (v24 < *v23)
+    v20 = *(v6 + 32);
+    v21 = *v19;
+    if (v20 < *v19)
     {
-      *(v7 + 32) = v24 + 1;
-      v26 = *&v23[2 * v24 + 2];
+      *(v6 + 32) = v20 + 1;
+      v22 = *&v19[2 * v20 + 2];
       goto LABEL_10;
     }
 
-    if (v25 == *(v7 + 36))
+    if (v21 == *(v6 + 36))
     {
 LABEL_8:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v7 + 24));
-      v23 = *(v7 + 40);
-      v25 = *v23;
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v6 + 24));
+      v19 = *(v6 + 40);
+      v21 = *v19;
     }
 
-    *v23 = v25 + 1;
-    v26 = google::protobuf::Arena::CreateMaybeMessage<TST::CellDiffArchive>(*(v7 + 24));
-    v27 = *(v7 + 32);
-    v28 = *(v7 + 40) + 8 * v27;
-    *(v7 + 32) = v27 + 1;
-    *(v28 + 8) = v26;
+    *v19 = v21 + 1;
+    v22 = google::protobuf::Arena::CreateMaybeMessage<TST::CellDiffArchive>(*(v6 + 24));
+    v23 = *(v6 + 32);
+    v24 = *(v6 + 40) + 8 * v23;
+    *(v6 + 32) = v23 + 1;
+    *(v24 + 8) = v22;
 LABEL_10:
-    v29 = objc_msgSend_objectAtIndex_(self, v20, i, v21, v22);
-    objc_msgSend_saveToArchive_archiver_(v29, v30, v26, v8, v31);
+    v25 = objc_msgSend_objectAtIndex_(self, v17, i, v18);
+    objc_msgSend_saveToArchive_archiver_(v25, v26, v22, v7);
   }
 
-  v32 = TST::CellDiffArraySegment::ByteSizeLong(v7);
-  objc_msgSend_setEstimatedByteSize_(self, v33, v32, v34, v35);
+  v27 = TST::CellDiffArraySegment::ByteSizeLong(v6);
+  objc_msgSend_setEstimatedByteSize_(self, v28, v27, v29);
   if (__p[0])
   {
     __p[1] = __p[0];
@@ -81,33 +81,33 @@ LABEL_10:
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v8 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v5, off_2812E4498[126], v6, v7);
+  v7 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v5, off_2812E4498[126], v6);
 
-  v22 = MEMORY[0x277D85DD0];
-  v23 = 3221225472;
-  v24 = sub_22116E4A4;
-  v25 = &unk_27845FF18;
-  v9 = unarchiverCopy;
-  v26 = v9;
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = sub_22116E4A4;
+  v21 = &unk_27845FF18;
+  v8 = unarchiverCopy;
+  v22 = v8;
   selfCopy = self;
-  objc_msgSend_pushScopeForField_message_usingBlock_(v9, v10, 1, v8, &v22);
-  if (*(v8 + 32) >= 1)
+  objc_msgSend_pushScopeForField_message_usingBlock_(v8, v9, 1, v7, &v18);
+  if (*(v7 + 32) >= 1)
   {
-    v11 = 0;
+    v10 = 0;
     do
     {
-      v12 = [TSTCellDiff alloc];
-      v15 = objc_msgSend_initWithArchive_unarchiver_(v12, v13, *(*(v8 + 40) + 8 * v11 + 8), v9, v14, v22, v23, v24, v25);
-      objc_msgSend_addObject_willModify_(self, v16, v15, 0, v17);
+      v11 = [TSTCellDiff alloc];
+      v13 = objc_msgSend_initWithArchive_unarchiver_(v11, v12, *(*(v7 + 40) + 8 * v10 + 8), v8, v18, v19, v20, v21);
+      objc_msgSend_addObject_willModify_(self, v14, v13, 0);
 
-      ++v11;
+      ++v10;
     }
 
-    while (v11 < *(v8 + 32));
+    while (v10 < *(v7 + 32));
   }
 
-  v18 = TST::CellDiffArraySegment::ByteSizeLong(v8);
-  objc_msgSend_setEstimatedByteSize_(self, v19, v18, v20, v21);
+  v15 = TST::CellDiffArraySegment::ByteSizeLong(v7);
+  objc_msgSend_setEstimatedByteSize_(self, v16, v15, v17);
 }
 
 @end

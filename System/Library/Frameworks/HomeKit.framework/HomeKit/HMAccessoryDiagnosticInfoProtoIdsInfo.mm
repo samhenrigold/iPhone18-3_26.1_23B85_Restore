@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)idsStateAsString:(int)string;
 - (int)StringAsIdsState:(id)state;
 - (int)idsState;
 - (unint64_t)hash;
@@ -53,7 +54,6 @@
     goto LABEL_9;
   }
 
-  v5 = *(equalCopy + 20);
   if (*&self->_has)
   {
     if ((*(equalCopy + 20) & 1) == 0 || self->_idsState != *(equalCopy + 4))
@@ -65,24 +65,24 @@
   else if (*(equalCopy + 20))
   {
 LABEL_9:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_10;
   }
 
   idsIdentifierString = self->_idsIdentifierString;
   if (idsIdentifierString | *(equalCopy + 1))
   {
-    v7 = [(NSString *)idsIdentifierString isEqual:?];
+    v6 = [(NSString *)idsIdentifierString isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_10:
 
-  return v7;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -122,18 +122,17 @@ LABEL_10:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    idsState = self->_idsState;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_idsIdentifierString)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -196,6 +195,29 @@ LABEL_10:
   else
   {
     v4 = [stateCopy isEqualToString:@"Good"];
+  }
+
+  return v4;
+}
+
+- (id)idsStateAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"Good";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Unknown";
   }
 
   return v4;

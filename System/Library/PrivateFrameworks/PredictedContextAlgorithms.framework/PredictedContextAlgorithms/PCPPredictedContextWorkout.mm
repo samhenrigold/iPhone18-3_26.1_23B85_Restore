@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)workoutLocationTypeAsString:(int)string;
 - (int)StringAsWorkoutLocationType:(id)type;
 - (int)workoutLocationType;
 - (unint64_t)hash;
@@ -40,6 +41,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)workoutLocationTypeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E83B84D8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsWorkoutLocationType:(id)type
@@ -134,31 +150,29 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_predictedContext)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    workoutActivityType = self->_workoutActivityType;
     PBDataWriterWriteUint64Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_sourceBundleIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    workoutLocationType = self->_workoutLocationType;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 

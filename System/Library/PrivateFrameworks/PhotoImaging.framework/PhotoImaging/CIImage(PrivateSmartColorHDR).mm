@@ -19,7 +19,7 @@
   v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v86 forKeys:v85 count:2];
   v6 = [v3 contextWithOptions:v5];
 
-  [v2 extent];
+  objc_msgSend_extent(v2);
   v8 = v7;
   v10 = v9;
   v12 = v11;

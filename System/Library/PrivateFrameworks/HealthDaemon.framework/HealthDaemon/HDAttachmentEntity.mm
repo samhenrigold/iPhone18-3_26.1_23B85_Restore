@@ -82,25 +82,25 @@ uint64_t __93__HDAttachmentEntity_enumerateAttachmentsWithPredicate_transaction_
 {
   v6 = a2;
   entityCopy = entity;
-  objc_opt_self();
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy__93;
-  v16 = __Block_byref_object_dispose__93;
-  v17 = 0;
-  v8 = +[HDAttachmentEntity _propertiesForEntity];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __58__HDAttachmentEntity__attachmentForEntity_database_error___block_invoke;
-  v11[3] = &unk_278618B98;
-  v11[4] = &v12;
-  [v6 getValuesForProperties:v8 database:entityCopy error:database handler:v11];
+  v8 = objc_opt_self();
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__93;
+  v17 = __Block_byref_object_dispose__93;
+  v18 = 0;
+  v9 = +[(HDAttachmentEntity *)v8];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __58__HDAttachmentEntity__attachmentForEntity_database_error___block_invoke;
+  v12[3] = &unk_278618B98;
+  v12[4] = &v13;
+  [v6 getValuesForProperties:v9 database:entityCopy error:database handler:v12];
 
-  v9 = v13[5];
-  _Block_object_dispose(&v12, 8);
+  v10 = v14[5];
+  _Block_object_dispose(&v13, 8);
 
-  return v9;
+  return v10;
 }
 
 + (id)attachmentWithIdentifier:(id)identifier profile:(id)profile error:(id *)error
@@ -132,39 +132,38 @@ uint64_t __93__HDAttachmentEntity_enumerateAttachmentsWithPredicate_transaction_
 
 BOOL __61__HDAttachmentEntity_attachmentWithIdentifier_profile_error___block_invoke(void *a1, void *a2, void *a3)
 {
-  v5 = a1[6];
-  v6 = a1[4];
-  v20 = 0;
-  v7 = a2;
-  v8 = v6;
-  v9 = objc_opt_self();
-  v10 = [MEMORY[0x277D10B18] predicateWithProperty:@"identifier" equalToValue:v8];
+  v5 = a1[4];
+  v19 = 0;
+  v6 = a2;
+  v7 = v5;
+  v8 = objc_opt_self();
+  v9 = [MEMORY[0x277D10B18] predicateWithProperty:@"identifier" equalToValue:v7];
 
-  v11 = [v7 databaseForEntityClass:objc_opt_class()];
+  v10 = [v6 databaseForEntityClass:objc_opt_class()];
 
-  v12 = [v9 anyInDatabase:v11 predicate:v10 error:&v20];
-  if (v12)
+  v11 = [v8 anyInDatabase:v10 predicate:v9 error:&v19];
+  if (v11)
   {
-    v13 = [(HDAttachmentEntity *)v9 _attachmentForEntity:v12 database:v11 error:&v20];
+    v12 = [(HDAttachmentEntity *)v8 _attachmentForEntity:v11 database:v10 error:&v19];
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  v14 = v20;
-  v15 = *(a1[5] + 8);
-  v16 = *(v15 + 40);
-  *(v15 + 40) = v13;
+  v13 = v19;
+  v14 = *(a1[5] + 8);
+  v15 = *(v14 + 40);
+  *(v14 + 40) = v12;
 
-  v17 = v14;
-  if (v17)
+  v16 = v13;
+  if (v16)
   {
     if (a3)
     {
-      v18 = v17;
-      *a3 = v17;
+      v17 = v16;
+      *a3 = v16;
     }
 
     else
@@ -173,7 +172,7 @@ BOOL __61__HDAttachmentEntity_attachmentWithIdentifier_profile_error___block_inv
     }
   }
 
-  return v17 == 0;
+  return v16 == 0;
 }
 
 + (id)attachmentWithIdentifier:(id)identifier transaction:(id)transaction error:(id *)error
@@ -209,29 +208,28 @@ BOOL __61__HDAttachmentEntity_attachmentWithIdentifier_profile_error___block_inv
   v3[5] = @"creation_date";
   v3[6] = @"metadata";
   v3[7] = @"encryption_key";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:8];
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:8];
 
-  return v0;
+  return v1;
 }
 
-void __58__HDAttachmentEntity__attachmentForEntity_database_error___block_invoke(uint64_t a1)
+void __58__HDAttachmentEntity__attachmentForEntity_database_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = [HDAttachment alloc];
-  v14 = HDSQLiteColumnWithNameAsUUID();
-  v3 = HDSQLiteColumnWithNameAsString();
-  v4 = HDSQLiteColumnWithNameAsString();
+  v4 = [HDAttachment alloc];
+  v16 = HDSQLiteColumnWithNameAsUUID();
   v5 = HDSQLiteColumnWithNameAsString();
-  v6 = HDSQLiteColumnWithNameAsInt64();
-  v7 = HDSQLiteColumnWithNameAsDate();
-  v8 = HDSQLiteColumnWithNameAsData();
-  v9 = [HDCodableMetadataDictionary decodeMetadataFromData:v8];
+  v6 = HDSQLiteColumnWithNameAsString();
+  v7 = HDSQLiteColumnWithNameAsString();
+  v8 = HDSQLiteColumnWithNameAsInt64();
+  v9 = HDSQLiteColumnWithNameAsDate();
+  v10 = HDSQLiteColumnWithNameAsData();
+  v11 = [HDCodableMetadataDictionary decodeMetadataFromData:v10];
   objc_opt_class();
-  v10 = HDSQLiteColumnWithNameAsObject();
-  v11 = [(HDAttachment *)v2 initWithIdentifier:v14 name:v3 type:v4 hash:v5 size:v6 creationDate:v7 metadata:v9 encryptionKey:v10];
-  v12 = *(*(a1 + 32) + 8);
-  v13 = *(v12 + 40);
-  *(v12 + 40) = v11;
+  v12 = HDSQLiteColumnWithNameAsObject();
+  v13 = [(HDAttachment *)v4 initWithIdentifier:v16 name:v5 type:v6 hash:v7 size:v8 creationDate:v9 metadata:v11 encryptionKey:v12];
+  v14 = *(*(a1 + 32) + 8);
+  v15 = *(v14 + 40);
+  *(v14 + 40) = v13;
 }
 
 + (id)_insertAttachment:(id)attachment transaction:(id)transaction error:(id *)error
@@ -247,7 +245,7 @@ void __58__HDAttachmentEntity__attachmentForEntity_database_error___block_invoke
   else
   {
     v14 = [transactionCopy databaseForEntityClass:self];
-    v15 = +[HDAttachmentEntity _propertiesForEntity];
+    v15 = +[(HDAttachmentEntity *)self];
     v18[0] = MEMORY[0x277D85DD0];
     v18[1] = 3221225472;
     v18[2] = __58__HDAttachmentEntity__insertAttachment_transaction_error___block_invoke;

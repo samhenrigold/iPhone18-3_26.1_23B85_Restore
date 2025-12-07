@@ -26,15 +26,15 @@
 
 void __68__HMDCoreFollowUpManager_stopAdvertisingHH2UpgradeRecommendationCFU__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) dataSource];
   v3 = [v2 followUpControllerForDeviceSetupManager:*(a1 + 32)];
 
   if (v3)
   {
     v4 = [HMDCoreFollowUpRemoveItemsOperation alloc];
-    v14 = @"com.apple.homed.hh2-upgrade";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+    v13 = @"com.apple.homed.hh2-upgrade";
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
     v6 = [(HMDCoreFollowUpRemoveItemsOperation *)v4 initWithIdentifiersToRemove:v5 followUpController:v3];
 
     v7 = [*(a1 + 32) followUpOperationQueue];
@@ -51,21 +51,19 @@ void __68__HMDCoreFollowUpManager_stopAdvertisingHH2UpgradeRecommendationCFU__bl
       v11 = HMFGetLogIdentifier();
       v12 = [*(a1 + 32) dataSource];
       *buf = 138543618;
-      v16 = v11;
-      v17 = 2112;
-      v18 = v12;
+      v15 = v11;
+      v16 = 2112;
+      v17 = v12;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Unable to get followup controller from data source: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopAdvertising:(int64_t)advertising
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCoreFollowUpManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -76,8 +74,8 @@ void __68__HMDCoreFollowUpManager_stopAdvertisingHH2UpgradeRecommendationCFU__bl
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v41 = v9;
-    v42 = 2048;
+    v40 = v9;
+    v41 = 2048;
     advertisingCopy2 = advertising;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Stopping advertising for followup mode: %ld", buf, 0x16u);
   }
@@ -86,19 +84,19 @@ void __68__HMDCoreFollowUpManager_stopAdvertisingHH2UpgradeRecommendationCFU__bl
   if (advertising == 1)
   {
     v15 = *MEMORY[0x277CCFC80];
-    v37 = *MEMORY[0x277CCFC78];
-    v38 = v15;
+    v36 = *MEMORY[0x277CCFC78];
+    v37 = v15;
     v12 = MEMORY[0x277CBEA60];
-    v13 = &v37;
+    v13 = &v36;
     v14 = 2;
     goto LABEL_11;
   }
 
   if (advertising == 3)
   {
-    v36 = *MEMORY[0x277CD0C78];
+    v35 = *MEMORY[0x277CD0C78];
     v12 = MEMORY[0x277CBEA60];
-    v13 = &v36;
+    v13 = &v35;
     goto LABEL_9;
   }
 
@@ -111,8 +109,8 @@ void __68__HMDCoreFollowUpManager_stopAdvertisingHH2UpgradeRecommendationCFU__bl
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v41 = v24;
-      v42 = 2048;
+      v40 = v24;
+      v41 = 2048;
       advertisingCopy2 = advertising;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Unknown followup mode passed to stop advertising: %ld", buf, 0x16u);
     }
@@ -133,7 +131,7 @@ void __68__HMDCoreFollowUpManager_stopAdvertisingHH2UpgradeRecommendationCFU__bl
     {
       v34 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v41 = v34;
+      v40 = v34;
       _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@Unexpectedly called stop advertising for tvos update mode on non-atv device", buf, 0xCu);
     }
 
@@ -144,13 +142,13 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v39 = @"com.apple.HomeKit.UpdateTvOS";
+  v38 = @"com.apple.HomeKit.UpdateTvOS";
   v12 = MEMORY[0x277CBEA60];
-  v13 = &v39;
+  v13 = &v38;
 LABEL_9:
   v14 = 1;
 LABEL_11:
-  v16 = [v12 arrayWithObjects:v13 count:{v14, v36, v37, v38, v39}];
+  v16 = [v12 arrayWithObjects:v13 count:{v14, v35, v36, v37, v38}];
   dataSource2 = [(HMDCoreFollowUpManager *)selfCopy dataSource];
   v18 = [dataSource2 followUpControllerForDeviceSetupManager:selfCopy];
 
@@ -171,8 +169,8 @@ LABEL_11:
       v29 = HMFGetLogIdentifier();
       dataSource3 = [(HMDCoreFollowUpManager *)v27 dataSource];
       *buf = 138543618;
-      v41 = v29;
-      v42 = 2112;
+      v40 = v29;
+      v41 = 2112;
       advertisingCopy2 = dataSource3;
       _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Unable to get followup controller from data source: %@", buf, 0x16u);
     }
@@ -181,7 +179,6 @@ LABEL_11:
   }
 
 LABEL_24:
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAdvertising:(int64_t)advertising
@@ -274,7 +271,7 @@ void __61__HMDCoreFollowUpManager__removeAllFollowUpItems_completion___block_inv
 
 - (void)_startAdvertising:(int64_t)advertising
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCoreFollowUpManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -311,7 +308,7 @@ LABEL_14:
         {
           v22 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v39 = v22;
+          v38 = v22;
           _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Checking existing follow up setup items", buf, 0xCu);
         }
 
@@ -336,8 +333,8 @@ LABEL_14:
             v30 = HMFGetLogIdentifier();
             dataSource5 = [(HMDCoreFollowUpManager *)v28 dataSource];
             *buf = 138543618;
-            v39 = v30;
-            v40 = 2112;
+            v38 = v30;
+            v39 = 2112;
             advertisingCopy = dataSource5;
             _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Unable to get followup controller from datasource: %@", buf, 0x16u);
           }
@@ -361,8 +358,8 @@ LABEL_14:
         if (advertising != 1)
         {
 LABEL_13:
-          v37 = v15;
-          v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
+          v36 = v15;
+          v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
           [v7 setActions:v18];
 
           goto LABEL_14;
@@ -381,23 +378,21 @@ LABEL_13:
       goto LABEL_7;
   }
 
-  v33 = objc_autoreleasePoolPush();
+  v32 = objc_autoreleasePoolPush();
   selfCopy2 = self;
-  v35 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+  v34 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
   {
-    v36 = HMFGetLogIdentifier();
+    v35 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v39 = v36;
-    v40 = 2048;
+    v38 = v35;
+    v39 = 2048;
     advertisingCopy = advertising;
-    _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_ERROR, "%{public}@Unexpected setup mode to start advertising: %ld", buf, 0x16u);
+    _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_ERROR, "%{public}@Unexpected setup mode to start advertising: %ld", buf, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v33);
+  objc_autoreleasePoolPop(v32);
 LABEL_22:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startAdvertising:(int64_t)advertising
@@ -485,22 +480,20 @@ LABEL_22:
 
 void __37__HMDCoreFollowUpManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v9_76928;
-  logCategory__hmf_once_v9_76928 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v9_76928;
+  logCategory__hmf_once_v9_76928 = v0;
 }
 
 + (NSArray)allPossibleFollowUpItemIdentifiers
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v6[0] = *MEMORY[0x277CCFC80];
-  v6[1] = @"com.apple.HomeKit.UpdateTvOS";
+  v5[4] = *MEMORY[0x277D85DE8];
+  v5[0] = *MEMORY[0x277CCFC80];
+  v5[1] = @"com.apple.HomeKit.UpdateTvOS";
   v2 = *MEMORY[0x277CD0C78];
-  v6[2] = *MEMORY[0x277CCFC78];
-  v6[3] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
-  v4 = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277CCFC78];
+  v5[3] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
 
   return v3;
 }

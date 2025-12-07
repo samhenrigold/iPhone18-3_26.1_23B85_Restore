@@ -164,7 +164,7 @@ LABEL_21:
 
 - (id)uniqueIdentifier
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E69AA8A0]);
   v4 = [(WFOpenURLContextualAction *)self url];
   v5 = [v3 combine:v4];
@@ -179,20 +179,18 @@ LABEL_21:
   stringValue = [v10 stringValue];
 
   identifier = [(WFContextualAction *)self identifier];
-  v17[0] = identifier;
-  v17[1] = stringValue;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+  v16[0] = identifier;
+  v16[1] = stringValue;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
 
   v14 = [v13 componentsJoinedByString:@"."];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (WFOpenURLContextualAction)initWithURL:(id)l bundleIdentifier:(id)identifier actionTitle:(id)title
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   lCopy = l;
   identifierCopy = identifier;
   titleCopy = title;
@@ -202,7 +200,7 @@ LABEL_21:
     {
 LABEL_6:
       obj = l;
-      v37 = titleCopy;
+      v36 = titleCopy;
       if (titleCopy)
       {
         lCopy = titleCopy;
@@ -223,8 +221,8 @@ LABEL_6:
       v22 = [WFContextualActionParameter alloc];
       absoluteString = [lCopy absoluteString];
       v24 = [(WFContextualActionParameter *)v22 initWithType:@"WFURLContentItem" displayString:0 wfParameterKey:@"WFInput" wfSerializedRepresentation:absoluteString];
-      v39 = v24;
-      v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
+      v38 = v24;
+      v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
       v26 = [WFContextualActionIcon iconWithApplicationBundleIdentifier:identifierCopy];
       self = [(WFContextualAction *)self initWithIdentifier:@"is.workflow.actions.openurl" wfActionIdentifier:@"is.workflow.actions.openurl" associatedAppBundleIdentifier:identifierCopy parameters:v25 displayString:lCopy title:v19 subtitle:v18 icon:v26];
 
@@ -239,11 +237,11 @@ LABEL_6:
       }
 
       selfCopy2 = self;
-      titleCopy = v37;
+      titleCopy = v36;
       goto LABEL_12;
     }
 
-    v38 = 0;
+    v37 = 0;
     v13 = lCopy;
   }
 
@@ -257,16 +255,16 @@ LABEL_6:
       goto LABEL_6;
     }
 
-    v38 = 0;
+    v37 = 0;
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v35 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSString * _Nullable WFBundleIdentifierForHandlingURL(NSURL * _Nonnull __strong, NSError *__autoreleasing  _Nullable * _Nullable)"}];
-    [currentHandler2 handleFailureInFunction:v35 file:@"WFOpenURLContextualAction.m" lineNumber:23 description:{@"Invalid parameter not satisfying: %@", @"url"}];
+    v34 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSString * _Nullable WFBundleIdentifierForHandlingURL(NSURL * _Nonnull __strong, NSError *__autoreleasing  _Nullable * _Nullable)"}];
+    [currentHandler2 handleFailureInFunction:v34 file:@"WFOpenURLContextualAction.m" lineNumber:23 description:{@"Invalid parameter not satisfying: %@", @"url"}];
   }
 
-  v14 = [objc_alloc(MEMORY[0x1E69AA860]) initWithURL:lCopy error:&v38];
+  v14 = [objc_alloc(MEMORY[0x1E69AA860]) initWithURL:lCopy error:&v37];
   bundleIdentifier = [v14 bundleIdentifier];
 
-  v16 = v38;
+  v16 = v37;
   identifierCopy = v16;
   if (bundleIdentifier)
   {
@@ -279,16 +277,15 @@ LABEL_6:
   if (os_log_type_enabled(lCopy, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v41 = "[WFOpenURLContextualAction initWithURL:bundleIdentifier:actionTitle:]";
-    v42 = 2112;
-    v43 = lCopy;
+    v40 = "[WFOpenURLContextualAction initWithURL:bundleIdentifier:actionTitle:]";
+    v41 = 2112;
+    v42 = lCopy;
     _os_log_impl(&dword_1B1DE3000, lCopy, OS_LOG_TYPE_ERROR, "%s Can't determine what bundle identifier can open %@", buf, 0x16u);
   }
 
   selfCopy2 = 0;
 LABEL_12:
 
-  v31 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 

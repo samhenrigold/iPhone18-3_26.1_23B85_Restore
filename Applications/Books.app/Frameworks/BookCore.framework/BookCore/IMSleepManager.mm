@@ -47,7 +47,7 @@
 
 + (void)startSleepTimer
 {
-  if (isPad())
+  if (isPad(self, a2))
   {
     v2 = 345.0;
   }
@@ -69,7 +69,7 @@
 
 + (void)didEnterBackground
 {
-  v2 = BCSleepManagerLog();
+  v2 = BCSleepManagerLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v3 = 0;
@@ -83,12 +83,12 @@
   idleTimerInputCheck = self->_idleTimerInputCheck;
   self->_idleTimerInputCheck = v3;
 
-  v5 = BCSleepManagerLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = BCSleepManagerLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
-    v7 = &off_2EF508;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "Input check timer to: %@", &v6, 0xCu);
+    v7 = 138412290;
+    v8 = &off_2EF508;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "Input check timer to: %@", &v7, 0xCu);
   }
 }
 
@@ -117,7 +117,7 @@
 
 - (void)idleTimerFired:(id)fired
 {
-  v4 = BCSleepManagerLog();
+  v4 = BCSleepManagerLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -152,13 +152,13 @@
       idleTimerReenableTimer = self->_idleTimerReenableTimer;
       self->_idleTimerReenableTimer = v12;
 
-      v14 = BCSleepManagerLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v15 = BCSleepManagerLog(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        v15 = [NSNumber numberWithDouble:v11];
-        v16 = 138412290;
-        v17 = v15;
-        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "Setting idle timer to: %@", &v16, 0xCu);
+        v16 = [NSNumber numberWithDouble:v11];
+        v17 = 138412290;
+        v18 = v16;
+        _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "Setting idle timer to: %@", &v17, 0xCu);
       }
 
       [(IMSleepManager *)self retainIdleTimerDisabledForObject:self];
@@ -168,7 +168,7 @@
 
 - (void)cancelIdleTimer
 {
-  v3 = BCSleepManagerLog();
+  v3 = BCSleepManagerLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v7 = 0;
@@ -194,7 +194,8 @@
 {
   v5 = +[UIApplication jsa_sharedApplicationIfNotExtension];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     if (self->_idleTimerDelay != delay)
     {
@@ -205,10 +206,10 @@
 
   else
   {
-    v6 = BCSleepManagerLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = BCSleepManagerLog(isKindOfClass);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_1ED94C(v6);
+      sub_1ED94C(v7);
     }
   }
 }
@@ -257,8 +258,7 @@
 - (void)reevaluateIdleTimerDisabled
 {
   v3 = +[UIApplication jsa_sharedApplicationIfNotExtension];
-  [v3 setIdleTimerDisabled:{-[IMSleepManager idleTimerDisableRefCount](self, "idleTimerDisableRefCount") != 0}];
-  v4 = BCSleepManagerLog();
+  v4 = BCSleepManagerLog([v3 setIdleTimerDisabled:{-[IMSleepManager idleTimerDisableRefCount](self, "idleTimerDisableRefCount") != 0}]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     isIdleTimerDisabled = [v3 isIdleTimerDisabled];

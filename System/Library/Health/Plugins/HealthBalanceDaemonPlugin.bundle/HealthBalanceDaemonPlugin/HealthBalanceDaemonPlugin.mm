@@ -26,7 +26,7 @@ id _HealthBalanceDaemonPlugin.__deallocating_deinit()
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t type metadata accessor for _HealthBalanceDaemonPlugin()
+uint64_t type metadata accessor for _HealthBalanceDaemonPlugin(uint64_t a1)
 {
   result = qword_8130;
   if (!qword_8130)

@@ -9,6 +9,7 @@
 - (unint64_t)_AVTypesForMediaItem:(id)item;
 - (void)_restrictQueryToLocalContent:(id)content;
 - (void)enumerateStatesForLibraryItems:(id)items usingBlock:(id)block;
+- (void)exposedPlatformItemKinds;
 - (void)removeMediaItemsForLibraryItems:(id)items;
 @end
 
@@ -16,76 +17,85 @@
 
 - (void)enumerateStatesForLibraryItems:(id)items usingBlock:(id)block
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   blockCopy = block;
-  if (os_variant_has_internal_content() && _os_feature_enabled_impl() && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+  has_internal_content = os_variant_has_internal_content();
+  if (has_internal_content)
   {
-    [SKUIMediaLibraryInterface enumerateStatesForLibraryItems:usingBlock:];
+    has_internal_content = _os_feature_enabled_impl();
+    if (has_internal_content)
+    {
+      has_internal_content = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG);
+      if (has_internal_content)
+      {
+        [SKUIMediaLibraryInterface enumerateStatesForLibraryItems:usingBlock:];
+      }
+    }
   }
 
-  v7 = SKUIMediaPlayerFramework();
+  v9 = SKUIMediaPlayerFramework(has_internal_content, v8);
   _newDefaultQuery = [(SKUIMediaLibraryInterface *)self _newDefaultQuery];
-  v23 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyStoreAccountID", v7);
-  v22 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyIsHD", v7);
-  v21 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyStoreID", v7);
-  v20 = SKUIWeakLinkedClassForString(&cfstr_Mpmediapropert.isa, v7);
-  v35 = 0;
-  v31 = 0u;
-  v32 = 0u;
+  v25 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyStoreAccountID", v9);
+  v24 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyIsHD", v9);
+  v23 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyStoreID", v9);
+  v22 = SKUIWeakLinkedClassForString(&cfstr_Mpmediapropert.isa, v9);
+  v37 = 0;
   v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   obj = itemsCopy;
-  v9 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
-  if (v9)
+  v11 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+  if (v11)
   {
-    v10 = v9;
-    v25 = *v32;
+    v12 = v11;
+    v27 = *v34;
 LABEL_7:
-    v11 = 0;
+    v13 = 0;
     while (1)
     {
-      if (*v32 != v25)
+      if (*v34 != v27)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v31 + 1) + 8 * v11);
-      v13 = objc_autoreleasePoolPush();
-      v14 = objc_alloc_init(SKUILibraryItemState);
-      storeItemIdentifier = [v12 storeItemIdentifier];
+      v14 = *(*(&v33 + 1) + 8 * v13);
+      v15 = objc_autoreleasePoolPush();
+      v16 = objc_alloc_init(SKUILibraryItemState);
+      storeItemIdentifier = [v14 storeItemIdentifier];
 
       if (storeItemIdentifier)
       {
-        storeItemIdentifier2 = [v12 storeItemIdentifier];
-        v17 = [v20 predicateWithValue:storeItemIdentifier2 forProperty:v21];
+        storeItemIdentifier2 = [v14 storeItemIdentifier];
+        v19 = [v22 predicateWithValue:storeItemIdentifier2 forProperty:v23];
 
-        [_newDefaultQuery addFilterPredicate:v17];
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __71__SKUIMediaLibraryInterface_enumerateStatesForLibraryItems_usingBlock___block_invoke;
-        v26[3] = &unk_2781FBD88;
-        v27 = v14;
+        [_newDefaultQuery addFilterPredicate:v19];
+        v28[0] = MEMORY[0x277D85DD0];
+        v28[1] = 3221225472;
+        v28[2] = __71__SKUIMediaLibraryInterface_enumerateStatesForLibraryItems_usingBlock___block_invoke;
+        v28[3] = &unk_2781FBD88;
+        v29 = v16;
         selfCopy = self;
-        v29 = v22;
-        v30 = v23;
-        [_newDefaultQuery _enumerateUnorderedItemsUsingBlock:v26];
-        [_newDefaultQuery removeFilterPredicate:v17];
+        v31 = v24;
+        v32 = v25;
+        [_newDefaultQuery _enumerateUnorderedItemsUsingBlock:v28];
+        [_newDefaultQuery removeFilterPredicate:v19];
       }
 
-      blockCopy[2](blockCopy, v12, v14, &v35);
-      v18 = v35;
+      blockCopy[2](blockCopy, v14, v16, &v37);
+      v20 = v37;
 
-      objc_autoreleasePoolPop(v13);
-      if (v18)
+      objc_autoreleasePoolPop(v15);
+      if (v20)
       {
         break;
       }
 
-      if (v10 == ++v11)
+      if (v12 == ++v13)
       {
-        v10 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
-        if (v10)
+        v12 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+        if (v12)
         {
           goto LABEL_7;
         }
@@ -145,19 +155,21 @@ void __71__SKUIMediaLibraryInterface_enumerateStatesForLibraryItems_usingBlock__
 {
   v71 = *MEMORY[0x277D85DE8];
   itemCopy = item;
-  if (os_variant_has_internal_content())
+  has_internal_content = os_variant_has_internal_content();
+  if (has_internal_content)
   {
-    if (_os_feature_enabled_impl())
+    has_internal_content = _os_feature_enabled_impl();
+    if (has_internal_content)
     {
-      v5 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v5)
+      has_internal_content = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
+      if (has_internal_content)
       {
-        [(SKUIMediaLibraryInterface *)v5 performActionForLibraryItem:v6, v7, v8, v9, v10, v11, v12];
+        [(SKUIMediaLibraryInterface *)has_internal_content performActionForLibraryItem:v6, v7, v8, v9, v10, v11, v12];
       }
     }
   }
 
-  v13 = SKUIMediaPlayerFramework();
+  v13 = SKUIMediaPlayerFramework(has_internal_content, v6);
   v14 = SKUIWeakLinkedClassForString(&cfstr_Mpmediaquery.isa, v13);
   v15 = SKUIWeakLinkedClassForString(&cfstr_Mpmediapropert.isa, v13);
   v16 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyStoreID", v13);
@@ -328,19 +340,21 @@ LABEL_30:
 - (BOOL)isItemLocalAudiobook:(id)audiobook
 {
   audiobookCopy = audiobook;
-  if (os_variant_has_internal_content())
+  has_internal_content = os_variant_has_internal_content();
+  if (has_internal_content)
   {
-    if (_os_feature_enabled_impl())
+    has_internal_content = _os_feature_enabled_impl();
+    if (has_internal_content)
     {
-      v4 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v4)
+      has_internal_content = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
+      if (has_internal_content)
       {
-        [(SKUIMediaLibraryInterface *)v4 isItemLocalAudiobook:v5, v6, v7, v8, v9, v10, v11];
+        [(SKUIMediaLibraryInterface *)has_internal_content isItemLocalAudiobook:v5, v6, v7, v8, v9, v10, v11];
       }
     }
   }
 
-  v12 = SKUIMediaPlayerFramework();
+  v12 = SKUIMediaPlayerFramework(has_internal_content, v5);
   v13 = SKUIWeakLinkedClassForString(&cfstr_Mpmediaquery.isa, v12);
   v14 = SKUIWeakLinkedClassForString(&cfstr_Mpmediapropert.isa, v12);
   audiobooksQuery = [v13 audiobooksQuery];
@@ -372,33 +386,33 @@ LABEL_30:
   }
 
   v13 = objc_alloc_init(SKUILibraryItemState);
-  v14 = SKUIMediaPlayerFramework();
+  v15 = SKUIMediaPlayerFramework(v13, v14);
   _newDefaultQuery = [(SKUIMediaLibraryInterface *)self _newDefaultQuery];
-  v16 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyStoreAccountID", v14);
-  v17 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyIsHD", v14);
-  v18 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyStoreID", v14);
-  v19 = SKUIWeakLinkedClassForString(&cfstr_Mpmediapropert.isa, v14);
+  v17 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyStoreAccountID", v15);
+  v18 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyIsHD", v15);
+  v19 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyStoreID", v15);
+  v20 = SKUIWeakLinkedClassForString(&cfstr_Mpmediapropert.isa, v15);
   storeItemIdentifier = [itemCopy storeItemIdentifier];
 
-  v21 = [v19 predicateWithValue:storeItemIdentifier forProperty:v18];
+  v22 = [v20 predicateWithValue:storeItemIdentifier forProperty:v19];
 
-  [_newDefaultQuery addFilterPredicate:v21];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __49__SKUIMediaLibraryInterface_stateForLibraryItem___block_invoke;
-  v28[3] = &unk_2781FBD88;
-  v22 = v13;
-  v29 = v22;
+  [_newDefaultQuery addFilterPredicate:v22];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __49__SKUIMediaLibraryInterface_stateForLibraryItem___block_invoke;
+  v29[3] = &unk_2781FBD88;
+  v23 = v13;
+  v30 = v23;
   selfCopy = self;
-  v31 = v17;
-  v32 = v16;
-  v23 = v16;
+  v32 = v18;
+  v33 = v17;
   v24 = v17;
-  [_newDefaultQuery _enumerateUnorderedItemsUsingBlock:v28];
-  v25 = v32;
-  v26 = v22;
+  v25 = v18;
+  [_newDefaultQuery _enumerateUnorderedItemsUsingBlock:v29];
+  v26 = v33;
+  v27 = v23;
 
-  return v22;
+  return v23;
 }
 
 void __49__SKUIMediaLibraryInterface_stateForLibraryItem___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
@@ -431,19 +445,21 @@ void __49__SKUIMediaLibraryInterface_stateForLibraryItem___block_invoke(uint64_t
 {
   v34 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
-  if (os_variant_has_internal_content())
+  has_internal_content = os_variant_has_internal_content();
+  if (has_internal_content)
   {
-    if (_os_feature_enabled_impl())
+    has_internal_content = _os_feature_enabled_impl();
+    if (has_internal_content)
     {
-      v4 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v4)
+      has_internal_content = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
+      if (has_internal_content)
       {
-        [(SKUIMediaLibraryInterface *)v4 removeMediaItemsForLibraryItems:v5, v6, v7, v8, v9, v10, v11];
+        [(SKUIMediaLibraryInterface *)has_internal_content removeMediaItemsForLibraryItems:v5, v6, v7, v8, v9, v10, v11];
       }
     }
   }
 
-  v12 = SKUIMediaPlayerFramework();
+  v12 = SKUIMediaPlayerFramework(has_internal_content, v5);
   v13 = SKUIWeakLinkedClassForString(&cfstr_Mpmediaquery.isa, v12);
   v14 = SKUIWeakLinkedClassForString(&cfstr_Mpmediapropert.isa, v12);
   v27 = SKUIWeakLinkedClassForString(&cfstr_Mpmedialibrary_0.isa, v12);
@@ -554,15 +570,15 @@ void __49__SKUIMediaLibraryInterface_stateForLibraryItem___block_invoke(uint64_t
   return v16;
 }
 
-id __55__SKUIMediaLibraryInterface__availabilityForMediaItem___block_invoke()
+id __55__SKUIMediaLibraryInterface__availabilityForMediaItem___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = SKUIMediaPlayerFramework();
-  v1 = SKUIWeakLinkedSymbolForString("MPMediaItemPropertyStoreFamilyAccountID", v0);
-  objc_storeStrong(&_availabilityForMediaItem__sFamilyAccountIDProperty, *v1);
-  v2 = SKUIWeakLinkedSymbolForString("MPMediaItemPropertyFilePath", v0);
-  objc_storeStrong(&_availabilityForMediaItem__sFilePathProperty, *v2);
-  v3 = SKUIAVFoundationFramework();
-  result = SKUIWeakLinkedClassForString(&cfstr_Avplayeritem.isa, v3);
+  v2 = SKUIMediaPlayerFramework(a1, a2);
+  v3 = SKUIWeakLinkedSymbolForString("MPMediaItemPropertyStoreFamilyAccountID", v2);
+  objc_storeStrong(&_availabilityForMediaItem__sFamilyAccountIDProperty, *v3);
+  v4 = SKUIWeakLinkedSymbolForString("MPMediaItemPropertyFilePath", v2);
+  objc_storeStrong(&_availabilityForMediaItem__sFilePathProperty, *v4);
+  v7 = SKUIAVFoundationFramework(v5, v6);
+  result = SKUIWeakLinkedClassForString(&cfstr_Avplayeritem.isa, v7);
   _availabilityForMediaItem__sPlayerItemClass = result;
   return result;
 }
@@ -582,7 +598,7 @@ id __55__SKUIMediaLibraryInterface__availabilityForMediaItem___block_invoke()
 
 - (id)_newDefaultQuery
 {
-  v3 = SKUIMediaPlayerFramework();
+  v3 = SKUIMediaPlayerFramework(self, a2);
   v4 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Mpmediaquery.isa, v3));
   [(SKUIMediaLibraryInterface *)self _restrictQueryToLocalContent:v4];
   v5 = objc_alloc_init(MEMORY[0x277CBEB58]);
@@ -598,11 +614,11 @@ id __55__SKUIMediaLibraryInterface__availabilityForMediaItem___block_invoke()
 - (void)_restrictQueryToLocalContent:(id)content
 {
   contentCopy = content;
-  v4 = SKUIMediaPlayerFramework();
-  v5 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyIsLocal", v4);
-  v6 = [SKUIWeakLinkedClassForString(&cfstr_Mpmediapropert.isa v4)];
+  v5 = SKUIMediaPlayerFramework(contentCopy, v4);
+  v6 = *SKUIWeakLinkedSymbolForString("MPMediaItemPropertyIsLocal", v5);
+  v7 = [SKUIWeakLinkedClassForString(&cfstr_Mpmediapropert.isa v5)];
 
-  [contentCopy addFilterPredicate:v6];
+  [contentCopy addFilterPredicate:v7];
 }
 
 - (id)_storePlatformKindForMediaItem:(id)item
@@ -677,6 +693,42 @@ id __55__SKUIMediaLibraryInterface__availabilityForMediaItem___block_invoke()
   v2 = *MEMORY[0x277D85DE8];
   v0 = 136446210;
   v1 = "[SKUIMediaLibraryInterface enumerateStatesForLibraryItems:usingBlock:]";
+}
+
+- (void)exposedPlatformItemKinds
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMediaLibraryInterface exposedPlatformItemKinds]";
+}
+
+- (void)performActionForLibraryItem:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMediaLibraryInterface performActionForLibraryItem:]";
+}
+
+- (void)isItemLocalAudiobook:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMediaLibraryInterface isItemLocalAudiobook:]";
+}
+
+- (void)stateForLibraryItem:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMediaLibraryInterface stateForLibraryItem:]";
+}
+
+- (void)removeMediaItemsForLibraryItems:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMediaLibraryInterface removeMediaItemsForLibraryItems:]";
+}
+
+- (void)_availabilityForMediaItem:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMediaLibraryInterface _availabilityForMediaItem:]";
 }
 
 @end

@@ -63,9 +63,9 @@
     dispatch_once(&qword_1ED49E0B8, &__block_literal_global_261);
   }
 
-  v3 = _MergedGlobals_1111;
+  v2 = _MergedGlobals_1111;
 
-  return [v3 isEqual:self];
+  return objc_msgSend_isEqual_(v2);
 }
 
 void __59__UISceneLayerPresentationContext__isEqualToDefaultContext__block_invoke()

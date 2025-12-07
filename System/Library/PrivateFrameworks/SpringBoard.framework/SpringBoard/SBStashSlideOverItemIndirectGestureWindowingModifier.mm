@@ -93,7 +93,7 @@
       {
         v19 = [(SBWindowingModifier *)self flexibleAutoLayoutSpaceForAppLayout:_slideOverAppLayout];
         v20 = [v19 flexibleAutoLayoutItemForDisplayItem:self->_slideOverDisplayItem];
-        [v20 frame];
+        objc_msgSend_frame(v20);
         p_initialFrame->origin.x = v21;
         self->_initialFrame.origin.y = v22;
         self->_initialFrame.size.width = v23;

@@ -18,6 +18,7 @@
 - (void)_updateState;
 - (void)dealloc;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CCUIDisplayBackgroundViewController
@@ -180,6 +181,14 @@ LABEL_12:
   v5.receiver = self;
   v5.super_class = CCUIDisplayBackgroundViewController;
   [(CCUIDisplayBackgroundViewController *)&v5 dealloc];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = CCUIDisplayBackgroundViewController;
+  [(CCUIDisplayBackgroundViewController *)&v6 viewWillAppear:appear];
+  objc_msgSend__updateState(self, v4, v5);
 }
 
 - (void)_setupStyleMode

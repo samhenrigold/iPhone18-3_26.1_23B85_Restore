@@ -25,7 +25,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1001ADC88();
+  sub_1001ADC88(delegate);
 }
 
 - (GKGamePolicyLibrary)gamePolicyLibrary

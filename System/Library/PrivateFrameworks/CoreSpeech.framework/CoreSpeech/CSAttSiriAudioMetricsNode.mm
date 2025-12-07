@@ -34,7 +34,7 @@
   else
   {
 
-    return +[CSFAudioStreamBasicDescriptionFactory lpcmInt16ASBD];
+    return objc_msgSend_lpcmInt16ASBD(CSFAudioStreamBasicDescriptionFactory);
   }
 }
 
@@ -74,7 +74,7 @@
     {
       [(CSAdamSpeechMetricsManager *)v5 updateWithNewReporterID];
       v6 = self->_adamMetricsManager;
-      [(CSAttSiriAudioMetricsNode *)self _defaultASBD];
+      objc_msgSend__defaultASBD(self);
       [(CSAdamSpeechMetricsManager *)v6 setAudioIssueDetectorFormat:&v19 numFrames:self->_numFramesPerBuffer];
       v7 = [CSAudioCircularBuffer alloc];
       +[CSConfig inputRecordingDurationInSecs];

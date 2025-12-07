@@ -42,26 +42,26 @@
   objc_destroyWeak(&location);
 }
 
-id __96__CHMindfulnessSessionListTableViewCellAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1)
+id __96__CHMindfulnessSessionListTableViewCellAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = [WeakRetained safeSwiftValueForKey:@"mindfulnessSessionViewModel"];
-  v4 = [v3 safeSwiftValueForKey:@"endDate"];
-  v5 = __UIAccessibilityCastAsClass();
+  v4 = [WeakRetained safeSwiftValueForKey:@"mindfulnessSessionViewModel"];
+  v5 = [v4 safeSwiftValueForKey:@"endDate"];
+  v6 = __UIAccessibilityCastAsClass();
 
-  if (v5 && (v6 = objc_loadWeakRetained((a1 + 32)), v7 = [v6 _isDateInLastWeek:v5], v6, (v7 & 1) == 0))
+  if (v6 && (v7 = objc_loadWeakRetained((a1 + 32)), v8 = [v7 _isDateInLastWeek:v6], v7, (v8 & 1) == 0))
   {
-    v9 = AXDateStringForFormat();
+    v10 = AXDateStringForFormat();
   }
 
   else
   {
-    v8 = objc_loadWeakRetained((a1 + 40));
-    v9 = [v8 text];
+    v9 = objc_loadWeakRetained((a1 + 40));
+    v10 = [v9 text];
   }
 
-  return v9;
+  return v10;
 }
 
 - (id)accessibilityPath

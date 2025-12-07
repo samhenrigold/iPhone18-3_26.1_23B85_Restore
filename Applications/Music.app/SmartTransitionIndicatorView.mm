@@ -15,7 +15,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1006297F0();
+  sub_1006297F0(selfCopy);
 }
 
 - (_TtC5Music28SmartTransitionIndicatorView)initWithFrame:(CGRect)frame

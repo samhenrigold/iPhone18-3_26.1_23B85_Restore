@@ -1,6 +1,7 @@
 @interface CVAVideoPipelineLibrary
 + (id)colorCubePortraitGenericRequestForPortraitVideoPipeline:(id)pipeline sourceColorPixelBuffer:(__CVBuffer *)buffer cubeData:(id)data error:(id *)error;
 + (id)colorCubePortraitRequestForPortraitVideoPipeline:(id)pipeline withWithSourceColorPixelBuffer:(__CVBuffer *)buffer destinationColorPixelBuffer:(__CVBuffer *)pixelBuffer cubeData:(id)data;
++ (id)colorCubeRequest:(id)request isMono:(BOOL)mono error:(id *)error;
 + (id)colorCubeRequestWithBackgroundCube:(id)cube foregroundCube:(id)foregroundCube error:(id *)error;
 + (id)contourLightRequestWithFace:(id)face error:(id *)error;
 + (id)contourLightRequestWithFace:(id)face relightStyleStrength:(float)strength error:(id *)error;
@@ -262,6 +263,30 @@ LABEL_18:
   return v21;
 }
 
++ (id)colorCubeRequest:(id)request isMono:(BOOL)mono error:(id *)error
+{
+  monoCopy = mono;
+  requestCopy = request;
+  v8 = MEMORY[0x1E696AEC0];
+  v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"API: colorCube should not be nil!"];
+  v10 = [v8 stringWithFormat:@"Assertion failure in %s at %s:%d -- %@", "+[CVAVideoPipelineLibrary colorCubeRequest:isMono:error:]", "/Library/Caches/com.apple.xbs/Sources/AppleCVAPhoto/src/CVAVideoPipelineLibrary.mm", 372, v9];
+  sub_1DED25D64(requestCopy == 0, error, 4294944393, v10);
+
+  if (requestCopy)
+  {
+    v11 = objc_opt_new();
+    [v11 setSingleColorCube:requestCopy];
+    [v11 setIsMono:monoCopy];
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  return v11;
+}
+
 + (id)colorCubeRequestWithBackgroundCube:(id)cube foregroundCube:(id)foregroundCube error:(id *)error
 {
   cubeCopy = cube;
@@ -355,13 +380,9 @@ LABEL_18:
 
 + (id)syntheticDepthOfFieldBackgroundRequestWithMattingRequest:(id)request simulatedFocalRatio:(float)ratio sourceColorGain:(float)gain sourceColorLux:(float)lux metadata:(id)metadata error:(id *)error
 {
-  v8 = *MEMORY[0x1E695F050];
-  v9 = *(MEMORY[0x1E695F050] + 8);
-  v10 = *(MEMORY[0x1E695F050] + 16);
-  v11 = *(MEMORY[0x1E695F050] + 24);
-  v12 = [self syntheticDepthOfFieldBackgroundRequestWithMattingRequest:request simulatedFocalRatio:metadata sourceColorGain:error sourceColorLux:? metadata:? primaryCaptureRect:? error:?];
+  v8 = [self syntheticDepthOfFieldBackgroundRequestWithMattingRequest:request simulatedFocalRatio:metadata sourceColorGain:error sourceColorLux:? metadata:? primaryCaptureRect:? error:?];
 
-  return v12;
+  return v8;
 }
 
 + (id)opaqueBackgroundRequestWithMattingRequest:(id)request error:(id *)error
@@ -448,7 +469,7 @@ LABEL_7:
 
 + (id)colorCubePortraitRequestForPortraitVideoPipeline:(id)pipeline withWithSourceColorPixelBuffer:(__CVBuffer *)buffer destinationColorPixelBuffer:(__CVBuffer *)pixelBuffer cubeData:(id)data
 {
-  v46[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   pipelineCopy = pipeline;
   dataCopy = data;
   videoPipelineProperties = [pipelineCopy videoPipelineProperties];
@@ -476,33 +497,31 @@ LABEL_7:
   alphaMattePixelBufferHeight = [videoPipelineProperties8 alphaMattePixelBufferHeight];
 
   videoPipelineProperties9 = [pipelineCopy videoPipelineProperties];
-  HIDWORD(v32) = [videoPipelineProperties9 alphaMattePixelBufferPixelFormat];
+  HIDWORD(v31) = [videoPipelineProperties9 alphaMattePixelBufferPixelFormat];
 
-  v39 = 0;
+  v38 = 0;
   pixelBufferOut = 0;
   texture = 0;
-  v45 = *MEMORY[0x1E69660D8];
-  v23 = v45;
+  v44 = *MEMORY[0x1E69660D8];
+  v23 = v44;
   v24 = MEMORY[0x1E695E0F8];
-  v46[0] = MEMORY[0x1E695E0F8];
-  CVPixelBufferCreate(0, inputDisparityPixelBufferWidth, inputDisparityPixelBufferHeight, inputDisparityPixelBufferPixelFormat, [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1], &pixelBufferOut);
-  v43 = v23;
-  v44 = v24;
-  CVPixelBufferCreate(0, outputDisparityPixelBufferWidth, outputDisparityPixelBufferHeight, outputDisparityPixelBufferPixelFormat, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1], &v39);
-  v41 = v23;
-  v42 = v24;
-  CVPixelBufferCreate(0, alphaMattePixelBufferWidth, alphaMattePixelBufferHeight, HIDWORD(v32), [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1], &texture);
+  v45[0] = MEMORY[0x1E695E0F8];
+  CVPixelBufferCreate(0, inputDisparityPixelBufferWidth, inputDisparityPixelBufferHeight, inputDisparityPixelBufferPixelFormat, [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1], &pixelBufferOut);
+  v42 = v23;
+  v43 = v24;
+  CVPixelBufferCreate(0, outputDisparityPixelBufferWidth, outputDisparityPixelBufferHeight, outputDisparityPixelBufferPixelFormat, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1], &v38);
+  v40 = v23;
+  v41 = v24;
+  CVPixelBufferCreate(0, alphaMattePixelBufferWidth, alphaMattePixelBufferHeight, HIDWORD(v31), [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1], &texture);
   v25 = [CVADisparityPostprocessingRequest alloc];
-  LOBYTE(v32) = 0;
-  v26 = [(CVADisparityPostprocessingRequest *)v25 initWithSourceColorPixelBuffer:buffer fixedPointDisparityPixelBuffer:pixelBufferOut destinationDisparityPixelBuffer:v39 focusRegion:0 focusRegionType:0 currentFocusPosition:0 lockFocalPlane:0.0 sourceColorPixelBufferOrientation:1.0 sourceColorPixelBufferGravity:0.0 sourceColorPixelBufferGlobalMotion:0.0 facesArray:0.0 disparityNormalizationMultiplier:0.0 disparityNormalizationOffset:0.0 primaryCaptureRect:1.0 cropDepthToPrimaryCaptureRect:0, 0, 0, 0, 0, *MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24), v32];
+  LOBYTE(v31) = 0;
+  v26 = [(CVADisparityPostprocessingRequest *)v25 initWithSourceColorPixelBuffer:buffer fixedPointDisparityPixelBuffer:pixelBufferOut destinationDisparityPixelBuffer:v38 focusRegion:0 focusRegionType:0 currentFocusPosition:0 lockFocalPlane:0.0 sourceColorPixelBufferOrientation:1.0 sourceColorPixelBufferGravity:0.0 sourceColorPixelBufferGlobalMotion:0.0 facesArray:0.0 disparityNormalizationMultiplier:0.0 disparityNormalizationOffset:0.0 primaryCaptureRect:1.0 cropDepthToPrimaryCaptureRect:0, 0, 0, 0, 0, *MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24), v31];
   v27 = [CVAMattingRequest alloc];
   v28 = [(CVAMattingRequest *)v27 initWithDisparityPostprocessingRequest:v26 segmentationPixelBuffer:0 skinSegmentationPixelBuffer:0 primaryCaptureRect:1 applyRotation:texture destinationAlphaMattePixelBuffer:0 error:0.0, 0.0, 0.0, 0.0];
   v29 = [[CVAPortraitRequest_StageLight alloc] initWithMattingRequest:v28 destinationColorPixelBuffer:pixelBuffer proxyCubeData:dataCopy cubeData:dataCopy vignetteIntensity:0.0 stageLightIntensity:0.0];
   CVPixelBufferRelease(texture);
-  CVPixelBufferRelease(v39);
+  CVPixelBufferRelease(v38);
   CVPixelBufferRelease(pixelBufferOut);
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v29;
 }
@@ -510,14 +529,14 @@ LABEL_7:
 + (int)prewarm
 {
   v2 = 0;
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   while (1)
   {
     v3 = objc_autoreleasePoolPush();
     v4 = [CVAVideoPipelineLibrary videoPipelinePropertiesForDevice:v2];
-    v10 = 0;
-    v5 = [CVAVideoPipelineLibrary portraitVideoPipelineWithProperties:v4 commandQueue:0 error:&v10];
-    v6 = v10;
+    v9 = 0;
+    v5 = [CVAVideoPipelineLibrary portraitVideoPipelineWithProperties:v4 commandQueue:0 error:&v9];
+    v6 = v9;
     if (!v5)
     {
       break;
@@ -526,23 +545,20 @@ LABEL_7:
     objc_autoreleasePoolPop(v3);
     if (++v2 == 52)
     {
-      code = 0;
-      goto LABEL_8;
+      return 0;
     }
   }
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v12 = v6;
+    v11 = v6;
     _os_log_error_impl(&dword_1DED23000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
   }
 
   code = [v6 code];
 
   objc_autoreleasePoolPop(v3);
-LABEL_8:
-  v8 = *MEMORY[0x1E69E9840];
   return code;
 }
 

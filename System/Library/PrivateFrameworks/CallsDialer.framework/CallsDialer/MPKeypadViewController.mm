@@ -16,9 +16,11 @@
 - (int64_t)_IDSStatusForService:(id)service withDestination:(id)destination;
 - (void)_addNewContact:(id)contact;
 - (void)_clearIDSStatusCache;
+- (void)_handleResultsUpdate:(id)update contactHasCompleteMatch:(BOOL)match businessResult:(id)result businessHasCompleteMatch:(BOOL)completeMatch businessHasMessageAction:(BOOL)action pastedString:(id)string;
 - (void)_metadataCacheDidUpdate;
 - (void)_updateIDSStatusIfNeededForService:(id)service withDestination:(id)destination;
 - (void)_updateMetadataCacheIfPossible;
+- (void)_updateNameAndRefreshResult:(BOOL)result;
 - (void)_updateNameFromMetadataCache;
 - (void)contactPicker:(id)picker didSelectContact:(id)contact;
 - (void)contactViewController:(id)controller didCompleteWithContact:(id)contact;
@@ -27,12 +29,17 @@
 - (void)presentContactsSearchFor:(id)for;
 - (void)providersChangedForProviderManager:(id)manager;
 - (void)refreshLocalizedSenderIdentity;
+- (void)searchAndUpdateResultsFor:(id)for shouldRefreshResult:(BOOL)result showPastedString:(id)string;
 - (void)searchBusinessesFor:(id)for completionHandler:(id)handler;
 - (void)searchButtonPressed:(id)pressed;
+- (void)searchContactsFor:(id)for shouldRefreshResult:(BOOL)result completionHandler:(id)handler;
+- (void)setIsHostedInRemoteViewController:(BOOL)controller;
 - (void)updateIDSStatus;
 - (void)updateLocalizedSenderIdentity:(id)identity;
 - (void)updateTabBarAppearanceToTransparent:(BOOL)transparent;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation MPKeypadViewController
@@ -162,6 +169,43 @@ id __37__MPKeypadViewController_viewDidLoad__block_invoke(uint64_t a1)
   return v4;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5 = PHDefaultLog(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_2429BC000, v5, OS_LOG_TYPE_DEFAULT, "MPKeypadViewController viewDidAppear:", buf, 2u);
+  }
+
+  v7.receiver = self;
+  v7.super_class = MPKeypadViewController;
+  [(MPKeypadViewController *)&v7 viewDidAppear:appearCopy];
+  [(MPKeypadViewController *)self finishSwitchTestIfNeeded];
+  delegate = [(MPKeypadViewController *)self delegate];
+  [delegate keyPadViewControllerDidAppear:appearCopy];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = MPKeypadViewController;
+  [(DialerController *)&v9 viewWillAppear:appear];
+  [(MPKeypadViewController *)self refreshLocalizedSenderIdentity];
+  isHostedInRemoteViewController = [(MPKeypadViewController *)self isHostedInRemoteViewController];
+  dialerView = [(DialerController *)self dialerView];
+  [dialerView setIsHostedInRemoteViewController:isHostedInRemoteViewController];
+
+  dialerView2 = [(DialerController *)self dialerView];
+  lcdView = [dialerView2 lcdView];
+  [lcdView becomeFirstResponder];
+
+  [(MPKeypadViewController *)self setDefinesPresentationContext:1];
+  view = [(MPKeypadViewController *)self view];
+  [view setAccessibilityIdentifier:@"KeypadView"];
+}
+
 - (UIEdgeInsets)additionalSafeAreaInsets
 {
   featureFlags = [(MPKeypadViewController *)self featureFlags];
@@ -210,7 +254,7 @@ LABEL_6:
 
 - (id)createMenuForAddContactButton
 {
-  v48[2] = *MEMORY[0x277D85DE8];
+  v47[2] = *MEMORY[0x277D85DE8];
   if (self->super._lookupTimer)
   {
     [(MPKeypadViewController *)self _updateName];
@@ -285,46 +329,44 @@ LABEL_16:
     v22 = @"person.text.rectangle";
   }
 
-  v43 = MEMORY[0x277D75710];
-  v37 = MEMORY[0x277D750C8];
+  v42 = MEMORY[0x277D75710];
+  v36 = MEMORY[0x277D750C8];
   v23 = MEMORY[0x277CCA8D8];
-  v35 = v22;
-  v44 = [v23 bundleForClass:objc_opt_class()];
-  v41 = [v44 localizedStringForKey:@"ADD_TO_NEW" value:&stru_285532CB8 table:@"Dialer"];
-  v40 = [MEMORY[0x277D755B8] systemImageNamed:v20];
+  v34 = v22;
+  v43 = [v23 bundleForClass:objc_opt_class()];
+  v40 = [v43 localizedStringForKey:@"ADD_TO_NEW" value:&stru_285532CB8 table:@"Dialer"];
+  v39 = [MEMORY[0x277D755B8] systemImageNamed:v20];
 
-  v42 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v39 = [v42 localizedStringForKey:@"ADD_TO_NEW" value:&stru_285532CB8 table:@"Dialer"];
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __55__MPKeypadViewController_createMenuForAddContactButton__block_invoke;
-  v46[3] = &unk_278D74D38;
-  v46[4] = self;
-  v47 = text;
-  v38 = [v37 actionWithTitle:v41 image:v40 identifier:v39 handler:v46];
-  v48[0] = v38;
-  v34 = MEMORY[0x277D750C8];
-  v36 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v24 = [v36 localizedStringForKey:@"ADD_TO_EXISTING" value:&stru_285532CB8 table:@"Dialer"];
-  v25 = [MEMORY[0x277D755B8] systemImageNamed:v35];
+  v41 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v38 = [v41 localizedStringForKey:@"ADD_TO_NEW" value:&stru_285532CB8 table:@"Dialer"];
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __55__MPKeypadViewController_createMenuForAddContactButton__block_invoke;
+  v45[3] = &unk_278D74D38;
+  v45[4] = self;
+  v46 = text;
+  v37 = [v36 actionWithTitle:v40 image:v39 identifier:v38 handler:v45];
+  v47[0] = v37;
+  v33 = MEMORY[0x277D750C8];
+  v35 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v24 = [v35 localizedStringForKey:@"ADD_TO_EXISTING" value:&stru_285532CB8 table:@"Dialer"];
+  v25 = [MEMORY[0x277D755B8] systemImageNamed:v34];
 
   v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v27 = [v26 localizedStringForKey:@"ADD_TO_EXISTING" value:&stru_285532CB8 table:@"Dialer"];
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = __55__MPKeypadViewController_createMenuForAddContactButton__block_invoke_2;
-  v45[3] = &unk_278D74D60;
-  v45[4] = self;
-  v28 = [v34 actionWithTitle:v24 image:v25 identifier:v27 handler:v45];
-  v48[1] = v28;
-  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
-  v30 = [v43 menuWithTitle:&stru_285532CB8 children:v29];
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = __55__MPKeypadViewController_createMenuForAddContactButton__block_invoke_2;
+  v44[3] = &unk_278D74D60;
+  v44[4] = self;
+  v28 = [v33 actionWithTitle:v24 image:v25 identifier:v27 handler:v44];
+  v47[1] = v28;
+  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
+  v30 = [v42 menuWithTitle:&stru_285532CB8 children:v29];
 
 LABEL_18:
   delegate = [(MPKeypadViewController *)self delegate];
   [delegate didPressAddContactButton:3];
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -371,42 +413,31 @@ void __55__MPKeypadViewController_createMenuForAddContactButton__block_invoke_2(
       metadataCache = [(MPKeypadViewController *)self metadataCache];
       v9 = [metadataCache metadataForDestinationID:v7];
 
-      v10 = 0x277D6EE00;
-      v11 = [v9 metadataForProvider:objc_opt_class()];
+      v10 = [v9 metadataForProvider:objc_opt_class()];
 
-      if (v11)
+      if (v10 || ([v9 metadataForProvider:objc_opt_class()], v11 = objc_claimAutoreleasedReturnValue(), v11, v11) || (objc_msgSend(v9, "metadataForProvider:", objc_opt_class()), v12 = objc_claimAutoreleasedReturnValue(), v12, v12))
       {
-        goto LABEL_6;
-      }
-
-      v10 = 0x277D6EEF8;
-      v12 = [v9 metadataForProvider:objc_opt_class()];
-
-      if (v12 || (v10 = 0x277D6EF50, [v9 metadataForProvider:objc_opt_class()], v13 = objc_claimAutoreleasedReturnValue(), v13, v13))
-      {
-LABEL_6:
-        v14 = *v10;
-        v13 = [v9 metadataForProvider:objc_opt_class()];
+        v12 = [v9 metadataForProvider:objc_opt_class()];
       }
     }
 
     else
     {
-      v13 = 0;
+      v12 = 0;
     }
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  return v13;
+  return v12;
 }
 
 - (id)_metadataForDialerText
 {
-  v24[3] = *MEMORY[0x277D85DE8];
+  v23[3] = *MEMORY[0x277D85DE8];
   lcdView = [(PHAbstractDialerView *)self->super._dialerView lcdView];
   text = [lcdView text];
 
@@ -416,34 +447,34 @@ LABEL_6:
     v6 = TUNetworkCountryCode();
     v7 = [v5 initWithDestinationID:text isoCountryCode:v6];
 
-    v24[0] = objc_opt_class();
-    v24[1] = objc_opt_class();
-    v24[2] = objc_opt_class();
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
+    v23[0] = objc_opt_class();
+    v23[1] = objc_opt_class();
+    v23[2] = objc_opt_class();
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:3];
     if (v7)
     {
       metadataCache = [(MPKeypadViewController *)self metadataCache];
       v10 = [metadataCache metadataForDestinationID:v7];
 
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
       v11 = v8;
-      v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v12)
       {
-        v13 = *v20;
+        v13 = *v19;
         while (2)
         {
           for (i = 0; i != v12; i = i + 1)
           {
-            if (*v20 != v13)
+            if (*v19 != v13)
             {
               objc_enumerationMutation(v11);
             }
 
-            v15 = [v10 metadataDictForProvider:{*(*(&v19 + 1) + 8 * i), v19}];
+            v15 = [v10 metadataDictForProvider:{*(*(&v18 + 1) + 8 * i), v18}];
             if (v15)
             {
               v12 = v15;
@@ -456,7 +487,7 @@ LABEL_6:
             }
           }
 
-          v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
           if (v12)
           {
             continue;
@@ -481,8 +512,6 @@ LABEL_14:
     v12 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
@@ -493,6 +522,138 @@ LABEL_14:
   identificationLabel = [_metadataForDialerText identificationLabel];
   source = [_metadataForDialerText source];
   [lcdView setName:identificationLabel numberLabel:0 source:source suggestion:1];
+}
+
+- (void)_updateNameAndRefreshResult:(BOOL)result
+{
+  resultCopy = result;
+  lcdView = [(PHAbstractDialerView *)self->super._dialerView lcdView];
+  [lcdView hideBusinessNameIfVisible];
+
+  lcdView2 = [(PHAbstractDialerView *)self->super._dialerView lcdView];
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    lcdView3 = [(PHAbstractDialerView *)self->super._dialerView lcdView];
+    text = [lcdView3 text];
+
+    if ([text length])
+    {
+      if ([(MPKeypadViewController *)self enableSmartDialer])
+      {
+        [(MPKeypadViewController *)self searchAndUpdateResultsFor:text shouldRefreshResult:resultCopy showPastedString:0];
+      }
+
+      else
+      {
+        v13 = [(DialerController *)self contactResultForPhoneNumber:text];
+        contacts = [v13 contacts];
+        v15 = [contacts count];
+
+        if (v15)
+        {
+          localizedName = [v13 localizedName];
+          contactLabel = [v13 contactLabel];
+          lcdView4 = [(PHAbstractDialerView *)self->super._dialerView lcdView];
+          [lcdView4 setName:localizedName numberLabel:contactLabel suggestion:0];
+        }
+
+        else
+        {
+          lcdView5 = [(PHAbstractDialerView *)self->super._dialerView lcdView];
+          [lcdView5 setName:0 numberLabel:0 suggestion:0];
+
+          [(MPKeypadViewController *)self _updateNameFromMetadataCache];
+        }
+      }
+
+      [(MPKeypadViewController *)self updateIDSStatus];
+    }
+
+    else
+    {
+      [(MPKeypadViewController *)self _clearIDSStatusCache];
+      enableSmartDialer = [(MPKeypadViewController *)self enableSmartDialer];
+      lcdView6 = [(PHAbstractDialerView *)self->super._dialerView lcdView];
+      v12 = lcdView6;
+      if (enableSmartDialer)
+      {
+        [lcdView6 setContactSearchResults:0 hasCompleteMatch:0];
+      }
+
+      else
+      {
+        [lcdView6 setName:0 numberLabel:0 suggestion:0];
+      }
+    }
+  }
+
+  [(DialerController *)self _stopLookupTimer];
+}
+
+- (void)_handleResultsUpdate:(id)update contactHasCompleteMatch:(BOOL)match businessResult:(id)result businessHasCompleteMatch:(BOOL)completeMatch businessHasMessageAction:(BOOL)action pastedString:(id)string
+{
+  actionCopy = action;
+  completeMatchCopy = completeMatch;
+  matchCopy = match;
+  v14 = !completeMatch;
+  updateCopy = update;
+  resultCopy = result;
+  stringCopy = string;
+  dialerInterceptEnabled = [(TUFeatureFlags *)self->_featureFlags dialerInterceptEnabled];
+  if (resultCopy)
+  {
+    v18 = 0;
+  }
+
+  else
+  {
+    v18 = v14;
+  }
+
+  if (v18 || !dialerInterceptEnabled)
+  {
+    lcdView = [(PHAbstractDialerView *)self->super._dialerView lcdView];
+    [lcdView setContactSearchResults:updateCopy hasCompleteMatch:matchCopy];
+  }
+
+  else
+  {
+    if (matchCopy && [updateCopy count])
+    {
+      v19 = MEMORY[0x277CBDA78];
+      firstObject = [updateCopy firstObject];
+      contact = [firstObject contact];
+      lcdView = [v19 stringFromContact:contact style:0];
+    }
+
+    else
+    {
+      lcdView = 0;
+    }
+
+    lcdView2 = [(PHAbstractDialerView *)self->super._dialerView lcdView];
+    [lcdView2 setBusinessSearchResult:resultCopy hasCompleteMatch:completeMatchCopy hasMessageAction:actionCopy nameOverride:lcdView];
+  }
+
+  if (![updateCopy count])
+  {
+    if ([stringCopy length])
+    {
+      lcdView3 = [(PHAbstractDialerView *)self->super._dialerView lcdView];
+      v25 = MEMORY[0x277CCACA8];
+      v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v27 = [v26 localizedStringForKey:@"QUOTE_%@_QUOTE" value:&stru_285532CB8 table:@"Dialer"];
+      stringCopy = [v25 localizedStringWithFormat:v27, stringCopy];
+      [lcdView3 setName:stringCopy numberLabel:0];
+    }
+
+    else
+    {
+      [(MPKeypadViewController *)self _updateNameFromMetadataCache];
+    }
+  }
 }
 
 - (void)_updateNameFromMetadataCache
@@ -519,15 +680,121 @@ LABEL_14:
   }
 }
 
+- (void)searchAndUpdateResultsFor:(id)for shouldRefreshResult:(BOOL)result showPastedString:(id)string
+{
+  resultCopy = result;
+  forCopy = for;
+  stringCopy = string;
+  v54[0] = 0;
+  v54[1] = v54;
+  v54[2] = 0x3032000000;
+  v54[3] = __Block_byref_object_copy__2;
+  v54[4] = __Block_byref_object_dispose__2;
+  v55 = 0;
+  v52[0] = 0;
+  v52[1] = v52;
+  v52[2] = 0x2020000000;
+  v53 = 0;
+  v50[0] = 0;
+  v50[1] = v50;
+  v50[2] = 0x3032000000;
+  v50[3] = __Block_byref_object_copy__2;
+  v50[4] = __Block_byref_object_dispose__2;
+  v51 = 0;
+  v48[0] = 0;
+  v48[1] = v48;
+  v48[2] = 0x2020000000;
+  v49 = 0;
+  v46[0] = 0;
+  v46[1] = v46;
+  v46[2] = 0x2020000000;
+  v47 = 0;
+  v44[0] = 0;
+  v44[1] = v44;
+  v44[2] = 0x2020000000;
+  v45 = 0;
+  v10 = dispatch_group_create();
+  dispatch_group_enter(v10);
+  unformattedNumberInLatin = [forCopy unformattedNumberInLatin];
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __89__MPKeypadViewController_searchAndUpdateResultsFor_shouldRefreshResult_showPastedString___block_invoke;
+  v39[3] = &unk_278D74D88;
+  v42 = v54;
+  v39[4] = self;
+  v12 = forCopy;
+  v40 = v12;
+  v43 = v52;
+  v13 = v10;
+  v41 = v13;
+  [(MPKeypadViewController *)self searchContactsFor:unformattedNumberInLatin shouldRefreshResult:resultCopy completionHandler:v39];
+
+  if ([(TUFeatureFlags *)self->_featureFlags dialerInterceptEnabled])
+  {
+    dispatch_group_enter(v13);
+    unformattedNumberInLatin2 = [v12 unformattedNumberInLatin];
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __89__MPKeypadViewController_searchAndUpdateResultsFor_shouldRefreshResult_showPastedString___block_invoke_133;
+    v34[3] = &unk_278D74CE0;
+    v36 = v50;
+    v37 = v48;
+    v38 = v46;
+    v35 = v13;
+    [(MPKeypadViewController *)self searchBusinessesFor:unformattedNumberInLatin2 completionHandler:v34];
+  }
+
+  aBlock[0] = MEMORY[0x277D85DD0];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __89__MPKeypadViewController_searchAndUpdateResultsFor_shouldRefreshResult_showPastedString___block_invoke_135;
+  aBlock[3] = &unk_278D74DB0;
+  v28 = v44;
+  v29 = v54;
+  v30 = v52;
+  v31 = v50;
+  v32 = v48;
+  v33 = v46;
+  aBlock[4] = self;
+  v27 = stringCopy;
+  v15 = stringCopy;
+  v16 = _Block_copy(aBlock);
+  v17 = dispatch_time(0, 1000000000);
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __89__MPKeypadViewController_searchAndUpdateResultsFor_shouldRefreshResult_showPastedString___block_invoke_2;
+  block[3] = &unk_278D74DD8;
+  v25 = v44;
+  v18 = v16;
+  v24 = v18;
+  v19 = MEMORY[0x277D85CD0];
+  dispatch_after(v17, MEMORY[0x277D85CD0], block);
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __89__MPKeypadViewController_searchAndUpdateResultsFor_shouldRefreshResult_showPastedString___block_invoke_3;
+  v21[3] = &unk_278D74E00;
+  v22 = v18;
+  v20 = v18;
+  dispatch_group_notify(v13, v19, v21);
+
+  _Block_object_dispose(v44, 8);
+  _Block_object_dispose(v46, 8);
+  _Block_object_dispose(v48, 8);
+  _Block_object_dispose(v50, 8);
+
+  _Block_object_dispose(v52, 8);
+  _Block_object_dispose(v54, 8);
+}
+
 void __89__MPKeypadViewController_searchAndUpdateResultsFor_shouldRefreshResult_showPastedString___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v18[1] = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = PHDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = PHDefaultLog(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __89__MPKeypadViewController_searchAndUpdateResultsFor_shouldRefreshResult_showPastedString___block_invoke_cold_1();
     }
@@ -536,37 +803,37 @@ void __89__MPKeypadViewController_searchAndUpdateResultsFor_shouldRefreshResult_
   else
   {
     objc_storeStrong((*(*(a1 + 56) + 8) + 40), a2);
-    v8 = [*(a1 + 32) contactResultForPhoneNumber:*(a1 + 40)];
-    v9 = [v8 contacts];
-    *(*(*(a1 + 64) + 8) + 24) = [v9 count] != 0;
+    v9 = [*(a1 + 32) contactResultForPhoneNumber:*(a1 + 40)];
+    v10 = [v9 contacts];
+    *(*(*(a1 + 64) + 8) + 24) = [v10 count] != 0;
 
     if (*(*(*(a1 + 64) + 8) + 24) == 1 && ![*(*(*(a1 + 56) + 8) + 40) count])
     {
-      v10 = objc_alloc(MEMORY[0x277D3A7D8]);
-      v11 = [v8 contacts];
-      v12 = [v11 firstObject];
-      v13 = [v10 initWithContact:v12 matchInfo:0 preferredPhoneNumber:0];
+      v11 = objc_alloc(MEMORY[0x277D3A7D8]);
+      v12 = [v9 contacts];
+      v13 = [v12 firstObject];
+      v14 = [v11 initWithContact:v13 matchInfo:0 preferredPhoneNumber:0];
 
-      v18[0] = v13;
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
-      v15 = *(*(a1 + 56) + 8);
-      v16 = *(v15 + 40);
-      *(v15 + 40) = v14;
+      v18[0] = v14;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+      v16 = *(*(a1 + 56) + 8);
+      v17 = *(v16 + 40);
+      *(v16 + 40) = v15;
     }
   }
 
   dispatch_group_leave(*(a1 + 48));
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __89__MPKeypadViewController_searchAndUpdateResultsFor_shouldRefreshResult_showPastedString___block_invoke_133(uint64_t a1, void *a2, char a3, char a4, void *a5)
 {
   v10 = a2;
   v11 = a5;
+  v12 = v11;
   if (v11)
   {
-    v12 = PHDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = PHDefaultLog(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       __89__MPKeypadViewController_searchAndUpdateResultsFor_shouldRefreshResult_showPastedString___block_invoke_133_cold_1();
     }
@@ -590,6 +857,22 @@ uint64_t __89__MPKeypadViewController_searchAndUpdateResultsFor_shouldRefreshRes
   }
 
   return result;
+}
+
+- (void)searchContactsFor:(id)for shouldRefreshResult:(BOOL)result completionHandler:(id)handler
+{
+  resultCopy = result;
+  handlerCopy = handler;
+  forCopy = for;
+  delegate = [(MPKeypadViewController *)self delegate];
+  [delegate keyPadSearchFor:forCopy shouldRefreshResult:resultCopy completionHandler:handlerCopy];
+
+  v12 = PHDefaultLog(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    *v13 = 0;
+    _os_log_impl(&dword_2429BC000, v12, OS_LOG_TYPE_DEFAULT, "Cancelling previous contact search", v13, 2u);
+  }
 }
 
 - (void)searchBusinessesFor:(id)for completionHandler:(id)handler
@@ -637,11 +920,20 @@ uint64_t __64__MPKeypadViewController_searchBusinessesFor_completionHandler___bl
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  v5 = *(*(*(a1 + 56) + 8) + 40) != 0;
-  v6 = *(*(a1 + 48) + 16);
-  v7 = *(*(*(a1 + 64) + 8) + 24);
+  v5 = *(*(a1 + 48) + 16);
 
-  return v6();
+  return v5();
+}
+
+- (void)setIsHostedInRemoteViewController:(BOOL)controller
+{
+  if (self->_isHostedInRemoteViewController != controller)
+  {
+    controllerCopy = controller;
+    self->_isHostedInRemoteViewController = controller;
+    dialerView = [(DialerController *)self dialerView];
+    [dialerView setIsHostedInRemoteViewController:controllerCopy];
+  }
 }
 
 - (void)refreshLocalizedSenderIdentity
@@ -657,29 +949,18 @@ uint64_t __64__MPKeypadViewController_searchBusinessesFor_completionHandler___bl
     prioritizedSenderIdentities = [v15 prioritizedSenderIdentities];
     v8 = [prioritizedSenderIdentities count];
 
-    if (v8 < 2)
+    if (v8 >= 2 && ([v15 prioritizedSenderIdentities], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "firstObject"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "localizedName"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "length"), v11, v10, v9, v12))
     {
-      goto LABEL_6;
-    }
-
-    prioritizedSenderIdentities2 = [v15 prioritizedSenderIdentities];
-    firstObject = [prioritizedSenderIdentities2 firstObject];
-    localizedName = [firstObject localizedName];
-    v12 = [localizedName length];
-
-    if (v12)
-    {
-      prioritizedSenderIdentities3 = [v15 prioritizedSenderIdentities];
-      firstObject2 = [prioritizedSenderIdentities3 firstObject];
+      prioritizedSenderIdentities2 = [v15 prioritizedSenderIdentities];
+      firstObject = [prioritizedSenderIdentities2 firstObject];
     }
 
     else
     {
-LABEL_6:
-      firstObject2 = 0;
+      firstObject = 0;
     }
 
-    [(MPKeypadViewController *)self updateLocalizedSenderIdentity:firstObject2];
+    [(MPKeypadViewController *)self updateLocalizedSenderIdentity:firstObject];
   }
 }
 
@@ -697,22 +978,20 @@ LABEL_6:
 
 - (void)updateLocalizedSenderIdentity:(id)identity
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(identityCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = identityCopy;
-    _os_log_impl(&dword_2429BC000, v5, OS_LOG_TYPE_DEFAULT, "Updating to localizedSenderIdentity %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = identityCopy;
+    _os_log_impl(&dword_2429BC000, v5, OS_LOG_TYPE_DEFAULT, "Updating to localizedSenderIdentity %@", &v8, 0xCu);
   }
 
   [(DialerController *)self setSelectedSenderIdentity:identityCopy];
   dialerView = [(DialerController *)self dialerView];
   lcdView = [dialerView lcdView];
   [lcdView setSenderIdentity:identityCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (TUSenderIdentityClient)senderIdentityClient
@@ -732,7 +1011,7 @@ LABEL_6:
 
 - (void)_updateMetadataCacheIfPossible
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   dialerView = [(DialerController *)self dialerView];
   lcdView = [dialerView lcdView];
   text = [lcdView text];
@@ -750,22 +1029,20 @@ LABEL_6:
       {
         objc_initWeak(&location, self);
         metadataCache = [(MPKeypadViewController *)self metadataCache];
-        v15[0] = v8;
-        v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
-        v12[0] = MEMORY[0x277D85DD0];
-        v12[1] = 3221225472;
-        v12[2] = __56__MPKeypadViewController__updateMetadataCacheIfPossible__block_invoke;
-        v12[3] = &unk_278D74E50;
-        objc_copyWeak(&v13, &location);
-        [metadataCache updateCacheWithDestinationIDs:v10 completion:v12];
+        v14[0] = v8;
+        v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+        v11[0] = MEMORY[0x277D85DD0];
+        v11[1] = 3221225472;
+        v11[2] = __56__MPKeypadViewController__updateMetadataCacheIfPossible__block_invoke;
+        v11[3] = &unk_278D74E50;
+        objc_copyWeak(&v12, &location);
+        [metadataCache updateCacheWithDestinationIDs:v10 completion:v11];
 
-        objc_destroyWeak(&v13);
+        objc_destroyWeak(&v12);
         objc_destroyWeak(&location);
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __56__MPKeypadViewController__updateMetadataCacheIfPossible__block_invoke(uint64_t a1)
@@ -776,7 +1053,7 @@ void __56__MPKeypadViewController__updateMetadataCacheIfPossible__block_invoke(u
 
 - (id)senderIdentityMenuForDialerView:(id)view selectedSenderIdentity:(id)identity
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   delegate = [(MPKeypadViewController *)self delegate];
   [delegate willPresentSimLineSwitcher];
@@ -787,28 +1064,28 @@ void __56__MPKeypadViewController__updateMetadataCacheIfPossible__block_invoke(u
 
   v9 = MEMORY[0x277CBEB18];
   prioritizedSenderIdentities = [telephonyProvider prioritizedSenderIdentities];
-  v32 = [v9 arrayWithCapacity:{objc_msgSend(prioritizedSenderIdentities, "count")}];
+  v31 = [v9 arrayWithCapacity:{objc_msgSend(prioritizedSenderIdentities, "count")}];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   obj = [telephonyProvider prioritizedSenderIdentities];
-  v11 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v11 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v36;
+    v13 = *v35;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v36 != v13)
+        if (*v35 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v35 + 1) + 8 * i);
+        v15 = *(*(&v34 + 1) + 8 * i);
         v16 = MEMORY[0x277CCACA8];
         v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
         v18 = [v17 localizedStringForKey:@"KEYPAD_CALL_WITH_SENDER_IDENTITY_%@" value:&stru_285532CB8 table:@"MPKeypad"];
@@ -827,10 +1104,10 @@ void __56__MPKeypadViewController__updateMetadataCacheIfPossible__block_invoke(u
         uUID2 = [identityCopy UUID];
         [v22 setState:uUID == uUID2];
 
-        [v32 addObject:v22];
+        [v31 addObject:v22];
       }
 
-      v12 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v12 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v12);
@@ -839,9 +1116,7 @@ void __56__MPKeypadViewController__updateMetadataCacheIfPossible__block_invoke(u
   v25 = MEMORY[0x277D75710];
   v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v27 = [v26 localizedStringForKey:@"KEYPAD_CALL_WITH_SENDER_IDENTITY_TITLE" value:&stru_285532CB8 table:@"MPKeypad"];
-  v28 = [v25 menuWithTitle:v27 children:v32];
-
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = [v25 menuWithTitle:v27 children:v31];
 
   return v28;
 }
@@ -856,7 +1131,7 @@ void __56__MPKeypadViewController__updateMetadataCacheIfPossible__block_invoke(u
 
 - (id)_newContactWithPhoneNumber:(id)number
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(MEMORY[0x277CBDB38]);
   v5 = MEMORY[0x277CBDB20];
   v6 = *MEMORY[0x277CBD908];
@@ -866,11 +1141,10 @@ void __56__MPKeypadViewController__updateMetadataCacheIfPossible__block_invoke(u
   v10 = [v7 phoneNumberWithStringValue:text];
   v11 = [v5 labeledValueWithLabel:v6 value:v10];
 
-  v15[0] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   [v4 setPhoneNumbers:v12];
 
-  v13 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -924,31 +1198,20 @@ void __56__MPKeypadViewController__updateMetadataCacheIfPossible__block_invoke(u
     metadataCache = [(MPKeypadViewController *)self metadataCache];
     v10 = [metadataCache metadataForDestinationID:v8];
 
-    v11 = 0x277D6EE00;
-    v12 = [v10 metadataForProvider:objc_opt_class()];
+    v11 = [v10 metadataForProvider:objc_opt_class()];
 
-    if (v12)
+    if (v11 || ([v10 metadataForProvider:objc_opt_class()], v12 = objc_claimAutoreleasedReturnValue(), v12, v12) || (objc_msgSend(v10, "metadataForProvider:", objc_opt_class()), v13 = objc_claimAutoreleasedReturnValue(), v13, v13))
     {
-      goto LABEL_5;
-    }
-
-    v11 = 0x277D6EEF8;
-    v13 = [v10 metadataForProvider:objc_opt_class()];
-
-    if (v13 || (v11 = 0x277D6EF50, [v10 metadataForProvider:objc_opt_class()], v14 = objc_claimAutoreleasedReturnValue(), v14, v14))
-    {
-LABEL_5:
-      v15 = *v11;
-      v14 = [v10 metadataForProvider:objc_opt_class()];
+      v13 = [v10 metadataForProvider:objc_opt_class()];
     }
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)updateIDSStatus
@@ -957,21 +1220,19 @@ LABEL_5:
   lcdView = [(PHAbstractDialerView *)self->super._dialerView lcdView];
   text = [lcdView text];
 
-  v5 = PHDefaultLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = PHDefaultLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412546;
     selfCopy = self;
     v11 = 2112;
     v12 = text;
-    _os_log_impl(&dword_2429BC000, v5, OS_LOG_TYPE_DEFAULT, "%@ is updating IDS status for text: %@", &v9, 0x16u);
+    _os_log_impl(&dword_2429BC000, v6, OS_LOG_TYPE_DEFAULT, "%@ is updating IDS status for text: %@", &v9, 0x16u);
   }
 
-  v6 = _PNCreateStringByStrippingFormattingAndNotVisiblyAllowable();
-  v7 = TUCopyIDSCanonicalAddressForDestinationID();
-  [(MPKeypadViewController *)self _updateIDSStatusIfNeededForService:*MEMORY[0x277D18698] withDestination:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = _PNCreateStringByStrippingFormattingAndNotVisiblyAllowable();
+  v8 = TUCopyIDSCanonicalAddressForDestinationID();
+  [(MPKeypadViewController *)self _updateIDSStatusIfNeededForService:*MEMORY[0x277D18698] withDestination:v8];
 }
 
 - (void)_updateIDSStatusIfNeededForService:(id)service withDestination:(id)destination
@@ -1060,7 +1321,7 @@ void __77__MPKeypadViewController__updateIDSStatusIfNeededForService_withDestina
 
 - (id)contextMenuInteraction:(id)interaction configurationForMenuAtLocation:(CGPoint)location
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   interactionCopy = interaction;
   selfCopy = self;
   callContextMenuInteraction = [(MPKeypadViewController *)self callContextMenuInteraction];
@@ -1073,28 +1334,28 @@ void __77__MPKeypadViewController__updateIDSStatusIfNeededForService_withDestina
 
     if (text)
     {
-      v7 = _PNCreateStringByStrippingFormattingAndNotVisiblyAllowable();
+      v8 = _PNCreateStringByStrippingFormattingAndNotVisiblyAllowable();
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
 
     array = [MEMORY[0x277CBEB18] array];
-    if (v7 && [v7 length])
+    if (v8 && [v8 length])
     {
-      v62 = v7;
-      v64 = TUCopyIDSCanonicalAddressForDestinationID();
-      v12 = MEMORY[0x277D755B8];
-      v13 = TelephonyUIBundle();
-      v14 = [v12 tpImageNamed:@"action_call-OrbHW" inBundle:v13];
-      v69 = [v14 imageWithRenderingMode:2];
+      v57 = v8;
+      v59 = TUCopyIDSCanonicalAddressForDestinationID();
+      v13 = MEMORY[0x277D755B8];
+      v14 = TelephonyUIBundle();
+      v15 = [v13 tpImageNamed:@"action_call-OrbHW" inBundle:v14];
+      v64 = [v15 imageWithRenderingMode:2];
 
-      v15 = MEMORY[0x277D755B8];
-      v16 = TelephonyUIBundle();
-      v17 = [v15 tpImageNamed:@"action_facetime-OrbHW" inBundle:v16];
-      v65 = [v17 imageWithRenderingMode:2];
+      v16 = MEMORY[0x277D755B8];
+      v17 = TelephonyUIBundle();
+      v18 = [v16 tpImageNamed:@"action_facetime-OrbHW" inBundle:v17];
+      v60 = [v18 imageWithRenderingMode:2];
 
       callProviderManager = [(DialerController *)selfCopy callProviderManager];
       faceTimeProvider = [callProviderManager faceTimeProvider];
@@ -1103,92 +1364,89 @@ void __77__MPKeypadViewController__updateIDSStatusIfNeededForService_withDestina
       telephonyProvider = [callProviderManager2 telephonyProvider];
 
       array2 = [MEMORY[0x277CBEB18] array];
-      v23 = array2;
+      v24 = array2;
       if (telephonyProvider)
       {
         [array2 addObject:telephonyProvider];
       }
 
-      v60 = telephonyProvider;
-      v63 = interactionCopy;
-      if (faceTimeProvider && [(MPKeypadViewController *)selfCopy _IDSStatusForService:*MEMORY[0x277D18698] withDestination:v64]== 1)
+      v55 = telephonyProvider;
+      v58 = interactionCopy;
+      if (faceTimeProvider && [(MPKeypadViewController *)selfCopy _IDSStatusForService:*MEMORY[0x277D18698] withDestination:v59]== 1)
       {
-        [v23 addObject:faceTimeProvider];
+        [v24 addObject:faceTimeProvider];
       }
 
-      v61 = faceTimeProvider;
-      v79 = 0u;
-      v80 = 0u;
-      v77 = 0u;
-      v78 = 0u;
-      obj = v23;
-      v24 = [obj countByEnumeratingWithState:&v77 objects:v81 count:16];
-      if (v24)
+      v56 = faceTimeProvider;
+      v74 = 0u;
+      v75 = 0u;
+      v72 = 0u;
+      v73 = 0u;
+      obj = v24;
+      v25 = [obj countByEnumeratingWithState:&v72 objects:v76 count:16];
+      if (v25)
       {
-        v25 = v24;
-        v26 = *v78;
-        v27 = 0x277CCA000uLL;
-        v28 = 0x278D74000uLL;
-        v66 = *v78;
+        v26 = v25;
+        v27 = *v73;
+        v28 = 0x277CCA000uLL;
+        v29 = 0x278D74000uLL;
+        v61 = *v73;
         do
         {
-          v29 = 0;
-          v67 = v25;
+          v30 = 0;
+          v62 = v26;
           do
           {
-            if (*v78 != v26)
+            if (*v73 != v27)
             {
               objc_enumerationMutation(obj);
             }
 
-            v30 = *(*(&v77 + 1) + 8 * v29);
-            if ([v30 isTelephonyProvider])
+            v31 = *(*(&v72 + 1) + 8 * v30);
+            if ([v31 isTelephonyProvider])
             {
-              v31 = MEMORY[0x277D750C8];
-              v32 = *(v28 + 904);
-              v33 = [*(v27 + 2264) bundleForClass:objc_opt_class()];
+              v32 = MEMORY[0x277D750C8];
+              v33 = [*(v28 + 2264) bundleForClass:objc_opt_class()];
               v34 = [v33 localizedStringForKey:@"CALL" value:&stru_285532CB8 table:@"MPKeypad"];
-              v76[0] = MEMORY[0x277D85DD0];
-              v76[1] = 3221225472;
-              v76[2] = __80__MPKeypadViewController_contextMenuInteraction_configurationForMenuAtLocation___block_invoke;
-              v76[3] = &unk_278D74D38;
-              v76[4] = selfCopy;
-              v76[5] = v30;
-              v35 = [v31 actionWithTitle:v34 image:v69 identifier:0 handler:v76];
+              v71[0] = MEMORY[0x277D85DD0];
+              v71[1] = 3221225472;
+              v71[2] = __80__MPKeypadViewController_contextMenuInteraction_configurationForMenuAtLocation___block_invoke;
+              v71[3] = &unk_278D74D38;
+              v71[4] = selfCopy;
+              v71[5] = v31;
+              v35 = [v32 actionWithTitle:v34 image:v64 identifier:0 handler:v71];
 
               [array addObject:v35];
               goto LABEL_33;
             }
 
-            if ([v30 isFaceTimeProvider])
+            if ([v31 isFaceTimeProvider])
             {
               supportsDisplayingFaceTimeAudioCalls = [MEMORY[0x277D6EDE8] supportsDisplayingFaceTimeAudioCalls];
-              v37 = v27;
-              LODWORD(v27) = [MEMORY[0x277D6EDE8] supportsDisplayingFaceTimeVideoCalls];
-              v38 = *(v28 + 904);
-              v39 = [*(v37 + 2264) bundleForClass:objc_opt_class()];
-              v40 = [v39 localizedStringForKey:@"KEYPAD_FACETIME_AUDIO" value:&stru_285532CB8 table:@"MPKeypad"];
+              v37 = v28;
+              LODWORD(v28) = [MEMORY[0x277D6EDE8] supportsDisplayingFaceTimeVideoCalls];
+              v38 = [*(v37 + 2264) bundleForClass:objc_opt_class()];
+              v39 = [v38 localizedStringForKey:@"KEYPAD_FACETIME_AUDIO" value:&stru_285532CB8 table:@"MPKeypad"];
 
-              v41 = *(v28 + 904);
-              v42 = [*(v37 + 2264) bundleForClass:objc_opt_class()];
-              v43 = [v42 localizedStringForKey:@"KEYPAD_FACETIME_VIDEO" value:&stru_285532CB8 table:@"MPKeypad"];
+              v40 = [*(v37 + 2264) bundleForClass:objc_opt_class()];
+              v41 = [v40 localizedStringForKey:@"KEYPAD_FACETIME_VIDEO" value:&stru_285532CB8 table:@"MPKeypad"];
 
               if (!supportsDisplayingFaceTimeAudioCalls)
               {
-                if (!v27)
+                if (!v28)
                 {
                   goto LABEL_32;
                 }
 
 LABEL_31:
-                v74[0] = MEMORY[0x277D85DD0];
-                v74[1] = 3221225472;
-                v74[2] = __80__MPKeypadViewController_contextMenuInteraction_configurationForMenuAtLocation___block_invoke_3;
-                v74[3] = &unk_278D74D38;
-                v74[4] = selfCopy;
-                v74[5] = v30;
-                v56 = [MEMORY[0x277D750C8] actionWithTitle:v43 image:v65 identifier:0 handler:v74];
-                [array addObject:v56];
+                v69[0] = MEMORY[0x277D85DD0];
+                v69[1] = 3221225472;
+                v69[2] = __80__MPKeypadViewController_contextMenuInteraction_configurationForMenuAtLocation___block_invoke_3;
+                v69[3] = &unk_278D74D38;
+                v69[4] = selfCopy;
+                v69[5] = v31;
+                v52 = [MEMORY[0x277D750C8] actionWithTitle:v41 image:v60 identifier:0 handler:v69];
+                [array addObject:v52];
 
                 goto LABEL_32;
               }
@@ -1196,102 +1454,98 @@ LABEL_31:
 
             else
             {
-              v44 = MEMORY[0x277CCACA8];
-              v45 = *(v28 + 904);
-              v46 = [*(v27 + 2264) bundleForClass:objc_opt_class()];
-              [v46 localizedStringForKey:@"KEYPAD_CALL_PROVIDER_NAME_%@_CALL_TYPE_NAME_AUDIO" value:&stru_285532CB8 table:@"MPKeypad"];
-              v47 = v28;
-              v49 = v48 = v27;
-              localizedName = [v30 localizedName];
-              v40 = [v44 stringWithFormat:v49, localizedName, v60, v61];
+              v42 = MEMORY[0x277CCACA8];
+              v43 = [*(v28 + 2264) bundleForClass:objc_opt_class()];
+              [v43 localizedStringForKey:@"KEYPAD_CALL_PROVIDER_NAME_%@_CALL_TYPE_NAME_AUDIO" value:&stru_285532CB8 table:@"MPKeypad"];
+              v44 = v29;
+              v46 = v45 = v28;
+              localizedName = [v31 localizedName];
+              v39 = [v42 stringWithFormat:v46, localizedName, v55, v56];
 
-              if ([v30 supportsAudioAndVideo])
+              if ([v31 supportsAudioAndVideo])
               {
-                v51 = MEMORY[0x277CCACA8];
-                v52 = *(v47 + 904);
-                v53 = [*(v48 + 2264) bundleForClass:objc_opt_class()];
-                v27 = [v53 localizedStringForKey:@"KEYPAD_CALL_PROVIDER_NAME_%@_CALL_TYPE_NAME_VIDEO" value:&stru_285532CB8 table:@"MPKeypad"];
-                localizedName2 = [v30 localizedName];
-                v43 = [v51 stringWithFormat:v27, localizedName2];
+                v48 = MEMORY[0x277CCACA8];
+                v49 = [*(v45 + 2264) bundleForClass:objc_opt_class()];
+                v28 = [v49 localizedStringForKey:@"KEYPAD_CALL_PROVIDER_NAME_%@_CALL_TYPE_NAME_VIDEO" value:&stru_285532CB8 table:@"MPKeypad"];
+                localizedName2 = [v31 localizedName];
+                v41 = [v48 stringWithFormat:v28, localizedName2];
 
-                LOBYTE(v27) = 1;
+                LOBYTE(v28) = 1;
               }
 
               else
               {
-                v43 = 0;
-                LOBYTE(v27) = 0;
+                v41 = 0;
+                LOBYTE(v28) = 0;
               }
 
-              v28 = v47;
+              v29 = v44;
             }
 
-            v75[0] = MEMORY[0x277D85DD0];
-            v75[1] = 3221225472;
-            v75[2] = __80__MPKeypadViewController_contextMenuInteraction_configurationForMenuAtLocation___block_invoke_2;
-            v75[3] = &unk_278D74D38;
-            v75[4] = selfCopy;
-            v75[5] = v30;
-            v55 = [MEMORY[0x277D750C8] actionWithTitle:v40 image:v69 identifier:0 handler:v75];
-            [array addObject:v55];
+            v70[0] = MEMORY[0x277D85DD0];
+            v70[1] = 3221225472;
+            v70[2] = __80__MPKeypadViewController_contextMenuInteraction_configurationForMenuAtLocation___block_invoke_2;
+            v70[3] = &unk_278D74D38;
+            v70[4] = selfCopy;
+            v70[5] = v31;
+            v51 = [MEMORY[0x277D750C8] actionWithTitle:v39 image:v64 identifier:0 handler:v70];
+            [array addObject:v51];
 
-            if (v27)
+            if (v28)
             {
               goto LABEL_31;
             }
 
 LABEL_32:
 
-            v26 = v66;
-            v25 = v67;
-            v27 = 0x277CCA000;
+            v27 = v61;
+            v26 = v62;
+            v28 = 0x277CCA000;
 LABEL_33:
-            ++v29;
+            ++v30;
           }
 
-          while (v25 != v29);
-          v25 = [obj countByEnumeratingWithState:&v77 objects:v81 count:16];
+          while (v26 != v30);
+          v26 = [obj countByEnumeratingWithState:&v72 objects:v76 count:16];
         }
 
-        while (v25);
+        while (v26);
       }
 
-      v7 = v62;
-      interactionCopy = v63;
+      v8 = v57;
+      interactionCopy = v58;
     }
 
     if ([array count])
     {
-      v57 = MEMORY[0x277D753B0];
-      v72[0] = MEMORY[0x277D85DD0];
-      v72[1] = 3221225472;
-      v72[2] = __80__MPKeypadViewController_contextMenuInteraction_configurationForMenuAtLocation___block_invoke_4;
-      v72[3] = &unk_278D74EA0;
-      v72[4] = selfCopy;
-      v73 = array;
-      v8 = [v57 configurationWithIdentifier:0 previewProvider:0 actionProvider:v72];
+      v53 = MEMORY[0x277D753B0];
+      v67[0] = MEMORY[0x277D85DD0];
+      v67[1] = 3221225472;
+      v67[2] = __80__MPKeypadViewController_contextMenuInteraction_configurationForMenuAtLocation___block_invoke_4;
+      v67[3] = &unk_278D74EA0;
+      v67[4] = selfCopy;
+      v68 = array;
+      v9 = [v53 configurationWithIdentifier:0 previewProvider:0 actionProvider:v67];
     }
 
     else
     {
-      v8 = 0;
+      v9 = 0;
     }
 
     goto LABEL_40;
   }
 
-  v7 = PHDefaultLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = PHDefaultLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [MPKeypadViewController contextMenuInteraction:configurationForMenuAtLocation:];
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_40:
 
-  v58 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v9;
 }
 
 id __80__MPKeypadViewController_contextMenuInteraction_configurationForMenuAtLocation___block_invoke_4(uint64_t a1)
@@ -1312,56 +1566,54 @@ id __80__MPKeypadViewController_contextMenuInteraction_configurationForMenuAtLoc
 
   if (callContextMenuInteraction == interactionCopy)
   {
-    v9 = objc_alloc_init(MEMORY[0x277D758D8]);
-    v10 = MEMORY[0x277D75208];
+    v10 = objc_alloc_init(MEMORY[0x277D758D8]);
+    v11 = MEMORY[0x277D75208];
     dialerView = [(DialerController *)self dialerView];
     callButton = [dialerView callButton];
     [callButton bounds];
-    v14 = v13;
+    v15 = v14;
     dialerView2 = [(DialerController *)self dialerView];
     callButton2 = [dialerView2 callButton];
     [callButton2 bounds];
-    v17 = [v10 bezierPathWithOvalInRect:{0.0, 0.0, v14}];
-    [v9 setVisiblePath:v17];
+    v18 = [v11 bezierPathWithOvalInRect:{0.0, 0.0, v15}];
+    [v10 setVisiblePath:v18];
 
-    v18 = objc_alloc(MEMORY[0x277D75B90]);
+    v19 = objc_alloc(MEMORY[0x277D75B90]);
     dialerView3 = [(DialerController *)self dialerView];
     callButton3 = [dialerView3 callButton];
-    v8 = [v18 initWithView:callButton3 parameters:v9];
+    v9 = [v19 initWithView:callButton3 parameters:v10];
   }
 
   else
   {
-    v7 = PHDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = PHDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [MPKeypadViewController contextMenuInteraction:previewForHighlightingMenuWithConfiguration:];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)providersChangedForProviderManager:(id)manager
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(managerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
+    v6 = 138412546;
     selfCopy = self;
-    v9 = 2112;
-    v10 = managerCopy;
-    _os_log_impl(&dword_2429BC000, v5, OS_LOG_TYPE_DEFAULT, "%@ is handling providersChangedForProviderManager %@", &v7, 0x16u);
+    v8 = 2112;
+    v9 = managerCopy;
+    _os_log_impl(&dword_2429BC000, v5, OS_LOG_TYPE_DEFAULT, "%@ is handling providersChangedForProviderManager %@", &v6, 0x16u);
   }
 
   [(DialerController *)self updateDialerViewDualSimMenu];
   [(MPKeypadViewController *)self refreshLocalizedSenderIdentity];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)searchButtonPressed:(id)pressed
@@ -1393,16 +1645,16 @@ id __80__MPKeypadViewController_contextMenuInteraction_configurationForMenuAtLoc
   if ([numberCopy length] && (-[MPKeypadViewController bizService](self, "bizService"), v7 = objc_claimAutoreleasedReturnValue(), v7, v7))
   {
     v8 = dispatch_group_create();
+    v26 = 0;
+    v27[0] = &v26;
+    v27[1] = 0x3032000000;
+    v27[2] = __Block_byref_object_copy__2;
+    v27[3] = __Block_byref_object_dispose__2;
+    v28 = 0;
+    v23 = 0;
+    v24[0] = &v23;
+    v24[1] = 0x2020000000;
     v25 = 0;
-    v26[0] = &v25;
-    v26[1] = 0x3032000000;
-    v26[2] = __Block_byref_object_copy__2;
-    v26[3] = __Block_byref_object_dispose__2;
-    v27 = 0;
-    v22 = 0;
-    v23[0] = &v22;
-    v23[1] = 0x2020000000;
-    v24 = 0;
     brandManager = [(MPKeypadViewController *)self brandManager];
 
     if (brandManager)
@@ -1410,56 +1662,57 @@ id __80__MPKeypadViewController_contextMenuInteraction_configurationForMenuAtLoc
       dispatch_group_enter(v8);
       brandManager2 = [(MPKeypadViewController *)self brandManager];
       v11 = *MEMORY[0x277CF3680];
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __61__MPKeypadViewController__businessItemForNumber_messageable___block_invoke;
-      v17[3] = &unk_278D74EF0;
-      v17[4] = self;
-      v18 = numberCopy;
-      v20 = &v25;
-      v21 = &v22;
-      v19 = v8;
-      [brandManager2 isBrandRegisteredWithIdentifier:v18 forService:v11 completion:v17];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __61__MPKeypadViewController__businessItemForNumber_messageable___block_invoke;
+      v18[3] = &unk_278D74EF0;
+      v18[4] = self;
+      v19 = numberCopy;
+      v21 = &v26;
+      v22 = &v23;
+      v20 = v8;
+      [brandManager2 isBrandRegisteredWithIdentifier:v19 forService:v11 completion:v18];
     }
 
     v12 = dispatch_time(0, 1000000000);
-    if (dispatch_group_wait(v8, v12))
+    v13 = dispatch_group_wait(v8, v12);
+    if (v13)
     {
-      v13 = PHDefaultLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = PHDefaultLog(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [MPKeypadViewController _businessItemForNumber:v13 messageable:?];
+        [MPKeypadViewController _businessItemForNumber:v14 messageable:?];
       }
 
-      v14 = 0;
+      v15 = 0;
     }
 
     else
     {
-      v15 = PHDefaultLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v16 = PHDefaultLog(0);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        [(MPKeypadViewController *)v26 _businessItemForNumber:v23 messageable:v15];
+        [(MPKeypadViewController *)v27 _businessItemForNumber:v24 messageable:v16];
       }
 
       if (messageable)
       {
-        *messageable = *(v23[0] + 24);
+        *messageable = *(v24[0] + 24);
       }
 
-      v14 = *(v26[0] + 40);
+      v15 = *(v27[0] + 40);
     }
 
-    _Block_object_dispose(&v22, 8);
-    _Block_object_dispose(&v25, 8);
+    _Block_object_dispose(&v23, 8);
+    _Block_object_dispose(&v26, 8);
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  return v14;
+  return v15;
 }
 
 void __61__MPKeypadViewController__businessItemForNumber_messageable___block_invoke(uint64_t a1, int a2, uint64_t a3)
@@ -1496,19 +1749,20 @@ void __61__MPKeypadViewController__businessItemForNumber_messageable___block_inv
 {
   v8 = a2;
   v9 = a4;
+  v10 = v9;
   if (v9)
   {
-    v10 = PHDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = PHDefaultLog(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __61__MPKeypadViewController__businessItemForNumber_messageable___block_invoke_2_cold_1();
     }
 
-    LOBYTE(v15) = 0;
-    v11 = [objc_alloc(MEMORY[0x277CF3600]) initWithBizID:0 phoneNumber:*(a1 + 32) name:@"Apple Support" phoneHash:0 squareLogoURL:0 wideLogoURL:0 tintColor:0 backgroundColor:0 callToActions:0 messagingOpenHours:0 callingOpenHours:0 isVerified:v15 intentID:0 groupID:0 visibilityItems:0];
-    v12 = *(*(a1 + 48) + 8);
-    v13 = *(v12 + 40);
-    *(v12 + 40) = v11;
+    LOBYTE(v16) = 0;
+    v12 = [objc_alloc(MEMORY[0x277CF3600]) initWithBizID:0 phoneNumber:*(a1 + 32) name:@"Apple Support" phoneHash:0 squareLogoURL:0 wideLogoURL:0 tintColor:0 backgroundColor:0 callToActions:0 messagingOpenHours:0 callingOpenHours:0 isVerified:v16 intentID:0 groupID:0 visibilityItems:0];
+    v13 = *(*(a1 + 48) + 8);
+    v14 = *(v13 + 40);
+    *(v13 + 40) = v12;
   }
 
   else
@@ -1516,15 +1770,15 @@ void __61__MPKeypadViewController__businessItemForNumber_messageable___block_inv
     objc_storeStrong((*(*(a1 + 48) + 8) + 40), a2);
     if (v8)
     {
-      v14 = a3;
+      v15 = a3;
     }
 
     else
     {
-      v14 = 0;
+      v15 = 0;
     }
 
-    *(*(*(a1 + 56) + 8) + 24) = v14;
+    *(*(*(a1 + 56) + 8) + 24) = v15;
   }
 
   dispatch_group_leave(*(a1 + 40));
@@ -1537,57 +1791,16 @@ void __61__MPKeypadViewController__businessItemForNumber_messageable___block_inv
   return WeakRetained;
 }
 
-void __89__MPKeypadViewController_searchAndUpdateResultsFor_shouldRefreshResult_showPastedString___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_2429BC000, v0, v1, "Error searching for contacts: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __89__MPKeypadViewController_searchAndUpdateResultsFor_shouldRefreshResult_showPastedString___block_invoke_133_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_2429BC000, v0, v1, "Error searching for business: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)contextMenuInteraction:configurationForMenuAtLocation:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_2429BC000, v0, v1, "Unexpected contenxt menu interaction: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)contextMenuInteraction:previewForHighlightingMenuWithConfiguration:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_2429BC000, v0, v1, "Unexpected context menu interaction: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_businessItemForNumber:(os_log_t)log messageable:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(*a1 + 40) != 0;
   v4 = *(*a2 + 24);
-  v6[0] = 67109376;
-  v6[1] = v3;
-  v7 = 1024;
-  v8 = v4;
-  _os_log_debug_impl(&dword_2429BC000, log, OS_LOG_TYPE_DEBUG, "Phone number properties business:%d messageable:%d", v6, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __61__MPKeypadViewController__businessItemForNumber_messageable___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_2429BC000, v0, v1, "Unable to fetch business details BCS: %@, falling back to placeholder BusinessItem", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v5[0] = 67109376;
+  v5[1] = v3;
+  v6 = 1024;
+  v7 = v4;
+  _os_log_debug_impl(&dword_2429BC000, log, OS_LOG_TYPE_DEBUG, "Phone number properties business:%d messageable:%d", v5, 0xEu);
 }
 
 @end

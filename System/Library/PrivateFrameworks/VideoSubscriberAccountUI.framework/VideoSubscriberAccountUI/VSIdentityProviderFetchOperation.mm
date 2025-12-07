@@ -133,7 +133,7 @@ void __53__VSIdentityProviderFetchOperation_executionDidBegin__block_invoke(uint
 
 void __53__VSIdentityProviderFetchOperation_executionDidBegin__block_invoke_2(uint64_t a1, void *a2)
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) identityProviderID];
 
@@ -142,8 +142,8 @@ void __53__VSIdentityProviderFetchOperation_executionDidBegin__block_invoke_2(ui
     v5 = objc_alloc_init(VSIdentityProviderFilter);
     [(VSIdentityProviderFilter *)v5 setAllIdentityProviders:v3];
     v6 = [*(a1 + 40) identityProviderID];
-    v33[0] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+    v32[0] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
     [(VSIdentityProviderFilter *)v5 setSupportedAccountProviderIDs:v7];
 
     v8 = [(VSIdentityProviderFilter *)v5 filteredIdentityProviders];
@@ -152,26 +152,26 @@ void __53__VSIdentityProviderFetchOperation_executionDidBegin__block_invoke_2(ui
 
   else
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v5 = v3;
-    v9 = [(VSIdentityProviderFilter *)v5 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v9 = [(VSIdentityProviderFilter *)v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v9)
     {
-      v27 = v3;
-      v10 = *v29;
+      v26 = v3;
+      v10 = *v28;
       while (2)
       {
         for (i = 0; i != v9; i = i + 1)
         {
-          if (*v29 != v10)
+          if (*v28 != v10)
           {
             objc_enumerationMutation(v5);
           }
 
-          v12 = *(*(&v28 + 1) + 8 * i);
+          v12 = *(*(&v27 + 1) + 8 * i);
           v13 = [v12 uniqueID];
           v14 = [v13 forceUnwrapObject];
           v15 = [*(a1 + 32) identityProviderUniqueID];
@@ -184,7 +184,7 @@ void __53__VSIdentityProviderFetchOperation_executionDidBegin__block_invoke_2(ui
           }
         }
 
-        v9 = [(VSIdentityProviderFilter *)v5 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v9 = [(VSIdentityProviderFilter *)v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
         if (v9)
         {
           continue;
@@ -194,7 +194,7 @@ void __53__VSIdentityProviderFetchOperation_executionDidBegin__block_invoke_2(ui
       }
 
 LABEL_13:
-      v3 = v27;
+      v3 = v26;
     }
   }
 
@@ -219,8 +219,6 @@ LABEL_13:
     v23 = [v25 optionalWithObject:v22];
     [v24 setResult:v23];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __53__VSIdentityProviderFetchOperation_executionDidBegin__block_invoke_3(uint64_t a1, uint64_t a2)

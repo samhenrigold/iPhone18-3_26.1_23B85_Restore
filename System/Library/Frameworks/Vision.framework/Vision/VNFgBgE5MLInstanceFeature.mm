@@ -69,7 +69,7 @@
     v33->_mapSize = size;
     if (&v33->_segmentation != v15)
     {
-      std::vector<CGPoint>::__assign_with_size[abi:ne200100]<CGPoint*,CGPoint*>(&v33->_segmentation.__begin_, *v15, v15[1], (v15[1] - *v15) >> 4);
+      std::vector<CGPoint>::__assign_with_size[abi:ne200100]<CGPoint*,CGPoint*>(&v33->_segmentation, *v15, v15[1], (v15[1] - *v15) >> 4);
     }
   }
 

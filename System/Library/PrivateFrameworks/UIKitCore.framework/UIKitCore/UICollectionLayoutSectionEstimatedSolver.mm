@@ -113,7 +113,7 @@ uint64_t __66___UICollectionLayoutSectionEstimatedSolver__solveWithParameters___
       }
     }
 
-    v9 = *(v3 + 48);
+    v9 = v3[6];
     if (v9)
     {
       v10 = *(v9 + 56);

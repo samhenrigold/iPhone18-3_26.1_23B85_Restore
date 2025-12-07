@@ -17,7 +17,7 @@
   return [v3 server];
 }
 
-uint64_t __27__AXSystemAppServer_server__block_invoke()
+Class __27__AXSystemAppServer_server__block_invoke()
 {
   v0 = [MEMORY[0x1E6994660] sharedSystemShellSwitcher];
   v1 = [v0 isClarityBoardEnabled];

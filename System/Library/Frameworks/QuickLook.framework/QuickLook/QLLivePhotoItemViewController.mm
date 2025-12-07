@@ -16,17 +16,27 @@
 - (double)livePhotoView:(id)view extraMinimumTouchDurationForTouch:(id)touch withStyle:(int64_t)style;
 - (id)toolbarButtonsForTraitCollection:(id)collection;
 - (void)_setupAndStartImageAnalysisIfNeeded;
+- (void)_updateImageAnalysisInteractionAnimated:(BOOL)animated;
 - (void)_updateLivePhotoBadgeAnimated:(BOOL)animated;
 - (void)animateToPreferredDynamicRange;
 - (void)buttonPressedWithIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)didEndZoomingAtScale:(double)scale;
 - (void)imageAnalysisInteractionDidDismissVisualSearchController;
 - (void)imageAnalysisInteractionWillPresentVisualSearchController;
+- (void)imageAnalyzerWantsUpdateInfoButtonWithAnimation:(BOOL)animation;
 - (void)livePhotoView:(id)view didEndPlaybackWithStyle:(int64_t)style;
 - (void)livePhotoView:(id)view willBeginPlaybackWithStyle:(int64_t)style;
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler;
 - (void)performFirstTimeAppearanceActions:(unint64_t)actions;
+- (void)previewBecameFullScreen:(BOOL)screen animated:(BOOL)animated;
+- (void)previewDidAppear:(BOOL)appear;
+- (void)previewDidDisappear:(BOOL)disappear;
+- (void)previewWillAppear:(BOOL)appear;
+- (void)previewWillDisappear:(BOOL)disappear;
 - (void)previewWillFinishAppearing;
+- (void)setAppearance:(id)appearance animated:(BOOL)animated;
+- (void)transitionDidFinish:(BOOL)finish didComplete:(BOOL)complete;
+- (void)transitionDidStart:(BOOL)start;
 - (void)updatePreferredDynamicRangeForced:(BOOL)forced;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
@@ -57,106 +67,105 @@
 
 uint64_t __93__QLLivePhotoItemViewController_loadPreviewControllerWithContents_context_completionHandler___block_invoke(uint64_t a1, double a2)
 {
-  v63[1] = *MEMORY[0x277D85DE8];
+  v61[1] = *MEMORY[0x277D85DE8];
   gotLoadHelper_x23__OBJC_CLASS___PHLivePhotoView(a2);
-  v4 = *(v2 + 3424);
-  v5 = objc_opt_new();
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 1176);
-  *(v6 + 1176) = v5;
+  v4 = objc_opt_new();
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 1176);
+  *(v5 + 1176) = v4;
 
   [*(*(a1 + 32) + 1176) setDelegate:?];
   [*(*(a1 + 32) + 1176) setLivePhoto:*(a1 + 40)];
   [*(*(a1 + 32) + 1176) setAccessibilityIdentifier:@"QLLivePhotoViewControllerLivePhotoViewAccessibilityIdentifier"];
-  v8 = *(a1 + 32);
-  if (v8[1221] == 1)
+  v7 = *(a1 + 32);
+  if (v7[1221] == 1)
   {
-    [v8 animateToPreferredDynamicRange];
+    [v7 animateToPreferredDynamicRange];
   }
 
   else
   {
-    [v8 updatePreferredDynamicRangeForced:0];
+    [v7 updatePreferredDynamicRangeForced:0];
   }
 
-  v9 = (*(a1 + 32) + 1160);
-  v10 = [*(a1 + 40) image];
-  [v10 size];
-  *v9 = v11;
-  v9[1] = v12;
+  v8 = (*(a1 + 32) + 1160);
+  v9 = [*(a1 + 40) image];
+  [v9 size];
+  *v8 = v10;
+  v8[1] = v11;
 
   [*(a1 + 32) setPreferredContentSize:{*(*(a1 + 32) + 1160), *(*(a1 + 32) + 1168)}];
   [*(a1 + 32) setContentView:*(*(a1 + 32) + 1176)];
-  v13 = [*(*(a1 + 32) + 1176) playbackGestureRecognizer];
-  v14 = [v13 view];
-  v15 = [*(*(a1 + 32) + 1176) playbackGestureRecognizer];
-  [v14 removeGestureRecognizer:v15];
+  v12 = [*(*(a1 + 32) + 1176) playbackGestureRecognizer];
+  v13 = [v12 view];
+  v14 = [*(*(a1 + 32) + 1176) playbackGestureRecognizer];
+  [v13 removeGestureRecognizer:v14];
 
-  v16 = [*(a1 + 32) view];
-  v17 = [*(*(a1 + 32) + 1176) playbackGestureRecognizer];
-  [v16 addGestureRecognizer:v17];
+  v15 = [*(a1 + 32) view];
+  v16 = [*(*(a1 + 32) + 1176) playbackGestureRecognizer];
+  [v15 addGestureRecognizer:v16];
 
-  v18 = *(a1 + 32);
-  v19 = [*(v18 + 1176) playbackGestureRecognizer];
-  [v19 setDelegate:v18];
+  v17 = *(a1 + 32);
+  v18 = [*(v17 + 1176) playbackGestureRecognizer];
+  [v18 setDelegate:v17];
 
-  v20 = objc_alloc_init(MEMORY[0x277D755E8]);
-  v21 = *(a1 + 32);
-  v22 = *(v21 + 1184);
-  *(v21 + 1184) = v20;
+  v19 = objc_alloc_init(MEMORY[0x277D755E8]);
+  v20 = *(a1 + 32);
+  v21 = *(v20 + 1184);
+  *(v20 + 1184) = v19;
 
   [*(*(a1 + 32) + 1184) setTranslatesAutoresizingMaskIntoConstraints:0];
-  v23 = [*(v2 + 3424) livePhotoBadgeImageWithOptions:1];
-  [*(*(a1 + 32) + 1184) setImage:v23];
+  v22 = [*(v2 + 3424) livePhotoBadgeImageWithOptions:1];
+  [*(*(a1 + 32) + 1184) setImage:v22];
 
   [*(*(a1 + 32) + 1184) setAccessibilityIdentifier:@"QLLivePhotoViewControllerLivePhotoBadgeAccessibilityIdentifier"];
-  v24 = [*(a1 + 32) view];
-  [v24 addSubview:*(*(a1 + 32) + 1184)];
+  v23 = [*(a1 + 32) view];
+  [v23 addSubview:*(*(a1 + 32) + 1184)];
 
-  v25 = [*(*(a1 + 32) + 1184) image];
-  [v25 size];
-  v27 = v26;
-  v29 = v28;
+  v24 = [*(*(a1 + 32) + 1184) image];
+  [v24 size];
+  v26 = v25;
+  v28 = v27;
 
-  v30 = [*(a1 + 32) view];
-  v31 = MEMORY[0x277CCAAD0];
-  v62 = @"width";
-  v32 = [MEMORY[0x277CCABB0] numberWithDouble:v27];
-  v63[0] = v32;
-  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:&v62 count:1];
-  v34 = _NSDictionaryOfVariableBindings(&cfstr_Livephotobadge.isa, *(*(a1 + 32) + 1184), 0);
-  v35 = [v31 constraintsWithVisualFormat:@"H:[_livePhotoBadge(width)]" options:0 metrics:v33 views:v34];
-  [v30 addConstraints:v35];
+  v29 = [*(a1 + 32) view];
+  v30 = MEMORY[0x277CCAAD0];
+  v60 = @"width";
+  v31 = [MEMORY[0x277CCABB0] numberWithDouble:v26];
+  v61[0] = v31;
+  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:&v60 count:1];
+  v33 = _NSDictionaryOfVariableBindings(&cfstr_Livephotobadge.isa, *(*(a1 + 32) + 1184), 0);
+  v34 = [v30 constraintsWithVisualFormat:@"H:[_livePhotoBadge(width)]" options:0 metrics:v32 views:v33];
+  [v29 addConstraints:v34];
 
-  v36 = [*(a1 + 32) view];
-  v37 = MEMORY[0x277CCAAD0];
-  v60 = @"height";
-  v38 = [MEMORY[0x277CCABB0] numberWithDouble:v29];
-  v61 = v38;
-  v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
-  v40 = _NSDictionaryOfVariableBindings(&cfstr_Livephotobadge.isa, *(*(a1 + 32) + 1184), 0);
-  v41 = [v37 constraintsWithVisualFormat:@"V:[_livePhotoBadge(height)]" options:0 metrics:v39 views:v40];
-  [v36 addConstraints:v41];
+  v35 = [*(a1 + 32) view];
+  v36 = MEMORY[0x277CCAAD0];
+  v58 = @"height";
+  v37 = [MEMORY[0x277CCABB0] numberWithDouble:v28];
+  v59 = v37;
+  v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+  v39 = _NSDictionaryOfVariableBindings(&cfstr_Livephotobadge.isa, *(*(a1 + 32) + 1184), 0);
+  v40 = [v36 constraintsWithVisualFormat:@"V:[_livePhotoBadge(height)]" options:0 metrics:v38 views:v39];
+  [v35 addConstraints:v40];
 
-  v42 = MEMORY[0x277CCAAD0];
-  v43 = *(a1 + 32);
-  v44 = v43[148];
-  v45 = [v43 view];
-  v46 = [v42 constraintWithItem:v44 attribute:1 relatedBy:0 toItem:v45 attribute:1 multiplier:1.0 constant:0.0];
-  v47 = [v46 ql_activatedConstraint];
-  v48 = *(a1 + 32);
-  v49 = *(v48 + 1192);
-  *(v48 + 1192) = v47;
+  v41 = MEMORY[0x277CCAAD0];
+  v42 = *(a1 + 32);
+  v43 = v42[148];
+  v44 = [v42 view];
+  v45 = [v41 constraintWithItem:v43 attribute:1 relatedBy:0 toItem:v44 attribute:1 multiplier:1.0 constant:0.0];
+  v46 = [v45 ql_activatedConstraint];
+  v47 = *(a1 + 32);
+  v48 = *(v47 + 1192);
+  *(v47 + 1192) = v46;
 
-  v50 = MEMORY[0x277CCAAD0];
-  v51 = *(a1 + 32);
-  v52 = v51[148];
-  v53 = [v51 view];
-  v54 = [v50 constraintWithItem:v52 attribute:3 relatedBy:0 toItem:v53 attribute:3 multiplier:1.0 constant:0.0];
-  v55 = [v54 ql_activatedConstraint];
-  v56 = *(a1 + 32);
-  v57 = *(v56 + 1200);
-  *(v56 + 1200) = v55;
+  v49 = MEMORY[0x277CCAAD0];
+  v50 = *(a1 + 32);
+  v51 = v50[148];
+  v52 = [v50 view];
+  v53 = [v49 constraintWithItem:v51 attribute:3 relatedBy:0 toItem:v52 attribute:3 multiplier:1.0 constant:0.0];
+  v54 = [v53 ql_activatedConstraint];
+  v55 = *(a1 + 32);
+  v56 = *(v55 + 1200);
+  *(v55 + 1200) = v54;
 
   *(*(a1 + 32) + 1232) = 1;
   *(*(a1 + 32) + 1219) = 1;
@@ -164,10 +173,9 @@ uint64_t __93__QLLivePhotoItemViewController_loadPreviewControllerWithContents_c
   result = *(a1 + 48);
   if (result)
   {
-    result = (*(result + 16))(result, 0);
+    return (*(result + 16))(result, 0);
   }
 
-  v59 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -286,11 +294,169 @@ uint64_t __63__QLLivePhotoItemViewController__updateLivePhotoBadgeAnimated___blo
   }
 }
 
+- (void)previewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = QLLivePhotoItemViewController;
+  [(QLScrollableContentItemViewController *)&v4 previewWillAppear:appear];
+  [(PHLivePhotoView *)self->_livePhotoView stopPlayback];
+  [(QLLivePhotoItemViewController *)self _updateLivePhotoBadgeAnimated:0];
+  [(QLLivePhotoItemViewController *)self _updateImageAnalysisInteractionAnimated:0];
+}
+
 - (void)previewWillFinishAppearing
 {
   v2.receiver = self;
   v2.super_class = QLLivePhotoItemViewController;
   [(QLItemViewController *)&v2 previewWillFinishAppearing];
+}
+
+- (void)previewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  if (_os_feature_enabled_impl())
+  {
+    appearance = [(QLItemViewController *)self appearance];
+    v6 = +[QLImageAnalysisManager shouldStartImageAnalysisForPresentationMode:](QLImageAnalysisManager, "shouldStartImageAnalysisForPresentationMode:", [appearance presentationMode]);
+
+    if (v6)
+    {
+      [(QLLivePhotoItemViewController *)self _setupAndStartImageAnalysisIfNeeded];
+    }
+  }
+
+  v11.receiver = self;
+  v11.super_class = QLLivePhotoItemViewController;
+  [(QLScrollableContentItemViewController *)&v11 previewDidAppear:appearCopy];
+  appearance2 = [(QLItemViewController *)self appearance];
+  presentationMode = [appearance2 presentationMode];
+
+  if (presentationMode == 4)
+  {
+    if (!self->_isPlaying)
+    {
+      [(PHLivePhotoView *)self->_livePhotoView startPlaybackWithStyle:1];
+    }
+  }
+
+  else if (self->_isPlaying)
+  {
+    appearance3 = [(QLItemViewController *)self appearance];
+    presentationMode2 = [appearance3 presentationMode];
+
+    if (presentationMode2 != 4)
+    {
+      [(PHLivePhotoView *)self->_livePhotoView stopPlayback];
+    }
+  }
+
+  [(QLLivePhotoItemViewController *)self _updateLivePhotoBadgeAnimated:1];
+  [(QLLivePhotoItemViewController *)self _updateImageAnalysisInteractionAnimated:1];
+}
+
+- (void)previewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = QLLivePhotoItemViewController;
+  [(QLItemViewController *)&v4 previewWillDisappear:disappear];
+  [(QLImageAnalysisManager *)self->_imageAnalysisManager shouldHideInteraction:1 animated:0];
+}
+
+- (void)setAppearance:(id)appearance animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  appearanceCopy = appearance;
+  appearance = [(QLItemViewController *)self appearance];
+  v16.receiver = self;
+  v16.super_class = QLLivePhotoItemViewController;
+  [(QLScrollableContentItemViewController *)&v16 setAppearance:appearanceCopy animated:animatedCopy];
+
+  [(QLLivePhotoItemViewController *)self _updateLivePhotoBadgeAnimated:animatedCopy];
+  if (_os_feature_enabled_impl())
+  {
+    presentationMode = [appearance presentationMode];
+    appearance2 = [(QLItemViewController *)self appearance];
+    presentationMode2 = [appearance2 presentationMode];
+
+    if (presentationMode != presentationMode2 && [QLImageAnalysisManager shouldStartImageAnalysisForPresentationMode:presentationMode2]&& ([(QLItemViewController *)self didAppearOnce]|| [(QLImageAnalysisManager *)self->_imageAnalysisManager hasAnalysis]))
+    {
+      [(QLLivePhotoItemViewController *)self _setupAndStartImageAnalysisIfNeeded];
+    }
+  }
+
+  presentationMode3 = [appearance presentationMode];
+  appearance3 = [(QLItemViewController *)self appearance];
+  presentationMode4 = [appearance3 presentationMode];
+
+  if (presentationMode3 != presentationMode4)
+  {
+    appearance4 = [(QLItemViewController *)self appearance];
+    if ([appearance4 presentationMode] == 4)
+    {
+      isPlaying = self->_isPlaying;
+
+      if (!isPlaying)
+      {
+        [(PHLivePhotoView *)self->_livePhotoView startPlaybackWithStyle:1];
+      }
+    }
+
+    else
+    {
+    }
+
+    [(QLLivePhotoItemViewController *)self updatePreferredDynamicRangeForced:0];
+  }
+}
+
+- (void)previewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(QLImageAnalysisManager *)self->_imageAnalysisManager stopImageAnalysis];
+  v5.receiver = self;
+  v5.super_class = QLLivePhotoItemViewController;
+  [(QLScrollableContentItemViewController *)&v5 previewDidDisappear:disappearCopy];
+  self->_shouldPlayHint = 1;
+  self->_isPlaying = 0;
+  [(PHLivePhotoView *)self->_livePhotoView stopPlayback];
+}
+
+- (void)previewBecameFullScreen:(BOOL)screen animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  screenCopy = screen;
+  self->_isFullScreen = screen;
+  v7.receiver = self;
+  v7.super_class = QLLivePhotoItemViewController;
+  [QLItemViewController previewBecameFullScreen:sel_previewBecameFullScreen_animated_ animated:?];
+  [(QLLivePhotoItemViewController *)self _updateLivePhotoBadgeAnimated:1];
+  [(QLImageAnalysisManager *)self->_imageAnalysisManager updateForFullScreen:screenCopy animated:animatedCopy];
+}
+
+- (void)transitionDidStart:(BOOL)start
+{
+  v4.receiver = self;
+  v4.super_class = QLLivePhotoItemViewController;
+  [(QLItemViewController *)&v4 transitionDidStart:start];
+  self->_transitionInProgress = 1;
+  self->_HDRTransitionInProgress = 1;
+  if (self->_livePhotoView)
+  {
+    [(QLLivePhotoItemViewController *)self animateToPreferredDynamicRange];
+  }
+
+  [(QLLivePhotoItemViewController *)self _updateLivePhotoBadgeAnimated:1];
+  [(QLLivePhotoItemViewController *)self _updateImageAnalysisInteractionAnimated:1];
+}
+
+- (void)transitionDidFinish:(BOOL)finish didComplete:(BOOL)complete
+{
+  v5.receiver = self;
+  v5.super_class = QLLivePhotoItemViewController;
+  [(QLScrollableContentItemViewController *)&v5 transitionWillFinish:finish didComplete:complete];
+  self->_transitionInProgress = 0;
+  [(QLLivePhotoItemViewController *)self _updateLivePhotoBadgeAnimated:1];
+  [(QLLivePhotoItemViewController *)self _updateImageAnalysisInteractionAnimated:1];
 }
 
 - (void)didEndZoomingAtScale:(double)scale
@@ -486,6 +652,13 @@ uint64_t __63__QLLivePhotoItemViewController__updateLivePhotoBadgeAnimated___blo
   return clientPreviewOptions;
 }
 
+- (void)imageAnalyzerWantsUpdateInfoButtonWithAnimation:(BOOL)animation
+{
+  animationCopy = animation;
+  delegate = [(QLItemViewController *)self delegate];
+  [delegate previewItemViewControllerWantsUpdateOverlay:self animated:animationCopy];
+}
+
 - (void)imageAnalysisInteractionWillPresentVisualSearchController
 {
   v3 = [MEMORY[0x277CCABB0] numberWithBool:self->_isFullScreen];
@@ -561,18 +734,36 @@ uint64_t __63__QLLivePhotoItemViewController__updateLivePhotoBadgeAnimated___blo
 
 - (void)viewDidLoad
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = QLLivePhotoItemViewController;
-  [(QLLivePhotoItemViewController *)&v7 viewDidLoad];
-  objc_initWeak(&v6, self);
-  v8[0] = objc_opt_class();
-  v8[1] = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = QLLivePhotoItemViewController;
+  [(QLLivePhotoItemViewController *)&v6 viewDidLoad];
+  objc_initWeak(&v5, self);
+  v7[0] = objc_opt_class();
+  v7[1] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
   v4 = [(QLLivePhotoItemViewController *)self registerForTraitChanges:v3 withHandler:&__block_literal_global_11];
 
-  objc_destroyWeak(&v6);
-  v5 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v5);
+}
+
+- (void)_updateImageAnalysisInteractionAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  if (self->_isPlaying || self->_transitionInProgress)
+  {
+    v5 = 1;
+  }
+
+  else
+  {
+    appearance = [(QLItemViewController *)self appearance];
+    v5 = [appearance presentationMode] == 4;
+  }
+
+  imageAnalysisManager = self->_imageAnalysisManager;
+
+  [(QLImageAnalysisManager *)imageAnalysisManager shouldHideInteraction:v5 animated:animatedCopy];
 }
 
 - (BOOL)canPerformFirstTimeAppearanceActions:(unint64_t)actions

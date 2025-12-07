@@ -114,33 +114,31 @@ LABEL_8:
 {
   if (self->_scDynamicStore)
   {
-    v12 = 0u;
-    v13 = 0u;
     v10 = 0u;
     v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     v3 = self->_scKeyPatterns;
-    v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v9 count:16];
+    v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v7 count:16];
     if (v4)
     {
-      v5 = *v11;
+      v5 = *v9;
       do
       {
         v6 = 0;
         do
         {
-          if (*v11 != v5)
+          if (*v9 != v5)
           {
             objc_enumerationMutation(v3);
           }
 
-          v7 = *(*(&v10 + 1) + 8 * v6);
-          scDynamicStore = self->_scDynamicStore;
           SCDynamicStoreRemoveWatchedKey();
-          v6 = v6 + 1;
+          ++v6;
         }
 
         while (v4 != v6);
-        v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v9 count:16];
+        v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v7 count:16];
       }
 
       while (v4);
@@ -199,7 +197,6 @@ LABEL_8:
     NetworkInterfaceEntity = SCDynamicStoreKeyCreateNetworkInterfaceEntity(kCFAllocatorDefault, kSCDynamicStoreDomainState, @"(en)[^/]+", kSCEntNetLinkQuality);
     if (NetworkInterfaceEntity)
     {
-      scDynamicStore = self->_scDynamicStore;
       if (SCDynamicStoreAddWatchedKey())
       {
         [(NSMutableArray *)self->_scKeyPatterns addObject:NetworkInterfaceEntity];
@@ -207,20 +204,20 @@ LABEL_8:
 
       else
       {
-        v6 = qword_100192D98;
+        v5 = qword_100192D98;
         if (os_log_type_enabled(qword_100192D98, OS_LOG_TYPE_ERROR))
         {
-          sub_10011D320(v6);
+          sub_10011D320(v5);
         }
       }
     }
 
     else
     {
-      v5 = qword_100192D98;
+      v4 = qword_100192D98;
       if (os_log_type_enabled(qword_100192D98, OS_LOG_TYPE_ERROR))
       {
-        sub_10011D390(v5);
+        sub_10011D390(v4);
       }
     }
   }
@@ -311,7 +308,7 @@ LABEL_8:
 - (void)refreshWiFiRadioTech
 {
   delegate = self->delegate;
-  [(WiFiStateRelay *)self retrieveRadioTech];
+  objc_msgSend_retrieveRadioTech(self, a2);
   (*(delegate->var0 + 3))(&v4, delegate, &__p);
   v3 = v4;
   v4 = 0;
@@ -337,9 +334,9 @@ LABEL_8:
     return result;
   }
 
-  if ((unk_100194520(result, "powerOn") & 1) == 0)
+  if ((unk_100194680(result, "powerOn") & 1) == 0)
   {
-    v9 = &unk_100192B60;
+    v9 = qword_100192B60;
     return sub_100081734(retstr, v9);
   }
 
@@ -347,7 +344,7 @@ LABEL_8:
 
   if (!networkName)
   {
-    v9 = &unk_100192B78;
+    v9 = qword_100192B78;
     return sub_100081734(retstr, v9);
   }
 

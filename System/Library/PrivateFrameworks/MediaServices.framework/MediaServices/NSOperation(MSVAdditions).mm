@@ -1,11 +1,11 @@
 @interface NSOperation(MSVAdditions)
-- (uint64_t)decreasePriority;
-- (uint64_t)increasePriority;
+- (char)decreasePriority;
+- (char)increasePriority;
 @end
 
 @implementation NSOperation(MSVAdditions)
 
-- (uint64_t)decreasePriority
+- (char)decreasePriority
 {
   result = [self queuePriority];
   v3 = __ROR8__(result + 4, 2);
@@ -18,7 +18,7 @@
   return result;
 }
 
-- (uint64_t)increasePriority
+- (char)increasePriority
 {
   result = [self queuePriority];
   v3 = __ROR8__(result + 8, 2);

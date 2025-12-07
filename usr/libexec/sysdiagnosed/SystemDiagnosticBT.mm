@@ -72,13 +72,12 @@
   block[5] = sub_100009B78;
   diagnosticID = [(SystemDiagnosticBT *)self diagnosticID];
   [diagnosticID UTF8String];
-  bluetoothQueue = self->_bluetoothQueue;
-  v5 = BTSessionAttachWithQueue();
+  v4 = BTSessionAttachWithQueue();
 
   [(SystemDiagnosticBT *)self setNumAttachTries:[(SystemDiagnosticBT *)self numAttachTries]+ 1];
   accessoryLogSubsystem = [(SystemDiagnosticBT *)self accessoryLogSubsystem];
-  v7 = accessoryLogSubsystem;
-  if (v5)
+  v6 = accessoryLogSubsystem;
+  if (v4)
   {
     if (os_log_type_enabled(accessoryLogSubsystem, OS_LOG_TYPE_ERROR))
     {
@@ -98,8 +97,8 @@
   {
     if (os_log_type_enabled(accessoryLogSubsystem, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Successfully attached to bluetoothd, waiting for session callback.", v9, 2u);
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Successfully attached to bluetoothd, waiting for session callback.", v8, 2u);
     }
 
     [(SystemDiagnosticBT *)self setAttachedToBTSession:1];
@@ -587,65 +586,69 @@ LABEL_25:
       [v10 stdoutWrite:{@"Found manual airpods timeout override. Using timeout: %llu", v7}];
     }
 
-    else if ([(SystemDiagnosticBT *)self isLimitedLoggingEnabled])
-    {
-      v7 = 300000000000;
-      accessoryLogSubsystem3 = [(SystemDiagnosticBT *)self accessoryLogSubsystem];
-      if (os_log_type_enabled(accessoryLogSubsystem3, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 134217984;
-        *&buf[4] = 300000000000;
-        _os_log_impl(&_mh_execute_header, accessoryLogSubsystem3, OS_LOG_TYPE_DEFAULT, "Limited logging is enabled. Using airpods timeout: %llu", buf, 0xCu);
-      }
-
-      v13 = +[SDResourceManager sharedResourceManager];
-      [v13 stdoutWrite:{@"Subsystem: %s; Category: %s; Log: ", "remoteSysdiagnose", "AccessoryLogSubsystem"}];
-
-      v10 = +[SDResourceManager sharedResourceManager];
-      v11 = @"Limited logging is enabled. Using airpods timeout: %llu";
-      [v10 stdoutWrite:{@"Limited logging is enabled. Using airpods timeout: %llu", 300000000000}];
-    }
-
-    else if (sub_100047DB4() && (buf[0] = 0, sub_100047F80(@"prioritizeAirPods", @"com.apple.sysdiagnose", buf)) && (buf[0] & 1) != 0)
-    {
-      v7 = 300000000000;
-      accessoryLogSubsystem4 = [(SystemDiagnosticBT *)self accessoryLogSubsystem];
-      if (os_log_type_enabled(accessoryLogSubsystem4, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 134217984;
-        *&buf[4] = 300000000000;
-        _os_log_impl(&_mh_execute_header, accessoryLogSubsystem4, OS_LOG_TYPE_DEFAULT, "Found prioritizeAirpodsWait timeout. Using timeout: %llu", buf, 0xCu);
-      }
-
-      v15 = +[SDResourceManager sharedResourceManager];
-      [v15 stdoutWrite:{@"Subsystem: %s; Category: %s; Log: ", "remoteSysdiagnose", "AccessoryLogSubsystem"}];
-
-      v10 = +[SDResourceManager sharedResourceManager];
-      v11 = @"Found prioritizeAirpodsWait timeout. Using timeout: %llu";
-      [v10 stdoutWrite:{@"Found prioritizeAirpodsWait timeout. Using timeout: %llu", 300000000000}];
-    }
-
     else
     {
-      v7 = 30000000000;
-      accessoryLogSubsystem5 = [(SystemDiagnosticBT *)self accessoryLogSubsystem];
-      if (os_log_type_enabled(accessoryLogSubsystem5, OS_LOG_TYPE_DEFAULT))
+      isLimitedLoggingEnabled = [(SystemDiagnosticBT *)self isLimitedLoggingEnabled];
+      if (isLimitedLoggingEnabled)
       {
-        *buf = 134217984;
-        *&buf[4] = 30000000000;
-        _os_log_impl(&_mh_execute_header, accessoryLogSubsystem5, OS_LOG_TYPE_DEFAULT, "No preferences found. Using default airpods timeout value of: %llu", buf, 0xCu);
+        v7 = 300000000000;
+        accessoryLogSubsystem3 = [(SystemDiagnosticBT *)self accessoryLogSubsystem];
+        if (os_log_type_enabled(accessoryLogSubsystem3, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 134217984;
+          *&buf[4] = 300000000000;
+          _os_log_impl(&_mh_execute_header, accessoryLogSubsystem3, OS_LOG_TYPE_DEFAULT, "Limited logging is enabled. Using airpods timeout: %llu", buf, 0xCu);
+        }
+
+        v15 = +[SDResourceManager sharedResourceManager];
+        [v15 stdoutWrite:{@"Subsystem: %s; Category: %s; Log: ", "remoteSysdiagnose", "AccessoryLogSubsystem"}];
+
+        v10 = +[SDResourceManager sharedResourceManager];
+        v11 = @"Limited logging is enabled. Using airpods timeout: %llu";
+        [v10 stdoutWrite:{@"Limited logging is enabled. Using airpods timeout: %llu", 300000000000}];
       }
 
-      v17 = +[SDResourceManager sharedResourceManager];
-      [v17 stdoutWrite:{@"Subsystem: %s; Category: %s; Log: ", "remoteSysdiagnose", "AccessoryLogSubsystem"}];
+      else if (sub_100047DB4(isLimitedLoggingEnabled, v13) && (buf[0] = 0, sub_100047F80(@"prioritizeAirPods", @"com.apple.sysdiagnose", buf)) && (buf[0] & 1) != 0)
+      {
+        v7 = 300000000000;
+        accessoryLogSubsystem4 = [(SystemDiagnosticBT *)self accessoryLogSubsystem];
+        if (os_log_type_enabled(accessoryLogSubsystem4, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 134217984;
+          *&buf[4] = 300000000000;
+          _os_log_impl(&_mh_execute_header, accessoryLogSubsystem4, OS_LOG_TYPE_DEFAULT, "Found prioritizeAirpodsWait timeout. Using timeout: %llu", buf, 0xCu);
+        }
 
-      v10 = +[SDResourceManager sharedResourceManager];
-      v11 = @"No preferences found. Using default airpods timeout value of: %llu";
-      [v10 stdoutWrite:{@"No preferences found. Using default airpods timeout value of: %llu", 30000000000}];
+        v17 = +[SDResourceManager sharedResourceManager];
+        [v17 stdoutWrite:{@"Subsystem: %s; Category: %s; Log: ", "remoteSysdiagnose", "AccessoryLogSubsystem"}];
+
+        v10 = +[SDResourceManager sharedResourceManager];
+        v11 = @"Found prioritizeAirpodsWait timeout. Using timeout: %llu";
+        [v10 stdoutWrite:{@"Found prioritizeAirpodsWait timeout. Using timeout: %llu", 300000000000}];
+      }
+
+      else
+      {
+        v7 = 30000000000;
+        accessoryLogSubsystem5 = [(SystemDiagnosticBT *)self accessoryLogSubsystem];
+        if (os_log_type_enabled(accessoryLogSubsystem5, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 134217984;
+          *&buf[4] = 30000000000;
+          _os_log_impl(&_mh_execute_header, accessoryLogSubsystem5, OS_LOG_TYPE_DEFAULT, "No preferences found. Using default airpods timeout value of: %llu", buf, 0xCu);
+        }
+
+        v19 = +[SDResourceManager sharedResourceManager];
+        [v19 stdoutWrite:{@"Subsystem: %s; Category: %s; Log: ", "remoteSysdiagnose", "AccessoryLogSubsystem"}];
+
+        v10 = +[SDResourceManager sharedResourceManager];
+        v11 = @"No preferences found. Using default airpods timeout value of: %llu";
+        [v10 stdoutWrite:{@"No preferences found. Using default airpods timeout value of: %llu", 30000000000}];
+      }
     }
 
-    v18 = +[SDResourceManager sharedResourceManager];
-    [v18 logWithSubsystem:"remoteSysdiagnose" category:"AccessoryLogSubsystem" msg:{v11, v7}];
+    v20 = +[SDResourceManager sharedResourceManager];
+    [v20 logWithSubsystem:"remoteSysdiagnose" category:"AccessoryLogSubsystem" msg:{v11, v7}];
   }
 
   return v7;

@@ -2,6 +2,8 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (id)accessibilityLabel;
 - (unint64_t)accessibilityTraits;
+- (void)setHighlighted:(BOOL)highlighted;
+- (void)setSelected:(BOOL)selected;
 @end
 
 @implementation SiriMoviesIndividualShowtimeViewAccessibility
@@ -36,6 +38,24 @@
   v4.receiver = self;
   v4.super_class = SiriMoviesIndividualShowtimeViewAccessibility;
   return [(SiriMoviesIndividualShowtimeViewAccessibility *)&v4 accessibilityTraits];
+}
+
+- (void)setSelected:(BOOL)selected
+{
+  selectedCopy = selected;
+  v5.receiver = self;
+  v5.super_class = SiriMoviesIndividualShowtimeViewAccessibility;
+  [(SiriMoviesIndividualShowtimeViewAccessibility *)&v5 setSelected:?];
+  [(SiriMoviesIndividualShowtimeViewAccessibility *)self setAccessibilityShowtimeSelected:selectedCopy];
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+  highlightedCopy = highlighted;
+  v5.receiver = self;
+  v5.super_class = SiriMoviesIndividualShowtimeViewAccessibility;
+  [(SiriMoviesIndividualShowtimeViewAccessibility *)&v5 setHighlighted:?];
+  [(SiriMoviesIndividualShowtimeViewAccessibility *)self setAccessibilityShowtimeHighlighted:highlightedCopy];
 }
 
 @end

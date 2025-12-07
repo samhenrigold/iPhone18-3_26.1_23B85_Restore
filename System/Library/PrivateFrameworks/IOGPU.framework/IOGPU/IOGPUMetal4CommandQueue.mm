@@ -1,12 +1,11 @@
 @interface IOGPUMetal4CommandQueue
-- (IOGPUMetal4CommandQueue)initWithDevice:(id)device;
-- (IOGPUMetal4CommandQueue)initWithDevice:(id)device descriptor:(id)descriptor;
 - (id)initIOGPUMTL4CommandQueue:(id)queue descriptor:(id)descriptor args:(IOGPUDeviceNewCommandQueueArgs *)args argsSize:(unsigned int)size;
 - (id)preCommit:(const void *)commit count:(unint64_t)count options:(id)options;
 - (void)_commit:(const void *)_commit count:(unint64_t)count commitFeedback:(id)feedback;
 - (void)addResidencySet:(id)set;
 - (void)addResidencySets:(id *)sets count:(unint64_t)count;
 - (void)allocateMappingCommandBuffer;
+- (void)commandBufferComplete:(id)complete commandAllocator:(id)allocator commandAllocatorGeneration:(unsigned int)generation storage:(IOGPUMetalCommandBufferStorage *)storage submissionID:(unint64_t)d startTime:(unint64_t)time completionTime:(unint64_t)completionTime kernelError:(unsigned int)self0 error:(id)self1 commitFeedback:(id)self2 commitComplete:(BOOL)self3;
 - (void)commitFillArgs:(id *)args count:(unint64_t)count args:(unint64_t)a5 argsSize:(unsigned int)size commitFeedback:(id)feedback;
 - (void)commitMappingCommandBuffer;
 - (void)copyBufferMappingsFromBuffer:(id)buffer toBuffer:(id)toBuffer operations:(id *)operations count:(unint64_t)count;
@@ -47,31 +46,7 @@
     *&args->var2 = 256;
     v12 = IOGPUCommandQueueCreate([queue deviceRef], args, size);
     v11->_commandQueue = v12;
-    if (!v12)
-    {
-      goto LABEL_14;
-    }
-
-    newDevicePoolAliasedCommandAllocator = [queue newDevicePoolAliasedCommandAllocator];
-    v11->_commandAllocator = newDevicePoolAliasedCommandAllocator;
-    if (!newDevicePoolAliasedCommandAllocator)
-    {
-      goto LABEL_14;
-    }
-
-    if (descriptor && (v14 = [descriptor feedbackQueue]) != 0)
-    {
-      v15 = dispatch_queue_create_with_target_V2("com.Metal4.CompletionQueue", 0, v14);
-    }
-
-    else
-    {
-      v16 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INTERACTIVE, 0);
-      v15 = dispatch_queue_create("com.Metal4.CompletionQueue", v16);
-    }
-
-    v11->_completionQueue = v15;
-    if (v15 && ((IOGPUCommandQueueSetDispatchQueue(v11->_commandQueue, v15), v11->_resourceGroupsLock._os_unfair_lock_opaque = 0, v11->_mappingLock._os_unfair_lock_opaque = 0, v11->_disableAsyncMapping) || (v17 = [*(&v11->super.super.super.isa + *MEMORY[0x1E6974240]) newSharedEvent], (v11->_postMappingEvent = v17) != 0)))
+    if (v12 && (v13 = [queue newDevicePoolAliasedCommandAllocator], (v11->_commandAllocator = v13) != 0) && (!descriptor || (v14 = objc_msgSend(descriptor, "feedbackQueue")) == 0 ? (v16 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INTERACTIVE, 0), v15 = dispatch_queue_create("com.Metal4.CompletionQueue", v16)) : (v15 = dispatch_queue_create_with_target_V2("com.Metal4.CompletionQueue", 0, v14)), (v11->_completionQueue = v15) != 0 && ((IOGPUCommandQueueSetDispatchQueue(v11->_commandQueue, v15), v11->_resourceGroupsLock._os_unfair_lock_opaque = 0, v11->_mappingLock._os_unfair_lock_opaque = 0, v11->_disableAsyncMapping) || (v17 = objc_msgSend(*(&v11->super.super.super.isa + *MEMORY[0x1E6974240]), "newSharedEvent"), (v11->_postMappingEvent = v17) != 0))))
     {
       *(&v11->super.super.super.isa + *MEMORY[0x1E6974248]) = IOGPUCommandQueueGetGlobalTraceObjectID(v11->_commandQueue);
       *(&v11->super.super.super.isa + *MEMORY[0x1E6974250]) = 0;
@@ -80,29 +55,12 @@
 
     else
     {
-LABEL_14:
 
       return 0;
     }
   }
 
   return v11;
-}
-
-- (IOGPUMetal4CommandQueue)initWithDevice:(id)device descriptor:(id)descriptor
-{
-  v6[129] = *MEMORY[0x1E69E9840];
-  result = [(IOGPUMetal4CommandQueue *)self initIOGPUMTL4CommandQueue:device descriptor:descriptor args:v6 argsSize:1032];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (IOGPUMetal4CommandQueue)initWithDevice:(id)device
-{
-  v5[129] = *MEMORY[0x1E69E9840];
-  result = [(IOGPUMetal4CommandQueue *)self initIOGPUMTL4CommandQueue:device descriptor:0 args:v5 argsSize:1032];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (void)dealloc
@@ -149,12 +107,7 @@ LABEL_14:
         commandAllocator = [v11 commandAllocator];
         if (*__globalGPUCommPage)
         {
-          v13 = commandAllocator;
-          [v11 globalTraceObjectID];
-          [v13 globalTraceObjectID];
-          [v13 allocatedSize];
-          lastSubmissionID = self->_lastSubmissionID;
-          IOGPUDeviceTraceEvent();
+          IOGPUDeviceTraceEvent(0, 8, 7, [v11 globalTraceObjectID], objc_msgSend(commandAllocator, "globalTraceObjectID"), objc_msgSend(commandAllocator, "allocatedSize"), self->_lastSubmissionID);
         }
 
         v9 = v10++;
@@ -164,9 +117,30 @@ LABEL_14:
     }
   }
 
-  v16.receiver = self;
-  v16.super_class = IOGPUMetal4CommandQueue;
-  return [(_MTL4CommandQueue *)&v16 preCommit:commit count:count options:options];
+  v14.receiver = self;
+  v14.super_class = IOGPUMetal4CommandQueue;
+  return [(_MTL4CommandQueue *)&v14 preCommit:commit count:count options:options];
+}
+
+- (void)commandBufferComplete:(id)complete commandAllocator:(id)allocator commandAllocatorGeneration:(unsigned int)generation storage:(IOGPUMetalCommandBufferStorage *)storage submissionID:(unint64_t)d startTime:(unint64_t)time completionTime:(unint64_t)completionTime kernelError:(unsigned int)self0 error:(id)self1 commitFeedback:(id)self2 commitComplete:(BOOL)self3
+{
+  v15 = *&generation;
+  if (*__globalGPUCommPage)
+  {
+    IOGPUDeviceTraceEvent(0, 8, 4, [complete globalTraceObjectID], completionTime, error, d);
+  }
+
+  if (!allocator || !storage)
+  {
+    [IOGPUMetal4CommandQueue commandBufferComplete:commandAllocator:commandAllocatorGeneration:storage:submissionID:startTime:completionTime:kernelError:error:commitFeedback:commitComplete:];
+  }
+
+  [allocator returnCommandBufferStorage:storage commandAllocatorGeneration:{v15, *&generation, storage, d}];
+  if (feedback)
+  {
+
+    [feedback commandBufferComplete:time completionTime:completionTime error:a11 executeHandlers:commitComplete];
+  }
 }
 
 - (void)commitFillArgs:(id *)args count:(unint64_t)count args:(unint64_t)a5 argsSize:(unsigned int)size commitFeedback:(id)feedback
@@ -447,11 +421,10 @@ uint64_t __45__IOGPUMetal4CommandQueue_signalEvent_value___block_invoke_2(uint64
 
 - (void)_commit:count:commitFeedback:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v1 = 136315138;
-  v2 = "[IOGPUMetal4CommandQueue _commit:count:commitFeedback:]";
-  _os_log_error_impl(&dword_1CA097000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%s Failed to malloc for commit", &v1, 0xCu);
-  v0 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v0 = 136315138;
+  v1 = "[IOGPUMetal4CommandQueue _commit:count:commitFeedback:]";
+  _os_log_error_impl(&dword_1CA097000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%s Failed to malloc for commit", &v0, 0xCu);
 }
 
 @end

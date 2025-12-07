@@ -59,11 +59,9 @@
 
 - (void)_takeStackshot
 {
-  migrationPluginDescription = self->_migrationPluginDescription;
-  minutesSinceStarting = self->_minutesSinceStarting;
   _DMLogFunc();
-  v7 = [NSString stringWithFormat:@"PRECAUTIONARY stackshot - migration might be hung or deadlocked. Plugin: %@ (%llu minutes) (overall migration start %llu)", self->_migrationPluginDescription, self->_minutesSinceStarting, self->_migrationStartTime];
-  v3 = [DMIncident incidentWithKind:0 responsiblePluginRep:0 userDataDisposition:self->_userDataDisposition details:v7];
+  v5 = [NSString stringWithFormat:@"PRECAUTIONARY stackshot - migration might be hung or deadlocked. Plugin: %@ (%llu minutes) (overall migration start %llu)", self->_migrationPluginDescription, self->_minutesSinceStarting, self->_migrationStartTime];
+  v3 = [DMIncident incidentWithKind:0 responsiblePluginRep:0 userDataDisposition:self->_userDataDisposition details:v5];
   v4 = +[DMDiagnostics sharedInstance];
   [v4 captureDiagnosticsForIncident:v3 async:1];
 }

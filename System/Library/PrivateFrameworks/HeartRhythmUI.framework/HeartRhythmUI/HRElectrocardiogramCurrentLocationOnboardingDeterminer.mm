@@ -38,7 +38,7 @@
   [(HRElectrocardiogramCurrentLocationOnboardingDeterminer *)self isElectrocardiogramOnboardingAvailableInCurrentLocationForWatch:v6 completion:watchCopy];
 }
 
-void __133__HRElectrocardiogramCurrentLocationOnboardingDeterminer_isElectrocardiogramOnboardingAvailableInCurrentLocationForWatch_completion___block_invoke(uint64_t *a1, void *a2, void *a3)
+void __133__HRElectrocardiogramCurrentLocationOnboardingDeterminer_isElectrocardiogramOnboardingAvailableInCurrentLocationForWatch_completion___block_invoke(void *a1, void *a2, void *a3)
 {
   v51 = *MEMORY[0x277D85DE8];
   v5 = a2;

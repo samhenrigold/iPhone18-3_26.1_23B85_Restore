@@ -29,12 +29,12 @@
   pathCopy = path;
   if ([pathCopy isEqualToString:@"reflectiveInterval"] || objc_msgSend(pathCopy, "isEqualToString:", @"valence"))
   {
-    v6 = +[_HKStateOfMindComparisonFilter _allowedValueClassesForReflectiveInterval];
+    v6 = +[(_HKStateOfMindComparisonFilter *)self];
   }
 
   else if ([pathCopy isEqualToString:@"labels"] || objc_msgSend(pathCopy, "isEqualToString:", @"domains"))
   {
-    v6 = +[_HKStateOfMindComparisonFilter _allowedValueClassesForLabelsAndDomains];
+    v6 = +[(_HKStateOfMindComparisonFilter *)self];
   }
 
   else
@@ -54,30 +54,26 @@
 {
   v5[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
-  v0 = MEMORY[0x1E695DFD8];
+  v1 = MEMORY[0x1E695DFD8];
   v5[0] = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v2 = [v0 setWithArray:v1];
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
+  v3 = [v1 setWithArray:v2];
 
-  v3 = *MEMORY[0x1E69E9840];
-
-  return v2;
+  return v3;
 }
 
 + (id)_allowedValueClassesForLabelsAndDomains
 {
   v8 = *MEMORY[0x1E69E9840];
   objc_opt_self();
-  v0 = MEMORY[0x1E695DFD8];
+  v1 = MEMORY[0x1E695DFD8];
   v5 = objc_opt_class();
   v6 = objc_opt_class();
   v7 = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v5 count:3];
-  v2 = [v0 setWithArray:{v1, v5, v6}];
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v5 count:3];
+  v3 = [v1 setWithArray:{v2, v5, v6}];
 
-  v3 = *MEMORY[0x1E69E9840];
-
-  return v2;
+  return v3;
 }
 
 + (BOOL)isAllowedPredicateOperatorType:(unint64_t)type forKeyPath:(id)path
@@ -169,10 +165,12 @@ LABEL_12:
     [(_HKStateOfMindComparisonFilter *)sel__isValidReflectiveInterval_ _isValidReflectiveInterval:v3];
   }
 
-  v4 = +[HKStateOfMind validateKind:](HKStateOfMind, "validateKind:", HKStateOfMindKindFromReflectiveInterval([v2 integerValue]));
-  v5 = v4 == 0;
+  [v2 integerValue];
+  HKStateOfMindKindFromReflectiveInterval();
+  v5 = [HKStateOfMind validateKind:v4];
+  v6 = v5 == 0;
 
-  return v5;
+  return v6;
 }
 
 + (BOOL)_isValidValence:(uint64_t)valence
@@ -348,7 +346,7 @@ LABEL_11:
 
 - (uint64_t)_acceptsStateOfMindWithLabelsOrDomains:(void *)domains
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!domains)
   {
@@ -385,26 +383,26 @@ LABEL_11:
       }
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     value4 = [domains value];
-    v15 = [value4 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v15 = [value4 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v22;
+      v17 = *v21;
       while (2)
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v22 != v17)
+          if (*v21 != v17)
           {
             objc_enumerationMutation(value4);
           }
 
-          if ([v3 containsObject:*(*(&v21 + 1) + 8 * i)])
+          if ([v3 containsObject:*(*(&v20 + 1) + 8 * i)])
           {
 
             v7 = 1;
@@ -412,7 +410,7 @@ LABEL_11:
           }
         }
 
-        v16 = [value4 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v16 = [value4 countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v16)
         {
           continue;
@@ -442,7 +440,6 @@ LABEL_20:
 
 LABEL_21:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

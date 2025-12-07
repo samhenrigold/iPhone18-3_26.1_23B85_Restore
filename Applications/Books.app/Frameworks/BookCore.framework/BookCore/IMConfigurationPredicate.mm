@@ -319,23 +319,23 @@
 
 - (BOOL)evaluateWithContext:(id)context
 {
-  v3 = BCIMLog();
+  v3 = BCIMLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v6 = 136315650;
-    v7 = "[IMConfigurationPredicate evaluateWithContext:]";
-    v8 = 2080;
-    v9 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/ViewControllers/Configuration/IMConfigurationPredicate.m";
-    v10 = 1024;
-    v11 = 290;
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "%s %s:%d", &v6, 0x1Cu);
+    v7 = 136315650;
+    v8 = "[IMConfigurationPredicate evaluateWithContext:]";
+    v9 = 2080;
+    v10 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/ViewControllers/Configuration/IMConfigurationPredicate.m";
+    v11 = 1024;
+    v12 = 290;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "%s %s:%d", &v7, 0x1Cu);
   }
 
-  v4 = BCIMLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = BCIMLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v6) = 0;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "@This is an abstract method", &v6, 2u);
+    LOWORD(v7) = 0;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "@This is an abstract method", &v7, 2u);
   }
 
   return 0;

@@ -20,9 +20,9 @@
 
 - (VUIPlaybackReporter)init
 {
-  v9.receiver = self;
-  v9.super_class = VUIPlaybackReporter;
-  v2 = [(VUIPlaybackReporter *)&v9 init];
+  v10.receiver = self;
+  v10.super_class = VUIPlaybackReporter;
+  v2 = [(VUIPlaybackReporter *)&v10 init];
   v3 = v2;
   if (v2)
   {
@@ -32,9 +32,9 @@
     v3->_sessions = v4;
 
     v3->_enforceSinglePlaybackSession = 1;
-    v6 = VUIDefaultLogObject();
+    v7 = VUIDefaultLogObject(v6);
     logObject = v3->_logObject;
-    v3->_logObject = v6;
+    v3->_logObject = v7;
   }
 
   return v3;

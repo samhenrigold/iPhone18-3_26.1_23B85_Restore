@@ -67,7 +67,7 @@
 
 - (int)migrateToCurrentSchemaVersionIfNeeded
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v3 = SafariShared::WBSSQLiteDatabaseFetch<>(self->_database, @"PRAGMA user_version");
   nextObject = [v3 nextObject];
   v5 = [nextObject intAtIndex:0];
@@ -82,43 +82,45 @@
 
   if (v5)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v9 = WBS_LOG_CHANNEL_PREFIXHistory(v7, v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
+    if (v10)
     {
       *buf = 67109376;
-      v22 = v5;
-      v23 = 1024;
-      v24 = 16;
-      _os_log_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_INFO, "History database has schema version of %d. Migrating to schema version %d.", buf, 0xEu);
+      v49 = v5;
+      v50 = 1024;
+      v51 = 16;
+      _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_INFO, "History database has schema version of %d. Migrating to schema version %d.", buf, 0xEu);
     }
 
     --v5;
     while (v5 != 15)
     {
-      v8 = [(WBSHistorySQLiteSchema *)self _migrateToSchemaVersion:(v5 + 2)];
+      v10 = [(WBSHistorySQLiteSchema *)self _migrateToSchemaVersion:(v5 + 2)];
       ++v5;
-      if (v8 != 101)
+      if (v10 != 101)
       {
         goto LABEL_68;
       }
     }
 
-    v12 = WBS_LOG_CHANNEL_PREFIXHistory();
+    v39 = WBS_LOG_CHANNEL_PREFIXHistory(v10, v11);
     v5 = 16;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v22 = 16;
-      _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_INFO, "History database now has schema version of %d.", buf, 8u);
+      v49 = 16;
+      _os_log_impl(&dword_1BB6F3000, v39, OS_LOG_TYPE_INFO, "History database now has schema version of %d.", buf, 8u);
     }
 
     goto LABEL_68;
   }
 
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_items (id INTEGER PRIMARY KEY AUTOINCREMENT,url TEXT NOT NULL UNIQUE,domain_expansion TEXT NULL,visit_count INTEGER NOT NULL,daily_visit_counts BLOB NOT NULL,weekly_visit_counts BLOB NULL,autocomplete_triggers BLOB NULL,should_recompute_derived_visit_counts INTEGER NOT NULL,visit_count_score INTEGER NOT NULL,status_code INTEGER NOT NULL DEFAULT 0)") != 101)
+  v12 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_items (id INTEGER PRIMARY KEY AUTOINCREMENT,url TEXT NOT NULL UNIQUE,domain_expansion TEXT NULL,visit_count INTEGER NOT NULL,daily_visit_counts BLOB NOT NULL,weekly_visit_counts BLOB NULL,autocomplete_triggers BLOB NULL,should_recompute_derived_visit_counts INTEGER NOT NULL,visit_count_score INTEGER NOT NULL,status_code INTEGER NOT NULL DEFAULT 0)");
+  if (v12 != 101)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v40 = WBS_LOG_CHANNEL_PREFIXHistory(v12, v13);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -132,10 +134,11 @@ LABEL_67:
     goto LABEL_68;
   }
 
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_visits (id INTEGER PRIMARY KEY AUTOINCREMENT,history_item INTEGER NOT NULL REFERENCES history_items(id) ON DELETE CASCADE,visit_time REAL NOT NULL,title TEXT NULL,load_successful BOOLEAN NOT NULL DEFAULT 1,http_non_get BOOLEAN NOT NULL DEFAULT 0,synthesized BOOLEAN NOT NULL DEFAULT 0,redirect_source INTEGER NULL UNIQUE REFERENCES history_visits(id) ON DELETE CASCADE,redirect_destination INTEGER NULL UNIQUE REFERENCES history_visits(id) ON DELETE CASCADE,origin INTEGER NOT NULL DEFAULT 0,generation INTEGER NOT NULL DEFAULT 0,attributes INTEGER NOT NULL DEFAULT 0,score INTEGER NOT NULL DEFAULT 0)") != 101)
+  v14 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_visits (id INTEGER PRIMARY KEY AUTOINCREMENT,history_item INTEGER NOT NULL REFERENCES history_items(id) ON DELETE CASCADE,visit_time REAL NOT NULL,title TEXT NULL,load_successful BOOLEAN NOT NULL DEFAULT 1,http_non_get BOOLEAN NOT NULL DEFAULT 0,synthesized BOOLEAN NOT NULL DEFAULT 0,redirect_source INTEGER NULL UNIQUE REFERENCES history_visits(id) ON DELETE CASCADE,redirect_destination INTEGER NULL UNIQUE REFERENCES history_visits(id) ON DELETE CASCADE,origin INTEGER NOT NULL DEFAULT 0,generation INTEGER NOT NULL DEFAULT 0,attributes INTEGER NOT NULL DEFAULT 0,score INTEGER NOT NULL DEFAULT 0)");
+  if (v14 != 101)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v40 = WBS_LOG_CHANNEL_PREFIXHistory(v14, v15);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -145,10 +148,11 @@ LABEL_67:
     goto LABEL_63;
   }
 
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_tombstones (id INTEGER PRIMARY KEY AUTOINCREMENT,start_time REAL NOT NULL,end_time REAL NOT NULL,url TEXT,generation INTEGER NOT NULL DEFAULT 0)") != 101)
+  v16 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_tombstones (id INTEGER PRIMARY KEY AUTOINCREMENT,start_time REAL NOT NULL,end_time REAL NOT NULL,url TEXT,generation INTEGER NOT NULL DEFAULT 0)");
+  if (v16 != 101)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v40 = WBS_LOG_CHANNEL_PREFIXHistory(v16, v17);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -158,10 +162,11 @@ LABEL_67:
     goto LABEL_63;
   }
 
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE metadata (key TEXT NOT NULL UNIQUE, value)") != 101)
+  v18 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE metadata (key TEXT NOT NULL UNIQUE, value)");
+  if (v18 != 101)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v40 = WBS_LOG_CHANNEL_PREFIXHistory(v18, v19);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -171,10 +176,11 @@ LABEL_67:
     goto LABEL_63;
   }
 
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_client_versions (client_version INTEGER PRIMARY KEY,last_seen REAL NOT NULL)") != 101)
+  v20 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_client_versions (client_version INTEGER PRIMARY KEY,last_seen REAL NOT NULL)");
+  if (v20 != 101)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v40 = WBS_LOG_CHANNEL_PREFIXHistory(v20, v21);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -184,10 +190,11 @@ LABEL_67:
     goto LABEL_63;
   }
 
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_event_listeners (listener_name TEXT PRIMARY KEY NOT NULL UNIQUE,last_seen REAL NOT NULL)") != 101)
+  v22 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_event_listeners (listener_name TEXT PRIMARY KEY NOT NULL UNIQUE,last_seen REAL NOT NULL)");
+  if (v22 != 101)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v40 = WBS_LOG_CHANNEL_PREFIXHistory(v22, v23);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -197,10 +204,11 @@ LABEL_67:
     goto LABEL_63;
   }
 
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_events (id INTEGER PRIMARY KEY AUTOINCREMENT,event_type TEXT NOT NULL,event_time REAL NOT NULL,pending_listeners TEXT NOT NULL,value BLOB)") != 101)
+  v24 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_events (id INTEGER PRIMARY KEY AUTOINCREMENT,event_type TEXT NOT NULL,event_time REAL NOT NULL,pending_listeners TEXT NOT NULL,value BLOB)");
+  if (v24 != 101)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v40 = WBS_LOG_CHANNEL_PREFIXHistory(v24, v25);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -210,10 +218,11 @@ LABEL_67:
     goto LABEL_63;
   }
 
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_tags (id INTEGER PRIMARY KEY,type INTEGER NOT NULL,level INTEGER NOT NULL,identifier TEXT NOT NULL,title TEXT NOT NULL,modification_timestamp REAL NOT NULL,item_count INTEGER NOT NULL DEFAULT 0)") != 101)
+  v26 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_tags (id INTEGER PRIMARY KEY,type INTEGER NOT NULL,level INTEGER NOT NULL,identifier TEXT NOT NULL,title TEXT NOT NULL,modification_timestamp REAL NOT NULL,item_count INTEGER NOT NULL DEFAULT 0)");
+  if (v26 != 101)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v40 = WBS_LOG_CHANNEL_PREFIXHistory(v26, v27);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -223,10 +232,11 @@ LABEL_67:
     goto LABEL_63;
   }
 
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_items_to_tags (history_item INTEGER NOT NULL,tag_id INTEGER NOT NULL,timestamp REAL NOT NULL,FOREIGN KEY(tag_id) REFERENCES history_tags(id) ON DELETE CASCADE,FOREIGN KEY(history_item) REFERENCES history_items(id) ON DELETE CASCADE,UNIQUE(history_item, tag_id) ON CONFLICT REPLACE)") != 101)
+  v28 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_items_to_tags (history_item INTEGER NOT NULL,tag_id INTEGER NOT NULL,timestamp REAL NOT NULL,FOREIGN KEY(tag_id) REFERENCES history_tags(id) ON DELETE CASCADE,FOREIGN KEY(history_item) REFERENCES history_items(id) ON DELETE CASCADE,UNIQUE(history_item, tag_id) ON CONFLICT REPLACE)");
+  if (v28 != 101)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v40 = WBS_LOG_CHANNEL_PREFIXHistory(v28, v29);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -236,10 +246,11 @@ LABEL_67:
     goto LABEL_63;
   }
 
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TRIGGER increment_count_on_insert AFTER INSERT ON history_items_to_tags BEGIN  UPDATE history_tags SET item_count = item_count + 1 WHERE id = NEW.tag_id;END;") != 101)
+  v30 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TRIGGER increment_count_on_insert AFTER INSERT ON history_items_to_tags BEGIN  UPDATE history_tags SET item_count = item_count + 1 WHERE id = NEW.tag_id;END;");
+  if (v30 != 101)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v40 = WBS_LOG_CHANNEL_PREFIXHistory(v30, v31);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -249,10 +260,11 @@ LABEL_67:
     goto LABEL_63;
   }
 
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TRIGGER decrement_count_on_delete BEFORE DELETE ON history_items_to_tags BEGIN  UPDATE history_tags SET item_count = item_count - 1 WHERE id = OLD.tag_id;END;") != 101)
+  v32 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TRIGGER decrement_count_on_delete BEFORE DELETE ON history_items_to_tags BEGIN  UPDATE history_tags SET item_count = item_count - 1 WHERE id = OLD.tag_id;END;");
+  if (v32 != 101)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v40 = WBS_LOG_CHANNEL_PREFIXHistory(v32, v33);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -262,27 +274,28 @@ LABEL_67:
     goto LABEL_63;
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v9 = [&unk_1F3A9B258 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v9)
+  v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v34 = [&unk_1F3A9B258 countByEnumeratingWithState:&v43 objects:v47 count:16];
+  if (v34)
   {
-    v10 = *v17;
+    v35 = *v44;
     while (2)
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v34; ++i)
       {
-        if (*v17 != v10)
+        if (*v44 != v35)
         {
           objc_enumerationMutation(&unk_1F3A9B258);
         }
 
-        if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, *(*(&v16 + 1) + 8 * i)) != 101)
+        v37 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, *(*(&v43 + 1) + 8 * i));
+        if (v37 != 101)
         {
-          v14 = WBS_LOG_CHANNEL_PREFIXHistory();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v41 = WBS_LOG_CHANNEL_PREFIXHistory(v37, v38);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
             [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
             objc_claimAutoreleasedReturnValue();
@@ -293,8 +306,8 @@ LABEL_67:
         }
       }
 
-      v9 = [&unk_1F3A9B258 countByEnumeratingWithState:&v16 objects:v20 count:16];
-      if (v9)
+      v34 = [&unk_1F3A9B258 countByEnumeratingWithState:&v43 objects:v47 count:16];
+      if (v34)
       {
         continue;
       }
@@ -313,24 +326,24 @@ LABEL_68:
 
 - (int)_setDatabaseSchemaVersion:(int)version
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   database = self->_database;
   v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PRAGMA user_version = %d", *&version];
   v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(database, 0, v6);
 
   if (v7 != 101)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXHistory(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       lastErrorMessage = [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       *buf = 67109634;
       versionCopy = version;
-      v13 = 2114;
-      v14 = lastErrorMessage;
-      v15 = 1024;
-      v16 = v7;
-      _os_log_error_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_ERROR, "Failed to set the database schema version to %d: %{public}@ (%d)", buf, 0x18u);
+      v15 = 2114;
+      v16 = lastErrorMessage;
+      v17 = 1024;
+      v18 = v7;
+      _os_log_error_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_ERROR, "Failed to set the database schema version to %d: %{public}@ (%d)", buf, 0x18u);
     }
   }
 
@@ -340,26 +353,27 @@ LABEL_68:
 - (int)_migrateToSchemaVersion:(int)version
 {
   v3 = *&version;
-  v15 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"_migrateToSchemaVersion_%d", *&version];
   v6 = NSSelectorFromString(v5);
 
   v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"BEGIN TRANSACTION");
   if (v7 == 101)
   {
-    v8 = [(WBSHistorySQLiteSchema *)self methodSignatureForSelector:v6];
-    v9 = [MEMORY[0x1E695DF50] invocationWithMethodSignature:v8];
-    [v9 setSelector:v6];
-    [v9 invokeWithTarget:self];
-    v14 = 1;
-    [v9 getReturnValue:&v14];
-    if (v14 == 101 && (v14 = [(WBSHistorySQLiteSchema *)self _setDatabaseSchemaVersion:v3], v14 == 101))
+    v9 = [(WBSHistorySQLiteSchema *)self methodSignatureForSelector:v6];
+    v10 = [MEMORY[0x1E695DF50] invocationWithMethodSignature:v9];
+    [v10 setSelector:v6];
+    [v10 invokeWithTarget:self];
+    v19 = 1;
+    [v10 getReturnValue:&v19];
+    if (v19 == 101 && (v19 = [(WBSHistorySQLiteSchema *)self _setDatabaseSchemaVersion:v3], v19 == 101))
     {
-      v10 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"COMMIT TRANSACTION");
-      if (v10 != 101)
+      v11 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"COMMIT TRANSACTION");
+      v13 = v11;
+      if (v11 != 101)
       {
-        v11 = WBS_LOG_CHANNEL_PREFIXHistory();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v14 = WBS_LOG_CHANNEL_PREFIXHistory(v11, v12);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
           objc_claimAutoreleasedReturnValue();
@@ -370,26 +384,30 @@ LABEL_68:
       }
     }
 
-    else if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ROLLBACK TRANSACTION") != 101)
+    else
     {
-      v12 = WBS_LOG_CHANNEL_PREFIXHistory();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v15 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ROLLBACK TRANSACTION");
+      if (v15 != 101)
       {
-        [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
-        objc_claimAutoreleasedReturnValue();
-        [WBSHistorySQLiteSchema _migrateToSchemaVersion:];
+        v17 = WBS_LOG_CHANNEL_PREFIXHistory(v15, v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        {
+          [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
+          objc_claimAutoreleasedReturnValue();
+          [WBSHistorySQLiteSchema _migrateToSchemaVersion:];
+        }
       }
     }
 
-    v10 = v14;
+    v13 = v19;
 LABEL_15:
 
     goto LABEL_16;
   }
 
-  v10 = v7;
-  v8 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v13 = v7;
+  v9 = WBS_LOG_CHANNEL_PREFIXHistory(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
     objc_claimAutoreleasedReturnValue();
@@ -398,7 +416,7 @@ LABEL_15:
 
 LABEL_16:
 
-  return v10;
+  return v13;
 }
 
 - (int)_migrateToSchemaVersion_2
@@ -406,9 +424,9 @@ LABEL_16:
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE history_visits ADD COLUMN origin INTEGER NOT NULL DEFAULT 0");
   if (v3 != 101)
   {
-    v4 = v3;
-    v5 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = v3;
+    v8 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -418,11 +436,12 @@ LABEL_16:
     goto LABEL_7;
   }
 
-  v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE INDEX history_visits__origin ON history_visits (origin)");
-  if (v4 != 101)
+  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE INDEX history_visits__origin ON history_visits (origin)");
+  v7 = v5;
+  if (v5 != 101)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXHistory(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -432,7 +451,7 @@ LABEL_16:
 LABEL_7:
   }
 
-  return v4;
+  return v7;
 }
 
 - (int)_migrateToSchemaVersion_3
@@ -440,9 +459,9 @@ LABEL_7:
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DROP INDEX history_visits__origin");
   if (v3 != 101)
   {
-    v5 = v3;
-    v6 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v9 = v3;
+    v10 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -452,26 +471,27 @@ LABEL_7:
     goto LABEL_10;
   }
 
-  v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE history_visits ADD COLUMN generation INTEGER NOT NULL DEFAULT 0");
-  if (v4 != 101)
-  {
-    v5 = v4;
-    v6 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
-      objc_claimAutoreleasedReturnValue();
-      [WBSHistorySQLiteSchema _migrateToSchemaVersion_3];
-    }
-
-    goto LABEL_10;
-  }
-
-  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE INDEX history_visits__origin ON history_visits (origin, generation)");
+  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE history_visits ADD COLUMN generation INTEGER NOT NULL DEFAULT 0");
   if (v5 != 101)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v9 = v5;
+    v10 = WBS_LOG_CHANNEL_PREFIXHistory(v5, v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
+      objc_claimAutoreleasedReturnValue();
+      [WBSHistorySQLiteSchema _migrateToSchemaVersion_3];
+    }
+
+    goto LABEL_10;
+  }
+
+  v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE INDEX history_visits__origin ON history_visits (origin, generation)");
+  v9 = v7;
+  if (v7 != 101)
+  {
+    v10 = WBS_LOG_CHANNEL_PREFIXHistory(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -481,7 +501,7 @@ LABEL_7:
 LABEL_10:
   }
 
-  return v5;
+  return v9;
 }
 
 - (int)_migrateToSchemaVersion_4
@@ -489,9 +509,9 @@ LABEL_10:
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_tombstones (id INTEGER PRIMARY KEY AUTOINCREMENT,start_time REAL NOT NULL,end_time REAL NOT NULL,url TEXT,generation INTEGER NOT NULL DEFAULT 0)");
   if (v3 != 101)
   {
-    v4 = v3;
-    v5 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = v3;
+    v8 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -501,11 +521,12 @@ LABEL_10:
     goto LABEL_7;
   }
 
-  v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE INDEX history_tombstones__generation ON history_tombstones (generation)");
-  if (v4 != 101)
+  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE INDEX history_tombstones__generation ON history_tombstones (generation)");
+  v7 = v5;
+  if (v5 != 101)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXHistory(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -515,16 +536,17 @@ LABEL_10:
 LABEL_7:
   }
 
-  return v4;
+  return v7;
 }
 
 - (int)_migrateToSchemaVersion_5
 {
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE history_items ADD COLUMN should_recompute_derived_visit_counts INTEGER NOT NULL DEFAULT 0");
+  v5 = v3;
   if (v3 != 101)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -532,7 +554,7 @@ LABEL_7:
     }
   }
 
-  return v3;
+  return v5;
 }
 
 - (int)_migrateToSchemaVersion_6
@@ -540,8 +562,8 @@ LABEL_7:
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DROP INDEX history_tombstones__end_time");
   if (v3 != 1 && v3 != 101)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -549,11 +571,12 @@ LABEL_7:
     }
   }
 
-  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE INDEX history_tombstones__end_time ON history_tombstones (end_time)");
-  if (v5 != 101)
+  v6 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE INDEX history_tombstones__end_time ON history_tombstones (end_time)");
+  v8 = v6;
+  if (v6 != 101)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXHistory(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -561,7 +584,7 @@ LABEL_7:
     }
   }
 
-  return v5;
+  return v8;
 }
 
 - (int)_migrateToSchemaVersion_7
@@ -569,8 +592,8 @@ LABEL_7:
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DROP INDEX history_visits__last_visit");
   if (v3 != 1 && v3 != 101)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -578,11 +601,12 @@ LABEL_7:
     }
   }
 
-  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE INDEX history_visits__last_visit ON history_visits (history_item, visit_time DESC, synthesized ASC)");
-  if (v5 != 101)
+  v6 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE INDEX history_visits__last_visit ON history_visits (history_item, visit_time DESC, synthesized ASC)");
+  v8 = v6;
+  if (v6 != 101)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXHistory(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -590,17 +614,18 @@ LABEL_7:
     }
   }
 
-  return v5;
+  return v8;
 }
 
 - (int)_migrateToSchemaVersion_8
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_client_versions (client_version INTEGER PRIMARY KEY,last_seen REAL NOT NULL)");
+  v5 = v3;
   if (v3 != 101)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -608,76 +633,76 @@ LABEL_7:
     }
   }
 
-  v22 = SafariShared::WBSSQLiteDatabaseFetch<>(self->_database, @"SELECT id, url FROM history_tombstones WHERE url IS NOT NULL");
-  v24 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v24 = SafariShared::WBSSQLiteDatabaseFetch<>(self->_database, @"SELECT id, url FROM history_tombstones WHERE url IS NOT NULL");
+  v26 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v35 = 0u;
+  v36 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  obj = v22;
-  v5 = [obj countByEnumeratingWithState:&v31 objects:v38 count:16];
-  if (v5)
+  obj = v24;
+  v7 = [obj countByEnumeratingWithState:&v33 objects:v40 count:16];
+  if (v7)
   {
-    v6 = *v32;
+    v8 = *v34;
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v32 != v6)
+        if (*v34 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v31 + 1) + 8 * i);
-        v9 = [v8 int64AtIndex:0];
-        v10 = [v8 stringAtIndex:1];
+        v10 = *(*(&v33 + 1) + 8 * i);
+        v11 = [v10 int64AtIndex:0];
+        v12 = [v10 stringAtIndex:1];
         crypto = self->_crypto;
-        v36 = @"url";
-        v37 = v10;
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-        v13 = [(WBSHistoryCrypto *)crypto encryptDictionary:v12];
-        v14 = [MEMORY[0x1E696AD98] numberWithLongLong:v9];
-        [v24 setObject:v13 forKeyedSubscript:v14];
+        v38 = @"url";
+        v39 = v12;
+        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+        v15 = [(WBSHistoryCrypto *)crypto encryptDictionary:v14];
+        v16 = [MEMORY[0x1E696AD98] numberWithLongLong:v11];
+        [v26 setObject:v15 forKeyedSubscript:v16];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v31 objects:v38 count:16];
+      v7 = [obj countByEnumeratingWithState:&v33 objects:v40 count:16];
     }
 
-    while (v5);
+    while (v7);
   }
 
+  v31 = 0u;
+  v32 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v15 = v24;
-  v16 = [v15 countByEnumeratingWithState:&v27 objects:v35 count:16];
-  if (v16)
+  v17 = v26;
+  v18 = [v17 countByEnumeratingWithState:&v29 objects:v37 count:16];
+  if (v18)
   {
-    v17 = *v28;
+    v19 = *v30;
     do
     {
-      for (j = 0; j != v16; ++j)
+      for (j = 0; j != v18; ++j)
       {
-        if (*v28 != v17)
+        if (*v30 != v19)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v17);
         }
 
-        v19 = *(*(&v27 + 1) + 8 * j);
-        v26 = [v15 objectForKeyedSubscript:v19];
+        v21 = *(*(&v29 + 1) + 8 * j);
+        v28 = [v17 objectForKeyedSubscript:v21];
         database = self->_database;
-        integerValue = [v19 integerValue];
-        v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSData * {__strong}&,long>(database, 0, @"UPDATE history_tombstones SET url = ? WHERE id = ?", &v26, &integerValue);
+        integerValue = [v21 integerValue];
+        v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSData * {__strong}&,long>(database, 0, @"UPDATE history_tombstones SET url = ? WHERE id = ?", &v28, &integerValue);
       }
 
-      v16 = [v15 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v29 objects:v37 count:16];
     }
 
-    while (v16);
+    while (v18);
   }
 
-  return v3;
+  return v5;
 }
 
 - (int)_migrateToSchemaVersion_9
@@ -685,22 +710,22 @@ LABEL_7:
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE history_items ADD COLUMN visit_count_score INTEGER NOT NULL DEFAULT 0");
   if (v3 == 101)
   {
-    v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE history_visits ADD COLUMN attributes INTEGER NOT NULL DEFAULT 0");
-    if (v4 == 101)
+    v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE history_visits ADD COLUMN attributes INTEGER NOT NULL DEFAULT 0");
+    if (v5 == 101)
     {
       database = self->_database;
-      LODWORD(v5) = 1.0;
-      v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ALTER TABLE history_visits ADD COLUMN score INTEGER NOT NULL DEFAULT %lu", +[WBSHistoryVisit scoreForWeightedVisitCount:](WBSHistoryVisit, "scoreForWeightedVisitCount:", v5)];
-      v8 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(database, 0, v7);
+      LODWORD(v7) = 1.0;
+      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ALTER TABLE history_visits ADD COLUMN score INTEGER NOT NULL DEFAULT %lu", +[WBSHistoryVisit scoreForWeightedVisitCount:](WBSHistoryVisit, "scoreForWeightedVisitCount:", v7)];
+      v10 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(database, 0, v9);
 
-      if (v8 == 101)
+      if (v10 == 101)
       {
         function_v2 = sqlite3_create_function_v2([(WBSSQLiteDatabase *)self->_database handle], "safari_visitcountscore", 1, 2053, 0, sqliteVisitCountScore, 0, 0, 0);
         if (function_v2)
         {
-          v8 = function_v2;
-          v10 = WBS_LOG_CHANNEL_PREFIXHistory();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v10 = function_v2;
+          v15 = WBS_LOG_CHANNEL_PREFIXHistory(function_v2, v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
             objc_claimAutoreleasedReturnValue();
@@ -710,18 +735,18 @@ LABEL_7:
 
         else
         {
-          v12 = sqlite3_create_function_v2([(WBSSQLiteDatabase *)self->_database handle], "safari_visitblobscore", 1, 2053, 0, sqliteVisitBlobScore, 0, 0, 0);
-          if (!v12)
+          v17 = sqlite3_create_function_v2([(WBSSQLiteDatabase *)self->_database handle], "safari_visitblobscore", 1, 2053, 0, sqliteVisitBlobScore, 0, 0, 0);
+          if (!v17)
           {
-            v8 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"UPDATE history_items SET visit_count_score = safari_visitcountscore(visit_count), daily_visit_counts = safari_visitblobscore(daily_visit_counts), weekly_visit_counts = safari_visitblobscore(weekly_visit_counts)");
+            v10 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"UPDATE history_items SET visit_count_score = safari_visitcountscore(visit_count), daily_visit_counts = safari_visitblobscore(daily_visit_counts), weekly_visit_counts = safari_visitblobscore(weekly_visit_counts)");
             sqlite3_create_function_v2([(WBSSQLiteDatabase *)self->_database handle], "safari_visitcountscore", 0, 5, 0, 0, 0, 0, 0);
             sqlite3_create_function_v2([(WBSSQLiteDatabase *)self->_database handle], "safari_visitblobscore", 0, 5, 0, 0, 0, 0, 0);
-            return v8;
+            return v10;
           }
 
-          v8 = v12;
-          v10 = WBS_LOG_CHANNEL_PREFIXHistory();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v10 = v17;
+          v15 = WBS_LOG_CHANNEL_PREFIXHistory(v17, v18);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
             objc_claimAutoreleasedReturnValue();
@@ -732,8 +757,8 @@ LABEL_7:
 
       else
       {
-        v10 = WBS_LOG_CHANNEL_PREFIXHistory();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v15 = WBS_LOG_CHANNEL_PREFIXHistory(v11, v12);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
           objc_claimAutoreleasedReturnValue();
@@ -744,9 +769,9 @@ LABEL_7:
 
     else
     {
-      v8 = v4;
-      v10 = WBS_LOG_CHANNEL_PREFIXHistory();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v10 = v5;
+      v15 = WBS_LOG_CHANNEL_PREFIXHistory(v5, v6);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
         objc_claimAutoreleasedReturnValue();
@@ -757,9 +782,9 @@ LABEL_7:
 
   else
   {
-    v8 = v3;
-    v10 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v10 = v3;
+    v15 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -767,16 +792,17 @@ LABEL_7:
     }
   }
 
-  return v8;
+  return v10;
 }
 
 - (int)_migrateToSchemaVersion_10
 {
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE history_visits ADD COLUMN core_spotlight_id TEXT NULL");
+  v5 = v3;
   if (v3 != 101)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -784,7 +810,7 @@ LABEL_7:
     }
   }
 
-  return v3;
+  return v5;
 }
 
 - (int)_migrateToSchemaVersion_11
@@ -792,9 +818,9 @@ LABEL_7:
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_event_listeners (listener_name TEXT PRIMARY KEY,last_seen REAL NOT NULL)");
   if (v3 != 101)
   {
-    v4 = v3;
-    v5 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = v3;
+    v8 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -804,11 +830,12 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_events (id INTEGER PRIMARY KEY AUTOINCREMENT,event_type TEXT NOT NULL,event_time REAL NOT NULL,pending_listeners TEXT NOT NULL,value BLOB)");
-  if (v4 != 101)
+  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_events (id INTEGER PRIMARY KEY AUTOINCREMENT,event_type TEXT NOT NULL,event_time REAL NOT NULL,pending_listeners TEXT NOT NULL,value BLOB)");
+  v7 = v5;
+  if (v5 != 101)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXHistory(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -818,7 +845,7 @@ LABEL_7:
 LABEL_7:
   }
 
-  return v4;
+  return v7;
 }
 
 - (int)_migrateToSchemaVersion_12
@@ -826,9 +853,9 @@ LABEL_7:
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"PRAGMA foreign_keys = OFF");
   if (v3 != 101)
   {
-    v8 = v3;
-    v9 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v19 = v3;
+    v20 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -838,42 +865,10 @@ LABEL_7:
     goto LABEL_23;
   }
 
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE history_visits RENAME TO temp_history_visits") != 101)
+  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE history_visits RENAME TO temp_history_visits");
+  if (v5 != 101)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
-      objc_claimAutoreleasedReturnValue();
-      [WBSHistorySQLiteSchema _migrateToSchemaVersion_12];
-    }
-  }
-
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_visits (id INTEGER PRIMARY KEY AUTOINCREMENT,history_item INTEGER NOT NULL REFERENCES history_items(id) ON DELETE CASCADE,visit_time REAL NOT NULL,title TEXT NULL,load_successful BOOLEAN NOT NULL DEFAULT 1,http_non_get BOOLEAN NOT NULL DEFAULT 0,synthesized BOOLEAN NOT NULL DEFAULT 0,redirect_source INTEGER NULL UNIQUE REFERENCES history_visits(id) ON DELETE CASCADE,redirect_destination INTEGER NULL UNIQUE REFERENCES history_visits(id) ON DELETE CASCADE,origin INTEGER NOT NULL DEFAULT 0,generation INTEGER NOT NULL DEFAULT 0,attributes INTEGER NOT NULL DEFAULT 0,score INTEGER NOT NULL DEFAULT 0)") != 101)
-  {
-    v5 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
-      objc_claimAutoreleasedReturnValue();
-      [WBSHistorySQLiteSchema _migrateToSchemaVersion_12];
-    }
-  }
-
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"INSERT INTO history_visits (id, history_item, visit_time, title, load_successful, http_non_get, synthesized, redirect_source, redirect_destination, origin, generation, attributes, score) SELECT id, history_item, visit_time, title, load_successful, http_non_get, synthesized, redirect_source, redirect_destination, origin, generation, attributes, score FROM temp_history_visits") != 101)
-  {
-    v6 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
-      objc_claimAutoreleasedReturnValue();
-      [WBSHistorySQLiteSchema _migrateToSchemaVersion_12];
-    }
-  }
-
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DROP TABLE temp_history_visits") != 101)
-  {
-    v7 = WBS_LOG_CHANNEL_PREFIXHistory();
+    v7 = WBS_LOG_CHANNEL_PREFIXHistory(v5, v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
@@ -882,11 +877,48 @@ LABEL_7:
     }
   }
 
-  v8 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"PRAGMA foreign_keys = ON");
+  v8 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_visits (id INTEGER PRIMARY KEY AUTOINCREMENT,history_item INTEGER NOT NULL REFERENCES history_items(id) ON DELETE CASCADE,visit_time REAL NOT NULL,title TEXT NULL,load_successful BOOLEAN NOT NULL DEFAULT 1,http_non_get BOOLEAN NOT NULL DEFAULT 0,synthesized BOOLEAN NOT NULL DEFAULT 0,redirect_source INTEGER NULL UNIQUE REFERENCES history_visits(id) ON DELETE CASCADE,redirect_destination INTEGER NULL UNIQUE REFERENCES history_visits(id) ON DELETE CASCADE,origin INTEGER NOT NULL DEFAULT 0,generation INTEGER NOT NULL DEFAULT 0,attributes INTEGER NOT NULL DEFAULT 0,score INTEGER NOT NULL DEFAULT 0)");
   if (v8 != 101)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXHistory(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
+      objc_claimAutoreleasedReturnValue();
+      [WBSHistorySQLiteSchema _migrateToSchemaVersion_12];
+    }
+  }
+
+  v11 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"INSERT INTO history_visits (id, history_item, visit_time, title, load_successful, http_non_get, synthesized, redirect_source, redirect_destination, origin, generation, attributes, score) SELECT id, history_item, visit_time, title, load_successful, http_non_get, synthesized, redirect_source, redirect_destination, origin, generation, attributes, score FROM temp_history_visits");
+  if (v11 != 101)
+  {
+    v13 = WBS_LOG_CHANNEL_PREFIXHistory(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
+      objc_claimAutoreleasedReturnValue();
+      [WBSHistorySQLiteSchema _migrateToSchemaVersion_12];
+    }
+  }
+
+  v14 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DROP TABLE temp_history_visits");
+  if (v14 != 101)
+  {
+    v16 = WBS_LOG_CHANNEL_PREFIXHistory(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
+      objc_claimAutoreleasedReturnValue();
+      [WBSHistorySQLiteSchema _migrateToSchemaVersion_12];
+    }
+  }
+
+  v17 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"PRAGMA foreign_keys = ON");
+  v19 = v17;
+  if (v17 != 101)
+  {
+    v20 = WBS_LOG_CHANNEL_PREFIXHistory(v17, v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -896,7 +928,7 @@ LABEL_7:
 LABEL_23:
   }
 
-  return v8;
+  return v19;
 }
 
 - (int)_migrateToSchemaVersion_13
@@ -907,9 +939,9 @@ LABEL_23:
     goto LABEL_5;
   }
 
-  v4 = v3;
-  v5 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v5 = v3;
+  v6 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
     objc_claimAutoreleasedReturnValue();
@@ -919,14 +951,15 @@ LABEL_23:
   if (indexExists(self->_database, &cfstr_HistoryVisitsL.isa))
   {
 LABEL_5:
-    v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE INDEX history_visits__origin ON history_visits (origin, generation)");
-    if (v4 == 101)
+    v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE INDEX history_visits__origin ON history_visits (origin, generation)");
+    v5 = v7;
+    if (v7 == 101)
     {
       return 101;
     }
 
-    v6 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXHistory(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -939,7 +972,7 @@ LABEL_5:
     }
   }
 
-  return v4;
+  return v5;
 }
 
 - (int)_migrateToSchemaVersion_14
@@ -947,17 +980,18 @@ LABEL_5:
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_tags (id INTEGER PRIMARY KEY,type INTEGER NOT NULL,level INTEGER NOT NULL,identifier TEXT NOT NULL,title TEXT NOT NULL,modification_timestamp REAL NOT NULL,item_count INTEGER NOT NULL DEFAULT 0)");
   if (v3 == 101)
   {
-    v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_items_to_tags (history_item INTEGER NOT NULL,tag_id INTEGER NOT NULL,timestamp REAL NOT NULL,FOREIGN KEY(tag_id) REFERENCES history_tags(id) ON DELETE CASCADE,FOREIGN KEY(history_item) REFERENCES history_items(id) ON DELETE CASCADE,UNIQUE(history_item, tag_id) ON CONFLICT REPLACE)");
-    if (v4 == 101)
+    v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE history_items_to_tags (history_item INTEGER NOT NULL,tag_id INTEGER NOT NULL,timestamp REAL NOT NULL,FOREIGN KEY(tag_id) REFERENCES history_tags(id) ON DELETE CASCADE,FOREIGN KEY(history_item) REFERENCES history_items(id) ON DELETE CASCADE,UNIQUE(history_item, tag_id) ON CONFLICT REPLACE)");
+    if (v5 == 101)
     {
-      v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TRIGGER increment_count_on_insert AFTER INSERT ON history_items_to_tags BEGIN  UPDATE history_tags SET item_count = item_count + 1 WHERE id = NEW.tag_id;END;");
-      if (v5 == 101)
+      v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TRIGGER increment_count_on_insert AFTER INSERT ON history_items_to_tags BEGIN  UPDATE history_tags SET item_count = item_count + 1 WHERE id = NEW.tag_id;END;");
+      if (v7 == 101)
       {
-        v6 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TRIGGER decrement_count_on_delete BEFORE DELETE ON history_items_to_tags BEGIN  UPDATE history_tags SET item_count = item_count - 1 WHERE id = OLD.tag_id;END;");
-        if (v6 != 101)
+        v9 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TRIGGER decrement_count_on_delete BEFORE DELETE ON history_items_to_tags BEGIN  UPDATE history_tags SET item_count = item_count - 1 WHERE id = OLD.tag_id;END;");
+        v11 = v9;
+        if (v9 != 101)
         {
-          v7 = WBS_LOG_CHANNEL_PREFIXHistory();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+          v12 = WBS_LOG_CHANNEL_PREFIXHistory(v9, v10);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             [WBSHistorySQLiteSchema _migrateToSchemaVersion_14];
           }
@@ -966,9 +1000,9 @@ LABEL_5:
 
       else
       {
-        v6 = v5;
-        v10 = WBS_LOG_CHANNEL_PREFIXHistory();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v11 = v7;
+        v15 = WBS_LOG_CHANNEL_PREFIXHistory(v7, v8);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           [WBSHistorySQLiteSchema _migrateToSchemaVersion_14];
         }
@@ -977,9 +1011,9 @@ LABEL_5:
 
     else
     {
-      v6 = v4;
-      v9 = WBS_LOG_CHANNEL_PREFIXHistory();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = v5;
+      v14 = WBS_LOG_CHANNEL_PREFIXHistory(v5, v6);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [WBSHistorySQLiteSchema _migrateToSchemaVersion_14];
       }
@@ -988,20 +1022,20 @@ LABEL_5:
 
   else
   {
-    v6 = v3;
-    v8 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v11 = v3;
+    v13 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [WBSHistorySQLiteSchema _migrateToSchemaVersion_14];
     }
   }
 
-  return v6;
+  return v11;
 }
 
 - (int)_migrateToSchemaVersion_15
 {
-  v18[6] = *MEMORY[0x1E69E9840];
+  v22[6] = *MEMORY[0x1E69E9840];
   v3 = SafariShared::WBSSQLiteDatabaseFetch<NSString * const {__strong}&>(self->_database, @"SELECT value FROM metadata WHERE key = ?", WBSHistorySQLiteStoreSyncsWithManateeContainerKey);
   nextObject = [v3 nextObject];
   v5 = [nextObject int64AtIndex:0];
@@ -1041,12 +1075,13 @@ LABEL_5:
     v14 = v13;
   }
 
-  v18[0] = v14 + 1;
-  v15 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<long long &,NSString * const {__strong}&>(self->_database, 0, @"UPDATE metadata SET value = ? WHERE key = ?", v18, WBSHistorySQLiteStoreCurrentGenerationKey);
+  v22[0] = v14 + 1;
+  v15 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<long long &,NSString * const {__strong}&>(self->_database, 0, @"UPDATE metadata SET value = ? WHERE key = ?", v22, WBSHistorySQLiteStoreCurrentGenerationKey);
+  v17 = v15;
   if (v15 != 101)
   {
-    v16 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = WBS_LOG_CHANNEL_PREFIXHistory(v15, v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -1060,14 +1095,15 @@ LABEL_12:
 
   if (![(WBSSQLiteDatabase *)self->_database changedRowCount])
   {
-    v15 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * const {__strong}&,long long &>(self->_database, 0, @"INSERT INTO metadata (key, value) VALUES (?, ?)", WBSHistorySQLiteStoreCurrentGenerationKey, v18);
-    if (v15 == 101)
+    v20 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * const {__strong}&,long long &>(self->_database, 0, @"INSERT INTO metadata (key, value) VALUES (?, ?)", WBSHistorySQLiteStoreCurrentGenerationKey, v22);
+    v17 = v20;
+    if (v20 == 101)
     {
       goto LABEL_13;
     }
 
-    v16 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = WBS_LOG_CHANNEL_PREFIXHistory(v20, v21);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -1078,19 +1114,20 @@ LABEL_12:
   }
 
 LABEL_9:
-  v15 = 101;
+  v17 = 101;
 LABEL_13:
 
-  return v15;
+  return v17;
 }
 
 - (int)_migrateToSchemaVersion_16
 {
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE history_items ADD COLUMN status_code INTEGER NOT NULL DEFAULT 0");
+  v5 = v3;
   if (v3 != 101)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -1098,7 +1135,7 @@ LABEL_13:
     }
   }
 
-  return v3;
+  return v5;
 }
 
 + (id)legacyHistoryPropertyListURL
@@ -1125,32 +1162,32 @@ LABEL_13:
 
 - (int64_t)_migrateLegacyItem:(id)item dailyVisitCounts:(void *)counts weeklyVisitCounts:(void *)visitCounts
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   itemCopy = item;
-  v65 = [itemCopy safari_stringForKey:&stru_1F3A5E418];
-  v47 = [itemCopy safari_arrayContainingObjectsOfClass:objc_opt_class() forKey:@"D"];
+  v67 = [itemCopy safari_stringForKey:&stru_1F3A5E418];
+  v49 = [itemCopy safari_arrayContainingObjectsOfClass:objc_opt_class() forKey:@"D"];
   v9 = [itemCopy safari_arrayContainingObjectsOfClass:objc_opt_class() forKey:@"W"];
   v10 = [itemCopy safari_numberForKey:@"visitCount"];
   intValue = [v10 intValue];
 
-  v64 = intValue;
+  v66 = intValue;
   v12 = [itemCopy safari_arrayContainingObjectsOfClass:objc_opt_class() forKey:@"autocomplete"];
-  v62 = 0;
+  v64 = 0;
   data = 0;
   v13 = 0x1E695D000;
-  v61 = 0;
-  if (!(v47 | v9))
+  v63 = 0;
+  if (!(v49 | v9))
   {
 LABEL_47:
     data = [*(v13 + 3824) data];
     goto LABEL_48;
   }
 
-  v66 = 0;
-  v67 = 0;
-  v59 = 0;
-  v60 = 0;
-  v14 = [v47 count];
+  v68 = 0;
+  v69 = 0;
+  v61 = 0;
+  v62 = 0;
+  v14 = [v49 count];
   if (v14)
   {
     if (v14 >> 30)
@@ -1158,8 +1195,8 @@ LABEL_47:
       goto LABEL_57;
     }
 
-    LODWORD(v67) = v14;
-    v66 = WTF::fastMalloc((4 * v14));
+    LODWORD(v69) = v14;
+    v68 = WTF::fastMalloc((4 * v14));
   }
 
   v15 = [v9 count];
@@ -1175,29 +1212,29 @@ LABEL_57:
     JUMPOUT(0x1BB7F9E90);
   }
 
-  LODWORD(v60) = v15;
-  v59 = WTF::fastMalloc((4 * v15));
+  LODWORD(v62) = v15;
+  v61 = WTF::fastMalloc((4 * v15));
 LABEL_8:
   selfCopy = self;
+  v59 = 0u;
+  v60 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v55 = 0u;
-  v56 = 0u;
-  v16 = v47;
-  v17 = [v16 countByEnumeratingWithState:&v55 objects:v69 count:16];
+  v16 = v49;
+  v17 = [v16 countByEnumeratingWithState:&v57 objects:v71 count:16];
   if (v17)
   {
-    v18 = *v56;
+    v18 = *v58;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v56 != v18)
+        if (*v58 != v18)
         {
           objc_enumerationMutation(v16);
         }
 
-        intValue2 = [*(*(&v55 + 1) + 8 * i) intValue];
+        intValue2 = [*(*(&v57 + 1) + 8 * i) intValue];
         if (intValue2 <= 0x12C)
         {
           v21 = intValue2;
@@ -1208,11 +1245,11 @@ LABEL_8:
           v21 = 0;
         }
 
-        v54 = v21;
+        v56 = v21;
         v22 = *(counts + 3);
         if (v22 == *(counts + 2))
         {
-          *(*counts + 4 * *(counts + 3)) = *WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA::State,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(counts, v22 + 1, &v54);
+          *(*counts + 4 * *(counts + 3)) = *WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA::State,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(counts, v22 + 1, &v56);
         }
 
         else
@@ -1221,47 +1258,47 @@ LABEL_8:
         }
 
         ++*(counts + 3);
-        v23 = WBSHistoryVisitScoreForWeightedVisitCount(v54);
-        v53 = v23;
-        if (HIDWORD(v67) == v67)
+        v23 = WBSHistoryVisitScoreForWeightedVisitCount(v56);
+        v55 = v23;
+        if (HIDWORD(v69) == v69)
         {
-          v24 = WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA::State,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v66, HIDWORD(v67) + 1, &v53);
-          *(v66 + HIDWORD(v67)) = *v24;
+          v24 = WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA::State,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v68, HIDWORD(v69) + 1, &v55);
+          *(v68 + HIDWORD(v69)) = *v24;
         }
 
         else
         {
-          *(v66 + HIDWORD(v67)) = v23;
+          *(v68 + HIDWORD(v69)) = v23;
         }
 
-        ++HIDWORD(v67);
+        ++HIDWORD(v69);
       }
 
-      v17 = [v16 countByEnumeratingWithState:&v55 objects:v69 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v57 objects:v71 count:16];
     }
 
     while (v17);
   }
 
+  v53 = 0u;
+  v54 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
   v25 = v9;
-  v26 = [v25 countByEnumeratingWithState:&v49 objects:v68 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v51 objects:v70 count:16];
   if (v26)
   {
-    v27 = *v50;
+    v27 = *v52;
     do
     {
       for (j = 0; j != v26; ++j)
       {
-        if (*v50 != v27)
+        if (*v52 != v27)
         {
           objc_enumerationMutation(v25);
         }
 
-        intValue3 = [*(*(&v49 + 1) + 8 * j) intValue];
+        intValue3 = [*(*(&v51 + 1) + 8 * j) intValue];
         if (intValue3 <= 0x834)
         {
           v30 = intValue3;
@@ -1272,11 +1309,11 @@ LABEL_8:
           v30 = 0;
         }
 
-        v54 = v30;
+        v56 = v30;
         v31 = *(visitCounts + 3);
         if (v31 == *(visitCounts + 2))
         {
-          *(*visitCounts + 4 * *(visitCounts + 3)) = *WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA::State,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(visitCounts, v31 + 1, &v54);
+          *(*visitCounts + 4 * *(visitCounts + 3)) = *WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA::State,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(visitCounts, v31 + 1, &v56);
         }
 
         else
@@ -1285,51 +1322,51 @@ LABEL_8:
         }
 
         ++*(visitCounts + 3);
-        v32 = WBSHistoryVisitScoreForWeightedVisitCount(v54);
-        v53 = v32;
-        if (HIDWORD(v60) == v60)
+        v32 = WBSHistoryVisitScoreForWeightedVisitCount(v56);
+        v55 = v32;
+        if (HIDWORD(v62) == v62)
         {
-          v33 = WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA::State,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v59, HIDWORD(v60) + 1, &v53);
-          *(v59 + HIDWORD(v60)) = *v33;
+          v33 = WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA::State,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v61, HIDWORD(v62) + 1, &v55);
+          *(v61 + HIDWORD(v62)) = *v33;
         }
 
         else
         {
-          *(v59 + HIDWORD(v60)) = v32;
+          *(v61 + HIDWORD(v62)) = v32;
         }
 
-        ++HIDWORD(v60);
+        ++HIDWORD(v62);
       }
 
-      v26 = [v25 countByEnumeratingWithState:&v49 objects:v68 count:16];
+      v26 = [v25 countByEnumeratingWithState:&v51 objects:v70 count:16];
     }
 
     while (v26);
   }
 
-  WBSHistoryCollapseDailyVisitsToWeekly(&v66, &v59);
+  WBSHistoryCollapseDailyVisitsToWeekly(&v68, &v61);
   self = selfCopy;
   v13 = 0x1E695D000uLL;
-  v35 = [MEMORY[0x1E695DEF0] dataWithBytes:v66 length:4 * HIDWORD(v67)];
+  v35 = [MEMORY[0x1E695DEF0] dataWithBytes:v68 length:4 * HIDWORD(v69)];
   data = v35;
   if (*(visitCounts + 3))
   {
-    v62 = [MEMORY[0x1E695DEF0] dataWithBytes:v59 length:4 * HIDWORD(v60)];
+    v64 = [MEMORY[0x1E695DEF0] dataWithBytes:v61 length:4 * HIDWORD(v62)];
   }
 
-  v36 = v59;
-  if (v59)
+  v36 = v61;
+  if (v61)
   {
-    v59 = 0;
-    LODWORD(v60) = 0;
+    v61 = 0;
+    LODWORD(v62) = 0;
     WTF::fastFree(v36, v34);
   }
 
-  v37 = v66;
-  if (v66)
+  v37 = v68;
+  if (v68)
   {
-    v66 = 0;
-    LODWORD(v67) = 0;
+    v68 = 0;
+    LODWORD(v69) = 0;
     WTF::fastFree(v37, v34);
   }
 
@@ -1341,22 +1378,23 @@ LABEL_8:
 LABEL_48:
   if ([v12 count])
   {
-    v61 = [MEMORY[0x1E696AE40] dataWithPropertyList:v12 format:100 options:0 error:0];
+    v63 = [MEMORY[0x1E696AE40] dataWithPropertyList:v12 format:100 options:0 error:0];
   }
 
   database = self->_database;
-  v48 = 0;
-  LODWORD(v66) = WBSHistoryVisitScoreForWeightedVisitCount(intValue);
-  v39 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * {__strong}&,int &,int,NSData * {__strong}&,NSData * {__strong}&,NSData * {__strong}&>(database, &v48, @"INSERT INTO history_items (url, visit_count, visit_count_score, daily_visit_counts, weekly_visit_counts, autocomplete_triggers, domain_expansion, should_recompute_derived_visit_counts) VALUES (?,?,?,?,?,?,safari_domainexpansion(?1),0)", &v65, &v64, &v66, &data, &v62, &v61);
-  v40 = v48;
+  v50 = 0;
+  LODWORD(v68) = WBSHistoryVisitScoreForWeightedVisitCount(intValue);
+  v39 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * {__strong}&,int &,int,NSData * {__strong}&,NSData * {__strong}&,NSData * {__strong}&>(database, &v50, @"INSERT INTO history_items (url, visit_count, visit_count_score, daily_visit_counts, weekly_visit_counts, autocomplete_triggers, domain_expansion, should_recompute_derived_visit_counts) VALUES (?,?,?,?,?,?,safari_domainexpansion(?1),0)", &v67, &v66, &v68, &data, &v64, &v63);
+  v40 = v50;
+  v42 = v40;
   if (v39 && v39 != 101)
   {
-    v42 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    v44 = WBS_LOG_CHANNEL_PREFIXHistory(v40, v41);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
-      v43 = v65;
-      safari_privacyPreservingDescription = [v40 safari_privacyPreservingDescription];
-      [WBSHistorySQLiteSchema _migrateLegacyItem:v43 dailyVisitCounts:safari_privacyPreservingDescription weeklyVisitCounts:&v66];
+      v45 = v67;
+      safari_privacyPreservingDescription = [v42 safari_privacyPreservingDescription];
+      [WBSHistorySQLiteSchema _migrateLegacyItem:v45 dailyVisitCounts:safari_privacyPreservingDescription weeklyVisitCounts:&v68];
     }
 
     lastInsertRowID = 0;
@@ -1372,8 +1410,8 @@ LABEL_48:
 
 - (int64_t)_migrateLegacyVisitWithItemID:(int64_t)d visitTime:(double)time title:(id)title score:(unint64_t)score loadSuccessful:(BOOL)successful httpNonGet:(BOOL)get synthesized:(BOOL)synthesized
 {
-  v26[4] = *MEMORY[0x1E69E9840];
-  v26[0] = d;
+  v28[4] = *MEMORY[0x1E69E9840];
+  v28[0] = d;
   timeCopy = time;
   scoreCopy = score;
   titleCopy = title;
@@ -1381,15 +1419,16 @@ LABEL_48:
   getCopy = get;
   synthesizedCopy = synthesized;
   database = self->_database;
-  v19 = 0;
-  v14 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<long long &,double &,NSString * {__strong}&,unsigned long &,BOOL &,BOOL &,BOOL &>(database, &v19, @"INSERT INTO history_visits (history_item, visit_time, title, score, load_successful, http_non_get, synthesized) VALUES (?,?,?,?,?,?,?)", v26, &timeCopy, &titleCopy, &scoreCopy, &successfulCopy, &getCopy, &synthesizedCopy);
-  v15 = v19;
+  v21 = 0;
+  v14 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<long long &,double &,NSString * {__strong}&,unsigned long &,BOOL &,BOOL &,BOOL &>(database, &v21, @"INSERT INTO history_visits (history_item, visit_time, title, score, load_successful, http_non_get, synthesized) VALUES (?,?,?,?,?,?,?)", v28, &timeCopy, &titleCopy, &scoreCopy, &successfulCopy, &getCopy, &synthesizedCopy);
+  v15 = v21;
+  v17 = v15;
   if (v14 && v14 != 101)
   {
-    v17 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = WBS_LOG_CHANNEL_PREFIXHistory(v15, v16);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [v15 safari_privacyPreservingDescription];
+      [v17 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       [WBSHistorySQLiteSchema _migrateLegacyVisitWithItemID:visitTime:title:score:loadSuccessful:httpNonGet:synthesized:];
     }
@@ -1581,210 +1620,215 @@ LABEL_48:
 
 - (BOOL)migrateLegacyDatabaseCreatingRedirectChains:(id)chains urlsToItemAndLastVisitID:(id)d visitsToUseForRedirectChains:(id)redirectChains
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   chainsCopy = chains;
   dCopy = d;
   redirectChainsCopy = redirectChains;
-  v74 = WBSHistoryVisitScoreForWeightedVisitCount(1.0);
-  v70 = 0u;
-  v71 = 0u;
-  v72 = 0u;
-  v73 = 0u;
+  v85 = WBSHistoryVisitScoreForWeightedVisitCount(1.0);
+  v81 = 0u;
+  v82 = 0u;
+  v83 = 0u;
+  v84 = 0u;
   obj = chainsCopy;
-  v52 = [obj countByEnumeratingWithState:&v70 objects:v79 count:{16, chainsCopy}];
-  if (v52)
+  v63 = [obj countByEnumeratingWithState:&v81 objects:v90 count:{16, chainsCopy}];
+  if (v63)
   {
-    v51 = *v71;
+    v62 = *v82;
     do
     {
-      for (i = 0; i != v52; ++i)
+      for (i = 0; i != v63; ++i)
       {
-        if (*v71 != v51)
+        if (*v82 != v62)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v70 + 1) + 8 * i);
+        v9 = *(*(&v81 + 1) + 8 * i);
         v10 = [v9 safari_stringForKey:@"lastVisitedDate"];
         [v10 doubleValue];
         v12 = v11;
 
         v13 = [v9 safari_stringForKey:&stru_1F3A5E418];
-        v53 = [v9 safari_arrayContainingObjectsOfClass:objc_opt_class() forKey:@"redirectURLs"];
+        v64 = [v9 safari_arrayContainingObjectsOfClass:objc_opt_class() forKey:@"redirectURLs"];
         v14 = [dCopy objectForKeyedSubscript:v13];
         first = [v14 first];
         longValue = [first longValue];
 
-        v69 = longValue;
-        v65 = 0u;
-        v66 = 0u;
-        v67 = 0u;
-        v68 = 0u;
-        v57 = v53;
-        v17 = [v57 countByEnumeratingWithState:&v65 objects:v78 count:16];
+        v80 = longValue;
+        v76 = 0u;
+        v77 = 0u;
+        v78 = 0u;
+        v79 = 0u;
+        v68 = v64;
+        v17 = [v68 countByEnumeratingWithState:&v76 objects:v89 count:16];
         if (v17)
         {
-          v18 = *v66;
+          v18 = *v77;
           do
           {
             for (j = 0; j != v17; ++j)
             {
-              if (*v66 != v18)
+              if (*v77 != v18)
               {
-                objc_enumerationMutation(v57);
+                objc_enumerationMutation(v68);
               }
 
-              v20 = *(*(&v65 + 1) + 8 * j);
+              v20 = *(*(&v76 + 1) + 8 * j);
               if (([v20 isEqualToString:v13] & 1) == 0)
               {
                 v21 = [dCopy objectForKeyedSubscript:v20];
-                v22 = v21;
+                v23 = v21;
                 if (v21)
                 {
                   first2 = [v21 first];
                   longValue2 = [first2 longValue];
 
-                  v64 = longValue2;
-                  second = [v22 second];
+                  v75 = longValue2;
+                  second = [v23 second];
                   longValue3 = [second longValue];
 
-                  v63 = longValue3;
-                  v27 = [MEMORY[0x1E696AD98] numberWithLongLong:longValue3];
-                  LOBYTE(longValue3) = [redirectChainsCopy containsObject:v27];
+                  v74 = longValue3;
+                  v28 = [MEMORY[0x1E696AD98] numberWithLongLong:longValue3];
+                  LOBYTE(longValue3) = [redirectChainsCopy containsObject:v28];
 
                   if (longValue3)
                   {
-                    v28 = [MEMORY[0x1E696AD98] numberWithLongLong:v63];
-                    [redirectChainsCopy removeObject:v28];
+                    v29 = [MEMORY[0x1E696AD98] numberWithLongLong:v74];
+                    [redirectChainsCopy removeObject:v29];
 
-                    v29 = 0;
+                    v30 = 0;
                     goto LABEL_15;
                   }
 
-                  v63 = [(WBSHistorySQLiteSchema *)self _migrateLegacyVisitWithItemID:v64 visitTime:0 title:v74 score:1 loadSuccessful:0 httpNonGet:1 synthesized:v12];
-                  if (v63)
+                  v74 = [(WBSHistorySQLiteSchema *)self _migrateLegacyVisitWithItemID:v75 visitTime:0 title:v85 score:1 loadSuccessful:0 httpNonGet:1 synthesized:v12];
+                  if (v74)
                   {
                     lastInsertRowID = [(WBSSQLiteDatabase *)self->_database lastInsertRowID];
-                    v62 = 0;
-                    v63 = lastInsertRowID;
-                    v41 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<unsigned long const&,long long &>(self->_database, &v62, @"UPDATE history_items SET visit_count = visit_count + 1, visit_count_score = visit_count_score + ? WHERE id = ?", &v74, &v64);
-                    v29 = v62;
-                    if (v41 && v41 != 101)
+                    v73 = 0;
+                    v74 = lastInsertRowID;
+                    v47 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<unsigned long const&,long long &>(self->_database, &v73, @"UPDATE history_items SET visit_count = visit_count + 1, visit_count_score = visit_count_score + ? WHERE id = ?", &v85, &v75);
+                    v48 = v73;
+                    v30 = v48;
+                    if (v47 && v47 != 101)
                     {
-                      v42 = WBS_LOG_CHANNEL_PREFIXHistory();
-                      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+                      v50 = WBS_LOG_CHANNEL_PREFIXHistory(v48, v49);
+                      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
                       {
-                        safari_privacyPreservingDescription = [v29 safari_privacyPreservingDescription];
+                        safari_privacyPreservingDescription = [v30 safari_privacyPreservingDescription];
                         *buf = 138478083;
                         *&buf[4] = v20;
-                        v76 = 2114;
-                        v77 = safari_privacyPreservingDescription;
-                        _os_log_error_impl(&dword_1BB6F3000, v42, OS_LOG_TYPE_ERROR, "Failed to update score of %{private}@: %{public}@", buf, 0x16u);
+                        v87 = 2114;
+                        v88 = safari_privacyPreservingDescription;
+                        _os_log_error_impl(&dword_1BB6F3000, v50, OS_LOG_TYPE_ERROR, "Failed to update score of %{private}@: %{public}@", buf, 0x16u);
                       }
 
                       goto LABEL_45;
                     }
 
 LABEL_15:
-                    v60 = v29;
-                    v61 = 0;
+                    v71 = v30;
+                    v72 = 0;
                     database = self->_database;
-                    *buf = &v61;
-                    v31 = SafariShared::WBSSQLiteDatabaseEnumerate<long long &,std::tuple<long long &>>(database, &v60, @"SELECT id FROM history_visits WHERE id = ? AND redirect_source IS NULL ORDER BY visit_time DESC LIMIT 1", &v69, buf);
-                    v32 = v60;
+                    *buf = &v72;
+                    v32 = SafariShared::WBSSQLiteDatabaseEnumerate<long long &,std::tuple<long long &>>(database, &v71, @"SELECT id FROM history_visits WHERE id = ? AND redirect_source IS NULL ORDER BY visit_time DESC LIMIT 1", &v80, buf);
+                    v33 = v71;
 
-                    if (v31)
+                    if (v32)
                     {
 LABEL_16:
-                      v33 = self->_database;
-                      v59 = v32;
-                      v34 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<long long &,long long &>(v33, &v59, @"UPDATE history_visits SET redirect_source = ? WHERE id = ?", &v63, &v61);
-                      v35 = v59;
+                      v34 = self->_database;
+                      v70 = v33;
+                      v35 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<long long &,long long &>(v34, &v70, @"UPDATE history_visits SET redirect_source = ? WHERE id = ?", &v74, &v72);
+                      v36 = v70;
 
-                      v32 = v35;
-                      if (v34 && v34 != 101)
+                      v33 = v36;
+                      if (v35 && v35 != 101)
                       {
-                        v43 = WBS_LOG_CHANNEL_PREFIXHistory();
-                        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+                        v54 = WBS_LOG_CHANNEL_PREFIXHistory(v37, v38);
+                        if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
                         {
-                          safari_privacyPreservingDescription2 = [v35 safari_privacyPreservingDescription];
+                          safari_privacyPreservingDescription2 = [v36 safari_privacyPreservingDescription];
                           *buf = 138478083;
                           *&buf[4] = v13;
-                          v76 = 2114;
-                          v77 = safari_privacyPreservingDescription2;
-                          _os_log_error_impl(&dword_1BB6F3000, v43, OS_LOG_TYPE_ERROR, "Failed to set redirect source for %{private}@: %{public}@", buf, 0x16u);
+                          v87 = 2114;
+                          v88 = safari_privacyPreservingDescription2;
+                          _os_log_error_impl(&dword_1BB6F3000, v54, OS_LOG_TYPE_ERROR, "Failed to set redirect source for %{private}@: %{public}@", buf, 0x16u);
                         }
                       }
 
                       else
                       {
-                        v36 = self->_database;
-                        v58 = v35;
-                        v37 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<long long &,long long &>(v36, &v58, @"UPDATE history_visits SET redirect_destination = ? WHERE id = ?", &v61, &v63);
-                        v38 = v58;
+                        v39 = self->_database;
+                        v69 = v36;
+                        v40 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<long long &,long long &>(v39, &v69, @"UPDATE history_visits SET redirect_destination = ? WHERE id = ?", &v72, &v74);
+                        v41 = v69;
 
-                        if (!v37 || v37 == 101)
+                        if (!v40 || v40 == 101)
                         {
-                          v32 = v38;
+                          v33 = v41;
 LABEL_44:
-                          v29 = v32;
+                          v30 = v33;
                           goto LABEL_45;
                         }
 
-                        v43 = WBS_LOG_CHANNEL_PREFIXHistory();
-                        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+                        v54 = WBS_LOG_CHANNEL_PREFIXHistory(v42, v43);
+                        if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
                         {
-                          safari_privacyPreservingDescription3 = [v38 safari_privacyPreservingDescription];
+                          safari_privacyPreservingDescription3 = [v41 safari_privacyPreservingDescription];
                           *buf = 138478083;
                           *&buf[4] = v13;
-                          v76 = 2114;
-                          v77 = safari_privacyPreservingDescription3;
-                          _os_log_error_impl(&dword_1BB6F3000, v43, OS_LOG_TYPE_ERROR, "Failed to set redirect source for %{private}@: %{public}@", buf, 0x16u);
+                          v87 = 2114;
+                          v88 = safari_privacyPreservingDescription3;
+                          _os_log_error_impl(&dword_1BB6F3000, v54, OS_LOG_TYPE_ERROR, "Failed to set redirect source for %{private}@: %{public}@", buf, 0x16u);
                         }
 
-                        v32 = v38;
-                      }
-                    }
-
-                    else if ([v32 safari_isSQLiteError]&& [v32 code]== 101)
-                    {
-                      v61 = [(WBSHistorySQLiteSchema *)self _migrateLegacyVisitWithItemID:v69 visitTime:0 title:v74 score:1 loadSuccessful:0 httpNonGet:1 synthesized:v12];
-                      if (v61)
-                      {
-                        goto LABEL_16;
-                      }
-
-                      v43 = WBS_LOG_CHANNEL_PREFIXHistory();
-                      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
-                      {
-                        safari_privacyPreservingDescription4 = [v32 safari_privacyPreservingDescription];
-                        *buf = 138478083;
-                        *&buf[4] = v20;
-                        v76 = 2114;
-                        v77 = safari_privacyPreservingDescription4;
-                        _os_log_error_impl(&dword_1BB6F3000, v43, OS_LOG_TYPE_ERROR, "Failed to update visit count scores for %{private}@: %{public}@", buf, 0x16u);
+                        v33 = v41;
                       }
                     }
 
                     else
                     {
-                      v43 = WBS_LOG_CHANNEL_PREFIXHistory();
-                      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+                      safari_isSQLiteError = [v33 safari_isSQLiteError];
+                      if (safari_isSQLiteError && (safari_isSQLiteError = [v33 code], safari_isSQLiteError == 101))
                       {
-                        safari_privacyPreservingDescription5 = [v32 safari_privacyPreservingDescription];
-                        *buf = 138478083;
-                        *&buf[4] = v13;
-                        v76 = 2114;
-                        v77 = safari_privacyPreservingDescription5;
-                        _os_log_error_impl(&dword_1BB6F3000, v43, OS_LOG_TYPE_ERROR, "Failed to set redirect source for %{private}@: %{public}@", buf, 0x16u);
+                        v72 = [(WBSHistorySQLiteSchema *)self _migrateLegacyVisitWithItemID:v80 visitTime:0 title:v85 score:1 loadSuccessful:0 httpNonGet:1 synthesized:v12];
+                        if (v72)
+                        {
+                          goto LABEL_16;
+                        }
+
+                        v54 = WBS_LOG_CHANNEL_PREFIXHistory(0, v53);
+                        if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+                        {
+                          safari_privacyPreservingDescription4 = [v33 safari_privacyPreservingDescription];
+                          *buf = 138478083;
+                          *&buf[4] = v20;
+                          v87 = 2114;
+                          v88 = safari_privacyPreservingDescription4;
+                          _os_log_error_impl(&dword_1BB6F3000, v54, OS_LOG_TYPE_ERROR, "Failed to update visit count scores for %{private}@: %{public}@", buf, 0x16u);
+                        }
+                      }
+
+                      else
+                      {
+                        v54 = WBS_LOG_CHANNEL_PREFIXHistory(safari_isSQLiteError, v52);
+                        if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+                        {
+                          safari_privacyPreservingDescription5 = [v33 safari_privacyPreservingDescription];
+                          *buf = 138478083;
+                          *&buf[4] = v13;
+                          v87 = 2114;
+                          v88 = safari_privacyPreservingDescription5;
+                          _os_log_error_impl(&dword_1BB6F3000, v54, OS_LOG_TYPE_ERROR, "Failed to set redirect source for %{private}@: %{public}@", buf, 0x16u);
+                        }
                       }
                     }
 
                     goto LABEL_44;
                   }
 
-                  v29 = WBS_LOG_CHANNEL_PREFIXHistory();
-                  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+                  v30 = WBS_LOG_CHANNEL_PREFIXHistory(0, v45);
+                  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
                   {
                     [0 safari_privacyPreservingDescription];
                     objc_claimAutoreleasedReturnValue();
@@ -1796,12 +1840,12 @@ LABEL_45:
 
                 else
                 {
-                  v39 = WBS_LOG_CHANNEL_PREFIXHistory();
-                  if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+                  v44 = WBS_LOG_CHANNEL_PREFIXHistory(0, v22);
+                  if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
                   {
                     *buf = 138477827;
                     *&buf[4] = v20;
-                    _os_log_impl(&dword_1BB6F3000, v39, OS_LOG_TYPE_INFO, "Could not find an item for %{private}@", buf, 0xCu);
+                    _os_log_impl(&dword_1BB6F3000, v44, OS_LOG_TYPE_INFO, "Could not find an item for %{private}@", buf, 0xCu);
                   }
                 }
 
@@ -1809,17 +1853,17 @@ LABEL_45:
               }
             }
 
-            v17 = [v57 countByEnumeratingWithState:&v65 objects:v78 count:16];
+            v17 = [v68 countByEnumeratingWithState:&v76 objects:v89 count:16];
           }
 
           while (v17);
         }
       }
 
-      v52 = [obj countByEnumeratingWithState:&v70 objects:v79 count:16];
+      v63 = [obj countByEnumeratingWithState:&v81 objects:v90 count:16];
     }
 
-    while (v52);
+    while (v63);
   }
 
   SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * const {__strong}&>(self->_database, 0, @"INSERT INTO metadata (key,value) VALUES (?,1)", WBSHistorySQLiteStoreImportCompletedKey);

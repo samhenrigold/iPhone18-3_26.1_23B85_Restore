@@ -24,20 +24,20 @@
   {
     if (!self->_disabledSpotlightBundles)
     {
-      v19 = 0;
-      v20 = &v19;
-      v21 = 0x2020000000;
+      v20 = 0;
+      v21 = &v20;
+      v22 = 0x2020000000;
       v5 = getSPGetDisabledBundleSetSymbolLoc_ptr_0;
-      v22 = getSPGetDisabledBundleSetSymbolLoc_ptr_0;
+      v23 = getSPGetDisabledBundleSetSymbolLoc_ptr_0;
       if (!getSPGetDisabledBundleSetSymbolLoc_ptr_0)
       {
         v6 = SearchLibrary_0();
-        v20[3] = dlsym(v6, "SPGetDisabledBundleSet");
-        getSPGetDisabledBundleSetSymbolLoc_ptr_0 = v20[3];
-        v5 = v20[3];
+        v21[3] = dlsym(v6, "SPGetDisabledBundleSet");
+        getSPGetDisabledBundleSetSymbolLoc_ptr_0 = v21[3];
+        v5 = v21[3];
       }
 
-      _Block_object_dispose(&v19, 8);
+      _Block_object_dispose(&v20, 8);
       if (!v5)
       {
         [SpotlightAppClipSettingsController specifiers];
@@ -67,20 +67,20 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x2020000000;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x2020000000;
     v9 = getSPGetDisabledAppSetSymbolLoc_ptr_0;
-    v22 = getSPGetDisabledAppSetSymbolLoc_ptr_0;
+    v23 = getSPGetDisabledAppSetSymbolLoc_ptr_0;
     if (!getSPGetDisabledAppSetSymbolLoc_ptr_0)
     {
       v10 = SearchLibrary_0();
-      v20[3] = dlsym(v10, "SPGetDisabledAppSet");
-      getSPGetDisabledAppSetSymbolLoc_ptr_0 = v20[3];
-      v9 = v20[3];
+      v21[3] = dlsym(v10, "SPGetDisabledAppSet");
+      getSPGetDisabledAppSetSymbolLoc_ptr_0 = v21[3];
+      v9 = v21[3];
     }
 
-    _Block_object_dispose(&v19, 8);
+    _Block_object_dispose(&v20, 8);
     if (v9)
     {
       v11 = v9(1);
@@ -91,9 +91,10 @@ LABEL_12:
     }
 
 LABEL_17:
-    specifiers = [SpotlightAppClipSettingsController specifiers];
-    _Block_object_dispose(&v19, 8);
-    _Unwind_Resume(specifiers);
+    [SpotlightAppClipSettingsController specifiers];
+    v19 = v18;
+    _Block_object_dispose(&v20, 8);
+    _Unwind_Resume(v19);
   }
 
 LABEL_13:
@@ -191,64 +192,61 @@ LABEL_13:
   v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
-  v8 = completionCopy;
+  v9 = completionCopy;
   if (self->_isApplicationLocked)
   {
-    v9 = spotlightSettingsLogHandles;
+    v10 = spotlightSettingsLogHandles;
     if (!spotlightSettingsLogHandles)
     {
-      SpotlightSettingsInitLogging();
-      v9 = spotlightSettingsLogHandles;
+      SpotlightSettingsInitLogging(completionCopy, v8);
+      v10 = spotlightSettingsLogHandles;
     }
 
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v16 = identifierCopy;
-      _os_log_impl(&dword_26B81B000, v9, OS_LOG_TYPE_DEFAULT, "Authenticating via APGuard for locked bundleIdentifier=%@", buf, 0xCu);
+      _os_log_impl(&dword_26B81B000, v10, OS_LOG_TYPE_DEFAULT, "Authenticating via APGuard for locked bundleIdentifier=%@", buf, 0xCu);
     }
 
-    v10 = [MEMORY[0x277CEBE80] applicationWithBundleIdentifier:identifierCopy];
+    v11 = [MEMORY[0x277CEBE80] applicationWithBundleIdentifier:identifierCopy];
     mEMORY[0x277CEBE98] = [MEMORY[0x277CEBE98] sharedGuard];
     v13[0] = MEMORY[0x277D85DD0];
     v13[1] = 3221225472;
     v13[2] = __73__SpotlightDetailController__authenticateForBundleIdentifier_completion___block_invoke;
     v13[3] = &unk_279D04A08;
-    v14 = v8;
-    [mEMORY[0x277CEBE98] authenticateForSubject:v10 relayingAuditToken:1 completion:v13];
+    v14 = v9;
+    [mEMORY[0x277CEBE98] authenticateForSubject:v11 relayingAuditToken:1 completion:v13];
   }
 
   else
   {
     (*(completionCopy + 2))(completionCopy, 1, 0);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __73__SpotlightDetailController__authenticateForBundleIdentifier_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = spotlightSettingsLogHandles;
+  v7 = v5;
+  v8 = spotlightSettingsLogHandles;
   if (!spotlightSettingsLogHandles)
   {
-    SpotlightSettingsInitLogging();
-    v6 = spotlightSettingsLogHandles;
+    SpotlightSettingsInitLogging(v5, v6);
+    v8 = spotlightSettingsLogHandles;
   }
 
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109378;
-    v8[1] = a2;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_26B81B000, v6, OS_LOG_TYPE_DEFAULT, "SNLOG success: %d, error: %@", v8, 0x12u);
+    v9[0] = 67109378;
+    v9[1] = a2;
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&dword_26B81B000, v8, OS_LOG_TYPE_DEFAULT, "SNLOG success: %d, error: %@", v9, 0x12u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setWhileSearchingShowAppEnabled:(id)enabled specifier:(id)specifier
@@ -288,7 +286,7 @@ void __73__SpotlightDetailController__authenticateForBundleIdentifier_completion
 
 void __71__SpotlightDetailController_setWhileSearchingShowAppEnabled_specifier___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -296,23 +294,21 @@ void __71__SpotlightDetailController_setWhileSearchingShowAppEnabled_specifier__
     [WeakRetained _saveWhileSearchingShowAppEnabled:v3];
     if (v3)
     {
-      v7[0] = WeakRetained[190];
-      v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+      v6[0] = WeakRetained[190];
+      v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
       [WeakRetained insertContiguousSpecifiers:v4 afterSpecifier:WeakRetained[189] animated:1];
     }
 
     else
     {
       [WeakRetained _saveWhileSearchingShowContentEnabled:0];
-      v6 = WeakRetained[190];
-      v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:1];
+      v5 = WeakRetained[190];
+      v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:1];
       [WeakRetained removeContiguousSpecifiers:v4 animated:1];
     }
 
     notify_post("com.apple.spotlightui.prefschanged");
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __71__SpotlightDetailController_setWhileSearchingShowAppEnabled_specifier___block_invoke_2(uint64_t a1)
@@ -335,7 +331,7 @@ void __71__SpotlightDetailController_setWhileSearchingShowAppEnabled_specifier__
 - (void)_saveWhileSearchingShowAppEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   _bundleId = [(SpotlightDetailController *)self _bundleId];
   disabledSpotlightApps = self->_disabledSpotlightApps;
   if (enabledCopy)
@@ -349,12 +345,11 @@ void __71__SpotlightDetailController_setWhileSearchingShowAppEnabled_specifier__
   }
 
   CFPreferencesSetAppValue(@"SBSearchDisabledApps", [(NSMutableSet *)self->_disabledSpotlightApps allObjects], @"com.apple.spotlightui");
-  v9[0] = @"SBSearchDisabledApps";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = @"SBSearchDisabledApps";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   [SpotlightSettingsUtilities updateSearchPreferencesModificationForKeys:v7];
 
   CFPreferencesSynchronize(@"com.apple.spotlightui", *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)whileSearchingShowContentEnabled:(id)enabled
@@ -429,7 +424,7 @@ void __75__SpotlightDetailController_setWhileSearchingShowContentEnabled_specifi
 - (void)_saveWhileSearchingShowContentEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   _bundleId = [(SpotlightDetailController *)self _bundleId];
   disabledSpotlightBundles = self->_disabledSpotlightBundles;
   if (enabledCopy)
@@ -443,12 +438,11 @@ void __75__SpotlightDetailController_setWhileSearchingShowContentEnabled_specifi
   }
 
   CFPreferencesSetAppValue(@"SBSearchDisabledBundles", [(NSMutableSet *)self->_disabledSpotlightBundles allObjects], @"com.apple.spotlightui");
-  v9[0] = @"SBSearchDisabledBundles";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = @"SBSearchDisabledBundles";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   [SpotlightSettingsUtilities updateSearchPreferencesModificationForKeys:v7];
 
   CFPreferencesSynchronize(@"com.apple.spotlightui", *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_bundleId

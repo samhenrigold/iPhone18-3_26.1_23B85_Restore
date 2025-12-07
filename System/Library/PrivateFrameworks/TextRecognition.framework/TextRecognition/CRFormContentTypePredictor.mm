@@ -314,7 +314,7 @@ void __76__CRFormContentTypePredictor__modelInputWithFields_fieldsAndRegions_loc
     v27 = v88;
     std::string::basic_string[abi:ne200100]<0>(&v105, [v88 UTF8String]);
     v107[0] = 0;
-    std::vector<float>::vector[abi:ne200100](&v103, 0x12uLL);
+    std::vector<float>::vector[abi:ne200100](&v103, 0x12uLL, v107);
     for (i = 0; i != 18; ++i)
     {
       if (!std::string::compare(&v105, (&CRFormContentTypeModelVocabulary::keywords_full_match)[i]))
@@ -331,8 +331,8 @@ void __76__CRFormContentTypePredictor__modelInputWithFields_fieldsAndRegions_loc
     std::string::basic_string[abi:ne200100]<0>(__s1, [v31 UTF8String]);
 
     v107[0] = 0;
-    std::vector<float>::vector[abi:ne200100](&__p, 0x1DFDuLL);
-    v80 = (a2 + 5);
+    std::vector<float>::vector[abi:ne200100](&__p, 0x1DFDuLL, v107);
+    v80 = a2 + 5;
     v85 = v21;
     if ((v105.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
@@ -345,7 +345,7 @@ void __76__CRFormContentTypePredictor__modelInputWithFields_fieldsAndRegions_loc
     }
 
     v107[0] = 0;
-    std::vector<int>::vector[abi:ne200100](v97, size);
+    std::vector<int>::vector[abi:ne200100](v97, size, v107);
     v34 = 0;
     v35 = __p;
     v36 = v97[0];
@@ -636,7 +636,7 @@ LABEL_43:
       {
         v87 = 0;
 LABEL_95:
-        a2 = &v80[v76];
+        a2 = (v80 + v76);
         v6 = v81 + 1;
         v7 = *v90;
         continue;
@@ -948,8 +948,8 @@ LABEL_8:
     v54 = 0;
     v55 = 0;
     v53 = 0;
-    std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v53, buf, &v59, 4uLL);
-    if (CoreRecognition::EspressoModelWrapper::bindInput(ptr, dataPointer))
+    std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v53, buf, v59, 4uLL);
+    if (CoreRecognition::EspressoModelWrapper::bindInput(ptr, dataPointer, "fields", &v53))
     {
       v22 = selfCopy->_espressoModel.__ptr_;
       labels2 = [v13 labels];
@@ -964,7 +964,7 @@ LABEL_8:
       v52 = 0;
       v50 = 0;
       std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v50, v62, v65, 4uLL);
-      if (CoreRecognition::EspressoModelWrapper::bindInput(v22, dataPointer2))
+      if (CoreRecognition::EspressoModelWrapper::bindInput(v22, dataPointer2, "labels", &v50))
       {
         v25 = selfCopy->_espressoModel.__ptr_;
         v37 = [v13 length];
@@ -976,7 +976,7 @@ LABEL_8:
         v49 = 0;
         v47 = 0;
         std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v47, v61, v62, 4uLL);
-        if (CoreRecognition::EspressoModelWrapper::bindInput(v25, dataPointer3))
+        if (CoreRecognition::EspressoModelWrapper::bindInput(v25, dataPointer3, "length", &v47))
         {
           v28 = selfCopy->_espressoModel.__ptr_;
           num_labels = [v13 num_labels];
@@ -987,7 +987,7 @@ LABEL_8:
           v46 = 0;
           __p = 0;
           std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&__p, v60, v61, 4uLL);
-          v30 = CoreRecognition::EspressoModelWrapper::bindInput(v28, dataPointer4);
+          v30 = CoreRecognition::EspressoModelWrapper::bindInput(v28, dataPointer4, "num_labels", &__p);
           if (__p)
           {
             v45 = __p;

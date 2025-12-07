@@ -136,7 +136,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    opcode = self->_opcode;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -156,7 +155,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  type = self->_type;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -171,12 +169,10 @@ LABEL_4:
   }
 
 LABEL_12:
-  serviceId = self->_serviceId;
   PBDataWriterWriteUint32Field();
   if (*&self->_has)
   {
 LABEL_5:
-    duration = self->_duration;
     PBDataWriterWriteUint64Field();
   }
 
@@ -307,7 +303,6 @@ LABEL_6:
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 36);
     if ((*&self->_has & 2) != 0)
     {
       if ((*(equal + 36) & 2) == 0 || self->_opcode != *(equal + 4))

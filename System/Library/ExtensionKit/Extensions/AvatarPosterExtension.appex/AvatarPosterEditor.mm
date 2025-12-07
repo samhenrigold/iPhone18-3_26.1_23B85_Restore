@@ -38,7 +38,7 @@
 - (id)looksForEditor:(id)editor
 {
   sub_1000183C4();
-  sub_100009C14(0, &unk_10002BB90);
+  sub_100009C14(0, &unk_10002BB90, PREditingLook_ptr);
   v3.super.isa = sub_10001A46C().super.isa;
 
   return v3.super.isa;
@@ -57,7 +57,7 @@
 
 - (void)editor:(PREditor *)editor finalizeWithCompletion:(id)completion
 {
-  v7 = sub_1000027DC(&qword_10002B750);
+  v7 = sub_1000027DC(&qword_10002B750, "~0");
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -97,7 +97,7 @@
 
   if (v6)
   {
-    sub_100009C14(0, &qword_10002BAA0);
+    sub_100009C14(0, &qword_10002BAA0, UIMenuElement_ptr);
     v7.super.isa = sub_10001A46C().super.isa;
   }
 
@@ -111,14 +111,14 @@
 
 - (id)leadingMenuElementsForEditor:(id)editor
 {
-  sub_1000027DC(&unk_10002B860);
+  sub_1000027DC(&unk_10002B860, &qword_10001C1C0);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_10001C200;
   editorCopy = editor;
   selfCopy = self;
-  *(v5 + 32) = sub_100012710();
+  *(v5 + 32) = sub_100012710(editorCopy);
 
-  sub_100009C14(0, &qword_10002BAA0);
+  sub_100009C14(0, &qword_10002BAA0, UIMenuElement_ptr);
   v8.super.isa = sub_10001A46C().super.isa;
 
   return v8.super.isa;

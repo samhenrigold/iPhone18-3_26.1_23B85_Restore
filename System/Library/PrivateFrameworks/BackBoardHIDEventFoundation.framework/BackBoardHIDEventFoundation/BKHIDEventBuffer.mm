@@ -11,35 +11,35 @@
 
 - (void)invalidate
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (!self->_invalidated)
   {
     self->_invalidated = 1;
+    v10 = 0u;
     v11 = 0u;
     v12 = 0u;
     v13 = 0u;
-    v14 = 0u;
     v3 = self->_buffer;
-    v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v12;
+      v6 = *v11;
       do
       {
         v7 = 0;
         do
         {
-          if (*v12 != v6)
+          if (*v11 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          [*(*(&v11 + 1) + 8 * v7++) invalidate];
+          [*(*(&v10 + 1) + 8 * v7++) invalidate];
         }
 
         while (v5 != v7);
-        v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v5);
@@ -51,46 +51,43 @@
     dispatchTarget = self->_dispatchTarget;
     self->_dispatchTarget = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (!self->_invalidated)
   {
-    v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_invalidated"];
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_invalidated"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v6 = NSStringFromSelector(a2);
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
+      v5 = NSStringFromSelector(a2);
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
       *buf = 138544642;
-      v11 = v6;
-      v12 = 2114;
-      v13 = v8;
-      v14 = 2048;
+      v10 = v5;
+      v11 = 2114;
+      v12 = v7;
+      v13 = 2048;
       selfCopy = self;
-      v16 = 2114;
-      v17 = @"BKHIDEventBuffer.m";
-      v18 = 1024;
-      v19 = 76;
-      v20 = 2114;
-      v21 = v5;
+      v15 = 2114;
+      v16 = @"BKHIDEventBuffer.m";
+      v17 = 1024;
+      v18 = 76;
+      v19 = 2114;
+      v20 = v4;
       _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v5 UTF8String];
+    [v4 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CC2074);
   }
 
-  v9.receiver = self;
-  v9.super_class = BKHIDEventBuffer;
-  [(BKHIDEventBuffer *)&v9 dealloc];
-  v3 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = BKHIDEventBuffer;
+  [(BKHIDEventBuffer *)&v8 dealloc];
 }
 
 - (void)appendDescriptionToFormatter:(id)formatter
@@ -120,14 +117,14 @@ id __49__BKHIDEventBuffer_appendDescriptionToFormatter___block_invoke(uint64_t a
 
 - (id)drainAllEvents
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = BKLogEventDelivery();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [(NSMutableArray *)self->_buffer count];
-    v11[0] = 67109120;
-    v11[1] = v4;
-    _os_log_impl(&dword_223CBE000, v3, OS_LOG_TYPE_DEFAULT, "Draining buffer with %d events", v11, 8u);
+    v10[0] = 67109120;
+    v10[1] = v4;
+    _os_log_impl(&dword_223CBE000, v3, OS_LOG_TYPE_DEFAULT, "Draining buffer with %d events", v10, 8u);
   }
 
   v5 = self->_buffer;
@@ -138,41 +135,39 @@ id __49__BKHIDEventBuffer_appendDescriptionToFormatter___block_invoke(uint64_t a
   bufferingPIDs = self->_bufferingPIDs;
   self->_bufferingPIDs = 0;
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (void)appendEvent:(__IOHIDEvent *)event sender:(id)sender sequence:(id)sequence additionalContext:(id)context
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   senderCopy = sender;
   sequenceCopy = sequence;
   contextCopy = context;
   if (!event)
   {
-    v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"event != nil"];
+    v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"event != nil"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v21 = NSStringFromSelector(a2);
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
+      v20 = NSStringFromSelector(a2);
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
       *buf = 138544642;
-      v37 = v21;
-      v38 = 2114;
-      v39 = v23;
-      v40 = 2048;
+      v36 = v20;
+      v37 = 2114;
+      v38 = v22;
+      v39 = 2048;
       selfCopy4 = self;
-      v42 = 2114;
-      v43 = @"BKHIDEventBuffer.m";
-      v44 = 1024;
-      v45 = 82;
-      v46 = 2114;
-      v47 = v20;
+      v41 = 2114;
+      v42 = @"BKHIDEventBuffer.m";
+      v43 = 1024;
+      v44 = 82;
+      v45 = 2114;
+      v46 = v19;
       _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v20 UTF8String];
+    [v19 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CEA94CLL);
@@ -180,28 +175,28 @@ id __49__BKHIDEventBuffer_appendDescriptionToFormatter___block_invoke(uint64_t a
 
   if (!senderCopy)
   {
-    v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"sender != nil"];
+    v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"sender != nil"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v25 = NSStringFromSelector(a2);
-      v26 = objc_opt_class();
-      v27 = NSStringFromClass(v26);
+      v24 = NSStringFromSelector(a2);
+      v25 = objc_opt_class();
+      v26 = NSStringFromClass(v25);
       *buf = 138544642;
-      v37 = v25;
-      v38 = 2114;
-      v39 = v27;
-      v40 = 2048;
+      v36 = v24;
+      v37 = 2114;
+      v38 = v26;
+      v39 = 2048;
       selfCopy4 = self;
-      v42 = 2114;
-      v43 = @"BKHIDEventBuffer.m";
-      v44 = 1024;
-      v45 = 83;
-      v46 = 2114;
-      v47 = v24;
+      v41 = 2114;
+      v42 = @"BKHIDEventBuffer.m";
+      v43 = 1024;
+      v44 = 83;
+      v45 = 2114;
+      v46 = v23;
       _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v24 UTF8String];
+    [v23 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CEAA44);
@@ -209,28 +204,28 @@ id __49__BKHIDEventBuffer_appendDescriptionToFormatter___block_invoke(uint64_t a
 
   if (!sequenceCopy)
   {
-    v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"sequence != nil"];
+    v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"sequence != nil"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v29 = NSStringFromSelector(a2);
-      v30 = objc_opt_class();
-      v31 = NSStringFromClass(v30);
+      v28 = NSStringFromSelector(a2);
+      v29 = objc_opt_class();
+      v30 = NSStringFromClass(v29);
       *buf = 138544642;
-      v37 = v29;
-      v38 = 2114;
-      v39 = v31;
-      v40 = 2048;
+      v36 = v28;
+      v37 = 2114;
+      v38 = v30;
+      v39 = 2048;
       selfCopy4 = self;
-      v42 = 2114;
-      v43 = @"BKHIDEventBuffer.m";
-      v44 = 1024;
-      v45 = 84;
-      v46 = 2114;
-      v47 = v28;
+      v41 = 2114;
+      v42 = @"BKHIDEventBuffer.m";
+      v43 = 1024;
+      v44 = 84;
+      v45 = 2114;
+      v46 = v27;
       _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v28 UTF8String];
+    [v27 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CEAB3CLL);
@@ -241,28 +236,28 @@ id __49__BKHIDEventBuffer_appendDescriptionToFormatter___block_invoke(uint64_t a
 
   if (!senderDescriptor)
   {
-    v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[sender senderDescriptor] != nil"];
+    v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[sender senderDescriptor] != nil"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v33 = NSStringFromSelector(a2);
-      v34 = objc_opt_class();
-      v35 = NSStringFromClass(v34);
+      v32 = NSStringFromSelector(a2);
+      v33 = objc_opt_class();
+      v34 = NSStringFromClass(v33);
       *buf = 138544642;
-      v37 = v33;
-      v38 = 2114;
-      v39 = v35;
-      v40 = 2048;
+      v36 = v32;
+      v37 = 2114;
+      v38 = v34;
+      v39 = 2048;
       selfCopy4 = self;
-      v42 = 2114;
-      v43 = @"BKHIDEventBuffer.m";
-      v44 = 1024;
-      v45 = 85;
-      v46 = 2114;
-      v47 = v32;
+      v41 = 2114;
+      v42 = @"BKHIDEventBuffer.m";
+      v43 = 1024;
+      v44 = 85;
+      v45 = 2114;
+      v46 = v31;
       _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v32 UTF8String];
+    [v31 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CEAC34);
@@ -278,7 +273,7 @@ id __49__BKHIDEventBuffer_appendDescriptionToFormatter___block_invoke(uint64_t a
 
     v17 = BKSHIDEventGetConciseDescription();
     *buf = 138543362;
-    v37 = v17;
+    v36 = v17;
     _os_log_error_impl(&dword_223CBE000, &v16->super, OS_LOG_TYPE_ERROR, "BUFFER: is full -- dropping event (%{public}@)", buf, 0xCu);
   }
 
@@ -297,15 +292,14 @@ id __49__BKHIDEventBuffer_appendDescriptionToFormatter___block_invoke(uint64_t a
     v17 = BKLogEventDelivery();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      v19 = BKSHIDEventGetConciseDescription();
+      v18 = BKSHIDEventGetConciseDescription();
       *buf = 138543362;
-      v37 = v19;
+      v36 = v18;
       _os_log_debug_impl(&dword_223CBE000, v17, OS_LOG_TYPE_DEBUG, "BUFFER: appending (%{public}@)", buf, 0xCu);
     }
   }
 
 LABEL_12:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BKHIDEventBuffer)initWithDispatchTarget:(id)target

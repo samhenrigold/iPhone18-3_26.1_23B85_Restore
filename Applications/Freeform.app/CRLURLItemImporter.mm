@@ -13,7 +13,7 @@
 
 + (NSArray)protected_supportedFileUTTypes
 {
-  sub_1005B981C(&qword_101A054A0);
+  sub_1005B981C(&qword_101A054A0, &unk_101471D20);
   type metadata accessor for UTType();
   *(swift_allocObject() + 16) = xmmword_10146C6B0;
   static UTType.url.getter();
@@ -76,7 +76,7 @@
 
 - (void)importBoardItemWithCompletionHandler:(id)handler
 {
-  v5 = sub_1005B981C(&qword_1019FB750);
+  v5 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

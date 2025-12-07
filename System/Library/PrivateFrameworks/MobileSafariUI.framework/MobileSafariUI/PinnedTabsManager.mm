@@ -497,26 +497,26 @@ LABEL_4:
 
 - (void)updatePinnedTabWithUUID:(id)d inContainer:(id)container usingBlock:(id)block
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dCopy = d;
   containerCopy = container;
   blockCopy = block;
-  v11 = [(PinnedTabsManager *)self _tabWithUUID:dCopy inContainer:containerCopy];
-  if (v11)
+  v12 = [(PinnedTabsManager *)self _tabWithUUID:dCopy inContainer:containerCopy];
+  if (v12)
   {
-    blockCopy[2](blockCopy, v11);
-    [(WBTabCollection *)self->_tabCollection saveItem:v11 completionHandler:0];
+    blockCopy[2](blockCopy, v12);
+    [(WBTabCollection *)self->_tabCollection saveItem:v12 completionHandler:0];
     [(PinnedTabsManager *)self notifyObserversOfUpdatedPinnedTabsInContainer:containerCopy];
   }
 
   else
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = WBS_LOG_CHANNEL_PREFIXTabGroup(0, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v13 = 138543362;
-      v14 = dCopy;
-      _os_log_impl(&dword_215819000, v12, OS_LOG_TYPE_INFO, "Not updating pinned tab with uuid %{public}@ because it does not exist.", &v13, 0xCu);
+      v14 = 138543362;
+      v15 = dCopy;
+      _os_log_impl(&dword_215819000, v13, OS_LOG_TYPE_INFO, "Not updating pinned tab with uuid %{public}@ because it does not exist.", &v14, 0xCu);
     }
   }
 }

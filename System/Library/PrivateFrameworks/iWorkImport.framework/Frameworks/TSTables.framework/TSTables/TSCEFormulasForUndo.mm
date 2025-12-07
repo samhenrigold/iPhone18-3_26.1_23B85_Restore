@@ -26,17 +26,17 @@
   if (v9)
   {
     v10 = v9[3];
-    objc_msgSend_addFormula_atCellRef_(v10, v11, objectCopy, ref, v12);
+    objc_msgSend_addFormula_atCellRef_(v10, v11, objectCopy, ref);
   }
 
   else
   {
-    v13 = objc_opt_new();
-    v18 = &kindCopy;
-    v14 = sub_221485E1C(&self->_formulasForOwnerKind.__table_.__bucket_list_.__ptr_, &kindCopy);
-    objc_storeStrong(v14 + 3, v13);
-    v10 = v13;
-    objc_msgSend_addFormula_atCellRef_(v13, v15, objectCopy, ref, v16);
+    v12 = objc_opt_new();
+    v16 = &kindCopy;
+    v13 = sub_221485E1C(&self->_formulasForOwnerKind.__table_.__bucket_list_.__ptr_, &kindCopy, &unk_2217E1E09, &v16);
+    objc_storeStrong(v13 + 3, v12);
+    v10 = v12;
+    objc_msgSend_addFormula_atCellRef_(v12, v14, objectCopy, ref);
   }
 }
 
@@ -51,8 +51,9 @@
   v4 = 0;
   do
   {
-    v5 = sub_221485E1C(&self->_formulasForOwnerKind.__table_.__bucket_list_.__ptr_, next + 8);
-    v4 += objc_msgSend_count(v5[3], v6, v7, v8, v9);
+    v10 = next + 8;
+    v5 = sub_221485E1C(&self->_formulasForOwnerKind.__table_.__bucket_list_.__ptr_, next + 8, &unk_2217E1E09, &v10);
+    v4 += objc_msgSend_count(v5[3], v6, v7, v8);
     next = *next;
   }
 
@@ -71,23 +72,24 @@
       break;
     }
 
-    v4 = sub_221485E1C(&self->_formulasForOwnerKind.__table_.__bucket_list_.__ptr_, &p_first_node[2]);
+    v9 = p_first_node + 2;
+    v4 = sub_221485E1C(&self->_formulasForOwnerKind.__table_.__bucket_list_.__ptr_, &p_first_node[2], &unk_2217E1E09, &v9);
   }
 
-  while (!objc_msgSend_count(v4[3], v5, v6, v7, v8));
+  while (!objc_msgSend_count(v4[3], v5, v6, v7));
   return p_first_node == 0;
 }
 
 - (unordered_set<TSKUIDStruct,)ownerUIDsForOwnerKind:()std:(std:(TSCEFormulasForUndo *)self :(SEL)a3 allocator<TSKUIDStruct>> *__return_ptr)retstr :(unsigned __int16)a4 equal_to<TSKUIDStruct>
 {
-  v10 = a4;
+  v9 = a4;
   retstr->__table_.__bucket_list_ = 0u;
   *&retstr->__table_.__first_node_.__next_ = 0u;
   retstr->__table_.__max_load_factor_ = 1.0;
-  result = sub_2210C3024(&self->_formulasForOwnerKind.__table_.__bucket_list_.__ptr_, &v10);
+  result = sub_2210C3024(&self->_formulasForOwnerKind.__table_.__bucket_list_.__ptr_, &v9);
   if (result)
   {
-    result = objc_msgSend_formulaOwnerUIDs(result->__table_.__size_, v6, v7, v8, v9);
+    result = objc_msgSend_formulaOwnerUIDs(result->__table_.__size_, v6, v7, v8);
     if (result != retstr)
     {
       retstr->__table_.__max_load_factor_ = result->__table_.__max_load_factor_;
@@ -181,11 +183,11 @@
   v5 = sub_2210C3024(&self->_formulasForOwnerKind.__table_.__bucket_list_.__ptr_, &kindCopy);
   if (v5)
   {
-    v10 = objc_msgSend_copy(v5[3], v6, v7, v8, v9);
-    v15 = &kindCopy;
-    v11 = sub_221485E1C(v4 + 1, &kindCopy);
-    v12 = v11[3];
-    v11[3] = v10;
+    v9 = objc_msgSend_copy(v5[3], v6, v7, v8);
+    v14 = &kindCopy;
+    v10 = sub_221485E1C(v4 + 1, &kindCopy, &unk_2217E1E09, &v14);
+    v11 = v10[3];
+    v10[3] = v9;
   }
 
   return v4;
@@ -197,7 +199,7 @@
   result = sub_2210C3024(&self->_formulasForOwnerKind.__table_.__bucket_list_.__ptr_, &kindCopy);
   if (result)
   {
-    return objc_msgSend_count(*(result + 24), v4, v5, v6, v7);
+    return objc_msgSend_count(*(result + 24), v4, v5, v6);
   }
 
   return result;
@@ -205,44 +207,44 @@
 
 - (id)splitIntoChunksForExcessiveSize
 {
-  v7 = objc_opt_new();
+  v6 = objc_opt_new();
   if (self->_formulaStringsForCellRefs.__table_.__size_)
   {
-    v8 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "[TSCEFormulasForUndo splitIntoChunksForExcessiveSize]", v5, v6);
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFormulasForUndo.mm", v11, v12);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v14, v9, v13, 186, 0, "Can't split FormulasForOwner that uses formulaStrings (TSTCommandRewriteFormulasForTranspose)");
+    v7 = MEMORY[0x277D81150];
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "[TSCEFormulasForUndo splitIntoChunksForExcessiveSize]", v5);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFormulasForUndo.mm", v10);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v12, v8, v11, 186, 0, "Can't split FormulasForOwner that uses formulaStrings (TSTCommandRewriteFormulasForTranspose)");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17, v18);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14, v15);
   }
 
-  if (objc_msgSend_count(self, v3, v4, v5, v6) > 0xC350)
+  if (objc_msgSend_count(self, v3, v4, v5) > 0xC350)
   {
-    v23 = objc_msgSend_count(self, v19, v20, v21, v22);
-    v28 = objc_msgSend_count(self, v24, v25, v26, v27);
-    v56 = 0;
-    v57 = &v56;
-    v58 = 0x3032000000;
-    v59 = sub_2214846C4;
-    v60 = sub_2214846D4;
-    v61 = objc_opt_new();
+    v19 = objc_msgSend_count(self, v16, v17, v18);
+    v23 = objc_msgSend_count(self, v20, v21, v22);
+    v47 = 0;
+    v48 = &v47;
+    v49 = 0x3032000000;
+    v50 = sub_2214846C4;
+    v51 = sub_2214846D4;
+    v52 = objc_opt_new();
     next = self->_formulasForOwnerKind.__table_.__first_node_.__next_;
     if (next)
     {
-      v34 = v28 / (v23 / 0xC350 + 1);
+      v28 = v23 / (v19 / 0xC350 + 1);
       do
       {
-        v35 = *(next + 8);
-        v36 = *(next + 3);
-        v51[0] = MEMORY[0x277D85DD0];
-        v51[1] = 3221225472;
-        v51[2] = sub_2214846DC;
-        v51[3] = &unk_2784659C8;
-        v55 = v35;
-        v53 = &v56;
-        v54 = v34;
-        v52 = v7;
-        objc_msgSend_foreachFormula_(v36, v37, v51, v38, v39);
+        v29 = *(next + 8);
+        v30 = *(next + 3);
+        v42[0] = MEMORY[0x277D85DD0];
+        v42[1] = 3221225472;
+        v42[2] = sub_2214846DC;
+        v42[3] = &unk_2784659C8;
+        v46 = v29;
+        v44 = &v47;
+        v45 = v28;
+        v43 = v6;
+        objc_msgSend_foreachFormula_(v30, v31, v42, v32);
 
         next = *next;
       }
@@ -250,31 +252,31 @@
       while (next);
     }
 
-    v44 = objc_msgSend_lastObject(v7, v29, v30, v31, v32);
-    v45 = v57[5];
-    if (v44 == v45)
+    v36 = objc_msgSend_lastObject(v6, v24, v25, v26);
+    v37 = v48[5];
+    if (v36 == v37)
     {
     }
 
     else
     {
-      isEmpty = objc_msgSend_isEmpty(v45, v40, v41, v42, v43);
+      isEmpty = objc_msgSend_isEmpty(v37, v33, v34, v35);
 
       if ((isEmpty & 1) == 0)
       {
-        objc_msgSend_addObject_(v7, v47, v57[5], v48, v49);
+        objc_msgSend_addObject_(v6, v39, v48[5], v40);
       }
     }
 
-    _Block_object_dispose(&v56, 8);
+    _Block_object_dispose(&v47, 8);
   }
 
   else
   {
-    objc_msgSend_addObject_(v7, v19, self, v21, v22);
+    objc_msgSend_addObject_(v6, v16, self, v18);
   }
 
-  return v7;
+  return v6;
 }
 
 - (void)foreachFormulaInOwnerKind:(unsigned __int16)kind performBlock:(id)block
@@ -284,7 +286,7 @@
   v6 = sub_2210C3024(&self->_formulasForOwnerKind.__table_.__bucket_list_.__ptr_, &kindCopy);
   if (v6)
   {
-    objc_msgSend_foreachFormula_(v6[3], v7, blockCopy, v8, v9);
+    objc_msgSend_foreachFormula_(v6[3], v7, blockCopy, v8);
   }
 }
 
@@ -292,28 +294,28 @@
 {
   v3 = MEMORY[0x277CCAB68];
   v4 = objc_opt_class();
-  v12 = objc_msgSend_stringWithFormat_(v3, v5, @"<%@>:\n", v6, v7, v4);
+  v10 = objc_msgSend_stringWithFormat_(v3, v5, @"<%@>:\n", v6, v4);
   for (i = self->_formulasForOwnerKind.__table_.__first_node_.__next_; i; i = *i)
   {
-    v14 = *(i + 8);
-    v15 = objc_msgSend_description(i[3], v8, v9, v10, v11);
-    objc_msgSend_appendFormat_(v12, v16, @"  ownerKind %d = %@\n", v17, v18, v14, v15);
+    v12 = *(i + 8);
+    v13 = objc_msgSend_description(i[3], v7, v8, v9);
+    objc_msgSend_appendFormat_(v10, v14, @"  ownerKind %d = %@\n", v15, v12, v13);
   }
 
-  return v12;
+  return v10;
 }
 
 - (TSCEFormulasForUndo)initWithArchive:(const void *)archive
 {
-  v34.receiver = self;
-  v34.super_class = TSCEFormulasForUndo;
-  v4 = [(TSCEFormulasForUndo *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = TSCEFormulasForUndo;
+  v4 = [(TSCEFormulasForUndo *)&v33 init];
   if (v4)
   {
-    v23 = *(archive + 6);
-    if (v23 >= 1)
+    v22 = *(archive + 6);
+    if (v22 >= 1)
     {
-      for (i = 0; i != v23; ++i)
+      for (i = 0; i != v22; ++i)
       {
         v6 = *(*(archive + 4) + 8 * i + 8);
         v7 = *(v6 + 56);
@@ -337,41 +339,41 @@
           v14 = 8;
           do
           {
-            TSCE::FormulaAtCoordArchive::FormulaAtCoordArchive(v29, *(*(v6 + 40) + v14));
-            v25 = v32;
-            v26 = v31;
-            v27 = v11;
-            v28 = v12;
-            if (v29[16])
+            TSCE::FormulaAtCoordArchive::FormulaAtCoordArchive(v28, *(*(v6 + 40) + v14));
+            v24 = v31;
+            v25 = v30;
+            v26 = v11;
+            v27 = v12;
+            if (v28[16])
             {
               v16 = [TSCEFormulaObject alloc];
-              if (v30)
+              if (v29)
               {
-                isPreUFF = objc_msgSend_initWithArchive_isPreUFF_(v16, v17, v30, 0, v18);
+                isPreUFF = objc_msgSend_initWithArchive_isPreUFF_(v16, v17, v29, 0);
               }
 
               else
               {
-                isPreUFF = objc_msgSend_initWithArchive_isPreUFF_(v16, v17, &TSCE::_FormulaArchive_default_instance_, 0, v18);
+                isPreUFF = objc_msgSend_initWithArchive_isPreUFF_(v16, v17, TSCE::_FormulaArchive_default_instance_, 0);
               }
 
-              v21 = isPreUFF;
-              objc_msgSend_addFormulaObject_atCellRef_forOwnerKind_(v4, v20, isPreUFF, &v25, v7);
+              v20 = isPreUFF;
+              objc_msgSend_addFormulaObject_atCellRef_forOwnerKind_(v4, v19, isPreUFF, &v24, v7);
 
-              v13 = v21;
+              v13 = v20;
             }
 
-            else if (v33)
+            else if (v32)
             {
-              objc_msgSend_addFormulaObject_atCellRef_forOwnerKind_(v4, v15, v13, &v25, v7);
+              objc_msgSend_addFormulaObject_atCellRef_forOwnerKind_(v4, v15, v13, &v24, v7);
             }
 
             else
             {
-              objc_msgSend_addFormulaObject_atCellRef_forOwnerKind_(v4, v15, 0, &v25, v7);
+              objc_msgSend_addFormulaObject_atCellRef_forOwnerKind_(v4, v15, 0, &v24, v7);
             }
 
-            TSCE::FormulaAtCoordArchive::~FormulaAtCoordArchive(v29);
+            TSCE::FormulaAtCoordArchive::~FormulaAtCoordArchive(v28);
             v14 += 8;
             --v10;
           }
@@ -391,48 +393,48 @@
   next = self->_formulasForOwnerKind.__table_.__first_node_.__next_;
   if (next)
   {
-    v11 = v15;
+    v10 = v14;
     do
     {
       v6 = *(next + 8);
       v7 = *(next + 3);
-      v25[0] = 0;
-      v25[1] = v25;
-      v25[2] = 0x2020000000;
-      v25[3] = 0;
       v24[0] = 0;
       v24[1] = v24;
-      v24[2] = 0x4012000000;
-      v24[3] = sub_221484CC0;
-      v24[4] = nullsub_81;
-      v24[5] = &unk_22188E88F;
-      v24[6] = 0;
-      v24[7] = 0;
-      v22[0] = 0;
-      v22[1] = v22;
-      v22[2] = 0x3032000000;
-      v22[3] = sub_2214846C4;
-      v22[4] = sub_2214846D4;
-      v23 = 0;
+      v24[2] = 0x2020000000;
+      v24[3] = 0;
+      v23[0] = 0;
+      v23[1] = v23;
+      v23[2] = 0x4012000000;
+      v23[3] = sub_221484CC0;
+      v23[4] = nullsub_81;
+      v23[5] = &unk_22188E88F;
+      v23[6] = 0;
+      v23[7] = 0;
+      v21[0] = 0;
+      v21[1] = v21;
+      v21[2] = 0x3032000000;
+      v21[3] = sub_2214846C4;
+      v21[4] = sub_2214846D4;
+      v22 = 0;
       if (v7)
       {
-        v14[0] = MEMORY[0x277D85DD0];
-        v14[1] = 3221225472;
-        v15[0] = sub_221484CD0;
-        v15[1] = &unk_2784659F0;
-        v17 = v25;
-        v18 = v24;
-        v21 = v6;
-        v19 = v22;
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v14[0] = sub_221484CD0;
+        v14[1] = &unk_2784659F0;
+        v16 = v24;
+        v17 = v23;
+        v20 = v6;
+        v18 = v21;
         archiveCopy = archive;
-        v16 = archiverCopy;
-        objc_msgSend_foreachFormula_(v7, v8, v14, v9, v10, v11);
+        v15 = archiverCopy;
+        objc_msgSend_foreachFormula_(v7, v8, v13, v9, v10);
       }
 
-      _Block_object_dispose(v22, 8);
+      _Block_object_dispose(v21, 8);
 
+      _Block_object_dispose(v23, 8);
       _Block_object_dispose(v24, 8);
-      _Block_object_dispose(v25, 8);
 
       next = *next;
     }
@@ -446,7 +448,8 @@
   stringCopy = string;
   if (stringCopy)
   {
-    v8 = sub_221486084(&self->_formulaStringsForCellRefs.__table_.__bucket_list_.__ptr_, ref);
+    refCopy = ref;
+    v8 = sub_221486084(&self->_formulaStringsForCellRefs.__table_.__bucket_list_.__ptr_, ref, &unk_2217E1E09, &refCopy);
     objc_storeStrong(v8 + 5, string);
   }
 

@@ -1,9 +1,12 @@
 @interface FPSandboxingURLWrapper
 + (FPSandboxingURLWrapper)wrapperWithSecurityScopedURL:(id)l;
++ (FPSandboxingURLWrapper)wrapperWithURL:(id)l extensionClass:(const char *)class report:(BOOL)report error:(id *)error;
++ (FPSandboxingURLWrapper)wrapperWithURL:(id)l readonly:(BOOL)readonly;
 + (FPSandboxingURLWrapper)wrapperWithURL:(id)l readonly:(BOOL)readonly error:(id *)error;
 + (void)assembleURL:(id)l sandbox:(id)sandbox physicalURL:(id)rL physicalSandbox:(id)physicalSandbox;
 - (FPSandboxingURLWrapper)init;
 - (FPSandboxingURLWrapper)initWithCoder:(id)coder;
+- (FPSandboxingURLWrapper)initWithURL:(id)l extensionClass:(const char *)class report:(BOOL)report error:(id *)error;
 - (id)_init;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
@@ -31,6 +34,23 @@
   return [(FPSandboxingURLWrapper *)&v3 init];
 }
 
++ (FPSandboxingURLWrapper)wrapperWithURL:(id)l readonly:(BOOL)readonly
+{
+  readonlyCopy = readonly;
+  lCopy = l;
+  v13 = 0;
+  v8 = [self wrapperWithURL:lCopy readonly:readonlyCopy error:&v13];
+  v9 = v13;
+  if (!v8)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    fp_shortDescription = [lCopy fp_shortDescription];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"FPSandboxingURLWrapper.m" lineNumber:55 description:{@"nil wrapper returned for url %@: %@", fp_shortDescription, v9}];
+  }
+
+  return v8;
+}
+
 + (FPSandboxingURLWrapper)wrapperWithURL:(id)l readonly:(BOOL)readonly error:(id *)error
 {
   v5 = MEMORY[0x1E69E9BA8];
@@ -40,6 +60,138 @@
   }
 
   return [self wrapperWithURL:l extensionClass:*v5 error:error];
+}
+
++ (FPSandboxingURLWrapper)wrapperWithURL:(id)l extensionClass:(const char *)class report:(BOOL)report error:(id *)error
+{
+  reportCopy = report;
+  lCopy = l;
+  v11 = [[self alloc] initWithURL:lCopy extensionClass:class report:reportCopy error:error];
+
+  return v11;
+}
+
+- (FPSandboxingURLWrapper)initWithURL:(id)l extensionClass:(const char *)class report:(BOOL)report error:(id *)error
+{
+  reportCopy = report;
+  lCopy = l;
+  if (!lCopy)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"FPSandboxingURLWrapper.m" lineNumber:78 description:@"tried to create wrapper with nil url"];
+  }
+
+  v42.receiver = self;
+  v42.super_class = FPSandboxingURLWrapper;
+  v14 = [(FPSandboxingURLWrapper *)&v42 init];
+  v15 = v14;
+  if (v14)
+  {
+    objc_storeStrong(&v14->_url, l);
+    v16 = _CFURLPromiseCopyPhysicalURL();
+    if (([lCopy isEqual:v16] & 1) == 0)
+    {
+      objc_storeStrong(&v15->_promiseURL, v16);
+    }
+
+    startAccessingSecurityScopedResource = [lCopy startAccessingSecurityScopedResource];
+    startAccessingSecurityScopedResource2 = [v16 startAccessingSecurityScopedResource];
+    v41 = 0;
+    v19 = [lCopy fp_issueSandboxExtensionOfClass:class report:reportCopy error:&v41];
+    v20 = v41;
+    scope = v15->_scope;
+    v15->_scope = v19;
+
+    if (v15->_scope)
+    {
+      if (!v16)
+      {
+        goto LABEL_10;
+      }
+
+      v40 = v20;
+      v22 = [v16 fp_issueSandboxExtensionOfClass:class report:reportCopy error:&v40];
+      v23 = v40;
+
+      promiseScope = v15->_promiseScope;
+      v15->_promiseScope = v22;
+
+      if (v15->_promiseScope)
+      {
+        v20 = v23;
+LABEL_10:
+        url = v15->_url;
+        v39 = 0;
+        v38 = 0;
+        v26 = [(NSURL *)url getResourceValue:&v39 forKey:@"FPOriginalDocumentURL" error:&v38];
+        v27 = v39;
+        v28 = v38;
+        if (v26 && v27)
+        {
+          v37 = v28;
+          v29 = [FPSandboxingURLWrapper wrapperWithURL:v27 readonly:0 error:&v37];
+          v30 = v37;
+
+          originalDocumentURLWrapper = v15->_originalDocumentURLWrapper;
+          v15->_originalDocumentURLWrapper = v29;
+
+          v28 = v30;
+        }
+
+        if (startAccessingSecurityScopedResource)
+        {
+          [lCopy stopAccessingSecurityScopedResource];
+        }
+
+        if (startAccessingSecurityScopedResource2)
+        {
+          [v16 stopAccessingSecurityScopedResource];
+        }
+
+        goto LABEL_19;
+      }
+
+      v36 = fp_current_or_default_log();
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+      {
+        [FPSandboxingURLWrapper initWithURL:extensionClass:report:error:];
+      }
+
+      v20 = v23;
+      if (!error)
+      {
+LABEL_24:
+
+        v32 = 0;
+        goto LABEL_25;
+      }
+    }
+
+    else
+    {
+      v33 = fp_current_or_default_log();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+      {
+        [FPSandboxingURLWrapper initWithURL:extensionClass:report:error:];
+      }
+
+      if (!error)
+      {
+        goto LABEL_24;
+      }
+    }
+
+    v34 = v20;
+    *error = v20;
+    goto LABEL_24;
+  }
+
+  v20 = 0;
+LABEL_19:
+  v32 = v15;
+LABEL_25:
+
+  return v32;
 }
 
 + (FPSandboxingURLWrapper)wrapperWithSecurityScopedURL:(id)l
@@ -212,14 +364,6 @@
   }
 
   return v6;
-}
-
-- (void)initWithURL:extensionClass:report:error:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, v0, v1, "[DEBUG] Could not issue %s sandbox extension (%@).");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (void)wrapperWithSecurityScopedURL:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

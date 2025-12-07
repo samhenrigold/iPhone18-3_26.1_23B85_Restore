@@ -242,13 +242,12 @@ LABEL_42:
             {
               v33 = objc_opt_class();
               NSStringFromClass(v33);
-              v42 = dataCopy;
+              v40 = dataCopy;
               v35 = v34 = error;
-              v36 = *&v7[*v10];
               v11 = CCSkipFieldErrorForMessage();
 
               error = v34;
-              dataCopy = v42;
+              dataCopy = v40;
               goto LABEL_40;
             }
 
@@ -345,22 +344,21 @@ LABEL_48:
 LABEL_50:
   if (!*&v7[*v10])
   {
-    v40 = 1;
+    v38 = 1;
     goto LABEL_54;
   }
 
 LABEL_51:
-  v37 = objc_opt_class();
-  v11 = NSStringFromClass(v37);
-  v38 = *&v7[*v10];
-  v39 = CCInvalidBufferErrorForMessage();
+  v36 = objc_opt_class();
+  v11 = NSStringFromClass(v36);
+  v37 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_52:
-  v40 = 0;
+  v38 = 0;
 LABEL_54:
 
-  return v40;
+  return v38;
 }
 
 - (CCRadioStationContent)initWithName:(id)name callSign:(id)sign frequency:(id)frequency channel:(id)channel signalType:(unsigned int)type error:(id *)error

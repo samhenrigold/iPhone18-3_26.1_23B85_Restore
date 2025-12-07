@@ -30,41 +30,41 @@
 
 - (void)loadView
 {
-  v22[4] = *MEMORY[0x277D85DE8];
-  v21.receiver = self;
-  v21.super_class = WFInteractionCardProgressViewController;
-  [(WFInteractionCardProgressViewController *)&v21 loadView];
-  v3 = objc_alloc_init(getSUICProgressEventViewControllerClass());
-  [(WFInteractionCardProgressViewController *)self addChildViewController:v3];
-  view = [v3 view];
+  v23[4] = *MEMORY[0x277D85DE8];
+  v22.receiver = self;
+  v22.super_class = WFInteractionCardProgressViewController;
+  loadView = [(WFInteractionCardProgressViewController *)&v22 loadView];
+  v4 = objc_alloc_init(getSUICProgressEventViewControllerClass(loadView));
+  [(WFInteractionCardProgressViewController *)self addChildViewController:v4];
+  view = [v4 view];
   [view setTranslatesAutoresizingMaskIntoConstraints:0];
   view2 = [(WFInteractionCardProgressViewController *)self view];
   [view2 addSubview:view];
 
-  v16 = MEMORY[0x277CCAAD0];
+  v17 = MEMORY[0x277CCAAD0];
   heightAnchor = [view heightAnchor];
-  v19 = [heightAnchor constraintEqualToConstant:20.0];
-  v22[0] = v19;
+  v20 = [heightAnchor constraintEqualToConstant:20.0];
+  v23[0] = v20;
   widthAnchor = [view widthAnchor];
-  v17 = [widthAnchor constraintEqualToConstant:20.0];
-  v22[1] = v17;
+  v18 = [widthAnchor constraintEqualToConstant:20.0];
+  v23[1] = v18;
   centerXAnchor = [view centerXAnchor];
   view3 = [(WFInteractionCardProgressViewController *)self view];
   centerXAnchor2 = [view3 centerXAnchor];
-  v7 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v22[2] = v7;
+  v8 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  v23[2] = v8;
   centerYAnchor = [view centerYAnchor];
   view4 = [(WFInteractionCardProgressViewController *)self view];
   centerYAnchor2 = [view4 centerYAnchor];
-  v11 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v22[3] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
-  [v16 activateConstraints:v12];
+  v12 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+  v23[3] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:4];
+  [v17 activateConstraints:v13];
 
-  [v3 didMoveToParentViewController:self];
-  [v3 handleEvent:0];
+  [v4 didMoveToParentViewController:self];
+  [v4 handleEvent:0];
   progressEventViewController = self->_progressEventViewController;
-  self->_progressEventViewController = v3;
+  self->_progressEventViewController = v4;
 }
 
 @end

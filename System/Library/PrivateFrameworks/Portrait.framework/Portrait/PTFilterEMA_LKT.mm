@@ -13,21 +13,21 @@
 
 - (PTFilterEMA_LKT)initWithMetalContext:(id)context
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v69.receiver = self;
-  v69.super_class = PTFilterEMA_LKT;
-  v6 = [(PTFilterEMA_LKT *)&v69 init];
+  v73.receiver = self;
+  v73.super_class = PTFilterEMA_LKT;
+  v6 = [(PTFilterEMA_LKT *)&v73 init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_metalContext, context);
-    v67 = 0x408000003F800000;
-    v68 = 0x3F8000003E6B851FLL;
-    HIDWORD(v66) = 1069547520;
+    v71 = 0x408000003F800000;
+    v72 = 0x3F8000003E6B851FLL;
+    HIDWORD(v70) = 1069547520;
     v8 = 0.0;
     v9 = -1;
-    v10 = v70;
+    v10 = v74;
     do
     {
       v11 = 0;
@@ -49,113 +49,113 @@
     while (v9 != 2);
     for (i = 0; i != 9; ++i)
     {
-      *&v70[i] = *&v70[i] / v8;
+      *&v74[i] = *&v74[i] / v8;
     }
 
-    _S0 = v70[0];
-    _S1 = v70[1];
+    _S0 = v74[0];
+    _S1 = v74[1];
     __asm { FCVT            H0, S0 }
 
-    HIWORD(v65) = _S0;
+    HIWORD(v69) = _S0;
     __asm { FCVT            H0, S1 }
 
-    LOWORD(v66) = _S0;
-    _S0 = v70[2];
-    _S1 = v70[3];
+    LOWORD(v70) = _S0;
+    _S0 = v74[2];
+    _S1 = v74[3];
     __asm { FCVT            H0, S0 }
 
-    WORD1(v66) = _S0;
+    WORD1(v70) = _S0;
     __asm { FCVT            H0, S1 }
 
-    LOWORD(v65) = _S0;
-    _S0 = v70[4];
-    _S1 = v70[5];
+    LOWORD(v69) = _S0;
+    _S0 = v74[4];
+    _S1 = v74[5];
     __asm { FCVT            H0, S0 }
 
-    WORD1(v65) = _S0;
+    WORD1(v69) = _S0;
     __asm { FCVT            H0, S1 }
 
-    WORD2(v65) = _S0;
+    WORD2(v69) = _S0;
     v25 = objc_opt_new();
-    [v25 setConstantValue:&v68 type:4 withName:{@"kIIRUpdateCoefficients", v65, v66, v67}];
-    [v25 setConstantValue:&v67 type:4 withName:@"kMotionThresholdMinMax"];
+    [v25 setConstantValue:&v72 type:4 withName:{@"kIIRUpdateCoefficients", v69, v70, v71}];
+    [v25 setConstantValue:&v71 type:4 withName:@"kMotionThresholdMinMax"];
     v26 = [contextCopy computePipelineStateFor:@"temporalFilterEMA_LKT" withConstants:v25];
     temporalFilterEMA_LKT = v7->_temporalFilterEMA_LKT;
     v7->_temporalFilterEMA_LKT = v26;
 
     if (v7->_temporalFilterEMA_LKT)
     {
-      v28 = [contextCopy computePipelineStateFor:@"temporalFilterEMA_LKTDisparityNormal" withConstants:v25];
+      v29 = [contextCopy computePipelineStateFor:@"temporalFilterEMA_LKTDisparityNormal" withConstants:v25];
       temporalFilterEMA_LKTDisparityNormal = v7->_temporalFilterEMA_LKTDisparityNormal;
-      v7->_temporalFilterEMA_LKTDisparityNormal = v28;
+      v7->_temporalFilterEMA_LKTDisparityNormal = v29;
 
       if (v7->_temporalFilterEMA_LKTDisparityNormal)
       {
-        [v25 setConstantValue:&v66 + 4 type:3 withName:@"kGaussianWidth"];
-        [v25 setConstantValue:&v65 + 6 type:18 withName:@"kWeights2DRow0"];
-        [v25 setConstantValue:&v65 type:18 withName:@"kWeights2DRow1"];
-        v30 = [contextCopy computePipelineStateFor:@"temporalFilterGaussEMA_LKTNormal" withConstants:v25];
+        [v25 setConstantValue:&v70 + 4 type:3 withName:@"kGaussianWidth"];
+        [v25 setConstantValue:&v69 + 6 type:18 withName:@"kWeights2DRow0"];
+        [v25 setConstantValue:&v69 type:18 withName:@"kWeights2DRow1"];
+        v32 = [contextCopy computePipelineStateFor:@"temporalFilterGaussEMA_LKTNormal" withConstants:v25];
         temporalFilterGaussEMA_LKTNormal = v7->_temporalFilterGaussEMA_LKTNormal;
-        v7->_temporalFilterGaussEMA_LKTNormal = v30;
+        v7->_temporalFilterGaussEMA_LKTNormal = v32;
 
         if (v7->_temporalFilterGaussEMA_LKTNormal)
         {
-          v32 = [contextCopy computePipelineStateFor:@"temporalFilterGaussEMA_LKT" withConstants:v25];
+          v35 = [contextCopy computePipelineStateFor:@"temporalFilterGaussEMA_LKT" withConstants:v25];
           temporalFilterGaussEMA_LKT = v7->_temporalFilterGaussEMA_LKT;
-          v7->_temporalFilterGaussEMA_LKT = v32;
+          v7->_temporalFilterGaussEMA_LKT = v35;
 
           if (v7->_temporalFilterGaussEMA_LKT)
           {
-            v34 = v7;
+            v38 = v7;
 LABEL_23:
 
             goto LABEL_24;
           }
 
-          v35 = _PTLogSystem();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+          v39 = _PTLogSystem(v37);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
-            [(PTFilterEMA_LKT *)v35 initWithMetalContext:v57, v58, v59, v60, v61, v62, v63];
+            [(PTFilterEMA_LKT *)v39 initWithMetalContext:v61, v62, v63, v64, v65, v66, v67];
           }
         }
 
         else
         {
-          v35 = _PTLogSystem();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+          v39 = _PTLogSystem(v34);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
-            [(PTFilterEMA_LKT *)v35 initWithMetalContext:v50, v51, v52, v53, v54, v55, v56];
+            [(PTFilterEMA_LKT *)v39 initWithMetalContext:v54, v55, v56, v57, v58, v59, v60];
           }
         }
       }
 
       else
       {
-        v35 = _PTLogSystem();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        v39 = _PTLogSystem(v31);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
-          [(PTFilterEMA_LKT *)v35 initWithMetalContext:v43, v44, v45, v46, v47, v48, v49];
+          [(PTFilterEMA_LKT *)v39 initWithMetalContext:v47, v48, v49, v50, v51, v52, v53];
         }
       }
     }
 
     else
     {
-      v35 = _PTLogSystem();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v39 = _PTLogSystem(v28);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
-        [(PTFilterEMA_LKT *)v35 initWithMetalContext:v36, v37, v38, v39, v40, v41, v42];
+        [(PTFilterEMA_LKT *)v39 initWithMetalContext:v40, v41, v42, v43, v44, v45, v46];
       }
     }
 
-    v34 = 0;
+    v38 = 0;
     goto LABEL_23;
   }
 
-  v34 = 0;
+  v38 = 0;
 LABEL_24:
 
-  return v34;
+  return v38;
 }
 
 - (PTFilterEMA_LKT)initWithMetalContext:(id)context disparitySize:(id *)size disparityFilteredSize:(id *)filteredSize disparityPixelFormat:(unint64_t)format colorSize:(id *)colorSize colorPixelFormat:(unint64_t)pixelFormat sensorPort:(id)port
@@ -208,7 +208,7 @@ LABEL_24:
 
 - (int)temporalDisparityFilter:(id)filter inDisplacement:(id)displacement inStatePrev:(id)prev inDisparity:(id)disparity outDisparity:(id)outDisparity outState:(id)state
 {
-  v8 = _PTLogSystem();
+  v8 = _PTLogSystem(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [PTFilterEMA_LKT temporalDisparityFilter:v8 inDisplacement:? inStatePrev:? inDisparity:? outDisparity:? outState:?];
@@ -221,7 +221,7 @@ LABEL_24:
 {
   if (prev == outDisparity)
   {
-    v11 = _PTLogSystem();
+    v11 = _PTLogSystem(self);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [PTFilterEMA_LKT temporalDisparityFilter:v11 inDisplacement:? inDisparityPrev:? inDisparity:? outDisparity:? disparityBias:?];
@@ -253,7 +253,7 @@ LABEL_24:
     computeCommandEncoder = [filterCopy computeCommandEncoder];
     if (!computeCommandEncoder)
     {
-      v22 = _PTLogSystem();
+      v22 = _PTLogSystem(0);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         [(PTRaytracingUtils *)v22 disparityApplyPostModifier:v23 inDisparity:v24 outDisparity:v25 postModifier:v26, v27, v28, v29];
@@ -307,10 +307,10 @@ LABEL_24:
 
     if (!computeCommandEncoder)
     {
-      v20 = _PTLogSystem();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = _PTLogSystem(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        [(PTRaytracingUtils *)v20 disparityApplyPostModifier:v21 inDisparity:v22 outDisparity:v23 postModifier:v24, v25, v26, v27];
+        [(PTRaytracingUtils *)v21 disparityApplyPostModifier:v22 inDisparity:v23 outDisparity:v24 postModifier:v25, v26, v27, v28];
       }
     }
 
@@ -323,12 +323,12 @@ LABEL_24:
     width = [outTexCopy width];
     height = [outTexCopy height];
 
-    v38[0] = width;
-    v38[1] = height;
-    v38[2] = 1;
-    v36 = xmmword_2244A5230;
-    v37 = 1;
-    [computeCommandEncoder dispatchThreads:v38 threadsPerThreadgroup:&v36];
+    v39[0] = width;
+    v39[1] = height;
+    v39[2] = 1;
+    v37 = xmmword_2244A5230;
+    v38 = 1;
+    [computeCommandEncoder dispatchThreads:v39 threadsPerThreadgroup:&v37];
     [computeCommandEncoder endEncoding];
   }
 
@@ -358,10 +358,10 @@ LABEL_24:
 
     if (!computeCommandEncoder)
     {
-      v20 = _PTLogSystem();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = _PTLogSystem(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        [(PTRaytracingUtils *)v20 disparityApplyPostModifier:v21 inDisparity:v22 outDisparity:v23 postModifier:v24, v25, v26, v27];
+        [(PTRaytracingUtils *)v21 disparityApplyPostModifier:v22 inDisparity:v23 outDisparity:v24 postModifier:v25, v26, v27, v28];
       }
     }
 
@@ -374,12 +374,12 @@ LABEL_24:
     width = [outNormalCopy width];
     height = [outNormalCopy height];
 
-    v38[0] = width;
-    v38[1] = height;
-    v38[2] = 1;
-    v36 = xmmword_2244A5230;
-    v37 = 1;
-    [computeCommandEncoder dispatchThreads:v38 threadsPerThreadgroup:&v36];
+    v39[0] = width;
+    v39[1] = height;
+    v39[2] = 1;
+    v37 = xmmword_2244A5230;
+    v38 = 1;
+    [computeCommandEncoder dispatchThreads:v39 threadsPerThreadgroup:&v37];
     [computeCommandEncoder endEncoding];
   }
 
@@ -412,10 +412,10 @@ LABEL_24:
 
     if (!computeCommandEncoder)
     {
-      v26 = _PTLogSystem();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v27 = _PTLogSystem(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        [(PTRaytracingUtils *)v26 disparityApplyPostModifier:v27 inDisparity:v28 outDisparity:v29 postModifier:v30, v31, v32, v33];
+        [(PTRaytracingUtils *)v27 disparityApplyPostModifier:v28 inDisparity:v29 outDisparity:v30 postModifier:v31, v32, v33, v34];
       }
     }
 
@@ -433,12 +433,12 @@ LABEL_24:
     width = [outDisparityCopy width];
     height = [outDisparityCopy height];
 
-    v47[0] = width;
-    v47[1] = height;
-    v47[2] = 1;
-    v45 = xmmword_2244A5230;
-    v46 = 1;
-    [computeCommandEncoder dispatchThreads:v47 threadsPerThreadgroup:&v45];
+    v48[0] = width;
+    v48[1] = height;
+    v48[2] = 1;
+    v46 = xmmword_2244A5230;
+    v47 = 1;
+    [computeCommandEncoder dispatchThreads:v48 threadsPerThreadgroup:&v46];
     [computeCommandEncoder endEncoding];
   }
 
@@ -458,6 +458,34 @@ LABEL_24:
   }
 
   return 0;
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_temporalFilterGaussEMA_LKT";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_temporalFilterGaussEMA_LKTNormal";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_temporalFilterEMA_LKTDisparityNormal";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_temporalFilterEMA_LKT";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

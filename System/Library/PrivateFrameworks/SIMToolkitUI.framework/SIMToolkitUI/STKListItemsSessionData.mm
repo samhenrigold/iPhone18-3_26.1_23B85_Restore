@@ -23,11 +23,10 @@
 
 - (void)encodeWithXPCDictionary:(id)dictionary
 {
-  v6.receiver = self;
-  v6.super_class = STKListItemsSessionData;
+  v4.receiver = self;
+  v4.super_class = STKListItemsSessionData;
   dictionaryCopy = dictionary;
-  [(STKTextSessionData *)&v6 encodeWithXPCDictionary:dictionaryCopy];
-  listItems = self->_listItems;
+  [(STKTextSessionData *)&v4 encodeWithXPCDictionary:dictionaryCopy];
   BSSerializeArrayOfBSXPCEncodableObjectsToXPCDictionaryWithKey();
 }
 

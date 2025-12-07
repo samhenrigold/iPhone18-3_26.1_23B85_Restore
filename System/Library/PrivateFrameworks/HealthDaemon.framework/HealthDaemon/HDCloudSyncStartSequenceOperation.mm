@@ -40,15 +40,15 @@
 - (BOOL)performWithError:(id *)error
 {
   selfCopy = self;
-  v111[1] = *MEMORY[0x277D85DE8];
+  v110[1] = *MEMORY[0x277D85DE8];
   if (self)
   {
     replacedSequenceRecord = self->_replacedSequenceRecord;
     if (replacedSequenceRecord)
     {
       recordID = [(HDCloudSyncRecord *)replacedSequenceRecord recordID];
-      v111[0] = recordID;
-      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v111 count:1];
+      v110[0] = recordID;
+      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v110 count:1];
     }
 
     else
@@ -68,10 +68,10 @@
       LOBYTE(selfCopy) = 1;
 LABEL_45:
 
-      goto LABEL_46;
+      return selfCopy;
     }
 
-    v100 = v7;
+    v99 = v7;
     configuration = [(HDCloudSyncOperation *)selfCopy configuration];
     repository = [configuration repository];
     configuration2 = [(HDCloudSyncOperation *)selfCopy configuration];
@@ -94,9 +94,9 @@ LABEL_45:
     accessibilityAssertion = [configuration5 accessibilityAssertion];
     v27 = [(HDCloudSyncCachedZone *)v21 initForZoneIdentifier:zoneIdentifier2 repository:repository4 accessibilityAssertion:accessibilityAssertion];
 
-    v103 = 0;
-    v28 = [v27 recordsForClass:objc_opt_class() error:&v103];
-    v29 = v103;
+    v102 = 0;
+    v28 = [v27 recordsForClass:objc_opt_class() error:&v102];
+    v29 = v102;
     v30 = v29;
     if (!v28 && v29)
     {
@@ -105,15 +105,15 @@ LABEL_45:
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
         target = selfCopy->_target;
-        v87 = v31;
+        v86 = v31;
         zoneIdentifier3 = [(HDCloudSyncTarget *)target zoneIdentifier];
         *buf = 138543874;
         *&buf[4] = selfCopy;
-        v107 = 2114;
-        v108 = zoneIdentifier3;
-        v109 = 2114;
-        v110 = v30;
-        _os_log_error_impl(&dword_228986000, v87, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get registry records for %{public}@, %{public}@", buf, 0x20u);
+        v106 = 2114;
+        v107 = zoneIdentifier3;
+        v108 = 2114;
+        v109 = v30;
+        _os_log_error_impl(&dword_228986000, v86, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get registry records for %{public}@, %{public}@", buf, 0x20u);
       }
 
       if (error)
@@ -129,35 +129,35 @@ LABEL_45:
         LOBYTE(selfCopy) = 0;
       }
 
-      v7 = v100;
+      v7 = v99;
       goto LABEL_44;
     }
 
     errorCopy = error;
-    v97 = sequenceState;
+    v96 = sequenceState;
     if ([v28 count] >= 2)
     {
       _HKInitializeLogging();
       v35 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v89 = selfCopy->_target;
-        v90 = v35;
-        zoneIdentifier4 = [(HDCloudSyncTarget *)v89 zoneIdentifier];
+        v88 = selfCopy->_target;
+        v89 = v35;
+        zoneIdentifier4 = [(HDCloudSyncTarget *)v88 zoneIdentifier];
         *buf = 138543618;
         *&buf[4] = selfCopy;
-        v107 = 2114;
-        v108 = zoneIdentifier4;
-        _os_log_error_impl(&dword_228986000, v90, OS_LOG_TYPE_ERROR, "%{public}@ Retrieved multiple cached registry records for %{public}@,", buf, 0x16u);
+        v106 = 2114;
+        v107 = zoneIdentifier4;
+        _os_log_error_impl(&dword_228986000, v89, OS_LOG_TYPE_ERROR, "%{public}@ Retrieved multiple cached registry records for %{public}@,", buf, 0x16u);
       }
     }
 
     firstObject = [v28 firstObject];
-    v95 = firstObject == 0;
+    v94 = firstObject == 0;
     if (!firstObject)
     {
-      v92 = v30;
-      v98 = v27;
+      v91 = v30;
+      v97 = v27;
       v37 = [HDCloudSyncRegistryRecord alloc];
       zoneIdentifier5 = [(HDCloudSyncTarget *)selfCopy->_target zoneIdentifier];
       v38ZoneIdentifier = [zoneIdentifier5 zoneIdentifier];
@@ -174,10 +174,10 @@ LABEL_45:
       if (!profileIdentifier)
       {
         v80 = v45;
-        v27 = v98;
-        v7 = v100;
-        sequenceState = v97;
-        v30 = v92;
+        v27 = v97;
+        v7 = v99;
+        sequenceState = v96;
+        v30 = v91;
         if (!v80)
         {
           goto LABEL_42;
@@ -186,11 +186,11 @@ LABEL_45:
         goto LABEL_39;
       }
 
-      v27 = v98;
-      v30 = v92;
+      v27 = v97;
+      v30 = v91;
     }
 
-    v99 = firstObject;
+    v98 = firstObject;
     v46 = [firstObject storeIdentifiersForSyncIdentity:identity];
     store = [(HDCloudSyncTarget *)selfCopy->_target store];
     storeIdentifier = [store storeIdentifier];
@@ -208,13 +208,13 @@ LABEL_45:
       v55 = v54 = v27;
       [v55 identity];
       v57 = v56 = v30;
-      [v99 addStoreIdentifier:storeIdentifier2 ownerIdentifier:v97 syncIdentity:v57];
+      [v98 addStoreIdentifier:storeIdentifier2 ownerIdentifier:v96 syncIdentity:v57];
 
       v30 = v56;
       v27 = v54;
       v28 = v53;
 
-      v95 = 1;
+      v94 = 1;
     }
 
     zoneIdentifier6 = [(HDCloudSyncTarget *)selfCopy->_target zoneIdentifier];
@@ -222,8 +222,8 @@ LABEL_45:
 
     if (scope == 2)
     {
-      firstObject = v99;
-      ownerProfileIdentifier = [v99 ownerProfileIdentifier];
+      firstObject = v98;
+      ownerProfileIdentifier = [v98 ownerProfileIdentifier];
 
       if (!ownerProfileIdentifier)
       {
@@ -231,10 +231,10 @@ LABEL_45:
         repository7 = [configuration8 repository];
         profile2 = [repository7 profile];
         profileIdentifier2 = [profile2 profileIdentifier];
-        [v99 setOwnerProfileIdentifier:profileIdentifier2];
+        [v98 setOwnerProfileIdentifier:profileIdentifier2];
 
-        firstObject = v99;
-        v95 = 1;
+        firstObject = v98;
+        v94 = 1;
       }
 
       sharedProfileIdentifier = [firstObject sharedProfileIdentifier];
@@ -249,20 +249,20 @@ LABEL_45:
         v70 = v28;
         v72 = v71 = v27;
         v73 = [HDCloudSyncRegistryRecord sharedProfileIdentifierForOwnerProfileIdentifier:v72];
-        [v99 setSharedProfileIdentifier:v73];
+        [v98 setSharedProfileIdentifier:v73];
 
         v27 = v71;
         v28 = v70;
         v30 = v69;
 
-        firstObject = v99;
-        v95 = 1;
+        firstObject = v98;
+        v94 = 1;
       }
     }
 
     else
     {
-      firstObject = v99;
+      firstObject = v98;
     }
 
     configuration10 = [(HDCloudSyncOperation *)selfCopy configuration];
@@ -271,9 +271,9 @@ LABEL_45:
 
     if (profileType != 3)
     {
-      v7 = v100;
-      sequenceState = v97;
-      if (!v95)
+      v7 = v99;
+      sequenceState = v96;
+      if (!v94)
       {
         v80 = MEMORY[0x277CBEBF8];
         goto LABEL_37;
@@ -281,28 +281,28 @@ LABEL_45:
 
 LABEL_31:
       record = [firstObject record];
-      v105 = record;
-      v80 = [MEMORY[0x277CBEA60] arrayWithObjects:&v105 count:1];
+      v104 = record;
+      v80 = [MEMORY[0x277CBEA60] arrayWithObjects:&v104 count:1];
 
 LABEL_37:
       v81 = [[HDCloudSyncSequenceState alloc] initWithRecordsToSave:v80 recordIDsToDelete:v7 shouldClearRebaselineDeadline:selfCopy->_shouldClearRebaselineDeadline];
       v82 = selfCopy->_sequenceState;
       selfCopy->_sequenceState = v81;
 
-      v104 = 1;
+      v103 = 1;
 LABEL_43:
 
-      LOBYTE(selfCopy) = v104;
+      LOBYTE(selfCopy) = v103;
 LABEL_44:
 
       goto LABEL_45;
     }
 
-    v102 = 0;
-    v77 = [(HDCloudSyncStartSequenceOperation *)selfCopy _updateDisplayNameForRegistryRecord:firstObject error:&v102];
-    v78 = v102;
-    v7 = v100;
-    sequenceState = v97;
+    v101 = 0;
+    v77 = [(HDCloudSyncStartSequenceOperation *)selfCopy _updateDisplayNameForRegistryRecord:firstObject error:&v101];
+    v78 = v101;
+    v7 = v99;
+    sequenceState = v96;
     if (v77)
     {
 
@@ -314,7 +314,7 @@ LABEL_44:
     {
 LABEL_42:
 
-      v104 = v80 == 0;
+      v103 = v80 == 0;
       goto LABEL_43;
     }
 
@@ -333,8 +333,6 @@ LABEL_39:
     goto LABEL_42;
   }
 
-LABEL_46:
-  v84 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

@@ -87,7 +87,7 @@
   v12 = layer;
   if (layer)
   {
-    [layer cornerRadii];
+    objc_msgSend_cornerRadii(layer);
   }
 
   else

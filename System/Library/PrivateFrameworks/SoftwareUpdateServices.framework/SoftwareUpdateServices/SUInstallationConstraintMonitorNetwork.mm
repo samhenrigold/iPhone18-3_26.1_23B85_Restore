@@ -49,7 +49,6 @@
 
 - (unint64_t)unsatisfiedConstraints
 {
-  queue = self->super._queue;
   BSDispatchQueueAssert();
   if (self->_queue_hasNetwork)
   {
@@ -72,14 +71,13 @@
 
 - (void)_queue_networkDidChange
 {
-  queue = self->super._queue;
   BSDispatchQueueAssert();
-  v4 = [(SUNetworkMonitor *)self->_queue_networkMonitor currentNetworkType]!= 0;
+  currentNetworkType = [(SUNetworkMonitor *)self->_queue_networkMonitor currentNetworkType];
+  v4 = currentNetworkType != 0;
   if (self->_queue_hasNetwork != v4)
   {
     self->_queue_hasNetwork = v4;
-    v5 = SULogInstallConstraints();
-    self->_queue_hasNetwork;
+    v5 = SULogInstallConstraints(currentNetworkType);
     SULogInfoForSubsystem(v5, @"%@ - network constraint changed (satisfied? %@)", v6, v7, v8, v9, v10, v11, self);
 
     delegate = [(SUInstallationConstraintMonitorBase *)self delegate];

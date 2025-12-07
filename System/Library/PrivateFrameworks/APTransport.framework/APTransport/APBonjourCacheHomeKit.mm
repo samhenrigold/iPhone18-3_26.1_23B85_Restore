@@ -14,6 +14,8 @@
 - (id)copyDescription;
 - (id)copyDescriptionInternal;
 - (id)describeBonjourInfo:(id)info;
+- (id)getCacheDirectoryURLWithParentDirectory:(id)directory creatingIfNecessary:(BOOL)necessary;
+- (id)getCacheFileURLCreatingParentDirectoriesIfNecessary:(BOOL)necessary;
 - (id)getReportableCachedDevices;
 - (uint64_t)checkAndEvictCachedDevicesIfNecessary;
 - (uint64_t)setupEvictionPolicies;
@@ -57,7 +59,7 @@
 
 - (BOOL)writeCache
 {
-  v11 = 0;
+  v12 = 0;
   if (![(APBonjourCacheHomeKit *)self currentNetworkSignature])
   {
     return 0;
@@ -68,8 +70,7 @@
     v2 = 33554522;
     if (gLogCategory_APBonjourCacheHomeKit != -1 || _LogCategory_Initialize())
     {
-      selfCopy = self;
-      LogPrintF();
+      LogPrintF(&gLogCategory_APBonjourCacheHomeKit, "[APBonjourCacheHomeKit writeCache]", 33554462, "[%{ptr}] Writing cache to disk", self);
     }
   }
 
@@ -79,15 +80,15 @@
   {
     [(NSMutableDictionary *)[(APBonjourCacheHomeKit *)self cache] setObject:@"2" forKeyedSubscript:@"Version"];
     [(NSMutableDictionary *)[(APBonjourCacheHomeKit *)self cache] setObject:[(APBonjourCacheHomeKit *)self currentNetworkSignature] forKeyedSubscript:@"NetworkSignature"];
-    v4 = [MEMORY[0x277CCAC58] dataWithPropertyList:-[APBonjourCacheHomeKit cache](self format:"cache") options:200 error:{0, &v11}];
-    if (v11)
+    v4 = [MEMORY[0x277CCAC58] dataWithPropertyList:-[APBonjourCacheHomeKit cache](self format:"cache") options:200 error:{0, &v12}];
+    if (v12)
     {
       v9 = gLogCategory_APBonjourCacheHomeKit;
       if (gLogCategory_APBonjourCacheHomeKit <= 90)
       {
         if (gLogCategory_APBonjourCacheHomeKit == -1)
         {
-          if (!OUTLINED_FUNCTION_9_0())
+          if (!OUTLINED_FUNCTION_9_0(&gLogCategory_APBonjourCacheHomeKit))
           {
             return 0;
           }
@@ -95,17 +96,14 @@
           v9 = gLogCategory_APBonjourCacheHomeKit;
         }
 
-        if (v9 != -1)
+        if (v9 == -1)
         {
-          goto LABEL_31;
+          _LogCategory_Initialize();
         }
 
-LABEL_30:
-        _LogCategory_Initialize();
-LABEL_31:
         [(APBonjourCacheHomeKit *)self cache];
-LABEL_34:
-        OUTLINED_FUNCTION_15();
+        v11 = "[%{ptr}] Failed to serialize cache: %@%?{end} contents:%@";
+        goto LABEL_36;
       }
 
       return 0;
@@ -119,19 +117,23 @@ LABEL_34:
       {
         if (gLogCategory_APBonjourCacheHomeKit != -1)
         {
-          goto LABEL_11;
-        }
-
-        if (OUTLINED_FUNCTION_9_0())
-        {
-          v6 = gLogCategory_APBonjourCacheHomeKit;
 LABEL_11:
-          if (v6 != -1)
+          if (v6 == -1)
           {
-            goto LABEL_31;
+            _LogCategory_Initialize();
           }
 
-          goto LABEL_30;
+          [(APBonjourCacheHomeKit *)self cache];
+          v11 = "[%{ptr}] Failed to write cache file data%?{end} to URL: %@ contents:%@";
+LABEL_36:
+          OUTLINED_FUNCTION_15(&gLogCategory_APBonjourCacheHomeKit, "[APBonjourCacheHomeKit writeCache]", v10, v11);
+          return 0;
+        }
+
+        if (OUTLINED_FUNCTION_9_0(&gLogCategory_APBonjourCacheHomeKit))
+        {
+          v6 = gLogCategory_APBonjourCacheHomeKit;
+          goto LABEL_11;
         }
       }
 
@@ -143,21 +145,22 @@ LABEL_11:
   {
     v7 = [objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")];
     v5 = 1;
-    if ([v11 code] != 4 && (v7 & 1) == 0)
+    if ([v12 code] != 4 && (v7 & 1) == 0)
     {
-      if (gLogCategory_APBonjourCacheHomeKit > 90 || gLogCategory_APBonjourCacheHomeKit == -1 && !OUTLINED_FUNCTION_9_0())
+      if (gLogCategory_APBonjourCacheHomeKit > 90 || gLogCategory_APBonjourCacheHomeKit == -1 && !OUTLINED_FUNCTION_9_0(&gLogCategory_APBonjourCacheHomeKit))
       {
         return 0;
       }
 
-      [v11 localizedDescription];
-      [v11 localizedFailureReason];
+      [v12 localizedDescription];
+      [v12 localizedFailureReason];
       if (gLogCategory_APBonjourCacheHomeKit == -1)
       {
         _LogCategory_Initialize();
       }
 
-      goto LABEL_34;
+      v11 = "[%{ptr}] Failed to remove cache file: %@ %@%?{end} URL: %@";
+      goto LABEL_36;
     }
   }
 
@@ -166,54 +169,52 @@ LABEL_11:
 
 - (APBonjourCacheHomeKit)init
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = APBonjourCacheHomeKit;
-  v2 = [(APBonjourCacheHomeKit *)&v8 init];
+  v8 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = APBonjourCacheHomeKit;
+  v2 = [(APBonjourCacheHomeKit *)&v6 init];
   v3 = v2;
   if (!v2)
   {
-    goto LABEL_12;
+    return v3;
   }
 
-  v7 = v2;
-  SNPrintF();
-  [(APBonjourCacheHomeKit *)v3 setInternalQueue:dispatch_queue_create(label, 0), v7];
+  SNPrintF(label, 64, "APBonjourCacheHomeKit.%{ptr}.InternalQueue", v2);
+  [(APBonjourCacheHomeKit *)v3 setInternalQueue:dispatch_queue_create(label, 0)];
   if (![(APBonjourCacheHomeKit *)v3 internalQueue])
   {
-    v6 = 141;
+    v5 = 141;
 LABEL_19:
-    [(APBonjourCacheHomeKit *)v6 init];
-    v3 = 0;
-    goto LABEL_12;
+    [(APBonjourCacheHomeKit *)v5 init];
+    return 0;
   }
 
-  SNPrintF();
-  [(APBonjourCacheHomeKit *)v3 setDispatchQueue:dispatch_queue_create(label, 0), v3];
+  SNPrintF(label, 64, "APBonjourCacheHomeKit.%{ptr}.DispatchQueue", v3);
+  [(APBonjourCacheHomeKit *)v3 setDispatchQueue:dispatch_queue_create(label, 0)];
   if (![(APBonjourCacheHomeKit *)v3 dispatchQueue])
   {
-    v6 = 145;
+    v5 = 145;
     goto LABEL_19;
   }
 
   -[APBonjourCacheHomeKit setPresentRealDevices:](v3, "setPresentRealDevices:", [MEMORY[0x277CBEB38] dictionary]);
   if (![(APBonjourCacheHomeKit *)v3 presentRealDevices])
   {
-    v6 = 148;
+    v5 = 148;
     goto LABEL_19;
   }
 
   -[APBonjourCacheHomeKit setExpectedDeviceIDs:](v3, "setExpectedDeviceIDs:", [MEMORY[0x277CBEB58] set]);
   if (![(APBonjourCacheHomeKit *)v3 expectedDeviceIDs])
   {
-    v6 = 151;
+    v5 = 151;
     goto LABEL_19;
   }
 
   -[APBonjourCacheHomeKit setReportedCachedDeviceIDs:](v3, "setReportedCachedDeviceIDs:", [MEMORY[0x277CBEB58] set]);
   if (![(APBonjourCacheHomeKit *)v3 reportedCachedDeviceIDs])
   {
-    v6 = 154;
+    v5 = 154;
     goto LABEL_19;
   }
 
@@ -228,11 +229,9 @@ LABEL_19:
 
   if (gLogCategory_APBonjourCacheHomeKit <= 50 && (gLogCategory_APBonjourCacheHomeKit != -1 || _LogCategory_Initialize()))
   {
-    [APBonjourCacheHomeKit init];
+    [(APBonjourCacheHomeKit *)v3 init];
   }
 
-LABEL_12:
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -267,7 +266,7 @@ LABEL_12:
 
   if (gLogCategory_APBonjourCacheHomeKit <= 50 && (gLogCategory_APBonjourCacheHomeKit != -1 || _LogCategory_Initialize()))
   {
-    [APBonjourCacheHomeKit dealloc];
+    [(APBonjourCacheHomeKit *)self dealloc];
   }
 
   v5.receiver = self;
@@ -277,20 +276,18 @@ LABEL_12:
 
 - (void)setupEvictionPolicies
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = 0;
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = 0;
   v3 = objc_alloc_init(APBonjourCacheEvictionTTL);
   APSSettingsGetDouble();
   [(APBonjourCacheEvictionTTL *)v3 setTimeToLiveSeconds:v4];
   if (gLogCategory_APBonjourCacheHomeKit <= 50 && (gLogCategory_APBonjourCacheHomeKit != -1 || _LogCategory_Initialize()))
   {
-    [(APBonjourCacheHomeKit *)&v6 setupEvictionPolicies];
+    [(APBonjourCacheHomeKit *)&v5 setupEvictionPolicies];
   }
 
-  v7[0] = v3;
-  -[APBonjourCacheHomeKit setEvictionPolicies:](self, "setEvictionPolicies:", [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1]);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = v3;
+  -[APBonjourCacheHomeKit setEvictionPolicies:](self, "setEvictionPolicies:", [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1]);
 }
 
 - (void)setupDiskWriteCoalescer
@@ -411,7 +408,7 @@ uint64_t __50__APBonjourCacheHomeKit_realDeviceFound_userInfo___block_invoke(voi
   return v4;
 }
 
-uint64_t __47__APBonjourCacheHomeKit_availableCachedDevices__block_invoke(uint64_t a1)
+void *__47__APBonjourCacheHomeKit_availableCachedDevices__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) getReportableCachedDevices];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -501,7 +498,7 @@ LABEL_20:
 LABEL_10:
   if (gLogCategory_APBonjourCacheHomeKit <= 50 && (gLogCategory_APBonjourCacheHomeKit != -1 || _LogCategory_Initialize()))
   {
-    [APBonjourCacheHomeKit activateWithCompletionInternal:];
+    [APBonjourCacheHomeKit activateWithCompletionInternal:?];
   }
 
   v9 = 0;
@@ -543,11 +540,11 @@ uint64_t __56__APBonjourCacheHomeKit_activateWithCompletionInternal___block_invo
   return [v1 handleHomeKitDeviceConfigurationChanged:v2];
 }
 
-uint64_t __56__APBonjourCacheHomeKit_activateWithCompletionInternal___block_invoke_4(uint64_t result, uint64_t a2)
+void *__56__APBonjourCacheHomeKit_activateWithCompletionInternal___block_invoke_4(void *result, uint64_t a2)
 {
   if (!a2)
   {
-    v3 = *(result + 32);
+    v3 = result[4];
     v4 = [objc_msgSend(v3 "homeKitDeviceMonitor")];
 
     return [v3 handleHomeKitDeviceConfigurationChanged:v4];
@@ -577,7 +574,7 @@ uint64_t __56__APBonjourCacheHomeKit_activateWithCompletionInternal___block_invo
 
 - (void)handleRealDeviceFoundForCachedDevice:(id)device
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v5 = +[APBonjourCacheHomeKit getDeviceID:](APBonjourCacheHomeKit, "getDeviceID:", [device deviceInfo]);
   v6 = [objc_msgSend(device "deviceInfo")];
   v7 = [objc_msgSend(objc_msgSend(device "deviceInfo")];
@@ -609,39 +606,39 @@ LABEL_40:
   }
 
   v13 = v12;
-  v37 = v9;
-  v39 = v5;
+  v30 = v9;
+  v32 = v5;
   selfCopy = self;
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __62__APBonjourCacheHomeKit_handleRealDeviceFoundForCachedDevice___block_invoke;
-  v49[3] = &__block_descriptor_36_e39_B24__0__NSDictionary_8__NSDictionary_16l;
-  v50 = v8;
-  [v12 filterUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithBlock:", v49)}];
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __62__APBonjourCacheHomeKit_handleRealDeviceFoundForCachedDevice___block_invoke;
+  v42[3] = &__block_descriptor_36_e39_B24__0__NSDictionary_8__NSDictionary_16l;
+  v43 = v8;
+  [v12 filterUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithBlock:", v42)}];
   [v13 addObjectsFromArray:v6];
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v14 = [v13 countByEnumeratingWithState:&v45 objects:v52 count:16];
+  v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v14 = [v13 countByEnumeratingWithState:&v38 objects:v45 count:16];
   if (v14)
   {
     v15 = v14;
     LODWORD(v16) = 0;
-    v17 = *v46;
+    v17 = *v39;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v46 != v17)
+        if (*v39 != v17)
         {
           objc_enumerationMutation(v13);
         }
 
-        v16 = [objc_msgSend(*(*(&v45 + 1) + 8 * i) objectForKeyedSubscript:{@"transportType", "unsignedIntValue"}] | v16;
+        v16 = [objc_msgSend(*(*(&v38 + 1) + 8 * i) objectForKeyedSubscript:{@"transportType", "unsignedIntValue"}] | v16;
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v45 objects:v52 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v38 objects:v45 count:16];
     }
 
     while (v15);
@@ -652,28 +649,28 @@ LABEL_40:
     v16 = 0;
   }
 
-  v38 = v13;
+  v31 = v13;
   [v11 setObject:v13 forKeyedSubscript:@"services"];
   [v11 setObject:objc_msgSend(MEMORY[0x277CCABB0] forKeyedSubscript:{"numberWithUnsignedInt:", v16), @"TrTy"}];
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v19 = [&unk_284F652A8 countByEnumeratingWithState:&v41 objects:v51 count:16];
+  v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v19 = [&unk_284F652A8 countByEnumeratingWithState:&v34 objects:v44 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v42;
+    v21 = *v35;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v42 != v21)
+        if (*v35 != v21)
         {
           objc_enumerationMutation(&unk_284F652A8);
         }
 
-        v23 = *(*(&v41 + 1) + 8 * j);
+        v23 = *(*(&v34 + 1) + 8 * j);
         v24 = [v11 objectForKeyedSubscript:v23];
         v25 = [objc_msgSend(device "deviceInfo")];
         v26 = [v25 isEqual:v24];
@@ -701,36 +698,28 @@ LABEL_22:
                 v28 = v27 == -1 && _LogCategory_Initialize() == 0;
               }
 
-              v35 = v24;
-              v36 = v25;
-              v33 = v23;
-              v34 = v28;
-              v31 = selfCopy;
-              v32 = v39;
-              LogPrintF();
+              LogPrintF(&gLogCategory_APBonjourCacheHomeKit, "[APBonjourCacheHomeKit handleRealDeviceFoundForCachedDevice:]", 33554482, "[%{ptr}] Update device %@ property %'@%?{end} from %@ to %@", selfCopy, v32, v23, v28, v24, v25);
             }
           }
 
-          [v11 setObject:v25 forKeyedSubscript:{v23, v31, v32, v33, v34, v35, v36}];
+          [v11 setObject:v25 forKeyedSubscript:v23];
           continue;
         }
       }
 
-      v20 = [&unk_284F652A8 countByEnumeratingWithState:&v41 objects:v51 count:16];
+      v20 = [&unk_284F652A8 countByEnumeratingWithState:&v34 objects:v44 count:16];
     }
 
     while (v20);
   }
 
-  if (([v11 isEqualToDictionary:v37] & 1) == 0)
+  if (([v11 isEqualToDictionary:v30] & 1) == 0)
   {
     -[APBonjourCacheHomeKit cacheDevice:](selfCopy, "cacheDevice:", +[APBonjourCacheHomeKitItem itemWithDeviceInfo:userInfo:](APBonjourCacheHomeKitItem, "itemWithDeviceInfo:userInfo:", v11, [device userInfo]));
   }
 
-  v29 = v38;
+  v29 = v31;
 LABEL_36:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRealDeviceLostForCachedDevice:(id)device
@@ -752,30 +741,30 @@ LABEL_36:
 
 - (id)getReportableCachedDevices
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   [(APBonjourCacheHomeKit *)self checkAndEvictCachedDevicesIfNecessary];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   cachedDevices = [(APBonjourCacheHomeKit *)self cachedDevices];
-  v5 = [(NSDictionary *)cachedDevices countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSDictionary *)cachedDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(cachedDevices);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * v8);
+        v9 = *(*(&v11 + 1) + 8 * v8);
         if (![(APBonjourCacheHomeKit *)self activatedPresentDeviceStashing]|| ![(NSMutableDictionary *)[(APBonjourCacheHomeKit *)self presentRealDevices] objectForKeyedSubscript:v9])
         {
           if ([(APBonjourCacheHomeKit *)self shouldProcessDeviceForCache:v9])
@@ -788,13 +777,12 @@ LABEL_36:
       }
 
       while (v6 != v8);
-      v6 = [(NSDictionary *)cachedDevices countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSDictionary *)cachedDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return array;
 }
 
@@ -824,18 +812,16 @@ uint64_t __53__APBonjourCacheHomeKit_shouldProcessDeviceForCache___block_invoke(
 
 - (void)addExpectedDeviceID:(id)d
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v4[0] = d;
-  -[APBonjourCacheHomeKit updateExpectedDeviceIDsAdding:removing:](self, "updateExpectedDeviceIDsAdding:removing:", [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1], 0);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
+  v3[0] = d;
+  -[APBonjourCacheHomeKit updateExpectedDeviceIDsAdding:removing:](self, "updateExpectedDeviceIDsAdding:removing:", [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1], 0);
 }
 
 - (void)removeExpectedDeviceID:(id)d
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v4[0] = d;
-  -[APBonjourCacheHomeKit updateExpectedDeviceIDsAdding:removing:](self, "updateExpectedDeviceIDsAdding:removing:", 0, [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1]);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
+  v3[0] = d;
+  -[APBonjourCacheHomeKit updateExpectedDeviceIDsAdding:removing:](self, "updateExpectedDeviceIDsAdding:removing:", 0, [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1]);
 }
 
 - (void)removeAllExpectedDeviceIDs
@@ -847,39 +833,37 @@ uint64_t __53__APBonjourCacheHomeKit_shouldProcessDeviceForCache___block_invoke(
 
 - (void)updateExpectedDeviceIDsAdding:(id)adding removing:(id)removing
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   [(APBonjourCacheHomeKit *)self checkAndEvictCachedDevicesIfNecessary];
-  v26 = 0u;
-  v27 = 0u;
+  v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v7 = [adding countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v21 = 0u;
+  v22 = 0u;
+  v7 = [adding countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v22;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(adding);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         if (([(NSMutableSet *)[(APBonjourCacheHomeKit *)self expectedDeviceIDs] containsObject:v11]& 1) == 0)
         {
           if ([(NSDictionary *)[(APBonjourCacheHomeKit *)self cachedDevices] objectForKeyedSubscript:v11])
           {
             if (gLogCategory_APBonjourCacheHomeKit <= 50 && (gLogCategory_APBonjourCacheHomeKit != -1 || _LogCategory_Initialize()))
             {
-              selfCopy2 = self;
-              v19 = v11;
-              LogPrintF();
+              LogPrintF(&gLogCategory_APBonjourCacheHomeKit, "[APBonjourCacheHomeKit updateExpectedDeviceIDsAdding:removing:]", 33554482, "[%{ptr}] Reporting newly expected cached device as found %@", self, v11);
             }
 
-            [(APBonjourCacheHomeKit *)self reportCachedDevice:[(NSDictionary *)[(APBonjourCacheHomeKit *)self cachedDevices:selfCopy2] objectForKeyedSubscript:v11] found:1 withHandler:[(APBonjourCacheHomeKit *)self cachedDeviceFoundHandler]];
+            [(APBonjourCacheHomeKit *)self reportCachedDevice:[(NSDictionary *)[(APBonjourCacheHomeKit *)self cachedDevices] objectForKeyedSubscript:v11] found:1 withHandler:[(APBonjourCacheHomeKit *)self cachedDeviceFoundHandler]];
           }
 
           else if ([(APBonjourCacheHomeKit *)self activatedPresentDeviceStashing]&& [(NSMutableDictionary *)[(APBonjourCacheHomeKit *)self presentRealDevices] objectForKeyedSubscript:v11])
@@ -891,81 +875,139 @@ uint64_t __53__APBonjourCacheHomeKit_shouldProcessDeviceForCache___block_invoke(
         }
       }
 
-      v8 = [adding countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v8 = [adding countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v8);
   }
 
-  v22 = 0u;
-  v23 = 0u;
+  v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v12 = [removing countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v17 = 0u;
+  v18 = 0u;
+  v12 = [removing countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = *v18;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v21 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(removing);
         }
 
-        v16 = *(*(&v20 + 1) + 8 * j);
+        v16 = *(*(&v17 + 1) + 8 * j);
         if ([(NSMutableSet *)[(APBonjourCacheHomeKit *)self expectedDeviceIDs] containsObject:v16])
         {
           if ([(NSDictionary *)[(APBonjourCacheHomeKit *)self cachedDevices] objectForKeyedSubscript:v16])
           {
             if (gLogCategory_APBonjourCacheHomeKit <= 50 && (gLogCategory_APBonjourCacheHomeKit != -1 || _LogCategory_Initialize()))
             {
-              selfCopy2 = self;
-              v19 = v16;
-              LogPrintF();
+              LogPrintF(&gLogCategory_APBonjourCacheHomeKit, "[APBonjourCacheHomeKit updateExpectedDeviceIDsAdding:removing:]", 33554482, "[%{ptr}] Reporting no longer expected cached device as lost %@", self, v16);
             }
 
-            [(APBonjourCacheHomeKit *)self reportCachedDevice:[(NSDictionary *)[(APBonjourCacheHomeKit *)self cachedDevices:selfCopy2] objectForKeyedSubscript:v16] found:0 withHandler:[(APBonjourCacheHomeKit *)self cachedDeviceLostHandler]];
+            [(APBonjourCacheHomeKit *)self reportCachedDevice:[(NSDictionary *)[(APBonjourCacheHomeKit *)self cachedDevices] objectForKeyedSubscript:v16] found:0 withHandler:[(APBonjourCacheHomeKit *)self cachedDeviceLostHandler]];
           }
 
           [(NSMutableSet *)[(APBonjourCacheHomeKit *)self expectedDeviceIDs] removeObject:v16];
         }
       }
 
-      v13 = [removing countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v13 = [removing countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v13);
   }
+}
 
-  v17 = *MEMORY[0x277D85DE8];
+- (id)getCacheDirectoryURLWithParentDirectory:(id)directory creatingIfNecessary:(BOOL)necessary
+{
+  necessaryCopy = necessary;
+  v12 = 0;
+  defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+  v8 = [defaultManager URLForDirectory:13 inDomain:1 appropriateForURL:0 create:necessaryCopy error:&v12];
+  if (!v8)
+  {
+    [(APBonjourCacheHomeKit *)&v12 getCacheDirectoryURLWithParentDirectory:&v13 creatingIfNecessary:?];
+    return v13;
+  }
+
+  v9 = [v8 URLByAppendingPathComponent:objc_msgSend(@"com.apple.airplay" isDirectory:{"stringByAppendingPathComponent:", directory), 1}];
+  v10 = v9;
+  if (!v9)
+  {
+    [APBonjourCacheHomeKit getCacheDirectoryURLWithParentDirectory:creatingIfNecessary:];
+    return v10;
+  }
+
+  if (([defaultManager fileExistsAtPath:objc_msgSend(v9 isDirectory:{"path"), 0}] & 1) == 0 && necessaryCopy)
+  {
+    [defaultManager createDirectoryAtURL:v10 withIntermediateDirectories:1 attributes:0 error:&v12];
+    if (v12)
+    {
+      [(APBonjourCacheHomeKit *)&v12 getCacheDirectoryURLWithParentDirectory:v12 creatingIfNecessary:self, v10, &v13];
+      return v13;
+    }
+  }
+
+  return v10;
+}
+
+- (id)getCacheFileURLCreatingParentDirectoriesIfNecessary:(BOOL)necessary
+{
+  necessaryCopy = necessary;
+  uTF8String = [(NSString *)[(APBonjourCacheHomeKit *)self currentNetworkSignature] UTF8String];
+  if (!uTF8String)
+  {
+    [(APBonjourCacheHomeKit *)self getCacheFileURLCreatingParentDirectoriesIfNecessary:?];
+    return v10;
+  }
+
+  strlen(uTF8String);
+  v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%016llX.plist", @"airplay", SipHash()];
+  v7 = [(APBonjourCacheHomeKit *)self getCacheDirectoryURLWithParentDirectory:@"APBonjourCacheHomeKit" creatingIfNecessary:necessaryCopy];
+  if (!v7)
+  {
+    [(APBonjourCacheHomeKit *)self getCacheFileURLCreatingParentDirectoriesIfNecessary:v8];
+    return v10;
+  }
+
+  result = [v7 URLByAppendingPathComponent:v6 isDirectory:0];
+  if (!result)
+  {
+    [APBonjourCacheHomeKit getCacheFileURLCreatingParentDirectoriesIfNecessary:];
+    return 0;
+  }
+
+  return result;
 }
 
 - (BOOL)shouldEvictDevice:(id)device policy:(id *)policy
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   evictionPolicies = [(APBonjourCacheHomeKit *)self evictionPolicies];
-  v7 = [(NSArray *)evictionPolicies countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [(NSArray *)evictionPolicies countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v15 != v9)
+      if (*v14 != v9)
       {
         objc_enumerationMutation(evictionPolicies);
       }
 
-      v11 = *(*(&v14 + 1) + 8 * v10);
+      v11 = *(*(&v13 + 1) + 8 * v10);
       if ([v11 shouldEvict:device])
       {
         break;
@@ -973,7 +1015,7 @@ LABEL_3:
 
       if (v8 == ++v10)
       {
-        v7 = [(NSArray *)evictionPolicies countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [(NSArray *)evictionPolicies countByEnumeratingWithState:&v13 objects:v17 count:16];
         v8 = v7;
         if (v7)
         {
@@ -987,7 +1029,7 @@ LABEL_3:
     LOBYTE(v7) = 1;
     if (!policy)
     {
-      goto LABEL_13;
+      return v7;
     }
   }
 
@@ -997,48 +1039,46 @@ LABEL_9:
     v11 = 0;
     if (!policy)
     {
-      goto LABEL_13;
+      return v7;
     }
   }
 
   *policy = v11;
-LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)checkAndEvictCachedDevicesIfNecessary
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v15 = 0;
+  v16 = *MEMORY[0x277D85DE8];
+  v14 = 0;
   if ([(APBonjourCacheHomeKit *)self cachedDevices])
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     allKeys = [(NSDictionary *)[(APBonjourCacheHomeKit *)self cachedDevices] allKeys];
-    v4 = [(NSArray *)allKeys countByEnumeratingWithState:&v11 objects:v16 count:16];
+    v4 = [(NSArray *)allKeys countByEnumeratingWithState:&v10 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v12;
+      v6 = *v11;
       do
       {
         v7 = 0;
         do
         {
-          if (*v12 != v6)
+          if (*v11 != v6)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v8 = *(*(&v11 + 1) + 8 * v7);
-          if ([(APBonjourCacheHomeKit *)self shouldEvictDevice:[(NSDictionary *)[(APBonjourCacheHomeKit *)self cachedDevices] objectForKeyedSubscript:v8] policy:&v15])
+          v8 = *(*(&v10 + 1) + 8 * v7);
+          if ([(APBonjourCacheHomeKit *)self shouldEvictDevice:[(NSDictionary *)[(APBonjourCacheHomeKit *)self cachedDevices] objectForKeyedSubscript:v8] policy:&v14])
           {
             if (gLogCategory_APBonjourCacheHomeKit <= 50 && (gLogCategory_APBonjourCacheHomeKit != -1 || _LogCategory_Initialize()))
             {
-              [(APBonjourCacheHomeKit *)&v15 checkAndEvictCachedDevicesIfNecessary];
+              [(APBonjourCacheHomeKit *)&v14 checkAndEvictCachedDevicesIfNecessary];
             }
 
             [(APBonjourCacheHomeKit *)self evictCachedDeviceWithIDInternal:v8];
@@ -1048,7 +1088,7 @@ LABEL_13:
         }
 
         while (v5 != v7);
-        v9 = [(NSArray *)allKeys countByEnumeratingWithState:&v11 objects:v16 count:16];
+        v9 = [(NSArray *)allKeys countByEnumeratingWithState:&v10 objects:v15 count:16];
         v5 = v9;
       }
 
@@ -1060,8 +1100,6 @@ LABEL_13:
   {
     [APBonjourCacheHomeKit checkAndEvictCachedDevicesIfNecessary];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadCache
@@ -1079,14 +1117,11 @@ LABEL_13:
 
     if (gLogCategory_APBonjourCacheHomeKit <= 50 && (gLogCategory_APBonjourCacheHomeKit != -1 || _LogCategory_Initialize()))
     {
-      v11 = v6;
-      v12 = @"2";
-      selfCopy = self;
-      LogPrintF();
+      LogPrintF(&gLogCategory_APBonjourCacheHomeKit, "[APBonjourCacheHomeKit loadCache]", 33554482, "[%{ptr}] Found cache with incompatible version %'@ (expected %'@). Existing contents may be overridden.", self, v6, @"2");
     }
   }
 
-  if ([(APBonjourCacheHomeKit *)self currentNetworkSignature:selfCopy])
+  if ([(APBonjourCacheHomeKit *)self currentNetworkSignature])
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
   }
@@ -1113,7 +1148,7 @@ LABEL_10:
 + (id)prepareDeviceInfo:(id)info
 {
   infoCopy = info;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (!info)
   {
     +[APBonjourCacheHomeKit prepareDeviceInfo:];
@@ -1150,35 +1185,35 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __43__APBonjourCacheHomeKit_prepareDeviceInfo___block_invoke;
-  v17[3] = &__block_descriptor_36_e39_B24__0__NSDictionary_8__NSDictionary_16l;
-  v18 = 35;
-  [v4 filterUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithBlock:", v17)}];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __43__APBonjourCacheHomeKit_prepareDeviceInfo___block_invoke;
+  v16[3] = &__block_descriptor_36_e39_B24__0__NSDictionary_8__NSDictionary_16l;
+  v17 = 35;
+  [v4 filterUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithBlock:", v16)}];
   v14 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
     LODWORD(v7) = 0;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v7 = [objc_msgSend(*(*(&v13 + 1) + 8 * i) objectForKeyedSubscript:{@"transportType", "unsignedIntValue"}] | v7;
+        v7 = [objc_msgSend(*(*(&v12 + 1) + 8 * i) objectForKeyedSubscript:{@"transportType", "unsignedIntValue"}] | v7;
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v18 count:16];
     }
 
     while (v6);
@@ -1204,7 +1239,6 @@ LABEL_24:
 
 LABEL_17:
 
-  v11 = *MEMORY[0x277D85DE8];
   return infoCopy;
 }
 
@@ -1247,8 +1281,8 @@ LABEL_17:
 
 - (id)copyDescriptionInternal
 {
-  v62 = *MEMORY[0x277D85DE8];
-  v56 = 0;
+  v61 = *MEMORY[0x277D85DE8];
+  v55 = 0;
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v5 = [(APBonjourCacheHomeKit *)self getCacheFileURLCreatingParentDirectoriesIfNecessary:0];
@@ -1270,30 +1304,30 @@ LABEL_17:
   [v3 appendString:@"\n"];
   v9 = [(NSArray *)[(NSDictionary *)[(APBonjourCacheHomeKit *)self cachedDevices] allValues] sortedArrayUsingComparator:&__block_literal_global_361];
   [v3 appendFormat:@"Cache Entries: %u\n", -[NSArray count](v9, "count")];
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v52 objects:v61 count:16];
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v51 objects:v60 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v53;
+    v12 = *v52;
     do
     {
       v13 = 0;
       do
       {
-        if (*v53 != v12)
+        if (*v52 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [v3 appendFormat:@"    %@\n", -[APBonjourCacheHomeKit describeBonjourInfo:](self, "describeBonjourInfo:", *(*(&v52 + 1) + 8 * v13++))];
+        [v3 appendFormat:@"    %@\n", -[APBonjourCacheHomeKit describeBonjourInfo:](self, "describeBonjourInfo:", *(*(&v51 + 1) + 8 * v13++))];
       }
 
       while (v11 != v13);
-      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v52 objects:v61 count:16];
+      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v51 objects:v60 count:16];
     }
 
     while (v11);
@@ -1304,30 +1338,30 @@ LABEL_17:
   {
     v14 = [objc_msgSend(-[NSMutableDictionary allValues](-[APBonjourCacheHomeKit presentRealDevices](self "presentRealDevices")];
     [v3 appendFormat:@"Present Real Devices: %u\n", objc_msgSend(v14, "count")];
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
-    v15 = [v14 countByEnumeratingWithState:&v48 objects:v60 count:16];
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
+    v15 = [v14 countByEnumeratingWithState:&v47 objects:v59 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v49;
+      v17 = *v48;
       do
       {
         v18 = 0;
         do
         {
-          if (*v49 != v17)
+          if (*v48 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          [v3 appendFormat:@"    %@\n", -[APBonjourCacheHomeKit describeBonjourInfo:](self, "describeBonjourInfo:", *(*(&v48 + 1) + 8 * v18++))];
+          [v3 appendFormat:@"    %@\n", -[APBonjourCacheHomeKit describeBonjourInfo:](self, "describeBonjourInfo:", *(*(&v47 + 1) + 8 * v18++))];
         }
 
         while (v16 != v18);
-        v16 = [v14 countByEnumeratingWithState:&v48 objects:v60 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v47 objects:v59 count:16];
       }
 
       while (v16);
@@ -1337,31 +1371,31 @@ LABEL_17:
   }
 
   [v3 appendFormat:@"Expected Device IDs: %u\n", -[NSMutableSet count](-[APBonjourCacheHomeKit expectedDeviceIDs](self, "expectedDeviceIDs"), "count")];
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   expectedDeviceIDs = [(APBonjourCacheHomeKit *)self expectedDeviceIDs];
-  v20 = [(NSMutableSet *)expectedDeviceIDs countByEnumeratingWithState:&v44 objects:v59 count:16];
+  v20 = [(NSMutableSet *)expectedDeviceIDs countByEnumeratingWithState:&v43 objects:v58 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v45;
+    v22 = *v44;
     do
     {
       v23 = 0;
       do
       {
-        if (*v45 != v22)
+        if (*v44 != v22)
         {
           objc_enumerationMutation(expectedDeviceIDs);
         }
 
-        [v3 appendFormat:@"    %@\n", *(*(&v44 + 1) + 8 * v23++)];
+        [v3 appendFormat:@"    %@\n", *(*(&v43 + 1) + 8 * v23++)];
       }
 
       while (v21 != v23);
-      v21 = [(NSMutableSet *)expectedDeviceIDs countByEnumeratingWithState:&v44 objects:v59 count:16];
+      v21 = [(NSMutableSet *)expectedDeviceIDs countByEnumeratingWithState:&v43 objects:v58 count:16];
     }
 
     while (v21);
@@ -1369,31 +1403,31 @@ LABEL_17:
 
   [v3 appendString:@"\n"];
   [v3 appendFormat:@"Reported Cached Device IDs: %u\n", -[NSMutableSet count](-[APBonjourCacheHomeKit reportedCachedDeviceIDs](self, "reportedCachedDeviceIDs"), "count")];
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   reportedCachedDeviceIDs = [(APBonjourCacheHomeKit *)self reportedCachedDeviceIDs];
-  v25 = [(NSMutableSet *)reportedCachedDeviceIDs countByEnumeratingWithState:&v40 objects:v58 count:16];
+  v25 = [(NSMutableSet *)reportedCachedDeviceIDs countByEnumeratingWithState:&v39 objects:v57 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v41;
+    v27 = *v40;
     do
     {
       v28 = 0;
       do
       {
-        if (*v41 != v27)
+        if (*v40 != v27)
         {
           objc_enumerationMutation(reportedCachedDeviceIDs);
         }
 
-        [v3 appendFormat:@"    %@\n", *(*(&v40 + 1) + 8 * v28++)];
+        [v3 appendFormat:@"    %@\n", *(*(&v39 + 1) + 8 * v28++)];
       }
 
       while (v26 != v28);
-      v26 = [(NSMutableSet *)reportedCachedDeviceIDs countByEnumeratingWithState:&v40 objects:v58 count:16];
+      v26 = [(NSMutableSet *)reportedCachedDeviceIDs countByEnumeratingWithState:&v39 objects:v57 count:16];
     }
 
     while (v26);
@@ -1402,7 +1436,7 @@ LABEL_17:
   [v3 appendString:@"\n"];
   if ([defaultManager fileExistsAtPath:{objc_msgSend(objc_msgSend(uRLByDeletingLastPathComponent, "standardizedURL"), "path")}])
   {
-    v29 = [defaultManager contentsOfDirectoryAtPath:objc_msgSend(objc_msgSend(uRLByDeletingLastPathComponent error:{"standardizedURL"), "path"), &v56}];
+    v29 = [defaultManager contentsOfDirectoryAtPath:objc_msgSend(objc_msgSend(uRLByDeletingLastPathComponent error:{"standardizedURL"), "path"), &v55}];
   }
 
   else
@@ -1411,37 +1445,37 @@ LABEL_17:
   }
 
   [v3 appendFormat:@"Cache Files: %u\n", objc_msgSend(v29, "count")];
-  if (v56)
+  if (v55)
   {
-    [v3 appendFormat:@"%@\n", v56];
+    [v3 appendFormat:@"%@\n", v55];
   }
 
   else
   {
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
-    v30 = [v29 countByEnumeratingWithState:&v36 objects:v57 count:16];
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v30 = [v29 countByEnumeratingWithState:&v35 objects:v56 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v37;
+      v32 = *v36;
       do
       {
         v33 = 0;
         do
         {
-          if (*v37 != v32)
+          if (*v36 != v32)
           {
             objc_enumerationMutation(v29);
           }
 
-          [v3 appendFormat:@"    %@\n", *(*(&v36 + 1) + 8 * v33++)];
+          [v3 appendFormat:@"    %@\n", *(*(&v35 + 1) + 8 * v33++)];
         }
 
         while (v31 != v33);
-        v31 = [v29 countByEnumeratingWithState:&v36 objects:v57 count:16];
+        v31 = [v29 countByEnumeratingWithState:&v35 objects:v56 count:16];
       }
 
       while (v31);
@@ -1449,7 +1483,6 @@ LABEL_17:
   }
 
   [v3 appendString:@"\n"];
-  v34 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -1492,7 +1525,7 @@ uint64_t __62__APBonjourCacheHomeKit_Introspector__copyDescriptionInternal__bloc
   return v4;
 }
 
-uint64_t __54__APBonjourCacheHomeKit_Introspector__copyDescription__block_invoke(uint64_t a1)
+void *__54__APBonjourCacheHomeKit_Introspector__copyDescription__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) copyDescriptionInternal];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -1517,10 +1550,10 @@ uint64_t __54__APBonjourCacheHomeKit_Introspector__copyDescription__block_invoke
     [(CUSystemMonitor *)[(APBonjourCacheHomeKit *)self systemMonitor] invalidate];
     [(APHomeKitDeviceMonitor *)[(APBonjourCacheHomeKit *)self homeKitDeviceMonitor] invalidate];
     [(CUCoalescer *)[(APBonjourCacheHomeKit *)self diskWriteCoalescer] invalidate];
-    if (gLogCategory_APBonjourCacheHomeKit <= 50 && (gLogCategory_APBonjourCacheHomeKit != -1 || OUTLINED_FUNCTION_8()))
+    if (gLogCategory_APBonjourCacheHomeKit <= 50 && (gLogCategory_APBonjourCacheHomeKit != -1 || OUTLINED_FUNCTION_8(&gLogCategory_APBonjourCacheHomeKit)))
     {
       OUTLINED_FUNCTION_3_1();
-      LogPrintF();
+      LogPrintF(v3, v4, v5, v6, self);
     }
   }
 
@@ -1556,9 +1589,7 @@ LABEL_19:
     v8 = [APBonjourCacheHomeKit getDeviceID:v6];
     if (gLogCategory_APBonjourCacheHomeKit <= 40 && (gLogCategory_APBonjourCacheHomeKit != -1 || _LogCategory_Initialize()))
     {
-      v12 = v3;
-      v13 = v8;
-      LogPrintF();
+      LogPrintF(&gLogCategory_APBonjourCacheHomeKit, "[APBonjourCacheHomeKit realDeviceFoundInternal:]", 33554472, "[%{ptr}] Real device found for cacheable device: %@", v3, v8);
     }
 
     v9 = +[APBonjourCacheHomeKitItem itemWithDeviceInfo:userInfo:](APBonjourCacheHomeKitItem, "itemWithDeviceInfo:userInfo:", v7, [v4 userInfo]);
@@ -1601,12 +1632,10 @@ LABEL_19:
 
     if (gLogCategory_APBonjourCacheHomeKit <= 40 && (gLogCategory_APBonjourCacheHomeKit != -1 || _LogCategory_Initialize()))
     {
-      selfCopy = self;
-      v7 = v5;
-      LogPrintF();
+      LogPrintF(&gLogCategory_APBonjourCacheHomeKit, "[APBonjourCacheHomeKit realDeviceLostInternal:]", 33554472, "[%{ptr}] Real device lost: %@", self, v5);
     }
 
-    if ([(APBonjourCacheHomeKit *)self shouldProcessDeviceForCache:v5, selfCopy, v7]&& [(NSDictionary *)[(APBonjourCacheHomeKit *)self cachedDevices] objectForKeyedSubscript:v5])
+    if ([(APBonjourCacheHomeKit *)self shouldProcessDeviceForCache:v5]&& [(NSDictionary *)[(APBonjourCacheHomeKit *)self cachedDevices] objectForKeyedSubscript:v5])
     {
 
       [(APBonjourCacheHomeKit *)self handleRealDeviceLostForCachedDevice:internal];
@@ -1616,99 +1645,83 @@ LABEL_19:
 
 - (void)forceReportCachedDevicesFound
 {
-  v27 = *MEMORY[0x277D85DE8];
   if ([(APBonjourCacheHomeKit *)self cachedDeviceFoundHandler])
   {
-    v26 = 0u;
     getReportableCachedDevices = [(APBonjourCacheHomeKit *)self getReportableCachedDevices];
     OUTLINED_FUNCTION_10_2();
     v6 = [v5 countByEnumeratingWithState:? objects:? count:?];
     if (v6)
     {
-      v14 = v6;
-      v15 = MEMORY[0];
+      v7 = v6;
+      v8 = MEMORY[0];
       do
       {
-        v16 = 0;
-        do
+        for (i = 0; i != v7; ++i)
         {
-          if (MEMORY[0] != v15)
+          if (MEMORY[0] != v8)
           {
             objc_enumerationMutation(getReportableCachedDevices);
           }
 
-          OUTLINED_FUNCTION_8_2(v6, v7, v8, v9, v10, v11, v12, v13, v22, v24, v26, *(&v26 + 1));
-          if (v19 ^ v20 | v18 && (v17 != -1 || OUTLINED_FUNCTION_8()))
+          OUTLINED_FUNCTION_8_2();
+          if (v12 ^ v13 | v11 && (v10 != -1 || OUTLINED_FUNCTION_8(&gLogCategory_APBonjourCacheHomeKit)))
           {
-            selfCopy = self;
-            v25 = [APBonjourCacheHomeKit getDeviceID:v2];
+            v17 = [APBonjourCacheHomeKit getDeviceID:v2];
             OUTLINED_FUNCTION_3_1();
-            LogPrintF();
+            LogPrintF(v14, v15, v16, "[%{ptr}] Force reporting cached device found %@", self, v17);
           }
 
-          v6 = [(APBonjourCacheHomeKit *)self reportCachedDevice:v2 found:1 withHandler:[(APBonjourCacheHomeKit *)self cachedDeviceFoundHandler:selfCopy]];
-          ++v16;
+          [(APBonjourCacheHomeKit *)self reportCachedDevice:v2 found:1 withHandler:[(APBonjourCacheHomeKit *)self cachedDeviceFoundHandler]];
         }
 
-        while (v14 != v16);
         OUTLINED_FUNCTION_10_2();
-        v6 = [getReportableCachedDevices countByEnumeratingWithState:? objects:? count:?];
-        v14 = v6;
+        v7 = [getReportableCachedDevices countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v6);
+      while (v7);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)forceReportCachedDevicesLost
 {
-  v28 = *MEMORY[0x277D85DE8];
   if ([(APBonjourCacheHomeKit *)self cachedDeviceLostHandler])
   {
     v4 = objc_alloc(MEMORY[0x277CBEB98]);
     [OUTLINED_FUNCTION_5_2() reportedCachedDeviceIDs];
     v5 = [OUTLINED_FUNCTION_2_2() initWithSet:?];
-    v27 = 0u;
+    v18 = 0u;
     OUTLINED_FUNCTION_10_2();
     v7 = [v6 countByEnumeratingWithState:? objects:? count:?];
     if (v7)
     {
-      v15 = v7;
-      v16 = MEMORY[0];
+      v8 = v7;
+      v9 = MEMORY[0];
       do
       {
-        v17 = 0;
-        do
+        for (i = 0; i != v8; ++i)
         {
-          if (MEMORY[0] != v16)
+          if (MEMORY[0] != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          OUTLINED_FUNCTION_8_2(v7, v8, v9, v10, v11, v12, v13, v14, v23, v25, v27, *(&v27 + 1));
-          if (v20 ^ v21 | v19 && (v18 != -1 || OUTLINED_FUNCTION_8()))
+          OUTLINED_FUNCTION_8_2();
+          if (v13 ^ v14 | v12 && (v11 != -1 || OUTLINED_FUNCTION_8(&gLogCategory_APBonjourCacheHomeKit)))
           {
-            selfCopy = self;
-            v26 = v2;
             OUTLINED_FUNCTION_3_1();
-            LogPrintF();
+            LogPrintF(v15, v16, v17, "[%{ptr}] Force reporting cached device lost %@", self, v2, v18);
           }
 
-          v2 = [(NSDictionary *)[(APBonjourCacheHomeKit *)self cachedDevices:selfCopy] objectForKeyedSubscript:v2];
-          v7 = [(APBonjourCacheHomeKit *)self reportCachedDevice:v2 found:0 withHandler:[(APBonjourCacheHomeKit *)self cachedDeviceLostHandler]];
-          ++v17;
+          v2 = [(NSDictionary *)[(APBonjourCacheHomeKit *)self cachedDevices] objectForKeyedSubscript:v2];
+          [(APBonjourCacheHomeKit *)self reportCachedDevice:v2 found:0 withHandler:[(APBonjourCacheHomeKit *)self cachedDeviceLostHandler]];
         }
 
-        while (v15 != v17);
         OUTLINED_FUNCTION_10_2();
-        v7 = [v5 countByEnumeratingWithState:? objects:? count:?];
-        v15 = v7;
+        v8 = [v5 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v7);
+      while (v8);
     }
   }
 
@@ -1716,8 +1729,6 @@ LABEL_19:
   {
     v5 = 0;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportCachedDevice:(id)device found:(BOOL)found withHandler:(id)handler
@@ -1783,16 +1794,14 @@ LABEL_19:
     [(APBonjourCacheHomeKit *)self currentNetworkSignature];
     if (([OUTLINED_FUNCTION_2_2() isEqualToString:?] & 1) == 0)
     {
-      if (gLogCategory_APBonjourCacheHomeKit <= 50 && (gLogCategory_APBonjourCacheHomeKit != -1 || OUTLINED_FUNCTION_8()))
+      if (gLogCategory_APBonjourCacheHomeKit <= 50 && (gLogCategory_APBonjourCacheHomeKit != -1 || OUTLINED_FUNCTION_8(&gLogCategory_APBonjourCacheHomeKit)))
       {
         currentNetworkSignature = [(APBonjourCacheHomeKit *)self currentNetworkSignature];
-        changedCopy = changed;
-        selfCopy = self;
         OUTLINED_FUNCTION_3_1();
-        LogPrintF();
+        LogPrintF(v5, v6, v7, v8, self, currentNetworkSignature, changed);
       }
 
-      if ([(APBonjourCacheHomeKit *)self currentNetworkSignature:selfCopy])
+      if ([(APBonjourCacheHomeKit *)self currentNetworkSignature])
       {
         [(APBonjourCacheHomeKit *)self checkAndEvictCachedDevicesIfNecessary];
         [(APBonjourCacheHomeKit *)self writeCache];
@@ -1801,15 +1810,15 @@ LABEL_19:
       [(APBonjourCacheHomeKit *)self forceReportCachedDevicesLost];
       if ([OUTLINED_FUNCTION_9_1() isValidNetworkSignature:?])
       {
-        changedCopy2 = changed;
+        changedCopy = changed;
       }
 
       else
       {
-        changedCopy2 = 0;
+        changedCopy = 0;
       }
 
-      [(APBonjourCacheHomeKit *)self setCurrentNetworkSignature:changedCopy2];
+      [(APBonjourCacheHomeKit *)self setCurrentNetworkSignature:changedCopy];
       [(APBonjourCacheHomeKit *)self loadCache];
 
       [(APBonjourCacheHomeKit *)self forceReportCachedDevicesFound];
@@ -1819,121 +1828,114 @@ LABEL_19:
 
 - (void)handleHomeKitDeviceConfigurationChanged:(id)changed
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   if (![(APBonjourCacheHomeKit *)self invalidated])
   {
     [(APBonjourCacheHomeKit *)self expectedDeviceIDs];
     if ([OUTLINED_FUNCTION_2_2() isEqual:?])
     {
-LABEL_32:
-      v35 = *MEMORY[0x277D85DE8];
       return;
     }
 
     v5 = gLogCategory_APBonjourCacheHomeKit;
-    if (gLogCategory_APBonjourCacheHomeKit <= 50)
+    if (gLogCategory_APBonjourCacheHomeKit > 50)
     {
-      if (gLogCategory_APBonjourCacheHomeKit != -1)
-      {
-LABEL_5:
-        if (v5 > 30)
-        {
-          v6 = 1;
-        }
-
-        else
-        {
-          v6 = v5 == -1 && _LogCategory_Initialize() == 0;
-        }
-
-        expectedDeviceIDs = [(APBonjourCacheHomeKit *)self expectedDeviceIDs];
-        changedCopy = changed;
-        selfCopy = self;
-        v40 = v6;
-        OUTLINED_FUNCTION_3_1();
-        LogPrintF();
-        goto LABEL_13;
-      }
-
-      if (OUTLINED_FUNCTION_8())
-      {
-        v5 = gLogCategory_APBonjourCacheHomeKit;
-        goto LABEL_5;
-      }
+      goto LABEL_13;
     }
 
+    if (gLogCategory_APBonjourCacheHomeKit == -1)
+    {
+      if (!OUTLINED_FUNCTION_8(&gLogCategory_APBonjourCacheHomeKit))
+      {
 LABEL_13:
-    array = [MEMORY[0x277CBEB18] array];
-    array2 = [MEMORY[0x277CBEB18] array];
-    v53 = 0u;
-    v54 = 0u;
-    v55 = 0u;
-    v56 = 0u;
-    v16 = OUTLINED_FUNCTION_11_2(array2, v9, v10, v11, v12, v13, v14, v15, v38, v41, v44, v47);
-    if (v16)
-    {
-      v17 = v16;
-      v18 = *v54;
-      do
-      {
-        for (i = 0; i != v17; ++i)
+        array = [MEMORY[0x277CBEB18] array];
+        array2 = [MEMORY[0x277CBEB18] array];
+        v52 = 0u;
+        v53 = 0u;
+        v54 = 0u;
+        v55 = 0u;
+        v20 = OUTLINED_FUNCTION_11_2(array2, v13, v14, v15, v16, v17, v18, v19, v39, v41, v43, v46, v48, *(&v48 + 1), v49, *(&v49 + 1), v50, *(&v50 + 1), v51, *(&v51 + 1));
+        if (v20)
         {
-          if (*v54 != v18)
+          v21 = v20;
+          v22 = *v53;
+          do
           {
-            objc_enumerationMutation(changed);
+            for (i = 0; i != v21; ++i)
+            {
+              if (*v53 != v22)
+              {
+                objc_enumerationMutation(changed);
+              }
+
+              v24 = *(*(&v52 + 1) + 8 * i);
+              v25 = [(NSMutableSet *)[(APBonjourCacheHomeKit *)self expectedDeviceIDs] containsObject:v24];
+              if ((v25 & 1) == 0)
+              {
+                v25 = [array addObject:v24];
+              }
+            }
+
+            v21 = OUTLINED_FUNCTION_11_2(v25, v26, v27, v28, v29, v30, v31, v32, v40, v42, v45, v47, v48, *(&v48 + 1), v49, *(&v49 + 1), v50, *(&v50 + 1), v51, *(&v51 + 1));
           }
 
-          v20 = *(*(&v53 + 1) + 8 * i);
-          v21 = [(NSMutableSet *)[(APBonjourCacheHomeKit *)self expectedDeviceIDs] containsObject:v20];
-          if ((v21 & 1) == 0)
-          {
-            v21 = [array addObject:v20];
-          }
+          while (v21);
         }
 
-        v17 = OUTLINED_FUNCTION_11_2(v21, v22, v23, v24, v25, v26, v27, v28, v39, v42, v45, v48);
+        v50 = 0u;
+        v51 = 0u;
+        v48 = 0u;
+        v49 = 0u;
+        expectedDeviceIDs = [(APBonjourCacheHomeKit *)self expectedDeviceIDs];
+        v34 = [(NSMutableSet *)expectedDeviceIDs countByEnumeratingWithState:&v48 objects:v56 count:16];
+        if (v34)
+        {
+          v35 = v34;
+          v36 = *v49;
+          do
+          {
+            for (j = 0; j != v35; ++j)
+            {
+              if (*v49 != v36)
+              {
+                objc_enumerationMutation(expectedDeviceIDs);
+              }
+
+              v38 = *(*(&v48 + 1) + 8 * j);
+              if (([changed containsObject:v38] & 1) == 0)
+              {
+                [array2 addObject:v38];
+              }
+            }
+
+            v35 = [(NSMutableSet *)expectedDeviceIDs countByEnumeratingWithState:&v48 objects:v56 count:16];
+          }
+
+          while (v35);
+        }
+
+        [OUTLINED_FUNCTION_4_3() updateExpectedDeviceIDsAdding:? removing:?];
+        return;
       }
 
-      while (v17);
+      v5 = gLogCategory_APBonjourCacheHomeKit;
     }
 
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
-    v50 = 0u;
+    if (v5 > 30)
+    {
+      v6 = 1;
+    }
+
+    else
+    {
+      v6 = v5 == -1 && _LogCategory_Initialize() == 0;
+    }
+
     expectedDeviceIDs2 = [(APBonjourCacheHomeKit *)self expectedDeviceIDs];
-    v30 = [(NSMutableSet *)expectedDeviceIDs2 countByEnumeratingWithState:&v49 objects:v57 count:16];
-    if (v30)
-    {
-      v31 = v30;
-      v32 = *v50;
-      do
-      {
-        for (j = 0; j != v31; ++j)
-        {
-          if (*v50 != v32)
-          {
-            objc_enumerationMutation(expectedDeviceIDs2);
-          }
-
-          v34 = *(*(&v49 + 1) + 8 * j);
-          if (([changed containsObject:v34] & 1) == 0)
-          {
-            [array2 addObject:v34];
-          }
-        }
-
-        v31 = [(NSMutableSet *)expectedDeviceIDs2 countByEnumeratingWithState:&v49 objects:v57 count:16];
-      }
-
-      while (v31);
-    }
-
-    [OUTLINED_FUNCTION_4_3() updateExpectedDeviceIDsAdding:? removing:?];
-    goto LABEL_32;
+    OUTLINED_FUNCTION_3_1();
+    LogPrintF(v7, v8, v9, v10, self, v6, expectedDeviceIDs2, changed);
+    goto LABEL_13;
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 
   APSLogErrorAt();
 }
@@ -1944,66 +1946,55 @@ LABEL_13:
   [v5 deviceInfo];
   [OUTLINED_FUNCTION_2_2() getDeviceID:?];
   cache = [OUTLINED_FUNCTION_5_2() cache];
-  if (!cache)
+  if (cache)
   {
-    return cache;
-  }
-
-  cache = [objc_msgSend(objc_msgSend(v4 "deviceInfo")];
-  if (!cache)
-  {
-    return cache;
-  }
-
-  v7 = [objc_msgSend(v3 "cachedDevices")];
-  v8 = [objc_msgSend(v4 "userInfo")];
-  if (!v8)
-  {
-    requireDeviceNetworkSignature = [v3 requireDeviceNetworkSignature];
-    LOBYTE(cache) = 1;
-    if (!requireDeviceNetworkSignature || v7)
+    cache = [objc_msgSend(objc_msgSend(v4 "deviceInfo")];
+    if (cache)
     {
-      return cache;
-    }
-
-    if (gLogCategory_APBonjourCacheHomeKit <= 30)
-    {
-      if (gLogCategory_APBonjourCacheHomeKit != -1)
+      v7 = [objc_msgSend(v3 "cachedDevices")];
+      v8 = [objc_msgSend(v4 "userInfo")];
+      if (v8)
       {
-        goto LABEL_14;
-      }
+        v9 = v8;
+        if ([v8 isEqualToString:{objc_msgSend(v3, "currentNetworkSignature")}])
+        {
+          LOBYTE(cache) = 1;
+          return cache;
+        }
 
-      LODWORD(cache) = _LogCategory_Initialize();
-      if (cache)
-      {
-        goto LABEL_14;
-      }
-
-      return cache;
-    }
-
+        if (gLogCategory_APBonjourCacheHomeKit > 30)
+        {
 LABEL_15:
-    LOBYTE(cache) = 0;
-    return cache;
-  }
+          LOBYTE(cache) = 0;
+          return cache;
+        }
 
-  if ([v8 isEqualToString:{objc_msgSend(v3, "currentNetworkSignature")}])
-  {
-    LOBYTE(cache) = 1;
-    return cache;
-  }
+        if (gLogCategory_APBonjourCacheHomeKit != -1 || (LODWORD(cache) = _LogCategory_Initialize(), cache))
+        {
+          LogPrintF(&gLogCategory_APBonjourCacheHomeKit, "-[APBonjourCacheHomeKit canCacheDevice:]", 33554462, "[%{ptr}] Device %@ network signature: %'@ does not match current network signature: %'@", v3, APBonjourCacheHomeKit, v9, [v3 currentNetworkSignature]);
+          goto LABEL_15;
+        }
+      }
 
-  if (gLogCategory_APBonjourCacheHomeKit > 30)
-  {
-    goto LABEL_15;
-  }
+      else
+      {
+        requireDeviceNetworkSignature = [v3 requireDeviceNetworkSignature];
+        LOBYTE(cache) = 1;
+        if (requireDeviceNetworkSignature && !v7)
+        {
+          if (gLogCategory_APBonjourCacheHomeKit > 30)
+          {
+            goto LABEL_15;
+          }
 
-  if (gLogCategory_APBonjourCacheHomeKit != -1 || (LODWORD(cache) = _LogCategory_Initialize(), cache))
-  {
-    [v3 currentNetworkSignature];
-LABEL_14:
-    LogPrintF();
-    goto LABEL_15;
+          if (gLogCategory_APBonjourCacheHomeKit != -1 || (LODWORD(cache) = _LogCategory_Initialize(), cache))
+          {
+            LogPrintF(&gLogCategory_APBonjourCacheHomeKit, "[APBonjourCacheHomeKit canCacheDevice:]", 33554462, "[%{ptr}] Device %@ missing required network signature for new entry", v3, APBonjourCacheHomeKit);
+            goto LABEL_15;
+          }
+        }
+      }
+    }
   }
 
   return cache;
@@ -2018,7 +2009,7 @@ LABEL_14:
   {
     APSLogErrorAt();
 LABEL_25:
-    deviceInfo2 = 0;
+    v13 = 0;
     goto LABEL_22;
   }
 
@@ -2075,17 +2066,12 @@ LABEL_8:
       v12 = v9 == -1 && _LogCategory_Initialize() == 0;
     }
 
-    v18 = v12;
-    deviceInfo = [v4 deviceInfo];
-    v16 = v11;
-    v17 = v6;
-    v15 = v3;
-    LogPrintF();
+    LogPrintF(&gLogCategory_APBonjourCacheHomeKit, "-[APBonjourCacheHomeKit cacheDevice:]", v8 | 0x2000000u, "[%{ptr}] %s device %@ to cache%?{end}: %@", v3, v11, v6, v12, [v4 deviceInfo]);
   }
 
 LABEL_19:
-  deviceInfo2 = [objc_msgSend(v4 deviceInfo];
-  [deviceInfo2 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"cached"];
+  v13 = [objc_msgSend(v4 "deviceInfo")];
+  [v13 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"cached"];
   [objc_msgSend(objc_msgSend(v3 "cache")];
   [objc_msgSend(v3 "diskWriteCoalescer")];
   if ([v3 activatedPresentDeviceStashing])
@@ -2116,40 +2102,37 @@ LABEL_22:
       cache = [objc_msgSend(v3 "cachedDevices")];
       if (cache)
       {
-        v7 = gLogCategory_APBonjourCacheHomeKit;
+        v6 = gLogCategory_APBonjourCacheHomeKit;
         if (gLogCategory_APBonjourCacheHomeKit <= 50)
         {
           if (gLogCategory_APBonjourCacheHomeKit != -1)
           {
 LABEL_6:
-            if (v7 > 30)
+            if (v6 > 30)
             {
-              v8 = 1;
+              v7 = 1;
             }
 
             else
             {
-              v8 = v7 == -1 && _LogCategory_Initialize() == 0;
+              v7 = v6 == -1 && _LogCategory_Initialize() == 0;
             }
 
-            v12 = v8;
-            v13 = v5;
-            v10 = v3;
-            v11 = v4;
+            v13 = v7;
             OUTLINED_FUNCTION_3_1();
-            LogPrintF();
+            LogPrintF(v8, v9, v10, v11, v3, v4, v13);
             goto LABEL_14;
           }
 
-          if (OUTLINED_FUNCTION_8())
+          if (OUTLINED_FUNCTION_8(&gLogCategory_APBonjourCacheHomeKit))
           {
-            v7 = gLogCategory_APBonjourCacheHomeKit;
+            v6 = gLogCategory_APBonjourCacheHomeKit;
             goto LABEL_6;
           }
         }
 
 LABEL_14:
-        [objc_msgSend(objc_msgSend(v3 cache];
+        [objc_msgSend(objc_msgSend(v3 "cache")];
         [objc_msgSend(v3 "diskWriteCoalescer")];
         LOBYTE(cache) = 1;
       }
@@ -2172,19 +2155,17 @@ LABEL_14:
     OUTLINED_FUNCTION_6_2();
     if ([objc_msgSend(v5 "cachedDevices")])
     {
-      if (gLogCategory_APBonjourCacheHomeKit <= 50 && (gLogCategory_APBonjourCacheHomeKit != -1 || OUTLINED_FUNCTION_8()))
+      if (gLogCategory_APBonjourCacheHomeKit <= 50 && (gLogCategory_APBonjourCacheHomeKit != -1 || OUTLINED_FUNCTION_8(&gLogCategory_APBonjourCacheHomeKit)))
       {
-        v7 = v3;
-        v8 = v4;
         OUTLINED_FUNCTION_3_1();
-        LogPrintF();
+        LogPrintF(v6, v7, v8, v9);
       }
 
       [v3 cachedDeviceLostHandler];
       [OUTLINED_FUNCTION_9_1() reportCachedDevice:? found:? withHandler:?];
-      v6 = OUTLINED_FUNCTION_9_1();
+      v10 = OUTLINED_FUNCTION_9_1();
 
-      [v6 uncacheDevice:?];
+      [v10 uncacheDevice:?];
     }
   }
 
@@ -2211,37 +2192,54 @@ LABEL_14:
 
 - (uint64_t)setupEvictionPolicies
 {
-  *self;
+  if (*self)
+  {
+    v4 = "default value";
+  }
+
+  else
+  {
+    v4 = "user preference";
+  }
+
   [a2 timeToLiveSeconds];
+  v11 = v5;
   OUTLINED_FUNCTION_3_1();
-  return LogPrintF();
+  return LogPrintF(v6, v7, v8, v9, a3, v4, v11);
 }
 
 - (uint64_t)activateWithCompletionInternal:(void *)a1 .cold.1(void *a1)
 {
-  [a1 activatedPresentDeviceStashing];
+  v2 = [a1 activatedPresentDeviceStashing];
+  v3 = "no";
+  if (v2)
+  {
+    v3 = "yes";
+  }
+
+  v9 = v3;
   OUTLINED_FUNCTION_3_1();
-  return LogPrintF();
+  return LogPrintF(v4, v5, v6, v7, a1, v9);
 }
 
-- (uint64_t)getCacheDirectoryURLWithParentDirectory:(uint64_t)a3 creatingIfNecessary:(uint64_t)a4 .cold.1(uint64_t result, void *a2, uint64_t a3, uint64_t a4, void *a5)
+- (void)getCacheDirectoryURLWithParentDirectory:(uint64_t)a3 creatingIfNecessary:(uint64_t)a4 .cold.1(void **result, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
   if (gLogCategory_APBonjourCacheHomeKit <= 90)
   {
     if (gLogCategory_APBonjourCacheHomeKit == -1)
     {
-      v7 = result;
-      result = OUTLINED_FUNCTION_9_0();
+      v8 = result;
+      result = OUTLINED_FUNCTION_9_0(&gLogCategory_APBonjourCacheHomeKit);
       if (!result)
       {
         goto LABEL_5;
       }
 
-      a2 = *v7;
+      a2 = *v8;
     }
 
     [a2 code];
-    result = OUTLINED_FUNCTION_15();
+    result = OUTLINED_FUNCTION_15(&gLogCategory_APBonjourCacheHomeKit, "[APBonjourCacheHomeKit getCacheDirectoryURLWithParentDirectory:creatingIfNecessary:]", v7, "[%{ptr}] Failed to create cache directory: %ld");
   }
 
 LABEL_5:
@@ -2249,15 +2247,15 @@ LABEL_5:
   return result;
 }
 
-- (uint64_t)getCacheDirectoryURLWithParentDirectory:(void *)a3 creatingIfNecessary:.cold.3(uint64_t result, uint64_t a2, void *a3)
+- (id)getCacheDirectoryURLWithParentDirectory:(void *)a3 creatingIfNecessary:.cold.3(id *result, uint64_t a2, void *a3)
 {
   if (gLogCategory_APBonjourCacheHomeKit <= 90)
   {
     v4 = result;
-    if (gLogCategory_APBonjourCacheHomeKit != -1 || (result = OUTLINED_FUNCTION_9_0(), result))
+    if (gLogCategory_APBonjourCacheHomeKit != -1 || (result = OUTLINED_FUNCTION_9_0(&gLogCategory_APBonjourCacheHomeKit), result))
     {
       [*v4 code];
-      result = OUTLINED_FUNCTION_15();
+      result = OUTLINED_FUNCTION_15(&gLogCategory_APBonjourCacheHomeKit, "[APBonjourCacheHomeKit getCacheDirectoryURLWithParentDirectory:creatingIfNecessary:]", v5, "[%{ptr}] Failed to retrieve Caches directory: %ld");
     }
   }
 
@@ -2265,13 +2263,13 @@ LABEL_5:
   return result;
 }
 
-- (uint64_t)getCacheFileURLCreatingParentDirectoriesIfNecessary:(uint64_t)a1 .cold.2(uint64_t a1, void *a2)
+- (uint64_t)getCacheFileURLCreatingParentDirectoriesIfNecessary:(uint64_t)a3 .cold.2(uint64_t a1, void *a2, uint64_t a3)
 {
   if (gLogCategory_APBonjourCacheHomeKit <= 90)
   {
-    if (gLogCategory_APBonjourCacheHomeKit != -1 || (result = OUTLINED_FUNCTION_9_0(), result))
+    if (gLogCategory_APBonjourCacheHomeKit != -1 || (result = OUTLINED_FUNCTION_9_0(&gLogCategory_APBonjourCacheHomeKit), result))
     {
-      result = OUTLINED_FUNCTION_15();
+      result = OUTLINED_FUNCTION_15(&gLogCategory_APBonjourCacheHomeKit, "[APBonjourCacheHomeKit getCacheFileURLCreatingParentDirectoriesIfNecessary:]", a3, "[%{ptr}] Failed to find cache. Cache directory not found");
     }
   }
 
@@ -2279,14 +2277,15 @@ LABEL_5:
   return result;
 }
 
-- (uint64_t)getCacheFileURLCreatingParentDirectoriesIfNecessary:(uint64_t)a1 .cold.3(uint64_t a1, void *a2)
+- (uint64_t)getCacheFileURLCreatingParentDirectoriesIfNecessary:(uint64_t)result .cold.3(uint64_t result, void *a2)
 {
   if (gLogCategory_APBonjourCacheHomeKit <= 50)
   {
-    if (gLogCategory_APBonjourCacheHomeKit != -1 || (result = OUTLINED_FUNCTION_8(), result))
+    v3 = result;
+    if (gLogCategory_APBonjourCacheHomeKit != -1 || (result = OUTLINED_FUNCTION_8(&gLogCategory_APBonjourCacheHomeKit), result))
     {
       OUTLINED_FUNCTION_3_1();
-      result = LogPrintF();
+      result = LogPrintF(v4, v5, v6, v7, v3);
     }
   }
 
@@ -2296,11 +2295,10 @@ LABEL_5:
 
 - (uint64_t)checkAndEvictCachedDevicesIfNecessary
 {
-  v1 = *self;
-  v2 = objc_opt_class();
-  NSStringFromClass(v2);
+  v5 = objc_opt_class();
+  v11 = NSStringFromClass(v5);
   OUTLINED_FUNCTION_3_1();
-  return LogPrintF();
+  return LogPrintF(v6, v7, v8, v9, a2, v11, a3);
 }
 
 @end

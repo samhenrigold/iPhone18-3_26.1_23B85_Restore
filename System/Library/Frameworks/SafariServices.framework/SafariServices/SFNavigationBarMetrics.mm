@@ -1,7 +1,7 @@
 @interface SFNavigationBarMetrics
 + (id)traitsAffectingBarMetrics;
-- (NSString)_contentSizeCategoryForFontsWithPreferredCategory:(NSString *)category;
 - (SFNavigationBarMetrics)init;
+- (UIContentSizeCategory)_contentSizeCategoryForFontsWithPreferredCategory:(UIContentSizeCategory)category;
 - (double)barButtonHeight;
 - (double)barHeightWithBarMetricsCategory:(uint64_t)category;
 - (double)distanceFromLabelBaselineToURLOutlineBottom;
@@ -13,7 +13,7 @@
 - (double)urlLabelVerticalOffset;
 - (double)urlOutlineCornerRadius;
 - (double)urlOutlineHeight;
-- (uint64_t)_updateForContentSizeCategory:(uint64_t)category legibilityWeight:;
+- (uint64_t)_updateForContentSizeCategory:(void *)category legibilityWeight:;
 - (uint64_t)traitCollectionForButtonMetrics;
 - (uint64_t)updateForStatusBarHeight:(uint64_t)result;
 - (uint64_t)updateForTraitCollection:(uint64_t)collection;
@@ -32,14 +32,14 @@
 
 + (id)traitsAffectingBarMetrics
 {
-  v2[3] = *MEMORY[0x1E69E9840];
+  v3[3] = *MEMORY[0x1E69E9840];
   objc_opt_self();
-  v2[0] = objc_opt_class();
-  v2[1] = objc_opt_class();
-  v2[2] = objc_opt_class();
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:3];
+  v3[0] = objc_opt_class();
+  v3[1] = objc_opt_class();
+  v3[2] = objc_opt_class();
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:3];
 
-  return v0;
+  return v1;
 }
 
 - (SFNavigationBarMetrics)init
@@ -73,7 +73,7 @@
   return v2;
 }
 
-- (NSString)_contentSizeCategoryForFontsWithPreferredCategory:(NSString *)category
+- (UIContentSizeCategory)_contentSizeCategoryForFontsWithPreferredCategory:(UIContentSizeCategory)category
 {
   v3 = a2;
   v4 = v3;
@@ -96,7 +96,7 @@
   return category;
 }
 
-- (uint64_t)_updateForContentSizeCategory:(uint64_t)category legibilityWeight:
+- (uint64_t)_updateForContentSizeCategory:(void *)category legibilityWeight:
 {
   v24[2] = *MEMORY[0x1E69E9840];
   v5 = a2;

@@ -35,68 +35,23 @@ uint64_t AG::Subgraph::NodeCache::NodeCache(void)::$_1::__invoke(uint64_t a1, ui
 {
   if (a1 == a2)
   {
-    v8 = 1;
+    v2 = 1;
+  }
+
+  else if (*(a1 + 8) == *(a2 + 8) && (*a2 ^ *a1) <= 255)
+  {
+    v2 = AGDispatchEquatable();
   }
 
   else
   {
-    v2 = *(a1 + 8);
-    if (v2 == *(a2 + 8) && (*a2 ^ *a1) <= 255)
-    {
-      v3 = *(a1 + 12);
-      if (v3)
-      {
-        v4 = AG::data::_shared_table_bytes;
-        v5 = *(AG::data::_shared_table_bytes + (v3 & 0xFFFFFE00));
-        v6 = (AG::data::_shared_table_bytes + v3);
-        v7 = (v6 + *(*(*(*(v5 + 40) + 88) + ((*v6 >> 5) & 0x7FFFFF8)) + 44));
-        if ((*(v6 + 7) & 1) == 0)
-        {
-          goto LABEL_11;
-        }
-      }
-
-      else
-      {
-        v7 = (a1 + 16);
-        v4 = AG::data::_shared_table_bytes;
-      }
-
-      v9 = *v7;
-LABEL_11:
-      v10 = *(a2 + 12);
-      if (v10)
-      {
-        v11 = *(v4 + (v10 & 0xFFFFFE00));
-        v12 = (v4 + v10);
-        v13 = (v12 + *(*(*(*(v11 + 40) + 88) + ((*v12 >> 5) & 0x7FFFFF8)) + 44));
-        if ((*(v12 + 7) & 1) == 0)
-        {
-LABEL_16:
-          v15 = (v4 + v2);
-          v16 = *v15;
-          v17 = v15[1];
-          v8 = AGDispatchEquatable();
-          return v8 & 1;
-        }
-      }
-
-      else
-      {
-        v13 = (a2 + 16);
-      }
-
-      v14 = *v13;
-      goto LABEL_16;
-    }
-
-    v8 = 0;
+    v2 = 0;
   }
 
-  return v8 & 1;
+  return v2 & 1;
 }
 
-uint64_t AGGraphGetInputValue(unint64_t a1, const char *a2, uint64_t a3, AG::swift::metadata *a4)
+const char *AGGraphGetInputValue(unint64_t a1, const char *a2, uint64_t a3, AG::swift::metadata *a4)
 {
   v4 = a4;
   v5 = a3;
@@ -224,7 +179,7 @@ uint64_t AG::Graph::output_value_ref(uint64_t a1, const char *a2, AG::swift::met
   v4 = *v3;
   if ((v4 & 0xC0) == 0)
   {
-    AG::precondition_failure("attribute is not evaluating: %u", a2, a2);
+    AG::precondition_failure("attribute is not evaluating: %u", a2, a3, a2);
   }
 
   if ((v4 & 0x10) == 0)
@@ -267,7 +222,7 @@ unint64_t AG::Graph::index_of_input_slow(uint64_t a1, uint64_t a2, uint64_t a3)
       v9 = 0;
     }
 
-    std::__introsort<std::_ClassicAlgPolicy,AG::Graph::index_of_input_slow(AG::Node &,AG::InputEdge::Comparator)::$_0 &,AG::InputEdge*,false>(v5, v5 + v7, v9, 1);
+    std::__introsort<std::_ClassicAlgPolicy,AG::Graph::index_of_input_slow(AG::Node &,AG::InputEdge::Comparator)::$_0 &,AG::InputEdge*,false>(v5, (v5 + v7), v9, 1);
   }
 
   v10 = v5 + v7;
@@ -328,15 +283,14 @@ unint64_t AG::Graph::index_of_input_slow(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t AG::LayoutDescriptor::compare_indirect(AG::LayoutDescriptor **a1, uint64_t a2, AG::LayoutDescriptor *a3, int a4, const void *a5, const void *a6)
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v12 = *(*(a2 - 8) + 64);
   if (v12 <= 0x1000)
   {
-    v17 = *(*(a2 - 8) + 64);
     MEMORY[0x1EEE9AC00](a1);
-    v13 = (v27 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
+    v13 = (v25 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
     bzero(v13, v12);
-    MEMORY[0x1EEE9AC00](v18);
+    MEMORY[0x1EEE9AC00](v17);
     v15 = v13;
     bzero(v13, v12);
   }
@@ -352,17 +306,17 @@ uint64_t AG::LayoutDescriptor::compare_indirect(AG::LayoutDescriptor **a1, uint6
 LABEL_14:
       free(v15);
       free(v13);
-      goto LABEL_15;
+      return v16;
     }
   }
 
   memcpy(v13, a5, v12);
   memcpy(v15, a6, v12);
-  v19 = *(*(a2 - 8) + 96);
-  v19(v13, a2);
-  v19(v15, a2);
-  v20 = *v13;
-  v21 = *v15;
+  v18 = *(*(a2 - 8) + 96);
+  v18(v13, a2);
+  v18(v15, a2);
+  v19 = *v13;
+  v20 = *v15;
   if (*v13 == *v15)
   {
     v16 = 1;
@@ -370,22 +324,22 @@ LABEL_14:
 
   else
   {
-    v22 = *(a3 - 1);
-    v23 = *(v22 + 80);
-    v24 = *a1;
+    v21 = *(a3 - 1);
+    v22 = *(v21 + 80);
+    v23 = *a1;
     if (!*a1)
     {
-      v24 = AG::LayoutDescriptor::fetch(a3, (a4 & 0xFFFFFEFF), 0);
-      *a1 = v24;
-      v22 = *(a3 - 1);
+      v23 = AG::LayoutDescriptor::fetch(a3, (a4 & 0xFFFFFEFF), 0);
+      *a1 = v23;
+      v21 = *(a3 - 1);
     }
 
-    if (v24 == 1)
+    if (v23 == 1)
     {
-      v24 = 0;
+      v23 = 0;
     }
 
-    v16 = AG::LayoutDescriptor::compare(v24, (v20 + ((v23 + 16) & ~v23)), (v21 + ((v23 + 16) & ~v23)), *(v22 + 64), (a4 & 0xFFFFFEFF));
+    v16 = AG::LayoutDescriptor::compare(v23, (v19 + ((v22 + 16) & ~v22)), (v20 + ((v22 + 16) & ~v22)), *(v21 + 64), (a4 & 0xFFFFFEFF));
   }
 
   if (v12 > 0x1000)
@@ -393,8 +347,6 @@ LABEL_14:
     goto LABEL_14;
   }
 
-LABEL_15:
-  v25 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -543,7 +495,7 @@ LABEL_1:
           goto LABEL_1;
         }
 
-        result = AG::Subgraph::foreach_ancestor<AG::Subgraph::propagate_dirty_flags(void)::$_0>();
+        result = AG::Subgraph::foreach_ancestor<AG::Subgraph::propagate_dirty_flags(void)::$_0>(result, a2);
       }
     }
 
@@ -553,22 +505,22 @@ LABEL_1:
   return result;
 }
 
-unsigned int *AGGraphWithUpdate(char *a1, uint64_t (*a2)(void))
+unsigned int *AGGraphWithUpdate(char *a1, uint64_t (*a2)(void), uint64_t a3)
 {
   if (a1 == 2)
   {
-    v3 = AG::Graph::_current_update_key;
+    v4 = AG::Graph::_current_update_key;
     StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-    v5 = *(StatusReg + 8 * v3);
-    v6 = v5 | 1;
-    if (!v5)
+    v6 = *(StatusReg + 8 * v4);
+    v7 = v6 | 1;
+    if (!v6)
     {
-      v6 = 0;
+      v7 = 0;
     }
 
-    *(StatusReg + 8 * v3) = v6;
+    *(StatusReg + 8 * v4) = v7;
     result = a2();
-    *(StatusReg + 8 * AG::Graph::_current_update_key) = v5;
+    *(StatusReg + 8 * AG::Graph::_current_update_key) = v6;
   }
 
   else
@@ -583,16 +535,16 @@ unsigned int *AGGraphWithUpdate(char *a1, uint64_t (*a2)(void))
       AG::precondition_failure("invalid data offset: %u", a2, a2, a1);
     }
 
-    v8 = *(AG::data::_shared_table_bytes + (a1 & 0xFFFFFE00));
-    if (!v8)
+    v9 = *(AG::data::_shared_table_bytes + (a1 & 0xFFFFFE00));
+    if (!v9)
     {
       AG::precondition_failure("no graph: %u", a2, a2, a1);
     }
 
-    v9 = a1;
-    v10 = *(v8 + 40);
+    v10 = a1;
+    v11 = *(v9 + 40);
 
-    return AG::Graph::with_update(v10, v9, a2);
+    return AG::Graph::with_update(v11, v10, a2);
   }
 
   return result;
@@ -699,7 +651,7 @@ void *util::Table<unsigned long,AG::Graph::Context *>::for_each<AG::Graph::call_
 
 void AG::Graph::Context::call_update(AG::Graph::Context *this)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (*(this + 68) == 1)
   {
     *(this + 68) = 0;
@@ -707,20 +659,20 @@ void AG::Graph::Context::call_update(AG::Graph::Context *this)
     {
       v2 = *this;
       StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-      v24 = v2;
-      v25 = StatusReg - 224;
+      v22 = v2;
+      v23 = StatusReg - 224;
       v4 = *(StatusReg + 8 * AG::Graph::_current_update_key);
       v5 = atomic_load((v2 + 368));
-      v26 = v4;
-      v27 = v5;
-      v29 = 0;
-      v30 = 0;
-      v31 = 8;
-      v32 = 4;
+      v24 = v4;
+      v25 = v5;
+      v27 = 0;
+      v28 = 0;
+      v29 = 8;
+      v30 = 4;
       if (v4)
       {
         v6 = *((v4 & 0xFFFFFFFFFFFFFFFELL) + 120) & 2;
-        v32 = v6 | 4;
+        v30 = v6 | 4;
         v7 = v6 | 0xC;
       }
 
@@ -729,81 +681,78 @@ void AG::Graph::Context::call_update(AG::Graph::Context *this)
         v7 = 12;
       }
 
-      *(v2 + 368) = v25;
+      *(v2 + 368) = v23;
       if ((*(v2 + 360) & 1) == 0)
       {
         *(v2 + 360) = 1;
-        v32 = v7;
+        v30 = v7;
       }
 
-      *(StatusReg + 8 * AG::Graph::_current_update_key) = &v24 + 1;
+      *(StatusReg + 8 * AG::Graph::_current_update_key) = &v22 + 1;
       v8 = *this;
       v9 = *(*this + 176);
       if (v9)
       {
         for (i = 8 * v9 - 8; i != -8; i -= 8)
         {
-          v21 = *(*(v8 + 168) + i);
-          (*(*v21 + 96))(v21, this);
+          v19 = *(*(v8 + 168) + i);
+          (*(*v19 + 96))(v19, this);
         }
       }
 
-      v10 = *(this + 6);
       (*(this + 5))();
-      v12 = *(v8 + 176);
-      if (v12)
+      v11 = *(v8 + 176);
+      if (v11)
       {
-        for (j = 8 * v12 - 8; j != -8; j -= 8)
+        for (j = 8 * v11 - 8; j != -8; j -= 8)
         {
-          v23 = *(*(v8 + 168) + j);
-          (*(*v23 + 104))(v23, this);
+          v21 = *(*(v8 + 168) + j);
+          (*(*v21 + 104))(v21, this);
         }
       }
 
-      v13 = &v28;
-      if (v29)
+      v12 = &v26;
+      if (v27)
       {
-        v13 = v29;
+        v12 = v27;
       }
 
-      if (v30)
+      if (v28)
       {
-        v14 = AG::data::_shared_table_bytes;
-        v15 = 8 * v30;
+        v13 = AG::data::_shared_table_bytes;
+        v14 = 8 * v28;
         do
         {
-          v16 = *v13;
-          v13 += 2;
-          *(v14 + v16) -= 64;
-          v15 -= 8;
+          v15 = *v12;
+          v12 += 2;
+          *(v13 + v15) -= 64;
+          v14 -= 8;
         }
 
-        while (v15);
+        while (v14);
+      }
+
+      v16 = v22;
+      if (v23 != *(v22 + 368))
+      {
+        AG::non_fatal_precondition_failure("invalid graph update (access from multiple threads?)", v10);
+        v16 = v22;
       }
 
       v17 = v24;
-      if (v25 != *(v24 + 368))
+      *(v16 + 368) = v25;
+      *(StatusReg + 8 * AG::Graph::_current_update_key) = v17;
+      if ((v30 & 8) != 0)
       {
-        AG::non_fatal_precondition_failure("invalid graph update (access from multiple threads?)", v11);
-        v17 = v24;
+        *(v16 + 360) = 0;
       }
 
-      v18 = v26;
-      *(v17 + 368) = v27;
-      *(StatusReg + 8 * AG::Graph::_current_update_key) = v18;
-      if ((v32 & 8) != 0)
+      if (v27)
       {
-        *(v17 + 360) = 0;
-      }
-
-      if (v29)
-      {
-        free(v29);
+        free(v27);
       }
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1B491959C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
@@ -947,7 +896,7 @@ void sub_1B491990C(_Unwind_Exception *a1)
 void AG::Subgraph::update(AG::Graph **this, uint64_t a2)
 {
   v3 = this;
-  v81 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   v4 = this[5];
   if (*(v4 + 361) == 1 && !AG::Graph::thread_is_updating(this[5]))
   {
@@ -956,91 +905,90 @@ void AG::Subgraph::update(AG::Graph **this, uint64_t a2)
 
   if (*(v3 + 104))
   {
-    v5 = *(v3 + 5);
+    v5 = v3[5];
 LABEL_6:
-    v6 = *MEMORY[0x1E69E9840];
 
     AG::Graph::invalidate_subgraphs(v5);
     return;
   }
 
-  v5 = *(v3 + 5);
+  v5 = v3[5];
   if (((BYTE2(*(v3 + 25)) | HIBYTE(*(v3 + 25))) & a2) == 0)
   {
     goto LABEL_6;
   }
 
-  v64 = *(v3 + 5);
-  v65 = *(v5 + 360);
+  v62 = v3[5];
+  v63 = *(v5 + 360);
   *(v5 + 360) = 1;
-  v7 = *(v5 + 176);
-  if (v7)
+  v6 = *(v5 + 176);
+  if (v6)
   {
-    for (i = 8 * v7 - 8; i != -8; i -= 8)
+    for (i = 8 * v6 - 8; i != -8; i -= 8)
     {
-      v57 = *(*(v5 + 168) + i);
-      (*(*v57 + 48))(v57, v3, a2);
+      v55 = *(*(v5 + 168) + i);
+      (*(*v55 + 48))(v55, v3, a2);
     }
   }
 
-  v79 = 0u;
-  v80 = 256;
-  v77 = 32;
+  v77 = 0u;
+  v78 = 256;
+  v75 = 32;
   __dst[0] = v3;
-  *v76 = xmmword_1B494AB50;
-  v62 = atomic_fetch_add(AG::Subgraph::_last_traversal_seed, 1u) + 1;
-  *(v3 + 21) = v62;
+  *v74 = xmmword_1B494AB50;
+  v60 = atomic_fetch_add(AG::Subgraph::_last_traversal_seed, 1u) + 1;
+  *(v3 + 21) = v60;
   is_updating = AG::Graph::thread_is_updating(v5);
   StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-  v66 = v5;
-  v67 = StatusReg - 224;
-  v11 = *(StatusReg + 8 * AG::Graph::_current_update_key);
-  v12 = atomic_load((v5 + 368));
-  v68 = v11;
-  v69 = v12;
-  v71 = 0;
+  v64 = v5;
+  v65 = StatusReg - 224;
+  v10 = *(StatusReg + 8 * AG::Graph::_current_update_key);
+  v11 = atomic_load((v5 + 368));
+  v66 = v10;
+  v67 = v11;
+  v69 = 0;
+  v70 = 0;
+  v12 = 8;
+  v71 = 8;
   v72 = 0;
-  v13 = 8;
-  v73 = 8;
-  v74 = 0;
-  if (v11)
+  if (v10)
   {
-    v74 = *((v11 & 0xFFFFFFFFFFFFFFFELL) + 120) & 2;
-    v13 = v74 | 8;
+    v72 = *((v10 & 0xFFFFFFFFFFFFFFFELL) + 120) & 2;
+    v12 = v72 | 8;
   }
 
-  *(v5 + 368) = v67;
+  *(v5 + 368) = v65;
   if ((*(v5 + 360) & 1) == 0)
   {
     *(v5 + 360) = 1;
-    v74 = v13;
+    v72 = v12;
   }
 
-  *(StatusReg + 8 * AG::Graph::_current_update_key) = &v66;
-  v14 = v76[1];
-  if (v76[1])
+  *(StatusReg + 8 * AG::Graph::_current_update_key) = &v64;
+  v13 = v74[1];
+  if (v74[1])
   {
-    v60 = StatusReg;
-    v61 = v3;
-    v63 = ~a2;
+    v58 = StatusReg;
+    v59 = v3;
+    v61 = ~a2;
     do
     {
       while (1)
       {
-        v15 = v76[0];
-        if (!v76[0])
+        v14 = v74[0];
+        if (!v74[0])
         {
-          v15 = __dst;
+          v14 = __dst;
         }
 
-        v16 = v15[v14-- - 1];
-        v76[1] = v14;
-        if (!*(v16 + 104))
+        v15 = v14[v13-- - 1];
+        v74[1] = v13;
+        if (!*(v15 + 104))
         {
           break;
         }
 
-        if (!v14)
+        if (!v13)
         {
           goto LABEL_89;
         }
@@ -1048,42 +996,42 @@ LABEL_6:
 
       while (1)
       {
-        v17 = *(v16 + 100);
-        if ((BYTE2(v17) & a2) == 0)
+        v16 = *(v15 + 100);
+        if ((BYTE2(v16) & a2) == 0)
         {
           break;
         }
 
-        v18 = v17 & 0xFF00FFFF | ((BYTE2(v17) & v63) << 16);
-        *(v16 + 100) = v18;
-        if (!a2 || (a2 & v18) != 0)
+        v17 = v16 & 0xFF00FFFF | ((BYTE2(v16) & v61) << 16);
+        *(v15 + 100) = v17;
+        if (!a2 || (a2 & v17) != 0)
         {
-          v19 = *(v16 + 16);
-          if (v19)
+          v18 = *(v15 + 16);
+          if (v18)
           {
-            v20 = AG::data::_shared_table_bytes;
+            v19 = AG::data::_shared_table_bytes;
             do
             {
-              v21 = v19;
-              v22 = v20 + v19;
-              v23 = *(v22 + 20);
-              if (*(v22 + 20))
+              v20 = v18;
+              v21 = v19 + v18;
+              v22 = *(v21 + 20);
+              if (*(v21 + 20))
               {
                 do
                 {
-                  v24 = v23 + v21;
-                  v25 = (v23 + v21) & 3;
-                  if (v25 > 1)
+                  v23 = v22 + v20;
+                  v24 = (v22 + v20) & 3;
+                  if (v24 > 1)
                   {
-                    if (v25 != 3)
+                    if (v24 != 3)
                     {
                       break;
                     }
                   }
 
-                  else if (v25)
+                  else if (v24)
                   {
-                    v23 = *(AG::data::_shared_table_bytes + (v24 & 0xFFFFFFFC) + 14);
+                    v22 = *(AG::data::_shared_table_bytes + (v23 & 0xFFFFFFFC) + 14);
                     if (a2)
                     {
                       break;
@@ -1092,59 +1040,59 @@ LABEL_6:
 
                   else
                   {
-                    v26 = AG::data::_shared_table_bytes + v24;
-                    v23 = *(v26 + 4);
+                    v25 = AG::data::_shared_table_bytes + v23;
+                    v22 = *(v25 + 4);
                     if (!a2)
                     {
                       goto LABEL_33;
                     }
 
-                    if (!*(v26 + 6))
+                    if (!*(v25 + 6))
                     {
                       break;
                     }
 
-                    if ((*(v26 + 6) & a2) != 0)
+                    if ((*(v25 + 6) & a2) != 0)
                     {
 LABEL_33:
-                      if (*v26)
+                      if (*v25)
                       {
-                        v27 = *(&v79 + 1);
-                        v8 = (*(&v79 + 1) + 1);
-                        if (v80 < *(&v79 + 1) + 1)
+                        v26 = *(&v77 + 1);
+                        v7 = (*(&v77 + 1) + 1);
+                        if (v78 < *(&v77 + 1) + 1)
                         {
-                          AG::vector<AG::data::ptr<AG::Node>,256ul,unsigned long>::reserve_slow(v78, v8);
-                          v27 = *(&v79 + 1);
-                          v8 = (*(&v79 + 1) + 1);
+                          AG::vector<AG::data::ptr<AG::Node>,256ul,unsigned long>::reserve_slow(v76, v7);
+                          v26 = *(&v77 + 1);
+                          v7 = (*(&v77 + 1) + 1);
                         }
 
-                        v28 = v79;
-                        if (!v79)
+                        v27 = v77;
+                        if (!v77)
                         {
-                          v28 = v78;
+                          v27 = v76;
                         }
 
-                        *&v28[4 * v27] = v24;
-                        *(&v79 + 1) = v8;
+                        *&v27[4 * v26] = v23;
+                        *(&v77 + 1) = v7;
                       }
                     }
                   }
                 }
 
-                while (v23);
-                v20 = AG::data::_shared_table_bytes;
+                while (v22);
+                v19 = AG::data::_shared_table_bytes;
               }
 
-              v19 = *(v20 + v21 + 8);
+              v18 = *(v19 + v20 + 8);
             }
 
-            while (v19);
+            while (v18);
           }
         }
 
-        if (!*(&v79 + 1))
+        if (!*(&v77 + 1))
         {
-          if (*(v16 + 104))
+          if (*(v15 + 104))
           {
             goto LABEL_88;
           }
@@ -1152,216 +1100,214 @@ LABEL_33:
           break;
         }
 
-        if (v79)
+        if (v77)
         {
-          v29 = v79;
+          v28 = v77;
         }
 
         else
         {
-          v29 = v78;
+          v28 = v76;
         }
 
-        v30 = &v29[*(&v79 + 1)];
+        v29 = &v28[*(&v77 + 1)];
         do
         {
           while (1)
           {
-            v31 = *v29;
+            v30 = *v28;
             if (!is_updating)
             {
               ++*(v5 + 392);
             }
 
-            v32 = AG::data::_shared_table_bytes;
-            if ((*(AG::data::_shared_table_bytes + v31) & 0x11) == 0x10)
+            v31 = AG::data::_shared_table_bytes;
+            if ((*(AG::data::_shared_table_bytes + v30) & 0x11) == 0x10)
             {
               break;
             }
 
             ++*(v5 + 400);
-            v33 = *(v5 + 176);
-            if (v33)
+            v32 = *(v5 + 176);
+            if (v32)
             {
-              for (j = 8 * v33 - 8; j != -8; j -= 8)
+              for (j = 8 * v32 - 8; j != -8; j -= 8)
               {
-                v38 = *(*(v5 + 168) + j);
-                (*(*v38 + 64))(v38, &v66, v31, 0);
+                v37 = *(*(v5 + 168) + j);
+                (*(*v37 + 64))(v37, &v64, v30, 0);
               }
             }
 
-            if (AG::Graph::UpdateStack::push(&v66, v31, (v32 + v31), 0, 0))
+            if (AG::Graph::UpdateStack::push(&v64, v30, (v31 + v30), 0, 0))
             {
-              v34 = AG::Graph::UpdateStack::update(&v66);
+              v33 = AG::Graph::UpdateStack::update(&v64);
             }
 
             else
             {
-              v34 = 1;
+              v33 = 1;
             }
 
-            v35 = *(v5 + 176);
-            if (v35)
+            v34 = *(v5 + 176);
+            if (v34)
             {
-              for (k = 8 * v35 - 8; k != -8; k -= 8)
+              for (k = 8 * v34 - 8; k != -8; k -= 8)
               {
-                v40 = *(*(v5 + 168) + k);
-                (*(*v40 + 72))(v40, &v66, v31, v34);
+                v39 = *(*(v5 + 168) + k);
+                (*(*v39 + 72))(v39, &v64, v30, v33);
               }
             }
 
-            v41 = *(v16 + 104);
-            ++v29;
+            v40 = *(v15 + 104);
+            ++v28;
             is_updating = 1;
-            if (*(v16 + 104))
+            if (*(v15 + 104))
             {
-              v36 = 1;
+              v35 = 1;
             }
 
             else
             {
-              v36 = v29 == v30;
+              v35 = v28 == v29;
             }
 
-            if (v36)
+            if (v35)
             {
               goto LABEL_72;
             }
           }
 
-          ++v29;
+          ++v28;
           is_updating = 1;
         }
 
-        while (v29 != v30);
-        v41 = *(v16 + 104);
+        while (v28 != v29);
+        v40 = *(v15 + 104);
 LABEL_72:
-        *(&v79 + 1) = 0;
-        if (v41)
+        *(&v77 + 1) = 0;
+        if (v40)
         {
           goto LABEL_88;
         }
       }
 
-      v42 = *(v16 + 100);
-      if ((a2 & HIBYTE(v42)) != 0)
+      v41 = *(v15 + 100);
+      if ((a2 & HIBYTE(v41)) != 0)
       {
-        *(v16 + 100) = v42 & 0xFFFFFF | ((HIBYTE(v42) & v63) << 24);
-        v43 = *(v16 + 72);
-        if (v43)
+        *(v15 + 100) = v41 & 0xFFFFFF | ((HIBYTE(v41) & v61) << 24);
+        v42 = *(v15 + 72);
+        if (v42)
         {
-          v44 = *(v16 + 64);
-          v45 = 8 * v43;
+          v43 = *(v15 + 64);
+          v44 = 8 * v42;
           do
           {
-            v46 = *v44 & 0xFFFFFFFFFFFFFFFCLL;
-            if (!*(v46 + 104) && ((BYTE2(*(v46 + 100)) | HIBYTE(*(v46 + 100))) & a2) != 0 && *(v46 + 84) != v62)
+            v45 = *v43 & 0xFFFFFFFFFFFFFFFCLL;
+            if (!*(v45 + 104) && ((BYTE2(*(v45 + 100)) | HIBYTE(*(v45 + 100))) & a2) != 0 && *(v45 + 84) != v60)
             {
-              v47 = v76[1];
-              v8 = v76[1] + 1;
-              if (v77 < v76[1] + 1)
+              v46 = v74[1];
+              v7 = v74[1] + 1;
+              if (v75 < v74[1] + 1)
               {
-                AG::vector<AG::Subgraph const*,32ul,unsigned long>::reserve_slow(__dst, v8);
-                v47 = v76[1];
-                v8 = v76[1] + 1;
+                AG::vector<AG::Subgraph const*,32ul,unsigned long>::reserve_slow(__dst, v7);
+                v46 = v74[1];
+                v7 = v74[1] + 1;
               }
 
-              v48 = v76[0];
-              if (!v76[0])
+              v47 = v74[0];
+              if (!v74[0])
               {
-                v48 = __dst;
+                v47 = __dst;
               }
 
-              v48[v47] = v46;
-              v76[1] = v8;
-              *(v46 + 84) = v62;
+              v47[v46] = v45;
+              v74[1] = v7;
+              *(v45 + 84) = v60;
             }
 
-            ++v44;
-            v45 -= 8;
+            ++v43;
+            v44 -= 8;
           }
 
-          while (v45);
+          while (v44);
         }
       }
 
 LABEL_88:
-      v14 = v76[1];
+      v13 = v74[1];
     }
 
-    while (v76[1]);
+    while (v74[1]);
 LABEL_89:
-    v49 = &v70;
-    if (v71)
+    v48 = &v68;
+    if (v69)
     {
-      v49 = v71;
+      v48 = v69;
     }
 
-    StatusReg = v60;
-    v3 = v61;
-    if (v72)
+    StatusReg = v58;
+    v3 = v59;
+    if (v70)
     {
-      v50 = AG::data::_shared_table_bytes;
-      v51 = 8 * v72;
+      v49 = AG::data::_shared_table_bytes;
+      v50 = 8 * v70;
       do
       {
-        v52 = *v49;
-        v49 += 2;
-        *(v50 + v52) -= 64;
-        v51 -= 8;
+        v51 = *v48;
+        v48 += 2;
+        *(v49 + v51) -= 64;
+        v50 -= 8;
       }
 
-      while (v51);
+      while (v50);
     }
   }
 
-  v53 = v66;
-  if (v67 != *(v66 + 368))
+  v52 = v64;
+  if (v65 != *(v64 + 368))
   {
-    AG::non_fatal_precondition_failure("invalid graph update (access from multiple threads?)", v8);
-    v53 = v66;
+    AG::non_fatal_precondition_failure("invalid graph update (access from multiple threads?)", v7);
+    v52 = v64;
   }
 
-  *(v53 + 368) = v69;
-  *(StatusReg + 8 * AG::Graph::_current_update_key) = v68;
-  if ((v74 & 8) != 0)
+  *(v52 + 368) = v67;
+  *(StatusReg + 8 * AG::Graph::_current_update_key) = v66;
+  if ((v72 & 8) != 0)
   {
-    *(v66 + 360) = 0;
+    *(v64 + 360) = 0;
   }
 
-  if (v71)
+  if (v69)
   {
-    free(v71);
+    free(v69);
   }
 
   AG::Graph::invalidate_subgraphs(v5);
-  v54 = *(v5 + 176);
-  if (v54)
+  v53 = *(v5 + 176);
+  if (v53)
   {
-    for (m = 8 * v54 - 8; m != -8; m -= 8)
+    for (m = 8 * v53 - 8; m != -8; m -= 8)
     {
-      v59 = *(*(v5 + 168) + m);
-      (*(*v59 + 56))(v59, v3);
+      v57 = *(*(v5 + 168) + m);
+      (*(*v57 + 56))(v57, v3);
     }
   }
 
-  if (v76[0])
+  if (v74[0])
   {
-    free(v76[0]);
+    free(v74[0]);
   }
 
-  if (v79)
+  if (v77)
   {
-    free(v79);
+    free(v77);
   }
 
-  if (v64 && (v65 & 1) == 0)
+  if (v62 && (v63 & 1) == 0)
   {
-    *(v64 + 360) = 0;
-    AG::Graph::invalidate_subgraphs(v64);
+    *(v62 + 360) = 0;
+    AG::Graph::invalidate_subgraphs(v62);
   }
-
-  v55 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1B491A048(_Unwind_Exception *a1, int a2)
@@ -1397,7 +1343,7 @@ _DWORD *AG::swift::metadata::nominal_descriptor(AG::swift::metadata *this)
   return result;
 }
 
-uint64_t AGGraphGetWeakValue(unint64_t a1, char a2, AG::swift::metadata *a3)
+const char *AGGraphGetWeakValue(unint64_t a1, char a2, AG::swift::metadata *a3)
 {
   v3 = a1;
   if (a1 < 4)
@@ -1542,30 +1488,30 @@ LABEL_15:
 
 void AG::Graph::call_update(AG::Graph *this)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
+  v7 = 0;
   v8 = 0;
-  v9 = 0;
-  v10 = 16;
+  v9 = 16;
   if (*(this + 361) == 1)
   {
     do
     {
       *(this + 361) = 0;
-      v6 = v7;
-      util::UntypedTable::for_each(this + 104, util::Table<unsigned long,AG::Graph::Context *>::for_each<AG::Graph::call_update(void)::$_0>(AG::Graph::call_update(void)::$_0 const&)const::{lambda(void const*,void const*,void const*)#1}::__invoke, &v6);
-      if (v9)
+      v5 = v6;
+      util::UntypedTable::for_each(this + 104, util::Table<unsigned long,AG::Graph::Context *>::for_each<AG::Graph::call_update(void)::$_0>(AG::Graph::call_update(void)::$_0 const&)const::{lambda(void const*,void const*,void const*)#1}::__invoke, &v5);
+      if (v8)
       {
-        if (v8)
-        {
-          v2 = v8;
-        }
-
-        else
+        if (v7)
         {
           v2 = v7;
         }
 
-        v3 = 8 * v9;
+        else
+        {
+          v2 = v6;
+        }
+
+        v3 = 8 * v8;
         do
         {
           if (*v2)
@@ -1582,18 +1528,16 @@ void AG::Graph::call_update(AG::Graph *this)
         }
 
         while (v3);
-        v9 = 0;
+        v8 = 0;
       }
     }
 
     while ((*(this + 361) & 1) != 0);
-    if (v8)
+    if (v7)
     {
-      free(v8);
+      free(v7);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1B491A49C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27)
@@ -1608,21 +1552,21 @@ void sub_1B491A49C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void AG::Graph::mark_changed(uint64_t a1)
 {
-  v2 = MEMORY[0x1EEE9AC00](a1);
-  v5 = v4;
+  MEMORY[0x1EEE9AC00](a1);
+  v4 = v3;
+  v32 = v5;
   v33 = v6;
-  v34 = v7;
-  v32 = v8;
-  v9 = v3;
-  v10 = v2;
-  v39 = *MEMORY[0x1E69E9840];
-  v37 = 0u;
-  v38 = 256;
-  if ((v3 & 3) != 0)
+  v31 = v7;
+  v8 = v2;
+  v10 = v9;
+  v38 = *MEMORY[0x1E69E9840];
+  v36 = 0u;
+  v37 = 256;
+  if ((v2 & 3) != 0)
   {
-    if ((v3 & 3) != 1)
+    if ((v2 & 3) != 1)
     {
-      goto LABEL_40;
+      return;
     }
 
     v11 = 4294967292;
@@ -1633,49 +1577,49 @@ void AG::Graph::mark_changed(uint64_t a1)
     v11 = 0xFFFFFFFFLL;
   }
 
-  v12 = AG::data::_shared_table_bytes + *(AG::data::_shared_table_bytes + (v11 & v3) + 24);
-  v13 = *(AG::data::_shared_table_bytes + (v11 & v3) + 20) >> 5;
+  v12 = AG::data::_shared_table_bytes + *(AG::data::_shared_table_bytes + (v11 & v2) + 24);
+  v13 = *(AG::data::_shared_table_bytes + (v11 & v2) + 20) >> 5;
   while (1)
   {
-    while (v5 < v13)
+    while (v4 < v13)
     {
-      v14 = *(v12 + 4 * v5);
+      v14 = *(v12 + 4 * v4);
       if ((v14 & 3) != 0)
       {
-        if ((*(v12 + 4 * v5) & 3) == 1)
+        if ((*(v12 + 4 * v4) & 3) == 1)
         {
           v15 = (AG::data::_shared_table_bytes + (v14 & 0xFFFFFFFC));
-          if (v15[4] != v9)
+          if (v15[4] != v8)
           {
             v16 = AG::data::_shared_table_bytes + v15[6];
             v17 = v15[5] >> 5;
-            if (v5 == v13 - 1)
+            if (v4 == v13 - 1)
             {
-              v5 = 0;
+              v4 = 0;
               v12 = AG::data::_shared_table_bytes + v15[6];
               v13 = v15[5] >> 5;
-              v9 = v14;
+              v8 = v14;
               continue;
             }
 
-            v18 = *(&v37 + 1);
-            if (v38 < *(&v37 + 1) + 1)
+            v18 = *(&v36 + 1);
+            if (v37 < *(&v36 + 1) + 1)
             {
-              AG::vector<std::pair<AG::ConstOutputEdgeArrayRef,AG::AttributeID>,256ul,unsigned long>::reserve_slow(__dst, *(&v37 + 1) + 1);
-              v18 = *(&v37 + 1);
+              AG::vector<std::pair<AG::ConstOutputEdgeArrayRef,AG::AttributeID>,256ul,unsigned long>::reserve_slow(__dst, (*(&v36 + 1) + 1));
+              v18 = *(&v36 + 1);
             }
 
-            v19 = v37;
-            if (!v37)
+            v19 = v36;
+            if (!v36)
             {
               v19 = __dst;
             }
 
-            v20 = &v19[24 * v18];
+            v20 = &v19[3 * v18];
             *v20 = v16;
-            *(v20 + 1) = v17;
+            v20[1] = v17;
             *(v20 + 4) = v14;
-            ++*(&v37 + 1);
+            ++*(&v36 + 1);
           }
         }
       }
@@ -1691,13 +1635,13 @@ void AG::Graph::mark_changed(uint64_t a1)
           while (1)
           {
             v25 = *(v24 - 1);
-            v35 = v25;
+            v34 = v25;
             if ((v25 & 3) != 0)
             {
-              v25 = AG::AttributeID::resolve_slow(&v35, 4u);
+              v25 = AG::AttributeID::resolve_slow(&v34, 4);
             }
 
-            if (v25 == v9 && (*v24 & 0x10) == 0)
+            if (v25 == v8 && (*v24 & 0x10) == 0)
             {
               if ((*(v24 - 4) & 3) == 0)
               {
@@ -1705,7 +1649,7 @@ void AG::Graph::mark_changed(uint64_t a1)
               }
 
               v1 = v1 & 0xFFFFFF0000000000 | *(v24 - 1) | (*v24 << 32);
-              if ((AG::Graph::compare_edge_values(v10, v1, v32, v33, v34) & 1) == 0)
+              if ((AG::Graph::compare_edge_values(v10, v1, v31, v32, v33) & 1) == 0)
               {
                 break;
               }
@@ -1734,36 +1678,33 @@ void AG::Graph::mark_changed(uint64_t a1)
       }
 
 LABEL_28:
-      ++v5;
+      ++v4;
     }
 
-    if (!*(&v37 + 1))
+    if (!*(&v36 + 1))
     {
       break;
     }
 
-    v5 = 0;
-    v29 = v37;
-    if (!v37)
+    v4 = 0;
+    v29 = v36;
+    if (!v36)
     {
       v29 = __dst;
     }
 
-    v30 = &v29[24 * *(&v37 + 1)];
+    v30 = &v29[3 * *(&v36 + 1)];
     v12 = *(v30 - 3);
     v13 = *(v30 - 2);
-    v9 = *(v30 - 2);
-    --*(&v37 + 1);
+    v8 = *(v30 - 2);
+    --*(&v36 + 1);
   }
 
   ++*(v10 + 416);
-  if (v37)
+  if (v36)
   {
-    free(v37);
+    free(v36);
   }
-
-LABEL_40:
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1B491A7E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
@@ -1853,7 +1794,7 @@ void AG::Graph::remove_input_dependencies(uint64_t a1, const char *a2, uint64_t 
   v5 = a3;
   if ((a3 & 3) != 0)
   {
-    v5 = AG::AttributeID::resolve_slow(&v11, 4u);
+    v5 = AG::AttributeID::resolve_slow(&v11, 4);
   }
 
   if (v5 >= 4 && *(*(AG::data::_shared_table_bytes + (v5 & 0xFFFFFE00)) + 40) != a1)
@@ -1895,10 +1836,11 @@ LABEL_14:
 
 void AG::Graph::remove_input(uint64_t a1, unsigned int a2, uint64_t a3)
 {
+  v5 = a2;
   v6 = AG::data::_shared_table_bytes + a2;
   AG::Graph::remove_input_dependencies(a1, a2, *(AG::data::_shared_table_bytes + *(v6 + 16) + 5 * a3));
 
-  AG::Graph::remove_input_edge(a1, a2, v6, a3);
+  AG::Graph::remove_input_edge(a1, v5, v6, a3);
 }
 
 void AGSubgraphApply(uint64_t a1, int a2, void (*a3)(void))
@@ -1910,7 +1852,7 @@ void AGSubgraphApply(uint64_t a1, int a2, void (*a3)(void))
   }
 }
 
-void *AG::Graph::remove_output_edge<AG::Node>(uint64_t a1, unsigned int a2, int a3)
+unsigned int *AG::Graph::remove_output_edge<AG::Node>(uint64_t a1, unsigned int a2, int a3)
 {
   v3 = AG::data::_shared_table_bytes;
   v4 = AG::data::_shared_table_bytes + a2;
@@ -1949,75 +1891,75 @@ LABEL_8:
 
 void AG::Subgraph::apply(uint64_t a1, int a2, void (*a3)(void))
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (!*(a1 + 104))
   {
-    v5 = a2;
+    v4 = a2;
     if ((a2 & (*(a1 + 100) | (*(a1 + 100) >> 8))) != 0)
     {
-      v28 = *(a1 + 40);
-      v29 = *(v28 + 360);
-      v7 = 1;
-      *(v28 + 360) = 1;
-      v8 = atomic_fetch_add(AG::Subgraph::_last_traversal_seed, 1u) + 1;
-      v32 = 0;
-      v33 = 32;
+      v27 = *(a1 + 40);
+      v28 = *(v27 + 360);
+      v6 = 1;
+      *(v27 + 360) = 1;
+      v7 = atomic_fetch_add(AG::Subgraph::_last_traversal_seed, 1u) + 1;
       v31 = 0;
+      v32 = 32;
+      v30 = 0;
       __dst[0] = a1;
-      *(a1 + 84) = v8;
+      *(a1 + 84) = v7;
       do
       {
         while (1)
         {
-          v9 = v31;
-          if (!v31)
+          v8 = v30;
+          if (!v30)
           {
-            v9 = __dst;
+            v8 = __dst;
           }
 
-          v10 = v9[--v7];
-          v32 = v7;
-          if (!*(v10 + 104))
+          v9 = v8[--v6];
+          v31 = v6;
+          if (!*(v9 + 104))
           {
             break;
           }
 
-          if (!v7)
+          if (!v6)
           {
             goto LABEL_40;
           }
         }
 
-        if ((a2 & 0x1000000) != 0 || *(v10 + 48) == *(a1 + 48))
+        if ((a2 & 0x1000000) != 0 || *(v9 + 48) == *(a1 + 48))
         {
-          if (!a2 || (v5 & *(v10 + 100)) != 0)
+          if (!a2 || (v4 & *(v9 + 100)) != 0)
           {
-            v11 = *(v10 + 16);
-            if (v11)
+            v10 = *(v9 + 16);
+            if (v10)
             {
-              v12 = AG::data::_shared_table_bytes;
+              v11 = AG::data::_shared_table_bytes;
               do
               {
-                v13 = v11;
-                v14 = v12 + v11;
-                v15 = *(v14 + 20);
-                if (*(v14 + 20))
+                v12 = v10;
+                v13 = v11 + v10;
+                v14 = *(v13 + 20);
+                if (*(v13 + 20))
                 {
                   do
                   {
-                    v16 = v15 + v13;
-                    v17 = (v15 + v13) & 3;
-                    if (v17 > 1)
+                    v15 = v14 + v12;
+                    v16 = (v14 + v12) & 3;
+                    if (v16 > 1)
                     {
-                      if (v17 != 3)
+                      if (v16 != 3)
                       {
                         break;
                       }
                     }
 
-                    else if (v17)
+                    else if (v16)
                     {
-                      v15 = *(AG::data::_shared_table_bytes + (v16 & 0xFFFFFFFC) + 14);
+                      v14 = *(AG::data::_shared_table_bytes + (v15 & 0xFFFFFFFC) + 14);
                       if (a2)
                       {
                         break;
@@ -2026,20 +1968,20 @@ void AG::Subgraph::apply(uint64_t a1, int a2, void (*a3)(void))
 
                     else
                     {
-                      v18 = AG::data::_shared_table_bytes + v16;
-                      v15 = *(v18 + 4);
+                      v17 = AG::data::_shared_table_bytes + v15;
+                      v14 = *(v17 + 4);
                       if (!a2)
                       {
                         goto LABEL_22;
                       }
 
-                      v19 = *(v18 + 6);
-                      if (!v19)
+                      v18 = *(v17 + 6);
+                      if (!v18)
                       {
                         break;
                       }
 
-                      if ((v19 & a2) != 0)
+                      if ((v18 & a2) != 0)
                       {
 LABEL_22:
                         a3();
@@ -2047,77 +1989,78 @@ LABEL_22:
                     }
                   }
 
-                  while (v15);
-                  v12 = AG::data::_shared_table_bytes;
+                  while (v14);
+                  v11 = AG::data::_shared_table_bytes;
                 }
 
-                v11 = *(v12 + v13 + 8);
+                v10 = *(v11 + v12 + 8);
               }
 
-              while (v11);
+              while (v10);
             }
           }
 
-          v20 = *(v10 + 72);
-          if (v20)
+          v19 = *(v9 + 72);
+          if (v19)
           {
-            v21 = *(v10 + 64);
-            v22 = 8 * v20;
+            v20 = *(v9 + 64);
+            v21 = 8 * v19;
             do
             {
-              v23 = *v21 & 0xFFFFFFFFFFFFFFFCLL;
-              if ((v5 & (*(v23 + 100) | (*(v23 + 100) >> 8))) != 0 && *(v23 + 84) != v8)
+              v22 = *v20 & 0xFFFFFFFFFFFFFFFCLL;
+              if ((v4 & (*(v22 + 100) | (*(v22 + 100) >> 8))) != 0 && *(v22 + 84) != v7)
               {
-                v24 = v32;
-                v25 = v32 + 1;
-                if (v33 < v32 + 1)
+                v23 = v31;
+                v24 = v31 + 1;
+                if (v32 < v31 + 1)
                 {
-                  AG::vector<AG::Subgraph const*,32ul,unsigned long>::reserve_slow(__dst, v25);
-                  v24 = v32;
-                  v25 = v32 + 1;
+                  AG::vector<AG::Subgraph const*,32ul,unsigned long>::reserve_slow(__dst, v24);
+                  v23 = v31;
+                  v24 = v31 + 1;
                 }
 
-                v26 = v31;
-                if (!v31)
+                v25 = v30;
+                if (!v30)
                 {
-                  v26 = __dst;
+                  v25 = __dst;
                 }
 
-                v26[v24] = v23;
-                v32 = v25;
-                *(v23 + 84) = v8;
+                v25[v23] = v22;
+                v31 = v24;
+                *(v22 + 84) = v7;
               }
 
-              ++v21;
-              v22 -= 8;
+              ++v20;
+              v21 -= 8;
             }
 
-            while (v22);
+            while (v21);
           }
         }
 
-        v7 = v32;
+        v6 = v31;
       }
 
-      while (v32);
+      while (v31);
 LABEL_40:
-      if (v31)
+      if (v30)
       {
-        free(v31);
+        free(v30);
       }
 
-      if (v28 && (v29 & 1) == 0)
+      if (v27)
       {
-        *(v28 + 360) = 0;
-        AG::Graph::invalidate_subgraphs(v28);
+        if ((v28 & 1) == 0)
+        {
+          *(v27 + 360) = 0;
+          AG::Graph::invalidate_subgraphs(v27);
+        }
       }
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1B491ADC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, AG::Graph *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void *a44)
+void sub_1B491ADC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void *a44)
 {
   if (a44)
   {
@@ -2212,8 +2155,9 @@ void AG::Subgraph::invalidate_and_delete_(AG::Subgraph *this, int a2)
   }
 }
 
-void AG::Graph::remove_input_edge(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
+void AG::Graph::remove_input_edge(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v6 = a2;
   if (*(a1 + 176))
   {
     AG::Graph::remove_input_edge();
@@ -2243,13 +2187,13 @@ void AG::Graph::remove_input_edge(uint64_t a1, unsigned int a2, uint64_t a3, uin
   *(a3 + 12) = v13;
   if (v13 < 0x20)
   {
-    AG::Graph::all_inputs_removed(a1, a2);
+    AG::Graph::all_inputs_removed(a1, v6);
   }
 
   if ((*a3 & 0xC0) != 0)
   {
 
-    AG::Graph::reset_update(a1, a2);
+    AG::Graph::reset_update(a1, v6);
   }
 }
 
@@ -2360,39 +2304,33 @@ LABEL_13:
       return 0;
     }
 
-    v17 = *(*(*a1 + 88) + 8 * (v9 >> 8));
-    v18 = *(*(v17 + 32) + 40);
-    if (v18)
+    v17 = *(*(*(*(*a1 + 88) + 8 * (v9 >> 8)) + 32) + 40);
+    if (v17)
     {
-      if (*(a3 + 7))
+      v18 = a1 + 4;
+      v19 = a1[13];
+      if (a1[14] < (v19 + 1))
       {
-        v28 = *(a3 + *(v17 + 44));
-      }
-
-      v19 = a1 + 4;
-      v20 = a1[13];
-      if (a1[14] < (v20 + 1))
-      {
-        AG::vector<AG::swift::metadata const*,8ul,unsigned long>::reserve_slow(a1 + 4, v20 + 1);
-        v19 = a1 + 4;
-        v20 = a1[13];
+        AG::vector<AG::swift::metadata const*,8ul,unsigned long>::reserve_slow(a1 + 4, v19 + 1);
+        v18 = a1 + 4;
+        v19 = a1[13];
       }
 
       if (a1[12])
       {
-        v19 = a1[12];
+        v18 = a1[12];
       }
 
-      v21 = &v19[v20];
-      *v21 = a2;
-      *(v21 + 1) = 0;
+      v20 = &v18[v19];
+      *v20 = a2;
+      v20[1] = 0;
       if ((*a3 & 2) != 0 || (*a3 & 0x10) == 0 && a5)
       {
-        *(v21 + 1) = 1;
+        v20[1] = 1;
       }
 
-      a1[13] = v20 + 1;
-      v18();
+      a1[13] = v19 + 1;
+      v17();
       --a1[13];
       v9 = *a3;
       if ((*a3 & 0x10) != 0)
@@ -2408,33 +2346,33 @@ LABEL_13:
   }
 
   *a3 = v9 + 64;
-  v22 = a1[13];
-  if (a1[14] < (v22 + 1))
+  v21 = a1[13];
+  if (a1[14] < (v21 + 1))
   {
-    AG::vector<AG::swift::metadata const*,8ul,unsigned long>::reserve_slow(a1 + 4, v22 + 1);
-    v22 = a1[13];
+    AG::vector<AG::swift::metadata const*,8ul,unsigned long>::reserve_slow(a1 + 4, v21 + 1);
+    v21 = a1[13];
   }
 
-  v23 = a1[12];
-  if (!v23)
+  v22 = a1[12];
+  if (!v22)
   {
-    v23 = a1 + 4;
+    v22 = a1 + 4;
   }
 
-  v24 = &v23[v22];
-  *v24 = a2;
-  *(v24 + 1) = 0;
-  if ((*a3 & 2) != 0 || (v25 = 2, (*a3 & 0x10) == 0) && a5)
+  v23 = &v22[v21];
+  *v23 = a2;
+  v23[1] = 0;
+  if ((*a3 & 2) != 0 || (v24 = 2, (*a3 & 0x10) == 0) && a5)
   {
-    *(v24 + 1) = 1;
-    v25 = 3;
+    v23[1] = 1;
+    v24 = 3;
   }
 
-  v26 = v22 + 1;
-  a1[13] = v26;
+  v25 = v21 + 1;
+  a1[13] = v25;
   if (v10)
   {
-    HIDWORD(v23[v26 - 1]) = v25;
+    HIDWORD(v22[v25 - 1]) = v24;
   }
 
   return 1;
@@ -2507,14 +2445,14 @@ void *AG::indirect_pointer_vector<AG::Subgraph,unsigned long>::clear(void *resul
 
 void AG::Subgraph::invalidate_now(AG::Subgraph *this, AG::Graph *a2)
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   *(a2 + 360) = 1;
+  v77 = 0;
   v78 = 0;
-  v79 = 0;
-  v80 = 16;
+  v79 = 16;
+  v73 = 0;
   v74 = 0;
-  v75 = 0;
-  v76 = 16;
+  v75 = 16;
   v3 = *(this + 104);
   if (v3 != 2)
   {
@@ -2524,47 +2462,47 @@ void AG::Subgraph::invalidate_now(AG::Subgraph *this, AG::Graph *a2)
       v5 = *(a2 + 44);
       if (v5)
       {
-        v72 = 8 * v5 - 8;
+        v71 = 8 * v5 - 8;
         do
         {
-          (*(**(*(a2 + 21) + v72) + 192))(*(*(a2 + 21) + v72), this);
-          v72 -= 8;
+          (*(**(*(a2 + 21) + v71) + 192))(*(*(a2 + 21) + v71), this);
+          v71 -= 8;
         }
 
-        while (v72 != -8);
+        while (v71 != -8);
       }
     }
 
     AG::Subgraph::clear_object(this);
-    v6 = v75;
-    v7 = v75 + 1;
-    if (v76 < v75 + 1)
+    v6 = v74;
+    v7 = v74 + 1;
+    if (v75 < v74 + 1)
     {
-      AG::vector<unsigned long,16ul,unsigned long>::reserve_slow(v73, v7);
-      v6 = v75;
-      v7 = v75 + 1;
+      AG::vector<unsigned long,16ul,unsigned long>::reserve_slow(v72, v7);
+      v6 = v74;
+      v7 = v74 + 1;
     }
 
-    v8 = v74;
-    if (!v74)
+    v8 = v73;
+    if (!v73)
     {
-      v8 = v73;
+      v8 = v72;
     }
 
     *&v8[8 * v6] = this;
-    v75 = v7;
+    v74 = v7;
     if (v7)
     {
       while (1)
       {
-        v9 = v74;
-        if (!v74)
+        v9 = v73;
+        if (!v73)
         {
-          v9 = v73;
+          v9 = v72;
         }
 
         v10 = *&v9[8 * v7 - 8];
-        v75 = v7 - 1;
+        v74 = v7 - 1;
         v11 = *(a2 + 44);
         if (v11)
         {
@@ -2578,23 +2516,23 @@ void AG::Subgraph::invalidate_now(AG::Subgraph *this, AG::Graph *a2)
         AG::Subgraph::notify_observers(v10);
         AG::Graph::remove_subgraph(a2, v10);
         *(v10 + 24) |= 0x80000000;
-        v12 = v79;
-        v13 = v79 + 1;
-        if (v80 < v79 + 1)
+        v12 = v78;
+        v13 = v78 + 1;
+        if (v79 < v78 + 1)
         {
           AG::vector<unsigned long,16ul,unsigned long>::reserve_slow(__dst, v13);
-          v12 = v79;
-          v13 = v79 + 1;
+          v12 = v78;
+          v13 = v78 + 1;
         }
 
-        v14 = v78;
-        if (!v78)
+        v14 = v77;
+        if (!v77)
         {
           v14 = __dst;
         }
 
         *&v14[8 * v12] = v10;
-        v79 = v13;
+        v78 = v13;
         v15 = *(v10 + 72);
         if (v15)
         {
@@ -2603,8 +2541,8 @@ void AG::Subgraph::invalidate_now(AG::Subgraph *this, AG::Graph *a2)
 
 LABEL_63:
         *(v10 + 72) = 0;
-        v7 = v75;
-        if (!v75)
+        v7 = v74;
+        if (!v74)
         {
           goto LABEL_68;
         }
@@ -2689,23 +2627,23 @@ LABEL_43:
             }
 
             AG::Subgraph::clear_object(v18);
-            v36 = v75;
-            v37 = v75 + 1;
-            if (v76 < v75 + 1)
+            v36 = v74;
+            v37 = v74 + 1;
+            if (v75 < v74 + 1)
             {
-              AG::vector<unsigned long,16ul,unsigned long>::reserve_slow(v73, v37);
-              v36 = v75;
-              v37 = v75 + 1;
+              AG::vector<unsigned long,16ul,unsigned long>::reserve_slow(v72, v37);
+              v36 = v74;
+              v37 = v74 + 1;
             }
 
-            v38 = v74;
-            if (!v74)
+            v38 = v73;
+            if (!v73)
             {
-              v38 = v73;
+              v38 = v72;
             }
 
             *&v38[8 * v36] = v18;
-            v75 = v37;
+            v74 = v37;
           }
 
           goto LABEL_58;
@@ -2789,9 +2727,9 @@ LABEL_54:
   }
 
 LABEL_68:
-  if (v78)
+  if (v77)
   {
-    v49 = v78;
+    v49 = v77;
   }
 
   else
@@ -2799,12 +2737,12 @@ LABEL_68:
     v49 = __dst;
   }
 
-  if (!v79)
+  if (!v78)
   {
     goto LABEL_120;
   }
 
-  v50 = &v49[8 * v79];
+  v50 = &v49[8 * v78];
   do
   {
     v51 = *(*v49 + 16);
@@ -2864,9 +2802,9 @@ LABEL_85:
   }
 
   while (v49 != v50);
-  if (v78)
+  if (v77)
   {
-    v59 = v78;
+    v59 = v77;
   }
 
   else
@@ -2874,12 +2812,12 @@ LABEL_85:
     v59 = __dst;
   }
 
-  if (!v79)
+  if (!v78)
   {
     goto LABEL_120;
   }
 
-  v60 = &v59[8 * v79];
+  v60 = &v59[8 * v78];
   do
   {
     v61 = *(*v59 + 16);
@@ -2971,9 +2909,9 @@ LABEL_111:
   }
 
   while (v59 != v60);
-  if (v78)
+  if (v77)
   {
-    v69 = v78;
+    v69 = v77;
   }
 
   else
@@ -2981,9 +2919,9 @@ LABEL_111:
     v69 = __dst;
   }
 
-  if (v79)
+  if (v78)
   {
-    v70 = 8 * v79;
+    v70 = 8 * v78;
     do
     {
       if (*v69)
@@ -3001,17 +2939,15 @@ LABEL_111:
 
 LABEL_120:
   *(a2 + 360) = 0;
-  if (v74)
+  if (v73)
   {
-    free(v74);
+    free(v73);
   }
 
-  if (v78)
+  if (v77)
   {
-    free(v78);
+    free(v77);
   }
-
-  v71 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1B491BAC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void *a44)
@@ -3203,7 +3139,7 @@ uint64_t AG::Subgraph::notify_observers(uint64_t this)
   v1 = *(this + 80);
   if (v1)
   {
-    v2 = (AG::data::_shared_table_bytes + v1);
+    v2 = AG::data::_shared_table_bytes + v1;
     v3 = *(AG::data::_shared_table_bytes + v1 + 8);
     if (v3)
     {
@@ -3211,15 +3147,13 @@ uint64_t AG::Subgraph::notify_observers(uint64_t this)
       v5 = *v2 + 24 * v3;
       do
       {
-        v6 = *(v4 + 8);
         (*v4)();
-        v7 = *(v4 + 8);
 
-        v4 += 24;
+        v4 += 3;
       }
 
       while (v4 != v5);
-      v2[1] = 0;
+      *(v2 + 8) = 0;
     }
   }
 
@@ -3488,7 +3422,7 @@ uint64_t AG::Graph::remove_removed_input(uint64_t result, int a2, unsigned int a
 
 void AG::Graph::remove_indirect_node(uint64_t a1, unsigned int a2)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v4 = AG::data::_shared_table_bytes + a2;
   v5 = *v4;
   if (*(v4 + 8))
@@ -3535,81 +3469,81 @@ void AG::Graph::remove_indirect_node(uint64_t a1, unsigned int a2)
         {
           if ((v8 & 3) != 0)
           {
-            break;
+            return;
           }
 
 LABEL_18:
-          v19 = (AG::data::_shared_table_bytes + v8 + 20);
-          v17 = *v19;
-          v18 = v19[1];
+          v18 = (AG::data::_shared_table_bytes + v8 + 20);
+          v16 = *v18;
+          v17 = v18[1];
+          v30 = 0;
           v31 = 0;
-          v32 = 0;
-          v33 = 8;
-          if (v17 >= 0x20)
+          v32 = 8;
+          if (v16 >= 0x20)
           {
-            v20 = (AG::data::_shared_table_bytes + v18);
-            v21 = a2 & 0xFFFFFFFE;
-            v22 = 4 * (v17 >> 5);
+            v19 = (AG::data::_shared_table_bytes + v17);
+            v20 = a2 & 0xFFFFFFFE;
+            v21 = 4 * (v16 >> 5);
             do
             {
-              v23 = *v20;
-              if (AG::Graph::remove_removed_output(a1, v21 | 1, *v20))
+              v22 = *v19;
+              if (AG::Graph::remove_removed_output(a1, v20 | 1, *v19))
               {
-                v24 = v32;
-                v25 = v32 + 1;
-                if (v33 < v32 + 1)
+                v23 = v31;
+                v24 = v31 + 1;
+                if (v32 < (v31 + 1))
                 {
-                  AG::vector<AG::AttributeID,8ul,unsigned long>::reserve_slow(v30, v25);
-                  v24 = v32;
-                  v25 = v32 + 1;
+                  AG::vector<AG::AttributeID,8ul,unsigned long>::reserve_slow(v29, v24);
+                  v23 = v31;
+                  v24 = v31 + 1;
                 }
 
-                v26 = v31;
-                if (!v31)
+                v25 = v30;
+                if (!v30)
                 {
-                  v26 = v30;
+                  v25 = v29;
                 }
 
-                *&v26[4 * v24] = v23;
-                v32 = v25;
+                *(v25 + v23) = v22;
+                v31 = v24;
               }
 
-              ++v20;
-              v22 -= 4;
+              ++v19;
+              v21 -= 4;
             }
 
-            while (v22);
-            v27 = v31;
-            if (v31)
+            while (v21);
+            v26 = v30;
+            if (v30)
             {
-              v28 = v31;
+              v27 = v30;
             }
 
             else
             {
-              v28 = v30;
+              v27 = v29;
             }
 
-            if (v32)
+            if (v31)
             {
-              v29 = 4 * v32;
+              v28 = 4 * v31;
               do
               {
-                AG::Graph::remove_removed_input(a1, *v28++, v21 | 1);
-                v29 -= 4;
+                AG::Graph::remove_removed_input(a1, *v27++, v20 | 1);
+                v28 -= 4;
               }
 
-              while (v29);
-              v27 = v31;
+              while (v28);
+              v26 = v30;
             }
 
-            if (v27)
+            if (v26)
             {
-              free(v27);
+              free(v26);
             }
           }
 
-          break;
+          return;
         }
 
         v8 = v8 & 0xFFFFFFFC;
@@ -3625,8 +3559,6 @@ LABEL_18:
       while ((v9 & 0x100000000) != 0 && *(v4 + 4) == (v9 & 0x7FFFFFFF));
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1B491C5DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13)
@@ -3693,14 +3625,7 @@ void anonymous namespace::subgraph_type_id(void)::$_0::__invoke<void const*>(uin
   }
 }
 
-uint64_t sub_1B491C7A4(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
-{
-  v8 = *(a5 + 8);
-  swift_getAssociatedTypeWitness();
-  return AGGraphInternAttributeType(a1, a4, sub_1B490E54C);
-}
-
-uint64_t AGSubgraphRemoveChild(uint64_t a1, uint64_t a2)
+AG::Subgraph *AGSubgraphRemoveChild(uint64_t a1, uint64_t a2)
 {
   result = *(a1 + 16);
   if (!result)
@@ -4088,7 +4013,7 @@ unint64_t AGGraphRegisterDependency(uint64_t a1, const char *a2)
   return AG::Graph::input_value_add(v7, v11, a1, v6);
 }
 
-void AG::Graph::Context::~Context(void **this)
+void AG::Graph::Context::~Context(AG::Graph **this)
 {
   v2 = *this;
   v3 = *(*this + 44);
@@ -4096,20 +4021,20 @@ void AG::Graph::Context::~Context(void **this)
   {
     for (i = 8 * v3 - 8; i != -8; i -= 8)
     {
-      v15 = *(v2[21] + i);
-      (*(*v15 + 168))(v15, this);
+      v13 = *(*(v2 + 21) + i);
+      (*(*v13 + 168))(v13, this);
     }
 
     v2 = *this;
   }
 
-  if (util::UntypedTable::remove((v2 + 13), this[2]) && this[7] != -1)
+  if (util::UntypedTable::remove((v2 + 104), this[2]) && this[7] != -1)
   {
     v4 = *this;
-    v16 = &v17;
-    v17 = -1;
-    util::UntypedTable::for_each((v4 + 13), util::Table<unsigned long,AG::Graph::Context *>::for_each<AG::Graph::update_deadline(void)::$_0>(AG::Graph::update_deadline(void)::$_0 const&)const::{lambda(void const*,void const*,void const*)#1}::__invoke, &v16);
-    v4[48] = v17;
+    v14 = &v15;
+    v15 = -1;
+    util::UntypedTable::for_each(v4 + 104, util::Table<unsigned long,AG::Graph::Context *>::for_each<AG::Graph::update_deadline(void)::$_0>(AG::Graph::update_deadline(void)::$_0 const&)const::{lambda(void const*,void const*,void const*)#1}::__invoke, &v14);
+    *(v4 + 48) = v15;
   }
 
   v5 = *this;
@@ -4117,7 +4042,7 @@ void AG::Graph::Context::~Context(void **this)
   {
     v6 = *(v5 + 360);
     *(v5 + 360) = 1;
-    v7 = v5[76];
+    v7 = *(v5 + 76);
     if (!v7)
     {
       goto LABEL_12;
@@ -4156,10 +4081,6 @@ LABEL_12:
     AG::Graph::~Graph(v10);
     MEMORY[0x1B8C7ACE0]();
   }
-
-  v12 = this[4];
-
-  v13 = this[6];
 }
 
 uint64_t AG::LayoutDescriptor::compare_existential_values(AG::LayoutDescriptor *this, const AG::swift::existential_type_metadata *a2, unsigned __int8 *a3, const unsigned __int8 *a4)
@@ -4413,19 +4334,19 @@ uint64_t AG::LayoutDescriptor::Builder::visit_function(AG::LayoutDescriptor::Bui
 
   else
   {
-    v5 = (this + 40);
+    v5 = this + 40;
   }
 
   v6 = *(this + 2) + 8;
-  v7 = v5[1];
-  if (v5[2] < (v7 + 1))
+  v7 = *(v5 + 1);
+  if (*(v5 + 2) < (v7 + 1))
   {
     v9 = v5;
     v10 = v6;
-    AG::vector<std::variant<AG::LayoutDescriptor::Builder::DataItem,AG::LayoutDescriptor::Builder::EqualsItem,AG::LayoutDescriptor::Builder::EqualsOverrideItem,AG::LayoutDescriptor::Builder::IndirectItem,AG::LayoutDescriptor::Builder::ExistentialItem,AG::LayoutDescriptor::Builder::HeapRefItem,AG::LayoutDescriptor::Builder::NestedItem,AG::LayoutDescriptor::Builder::EnumItem>,0ul,unsigned long>::reserve_slow(v5, v7 + 1);
+    AG::vector<std::variant<AG::LayoutDescriptor::Builder::DataItem,AG::LayoutDescriptor::Builder::EqualsItem,AG::LayoutDescriptor::Builder::EqualsOverrideItem,AG::LayoutDescriptor::Builder::IndirectItem,AG::LayoutDescriptor::Builder::ExistentialItem,AG::LayoutDescriptor::Builder::HeapRefItem,AG::LayoutDescriptor::Builder::NestedItem,AG::LayoutDescriptor::Builder::EnumItem>,0ul,unsigned long>::reserve_slow(v5, (v7 + 1));
     v6 = v10;
     v5 = v9;
-    v7 = v9[1];
+    v7 = *(v9 + 1);
   }
 
   v8 = *v5 + 56 * v7;
@@ -4434,17 +4355,16 @@ uint64_t AG::LayoutDescriptor::Builder::visit_function(AG::LayoutDescriptor::Bui
   result = 1;
   *(v8 + 16) = 1;
   *(v8 + 48) = 5;
-  ++v5[1];
+  ++*(v5 + 1);
   return result;
 }
 
 uint64_t AG::LayoutDescriptor::compare_partial(AG::LayoutDescriptor *this, AG::LayoutDescriptor *a2, unsigned __int8 *a3, const unsigned __int8 *a4, char *a5, unsigned int a6)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (a2 == a3)
   {
-    v14 = 1;
-    goto LABEL_22;
+    return 1;
   }
 
   v7 = a5;
@@ -4473,21 +4393,21 @@ uint64_t AG::LayoutDescriptor::compare_partial(AG::LayoutDescriptor *this, AG::L
         }
 
 LABEL_9:
-        *v23 = 0u;
-        v24 = 8;
-        v14 = AG::LayoutDescriptor::Compare::operator()(v22, v12, a2, a3, v13, v7, a6);
-        v15 = v23[0];
-        if (v23[0])
+        *v21 = 0u;
+        v22 = 8;
+        v14 = AG::LayoutDescriptor::Compare::operator()(v20, v12, a2, a3, v13, v7, a6);
+        v15 = v21[0];
+        if (v21[0])
         {
-          v16 = v23[0];
+          v16 = v21[0];
         }
 
         else
         {
-          v16 = v22;
+          v16 = v20;
         }
 
-        if (v23[1])
+        if (v21[1])
         {
           v17 = 0;
           do
@@ -4497,8 +4417,8 @@ LABEL_9:
             v16 = (v18 + 64);
           }
 
-          while (v17 < v23[1]);
-          v15 = v23[0];
+          while (v17 < v21[1]);
+          v15 = v21[0];
         }
 
         if (v15)
@@ -4506,17 +4426,12 @@ LABEL_9:
           free(v15);
         }
 
-        goto LABEL_22;
+        return v14;
       }
 
-      v14 = 0;
-LABEL_22:
-      v21 = *MEMORY[0x1E69E9840];
-      return v14;
+      return 0;
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return AG::LayoutDescriptor::compare_bytes_top_level(a2, a3, v7, a6, a5);
 }
@@ -4551,27 +4466,22 @@ __n128 AG::Subgraph::remove_observer(AG::Subgraph *this, uint64_t a2)
     v4 = *(AG::data::_shared_table_bytes + v2 + 8);
     if (v4)
     {
-      v5 = 0;
-      v6 = *v3;
-      while (*(v6 + v5 + 16) != a2)
+      for (i = 0; *(*v3 + i + 16) != a2; i += 24)
       {
-        v5 += 24;
         if (!--v4)
         {
           return result;
         }
       }
 
-      v7 = *(v6 + v5 + 8);
-
-      v8 = (*v3 + v5);
-      v9 = *v3 + 24 * v3[1];
-      result = *v8;
-      *v8 = *(v9 - 24);
-      *(v9 - 24) = result;
-      v11 = v8[1].n128_u64[0];
-      v8[1].n128_u64[0] = *(v9 - 8);
-      *(v9 - 8) = v11;
+      v6 = (*v3 + i);
+      v7 = *v3 + 24 * v3[1];
+      result = *v6;
+      *v6 = *(v7 - 24);
+      *(v7 - 24) = result;
+      v9 = v6[1].n128_u64[0];
+      v6[1].n128_u64[0] = *(v7 - 8);
+      *(v7 - 8) = v9;
       --v3[1];
     }
   }
@@ -4579,7 +4489,7 @@ __n128 AG::Subgraph::remove_observer(AG::Subgraph *this, uint64_t a2)
   return result;
 }
 
-void AG::Graph::indirect_attribute_set(uint64_t a1, const char *a2, unsigned int a3, char a4)
+void AG::Graph::indirect_attribute_set(uint64_t a1, const char *a2, uint64_t a3, char a4)
 {
   v4 = a3;
   v5 = a2;
@@ -4690,35 +4600,33 @@ uint64_t AGTypeApplyFields2::Visitor::visit_case(uint64_t a1, AG::swift::metadat
   if (v10)
   {
     v11 = v10;
-    v12 = *(a1 + 8);
-    v13 = *(a3 + 8);
-    if (v13)
+    v12 = *(a3 + 8);
+    if (v12)
     {
-      v14 = (v13 + a3 + 8);
+      v13 = (v12 + a3 + 8);
     }
 
     else
     {
-      v14 = "";
+      v13 = "";
     }
 
-    v15 = *(v12 + 8);
-    return (*v12)(v14, a4, v11) & 1;
+    return (**(a1 + 8))(v13, a4, v11) & 1;
   }
 
   else
   {
-    v17 = **a1;
+    v15 = **a1;
 
-    return v17(a1);
+    return v15(a1);
   }
 }
 
-void AGGraphSetIndirectAttribute2(uint64_t a1, const char *a2, char a3)
+void AGGraphSetIndirectAttribute2(uint64_t a1, const char *a2, uint64_t a3)
 {
   if ((a1 & 3) != 1 || (v4 = (a1 & 0xFFFFFFFC), (v5 = *(AG::data::_shared_table_bytes + (a1 & 0xFFFFFE00))) == 0))
   {
-    AG::precondition_failure("invalid indirect attribute: %u", a2, a1);
+    AG::precondition_failure("invalid indirect attribute: %u", a2, a3, a1);
   }
 
   v6 = *(v5 + 40);
@@ -4735,7 +4643,7 @@ void AGGraphSetIndirectAttribute2(uint64_t a1, const char *a2, char a3)
   }
 }
 
-unsigned __int8 *AG::LayoutDescriptor::find_partial(unsigned __int8 *this, const unsigned __int8 *a2, unint64_t a3)
+char *AG::LayoutDescriptor::find_partial(char *this, const unsigned __int8 *a2, unint64_t a3)
 {
   if (a2)
   {
@@ -4788,7 +4696,7 @@ unsigned __int8 *AG::LayoutDescriptor::find_partial(unsigned __int8 *this, const
             v22 = 0;
             v25 = 0;
             v24 = *(v5 + 1);
-            v23 = v5 + 9;
+            v23 = (v5 + 9);
             do
             {
               v26 = *v23++;
@@ -4891,12 +4799,12 @@ LABEL_23:
 
                       while (v18 < 0);
 LABEL_35:
-                      v13 = this + 9;
+                      v13 = (this + 9);
                       ++v12;
                       continue;
                     }
 
-                    v13 = this + 7;
+                    v13 = (this + 7);
                   }
 
                   if (v15 > 3)
@@ -4926,7 +4834,7 @@ LABEL_46:
 
                 if (v15 == 7)
                 {
-                  v13 = this + 9;
+                  v13 = (this + 9);
                   do
                   {
                     v19 = *v13++;
@@ -4938,7 +4846,7 @@ LABEL_46:
             }
 
             v22 = *(v5 + 5);
-            v23 = v5 + 7;
+            v23 = (v5 + 7);
             v24 = &AG::LayoutDescriptor::base_address[*(v5 + 1)];
           }
 
@@ -5023,7 +4931,7 @@ LABEL_81:
             }
 
             v8 = *(v5 + 1);
-            this = (v5 + 17);
+            this = v5 + 17;
 LABEL_57:
             v21 = *(*(v8 - 8) + 64);
 LABEL_58:
@@ -5039,7 +4947,7 @@ LABEL_58:
             }
 
             v8 = *(v5 + 1);
-            this = (v5 + 9);
+            this = v5 + 9;
             goto LABEL_57;
           }
 
@@ -5062,7 +4970,7 @@ LABEL_5:
   return this;
 }
 
-void *AG::LayoutDescriptor::Builder::Emitter<AG::vector<unsigned char,512ul,unsigned long>>::operator()(uint64_t *a1, uint64_t a2)
+void *AG::LayoutDescriptor::Builder::Emitter<AG::vector<unsigned char,512ul,unsigned long>>::operator()(unint64_t *a1, uint64_t a2)
 {
   result = AG::LayoutDescriptor::Builder::Emitter<AG::vector<unsigned char,512ul,unsigned long>>::enter(a1, a2);
   v5 = *a1;
@@ -5197,16 +5105,13 @@ uint64_t sub_1B491E254(uint64_t a1)
 {
   v2 = *(a1 + 16);
   v3 = *(v2 - 1);
-  v4 = *(v3 + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *v1;
-  v9 = *(v1 + 1);
-  v8 = *(v1 + 2);
-  Value = AGGraphGetValue(v7, 0, v2, v10, v11);
-  (*(v3 + 16))(v6, Value, v2);
-  v9(v6);
-  return (*(v3 + 8))(v6, v2);
+  v5 = &v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = *(v1 + 1);
+  Value = AGGraphGetValue(*v1, 0, v2, v7, v8);
+  (*(v3 + 16))(v5, Value, v2);
+  v6(v5);
+  return (*(v3 + 8))(v5, v2);
 }
 
 uint64_t AG::Graph::attribute_ref(uint64_t a1, unsigned int a2, void *a3)
@@ -5227,7 +5132,7 @@ uint64_t AG::Graph::attribute_ref(uint64_t a1, unsigned int a2, void *a3)
   return result;
 }
 
-uint64_t sub_1B491E3B8()
+uint64_t sub_1B491E3B8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -5377,21 +5282,20 @@ uint64_t util::Table<AG::swift::metadata const*,AG::data::ptr<AG::Subgraph::Node
     v5 = *a3;
     do
     {
-      v6 = ~*v3;
       if (*v3 == 0xFF)
       {
         break;
       }
 
-      v7 = *v3 + 1;
-      *v3 = v7;
-      if (v7 == 0xFF)
+      v6 = *v3 + 1;
+      *v3 = v6;
+      if (v6 == 0xFF)
       {
         util::UntypedTable::remove_ptr((a3[1] + 72), v3);
-        v8 = v3[3];
-        v9 = AG::data::_shared_table_bytes;
-        AG::Node::destroy_self((AG::data::_shared_table_bytes + v8), *(v5 + 40));
-        AG::Node::destroy_value((v9 + v8), *(v5 + 40));
+        v7 = v3[3];
+        v8 = AG::data::_shared_table_bytes;
+        AG::Node::destroy_self((AG::data::_shared_table_bytes + v7), *(v5 + 40));
+        AG::Node::destroy_value((v8 + v7), *(v5 + 40));
         result = AG::Graph::remove_all_inputs(*(v5 + 40), v3[3]);
       }
 
@@ -5430,16 +5334,16 @@ uint64_t AG::LayoutDescriptor::Builder::visit_existential(AG::LayoutDescriptor::
 
   else
   {
-    v7 = (this + 40);
+    v7 = this + 40;
   }
 
   v8 = *(this + 2);
   v9 = *(*(a2 - 1) + 64);
-  v10 = v7[1];
-  if (v7[2] < (v10 + 1))
+  v10 = *(v7 + 1);
+  if (*(v7 + 2) < (v10 + 1))
   {
-    AG::vector<std::variant<AG::LayoutDescriptor::Builder::DataItem,AG::LayoutDescriptor::Builder::EqualsItem,AG::LayoutDescriptor::Builder::EqualsOverrideItem,AG::LayoutDescriptor::Builder::IndirectItem,AG::LayoutDescriptor::Builder::ExistentialItem,AG::LayoutDescriptor::Builder::HeapRefItem,AG::LayoutDescriptor::Builder::NestedItem,AG::LayoutDescriptor::Builder::EnumItem>,0ul,unsigned long>::reserve_slow(v7, v10 + 1);
-    v10 = v7[1];
+    AG::vector<std::variant<AG::LayoutDescriptor::Builder::DataItem,AG::LayoutDescriptor::Builder::EqualsItem,AG::LayoutDescriptor::Builder::EqualsOverrideItem,AG::LayoutDescriptor::Builder::IndirectItem,AG::LayoutDescriptor::Builder::ExistentialItem,AG::LayoutDescriptor::Builder::HeapRefItem,AG::LayoutDescriptor::Builder::NestedItem,AG::LayoutDescriptor::Builder::EnumItem>,0ul,unsigned long>::reserve_slow(v7, (v10 + 1));
+    v10 = *(v7 + 1);
   }
 
   v11 = *v7 + 56 * v10;
@@ -5447,7 +5351,7 @@ uint64_t AG::LayoutDescriptor::Builder::visit_existential(AG::LayoutDescriptor::
   *(v11 + 8) = v9;
   *(v11 + 16) = a2;
   *(v11 + 48) = 4;
-  ++v7[1];
+  ++*(v7 + 1);
   return 1;
 }
 
@@ -5478,7 +5382,7 @@ uint64_t AG::Graph::Context::thread_is_updating(AG::Graph::Context *this)
   return AG::Graph::is_context_updating(*this, *(this + 2));
 }
 
-uint64_t AGTypeApplyMutableEnumData(AG::swift::metadata *a1, void **a2, void (*a3)(void, AG::swift::metadata *, unint64_t))
+AG::swift::metadata *AGTypeApplyMutableEnumData(AG::swift::metadata *a1, void **a2, void (*a3)(void, AG::swift::metadata *, unint64_t))
 {
   v4 = *(a1 - 1);
   if ((*(v4 + 82) & 0x20) == 0)
@@ -5490,9 +5394,9 @@ uint64_t AGTypeApplyMutableEnumData(AG::swift::metadata *a1, void **a2, void (*a
   result = AG::swift::metadata::nominal_descriptor(a1);
   if (result)
   {
-    v9 = result + 16;
-    v10 = *(result + 16);
-    if (v10 && ((v10 & 3) != 1 ? (v11 = v10 + v9) : (v11 = *((v10 & 0xFFFFFFFFFFFFFFFCLL) + v9)), v7 < (*(result + 20) & 0xFFFFFFu) && (v12 = v11 + 12 * v7, v15 = *(v12 + 20), v14 = v12 + 20, v13 = v15, v15)))
+    v9 = (result + 16);
+    v10 = *(result + 4);
+    if (v10 && ((v10 & 3) != 1 ? (v11 = v9 + v10) : (v11 = *(v9 + (v10 & 0xFFFFFFFFFFFFFFFCLL))), v7 < (*(result + 5) & 0xFFFFFFu) && (v12 = v11 + 12 * v7, v15 = *(v12 + 20), v14 = v12 + 20, v13 = v15, v15)))
     {
       result = AG::swift::metadata::mangled_type_name_ref_cached(a1, (v13 + v14), 0);
       if (result)
@@ -5503,7 +5407,7 @@ uint64_t AGTypeApplyMutableEnumData(AG::swift::metadata *a1, void **a2, void (*a
         if (*(v14 - 4))
         {
           AG::swift::metadata::copy_on_write_heap_object(v16, a2);
-          v17 = *a2 + ((*(*(v16 - 1) + 80) + 16) & ~*(*(v16 - 1) + 80));
+          v17 = (*a2 + ((*(*(v16 - 1) + 80) + 16) & ~*(*(v16 - 1) + 80)));
         }
 
         a3(v7, v16, v17);
@@ -5521,7 +5425,7 @@ uint64_t AGTypeApplyMutableEnumData(AG::swift::metadata *a1, void **a2, void (*a
   return result;
 }
 
-_BYTE *AG::swift::metadata::mangled_type_name_ref_cached(AG::swift::metadata *a1, _BYTE *a2, _DWORD *a3)
+unsigned __int8 *AG::swift::metadata::mangled_type_name_ref_cached(AG::swift::metadata *a1, unsigned __int8 *a2, _DWORD *a3)
 {
   v3 = a2;
   if (a2)
@@ -5564,39 +5468,37 @@ void sub_1B491EDC8(_Unwind_Exception *a1)
 
 unsigned int *AG::Graph::with_update(uint64_t a1, unsigned int a2, void (*a3)(void))
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-  v9 = a1;
-  v10 = StatusReg - 224;
-  v11 = *(StatusReg + 8 * AG::Graph::_current_update_key);
+  v8 = a1;
+  v9 = StatusReg - 224;
+  v10 = *(StatusReg + 8 * AG::Graph::_current_update_key);
   v4 = atomic_load((a1 + 368));
-  v12 = v4;
+  v11 = v4;
+  v14 = 0;
   v15 = 0;
-  v16 = 0;
   v5 = 8;
-  v17 = 8;
-  v18 = 0;
-  if (v11)
+  v16 = 8;
+  v17 = 0;
+  if (v10)
   {
-    v18 = *((v11 & 0xFFFFFFFFFFFFFFFELL) + 120) & 2;
-    v5 = v18 | 8;
+    v17 = *((v10 & 0xFFFFFFFFFFFFFFFELL) + 120) & 2;
+    v5 = v17 | 8;
   }
 
-  *(a1 + 368) = v10;
+  *(a1 + 368) = v9;
   if ((*(a1 + 360) & 1) == 0)
   {
     *(a1 + 360) = 1;
-    v18 = v5;
+    v17 = v5;
   }
 
-  *(StatusReg + 8 * AG::Graph::_current_update_key) = &v9;
-  v13 = a2;
-  v14 = (*(AG::data::_shared_table_bytes + a2) >> 1) & 1;
-  v16 = 1;
+  *(StatusReg + 8 * AG::Graph::_current_update_key) = &v8;
+  v12 = a2;
+  v13 = (*(AG::data::_shared_table_bytes + a2) >> 1) & 1;
+  v15 = 1;
   a3();
-  result = _ZZN2AG5Graph11with_updateENS_4data3ptrINS_4NodeEEENS_17ClosureFunctionVVIvJEEEEN13scoped_updateD1Ev(&v9, v6);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return _ZZN2AG5Graph11with_updateENS_4data3ptrINS_4NodeEEENS_17ClosureFunctionVVIvJEEEEN13scoped_updateD1Ev(&v8, v6);
 }
 
 void sub_1B491EF68(_Unwind_Exception *a1, const char *a2, uint64_t a3, ...)
@@ -5725,7 +5627,6 @@ void *AG::vector<AG::ConstOutputEdgeArrayRef,64ul,unsigned long>::reserve_slow(v
 
 __int128 *AG::vector<AG::Subgraph *,2ul,unsigned int>::swap_inline(__int128 *result, __int128 *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
   v2 = *(a2 + 2);
   v3 = *(result + 2);
   if (v2)
@@ -5747,7 +5648,7 @@ __int128 *AG::vector<AG::Subgraph *,2ul,unsigned int>::swap_inline(__int128 *res
     {
       if (v2)
       {
-        goto LABEL_8;
+        return result;
       }
     }
 
@@ -5756,15 +5657,13 @@ __int128 *AG::vector<AG::Subgraph *,2ul,unsigned int>::swap_inline(__int128 *res
       *(result + 2) = 0;
       if (v2)
       {
-        goto LABEL_8;
+        return result;
       }
     }
 
     *(a2 + 2) = 0;
   }
 
-LABEL_8:
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5802,7 +5701,7 @@ uint64_t AG::Graph::is_context_updating(AG::Graph *this, uint64_t a2)
   return 0;
 }
 
-__n128 AGGraphWithMainThreadHandler(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+__n128 AGGraphWithMainThreadHandler(uint64_t a1, void (*a2)(void), uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (*(a1 + 88) == 1)
   {
@@ -5813,7 +5712,7 @@ __n128 AGGraphWithMainThreadHandler(uint64_t a1, const char *a2, uint64_t a3, ui
   v7 = *(v5 + 184);
   *(v5 + 184) = a4;
   *(v5 + 192) = a5;
-  (a2)();
+  a2();
   result = v7;
   *(v5 + 184) = v7;
   return result;
@@ -5858,47 +5757,46 @@ uint64_t AG::swift::metadata::visit_heap(AG::swift::metadata *this, AG::swift::m
 uint64_t AG::swift::metadata::visit_heap_locals(AG::swift::metadata *this, AG::swift::metadata_visitor *a2)
 {
   v3 = *(this + 2);
-  if (!v3 || v3[1] || (v9 = *(this + 2), !v9))
+  if (!v3 || v3[1] || (v8 = *(this + 2), !v8))
   {
     v4 = **a2;
-    v5 = *a2;
-    v6 = a2;
+    v5 = a2;
 
-    return v4(v6);
+    return v4(v5);
   }
 
   if (v3[2])
   {
-    v10 = 0;
+    v9 = 0;
     while (1)
     {
       {
         AG::swift::metadata::visit_heap_locals(AG::swift::metadata_visitor &)const::pointer_type = AG::swift::metadata::mangled_type_name_ref(this, "Bp", 1, 0);
       }
 
-      v11 = *a2;
+      v10 = *a2;
       if (!AG::swift::metadata::visit_heap_locals(AG::swift::metadata_visitor &)const::pointer_type)
       {
         break;
       }
 
-      result = (v11[1])(a2, AG::swift::metadata::visit_heap_locals(AG::swift::metadata_visitor &)const::pointer_type, 3, v9, 8);
+      result = (v10[1])(a2, AG::swift::metadata::visit_heap_locals(AG::swift::metadata_visitor &)const::pointer_type, 3, v8, 8);
       if (!result)
       {
         return result;
       }
 
-      v9 += 8;
-      if (++v10 >= v3[2])
+      v8 += 8;
+      if (++v9 >= v3[2])
       {
         goto LABEL_16;
       }
     }
 
-    v4 = *v11;
-    v6 = a2;
+    v4 = *v10;
+    v5 = a2;
 
-    return v4(v6);
+    return v4(v5);
   }
 
 LABEL_16:
@@ -5907,28 +5805,28 @@ LABEL_16:
     return 1;
   }
 
-  v12 = v3 + 3;
-  v13 = 3;
+  v11 = v3 + 3;
+  v12 = 3;
   while (1)
   {
-    v19 = 0;
-    v14 = v3[v13];
-    v15 = v14 ? v12 + v14 : 0;
-    v16 = AG::swift::metadata::mangled_type_name_ref(this, v15, 0, &v19);
-    if (!v16)
+    v18 = 0;
+    v13 = v3[v12];
+    v14 = v13 ? v11 + v13 : 0;
+    v15 = AG::swift::metadata::mangled_type_name_ref(this, v14, 0, &v18);
+    if (!v15)
     {
       break;
     }
 
-    v17 = (v9 + *(*(v16 - 8) + 80)) & ~*(*(v16 - 8) + 80);
-    v18 = *(*(v16 - 8) + 64);
-    result = (*(*a2 + 8))(a2, v16, v19, v17, v18);
+    v16 = (v8 + *(*(v15 - 8) + 80)) & ~*(*(v15 - 8) + 80);
+    v17 = *(*(v15 - 8) + 64);
+    result = (*(*a2 + 8))(a2, v15, v18, v16, v17);
     if (result)
     {
-      ++v13;
-      v9 = v17 + v18;
       ++v12;
-      if (v13 - 3 < *v3)
+      v8 = v16 + v17;
+      ++v11;
+      if (v12 - 3 < *v3)
       {
         continue;
       }
@@ -6039,7 +5937,7 @@ uint64_t sub_1B491F828(uint64_t result, int a2, int a3)
   return result;
 }
 
-uint64_t AG::AttributeID::traverses(int *a1, int a2, char a3)
+BOOL AG::AttributeID::traverses(int *a1, int a2, char a3)
 {
   while (1)
   {
@@ -6099,21 +5997,20 @@ void *AG::Graph::Context::call_invalidation(void *result, uint64_t a2)
     {
       for (i = 8 * v9 - 8; i != -8; i -= 8)
       {
-        v13 = *(*(v8 + 168) + i);
-        (*(*v13 + 112))(v13, v3, a2);
+        v12 = *(*(v8 + 168) + i);
+        (*(*v12 + 112))(v12, v3, a2);
       }
     }
 
-    v10 = v3[4];
     result = (v3[3])(a2);
-    v11 = *(v8 + 176);
-    if (v11)
+    v10 = *(v8 + 176);
+    if (v10)
     {
-      v14 = a2;
-      for (j = 8 * v11 - 8; j != -8; j -= 8)
+      v13 = a2;
+      for (j = 8 * v10 - 8; j != -8; j -= 8)
       {
-        v16 = *(*(v8 + 168) + j);
-        result = (*(*v16 + 120))(v16, v3, v14);
+        v15 = *(*(v8 + 168) + j);
+        result = (*(*v15 + 120))(v15, v3, v13);
       }
     }
 
@@ -6161,20 +6058,20 @@ uint64_t OUTLINED_FUNCTION_6(AG::swift::metadata *a1)
   return AG::swift::metadata::name(a1, 0);
 }
 
-void *AG::vector<std::pair<AG::ConstOutputEdgeArrayRef,AG::AttributeID>,256ul,unsigned long>::reserve_slow(void *__dst, unint64_t a2)
+void *AG::vector<std::pair<AG::ConstOutputEdgeArrayRef,AG::AttributeID>,256ul,unsigned long>::reserve_slow(void **__dst, char *a2)
 {
-  if (*(__dst + 770) + (*(__dst + 770) >> 1) <= a2)
+  if (__dst[770] + (__dst[770] >> 1) <= a2)
   {
     v3 = a2;
   }
 
   else
   {
-    v3 = *(__dst + 770) + (*(__dst + 770) >> 1);
+    v3 = __dst[770] + (__dst[770] >> 1);
   }
 
-  result = AG::details::realloc_vector<unsigned long,24ul>(*(__dst + 768), __dst, 0x100uLL, __dst + 770, v3);
-  *(__dst + 768) = result;
+  result = AG::details::realloc_vector<unsigned long,24ul>(__dst[768], __dst, 0x100uLL, __dst + 770, v3);
+  __dst[768] = result;
   return result;
 }
 
@@ -6243,7 +6140,7 @@ AG::Subgraph *AG::Subgraph::add_dirty_flags(AG::Subgraph *this, unsigned __int8 
   return this;
 }
 
-void *AG::Subgraph::cache_insert(void *result, unsigned int a2)
+unsigned int *AG::Subgraph::cache_insert(unsigned int *result, unsigned int a2)
 {
   if (!*(result + 104))
   {
@@ -6255,13 +6152,13 @@ void *AG::Subgraph::cache_insert(void *result, unsigned int a2)
       {
         v4 = result;
         v5 = a2;
-        v6 = AG::data::_shared_table_bytes + *(result + 23);
-        v7 = AG::data::_shared_table_bytes + util::UntypedTable::lookup((v6 + 8), **(*(result[5] + 88) + ((v3 >> 5) & 0x7FFFFF8)), 0);
+        v6 = AG::data::_shared_table_bytes + result[23];
+        v7 = AG::data::_shared_table_bytes + util::UntypedTable::lookup((v6 + 8), **(*(*(result + 5) + 88) + ((v3 >> 5) & 0x7FFFFF8)), 0);
         result = util::UntypedTable::lookup((v6 + 136), v5, 0);
         ++*result;
         v8 = *(v7 + 16);
-        result[2] = v8;
-        result[3] = 0;
+        *(result + 2) = v8;
+        *(result + 3) = 0;
         *(v7 + 16) = result;
         if (!v8)
         {
@@ -6269,27 +6166,27 @@ void *AG::Subgraph::cache_insert(void *result, unsigned int a2)
         }
 
         *(v8 + 24) = result;
-        v9 = *(v4 + 105);
+        v9 = v4[105];
         if ((v9 & 1) == 0)
         {
-          if ((*(v4 + 105) & 2) == 0)
+          if ((v4[105] & 2) == 0)
           {
-            v10 = v4[5];
+            v10 = *(v4 + 5);
             v11 = *(v10 + 320);
             v12 = v11 + 1;
             if (*(v10 + 324) < v11 + 1)
             {
-              result = AG::vector<std::pair<unsigned int,BOOL>,0ul,unsigned int>::reserve_slow(v10 + 312, v12);
+              result = AG::vector<std::pair<unsigned int,BOOL>,0ul,unsigned int>::reserve_slow((v10 + 312), v12);
               v11 = *(v10 + 320);
               v12 = v11 + 1;
             }
 
             *(*(v10 + 312) + 8 * v11) = v4;
             *(v10 + 320) = v12;
-            v9 = *(v4 + 105);
+            v9 = v4[105];
           }
 
-          *(v4 + 105) = v9 | 1;
+          v4[105] = v9 | 1;
         }
       }
     }
@@ -6298,33 +6195,33 @@ void *AG::Subgraph::cache_insert(void *result, unsigned int a2)
   return result;
 }
 
-uint64_t AGGraphAddInput(char *a1, const char *a2, uint64_t a3)
+unint64_t AGGraphAddInput(char *a1, const char *a2, uint64_t a3)
 {
   if ((a1 & 3) != 0)
   {
-    AG::precondition_failure("non-direct attribute id: %u", a2, a1);
+    AG::precondition_failure("non-direct attribute id: %u", a2, a3, a1);
   }
 
   if (dword_1ED56D738 <= a1)
   {
-    AG::precondition_failure("invalid data offset: %u", a2, a1);
+    AG::precondition_failure("invalid data offset: %u", a2, a3, a1);
   }
 
   v3 = *(AG::data::_shared_table_bytes + (a1 & 0xFFFFFE00));
   if (!v3)
   {
-    AG::precondition_failure("no graph: %u", a2, a1);
+    AG::precondition_failure("no graph: %u", a2, a3, a1);
   }
 
   if (dword_1ED56D738 <= (a2 & 0xFFFFFFFC))
   {
-    AG::precondition_failure("invalid data offset: %u", a2, a2 & 0xFFFFFFFC);
+    AG::precondition_failure("invalid data offset: %u", a2, a3, a2 & 0xFFFFFFFC);
   }
 
   v4 = *(AG::data::_shared_table_bytes + (a2 & 0xFFFFFE00));
   if (!v4 || (v5 = *(v3 + 40), *(v4 + 40) != v5))
   {
-    AG::precondition_failure("accessing attribute in a different namespace: %u", a2, a2);
+    AG::precondition_failure("accessing attribute in a different namespace: %u", a2, a3, a2);
   }
 
   return AG::Graph::add_input(v5, a1, a2, 0, a3);
@@ -6345,7 +6242,7 @@ void AG::data::table::make_pages_reusable(AG::data::table *this, int a2, int a3)
   }
 
   madvise((v5 + v6), 0x8000uLL, v7);
-  if ((atomic_load_explicit(&qword_1ED56D390, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED56D390, memory_order_acquire) & 1) == 0)
   {
     AG::data::table::make_pages_reusable();
   }
@@ -6378,7 +6275,7 @@ void AG::data::table::make_pages_reusable(AG::data::table *this, int a2, int a3)
   *(this + 8) += v9;
 }
 
-uint64_t sub_1B491FF08()
+uint64_t sub_1B491FF08(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -6387,11 +6284,11 @@ uint64_t sub_1B491FF08()
 
 void AG::data::table::make_pages_reusable()
 {
-  if (__cxa_guard_acquire(&qword_1ED56D390))
+  if (__cxa_guard_acquire(byte_1ED56D390))
   {
     _MergedGlobals_0 = AG::data::table::make_pages_reusable(unsigned int,BOOL)::$_0::operator()();
 
-    __cxa_guard_release(&qword_1ED56D390);
+    __cxa_guard_release(byte_1ED56D390);
   }
 }
 
@@ -6408,7 +6305,7 @@ char *AG::data::table::make_pages_reusable(unsigned int,BOOL)::$_0::operator()()
 
 uint64_t AG::misc_log(AG *this)
 {
-  if ((atomic_load_explicit(&qword_1ED56D3E0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED56D3E0, memory_order_acquire) & 1) == 0)
   {
     AG::misc_log();
   }
@@ -6425,11 +6322,11 @@ void AGGraphSetOutputValue_cold_1(AG::swift::metadata *a1, AG::swift::metadata *
 
 void AG::misc_log()
 {
-  if (__cxa_guard_acquire(&qword_1ED56D3E0))
+  if (__cxa_guard_acquire(byte_1ED56D3E0))
   {
     _MergedGlobals_4 = os_log_create("com.apple.attributegraph", "misc");
 
-    __cxa_guard_release(&qword_1ED56D3E0);
+    __cxa_guard_release(byte_1ED56D3E0);
   }
 }
 
@@ -6473,7 +6370,7 @@ uint64_t AGGraphClearUpdate()
   return result;
 }
 
-void *AG::data::table::grow_region(AG::data::table *this, const char *a2)
+uint64_t AG::data::table::grow_region(AG::data::table *this, const char *a2)
 {
   v2 = *(this + 5);
   v3 = 4 * v2;
@@ -6500,7 +6397,7 @@ void *AG::data::table::grow_region(AG::data::table *this, const char *a2)
   v8 = v7 + 1;
   if (*(this + 17) < v7 + 1)
   {
-    result = AG::vector<std::pair<unsigned char *,unsigned int>,0ul,unsigned int>::reserve_slow(this + 56, v8);
+    result = AG::vector<std::pair<unsigned char *,unsigned int>,0ul,unsigned int>::reserve_slow(this + 7, v8);
     v7 = *(this + 16);
     v8 = v7 + 1;
   }
@@ -6551,45 +6448,37 @@ void *std::__hash_table<std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDat
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -6802,15 +6691,17 @@ LABEL_8:
   return v7;
 }
 
-uint64_t AG::Graph::indirect_attribute_reset(uint64_t a1, const char *a2, char a3, char a4)
+uint64_t AG::Graph::indirect_attribute_reset(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
   v4 = a2;
   v5 = AG::data::_shared_table_bytes + a2;
   if ((*(v5 + 8) & 1) == 0)
   {
-    AG::precondition_failure("not an indirect attribute: %u", a2, a2 | 1);
+    AG::precondition_failure("not an indirect attribute: %u", a2, a3, a4, a2 | 1);
   }
 
+  v6 = a4;
+  v7 = a3;
   v9 = *v5;
   v10 = *(v5 + 28);
   if ((v10 & 0xFFFFFFFC) != 0 && (v11 = AG::data::table::raw_page_seed(&AG::data::_shared_table_bytes, (*(v5 + 28) & 0xFFFFFE00)), (v11 & 0x100000000) != 0) && HIDWORD(v10) == v11)
@@ -6823,7 +6714,7 @@ uint64_t AG::Graph::indirect_attribute_reset(uint64_t a1, const char *a2, char a
   else
   {
     result = 0;
-    if (a3)
+    if (v7)
     {
       return result;
     }
@@ -6877,7 +6768,7 @@ uint64_t AG::Graph::indirect_attribute_reset(uint64_t a1, const char *a2, char a
   AG::IndirectNode::modify(v5, v13 | (v12 << 32), v14);
   if (v18 >= 4)
   {
-    if (a4)
+    if (v6)
     {
       v23 = 0;
     }
@@ -6915,12 +6806,12 @@ uint64_t AG::Graph::indirect_attribute_reset(uint64_t a1, const char *a2, char a
 
 void AGTupleWithBuffer(uint64_t a1, uint64_t a2, void (*a3)(uint64_t, char *))
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v5 = *(*(a1 - 8) + 72) * a2;
   if (v5 <= 0x1000)
   {
     MEMORY[0x1EEE9AC00](a1);
-    v7 = v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v7 = v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
     bzero(v7, v5);
   }
 
@@ -6938,8 +6829,6 @@ void AGTupleWithBuffer(uint64_t a1, uint64_t a2, void (*a3)(uint64_t, char *))
   {
     free(v7);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t AGGraphSetUpdate(uint64_t result)
@@ -6984,9 +6873,9 @@ LABEL_7:
   }
 }
 
-void AG::Graph::UpdateStack::update(char a1, AG::Graph **a2)
+void AG::Graph::UpdateStack::update(uint64_t result, uint64_t *a2)
 {
-  if ((a1 & 1) != 0 && *(*a2 + 48) != -1)
+  if ((result & 1) != 0 && *(*a2 + 384) != -1)
   {
     v2 = AG::Graph::passed_deadline_slow(*a2);
     if (v2)
@@ -7034,14 +6923,6 @@ uint64_t sub_1B4920C74@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X8>)
   *a2 = v4;
   *(a2 + 4) = result == 2;
   return result;
-}
-
-uint64_t sub_1B4920CC0()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  sub_1B4949CE8();
-  return sub_1B4949CE8();
 }
 
 _DWORD *sub_1B4920D60@<X0>(_DWORD *result@<X0>, uint64_t a2@<X8>)
@@ -7094,8 +6975,6 @@ uint64_t sub_1B4920DD4(uint64_t result, int a2, int a3)
 
 uint64_t sub_1B4920E28(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = *MEMORY[0x1E69E9840];
 
   return sub_1B49408F4(a1, a2, a3, a4);
 }
@@ -7107,9 +6986,9 @@ __n128 sub_1B4920E8C(__n128 *a1, __n128 *a2)
   return result;
 }
 
-uint64_t sub_1B4920ED8@<X0>(unsigned int *a1@<X0>, const char *a2@<X1>, uint64_t a3@<X8>)
+uint64_t sub_1B4920ED8@<X0>(unsigned int *a1@<X0>, uint64_t a2@<X8>, const char *a3@<X1>)
 {
-  result = AGGraphGetIndirectDependency(*a1, a2);
+  result = AGGraphGetIndirectDependency(*a1, a3);
   if (result == 2)
   {
     v5 = 0;
@@ -7120,8 +6999,8 @@ uint64_t sub_1B4920ED8@<X0>(unsigned int *a1@<X0>, const char *a2@<X1>, uint64_t
     v5 = result;
   }
 
-  *a3 = v5;
-  *(a3 + 4) = result == 2;
+  *a2 = v5;
+  *(a2 + 4) = result == 2;
   return result;
 }
 
@@ -7140,26 +7019,10 @@ void sub_1B4920F20(uint64_t a1, unsigned int *a2)
   AGGraphSetIndirectDependency(*a2, *v2);
 }
 
-uint64_t sub_1B4920F44@<X0>(unsigned int *a1@<X0>, const char *a2@<X1>, _DWORD *a3@<X8>)
+uint64_t sub_1B4920F44@<X0>(unsigned int *a1@<X0>, _DWORD *a2@<X8>, const char *a3@<X1>)
 {
-  result = AGGraphGetFlags(*a1, a2);
-  *a3 = result;
-  return result;
-}
-
-uint64_t sub_1B4920F9C(uint64_t a1, int *a2, uint64_t a3, uint64_t a4)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  result = sub_1B4941D6C(a1, a2, a3, a4, sub_1B4942BE4);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t sub_1B4921008(uint64_t a1, int *a2, uint64_t a3, uint64_t a4)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  result = sub_1B4941D6C(a1, a2, a3, a4, sub_1B4942BE4);
-  v5 = *MEMORY[0x1E69E9840];
+  result = AGGraphGetFlags(*a1, a3);
+  *a2 = result;
   return result;
 }
 
@@ -7187,20 +7050,20 @@ uint64_t sub_1B49210F0(uint64_t result, void *a2, uint64_t a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_1B4921154@<X0>(uint64_t a1@<X0>, const char **a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t sub_1B4921154@<X0>(void *a1@<X0>, const char **a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v5 = *(a2 + a3 - 8);
-  v6 = *(a1 + 8);
+  v6 = a1[1];
   v7 = AGTupleElementOffsetChecked(*a1, *a2, v5);
   v8 = *(*(v5 - 1) + 16);
 
   return v8(a4, v6 + v7, v5);
 }
 
-uint64_t sub_1B49211D8(uint64_t a1, uint64_t a2, const char **a3, uint64_t a4)
+uint64_t sub_1B49211D8(uint64_t a1, void *a2, const char **a3, uint64_t a4)
 {
   v5 = *(a3 + a4 - 8);
-  v6 = *(a2 + 8);
+  v6 = a2[1];
   v7 = AGTupleElementOffsetChecked(*a2, *a3, v5);
   v8 = *(*(v5 - 1) + 24);
   v9 = v6 + v7;
@@ -7215,9 +7078,9 @@ uint64_t sub_1B492126C@<X0>(unsigned int *a1@<X0>, _DWORD *a2@<X8>)
   return result;
 }
 
-uint64_t sub_1B49212C0@<X0>(unsigned int *a1@<X0>, const char *a2@<X1>, uint64_t a3@<X8>)
+uint64_t sub_1B49212C0@<X0>(unsigned int *a1@<X0>, uint64_t a2@<X8>, const char *a3@<X1>)
 {
-  result = AGGraphGetIndirectDependency(*a1, a2);
+  result = AGGraphGetIndirectDependency(*a1, a3);
   if (result == 2)
   {
     v5 = 0;
@@ -7228,8 +7091,8 @@ uint64_t sub_1B49212C0@<X0>(unsigned int *a1@<X0>, const char *a2@<X1>, uint64_t
     v5 = result;
   }
 
-  *a3 = v5;
-  *(a3 + 4) = result == 2;
+  *a2 = v5;
+  *(a2 + 4) = result == 2;
   return result;
 }
 
@@ -7248,22 +7111,6 @@ void sub_1B4921308(uint64_t a1, unsigned int *a2)
   AGGraphSetIndirectDependency(*a2, *v2);
 }
 
-uint64_t sub_1B492133C(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  result = sub_1B49452B4(a1, a2, a3, a4, sub_1B4945C64);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t sub_1B49213A8(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  result = sub_1B49452B4(a1, a2, a3, a4, sub_1B4945C64);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
 __n128 sub_1B4921448@<Q0>(__n128 *a1@<X8>)
 {
   result = *v1;
@@ -7273,8 +7120,6 @@ __n128 sub_1B4921448@<Q0>(__n128 *a1@<X8>)
 
 uint64_t sub_1B4921458(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = *MEMORY[0x1E69E9840];
 
   return sub_1B4947258(a1, a2, a3, a4);
 }
@@ -7318,14 +7163,14 @@ uint64_t sub_1B4921590(uint64_t result, int *a2)
 
 uint64_t AG::Graph::TraceRecorder::TraceRecorder(uint64_t a1, uint64_t a2, int a3, const char **a4, uint64_t a5)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   *a1 = &unk_1F2CB1ED8;
   v10 = AGMakeUniqueID();
   *a1 = &unk_1F2CB2058;
   *(a1 + 8) = v10;
   *(a1 + 16) = &unk_1F2CB21E0;
   *(a1 + 24) = a2;
-  AG::Encoder::Encoder(a1 + 32);
+  AG::Encoder::Encoder(a1 + 32, a1 + 16, 0x10000);
   *(a1 + 112) = 0;
   *(a1 + 104) = a3;
   *(a1 + 120) = 0;
@@ -7343,9 +7188,9 @@ uint64_t AG::Graph::TraceRecorder::TraceRecorder(uint64_t a1, uint64_t a2, int a
     {
       v13 = strdup(*a4);
       v14 = v11 + 1;
-      if (*(a1 + 128) < v11 + 1)
+      if (*(a1 + 128) < (v11 + 1))
       {
-        AG::vector<std::unique_ptr<char const,util::free_deleter>,0ul,unsigned long>::reserve_slow(a1 + 112, v14);
+        AG::vector<std::unique_ptr<char const,util::free_deleter>,0ul,unsigned long>::reserve_slow((a1 + 112), v14);
         v11 = *(a1 + 120);
         v14 = v11 + 1;
       }
@@ -7363,7 +7208,6 @@ uint64_t AG::Graph::TraceRecorder::TraceRecorder(uint64_t a1, uint64_t a2, int a
   array = AGGraphCreate;
   backtrace_image_offsets(&array, &image_offsets, 1);
   uuid_copy((a1 + 200), image_offsets.uuid);
-  v15 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -7387,25 +7231,25 @@ void sub_1B49217C4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void AG::Graph::TraceRecorder::~TraceRecorder(AG::Graph::TraceRecorder *this)
+void AG::Graph::TraceRecorder::~TraceRecorder(uint64_t **this)
 {
   AG::Encoder::flush(this + 4);
-  v2 = *(this + 30);
+  v2 = this[30];
   if (v2)
   {
     free(v2);
   }
 
-  v3 = *(this + 27);
-  *(this + 27) = 0;
+  v3 = this[27];
+  this[27] = 0;
   if (v3)
   {
     MEMORY[0x1B8C7ACE0](v3, 0x1000C4077774924);
   }
 
-  util::UntypedTable::~UntypedTable((this + 136));
-  v5 = *(this + 14);
-  v4 = *(this + 15);
+  util::UntypedTable::~UntypedTable((this + 17));
+  v5 = this[14];
+  v4 = this[15];
   if (v4)
   {
     for (i = 0; i < v4; ++i)
@@ -7415,11 +7259,11 @@ void AG::Graph::TraceRecorder::~TraceRecorder(AG::Graph::TraceRecorder *this)
       if (v7)
       {
         free(v7);
-        v4 = *(this + 15);
+        v4 = this[15];
       }
     }
 
-    v5 = *(this + 14);
+    v5 = this[14];
   }
 
   if (v5)
@@ -7427,13 +7271,13 @@ void AG::Graph::TraceRecorder::~TraceRecorder(AG::Graph::TraceRecorder *this)
     free(v5);
   }
 
-  v8 = *(this + 10);
+  v8 = this[10];
   if (v8)
   {
     free(v8);
   }
 
-  v9 = *(this + 7);
+  v9 = this[7];
   if (v9)
   {
     free(v9);
@@ -7460,10 +7304,9 @@ void AG::Graph::TraceRecorder::field_timestamp(AG::Graph::TraceRecorder *this, A
 
 void AG::Graph::TraceRecorder::field_backtrace(AG::Graph::TraceRecorder *this, AG::Encoder *a2, uint64_t a3, int a4)
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   if ((a4 & ~*(this + 26)) == 0)
   {
-    v65 = 0u;
     v64 = 0u;
     v63 = 0u;
     v62 = 0u;
@@ -7494,10 +7337,11 @@ void AG::Graph::TraceRecorder::field_backtrace(AG::Graph::TraceRecorder *this, A
     v37 = 0u;
     v36 = 0u;
     v35 = 0u;
+    v34 = 0u;
     *array = 0u;
     v7 = backtrace(array, 64);
     backtrace_image_offsets(array, &image_offsets, v7);
-    if ((atomic_load_explicit(&qword_1ED56D380, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(byte_1ED56D380, memory_order_acquire) & 1) == 0)
     {
       AG::Graph::TraceRecorder::field_backtrace();
     }
@@ -7510,13 +7354,13 @@ void AG::Graph::TraceRecorder::field_backtrace(AG::Graph::TraceRecorder *this, A
         p_image_offsets = &image_offsets;
         v10 = array;
         v11 = 1;
-        v26 = (8 * a3) | 2;
+        v25 = (8 * a3) | 2;
         v12 = v7;
         do
         {
           if (p_image_offsets->offset && !uuid_is_null(p_image_offsets->uuid) && uuid_compare(p_image_offsets->uuid, this + 200))
           {
-            AG::Encoder::encode_varint(a2, v26);
+            AG::Encoder::encode_varint(a2, v25);
             AG::Encoder::begin_length_delimited(a2);
             *out = 0;
             v13 = util::UntypedTable::lookup((this + 136), p_image_offsets, out);
@@ -7538,12 +7382,12 @@ void AG::Graph::TraceRecorder::field_backtrace(AG::Graph::TraceRecorder *this, A
               uuid_unparse(v15, out);
               AG::Encoder::encode_varint(a2, 0xAuLL);
               AG::Encoder::encode_data(a2, out, 0x24uLL);
-              if (dladdr(v16, &v27))
+              if (dladdr(v16, &v26))
               {
-                dli_fname = v27.dli_fname;
-                if (v27.dli_fname)
+                dli_fname = v26.dli_fname;
+                if (v26.dli_fname)
                 {
-                  v18 = strlen(v27.dli_fname);
+                  v18 = strlen(v26.dli_fname);
                   if (v18)
                   {
                     v19 = v18;
@@ -7552,14 +7396,14 @@ void AG::Graph::TraceRecorder::field_backtrace(AG::Graph::TraceRecorder *this, A
                   }
                 }
 
-                dli_fbase = v27.dli_fbase;
-                if (v27.dli_fbase)
+                dli_fbase = v26.dli_fbase;
+                if (v26.dli_fbase)
                 {
                   AG::Encoder::encode_varint(a2, 0x18uLL);
                   AG::Encoder::encode_varint(a2, dli_fbase);
                   v21 = ~*MEMORY[0x1E69E9AB8];
                   size = 0;
-                  address = v21 & v27.dli_fbase;
+                  address = v21 & v26.dli_fbase;
                   object_name = 0;
                   infoCnt = 9;
                   v22 = mach_vm_region(*MEMORY[0x1E69E9A60], &address, &size, 9, info, &infoCnt, &object_name);
@@ -7614,8 +7458,6 @@ void AG::Graph::TraceRecorder::field_backtrace(AG::Graph::TraceRecorder *this, A
       }
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t AG::Graph::TraceRecorder::field_backtrace(AG::Encoder &,unsigned long,unsigned int)::$_0::operator()()
@@ -7637,7 +7479,7 @@ uint64_t (***AG::Graph::TraceRecorder::encode_stack(uint64_t (***this)(void *, v
   {
     v3 = this;
     AG::Encoder::encode_varint(this + 4, 0x2AuLL);
-    AG::Encoder::begin_length_delimited(v3 + 4);
+    AG::Encoder::begin_length_delimited((v3 + 32));
     do
     {
       v4 = v2 & 0xFFFFFFFFFFFFFFFELL;
@@ -7647,8 +7489,8 @@ uint64_t (***AG::Graph::TraceRecorder::encode_stack(uint64_t (***this)(void *, v
         v6 = 8 * v5 - 4;
         do
         {
-          AG::Encoder::encode_varint(v3 + 4, 0xAuLL);
-          AG::Encoder::begin_length_delimited(v3 + 4);
+          AG::Encoder::encode_varint((v3 + 32), 0xAuLL);
+          AG::Encoder::begin_length_delimited((v3 + 32));
           v7 = *(v4 + 96);
           if (v7)
           {
@@ -7663,8 +7505,8 @@ uint64_t (***AG::Graph::TraceRecorder::encode_stack(uint64_t (***this)(void *, v
           v9 = *(v8 + v6 - 4);
           if (v9)
           {
-            AG::Encoder::encode_varint(v3 + 4, 8uLL);
-            AG::Encoder::encode_varint(v3 + 4, v9);
+            AG::Encoder::encode_varint((v3 + 32), 8uLL);
+            AG::Encoder::encode_varint((v3 + 32), v9);
             v7 = *(v4 + 96);
           }
 
@@ -7680,8 +7522,8 @@ uint64_t (***AG::Graph::TraceRecorder::encode_stack(uint64_t (***this)(void *, v
 
           if (*(v10 + v6))
           {
-            AG::Encoder::encode_varint(v3 + 4, 0x10uLL);
-            AG::Encoder::encode_varint(v3 + 4, 1uLL);
+            AG::Encoder::encode_varint((v3 + 32), 0x10uLL);
+            AG::Encoder::encode_varint((v3 + 32), 1uLL);
             v7 = *(v4 + 96);
           }
 
@@ -7692,12 +7534,12 @@ uint64_t (***AG::Graph::TraceRecorder::encode_stack(uint64_t (***this)(void *, v
 
           if ((*(v7 + v6) & 2) != 0)
           {
-            AG::Encoder::encode_varint(v3 + 4, 0x18uLL);
-            AG::Encoder::encode_varint(v3 + 4, 1uLL);
+            AG::Encoder::encode_varint((v3 + 32), 0x18uLL);
+            AG::Encoder::encode_varint((v3 + 32), 1uLL);
           }
 
           --v5;
-          AG::Encoder::end_length_delimited(v3 + 4);
+          AG::Encoder::end_length_delimited((v3 + 32));
           v6 -= 8;
         }
 
@@ -7709,7 +7551,7 @@ uint64_t (***AG::Graph::TraceRecorder::encode_stack(uint64_t (***this)(void *, v
 
     while (v2);
 
-    return AG::Encoder::end_length_delimited(v3 + 4);
+    return AG::Encoder::end_length_delimited((v3 + 32));
   }
 
   return this;
@@ -7875,7 +7717,7 @@ uint64_t (***AG::Graph::TraceRecorder::encode_snapshot(uint64_t (***this)(void *
 
 uint64_t AG::Graph::TraceRecorder::flush_encoder(const char **this, AG::Encoder *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (this[28])
   {
     result = open(this[27], 9, 438);
@@ -7953,7 +7795,6 @@ LABEL_20:
       }
 
       v16 = *MEMORY[0x1E69E9848];
-      v17 = this[27];
       getpid();
       result = fprintf(v16, "created trace file %s (pid %d)\n");
     }
@@ -7966,30 +7807,30 @@ LABEL_20:
 
   if (v5 == -1)
   {
-    goto LABEL_35;
+    return result;
   }
 
-  v18 = *(a2 + 4);
-  if (!v18)
+  v17 = *(a2 + 4);
+  if (!v17)
   {
-    goto LABEL_34;
+    return close(v5);
   }
 
-  v19 = *(a2 + 3);
+  v18 = *(a2 + 3);
   while (1)
   {
-    v20 = write(v5, v19, v18);
-    if (v20 < 0)
+    v19 = write(v5, v18, v17);
+    if (v19 < 0)
     {
       break;
     }
 
-    v19 += v20;
-    v18 -= v20;
+    v18 += v19;
+    v17 -= v19;
 LABEL_31:
-    if (!v18)
+    if (!v17)
     {
-      goto LABEL_34;
+      return close(v5);
     }
   }
 
@@ -7999,17 +7840,13 @@ LABEL_31:
   }
 
   unlink(this[27]);
-LABEL_34:
-  result = close(v5);
-LABEL_35:
-  v21 = *MEMORY[0x1E69E9840];
-  return result;
+  return close(v5);
 }
 
 uint64_t (***AG::Graph::TraceRecorder::begin_trace(AG::Graph::TraceRecorder *this, AG::Graph *a2))(void *, void *)
 {
   AG::Encoder::encode_varint(this + 4, 0xAuLL);
-  AG::Encoder::begin_length_delimited(this + 4);
+  AG::Encoder::begin_length_delimited(this + 32);
   AG::Encoder::encode_varint(this + 4, 8uLL);
   v3 = AG::Encoder::encode_varint(this + 4, 1uLL);
   AG::Graph::TraceRecorder::field_timestamp(v3, (this + 32));
@@ -8020,7 +7857,7 @@ uint64_t (***AG::Graph::TraceRecorder::begin_trace(AG::Graph::TraceRecorder *thi
 uint64_t (***AG::Graph::TraceRecorder::end_trace(AG::Graph::TraceRecorder *this, AG::Graph *a2))(void *, void *)
 {
   AG::Encoder::encode_varint(this + 4, 0xAuLL);
-  AG::Encoder::begin_length_delimited(this + 4);
+  AG::Encoder::begin_length_delimited(this + 32);
   AG::Encoder::encode_varint(this + 4, 8uLL);
   v3 = AG::Encoder::encode_varint(this + 4, 2uLL);
   AG::Graph::TraceRecorder::field_timestamp(v3, (this + 32));
@@ -8029,7 +7866,7 @@ uint64_t (***AG::Graph::TraceRecorder::end_trace(AG::Graph::TraceRecorder *this,
   return AG::Graph::TraceRecorder::encode_snapshot(this);
 }
 
-uint64_t *AG::Graph::TraceRecorder::sync_trace(AG::Graph::TraceRecorder *this)
+uint64_t **AG::Graph::TraceRecorder::sync_trace(AG::Graph::TraceRecorder *this)
 {
   AG::Graph::TraceRecorder::encode_snapshot(this);
 
@@ -8065,7 +7902,7 @@ void AG::Graph::TraceRecorder::log_message_v(AG::Graph::TraceRecorder *this, con
   }
 
   AG::Encoder::encode_varint(this + 4, 0xAuLL);
-  AG::Encoder::begin_length_delimited(this + 4);
+  AG::Encoder::begin_length_delimited(this + 32);
   AG::Encoder::encode_varint(this + 4, 8uLL);
   v6 = AG::Encoder::encode_varint(this + 4, 0x33uLL);
   AG::Graph::TraceRecorder::field_timestamp(v6, (this + 32));
@@ -8092,27 +7929,27 @@ uint64_t (***AG::Graph::TraceRecorder::begin_update(uint64_t (***this)(void *, v
   {
     v5 = this;
     AG::Encoder::encode_varint(this + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v5 + 4);
-    AG::Encoder::encode_varint(v5 + 4, 8uLL);
-    v6 = AG::Encoder::encode_varint(v5 + 4, 3uLL);
-    AG::Graph::TraceRecorder::field_timestamp(v6, (v5 + 4));
+    AG::Encoder::begin_length_delimited((v5 + 32));
+    AG::Encoder::encode_varint((v5 + 32), 8uLL);
+    v6 = AG::Encoder::encode_varint((v5 + 32), 3uLL);
+    AG::Graph::TraceRecorder::field_timestamp(v6, (v5 + 32));
     v7 = *(a2 + 6);
     v8 = v7 & 0x7FFFFFFF;
     if ((v7 & 0x7FFFFFFF) != 0)
     {
-      AG::Encoder::encode_varint(v5 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v5 + 4, v8);
+      AG::Encoder::encode_varint((v5 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v5 + 32), v8);
     }
 
     if (a3)
     {
-      AG::Encoder::encode_varint(v5 + 4, 0x20uLL);
-      AG::Encoder::encode_varint(v5 + 4, a3);
+      AG::Encoder::encode_varint((v5 + 32), 0x20uLL);
+      AG::Encoder::encode_varint((v5 + 32), a3);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v5, (v5 + 4), 8, 68);
+    AG::Graph::TraceRecorder::field_backtrace(v5, (v5 + 32), 8, 68);
 
-    return AG::Encoder::end_length_delimited(v5 + 4);
+    return AG::Encoder::end_length_delimited((v5 + 32));
   }
 
   return this;
@@ -8124,21 +7961,21 @@ uint64_t (***AG::Graph::TraceRecorder::end_update(uint64_t (***this)(void *, voi
   {
     v3 = this;
     AG::Encoder::encode_varint(this + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v3 + 4);
-    AG::Encoder::encode_varint(v3 + 4, 8uLL);
-    v4 = AG::Encoder::encode_varint(v3 + 4, 4uLL);
-    AG::Graph::TraceRecorder::field_timestamp(v4, (v3 + 4));
+    AG::Encoder::begin_length_delimited((v3 + 32));
+    AG::Encoder::encode_varint((v3 + 32), 8uLL);
+    v4 = AG::Encoder::encode_varint((v3 + 32), 4uLL);
+    AG::Graph::TraceRecorder::field_timestamp(v4, (v3 + 32));
     v5 = *(a2 + 6);
     v6 = v5 & 0x7FFFFFFF;
     if ((v5 & 0x7FFFFFFF) != 0)
     {
-      AG::Encoder::encode_varint(v3 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v3 + 4, v6);
+      AG::Encoder::encode_varint((v3 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v3 + 32), v6);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 4), 8, 68);
+    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 32), 8, 68);
 
-    return AG::Encoder::end_length_delimited(v3 + 4);
+    return AG::Encoder::end_length_delimited((v3 + 32));
   }
 
   return this;
@@ -8150,25 +7987,25 @@ uint64_t (***AG::Graph::TraceRecorder::begin_update(uint64_t (***result)(void *,
   {
     v6 = result;
     AG::Encoder::encode_varint(result + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v6 + 4);
-    AG::Encoder::encode_varint(v6 + 4, 8uLL);
-    v7 = AG::Encoder::encode_varint(v6 + 4, 5uLL);
-    AG::Graph::TraceRecorder::field_timestamp(v7, (v6 + 4));
+    AG::Encoder::begin_length_delimited((v6 + 32));
+    AG::Encoder::encode_varint((v6 + 32), 8uLL);
+    v7 = AG::Encoder::encode_varint((v6 + 32), 5uLL);
+    AG::Graph::TraceRecorder::field_timestamp(v7, (v6 + 32));
     if (a3)
     {
-      AG::Encoder::encode_varint(v6 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v6 + 4, a3);
+      AG::Encoder::encode_varint((v6 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v6 + 32), a3);
     }
 
     if (a4)
     {
-      AG::Encoder::encode_varint(v6 + 4, 0x20uLL);
-      AG::Encoder::encode_varint(v6 + 4, a4);
+      AG::Encoder::encode_varint((v6 + 32), 0x20uLL);
+      AG::Encoder::encode_varint((v6 + 32), a4);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v6, (v6 + 4), 8, 68);
+    AG::Graph::TraceRecorder::field_backtrace(v6, (v6 + 32), 8, 68);
 
-    return AG::Encoder::end_length_delimited(v6 + 4);
+    return AG::Encoder::end_length_delimited((v6 + 32));
   }
 
   return result;
@@ -8180,25 +8017,25 @@ uint64_t (***AG::Graph::TraceRecorder::end_update(uint64_t (***result)(void *, v
   {
     v6 = result;
     AG::Encoder::encode_varint(result + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v6 + 4);
-    AG::Encoder::encode_varint(v6 + 4, 8uLL);
-    v7 = AG::Encoder::encode_varint(v6 + 4, 6uLL);
-    AG::Graph::TraceRecorder::field_timestamp(v7, (v6 + 4));
+    AG::Encoder::begin_length_delimited((v6 + 32));
+    AG::Encoder::encode_varint((v6 + 32), 8uLL);
+    v7 = AG::Encoder::encode_varint((v6 + 32), 6uLL);
+    AG::Graph::TraceRecorder::field_timestamp(v7, (v6 + 32));
     if (a3)
     {
-      AG::Encoder::encode_varint(v6 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v6 + 4, a3);
+      AG::Encoder::encode_varint((v6 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v6 + 32), a3);
     }
 
     if (a4 == 1)
     {
-      AG::Encoder::encode_varint(v6 + 4, 0x20uLL);
-      AG::Encoder::encode_varint(v6 + 4, 1uLL);
+      AG::Encoder::encode_varint((v6 + 32), 0x20uLL);
+      AG::Encoder::encode_varint((v6 + 32), 1uLL);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v6, (v6 + 4), 8, 68);
+    AG::Graph::TraceRecorder::field_backtrace(v6, (v6 + 32), 8, 68);
 
-    return AG::Encoder::end_length_delimited(v6 + 4);
+    return AG::Encoder::end_length_delimited((v6 + 32));
   }
 
   return result;
@@ -8210,19 +8047,19 @@ uint64_t (***AG::Graph::TraceRecorder::begin_update(uint64_t (***result)(void *,
   {
     v3 = result;
     AG::Encoder::encode_varint(result + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v3 + 4);
-    AG::Encoder::encode_varint(v3 + 4, 8uLL);
-    v4 = AG::Encoder::encode_varint(v3 + 4, 7uLL);
-    AG::Graph::TraceRecorder::field_timestamp(v4, (v3 + 4));
+    AG::Encoder::begin_length_delimited((v3 + 32));
+    AG::Encoder::encode_varint((v3 + 32), 8uLL);
+    v4 = AG::Encoder::encode_varint((v3 + 32), 7uLL);
+    AG::Graph::TraceRecorder::field_timestamp(v4, (v3 + 32));
     if (a2)
     {
-      AG::Encoder::encode_varint(v3 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v3 + 4, a2);
+      AG::Encoder::encode_varint((v3 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v3 + 32), a2);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 4), 8, 68);
+    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 32), 8, 68);
 
-    return AG::Encoder::end_length_delimited(v3 + 4);
+    return AG::Encoder::end_length_delimited((v3 + 32));
   }
 
   return result;
@@ -8234,25 +8071,25 @@ uint64_t (***AG::Graph::TraceRecorder::end_update(uint64_t (***result)(void *, v
   {
     v5 = result;
     AG::Encoder::encode_varint(result + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v5 + 4);
-    AG::Encoder::encode_varint(v5 + 4, 8uLL);
-    v6 = AG::Encoder::encode_varint(v5 + 4, 8uLL);
-    AG::Graph::TraceRecorder::field_timestamp(v6, (v5 + 4));
+    AG::Encoder::begin_length_delimited((v5 + 32));
+    AG::Encoder::encode_varint((v5 + 32), 8uLL);
+    v6 = AG::Encoder::encode_varint((v5 + 32), 8uLL);
+    AG::Graph::TraceRecorder::field_timestamp(v6, (v5 + 32));
     if (a2)
     {
-      AG::Encoder::encode_varint(v5 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v5 + 4, a2);
+      AG::Encoder::encode_varint((v5 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v5 + 32), a2);
     }
 
     if (a3)
     {
-      AG::Encoder::encode_varint(v5 + 4, 0x20uLL);
-      AG::Encoder::encode_varint(v5 + 4, 1uLL);
+      AG::Encoder::encode_varint((v5 + 32), 0x20uLL);
+      AG::Encoder::encode_varint((v5 + 32), 1uLL);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v5, (v5 + 4), 8, 68);
+    AG::Graph::TraceRecorder::field_backtrace(v5, (v5 + 32), 8, 68);
 
-    return AG::Encoder::end_length_delimited(v5 + 4);
+    return AG::Encoder::end_length_delimited((v5 + 32));
   }
 
   return result;
@@ -8264,20 +8101,20 @@ uint64_t (***AG::Graph::TraceRecorder::begin_update(uint64_t (***this)(void *, v
   {
     v3 = this;
     AG::Encoder::encode_varint(this + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v3 + 4);
-    AG::Encoder::encode_varint(v3 + 4, 8uLL);
-    v4 = AG::Encoder::encode_varint(v3 + 4, 9uLL);
-    AG::Graph::TraceRecorder::field_timestamp(v4, (v3 + 4));
+    AG::Encoder::begin_length_delimited((v3 + 32));
+    AG::Encoder::encode_varint((v3 + 32), 8uLL);
+    v4 = AG::Encoder::encode_varint((v3 + 32), 9uLL);
+    AG::Graph::TraceRecorder::field_timestamp(v4, (v3 + 32));
     v5 = *(a2 + 4);
     if (v5)
     {
-      AG::Encoder::encode_varint(v3 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v3 + 4, v5);
+      AG::Encoder::encode_varint((v3 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v3 + 32), v5);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 4), 8, 68);
+    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 32), 8, 68);
 
-    return AG::Encoder::end_length_delimited(v3 + 4);
+    return AG::Encoder::end_length_delimited((v3 + 32));
   }
 
   return this;
@@ -8289,20 +8126,20 @@ uint64_t (***AG::Graph::TraceRecorder::end_update(uint64_t (***this)(void *, voi
   {
     v3 = this;
     AG::Encoder::encode_varint(this + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v3 + 4);
-    AG::Encoder::encode_varint(v3 + 4, 8uLL);
-    v4 = AG::Encoder::encode_varint(v3 + 4, 0xAuLL);
-    AG::Graph::TraceRecorder::field_timestamp(v4, (v3 + 4));
+    AG::Encoder::begin_length_delimited((v3 + 32));
+    AG::Encoder::encode_varint((v3 + 32), 8uLL);
+    v4 = AG::Encoder::encode_varint((v3 + 32), 0xAuLL);
+    AG::Graph::TraceRecorder::field_timestamp(v4, (v3 + 32));
     v5 = *(a2 + 4);
     if (v5)
     {
-      AG::Encoder::encode_varint(v3 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v3 + 4, v5);
+      AG::Encoder::encode_varint((v3 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v3 + 32), v5);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 4), 8, 68);
+    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 32), 8, 68);
 
-    return AG::Encoder::end_length_delimited(v3 + 4);
+    return AG::Encoder::end_length_delimited((v3 + 32));
   }
 
   return this;
@@ -8314,26 +8151,26 @@ uint64_t (***AG::Graph::TraceRecorder::begin_invalidation(uint64_t (***result)(v
   {
     v6 = result;
     AG::Encoder::encode_varint(result + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v6 + 4);
-    AG::Encoder::encode_varint(v6 + 4, 8uLL);
-    v7 = AG::Encoder::encode_varint(v6 + 4, 0xBuLL);
-    AG::Graph::TraceRecorder::field_timestamp(v7, (v6 + 4));
+    AG::Encoder::begin_length_delimited((v6 + 32));
+    AG::Encoder::encode_varint((v6 + 32), 8uLL);
+    v7 = AG::Encoder::encode_varint((v6 + 32), 0xBuLL);
+    AG::Graph::TraceRecorder::field_timestamp(v7, (v6 + 32));
     if (a3)
     {
-      AG::Encoder::encode_varint(v6 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v6 + 4, a3);
+      AG::Encoder::encode_varint((v6 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v6 + 32), a3);
     }
 
     v8 = *(a2 + 16);
     if (v8)
     {
-      AG::Encoder::encode_varint(v6 + 4, 0x20uLL);
-      AG::Encoder::encode_varint(v6 + 4, v8);
+      AG::Encoder::encode_varint((v6 + 32), 0x20uLL);
+      AG::Encoder::encode_varint((v6 + 32), v8);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v6, (v6 + 4), 8, 68);
+    AG::Graph::TraceRecorder::field_backtrace(v6, (v6 + 32), 8, 68);
 
-    return AG::Encoder::end_length_delimited(v6 + 4);
+    return AG::Encoder::end_length_delimited((v6 + 32));
   }
 
   return result;
@@ -8345,26 +8182,26 @@ uint64_t (***AG::Graph::TraceRecorder::end_invalidation(uint64_t (***result)(voi
   {
     v6 = result;
     AG::Encoder::encode_varint(result + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v6 + 4);
-    AG::Encoder::encode_varint(v6 + 4, 8uLL);
-    v7 = AG::Encoder::encode_varint(v6 + 4, 0xCuLL);
-    AG::Graph::TraceRecorder::field_timestamp(v7, (v6 + 4));
+    AG::Encoder::begin_length_delimited((v6 + 32));
+    AG::Encoder::encode_varint((v6 + 32), 8uLL);
+    v7 = AG::Encoder::encode_varint((v6 + 32), 0xCuLL);
+    AG::Graph::TraceRecorder::field_timestamp(v7, (v6 + 32));
     if (a3)
     {
-      AG::Encoder::encode_varint(v6 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v6 + 4, a3);
+      AG::Encoder::encode_varint((v6 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v6 + 32), a3);
     }
 
     v8 = *(a2 + 16);
     if (v8)
     {
-      AG::Encoder::encode_varint(v6 + 4, 0x20uLL);
-      AG::Encoder::encode_varint(v6 + 4, v8);
+      AG::Encoder::encode_varint((v6 + 32), 0x20uLL);
+      AG::Encoder::encode_varint((v6 + 32), v8);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v6, (v6 + 4), 8, 68);
+    AG::Graph::TraceRecorder::field_backtrace(v6, (v6 + 32), 8, 68);
 
-    return AG::Encoder::end_length_delimited(v6 + 4);
+    return AG::Encoder::end_length_delimited((v6 + 32));
   }
 
   return result;
@@ -8376,19 +8213,19 @@ uint64_t (***AG::Graph::TraceRecorder::begin_modify(uint64_t (***result)(void *,
   {
     v4 = result;
     AG::Encoder::encode_varint(result + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v4 + 4);
-    AG::Encoder::encode_varint(v4 + 4, 8uLL);
-    v5 = AG::Encoder::encode_varint(v4 + 4, 0xDuLL);
-    AG::Graph::TraceRecorder::field_timestamp(v5, (v4 + 4));
+    AG::Encoder::begin_length_delimited((v4 + 32));
+    AG::Encoder::encode_varint((v4 + 32), 8uLL);
+    v5 = AG::Encoder::encode_varint((v4 + 32), 0xDuLL);
+    AG::Graph::TraceRecorder::field_timestamp(v5, (v4 + 32));
     if (a2)
     {
-      AG::Encoder::encode_varint(v4 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v4 + 4, a2);
+      AG::Encoder::encode_varint((v4 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v4 + 32), a2);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v4, (v4 + 4), 8, 68);
+    AG::Graph::TraceRecorder::field_backtrace(v4, (v4 + 32), 8, 68);
 
-    return AG::Encoder::end_length_delimited(v4 + 4);
+    return AG::Encoder::end_length_delimited((v4 + 32));
   }
 
   return result;
@@ -8424,25 +8261,25 @@ uint64_t (***AG::Graph::TraceRecorder::begin_event(uint64_t (***result)(void *, 
   {
     v5 = result;
     AG::Encoder::encode_varint(result + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v5 + 4);
-    AG::Encoder::encode_varint(v5 + 4, 8uLL);
-    v6 = AG::Encoder::encode_varint(v5 + 4, 0xFuLL);
-    AG::Graph::TraceRecorder::field_timestamp(v6, (v5 + 4));
+    AG::Encoder::begin_length_delimited((v5 + 32));
+    AG::Encoder::encode_varint((v5 + 32), 8uLL);
+    v6 = AG::Encoder::encode_varint((v5 + 32), 0xFuLL);
+    AG::Graph::TraceRecorder::field_timestamp(v6, (v5 + 32));
     if (a2)
     {
-      AG::Encoder::encode_varint(v5 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v5 + 4, a2);
+      AG::Encoder::encode_varint((v5 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v5 + 32), a2);
     }
 
     if (a3)
     {
-      AG::Encoder::encode_varint(v5 + 4, 0x20uLL);
-      AG::Encoder::encode_varint(v5 + 4, a3);
+      AG::Encoder::encode_varint((v5 + 32), 0x20uLL);
+      AG::Encoder::encode_varint((v5 + 32), a3);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v5, (v5 + 4), 8, 68);
+    AG::Graph::TraceRecorder::field_backtrace(v5, (v5 + 32), 8, 68);
 
-    return AG::Encoder::end_length_delimited(v5 + 4);
+    return AG::Encoder::end_length_delimited((v5 + 32));
   }
 
   return result;
@@ -8454,25 +8291,25 @@ uint64_t (***AG::Graph::TraceRecorder::end_event(uint64_t (***result)(void *, vo
   {
     v5 = result;
     AG::Encoder::encode_varint(result + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v5 + 4);
-    AG::Encoder::encode_varint(v5 + 4, 8uLL);
-    v6 = AG::Encoder::encode_varint(v5 + 4, 0x10uLL);
-    AG::Graph::TraceRecorder::field_timestamp(v6, (v5 + 4));
+    AG::Encoder::begin_length_delimited((v5 + 32));
+    AG::Encoder::encode_varint((v5 + 32), 8uLL);
+    v6 = AG::Encoder::encode_varint((v5 + 32), 0x10uLL);
+    AG::Graph::TraceRecorder::field_timestamp(v6, (v5 + 32));
     if (a2)
     {
-      AG::Encoder::encode_varint(v5 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v5 + 4, a2);
+      AG::Encoder::encode_varint((v5 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v5 + 32), a2);
     }
 
     if (a3)
     {
-      AG::Encoder::encode_varint(v5 + 4, 0x20uLL);
-      AG::Encoder::encode_varint(v5 + 4, a3);
+      AG::Encoder::encode_varint((v5 + 32), 0x20uLL);
+      AG::Encoder::encode_varint((v5 + 32), a3);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v5, (v5 + 4), 8, 68);
+    AG::Graph::TraceRecorder::field_backtrace(v5, (v5 + 32), 8, 68);
 
-    return AG::Encoder::end_length_delimited(v5 + 4);
+    return AG::Encoder::end_length_delimited((v5 + 32));
   }
 
   return result;
@@ -8484,19 +8321,19 @@ uint64_t (***AG::Graph::TraceRecorder::created(uint64_t (***this)(void *, void *
   {
     v3 = this;
     AG::Encoder::encode_varint(this + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v3 + 4);
-    AG::Encoder::encode_varint(v3 + 4, 8uLL);
-    AG::Encoder::encode_varint(v3 + 4, 0x20uLL);
+    AG::Encoder::begin_length_delimited((v3 + 32));
+    AG::Encoder::encode_varint((v3 + 32), 8uLL);
+    AG::Encoder::encode_varint((v3 + 32), 0x20uLL);
     v4 = *(a2 + 2);
     if (v4)
     {
-      AG::Encoder::encode_varint(v3 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v3 + 4, v4);
+      AG::Encoder::encode_varint((v3 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v3 + 32), v4);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 4), 8, 4);
+    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 32), 8, 4);
 
-    return AG::Encoder::end_length_delimited(v3 + 4);
+    return AG::Encoder::end_length_delimited((v3 + 32));
   }
 
   return this;
@@ -8508,19 +8345,19 @@ uint64_t (***AG::Graph::TraceRecorder::destroy(uint64_t (***this)(void *, void *
   {
     v3 = this;
     AG::Encoder::encode_varint(this + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v3 + 4);
-    AG::Encoder::encode_varint(v3 + 4, 8uLL);
-    AG::Encoder::encode_varint(v3 + 4, 0x21uLL);
+    AG::Encoder::begin_length_delimited((v3 + 32));
+    AG::Encoder::encode_varint((v3 + 32), 8uLL);
+    AG::Encoder::encode_varint((v3 + 32), 0x21uLL);
     v4 = *(a2 + 2);
     if (v4)
     {
-      AG::Encoder::encode_varint(v3 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v3 + 4, v4);
+      AG::Encoder::encode_varint((v3 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v3 + 32), v4);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 4), 8, 4);
+    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 32), 8, 4);
 
-    return AG::Encoder::end_length_delimited(v3 + 4);
+    return AG::Encoder::end_length_delimited((v3 + 32));
   }
 
   return this;
@@ -8532,19 +8369,19 @@ uint64_t (***AG::Graph::TraceRecorder::needs_update(uint64_t (***this)(void *, v
   {
     v4 = this;
     AG::Encoder::encode_varint(this + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v4 + 4);
-    AG::Encoder::encode_varint(v4 + 4, 8uLL);
-    AG::Encoder::encode_varint(v4 + 4, 0x22uLL);
+    AG::Encoder::begin_length_delimited((v4 + 32));
+    AG::Encoder::encode_varint((v4 + 32), 8uLL);
+    AG::Encoder::encode_varint((v4 + 32), 0x22uLL);
     v5 = *(a2 + 2);
     if (v5)
     {
-      AG::Encoder::encode_varint(v4 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v4 + 4, v5);
+      AG::Encoder::encode_varint((v4 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v4 + 32), v5);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v4, (v4 + 4), 8, 68);
+    AG::Graph::TraceRecorder::field_backtrace(v4, (v4 + 32), 8, 68);
 
-    return AG::Encoder::end_length_delimited(v4 + 4);
+    return AG::Encoder::end_length_delimited((v4 + 32));
   }
 
   return this;
@@ -8556,27 +8393,27 @@ uint64_t (***AG::Graph::TraceRecorder::created(uint64_t (***this)(void *, void *
   {
     v3 = this;
     AG::Encoder::encode_varint(this + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v3 + 4);
-    AG::Encoder::encode_varint(v3 + 4, 8uLL);
-    AG::Encoder::encode_varint(v3 + 4, 0x23uLL);
+    AG::Encoder::begin_length_delimited((v3 + 32));
+    AG::Encoder::encode_varint((v3 + 32), 8uLL);
+    AG::Encoder::encode_varint((v3 + 32), 0x23uLL);
     v4 = *(a2 + 6);
     v5 = v4 & 0x7FFFFFFF;
     if ((v4 & 0x7FFFFFFF) != 0)
     {
-      AG::Encoder::encode_varint(v3 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v3 + 4, v5);
+      AG::Encoder::encode_varint((v3 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v3 + 32), v5);
     }
 
     v6 = *(a2 + 6);
     if (v6)
     {
-      AG::Encoder::encode_varint(v3 + 4, 0x20uLL);
-      AG::Encoder::encode_varint(v3 + 4, v6);
+      AG::Encoder::encode_varint((v3 + 32), 0x20uLL);
+      AG::Encoder::encode_varint((v3 + 32), v6);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 4), 8, 4);
+    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 32), 8, 4);
 
-    return AG::Encoder::end_length_delimited(v3 + 4);
+    return AG::Encoder::end_length_delimited((v3 + 32));
   }
 
   return this;
@@ -8588,24 +8425,24 @@ uint64_t (***AG::Graph::TraceRecorder::invalidate(uint64_t (***this)(void *, voi
   {
     v3 = this;
     AG::Encoder::encode_varint(this + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v3 + 4);
-    AG::Encoder::encode_varint(v3 + 4, 8uLL);
-    AG::Encoder::encode_varint(v3 + 4, 0x24uLL);
+    AG::Encoder::begin_length_delimited((v3 + 32));
+    AG::Encoder::encode_varint((v3 + 32), 8uLL);
+    AG::Encoder::encode_varint((v3 + 32), 0x24uLL);
     v4 = *(a2 + 6);
     v5 = v4 & 0x7FFFFFFF;
     if ((v4 & 0x7FFFFFFF) != 0)
     {
-      AG::Encoder::encode_varint(v3 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v3 + 4, v5);
+      AG::Encoder::encode_varint((v3 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v3 + 32), v5);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 4), 8, 4);
-    AG::Encoder::end_length_delimited(v3 + 4);
-    AG::Encoder::encode_varint(v3 + 4, 0x12uLL);
-    AG::Encoder::begin_length_delimited(v3 + 4);
-    AG::Subgraph::encode(a2, v3 + 4);
+    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 32), 8, 4);
+    AG::Encoder::end_length_delimited((v3 + 32));
+    AG::Encoder::encode_varint((v3 + 32), 0x12uLL);
+    AG::Encoder::begin_length_delimited((v3 + 32));
+    AG::Subgraph::encode(a2, (v3 + 32));
 
-    return AG::Encoder::end_length_delimited(v3 + 4);
+    return AG::Encoder::end_length_delimited((v3 + 32));
   }
 
   return this;
@@ -8617,20 +8454,20 @@ uint64_t (***AG::Graph::TraceRecorder::destroy(uint64_t (***this)(void *, void *
   {
     v3 = this;
     AG::Encoder::encode_varint(this + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v3 + 4);
-    AG::Encoder::encode_varint(v3 + 4, 8uLL);
-    AG::Encoder::encode_varint(v3 + 4, 0x35uLL);
+    AG::Encoder::begin_length_delimited((v3 + 32));
+    AG::Encoder::encode_varint((v3 + 32), 8uLL);
+    AG::Encoder::encode_varint((v3 + 32), 0x35uLL);
     v4 = *(a2 + 6);
     v5 = v4 & 0x7FFFFFFF;
     if ((v4 & 0x7FFFFFFF) != 0)
     {
-      AG::Encoder::encode_varint(v3 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v3 + 4, v5);
+      AG::Encoder::encode_varint((v3 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v3 + 32), v5);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 4), 8, 4);
+    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 32), 8, 4);
 
-    return AG::Encoder::end_length_delimited(v3 + 4);
+    return AG::Encoder::end_length_delimited((v3 + 32));
   }
 
   return this;
@@ -8642,28 +8479,28 @@ uint64_t (***AG::Graph::TraceRecorder::add_child(uint64_t (***this)(void *, void
   {
     v5 = this;
     AG::Encoder::encode_varint(this + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v5 + 4);
-    AG::Encoder::encode_varint(v5 + 4, 8uLL);
-    AG::Encoder::encode_varint(v5 + 4, 0x25uLL);
+    AG::Encoder::begin_length_delimited((v5 + 32));
+    AG::Encoder::encode_varint((v5 + 32), 8uLL);
+    AG::Encoder::encode_varint((v5 + 32), 0x25uLL);
     v6 = *(a2 + 6);
     v7 = v6 & 0x7FFFFFFF;
     if ((v6 & 0x7FFFFFFF) != 0)
     {
-      AG::Encoder::encode_varint(v5 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v5 + 4, v7);
+      AG::Encoder::encode_varint((v5 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v5 + 32), v7);
     }
 
     v8 = *(a3 + 6);
     v9 = v8 & 0x7FFFFFFF;
     if ((v8 & 0x7FFFFFFF) != 0)
     {
-      AG::Encoder::encode_varint(v5 + 4, 0x20uLL);
-      AG::Encoder::encode_varint(v5 + 4, v9);
+      AG::Encoder::encode_varint((v5 + 32), 0x20uLL);
+      AG::Encoder::encode_varint((v5 + 32), v9);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v5, (v5 + 4), 8, 68);
+    AG::Graph::TraceRecorder::field_backtrace(v5, (v5 + 32), 8, 68);
 
-    return AG::Encoder::end_length_delimited(v5 + 4);
+    return AG::Encoder::end_length_delimited((v5 + 32));
   }
 
   return this;
@@ -8675,28 +8512,28 @@ uint64_t (***AG::Graph::TraceRecorder::remove_child(uint64_t (***this)(void *, v
   {
     v5 = this;
     AG::Encoder::encode_varint(this + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v5 + 4);
-    AG::Encoder::encode_varint(v5 + 4, 8uLL);
-    AG::Encoder::encode_varint(v5 + 4, 0x26uLL);
+    AG::Encoder::begin_length_delimited((v5 + 32));
+    AG::Encoder::encode_varint((v5 + 32), 8uLL);
+    AG::Encoder::encode_varint((v5 + 32), 0x26uLL);
     v6 = *(a2 + 6);
     v7 = v6 & 0x7FFFFFFF;
     if ((v6 & 0x7FFFFFFF) != 0)
     {
-      AG::Encoder::encode_varint(v5 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v5 + 4, v7);
+      AG::Encoder::encode_varint((v5 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v5 + 32), v7);
     }
 
     v8 = *(a3 + 6);
     v9 = v8 & 0x7FFFFFFF;
     if ((v8 & 0x7FFFFFFF) != 0)
     {
-      AG::Encoder::encode_varint(v5 + 4, 0x20uLL);
-      AG::Encoder::encode_varint(v5 + 4, v9);
+      AG::Encoder::encode_varint((v5 + 32), 0x20uLL);
+      AG::Encoder::encode_varint((v5 + 32), v9);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v5, (v5 + 4), 8, 68);
+    AG::Graph::TraceRecorder::field_backtrace(v5, (v5 + 32), 8, 68);
 
-    return AG::Encoder::end_length_delimited(v5 + 4);
+    return AG::Encoder::end_length_delimited((v5 + 32));
   }
 
   return this;
@@ -8708,14 +8545,14 @@ uint64_t (***AG::Graph::TraceRecorder::added(uint64_t (***result)(void *, void *
   {
     v3 = result;
     AG::Encoder::encode_varint(result + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v3 + 4);
-    AG::Encoder::encode_varint(v3 + 4, 8uLL);
-    AG::Encoder::encode_varint(v3 + 4, 0x27uLL);
+    AG::Encoder::begin_length_delimited((v3 + 32));
+    AG::Encoder::encode_varint((v3 + 32), 8uLL);
+    AG::Encoder::encode_varint((v3 + 32), 0x27uLL);
     v4 = a2;
     if (a2)
     {
-      AG::Encoder::encode_varint(v3 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v3 + 4, a2);
+      AG::Encoder::encode_varint((v3 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v3 + 32), a2);
     }
 
     v5 = AG::data::_shared_table_bytes;
@@ -8723,8 +8560,8 @@ uint64_t (***AG::Graph::TraceRecorder::added(uint64_t (***result)(void *, void *
     v7 = v6 & 0x7FFFFFFF;
     if ((v6 & 0x7FFFFFFF) != 0)
     {
-      AG::Encoder::encode_varint(v3 + 4, 0x20uLL);
-      AG::Encoder::encode_varint(v3 + 4, v7);
+      AG::Encoder::encode_varint((v3 + 32), 0x20uLL);
+      AG::Encoder::encode_varint((v3 + 32), v7);
       v5 = AG::data::_shared_table_bytes;
     }
 
@@ -8732,13 +8569,13 @@ uint64_t (***AG::Graph::TraceRecorder::added(uint64_t (***result)(void *, void *
     if (v8 >= 0x100)
     {
       v9 = v8 >> 8;
-      AG::Encoder::encode_varint(v3 + 4, 0x28uLL);
-      AG::Encoder::encode_varint(v3 + 4, v9);
+      AG::Encoder::encode_varint((v3 + 32), 0x28uLL);
+      AG::Encoder::encode_varint((v3 + 32), v9);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 4), 8, 4);
+    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 32), 8, 4);
 
-    return AG::Encoder::end_length_delimited(v3 + 4);
+    return AG::Encoder::end_length_delimited((v3 + 32));
   }
 
   return result;
@@ -8749,18 +8586,18 @@ uint64_t (***AG::Graph::TraceRecorder::added(uint64_t (***result)(void *, void *
   {
     v3 = result;
     AG::Encoder::encode_varint(result + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v3 + 4);
-    AG::Encoder::encode_varint(v3 + 4, 8uLL);
-    AG::Encoder::encode_varint(v3 + 4, 0x2CuLL);
-    AG::Encoder::encode_varint(v3 + 4, 0x18uLL);
-    AG::Encoder::encode_varint(v3 + 4, a2 & 0xFFFFFFFE | 1);
+    AG::Encoder::begin_length_delimited((v3 + 32));
+    AG::Encoder::encode_varint((v3 + 32), 8uLL);
+    AG::Encoder::encode_varint((v3 + 32), 0x2CuLL);
+    AG::Encoder::encode_varint((v3 + 32), 0x18uLL);
+    AG::Encoder::encode_varint((v3 + 32), a2 & 0xFFFFFFFE | 1);
     v4 = AG::data::_shared_table_bytes;
     v5 = *(*(AG::data::_shared_table_bytes + (a2 & 0xFFFFFE00)) + 24);
     v6 = v5 & 0x7FFFFFFF;
     if ((v5 & 0x7FFFFFFF) != 0)
     {
-      AG::Encoder::encode_varint(v3 + 4, 0x20uLL);
-      AG::Encoder::encode_varint(v3 + 4, v6);
+      AG::Encoder::encode_varint((v3 + 32), 0x20uLL);
+      AG::Encoder::encode_varint((v3 + 32), v6);
       v4 = AG::data::_shared_table_bytes;
     }
 
@@ -8768,8 +8605,8 @@ uint64_t (***AG::Graph::TraceRecorder::added(uint64_t (***result)(void *, void *
     v8 = *(v4 + a2);
     if (v8)
     {
-      AG::Encoder::encode_varint(v3 + 4, 0x28uLL);
-      AG::Encoder::encode_varint(v3 + 4, v8);
+      AG::Encoder::encode_varint((v3 + 32), 0x28uLL);
+      AG::Encoder::encode_varint((v3 + 32), v8);
       v4 = AG::data::_shared_table_bytes;
     }
 
@@ -8777,13 +8614,13 @@ uint64_t (***AG::Graph::TraceRecorder::added(uint64_t (***result)(void *, void *
     if (v9 >= 4)
     {
       v10 = v9 >> 2;
-      AG::Encoder::encode_varint(v3 + 4, 0x30uLL);
-      AG::Encoder::encode_varint(v3 + 4, v10);
+      AG::Encoder::encode_varint((v3 + 32), 0x30uLL);
+      AG::Encoder::encode_varint((v3 + 32), v10);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 4), 8, 4);
+    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 32), 8, 4);
 
-    return AG::Encoder::end_length_delimited(v3 + 4);
+    return AG::Encoder::end_length_delimited((v3 + 32));
   }
 
   return result;
@@ -8795,24 +8632,24 @@ uint64_t (***AG::Graph::TraceRecorder::add_edge(uint64_t (***result)(void *, voi
   {
     v5 = result;
     AG::Encoder::encode_varint(result + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v5 + 4);
-    AG::Encoder::encode_varint(v5 + 4, 8uLL);
-    AG::Encoder::encode_varint(v5 + 4, 0x2FuLL);
+    AG::Encoder::begin_length_delimited((v5 + 32));
+    AG::Encoder::encode_varint((v5 + 32), 8uLL);
+    AG::Encoder::encode_varint((v5 + 32), 0x2FuLL);
     if (a2)
     {
-      AG::Encoder::encode_varint(v5 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v5 + 4, a2);
+      AG::Encoder::encode_varint((v5 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v5 + 32), a2);
     }
 
     if (a3)
     {
-      AG::Encoder::encode_varint(v5 + 4, 0x20uLL);
-      AG::Encoder::encode_varint(v5 + 4, a3);
+      AG::Encoder::encode_varint((v5 + 32), 0x20uLL);
+      AG::Encoder::encode_varint((v5 + 32), a3);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v5, (v5 + 4), 8, 4);
+    AG::Graph::TraceRecorder::field_backtrace(v5, (v5 + 32), 8, 4);
 
-    return AG::Encoder::end_length_delimited(v5 + 4);
+    return AG::Encoder::end_length_delimited((v5 + 32));
   }
 
   return result;
@@ -8826,24 +8663,24 @@ uint64_t (***AG::Graph::TraceRecorder::remove_edge(uint64_t (***result)(void *, 
     v4 = a2;
     v5 = *(AG::data::_shared_table_bytes + *(AG::data::_shared_table_bytes + a2 + 16) + 5 * a3);
     AG::Encoder::encode_varint(result + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v3 + 4);
-    AG::Encoder::encode_varint(v3 + 4, 8uLL);
-    AG::Encoder::encode_varint(v3 + 4, 0x30uLL);
+    AG::Encoder::begin_length_delimited((v3 + 32));
+    AG::Encoder::encode_varint((v3 + 32), 8uLL);
+    AG::Encoder::encode_varint((v3 + 32), 0x30uLL);
     if (v4)
     {
-      AG::Encoder::encode_varint(v3 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v3 + 4, v4);
+      AG::Encoder::encode_varint((v3 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v3 + 32), v4);
     }
 
     if (v5)
     {
-      AG::Encoder::encode_varint(v3 + 4, 0x20uLL);
-      AG::Encoder::encode_varint(v3 + 4, v5);
+      AG::Encoder::encode_varint((v3 + 32), 0x20uLL);
+      AG::Encoder::encode_varint((v3 + 32), v5);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 4), 8, 4);
+    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 32), 8, 4);
 
-    return AG::Encoder::end_length_delimited(v3 + 4);
+    return AG::Encoder::end_length_delimited((v3 + 32));
   }
 
   return result;
@@ -8857,30 +8694,30 @@ uint64_t (***AG::Graph::TraceRecorder::set_edge_pending(uint64_t (***result)(voi
     v7 = a2;
     v8 = *(AG::data::_shared_table_bytes + *(AG::data::_shared_table_bytes + a2 + 16) + 5 * a3);
     AG::Encoder::encode_varint(result + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v6 + 4);
-    AG::Encoder::encode_varint(v6 + 4, 8uLL);
-    AG::Encoder::encode_varint(v6 + 4, 0x31uLL);
+    AG::Encoder::begin_length_delimited((v6 + 32));
+    AG::Encoder::encode_varint((v6 + 32), 8uLL);
+    AG::Encoder::encode_varint((v6 + 32), 0x31uLL);
     if (v7)
     {
-      AG::Encoder::encode_varint(v6 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v6 + 4, v7);
+      AG::Encoder::encode_varint((v6 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v6 + 32), v7);
     }
 
     if (v8)
     {
-      AG::Encoder::encode_varint(v6 + 4, 0x20uLL);
-      AG::Encoder::encode_varint(v6 + 4, v8);
+      AG::Encoder::encode_varint((v6 + 32), 0x20uLL);
+      AG::Encoder::encode_varint((v6 + 32), v8);
     }
 
     if (a4)
     {
-      AG::Encoder::encode_varint(v6 + 4, 0x28uLL);
-      AG::Encoder::encode_varint(v6 + 4, 1uLL);
+      AG::Encoder::encode_varint((v6 + 32), 0x28uLL);
+      AG::Encoder::encode_varint((v6 + 32), 1uLL);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v6, (v6 + 4), 8, 68);
+    AG::Graph::TraceRecorder::field_backtrace(v6, (v6 + 32), 8, 68);
 
-    return AG::Encoder::end_length_delimited(v6 + 4);
+    return AG::Encoder::end_length_delimited((v6 + 32));
   }
 
   return result;
@@ -8892,24 +8729,24 @@ uint64_t (***AG::Graph::TraceRecorder::set_dirty(uint64_t (***result)(void *, vo
   {
     v6 = result;
     AG::Encoder::encode_varint(result + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v6 + 4);
-    AG::Encoder::encode_varint(v6 + 4, 8uLL);
-    AG::Encoder::encode_varint(v6 + 4, 0x28uLL);
+    AG::Encoder::begin_length_delimited((v6 + 32));
+    AG::Encoder::encode_varint((v6 + 32), 8uLL);
+    AG::Encoder::encode_varint((v6 + 32), 0x28uLL);
     if (a2)
     {
-      AG::Encoder::encode_varint(v6 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v6 + 4, a2);
+      AG::Encoder::encode_varint((v6 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v6 + 32), a2);
     }
 
     if (a3)
     {
-      AG::Encoder::encode_varint(v6 + 4, 0x20uLL);
-      AG::Encoder::encode_varint(v6 + 4, 1uLL);
+      AG::Encoder::encode_varint((v6 + 32), 0x20uLL);
+      AG::Encoder::encode_varint((v6 + 32), 1uLL);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v6, (v6 + 4), 8, 68);
+    AG::Graph::TraceRecorder::field_backtrace(v6, (v6 + 32), 8, 68);
 
-    return AG::Encoder::end_length_delimited(v6 + 4);
+    return AG::Encoder::end_length_delimited((v6 + 32));
   }
 
   return result;
@@ -8921,24 +8758,24 @@ uint64_t (***AG::Graph::TraceRecorder::set_pending(uint64_t (***result)(void *, 
   {
     v6 = result;
     AG::Encoder::encode_varint(result + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v6 + 4);
-    AG::Encoder::encode_varint(v6 + 4, 8uLL);
-    AG::Encoder::encode_varint(v6 + 4, 0x29uLL);
+    AG::Encoder::begin_length_delimited((v6 + 32));
+    AG::Encoder::encode_varint((v6 + 32), 8uLL);
+    AG::Encoder::encode_varint((v6 + 32), 0x29uLL);
     if (a2)
     {
-      AG::Encoder::encode_varint(v6 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v6 + 4, a2);
+      AG::Encoder::encode_varint((v6 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v6 + 32), a2);
     }
 
     if (a3)
     {
-      AG::Encoder::encode_varint(v6 + 4, 0x20uLL);
-      AG::Encoder::encode_varint(v6 + 4, 1uLL);
+      AG::Encoder::encode_varint((v6 + 32), 0x20uLL);
+      AG::Encoder::encode_varint((v6 + 32), 1uLL);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v6, (v6 + 4), 8, 68);
+    AG::Graph::TraceRecorder::field_backtrace(v6, (v6 + 32), 8, 68);
 
-    return AG::Encoder::end_length_delimited(v6 + 4);
+    return AG::Encoder::end_length_delimited((v6 + 32));
   }
 
   return result;
@@ -8950,18 +8787,18 @@ uint64_t (***AG::Graph::TraceRecorder::set_value(uint64_t (***result)(void *, vo
   {
     v4 = result;
     AG::Encoder::encode_varint(result + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v4 + 4);
-    AG::Encoder::encode_varint(v4 + 4, 8uLL);
-    AG::Encoder::encode_varint(v4 + 4, 0x2AuLL);
+    AG::Encoder::begin_length_delimited((v4 + 32));
+    AG::Encoder::encode_varint((v4 + 32), 8uLL);
+    AG::Encoder::encode_varint((v4 + 32), 0x2AuLL);
     if (a2)
     {
-      AG::Encoder::encode_varint(v4 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v4 + 4, a2);
+      AG::Encoder::encode_varint((v4 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v4 + 32), a2);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v4, (v4 + 4), 8, 68);
+    AG::Graph::TraceRecorder::field_backtrace(v4, (v4 + 32), 8, 68);
 
-    return AG::Encoder::end_length_delimited(v4 + 4);
+    return AG::Encoder::end_length_delimited((v4 + 32));
   }
 
   return result;
@@ -8973,18 +8810,18 @@ uint64_t (***AG::Graph::TraceRecorder::mark_value(uint64_t (***result)(void *, v
   {
     v4 = result;
     AG::Encoder::encode_varint(result + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v4 + 4);
-    AG::Encoder::encode_varint(v4 + 4, 8uLL);
-    AG::Encoder::encode_varint(v4 + 4, 0x2BuLL);
+    AG::Encoder::begin_length_delimited((v4 + 32));
+    AG::Encoder::encode_varint((v4 + 32), 8uLL);
+    AG::Encoder::encode_varint((v4 + 32), 0x2BuLL);
     if (a2)
     {
-      AG::Encoder::encode_varint(v4 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v4 + 4, a2);
+      AG::Encoder::encode_varint((v4 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v4 + 32), a2);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v4, (v4 + 4), 8, 68);
+    AG::Graph::TraceRecorder::field_backtrace(v4, (v4 + 32), 8, 68);
 
-    return AG::Encoder::end_length_delimited(v4 + 4);
+    return AG::Encoder::end_length_delimited((v4 + 32));
   }
 
   return result;
@@ -8999,26 +8836,26 @@ uint64_t (***AG::Graph::TraceRecorder::set_source(uint64_t (***result)(void *, v
     v6 = *v4;
     v5 = v4[1];
     AG::Encoder::encode_varint(result + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v3 + 4);
-    AG::Encoder::encode_varint(v3 + 4, 8uLL);
-    AG::Encoder::encode_varint(v3 + 4, 0x2DuLL);
-    AG::Encoder::encode_varint(v3 + 4, 0x18uLL);
-    AG::Encoder::encode_varint(v3 + 4, a2 & 0xFFFFFFFE | 1);
+    AG::Encoder::begin_length_delimited((v3 + 32));
+    AG::Encoder::encode_varint((v3 + 32), 8uLL);
+    AG::Encoder::encode_varint((v3 + 32), 0x2DuLL);
+    AG::Encoder::encode_varint((v3 + 32), 0x18uLL);
+    AG::Encoder::encode_varint((v3 + 32), a2 & 0xFFFFFFFE | 1);
     if (v6)
     {
-      AG::Encoder::encode_varint(v3 + 4, 0x20uLL);
-      AG::Encoder::encode_varint(v3 + 4, v6);
+      AG::Encoder::encode_varint((v3 + 32), 0x20uLL);
+      AG::Encoder::encode_varint((v3 + 32), v6);
     }
 
     if (v5)
     {
-      AG::Encoder::encode_varint(v3 + 4, 0x28uLL);
-      AG::Encoder::encode_varint(v3 + 4, v5);
+      AG::Encoder::encode_varint((v3 + 32), 0x28uLL);
+      AG::Encoder::encode_varint((v3 + 32), v5);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 4), 8, 4);
+    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 32), 8, 4);
 
-    return AG::Encoder::end_length_delimited(v3 + 4);
+    return AG::Encoder::end_length_delimited((v3 + 32));
   }
 
   return result;
@@ -9031,20 +8868,20 @@ uint64_t (***AG::Graph::TraceRecorder::set_dependency(uint64_t (***result)(void 
     v3 = result;
     v4 = *(AG::data::_shared_table_bytes + a2 + 16);
     AG::Encoder::encode_varint(result + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v3 + 4);
-    AG::Encoder::encode_varint(v3 + 4, 8uLL);
-    AG::Encoder::encode_varint(v3 + 4, 0x2EuLL);
-    AG::Encoder::encode_varint(v3 + 4, 0x18uLL);
-    AG::Encoder::encode_varint(v3 + 4, a2 & 0xFFFFFFFE | 1);
+    AG::Encoder::begin_length_delimited((v3 + 32));
+    AG::Encoder::encode_varint((v3 + 32), 8uLL);
+    AG::Encoder::encode_varint((v3 + 32), 0x2EuLL);
+    AG::Encoder::encode_varint((v3 + 32), 0x18uLL);
+    AG::Encoder::encode_varint((v3 + 32), a2 & 0xFFFFFFFE | 1);
     if (v4)
     {
-      AG::Encoder::encode_varint(v3 + 4, 0x20uLL);
-      AG::Encoder::encode_varint(v3 + 4, v4);
+      AG::Encoder::encode_varint((v3 + 32), 0x20uLL);
+      AG::Encoder::encode_varint((v3 + 32), v4);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 4), 8, 4);
+    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 32), 8, 4);
 
-    return AG::Encoder::end_length_delimited(v3 + 4);
+    return AG::Encoder::end_length_delimited((v3 + 32));
   }
 
   return result;
@@ -9056,26 +8893,26 @@ uint64_t (***AG::Graph::TraceRecorder::set_deadline(uint64_t (***this)(void *, v
   {
     v3 = this;
     AG::Encoder::encode_varint(this + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v3 + 4);
-    AG::Encoder::encode_varint(v3 + 4, 8uLL);
-    v4 = AG::Encoder::encode_varint(v3 + 4, 0x37uLL);
-    AG::Graph::TraceRecorder::field_timestamp(v4, (v3 + 4));
+    AG::Encoder::begin_length_delimited((v3 + 32));
+    AG::Encoder::encode_varint((v3 + 32), 8uLL);
+    v4 = AG::Encoder::encode_varint((v3 + 32), 0x37uLL);
+    AG::Graph::TraceRecorder::field_timestamp(v4, (v3 + 32));
     if (a2)
     {
-      AG::Encoder::encode_varint(v3 + 4, 0x18uLL);
-      AG::Encoder::encode_varint(v3 + 4, a2);
+      AG::Encoder::encode_varint((v3 + 32), 0x18uLL);
+      AG::Encoder::encode_varint((v3 + 32), a2);
     }
 
     v5 = HIDWORD(a2);
     if (v5)
     {
-      AG::Encoder::encode_varint(v3 + 4, 0x20uLL);
-      AG::Encoder::encode_varint(v3 + 4, v5);
+      AG::Encoder::encode_varint((v3 + 32), 0x20uLL);
+      AG::Encoder::encode_varint((v3 + 32), v5);
     }
 
-    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 4), 8, 4);
+    AG::Graph::TraceRecorder::field_backtrace(v3, (v3 + 32), 8, 4);
 
-    return AG::Encoder::end_length_delimited(v3 + 4);
+    return AG::Encoder::end_length_delimited((v3 + 32));
   }
 
   return this;
@@ -9087,12 +8924,12 @@ uint64_t (***AG::Graph::TraceRecorder::passed_deadline(uint64_t (***this)(void *
   {
     v1 = this;
     AG::Encoder::encode_varint(this + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(v1 + 4);
-    AG::Encoder::encode_varint(v1 + 4, 8uLL);
-    v2 = AG::Encoder::encode_varint(v1 + 4, 0x38uLL);
-    AG::Graph::TraceRecorder::field_timestamp(v2, (v1 + 4));
-    AG::Graph::TraceRecorder::field_backtrace(v1, (v1 + 4), 8, 4);
-    AG::Encoder::end_length_delimited(v1 + 4);
+    AG::Encoder::begin_length_delimited((v1 + 32));
+    AG::Encoder::encode_varint((v1 + 32), 8uLL);
+    v2 = AG::Encoder::encode_varint((v1 + 32), 0x38uLL);
+    AG::Graph::TraceRecorder::field_timestamp(v2, (v1 + 32));
+    AG::Graph::TraceRecorder::field_backtrace(v1, (v1 + 32), 8, 4);
+    AG::Encoder::end_length_delimited((v1 + 32));
 
     return AG::Graph::TraceRecorder::encode_stack(v1);
   }
@@ -9103,7 +8940,7 @@ uint64_t (***AG::Graph::TraceRecorder::passed_deadline(uint64_t (***this)(void *
 uint64_t (***AG::Graph::TraceRecorder::mark_profile(AG::Graph::TraceRecorder *this, AG::Graph *a2, unsigned int a3))(void *, void *)
 {
   AG::Encoder::encode_varint(this + 4, 0xAuLL);
-  AG::Encoder::begin_length_delimited(this + 4);
+  AG::Encoder::begin_length_delimited(this + 32);
   AG::Encoder::encode_varint(this + 4, 8uLL);
   v5 = AG::Encoder::encode_varint(this + 4, 0x32uLL);
   AG::Graph::TraceRecorder::field_timestamp(v5, (this + 32));
@@ -9144,7 +8981,7 @@ uint64_t (***AG::Graph::TraceRecorder::named_event(AG::Graph::TraceRecorder *thi
   if (result)
   {
     AG::Encoder::encode_varint(this + 4, 0xAuLL);
-    AG::Encoder::begin_length_delimited(this + 4);
+    AG::Encoder::begin_length_delimited(this + 32);
     AG::Encoder::encode_varint(this + 4, 8uLL);
     v14 = AG::Encoder::encode_varint(this + 4, 0x36uLL);
     if (v11)
@@ -9216,7 +9053,7 @@ uint64_t (***AG::Graph::TraceRecorder::named_event(AG::Graph::TraceRecorder *thi
 
 uint64_t AG::Graph::TraceRecorder::named_event_enabled(AG::Graph::TraceRecorder *this, uint64_t a2)
 {
-  v4 = this + 240;
+  v4 = (this + 240);
   v5 = *(this + 30);
   v6 = *(this + 62);
   v7 = &v5[2 * v6];
@@ -9307,7 +9144,7 @@ LABEL_18:
   if (v17)
   {
     AG::Encoder::encode_varint(this + 4, 0x32uLL);
-    AG::Encoder::begin_length_delimited(this + 4);
+    AG::Encoder::begin_length_delimited(this + 32);
     if (a2)
     {
       AG::Encoder::encode_varint(this + 4, 8uLL);
@@ -9345,7 +9182,7 @@ LABEL_18:
   return v12 & 1;
 }
 
-uint64_t AG::Graph::start_tracing(uint64_t result, char a2)
+uint64_t AG::Graph::start_tracing(uint64_t result, char a2, const char **a3, uint64_t a4)
 {
   if ((a2 & 1) != 0 && !*(result + 272))
   {
@@ -9645,14 +9482,14 @@ LABEL_4:
   }
 }
 
-_DWORD *AG::Graph::stop_tracing(_DWORD *this)
+void *AG::Graph::stop_tracing(void *this)
 {
-  v1 = *(this + 34);
+  v1 = this[34];
   if (v1)
   {
     v2 = this;
     this = AG::Graph::remove_trace(this, *(v1 + 8));
-    *(v2 + 34) = 0;
+    v2[34] = 0;
   }
 
   return this;
@@ -9683,10 +9520,10 @@ CFStringRef AG::Graph::copy_trace_path(AG::Graph *this)
   }
 }
 
-void AG::Graph::all_start_tracing(char a1)
+void AG::Graph::all_start_tracing(char a1, const char **a2, uint64_t a3)
 {
   os_unfair_lock_lock(&AG::Graph::_all_graphs_lock);
-  for (i = &AG::Graph::_all_graphs; ; AG::Graph::start_tracing(i, a1))
+  for (i = &AG::Graph::_all_graphs; ; AG::Graph::start_tracing(i, a1, a2, a3))
   {
     i = *i;
     if (!i)
@@ -9766,4 +9603,160 @@ void AG::Encoder::~Encoder(AG::Encoder *this)
   {
     free(v3);
   }
+}
+
+uint64_t AG::vector<std::unique_ptr<char const,util::free_deleter>,0ul,unsigned long>::~vector(uint64_t a1)
+{
+  v3 = *a1;
+  v2 = *(a1 + 8);
+  if (v2)
+  {
+    for (i = 0; i < v2; ++i)
+    {
+      v5 = v3[i];
+      v3[i] = 0;
+      if (v5)
+      {
+        free(v5);
+        v2 = *(a1 + 8);
+      }
+    }
+
+    v3 = *a1;
+  }
+
+  if (v3)
+  {
+    free(v3);
+  }
+
+  return a1;
+}
+
+void *AG::vector<std::unique_ptr<char const,util::free_deleter>,0ul,unsigned long>::reserve_slow(void **a1, char *a2)
+{
+  if (a1[2] + (a1[2] >> 1) <= a2)
+  {
+    v3 = a2;
+  }
+
+  else
+  {
+    v3 = a1[2] + (a1[2] >> 1);
+  }
+
+  result = AG::details::realloc_vector<unsigned long,8ul>(*a1, a1 + 2, v3);
+  *a1 = result;
+  return result;
+}
+
+void *AG::details::realloc_vector<unsigned long,8ul>(void *a1, size_t *a2, uint64_t a3)
+{
+  v4 = a1;
+  if (a3)
+  {
+    v5 = malloc_good_size(8 * a3);
+    v6 = v5 >> 3;
+    if (v5 >> 3 != *a2)
+    {
+      v7 = malloc_type_realloc(v4, v5, 0x15CB70FBuLL);
+      if (!v7)
+      {
+        AG::precondition_failure("allocation failure", v8);
+      }
+
+      v4 = v7;
+      *a2 = v6;
+    }
+  }
+
+  else
+  {
+    *a2 = 0;
+    free(a1);
+    return 0;
+  }
+
+  return v4;
+}
+
+void AG::data::table::print(os_unfair_lock_s *this)
+{
+  os_unfair_lock_lock(this + 4);
+  fprintf(*MEMORY[0x1E69E9848], "data::table %p:\n  %.2fKB allocated, %.2fKB used, %.2fKB reusable.\n", this, vcvtd_n_f64_u32(this[5]._os_unfair_lock_opaque - 512, 0xAuLL), vcvtd_n_f64_u32(this[7]._os_unfair_lock_opaque << 9, 0xAuLL), vcvtd_n_f64_u32(this[8]._os_unfair_lock_opaque, 0xAuLL));
+
+  os_unfair_lock_unlock(this + 4);
+}
+
+uint64_t AG::data::zone::print(const void ***this)
+{
+  v2 = *(this + 4);
+  v3 = 0;
+  if (v2)
+  {
+    v4 = 0uLL;
+    do
+    {
+      v5 = AG::data::_shared_table_bytes + v2;
+      ++v3;
+      v4 = vaddw_u32(v4, *(v5 + 12));
+      v2 = *(v5 + 8);
+    }
+
+    while (v2);
+    v6 = vmulq_f64(vcvtq_f64_u64(v4), vdupq_n_s64(0x3F50000000000000uLL));
+  }
+
+  else
+  {
+    v6 = 0uLL;
+  }
+
+  v7 = *(this + 2);
+  if (v7)
+  {
+    v18 = v6;
+    v8 = 0;
+    v9 = *this;
+    v10 = 8 * v7;
+    do
+    {
+      v11 = *v9++;
+      v8 += malloc_size(v11);
+      v10 -= 8;
+    }
+
+    while (v10);
+    v12 = vcvtd_n_f64_u64(v8, 0xAuLL);
+    v6 = v18;
+  }
+
+  else
+  {
+    v12 = 0.0;
+  }
+
+  v13 = *(this + 5);
+  if (v13)
+  {
+    v14 = 0;
+    v15 = 0;
+    do
+    {
+      ++v15;
+      v16 = AG::data::_shared_table_bytes + v13;
+      v13 = *(AG::data::_shared_table_bytes + v13);
+      v14 += *(v16 + 4);
+    }
+
+    while (v13);
+  }
+
+  else
+  {
+    v15 = 0;
+    v14 = 0;
+  }
+
+  return fprintf(*MEMORY[0x1E69E9848], "%-16p %6lu %8.2f %8.2f    %6lu %6lu     %6lu %8.2f\n", this, v3, v6.f64[0], v6.f64[1], v15, v14, *(this + 2), v12);
 }

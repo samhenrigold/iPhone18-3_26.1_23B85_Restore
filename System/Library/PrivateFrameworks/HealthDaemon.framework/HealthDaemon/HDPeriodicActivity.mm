@@ -17,26 +17,26 @@
 
 - (HDPeriodicActivity)initWithProfile:(id)profile name:(id)name interval:(double)interval delegate:(id)delegate loggingCategory:(id)category
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   nameCopy = name;
   delegateCopy = delegate;
   categoryCopy = category;
-  v33.receiver = self;
-  v33.super_class = HDPeriodicActivity;
-  v16 = [(HDPeriodicActivity *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = HDPeriodicActivity;
+  v16 = [(HDPeriodicActivity *)&v32 init];
   v17 = v16;
   if (v16)
   {
     objc_storeWeak(&v16->_profile, profileCopy);
     objc_initWeak(&location, v17);
     v18 = objc_alloc(MEMORY[0x277D10BF8]);
-    v27 = MEMORY[0x277D85DD0];
-    v28 = 3221225472;
-    v29 = __77__HDPeriodicActivity_initWithProfile_name_interval_delegate_loggingCategory___block_invoke;
-    v30 = &unk_27862F2E0;
-    objc_copyWeak(&v31, &location);
-    v19 = [v18 initWithName:nameCopy baseInterval:*MEMORY[0x277D86238] criteria:categoryCopy loggingCategory:&v27 handler:interval];
+    v26 = MEMORY[0x277D85DD0];
+    v27 = 3221225472;
+    v28 = __77__HDPeriodicActivity_initWithProfile_name_interval_delegate_loggingCategory___block_invoke;
+    v29 = &unk_27862F2E0;
+    objc_copyWeak(&v30, &location);
+    v19 = [v18 initWithName:nameCopy baseInterval:*MEMORY[0x277D86238] criteria:categoryCopy loggingCategory:&v26 handler:interval];
     activity = v17->_activity;
     v17->_activity = v19;
 
@@ -49,7 +49,7 @@
     if (os_log_type_enabled(loggingCategory, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v35 = nameCopy;
+      v34 = nameCopy;
       _os_log_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_DEFAULT, "Starting up XPC service scheduler (%@)", buf, 0xCu);
     }
 
@@ -57,11 +57,10 @@
     daemon = [WeakRetained daemon];
     [daemon registerDaemonActivatedObserver:v17 queue:0];
 
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v30);
     objc_destroyWeak(&location);
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

@@ -10034,25 +10034,24 @@ LABEL_13:
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, piggyback);
-  v13 = 0;
-  objc_storeStrong(&v13, completion);
-  v12 = _AKLogSystem();
-  v11 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v12 = 0;
+  objc_storeStrong(&v12, completion);
+  v11 = _AKLogSystem();
+  v10 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    log = v12;
-    type = v11;
-    sub_10001CEEC(v10);
-    _os_log_impl(&_mh_execute_header, log, type, "Prompting for piggybacking code", v10, 2u);
+    log = v11;
+    type = v10;
+    sub_10001CEEC(v9);
+    _os_log_impl(&_mh_execute_header, log, type, "Prompting for piggybacking code", v9, 2u);
   }
 
-  objc_storeStrong(&v12, 0);
+  objc_storeStrong(&v11, 0);
   authUILiaison = selfCopy->_authUILiaison;
   initiatingContext = [location[0] initiatingContext];
-  client = selfCopy->_client;
   [AKAuthenticationUILiaison presentSecondFactorUIForContext:"presentSecondFactorUIForContext:client:completion:" client:? completion:?];
   _objc_release(initiatingContext);
-  objc_storeStrong(&v13, 0);
+  objc_storeStrong(&v12, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -10479,61 +10478,60 @@ LABEL_10:
 
 - (void)deleteDeviceListCacheWithContext:(id)context completion:(id)completion
 {
-  selfCopy = self;
+  location[2] = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, context);
-  v27 = 0;
-  objc_storeStrong(&v27, completion);
-  v14 = +[AKFeatureManager sharedManager];
-  isDeviceListCacheEnabled = [v14 isDeviceListCacheEnabled];
-  _objc_release(v14);
+  v26 = 0;
+  objc_storeStrong(&v26, completion);
+  v13 = +[AKFeatureManager sharedManager];
+  isDeviceListCacheEnabled = [v13 isDeviceListCacheEnabled];
+  _objc_release(v13);
   if (isDeviceListCacheEnabled)
   {
-    v7 = [AKDeviceListRequester alloc];
-    v10 = +[AKDeviceListStoreManager sharedManager];
-    v9 = objc_opt_new();
-    v8 = +[AKAccountManager sharedInstance];
-    client = selfCopy->_client;
-    v26 = [AKDeviceListRequester initWithStoreManager:v7 cdpFactory:"initWithStoreManager:cdpFactory:accountManager:client:" accountManager:v10 client:v9];
+    v6 = [AKDeviceListRequester alloc];
+    v9 = +[AKDeviceListStoreManager sharedManager];
+    v8 = objc_opt_new();
+    v7 = +[AKAccountManager sharedInstance];
+    v25 = [AKDeviceListRequester initWithStoreManager:v6 cdpFactory:"initWithStoreManager:cdpFactory:accountManager:client:" accountManager:v9 client:v8];
+    _objc_release(v7);
     _objc_release(v8);
     _objc_release(v9);
-    _objc_release(v10);
-    v12 = v26;
-    v11 = location[0];
-    v19 = _NSConcreteStackBlock;
-    v20 = -1073741824;
-    v21 = 0;
-    v22 = sub_1000C3694;
-    v23 = &unk_10031F838;
-    v24 = _objc_retain(location[0]);
-    v25 = _objc_retain(v27);
-    [(AKDeviceListRequester *)v12 clearDeviceListCacheWithContext:v11 completionHandler:&v19];
-    objc_storeStrong(&v25, 0);
+    v11 = v25;
+    v10 = location[0];
+    v18 = _NSConcreteStackBlock;
+    v19 = -1073741824;
+    v20 = 0;
+    v21 = sub_1000C3694;
+    v22 = &unk_10031F838;
+    v23 = _objc_retain(location[0]);
+    v24 = _objc_retain(v26);
+    [(AKDeviceListRequester *)v11 clearDeviceListCacheWithContext:v10 completionHandler:&v18];
     objc_storeStrong(&v24, 0);
-    objc_storeStrong(&v26, 0);
+    objc_storeStrong(&v23, 0);
+    objc_storeStrong(&v25, 0);
   }
 
   else
   {
-    v18 = _AKLogSystem();
-    v17 = 2;
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v17 = _AKLogSystem();
+    v16 = 2;
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      log = v18;
-      type = v17;
-      sub_10001CEEC(v16);
-      _os_log_debug_impl(&_mh_execute_header, log, type, "Delete device list cache is not supported.", v16, 2u);
+      log = v17;
+      type = v16;
+      sub_10001CEEC(v15);
+      _os_log_debug_impl(&_mh_execute_header, log, type, "Delete device list cache is not supported.", v15, 2u);
     }
 
-    objc_storeStrong(&v18, 0);
-    if (v27)
+    objc_storeStrong(&v17, 0);
+    if (v26)
     {
-      (*(v27 + 2))(v27, 0, 0);
+      (*(v26 + 2))(v26, 0, 0);
     }
   }
 
-  objc_storeStrong(&v27, 0);
+  objc_storeStrong(&v26, 0);
   objc_storeStrong(location, 0);
 }
 

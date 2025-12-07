@@ -491,7 +491,7 @@ void __54__SKProductPageViewController_loadProductWithRequest___block_invoke_2(u
     return 30;
   }
 
-  if (SKUIAllowsLandscapePhone())
+  if (SKUIAllowsLandscapePhone(v4, v5))
   {
     return 26;
   }
@@ -803,11 +803,11 @@ void __61__SKProductPageViewController_clientInterface_presentDialog___block_inv
   }
 }
 
-uint64_t __74__SKProductPageViewController_clientInterface_showPreviewOverlayAnimated___block_invoke(uint64_t result, int a2)
+id *__74__SKProductPageViewController_clientInterface_showPreviewOverlayAnimated___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _showPreviewOverlayAnimated:*(result + 40)];
+    return [result[4] _showPreviewOverlayAnimated:*(result + 40)];
   }
 
   return result;
@@ -849,7 +849,7 @@ uint64_t __74__SKProductPageViewController_clientInterface_showPreviewOverlayAni
 
 - (void)purchaseManager:(id)manager didFinishPurchaseRequest:(id)request withError:(id)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   requestCopy = request;
   errorCopy = error;
@@ -857,73 +857,81 @@ uint64_t __74__SKProductPageViewController_clientInterface_showPreviewOverlayAni
   shouldLog = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v13 = shouldLog | 2;
+    LODWORD(v13) = shouldLog | 2;
   }
 
   else
   {
-    v13 = shouldLog;
+    LODWORD(v13) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
   v15 = oSLogObject;
   if (!errorCopy)
   {
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v13 = v13;
+    }
+
+    else
     {
       v13 &= 2u;
     }
 
     if (v13)
     {
-      *v24 = 138412290;
-      *&v24[4] = objc_opt_class();
-      v21 = *&v24[4];
-      LODWORD(v23) = 12;
-      v22 = _os_log_send_and_compose_impl();
+      v23 = 138412290;
+      v24 = objc_opt_class();
+      v21 = v24;
+      v22 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_215BAE000, v15, 2, "%@: Did finish purchase batch", &v23, 12);
 
       if (!v22)
       {
-LABEL_19:
+LABEL_21:
 
         [(SKProductPageViewController *)self _sendDidFinishWithResult:4];
-        goto LABEL_20;
+        goto LABEL_22;
       }
 
-      v15 = [MEMORY[0x277CCACA8] stringWithCString:v22 encoding:{4, v24, v23, *v24, *&v24[8]}];
+      v15 = [MEMORY[0x277CCACA8] stringWithCString:v22 encoding:4];
       free(v22);
       SSFileLog();
     }
 
-    goto LABEL_19;
+    goto LABEL_21;
   }
 
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = v13;
+  }
+
+  else
   {
     v13 &= 2u;
   }
 
   if (v13)
   {
-    *v24 = 138412546;
-    *&v24[4] = objc_opt_class();
-    *&v24[12] = 2112;
-    *&v24[14] = errorCopy;
-    v16 = *&v24[4];
-    LODWORD(v23) = 22;
-    v17 = _os_log_send_and_compose_impl();
+    v23 = 138412546;
+    v24 = objc_opt_class();
+    v25 = 2112;
+    v26 = errorCopy;
+    v16 = v24;
+    v17 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_215BAE000, v15, 0, "%@: Did fail purchase batch with error: %@", &v23, 22);
 
     if (!v17)
     {
-      goto LABEL_11;
+      goto LABEL_12;
     }
 
-    v15 = [MEMORY[0x277CCACA8] stringWithCString:v17 encoding:{4, v24, v23, *v24, *&v24[16], v25}];
+    v15 = [MEMORY[0x277CCACA8] stringWithCString:v17 encoding:4];
     free(v17);
     SSFileLog();
   }
 
-LABEL_11:
+LABEL_12:
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   v19 = objc_opt_respondsToSelector();
 
@@ -933,7 +941,7 @@ LABEL_11:
     [v20 productPage:self purchaseBatchFailedWithError:errorCopy];
   }
 
-LABEL_20:
+LABEL_22:
 }
 
 - (void)purchaseManager:(id)manager willAddPurchases:(id)purchases
@@ -1035,14 +1043,14 @@ LABEL_20:
     v36 = v28;
     v22 = v21;
     LODWORD(v27) = 22;
-    v23 = _os_log_send_and_compose_impl();
+    v23 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &dword_215BAE000, oSLogObject, 2, "%@: Will make purchases: %@", &v33, v27);
 
     if (!v23)
     {
       goto LABEL_30;
     }
 
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v23 encoding:{4, &v33, v27}];
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v23 encoding:4];
     free(v23);
     SSFileLog();
   }
@@ -1060,27 +1068,27 @@ LABEL_30:
 
 - (void)itemStateCenter:(id)center didFinishPurchases:(id)purchases
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   purchasesCopy = purchases;
-  v6 = [purchasesCopy countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v6 = [purchasesCopy countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v32;
+    v8 = *v31;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v32 != v8)
+      if (*v31 != v8)
       {
         objc_enumerationMutation(purchasesCopy);
       }
 
-      v10 = *(*(&v31 + 1) + 8 * v9);
+      v10 = *(*(&v30 + 1) + 8 * v9);
       error = [v10 error];
 
       if (error)
@@ -1090,7 +1098,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [purchasesCopy countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v7 = [purchasesCopy countByEnumeratingWithState:&v30 objects:v38 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -1104,23 +1112,28 @@ LABEL_3:
 
     if (!error2)
     {
-      goto LABEL_22;
+      goto LABEL_23;
     }
 
     mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedConfig];
     shouldLog = [mEMORY[0x277D69B38] shouldLog];
     if ([mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v15 = shouldLog | 2;
+      LODWORD(v15) = shouldLog | 2;
     }
 
     else
     {
-      v15 = shouldLog;
+      LODWORD(v15) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = v15;
+    }
+
+    else
     {
       v15 &= 2u;
     }
@@ -1128,25 +1141,24 @@ LABEL_3:
     if (v15)
     {
       v17 = objc_opt_class();
-      v35 = 138412546;
-      v36 = v17;
-      v37 = 2112;
-      v38 = error2;
+      v34 = 138412546;
+      v35 = v17;
+      v36 = 2112;
+      v37 = error2;
       v18 = v17;
-      LODWORD(v30) = 22;
-      v19 = _os_log_send_and_compose_impl();
+      v19 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_215BAE000, oSLogObject, 0, "%@: Did fail purchase batch with error: %@", &v34, 22, v30);
 
       if (!v19)
       {
-        goto LABEL_20;
+        goto LABEL_21;
       }
 
-      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v19 encoding:{4, &v35, v30, v31}];
+      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v19 encoding:4];
       free(v19);
       SSFileLog();
     }
 
-LABEL_20:
+LABEL_21:
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     v21 = objc_opt_respondsToSelector();
 
@@ -1156,78 +1168,82 @@ LABEL_20:
       [v22 productPage:self purchaseBatchFailedWithError:error2];
     }
 
-    goto LABEL_32;
+    goto LABEL_34;
   }
 
 LABEL_9:
 
-LABEL_22:
+LABEL_23:
   mEMORY[0x277D69B38]2 = [MEMORY[0x277D69B38] sharedConfig];
   shouldLog2 = [mEMORY[0x277D69B38]2 shouldLog];
   if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
   {
-    v25 = shouldLog2 | 2;
+    LODWORD(v25) = shouldLog2 | 2;
   }
 
   else
   {
-    v25 = shouldLog2;
+    LODWORD(v25) = shouldLog2;
   }
 
   oSLogObject2 = [mEMORY[0x277D69B38]2 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
+  {
+    v25 = v25;
+  }
+
+  else
   {
     v25 &= 2u;
   }
 
   if (!v25)
   {
-    goto LABEL_30;
+    goto LABEL_32;
   }
 
   v27 = objc_opt_class();
-  v35 = 138412290;
-  v36 = v27;
+  v34 = 138412290;
+  v35 = v27;
   v28 = v27;
-  LODWORD(v30) = 12;
-  v29 = _os_log_send_and_compose_impl();
+  v29 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &dword_215BAE000, oSLogObject2, 2, "%@: Did finish purchase batch", &v34, 12, v30);
 
   if (v29)
   {
-    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v29 encoding:{4, &v35, v30, v31}];
+    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v29 encoding:4];
     free(v29);
     SSFileLog();
-LABEL_30:
+LABEL_32:
   }
 
   [(SKProductPageViewController *)self _sendDidFinishWithResult:4];
   error2 = 0;
-LABEL_32:
+LABEL_34:
 }
 
 - (void)itemStateCenter:(id)center didFinishSoftwarePurchases:(id)purchases
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   purchasesCopy = purchases;
-  v6 = [purchasesCopy countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v6 = [purchasesCopy countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v32;
+    v8 = *v31;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v32 != v8)
+      if (*v31 != v8)
       {
         objc_enumerationMutation(purchasesCopy);
       }
 
-      v10 = *(*(&v31 + 1) + 8 * v9);
+      v10 = *(*(&v30 + 1) + 8 * v9);
       error = [v10 error];
 
       if (error)
@@ -1237,7 +1253,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [purchasesCopy countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v7 = [purchasesCopy countByEnumeratingWithState:&v30 objects:v38 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -1251,23 +1267,28 @@ LABEL_3:
 
     if (!error2)
     {
-      goto LABEL_22;
+      goto LABEL_23;
     }
 
     mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedConfig];
     shouldLog = [mEMORY[0x277D69B38] shouldLog];
     if ([mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v15 = shouldLog | 2;
+      LODWORD(v15) = shouldLog | 2;
     }
 
     else
     {
-      v15 = shouldLog;
+      LODWORD(v15) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = v15;
+    }
+
+    else
     {
       v15 &= 2u;
     }
@@ -1275,25 +1296,24 @@ LABEL_3:
     if (v15)
     {
       v17 = objc_opt_class();
-      v35 = 138412546;
-      v36 = v17;
-      v37 = 2112;
-      v38 = error2;
+      v34 = 138412546;
+      v35 = v17;
+      v36 = 2112;
+      v37 = error2;
       v18 = v17;
-      LODWORD(v30) = 22;
-      v19 = _os_log_send_and_compose_impl();
+      v19 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_215BAE000, oSLogObject, 0, "%@: Did fail purchase batch with error: %@", &v34, 22, v30);
 
       if (!v19)
       {
-        goto LABEL_20;
+        goto LABEL_21;
       }
 
-      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v19 encoding:{4, &v35, v30, v31}];
+      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v19 encoding:4];
       free(v19);
       SSFileLog();
     }
 
-LABEL_20:
+LABEL_21:
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     v21 = objc_opt_respondsToSelector();
 
@@ -1303,53 +1323,57 @@ LABEL_20:
       [v22 productPage:self purchaseBatchFailedWithError:error2];
     }
 
-    goto LABEL_32;
+    goto LABEL_34;
   }
 
 LABEL_9:
 
-LABEL_22:
+LABEL_23:
   mEMORY[0x277D69B38]2 = [MEMORY[0x277D69B38] sharedConfig];
   shouldLog2 = [mEMORY[0x277D69B38]2 shouldLog];
   if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
   {
-    v25 = shouldLog2 | 2;
+    LODWORD(v25) = shouldLog2 | 2;
   }
 
   else
   {
-    v25 = shouldLog2;
+    LODWORD(v25) = shouldLog2;
   }
 
   oSLogObject2 = [mEMORY[0x277D69B38]2 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
+  {
+    v25 = v25;
+  }
+
+  else
   {
     v25 &= 2u;
   }
 
   if (!v25)
   {
-    goto LABEL_30;
+    goto LABEL_32;
   }
 
   v27 = objc_opt_class();
-  v35 = 138412290;
-  v36 = v27;
+  v34 = 138412290;
+  v35 = v27;
   v28 = v27;
-  LODWORD(v30) = 12;
-  v29 = _os_log_send_and_compose_impl();
+  v29 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &dword_215BAE000, oSLogObject2, 2, "%@: Did finish purchase batch", &v34, 12, v30);
 
   if (v29)
   {
-    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v29 encoding:{4, &v35, v30, v31}];
+    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v29 encoding:4];
     free(v29);
     SSFileLog();
-LABEL_30:
+LABEL_32:
   }
 
   [(SKProductPageViewController *)self _sendDidFinishWithResult:4];
   error2 = 0;
-LABEL_32:
+LABEL_34:
 }
 
 - (void)_gotoStoreButtonAction:(id)action
@@ -1380,7 +1404,7 @@ LABEL_5:
 
 - (void)_purchaseFailedNotification:(id)notification
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   object = [notificationCopy object];
   userInfo = [notificationCopy userInfo];
@@ -1391,43 +1415,47 @@ LABEL_5:
   shouldLog = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v10 = shouldLog | 2;
+    LODWORD(v10) = shouldLog | 2;
   }
 
   else
   {
-    v10 = shouldLog;
+    LODWORD(v10) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = v10;
+  }
+
+  else
   {
     v10 &= 2u;
   }
 
   if (v10)
   {
-    *v18 = 138412802;
-    *&v18[4] = objc_opt_class();
-    *&v18[12] = 2112;
-    *&v18[14] = object;
-    *&v18[22] = 2112;
-    v19 = v7;
-    v12 = *&v18[4];
-    LODWORD(v17) = 32;
-    v13 = _os_log_send_and_compose_impl();
+    v17 = 138412802;
+    v18 = objc_opt_class();
+    v19 = 2112;
+    v20 = object;
+    v21 = 2112;
+    v22 = v7;
+    v12 = v18;
+    v13 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_215BAE000, oSLogObject, 0, "%@: Did fail purchase: %@ with error: %@", &v17, 32);
 
     if (!v13)
     {
-      goto LABEL_10;
+      goto LABEL_11;
     }
 
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v13 encoding:{4, v18, v17, *v18, *&v18[16], v19}];
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v13 encoding:4];
     free(v13);
     SSFileLog();
   }
 
-LABEL_10:
+LABEL_11:
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   v15 = objc_opt_respondsToSelector();
 
@@ -1440,47 +1468,51 @@ LABEL_10:
 
 - (void)_purchaseFinishedNotification:(id)notification
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   object = [notification object];
   mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedConfig];
   shouldLog = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (v7)
   {
-    *v15 = 138412546;
-    *&v15[4] = objc_opt_class();
-    *&v15[12] = 2112;
-    *&v15[14] = object;
-    v9 = *&v15[4];
-    LODWORD(v14) = 22;
-    v10 = _os_log_send_and_compose_impl();
+    v14 = 138412546;
+    v15 = objc_opt_class();
+    v16 = 2112;
+    v17 = object;
+    v9 = v15;
+    v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_215BAE000, oSLogObject, 2, "%@: Did finish purchase: %@", &v14, 22);
 
     if (!v10)
     {
-      goto LABEL_10;
+      goto LABEL_11;
     }
 
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v10 encoding:{4, v15, v14, *v15, *&v15[16]}];
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v10 encoding:4];
     free(v10);
     SSFileLog();
   }
 
-LABEL_10:
+LABEL_11:
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   v12 = objc_opt_respondsToSelector();
 
@@ -1653,7 +1685,7 @@ LABEL_6:
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
 
-  if ([bundleIdentifier isEqualToString:@"com.apple.ios.StoreKitUIService"])
+  if (objc_msgSend_isEqualToString_(bundleIdentifier))
   {
     v4 = 0;
   }
@@ -1871,7 +1903,7 @@ LABEL_36:
 
 - (void)_loadClientContextWithCompletionBlock:(id)block
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   clientInterface = [(SUViewController *)self clientInterface];
   clientIdentifier = [clientInterface clientIdentifier];
@@ -1898,58 +1930,62 @@ LABEL_36:
     {
       v10 = objc_alloc_init(SKUIReloadConfigurationOperation);
       objc_initWeak(&location, self);
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __69__SKProductPageViewController__loadClientContextWithCompletionBlock___block_invoke;
-      v21[3] = &unk_2781F81B8;
-      objc_copyWeak(&v25, &location);
-      v22 = clientIdentifier;
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __69__SKProductPageViewController__loadClientContextWithCompletionBlock___block_invoke;
+      v20[3] = &unk_2781F81B8;
+      objc_copyWeak(&v24, &location);
+      v21 = clientIdentifier;
       selfCopy = self;
-      v24 = blockCopy;
-      [(SKUIReloadConfigurationOperation *)v10 setOutputBlock:v21];
+      v23 = blockCopy;
+      [(SKUIReloadConfigurationOperation *)v10 setOutputBlock:v20];
       mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedConfig];
-      shouldLog = [mEMORY[0x277D69B38] shouldLog];
+      LODWORD(v12) = [mEMORY[0x277D69B38] shouldLog];
       shouldLogToDisk = [mEMORY[0x277D69B38] shouldLogToDisk];
       oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
       v15 = oSLogObject;
       if (shouldLogToDisk)
       {
-        shouldLog |= 2u;
+        LODWORD(v12) = v12 | 2;
       }
 
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
       {
-        shouldLog &= 2u;
+        v12 = v12;
       }
 
-      if (shouldLog)
+      else
+      {
+        v12 &= 2u;
+      }
+
+      if (v12)
       {
         v16 = objc_opt_class();
-        v27 = 138412290;
-        v28 = v16;
+        v26 = 138412290;
+        v27 = v16;
         v17 = v16;
-        LODWORD(v20) = 12;
-        v18 = _os_log_send_and_compose_impl();
+        v18 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_215BAE000, v15, 2, "%@: Loading missing client context", &v26, 12);
 
         if (!v18)
         {
-LABEL_15:
+LABEL_16:
 
           v19 = objc_alloc_init(MEMORY[0x277CCABD8]);
           [v19 addOperation:v10];
 
-          objc_destroyWeak(&v25);
+          objc_destroyWeak(&v24);
           objc_destroyWeak(&location);
 
           goto LABEL_6;
         }
 
-        v15 = [MEMORY[0x277CCACA8] stringWithCString:v18 encoding:{4, &v27, v20}];
+        v15 = [MEMORY[0x277CCACA8] stringWithCString:v18 encoding:4];
         free(v18);
         SSFileLog();
       }
 
-      goto LABEL_15;
+      goto LABEL_16;
     }
   }
 
@@ -2056,17 +2092,17 @@ void __55__SKProductPageViewController__loadProductWithRequest___block_invoke(ui
       v14 = objc_opt_class();
       v15 = *(a1 + 32);
       v16 = v14;
-      [v15 URL];
+      v17 = [v15 URL];
       v25 = 138412546;
       v26 = v14;
-      v28 = v27 = 2112;
-      LODWORD(v21) = 22;
-      v17 = _os_log_send_and_compose_impl();
+      v27 = 2112;
+      v28 = v17;
+      v18 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_215BAE000, v11, 2, "%@: Loading request: %@", &v25, 22);
 
-      if (v17)
+      if (v18)
       {
-        v18 = [MEMORY[0x277CCACA8] stringWithCString:v17 encoding:{4, &v25, v21}];
-        free(v17);
+        v19 = [MEMORY[0x277CCACA8] stringWithCString:v18 encoding:4];
+        free(v18);
         SSFileLog();
       }
     }
@@ -2075,22 +2111,22 @@ void __55__SKProductPageViewController__loadProductWithRequest___block_invoke(ui
     {
     }
 
-    v20 = [objc_alloc(MEMORY[0x277D69C98]) initWithRequestProperties:v7];
+    v21 = [objc_alloc(MEMORY[0x277D69C98]) initWithRequestProperties:v7];
     v22[0] = MEMORY[0x277D85DD0];
     v22[1] = 3221225472;
     v22[2] = __55__SKProductPageViewController__loadProductWithRequest___block_invoke_106;
     v22[3] = &unk_2781F8208;
     objc_copyWeak(&v24, (a1 + 40));
     v23 = v7;
-    [v20 startWithConnectionResponseBlock:v22];
+    [v21 startWithConnectionResponseBlock:v22];
 
     objc_destroyWeak(&v24);
   }
 
   else
   {
-    v19 = objc_loadWeakRetained((a1 + 40));
-    [v19 _setResponse:0 forProperties:v7 error:v5];
+    v20 = objc_loadWeakRetained((a1 + 40));
+    [v20 _setResponse:0 forProperties:v7 error:v5];
   }
 }
 
@@ -2121,20 +2157,20 @@ void __55__SKProductPageViewController__loadProductWithRequest___block_invoke_2(
 
 - (void)_loadRequestForProductParameters
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   if ([(NSDictionary *)self->_productParameters count])
   {
     if (self->_bannerViewController)
     {
       objc_initWeak(location, self);
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __63__SKProductPageViewController__loadRequestForProductParameters__block_invoke;
-      v33[3] = &unk_2781F8168;
-      objc_copyWeak(&v34, location);
-      v33[4] = self;
-      [(SKProductPageViewController *)self _loadClientContextWithCompletionBlock:v33];
-      objc_destroyWeak(&v34);
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __63__SKProductPageViewController__loadRequestForProductParameters__block_invoke;
+      v32[3] = &unk_2781F8168;
+      objc_copyWeak(&v33, location);
+      v32[4] = self;
+      [(SKProductPageViewController *)self _loadClientContextWithCompletionBlock:v32];
+      objc_destroyWeak(&v33);
       objc_destroyWeak(location);
     }
 
@@ -2154,16 +2190,21 @@ void __55__SKProductPageViewController__loadProductWithRequest___block_invoke_2(
           shouldLog = [mEMORY[0x277D69B38] shouldLog];
           if ([mEMORY[0x277D69B38] shouldLogToDisk])
           {
-            v11 = shouldLog | 2;
+            LODWORD(v11) = shouldLog | 2;
           }
 
           else
           {
-            v11 = shouldLog;
+            LODWORD(v11) = shouldLog;
           }
 
           oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-          if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+          {
+            v11 = v11;
+          }
+
+          else
           {
             v11 &= 2u;
           }
@@ -2172,15 +2213,14 @@ void __55__SKProductPageViewController__loadProductWithRequest___block_invoke_2(
           {
             *location = 138412546;
             *&location[4] = objc_opt_class();
-            v36 = 2112;
-            v37 = v8;
+            v35 = 2112;
+            v36 = v8;
             v13 = *&location[4];
-            LODWORD(v28) = 22;
-            v14 = _os_log_send_and_compose_impl();
+            v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_215BAE000, oSLogObject, 2, "%@: Loading using lookup URL: %@", location, 22);
 
             if (v14)
             {
-              v15 = [MEMORY[0x277CCACA8] stringWithCString:v14 encoding:{4, location, v28}];
+              v15 = [MEMORY[0x277CCACA8] stringWithCString:v14 encoding:4];
               free(v14);
               SSFileLog();
             }
@@ -2200,16 +2240,21 @@ void __55__SKProductPageViewController__loadProductWithRequest___block_invoke_2(
           shouldLog2 = [mEMORY[0x277D69B38]2 shouldLog];
           if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
           {
-            v18 = shouldLog2 | 2;
+            LODWORD(v18) = shouldLog2 | 2;
           }
 
           else
           {
-            v18 = shouldLog2;
+            LODWORD(v18) = shouldLog2;
           }
 
           oSLogObject2 = [mEMORY[0x277D69B38]2 OSLogObject];
-          if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+          {
+            v18 = v18;
+          }
+
+          else
           {
             v18 &= 2u;
           }
@@ -2219,12 +2264,11 @@ void __55__SKProductPageViewController__loadProductWithRequest___block_invoke_2(
             *location = 138412290;
             *&location[4] = objc_opt_class();
             v20 = *&location[4];
-            LODWORD(v28) = 12;
-            v21 = _os_log_send_and_compose_impl();
+            v21 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_215BAE000, oSLogObject2, 0, "%@: Could not find lookup URL", location, 12);
 
             if (v21)
             {
-              v22 = [MEMORY[0x277CCACA8] stringWithCString:v21 encoding:{4, location, v28}];
+              v22 = [MEMORY[0x277CCACA8] stringWithCString:v21 encoding:4];
               free(v21);
               SSFileLog();
             }
@@ -2235,11 +2279,11 @@ void __55__SKProductPageViewController__loadProductWithRequest___block_invoke_2(
           }
 
           v24 = MEMORY[0x277CCA9B8];
-          v38 = *MEMORY[0x277CCA450];
+          v37 = *MEMORY[0x277CCA450];
           v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
           v25 = [v8 localizedStringForKey:@"DEFAULT_ERROR_TITLE" value:&stru_2827FFAC8 table:0];
-          v39[0] = v25;
-          v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+          v38[0] = v25;
+          v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
           v27 = [v24 errorWithDomain:*MEMORY[0x277CDD438] code:5 userInfo:v26];
           [(SKProductPageViewController *)self _failWithError:v27];
         }
@@ -2250,19 +2294,19 @@ void __55__SKProductPageViewController__loadProductWithRequest___block_invoke_2(
         v6 = [objc_alloc(MEMORY[0x277D7FCF8]) initWithBagContext:v3];
         objc_initWeak(location, v6);
         objc_initWeak(&from, self);
-        v29[0] = MEMORY[0x277D85DD0];
-        v29[1] = 3221225472;
-        v29[2] = __63__SKProductPageViewController__loadRequestForProductParameters__block_invoke_114;
-        v29[3] = &unk_2781F8258;
-        objc_copyWeak(&v30, location);
-        objc_copyWeak(&v31, &from);
-        [v6 setCompletionBlock:v29];
+        v28[0] = MEMORY[0x277D85DD0];
+        v28[1] = 3221225472;
+        v28[2] = __63__SKProductPageViewController__loadRequestForProductParameters__block_invoke_114;
+        v28[3] = &unk_2781F8258;
+        objc_copyWeak(&v29, location);
+        objc_copyWeak(&v30, &from);
+        [v6 setCompletionBlock:v28];
         [(SUStorePageViewController *)self->_storePageViewController setSkLoading:1];
         mainQueue = [MEMORY[0x277D7FD20] mainQueue];
         [mainQueue addOperation:v6];
 
-        objc_destroyWeak(&v31);
         objc_destroyWeak(&v30);
+        objc_destroyWeak(&v29);
         objc_destroyWeak(&from);
         objc_destroyWeak(location);
       }
@@ -2316,16 +2360,21 @@ void __63__SKProductPageViewController__loadRequestForProductParameters__block_i
     v3 = [v2 shouldLog];
     if ([v2 shouldLogToDisk])
     {
-      v4 = v3 | 2;
+      LODWORD(v4) = v3 | 2;
     }
 
     else
     {
-      v4 = v3;
+      LODWORD(v4) = v3;
     }
 
     v5 = [v2 OSLogObject];
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = v4;
+    }
+
+    else
     {
       v4 &= 2u;
     }
@@ -2336,37 +2385,37 @@ void __63__SKProductPageViewController__loadRequestForProductParameters__block_i
       v7 = objc_opt_class();
       v8 = *(a1 + 32);
       v9 = v7;
-      [v8 error];
+      v10 = [v8 error];
       v22 = 138412546;
       v23 = v7;
-      v25 = v24 = 2112;
-      LODWORD(v18) = 22;
-      v10 = _os_log_send_and_compose_impl();
+      v24 = 2112;
+      v25 = v10;
+      v11 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_215BAE000, v5, 0, "%@: Couldn't load URL bag to perform lookup: %@", &v22, 22);
 
-      if (!v10)
+      if (!v11)
       {
-LABEL_14:
+LABEL_15:
 
-        v11 = objc_loadWeakRetained((a1 + 40));
-        v12 = MEMORY[0x277CCA9B8];
-        v13 = *MEMORY[0x277CDD438];
+        v12 = objc_loadWeakRetained((a1 + 40));
+        v13 = MEMORY[0x277CCA9B8];
+        v14 = *MEMORY[0x277CDD438];
         v20 = *MEMORY[0x277CCA450];
-        v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v15 = [v14 localizedStringForKey:@"DEFAULT_ERROR_TITLE" value:&stru_2827FFAC8 table:0];
-        v21 = v15;
-        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
-        v17 = [v12 errorWithDomain:v13 code:5 userInfo:v16];
-        [v11 _failWithError:v17];
+        v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v16 = [v15 localizedStringForKey:@"DEFAULT_ERROR_TITLE" value:&stru_2827FFAC8 table:0];
+        v21 = v16;
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+        v18 = [v13 errorWithDomain:v14 code:5 userInfo:v17];
+        [v12 _failWithError:v18];
 
         return;
       }
 
-      v5 = [MEMORY[0x277CCACA8] stringWithCString:v10 encoding:{4, &v22, v18}];
-      free(v10);
+      v5 = [MEMORY[0x277CCACA8] stringWithCString:v11 encoding:4];
+      free(v11);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   v19 = objc_loadWeakRetained((a1 + 40));
@@ -2491,7 +2540,7 @@ LABEL_14:
   v30 = displayedURL;
   v5 = UIITunesStoreResolvedURLForHTTPURL();
   scheme = [v5 scheme];
-  if ([scheme isEqualToString:@"http"] & 1) != 0 || (objc_msgSend(scheme, "isEqualToString:", @"https"))
+  if (objc_msgSend_isEqualToString_(scheme) & 1) != 0 || (objc_msgSend_isEqualToString_(scheme))
   {
     v7 = 0;
   }
@@ -2727,10 +2776,10 @@ LABEL_6:
     {
       view = [(SKProductPageViewController *)self view];
       mIMEType = [responseCopy MIMEType];
-      v23 = [mIMEType isEqualToString:@"text/html"];
+      isEqualToString = objc_msgSend_isEqualToString_(mIMEType);
 
       storePageViewController = self->_storePageViewController;
-      if (v23)
+      if (isEqualToString)
       {
         v25 = [propertiesCopy URL];
         [(SUStorePageViewController *)storePageViewController reloadWithStorePage:bodyData ofType:1 forURL:v25];

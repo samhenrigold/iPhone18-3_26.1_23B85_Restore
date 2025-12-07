@@ -359,14 +359,13 @@ id sub_1000A9634(uint64_t a1)
   {
     v3 = [*(a1 + 32) issuerName];
     *buf = 138412290;
-    v9 = v3;
+    v8 = v3;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Resuming token pair fetch, received notification on token for %@", buf, 0xCu);
   }
 
-  v4 = *(a1 + 120);
-  LOWORD(v7) = *(a1 + 141);
-  LODWORD(v6) = *(a1 + 136);
-  return [*(a1 + 40) fetchPrivateAccessTokenForChallenge:*(a1 + 32) overrideAttester:*(a1 + 48) supportsTokenUsageFeedback:*(a1 + 140) customAttester:*(a1 + 56) customAttesterHeaders:*(a1 + 64) tokenKey:*(a1 + 72) originNameKey:*(a1 + 80) selectedOrigin:*(a1 + 88) auxiliaryAuthInfoCacheKey:*(a1 + 96) rateLimit:v6 auditToken:*(a1 + 104) bundleID:*(a1 + 112) allowTools:v7 systemTokenClient:v4 accessToken:*(a1 + 128) completionHandler:?];
+  LOWORD(v6) = *(a1 + 141);
+  LODWORD(v5) = *(a1 + 136);
+  return [*(a1 + 40) fetchPrivateAccessTokenForChallenge:*(a1 + 32) overrideAttester:*(a1 + 48) supportsTokenUsageFeedback:*(a1 + 140) customAttester:*(a1 + 56) customAttesterHeaders:*(a1 + 64) tokenKey:*(a1 + 72) originNameKey:*(a1 + 80) selectedOrigin:*(a1 + 88) auxiliaryAuthInfoCacheKey:*(a1 + 96) rateLimit:v5 auditToken:*(a1 + 104) bundleID:*(a1 + 112) allowTools:v6 systemTokenClient:*(a1 + 120) accessToken:*(a1 + 128) completionHandler:?];
 }
 
 void sub_1000A9738(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, void *a8, void *a9)
@@ -383,9 +382,8 @@ void sub_1000A9738(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5, ui
     {
       v19 = *(a1 + 32);
       v20 = [*(a1 + 40) key];
-      v21 = *(a1 + 32);
-      v22 = sub_1000B50B8(NSPPrivateAccessTokenRequest, v20);
-      sub_10003F108(NSPPrivateAccessTokenCache, v19, v18, v14, v22);
+      v21 = sub_1000B50B8(NSPPrivateAccessTokenRequest, v20);
+      sub_10003F108(NSPPrivateAccessTokenCache, v19, v18, v14, v21);
 
       if (sub_1000A7CE0(*(a1 + 48), v18, *(a1 + 32), *(a1 + 72), *(a1 + 40), v14, *(a1 + 64)))
       {
@@ -394,52 +392,52 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      v23 = *(*(a1 + 64) + 16);
+      v22 = *(*(a1 + 64) + 16);
     }
 
     else
     {
-      v23 = *(*(a1 + 64) + 16);
+      v22 = *(*(a1 + 64) + 16);
     }
 
-    v23();
+    v22();
     goto LABEL_17;
   }
 
-  v24 = *(a1 + 64);
-  v25 = [v13 firstObject];
-  (*(v24 + 16))(v24, v25, a7, v15, v16);
+  v23 = *(a1 + 64);
+  v24 = [v13 firstObject];
+  (*(v23 + 16))(v23, v24, a7, v15, v16);
 
   if ([v13 count] >= 2)
   {
-    v26 = [v13 mutableCopy];
-    [v26 removeObjectAtIndex:0];
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
+    v25 = [v13 mutableCopy];
+    [v25 removeObjectAtIndex:0];
     v32 = 0u;
-    v18 = v26;
-    v27 = [v18 countByEnumeratingWithState:&v31 objects:v35 count:16];
-    if (v27)
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v18 = v25;
+    v26 = [v18 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    if (v26)
     {
-      v28 = v27;
-      v29 = *v32;
+      v27 = v26;
+      v28 = *v31;
       do
       {
-        for (i = 0; i != v28; i = i + 1)
+        for (i = 0; i != v27; i = i + 1)
         {
-          if (*v32 != v29)
+          if (*v31 != v28)
           {
             objc_enumerationMutation(v18);
           }
 
-          sub_10003D214(NSPPrivateAccessTokenCache, *(a1 + 32), *(*(&v31 + 1) + 8 * i), v14);
+          sub_10003D214(NSPPrivateAccessTokenCache, *(a1 + 32), *(*(&v30 + 1) + 8 * i), v14);
         }
 
-        v28 = [v18 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v27 = [v18 countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
-      while (v28);
+      while (v27);
     }
 
     goto LABEL_17;
@@ -624,13 +622,12 @@ id sub_1000ABC0C(uint64_t a1)
   {
     v3 = [*(a1 + 32) issuerName];
     *buf = 138412290;
-    v8 = v3;
+    v7 = v3;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Resuming token pair fetch, received notification on long-lived token for %@", buf, 0xCu);
   }
 
-  v4 = *(a1 + 88);
-  LOWORD(v6) = *(a1 + 152);
-  return [*(a1 + 40) fetchPairedPrivateAccessTokensForChallenge:*(a1 + 32) overrideAttester:*(a1 + 48) configurationFetchDate:*(a1 + 56) configurationETag:*(a1 + 64) tokenKey:*(a1 + 72) originNameKey:*(a1 + 80) selectedOrigin:*(a1 + 88) pairedChallenge:*(a1 + 96) overridePairedAttester:*(a1 + 104) pairedTokenKey:*(a1 + 112) auditToken:*(a1 + 120) bundleID:*(a1 + 128) allowTools:v6 systemTokenClient:*(a1 + 136) accessToken:*(a1 + 144) completionHandler:?];
+  LOWORD(v5) = *(a1 + 152);
+  return [*(a1 + 40) fetchPairedPrivateAccessTokensForChallenge:*(a1 + 32) overrideAttester:*(a1 + 48) configurationFetchDate:*(a1 + 56) configurationETag:*(a1 + 64) tokenKey:*(a1 + 72) originNameKey:*(a1 + 80) selectedOrigin:*(a1 + 88) pairedChallenge:*(a1 + 96) overridePairedAttester:*(a1 + 104) pairedTokenKey:*(a1 + 112) auditToken:*(a1 + 120) bundleID:*(a1 + 128) allowTools:v5 systemTokenClient:*(a1 + 136) accessToken:*(a1 + 144) completionHandler:?];
 }
 
 id sub_1000ABD04(uint64_t a1)
@@ -640,13 +637,12 @@ id sub_1000ABD04(uint64_t a1)
   {
     v3 = [*(a1 + 32) issuerName];
     *buf = 138412290;
-    v8 = v3;
+    v7 = v3;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Resuming token pair fetch, received notification on one-time token for %@", buf, 0xCu);
   }
 
-  v4 = *(a1 + 136);
-  LOWORD(v6) = *(a1 + 152);
-  return [*(a1 + 40) fetchPairedPrivateAccessTokensForChallenge:*(a1 + 48) overrideAttester:*(a1 + 56) configurationFetchDate:*(a1 + 64) configurationETag:*(a1 + 72) tokenKey:*(a1 + 80) originNameKey:*(a1 + 88) selectedOrigin:*(a1 + 96) pairedChallenge:*(a1 + 32) overridePairedAttester:*(a1 + 104) pairedTokenKey:*(a1 + 112) auditToken:*(a1 + 120) bundleID:*(a1 + 128) allowTools:v6 systemTokenClient:v4 accessToken:*(a1 + 144) completionHandler:?];
+  LOWORD(v5) = *(a1 + 152);
+  return [*(a1 + 40) fetchPairedPrivateAccessTokensForChallenge:*(a1 + 48) overrideAttester:*(a1 + 56) configurationFetchDate:*(a1 + 64) configurationETag:*(a1 + 72) tokenKey:*(a1 + 80) originNameKey:*(a1 + 88) selectedOrigin:*(a1 + 96) pairedChallenge:*(a1 + 32) overridePairedAttester:*(a1 + 104) pairedTokenKey:*(a1 + 112) auditToken:*(a1 + 120) bundleID:*(a1 + 128) allowTools:v5 systemTokenClient:*(a1 + 136) accessToken:*(a1 + 144) completionHandler:?];
 }
 
 void sub_1000ABE00(uint64_t a1, char a2)
@@ -660,28 +656,27 @@ void sub_1000ABE00(uint64_t a1, char a2)
     v7 = *(a1 + 80);
     v8 = *(a1 + 88);
     v9 = *(a1 + 96);
-    v15 = *(a1 + 72);
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_1000ABF74;
-    v16[3] = &unk_10010AF20;
+    v14 = *(a1 + 72);
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_1000ABF74;
+    v15[3] = &unk_10010AF20;
     v10 = *(a1 + 104);
     v11 = *(a1 + 112);
     v12 = *(a1 + 120);
-    v19 = v11;
-    v20 = v12;
-    v17 = *(a1 + 48);
-    v18 = *(a1 + 32);
-    sub_1000A4BD4(v3, v4, v6, 0, 0, v5, 1, v15, v7, 0, 0, v8, v9, 0, v10, 0, v16);
+    v18 = v11;
+    v19 = v12;
+    v16 = *(a1 + 48);
+    v17 = *(a1 + 32);
+    sub_1000A4BD4(v3, v4, v6, 0, 0, v5, 1, v14, v7, 0, 0, v8, v9, 0, v10, 0, v15);
   }
 
   else
   {
-    v13 = *(a1 + 112);
     (*(*(a1 + 112) + 16))();
-    v14 = *(a1 + 32);
+    v13 = *(a1 + 32);
 
-    dispatch_group_leave(v14);
+    dispatch_group_leave(v13);
   }
 }
 
@@ -776,38 +771,37 @@ void sub_1000AC328(uint64_t a1, char a2)
     v9 = *(a1 + 80);
     v10 = *(*(*(a1 + 112) + 8) + 40);
     v11 = *(a1 + 88);
-    v18 = *(a1 + 64);
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_1000AC538;
-    v19[3] = &unk_10010AF98;
-    v32 = v3;
+    v17 = *(a1 + 64);
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_1000AC538;
+    v18[3] = &unk_10010AF98;
+    v31 = v3;
     v12 = *(a1 + 104);
     v13 = *(a1 + 112);
-    v29 = v12;
-    v30 = v13;
-    v20 = *(a1 + 48);
-    v21 = *(a1 + 64);
+    v28 = v12;
+    v29 = v13;
+    v19 = *(a1 + 48);
+    v20 = *(a1 + 64);
     v14 = *(a1 + 96);
-    v31 = v4;
+    v30 = v4;
     v15 = *(a1 + 40);
-    v22 = v14;
-    v23 = v15;
-    v24 = *(a1 + 56);
-    v25 = *(a1 + 72);
-    v26 = *(a1 + 80);
-    v27 = *(a1 + 88);
-    v28 = *(a1 + 32);
-    sub_1000A4BD4(v5, v6, v7, 0, 0, v18, v4, 0, 0, 0, 0, v8, v9, v10, v11, 0, v19);
+    v21 = v14;
+    v22 = v15;
+    v23 = *(a1 + 56);
+    v24 = *(a1 + 72);
+    v25 = *(a1 + 80);
+    v26 = *(a1 + 88);
+    v27 = *(a1 + 32);
+    sub_1000A4BD4(v5, v6, v7, 0, 0, v17, v4, 0, 0, 0, 0, v8, v9, v10, v11, 0, v18);
   }
 
   else
   {
-    v16 = *(a1 + 104);
     (*(*(a1 + 104) + 16))();
-    v17 = *(a1 + 32);
+    v16 = *(a1 + 32);
 
-    dispatch_group_leave(v17);
+    dispatch_group_leave(v16);
   }
 }
 
@@ -953,12 +947,12 @@ void sub_1000ACE84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_1000ACEB0(uint64_t a1, int a2, void *a3)
 {
-  v10 = a3;
+  v9 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v6 = WeakRetained;
   if (a2 == 2 && WeakRetained)
   {
-    if (v10 && nw_array_get_count())
+    if (v9 && nw_array_get_count())
     {
       v7 = *(*(a1 + 32) + 16);
     }
@@ -969,9 +963,8 @@ void sub_1000ACEB0(uint64_t a1, int a2, void *a3)
     }
 
     v7();
-    v8 = v6[13];
     nw_resolver_cancel();
-    v9 = v6[13];
+    v8 = v6[13];
     v6[13] = 0;
   }
 }
@@ -1024,11 +1017,11 @@ void sub_1000AD6D0(uint64_t a1)
       v4 = *(a1 + 32);
       [*(a1 + 48) URL];
       v5 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-      v38 = 138412546;
-      v39 = v4;
-      v40 = 2112;
-      v41 = v5;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Received check quota error %@ for %@", &v38, 0x16u);
+      v37 = 138412546;
+      v38 = v4;
+      v39 = 2112;
+      v40 = v5;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Received check quota error %@ for %@", &v37, 0x16u);
     }
 
     v8 = *(a1 + 32);
@@ -1049,12 +1042,12 @@ LABEL_20:
       goto LABEL_21;
     }
 
-    v13 = [v8 domain];
-    if (v13 != NSPOSIXErrorDomain || [*(a1 + 32) code] != 50)
+    v12 = [v8 domain];
+    if (v12 != NSPOSIXErrorDomain || [*(a1 + 32) code] != 50)
     {
-      v14 = [*(a1 + 32) domain];
-      v15 = v14;
-      if (v14 != NSURLErrorDomain)
+      v13 = [*(a1 + 32) domain];
+      v14 = v13;
+      if (v13 != NSURLErrorDomain)
       {
 
         goto LABEL_20;
@@ -1071,98 +1064,97 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v9 = *(a1 + 56);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v10 = *(a1 + 56);
+    v9 = *(a1 + 56);
     if (os_variant_has_internal_diagnostics())
     {
-      v11 = [v10 allHeaderFields];
-      v12 = [v11 objectForKeyedSubscript:@"x-apple-request-uuid"];
+      v10 = [v9 allHeaderFields];
+      v11 = [v10 objectForKeyedSubscript:@"x-apple-request-uuid"];
     }
 
     else
     {
-      v12 = 0;
+      v11 = 0;
     }
 
-    v16 = nplog_obj();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v15 = nplog_obj();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = COERCE_DOUBLE([v10 statusCode]);
+      v16 = COERCE_DOUBLE([v9 statusCode]);
       [*(a1 + 48) URL];
-      v18 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-      v38 = 134218498;
-      v39 = v17;
-      v40 = 2112;
-      v41 = v18;
-      v42 = 2112;
-      v43 = v12;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Received HTTP response code %ld for %@ with request UUID %@", &v38, 0x20u);
+      v17 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      v37 = 134218498;
+      v38 = v16;
+      v39 = 2112;
+      v40 = v17;
+      v41 = 2112;
+      v42 = v11;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Received HTTP response code %ld for %@ with request UUID %@", &v37, 0x20u);
     }
 
-    if ([v10 statusCode] == 200)
+    if ([v9 statusCode] == 200)
     {
-      v19 = [[NSPPrivacyProxyQuotaServiceResponse alloc] initWithData:*(a1 + 40)];
-      v20 = [v19 response];
-      if (([v20 hasGenericError] & 1) != 0 || (objc_msgSend(v20, "hasSuccess") & 1) == 0)
+      v18 = [[NSPPrivacyProxyQuotaServiceResponse alloc] initWithData:*(a1 + 40)];
+      v19 = [v18 response];
+      if (([v19 hasGenericError] & 1) != 0 || (objc_msgSend(v19, "hasSuccess") & 1) == 0)
       {
-        v34 = *(a1 + 72);
-        v21 = [v20 genericError];
-        v35 = [v21 errorReason];
-        (*(v34 + 16))(v34, 0, 1016, v35, v12, 0.0, 0.0);
+        v33 = *(a1 + 72);
+        v20 = [v19 genericError];
+        v34 = [v20 errorReason];
+        (*(v33 + 16))(v33, 0, 1016, v34, v11, 0.0, 0.0);
       }
 
       else
       {
-        v21 = [v20 success];
-        v22 = [v21 quota];
-        v23 = [v22 expiration];
+        v20 = [v19 success];
+        v21 = [v20 quota];
+        v22 = [v21 expiration];
 
-        v24 = [v21 quota];
-        v25 = [v24 cost];
-        [v25 limit];
-        v27 = v26;
+        v23 = [v20 quota];
+        v24 = [v23 cost];
+        [v24 limit];
+        v26 = v25;
 
-        v28 = [v21 quota];
-        v29 = [v28 cost];
-        [v29 remaining];
-        v31 = v30;
+        v27 = [v20 quota];
+        v28 = [v27 cost];
+        [v28 remaining];
+        v30 = v29;
 
-        v32 = nplog_obj();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+        v31 = nplog_obj();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
         {
-          v33 = *(a1 + 64);
-          v38 = 134218754;
-          v39 = v31;
-          v40 = 2048;
-          v41 = v27;
-          v42 = 2112;
-          v43 = v33;
-          v44 = 2048;
-          v45 = v23;
-          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "Received %f/%f cost quota from %@, expiring at %llu", &v38, 0x2Au);
+          v32 = *(a1 + 64);
+          v37 = 134218754;
+          v38 = v30;
+          v39 = 2048;
+          v40 = v26;
+          v41 = 2112;
+          v42 = v32;
+          v43 = 2048;
+          v44 = v22;
+          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "Received %f/%f cost quota from %@, expiring at %llu", &v37, 0x2Au);
         }
 
-        (*(*(a1 + 72) + 16))(v27, v31);
+        (*(*(a1 + 72) + 16))(v26, v30);
       }
     }
 
     else
     {
-      if ([v10 statusCode] == 401)
+      if ([v9 statusCode] == 401)
       {
         +[NSPBAA authenticationFailure];
       }
 
-      else if ([v10 statusCode] != 429 && objc_msgSend(v10, "statusCode") >= 400)
+      else if ([v9 statusCode] != 429 && objc_msgSend(v9, "statusCode") >= 400)
       {
-        [v10 statusCode];
+        [v9 statusCode];
       }
 
-      v36 = [v10 allHeaderFields];
-      v37 = [v36 objectForKeyedSubscript:@"Error-Reason"];
+      v35 = [v9 allHeaderFields];
+      v36 = [v35 objectForKeyedSubscript:@"Error-Reason"];
 
       (*(*(a1 + 72) + 16))(0.0, 0.0);
     }
@@ -1362,22 +1354,22 @@ LABEL_37:
   return v21;
 }
 
-void sub_1000AE3B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000AE3B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000AE3DC(uint64_t a1)
+void sub_1000AE3DC(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
     v1[0] = _NSConcreteStackBlock;
     v1[1] = 3221225472;
     v1[2] = sub_1000AE83C;
     v1[3] = &unk_100109478;
-    v1[4] = a1;
+    v1[4] = result;
     sub_1000AE45C(NSPUserNotification, v1);
   }
 }
@@ -1800,9 +1792,9 @@ LABEL_9:
 LABEL_6:
 }
 
-void sub_1000AF770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000AF770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1830,20 +1822,19 @@ void sub_1000AFAC0(uint64_t a1, uint64_t a2)
     ++dword_1001298BC;
     v4 = *(a1 + 40);
     v5 = *(a1 + 48);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_1000AFBE8;
-    v8[3] = &unk_10010B140;
-    v9 = *(a1 + 56);
-    sub_1000AF498(NSPBAA, v4, v5, v8);
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_1000AFBE8;
+    v7[3] = &unk_10010B140;
+    v8 = *(a1 + 56);
+    sub_1000AF498(NSPBAA, v4, v5, v7);
   }
 
   else
   {
-    v6 = *(a1 + 56);
-    v7 = *(*(a1 + 56) + 16);
+    v6 = *(*(a1 + 56) + 16);
 
-    v7();
+    v6();
   }
 }
 
@@ -1858,20 +1849,19 @@ void sub_1000AFC08(uint64_t a1, uint64_t a2)
     ++dword_1001298BC;
     v4 = *(a1 + 40);
     v5 = *(a1 + 48);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_1000AFD34;
-    v8[3] = &unk_10010B140;
-    v9 = *(a1 + 56);
-    sub_1000AF498(NSPBAA, v4, v5, v8);
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_1000AFD34;
+    v7[3] = &unk_10010B140;
+    v8 = *(a1 + 56);
+    sub_1000AF498(NSPBAA, v4, v5, v7);
   }
 
   else
   {
-    v6 = *(a1 + 56);
-    v7 = *(*(a1 + 56) + 16);
+    v6 = *(*(a1 + 56) + 16);
 
-    v7();
+    v6();
   }
 }
 
@@ -1886,20 +1876,19 @@ void sub_1000AFE98(uint64_t a1, uint64_t a2)
     ++dword_1001298BC;
     v4 = *(a1 + 40);
     v5 = *(a1 + 48);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_1000AFFC0;
-    v8[3] = &unk_10010B140;
-    v9 = *(a1 + 56);
-    sub_1000AF498(NSPBAA, v4, v5, v8);
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_1000AFFC0;
+    v7[3] = &unk_10010B140;
+    v8 = *(a1 + 56);
+    sub_1000AF498(NSPBAA, v4, v5, v7);
   }
 
   else
   {
-    v6 = *(a1 + 56);
-    v7 = *(*(a1 + 56) + 16);
+    v6 = *(*(a1 + 56) + 16);
 
-    v7();
+    v6();
   }
 }
 
@@ -2036,21 +2025,20 @@ void sub_1000B068C(uint64_t a1, int a2)
     [*(a1 + 32) setHTTPBody:*(a1 + 40)];
     ++dword_1001298BC;
     v3 = *(a1 + 32);
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_1000B0790;
-    v7[3] = &unk_10010B140;
+    v6[0] = _NSConcreteStackBlock;
+    v6[1] = 3221225472;
+    v6[2] = sub_1000B0790;
+    v6[3] = &unk_10010B140;
     v4 = *(a1 + 48);
-    v8 = *(a1 + 56);
-    sub_1000AF498(NSPBAA, v3, v4, v7);
+    v7 = *(a1 + 56);
+    sub_1000AF498(NSPBAA, v3, v4, v6);
   }
 
   else
   {
-    v5 = *(a1 + 56);
-    v6 = *(*(a1 + 56) + 16);
+    v5 = *(*(a1 + 56) + 16);
 
-    v6();
+    v5();
   }
 }
 
@@ -2061,21 +2049,20 @@ void sub_1000B07B0(uint64_t a1, int a2)
     [*(a1 + 32) setHTTPBody:*(a1 + 40)];
     ++dword_1001298BC;
     v3 = *(a1 + 32);
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_1000B08B8;
-    v7[3] = &unk_10010B140;
+    v6[0] = _NSConcreteStackBlock;
+    v6[1] = 3221225472;
+    v6[2] = sub_1000B08B8;
+    v6[3] = &unk_10010B140;
     v4 = *(a1 + 48);
-    v8 = *(a1 + 56);
-    sub_1000AF498(NSPBAA, v3, v4, v7);
+    v7 = *(a1 + 56);
+    sub_1000AF498(NSPBAA, v3, v4, v6);
   }
 
   else
   {
-    v5 = *(a1 + 56);
-    v6 = *(*(a1 + 56) + 16);
+    v5 = *(*(a1 + 56) + 16);
 
-    v6();
+    v5();
   }
 }
 
@@ -2083,19 +2070,18 @@ id sub_1000B0CA0(void *a1, uint64_t a2, char a3)
 {
   if (a3)
   {
-    v4 = a1[7];
-    v5 = *(a1[7] + 16);
+    v4 = *(a1[7] + 16);
 
-    return v5();
+    return v4();
   }
 
   else
   {
-    v7 = nplog_obj();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = nplog_obj();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Authentication fallback", v8, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Authentication fallback", v7, 2u);
     }
 
     return [NSPAnisette sendRequestForTokens:a1[4] tokenFetchURLSession:a1[5] tokenActivationQuery:a1[6] completionHandler:a1[7]];
@@ -2106,28 +2092,27 @@ id sub_1000B1268(void *a1, uint64_t a2, char a3)
 {
   if (a3)
   {
-    v4 = a1[7];
-    v5 = *(a1[7] + 16);
+    v4 = *(a1[7] + 16);
 
-    return v5();
+    return v4();
   }
 
   else
   {
-    v7 = nplog_obj();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = nplog_obj();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Authentication fallback", v8, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Authentication fallback", v7, 2u);
     }
 
     return [NSPAnisette sendRequestForTokens:a1[4] tokenFetchURLSession:a1[5] messageBody:a1[6] completionHandler:a1[7]];
   }
 }
 
-void sub_1000B1710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000B1710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2318,7 +2303,7 @@ LABEL_29:
   if (v15)
   {
     v17 = v15;
-    v15[4] = a2;
+    LOWORD(v15[1].isa) = a2;
     objc_setProperty_atomic(v15, v16, v11, 24);
     objc_setProperty_atomic(v17, v18, v12, 32);
     objc_setProperty_atomic(v17, v19, v13, 48);
@@ -2399,7 +2384,7 @@ LABEL_20:
   return v35;
 }
 
-uint64_t sub_1000B37E0(void *a1, int a2)
+unint64_t sub_1000B37E0(void *a1, int a2)
 {
   v2 = a1;
   if (a1)
@@ -2531,7 +2516,7 @@ LABEL_9:
             [v20 appendData:v12];
             *md = 0u;
             v30 = 0u;
-            CC_SHA256([v17 bytes], objc_msgSend(v17, "length"), md);
+            CC_SHA256([v17 bytes], [v17 length], md);
             [v20 appendBytes:md length:32];
           }
 
@@ -2748,7 +2733,7 @@ LABEL_27:
   return v12;
 }
 
-id sub_1000B429C()
+id sub_1000B429C(uint64_t a1)
 {
   objc_opt_self();
   if (qword_1001298A0 != -1)
@@ -2756,9 +2741,9 @@ id sub_1000B429C()
     dispatch_once(&qword_1001298A0, &stru_10010B228);
   }
 
-  v0 = qword_100129898;
+  v1 = qword_100129898;
 
-  return v0;
+  return v1;
 }
 
 void sub_1000B42F4(id a1)
@@ -2770,21 +2755,21 @@ void sub_1000B42F4(id a1)
   _objc_release_x1(v1, v2);
 }
 
-uint64_t sub_1000B4330()
+uint64_t sub_1000B4330(uint64_t a1)
 {
   objc_opt_self();
-  v0 = sub_1000B429C();
-  if (v0)
+  v1 = sub_1000B429C(NSPPrivateAccessTokenClientState);
+  if (v1)
   {
-    v1 = v0[1];
+    v2 = v1[1];
   }
 
   else
   {
-    v1 = 0;
+    v2 = 0;
   }
 
-  return v1;
+  return v2;
 }
 
 id sub_1000B48AC(uint64_t a1, void *a2)
@@ -2805,7 +2790,7 @@ id sub_1000B48AC(uint64_t a1, void *a2)
     }
 
     *buf = 136315138;
-    v50 = "[NSPPrivateAccessTokenRequest decryptResponse:]";
+    v49 = "[NSPPrivateAccessTokenRequest decryptResponse:]";
     v42 = "%s called with null responseData";
 LABEL_49:
     _os_log_fault_impl(&_mh_execute_header, v25, OS_LOG_TYPE_FAULT, v42, buf, 0xCu);
@@ -2827,7 +2812,7 @@ LABEL_49:
     }
 
     *buf = 136315138;
-    v50 = "[NSPPrivateAccessTokenRequest decryptResponse:]";
+    v49 = "[NSPPrivateAccessTokenRequest decryptResponse:]";
     v42 = "%s called with null self.hpkeContext";
     goto LABEL_49;
   }
@@ -2838,7 +2823,7 @@ LABEL_49:
     if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v50 = "[NSPPrivateAccessTokenRequest decryptResponse:]";
+      v49 = "[NSPPrivateAccessTokenRequest decryptResponse:]";
       v42 = "%s called with null self.hpkeEnc";
       goto LABEL_49;
     }
@@ -2850,7 +2835,6 @@ LABEL_20:
     goto LABEL_31;
   }
 
-  v47 = *(a1 + 104);
   cchpke_params_x25519_AESGCM128_HKDF_SHA256();
   v6 = cchpke_params_sizeof_aead_key();
   v7 = cchpke_params_sizeof_aead_nonce();
@@ -2875,7 +2859,7 @@ LABEL_20:
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v50 = v24;
+      v49 = v24;
       _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Invalid length %zu", buf, 0xCu);
     }
 
@@ -2899,14 +2883,14 @@ LABEL_20:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v50) = v20;
+      LODWORD(v49) = v20;
       _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Export error: %d", buf, 8u);
     }
 
     goto LABEL_14;
   }
 
-  v48 = v13;
+  v47 = v13;
   v26 = cchpke_params_sizeof_kdf_hash();
   v27 = malloc_type_calloc(1uLL, v26, 0x100004077774924uLL);
   ccsha256_di();
@@ -2920,7 +2904,7 @@ LABEL_20:
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v50) = v28;
+      LODWORD(v49) = v28;
       _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Extract error: %d", buf, 8u);
     }
 
@@ -2928,7 +2912,7 @@ LABEL_20:
 LABEL_29:
     free(v30);
     v23 = 0;
-    v15 = v48;
+    v15 = v47;
     goto LABEL_30;
   }
 
@@ -2941,7 +2925,7 @@ LABEL_29:
     if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v50) = v33;
+      LODWORD(v49) = v33;
       _os_log_error_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "Key expand error: %d", buf, 8u);
     }
 
@@ -2963,7 +2947,7 @@ LABEL_29:
     v40 = ccgcm_one_shot();
     free(v44);
     free(v18);
-    v15 = v48;
+    v15 = v47;
     if (!v40)
     {
       v23 = [[NSData alloc] initWithBytes:v38 length:{v12, v39, v38, v8, v43}];
@@ -2975,7 +2959,7 @@ LABEL_29:
     if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v50) = v40;
+      LODWORD(v49) = v40;
       _os_log_error_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "Decrypt error: %d", buf, 8u);
     }
 
@@ -2984,11 +2968,11 @@ LABEL_29:
   }
 
   v37 = nplog_obj();
-  v15 = v48;
+  v15 = v47;
   if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109120;
-    LODWORD(v50) = v36;
+    LODWORD(v49) = v36;
     _os_log_error_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "Nonce expand error: %d", buf, 8u);
   }
 
@@ -3005,28 +2989,28 @@ LABEL_31:
   return v23;
 }
 
-id sub_1000B4FC8()
+id sub_1000B4FC8(uint64_t a1)
 {
   objc_opt_self();
   memset(bytes, 0, sizeof(bytes));
   if (SecRandomCopyBytes(kSecRandomDefault, 0x20uLL, bytes) < 0)
   {
-    v1 = nplog_obj();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v2 = nplog_obj();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      *v3 = 0;
-      _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "generate tokens: SecRandomCopyBytes failed", v3, 2u);
+      *v4 = 0;
+      _os_log_error_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "generate tokens: SecRandomCopyBytes failed", v4, 2u);
     }
 
-    v0 = 0;
+    v1 = 0;
   }
 
   else
   {
-    v0 = [NSData dataWithBytes:bytes length:32];
+    v1 = [NSData dataWithBytes:bytes length:32];
   }
 
-  return v0;
+  return v1;
 }
 
 id sub_1000B50B8(uint64_t a1, void *a2)
@@ -3263,9 +3247,9 @@ LABEL_56:
   }
 
 LABEL_9:
-  v158.receiver = a1;
-  v158.super_class = NSPPrivateAccessTokenRequest;
-  v21 = [&v158 init];
+  v157.receiver = a1;
+  v157.super_class = NSPPrivateAccessTokenRequest;
+  v21 = [&v157 init];
   if (!v21)
   {
     a1 = nplog_obj();
@@ -3338,8 +3322,8 @@ LABEL_17:
     v33 = v19;
     v34 = v16;
     v35 = objc_alloc_init(NSMutableData);
-    v159 = __rev16(WORD1(v22[1].isa));
-    [v35 appendBytes:&v159 length:2];
+    v158 = __rev16(WORD1(v22[1].isa));
+    [v35 appendBytes:&v158 length:2];
     objc_setProperty_atomic(v22, v36, v33, 32);
     if (WORD1(v22[1].isa) != 3)
     {
@@ -3354,13 +3338,13 @@ LABEL_54:
       goto LABEL_55;
     }
 
-    v156 = v35;
-    v157 = v16;
-    v155 = v34;
+    v155 = v35;
+    v156 = v16;
+    v154 = v34;
     v38 = v34;
     v39 = [v38 length];
     v40 = [v38 bytes];
-    v154 = v19;
+    v153 = v19;
     if (v39 <= 0x26)
     {
       v41 = v14;
@@ -3373,14 +3357,14 @@ LABEL_54:
         _os_log_error_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "Config length is too short: %zu", md, 0xCu);
       }
 
-      v16 = v157;
+      v16 = v156;
       goto LABEL_50;
     }
 
     v48 = v40;
     if (*(v40 + 1) == 0x2000)
     {
-      v16 = v157;
+      v16 = v156;
       if (*(v40 + 35) == 256)
       {
         if (*(v40 + 37) == 256)
@@ -3397,10 +3381,10 @@ LABEL_54:
             goto LABEL_37;
           }
 
-          v73 = sub_1000B4330();
+          v73 = sub_1000B4330(NSPPrivateAccessTokenClientState);
           if (v73)
           {
-            v153 = v33;
+            v152 = v33;
             v74 = SecKeyCopyPublicKey(v73);
             if (v74)
             {
@@ -3418,10 +3402,10 @@ LABEL_54:
                 isa_high = __rev16(WORD1(v22[1].isa));
                 [v77 appendBytes:&isa_high length:2];
                 [v77 appendBytes:"ClientBlind" length:11];
-                v160 = 0;
-                v140 = v77;
-                v78 = [CKPATKeyBlinding blindPublicKey:v75 withPrivateKey:cfa context:v77 error:&v160];
-                v144 = v160;
+                v159 = 0;
+                v139 = v77;
+                v78 = [CKPATKeyBlinding blindPublicKey:v75 withPrivateKey:cfa context:v77 error:&v159];
+                v143 = v159;
                 CFRelease(v75);
                 if (v78)
                 {
@@ -3433,16 +3417,16 @@ LABEL_54:
                   {
                     v22[12].isa = cfa;
 
-                    v33 = v153;
+                    v33 = v152;
 LABEL_37:
-                    v152 = v33;
-                    [v156 appendData:{objc_getProperty(v22, v52, 80, 1)}];
+                    v151 = v33;
+                    [v155 appendData:{objc_getProperty(v22, v52, 80, 1)}];
                     memset(md, 0, sizeof(md));
                     CC_SHA256([v38 bytes], objc_msgSend(v38, "length"), md);
                     v53 = [[NSData alloc] initWithBytes:md length:32];
                     objc_setProperty_atomic(v22, v54, v53, 56);
 
-                    [v156 appendData:{objc_getProperty(v22, v55, 56, 1)}];
+                    [v155 appendData:{objc_getProperty(v22, v55, 56, 1)}];
                     v57 = objc_getProperty(v22, v56, 40, 1);
                     if (!v57)
                     {
@@ -3455,7 +3439,7 @@ LABEL_37:
                       }
 
                       v64 = 0;
-                      v16 = v157;
+                      v16 = v156;
                       goto LABEL_42;
                     }
 
@@ -3464,9 +3448,9 @@ LABEL_37:
                     logc = cchpke_params_sizeof_kem_enc();
                     cf = malloc_type_calloc(1uLL, 0x60uLL, 0x10600407D690DC1uLL);
                     v59 = malloc_type_calloc(1uLL, logc, 0x190E006BuLL);
-                    *v167 = 0;
+                    *v166 = 0;
                     ccrng();
-                    v143 = v58;
+                    v142 = v58;
                     [v58 bytes];
                     v60 = cchpke_initiator_setup();
                     v61 = [[NSData alloc] initWithBytes:v59 length:{logc, v59}];
@@ -3484,11 +3468,11 @@ LABEL_37:
                       }
 
                       free(cf);
-                      v16 = v157;
-                      v64 = v143;
+                      v16 = v156;
+                      v64 = v142;
 LABEL_42:
 
-                      v33 = v152;
+                      v33 = v151;
                       goto LABEL_86;
                     }
 
@@ -3496,22 +3480,22 @@ LABEL_42:
                     v82 = objc_alloc_init(NSMutableData);
                     isa = v22[1].isa;
                     [v82 appendBytes:&isa length:1];
-                    LOWORD(v160) = WORD2(v22[1].isa);
-                    [v82 appendBytes:&v160 length:2];
+                    LOWORD(v159) = WORD2(v22[1].isa);
+                    [v82 appendBytes:&v159 length:2];
                     isa_high = HIWORD(v22[1].isa);
                     [v82 appendBytes:&isa_high length:2];
-                    v163 = v22[2].isa;
-                    [v82 appendBytes:&v163 length:2];
-                    v162 = __rev16(WORD1(v22[1].isa));
-                    cfb = v82;
+                    v162 = v22[2].isa;
                     [v82 appendBytes:&v162 length:2];
+                    v161 = __rev16(WORD1(v22[1].isa));
+                    cfb = v82;
+                    [v82 appendBytes:&v161 length:2];
                     [v82 appendData:{objc_getProperty(v22, v83, 80, 1)}];
                     [v82 appendData:{objc_getProperty(v22, v84, 56, 1)}];
                     loga = objc_alloc_init(NSMutableData);
                     [loga appendData:objc_getProperty(v22, v85, 48, 1)];
                     [loga appendData:objc_getProperty(v22, v86, 32, 1)];
-                    v138 = objc_getProperty(v22, v87, 64, 1);
-                    v88 = [v138 UTF8String];
+                    v137 = objc_getProperty(v22, v87, 64, 1);
+                    v88 = [v137 UTF8String];
                     v89 = strlen(v88);
                     v90 = v89;
                     v91 = -v89 & 0x1FLL;
@@ -3523,25 +3507,24 @@ LABEL_42:
                     v92 = v91 + v89;
                     v93 = malloc_type_calloc(1uLL, v91 + v89, 0xC8CB9515uLL);
                     memcpy(v93, v88, v90);
-                    v161 = bswap32(v92) >> 16;
-                    [loga appendBytes:&v161 length:2];
+                    v160 = bswap32(v92) >> 16;
+                    [loga appendBytes:&v160 length:2];
                     [loga appendBytes:v93 length:v92];
                     free(v93);
-                    v139 = malloc_type_calloc(1uLL, [loga length], 0x22C3DEEFuLL);
+                    v138 = malloc_type_calloc(1uLL, [loga length], 0x22C3DEEFuLL);
                     v94 = cchpke_params_sizeof_aead_tag();
-                    v141 = malloc_type_calloc(1uLL, v94, 0x562F6EB5uLL);
-                    v136 = v22[13].isa;
+                    v140 = malloc_type_calloc(1uLL, v94, 0x562F6EB5uLL);
                     [cfb length];
                     [cfb bytes];
                     [loga length];
                     [loga bytes];
-                    v137 = v94;
+                    v136 = v94;
                     v95 = cchpke_initiator_encrypt();
                     if (v95)
                     {
                       v96 = v95;
                       v97 = nplog_obj();
-                      v33 = v152;
+                      v33 = v151;
                       if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
                       {
                         LODWORD(buf) = 67109120;
@@ -3549,10 +3532,10 @@ LABEL_42:
                         _os_log_error_impl(&_mh_execute_header, v97, OS_LOG_TYPE_ERROR, "Encrypt error: %d", &buf, 8u);
                       }
 
-                      free(v141);
-                      free(v139);
+                      free(v140);
+                      free(v138);
                       v98 = 0;
-                      v16 = v157;
+                      v16 = v156;
                       v99 = loga;
                     }
 
@@ -3561,15 +3544,15 @@ LABEL_42:
                       v101 = objc_alloc_init(NSMutableData);
                       [v101 appendData:{objc_getProperty(v22, v102, 112, 1)}];
                       v99 = loga;
-                      [v101 appendBytes:v139 length:{-[NSObject length](loga, "length")}];
-                      [v101 appendBytes:v141 length:v137];
-                      free(v141);
-                      free(v139);
+                      [v101 appendBytes:v138 length:{-[NSObject length](loga, "length")}];
+                      [v101 appendBytes:v140 length:v136];
+                      free(v140);
+                      free(v138);
                       objc_setProperty_atomic(v22, v103, v101, 72);
                       Property = objc_getProperty(v22, v104, 72, 1);
-                      v142 = Property != 0;
-                      v16 = v157;
-                      v33 = v152;
+                      v141 = Property != 0;
+                      v16 = v156;
+                      v33 = v151;
                       if (!Property)
                       {
                         v106 = nplog_obj();
@@ -3582,7 +3565,7 @@ LABEL_42:
                         v99 = loga;
                       }
 
-                      v98 = v142;
+                      v98 = v141;
                     }
 
                     if (!v98)
@@ -3603,9 +3586,9 @@ LABEL_123:
                       goto LABEL_93;
                     }
 
-                    v163 = bswap32([objc_getProperty(v22 v107]) >> 16;
-                    [v156 appendBytes:&v163 length:2];
-                    [v156 appendData:{objc_getProperty(v22, v108, 72, 1)}];
+                    v162 = bswap32([objc_getProperty(v22 v107]) >> 16;
+                    [v155 appendBytes:&v162 length:2];
+                    [v155 appendData:{objc_getProperty(v22, v108, 72, 1)}];
                     if (objc_getProperty(v22, v109, 80, 1))
                     {
                       if (objc_getProperty(v22, v110, 56, 1))
@@ -3614,40 +3597,40 @@ LABEL_123:
                         {
                           if (v22[12].isa)
                           {
-                            v112 = sub_1000B4330();
+                            v112 = sub_1000B4330(NSPPrivateAccessTokenClientState);
                             if (v112)
                             {
                               v113 = v112;
                               v114 = objc_alloc_init(NSMutableData);
-                              LOWORD(v160) = __rev16(WORD1(v22[1].isa));
-                              [v114 appendBytes:&v160 length:2];
+                              LOWORD(v159) = __rev16(WORD1(v22[1].isa));
+                              [v114 appendBytes:&v159 length:2];
                               [v114 appendData:{objc_getProperty(v22, v115, 80, 1)}];
                               [v114 appendData:{objc_getProperty(v22, v116, 56, 1)}];
                               isa_high = bswap32([objc_getProperty(v22 v117]) >> 16;
                               [v114 appendBytes:&isa_high length:2];
                               [v114 appendData:{objc_getProperty(v22, v118, 72, 1)}];
                               v119 = objc_alloc_init(NSMutableData);
-                              [v119 appendBytes:&v160 length:2];
+                              [v119 appendBytes:&v159 length:2];
                               [v119 appendBytes:"ClientBlind" length:11];
                               v120 = v22[12].isa;
-                              *v167 = 0;
-                              v121 = [CKPATKeyBlinding blindSignMessage:v114 blindedBy:v120 withKey:v113 context:v119 error:v167];
-                              v122 = *v167;
+                              *v166 = 0;
+                              v121 = [CKPATKeyBlinding blindSignMessage:v114 blindedBy:v120 withKey:v113 context:v119 error:v166];
+                              v122 = *v166;
                               objc_setProperty_atomic(v22, v123, v121, 88);
 
                               if (objc_getProperty(v22, v124, 88, 1))
                               {
 
-                                v35 = v156;
-                                [v156 appendData:{objc_getProperty(v22, v125, 88, 1)}];
-                                v16 = v157;
-                                v33 = v152;
-                                v34 = v155;
+                                v35 = v155;
+                                [v155 appendData:{objc_getProperty(v22, v125, 88, 1)}];
+                                v16 = v156;
+                                v33 = v151;
+                                v34 = v154;
                                 goto LABEL_25;
                               }
 
                               logb = nplog_obj();
-                              v16 = v157;
+                              v16 = v156;
                               if (os_log_type_enabled(logb, OS_LOG_TYPE_ERROR))
                               {
                                 LODWORD(buf) = 138412290;
@@ -3655,7 +3638,7 @@ LABEL_123:
                                 _os_log_error_impl(&_mh_execute_header, logb, OS_LOG_TYPE_ERROR, "generate signature: SecKeyCopyExternalRepresentation failed: %@", &buf, 0xCu);
                               }
 
-                              v33 = v152;
+                              v33 = v151;
 LABEL_106:
                               v126 = nplog_obj();
                               if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
@@ -3669,8 +3652,8 @@ LABEL_93:
 
                               a1 = 0;
 LABEL_53:
-                              v34 = v155;
-                              v45 = v156;
+                              v34 = v154;
+                              v45 = v155;
                               goto LABEL_54;
                             }
 
@@ -3696,8 +3679,8 @@ LABEL_99:
                           }
 
 LABEL_142:
-                          v16 = v157;
-                          v33 = v152;
+                          v16 = v156;
+                          v33 = v151;
                           goto LABEL_99;
                         }
 
@@ -3745,28 +3728,28 @@ LABEL_141:
                   }
 
                   v131 = nplog_obj();
-                  v33 = v153;
+                  v33 = v152;
                   if (os_log_type_enabled(v131, OS_LOG_TYPE_ERROR))
                   {
-                    *v167 = 0;
-                    _os_log_error_impl(&_mh_execute_header, v131, OS_LOG_TYPE_ERROR, "generate key: compressedRepresentationFromSecKey failed", v167, 2u);
+                    *v166 = 0;
+                    _os_log_error_impl(&_mh_execute_header, v131, OS_LOG_TYPE_ERROR, "generate key: compressedRepresentationFromSecKey failed", v166, 2u);
                   }
 
-                  v16 = v157;
+                  v16 = v156;
                 }
 
                 else
                 {
                   v131 = nplog_obj();
-                  v16 = v157;
+                  v16 = v156;
                   if (os_log_type_enabled(v131, OS_LOG_TYPE_ERROR))
                   {
-                    *v167 = 138412290;
-                    *&v167[4] = v144;
-                    _os_log_error_impl(&_mh_execute_header, v131, OS_LOG_TYPE_ERROR, "generate key: blindPublicKey failed: %@", v167, 0xCu);
+                    *v166 = 138412290;
+                    *&v166[4] = v143;
+                    _os_log_error_impl(&_mh_execute_header, v131, OS_LOG_TYPE_ERROR, "generate key: blindPublicKey failed: %@", v166, 0xCu);
                   }
 
-                  v33 = v153;
+                  v33 = v152;
                 }
 
                 CFRelease(cfa);
@@ -3778,12 +3761,12 @@ LABEL_141:
                 v129 = nplog_obj();
                 if (os_log_type_enabled(v129, OS_LOG_TYPE_ERROR))
                 {
-                  *v167 = 0;
-                  _os_log_error_impl(&_mh_execute_header, v129, OS_LOG_TYPE_ERROR, "generate key: SecKeyCreateRandomKey failed", v167, 2u);
+                  *v166 = 0;
+                  _os_log_error_impl(&_mh_execute_header, v129, OS_LOG_TYPE_ERROR, "generate key: SecKeyCreateRandomKey failed", v166, 2u);
                 }
 
-                v16 = v157;
-                v33 = v153;
+                v16 = v156;
+                v33 = v152;
               }
 
 LABEL_92:
@@ -3800,11 +3783,11 @@ LABEL_92:
             }
 
             v100 = nplog_obj();
-            v16 = v157;
+            v16 = v156;
             if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
             {
-              *v167 = 0;
-              _os_log_error_impl(&_mh_execute_header, v100, OS_LOG_TYPE_ERROR, "generate key: SecKeyCopyPublicKey failed", v167, 2u);
+              *v166 = 0;
+              _os_log_error_impl(&_mh_execute_header, v100, OS_LOG_TYPE_ERROR, "generate key: SecKeyCopyPublicKey failed", v166, 2u);
             }
           }
 
@@ -3813,11 +3796,11 @@ LABEL_92:
             v100 = nplog_obj();
             if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
             {
-              *v167 = 0;
-              _os_log_error_impl(&_mh_execute_header, v100, OS_LOG_TYPE_ERROR, "generate key: Failed to access stored client key", v167, 2u);
+              *v166 = 0;
+              _os_log_error_impl(&_mh_execute_header, v100, OS_LOG_TYPE_ERROR, "generate key: Failed to access stored client key", v166, 2u);
             }
 
-            v16 = v157;
+            v16 = v156;
           }
 
           goto LABEL_92;
@@ -3847,7 +3830,7 @@ LABEL_50:
         a1 = 0;
         v33 = v42;
         v14 = v41;
-        v19 = v154;
+        v19 = v153;
         goto LABEL_53;
       }
 
@@ -3870,7 +3853,7 @@ LABEL_50:
       v41 = v14;
       v42 = v33;
       v43 = nplog_obj();
-      v16 = v157;
+      v16 = v156;
       if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_50;
@@ -3935,7 +3918,7 @@ void sub_1000B6BC4(uint64_t a1, void *a2)
       if (v6)
       {
         objc_opt_self();
-        Property = sub_1000B429C();
+        Property = sub_1000B429C(NSPPrivateAccessTokenClientState);
         v9 = Property;
         if (Property)
         {
@@ -4000,7 +3983,7 @@ LABEL_14:
       v15 = [NPUtilities copyBase64HeaderValueFromData:v14];
       [v4 addValue:v15 forHTTPHeaderField:@"Sec-Token-Origin"];
 
-      v16 = sub_1000B4330();
+      v16 = sub_1000B4330(NSPPrivateAccessTokenClientState);
       if (v16)
       {
         v17 = SecKeyCopyPublicKey(v16);
@@ -4261,7 +4244,7 @@ LABEL_65:
 
       else
       {
-        v32 = sub_1000B4FC8();
+        v32 = sub_1000B4FC8(NSPPrivateAccessTokenRequest);
         v33 = 0;
       }
 

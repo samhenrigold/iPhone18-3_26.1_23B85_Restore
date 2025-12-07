@@ -321,11 +321,11 @@
     v22 = v21;
     v24 = v23;
     memset(&v28, 0, sizeof(v28));
-    [v17 transform];
+    objc_msgSend_transform(v17);
     geometry = [(THWStackedControlContainerLayout *)self geometry];
     if (geometry)
     {
-      [geometry transform];
+      objc_msgSend_transform(geometry);
     }
 
     else

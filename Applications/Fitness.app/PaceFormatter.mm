@@ -23,7 +23,7 @@
   sub_1002E08AC(v10);
   v7 = v6;
 
-  sub_10000EA04(v10, &qword_1008E51F0);
+  sub_10000EA04(v10, &qword_1008E51F0, qword_1006D50E0);
   if (v7)
   {
     v8 = String._bridgeToObjectiveC()();

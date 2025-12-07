@@ -55,10 +55,10 @@ void __69__MPCModelRadioGetTracksStep__presentServerDialog_completionHandler___b
   (*(v7 + 16))(v7, v8);
 }
 
-uint64_t __69__MPCModelRadioGetTracksStep__presentServerDialog_completionHandler___block_invoke_2(uint64_t a1, void *a2)
+uint64_t __69__MPCModelRadioGetTracksStep__presentServerDialog_completionHandler___block_invoke_2(id *a1, void *a2)
 {
   v3 = a2;
-  v4 = [*(a1 + 32) buttonIdentifier];
+  v4 = [a1[4] buttonIdentifier];
   if (v4 <= 2)
   {
     a1 = qword_1C6045438[v4];
@@ -87,11 +87,11 @@ uint64_t __69__MPCModelRadioGetTracksStep__presentServerDialog_completionHandler
   [(MPCModelRadioGetTracksStep *)self _presentServerDialog:dialog completionHandler:v3];
 }
 
-uint64_t __57__MPCModelRadioGetTracksStep__fireAndForgetServerDialog___block_invoke(uint64_t result, uint64_t a2)
+id *__57__MPCModelRadioGetTracksStep__fireAndForgetServerDialog___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) _performDefaultHandlingForButtonAction:a2];
+    return [result[4] _performDefaultHandlingForButtonAction:a2];
   }
 
   return result;

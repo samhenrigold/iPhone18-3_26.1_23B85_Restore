@@ -29,7 +29,7 @@
 
 - (void)sendEvent:(id)event
 {
-  v65[1] = *MEMORY[0x1E69E9840];
+  v64[1] = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v5 = __biome_log_for_category();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -153,11 +153,11 @@
     v53 = [DKEventClass_0 eventWithStream:appClipUsageStream startDate:v6 endDate:v6 identifierStringValue:clipBundleID5 metadata:dictionary2];
 
     knowledgeStore = [(BMAppClipLaunchSource *)self knowledgeStore];
-    v65[0] = v53;
-    v55 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:1];
-    v64 = 0;
-    v56 = [knowledgeStore saveObjects:v55 error:&v64];
-    v57 = v64;
+    v64[0] = v53;
+    v55 = [MEMORY[0x1E695DEC8] arrayWithObjects:v64 count:1];
+    v63 = 0;
+    v56 = [knowledgeStore saveObjects:v55 error:&v63];
+    v57 = v63;
 
     if ((v56 & 1) == 0)
     {
@@ -174,7 +174,7 @@
     [contextStore setObject:v59 forKeyedSubscript:keyPathForAppClipLaunch];
 
     v6 = v52;
-    eventCopy = v63;
+    eventCopy = v62;
   }
 
   else
@@ -185,8 +185,6 @@
       [(BMAppClipLaunchSource *)self sendEvent:v7];
     }
   }
-
-  v62 = *MEMORY[0x1E69E9840];
 }
 
 @end

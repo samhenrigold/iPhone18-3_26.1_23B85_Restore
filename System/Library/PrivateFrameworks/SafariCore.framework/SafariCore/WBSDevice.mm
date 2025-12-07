@@ -41,21 +41,19 @@ uint64_t __26__WBSDevice_currentDevice__block_invoke()
 
 - (void)registerForNotifications
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   if (!self->_notificationToken)
   {
     objc_initWeak(&location, self);
-    v7[0] = @"UserAssignedDeviceName";
-    [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+    v6[0] = @"UserAssignedDeviceName";
+    [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
     v3 = MEMORY[0x1E69E96A0];
-    objc_copyWeak(&v5, &location);
+    objc_copyWeak(&v4, &location);
     self->_notificationToken = MGRegisterForUpdates();
 
-    objc_destroyWeak(&v5);
+    objc_destroyWeak(&v4);
     objc_destroyWeak(&location);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (WBSDevice)init

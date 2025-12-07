@@ -451,7 +451,7 @@
 - (double)layoutScale
 {
   layout = [(SBIconListView *)self layout];
-  [layout iconImageInfo];
+  objc_msgSend_iconImageInfo(layout);
   if (v3 == 0.0)
   {
     v4 = 1.0;
@@ -649,7 +649,7 @@
 
 - (CGRect)iconLayoutRect
 {
-  [(SBIconListView *)self bounds];
+  objc_msgSend_bounds(self, a2);
   v4 = v3;
   v6 = v5;
   v8 = v7;
@@ -703,7 +703,7 @@
 
 - (CGSize)iconImageSize
 {
-  [(SBIconListView *)self iconImageInfoForGridSizeClass:@"SBHIconGridSizeClassDefault"];
+  objc_msgSend_iconImageInfoForGridSizeClass_(self, a2, @"SBHIconGridSizeClassDefault");
   result.height = v3;
   result.width = v2;
   return result;
@@ -795,13 +795,13 @@
 
   v5 = v4;
   layoutMetrics = [(SBIconListView *)self layoutMetrics];
-  [(SBIconListView *)self iconImageInfoForGridSizeClass:@"SBHIconGridSizeClassDefault"];
+  objc_msgSend_iconImageInfoForGridSizeClass_(self);
   v8 = v7;
   iconColumnsForCurrentOrientation = [(SBIconListView *)self iconColumnsForCurrentOrientation];
   [layoutMetrics iconInsets];
   v11 = v10;
   v13 = v12;
-  [(SBIconListView *)self bounds];
+  objc_msgSend_bounds(self);
   v15 = v14;
   v17 = v16;
   v19 = v18;
@@ -1999,7 +1999,7 @@ LABEL_7:
   return indexSet;
 }
 
-uint64_t __36__SBIconListView_visibleIconIndexes__block_invoke(uint64_t a1, uint64_t a2)
+void *__36__SBIconListView_visibleIconIndexes__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) iconIndexForGridCellIndex:a2];
   if (result != 0x7FFFFFFFFFFFFFFFLL)
@@ -3115,7 +3115,7 @@ uint64_t __79__SBIconListView_performZoomOutSpecialIconAnimationWithIcon_complet
   extraIconForFolderCollapseSpecialIconAnimation = [(SBIconListView *)self extraIconForFolderCollapseSpecialIconAnimation];
   if (!extraIconForFolderCollapseSpecialIconAnimation)
   {
-    v16 = SBLogCommon();
+    v16 = SBLogCommon(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [SBIconListView performCollapseFolderWithContainedIconSpecialIconAnimationWithIcon:iconCopy completionHandler:v16];
@@ -3125,7 +3125,7 @@ uint64_t __79__SBIconListView_performZoomOutSpecialIconAnimationWithIcon_complet
   v17 = [(SBIconListView *)self iconViewForIcon:extraIconForFolderCollapseSpecialIconAnimation];
   effectiveIconImageAppearance = [(SBIconListView *)self effectiveIconImageAppearance];
   layout = [(SBIconListView *)self layout];
-  [layout iconImageInfo];
+  objc_msgSend_iconImageInfo(layout);
   v20 = v19;
   v22 = v21;
   v24 = v23;
@@ -3422,7 +3422,7 @@ void __103__SBIconListView_performCollapseFolderWithContainedIconSpecialIconAnim
   v6 = [displayedModel indexForIcon:iconCopy];
   if (v6 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v7 = SBLogCommon();
+    v7 = SBLogCommon(0x7FFFFFFFFFFFFFFFLL);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(SBIconListView *)iconCopy originForIcon:v7];
@@ -4015,7 +4015,7 @@ BOOL __34__SBIconListView_iconViewForIcon___block_invoke(uint64_t a1, void *a2)
   gridSizeClass = [iconCopy gridSizeClass];
   if (!gridSizeClass || ([iconCopy gridSizeClass], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "isEqualToString:", @"SBHIconGridSizeClassDefault")))
   {
-    iconImageCache = [(SBIconListView *)self iconImageCache];
+    v17 = objc_msgSend_iconImageCache(self);
     if (!gridSizeClass)
     {
       goto LABEL_8;
@@ -4024,11 +4024,11 @@ BOOL __34__SBIconListView_iconViewForIcon___block_invoke(uint64_t a1, void *a2)
 
   else
   {
-    iconImageCache = 0;
+    v17 = 0;
   }
 
 LABEL_8:
-  [viewCopy setIconImageCache:iconImageCache];
+  [viewCopy setIconImageCache:v17];
   if (!self->_inLayout)
   {
     [viewCopy setContentVisibility:{-[SBIconListView contentVisibilityForIcon:](self, "contentVisibilityForIcon:", iconCopy)}];
@@ -4050,7 +4050,7 @@ LABEL_8:
   v21 = gridSizeClass2;
   if (gridSizeClass2 && (([gridSizeClass2 isEqualToString:@"SBHIconGridSizeClassDefault"] | v10) & 1) == 0)
   {
-    [viewCopy iconImageInfo];
+    objc_msgSend_iconImageInfo(viewCopy);
     v23 = v22;
     [(SBIconListView *)self iconImageSizeForGridSizeClass:v21];
     v25 = v24;
@@ -4287,7 +4287,7 @@ LABEL_18:
   width = bounds.size.width;
   y = bounds.origin.y;
   x = bounds.origin.x;
-  [(SBIconListView *)self bounds];
+  objc_msgSend_bounds(self, a2);
   v9 = v8;
   v11 = v10;
   v13.receiver = self;
@@ -4454,95 +4454,96 @@ LABEL_18:
 
 - (void)layoutIconsIfNeededUsingAnimator:(id)animator options:(unint64_t)options
 {
-  v168 = *MEMORY[0x1E69E9840];
+  v171 = *MEMORY[0x1E69E9840];
   animatorCopy = animator;
-  [(SBIconListView *)self _teardownLayoutRunloopObserverIfNeeded];
+  _teardownLayoutRunloopObserverIfNeeded = [(SBIconListView *)self _teardownLayoutRunloopObserverIfNeeded];
   if (!self->_needsLayout || self->_purged || self->_rotating)
   {
     goto LABEL_88;
   }
 
-  v7 = SBLogWidgets();
-  if (os_signpost_enabled(v7))
+  v8 = SBLogWidgets(_teardownLayoutRunloopObserverIfNeeded);
+  if (os_signpost_enabled(v8))
   {
-    v8 = MEMORY[0x1E696AEC0];
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
-    v11 = [v8 stringWithFormat:@"<%@: %p>", v10, self];
+    v9 = MEMORY[0x1E696AEC0];
+    v10 = objc_opt_class();
+    v11 = NSStringFromClass(v10);
+    v12 = [v9 stringWithFormat:@"<%@: %p>", v11, self];
     *buf = 138543362;
-    v167 = v11;
-    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v7, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_ICON_LIST_VIEW", "iconListView=%{public}@", buf, 0xCu);
+    v170 = v12;
+    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_ICON_LIST_VIEW", "iconListView=%{public}@", buf, 0xCu);
   }
 
-  if (![(NSMapTable *)self->_specialIconAnimations count])
+  v13 = [(NSMapTable *)self->_specialIconAnimations count];
+  if (!v13)
   {
 LABEL_14:
-    v114 = [(SBIconListView *)self effectiveLayoutDelegateForSelector:sel_iconListViewWillLayoutIcons_];
-    [v114 iconListViewWillLayoutIcons:self];
+    v117 = [(SBIconListView *)self effectiveLayoutDelegateForSelector:sel_iconListViewWillLayoutIcons_];
+    [v117 iconListViewWillLayoutIcons:self];
     self->_inLayout = 1;
-    v117 = animatorCopy;
+    v120 = animatorCopy;
     if ([(SBIconListView *)self boundsSizeTracksContentSize])
     {
       [(SBIconListView *)self iconSpacing];
-      v19 = v18;
-      v20 = v17;
-      if (v18 != -123.0 || v17 != -123.0)
+      v22 = v21;
+      v23 = v20;
+      if (v21 != -123.0 || v20 != -123.0)
       {
-        [(SBIconListView *)self bounds];
-        v24 = v23;
-        v26 = v25;
-        v27 = v21;
-        v28 = v22;
-        v29 = 30000.0;
-        if (v19 == -123.0)
+        objc_msgSend_bounds(self);
+        v27 = v26;
+        v29 = v28;
+        v30 = v24;
+        v31 = v25;
+        v32 = 30000.0;
+        if (v22 == -123.0)
         {
-          v30 = v21;
+          v33 = v24;
         }
 
         else
         {
-          v30 = 30000.0;
+          v33 = 30000.0;
         }
 
-        if (v20 == -123.0)
+        if (v23 == -123.0)
         {
-          v29 = v22;
+          v32 = v25;
         }
 
-        [(SBIconListView *)self sizeThatFits:v30, v29];
-        if (v31 != v27 || v32 != v28)
+        [(SBIconListView *)self sizeThatFits:v33, v32];
+        if (v34 != v30 || v35 != v31)
         {
-          [(SBIconListView *)self setBounds:v24, v26, v31, v32];
-          v158 = 0u;
+          [(SBIconListView *)self setBounds:v27, v29, v34, v35];
+          v161 = 0u;
+          v162 = 0u;
           v159 = 0u;
-          v156 = 0u;
-          v157 = 0u;
-          v34 = self->_layoutObservers;
-          v35 = [(NSHashTable *)v34 countByEnumeratingWithState:&v156 objects:v165 count:16];
-          if (v35)
+          v160 = 0u;
+          v37 = self->_layoutObservers;
+          v38 = [(NSHashTable *)v37 countByEnumeratingWithState:&v159 objects:v168 count:16];
+          if (v38)
           {
-            v36 = v35;
-            v37 = *v157;
+            v39 = v38;
+            v40 = *v160;
             do
             {
-              for (i = 0; i != v36; ++i)
+              for (i = 0; i != v39; ++i)
               {
-                if (*v157 != v37)
+                if (*v160 != v40)
                 {
-                  objc_enumerationMutation(v34);
+                  objc_enumerationMutation(v37);
                 }
 
-                v39 = *(*(&v156 + 1) + 8 * i);
+                v42 = *(*(&v159 + 1) + 8 * i);
                 if (objc_opt_respondsToSelector())
                 {
-                  [v39 iconListViewDidChangeBoundsSize:self];
+                  [v42 iconListViewDidChangeBoundsSize:self];
                 }
               }
 
-              v36 = [(NSHashTable *)v34 countByEnumeratingWithState:&v156 objects:v165 count:16];
+              v39 = [(NSHashTable *)v37 countByEnumeratingWithState:&v159 objects:v168 count:16];
             }
 
-            while (v36);
+            while (v39);
           }
         }
       }
@@ -4554,180 +4555,180 @@ LABEL_14:
     iconLocation = [(SBIconListView *)self iconLocation];
     pausesIconsForScrolling = [(SBIconListView *)self pausesIconsForScrolling];
     isLayoutReversed = [(SBIconListView *)self isLayoutReversed];
-    v42 = 2;
+    v45 = 2;
     if (!isLayoutReversed)
     {
-      v42 = 0;
+      v45 = 0;
     }
 
-    v97 = v42;
+    v100 = v45;
     layoutMetrics = [(SBIconListView *)self layoutMetrics];
     gridCellInfo = [layoutMetrics gridCellInfo];
     gridCellIndexesToIncludeInLayout = [(SBIconListView *)self gridCellIndexesToIncludeInLayout];
     cellVisibility = [(SBIconListView *)self cellVisibility];
     columnsUsedForLayout = [layoutMetrics columnsUsedForLayout];
     [layoutMetrics iconContentScale];
-    v46 = v45;
+    v49 = v48;
     adjustedIconContentScaleToFit = [layoutMetrics adjustedIconContentScaleToFit];
     iconViewConfigurationOptions = [(SBIconListView *)self iconViewConfigurationOptions];
-    v48 = (options & 2) == 0 && animatorCopy != 0;
-    v94 = v48;
+    v51 = (options & 2) == 0 && animatorCopy != 0;
+    v97 = v51;
     [(SBIconListView *)self layoutScale];
-    v50 = v49;
+    v53 = v52;
     layoutOrientation = [(SBIconListView *)self layoutOrientation];
     gridSize = [gridCellInfo gridSize];
     [layoutMetrics iconSpacing];
     [(SBIconListView *)self cursorHitTestingInsetsForIconSpacing:?];
-    v52 = v51;
-    v54 = v53;
-    v56 = v55;
-    v58 = v57;
-    v93 = [(SBIconListView *)self effectiveLayoutDelegateForSelector:sel_iconListView_willLayoutIconView_];
-    v99 = [(SBIconListView *)self effectiveLayoutDelegateForSelector:sel_iconListView_animatorForLayingOutIconView_proposedAnimator_];
-    v59 = objc_alloc(MEMORY[0x1E695DFA8]);
+    v55 = v54;
+    v57 = v56;
+    v59 = v58;
+    v61 = v60;
+    v96 = [(SBIconListView *)self effectiveLayoutDelegateForSelector:sel_iconListView_willLayoutIconView_];
+    v102 = [(SBIconListView *)self effectiveLayoutDelegateForSelector:sel_iconListView_animatorForLayingOutIconView_proposedAnimator_];
+    v62 = objc_alloc(MEMORY[0x1E695DFA8]);
     keyEnumerator = [(NSMapTable *)self->_iconViews keyEnumerator];
     allObjects = [keyEnumerator allObjects];
-    v62 = [v59 initWithArray:allObjects];
+    v65 = [v62 initWithArray:allObjects];
 
-    animatorCopy = v117;
-    v131[0] = MEMORY[0x1E69E9820];
-    v131[1] = 3221225472;
-    v131[2] = __59__SBIconListView_layoutIconsIfNeededUsingAnimator_options___block_invoke_2;
-    v131[3] = &unk_1E808CE10;
-    v142 = columnsUsedForLayout;
-    v119 = v62;
-    v132 = v119;
+    animatorCopy = v120;
+    v134[0] = MEMORY[0x1E69E9820];
+    v134[1] = 3221225472;
+    v134[2] = __59__SBIconListView_layoutIconsIfNeededUsingAnimator_options___block_invoke_2;
+    v134[3] = &unk_1E808CE10;
+    v145 = columnsUsedForLayout;
+    v122 = v65;
+    v135 = v122;
     selfCopy = self;
-    v63 = gridCellInfo;
-    v134 = v63;
-    v143 = cellVisibility;
-    v108 = gridCellIndexesToIncludeInLayout;
-    v135 = v108;
-    v152 = gridSize;
-    v64 = iconLocation;
-    v136 = v64;
-    v144 = layoutOrientation;
-    v145 = v52;
-    v146 = v54;
-    v147 = v56;
-    v148 = v58;
-    v149 = iconViewConfigurationOptions;
-    v106 = array;
-    v137 = v106;
-    v65 = layoutMetrics;
-    v138 = v65;
-    v150 = v50;
-    v151 = v46;
-    v102 = v93;
-    v139 = v102;
-    v66 = v117;
-    v140 = v66;
-    v100 = v99;
-    v141 = v100;
-    v153 = v94;
-    v154 = pausesIconsForScrolling;
-    v155 = adjustedIconContentScaleToFit;
-    v112 = icons;
-    [icons enumerateObjectsWithOptions:v97 usingBlock:v131];
-    v67 = v66;
-    v68 = v67;
-    v110 = v64;
-    v104 = v65;
-    v98 = v67;
-    if (v117)
+    v66 = gridCellInfo;
+    v137 = v66;
+    v146 = cellVisibility;
+    v111 = gridCellIndexesToIncludeInLayout;
+    v138 = v111;
+    v155 = gridSize;
+    v67 = iconLocation;
+    v139 = v67;
+    v147 = layoutOrientation;
+    v148 = v55;
+    v149 = v57;
+    v150 = v59;
+    v151 = v61;
+    v152 = iconViewConfigurationOptions;
+    v109 = array;
+    v140 = v109;
+    v68 = layoutMetrics;
+    v141 = v68;
+    v153 = v53;
+    v154 = v49;
+    v105 = v96;
+    v142 = v105;
+    v69 = v120;
+    v143 = v69;
+    v103 = v102;
+    v144 = v103;
+    v156 = v97;
+    v157 = pausesIconsForScrolling;
+    v158 = adjustedIconContentScaleToFit;
+    v115 = icons;
+    [icons enumerateObjectsWithOptions:v100 usingBlock:v134];
+    v70 = v69;
+    v71 = v70;
+    v113 = v67;
+    v107 = v68;
+    v101 = v70;
+    if (v120)
     {
-      v69 = v67;
-      v68 = v67;
+      v72 = v70;
+      v71 = v70;
       if ((options & 1) == 0)
       {
-        v68 = v67;
-        if ([v119 count])
+        v71 = v70;
+        if ([v122 count])
         {
-          v96 = v63;
-          v70 = [(SBIconListView *)self effectiveLayoutDelegateForSelector:sel_iconListView_animatorForRemovingIcons_proposedAnimator_];
-          v68 = v69;
-          if (v70)
+          v99 = v66;
+          v73 = [(SBIconListView *)self effectiveLayoutDelegateForSelector:sel_iconListView_animatorForRemovingIcons_proposedAnimator_];
+          v71 = v72;
+          if (v73)
           {
-            allObjects2 = [v119 allObjects];
-            v68 = [v70 iconListView:self animatorForRemovingIcons:allObjects2 proposedAnimator:v69];
+            allObjects2 = [v122 allObjects];
+            v71 = [v73 iconListView:self animatorForRemovingIcons:allObjects2 proposedAnimator:v72];
           }
 
-          v72 = objc_opt_respondsToSelector();
+          v75 = objc_opt_respondsToSelector();
 
-          if (v72)
+          if (v75)
           {
-            v116 = v68;
-            v73 = objc_alloc_init(MEMORY[0x1E695DF70]);
-            v127 = 0u;
-            v128 = 0u;
-            v129 = 0u;
+            v119 = v71;
+            v76 = objc_alloc_init(MEMORY[0x1E695DF70]);
             v130 = 0u;
-            v74 = v119;
-            v75 = [v74 countByEnumeratingWithState:&v127 objects:v164 count:16];
-            if (v75)
+            v131 = 0u;
+            v132 = 0u;
+            v133 = 0u;
+            v77 = v122;
+            v78 = [v77 countByEnumeratingWithState:&v130 objects:v167 count:16];
+            if (v78)
             {
-              v76 = v75;
-              v77 = *v128;
+              v79 = v78;
+              v80 = *v131;
               do
               {
-                for (j = 0; j != v76; ++j)
+                for (j = 0; j != v79; ++j)
                 {
-                  if (*v128 != v77)
+                  if (*v131 != v80)
                   {
-                    objc_enumerationMutation(v74);
+                    objc_enumerationMutation(v77);
                   }
 
-                  v79 = *(*(&v127 + 1) + 8 * j);
-                  v80 = [(NSMapTable *)self->_iconViews objectForKey:v79];
-                  if (v80)
+                  v82 = *(*(&v130 + 1) + 8 * j);
+                  v83 = [(NSMapTable *)self->_iconViews objectForKey:v82];
+                  if (v83)
                   {
-                    [(NSMapTable *)self->_iconViews removeObjectForKey:v79];
-                    superview = [v80 superview];
+                    [(NSMapTable *)self->_iconViews removeObjectForKey:v82];
+                    superview = [v83 superview];
 
                     if (superview == self)
                     {
-                      [v73 addObject:v80];
+                      [v76 addObject:v83];
                     }
                   }
                 }
 
-                v76 = [v74 countByEnumeratingWithState:&v127 objects:v164 count:16];
+                v79 = [v77 countByEnumeratingWithState:&v130 objects:v167 count:16];
               }
 
-              while (v76);
+              while (v79);
             }
 
-            if ([v73 count])
+            if ([v76 count])
             {
-              v124[0] = MEMORY[0x1E69E9820];
-              v124[1] = 3221225472;
-              v124[2] = __59__SBIconListView_layoutIconsIfNeededUsingAnimator_options___block_invoke_2_95;
-              v124[3] = &unk_1E8088F18;
-              v73 = v73;
-              v125 = v73;
+              v127[0] = MEMORY[0x1E69E9820];
+              v127[1] = 3221225472;
+              v127[2] = __59__SBIconListView_layoutIconsIfNeededUsingAnimator_options___block_invoke_2_95;
+              v127[3] = &unk_1E8088F18;
+              v76 = v76;
+              v128 = v76;
               selfCopy2 = self;
-              [v116 iconListView:self wantsAnimatedRemovalForIconViews:v73 completionHandler:v124];
+              [v119 iconListView:self wantsAnimatedRemovalForIconViews:v76 completionHandler:v127];
             }
 
-            animatorCopy = v117;
+            animatorCopy = v120;
             goto LABEL_77;
           }
 
-          v63 = v96;
+          v66 = v99;
         }
       }
     }
 
-    v116 = v68;
-    v122 = 0u;
+    v119 = v71;
+    v125 = 0u;
+    v126 = 0u;
     v123 = 0u;
-    v120 = 0u;
-    v121 = 0u;
-    v73 = v119;
-    v82 = [v73 countByEnumeratingWithState:&v120 objects:v163 count:16];
-    if (!v82)
+    v124 = 0u;
+    v76 = v122;
+    v85 = [v76 countByEnumeratingWithState:&v123 objects:v166 count:16];
+    if (!v85)
     {
-      v13 = v114;
+      v15 = v117;
 LABEL_79:
 
       removedIcons = self->_removedIcons;
@@ -4735,7 +4736,7 @@ LABEL_79:
 
       if ([(SBIconListView *)self showsEmptyGridCells]|| [(NSMutableDictionary *)self->_emptyGridCells count])
       {
-        [(SBIconListView *)self layOutEmptyGridCellViewsUsingAnimator:v98];
+        [(SBIconListView *)self layOutEmptyGridCellViewsUsingAnimator:v101];
       }
 
       self->_inLayout = 0;
@@ -4746,52 +4747,51 @@ LABEL_79:
         [(SBIconListView *)self layoutWidgetIntroductionViews];
       }
 
-      [(SBIconListView *)self _updateEditingStateForIcons:v106 animated:animatorCopy != 0];
-      v90 = [(SBIconListView *)self effectiveLayoutDelegateForSelector:sel_iconListViewDidLayoutIcons_];
-      [v90 iconListViewDidLayoutIcons:self];
-      v91 = SBLogWidgets();
-      if (os_signpost_enabled(v91))
+      [(SBIconListView *)self _updateEditingStateForIcons:v109 animated:animatorCopy != 0];
+      v93 = [(SBIconListView *)self effectiveLayoutDelegateForSelector:sel_iconListViewDidLayoutIcons_];
+      v94 = SBLogWidgets([v93 iconListViewDidLayoutIcons:self]);
+      if (os_signpost_enabled(v94))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1BEB18000, v91, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_ICON_LIST_VIEW", " isAnimation=YES ", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1BEB18000, v94, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_ICON_LIST_VIEW", " isAnimation=YES ", buf, 2u);
       }
 
       goto LABEL_87;
     }
 
-    v83 = v82;
-    v96 = v63;
-    v84 = *v121;
+    v86 = v85;
+    v99 = v66;
+    v87 = *v124;
     do
     {
-      for (k = 0; k != v83; ++k)
+      for (k = 0; k != v86; ++k)
       {
-        if (*v121 != v84)
+        if (*v124 != v87)
         {
-          objc_enumerationMutation(v73);
+          objc_enumerationMutation(v76);
         }
 
-        v86 = *(*(&v120 + 1) + 8 * k);
-        v87 = [(NSMapTable *)self->_iconViews objectForKey:v86];
-        if (v87)
+        v89 = *(*(&v123 + 1) + 8 * k);
+        v90 = [(NSMapTable *)self->_iconViews objectForKey:v89];
+        if (v90)
         {
-          [(NSMapTable *)self->_iconViews removeObjectForKey:v86];
-          superview2 = [v87 superview];
+          [(NSMapTable *)self->_iconViews removeObjectForKey:v89];
+          superview2 = [v90 superview];
 
           if (superview2 == self)
           {
-            [(SBIconListView *)self removeIconView:v87];
+            [(SBIconListView *)self removeIconView:v90];
           }
         }
       }
 
-      v83 = [v73 countByEnumeratingWithState:&v120 objects:v163 count:16];
+      v86 = [v76 countByEnumeratingWithState:&v123 objects:v166 count:16];
     }
 
-    while (v83);
+    while (v86);
 LABEL_77:
-    v13 = v114;
-    v63 = v96;
+    v15 = v117;
+    v66 = v99;
     goto LABEL_79;
   }
 
@@ -4800,25 +4800,25 @@ LABEL_77:
     specialIconAnimations = self->_specialIconAnimations;
     self->_specialIconAnimations = 0;
 
-    v16 = SBLogWidgets();
-    if (os_signpost_enabled(v16))
+    v19 = SBLogWidgets(v18);
+    if (os_signpost_enabled(v19))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1BEB18000, v16, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_ICON_LIST_VIEW", "animator Nil isAnimation=YES ", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1BEB18000, v19, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_ICON_LIST_VIEW", "animator Nil isAnimation=YES ", buf, 2u);
     }
 
     goto LABEL_14;
   }
 
   performingSpecialIconAnimations = self->_performingSpecialIconAnimations;
-  v13 = SBLogWidgets();
-  v14 = os_signpost_enabled(v13);
+  v15 = SBLogWidgets(v13);
+  v16 = os_signpost_enabled(v15);
   if (performingSpecialIconAnimations)
   {
-    if (v14)
+    if (v16)
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1BEB18000, v13, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_ICON_LIST_VIEW", "EndedEarly=YES isAnimation=YES ", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1BEB18000, v15, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_ICON_LIST_VIEW", "EndedEarly=YES isAnimation=YES ", buf, 2u);
     }
 
 LABEL_87:
@@ -4826,20 +4826,20 @@ LABEL_87:
     goto LABEL_88;
   }
 
-  if (v14)
+  if (v16)
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v13, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_ICON_LIST_VIEW", "performSpecialIconAnimations isAnimation=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v15, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_ICON_LIST_VIEW", "performSpecialIconAnimations isAnimation=YES ", buf, 2u);
   }
 
-  v160[0] = MEMORY[0x1E69E9820];
-  v160[1] = 3221225472;
-  v160[2] = __59__SBIconListView_layoutIconsIfNeededUsingAnimator_options___block_invoke;
-  v160[3] = &unk_1E808A090;
-  v160[4] = self;
-  v161 = animatorCopy;
+  v163[0] = MEMORY[0x1E69E9820];
+  v163[1] = 3221225472;
+  v163[2] = __59__SBIconListView_layoutIconsIfNeededUsingAnimator_options___block_invoke;
+  v163[3] = &unk_1E808A090;
+  v163[4] = self;
+  v164 = animatorCopy;
   optionsCopy = options;
-  [(SBIconListView *)self performSpecialIconAnimationsWithCompletionHandler:v160];
+  [(SBIconListView *)self performSpecialIconAnimationsWithCompletionHandler:v163];
 
 LABEL_88:
 }
@@ -4881,162 +4881,163 @@ LABEL_37:
       {
 LABEL_7:
         v11 = [*(*(a1 + 40) + 424) objectForKey:v5];
+        v12 = v11;
         if (v11)
         {
-          v12 = SBLogIcon();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+          v13 = SBLogIcon(v11);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
-            __59__SBIconListView_layoutIconsIfNeededUsingAnimator_options___block_invoke_2_cold_1(v5, v12);
+            __59__SBIconListView_layoutIconsIfNeededUsingAnimator_options___block_invoke_2_cold_1(v5, v13);
           }
 
           [*(*(a1 + 40) + 424) removeObjectForKey:v5];
-          [*(a1 + 40) removeIconView:v11];
+          [*(a1 + 40) removeIconView:v12];
         }
 
         goto LABEL_36;
       }
     }
 
-    v11 = [*(a1 + 40) iconViewForIcon:v5];
-    if (!v11 || ([*(a1 + 40) isLayoutPausedForIconView:v11] & 1) != 0)
+    v12 = [*(a1 + 40) iconViewForIcon:v5];
+    if (!v12 || ([*(a1 + 40) isLayoutPausedForIconView:v12] & 1) != 0)
     {
 LABEL_36:
 
       goto LABEL_37;
     }
 
-    [v11 setLocation:*(a1 + 64)];
-    [v11 setOrientation:*(a1 + 128)];
-    [v11 setCursorHitTestPadding:{*(a1 + 136), *(a1 + 144), *(a1 + 152), *(a1 + 160)}];
-    if ([v11 configurationOptions] != *(a1 + 168))
+    [v12 setLocation:*(a1 + 64)];
+    [v12 setOrientation:*(a1 + 128)];
+    [v12 setCursorHitTestPadding:{*(a1 + 136), *(a1 + 144), *(a1 + 152), *(a1 + 160)}];
+    if ([v12 configurationOptions] != *(a1 + 168))
     {
-      [v11 setConfigurationOptions:?];
+      [v12 setConfigurationOptions:?];
     }
 
-    [v11 setContentVisibility:{objc_msgSend(*(a1 + 40), "contentVisibilityForIcon:", v5)}];
+    [v12 setContentVisibility:{objc_msgSend(*(a1 + 40), "contentVisibilityForIcon:", v5)}];
     [*(*(a1 + 40) + 408) removeObject:v5];
-    v13 = [v11 superview];
-    v14 = *(a1 + 40);
-    if (v13 == v14)
+    v14 = [v12 superview];
+    v15 = *(a1 + 40);
+    if (v14 == v15)
     {
     }
 
     else
     {
-      v15 = [v14 shouldReparentView:v11];
+      v16 = [v15 shouldReparentView:v12];
 
-      if (v15)
+      if (v16)
       {
-        [*(a1 + 40) _insertCaptureOnlyBackgroundViewForInsertingIconViewIfNecessary:v11];
-        [*(a1 + 40) addSubview:v11];
+        [*(a1 + 40) _insertCaptureOnlyBackgroundViewForInsertingIconViewIfNecessary:v12];
+        [*(a1 + 40) addSubview:v12];
         [*(a1 + 72) addObject:v5];
-        v16 = 1;
+        v17 = 1;
         goto LABEL_21;
       }
     }
 
-    v16 = 0;
+    v17 = 0;
 LABEL_21:
-    v17 = [*(a1 + 40) iconCoordinateForGridCellIndex:v9 metrics:*(a1 + 80)];
-    v19 = v18;
-    [*(a1 + 40) centerForIconCoordinate:v17 metrics:{v18, *(a1 + 80)}];
-    v21 = v20;
-    v23 = v22;
-    [v11 center];
-    v39 = SBFPointEqualToPointAtScale() ^ 1;
-    if (v16)
+    v18 = [*(a1 + 40) iconCoordinateForGridCellIndex:v9 metrics:*(a1 + 80)];
+    v20 = v19;
+    [*(a1 + 40) centerForIconCoordinate:v18 metrics:{v19, *(a1 + 80)}];
+    v22 = v21;
+    v24 = v23;
+    [v12 center];
+    v40 = SBFPointEqualToPointAtScale() ^ 1;
+    if (v17)
     {
-      v24 = 2;
+      v25 = 2;
     }
 
     else
     {
-      v24 = 6;
+      v25 = 6;
     }
 
-    v25 = *(a1 + 184);
+    v26 = *(a1 + 184);
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __59__SBIconListView_layoutIconsIfNeededUsingAnimator_options___block_invoke_89;
     aBlock[3] = &unk_1E8088F88;
-    v26 = *(a1 + 88);
-    v27 = *(a1 + 40);
-    v54 = v26;
+    v27 = *(a1 + 88);
+    v28 = *(a1 + 40);
     v55 = v27;
-    v11 = v11;
-    v56 = v11;
-    v28 = _Block_copy(aBlock);
-    v29 = *(a1 + 96);
-    v30 = *(a1 + 104);
-    if (v30 && *(a1 + 96))
+    v56 = v28;
+    v12 = v12;
+    v57 = v12;
+    v29 = _Block_copy(aBlock);
+    v30 = *(a1 + 96);
+    v31 = *(a1 + 104);
+    if (v31 && *(a1 + 96))
     {
-      [v30 iconListView:*(a1 + 40) animatorForLayingOutIconView:v11 proposedAnimator:?];
-      v38 = v16;
-      v31 = v28;
-      v32 = v17;
-      v33 = v19;
-      v35 = v34 = v24;
+      [v31 iconListView:*(a1 + 40) animatorForLayingOutIconView:v12 proposedAnimator:?];
+      v39 = v17;
+      v32 = v29;
+      v33 = v18;
+      v34 = v20;
+      v36 = v35 = v25;
 
-      v29 = v35;
-      v24 = v34;
-      v19 = v33;
-      v17 = v32;
-      v28 = v31;
-      v16 = v38;
+      v30 = v36;
+      v25 = v35;
+      v20 = v34;
+      v18 = v33;
+      v29 = v32;
+      v17 = v39;
     }
 
-    if (v16 && v29)
+    if (v17 && v30)
     {
       if ((*(a1 + 196) & 1) == 0)
       {
 LABEL_30:
-        v36 = *(a1 + 40);
-        v40 = v21;
-        v41 = v23;
-        v42 = v25;
-        v43 = 0u;
+        v37 = *(a1 + 40);
+        v41 = v22;
+        v42 = v24;
+        v43 = v26;
         v44 = 0u;
-        v45 = 0;
-        v46 = v17;
-        v47 = v19;
-        v48 = v16;
-        v49 = v39;
-        v50 = 0;
+        v45 = 0u;
+        v46 = 0;
+        v47 = v18;
+        v48 = v20;
+        v49 = v17;
+        v50 = v40;
         v51 = 0;
-        v52 = v24;
-        [v36 performDefaultAnimatedLayoutUpdateForIconView:v11 withParameters:&v40];
-        v28[2](v28);
+        v52 = 0;
+        v53 = v25;
+        [v37 performDefaultAnimatedLayoutUpdateForIconView:v12 withParameters:&v41];
+        v29[2](v29);
 LABEL_33:
-        [v11 setPaused:*(a1 + 197) forReason:8];
+        [v12 setPaused:*(a1 + 197) forReason:8];
         if (*(a1 + 198) == 1)
         {
-          [v11 setIconContentScalingEnabled:1];
+          [v12 setIconContentScalingEnabled:1];
         }
 
         goto LABEL_36;
       }
     }
 
-    else if (!v29)
+    else if (!v30)
     {
       goto LABEL_30;
     }
 
-    v37 = *(a1 + 40);
-    v40 = v21;
-    v41 = v23;
-    v42 = v25;
-    v43 = 0u;
+    v38 = *(a1 + 40);
+    v41 = v22;
+    v42 = v24;
+    v43 = v26;
     v44 = 0u;
-    v45 = 0;
-    v46 = v17;
-    v47 = v19;
-    v48 = v16;
-    v49 = v39;
-    v50 = 0;
+    v45 = 0u;
+    v46 = 0;
+    v47 = v18;
+    v48 = v20;
+    v49 = v17;
+    v50 = v40;
     v51 = 0;
-    v52 = v24;
-    [v29 iconListView:v37 wantsAnimatedLayoutForIconView:v11 withParameters:&v40 alongsideAnimationBlock:v28];
+    v52 = 0;
+    v53 = v25;
+    [v30 iconListView:v38 wantsAnimatedLayoutForIconView:v12 withParameters:&v41 alongsideAnimationBlock:v29];
     goto LABEL_33;
   }
 
@@ -5102,7 +5103,7 @@ void __59__SBIconListView_layoutIconsIfNeededUsingAnimator_options___block_invok
     v11 = [allKeys mutableCopy];
 
     gridSize = [v7 gridSize];
-    [(SBIconListView *)self iconImageInfoForGridSizeClass:@"SBHIconGridSizeClassDefault"];
+    objc_msgSend_iconImageInfoForGridSizeClass_(self);
     v14 = v13;
     v16 = v15;
     v18 = v17;
@@ -5579,7 +5580,7 @@ void __78__SBIconListView_performDefaultAnimatedRemovalForIconViews_completionHa
   y = point.y;
   x = point.x;
   layoutMetrics = [(SBIconListView *)self layoutMetrics];
-  [(SBIconListView *)self bounds];
+  objc_msgSend_bounds(self);
   v19.x = x;
   v19.y = y;
   if (CGRectContainsPoint(v20, v19) || [layoutMetrics columnOffset])
@@ -6104,11 +6105,11 @@ LABEL_10:
 
 - (void)setVisibleGridRange:(SBHIconGridRange)range
 {
-  size = range.size;
+  v3 = *&range.size.columns;
   cellIndex = range.cellIndex;
   layoutMetrics = [(SBIconListView *)self layoutMetrics];
   gridCellInfo = [layoutMetrics gridCellInfo];
-  v7 = SBHIconGridRangeCellIndexes(cellIndex, size, [gridCellInfo gridSize]);
+  v7 = SBHIconGridRangeCellIndexes(cellIndex, v3, [gridCellInfo gridSize]);
   [(SBIconListView *)self setCellVisibility:1 visibleGridCellIndexes:v7 prefetchedGridCellIndexes:0];
 }
 
@@ -6180,7 +6181,7 @@ LABEL_10:
   return layoutDescription;
 }
 
-uint64_t __50__SBIconListView_visibleGridCellLayoutDescription__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__50__SBIconListView_visibleGridCellLayoutDescription__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [*(a1 + 32) gridCellIndexForIconIndex:?];
   if (result != 0x7FFFFFFFFFFFFFFFLL)
@@ -7001,7 +7002,7 @@ void __39__SBIconListView_setContentVisibility___block_invoke(uint64_t a1, void 
     alignsIconsOnPixelBoundaries |= 0x10uLL;
   }
 
-  [(SBIconListView *)self bounds];
+  objc_msgSend_bounds(self);
   parameters->var0.origin.x = v8;
   parameters->var0.origin.y = v9;
   parameters->var0.size.width = v10;
@@ -7373,27 +7374,25 @@ LABEL_10:
   return v71;
 }
 
-uint64_t __55__SBIconListView_layoutMetricsForParameters_listModel___block_invoke(uint64_t result)
+void __55__SBIconListView_layoutMetricsForParameters_listModel___block_invoke(uint64_t a1, double a2, double a3, double a4, double a5, double a6)
 {
-  if (*(result + 32) != 2)
+  if (*(a1 + 32) != 2)
   {
-    if (*(*(result + 40) + 176) == -123.0)
+    if (*(*(a1 + 40) + 176) == -123.0)
     {
-      if ((*(result + 104) & 1) == 0)
+      if ((*(a1 + 104) & 1) == 0)
       {
-        return result;
+        return;
       }
     }
 
-    else if (*(result + 105) != 1)
+    else if (*(a1 + 105) != 1)
     {
-      return result;
+      return;
     }
 
-    return SBFFloatFloorForScale();
+    SBFFloatFloorForScale();
   }
-
-  return result;
 }
 
 - (void)setAutomaticallyAdjustsLayoutMetricsToFit:(BOOL)fit
@@ -7419,7 +7418,7 @@ uint64_t __55__SBIconListView_layoutMetricsForParameters_listModel___block_invok
     v14 = v13;
     [metricsCopy iconSpacing];
     v16 = v15;
-    [(SBIconListView *)self bounds];
+    objc_msgSend_bounds(self);
     v17 = CGRectGetWidth(v20) - v12 - v14;
     [metricsCopy iconSize];
     v7 = SBHIconListLayoutCalculateHorizontalColumnBump(column, columnsUsedForLayout, v18, v16, v17, v9);
@@ -7776,7 +7775,7 @@ uint64_t __55__SBIconListView_layoutMetricsForParameters_listModel___block_invok
     [v8 iconSpacing];
     v26 = v25;
     v28 = v27;
-    [(SBIconListView *)self bounds];
+    objc_msgSend_bounds(self);
     v42.origin.x = v20 + v29;
     v42.origin.y = v18 + v30;
     v42.size.width = v31 - (v20 + v24);
@@ -7975,7 +7974,7 @@ uint64_t __55__SBIconListView_layoutMetricsForParameters_listModel___block_invok
   metricsCopy = metrics;
   if (!nearest)
   {
-    [(SBIconListView *)self bounds];
+    objc_msgSend_bounds(self);
     v32.x = x;
     v32.y = y;
     if (!CGRectContainsPoint(v33, v32))
@@ -8012,7 +8011,7 @@ uint64_t __55__SBIconListView_layoutMetricsForParameters_listModel___block_invok
   {
     v27 = 0.0;
 LABEL_16:
-    [(SBIconListView *)self bounds];
+    objc_msgSend_bounds(self);
     v29 = (x - v27) / (CGRectGetMaxX(v34) - v27);
     if (!isRTL)
     {
@@ -8112,7 +8111,7 @@ LABEL_29:
   y = point.y;
   x = point.x;
   metricsCopy = metrics;
-  if (nearest || ([(SBIconListView *)self bounds], v32.x = x, v32.y = y, CGRectContainsPoint(v33, v32)))
+  if (nearest || (objc_msgSend_bounds(self), v32.x = x, v32.y = y, CGRectContainsPoint(v33, v32)))
   {
     [metricsCopy iconInsets];
     v13 = v12;
@@ -8321,7 +8320,7 @@ LABEL_29:
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  [(SBIconListView *)self bounds];
+  objc_msgSend_bounds(self, a2);
   v63.origin.x = v8;
   v63.origin.y = v9;
   v63.size.width = v10;
@@ -8848,74 +8847,74 @@ uint64_t __64__SBIconListView_closestGridRangeForIconOfSize_centeredAtPoint___bl
 
 - (CGRect)_introductionContainerViewFrameForView:(id)view
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   widgetIcons = [view widgetIcons];
-  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v5 = [widgetIcons countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v32 = 0u;
+  v5 = [widgetIcons countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v29;
+    v8 = *v30;
     width = 1.0;
     x = 0.0;
     *&v6 = 138412290;
-    v27 = v6;
+    v28 = v6;
     y = 0.0;
     height = 1.0;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v29 != v8)
+        if (*v30 != v8)
         {
           objc_enumerationMutation(widgetIcons);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * i);
-        v15 = [(SBIconListView *)self displayedIconViewForIcon:v14, v27];
-        v16 = SBLogWidgetDiscoverabilityMigration();
+        v14 = *(*(&v29 + 1) + 8 * i);
+        v15 = [(SBIconListView *)self displayedIconViewForIcon:v14, v28];
+        v16 = SBLogWidgetDiscoverabilityMigration(v15);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v27;
-          v33 = v15;
+          *buf = v28;
+          v34 = v15;
           _os_log_impl(&dword_1BEB18000, v16, OS_LOG_TYPE_DEFAULT, "introductionContainerView contained icon view %@", buf, 0xCu);
         }
 
         if (v15)
         {
           [(SBIconListView *)self rectForIcon:v14];
-          v40.origin.x = v17;
-          v40.origin.y = v18;
-          v40.size.width = v19;
-          v40.size.height = v20;
-          v36.origin.x = x;
-          v36.origin.y = y;
-          v36.size.width = width;
-          v36.size.height = height;
-          v37 = CGRectUnion(v36, v40);
-          x = v37.origin.x;
-          y = v37.origin.y;
-          width = v37.size.width;
-          height = v37.size.height;
-          v21 = SBLogWidgetDiscoverabilityMigration();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v41.origin.x = v17;
+          v41.origin.y = v18;
+          v41.size.width = v19;
+          v41.size.height = v20;
+          v37.origin.x = x;
+          v37.origin.y = y;
+          v37.size.width = width;
+          v37.size.height = height;
+          v38 = CGRectUnion(v37, v41);
+          x = v38.origin.x;
+          y = v38.origin.y;
+          width = v38.size.width;
+          height = v38.size.height;
+          v22 = SBLogWidgetDiscoverabilityMigration(v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
-            v38.origin.x = x;
-            v38.origin.y = y;
-            v38.size.width = width;
-            v38.size.height = height;
-            v22 = NSStringFromCGRect(v38);
-            *buf = v27;
-            v33 = v22;
-            _os_log_impl(&dword_1BEB18000, v21, OS_LOG_TYPE_DEFAULT, "introductionContainerView union frame %@", buf, 0xCu);
+            v39.origin.x = x;
+            v39.origin.y = y;
+            v39.size.width = width;
+            v39.size.height = height;
+            v23 = NSStringFromCGRect(v39);
+            *buf = v28;
+            v34 = v23;
+            _os_log_impl(&dword_1BEB18000, v22, OS_LOG_TYPE_DEFAULT, "introductionContainerView union frame %@", buf, 0xCu);
           }
         }
       }
 
-      v7 = [widgetIcons countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v7 = [widgetIcons countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
     while (v7);
@@ -8929,20 +8928,20 @@ uint64_t __64__SBIconListView_closestGridRangeForIconOfSize_centeredAtPoint___bl
     height = 1.0;
   }
 
-  v23 = x;
-  v24 = y;
-  v25 = width;
-  v26 = height;
-  result.size.height = v26;
-  result.size.width = v25;
-  result.origin.y = v24;
-  result.origin.x = v23;
+  v24 = x;
+  v25 = y;
+  v26 = width;
+  v27 = height;
+  result.size.height = v27;
+  result.size.width = v26;
+  result.origin.y = v25;
+  result.origin.x = v24;
   return result;
 }
 
 - (void)layoutWidgetIntroductionViews
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v3 = self->_pronouncedContainerView;
   v4 = v3;
   if (v3)
@@ -8950,29 +8949,29 @@ uint64_t __64__SBIconListView_closestGridRangeForIconOfSize_centeredAtPoint___bl
     widgetIcons = [(SBIconWidgetIntroductionView *)v3 widgetIcons];
     [(SBIconListView *)self _introductionContainerViewFrameForView:v4];
     [(SBIconWidgetIntroductionView *)v4 sbf_setBoundsAndPositionFromFrame:?];
-    v30 = 0u;
     v31 = 0u;
-    v28 = 0u;
+    v32 = 0u;
     v29 = 0u;
+    v30 = 0u;
     v6 = widgetIcons;
-    v7 = [v6 countByEnumeratingWithState:&v28 objects:v34 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v29 objects:v35 count:16];
     if (v7)
     {
       v9 = v7;
-      v10 = *v29;
+      v10 = *v30;
       *&v8 = 138412290;
-      v27 = v8;
+      v28 = v8;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v29 != v10)
+          if (*v30 != v10)
           {
             objc_enumerationMutation(v6);
           }
 
-          v12 = *(*(&v28 + 1) + 8 * i);
-          v13 = [(SBIconListView *)self displayedIconViewForIcon:v12, v27, v28];
+          v12 = *(*(&v29 + 1) + 8 * i);
+          v13 = [(SBIconListView *)self displayedIconViewForIcon:v12, v28, v29];
           v14 = v13;
           if (v13)
           {
@@ -8989,15 +8988,15 @@ uint64_t __64__SBIconListView_closestGridRangeForIconOfSize_centeredAtPoint___bl
               v22 = v21;
               v24 = v23;
 
-              v25 = SBLogWidgetDiscoverabilityMigration();
-              if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+              v26 = SBLogWidgetDiscoverabilityMigration(v25);
+              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
               {
-                v36.x = v22;
-                v36.y = v24;
-                v26 = NSStringFromCGPoint(v36);
-                *buf = v27;
-                v33 = v26;
-                _os_log_impl(&dword_1BEB18000, v25, OS_LOG_TYPE_DEFAULT, "introductionContainerView contained icon view reparent center(%@)", buf, 0xCu);
+                v37.x = v22;
+                v37.y = v24;
+                v27 = NSStringFromCGPoint(v37);
+                *buf = v28;
+                v34 = v27;
+                _os_log_impl(&dword_1BEB18000, v26, OS_LOG_TYPE_DEFAULT, "introductionContainerView contained icon view reparent center(%@)", buf, 0xCu);
               }
 
               [v14 setCenter:{v22, v24}];
@@ -9005,7 +9004,7 @@ uint64_t __64__SBIconListView_closestGridRangeForIconOfSize_centeredAtPoint___bl
           }
         }
 
-        v9 = [v6 countByEnumeratingWithState:&v28 objects:v34 count:16];
+        v9 = [v6 countByEnumeratingWithState:&v29 objects:v35 count:16];
       }
 
       while (v9);
@@ -9289,13 +9288,15 @@ uint64_t __64__SBIconListView_stopAnimatingPronouncedContainerAndPopoverView__bl
   coordinatorCopy = coordinator;
   _window = [(SBIconListView *)self _window];
   _toWindowOrientation = [_window _toWindowOrientation];
-  if (_toWindowOrientation == [(SBIconListView *)self orientation])
+  orientation = [(SBIconListView *)self orientation];
+  v72 = _toWindowOrientation;
+  if (_toWindowOrientation == orientation)
   {
-    v6 = SBLogIcon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v8 = SBLogIcon(orientation);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BEB18000, v6, OS_LOG_TYPE_INFO, "Trying to rotate an icon list view to the orientation it already is; ignoring", buf, 2u);
+      _os_log_impl(&dword_1BEB18000, v8, OS_LOG_TYPE_INFO, "Trying to rotate an icon list view to the orientation it already is; ignoring", buf, 2u);
     }
 
     goto LABEL_58;
@@ -9311,192 +9312,192 @@ uint64_t __64__SBIconListView_stopAnimatingPronouncedContainerAndPopoverView__bl
       [(SBIconListView *)self removePronouncedContainerView];
     }
 
-    v11 = _os_activity_create(&dword_1BEB18000, "IconListView rotation", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+    v13 = _os_activity_create(&dword_1BEB18000, "IconListView rotation", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
     *buf = 0;
-    v96 = buf;
-    v97 = 0x3010000000;
-    v99.opaque[0] = 0;
-    v99.opaque[1] = 0;
-    v98 = &unk_1BEECC529;
-    os_activity_scope_enter(v11, &v99);
+    v98 = buf;
+    v99 = 0x3010000000;
+    v101.opaque[0] = 0;
+    v101.opaque[1] = 0;
+    v100 = &unk_1BEECC529;
+    os_activity_scope_enter(v13, &v101);
     self->_rotating = 1;
     displayedModel = [(SBIconListView *)self displayedModel];
-    v72 = [layout numberOfColumnsForOrientation:self->_orientation];
-    v54 = widgetIntroductionDelegate;
-    v12 = [layout numberOfColumnsForOrientation:_toWindowOrientation];
-    v13 = v72;
-    v64 = v12;
-    if (v72 <= v12)
+    v74 = [layout numberOfColumnsForOrientation:self->_orientation];
+    v56 = widgetIntroductionDelegate;
+    v14 = [layout numberOfColumnsForOrientation:_toWindowOrientation];
+    v15 = v74;
+    v66 = v14;
+    if (v74 <= v14)
     {
-      v13 = v12;
+      v15 = v14;
     }
 
-    v58 = v13;
+    v60 = v15;
     selfCopy = self;
-    v14 = [layout numberOfRowsForOrientation:self->_orientation];
-    v15 = [layout numberOfRowsForOrientation:_toWindowOrientation];
-    v16 = v15;
-    if (v14 <= v15)
+    v16 = [layout numberOfRowsForOrientation:self->_orientation];
+    v17 = [layout numberOfRowsForOrientation:_toWindowOrientation];
+    v18 = v17;
+    if (v16 <= v17)
     {
-      v17 = v15;
+      v19 = v17;
     }
 
     else
     {
-      v17 = v14;
+      v19 = v16;
     }
 
-    v59 = v17;
+    v61 = v19;
     numberOfIcons = [displayedModel numberOfIcons];
-    v63 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:numberOfIcons];
-    v62 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    v61 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v65 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:numberOfIcons];
+    v64 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v63 = objc_alloc_init(MEMORY[0x1E695DFA8]);
     isRTL = [(SBIconListView *)self isRTL];
     rotationAnchor = [objc_opt_class() rotationAnchor];
-    v19 = 1;
+    v21 = 1;
     if ((rotationAnchor & 0xFFFFFFFFFFFFFFFDLL) != 0)
     {
-      v19 = -1;
+      v21 = -1;
     }
 
-    v57 = v19;
-    v20 = -1;
+    v59 = v21;
+    v22 = -1;
     if (rotationAnchor <= 1)
     {
-      v20 = 1;
+      v22 = 1;
     }
 
-    v71 = v20;
+    v73 = v22;
     iconLocation = [(SBIconListView *)self iconLocation];
     layoutMetrics = [(SBIconListView *)self layoutMetrics];
-    v68 = [layoutMetrics copy];
+    v70 = [layoutMetrics copy];
 
-    v66 = [(SBIconListView *)selfCopy layoutMetricsForOrientation:_toWindowOrientation];
-    v22 = [v68 copy];
-    v52 = isDisplayingWidgetIntroduction;
-    v49 = v11;
-    v50 = layout;
-    v51 = _window;
-    v53 = coordinatorCopy;
-    columns = [v22 columns];
-    rows = [v22 rows];
-    v25 = v58 - columns;
-    if ((v58 - columns) >= 1)
+    v68 = [(SBIconListView *)selfCopy layoutMetricsForOrientation:_toWindowOrientation];
+    v24 = [v70 copy];
+    v54 = isDisplayingWidgetIntroduction;
+    v51 = v13;
+    v52 = layout;
+    v53 = _window;
+    v55 = coordinatorCopy;
+    columns = [v24 columns];
+    rows = [v24 rows];
+    v27 = v60 - columns;
+    if ((v60 - columns) >= 1)
     {
-      gridCellInfo = [v22 gridCellInfo];
-      v27 = [gridCellInfo gridCellInfoByAddingEmptyColumns:v25];
+      gridCellInfo = [v24 gridCellInfo];
+      v29 = [gridCellInfo gridCellInfoByAddingEmptyColumns:v27];
 
-      [v22 setGridCellInfo:v27];
+      [v24 setGridCellInfo:v29];
     }
 
-    if ((v59 - rows) >= 1)
+    if ((v61 - rows) >= 1)
     {
-      gridCellInfo2 = [v22 gridCellInfo];
-      v29 = [gridCellInfo2 gridCellInfoByAddingEmptyRows:{v59 - objc_msgSend(v22, "rows")}];
+      gridCellInfo2 = [v24 gridCellInfo];
+      v31 = [gridCellInfo2 gridCellInfoByAddingEmptyRows:{v61 - objc_msgSend(v24, "rows")}];
 
-      [v22 setGridCellInfo:v29];
+      [v24 setGridCellInfo:v31];
     }
 
-    [v22 setColumns:v58];
-    [v22 setRows:v59];
+    [v24 setColumns:v60];
+    [v24 setRows:v61];
     if (isRTL)
     {
-      v30 = -v25;
+      v32 = -v27;
     }
 
     else
     {
-      v30 = 0;
+      v32 = 0;
     }
 
-    [v22 setColumnOffset:v30];
+    [v24 setColumnOffset:v32];
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __54__SBIconListView_willRotateWithTransitionCoordinator___block_invoke;
     aBlock[3] = &unk_1E808CFE8;
-    v92 = v72;
+    v94 = v74;
+    v95 = v18;
+    v96 = v66;
     v93 = v16;
-    v94 = v64;
-    v91 = v14;
     aBlock[4] = selfCopy;
-    v47 = v22;
-    v88 = v47;
-    v89 = iconLocation;
-    v48 = v63;
-    v90 = v48;
-    v65 = _Block_copy(aBlock);
-    if (!v59)
+    v49 = v24;
+    v90 = v49;
+    v91 = iconLocation;
+    v50 = v65;
+    v92 = v50;
+    v67 = _Block_copy(aBlock);
+    if (!v61)
     {
       goto LABEL_57;
     }
 
-    v31 = 0;
-    v32 = 0;
-    v73 = 0;
-    v33 = v57;
+    v33 = 0;
+    v34 = 0;
+    v75 = 0;
+    v35 = v59;
     while (1)
     {
-      if (v31 == v73 && v31 >= numberOfIcons)
+      if (v33 == v75 && v33 >= numberOfIcons)
       {
         goto LABEL_57;
       }
 
-      v60 = v32;
-      v34 = v58;
-      v35 = v71;
-      if (!v58)
+      v62 = v34;
+      v36 = v60;
+      v37 = v73;
+      if (!v60)
       {
         goto LABEL_56;
       }
 
-      while (v31 != v73 || v31 < numberOfIcons)
+      while (v33 != v75 || v33 < numberOfIcons)
       {
-        v36 = [(SBIconListView *)selfCopy indexForCoordinate:v35 forOrientation:v33 metrics:selfCopy->_orientation, v68, v47, v48];
-        v37 = [(SBIconListView *)selfCopy indexForCoordinate:v35 forOrientation:v33 metrics:_toWindowOrientation, v66];
-        if (v36 >= numberOfIcons)
+        v38 = [(SBIconListView *)selfCopy indexForCoordinate:v37 forOrientation:v35 metrics:selfCopy->_orientation, v70, v49, v50];
+        v39 = [(SBIconListView *)selfCopy indexForCoordinate:v37 forOrientation:v35 metrics:v72, v68];
+        if (v38 >= numberOfIcons)
         {
           goto LABEL_38;
         }
 
-        v38 = [displayedModel iconAtIndex:v36];
-        if (v38)
+        v40 = [displayedModel iconAtIndex:v38];
+        if (v40)
         {
-          if (![v62 containsObject:v38])
+          if (![v64 containsObject:v40])
           {
-            [v62 addObject:v38];
-            ++v31;
+            [v64 addObject:v40];
+            ++v33;
             goto LABEL_39;
           }
 
 LABEL_38:
-          v38 = 0;
+          v40 = 0;
         }
 
 LABEL_39:
-        if (v37 < numberOfIcons)
+        if (v39 < numberOfIcons)
         {
-          v39 = [displayedModel iconAtIndex:v37];
-          if (v39)
+          v41 = [displayedModel iconAtIndex:v39];
+          if (v41)
           {
-            if (![v61 containsObject:v39])
+            if (![v63 containsObject:v41])
             {
-              [v61 addObject:v39];
-              ++v73;
-              v41 = v38 != 0;
-              v40 = 1;
+              [v63 addObject:v41];
+              ++v75;
+              v43 = v40 != 0;
+              v42 = 1;
 LABEL_47:
-              gridSizeClass = [v38 gridSizeClass];
-              gridSizeClass2 = [v39 gridSizeClass];
-              v44 = gridSizeClass2;
-              if ((v40 & v41) != 1 || gridSizeClass == gridSizeClass2 || [gridSizeClass isEqualToString:gridSizeClass2])
+              gridSizeClass = [v40 gridSizeClass];
+              gridSizeClass2 = [v41 gridSizeClass];
+              v46 = gridSizeClass2;
+              if ((v42 & v43) != 1 || gridSizeClass == gridSizeClass2 || [gridSizeClass isEqualToString:gridSizeClass2])
               {
-                v65[2](v65, v38, v39, v35, v33);
+                v67[2](v67, v40, v41, v37, v35);
               }
 
               else
               {
-                v65[2](v65, v38, 0, v35, v33);
-                v65[2](v65, 0, v39, v35, v33);
+                v67[2](v67, v40, 0, v37, v35);
+                v67[2](v67, 0, v41, v37, v35);
               }
 
               goto LABEL_53;
@@ -9504,69 +9505,69 @@ LABEL_47:
           }
         }
 
-        if (v38)
+        if (v40)
         {
-          v40 = 0;
-          v39 = 0;
-          v41 = 1;
+          v42 = 0;
+          v41 = 0;
+          v43 = 1;
           goto LABEL_47;
         }
 
 LABEL_53:
 
-        v35 += v71;
-        if (!--v34)
+        v37 += v73;
+        if (!--v36)
         {
           goto LABEL_56;
         }
       }
 
-      v73 = v31;
+      v75 = v33;
 LABEL_56:
-      v32 = v60 + 1;
-      v33 += v57;
-      if (v60 + 1 == v59)
+      v34 = v62 + 1;
+      v35 += v59;
+      if (v62 + 1 == v61)
       {
 LABEL_57:
-        v81[0] = MEMORY[0x1E69E9820];
-        v81[1] = 3221225472;
-        v81[2] = __54__SBIconListView_willRotateWithTransitionCoordinator___block_invoke_2;
-        v81[3] = &unk_1E808D010;
-        v81[4] = selfCopy;
-        v83 = _toWindowOrientation;
-        v84 = v58;
-        v85 = v59;
-        v86 = isRTL;
-        v82 = v48;
-        v75[0] = MEMORY[0x1E69E9820];
-        v75[1] = 3221225472;
-        v75[2] = __54__SBIconListView_willRotateWithTransitionCoordinator___block_invoke_3;
-        v75[3] = &unk_1E808D038;
-        v45 = v82;
-        v76 = v45;
-        v77 = selfCopy;
-        v80 = v52;
-        v46 = v54;
-        v78 = v46;
-        v79 = buf;
-        coordinatorCopy = v53;
-        [v53 animateAlongsideTransition:v81 completion:v75];
+        v83[0] = MEMORY[0x1E69E9820];
+        v83[1] = 3221225472;
+        v83[2] = __54__SBIconListView_willRotateWithTransitionCoordinator___block_invoke_2;
+        v83[3] = &unk_1E808D010;
+        v83[4] = selfCopy;
+        v85 = v72;
+        v86 = v60;
+        v87 = v61;
+        v88 = isRTL;
+        v84 = v50;
+        v77[0] = MEMORY[0x1E69E9820];
+        v77[1] = 3221225472;
+        v77[2] = __54__SBIconListView_willRotateWithTransitionCoordinator___block_invoke_3;
+        v77[3] = &unk_1E808D038;
+        v47 = v84;
+        v78 = v47;
+        v79 = selfCopy;
+        v82 = v54;
+        v48 = v56;
+        v80 = v48;
+        v81 = buf;
+        coordinatorCopy = v55;
+        [v55 animateAlongsideTransition:v83 completion:v77];
 
         _Block_object_dispose(buf, 8);
-        _window = v51;
+        _window = v53;
         goto LABEL_58;
       }
     }
   }
 
-  v7 = SBLogIcon();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v9 = SBLogIcon(orientation);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BEB18000, v7, OS_LOG_TYPE_DEFAULT, "Trying to rotate an icon list view that is already rotating; ignoring", buf, 2u);
+    _os_log_impl(&dword_1BEB18000, v9, OS_LOG_TYPE_DEFAULT, "Trying to rotate an icon list view that is already rotating; ignoring", buf, 2u);
   }
 
-  [(SBIconListView *)self setOrientation:_toWindowOrientation];
+  [(SBIconListView *)self setOrientation:v72];
   [(SBIconListView *)self setIconsNeedLayout];
 LABEL_58:
 }
@@ -9829,19 +9830,24 @@ uint64_t __35__SBIconListView_layoutFocusGuides__block_invoke_2(uint64_t a1, uin
   v13 = *(a1 + v12);
   v14 = *(a1 + 72);
   v15 = [*(a1 + 32) iconAtCoordinate:a4 metrics:{a5, *(a1 + 40)}];
+  v16 = v15;
   if (v15)
   {
-    v16 = [*(a1 + 32) displayedIconViewForIcon:v15];
-    if (v16)
+    v20 = v15;
+    v15 = [*(a1 + 32) displayedIconViewForIcon:v15];
+    v16 = v20;
+    if (v15)
     {
-      v17 = v16;
+      v17 = v15;
       v18 = (*(*(a1 + 48) + 16))();
       [v18 setFrame:{v13, v11, 10.0, v14}];
       [v18 setTargetView:v17];
+
+      v16 = v20;
     }
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v15, v16);
 }
 
 - (BOOL)_iconMatchingCoordinateBeginsInThatRow:(SBIconCoordinate)row metrics:(id)metrics
@@ -9951,8 +9957,7 @@ uint64_t __35__SBIconListView_layoutFocusGuides__block_invoke_2(uint64_t a1, uin
   classCopy = class;
   reasonCopy = reason;
   model = [(SBIconListView *)self model];
-  [(SBIconListView *)self gridCellInfoOptions];
-  v13 = SBLogIcon();
+  v13 = SBLogIcon([(SBIconListView *)self gridCellInfoOptions]);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     gridSizeClassDomain = [(SBIconListView *)self gridSizeClassDomain];
@@ -10018,8 +10023,7 @@ uint64_t __35__SBIconListView_layoutFocusGuides__block_invoke_2(uint64_t a1, uin
   iconCopy = icon;
   reasonCopy = reason;
   model = [(SBIconListView *)self model];
-  [(SBIconListView *)self gridCellInfoOptions];
-  v13 = SBLogIcon();
+  v13 = SBLogIcon([(SBIconListView *)self gridCellInfoOptions]);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v19 = 134218754;
@@ -10055,7 +10059,7 @@ uint64_t __35__SBIconListView_layoutFocusGuides__block_invoke_2(uint64_t a1, uin
 {
   v12 = *MEMORY[0x1E69E9840];
   positionCopy = position;
-  v5 = SBLogIcon();
+  v5 = SBLogIcon(positionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 134218496;
@@ -10077,7 +10081,7 @@ uint64_t __35__SBIconListView_layoutFocusGuides__block_invoke_2(uint64_t a1, uin
 {
   v15 = *MEMORY[0x1E69E9840];
   assertionCopy = assertion;
-  v5 = SBLogIcon();
+  v5 = SBLogIcon(assertionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 134218496;
@@ -10173,7 +10177,7 @@ uint64_t __35__SBIconListView_layoutFocusGuides__block_invoke_2(uint64_t a1, uin
   v35 = *MEMORY[0x1E69E9840];
   layoutCopy = layout;
   reasonCopy = reason;
-  v10 = SBLogIcon();
+  v10 = SBLogIcon(reasonCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218754;
@@ -10246,7 +10250,7 @@ uint64_t __35__SBIconListView_layoutFocusGuides__block_invoke_2(uint64_t a1, uin
 {
   v13 = *MEMORY[0x1E69E9840];
   changeCopy = change;
-  v5 = SBLogIcon();
+  v5 = SBLogIcon(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     icons = [changeCopy icons];
@@ -10270,7 +10274,7 @@ uint64_t __35__SBIconListView_layoutFocusGuides__block_invoke_2(uint64_t a1, uin
 {
   v11 = *MEMORY[0x1E69E9840];
   invalidateCopy = invalidate;
-  v5 = SBLogIcon();
+  v5 = SBLogIcon(invalidateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 134218240;
@@ -10557,7 +10561,7 @@ LABEL_9:
         if (newCaptureOnlyBackgroundView)
         {
           [(SBIconListView *)selfCopy insertSubview:newCaptureOnlyBackgroundView atIndex:0];
-          [(SBIconListView *)selfCopy bounds];
+          objc_msgSend_bounds(selfCopy);
           [newCaptureOnlyBackgroundView setFrame:?];
           [newCaptureOnlyBackgroundView setAutoresizingMask:18];
           groupNamesToCaptureOnlyBackgroundViews = selfCopy->_groupNamesToCaptureOnlyBackgroundViews;

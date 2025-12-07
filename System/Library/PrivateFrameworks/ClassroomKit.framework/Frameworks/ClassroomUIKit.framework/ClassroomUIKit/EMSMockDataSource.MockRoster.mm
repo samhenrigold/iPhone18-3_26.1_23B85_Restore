@@ -8,18 +8,16 @@
 
 - (CRKASMOrganization)organization
 {
-  v2 = *(self + OBJC_IVAR____TtCC14ClassroomUIKit17EMSMockDataSource10MockRoster_organization);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (CRKASMUser)user
 {
-  v2 = *(self + OBJC_IVAR____TtCC14ClassroomUIKit17EMSMockDataSource10MockRoster_user);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (_TtCC14ClassroomUIKit17EMSMockDataSource10MockRoster)init

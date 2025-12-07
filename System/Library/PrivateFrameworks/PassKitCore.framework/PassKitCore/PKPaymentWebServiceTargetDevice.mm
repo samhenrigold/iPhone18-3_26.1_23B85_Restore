@@ -642,9 +642,9 @@ uint64_t __70__PKPaymentWebServiceTargetDevice_paymentWebService_setNewAuthRando
 
           v13 = *(*(&v17 + 1) + 8 * i);
           primaryAccountIdentifier = [v13 primaryAccountIdentifier];
-          v15 = [primaryAccountIdentifier isEqualToString:identifierCopy];
+          isEqualToString = objc_msgSend_isEqualToString_(primaryAccountIdentifier);
 
-          if (v15 && [v13 activationState] < 4)
+          if (isEqualToString && [v13 activationState] < 4)
           {
             v7 = 0;
             goto LABEL_14;
@@ -1316,9 +1316,9 @@ LABEL_20:
           continue;
         }
 
-        v15 = [(PKExpressPassConfiguration *)v12 isEqualToString:v13];
+        isEqualToString = objc_msgSend_isEqualToString_(v12);
 
-        if ((v15 & 1) == 0)
+        if ((isEqualToString & 1) == 0)
         {
           goto LABEL_18;
         }

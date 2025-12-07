@@ -49,7 +49,7 @@
     v10 = +[ActiveAccountObserver sharedInstance];
     [v9 addObserver:v2 selector:"_handleAccountStoreDidChangeNotification:" name:@"AccountStorePrimaryAccountDidChange" object:v10];
 
-    v11 = sub_100336524();
+    v11 = sub_100336524(PushService);
     sub_1003367D0(v11, v2, 17);
 
     v12 = v2->_dispatchQueue;

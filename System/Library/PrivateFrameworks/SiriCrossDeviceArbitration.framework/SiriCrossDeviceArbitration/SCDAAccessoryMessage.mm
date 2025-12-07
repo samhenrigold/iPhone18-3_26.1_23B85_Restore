@@ -18,11 +18,11 @@
 
 - (id)description
 {
-  v29[16] = *MEMORY[0x1E69E9840];
-  v28[0] = @"iSane";
-  v27 = [MEMORY[0x1E696AD98] numberWithBool:self->_isSane];
-  v29[0] = v27;
-  v28[1] = @"ACK";
+  v28[16] = *MEMORY[0x1E69E9840];
+  v27[0] = @"iSane";
+  v26 = [MEMORY[0x1E696AD98] numberWithBool:self->_isSane];
+  v28[0] = v26;
+  v27[1] = @"ACK";
   ack = self->_message.ack;
   if (self->_message.ack)
   {
@@ -34,62 +34,60 @@
     v3 = @"0";
   }
 
-  v19 = v3;
-  v29[1] = v3;
-  v28[2] = @"usesSerializedProtocol";
-  v25 = [MEMORY[0x1E696AD98] numberWithBool:self->_serializedProtocol];
-  v29[2] = v25;
-  v28[3] = @"Version";
-  v24 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:self->_message.version];
-  v29[3] = v24;
-  v28[4] = @"RequestType";
+  v18 = v3;
+  v28[1] = v3;
+  v27[2] = @"usesSerializedProtocol";
+  v24 = [MEMORY[0x1E696AD98] numberWithBool:self->_serializedProtocol];
+  v28[2] = v24;
+  v27[3] = @"Version";
+  v23 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:self->_message.version];
+  v28[3] = v23;
+  v27[4] = @"RequestType";
   v4 = MEMORY[0x1E696AEC0];
   requestType = self->_message.requestType;
-  v23 = [SCDAAccessoryMessage myriadRequestTypeAsString:requestType];
-  v22 = [v4 stringWithFormat:@"%llu (%@)", requestType, v23];
-  v29[4] = v22;
-  v28[5] = @"Session";
-  v21 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_message.session];
-  v29[5] = v21;
-  v28[6] = @"VoiceTrigger endtime";
-  v20 = [MEMORY[0x1E696AD98] numberWithDouble:self->_message.voiceTriggerEndTime];
-  v29[6] = v20;
-  v28[7] = @"AudioHash";
+  v22 = [SCDAAccessoryMessage myriadRequestTypeAsString:requestType];
+  v21 = [v4 stringWithFormat:@"%llu (%@)", requestType, v22];
+  v28[4] = v21;
+  v27[5] = @"Session";
+  v20 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_message.session];
+  v28[5] = v20;
+  v27[6] = @"VoiceTrigger endtime";
+  v19 = [MEMORY[0x1E696AD98] numberWithDouble:self->_message.voiceTriggerEndTime];
+  v28[6] = v19;
+  v27[7] = @"AudioHash";
   v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"hash=%#04x", self->_message.audioHash];
-  v29[7] = v6;
-  v28[8] = @"GoodnessScore";
+  v28[7] = v6;
+  v27[8] = @"GoodnessScore";
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:self->_message.goodnessScore];
-  v29[8] = v7;
-  v28[9] = @"UserConfidence";
+  v28[8] = v7;
+  v27[9] = @"UserConfidence";
   v8 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:self->_message.userConfidenceScore];
-  v29[9] = v8;
-  v28[10] = @"TieBreaker";
+  v28[9] = v8;
+  v27[10] = @"TieBreaker";
   v9 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:self->_message.tieBreaker];
-  v29[10] = v9;
-  v28[11] = @"DeviceClass";
+  v28[10] = v9;
+  v27[11] = @"DeviceClass";
   v10 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:self->_message.deviceClass];
-  v29[11] = v10;
-  v28[12] = @"DeviceGroup";
+  v28[11] = v10;
+  v27[12] = @"DeviceGroup";
   v11 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:self->_message.deviceGroup];
-  v29[12] = v11;
-  v28[13] = @"ProductType";
+  v28[12] = v11;
+  v27[13] = @"ProductType";
   v12 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:self->_message.productType];
-  v29[13] = v12;
-  v28[14] = @"ElectionDecision";
+  v28[13] = v12;
+  v27[14] = @"ElectionDecision";
   v13 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:self->_message.electionDecision];
-  v29[14] = v13;
-  v28[15] = @"EmergencyHandled";
+  v28[14] = v13;
+  v27[15] = @"EmergencyHandled";
   v14 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:self->_message.emergencyHandled];
-  v29[15] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:16];
+  v28[15] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:16];
 
   if (ack)
   {
   }
 
   v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@", v15];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -269,7 +267,7 @@
 
 - (void)_initializeMessageObjFromDictionary:(id)dictionary
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v5 = +[SCDAAccessoryMessage acknowledgeRequestKey];
   v6 = [dictionaryCopy objectForKeyedSubscript:v5];
@@ -377,13 +375,13 @@ LABEL_18:
       if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
       {
         accessoryId = self->_accessoryId;
-        v26 = 136315650;
-        v27 = "[SCDAAccessoryMessage _initializeMessageObjFromDictionary:]";
-        v28 = 2112;
-        v29 = v14;
-        v30 = 2112;
-        v31 = accessoryId;
-        _os_log_debug_impl(&dword_1DA758000, v18, OS_LOG_TYPE_DEBUG, "%s Unknown request type %@ for accessory id: %@, Ignoring.", &v26, 0x20u);
+        v25 = 136315650;
+        v26 = "[SCDAAccessoryMessage _initializeMessageObjFromDictionary:]";
+        v27 = 2112;
+        v28 = v14;
+        v29 = 2112;
+        v30 = accessoryId;
+        _os_log_debug_impl(&dword_1DA758000, v18, OS_LOG_TYPE_DEBUG, "%s Unknown request type %@ for accessory id: %@, Ignoring.", &v25, 0x20u);
       }
 
       self->_isSane = 0;
@@ -395,26 +393,24 @@ LABEL_18:
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     v16 = self->_accessoryId;
-    v26 = 136315906;
-    v27 = "[SCDAAccessoryMessage _initializeMessageObjFromDictionary:]";
-    v28 = 2112;
-    v29 = dictionaryCopy;
-    v30 = 2112;
-    v31 = v8;
-    v32 = 2112;
-    v33 = v16;
-    _os_log_impl(&dword_1DA758000, v15, OS_LOG_TYPE_INFO, "%s Received a payload %@ with session id %@ for accessory id: %@, Ignoring.", &v26, 0x2Au);
+    v25 = 136315906;
+    v26 = "[SCDAAccessoryMessage _initializeMessageObjFromDictionary:]";
+    v27 = 2112;
+    v28 = dictionaryCopy;
+    v29 = 2112;
+    v30 = v8;
+    v31 = 2112;
+    v32 = v16;
+    _os_log_impl(&dword_1DA758000, v15, OS_LOG_TYPE_INFO, "%s Received a payload %@ with session id %@ for accessory id: %@, Ignoring.", &v25, 0x2Au);
   }
 
   self->_isSane = 0;
 LABEL_31:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_initializeMessageObj:(id)obj
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   objCopy = obj;
   v5 = objCopy;
   self->_serializedProtocol = 1;
@@ -422,14 +418,14 @@ LABEL_31:
   {
     if ([objCopy length])
     {
-      v15 = 0;
-      [v5 getBytes:&v15 range:{0, 1}];
-      if (v15)
+      v14 = 0;
+      [v5 getBytes:&v14 range:{0, 1}];
+      if (v14)
       {
         v6 = [v5 length];
         v7 = v6;
-        v8 = v15;
-        if (v15 && v6 >= 0x30)
+        v8 = v14;
+        if (v14 && v6 >= 0x30)
         {
           bytes = [v5 bytes];
           p_message = &self->_message;
@@ -439,18 +435,18 @@ LABEL_31:
 
         else
         {
-          if (v15 || v6 > 0x2F)
+          if (v14 || v6 > 0x2F)
           {
             self->_isSane = 0;
             v13 = SCDALogContextCore;
             if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315650;
-              v17 = "[SCDAAccessoryMessage _initializeMessageObj:]";
-              v18 = 1024;
-              v19 = v8;
-              v20 = 2048;
-              v21 = v7;
+              v16 = "[SCDAAccessoryMessage _initializeMessageObj:]";
+              v17 = 1024;
+              v18 = v8;
+              v19 = 2048;
+              v20 = v7;
               _os_log_error_impl(&dword_1DA758000, v13, OS_LOG_TYPE_ERROR, "%s Wedged message received with version: %hhu and message length: %zu", buf, 0x1Cu);
             }
 
@@ -470,8 +466,6 @@ LABEL_13:
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (id)myriadRequestTypeAsString:(unint64_t)string

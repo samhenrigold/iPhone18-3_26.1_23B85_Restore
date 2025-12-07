@@ -23,7 +23,7 @@
 
 - (NSArray)preferredFocusEnvironments
 {
-  sub_1000040E8(&unk_100114770);
+  sub_1000040E8(&unk_100114770, qword_1000D58D0);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1000D58A0;
   v4 = *(self + OBJC_IVAR____TtC7Climate14ClimateStepper_upButton);
@@ -32,7 +32,7 @@
   *(v3 + 40) = v5;
   v6 = v4;
   v7 = v5;
-  sub_1000040E8(&unk_1001150F0);
+  sub_1000040E8(&unk_1001150F0, &qword_1000D5F10);
   v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v8.super.isa;

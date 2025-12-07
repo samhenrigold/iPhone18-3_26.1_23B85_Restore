@@ -20,7 +20,7 @@
     v17->super._routeEnd.index = endIndex;
     v17->super._routeEnd.offset = 0.0;
     std::vector<gm::Matrix<float,3,1>>::resize(&v17->super._points.__begin_, count);
-    std::vector<geo::PolylineCoordinate>::resize(&v18->super._polylineCoordinates, count);
+    std::vector<geo::PolylineCoordinate>::resize(&v18->super._polylineCoordinates.__begin_, count);
     if (count)
     {
       v19 = 0;
@@ -31,8 +31,8 @@
         *v21 = *(points + v20 * 8);
         *(v21 + 2) = 0;
         v22 = &v18->super._polylineCoordinates.__begin_[v20];
-        *v22 = index;
-        v22[1] = 0;
+        v22->index = index;
+        v22->offset = 0.0;
         ++v20;
         ++index;
         v19 += 12;

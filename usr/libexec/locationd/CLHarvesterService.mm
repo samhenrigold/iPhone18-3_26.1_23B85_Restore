@@ -195,9 +195,9 @@
 
   self->_mescalSigner = -[CLMescalSigner initInSilo:]([CLMescalSigner alloc], "initInSilo:", [-[CLHarvesterService universe](self "universe")]);
   [(CLHarvesterService *)self constructPolicies];
-  [(CLHarvesterService *)self constructSubHarvesters];
-  sub_10001A3E8();
-  if (sub_100328630())
+  constructSubHarvesters = [(CLHarvesterService *)self constructSubHarvesters];
+  v9 = sub_10001A3E8(constructSubHarvesters, v8);
+  if (sub_100328630(v9, v10))
   {
     out_token[0] = 0;
     notify_register_dispatch("persistHarvestData", out_token, v3, &stru_102458110);
@@ -206,47 +206,47 @@
   +[CLPMeta updateRegulatoryDomainEstimates];
   ptr = self->_harvestController.__ptr_;
   cntrl = self->_monitorGps.__cntrl_;
-  v16 = self->_monitorGps.__ptr_;
-  v17 = cntrl;
+  v20 = self->_monitorGps.__ptr_;
+  v21 = cntrl;
   if (cntrl)
   {
     atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
   }
 
-  v9 = self->_policyProactive.__cntrl_;
-  v14 = self->_policyProactive.__ptr_;
-  v15 = v9;
-  if (v9)
-  {
-    atomic_fetch_add_explicit(v9 + 1, 1uLL, memory_order_relaxed);
-  }
-
-  v10 = self->_policyTrip.__cntrl_;
-  v12 = self->_policyTrip.__ptr_;
-  v13 = v10;
-  if (v10)
-  {
-    atomic_fetch_add_explicit(v10 + 1, 1uLL, memory_order_relaxed);
-  }
-
-  memset(v11, 0, sizeof(v11));
-  sub_1004CA7AC(v11, self->_subHarvesters.__begin_, self->_subHarvesters.__end_, (self->_subHarvesters.__end_ - self->_subHarvesters.__begin_) >> 4);
-  sub_10056ECF8(ptr, &v16, &v14, &v12, v11);
-  *out_token = v11;
-  sub_1004CA974(out_token);
+  v13 = self->_policyProactive.__cntrl_;
+  v18 = self->_policyProactive.__ptr_;
+  v19 = v13;
   if (v13)
   {
-    sub_100008080(v13);
+    atomic_fetch_add_explicit(v13 + 1, 1uLL, memory_order_relaxed);
   }
 
-  if (v15)
+  v14 = self->_policyTrip.__cntrl_;
+  v16 = self->_policyTrip.__ptr_;
+  v17 = v14;
+  if (v14)
   {
-    sub_100008080(v15);
+    atomic_fetch_add_explicit(v14 + 1, 1uLL, memory_order_relaxed);
   }
 
+  memset(v15, 0, sizeof(v15));
+  sub_1004CA7AC(v15, self->_subHarvesters.__begin_, self->_subHarvesters.__end_, (self->_subHarvesters.__end_ - self->_subHarvesters.__begin_) >> 4);
+  sub_10056ECF8(ptr, &v20, &v18, &v16, v15);
+  *out_token = v15;
+  sub_1004CA974(out_token);
   if (v17)
   {
     sub_100008080(v17);
+  }
+
+  if (v19)
+  {
+    sub_100008080(v19);
+  }
+
+  if (v21)
+  {
+    sub_100008080(v21);
   }
 
   [-[CLHarvesterService universe](self "universe")];
@@ -329,14 +329,14 @@
     sub_1018987F0();
   }
 
-  v5 = qword_1025D47D8;
+  v4 = qword_1025D47D8;
   if (os_log_type_enabled(qword_1025D47D8, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 68289026;
-    v18 = 0;
-    v19 = 2082;
-    v20 = "";
-    _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:-submitSample: called}", &v17, 0x12u);
+    v15 = 68289026;
+    v16 = 0;
+    v17 = 2082;
+    v18 = "";
+    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:-submitSample: called}", &v15, 0x12u);
   }
 
   if (sub_1004C9FF8(+[NSXPCConnection currentConnection], @"com.apple.locationd.harvest.contribute"))
@@ -350,20 +350,20 @@
       {
         while (1)
         {
-          v8 = *begin;
-          v9 = begin[1];
-          if (v9)
+          v7 = *begin;
+          v8 = begin[1];
+          if (v8)
           {
-            atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v10 = sub_1000183C0(v8);
-          if (v9)
+          v9 = sub_1000183C0(v7);
+          if (v8)
           {
-            sub_100008080(v9);
+            sub_100008080(v8);
           }
 
-          if (v10 == 9)
+          if (v9 == 9)
           {
             break;
           }
@@ -377,17 +377,16 @@
         }
       }
 
-      v11 = *begin;
-      v12 = begin[1];
-      if (v12)
+      v10 = begin[1];
+      if (v10)
       {
-        atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      sub_1004025E0(v11, sample);
-      if (v12)
+      sub_1004025E0();
+      if (v10)
       {
-        sub_100008080(v12);
+        sub_100008080(v10);
       }
     }
 
@@ -398,34 +397,34 @@
         sub_1018989CC();
       }
 
-      v13 = qword_1025D47D8;
+      v11 = qword_1025D47D8;
       if (os_log_type_enabled(qword_1025D47D8, OS_LOG_TYPE_FAULT))
       {
-        v14 = objc_opt_class();
-        v17 = 68289282;
-        v18 = 0;
-        v19 = 2082;
-        v20 = "";
-        v21 = 2114;
-        v22 = v14;
-        _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:received sample of unrecognized type, class:%{public, location:escape_only}@}", &v17, 0x1Cu);
+        v12 = objc_opt_class();
+        v15 = 68289282;
+        v16 = 0;
+        v17 = 2082;
+        v18 = "";
+        v19 = 2114;
+        v20 = v12;
+        _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:received sample of unrecognized type, class:%{public, location:escape_only}@}", &v15, 0x1Cu);
         if (qword_1025D47D0 != -1)
         {
           sub_1018989CC();
         }
       }
 
-      v15 = qword_1025D47D8;
+      v13 = qword_1025D47D8;
       if (os_signpost_enabled(qword_1025D47D8))
       {
-        v16 = objc_opt_class();
-        v17 = 68289282;
-        v18 = 0;
-        v19 = 2082;
-        v20 = "";
-        v21 = 2114;
-        v22 = v16;
-        _os_signpost_emit_with_name_impl(dword_100000000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "received sample of unrecognized type", "{msg%{public}.0s:received sample of unrecognized type, class:%{public, location:escape_only}@}", &v17, 0x1Cu);
+        v14 = objc_opt_class();
+        v15 = 68289282;
+        v16 = 0;
+        v17 = 2082;
+        v18 = "";
+        v19 = 2114;
+        v20 = v14;
+        _os_signpost_emit_with_name_impl(dword_100000000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "received sample of unrecognized type", "{msg%{public}.0s:received sample of unrecognized type, class:%{public, location:escape_only}@}", &v15, 0x1Cu);
       }
     }
   }

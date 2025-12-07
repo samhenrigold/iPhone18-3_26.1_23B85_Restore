@@ -9,13 +9,13 @@
   v2 = objc_opt_new();
   if ([self onStart])
   {
-    v3 = (softLink_HKWorkoutSessionStateName)(2);
+    v3 = softLink_HKWorkoutSessionStateName(2);
     [v2 addObject:v3];
   }
 
   if ([self onEnd])
   {
-    v4 = (softLink_HKWorkoutSessionStateName)(3);
+    v4 = softLink_HKWorkoutSessionStateName(3);
     [v2 addObject:v4];
   }
 

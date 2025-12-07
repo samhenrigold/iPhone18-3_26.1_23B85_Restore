@@ -1,3 +1,210 @@
+__CFString *_IOHIDEventDebugInfo(uint64_t a1)
+{
+  v2 = *(*(a1 + 96) + 4);
+  if (v2 > 2)
+  {
+    if (v2 == 3)
+    {
+      v10 = *MEMORY[0x1E695E480];
+      EventWithOptions = IOHIDEventGetEventWithOptions(a1, 3, 4026531840);
+      if (EventWithOptions)
+      {
+        v12 = *(*(EventWithOptions + 12) + 20);
+      }
+
+      else
+      {
+        v12 = 0;
+      }
+
+      return CFStringCreateWithFormat(v10, 0, @"keyboardPress: %ld", v12);
+    }
+
+    else
+    {
+      if (v2 != 37)
+      {
+        return &stru_1F0B93200;
+      }
+
+      v13 = MEMORY[0x1E695E480];
+      v14 = IOHIDEventGetEventWithOptions(a1, 37, 4026531840);
+      if (v14)
+      {
+        v15 = *(*(v14 + 12) + 16);
+      }
+
+      else
+      {
+        v15 = 0;
+      }
+
+      v21 = *v13;
+      v22 = IOHIDEventGetEventWithOptions(a1, 37, 4026531840);
+      if (v22)
+      {
+        v23 = *(*(v22 + 12) + 18);
+      }
+
+      else
+      {
+        v23 = 0;
+      }
+
+      Count = CFArrayGetCount(*(a1 + 72));
+      v25 = IOHIDEventGetEventWithOptions(a1, 37, 4026531840);
+      if (v25)
+      {
+        v26 = *(*(v25 + 12) + 20);
+      }
+
+      else
+      {
+        v26 = 0;
+      }
+
+      return CFStringCreateWithFormat(v21, 0, @"usagePage: %ld usage: %ld children: %ld ungroupForLegacy: %ld", v15, v23, Count, v26);
+    }
+  }
+
+  else
+  {
+    if (v2 != 1)
+    {
+      if (v2 == 2)
+      {
+        v3 = *MEMORY[0x1E695E480];
+        v4 = IOHIDEventGetEventWithOptions(a1, 2, 4026531840);
+        if (v4)
+        {
+          v5 = *(*(v4 + 12) + 28);
+        }
+
+        else
+        {
+          v5 = 0;
+        }
+
+        return CFStringCreateWithFormat(v3, 0, @"buttonState: %ld", v5);
+      }
+
+      return &stru_1F0B93200;
+    }
+
+    v7 = MEMORY[0x1E695E480];
+    v8 = IOHIDEventGetEventWithOptions(a1, 1, 4026531840);
+    if (v8)
+    {
+      v9 = *(*(v8 + 12) + 16);
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+
+    v16 = *v7;
+    v17 = IOHIDEventGetEventWithOptions(a1, 1, 4026531840);
+    if (v17)
+    {
+      v18 = *(*(v17 + 12) + 18);
+    }
+
+    else
+    {
+      v18 = 0;
+    }
+
+    v19 = IOHIDEventGetEventWithOptions(a1, 1, 4026531840);
+    if (v19)
+    {
+      v20 = *(*(v19 + 12) + 24);
+    }
+
+    else
+    {
+      v20 = 0;
+    }
+
+    return CFStringCreateWithFormat(v16, 0, @"vendorUsagePage: %ld vendorUsage:%ld dataLength:%ld", v9, v18, v20);
+  }
+}
+
+uint64_t __SetPropertiesForObjectFunction(const void *a1, const void *a2, CFTypeRef cf)
+{
+  v6 = CFGetTypeID(cf);
+  result = IOHIDServiceGetTypeID();
+  if (v6 == result)
+  {
+
+    return IOHIDServiceSetProperty(cf, a1, a2);
+  }
+
+  return result;
+}
+
+uint64_t __IOHIDServiceVirtualScheduleWithDispatchQueueCallback(uint64_t a1)
+{
+  _IOHIDServiceGetSenderID(a1);
+  v1 = OUTLINED_FUNCTION_15_2();
+
+  return _IOHIDEventSystemConnectionVirtualServiceNotify(v1, v2, 2, 0);
+}
+
+BOOL IOHIDServiceFilterSetCancelHandler(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 96);
+  if (v2)
+  {
+    CFRetain(*(a1 + 48));
+    *(a1 + 56) = a2;
+    [*(a1 + 96) *(a1 + 136)];
+  }
+
+  return v2 != 0;
+}
+
+void IOHIDEventSystemRematchServices(uint64_t a1, const __CFDictionary *a2)
+{
+  os_unfair_recursive_lock_lock_with_options();
+  if (CFSetGetCount(*(a1 + 40)))
+  {
+    v4 = CFGetAllocator(*(a1 + 40));
+    Copy = CFSetCreateCopy(v4, *(a1 + 40));
+  }
+
+  else
+  {
+    Copy = 0;
+  }
+
+  v6 = CFGetAllocator(a1);
+  v7 = CFSetCreateCopy(v6, *(a1 + 432));
+  os_unfair_recursive_lock_unlock();
+  if (a2 && Copy)
+  {
+    if (CFDictionaryGetCount(a2))
+    {
+      v8[0] = a1;
+      v8[1] = a2;
+      CFSetApplyFunction(Copy, __IOHIDEventSystemMatchNotifyFunction, v8);
+    }
+  }
+
+  else if (!Copy)
+  {
+    goto LABEL_10;
+  }
+
+  CFRelease(Copy);
+LABEL_10:
+  if (v7)
+  {
+    CFSetApplyFunction(v7, _IOHIDEventSystemConnectionRecordServiceChanged, 0);
+    CFRelease(v7);
+  }
+}
+
 void __IOHIDEventSystemMatchNotifyFunction(const void **a1, uint64_t a2)
 {
   v9 = 0;
@@ -49,17 +256,17 @@ void __IOHIDEventSystemMatchNotifyFunction(const void **a1, uint64_t a2)
 
 uint64_t iohideventsystem_client_dispatch_notification_results(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, mach_msg_timeout_t a6)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v15 = 2;
-  v16 = a2;
-  v17 = 16777472;
-  v18 = a3;
-  v19 = a4;
-  v20 = 16777472;
-  v21 = a5;
-  v22 = *MEMORY[0x1E69E99E0];
-  v23 = a3;
-  v24 = a5;
+  v24 = *MEMORY[0x1E69E9840];
+  v14 = 2;
+  v15 = a2;
+  v16 = 16777472;
+  v17 = a3;
+  v18 = a4;
+  v19 = 16777472;
+  v20 = a5;
+  v21 = *MEMORY[0x1E69E99E0];
+  v22 = a3;
+  v23 = a5;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 2147489043;
   msg.msgh_remote_port = a1;
@@ -89,7 +296,7 @@ uint64_t iohideventsystem_client_dispatch_notification_results(mach_port_t a1, u
 LABEL_15:
     if ((v11 - 268435459) > 1)
     {
-      goto LABEL_21;
+      return v11;
     }
 
     if ((msg.msgh_bits & 0x1F00) == 0x1100)
@@ -99,7 +306,7 @@ LABEL_15:
 
 LABEL_20:
     mach_msg_destroy(&msg);
-    goto LABEL_21;
+    return v11;
   }
 
   if (msg.msgh_id == 71)
@@ -130,35 +337,33 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v11 = HIDWORD(v16);
-  if (HIDWORD(v16))
+  v11 = HIDWORD(v15);
+  if (HIDWORD(v15))
   {
     goto LABEL_20;
   }
 
-LABEL_21:
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
-void OUTLINED_FUNCTION_9_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_9_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x1Cu);
-}
-
-unsigned int *OUTLINED_FUNCTION_9_2(unsigned int **a1)
-{
-  result = *a1;
-  v2 = *result;
-  return result;
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x1Cu);
 }
 
 uint64_t _iohideventsystem_client_dispatch_notification_results_cold_1(uint64_t a1, const __CFArray *a2, void *a3)
 {
   __IOHIDEventSystemClientCacheServices(a1, a2);
   os_unfair_recursive_lock_lock_with_options();
-  if (*(a1 + 168) || *(a1 + 176))
+  if (*(a1 + 168) == 0)
+  {
+
+    return os_unfair_recursive_lock_unlock();
+  }
+
+  else
   {
     *a3 = MEMORY[0x1E69E9820];
     a3[1] = 0x40000000;
@@ -166,12 +371,6 @@ uint64_t _iohideventsystem_client_dispatch_notification_results_cold_1(uint64_t 
     a3[3] = &__block_descriptor_tmp_39;
     a3[4] = a1;
     _IOHIDCFArrayApplyBlock(a2, a3);
-    return os_unfair_recursive_lock_unlock();
-  }
-
-  else
-  {
-
     return os_unfair_recursive_lock_unlock();
   }
 }
@@ -298,11 +497,11 @@ id IOHIDSessionFilterRegisterService(id result, uint64_t a2)
 
 void _IOHIDServiceScheduleAsync(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   _IOHIDDebugTrace(8262, 1, a1, 1, 0, 0);
   if (pthread_mutex_lock((*(a1 + 72) + 8)))
   {
-    __IOHIDServiceCreateAndCopyConnectionCache_cold_1(&v6, v7);
+    __IOHIDServiceCreateAndCopyConnectionCache_cold_1(&v5, v6);
   }
 
   v2 = *(a1 + 80);
@@ -310,7 +509,7 @@ void _IOHIDServiceScheduleAsync(uint64_t a1)
   IONotificationPortSetDispatchQueue(*(a1 + 88), v2);
   if (*(a1 + 8))
   {
-    _IOHIDServiceScheduleAsync_cold_2(a1, v5, (a1 + 80));
+    _IOHIDServiceScheduleAsync_cold_2(a1, v4, (a1 + 80));
   }
 
   v3 = *(a1 + 72);
@@ -319,12 +518,11 @@ void _IOHIDServiceScheduleAsync(uint64_t a1)
     --*v3;
     if (pthread_mutex_unlock((v3 + 8)))
     {
-      __IOHIDServiceCreateAndCopyConnectionCache_cold_2(&v6, v7);
+      __IOHIDServiceCreateAndCopyConnectionCache_cold_2(&v5, v6);
     }
   }
 
   _IOHIDDebugTrace(8262, 2, a1, 1, 0, 0);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void _IOHIDServiceScheduleAsync_cold_2(CFTypeRef cf, void *a2, void *a3)
@@ -335,35 +533,34 @@ void _IOHIDServiceScheduleAsync_cold_2(CFTypeRef cf, void *a2, void *a3)
     v7 = *(*v6 + 72);
     if (v7)
     {
-      v8 = *a3;
       v7();
       goto LABEL_17;
     }
   }
 
-  v9 = *(cf + 45);
-  if (v9)
+  v8 = *(cf + 45);
+  if (v8)
   {
-    v10 = *(v9 + 48);
-    if (v10)
+    v9 = *(v8 + 48);
+    if (v9)
     {
-      v11 = *(cf + 43);
-      v12 = *(cf + 44);
-      v13 = *a3;
+      v10 = *(cf + 43);
+      v11 = *(cf + 44);
+      v12 = *a3;
 LABEL_10:
-      v10(v11, v12, v13);
+      v9(v10, v11, v12);
       goto LABEL_17;
     }
   }
 
-  v11 = *(cf + 3);
-  if (v11)
+  v10 = *(cf + 3);
+  if (v10)
   {
-    v10 = *(*v11 + 72);
-    if (v10)
+    v9 = *(*v10 + 72);
+    if (v9)
     {
-      v12 = qword_1EAF1D008;
-      v13 = qword_1EAF1D010;
+      v11 = qword_1EAF1D008;
+      v12 = qword_1EAF1D010;
       goto LABEL_10;
     }
   }
@@ -374,33 +571,33 @@ LABEL_10:
     CFRetain(cf);
     [*(cf + 60) *(cf + 66)];
     [*(cf + 60) *(cf + 65)];
-    v14 = *(cf + 73);
+    v13 = *(cf + 73);
+    if (v13)
+    {
+      [*(cf + 60) v13];
+    }
+
+    v14 = *(cf + 69);
     if (v14)
     {
       [*(cf + 60) v14];
-    }
-
-    v15 = *(cf + 69);
-    if (v15)
-    {
-      [*(cf + 60) v15];
     }
 
     [*(cf + 60) *(cf + 67)];
   }
 
 LABEL_17:
-  v16 = *(cf + 32);
+  v15 = *(cf + 32);
   *a2 = MEMORY[0x1E69E9820];
   a2[1] = 0x40000000;
   a2[2] = ___IOHIDServiceScheduleAsync_block_invoke;
   a2[3] = &__block_descriptor_tmp_88;
   a2[4] = cf;
-  _IOHIDCFArrayApplyBlock(v16, a2);
-  v17 = *(cf + 32);
-  v18.length = CFArrayGetCount(v17);
-  v18.location = 0;
-  CFArrayApplyFunction(v17, v18, __FilterFunctionScheduleAsync, 0);
+  _IOHIDCFArrayApplyBlock(v15, a2);
+  v16 = *(cf + 32);
+  v17.length = CFArrayGetCount(v16);
+  v17.location = 0;
+  CFArrayApplyFunction(v16, v17, __FilterFunctionScheduleAsync, 0);
 }
 
 id IOHIDServiceFilterSchedule(uint64_t a1)
@@ -408,7 +605,6 @@ id IOHIDServiceFilterSchedule(uint64_t a1)
   v2 = *(a1 + 16);
   if (v2 && (v3 = *(*v2 + 72)) != 0)
   {
-    v4 = *(a1 + 32);
 
     return v3();
   }
@@ -418,24 +614,24 @@ id IOHIDServiceFilterSchedule(uint64_t a1)
     result = *(a1 + 96);
     if (result)
     {
-      v6 = *(a1 + 168);
+      v5 = *(a1 + 168);
+      if (v5)
+      {
+        [result v5];
+        result = *(a1 + 96);
+      }
+
+      v6 = *(a1 + 160);
       if (v6)
       {
         [result v6];
         result = *(a1 + 96);
       }
 
-      v7 = *(a1 + 160);
-      if (v7)
-      {
-        [result v7];
-        result = *(a1 + 96);
-      }
-
       *(a1 + 72) |= 1u;
-      v8 = *(a1 + 144);
+      v7 = *(a1 + 144);
 
-      return [result v8];
+      return [result v7];
     }
   }
 
@@ -459,29 +655,25 @@ const void *___iohideventsystem_client_dispatch_notification_results_block_invok
   if (result)
   {
     v4 = result;
-    v5 = *(a1 + 32);
     os_unfair_recursive_lock_lock_with_options();
     Value = CFDictionaryGetValue(*(*(a1 + 32) + 96), v4);
-    v7 = *(a1 + 32);
     os_unfair_recursive_lock_unlock();
-    v8 = *(a1 + 32);
-    v9 = v8[22];
-    if (v9)
+    v6 = *(a1 + 32);
+    v7 = v6[22];
+    if (v7)
     {
-      v10 = v8[23];
-      v11 = v8[24];
-      v12 = *(v9 + 16);
+      v8 = *(v7 + 16);
 
-      return v12();
+      return v8();
     }
 
     else
     {
-      v13 = v8[21];
-      v14 = v8[23];
-      v15 = v8[24];
+      v9 = v6[21];
+      v10 = v6[23];
+      v11 = v6[24];
 
-      return v13(v14, v15, Value);
+      return v9(v10, v11, Value);
     }
   }
 
@@ -591,7 +783,7 @@ uint64_t _iohideventsystem_client_dispatch_virtual_service_notification(unsigned
       else
       {
         os_unfair_recursive_lock_unlock();
-        v18 = _IOHIDLogCategory(0xDu);
+        v18 = _IOHIDLogCategory(13);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           _iohideventsystem_client_dispatch_virtual_service_set_property_cold_1();
@@ -637,22 +829,22 @@ const __CFData *_IOHIDSimpleQueueCreate(const __CFAllocator *a1, uint64_t a2, ui
 
 uint64_t iohideventsystem_client_dispatch_properties_changed(mach_port_t a1, uint64_t a2, int a3, mach_msg_timeout_t a4)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v13 = 1;
-  v14 = a2;
-  v15 = 16777472;
-  v16 = a3;
-  v17 = *MEMORY[0x1E69E99E0];
-  v18 = a3;
+  v18 = *MEMORY[0x1E69E9840];
+  v12 = 1;
+  v13 = a2;
+  v14 = 16777472;
+  v15 = a3;
+  v16 = *MEMORY[0x1E69E99E0];
+  v17 = a3;
   special_reply_port = mig_get_special_reply_port();
-  *&v12.msgh_bits = 2147489043;
-  v12.msgh_remote_port = a1;
-  v12.msgh_local_port = special_reply_port;
-  *&v12.msgh_voucher_port = 0x124FA00000000;
+  *&v11.msgh_bits = 2147489043;
+  v11.msgh_remote_port = a1;
+  v11.msgh_local_port = special_reply_port;
+  *&v11.msgh_voucher_port = 0x124FA00000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v12);
-    msgh_local_port = v12.msgh_local_port;
+    voucher_mach_msg_set(&v11);
+    msgh_local_port = v11.msgh_local_port;
   }
 
   else
@@ -660,63 +852,66 @@ uint64_t iohideventsystem_client_dispatch_properties_changed(mach_port_t a1, uin
     msgh_local_port = special_reply_port;
   }
 
-  v8 = mach_msg(&v12, 3162515, 0x38u, 0x2Cu, msgh_local_port, a4, 0);
+  v8 = mach_msg(&v11, 3162515, 0x38u, 0x2Cu, msgh_local_port, a4, 0);
   v9 = v8;
   if ((v8 - 268435458) <= 0xE && ((1 << (v8 - 2)) & 0x4003) != 0)
   {
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   if (v8)
   {
     mig_dealloc_special_reply_port();
-LABEL_14:
+LABEL_15:
     if ((v9 - 268435459) > 1)
     {
-      goto LABEL_20;
+      return v9;
     }
 
-    if ((v12.msgh_bits & 0x1F00) == 0x1100)
+    if ((v11.msgh_bits & 0x1F00) == 0x1100)
     {
-      mach_port_deallocate(*MEMORY[0x1E69E9A60], v12.msgh_local_port);
+      mach_port_deallocate(*MEMORY[0x1E69E9A60], v11.msgh_local_port);
     }
 
-LABEL_19:
-    mach_msg_destroy(&v12);
+LABEL_20:
+    mach_msg_destroy(&v11);
+    return v9;
+  }
+
+  if (v11.msgh_id == 71)
+  {
+    v9 = 4294966988;
     goto LABEL_20;
   }
 
-  if (v12.msgh_id == 71)
-  {
-    v9 = 4294966988;
-    goto LABEL_19;
-  }
-
-  if (v12.msgh_id != 75102)
+  if (v11.msgh_id != 75102)
   {
     v9 = 4294966995;
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
   v9 = 4294966996;
-  if ((v12.msgh_bits & 0x80000000) != 0)
+  if ((v11.msgh_bits & 0x80000000) != 0)
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
-  if (*&v12.msgh_size != 36)
+  if (v11.msgh_size != 36)
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
-  v9 = HIDWORD(v14);
-  if (HIDWORD(v14))
+  if (v11.msgh_remote_port)
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
-LABEL_20:
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = HIDWORD(v13);
+  if (HIDWORD(v13))
+  {
+    goto LABEL_20;
+  }
+
   return v9;
 }
 
@@ -803,24 +998,24 @@ void __IOHIDEventSystemClientRegisterPropertyCallbackApplyFunction(uint64_t a1, 
   CFDictionaryApplyFunction(v3, _IOHIDEventSystemClientDispatchPropertiesChangedFunction, v4);
 }
 
-uint64_t IOHIDEventCreateVendorDefinedEvent(uint64_t a1, uint64_t a2, __int16 a3, __int16 a4, int a5, const void *a6, size_t a7, int a8)
+HIDEvent *IOHIDEventCreateVendorDefinedEvent(uint64_t a1, uint64_t a2, __int16 a3, __int16 a4, int a5, const void *a6, size_t a7, int a8)
 {
   v13 = a2;
   v14 = _IOHIDEventCreate(a1, a7 + 28, 1, a2, a8 | 1u);
   if (v14)
   {
-    if (_MergedGlobals[0] && _MergedGlobals[0]() && off_1ED446908)
+    if (_MergedGlobals && _MergedGlobals() && off_1ED446908)
     {
       v13 = off_1ED446908(v13);
     }
 
-    *(v14 + 8) = v13;
-    v15 = *(v14 + 96);
-    *(v15 + 16) = a3;
-    *(v15 + 18) = a4;
-    *(v15 + 20) = a5;
-    *(v15 + 24) = a7;
-    memmove((v15 + 28), a6, a7);
+    v14->_event.timeStamp = v13;
+    eventData = v14->_event.eventData;
+    *(eventData + 8) = a3;
+    *(eventData + 9) = a4;
+    *(eventData + 5) = a5;
+    *(eventData + 6) = a7;
+    memmove(eventData + 28, a6, a7);
   }
 
   return v14;
@@ -842,12 +1037,14 @@ uint64_t _IOHIDEventSystemClientDispatchPropertiesChangedFunction(const void *a1
   return result;
 }
 
-void *__IOHIDServiceVirtualCopyEventCallback(uint64_t a1, uint64_t a2, int a3, __CFData *DataInternal, int a5)
+HIDEvent *__IOHIDServiceVirtualCopyEventCallback(uint64_t a1, unsigned int *a2, uint64_t a3, __CFData *DataInternal, uint64_t a5)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v5 = a5;
+  v7 = a3;
+  v33[6] = *MEMORY[0x1E69E9840];
   SenderID = _IOHIDServiceGetSenderID(a1);
-  v35 = 0;
-  HIDWORD(v34) = 0;
+  v33[0] = 0;
+  HIDWORD(v32) = 0;
   if (DataInternal && (v10 = CFGetAllocator(a2), (DataInternal = IOHIDEventCreateDataInternal(v10, DataInternal)) != 0))
   {
     v11 = CFGetAllocator(a2);
@@ -859,12 +1056,12 @@ void *__IOHIDServiceVirtualCopyEventCallback(uint64_t a1, uint64_t a2, int a3, _
     v12 = 0;
   }
 
-  if (*(a2 + 456))
+  if (a2[114])
   {
     goto LABEL_13;
   }
 
-  v13 = *(a2 + 40);
+  v13 = a2[10];
   if (v12)
   {
     BytePtr = CFDataGetBytePtr(v12);
@@ -877,22 +1074,21 @@ void *__IOHIDServiceVirtualCopyEventCallback(uint64_t a1, uint64_t a2, int a3, _
     Length = 0;
   }
 
-  v16 = iohideventsystem_copy_event_from_virtual_service(v13, SenderID, a3, BytePtr, Length, a5, &v35, &v34 + 1, 0x20u);
+  v16 = iohideventsystem_copy_event_from_virtual_service(v13, SenderID, v7, BytePtr, Length, v5, v33, &v32 + 1, 0x20u);
   if (v16)
   {
     v17 = v16;
-    v18 = _IOHIDLogCategory(9u);
+    v18 = _IOHIDLogCategory(9);
     if (OUTLINED_FUNCTION_20_0(v18))
     {
-      v19 = *(a2 + 168);
       OUTLINED_FUNCTION_2_11();
       OUTLINED_FUNCTION_8_3();
-      OUTLINED_FUNCTION_12_1(&dword_197195000, v20, v21, "%s: HIDVS ID:%llx _iohideventsystem_copy_event_from_virtual_service:%x", v22, v23, v24, v25, v34, v35, v36);
+      OUTLINED_FUNCTION_12_1(&dword_197195000, v19, v20, "%s: HIDVS ID:%llx _iohideventsystem_copy_event_from_virtual_service:%x", v21, v22, v23, v24, v32, v33[0]);
     }
 
     __IOHIDEventSystemConnectionCheckServerStatus(v17, a2);
 LABEL_13:
-    v26 = 0;
+    v25 = 0;
     if (!DataInternal)
     {
       goto LABEL_15;
@@ -901,18 +1097,18 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v29 = v35;
-  v30 = HIDWORD(v34);
+  v27 = v33[0];
+  v28 = HIDWORD(v32);
   TypeID = CFDataGetTypeID();
-  v32 = _IOHIDUnserializeAndVMDeallocWithTypeID(v29, v30, TypeID);
-  if (!v32)
+  v30 = _IOHIDUnserializeAndVMDeallocWithTypeID(v27, v28, TypeID);
+  if (!v30)
   {
     goto LABEL_13;
   }
 
-  v33 = v32;
-  v26 = IOHIDEventCreateWithDataInternal(*MEMORY[0x1E695E480], v32);
-  CFRelease(v33);
+  v31 = v30;
+  v25 = IOHIDEventCreateWithDataInternal(*MEMORY[0x1E695E480], v30);
+  CFRelease(v31);
   if (DataInternal)
   {
 LABEL_14:
@@ -925,11 +1121,10 @@ LABEL_15:
     CFRelease(v12);
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-  return v26;
+  return v25;
 }
 
-uint64_t iohideventsystem_copy_event_from_virtual_service(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, int a6, void *a7, _DWORD *a8, mach_msg_timeout_t a9)
+uint64_t iohideventsystem_copy_event_from_virtual_service(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, int a6, uint64_t *a7, int *a8, mach_msg_timeout_t a9)
 {
   v19 = 1;
   v20 = a4;
@@ -1155,7 +1350,7 @@ LABEL_19:
   }
 
   os_unfair_recursive_lock_unlock();
-  v28 = _IOHIDLogCategory(0xDu);
+  v28 = _IOHIDLogCategory(13);
   if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
     goto LABEL_19;
@@ -1329,30 +1524,30 @@ CFTimeInterval IOPSGetTimeRemainingEstimate(void)
   return v0;
 }
 
-uint64_t IOHIDEventCreateProximtyProbabilityEvent()
+HIDEvent *IOHIDEventCreateProximtyProbabilityEvent()
 {
   OUTLINED_FUNCTION_20();
   result = IOHIDEventCreate(v3, 14, v4, v2 | 1u);
   if (result)
   {
-    v6 = *(result + 96);
-    *(v6 + 16) = v1;
-    *(v6 + 18) = 1;
-    *(v6 + 20) = v0;
+    eventData = result->_event.eventData;
+    *(eventData + 8) = v1;
+    *(eventData + 9) = 1;
+    *(eventData + 5) = v0;
   }
 
   return result;
 }
 
-uint64_t IOHIDEventCreateProximtyEvent()
+HIDEvent *IOHIDEventCreateProximtyEvent()
 {
   OUTLINED_FUNCTION_3_2();
   result = IOHIDEventCreate(v1, 14, v2, v3);
   if (result)
   {
-    v5 = *(result + 96);
-    *(v5 + 16) = v0;
-    *(v5 + 18) = 0;
+    eventData = result->_event.eventData;
+    *(eventData + 8) = v0;
+    *(eventData + 9) = 0;
   }
 
   return result;
@@ -1366,16 +1561,13 @@ uint64_t IOPSCopyChargeStatus(uint64_t *a1)
   valuePtr = 1;
   if (!a1)
   {
-    uint64 = 3758097090;
-    goto LABEL_21;
+    return 3758097090;
   }
 
   v4 = PMQueue;
   if (!PMQueue)
   {
-LABEL_10:
-    uint64 = 0;
-    goto LABEL_21;
+    return 0;
   }
 
   values = 0;
@@ -1389,7 +1581,7 @@ LABEL_10:
       IOPSGaugingMitigationGetState_cold_2(v13, v14, v15, v16, v17, v18, v19, v20);
     }
 
-    goto LABEL_10;
+    return 0;
   }
 
   v6 = mach_service;
@@ -1448,65 +1640,53 @@ LABEL_10:
   }
 
   xpc_release(v6);
-LABEL_21:
-  v29 = *MEMORY[0x1E69E9840];
   return uint64;
 }
 
 uint64_t IOHIDServiceFilterFilterCopyEvent(void *a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (!a2)
   {
-LABEL_10:
-    result = 0;
-    goto LABEL_12;
+    return 0;
   }
 
   v4 = a1[2];
-  if (!v4 || (v5 = *(*v4 + 48)) == 0)
+  if (v4 && (v5 = *(*v4 + 48)) != 0 || (v6 = a1[3]) != 0 && (v5 = *(*v6 + 48)) != 0)
   {
-    v6 = a1[3];
-    if (!v6 || (v5 = *(*v6 + 48)) == 0)
+    result = v5();
+    if (result)
     {
-      result = a2;
-      goto LABEL_12;
+      return result;
     }
-  }
 
-  result = v5();
-  if (!result)
-  {
     v8 = _IOHIDEventDebugInfo(a2);
     v9 = _IOHIDLogCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       Type = IOHIDEventGetType(a2);
       SenderID = _IOHIDServiceGetSenderID(a1[6]);
-      v13 = a1[11];
-      v14[0] = 67109890;
-      v14[1] = Type;
-      v15 = 2048;
-      v16 = SenderID;
-      v17 = 2112;
-      v18 = v8;
-      v19 = 2112;
-      v20 = v13;
-      _os_log_debug_impl(&dword_197195000, v9, OS_LOG_TYPE_DEBUG, "Copy Event filtered type:%d sender:0x%llx eventInfo:(%@) service filter:%@", v14, 0x26u);
+      v12 = a1[11];
+      v13[0] = 67109890;
+      v13[1] = Type;
+      v14 = 2048;
+      v15 = SenderID;
+      v16 = 2112;
+      v17 = v8;
+      v18 = 2112;
+      v19 = v12;
+      _os_log_debug_impl(&dword_197195000, v9, OS_LOG_TYPE_DEBUG, "Copy Event filtered type:%d sender:0x%llx eventInfo:(%@) service filter:%@", v13, 0x26u);
     }
 
     CFRelease(v8);
-    goto LABEL_10;
+    return 0;
   }
 
-LABEL_12:
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return a2;
 }
 
 uint64_t __IOHIDServiceCopyEventForClient_block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 40);
   result = IOHIDServiceFilterFilterCopyEvent(a2, *(*(*(a1 + 32) + 8) + 24));
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
@@ -1514,11 +1694,11 @@ uint64_t __IOHIDServiceCopyEventForClient_block_invoke(uint64_t a1, void *a2)
 
 uint64_t getTimeoutForAssertionCategory(int a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (gAssertionCategoryPolicies)
   {
     valuePtr = a1;
-    v21 = -1;
+    v20 = -1;
     v1 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
     v2 = convertCFNumberToCFStringRef(v1);
     v3 = assertions_log;
@@ -1530,7 +1710,7 @@ uint64_t getTimeoutForAssertionCategory(int a1)
       }
 
       *buf = 138412290;
-      v23 = v2;
+      v22 = v2;
       v4 = v3;
     }
 
@@ -1542,7 +1722,7 @@ uint64_t getTimeoutForAssertionCategory(int a1)
       }
 
       *buf = 138412290;
-      v23 = v2;
+      v22 = v2;
       v4 = MEMORY[0x1E69E9C10];
     }
 
@@ -1555,7 +1735,7 @@ LABEL_11:
       TypeID = CFNumberGetTypeID();
       if (v6 && CFGetTypeID(v6) == TypeID)
       {
-        CFNumberGetValue(v6, kCFNumberIntType, &v21);
+        CFNumberGetValue(v6, kCFNumberIntType, &v20);
       }
 
       v8 = assertions_log;
@@ -1564,9 +1744,9 @@ LABEL_11:
         if (os_log_type_enabled(assertions_log, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v23 = v6;
-          v24 = 2112;
-          v25 = v2;
+          v22 = v6;
+          v23 = 2112;
+          v24 = v2;
           v9 = v8;
           goto LABEL_24;
         }
@@ -1575,9 +1755,9 @@ LABEL_11:
       else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v23 = v6;
-        v24 = 2112;
-        v25 = v2;
+        v22 = v6;
+        v23 = 2112;
+        v24 = v2;
         v9 = MEMORY[0x1E69E9C10];
 LABEL_24:
         _os_log_impl(&dword_197195000, v9, OS_LOG_TYPE_DEFAULT, "Found timeout %@ for category string %@", buf, 0x16u);
@@ -1623,8 +1803,7 @@ LABEL_32:
         CFRelease(v2);
       }
 
-      result = v21;
-      goto LABEL_35;
+      return v20;
     }
 
 LABEL_31:
@@ -1649,10 +1828,7 @@ LABEL_31:
     }
   }
 
-  result = 0xFFFFFFFFLL;
-LABEL_35:
-  v19 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0xFFFFFFFFLL;
 }
 
 CFStringRef convertCFNumberToCFStringRef(const __CFNumber *a1)
@@ -1676,56 +1852,55 @@ CFStringRef convertCFNumberToCFStringRef(const __CFNumber *a1)
 
 void getTimeoutForAssertionCategory_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint32_t IOObjectGetKernelRetainCount(io_object_t object)
 {
-  if (io_object_get_retain_count(object))
+  v2 = 0;
+  if (io_object_get_retain_count(object, &v2))
   {
     return 0;
   }
 
   else
   {
-    return 0;
+    return v2;
   }
 }
 
-uint64_t io_object_get_retain_count(unsigned int a1)
+uint64_t io_object_get_retain_count(unsigned int a1, _DWORD *a2)
 {
-  v6 = 0;
   v7 = 0;
   v8 = 0;
-  *&v5.msgh_bits = 0x1800001513;
-  *&v5.msgh_remote_port = __PAIR64__(mig_get_reply_port(), a1);
-  *&v5.msgh_voucher_port = 0xB0E00000000;
-  v1 = mach_msg2_internal();
-  v2 = v1;
-  if ((v1 - 268435458) > 0xE || ((1 << (v1 - 2)) & 0x4003) == 0)
+  v9 = 0;
+  *&v6.msgh_bits = 0x1800001513;
+  *&v6.msgh_remote_port = __PAIR64__(mig_get_reply_port(), a1);
+  *&v6.msgh_voucher_port = 0xB0E00000000;
+  v2 = mach_msg2_internal();
+  v3 = v2;
+  if ((v2 - 268435458) > 0xE || ((1 << (v2 - 2)) & 0x4003) == 0)
   {
-    if (v1)
+    if (v2)
     {
-      mig_dealloc_reply_port(v5.msgh_local_port);
+      mig_dealloc_reply_port(v6.msgh_local_port);
     }
 
     else
     {
-      v2 = 4294966995;
-      mach_msg_destroy(&v5);
+      v3 = 4294966995;
+      mach_msg_destroy(&v6);
     }
   }
 
   else
   {
-    mig_put_reply_port(v5.msgh_local_port);
+    mig_put_reply_port(v6.msgh_local_port);
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t IOPMGetLastWakeTime(double *a1, void *a2)
@@ -2038,8 +2213,10 @@ uint64_t _setRootDomainProperty(const __CFString *a1, const void *a2)
   return v6;
 }
 
-uint64_t _copyPMServerObject(unsigned int a1, unsigned int a2, const __CFData *a3, CFPropertyListRef *a4)
+uint64_t _copyPMServerObject(uint64_t a1, uint64_t a2, const __CFData *a3, CFPropertyListRef *a4)
 {
+  v6 = a2;
+  v7 = a1;
   v16 = 0;
   memset(length, 0, sizeof(length));
   *a4 = 0;
@@ -2061,7 +2238,7 @@ uint64_t _copyPMServerObject(unsigned int a1, unsigned int a2, const __CFData *a
     v11 = 0;
   }
 
-  v12 = io_pm_assertion_copy_details(v16, a2, a1, BytePtr, v11, &length[1], length, &v17);
+  v12 = io_pm_assertion_copy_details(v16, v6, v7, BytePtr, v11, &length[1], length, &v17);
   if (!(v12 | v17))
   {
     v13 = CFDataCreate(0, *&length[1], length[0]);
@@ -2103,7 +2280,7 @@ uint64_t IOPMCopyDeviceRestartPreventers(__CFArray **a1)
   {
     v6 = v4;
     theArray = 0;
-    result = _copyPMServerObject(6u, 0, off_1E74A9908[v2], &theArray);
+    result = _copyPMServerObject(6, 0, off_1E74A9908[v2], &theArray);
     if (result)
     {
       break;
@@ -2152,7 +2329,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t io_pm_assertion_copy_details(mach_port_t a1, unsigned int a2, unsigned int a3, uint64_t a4, int a5, void *a6, _DWORD *a7, _DWORD *a8)
+uint64_t io_pm_assertion_copy_details(mach_port_t a1, unsigned int a2, unsigned int a3, uint64_t a4, int a5, uint64_t *a6, int *a7, _DWORD *a8)
 {
   msg.msgh_id = 0;
   v23 = 0;
@@ -2286,41 +2463,41 @@ uint64_t IOPMCopySleepPreventersList(int a1, void *a2)
   return 3758097090;
 }
 
-CFTypeRef OSKextCopyUUIDForAddress(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+CFTypeRef OSKextCopyUUIDForAddress(uint64_t a1)
 {
   cf = 0;
   valuePtr = a1;
   theDict = 0;
-  OSKextLog(0, 69, "Reading kext UUID for Address\n.", a4, a5, a6, a7, a8, v36);
-  v8 = __OSKextCreateKextRequest(@"Get Kext UUID by Address", 0, &theDict);
-  if (!v8)
+  OSKextLog(0, 69, "Reading kext UUID for Address\n.");
+  KextRequest = __OSKextCreateKextRequest(@"Get Kext UUID by Address", 0, &theDict);
+  if (!KextRequest)
   {
-    OSKextLog(0, 65, "Failed to create kext request.", v9, v10, v11, v12, v13, v37);
+    OSKextLog(0, 65, "Failed to create kext request.");
     return 0;
   }
 
-  v14 = v8;
-  v15 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt64Type, &valuePtr);
-  if (!v15)
+  v2 = KextRequest;
+  v3 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt64Type, &valuePtr);
+  if (!v3)
   {
-    OSKextLog(0, 65, "Failed to create lookup address object.", v16, v17, v18, v19, v20, v37);
-    CFRelease(v14);
+    OSKextLog(0, 65, "Failed to create lookup address object.");
+    CFRelease(v2);
     return 0;
   }
 
-  v21 = v15;
-  CFDictionarySetValue(theDict, @"Kext Request Lookup Address", v15);
-  v22 = __OSKextSendKextRequest(0, v14, &cf, 0, 0);
-  if (v22)
+  v4 = v3;
+  CFDictionarySetValue(theDict, @"Kext Request Lookup Address", v3);
+  v5 = __OSKextSendKextRequest(0, v2, &cf, 0, 0);
+  if (v5)
   {
-    v28 = mach_error_string(v22);
-    v34 = "(unknown)";
-    if (v28)
+    v6 = mach_error_string(v5);
+    v7 = "(unknown)";
+    if (v6)
     {
-      LOBYTE(v34) = v28;
+      v7 = v6;
     }
 
-    OSKextLog(0, 65, "Failed to lookup uuid with address from kernel - %s.", v29, v30, v31, v32, v33, v34);
+    OSKextLog(0, 65, "Failed to lookup uuid with address from kernel - %s.", v7);
     if (cf)
     {
       CFRelease(cf);
@@ -2331,46 +2508,46 @@ CFTypeRef OSKextCopyUUIDForAddress(uint64_t a1, uint64_t a2, uint64_t a3, uint64
 
   else if (!cf)
   {
-    OSKextLog(0, 65, "Kernel request call returned no data.", v23, v24, v25, v26, v27, v37);
+    OSKextLog(0, 65, "Kernel request call returned no data.");
   }
 
-  CFRelease(v14);
-  CFRelease(v21);
+  CFRelease(v2);
+  CFRelease(v4);
   return cf;
 }
 
-__CFDictionary *__OSKextCreateKextRequest(const void *a1, unint64_t a2, __CFDictionary **a3)
+__CFDictionary *__OSKextCreateKextRequest(const void *a1, unint64_t a2, unint64_t a3)
 {
   v6 = *MEMORY[0x1E695E480];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  v13 = Mutable;
+  v8 = Mutable;
   if (Mutable)
   {
     CFDictionarySetValue(Mutable, @"Kext Request Predicate", a1);
     if (a2 | a3)
     {
-      v14 = CFDictionaryCreateMutable(v6, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-      if (v14)
+      v9 = CFDictionaryCreateMutable(v6, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+      if (v9)
       {
-        v20 = v14;
-        CFDictionarySetValue(v13, @"Kext Request Arguments", v14);
+        v10 = v9;
+        CFDictionarySetValue(v8, @"Kext Request Arguments", v9);
         if (a3)
         {
-          *a3 = v20;
+          *a3 = v10;
         }
 
         if (a2)
         {
-          CFDictionarySetValue(v20, @"CFBundleIdentifier", a2);
+          CFDictionarySetValue(v10, @"CFBundleIdentifier", a2);
         }
 
-        CFRelease(v20);
+        CFRelease(v10);
       }
 
       else
       {
-        OSKextLog(0, 17, "Memory allocation failure.", v15, v16, v17, v18, v19, v22);
-        CFRelease(v13);
+        OSKextLog(0, 17, "Memory allocation failure.");
+        CFRelease(v8);
         return 0;
       }
     }
@@ -2378,15 +2555,15 @@ __CFDictionary *__OSKextCreateKextRequest(const void *a1, unint64_t a2, __CFDict
 
   else
   {
-    OSKextLog(0, 17, "Memory allocation failure.", v8, v9, v10, v11, v12, v22);
+    OSKextLog(0, 17, "Memory allocation failure.");
   }
 
-  return v13;
+  return v8;
 }
 
 uint64_t __OSKextSendKextRequest(uint64_t a1, const void *a2, void *a3, vm_offset_t *a4, mach_msg_type_number_t *a5)
 {
-  v47 = -603979775;
+  op_result = -603979775;
   response_data = 0;
   response_dataCnt = 0;
   log_data = 0;
@@ -2396,41 +2573,41 @@ uint64_t __OSKextSendKextRequest(uint64_t a1, const void *a2, void *a3, vm_offse
   v11 = IOCFSerialize(a2, 0);
   if (v11)
   {
-    v17 = v11;
+    v12 = v11;
     if (__sOSKextLogOutputFunction)
     {
-      v18 = __sKernelLogFilter;
+      v13 = __sKernelLogFilter;
     }
 
     else
     {
-      v18 = 0;
+      v13 = 0;
     }
 
     BytePtr = CFDataGetBytePtr(v11);
-    Length = CFDataGetLength(v17);
-    v21 = kext_request(v10, v18, BytePtr, Length, &response_data, &response_dataCnt, &log_data, &log_dataCnt, &v47);
-    v22 = __OSKextProcessKextRequestResults(a1, v21, v47, log_data, log_dataCnt);
-    if (v22)
+    Length = CFDataGetLength(v12);
+    v16 = kext_request(v10, v13, BytePtr, Length, &response_data, &response_dataCnt, &log_data, &log_dataCnt, &op_result);
+    v17 = __OSKextProcessKextRequestResults(a1, v16, op_result, log_data, log_dataCnt);
+    if (v17)
     {
-      v23 = 1;
+      v18 = 1;
     }
 
     else
     {
-      v23 = 1;
+      v18 = 1;
       if (response_data)
       {
-        v26 = response_dataCnt;
+        v21 = response_dataCnt;
         if (response_dataCnt)
         {
           if (a3)
           {
-            v27 = IOCFUnserialize(response_data, *MEMORY[0x1E695E480], 0, &cf);
-            *a3 = v27;
-            if (v27)
+            v22 = IOCFUnserialize(response_data, *MEMORY[0x1E695E480], 0, &cf);
+            *a3 = v22;
+            if (v22)
             {
-              v22 = 0;
+              v17 = 0;
             }
 
             else
@@ -2438,23 +2615,23 @@ uint64_t __OSKextSendKextRequest(uint64_t a1, const void *a2, void *a3, vm_offse
               if (cf)
               {
                 UTF8CStringForCFString = createUTF8CStringForCFString(cf);
-                v39 = UTF8CStringForCFString;
-                v40 = "unknown error";
+                v24 = UTF8CStringForCFString;
+                v25 = "unknown error";
                 if (UTF8CStringForCFString)
                 {
-                  LOBYTE(v40) = UTF8CStringForCFString;
+                  v25 = UTF8CStringForCFString;
                 }
 
-                OSKextLog(a1, 65, "Can't unserialize kext request response: %s", v34, v35, v36, v37, v38, v40);
-                if (v39)
+                OSKextLog(a1, 65, "Can't unserialize kext request response: %s", v25);
+                if (v24)
                 {
-                  free(v39);
+                  free(v24);
                 }
               }
 
               else
               {
-                OSKextLog(a1, 65, "Can't unserialize kext request response: %s", v28, v29, v30, v31, v32, "unknown error");
+                OSKextLog(a1, 65, "Can't unserialize kext request response: %s", "unknown error");
               }
 
               if (cf)
@@ -2462,27 +2639,27 @@ uint64_t __OSKextSendKextRequest(uint64_t a1, const void *a2, void *a3, vm_offse
                 CFRelease(cf);
               }
 
-              v22 = 3691020296;
+              v17 = 3691020296;
               cf = 0;
             }
           }
 
           else
           {
-            v22 = 0;
+            v17 = 0;
             if (a4 && a5)
             {
-              v22 = 0;
-              v23 = 0;
+              v17 = 0;
+              v18 = 0;
               *a4 = response_data;
-              *a5 = v26;
+              *a5 = v21;
             }
           }
         }
       }
     }
 
-    CFRelease(v17);
+    CFRelease(v12);
     if (cf)
     {
       CFRelease(cf);
@@ -2491,28 +2668,28 @@ uint64_t __OSKextSendKextRequest(uint64_t a1, const void *a2, void *a3, vm_offse
 
   else
   {
-    v22 = 3691020296;
-    OSKextLog(a1, 65, "Failed to serialize kext request.", v12, v13, v14, v15, v16, op_result);
-    v23 = 1;
+    v17 = 3691020296;
+    OSKextLog(a1, 65, "Failed to serialize kext request.");
+    v18 = 1;
   }
 
-  v24 = MEMORY[0x1E69E9A60];
-  if (v23 && response_data && response_dataCnt)
+  v19 = MEMORY[0x1E69E9A60];
+  if (v18 && response_data && response_dataCnt)
   {
     mach_vm_deallocate(*MEMORY[0x1E69E9A60], response_data, response_dataCnt);
   }
 
   if (log_data)
   {
-    mach_vm_deallocate(*v24, log_data, log_dataCnt);
+    mach_vm_deallocate(*v19, log_data, log_dataCnt);
   }
 
   if (v10)
   {
-    mach_port_deallocate(*v24, v10);
+    mach_port_deallocate(*v19, v10);
   }
 
-  return v22;
+  return v17;
 }
 
 uint64_t DoIdrefScan(const void *a1, uint64_t a2)
@@ -2711,7 +2888,7 @@ uint64_t idRefDictionaryForObject(const void *a1, uint64_t a2)
 
 uint64_t DoCFSerialize(const __CFString *a1, CFMutableDataRef *a2)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     DoCFSerialize_cold_1();
@@ -2719,342 +2896,341 @@ uint64_t DoCFSerialize(const __CFString *a1, CFMutableDataRef *a2)
 
   v3 = a1;
   v4 = CFGetTypeID(a1);
-  if (v4 == CFDictionaryGetTypeID())
+  if (v4 != CFDictionaryGetTypeID())
   {
-    if (!previouslySerialized(v3, a2))
+    if (v4 == CFStringGetTypeID())
     {
-      addStartTag(v3, 0, a2);
-      Count = CFDictionaryGetCount(v3);
-      if (!Count)
+      DoCFSerializeString(v3, a2);
+      return 1;
+    }
+
+    if (v4 == CFArrayGetTypeID())
+    {
+      if (previouslySerialized(v3, a2))
       {
-        v9 = 1;
-        goto LABEL_68;
+        return 1;
       }
 
-      v6 = Count;
-      result = malloc_type_malloc(16 * Count, 0x80040B8603338uLL);
-      if (result)
+      addStartTag(v3, 0, a2);
+      Count = CFArrayGetCount(v3);
+      if (Count >= 1)
       {
-        v8 = result;
-        v40 = v3;
-        v43 = (result + 8 * v6);
-        CFDictionaryGetKeysAndValues(v3, v43, result);
-        if (v6 >= 1)
+        v26 = Count;
+        for (i = 0; i < v26; ++i)
         {
-          v9 = 0;
-          v10 = 0;
-          alloc = *MEMORY[0x1E695E480];
-          v42 = v8;
-          while (1)
+          ValueAtIndex = CFArrayGetValueAtIndex(v3, i);
+          result = DoCFSerialize(ValueAtIndex, a2);
+          if (!result)
           {
-            v11 = v43[v10];
-            CFDataAppendBytes(*a2, "<key>", 5);
-            ExternalRepresentation = CFStringCreateExternalRepresentation(alloc, v11, 0x8000100u, 0x3Fu);
-            v13 = ExternalRepresentation;
-            if (ExternalRepresentation)
-            {
-              Length = CFDataGetLength(ExternalRepresentation);
-              BytePtr = CFDataGetBytePtr(v13);
-            }
-
-            else
-            {
-              Length = 0;
-              BytePtr = "";
-            }
-
-            if (!strncmp(BytePtr, "AppleLSIFusionFC", Length))
-            {
-              v19 = 1;
-            }
-
-            else
-            {
-              v16 = 0;
-              do
-              {
-                v17 = v16;
-                if (v16 == 6)
-                {
-                  break;
-                }
-
-                v18 = strncmp(BytePtr, off_1E74A7818[v16 + 1], Length);
-                v16 = v17 + 1;
-              }
-
-              while (v18);
-              v19 = v17 < 6;
-            }
-
-            if (Length >= 1)
-            {
-              do
-              {
-                v21 = *BytePtr++;
-                v20 = v21;
-                if (v21 == 38)
-                {
-                  v22 = *a2;
-                  v23 = "&amp;";
-                  v24 = 5;
-                }
-
-                else
-                {
-                  if (v20 == 62)
-                  {
-                    v22 = *a2;
-                    v23 = "&gt;";
-                  }
-
-                  else
-                  {
-                    if (v20 != 60)
-                    {
-                      bytes[0] = v20;
-                      v22 = *a2;
-                      v23 = bytes;
-                      v24 = 1;
-                      goto LABEL_26;
-                    }
-
-                    v22 = *a2;
-                    v23 = "&lt;";
-                  }
-
-                  v24 = 4;
-                }
-
-LABEL_26:
-                CFDataAppendBytes(v22, v23, v24);
-                --Length;
-              }
-
-              while (Length);
-            }
-
-            if (v13)
-            {
-              CFRelease(v13);
-            }
-
-            CFDataAppendBytes(*a2, "</key>", 6);
-            v8 = v42;
-            if (v19)
-            {
-              CFDataAppendBytes(*a2, "<!-- 🤦 -->", 13);
-            }
-
-            if (!DoCFSerialize(*(v42 + v10), a2))
-            {
-              break;
-            }
-
-            v9 = ++v10 >= v6;
-            if (v10 == v6)
-            {
-              goto LABEL_67;
-            }
+            break;
           }
-
-          free(v42);
-          goto LABEL_69;
         }
 
-        v9 = 1;
-LABEL_67:
-        free(v8);
-        v3 = v40;
-LABEL_68:
-        addEndTag(v3, a2);
-LABEL_69:
-        result = v9;
-      }
-
-LABEL_84:
-      v39 = *MEMORY[0x1E69E9840];
-      return result;
-    }
-
-LABEL_83:
-    result = 1;
-    goto LABEL_84;
-  }
-
-  if (v4 == CFStringGetTypeID())
-  {
-    DoCFSerializeString(v3, a2);
-    goto LABEL_83;
-  }
-
-  if (v4 == CFArrayGetTypeID())
-  {
-    if (previouslySerialized(v3, a2))
-    {
-      goto LABEL_83;
-    }
-
-    addStartTag(v3, 0, a2);
-    v25 = CFArrayGetCount(v3);
-    if (v25 >= 1)
-    {
-      v26 = v25;
-      for (i = 0; i < v26; ++i)
-      {
-        ValueAtIndex = CFArrayGetValueAtIndex(v3, i);
-        result = DoCFSerialize(ValueAtIndex, a2);
         if (!result)
         {
-          break;
+          return result;
         }
       }
 
-      if (!result)
-      {
-        goto LABEL_84;
-      }
-    }
-
-LABEL_82:
-    addEndTag(v3, a2);
-    goto LABEL_83;
-  }
-
-  if (v4 == CFNumberGetTypeID())
-  {
-    if (previouslySerialized(v3, a2))
-    {
-      goto LABEL_83;
-    }
-
-    valuePtr = 0;
-    result = CFNumberGetValue(v3, kCFNumberLongLongType, &valuePtr);
-    if (!result)
-    {
-      goto LABEL_84;
-    }
-
-    v29 = CFNumberGetType(v3) - 1;
-    if (v29 <= 8 && ((0x1C7u >> v29) & 1) != 0)
-    {
-      snprintf(bytes, 0x20uLL, "size=%d", dword_19723D390[v29]);
-      addStartTag(v3, bytes, a2);
-      snprintf(bytes, 0x20uLL, "0x%lx");
-    }
-
-    else
-    {
-      snprintf(bytes, 0x20uLL, "size=%d", 64);
-      addStartTag(v3, bytes, a2);
-      snprintf(bytes, 0x20uLL, "0x%qx");
-    }
-
-    v36 = strlen(bytes);
-    v37 = *a2;
-    goto LABEL_81;
-  }
-
-  if (v4 == CFDataGetTypeID())
-  {
-    if (previouslySerialized(v3, a2))
-    {
-      goto LABEL_83;
-    }
-
-    v30 = CFDataGetLength(v3);
-    v31 = CFDataGetBytePtr(v3);
-    addStartTag(v3, 0, a2);
-    if (v30 < 1)
-    {
       goto LABEL_82;
     }
 
-    v32 = 0;
-    v33 = v30;
-    do
+    if (v4 == CFNumberGetTypeID())
     {
-      if (v32 % 3 == 2)
+      if (previouslySerialized(v3, a2))
       {
-        bytes[0] = __CFPLDataEncodeTable[((*v31 | (*(v31 - 1) << 8)) >> 6) & 0x3F];
-        CFDataAppendBytes(*a2, bytes, 1);
-        v34 = *v31 & 0x3F;
+        return 1;
       }
 
-      else if (v32 % 3 == 1)
+      valuePtr = 0;
+      result = CFNumberGetValue(v3, kCFNumberLongLongType, &valuePtr);
+      if (!result)
       {
-        v34 = ((*v31 | (*(v31 - 1) << 8)) >> 4) & 0x3F;
+        return result;
+      }
+
+      v29 = CFNumberGetType(v3) - 1;
+      if (v29 <= 8 && ((0x1C7u >> v29) & 1) != 0)
+      {
+        snprintf(bytes, 0x20uLL, "size=%d", dword_19723D390[v29]);
+        addStartTag(v3, bytes, a2);
+        snprintf(bytes, 0x20uLL, "0x%lx");
       }
 
       else
       {
-        v34 = *v31 >> 2;
+        snprintf(bytes, 0x20uLL, "size=%d", 64);
+        addStartTag(v3, bytes, a2);
+        snprintf(bytes, 0x20uLL, "0x%qx");
       }
 
-      bytes[0] = __CFPLDataEncodeTable[v34];
-      CFDataAppendBytes(*a2, bytes, 1);
-      ++v32;
-      ++v31;
-      --v33;
-    }
-
-    while (v33);
-    if (v30 % 3uLL == 2)
-    {
-      bytes[0] = __CFPLDataEncodeTable[4 * (*(v31 - 1) & 0xF)];
-      CFDataAppendBytes(*a2, bytes, 1);
-      bytes[0] = 61;
+      v35 = strlen(bytes);
+      v36 = *a2;
     }
 
     else
     {
-      if (v30 % 3uLL != 1)
+      if (v4 != CFDataGetTypeID())
       {
-        goto LABEL_82;
+        if (v4 == CFBooleanGetTypeID())
+        {
+          DoCFSerializeBoolean(v3, a2);
+        }
+
+        else
+        {
+          if (v4 == CFSetGetTypeID())
+          {
+
+            return DoCFSerializeSet(v3, a2);
+          }
+
+          result = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"<string>typeID 0x%x not serializable</string>", v4);
+          if (!result)
+          {
+            return result;
+          }
+
+          v37 = result;
+          DoCFSerializeString(result, a2);
+          CFRelease(v37);
+        }
+
+        return 1;
       }
 
-      bytes[0] = __CFPLDataEncodeTable[16 * (*(v31 - 1) & 3)];
-      CFDataAppendBytes(*a2, bytes, 1);
-      bytes[0] = 61;
-      CFDataAppendBytes(*a2, bytes, 1);
-      bytes[0] = 61;
+      if (previouslySerialized(v3, a2))
+      {
+        return 1;
+      }
+
+      Length = CFDataGetLength(v3);
+      BytePtr = CFDataGetBytePtr(v3);
+      addStartTag(v3, 0, a2);
+      if (Length < 1)
+      {
+LABEL_82:
+        addEndTag(v3, a2);
+        return 1;
+      }
+
+      v32 = 0;
+      v33 = Length;
+      do
+      {
+        if (v32 % 3 == 2)
+        {
+          bytes[0] = __CFPLDataEncodeTable[((*BytePtr | (*(BytePtr - 1) << 8)) >> 6) & 0x3F];
+          CFDataAppendBytes(*a2, bytes, 1);
+          v34 = *BytePtr & 0x3F;
+        }
+
+        else if (v32 % 3 == 1)
+        {
+          v34 = ((*BytePtr | (*(BytePtr - 1) << 8)) >> 4) & 0x3F;
+        }
+
+        else
+        {
+          v34 = *BytePtr >> 2;
+        }
+
+        bytes[0] = __CFPLDataEncodeTable[v34];
+        CFDataAppendBytes(*a2, bytes, 1);
+        ++v32;
+        ++BytePtr;
+        --v33;
+      }
+
+      while (v33);
+      if (Length % 3uLL == 2)
+      {
+        bytes[0] = __CFPLDataEncodeTable[4 * (*(BytePtr - 1) & 0xF)];
+        CFDataAppendBytes(*a2, bytes, 1);
+        bytes[0] = 61;
+      }
+
+      else
+      {
+        if (Length % 3uLL != 1)
+        {
+          goto LABEL_82;
+        }
+
+        bytes[0] = __CFPLDataEncodeTable[16 * (*(BytePtr - 1) & 3)];
+        CFDataAppendBytes(*a2, bytes, 1);
+        bytes[0] = 61;
+        CFDataAppendBytes(*a2, bytes, 1);
+        bytes[0] = 61;
+      }
+
+      v36 = *a2;
+      v35 = 1;
     }
 
-    v37 = *a2;
-    v36 = 1;
-LABEL_81:
-    CFDataAppendBytes(v37, bytes, v36);
+    CFDataAppendBytes(v36, bytes, v35);
     goto LABEL_82;
   }
 
-  if (v4 == CFBooleanGetTypeID())
+  if (previouslySerialized(v3, a2))
   {
-    DoCFSerializeBoolean(v3, a2);
-    goto LABEL_83;
+    return 1;
   }
 
-  if (v4 != CFSetGetTypeID())
+  addStartTag(v3, 0, a2);
+  v5 = CFDictionaryGetCount(v3);
+  if (!v5)
   {
-    result = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"<string>typeID 0x%x not serializable</string>", v4);
-    if (!result)
+    v9 = 1;
+    goto LABEL_68;
+  }
+
+  v6 = v5;
+  result = malloc_type_malloc(16 * v5, 0x80040B8603338uLL);
+  if (result)
+  {
+    v8 = result;
+    v38 = v3;
+    v41 = (result + 8 * v6);
+    CFDictionaryGetKeysAndValues(v3, v41, result);
+    if (v6 >= 1)
     {
-      goto LABEL_84;
+      v9 = 0;
+      v10 = 0;
+      alloc = *MEMORY[0x1E695E480];
+      v40 = v8;
+      while (1)
+      {
+        v11 = v41[v10];
+        CFDataAppendBytes(*a2, "<key>", 5);
+        ExternalRepresentation = CFStringCreateExternalRepresentation(alloc, v11, 0x8000100u, 0x3Fu);
+        v13 = ExternalRepresentation;
+        if (ExternalRepresentation)
+        {
+          v14 = CFDataGetLength(ExternalRepresentation);
+          v15 = CFDataGetBytePtr(v13);
+        }
+
+        else
+        {
+          v14 = 0;
+          v15 = "";
+        }
+
+        if (!strncmp(v15, "AppleLSIFusionFC", v14))
+        {
+          v19 = 1;
+        }
+
+        else
+        {
+          v16 = 0;
+          do
+          {
+            v17 = v16;
+            if (v16 == 6)
+            {
+              break;
+            }
+
+            v18 = strncmp(v15, off_1E74A7818[v16 + 1], v14);
+            v16 = v17 + 1;
+          }
+
+          while (v18);
+          v19 = v17 < 6;
+        }
+
+        if (v14 >= 1)
+        {
+          do
+          {
+            v21 = *v15++;
+            v20 = v21;
+            if (v21 == 38)
+            {
+              v22 = *a2;
+              v23 = "&amp;";
+              v24 = 5;
+            }
+
+            else
+            {
+              if (v20 == 62)
+              {
+                v22 = *a2;
+                v23 = "&gt;";
+              }
+
+              else
+              {
+                if (v20 != 60)
+                {
+                  bytes[0] = v20;
+                  v22 = *a2;
+                  v23 = bytes;
+                  v24 = 1;
+                  goto LABEL_26;
+                }
+
+                v22 = *a2;
+                v23 = "&lt;";
+              }
+
+              v24 = 4;
+            }
+
+LABEL_26:
+            CFDataAppendBytes(v22, v23, v24);
+            --v14;
+          }
+
+          while (v14);
+        }
+
+        if (v13)
+        {
+          CFRelease(v13);
+        }
+
+        CFDataAppendBytes(*a2, "</key>", 6);
+        v8 = v40;
+        if (v19)
+        {
+          CFDataAppendBytes(*a2, "<!-- 🤦 -->", 13);
+        }
+
+        if (!DoCFSerialize(*(v40 + v10), a2))
+        {
+          break;
+        }
+
+        v9 = ++v10 >= v6;
+        if (v10 == v6)
+        {
+          goto LABEL_67;
+        }
+      }
+
+      free(v40);
+      return v9;
     }
 
-    v38 = result;
-    DoCFSerializeString(result, a2);
-    CFRelease(v38);
-    goto LABEL_83;
+    v9 = 1;
+LABEL_67:
+    free(v8);
+    v3 = v38;
+LABEL_68:
+    addEndTag(v3, a2);
+    return v9;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
-
-  return DoCFSerializeSet(v3, a2);
+  return result;
 }
 
 uint64_t previouslySerialized(const void *a1, CFMutableDataRef *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   CFNullGetTypeID();
   result = 0;
   valuePtr = -1;
@@ -3072,7 +3248,7 @@ uint64_t previouslySerialized(const void *a1, CFMutableDataRef *a2)
           v6 = CFGetTypeID(result);
           if (v6 == CFBooleanGetTypeID() || v6 != CFNumberGetTypeID())
           {
-            result = 0;
+            return 0;
           }
 
           else
@@ -3084,7 +3260,7 @@ uint64_t previouslySerialized(const void *a1, CFMutableDataRef *a2)
               snprintf(__str, 0x40uLL, "<%s IDREF=%d/>", TagString, valuePtr);
               v8 = strlen(__str);
               CFDataAppendBytes(*a2, __str, v8);
-              result = 1;
+              return 1;
             }
           }
         }
@@ -3092,13 +3268,12 @@ uint64_t previouslySerialized(const void *a1, CFMutableDataRef *a2)
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void addStartTag(const void *a1, uint64_t a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   Value = idRefDictionaryForObject(a1, a3);
   v7 = Value;
   if (Value)
@@ -3148,7 +3323,6 @@ void addStartTag(const void *a1, uint64_t a2, uint64_t a3)
 
   v11 = strlen(__str);
   CFDataAppendBytes(*a3, __str, v11);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 const char *getTagString(const void *a1)
@@ -3260,12 +3434,11 @@ LABEL_13:
 
 void addEndTag(const void *a1, CFMutableDataRef *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   TagString = getTagString(a1);
   snprintf(__str, 0x80uLL, "</%s>", TagString);
   v4 = strlen(__str);
   CFDataAppendBytes(*a2, __str, v4);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __OSKextProcessKextRequestResults(uint64_t a1, uint64_t error_value, uint64_t a3, char *buffer, int a5)
@@ -3275,33 +3448,33 @@ uint64_t __OSKextProcessKextRequestResults(uint64_t a1, uint64_t error_value, ui
   {
     v6 = error_value;
     v7 = mach_error_string(error_value);
-    v13 = "(unknown)";
+    v8 = "(unknown)";
     if (v7)
     {
-      LOBYTE(v13) = v7;
+      v8 = v7;
     }
 
-    OSKextLog(a1, 65, "Error communicating with kernel - %s.", v8, v9, v10, v11, v12, v13);
-    v14 = 0;
+    OSKextLog(a1, 65, "Error communicating with kernel - %s.", v8);
+    v9 = 0;
     goto LABEL_16;
   }
 
-  v16 = 0;
-  v14 = 0;
+  v11 = 0;
+  v9 = 0;
   if (buffer && a5)
   {
-    v16 = IOCFUnserialize(buffer, *MEMORY[0x1E695E480], 0, &errorString);
-    if (!v16)
+    v11 = IOCFUnserialize(buffer, *MEMORY[0x1E695E480], 0, &errorString);
+    if (!v11)
     {
       UTF8CStringForCFString = createUTF8CStringForCFString(errorString);
-      v14 = UTF8CStringForCFString;
-      v31 = "(unknown)";
+      v9 = UTF8CStringForCFString;
+      v16 = "(unknown)";
       if (UTF8CStringForCFString)
       {
-        LOBYTE(v31) = UTF8CStringForCFString;
+        v16 = UTF8CStringForCFString;
       }
 
-      OSKextLog(a1, 65, "Failed to parse kernel log messages: %s.", v26, v27, v28, v29, v30, v31);
+      OSKextLog(a1, 65, "Failed to parse kernel log messages: %s.", v16);
       if (!a3)
       {
         goto LABEL_13;
@@ -3310,27 +3483,27 @@ uint64_t __OSKextProcessKextRequestResults(uint64_t a1, uint64_t error_value, ui
       goto LABEL_10;
     }
 
-    __OSKextLogKernelMessages(a1, v16);
-    v14 = 0;
+    __OSKextLogKernelMessages(a1, v11);
+    v9 = 0;
   }
 
   if (a3)
   {
 LABEL_10:
-    v17 = mach_error_string(a3);
-    v23 = "(unknown)";
-    if (v17)
+    v12 = mach_error_string(a3);
+    v13 = "(unknown)";
+    if (v12)
     {
-      LOBYTE(v23) = v17;
+      v13 = v12;
     }
 
-    OSKextLog(a1, 71, "Kernel error handling kext request - %s.", v18, v19, v20, v21, v22, v23);
+    OSKextLog(a1, 71, "Kernel error handling kext request - %s.", v13);
   }
 
 LABEL_13:
-  if (v16)
+  if (v11)
   {
-    CFRelease(v16);
+    CFRelease(v11);
   }
 
   v6 = a3;
@@ -3340,9 +3513,9 @@ LABEL_16:
     CFRelease(errorString);
   }
 
-  if (v14)
+  if (v9)
   {
-    free(v14);
+    free(v9);
   }
 
   return v6;
@@ -3486,52 +3659,48 @@ LABEL_22:
   return result;
 }
 
-CFTypeRef OSKextCopyLoadedKextInfoByUUID(unint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+CFTypeRef OSKextCopyLoadedKextInfoByUUID(unint64_t a1, const void *a2)
 {
   theDict = 0;
   cf = 0;
-  OSKextLog(0, 69, "Reading loaded kext info from kernel.", a4, a5, a6, a7, a8, v40);
-  v10 = __OSKextCreateKextRequest(@"Get Loaded Kext Info By UUID", a1, &theDict);
-  if (!v10)
+  OSKextLog(0, 69, "Reading loaded kext info from kernel.");
+  KextRequest = __OSKextCreateKextRequest(@"Get Loaded Kext Info By UUID", a1, &theDict);
+  if (!KextRequest)
   {
-    OSKextLog(0, 65, "Failed to create kext request.", v11, v12, v13, v14, v15, v41);
+    OSKextLog(0, 65, "Failed to create kext request.");
     return cf;
   }
 
-  v16 = v10;
+  v5 = KextRequest;
   if (a2 && CFArrayGetCount(a2))
   {
     CFDictionarySetValue(theDict, @"Kext Request Info Keys", a2);
   }
 
-  v17 = __OSKextSendKextRequest(0, v16, &cf, 0, 0);
-  if (v17)
+  v6 = __OSKextSendKextRequest(0, v5, &cf, 0, 0);
+  if (v6)
   {
-    v23 = mach_error_string(v17);
-    v29 = "(unknown)";
-    if (v23)
+    v7 = mach_error_string(v6);
+    v8 = "(unknown)";
+    if (v7)
     {
-      LOBYTE(v29) = v23;
+      v8 = v7;
     }
 
-    OSKextLog(0, 65, "Failed to read loaded kext info from kernel - %s.", v24, v25, v26, v27, v28, v29);
+    OSKextLog(0, 65, "Failed to read loaded kext info from kernel - %s.", v8);
     if (cf)
     {
       CFRelease(cf);
     }
 
     cf = 0;
-    goto LABEL_25;
+    goto LABEL_24;
   }
 
   if (!cf)
   {
-    v38 = "Kernel request call returned no data.";
-LABEL_24:
-    OSKextLog(0, 65, v38, v18, v19, v20, v21, v22, v41);
-LABEL_25:
-    CFRelease(v16);
-    return cf;
+    OSKextLog(0, 65, "Kernel request call returned no data.");
+    goto LABEL_24;
   }
 
   TypeID = CFDictionaryGetTypeID();
@@ -3543,19 +3712,21 @@ LABEL_25:
     }
 
     cf = 0;
-    v38 = "Loaded kext info from kernel is wrong type.";
+    OSKextLog(0, 65, "Loaded kext info from kernel is wrong type.");
     goto LABEL_24;
   }
 
   if ((~__sUserLogFilter & 7) != 0 || (__sUserLogFilter & 0x60) == 0)
   {
-    goto LABEL_25;
+LABEL_24:
+    CFRelease(v5);
+    return cf;
   }
 
   CFStringForPlist_new = createCFStringForPlist_new(cf, 1);
   UTF8CStringForCFString = createUTF8CStringForCFString(CFStringForPlist_new);
-  OSKextLog(0, 103, "Loaded kext info:\n%s", v33, v34, v35, v36, v37, UTF8CStringForCFString);
-  CFRelease(v16);
+  OSKextLog(0, 103, "Loaded kext info:\n%s", UTF8CStringForCFString);
+  CFRelease(v5);
   if (CFStringForPlist_new)
   {
     CFRelease(CFStringForPlist_new);
@@ -3705,7 +3876,7 @@ LABEL_23:
   return v9;
 }
 
-uint64_t io_registry_entry_get_path(unsigned int a1, const char *a2)
+uint64_t io_registry_entry_get_path(unsigned int a1, const char *a2, char *a3)
 {
   v11 = *MEMORY[0x1E69E9840];
   memset(v10, 0, 480);
@@ -3714,44 +3885,44 @@ uint64_t io_registry_entry_get_path(unsigned int a1, const char *a2)
   *(&v9 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v3 = mig_strncpy_zerofill(v10 + 8, a2, 128);
+    v4 = mig_strncpy_zerofill(v10 + 8, a2, 128);
   }
 
   else
   {
-    v3 = mig_strncpy(v10 + 8, a2, 128);
+    v4 = mig_strncpy(v10 + 8, a2, 128);
   }
 
   LODWORD(v10[0]) = 0;
-  DWORD1(v10[0]) = v3;
+  DWORD1(v10[0]) = v4;
   reply_port[0] = 5395;
-  reply_port[1] = ((v3 + 3) & 0xFFFFFFFC) + 40;
+  reply_port[1] = ((v4 + 3) & 0xFFFFFFFC) + 40;
   *&reply_port[2] = __PAIR64__(mig_get_reply_port(), a1);
   *&v9 = 0xB0A00000000;
-  v4 = mach_msg2_internal();
-  v5 = v4;
-  if ((v4 - 268435458) <= 0xE && ((1 << (v4 - 2)) & 0x4003) != 0)
+  v5 = mach_msg2_internal();
+  v6 = v5;
+  if ((v5 - 268435458) <= 0xE && ((1 << (v5 - 2)) & 0x4003) != 0)
   {
     mig_put_reply_port(reply_port[3]);
   }
 
-  else if (v4)
+  else if (v5)
   {
     mig_dealloc_reply_port(reply_port[3]);
   }
 
   else
   {
-    v5 = 4294966995;
+    v6 = 4294966995;
     mach_msg_destroy(reply_port);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-  return v5;
+  return v6;
 }
 
 kern_return_t IOKitWaitQuietWithOptions(mach_port_t mainPort, mach_timespec_t *waitTime, IOOptionBits options)
 {
+  name = 0;
   v6 = mainPort;
   if (!mainPort)
   {
@@ -3767,7 +3938,7 @@ kern_return_t IOKitWaitQuietWithOptions(mach_port_t mainPort, mach_timespec_t *w
     }
   }
 
-  v7 = io_registry_entry_from_path(v6, "IOService:/");
+  v7 = io_registry_entry_from_path(v6, "IOService:/", &name);
   if (!v7)
   {
     v8 = &unk_19723D780;
@@ -3776,8 +3947,8 @@ kern_return_t IOKitWaitQuietWithOptions(mach_port_t mainPort, mach_timespec_t *w
       v8 = waitTime;
     }
 
-    v7 = io_service_wait_quiet_with_options(0, *v8, options);
-    mach_port_deallocate(*MEMORY[0x1E69E9A60], 0);
+    v7 = io_service_wait_quiet_with_options(name, *v8, options);
+    mach_port_deallocate(*MEMORY[0x1E69E9A60], name);
   }
 
   if (v6 && v6 != mainPort)
@@ -4094,9 +4265,9 @@ CFComparisonResult compare_assertion(const __CFDictionary *a1, const __CFDiction
 
 IOReturn IOHIDUserDeviceHandleReportWithTimeStamp(IOHIDUserDeviceRef device, uint64_t timestamp, const uint8_t *report, CFIndex reportLength)
 {
-  if (dynLinkrosetta_is_current_process_translated_0 && dynLinkrosetta_is_current_process_translated_0() && dynLinkrosetta_convert_to_system_absolute_time_0[0])
+  if (dynLinkrosetta_is_current_process_translated_0 && dynLinkrosetta_is_current_process_translated_0() && dynLinkrosetta_convert_to_system_absolute_time_0)
   {
-    timestamp = (dynLinkrosetta_convert_to_system_absolute_time_0[0])(timestamp);
+    timestamp = dynLinkrosetta_convert_to_system_absolute_time_0(timestamp);
   }
 
   input = timestamp;
@@ -4105,7 +4276,7 @@ IOReturn IOHIDUserDeviceHandleReportWithTimeStamp(IOHIDUserDeviceRef device, uin
   v8 = IOConnectCallMethod(*(device + 7), 2u, &input, 1u, report, reportLength, 0, 0, 0, 0);
   if (v8)
   {
-    v9 = _IOHIDLogCategory(5u);
+    v9 = _IOHIDLogCategory(5);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       IOHIDUserDeviceHandleReportWithTimeStamp_cold_1(device, v8, v9);
@@ -5757,7 +5928,7 @@ __CFDictionary *createAssertionDescription(const void *a1, const void *a2, const
 
 void processAssertionTimeout(void *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   uint64 = xpc_dictionary_get_uint64(a1, "assertionTimeout");
   v2 = gCurrentRemoteAssertion;
   v3 = assertions_log;
@@ -5767,22 +5938,22 @@ void processAssertionTimeout(void *a1)
     {
       if (os_log_type_enabled(assertions_log, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 67109376;
-        v12 = uint64;
-        v13 = 1024;
-        v14 = gCurrentAssertion;
+        v10 = 67109376;
+        v11 = uint64;
+        v12 = 1024;
+        v13 = gCurrentAssertion;
         v4 = v3;
 LABEL_10:
-        _os_log_impl(&dword_197195000, v4, OS_LOG_TYPE_DEFAULT, "Current assertion has been released by powerd gCurrentRemoteAssertion 0x%x gCurrentAssertion 0x%x", &v11, 0xEu);
+        _os_log_impl(&dword_197195000, v4, OS_LOG_TYPE_DEFAULT, "Current assertion has been released by powerd gCurrentRemoteAssertion 0x%x gCurrentAssertion 0x%x", &v10, 0xEu);
       }
     }
 
     else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 67109376;
-      v12 = uint64;
-      v13 = 1024;
-      v14 = gCurrentAssertion;
+      v10 = 67109376;
+      v11 = uint64;
+      v12 = 1024;
+      v13 = gCurrentAssertion;
       v4 = MEMORY[0x1E69E9C10];
       goto LABEL_10;
     }
@@ -5907,12 +6078,11 @@ LABEL_10:
 
   PMQueue = getPMQueue();
   dispatch_async(PMQueue, &__block_literal_global_129);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __registerForAssertionPolicy_block_invoke(int a1, int token)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   state64 = 0;
   notify_get_state(token, &state64);
   v2 = assertions_log;
@@ -5921,7 +6091,7 @@ void __registerForAssertionPolicy_block_invoke(int a1, int token)
     if (os_log_type_enabled(assertions_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v7 = state64;
+      v6 = state64;
       v3 = v2;
 LABEL_6:
       _os_log_impl(&dword_197195000, v3, OS_LOG_TYPE_DEFAULT, "Update assertion policy %llu", buf, 0xCu);
@@ -5931,22 +6101,21 @@ LABEL_6:
   else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v7 = state64;
+    v6 = state64;
     v3 = MEMORY[0x1E69E9C10];
     goto LABEL_6;
   }
 
   evaluateAssertionCategoryPolicies(state64);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void evaluateAssertionCategoryPolicies(int a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   valuePtr = a1;
   if (!gAssertionCategoryPolicies)
   {
-    goto LABEL_39;
+    return;
   }
 
   if (a1)
@@ -6014,7 +6183,7 @@ void evaluateAssertionCategoryPolicies(int a1)
         if (os_log_type_enabled(assertions_log, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v21 = v7;
+          v20 = v7;
           v9 = v8;
 LABEL_23:
           _os_log_impl(&dword_197195000, v9, OS_LOG_TYPE_DEFAULT, "Assertion has a category %@", buf, 0xCu);
@@ -6024,7 +6193,7 @@ LABEL_23:
       else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v21 = v7;
+        v20 = v7;
         v9 = v4;
         goto LABEL_23;
       }
@@ -6040,9 +6209,9 @@ LABEL_23:
         }
 
         *buf = 138412546;
-        v21 = v1;
-        v22 = 2112;
-        v23 = v2;
+        v20 = v1;
+        v21 = 2112;
+        v22 = v2;
         v12 = v15;
         v13 = "No timeout for category %@ for policy %@";
       }
@@ -6055,9 +6224,9 @@ LABEL_23:
         }
 
         *buf = 138412546;
-        v21 = v1;
-        v22 = 2112;
-        v23 = v2;
+        v20 = v1;
+        v21 = 2112;
+        v22 = v2;
         v12 = v4;
         v13 = "No timeout for category %@ for policy %@";
       }
@@ -6074,14 +6243,14 @@ LABEL_33:
       if (os_log_type_enabled(assertions_log, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v21) = v3;
+        LODWORD(v20) = v3;
         _os_log_error_impl(&dword_197195000, v10, OS_LOG_TYPE_ERROR, "Not a dictinary for 0x%x", buf, 8u);
       }
     }
 
     else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      offloadAssertions_cold_8(&v24, v3, &v25);
+      offloadAssertions_cold_8(v23, v3, &v24);
     }
 
 LABEL_34:
@@ -6098,33 +6267,39 @@ LABEL_34:
   {
     CFRelease(v2);
   }
-
-LABEL_39:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
-CFTypeRef OSKextCopyLoadedKextInfo(unint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+IOReturn IOHIDDeviceOpen(IOHIDDeviceRef device, IOOptionBits options)
+{
+  v2 = *&options;
+  os_unfair_recursive_lock_lock_with_options();
+  LODWORD(v2) = (*(**(device + 3) + 32))(*(device + 3), v2);
+  os_unfair_recursive_lock_unlock();
+  return v2;
+}
+
+CFTypeRef OSKextCopyLoadedKextInfo(unint64_t a1, const void *a2)
 {
   theDict = 0;
   cf = 0;
-  OSKextLog(0, 69, "Reading loaded kext info from kernel.", a4, a5, a6, a7, a8, v34);
-  v10 = __OSKextCreateKextRequest(@"Get Loaded Kext Info", a1, &theDict);
+  OSKextLog(0, 69, "Reading loaded kext info from kernel.");
+  KextRequest = __OSKextCreateKextRequest(@"Get Loaded Kext Info", a1, &theDict);
   if (a2 && CFArrayGetCount(a2))
   {
     CFDictionarySetValue(theDict, @"Kext Request Info Keys", a2);
   }
 
-  v11 = __OSKextSendKextRequest(0, v10, &cf, 0, 0);
-  if (v11)
+  v5 = __OSKextSendKextRequest(0, KextRequest, &cf, 0, 0);
+  if (v5)
   {
-    v17 = mach_error_string(v11);
-    v23 = "(unknown)";
-    if (v17)
+    v6 = mach_error_string(v5);
+    v7 = "(unknown)";
+    if (v6)
     {
-      LOBYTE(v23) = v17;
+      v7 = v6;
     }
 
-    OSKextLog(0, 65, "Failed to read loaded kext info from kernel - %s.", v18, v19, v20, v21, v22, v23);
+    OSKextLog(0, 65, "Failed to read loaded kext info from kernel - %s.", v7);
     if (cf)
     {
       CFRelease(cf);
@@ -6138,9 +6313,8 @@ CFTypeRef OSKextCopyLoadedKextInfo(unint64_t a1, const void *a2, uint64_t a3, ui
 
   if (!cf)
   {
-    v32 = "Kernel request call returned no data.";
+    OSKextLog(0, 65, "Kernel request call returned no data.");
 LABEL_19:
-    OSKextLog(0, 65, v32, v12, v13, v14, v15, v16, v35);
     CFStringForPlist_new = 0;
     UTF8CStringForCFString = 0;
     goto LABEL_20;
@@ -6155,7 +6329,7 @@ LABEL_19:
     }
 
     cf = 0;
-    v32 = "Loaded kext info from kernel is wrong type.";
+    OSKextLog(0, 65, "Loaded kext info from kernel is wrong type.");
     goto LABEL_19;
   }
 
@@ -6165,13 +6339,13 @@ LABEL_19:
   {
     CFStringForPlist_new = createCFStringForPlist_new(cf, 1);
     UTF8CStringForCFString = createUTF8CStringForCFString(CFStringForPlist_new);
-    OSKextLog(0, 103, "Loaded kext info:\n%s", v27, v28, v29, v30, v31, UTF8CStringForCFString);
+    OSKextLog(0, 103, "Loaded kext info:\n%s", UTF8CStringForCFString);
   }
 
 LABEL_20:
-  if (v10)
+  if (KextRequest)
   {
-    CFRelease(v10);
+    CFRelease(KextRequest);
   }
 
   if (CFStringForPlist_new)
@@ -6315,28 +6489,24 @@ void IOMIGMachPortUnscheduleFromRunLoop(uint64_t a1, __CFRunLoop *cf1, const __C
 
 CFStringRef _IOHIDCreateTimeString(const __CFAllocator *a1, time_t *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  memset(&v7, 0, sizeof(v7));
-  *v8 = 0u;
-  v9 = 0u;
-  v4 = localtime_r(a2, &v7);
-  if (v4 || (v4 = gmtime_r(a2, &v7)) != 0)
+  v9 = *MEMORY[0x1E69E9840];
+  memset(&v6, 0, sizeof(v6));
+  *v7 = 0u;
+  v8 = 0u;
+  v4 = localtime_r(a2, &v6);
+  if (v4 || (v4 = gmtime_r(a2, &v6)) != 0)
   {
-    strftime(v8, 0x20uLL, "%F %H:%M:%S", v4);
+    strftime(v7, 0x20uLL, "%F %H:%M:%S", v4);
   }
 
-  result = CFStringCreateWithFormat(a1, 0, @"%s.%06d", v8, *(a2 + 2));
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return CFStringCreateWithFormat(a1, 0, @"%s.%06d", v7, *(a2 + 2));
 }
 
-void _IOHIDEventSystemConnectionReleasePrivate_cold_1(uint64_t a1, mach_error_t a2, int a3, int a4, int a5, int a6, int a7, int a8)
+void _IOHIDEventSystemConnectionReleasePrivate_cold_1(int a1, mach_error_t a2, int a3, int a4, int a5, int a6, int a7, int a8)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6_3(a1, a2, a3, a4, a5, a6, a7, a8, v16, v18, v19, v20);
+  OUTLINED_FUNCTION_6_3(a1, a2, a3, a4, a5, a6, a7, a8, v14, v15, v16, v17);
   OUTLINED_FUNCTION_0_16();
-  OUTLINED_FUNCTION_3_6(&dword_197195000, v9, v10, "%s: mach_port_request_notification(MACH_PORT_NULL):%s", v11, v12, v13, v14, v17);
-  v15 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_6(&dword_197195000, v8, v9, "%s: mach_port_request_notification(MACH_PORT_NULL):%s", v10, v11, v12, v13);
 }
 
 uint64_t __IOHIDEventDataAppendFromLegacyEvent(uint64_t a1, uint64_t a2)
@@ -6462,19 +6632,19 @@ uint64_t __IOHIDEventPopulateTranslationLegacyData(uint64_t result, uint64_t a2)
   return result;
 }
 
-void __IOHIDEventPopulateCurrentEventData(uint64_t a1, uint64_t a2)
+void __IOHIDEventPopulateCurrentEventData(uint64_t result, uint64_t a2)
 {
-  v2 = *(a1 + 4);
+  v2 = *(result + 4);
   switch(v2)
   {
     case 4:
-      __IOHIDEventPopulateTranslationCurrentData(a1, a2);
+      __IOHIDEventPopulateTranslationCurrentData(result, a2);
       break;
     case 17:
-      __IOHIDEventPopulatePointerCurrentData(a1, a2);
+      __IOHIDEventPopulatePointerCurrentData(result, a2);
       break;
     case 11:
-      __IOHIDEventPopulateDigitizerCurrentData(a1, a2);
+      __IOHIDEventPopulateDigitizerCurrentData(result, a2);
       break;
   }
 }
@@ -6685,7 +6855,7 @@ uint64_t __IOHIDEventPopulateTranslationCurrentData(uint64_t result, uint64_t a2
 
 void IOHIDPreferencesSet(const __CFString *a1, const void *a2, const __CFString *a3, const __CFString *a4, const __CFString *a5)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (__loadFramework_haOnce != -1)
   {
     IOHIDPreferencesSet_cold_1();
@@ -6694,29 +6864,27 @@ void IOHIDPreferencesSet(const __CFString *a1, const void *a2, const __CFString 
   v10 = __setPtr;
   if (__setPtr)
   {
-    v11 = *MEMORY[0x1E69E9840];
 
     v10(a1, a2, a3, a4, a5);
   }
 
   else
   {
-    v12 = _IOHIDLogCategory(0);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v11 = _IOHIDLogCategory(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v14 = 136315138;
-      v15 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
-      _os_log_impl(&dword_197195000, v12, OS_LOG_TYPE_INFO, "Failed to find %s for set, switch to default CFPreferences", &v14, 0xCu);
+      v12 = 136315138;
+      v13 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
+      _os_log_impl(&dword_197195000, v11, OS_LOG_TYPE_INFO, "Failed to find %s for set, switch to default CFPreferences", &v12, 0xCu);
     }
 
     CFPreferencesSetValue(a1, a2, a5, a3, a4);
-    v13 = *MEMORY[0x1E69E9840];
   }
 }
 
 void IOHIDPreferencesSetMultiple(const __CFDictionary *a1, const __CFArray *a2, const __CFString *a3, const __CFString *a4, const __CFString *a5)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (__loadFramework_haOnce != -1)
   {
     IOHIDPreferencesSet_cold_1();
@@ -6725,29 +6893,27 @@ void IOHIDPreferencesSetMultiple(const __CFDictionary *a1, const __CFArray *a2, 
   v10 = __setMultiplePtr;
   if (__setMultiplePtr)
   {
-    v11 = *MEMORY[0x1E69E9840];
 
     v10(a1, a2, a3, a4, a5);
   }
 
   else
   {
-    v12 = _IOHIDLogCategory(0);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v11 = _IOHIDLogCategory(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v14 = 136315138;
-      v15 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
-      _os_log_impl(&dword_197195000, v12, OS_LOG_TYPE_INFO, "Failed to find %s for set multiple , switch to default CFPreferences", &v14, 0xCu);
+      v12 = 136315138;
+      v13 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
+      _os_log_impl(&dword_197195000, v11, OS_LOG_TYPE_INFO, "Failed to find %s for set multiple , switch to default CFPreferences", &v12, 0xCu);
     }
 
     CFPreferencesSetMultiple(a1, a2, a5, a3, a4);
-    v13 = *MEMORY[0x1E69E9840];
   }
 }
 
 CFPropertyListRef IOHIDPreferencesCopy(const __CFString *a1, const __CFString *a2, const __CFString *a3, const __CFString *a4)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (__loadFramework_haOnce != -1)
   {
     IOHIDPreferencesSet_cold_1();
@@ -6756,31 +6922,27 @@ CFPropertyListRef IOHIDPreferencesCopy(const __CFString *a1, const __CFString *a
   v8 = __copyPtr;
   if (__copyPtr)
   {
-    v9 = *MEMORY[0x1E69E9840];
 
     return v8(a1, a2, a3, a4);
   }
 
   else
   {
-    v11 = _IOHIDLogCategory(0);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v10 = _IOHIDLogCategory(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v13 = 136315138;
-      v14 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
-      _os_log_impl(&dword_197195000, v11, OS_LOG_TYPE_INFO, "Failed to find %s for copy, switch to default CFPreferences", &v13, 0xCu);
+      v11 = 136315138;
+      v12 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
+      _os_log_impl(&dword_197195000, v10, OS_LOG_TYPE_INFO, "Failed to find %s for copy, switch to default CFPreferences", &v11, 0xCu);
     }
 
-    result = CFPreferencesCopyValue(a1, a4, a2, a3);
-    v12 = *MEMORY[0x1E69E9840];
+    return CFPreferencesCopyValue(a1, a4, a2, a3);
   }
-
-  return result;
 }
 
 CFDictionaryRef IOHIDPreferencesCopyMultiple(const __CFArray *a1, const __CFString *a2, const __CFString *a3, const __CFString *a4)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (__loadFramework_haOnce != -1)
   {
     IOHIDPreferencesSet_cold_1();
@@ -6789,31 +6951,27 @@ CFDictionaryRef IOHIDPreferencesCopyMultiple(const __CFArray *a1, const __CFStri
   v8 = __copyMultiplePtr;
   if (__copyMultiplePtr)
   {
-    v9 = *MEMORY[0x1E69E9840];
 
     return v8(a1, a2, a3, a4);
   }
 
   else
   {
-    v11 = _IOHIDLogCategory(0);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v10 = _IOHIDLogCategory(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v13 = 136315138;
-      v14 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
-      _os_log_impl(&dword_197195000, v11, OS_LOG_TYPE_INFO, "Failed to find %s for copy multiple, switch to default CFPreferences", &v13, 0xCu);
+      v11 = 136315138;
+      v12 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
+      _os_log_impl(&dword_197195000, v10, OS_LOG_TYPE_INFO, "Failed to find %s for copy multiple, switch to default CFPreferences", &v11, 0xCu);
     }
 
-    result = CFPreferencesCopyMultiple(a1, a4, a2, a3);
-    v12 = *MEMORY[0x1E69E9840];
+    return CFPreferencesCopyMultiple(a1, a4, a2, a3);
   }
-
-  return result;
 }
 
 uint64_t IOHIDPreferencesSynchronize(const __CFString *a1, const __CFString *a2, const __CFString *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (__loadFramework_haOnce != -1)
   {
     IOHIDPreferencesSet_cold_1();
@@ -6822,31 +6980,27 @@ uint64_t IOHIDPreferencesSynchronize(const __CFString *a1, const __CFString *a2,
   v6 = __synchronizePtr;
   if (__synchronizePtr)
   {
-    v7 = *MEMORY[0x1E69E9840];
 
     return v6(a1, a2, a3);
   }
 
   else
   {
-    v9 = _IOHIDLogCategory(0);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v8 = _IOHIDLogCategory(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v11 = 136315138;
-      v12 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
-      _os_log_impl(&dword_197195000, v9, OS_LOG_TYPE_INFO, "Failed to find %s for synchronize, switch to default CFPreferences", &v11, 0xCu);
+      v9 = 136315138;
+      v10 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
+      _os_log_impl(&dword_197195000, v8, OS_LOG_TYPE_INFO, "Failed to find %s for synchronize, switch to default CFPreferences", &v9, 0xCu);
     }
 
-    result = CFPreferencesSynchronize(a3, a1, a2);
-    v10 = *MEMORY[0x1E69E9840];
+    return CFPreferencesSynchronize(a3, a1, a2);
   }
-
-  return result;
 }
 
 CFPropertyListRef IOHIDPreferencesCopyDomain(const __CFString *a1, const __CFString *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (__loadFramework_haOnce != -1)
   {
     IOHIDPreferencesSet_cold_1();
@@ -6855,31 +7009,27 @@ CFPropertyListRef IOHIDPreferencesCopyDomain(const __CFString *a1, const __CFStr
   v4 = __copyDomainPtr;
   if (__copyDomainPtr)
   {
-    v5 = *MEMORY[0x1E69E9840];
 
     return v4(a1, a2);
   }
 
   else
   {
-    v7 = _IOHIDLogCategory(0);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v6 = _IOHIDLogCategory(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v9 = 136315138;
-      v10 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
-      _os_log_impl(&dword_197195000, v7, OS_LOG_TYPE_INFO, "Failed to find %s for copy domain, switch to default CFPreferences", &v9, 0xCu);
+      v7 = 136315138;
+      v8 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
+      _os_log_impl(&dword_197195000, v6, OS_LOG_TYPE_INFO, "Failed to find %s for copy domain, switch to default CFPreferences", &v7, 0xCu);
     }
 
-    result = CFPreferencesCopyAppValue(a1, a2);
-    v8 = *MEMORY[0x1E69E9840];
+    return CFPreferencesCopyAppValue(a1, a2);
   }
-
-  return result;
 }
 
 void IOHIDPreferencesSetDomain(const __CFString *a1, const void *a2, const __CFString *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (__loadFramework_haOnce != -1)
   {
     IOHIDPreferencesSet_cold_1();
@@ -6888,29 +7038,27 @@ void IOHIDPreferencesSetDomain(const __CFString *a1, const void *a2, const __CFS
   v6 = __setDomainPtr;
   if (__setDomainPtr)
   {
-    v7 = *MEMORY[0x1E69E9840];
 
     v6(a1, a2, a3);
   }
 
   else
   {
-    v8 = _IOHIDLogCategory(0);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v7 = _IOHIDLogCategory(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v10 = 136315138;
-      v11 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
-      _os_log_impl(&dword_197195000, v8, OS_LOG_TYPE_INFO, "Failed to find %s for set domain, switch to default CFPreferences", &v10, 0xCu);
+      v8 = 136315138;
+      v9 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
+      _os_log_impl(&dword_197195000, v7, OS_LOG_TYPE_INFO, "Failed to find %s for set domain, switch to default CFPreferences", &v8, 0xCu);
     }
 
     CFPreferencesSetAppValue(a1, a2, a3);
-    v9 = *MEMORY[0x1E69E9840];
   }
 }
 
 uint64_t IOHIDPreferencesCreateInstance(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (__loadFramework_haOnce != -1)
   {
     IOHIDPreferencesSet_cold_1();
@@ -6919,29 +7067,27 @@ uint64_t IOHIDPreferencesCreateInstance(uint64_t a1)
   v2 = __createPtr;
   if (__createPtr)
   {
-    v3 = *MEMORY[0x1E69E9840];
 
     return v2(a1);
   }
 
   else
   {
-    v5 = _IOHIDLogCategory(0);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v4 = _IOHIDLogCategory(0);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v7 = 136315138;
-      v8 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
-      _os_log_impl(&dword_197195000, v5, OS_LOG_TYPE_INFO, "Failed to find %s for create", &v7, 0xCu);
+      v5 = 136315138;
+      v6 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
+      _os_log_impl(&dword_197195000, v4, OS_LOG_TYPE_INFO, "Failed to find %s for create", &v5, 0xCu);
     }
 
-    v6 = *MEMORY[0x1E69E9840];
     return 0;
   }
 }
 
 void IOHIDPreferencesSetForInstance(uint64_t a1, const __CFString *a2, const void *a3, const __CFString *a4, const __CFString *a5, const __CFString *a6)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (__loadFramework_haOnce != -1)
   {
     IOHIDPreferencesSet_cold_1();
@@ -6950,29 +7096,27 @@ void IOHIDPreferencesSetForInstance(uint64_t a1, const __CFString *a2, const voi
   v12 = __setForInstancePtr;
   if (__setForInstancePtr)
   {
-    v13 = *MEMORY[0x1E69E9840];
 
     v12(a1, a2, a3, a4, a5, a6);
   }
 
   else
   {
-    v14 = _IOHIDLogCategory(0);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v13 = _IOHIDLogCategory(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v16 = 136315138;
-      v17 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
-      _os_log_impl(&dword_197195000, v14, OS_LOG_TYPE_INFO, "Failed to find %s for set, switch to default CFPreferences", &v16, 0xCu);
+      v14 = 136315138;
+      v15 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
+      _os_log_impl(&dword_197195000, v13, OS_LOG_TYPE_INFO, "Failed to find %s for set, switch to default CFPreferences", &v14, 0xCu);
     }
 
     CFPreferencesSetValue(a2, a3, a6, a4, a5);
-    v15 = *MEMORY[0x1E69E9840];
   }
 }
 
 void IOHIDPreferencesSetMultipleForInstance(uint64_t a1, const __CFDictionary *a2, const __CFArray *a3, const __CFString *a4, const __CFString *a5, const __CFString *a6)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (__loadFramework_haOnce != -1)
   {
     IOHIDPreferencesSet_cold_1();
@@ -6981,29 +7125,27 @@ void IOHIDPreferencesSetMultipleForInstance(uint64_t a1, const __CFDictionary *a
   v12 = __setMultipleForInstancePtr;
   if (__setMultipleForInstancePtr)
   {
-    v13 = *MEMORY[0x1E69E9840];
 
     v12(a1, a2, a3, a4, a5, a6);
   }
 
   else
   {
-    v14 = _IOHIDLogCategory(0);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v13 = _IOHIDLogCategory(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v16 = 136315138;
-      v17 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
-      _os_log_impl(&dword_197195000, v14, OS_LOG_TYPE_INFO, "Failed to find %s for set multiple , switch to default CFPreferences", &v16, 0xCu);
+      v14 = 136315138;
+      v15 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
+      _os_log_impl(&dword_197195000, v13, OS_LOG_TYPE_INFO, "Failed to find %s for set multiple , switch to default CFPreferences", &v14, 0xCu);
     }
 
     CFPreferencesSetMultiple(a2, a3, a6, a4, a5);
-    v15 = *MEMORY[0x1E69E9840];
   }
 }
 
 CFPropertyListRef IOHIDPreferencesCopyForInstance(uint64_t a1, const __CFString *a2, const __CFString *a3, const __CFString *a4, const __CFString *a5)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (__loadFramework_haOnce != -1)
   {
     IOHIDPreferencesSet_cold_1();
@@ -7012,31 +7154,27 @@ CFPropertyListRef IOHIDPreferencesCopyForInstance(uint64_t a1, const __CFString 
   v10 = __copyForInstancePtr;
   if (__copyForInstancePtr)
   {
-    v11 = *MEMORY[0x1E69E9840];
 
     return v10(a1, a2, a3, a4, a5);
   }
 
   else
   {
-    v13 = _IOHIDLogCategory(0);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v12 = _IOHIDLogCategory(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v15 = 136315138;
-      v16 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
-      _os_log_impl(&dword_197195000, v13, OS_LOG_TYPE_INFO, "Failed to find %s for copy, switch to default CFPreferences", &v15, 0xCu);
+      v13 = 136315138;
+      v14 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
+      _os_log_impl(&dword_197195000, v12, OS_LOG_TYPE_INFO, "Failed to find %s for copy, switch to default CFPreferences", &v13, 0xCu);
     }
 
-    result = CFPreferencesCopyValue(a2, a5, a3, a4);
-    v14 = *MEMORY[0x1E69E9840];
+    return CFPreferencesCopyValue(a2, a5, a3, a4);
   }
-
-  return result;
 }
 
 CFDictionaryRef IOHIDPreferencesCopyMultipleForInstance(uint64_t a1, const __CFArray *a2, const __CFString *a3, const __CFString *a4, const __CFString *a5)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (__loadFramework_haOnce != -1)
   {
     IOHIDPreferencesSet_cold_1();
@@ -7045,31 +7183,27 @@ CFDictionaryRef IOHIDPreferencesCopyMultipleForInstance(uint64_t a1, const __CFA
   v10 = __copyMultipleForInstancePtr;
   if (__copyMultipleForInstancePtr)
   {
-    v11 = *MEMORY[0x1E69E9840];
 
     return v10(a1, a2, a3, a4, a5);
   }
 
   else
   {
-    v13 = _IOHIDLogCategory(0);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v12 = _IOHIDLogCategory(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v15 = 136315138;
-      v16 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
-      _os_log_impl(&dword_197195000, v13, OS_LOG_TYPE_INFO, "Failed to find %s for copy multiple, switch to default CFPreferences", &v15, 0xCu);
+      v13 = 136315138;
+      v14 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
+      _os_log_impl(&dword_197195000, v12, OS_LOG_TYPE_INFO, "Failed to find %s for copy multiple, switch to default CFPreferences", &v13, 0xCu);
     }
 
-    result = CFPreferencesCopyMultiple(a2, a5, a3, a4);
-    v14 = *MEMORY[0x1E69E9840];
+    return CFPreferencesCopyMultiple(a2, a5, a3, a4);
   }
-
-  return result;
 }
 
 uint64_t IOHIDPreferencesSynchronizeForInstance(uint64_t a1, const __CFString *a2, const __CFString *a3, const __CFString *a4)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (__loadFramework_haOnce != -1)
   {
     IOHIDPreferencesSet_cold_1();
@@ -7078,31 +7212,27 @@ uint64_t IOHIDPreferencesSynchronizeForInstance(uint64_t a1, const __CFString *a
   v8 = __synchronizeForInstancePtr;
   if (__synchronizeForInstancePtr)
   {
-    v9 = *MEMORY[0x1E69E9840];
 
     return v8(a1, a2, a3, a4);
   }
 
   else
   {
-    v11 = _IOHIDLogCategory(0);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v10 = _IOHIDLogCategory(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v13 = 136315138;
-      v14 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
-      _os_log_impl(&dword_197195000, v11, OS_LOG_TYPE_INFO, "Failed to find %s for synchronize, switch to default CFPreferences", &v13, 0xCu);
+      v11 = 136315138;
+      v12 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
+      _os_log_impl(&dword_197195000, v10, OS_LOG_TYPE_INFO, "Failed to find %s for synchronize, switch to default CFPreferences", &v11, 0xCu);
     }
 
-    result = CFPreferencesSynchronize(a4, a2, a3);
-    v12 = *MEMORY[0x1E69E9840];
+    return CFPreferencesSynchronize(a4, a2, a3);
   }
-
-  return result;
 }
 
 CFPropertyListRef IOHIDPreferencesCopyDomainForInstance(uint64_t a1, const __CFString *a2, const __CFString *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (__loadFramework_haOnce != -1)
   {
     IOHIDPreferencesSet_cold_1();
@@ -7111,31 +7241,27 @@ CFPropertyListRef IOHIDPreferencesCopyDomainForInstance(uint64_t a1, const __CFS
   v6 = __copyDomainForInstancePtr;
   if (__copyDomainForInstancePtr)
   {
-    v7 = *MEMORY[0x1E69E9840];
 
     return v6(a1, a2, a3);
   }
 
   else
   {
-    v9 = _IOHIDLogCategory(0);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v8 = _IOHIDLogCategory(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v11 = 136315138;
-      v12 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
-      _os_log_impl(&dword_197195000, v9, OS_LOG_TYPE_INFO, "Failed to find %s for copy domain, switch to default CFPreferences", &v11, 0xCu);
+      v9 = 136315138;
+      v10 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
+      _os_log_impl(&dword_197195000, v8, OS_LOG_TYPE_INFO, "Failed to find %s for copy domain, switch to default CFPreferences", &v9, 0xCu);
     }
 
-    result = CFPreferencesCopyAppValue(a2, a3);
-    v10 = *MEMORY[0x1E69E9840];
+    return CFPreferencesCopyAppValue(a2, a3);
   }
-
-  return result;
 }
 
 void IOHIDPreferencesSetDomainForInstance(uint64_t a1, const __CFString *a2, const void *a3, const __CFString *a4)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (__loadFramework_haOnce != -1)
   {
     IOHIDPreferencesSet_cold_1();
@@ -7144,29 +7270,27 @@ void IOHIDPreferencesSetDomainForInstance(uint64_t a1, const __CFString *a2, con
   v8 = __setDomainForInstancePtr;
   if (__setDomainForInstancePtr)
   {
-    v9 = *MEMORY[0x1E69E9840];
 
     v8(a1, a2, a3, a4);
   }
 
   else
   {
-    v10 = _IOHIDLogCategory(0);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v9 = _IOHIDLogCategory(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v12 = 136315138;
-      v13 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
-      _os_log_impl(&dword_197195000, v10, OS_LOG_TYPE_INFO, "Failed to find %s for set domain, switch to default CFPreferences", &v12, 0xCu);
+      v10 = 136315138;
+      v11 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
+      _os_log_impl(&dword_197195000, v9, OS_LOG_TYPE_INFO, "Failed to find %s for set domain, switch to default CFPreferences", &v10, 0xCu);
     }
 
     CFPreferencesSetAppValue(a2, a3, a4);
-    v11 = *MEMORY[0x1E69E9840];
   }
 }
 
 void ____loadFramework_block_invoke()
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v0 = dlopen("/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences", 1);
   __loadFramework_haHandle = v0;
   if (v0)
@@ -7227,7 +7351,7 @@ LABEL_31:
                             __setDomainForInstancePtr = 0;
 LABEL_32:
                             __createPtr = v2;
-                            goto LABEL_33;
+                            return;
                           }
 
 LABEL_30:
@@ -7294,13 +7418,10 @@ LABEL_21:
   v4 = _IOHIDLogCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
-    _os_log_impl(&dword_197195000, v4, OS_LOG_TYPE_DEFAULT, "Failed to load %s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "/System/Library/PrivateFrameworks/HIDPreferences.framework/HIDPreferences";
+    _os_log_impl(&dword_197195000, v4, OS_LOG_TYPE_DEFAULT, "Failed to load %s", &v5, 0xCu);
   }
-
-LABEL_33:
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __IOHIDEventRegister()
@@ -7322,7 +7443,7 @@ uint64_t IOHIDEventGetTypeID()
   return result;
 }
 
-uint64_t _IOHIDSessionCreatePrivate(uint64_t a1)
+HIDSession *_IOHIDSessionCreatePrivate(uint64_t a1)
 {
   v1 = [HIDSession allocWithZone:a1];
 
@@ -7372,7 +7493,7 @@ uint64_t roundPageCrossSafe(uint64_t a1)
   return (a1 + *v1 - 1) & -*v1;
 }
 
-uint64_t roundPageCrossSafeFixedWidth(uint64_t a1)
+unint64_t roundPageCrossSafeFixedWidth(uint64_t a1)
 {
   if (__sCrossLinkEnabled == 1)
   {
@@ -7480,116 +7601,115 @@ CFStringRef IOCFUnserializeerror(CFStringRef result, uint64_t a2)
   return result;
 }
 
-uint64_t IOCircularDataQueueCreateWithConnection()
+uint64_t IOCircularDataQueueCreateWithConnection(uint64_t a1, uint64_t a2)
 {
-  MEMORY[0x1EEE9AC00]();
-  v50 = *MEMORY[0x1E69E9840];
-  v3 = 3758097090;
-  if (v2)
+  MEMORY[0x1EEE9AC00](a1, a2);
+  v51 = *MEMORY[0x1E69E9840];
+  v5 = 3758097090;
+  if (v4)
   {
-    v4 = v2;
-    v5 = v1;
-    v6 = v0;
-    *v2 = 0;
+    v6 = v4;
+    v7 = v3;
+    v8 = v2;
+    *v4 = 0;
     if ((_get_cpu_capabilities() & 0x40000000000000) != 0)
     {
-      v7 = malloc_type_calloc(1uLL, 0x40uLL, 0x1060040E0D71B6FuLL);
-      v17 = v7;
-      if (v7)
+      v9 = malloc_type_calloc(1uLL, 0x40uLL, 0x1060040E0D71B6FuLL);
+      v18 = v9;
+      if (v9)
       {
-        v8 = v7;
-        v7[14] = v6;
-        v7[15] = v5;
-        v48 = 0u;
+        v10 = v9;
+        v9[14] = v8;
+        v9[15] = v7;
         v49 = 0u;
-        v46 = 0u;
+        v50 = 0u;
         v47 = 0u;
-        v44 = 0u;
+        v48 = 0u;
         v45 = 0u;
-        v42 = 0u;
+        v46 = 0u;
         v43 = 0u;
-        v40 = 0u;
+        v44 = 0u;
         v41 = 0u;
-        v38 = 0u;
+        v42 = 0u;
         v39 = 0u;
-        v36 = 0u;
+        v40 = 0u;
         v37 = 0u;
-        v34 = 0u;
+        v38 = 0u;
         v35 = 0u;
-        v32 = 0u;
+        v36 = 0u;
         v33 = 0u;
-        v30 = 0u;
+        v34 = 0u;
         v31 = 0u;
-        v28 = 0u;
+        v32 = 0u;
         v29 = 0u;
-        v26 = 0u;
+        v30 = 0u;
         v27 = 0u;
-        v24 = 0u;
+        v28 = 0u;
         v25 = 0u;
-        v22 = 0u;
+        v26 = 0u;
         v23 = 0u;
-        v20 = 0u;
+        v24 = 0u;
         v21 = 0u;
-        v18 = 0u;
+        v22 = 0u;
         v19 = 0u;
-        v14 = 0;
+        v20 = 0u;
         v15 = 0;
-        v16 = 4096;
-        v9 = io_connect_map_shared_memory(v6, v5, *MEMORY[0x1E69E9A60], &v15, &v14, 0, "IOCircularQueueDescription", &v18, &v16);
-        printf("%x, %lx, 0x%llx, 0x%llx\n", v16, 32, v15, v14);
-        if (v16 != 32)
+        v16 = 0;
+        v17 = 4096;
+        v11 = io_connect_map_shared_memory(v8, v7, *MEMORY[0x1E69E9A60], &v16, &v15, 0, "IOCircularQueueDescription", &v19, &v17);
+        printf("%x, %lx, 0x%llx, 0x%llx\n", v17, 32, v16, v15);
+        if (v17 != 32)
         {
           IOCircularDataQueueCreateWithConnection_cold_1();
         }
 
-        v10 = v19;
-        *(v8 + 6) = v18;
-        *(v8 + 10) = v10;
-        printf("sentinel %qx\n", *(v8 + 3));
-        if (v14 != v8[8])
+        v12 = v20;
+        *(v10 + 6) = v19;
+        *(v10 + 10) = v12;
+        printf("sentinel %qx\n", *(v10 + 3));
+        if (v15 != v10[8])
         {
           IOCircularDataQueueCreateWithConnection_cold_2();
         }
 
-        if (v15)
+        if (v16)
         {
-          v11 = v15;
+          v13 = v16;
         }
 
         else
         {
-          v11 = 0;
+          v13 = 0;
         }
 
-        *(v8 + 2) = v11;
-        if (*v11 == *(v8 + 3))
+        *(v10 + 2) = v13;
+        if (*v13 == *(v10 + 3))
         {
-          *v8 = -1;
-          *(v8 + 1) = -1;
-          *v4 = v8;
-          v3 = v9;
+          *v10 = -1;
+          *(v10 + 1) = -1;
+          *v6 = v10;
+          return v11;
         }
 
         else
         {
-          IOCircularDataQueueDestroy(&v17);
+          IOCircularDataQueueDestroy(&v18);
         }
       }
 
       else
       {
-        v3 = 3758097085;
+        return 3758097085;
       }
     }
 
     else
     {
-      v3 = 3758097095;
+      return 3758097095;
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-  return v3;
+  return v5;
 }
 
 uint64_t IOCircularDataQueueDestroy(uint64_t *a1)
@@ -7608,7 +7728,6 @@ uint64_t IOCircularDataQueueDestroy(uint64_t *a1)
   v3 = *(v2 + 16);
   if (v3)
   {
-    v4 = *(v2 + 16);
     IOConnectUnmapMemory(*(v2 + 56), *(v2 + 60), *MEMORY[0x1E69E9A60], v3);
   }
 
@@ -7644,11 +7763,11 @@ uint64_t IOCircularDataQueueCopyLatest(uint64_t a1, uint64_t a2, uint64_t a3)
   return _getLatestInQueueMemInternal(a1, v6, a3, 1);
 }
 
-uint64_t IOCircularDataQueueGetNext(uint64_t a1)
+uint64_t IOCircularDataQueueGetNext(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1)
   {
-    return _getNextInQueueMemInternal(a1);
+    return _getNextInQueueMemInternal();
   }
 
   else
@@ -7657,11 +7776,11 @@ uint64_t IOCircularDataQueueGetNext(uint64_t a1)
   }
 }
 
-uint64_t IOCircularDataQueueCopyNext(uint64_t a1)
+uint64_t IOCircularDataQueueCopyNext(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1)
   {
-    return _getNextInQueueMemInternal(a1);
+    return _getNextInQueueMemInternal();
   }
 
   else
@@ -7670,11 +7789,11 @@ uint64_t IOCircularDataQueueCopyNext(uint64_t a1)
   }
 }
 
-uint64_t IOCircularDataQueueGetPrevious(uint64_t a1)
+uint64_t IOCircularDataQueueGetPrevious(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1)
   {
-    return _getPrevInQueueMemInternal(a1);
+    return _getPrevInQueueMemInternal();
   }
 
   else
@@ -7683,11 +7802,11 @@ uint64_t IOCircularDataQueueGetPrevious(uint64_t a1)
   }
 }
 
-uint64_t IOCircularDataQueueCopyPrevious(uint64_t a1)
+uint64_t IOCircularDataQueueCopyPrevious(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1)
   {
-    return _getPrevInQueueMemInternal(a1);
+    return _getPrevInQueueMemInternal();
   }
 
   else
@@ -7696,7 +7815,7 @@ uint64_t IOCircularDataQueueCopyPrevious(uint64_t a1)
   }
 }
 
-uint64_t IOCircularDataQueueGetCurrent(uint64_t a1, void *a2, uint64_t *a3)
+uint64_t IOCircularDataQueueGetCurrent(uint64_t a1, void *a2, void *a3)
 {
   if (a1)
   {
@@ -7709,7 +7828,7 @@ uint64_t IOCircularDataQueueGetCurrent(uint64_t a1, void *a2, uint64_t *a3)
   }
 }
 
-uint64_t IOCircularDataQueueCopyCurrent(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t IOCircularDataQueueCopyCurrent(uint64_t a1, uint64_t a2, void *a3)
 {
   if (!a1)
   {
@@ -7735,29 +7854,23 @@ kern_return_t IOCreateReceivePort(uint32_t msgType, mach_port_t *recvPort)
   }
 }
 
-CFStringRef _IOObjectCopyClass(io_registry_entry_t a1, char a2)
+CFStringRef _IOObjectCopyClass(uint64_t a1, char a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  if (a1)
+  v4 = *MEMORY[0x1E69E9840];
+  if (!a1)
   {
-    memset(v4, 0, sizeof(v4));
-    _IOObjectGetClass(a1, a2, v4);
-    result = CFStringCreateWithCString(*MEMORY[0x1E695E480], v4, 0x8000100u);
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  memset(v3, 0, sizeof(v3));
+  _IOObjectGetClass(a1, a2, v3);
+  return CFStringCreateWithCString(*MEMORY[0x1E695E480], v3, 0x8000100u);
 }
 
 CFStringRef IOObjectCopySuperclassForClass(CFStringRef classname)
 {
   v1 = classname;
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (classname)
   {
     memset(cStr, 0, sizeof(cStr));
@@ -7783,7 +7896,7 @@ CFStringRef IOObjectCopySuperclassForClass(CFStringRef classname)
       v4 = mainPort;
     }
 
-    superclass = io_object_get_superclass(v4, __dst);
+    superclass = io_object_get_superclass(v4, __dst, cStr);
     if (v4)
     {
       mach_port_deallocate(*MEMORY[0x1E69E9A60], v4);
@@ -7802,14 +7915,13 @@ CFStringRef IOObjectCopySuperclassForClass(CFStringRef classname)
     free(v2);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v1;
 }
 
 CFStringRef IOObjectCopyBundleIdentifierForClass(CFStringRef classname)
 {
   v1 = classname;
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (classname)
   {
     memset(cStr, 0, sizeof(cStr));
@@ -7827,7 +7939,7 @@ CFStringRef IOObjectCopyBundleIdentifierForClass(CFStringRef classname)
       v4 = mainPort;
     }
 
-    bundle_identifier = io_object_get_bundle_identifier(v4, __dst);
+    bundle_identifier = io_object_get_bundle_identifier(v4, __dst, cStr);
     if (v4)
     {
       mach_port_deallocate(*MEMORY[0x1E69E9A60], v4);
@@ -7846,33 +7958,48 @@ CFStringRef IOObjectCopyBundleIdentifierForClass(CFStringRef classname)
     free(v2);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v1;
 }
 
 uint32_t IOObjectGetRetainCount(io_object_t object)
 {
-  if (io_object_get_retain_count(object))
+  v2 = 0;
+  if (io_object_get_retain_count(object, &v2))
   {
     return 0;
   }
 
   else
   {
+    return v2;
+  }
+}
+
+uint32_t IOObjectGetUserRetainCount(io_object_t object)
+{
+  v2 = 0;
+  if (MEMORY[0x19A8DBB60](*MEMORY[0x1E69E9A60], *&object, 0, &v2))
+  {
     return 0;
+  }
+
+  else
+  {
+    return v2;
   }
 }
 
 BOOLean_t IOIteratorIsValid(io_iterator_t iterator)
 {
-  if (io_iterator_is_valid(iterator))
+  v2 = 0;
+  if (io_iterator_is_valid(iterator, &v2))
   {
     return 0;
   }
 
   else
   {
-    return 0;
+    return v2;
   }
 }
 
@@ -7881,43 +8008,45 @@ kern_return_t IOServiceMatchPropertyTable(io_service_t service, CFDictionaryRef 
   v3 = -536870206;
   if (matching)
   {
-    v5 = IOCFSerialize(matching, gIOKitLibSerializeOptions);
-    if (v5)
+    v5 = *&service;
+    v6 = IOCFSerialize(matching, gIOKitLibSerializeOptions);
+    if (v6)
     {
-      v6 = v5;
-      Length = CFDataGetLength(v5);
-      v8 = Length;
+      v7 = v6;
+      Length = CFDataGetLength(v6);
+      v9 = Length;
       if (gIOKitLibSerializeOptions)
       {
         if (Length <= 0xFFF)
         {
-          CFDataGetBytePtr(v6);
-          matched = io_service_match_property_table_bin();
+          BytePtr = CFDataGetBytePtr(v7);
+          matched = io_service_match_property_table_bin(v5, BytePtr);
           goto LABEL_9;
         }
       }
 
       else if (Length <= 0x1FF)
       {
-        BytePtr = CFDataGetBytePtr(v6);
-        matched = io_service_match_property_table(service, BytePtr);
+        v10 = CFDataGetBytePtr(v7);
+        matched = io_service_match_property_table(v5, v10, matches);
 LABEL_9:
         v3 = matched;
 LABEL_13:
-        CFRelease(v6);
+        CFRelease(v7);
         return v3;
       }
 
-      v11 = CFDataGetBytePtr(v6);
-      v12 = io_service_match_property_table_ool(service, v11, v8);
-      if (v12)
+      v16 = 0;
+      v13 = CFDataGetBytePtr(v7);
+      v14 = io_service_match_property_table_ool(v5, v13, v9, &v16, matches);
+      if (v14)
       {
-        v3 = v12;
+        v3 = v14;
       }
 
       else
       {
-        v3 = 0;
+        v3 = v16;
       }
 
       goto LABEL_13;
@@ -7942,22 +8071,16 @@ kern_return_t IONotificationPortSetImportanceReceiver(IONotificationPortRef noti
 
 CFMutableDictionaryRef IOOpenFirmwarePathMatching(mach_port_t mainPort, uint32_t options, const char *path)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  memset(v6, 0, sizeof(v6));
+  v6 = *MEMORY[0x1E69E9840];
+  memset(v5, 0, sizeof(v5));
   __strlcpy_chk();
-  if (strlen(path) <= 498)
+  if (strlen(path) > 498)
   {
-    __strlcpy_chk();
-    result = MakeOneStringProp(@"IOPathMatch", v6);
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  __strlcpy_chk();
+  return MakeOneStringProp(@"IOPathMatch", v5);
 }
 
 kern_return_t OSGetNotificationFromMessage(mach_msg_header_t *msg, uint32_t index, uint32_t *type, uintptr_t *reference, void **content, vm_size_t *size)
@@ -8005,9 +8128,9 @@ kern_return_t OSGetNotificationFromMessage(mach_msg_header_t *msg, uint32_t inde
   return v6;
 }
 
-uint64_t IOServiceGetBusyStateAndTime(unsigned int a1, void *a2, _DWORD *a3, void *a4)
+uint64_t IOServiceGetBusyStateAndTime(uint64_t a1, void *a2, _DWORD *a3, void *a4)
 {
-  result = io_service_get_state(a1);
+  result = io_service_get_state(a1, a2, a3, a4);
   if (result)
   {
     *a2 = 0;
@@ -8020,7 +8143,9 @@ uint64_t IOServiceGetBusyStateAndTime(unsigned int a1, void *a2, _DWORD *a3, voi
 
 kern_return_t IOServiceGetBusyState(io_service_t service, uint32_t *busyState)
 {
-  result = io_service_get_state(service);
+  v4 = 0;
+  v5 = 0;
+  result = io_service_get_state(service, &v5, busyState, &v4);
   if (result)
   {
     *busyState = 0;
@@ -8029,9 +8154,11 @@ kern_return_t IOServiceGetBusyState(io_service_t service, uint32_t *busyState)
   return result;
 }
 
-uint64_t IOServiceGetState(unsigned int a1, void *a2)
+uint64_t IOServiceGetState(uint64_t a1, void *a2)
 {
-  result = io_service_get_state(a1);
+  v5 = 0;
+  v4 = 0;
+  result = io_service_get_state(a1, a2, &v5, &v4);
   if (result)
   {
     *a2 = 0;
@@ -8042,6 +8169,7 @@ uint64_t IOServiceGetState(unsigned int a1, void *a2)
 
 kern_return_t IOKitGetBusyState(mach_port_t mainPort, uint32_t *busyState)
 {
+  name = 0;
   v4 = mainPort;
   if (!mainPort)
   {
@@ -8057,7 +8185,7 @@ kern_return_t IOKitGetBusyState(mach_port_t mainPort, uint32_t *busyState)
     }
   }
 
-  v5 = io_registry_entry_from_path(v4, "IOService:/");
+  v5 = io_registry_entry_from_path(v4, "IOService:/", &name);
   if (v5)
   {
     state = v5;
@@ -8070,14 +8198,15 @@ kern_return_t IOKitGetBusyState(mach_port_t mainPort, uint32_t *busyState)
     goto LABEL_11;
   }
 
+  v9 = 0;
   *mainPorta = 0;
-  state = io_service_get_state(0);
+  state = io_service_get_state(name, mainPorta, busyState, &v9);
   if (state)
   {
     *busyState = 0;
   }
 
-  mach_port_deallocate(*MEMORY[0x1E69E9A60], 0);
+  mach_port_deallocate(*MEMORY[0x1E69E9A60], name);
   if (v4)
   {
 LABEL_11:
@@ -8103,6 +8232,7 @@ kern_return_t IOServiceWaitQuiet(io_service_t service, mach_timespec_t *waitTime
 
 kern_return_t IOKitWaitQuiet(mach_port_t mainPort, mach_timespec_t *waitTime)
 {
+  name = 0;
   v4 = mainPort;
   if (!mainPort)
   {
@@ -8118,7 +8248,7 @@ kern_return_t IOKitWaitQuiet(mach_port_t mainPort, mach_timespec_t *waitTime)
     }
   }
 
-  v5 = io_registry_entry_from_path(v4, "IOService:/");
+  v5 = io_registry_entry_from_path(v4, "IOService:/", &name);
   if (!v5)
   {
     v6 = &unk_19723D780;
@@ -8127,8 +8257,8 @@ kern_return_t IOKitWaitQuiet(mach_port_t mainPort, mach_timespec_t *waitTime)
       v6 = waitTime;
     }
 
-    v5 = io_service_wait_quiet(0, *v6);
-    mach_port_deallocate(*MEMORY[0x1E69E9A60], 0);
+    v5 = io_service_wait_quiet(name, *v6);
+    mach_port_deallocate(*MEMORY[0x1E69E9A60], name);
   }
 
   if (v4 && v4 != mainPort)
@@ -8142,7 +8272,8 @@ kern_return_t IOKitWaitQuiet(mach_port_t mainPort, mach_timespec_t *waitTime)
 kern_return_t IOServiceAuthorize(io_service_t service, uint32_t options)
 {
   uint64 = -536870211;
-  if (io_registry_entry_get_registry_entry_id(service))
+  value = 0;
+  if (io_registry_entry_get_registry_entry_id(service, &value))
   {
     return -536870206;
   }
@@ -8152,7 +8283,7 @@ kern_return_t IOServiceAuthorize(io_service_t service, uint32_t options)
   {
     v5 = v4;
     xpc_dictionary_set_uint64(v4, "options", options);
-    xpc_dictionary_set_uint64(v5, "service", 0);
+    xpc_dictionary_set_uint64(v5, "service", value);
     v6 = xpc_connection_create("com.apple.iokit.IOServiceAuthorizeAgent", 0);
     if (v6)
     {
@@ -8197,8 +8328,10 @@ kern_return_t IOServiceAuthorize(io_service_t service, uint32_t options)
 
 int IOServiceOpenAsFileDescriptor(io_service_t service, int oflag)
 {
-  if (io_registry_entry_get_registry_entry_id(service))
+  value = 0;
+  if (io_registry_entry_get_registry_entry_id(service, &value))
   {
+    value = 0;
     v3 = -1;
     uint64 = 49174;
     goto LABEL_3;
@@ -8209,7 +8342,7 @@ int IOServiceOpenAsFileDescriptor(io_service_t service, int oflag)
   {
     v7 = v6;
     xpc_dictionary_set_int64(v6, "oflag", oflag);
-    xpc_dictionary_set_uint64(v7, "service", 0);
+    xpc_dictionary_set_uint64(v7, "service", value);
     v8 = xpc_connection_create("com.apple.iokit.ioserviceauthorized", 0);
     if (v8)
     {
@@ -8276,7 +8409,7 @@ LABEL_3:
 
 io_registry_entry_t IORegistryEntryCopyFromPath(mach_port_t mainPort, CFStringRef path)
 {
-  v4 = mainPort;
+  v4 = *&mainPort;
   if (!mainPort)
   {
     mainPorta = 0;
@@ -8296,46 +8429,56 @@ io_registry_entry_t IORegistryEntryCopyFromPath(mach_port_t mainPort, CFStringRe
   {
     v6 = CStringPtr;
     v7 = 0;
-    goto LABEL_7;
   }
 
-  Length = CFStringGetLength(path);
-  MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-  v11 = malloc_type_malloc(MaximumSizeForEncoding + 4, 0xABC17BFBuLL);
-  if (!v11)
+  else
   {
-    v7 = 0;
-    goto LABEL_18;
-  }
-
-  v6 = v11;
-  CString = CFStringGetCString(path, v11, MaximumSizeForEncoding + 4, 0x8000100u);
-  v7 = v6;
-  if (!CString)
-  {
-LABEL_18:
-    if (!v7)
+    Length = CFStringGetLength(path);
+    MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
+    v12 = malloc_type_malloc(MaximumSizeForEncoding + 4, 0xABC17BFBuLL);
+    if (!v12)
     {
-      goto LABEL_10;
+      v7 = 0;
+      goto LABEL_21;
     }
 
-    goto LABEL_9;
+    v6 = v12;
+    CString = CFStringGetCString(path, v12, MaximumSizeForEncoding + 4, 0x8000100u);
+    v7 = v6;
+    if (!CString)
+    {
+LABEL_21:
+      if (!v7)
+      {
+        goto LABEL_13;
+      }
+
+      goto LABEL_12;
+    }
   }
 
-LABEL_7:
-  strlen(v6);
-  if (io_registry_entry_from_path_ool())
+  if (strlen(v6) <= 0x1000)
   {
-    goto LABEL_18;
+    v8 = v6;
+  }
+
+  else
+  {
+    v8 = &unk_19723D790;
+  }
+
+  if (io_registry_entry_from_path_ool(v4, v8))
+  {
+    goto LABEL_21;
   }
 
   if (v7)
   {
-LABEL_9:
+LABEL_12:
     free(v7);
   }
 
-LABEL_10:
+LABEL_13:
   if (v4 && v4 != mainPort)
   {
     mach_port_deallocate(*MEMORY[0x1E69E9A60], v4);
@@ -8344,16 +8487,62 @@ LABEL_10:
   return 0;
 }
 
+CFStringRef IORegistryEntryCopyPath(io_registry_entry_t entry, const io_name_t plane)
+{
+  v2 = MEMORY[0x1EEE9AC00](*&entry, plane);
+  v38 = *MEMORY[0x1E69E9840];
+  v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  *cStr = 0u;
+  v7 = 0u;
+  v4 = 0;
+  if (!io_registry_entry_get_path_ool(v2, v3))
+  {
+    return CFStringCreateWithCString(*MEMORY[0x1E695E480], cStr, 0x8000100u);
+  }
+
+  return v4;
+}
+
 BOOLean_t IORegistryEntryInPlane(io_registry_entry_t entry, const io_name_t plane)
 {
-  if (io_registry_entry_in_plane(entry, plane))
+  v3 = 0;
+  if (io_registry_entry_in_plane(entry, plane, &v3))
   {
     return 0;
   }
 
   else
   {
-    return 0;
+    return v3;
   }
 }
 
@@ -8364,7 +8553,7 @@ kern_return_t IORegistryEntryGetNameInPlane(io_registry_entry_t entry, const io_
     plane = "";
   }
 
-  return io_registry_entry_get_name_in_plane(entry, plane);
+  return io_registry_entry_get_name_in_plane(entry, plane, name);
 }
 
 kern_return_t IORegistryEntryGetLocationInPlane(io_registry_entry_t entry, const io_name_t plane, io_name_t location)
@@ -8374,17 +8563,26 @@ kern_return_t IORegistryEntryGetLocationInPlane(io_registry_entry_t entry, const
     plane = "";
   }
 
-  return io_registry_entry_get_location_in_plane(entry, plane);
+  return io_registry_entry_get_location_in_plane(entry, plane, location);
 }
 
 kern_return_t IORegistryEntryGetChildEntry(io_registry_entry_t entry, const io_name_t plane, io_registry_entry_t *child)
 {
-  result = io_registry_entry_get_child_iterator(entry, plane);
+  v8 = 0;
+  result = io_registry_entry_get_child_iterator(entry, plane, &v8);
   if (!result)
   {
-    io_iterator_next(0);
-    *child = 0;
-    mach_port_deallocate(*MEMORY[0x1E69E9A60], 0);
+    v9 = 0;
+    v5 = io_iterator_next(v8, &v9);
+    v6 = v8;
+    v7 = v9;
+    if (v5)
+    {
+      v7 = 0;
+    }
+
+    *child = v7;
+    mach_port_deallocate(*MEMORY[0x1E69E9A60], v6);
     if (*child)
     {
       return 0;
@@ -8408,7 +8606,7 @@ kern_return_t IOServiceOFPathToBSDName(mach_port_t mainPort, const io_name_t ope
   if (!MatchingServices)
   {
     v14 = 0;
-    v7 = io_iterator_next(existing);
+    v7 = io_iterator_next(existing, &v14);
     v8 = v14;
     if (v7)
     {
@@ -8428,7 +8626,7 @@ kern_return_t IOServiceOFPathToBSDName(mach_port_t mainPort, const io_name_t ope
 
     else
     {
-      property_bytes = io_registry_entry_get_property_bytes();
+      property_bytes = io_registry_entry_get_property_bytes(v14, "BSD Name");
       MatchingServices = property_bytes;
       if (property_bytes)
       {
@@ -8446,6 +8644,7 @@ kern_return_t IOServiceOFPathToBSDName(mach_port_t mainPort, const io_name_t ope
 
 kern_return_t IOCatalogueSendData(mach_port_t mainPort, uint32_t flag, const char *buffer, uint32_t size)
 {
+  v12 = 0;
   v8 = mainPort;
   if (!mainPort)
   {
@@ -8461,7 +8660,8 @@ kern_return_t IOCatalogueSendData(mach_port_t mainPort, uint32_t flag, const cha
     }
   }
 
-  v9 = io_catalog_send_data(v8, flag, buffer, size);
+  v9 = io_catalog_send_data(v8, flag, buffer, size, &v12);
+  v10 = v12;
   if (v8 && v8 != mainPort)
   {
     mach_port_deallocate(*MEMORY[0x1E69E9A60], v8);
@@ -8474,7 +8674,7 @@ kern_return_t IOCatalogueSendData(mach_port_t mainPort, uint32_t flag, const cha
 
   else
   {
-    return 0;
+    return v10;
   }
 }
 
@@ -8506,51 +8706,52 @@ kern_return_t IOCatalogueTerminate(mach_port_t mainPort, uint32_t flag, io_name_
 
 kern_return_t IOCatalogueGetData(mach_port_t mainPort, uint32_t flag, char **buffer, uint32_t *size)
 {
-  v6 = mainPort;
+  v8 = mainPort;
   if (!mainPort)
   {
     mainPorta = 0;
     if (IOMasterPort(0, &mainPorta))
     {
-      v6 = 0;
+      v8 = 0;
     }
 
     else
     {
-      v6 = mainPorta;
+      v8 = mainPorta;
     }
   }
 
-  data = io_catalog_get_data(v6, flag);
-  if (v6 && v6 != mainPort)
+  data = io_catalog_get_data(v8, flag, buffer, size);
+  if (v8 && v8 != mainPort)
   {
-    mach_port_deallocate(*MEMORY[0x1E69E9A60], v6);
+    mach_port_deallocate(*MEMORY[0x1E69E9A60], v8);
   }
 
   return data;
 }
 
-uint64_t IOCatlogueGetGenCount(mach_port_t a1)
+uint64_t IOCatlogueGetGenCount(uint64_t a1, _DWORD *a2)
 {
-  v2 = a1;
+  v3 = a1;
+  v4 = a1;
   if (!a1)
   {
     mainPort = 0;
     if (IOMasterPort(0, &mainPort))
     {
-      v2 = 0;
+      v4 = 0;
     }
 
     else
     {
-      v2 = mainPort;
+      v4 = mainPort;
     }
   }
 
-  gen_count = io_catalog_get_gen_count(v2);
-  if (v2 && v2 != a1)
+  gen_count = io_catalog_get_gen_count(v4, a2);
+  if (v4 && v4 != v3)
   {
-    mach_port_deallocate(*MEMORY[0x1E69E9A60], v2);
+    mach_port_deallocate(*MEMORY[0x1E69E9A60], v4);
   }
 
   return gen_count;
@@ -8634,28 +8835,63 @@ uint64_t IORegistryCreateEnumerator(mach_port_t a1, _DWORD *a2)
   return iterator;
 }
 
-uint64_t IORegistryEnumeratorNextConforming(unsigned int a1)
+uint64_t IORegistryEnumeratorNextConforming(unsigned int a1, const char *a2)
 {
-  io_iterator_next(a1);
-  lastRegIter = 0;
-  return 3758097088;
-}
-
-uint64_t IOOpenConnection(uint64_t a1, int a2, int a3)
-{
-  v3 = io_service_open_extended(lastRegIter, a2, a3, *MEMORY[0x1E69E99E0], 0, 0);
-  if (v3)
+  v4 = 3758097088;
+  v8 = 0;
+  if (io_iterator_next(a1, &v8))
   {
-    v4 = v3;
+LABEL_8:
+    LODWORD(v5) = 0;
   }
 
   else
   {
-    v4 = 0;
+    v5 = v8;
+    if (v8)
+    {
+      v6 = MEMORY[0x1E69E9A60];
+      while (!_IOObjectConformsTo(v5, a2, 0))
+      {
+        mach_port_deallocate(*v6, v5);
+        v8 = 0;
+        if (io_iterator_next(a1, &v8))
+        {
+          goto LABEL_8;
+        }
+
+        v5 = v8;
+        if (!v8)
+        {
+          goto LABEL_10;
+        }
+      }
+
+      v4 = 0;
+    }
+  }
+
+LABEL_10:
+  lastRegIter = v5;
+  return v4;
+}
+
+uint64_t IOOpenConnection(uint64_t a1, int a2, int a3, _DWORD *a4)
+{
+  v7 = 0;
+  v4 = io_service_open_extended(lastRegIter, a2, a3, *MEMORY[0x1E69E99E0], 0, 0, &v7, a4);
+  if (v4)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = v7;
   }
 
   mach_port_deallocate(*MEMORY[0x1E69E9A60], lastRegIter);
-  return v4;
+  return v5;
 }
 
 uint64_t readFile(const char *a1, void *a2, off_t *a3)
@@ -8971,7 +9207,7 @@ uint64_t __IODPHDMIControllerPortRegister()
   return result;
 }
 
-uint64_t IODPHDMIControllerPortCreate(uint64_t a1, int a2, int a3)
+uint64_t IODPHDMIControllerPortCreate(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*MEMORY[0x1E695E480] == a1)
   {
@@ -8996,9 +9232,7 @@ uint64_t IODPHDMIControllerPortSetPortEnable(uint64_t a1, unsigned int a2)
   input[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 20);
   input[0] = a2;
-  result = IOConnectCallMethod(v2, 3u, input, 1u, 0, 0, 0, 0, 0, 0);
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return IOConnectCallMethod(v2, 3u, input, 1u, 0, 0, 0, 0, 0, 0);
 }
 
 uint64_t IODPHDMIControllerPortSetHDMIHPD(uint64_t a1, unsigned int a2)
@@ -9006,9 +9240,7 @@ uint64_t IODPHDMIControllerPortSetHDMIHPD(uint64_t a1, unsigned int a2)
   input[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 20);
   input[0] = a2;
-  result = IOConnectCallMethod(v2, 4u, input, 1u, 0, 0, 0, 0, 0, 0);
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return IOConnectCallMethod(v2, 4u, input, 1u, 0, 0, 0, 0, 0, 0);
 }
 
 uint64_t __IODPHDMIControllerPortFree(uint64_t a1)
@@ -9045,7 +9277,7 @@ IOReturn IODataQueueSetNotificationPort(IODataQueueMemory *dataQueue, mach_port_
   return result;
 }
 
-uint64_t __IOCFPlugInLog()
+uint64_t __IOCFPlugInLog(uint64_t a1, uint64_t a2)
 {
   if (__IOCFPlugInLog_onceToken != -1)
   {
@@ -9136,16 +9368,13 @@ IOReturn IOPMSetAggressiveness(io_connect_t fb, unint64_t type, unint64_t aggres
   outputCnt = 1;
   if (IOConnectCallScalarMethod(fb, 0, input, 2u, &output, &outputCnt))
   {
-    result = -536870212;
+    return -536870212;
   }
 
   else
   {
-    result = output;
+    return output;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 IOReturn IOPMSleepSystem(io_connect_t fb)
@@ -9470,58 +9699,62 @@ void IOPMUnregisterPrefsChangeNotification(int *a1)
 
 uint64_t getHostPrefsPath()
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v6 = xmmword_19723D7D0;
+  v9 = *MEMORY[0x1E69E9840];
+  v5 = xmmword_19723D7D0;
   v0 = getHostPrefsPath_uuidStr;
   TypeID = CFStringGetTypeID();
   if (!v0 || CFGetTypeID(v0) != TypeID)
   {
-    memset(v9, 0, sizeof(v9));
-    v2 = gethostuuid(v9, &v6);
+    memset(v8, 0, sizeof(v8));
+    v2 = gethostuuid(v8, &v5);
     if (v2)
     {
       v3 = v2;
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v8 = v3;
+        v7 = v3;
         _os_log_impl(&dword_197195000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Failed to get UUID. rc=%d\n", buf, 8u);
       }
     }
 
     else
     {
-      snprintf(buf, 0x64uLL, "%s.%02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X", "com.apple.PowerManagement", v9[0], v9[1], v9[2], v9[3], v9[4], v9[5], v9[6], v9[7], v9[8], v9[9], v9[10], v9[11], v9[12], v9[13], v9[14], v9[15]);
+      snprintf(buf, 0x64uLL, "%s.%02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X", "com.apple.PowerManagement", v8[0], v8[1], v8[2], v8[3], v8[4], v8[5], v8[6], v8[7], v8[8], v8[9], v8[10], v8[11], v8[12], v8[13], v8[14], v8[15]);
       getHostPrefsPath_uuidStr = CFStringCreateWithCString(*MEMORY[0x1E695E480], buf, 0);
     }
   }
 
-  result = getHostPrefsPath_uuidStr;
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return getHostPrefsPath_uuidStr;
 }
 
 const __CFSet *isA_GenericPref(void *value)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4[4] = xmmword_1E74A7950;
-  v4[5] = *off_1E74A7960;
-  v5 = @"VAC-T";
-  v4[0] = xmmword_1E74A7910;
-  v4[1] = *&off_1E74A7920;
-  v4[2] = xmmword_1E74A7930;
-  v4[3] = *&off_1E74A7940;
+  v5 = *MEMORY[0x1E69E9840];
+  v3[4] = xmmword_1E74A7950;
+  v3[5] = *off_1E74A7960;
+  v4 = @"VAC-T";
+  v3[0] = xmmword_1E74A7910;
+  v3[1] = *&off_1E74A7920;
+  v3[2] = xmmword_1E74A7930;
+  v3[3] = *&off_1E74A7940;
   result = isA_GenericPref_genericSet;
-  if (isA_GenericPref_genericSet || (result = CFSetCreate(0, v4, 13, MEMORY[0x1E695E9F8]), (isA_GenericPref_genericSet = result) != 0))
+  if (isA_GenericPref_genericSet)
   {
-    result = (CFSetContainsValue(result, value) != 0);
+    return (CFSetContainsValue(result, value) != 0);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
+  result = CFSetCreate(0, v3, 13, MEMORY[0x1E695E9F8]);
+  isA_GenericPref_genericSet = result;
+  if (result)
+  {
+    return (CFSetContainsValue(result, value) != 0);
+  }
+
   return result;
 }
 
-__CFDictionary *copyPreferencesForSrc(__CFString *a1)
+CFMutableDictionaryRef copyPreferencesForSrc(__CFString *a1)
 {
   HostPrefsPath = getHostPrefsPath();
   v3 = IOPMCopyFromPrefs(@"com.apple.PowerManagement", a1);
@@ -9569,295 +9802,4 @@ LABEL_11:
   }
 
   return MutableCopy;
-}
-
-CFPropertyListRef IOPMCopyFromPrefs(__CFString *a1, __CFString *value)
-{
-  HostPrefsPath = a1;
-  if (a1)
-  {
-    goto LABEL_4;
-  }
-
-  if (isA_GenericPref(value))
-  {
-    HostPrefsPath = @"com.apple.PowerManagement";
-LABEL_4:
-    TypeID = CFStringGetTypeID();
-    goto LABEL_5;
-  }
-
-  HostPrefsPath = getHostPrefsPath();
-  TypeID = CFStringGetTypeID();
-  if (!HostPrefsPath)
-  {
-    return 0;
-  }
-
-LABEL_5:
-  if (CFGetTypeID(HostPrefsPath) != TypeID)
-  {
-    return 0;
-  }
-
-  v5 = *MEMORY[0x1E695E8A0];
-  v6 = *MEMORY[0x1E695E8B0];
-
-  return CFPreferencesCopyValue(value, HostPrefsPath, v5, v6);
-}
-
-void mergeDictIntoMutable(__CFDictionary *a1, CFDictionaryRef theDict, int a3)
-{
-  Count = CFDictionaryGetCount(theDict);
-  v7 = Count;
-  if (!Count)
-  {
-    return;
-  }
-
-  v8 = malloc_type_malloc(8 * Count, 0x6004044C4A2DFuLL);
-  v9 = malloc_type_malloc(8 * v7, 0xC0040B8AA526DuLL);
-  v10 = v9;
-  if (v8 && v9)
-  {
-    CFDictionaryGetKeysAndValues(theDict, v8, v9);
-    if (v7 >= 1)
-    {
-      v11 = v7 & 0x7FFFFFFF;
-      v12 = v8;
-      v13 = v10;
-      do
-      {
-        v14 = *v12;
-        v15 = *v13;
-        if (a3)
-        {
-          CFDictionarySetValue(a1, v14, v15);
-        }
-
-        else
-        {
-          CFDictionaryAddValue(a1, v14, v15);
-        }
-
-        ++v13;
-        ++v12;
-        --v11;
-      }
-
-      while (v11);
-    }
-  }
-
-  else if (!v8)
-  {
-    goto LABEL_13;
-  }
-
-  free(v8);
-LABEL_13:
-  if (v10)
-  {
-
-    free(v10);
-  }
-}
-
-uint64_t setPreferencesForSrc(__CFString *a1, const __CFDictionary *a2, int a3)
-{
-  HostPrefsPath = getHostPrefsPath();
-  if (!a2)
-  {
-    CFPreferencesSetValue(a1, 0, @"com.apple.PowerManagement", *MEMORY[0x1E695E8A0], *MEMORY[0x1E695E8B0]);
-    goto LABEL_26;
-  }
-
-  Count = CFDictionaryGetCount(a2);
-  if (!Count)
-  {
-LABEL_26:
-    v9 = 0;
-    v12 = 0;
-    v15 = 0;
-    v11 = 0;
-    goto LABEL_27;
-  }
-
-  v7 = Count;
-  v8 = 8 * Count;
-  v9 = malloc_type_malloc(8 * Count, 0x6004044C4A2DFuLL);
-  v10 = malloc_type_malloc(v8, 0xC0040B8AA526DuLL);
-  v11 = v10;
-  v12 = 0;
-  v13 = 1;
-  if (!v9 || !v10)
-  {
-    v15 = 0;
-    goto LABEL_32;
-  }
-
-  CFDictionaryGetKeysAndValues(a2, v9, v10);
-  if (v7 >= 1)
-  {
-    v14 = 0;
-    v12 = 0;
-    v15 = 0;
-    while (1)
-    {
-      if (isA_GenericPref(v9[v14]))
-      {
-        if (v15)
-        {
-          MutableCopy = v15;
-        }
-
-        else
-        {
-          v17 = IOPMCopyFromPrefs(@"com.apple.PowerManagement", a1);
-          if (v17)
-          {
-            v18 = v17;
-            MutableCopy = CFDictionaryCreateMutableCopy(0, 0, v17);
-            CFRelease(v18);
-            if (!MutableCopy)
-            {
-              goto LABEL_22;
-            }
-          }
-
-          else
-          {
-            MutableCopy = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-            if (!MutableCopy)
-            {
-LABEL_22:
-              v15 = 0;
-              goto LABEL_19;
-            }
-          }
-
-          v15 = MutableCopy;
-        }
-      }
-
-      else if (v12)
-      {
-        MutableCopy = v12;
-      }
-
-      else
-      {
-        v19 = IOPMCopyFromPrefs(HostPrefsPath, a1);
-        if (v19)
-        {
-          v20 = v19;
-          MutableCopy = CFDictionaryCreateMutableCopy(0, 0, v19);
-          CFRelease(v20);
-          if (!MutableCopy)
-          {
-            goto LABEL_24;
-          }
-        }
-
-        else
-        {
-          MutableCopy = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-          if (!MutableCopy)
-          {
-LABEL_24:
-            v12 = 0;
-            goto LABEL_19;
-          }
-        }
-
-        v12 = MutableCopy;
-      }
-
-      CFDictionarySetValue(MutableCopy, v9[v14], v11[v14]);
-LABEL_19:
-      if (v7 == ++v14)
-      {
-        if (v15)
-        {
-          CFPreferencesSetValue(a1, v15, @"com.apple.PowerManagement", *MEMORY[0x1E695E8A0], *MEMORY[0x1E695E8B0]);
-          v13 = 0;
-          goto LABEL_32;
-        }
-
-LABEL_27:
-        v13 = 1;
-        goto LABEL_32;
-      }
-    }
-  }
-
-  v12 = 0;
-  v15 = 0;
-LABEL_32:
-  if (a3)
-  {
-    v21 = CFPreferencesSynchronize(@"com.apple.PowerManagement", *MEMORY[0x1E695E8A0], *MEMORY[0x1E695E8B0]) != 0;
-    if (!HostPrefsPath)
-    {
-      goto LABEL_42;
-    }
-  }
-
-  else
-  {
-    v21 = 0;
-    if (!HostPrefsPath)
-    {
-      goto LABEL_42;
-    }
-  }
-
-  if (v12)
-  {
-    v22 = *MEMORY[0x1E695E8A0];
-    v23 = *MEMORY[0x1E695E8B0];
-    v24 = a1;
-    v25 = v12;
-LABEL_38:
-    CFPreferencesSetValue(v24, v25, HostPrefsPath, v22, v23);
-    goto LABEL_40;
-  }
-
-  if (!a2)
-  {
-    v22 = *MEMORY[0x1E695E8A0];
-    v23 = *MEMORY[0x1E695E8B0];
-    v24 = a1;
-    v25 = 0;
-    goto LABEL_38;
-  }
-
-LABEL_40:
-  if (a3)
-  {
-    v21 = (v21 & CFPreferencesSynchronize(HostPrefsPath, *MEMORY[0x1E695E8A0], *MEMORY[0x1E695E8B0]));
-  }
-
-LABEL_42:
-  if (v9)
-  {
-    free(v9);
-  }
-
-  if (v11)
-  {
-    free(v11);
-  }
-
-  if ((v13 & 1) == 0)
-  {
-    CFRelease(v15);
-  }
-
-  if (v12)
-  {
-    CFRelease(v12);
-  }
-
-  return v21;
 }

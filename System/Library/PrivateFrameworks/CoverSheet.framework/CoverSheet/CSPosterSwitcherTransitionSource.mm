@@ -17,7 +17,7 @@
   self->_transitionType = 2;
   v21 = 0u;
   v22 = 0x3FF0000000000000;
-  BYTE8(v21) = 1;
+  v21.n128_u8[8] = 1;
   v23 = 1;
   CSCoverSheetTransitionContextMake(&v21, 3, v24);
   v3 = v24[1];
@@ -57,7 +57,7 @@
 {
   v7 = 0u;
   v8 = 0x3FF0000000000000;
-  BYTE8(v7) = 1;
+  v7.n128_u8[8] = 1;
   v9 = 1;
   CSCoverSheetTransitionContextMake(&v7, 3, &v10);
   v4 = v11;

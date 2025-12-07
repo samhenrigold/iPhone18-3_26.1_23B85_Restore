@@ -33,58 +33,56 @@
 - (id)description
 {
   v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  content = self->_content;
-  v5 = objc_opt_class();
+  v4 = objc_opt_class();
   uniqueId = [(BMIdentifiableContentEvent *)self->_content uniqueId];
-  v7 = [v3 initWithFormat:@"<HVConsumptionContext c:%@ u:%@ p:%@>", v5, uniqueId, self->_contentProtection];
+  v6 = [v3 initWithFormat:@"<HVConsumptionContext c:%@ u:%@ p:%@>", v4, uniqueId, self->_contentProtection];
 
-  return v7;
+  return v6;
 }
 
 - (id)_parseHtmlContentIfAvailable
 {
-  content = self->_content;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = self->_content;
-    htmlContent = [(BMIdentifiableContentEvent *)v4 htmlContent];
+    v3 = self->_content;
+    htmlContent = [(BMIdentifiableContentEvent *)v3 htmlContent];
     if (htmlContent)
     {
-      v6 = [[HVHtmlParser alloc] initWithData:htmlContent encoding:4];
+      v5 = [[HVHtmlParser alloc] initWithData:htmlContent encoding:4];
     }
 
     else
     {
-      v8 = hv_default_log_handle();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v7 = hv_default_log_handle();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v12 = 0;
-        _os_log_impl(&dword_2321EC000, v8, OS_LOG_TYPE_DEFAULT, "HVConsumptionContext<BMMailContentEvent>: unable to fetch HTML content, will parse plaintext converted to HTML", v12, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "HVConsumptionContext<BMMailContentEvent>: unable to fetch HTML content, will parse plaintext converted to HTML", v11, 2u);
       }
 
-      textContent = [(BMIdentifiableContentEvent *)v4 textContent];
-      v10 = textContent;
+      textContent = [(BMIdentifiableContentEvent *)v3 textContent];
+      v9 = textContent;
       if (!textContent)
       {
         textContent = &stru_28474C1D0;
       }
 
-      v11 = [(__CFString *)textContent mutableCopy];
+      v10 = [(__CFString *)textContent mutableCopy];
 
-      [v11 replaceOccurrencesOfString:@"&" withString:@"&amp;" options:2 range:{0, objc_msgSend(v11, "length")}];
-      [v11 replaceOccurrencesOfString:@"<" withString:@"&lt;" options:2 range:{0, objc_msgSend(v11, "length")}];
-      [v11 replaceOccurrencesOfString:@"\n" withString:@"<br>" options:2 range:{0, objc_msgSend(v11, "length")}];
-      v6 = [[HVHtmlParser alloc] initWithString:v11];
+      [v10 replaceOccurrencesOfString:@"&" withString:@"&amp;" options:2 range:{0, objc_msgSend(v10, "length")}];
+      [v10 replaceOccurrencesOfString:@"<" withString:@"&lt;" options:2 range:{0, objc_msgSend(v10, "length")}];
+      [v10 replaceOccurrencesOfString:@"\n" withString:@"<br>" options:2 range:{0, objc_msgSend(v10, "length")}];
+      v5 = [[HVHtmlParser alloc] initWithString:v10];
     }
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  return v6;
+  return v5;
 }
 
 - (HVConsumptionContext)initWithContent:(id)content contentProtection:(id)protection scheduledTaskShouldContinueBlock:(id)block

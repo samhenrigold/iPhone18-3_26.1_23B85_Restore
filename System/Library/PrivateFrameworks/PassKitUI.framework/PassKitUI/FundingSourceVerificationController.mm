@@ -11,7 +11,7 @@
   v2[8] = 1;
   *(&self->super.super.isa + OBJC_IVAR____TtC9PassKitUI35FundingSourceVerificationController_fundingSource) = 0;
   v4.receiver = self;
-  v4.super_class = type metadata accessor for FundingSourceVerificationController();
+  v4.super_class = type metadata accessor for FundingSourceVerificationController(0);
   return [(ApplyControllerModel *)&v4 init];
 }
 

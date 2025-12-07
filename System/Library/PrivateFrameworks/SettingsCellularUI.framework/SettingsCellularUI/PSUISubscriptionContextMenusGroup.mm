@@ -111,25 +111,25 @@
 
 - (id)specifiers
 {
-  v105 = *MEMORY[0x277D85DE8];
-  v86 = *MEMORY[0x277D3FE70];
-  v100 = [(PSSpecifier *)self->_parentSpecifier propertyForKey:?];
+  v104 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D3FE70];
+  v99 = [(PSSpecifier *)self->_parentSpecifier propertyForKey:?];
   v3 = [(PSUICellularPlanManagerCache *)self->_planManagerCache planFromReferenceSafe:?];
-  v88 = *MEMORY[0x277D40128];
+  v87 = *MEMORY[0x277D40128];
   v4 = [(PSSpecifier *)self->_parentSpecifier propertyForKey:?];
   getLogger = [(PSUISubscriptionContextMenusGroup *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v102 = v3;
-    v103 = 2112;
-    v104 = v4;
+    v101 = v3;
+    v102 = 2112;
+    v103 = v4;
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "menus: plan item: %@, context: %@", buf, 0x16u);
   }
 
   if (!self->_satelliteSubgroup)
   {
-    v6 = -[PSUISubscriptionContextMenusFactory createSatelliteSubgroupWithContext:isActiveDataPlan:planReference:](self->_factory, "createSatelliteSubgroupWithContext:isActiveDataPlan:planReference:", v4, [v3 isActiveDataPlan], v100);
+    v6 = -[PSUISubscriptionContextMenusFactory createSatelliteSubgroupWithContext:isActiveDataPlan:planReference:](self->_factory, "createSatelliteSubgroupWithContext:isActiveDataPlan:planReference:", v4, [v3 isActiveDataPlan], v99);
     satelliteSubgroup = self->_satelliteSubgroup;
     self->_satelliteSubgroup = v6;
   }
@@ -141,22 +141,22 @@
   v10 = +[PSUICoreTelephonyCapabilitiesCache sharedInstance];
   v11 = [v10 canSetTurnOffCellular:v4];
 
-  v91 = v11;
+  v90 = v11;
   if (v11)
   {
     v12 = +[PSUICoreTelephonyCapabilitiesCache sharedInstance];
-    v89 = [v12 getTurnOffCellular:v4];
+    v88 = [v12 getTurnOffCellular:v4];
   }
 
   else
   {
-    v89 = 0;
+    v88 = 0;
   }
 
   v13 = +[PSUICoreTelephonyCapabilitiesCache sharedInstance];
-  v93 = [v13 canSetNetworkSlicing:v4];
+  v92 = [v13 canSetNetworkSlicing:v4];
 
-  v95 = [(PSUICoreTelephonyCapabilitiesCache *)self->_capabilitiesCache canSetSatelliteCapability:v4];
+  v94 = [(PSUICoreTelephonyCapabilitiesCache *)self->_capabilitiesCache canSetSatelliteCapability:v4];
   if (isDualSimCapable)
   {
     if (v3)
@@ -181,7 +181,7 @@
 
 LABEL_14:
   v17 = objc_opt_new();
-  v99 = isDualSimCapable;
+  v98 = isDualSimCapable;
   if (v3)
   {
     v18 = isDualSimCapable;
@@ -197,10 +197,10 @@ LABEL_14:
     goto LABEL_32;
   }
 
-  v87 = planManagerCache;
+  v86 = planManagerCache;
   if (planManagerCacheHasMoreThanOnePlanItem)
   {
-    v19 = [[PSUICellularPlanLabelSpecifier alloc] initWithPlanUniversalReference:v100 planManagerCache:self->_planManagerCache];
+    v19 = [[PSUICellularPlanLabelSpecifier alloc] initWithPlanUniversalReference:v99 planManagerCache:self->_planManagerCache];
     [v17 addObject:v19];
     v20 = objc_loadWeakRetained(&self->_groupSpecifier);
     [v20 setName:&stru_287733598];
@@ -229,7 +229,7 @@ LABEL_14:
     }
 
 LABEL_28:
-    LOBYTE(planManagerCache) = v87;
+    LOBYTE(planManagerCache) = v86;
     if (![v3 isSelectable])
     {
       goto LABEL_32;
@@ -252,16 +252,16 @@ LABEL_30:
   cellularPlanManager = self->_cellularPlanManager;
   callCache = self->_callCache;
   v28 = objc_loadWeakRetained(&self->_listController);
-  v29 = [(PSUITurnOnThisLineSpecifier *)v25 initWithPlanUniversalReference:v100 cellularPlanManager:cellularPlanManager planManagerCache:planManagerCache callCache:callCache hostController:v28 isActivating:v24];
+  v29 = [(PSUITurnOnThisLineSpecifier *)v25 initWithPlanUniversalReference:v99 cellularPlanManager:cellularPlanManager planManagerCache:planManagerCache callCache:callCache hostController:v28 isActivating:v24];
 
-  LOBYTE(planManagerCache) = v87;
+  LOBYTE(planManagerCache) = v86;
   if (v29)
   {
     [v17 addObject:v29];
   }
 
 LABEL_32:
-  v30 = v99;
+  v30 = v98;
   if (!v4)
   {
     goto LABEL_80;
@@ -269,8 +269,8 @@ LABEL_32:
 
   if (!v3 || [v3 isSelected])
   {
-    v31 = v99 & planManagerCacheHasMoreThanOnePlanItem;
-    if (((v99 & planManagerCacheHasMoreThanOnePlanItem ^ 1) & 1) == 0)
+    v31 = v98 & planManagerCacheHasMoreThanOnePlanItem;
+    if (((v98 & planManagerCacheHasMoreThanOnePlanItem ^ 1) & 1) == 0)
     {
       v32 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"SPACER_GROUP"];
       carrierName2 = [v3 carrierName];
@@ -285,21 +285,21 @@ LABEL_32:
       [v17 addObject:v34];
     }
 
-    v85 = v34;
-    v90 = planManagerCache | v89;
-    if ((v90 & 1) == 0)
+    v84 = v34;
+    v89 = planManagerCache | v88;
+    if ((v89 & 1) == 0)
     {
       specifiers = [(PSUINetworkSelectionSubgroup *)self->_networkSelectionSubgroup specifiers];
       [v17 addObjectsFromArray:specifiers];
     }
 
-    if (v99)
+    if (v98)
     {
       specifiers2 = [(PSUIMyNumberSubgroup *)self->_myNumberSubgroup specifiers];
       [v17 addObjectsFromArray:specifiers2];
     }
 
-    if (v91)
+    if (v90)
     {
       v37 = [PSUITurnOffCellularSpecifier alloc];
       v38 = self->_callCache;
@@ -312,15 +312,15 @@ LABEL_32:
     specifiers3 = [(PSUICallingSubgroup *)self->_callingSubgroup specifiers];
     [v17 addObjectsFromArray:specifiers3];
 
-    if (v93)
+    if (v92)
     {
       v42 = MEMORY[0x277D3FAD8];
       v43 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v44 = [v43 localizedStringForKey:@"NETWORK_SLICING" value:&stru_287733598 table:@"Cellular"];
-      v30 = v99;
+      v30 = v98;
       v45 = [v42 preferenceSpecifierNamed:v44 target:self set:0 get:sel_networkSlicingDetailText_ detail:objc_opt_class() cell:2 edit:0];
 
-      v31 = v99 & planManagerCacheHasMoreThanOnePlanItem;
+      v31 = v98 & planManagerCacheHasMoreThanOnePlanItem;
       [v45 setIdentifier:@"NETWORK_SLICING"];
       if ([(PSUICoreTelephonyCallCache *)self->_callCache isAnyCallActive])
       {
@@ -333,11 +333,11 @@ LABEL_32:
       }
 
       [v45 setProperty:v46 forKey:*MEMORY[0x277D3FF38]];
-      [v45 setProperty:v4 forKey:v88];
+      [v45 setProperty:v4 forKey:v87];
       [v17 addObject:v45];
     }
 
-    if ((v90 & 1) == 0)
+    if ((v89 & 1) == 0)
     {
       specifiers4 = [(PSUINetworkSettingsSubgroup *)self->_networkSettingsSubgroup specifiers];
       [v17 addObjectsFromArray:specifiers4];
@@ -348,7 +348,7 @@ LABEL_32:
     if ((v31 & shouldShowLinkCell) == 1)
     {
       [v17 addObjectsFromArray:specifiers5];
-      if (!v95)
+      if (!v94)
       {
 LABEL_57:
         v50 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"SeparatingGroupSpecifier"];
@@ -391,7 +391,7 @@ LABEL_58:
           v57 = +[PSUICellularPlanManagerCache sharedInstance];
           isSingleActivationCodeFlowSupported = [v57 isSingleActivationCodeFlowSupported];
 
-          v30 = v99;
+          v30 = v98;
           if (isSingleActivationCodeFlowSupported)
           {
 LABEL_71:
@@ -413,13 +413,13 @@ LABEL_71:
               carrierName3 = [v3 carrierName];
               v67 = [PSUIGenerateTransferQRCodeSpecifier specifierWithHostController:v64 iccid:iccid carrierName:carrierName3];
 
-              v30 = v99;
+              v30 = v98;
               [v17 addObject:v67];
 
               v62 = v53;
             }
 
-            if (((v99 & planManagerCacheHasMoreThanOnePlanItem ^ 1 | shouldShowLinkCell) & 1) == 0)
+            if (((v98 & planManagerCacheHasMoreThanOnePlanItem ^ 1 | shouldShowLinkCell) & 1) == 0)
             {
               [v17 addObjectsFromArray:v62];
             }
@@ -443,12 +443,12 @@ LABEL_80:
           [v17 addObject:v56];
         }
 
-        v30 = v99;
+        v30 = v98;
         goto LABEL_71;
       }
     }
 
-    else if ((v31 & v95) != 1)
+    else if ((v31 & v94) != 1)
     {
       goto LABEL_58;
     }
@@ -494,7 +494,7 @@ LABEL_86:
         v75 = self->_planManagerCache;
         v74 = self->_cellularPlanManager;
         v76 = objc_loadWeakRetained(&self->_listController);
-        v69 = [(PSUIRemoveCellularPlanSpecifier *)v73 initWithPlanUniversalReference:v100 cellularPlanManager:v74 planManagerCache:v75 hostController:v76 popViewControllerOnPlanDeletion:self->_popViewControllerOnFinished];
+        v69 = [(PSUIRemoveCellularPlanSpecifier *)v73 initWithPlanUniversalReference:v99 cellularPlanManager:v74 planManagerCache:v75 hostController:v76 popViewControllerOnPlanDeletion:self->_popViewControllerOnFinished];
 
         if (!planManagerCacheHasMoreThanOnePlanItem)
         {
@@ -513,7 +513,7 @@ LABEL_86:
         v69 = [v78 preferenceSpecifierNamed:v80 target:self set:0 get:0 detail:0 cell:13 edit:0];
 
         [(PSUIRemoveCellularPlanSpecifier *)v69 setButtonAction:sel_deleteDataPlanTapped_];
-        [(PSUIRemoveCellularPlanSpecifier *)v69 setProperty:v100 forKey:v86];
+        [(PSUIRemoveCellularPlanSpecifier *)v69 setProperty:v99 forKey:v85];
         [(PSUIRemoveCellularPlanSpecifier *)v69 setProperty:objc_opt_class() forKey:*MEMORY[0x277D3FE58]];
         [(PSUIRemoveCellularPlanSpecifier *)v69 setProperty:&unk_287749020 forKey:*MEMORY[0x277D3FD78]];
         if (![v17 count] || !objc_msgSend(v3, "isSelected"))
@@ -536,7 +536,6 @@ LABEL_94:
 LABEL_96:
   v82 = v17;
 
-  v83 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -637,39 +636,37 @@ LABEL_96:
 
 void __58__PSUISubscriptionContextMenusGroup_deleteDataPlanTapped___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = [*(a1 + 32) getLogger];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
     *buf = 138412290;
-    v17 = v4;
+    v16 = v4;
     _os_log_impl(&dword_2658DE000, v3, OS_LOG_TYPE_DEFAULT, "Confirmed delete plan: %@", buf, 0xCu);
   }
 
   [*(a1 + 48) setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
   v5 = [MEMORY[0x277CF96D8] sharedManager];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __58__PSUISubscriptionContextMenusGroup_deleteDataPlanTapped___block_invoke_58;
-  v11[3] = &unk_279BAA110;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __58__PSUISubscriptionContextMenusGroup_deleteDataPlanTapped___block_invoke_58;
+  v10[3] = &unk_279BAA110;
   v6 = *(a1 + 40);
   v7 = *(a1 + 48);
   v8 = *(a1 + 32);
   v9 = *(a1 + 40);
-  v12 = v7;
-  v13 = v8;
-  v14 = v9;
-  v15 = WeakRetained;
-  [v5 didDeletePlanItem:v6 completion:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = v7;
+  v12 = v8;
+  v13 = v9;
+  v14 = WeakRetained;
+  [v5 didDeletePlanItem:v6 completion:v10];
 }
 
 void __58__PSUISubscriptionContextMenusGroup_deleteDataPlanTapped___block_invoke_58(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = a3;
   [*(a1 + 32) setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FF38]];
   if (v4)
@@ -679,9 +676,9 @@ void __58__PSUISubscriptionContextMenusGroup_deleteDataPlanTapped___block_invoke
     {
       v6 = *(a1 + 48);
       *buf = 138412546;
-      v11 = v6;
-      v12 = 2112;
-      v13 = v4;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v4;
       _os_log_impl(&dword_2658DE000, v5, OS_LOG_TYPE_DEFAULT, "Failed to delete plan item:%@ with error:%@", buf, 0x16u);
     }
   }
@@ -699,8 +696,6 @@ void __58__PSUISubscriptionContextMenusGroup_deleteDataPlanTapped___block_invoke
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __58__PSUISubscriptionContextMenusGroup_deleteDataPlanTapped___block_invoke_59(uint64_t a1)
@@ -712,17 +707,15 @@ void __58__PSUISubscriptionContextMenusGroup_deleteDataPlanTapped___block_invoke
 
 void __58__PSUISubscriptionContextMenusGroup_deleteDataPlanTapped___block_invoke_2(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) getLogger];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_2658DE000, v2, OS_LOG_TYPE_DEFAULT, "Cancelled delete plan: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_2658DE000, v2, OS_LOG_TYPE_DEFAULT, "Cancelled delete plan: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (PSSpecifier)groupSpecifier

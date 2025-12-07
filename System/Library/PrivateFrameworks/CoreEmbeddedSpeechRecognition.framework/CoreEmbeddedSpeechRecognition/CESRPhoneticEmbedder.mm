@@ -39,14 +39,14 @@
   swift_getObjectType();
   MEMORY[0x277D82BE0](string);
   MEMORY[0x277D82BE0](self);
-  sub_226099A08();
-  CESRPhoneticEmbedder.findAlternatives(for:maxResults:)();
+  v5 = sub_226099A08();
+  CESRPhoneticEmbedder.findAlternatives(for:maxResults:)(v5, v6, results);
 
   MEMORY[0x277D82BD8](string);
   MEMORY[0x277D82BD8](self);
-  v8 = sub_226099C78();
+  v11 = sub_226099C78();
 
-  return v8;
+  return v11;
 }
 
 @end

@@ -125,9 +125,10 @@
 
 - (void)initWithSocket:config:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 + (id)clientWithAddress:(id)address port:(unsigned __int16)port config:(const HSObjectClientConfig *)config
@@ -157,7 +158,7 @@
   [v15 handleFailureInMethod:a2 object:self file:@"HSRemoteObject+Additions.mm" lineNumber:57 description:{@"Invalid parameter not satisfying: %@", @"port > 0"}];
 
 LABEL_3:
-  HSUtil::CreateClientSocket([addressCopy UTF8String], portCopy, v16);
+  HSUtil::CreateClientSocket(v16, [addressCopy UTF8String], portCopy);
   if (v17 < 0)
   {
     basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRemoteObject+Additions.mm", v18);

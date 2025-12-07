@@ -1,16 +1,14 @@
-uint64_t sub_100001C3C(uint64_t result, uint64_t a2)
+void sub_100001C3C(void *a1, uint64_t a2)
 {
   if (a2)
   {
-    if (!*(result + 24))
+    if (!a1[3])
     {
-      *(result + 48) = os_transaction_create();
+      a1[6] = os_transaction_create();
     }
 
     operator new();
   }
-
-  return result;
 }
 
 void sub_100001F38(uint64_t a1)
@@ -1048,7 +1046,7 @@ LABEL_33:
 
       if (v8 == 207)
       {
-        v10 = sub_10005D144(*(v5 + 72), *(v5 + 1016), *(v2 + 8), *(v2 + 16), 5u);
+        v10 = sub_10005D144(*(v5 + 72), *(v5 + 1016), *(v2 + 8), *(v2 + 16), 5);
         goto LABEL_89;
       }
     }
@@ -1421,7 +1419,7 @@ void sub_100003FD0(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_100003FE0(int a1, xpc_connection_t *a2, xpc_object_t xdict)
+void sub_100003FE0(uint64_t a1, xpc_connection_t *a2, xpc_object_t xdict)
 {
   length = 0;
   uint64 = xpc_dictionary_get_uint64(xdict, "H16ISPServicesRemoteTypeKey");
@@ -2357,11 +2355,12 @@ LABEL_128:
   return v10;
 }
 
-void sub_1000053C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53)
+void sub_1000053C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, ...)
 {
+  va_start(va, a52);
   _Block_object_dispose(&a49, 8);
   _Block_object_dispose(&a39, 8);
-  _Block_object_dispose(&a53, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2399,7 +2398,7 @@ uint64_t sub_1000054E0(uint64_t a1, uint64_t a2)
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_1000057E0();
+    sub_1000057E0(v4);
   }
 
   v5 = *(a1 + 16);
@@ -2460,11 +2459,11 @@ void sub_100005640(uint64_t a1)
   xpc_release(*(*(*(a1 + 40) + 8) + 24));
 }
 
-void sub_1000057E0()
+void sub_1000057E0(uint64_t a1)
 {
-  v1[0] = 136315394;
+  v2[0] = 136315394;
   sub_1000082DC();
-  _os_log_error_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "%s - %s: Scheduling the lux query on the serial queue\n", v1, 0x16u);
+  _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "%s - %s: Scheduling the lux query on the serial queue\n", v2, 0x16u);
 }
 
 uint64_t sub_100005864(uint64_t a1, _BYTE *a2, _BYTE *a3)
@@ -2599,7 +2598,7 @@ float sub_100005A3C(float *a1, int a2, float a3, float a4, float a5, float a6, f
   return (-(a1[v10] * v9) * a5) + ((v8 * *v11) * a6);
 }
 
-uint64_t sub_100005AB0(uint64_t a1, FFTSetup *a2, const float *__A, const float *__B, uint64_t a5, float a6)
+uint64_t sub_100005AB0(uint64_t a1, OpaqueFFTSetup **a2, const float *__A, const float *__B, uint64_t a5, float a6)
 {
   v355 = 0.0;
   v353 = 0;
@@ -3444,7 +3443,7 @@ LABEL_233:
             }
 
             vvlogf(*(a1 + 288), v174, &__N + 1);
-            sub_100007DA8(*(a1 + 288), SHIDWORD(__N), *(a1 + 336), *(a1 + 352), *(a1 + 344));
+            sub_100007DA8(*(a1 + 288), HIDWORD(__N), *(a1 + 336), *(a1 + 352), *(a1 + 344));
             v202 = *(a1 + 336);
             v203 = 0.0;
             v341 = 0.0;
@@ -3854,7 +3853,7 @@ LABEL_374:
                   v274 = *(a1 + 280);
                   v275 = HIDWORD(__N);
                   v276 = *(a1 + 60);
-                  sub_100008430(v59, v274, SHIDWORD(__N), v276, &v344 + 1, v213);
+                  sub_100008430(v59, v274, HIDWORD(__N), v276, &v344 + 1, v213);
                   sub_100008338(v59, v274, v275, v276, &v344, v213, v340);
                   if (*(a1 + 688) > 0.0 && vabds_f32(v213, *(a1 + 684)) < 2.0 && *(&v344 + 1) > (v269 * 5.0) && *(a1 + 564) >= 19)
                   {
@@ -4517,7 +4516,7 @@ float32_t sub_100007D30(float32x4_t *a1, float32x4_t *a2, float32x4_t *a3, int a
   return v12.f32[0];
 }
 
-void sub_100007DA8(const float *a1, int a2, int a3, uint64_t a4, uint64_t a5)
+void sub_100007DA8(const float *a1, unsigned int a2, int a3, uint64_t a4, uint64_t a5)
 {
   v9 = a1;
   __C = 0;
@@ -4647,7 +4646,7 @@ uint64_t sub_100007F98(uint64_t result)
 
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_1000081DC();
+      sub_1000081DC(v3);
     }
 
     pthread_mutex_lock((*(v1 + 8) + 424));
@@ -4717,23 +4716,25 @@ uint64_t sub_100007F98(uint64_t result)
   return result;
 }
 
-void sub_1000081DC()
+void sub_1000081DC(uint64_t a1)
 {
-  v1[0] = 136315394;
+  v2[0] = 136315394;
   sub_1000082DC();
-  _os_log_error_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "%s - %s: Waiting for lux\n", v1, 0x16u);
+  _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "%s - %s: Waiting for lux\n", v2, 0x16u);
 }
 
-void sub_100008260(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100008260(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
-void sub_1000082C0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000082C0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 _BYTE *sub_100008328(_BYTE *result, _BYTE *a2)
@@ -4800,7 +4801,7 @@ float sub_100008338(int a1, uint64_t a2, int a3, int a4, float *a5, float a6, fl
   return result;
 }
 
-uint64_t sub_100008430(uint64_t result, float *a2, int a3, int a4, float *a5, float a6)
+uint64_t sub_100008430(uint64_t result, float *a2, unsigned int a3, int a4, float *a5, float a6)
 {
   v6 = (a4 >> 1);
   v7 = a3;
@@ -4839,7 +4840,7 @@ uint64_t sub_100008430(uint64_t result, float *a2, int a3, int a4, float *a5, fl
       v19 = (((++v18 * a6) / v6) * v7) + 0.5;
       v20 = (v19 - result) & ~((v19 - result) >> 31);
       v21 = v19 + result;
-      if (v21 >= a3 - 1)
+      if (v21 >= (a3 - 1))
       {
         v21 = a3 - 1;
       }
@@ -6404,7 +6405,7 @@ uint64_t sub_10000AC28(int *a1, uint64_t a2, uint64_t a3)
     {
       if (v4 == 3)
       {
-        NSLog(@"Component Validation: At least one component replaced. Resetting stray");
+        NSLog(@"Component Validation: At least one component replaced. Resetting stray", a2);
         PDPeridotCalibResetStray();
         *a1 = 4;
         return 1;
@@ -6477,9 +6478,9 @@ LABEL_16:
   return 0;
 }
 
-void sub_10000ADE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000ADE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6881,7 +6882,7 @@ uint64_t sub_10000B5C8(const char *a1)
   return v7;
 }
 
-uint64_t sub_10000B6D4(uint64_t result, float *a2, int a3, int a4, float *a5, float a6)
+uint64_t sub_10000B6D4(uint64_t result, float *a2, unsigned int a3, int a4, float *a5, float a6)
 {
   v6 = (a4 >> 1);
   v7 = a3;
@@ -7480,7 +7481,7 @@ uint64_t sub_10000C440(uint64_t result, void *a2)
 
   v2 = result;
   v3 = result + 8;
-  sub_10000C9AC(result + 8, &v34);
+  sub_10000C9AC((result + 8), &v34);
   v4 = *(v2 + 904);
   if (v4 && H16ISPRgbJRunner::isContext(v4, v34))
   {
@@ -7747,12 +7748,12 @@ void *sub_10000C948(void *result)
   return result;
 }
 
-uint64_t sub_10000C9AC(uint64_t a1, void *a2)
+uint64_t sub_10000C9AC(void *a1, void *a2)
 {
   v11[0] = v11;
   v11[1] = v11;
   v12 = 0;
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (v2 == a1)
   {
     v9 = 0;
@@ -7806,9 +7807,9 @@ uint64_t sub_10000C9AC(uint64_t a1, void *a2)
   return v9;
 }
 
-void sub_10000CA74(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10000CA74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_10000C948(va);
   _Unwind_Resume(a1);
 }
@@ -7867,7 +7868,7 @@ uint64_t sub_10000CAFC(uint64_t result)
     result = *(v1 + 920);
     if (result)
     {
-      sub_10000CCF8();
+      sub_10000CCF8(result);
       operator delete();
     }
   }
@@ -8421,7 +8422,7 @@ LABEL_16:
           *a3 = 1;
           break;
         case 13:
-          v15 = sub_10004F66C(a1);
+          v15 = sub_10004F66C(a1, v8, v10);
           goto LABEL_21;
         case 14:
           v15 = sub_10004F7A4(v12, v8, v10);
@@ -8716,7 +8717,7 @@ LABEL_44:
   }
 }
 
-_DWORD *sub_10000DEC0(_DWORD *result)
+float *sub_10000DEC0(float *result)
 {
   v33 = *(result + 17);
   if (*(result + 17))
@@ -8724,16 +8725,16 @@ _DWORD *sub_10000DEC0(_DWORD *result)
     v1 = result;
     v2 = 0;
     result = v41;
-    v34 = *(v1 + 32);
+    v34 = *(v1 + 16);
     do
     {
       if (v34)
       {
         v3 = 0;
-        v4 = *(v1 + 296);
-        v5 = *(v1 + 300);
-        v6 = *(v1 + 304);
-        v7 = *(v1 + 712);
+        v4 = v1[74];
+        v5 = v1[75];
+        v6 = v1[76];
+        v7 = *(v1 + 178);
         do
         {
           v8 = 0;
@@ -8795,7 +8796,7 @@ _DWORD *sub_10000DEC0(_DWORD *result)
             }
 
             *&v42[4 * v35] = v13;
-            v40[v35] = v11;
+            v41[v35 - 1] = v11;
             v38[v35 - 1] = v10;
             v8 = v35 + 1;
           }
@@ -8809,7 +8810,7 @@ _DWORD *sub_10000DEC0(_DWORD *result)
             v21 = 0;
             v22 = 2;
             v23 = v42;
-            v24 = v40;
+            v24 = &v40;
             v25 = &v37;
             v26 = 1;
             result = v41;
@@ -8840,7 +8841,7 @@ _DWORD *sub_10000DEC0(_DWORD *result)
             v28 = 0x80;
           }
 
-          v29 = v1 + 480060 + 52 * (v2 * v34 + v3);
+          v29 = &v1[13 * v2 * v34 + 120015 + 13 * v3];
           v30 = (v20 & 1) == 0;
           if (v20)
           {
@@ -9172,7 +9173,7 @@ uint64_t sub_10000E45C(uint64_t result)
   return result;
 }
 
-uint64_t sub_10000E618(uint64_t a1, uint64_t a2, int a3)
+uint64_t sub_10000E618(uint64_t a1, int **a2, uint64_t a3)
 {
   if (a3 != 2)
   {
@@ -9191,7 +9192,7 @@ uint64_t sub_10000E618(uint64_t a1, uint64_t a2, int a3)
     return 3;
   }
 
-  if (*(a2 + 8) <= 0x10008FuLL)
+  if (a2[1] <= 0x10008F)
   {
     v3 = off_10041DCC8;
     if (off_10041DCC8 == &_os_log_default)
@@ -9208,7 +9209,7 @@ uint64_t sub_10000E618(uint64_t a1, uint64_t a2, int a3)
     return 3;
   }
 
-  sub_10002FC80(*a2, *(a2 + 24));
+  sub_10002FC80(*a2, a2[3]);
   return 0;
 }
 
@@ -9220,7 +9221,7 @@ void sub_10000E720(int *a1, uint64_t a2)
   }
 
   v2 = a1;
-  v3 = (a1 + 1144);
+  v3 = a1 + 1144;
   v4 = *a1;
   if (*a1 == 1)
   {
@@ -9439,7 +9440,7 @@ void sub_10000E720(int *a1, uint64_t a2)
                 v110 = *(v55 + 8 * v102 + 128);
                 v111 = v53;
                 v109 = *(v55 + 8 * v53);
-                v56 = v104[0];
+                v56 = *v104;
                 if (v104[0] >= 1)
                 {
                   v57 = *v104;
@@ -9456,7 +9457,7 @@ void sub_10000E720(int *a1, uint64_t a2)
                   v60 = 0;
                   v61 = __dst;
                   v44 = v103;
-                  v56 = v104[0];
+                  v56 = *v104;
                   v62 = v103;
                   v45 = v93;
                   v2 = v92;
@@ -9566,7 +9567,7 @@ void sub_10000E720(int *a1, uint64_t a2)
                   sub_10000FF00(v44, v50, v56, (v2 + 84461), (v2 + 92653), (v2 + 100845), (v2 + 109037), (v2 + 18925), v107, v45);
                 }
 
-                v67 = v50 / 2;
+                v67 = v108;
                 v68 = v112;
                 sub_10001167C((v2 + 92653), (v2 + 100845), (v2 + 109037), v108, v112, (v2 + 117229), v45);
                 v126 = 0;
@@ -9580,7 +9581,7 @@ void sub_10000E720(int *a1, uint64_t a2)
                     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "BlurM: d1_median = %d\n", buf, 8u);
                   }
 
-                  v67 = v50 / 2;
+                  v67 = v108;
                   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 67109120;
@@ -9651,7 +9652,7 @@ void sub_10000E720(int *a1, uint64_t a2)
                 v120 = 0;
                 v69 = v113;
                 sub_100012790((v2 + 133613), v96, v113, &v120, v45);
-                sub_10000FF00((v2 + 84461), v67, v68, (v2 + 135661), (v2 + 137709), (v2 + 139757), (v2 + 141805), (v2 + 18925), v107, v45);
+                sub_10000FF00(v2 + 168922, v67, v68, (v2 + 135661), (v2 + 137709), (v2 + 139757), (v2 + 141805), (v2 + 18925), v107, v45);
                 if (v45)
                 {
                   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
@@ -9763,7 +9764,7 @@ void sub_10000E720(int *a1, uint64_t a2)
                 *buf = 0;
                 sub_100012790((v2 + 145901), v96, v69, buf, v45);
                 v42 = v95;
-                v115 = v95[368 * *v3 + 364 + v105];
+                LODWORD(v115) = v95[368 * *v3 + 364 + v105];
                 v114 = 0;
                 v43 = v105;
                 sub_100012904((v2 + 133613), (v2 + 145901), v96, v69, &v115, &v114 + 1, &v114, v45);
@@ -9793,7 +9794,7 @@ void sub_10000E720(int *a1, uint64_t a2)
     }
 
     while (v43 != 4);
-    if (v3[32])
+    if (v3[8])
     {
       v72 = 0;
       v73 = (v2 + 1175);

@@ -827,7 +827,7 @@ void sub_A898(uint64_t a1)
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v17 = v8;
+        v16 = v8;
         _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "  => Message: %@", buf, 0xCu);
       }
     }
@@ -837,7 +837,6 @@ void sub_A898(uint64_t a1)
       v8 = v8;
       v13 = *(a1 + 40);
       v6 = v6;
-      v14 = *(a1 + 32);
       im_dispatch_after();
     }
 
@@ -848,7 +847,7 @@ void sub_A898(uint64_t a1)
       {
         v12 = *(a1 + 48);
         *buf = 67109120;
-        LODWORD(v17) = v12;
+        LODWORD(v16) = v12;
         _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "Empty message supplied for message id: %d", buf, 8u);
       }
     }
@@ -916,10 +915,11 @@ void sub_B040(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void sub_B440(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_B440(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_C0AC(_Unwind_Exception *a1, int a2)
@@ -1218,6 +1218,13 @@ void sub_FB08(_Unwind_Exception *exc_buf, int a2)
   _Unwind_Resume(exc_buf);
 }
 
+void sub_FB28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
+{
+  va_start(va, a40);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 Class sub_FF9C(uint64_t a1)
 {
   v3[0] = 0;
@@ -1256,7 +1263,6 @@ Class sub_FF9C(uint64_t a1)
 
 uint64_t sub_100C8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_268C8 = result;
   return result;
@@ -1275,38 +1281,38 @@ void *sub_1013C()
 
   else
   {
-    v7 = 0u;
-    v8 = 0u;
+    v10 = 0u;
+    v11 = 0u;
   }
 
-  v9[0] = v7;
-  v9[1] = v8;
-  if (!*(&v8 + 1))
+  v12[0] = v10;
+  v12[1] = v11;
+  if (!*(&v11 + 1))
   {
-    sub_103C4(v9);
+    sub_103C4(v12);
     goto LABEL_8;
   }
 
-  type metadata accessor for SMSReachabilityController();
+  type metadata accessor for SMSReachabilityController(0, v2);
   if ((swift_dynamicCast() & 1) == 0)
   {
 LABEL_8:
-    type metadata accessor for SMSServiceReachabilityDelegate();
-    v3 = v0;
-    v4 = sub_10514(v3);
-    type metadata accessor for SMSReachabilityController();
-    v2 = swift_allocObject();
-    v2[2] = v4;
-    v2[3] = &off_20C28;
+    type metadata accessor for SMSServiceReachabilityDelegate(0, v3);
+    v5 = v0;
+    v6 = sub_10514(v5);
+    type metadata accessor for SMSReachabilityController(0, v7);
+    v4 = swift_allocObject();
+    v4[2] = v6;
+    v4[3] = &off_20C28;
     swift_beginAccess();
 
-    objc_setAssociatedObject(v3, &unk_266D0, v2, &dword_0 + 1);
+    objc_setAssociatedObject(v5, &unk_266D0, v4, &dword_0 + 1);
     swift_endAccess();
 
-    return v2;
+    return v4;
   }
 
-  return v6;
+  return v9;
 }
 
 uint64_t SMSServiceSession.calculateReachability(with:responseHandler:)(uint64_t a1, uint64_t a2)
@@ -1327,7 +1333,6 @@ uint64_t sub_1042C(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -1342,18 +1347,11 @@ id sub_10514(void *a1)
   return v3;
 }
 
-id sub_10604()
+id sub_10604(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for SMSServiceReachabilityDelegate();
-  return objc_msgSendSuper2(&v2, "dealloc");
-}
-
-uint64_t SMSReachabilityController.delegate.getter()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return swift_unknownObjectRetain();
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for SMSServiceReachabilityDelegate(a1, a2);
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 uint64_t SMSReachabilityController.__allocating_init(delegate:)(uint64_t a1, uint64_t a2)
@@ -1379,7 +1377,7 @@ void SMSReachabilityController.calculateReachability(with:responseHandler:)(void
     v6 = [a1 handleIDs];
     v7 = sub_124B8();
 
-    v8 = (v7 + 40);
+    v8 = v7 + 40;
     v9 = -*(v7 + 16);
     v10 = -1;
     while (1)
@@ -1395,246 +1393,242 @@ void SMSReachabilityController.calculateReachability(with:responseHandler:)(void
         break;
       }
 
-      v11 = v8 + 2;
-      v13 = *(v8 - 1);
-      v12 = *v8;
+      v11 = v8 + 16;
 
-      v14 = sub_12478();
+      v12 = sub_12478();
       IsStewieEmergency = IMStringIsStewieEmergency();
 
       v8 = v11;
       if ((IsStewieEmergency & 1) == 0)
       {
 
-        v16 = [a1 context];
-        v17 = [v5 isSMSEnabledForContext:v16];
+        v14 = [a1 context];
+        v15 = [v5 isSMSEnabledForContext:v14];
 
-        if (!v17)
+        if (!v15)
         {
           if (qword_267C8 != -1)
           {
             swift_once();
           }
 
-          v18 = sub_12458();
-          sub_116D8(v18, static Logger.sms);
-          v19 = a1;
-          v20 = sub_12438();
-          v21 = sub_124C8();
+          v16 = sub_12458();
+          sub_116D8(v16, static Logger.sms);
+          v17 = a1;
+          v18 = sub_12438();
+          v19 = sub_124C8();
 
-          if (os_log_type_enabled(v20, v21))
+          if (os_log_type_enabled(v18, v19))
           {
-            v22 = swift_slowAlloc();
-            v23 = swift_slowAlloc();
-            aBlock = v23;
-            *v22 = 136315138;
-            v24 = [v19 handleIDs];
-            v25 = sub_124B8();
+            v20 = swift_slowAlloc();
+            v21 = swift_slowAlloc();
+            aBlock = v21;
+            *v20 = 136315138;
+            v22 = [v17 handleIDs];
+            v23 = sub_124B8();
 
-            v110 = v25;
+            v106 = v23;
             sub_1042C(&qword_267D0, &qword_16010);
             sub_11CB8();
-            v26 = sub_12468();
-            v28 = v27;
+            v24 = sub_12468();
+            v26 = v25;
 
-            v29 = sub_11710(v26, v28, &aBlock);
+            v27 = sub_11710(v24, v26, &aBlock);
 
-            *(v22 + 4) = v29;
-            _os_log_impl(&dword_0, v20, v21, "SMS is unavailable for sending to %s: SMS not available for context", v22, 0xCu);
-            sub_11D64(v23);
+            *(v20 + 4) = v27;
+            _os_log_impl(&dword_0, v18, v19, "SMS is unavailable for sending to %s: SMS not available for context", v20, 0xCu);
+            sub_11D64(v21);
           }
 
-          v30 = [v5 internalServiceName];
-          if (!v30)
+          v28 = [v5 internalServiceName];
+          if (!v28)
           {
             sub_12488();
-            v30 = sub_12478();
+            v28 = sub_12478();
           }
 
-          isa = [v19 handleIDs];
+          isa = [v17 handleIDs];
           if (!isa)
           {
             sub_124B8();
             isa = sub_124A8().super.isa;
           }
 
-          v32 = [objc_opt_self() finalResultForService:v30 handleIDs:isa allAreReachable:0 allSupportEncryption:0 checkedServer:0 error:3];
+          v30 = [objc_opt_self() finalResultForService:v28 handleIDs:isa allAreReachable:0 allSupportEncryption:0 checkedServer:0 error:3];
 LABEL_62:
-          v100 = v32;
+          v96 = v30;
 
-          [a2 reachabilityRequest:v19 updatedWithResult:v100];
+          [a2 reachabilityRequest:v17 updatedWithResult:v96];
           return;
         }
 
 LABEL_27:
-        v39 = [a1 handleIDs];
-        v40 = sub_124B8();
+        v37 = [a1 handleIDs];
+        v38 = sub_124B8();
 
-        v41 = (v40 + 40);
-        v42 = -*(v40 + 16);
-        v43 = -1;
+        v39 = v38 + 40;
+        v40 = -*(v38 + 16);
+        v41 = -1;
         do
         {
-          if (v42 + v43 == -1)
+          if (v40 + v41 == -1)
           {
 
             goto LABEL_42;
           }
 
-          if (++v43 >= *(v40 + 16))
+          if (++v41 >= *(v38 + 16))
           {
             goto LABEL_64;
           }
 
-          v44 = v41 + 2;
-          v46 = *(v41 - 1);
-          v45 = *v41;
+          v42 = v39 + 16;
 
-          v47 = sub_12478();
+          v43 = sub_12478();
           IsEmail = IMStringIsEmail();
 
-          v41 = v44;
+          v39 = v42;
         }
 
         while ((IsEmail & 1) == 0);
 
-        v49 = [a1 context];
-        v50 = [v5 isMMSEnabledForContext:v49];
+        v45 = [a1 context];
+        v46 = [v5 isMMSEnabledForContext:v45];
 
-        if ((v50 & 1) == 0)
+        if ((v46 & 1) == 0)
         {
           if (qword_267C8 != -1)
           {
             swift_once();
           }
 
-          v51 = sub_12458();
-          sub_116D8(v51, static Logger.sms);
-          v52 = a1;
-          v53 = sub_12438();
-          v54 = sub_124C8();
+          v47 = sub_12458();
+          sub_116D8(v47, static Logger.sms);
+          v48 = a1;
+          v49 = sub_12438();
+          v50 = sub_124C8();
 
-          if (os_log_type_enabled(v53, v54))
+          if (os_log_type_enabled(v49, v50))
           {
-            v55 = swift_slowAlloc();
-            v56 = swift_slowAlloc();
-            aBlock = v56;
-            *v55 = 136315138;
-            v57 = [v52 handleIDs];
-            v58 = sub_124B8();
+            v51 = swift_slowAlloc();
+            v52 = swift_slowAlloc();
+            aBlock = v52;
+            *v51 = 136315138;
+            v53 = [v48 handleIDs];
+            v54 = sub_124B8();
 
-            v110 = v58;
+            v106 = v54;
             sub_1042C(&qword_267D0, &qword_16010);
-            v59 = a2;
+            v55 = a2;
             sub_11CB8();
-            v60 = sub_12468();
-            v62 = v61;
+            v56 = sub_12468();
+            v58 = v57;
 
-            v63 = sub_11710(v60, v62, &aBlock);
-            a2 = v59;
+            v59 = sub_11710(v56, v58, &aBlock);
+            a2 = v55;
 
-            *(v55 + 4) = v63;
-            _os_log_impl(&dword_0, v53, v54, "SMS is unavailable for sending to %s: has email recipients but MMS not available for context", v55, 0xCu);
-            sub_11D64(v56);
+            *(v51 + 4) = v59;
+            _os_log_impl(&dword_0, v49, v50, "SMS is unavailable for sending to %s: has email recipients but MMS not available for context", v51, 0xCu);
+            sub_11D64(v52);
           }
 
-          v64 = [v5 internalServiceName];
-          if (!v64)
+          v60 = [v5 internalServiceName];
+          if (!v60)
           {
             sub_12488();
-            v64 = sub_12478();
+            v60 = sub_12478();
           }
 
-          v65 = [v52 handleIDs];
-          if (!v65)
+          v61 = [v48 handleIDs];
+          if (!v61)
           {
             sub_124B8();
-            v65 = sub_124A8().super.isa;
+            v61 = sub_124A8().super.isa;
           }
 
-          v66 = objc_opt_self();
-          v108 = sub_115DC;
-          v109 = 0;
+          v62 = objc_opt_self();
+          v104 = sub_115DC;
+          v105 = 0;
           aBlock = _NSConcreteStackBlock;
-          v105 = 1107296256;
-          v106 = sub_11610;
-          v107 = &unk_20D40;
-          v67 = _Block_copy(&aBlock);
-          v108 = sub_11678;
-          v109 = 0;
+          v101 = 1107296256;
+          v102 = sub_11610;
+          v103 = &unk_20D40;
+          v63 = _Block_copy(&aBlock);
+          v104 = sub_11678;
+          v105 = 0;
           aBlock = _NSConcreteStackBlock;
-          v105 = 1107296256;
-          v106 = sub_11610;
-          v107 = &unk_20D68;
-          v68 = _Block_copy(&aBlock);
-          LOBYTE(v101) = 0;
-          v69 = [v66 finalResultForService:v64 handleIDs:v65 allAreReachable:0 allSupportEncryption:0 handleIsReachable:v67 handleSupportsEncryption:v68 checkedServer:v101 error:6];
-          _Block_release(v68);
-          _Block_release(v67);
+          v101 = 1107296256;
+          v102 = sub_11610;
+          v103 = &unk_20D68;
+          v64 = _Block_copy(&aBlock);
+          LOBYTE(v97) = 0;
+          v65 = [v62 finalResultForService:v60 handleIDs:v61 allAreReachable:0 allSupportEncryption:0 handleIsReachable:v63 handleSupportsEncryption:v64 checkedServer:v97 error:6];
+          _Block_release(v64);
+          _Block_release(v63);
 
-          [a2 reachabilityRequest:v52 updatedWithResult:v69];
+          [a2 reachabilityRequest:v48 updatedWithResult:v65];
           return;
         }
 
 LABEL_42:
-        v70 = [a1 context];
-        v71 = [v5 maxChatParticipantsForContext:v70];
+        v66 = [a1 context];
+        v67 = [v5 maxChatParticipantsForContext:v66];
 
-        v72 = [a1 handleIDs];
-        v73 = sub_124B8();
+        v68 = [a1 handleIDs];
+        v69 = sub_124B8();
 
-        v74 = *(v73 + 16);
+        v70 = *(v69 + 16);
 
-        if (v71 >= v74)
+        if (v67 >= v70)
         {
           if (qword_267C8 != -1)
           {
             swift_once();
           }
 
-          v89 = sub_12458();
-          sub_116D8(v89, static Logger.sms);
-          v19 = a1;
-          v90 = sub_12438();
-          v91 = sub_124C8();
+          v85 = sub_12458();
+          sub_116D8(v85, static Logger.sms);
+          v17 = a1;
+          v86 = sub_12438();
+          v87 = sub_124C8();
 
-          if (os_log_type_enabled(v90, v91))
+          if (os_log_type_enabled(v86, v87))
           {
-            v92 = swift_slowAlloc();
-            v93 = swift_slowAlloc();
-            aBlock = v93;
-            *v92 = 136315138;
-            v94 = [v19 handleIDs];
-            v95 = sub_124B8();
+            v88 = swift_slowAlloc();
+            v89 = swift_slowAlloc();
+            aBlock = v89;
+            *v88 = 136315138;
+            v90 = [v17 handleIDs];
+            v91 = sub_124B8();
 
-            v110 = v95;
+            v106 = v91;
             sub_1042C(&qword_267D0, &qword_16010);
             sub_11CB8();
-            v96 = sub_12468();
-            v98 = v97;
+            v92 = sub_12468();
+            v94 = v93;
 
-            v99 = sub_11710(v96, v98, &aBlock);
+            v95 = sub_11710(v92, v94, &aBlock);
 
-            *(v92 + 4) = v99;
-            _os_log_impl(&dword_0, v90, v91, "SMS is available for sending to %s", v92, 0xCu);
-            sub_11D64(v93);
+            *(v88 + 4) = v95;
+            _os_log_impl(&dword_0, v86, v87, "SMS is available for sending to %s", v88, 0xCu);
+            sub_11D64(v89);
           }
 
-          v30 = [v5 internalServiceName];
-          if (!v30)
+          v28 = [v5 internalServiceName];
+          if (!v28)
           {
             sub_12488();
-            v30 = sub_12478();
+            v28 = sub_12478();
           }
 
-          isa = [v19 handleIDs];
+          isa = [v17 handleIDs];
           if (!isa)
           {
             sub_124B8();
             isa = sub_124A8().super.isa;
           }
 
-          v32 = [objc_opt_self() finalResultForService:v30 handleIDs:isa allAreReachable:1 allSupportEncryption:0 checkedServer:0 error:0];
+          v30 = [objc_opt_self() finalResultForService:v28 handleIDs:isa allAreReachable:1 allSupportEncryption:0 checkedServer:0 error:0];
         }
 
         else
@@ -1644,64 +1638,64 @@ LABEL_42:
             swift_once();
           }
 
-          v75 = sub_12458();
-          sub_116D8(v75, static Logger.sms);
-          v19 = a1;
-          v76 = sub_12438();
-          v77 = sub_124C8();
-          if (os_log_type_enabled(v76, v77))
+          v71 = sub_12458();
+          sub_116D8(v71, static Logger.sms);
+          v17 = a1;
+          v72 = sub_12438();
+          v73 = sub_124C8();
+          if (os_log_type_enabled(v72, v73))
           {
-            v78 = swift_slowAlloc();
-            v79 = swift_slowAlloc();
-            aBlock = v79;
-            *v78 = 136315650;
-            v80 = [v19 handleIDs];
-            v81 = sub_124B8();
+            v74 = swift_slowAlloc();
+            v75 = swift_slowAlloc();
+            aBlock = v75;
+            *v74 = 136315650;
+            v76 = [v17 handleIDs];
+            v77 = sub_124B8();
 
-            v110 = v81;
+            v106 = v77;
             sub_1042C(&qword_267D0, &qword_16010);
-            v103 = a2;
+            v99 = a2;
             sub_11CB8();
-            v82 = sub_12468();
-            v84 = v83;
+            v78 = sub_12468();
+            v80 = v79;
 
-            v85 = sub_11710(v82, v84, &aBlock);
+            v81 = sub_11710(v78, v80, &aBlock);
 
-            *(v78 + 4) = v85;
-            *(v78 + 12) = 2050;
-            v86 = [v19 handleIDs];
-            v87 = sub_124B8();
+            *(v74 + 4) = v81;
+            *(v74 + 12) = 2050;
+            v82 = [v17 handleIDs];
+            v83 = sub_124B8();
 
-            v88 = *(v87 + 16);
+            v84 = *(v83 + 16);
 
-            *(v78 + 14) = v88;
+            *(v74 + 14) = v84;
 
-            *(v78 + 22) = 2050;
-            a2 = v103;
-            *(v78 + 24) = v71;
-            _os_log_impl(&dword_0, v76, v77, "SMS is unavailable for sending to %s: have %{public}ld participants but max is %{public}ld", v78, 0x20u);
-            sub_11D64(v79);
+            *(v74 + 22) = 2050;
+            a2 = v99;
+            *(v74 + 24) = v67;
+            _os_log_impl(&dword_0, v72, v73, "SMS is unavailable for sending to %s: have %{public}ld participants but max is %{public}ld", v74, 0x20u);
+            sub_11D64(v75);
           }
 
           else
           {
           }
 
-          v30 = [v5 internalServiceName];
-          if (!v30)
+          v28 = [v5 internalServiceName];
+          if (!v28)
           {
             sub_12488();
-            v30 = sub_12478();
+            v28 = sub_12478();
           }
 
-          isa = [v19 handleIDs];
+          isa = [v17 handleIDs];
           if (!isa)
           {
             sub_124B8();
             isa = sub_124A8().super.isa;
           }
 
-          v32 = [objc_opt_self() finalResultForService:v30 handleIDs:isa allAreReachable:1 allSupportEncryption:0 checkedServer:0 error:1];
+          v30 = [objc_opt_self() finalResultForService:v28 handleIDs:isa allAreReachable:1 allSupportEncryption:0 checkedServer:0 error:1];
         }
 
         goto LABEL_62;
@@ -1720,48 +1714,47 @@ LABEL_65:
     swift_once();
   }
 
-  v33 = sub_12458();
-  sub_116D8(v33, static Logger.sms);
-  v34 = sub_12438();
-  v35 = sub_124C8();
-  if (os_log_type_enabled(v34, v35))
+  v31 = sub_12458();
+  sub_116D8(v31, static Logger.sms);
+  v32 = sub_12438();
+  v33 = sub_124C8();
+  if (os_log_type_enabled(v32, v33))
   {
-    v36 = swift_slowAlloc();
-    *v36 = 0;
-    _os_log_impl(&dword_0, v34, v35, "Messages is not the default text app: SMS not available", v36, 2u);
+    v34 = swift_slowAlloc();
+    *v34 = 0;
+    _os_log_impl(&dword_0, v32, v33, "Messages is not the default text app: SMS not available", v34, 2u);
   }
 
-  v37 = [v5 internalServiceName];
-  if (!v37)
+  v35 = [v5 internalServiceName];
+  if (!v35)
   {
     sub_12488();
-    v37 = sub_12478();
+    v35 = sub_12478();
   }
 
-  v38 = [a1 handleIDs];
-  if (!v38)
+  v36 = [a1 handleIDs];
+  if (!v36)
   {
     sub_124B8();
-    v38 = sub_124A8().super.isa;
+    v36 = sub_124A8().super.isa;
   }
 
-  v102 = [objc_opt_self() finalResultForService:v37 handleIDs:v38 allAreReachable:0 allSupportEncryption:0 checkedServer:0 error:3];
+  v98 = [objc_opt_self() finalResultForService:v35 handleIDs:v36 allAreReachable:0 allSupportEncryption:0 checkedServer:0 error:3];
 
-  [a2 reachabilityRequest:a1 updatedWithResult:v102];
+  [a2 reachabilityRequest:a1 updatedWithResult:v98];
 }
 
-uint64_t sub_115DC()
+uint64_t sub_115DC(uint64_t a1, uint64_t a2)
 {
-  v0 = sub_12478();
+  v2 = sub_12478();
   IsEmail = IMStringIsEmail();
 
   return IsEmail ^ 1u;
 }
 
-uint64_t sub_11610(uint64_t a1)
+uint64_t sub_11610(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
   v3 = sub_12488();
   v5 = v4;
 
@@ -1770,16 +1763,8 @@ uint64_t sub_11610(uint64_t a1)
   return v3 & 1;
 }
 
-uint64_t SMSReachabilityController.deinit()
-{
-  v1 = *(v0 + 16);
-  swift_unknownObjectRelease();
-  return v0;
-}
-
 uint64_t SMSReachabilityController.__deallocating_deinit()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
 
   return _swift_deallocClassInstance(v0, 32, 7);
@@ -1795,7 +1780,7 @@ uint64_t sub_116D8(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_11710(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_11710(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_117DC(v11, 0, 0, 1, a1, a2);
@@ -1895,11 +1880,9 @@ LABEL_8:
 
 char *sub_118E8(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_11934(a1, a2);
+  v3 = sub_11934(a1, a2);
   sub_11A64(&off_20D18);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_11934(uint64_t a1, unint64_t a2)
@@ -1999,7 +1982,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -2013,15 +1995,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_11BC4(result, v12, 1, v3);
+  result = sub_11BC4(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -2036,15 +2018,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -2053,12 +2035,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -2184,7 +2166,6 @@ uint64_t sub_11D1C(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -2192,15 +2173,17 @@ uint64_t sub_11D1C(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_11D64(uint64_t *a1)
+uint64_t sub_11D64(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_11DD4(uint64_t a1, uint64_t a2)
@@ -2248,14 +2231,11 @@ uint64_t static Logger.sms.getter@<X0>(uint64_t a1@<X8>)
 
 uint64_t *sub_11F9C(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -2285,7 +2265,7 @@ void sub_1215C(void *a1)
 {
   v1 = [a1 guid];
   sub_B434();
-  sub_B440(&dword_0, v2, v3, "Found a chat that is not 1-1 chat for message relay: %@", v4, v5, v6, v7, v8);
+  sub_B440(&dword_0, v2, v3, "Found a chat that is not 1-1 chat for message relay: %@", v4, v5, v6, v7);
 }
 
 void sub_121E4()
@@ -2299,7 +2279,7 @@ void sub_12254(void *a1)
 {
   v1 = [a1 guid];
   sub_B434();
-  sub_B440(&dword_0, v2, v3, "Message failed to relay: %@", v4, v5, v6, v7, v8);
+  sub_B440(&dword_0, v2, v3, "Message failed to relay: %@", v4, v5, v6, v7);
 }
 
 void sub_1232C()

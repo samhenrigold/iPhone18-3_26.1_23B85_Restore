@@ -244,10 +244,10 @@ LABEL_19:
       v12 = v11;
       logKey = [(LoadInAppReceiptsTask *)self logKey];
       *buf = 138543618;
-      v50 = logKey;
-      v51 = 2114;
-      v52 = objc_opt_class();
-      v14 = v52;
+      v51 = logKey;
+      v52 = 2114;
+      v53 = objc_opt_class();
+      v14 = v53;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] [%{public}@]: Finished receipt request", buf, 0x16u);
     }
 
@@ -290,11 +290,11 @@ LABEL_19:
       goto LABEL_50;
     }
 
-    v46 = v17;
+    v47 = v17;
     v19 = v18;
     v20 = [v16 objectForKeyedSubscript:@"unfinishedTxnIds"];
     objc_opt_class();
-    v48 = v20;
+    v49 = v20;
     if (objc_opt_isKindOfClass())
     {
       if (qword_1003D39F8 != -1)
@@ -304,24 +304,24 @@ LABEL_19:
 
       v18 = v19;
       v21 = qword_1003D39D8;
-      v17 = v46;
+      v17 = v47;
       if (os_log_type_enabled(qword_1003D39D8, OS_LOG_TYPE_DEFAULT))
       {
         loga = v21;
         logKey2 = [(LoadInAppReceiptsTask *)self logKey];
         v22 = objc_opt_class();
-        v36 = v22;
-        v23 = [v48 count];
+        v37 = v22;
+        v23 = [v49 count];
         *buf = 138543874;
-        v50 = logKey2;
-        v51 = 2114;
-        v52 = v22;
-        v53 = 2048;
-        v54 = v23;
+        v51 = logKey2;
+        v52 = 2114;
+        v53 = v22;
+        v54 = 2048;
+        v55 = v23;
         _os_log_impl(&_mh_execute_header, loga, OS_LOG_TYPE_DEFAULT, "[%{public}@] [%{public}@]: Setting %lu unfinished transactions", buf, 0x20u);
       }
 
-      v24 = [NSSet setWithArray:v48];
+      v24 = [NSSet setWithArray:v49];
     }
 
     else
@@ -333,54 +333,54 @@ LABEL_19:
 
       v18 = v19;
       v25 = qword_1003D39D8;
-      v17 = v46;
+      v17 = v47;
       if (os_log_type_enabled(qword_1003D39D8, OS_LOG_TYPE_DEFAULT))
       {
-        v44 = v25;
+        v45 = v25;
         logKey3 = [(LoadInAppReceiptsTask *)self logKey];
         v27 = objc_opt_class();
         *buf = 138543618;
-        v50 = logKey3;
-        v51 = 2114;
-        v52 = v27;
+        v51 = logKey3;
+        v52 = 2114;
+        v53 = v27;
         logb = v27;
-        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "[%{public}@] [%{public}@]: Receipt response does not have unfinished transactions.", buf, 0x16u);
+        _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "[%{public}@] [%{public}@]: Receipt response does not have unfinished transactions.", buf, 0x16u);
       }
 
       v24 = 0;
     }
 
-    v45 = v24;
+    v46 = v24;
     log = (*(*(&self->_reason + 2) + 16))();
     *(&self->super._finished + 2) = *(&self->super._finished + 2);
     v28 = [v16 objectForKeyedSubscript:@"hasMore"];
     objc_opt_class();
-    v47 = v28;
-    if ((objc_opt_isKindOfClass() & 1) != 0 && [v28 BOOLValue])
+    v48 = v28;
+    if ((objc_opt_isKindOfClass() & 1) != 0 && (v29 = [v28 BOOLValue], v29))
     {
-      v29 = sub_100005D68();
-      v30 = v29;
+      v30 = sub_100005D68(v29);
+      v31 = v30;
       if (log)
       {
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
           logKey4 = [(LoadInAppReceiptsTask *)self logKey];
           logc = [(LoadInAppReceiptsTask *)self client];
           requestBundleID = [logc requestBundleID];
           *buf = 138543874;
-          v50 = logKey4;
-          v51 = 2114;
-          v52 = v18;
-          v53 = 2114;
-          v54 = requestBundleID;
-          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updated receipts to revision %{public}@. Syncing more receipts for %{public}@", buf, 0x20u);
+          v51 = logKey4;
+          v52 = 2114;
+          v53 = v18;
+          v54 = 2114;
+          v55 = requestBundleID;
+          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updated receipts to revision %{public}@. Syncing more receipts for %{public}@", buf, 0x20u);
         }
 
         [(LoadInAppReceiptsTask *)self _runRequestWithAccount:accountCopy revision:v18];
         goto LABEL_49;
       }
 
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         sub_1002C75EC(self);
       }
@@ -393,23 +393,23 @@ LABEL_19:
         sub_1002C7344();
       }
 
-      v33 = qword_1003D39D8;
+      v34 = qword_1003D39D8;
       if (!os_log_type_enabled(qword_1003D39D8, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_48;
       }
 
-      logd = v33;
+      logd = v34;
       logKey5 = [(LoadInAppReceiptsTask *)self logKey];
       client = [(LoadInAppReceiptsTask *)self client];
       requestBundleID2 = [client requestBundleID];
       *buf = 138543874;
-      v50 = logKey5;
-      v51 = 2114;
-      v52 = v18;
-      v53 = 2114;
-      v54 = requestBundleID2;
-      v30 = logd;
+      v51 = logKey5;
+      v52 = 2114;
+      v53 = v18;
+      v54 = 2114;
+      v55 = requestBundleID2;
+      v31 = logd;
       _os_log_impl(&_mh_execute_header, logd, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updated receipts to revision %{public}@ for %{public}@", buf, 0x20u);
     }
 

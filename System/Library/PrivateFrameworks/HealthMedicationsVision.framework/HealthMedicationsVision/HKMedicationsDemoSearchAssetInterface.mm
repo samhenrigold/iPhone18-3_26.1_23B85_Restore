@@ -207,28 +207,28 @@ LABEL_7:
 
 void __76__HKMedicationsDemoSearchAssetInterface_genericMedicationsFromTokens_error___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v2 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v2)
   {
     v3 = v2;
-    v15 = *v18;
+    v14 = *v17;
     v4 = MEMORY[0x277CBEBF8];
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v18 != v15)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v17 + 1) + 8 * i);
+        v6 = *(*(&v16 + 1) + 8 * i);
         ppStmt = 0;
         *(*(*(a1 + 48) + 8) + 24) = sqlite3_prepare_v2(*(*(a1 + 40) + 8), [@"SELECT DISTINCT gm.generic_medication_id gm.name             FROM token AS tk             LEFT JOIN ingredient:"UTF8String" token AS ing:? tk ON tk.token:? id=ing:? tk.token:? id             LEFT JOIN ingredient:? strength AS ingstr ON ingstr.component:? id=ing:? tk.ingredient:? id             LEFT JOIN ingredient AS ing ON ingstr.ingredient:? id=ing.ingredient:? id             LEFT JOIN generic:? medication:? ingredient AS gmi ON gmi.ingredient:? id=ing.ingredient:? id             LEFT JOIN generic:? medication AS gm ON gm.generic:? medication:? id=gmi.generic:? medication:? id             WHERE tk.token LIKE ? AND gm.generic:? medication:?id IS NOT NULL"], -1, &ppStmt, 0);
         if (*(*(*(a1 + 48) + 8) + 24) || sqlite3_bind_text(ppStmt, 1, [v6 UTF8String], -1, 0xFFFFFFFFFFFFFFFFLL))
@@ -256,7 +256,7 @@ LABEL_15:
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v3)
       {
         continue;
@@ -267,8 +267,6 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)expandedGenericMedicationSearchResult:(id)result error:(id *)error

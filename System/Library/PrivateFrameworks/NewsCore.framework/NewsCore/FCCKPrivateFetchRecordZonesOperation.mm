@@ -8,39 +8,28 @@
 
 - (BOOL)validateOperation
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = FCCKPrivateFetchRecordZonesOperation;
-  validateOperation = [(FCCKPrivateDatabaseOperation *)&v9 validateOperation];
+  v17 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = FCCKPrivateFetchRecordZonesOperation;
+  validateOperation = [(FCCKPrivateDatabaseOperation *)&v8 validateOperation];
   recordZoneIDs = [(FCCKPrivateFetchRecordZonesOperation *)self recordZoneIDs];
   v5 = [recordZoneIDs count];
 
   if (!v5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't fetch an empty list of record zone IDs"];
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't fetch an empty list of record zone IDs"];
     *buf = 136315906;
-    v11 = "[FCCKPrivateFetchRecordZonesOperation validateOperation]";
-    v12 = 2080;
-    v13 = "FCCKPrivateFetchRecordZonesOperation.m";
-    v14 = 1024;
-    v15 = 27;
-    v16 = 2114;
-    v17 = v8;
+    v10 = "[FCCKPrivateFetchRecordZonesOperation validateOperation]";
+    v11 = 2080;
+    v12 = "FCCKPrivateFetchRecordZonesOperation.m";
+    v13 = 1024;
+    v14 = 27;
+    v15 = 2114;
+    v16 = v7;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  if (v5)
-  {
-    result = validateOperation;
-  }
-
-  else
-  {
-    result = 0;
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return v5 && validateOperation;
 }
 
 - (void)performOperation

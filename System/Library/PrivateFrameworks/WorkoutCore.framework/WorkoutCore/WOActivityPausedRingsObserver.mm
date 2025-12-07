@@ -12,15 +12,14 @@
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd, &_s7Combine9PublishedVySbGMR);
   v4 = *(v3 - 8);
-  v5 = (*(v4 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v3, v5);
   v7 = &v11 - v6;
   v8 = OBJC_IVAR___WOActivityPausedRingsObserver__isPaused;
   v13 = 0;
   Published.init(initialValue:)();
   (*(v4 + 32))(self + v8, v7, v3);
   *(&self->super.isa + OBJC_IVAR___WOActivityPausedRingsObserver_state) = 0;
-  v9 = type metadata accessor for ActivityPausedRingsObserver();
+  v9 = type metadata accessor for ActivityPausedRingsObserver(0);
   v12.receiver = self;
   v12.super_class = v9;
   return [(WOActivityPausedRingsObserver *)&v12 init];
@@ -43,7 +42,7 @@
   swift_getKeyPath();
   swift_getKeyPath();
   selfCopy = self;
-  static Published.subscript.getter();
+  static Published.subscript.getter(&v5);
 
   return v5;
 }

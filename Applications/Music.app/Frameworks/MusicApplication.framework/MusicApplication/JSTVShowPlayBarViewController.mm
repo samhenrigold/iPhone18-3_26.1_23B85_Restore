@@ -22,13 +22,13 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_2907DC();
+  sub_2907DC(selfCopy);
 }
 
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_291214();
+  sub_291214(selfCopy);
 }
 
 - (NSString)playActivityFeatureName

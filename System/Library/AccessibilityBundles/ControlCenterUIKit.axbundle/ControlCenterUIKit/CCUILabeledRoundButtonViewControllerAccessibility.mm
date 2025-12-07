@@ -3,6 +3,7 @@
 - (CGRect)_accessibilityControlCenterButtonFrame;
 - (id)_accessibilityControlCenterButtonLabel;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CCUILabeledRoundButtonViewControllerAccessibility
@@ -288,6 +289,14 @@ id __95__CCUILabeledRoundButtonViewControllerAccessibility__accessibilityLoadAcc
   }
 
   return accessibilityLabel;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CCUILabeledRoundButtonViewControllerAccessibility;
+  [(CCUILabeledRoundButtonViewControllerAccessibility *)&v4 viewWillAppear:appear];
+  [(CCUILabeledRoundButtonViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 @end

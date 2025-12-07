@@ -10,33 +10,33 @@
 - (IMScheduledSectionLabelChatItem)initWithAssociatedDateChatItem:(id)item
 {
   itemCopy = item;
-  v9.receiver = self;
-  v9.super_class = IMScheduledSectionLabelChatItem;
-  v5 = [(IMScheduledSectionLabelChatItem *)&v9 init];
-  v7 = v5;
+  v8.receiver = self;
+  v8.super_class = IMScheduledSectionLabelChatItem;
+  v5 = [(IMScheduledSectionLabelChatItem *)&v8 init];
+  v6 = v5;
   if (v5)
   {
-    objc_msgSend_setDateChatItem_(v5, v6, itemCopy);
+    [(IMScheduledSectionLabelChatItem *)v5 setDateChatItem:itemCopy];
   }
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash
 {
-  v3 = objc_msgSend_dateChatItem(self, a2, v2);
-  v6 = objc_msgSend_hash(v3, v4, v5);
+  dateChatItem = [(IMScheduledSectionLabelChatItem *)self dateChatItem];
+  v3 = [dateChatItem hash];
 
-  return v6;
+  return v3;
 }
 
 - (BOOL)isEqualToScheduledLabelChatItem:(id)item
 {
   itemCopy = item;
-  v7 = objc_msgSend_dateChatItem(self, v5, v6);
-  v10 = objc_msgSend_dateChatItem(itemCopy, v8, v9);
+  dateChatItem = [(IMScheduledSectionLabelChatItem *)self dateChatItem];
+  dateChatItem2 = [itemCopy dateChatItem];
 
-  LOBYTE(itemCopy) = objc_msgSend_isEqual_(v7, v11, v10);
+  LOBYTE(itemCopy) = [dateChatItem isEqual:dateChatItem2];
   return itemCopy;
 }
 
@@ -44,17 +44,9 @@
 {
   equalCopy = equal;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    isEqualToScheduledLabelChatItem = objc_msgSend_isEqualToScheduledLabelChatItem_(self, v5, equalCopy);
-  }
+  v5 = (objc_opt_isKindOfClass() & 1) != 0 && [(IMScheduledSectionLabelChatItem *)self isEqualToScheduledLabelChatItem:equalCopy];
 
-  else
-  {
-    isEqualToScheduledLabelChatItem = 0;
-  }
-
-  return isEqualToScheduledLabelChatItem;
+  return v5;
 }
 
 @end

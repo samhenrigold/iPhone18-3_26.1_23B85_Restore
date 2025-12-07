@@ -53,18 +53,11 @@
   v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v6];
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPEventRecordLastModifiedDate"])
   {
-    isRelationshipProperty = [v6 isRelationshipProperty];
-    v9 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v9 = off_279C734F8;
-    }
-
-    v10 = *v9;
-    v11 = objc_opt_class();
+    [v6 isRelationshipProperty];
+    v8 = objc_opt_class();
     changeSet = self->_changeSet;
-    v13 = [[v11 alloc] initWithProperty:v6 changedValue:dateCopy originalValue:v7];
-    [(HKSPChangeSet *)changeSet addChange:v13];
+    v10 = [[v8 alloc] initWithProperty:v6 changedValue:dateCopy originalValue:v7];
+    [(HKSPChangeSet *)changeSet addChange:v10];
   }
 }
 
@@ -102,21 +95,14 @@
     distantPast = [MEMORY[0x277CBEAA8] distantPast];
   }
 
-  v16 = distantPast;
+  v13 = distantPast;
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPWakeUpEarlyNotificationConfirmedDate"])
   {
-    isRelationshipProperty = [v6 isRelationshipProperty];
-    v10 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v10 = off_279C734F8;
-    }
-
-    v11 = *v10;
-    v12 = objc_opt_class();
+    [v6 isRelationshipProperty];
+    v9 = objc_opt_class();
     changeSet = self->_changeSet;
-    v14 = [[v12 alloc] initWithProperty:v6 changedValue:v16 originalValue:v7];
-    [(HKSPChangeSet *)changeSet addChange:v14];
+    v11 = [[v9 alloc] initWithProperty:v6 changedValue:v13 originalValue:v7];
+    [(HKSPChangeSet *)changeSet addChange:v11];
   }
 }
 
@@ -154,21 +140,14 @@
     distantPast = [MEMORY[0x277CBEAA8] distantPast];
   }
 
-  v16 = distantPast;
+  v13 = distantPast;
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPWakeUpConfirmedUntilDate"])
   {
-    isRelationshipProperty = [v6 isRelationshipProperty];
-    v10 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v10 = off_279C734F8;
-    }
-
-    v11 = *v10;
-    v12 = objc_opt_class();
+    [v6 isRelationshipProperty];
+    v9 = objc_opt_class();
     changeSet = self->_changeSet;
-    v14 = [[v12 alloc] initWithProperty:v6 changedValue:v16 originalValue:v7];
-    [(HKSPChangeSet *)changeSet addChange:v14];
+    v11 = [[v9 alloc] initWithProperty:v6 changedValue:v13 originalValue:v7];
+    [(HKSPChangeSet *)changeSet addChange:v11];
   }
 }
 
@@ -206,21 +185,14 @@
     distantPast = [MEMORY[0x277CBEAA8] distantPast];
   }
 
-  v16 = distantPast;
+  v13 = distantPast;
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPWakeUpAlarmDismissedDate"])
   {
-    isRelationshipProperty = [v6 isRelationshipProperty];
-    v10 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v10 = off_279C734F8;
-    }
-
-    v11 = *v10;
-    v12 = objc_opt_class();
+    [v6 isRelationshipProperty];
+    v9 = objc_opt_class();
     changeSet = self->_changeSet;
-    v14 = [[v12 alloc] initWithProperty:v6 changedValue:v16 originalValue:v7];
-    [(HKSPChangeSet *)changeSet addChange:v14];
+    v11 = [[v9 alloc] initWithProperty:v6 changedValue:v13 originalValue:v7];
+    [(HKSPChangeSet *)changeSet addChange:v11];
   }
 }
 
@@ -258,21 +230,14 @@
     distantPast = [MEMORY[0x277CBEAA8] distantPast];
   }
 
-  v16 = distantPast;
+  v13 = distantPast;
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPWakeUpOverriddenDate"])
   {
-    isRelationshipProperty = [v6 isRelationshipProperty];
-    v10 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v10 = off_279C734F8;
-    }
-
-    v11 = *v10;
-    v12 = objc_opt_class();
+    [v6 isRelationshipProperty];
+    v9 = objc_opt_class();
     changeSet = self->_changeSet;
-    v14 = [[v12 alloc] initWithProperty:v6 changedValue:v16 originalValue:v7];
-    [(HKSPChangeSet *)changeSet addChange:v14];
+    v11 = [[v9 alloc] initWithProperty:v6 changedValue:v13 originalValue:v7];
+    [(HKSPChangeSet *)changeSet addChange:v11];
   }
 }
 
@@ -310,21 +275,14 @@
     distantPast = [MEMORY[0x277CBEAA8] distantPast];
   }
 
-  v16 = distantPast;
+  v13 = distantPast;
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPWakeUpAlarmSnoozedUntilDate"])
   {
-    isRelationshipProperty = [v6 isRelationshipProperty];
-    v10 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v10 = off_279C734F8;
-    }
-
-    v11 = *v10;
-    v12 = objc_opt_class();
+    [v6 isRelationshipProperty];
+    v9 = objc_opt_class();
     changeSet = self->_changeSet;
-    v14 = [[v12 alloc] initWithProperty:v6 changedValue:v16 originalValue:v7];
-    [(HKSPChangeSet *)changeSet addChange:v14];
+    v11 = [[v9 alloc] initWithProperty:v6 changedValue:v13 originalValue:v7];
+    [(HKSPChangeSet *)changeSet addChange:v11];
   }
 }
 
@@ -362,21 +320,14 @@
     distantPast = [MEMORY[0x277CBEAA8] distantPast];
   }
 
-  v16 = distantPast;
+  v13 = distantPast;
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPGoodMorningDismissedDate"])
   {
-    isRelationshipProperty = [v6 isRelationshipProperty];
-    v10 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v10 = off_279C734F8;
-    }
-
-    v11 = *v10;
-    v12 = objc_opt_class();
+    [v6 isRelationshipProperty];
+    v9 = objc_opt_class();
     changeSet = self->_changeSet;
-    v14 = [[v12 alloc] initWithProperty:v6 changedValue:v16 originalValue:v7];
-    [(HKSPChangeSet *)changeSet addChange:v14];
+    v11 = [[v9 alloc] initWithProperty:v6 changedValue:v13 originalValue:v7];
+    [(HKSPChangeSet *)changeSet addChange:v11];
   }
 }
 
@@ -461,22 +412,15 @@
     v11 = dateCopy;
   }
 
-  v18 = v11;
+  v15 = v11;
 
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPSleepCoachingOnboardingFirstCompletedDate"])
   {
-    isRelationshipProperty = [v7 isRelationshipProperty];
-    v13 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v13 = off_279C734F8;
-    }
-
-    v14 = *v13;
-    v15 = objc_opt_class();
+    [v7 isRelationshipProperty];
+    v12 = objc_opt_class();
     changeSet = self->_changeSet;
-    v17 = [[v15 alloc] initWithProperty:v7 changedValue:v18 originalValue:v8];
-    [(HKSPChangeSet *)changeSet addChange:v17];
+    v14 = [[v12 alloc] initWithProperty:v7 changedValue:v15 originalValue:v8];
+    [(HKSPChangeSet *)changeSet addChange:v14];
   }
 }
 
@@ -561,22 +505,15 @@
     v11 = dateCopy;
   }
 
-  v18 = v11;
+  v15 = v11;
 
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPSleepTrackingOnboardingFirstCompletedDate"])
   {
-    isRelationshipProperty = [v7 isRelationshipProperty];
-    v13 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v13 = off_279C734F8;
-    }
-
-    v14 = *v13;
-    v15 = objc_opt_class();
+    [v7 isRelationshipProperty];
+    v12 = objc_opt_class();
     changeSet = self->_changeSet;
-    v17 = [[v15 alloc] initWithProperty:v7 changedValue:v18 originalValue:v8];
-    [(HKSPChangeSet *)changeSet addChange:v17];
+    v14 = [[v12 alloc] initWithProperty:v7 changedValue:v15 originalValue:v8];
+    [(HKSPChangeSet *)changeSet addChange:v14];
   }
 }
 
@@ -661,22 +598,15 @@
     v11 = dateCopy;
   }
 
-  v18 = v11;
+  v15 = v11;
 
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPSleepWindDownShortcutsOnboardingFirstCompletedDate"])
   {
-    isRelationshipProperty = [v7 isRelationshipProperty];
-    v13 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v13 = off_279C734F8;
-    }
-
-    v14 = *v13;
-    v15 = objc_opt_class();
+    [v7 isRelationshipProperty];
+    v12 = objc_opt_class();
     changeSet = self->_changeSet;
-    v17 = [[v15 alloc] initWithProperty:v7 changedValue:v18 originalValue:v8];
-    [(HKSPChangeSet *)changeSet addChange:v17];
+    v14 = [[v12 alloc] initWithProperty:v7 changedValue:v15 originalValue:v8];
+    [(HKSPChangeSet *)changeSet addChange:v14];
   }
 }
 
@@ -761,22 +691,15 @@
     v11 = dateCopy;
   }
 
-  v18 = v11;
+  v15 = v11;
 
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPLastWakeUpResultsIntroductionNotificationVersionSentDate"])
   {
-    isRelationshipProperty = [v7 isRelationshipProperty];
-    v13 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v13 = off_279C734F8;
-    }
-
-    v14 = *v13;
-    v15 = objc_opt_class();
+    [v7 isRelationshipProperty];
+    v12 = objc_opt_class();
     changeSet = self->_changeSet;
-    v17 = [[v15 alloc] initWithProperty:v7 changedValue:v18 originalValue:v8];
-    [(HKSPChangeSet *)changeSet addChange:v17];
+    v14 = [[v12 alloc] initWithProperty:v7 changedValue:v15 originalValue:v8];
+    [(HKSPChangeSet *)changeSet addChange:v14];
   }
 }
 

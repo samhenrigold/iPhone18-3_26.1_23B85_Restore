@@ -183,7 +183,6 @@ LABEL_18:
 
   if (absoluteString)
   {
-    absoluteString = self->_absoluteString;
     PBDataWriterWriteStringField();
   }
 
@@ -191,19 +190,18 @@ LABEL_18:
 
   if (scope)
   {
-    scope = self->_scope;
     PBDataWriterWriteDataField();
   }
 
   valueMetadata = [(_INPBURLValue *)self valueMetadata];
 
-  v9 = toCopy;
+  v7 = toCopy;
   if (valueMetadata)
   {
     valueMetadata2 = [(_INPBURLValue *)self valueMetadata];
     PBDataWriterWriteSubmessage();
 
-    v9 = toCopy;
+    v7 = toCopy;
   }
 }
 

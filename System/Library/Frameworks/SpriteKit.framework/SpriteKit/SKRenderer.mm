@@ -96,7 +96,7 @@
   v9 = renderCommandEncoder;
   v10 = renderPassDescriptor;
   v11 = commandQueue;
-  SKCRenderer::getBackingContext(self->_skcRenderer, &lpsrc);
+  SKCRenderer::getBackingContext(&lpsrc, self->_skcRenderer);
   if (!lpsrc)
   {
     v12 = 0;

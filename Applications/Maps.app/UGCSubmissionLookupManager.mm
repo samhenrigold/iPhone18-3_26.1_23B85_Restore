@@ -31,7 +31,7 @@
 
   selfCopy = self;
   sub_100271898(for, v6, v7);
-  sub_1000588AC(v6);
+  sub_1000588AC(v6, v7);
 }
 
 - (void)fetchSubmissionWithCommunityIDAndICloudIDFor:(unint64_t)for identifierHistory:(id)history completion:(id)completion
@@ -53,7 +53,7 @@
 
   selfCopy = self;
   sub_100271E24(for, v8, v7, v9);
-  sub_1000588AC(v7);
+  sub_1000588AC(v7, v9);
 }
 
 @end

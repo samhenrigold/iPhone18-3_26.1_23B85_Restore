@@ -196,9 +196,9 @@ LABEL_3:
 
 - (id)workloadStatisticsForSourceArrays:(id)arrays destArrays:(id)destArrays kernel:(id)kernel kernelDAGObject:(id)object sourceState:(id)state
 {
-  v93.receiver = self;
-  v93.super_class = MPSNDArrayStencilKernel;
-  object = [(MPSNDArrayMultiaryBase *)&v93 workloadStatisticsForSourceArrays:arrays sourceState:state, kernel, object];
+  v89.receiver = self;
+  v89.super_class = MPSNDArrayStencilKernel;
+  object = [(MPSNDArrayMultiaryBase *)&v89 workloadStatisticsForSourceArrays:arrays sourceState:state, kernel, object];
   if ([arrays count] >= 2)
   {
     v11 = [objc_msgSend(arrays objectAtIndexedSubscript:{0), "numberOfDimensions"}];
@@ -227,11 +227,11 @@ LABEL_3:
       v21 = 1;
       do
       {
-        v92[0] = v20;
-        v92[1] = v19;
-        v92[2] = v18;
-        v92[3] = v17;
-        v21 *= *(v92 + (v15++ & 0xF));
+        v88[0] = v20;
+        v88[1] = v19;
+        v88[2] = v18;
+        v88[3] = v17;
+        v21 *= *(v88 + (v15++ & 0xF));
       }
 
       while (numberOfDimensions != v15);
@@ -247,69 +247,69 @@ LABEL_3:
     if (*(v22 + *MEMORY[0x277CD73F0]))
     {
       v24 = ([arrays objectAtIndexedSubscript:1] + *v14);
-      v84 = v24[1];
-      v86 = *v24;
-      v76 = v24[3];
-      v80 = v24[2];
+      v80 = v24[1];
+      v82 = *v24;
+      v72 = v24[3];
+      v76 = v24[2];
       v25 = [arrays objectAtIndexedSubscript:1];
       v26 = MEMORY[0x277CD73D8];
       v27 = *(v25 + *MEMORY[0x277CD73D8]);
-      v91[2] = v80;
-      v91[3] = v76;
-      v91[0] = v86;
-      v91[1] = v84;
-      v28 = *(v91 + (v27 & 0xF));
+      v87[2] = v76;
+      v87[3] = v72;
+      v87[0] = v82;
+      v87[1] = v80;
+      v28 = *(v87 + (v27 & 0xF));
       v29 = vdupq_n_s64(1uLL);
-      v85 = v29;
+      v81 = v29;
       v29.i64[0] = v28;
-      v87 = v29;
+      v83 = v29;
       if (*([arrays objectAtIndexedSubscript:1] + *v23) >= 2uLL)
       {
         v30 = ([arrays objectAtIndexedSubscript:1] + *v14);
-        v77 = v30[1];
-        v81 = *v30;
-        v70 = v30[3];
-        v73 = v30[2];
+        v73 = v30[1];
+        v77 = *v30;
+        v66 = v30[3];
+        v69 = v30[2];
         v31 = BYTE1(*([arrays objectAtIndexedSubscript:1] + *v26));
-        v90[2] = v73;
-        v90[3] = v70;
-        v90[0] = v81;
-        v90[1] = v77;
-        v32.i64[0] = v87.i64[0];
-        v32.i64[1] = *(v90 + (v31 & 0xF));
-        v87 = v32;
+        v86[2] = v69;
+        v86[3] = v66;
+        v86[0] = v77;
+        v86[1] = v73;
+        v32.i64[0] = v83.i64[0];
+        v32.i64[1] = *(v86 + (v31 & 0xF));
+        v83 = v32;
         v28 = v28 * v32.u32[2];
         if (*([arrays objectAtIndexedSubscript:1] + *v23) >= 3uLL)
         {
           v33 = ([arrays objectAtIndexedSubscript:1] + *v14);
-          v78 = v33[1];
-          v82 = *v33;
-          v71 = v33[3];
-          v74 = v33[2];
+          v74 = v33[1];
+          v78 = *v33;
+          v67 = v33[3];
+          v70 = v33[2];
           v34 = BYTE2(*([arrays objectAtIndexedSubscript:1] + *v26));
-          v89[2] = v74;
-          v89[3] = v71;
-          v89[0] = v82;
-          v89[1] = v78;
-          v35.i64[1] = v85.i64[1];
-          v35.i64[0] = *(v89 + (v34 & 0xF));
-          v85 = v35;
+          v85[2] = v70;
+          v85[3] = v67;
+          v85[0] = v78;
+          v85[1] = v74;
+          v35.i64[1] = v81.i64[1];
+          v35.i64[0] = *(v85 + (v34 & 0xF));
+          v81 = v35;
           v28 *= v35.i64[0];
           if (*([arrays objectAtIndexedSubscript:1] + *v23) >= 4uLL)
           {
             v36 = ([arrays objectAtIndexedSubscript:1] + *v14);
-            v79 = v36[1];
-            v83 = *v36;
-            v72 = v36[3];
-            v75 = v36[2];
+            v75 = v36[1];
+            v79 = *v36;
+            v68 = v36[3];
+            v71 = v36[2];
             v37 = BYTE3(*([arrays objectAtIndexedSubscript:1] + *v26));
-            v88[2] = v75;
-            v88[3] = v72;
-            v88[0] = v83;
-            v88[1] = v79;
-            v38.i64[0] = v85.i64[0];
-            v38.i64[1] = *(v88 + (v37 & 0xF));
-            v85 = v38;
+            v84[2] = v71;
+            v84[3] = v68;
+            v84[0] = v79;
+            v84[1] = v75;
+            v38.i64[0] = v81.i64[0];
+            v38.i64[1] = *(v84 + (v37 & 0xF));
+            v81 = v38;
             v28 *= v38.i64[1];
             [arrays objectAtIndexedSubscript:1];
           }
@@ -322,8 +322,8 @@ LABEL_3:
     else
     {
       v39 = 0;
-      v85 = vdupq_n_s64(1uLL);
-      v87 = v85;
+      v81 = vdupq_n_s64(1uLL);
+      v83 = v81;
     }
 
     [object setFloat32Ops:0.0];
@@ -342,23 +342,20 @@ LABEL_3:
     v49 = *([arrays objectAtIndexedSubscript:0] + *v14 + 8);
     v50 = *([arrays objectAtIndexedSubscript:0] + *v14 + 4);
     v51 = *([arrays objectAtIndexedSubscript:0] + *v14);
-    v52 = [arrays objectAtIndexedSubscript:0];
-    v53 = MEMORY[0x277CD73C8];
-    v54 = *(v52 + *MEMORY[0x277CD73C8]);
-    v55 = MPSGetDataTypeName();
-    v56 = *(destArrays + *v53);
-    v57 = MPSGetDataTypeName();
-    v68 = vextq_s8(v85, v85, 8uLL);
-    v69 = vextq_s8(v87, v87, 8uLL);
-    MPSKernel_LogInfo(kernel, v58, "4d Stencil: T=%u, D=%u, H=%u, W=%u, kT=%lu, kD=%lu, kH=%lu, kW=%lu, src0 Datatype: %s dest Datatype: %s\t", v48, v49, v50, v51, v68.i64[0], v68.i64[1], v69.i64[0], v69.i64[1], v55, v57);
+    [arrays objectAtIndexedSubscript:0];
+    v52 = MPSGetDataTypeName();
+    v53 = MPSGetDataTypeName();
+    v64 = vextq_s8(v81, v81, 8uLL);
+    v65 = vextq_s8(v83, v83, 8uLL);
+    MPSKernel_LogInfo(kernel, v54, "4d Stencil: T=%u, D=%u, H=%u, W=%u, kT=%lu, kD=%lu, kH=%lu, kW=%lu, src0 Datatype: %s dest Datatype: %s\t", v48, v49, v50, v51, v64.i64[0], v64.i64[1], v65.i64[0], v65.i64[1], v52, v53);
     [object float16Ops];
-    v60 = v59;
+    v56 = v55;
     [object float32Ops];
-    v62 = v61;
+    v58 = v57;
     [object deviceMemoryBytesRead];
-    v64 = v63;
+    v60 = v59;
     [object deviceMemoryBytesWrite];
-    MPSKernel_LogInfo(kernel, v65, "Stencil: f16Ops=%f, f32Ops=%f, BytesRead=%f, BytesWritten=%f, OpsPerByte=%f\n", v60, v62, v64, v66, v47);
+    MPSKernel_LogInfo(kernel, v61, "Stencil: f16Ops=%f, f32Ops=%f, BytesRead=%f, BytesWritten=%f, OpsPerByte=%f\n", v56, v58, v60, v62, v47);
   }
 
   return object;

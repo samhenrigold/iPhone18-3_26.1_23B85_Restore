@@ -205,7 +205,7 @@
 
 - (unint64_t)hash
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   builder = [MEMORY[0x1E698E6B8] builder];
   v4 = [builder appendInteger:self->_type];
   v5 = [builder appendObject:self->_localizedTitle];
@@ -214,38 +214,37 @@
   v8 = [builder appendObject:self->_symbolImageName];
   v9 = [builder appendObject:self->_symbolColorName];
   v10 = [builder appendObject:self->_unityDescription];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v11 = self->_items;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = *v20;
     do
     {
       v15 = 0;
       do
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [builder appendObject:{*(*(&v20 + 1) + 8 * v15++), v20}];
+        v16 = [builder appendObject:{*(*(&v19 + 1) + 8 * v15++), v19}];
       }
 
       while (v13 != v15);
-      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v13);
   }
 
   v17 = [builder hash];
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

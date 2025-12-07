@@ -233,46 +233,44 @@ LABEL_65:
 
 void __31__ACCObjCType_typeForEncoding___block_invoke()
 {
-  v20[17] = *MEMORY[0x277D85DE8];
-  v19 = [[ACCObjCType alloc] initWithCode:0 encoding:@"c" name:@"char" className:0 size:1 flags:1];
-  v20[0] = v19;
-  v18 = [[ACCObjCType alloc] initWithCode:1 encoding:@"s" name:@"short" className:0 size:2 flags:1];
-  v20[1] = v18;
-  v17 = [[ACCObjCType alloc] initWithCode:2 encoding:@"i" name:@"int" className:0 size:4 flags:1];
-  v20[2] = v17;
-  v16 = [[ACCObjCType alloc] initWithCode:3 encoding:@"l" name:@"long" className:0 size:8 flags:1];
-  v20[3] = v16;
-  v15 = [[ACCObjCType alloc] initWithCode:4 encoding:@"q" name:@"long long" className:0 size:8 flags:1];
-  v20[4] = v15;
-  v14 = [[ACCObjCType alloc] initWithCode:5 encoding:@"C" name:@"unsigned char" className:0 size:1 flags:1];
-  v20[5] = v14;
-  v13 = [[ACCObjCType alloc] initWithCode:6 encoding:@"S" name:@"unsigned short" className:0 size:2 flags:1];
-  v20[6] = v13;
+  v19[17] = *MEMORY[0x277D85DE8];
+  v18 = [[ACCObjCType alloc] initWithCode:0 encoding:@"c" name:@"char" className:0 size:1 flags:1];
+  v19[0] = v18;
+  v17 = [[ACCObjCType alloc] initWithCode:1 encoding:@"s" name:@"short" className:0 size:2 flags:1];
+  v19[1] = v17;
+  v16 = [[ACCObjCType alloc] initWithCode:2 encoding:@"i" name:@"int" className:0 size:4 flags:1];
+  v19[2] = v16;
+  v15 = [[ACCObjCType alloc] initWithCode:3 encoding:@"l" name:@"long" className:0 size:8 flags:1];
+  v19[3] = v15;
+  v14 = [[ACCObjCType alloc] initWithCode:4 encoding:@"q" name:@"long long" className:0 size:8 flags:1];
+  v19[4] = v14;
+  v13 = [[ACCObjCType alloc] initWithCode:5 encoding:@"C" name:@"unsigned char" className:0 size:1 flags:1];
+  v19[5] = v13;
+  v12 = [[ACCObjCType alloc] initWithCode:6 encoding:@"S" name:@"unsigned short" className:0 size:2 flags:1];
+  v19[6] = v12;
   v0 = [[ACCObjCType alloc] initWithCode:7 encoding:@"I" name:@"unsigned int" className:0 size:4 flags:1];
-  v20[7] = v0;
+  v19[7] = v0;
   v1 = [[ACCObjCType alloc] initWithCode:8 encoding:@"L" name:@"unsigned long" className:0 size:8 flags:1];
-  v20[8] = v1;
+  v19[8] = v1;
   v2 = [[ACCObjCType alloc] initWithCode:9 encoding:@"Q" name:@"unsigned long long" className:0 size:8 flags:1];
-  v20[9] = v2;
+  v19[9] = v2;
   v3 = [[ACCObjCType alloc] initWithCode:10 encoding:@"f" name:@"float" className:0 size:4 flags:2];
-  v20[10] = v3;
+  v19[10] = v3;
   v4 = [[ACCObjCType alloc] initWithCode:11 encoding:@"d" name:@"double" className:0 size:8 flags:2];
-  v20[11] = v4;
+  v19[11] = v4;
   v5 = [[ACCObjCType alloc] initWithCode:12 encoding:@"B" name:@"BOOL" className:0 size:1 flags:1];
-  v20[12] = v5;
+  v19[12] = v5;
   v6 = [[ACCObjCType alloc] initWithCode:13 encoding:@"v" name:@"void" className:0 size:1 flags:0];
-  v20[13] = v6;
+  v19[13] = v6;
   v7 = [[ACCObjCType alloc] initWithCode:14 encoding:@"*" name:@"char*" className:0 size:8 flags:0];
-  v20[14] = v7;
+  v19[14] = v7;
   v8 = [[ACCObjCType alloc] initWithCode:15 encoding:@"@" name:@"id" className:0 size:8 flags:0];
-  v20[15] = v8;
+  v19[15] = v8;
   v9 = [[ACCObjCType alloc] initWithCode:16 encoding:@"#" name:@"Class" className:0 size:8 flags:0];
-  v20[16] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:17];
+  v19[16] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:17];
   v11 = _ACCObjCTypesByCode;
   _ACCObjCTypesByCode = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)typeForValue:(id)value

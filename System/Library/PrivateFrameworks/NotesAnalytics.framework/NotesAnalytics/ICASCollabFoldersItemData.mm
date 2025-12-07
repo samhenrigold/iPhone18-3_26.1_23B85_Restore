@@ -34,8 +34,8 @@
 
 - (id)toDict
 {
-  v28[7] = *MEMORY[0x277D85DE8];
-  v27[0] = @"totalFoldersCollabRootReadOnlyCount";
+  v27[7] = *MEMORY[0x277D85DE8];
+  v26[0] = @"totalFoldersCollabRootReadOnlyCount";
   totalFoldersCollabRootReadOnlyCount = [(ICASCollabFoldersItemData *)self totalFoldersCollabRootReadOnlyCount];
   if (totalFoldersCollabRootReadOnlyCount)
   {
@@ -47,9 +47,9 @@
     totalFoldersCollabRootReadOnlyCount2 = objc_opt_new();
   }
 
-  v25 = totalFoldersCollabRootReadOnlyCount2;
-  v28[0] = totalFoldersCollabRootReadOnlyCount2;
-  v27[1] = @"totalFoldersCollabSubfolderReadOnlyCount";
+  v24 = totalFoldersCollabRootReadOnlyCount2;
+  v27[0] = totalFoldersCollabRootReadOnlyCount2;
+  v26[1] = @"totalFoldersCollabSubfolderReadOnlyCount";
   totalFoldersCollabSubfolderReadOnlyCount = [(ICASCollabFoldersItemData *)self totalFoldersCollabSubfolderReadOnlyCount];
   if (totalFoldersCollabSubfolderReadOnlyCount)
   {
@@ -61,9 +61,9 @@
     totalFoldersCollabSubfolderReadOnlyCount2 = objc_opt_new();
   }
 
-  v23 = totalFoldersCollabSubfolderReadOnlyCount2;
-  v28[1] = totalFoldersCollabSubfolderReadOnlyCount2;
-  v27[2] = @"totalFoldersCollabRootReadWriteJoinedCount";
+  v22 = totalFoldersCollabSubfolderReadOnlyCount2;
+  v27[1] = totalFoldersCollabSubfolderReadOnlyCount2;
+  v26[2] = @"totalFoldersCollabRootReadWriteJoinedCount";
   totalFoldersCollabRootReadWriteJoinedCount = [(ICASCollabFoldersItemData *)self totalFoldersCollabRootReadWriteJoinedCount];
   if (totalFoldersCollabRootReadWriteJoinedCount)
   {
@@ -76,8 +76,8 @@
   }
 
   v6 = totalFoldersCollabRootReadWriteJoinedCount2;
-  v28[2] = totalFoldersCollabRootReadWriteJoinedCount2;
-  v27[3] = @"totalFoldersCollabSubfolderReadWriteJoinedCount";
+  v27[2] = totalFoldersCollabRootReadWriteJoinedCount2;
+  v26[3] = @"totalFoldersCollabSubfolderReadWriteJoinedCount";
   totalFoldersCollabSubfolderReadWriteJoinedCount = [(ICASCollabFoldersItemData *)self totalFoldersCollabSubfolderReadWriteJoinedCount];
   if (totalFoldersCollabSubfolderReadWriteJoinedCount)
   {
@@ -90,8 +90,8 @@
   }
 
   v9 = totalFoldersCollabSubfolderReadWriteJoinedCount2;
-  v28[3] = totalFoldersCollabSubfolderReadWriteJoinedCount2;
-  v27[4] = @"totalFoldersNotCollabCount";
+  v27[3] = totalFoldersCollabSubfolderReadWriteJoinedCount2;
+  v26[4] = @"totalFoldersNotCollabCount";
   totalFoldersNotCollabCount = [(ICASCollabFoldersItemData *)self totalFoldersNotCollabCount];
   if (totalFoldersNotCollabCount)
   {
@@ -104,8 +104,8 @@
   }
 
   v12 = totalFoldersNotCollabCount2;
-  v28[4] = totalFoldersNotCollabCount2;
-  v27[5] = @"totalFoldersCollabRootOwnedCount";
+  v27[4] = totalFoldersNotCollabCount2;
+  v26[5] = @"totalFoldersCollabRootOwnedCount";
   totalFoldersCollabRootOwnedCount = [(ICASCollabFoldersItemData *)self totalFoldersCollabRootOwnedCount];
   if (totalFoldersCollabRootOwnedCount)
   {
@@ -118,8 +118,8 @@
   }
 
   v15 = totalFoldersCollabRootOwnedCount2;
-  v28[5] = totalFoldersCollabRootOwnedCount2;
-  v27[6] = @"totalFoldersCollabSubfolderOwnedCount";
+  v27[5] = totalFoldersCollabRootOwnedCount2;
+  v26[6] = @"totalFoldersCollabSubfolderOwnedCount";
   totalFoldersCollabSubfolderOwnedCount = [(ICASCollabFoldersItemData *)self totalFoldersCollabSubfolderOwnedCount];
   if (totalFoldersCollabSubfolderOwnedCount)
   {
@@ -132,10 +132,8 @@
   }
 
   v18 = totalFoldersCollabSubfolderOwnedCount2;
-  v28[6] = totalFoldersCollabSubfolderOwnedCount2;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:7];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v27[6] = totalFoldersCollabSubfolderOwnedCount2;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:7];
 
   return v19;
 }

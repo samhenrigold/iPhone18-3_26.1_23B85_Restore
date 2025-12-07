@@ -11,7 +11,7 @@
   v19 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   managerCopy = manager;
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(managerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = objc_opt_class();
@@ -42,55 +42,56 @@
 
 void __75__AAUISettingsHelper_showAccountRecoveryFromViewController_accountManager___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a3;
   objc_copyWeak(&to, (a1 + 40));
-  objc_copyWeak(&v20, (a1 + 48));
+  objc_copyWeak(&v22, (a1 + 48));
   v6 = objc_loadWeakRetained(&to);
+  v7 = v6;
   if (v6)
   {
-    v7 = objc_loadWeakRetained(&v20);
-    if (!v7)
+    v8 = objc_loadWeakRetained(&v22);
+    if (!v8)
     {
       a2 = 0;
     }
 
     if (a2)
     {
-      v8 = MEMORY[0x1E69E96A0];
       v9 = MEMORY[0x1E69E96A0];
-      dispatch_assert_queue_V2(v8);
+      v10 = MEMORY[0x1E69E96A0];
+      dispatch_assert_queue_V2(v9);
 
-      v10 = _AAUILogSystem();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v12 = _AAUILogSystem(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        __99__AAUIAccountRecoveryManagementHook__showAccountRecoveryManagementWithServerAttributes_completion___block_invoke_cold_2(v10);
+        __99__AAUIAccountRecoveryManagementHook__showAccountRecoveryManagementWithServerAttributes_completion___block_invoke_cold_2(v12);
       }
 
-      v11 = [MEMORY[0x1E696AFB0] UUID];
-      v12 = [v11 UUIDString];
+      v13 = [MEMORY[0x1E696AFB0] UUID];
+      v14 = [v13 UUIDString];
 
-      v13 = [AAUIRecoveryContactsViewFactory createViewModelWithAccountManager:*(a1 + 32) telemetryFlowID:v12];
-      v14 = [AAUIRecoveryContactsViewFactory createWithViewModel:v13];
-      v15 = objc_loadWeakRetained(&to);
-      [v15 aaui_showViewController:v14 sender:*(a1 + 56)];
+      v15 = [AAUIRecoveryContactsViewFactory createViewModelWithAccountManager:*(a1 + 32) telemetryFlowID:v14];
+      v16 = [AAUIRecoveryContactsViewFactory createWithViewModel:v15];
+      v17 = objc_loadWeakRetained(&to);
+      [v17 aaui_showViewController:v16 sender:*(a1 + 56)];
     }
   }
 
-  v16 = _AAUILogSystem();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v18 = _AAUILogSystem(v6);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = objc_loadWeakRetained(&to);
-    v18 = objc_opt_class();
-    v19 = NSStringFromClass(v18);
+    v19 = objc_loadWeakRetained(&to);
+    v20 = objc_opt_class();
+    v21 = NSStringFromClass(v20);
     *buf = 138412546;
-    v23 = v19;
-    v24 = 2112;
-    v25 = v5;
-    _os_log_impl(&dword_1C5355000, v16, OS_LOG_TYPE_DEFAULT, "%@: Account recovery flow completed with error: %@", buf, 0x16u);
+    v25 = v21;
+    v26 = 2112;
+    v27 = v5;
+    _os_log_impl(&dword_1C5355000, v18, OS_LOG_TYPE_DEFAULT, "%@: Account recovery flow completed with error: %@", buf, 0x16u);
   }
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(&to);
 }
 
@@ -100,7 +101,7 @@ void __75__AAUISettingsHelper_showAccountRecoveryFromViewController_accountManag
   controllerCopy = controller;
   managerCopy = manager;
   identifierCopy = identifier;
-  v11 = _AAUILogSystem();
+  v11 = _AAUILogSystem(identifierCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = objc_opt_class();
@@ -131,55 +132,56 @@ void __75__AAUISettingsHelper_showAccountRecoveryFromViewController_accountManag
 
 void __98__AAUISettingsHelper_showAccountRecoveryFromViewController_accountManager_highlightRowIdentifier___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a3;
   objc_copyWeak(&to, (a1 + 40));
-  objc_copyWeak(&v20, (a1 + 48));
+  objc_copyWeak(&v22, (a1 + 48));
   v6 = objc_loadWeakRetained(&to);
+  v7 = v6;
   if (v6)
   {
-    v7 = objc_loadWeakRetained(&v20);
-    if (!v7)
+    v8 = objc_loadWeakRetained(&v22);
+    if (!v8)
     {
       a2 = 0;
     }
 
     if (a2)
     {
-      v8 = MEMORY[0x1E69E96A0];
       v9 = MEMORY[0x1E69E96A0];
-      dispatch_assert_queue_V2(v8);
+      v10 = MEMORY[0x1E69E96A0];
+      dispatch_assert_queue_V2(v9);
 
-      v10 = _AAUILogSystem();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v12 = _AAUILogSystem(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        __99__AAUIAccountRecoveryManagementHook__showAccountRecoveryManagementWithServerAttributes_completion___block_invoke_cold_2(v10);
+        __99__AAUIAccountRecoveryManagementHook__showAccountRecoveryManagementWithServerAttributes_completion___block_invoke_cold_2(v12);
       }
 
-      v11 = [MEMORY[0x1E696AFB0] UUID];
-      v12 = [v11 UUIDString];
+      v13 = [MEMORY[0x1E696AFB0] UUID];
+      v14 = [v13 UUIDString];
 
-      v13 = [AAUIRecoveryContactsViewFactory createViewModelWithAccountManager:*(a1 + 32) telemetryFlowID:v12];
-      v14 = [AAUIRecoveryContactsViewFactory createWithViewModel:v13];
-      v15 = objc_loadWeakRetained(&to);
-      [v15 aaui_showViewController:v14 sender:*(a1 + 56)];
+      v15 = [AAUIRecoveryContactsViewFactory createViewModelWithAccountManager:*(a1 + 32) telemetryFlowID:v14];
+      v16 = [AAUIRecoveryContactsViewFactory createWithViewModel:v15];
+      v17 = objc_loadWeakRetained(&to);
+      [v17 aaui_showViewController:v16 sender:*(a1 + 56)];
     }
   }
 
-  v16 = _AAUILogSystem();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v18 = _AAUILogSystem(v6);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = objc_loadWeakRetained(&to);
-    v18 = objc_opt_class();
-    v19 = NSStringFromClass(v18);
+    v19 = objc_loadWeakRetained(&to);
+    v20 = objc_opt_class();
+    v21 = NSStringFromClass(v20);
     *buf = 138412546;
-    v23 = v19;
-    v24 = 2112;
-    v25 = v5;
-    _os_log_impl(&dword_1C5355000, v16, OS_LOG_TYPE_DEFAULT, "%@: Account recovery flow completed with error: %@", buf, 0x16u);
+    v25 = v21;
+    v26 = 2112;
+    v27 = v5;
+    _os_log_impl(&dword_1C5355000, v18, OS_LOG_TYPE_DEFAULT, "%@: Account recovery flow completed with error: %@", buf, 0x16u);
   }
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(&to);
 }
 

@@ -70,10 +70,7 @@ uint64_t __53__CHDatabaseClientHandleManager_databaseClientHandle__block_invoke(
     objc_storeWeak((*(a1 + 32) + 24), v3);
   }
 
-  v4 = objc_loadWeakRetained((*(a1 + 32) + 24));
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  *(*(*(a1 + 40) + 8) + 40) = objc_loadWeakRetained((*(a1 + 32) + 24));
 
   return MEMORY[0x1EEE66BB8]();
 }

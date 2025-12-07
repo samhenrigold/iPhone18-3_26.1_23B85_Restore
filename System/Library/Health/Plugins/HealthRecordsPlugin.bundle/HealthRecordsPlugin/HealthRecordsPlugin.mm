@@ -11,52 +11,41 @@ uint64_t sub_1C14()
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 40) & ~v3;
-  v5 = (*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v6 = (v5 + 23) & 0xFFFFFFFFFFFFFFF8;
-  v7 = *(v0 + 16);
+  v5 = (((*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8) + 23) & 0xFFFFFFFFFFFFFFF8;
   swift_unknownObjectRelease();
 
   (*(v2 + 8))(v0 + v4, v1);
-  v8 = *(v0 + v5 + 8);
 
-  v9 = *(v0 + v6 + 8);
-
-  return _swift_deallocObject(v0, v6 + 16, v3 | 7);
+  return _swift_deallocObject(v0, v5 + 16, v3 | 7);
 }
 
 uint64_t sub_1D14()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
 
 uint64_t sub_1D4C()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-
-  v2 = *(v0 + 56);
 
   return _swift_deallocObject(v0, 64, 7);
 }
 
 uint64_t sub_1D9C()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
 
   if (*(v0 + 56))
   {
-    v2 = *(v0 + 64);
   }
 
   return _swift_deallocObject(v0, 72, 7);
 }
 
-void sub_21B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_21B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -85,7 +74,7 @@ id sub_21D8(uint64_t a1, void *a2, uint64_t a3)
 
 BOOL sub_231C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = [HDSignedClinicalDataIssuerEntity codableWithRow:a4 error:a8];
+  v10 = [HDSignedClinicalDataIssuerEntity codableWithRow:a4 error:a8, a5, a6, a7];
   if (v10)
   {
     v11 = HDSQLiteColumnWithNameAsInt64();
@@ -129,6 +118,13 @@ BOOL sub_2670(id a1, HDSyncCodable *a2)
   }
 
   return v3 != 0;
+}
+
+void sub_3A28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
+{
+  va_start(va, a46);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 intptr_t sub_3A48(uint64_t a1)
@@ -226,10 +222,11 @@ void sub_3C58(uint64_t a1)
   }
 }
 
-void sub_59C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
+void sub_59C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, ...)
 {
+  va_start(va, a47);
   _Block_object_dispose(&a44, 8);
-  _Block_object_dispose(&a48, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -304,9 +301,9 @@ void sub_723C(id a1, HDClinicalAccount *a2, id a3)
   (*(a3 + 2))(v5, v10, v9);
 }
 
-void sub_83A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_83A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -378,10 +375,11 @@ BOOL sub_874C(id a1, NSError *a2)
   return v5;
 }
 
-void sub_8CA4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_8CA4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 void sub_95E8(uint64_t a1, void *a2, void *a3, void *a4)
@@ -500,53 +498,53 @@ void sub_B074(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-uint64_t sub_B240(uint64_t a1)
+uint64_t sub_B240(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = HDSQLiteColumnWithNameAsString();
-  v3 = HDSQLiteColumnWithNameAsDate();
-  v4 = v3;
-  if (v2)
+  v4 = HDSQLiteColumnWithNameAsString();
+  v5 = HDSQLiteColumnWithNameAsDate();
+  v6 = v5;
+  if (v4)
   {
-    v5 = v3 == 0;
+    v7 = v5 == 0;
   }
 
   else
   {
-    v5 = 1;
+    v7 = 1;
   }
 
-  if (v5)
+  if (v7)
   {
     _HKInitializeLogging();
-    v6 = HKLogHealthRecords;
+    v8 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
     {
-      sub_9C6E0(a1, v6);
+      sub_9C6E0(a1, v8);
     }
   }
 
   else
   {
-    v7 = [[HKSignedClinicalDataRegistryPublicKeyEntry alloc] initWithKeyID:v2 added:v3 removed:0 source:0 jwkData:0];
-    [*(a1 + 32) addObject:v7];
+    v9 = [[HKSignedClinicalDataRegistryPublicKeyEntry alloc] initWithKeyID:v4 added:v5 removed:0 source:0 jwkData:0];
+    [*(a1 + 32) addObject:v9];
   }
 
   return 1;
 }
 
-void sub_B7A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_B7A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v10 - 144), 8);
+  _Block_object_dispose((v17 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -557,50 +555,38 @@ uint64_t sub_B7E0(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_B7F8(void *a1)
+uint64_t sub_B7F8(void *a1, uint64_t a2, uint64_t a3)
 {
-  v2 = HDSQLiteColumnWithNameAsDate();
-  v3 = *(a1[4] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v4 = HDSQLiteColumnWithNameAsDate();
+  v5 = *(a1[4] + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 
-  v5 = HDSQLiteColumnWithNameAsDate();
-  v6 = *(a1[5] + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  v7 = HDSQLiteColumnWithNameAsDate();
+  v8 = *(a1[5] + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v7;
 
-  v8 = HDSQLiteColumnWithNameAsData();
-  v9 = *(a1[6] + 8);
-  v10 = *(v9 + 40);
-  *(v9 + 40) = v8;
+  *(*(a1[6] + 8) + 40) = HDSQLiteColumnWithNameAsData();
 
   return _objc_release_x1();
 }
 
-uint64_t sub_BA0C(void *a1)
+uint64_t sub_BA0C(void *a1, uint64_t a2)
 {
-  v2 = a1[4];
   HDSQLiteBindStringToProperty();
-  v3 = a1[5];
   HDSQLiteBindDateToProperty();
-  v4 = a1[6];
   HDSQLiteBindDateToProperty();
-  v5 = +[NSDate now];
+  v2 = +[NSDate now];
   HDSQLiteBindDateToProperty();
 
-  v6 = a1[7];
   HDSQLiteBindStringToProperty();
-  if (!a1[6])
-  {
-    v7 = a1[8];
-  }
 
   return HDSQLiteBindDataToProperty();
 }
 
-uint64_t sub_BD80(uint64_t a1)
+uint64_t sub_BD80(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   HDSQLiteBindDateToProperty();
   v2 = +[NSDate now];
   HDSQLiteBindDateToProperty();
@@ -623,11 +609,11 @@ uint64_t _ingestionStatusFromHKClinicalIngestionState(uint64_t a1)
 
 void sub_C0D8(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   _HKInitializeLogging();
   if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
   {
-    sub_9C850(a1);
+    sub_9C850();
   }
 }
 
@@ -656,11 +642,11 @@ uint64_t _accountsEventFromHKClinicalAccountStateChangeType(uint64_t a1)
 
 void sub_C774(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   _HKInitializeLogging();
   if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
   {
-    sub_9C9AC(a1);
+    sub_9C9AC();
   }
 }
 
@@ -701,16 +687,14 @@ BOOL sub_E2AC(id a1, HKClinicalGatewayEndpointSchemaParameter *a2)
   return v3;
 }
 
-void sub_E4E4(uint64_t a1)
+void sub_E4E4(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   HDSQLiteBindStringToProperty();
-  v3 = *(a1 + 40);
   HDSQLiteBindStringToProperty();
-  v4 = [*(a1 + 48) absoluteString];
+  v3 = [*(a1 + 48) absoluteString];
   HDSQLiteBindStringToProperty();
 
-  v5 = [*(a1 + 56) absoluteString];
+  v4 = [*(a1 + 56) absoluteString];
   HDSQLiteBindStringToProperty();
 }
 
@@ -724,34 +708,32 @@ uint64_t sub_E66C(uint64_t a1, sqlite3_stmt *a2)
 void sub_F524(uint64_t a1)
 {
   v2 = [*(a1 + 32) debugDescription];
-  v3 = *(a1 + 48);
-  v4 = HKClinicalContentAnalyticsTriggerReasonToString();
-  v5 = *(a1 + 56);
-  v6 = HKClinicalContentAnalyticsTriggerOptionsToString();
-  v7 = [NSString stringWithFormat:@"%@ content analytics collection (%@: %@)", v2, v4, v6];
+  v3 = HKClinicalContentAnalyticsTriggerReasonToString();
+  v4 = HKClinicalContentAnalyticsTriggerOptionsToString();
+  v5 = [NSString stringWithFormat:@"%@ content analytics collection (%@: %@)", v2, v3, v4];
 
   _HKInitializeLogging();
-  v8 = HKLogHealthRecords;
+  v6 = HKLogHealthRecords;
   if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v19 = v7;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "%{public}@ triggered", buf, 0xCu);
+    v17 = v5;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "%{public}@ triggered", buf, 0xCu);
   }
 
-  v9 = *(a1 + 32);
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_F6CC;
-  v13[3] = &unk_105E40;
-  v14 = v7;
-  v15 = v9;
-  v10 = *(a1 + 56);
-  v11 = *(a1 + 40);
-  v17 = *(a1 + 48);
-  v16 = v11;
-  v12 = v7;
-  [v9 _queue_triggerClinicalContentAnalyticsWithOptions:v10 completion:v13];
+  v7 = *(a1 + 32);
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_F6CC;
+  v11[3] = &unk_105E40;
+  v12 = v5;
+  v13 = v7;
+  v8 = *(a1 + 56);
+  v9 = *(a1 + 40);
+  v15 = *(a1 + 48);
+  v14 = v9;
+  v10 = v5;
+  [v7 _queue_triggerClinicalContentAnalyticsWithOptions:v8 completion:v11];
 }
 
 void sub_F6CC(uint64_t a1, void *a2, void *a3)
@@ -828,13 +810,12 @@ id sub_FCC8(uint64_t a1, void *a2, void *a3, void *a4)
     v11 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_INFO))
     {
-      v12 = *(a1 + 32);
-      v13 = v11;
-      v15 = 138543618;
-      v16 = objc_opt_class();
-      v17 = 2114;
-      v18 = v7;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "%{public}@: metric on gateway from %{public}@ may not be submitted, discarding", &v15, 0x16u);
+      v12 = v11;
+      v14 = 138543618;
+      v15 = objc_opt_class();
+      v16 = 2114;
+      v17 = v7;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "%{public}@: metric on gateway from %{public}@ may not be submitted, discarding", &v14, 0x16u);
     }
   }
 
@@ -847,26 +828,25 @@ uint64_t sub_FE00(uint64_t a1, uint64_t a2)
   v4 = HKLogHealthRecords;
   if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = v4;
-    v8 = 138543618;
-    v9 = objc_opt_class();
-    v10 = 2048;
-    v11 = a2;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: %ld ingestion analytics submitted", &v8, 0x16u);
+    v5 = v4;
+    v7 = 138543618;
+    v8 = objc_opt_class();
+    v9 = 2048;
+    v10 = a2;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: %ld ingestion analytics submitted", &v7, 0x16u);
   }
 
   return (*(*(a1 + 40) + 16))();
 }
 
-void sub_103DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_103DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_10404(uint64_t a1, void *a2)
+uint64_t sub_10404(void *a1, void *a2)
 {
   v4 = *(a1 + 64);
   if (v4 != 1)
@@ -879,10 +859,10 @@ LABEL_9:
     v11 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_INFO))
     {
-      v12 = *(a1 + 40);
+      v12 = a1[5];
       v13 = v11;
       v14 = [v12 debugDescription];
-      v15 = [*(a1 + 48) batchCount];
+      v15 = [a1[6] batchCount];
       v16 = [v6 integerValue];
       *buf = 138543874;
       v64 = v14;
@@ -894,7 +874,7 @@ LABEL_9:
     }
 
     v61 = 0;
-    v17 = *(a1 + 40);
+    v17 = a1[5];
     v60 = v8;
     v18 = [v17 _queue_fetchRecordsForContentAnalyticsWithStartAnchor:objc_msgSend(v6 limitCount:"longLongValue") finalAnchor:v10 error:{&v61, &v60}];
     v19 = v60;
@@ -911,7 +891,7 @@ LABEL_9:
         v20 = 0;
       }
 
-      *(*(*(a1 + 56) + 8) + 24) = v20;
+      *(*(a1[7] + 8) + 24) = v20;
       v58 = 0u;
       v59 = 0u;
       v56 = 0u;
@@ -938,7 +918,7 @@ LABEL_9:
             v52[2] = 3221225472;
             v52[3] = sub_10960;
             v52[4] = &unk_105F30;
-            v53 = *(a1 + 48);
+            v53 = a1[6];
             v54 = v32;
             HKWithAutoreleasePool();
             v33 = 0;
@@ -952,8 +932,8 @@ LABEL_9:
 
       if (*(a1 + 65) == 1)
       {
-        v34 = *(a1 + 48);
-        WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 48));
+        v34 = a1[6];
+        WeakRetained = objc_loadWeakRetained((a1[5] + 48));
         v36 = [WeakRetained daemon];
         v37 = [v36 analyticsSubmissionCoordinator];
         [v34 submitMetricsWithCoordinator:v37];
@@ -967,12 +947,12 @@ LABEL_35:
         v39 = HKLogHealthRecords;
         if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_INFO))
         {
-          v40 = *(a1 + 40);
+          v40 = a1[5];
           v41 = v39;
           v42 = [v40 debugDescription];
-          v43 = [*(a1 + 48) batchCount];
+          v43 = [a1[6] batchCount];
           v44 = v61;
-          v45 = [*(a1 + 48) debugDescription];
+          v45 = [a1[6] debugDescription];
           *buf = 138544130;
           v64 = v42;
           v65 = 2048;
@@ -984,12 +964,12 @@ LABEL_35:
           _os_log_impl(&dword_0, v41, OS_LOG_TYPE_INFO, "%{public}@: content analytics batch %ld finished at anchor %lld. Result: %{public}@", buf, 0x2Au);
         }
 
-        if (*(*(*(a1 + 56) + 8) + 24) == 1)
+        if (*(*(a1[7] + 8) + 24) == 1)
         {
-          [*(a1 + 48) incrementBatchCount];
+          [a1[6] incrementBatchCount];
           if (*(a1 + 65) == 1)
           {
-            [*(a1 + 48) resetMetrics];
+            [a1[6] resetMetrics];
           }
         }
 
@@ -1000,7 +980,7 @@ LABEL_46:
         goto LABEL_47;
       }
 
-      v46 = *(a1 + 32);
+      v46 = a1[4];
       v47 = [NSNumber numberWithLongLong:v61];
       v52[0] = v19;
       v48 = [v46 setNumber:v47 forKey:@"contentAnalyticsAnchor" error:v52];
@@ -1040,7 +1020,7 @@ LABEL_46:
     goto LABEL_46;
   }
 
-  v5 = *(a1 + 32);
+  v5 = a1[4];
   v62 = 0;
   v6 = [v5 numberForKey:@"contentAnalyticsAnchor" error:&v62];
   v7 = v62;
@@ -1086,9 +1066,9 @@ LABEL_47:
   return v26;
 }
 
-void sub_10B9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10B9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1209,10 +1189,11 @@ BOOL sub_10DB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
   return v8 != 0;
 }
 
-void sub_1160C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1160C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 HKClinicalGateway *__cdecl sub_130E8(id a1, HDClinicalGateway *a2)
@@ -1334,9 +1315,9 @@ LABEL_11:
   return v15;
 }
 
-void sub_14B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_14B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1470,22 +1451,23 @@ id sub_16214(id a1, HDFHIRResourceObjectPair *a2)
   return v3;
 }
 
-void sub_168D8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_168D8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-id HDHealthRecordsPluginBundle()
+id HDHealthRecordsPluginBundle(uint64_t a1)
 {
   if (qword_128808 != -1)
   {
     sub_9D578();
   }
 
-  v1 = qword_128810;
+  v2 = qword_128810;
 
-  return v1;
+  return v2;
 }
 
 void sub_169E8(id a1)
@@ -1523,10 +1505,11 @@ id sub_16FFC(void *a1, void *a2, uint64_t a3)
   return v9;
 }
 
-void sub_172A4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_172A4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_179C4(uint64_t a1, void *a2)
@@ -1557,9 +1540,9 @@ void sub_179C4(uint64_t a1, void *a2)
   (*(*(a1 + 40) + 16))();
 }
 
-void sub_17E5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_17E5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1577,34 +1560,33 @@ BOOL sub_17E8C(uint64_t a1, void *a2, uint64_t a3)
   v6 = [*(a1 + 64) predicateForObjectsFromLocalSourceWithBundleIdentifier:*(a1 + 32) profile:*(a1 + 40) error:a3];
   if (v6)
   {
-    v7 = *(a1 + 48);
-    v8 = HDMedicalRecordEntityPredicateForFHIRIdentifier();
-    v9 = [HDSQLitePredicate compoundPredicateWithPredicate:v6 otherPredicate:v8];
-    v10 = *(a1 + 64);
-    v11 = [v5 databaseForEntityClass:v10];
-    v12 = [v10 _medicalRecordsWithPredicate:v9 withoutConceptIndex:0 excludeSignedClinicalDataRecords:0 database:v11 profile:*(a1 + 40) error:a3];
+    v7 = HDMedicalRecordEntityPredicateForFHIRIdentifier();
+    v8 = [HDSQLitePredicate compoundPredicateWithPredicate:v6 otherPredicate:v7];
+    v9 = *(a1 + 64);
+    v10 = [v5 databaseForEntityClass:v9];
+    v11 = [v9 _medicalRecordsWithPredicate:v8 withoutConceptIndex:0 excludeSignedClinicalDataRecords:0 database:v10 profile:*(a1 + 40) error:a3];
 
-    v13 = v12 != 0;
-    if (v12)
+    v12 = v11 != 0;
+    if (v11)
     {
-      v14 = [v12 firstObject];
-      v15 = *(*(a1 + 56) + 8);
-      v16 = *(v15 + 40);
-      *(v15 + 40) = v14;
+      v13 = [v11 firstObject];
+      v14 = *(*(a1 + 56) + 8);
+      v15 = *(v14 + 40);
+      *(v14 + 40) = v13;
     }
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  return v13;
+  return v12;
 }
 
-void sub_18264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_18264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1681,7 +1663,7 @@ void sub_1893C(id a1, HKMedicalRecord *a2, id a3)
 
 uint64_t sub_190E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v7 = [NSNumber numberWithLongLong:a2];
+  v7 = [NSNumber numberWithLongLong:a2, a4];
   v8 = [HDMedicalRecordEntity entityWithPersistentID:v7];
 
   if (v8)
@@ -1716,16 +1698,6 @@ uint64_t sub_190E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
   }
 
   return v10;
-}
-
-uint64_t sub_192F4(uint64_t a1)
-{
-  if (*(a1 + 32))
-  {
-    v1 = *(a1 + 32);
-  }
-
-  return HDSQLiteBindNumberToProperty();
 }
 
 void sub_1938C(id a1)
@@ -1763,51 +1735,51 @@ void sub_1938C(id a1)
   qword_128818 = v1;
 }
 
-uint64_t sub_199A0(uint64_t a1)
+uint64_t sub_199A0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (HDSQLiteColumnWithNameAsInteger() != 2)
   {
-    v2 = HDSQLiteColumnWithNameAsNumber();
-    v3 = v2;
-    if (v2)
+    v5 = HDSQLiteColumnWithNameAsNumber();
+    v6 = v5;
+    if (v5)
     {
-      v4 = v2;
+      v7 = v5;
     }
 
     else
     {
-      v4 = &off_110060;
+      v7 = &off_110060;
     }
 
-    v5 = v4;
+    v8 = v7;
 
-    if (*(a1 + 40) != 1 || [v5 integerValue] != &stru_B8.reserved1)
+    if (*(a1 + 40) != 1 || [v8 integerValue] != &stru_B8.reserved1)
     {
-      v6 = HDSQLiteColumnWithNameAsNumber();
-      v7 = v6;
-      if (v6)
+      v9 = HDSQLiteColumnWithNameAsNumber();
+      v10 = v9;
+      if (v9)
       {
-        v8 = v6;
+        v11 = v9;
       }
 
       else
       {
-        v8 = &off_110060;
+        v11 = &off_110060;
       }
 
-      v9 = v8;
+      v12 = v11;
 
-      v10 = [*(a1 + 32) objectForKeyedSubscript:v5];
-      v11 = v10;
-      if (v10)
+      v13 = [*(a1 + 32) objectForKeyedSubscript:v8];
+      v14 = v13;
+      if (v13)
       {
-        [v10 addObject:v9];
+        [v13 addObject:v12];
       }
 
       else
       {
-        v12 = [[NSMutableArray alloc] initWithObjects:{v9, 0}];
-        [*(a1 + 32) setObject:v12 forKeyedSubscript:v5];
+        v15 = [[NSMutableArray alloc] initWithObjects:{v12, 0}];
+        [*(a1 + 32) setObject:v15 forKeyedSubscript:v8];
       }
     }
   }
@@ -1940,24 +1912,24 @@ NSString *__cdecl sub_1AA34(id a1)
 uint64_t sub_1AB08(uint64_t a1, sqlite3_stmt *a2)
 {
   sqlite3_bind_int64(a2, 1, [*(a1 + 32) persistentID]);
-  v3 = *(a1 + 40);
 
   return HDSQLiteBindFoundationValueToStatement();
 }
 
-uint64_t sub_1AB60(uint64_t a1)
+uint64_t sub_1AB60(uint64_t a1, uint64_t a2)
 {
-  v2 = HDSQLiteColumnAsNumber();
-  v3 = [HDOriginalFHIRResourceEntity entityWithPersistentID:v2];
-  [*(a1 + 32) addObject:v3];
+  v3 = HDSQLiteColumnAsNumber();
+  v4 = [HDOriginalFHIRResourceEntity entityWithPersistentID:v3];
+  [*(a1 + 32) addObject:v4];
 
   return 1;
 }
 
-void sub_1B054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
+void sub_1B054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
 {
-  _Block_object_dispose(&a38, 8);
-  _Block_object_dispose((v38 - 184), 8);
+  va_start(va, a37);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v37 - 184), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1978,26 +1950,24 @@ id sub_1B0A8(uint64_t a1)
   return v4;
 }
 
-uint64_t sub_1B15C(uint64_t a1)
+uint64_t sub_1B15C(uint64_t a1, uint64_t a2)
 {
-  v2 = HDSQLiteColumnAsNumber();
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v3 = HDSQLiteColumnAsNumber();
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
-  v5 = HDSQLiteColumnAsDate();
-  v6 = *(*(a1 + 40) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  v6 = HDSQLiteColumnAsDate();
+  v7 = *(*(a1 + 40) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v6;
 
   return 1;
 }
 
-uint64_t sub_1B1CC(uint64_t a1)
+uint64_t sub_1B1CC(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   HDSQLiteBindNumberToProperty();
-  v3 = *(a1 + 40);
 
   return HDSQLiteBindDateToProperty();
 }
@@ -2011,19 +1981,19 @@ id sub_1B45C(uint64_t a1)
   return v3;
 }
 
-uint64_t sub_1B500(uint64_t a1)
+uint64_t sub_1B500(uint64_t a1, uint64_t a2)
 {
-  v2 = HDSQLiteColumnAsDate();
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v3 = HDSQLiteColumnAsDate();
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
   return 1;
 }
 
-void sub_1BDBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BDBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2045,9 +2015,9 @@ BOOL sub_1BDEC(void *a1, uint64_t a2)
   return *(*(a1[6] + 8) + 40) != 0;
 }
 
-void sub_1C000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2195,15 +2165,15 @@ void sub_1DC6C(id a1, HDClinicalAccount *a2, id a3)
   v4[2](v4, v10, v11);
 }
 
-void sub_1F5E0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1F5E0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x20u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x20u);
 }
 
 id sub_1F618(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 56);
 
   return a2;
 }
@@ -2214,9 +2184,9 @@ id sub_1F630()
   return [v0 count];
 }
 
-void sub_1FAE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1FAE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2230,18 +2200,14 @@ uint64_t sub_1FB0C(uint64_t result, uint64_t a2)
 
 uint64_t sub_1FB24(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() _issuerWithRow:a3];
-  v6 = *(*(a1 + 40) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  *(*(*(a1 + 40) + 8) + 40) = [objc_opt_class() _issuerWithRow:a3];
 
   return _objc_release_x1();
 }
 
-void sub_1FCDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1FCDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2388,9 +2354,8 @@ id sub_20568(uint64_t a1, uint64_t a2, uint64_t a3)
   return v7;
 }
 
-void sub_20BF0(uint64_t a1)
+void sub_20BF0(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 48);
   HDSQLiteBindInt64ToProperty();
   v3 = [*(a1 + 32) identifier];
   HDSQLiteBindStringToProperty();
@@ -2443,7 +2408,7 @@ uint64_t sub_21050(void *a1, void *a2)
     v8 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
     {
-      sub_9EB58(a1, v8);
+      sub_9EB58(a1, v8, v7);
     }
   }
 
@@ -2510,15 +2475,16 @@ void sub_226F0(uint64_t a1, void *a2)
   objc_autoreleasePoolPop(v4);
 }
 
-void sub_229AC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_229AC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void sub_22C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2707,11 +2673,11 @@ BOOL sub_234C8(id a1, HDSyncCodable *a2)
   return v3 != 0;
 }
 
-void sub_24230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_24230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 144), 8);
+  _Block_object_dispose((v16 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2786,31 +2752,31 @@ id sub_250DC(uint64_t a1, uint64_t a2, uint64_t a3)
   return v7;
 }
 
-void sub_25230(uint64_t a1)
+void sub_25230(uint64_t a1, uint64_t a2)
 {
-  v2 = [*(a1 + 32) accountIdentifier];
+  v3 = [*(a1 + 32) accountIdentifier];
   HDSQLiteBindUUIDToProperty();
 
   [*(a1 + 32) type];
   HDSQLiteBindInt64ToProperty();
-  v3 = [*(a1 + 32) caller];
+  v4 = [*(a1 + 32) caller];
   HDSQLiteBindStringToProperty();
 
-  v4 = [*(a1 + 32) timestamp];
+  v5 = [*(a1 + 32) timestamp];
   HDSQLiteBindDateToProperty();
 
-  v5 = [*(a1 + 32) eventDescription];
+  v6 = [*(a1 + 32) eventDescription];
   HDSQLiteBindStringToProperty();
 
-  v7 = +[HDClinicalAccountEventEntity _wrapHKOptionalClinicalAccountCredentialStateInNSNumber:](HDClinicalAccountEventEntity, "_wrapHKOptionalClinicalAccountCredentialStateInNSNumber:", [*(a1 + 32) credentialStateBefore]);
+  v8 = +[HDClinicalAccountEventEntity _wrapHKOptionalClinicalAccountCredentialStateInNSNumber:](HDClinicalAccountEventEntity, "_wrapHKOptionalClinicalAccountCredentialStateInNSNumber:", [*(a1 + 32) credentialStateBefore]);
   HDSQLiteBindNumberToProperty();
-  v6 = +[HDClinicalAccountEventEntity _wrapHKOptionalClinicalAccountCredentialStateInNSNumber:](HDClinicalAccountEventEntity, "_wrapHKOptionalClinicalAccountCredentialStateInNSNumber:", [*(a1 + 32) credentialStateAfter]);
+  v7 = +[HDClinicalAccountEventEntity _wrapHKOptionalClinicalAccountCredentialStateInNSNumber:](HDClinicalAccountEventEntity, "_wrapHKOptionalClinicalAccountCredentialStateInNSNumber:", [*(a1 + 32) credentialStateAfter]);
   HDSQLiteBindNumberToProperty();
 }
 
-void sub_255CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_255CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2822,14 +2788,12 @@ uint64_t sub_255E4(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_255FC(uint64_t a1)
+void sub_255FC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = HDSQLiteColumnWithNameAsNumber();
-  v5 = [v3 _unwrapHKClinicalAccountCredentialStateFromNSNumber:v4];
+  v4 = objc_opt_class();
+  v5 = HDSQLiteColumnWithNameAsNumber();
+  v6 = [v4 _unwrapHKClinicalAccountCredentialStateFromNSNumber:v5];
 
-  v6 = *(a1 + 32);
   v7 = objc_opt_class();
   v8 = HDSQLiteColumnWithNameAsNumber();
   v9 = [v7 _unwrapHKClinicalAccountCredentialStateFromNSNumber:v8];
@@ -2840,15 +2804,15 @@ void sub_255FC(uint64_t a1)
   v12 = HDSQLiteColumnWithNameAsString();
   v13 = HDSQLiteColumnWithNameAsDate();
   v14 = HDSQLiteColumnWithNameAsString();
-  v15 = [v10 initWithAccountIdentifier:v18 type:v11 caller:v12 timestamp:v13 eventDescription:v14 credentialStateBefore:v5 credentialStateAfter:v9];
+  v15 = [v10 initWithAccountIdentifier:v18 type:v11 caller:v12 timestamp:v13 eventDescription:v14 credentialStateBefore:v6 credentialStateAfter:v9];
   v16 = *(*(a1 + 40) + 8);
   v17 = *(v16 + 40);
   *(v16 + 40) = v15;
 }
 
-void sub_25904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2866,14 +2830,14 @@ BOOL sub_2591C(void *a1, void *a2, uint64_t a3)
   return *(*(a1[5] + 8) + 40) != 0;
 }
 
-void sub_25BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_25BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2907,12 +2871,12 @@ BOOL sub_25C24(uint64_t a1, void *a2)
   return v5 != 0;
 }
 
-uint64_t sub_26114(uint64_t a1)
+uint64_t sub_26114(uint64_t a1, uint64_t a2)
 {
-  v2 = HDSQLiteColumnAsUUID();
-  if (v2)
+  v3 = HDSQLiteColumnAsUUID();
+  if (v3)
   {
-    [*(a1 + 32) addObject:v2];
+    [*(a1 + 32) addObject:v3];
   }
 
   return 1;
@@ -3047,9 +3011,9 @@ LABEL_13:
   return v26;
 }
 
-void sub_29704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_29704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3158,11 +3122,11 @@ void sub_2A7CC(uint64_t a1, int a2, void *a3, void *a4)
   }
 }
 
-void sub_2B4BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2B4BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3221,9 +3185,9 @@ void sub_2B5AC(uint64_t a1, void *a2)
   (*(*(a1 + 40) + 16))();
 }
 
-void sub_2CB1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2CB1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3262,9 +3226,9 @@ BOOL sub_2CB5C(uint64_t a1, void *a2, uint64_t a3)
   return v13;
 }
 
-void sub_2CFE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2CFE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3283,11 +3247,12 @@ BOOL sub_2D010(uint64_t a1, void *a2, uint64_t a3)
   return v10;
 }
 
-void sub_2D76C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_2D76C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
 {
+  va_start(va, a48);
   _Block_object_dispose(&a43, 8);
-  _Block_object_dispose(&a49, 8);
-  _Block_object_dispose((v49 - 176), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v48 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3420,15 +3385,15 @@ id sub_2DBB4(uint64_t a1, uint64_t a2, uint64_t a3)
   return v6;
 }
 
-void sub_2DC14(uint64_t a1, int a2, void *a3, void *a4)
+void sub_2DC14(void **a1, int a2, void *a3, void *a4)
 {
   v7 = a3;
   v8 = a4;
-  v9 = *(*(a1 + 64) + 8);
+  v9 = *(a1[8] + 1);
   v10 = *(v9 + 40);
   if (v10)
   {
-    v11 = *(a1 + 32);
+    v11 = a1[4];
     v12 = [*(v9 + 40) identifier];
     v58 = 0;
     v13 = [v11 accountWithIdentifier:v12 error:&v58];
@@ -3436,7 +3401,7 @@ void sub_2DC14(uint64_t a1, int a2, void *a3, void *a4)
 
     if (v13)
     {
-      objc_storeStrong((*(*(a1 + 64) + 8) + 40), v13);
+      objc_storeStrong((*(a1[8] + 1) + 40), v13);
     }
 
     else
@@ -3445,11 +3410,11 @@ void sub_2DC14(uint64_t a1, int a2, void *a3, void *a4)
       v16 = HKLogHealthRecords;
       if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
       {
-        sub_A0704((a1 + 32), v16);
+        sub_A0704(a1 + 4, v16);
       }
     }
 
-    v15 = *(*(*(a1 + 64) + 8) + 40);
+    v15 = *(*(a1[8] + 1) + 40);
   }
 
   else
@@ -3467,9 +3432,9 @@ void sub_2DC14(uint64_t a1, int a2, void *a3, void *a4)
   else
   {
     v20 = [HKClinicalEphemeralAccount alloc];
-    v21 = [*(*(*(a1 + 72) + 8) + 40) hkGateway];
+    v21 = [*(*(a1[9] + 1) + 40) hkGateway];
     v22 = [v7 asAuthResponse];
-    v23 = [*(*(*(a1 + 80) + 8) + 40) requestedScope];
+    v23 = [*(*(a1[10] + 1) + 40) requestedScope];
     v19 = [v20 initWithGateway:v21 authResponse:v22 requestedScopeString:v23];
   }
 
@@ -3479,7 +3444,7 @@ void sub_2DC14(uint64_t a1, int a2, void *a3, void *a4)
   {
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = *(a1 + 32);
+      v25 = a1[4];
       v26 = v24;
       v27 = [v25 debugDescription];
       v28 = [v19 identifier];
@@ -3490,8 +3455,8 @@ void sub_2DC14(uint64_t a1, int a2, void *a3, void *a4)
       _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "%{public}@ successfully completed token fetch for account %{public}@", buf, 0x16u);
     }
 
-    v29 = [*(*(*(a1 + 80) + 8) + 40) state];
-    v30 = *(a1 + 40);
+    v29 = [*(*(a1[10] + 1) + 40) state];
+    v30 = a1[5];
     v57 = 0;
     v31 = [HDClinicalAuthorizationSessionEntity deleteSessionWithState:v29 profile:v30 error:&v57];
     v32 = v57;
@@ -3512,7 +3477,7 @@ LABEL_17:
       v34 = HKLogHealthRecords;
       if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_INFO))
       {
-        v35 = *(a1 + 32);
+        v35 = a1[4];
         v36 = v34;
         v37 = [v35 debugDescription];
         *buf = 138543362;
@@ -3520,7 +3485,7 @@ LABEL_17:
         _os_log_impl(&dword_0, v36, OS_LOG_TYPE_INFO, "%{public}@ token fetch succeeded after re-login, triggering ingestion automatically", buf, 0xCu);
       }
 
-      v38 = *(a1 + 32);
+      v38 = a1[4];
       v39 = [v19 identifier];
       [v38 _performIngestionForNewCredentialsWithReason:@"account re-login" accountIdentifier:v39];
     }
@@ -3540,7 +3505,7 @@ LABEL_32:
 
   if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
   {
-    v51 = *(a1 + 32);
+    v51 = a1[4];
     v52 = v24;
     v53 = [v51 debugDescription];
     v54 = [v19 identifier];
@@ -3575,9 +3540,9 @@ LABEL_24:
     goto LABEL_32;
   }
 
-  v42 = *(a1 + 32);
+  v42 = a1[4];
   v43 = [v7 asAuthResponse];
-  v44 = [*(*(*(a1 + 80) + 8) + 40) requestedScope];
+  v44 = [*(*(a1[10] + 1) + 40) requestedScope];
   v56 = 0;
   v40 = [v42 _savePatientMismatchedCredentialFromAuthResponse:v43 requestedScope:v44 error:&v56];
   v32 = v56;
@@ -3591,7 +3556,7 @@ LABEL_24:
   v45 = HKLogHealthRecords;
   if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
   {
-    sub_A07B0((a1 + 32), v45);
+    sub_A07B0((a1 + 4), v45);
   }
 
   v46 = [HKClinicalAccountLoginCompletionState alloc];
@@ -3601,7 +3566,7 @@ LABEL_24:
   v50 = v32;
 LABEL_33:
   v55 = [v46 initWithAccount:v47 alternateCredentialPersistentID:v48 wasRelogin:v49 error:v50];
-  (*(*(a1 + 56) + 16))();
+  (*(a1[7] + 2))();
 }
 
 BOOL sub_2E23C(id a1, HDDatabaseTransaction *a2, id *a3)
@@ -3710,9 +3675,9 @@ void sub_2EA14(uint64_t a1, uint64_t a2)
   [*(a1 + 48) invalidate];
 }
 
-void sub_2F2E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2F2E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3858,9 +3823,9 @@ LABEL_12:
   return v20;
 }
 
-void sub_2FBC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2FBC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3881,9 +3846,9 @@ BOOL sub_2FBDC(void *a1, void *a2, uint64_t a3)
   return v9 != 0;
 }
 
-void sub_2FE40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2FE40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3972,9 +3937,9 @@ LABEL_20:
   return v21;
 }
 
-void sub_303B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_303B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3988,9 +3953,9 @@ BOOL sub_303CC(uint64_t a1, uint64_t a2)
   return *(*(*(a1 + 40) + 8) + 24) != 0;
 }
 
-void sub_3054C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_3054C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4004,9 +3969,9 @@ BOOL sub_30564(uint64_t a1, uint64_t a2)
   return *(*(*(a1 + 40) + 8) + 24) != 0;
 }
 
-void sub_308C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_308C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4037,9 +4002,9 @@ BOOL sub_30A24(id a1, HKClinicalGatewayFeature *a2)
   return v3;
 }
 
-void sub_319D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_319D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4105,7 +4070,7 @@ id sub_32B20(uint64_t a1, void *a2, void *a3)
 
   v9 = [v8 updateCredentialState:*(a1 + 56) profile:*(a1 + 40) transaction:v5 error:a3];
   v12 = *(a1 + 48);
-  v10 = (a1 + 48);
+  v10 = a1 + 48;
   v11 = v12;
   if ((v9 & 1) == 0)
   {
@@ -4137,7 +4102,7 @@ uint64_t sub_32C7C(uint64_t a1, void *a2, void *a3)
   v5 = a2;
   v8 = *(a1 + 32);
   v6 = *(a1 + 40);
-  v7 = (a1 + 32);
+  v7 = a1 + 32;
   v9 = [v6 database];
   v15 = 0;
   LOBYTE(v8) = [HDClinicalAccountEventEntity journalEvent:v8 database:v9 error:&v15];
@@ -4208,6 +4173,13 @@ void sub_336E4(uint64_t a1, uint64_t a2)
       sub_A0EB8(v2);
     }
   }
+}
+
+void sub_3402C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+{
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 BOOL sub_3404C(uint64_t a1, void *a2, uint64_t a3)
@@ -4371,9 +4343,9 @@ BOOL sub_3404C(uint64_t a1, void *a2, uint64_t a3)
   return v38;
 }
 
-void sub_346C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_346C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4405,9 +4377,9 @@ BOOL sub_346DC(uint64_t a1, void *a2, uint64_t a3)
   return v14;
 }
 
-void sub_3499C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_3499C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4462,9 +4434,9 @@ BOOL sub_349B4(uint64_t a1, void *a2, uint64_t a3)
   return v19;
 }
 
-void sub_3538C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_3538C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4474,9 +4446,9 @@ BOOL sub_353B4(uint64_t a1, void *a2, void *a3)
   v5 = a2;
   v6 = [v5 databaseForEntityClass:objc_opt_class()];
   v7 = *(a1 + 32);
-  v42 = 0;
-  v8 = [HDClinicalAccountEntity accountEntityForSignedClinicalDataIssuerWithIdentifier:v7 database:v6 error:&v42];
-  v9 = v42;
+  v39 = 0;
+  v8 = [HDClinicalAccountEntity accountEntityForSignedClinicalDataIssuerWithIdentifier:v7 database:v6 error:&v39];
+  v9 = v39;
   v10 = *(*(a1 + 56) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v8;
@@ -4489,18 +4461,17 @@ BOOL sub_353B4(uint64_t a1, void *a2, void *a3)
       v13 = HKLogHealthRecords;
       if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEBUG))
       {
-        v35 = *(a1 + 40);
-        v36 = v13;
-        v37 = [v35 debugDescription];
-        v38 = *(a1 + 32);
-        v39 = HKSensitiveLogItem();
+        v33 = *(a1 + 40);
+        v34 = v13;
+        v35 = [v33 debugDescription];
+        v36 = HKSensitiveLogItem();
         *buf = 138543874;
-        v44 = v37;
-        v45 = 2114;
-        v46 = v39;
-        v47 = 2114;
-        v48 = v9;
-        _os_log_debug_impl(&dword_0, v36, OS_LOG_TYPE_DEBUG, "%{public}@ failed to check for existing account for ID %{public}@: %{public}@", buf, 0x20u);
+        v41 = v35;
+        v42 = 2114;
+        v43 = v36;
+        v44 = 2114;
+        v45 = v9;
+        _os_log_debug_impl(&dword_0, v34, OS_LOG_TYPE_DEBUG, "%{public}@ failed to check for existing account for ID %{public}@: %{public}@", buf, 0x20u);
       }
 
       if (a3)
@@ -4526,27 +4497,26 @@ BOOL sub_353B4(uint64_t a1, void *a2, void *a3)
           v17 = *(a1 + 40);
           v18 = v16;
           v19 = [v17 debugDescription];
-          v20 = *(a1 + 32);
-          v21 = HKSensitiveLogItem();
+          v20 = HKSensitiveLogItem();
           *buf = 138543618;
-          v44 = v19;
-          v45 = 2114;
-          v46 = v21;
+          v41 = v19;
+          v42 = 2114;
+          v43 = v20;
           _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ creating account & issuer with identifier %{public}@", buf, 0x16u);
         }
 
-        v22 = (a1 + 40);
-        v23 = [*(a1 + 40) profileExtension];
-        v24 = [v23 createSignedClinicalDataRegistry];
+        v21 = (a1 + 40);
+        v22 = [*(a1 + 40) profileExtension];
+        v23 = [v22 createSignedClinicalDataRegistry];
 
-        v25 = [HKSignedClinicalDataIssuer makeIssuerForIdentifier:*(a1 + 32) label:*(a1 + 48) isWellKnown:*(a1 + 65) usingRegistry:v24];
-        v26 = *(a1 + 40);
-        v41 = 0;
-        v27 = [v26 createAccountForIssuer:v25 databaseTransaction:v5 error:&v41];
-        v28 = v41;
-        v29 = *(*(a1 + 56) + 8);
-        v30 = *(v29 + 40);
-        *(v29 + 40) = v27;
+        v24 = [HKSignedClinicalDataIssuer makeIssuerForIdentifier:*(a1 + 32) label:*(a1 + 48) isWellKnown:*(a1 + 65) usingRegistry:v23];
+        v25 = *(a1 + 40);
+        v38 = 0;
+        v26 = [v25 createAccountForIssuer:v24 databaseTransaction:v5 error:&v38];
+        v27 = v38;
+        v28 = *(*(a1 + 56) + 8);
+        v29 = *(v28 + 40);
+        *(v28 + 40) = v26;
 
         if (*(*(*(a1 + 56) + 8) + 40))
         {
@@ -4556,19 +4526,19 @@ BOOL sub_353B4(uint64_t a1, void *a2, void *a3)
         }
 
         _HKInitializeLogging();
-        v32 = HKLogHealthRecords;
+        v30 = HKLogHealthRecords;
         if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
         {
-          sub_A10F8(v22, v32);
+          sub_A10F8(v21, v30);
         }
 
-        v33 = v28;
-        if (v33)
+        v31 = v27;
+        if (v31)
         {
           if (a3)
           {
-            v34 = v33;
-            *a3 = v33;
+            v32 = v31;
+            *a3 = v31;
           }
 
           else
@@ -4585,9 +4555,8 @@ BOOL sub_353B4(uint64_t a1, void *a2, void *a3)
           sub_A1048(a1, v16, (a1 + 32));
         }
 
-        v31 = *(a1 + 32);
-        v24 = HKSensitiveLogItem();
-        [NSError hk_assignError:a3 code:118 format:@"no account and issuer with identifier %@", v24];
+        v23 = HKSensitiveLogItem();
+        [NSError hk_assignError:a3 code:118 format:@"no account and issuer with identifier %@", v23];
       }
     }
 
@@ -4700,10 +4669,11 @@ uint64_t sub_36C88(uint64_t result, uint64_t a2, uint64_t a3, float a4)
   return result;
 }
 
-void sub_36CA0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_36CA0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 void sub_3708C(void *a1)
@@ -5092,9 +5062,9 @@ void sub_3A148(uint64_t a1)
   }
 }
 
-void sub_3CE38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_3CE38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5108,18 +5078,14 @@ uint64_t sub_3CE50(uint64_t result, uint64_t a2)
 
 uint64_t sub_3CE68(void *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = a1[4];
-  v5 = [objc_opt_class() _populateAccountWithRow:a3 credential:a1[5] gateway:a1[6] signedClinicalDataIssuer:a1[7]];
-  v6 = *(a1[8] + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  *(*(a1[8] + 8) + 40) = [objc_opt_class() _populateAccountWithRow:a3 credential:a1[5] gateway:a1[6] signedClinicalDataIssuer:a1[7]];
 
   return _objc_release_x1();
 }
 
-void sub_3D0AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_3D0AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5136,30 +5102,29 @@ BOOL sub_3D0C4(uint64_t a1, void *a2, uint64_t a3)
   return v9;
 }
 
-void sub_3D35C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_3D35C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_3D384(void *a1, uint64_t a2, uint64_t a3)
 {
-  v5 = a1[4];
-  v6 = objc_opt_class();
-  v7 = *(a1[6] + 8);
-  obj = *(v7 + 40);
-  v8 = [v6 _codableWithRow:a3 error:&obj];
-  objc_storeStrong((v7 + 40), obj);
-  v9 = *(a1[5] + 8);
-  v10 = *(v9 + 40);
-  *(v9 + 40) = v8;
+  v5 = objc_opt_class();
+  v6 = *(a1[6] + 8);
+  obj = *(v6 + 40);
+  v7 = [v5 _codableWithRow:a3 error:&obj];
+  objc_storeStrong((v6 + 40), obj);
+  v8 = *(a1[5] + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v7;
 }
 
-void sub_3DE54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_3DE54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5177,14 +5142,14 @@ BOOL sub_3DE6C(void *a1, void *a2, uint64_t a3)
   return *(*(a1[5] + 8) + 40) != 0;
 }
 
-void sub_3E120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_3E120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5218,9 +5183,9 @@ BOOL sub_3E144(uint64_t a1, void *a2)
   return v5 != 0;
 }
 
-void sub_3E35C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_3E35C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5237,9 +5202,9 @@ BOOL sub_3E374(void *a1, void *a2, uint64_t a3)
   return *(*(a1[5] + 8) + 40) != 0;
 }
 
-void sub_3E774(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_3E774(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5262,9 +5227,9 @@ BOOL sub_3E78C(uint64_t a1, void *a2, uint64_t a3)
   return v14;
 }
 
-void sub_3E9A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_3E9A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5287,9 +5252,9 @@ BOOL sub_3E9C4(uint64_t a1, void *a2, uint64_t a3)
   return v14;
 }
 
-void sub_3EF00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_3EF00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5308,27 +5273,27 @@ id sub_3EF18(uint64_t a1, void *a2, uint64_t a3)
   return v7;
 }
 
-uint64_t sub_3EFEC(uint64_t a1)
+uint64_t sub_3EFEC(uint64_t a1, uint64_t a2)
 {
-  v1 = *(*(a1 + 32) + 8);
-  if (*(v1 + 24))
+  v2 = *(*(a1 + 32) + 8);
+  if (*(v2 + 24))
   {
-    v2 = 1;
+    v3 = 1;
   }
 
   else
   {
-    v2 = HDSQLiteColumnAsBoolean();
-    v1 = *(*(a1 + 32) + 8);
+    v3 = HDSQLiteColumnAsBoolean();
+    v2 = *(*(a1 + 32) + 8);
   }
 
-  *(v1 + 24) = v2;
+  *(v2 + 24) = v3;
   return 1;
 }
 
-void sub_3F15C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_3F15C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5367,10 +5332,11 @@ BOOL sub_3F174(uint64_t a1, void *a2, void *a3)
   return v9 == 0;
 }
 
-void sub_3F5B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_3F5B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
-  _Block_object_dispose(&a34, 8);
-  _Block_object_dispose((v34 - 152), 8);
+  va_start(va, a33);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v33 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5417,10 +5383,11 @@ id sub_3F728(uint64_t a1, uint64_t a2, uint64_t a3)
   return v8;
 }
 
-void sub_3FC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_3FC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
-  _Block_object_dispose(&a34, 8);
-  _Block_object_dispose((v34 - 152), 8);
+  va_start(va, a33);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v33 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5462,65 +5429,57 @@ id sub_3FDE8(uint64_t a1, uint64_t a2, uint64_t a3)
   return v8;
 }
 
-void sub_4027C(uint64_t a1)
+void sub_4027C(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   v2 = [NSNumber numberWithInteger:*(a1 + 40)];
   HDSQLiteBindNumberToProperty();
 }
 
-void sub_40720(void *a1)
+void sub_40720(void *a1, uint64_t a2)
 {
-  v2 = a1[4];
-  v3 = a1[5];
   HDSQLiteBindNumberToProperty();
-  v4 = a1[6];
   if (a1[7])
   {
-    v6 = [HDFHIRCredential patientHashForPatientID:?];
+    v3 = [HDFHIRCredential patientHashForPatientID:?];
     HDSQLiteBindStringToProperty();
   }
 
   else
   {
-    v5 = a1[6];
 
     HDSQLiteBindStringToProperty();
   }
 }
 
-uint64_t sub_40928(uint64_t a1)
+uint64_t sub_40928(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   HDSQLiteBindDateToProperty();
-  v3 = *(a1 + 40);
 
   return HDSQLiteBindNumberToProperty();
 }
 
-uint64_t sub_40DD0(uint64_t a1)
+uint64_t sub_40DD0(id *a1, uint64_t a2)
 {
-  if (([*(a1 + 32) containsObject:HDClinicalAccountEntityPropertyModificationDate] & 1) == 0)
+  if (([a1[4] containsObject:HDClinicalAccountEntityPropertyModificationDate] & 1) == 0)
   {
-    v2 = *(a1 + 40);
     HDSQLiteBindDateToProperty();
   }
 
-  if (([*(a1 + 32) containsObject:HDClinicalAccountEntityPropertySyncAnchor] & 1) == 0)
+  if (([a1[4] containsObject:HDClinicalAccountEntityPropertySyncAnchor] & 1) == 0)
   {
-    [*(a1 + 48) longLongValue];
+    [a1[6] longLongValue];
     HDSQLiteBindInt64ToProperty();
   }
 
-  if (([*(a1 + 32) containsObject:HDClinicalAccountEntityPropertySyncProvenance] & 1) == 0)
+  if (([a1[4] containsObject:HDClinicalAccountEntityPropertySyncProvenance] & 1) == 0)
   {
     HDSQLiteBindInt64ToProperty();
   }
 
-  result = [*(a1 + 32) containsObject:HDClinicalAccountEntityPropertySyncIdentity];
+  result = [a1[4] containsObject:HDClinicalAccountEntityPropertySyncIdentity];
   if ((result & 1) == 0)
   {
-    [*(a1 + 56) currentSyncIdentityPersistentID];
+    [a1[7] currentSyncIdentityPersistentID];
 
     return HDSQLiteBindInt64ToProperty();
   }
@@ -5957,128 +5916,126 @@ id sub_42DAC(uint64_t a1, void *a2, uint64_t a3)
     if (v6 && ![v6 setNeedsSyncWithProfile:*(a1 + 40) transaction:v5 error:a3])
     {
 
-      v32 = 0;
+      v30 = 0;
       goto LABEL_23;
     }
   }
 
-  v8 = *(a1 + 48);
-  v9 = *(a1 + 56);
-  v10 = HKDateMax();
-  v11 = *(a1 + 176);
-  v12 = [v11 _propertiesForEntity];
-  v13 = *(a1 + 40);
-  v44[0] = _NSConcreteStackBlock;
-  v44[1] = 3221225472;
-  v44[2] = sub_43258;
-  v44[3] = &unk_1074B8;
-  v62 = *(a1 + 168);
-  v14 = v5;
-  v45 = v14;
-  v46 = *(a1 + 64);
-  v15 = *(a1 + 72);
-  v66 = *(a1 + 208);
-  v16 = *(a1 + 184);
+  v8 = HKDateMax();
+  v9 = *(a1 + 176);
+  v10 = [v9 _propertiesForEntity];
+  v11 = *(a1 + 40);
+  v42[0] = _NSConcreteStackBlock;
+  v42[1] = 3221225472;
+  v42[2] = sub_43258;
+  v42[3] = &unk_1074B8;
+  v60 = *(a1 + 168);
+  v12 = v5;
+  v43 = v12;
+  v44 = *(a1 + 64);
+  v13 = *(a1 + 72);
+  v64 = *(a1 + 208);
+  v14 = *(a1 + 184);
+  v45 = v13;
+  v61 = v14;
+  v46 = *(a1 + 80);
+  v15 = v8;
   v47 = v15;
-  v63 = v16;
-  v48 = *(a1 + 80);
-  v17 = v10;
-  v49 = v17;
-  v50 = *(a1 + 56);
-  v51 = *(a1 + 88);
-  v52 = *(a1 + 96);
-  v53 = *(a1 + 104);
-  v54 = *(a1 + 112);
-  v55 = *(a1 + 120);
-  v56 = *(a1 + 128);
-  v57 = *(a1 + 136);
-  v18 = *(a1 + 32);
-  v19 = *(a1 + 192);
+  v48 = *(a1 + 56);
+  v49 = *(a1 + 88);
+  v50 = *(a1 + 96);
+  v51 = *(a1 + 104);
+  v52 = *(a1 + 112);
+  v53 = *(a1 + 120);
+  v54 = *(a1 + 128);
+  v55 = *(a1 + 136);
+  v16 = *(a1 + 32);
+  v17 = *(a1 + 192);
+  v56 = v16;
+  v62 = v17;
+  v57 = *(a1 + 144);
+  v18 = *(a1 + 152);
+  v19 = *(a1 + 200);
   v58 = v18;
-  v64 = v19;
-  v59 = *(a1 + 144);
-  v20 = *(a1 + 152);
-  v21 = *(a1 + 200);
-  v60 = v20;
-  v65 = v21;
-  v61 = *(a1 + 160);
-  LODWORD(v10) = [v11 _bindPropertiesForSync:v12 profile:v13 transaction:v14 error:a3 mutationHandler:v44];
+  v63 = v19;
+  v59 = *(a1 + 160);
+  LODWORD(v8) = [v9 _bindPropertiesForSync:v10 profile:v11 transaction:v12 error:a3 mutationHandler:v42];
 
-  if (v10)
+  if (v8)
   {
-    v22 = *(*(*(a1 + 168) + 8) + 40);
-    v23 = [v14 databaseForEntity:v22];
-    v24 = [v22 accountInDatabase:v23 error:a3];
+    v20 = *(*(*(a1 + 168) + 8) + 40);
+    v21 = [v12 databaseForEntity:v20];
+    v22 = [v20 accountInDatabase:v21 error:a3];
 
-    if (v24)
+    if (v22)
     {
-      v40 = v17;
-      v41[0] = _NSConcreteStackBlock;
-      v41[1] = 3221225472;
-      v41[2] = sub_43880;
-      v41[3] = &unk_1074E0;
-      v43 = *(a1 + 176);
-      v25 = v24;
-      v42 = v25;
-      [v14 onCommit:v41 orRollback:0];
-      v26 = *(a1 + 176);
-      v38 = *(a1 + 64);
-      v39 = [v25 gateway];
-      v27 = [v39 externalID];
-      v28 = v27;
-      if (!v27)
+      v38 = v15;
+      v39[0] = _NSConcreteStackBlock;
+      v39[1] = 3221225472;
+      v39[2] = sub_43880;
+      v39[3] = &unk_1074E0;
+      v41 = *(a1 + 176);
+      v23 = v22;
+      v40 = v23;
+      [v12 onCommit:v39 orRollback:0];
+      v24 = *(a1 + 176);
+      v36 = *(a1 + 64);
+      v37 = [v23 gateway];
+      v25 = [v37 externalID];
+      v26 = v25;
+      if (!v25)
       {
-        v36 = [v25 signedClinicalDataIssuer];
-        v28 = [v36 identifier];
+        v34 = [v23 signedClinicalDataIssuer];
+        v26 = [v34 identifier];
       }
 
-      v29 = [v25 gateway];
-      v30 = [v29 title];
-      if (v30)
+      v27 = [v23 gateway];
+      v28 = [v27 title];
+      if (v28)
       {
-        v31 = [v26 updateSourcesForAccountWithIdentifier:v38 wasAccountInsert:1 clinicalExternalID:v28 externalTitle:v30 profile:*(a1 + 40) error:a3];
-      }
-
-      else
-      {
-        v33 = [v25 signedClinicalDataIssuer];
-        [v33 title];
-        v34 = v37 = v5;
-        v31 = [v26 updateSourcesForAccountWithIdentifier:v38 wasAccountInsert:1 clinicalExternalID:v28 externalTitle:v34 profile:*(a1 + 40) error:a3];
-
-        v5 = v37;
-      }
-
-      if (!v27)
-      {
-      }
-
-      if (v31)
-      {
-        v32 = [*(a1 + 176) _updateCountOfGatewayBackedAccountsWithProfile:*(a1 + 40) error:a3];
+        v29 = [v24 updateSourcesForAccountWithIdentifier:v36 wasAccountInsert:1 clinicalExternalID:v26 externalTitle:v28 profile:*(a1 + 40) error:a3];
       }
 
       else
       {
-        v32 = 0;
+        v31 = [v23 signedClinicalDataIssuer];
+        [v31 title];
+        v32 = v35 = v5;
+        v29 = [v24 updateSourcesForAccountWithIdentifier:v36 wasAccountInsert:1 clinicalExternalID:v26 externalTitle:v32 profile:*(a1 + 40) error:a3];
+
+        v5 = v35;
       }
 
-      v17 = v40;
+      if (!v25)
+      {
+      }
+
+      if (v29)
+      {
+        v30 = [*(a1 + 176) _updateCountOfGatewayBackedAccountsWithProfile:*(a1 + 40) error:a3];
+      }
+
+      else
+      {
+        v30 = 0;
+      }
+
+      v15 = v38;
     }
 
     else
     {
-      v32 = 0;
+      v30 = 0;
     }
   }
 
   else
   {
-    v32 = 0;
+    v30 = 0;
   }
 
 LABEL_23:
-  return v32;
+  return v30;
 }
 
 BOOL sub_43258(uint64_t a1, void *a2, void *a3, uint64_t a4)
@@ -6149,62 +6106,44 @@ BOOL sub_43258(uint64_t a1, void *a2, void *a3, uint64_t a4)
   return v41;
 }
 
-uint64_t sub_43534(uint64_t a1)
+uint64_t sub_43534(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   HDSQLiteBindUUIDToProperty();
-  v3 = *(a1 + 40);
   HDSQLiteBindUUIDToProperty();
-  v4 = *(a1 + 192);
   HDSQLiteBindBooleanToProperty();
-  v5 = [NSNumber numberWithInteger:*(a1 + 168)];
+  v3 = [NSNumber numberWithInteger:*(a1 + 168)];
   HDSQLiteBindNumberToProperty();
 
-  v6 = *(a1 + 48);
   HDSQLiteBindDateToProperty();
-  v7 = *(a1 + 56);
   HDSQLiteBindDateToProperty();
-  v8 = *(a1 + 64);
   HDSQLiteBindDateToProperty();
-  v9 = *(a1 + 72);
   HDSQLiteBindDateToProperty();
-  v10 = *(a1 + 80);
   HDSQLiteBindNumberToProperty();
-  v11 = *(a1 + 88);
   HDSQLiteBindNumberToProperty();
-  v12 = *(a1 + 96);
   HDSQLiteBindNumberToProperty();
-  v13 = *(a1 + 104);
   HDSQLiteBindNumberToProperty();
-  v14 = *(a1 + 112);
   HDSQLiteBindNumberToProperty();
-  v15 = *(a1 + 120);
   HDSQLiteBindStringToProperty();
-  v16 = *(a1 + 128);
   HDSQLiteBindNumberToProperty();
-  v17 = *(a1 + 176);
   HDSQLiteBindInt64ToProperty();
-  v18 = *(a1 + 136);
   HDSQLiteBindNumberToProperty();
-  v19 = [*(a1 + 144) lastSharedDate];
+  v4 = [*(a1 + 144) lastSharedDate];
   HDSQLiteBindDateToProperty();
 
-  v20 = [*(a1 + 144) firstSharedDate];
+  v5 = [*(a1 + 144) firstSharedDate];
   HDSQLiteBindDateToProperty();
 
-  v21 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [*(a1 + 144) userStatus]);
+  v6 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [*(a1 + 144) userStatus]);
   HDSQLiteBindNumberToProperty();
 
-  v22 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [*(a1 + 144) multiDeviceStatus]);
+  v7 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [*(a1 + 144) multiDeviceStatus]);
   HDSQLiteBindNumberToProperty();
 
-  v23 = [*(a1 + 144) primaryDeviceName];
+  v8 = [*(a1 + 144) primaryDeviceName];
   HDSQLiteBindStringToProperty();
 
   (*(*(a1 + 160) + 16))();
-  v24 = *(a1 + 184);
   HDSQLiteBindInt64ToProperty();
-  v25 = *(a1 + 152);
 
   return HDSQLiteBindDateToProperty();
 }
@@ -6216,24 +6155,13 @@ void sub_43880(uint64_t a1)
   [v1 _postAccountChangeNotificationForAccount:v2 changeType:1];
 }
 
-void sub_43C90(uint64_t a1)
+void sub_43C90(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) modificationDate];
-  v12 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
+  v13 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
   if ([*(a1 + 32) hasLastFetchDate])
   {
     [*(a1 + 32) lastFetchDate];
-    v2 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  if ([*(a1 + 32) hasLastFullFetchDate])
-  {
-    [*(a1 + 32) lastFullFetchDate];
     v3 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
   }
 
@@ -6242,16 +6170,27 @@ void sub_43C90(uint64_t a1)
     v3 = 0;
   }
 
-  v4 = HKDateMax();
-  if ([*(a1 + 32) hasLastFailedFetchDate])
+  if ([*(a1 + 32) hasLastFullFetchDate])
   {
-    [*(a1 + 32) lastFailedFetchDate];
-    v5 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
+    [*(a1 + 32) lastFullFetchDate];
+    v4 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
+  }
+
+  v5 = HKDateMax();
+  if ([*(a1 + 32) hasLastFailedFetchDate])
+  {
+    [*(a1 + 32) lastFailedFetchDate];
+    v6 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
+  }
+
+  else
+  {
+    v6 = 0;
   }
 
   HDSQLiteBindDateToProperty();
@@ -6260,26 +6199,15 @@ void sub_43C90(uint64_t a1)
   HDSQLiteBindDateToProperty();
   HDSQLiteBindDateToProperty();
   HDSQLiteBindDateToProperty();
-  v6 = +[NSNumber numberWithLongLong:](NSNumber, "numberWithLongLong:", [*(a1 + 32) failedFetchAttemptsCount]);
+  v7 = +[NSNumber numberWithLongLong:](NSNumber, "numberWithLongLong:", [*(a1 + 32) failedFetchAttemptsCount]);
   HDSQLiteBindNumberToProperty();
 
-  v7 = [*(a1 + 32) patientHash];
+  v8 = [*(a1 + 32) patientHash];
   HDSQLiteBindStringToProperty();
 
   if ([*(a1 + 32) hasClinicalSharingFirstSharedDate])
   {
     [*(a1 + 32) clinicalSharingFirstSharedDate];
-    v8 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  if ([*(a1 + 32) hasClinicalSharingLastSharedDate])
-  {
-    [*(a1 + 32) clinicalSharingLastSharedDate];
     v9 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
   }
 
@@ -6288,45 +6216,54 @@ void sub_43C90(uint64_t a1)
     v9 = 0;
   }
 
+  if ([*(a1 + 32) hasClinicalSharingLastSharedDate])
+  {
+    [*(a1 + 32) clinicalSharingLastSharedDate];
+    v10 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
   HDSQLiteBindDateToProperty();
   HDSQLiteBindDateToProperty();
-  v10 = +[NSNumber numberWithLongLong:](NSNumber, "numberWithLongLong:", [*(a1 + 32) clinicalSharingUserStatus]);
+  v11 = +[NSNumber numberWithLongLong:](NSNumber, "numberWithLongLong:", [*(a1 + 32) clinicalSharingUserStatus]);
   HDSQLiteBindNumberToProperty();
 
-  v11 = [*(a1 + 32) clinicalSharingPrimaryDeviceName];
+  v12 = [*(a1 + 32) clinicalSharingPrimaryDeviceName];
   HDSQLiteBindStringToProperty();
 }
 
 void sub_43FC4(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = [*(a1 + 40) hkAccount];
-  [v3 _postAccountChangeNotificationForAccount:v4 changeType:2];
+  v2 = objc_opt_class();
+  v3 = [*(a1 + 40) hkAccount];
+  [v2 _postAccountChangeNotificationForAccount:v3 changeType:2];
 }
 
-uint64_t sub_442F4(uint64_t result)
+void *sub_442F4(void *result, uint64_t a2)
 {
-  v1 = result;
-  v2 = *(result + 32);
-  if (v2)
+  v2 = result;
+  v3 = result[4];
+  if (v3)
   {
-    v3 = +[NSDate distantPast];
-    v4 = [v2 isEqual:v3];
+    v4 = +[NSDate distantPast];
+    v5 = [v3 isEqual:v4];
 
-    if (v4)
+    if (v5)
     {
       result = HDSQLiteBindNullToProperty();
     }
 
     else
     {
-      v5 = v1[4];
       result = HDSQLiteBindDateToProperty();
     }
   }
 
-  v6 = v1[5];
+  v6 = v2[5];
   if (v6)
   {
     v7 = +[NSDate distantPast];
@@ -6339,22 +6276,21 @@ uint64_t sub_442F4(uint64_t result)
 
     else
     {
-      v9 = v1[5];
       result = HDSQLiteBindDateToProperty();
     }
   }
 
-  if (v1[6])
+  if (v2[6])
   {
     result = HDSQLiteBindNumberToProperty();
   }
 
-  if (v1[7])
+  if (v2[7])
   {
     result = HDSQLiteBindNumberToProperty();
   }
 
-  if (v1[8])
+  if (v2[8])
   {
 
     return HDSQLiteBindStringToProperty();
@@ -6365,24 +6301,9 @@ uint64_t sub_442F4(uint64_t result)
 
 void sub_44448(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = [*(a1 + 40) hkAccount];
-  [v3 _postAccountChangeNotificationForAccount:v4 changeType:2];
-}
-
-uint64_t sub_445F8(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  return HDSQLiteBindBooleanToProperty();
-}
-
-uint64_t sub_4476C(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  return HDSQLiteBindStringToProperty();
+  v2 = objc_opt_class();
+  v3 = [*(a1 + 40) hkAccount];
+  [v2 _postAccountChangeNotificationForAccount:v3 changeType:2];
 }
 
 id sub_449B8(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -6451,31 +6372,26 @@ id sub_45198(uint64_t a1, uint64_t a2, uint64_t a3)
   return v6;
 }
 
-uint64_t sub_453C0(uint64_t a1)
+uint64_t sub_453C0(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   HDSQLiteBindDateToProperty();
   HDSQLiteBindDateToProperty();
 
   return HDSQLiteBindNumberToProperty();
 }
 
-uint64_t sub_4570C(uint64_t a1)
+uint64_t sub_4570C(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   HDSQLiteBindDateToProperty();
-  v3 = *(a1 + 40);
   HDSQLiteBindDateToProperty();
   HDSQLiteBindDateToProperty();
 
   return HDSQLiteBindNumberToProperty();
 }
 
-uint64_t sub_459F0(uint64_t a1)
+uint64_t sub_459F0(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   HDSQLiteBindDateToProperty();
-  v3 = *(a1 + 40);
 
   return HDSQLiteBindNumberToProperty();
 }
@@ -6636,11 +6552,9 @@ void sub_46928(id a1, HDSQLiteStatementBinder *a2)
   HDSQLiteBindDateToProperty();
 }
 
-uint64_t sub_46AFC(uint64_t a1)
+uint64_t sub_46AFC(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   HDSQLiteBindNumberToProperty();
-  v3 = *(a1 + 40);
 
   return HDSQLiteBindNumberToProperty();
 }
@@ -6840,25 +6754,7 @@ LABEL_17:
           if (v42)
           {
             v44 = [v42 sourceWithProfile:*(a1 + 40) error:a3];
-            if (!v44)
-            {
-              goto LABEL_41;
-            }
-
-            v45 = v44;
-            [*(a1 + 40) sourceManager];
-            v46 = v67 = v42;
-            [v45 bundleIdentifier];
-            v47 = v27;
-            v49 = v48 = v22;
-            v66 = [v46 deleteSourceWithBundleIdentifier:v49 error:a3];
-
-            v22 = v48;
-            v27 = v47;
-            v25 = v71;
-
-            v42 = v67;
-            if (!v66)
+            if (!v44 || (v45 = v44, [*(a1 + 40) sourceManager], v67 = v42, v46 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v45, "bundleIdentifier"), v47 = v27, v48 = v22, v49 = objc_claimAutoreleasedReturnValue(), v66 = objc_msgSend(v46, "deleteSourceWithBundleIdentifier:error:", v49, a3), v49, v22 = v48, v27 = v47, v25 = v71, v46, v42 = v67, v45, !v66))
             {
 LABEL_41:
 
@@ -6950,7 +6846,7 @@ LABEL_42:
             v27 = v55;
             if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
             {
-              sub_A22B8(v63);
+              sub_A22B8(v63, v55);
             }
           }
 
@@ -7028,9 +6924,9 @@ void sub_47E74(uint64_t a1)
   [*(a1 + 56) _postAccountChangeNotificationForAccount:v2 changeType:3];
 }
 
-void sub_48670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_48670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7061,7 +6957,7 @@ id sub_48694(uint64_t a1, void *a2, uint64_t a3)
 
 BOOL sub_48810(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = [HDClinicalAccountEntity _codableWithRow:a4 error:a8];
+  v10 = [HDClinicalAccountEntity _codableWithRow:a4 error:a8, a5, a6, a7];
   if (v10)
   {
     v11 = HDSQLiteColumnWithNameAsInt64();
@@ -7114,10 +7010,11 @@ id sub_48BF8(uint64_t a1, void *a2)
   return v6;
 }
 
-void sub_48D9C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_48D9C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 void sub_49BE8(uint64_t a1)
@@ -7147,23 +7044,19 @@ void sub_49BE8(uint64_t a1)
   }
 }
 
-void sub_4AD58(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_4AD58(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-uint64_t sub_4B334(void *a1)
+uint64_t sub_4B334(void *a1, uint64_t a2)
 {
-  v2 = a1[4];
   HDSQLiteBindUUIDToProperty();
-  v3 = a1[5];
   HDSQLiteBindDateToProperty();
-  v4 = a1[6];
   HDSQLiteBindInt64ToProperty();
-  v5 = a1[7];
   HDSQLiteBindInt64ToProperty();
-  v6 = a1[8];
 
   return HDSQLiteBindInt64ToProperty();
 }
@@ -7313,9 +7206,9 @@ id sub_4BB84(uint64_t a1, uint64_t a2, uint64_t a3)
   return v6;
 }
 
-void sub_4C17C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_4C17C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7344,7 +7237,7 @@ id sub_4C1A0(uint64_t a1, void *a2, uint64_t a3)
 
 BOOL sub_4C2E4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = [HDClinicalDeletedAccountEntity _codableWithRow:a4 error:a8];
+  v10 = [HDClinicalDeletedAccountEntity _codableWithRow:a4 error:a8, a5, a6, a7];
   if (v10)
   {
     v11 = HDSQLiteColumnWithNameAsInt64();
@@ -7397,9 +7290,9 @@ id sub_4C9AC(uint64_t a1, void *a2)
   return v6;
 }
 
-void sub_4D464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_4D464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7413,29 +7306,21 @@ uint64_t sub_4D47C(uint64_t result, uint64_t a2)
 
 uint64_t sub_4D494(void *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = a1[6];
-  v5 = [objc_opt_class() codableWithRow:a3 accountSyncIdentifier:a1[4]];
-  v6 = *(a1[5] + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  *(*(a1[5] + 8) + 40) = [objc_opt_class() codableWithRow:a3 accountSyncIdentifier:a1[4]];
 
   return _objc_release_x1();
 }
 
-void sub_4D660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_4D660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_4D678(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() _credentialWithRow:a3];
-  v6 = *(*(a1 + 40) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  *(*(*(a1 + 40) + 8) + 40) = [objc_opt_class() _credentialWithRow:a3];
 
   return _objc_release_x1();
 }
@@ -7482,34 +7367,34 @@ LABEL_48:
     v16 = *(a1 + 64);
     v17 = *(a1 + 40);
     v18 = *(a1 + 48);
-    v68 = 0;
-    v64 = v14;
-    v19 = [v16 _shouldReplaceCurrentCredential:v14 withIncomingCredential:v17 account:v12 profile:v18 recordEvent:&v68 error:a3];
-    v20 = v68;
+    v66 = 0;
+    v62 = v14;
+    v19 = [v16 _shouldReplaceCurrentCredential:v14 withIncomingCredential:v17 account:v12 profile:v18 recordEvent:&v66 error:a3];
+    v20 = v66;
     v21 = v20;
     if (*a3)
     {
       v15 = 0;
 LABEL_47:
 
-      v14 = v64;
+      v14 = v62;
       goto LABEL_48;
     }
 
-    v63 = v20;
+    v61 = v20;
     if (!v19)
     {
-      v43 = *(a1 + 48);
-      v65 = 0;
-      v44 = [HDClinicalAccountEventEntity insertEvent:v20 profile:v43 error:&v65];
-      v45 = v65;
-      if ((v44 & 1) == 0)
+      v41 = *(a1 + 48);
+      v63 = 0;
+      v42 = [HDClinicalAccountEventEntity insertEvent:v20 profile:v41 error:&v63];
+      v43 = v63;
+      if ((v42 & 1) == 0)
       {
         _HKInitializeLogging();
-        v46 = HKLogHealthRecords;
+        v44 = HKLogHealthRecords;
         if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
         {
-          sub_A2EDC(v6, v46, v45);
+          sub_A2EDC(v6, v44, v43);
         }
       }
 
@@ -7521,151 +7406,149 @@ LABEL_47:
     v22 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = *(a1 + 64);
-      v24 = v22;
-      v25 = objc_opt_class();
-      v26 = NSStringFromClass(v25);
-      v27 = *(a1 + 32);
+      v23 = v22;
+      v24 = objc_opt_class();
+      v25 = NSStringFromClass(v24);
+      v26 = *(a1 + 32);
       *buf = 138543618;
+      v68 = v25;
+      v69 = 2114;
       v70 = v26;
-      v71 = 2114;
-      v72 = v27;
-      _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "%{public}@ will use incoming credential for account with sync identifier %{public}@ and delete the existing one", buf, 0x16u);
+      _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "%{public}@ will use incoming credential for account with sync identifier %{public}@ and delete the existing one", buf, 0x16u);
     }
 
-    if (v64)
+    if (v62)
     {
-      v61 = *(a1 + 48);
-      v53 = [*(a1 + 56) identifier];
-      v57 = [v64 identifier];
-      v28 = [NSUUID hk_UUIDWithData:v57];
-      v29 = [v11 deleteCredentialWithProfile:v61 transaction:v5 deleteTokens:objc_msgSend(v53 credentialIdentifier:"isEqual:" error:{v28) ^ 1, 0, a3}];
+      v59 = *(a1 + 48);
+      v51 = [*(a1 + 56) identifier];
+      v55 = [v62 identifier];
+      v27 = [NSUUID hk_UUIDWithData:v55];
+      v28 = [v11 deleteCredentialWithProfile:v59 transaction:v5 deleteTokens:objc_msgSend(v51 credentialIdentifier:"isEqual:" error:{v27) ^ 1, 0, a3}];
 
-      if (!v29)
+      if (!v28)
       {
         v15 = 0;
 LABEL_46:
-        v21 = v63;
+        v21 = v61;
         goto LABEL_47;
       }
     }
 
-    v30 = [*(a1 + 48) syncIdentityManager];
-    v62 = [v30 legacySyncIdentity];
+    v29 = [*(a1 + 48) syncIdentityManager];
+    v60 = [v29 legacySyncIdentity];
 
     if (![*(a1 + 40) hasSyncIdentity])
     {
       goto LABEL_20;
     }
 
-    v31 = [*(a1 + 40) syncIdentity];
-    v67 = 0;
-    v32 = [HDSyncIdentity syncIdentityWithCodable:v31 error:&v67];
-    v58 = v67;
+    v30 = [*(a1 + 40) syncIdentity];
+    v65 = 0;
+    v31 = [HDSyncIdentity syncIdentityWithCodable:v30 error:&v65];
+    v56 = v65;
 
-    if (v32)
+    if (v31)
     {
-      v51 = [*(a1 + 48) syncIdentityManager];
-      v66 = v58;
-      v49 = [v51 concreteIdentityForIdentity:v32 shouldCreate:1 transaction:v5 error:&v66];
-      v54 = v66;
+      v49 = [*(a1 + 48) syncIdentityManager];
+      v64 = v56;
+      v47 = [v49 concreteIdentityForIdentity:v31 shouldCreate:1 transaction:v5 error:&v64];
+      v52 = v64;
 
-      if (v49)
+      if (v47)
       {
 
-        v62 = v49;
+        v60 = v47;
 LABEL_20:
-        v34 = *(a1 + 64);
-        v33 = *(a1 + 72);
-        v55 = v33;
-        v59 = *(a1 + 40);
-        v35 = [v62 entity];
-        v36 = [v34 _insertCodableCredential:v59 syncProvenance:v55 syncIdentity:objc_msgSend(v35 transaction:"persistentID") error:{v5, a3}];
+        v32 = *(a1 + 64);
+        v53 = *(a1 + 72);
+        v57 = *(a1 + 40);
+        v33 = [v60 entity];
+        v34 = [v32 _insertCodableCredential:v57 syncProvenance:v53 syncIdentity:objc_msgSend(v33 transaction:"persistentID") error:{v5, a3}];
+
+        if (!v34)
+        {
+          v15 = 0;
+LABEL_43:
+          v43 = v60;
+          goto LABEL_44;
+        }
+
+        v58 = v34;
+        v35 = +[NSNumber numberWithLongLong:](NSNumber, "numberWithLongLong:", [v34 persistentID]);
+        v36 = [v11 assignCredentialWithPersistentID:v35 profile:*(a1 + 48) transaction:v5 error:a3];
 
         if (!v36)
         {
           v15 = 0;
-LABEL_43:
-          v45 = v62;
-          goto LABEL_44;
-        }
-
-        v60 = v36;
-        v37 = +[NSNumber numberWithLongLong:](NSNumber, "numberWithLongLong:", [v36 persistentID]);
-        v38 = [v11 assignCredentialWithPersistentID:v37 profile:*(a1 + 48) transaction:v5 error:a3];
-
-        if (!v38)
-        {
-          v15 = 0;
-          v36 = v60;
-          v45 = v62;
+          v34 = v58;
+          v43 = v60;
 LABEL_44:
 
 LABEL_45:
           goto LABEL_46;
         }
 
-        v39 = [v12 credentialHasOutdatedScopes:*(a1 + 56)];
-        v40 = 2;
-        if (!v39)
+        v37 = [v12 credentialHasOutdatedScopes:*(a1 + 56)];
+        v38 = 2;
+        if (!v37)
         {
-          v40 = 0;
+          v38 = 0;
         }
 
-        v56 = v40;
+        v54 = v38;
         [v12 credentialState];
-        v41 = [v63 eventWithUpdatedCredentialStateBefore:HKOptionalClinicalAccountCredentialStateFromHKClinicalAccountCredentialState()];
-        v52 = [v41 eventWithUpdatedCredentialStateAfter:HKOptionalClinicalAccountCredentialStateFromHKClinicalAccountCredentialState()];
+        v39 = [v61 eventWithUpdatedCredentialStateBefore:HKOptionalClinicalAccountCredentialStateFromHKClinicalAccountCredentialState()];
+        v50 = [v39 eventWithUpdatedCredentialStateAfter:HKOptionalClinicalAccountCredentialStateFromHKClinicalAccountCredentialState()];
 
-        v50 = [*(a1 + 48) healthRecordsExtension];
-        v42 = [v50 accountManager];
-        v15 = [v42 updateCredentialStateForAccount:v12 state:v56 force:1 event:v52 error:a3];
+        v48 = [*(a1 + 48) healthRecordsExtension];
+        v40 = [v48 accountManager];
+        v15 = [v40 updateCredentialStateForAccount:v12 state:v54 force:1 event:v50 error:a3];
 
-        v63 = v52;
-        v32 = v50;
-        v36 = v60;
+        v61 = v50;
+        v31 = v48;
+        v34 = v58;
 LABEL_42:
 
         goto LABEL_43;
       }
 
-      v36 = v54;
+      v34 = v52;
       _HKInitializeLogging();
       if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
       {
         sub_A2F9C();
       }
 
-      v62 = 0;
-      v47 = v54;
-      if (!v54)
+      v60 = 0;
+      v45 = v52;
+      if (!v52)
       {
         v15 = 0;
-        v36 = 0;
+        v34 = 0;
         goto LABEL_42;
       }
 
 LABEL_38:
       v15 = 0;
-      *a3 = v47;
+      *a3 = v45;
       goto LABEL_42;
     }
 
     _HKInitializeLogging();
-    v36 = v58;
+    v34 = v56;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
       sub_A3010();
-      if (v58)
+      if (v56)
       {
         goto LABEL_34;
       }
     }
 
-    else if (v58)
+    else if (v56)
     {
 LABEL_34:
-      v47 = v58;
+      v45 = v56;
       goto LABEL_38;
     }
 
@@ -7688,39 +7571,36 @@ id sub_4E220(uint64_t a1, uint64_t a2, uint64_t a3)
   return v7;
 }
 
-uint64_t sub_4EE48(uint64_t a1)
+uint64_t sub_4EE48(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   HDSQLiteBindUUIDToProperty();
-  v3 = *(a1 + 48);
   HDSQLiteBindInt64ToProperty();
   [*(a1 + 40) receivedDate];
-  v4 = HDDecodeDateForValue();
+  v3 = HDDecodeDateForValue();
   HDSQLiteBindDateToProperty();
 
   [*(a1 + 40) expirationDate];
-  v5 = HDDecodeDateForValue();
+  v4 = HDDecodeDateForValue();
   HDSQLiteBindDateToProperty();
 
-  v6 = [*(a1 + 40) requestedScopeString];
+  v5 = [*(a1 + 40) requestedScopeString];
   HDSQLiteBindStringToProperty();
 
-  v7 = [*(a1 + 40) scopeString];
+  v6 = [*(a1 + 40) scopeString];
   HDSQLiteBindStringToProperty();
 
-  v8 = [*(a1 + 40) patientID];
+  v7 = [*(a1 + 40) patientID];
   HDSQLiteBindStringToProperty();
 
   [*(a1 + 40) deleted];
   HDSQLiteBindBooleanToProperty();
-  v9 = *(a1 + 56);
 
   return HDSQLiteBindInt64ToProperty();
 }
 
-void sub_4F998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_4F998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7810,27 +7690,27 @@ uint64_t sub_4F9C0(void *a1, void *a2, uint64_t a3)
   return v24;
 }
 
-BOOL sub_4FD78(uint64_t a1)
+BOOL sub_4FD78(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = HDSQLiteColumnWithNameAsInt64();
-  if ((v2 & 4) == 0)
+  v4 = HDSQLiteColumnWithNameAsInt64();
+  if ((v4 & 4) == 0)
   {
-    v3 = HDSQLiteColumnWithNameAsNumber();
-    if (v3)
+    v5 = HDSQLiteColumnWithNameAsNumber();
+    if (v5)
     {
-      v4 = v3;
+      v6 = v5;
     }
 
     else
     {
-      v4 = &off_1102A0;
+      v6 = &off_1102A0;
     }
 
-    v5 = [HDOriginalFHIRResourceEntity entityWithPersistentID:v4];
-    [*(a1 + 32) addObject:v5];
+    v7 = [HDOriginalFHIRResourceEntity entityWithPersistentID:v6];
+    [*(a1 + 32) addObject:v7];
   }
 
-  return (v2 & 4) == 0;
+  return (v4 & 4) == 0;
 }
 
 void sub_5015C(uint64_t a1, char a2, void *a3)
@@ -7858,6 +7738,13 @@ void sub_511EC(uint64_t a1, void *a2)
   }
 }
 
+void sub_52AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_52AF4(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -7865,24 +7752,24 @@ uint64_t sub_52AF4(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_52B0C(uint64_t a1)
+uint64_t sub_52B0C(uint64_t a1, uint64_t a2)
 {
-  v2 = HDSQLiteColumnAsString();
-  [*(*(*(a1 + 32) + 8) + 40) addObject:v2];
+  v3 = HDSQLiteColumnAsString();
+  [*(*(*(a1 + 32) + 8) + 40) addObject:v3];
 
   return 1;
 }
 
-void sub_52E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_52E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -7890,22 +7777,21 @@ void sub_52E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
 
 void sub_52E6C(void *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = a1[4];
-  v11 = 0;
-  v5 = [objc_opt_class() _gatewayWithRow:a3 error:&v11];
-  v6 = v11;
-  v7 = *(a1[5] + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = v5;
+  v10 = 0;
+  v4 = [objc_opt_class() _gatewayWithRow:a3 error:&v10];
+  v5 = v10;
+  v6 = *(a1[5] + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v4;
 
-  v9 = *(a1[6] + 8);
-  v10 = *(v9 + 40);
-  *(v9 + 40) = v6;
+  v8 = *(a1[6] + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v5;
 }
 
-void sub_5303C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_5303C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8076,14 +7962,13 @@ id sub_53F14(uint64_t a1, uint64_t a2)
   HDSQLiteBindInt64ToProperty();
   [*(a1 + 32) revision];
   HDSQLiteBindInt64ToProperty();
-  v5 = *(a1 + 40);
   HDSQLiteBindDataToProperty();
-  v7 = *(a1 + 48);
-  v6 = *(a1 + 56);
-  v8 = *(a1 + 64);
-  v9 = *(a1 + 72);
+  v6 = *(a1 + 48);
+  v5 = *(a1 + 56);
+  v7 = *(a1 + 64);
+  v8 = *(a1 + 72);
 
-  return [v6 _bindSyncAnchor:v7 syncProvenance:v8 syncIdentity:v9 binder:a2];
+  return [v5 _bindSyncAnchor:v6 syncProvenance:v7 syncIdentity:v8 binder:a2];
 }
 
 id sub_54360(uint64_t a1, uint64_t a2)
@@ -8092,14 +7977,13 @@ id sub_54360(uint64_t a1, uint64_t a2)
   HDSQLiteBindInt64ToProperty();
   [*(a1 + 32) revision];
   HDSQLiteBindInt64ToProperty();
-  v4 = *(a1 + 40);
   HDSQLiteBindDataToProperty();
-  v6 = *(a1 + 48);
-  v5 = *(a1 + 56);
-  v7 = *(a1 + 64);
-  v8 = *(a1 + 72);
+  v5 = *(a1 + 48);
+  v4 = *(a1 + 56);
+  v6 = *(a1 + 64);
+  v7 = *(a1 + 72);
 
-  return [v5 _bindSyncAnchor:v6 syncProvenance:v7 syncIdentity:v8 binder:a2];
+  return [v4 _bindSyncAnchor:v5 syncProvenance:v6 syncIdentity:v7 binder:a2];
 }
 
 uint64_t sub_54624(uint64_t a1, void *a2, uint64_t a3)
@@ -8241,15 +8125,12 @@ id sub_54B60(uint64_t a1, uint64_t a2, uint64_t a3)
   return v7;
 }
 
-uint64_t sub_54D00(uint64_t a1)
+uint64_t sub_54D00(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   v3 = [objc_opt_class() propertyForSyncAnchor];
-  v4 = *(a1 + 40);
   HDSQLiteBindNumberToProperty();
 
-  v5 = *(a1 + 32);
-  v6 = [objc_opt_class() propertyForSyncProvenance];
+  v4 = [objc_opt_class() propertyForSyncProvenance];
   HDSQLiteBindInt64ToProperty();
 
   [*(a1 + 48) currentSyncIdentityPersistentID];
@@ -8257,9 +8138,9 @@ uint64_t sub_54D00(uint64_t a1)
   return HDSQLiteBindInt64ToProperty();
 }
 
-void sub_56178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_56178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8289,7 +8170,7 @@ id sub_5619C(uint64_t a1, void *a2, uint64_t a3)
 
 BOOL sub_562F8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = [HDClinicalGatewayEntity _codableGatewayWithRow:a4 error:a8];
+  v10 = [HDClinicalGatewayEntity _codableGatewayWithRow:a4 error:a8, a5, a6, a7];
   if (v10)
   {
     v11 = HDSQLiteColumnWithNameAsInt64();
@@ -8342,10 +8223,11 @@ id sub_566F0(uint64_t a1, void *a2)
   return v6;
 }
 
-void sub_57084(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_57084(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
 void sub_57334(uint64_t a1, void *a2, void *a3)
@@ -8417,7 +8299,7 @@ void sub_5756C(uint64_t a1, void *a2, void *a3)
     v12 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEBUG))
     {
-      sub_A3CCC((a1 + 32), v12);
+      sub_A3CCC(a1 + 32, v12);
       if (v10)
       {
         goto LABEL_9;
@@ -8469,19 +8351,18 @@ void sub_57EBC(uint64_t a1, void *a2, void *a3)
   {
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
     {
-      sub_A3E94(a1, v7);
+      sub_A3E94(a1, v7, v6);
     }
 
-    v8 = *(*(a1 + 64) + 8);
-    v23[1] = _NSConcreteStackBlock;
-    v23[2] = 3221225472;
-    v23[3] = sub_58180;
-    v23[4] = &unk_106B68;
-    v24 = *(a1 + 48);
-    v25 = v6;
+    v20[1] = _NSConcreteStackBlock;
+    v20[2] = 3221225472;
+    v20[3] = sub_58180;
+    v20[4] = &unk_106B68;
+    v21 = *(a1 + 48);
+    v22 = v6;
     HKWithUnfairLock();
 
-    v9 = v24;
+    v8 = v21;
   }
 
   else
@@ -8491,35 +8372,33 @@ void sub_57EBC(uint64_t a1, void *a2, void *a3)
       sub_A3F7C(a1, v7);
     }
 
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 40);
-    v23[0] = 0;
-    v12 = [v10 storeDataFromParsingResult:v5 existingAccountIdentifier:v11 insertOriginalRecords:0 allRecordsWereDuplicates:0 error:v23];
-    v9 = v23[0];
-    if (!v12)
+    v9 = *(a1 + 32);
+    v10 = *(a1 + 40);
+    v20[0] = 0;
+    v11 = [v9 storeDataFromParsingResult:v5 existingAccountIdentifier:v10 insertOriginalRecords:0 allRecordsWereDuplicates:0 error:v20];
+    v8 = v20[0];
+    if (!v11)
     {
       _HKInitializeLogging();
-      v13 = HKLogHealthRecords;
+      v12 = HKLogHealthRecords;
       if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
       {
-        v15 = *(a1 + 32);
-        v16 = v13;
-        v17 = objc_opt_class();
-        v18 = NSStringFromClass(v17);
-        v19 = *(a1 + 40);
-        v20 = HKSensitiveLogItem();
+        v13 = v12;
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v16 = *(a1 + 40);
+        v17 = HKSensitiveLogItem();
         *buf = 138543874;
-        v27 = v18;
-        v28 = 2114;
-        v29 = v19;
-        v30 = 2114;
-        v31 = v20;
-        _os_log_error_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, "%{public}@: reextractOriginalSignedClinicalDataRecords failed to store parsed records for account %{public}@ with error %{public}@", buf, 0x20u);
+        v24 = v15;
+        v25 = 2114;
+        v26 = v16;
+        v27 = 2114;
+        v28 = v17;
+        _os_log_error_impl(&dword_0, v13, OS_LOG_TYPE_ERROR, "%{public}@: reextractOriginalSignedClinicalDataRecords failed to store parsed records for account %{public}@ with error %{public}@", buf, 0x20u);
       }
 
-      v14 = *(*(a1 + 64) + 8);
-      v21 = *(a1 + 48);
-      v22 = v9;
+      v18 = *(a1 + 48);
+      v19 = v8;
       HKWithUnfairLock();
     }
   }
@@ -8583,10 +8462,11 @@ LABEL_5:
   return v6;
 }
 
-void sub_58A20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_58A20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -8711,7 +8591,7 @@ void sub_5AF88(uint64_t a1, void *a2, void *a3)
         {
           v17 = *(a1 + 32);
           *buf = 138543362;
-          v32 = v17;
+          v31 = v17;
           _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ reverifySignatureForRecord result produced the same signature status that the record already has, skipping database update.", buf, 0xCu);
         }
 
@@ -8722,26 +8602,25 @@ void sub_5AF88(uint64_t a1, void *a2, void *a3)
       {
         if (v16)
         {
-          v19 = *(a1 + 32);
-          v20 = v15;
-          v21 = objc_opt_class();
-          v22 = NSStringFromClass(v21);
-          v23 = NSStringForSignedClinicalDataRecordSignatureStatus();
+          v19 = v15;
+          v20 = objc_opt_class();
+          v21 = NSStringFromClass(v20);
+          v22 = NSStringForSignedClinicalDataRecordSignatureStatus();
           *buf = 138543618;
-          v32 = v22;
-          v33 = 2114;
-          v34 = v23;
-          _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "%{public}@: reverifySignatureForRecord, signature verification complete result was: %{public}@", buf, 0x16u);
+          v31 = v21;
+          v32 = 2114;
+          v33 = v22;
+          _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: reverifySignatureForRecord, signature verification complete result was: %{public}@", buf, 0x16u);
         }
 
-        v24 = [*(a1 + 48) syncIdentifier];
-        v25 = [NSUUID hk_UUIDWithData:v24];
-        v26 = *(a1 + 56);
-        v30 = 0;
-        v27 = [HDOriginalSignedClinicalDataRecordEntity replaceOriginalRecordWithSyncIdentifier:v25 newSignatureStatus:v13 profile:v26 error:&v30];
-        v28 = v30;
+        v23 = [*(a1 + 48) syncIdentifier];
+        v24 = [NSUUID hk_UUIDWithData:v23];
+        v25 = *(a1 + 56);
+        v29 = 0;
+        v26 = [HDOriginalSignedClinicalDataRecordEntity replaceOriginalRecordWithSyncIdentifier:v24 newSignatureStatus:v13 profile:v25 error:&v29];
+        v27 = v29;
 
-        if (v27)
+        if (v26)
         {
           [*(a1 + 32) _scheduleExtractionWithReason:@"replaced record after signature reverification"];
         }
@@ -8749,10 +8628,10 @@ void sub_5AF88(uint64_t a1, void *a2, void *a3)
         else
         {
           _HKInitializeLogging();
-          v29 = HKLogHealthRecords;
+          v28 = HKLogHealthRecords;
           if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
           {
-            sub_A43CC(a1, v29);
+            sub_A43CC(a1, v28);
           }
         }
 
@@ -8899,13 +8778,12 @@ void sub_5BE6C(uint64_t a1, void *a2, void *a3, void *a4)
   {
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = *(a1 + 32);
-      v13 = v10;
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
-      v16 = 138543362;
-      v17 = v15;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "%{public}@.triggerDownloadIssuerRegistryWithOptions received result, returning version and entries", &v16, 0xCu);
+      v12 = v10;
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
+      v15 = 138543362;
+      v16 = v14;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "%{public}@.triggerDownloadIssuerRegistryWithOptions received result, returning version and entries", &v15, 0xCu);
     }
 
     v11 = *(*(a1 + 40) + 16);
@@ -8935,13 +8813,12 @@ void sub_5C12C(uint64_t a1, void *a2, void *a3, void *a4)
   {
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = *(a1 + 32);
-      v13 = v10;
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
-      v16 = 138543362;
-      v17 = v15;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "%{public}@.triggerDownloadPublicKeysWithOptions received result, returning version and entries", &v16, 0xCu);
+      v12 = v10;
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
+      v15 = 138543362;
+      v16 = v14;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "%{public}@.triggerDownloadPublicKeysWithOptions received result, returning version and entries", &v15, 0xCu);
     }
 
     v11 = *(*(a1 + 40) + 16);
@@ -8958,7 +8835,6 @@ void sub_5C7B8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
 
 id sub_5C7E0(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
 
   return a2;
 }
@@ -9044,4 +8920,120 @@ void sub_5E93C(uint64_t a1)
   {
     (*(*(a1 + 48) + 16))();
   }
+}
+
+void sub_5EE3C(uint64_t a1)
+{
+  _HKInitializeLogging();
+  v2 = HKLogHealthRecords;
+  if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = *(a1 + 32);
+    v4 = v2;
+    v5 = [v3 logPrefix];
+    v6 = *(a1 + 40);
+    *buf = 138543618;
+    v13 = v5;
+    v14 = 2114;
+    v15 = v6;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ performing periodic activity %{public}@", buf, 0x16u);
+  }
+
+  v7 = *(a1 + 32);
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_5EFA4;
+  v9[3] = &unk_107C78;
+  v9[4] = v7;
+  v8 = *(a1 + 48);
+  v10 = *(a1 + 40);
+  v11 = *(a1 + 56);
+  [v7 _ingestQueue_triggerBackgroundIngestionOnAllProfilesWithProfileManager:v8 completion:v9];
+}
+
+void sub_5EFA4(void *a1, uint64_t a2, void *a3)
+{
+  v5 = a3;
+  _HKInitializeLogging();
+  v6 = HKLogHealthRecords;
+  if (a2)
+  {
+    if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
+    {
+      sub_A4FEC(a1, v6);
+    }
+  }
+
+  else if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = a1[4];
+    v8 = v6;
+    v9 = [v7 logPrefix];
+    v10 = a1[5];
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2114;
+    v14 = v10;
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ periodic activity %{public}@ completed successfully", &v11, 0x16u);
+  }
+
+  (*(a1[6] + 16))(0.0);
+}
+
+void sub_5F9A0(void *a1)
+{
+  _HKInitializeLogging();
+  v2 = HKLogHealthRecords;
+  if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_INFO))
+  {
+    v3 = a1[4];
+    v4 = v2;
+    v5 = [v3 debugDescription];
+    v6 = HKClinicalDataCollectionReasonToString();
+    *buf = 138543618;
+    v14 = v5;
+    v15 = 2114;
+    v16 = v6;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "%{public}@ opt-in data collection (%{public}@) triggered", buf, 0x16u);
+  }
+
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_5FB04;
+  v9[3] = &unk_107CA0;
+  v7 = a1[6];
+  v8 = a1[5];
+  v10 = a1[4];
+  v12 = v7;
+  v11 = v8;
+  [v10 _queue_triggerClinicalOptInDataCollectionWithCompletion:v9];
+}
+
+void sub_5FB04(void *a1, int a2, void *a3)
+{
+  v5 = a3;
+  _HKInitializeLogging();
+  v6 = HKLogHealthRecords;
+  if (a2)
+  {
+    if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_INFO))
+    {
+      v7 = a1[4];
+      v8 = v6;
+      v9 = [v7 debugDescription];
+      v10 = HKClinicalDataCollectionReasonToString();
+      v11 = 138543618;
+      v12 = v9;
+      v13 = 2114;
+      v14 = v10;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "%{public}@: opt-in data collection (%{public}@) successful", &v11, 0x16u);
+    }
+  }
+
+  else if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
+  {
+    sub_A5098(a1, v6, v5);
+  }
+
+  (*(a1[5] + 16))();
 }

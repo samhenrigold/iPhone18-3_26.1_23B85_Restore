@@ -21,23 +21,20 @@
 
 - (NSString)stackIdentifier
 {
-  v2 = *(self + OBJC_IVAR___ATXWidgetStackSuggestion_stackIdentifier);
-  v3 = *(self + OBJC_IVAR___ATXWidgetStackSuggestion_stackIdentifier + 8);
 
-  v4 = sub_2441D8C4C();
+  v2 = sub_2441D8C4C();
 
-  return v4;
+  return v2;
 }
 
 - (NSSet)suggestedWidgets
 {
-  v2 = *(self + OBJC_IVAR___ATXWidgetStackSuggestion_suggestedWidgets);
   sub_244194FC8(0, &qword_27EDD5AF8, off_278E089D0);
   sub_244195E64();
 
-  v3 = sub_2441D8DAC();
+  v2 = sub_2441D8DAC();
 
-  return v3;
+  return v2;
 }
 
 - (ATXWidgetStackSuggestion)initWithStackIdentifier:(id)identifier topWidget:(id)widget suggestedWidgets:(id)widgets

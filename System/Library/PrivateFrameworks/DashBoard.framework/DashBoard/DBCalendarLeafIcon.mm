@@ -14,7 +14,7 @@
   v8 = [v6 init];
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC9DashBoard18DBCalendarLeafIcon_imageProvider) = v8;
   v9 = applicationCopy;
-  v10 = DBLeafIcon.init(with:drawBorder:)();
+  v10 = DBLeafIcon.init(with:drawBorder:)(v9);
   v11 = *&v10[OBJC_IVAR____TtC9DashBoard18DBCalendarLeafIcon_imageProvider];
   v12 = v10;
   [v11 setDelegate_];

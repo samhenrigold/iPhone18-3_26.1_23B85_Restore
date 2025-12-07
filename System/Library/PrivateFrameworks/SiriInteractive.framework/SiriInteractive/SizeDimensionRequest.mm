@@ -1,6 +1,7 @@
 @interface SizeDimensionRequest
 - (BOOL)isEqual:(id)equal;
 - (NSString)description;
+- (_TtC15SiriInteractive20SizeDimensionRequest)initWithXPCDictionary:(id)dictionary;
 - (id)copyWithZone:(void *)zone;
 - (void)encodeWithCoder:(id)coder;
 - (void)encodeWithXPCDictionary:(id)dictionary;
@@ -55,7 +56,14 @@
 {
   coderCopy = coder;
   selfCopy = self;
-  sub_26750AE14(coderCopy);
+  sub_26750AE14(coderCopy, v5);
+}
+
+- (_TtC15SiriInteractive20SizeDimensionRequest)initWithXPCDictionary:(id)dictionary
+{
+  swift_unknownObjectRetain();
+  SizeDimensionRequest.init(xpcDictionary:)(dictionary);
+  return result;
 }
 
 - (void)encodeWithXPCDictionary:(id)dictionary

@@ -12,7 +12,7 @@
 
 + (id)title
 {
-  v2 = SVBundle();
+  v2 = SVBundle(self);
   v3 = [v2 localizedStringForKey:@"Ad" value:&stru_2877C2D00 table:0];
 
   return v3;
@@ -38,21 +38,20 @@
 
 + (CGSize)size
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = +[SVAdPrivacyButton title];
-  v11 = *MEMORY[0x277D740A8];
+  v10 = *MEMORY[0x277D740A8];
   v3 = +[SVAdPrivacyButton font];
-  v12[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   [v2 sizeWithAttributes:v4];
   v6 = v5;
 
   +[SVAdPrivacyButton height];
-  v7 = *MEMORY[0x277D85DE8];
-  v9 = v8;
-  v10 = v6 + 12.0;
-  result.height = v9;
-  result.width = v10;
+  v8 = v7;
+  v9 = v6 + 12.0;
+  result.height = v8;
+  result.width = v9;
   return result;
 }
 

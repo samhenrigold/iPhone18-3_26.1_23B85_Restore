@@ -51,7 +51,7 @@
   subtitleCopy = subtitle;
   subtitle = [(SUUIProductPageFeatureView *)self subtitle];
   v6 = subtitle;
-  if (subtitle != subtitleCopy && ([subtitle isEqualToString:subtitleCopy] & 1) == 0)
+  if (subtitle != subtitleCopy && (objc_msgSend_isEqualToString_(subtitle) & 1) == 0)
   {
     v7 = [subtitleCopy length];
     subtitleLabel = self->_subtitleLabel;
@@ -73,10 +73,10 @@
 
         [(UILabel *)self->_subtitleLabel setNumberOfLines:0];
         v15 = self->_subtitleLabel;
-        primaryTextColor = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
-        if (primaryTextColor)
+        v16 = objc_msgSend_primaryTextColor(self->_colorScheme);
+        if (v16)
         {
-          [(UILabel *)v15 setTextColor:primaryTextColor];
+          [(UILabel *)v15 setTextColor:v16];
         }
 
         else
@@ -96,16 +96,16 @@
       v21 = *MEMORY[0x277D740C0];
       v27[0] = v20;
       v27[1] = v21;
-      primaryTextColor2 = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
-      v23 = primaryTextColor2;
-      if (!primaryTextColor2)
+      v22 = objc_msgSend_primaryTextColor(self->_colorScheme);
+      v23 = v22;
+      if (!v22)
       {
         v23 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.6];
       }
 
       v28[1] = v23;
       v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
-      if (!primaryTextColor2)
+      if (!v22)
       {
       }
 
@@ -129,7 +129,7 @@
 {
   titleCopy = title;
   title = [(SUUIProductPageFeatureView *)self title];
-  if (title != titleCopy && ([title isEqualToString:titleCopy] & 1) == 0)
+  if (title != titleCopy && (objc_msgSend_isEqualToString_(title) & 1) == 0)
   {
     v5 = [titleCopy length];
     titleLabel = self->_titleLabel;

@@ -1,495 +1,3 @@
-uint64_t swift_allocateMetadataPack(uint64_t result, unint64_t a2)
-{
-  if ((result & 1) == 0)
-  {
-    v78 = result;
-    v79 = a2;
-    explicit = atomic_load_explicit(&qword_1ED4260F0, memory_order_acquire);
-    if (explicit && v79 == *explicit)
-    {
-      if (!v79)
-      {
-        return (explicit + 1) | 1;
-      }
-
-      v3 = 0;
-      v4 = 1;
-      while (*(v78 + 8 * v3) == explicit[v3 + 1])
-      {
-        v3 = v4++;
-        if (v79 == v3)
-        {
-          return (explicit + 1) | 1;
-        }
-      }
-    }
-
-    atomic_fetch_add_explicit(&MetadataPacks, 1u, memory_order_acquire);
-    do
-    {
-      v5 = atomic_load_explicit(&qword_1ED4260D0, memory_order_acquire);
-      v6 = atomic_load_explicit(&qword_1ED4260D8, memory_order_acquire);
-      v7 = atomic_load_explicit(&dword_1ED4260CC, memory_order_acquire);
-    }
-
-    while (v5 != atomic_load_explicit(&qword_1ED4260D0, memory_order_acquire));
-    if (v5)
-    {
-      v8 = v6 == 0;
-    }
-
-    else
-    {
-      v8 = 1;
-    }
-
-    if (!v8 && v7 != 0)
-    {
-      if (v10)
-      {
-        qword_1ED4260F0 = *v10;
-        explicit = *v10;
-        atomic_fetch_add_explicit(&MetadataPacks, 0xFFFFFFFF, memory_order_release);
-        return (explicit + 1) | 1;
-      }
-    }
-
-    atomic_fetch_add_explicit(&MetadataPacks, 0xFFFFFFFF, memory_order_release);
-    v12 = v78;
-    v11 = v79;
-    v80[0] = v78;
-    v80[1] = v79;
-    os_unfair_lock_lock(&unk_1ED4260E0);
-    v13 = qword_1ED4260D8;
-    v14 = qword_1ED4260D8 & 3;
-    v15 = v14 == 0;
-    if ((qword_1ED4260D8 & 0xFFFFFFFFFFFFFFFCLL) == 0)
-    {
-      v15 = 1;
-    }
-
-    v72 = qword_1ED4260D8 & 0xFFFFFFFFFFFFFFFCLL;
-    v71 = v15;
-    if (v15)
-    {
-      v16 = 4;
-    }
-
-    else
-    {
-      v16 = *(qword_1ED4260D8 & 0xFFFFFFFFFFFFFFFCLL);
-    }
-
-    v17 = dword_1ED4260CC;
-    v18 = qword_1ED4260D0;
-    if (qword_1ED4260D0)
-    {
-      v19 = qword_1ED4260D0 + 8;
-    }
-
-    else
-    {
-      v19 = 0;
-    }
-
-    if (v20)
-    {
-      explicit = *v20;
-      __dmb(0xBu);
-      if (MetadataPacks)
-      {
-LABEL_122:
-        os_unfair_lock_unlock(&unk_1ED4260E0);
-        qword_1ED4260F0 = explicit;
-        return (explicit + 1) | 1;
-      }
-
-      v22 = qword_1ED4260E8;
-      if (qword_1ED4260E8)
-      {
-        do
-        {
-          v23 = *v22;
-          free(v22[1]);
-          free(v22);
-          v22 = v23;
-        }
-
-        while (v23);
-      }
-
-LABEL_121:
-      qword_1ED4260E8 = 0;
-      goto LABEL_122;
-    }
-
-    v76 = v19;
-    v69 = v11;
-    v70 = v18;
-    __src = v18 + 2;
-    v68 = (v17 + 1);
-    if ((1 << v16) / ((1 << v16) - v68) < 4)
-    {
-      v30 = v13;
-    }
-
-    else
-    {
-      v24 = (v16 + 1);
-      v75 = v16;
-      if (v24 >= 0x11)
-      {
-        v25 = 4;
-      }
-
-      else
-      {
-        v25 = 2;
-      }
-
-      if (v24 < 9)
-      {
-        v26 = 1;
-      }
-
-      else
-      {
-        v26 = v25;
-      }
-
-      v27 = malloc_type_calloc(2 << v16, v26, 0x48DDA4AEuLL);
-      if (!v27)
-      {
-        swift::hashable_support::findHashableBaseTypeOfHashableType();
-      }
-
-      v28 = v16;
-      v29 = v19;
-      v65 = v17;
-      v66 = v12;
-      if (v26 != 1)
-      {
-        if (v26 == 4)
-        {
-          v26 = 3;
-        }
-
-        else
-        {
-          v26 = 2;
-        }
-      }
-
-      v30 = v26 | v27;
-      *v27 = v16 + 1;
-      if (v16)
-      {
-        v31 = ~(-2 << v16);
-        v32 = v13 & 3;
-        v33 = v72;
-        if (!v14)
-        {
-          v33 = 0;
-        }
-
-        v77 = v33;
-        v34 = v30 & 3;
-        if ((v30 & 3) != 0)
-        {
-          v35 = v27 & 0xFFFFFFFFFFFFFFFCLL;
-        }
-
-        else
-        {
-          v35 = 0;
-        }
-
-        v36 = 1;
-        v74 = v30;
-        v73 = v13 & 3;
-        do
-        {
-          if (v32 > 1)
-          {
-            if (v32 == 2)
-            {
-              LODWORD(v37) = *(v77 + 2 * v36);
-              if (*(v77 + 2 * v36))
-              {
-                goto LABEL_65;
-              }
-            }
-
-            else
-            {
-              LODWORD(v37) = *(v77 + 4 * v36);
-              if (v37)
-              {
-LABEL_65:
-                v38 = *(v29 + 8 * (v37 - 1));
-                v81 = 0;
-                if (*v38)
-                {
-                  v39 = v13;
-                  v40 = 0;
-                  v41 = v38 + 1;
-                  do
-                  {
-                    v42 = __swift::__runtime::llvm::hash_combine<__swift::__runtime::llvm::hash_code,swift::TargetMetadata<swift::InProcess> const*>(&v81, v41);
-                    v81 = v42;
-                    ++v40;
-                    ++v41;
-                  }
-
-                  while (v40 != *v38);
-                  v13 = v39;
-                  v30 = v74;
-                  v28 = v75;
-                  v29 = v76;
-                  v32 = v73;
-                }
-
-                else
-                {
-                  v42 = 0;
-                }
-
-                while (1)
-                {
-                  v44 = v42 & v31;
-                  if ((v42 & v31) != 0)
-                  {
-                    if (v34 > 1)
-                    {
-                      LODWORD(v43) = v34 == 2 ? *(v35 + 2 * v44) : *(v35 + 4 * v44);
-                    }
-
-                    else if (v34)
-                    {
-                      LODWORD(v43) = *(v35 + v44);
-                    }
-
-                    else
-                    {
-                      v43 = (v30 >> (4 * v44)) & 0xF;
-                    }
-
-                    if (!v43)
-                    {
-                      break;
-                    }
-                  }
-
-                  v42 = v44 + 1;
-                }
-
-                if (v34 == 3)
-                {
-                  *(v35 + 4 * v44) = v37;
-                }
-
-                else if (v34 == 2)
-                {
-                  *(v35 + 2 * v44) = v37;
-                }
-
-                else
-                {
-                  *(v35 + v44) = v37;
-                }
-              }
-            }
-          }
-
-          else if (v32)
-          {
-            LODWORD(v37) = *(v77 + v36);
-            if (*(v77 + v36))
-            {
-              goto LABEL_65;
-            }
-          }
-
-          else
-          {
-            v37 = (v13 >> (4 * v36)) & 0xF;
-            if (v37)
-            {
-              goto LABEL_65;
-            }
-          }
-
-          ++v36;
-        }
-
-        while (!(v36 >> v28));
-      }
-
-      atomic_store(v30, &qword_1ED4260D8);
-      if (!v71)
-      {
-        v45 = malloc_type_malloc(0x10uLL, 0xA0040AFF93C70uLL);
-        *v45 = qword_1ED4260E8;
-        v45[1] = v72;
-        qword_1ED4260E8 = v45;
-      }
-
-      v17 = v65;
-      v12 = v66;
-    }
-
-    v46 = v21;
-    if (!v70 || (v47 = v70, v17 >= *v70))
-    {
-      v48 = v17 + (v17 >> 2);
-      v49 = v17;
-      if (v48 <= v17 + 1)
-      {
-        v48 = v17 + 1;
-      }
-
-      v50 = malloc_good_size(8 * v48 + 8);
-      v51 = malloc_type_malloc(v50, 0x1020040D5A9D86FuLL);
-      if (!v51)
-      {
-        swift::hashable_support::findHashableBaseTypeOfHashableType();
-      }
-
-      v47 = v51;
-      *v51 = (v50 + 0x7FFFFFFF8) >> 3;
-      v17 = v49;
-      if (v70)
-      {
-        memcpy(v51 + 2, __src, 8 * v49);
-        v52 = malloc_type_malloc(0x10uLL, 0xA0040AFF93C70uLL);
-        *v52 = qword_1ED4260E8;
-        v52[1] = v70;
-        qword_1ED4260E8 = v52;
-      }
-
-      atomic_store(v47, &qword_1ED4260D0);
-    }
-
-    LOWORD(v81) = 24;
-    v53 = swift::MetadataAllocator::Allocate(&v81, 8 * v69 + 8, 8uLL);
-    explicit = v53;
-    *v53 = v69;
-    if (!v69)
-    {
-LABEL_100:
-      *(v47 + 8 + 8 * v17) = v53;
-      atomic_store(v68, &dword_1ED4260CC);
-      if ((v30 & 3) > 1)
-      {
-        if ((v30 & 3) == 2)
-        {
-          v57 = v30 & 0xFFFFFFFFFFFFFFFCLL;
-          if ((v30 & 3) == 0)
-          {
-            v57 = 0;
-          }
-
-          atomic_store(v68, (v57 + 2 * v46));
-        }
-
-        else
-        {
-          v62 = v30 & 0xFFFFFFFFFFFFFFFCLL;
-          if ((v30 & 3) == 0)
-          {
-            v62 = 0;
-          }
-
-          atomic_store(v68, (v62 + 4 * v46));
-        }
-      }
-
-      else if ((v30 & 3) != 0)
-      {
-        atomic_store(v68, ((v30 & 0xFFFFFFFFFFFFFFFCLL) + v46));
-      }
-
-      else
-      {
-        atomic_store((v68 << (4 * v46)) | v30, &qword_1ED4260D8);
-      }
-
-      __dmb(0xBu);
-      if (MetadataPacks)
-      {
-        goto LABEL_122;
-      }
-
-      v63 = qword_1ED4260E8;
-      if (qword_1ED4260E8)
-      {
-        do
-        {
-          v64 = *v63;
-          free(v63[1]);
-          free(v63);
-          v63 = v64;
-        }
-
-        while (v64);
-      }
-
-      goto LABEL_121;
-    }
-
-    if (v69 >= 0xE)
-    {
-      v55 = 0;
-      v54 = 0;
-      if (!v69 || (v69 - 1) >> 32)
-      {
-        goto LABEL_98;
-      }
-
-      if (&v53[-v12 + 8] >= 0x20)
-      {
-        v54 = v69 & 0x1FFFFFFFCLL;
-        v55 = v69 & 0xFFFFFFFC;
-        v58 = (v12 + 16);
-        v59 = v53 + 24;
-        v60 = v69 & 0x1FFFFFFFCLL;
-        do
-        {
-          v61 = *v58;
-          *(v59 - 1) = *(v58 - 1);
-          *v59 = v61;
-          v58 += 2;
-          v59 += 2;
-          v60 -= 4;
-        }
-
-        while (v60);
-        if (v69 == v54)
-        {
-          goto LABEL_100;
-        }
-
-        goto LABEL_98;
-      }
-    }
-
-    v54 = 0;
-    v55 = 0;
-LABEL_98:
-    v56 = v55 + 1;
-    do
-    {
-      *&v53[8 * v54 + 8] = *(v12 + 8 * v54);
-      v54 = v56++;
-    }
-
-    while (v69 > v54);
-    goto LABEL_100;
-  }
-
-  return result;
-}
-
 uint64_t swift_allocateWitnessTablePack(uint64_t result, unint64_t a2)
 {
   if ((result & 1) == 0)
@@ -618,7 +126,7 @@ LABEL_121:
     v76 = v19;
     v69 = v11;
     v70 = v18;
-    __src = v18 + 2;
+    __src = (v18 + 8);
     v68 = (v17 + 1);
     if ((1 << v16) / ((1 << v16) - v68) < 4)
     {
@@ -982,12 +490,12 @@ LABEL_98:
   return result;
 }
 
-const char *swift::getResilientMetadataBounds(uint64_t a1)
+char *swift::getResilientMetadataBounds(_DWORD *a1)
 {
-  v1 = *(a1 + 24);
+  v1 = a1[6];
   if (v1)
   {
-    v2 = (a1 + 24 + v1);
+    v2 = (a1 + v1 + 24);
   }
 
   else
@@ -1006,7 +514,7 @@ const char *swift::getResilientMetadataBounds(uint64_t a1)
   }
 }
 
-const char *computeMetadataBoundsFromSuperclass(_BYTE *a1, uint64_t a2)
+char *computeMetadataBoundsFromSuperclass(_DWORD *a1, uint64_t a2)
 {
   v3 = a1;
   if (!a1)
@@ -1034,7 +542,7 @@ const char *computeMetadataBoundsFromSuperclass(_BYTE *a1, uint64_t a2)
     {
       if (!v12)
       {
-        v16 = (result + 24);
+        v16 = result + 24;
         if ((result[3] & 0x20) == 0)
         {
           v10 = *v16;
@@ -1042,7 +550,7 @@ const char *computeMetadataBoundsFromSuperclass(_BYTE *a1, uint64_t a2)
         }
 
         v23 = *v16;
-        v24 = (v16 + v23);
+        v24 = &v16[v23];
         if (v23)
         {
           v25 = v24;
@@ -1061,7 +569,7 @@ LABEL_38:
         }
 
 LABEL_40:
-        v10 = computeMetadataBoundsFromSuperclass(result);
+        v10 = computeMetadataBoundsFromSuperclass(result, v25);
         goto LABEL_41;
       }
 
@@ -1195,12 +703,12 @@ LABEL_42:
   return result;
 }
 
-unint64_t swift::getResilientImmediateMembersOffset(uint64_t a1)
+unint64_t swift::getResilientImmediateMembersOffset(_DWORD *a1)
 {
-  v1 = *(a1 + 24);
+  v1 = a1[6];
   if (v1)
   {
-    v2 = (a1 + 24 + v1);
+    v2 = (a1 + v1 + 24);
   }
 
   else
@@ -1518,7 +1026,7 @@ LABEL_18:
   return (*(a1 + 8 * v18 + 8 * (*(v19 + 23) != 0) + 16) >> 1) & 1;
 }
 
-char *swift_allocateGenericClassMetadata(uint64_t a1, const void *a2, uint64_t a3)
+char *swift_allocateGenericClassMetadata(_DWORD *a1, const void *a2, uint64_t a3)
 {
   if (a1)
   {
@@ -1532,10 +1040,10 @@ char *swift_allocateGenericClassMetadata(uint64_t a1, const void *a2, uint64_t a
 
   if ((*v5 & 0x20000000) != 0)
   {
-    v8 = *(v5 + 24);
+    v8 = v5[6];
     if (v8)
     {
-      v9 = (v8 + v5 + 24);
+      v9 = (v5 + v8 + 24);
     }
 
     else
@@ -1561,17 +1069,17 @@ char *swift_allocateGenericClassMetadata(uint64_t a1, const void *a2, uint64_t a
     if ((*v5 & 0x10000000) != 0)
     {
       v6 = 0;
-      v7 = 24;
+      v7 = 6;
     }
 
     else
     {
-      v6 = *(v5 + 28);
-      v7 = 32;
+      v6 = v5[7];
+      v7 = 8;
     }
 
-    explicit = 8 * (v6 - *(v5 + v7));
-    v11 = *(v5 + 24);
+    explicit = 8 * (v6 - v5[v7]);
+    v11 = *(v5 + 3);
   }
 
   v13 = v11;
@@ -1607,7 +1115,7 @@ char *swift_allocateGenericClassMetadata(uint64_t a1, const void *a2, uint64_t a
   }
 
   v19 = &v14[explicit];
-  bzero(v19, 8 * *(v5 + 32));
+  bzero(v19, 8 * v5[8]);
   v20 = *(a3 + 8);
   if (v20 < 0)
   {
@@ -1714,7 +1222,7 @@ char *swift_allocateGenericClassMetadata(uint64_t a1, const void *a2, uint64_t a
   return v14;
 }
 
-char *swift::MetadataAllocator::Allocate(swift::MetadataAllocator *this, unint64_t a2, unint64_t a3)
+char *swift::MetadataAllocator::Allocate(swift::MetadataAllocator *this, size_t a2, unint64_t a3)
 {
   v3 = a2;
   if (swift::MetadataAllocator::Allocate(unsigned long,unsigned long)::getenvToken == -1)
@@ -1834,7 +1342,7 @@ LABEL_47:
 
       v25 = &result[v17];
       *v25 = _X26;
-      v25[1] = v17;
+      *(v25 + 1) = v17;
       _X2 = &result[v10];
 LABEL_27:
       _X25 = 0;
@@ -2025,7 +1533,7 @@ LABEL_9:
   return result;
 }
 
-char *swift_allocateGenericClassMetadataWithLayoutString(uint64_t a1, const void *a2, uint64_t a3)
+char *swift_allocateGenericClassMetadataWithLayoutString(_DWORD *a1, const void *a2, uint64_t a3)
 {
   if (swift_cvw_allocateGenericClassMetadataWithLayoutString::Override == 1)
   {
@@ -2040,7 +1548,7 @@ char *swift_allocateGenericClassMetadataWithLayoutString(uint64_t a1, const void
   return swift_cvw_allocateGenericClassMetadataWithLayoutStringSlow(a1, a2, a3);
 }
 
-char *swift_cvw_allocateGenericClassMetadataWithLayoutString(uint64_t a1, const void *a2, uint64_t a3)
+char *swift_cvw_allocateGenericClassMetadataWithLayoutString(_DWORD *a1, const void *a2, uint64_t a3)
 {
   if (swift_cvw_allocateGenericClassMetadataWithLayoutString::Override == 1)
   {
@@ -2246,13 +1754,13 @@ LABEL_12:
   swift::MetadataCacheKey::MetadataCacheKey(v19, Cache + 56, GenericArgs);
   v16[0] = v19[0];
   v16[1] = v19[1];
-  swift::LockingConcurrentMap<swift::GenericCacheEntry,swift::LockingConcurrentMapStorage<swift::GenericCacheEntry,(unsigned short)14>>::getOrInsert<swift::MetadataCacheKey,swift::MetadataRequest &,swift::TargetMetadata<swift::InProcess> const*&>(Cache, v16, &v21, &v20, &v17);
+  swift::LockingConcurrentMap<swift::GenericCacheEntry,swift::LockingConcurrentMapStorage<swift::GenericCacheEntry,(unsigned short)14>>::getOrInsert<swift::MetadataCacheKey,swift::MetadataRequest &,swift::TargetMetadata<swift::InProcess> const*&>(Cache, v16, &v17, &v21, &v20);
   result = v18;
   atomic_store(v18, a3);
   return result;
 }
 
-_BYTE *swift::TargetTypeContextDescriptor<swift::InProcess>::getCanonicalMetadataPrespecializationCachingOnceToken(_BYTE *result)
+_DWORD *swift::TargetTypeContextDescriptor<swift::InProcess>::getCanonicalMetadataPrespecializationCachingOnceToken(_DWORD *result)
 {
   v1 = *result & 0x1F;
   switch(v1)
@@ -2266,7 +1774,7 @@ _BYTE *swift::TargetTypeContextDescriptor<swift::InProcess>::getCanonicalMetadat
         }
 
         TrailingObjectsImpl = swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::InProcess>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::InProcess>,swift::TargetTypeGenericContextDescriptorHeader<swift::InProcess>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::InProcess>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::InProcess>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>::getTrailingObjectsImpl(result);
-        return TrailingObjectsImpl + *TrailingObjectsImpl;
+        return (TrailingObjectsImpl + *TrailingObjectsImpl);
       }
 
       return 0;
@@ -2302,7 +1810,7 @@ LABEL_24:
         v8 = 0;
 LABEL_30:
         TrailingObjectsImpl = (v4 + 4 * ((v5 & 0x30000) == 0x20000) + 12 * ((v5 & 0x30000) == 0x10000) + 4 * (v6 == 524416) + 4 * v8);
-        return TrailingObjectsImpl + *TrailingObjectsImpl;
+        return (TrailingObjectsImpl + *TrailingObjectsImpl);
       }
 
       return 0;
@@ -2942,16 +2450,16 @@ LABEL_140:
   return v7;
 }
 
-void swift::LockingConcurrentMap<swift::GenericCacheEntry,swift::LockingConcurrentMapStorage<swift::GenericCacheEntry,(unsigned short)14>>::getOrInsert<swift::MetadataCacheKey,swift::MetadataRequest &,swift::TargetMetadata<swift::InProcess> const*&>(uint64_t a1@<X0>, _OWORD *a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X3>, atomic_ullong **a5@<X8>)
+void swift::LockingConcurrentMap<swift::GenericCacheEntry,swift::LockingConcurrentMapStorage<swift::GenericCacheEntry,(unsigned short)14>>::getOrInsert<swift::MetadataCacheKey,swift::MetadataRequest &,swift::TargetMetadata<swift::InProcess> const*&>(os_unfair_lock_s *a1@<X0>, __int128 *a2@<X1>, uint64_t *a3@<X8>, uint64_t *a4@<X2>, uint64_t a5@<X3>)
 {
-  v7 = (a1 + 48);
-  v19 = a1 + 48;
+  v7 = a1 + 12;
+  v19 = a1 + 12;
   v20 = 0;
   v21 = 0;
   v8 = a2[1];
   v22[0] = *a2;
   v22[1] = v8;
-  v9 = swift::StableAddressConcurrentReadableHashMap<swift::GenericCacheEntry,swift::TaggedMetadataAllocator<(unsigned short)14>,swift::Mutex>::getOrInsert<swift::MetadataCacheKey,swift::MetadataWaitQueue::Worker &,swift::MetadataRequest &,swift::TargetMetadata<swift::InProcess> const*&>(a1, v22, &v19, a3, a4);
+  v9 = swift::StableAddressConcurrentReadableHashMap<swift::GenericCacheEntry,swift::TaggedMetadataAllocator<(unsigned short)14>,swift::Mutex>::getOrInsert<swift::MetadataCacheKey,swift::MetadataWaitQueue::Worker &,swift::MetadataRequest &,swift::TargetMetadata<swift::InProcess> const*&>(a1, v22, &v19, a4, a5);
   if (v10)
   {
     if (v20)
@@ -2963,8 +2471,8 @@ void swift::LockingConcurrentMap<swift::GenericCacheEntry,swift::LockingConcurre
     {
       v14 = 0;
       v16 = v9[4];
-      *a5 = v9;
-      a5[1] = v16;
+      *a3 = v9;
+      a3[1] = v16;
       goto LABEL_10;
     }
 
@@ -2974,22 +2482,22 @@ void swift::LockingConcurrentMap<swift::GenericCacheEntry,swift::LockingConcurre
       return;
     }
 
-    v11 = *a3;
+    v11 = *a4;
     v12 = v9;
     v13 = swift::MetadataCacheEntryBase<swift::GenericCacheEntry,void const*>::doInitialization(v9, &v19, v11);
   }
 
   else
   {
-    v15 = *a3;
+    v15 = *a4;
     v12 = v9;
     swift::MetadataCacheEntryBase<swift::GenericCacheEntry,void const*>::awaitSatisfyingState(v9, v7, v15);
   }
 
-  *a5 = v12;
-  a5[1] = v13;
+  *a3 = v12;
+  a3[1] = v13;
 LABEL_10:
-  a5[2] = v14;
+  a3[2] = v14;
   if (v20)
   {
     os_unfair_lock_unlock(v20 + 2);
@@ -3091,9 +2599,8 @@ uint64_t swift_getCanonicalPrespecializedGenericMetadata(uint64_t a1, uint64_t a
   return _swift_getGenericMetadata(a1, a2, a3);
 }
 
-void swift_getSingletonMetadata(uint64_t a1, _DWORD *a2)
+void swift_getSingletonMetadata(uint64_t a1, unsigned int *a2)
 {
-  v2 = a1;
   if (a2)
   {
     v3 = a2;
@@ -3378,9 +2885,9 @@ LABEL_47:
   }
 }
 
-unint64_t swift_getObjCClassMetadata(unint64_t result)
+char *swift_getObjCClassMetadata(char *result)
 {
-  if (result && (*(result + 32) & 2) == 0)
+  if (result && (result[32] & 2) == 0)
   {
     v62 = result;
     explicit = atomic_load_explicit(&qword_1ED4260C0, memory_order_acquire);
@@ -3466,7 +2973,7 @@ LABEL_105:
 LABEL_106:
         if (explicit)
         {
-          return (explicit + 16);
+          return explicit + 16;
         }
 
         else
@@ -3837,7 +3344,7 @@ void *swift::swift_getObjCClassFromMetadataConditional(void *result)
   return result;
 }
 
-char *swift_getFunctionTypeMetadata0(uint64_t a1, uint64_t a2)
+char *swift_getFunctionTypeMetadata0(unint64_t a1, unint64_t a2)
 {
   v4[0] = a1;
   memset(&v4[1], 0, 24);
@@ -3856,7 +3363,7 @@ char *swift_getFunctionTypeMetadata0(uint64_t a1, uint64_t a2)
   }
 }
 
-char *swift_getFunctionTypeMetadata(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+char *swift_getFunctionTypeMetadata(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
 {
   v6[0] = a1;
   v6[1] = 0;
@@ -3877,7 +3384,7 @@ char *swift_getFunctionTypeMetadata(uint64_t a1, uint64_t a2, uint64_t a3, uint6
   }
 }
 
-char *swift_getFunctionTypeMetadata1(uint64_t a1, uint64_t a2, uint64_t a3)
+char *swift_getFunctionTypeMetadata1(unint64_t a1, uint64_t a2, unint64_t a3)
 {
   v8[1] = *MEMORY[0x1E69E9840];
   v8[0] = a2;
@@ -3900,7 +3407,7 @@ char *swift_getFunctionTypeMetadata1(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-char *swift_getFunctionTypeMetadata2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+char *swift_getFunctionTypeMetadata2(unint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   v9[2] = *MEMORY[0x1E69E9840];
   v9[0] = a2;
@@ -3924,7 +3431,7 @@ char *swift_getFunctionTypeMetadata2(uint64_t a1, uint64_t a2, uint64_t a3, uint
   }
 }
 
-char *swift_getFunctionTypeMetadata3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+char *swift_getFunctionTypeMetadata3(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5)
 {
   v10[3] = *MEMORY[0x1E69E9840];
   v10[0] = a2;
@@ -3949,7 +3456,7 @@ char *swift_getFunctionTypeMetadata3(uint64_t a1, uint64_t a2, uint64_t a3, uint
   }
 }
 
-char *swift::StableAddressConcurrentReadableHashMap<anonymous namespace::FunctionCacheEntry,swift::TaggedMetadataAllocator<(unsigned short)3>,swift::LazyMutex>::getOrInsert<anonymous namespace::FunctionCacheEntry::Key>(uint64_t a1)
+char *swift::StableAddressConcurrentReadableHashMap<anonymous namespace::FunctionCacheEntry,swift::TaggedMetadataAllocator<(unsigned short)3>,swift::LazyMutex>::getOrInsert<anonymous namespace::FunctionCacheEntry::Key>(unint64_t *a1)
 {
   explicit = atomic_load_explicit(&qword_1ED426150, memory_order_acquire);
   {
@@ -3987,11 +3494,11 @@ char *swift::StableAddressConcurrentReadableHashMap<anonymous namespace::Functio
   }
 
   atomic_fetch_add_explicit(&FunctionTypes, 0xFFFFFFFF, memory_order_release);
-  v9 = *(a1 + 16);
+  v9 = *(a1 + 1);
   v87[0] = *a1;
   v87[1] = v9;
-  v10 = *(a1 + 48);
-  v87[2] = *(a1 + 32);
+  v10 = *(a1 + 3);
+  v87[2] = *(a1 + 2);
   v87[3] = v10;
   os_unfair_lock_lock(&unk_1ED426140);
   v11 = qword_1ED426138;
@@ -4344,7 +3851,7 @@ LABEL_95:
     v57 = 7;
   }
 
-  v59 = 8 * (*(a1 + 48) & 1) + ((((*a1 >> 29) & 4 | (*a1 >> 25) & 8) + ((v57 + 8 * v58) | 4)) & 0x7FFFFFFFFFFFFFF8);
+  v59 = 8 * (a1[6] & 1) + ((((*a1 >> 29) & 4 | (*a1 >> 25) & 8) + ((v57 + 8 * v58) | 4)) & 0x7FFFFFFFFFFFFFF8);
   LOWORD(v88[0]) = 3;
   result = swift::MetadataAllocator::Allocate(v88, v59 + 40, 8uLL);
   explicit = result;
@@ -4355,7 +3862,7 @@ LABEL_95:
   if ((v62 - 2) < 2)
   {
     v64 = value witness table for @convention(thin) ();
-    v65 = (result + 8);
+    v65 = result + 8;
     if (value witness table for @convention(thin) ())
     {
       v64 = value witness table for @convention(thin) ();
@@ -4367,7 +3874,7 @@ LABEL_95:
   if (v62 == 1)
   {
     v64 = &value witness table for Builtin.UnknownObject;
-    v65 = (result + 8);
+    v65 = result + 8;
     if (&value witness table for Builtin.UnknownObject)
     {
       v64 = &value witness table for Builtin.UnknownObject;
@@ -4380,12 +3887,12 @@ LABEL_108:
 LABEL_109:
     *(result + 2) = 770;
     *(result + 3) = v61;
-    *(result + 4) = *(a1 + 32);
+    *(result + 4) = a1[4];
     v66 = v61 << 38;
     v67 = (v61 >> 27) & 1;
     if ((v61 & 0x10000000) != 0)
     {
-      *((&result[8 * v61 + 47 + 4 * (v61 & (v66 >> 63))] & 0xFFFFFFFFFFFFFFF8) + 8 * v67) = *(a1 + 40);
+      *((&result[8 * v61 + 47 + 4 * (v61 & (v66 >> 63))] & 0xFFFFFFFFFFFFFFF8) + 8 * v67) = a1[5];
       if ((v61 & 0x8000000) == 0)
       {
 LABEL_111:
@@ -4400,12 +3907,12 @@ LABEL_117:
             v72 = *a1;
             do
             {
-              *&result[8 * v71 + 40] = *(*(a1 + 16) + 8 * v71);
+              *&result[8 * v71 + 40] = *(a1[2] + 8 * v71);
               if ((v61 & 0x2000000) != 0)
               {
                 if ((v72 & 0x2000000) != 0)
                 {
-                  v73 = *(*(a1 + 24) + 4 * v71);
+                  v73 = *(a1[3] + 4 * v71);
                 }
 
                 else
@@ -4484,13 +3991,13 @@ LABEL_117:
         }
 
 LABEL_115:
-        v69 = *(a1 + 48);
+        v69 = *(a1 + 12);
         v68 = v61;
         v70 = ((&result[8 * v61 + 47 + 4 * (v61 & (v66 >> 63))] & 0xFFFFFFFFFFFFFFF8) + 8 * v67 + 8 * ((v61 >> 28) & 1));
         *v70 = v69;
         if (v69)
         {
-          *((v70 + 11) & 0xFFFFFFFFFFFFFFF8) = *(a1 + 56);
+          *((v70 + 11) & 0xFFFFFFFFFFFFFFF8) = a1[7];
         }
 
         goto LABEL_117;
@@ -4502,7 +4009,7 @@ LABEL_115:
       goto LABEL_111;
     }
 
-    *(&result[8 * v61 + 47 + 4 * (v61 & (v66 >> 63))] & 0xFFFFFFFFFFFFFFF8) = *(a1 + 8);
+    *(&result[8 * v61 + 47 + 4 * (v61 & (v66 >> 63))] & 0xFFFFFFFFFFFFFFF8) = a1[1];
     if ((v61 & 0x80000000) == 0)
     {
       goto LABEL_112;
@@ -4520,7 +4027,7 @@ LABEL_115:
   if ((v61 & 0x4000000) == 0)
   {
     v64 = value witness table for ();
-    v65 = (result + 8);
+    v65 = result + 8;
     if (value witness table for ())
     {
       v64 = value witness table for ();
@@ -4529,11 +4036,11 @@ LABEL_115:
     goto LABEL_108;
   }
 
-  v79 = *(a1 + 8);
+  v79 = a1[1];
   if (!v79)
   {
     v64 = value witness table for ();
-    v65 = (result + 8);
+    v65 = result + 8;
     if (value witness table for ())
     {
       v64 = value witness table for ();
@@ -4545,7 +4052,7 @@ LABEL_115:
   if (v79 == 2)
   {
     v64 = value witness table for @differentiable(reverse) ();
-    v65 = (result + 8);
+    v65 = result + 8;
     if (value witness table for @differentiable(reverse) ())
     {
       v64 = value witness table for @differentiable(reverse) ();
@@ -4558,7 +4065,7 @@ LABEL_115:
   return result;
 }
 
-char *swift_getFunctionTypeMetadataDifferentiable(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+char *swift_getFunctionTypeMetadataDifferentiable(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5)
 {
   v7[0] = a1;
   v7[1] = a2;
@@ -4579,7 +4086,7 @@ char *swift_getFunctionTypeMetadataDifferentiable(uint64_t a1, uint64_t a2, uint
   }
 }
 
-char *swift_getFunctionTypeMetadataGlobalActor(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+char *swift_getFunctionTypeMetadataGlobalActor(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, unint64_t a6)
 {
   v8[0] = a1;
   v8[1] = a2;
@@ -4600,7 +4107,7 @@ char *swift_getFunctionTypeMetadataGlobalActor(uint64_t a1, uint64_t a2, uint64_
   }
 }
 
-char *swift_getExtendedFunctionTypeMetadata(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8)
+char *swift_getExtendedFunctionTypeMetadata(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, unint64_t a6, int a7, uint64_t a8)
 {
   if (!a8)
   {
@@ -5028,7 +4535,7 @@ LABEL_153:
 
     v85 = v19;
     v80 = v13;
-    __src = v18 + 2;
+    __src = (v18 + 8);
     v79 = (v17 + 1);
     if ((1 << v16) / ((1 << v16) - v79) < 4)
     {
@@ -5513,7 +5020,7 @@ uint64_t swift_getTupleTypeLayout3(uint64_t a1, uint64_t a2, uint64_t a3, uint64
   return v6;
 }
 
-void swift_getTupleTypeMetadata(uint64_t a1, int a2, uint64_t a3, const char *a4, uint64_t a5)
+void swift_getTupleTypeMetadata(uint64_t a1, int a2, char **a3, const char *a4, uint64_t a5)
 {
   v29 = a5;
   v30 = a1;
@@ -5588,7 +5095,7 @@ LABEL_4:
     *&v27 = v5;
     *(&v27 + 1) = a3;
     v28 = _X22;
-    if (*(v32 + 16) != _X22)
+    if (v32[2] != _X22)
     {
       if (v18 <= 0x2000)
       {
@@ -6599,7 +6106,7 @@ void swift::MetadataAllocator::Deallocate(swift::MetadataAllocator *this, char *
   }
 }
 
-void swift_getTupleTypeMetadata2(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5)
+void swift_getTupleTypeMetadata2(uint64_t a1, char *a2, char *a3, const char *a4, uint64_t a5)
 {
   v5[2] = *MEMORY[0x1E69E9840];
   v5[0] = a2;
@@ -6607,7 +6114,7 @@ void swift_getTupleTypeMetadata2(uint64_t a1, uint64_t a2, uint64_t a3, const ch
   swift_getTupleTypeMetadata(a1, 2, v5, a4, a5);
 }
 
-void swift_getTupleTypeMetadata3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, uint64_t a6)
+void swift_getTupleTypeMetadata3(uint64_t a1, char *a2, char *a3, char *a4, const char *a5, uint64_t a6)
 {
   v6[3] = *MEMORY[0x1E69E9840];
   v6[0] = a2;
@@ -6646,7 +6153,7 @@ BOOL swift::equalContexts(const char *a1, const char *a2)
   v7 = *(a1 + 1);
   if (v7)
   {
-    v10 = (v8 + (v7 & 0xFFFFFFFFFFFFFFFELL));
+    v10 = &v8[v7 & 0xFFFFFFFFFFFFFFFELL];
     if (v7)
     {
       if (*v10)
@@ -6659,7 +6166,7 @@ BOOL swift::equalContexts(const char *a1, const char *a2)
 
     else if (v10)
     {
-      v11 = v8 + (v7 & 0xFFFFFFFFFFFFFFFELL);
+      v11 = &v8[v7 & 0xFFFFFFFFFFFFFFFELL];
       goto LABEL_16;
     }
   }
@@ -6852,7 +6359,7 @@ LABEL_28:
   return result;
 }
 
-char *_swift_pod_indirect_initializeBufferWithCopyOfBuffer(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _swift_pod_indirect_initializeBufferWithCopyOfBuffer(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -7190,7 +6697,7 @@ LABEL_56:
   return result;
 }
 
-double swift_initStructMetadataWithLayoutString(uint64_t *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+double swift_initStructMetadataWithLayoutString(unint64_t *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (swift_cvw_initStructMetadataWithLayoutString::Override == 1)
   {
@@ -7206,7 +6713,7 @@ double swift_initStructMetadataWithLayoutString(uint64_t *a1, uint64_t a2, unint
   return result;
 }
 
-double swift_cvw_initStructMetadataWithLayoutString(uint64_t *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+double swift_cvw_initStructMetadataWithLayoutString(unint64_t *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (swift_cvw_initStructMetadataWithLayoutString::Override == 1)
   {
@@ -7491,7 +6998,7 @@ LABEL_13:
   return result;
 }
 
-char *swift_initRawStructMetadata(uint64_t a1, __int16 a2, uint64_t *a3, int a4)
+char *swift_initRawStructMetadata(uint64_t a1, __int16 a2, uint64_t *a3, unsigned int a4)
 {
   v6 = (a1 - 8);
   if (*(a1 - 8))
@@ -7534,7 +7041,7 @@ LABEL_6:
   v12 = *(a3 + 16);
   v13 = *(a3 + 5);
   v14 = v11 * a4;
-  if (a4 >= 0)
+  if ((a4 & 0x80000000) == 0)
   {
     v11 *= a4;
     v10 = v14;
@@ -7634,7 +7141,7 @@ uint64_t supportsLazyObjcClassNames(void)
 
 uint64_t getSuperclassMetadata(uint64_t a1, uint64_t a2)
 {
-  v36[33] = *MEMORY[0x1E69E9840];
+  v37[33] = *MEMORY[0x1E69E9840];
   v4 = a2 + 64;
   v3 = *(a2 + 64);
   v5 = *(v3 + 20);
@@ -7658,7 +7165,7 @@ uint64_t getSuperclassMetadata(uint64_t a1, uint64_t a2)
   v12 = v11;
   v24[0] = SymbolicMangledNameStringRef;
   v24[1] = v11;
-  v31 = 0;
+  v32 = 0;
   TypeContextDescriptor = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(a2);
   if (TypeContextDescriptor)
   {
@@ -7670,18 +7177,18 @@ uint64_t getSuperclassMetadata(uint64_t a1, uint64_t a2)
     v14 = 0;
   }
 
-  v32 = v14;
+  v33 = v14;
   GenericArgs = swift::TargetMetadata<swift::InProcess>::getGenericArgs(a2);
-  v34 = v36;
-  v35 = 0x800000000;
-  v36[32] = 0;
+  v35 = v37;
+  v36 = 0x800000000;
+  v37[32] = 0;
   v27[0] = &unk_1EEEACA88;
-  v27[1] = &v31;
+  v27[1] = &v32;
   v28 = v27;
   v25[0] = &unk_1EEEACAD0;
-  v25[1] = &v31;
+  v25[1] = &v32;
   v26 = v25;
-  swift_getTypeByMangledName(v29, a1, SymbolicMangledNameStringRef, v12, GenericArgs, v27, v25);
+  swift_getTypeByMangledName(a1, SymbolicMangledNameStringRef, v12, GenericArgs, v27, v25);
   if (v26 == v25)
   {
     (*(*v26 + 32))(v26);
@@ -7695,8 +7202,8 @@ uint64_t getSuperclassMetadata(uint64_t a1, uint64_t a2)
   if (v28 == v27)
   {
     (*(*v28 + 32))(v28);
-    v15 = v30;
-    if (v30)
+    v15 = v31;
+    if (v31)
     {
 LABEL_18:
       if (v15 == 1)
@@ -7709,7 +7216,7 @@ LABEL_18:
           v18 = v22[0];
         }
 
-        v19 = (v29[1])(v29[0], 0, 0);
+        v19 = v30(v29, 0, 0);
         swift::fatalError(0, "failed to demangle superclass of %s from mangled name '%s': %s\n", v20, v21, v17, v18, v19);
       }
 
@@ -7725,19 +7232,19 @@ LABEL_18:
       (*(*v28 + 40))();
     }
 
-    v15 = v30;
-    if (v30)
+    v15 = v31;
+    if (v31)
     {
       goto LABEL_18;
     }
   }
 
-  result = v29[0];
+  result = v29;
 LABEL_22:
-  if (v34 != v36)
+  if (v35 != v37)
   {
     v16 = result;
-    free(v34);
+    free(v35);
     return v16;
   }
 
@@ -7798,7 +7305,7 @@ const void **__swift::__runtime::llvm::StringRef::str@<X0>(const void **this@<X0
       this = memmove(a2, v3, v4);
     }
 
-    *(a2 + v4) = 0;
+    v4[a2] = 0;
   }
 
   else
@@ -7811,10 +7318,10 @@ const void **__swift::__runtime::llvm::StringRef::str@<X0>(const void **this@<X0
   return this;
 }
 
-swift *_swift_initClassMetadataImpl(uint64_t a1, __int16 a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
+swift *_swift_initClassMetadataImpl(objc_class *a1, __int16 a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
 {
   v6 = a1;
-  v261 = *MEMORY[0x1E69E9840];
+  v262 = *MEMORY[0x1E69E9840];
   if (a6)
   {
     v7 = 1;
@@ -7838,7 +7345,7 @@ swift *_swift_initClassMetadataImpl(uint64_t a1, __int16 a2, uint64_t a3, uint64
   result = getSuperclassMetadata(v8, a1);
   if (!result)
   {
-    v13 = v6 + 1;
+    v13 = (v6 + 8);
 LABEL_14:
     *v13 = 0;
     RootSuperclass = swift::getRootSuperclass(result);
@@ -7868,7 +7375,7 @@ LABEL_14:
     return result;
   }
 
-  v13 = v6 + 1;
+  v13 = (v6 + 8);
   if (!v12)
   {
     goto LABEL_14;
@@ -7879,15 +7386,15 @@ LABEL_18:
   *v13 = v14;
   if (_swift_initClassMetadataImpl(swift::TargetClassMetadata<swift::InProcess,swift::TargetAnyClassMetadataObjCInterop<swift::InProcess>> *,swift::ClassLayoutFlags,unsigned long,swift::TargetTypeLayout<swift::InProcess> const* const*,unsigned long *,BOOL)::onceToken != -1)
   {
-    v232 = v12;
+    v233 = v12;
     _swift_initClassMetadataImpl();
-    v12 = v232;
+    v12 = v233;
   }
 
-  v254 = v256;
-  v255 = 0x1000000000;
-  v16 = v6 + 8;
-  if ((*(v6[8] + 3) & 0x40) != 0 && v12)
+  v255 = v257;
+  v256 = 0x1000000000;
+  v16 = (v6 + 64);
+  if ((*(*(v6 + 8) + 3) & 0x40) != 0 && v12)
   {
     do
     {
@@ -7896,9 +7403,9 @@ LABEL_18:
         break;
       }
 
-      if (*(v12 + 64))
+      if (*(v12 + 8))
       {
-        v17 = *(v12 + 64);
+        v17 = *(v12 + 8);
       }
 
       else
@@ -7908,17 +7415,17 @@ LABEL_18:
 
       if ((*(v17 + 2) & 0x40) != 0)
       {
-        v18 = v255;
-        if (v255 >= HIDWORD(v255))
+        v18 = v256;
+        if (v256 >= HIDWORD(v256))
         {
           v21 = v12;
-          __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(&v254, v256, v255 + 1, 8);
+          __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(&v255, v257, v256 + 1, 8);
           v12 = v21;
-          v18 = v255;
+          v18 = v256;
         }
 
-        *(v254 + v18) = v17;
-        LODWORD(v255) = v255 + 1;
+        *(v255 + v18) = v17;
+        LODWORD(v256) = v256 + 1;
       }
 
       result = getSuperclassMetadata(v8, v12);
@@ -7944,7 +7451,7 @@ LABEL_18:
   }
 
   v22 = *v13;
-  v251 = v6;
+  v252 = v6;
   v23 = a2;
   if (!v22)
   {
@@ -7952,7 +7459,7 @@ LABEL_18:
   }
 
   v24 = v22;
-  v245 = v6 + 8;
+  v246 = (v6 + 64);
   for (i = v22; (*(i + 32) & 2) != 0; i = *(i + 8))
   {
     if (*(i + 64))
@@ -8029,7 +7536,7 @@ LABEL_57:
 
         v34 = v26;
 LABEL_58:
-        memcpy(&v6[v33], (v24 + 8 * v33), 8 * *(v34 + 28));
+        memcpy(v6 + 8 * v33, (v24 + 8 * v33), 8 * *(v34 + 28));
         v27 = *v26;
       }
     }
@@ -8120,11 +7627,11 @@ LABEL_83:
     if (v46)
     {
       v47 = 8 * v37;
-      v48 = (v251 + v47);
+      v48 = (v252 + v47);
       v49 = (v24 + v47);
       v50 = 8 * v37;
       v51 = v24 + v50;
-      v52 = v251 + v50;
+      v52 = v252 + v50;
       do
       {
         v38 += 8;
@@ -8140,7 +7647,7 @@ LABEL_83:
 
 LABEL_87:
     v53 = v26[10];
-    v6 = v251;
+    v6 = v252;
     if (v53)
     {
       if ((*(v26 + 3) & 0x20) != 0)
@@ -8166,7 +7673,7 @@ LABEL_87:
         v53 = v26[10] + (v56 >> 3);
       }
 
-      memcpy(v251 + 8 * v53, (v24 + 8 * v53), 8 * v26[9]);
+      memcpy(v252 + 8 * v53, (v24 + 8 * v53), 8 * v26[9]);
     }
 
     if (!*(i + 8))
@@ -8175,8 +7682,8 @@ LABEL_87:
     }
   }
 
-  v16 = v245;
-  if ((**v245 & 0x80) != 0 || (*(v24 + 32) & 2) != 0 && (**(v24 + 64) & 0x80) != 0)
+  v16 = v246;
+  if ((**v246 & 0x80) != 0 || (*(v24 + 32) & 2) != 0 && (**(v24 + 64) & 0x80) != 0)
   {
     Class = object_getClass(v6);
     v59 = object_getClass(v24);
@@ -8241,7 +7748,7 @@ LABEL_105:
 
 LABEL_119:
       v67 = 0;
-      v6 = v251;
+      v6 = v252;
     }
 
     else
@@ -8258,13 +7765,13 @@ LABEL_126:
       if ((*v61 & 0x80000000) != 0)
       {
         v73 = v61 ? v61 : 0;
-        v6 = v251;
+        v6 = v252;
         swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::InProcess>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::InProcess>,swift::TargetTypeGenericContextDescriptorHeader<swift::InProcess>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::InProcess>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::InProcess>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>::getTrailingObjectsImpl(v73);
       }
 
       else
       {
-        v6 = v251;
+        v6 = v252;
       }
     }
 
@@ -8283,7 +7790,7 @@ LABEL_126:
         }
 
         v82 += 2;
-        v6[v66++] = v84;
+        *(v6 + v66++) = v84;
         v81 += 8;
         --v80;
       }
@@ -8294,38 +7801,38 @@ LABEL_126:
 LABEL_110:
     if ((*(v61 + 3) & 0x40) != 0)
     {
-      v62 = v255;
-      v257 = 0u;
+      v62 = v256;
       v258 = 0u;
-      LODWORD(v259) = 1065353216;
+      v259 = 0u;
+      LODWORD(v260) = 1065353216;
       if ((*(v61 + 3) & 0x40) != 0)
       {
-        v247 = v255;
+        v248 = v256;
         v63 = v61 ? v61 : 0;
         TrailingObjectsImpl = swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::InProcess>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::InProcess>,swift::TargetTypeGenericContextDescriptorHeader<swift::InProcess>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::InProcess>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::InProcess>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>::getTrailingObjectsImpl(v63);
-        v240 = *v63;
-        if ((v240 & 0x80000000) != 0)
+        v241 = *v63;
+        if ((v241 & 0x80000000) != 0)
         {
           if (!v63)
           {
             v63 = 0;
           }
 
-          v242 = *(swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::InProcess>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::InProcess>,swift::TargetTypeGenericContextDescriptorHeader<swift::InProcess>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::InProcess>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::InProcess>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>::getTrailingObjectsImpl(v63) + 4 * ((*v63 >> 29) & 1) + 4 * ((*v63 & 0x30000) == 0x20000) + 12 * ((*v63 & 0x30000) == 0x10000) + 4);
+          v243 = *(swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::InProcess>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::InProcess>,swift::TargetTypeGenericContextDescriptorHeader<swift::InProcess>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::InProcess>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::InProcess>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>::getTrailingObjectsImpl(v63) + 4 * ((*v63 >> 29) & 1) + 4 * ((*v63 & 0x30000) == 0x20000) + 12 * ((*v63 & 0x30000) == 0x10000) + 4);
         }
 
         else
         {
-          v242 = 0;
+          v243 = 0;
         }
 
-        v62 = v247;
+        v62 = v248;
         if ((*(v61 + 3) & 0x40) != 0)
         {
           v74 = v61 ? v61 : 0;
           v75 = swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::InProcess>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::InProcess>,swift::TargetTypeGenericContextDescriptorHeader<swift::InProcess>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::InProcess>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::InProcess>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>::getTrailingObjectsImpl(v74);
           v76 = *v74;
-          v234 = v75;
+          v235 = v75;
           if ((v76 & 0x80000000) != 0)
           {
             v79 = v74 ? v74 : 0;
@@ -8340,7 +7847,7 @@ LABEL_110:
           }
 
           v85 = (v76 & 0x30000) == 0x20000;
-          v62 = v247;
+          v62 = v248;
           if ((*(v61 + 3) & 0x40) != 0)
           {
             v86 = v61 ? v61 : 0;
@@ -8364,7 +7871,7 @@ LABEL_110:
             }
 
             v93 = *(v87 + 4 * ((v90 >> 29) & 1) + 4 * ((v90 & 0x30000) == 0x20000) + 12 * ((v90 & 0x30000) == 0x10000) + 8 * ((v90 >> 31) & 1) + 8 * v91);
-            v62 = v247;
+            v62 = v248;
             if (v93)
             {
               v94 = 0;
@@ -8373,11 +7880,11 @@ LABEL_110:
               v97 = 8 * (v76 >> 31);
               v98 = 4 * ((v78 >> 30) & 1);
               v99 = 4 * ((v76 >> 29) & 1);
-              v100 = v234 + v99 + v95 + 8 * v77 + v97 + 4 * v85 + v98;
+              v100 = v235 + v99 + v95 + 8 * v77 + v97 + 4 * v85 + v98;
               v101 = 12 * v93;
-              v102 = v234 + v95 + v97 + v96 + v99 + v98 + 4 * v85;
-              v235 = v102;
-              v236 = 12 * v93;
+              v102 = v235 + v95 + v97 + v96 + v99 + v98 + 4 * v85;
+              v236 = v102;
+              v237 = 12 * v93;
               while (1)
               {
                 if (!v62)
@@ -8403,8 +7910,8 @@ LABEL_110:
                 }
 
 LABEL_176:
-                v253 = v104;
-                std::__hash_table<swift::TargetMethodDescriptor<swift::InProcess> const*,std::hash<swift::TargetMethodDescriptor<swift::InProcess> const*>,std::equal_to<swift::TargetMethodDescriptor<swift::InProcess> const*>,std::allocator<swift::TargetMethodDescriptor<swift::InProcess> const*>>::__emplace_unique_key_args<swift::TargetMethodDescriptor<swift::InProcess> const*,swift::TargetMethodDescriptor<swift::InProcess> const*>(&v257, &v253);
+                v254 = v104;
+                std::__hash_table<swift::TargetMethodDescriptor<swift::InProcess> const*,std::hash<swift::TargetMethodDescriptor<swift::InProcess> const*>,std::equal_to<swift::TargetMethodDescriptor<swift::InProcess> const*>,std::allocator<swift::TargetMethodDescriptor<swift::InProcess> const*>>::__emplace_unique_key_args<swift::TargetMethodDescriptor<swift::InProcess> const*,swift::TargetMethodDescriptor<swift::InProcess> const*>(&v258, &v254, &v254);
 LABEL_177:
                 v105 = *(v100 + v94);
                 if (v105)
@@ -8477,22 +7984,22 @@ LABEL_191:
                     v115 = (v114 & 0x30000) == 0x20000;
                     if ((*v108 & 0x80000000) != 0)
                     {
-                      v233 = v113;
+                      v234 = v113;
                       v116 = swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::InProcess>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::InProcess>,swift::TargetTypeGenericContextDescriptorHeader<swift::InProcess>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::InProcess>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::InProcess>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>::getTrailingObjectsImpl(v108);
                       v117 = *v108;
                       v118 = v116 + 4 * ((v117 >> 29) & 1);
-                      v113 = v233;
+                      v113 = v234;
                       v115 = (v114 & 0x30000) == 0x20000;
                       v112 = *(v118 + 4 * ((v117 & 0x30000) == 0x20000) + 12 * ((v117 & 0x30000) == 0x10000) + 4);
                     }
 
                     v111 = v113 + 4 * ((v114 >> 29) & 1) + 4 * v115 + 12 * ((v114 & 0x30000) == 0x10000) + ((v114 >> 28) & 8);
-                    v102 = v235;
-                    v101 = v236;
+                    v102 = v236;
+                    v101 = v237;
                     if (v111 > v110)
                     {
 LABEL_358:
-                      swift::fatalError(0, "resilient vtable at %p contains out-of-bounds method descriptor %p\n", v88, v89, TrailingObjectsImpl + 4 * ((v240 >> 29) & 1) + 4 * ((v240 & 0x30000) == 0x20000) + 12 * ((v240 & 0x30000) == 0x10000) + 8 * ((v240 >> 31) & 1) + 8 * v242, v110);
+                      swift::fatalError(0, "resilient vtable at %p contains out-of-bounds method descriptor %p\n", v88, v89, TrailingObjectsImpl + 4 * ((v241 >> 29) & 1) + 4 * ((v241 & 0x30000) == 0x20000) + 12 * ((v241 & 0x30000) == 0x10000) + 8 * ((v241 >> 31) & 1) + 8 * v243, v110);
                     }
                   }
 
@@ -8549,7 +8056,7 @@ LABEL_204:
                     v120 = *v119 + (v123 >> 3);
                   }
 
-                  v125 = (&v110[v120] + v251 - v111);
+                  v125 = (&v110[v120] + v252 - v111);
                   v126 = *(v100 + v94 + 8);
                   if (v126)
                   {
@@ -8561,7 +8068,7 @@ LABEL_204:
                     v127 = 0;
                   }
 
-                  v62 = v247;
+                  v62 = v248;
                   *v125 = v127;
                 }
 
@@ -8581,11 +8088,11 @@ LABEL_169:
       }
 
 LABEL_214:
-      if (v62 && v255)
+      if (v62 && v256)
       {
-        v128 = v254;
-        v129 = v254 + 8 * v255;
-        v241 = v129;
+        v128 = v255;
+        v129 = v255 + 8 * v256;
+        v242 = v129;
         while (1)
         {
           v130 = *v128;
@@ -8627,8 +8134,8 @@ LABEL_227:
             if (*v140)
             {
               v140 = *v140;
-              v141 = *(&v257 + 8);
-              if (!*(&v257 + 1))
+              v141 = *(&v258 + 8);
+              if (!*(&v258 + 1))
               {
                 goto LABEL_226;
               }
@@ -8637,8 +8144,8 @@ LABEL_227:
             else
             {
               v140 = 0;
-              v141 = *(&v257 + 8);
-              if (!*(&v257 + 1))
+              v141 = *(&v258 + 8);
+              if (!*(&v258 + 1))
               {
                 goto LABEL_226;
               }
@@ -8653,8 +8160,8 @@ LABEL_227:
           v140 = 0;
         }
 
-        v141 = *(&v257 + 8);
-        if (!*(&v257 + 1))
+        v141 = *(&v258 + 8);
+        if (!*(&v258 + 1))
         {
           goto LABEL_226;
         }
@@ -8679,7 +8186,7 @@ LABEL_234:
           v146 = v144 & (*&v141 - 1);
         }
 
-        v147 = *(v257 + 8 * v146);
+        v147 = *(v258 + 8 * v146);
         if (!v147)
         {
           goto LABEL_226;
@@ -8732,7 +8239,7 @@ LABEL_257:
                 if (v155 >= *&v141)
                 {
                   v156 = v155 % *&v141;
-                  v157 = *(v257 + 8 * (v155 % *&v141));
+                  v157 = *(v258 + 8 * (v155 % *&v141));
                   if (v157)
                   {
 LABEL_266:
@@ -8779,7 +8286,7 @@ LABEL_266:
 
                 else
                 {
-                  v157 = *(v257 + 8 * v155);
+                  v157 = *(v258 + 8 * v155);
                   if (v157)
                   {
                     goto LABEL_266;
@@ -8790,7 +8297,7 @@ LABEL_266:
               else
               {
                 v156 = v155 & v149;
-                v157 = *(v257 + 8 * (v155 & v149));
+                v157 = *(v258 + 8 * (v155 & v149));
                 if (v157)
                 {
                   goto LABEL_266;
@@ -8803,7 +8310,7 @@ LABEL_266:
               }
 
               v159 = v130;
-              v248 = v132;
+              v249 = v132;
               if ((*v131 & 0x80000000) == 0)
               {
                 v160 = 0;
@@ -8811,8 +8318,8 @@ LABEL_266:
                 goto LABEL_280;
               }
 
-              v239 = v138;
-              v243 = DefaultOverrideDescriptors;
+              v240 = v138;
+              v244 = DefaultOverrideDescriptors;
               v162 = swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::InProcess>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::InProcess>,swift::TargetTypeGenericContextDescriptorHeader<swift::InProcess>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::InProcess>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::InProcess>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>::getTrailingObjectsImpl(v130);
               v161 = 0;
               v163 = *v130;
@@ -8820,21 +8327,21 @@ LABEL_266:
               v165 = (v163 & 0x30000) == 0x10000;
               if ((*v131 & 0x80000000) != 0)
               {
-                v237 = v162;
+                v238 = v162;
                 v166 = swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::InProcess>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::InProcess>,swift::TargetTypeGenericContextDescriptorHeader<swift::InProcess>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::InProcess>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::InProcess>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>::getTrailingObjectsImpl(v130);
                 v165 = (v163 & 0x30000) == 0x10000;
                 v167 = *v130;
                 v168 = v166 + 4 * ((v167 >> 29) & 1);
-                v162 = v237;
+                v162 = v238;
                 v164 = (v163 & 0x30000) == 0x20000;
                 v161 = *(v168 + 4 * ((v167 & 0x30000) == 0x20000) + 12 * ((v167 & 0x30000) == 0x10000) + 4);
               }
 
               v160 = v162 + 4 * ((v163 >> 29) & 1) + 4 * v164 + 12 * v165 + ((v163 >> 28) & 8);
-              v129 = v241;
-              DefaultOverrideDescriptors = v243;
-              v132 = v248;
-              v138 = v239;
+              v129 = v242;
+              DefaultOverrideDescriptors = v244;
+              v132 = v249;
+              v138 = v240;
               if (v160 > v152)
               {
 LABEL_357:
@@ -8849,14 +8356,14 @@ LABEL_280:
 
               if ((*v131 & 0x80000000) != 0)
               {
-                v244 = DefaultOverrideDescriptors;
+                v245 = DefaultOverrideDescriptors;
                 v171 = v138;
                 v172 = swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::InProcess>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::InProcess>,swift::TargetTypeGenericContextDescriptorHeader<swift::InProcess>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::InProcess>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::InProcess>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>::getTrailingObjectsImpl(v130);
                 v138 = v171;
                 v159 = v130;
                 v173 = v172;
-                v129 = v241;
-                DefaultOverrideDescriptors = v244;
+                v129 = v242;
+                DefaultOverrideDescriptors = v245;
                 v169 = (v173 + 4 * ((*v130 >> 29) & 1) + 4 * ((*v130 & 0x30000) == 0x20000) + 12 * ((*v130 & 0x30000) == 0x10000));
                 if ((*v131 & 0x20000000) != 0)
                 {
@@ -8896,7 +8403,7 @@ LABEL_285:
                   computeMetadataBoundsFromSuperclass(v178, v175);
                   v138 = v179;
                   DefaultOverrideDescriptors = v177;
-                  v129 = v241;
+                  v129 = v242;
                   v176 = v180;
                 }
 
@@ -8904,7 +8411,7 @@ LABEL_285:
               }
 
               v181 = DefaultOverrideDescriptors[2];
-              v182 = (v251 + 8 * v170 + v152 - v160);
+              v182 = (v252 + 8 * v170 + v152 - v160);
               if (v181)
               {
                 v183 = DefaultOverrideDescriptors + v181 + 8;
@@ -8915,7 +8422,7 @@ LABEL_285:
                 v183 = 0;
               }
 
-              v132 = v248;
+              v132 = v249;
               *v182 = v183;
 LABEL_226:
               DefaultOverrideDescriptors += 3;
@@ -8958,8 +8465,8 @@ LABEL_226:
       }
 
 LABEL_295:
-      v184 = v258;
-      if (v258)
+      v184 = v259;
+      if (v259)
       {
         do
         {
@@ -8971,9 +8478,9 @@ LABEL_295:
         while (v185);
       }
 
-      v186 = v257;
-      *&v257 = 0;
-      v6 = v251;
+      v186 = v258;
+      *&v258 = 0;
+      v6 = v252;
       if (v186)
       {
         operator delete(v186);
@@ -8982,9 +8489,9 @@ LABEL_295:
   }
 
   initClassFieldOffsetVector(v6, a3, a4, a5);
-  if (v6[8])
+  if (*(v6 + 8))
   {
-    v187 = v6[8];
+    v187 = *(v6 + 8);
   }
 
   else
@@ -9000,7 +8507,7 @@ LABEL_295:
     v191 = a3;
     if (a3)
     {
-      v192 = v6[4] & 0x7FFFFFFFF8;
+      v192 = *(v6 + 4) & 0x7FFFFFFFF8;
       v193 = *(v192 + 0x30);
       if (v193)
       {
@@ -9057,20 +8564,20 @@ LABEL_295:
 
         while (v195 != v191);
         v188 = *v187;
-        v6 = v251;
+        v6 = v252;
       }
     }
 
     if (v188 & 0x20000000) != 0 && (v187[7])
     {
-      v229 = v187 ? v187 : 0;
-      v230 = swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::InProcess>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::InProcess>,swift::TargetTypeGenericContextDescriptorHeader<swift::InProcess>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::InProcess>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::InProcess>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>::getTrailingObjectsImpl(v229);
-      v231 = *v230;
-      if (v231)
+      v230 = v187 ? v187 : 0;
+      v231 = swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::InProcess>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::InProcess>,swift::TargetTypeGenericContextDescriptorHeader<swift::InProcess>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::InProcess>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::InProcess>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>::getTrailingObjectsImpl(v230);
+      v232 = *v231;
+      if (v232)
       {
-        if ((v230 + v231))
+        if ((v231 + v232))
         {
-          _objc_realizeClassFromSwift(v6, v230 + v231);
+          _objc_realizeClassFromSwift(v6, v231 + v232);
           goto LABEL_345;
         }
       }
@@ -9088,126 +8595,126 @@ LABEL_344:
 
   if (supportsLazyObjcClassNames(void)::$_0::operator() const(void)::TheLazy == 1)
   {
-    *((v6[4] & 0x7FFFFFFFF8) + 0x18) = 0;
+    *((*(v6 + 4) & 0x7FFFFFFFF8) + 0x18) = 0;
     v206 = *(object_getClass(v6) + 4) & 0x7FFFFFFFF8;
     *(v206 + 16) = v6;
     *(v206 + 24) = 0;
-    v207 = v6[4];
+    v207 = *(v6 + 4);
   }
 
   else
   {
     v208 = object_getClass(v6);
-    v209 = copyGenericClassObjCName(v6);
-    v207 = v6[4];
-    *((v207 & 0x7FFFFFFFF8) + 0x18) = v209;
-    *((*(v208 + 4) & 0x7FFFFFFFF8) + 0x18) = v209;
+    v210 = copyGenericClassObjCName(v6, v209);
+    v207 = *(v6 + 4);
+    *((v207 & 0x7FFFFFFFF8) + 0x18) = v210;
+    *((*(v208 + 4) & 0x7FFFFFFFF8) + 0x18) = v210;
   }
 
-  v259 = 0u;
   v260 = 0u;
-  v257 = 0u;
+  v261 = 0u;
   v258 = 0u;
+  v259 = 0u;
   if (!a3)
   {
     goto LABEL_344;
   }
 
-  v210 = v207 & 0x7FFFFFFFF8;
-  v211 = *((v207 & 0x7FFFFFFFF8) + 0x30);
-  v212 = swift::MetadataAllocator::Allocate(&getResilientMetadataAllocator(void)::allocator, (32 * a3) | 8, 4uLL);
-  memcpy(v212, v211, (32 * a3) | 8);
-  v213 = a3;
-  v214 = 0;
+  v211 = v207 & 0x7FFFFFFFF8;
+  v212 = *((v207 & 0x7FFFFFFFF8) + 0x30);
+  v213 = swift::MetadataAllocator::Allocate(&getResilientMetadataAllocator(void)::allocator, (32 * a3) | 8, 4uLL);
+  memcpy(v213, v212, (32 * a3) | 8);
+  v214 = a3;
   v215 = 0;
   v216 = 0;
-  *(v210 + 48) = v212;
-  v217 = v212 + 8;
-  v219 = a4;
-  v218 = a5;
+  v217 = 0;
+  *(v211 + 48) = v213;
+  v218 = v213 + 8;
+  v220 = a4;
+  v219 = a5;
   do
   {
-    v220 = *(v219 + 8 * v214);
-    v221 = &v217[32 * v214];
-    v222 = *v221;
-    if (*v221)
+    v221 = *(v220 + 8 * v215);
+    v222 = &v218[32 * v215];
+    v223 = *v222;
+    if (*v222)
     {
-      if (!v216)
+      if (!v217)
       {
-        if (v213 > 8)
+        if (v214 > 8)
         {
-          v223 = malloc_type_calloc(v213, 8uLL, 0x10040436913F5uLL);
-          v213 = a3;
-          v216 = v223;
+          v224 = malloc_type_calloc(v214, 8uLL, 0x10040436913F5uLL);
+          v214 = a3;
+          v217 = v224;
         }
 
         else
         {
-          v216 = &v257;
-          bzero(&v257, 8 * a3);
-          v213 = a3;
+          v217 = &v258;
+          bzero(&v258, 8 * a3);
+          v214 = a3;
         }
 
-        v219 = a4;
-        v218 = a5;
+        v220 = a4;
+        v219 = a5;
       }
 
-      *(v216 + v214) = v222;
+      *(v217 + v215) = v223;
     }
 
-    *v221 = v218 + 8 * v214;
-    if (*v220 != *(v221 + 7))
+    *v222 = v219 + 8 * v215;
+    if (*v221 != *(v222 + 7))
     {
-      *(v221 + 7) = *v220;
-      *(v221 + 2) = 0;
-      v224 = -1;
+      *(v222 + 7) = *v221;
+      *(v222 + 2) = 0;
+      v225 = -1;
       do
       {
-        ++v224;
+        ++v225;
       }
 
-      while (*(v220 + 16) + 1 != 1 << v224);
-      *(v221 + 6) = v224;
+      while (*(v221 + 16) + 1 != 1 << v225);
+      *(v222 + 6) = v225;
     }
 
-    v214 = ++v215;
+    v215 = ++v216;
   }
 
-  while (v215 != v213);
-  swift_instantiateObjCClass(v251);
-  if (v216)
+  while (v216 != v214);
+  swift_instantiateObjCClass(v252);
+  if (v217)
   {
-    v225 = 0;
+    v226 = 0;
     do
     {
-      v226 = *(v216 + v225);
-      if (v226)
+      v227 = *(v217 + v226);
+      if (v227)
       {
-        v227 = *(a5 + 8 * v225);
-        if (*v226 != v227)
+        v228 = *(a5 + 8 * v226);
+        if (*v227 != v228)
         {
-          *v226 = v227;
+          *v227 = v228;
         }
       }
 
-      ++v225;
+      ++v226;
     }
 
-    while (a3 != v225);
-    if (v216 != &v257)
+    while (a3 != v226);
+    if (v217 != &v258)
     {
-      free(v216);
+      free(v217);
     }
   }
 
 LABEL_345:
   result = 0;
 LABEL_346:
-  if (v254 != v256)
+  if (v255 != v257)
   {
-    v228 = result;
-    free(v254);
-    return v228;
+    v229 = result;
+    free(v255);
+    return v229;
   }
 
   return result;
@@ -9411,7 +8918,7 @@ LABEL_13:
   return v4;
 }
 
-uint64_t swift_lookUpClassMethod(uint64_t a1, _DWORD *a2, int *a3)
+uint64_t swift_lookUpClassMethod(uint64_t a1, _DWORD *a2, _DWORD *a3)
 {
   if (a3)
   {
@@ -9436,7 +8943,7 @@ LABEL_3:
   v5 = a2;
 LABEL_6:
   v6 = *v4;
-  if (*v4 < 0)
+  if ((*v4 & 0x80000000) != 0)
   {
     if (v4)
     {
@@ -9450,7 +8957,7 @@ LABEL_6:
 
     v7 = (swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::InProcess>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::InProcess>,swift::TargetTypeGenericContextDescriptorHeader<swift::InProcess>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::InProcess>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::InProcess>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>::getTrailingObjectsImpl(v9) + 4 * ((*v9 >> 29) & 1) + 4 * ((*v9 & 0x30000) == 0x20000) + 12 * ((*v9 & 0x30000) == 0x10000));
     v6 = *v4;
-    if (*v4 < 0)
+    if ((*v4 & 0x80000000) != 0)
     {
       if (v4)
       {
@@ -9464,7 +8971,7 @@ LABEL_6:
 
       v8 = swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::InProcess>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::InProcess>,swift::TargetTypeGenericContextDescriptorHeader<swift::InProcess>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::InProcess>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::InProcess>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::InProcess>,swift::TargetForeignMetadataInitialization<swift::InProcess>,swift::TargetSingletonMetadataInitialization<swift::InProcess>,swift::TargetVTableDescriptorHeader<swift::InProcess>,swift::TargetMethodDescriptor<swift::InProcess>,swift::TargetOverrideTableHeader<swift::InProcess>,swift::TargetMethodOverrideDescriptor<swift::InProcess>,swift::TargetObjCResilientClassStubInfo<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::InProcess>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::InProcess>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::InProcess>,swift::TargetMethodDefaultOverrideTableHeader<swift::InProcess>,swift::TargetMethodDefaultOverrideDescriptor<swift::InProcess>>::getTrailingObjectsImpl(v10) + 4 * ((*v10 >> 29) & 1) + 4 * ((*v10 & 0x30000) == 0x20000) + 12 * ((*v10 & 0x30000) == 0x10000) + ((*v10 >> 28) & 8);
       v6 = *v4;
-      if (*v4 < 0)
+      if ((*v4 & 0x80000000) != 0)
       {
         if (v4)
         {
@@ -9539,7 +9046,7 @@ LABEL_6:
   }
 }
 
-char *swift_getMetatypeMetadata(unint64_t a1)
+char *swift_getMetatypeMetadata(uint64_t a1)
 {
   v63 = a1;
   explicit = atomic_load_explicit(&qword_1ED4261A0, memory_order_acquire);
@@ -9950,6 +9457,457 @@ LABEL_103:
   os_unfair_lock_unlock(&unk_1ED426190);
   qword_1ED4261A0 = explicit;
 LABEL_104:
+  if (explicit)
+  {
+    return explicit + 16;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+unint64_t swift_getExistentialMetatypeMetadata(void *a1)
+{
+  v70 = a1;
+  explicit = atomic_load_explicit(&qword_1ED4261D0, memory_order_acquire);
+  if (explicit && *(explicit + 24) == v70)
+  {
+    goto LABEL_114;
+  }
+
+  atomic_fetch_add_explicit(&ExistentialMetatypes, 1u, memory_order_acquire);
+  do
+  {
+    v2 = atomic_load_explicit(&qword_1ED4261B0, memory_order_acquire);
+    v3 = atomic_load_explicit(&qword_1ED4261B8, memory_order_acquire);
+    v4 = atomic_load_explicit(&dword_1ED4261AC, memory_order_acquire);
+  }
+
+  while (v2 != atomic_load_explicit(&qword_1ED4261B0, memory_order_acquire));
+  if (v2)
+  {
+    v5 = v3 == 0;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (!v5 && v4 != 0)
+  {
+    if (v7)
+    {
+      qword_1ED4261D0 = *v7;
+      explicit = *v7;
+      atomic_fetch_add_explicit(&ExistentialMetatypes, 0xFFFFFFFF, memory_order_release);
+      goto LABEL_114;
+    }
+  }
+
+  atomic_fetch_add_explicit(&ExistentialMetatypes, 0xFFFFFFFF, memory_order_release);
+  v71 = v70;
+  os_unfair_lock_lock(&unk_1ED4261C0);
+  v8 = qword_1ED4261B8;
+  v9 = qword_1ED4261B8 & 3;
+  v10 = (qword_1ED4261B8 & 0xFFFFFFFFFFFFFFFCLL) == 0 || (qword_1ED4261B8 & 3) == 0;
+  if (v10)
+  {
+    v11 = 4;
+  }
+
+  else
+  {
+    v11 = *(qword_1ED4261B8 & 0xFFFFFFFFFFFFFFFCLL);
+  }
+
+  v12 = dword_1ED4261AC;
+  v13 = qword_1ED4261B0;
+  v14 = (qword_1ED4261B0 + 8);
+  if (qword_1ED4261B0)
+  {
+    v15 = qword_1ED4261B0 + 8;
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  if (!v16)
+  {
+    v67 = v10;
+    v68 = v15;
+    v69 = v8;
+    v20 = (v12 + 1);
+    if ((1 << v11) / ((1 << v11) - v20) < 4)
+    {
+      v28 = v8;
+      v29 = v17;
+      if (v13)
+      {
+        goto LABEL_82;
+      }
+    }
+
+    else
+    {
+      v21 = (v11 + 1);
+      v66 = v8 & 0xFFFFFFFFFFFFFFFCLL;
+      if (v21 >= 0x11)
+      {
+        v22 = 4;
+      }
+
+      else
+      {
+        v22 = 2;
+      }
+
+      if (v21 < 9)
+      {
+        v23 = 1;
+      }
+
+      else
+      {
+        v23 = v22;
+      }
+
+      v24 = malloc_type_calloc(2 << v11, v23, 0x48DDA4AEuLL);
+      if (!v24)
+      {
+        swift::hashable_support::findHashableBaseTypeOfHashableType();
+      }
+
+      v25 = v15;
+      v26 = v8;
+      v27 = v11;
+      v64 = v13 + 2;
+      v65 = v13;
+      if (v23 != 1)
+      {
+        if (v23 == 4)
+        {
+          v23 = 3;
+        }
+
+        else
+        {
+          v23 = 2;
+        }
+      }
+
+      v28 = v23 | v24;
+      *v24 = v11 + 1;
+      if (v11)
+      {
+        v30 = v8 & 3;
+        if (v9)
+        {
+          v31 = v8 & 0xFFFFFFFFFFFFFFFCLL;
+        }
+
+        else
+        {
+          v31 = 0;
+        }
+
+        v32 = v28 & 3;
+        if ((v28 & 3) != 0)
+        {
+          v33 = v24 & 0xFFFFFFFFFFFFFFFCLL;
+        }
+
+        else
+        {
+          v33 = 0;
+        }
+
+        v34 = 1;
+        p_cache = (__SwiftNativeNSArrayBase + 16);
+        do
+        {
+          if ((v69 & 3u) > 1)
+          {
+            if (v30 == 2)
+            {
+              LODWORD(v36) = *(v31 + 2 * v34);
+              if (*(v31 + 2 * v34))
+              {
+                goto LABEL_62;
+              }
+            }
+
+            else
+            {
+              LODWORD(v36) = *(v31 + 4 * v34);
+              if (v36)
+              {
+LABEL_62:
+                v37 = *(*(v25 + 8 * (v36 - 1)) + 24);
+                {
+                  v63 = v31;
+                  getCache();
+                  p_cache = __SwiftNativeNSArrayBase.cache;
+                  v31 = v63;
+                  v27 = v11;
+                  v25 = v68;
+                  v26 = v69;
+                }
+
+                v38 = 0x9DDFEA08EB382D69 * ((p_cache[400] + 8 * v37) ^ HIDWORD(v37));
+                v39 = 0x9DDFEA08EB382D69 * (HIDWORD(v37) ^ (v38 >> 47) ^ v38);
+                for (i = 0x9DDFEA08EB382D69 * (v39 ^ (v39 >> 47)); ; i = v42 + 1)
+                {
+                  v42 = i & ~(-2 << v11);
+                  if (v42)
+                  {
+                    if ((v28 & 3) > 1)
+                    {
+                      LODWORD(v41) = v32 == 2 ? *(v33 + 2 * v42) : *(v33 + 4 * v42);
+                    }
+
+                    else if ((v28 & 3) != 0)
+                    {
+                      LODWORD(v41) = *(v33 + v42);
+                    }
+
+                    else
+                    {
+                      v41 = (v28 >> (4 * v42)) & 0xF;
+                    }
+
+                    if (!v41)
+                    {
+                      break;
+                    }
+                  }
+                }
+
+                if (v32 == 3)
+                {
+                  *(v33 + 4 * v42) = v36;
+                }
+
+                else if (v32 == 2)
+                {
+                  *(v33 + 2 * v42) = v36;
+                }
+
+                else
+                {
+                  *(v33 + v42) = v36;
+                }
+              }
+            }
+          }
+
+          else if (v30)
+          {
+            LODWORD(v36) = *(v31 + v34);
+            if (*(v31 + v34))
+            {
+              goto LABEL_62;
+            }
+          }
+
+          else
+          {
+            v36 = (v26 >> (4 * v34)) & 0xF;
+            if (v36)
+            {
+              goto LABEL_62;
+            }
+          }
+
+          ++v34;
+        }
+
+        while (!(v34 >> v27));
+      }
+
+      atomic_store(v28, &qword_1ED4261B8);
+      if (!v67)
+      {
+        v43 = malloc_type_malloc(0x10uLL, 0xA0040AFF93C70uLL);
+        v25 = v68;
+        *v43 = qword_1ED4261C8;
+        v43[1] = v66;
+        qword_1ED4261C8 = v43;
+      }
+
+      v20 = (v12 + 1);
+      v14 = v64;
+      v13 = v65;
+      v29 = v44;
+      if (v65)
+      {
+LABEL_82:
+        v45 = v13;
+        if (v12 < *v13)
+        {
+          goto LABEL_89;
+        }
+      }
+    }
+
+    v46 = v12 + (v12 >> 2);
+    if (v46 <= v12 + 1)
+    {
+      v46 = v12 + 1;
+    }
+
+    v47 = malloc_good_size(8 * v46 + 8);
+    v48 = malloc_type_malloc(v47, 0x1020040D5A9D86FuLL);
+    if (!v48)
+    {
+      swift::hashable_support::findHashableBaseTypeOfHashableType();
+    }
+
+    v45 = v48;
+    *v48 = (v47 + 0x7FFFFFFF8) >> 3;
+    if (v13)
+    {
+      memcpy(v48 + 2, v14, 8 * v12);
+      v49 = malloc_type_malloc(0x10uLL, 0xA0040AFF93C70uLL);
+      *v49 = qword_1ED4261C8;
+      v49[1] = v13;
+      qword_1ED4261C8 = v49;
+    }
+
+    atomic_store(v45, &qword_1ED4261B0);
+LABEL_89:
+    v72 = 6;
+    v50 = 1;
+    v51 = swift::MetadataAllocator::Allocate(&v72, 0x28uLL, 8uLL);
+    explicit = v51;
+    v52 = v70;
+    *(v51 + 2) = 0;
+    *(v51 + 8) = 0;
+    v53 = *v52;
+    if (*v52 > 0x7FF)
+    {
+      LODWORD(v53) = 0;
+    }
+
+    if (v53 != 771)
+    {
+      v54 = 0;
+      if (v53 != 774)
+      {
+LABEL_95:
+        v55 = v45 + 8;
+        *(v51 + 2) = 774;
+        ExistentialMetatypeValueWitnesses = getExistentialMetatypeValueWitnesses(v54 & 0xFFFFFF);
+        if (ExistentialMetatypeValueWitnesses)
+        {
+          v57 = ExistentialMetatypeValueWitnesses;
+        }
+
+        else
+        {
+          v57 = 0;
+        }
+
+        *(explicit + 8) = v57;
+        *(explicit + 24) = v52;
+        *(explicit + 32) = v54;
+        *(v55 + 8 * v12) = explicit;
+        atomic_store(v20, &dword_1ED4261AC);
+        if ((v28 & 3) > 1)
+        {
+          if ((v28 & 3) == 2)
+          {
+            v58 = v28 & 0xFFFFFFFFFFFFFFFCLL;
+            if ((v28 & 3) == 0)
+            {
+              v58 = 0;
+            }
+
+            atomic_store(v20, (v58 + 2 * v29));
+          }
+
+          else
+          {
+            v59 = v28 & 0xFFFFFFFFFFFFFFFCLL;
+            if ((v28 & 3) == 0)
+            {
+              v59 = 0;
+            }
+
+            atomic_store(v20, (v59 + 4 * v29));
+          }
+        }
+
+        else if ((v28 & 3) != 0)
+        {
+          atomic_store(v20, ((v28 & 0xFFFFFFFFFFFFFFFCLL) + v29));
+        }
+
+        else
+        {
+          atomic_store((v20 << (4 * v29)) | v28, &qword_1ED4261B8);
+        }
+
+        __dmb(0xBu);
+        if (ExistentialMetatypes)
+        {
+          goto LABEL_113;
+        }
+
+        v60 = qword_1ED4261C8;
+        if (qword_1ED4261C8)
+        {
+          do
+          {
+            v61 = *v60;
+            free(v60[1]);
+            free(v60);
+            v60 = v61;
+          }
+
+          while (v61);
+        }
+
+        goto LABEL_112;
+      }
+
+      v50 = 2;
+    }
+
+    v54 = v52[v50];
+    goto LABEL_95;
+  }
+
+  explicit = *v16;
+  __dmb(0xBu);
+  if (!ExistentialMetatypes)
+  {
+    v18 = qword_1ED4261C8;
+    if (qword_1ED4261C8)
+    {
+      do
+      {
+        v19 = *v18;
+        free(v18[1]);
+        free(v18);
+        v18 = v19;
+      }
+
+      while (v19);
+    }
+
+LABEL_112:
+    qword_1ED4261C8 = 0;
+  }
+
+LABEL_113:
+  os_unfair_lock_unlock(&unk_1ED4261C0);
+  qword_1ED4261D0 = explicit;
+LABEL_114:
   if (explicit)
   {
     return explicit + 16;

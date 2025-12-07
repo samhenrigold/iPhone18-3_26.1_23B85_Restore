@@ -90,7 +90,7 @@ LABEL_7:
 
   if (!isRental)
   {
-    goto LABEL_32;
+    goto LABEL_34;
   }
 
   _sinfs = [(DownloadDRMOperation *)self _sinfs];
@@ -109,7 +109,7 @@ LABEL_7:
       {
         v20 = 0;
         v19 = 1;
-        goto LABEL_15;
+        goto LABEL_16;
       }
 
       v24 = +[SSLogConfig sharedDaemonConfig];
@@ -121,16 +121,21 @@ LABEL_7:
       shouldLog = [v24 shouldLog];
       if ([v24 shouldLogToDisk])
       {
-        v26 = shouldLog | 2;
+        LODWORD(v26) = shouldLog | 2;
       }
 
       else
       {
-        v26 = shouldLog;
+        LODWORD(v26) = shouldLog;
       }
 
       oSLogObject = [v24 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+      {
+        v26 = v26;
+      }
+
+      else
       {
         v26 &= 2u;
       }
@@ -138,39 +143,38 @@ LABEL_7:
       if (v26)
       {
         v28 = objc_opt_class();
-        v33 = v28;
-        v36 = 138412546;
-        v37 = v28;
-        v38 = 2048;
+        v32 = v28;
+        v35 = 138412546;
+        v36 = v28;
+        v37 = 2048;
         databaseID = [download databaseID];
-        LODWORD(v32) = 22;
-        v29 = _os_log_send_and_compose_impl();
+        v29 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Checking out rental keys for download: %lld", &v35, 22);
 
         if (!v29)
         {
-LABEL_31:
+LABEL_33:
 
           v30 = [[CheckoutRentalKeysOperation alloc] initWithAccountIdentifier:uniqueIdentifier rentalKeyIdentifier:rentalID];
           [(CheckoutRentalKeysOperation *)v30 setCheckoutType:1];
-          v34 = 0;
-          v19 = [(DownloadDRMOperation *)self runSubOperation:v30 returningError:&v34];
-          v20 = v34;
+          v33 = 0;
+          v19 = [(DownloadDRMOperation *)self runSubOperation:v30 returningError:&v33];
+          v20 = v33;
 
-          goto LABEL_15;
+          goto LABEL_16;
         }
 
-        oSLogObject = [NSString stringWithCString:v29 encoding:4, &v36, v32];
+        oSLogObject = [NSString stringWithCString:v29 encoding:4];
         free(v29);
         SSFileLog();
       }
 
-      goto LABEL_31;
+      goto LABEL_33;
     }
 
-LABEL_32:
+LABEL_34:
     v20 = 0;
     v19 = 1;
-    goto LABEL_33;
+    goto LABEL_35;
   }
 
   v11 = +[SSLogConfig sharedDaemonConfig];
@@ -182,48 +186,52 @@ LABEL_32:
   shouldLog2 = [v11 shouldLog];
   if ([v11 shouldLogToDisk])
   {
-    v13 = shouldLog2 | 2;
+    LODWORD(v13) = shouldLog2 | 2;
   }
 
   else
   {
-    v13 = shouldLog2;
+    LODWORD(v13) = shouldLog2;
   }
 
   oSLogObject2 = [v11 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  {
+    v13 = v13;
+  }
+
+  else
   {
     v13 &= 2u;
   }
 
   if (!v13)
   {
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
   v15 = objc_opt_class();
   v16 = v15;
-  v36 = 138412546;
-  v37 = v15;
-  v38 = 2048;
+  v35 = 138412546;
+  v36 = v15;
+  v37 = 2048;
   databaseID = [download databaseID];
-  LODWORD(v32) = 22;
-  v17 = _os_log_send_and_compose_impl();
+  v17 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Checking out rental keys for download: %lld", &v35, 22);
 
   if (v17)
   {
-    oSLogObject2 = [NSString stringWithCString:v17 encoding:4, &v36, v32];
+    oSLogObject2 = [NSString stringWithCString:v17 encoding:4];
     free(v17);
     SSFileLog();
-LABEL_13:
+LABEL_14:
   }
 
   uniqueIdentifier = [[CheckoutRentalKeysOperation alloc] initWithStoreDownloadSinfs:_sinfs];
   [(CheckoutRentalKeysOperation *)uniqueIdentifier setCheckoutType:1];
-  v35 = 0;
-  v19 = [(DownloadDRMOperation *)self runSubOperation:uniqueIdentifier returningError:&v35];
-  v20 = v35;
-LABEL_15:
+  v34 = 0;
+  v19 = [(DownloadDRMOperation *)self runSubOperation:uniqueIdentifier returningError:&v34];
+  v20 = v34;
+LABEL_16:
 
   if (keys && (v19 & 1) == 0)
   {
@@ -232,7 +240,7 @@ LABEL_15:
     *keys = v20;
   }
 
-LABEL_33:
+LABEL_35:
 
   return v19;
 }
@@ -263,7 +271,7 @@ LABEL_33:
       v12 = +[SSLogConfig sharedConfig];
     }
 
-    v28 = download;
+    v27 = download;
     shouldLog = [v12 shouldLog];
     if ([v12 shouldLogToDisk])
     {
@@ -291,19 +299,18 @@ LABEL_33:
       assetCopy = asset;
       v18 = objc_opt_class();
       v19 = v18;
-      v30 = 138412802;
-      v31 = v18;
+      v29 = 138412802;
+      v30 = v18;
       asset = assetCopy;
-      v32 = 2048;
-      databaseID = [v28 databaseID];
-      v34 = 2112;
-      v35 = localPath;
-      LODWORD(v27) = 32;
-      v20 = _os_log_send_and_compose_impl();
+      v31 = 2048;
+      databaseID = [v27 databaseID];
+      v33 = 2112;
+      v34 = localPath;
+      v20 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Decrypting asset for download: %lld at path: %@", &v29, 32);
 
       if (v20)
       {
-        v21 = [NSString stringWithCString:v20 encoding:4, &v30, v27];
+        v21 = [NSString stringWithCString:v20 encoding:4];
         free(v20);
         SSFileLog();
       }
@@ -316,14 +323,14 @@ LABEL_33:
     v24 = [[FairPlayDecryptFileOperation alloc] initWithPath:localPath dpInfo:dPInfoData];
     [(FairPlayDecryptFileOperation *)v24 setDelegate:self];
     [(FairPlayDecryptFileOperation *)v24 setShouldRunWithBackgroundPriority:1];
-    v29 = 0;
-    v23 = [(DownloadDRMOperation *)self runSubOperation:v24 returningError:&v29];
-    v22 = v29;
+    v28 = 0;
+    v23 = [(DownloadDRMOperation *)self runSubOperation:v24 returningError:&v28];
+    v22 = v28;
     [(FairPlayDecryptFileOperation *)v24 setDelegate:0];
 
     if (asset)
     {
-      download = v28;
+      download = v27;
       if ((v23 & 1) == 0)
       {
         v25 = v22;
@@ -334,7 +341,7 @@ LABEL_33:
 
     else
     {
-      download = v28;
+      download = v27;
     }
   }
 
@@ -446,7 +453,7 @@ LABEL_33:
   v9 = 1;
   if (!_sinfs || (isHLS & 1) != 0)
   {
-    goto LABEL_32;
+    goto LABEL_33;
   }
 
   assetCopy = asset;
@@ -492,16 +499,14 @@ LABEL_33:
     databaseID = [download2 databaseID];
     v41 = 2112;
     v42 = localPath;
-    LODWORD(v31) = 32;
-    v30 = &v37;
-    v19 = _os_log_send_and_compose_impl();
+    v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Unprotect asset for download: %lld at path: %@", &v37, 32);
 
     if (!v19)
     {
       goto LABEL_15;
     }
 
-    oSLogObject = [NSString stringWithCString:v19 encoding:4, &v37, v31];
+    oSLogObject = [NSString stringWithCString:v19 encoding:4];
     free(v19);
     v30 = oSLogObject;
     SSFileLog();
@@ -525,19 +530,24 @@ LABEL_15:
       v21 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v21 shouldLog];
+    LODWORD(v22) = [v21 shouldLog];
     if ([v21 shouldLogToDisk])
     {
-      shouldLog2 |= 2u;
+      LODWORD(v22) = v22 | 2;
     }
 
     oSLogObject2 = [v21 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog2 &= 2u;
+      v22 = v22;
     }
 
-    if (shouldLog2)
+    else
+    {
+      v22 &= 2u;
+    }
+
+    if (v22)
     {
       v24 = objc_opt_class();
       v32 = v24;
@@ -549,24 +559,24 @@ LABEL_15:
       v41 = 2112;
       v42 = localPath;
       LODWORD(v31) = 32;
-      v26 = _os_log_send_and_compose_impl();
+      v26 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Download unprotect failed: %lld, deleted file: %@", &v37, v31);
 
       if (!v26)
       {
-LABEL_26:
+LABEL_27:
 
-        goto LABEL_27;
+        goto LABEL_28;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v26 encoding:4, &v37, v31];
+      oSLogObject2 = [NSString stringWithCString:v26 encoding:4];
       free(v26);
       SSFileLog();
     }
 
-    goto LABEL_26;
+    goto LABEL_27;
   }
 
-LABEL_27:
+LABEL_28:
 
   if (assetCopy)
   {
@@ -585,7 +595,7 @@ LABEL_27:
     *assetCopy = v8;
   }
 
-LABEL_32:
+LABEL_33:
 
   return v9;
 }

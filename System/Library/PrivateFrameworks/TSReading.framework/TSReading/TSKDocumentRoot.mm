@@ -363,7 +363,7 @@ uint64_t __57__TSKDocumentRoot_addObserverForICloudTeardownWithBlock___block_inv
   }
 }
 
-uint64_t __48__TSKDocumentRoot_removeICloudTeardownObserver___block_invoke(uint64_t a1)
+void *__48__TSKDocumentRoot_removeICloudTeardownObserver___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x277D85DE8];
   v8 = 0u;
@@ -392,7 +392,7 @@ uint64_t __48__TSKDocumentRoot_removeICloudTeardownObserver___block_invoke(uint6
           return [*(*(a1 + 32) + 104) removeObjectIdenticalTo:v7];
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -424,7 +424,7 @@ uint64_t __48__TSKDocumentRoot_removeICloudTeardownObserver___block_invoke(uint6
   }
 }
 
-uint64_t __48__TSKDocumentRoot_notifyICloudTeardownObservers__block_invoke(uint64_t a1)
+void *__48__TSKDocumentRoot_notifyICloudTeardownObservers__block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x277D85DE8];
   v7 = 0u;
@@ -447,7 +447,8 @@ uint64_t __48__TSKDocumentRoot_notifyICloudTeardownObservers__block_invoke(uint6
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v7 + 1) + 8 * v6++) invokeWithDocumentRoot:*(a1 + 32)];
+        [*(*(&v7 + 1) + 8 * v6) invokeWithDocumentRoot:*(a1 + 32)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -484,7 +485,7 @@ uint64_t __48__TSKDocumentRoot_notifyICloudTeardownObservers__block_invoke(uint6
   return v6;
 }
 
-uint64_t __44__TSKDocumentRoot_hasICloudTeardownObserver__block_invoke(uint64_t a1)
+void *__44__TSKDocumentRoot_hasICloudTeardownObserver__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 104) count];
   *(*(*(a1 + 40) + 8) + 24) = result != 0;
@@ -550,15 +551,15 @@ uint64_t __44__TSKDocumentRoot_hasICloudTeardownObserver__block_invoke(uint64_t 
   [modelEnumerator enumerateUsingBlock:v5];
 }
 
-uint64_t __65__TSKDocumentRoot_TSSAdditions__enumerateStyleClientsUsingBlock___block_invoke(uint64_t a1)
+uint64_t __65__TSKDocumentRoot_TSSAdditions__enumerateStyleClientsUsingBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   result = TSUClassAndProtocolCast();
   if (result)
   {
-    v3 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    return v3();
+    return v4();
   }
 
   return result;
@@ -642,7 +643,7 @@ uint64_t __65__TSKDocumentRoot_TSSAdditions__enumerateStyleClientsUsingBlock___b
   return v3;
 }
 
-uint64_t __47__TSKDocumentRoot_TSWPAdditions__documentFonts__block_invoke(uint64_t a1, void *a2)
+void *__47__TSKDocumentRoot_TSWPAdditions__documentFonts__block_invoke(uint64_t a1, void *a2)
 {
   result = [objc_msgSend(a2 "propertyMap")];
   if (result)

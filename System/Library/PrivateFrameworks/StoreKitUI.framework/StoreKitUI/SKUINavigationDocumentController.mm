@@ -30,23 +30,23 @@
     [SKUINavigationDocumentController initWithNavigationController:];
   }
 
-  v14.receiver = self;
-  v14.super_class = SKUINavigationDocumentController;
-  v6 = [(SKUINavigationDocumentController *)&v14 init];
+  v16.receiver = self;
+  v16.super_class = SKUINavigationDocumentController;
+  v6 = [(SKUINavigationDocumentController *)&v16 init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_navigationController, controller);
-    v8 = storeSemanticContentAttribute();
+    v10 = storeSemanticContentAttribute(v8, v9);
     view = [(UINavigationController *)v7->_navigationController view];
-    [view setSemanticContentAttribute:v8];
+    [view setSemanticContentAttribute:v10];
 
     navigationBar = [(UINavigationController *)v7->_navigationController navigationBar];
-    [navigationBar setSemanticContentAttribute:v8];
+    [navigationBar setSemanticContentAttribute:v10];
 
-    v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
     stackItems = v7->_stackItems;
-    v7->_stackItems = v11;
+    v7->_stackItems = v13;
   }
 
   return v7;

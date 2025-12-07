@@ -696,7 +696,7 @@ void __92__PKPaymentSetupCredentialsSectionController_layoutWithLayoutEnvironmen
 
 - (void)configureSupplementaryRegistration:(id)registration elementKind:(id)kind sectionIdentifier:(id)identifier
 {
-  v54[2] = *MEMORY[0x1E69E9840];
+  v55[2] = *MEMORY[0x1E69E9840];
   registrationCopy = registration;
   kindCopy = kind;
   identifierCopy = identifier;
@@ -733,11 +733,11 @@ void __92__PKPaymentSetupCredentialsSectionController_layoutWithLayoutEnvironmen
     {
 LABEL_16:
       footerConfiguration = [MEMORY[0x1E69DCC28] footerConfiguration];
-      v46 = *MEMORY[0x1E69DB648];
+      v47 = *MEMORY[0x1E69DB648];
       v27 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD28], *MEMORY[0x1E69DDC60]);
       secondaryLabelColor = [MEMORY[0x1E69DC888] secondaryLabelColor];
-      v47[1] = secondaryLabelColor;
-      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:2];
+      v48[1] = secondaryLabelColor;
+      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:&v47 count:2];
 
       v18 = [(NSDictionary *)self->_footerForSectionIdentifier objectForKeyedSubscript:identifierCopy];
       v13 = 0.0;
@@ -783,9 +783,9 @@ LABEL_16:
     }
 
 LABEL_29:
-    v42 = [(__CFString *)v21 isEqualToString:@"background_provisioning"];
+    v43 = [(__CFString *)v21 isEqualToString:@"background_provisioning"];
 
-    if (v42)
+    if (v43)
     {
       goto LABEL_30;
     }
@@ -795,41 +795,41 @@ LABEL_29:
 
   if (v23 == @"background_provisioning" || (v30 = [(__CFString *)v23 isEqualToString:@"background_provisioning"], v24, (v30 & 1) != 0) || (v31 = v24, v31 == @"unavailable") || (v32 = v31, v33 = [(__CFString *)v31 isEqualToString:@"unavailable"], v32, (v33 & 1) != 0) || (v34 = v32, v34 == @"refund") || (v35 = v34, v36 = [(__CFString *)v34 isEqualToString:@"refund"], v35, (v36 & 1) != 0))
   {
-    v51 = *MEMORY[0x1E69DB648];
-    v37 = v51;
+    v52 = *MEMORY[0x1E69DB648];
+    v37 = v52;
     v38 = [MEMORY[0x1E69DB878] boldSystemFontOfSize:25.0];
-    v52 = v38;
-    v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+    v53 = v38;
+    v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
 
-    v49[0] = v37;
-    v40 = PKOBKListHeaderFont();
-    v50[0] = v40;
-    v49[1] = *MEMORY[0x1E69DB650];
-    secondaryLabelColor2 = PKOBKListHeaderTextColor();
-    v50[1] = secondaryLabelColor2;
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:v49 count:2];
+    v50[0] = v37;
+    v41 = PKOBKListHeaderFont(v40);
+    v51[0] = v41;
+    v50[1] = *MEMORY[0x1E69DB650];
+    secondaryLabelColor2 = PKOBKListHeaderTextColor(v41);
+    v51[1] = secondaryLabelColor2;
+    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:v50 count:2];
   }
 
   else
   {
 LABEL_26:
-    v53[0] = *MEMORY[0x1E69DB648];
-    v40 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD00], *MEMORY[0x1E69DDC60]);
-    v54[0] = v40;
-    v53[1] = *MEMORY[0x1E69DB650];
+    v54[0] = *MEMORY[0x1E69DB648];
+    v41 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD00], *MEMORY[0x1E69DDC60]);
+    v55[0] = v41;
+    v54[1] = *MEMORY[0x1E69DB650];
     secondaryLabelColor2 = [MEMORY[0x1E69DC888] secondaryLabelColor];
-    v54[1] = secondaryLabelColor2;
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:v53 count:2];
+    v55[1] = secondaryLabelColor2;
+    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:2];
   }
 
   v26 = 10.0;
   if (v21 == @"background_provisioning")
   {
 LABEL_30:
-    v43 = +[PKCellAccessoryLoadingIndicator accessory];
-    v48 = v43;
-    v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v48 count:1];
-    [registrationCopy setAccessories:v44];
+    v44 = +[PKCellAccessoryLoadingIndicator accessory];
+    v49 = v44;
+    v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v49 count:1];
+    [registrationCopy setAccessories:v45];
 
     goto LABEL_32;
   }
@@ -847,8 +847,8 @@ LABEL_32:
   {
 LABEL_33:
     [footerConfiguration setDirectionalLayoutMargins:{v29, v13, v26, v13}];
-    v45 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v18 attributes:v25];
-    [footerConfiguration setAttributedText:v45];
+    v46 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v18 attributes:v25];
+    [footerConfiguration setAttributedText:v46];
   }
 
 LABEL_34:

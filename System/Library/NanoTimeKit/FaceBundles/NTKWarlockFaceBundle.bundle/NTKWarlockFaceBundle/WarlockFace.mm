@@ -34,16 +34,16 @@
   }
 
   selfCopy = self;
-  v7 = sub_7858(mode);
+  v8 = sub_7858(mode, v7);
 
-  return v7;
+  return v8;
 }
 
 - (Class)_optionClassForCustomEditMode:(int64_t)mode
 {
   if (mode == 17)
   {
-    type metadata accessor for WarlockBackgroundEditOption();
+    type metadata accessor for WarlockBackgroundEditOption(0);
   }
 
   else
@@ -53,7 +53,7 @@
       return 0;
     }
 
-    type metadata accessor for WarlockTypefaceEditOption();
+    type metadata accessor for WarlockTypefaceEditOption(0);
   }
 
   return swift_getObjCClassFromMetadata();
@@ -63,13 +63,13 @@
 {
   if (mode == 17)
   {
-    type metadata accessor for WarlockBackgroundEditOption();
+    type metadata accessor for WarlockBackgroundEditOption(0);
     goto LABEL_5;
   }
 
   if (mode == 13)
   {
-    type metadata accessor for WarlockTypefaceEditOption();
+    type metadata accessor for WarlockTypefaceEditOption(0);
 LABEL_5:
     ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
     selfCopy = self;
@@ -89,13 +89,13 @@ LABEL_7:
 {
   if (mode == 17)
   {
-    type metadata accessor for WarlockBackgroundEditOption();
+    type metadata accessor for WarlockBackgroundEditOption(0);
     goto LABEL_5;
   }
 
   if (mode == 13)
   {
-    type metadata accessor for WarlockTypefaceEditOption();
+    type metadata accessor for WarlockTypefaceEditOption(0);
 LABEL_5:
     ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
     selfCopy = self;
@@ -159,8 +159,8 @@ LABEL_5:
 
 + (BOOL)isRestrictedForDevice:(id)device
 {
-  v9 = &type metadata for WarlockFeatureFlags;
-  v10 = sub_36BD4();
+  v8[3] = &type metadata for WarlockFeatureFlags;
+  v8[4] = sub_36BD4();
   deviceCopy = device;
   v5 = sub_36D00();
   result = sub_85EC(v8);
@@ -202,14 +202,14 @@ LABEL_5:
 
 - (Class)faceViewClass
 {
-  type metadata accessor for WarlockFaceView();
+  type metadata accessor for WarlockFaceView(0);
 
   return swift_getObjCClassFromMetadata();
 }
 
 - (id)curatedGalleryBackgroundColors
 {
-  sub_815C(&qword_59048);
+  sub_815C(&qword_59048, &qword_41F80);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_43B90;
   result = NTKColorWithRGBA();

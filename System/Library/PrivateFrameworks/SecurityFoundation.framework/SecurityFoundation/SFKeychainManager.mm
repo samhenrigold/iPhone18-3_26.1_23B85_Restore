@@ -54,17 +54,14 @@ void __70___SFKeychainManager_setKey_forIdentifier_accessPolicy_resultHandler___
   }
 }
 
-uint64_t __67___SFKeychainManager_setIdentity_forIdentifier_accessPolicy_error___block_invoke(uint64_t a1)
+void *__67___SFKeychainManager_setIdentity_forIdentifier_accessPolicy_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) generateAttributesForIdentityAndAddToKeychain:*(a1 + 40) forIdentifier:*(a1 + 48) accessPolicy:*(a1 + 56)];
   v3 = *(*(a1 + 64) + 8);
   if (result)
   {
     *(v3 + 24) = 0;
-    v4 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:result userInfo:0];
-    v5 = *(*(a1 + 72) + 8);
-    v6 = *(v5 + 40);
-    *(v5 + 40) = v4;
+    *(*(*(a1 + 72) + 8) + 40) = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:result userInfo:0];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -133,31 +130,30 @@ void __63___SFKeychainManager_keyForIdentifier_specifier_resultHandler___block_i
   dispatch_async(v5, block);
 }
 
-void __63___SFKeychainManager_keyForIdentifier_specifier_resultHandler___block_invoke_2(uint64_t a1)
+void __63___SFKeychainManager_keyForIdentifier_specifier_resultHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 56);
+  v3 = *(a1 + 56);
   if (*(a1 + 32))
   {
-    v3 = v2 == 0;
+    v4 = v3 == 0;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  if (v3)
+  if (v4)
   {
-    v6 = *(a1 + 40);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       v7 = [SFTripleDESKey alloc];
       v8 = *(a1 + 32);
       v9 = objc_alloc_init(_SFTripleDESKeySpecifier);
-      v27 = 0;
-      v10 = [(_SFSymmetricKey *)v7 initWithData:v8 specifier:v9 error:&v27];
-      v11 = v27;
+      v26 = 0;
+      v10 = [(_SFSymmetricKey *)v7 initWithData:v8 specifier:v9 error:&v26];
+      v11 = v26;
 
       v12 = *(a1 + 48);
       if (v11)
@@ -166,43 +162,42 @@ void __63___SFKeychainManager_keyForIdentifier_specifier_resultHandler___block_i
         (*(v12 + 16))(v12, v13);
 LABEL_14:
 
-        v20 = *(a1 + 48);
-        v21 = [(_SFKeychainFetchResult *)_SFKeychainKeyFetchResult fetchResultWithError:v11];
-        (*(v20 + 16))(v20, v21);
+        v19 = *(a1 + 48);
+        v20 = [(_SFKeychainFetchResult *)_SFKeychainKeyFetchResult fetchResultWithError:v11];
+        (*(v19 + 16))(v19, v20);
 
 LABEL_21:
         return;
       }
 
-      v22 = [(_SFKeychainFetchResult *)_SFKeychainKeyFetchResult fetchResultWithValue:v10];
-      (*(v12 + 16))(v12, v22);
+      v21 = [(_SFKeychainFetchResult *)_SFKeychainKeyFetchResult fetchResultWithValue:v10];
+      (*(v12 + 16))(v12, v21);
       goto LABEL_19;
     }
 
-    v14 = *(a1 + 40);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v15 = [_SFAESKey alloc];
-      v16 = *(a1 + 32);
-      v17 = *(a1 + 40);
-      v26 = 0;
-      v10 = [(_SFSymmetricKey *)v15 initWithData:v16 specifier:v17 error:&v26];
-      v18 = v26;
-      if (v18)
+      v14 = [_SFAESKey alloc];
+      v15 = *(a1 + 32);
+      v16 = *(a1 + 40);
+      v25 = 0;
+      v10 = [(_SFSymmetricKey *)v14 initWithData:v15 specifier:v16 error:&v25];
+      v17 = v25;
+      if (v17)
       {
-        v11 = v18;
-        v19 = *(a1 + 48);
-        v13 = [(_SFKeychainFetchResult *)_SFKeychainKeyFetchResult fetchResultWithError:v18];
-        (*(v19 + 16))(v19, v13);
+        v11 = v17;
+        v18 = *(a1 + 48);
+        v13 = [(_SFKeychainFetchResult *)_SFKeychainKeyFetchResult fetchResultWithError:v17];
+        (*(v18 + 16))(v18, v13);
         goto LABEL_14;
       }
 
       if (v10)
       {
-        v23 = *(a1 + 48);
-        v22 = [(_SFKeychainFetchResult *)_SFKeychainKeyFetchResult fetchResultWithValue:v10];
-        (*(v23 + 16))(v23, v22);
+        v22 = *(a1 + 48);
+        v21 = [(_SFKeychainFetchResult *)_SFKeychainKeyFetchResult fetchResultWithValue:v10];
+        (*(v22 + 16))(v22, v21);
 LABEL_19:
       }
     }
@@ -212,16 +207,16 @@ LABEL_19:
       v10 = 0;
     }
 
-    v24 = *(a1 + 48);
+    v23 = *(a1 + 48);
     v11 = [(_SFKeychainFetchResult *)_SFKeychainKeyFetchResult fetchResultWithValue:v10];
-    (*(v24 + 16))(v24, v11);
+    (*(v23 + 16))(v23, v11);
     goto LABEL_21;
   }
 
-  v4 = *(a1 + 48);
-  v25 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:v2 userInfo:0];
-  v5 = [(_SFKeychainFetchResult *)_SFKeychainKeyFetchResult fetchResultWithError:v25];
-  (*(v4 + 16))(v4, v5);
+  v5 = *(a1 + 48);
+  v24 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:v3 userInfo:0];
+  v6 = [(_SFKeychainFetchResult *)_SFKeychainKeyFetchResult fetchResultWithError:v24];
+  (*(v5 + 16))(v5, v6);
 }
 
 void __44___SFKeychainManager_identityForIdentifier___block_invoke(void *a1)
@@ -296,47 +291,47 @@ void __58___SFKeychainManager_identityForIdentifier_resultHandler___block_invoke
 
 void __61___SFKeychainManager_removeItemWithIdentifier_resultHandler___block_invoke(uint64_t a1)
 {
-  v29[4] = *MEMORY[0x277D85DE8];
+  v28[4] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CDC230];
-  v29[0] = *MEMORY[0x277CDC250];
-  v29[1] = v2;
+  v28[0] = *MEMORY[0x277CDC250];
+  v28[1] = v2;
   v3 = *MEMORY[0x277CDC248];
-  v29[2] = *MEMORY[0x277CDC238];
-  v29[3] = v3;
-  [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:4];
+  v28[2] = *MEMORY[0x277CDC238];
+  v28[3] = v3;
+  [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:4];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  obj = v25 = 0u;
-  v4 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
+  obj = v24 = 0u;
+  v4 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v23;
+    v7 = *v22;
     v8 = *MEMORY[0x277CDC080];
     v9 = *MEMORY[0x277CDC228];
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         v12 = *(a1 + 32);
-        v26[0] = v8;
-        v26[1] = v9;
-        v27[0] = v12;
-        v27[1] = v11;
-        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+        v25[0] = v8;
+        v25[1] = v9;
+        v26[0] = v12;
+        v26[1] = v11;
+        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
         v14 = SecItemDelete(v13);
         v6 |= v14 == 0;
       }
 
-      v5 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v5 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v5);
@@ -355,28 +350,25 @@ void __61___SFKeychainManager_removeItemWithIdentifier_resultHandler___block_inv
     block[1] = 3221225472;
     block[2] = __61___SFKeychainManager_removeItemWithIdentifier_resultHandler___block_invoke_2;
     block[3] = &unk_278849688;
-    v21 = v6 & 1;
-    v19 = *(a1 + 48);
-    v20 = v14;
+    v20 = v6 & 1;
+    v18 = *(a1 + 48);
+    v19 = v14;
     dispatch_async(v15, block);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __61___SFKeychainManager_removeItemWithIdentifier_resultHandler___block_invoke_2(uint64_t a1)
 {
   if (*(a1 + 44) == 1)
   {
-    v2 = *(a1 + 32);
-    v3 = *(*(a1 + 32) + 16);
+    v2 = *(*(a1 + 32) + 16);
 
-    v3();
+    v2();
   }
 
   else
   {
-    v4 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:*(a1 + 40) userInfo:0];
+    v3 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:*(a1 + 40) userInfo:0];
     (*(*(a1 + 32) + 16))();
   }
 }

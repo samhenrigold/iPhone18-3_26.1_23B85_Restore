@@ -26,18 +26,19 @@
 {
   delegateCopy = delegate;
   queueCopy = queue;
-  v23.receiver = self;
-  v23.super_class = CTStewieDataClient;
-  v10 = [(CTStewieDataClient *)&v23 init];
+  v27.receiver = self;
+  v27.super_class = CTStewieDataClient;
+  v10 = [(CTStewieDataClient *)&v27 init];
   if (!v10)
   {
     goto LABEL_19;
   }
 
-  if (([objc_opt_class() conformsToProtocol:&unk_1EF088160] & 1) == 0)
+  v11 = [objc_opt_class() conformsToProtocol:&unk_1EF088160];
+  if ((v11 & 1) == 0)
   {
-    v11 = CTLogStewieDataClient();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = CTLogStewieDataClient(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [CTStewieDataClient initWithServices:delegate:delegateQueue:];
     }
@@ -47,8 +48,8 @@
 
   if (!queueCopy)
   {
-    v11 = CTLogStewieDataClient();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = CTLogStewieDataClient(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [CTStewieDataClient initWithServices:delegate:delegateQueue:];
     }
@@ -58,8 +59,8 @@
 
   if (!services)
   {
-    v11 = CTLogStewieDataClient();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = CTLogStewieDataClient(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [CTStewieDataClient initWithServices:delegate:delegateQueue:];
     }
@@ -69,46 +70,46 @@
 
   if (*(v10 + 3) >= 0x10000uLL)
   {
-    v11 = CTLogStewieDataClient();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = CTLogStewieDataClient(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [CTStewieDataClient initWithServices:? delegate:? delegateQueue:?];
+      [CTStewieDataClient initWithServices:delegate:delegateQueue:];
     }
 
 LABEL_18:
 
 LABEL_19:
-    v21 = 0;
+    v25 = 0;
     goto LABEL_20;
   }
 
   *(v10 + 8) = 0;
   qos_class = dispatch_queue_get_qos_class(queueCopy, 0);
-  v13 = dispatch_queue_attr_make_with_qos_class(0, qos_class, 0);
-  v14 = dispatch_queue_create("CTStewieDataClient", v13);
-  v15 = *(v10 + 2);
-  *(v10 + 2) = v14;
+  v15 = dispatch_queue_attr_make_with_qos_class(0, qos_class, 0);
+  v16 = dispatch_queue_create("CTStewieDataClient", v15);
+  v17 = *(v10 + 2);
+  *(v10 + 2) = v16;
 
   *(v10 + 3) = services;
   *(v10 + 4) = 0;
   objc_storeWeak(v10 + 5, delegateCopy);
   objc_storeStrong(v10 + 6, queue);
-  v16 = *(v10 + 7);
+  v18 = *(v10 + 7);
   *(v10 + 7) = 0;
 
   *(v10 + 8) = 0;
-  v17 = objc_alloc_init(CTStewieState);
-  v18 = *(v10 + 9);
-  *(v10 + 9) = v17;
+  v19 = objc_alloc_init(CTStewieState);
+  v20 = *(v10 + 9);
+  *(v10 + 9) = v19;
 
-  v19 = [[CTStewieStateMonitor alloc] initWithDelegate:v10 queue:*(v10 + 2)];
-  v20 = *(v10 + 10);
-  *(v10 + 10) = v19;
+  v21 = [[CTStewieStateMonitor alloc] initWithDelegate:v10 queue:*(v10 + 2)];
+  v22 = *(v10 + 10);
+  *(v10 + 10) = v21;
 
   if (!*(v10 + 10))
   {
-    v11 = CTLogStewieDataClient();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = CTLogStewieDataClient(v23, v24);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [CTStewieDataClient initWithServices:delegate:delegateQueue:];
     }
@@ -116,10 +117,10 @@ LABEL_19:
     goto LABEL_18;
   }
 
-  v21 = v10;
+  v25 = v10;
 LABEL_20:
 
-  return v21;
+  return v25;
 }
 
 - (BOOL)start
@@ -152,90 +153,93 @@ LABEL_20:
 
 - (void)sendMessageInternal:(id)internal usingConnection:(int64_t)connection completion:(id)completion
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   internalCopy = internal;
   completionCopy = completion;
   dispatch_assert_queue_V2(*(self + 2));
   if (*(self + 4) && *(self + 7) && *(self + 8) == 1)
   {
-    v10 = objc_alloc_init(CTStewieTransportMessage);
-    [(CTStewieTransportMessage *)v10 setData:internalCopy];
-    v28 = 0;
-    v11 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v10 requiringSecureCoding:1 error:&v28];
-    v12 = v28;
-    if (v12 || !v11)
+    v12 = objc_alloc_init(CTStewieTransportMessage);
+    [(CTStewieTransportMessage *)v12 setData:internalCopy];
+    v33 = 0;
+    v13 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v12 requiringSecureCoding:1 error:&v33];
+    v14 = v33;
+    v16 = v14;
+    if (v14 || !v13)
     {
-      v19 = CTLogStewieDataClient();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v24 = CTLogStewieDataClient(v14, v15);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         [CTStewieDataClient sendMessageInternal:usingConnection:completion:];
       }
 
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __69__CTStewieDataClient_sendMessageInternal_usingConnection_completion___block_invoke_62;
-      v26[3] = &unk_1E6A48050;
-      v27 = completionCopy;
-      [(CTStewieDataClient *)self dispatchOnDelegateQueue:v26];
-      msgId = v27;
-    }
-
-    else if ([v11 length] <= 0x1000)
-    {
-      msgId = [(CTStewieTransportMessage *)v10 msgId];
-      v20 = _Block_copy(completionCopy);
-      v21 = msgId;
-      std::string::basic_string[abi:nn200100]<0>(buf, [msgId UTF8String]);
-      v31 = buf;
-      v22 = std::__tree<std::__value_type<std::string,dispatch::block<void({block_pointer} {__strong})(CTStewieMessageAck *,NSDictionary *)>>,std::__map_value_compare<std::string,std::__value_type<std::string,dispatch::block<void({block_pointer} {__strong})(CTStewieMessageAck *,NSDictionary *)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,dispatch::block<void({block_pointer} {__strong})(CTStewieMessageAck *,NSDictionary *)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(self + 88, buf);
-      v23 = *(v22 + 56);
-      *(v22 + 56) = v20;
-      if (v33 < 0)
-      {
-        operator delete(*buf);
-      }
-
-      [*(self + 7) sendData:v11 usingConnection:connection completion:*MEMORY[0x1E6977E80]];
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __69__CTStewieDataClient_sendMessageInternal_usingConnection_completion___block_invoke_62;
+      v31[3] = &unk_1E6A48050;
+      v32 = completionCopy;
+      [(CTStewieDataClient *)self dispatchOnDelegateQueue:v31];
+      msgId = v32;
     }
 
     else
     {
-      v13 = CTLogStewieDataClient();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v17 = [v13 length];
+      if (v17 <= 0x1000)
       {
-        -[CTStewieDataClient sendMessageInternal:usingConnection:completion:].cold.2(buf, [v11 length], v13);
+        msgId = [(CTStewieTransportMessage *)v12 msgId];
+        v25 = _Block_copy(completionCopy);
+        v26 = msgId;
+        std::string::basic_string[abi:nn200100]<0>(buf, [msgId UTF8String]);
+        v36 = buf;
+        v27 = std::__tree<std::__value_type<std::string,dispatch::block<void({block_pointer} {__strong})(CTStewieMessageAck *,NSDictionary *)>>,std::__map_value_compare<std::string,std::__value_type<std::string,dispatch::block<void({block_pointer} {__strong})(CTStewieMessageAck *,NSDictionary *)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,dispatch::block<void({block_pointer} {__strong})(CTStewieMessageAck *,NSDictionary *)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(self + 11, buf, &std::piecewise_construct, &v36);
+        v28 = *(v27 + 56);
+        *(v27 + 56) = v25;
+        if (v38 < 0)
+        {
+          operator delete(*buf);
+        }
+
+        [*(self + 7) sendData:v13 usingConnection:connection completion:*MEMORY[0x1E6977E80]];
       }
 
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __69__CTStewieDataClient_sendMessageInternal_usingConnection_completion___block_invoke_63;
-      v24[3] = &unk_1E6A48050;
-      v25 = completionCopy;
-      [(CTStewieDataClient *)self dispatchOnDelegateQueue:v24];
-      msgId = v25;
+      else
+      {
+        v19 = CTLogStewieDataClient(v17, v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        {
+          -[CTStewieDataClient sendMessageInternal:usingConnection:completion:].cold.2(buf, [v13 length], v19);
+        }
+
+        v29[0] = MEMORY[0x1E69E9820];
+        v29[1] = 3221225472;
+        v29[2] = __69__CTStewieDataClient_sendMessageInternal_usingConnection_completion___block_invoke_63;
+        v29[3] = &unk_1E6A48050;
+        v30 = completionCopy;
+        [(CTStewieDataClient *)self dispatchOnDelegateQueue:v29];
+        msgId = v30;
+      }
     }
   }
 
   else
   {
-    v15 = CTLogStewieDataClient();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v21 = CTLogStewieDataClient(v10, v11);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v16 = *(self + 4);
-      v17 = CTConnectionPairStateAsString(*(self + 8));
-      [CTStewieDataClient sendMessageInternal:v17 usingConnection:buf completion:v16];
+      v22 = *(self + 4);
+      v23 = CTConnectionPairStateAsString(*(self + 8));
+      [CTStewieDataClient sendMessageInternal:v23 usingConnection:buf completion:v22];
     }
 
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __69__CTStewieDataClient_sendMessageInternal_usingConnection_completion___block_invoke;
-    v29[3] = &unk_1E6A48050;
-    v30 = completionCopy;
-    [(CTStewieDataClient *)self dispatchOnDelegateQueue:v29];
-    v10 = v30;
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __69__CTStewieDataClient_sendMessageInternal_usingConnection_completion___block_invoke;
+    v34[3] = &unk_1E6A48050;
+    v35 = completionCopy;
+    [(CTStewieDataClient *)self dispatchOnDelegateQueue:v34];
+    v12 = v35;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __69__CTStewieDataClient_sendMessageInternal_usingConnection_completion___block_invoke(uint64_t a1)
@@ -263,10 +267,11 @@ void __69__CTStewieDataClient_sendMessageInternal_usingConnection_completion___b
 {
   messageCopy = message;
   completionCopy = completion;
-  if (([objc_opt_class() conformsToProtocol:&unk_1EF072C68] & 1) == 0)
+  v8 = [objc_opt_class() conformsToProtocol:&unk_1EF072C68];
+  if ((v8 & 1) == 0)
   {
-    v9 = CTLogStewieDataClient();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v13 = CTLogStewieDataClient(v8, v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [CTStewieDataClient sendMessage:completion:];
     }
@@ -276,52 +281,53 @@ void __69__CTStewieDataClient_sendMessageInternal_usingConnection_completion___b
 
   if (!completionCopy)
   {
-    v9 = CTLogStewieDataClient();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v13 = CTLogStewieDataClient(v8, v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [CTStewieDataClient sendMessage:completion:];
     }
 
 LABEL_19:
-    v11 = 0;
+    v15 = 0;
     goto LABEL_23;
   }
 
-  v19 = 0;
-  v8 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:messageCopy requiringSecureCoding:1 error:&v19];
-  v9 = v19;
-  if (v9)
+  v23 = 0;
+  v10 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:messageCopy requiringSecureCoding:1 error:&v23];
+  v11 = v23;
+  v13 = v11;
+  if (v11)
   {
-    v10 = 1;
+    v14 = 1;
   }
 
   else
   {
-    v10 = v8 == 0;
+    v14 = v10 == 0;
   }
 
-  v11 = !v10;
-  if (!v10)
+  v15 = !v14;
+  if (!v14)
   {
-    v12 = ([messageCopy isMemberOfClass:objc_opt_class()] & 1) != 0 || (objc_msgSend(messageCopy, "isMemberOfClass:", objc_opt_class()) & 1) != 0 || objc_msgSend(messageCopy, "isMemberOfClass:", objc_opt_class());
+    v16 = ([messageCopy isMemberOfClass:objc_opt_class()] & 1) != 0 || (objc_msgSend(messageCopy, "isMemberOfClass:", objc_opt_class()) & 1) != 0 || objc_msgSend(messageCopy, "isMemberOfClass:", objc_opt_class());
     objc_initWeak(&location, self);
-    v13 = *(self + 2);
-    objc_copyWeak(v17, &location);
-    v17[1] = v8;
-    v17[2] = v12;
-    v17[3] = _Block_copy(completionCopy);
-    v14 = v13;
+    v17 = *(self + 2);
+    objc_copyWeak(v21, &location);
+    v21[1] = v10;
+    v21[2] = v16;
+    v21[3] = _Block_copy(completionCopy);
+    v18 = v17;
     operator new();
   }
 
-  v15 = CTLogStewieDataClient();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v19 = CTLogStewieDataClient(v11, v12);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     [CTStewieDataClient sendMessage:completion:];
   }
 
 LABEL_23:
-  return v11;
+  return v15;
 }
 
 - (void)invokeSendCompletionForMsgId:(id)id ack:(id)ack metadata:(id)metadata
@@ -334,15 +340,16 @@ LABEL_23:
   {
     std::string::basic_string[abi:nn200100]<0>(__p, [idCopy UTF8String]);
     v11 = std::__tree<std::__value_type<std::string,dispatch::block<void({block_pointer} {__strong})(CTStewieMessageAck *,NSDictionary *)>>,std::__map_value_compare<std::string,std::__value_type<std::string,dispatch::block<void({block_pointer} {__strong})(CTStewieMessageAck *,NSDictionary *)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,dispatch::block<void({block_pointer} {__strong})(CTStewieMessageAck *,NSDictionary *)>>>>::find<std::string>(self + 88, __p);
-    if (v19 < 0)
+    v13 = v11;
+    if (v21 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if ((self + 96) == v11)
+    if ((self + 96) == v13)
     {
-      v12 = CTLogStewieDataClient();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = CTLogStewieDataClient(v11, v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [CTStewieDataClient invokeSendCompletionForMsgId:ack:metadata:];
       }
@@ -350,19 +357,19 @@ LABEL_23:
 
     else
     {
-      v12 = _Block_copy(*(v11 + 56));
-      std::__tree<std::__value_type<std::string,dispatch::block<void({block_pointer} {__strong})(CTStewieMessageAck *,NSDictionary *)>>,std::__map_value_compare<std::string,std::__value_type<std::string,dispatch::block<void({block_pointer} {__strong})(CTStewieMessageAck *,NSDictionary *)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,dispatch::block<void({block_pointer} {__strong})(CTStewieMessageAck *,NSDictionary *)>>>>::erase(self + 11, v11);
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3321888768;
-      v14[2] = __64__CTStewieDataClient_invokeSendCompletionForMsgId_ack_metadata___block_invoke;
-      v14[3] = &unk_1EF013728;
-      v17 = _Block_copy(v12);
-      v15 = ackCopy;
-      v16 = metadataCopy;
-      [(CTStewieDataClient *)self dispatchOnDelegateQueue:v14];
+      v14 = _Block_copy(*(v13 + 56));
+      std::__tree<std::__value_type<std::string,dispatch::block<void({block_pointer} {__strong})(CTStewieMessageAck *,NSDictionary *)>>,std::__map_value_compare<std::string,std::__value_type<std::string,dispatch::block<void({block_pointer} {__strong})(CTStewieMessageAck *,NSDictionary *)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,dispatch::block<void({block_pointer} {__strong})(CTStewieMessageAck *,NSDictionary *)>>>>::erase(self + 11, v13);
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3321888768;
+      v16[2] = __64__CTStewieDataClient_invokeSendCompletionForMsgId_ack_metadata___block_invoke;
+      v16[3] = &unk_1EF013728;
+      v19 = _Block_copy(v14);
+      v17 = ackCopy;
+      v18 = metadataCopy;
+      [(CTStewieDataClient *)self dispatchOnDelegateQueue:v16];
 
-      v13 = v17;
-      v17 = 0;
+      v15 = v19;
+      v19 = 0;
     }
   }
 }
@@ -475,10 +482,10 @@ void __46__CTStewieDataClient_updateConnectedServices___block_invoke(uint64_t a1
     xpc_array_set_string(v4, 0xFFFFFFFFFFFFFFFFLL, "Stewie");
     secure_udp = nw_parameters_create_secure_udp(*MEMORY[0x1E6977EC0], *MEMORY[0x1E6977EB8]);
     nw_parameters_set_allow_ultra_constrained();
-    nw_parameters_set_no_proxy();
+    v6 = nw_parameters_set_no_proxy();
     if (!secure_udp)
     {
-      options = CTLogStewieDataClient();
+      options = CTLogStewieDataClient(v6, v7);
       if (os_log_type_enabled(options, OS_LOG_TYPE_ERROR))
       {
         [CTStewieDataClient createConnectionPairIfRequired];
@@ -491,25 +498,25 @@ void __46__CTStewieDataClient_updateConnectedServices___block_invoke(uint64_t a1
     definition = nw_framer_create_definition("StewieClient", 0, &__block_literal_global_7);
     options = nw_framer_create_options(definition);
 
-    v8 = nw_parameters_copy_default_protocol_stack(secure_udp);
-    nw_protocol_stack_prepend_application_protocol(v8, options);
-    memset(&v19, 0, sizeof(v19));
-    std::to_string(&v19, *(self + 3));
-    if ((v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v10 = nw_parameters_copy_default_protocol_stack(secure_udp);
+    nw_protocol_stack_prepend_application_protocol(v10, options);
+    memset(&v26, 0, sizeof(v26));
+    std::to_string(&v26, *(self + 3));
+    if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v9 = &v19;
+      v11 = &v26;
     }
 
     else
     {
-      v9 = v19.__r_.__value_.__r.__words[0];
+      v11 = v26.__r_.__value_.__r.__words[0];
     }
 
-    host = nw_endpoint_create_host("dataclientOne", v9);
+    host = nw_endpoint_create_host("dataclientOne", v11);
     if (!host)
     {
-      v12 = CTLogStewieDataClient();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v16 = CTLogStewieDataClient(0, v12);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [CTStewieDataClient createConnectionPairIfRequired];
       }
@@ -517,63 +524,64 @@ void __46__CTStewieDataClient_updateConnectedServices___block_invoke(uint64_t a1
       goto LABEL_26;
     }
 
-    if ((v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v11 = &v19;
+      v14 = &v26;
     }
 
     else
     {
-      v11 = v19.__r_.__value_.__r.__words[0];
+      v14 = v26.__r_.__value_.__r.__words[0];
     }
 
-    v12 = nw_endpoint_create_host("dataclientTwo", v11);
-    if (v12)
+    v16 = nw_endpoint_create_host("dataclientTwo", v14);
+    if (v16)
     {
-      v13 = [[CTConnectionPair alloc] initWithQueue:*(self + 2) delegate:self endpoint1:host parameters1:secure_udp endpoint2:v12 parameter2:secure_udp];
-      v14 = *(self + 7);
-      *(self + 7) = v13;
+      v17 = [[CTConnectionPair alloc] initWithQueue:*(self + 2) delegate:self endpoint1:host parameters1:secure_udp endpoint2:v16 parameter2:secure_udp];
+      v18 = *(self + 7);
+      *(self + 7) = v17;
 
-      v15 = *(self + 7);
-      if (!v15)
+      v20 = *(self + 7);
+      if (!v20)
       {
-        v16 = CTLogStewieDataClient();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v21 = CTLogStewieDataClient(0, v19);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           [CTStewieDataClient createConnectionPairIfRequired];
         }
 
-        v15 = *(self + 7);
+        v20 = *(self + 7);
       }
 
-      if ([v15 start])
+      start = [v20 start];
+      if (start)
       {
         goto LABEL_26;
       }
 
-      v17 = CTLogStewieDataClient();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v24 = CTLogStewieDataClient(start, v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         [CTStewieDataClient createConnectionPairIfRequired];
       }
 
-      v18 = *(self + 7);
+      v25 = *(self + 7);
       *(self + 7) = 0;
     }
 
     else
     {
-      v18 = CTLogStewieDataClient();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v25 = CTLogStewieDataClient(0, v15);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         [CTStewieDataClient createConnectionPairIfRequired];
       }
     }
 
 LABEL_26:
-    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v19.__r_.__value_.__l.__data_);
+      operator delete(v26.__r_.__value_.__l.__data_);
     }
 
 LABEL_29:
@@ -621,11 +629,12 @@ uint64_t __52__CTStewieDataClient_createConnectionPairIfRequired__block_invoke_3
   if (a2 && a3 >= 3)
   {
     v5 = memcmp(&kCTStewieMagicPacket, a2, a3);
-    v6 = CTLogConnectionPair();
-    v7 = v6;
-    if (v5)
+    v6 = v5;
+    v8 = CTLogConnectionPair(v5, v7);
+    v9 = v8;
+    if (v6)
     {
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         __52__CTStewieDataClient_createConnectionPairIfRequired__block_invoke_3_cold_1();
       }
@@ -635,7 +644,7 @@ uint64_t __52__CTStewieDataClient_createConnectionPairIfRequired__block_invoke_3
 
     else
     {
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         __52__CTStewieDataClient_createConnectionPairIfRequired__block_invoke_3_cold_2();
       }
@@ -727,151 +736,156 @@ void __35__CTStewieDataClient_stateChanged___block_invoke(uint64_t a1, void *a2)
 
 - (void)receivedData:(id)data fromConnectionId:(int64_t)id
 {
-  v83[1] = *MEMORY[0x1E69E9840];
+  v91[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   dispatch_assert_queue_V2(*(self + 2));
   if (dataCopy && *(self + 7))
   {
-    v72 = 0;
-    v7 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v72];
-    v8 = v72;
-    v9 = v8;
-    if (!v7 || v8)
+    v80 = 0;
+    v9 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v80];
+    v10 = v80;
+    v12 = v10;
+    if (!v9 || v10)
     {
-      msgId2 = CTLogStewieDataClient();
+      msgId2 = CTLogStewieDataClient(v10, v11);
       if (os_log_type_enabled(msgId2, OS_LOG_TYPE_ERROR))
       {
-        v21 = [dataCopy length];
-        v22 = CTConnectionPairConnectionIDAsString(id);
-        [(CTStewieDataClient *)v22 receivedData:v21 fromConnectionId:?];
+        v28 = [dataCopy length];
+        v29 = CTConnectionPairConnectionIDAsString(id);
+        [(CTStewieDataClient *)v29 receivedData:v28 fromConnectionId:?];
       }
     }
 
     else
     {
-      data = [v7 data];
-      if (!data || ([v7 data], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "length") == 0, v11, data, v12))
+      data = [v9 data];
+      v15 = data;
+      if (!data || ([v9 data], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "length") == 0, v16, v15, v17))
       {
-        v23 = CTLogStewieDataClient();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        v30 = CTLogStewieDataClient(data, v14);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
-          msgId = [v7 msgId];
-          v25 = CTConnectionPairConnectionIDAsString(id);
-          [(CTStewieDataClient *)msgId receivedData:v25 fromConnectionId:location, v23];
+          msgId = [v9 msgId];
+          v32 = CTConnectionPairConnectionIDAsString(id);
+          [(CTStewieDataClient *)msgId receivedData:v32 fromConnectionId:location, v30];
         }
 
-        msgId2 = [v7 msgId];
-        v26 = [CTStewieMessageAck alloc];
-        v27 = MEMORY[0x1E696ABC0];
-        v82 = *MEMORY[0x1E696A578];
-        v83[0] = @"Transport error: raise a bug";
-        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v83 forKeys:&v82 count:1];
-        v29 = [v27 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v28];
-        v30 = [(CTStewieMessageAck *)v26 initWithError:v29];
-        [(CTStewieDataClient *)self invokeSendCompletionForMsgId:msgId2 ack:v30 metadata:0];
+        msgId2 = [v9 msgId];
+        v33 = [CTStewieMessageAck alloc];
+        v34 = MEMORY[0x1E696ABC0];
+        v90 = *MEMORY[0x1E696A578];
+        v91[0] = @"Transport error: raise a bug";
+        v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v91 forKeys:&v90 count:1];
+        v36 = [v34 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v35];
+        v37 = [(CTStewieMessageAck *)v33 initWithError:v36];
+        [(CTStewieDataClient *)self invokeSendCompletionForMsgId:msgId2 ack:v37 metadata:0];
 
-        v9 = 0;
+        v12 = 0;
       }
 
       else
       {
-        v13 = MEMORY[0x1E696ACD0];
-        v14 = +[CTStewieTransportMessage allowedSetOfClasses];
-        data2 = [v7 data];
-        v71 = 0;
-        msgId2 = [v13 unarchivedObjectOfClasses:v14 fromData:data2 error:&v71];
-        v9 = v71;
+        v18 = MEMORY[0x1E696ACD0];
+        v19 = +[CTStewieTransportMessage allowedSetOfClasses];
+        data2 = [v9 data];
+        v79 = 0;
+        msgId2 = [v18 unarchivedObjectOfClasses:v19 fromData:data2 error:&v79];
+        v12 = v79;
 
-        if (!msgId2 || v9)
+        if (!msgId2 || v12)
         {
-          v32 = CTLogStewieDataClient();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          v39 = CTLogStewieDataClient(v22, v23);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
-            msgId3 = [v7 msgId];
-            data3 = [v7 data];
-            v58 = [data3 length];
-            v59 = CTConnectionPairConnectionIDAsString(id);
+            msgId3 = [v9 msgId];
+            data3 = [v9 data];
+            v66 = [data3 length];
+            v67 = CTConnectionPairConnectionIDAsString(id);
             *location = 138412802;
             *&location[4] = msgId3;
-            v78 = 2048;
-            v79 = v58;
-            v80 = 2080;
-            v81 = v59;
-            _os_log_error_impl(&dword_182E9B000, v32, OS_LOG_TYPE_ERROR, "Message: %@ has garbage data of length: %lu, connection: %s", location, 0x20u);
+            v86 = 2048;
+            v87 = v66;
+            v88 = 2080;
+            v89 = v67;
+            _os_log_error_impl(&dword_182E9B000, v39, OS_LOG_TYPE_ERROR, "Message: %@ has garbage data of length: %lu, connection: %s", location, 0x20u);
           }
 
-          msgId4 = [v7 msgId];
-          v34 = [CTStewieMessageAck alloc];
-          v35 = MEMORY[0x1E696ABC0];
-          v75 = *MEMORY[0x1E696A578];
-          v76 = @"Transport error: raise a bug";
-          v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
-          v37 = [v35 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v36];
-          v38 = [(CTStewieMessageAck *)v34 initWithError:v37];
-          [(CTStewieDataClient *)self invokeSendCompletionForMsgId:msgId4 ack:v38 metadata:0];
+          msgId4 = [v9 msgId];
+          v41 = [CTStewieMessageAck alloc];
+          v42 = MEMORY[0x1E696ABC0];
+          v83 = *MEMORY[0x1E696A578];
+          v84 = @"Transport error: raise a bug";
+          v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+          v44 = [v42 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v43];
+          v45 = [(CTStewieMessageAck *)v41 initWithError:v44];
+          [(CTStewieDataClient *)self invokeSendCompletionForMsgId:msgId4 ack:v45 metadata:0];
         }
 
         else if ([msgId2 isMemberOfClass:objc_opt_class()])
         {
-          msgId5 = [v7 msgId];
-          metadata = [v7 metadata];
-          v19 = [metadata valueForKey:@"clientMetadata"];
-          [(CTStewieDataClient *)self invokeSendCompletionForMsgId:msgId5 ack:msgId2 metadata:v19];
-        }
-
-        else if ([msgId2 conformsToProtocol:&unk_1EF072E90])
-        {
-          objc_initWeak(location, self);
-          msgId6 = [v7 msgId];
-          metadata2 = [v7 metadata];
-          v62 = [metadata2 valueForKey:@"clientMetadata"];
-
-          metadata3 = [v7 metadata];
-          v61 = [metadata3 mutableCopy];
-
-          [v61 removeObjectForKey:@"clientMetadata"];
-          v42 = *(self + 2);
-          v64[0] = MEMORY[0x1E69E9820];
-          v64[1] = 3221225472;
-          v64[2] = __52__CTStewieDataClient_receivedData_fromConnectionId___block_invoke;
-          v64[3] = &unk_1E6A48178;
-          v43 = msgId2;
-          v65 = v43;
-          v44 = v62;
-          v66 = v44;
-          v60 = v42;
-          v67 = v60;
-          v45 = v61;
-          v68 = v45;
-          objc_copyWeak(&v70, location);
-          v46 = msgId6;
-          v69 = v46;
-          [(CTStewieDataClient *)self dispatchOnDelegateQueue:v64];
-
-          objc_destroyWeak(&v70);
-          objc_destroyWeak(location);
-          msgId2 = v43;
+          msgId5 = [v9 msgId];
+          metadata = [v9 metadata];
+          v26 = [metadata valueForKey:@"clientMetadata"];
+          [(CTStewieDataClient *)self invokeSendCompletionForMsgId:msgId5 ack:msgId2 metadata:v26];
         }
 
         else
         {
-          v47 = CTLogStewieDataClient();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+          v46 = [msgId2 conformsToProtocol:&unk_1EF072E90];
+          if (v46)
           {
-            msgId7 = [v7 msgId];
-            v49 = objc_opt_class();
-            [(CTStewieDataClient *)msgId7 receivedData:v49 fromConnectionId:location, v47];
+            objc_initWeak(location, self);
+            msgId6 = [v9 msgId];
+            metadata2 = [v9 metadata];
+            v70 = [metadata2 valueForKey:@"clientMetadata"];
+
+            metadata3 = [v9 metadata];
+            v69 = [metadata3 mutableCopy];
+
+            [v69 removeObjectForKey:@"clientMetadata"];
+            v50 = *(self + 2);
+            v72[0] = MEMORY[0x1E69E9820];
+            v72[1] = 3221225472;
+            v72[2] = __52__CTStewieDataClient_receivedData_fromConnectionId___block_invoke;
+            v72[3] = &unk_1E6A48178;
+            v51 = msgId2;
+            v73 = v51;
+            v52 = v70;
+            v74 = v52;
+            v68 = v50;
+            v75 = v68;
+            v53 = v69;
+            v76 = v53;
+            objc_copyWeak(&v78, location);
+            v54 = msgId6;
+            v77 = v54;
+            [(CTStewieDataClient *)self dispatchOnDelegateQueue:v72];
+
+            objc_destroyWeak(&v78);
+            objc_destroyWeak(location);
+            msgId2 = v51;
           }
 
-          msgId8 = [v7 msgId];
-          v51 = [CTStewieMessageAck alloc];
-          v52 = MEMORY[0x1E696ABC0];
-          v73 = *MEMORY[0x1E696A578];
-          v74 = @"Transport error: raise a bug";
-          v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-          v54 = [v52 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v53];
-          v55 = [(CTStewieMessageAck *)v51 initWithError:v54];
-          [(CTStewieDataClient *)self invokeSendCompletionForMsgId:msgId8 ack:v55 metadata:0];
+          else
+          {
+            v55 = CTLogStewieDataClient(v46, v47);
+            if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+            {
+              msgId7 = [v9 msgId];
+              v57 = objc_opt_class();
+              [(CTStewieDataClient *)msgId7 receivedData:v57 fromConnectionId:location, v55];
+            }
+
+            msgId8 = [v9 msgId];
+            v59 = [CTStewieMessageAck alloc];
+            v60 = MEMORY[0x1E696ABC0];
+            v81 = *MEMORY[0x1E696A578];
+            v82 = @"Transport error: raise a bug";
+            v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
+            v62 = [v60 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v61];
+            v63 = [(CTStewieMessageAck *)v59 initWithError:v62];
+            [(CTStewieDataClient *)self invokeSendCompletionForMsgId:msgId8 ack:v63 metadata:0];
+          }
         }
       }
     }
@@ -879,25 +893,23 @@ void __35__CTStewieDataClient_stateChanged___block_invoke(uint64_t a1, void *a2)
 
   else
   {
-    v9 = CTLogStewieDataClient();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v12 = CTLogStewieDataClient(v7, v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       if (dataCopy)
       {
-        v20 = [dataCopy length];
+        v27 = [dataCopy length];
       }
 
       else
       {
-        v20 = 0;
+        v27 = 0;
       }
 
-      v31 = CTConnectionPairConnectionIDAsString(id);
-      [(CTStewieDataClient *)v31 receivedData:v20 fromConnectionId:?];
+      v38 = CTConnectionPairConnectionIDAsString(id);
+      [(CTStewieDataClient *)v38 receivedData:v27 fromConnectionId:?];
     }
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 void __52__CTStewieDataClient_receivedData_fromConnectionId___block_invoke(uint64_t a1, void *a2)

@@ -79,7 +79,7 @@
   return v26;
 }
 
-void __101__PKDynamicProvisioningFieldsPageViewController_initWithWebService_context_setupDelegate_fieldsPage___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __101__PKDynamicProvisioningFieldsPageViewController_initWithWebService_context_setupDelegate_fieldsPage___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v17 = a2;
   if ([v17 isFieldTypeLabel])

@@ -7,11 +7,11 @@
 
 - (void)filloutPayloads
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   if (self)
   {
     rawPayloads = self->super._rawPayloads;
@@ -23,25 +23,25 @@
   }
 
   v4 = rawPayloads;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v32 objects:v42 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v31 objects:v41 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v33;
+    v8 = *v32;
     v9 = 0x1E695D000uLL;
     v10 = &OBJC_IVAR___NEFilterFlow__direction;
     *&v6 = 138412546;
-    v31 = v6;
+    v30 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v33 != v8)
+        if (*v32 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v12 = *(*(&v32 + 1) + 8 * i);
+        v12 = *(*(&v31 + 1) + 8 * i);
         type = [v12 type];
         if (type == 41)
         {
@@ -52,8 +52,8 @@
             goto LABEL_23;
           }
 
-          v41 = v16;
-          v19 = [*(v9 + 3784) arrayWithObjects:&v41 count:1];
+          v40 = v16;
+          v19 = [*(v9 + 3784) arrayWithObjects:&v40 count:1];
           if (self)
           {
 LABEL_23:
@@ -90,8 +90,8 @@ LABEL_31:
               goto LABEL_29;
             }
 
-            v40 = v16;
-            v23 = [*(v9 + 3784) arrayWithObjects:&v40 count:1];
+            v39 = v16;
+            v23 = [*(v9 + 3784) arrayWithObjects:&v39 count:1];
             if (self)
             {
 LABEL_29:
@@ -108,10 +108,10 @@ LABEL_29:
             v26 = v9;
             copyShortDescription = [(NEIKEv2Packet *)self copyShortDescription];
             typeDescription = [v12 typeDescription];
-            *buf = v31;
-            v37 = copyShortDescription;
-            v38 = 2112;
-            v39 = typeDescription;
+            *buf = v30;
+            v36 = copyShortDescription;
+            v37 = 2112;
+            v38 = typeDescription;
             _os_log_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_DEFAULT, "%@ ignoring unexpected %@ payload", buf, 0x16u);
 
             v9 = v26;
@@ -120,13 +120,11 @@ LABEL_29:
         }
       }
 
-      v7 = [(NSArray *)v4 countByEnumeratingWithState:&v32 objects:v42 count:16];
+      v7 = [(NSArray *)v4 countByEnumeratingWithState:&v31 objects:v41 count:16];
     }
 
     while (v7);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)gatherPayloads

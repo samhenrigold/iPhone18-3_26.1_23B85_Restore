@@ -9,42 +9,42 @@ void sub_FE4(id a1)
   _objc_release_x1();
 }
 
-void sub_10E4()
+void sub_10E4(uint64_t a1)
 {
-  v0 = +[NSMutableDictionary dictionary];
-  v10 = 0u;
+  v1 = +[NSMutableDictionary dictionary];
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v1 = [objc_opt_class() __allOrderedValues];
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v2)
+  v14 = 0u;
+  v2 = [objc_opt_class() __allOrderedValues];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v3)
   {
-    v3 = v2;
-    v4 = *v11;
+    v4 = v3;
+    v5 = *v12;
     do
     {
-      for (i = 0; i != v3; i = i + 1)
+      for (i = 0; i != v4; i = i + 1)
       {
-        if (*v11 != v4)
+        if (*v12 != v5)
         {
-          objc_enumerationMutation(v1);
+          objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * i);
-        v7 = [v6 description];
-        [v0 setObject:v7 forKeyedSubscript:v6];
+        v7 = *(*(&v11 + 1) + 8 * i);
+        v8 = [v7 description];
+        [v1 setObject:v8 forKeyedSubscript:v7];
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v3);
+    while (v4);
   }
 
-  v8 = [v0 copy];
-  v9 = qword_1ABF0;
-  qword_1ABF0 = v8;
+  v9 = [v1 copy];
+  v10 = qword_1ABF0;
+  qword_1ABF0 = v9;
 }
 
 void sub_133C(id a1)
@@ -107,9 +107,9 @@ void sub_454C(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_4A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_4A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -138,11 +138,11 @@ void sub_4F44(uint64_t a1, void *a2)
   [v5 renderInContext:v4];
 }
 
-void sub_5514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_5514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -157,9 +157,9 @@ void sub_553C(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_577C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_577C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -290,16 +290,16 @@ void sub_60E0(uint64_t a1, void *a2)
   }
 }
 
-id sub_73A8()
+id sub_73A8(uint64_t a1)
 {
   if (qword_1AC60 != -1)
   {
     sub_9794();
   }
 
-  v1 = qword_1AC58;
+  v2 = qword_1AC58;
 
-  return v1;
+  return v2;
 }
 
 void sub_75B0(uint64_t a1, void *a2)
@@ -325,8 +325,7 @@ void sub_7AD8(uint64_t a1, void *a2)
   v6 = a2;
   v3 = +[CALayer layer];
   v4 = v6;
-  [v3 setBackgroundColor:{objc_msgSend(v6, "CGColor")}];
-  v5 = sub_73A8();
+  v5 = sub_73A8([v3 setBackgroundColor:{objc_msgSend(v6, "CGColor")}]);
   [v3 setActions:v5];
 
   [v3 setAllowsEdgeAntialiasing:1];
@@ -493,40 +492,40 @@ void sub_8A8C(id a1)
   qword_1AC68 = v1;
 }
 
-void sub_90C8()
+void sub_90C8(uint64_t a1)
 {
-  v0 = +[NSMutableDictionary dictionary];
-  v10 = 0u;
+  v1 = +[NSMutableDictionary dictionary];
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v1 = [objc_opt_class() __allOrderedValues];
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v2)
+  v14 = 0u;
+  v2 = [objc_opt_class() __allOrderedValues];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v3)
   {
-    v3 = v2;
-    v4 = *v11;
+    v4 = v3;
+    v5 = *v12;
     do
     {
-      for (i = 0; i != v3; i = i + 1)
+      for (i = 0; i != v4; i = i + 1)
       {
-        if (*v11 != v4)
+        if (*v12 != v5)
         {
-          objc_enumerationMutation(v1);
+          objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * i);
-        v7 = [v6 description];
-        [v0 setObject:v7 forKeyedSubscript:v6];
+        v7 = *(*(&v11 + 1) + 8 * i);
+        v8 = [v7 description];
+        [v1 setObject:v8 forKeyedSubscript:v7];
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v3);
+    while (v4);
   }
 
-  v8 = [v0 copy];
-  v9 = qword_1AC78;
-  qword_1AC78 = v8;
+  v9 = [v1 copy];
+  v10 = qword_1AC78;
+  qword_1AC78 = v9;
 }

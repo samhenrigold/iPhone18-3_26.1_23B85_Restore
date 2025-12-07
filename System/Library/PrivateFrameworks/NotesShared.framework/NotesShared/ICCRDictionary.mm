@@ -134,7 +134,7 @@ void __49__ICCRDictionary_encodeWithICCRCoder_dictionary___block_invoke(uint64_t
         {
           if (v13 == *(dictionary + 14))
           {
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(dictionary + 40, v13 + 1);
+            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(dictionary + 10, v13 + 1);
           }
 
           google::protobuf::internal::GenericTypeHandler<CRDT::Dictionary_Element>::New();

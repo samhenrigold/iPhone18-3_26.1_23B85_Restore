@@ -52,7 +52,7 @@
 {
   tokenCopy = token;
   completionCopy = completion;
-  v8 = sub_100002614();
+  v8 = sub_100002614(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -80,7 +80,7 @@
 {
   nameCopy = name;
   completionCopy = completion;
-  v8 = sub_100002614();
+  v8 = sub_100002614(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;

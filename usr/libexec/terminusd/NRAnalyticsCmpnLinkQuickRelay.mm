@@ -34,30 +34,20 @@
   sub_1001554F0(self);
   if (self)
   {
-    idsSessionSendInvitationStart = self->_idsSessionSendInvitationStart;
-    idsSessionSendInvitationEnd = self->_idsSessionSendInvitationEnd;
+    NRDiffMachTimeInSeconds();
+    v4 = v3;
     NRDiffMachTimeInSeconds();
     v6 = v5;
-    idsSessionReceiveInvitationStart = self->_idsSessionReceiveInvitationStart;
-    idsSessionReceiveInvitationEnd = self->_idsSessionReceiveInvitationEnd;
+    NRDiffMachTimeInSeconds();
+    v8 = v7;
     NRDiffMachTimeInSeconds();
     v10 = v9;
-    idsSessionStart = self->_idsSessionStart;
-    idsSessionEnd = self->_idsSessionEnd;
     NRDiffMachTimeInSeconds();
-    v14 = v13;
-    ikeClassDKeepAliveStart = self->_ikeClassDKeepAliveStart;
-    ikeClassDKeepAliveEnd = self->_ikeClassDKeepAliveEnd;
-    NRDiffMachTimeInSeconds();
-    v18 = v17;
-    ikeClassCKeepAliveStart = self->_ikeClassCKeepAliveStart;
-    ikeClassCKeepAliveEnd = self->_ikeClassCKeepAliveEnd;
-    NRDiffMachTimeInSeconds();
-    v22 = v21;
+    v12 = v11;
     if (self->_idsSessionInvitationFailed)
     {
-      v23 = [NSNumber numberWithDouble:round(v6 * 1000.0) * 0.001];
-      [(NSMutableDictionary *)self->super.super._eventDictionary setObject:v23 forKeyedSubscript:@"idsSessionInvitationTimeToFailureInSec"];
+      v13 = [NSNumber numberWithDouble:round(v4 * 1000.0) * 0.001];
+      [(NSMutableDictionary *)self->super.super._eventDictionary setObject:v13 forKeyedSubscript:@"idsSessionInvitationTimeToFailureInSec"];
 
       [(NSMutableDictionary *)self->super.super._eventDictionary setObject:&off_10020A1A0 forKeyedSubscript:@"idsSessionSendInvitationDurationInSec"];
       goto LABEL_8;
@@ -69,94 +59,94 @@
   else
   {
     NRDiffMachTimeInSeconds();
-    v6 = v36;
+    v4 = v26;
     NRDiffMachTimeInSeconds();
-    v10 = v37;
+    v6 = v27;
     NRDiffMachTimeInSeconds();
-    v14 = v38;
+    v8 = v28;
     NRDiffMachTimeInSeconds();
-    v18 = v39;
+    v10 = v29;
     NRDiffMachTimeInSeconds();
-    v22 = v40;
+    v12 = v30;
     eventDictionary = 0;
   }
 
   [(NSMutableDictionary *)eventDictionary setObject:&off_10020A1A0 forKeyedSubscript:@"idsSessionInvitationTimeToFailureInSec"];
-  v25 = [NSNumber numberWithDouble:round(v6 * 1000.0) * 0.001];
+  v15 = [NSNumber numberWithDouble:round(v4 * 1000.0) * 0.001];
   if (self)
   {
-    v26 = self->super.super._eventDictionary;
+    v16 = self->super.super._eventDictionary;
   }
 
   else
   {
-    v26 = 0;
+    v16 = 0;
   }
 
-  [(NSMutableDictionary *)v26 setObject:v25 forKeyedSubscript:@"idsSessionSendInvitationDurationInSec"];
+  [(NSMutableDictionary *)v16 setObject:v15 forKeyedSubscript:@"idsSessionSendInvitationDurationInSec"];
 
 LABEL_8:
-  v27 = [NSNumber numberWithDouble:round(v10 * 1000.0) * 0.001];
+  v17 = [NSNumber numberWithDouble:round(v6 * 1000.0) * 0.001];
   if (self)
   {
-    v28 = self->super.super._eventDictionary;
+    v18 = self->super.super._eventDictionary;
   }
 
   else
   {
-    v28 = 0;
+    v18 = 0;
   }
 
-  [(NSMutableDictionary *)v28 setObject:v27 forKeyedSubscript:@"idsSessionReceiveInvitationDurationInSec"];
+  [(NSMutableDictionary *)v18 setObject:v17 forKeyedSubscript:@"idsSessionReceiveInvitationDurationInSec"];
 
-  v29 = [NSNumber numberWithDouble:round(v14 * 1000.0) * 0.001];
+  v19 = [NSNumber numberWithDouble:round(v8 * 1000.0) * 0.001];
   if (self)
   {
-    v30 = self->super.super._eventDictionary;
+    v20 = self->super.super._eventDictionary;
   }
 
   else
   {
-    v30 = 0;
+    v20 = 0;
   }
 
-  [(NSMutableDictionary *)v30 setObject:v29 forKeyedSubscript:@"idsSessionDurationInSec"];
+  [(NSMutableDictionary *)v20 setObject:v19 forKeyedSubscript:@"idsSessionDurationInSec"];
 
-  v31 = [NSNumber numberWithDouble:round(v18 * 1000.0) * 0.001];
+  v21 = [NSNumber numberWithDouble:round(v10 * 1000.0) * 0.001];
   if (self)
   {
-    v32 = self->super.super._eventDictionary;
+    v22 = self->super.super._eventDictionary;
   }
 
   else
   {
-    v32 = 0;
+    v22 = 0;
   }
 
-  [(NSMutableDictionary *)v32 setObject:v31 forKeyedSubscript:@"ikeClassDKeepAliveDurationInSec"];
+  [(NSMutableDictionary *)v22 setObject:v21 forKeyedSubscript:@"ikeClassDKeepAliveDurationInSec"];
 
-  v33 = [NSNumber numberWithDouble:round(v22 * 1000.0) * 0.001];
+  v23 = [NSNumber numberWithDouble:round(v12 * 1000.0) * 0.001];
   if (self)
   {
-    [(NSMutableDictionary *)self->super.super._eventDictionary setObject:v33 forKeyedSubscript:@"ikeClassCKeepAliveDurationInSec"];
+    [(NSMutableDictionary *)self->super.super._eventDictionary setObject:v23 forKeyedSubscript:@"ikeClassCKeepAliveDurationInSec"];
 
     if (!self->_idsSessionEndedReason)
     {
       goto LABEL_18;
     }
 
-    v33 = [NSNumber numberWithUnsignedInt:?];
-    v34 = self->super.super._eventDictionary;
-    v35 = @"idsSessionEndedReason";
+    v23 = [NSNumber numberWithUnsignedInt:?];
+    v24 = self->super.super._eventDictionary;
+    v25 = @"idsSessionEndedReason";
   }
 
   else
   {
-    v35 = @"ikeClassCKeepAliveDurationInSec";
-    v34 = 0;
+    v25 = @"ikeClassCKeepAliveDurationInSec";
+    v24 = 0;
   }
 
-  [(NSMutableDictionary *)v34 setObject:v33 forKeyedSubscript:v35];
+  [(NSMutableDictionary *)v24 setObject:v23 forKeyedSubscript:v25];
 
 LABEL_18:
 

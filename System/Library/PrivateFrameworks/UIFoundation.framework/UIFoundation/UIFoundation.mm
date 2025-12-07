@@ -1,4 +1,4 @@
-uint64_t attributeDictionaryHash(char *a1)
+char *attributeDictionaryHash(char *a1)
 {
   values[100] = *MEMORY[0x1E69E9840];
   for (i = attributeDictionaryHash_preTigerHash; ; attributeDictionaryHash_preTigerHash = i)
@@ -8,7 +8,7 @@ uint64_t attributeDictionaryHash(char *a1)
       v8 = [a1 count];
       v9 = [objc_msgSend(a1 objectForKey:{@"NSFont", "hash"}] + v8;
       v10 = [objc_msgSend(a1 objectForKey:{@"NSParagraphStyle", "hash"}];
-      return v9 + v10 + [objc_msgSend(a1 objectForKey:{@"NSColor", "hash"}];
+      return (v9 + v10 + [objc_msgSend(a1 objectForKey:{@"NSColor", "hash"}]);
     }
 
     if (!i)
@@ -28,12 +28,12 @@ uint64_t attributeDictionaryHash(char *a1)
 
     v5 = 0;
     v6 = 0;
-    v7 = (a1 + 16);
+    v7 = a1 + 16;
     do
     {
-      v5 += [v7[2] hash];
+      v5 += [*(v7 + 2) hash];
       ++v6;
-      v7 += 3;
+      v7 += 24;
     }
 
     while (v6 < *(a1 + 1));
@@ -152,7 +152,7 @@ double __NSStringDrawingEngine(__CFString *a1, void *a2, uint64_t a3, unsigned i
     v22 = [(__CFString *)a1 string];
   }
 
-  v152 = a6;
+  v147 = a6;
   if (v22)
   {
     Length = CFStringGetLength(v22);
@@ -169,12 +169,12 @@ double __NSStringDrawingEngine(__CFString *a1, void *a2, uint64_t a3, unsigned i
     __NSStringDrawingEngine_cold_2();
   }
 
-  v184.origin.x = a8;
-  v184.origin.y = a9;
-  v184.size.width = a10;
-  v184.size.height = a11;
+  v179.origin.x = a8;
+  v179.origin.y = a9;
+  v179.size.width = a10;
+  v179.size.height = a11;
   v25 = 0.0;
-  if (fabs(CGRectGetWidth(v184)) == INFINITY)
+  if (fabs(CGRectGetWidth(v179)) == INFINITY)
   {
     v26 = 0.0;
   }
@@ -184,11 +184,11 @@ double __NSStringDrawingEngine(__CFString *a1, void *a2, uint64_t a3, unsigned i
     v26 = a10;
   }
 
-  v185.origin.x = a8;
-  v185.origin.y = a9;
-  v185.size.width = v26;
-  v185.size.height = a11;
-  if (fabs(CGRectGetHeight(v185)) == INFINITY)
+  v180.origin.x = a8;
+  v180.origin.y = a9;
+  v180.size.width = v26;
+  v180.size.height = a11;
+  if (fabs(CGRectGetHeight(v180)) == INFINITY)
   {
     v27 = 0.0;
   }
@@ -206,7 +206,7 @@ double __NSStringDrawingEngine(__CFString *a1, void *a2, uint64_t a3, unsigned i
     v29 = v28;
   }
 
-  v143 = v24;
+  v138 = v24;
   v30 = v24 == 0;
   v31 = 2;
   if (v24)
@@ -260,12 +260,12 @@ double __NSStringDrawingEngine(__CFString *a1, void *a2, uint64_t a3, unsigned i
 
   v35 = *v33;
   v36 = v33[1];
-  v149 = a3 & 2;
+  v144 = a3 & 2;
   v38 = v33[2];
   v37 = v33[3];
   if (Length < 1)
   {
-    if (v152)
+    if (v147)
     {
       v44 = v13 == 0;
     }
@@ -279,20 +279,20 @@ double __NSStringDrawingEngine(__CFString *a1, void *a2, uint64_t a3, unsigned i
     if ((a3 & 8) == 0 && v45)
     {
       v46 = [a2 objectForKeyedSubscript:@"NSParagraphStyle"];
-      v167 = 0.0;
-      v175 = 0.0;
-      +[NSCoreTypesetter _lineMetricsForAttributes:typesetterBehavior:usesFontLeading:applySpacings:usesSystemFontLeading:usesNegativeFontLeading:layoutOrientation:lineHeight:baselineOffset:spacing:](NSCoreTypesetter, "_lineMetricsForAttributes:typesetterBehavior:usesFontLeading:applySpacings:usesSystemFontLeading:usesNegativeFontLeading:layoutOrientation:lineHeight:baselineOffset:spacing:", a2, [MEMORY[0x1E696AEC0] typesetterBehavior], v149 != 0, v46 != 0, 0, 0, 0, &v167, &v175, 0);
+      v162 = 0.0;
+      v170 = 0.0;
+      +[NSCoreTypesetter _lineMetricsForAttributes:typesetterBehavior:usesFontLeading:applySpacings:usesSystemFontLeading:usesNegativeFontLeading:layoutOrientation:lineHeight:baselineOffset:spacing:](NSCoreTypesetter, "_lineMetricsForAttributes:typesetterBehavior:usesFontLeading:applySpacings:usesSystemFontLeading:usesNegativeFontLeading:layoutOrientation:lineHeight:baselineOffset:spacing:", a2, [MEMORY[0x1E696AEC0] typesetterBehavior], v144 != 0, v46 != 0, 0, 0, 0, &v162, &v170, 0);
       v35 = *MEMORY[0x1E696AA78];
-      v47 = v167;
-      v48 = (a3 & 1) != 0 ? *(MEMORY[0x1E696AA78] + 8) : v175 - v167;
+      v47 = v162;
+      v48 = (a3 & 1) != 0 ? *(MEMORY[0x1E696AA78] + 8) : v170 - v162;
       if (v13)
       {
         [v13 setNumberOfLineFragments:0];
         [v13 setTotalBounds:{v35, v48, 0.0, v47}];
         if ([v13 wantsBaselineOffset])
         {
-          [v13 setBaselineOffset:v175];
-          [v13 setFirstBaselineOffset:v175];
+          [v13 setBaselineOffset:v170];
+          [v13 setFirstBaselineOffset:v170];
         }
       }
     }
@@ -300,11 +300,11 @@ double __NSStringDrawingEngine(__CFString *a1, void *a2, uint64_t a3, unsigned i
     return v35;
   }
 
-  v182 = 0;
-  v183 = Length;
+  v177 = 0;
+  v178 = Length;
   if (!a2)
   {
-    a2 = [(__CFString *)a1 attributesAtIndex:0 effectiveRange:&v182];
+    a2 = [(__CFString *)a1 attributesAtIndex:0 effectiveRange:&v177];
   }
 
   if ([a2 objectForKey:@"NSTextAnimation"])
@@ -315,14 +315,14 @@ double __NSStringDrawingEngine(__CFString *a1, void *a2, uint64_t a3, unsigned i
       v40 = v39;
       if (objc_opt_respondsToSelector())
       {
-        [v40 drawStaticString:a1 withAttributes:a2 options:a3 inRect:a4 withPadding:objc_msgSend(v152 forceClipping:"CGContext") cgContext:v13 stringDrawingContext:{a8, a9, v26, rect, a12}];
+        [v40 drawStaticString:a1 withAttributes:a2 options:a3 inRect:a4 withPadding:objc_msgSend(v147 forceClipping:"CGContext") cgContext:v13 stringDrawingContext:{a8, a9, v26, rect, a12}];
         return v41;
       }
     }
   }
 
   v42 = [a2 objectForKey:@"NSParagraphStyle"];
-  v136 = v42;
+  v131 = v42;
   if (a4)
   {
     v43 = 2;
@@ -333,15 +333,15 @@ double __NSStringDrawingEngine(__CFString *a1, void *a2, uint64_t a3, unsigned i
     v43 = [(NSParagraphStyle *)v42 lineBreakMode];
   }
 
-  v146 = (~a3 & 0x21) == 0;
-  v181 = 0;
-  v145 = [v13 drawsDebugBaselines];
+  v141 = (~a3 & 0x21) == 0;
+  v176 = 0;
+  v140 = [v13 drawsDebugBaselines];
   if ((a3 & 0x100000) != 0 || v21 == 2)
   {
     if ((a3 & 1) == 0)
     {
 LABEL_71:
-      v51 = __NSUltraFastLineBreakFinder(v22, Length, 0, &v181);
+      v51 = __NSUltraFastLineBreakFinder(v22, Length, 0, &v176);
       if (!v51)
       {
         if (v13)
@@ -357,7 +357,7 @@ LABEL_71:
       v53 = 0;
       v54 = 1;
       rect = 0.0;
-      v144 = 1;
+      v139 = 1;
       goto LABEL_80;
     }
   }
@@ -378,40 +378,40 @@ LABEL_71:
       v43 = 0;
     }
 
-    v146 = 1;
+    v141 = 1;
   }
 
-  v52 = __NSUltraFastLineBreakFinder(v22, Length, 0, &v181);
-  v144 = 0;
+  v52 = __NSUltraFastLineBreakFinder(v22, Length, 0, &v176);
+  v139 = 0;
   v53 = v52 == 0;
   v54 = v43 > 1;
 LABEL_80:
-  v142 = a3 & 0x200;
-  v139 = a8;
-  v140 = a3 & 0x400;
+  v137 = a3 & 0x200;
+  v134 = a8;
+  v135 = a3 & 0x400;
   v55 = 0.0;
   if (v52 >= Length)
   {
     v55 = v25;
   }
 
-  v141 = v55;
-  if (v145)
+  v136 = v55;
+  if (v140)
   {
-    v137 = 0;
+    v132 = 0;
     v56 = a3 & 2;
     v57 = rect;
 LABEL_84:
-    v58 = v144;
+    v58 = v139;
 LABEL_129:
-    v175 = 0.0;
-    v176 = &v175;
-    v177 = 0x3052000000;
-    v178 = __Block_byref_object_copy__10;
-    v179 = __Block_byref_object_dispose__10;
-    v180 = 0;
-    v77 = v57;
-    if ((v58 | !v146) == 1)
+    v170 = 0.0;
+    v171 = &v170;
+    v172 = 0x3052000000;
+    v173 = __Block_byref_object_copy__10;
+    v174 = __Block_byref_object_dispose__10;
+    v175 = 0;
+    v72 = v57;
+    if ((v58 | !v141) == 1)
     {
       if (__NSSharedStringDrawingContext_onceToken != -1)
       {
@@ -420,90 +420,90 @@ LABEL_129:
 
       if (v13 == __NSSharedStringDrawingContext_sharedStringDrawingContext)
       {
-        v77 = 9000000.0;
+        v72 = 9000000.0;
       }
 
       else if ([v13 maximumNumberOfLines] == 1)
       {
-        v77 = 9000000.0;
+        v72 = 9000000.0;
       }
 
       else
       {
-        v77 = v57;
+        v72 = v57;
       }
     }
 
-    v78 = 10000000.0;
+    v73 = 10000000.0;
     if (v26 > 0.0)
     {
-      v78 = v26;
+      v73 = v26;
     }
 
     if (a4)
     {
-      v79 = 40000.0;
+      v74 = 40000.0;
     }
 
     else
     {
-      v79 = v78;
+      v74 = v73;
     }
 
-    v167 = 0.0;
-    v168 = &v167;
-    v169 = 0x4010000000;
-    v170 = "";
-    v171 = v35;
-    v172 = v36;
-    v173 = v38;
-    v174 = v37;
+    v162 = 0.0;
+    v163 = &v162;
+    v164 = 0x4010000000;
+    v165 = "";
+    v166 = v35;
+    v167 = v36;
+    v168 = v38;
+    v169 = v37;
     [MEMORY[0x1E696AEC0] setUsesFontLeading:v56 != 0];
     [MEMORY[0x1E696AEC0] setUsesScreenFonts:0];
-    v157[0] = MEMORY[0x1E69E9820];
-    v157[1] = 3221225472;
-    v157[2] = ____NSStringDrawingEngine_block_invoke_376;
-    v157[3] = &unk_1E7267A08;
-    v158 = v58;
-    v157[10] = v22;
-    v157[11] = v52;
-    v157[12] = Length;
-    v157[4] = a1;
-    v157[5] = a2;
-    *&v157[13] = v79;
-    *&v157[14] = v77;
-    v159 = v146;
-    *&v157[15] = v141;
-    v160 = v145;
-    v161 = v142 >> 9;
-    v162 = v140 >> 10;
-    v163 = (a3 & 0x800) >> 11;
-    v164 = v56 >> 1;
-    v157[6] = v13;
-    v157[7] = v152;
-    v165 = v21 == 2;
-    v157[16] = v21;
-    v157[17] = v137;
-    *&v157[18] = v139;
-    *&v157[19] = a9;
-    *&v157[20] = v26;
-    *&v157[21] = rect;
-    v166 = a4;
-    *&v157[22] = a12;
-    v157[8] = &v175;
-    v157[9] = &v167;
-    v157[23] = a7;
-    [NSStringDrawingTextStorage performLayoutOperation:v157];
+    v152[0] = MEMORY[0x1E69E9820];
+    v152[1] = 3221225472;
+    v152[2] = ____NSStringDrawingEngine_block_invoke_376;
+    v152[3] = &unk_1E7267A08;
+    v153 = v58;
+    v152[10] = v22;
+    v152[11] = v52;
+    v152[12] = Length;
+    v152[4] = a1;
+    v152[5] = a2;
+    *&v152[13] = v74;
+    *&v152[14] = v72;
+    v154 = v141;
+    *&v152[15] = v136;
+    v155 = v140;
+    v156 = v137 >> 9;
+    v157 = v135 >> 10;
+    v158 = (a3 & 0x800) >> 11;
+    v159 = v56 >> 1;
+    v152[6] = v13;
+    v152[7] = v147;
+    v160 = v21 == 2;
+    v152[16] = v21;
+    v152[17] = v132;
+    *&v152[18] = v134;
+    *&v152[19] = a9;
+    *&v152[20] = v26;
+    *&v152[21] = rect;
+    v161 = a4;
+    *&v152[22] = a12;
+    v152[8] = &v170;
+    v152[9] = &v162;
+    v152[23] = a7;
+    [NSStringDrawingTextStorage performLayoutOperation:v152];
 
-    v35 = v168[4];
-    _Block_object_dispose(&v167, 8);
-    _Block_object_dispose(&v175, 8);
+    v35 = v163[4];
+    _Block_object_dispose(&v162, 8);
+    _Block_object_dispose(&v170, 8);
     return v35;
   }
 
-  v134 = v54;
+  v129 = v54;
   v59 = 0;
-  if (((v144 ^ 1) & v53) != 0)
+  if (((v139 ^ 1) & v53) != 0)
   {
     v60 = v34 & 0xFFFFFFFFFFFFFFFDLL;
   }
@@ -518,17 +518,17 @@ LABEL_129:
     v57 = rect;
     if (v55 == 0.0)
     {
-      v138 = [v13 activeRenderers];
+      v133 = [v13 activeRenderers];
       [v13 setActiveRenderers:v60];
-      v132 = [MEMORY[0x1E696AF00] isMainThread];
-      if (!v132 || (v61 = __NSStringDrawingEngine_mainThreadCoreTypesetter, __NSStringDrawingEngine_mainThreadCoreTypesetter = 0, !v61))
+      v127 = [MEMORY[0x1E696AF00] isMainThread];
+      if (!v127 || (v61 = __NSStringDrawingEngine_mainThreadCoreTypesetter, __NSStringDrawingEngine_mainThreadCoreTypesetter = 0, !v61))
       {
         v61 = objc_alloc_init(NSCoreTypesetter);
       }
 
-      v168 = 0;
-      v169 = 0;
-      *&v167 = 255;
+      v163 = 0;
+      v164 = 0;
+      *&v162 = 255;
       [(NSCoreTypesetter *)v61 setTextContainerSize:v26, rect];
       [(NSTypesetter *)v61 setLineFragmentPadding:a12];
       [(NSCoreTypesetter *)v61 setEnforcesMinimumTextLineFragment:1];
@@ -538,7 +538,7 @@ LABEL_129:
         -[NSCoreTypesetter setFallbackBaseWritingDirection:](v61, "setFallbackBaseWritingDirection:", [v13 fallbackBaseWritingDirection]);
       }
 
-      [(NSCoreTypesetter *)v61 _stringDrawingCoreTextEngineWithOriginalString:a1 rect:v152 padding:a4 graphicsContext:a2 forceClipping:a3 attributes:v13 stringDrawingOptions:a8 drawingContext:a9 stringDrawingInterface:v26, rect, a12, &v167];
+      [(NSCoreTypesetter *)v61 _stringDrawingCoreTextEngineWithOriginalString:a1 rect:v147 padding:a4 graphicsContext:a2 forceClipping:a3 attributes:v13 stringDrawingOptions:a8 drawingContext:a9 stringDrawingInterface:v26, rect, a12, &v162];
       v35 = v62;
       v36 = v63;
       v38 = v64;
@@ -551,7 +551,7 @@ LABEL_129:
 
       else
       {
-        v66 = v132;
+        v66 = v127;
       }
 
       if (v66 == 1)
@@ -563,18 +563,18 @@ LABEL_129:
       {
       }
 
-      [v13 setActiveRenderers:v138];
+      [v13 setActiveRenderers:v133];
       if (a7)
       {
-        *a7 = BYTE1(v169);
+        *a7 = BYTE1(v164);
       }
 
-      if ((v169 & 1) == 0 && LOBYTE(v167) != 255)
+      if ((v164 & 1) == 0 && LOBYTE(v162) != 255)
       {
         return v35;
       }
 
-      v59 = v168;
+      v59 = v163;
     }
   }
 
@@ -583,53 +583,53 @@ LABEL_129:
     v57 = rect;
   }
 
-  v137 = v59;
-  v58 = v144;
+  v132 = v59;
+  v58 = v139;
   if ([a2 objectForKey:*MEMORY[0x1E69655D0]])
   {
-    __UIFoundationWriteLog("StringDrawing", OS_LOG_TYPE_ERROR, "Can't draw encapsulation for string %@ because it was disqualified from Core Text rendering paths!", v67, v68, v69, v70, v71, v22);
+    __UIFoundationWriteLog("StringDrawing", OS_LOG_TYPE_ERROR, "Can't draw encapsulation for string %@ because it was disqualified from Core Text rendering paths!", v22);
   }
 
-  v72 = [MEMORY[0x1E696AEC0] typesetterBehavior];
+  v67 = [MEMORY[0x1E696AEC0] typesetterBehavior];
   if (v52 == Length)
   {
-    v73 = 1;
+    v68 = 1;
   }
 
   else
   {
-    v73 = v144;
+    v68 = v139;
   }
 
-  if ((v60 & 4) == 0 || !v73)
+  if ((v60 & 4) == 0 || !v68)
   {
     v56 = a3 & 2;
     goto LABEL_129;
   }
 
-  v133 = v72;
-  v74 = v26 <= 0.0 || v134;
-  if ((v74 & 1) == 0)
+  v128 = v67;
+  v69 = v26 <= 0.0 || v129;
+  if ((v69 & 1) == 0)
   {
     if (!a2)
     {
       goto LABEL_125;
     }
 
-    v75 = [a2 objectForKey:@"NSFont"];
+    v70 = [a2 objectForKey:@"NSFont"];
     if ([objc_msgSend(a2 objectForKey:{@"CTVerticalForms", "BOOLValue"}])
     {
-      v75 = [v75 verticalFont];
+      v70 = [v70 verticalFont];
     }
 
-    if (!v75)
+    if (!v70)
     {
 LABEL_125:
-      v75 = NSDefaultFont();
+      v70 = NSDefaultFont();
     }
 
-    [v75 advancementForGlyph:0];
-    if (v76 * Length > v26 * 0.899999976)
+    [v70 advancementForGlyph:0];
+    if (v71 * Length > v26 * 0.899999976)
     {
       v56 = a3 & 2;
       goto LABEL_84;
@@ -637,51 +637,51 @@ LABEL_125:
   }
 
   v56 = a3 & 2;
-  if (v146 & [v13 wrapsForTruncationMode])
+  if (v141 & [v13 wrapsForTruncationMode])
   {
     goto LABEL_84;
   }
 
   if (v22 == a1)
   {
-    if (![NSSingleLineTypesetter _validateAttributes:a2 measuringOnly:v152 == 0])
+    if (![NSSingleLineTypesetter _validateAttributes:a2 measuringOnly:v147 == 0])
     {
       goto LABEL_84;
     }
 
-    v85 = a1;
+    v80 = a1;
     if (v52 < Length)
     {
-      v85 = [(__CFString *)a1 substringToIndex:v52];
+      v80 = [(__CFString *)a1 substringToIndex:v52];
     }
 
     if (a4)
     {
-      v86 = 40000.0;
+      v81 = 40000.0;
     }
 
     else
     {
-      v86 = v26;
+      v81 = v26;
     }
 
-    v84 = __NSCreateRenderingContextForString(v85, a2, v133, v142 != 0, v140 != 0, v181, v141, v86);
+    v79 = __NSCreateRenderingContextForString(v80, a2, v128, v137 != 0, v135 != 0, v176, v136, v81);
   }
 
   else
   {
     while (1)
     {
-      v80 = [NSSingleLineTypesetter _validateAttributes:a2 measuringOnly:v152 == 0];
-      v81 = v182;
-      if (!v80)
+      v75 = [NSSingleLineTypesetter _validateAttributes:a2 measuringOnly:v147 == 0];
+      v76 = v177;
+      if (!v75)
       {
         break;
       }
 
-      v81 = v183 + v182;
-      v182 = v81;
-      if (v81 >= v52)
+      v76 = v178 + v177;
+      v177 = v76;
+      if (v76 >= v52)
       {
         break;
       }
@@ -689,179 +689,179 @@ LABEL_125:
       a2 = [__CFString attributesAtIndex:a1 effectiveRange:"attributesAtIndex:effectiveRange:"];
       if (!a2)
       {
-        v81 = v182;
+        v76 = v177;
         break;
       }
     }
 
     v56 = a3 & 2;
-    if (v81 < v52)
+    if (v76 < v52)
     {
       goto LABEL_84;
     }
 
-    v82 = a1;
+    v77 = a1;
     if (v52 < Length)
     {
-      v82 = [(__CFString *)a1 attributedSubstringFromRange:0, v52];
+      v77 = [(__CFString *)a1 attributedSubstringFromRange:0, v52];
     }
 
     if (a4)
     {
-      v83 = 40000.0;
+      v78 = 40000.0;
     }
 
     else
     {
-      v83 = v26;
+      v78 = v26;
     }
 
-    v84 = __NSCreateRenderingContextForAttributedString(v82, v133, v142 != 0, v140 != 0, v181, v141, v83);
+    v79 = __NSCreateRenderingContextForAttributedString(v77, v128, v137 != 0, v135 != 0, v176, v136, v78);
   }
 
-  if (!v84)
+  if (!v79)
   {
     goto LABEL_84;
   }
 
-  v131 = v74;
-  v87 = v84;
-  [v84 lineFragmentWidth];
-  v135 = v88;
-  [v87 setApplicationFrameworkContext:v21];
-  v89 = v135;
-  v90 = v131;
-  if (v135 <= v26)
+  v126 = v69;
+  v82 = v79;
+  [v79 lineFragmentWidth];
+  v130 = v83;
+  [v82 setApplicationFrameworkContext:v21];
+  v84 = v130;
+  v85 = v126;
+  if (v130 <= v26)
   {
-    v90 = 1;
+    v85 = 1;
   }
 
-  if (v90 != 1)
+  if (v85 != 1)
   {
 
     goto LABEL_84;
   }
 
-  v91 = v87;
-  v92 = v135 > v26 && v26 > 0.0;
+  v86 = v82;
+  v87 = v130 > v26 && v26 > 0.0;
   if (a4)
   {
-    v93 = v152;
+    v88 = v147;
     if (v26 > 0.0)
     {
-      v94 = [v91 resolvedTextAlignment];
-      v95 = [v91 resolvedBaseWritingDirection];
-      [v91 elasticWidth];
-      if (v94 == 1)
+      v89 = [v86 resolvedTextAlignment];
+      v90 = [v86 resolvedBaseWritingDirection];
+      [v86 elasticWidth];
+      if (v89 == 1)
       {
-        v99 = v89;
-        v148 = (v89 - v135 + 40000.0) * 0.5;
-        v100 = [v91 isRTL];
-        v101 = 0.0;
-        if (v100)
+        v94 = v84;
+        v143 = (v84 - v130 + 40000.0) * 0.5;
+        v95 = [v86 isRTL];
+        v96 = 0.0;
+        if (v95)
         {
-          v102 = v99;
+          v97 = v94;
         }
 
         else
         {
-          v102 = 0.0;
+          v97 = 0.0;
         }
 
-        if (v92)
+        if (v87)
         {
-          v103 = v102 - v148;
-          if (v95 == 1)
+          v98 = v97 - v143;
+          if (v90 == 1)
           {
-            v186.origin.x = a8;
-            v186.origin.y = a9;
-            v186.size.width = v26;
-            v186.size.height = rect;
-            v101 = v135 - CGRectGetWidth(v186);
+            v181.origin.x = a8;
+            v181.origin.y = a9;
+            v181.size.width = v26;
+            v181.size.height = rect;
+            v96 = v130 - CGRectGetWidth(v181);
           }
 
-          v104 = v103 - v101;
+          v99 = v98 - v96;
         }
 
         else
         {
-          v104 = (v26 - v135) * 0.5 - v148 + v102;
+          v99 = (v26 - v130) * 0.5 - v143 + v97;
         }
 
-        v89 = a8 + floor(v104);
-        v139 = v89;
+        v84 = a8 + floor(v99);
+        v134 = v84;
         v57 = rect;
       }
 
       else
       {
-        v96 = v91;
-        if (v94 == 2)
+        v91 = v86;
+        if (v89 == 2)
         {
           goto LABEL_195;
         }
 
-        if (v94 == 3)
+        if (v89 == 3)
         {
           if ((a3 & 0x200) != 0)
           {
-            v97 = v95;
-            v96 = v91;
+            v92 = v90;
+            v91 = v86;
           }
 
           else
           {
-            v154 = v89;
-            v105 = v136;
-            if (!v136)
+            v149 = v84;
+            v100 = v131;
+            if (!v131)
             {
-              v105 = +[NSParagraphStyle defaultParagraphStyle];
+              v100 = +[NSParagraphStyle defaultParagraphStyle];
             }
 
-            v97 = [(NSParagraphStyle *)v105 baseWritingDirection];
-            if (v97 == NSWritingDirectionNatural)
+            v92 = [(NSParagraphStyle *)v100 baseWritingDirection];
+            if (v92 == NSWritingDirectionNatural)
             {
-              v97 = [NSParagraphStyle defaultWritingDirectionForLanguage:0];
+              v92 = [NSParagraphStyle defaultWritingDirectionForLanguage:0];
             }
 
-            v96 = v91;
-            v89 = v154;
+            v91 = v86;
+            v84 = v149;
           }
 
-          if (v97 == NSWritingDirectionRightToLeft)
+          if (v92 == NSWritingDirectionRightToLeft)
           {
 LABEL_195:
-            v155 = v89;
-            v106 = [v96 isRTL];
-            v107 = v135 - v155;
-            if (v106)
+            v150 = v84;
+            v101 = [v91 isRTL];
+            v102 = v130 - v150;
+            if (v101)
             {
-              v107 = v135;
+              v102 = v130;
             }
 
-            v108 = 40000.0 - v107;
-            if (v95)
+            v103 = 40000.0 - v102;
+            if (v90)
             {
-              v109 = 0;
-            }
-
-            else
-            {
-              v109 = v92;
-            }
-
-            if (v109 == 1)
-            {
-              v110 = -v108;
+              v104 = 0;
             }
 
             else
             {
-              v110 = v26 - v107 - v108;
+              v104 = v87;
             }
 
-            v89 = a8 + floor(v110);
-            v139 = v89;
+            if (v104 == 1)
+            {
+              v105 = -v103;
+            }
+
+            else
+            {
+              v105 = v26 - v102 - v103;
+            }
+
+            v84 = a8 + floor(v105);
+            v134 = v84;
           }
         }
       }
@@ -870,159 +870,159 @@ LABEL_195:
 
   else
   {
-    v93 = v152;
+    v88 = v147;
   }
 
-  if (v93)
+  if (v88)
   {
-    v111 = [v93 isFlipped] ^ 1;
-  }
-
-  else
-  {
-    v111 = 0;
-  }
-
-  if (v144)
-  {
-    v156 = a9;
+    v106 = [v88 isFlipped] ^ 1;
   }
 
   else
   {
-    v167 = 0.0;
-    [v91 sizeWithBehavior:v133 usesFontLeading:v149 != 0 baselineDelta:&v167];
-    v113 = v57 > 0.0;
-    if (v112 <= v57)
+    v106 = 0;
+  }
+
+  if (v139)
+  {
+    v151 = a9;
+  }
+
+  else
+  {
+    v162 = 0.0;
+    [v86 sizeWithBehavior:v128 usesFontLeading:v144 != 0 baselineDelta:&v162];
+    v108 = v57 > 0.0;
+    if (v107 <= v57)
     {
-      v113 = 0;
+      v108 = 0;
     }
 
-    LOBYTE(v92) = v113 | v92;
-    if (v111)
+    LOBYTE(v87) = v108 | v87;
+    if (v106)
     {
       if (v57 > 0.0)
       {
-        v114 = v57;
+        v109 = v57;
       }
 
       else
       {
-        v114 = v112;
+        v109 = v107;
       }
 
-      v115 = v114 - v167;
+      v110 = v109 - v162;
     }
 
     else
     {
-      v115 = v167;
+      v110 = v162;
     }
 
-    v156 = a9 + v115;
+    v151 = a9 + v110;
   }
 
-  v116 = [v93 CGContext];
-  if (!v116)
+  v111 = [v88 CGContext];
+  if (!v111)
   {
     goto LABEL_232;
   }
 
-  v117 = v116;
-  if (v92)
+  v112 = v111;
+  if (v87)
   {
     if (v57 <= 0.0)
     {
-      v118 = 1;
+      v113 = 1;
     }
 
     else
     {
-      v118 = v144;
+      v113 = v139;
     }
 
-    if (v118 == 1)
+    if (v113 == 1)
     {
-      v167 = 0.0;
-      v175 = 0.0;
-      [v91 getMaximumAscender:&v167 minimumDescender:&v175];
-      v119 = -v167;
-      if (v111)
+      v162 = 0.0;
+      v170 = 0.0;
+      [v86 getMaximumAscender:&v162 minimumDescender:&v170];
+      v114 = -v162;
+      if (v106)
       {
-        v119 = v175;
+        v114 = v170;
       }
 
-      a9 = a9 + v119;
-      v57 = v167 - v175;
+      a9 = a9 + v114;
+      v57 = v162 - v170;
     }
 
-    CGContextSaveGState(v117);
-    v187.origin.x = a8 - a12;
-    v187.origin.y = a9;
-    v187.size.width = v26 + a12 * 2.0;
-    v187.size.height = v57;
-    CGContextClipToRect(v117, v187);
-    v120 = v117;
+    CGContextSaveGState(v112);
+    v182.origin.x = a8 - a12;
+    v182.origin.y = a9;
+    v182.size.width = v26 + a12 * 2.0;
+    v182.size.height = v57;
+    CGContextClipToRect(v112, v182);
+    v115 = v112;
   }
 
   else
   {
-    v120 = 0;
+    v115 = 0;
   }
 
-  [v91 setCuiCatalog:{objc_msgSend(v13, "cuiCatalog")}];
-  [v91 setCuiStyleEffects:{objc_msgSend(v13, "cuiStyleEffects")}];
-  [v91 _setUsesSimpleTextEffects:{objc_msgSend(v13, "usesSimpleTextEffects")}];
-  [v91 drawAtPoint:v117 inContext:{v139, v156}];
-  if (v92)
+  [v86 setCuiCatalog:{objc_msgSend(v13, "cuiCatalog")}];
+  [v86 setCuiStyleEffects:{objc_msgSend(v13, "cuiStyleEffects")}];
+  [v86 _setUsesSimpleTextEffects:{objc_msgSend(v13, "usesSimpleTextEffects")}];
+  [v86 drawAtPoint:v112 inContext:{v134, v151}];
+  if (v87)
   {
-    CGContextRestoreGState(v120);
+    CGContextRestoreGState(v115);
   }
 
   if (v13)
   {
 LABEL_232:
-    if (((a3 & 8) == 0) | v143 & 1)
+    if (((a3 & 8) == 0) | v138 & 1)
     {
-      v167 = 0.0;
+      v162 = 0.0;
       v35 = *MEMORY[0x1E696AA78];
-      v121 = *(MEMORY[0x1E696AA78] + 8);
-      [v91 sizeWithBehavior:v133 usesFontLeading:v149 != 0 baselineDelta:&v167];
-      v124 = v123;
-      v125 = v122;
-      v126 = v167;
-      if (v144)
+      v116 = *(MEMORY[0x1E696AA78] + 8);
+      [v86 sizeWithBehavior:v128 usesFontLeading:v144 != 0 baselineDelta:&v162];
+      v119 = v118;
+      v120 = v117;
+      v121 = v162;
+      if (v139)
       {
-        v121 = v167 - v122;
+        v116 = v162 - v117;
       }
     }
 
     else
     {
-      [v91 imageBounds];
-      v35 = v128;
-      v126 = v127;
-      v124 = v129;
-      v125 = v130;
-      if (v144)
+      [v86 imageBounds];
+      v35 = v123;
+      v121 = v122;
+      v119 = v124;
+      v120 = v125;
+      if (v139)
       {
-        v121 = v127;
+        v116 = v122;
       }
 
       else
       {
-        v121 = 0.0;
+        v116 = 0.0;
       }
     }
 
     if (v13)
     {
       [v13 setNumberOfLineFragments:1];
-      [v13 setTotalBounds:{v35, v121, v124, v125}];
+      [v13 setTotalBounds:{v35, v116, v119, v120}];
       if ([v13 wantsBaselineOffset])
       {
-        [v13 setBaselineOffset:v126];
-        [v13 setFirstBaselineOffset:v126];
+        [v13 setBaselineOffset:v121];
+        [v13 setFirstBaselineOffset:v121];
       }
     }
   }
@@ -1265,9 +1265,10 @@ void OUTLINED_FUNCTION_0(unint64_t a1@<X8>)
   CFStringGetCharacters(v5, v6, v3);
 }
 
-double _NSStringDrawingCore(__CFString *a1, void *a2, uint64_t a3, unsigned int a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, double a9, uint64_t a10, void *a11)
+double _NSStringDrawingCore(__CFString *a1, void *a2, uint64_t a3, uint64_t a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, double a9, uint64_t a10, void *a11)
 {
-  v21 = +[NSTextGraphicsContextProvider textGraphicsContextProviderClass];
+  v12 = a4;
+  v21 = [NSTextGraphicsContextProvider textGraphicsContextProviderClass:a3];
   if (a11)
   {
     v22 = [a11 applicationFrameworkContext];
@@ -1280,7 +1281,7 @@ double _NSStringDrawingCore(__CFString *a1, void *a2, uint64_t a3, unsigned int 
 
   v23 = [(objc_class *)v21 graphicsContextForApplicationFrameworkContext:v22];
 
-  return __NSStringDrawingEngine(a1, a2, a3, a4, a11, v23, 0, a5, a6, a7, a8, a9);
+  return __NSStringDrawingEngine(a1, a2, a3, v12, a11, v23, 0, a5, a6, a7, a8, a9);
 }
 
 void __CTFontGetExtraData_cold_1(const __CTFont *a1, uint64_t *a2)
@@ -1298,16 +1299,17 @@ void __CTFontGetExtraData_cold_1(const __CTFont *a1, uint64_t *a2)
   os_unfair_lock_unlock(&__CTFontExtraDataLock);
 }
 
-uint64_t __NSGetFrameworkReference(void *a1, int a2)
+const char *__NSGetFrameworkReference(void *a1, uint64_t a2)
 {
   if (a1)
   {
+    v2 = a2;
     os_unfair_lock_lock(&__NSGetFrameworkReference_frameworkCacheLock);
     v4 = [__NSGetFrameworkReference_table objectForKey:a1];
     os_unfair_lock_unlock(&__NSGetFrameworkReference_frameworkCacheLock);
     if (!v4)
     {
-      v4 = __NSLoadFramework(a1, a2);
+      v4 = __NSLoadFramework(a1, v2);
       if (v4)
       {
         os_unfair_lock_lock(&__NSGetFrameworkReference_frameworkCacheLock);
@@ -1541,12 +1543,13 @@ LABEL_16:
   return v14;
 }
 
-CTFontRef UINewFont(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, CGFloat a7, double a8)
+CTFontRef UINewFont(__CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CGFloat a7, double a8)
 {
   v53[3] = *MEMORY[0x1E69E9840];
   if (a7 != 0.0 || a3 != 0)
   {
     v9 = a6;
+    v10 = a5;
     v14 = a2;
     if (a5)
     {
@@ -1573,7 +1576,7 @@ CTFontRef UINewFont(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, 
       goto LABEL_46;
     }
 
-    if (a5)
+    if (v10)
     {
       if (a3)
       {
@@ -1720,7 +1723,7 @@ LABEL_46:
     return v20;
   }
 
-  v17 = +[UIFont _sharedZeroPointFont];
+  v17 = [UIFont _sharedZeroPointFont:a3];
 
   return v17;
 }
@@ -1827,7 +1830,7 @@ LABEL_22:
   return result;
 }
 
-double _flushFactorFromAlignment(unint64_t a1, NSWritingDirection IsRightToLeft, uint64_t a3, int a4, int a5)
+double _flushFactorFromAlignment(unint64_t a1, NSWritingDirection IsRightToLeft, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (a1 > 1)
   {
@@ -1855,7 +1858,7 @@ double _flushFactorFromAlignment(unint64_t a1, NSWritingDirection IsRightToLeft,
 
     else
     {
-      IsRightToLeft = [NSParagraphStyle defaultWritingDirectionForLanguage:0];
+      IsRightToLeft = [NSParagraphStyle defaultWritingDirectionForLanguage:0, a4, a5];
     }
 
     v6 = 2;
@@ -2148,10 +2151,11 @@ LABEL_25:
   return Line;
 }
 
-void sub_18E747324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_18E747324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
   _Block_object_dispose(&a22, 8);
-  _Block_object_dispose(&a28, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2292,17 +2296,17 @@ LABEL_37:
   return v17;
 }
 
-void sub_18E74772C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_18E74772C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v15 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v22 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v13 - 152), 8);
+  _Block_object_dispose((v20 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2502,7 +2506,7 @@ uint64_t initUIGraphicsGetCurrentContext()
 {
   v0 = __NSGetFrameworkReference(0, 0);
   v1 = dlsym(v0, "UIGraphicsGetCurrentContext");
-  softLinkUIGraphicsGetCurrentContext[0] = v1;
+  softLinkUIGraphicsGetCurrentContext = v1;
   if (!v1)
   {
     initUIGraphicsGetCurrentContext_cold_1();
@@ -2617,7 +2621,7 @@ uint64_t UIFixedByteLengthForType(unsigned int a1)
   }
 }
 
-uint64_t UIReadNibArchiveVInt32(uint64_t a1, unint64_t a2, uint64_t *a3, int *a4)
+uint64_t UIReadNibArchiveVInt32(uint64_t a1, unint64_t a2, unint64_t *a3, int *a4)
 {
   v4 = *a3;
   if (a2 >= *a3)
@@ -2683,115 +2687,115 @@ uint64_t UIReadNibArchiveVInt32(uint64_t a1, unint64_t a2, uint64_t *a3, int *a4
   }
 }
 
-__n128 UINibDecoderDecodeObjectForValue(uint64_t a1, uint64_t a2, int a3)
+__n128 UINibDecoderDecodeObjectForValue(uint64_t a1, uint64_t a2, int a3, __n128 result)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (a3 == 10)
   {
-    v4 = *(*(a1 + 72) + *(a2 + 4));
-    if (v4 < *(a1 + 108) && !*(*(a1 + 144) + 8 * v4))
+    v5 = *(*(a1 + 72) + *(a2 + 4));
+    if (v5 < *(a1 + 108) && !*(*(a1 + 144) + 8 * v5))
     {
-      v5 = *(a1 + 152);
-      if (v5)
+      v6 = *(a1 + 152);
+      if (v6)
       {
-        v6 = *(v5 + 4 * v4);
+        v7 = *(v6 + 4 * v5);
       }
 
       else
       {
-        v6 = *(*(a1 + 160) + v4);
+        v7 = *(*(a1 + 160) + v5);
       }
 
-      if (!*(*(a1 + 32) + 8 * v6))
+      if (!*(*(a1 + 32) + 8 * v7))
       {
         if (objc_opt_respondsToSelector())
         {
-          *(*(a1 + 32) + 8 * v6) = [*(a1 + 216) nibDecoder:a1 cannotDecodeObjectOfClassName:*(*(a1 + 40) + 8 * v6)];
+          *(*(a1 + 32) + 8 * v7) = [*(a1 + 216) nibDecoder:a1 cannotDecodeObjectOfClassName:*(*(a1 + 40) + 8 * v7)];
         }
 
-        if (!*(*(a1 + 32) + 8 * v6))
+        if (!*(*(a1 + 32) + 8 * v7))
         {
-          [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E696A4C8] format:{@"Could not instantiate class named %1$@ because no class named %1$@ was found; the class needs to be defined in source code or linked in from a library (ensure the class is part of the correct target)", *(*(a1 + 40) + 8 * v6)}];
+          [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E696A4C8] format:{@"Could not instantiate class named %1$@ because no class named %1$@ was found; the class needs to be defined in source code or linked in from a library (ensure the class is part of the correct target)", *(*(a1 + 40) + 8 * v7)}];
         }
       }
 
-      v27 = *(a1 + 184);
-      v28 = *(a1 + 200);
+      v30 = *(a1 + 184);
+      v31 = *(a1 + 200);
       *(a1 + 192) = 0;
       *(a1 + 200) = 0;
       *(a1 + 184) = 0;
-      *(a1 + 184) = v4;
-      v7 = *(*(a1 + 32) + 8 * v6);
-      v8 = (*(a1 + 48) + 8 * v4);
-      if (!v8[1] || *(a1 + 176) != *(*(a1 + 56) + 8 * *v8))
+      *(a1 + 184) = v5;
+      v8 = *(*(a1 + 32) + 8 * v7);
+      v9 = (*(a1 + 48) + 8 * v5);
+      if (!v9[1] || *(a1 + 176) != *(*(a1 + 56) + 8 * *v9))
       {
-        *(*(a1 + 144) + 8 * v4) = objc_allocWithZone(v7);
-        v15 = [*(*(a1 + 144) + 8 * v4) initWithCoder:a1];
-        v16 = v15;
+        *(*(a1 + 144) + 8 * v5) = objc_allocWithZone(v8);
+        v17 = [*(*(a1 + 144) + 8 * v5) initWithCoder:a1];
+        v18 = v17;
         if (*(a1 + 204) == 1)
         {
-          v17 = *(*(a1 + 144) + 8 * v4);
-          if (v17 != v15)
+          v19 = *(*(a1 + 144) + 8 * v5);
+          if (v19 != v17)
           {
-            [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"This coder is expecting the replaced object %p to be returned from %@.initWithCoder instead of <%@: %p>", v17, v7, objc_opt_class(), v15}];
+            [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"This coder is expecting the replaced object %p to be returned from %@.initWithCoder instead of <%@: %p>", v19, v8, objc_opt_class(), v17}];
           }
         }
 
-        *(*(a1 + 144) + 8 * v4) = v16;
-        *(*(a1 + 144) + 8 * v4) = [*(*(a1 + 144) + 8 * v4) awakeAfterUsingCoder:a1];
+        *(*(a1 + 144) + 8 * v5) = v18;
+        *(*(a1 + 144) + 8 * v5) = [*(*(a1 + 144) + 8 * v5) awakeAfterUsingCoder:a1];
         if (objc_opt_respondsToSelector())
         {
-          [*(a1 + 216) nibDecoder:a1 didDecodeObject:*(*(a1 + 144) + 8 * v4)];
+          [*(a1 + 216) nibDecoder:a1 didDecodeObject:*(*(a1 + 144) + 8 * v5)];
         }
 
         goto LABEL_39;
       }
 
-      if (![(objc_class *)v7 isSubclassOfClass:*(a1 + 8)])
+      if (![(objc_class *)v8 isSubclassOfClass:*(a1 + 8)])
       {
-        if ([(objc_class *)v7 isSubclassOfClass:*(a1 + 24)])
+        if ([(objc_class *)v8 isSubclassOfClass:*(a1 + 24)])
         {
-          *(*(a1 + 144) + 8 * v4) = objc_allocWithZone(v7);
-          v18 = UINibDecoderDecodeDictionary(a1, *(*(a1 + 144) + 8 * v4));
+          *(*(a1 + 144) + 8 * v5) = objc_allocWithZone(v8);
+          v21 = UINibDecoderDecodeDictionary(a1, *(*(a1 + 144) + 8 * v5), v20);
         }
 
         else
         {
-          if (![(objc_class *)v7 isSubclassOfClass:*(a1 + 16)])
+          if (![(objc_class *)v8 isSubclassOfClass:*(a1 + 16)])
           {
-            [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"Unkown special cased class %@", v7}];
+            [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"Unkown special cased class %@", v8}];
             goto LABEL_39;
           }
 
-          *(*(a1 + 144) + 8 * v4) = objc_allocWithZone(v7);
-          v18 = UINibDecoderDecodeSet(a1, *(*(a1 + 144) + 8 * v4));
+          *(*(a1 + 144) + 8 * v5) = objc_allocWithZone(v8);
+          v21 = UINibDecoderDecodeSet(a1, *(*(a1 + 144) + 8 * v5), v22);
         }
 
-        v19 = v18;
+        v23 = v21;
 LABEL_38:
-        *(*(a1 + 144) + 8 * v4) = v19;
+        *(*(a1 + 144) + 8 * v5) = v23;
 LABEL_39:
-        result = v27;
-        *(a1 + 184) = v27;
-        *(a1 + 200) = v28;
+        result = v30;
+        *(a1 + 184) = v30;
+        *(a1 + 200) = v31;
         return result;
       }
 
-      *(*(a1 + 144) + 8 * v4) = objc_allocWithZone(v7);
-      v9 = (*(a1 + 48) + 8 * *(a1 + 184));
-      v10 = v9[1];
-      if (!v10)
+      *(*(a1 + 144) + 8 * v5) = objc_allocWithZone(v8);
+      v11 = (*(a1 + 48) + 8 * *(a1 + 184));
+      v12 = v11[1];
+      if (!v12)
       {
         __assert_rtn("UINibDecoderDecodeArray", "UINibDecoder.m", 608, "count >= 1 && It isn't possible to get here with count == 0.");
       }
 
-      v11 = *(*(a1 + 144) + 8 * v4);
-      v12 = *v9;
-      v13 = (v10 - 1);
-      if (v13 < 0x21)
+      v13 = *(*(a1 + 144) + 8 * v5);
+      v14 = *v11;
+      v15 = (v12 - 1);
+      if (v15 < 0x21)
       {
-        v14 = v29;
-        if (v10 == 1)
+        v16 = v32;
+        if (v12 == 1)
         {
           goto LABEL_35;
         }
@@ -2799,38 +2803,38 @@ LABEL_39:
 
       else
       {
-        v14 = malloc_type_malloc(8 * v13, 0x80040B8603338uLL);
+        v16 = malloc_type_malloc(8 * v15, 0x80040B8603338uLL);
       }
 
-      v26 = (v10 - 1);
-      v20 = 0;
-      v21 = 0;
-      v22 = v12 + 1;
-      v23 = v10 - 1;
+      v29 = (v12 - 1);
+      v24 = 0;
+      v25 = 0;
+      v26 = v14 + 1;
+      v27 = v12 - 1;
       do
       {
-        v24 = UINibDecoderDecodeObjectForValue(a1, *(a1 + 56) + 8 * v22, *(*(a1 + 64) + v22));
-        *&v14[8 * v20] = v24;
-        v21 |= v24 == 0;
-        ++v22;
-        ++v20;
+        *&v10 = UINibDecoderDecodeObjectForValue(a1, *(a1 + 56) + 8 * v26, *(*(a1 + 64) + v26)).n128_u64[0];
+        *&v16[8 * v24] = v28;
+        v25 |= v28 == 0;
+        ++v26;
+        ++v24;
       }
 
-      while (v23 != v20);
-      if (v21)
+      while (v27 != v24);
+      if (v25)
       {
 
-        v19 = 0;
+        v23 = 0;
         goto LABEL_36;
       }
 
-      v13 = v26;
+      v15 = v29;
 LABEL_35:
-      v19 = [v11 initWithObjects:v14 count:v13];
+      v23 = [v13 initWithObjects:v16 count:{v15, v10}];
 LABEL_36:
-      if (v14 != v29)
+      if (v16 != v32)
       {
-        free(v14);
+        free(v16);
       }
 
       goto LABEL_38;
@@ -2864,36 +2868,36 @@ void __NSCoreTypesetterTruncationTokenContextDeallocate(uint64_t a1)
   }
 }
 
-uint64_t _NSCopyBreakIterator(void *a1, uint64_t a2, uint64_t a3, unsigned int a4)
+uint64_t _NSCopyBreakIterator(void *a1, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v5 = a1;
+  v18 = *MEMORY[0x1E69E9840];
+  v6 = a1;
   if (shouldUseHangulWordPriorityWithLineBreakStrategy_once != -1)
   {
     _NSCopyBreakIterator_cold_1();
   }
 
-  v6 = defaultBreakLanguage();
-  v7 = v6;
-  if (v5 && v6 != v5 && ![(__CFString *)v6 isEqualToString:v5])
+  v7 = defaultBreakLanguage();
+  v8 = v7;
+  if (v6 && v7 != v6 && ![(__CFString *)v7 isEqualToString:v6])
   {
 LABEL_11:
-    if (([(__CFString *)v5 isEqualToString:NSPOSIXLocaleIdentifier]& 1) != 0 || [(__CFString *)v5 isEqualToString:NSPOSIXLanguageIdentifier])
+    if (([(__CFString *)v6 isEqualToString:NSPOSIXLocaleIdentifier]& 1) != 0 || [(__CFString *)v6 isEqualToString:NSPOSIXLanguageIdentifier])
     {
       if (!_NSCopyBreakIterator_posixBreakerSeed[!(a4 & 1)])
       {
-        v11 = ubrk_open();
-        v12 = 0;
-        atomic_compare_exchange_strong_explicit(&_NSCopyBreakIterator_posixBreakerSeed[!(a4 & 1)], &v12, v11, memory_order_relaxed, memory_order_relaxed);
-        if (v12)
+        v12 = ubrk_open();
+        v13 = 0;
+        atomic_compare_exchange_strong_explicit(&_NSCopyBreakIterator_posixBreakerSeed[!(a4 & 1)], &v13, v12, memory_order_relaxed, memory_order_relaxed);
+        if (v13)
         {
           ubrk_close();
         }
       }
 
-      v8 = ubrk_clone();
+      v9 = ubrk_clone();
       ubrk_setText();
-      if ((a4 & 1) == 0 && v8)
+      if ((a4 & 1) == 0 && v9)
       {
         goto LABEL_31;
       }
@@ -2901,26 +2905,26 @@ LABEL_11:
 
     else
     {
-      v13 = v5;
-      v5 = v13;
-      v14 = v13;
+      v14 = v6;
+      v6 = v14;
+      v15 = v14;
       if ((a4 & 2) != 0)
       {
-        v14 = v13;
-        if ([(__CFString *)v13 rangeOfString:@"lb="]== 0x7FFFFFFFFFFFFFFFLL)
+        v15 = v14;
+        if ([(__CFString *)v14 rangeOfString:@"lb="]== 0x7FFFFFFFFFFFFFFFLL)
         {
-          v14 = [(__CFString *)v5 stringByAppendingString:@"@lb=strict"];
+          v15 = [(__CFString *)v6 stringByAppendingString:@"@lb=strict"];
         }
       }
 
-      CFStringGetCString(v14, buffer, 128, 0x600u);
-      v8 = ubrk_open();
-      if (!v8)
+      CFStringGetCString(v15, buffer, 128, 0x600u);
+      v9 = ubrk_open();
+      if (!v9)
       {
-        v8 = ubrk_open();
+        v9 = ubrk_open();
       }
 
-      if ((a4 & 1) == 0 && v8)
+      if ((a4 & 1) == 0 && v9)
       {
         ubrk_setLineWordOpts();
       }
@@ -2934,12 +2938,12 @@ LABEL_11:
     _NSCopyBreakIterator_cold_2();
   }
 
-  v8 = __NSDefaultBreakers[a4];
-  if (!v8 || (v9 = __NSDefaultBreakers[a4], atomic_compare_exchange_strong_explicit(&__NSDefaultBreakers[a4], &v9, 0, memory_order_relaxed, memory_order_relaxed), v9 != v8))
+  v9 = __NSDefaultBreakers[a4];
+  if (!v9 || (v10 = __NSDefaultBreakers[a4], atomic_compare_exchange_strong_explicit(&__NSDefaultBreakers[a4], &v10, 0, memory_order_relaxed, memory_order_relaxed), v10 != v9))
   {
-    v10 = v7;
+    v11 = v8;
 
-    v5 = v10;
+    v6 = v11;
     goto LABEL_11;
   }
 
@@ -2952,7 +2956,7 @@ LABEL_31:
 
 LABEL_26:
 
-  return v8;
+  return v9;
 }
 
 uint64_t rangeOfParagraphSeparatorAtIndex(unint64_t a1, UniChar *buffer, uint64_t a3)
@@ -3136,11 +3140,11 @@ uint64_t initUIContentSizeCategoryDidChangeNotification()
 
   result = *v1;
   constantUIContentSizeCategoryDidChangeNotification = result;
-  getUIContentSizeCategoryDidChangeNotification[0] = UIContentSizeCategoryDidChangeNotificationFunction;
+  getUIContentSizeCategoryDidChangeNotification = UIContentSizeCategoryDidChangeNotificationFunction;
   return result;
 }
 
-void sub_18E74C5E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62)
+void sub_18E74C5E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62)
 {
   _Block_object_dispose(&a62, 8);
   _Block_object_dispose(&a43, 8);
@@ -3423,11 +3427,12 @@ LABEL_66:
   return v34;
 }
 
-void sub_18E74CFAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_18E74CFAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
-  objc_sync_exit(v34);
-  _Block_object_dispose(&a34, 8);
-  _Block_object_dispose((v35 - 168), 8);
+  va_start(va, a33);
+  objc_sync_exit(v33);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 168), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3477,7 +3482,7 @@ uint64_t __NSTextLayoutManagerAddTextContainerEntry(uint64_t a1, void *a2)
   return [a2 setTextLayoutManager:a1];
 }
 
-NSUInteger __NSTextContentStorageEnumerateCachedElementsInElementIndexRange(NSUInteger result, NSUInteger a2, NSUInteger a3, uint64_t a4)
+uint64_t __NSTextContentStorageEnumerateCachedElementsInElementIndexRange(uint64_t result, NSUInteger a2, NSUInteger a3, uint64_t a4)
 {
   v4 = a2 + a3;
   if (a2 < a2 + a3)
@@ -3577,7 +3582,7 @@ LABEL_12:
   return TextContainerEntryAtIndex;
 }
 
-uint64_t __NSConcreteTextStorageLockedForwarding(id *a1, uint64_t a2)
+void *__NSConcreteTextStorageLockedForwarding(id *a1, uint64_t a2)
 {
   v4 = [a1 _lockForWritingWithExceptionHandler:0];
   [a1[13] beginEditing];
@@ -4320,7 +4325,7 @@ LABEL_105:
   return v17;
 }
 
-void UIFreeMissingClasses(void **a1, uint64_t a2)
+void UIFreeMissingClasses(id **a1, unint64_t a2)
 {
   v2 = *a1;
   if (*a1)
@@ -4343,116 +4348,117 @@ void UIFreeMissingClasses(void **a1, uint64_t a2)
   }
 }
 
-uint64_t UINibDecoderDecodeDictionary(void *a1, void *a2)
+uint64_t UINibDecoderDecodeDictionary(void *a1, void *a2, double a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v2 = (a1[6] + 8 * a1[23]);
-  v3 = v2[1];
-  if (!v3)
+  v23 = *MEMORY[0x1E69E9840];
+  v3 = (a1[6] + 8 * a1[23]);
+  v4 = v3[1];
+  if (!v4)
   {
     UINibDecoderDecodeDictionary_cold_1();
   }
 
-  v4 = a2;
-  if ((v3 & 1) == 0)
+  v5 = a2;
+  if ((v4 & 1) == 0)
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:@"Invalid NSDictionary in archive. Illegal quantity of Keys and Values"];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"Invalid NSDictionary in archive. Illegal quantity of Keys and Values", a3}];
 
     return 0;
   }
 
-  v7 = *v2;
-  v8 = v3 >> 1;
-  if (v3 < 0x42)
+  v8 = *v3;
+  v9 = v4 >> 1;
+  if (v4 < 0x42)
   {
-    v9 = v20;
-    v10 = v19;
-    if (v3 == 1)
+    v10 = v22;
+    v11 = v21;
+    if (v4 == 1)
     {
       goto LABEL_26;
     }
 
-    v18 = a2;
+    v20 = a2;
   }
 
   else
   {
-    v18 = a2;
-    v9 = malloc_type_malloc(8 * v8, 0x80040B8603338uLL);
-    v10 = malloc_type_malloc(8 * v8, 0x80040B8603338uLL);
+    v20 = a2;
+    v10 = malloc_type_malloc(8 * v9, 0x80040B8603338uLL);
+    v11 = malloc_type_malloc(8 * v9, 0x80040B8603338uLL);
   }
 
-  v11 = 0;
   v12 = 0;
-  if (v8 <= 1)
+  v13 = 0;
+  if (v9 <= 1)
   {
-    v13 = 1;
+    v14 = 1;
   }
 
   else
   {
-    v13 = v8;
+    v14 = v9;
   }
 
-  for (i = v7 + 2; ; i += 2)
+  for (i = v8 + 2; ; i += 2)
   {
-    *&v9[8 * v11] = UINibDecoderDecodeObjectForValue(a1, a1[7] + 8 * (i - 1), *(a1[8] + i - 1));
-    v15 = UINibDecoderDecodeObjectForValue(a1, a1[7] + 8 * i, *(a1[8] + i));
-    *&v10[8 * v11] = v15;
-    if ((v12 & 1) == 0)
+    UINibDecoderDecodeObjectForValue(a1, a1[7] + 8 * (i - 1), *(a1[8] + i - 1));
+    *&v10[8 * v12] = v16;
+    *&a3 = UINibDecoderDecodeObjectForValue(a1, a1[7] + 8 * i, *(a1[8] + i)).n128_u64[0];
+    *&v11[8 * v12] = v17;
+    if ((v13 & 1) == 0)
     {
       break;
     }
 
-    if (++v11 == v13)
+    if (++v12 == v14)
     {
       goto LABEL_24;
     }
 
-    v12 = 1;
+    v13 = 1;
 LABEL_22:
     ;
   }
 
-  if (*&v9[8 * v11])
+  if (*&v10[8 * v12])
   {
-    v16 = v15 == 0;
+    v18 = v17 == 0;
   }
 
   else
   {
-    v16 = 1;
+    v18 = 1;
   }
 
-  v12 = v16;
-  if (++v11 != v13)
+  v13 = v18;
+  if (++v12 != v14)
   {
     goto LABEL_22;
   }
 
-  if (v12)
+  if (v13)
   {
 LABEL_24:
 
-    v5 = 0;
+    v6 = 0;
     goto LABEL_27;
   }
 
-  v4 = v18;
+  v5 = v20;
 LABEL_26:
-  v5 = [v4 initWithObjects:v10 forKeys:v9 count:v8];
+  v6 = [v5 initWithObjects:v11 forKeys:v10 count:{v9, a3}];
 LABEL_27:
-  if (v9 != v20)
-  {
-    free(v9);
-  }
-
-  if (v10 != v19)
+  if (v10 != v22)
   {
     free(v10);
   }
 
-  return v5;
+  if (v11 != v21)
+  {
+    free(v11);
+  }
+
+  return v6;
 }
 
 uint64_t __NSScaledTextOversized(__CFString *a1, unint64_t a2, void *a3, uint64_t a4, void *a5, unint64_t a6, double a7, double a8, CGFloat a9, CGFloat a10, CGFloat a11, CGFloat a12)
@@ -4558,7 +4564,7 @@ Class initUIImage_0()
   return result;
 }
 
-double __NSTextAttachmentLayoutInfoGetAscent(void *a1)
+CGFloat __NSTextAttachmentLayoutInfoGetAscent(void *a1)
 {
   [a1 _queryLayout];
   v2 = a1[9];
@@ -4569,7 +4575,7 @@ double __NSTextAttachmentLayoutInfoGetAscent(void *a1)
   return CGRectGetMaxY(*&v2);
 }
 
-double __NSTextAttachmentLayoutInfoGetWidth(void *a1)
+CGFloat __NSTextAttachmentLayoutInfoGetWidth(void *a1)
 {
   [a1 _queryLayoutWithHorizontalOffset:?];
   v2 = a1[9];
@@ -4722,30 +4728,33 @@ id defaultBreakLanguage()
 uint64_t __shouldUseHangulWordPriorityWithLineBreakStrategy_block_invoke()
 {
   v0 = [MEMORY[0x1E695E000] standardUserDefaults];
-  v3 = [v0 objectForKey:@"NSForceHangulWordBreakPriority"];
+  v4 = [v0 objectForKey:@"NSForceHangulWordBreakPriority"];
 
-  if (v3)
+  v1 = v4;
+  if (v4)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v1 = [v3 unsignedIntegerValue];
+      v2 = [v4 unsignedIntegerValue];
     }
 
     else
     {
-      v1 = 0x7FFFFFFFFFFFFFFFLL;
+      v2 = 0x7FFFFFFFFFFFFFFFLL;
     }
+
+    v1 = v4;
   }
 
   else
   {
-    v1 = 0x7FFFFFFFFFFFFFFFLL;
+    v2 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  shouldUseHangulWordPriorityWithLineBreakStrategy_hangulWordBreakPriorityDefault = v1;
+  shouldUseHangulWordPriorityWithLineBreakStrategy_hangulWordBreakPriorityDefault = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v1);
 }
 
 void __defaultBreakLanguage_block_invoke()
@@ -4762,10 +4771,10 @@ void __defaultBreakLanguage_block_invoke()
 
   else
   {
-    v4 = [MEMORY[0x1E695DF58] currentLocale];
-    v5 = [v4 languageIdentifier];
-    v6 = defaultBreakLanguage_result;
-    defaultBreakLanguage_result = v5;
+    v5 = [MEMORY[0x1E695DF58] currentLocale];
+    v6 = [v5 languageIdentifier];
+    v7 = defaultBreakLanguage_result;
+    defaultBreakLanguage_result = v6;
 
     if (defaultBreakLanguage_result)
     {
@@ -4775,9 +4784,10 @@ void __defaultBreakLanguage_block_invoke()
     v3 = @"en_US";
   }
 
+  v4 = defaultBreakLanguage_result;
   defaultBreakLanguage_result = v3;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v3, v4);
 }
 
 uint64_t __NSTokenizerLanguageSet()
@@ -4829,7 +4839,7 @@ void ___createTokenizerLanguageSet_block_invoke()
   }
 }
 
-uint64_t __NSTextContentStorageQueryDocumentLocationDeltaForLocation(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t __NSTextContentStorageQueryDocumentLocationDeltaForLocation(uint64_t a1, unint64_t a2, uint64_t a3)
 {
   v3 = *(a1 + 128);
   if (!v3)
@@ -4940,8 +4950,7 @@ uint64_t _UIFoundationAssert(void *a1, void *a2, int a3, void *a4)
   v10 = v9[2](v9, v7);
   if (![v10 length])
   {
-    v20 = v8;
-    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: Assertion failure"];
+    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: Assertion failure", v8];
 
     v10 = v11;
   }
@@ -4953,16 +4962,14 @@ uint64_t _UIFoundationAssert(void *a1, void *a2, int a3, void *a4)
 
   else
   {
-    v12 = [v8 UTF8String];
-    v13 = [v10 UTF8String];
-    __UIFoundationWriteLog(v12, OS_LOG_TYPE_DEBUG, v13, v14, v15, v16, v17, v18, v20);
+    __UIFoundationWriteLog([v8 UTF8String], OS_LOG_TYPE_DEBUG, objc_msgSend(v10, "UTF8String"));
   }
 
 LABEL_9:
   return a3 ^ 1u;
 }
 
-uint64_t __NSTextContentStorageFlushUncachedTextElements(NSUInteger a1, uint64_t a2, char a3)
+uint64_t __NSTextContentStorageFlushUncachedTextElements(uint64_t a1, uint64_t a2, char a3)
 {
   v3 = *(a2 + 536);
   if (v3 == 0x7FFFFFFFFFFFFFFFLL)
@@ -5187,21 +5194,21 @@ LABEL_43:
   return 1;
 }
 
-void _replaceElements(uint64_t a1, NSRange range1, NSUInteger a3, const void *a4, int a5)
+void _replaceElements(char *result, NSRange range1, NSUInteger a3, const void *a4, int a5)
 {
   length = range1.length;
   location = range1.location;
   v143 = *MEMORY[0x1E69E9840];
   if (_NSConsistencyCheckEnabled == 1)
   {
-    [a1 _consistencyCheck:0];
+    [result _consistencyCheck:0];
   }
 
   if (a3 && !a4)
   {
     v11 = @"*** NSRunStorage (%p), _replaceElements(): no new element was given with a non-zero new length.";
 LABEL_9:
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{v11, a1}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{v11, result}];
     goto LABEL_10;
   }
 
@@ -5213,31 +5220,32 @@ LABEL_9:
 
 LABEL_10:
   v12 = location + length;
-  v13 = *(a1 + 8);
+  v13 = *(result + 1);
   if (location + length > v13)
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695DA20] format:{@"*** NSRunStorage (%p), _replaceElements(): replaced range {%lu, %lu} extends beyond current run storage size %lu.", a1, location, length, v13}];
-    v13 = *(a1 + 8);
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695DA20] format:{@"*** NSRunStorage (%p), _replaceElements(): replaced range {%lu, %lu} extends beyond current run storage size %lu.", result, location, length, v13}];
+    v13 = *(result + 1);
   }
 
   if (__CFADD__(length, location))
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695DA20] format:{@"*** NSRunStorage (%p), _replaceElements(): replaced range {%llu, %llu} extends beyond current run storage size %llu and suffers from unsigned integer overflow.", a1, location, length, v13}];
-    v13 = *(a1 + 8);
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695DA20] format:{@"*** NSRunStorage (%p), _replaceElements(): replaced range {%llu, %llu} extends beyond current run storage size %llu and suffers from unsigned integer overflow.", result, location, length, v13}];
+    v13 = *(result + 1);
   }
 
   v141 = 0;
-  v140 = 0uLL;
+  v140.location = 0;
+  v140.length = 0;
   v138 = a4;
   if (location >= v13)
   {
-    v16 = *(a1 + 24);
+    v16 = *(result + 3);
     if (v16)
     {
       v17 = v16 - 1;
-      if (*(a1 + 88) <= (v16 - 1))
+      if (*(result + 11) <= (v16 - 1))
       {
-        v18 = *(a1 + 32) - v16;
+        v18 = *(result + 4) - v16;
       }
 
       else
@@ -5245,10 +5253,10 @@ LABEL_10:
         v18 = 0;
       }
 
-      v21 = *(*(a1 + 56) + (*(a1 + 16) + 8) * (v18 + v17));
-      if (v17 >= *(a1 + 40))
+      v21 = *(*(result + 7) + (*(result + 2) + 8) * (v18 + v17));
+      if (v17 >= *(result + 5))
       {
-        v21 += *(a1 + 48);
+        v21 += *(result + 6);
       }
 
       v20 = v13 - v21;
@@ -5266,11 +5274,11 @@ LABEL_10:
     v19 = 0;
     v25.length = 0;
     v25.location = 0x7FFFFFFFFFFFFFFFLL;
-    v15 = *(a1 + 24);
+    v15 = *(result + 3);
 LABEL_64:
     v26 = 0x7FFFFFFFFFFFFFFFLL;
     v139 = v15;
-    if (!v16 || (v36 = *(a1 + 40), v36 == 0x7FFFFFFFFFFFFFFFLL))
+    if (!v16 || (v36 = *(result + 5), v36 == 0x7FFFFFFFFFFFFFFFLL))
     {
       v37 = 1;
       goto LABEL_90;
@@ -5279,14 +5287,14 @@ LABEL_64:
     v38 = v16 - 1;
     if (v36 <= v16 - 1)
     {
-      v39 = *(a1 + 56);
+      v39 = *(result + 7);
       do
       {
-        v40 = *(a1 + 48);
-        *(a1 + 40) = v36 + 1;
-        if (*(a1 + 88) <= v36)
+        v40 = *(result + 6);
+        *(result + 5) = v36 + 1;
+        if (*(result + 11) <= v36)
         {
-          v41 = *(a1 + 32) - *(a1 + 24);
+          v41 = *(result + 4) - *(result + 3);
         }
 
         else
@@ -5294,13 +5302,13 @@ LABEL_64:
           v41 = 0;
         }
 
-        v42 = (*(a1 + 16) + 8) * (v41 + v36);
+        v42 = (*(result + 2) + 8) * (v41 + v36);
         *(v39 + v42) += v40;
-        v36 = *(a1 + 40);
+        v36 = *(result + 5);
       }
 
       while (v36 <= v38);
-      v16 = *(a1 + 24);
+      v16 = *(result + 3);
     }
 
     v26 = 0x7FFFFFFFFFFFFFFFLL;
@@ -5312,17 +5320,17 @@ LABEL_64:
     }
 
 LABEL_89:
-    *(a1 + 40) = 0x7FFFFFFFFFFFFFFFLL;
-    *(a1 + 48) = 0;
+    *(result + 5) = 0x7FFFFFFFFFFFFFFFLL;
+    *(result + 6) = 0;
     v37 = v43;
     goto LABEL_90;
   }
 
-  _NSBlockNumberForIndex(a1, location, &v141);
+  _NSBlockNumberForIndex(result, location, &v141);
   v15 = v14;
   if (length)
   {
-    _NSBlockNumberForIndex(a1, v12 - 1, &v140);
+    _NSBlockNumberForIndex(result, v12 - 1, &v140);
   }
 
   else
@@ -5336,9 +5344,9 @@ LABEL_89:
     if (v15)
     {
       v17 = v15 - 1;
-      if (*(a1 + 88) <= v15 - 1)
+      if (*(result + 11) <= v15 - 1)
       {
-        v22 = *(a1 + 32) - *(a1 + 24);
+        v22 = *(result + 4) - *(result + 3);
       }
 
       else
@@ -5346,10 +5354,10 @@ LABEL_89:
         v22 = 0;
       }
 
-      v21 = *(*(a1 + 56) + (*(a1 + 16) + 8) * (v22 + v17));
-      if (v17 >= *(a1 + 40))
+      v21 = *(*(result + 7) + (*(result + 2) + 8) * (v22 + v17));
+      if (v17 >= *(result + 5))
       {
-        v21 += *(a1 + 48);
+        v21 += *(result + 6);
       }
 
       v20 = v141.location - v21;
@@ -5371,14 +5379,14 @@ LABEL_89:
   }
 
   v25 = v140;
-  if (v140.n128_u64[1] + v140.n128_u64[0] > v12)
+  if (v140.length + v140.location > v12)
   {
-    v24 = v12 != v140.n128_u64[0];
+    v24 = v12 != v140.location;
     v26 = v14;
     goto LABEL_59;
   }
 
-  v16 = *(a1 + 24);
+  v16 = *(result + 3);
   v26 = v14 + 1;
   if (v14 >= v16 - 1)
   {
@@ -5398,11 +5406,11 @@ LABEL_89:
     goto LABEL_64;
   }
 
-  v27 = *(a1 + 56);
-  v28 = *(a1 + 88);
+  v27 = *(result + 7);
+  v28 = *(result + 11);
   if (v28 <= v26)
   {
-    v29 = *(a1 + 32) - v16;
+    v29 = *(result + 4) - v16;
   }
 
   else
@@ -5411,18 +5419,18 @@ LABEL_89:
   }
 
   v30 = v29 + v26;
-  v31 = *(a1 + 16) + 8;
+  v31 = *(result + 2) + 8;
   v25.location = *(v27 + v31 * v30);
-  v32 = *(a1 + 40);
+  v32 = *(result + 5);
   if (v26 >= v32)
   {
-    v25.location += *(a1 + 48);
+    v25.location += *(result + 6);
   }
 
   if (v26 >= v16 - 1)
   {
     v24 = 0;
-    v35 = *(a1 + 8);
+    v35 = *(result + 1);
   }
 
   else
@@ -5430,7 +5438,7 @@ LABEL_89:
     v33 = v14 + 2;
     if (v28 <= v14 + 2)
     {
-      v34 = *(a1 + 32) - v16;
+      v34 = *(result + 4) - v16;
     }
 
     else
@@ -5441,7 +5449,7 @@ LABEL_89:
     v35 = *(v27 + (v34 + v33) * v31);
     if (v33 >= v32)
     {
-      v35 += *(a1 + 48);
+      v35 += *(result + 6);
     }
 
     v24 = 0;
@@ -5461,11 +5469,11 @@ LABEL_59:
 
   if (v26 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v16 = *(a1 + 24);
+    v16 = *(result + 3);
     goto LABEL_64;
   }
 
-  v44 = *(a1 + 24);
+  v44 = *(result + 3);
   if (v26 + 1 >= v44)
   {
     v45 = v26;
@@ -5476,7 +5484,7 @@ LABEL_59:
     v45 = v26 + 1;
   }
 
-  v46 = *(a1 + 40);
+  v46 = *(result + 5);
   v139 = v15;
   if (v46 == 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -5486,14 +5494,14 @@ LABEL_59:
 
   if (v46 <= v45)
   {
-    v47 = *(a1 + 56);
+    v47 = *(result + 7);
     do
     {
-      v48 = *(a1 + 48);
-      *(a1 + 40) = v46 + 1;
-      if (*(a1 + 88) <= v46)
+      v48 = *(result + 6);
+      *(result + 5) = v46 + 1;
+      if (*(result + 11) <= v46)
       {
-        v49 = *(a1 + 32) - *(a1 + 24);
+        v49 = *(result + 4) - *(result + 3);
       }
 
       else
@@ -5501,13 +5509,13 @@ LABEL_59:
         v49 = 0;
       }
 
-      v50 = (*(a1 + 16) + 8) * (v49 + v46);
+      v50 = (*(result + 2) + 8) * (v49 + v46);
       *(v47 + v50) += v48;
-      v46 = *(a1 + 40);
+      v46 = *(result + 5);
     }
 
     while (v46 <= v45);
-    v44 = *(a1 + 24);
+    v44 = *(result + 3);
   }
 
   v43 = 0;
@@ -5619,9 +5627,9 @@ LABEL_90:
   else
   {
     p_length = &v141.length;
-    if (*(a1 + 88) <= v17)
+    if (*(result + 11) <= v17)
     {
-      v62 = *(a1 + 32) - *(a1 + 24);
+      v62 = *(result + 4) - *(result + 3);
     }
 
     else
@@ -5629,7 +5637,7 @@ LABEL_90:
       v62 = 0;
     }
 
-    v141.location = *(a1 + 56) + (*(a1 + 16) + 8) * (v62 + v17) + 8;
+    v141.location = *(result + 7) + (*(result + 2) + 8) * (v62 + v17) + 8;
     v57 = 1;
   }
 
@@ -5641,9 +5649,9 @@ LABEL_90:
 
   if ((v37 & 1) == 0)
   {
-    if (*(a1 + 88) <= v26)
+    if (*(result + 11) <= v26)
     {
-      v63 = *(a1 + 32) - *(a1 + 24);
+      v63 = *(result + 4) - *(result + 3);
     }
 
     else
@@ -5651,7 +5659,7 @@ LABEL_90:
       v63 = 0;
     }
 
-    *(&v141.location + v57++) = *(a1 + 56) + (*(a1 + 16) + 8) * (v63 + v26) + 8;
+    *(&v141.location + v57++) = *(result + 7) + (*(result + 2) + 8) * (v63 + v26) + 8;
   }
 
   if (v57 == 3)
@@ -5661,7 +5669,7 @@ LABEL_90:
     v133 = v23;
     v128 = v19;
     v69 = v141.length;
-    v70 = *(a1 + 16);
+    v70 = *(result + 2);
     if (!memcmp(v141.location, v141.length, v70))
     {
       v146.location = location;
@@ -5674,7 +5682,7 @@ LABEL_90:
       v128 = 0;
       --v139;
       ++v133;
-      v70 = *(a1 + 16);
+      v70 = *(result + 2);
       if (v17)
       {
         v71 = v17 - 1;
@@ -5719,7 +5727,7 @@ LABEL_90:
     }
 
     ++v26;
-    v76 = *(a1 + 24);
+    v76 = *(result + 3);
     if (v26 >= v76)
     {
       v24 = 0;
@@ -5748,7 +5756,7 @@ LABEL_148:
     v67 = v24;
     v132 = v23;
     v128 = v19;
-    if (memcmp(v141.location, v141.length, *(a1 + 16)))
+    if (memcmp(v141.location, v141.length, *(result + 2)))
     {
       v68 = location;
       p_prots = (&OBJC_PROTOCOL___NSTextElementProvider + 16);
@@ -5799,7 +5807,7 @@ LABEL_138:
       v68 = v78.location;
       v23 = v132 + 1;
       ++v26;
-      v76 = *(a1 + 24);
+      v76 = *(result + 3);
       v60 = range1a;
       if (v26 < v76)
       {
@@ -5810,7 +5818,7 @@ LABEL_149:
         v134 = v68 + v74;
         if (v26 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          v77 = *(a1 + 40);
+          v77 = *(result + 5);
           v61 = v138;
           if (v77 == 0x7FFFFFFFFFFFFFFFLL)
           {
@@ -5823,14 +5831,14 @@ LABEL_149:
           v86 = v76 - 1;
           if (v77 <= v76 - 1)
           {
-            v87 = *(a1 + 56);
+            v87 = *(result + 7);
             do
             {
-              v88 = *(a1 + 48);
-              *(a1 + 40) = v77 + 1;
-              if (*(a1 + 88) <= v77)
+              v88 = *(result + 6);
+              *(result + 5) = v77 + 1;
+              if (*(result + 11) <= v77)
               {
-                v89 = *(a1 + 32) - *(a1 + 24);
+                v89 = *(result + 4) - *(result + 3);
               }
 
               else
@@ -5838,19 +5846,19 @@ LABEL_149:
                 v89 = 0;
               }
 
-              v90 = (*(a1 + 16) + 8) * (v89 + v77);
+              v90 = (*(result + 2) + 8) * (v89 + v77);
               *(v87 + v90) += v88;
-              v77 = *(a1 + 40);
+              v77 = *(result + 5);
             }
 
             while (v77 <= v86);
-            v76 = *(a1 + 24);
+            v76 = *(result + 3);
           }
 
           v24 = 0;
           if (v77 == v76)
           {
-            *(a1 + 40) = xmmword_18E856180;
+            *(result + 40) = xmmword_18E856180;
           }
 
           v26 = 0x7FFFFFFFFFFFFFFFLL;
@@ -5868,7 +5876,7 @@ LABEL_149:
             v79 = v26 + 1;
           }
 
-          v80 = *(a1 + 40);
+          v80 = *(result + 5);
           v61 = v138;
           if (v80 == 0x7FFFFFFFFFFFFFFFLL)
           {
@@ -5877,14 +5885,14 @@ LABEL_149:
 
           if (v80 <= v79)
           {
-            v81 = *(a1 + 56);
+            v81 = *(result + 7);
             do
             {
-              v82 = *(a1 + 48);
-              *(a1 + 40) = v80 + 1;
-              if (*(a1 + 88) <= v80)
+              v82 = *(result + 6);
+              *(result + 5) = v80 + 1;
+              if (*(result + 11) <= v80)
               {
-                v83 = *(a1 + 32) - *(a1 + 24);
+                v83 = *(result + 4) - *(result + 3);
               }
 
               else
@@ -5892,13 +5900,13 @@ LABEL_149:
                 v83 = 0;
               }
 
-              v84 = (*(a1 + 16) + 8) * (v83 + v80);
+              v84 = (*(result + 2) + 8) * (v83 + v80);
               *(v81 + v84) += v82;
-              v80 = *(a1 + 40);
+              v80 = *(result + 5);
             }
 
             while (v80 <= v79);
-            v76 = *(a1 + 24);
+            v76 = *(result + 3);
           }
 
           if (v80 != v76)
@@ -5910,7 +5918,7 @@ LABEL_172:
           else
           {
             v24 = 0;
-            *(a1 + 40) = xmmword_18E856180;
+            *(result + 40) = xmmword_18E856180;
           }
         }
 
@@ -5963,7 +5971,7 @@ LABEL_158:
     }
 
     ++v26;
-    v76 = *(a1 + 24);
+    v76 = *(result + 3);
     if (v26 >= v76)
     {
       v24 = 0;
@@ -6005,11 +6013,11 @@ LABEL_192:
     if (v92 < v23)
     {
       v98 = v23 - v92;
-      [a1 _moveGapAndMergeWithBlockRange:{v92 + v139, v23 - v92}];
-      v99 = *(a1 + 40);
+      [result _moveGapAndMergeWithBlockRange:{v92 + v139, v23 - v92}];
+      v99 = *(result + 5);
       if (v99 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        *(a1 + 40) = v99 - v98;
+        *(result + 5) = v99 - v98;
       }
 
       if (v26 != 0x7FFFFFFFFFFFFFFFLL)
@@ -6024,14 +6032,14 @@ LABEL_192:
     v94 = v60;
     v95 = p_prots;
     v96 = v23;
-    [a1 _ensureCapacity:{*(a1 + 24) + v93, v25.length}];
-    [a1 _moveGapToBlockIndex:v96 + v139];
-    *(a1 + 24) += v93;
-    *(a1 + 88) += v93;
-    v97 = *(a1 + 40);
+    [result _ensureCapacity:{*(result + 3) + v93, v25.length}];
+    [result _moveGapToBlockIndex:v96 + v139];
+    *(result + 3) += v93;
+    *(result + 11) += v93;
+    v97 = *(result + 5);
     if (v97 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      *(a1 + 40) = v97 + v93;
+      *(result + 5) = v97 + v93;
     }
 
     if (v26 != 0x7FFFFFFFFFFFFFFFLL)
@@ -6048,9 +6056,9 @@ LABEL_192:
     if (v92 == 2)
     {
       v100 = v135;
-      if (*(a1 + 88) <= v139)
+      if (*(result + 11) <= v139)
       {
-        v101 = *(a1 + 32) - *(a1 + 24);
+        v101 = *(result + 4) - *(result + 3);
       }
 
       else
@@ -6058,13 +6066,13 @@ LABEL_192:
         v101 = 0;
       }
 
-      v105 = (*(a1 + 56) + (*(a1 + 16) + 8) * (v101 + v139));
+      v105 = (*(result + 7) + (*(result + 2) + 8) * (v101 + v139));
       *v105 = location;
-      memmove(v105 + 1, v61, *(a1 + 16));
-      v102 = *(a1 + 56);
-      if (*(a1 + 88) <= v139 + 1)
+      memmove(v105 + 1, v61, *(result + 2));
+      v102 = *(result + 7);
+      if (*(result + 11) <= v139 + 1)
       {
-        v106 = *(a1 + 32) - *(a1 + 24);
+        v106 = *(result + 4) - *(result + 3);
       }
 
       else
@@ -6074,12 +6082,12 @@ LABEL_192:
 
       v107 = v106 + v139 + 1;
 LABEL_232:
-      v111 = (v102 + (*(a1 + 16) + 8) * v107);
+      v111 = (v102 + (*(result + 2) + 8) * v107);
       *v111 = v134;
       v112 = v111 + 1;
-      if (*(a1 + 88) <= v17)
+      if (*(result + 11) <= v17)
       {
-        v113 = *(a1 + 32) - *(a1 + 24);
+        v113 = *(result + 4) - *(result + 3);
       }
 
       else
@@ -6087,7 +6095,7 @@ LABEL_232:
         v113 = 0;
       }
 
-      memmove(v112, (v102 + (*(a1 + 16) + 8) * (v113 + v17) + 8), *(a1 + 16));
+      memmove(v112, (v102 + (*(result + 2) + 8) * (v113 + v17) + 8), *(result + 2));
       goto LABEL_236;
     }
 
@@ -6098,9 +6106,9 @@ LABEL_232:
     }
 
 LABEL_226:
-    if (*(a1 + 88) <= v26)
+    if (*(result + 11) <= v26)
     {
-      v110 = *(a1 + 32) - *(a1 + 24);
+      v110 = *(result + 4) - *(result + 3);
     }
 
     else
@@ -6108,17 +6116,17 @@ LABEL_226:
       v110 = 0;
     }
 
-    *(*(a1 + 56) + (*(a1 + 16) + 8) * (v110 + v26)) = v134;
+    *(*(result + 7) + (*(result + 2) + 8) * (v110 + v26)) = v134;
     goto LABEL_236;
   }
 
-  v102 = *(a1 + 56);
-  v103 = *(a1 + 88);
+  v102 = *(result + 7);
+  v103 = *(result + 11);
   if (!v61)
   {
     if (v103 <= v139)
     {
-      v108 = *(a1 + 32) - *(a1 + 24);
+      v108 = *(result + 4) - *(result + 3);
     }
 
     else
@@ -6133,7 +6141,7 @@ LABEL_226:
 
   if (v103 <= v139)
   {
-    v104 = *(a1 + 32) - *(a1 + 24);
+    v104 = *(result + 4) - *(result + 3);
   }
 
   else
@@ -6142,26 +6150,26 @@ LABEL_226:
   }
 
   v100 = v135;
-  v109 = (v102 + (*(a1 + 16) + 8) * (v104 + v139));
+  v109 = (v102 + (*(result + 2) + 8) * (v104 + v139));
   *v109 = location;
-  memmove(v109 + 1, v61, *(a1 + 16));
+  memmove(v109 + 1, v61, *(result + 2));
   if (v26 != 0x7FFFFFFFFFFFFFFFLL)
   {
     goto LABEL_226;
   }
 
 LABEL_236:
-  v114 = *(a1 + 40);
+  v114 = *(result + 5);
   v115 = v100 == v60 || v26 == 0x7FFFFFFFFFFFFFFFLL;
   v116 = !v115;
   if (v114 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    if (!v116 || v26 + 1 >= *(a1 + 24))
+    if (!v116 || v26 + 1 >= *(result + 3))
     {
       goto LABEL_259;
     }
 
-    *(a1 + 40) = v26 + 1;
+    *(result + 5) = v26 + 1;
     goto LABEL_257;
   }
 
@@ -6171,7 +6179,7 @@ LABEL_236:
   }
 
   v117 = v26 + 1;
-  v118 = *(a1 + 24);
+  v118 = *(result + 3);
   if (v26 + 1 >= v118)
   {
     goto LABEL_259;
@@ -6182,14 +6190,14 @@ LABEL_236:
     v120 = v118 - 1;
     if (v114 <= v120)
     {
-      v121 = *(a1 + 56);
+      v121 = *(result + 7);
       do
       {
-        v122 = *(a1 + 48);
-        *(a1 + 40) = v114 + 1;
-        if (*(a1 + 88) <= v114)
+        v122 = *(result + 6);
+        *(result + 5) = v114 + 1;
+        if (*(result + 11) <= v114)
         {
-          v123 = *(a1 + 32) - *(a1 + 24);
+          v123 = *(result + 4) - *(result + 3);
         }
 
         else
@@ -6197,36 +6205,36 @@ LABEL_236:
           v123 = 0;
         }
 
-        v124 = (*(a1 + 16) + 8) * (v123 + v114);
+        v124 = (*(result + 2) + 8) * (v123 + v114);
         *(v121 + v124) += v122;
-        v114 = *(a1 + 40);
+        v114 = *(result + 5);
       }
 
       while (v114 <= v120);
     }
 
-    *(a1 + 40) = v117;
+    *(result + 5) = v117;
 LABEL_257:
     v119 = v137;
     goto LABEL_258;
   }
 
-  v119 = *(a1 + 48) + v137;
+  v119 = *(result + 6) + v137;
 LABEL_258:
-  *(a1 + 48) = v119;
+  *(result + 6) = v119;
 LABEL_259:
-  *(a1 + 8) += v137;
+  *(result + 1) += v137;
   v125.f64[0] = NAN;
   v125.f64[1] = NAN;
-  *(a1 + 64) = vnegq_f64(v125);
-  *(a1 + 80) = 0;
+  *(result + 4) = vnegq_f64(v125);
+  *(result + 10) = 0;
   if (*(p_prots + 2600) == 1)
   {
-    [a1 _consistencyCheck:1];
+    [result _consistencyCheck:1];
   }
 }
 
-void __NSTextContentStorageUpdateElementIndexRangeForRange(uint64_t a1, id *a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7)
+void __NSTextContentStorageUpdateElementIndexRangeForRange(id *result, id *a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7)
 {
   v11.f64[0] = NAN;
   v11.f64[1] = NAN;
@@ -6244,7 +6252,7 @@ void __NSTextContentStorageUpdateElementIndexRangeForRange(uint64_t a1, id *a2, 
       *&v26.f64[0] = a4;
       v18 = *v13++;
       BYTE8(v27) = [v18 coalescingType];
-      [*(a1 + 88) replaceElementsInRange:v15 withElement:v17 coalesceRuns:{&v26, 0}];
+      [result[11] replaceElementsInRange:v15 withElement:v17 coalesceRuns:{&v26, 0}];
       ++a4;
     }
 
@@ -6259,7 +6267,7 @@ void __NSTextContentStorageUpdateElementIndexRangeForRange(uint64_t a1, id *a2, 
     {
       do
       {
-        v20 = *(a1 + 88);
+        v20 = result[11];
         _NSBlockNumberForIndex(v20, a5, &v25);
         if (v20[11] <= v21)
         {
@@ -6278,7 +6286,7 @@ void __NSTextContentStorageUpdateElementIndexRangeForRange(uint64_t a1, id *a2, 
         if (*&v26.f64[0] != 0x7FFFFFFFFFFFFFFFLL)
         {
           *&v26.f64[0] += a7;
-          [*(a1 + 88) replaceElementsInRange:*&v25 withElement:&v26 coalesceRuns:0];
+          [result[11] replaceElementsInRange:*&v25 withElement:&v26 coalesceRuns:0];
         }
 
         a5 = v25.n128_u64[1] + v25.n128_u64[0];
@@ -6505,7 +6513,7 @@ LABEL_46:
   return result;
 }
 
-uint64_t __NSTextLayoutManagerRemoveTextLayoutFragmentsInTextRange(id *a1, void *a2, uint64_t a3)
+void *__NSTextLayoutManagerRemoveTextLayoutFragmentsInTextRange(id *a1, void *a2, uint64_t a3)
 {
   v36 = *MEMORY[0x1E69E9840];
   v6 = [objc_msgSend(a1 "textContentManager")];
@@ -6639,15 +6647,16 @@ uint64_t __NSTextLayoutManagerRemoveTextLayoutFragmentsInTextRange(id *a1, void 
   return result;
 }
 
-void sub_18E75675C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40)
+void sub_18E75675C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, ...)
 {
+  va_start(va, a39);
   _Block_object_dispose(&a28, 8);
   _Block_object_dispose(&a34, 8);
-  _Block_object_dispose(&a40, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-NSUInteger __NSTextRunStorageReleaseElementContentsInRange(NSUInteger result, NSUInteger a2, NSUInteger a3)
+uint64_t __NSTextRunStorageReleaseElementContentsInRange(uint64_t result, NSUInteger a2, NSUInteger a3)
 {
   if (!*(result + 16))
   {
@@ -6993,19 +7002,19 @@ uint64_t _NSReadAttributedStringFromURLOrData(void *a1, unint64_t a2, uint64_t a
   return v8;
 }
 
-void sub_18E758160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18E758160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -9055,9 +9064,9 @@ LABEL_43:
   return result;
 }
 
-void controlClass(uint64_t a1)
+void controlClass(unint64_t a1)
 {
-  v338 = *MEMORY[0x1E69E9840];
+  v341 = *MEMORY[0x1E69E9840];
   flushCharacters(a1, 1);
   v3 = *(a1 + 2768);
   if (v3 > 9)
@@ -9689,10 +9698,10 @@ LABEL_938:
           }
 
 LABEL_939:
-          v299 = [a1 _mutableParagraphStyle];
-          v300 = *(a1 + 2776) / 20.0;
+          v302 = [a1 _mutableParagraphStyle];
+          v303 = *(a1 + 2776) / 20.0;
 
-          [v299 setParagraphSpacing:v300];
+          [v302 setParagraphSpacing:v303];
           break;
         case 20:
           if (*(a1 + 2776) != 1000)
@@ -9788,7 +9797,8 @@ LABEL_896:
                 return;
               }
 
-              v286 = [(objc_class *)getNSColorClass_3() colorWithCalibratedWhite:0.75 alpha:1.0];
+              getNSColorClass_3(0);
+              v286 = [v288 colorWithCalibratedWhite:0.75 alpha:1.0];
               v285 = v287;
 LABEL_890:
 
@@ -9904,9 +9914,9 @@ LABEL_466:
                 v188 = [v179 objectAtIndex:1];
                 v189 = +[NSTextTab allocWithZone:](NSTextTab, "allocWithZone:", [v178 zone]);
                 [v188 location];
-                v317 = -[NSTextTab initWithTextAlignment:location:options:](v189, "initWithTextAlignment:location:options:", 4, [v188 options], v190);
+                v320 = -[NSTextTab initWithTextAlignment:location:options:](v189, "initWithTextAlignment:location:options:", 4, [v188 options], v190);
                 [v178 removeTabStop:v188];
-                [v178 addTabStop:v317];
+                [v178 addTabStop:v320];
               }
 
               break;
@@ -10002,7 +10012,7 @@ LABEL_466:
         v258 = *(a1 + 2776);
         if (v258 == -1000000)
         {
-          v291 = -6.0;
+          v294 = -6.0;
           goto LABEL_930;
         }
 
@@ -10086,7 +10096,7 @@ LABEL_894:
         if ((*(a1 + 410) & 0x10) != 0)
         {
           [objc_msgSend(objc_msgSend(a1 "mutableAttributes")];
-          if (v298 != 0.0)
+          if (v301 != 0.0)
           {
             goto LABEL_895;
           }
@@ -10150,10 +10160,11 @@ LABEL_895:
             case 'I':
               *__str = 0;
               __endptr[0] = 0;
-              v326 = 0.0;
-              v290 = *(a1 + 2776);
-              [-[NSShadow shadowColor](v80 "shadowColor")];
-              [(NSShadow *)v198 setShadowColor:[(objc_class *)getNSColorClass_3() colorWithCalibratedRed:*__str green:*__endptr blue:v326 alpha:v290 / 255.0]];
+              v329 = 0.0;
+              v291 = *(a1 + 2776);
+              v292 = [-[NSShadow shadowColor](v80 "shadowColor")];
+              getNSColorClass_3(v292);
+              -[NSShadow setShadowColor:](v198, "setShadowColor:", [v293 colorWithCalibratedRed:*__str green:*__endptr blue:v329 alpha:v291 / 255.0]);
               break;
             case 'J':
               processColor(a1, *(a1 + 2776), 5, v80);
@@ -10173,10 +10184,10 @@ LABEL_903:
             v201 = 3.0;
             break;
           case 68:
-            v289 = *(a1 + 2776) / 20.0;
+            v290 = *(a1 + 2776) / 20.0;
             [v79 shadowOffset];
-            v288 = v198;
-            v200 = v289;
+            v289 = v198;
+            v200 = v290;
             goto LABEL_901;
           case 69:
             [v79 shadowOffset];
@@ -10186,9 +10197,9 @@ LABEL_903:
             goto LABEL_903;
         }
 
-        v288 = v198;
+        v289 = v198;
 LABEL_901:
-        [(NSShadow *)v288 setShadowOffset:v200, v201];
+        [(NSShadow *)v289 setShadowOffset:v200, v201];
         goto LABEL_903;
       case 0x13:
       case 0x25:
@@ -10278,10 +10289,10 @@ LABEL_910:
               v135 = [v264 numberWithUnsignedInteger:v39];
               v136 = &NSUnderlineStyleAttributeName;
 LABEL_911:
-              v292 = *v136;
-              v293 = v37;
+              v295 = *v136;
+              v296 = v37;
 LABEL_912:
-              [v293 setObject:v135 forKey:v292];
+              [v296 setObject:v135 forKey:v295];
               return;
             case 22:
               goto LABEL_505;
@@ -10359,7 +10370,7 @@ LABEL_907:
         v259 = *(a1 + 2776);
         if (v259 == -1000000)
         {
-          v291 = 6.0;
+          v294 = 6.0;
         }
 
         else
@@ -10373,13 +10384,13 @@ LABEL_719:
           }
 
 LABEL_904:
-          v291 = vcvtd_n_f64_s32(v259, 1uLL);
+          v294 = vcvtd_n_f64_s32(v259, 1uLL);
         }
 
 LABEL_930:
-        v296 = [a1 mutableAttributes];
-        v135 = [MEMORY[0x1E696AD98] numberWithDouble:v291];
-        v297 = &NSBaselineOffsetAttributeName;
+        v299 = [a1 mutableAttributes];
+        v135 = [MEMORY[0x1E696AD98] numberWithDouble:v294];
+        v300 = &NSBaselineOffsetAttributeName;
         goto LABEL_931;
       case 0x1C:
         v191 = *(a1 + 2776);
@@ -10528,9 +10539,9 @@ LABEL_726:
             v252 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:1];
           }
 
-          v295 = v252;
+          v298 = v252;
           [v252 setObject:TypographyFeatures forKey:*MEMORY[0x1E69657A8]];
-          if (!v295)
+          if (!v298)
           {
             return;
           }
@@ -10538,45 +10549,45 @@ LABEL_726:
 
         else
         {
-          v294 = *MEMORY[0x1E69657A8];
+          v297 = *MEMORY[0x1E69657A8];
           if ([v250 objectForKey:*MEMORY[0x1E69657A8]])
           {
-            v295 = [objc_msgSend(v251 "fontAttributes")];
-            [v295 removeObjectForKey:v294];
+            v298 = [objc_msgSend(v251 "fontAttributes")];
+            [v298 removeObjectForKey:v297];
           }
 
           else
           {
-            v295 = 0;
+            v298 = 0;
           }
 
-          v310 = *MEMORY[0x1E69657C0];
+          v313 = *MEMORY[0x1E69657C0];
           if ([v251 objectForKey:*MEMORY[0x1E69657C0]])
           {
-            if (!v295)
+            if (!v298)
             {
-              v295 = [objc_msgSend(v251 "fontAttributes")];
+              v298 = [objc_msgSend(v251 "fontAttributes")];
             }
 
-            [v295 removeObjectForKey:v310];
+            [v298 removeObjectForKey:v313];
           }
 
-          if (!v295)
+          if (!v298)
           {
             return;
           }
 
-          if ([v295 count] == 2)
+          if ([v298 count] == 2)
           {
-            v311 = [v295 objectForKey:@"NSFontNameAttribute"];
-            v312 = [v295 objectForKey:@"NSFontSizeAttribute"];
-            if (v311)
+            v314 = [v298 objectForKey:@"NSFontNameAttribute"];
+            v315 = [v298 objectForKey:@"NSFontSizeAttribute"];
+            if (v314)
             {
-              if (v312)
+              if (v315)
               {
-                [v312 doubleValue];
-                v313 = [UIFont _fontWithName:v311 size:?];
-                if (v313)
+                [v315 doubleValue];
+                v316 = [UIFont _fontWithName:v314 size:?];
+                if (v316)
                 {
                   goto LABEL_992;
                 }
@@ -10585,33 +10596,33 @@ LABEL_726:
           }
         }
 
-        v313 = [*(a1 + 2960) objectForKey:v295];
-        if (!v313)
+        v316 = [*(a1 + 2960) objectForKey:v298];
+        if (!v316)
         {
-          v314 = [UIFont fontWithDescriptor:[UIFontDescriptor fontDescriptorWithFontAttributes:v295] size:0.0];
-          v315 = *(a1 + 2960);
-          if (!v315)
+          v317 = [UIFont fontWithDescriptor:[UIFontDescriptor fontDescriptorWithFontAttributes:v298] size:0.0];
+          v318 = *(a1 + 2960);
+          if (!v318)
           {
-            v315 = objc_alloc_init(MEMORY[0x1E695DF90]);
-            *(a1 + 2960) = v315;
+            v318 = objc_alloc_init(MEMORY[0x1E695DF90]);
+            *(a1 + 2960) = v318;
           }
 
-          [v315 setObject:v314 forKey:v295];
+          [v318 setObject:v317 forKey:v298];
 
-          if (!v314)
+          if (!v317)
           {
             return;
           }
 
 LABEL_996:
-          v293 = v249;
-          v135 = v314;
-          v292 = @"NSFont";
+          v296 = v249;
+          v135 = v317;
+          v295 = @"NSFont";
           goto LABEL_912;
         }
 
 LABEL_992:
-        v314 = v313;
+        v317 = v316;
 
         goto LABEL_996;
       case 0x48:
@@ -10663,22 +10674,22 @@ LABEL_710:
 
         if (v266 < 0)
         {
-          v309 = ~v266;
+          v312 = ~v266;
         }
 
         else
         {
-          v309 = v266 - 1;
+          v312 = v266 - 1;
         }
 
-        if (v309 >= [(NSArray *)v267 count])
+        if (v312 >= [(NSArray *)v267 count])
         {
           return;
         }
 
-        v296 = [a1 mutableAttributes];
-        v135 = [(NSArray *)v267 objectAtIndexedSubscript:v309];
-        v297 = NSTextHighlightStyleAttributeName;
+        v299 = [a1 mutableAttributes];
+        v135 = [(NSArray *)v267 objectAtIndexedSubscript:v312];
+        v300 = NSTextHighlightStyleAttributeName;
         goto LABEL_931;
       case 0x4F:
         v260 = *(a1 + 2776);
@@ -10705,25 +10716,25 @@ LABEL_925:
 
         if (v260 < 0)
         {
-          v308 = ~v260;
+          v311 = ~v260;
         }
 
         else
         {
-          v308 = v260 - 1;
+          v311 = v260 - 1;
         }
 
-        if (v308 >= [(NSArray *)v261 count])
+        if (v311 >= [(NSArray *)v261 count])
         {
           return;
         }
 
-        v296 = [a1 mutableAttributes];
-        v135 = [(NSArray *)v261 objectAtIndexedSubscript:v308];
-        v297 = NSTextHighlightColorSchemeAttributeName;
+        v299 = [a1 mutableAttributes];
+        v135 = [(NSArray *)v261 objectAtIndexedSubscript:v311];
+        v300 = NSTextHighlightColorSchemeAttributeName;
 LABEL_931:
-        v292 = *v297;
-        v293 = v296;
+        v295 = *v300;
+        v296 = v299;
         goto LABEL_912;
       default:
         return;
@@ -10757,33 +10768,33 @@ LABEL_931:
           case 'B':
             v6 = 0;
             v7 = 0;
-            v326 = 0.0;
-            v327 = &v326;
-            v328 = 0x2020000000;
-            v329 = __str;
-            v322 = 0;
-            v323 = &v322;
-            v324 = 0x2020000000;
-            v325 = 1000;
-            v318 = 0;
-            v319 = &v318;
-            v320 = 0x2020000000;
+            v329 = 0.0;
+            v330 = &v329;
+            v331 = 0x2020000000;
+            v332 = __str;
+            v325 = 0;
+            v326 = &v325;
+            v327 = 0x2020000000;
+            v328 = 1000;
             v321 = 0;
+            v322 = &v321;
+            v323 = 0x2020000000;
+            v324 = 0;
             __endptr[0] = MEMORY[0x1E69E9820];
             __endptr[1] = 3221225472;
-            v331 = __readFieldInst_block_invoke;
-            v332 = &unk_1E72687C8;
-            v333 = &v322;
-            v334 = &v326;
+            v334 = __readFieldInst_block_invoke;
+            v335 = &unk_1E72687C8;
+            v336 = &v325;
+            v337 = &v329;
             v8 = 1;
-            v335 = &v318;
+            v338 = &v321;
             v9 = MEMORY[0x1E69E9830];
             while (2)
             {
               if (_NSRTFGetToken((a1 + 536)) == 4)
               {
 LABEL_374:
-                v133 = *(v327 + 3);
+                v133 = *(v330 + 3);
                 if (v133 != __str)
                 {
                   free(v133);
@@ -10795,9 +10806,9 @@ LABEL_374:
                   [objc_msgSend(a1 "mutableAttributes")];
                 }
 
-                _Block_object_dispose(&v318, 8);
-                _Block_object_dispose(&v322, 8);
-                _Block_object_dispose(&v326, 8);
+                _Block_object_dispose(&v321, 8);
+                _Block_object_dispose(&v325, 8);
+                _Block_object_dispose(&v329, 8);
                 return;
               }
 
@@ -10842,20 +10853,20 @@ LABEL_29:
               goto LABEL_30;
             }
 
-            v11 = v319;
-            v12 = v319[3];
+            v11 = v322;
+            v12 = v322[3];
             while (1)
             {
-              if (v12 == v323[3])
+              if (v12 == v326[3])
               {
-                if (!v331(__endptr))
+                if (!v334(__endptr))
                 {
                   v6 = 0;
                   goto LABEL_12;
                 }
 
-                v11 = v319;
-                v12 = v319[3];
+                v11 = v322;
+                v12 = v322[3];
               }
 
               v13 = *(a1 + 2768);
@@ -10875,43 +10886,43 @@ LABEL_29:
                 }
 
                 LODWORD(v13) = *(a1 + 2768);
-                v11 = v319;
-                v12 = v319[3];
+                v11 = v322;
+                v12 = v322[3];
               }
 
-              v14 = *(v327 + 3);
+              v14 = *(v330 + 3);
               v11[3] = v12 + 1;
               *(v14 + v12) = v13;
 LABEL_20:
               _NSRTFGetToken((a1 + 536));
-              v11 = v319;
-              v12 = v319[3];
-              if (v12 == 9 && !strncmp(*(v327 + 3), "HYPERLINK", 9uLL))
+              v11 = v322;
+              v12 = v322[3];
+              if (v12 == 9 && !strncmp(*(v330 + 3), "HYPERLINK", 9uLL))
               {
                 v11[3] = 0;
                 while (1)
                 {
-                  v16 = v319;
+                  v16 = v322;
                   if (*(a1 + 2764) != 2)
                   {
                     break;
                   }
 
-                  v17 = v319[3];
-                  if (v17 == v323[3])
+                  v17 = v322[3];
+                  if (v17 == v326[3])
                   {
-                    v18 = v331(__endptr);
-                    v16 = v319;
+                    v18 = v334(__endptr);
+                    v16 = v322;
                     if (!v18)
                     {
                       break;
                     }
 
-                    v17 = v319[3];
+                    v17 = v322[3];
                   }
 
                   v19 = *(a1 + 2768);
-                  v20 = *(v327 + 3);
+                  v20 = *(v330 + 3);
                   v16[3] = v17 + 1;
                   *(v20 + v17) = v19;
                   _NSRTFGetToken((a1 + 536));
@@ -10922,11 +10933,11 @@ LABEL_20:
                   v21 = 0;
                   while (1)
                   {
-                    v22 = *(*(v327 + 3) + v21);
+                    v22 = *(*(v330 + 3) + v21);
                     if (v22 < 0)
                     {
-                      v23 = __maskrune(*(*(v327 + 3) + v21), 0x4000uLL);
-                      v16 = v319;
+                      v23 = __maskrune(*(*(v330 + 3) + v21), 0x4000uLL);
+                      v16 = v322;
                     }
 
                     else
@@ -10953,11 +10964,11 @@ LABEL_51:
                   {
                     while (1)
                     {
-                      v25 = *(*(v327 + 3) + v24 - 1);
+                      v25 = *(*(v330 + 3) + v24 - 1);
                       if (v25 < 0)
                       {
-                        v26 = __maskrune(*(*(v327 + 3) + v24 - 1), 0x4000uLL);
-                        v27 = v319;
+                        v26 = __maskrune(*(*(v330 + 3) + v24 - 1), 0x4000uLL);
+                        v27 = v322;
                       }
 
                       else
@@ -10993,7 +11004,7 @@ LABEL_62:
                 }
 
                 v29 = v24 - 1;
-                if (v24 - 1 > v21 && (v30 = *(v327 + 3), *(v30 + v21) == 34) && *(v30 + v29) == 34)
+                if (v24 - 1 > v21 && (v30 = *(v330 + 3), *(v30 + v21) == 34) && *(v30 + v29) == 34)
                 {
                   v16[3] = v29;
                   ++v21;
@@ -11010,7 +11021,7 @@ LABEL_62:
                   v31 = *(a1 + 360);
                 }
 
-                v32 = CFStringCreateWithBytes(0, (*(v327 + 3) + v21), v29 - v21, v31, 0);
+                v32 = CFStringCreateWithBytes(0, (*(v330 + 3) + v21), v29 - v21, v31, 0);
                 v33 = CFMakeCollectable(v32);
                 v34 = v33;
                 if (v33)
@@ -11135,18 +11146,18 @@ LABEL_301:
               _NSRTFGetToken((a1 + 536));
               if (*(a1 + 2764) == 2)
               {
-                v301 = 0;
+                v304 = 0;
                 do
                 {
-                  __str[v301] = *(a1 + 2768);
+                  __str[v304] = *(a1 + 2768);
                   _NSRTFGetToken((a1 + 536));
-                  v302 = v301 + 1;
-                  if (v301 > 0x18E)
+                  v305 = v304 + 1;
+                  if (v304 > 0x18E)
                   {
                     break;
                   }
 
-                  ++v301;
+                  ++v304;
                 }
 
                 while (*(a1 + 2764) == 2);
@@ -11154,11 +11165,11 @@ LABEL_301:
 
               else
               {
-                v302 = 0;
+                v305 = 0;
               }
 
-              v316 = CFStringCreateWithBytes(0, __str, v302, 0x8000100u, 0);
-              v236 = CFMakeCollectable(v316);
+              v319 = CFStringCreateWithBytes(0, __str, v305, 0x8000100u, 0);
+              v236 = CFMakeCollectable(v319);
               v232 = *(a1 + 2764);
 LABEL_658:
               if (v232 == 1 && *(a1 + 2768) == 1)
@@ -11168,10 +11179,10 @@ LABEL_956:
                 if (v236)
                 {
                   [a1 _updateAttributes];
-                  v303 = [objc_msgSend(a1 "mutableAttributes")];
-                  if (v303)
+                  v306 = [objc_msgSend(a1 "mutableAttributes")];
+                  if (v306)
                   {
-                    v304 = [NSGlyphInfo glyphInfoWithGlyphName:v236 forFont:v303 baseString:v231];
+                    v307 = [NSGlyphInfo glyphInfoWithGlyphName:v236 forFont:v306 baseString:v231];
                     goto LABEL_963;
                   }
 
@@ -11183,26 +11194,26 @@ LABEL_965:
                 if (v235 == -1)
                 {
                   [a1 _updateAttributes];
-                  v305 = [objc_msgSend(a1 "mutableAttributes")];
-                  if (!v305)
+                  v308 = [objc_msgSend(a1 "mutableAttributes")];
+                  if (!v308)
                   {
                     goto LABEL_965;
                   }
 
-                  v304 = [NSGlyphInfo glyphInfoWithGlyph:v108 forFont:v305 baseString:v231];
+                  v307 = [NSGlyphInfo glyphInfoWithGlyph:v108 forFont:v308 baseString:v231];
                 }
 
                 else
                 {
-                  v304 = [NSGlyphInfo glyphInfoWithCharacterIdentifier:v108 collection:v235 baseString:v231];
+                  v307 = [NSGlyphInfo glyphInfoWithCharacterIdentifier:v108 collection:v235 baseString:v231];
                 }
 
 LABEL_963:
-                v306 = v304;
-                if (v304)
+                v309 = v307;
+                if (v307)
                 {
-                  v307 = [a1 mutableAttributes];
-                  [v307 setObject:v306 forKey:NSGlyphInfoAttributeName];
+                  v310 = [a1 mutableAttributes];
+                  [v310 setObject:v309 forKey:NSGlyphInfoAttributeName];
                 }
 
                 goto LABEL_965;
@@ -11265,7 +11276,7 @@ LABEL_954:
               }
 
               v208 = 0;
-              v210 = *__str == 0x6F6C6F436C6C6966 && v337 == 114;
+              v210 = *__str == 0x6F6C6F436C6C6966 && v340 == 114;
 LABEL_546:
               v214 = *(a1 + 2764);
               if (v214 == 1)

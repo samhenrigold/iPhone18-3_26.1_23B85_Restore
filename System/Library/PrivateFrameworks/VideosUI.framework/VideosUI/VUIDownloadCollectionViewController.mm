@@ -132,7 +132,7 @@ void __58__VUIDownloadCollectionViewController_initWithDataSource___block_invoke
   }
 }
 
-uint64_t __54__VUIDownloadCollectionViewController_viewWillAppear___block_invoke_2(uint64_t a1, void *a2)
+void *__54__VUIDownloadCollectionViewController_viewWillAppear___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if (result)
@@ -304,12 +304,13 @@ LABEL_8:
 void __47__VUIDownloadCollectionViewController_loadView__block_invoke_3(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = VUIDefaultLogObject(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __47__VUIDownloadCollectionViewController_loadView__block_invoke_3_cold_1(a2, v5, v6);
+      __47__VUIDownloadCollectionViewController_loadView__block_invoke_3_cold_1(a2, v6, v7);
     }
   }
 
@@ -331,9 +332,9 @@ void __47__VUIDownloadCollectionViewController_loadView__block_invoke_3(uint64_t
 
 - (void)viewDidLoad
 {
-  v18.receiver = self;
-  v18.super_class = VUIDownloadCollectionViewController;
-  [(VUIDownloadCollectionViewController *)&v18 viewDidLoad];
+  v19.receiver = self;
+  v19.super_class = VUIDownloadCollectionViewController;
+  [(VUIDownloadCollectionViewController *)&v19 viewDidLoad];
   downloadDataSource = [(VUIDownloadCollectionViewController *)self downloadDataSource];
   [downloadDataSource setDownloadDelegate:self];
 
@@ -344,15 +345,15 @@ void __47__VUIDownloadCollectionViewController_loadView__block_invoke_3(uint64_t
   {
     downloadDataSource3 = [(VUIDownloadCollectionViewController *)self downloadDataSource];
     downloadEntities = [downloadDataSource3 downloadEntities];
-    v8 = [downloadEntities mutableCopy];
-    [(VUIDownloadCollectionViewController *)self setDownloadEntities:v8];
+    v9 = [downloadEntities mutableCopy];
+    [(VUIDownloadCollectionViewController *)self setDownloadEntities:v9];
 
     downloadEntities2 = [(VUIDownloadCollectionViewController *)self downloadEntities];
-    v10 = [downloadEntities2 count];
+    v11 = [downloadEntities2 count];
 
     contentPresenter = [(VUIDownloadCollectionViewController *)self contentPresenter];
     diffableDataSource = contentPresenter;
-    if (v10)
+    if (v11)
     {
       currentContentViewType = [contentPresenter currentContentViewType];
 
@@ -375,11 +376,11 @@ void __47__VUIDownloadCollectionViewController_loadView__block_invoke_3(uint64_t
 
   else
   {
-    v16 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = VUIDefaultLogObject(v6);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 0;
-      _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_DEFAULT, "[VUIDownloadCollectionViewController] Fetching downloads", v17, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_1E323F000, v17, OS_LOG_TYPE_DEFAULT, "[VUIDownloadCollectionViewController] Fetching downloads", v18, 2u);
     }
 
     diffableDataSource = [(VUIDownloadCollectionViewController *)self downloadDataSource];
@@ -531,7 +532,7 @@ void __90__VUIDownloadCollectionViewController_viewWillTransitionToSize_withTran
 
 - (void)collectionView:(id)view didSelectItemAtIndexPath:(id)path
 {
-  v96[1] = *MEMORY[0x1E69E9840];
+  v98[1] = *MEMORY[0x1E69E9840];
   viewCopy = view;
   pathCopy = path;
   if ([(VUIDownloadCollectionViewController *)self isEditing])
@@ -548,45 +549,45 @@ void __90__VUIDownloadCollectionViewController_viewWillTransitionToSize_withTran
     rightBarButtonItem2 = [diffableDataSource itemIdentifierForIndexPath:pathCopy];
 
     identifierToDownloadEntityDictionary = [(VUIDownloadCollectionViewController *)self identifierToDownloadEntityDictionary];
-    v83 = [identifierToDownloadEntityDictionary objectForKey:rightBarButtonItem2];
+    v85 = [identifierToDownloadEntityDictionary objectForKey:rightBarButtonItem2];
 
-    mediaEntities = [v83 mediaEntities];
+    mediaEntities = [v85 mediaEntities];
     firstObject = [mediaEntities firstObject];
 
     if (!firstObject)
     {
-      v24 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v25 = VUIDefaultLogObject(v14);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        [VUIDownloadCollectionViewController collectionView:rightBarButtonItem2 didSelectItemAtIndexPath:v24];
+        [VUIDownloadCollectionViewController collectionView:rightBarButtonItem2 didSelectItemAtIndexPath:v25];
       }
 
       goto LABEL_37;
     }
 
-    if ([v83 downloadType])
+    if ([v85 downloadType])
     {
-      if ([v83 downloadType] == 1 || objc_msgSend(v83, "downloadType") == 2)
+      if ([v85 downloadType] == 1 || objc_msgSend(v85, "downloadType") == 2)
       {
         [VUILibraryMetrics recordClickOnMediaEntity:firstObject];
-        v14 = [[VUIDownloadShowDataSource alloc] initWithMediaEntity:firstObject];
+        v15 = [[VUIDownloadShowDataSource alloc] initWithMediaEntity:firstObject];
         showIdentifier = [firstObject showIdentifier];
-        v16 = [VUIMediaEntityFetchRequest seasonsFetchRequestWithShowIdentifier:showIdentifier];
+        v17 = [VUIMediaEntityFetchRequest seasonsFetchRequestWithShowIdentifier:showIdentifier];
         mediaLibrary = [firstObject mediaLibrary];
-        v18 = [VUIMediaEntitiesDataSourceFactory dataSourceForFetchRequest:v16 withLibrary:mediaLibrary];
+        v19 = [VUIMediaEntitiesDataSourceFactory dataSourceForFetchRequest:v17 withLibrary:mediaLibrary];
 
-        v19 = [[VUIDownloadShowTableViewController alloc] initWithDataSource:v14 seasonsDataSource:v18];
+        v20 = [[VUIDownloadShowTableViewController alloc] initWithDataSource:v15 seasonsDataSource:v19];
         showTitle = [firstObject showTitle];
 
         if (showTitle)
         {
-          navigationItem = [(VUIDownloadShowTableViewController *)v19 navigationItem];
+          navigationItem = [(VUIDownloadShowTableViewController *)v20 navigationItem];
           showTitle2 = [firstObject showTitle];
           [navigationItem setTitle:showTitle2];
         }
 
         navigationController = [(VUIDownloadCollectionViewController *)self navigationController];
-        [navigationController pushViewController:v19 animated:1];
+        [navigationController pushViewController:v20 animated:1];
       }
     }
 
@@ -595,13 +596,13 @@ void __90__VUIDownloadCollectionViewController_viewWillTransitionToSize_withTran
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v82 = firstObject;
-        downloadExpirationDate = [v82 downloadExpirationDate];
-        v81 = downloadExpirationDate;
+        v84 = firstObject;
+        downloadExpirationDate = [v84 downloadExpirationDate];
+        v83 = downloadExpirationDate;
         if (downloadExpirationDate && ![downloadExpirationDate vui_isInTheFuture])
         {
-          availabilityEndDate = [v82 availabilityEndDate];
-          v28 = availabilityEndDate;
+          availabilityEndDate = [v84 availabilityEndDate];
+          v29 = availabilityEndDate;
           if (availabilityEndDate && ![(VUIMediaInfo *)availabilityEndDate vui_isInTheFuture])
           {
             objc_initWeak(&location, self);
@@ -609,151 +610,151 @@ void __90__VUIDownloadCollectionViewController_viewWillTransitionToSize_withTran
             aBlock[1] = 3221225472;
             aBlock[2] = __79__VUIDownloadCollectionViewController_collectionView_didSelectItemAtIndexPath___block_invoke_3;
             aBlock[3] = &unk_1E872E4B8;
-            objc_copyWeak(&v87, &location);
-            v73 = _Block_copy(aBlock);
-            v79 = MEMORY[0x1E696AEC0];
-            v58 = +[VUILocalizationManager sharedInstance];
-            v59 = [v58 localizedStringForKey:@"DOWNLOAD_MESSAGE_NO_LONGER_AVAILABLE"];
-            brandName = [v82 brandName];
-            v75 = [v79 stringWithValidatedFormat:v59 validFormatSpecifiers:@"%@" error:0, brandName];
+            objc_copyWeak(&v89, &location);
+            v75 = _Block_copy(aBlock);
+            v81 = MEMORY[0x1E696AEC0];
+            v60 = +[VUILocalizationManager sharedInstance];
+            v61 = [v60 localizedStringForKey:@"DOWNLOAD_MESSAGE_NO_LONGER_AVAILABLE"];
+            brandName = [v84 brandName];
+            v77 = [v81 stringWithValidatedFormat:v61 validFormatSpecifiers:@"%@" error:0, brandName];
 
-            v61 = MEMORY[0x1E69DC650];
-            v62 = +[VUILocalizationManager sharedInstance];
-            v63 = [v62 localizedStringForKey:@"DOWNLOAD_NO_LONGER_AVAILABLE"];
-            v80 = [v61 alertControllerWithTitle:v63 message:v75 preferredStyle:1];
+            v63 = MEMORY[0x1E69DC650];
+            v64 = +[VUILocalizationManager sharedInstance];
+            v65 = [v64 localizedStringForKey:@"DOWNLOAD_NO_LONGER_AVAILABLE"];
+            v82 = [v63 alertControllerWithTitle:v65 message:v77 preferredStyle:1];
 
-            v64 = MEMORY[0x1E69DC648];
-            v65 = +[VUILocalizationManager sharedInstance];
-            v66 = [v65 localizedStringForKey:@"DELETE"];
-            v84[0] = MEMORY[0x1E69E9820];
-            v84[1] = 3221225472;
-            v84[2] = __79__VUIDownloadCollectionViewController_collectionView_didSelectItemAtIndexPath___block_invoke_4;
-            v84[3] = &unk_1E872E850;
-            v67 = v73;
-            v85 = v67;
-            v68 = [v64 actionWithTitle:v66 style:0 handler:v84];
+            v66 = MEMORY[0x1E69DC648];
+            v67 = +[VUILocalizationManager sharedInstance];
+            v68 = [v67 localizedStringForKey:@"DELETE"];
+            v86[0] = MEMORY[0x1E69E9820];
+            v86[1] = 3221225472;
+            v86[2] = __79__VUIDownloadCollectionViewController_collectionView_didSelectItemAtIndexPath___block_invoke_4;
+            v86[3] = &unk_1E872E850;
+            v69 = v75;
+            v87 = v69;
+            v70 = [v66 actionWithTitle:v68 style:0 handler:v86];
 
-            [v80 addAction:v68];
-            [(VUIDownloadCollectionViewController *)self presentViewController:v80 animated:1 completion:0];
+            [v82 addAction:v70];
+            [(VUIDownloadCollectionViewController *)self presentViewController:v82 animated:1 completion:0];
 
-            objc_destroyWeak(&v87);
+            objc_destroyWeak(&v89);
             objc_destroyWeak(&location);
           }
 
           else if (+[_TtC8VideosUI38VUINetworkReachabilityMonitorObjCProxy isNetworkReachable])
           {
-            allowsManualDownloadRenewal = [v82 allowsManualDownloadRenewal];
-            v31 = +[VUILocalizationManager sharedInstance];
-            v32 = v31;
+            allowsManualDownloadRenewal = [v84 allowsManualDownloadRenewal];
+            v33 = +[VUILocalizationManager sharedInstance];
+            v34 = v33;
             if (allowsManualDownloadRenewal)
             {
-              v33 = @"RENEW_DOWNLOAD";
+              v35 = @"RENEW_DOWNLOAD";
             }
 
             else
             {
-              v33 = @"DOWNLOAD_AGAIN";
+              v35 = @"DOWNLOAD_AGAIN";
             }
 
             if (allowsManualDownloadRenewal)
             {
-              v34 = @"RENEW_DOWNLOAD";
+              v36 = @"RENEW_DOWNLOAD";
             }
 
             else
             {
-              v34 = @"DOWNLOAD_AGAIN_BUTTON_TITLE";
+              v36 = @"DOWNLOAD_AGAIN_BUTTON_TITLE";
             }
 
-            v35 = @"DOWNLOAD_MESSAGE_REDOWNLOAD";
+            v37 = @"DOWNLOAD_MESSAGE_REDOWNLOAD";
             if (allowsManualDownloadRenewal)
             {
-              v35 = @"DOWNLOAD_MESSAGE_RENEW";
+              v37 = @"DOWNLOAD_MESSAGE_RENEW";
             }
 
-            v76 = v35;
-            v72 = [v31 localizedStringForKey:v33];
+            v78 = v37;
+            v74 = [v33 localizedStringForKey:v35];
 
-            v36 = +[VUILocalizationManager sharedInstance];
-            v71 = [v36 localizedStringForKey:v34];
+            v38 = +[VUILocalizationManager sharedInstance];
+            v73 = [v38 localizedStringForKey:v36];
 
-            v69 = MEMORY[0x1E696AEC0];
-            v37 = +[VUILocalizationManager sharedInstance];
-            v38 = [v37 localizedStringForKey:v76];
-            brandName2 = [v82 brandName];
-            v70 = [v69 stringWithValidatedFormat:v38 validFormatSpecifiers:@"%@" error:0, brandName2];
+            v71 = MEMORY[0x1E696AEC0];
+            v39 = +[VUILocalizationManager sharedInstance];
+            v40 = [v39 localizedStringForKey:v78];
+            brandName2 = [v84 brandName];
+            v72 = [v71 stringWithValidatedFormat:v40 validFormatSpecifiers:@"%@" error:0, brandName2];
 
-            v77 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v72 message:v70 preferredStyle:1];
+            v79 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v74 message:v72 preferredStyle:1];
             objc_initWeak(&location, self);
-            v40 = MEMORY[0x1E69DC648];
-            v88[0] = MEMORY[0x1E69E9820];
-            v88[1] = 3221225472;
-            v88[2] = __79__VUIDownloadCollectionViewController_collectionView_didSelectItemAtIndexPath___block_invoke_108;
-            v88[3] = &unk_1E8733A88;
-            objc_copyWeak(&v91, &location);
-            v41 = v82;
-            v92 = allowsManualDownloadRenewal;
-            v89 = v41;
+            v42 = MEMORY[0x1E69DC648];
+            v90[0] = MEMORY[0x1E69E9820];
+            v90[1] = 3221225472;
+            v90[2] = __79__VUIDownloadCollectionViewController_collectionView_didSelectItemAtIndexPath___block_invoke_108;
+            v90[3] = &unk_1E8733A88;
+            objc_copyWeak(&v93, &location);
+            v43 = v84;
+            v94 = allowsManualDownloadRenewal;
+            v91 = v43;
             selfCopy = self;
-            v42 = [v40 actionWithTitle:v71 style:0 handler:v88];
-            [v77 addAction:v42];
-            v43 = MEMORY[0x1E69DC648];
-            v44 = +[VUILocalizationManager sharedInstance];
-            v45 = [v44 localizedStringForKey:@"CANCEL"];
-            v46 = [v43 actionWithTitle:v45 style:1 handler:0];
+            v44 = [v42 actionWithTitle:v73 style:0 handler:v90];
+            [v79 addAction:v44];
+            v45 = MEMORY[0x1E69DC648];
+            v46 = +[VUILocalizationManager sharedInstance];
+            v47 = [v46 localizedStringForKey:@"CANCEL"];
+            v48 = [v45 actionWithTitle:v47 style:1 handler:0];
 
-            [v77 addAction:v46];
-            [(VUIDownloadCollectionViewController *)self presentViewController:v77 animated:1 completion:0];
+            [v79 addAction:v48];
+            [(VUIDownloadCollectionViewController *)self presentViewController:v79 animated:1 completion:0];
 
-            objc_destroyWeak(&v91);
+            objc_destroyWeak(&v93);
             objc_destroyWeak(&location);
           }
 
           else
           {
-            v49 = MEMORY[0x1E69DC650];
-            v78 = +[VUILocalizationManager sharedInstance];
-            v50 = [v78 localizedStringForKey:@"DOWNLOAD_OFFLINE_RENEW"];
-            v51 = +[VUILocalizationManager sharedInstance];
-            v52 = [v51 localizedStringForKey:@"DOWNLOAD_OFFLINE_RENEW_MESSAGE"];
-            v53 = [v49 alertControllerWithTitle:v50 message:v52 preferredStyle:1];
+            v51 = MEMORY[0x1E69DC650];
+            v80 = +[VUILocalizationManager sharedInstance];
+            v52 = [v80 localizedStringForKey:@"DOWNLOAD_OFFLINE_RENEW"];
+            v53 = +[VUILocalizationManager sharedInstance];
+            v54 = [v53 localizedStringForKey:@"DOWNLOAD_OFFLINE_RENEW_MESSAGE"];
+            v55 = [v51 alertControllerWithTitle:v52 message:v54 preferredStyle:1];
 
-            v54 = MEMORY[0x1E69DC648];
-            v55 = +[VUILocalizationManager sharedInstance];
-            v56 = [v55 localizedStringForKey:@"OK"];
-            v57 = [v54 actionWithTitle:v56 style:1 handler:0];
+            v56 = MEMORY[0x1E69DC648];
+            v57 = +[VUILocalizationManager sharedInstance];
+            v58 = [v57 localizedStringForKey:@"OK"];
+            v59 = [v56 actionWithTitle:v58 style:1 handler:0];
 
-            [v53 addAction:v57];
-            [(VUIDownloadCollectionViewController *)self presentViewController:v53 animated:1 completion:0];
+            [v55 addAction:v59];
+            [(VUIDownloadCollectionViewController *)self presentViewController:v55 animated:1 completion:0];
           }
         }
 
         else
         {
-          v26 = [VUIMediaInfo alloc];
-          v96[0] = v82;
-          v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v96 count:1];
-          v28 = [(VUIMediaInfo *)v26 initWithPlaybackContext:3 vuiMediaItems:v27];
+          v27 = [VUIMediaInfo alloc];
+          v98[0] = v84;
+          v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v98 count:1];
+          v29 = [(VUIMediaInfo *)v27 initWithPlaybackContext:3 vuiMediaItems:v28];
 
-          [(VUIMediaInfo *)v28 setIntent:1];
-          [(VUIMediaInfo *)v28 setAutomaticPlaybackStart:0];
-          if (v28)
+          [(VUIMediaInfo *)v29 setIntent:1];
+          v30 = [(VUIMediaInfo *)v29 setAutomaticPlaybackStart:0];
+          if (v29)
           {
-            v94[0] = MEMORY[0x1E69E9820];
-            v94[1] = 3221225472;
-            v94[2] = __79__VUIDownloadCollectionViewController_collectionView_didSelectItemAtIndexPath___block_invoke;
-            v94[3] = &unk_1E872D768;
-            v95 = v82;
-            [VUIActionPlay playMediaInfo:v28 watchType:0 isRentAndWatchNow:0 completion:v94];
-            v29 = v95;
+            v96[0] = MEMORY[0x1E69E9820];
+            v96[1] = 3221225472;
+            v96[2] = __79__VUIDownloadCollectionViewController_collectionView_didSelectItemAtIndexPath___block_invoke;
+            v96[3] = &unk_1E872D768;
+            v97 = v84;
+            [VUIActionPlay playMediaInfo:v29 watchType:0 isRentAndWatchNow:0 completion:v96];
+            v31 = v97;
           }
 
           else
           {
-            v29 = VUIDefaultLogObject();
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+            v31 = VUIDefaultLogObject(v30);
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
             {
-              [VUIDownloadShowTableViewController tableView:v82 didSelectRowAtIndexPath:v29];
+              [VUIDownloadShowTableViewController tableView:v84 didSelectRowAtIndexPath:v31];
             }
           }
         }
@@ -869,7 +870,7 @@ void __79__VUIDownloadCollectionViewController_collectionView_didSelectItemAtInd
 
 - (CGSize)collectionView:(id)view layout:(id)layout sizeForItemAtIndexPath:(id)path
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   sizingCell = [(VUIDownloadCollectionViewController *)self sizingCell];
 
@@ -900,26 +901,26 @@ void __79__VUIDownloadCollectionViewController_collectionView_didSelectItemAtInd
 
   if (v17 <= 0.0 || v19 <= 0.0)
   {
-    v20 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = VUIDefaultLogObject(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       cellWidth = self->_cellWidth;
-      v24 = 134218754;
-      v25 = v17;
-      v26 = 2048;
-      v27 = v19;
-      v28 = 2048;
-      v29 = cellWidth;
-      v30 = 2112;
-      v31 = v12;
-      _os_log_error_impl(&dword_1E323F000, v20, OS_LOG_TYPE_ERROR, "[VUIDownloadCollectionViewController] Incorrect sizing for item width:%f height:%f cellWidth:%f forEntity:%@", &v24, 0x2Au);
+      v25 = 134218754;
+      v26 = v17;
+      v27 = 2048;
+      v28 = v19;
+      v29 = 2048;
+      v30 = cellWidth;
+      v31 = 2112;
+      v32 = v12;
+      _os_log_error_impl(&dword_1E323F000, v21, OS_LOG_TYPE_ERROR, "[VUIDownloadCollectionViewController] Incorrect sizing for item width:%f height:%f cellWidth:%f forEntity:%@", &v25, 0x2Au);
     }
   }
 
-  v21 = v17;
-  v22 = v19;
-  result.height = v22;
-  result.width = v21;
+  v22 = v17;
+  v23 = v19;
+  result.height = v23;
+  result.width = v22;
   return result;
 }
 
@@ -939,7 +940,7 @@ void __79__VUIDownloadCollectionViewController_collectionView_didSelectItemAtInd
 
 - (void)downloadManager:(id)manager downloadedFetchDidFinishWithEntities:(id)entities
 {
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v16 = 0;
@@ -979,7 +980,7 @@ void __79__VUIDownloadCollectionViewController_collectionView_didSelectItemAtInd
 
 - (void)downloadManager:(id)manager downloadsDidChange:(id)change
 {
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v14 = 0;

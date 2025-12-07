@@ -24,7 +24,7 @@
 
 - (WFSettingsIPV4)initWithDictionary:(id)dictionary
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   if (!dictionaryCopy)
   {
@@ -36,8 +36,8 @@
   v6 = [(NSDictionary *)self->_items objectForKey:*MEMORY[0x277CE1730]];
   if (!v6)
   {
-    [(WFSettingsIPV4 *)&v21 initWithDictionary:buf];
-    v19 = v21;
+    [(WFSettingsIPV4 *)&v22 initWithDictionary:buf];
+    v18 = v22;
     v7 = *buf;
 LABEL_16:
 
@@ -61,13 +61,14 @@ LABEL_17:
       goto LABEL_6;
     }
 
-    v19 = WFLogForCategory(0);
-    v20 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v19 && os_log_type_enabled(v19, v20))
+    v18 = WFLogForCategory(0);
+    v19 = OSLogForWFLogLevel(1uLL);
+    v20 = v19;
+    if (WFCurrentLogLevel(v19, v21) && v18 && os_log_type_enabled(v18, v20))
     {
       *buf = 138543362;
       *&buf[4] = v7;
-      _os_log_impl(&dword_273ECD000, v19, v20, "Unsupported IPv4 config method %{public}@", buf, 0xCu);
+      _os_log_impl(&dword_273ECD000, v18, v20, "Unsupported IPv4 config method %{public}@", buf, 0xCu);
     }
 
     goto LABEL_16;
@@ -93,7 +94,6 @@ LABEL_6:
   self->_dhcpClientID = v15;
 
 LABEL_7:
-  v17 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -171,14 +171,14 @@ LABEL_7:
 
 - (WFSettingsIPV4)initWithMethod:(int64_t)method addresses:(id)addresses subnetMasks:(id)masks router:(id)router dhcpClientID:(id)d
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   addressesCopy = addresses;
   masksCopy = masks;
   routerCopy = router;
   dCopy = d;
-  v28.receiver = self;
-  v28.super_class = WFSettingsIPV4;
-  v15 = [(WFSettingsIPV4 *)&v28 init];
+  v29.receiver = self;
+  v29.super_class = WFSettingsIPV4;
+  v15 = [(WFSettingsIPV4 *)&v29 init];
   if (v15)
   {
     v16 = MEMORY[0x277CE1810];
@@ -198,12 +198,12 @@ LABEL_7:
       case 5:
         v16 = MEMORY[0x277CE1808];
 LABEL_14:
-        v20 = *v16;
-        if (v20)
+        v22 = *v16;
+        if (v22)
         {
           v15->_method = method;
           dictionary = [MEMORY[0x277CBEB38] dictionary];
-          [dictionary setObject:v20 forKey:*MEMORY[0x277CE1730]];
+          [dictionary setObject:v22 forKey:*MEMORY[0x277CE1730]];
           if (addressesCopy)
           {
             objc_storeStrong(&v15->_addresses, addresses);
@@ -228,14 +228,14 @@ LABEL_14:
             [dictionary setObject:dCopy forKey:*MEMORY[0x277CE1738]];
           }
 
-          v19 = dictionary;
+          v21 = dictionary;
           items = v15->_items;
-          v15->_items = v19;
+          v15->_items = v21;
         }
 
         else
         {
-          v19 = 0;
+          v21 = 0;
 LABEL_9:
           items = v15;
           v15 = 0;
@@ -248,40 +248,41 @@ LABEL_9:
 LABEL_3:
           v17 = WFLogForCategory(0);
           v18 = OSLogForWFLogLevel(1uLL);
-          if (WFCurrentLogLevel() && v17 && os_log_type_enabled(v17, v18))
+          v19 = v18;
+          if (WFCurrentLogLevel(v18, v20) && v17 && os_log_type_enabled(v17, v19))
           {
             *buf = 134217984;
             methodCopy = method;
-            _os_log_impl(&dword_273ECD000, v17, v18, "Unsupported WFIPv4ConfigMethod used %lu", buf, 0xCu);
+            _os_log_impl(&dword_273ECD000, v17, v19, "Unsupported WFIPv4ConfigMethod used %lu", buf, 0xCu);
           }
         }
 
-        v19 = 0;
-        v20 = 0;
+        v21 = 0;
+        v22 = 0;
         goto LABEL_9;
     }
   }
 
   else
   {
-    v19 = 0;
-    v20 = 0;
+    v21 = 0;
+    v22 = 0;
     items = 0;
   }
 
-  v23 = v15;
-  v24 = *MEMORY[0x277D85DE8];
-  return v23;
+  v25 = v15;
+  return v25;
 }
 
 - (void)initWithDictionary:(NSObject *)a1 .cold.1(NSObject **a1, void *a2)
 {
   v4 = WFLogForCategory(0);
   v5 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v4 && os_log_type_enabled(v4, v5))
+  v6 = v5;
+  if (WFCurrentLogLevel(v5, v7) && v4 && os_log_type_enabled(v4, v6))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_273ECD000, v4, v5, "Missing kSCPropNetIPv4ConfigMethod in dictionary.", v6, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_273ECD000, v4, v6, "Missing kSCPropNetIPv4ConfigMethod in dictionary.", v8, 2u);
   }
 
   *a2 = 0;

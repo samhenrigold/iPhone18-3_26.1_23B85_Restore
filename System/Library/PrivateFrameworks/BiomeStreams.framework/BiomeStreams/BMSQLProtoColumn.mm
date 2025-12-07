@@ -1,9 +1,51 @@
 @interface BMSQLProtoColumn
+- (BMSQLProtoColumn)initWithName:(id)name dataType:(int64_t)type requestOnly:(BOOL)only fieldNumber:(int64_t)number protoDataType:(int64_t)dataType convertedType:(int64_t)convertedType;
+- (BMSQLProtoColumn)initWithName:(id)name dataType:(int64_t)type requestOnly:(BOOL)only fieldPath:(id)path protoDataType:(int64_t)dataType convertedType:(int64_t)convertedType;
 - (BOOL)setSQLiteValueFromRow:(id)row sqliteContext:(sqlite3_context *)context error:(id *)error;
 - (id)description;
 @end
 
 @implementation BMSQLProtoColumn
+
+- (BMSQLProtoColumn)initWithName:(id)name dataType:(int64_t)type requestOnly:(BOOL)only fieldNumber:(int64_t)number protoDataType:(int64_t)dataType convertedType:(int64_t)convertedType
+{
+  onlyCopy = only;
+  v20[1] = *MEMORY[0x1E69E9840];
+  v14 = MEMORY[0x1E696AD98];
+  nameCopy = name;
+  v16 = [v14 numberWithInteger:number];
+  v20[0] = v16;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+  v18 = [(BMSQLProtoColumn *)self initWithName:nameCopy dataType:type requestOnly:onlyCopy fieldPath:v17 protoDataType:dataType convertedType:convertedType];
+
+  return v18;
+}
+
+- (BMSQLProtoColumn)initWithName:(id)name dataType:(int64_t)type requestOnly:(BOOL)only fieldPath:(id)path protoDataType:(int64_t)dataType convertedType:(int64_t)convertedType
+{
+  onlyCopy = only;
+  pathCopy = path;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __92__BMSQLProtoColumn_initWithName_dataType_requestOnly_fieldPath_protoDataType_convertedType___block_invoke;
+  v21[3] = &unk_1E6E53458;
+  v16 = pathCopy;
+  v22 = v16;
+  dataTypeCopy = dataType;
+  convertedTypeCopy = convertedType;
+  v20.receiver = self;
+  v20.super_class = BMSQLProtoColumn;
+  v17 = [(BMSQLColumn *)&v20 initWithName:name dataType:type requestOnly:onlyCopy extractBlock:v21];
+  v18 = v17;
+  if (v17)
+  {
+    objc_storeStrong(&v17->_fieldPath, path);
+    v18->_protoDataType = dataType;
+    v18->_convertedType = convertedType;
+  }
+
+  return v18;
+}
 
 id __92__BMSQLProtoColumn_initWithName_dataType_requestOnly_fieldPath_protoDataType_convertedType___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {

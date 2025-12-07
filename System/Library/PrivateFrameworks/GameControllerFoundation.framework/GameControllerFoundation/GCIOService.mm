@@ -1,92 +1,124 @@
 @interface GCIOService
 + (id)addMatchingNotification:(id)notification type:(const char *)type matching:(id)matching handler:(id)handler;
+- (GCIOService)initWithPort:(unsigned int)port error:(id *)p_isa;
 - (IOCFPlugInInterfaceStruct)createCFPlugInInterface:(__CFUUID *)interface score:(int *)score error:(id *)error;
 - (id)addInterestNotification:(id)notification type:(const char *)type handler:(id)handler;
 @end
 
 @implementation GCIOService
 
-+ (id)addMatchingNotification:(id)notification type:(const char *)type matching:(id)matching handler:(id)handler
+- (GCIOService)initWithPort:(unsigned int)port error:(id *)p_isa
 {
-  v45 = *MEMORY[0x1E69E9840];
-  notificationCopy = notification;
-  matchingCopy = matching;
-  handlerCopy = handler;
-  notification = 0;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = __Block_byref_object_copy__5;
-  v41 = __Block_byref_object_dispose__5;
-  v42 = 0;
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __61__GCIOService_addMatchingNotification_type_matching_handler___block_invoke;
-  v34[3] = &unk_1E8414828;
-  v36 = &v37;
-  v12 = handlerCopy;
-  v35 = v12;
-  v13 = [v34 copy];
-  v14 = notificationCopy;
-  port = [notificationCopy port];
-  v16 = matchingCopy;
-  v17 = IOServiceAddMatchingNotification(port, type, v16, __IOServiceMatchingCallback, v13, &notification);
-  if (v17)
+  v5 = *&port;
+  v14[1] = *MEMORY[0x1E69E9840];
+  v7 = objc_opt_class();
+  if ([v7 isEqual:objc_opt_class()] && !IOObjectConformsTo(v5, "IOService"))
   {
-    v20 = _gc_log_iokit();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    if (p_isa)
     {
-      [GCIOService addMatchingNotification:type type:v17 matching:v20 handler:?];
-    }
+      v9 = MEMORY[0x1E696ABC0];
+      v10 = *MEMORY[0x1E696A5A0];
+      v13 = *MEMORY[0x1E696A588];
+      v14[0] = @"Port does not reference an IOService.";
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      *p_isa = [v9 errorWithDomain:v10 code:4 userInfo:v11];
 
-    v24 = 0;
+      p_isa = 0;
+    }
   }
 
   else
   {
-    v18 = [GCIOIterator alloc];
-    v33 = 0;
-    v19 = [(GCIOIterator *)v18 initWithPort:notification objectClass:objc_opt_class() error:&v33];
-    v20 = v33;
-    v21 = v38[5];
-    v38[5] = v19;
+    v12.receiver = self;
+    v12.super_class = GCIOService;
+    self = [(GCIORegistryEntry *)&v12 initWithPort:v5 error:p_isa];
+    p_isa = &self->super.super.super.isa;
+  }
 
-    if (v38[5])
+  return p_isa;
+}
+
++ (id)addMatchingNotification:(id)notification type:(const char *)type matching:(id)matching handler:(id)handler
+{
+  v46 = *MEMORY[0x1E69E9840];
+  notificationCopy = notification;
+  matchingCopy = matching;
+  handlerCopy = handler;
+  notification = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__5;
+  v42 = __Block_byref_object_dispose__5;
+  v43 = 0;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __61__GCIOService_addMatchingNotification_type_matching_handler___block_invoke;
+  v35[3] = &unk_1E8414828;
+  v37 = &v38;
+  v12 = handlerCopy;
+  v36 = v12;
+  v13 = [v35 copy];
+  v14 = notificationCopy;
+  port = [notificationCopy port];
+  v16 = matchingCopy;
+  v17 = IOServiceAddMatchingNotification(port, type, v16, __IOServiceMatchingCallback, v13, &notification);
+  v18 = v17;
+  if (v17)
+  {
+    v21 = _gc_log_iokit(v17);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      [GCIOService addMatchingNotification:type type:v18 matching:v21 handler:?];
+    }
+
+    v26 = 0;
+  }
+
+  else
+  {
+    v19 = [GCIOIterator alloc];
+    v34 = 0;
+    v20 = [(GCIOIterator *)v19 initWithPort:notification objectClass:objc_opt_class() error:&v34];
+    v21 = v34;
+    v22 = v39[5];
+    v39[5] = v20;
+
+    if (v39[5])
     {
       IOObjectRelease(notification);
       queue = [notificationCopy queue];
       dispatch_async(queue, v13);
 
-      v23 = [GCDisposable alloc];
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = __61__GCIOService_addMatchingNotification_type_matching_handler___block_invoke_7;
-      v29[3] = &unk_1E8414878;
-      v32 = &v37;
-      v30 = notificationCopy;
-      v31 = v13;
-      v24 = [(GCDisposable *)v23 initWithCleanupHandler:v29];
+      v25 = [GCDisposable alloc];
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 3221225472;
+      v30[2] = __61__GCIOService_addMatchingNotification_type_matching_handler___block_invoke_7;
+      v30[3] = &unk_1E8414878;
+      v33 = &v38;
+      v31 = notificationCopy;
+      v32 = v13;
+      v26 = [(GCDisposable *)v25 initWithCleanupHandler:v30];
 
-      v25 = v30;
+      v27 = v31;
     }
 
     else
     {
-      v25 = _gc_log_iokit();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v27 = _gc_log_iokit(v23);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        localizedFailureReason = [v20 localizedFailureReason];
-        [GCIOService addMatchingNotification:type type:localizedFailureReason matching:buf handler:v25];
+        localizedFailureReason = [v21 localizedFailureReason];
+        [GCIOService addMatchingNotification:type type:localizedFailureReason matching:buf handler:v27];
       }
 
-      v24 = 0;
+      v26 = 0;
     }
   }
 
-  _Block_object_dispose(&v37, 8);
-  v26 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v38, 8);
 
-  return v24;
+  return v26;
 }
 
 uint64_t __61__GCIOService_addMatchingNotification_type_matching_handler___block_invoke(uint64_t result)
@@ -116,7 +148,7 @@ void __61__GCIOService_addMatchingNotification_type_matching_handler___block_inv
 
 - (id)addInterestNotification:(id)notification type:(const char *)type handler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   notification = 0;
   v9 = [handler copy];
@@ -125,16 +157,16 @@ void __61__GCIOService_addMatchingNotification_type_matching_handler___block_inv
   v12 = IOServiceAddInterestNotification(port, port2, type, __IOServiceNotificationCallback, v9, &notification);
   if (v12)
   {
-    v18 = v12;
-    v15 = _gc_log_iokit();
+    v17 = v12;
+    v15 = _gc_log_iokit(v12);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
       selfCopy = self;
-      v26 = 2082;
+      v25 = 2082;
       typeCopy = type;
-      v28 = 1024;
-      v29 = v18;
+      v27 = 1024;
+      v28 = v17;
       _os_log_error_impl(&dword_1D2C3B000, v15, OS_LOG_TYPE_ERROR, "%@ Error registering interest notification for '%{public}s': %{mach.errno}d", buf, 0x1Cu);
     }
 
@@ -144,19 +176,17 @@ void __61__GCIOService_addMatchingNotification_type_matching_handler___block_inv
   else
   {
     v13 = [GCDisposable alloc];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __52__GCIOService_addInterestNotification_type_handler___block_invoke;
-    v19[3] = &unk_1E84148A0;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __52__GCIOService_addInterestNotification_type_handler___block_invoke;
+    v18[3] = &unk_1E84148A0;
     notificationCopy2 = notification;
-    v20 = notificationCopy;
-    v21 = v9;
-    v14 = [(GCDisposable *)v13 initWithCleanupHandler:v19];
+    v19 = notificationCopy;
+    v20 = v9;
+    v14 = [(GCDisposable *)v13 initWithCleanupHandler:v18];
 
-    v15 = v20;
+    v15 = v19;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -175,7 +205,7 @@ void __52__GCIOService_addInterestNotification_type_handler___block_invoke(uint6
 
 - (IOCFPlugInInterfaceStruct)createCFPlugInInterface:(__CFUUID *)interface score:(int *)score error:(id *)error
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   theScore = 0;
   theInterface = 0;
   port = [(GCIOObject *)self port];
@@ -185,16 +215,16 @@ void __52__GCIOService_addInterestNotification_type_handler___block_invoke(uint6
   {
     if (error)
     {
-      v13 = MEMORY[0x1E696ABC0];
-      v14 = *MEMORY[0x1E696A5A0];
-      v15 = v10;
-      v19 = *MEMORY[0x1E696A580];
-      v20[0] = @"CFPlugIn instantiation failed.";
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
-      *error = [v13 errorWithDomain:v14 code:v15 userInfo:v16];
+      v12 = MEMORY[0x1E696ABC0];
+      v13 = *MEMORY[0x1E696A5A0];
+      v14 = v10;
+      v18 = *MEMORY[0x1E696A580];
+      v19[0] = @"CFPlugIn instantiation failed.";
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+      *error = [v12 errorWithDomain:v13 code:v14 userInfo:v15];
     }
 
-    result = 0;
+    return 0;
   }
 
   else
@@ -204,22 +234,18 @@ void __52__GCIOService_addInterestNotification_type_handler___block_invoke(uint6
       *score = theScore;
     }
 
-    result = theInterface;
+    return theInterface;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 + (void)addMatchingNotification:(os_log_t)log type:matching:handler:.cold.1(uint64_t a1, int a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 136446466;
-  v5 = a1;
-  v6 = 1024;
-  v7 = a2;
-  _os_log_error_impl(&dword_1D2C3B000, log, OS_LOG_TYPE_ERROR, "<IOService> Error registering matching notification for '%{public}s': %{mach.errno}d", &v4, 0x12u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 136446466;
+  v4 = a1;
+  v5 = 1024;
+  v6 = a2;
+  _os_log_error_impl(&dword_1D2C3B000, log, OS_LOG_TYPE_ERROR, "<IOService> Error registering matching notification for '%{public}s': %{mach.errno}d", &v3, 0x12u);
 }
 
 + (void)addMatchingNotification:(uint64_t)a1 type:(void *)a2 matching:(uint8_t *)buf handler:(os_log_t)log .cold.2(uint64_t a1, void *a2, uint8_t *buf, os_log_t log)

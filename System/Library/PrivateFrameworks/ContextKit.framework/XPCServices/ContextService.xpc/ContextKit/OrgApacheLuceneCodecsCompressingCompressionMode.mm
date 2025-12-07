@@ -12,7 +12,7 @@
     JreStrongAssignAndConsume(&OrgApacheLuceneCodecsCompressingCompressionMode_HIGH_COMPRESSION_, [OrgApacheLuceneCodecsCompressingCompressionMode__2 alloc]);
     JreStrongAssignAndConsume(&OrgApacheLuceneCodecsCompressingCompressionMode_FAST_DECOMPRESSION_, [OrgApacheLuceneCodecsCompressingCompressionMode__3 alloc]);
     v2 = [OrgApacheLuceneCodecsCompressingCompressionMode__4 alloc];
-    OrgApacheLuceneCodecsCompressingDecompressor_init(v2, v3);
+    OrgApacheLuceneCodecsCompressingDecompressor_init();
     JreStrongAssignAndConsume(&qword_100554290, v2);
     atomic_store(1u, OrgApacheLuceneCodecsCompressingCompressionMode__initialized);
   }

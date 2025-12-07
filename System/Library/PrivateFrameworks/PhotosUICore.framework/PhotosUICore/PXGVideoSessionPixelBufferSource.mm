@@ -26,7 +26,7 @@
   if (videoSession)
   {
     v6 = videoSession;
-    [videoSession preferredTransform];
+    objc_msgSend_preferredTransform(videoSession);
     videoSession = v6;
   }
 

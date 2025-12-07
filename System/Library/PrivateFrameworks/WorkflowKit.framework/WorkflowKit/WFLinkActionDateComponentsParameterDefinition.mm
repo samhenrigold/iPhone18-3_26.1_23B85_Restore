@@ -85,7 +85,7 @@
 
 - (id)parameterStateFromLinkValue:(id)value
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   value = [value value];
   if (!value)
   {
@@ -103,12 +103,12 @@ LABEL_16:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       valueType2 = [(WFLinkActionParameterDefinition *)self valueType];
-      v29 = 136315650;
-      v30 = "[WFLinkActionDateComponentsParameterDefinition parameterStateFromLinkValue:]";
-      v31 = 2114;
-      v32 = value;
-      v33 = 2114;
-      v34 = valueType2;
+      v28 = 136315650;
+      v29 = "[WFLinkActionDateComponentsParameterDefinition parameterStateFromLinkValue:]";
+      v30 = 2114;
+      v31 = value;
+      v32 = 2114;
+      v33 = valueType2;
     }
 
     goto LABEL_16;
@@ -172,7 +172,6 @@ LABEL_16:
   v20 = [(WFVariableStringParameterState *)[WFDateFieldParameterState alloc] initWithVariableString:v26];
 
 LABEL_19:
-  v27 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -206,7 +205,7 @@ LABEL_19:
 
 - (id)dateComponentsFromStringValue:(id)value error:(id *)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   v7 = [MEMORY[0x1E6996DC0] datesInString:valueCopy error:error];
   firstObject = [v7 firstObject];
@@ -224,26 +223,26 @@ LABEL_19:
     if (v11)
     {
       v12 = *error;
-      v18 = 136315650;
-      v19 = "[WFLinkActionDateComponentsParameterDefinition dateComponentsFromStringValue:error:]";
-      v20 = 2112;
-      v21 = valueCopy;
-      v22 = 2112;
-      v23 = v12;
+      v17 = 136315650;
+      v18 = "[WFLinkActionDateComponentsParameterDefinition dateComponentsFromStringValue:error:]";
+      v19 = 2112;
+      v20 = valueCopy;
+      v21 = 2112;
+      v22 = v12;
       v13 = "%s Unable to detect dates from parameter string value: %@ with error: %@";
       v14 = v10;
       v15 = 32;
 LABEL_8:
-      _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_ERROR, v13, &v18, v15);
+      _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_ERROR, v13, &v17, v15);
     }
   }
 
   else if (v11)
   {
-    v18 = 136315394;
-    v19 = "[WFLinkActionDateComponentsParameterDefinition dateComponentsFromStringValue:error:]";
-    v20 = 2112;
-    v21 = valueCopy;
+    v17 = 136315394;
+    v18 = "[WFLinkActionDateComponentsParameterDefinition dateComponentsFromStringValue:error:]";
+    v19 = 2112;
+    v20 = valueCopy;
     v13 = "%s Unable to detect dates from parameter string value: %@";
     v14 = v10;
     v15 = 22;
@@ -252,8 +251,6 @@ LABEL_8:
 
   v9 = 0;
 LABEL_10:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

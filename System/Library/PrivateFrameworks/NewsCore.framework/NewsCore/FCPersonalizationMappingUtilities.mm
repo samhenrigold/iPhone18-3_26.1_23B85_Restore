@@ -6,25 +6,23 @@
 
 + (id)scoredTagsDictionaryFromScoredTags:(id)tags
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   tagsCopy = tags;
   if (!tagsCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "scoredTagIDs"];
+    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "scoredTagIDs"];
     *buf = 136315906;
-    v9 = "+[FCPersonalizationMappingUtilities scoredTagsDictionaryFromScoredTags:]";
-    v10 = 2080;
-    v11 = "FCPersonalizationMappingUtilities.m";
-    v12 = 1024;
-    v13 = 17;
-    v14 = 2114;
-    v15 = v7;
+    v8 = "+[FCPersonalizationMappingUtilities scoredTagsDictionaryFromScoredTags:]";
+    v9 = 2080;
+    v10 = "FCPersonalizationMappingUtilities.m";
+    v11 = 1024;
+    v12 = 17;
+    v13 = 2114;
+    v14 = v6;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v4 = [MEMORY[0x1E695DF20] fc_dictionaryFromArray:tagsCopy keyBlock:&__block_literal_global_130 valueBlock:&__block_literal_global_7_1];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

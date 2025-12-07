@@ -46,7 +46,7 @@
 
 + (id)descriptionForAddViews:(id)views
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   viewsCopy = views;
   v4 = objc_alloc(MEMORY[0x277CCAB68]);
   v5 = objc_opt_class();
@@ -78,79 +78,75 @@
     [v8 appendFormat:@"patternType=%@\n", patternType2];
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   views = [viewsCopy views];
-  v16 = [views countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v16 = [views countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v24;
+    v18 = *v23;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v24 != v18)
+        if (*v23 != v18)
         {
           objc_enumerationMutation(views);
         }
 
-        v20 = [SRUIFUtilities descriptionForAceView:*(*(&v23 + 1) + 8 * i)];
+        v20 = [SRUIFUtilities descriptionForAceView:*(*(&v22 + 1) + 8 * i)];
         [v8 appendFormat:@"%@\n", v20];
       }
 
-      v17 = [views countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v17 = [views countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v17);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (id)descriptionForAddDialogs:(id)dialogs
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dialogsCopy = dialogs;
   v4 = objc_alloc(MEMORY[0x277CCAB68]);
   v5 = objc_opt_class();
   aceId = [dialogsCopy aceId];
   v7 = [v4 initWithFormat:@"<%@: %@>\n", v5, aceId];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   dialogs = [dialogsCopy dialogs];
-  v9 = [dialogs countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [dialogs countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(dialogs);
         }
 
-        v13 = [SRUIFUtilities descriptionForDialog:*(*(&v16 + 1) + 8 * i)];
+        v13 = [SRUIFUtilities descriptionForDialog:*(*(&v15 + 1) + 8 * i)];
         [v7 appendFormat:@"%@\n", v13];
       }
 
-      v10 = [dialogs countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [dialogs countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -529,7 +525,7 @@
 
 + (BOOL)shouldRedactSpeakableTextForAceObject:(id)object
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()))
@@ -542,26 +538,26 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v13 = 0u;
-      v14 = 0u;
-      v11 = 0u;
       v12 = 0u;
+      v13 = 0u;
+      v10 = 0u;
+      v11 = 0u;
       views = [objectCopy views];
-      v7 = [views countByEnumeratingWithState:&v11 objects:v15 count:16];
-      if (v7)
+      v6 = [views countByEnumeratingWithState:&v10 objects:v14 count:16];
+      if (v6)
       {
-        v8 = v7;
-        v9 = *v12;
+        v7 = v6;
+        v8 = *v11;
         while (2)
         {
-          for (i = 0; i != v8; ++i)
+          for (i = 0; i != v7; ++i)
           {
-            if (*v12 != v9)
+            if (*v11 != v8)
             {
               objc_enumerationMutation(views);
             }
 
-            if (![*(*(&v11 + 1) + 8 * i) canUseServerTTS])
+            if (![*(*(&v10 + 1) + 8 * i) canUseServerTTS])
             {
 
               LOBYTE(views) = 1;
@@ -569,8 +565,8 @@
             }
           }
 
-          v8 = [views countByEnumeratingWithState:&v11 objects:v15 count:16];
-          if (v8)
+          v7 = [views countByEnumeratingWithState:&v10 objects:v14 count:16];
+          if (v7)
           {
             continue;
           }
@@ -585,7 +581,6 @@
 
 LABEL_5:
 
-  v5 = *MEMORY[0x277D85DE8];
   return views;
 }
 
@@ -604,13 +599,12 @@ LABEL_5:
 
 + (void)parsedUtteranceFromText:(uint64_t)a1 context:(NSObject *)a2 spekableObjectProviding:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "+[SRUIFUtilities parsedUtteranceFromText:context:spekableObjectProviding:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_26951F000, a2, OS_LOG_TYPE_ERROR, "%s utterance parsing failed with error %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "+[SRUIFUtilities parsedUtteranceFromText:context:spekableObjectProviding:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_26951F000, a2, OS_LOG_TYPE_ERROR, "%s utterance parsing failed with error %@", &v2, 0x16u);
 }
 
 @end

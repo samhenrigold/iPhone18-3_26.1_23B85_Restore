@@ -284,7 +284,7 @@ LABEL_10:
 
 void __37__PBCoercionRegistry_defaultRegistry__block_invoke_9(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v5 = a4;
   v6 = a3;
   v7 = [v6 baseURL];
@@ -292,19 +292,19 @@ void __37__PBCoercionRegistry_defaultRegistry__block_invoke_9(uint64_t a1, uint6
   {
     v8 = [v6 relativeString];
 
-    v14[0] = v8;
+    v13[0] = v8;
     v9 = [v7 absoluteString];
-    v14[1] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v13[1] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   }
 
   else
   {
     v8 = [v6 absoluteString];
 
-    v13[0] = v8;
-    v13[1] = &stru_286FD7D38;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+    v12[0] = v8;
+    v12[1] = &stru_286FD7D38;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   }
 
   v11 = [MEMORY[0x277CCAC58] dataWithPropertyList:v10 format:200 options:0 error:0];
@@ -312,8 +312,6 @@ void __37__PBCoercionRegistry_defaultRegistry__block_invoke_9(uint64_t a1, uint6
   {
     (*(v5 + 2))(v5, v11, 0, 0);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 id __37__PBCoercionRegistry_defaultRegistry__block_invoke_10(uint64_t a1, objc_class *a2, void *a3, void *a4, void *a5, void *a6)
@@ -482,28 +480,28 @@ id __37__PBCoercionRegistry_defaultRegistry__block_invoke_10(uint64_t a1, objc_c
 
 - (id)_member_availableDirectRepresentationTypesForClass:(Class)class
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   orderedSet = [MEMORY[0x277CBEB40] orderedSet];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   member_exporterByClass = [(PBCoercionRegistry *)self member_exporterByClass];
-  v7 = [member_exporterByClass countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [member_exporterByClass countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(member_exporterByClass);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         if ([(objc_class *)class isSubclassOfClass:NSClassFromString(v11)])
         {
           member_exporterByClass2 = [(PBCoercionRegistry *)self member_exporterByClass];
@@ -517,15 +515,13 @@ id __37__PBCoercionRegistry_defaultRegistry__block_invoke_10(uint64_t a1, objc_c
         }
       }
 
-      v8 = [member_exporterByClass countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [member_exporterByClass countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
 
   array = [orderedSet array];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -621,108 +617,106 @@ uint64_t __118__PBCoercionRegistry__member_registerCoercionFromRepresentationCon
 
 void __59__PBCoercionRegistry_availableRepresentationTypesForClass___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) _member_availableDirectRepresentationTypesForClass:*(a1 + 48)];
   [v2 addObjectsFromArray:v3];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   obj = [*(a1 + 40) member_classCoercionByClass];
-  v4 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v4 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v26;
+    v6 = *v25;
     do
     {
       v7 = 0;
-      v19 = v5;
+      v18 = v5;
       do
       {
-        if (*v26 != v6)
+        if (*v25 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v25 + 1) + 8 * v7);
+        v8 = *(*(&v24 + 1) + 8 * v7);
         if ([*(a1 + 48) isSubclassOfClass:NSClassFromString(v8)])
         {
           v9 = [*(a1 + 40) member_classCoercionByClass];
           v10 = [v9 objectForKeyedSubscript:v8];
 
           v11 = [v10 availableClasses];
+          v20 = 0u;
           v21 = 0u;
           v22 = 0u;
           v23 = 0u;
-          v24 = 0u;
-          v12 = [v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
+          v12 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
           if (v12)
           {
             v13 = v12;
-            v14 = *v22;
+            v14 = *v21;
             do
             {
               for (i = 0; i != v13; ++i)
               {
-                if (*v22 != v14)
+                if (*v21 != v14)
                 {
                   objc_enumerationMutation(v11);
                 }
 
                 v16 = *(a1 + 32);
-                v17 = [*(a1 + 40) _member_availableDirectRepresentationTypesForClass:NSClassFromString(*(*(&v21 + 1) + 8 * i))];
+                v17 = [*(a1 + 40) _member_availableDirectRepresentationTypesForClass:NSClassFromString(*(*(&v20 + 1) + 8 * i))];
                 [v16 addObjectsFromArray:v17];
               }
 
-              v13 = [v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
+              v13 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
             }
 
             while (v13);
           }
 
-          v5 = v19;
+          v5 = v18;
         }
 
         ++v7;
       }
 
       while (v7 != v5);
-      v5 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v5 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v5);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_member_acceptableRepresentationTypesForCreatingObjectOfClass:(Class)class
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   orderedSet = [MEMORY[0x277CBEB40] orderedSet];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   member_importerByClass = [(PBCoercionRegistry *)self member_importerByClass];
-  v7 = [member_importerByClass countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [member_importerByClass countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(member_importerByClass);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         if ([(objc_class *)class isSubclassOfClass:NSClassFromString(v11)])
         {
           member_importerByClass2 = [(PBCoercionRegistry *)self member_importerByClass];
@@ -736,15 +730,13 @@ void __59__PBCoercionRegistry_availableRepresentationTypesForClass___block_invok
         }
       }
 
-      v8 = [member_importerByClass countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [member_importerByClass countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
 
   array = [orderedSet array];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -775,10 +767,7 @@ void __59__PBCoercionRegistry_availableRepresentationTypesForClass___block_invok
 
 uint64_t __76__PBCoercionRegistry_acceptableRepresentationTypesForCreatingObjectOfClass___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _member_acceptableRepresentationTypesForCreatingObjectOfClass:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _member_acceptableRepresentationTypesForCreatingObjectOfClass:*(a1 + 48)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -809,27 +798,27 @@ uint64_t __76__PBCoercionRegistry_acceptableRepresentationTypesForCreatingObject
 
 void __82__PBCoercionRegistry_canCoerceFromRepresentationConformingToType_toObjectOfClass___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = [*(a1 + 32) member_importerByClass];
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         if ([NSClassFromString(v7) isSubclassOfClass:*(a1 + 56)])
         {
           v8 = [*(a1 + 32) member_importerByClass];
@@ -849,7 +838,7 @@ void __82__PBCoercionRegistry_canCoerceFromRepresentationConformingToType_toObje
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -860,8 +849,6 @@ void __82__PBCoercionRegistry_canCoerceFromRepresentationConformingToType_toObje
   }
 
 LABEL_14:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)canCoerceObjectOfClass:(Class)class toRepresentationConformingToType:(id)type
@@ -890,27 +877,27 @@ LABEL_14:
 
 void __78__PBCoercionRegistry_canCoerceObjectOfClass_toRepresentationConformingToType___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = [*(a1 + 32) member_exporterByClass];
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         if ([*(a1 + 56) isSubclassOfClass:NSClassFromString(v7)])
         {
           v8 = [*(a1 + 32) member_exporterByClass];
@@ -930,7 +917,7 @@ void __78__PBCoercionRegistry_canCoerceObjectOfClass_toRepresentationConformingT
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -941,8 +928,6 @@ void __78__PBCoercionRegistry_canCoerceObjectOfClass_toRepresentationConformingT
   }
 
 LABEL_14:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)canCoerceObjectOfClass:(Class)class toObjectOfClass:(Class)ofClass
@@ -969,27 +954,27 @@ LABEL_14:
 
 void __61__PBCoercionRegistry_canCoerceObjectOfClass_toObjectOfClass___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = [*(a1 + 32) member_classCoercionByClass];
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         if ([*(a1 + 48) isSubclassOfClass:NSClassFromString(v7)])
         {
           v8 = [*(a1 + 32) member_classCoercionByClass];
@@ -1009,7 +994,7 @@ void __61__PBCoercionRegistry_canCoerceObjectOfClass_toObjectOfClass___block_inv
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -1020,8 +1005,6 @@ void __61__PBCoercionRegistry_canCoerceObjectOfClass_toObjectOfClass___block_inv
   }
 
 LABEL_14:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_newObjectOfClass:(Class)class fromData:(id)data URL:(id)l ofType:(id)type outError:(id *)error
@@ -1064,27 +1047,27 @@ LABEL_14:
 
 void __69__PBCoercionRegistry__newObjectOfClass_fromData_URL_ofType_outError___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = [*(a1 + 32) member_importerByClass];
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * i);
+        v7 = *(*(&v12 + 1) + 8 * i);
         if ([NSClassFromString(v7) isSubclassOfClass:*(a1 + 56)])
         {
           v8 = [*(a1 + 32) member_importerByClass];
@@ -1101,7 +1084,7 @@ void __69__PBCoercionRegistry__newObjectOfClass_fromData_URL_ofType_outError___b
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v4)
       {
         continue;
@@ -1112,34 +1095,32 @@ void __69__PBCoercionRegistry__newObjectOfClass_fromData_URL_ofType_outError___b
   }
 
 LABEL_13:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_member_exporterFromClass:(Class)class toType:(id)type
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   typeCopy = type;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   member_exporterByClass = [(PBCoercionRegistry *)self member_exporterByClass];
-  v8 = [member_exporterByClass countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [member_exporterByClass countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(member_exporterByClass);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         if ([(objc_class *)class isSubclassOfClass:NSClassFromString(v12)])
         {
           member_exporterByClass2 = [(PBCoercionRegistry *)self member_exporterByClass];
@@ -1152,7 +1133,7 @@ LABEL_13:
         }
       }
 
-      v9 = [member_exporterByClass countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [member_exporterByClass countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
@@ -1160,8 +1141,6 @@ LABEL_13:
 
   v14 = 0;
 LABEL_12:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -1228,12 +1207,11 @@ void __72__PBCoercionRegistry_loadRepresentationOfObject_asType_completionBlock_
 
     if ((v12 & 1) == 0)
     {
-      v14 = a1[4];
-      v13 = a1[5];
-      v15 = objc_opt_class();
-      v16 = PBCannotCreateRepresentationError(v14, v15, v10);
+      v13 = a1[4];
+      v14 = objc_opt_class();
+      v15 = PBCannotCreateRepresentationError(v13, v14, v10);
 
-      v10 = v16;
+      v10 = v15;
     }
   }
 
@@ -1242,118 +1220,115 @@ void __72__PBCoercionRegistry_loadRepresentationOfObject_asType_completionBlock_
     v10 = 0;
   }
 
-  v17 = a1[6];
-  if (v17)
+  v16 = a1[6];
+  if (v16)
   {
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __72__PBCoercionRegistry_loadRepresentationOfObject_asType_completionBlock___block_invoke_2;
-    v18[3] = &unk_279A06DF8;
-    v22 = v17;
-    v19 = v7;
-    v20 = v8;
-    v21 = v10;
-    PBDispatchAsyncCallback(v18);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __72__PBCoercionRegistry_loadRepresentationOfObject_asType_completionBlock___block_invoke_2;
+    v17[3] = &unk_279A06DF8;
+    v21 = v16;
+    v18 = v7;
+    v19 = v8;
+    v20 = v10;
+    PBDispatchAsyncCallback(v17);
   }
 }
 
 void __72__PBCoercionRegistry_loadRepresentationOfObject_asType_completionBlock___block_invoke_49(uint64_t a1)
 {
-  v54 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v4 = [v3 _member_exporterFromClass:objc_opt_class() toType:*(a1 + 48)];
-  v5 = v4;
-  if (v4)
+  v50 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) _member_exporterFromClass:objc_opt_class() toType:*(a1 + 48)];
+  v3 = v2;
+  if (v2)
   {
-    v48[0] = MEMORY[0x277D85DD0];
-    v48[1] = 3221225472;
-    v48[2] = __72__PBCoercionRegistry_loadRepresentationOfObject_asType_completionBlock___block_invoke_2_50;
-    v48[3] = &unk_279A07480;
-    v49 = v4;
-    v50 = *(a1 + 48);
-    v51 = *(a1 + 40);
-    v6 = MEMORY[0x25F8AC430](v48);
-    v7 = *(*(a1 + 56) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = v6;
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __72__PBCoercionRegistry_loadRepresentationOfObject_asType_completionBlock___block_invoke_2_50;
+    v44[3] = &unk_279A07480;
+    v45 = v2;
+    v46 = *(a1 + 48);
+    v47 = *(a1 + 40);
+    v4 = MEMORY[0x25F8AC430](v44);
+    v5 = *(*(a1 + 56) + 8);
+    v6 = *(v5 + 40);
+    *(v5 + 40) = v4;
   }
 
-  v31 = v5;
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
+  v27 = v3;
+  v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   obj = [*(a1 + 32) member_classCoercionByClass];
-  v9 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
-  if (v9)
+  v7 = [obj countByEnumeratingWithState:&v40 objects:v49 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v45;
+    v8 = v7;
+    v9 = *v41;
 LABEL_5:
-    v12 = 0;
-    v32 = v10;
+    v10 = 0;
+    v28 = v8;
     while (1)
     {
-      if (*v45 != v11)
+      if (*v41 != v9)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v44 + 1) + 8 * v12);
-      v14 = *(a1 + 40);
-      NSClassFromString(v13);
+      v11 = *(*(&v40 + 1) + 8 * v10);
+      NSClassFromString(v11);
       if (objc_opt_isKindOfClass())
       {
-        v15 = [*(a1 + 32) member_classCoercionByClass];
-        v16 = [v15 objectForKeyedSubscript:v13];
+        v12 = [*(a1 + 32) member_classCoercionByClass];
+        v13 = [v12 objectForKeyedSubscript:v11];
 
-        v42 = 0u;
-        v43 = 0u;
-        v40 = 0u;
-        v41 = 0u;
-        v17 = [v16 availableClasses];
-        v18 = [v17 countByEnumeratingWithState:&v40 objects:v52 count:16];
-        if (v18)
+        v38 = 0u;
+        v39 = 0u;
+        v36 = 0u;
+        v37 = 0u;
+        v14 = [v13 availableClasses];
+        v15 = [v14 countByEnumeratingWithState:&v36 objects:v48 count:16];
+        if (v15)
         {
-          v19 = v18;
-          v20 = *v41;
+          v16 = v15;
+          v17 = *v37;
           while (2)
           {
-            for (i = 0; i != v19; ++i)
+            for (i = 0; i != v16; ++i)
             {
-              if (*v41 != v20)
+              if (*v37 != v17)
               {
-                objc_enumerationMutation(v17);
+                objc_enumerationMutation(v14);
               }
 
-              v22 = NSClassFromString(*(*(&v40 + 1) + 8 * i));
-              v23 = [*(a1 + 32) _member_exporterFromClass:v22 toType:*(a1 + 48)];
-              if (v23)
+              v19 = NSClassFromString(*(*(&v36 + 1) + 8 * i));
+              v20 = [*(a1 + 32) _member_exporterFromClass:v19 toType:*(a1 + 48)];
+              if (v20)
               {
-                v24 = v23;
-                v34[0] = MEMORY[0x277D85DD0];
-                v34[1] = 3221225472;
-                v34[2] = __72__PBCoercionRegistry_loadRepresentationOfObject_asType_completionBlock___block_invoke_5;
-                v34[3] = &unk_279A074A8;
-                v35 = v16;
-                v25 = *(a1 + 40);
-                v39 = v22;
-                v36 = v25;
-                v37 = v24;
-                v38 = *(a1 + 48);
-                v26 = v24;
-                v27 = MEMORY[0x25F8AC430](v34);
-                v28 = *(*(a1 + 56) + 8);
-                v29 = *(v28 + 40);
-                *(v28 + 40) = v27;
+                v21 = v20;
+                v30[0] = MEMORY[0x277D85DD0];
+                v30[1] = 3221225472;
+                v30[2] = __72__PBCoercionRegistry_loadRepresentationOfObject_asType_completionBlock___block_invoke_5;
+                v30[3] = &unk_279A074A8;
+                v31 = v13;
+                v22 = *(a1 + 40);
+                v35 = v19;
+                v32 = v22;
+                v33 = v21;
+                v34 = *(a1 + 48);
+                v23 = v21;
+                v24 = MEMORY[0x25F8AC430](v30);
+                v25 = *(*(a1 + 56) + 8);
+                v26 = *(v25 + 40);
+                *(v25 + 40) = v24;
 
                 goto LABEL_19;
               }
             }
 
-            v19 = [v17 countByEnumeratingWithState:&v40 objects:v52 count:16];
-            if (v19)
+            v16 = [v14 countByEnumeratingWithState:&v36 objects:v48 count:16];
+            if (v16)
             {
               continue;
             }
@@ -1364,7 +1339,7 @@ LABEL_5:
 
 LABEL_19:
 
-        v10 = v32;
+        v8 = v28;
       }
 
       if (*(*(*(a1 + 56) + 8) + 40))
@@ -1372,10 +1347,10 @@ LABEL_19:
         break;
       }
 
-      if (++v12 == v10)
+      if (++v10 == v8)
       {
-        v10 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
-        if (v10)
+        v8 = [obj countByEnumeratingWithState:&v40 objects:v49 count:16];
+        if (v8)
         {
           goto LABEL_5;
         }
@@ -1384,8 +1359,6 @@ LABEL_19:
       }
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __72__PBCoercionRegistry_loadRepresentationOfObject_asType_completionBlock___block_invoke_2_50(void *a1, void *a2)
@@ -1445,30 +1418,30 @@ void __72__PBCoercionRegistry_loadRepresentationOfObject_asType_completionBlock_
 
 - (id)_member_availableClassesToCoerceToFromClass:(Class)class
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (class)
   {
     orderedSet = [MEMORY[0x277CBEB40] orderedSet];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     member_classCoercionByClass = [(PBCoercionRegistry *)self member_classCoercionByClass];
-    v6 = [member_classCoercionByClass countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v6 = [member_classCoercionByClass countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v22;
+      v8 = *v21;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v22 != v8)
+          if (*v21 != v8)
           {
             objc_enumerationMutation(member_classCoercionByClass);
           }
 
-          v10 = *(*(&v21 + 1) + 8 * i);
+          v10 = *(*(&v20 + 1) + 8 * i);
           v11 = objc_autoreleasePoolPush();
           if ([(objc_class *)class isSubclassOfClass:NSClassFromString(v10)])
           {
@@ -1476,18 +1449,18 @@ void __72__PBCoercionRegistry_loadRepresentationOfObject_asType_completionBlock_
             v13 = [member_classCoercionByClass2 objectForKeyedSubscript:v10];
 
             availableClasses = [v13 availableClasses];
-            v19[0] = MEMORY[0x277D85DD0];
-            v19[1] = 3221225472;
-            v19[2] = __66__PBCoercionRegistry__member_availableClassesToCoerceToFromClass___block_invoke;
-            v19[3] = &unk_279A074F8;
-            v20 = orderedSet;
-            [availableClasses enumerateObjectsUsingBlock:v19];
+            v18[0] = MEMORY[0x277D85DD0];
+            v18[1] = 3221225472;
+            v18[2] = __66__PBCoercionRegistry__member_availableClassesToCoerceToFromClass___block_invoke;
+            v18[3] = &unk_279A074F8;
+            v19 = orderedSet;
+            [availableClasses enumerateObjectsUsingBlock:v18];
           }
 
           objc_autoreleasePoolPop(v11);
         }
 
-        v7 = [member_classCoercionByClass countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v7 = [member_classCoercionByClass countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v7);
@@ -1500,8 +1473,6 @@ void __72__PBCoercionRegistry_loadRepresentationOfObject_asType_completionBlock_
   {
     array = MEMORY[0x277CBEBF8];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -1624,55 +1595,53 @@ LABEL_10:
 
 - (void)_member_enumerateAvailableCoercionLoaderBlocksForRepresentation:(id)representation usingBlock:(id)block
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   blockCopy = block;
   typeIdentifier = [representationCopy typeIdentifier];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   selfCopy = self;
   obj = [(PBCoercionRegistry *)self member_representationCoercions];
-  v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v25;
+    v11 = *v24;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v25 != v11)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
+        v13 = *(*(&v23 + 1) + 8 * i);
         sourceType = [v13 sourceType];
         destinationType = [v13 destinationType];
         if (UTTypeConformsTo(typeIdentifier, sourceType))
         {
-          v19[0] = MEMORY[0x277D85DD0];
-          v19[1] = 3221225472;
-          v19[2] = __106__PBCoercionRegistry_Private___member_enumerateAvailableCoercionLoaderBlocksForRepresentation_usingBlock___block_invoke;
-          v19[3] = &unk_279A07570;
-          v19[4] = selfCopy;
-          v20 = representationCopy;
-          v21 = sourceType;
-          v22 = destinationType;
-          v23 = v13;
-          blockCopy[2](blockCopy, v22, v19);
+          v18[0] = MEMORY[0x277D85DD0];
+          v18[1] = 3221225472;
+          v18[2] = __106__PBCoercionRegistry_Private___member_enumerateAvailableCoercionLoaderBlocksForRepresentation_usingBlock___block_invoke;
+          v18[3] = &unk_279A07570;
+          v18[4] = selfCopy;
+          v19 = representationCopy;
+          v20 = sourceType;
+          v21 = destinationType;
+          v22 = v13;
+          blockCopy[2](blockCopy, v21, v18);
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v10 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_availableClassesToCoerceFromClass:(Class)class
@@ -1701,10 +1670,7 @@ LABEL_10:
 
 uint64_t __66__PBCoercionRegistry_Private___availableClassesToCoerceFromClass___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _member_availableClassesToCoerceToFromClass:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _member_availableClassesToCoerceToFromClass:*(a1 + 48)];
 
   return MEMORY[0x2821F96F8]();
 }

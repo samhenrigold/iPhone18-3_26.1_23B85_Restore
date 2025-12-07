@@ -73,8 +73,8 @@
 
 - (UIEdgeInsets)shadowOutsets
 {
-  metrics = [(SBFloatingDockPlatterView *)self metrics];
-  [(SBFloatingDockPlatterView *)self _shadowOutsetsForMetrics:metrics];
+  v3 = objc_msgSend_metrics(self, a2);
+  [(SBFloatingDockPlatterView *)self _shadowOutsetsForMetrics:v3];
   v5 = v4;
   v7 = v6;
   v9 = v8;
@@ -116,14 +116,14 @@
   v69.receiver = self;
   v69.super_class = SBFloatingDockPlatterView;
   [(SBFloatingDockPlatterView *)&v69 layoutSubviews];
-  [(SBFloatingDockPlatterView *)self bounds];
+  objc_msgSend_bounds(self);
   v4 = v3;
   v6 = v5;
   v8 = v7;
   v10 = v9;
   if (BSFloatGreaterThanFloat() && BSFloatGreaterThanFloat())
   {
-    metrics = [(SBFloatingDockPlatterView *)self metrics];
+    v11 = objc_msgSend_metrics(self);
     v12 = [(SBFloatingDockPlatterView *)self _metricsForBounds:v4, v6, v8, v10];
     [v12 continuousCornerRadius];
     if (!BSFloatGreaterThanFloat())
@@ -146,9 +146,9 @@ LABEL_14:
     v51 = v4 + v17;
     v52 = v10 - (v15 + v19);
     shadowView = [(SBFloatingDockPlatterView *)self shadowView];
-    if (metrics)
+    if (v11)
     {
-      [metrics continuousCornerRadius];
+      [v11 continuousCornerRadius];
       if (BSFloatEqualToFloat())
       {
         [shadowView setFrame:{v51, v54, v53, v52}];
@@ -160,7 +160,7 @@ LABEL_13:
       }
     }
 
-    v24 = [(SBFloatingDockPlatterView *)self _shadowImageViewForMetrics:v12 previousMetrics:metrics];
+    v24 = [(SBFloatingDockPlatterView *)self _shadowImageViewForMetrics:v12 previousMetrics:v11];
     [(SBFloatingDockPlatterView *)self setShadowView:v24];
     if (shadowView)
     {
@@ -174,7 +174,7 @@ LABEL_13:
         v62[4] = self;
         v26 = v24;
         v63 = v26;
-        v48 = metrics;
+        v48 = v11;
         v64 = v48;
         v65 = v16;
         v66 = v18;
@@ -244,7 +244,7 @@ uint64_t __43__SBFloatingDockPlatterView_layoutSubviews__block_invoke(uint64_t a
 {
   [*(a1 + 32) addSubview:*(a1 + 40)];
   [*(a1 + 40) setAlpha:0.0];
-  [*(a1 + 48) bounds];
+  objc_msgSend_bounds(*(a1 + 48));
   v2 = *(a1 + 56);
   v3 = *(a1 + 64);
   v5 = v4 + v3;
@@ -283,18 +283,33 @@ uint64_t __43__SBFloatingDockPlatterView_layoutSubviews__block_invoke_2(uint64_t
   y = bounds.origin.y;
   x = bounds.origin.x;
   [(SBFloatingDockPlatterView *)self referenceHeight];
+  v9 = v8;
   traitCollection = [(SBFloatingDockPlatterView *)self traitCollection];
   [traitCollection displayScale];
 
-  [(SBFloatingDockPlatterView *)self maximumContinuousCornerRadius];
-  UIFloorToScale();
-  v10 = v9;
-  UIFloorToScale();
-  v12 = v11;
-  UIRoundToScale();
-  v14 = [[_SBFloatingDockPlatterMetrics alloc] initWithBounds:x continuousCornerRadius:y shadowRadius:width shadowYOffset:height, v10, v12, v13];
+  v11 = 1.0;
+  if (v9 > 0.0)
+  {
+    if (height / v9 <= 1.0)
+    {
+      v11 = height / v9;
+    }
 
-  return v14;
+    else
+    {
+      v11 = 1.0;
+    }
+  }
+
+  [(SBFloatingDockPlatterView *)self maximumContinuousCornerRadius];
+  v13.n128_f64[0] = v11 * v12;
+  v14 = UIFloorToScale(v13);
+  v15.n128_f64[0] = v11 * 22.5;
+  v16 = UIFloorToScale(v15);
+  UIRoundToScale();
+  v18 = [[_SBFloatingDockPlatterMetrics alloc] initWithBounds:x continuousCornerRadius:y shadowRadius:width shadowYOffset:height, v14, v16, v17];
+
+  return v18;
 }
 
 - (id)_shadowImageViewForMetrics:(id)metrics previousMetrics:(id)previousMetrics
@@ -436,7 +451,7 @@ void __68__SBFloatingDockPlatterView__shadowImageForMetrics_previousMetrics___bl
   v4 = [v3 CGContext];
   v5 = [v3 format];
 
-  [v5 bounds];
+  objc_msgSend_bounds(v5);
   v7 = v6;
   v9 = v8;
   v11 = v10;

@@ -1048,7 +1048,6 @@ LABEL_39:
   has = self->_has;
   if ((*&has & 0x40) != 0)
   {
-    authSuccess = self->_authSuccess;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((*&has & 0x20) == 0)
@@ -1068,7 +1067,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  authFailed = self->_authFailed;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1083,7 +1081,6 @@ LABEL_4:
   }
 
 LABEL_44:
-  assocSuccess = self->_assocSuccess;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -1098,7 +1095,6 @@ LABEL_5:
   }
 
 LABEL_45:
-  assocFailed = self->_assocFailed;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -1113,7 +1109,6 @@ LABEL_6:
   }
 
 LABEL_46:
-  reassocSuccess = self->_reassocSuccess;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -1128,7 +1123,6 @@ LABEL_7:
   }
 
 LABEL_47:
-  reassocFailed = self->_reassocFailed;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1143,7 +1137,6 @@ LABEL_8:
   }
 
 LABEL_48:
-  linkChanged = self->_linkChanged;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000000) == 0)
@@ -1158,7 +1151,6 @@ LABEL_9:
   }
 
 LABEL_49:
-  roamSuccess = self->_roamSuccess;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
@@ -1173,7 +1165,6 @@ LABEL_10:
   }
 
 LABEL_50:
-  roamFailed = self->_roamFailed;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -1188,7 +1179,6 @@ LABEL_11:
   }
 
 LABEL_51:
-  assocDoneSuccess = self->_assocDoneSuccess;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -1203,7 +1193,6 @@ LABEL_12:
   }
 
 LABEL_52:
-  assocDoneFailed = self->_assocDoneFailed;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -1218,7 +1207,6 @@ LABEL_13:
   }
 
 LABEL_53:
-  assocReady = self->_assocReady;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800000000) == 0)
@@ -1233,7 +1221,6 @@ LABEL_14:
   }
 
 LABEL_54:
-  ssidChanged = self->_ssidChanged;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1248,7 +1235,6 @@ LABEL_15:
   }
 
 LABEL_55:
-  bssidChanged = self->_bssidChanged;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1263,7 +1249,6 @@ LABEL_16:
   }
 
 LABEL_56:
-  deauthReceived = self->_deauthReceived;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1278,7 +1263,6 @@ LABEL_17:
   }
 
 LABEL_57:
-  disassocReceived = self->_disassocReceived;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1293,7 +1277,6 @@ LABEL_18:
   }
 
 LABEL_58:
-  decryptError = self->_decryptError;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -1308,7 +1291,6 @@ LABEL_19:
   }
 
 LABEL_59:
-  pruned = self->_pruned;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000000000) == 0)
@@ -1323,7 +1305,6 @@ LABEL_20:
   }
 
 LABEL_60:
-  supplicant = self->_supplicant;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1338,7 +1319,6 @@ LABEL_21:
   }
 
 LABEL_61:
-  macAddrChanged = self->_macAddrChanged;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000000) == 0)
@@ -1353,7 +1333,6 @@ LABEL_22:
   }
 
 LABEL_62:
-  rssiChanged = self->_rssiChanged;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1368,7 +1347,6 @@ LABEL_23:
   }
 
 LABEL_63:
-  homeChanQualChanged = self->_homeChanQualChanged;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -1383,7 +1361,6 @@ LABEL_24:
   }
 
 LABEL_64:
-  chanSwitchEvent = self->_chanSwitchEvent;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000000) == 0)
@@ -1398,7 +1375,6 @@ LABEL_25:
   }
 
 LABEL_65:
-  roamPrep = self->_roamPrep;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000000) == 0)
@@ -1413,7 +1389,6 @@ LABEL_26:
   }
 
 LABEL_66:
-  roamScanStart = self->_roamScanStart;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000000) == 0)
@@ -1428,7 +1403,6 @@ LABEL_27:
   }
 
 LABEL_67:
-  roamScanEnd = self->_roamScanEnd;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100000000) == 0)
@@ -1443,7 +1417,6 @@ LABEL_28:
   }
 
 LABEL_68:
-  scanResults = self->_scanResults;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200000000) == 0)
@@ -1458,7 +1431,6 @@ LABEL_29:
   }
 
 LABEL_69:
-  scanSummary = self->_scanSummary;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000000) == 0)
@@ -1473,7 +1445,6 @@ LABEL_30:
   }
 
 LABEL_70:
-  scanDone = self->_scanDone;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80000000) == 0)
@@ -1488,7 +1459,6 @@ LABEL_31:
   }
 
 LABEL_71:
-  scanInternalDone = self->_scanInternalDone;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1503,7 +1473,6 @@ LABEL_32:
   }
 
 LABEL_72:
-  bssDisallowEvent = self->_bssDisallowEvent;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400000000) == 0)
@@ -1518,7 +1487,6 @@ LABEL_33:
   }
 
 LABEL_73:
-  slowWiFiSymptom = self->_slowWiFiSymptom;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -1533,7 +1501,6 @@ LABEL_34:
   }
 
 LABEL_74:
-  dpsSymptom = self->_dpsSymptom;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1548,7 +1515,6 @@ LABEL_35:
   }
 
 LABEL_75:
-  crashTracerTrig = self->_crashTracerTrig;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -1563,7 +1529,6 @@ LABEL_36:
   }
 
 LABEL_76:
-  rc1Stats = self->_rc1Stats;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -1578,12 +1543,10 @@ LABEL_37:
   }
 
 LABEL_77:
-  rc2Stats = self->_rc2Stats;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x8000) != 0)
   {
 LABEL_38:
-    escoTrafficInd = self->_escoTrafficInd;
     PBDataWriterWriteUint32Field();
   }
 

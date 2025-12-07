@@ -175,7 +175,7 @@ LABEL_7:
   controller = self->_controller;
   if (controller)
   {
-    [(GmoController *)controller sessionCalcState];
+    objc_msgSend_sessionCalcState(controller);
   }
 
   else

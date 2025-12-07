@@ -79,7 +79,7 @@
     while (v28);
   }
 
-  if (sleepPredictionWithParams([v13 mutableBytes], mutableBytes, v27, v17, v21, v25, version))
+  if (sleepPredictionWithParams([v13 mutableBytes], mutableBytes, v27, version, v17, v21, v25))
   {
     array = +[_CDLogging knowledgeChannel];
     if (os_log_type_enabled(array, OS_LOG_TYPE_ERROR))

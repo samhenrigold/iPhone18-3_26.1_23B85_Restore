@@ -22,7 +22,6 @@
 - (void)_setMostRecentGoalCompletedSnapshotIndex:(id)index forFriendWithUUID:(id)d;
 - (void)_setMostRecentMonthlyAchievementEarnedDate:(id)date forFriendWithUUID:(id)d;
 - (void)_setMostRecentWorkoutCompletionDate:(id)date forFriendWithUUID:(id)d;
-- (void)achievementAnchor;
 - (void)activitySharingManagerReady:(id)ready;
 - (void)beginObserving;
 - (void)cloudKitManager:(id)manager didBeginUpdatesForFetchWithType:(int64_t)type;
@@ -33,13 +32,11 @@
 - (void)cloudKitManager:(id)manager didReceiveNewNotificationEvents:(id)events moreComing:(BOOL)coming changesProcessedHandler:(id)handler;
 - (void)dealloc;
 - (void)endObserving;
-- (void)goalCompletionAnchor;
 - (void)samplesAdded:(id)added anchor:(id)anchor;
 - (void)samplesOfTypesWereRemoved:(id)removed anchor:(id)anchor;
 - (void)setAchievementAnchor:(id)anchor;
 - (void)setGoalCompletionAnchor:(id)anchor;
 - (void)setWorkoutAnchor:(id)anchor;
-- (void)workoutAnchor;
 @end
 
 @implementation ASActivityDataNotificationManager
@@ -92,42 +89,38 @@
 
 - (void)beginObserving
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   workoutType = [MEMORY[0x277CCD8D8] workoutType];
-  v10[0] = workoutType;
+  v9[0] = workoutType;
   fitnessFriendActivitySnapshotType = [MEMORY[0x277CCD8D8] fitnessFriendActivitySnapshotType];
-  v10[1] = fitnessFriendActivitySnapshotType;
+  v9[1] = fitnessFriendActivitySnapshotType;
   fitnessFriendAchievementType = [MEMORY[0x277CCD8D8] fitnessFriendAchievementType];
-  v10[2] = fitnessFriendAchievementType;
+  v9[2] = fitnessFriendAchievementType;
   fitnessFriendWorkoutType = [MEMORY[0x277CCD8D8] fitnessFriendWorkoutType];
-  v10[3] = fitnessFriendWorkoutType;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:4];
+  v9[3] = fitnessFriendWorkoutType;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
 
   [(ASDatabaseClient *)self->_databaseClient addSampleObserver:self sampleTypes:v7];
   WeakRetained = objc_loadWeakRetained(&self->_cloudKitManager);
   [WeakRetained addObserver:self];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endObserving
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   workoutType = [MEMORY[0x277CCD8D8] workoutType];
-  v10[0] = workoutType;
+  v9[0] = workoutType;
   fitnessFriendActivitySnapshotType = [MEMORY[0x277CCD8D8] fitnessFriendActivitySnapshotType];
-  v10[1] = fitnessFriendActivitySnapshotType;
+  v9[1] = fitnessFriendActivitySnapshotType;
   fitnessFriendAchievementType = [MEMORY[0x277CCD8D8] fitnessFriendAchievementType];
-  v10[2] = fitnessFriendAchievementType;
+  v9[2] = fitnessFriendAchievementType;
   fitnessFriendWorkoutType = [MEMORY[0x277CCD8D8] fitnessFriendWorkoutType];
-  v10[3] = fitnessFriendWorkoutType;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:4];
+  v9[3] = fitnessFriendWorkoutType;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
 
   [(ASDatabaseClient *)self->_databaseClient removeSampleObserver:self sampleTypes:v7];
   WeakRetained = objc_loadWeakRetained(&self->_cloudKitManager);
   [WeakRetained removeObserver:self];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -175,22 +168,20 @@ uint64_t __85__ASActivityDataNotificationManager_cloudKitManager_didBeginUpdates
 
 uint64_t __119__ASActivityDataNotificationManager_cloudKitManager_didReceiveNewActivitySnapshots_moreComing_changesProcessedHandler___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v2 = *MEMORY[0x277CE8FF8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
-    v7 = 134217984;
-    v8 = [v3 count];
-    _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "ActivityDataNotificationManager processing %lu new activity snapshots.", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = [v3 count];
+    _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "ActivityDataNotificationManager processing %lu new activity snapshots.", &v6, 0xCu);
   }
 
   *(*(a1 + 40) + 24) |= [*(a1 + 32) count] != 0;
-  result = (*(*(a1 + 48) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)cloudKitManager:(id)manager didReceiveNewFriendWorkouts:(id)workouts moreComing:(BOOL)coming changesProcessedHandler:(id)handler
@@ -212,22 +203,20 @@ uint64_t __119__ASActivityDataNotificationManager_cloudKitManager_didReceiveNewA
 
 uint64_t __116__ASActivityDataNotificationManager_cloudKitManager_didReceiveNewFriendWorkouts_moreComing_changesProcessedHandler___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v2 = *MEMORY[0x277CE8FF8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
-    v7 = 134217984;
-    v8 = [v3 count];
-    _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "ActivityDataNotificationManager processing %lu new workouts.", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = [v3 count];
+    _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "ActivityDataNotificationManager processing %lu new workouts.", &v6, 0xCu);
   }
 
   *(*(a1 + 40) + 24) |= [*(a1 + 32) count] != 0;
-  result = (*(*(a1 + 48) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)cloudKitManager:(id)manager didReceiveNewFriendAchievements:(id)achievements moreComing:(BOOL)coming changesProcessedHandler:(id)handler
@@ -249,22 +238,20 @@ uint64_t __116__ASActivityDataNotificationManager_cloudKitManager_didReceiveNewF
 
 uint64_t __120__ASActivityDataNotificationManager_cloudKitManager_didReceiveNewFriendAchievements_moreComing_changesProcessedHandler___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v2 = *MEMORY[0x277CE8FF8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
-    v7 = 134217984;
-    v8 = [v3 count];
-    _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "ActivityDataNotificationManager processing %lu new achievements.", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = [v3 count];
+    _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "ActivityDataNotificationManager processing %lu new achievements.", &v6, 0xCu);
   }
 
   *(*(a1 + 40) + 24) |= [*(a1 + 32) count] != 0;
-  result = (*(*(a1 + 48) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)cloudKitManager:(id)manager didReceiveNewNotificationEvents:(id)events moreComing:(BOOL)coming changesProcessedHandler:(id)handler
@@ -286,22 +273,20 @@ uint64_t __120__ASActivityDataNotificationManager_cloudKitManager_didReceiveNewF
 
 uint64_t __120__ASActivityDataNotificationManager_cloudKitManager_didReceiveNewNotificationEvents_moreComing_changesProcessedHandler___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v2 = *MEMORY[0x277CE8FF8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
-    v7 = 134217984;
-    v8 = [v3 count];
-    _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "ActivityDataNotificationManager processing %lu new notification events.", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = [v3 count];
+    _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "ActivityDataNotificationManager processing %lu new notification events.", &v6, 0xCu);
   }
 
   *(*(a1 + 40) + 24) |= [*(a1 + 32) count] != 0;
-  result = (*(*(a1 + 48) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)cloudKitManager:(id)manager didEndUpdatesForFetchWithType:(int64_t)type activity:(id)activity cloudKitGroup:(id)group changesProcessedHandler:(id)handler
@@ -348,37 +333,37 @@ uint64_t __130__ASActivityDataNotificationManager_cloudKitManager_didEndUpdatesF
 
 - (void)samplesAdded:(id)added anchor:(id)anchor
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   anchorCopy = anchor;
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   obj = addedCopy;
-  v8 = [addedCopy countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v8 = [addedCopy countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v8)
   {
     v9 = v8;
     selfCopy = self;
-    v31 = anchorCopy;
+    v30 = anchorCopy;
     v10 = 0;
-    v11 = *v37;
+    v11 = *v36;
     v12 = MEMORY[0x277CBEBF8];
     v13 = 0x277CCD000uLL;
-    v32 = *v37;
+    v31 = *v36;
     do
     {
       v14 = 0;
-      v33 = v9;
+      v32 = v9;
       do
       {
-        if (*v37 != v11)
+        if (*v36 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v36 + 1) + 8 * v14);
+        v15 = *(*(&v35 + 1) + 8 * v14);
         sampleType = [v15 sampleType];
         workoutType = [*(v13 + 1824) workoutType];
         v18 = [sampleType isEqual:workoutType];
@@ -417,12 +402,12 @@ uint64_t __130__ASActivityDataNotificationManager_cloudKitManager_didEndUpdatesF
 
               LODWORD(v26) = v25;
               v12 = v24;
-              v11 = v32;
+              v11 = v31;
 
               v10 = v27 | v26;
             }
 
-            v9 = v33;
+            v9 = v32;
             v13 = 0x277CCD000;
           }
         }
@@ -431,7 +416,7 @@ uint64_t __130__ASActivityDataNotificationManager_cloudKitManager_didEndUpdatesF
       }
 
       while (v9 != v14);
-      v9 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v9 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
     while (v9);
@@ -447,7 +432,7 @@ uint64_t __130__ASActivityDataNotificationManager_cloudKitManager_didEndUpdatesF
       dispatch_async(queue, block);
     }
 
-    anchorCopy = v31;
+    anchorCopy = v30;
   }
 
   else
@@ -455,8 +440,6 @@ uint64_t __130__ASActivityDataNotificationManager_cloudKitManager_didEndUpdatesF
     v12 = MEMORY[0x277CBEBF8];
     [(ASActivityDataNotificationManager *)self _notifyAboutWorkoutsDetectionIfRequired:MEMORY[0x277CBEBF8]];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 _BYTE *__57__ASActivityDataNotificationManager_samplesAdded_anchor___block_invoke(uint64_t a1)
@@ -472,7 +455,7 @@ _BYTE *__57__ASActivityDataNotificationManager_samplesAdded_anchor___block_invok
 
 - (void)samplesOfTypesWereRemoved:(id)removed anchor:(id)anchor
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   ASLoggingInitialize();
   v6 = MEMORY[0x277CE8FF8];
@@ -483,46 +466,45 @@ _BYTE *__57__ASActivityDataNotificationManager_samplesAdded_anchor___block_invok
     _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "ActivityDataNotificationManager: samples removed, checking if any are workouts", buf, 2u);
   }
 
-  v20 = 0u;
-  v21 = 0u;
   v18 = 0u;
   v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = removedCopy;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v17;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           ASLoggingInitialize();
-          v14 = *v6;
+          v13 = *v6;
           if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_23E5E3000, v14, OS_LOG_TYPE_DEFAULT, "ActivityDataNotificationManager: at least one sample is a workout, requesting push", buf, 2u);
+            _os_log_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_DEFAULT, "ActivityDataNotificationManager: at least one sample is a workout, requesting push", buf, 2u);
           }
 
           WeakRetained = objc_loadWeakRetained(&self->_periodicUpdateManager);
-          v16 = ASCloudKitGroupUserActionImplicit();
-          [WeakRetained requestImmediateUpdateWithCloudKitGroup:v16 completion:{0, v18}];
+          v15 = ASCloudKitGroupUserActionImplicit(WeakRetained);
+          [WeakRetained requestImmediateUpdateWithCloudKitGroup:v15 completion:{0, v16}];
 
           goto LABEL_15;
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v21 count:16];
       if (v10)
       {
         continue;
@@ -533,8 +515,6 @@ _BYTE *__57__ASActivityDataNotificationManager_samplesAdded_anchor___block_invok
   }
 
 LABEL_15:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_mostRecentWorkoutCompletionDateForFriendWithUUID:(id)d
@@ -563,14 +543,14 @@ LABEL_15:
 
 - (void)_setMostRecentWorkoutCompletionDate:(id)date forFriendWithUUID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   dCopy = d;
   _nanoUserDefaultsDomain = [(ASActivityDataNotificationManager *)self _nanoUserDefaultsDomain];
   v9 = [(ASActivityDataNotificationManager *)self _nanoUserDefaultsDomainKeyForFriendWithUUID:dCopy keyTypeString:@"workoutCompletion"];
-  v15 = 0;
-  v10 = [_nanoUserDefaultsDomain setDate:dateCopy forKey:v9 error:&v15];
-  v11 = v15;
+  v14 = 0;
+  v10 = [_nanoUserDefaultsDomain setDate:dateCopy forKey:v9 error:&v14];
+  v11 = v14;
   v12 = v11;
   if ((v10 & 1) == 0)
   {
@@ -581,17 +561,15 @@ LABEL_15:
       if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543874;
-        v17 = v12;
-        v18 = 2114;
-        v19 = dCopy;
-        v20 = 2114;
-        v21 = dateCopy;
+        v16 = v12;
+        v17 = 2114;
+        v18 = dCopy;
+        v19 = 2114;
+        v20 = dateCopy;
         _os_log_error_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_ERROR, "Error: %{public}@ saving workout completion data into key value domain. %{public}@: %{public}@", buf, 0x20u);
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_mostRecentAchievementEarnedDateForFriendWithUUID:(id)d
@@ -620,7 +598,7 @@ LABEL_15:
 
 - (void)_setMostRecentAchievementEarnedDate:(id)date forFriendWithUUID:(id)d
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   dCopy = d;
   date = [MEMORY[0x277CBEAA8] date];
@@ -640,9 +618,9 @@ LABEL_15:
   {
     _nanoUserDefaultsDomain = [(ASActivityDataNotificationManager *)self _nanoUserDefaultsDomain];
     v12 = [(ASActivityDataNotificationManager *)self _nanoUserDefaultsDomainKeyForFriendWithUUID:dCopy keyTypeString:@"achievementEarned"];
-    v18 = 0;
-    v13 = [_nanoUserDefaultsDomain setDate:dateCopy forKey:v12 error:&v18];
-    v14 = v18;
+    v17 = 0;
+    v13 = [_nanoUserDefaultsDomain setDate:dateCopy forKey:v12 error:&v17];
+    v14 = v17;
     v15 = v14;
     if ((v13 & 1) == 0)
     {
@@ -653,18 +631,16 @@ LABEL_15:
         if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_ERROR))
         {
           *buf = 138543874;
-          v20 = v15;
-          v21 = 2114;
-          v22 = dCopy;
-          v23 = 2114;
-          v24 = dateCopy;
+          v19 = v15;
+          v20 = 2114;
+          v21 = dCopy;
+          v22 = 2114;
+          v23 = dateCopy;
           _os_log_error_impl(&dword_23E5E3000, v16, OS_LOG_TYPE_ERROR, "Error: %{public}@ saving achievement earned data into key value domain. %{public}@: %{public}@", buf, 0x20u);
         }
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_mostRecentMonthlyAchievementEarnedDateForFriendWithUUID:(id)d
@@ -693,14 +669,14 @@ LABEL_15:
 
 - (void)_setMostRecentMonthlyAchievementEarnedDate:(id)date forFriendWithUUID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   dCopy = d;
   _nanoUserDefaultsDomain = [(ASActivityDataNotificationManager *)self _nanoUserDefaultsDomain];
   v9 = [(ASActivityDataNotificationManager *)self _nanoUserDefaultsDomainKeyForFriendWithUUID:dCopy keyTypeString:@"monthlyAchievementEarned"];
-  v15 = 0;
-  v10 = [_nanoUserDefaultsDomain setDate:dateCopy forKey:v9 error:&v15];
-  v11 = v15;
+  v14 = 0;
+  v10 = [_nanoUserDefaultsDomain setDate:dateCopy forKey:v9 error:&v14];
+  v11 = v14;
   v12 = v11;
   if ((v10 & 1) == 0)
   {
@@ -711,17 +687,15 @@ LABEL_15:
       if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543874;
-        v17 = v12;
-        v18 = 2114;
-        v19 = dCopy;
-        v20 = 2114;
-        v21 = dateCopy;
+        v16 = v12;
+        v17 = 2114;
+        v18 = dCopy;
+        v19 = 2114;
+        v20 = dateCopy;
         _os_log_error_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_ERROR, "Error: %{public}@ saving monthly achievement earned data into key value domain. %{public}@: %{public}@", buf, 0x20u);
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_mostRecentGoalCompletedSnapshotIndexForFriendWithUUID:(id)d
@@ -750,14 +724,14 @@ LABEL_15:
 
 - (void)_setMostRecentGoalCompletedSnapshotIndex:(id)index forFriendWithUUID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   indexCopy = index;
   dCopy = d;
   _nanoUserDefaultsDomain = [(ASActivityDataNotificationManager *)self _nanoUserDefaultsDomain];
   v9 = [(ASActivityDataNotificationManager *)self _nanoUserDefaultsDomainKeyForFriendWithUUID:dCopy keyTypeString:@"goalCompletionIndex"];
-  v15 = 0;
-  v10 = [_nanoUserDefaultsDomain setNumber:indexCopy forKey:v9 error:&v15];
-  v11 = v15;
+  v14 = 0;
+  v10 = [_nanoUserDefaultsDomain setNumber:indexCopy forKey:v9 error:&v14];
+  v11 = v14;
   v12 = v11;
   if ((v10 & 1) == 0)
   {
@@ -768,17 +742,15 @@ LABEL_15:
       if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543874;
-        v17 = v12;
-        v18 = 2114;
-        v19 = dCopy;
-        v20 = 2114;
-        v21 = indexCopy;
+        v16 = v12;
+        v17 = 2114;
+        v18 = dCopy;
+        v19 = 2114;
+        v20 = indexCopy;
         _os_log_error_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_ERROR, "Error: %{public}@ saving goal completion data into key value domain. %{public}@: %{public}@", buf, 0x20u);
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (NSNumber)workoutAnchor
@@ -931,7 +903,7 @@ LABEL_15:
 
 void __77__ASActivityDataNotificationManager__queue_showFriendNotificationsIfRequired__block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CE9018]);
   v3 = [*(a1 + 32) _queue_selectWorkoutNotifications];
   [v2 setWorkoutNotifications:v3];
@@ -947,8 +919,8 @@ void __77__ASActivityDataNotificationManager__queue_showFriendNotificationsIfReq
   v7 = *MEMORY[0x277CE8FF8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v24) = 0;
-    _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "Selected notifications:", &v24, 2u);
+    LOWORD(v23) = 0;
+    _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "Selected notifications:", &v23, 2u);
   }
 
   ASLoggingInitialize();
@@ -958,9 +930,9 @@ void __77__ASActivityDataNotificationManager__queue_showFriendNotificationsIfReq
     v9 = v8;
     v10 = [v2 workoutNotifications];
     v11 = [v10 count];
-    v24 = 134217984;
-    v25 = v11;
-    _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "Workouts: %lu", &v24, 0xCu);
+    v23 = 134217984;
+    v24 = v11;
+    _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "Workouts: %lu", &v23, 0xCu);
   }
 
   ASLoggingInitialize();
@@ -970,9 +942,9 @@ void __77__ASActivityDataNotificationManager__queue_showFriendNotificationsIfReq
     v13 = v12;
     v14 = [v2 achievementNotifications];
     v15 = [v14 count];
-    v24 = 134217984;
-    v25 = v15;
-    _os_log_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_DEFAULT, "Achievements: %lu", &v24, 0xCu);
+    v23 = 134217984;
+    v24 = v15;
+    _os_log_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_DEFAULT, "Achievements: %lu", &v23, 0xCu);
   }
 
   ASLoggingInitialize();
@@ -982,9 +954,9 @@ void __77__ASActivityDataNotificationManager__queue_showFriendNotificationsIfReq
     v17 = v16;
     v18 = [v2 goalCompletionNotifications];
     v19 = [v18 count];
-    v24 = 134217984;
-    v25 = v19;
-    _os_log_impl(&dword_23E5E3000, v17, OS_LOG_TYPE_DEFAULT, "Goal completions: %lu", &v24, 0xCu);
+    v23 = 134217984;
+    v24 = v19;
+    _os_log_impl(&dword_23E5E3000, v17, OS_LOG_TYPE_DEFAULT, "Goal completions: %lu", &v23, 0xCu);
   }
 
   v20 = [*(*(a1 + 32) + 32) filterNotificationGroup:v2];
@@ -992,19 +964,17 @@ void __77__ASActivityDataNotificationManager__queue_showFriendNotificationsIfReq
   v21 = *v6;
   if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v24) = 0;
-    _os_log_impl(&dword_23E5E3000, v21, OS_LOG_TYPE_DEFAULT, "Filtered notifications, posting", &v24, 2u);
+    LOWORD(v23) = 0;
+    _os_log_impl(&dword_23E5E3000, v21, OS_LOG_TYPE_DEFAULT, "Filtered notifications, posting", &v23, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 72));
   [WeakRetained showActivityNotifications:v20 withPostingStyle:0];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_queue_selectWorkoutNotifications
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v3 = MEMORY[0x277CE8FF8];
   v4 = *MEMORY[0x277CE8FF8];
@@ -1020,7 +990,7 @@ void __77__ASActivityDataNotificationManager__queue_showFriendNotificationsIfReq
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v30 = workoutAnchor;
+    v29 = workoutAnchor;
     _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "Current workout anchor is %{public}@", buf, 0xCu);
   }
 
@@ -1028,31 +998,31 @@ void __77__ASActivityDataNotificationManager__queue_showFriendNotificationsIfReq
   v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
   databaseClient = self->_databaseClient;
-  v27 = 0;
-  v28 = workoutAnchor;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __70__ASActivityDataNotificationManager__queue_selectWorkoutNotifications__block_invoke;
-  v23[3] = &unk_278C4CCB0;
-  v23[4] = self;
+  v26 = 0;
+  v27 = workoutAnchor;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __70__ASActivityDataNotificationManager__queue_selectWorkoutNotifications__block_invoke;
+  v22[3] = &unk_278C4CCB0;
+  v22[4] = self;
   v11 = v8;
-  v24 = v11;
+  v23 = v11;
   v12 = v9;
-  v25 = v12;
+  v24 = v12;
   v13 = v7;
-  v26 = v13;
-  v14 = [(ASDatabaseClient *)databaseClient enumerateActivitySharingWorkoutsWithPredicate:0 anchor:&v28 error:&v27 handler:v23];
-  v15 = v28;
+  v25 = v13;
+  v14 = [(ASDatabaseClient *)databaseClient enumerateActivitySharingWorkoutsWithPredicate:0 anchor:&v27 error:&v26 handler:v22];
+  v15 = v27;
 
-  v16 = v27;
+  v16 = v26;
   if (v14)
   {
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __70__ASActivityDataNotificationManager__queue_selectWorkoutNotifications__block_invoke_330;
-    v22[3] = &unk_278C4CCD8;
-    v22[4] = self;
-    [v12 enumerateKeysAndObjectsUsingBlock:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __70__ASActivityDataNotificationManager__queue_selectWorkoutNotifications__block_invoke_330;
+    v21[3] = &unk_278C4CCD8;
+    v21[4] = self;
+    [v12 enumerateKeysAndObjectsUsingBlock:v21];
     [(ASActivityDataNotificationManager *)self setWorkoutAnchor:v15];
     ASLoggingInitialize();
     v17 = *v3;
@@ -1062,7 +1032,7 @@ void __77__ASActivityDataNotificationManager__queue_showFriendNotificationsIfReq
     }
 
     *buf = 138543362;
-    v30 = v15;
+    v29 = v15;
     v18 = "WorkoutAnchor set to: %{public}@";
   }
 
@@ -1076,7 +1046,7 @@ void __77__ASActivityDataNotificationManager__queue_showFriendNotificationsIfReq
     }
 
     *buf = 138543362;
-    v30 = v16;
+    v29 = v16;
     v18 = "Error: %{public}@ fetching workouts";
   }
 
@@ -1084,14 +1054,12 @@ void __77__ASActivityDataNotificationManager__queue_showFriendNotificationsIfReq
 LABEL_11:
   v19 = [v13 copy];
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 uint64_t __70__ASActivityDataNotificationManager__queue_selectWorkoutNotifications__block_invoke(uint64_t a1, void *a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 64));
   v5 = [v3 friendUUID];
@@ -1108,11 +1076,11 @@ uint64_t __70__ASActivityDataNotificationManager__queue_selectWorkoutNotificatio
       v10 = v8;
       v11 = [v6 UUID];
       v12 = [v3 endDate];
-      v36 = 138543618;
-      v37 = v11;
-      v38 = 2114;
-      v39 = v12;
-      _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, "Evaluating workout for friend with UUID %{public}@, end date (on remote device) is %{public}@", &v36, 0x16u);
+      v35 = 138543618;
+      v36 = v11;
+      v37 = 2114;
+      v38 = v12;
+      _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, "Evaluating workout for friend with UUID %{public}@, end date (on remote device) is %{public}@", &v35, 0x16u);
     }
 
     v13 = *(a1 + 40);
@@ -1135,19 +1103,19 @@ uint64_t __70__ASActivityDataNotificationManager__queue_selectWorkoutNotificatio
     v21 = *v7;
     if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
     {
-      v36 = 138412290;
-      v37 = v15;
-      _os_log_impl(&dword_23E5E3000, v21, OS_LOG_TYPE_DEFAULT, "Last known workout completion date: %@", &v36, 0xCu);
+      v35 = 138412290;
+      v36 = v15;
+      _os_log_impl(&dword_23E5E3000, v21, OS_LOG_TYPE_DEFAULT, "Last known workout completion date: %@", &v35, 0xCu);
     }
 
     if (v15 && ([v3 endDate], v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "hk_isAfterDate:", v15), v22, (v23 & 1) == 0))
     {
       ASLoggingInitialize();
-      v35 = *v7;
+      v34 = *v7;
       if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v36) = 0;
-        _os_log_impl(&dword_23E5E3000, v35, OS_LOG_TYPE_DEFAULT, "Last known workout is newer, skip this one", &v36, 2u);
+        LOWORD(v35) = 0;
+        _os_log_impl(&dword_23E5E3000, v34, OS_LOG_TYPE_DEFAULT, "Last known workout is newer, skip this one", &v35, 2u);
       }
     }
 
@@ -1177,36 +1145,33 @@ uint64_t __70__ASActivityDataNotificationManager__queue_selectWorkoutNotificatio
     __70__ASActivityDataNotificationManager__queue_selectWorkoutNotifications__block_invoke_cold_1(v8, v3);
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 void __70__ASActivityDataNotificationManager__queue_selectWorkoutNotifications__block_invoke_330(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   ASLoggingInitialize();
   v7 = *MEMORY[0x277CE8FF8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
-    v12 = v6;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "Updating most recent workout completion date: %@, for friend: %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "Updating most recent workout completion date: %@, for friend: %@", &v10, 0x16u);
   }
 
   v8 = *(a1 + 32);
   v9 = [v5 UUIDString];
   [v8 _setMostRecentWorkoutCompletionDate:v6 forFriendWithUUID:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_queue_selectAchievementNotifications
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v3 = MEMORY[0x277CE8FF8];
   v4 = *MEMORY[0x277CE8FF8];
@@ -1222,7 +1187,7 @@ void __70__ASActivityDataNotificationManager__queue_selectWorkoutNotifications__
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v37 = achievementAnchor;
+    v36 = achievementAnchor;
     _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "Current achievement anchor is %{public}@", buf, 0xCu);
   }
 
@@ -1232,41 +1197,41 @@ void __70__ASActivityDataNotificationManager__queue_selectWorkoutNotifications__
   v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
   databaseClient = self->_databaseClient;
-  v35 = achievementAnchor;
-  v34 = 0;
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __74__ASActivityDataNotificationManager__queue_selectAchievementNotifications__block_invoke;
-  v28[3] = &unk_278C4CD00;
-  v28[4] = self;
+  v34 = achievementAnchor;
+  v33 = 0;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __74__ASActivityDataNotificationManager__queue_selectAchievementNotifications__block_invoke;
+  v27[3] = &unk_278C4CD00;
+  v27[4] = self;
   v13 = v10;
-  v29 = v13;
+  v28 = v13;
   v14 = v8;
-  v30 = v14;
+  v29 = v14;
   v15 = v11;
-  v31 = v15;
+  v30 = v15;
   v16 = v9;
-  v32 = v16;
+  v31 = v16;
   v17 = v7;
-  v33 = v17;
-  v18 = [(ASDatabaseClient *)databaseClient enumerateActivitySharingAchievementsWithPredicate:0 anchor:&v35 error:&v34 handler:v28];
-  v19 = v35;
+  v32 = v17;
+  v18 = [(ASDatabaseClient *)databaseClient enumerateActivitySharingAchievementsWithPredicate:0 anchor:&v34 error:&v33 handler:v27];
+  v19 = v34;
 
-  v20 = v34;
+  v20 = v33;
   if (v18)
   {
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __74__ASActivityDataNotificationManager__queue_selectAchievementNotifications__block_invoke_340;
-    v27[3] = &unk_278C4CCD8;
-    v27[4] = self;
-    [v16 enumerateKeysAndObjectsUsingBlock:v27];
     v26[0] = MEMORY[0x277D85DD0];
     v26[1] = 3221225472;
-    v26[2] = __74__ASActivityDataNotificationManager__queue_selectAchievementNotifications__block_invoke_341;
+    v26[2] = __74__ASActivityDataNotificationManager__queue_selectAchievementNotifications__block_invoke_340;
     v26[3] = &unk_278C4CCD8;
     v26[4] = self;
-    [v15 enumerateKeysAndObjectsUsingBlock:v26];
+    [v16 enumerateKeysAndObjectsUsingBlock:v26];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __74__ASActivityDataNotificationManager__queue_selectAchievementNotifications__block_invoke_341;
+    v25[3] = &unk_278C4CCD8;
+    v25[4] = self;
+    [v15 enumerateKeysAndObjectsUsingBlock:v25];
     [(ASActivityDataNotificationManager *)self setAchievementAnchor:v19];
     ASLoggingInitialize();
     v21 = *v3;
@@ -1276,7 +1241,7 @@ void __70__ASActivityDataNotificationManager__queue_selectWorkoutNotifications__
     }
 
     *buf = 138543362;
-    v37 = v19;
+    v36 = v19;
     v22 = "AchievementAnchor set to: %{public}@";
   }
 
@@ -1290,7 +1255,7 @@ void __70__ASActivityDataNotificationManager__queue_selectWorkoutNotifications__
     }
 
     *buf = 138543362;
-    v37 = v20;
+    v36 = v20;
     v22 = "Error: %{public}@ fetching achievements";
   }
 
@@ -1298,14 +1263,12 @@ void __70__ASActivityDataNotificationManager__queue_selectWorkoutNotifications__
 LABEL_11:
   v23 = [v17 copy];
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v23;
 }
 
 uint64_t __74__ASActivityDataNotificationManager__queue_selectAchievementNotifications__block_invoke(uint64_t a1, void *a2)
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 64));
   v5 = [v3 friendUUID];
@@ -1337,16 +1300,16 @@ uint64_t __74__ASActivityDataNotificationManager__queue_selectAchievementNotific
     v14 = v13;
     v15 = @"NO";
     *buf = 138543874;
-    v64 = v12;
-    v65 = 2114;
+    v63 = v12;
+    v64 = 2114;
     if (IsMonthlyChallenge)
     {
       v15 = @"YES";
     }
 
-    v66 = v13;
-    v67 = 2114;
-    v68 = v15;
+    v65 = v13;
+    v66 = 2114;
+    v67 = v15;
     _os_log_impl(&dword_23E5E3000, v11, OS_LOG_TYPE_DEFAULT, "Evaluating new achievement for friend %{public}@, completed date %{public}@, monthly %{public}@", buf, 0x20u);
   }
 
@@ -1356,23 +1319,8 @@ uint64_t __74__ASActivityDataNotificationManager__queue_selectAchievementNotific
     v17 = [v6 UUID];
     v18 = [v16 objectForKeyedSubscript:v17];
 
-    if (v18)
+    if (v18 || (v19 = *(a1 + 32), [v6 UUID], v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "UUIDString"), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "_mostRecentMonthlyAchievementEarnedDateForFriendWithUUID:", v21), v18 = objc_claimAutoreleasedReturnValue(), v21, v20, v22 = *(a1 + 40), objc_msgSend(v6, "UUID"), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v22, "setObject:forKeyedSubscript:", v18, v23), v23, v18))
     {
-      goto LABEL_9;
-    }
-
-    v19 = *(a1 + 32);
-    v20 = [v6 UUID];
-    v21 = [v20 UUIDString];
-    v18 = [v19 _mostRecentMonthlyAchievementEarnedDateForFriendWithUUID:v21];
-
-    v22 = *(a1 + 40);
-    v23 = [v6 UUID];
-    [v22 setObject:v18 forKeyedSubscript:v23];
-
-    if (v18)
-    {
-LABEL_9:
       v24 = [v3 completedDate];
       v25 = [v24 hk_isAfterDate:v18];
     }
@@ -1390,7 +1338,7 @@ LABEL_9:
     }
 
     *buf = 138412290;
-    v64 = v18;
+    v63 = v18;
     v27 = "Last known monthly achievement completion date: %@";
   }
 
@@ -1400,23 +1348,8 @@ LABEL_9:
     v30 = [v6 UUID];
     v18 = [v29 objectForKeyedSubscript:v30];
 
-    if (v18)
+    if (v18 || (v31 = *(a1 + 32), [v6 UUID], v32 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v32, "UUIDString"), v33 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v31, "_mostRecentAchievementEarnedDateForFriendWithUUID:", v33), v18 = objc_claimAutoreleasedReturnValue(), v33, v32, v34 = *(a1 + 48), objc_msgSend(v6, "UUID"), v35 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v34, "setObject:forKeyedSubscript:", v18, v35), v35, v18))
     {
-      goto LABEL_16;
-    }
-
-    v31 = *(a1 + 32);
-    v32 = [v6 UUID];
-    v33 = [v32 UUIDString];
-    v18 = [v31 _mostRecentAchievementEarnedDateForFriendWithUUID:v33];
-
-    v34 = *(a1 + 48);
-    v35 = [v6 UUID];
-    [v34 setObject:v18 forKeyedSubscript:v35];
-
-    if (v18)
-    {
-LABEL_16:
       v36 = [v3 completedDate];
       v25 = [v36 hk_isAfterOrEqualToDate:v18];
     }
@@ -1434,7 +1367,7 @@ LABEL_16:
     }
 
     *buf = 138412290;
-    v64 = v18;
+    v63 = v18;
     v27 = "Last known achievement completion date: %@";
   }
 
@@ -1459,9 +1392,9 @@ LABEL_20:
     {
       v47 = objc_alloc_init(MEMORY[0x277CE8DE0]);
       v48 = [v3 templateUniqueName];
-      v62 = 0;
-      v39 = [v47 ephemeralAchievementWithTemplateUniqueName:v48 error:&v62];
-      v49 = v62;
+      v61 = 0;
+      v39 = [v47 ephemeralAchievementWithTemplateUniqueName:v48 error:&v61];
+      v49 = v61;
 
       if (v49)
       {
@@ -1550,59 +1483,54 @@ LABEL_39:
 
 LABEL_40:
 
-  v60 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 void __74__ASActivityDataNotificationManager__queue_selectAchievementNotifications__block_invoke_340(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   ASLoggingInitialize();
   v7 = *MEMORY[0x277CE8FF8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
-    v12 = v6;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "Updating most recent achievement earned date: %@, for friend: %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "Updating most recent achievement earned date: %@, for friend: %@", &v10, 0x16u);
   }
 
   v8 = *(a1 + 32);
   v9 = [v5 UUIDString];
   [v8 _setMostRecentAchievementEarnedDate:v6 forFriendWithUUID:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __74__ASActivityDataNotificationManager__queue_selectAchievementNotifications__block_invoke_341(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   ASLoggingInitialize();
   v7 = *MEMORY[0x277CE8FF8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
-    v12 = v6;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "Updating most recent monthly achievement earned date: %@, for friend: %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "Updating most recent monthly achievement earned date: %@, for friend: %@", &v10, 0x16u);
   }
 
   v8 = *(a1 + 32);
   v9 = [v5 UUIDString];
   [v8 _setMostRecentMonthlyAchievementEarnedDate:v6 forFriendWithUUID:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_queue_selectGoalCompletionNotifications
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v3 = MEMORY[0x277CE8FF8];
   v4 = *MEMORY[0x277CE8FF8];
@@ -1618,7 +1546,7 @@ void __74__ASActivityDataNotificationManager__queue_selectAchievementNotificatio
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v30 = goalCompletionAnchor;
+    v29 = goalCompletionAnchor;
     _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "Current goal completion anchor is %{public}@", buf, 0xCu);
   }
 
@@ -1626,31 +1554,31 @@ void __74__ASActivityDataNotificationManager__queue_selectAchievementNotificatio
   v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
   databaseClient = self->_databaseClient;
-  v27 = 0;
-  v28 = goalCompletionAnchor;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __77__ASActivityDataNotificationManager__queue_selectGoalCompletionNotifications__block_invoke;
-  v23[3] = &unk_278C4CD28;
-  v23[4] = self;
+  v26 = 0;
+  v27 = goalCompletionAnchor;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __77__ASActivityDataNotificationManager__queue_selectGoalCompletionNotifications__block_invoke;
+  v22[3] = &unk_278C4CD28;
+  v22[4] = self;
   v11 = v8;
-  v24 = v11;
+  v23 = v11;
   v12 = v9;
-  v25 = v12;
+  v24 = v12;
   v13 = v7;
-  v26 = v13;
-  v14 = [(ASDatabaseClient *)databaseClient enumerateActivitySharingSnapshotsWithPredicate:0 anchor:&v28 error:&v27 handler:v23];
-  v15 = v28;
+  v25 = v13;
+  v14 = [(ASDatabaseClient *)databaseClient enumerateActivitySharingSnapshotsWithPredicate:0 anchor:&v27 error:&v26 handler:v22];
+  v15 = v27;
 
-  v16 = v27;
+  v16 = v26;
   if (v14)
   {
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __77__ASActivityDataNotificationManager__queue_selectGoalCompletionNotifications__block_invoke_344;
-    v22[3] = &unk_278C4CD50;
-    v22[4] = self;
-    [v12 enumerateKeysAndObjectsUsingBlock:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __77__ASActivityDataNotificationManager__queue_selectGoalCompletionNotifications__block_invoke_344;
+    v21[3] = &unk_278C4CD50;
+    v21[4] = self;
+    [v12 enumerateKeysAndObjectsUsingBlock:v21];
     [(ASActivityDataNotificationManager *)self setGoalCompletionAnchor:v15];
     ASLoggingInitialize();
     v17 = *v3;
@@ -1660,7 +1588,7 @@ void __74__ASActivityDataNotificationManager__queue_selectAchievementNotificatio
     }
 
     *buf = 138543362;
-    v30 = v15;
+    v29 = v15;
     v18 = "GoalCompletionAnchor set to: %{public}@";
   }
 
@@ -1674,7 +1602,7 @@ void __74__ASActivityDataNotificationManager__queue_selectAchievementNotificatio
     }
 
     *buf = 138543362;
-    v30 = v16;
+    v29 = v16;
     v18 = "Error: %{public}@ fetching snapshots";
   }
 
@@ -1682,14 +1610,12 @@ void __74__ASActivityDataNotificationManager__queue_selectAchievementNotificatio
 LABEL_11:
   v19 = [v13 copy];
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 uint64_t __77__ASActivityDataNotificationManager__queue_selectGoalCompletionNotifications__block_invoke(uint64_t a1, void *a2)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 64));
   v5 = [v3 friendUUID];
@@ -1707,13 +1633,13 @@ uint64_t __77__ASActivityDataNotificationManager__queue_selectGoalCompletionNoti
       v11 = [v6 UUID];
       v12 = [v3 snapshotIndex];
       v13 = [v3 snapshotUploadedDate];
-      v36 = 138543874;
-      v37 = v11;
-      v38 = 2048;
-      v39 = v12;
-      v40 = 2114;
-      v41 = v13;
-      _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, "Evaluating new snapshot with friend UUID %{public}@, index: %lld, date: %{public}@", &v36, 0x20u);
+      v35 = 138543874;
+      v36 = v11;
+      v37 = 2048;
+      v38 = v12;
+      v39 = 2114;
+      v40 = v13;
+      _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, "Evaluating new snapshot with friend UUID %{public}@, index: %lld, date: %{public}@", &v35, 0x20u);
     }
 
     if (ASAllGoalsMetForSnapshot())
@@ -1738,9 +1664,9 @@ uint64_t __77__ASActivityDataNotificationManager__queue_selectGoalCompletionNoti
       v22 = *v7;
       if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
       {
-        v36 = 138412290;
-        v37 = v16;
-        _os_log_impl(&dword_23E5E3000, v22, OS_LOG_TYPE_DEFAULT, "Last known goal completion index: %@", &v36, 0xCu);
+        v35 = 138412290;
+        v36 = v16;
+        _os_log_impl(&dword_23E5E3000, v22, OS_LOG_TYPE_DEFAULT, "Last known goal completion index: %@", &v35, 0xCu);
       }
 
       v23 = [v3 snapshotIndex];
@@ -1750,8 +1676,8 @@ uint64_t __77__ASActivityDataNotificationManager__queue_selectGoalCompletionNoti
         v33 = *v7;
         if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v36) = 0;
-          _os_log_impl(&dword_23E5E3000, v33, OS_LOG_TYPE_DEFAULT, "Last known snapshot is newer, skip this one", &v36, 2u);
+          LOWORD(v35) = 0;
+          _os_log_impl(&dword_23E5E3000, v33, OS_LOG_TYPE_DEFAULT, "Last known snapshot is newer, skip this one", &v35, 2u);
         }
       }
 
@@ -1783,8 +1709,8 @@ uint64_t __77__ASActivityDataNotificationManager__queue_selectGoalCompletionNoti
       v32 = *v7;
       if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v36) = 0;
-        _os_log_impl(&dword_23E5E3000, v32, OS_LOG_TYPE_DEFAULT, "Snapshot doesn't represent goal completion, skipping", &v36, 2u);
+        LOWORD(v35) = 0;
+        _os_log_impl(&dword_23E5E3000, v32, OS_LOG_TYPE_DEFAULT, "Snapshot doesn't represent goal completion, skipping", &v35, 2u);
       }
     }
   }
@@ -1794,59 +1720,56 @@ uint64_t __77__ASActivityDataNotificationManager__queue_selectGoalCompletionNoti
     __77__ASActivityDataNotificationManager__queue_selectGoalCompletionNotifications__block_invoke_cold_1(v8, v3);
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 void __77__ASActivityDataNotificationManager__queue_selectGoalCompletionNotifications__block_invoke_344(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   ASLoggingInitialize();
   v7 = *MEMORY[0x277CE8FF8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
-    v12 = v6;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "Updating most recent goal completion snapshot index: %@, for friend: %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "Updating most recent goal completion snapshot index: %@, for friend: %@", &v10, 0x16u);
   }
 
   v8 = *(a1 + 32);
   v9 = [v5 UUIDString];
   [v8 _setMostRecentGoalCompletedSnapshotIndex:v6 forFriendWithUUID:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyAboutWorkoutsDetectionIfRequired:(id)required
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   requiredCopy = required;
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v6 = requiredCopy;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
   WeakRetained = v6;
   if (v7)
   {
     v9 = v7;
-    v10 = *v20;
+    v10 = *v19;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        endDate = [*(*(&v19 + 1) + 8 * i) endDate];
+        endDate = [*(*(&v18 + 1) + 8 * i) endDate];
         v13 = [currentCalendar isDateInToday:endDate];
         v14 = [currentCalendar isDateInYesterday:endDate];
         if ((v13 & 1) != 0 || v14)
@@ -1855,19 +1778,19 @@ void __77__ASActivityDataNotificationManager__queue_selectGoalCompletionNotifica
           v15 = *MEMORY[0x277CE8FF8];
           if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_DEFAULT))
           {
-            *v18 = 0;
-            _os_log_impl(&dword_23E5E3000, v15, OS_LOG_TYPE_DEFAULT, "ActivityDataNotificationManager: at least one workout is in today or yesterday, request data push", v18, 2u);
+            *v17 = 0;
+            _os_log_impl(&dword_23E5E3000, v15, OS_LOG_TYPE_DEFAULT, "ActivityDataNotificationManager: at least one workout is in today or yesterday, request data push", v17, 2u);
           }
 
           WeakRetained = objc_loadWeakRetained(&self->_periodicUpdateManager);
-          v16 = ASCloudKitGroupUserActionImplicit();
+          v16 = ASCloudKitGroupUserActionImplicit(WeakRetained);
           [WeakRetained requestImmediateUpdateWithCloudKitGroup:v16 completion:0];
 
           goto LABEL_14;
         }
       }
 
-      v9 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v9)
       {
         continue;
@@ -1880,8 +1803,6 @@ void __77__ASActivityDataNotificationManager__queue_selectGoalCompletionNotifica
   }
 
 LABEL_14:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (ASCloudKitManager)cloudKitManager
@@ -1926,138 +1847,46 @@ LABEL_14:
   return WeakRetained;
 }
 
-- (void)_mostRecentWorkoutCompletionDateForFriendWithUUID:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, v0, v1, "Error: %{public}@ retrieving workout completion data from key value domain for friendUUID: %{public}@.");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_mostRecentAchievementEarnedDateForFriendWithUUID:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, v0, v1, "Error: %{public}@ retrieving achievement earned data from key value domain for friendUUID: %{public}@.");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_mostRecentMonthlyAchievementEarnedDateForFriendWithUUID:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, v0, v1, "Error: %{public}@ retrieving monthly achievement earned data from key value domain for friendUUID: %{public}@.");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_mostRecentGoalCompletedSnapshotIndexForFriendWithUUID:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, v0, v1, "Error: %{public}@ retrieving goal completion data from key value domain for friendUUID: %{public}@.");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)workoutAnchor
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, v0, v1, "Error: %{public}@ retrieving workout anchor data from key value domain. anchor: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setWorkoutAnchor:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, v0, v1, "Error:%{public}@ saving workout anchor data into key value domain. anchor: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)achievementAnchor
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, v0, v1, "Error: %{public}@ retrieving achievement anchor data from key value domain. anchor: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setAchievementAnchor:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, v0, v1, "Error: %{public}@ saving achievement anchor data into key value domain. anchor: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)goalCompletionAnchor
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, v0, v1, "Error: %{public}@ retrieving goal completion anchor data from key value domain. anchor: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setGoalCompletionAnchor:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, v0, v1, "Error: %{public}@ saving goal completion anchor data into key value domain. anchor: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 void __70__ASActivityDataNotificationManager__queue_selectWorkoutNotifications__block_invoke_cold_1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 friendUUID];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_3_1(&dword_23E5E3000, v5, v6, "Error: Failed to find friend with UUID %{public}@ for completed workout", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(&dword_23E5E3000, v5, v6, "Error: Failed to find friend with UUID %{public}@ for completed workout", v7, v8, v9, v10);
 }
 
 void __74__ASActivityDataNotificationManager__queue_selectAchievementNotifications__block_invoke_cold_1(void *a1, void *a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 templateUniqueName];
   OUTLINED_FUNCTION_1_0();
-  v9 = 2112;
-  v10 = a3;
-  _os_log_error_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_ERROR, "Error fetching ephemeral Achievement for template %@: %@", v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = 2112;
+  v9 = a3;
+  _os_log_error_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_ERROR, "Error fetching ephemeral Achievement for template %@: %@", v7, 0x16u);
 }
 
 void __74__ASActivityDataNotificationManager__queue_selectAchievementNotifications__block_invoke_cold_2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_23E5E3000, v0, OS_LOG_TYPE_ERROR, "Unable to find achievement matching achievement: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23E5E3000, v0, OS_LOG_TYPE_ERROR, "Unable to find achievement matching achievement: %@", v1, 0xCu);
 }
 
 void __74__ASActivityDataNotificationManager__queue_selectAchievementNotifications__block_invoke_cold_3(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 friendUUID];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_3_1(&dword_23E5E3000, v5, v6, "Error: Failed to find friend with UUID %{public}@ for achievement", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(&dword_23E5E3000, v5, v6, "Error: Failed to find friend with UUID %{public}@ for achievement", v7, v8, v9, v10);
 }
 
 void __77__ASActivityDataNotificationManager__queue_selectGoalCompletionNotifications__block_invoke_cold_1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 friendUUID];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_3_1(&dword_23E5E3000, v5, v6, "Error: Failed to find friend with UUID %{public}@ for goal completion", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(&dword_23E5E3000, v5, v6, "Error: Failed to find friend with UUID %{public}@ for goal completion", v7, v8, v9, v10);
 }
 
 @end

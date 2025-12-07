@@ -1,6 +1,7 @@
 @interface TRIExperimentHistorySysdiagnoseProvider
 + (id)defaultProvider;
 - (id)_allHistoryRecordsWithError:(id *)error;
+- (id)_experimentHistoryRecordsForEnvironment:(int)environment error:(id *)error;
 - (id)initIncompleteProvider;
 - (id)sysdiagnoseLinesWithError:(id *)error;
 @end
@@ -124,6 +125,44 @@ LABEL_15:
 LABEL_16:
 
   return v10;
+}
+
+- (id)_experimentHistoryRecordsForEnvironment:(int)environment error:(id *)error
+{
+  v5 = *&environment;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__4;
+  v21 = __Block_byref_object_dispose__4;
+  v22 = MEMORY[0x277CBEBF8];
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__4;
+  v15 = __Block_byref_object_dispose__4;
+  v16 = 0;
+  syncStatusProvider = [(TRIExperimentHistorySysdiagnoseProvider *)self syncStatusProvider];
+  distantPast = [MEMORY[0x277CBEAA8] distantPast];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __89__TRIExperimentHistorySysdiagnoseProvider__experimentHistoryRecordsForEnvironment_error___block_invoke;
+  v10[3] = &unk_27885EAD8;
+  v10[4] = &v11;
+  v10[5] = &v17;
+  [syncStatusProvider experimentHistoryRecordsWithLimit:0x7FFFFFFFFFFFFFFFLL newerThanDate:distantPast deploymentEnvironment:v5 completion:v10];
+
+  if (error)
+  {
+    *error = v12[5];
+  }
+
+  v8 = v18[5];
+  _Block_object_dispose(&v11, 8);
+
+  _Block_object_dispose(&v17, 8);
+
+  return v8;
 }
 
 void __89__TRIExperimentHistorySysdiagnoseProvider__experimentHistoryRecordsForEnvironment_error___block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5)

@@ -17,7 +17,7 @@
 
 + (id)textRunResponseByMergingResponses:(id)responses
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   responsesCopy = responses;
   if ([responsesCopy count] == 1)
   {
@@ -36,34 +36,34 @@
       for (i = 0; i != Count; ++i)
       {
         Mutable = CFArrayCreateMutable(0, Count, MEMORY[0x277CBF128]);
+        v24 = 0u;
         v25 = 0u;
         v26 = 0u;
         v27 = 0u;
-        v28 = 0u;
         v10 = responsesCopy;
         v11 = responsesCopy;
-        v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v26;
+          v14 = *v25;
           do
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v26 != v14)
+              if (*v25 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              ValueAtIndex = CFArrayGetValueAtIndex([*(*(&v25 + 1) + 8 * j) ctLines], i);
+              ValueAtIndex = CFArrayGetValueAtIndex([*(*(&v24 + 1) + 8 * j) ctLines], i);
               GlyphRuns = CTLineGetGlyphRuns(ValueAtIndex);
-              v32.length = CFArrayGetCount(GlyphRuns);
-              v32.location = 0;
-              CFArrayAppendArray(Mutable, GlyphRuns, v32);
+              v31.length = CFArrayGetCount(GlyphRuns);
+              v31.location = 0;
+              CFArrayAppendArray(Mutable, GlyphRuns, v31);
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
           }
 
           while (v13);
@@ -88,8 +88,6 @@
     firstObject2 = [responsesCopy firstObject];
     v4[3] = CFRetain([firstObject2 font]);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

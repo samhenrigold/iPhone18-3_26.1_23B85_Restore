@@ -41,10 +41,10 @@
     v7->_separatorView = v13;
 
     v15 = v7->_separatorView;
-    primaryTextColor = [(SUUIColorScheme *)v7->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v16 = objc_msgSend_primaryTextColor(v7->_colorScheme);
+    if (v16)
     {
-      [(UIView *)v15 setBackgroundColor:primaryTextColor];
+      [(UIView *)v15 setBackgroundColor:v16];
     }
 
     else
@@ -93,10 +93,10 @@
     }
 
     separatorView = self->_separatorView;
-    primaryTextColor = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v10 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    if (v10)
     {
-      [(UIView *)separatorView setBackgroundColor:primaryTextColor];
+      [(UIView *)separatorView setBackgroundColor:v10];
     }
 
     else

@@ -653,16 +653,16 @@ uint64_t VCPHumanGetflagsFromKeypoints(uint64_t *a1, float a2)
   return result;
 }
 
-void sub_1C9DEEE04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C9DEEE04(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = VCPMotionFlowSubtleMotionAnalyzer;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_1C9DEF370(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C9DEF370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CVPixelBufferLock::~CVPixelBufferLock(va);
   _Unwind_Resume(a1);
 }
@@ -677,7 +677,7 @@ void sub_1C9DEFE4C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-float *std::__introsort<std::_ClassicAlgPolicy,std::greater<float> &,float *,true>(float *result, float *a2, uint64_t a3, uint64_t a4, char a5, double a6)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::greater<float> &,float *,true>(uint64_t result, float *a2, uint64_t a3, uint64_t a4, char a5, double a6)
 {
   v9 = result;
 LABEL_2:
@@ -1883,7 +1883,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
         v30 = a1[1];
         if (v29 <= v30)
         {
-          v31 = a1[1];
+          v31 = *(a1 + 1);
           v30 = v29;
         }
 
@@ -1900,7 +1900,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 
         else
         {
-          v49 = a1[2];
+          v49 = *(a1 + 2);
         }
 
         if (*a1 <= v47)
@@ -1992,16 +1992,16 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 
         else
         {
-          v7 = a1[1];
+          v7 = *(a1 + 1);
         }
 
         if (*a1 > v6)
         {
-          v5 = a1[1];
+          v5 = *(a1 + 1);
         }
 
         *a1 = v7;
-        a1[1] = v5;
+        *(a1 + 1) = v5;
         v8 = a1[3];
         v9 = *(a2 - 1);
         if (v8 > v9)
@@ -2087,7 +2087,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 
         if (v22 <= v21)
         {
-          v19 = a1[2];
+          v19 = *(a1 + 2);
           v21 = v22;
         }
 
@@ -2428,9 +2428,9 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<floa
   return result;
 }
 
-void sub_1C9DF1FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C9DF1FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2667,12 +2667,12 @@ LABEL_36:
                 else
                 {
                   v41 = &v66[3 * v36];
-                  v42 = (*v41)[1];
+                  v42 = *(*v41 + 1);
                   *&__p = (v34 + (**v41 * v42)) / (v42 + 1.0);
                   *(&__p + 1) = v42 + 1.0;
                   std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float const*>(v41, &__p, &v76, 2uLL);
                   v43 = (*&v65[2]._heatmapNms[6 * v36] + 24 * v27);
-                  if (*&v30[4 * v29] > *(*v43 + 8))
+                  if (*&v30[4 * v29] > *(*v43 + 2))
                   {
                     *&__p = v32;
                     *(&__p + 1) = v33;
@@ -2989,11 +2989,11 @@ void sub_1C9DF4408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t result, uint64_t a2)
+const void **std::vector<std::vector<float>>::push_back[abi:ne200100](const void **result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v7 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *result) >> 3);
@@ -3035,8 +3035,8 @@ uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t resul
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
     v6 = 24 * v7 + 24;
-    v12 = *(result + 8) - *result;
-    v13 = v11 - v12;
+    v12 = result[1] - *result;
+    v13 = (v11 - v12);
     memcpy((v11 - v12), *result, v12);
     v14 = *v3;
     *v3 = v13;
@@ -3053,21 +3053,21 @@ uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t resul
   else
   {
     *v4 = 0;
-    v4[1] = 0;
-    v4[2] = 0;
+    *(v4 + 1) = 0;
+    *(v4 + 2) = 0;
     *v4 = *a2;
-    v4[2] = *(a2 + 16);
+    *(v4 + 2) = *(a2 + 16);
     *a2 = 0;
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
-    v6 = (v4 + 3);
+    v6 = (v4 + 24);
   }
 
   v3[1] = v6;
   return result;
 }
 
-uint64_t std::vector<std::vector<std::vector<float>>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<std::vector<float>>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -3078,14 +3078,14 @@ uint64_t std::vector<std::vector<std::vector<float>>>::push_back[abi:ne200100](u
   else
   {
     std::vector<std::vector<std::vector<float>>>::__construct_one_at_end[abi:ne200100]<std::vector<std::vector<float>> const&>(a1, a2);
-    result = v3 + 24;
+    result = (v3 + 24);
   }
 
   *(a1 + 8) = result;
   return result;
 }
 
-void *std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -3157,8 +3157,7 @@ void *std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float co
       {
         v16 = *v13;
         v13 += 4;
-        *v15 = v16;
-        v15 += 4;
+        *v15++ = v16;
         v14 += 4;
       }
 
@@ -3204,7 +3203,7 @@ void std::__split_buffer<std::vector<float>>::__destruct_at_end[abi:ne200100](ui
   }
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3226,7 +3225,7 @@ void sub_1C9DF484C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::vector<std::vector<float>>>::__construct_one_at_end[abi:ne200100]<std::vector<std::vector<float>> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<std::vector<float>>>::__construct_one_at_end[abi:ne200100]<std::vector<std::vector<float>> const&>(uint64_t a1, uint64_t *a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
@@ -3237,21 +3236,21 @@ uint64_t std::vector<std::vector<std::vector<float>>>::__construct_one_at_end[ab
   return result;
 }
 
-uint64_t std::vector<std::vector<std::vector<float>>>::__emplace_back_slow_path<std::vector<std::vector<float>> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<std::vector<float>>>::__emplace_back_slow_path<std::vector<std::vector<float>> const&>(char **a1, uint64_t *a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<std::unique_ptr<VCPProtoKeypoint>>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -3275,16 +3274,16 @@ uint64_t std::vector<std::vector<std::vector<float>>>::__emplace_back_slow_path<
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<std::vector<float>>::__init_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(24 * v2, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
+  std::vector<std::vector<float>>::__init_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>((24 * v2), *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -3293,9 +3292,9 @@ uint64_t std::vector<std::vector<std::vector<float>>>::__emplace_back_slow_path<
   return v8;
 }
 
-void sub_1C9DF49F0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C9DF49F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<std::vector<float>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3354,15 +3353,15 @@ void sub_1C9DF5510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1C9DF59D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, ...)
+void sub_1C9DF59D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C9DF80F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, void *a21, void *a22, void *a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id a31)
+void sub_1C9DF80F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, void *a21, void *a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id a31)
 {
   _Block_object_dispose(&a26, 8);
 
@@ -3376,7 +3375,7 @@ uint64_t __Block_byref_object_copy__53(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C9DF8B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1C9DF8B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -3646,7 +3645,7 @@ char *ma::Histogram::ChromaHistogram(ma::Histogram *this, CVPixelBufferRef pixel
   if (result && Height >= 2)
   {
     v8 = 0;
-    v9 = (result + 1);
+    v9 = result + 1;
     do
     {
       if (Width >= 2)
@@ -3917,9 +3916,9 @@ uint64_t ma::Histogram::Initialize(ma::Histogram *this, CVPixelBufferRef pixelBu
   return v17;
 }
 
-void sub_1C9E0DF78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1C9E0DF78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   CVPixelBufferLock::~CVPixelBufferLock(va);
   _Unwind_Resume(a1);
 }
@@ -3946,7 +3945,7 @@ float ___ZN2ma9Histogram10InitializeEP10__CVBufferb_block_invoke(uint64_t a1, ui
   return result;
 }
 
-uint64_t ma::Histogram::InitializeAsIdealExposureHistogram(ma::Histogram *this, int a2)
+uint64_t ma::Histogram::InitializeAsIdealExposureHistogram(ma::Histogram *this, unsigned int a2)
 {
   if (a2 < 1)
   {
@@ -4073,12 +4072,14 @@ void sub_1C9E0E4C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E120FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_1C9E120FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
+
   _Block_object_dispose(&a20, 8);
   _Block_object_dispose(&a24, 8);
-  _Block_object_dispose(&a28, 8);
-  _Block_object_dispose((v34 - 136), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v33 - 136), 8);
 
   _Unwind_Resume(a1);
 }
@@ -4529,11 +4530,11 @@ LABEL_6:
   return PixelBuffer;
 }
 
-void sub_1C9E1A540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1C9E1A540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, const void *);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, const void *);
   CF<__CVBuffer *>::~CF(va);
   CF<__CVBuffer *>::~CF(va1);
   _Unwind_Resume(a1);
@@ -4635,12 +4636,12 @@ LABEL_20:
   return v18;
 }
 
-void sub_1C9E1A760(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C9E1A760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
+  v6 = va_arg(va1, void);
   CF<__CVBuffer *>::~CF(va1);
   CF<__CVBuffer *>::~CF(va);
   _Unwind_Resume(a1);
@@ -5621,9 +5622,9 @@ uint64_t __Block_byref_object_copy__55(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C9E1D1D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1C9E1D1D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   CVPixelBufferLock::~CVPixelBufferLock(va);
   _Unwind_Resume(a1);
 }
@@ -5828,9 +5829,9 @@ LABEL_36:
   return [a2 hasError] ^ 1;
 }
 
-void sub_1C9E21AEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C9E21AEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6228,25 +6229,25 @@ uint64_t MAMovieAnalysisRequest::Start(MAMovieAnalysisRequest *this, void (*a2)(
   return started;
 }
 
-void sub_1C9E22E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C9E22E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va2, a11);
-  va_start(va1, a11);
-  va_start(va, a11);
-  v14 = va_arg(va1, const void *);
+  va_start(va2, a18);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v21 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v16 = va_arg(va2, const void *);
-  v18 = va_arg(va2, void);
-  if (v11)
+  v23 = va_arg(va2, const void *);
+  v25 = va_arg(va2, void);
+  if (v18)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
   }
 
   CF<__CVBuffer *>::~CF(va);
   CF<__CVBuffer *>::~CF(va1);
   CF<__CVBuffer *>::~CF(va2);
-  CF<__CVBuffer *>::~CF((v12 - 96));
-  CF<__CVBuffer *>::~CF((v12 - 88));
+  CF<__CVBuffer *>::~CF((v19 - 96));
+  CF<__CVBuffer *>::~CF((v19 - 88));
   _Unwind_Resume(a1);
 }
 
@@ -6314,9 +6315,9 @@ uint64_t __Block_byref_object_copy__58(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C9E261D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1C9E261D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   CF<__CVBuffer *>::~CF(va);
 
   _Unwind_Resume(a1);
@@ -6517,12 +6518,13 @@ LABEL_51:
   return [a2 hasError] ^ 1;
 }
 
-void sub_1C9E2CAAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_1C9E2CAAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
+  va_start(va, a33);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a34, 8);
-  _Block_object_dispose((v34 - 232), 8);
-  _Block_object_dispose((v34 - 160), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v33 - 232), 8);
+  _Block_object_dispose((v33 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6554,44 +6556,44 @@ void sub_1C9E30E2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E3169C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C9E3169C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   CF<__CVBuffer *>::~CF(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E31B38(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C9E31B38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   va_copy(va2, va1);
-  v7 = va_arg(va2, void);
-  v9 = va_arg(va2, void);
+  v8 = va_arg(va2, void);
   v10 = va_arg(va2, void);
   v11 = va_arg(va2, void);
+  v12 = va_arg(va2, void);
   CVPixelBufferLock::~CVPixelBufferLock(va1);
   CVPixelBufferLock::~CVPixelBufferLock(va2);
   CVPixelBufferLock::~CVPixelBufferLock(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E31EB8(_Unwind_Exception *a1, void *a2, ...)
+void sub_1C9E31EB8(_Unwind_Exception *a1, void *a2, void *a3, ...)
 {
-  va_start(va3, a2);
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v10 = va_arg(va1, const void *);
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v11 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v12 = va_arg(va2, const void *);
+  v13 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v14 = va_arg(va3, const void *);
+  v15 = va_arg(va3, const void *);
 
   CF<__CVBuffer *>::~CF(va);
   CF<__CVBuffer *>::~CF(va1);
@@ -6614,10 +6616,11 @@ void sub_1C9E3340C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E37210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, void *a20, void *a21, void *a22, void *a23, void *a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_1C9E37210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, void *a20, void *a21, void *a22, void *a23, void *a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  _Block_object_dispose(&a29, 8);
+  va_start(va, a28);
 
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6628,7 +6631,7 @@ void sub_1C9E3906C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E39E90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, void *a16, void *a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36)
+void sub_1C9E39E90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, void *a16, void *a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36)
 {
   _Block_object_dispose(&a25, 8);
 
@@ -6646,7 +6649,7 @@ uint64_t __Block_byref_object_copy__61(uint64_t result, uint64_t a2)
 void sub_1C9E3B730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, void *a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, void *a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void *a44, uint64_t a45, void *a46, void *a47, void *a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, void *a54, void *a55, void *a56, void *a57, void *a58, void *a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a65, 8);
-  _Block_object_dispose(&a69, 8);
+  _Block_object_dispose(&a66, 8);
   _Block_object_dispose(&STACK[0x330], 8);
   _Block_object_dispose(&STACK[0x260], 8);
   _Block_object_dispose(&STACK[0x360], 8);
@@ -6654,25 +6657,26 @@ void sub_1C9E3B730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E3C4A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, id a25, id a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_1C9E3C4A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, id a25, id a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
-  _Block_object_dispose(&a17, 8);
+  va_start(va, a38);
 
+  _Block_object_dispose(&a17, 8);
   _Block_object_dispose(&a31, 8);
   _Block_object_dispose(&a35, 8);
-  _Block_object_dispose(&a39, 8);
-  _Block_object_dispose((v43 - 224), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v42 - 224), 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E3DCC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, id a50, uint64_t a51, char a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, id a60, uint64_t a61, uint64_t a62, char a63)
+void sub_1C9E3DCC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, id a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, id a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a42, 8);
 
   _Block_object_dispose(&a52, 8);
   _Block_object_dispose(&a63, 8);
-  _Block_object_dispose(&a67, 8);
+  _Block_object_dispose(&a65, 8);
 
   _Block_object_dispose(&STACK[0x230], 8);
   _Block_object_dispose(&STACK[0x250], 8);
@@ -7095,7 +7099,7 @@ uint64_t MotionAnalysis<ma::QualitySegment>::AddSegment(uint64_t a1)
   v4 = *(a1 + 8);
   *(a1 + 8) = v3;
   v7 = v4;
-  v5 = Vector<ma::Object *>::PushBack(a1);
+  v5 = Vector<ma::Object *>::PushBack(a1, &v7);
   if (v5 && v7)
   {
     (*(*v7 + 8))(v7);
@@ -7141,7 +7145,7 @@ uint64_t ma::QualityAnalysis::FinalizeSegments(uint64_t a1, const ma::Frame *a2,
     goto LABEL_15;
   }
 
-  ma::QualityAnalysis::GenerateDegradedScores(a1, &__p);
+  ma::QualityAnalysis::GenerateDegradedScores(&__p, a1);
   v12 = ma::QualityAnalysis::SplitSegment(a1, &__p);
   if (!v12)
   {
@@ -7398,7 +7402,8 @@ uint64_t ma::QualityAnalysis::AdjustQualityScore(CFArrayRef *a1, uint64_t *a2)
       if ((v8 & 1) != 0 && (v12 & 1) != 0 && !v13 && (v10 & 0x8000000000000000) == 0)
       {
         time1.start.value = *(v7 + 48);
-        *&time1.start.timescale = __PAIR64__(v12, v11);
+        time1.start.timescale = v11;
+        time1.start.flags = v12;
         time1.start.epoch = 0;
         *&time2.start.value = *MEMORY[0x1E6960CC0];
         time2.start.epoch = *(MEMORY[0x1E6960CC0] + 16);
@@ -7448,7 +7453,8 @@ uint64_t ma::QualityAnalysis::AdjustQualityScore(CFArrayRef *a1, uint64_t *a2)
         if (v17 != 0.0)
         {
           time1.start.value = v10;
-          *&time1.start.timescale = __PAIR64__(v12, v11);
+          time1.start.timescale = v11;
+          time1.start.flags = v12;
           time1.start.epoch = v13;
           v20 = v17 / CMTimeGetSeconds(&time1.start);
           v21 = expf((v20 * v20) / -0.05);
@@ -7663,12 +7669,12 @@ LABEL_33:
   return result;
 }
 
-CFIndex ma::QualityAnalysis::GenerateDegradedScores@<X0>(CFArrayRef *this@<X0>, void *a2@<X8>)
+uint64_t *ma::QualityAnalysis::GenerateDegradedScores@<X0>(uint64_t *__return_ptr a1@<X8>, CFArrayRef *this@<X0>)
 {
   v4 = 0;
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   while (1)
   {
     result = CFArrayGetCount(this[25]);
@@ -7687,7 +7693,7 @@ CFIndex ma::QualityAnalysis::GenerateDegradedScores@<X0>(CFArrayRef *this@<X0>, 
     {
       v8 = v10;
       v9 = 1065353216;
-      std::vector<std::pair<CMTimeRange,float>>::push_back[abi:ne200100](a2, &v8.start.value);
+      std::vector<std::pair<CMTimeRange,float>>::push_back[abi:ne200100](a1, &v8.start.value);
     }
 
     ++v4;
@@ -7908,7 +7914,7 @@ void ma::QualityAnalysis::GetTrackSegment(void *a1@<X1>, uint64_t *a2@<X2>, void
   }
 }
 
-const __CFArray *ma::QualityAnalysis::AdjustQualityScoreTracking(const __CFArray *result, void *a2)
+CFArrayRef *ma::QualityAnalysis::AdjustQualityScoreTracking(CFArrayRef *result, void *a2)
 {
   v44 = *MEMORY[0x1E69E9840];
   if (a2[1] != *a2)
@@ -8859,7 +8865,7 @@ LABEL_26:
   return v20;
 }
 
-uint64_t MotionAnalysis<ma::QualitySegment>::InsertSegment(uint64_t a1, int a2)
+uint64_t MotionAnalysis<ma::QualitySegment>::InsertSegment(uint64_t a1, signed int a2)
 {
   v4 = *a1;
   if (v4)
@@ -8880,8 +8886,10 @@ uint64_t MotionAnalysis<ma::QualitySegment>::InsertSegment(uint64_t a1, int a2)
     {
       v8 = v7;
       ma::QualitySegment::QualitySegment(v7);
+      v9 = *(a1 + 8);
       *(a1 + 8) = v8;
-      return Vector<ma::QualitySegment *>::Insert(a1);
+      v10 = v9;
+      return Vector<ma::QualitySegment *>::Insert(a1, a2, &v10);
     }
 
     else
@@ -8908,7 +8916,7 @@ float ma::QualityAnalysis::currentSegmentScore(ma::QualitySegment **this)
   }
 }
 
-uint64_t Vector<ma::QualitySegment *>::Insert(CFMutableArrayRef *a1)
+uint64_t Vector<ma::QualitySegment *>::Insert(CFMutableArrayRef *a1, CFIndex a2, void *a3)
 {
   if (*a1 || (Mutable = CFArrayCreateMutable(0, 0, 0), (*a1 = Mutable) != 0))
   {
@@ -8925,9 +8933,9 @@ void sub_1C9E44500(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E44860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1C9E44860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   CVPixelBufferLock::~CVPixelBufferLock(va);
   _Unwind_Resume(a1);
 }
@@ -8939,33 +8947,35 @@ uint64_t __Block_byref_object_copy__62(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C9E47978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, id a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, id a54, char a55)
+void sub_1C9E47978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, id a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, id a54, ...)
 {
+  va_start(va, a54);
+
   _Block_object_dispose(&a43, 8);
-
   _Block_object_dispose(&a49, 8);
-  _Block_object_dispose(&a55, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C9E4874C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E48B58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id a31)
+void sub_1C9E4874C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C9E48B58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id a31)
 {
   _Block_object_dispose(&a26, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E48CD0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C9E48CD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CF<__CVBuffer *>::~CF(va);
   _Unwind_Resume(a1);
 }
@@ -8977,13 +8987,13 @@ uint64_t __Block_byref_object_copy__63(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C9E4A670(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6, uint64_t a7, void *a8, uint64_t a9, ...)
+void sub_1C9E4A670(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6, uint64_t a7, void *a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, uint64_t a14, void *a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v12 = va_arg(va1, const void *);
-  v14 = va_arg(va1, id);
-  v15 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v19 = va_arg(va1, const void *);
+  v21 = va_arg(va1, id);
+  v22 = va_arg(va1, void);
 
   CF<__CVBuffer *>::~CF(va);
   CF<__CVBuffer *>::~CF(va1);
@@ -8997,10 +9007,10 @@ void sub_1C9E4DDAC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C9E4F4F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C9E4F4F8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = VCPMotionFlowObservation;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -9463,7 +9473,7 @@ uint64_t ma::ObjectTracking::BuildTarget(ma::ObjectTracking *this, float a2, flo
   return result;
 }
 
-uint64_t ma::ObjectTracking::PrepareKernels(void **this, signed int a2, signed int a3)
+uint64_t ma::ObjectTracking::PrepareKernels(void **this, unsigned int a2, unsigned int a3)
 {
   v6 = 4 * a2 * a3;
   bzero(this[26], v6);
@@ -9543,7 +9553,7 @@ uint64_t ma::ObjectTracking::PrepareKernels(void **this, signed int a2, signed i
           v32 = (this[26] + v30);
           v33 = (this[28] + v30);
           v34 = (this[27] + v30);
-          v35 = (a2 - 1);
+          v35 = a2 - 1;
           v36 = v32;
           do
           {
@@ -9569,7 +9579,7 @@ uint64_t ma::ObjectTracking::PrepareKernels(void **this, signed int a2, signed i
   return 0;
 }
 
-uint64_t ma::ObjectTracking::EstimateDensity(ma::ObjectTracking *this, int a2, int a3, int a4, int a5, unsigned __int8 *a6, unsigned __int8 *a7, float *a8)
+uint64_t ma::ObjectTracking::EstimateDensity(ma::ObjectTracking *this, int a2, int a3, unsigned int a4, unsigned int a5, unsigned __int8 *a6, unsigned __int8 *a7, float *a8)
 {
   bzero(a8, 0x2000uLL);
   if (a5 < 1)
@@ -9695,7 +9705,7 @@ uint64_t ma::ObjectTracking::UpdateExperts(ma::ObjectTracking *this, float *a2, 
       memcpy(v7, a2, 0x2000uLL);
       v8[2048] = a3;
       v8[2049] = 0.0;
-      v9 = Vector<ma::Object *>::PushBack(this + 39);
+      v9 = Vector<ma::Object *>::PushBack(this + 39, &v18);
       if (v9 && v18)
       {
         MEMORY[0x1CCA95C50](v18, 0x1000C40F014A944);
@@ -9747,7 +9757,7 @@ uint64_t ma::ObjectTracking::MeanShiftTracking(ma::ObjectTracking *this, const m
         printf("initial @ [%d %d] s = %6.5f\n", v18, v20, v44);
       }
 
-      *v43 = v18;
+      v43 = v18;
       v26 = 0;
       while (1)
       {
@@ -9757,7 +9767,7 @@ uint64_t ma::ObjectTracking::MeanShiftTracking(ma::ObjectTracking *this, const m
           break;
         }
 
-        v29 = *v43;
+        v29 = v43;
         v30 = v20;
         if (a4 >= 1)
         {
@@ -9792,7 +9802,7 @@ uint64_t ma::ObjectTracking::MeanShiftTracking(ma::ObjectTracking *this, const m
           while (v32 != a4);
           if (v33 != 0.0)
           {
-            v29 = v43[0] + llroundf(v35 / v33);
+            v29 = v43 + llroundf(v35 / v33);
             v30 = v20 + llroundf(v34 / v33);
           }
         }
@@ -9807,7 +9817,7 @@ uint64_t ma::ObjectTracking::MeanShiftTracking(ma::ObjectTracking *this, const m
         result = ma::ObjectTracking::EstimateDensity(this, v29, v30, a3, a4, a5, a6, *(this + 32));
         if (!result)
         {
-          *v43 = v29;
+          v43 = v29;
           v20 = v30;
           result = ma::ObjectTracking::CalculateSimilarityWeights(this, v29, v30, a3, a4, a5, a6, &v44);
           v26 = v42 + 1;
@@ -9820,7 +9830,7 @@ uint64_t ma::ObjectTracking::MeanShiftTracking(ma::ObjectTracking *this, const m
         return result;
       }
 
-      LODWORD(v29) = v43[0];
+      LODWORD(v29) = v43;
       LODWORD(v30) = v20;
 LABEL_29:
       ma::Object::SetOrigin(v41, v29, v30);

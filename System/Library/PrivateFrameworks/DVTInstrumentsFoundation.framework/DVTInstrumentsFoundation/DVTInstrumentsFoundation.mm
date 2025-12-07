@@ -709,12 +709,12 @@ BOOL sub_13A4(uint64_t a1, int a2, char a3)
   if (a1)
   {
     *&__keyFrameEventHorizon = mach_absolute_time();
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 0x40000000;
-    v21 = sub_29F0;
-    v22 = &unk_8360;
-    v23 = a2;
-    v24 = a3;
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 0x40000000;
+    v19 = sub_29F0;
+    v20 = &unk_8360;
+    v21 = a2;
+    v22 = a3;
     os_unfair_lock_lock(&stru_10064);
     v6 = qword_10068;
     if (qword_10068 != a1)
@@ -759,7 +759,7 @@ BOOL sub_13A4(uint64_t a1, int a2, char a3)
       }
 
       qword_10068 = v10;
-      v21(v20);
+      v19(v18);
     }
 
     os_unfair_lock_unlock(&stru_10064);
@@ -772,12 +772,12 @@ BOOL sub_13A4(uint64_t a1, int a2, char a3)
     if (!getenv("MallocStackLogging"))
     {
       *buf = 0;
-      v25 = 0;
+      v23 = 0;
       if (sub_4F28(&thread_suspend))
       {
         malloc_get_all_zones();
-        v11 = v25;
-        if (v25)
+        v11 = v23;
+        if (v23)
         {
           v12 = 0;
           do
@@ -786,16 +786,14 @@ BOOL sub_13A4(uint64_t a1, int a2, char a3)
             v14 = *(v13 + 96);
             if (v14)
             {
-              v15 = *(v13 + 96);
-              v16 = *v14;
+              v15 = *v14;
               if (*v14)
               {
-                v17 = *v14;
-                v18 = *(v13 + 72);
-                if (!v18 || strnlen(*(v13 + 72), 0xFuLL) != 14 || strncmp(v18, "AttributeGraph", 0xEuLL))
+                v16 = *(v13 + 72);
+                if (!v16 || strnlen(*(v13 + 72), 0xFuLL) != 14 || strncmp(v16, "AttributeGraph", 0xEuLL))
                 {
-                  v16(mach_task_self_, v13, 1, v13, sub_4DA0, sub_4DB8);
-                  v11 = v25;
+                  v15(mach_task_self_, v13, 1, v13, sub_4DA0, sub_4DB8);
+                  v11 = v23;
                 }
               }
             }
@@ -1502,40 +1500,10 @@ unint64_t sub_245C(void *a1, void *a2, int a3)
         if (result)
         {
           result = sub_258C(a1, result);
-          if (result)
+          if (result || ((v8 = *a1, (*a1 - 0x100000000) >> 30 <= 0x3A) ? (v9 = (*a1 & 7) == 0) : (v9 = 0), v9 && (qword_10028 <= v8 ? (v10 = v8 >= qword_10030) : (v10 = 1), !v10 || (result = malloc_size(*a1)) == 0)))
           {
-            v8 = result;
-            v9 = 11;
-            v10 = a1;
-            v11 = 0;
-LABEL_9:
 
-            return sub_908(v9, 0, v10, 0, v11, v8, 0);
-          }
-
-          v12 = *a1;
-          if ((*a1 - 0x100000000) >> 30 <= 0x3A)
-          {
-            v13 = (*a1 & 7) == 0;
-            *a1;
-          }
-
-          else
-          {
-            v13 = 0;
-          }
-
-          if (v13)
-          {
-            v14 = qword_10028 > v12 || v12 >= qword_10030;
-            if (!v14 || (result = malloc_size(*a1)) == 0)
-            {
-              v9 = 20;
-              v10 = a1;
-              v11 = v12;
-              v8 = 0;
-              goto LABEL_9;
-            }
+            return sub_908();
           }
         }
       }
@@ -1734,88 +1702,69 @@ const char *sub_258C(uint64_t a1, unint64_t a2)
   }
 }
 
-uint64_t sub_2778(uint64_t result, uint64_t a2, vm_size_t a3, vm_size_t a4, uint64_t a5, int a6)
+uint64_t sub_2778(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
 {
-  v10 = result;
+  v9 = result;
   if (off_10070)
   {
     result = off_10070(result, a2, a3, a4, a5, (a6 + 1));
   }
 
-  if ((~v10 & 6) == 0)
+  if ((~v9 & 6) == 0)
   {
     if (!a5)
     {
       return result;
     }
 
-    v11 = 18;
-    v12 = a2;
-    v13 = a5;
-    v14 = a4;
-    v15 = a3;
-    goto LABEL_18;
+LABEL_16:
+
+    return sub_908();
   }
 
-  if ((v10 & 2) != 0)
+  if ((v9 & 2) != 0)
   {
     if (!a5)
     {
       return result;
     }
 
-    v11 = 16;
-    v12 = a2;
-    v13 = a5;
-    v14 = a3;
-LABEL_17:
-    v15 = 0;
-LABEL_18:
-
-    return sub_908(v11, v12, v13, v14, v15, 0, 2);
+    goto LABEL_16;
   }
 
-  if ((v10 & 4) != 0)
+  if ((v9 & 4) != 0)
   {
     if (!a3)
     {
       return result;
     }
 
-    v11 = 19;
-    v12 = a2;
-    v13 = a3;
-    v14 = 0;
-    goto LABEL_17;
+    goto LABEL_16;
   }
 
-  if ((v10 & 0x10) == 0)
+  if ((v9 & 0x10) == 0)
   {
-    if ((v10 & 0x20) == 0 || !a3 || mach_task_self_ != a2)
+    if ((v9 & 0x20) == 0 || !a3 || mach_task_self_ != a2)
     {
       return result;
     }
 
-    v14 = ~vm_page_mask & (vm_page_mask + a4);
-    v11 = 26;
-    v12 = 0;
-    v13 = a3;
-    goto LABEL_17;
+    goto LABEL_16;
   }
 
   if (a5)
   {
     if (mach_task_self_ == a2)
     {
-      result = sub_908(v10 & 0xFF000000 | 0x17, 0, a5, ~vm_page_mask & (vm_page_mask + a3), 0, 0, 2);
-      if ((v10 & 0x80) != 0)
+      result = sub_908();
+      if ((v9 & 0x80) != 0)
       {
-        v16 = getpid();
-        result = proc_regionfilename(v16, a5, buffer, 0x400u);
+        v10 = getpid();
+        result = proc_regionfilename(v10, a5, buffer, 0x400u);
         if (result >= 1)
         {
           buffer[result] = 0;
-          return sub_908(27, 0, a5, 0, 0, buffer, 0);
+          return sub_908();
         }
       }
     }
@@ -3725,17 +3674,17 @@ LABEL_4:
   {
 LABEL_15:
     v17 = mach_absolute_time();
-    v18 = v2 + 4112 * v4;
+    v18 = &v2[1028 * v4];
     *v18 = v17;
     v19 = 512 - v1[3];
-    *(v18 + 8) = v19;
-    result = memcpy((v18 + 8 * v19 + 16), v1 + 12, 8 * v1[3]);
+    *(v18 + 2) = v19;
+    result = memcpy(&v18[v19 + 2], v1 + 12, 8 * v1[3]);
     v1[2] |= 0x400000u;
     return result;
   }
 
   v6 = v1[3];
-  v7 = *(v5 + 2);
+  v7 = v5[2];
   v8 = v6 - 1;
   if (v7 > 511 || (v8 & 0x80000000) != 0)
   {
@@ -3746,7 +3695,7 @@ LABEL_15:
 LABEL_22:
       v20 = v11 - v8;
 LABEL_23:
-      *(v5 + 2) = v20;
+      v5[2] = v20;
       v1[3] = v20 | (v6 << 16);
       return result;
     }
@@ -3760,7 +3709,7 @@ LABEL_23:
       v15 = 511;
 LABEL_19:
       v20 = v15 - v8;
-      result = memcpy(&v5[8 * (v15 - v8) + 16], v9, 8 * v6);
+      result = memcpy(&v5[2 * (v15 - v8) + 4], v9, 8 * v6);
       v1[2] |= 0x800000u;
       goto LABEL_23;
     }
@@ -3798,7 +3747,7 @@ LABEL_19:
     }
   }
 
-  *(v5 + 2) = 512 - v6;
+  v5[2] = 512 - v6;
   v1[3] = (512 - v6);
   return result;
 }

@@ -165,7 +165,7 @@
   v95 = v30;
   if (self)
   {
-    v35 = sub_1002856D4();
+    v35 = sub_1002856D4(RestoreManager);
     v91 = sub_100286400(v35);
 
     size = 0;
@@ -183,7 +183,7 @@
     objc_opt_self();
     v37 = +[NSMutableDictionary dictionary];
     v38 = +[NSMutableArray array];
-    v39 = sub_1003C27BC();
+    v39 = sub_1003C27BC(AppInstallsDatabaseStore);
     address = _NSConcreteStackBlock;
     p_address = 3221225472;
     v117 = sub_1003DA824;
@@ -285,7 +285,7 @@
       [v55 enumerateKeysAndObjectsUsingBlock:v100];
       if ([p_size[5] count])
       {
-        v63 = sub_1003C27BC();
+        v63 = sub_1003C27BC(AppInstallsDatabaseStore);
         v99[0] = _NSConcreteStackBlock;
         v99[1] = 3221225472;
         v99[2] = sub_1003DA7EC;
@@ -295,12 +295,12 @@
 
         v64 = [p_size[5] count];
         v106[3] += v64;
-        v65 = sub_1002856D4();
+        v65 = sub_1002856D4(RestoreManager);
         v66 = sub_100286400(v65);
 
         if (([v54 isEqual:v66] & 1) == 0)
         {
-          v67 = sub_1002856D4();
+          v67 = sub_1002856D4(RestoreManager);
           sub_100289064(v67);
         }
       }
@@ -336,7 +336,7 @@
 
         if (v106[3] >= 1)
         {
-          v80 = sub_100283C38();
+          v80 = sub_100283C38(RestoreService);
           sub_10028408C(v80);
         }
 
@@ -367,7 +367,7 @@
           }
         }
 
-        v73 = sub_1002856D4();
+        v73 = sub_1002856D4(RestoreManager);
         sub_1002870A8(v73, @"Complete coordinators called", 0, 0);
       }
 
@@ -382,7 +382,7 @@
           _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, "[%@] No incomplete coordinators were found.", v122, 0xCu);
         }
 
-        v73 = sub_100283C38();
+        v73 = sub_100283C38(RestoreService);
         sub_100283F78(v73);
       }
 

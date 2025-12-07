@@ -17,7 +17,7 @@
 
 - (void)keyboardWillShow:(id)show
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD60C00);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD60C00, qword_190DDFDA0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v11 - v6;
   if (show)
@@ -36,7 +36,7 @@
   selfCopy = self;
   sub_190935150(v7);
 
-  sub_19022EEA4(v7, &qword_1EAD60C00);
+  sub_19022EEA4(v7, &qword_1EAD60C00, qword_190DDFDA0);
 }
 
 - (CKFullScreenBalloonViewControllerQuicklook)initWithChatItem:(id)item delegate:(id)delegate

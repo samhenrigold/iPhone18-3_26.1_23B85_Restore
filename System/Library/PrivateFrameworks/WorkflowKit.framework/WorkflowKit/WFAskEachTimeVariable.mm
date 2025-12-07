@@ -77,18 +77,17 @@
 
 - (void)retrieveContentCollectionWithVariableSource:(id)source completionHandler:(id)handler
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = getWFGeneralLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    v7 = 136315138;
-    v8 = "[WFAskEachTimeVariable retrieveContentCollectionWithVariableSource:completionHandler:]";
-    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_FAULT, "%s Ask Each Time variable unexpectedly asked for content", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[WFAskEachTimeVariable retrieveContentCollectionWithVariableSource:completionHandler:]";
+    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_FAULT, "%s Ask Each Time variable unexpectedly asked for content", &v6, 0xCu);
   }
 
   (*(handlerCopy + 2))(handlerCopy, 0, 0);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (WFAskEachTimeVariable)initWithPrompt:(id)prompt collectionFilter:(id)filter
@@ -128,7 +127,7 @@ LABEL_6:
 
 - (id)rewrittenWithStrings:(id)strings
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   stringsCopy = strings;
   userVisiblePrompt = [(WFAskEachTimeVariable *)self userVisiblePrompt];
   if (userVisiblePrompt)
@@ -146,11 +145,11 @@ LABEL_6:
       v10 = getWFUserStringsLogObject();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
-        v13 = 136315394;
-        v14 = "[WFAskEachTimeVariable(UserStrings) rewrittenWithStrings:]";
-        v15 = 2112;
+        v12 = 136315394;
+        v13 = "[WFAskEachTimeVariable(UserStrings) rewrittenWithStrings:]";
+        v14 = 2112;
         selfCopy = self;
-        _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_FAULT, "%s Missing string for variable %@", &v13, 0x16u);
+        _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_FAULT, "%s Missing string for variable %@", &v12, 0x16u);
       }
 
       selfCopy3 = self;
@@ -161,8 +160,6 @@ LABEL_6:
   {
     selfCopy3 = self;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return selfCopy3;
 }

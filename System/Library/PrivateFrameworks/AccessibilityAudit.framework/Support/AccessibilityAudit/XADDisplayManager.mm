@@ -4,6 +4,7 @@
 - (XADDisplayManager)init;
 - (void)dealloc;
 - (void)hideVisualsSynchronously;
+- (void)setCursorFrame:(CGRect)frame withPath:(CGPath *)path withContextId:(unsigned int)id element:(id)element forceRefresh:(BOOL)refresh;
 - (void)setCursorFrameForElement:(id)element;
 - (void)setCursorStyle:(unint64_t)style;
 @end
@@ -65,6 +66,103 @@
   [_uiClient sendAsynchronousMessage:v5 withIdentifier:2 targetAccessQueue:0 completion:0];
 
   [(XADDisplayManager *)self set_forceRefreshOnNextUpdate:1];
+}
+
+- (void)setCursorFrame:(CGRect)frame withPath:(CGPath *)path withContextId:(unsigned int)id element:(id)element forceRefresh:(BOOL)refresh
+{
+  refreshCopy = refresh;
+  v8 = *&id;
+  height = frame.size.height;
+  width = frame.size.width;
+  y = frame.origin.y;
+  x = frame.origin.x;
+  v15 = CGRectZero.origin.y;
+  v16 = CGRectZero.size.width;
+  v17 = CGRectZero.size.height;
+  v46.origin.x = CGRectZero.origin.x;
+  v46.origin.y = v15;
+  v46.size.width = v16;
+  v46.size.height = v17;
+  v51.origin.x = x;
+  v51.origin.y = y;
+  v51.size.width = width;
+  v51.size.height = height;
+  if (!CGRectEqualToRect(v46, v51))
+  {
+    [(XADDisplayManager *)self _adjustFrameToFitScreen:x, y, width, height];
+    x = v18;
+    y = v19;
+    width = v20;
+    height = v21;
+  }
+
+  _lock = [(XADDisplayManager *)self _lock];
+  [_lock lock];
+
+  if (refreshCopy || ([(XADDisplayManager *)self _currentCursorFrame], v52.origin.x = v27, v52.origin.y = v28, v52.size.width = v29, v52.size.height = v30, v48.origin.x = x, v48.origin.y = y, v48.size.width = width, v48.size.height = height, v31 = CGRectEqualToRect(v48, v52), path) || !v31)
+  {
+    [(XADDisplayManager *)self set_currentCursorFrame:x, y, width, height];
+    [(XADDisplayManager *)self set_currentCursorContextID:v8];
+    [(XADDisplayManager *)self set_currentCursorPath:path];
+    _lock2 = [(XADDisplayManager *)self _lock];
+    [_lock2 unlock];
+
+    if ([(XADDisplayManager *)self _shouldHideCursor])
+    {
+      v43 = @"frame";
+      v47.origin.x = CGRectZero.origin.x;
+      v47.origin.y = v15;
+      v47.size.width = v16;
+      v47.size.height = v17;
+      v24 = NSStringFromRect(v47);
+      v44 = v24;
+      v25 = [NSDictionary dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+
+      _uiClient = [(XADDisplayManager *)self _uiClient];
+      [_uiClient sendAsynchronousMessage:v25 withIdentifier:1 targetAccessQueue:0 completion:0];
+    }
+
+    else
+    {
+      if (path && (v32 = AX_CGPathCopyDataRepresentation()) != 0)
+      {
+        v33 = v32;
+        v41[0] = @"frame";
+        v49.origin.x = x;
+        v49.origin.y = y;
+        v49.size.width = width;
+        v49.size.height = height;
+        v34 = NSStringFromRect(v49);
+        v41[1] = @"path";
+        v42[0] = v34;
+        v42[1] = v33;
+        v35 = [NSDictionary dictionaryWithObjects:v42 forKeys:v41 count:2];
+
+        CFRelease(v33);
+      }
+
+      else
+      {
+        v39 = @"frame";
+        v50.origin.x = x;
+        v50.origin.y = y;
+        v50.size.width = width;
+        v50.size.height = height;
+        v36 = NSStringFromRect(v50);
+        v40 = v36;
+        v35 = [NSDictionary dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+      }
+
+      _uiClient2 = [(XADDisplayManager *)self _uiClient];
+      [_uiClient2 sendAsynchronousMessage:v35 withIdentifier:1 targetAccessQueue:0 completion:0];
+    }
+  }
+
+  else
+  {
+    _lock3 = [(XADDisplayManager *)self _lock];
+    [_lock3 unlock];
+  }
 }
 
 - (void)hideVisualsSynchronously

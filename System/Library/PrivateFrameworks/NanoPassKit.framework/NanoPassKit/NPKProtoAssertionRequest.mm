@@ -1,5 +1,6 @@
 @interface NPKProtoAssertionRequest
 - (BOOL)isEqual:(id)equal;
+- (id)assertionTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -25,6 +26,21 @@
   {
     return 0;
   }
+}
+
+- (id)assertionTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279944EB8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsAssertionType:(id)type
@@ -126,19 +142,17 @@
     [NPKProtoAssertionRequest writeTo:];
   }
 
-  v8 = toCopy;
+  v6 = toCopy;
   PBDataWriterWriteStringField();
   has = self->_has;
   if (has)
   {
-    assertionType = self->_assertionType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    pending = self->_pending;
     PBDataWriterWriteBOOLField();
   }
 }

@@ -173,7 +173,7 @@ LABEL_14:
       else
       {
         v9 = AFInternalConfigValueForKey();
-        anyObject = [v9 objectForKey:self->_hostname];
+        anyObject = objc_msgSend_objectForKey_(v9);
       }
 
       if (!anyObject)
@@ -194,7 +194,7 @@ LABEL_14:
     [(ADAccount *)self setPredefinedServer:anyObject];
   }
 
-  v5 = [v3 objectForKey:anyObject];
+  v5 = objc_msgSend_objectForKey_(v3);
   v6 = AFSiriLogContextDaemon;
   if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
   {
@@ -1040,9 +1040,11 @@ LABEL_15:
 
 - (void)setValidationExpiration:(id)expiration
 {
-  self->_validationExpiration = [expiration copy];
+  v4 = [expiration copy];
+  validationExpiration = self->_validationExpiration;
+  self->_validationExpiration = v4;
 
-  _objc_release_x1();
+  _objc_release_x1(v4, validationExpiration);
 }
 
 - (BOOL)setValidationDataSync:(id)sync
@@ -1124,17 +1126,20 @@ LABEL_15:
   if (hostname != hostnameCopy)
   {
     v8 = hostnameCopy;
-    if (![(NSString *)hostname isEqualToString:hostnameCopy])
+    hostname = [(NSString *)hostname isEqualToString:hostnameCopy];
+    hostnameCopy = v8;
+    if ((hostname & 1) == 0)
     {
       v6 = [(NSString *)v8 copy];
       v7 = self->_hostname;
       self->_hostname = v6;
 
-      [(ADAccount *)self resetCachedHostname];
+      hostname = [(ADAccount *)self resetCachedHostname];
+      hostnameCopy = v8;
     }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(hostname, hostnameCopy);
 }
 
 - (void)setSpeechIdentifier:(id)identifier
@@ -1208,67 +1213,67 @@ LABEL_15:
   if (v5)
   {
     v5->_isReadOnly = 1;
-    v7 = [dictionaryCopy objectForKey:kAFAccountInfoIdentifierKey];
+    v7 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v6 setIdentifier:v7];
 
-    v8 = [dictionaryCopy objectForKey:kAFAccountInfoLabelKey];
+    v8 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v6 setLabel:v8];
 
-    v9 = [dictionaryCopy objectForKey:kAFAccountInfoAssistantIdentifierKey];
+    v9 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v6 setAssistantIdentifier:v9];
 
-    v10 = [dictionaryCopy objectForKey:kAFAccountInfoLoggingAssistantIdentifierKey];
+    v10 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v6 setLoggingAssistantIdentifier:v10];
 
-    v11 = [dictionaryCopy objectForKey:kAFAccountInfoSpeechIdentifierKey];
+    v11 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v6 setSpeechIdentifier:v11];
 
-    v12 = [dictionaryCopy objectForKey:kAFAccountInfoHostnameKey];
+    v12 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v6 setHostname:v12];
 
-    v13 = [dictionaryCopy objectForKey:kAFAccountInfoPeerAssistantIdentifierKey];
+    v13 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v6 setPeerAssistantIdentifier:v13];
 
-    v14 = [dictionaryCopy objectForKey:kAFAccountInfoPeerLoggingAssistantIdentifierKey];
+    v14 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v6 setPeerLoggingAssistantIdentifier:v14];
 
-    v15 = [dictionaryCopy objectForKey:kAFAccountInfoPeerSpeechIdentifierKey];
+    v15 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v6 setPeerSpeechIdentifier:v15];
 
-    v16 = [dictionaryCopy objectForKey:kAFAccountInfoPeerUserAgentStringKey];
+    v16 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v6 setPeerUserAgentString:v16];
 
-    v17 = [dictionaryCopy objectForKey:kAFAccountInfoPeerLanguageCodeKey];
+    v17 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v6 setPeerLanguageCode:v17];
 
-    v18 = [dictionaryCopy objectForKey:kAFAccountInfoPeerSiriEnabledKey];
+    v18 = objc_msgSend_objectForKey_(dictionaryCopy);
     -[ADAccount setPeerSiriEnabled:](v6, "setPeerSiriEnabled:", [v18 BOOLValue]);
 
-    v19 = [dictionaryCopy objectForKey:kAFAccountInfoPeerHostnameKey];
+    v19 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v6 setPeerHostname:v19];
 
-    v20 = [dictionaryCopy objectForKey:kAFAccountInfoPredefinedServerKey];
+    v20 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v6 setPredefinedServer:v20];
 
-    v21 = [dictionaryCopy objectForKey:kAFAccountInfoAceHostKey];
+    v21 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v6 setAceHost:v21];
 
-    v22 = [dictionaryCopy objectForKey:kAFAccountInfoConnectionPolicyKey];
+    v22 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v6 setConnectionPolicy:v22];
 
-    v23 = [dictionaryCopy objectForKey:kAFAccountInfoConnectionPolicyDateKey];
+    v23 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v6 setConnectionPolicyDate:v23];
 
-    v24 = [dictionaryCopy objectForKey:kAFAccountInfoConnectionPolicyFirstFailureDateKey];
+    v24 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v6 setConnectionPolicyFirstFailureDate:v24];
 
-    v25 = [dictionaryCopy objectForKey:kAFAccountInfoConnectionPolicyHostnameKey];
+    v25 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v6 setConnectionPolicyHostname:v25];
 
-    v26 = [dictionaryCopy objectForKey:kAFAccountInfoGroupKey];
+    v26 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v6 setGroup:v26];
 
-    v27 = [dictionaryCopy objectForKey:kAFAccountInfoLocaleIdentifierKey];
+    v27 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v6 setLocaleIdentifier:v27];
   }
 
@@ -1295,37 +1300,37 @@ LABEL_15:
   [(ADAccount *)v14 setInstanceContext:contextCopy];
   [(ADAccount *)v14 setIsReadOnly:onlyCopy];
   [(ADAccount *)v14 setIdentifier:identifierCopy];
-  v15 = [dictionaryCopy objectForKey:@"Label"];
+  v15 = objc_msgSend_objectForKey_(dictionaryCopy);
   [(ADAccount *)v14 setLabel:v15];
 
-  v16 = [dictionaryCopy objectForKey:@"Hostname"];
+  v16 = objc_msgSend_objectForKey_(dictionaryCopy);
   [(ADAccount *)v14 setHostname:v16];
 
-  v17 = [dictionaryCopy objectForKey:@"Group"];
+  v17 = objc_msgSend_objectForKey_(dictionaryCopy);
   [(ADAccount *)v14 setGroup:v17];
 
-  v18 = [dictionaryCopy objectForKey:@"Predefined Server"];
+  v18 = objc_msgSend_objectForKey_(dictionaryCopy);
   [(ADAccount *)v14 setPredefinedServer:v18];
 
-  v19 = [dictionaryCopy objectForKey:@"Ace Host"];
+  v19 = objc_msgSend_objectForKey_(dictionaryCopy);
   [(ADAccount *)v14 setAceHost:v19];
 
   v20 = AFBuildVersion();
-  v21 = [dictionaryCopy objectForKey:@"Build Version"];
+  v21 = objc_msgSend_objectForKey_(dictionaryCopy);
   v22 = [v20 isEqualToString:v21];
 
   if (v22)
   {
-    v23 = [dictionaryCopy objectForKey:@"Connection Policy"];
+    v23 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v14 setConnectionPolicy:v23];
 
-    v24 = [dictionaryCopy objectForKey:@"Connection Policy Date"];
+    v24 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v14 setConnectionPolicyDate:v24];
 
-    v25 = [dictionaryCopy objectForKey:@"Connection Policy Hostname"];
+    v25 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v14 setConnectionPolicyHostname:v25];
 
-    v26 = [dictionaryCopy objectForKey:@"Connection Policy First Failure Date"];
+    v26 = objc_msgSend_objectForKey_(dictionaryCopy);
     [(ADAccount *)v14 setConnectionPolicyFirstFailureDate:v26];
   }
 
@@ -1336,25 +1341,25 @@ LABEL_15:
     [(ADAccount *)v14 setConnectionPolicyHostname:0];
   }
 
-  v27 = [dictionaryCopy objectForKey:@"Locale Identifier"];
+  v27 = objc_msgSend_objectForKey_(dictionaryCopy);
   [(ADAccount *)v14 setLocaleIdentifier:v27];
 
-  v28 = [dictionaryCopy objectForKey:@"Last Assistant Data Anchor"];
+  v28 = objc_msgSend_objectForKey_(dictionaryCopy);
   [(ADAccount *)v14 setLastAssistantDataAnchor:v28];
 
-  v29 = [dictionaryCopy objectForKey:@"Validation Expiration"];
+  v29 = objc_msgSend_objectForKey_(dictionaryCopy);
   [(ADAccount *)v14 setValidationExpiration:v29];
 
-  v30 = [dictionaryCopy objectForKey:@"Validation Version"];
+  v30 = objc_msgSend_objectForKey_(dictionaryCopy);
   [(ADAccount *)v14 setValidationVersion:v30];
 
-  v31 = [dictionaryCopy objectForKey:@"Peer Hostname"];
+  v31 = objc_msgSend_objectForKey_(dictionaryCopy);
   [(ADAccount *)v14 setPeerHostname:v31];
 
-  v32 = [dictionaryCopy objectForKey:@"Needs Creation"];
+  v32 = objc_msgSend_objectForKey_(dictionaryCopy);
   -[ADAccount setNeedsCreation:](v14, "setNeedsCreation:", [v32 BOOLValue]);
 
-  v33 = [dictionaryCopy objectForKey:@"Needs Destruction"];
+  v33 = objc_msgSend_objectForKey_(dictionaryCopy);
   -[ADAccount setNeedsDestruction:](v14, "setNeedsDestruction:", [v33 BOOLValue]);
 
   v34 = [(ADAccount *)v14 _keychainValueForKey:@"Assistant Identifier"];
@@ -1369,7 +1374,7 @@ LABEL_15:
 
   else
   {
-    v37 = [dictionaryCopy objectForKey:@"Assistant Identifier"];
+    v37 = objc_msgSend_objectForKey_(dictionaryCopy);
     if (v37)
     {
       v38 = AFSiriLogContextDaemon;
@@ -1430,7 +1435,7 @@ LABEL_19:
 
   else
   {
-    v45 = [dictionaryCopy objectForKey:@"Speech Identifier"];
+    v45 = objc_msgSend_objectForKey_(dictionaryCopy);
     if (v45)
     {
       v46 = AFSiriLogContextDaemon;
@@ -1710,7 +1715,7 @@ LABEL_13:
           objc_enumerationMutation(v7);
         }
 
-        v12 = [*(*(&v16 + 1) + 8 * i) objectForKey:{@"Watch Assistant Identifier", v16}];
+        v12 = objc_msgSend_objectForKey_(*(*(&v16 + 1) + 8 * i), v16);
         v13 = [idCopy isEqualToString:v12];
 
         if (v13)
@@ -1824,7 +1829,7 @@ LABEL_46:
       }
 
       v21 = *(*(&v40 + 1) + 8 * i);
-      v22 = [v21 objectForKey:@"Watch Assistant Identifier"];
+      v22 = objc_msgSend_objectForKey_(v21);
       if ([assistantId isEqualToString:v22])
       {
         languageCode = v37;
@@ -1853,7 +1858,7 @@ LABEL_46:
         goto LABEL_43;
       }
 
-      v23 = [v21 objectForKey:@"Watch Override Id"];
+      v23 = objc_msgSend_objectForKey_(v21);
       if ([v23 isEqualToString:v19])
       {
         languageCode = v37;
@@ -2013,9 +2018,11 @@ LABEL_48:
 
 - (void)setPeerHostname:(id)hostname
 {
-  self->_peerHostname = [hostname copy];
+  v4 = [hostname copy];
+  peerHostname = self->_peerHostname;
+  self->_peerHostname = v4;
 
-  _objc_release_x1();
+  _objc_release_x1(v4, peerHostname);
 }
 
 - (NSString)peerHostname
@@ -2144,7 +2151,7 @@ LABEL_5:
       }
 
       v12 = *(*(&v22 + 1) + 8 * v11);
-      v13 = [v12 objectForKey:{@"Watch Override Id", v22}];
+      v13 = objc_msgSend_objectForKey_(v12, v22);
       v14 = [deviceCopy isEqualToString:v13];
 
       if (v14)
@@ -2180,13 +2187,13 @@ LABEL_5:
     }
 
     v17 = objc_alloc_init(SARemoteDevice);
-    v18 = [v15 objectForKey:@"Watch Assistant Identifier"];
+    v18 = objc_msgSend_objectForKey_(v15);
     [v17 setAssistantId:v18];
 
-    v19 = [v15 objectForKey:@"Watch User Agent String"];
+    v19 = objc_msgSend_objectForKey_(v15);
     [v17 setUserAgent:v19];
 
-    v20 = [v15 objectForKey:@"Watch Language"];
+    v20 = objc_msgSend_objectForKey_(v15);
     [v17 setLanguage:v20];
 
     [v17 setSiriEnabled:1];

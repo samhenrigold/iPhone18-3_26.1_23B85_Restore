@@ -1760,7 +1760,7 @@ uint64_t __67__CPSPointsOfInterestMapViewController_beginPanningWithCompletion__
   objc_storeStrong(location, 0);
 }
 
-uint64_t __75__CPSPointsOfInterestMapViewController_locationManager_didUpdateLocations___block_invoke(uint64_t a1)
+void *__75__CPSPointsOfInterestMapViewController_locationManager_didUpdateLocations___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) centerMapPending];
   if (result)
@@ -1835,7 +1835,7 @@ double __73__CPSPointsOfInterestMapViewController_locationManager_didFailWithErr
   objc_storeStrong(location, 0);
 }
 
-uint64_t __78__CPSPointsOfInterestMapViewController_locationManagerDidChangeAuthorization___block_invoke(uint64_t a1)
+void *__78__CPSPointsOfInterestMapViewController_locationManagerDidChangeAuthorization___block_invoke(uint64_t a1)
 {
   v3 = [*(a1 + 32) isLocationAuthorized];
   v4 = [*(a1 + 32) mapView];

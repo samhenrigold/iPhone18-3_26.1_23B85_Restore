@@ -9,7 +9,7 @@ id sendAneSessionSignal(const __CFString *a1, const void *a2)
 
 uint64_t setAneHint(const __CFString *a1, const void *a2, __CFDictionary **a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v6 = IOServiceMatching("ANEClientHints");
   if (!v6)
   {
@@ -19,7 +19,7 @@ uint64_t setAneHint(const __CFString *a1, const void *a2, __CFDictionary **a3)
       setAneHint();
     }
 
-    goto LABEL_45;
+    return v7;
   }
 
   existing = 0;
@@ -31,7 +31,7 @@ uint64_t setAneHint(const __CFString *a1, const void *a2, __CFDictionary **a3)
       setAneHint();
     }
 
-    goto LABEL_45;
+    return v7;
   }
 
   if (!existing)
@@ -42,12 +42,12 @@ uint64_t setAneHint(const __CFString *a1, const void *a2, __CFDictionary **a3)
       setAneHint();
     }
 
-    goto LABEL_45;
+    return v7;
   }
 
   v8 = *MEMORY[0x277CBECE8];
   v9 = MEMORY[0x277D85F48];
-  v27 = *MEMORY[0x277CBECE8];
+  v26 = *MEMORY[0x277CBECE8];
   while (1)
   {
     v10 = IOIteratorNext(existing);
@@ -81,7 +81,7 @@ uint64_t setAneHint(const __CFString *a1, const void *a2, __CFDictionary **a3)
         v9 = v14;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          setAneHint(buf, v18, &v41);
+          setAneHint(buf, v18, &buf[4]);
         }
 
         goto LABEL_19;
@@ -94,7 +94,7 @@ uint64_t setAneHint(const __CFString *a1, const void *a2, __CFDictionary **a3)
         v9 = v14;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          setAneHint(v38, v20, v39);
+          setAneHint(v37, v20, &v37[4]);
         }
 
         goto LABEL_19;
@@ -112,7 +112,7 @@ uint64_t setAneHint(const __CFString *a1, const void *a2, __CFDictionary **a3)
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
-              setAneHint(&v29, v30);
+              setAneHint(&v28, v29);
             }
 
             goto LABEL_19;
@@ -129,7 +129,7 @@ LABEL_19:
           CFRelease(properties);
         }
 
-        v8 = v27;
+        v8 = v26;
         if (entry)
         {
           IOObjectRelease(entry);
@@ -150,7 +150,7 @@ LABEL_19:
         v9 = v14;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          setAneHint(&v33, v34);
+          setAneHint(&v32, v33);
         }
       }
 
@@ -160,7 +160,7 @@ LABEL_19:
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          setAneHint(&v31, v32);
+          setAneHint(&v30, v31);
         }
 
         goto LABEL_19;
@@ -189,8 +189,6 @@ LABEL_42:
 
 LABEL_44:
   IOObjectRelease(existing);
-LABEL_45:
-  v25 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -203,26 +201,20 @@ _BYTE *OUTLINED_FUNCTION_0(_BYTE *result, _BYTE *a2)
 
 void setAneHint()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {

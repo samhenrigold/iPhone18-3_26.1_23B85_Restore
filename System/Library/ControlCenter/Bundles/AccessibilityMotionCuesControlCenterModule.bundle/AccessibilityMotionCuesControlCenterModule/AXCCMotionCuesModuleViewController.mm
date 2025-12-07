@@ -9,6 +9,7 @@
 - (void)buttonTapped:(id)tapped forEvent:(id)event;
 - (void)dealloc;
 - (void)viewDidLoad;
+- (void)willTransitionToExpandedContentMode:(BOOL)mode;
 @end
 
 @implementation AXCCMotionCuesModuleViewController
@@ -67,23 +68,44 @@
 
 - (void)buttonTapped:(id)tapped forEvent:(id)event
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   if (AXDeviceIsPad())
   {
     v5 = _AXSMotionCuesActive();
     v6 = AXLogMotionCues();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8[0] = 67109120;
-      v8[1] = v5;
-      _os_log_impl(&dword_29C928000, v6, OS_LOG_TYPE_DEFAULT, "CC button tapped: current active=%{BOOL}d, changing to opposite.", v8, 8u);
+      v7[0] = 67109120;
+      v7[1] = v5;
+      _os_log_impl(&dword_29C928000, v6, OS_LOG_TYPE_DEFAULT, "CC button tapped: current active=%{BOOL}d, changing to opposite.", v7, 8u);
     }
 
     [(CCUIButtonModuleViewController *)self setSelected:v5 == 0];
     _AXSSetMotionCuesMode();
   }
+}
 
-  v7 = *MEMORY[0x29EDCA608];
+- (void)willTransitionToExpandedContentMode:(BOOL)mode
+{
+  modeCopy = mode;
+  if ((AXDeviceIsPad() & 1) == 0)
+  {
+    v6.receiver = self;
+    v6.super_class = AXCCMotionCuesModuleViewController;
+    [(CCUIMenuModuleViewController *)&v6 willTransitionToExpandedContentMode:modeCopy];
+    if (modeCopy)
+    {
+      [(AXCCMotionCuesModuleViewController *)self _updateMenuItems];
+      v5 = 0;
+    }
+
+    else
+    {
+      v5 = _AXSMotionCuesActive() != 0;
+    }
+
+    [(CCUIButtonModuleViewController *)self setSelected:v5];
+  }
 }
 
 - (void)_updateGlyphImage
@@ -144,18 +166,18 @@
 
 - (void)_settingsDidChange
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v3 = _AXSMotionCuesActive();
   v4 = AXLogMotionCues();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109632;
-    v6[1] = v3;
-    v7 = 1024;
-    v8 = _AXSMotionCuesEnabled();
-    v9 = 1024;
-    v10 = _AXSMotionCuesMode();
-    _os_log_impl(&dword_29C928000, v4, OS_LOG_TYPE_DEFAULT, "CC setting did change: active=%{BOOL}d, enabled=%{BOOL}d, mode=%d", v6, 0x14u);
+    v5[0] = 67109632;
+    v5[1] = v3;
+    v6 = 1024;
+    v7 = _AXSMotionCuesEnabled();
+    v8 = 1024;
+    v9 = _AXSMotionCuesMode();
+    _os_log_impl(&dword_29C928000, v4, OS_LOG_TYPE_DEFAULT, "CC setting did change: active=%{BOOL}d, enabled=%{BOOL}d, mode=%d", v5, 0x14u);
   }
 
   if (AXDeviceIsPad())
@@ -172,8 +194,6 @@
       [(AXCCMotionCuesModuleViewController *)self _updateMenuItems];
     }
   }
-
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_updateMenuItems

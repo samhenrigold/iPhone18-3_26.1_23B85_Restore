@@ -30,7 +30,7 @@
   time1.start.epoch = periodTime->var3;
   if (audioCopy)
   {
-    [audioCopy duration];
+    objc_msgSend_duration(audioCopy);
   }
 
   else
@@ -44,9 +44,9 @@
     var1 = periodTime->var1;
     if (audioCopy)
     {
-      [audioCopy duration];
+      objc_msgSend_duration(audioCopy);
       value = time1.start.value;
-      [audioCopy duration];
+      objc_msgSend_duration(audioCopy);
       v25 = *&time2[8];
     }
 
@@ -92,7 +92,7 @@
       *&time2[16] = periodTime->var3;
       if (v34)
       {
-        [v34 timeRange];
+        objc_msgSend_timeRange(v34);
       }
 
       else
@@ -105,7 +105,7 @@
       {
         if (v54)
         {
-          [v54 preferredTransform];
+          objc_msgSend_preferredTransform(v54);
         }
 
         else
@@ -229,9 +229,9 @@
         v37 = periodTime->var1;
         if (v34)
         {
-          [v34 timeRange];
+          objc_msgSend_timeRange(v34);
           v38 = time1.duration.value;
-          [v34 timeRange];
+          objc_msgSend_timeRange(v34);
           v39 = v60;
         }
 

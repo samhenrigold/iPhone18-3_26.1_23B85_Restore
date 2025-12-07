@@ -157,7 +157,7 @@ LABEL_23:
         _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "[%@][%{public}@] Installed app found. Setting coordinator intent to IXCoordinatorIntentUpdating", buf, 0x16u);
       }
 
-      v40 = sub_1002BB3F0();
+      v40 = sub_1002BB3F0(AppUpdatesDatabaseStore);
       [v16 setDiscoveredUpdate:{sub_1002BC4D0(v40, 3, v16)}];
 
       if ([v16 discoveredUpdate])
@@ -374,7 +374,7 @@ LABEL_109:
         else
         {
           v151 = 0;
-          v93 = sub_100405768();
+          v93 = sub_100405768(FamilyManager);
           v94 = sub_100405CE0(v93, [v70 isDiscretionary]);
 
           v149 = v94;
@@ -658,7 +658,7 @@ LABEL_144:
             v132 = [*(&self->super._finished + 1) bag];
             v133 = sub_1003A575C(InstallAttributionManager, v132);
 
-            v134 = sub_1003A4EE0();
+            v134 = sub_1003A4EE0(InstallAttributionManager);
             itemID3 = [*(&self->super._finished + 1) itemID];
             if (v133)
             {

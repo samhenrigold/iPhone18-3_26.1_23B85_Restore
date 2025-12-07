@@ -48,7 +48,7 @@
     transcriptTraitCollection = IMLogHandleForCategory();
     if (os_log_type_enabled(transcriptTraitCollection, OS_LOG_TYPE_ERROR))
     {
-      [CKTranscriptTypingIndicatorCell(CKChatItem) configureForChatItem:context:animated:animationDuration:animationCurve:];
+      [CKTranscriptTypingIndicatorCell(CKChatItem) configureForChatItem:itemCopy context:? animated:? animationDuration:? animationCurve:?];
     }
   }
 }

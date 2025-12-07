@@ -27,7 +27,7 @@
 
 + (id)_ef_compoundPredicateForOptionalPredicate:()EmailFoundationAdditions second:isAnd:
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = v8;
@@ -36,17 +36,17 @@
     v10 = MEMORY[0x1E696AB28];
     if (a5)
     {
-      v18[0] = v7;
-      v18[1] = v8;
-      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+      v17[0] = v7;
+      v17[1] = v8;
+      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
       v12 = [v10 andPredicateWithSubpredicates:v11];
     }
 
     else
     {
-      v17[0] = v7;
-      v17[1] = v8;
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+      v16[0] = v7;
+      v16[1] = v8;
+      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
       v12 = [v10 orPredicateWithSubpredicates:v14];
     }
   }
@@ -65,8 +65,6 @@
 
     v12 = v13;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

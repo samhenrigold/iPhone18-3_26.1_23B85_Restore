@@ -11,7 +11,7 @@
 
 - (void)applyChange:(id)change previous:(id)previous onObject:(id)object result:(id)result completionHandler:(id)handler
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   previousCopy = previous;
   objectCopy = object;
@@ -42,9 +42,9 @@
       change = [changeCopy change];
       uuid = [change uuid];
       *buf = 138543618;
-      v51 = v22;
-      v52 = 2112;
-      v53 = uuid;
+      v50 = v22;
+      v51 = 2112;
+      v52 = uuid;
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Applying object change with UUID %@", buf, 0x16u);
     }
 
@@ -78,15 +78,15 @@ LABEL_20:
       v27 = [message mutableCopy];
       responseHandler = [v26 responseHandler];
       [v27 setTransactionResult:resultCopy];
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = __74__HMDObjectLookup_applyChange_previous_onObject_result_completionHandler___block_invoke_2;
-      v44[3] = &unk_279728DE0;
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __74__HMDObjectLookup_applyChange_previous_onObject_result_completionHandler___block_invoke_2;
+      v43[3] = &unk_279728DE0;
       v29 = responseHandler;
-      v45 = v29;
-      v46 = handlerCopy;
-      [v27 setResponseHandler:v44];
-      v30 = [v27 copy];
+      v44 = v29;
+      v45 = handlerCopy;
+      [v27 setResponseHandler:v43];
+      v30 = objc_msgSend_copy(v27);
 
       v26 = v30;
     }
@@ -101,15 +101,15 @@ LABEL_20:
       [v27 setRemote:1];
       if (handlerCopy)
       {
-        v47[0] = MEMORY[0x277D85DD0];
-        v47[1] = 3221225472;
-        v47[2] = __74__HMDObjectLookup_applyChange_previous_onObject_result_completionHandler___block_invoke;
-        v47[3] = &unk_2797355F8;
-        objc_copyWeak(&v49, buf);
-        v48 = handlerCopy;
-        [v27 setResponseHandler:v47];
+        v46[0] = MEMORY[0x277D85DD0];
+        v46[1] = 3221225472;
+        v46[2] = __74__HMDObjectLookup_applyChange_previous_onObject_result_completionHandler___block_invoke;
+        v46[3] = &unk_2797355F8;
+        objc_copyWeak(&v48, buf);
+        v47 = handlerCopy;
+        [v27 setResponseHandler:v46];
 
-        objc_destroyWeak(&v49);
+        objc_destroyWeak(&v48);
       }
 
       else
@@ -117,7 +117,7 @@ LABEL_20:
         [v27 setResponseHandler:&__block_literal_global_55];
       }
 
-      v26 = [v27 copy];
+      v26 = objc_msgSend_copy(v27, previousCopy);
     }
 
     goto LABEL_20;
@@ -129,9 +129,9 @@ LABEL_20:
     change4 = [changeCopy change];
     uuid2 = [change4 uuid];
     *buf = 138543618;
-    v51 = v31;
-    v52 = 2112;
-    v53 = uuid2;
+    v50 = v31;
+    v51 = 2112;
+    v52 = uuid2;
     _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Object does not implement backing store protocol, cannot apply transaction for object-change: %@", buf, 0x16u);
   }
 
@@ -144,12 +144,11 @@ LABEL_20:
   }
 
 LABEL_24:
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 void __74__HMDObjectLookup_applyChange_previous_onObject_result_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -159,15 +158,13 @@ void __74__HMDObjectLookup_applyChange_previous_onObject_result_completionHandle
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v11 = HMFGetLogIdentifier();
-    v13 = 138543362;
-    v14 = v11;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Calling completion handler for transaction applied", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = v11;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Calling completion handler for transaction applied", &v12, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
   (*(*(a1 + 32) + 16))();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __74__HMDObjectLookup_applyChange_previous_onObject_result_completionHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -228,7 +225,7 @@ void __74__HMDObjectLookup_applyChange_previous_onObject_result_completionHandle
 
 - (void)lookUpAndApplyObjectChange:(id)change previous:(id)previous result:(id)result completionHandler:(id)handler
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   previousCopy = previous;
   resultCopy = result;
@@ -274,16 +271,16 @@ void __74__HMDObjectLookup_applyChange_previous_onObject_result_completionHandle
       v27 = HMFGetLogIdentifier();
       change4 = [changeCopy change];
       [change4 uuid];
-      v29 = v33 = v24;
+      v29 = v32 = v24;
       *buf = 138543874;
-      v35 = v27;
-      v36 = 2112;
-      v37 = v29;
-      v38 = 2112;
-      v39 = v19;
+      v34 = v27;
+      v35 = 2112;
+      v36 = v29;
+      v37 = 2112;
+      v38 = v19;
       _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@Could not look up and apply object change for %@: %@", buf, 0x20u);
 
-      v24 = v33;
+      v24 = v32;
     }
 
     objc_autoreleasePoolPop(v24);
@@ -296,8 +293,6 @@ void __74__HMDObjectLookup_applyChange_previous_onObject_result_completionHandle
   }
 
 LABEL_11:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDObjectLookup)initWithWorkQueue:(id)queue
@@ -332,12 +327,11 @@ LABEL_11:
 
 uint64_t __30__HMDObjectLookup_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_79412;
-  logCategory__hmf_once_v1_79412 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_79412;
+  logCategory__hmf_once_v1_79412 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

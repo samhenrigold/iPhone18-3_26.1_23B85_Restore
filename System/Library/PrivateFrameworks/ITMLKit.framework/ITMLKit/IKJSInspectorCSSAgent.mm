@@ -6,9 +6,11 @@
 - (id)_getMatchedTemplateStylesForNode:(id)node;
 - (id)_styleNodeForStylesheetId:(id)id;
 - (id)_stylesheetBodyForStylesheetId:(id)id;
+- (id)_updatedInlineStyleForNode:(int)node withStyleString:(id)string;
 - (void)disableWithErrorCallback:(id)callback successCallback:(id)successCallback;
 - (void)getAllStyleSheetsWithErrorCallback:(id)callback successCallback:(id)successCallback;
 - (void)getComputedStyleForNodeWithErrorCallback:(id)callback successCallback:(id)successCallback nodeId:(int)id;
+- (void)getInlineStylesForNodeWithErrorCallback:(id)callback successCallback:(id)successCallback nodeId:(int)id;
 - (void)getMatchedStylesForNodeWithErrorCallback:(id)callback successCallback:(id)successCallback nodeId:(int)id includePseudo:(BOOL *)pseudo includeInherited:(BOOL *)inherited;
 - (void)getStyleSheetTextWithErrorCallback:(id)callback successCallback:(id)successCallback styleSheetId:(id)id;
 - (void)getStyleSheetWithErrorCallback:(id)callback successCallback:(id)successCallback styleSheetId:(id)id;
@@ -46,7 +48,7 @@
 
 - (void)updateStylesheets
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   controller = [(IKJSInspectorCSSAgent *)self controller];
   activeDocument = [controller activeDocument];
@@ -55,39 +57,39 @@
   selfCopy = self;
   [(NSMapTable *)self->_authorStylesheets removeAllObjects];
   string = [MEMORY[0x277CCAB68] string];
-  v46 = 0;
-  v7 = [activeDocument nodesForXPath:@"/document/head/style" error:&v46];
-  v8 = v46;
+  v45 = 0;
+  v7 = [activeDocument nodesForXPath:@"/document/head/style" error:&v45];
+  v8 = v45;
   if (v7)
   {
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
-    v39 = v7;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    v38 = v7;
     obj = v7;
-    v9 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+    v9 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
     if (v9)
     {
       v10 = v9;
-      v36 = v8;
-      v37 = activeDocument;
-      v38 = date;
-      v11 = *v43;
+      v35 = v8;
+      v36 = activeDocument;
+      v37 = date;
+      v11 = *v42;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v43 != v11)
+          if (*v42 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v42 + 1) + 8 * i);
+          v13 = *(*(&v41 + 1) + 8 * i);
           textContent = [v13 textContent];
           v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", objc_msgSend(v13, "ITMLID")];
-          LOBYTE(v35) = 0;
-          v16 = [MEMORY[0x277D7B700] safe_initWithStyleSheetId:v15 frameId:@"Page" sourceURL:&stru_2866C1E60 origin:2 title:@"Author Stylesheet" disabled:0 isInline:0.0 startLine:0.0 startColumn:v35];
+          LOBYTE(v34) = 0;
+          v16 = [MEMORY[0x277D7B700] safe_initWithStyleSheetId:v15 frameId:@"Page" sourceURL:&stru_2866C1E60 origin:2 title:@"Author Stylesheet" disabled:0 isInline:0.0 startLine:0.0 startColumn:v34];
           v17 = [IKCSSParser parse:textContent];
           ruleList = [v17 ruleList];
           v19 = [MEMORY[0x277D7B6F8] ik_stylesheetBodyFromRuleList:ruleList forStyleMarkup:textContent withHeader:v16];
@@ -99,16 +101,16 @@
           [string appendString:textContent];
         }
 
-        v10 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+        v10 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
       }
 
       while (v10);
-      activeDocument = v37;
-      date = v38;
-      v8 = v36;
+      activeDocument = v36;
+      date = v37;
+      v8 = v35;
     }
 
-    v7 = v39;
+    v7 = v38;
   }
 
   else
@@ -141,8 +143,8 @@
   v27 = MEMORY[0x277D7B700];
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
-  LOBYTE(v34) = 0;
-  v30 = [v27 safe_initWithStyleSheetId:uUIDString frameId:@"Page" sourceURL:&stru_2866C1E60 origin:1 title:@"Template Stylesheet" disabled:0 isInline:0.0 startLine:0.0 startColumn:v34];
+  LOBYTE(v33) = 0;
+  v30 = [v27 safe_initWithStyleSheetId:uUIDString frameId:@"Page" sourceURL:&stru_2866C1E60 origin:1 title:@"Template Stylesheet" disabled:0 isInline:0.0 startLine:0.0 startColumn:v33];
   templateStylesheetHeader = selfCopy->_templateStylesheetHeader;
   selfCopy->_templateStylesheetHeader = v30;
 
@@ -151,8 +153,6 @@
   {
     [(IKJSInspectorCSSAgent *)date updateStylesheets];
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mediaQueryResultDidChange
@@ -178,7 +178,7 @@
 
 - (void)resetStylesFromNode:(id)node
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -189,37 +189,35 @@
     [(NSMutableDictionary *)inlineStyleMap removeObjectForKey:v6];
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   childNodesAsArray = [nodeCopy childNodesAsArray];
-  v8 = [childNodesAsArray countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [childNodesAsArray countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(childNodesAsArray);
         }
 
-        [(IKJSInspectorCSSAgent *)self resetStylesFromNode:*(*(&v13 + 1) + 8 * v11++)];
+        [(IKJSInspectorCSSAgent *)self resetStylesFromNode:*(*(&v12 + 1) + 8 * v11++)];
       }
 
       while (v9 != v11);
-      v9 = [childNodesAsArray countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [childNodesAsArray countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disableWithErrorCallback:(id)callback successCallback:(id)successCallback
@@ -311,9 +309,20 @@
   v27 = v31;
 }
 
+- (void)getInlineStylesForNodeWithErrorCallback:(id)callback successCallback:(id)successCallback nodeId:(int)id
+{
+  v5 = *&id;
+  successCallbackCopy = successCallback;
+  v8 = [(IKJSInspectorCSSAgent *)self _updatedInlineStyleForNode:v5 withStyleString:0];
+  v10 = v8;
+  successCallbackCopy[2](successCallbackCopy, &v10, 0);
+
+  v9 = v10;
+}
+
 - (void)getComputedStyleForNodeWithErrorCallback:(id)callback successCallback:(id)successCallback nodeId:(int)id
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   successCallbackCopy = successCallback;
   if (!self->_styleFactory)
@@ -328,39 +337,39 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v33 = successCallbackCopy;
-    v34 = callbackCopy;
+    v32 = successCallbackCopy;
+    v33 = callbackCopy;
     v12 = [v11 getAttribute:@"style"];
-    v31 = [v11 getAttribute:@"class"];
-    v32 = v12;
-    v30 = [IKViewElementStyle elementStyleWithSelector:"elementStyleWithSelector:inlineStyleString:filterBlockedStyles:" inlineStyleString:? filterBlockedStyles:?];
+    v30 = [v11 getAttribute:@"class"];
+    v31 = v12;
+    v29 = [IKViewElementStyle elementStyleWithSelector:"elementStyleWithSelector:inlineStyleString:filterBlockedStyles:" inlineStyleString:? filterBlockedStyles:?];
     v13 = [(IKViewElementStyleFactory *)self->_styleFactory styleComposerForElement:v11 elementStyleOverrides:?];
     controller2 = [(IKJSInspectorCSSAgent *)self controller];
-    v29 = v13;
+    v28 = v13;
     v15 = [controller2 styleFromComposer:v13];
 
-    v28 = v15;
+    v27 = v15;
     styleDict = [v15 styleDict];
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     allKeys = [styleDict allKeys];
-    v18 = [allKeys countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v18 = [allKeys countByEnumeratingWithState:&v35 objects:v39 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v37;
+      v20 = *v36;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v37 != v20)
+          if (*v36 != v20)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v22 = *(*(&v36 + 1) + 8 * i);
+          v22 = *(*(&v35 + 1) + 8 * i);
           v23 = [styleDict valueForKey:v22];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
@@ -373,24 +382,22 @@
           }
         }
 
-        v19 = [allKeys countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v19 = [allKeys countByEnumeratingWithState:&v35 objects:v39 count:16];
       }
 
       while (v19);
     }
 
-    successCallbackCopy = v33;
-    callbackCopy = v34;
+    successCallbackCopy = v32;
+    callbackCopy = v33;
   }
 
   successCallbackCopy[2](successCallbackCopy, array);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getAllStyleSheetsWithErrorCallback:(id)callback successCallback:(id)successCallback
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   successCallbackCopy = successCallback;
   if (!self->_styleFactory)
@@ -405,38 +412,37 @@
     [array addObject:?];
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   keyEnumerator = [(NSMapTable *)self->_authorStylesheets keyEnumerator];
-  v11 = [keyEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v11 = [keyEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       v14 = 0;
       do
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        [v9 addObject:*(*(&v16 + 1) + 8 * v14++)];
+        [v9 addObject:*(*(&v15 + 1) + 8 * v14++)];
       }
 
       while (v12 != v14);
-      v12 = [keyEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v12 = [keyEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v12);
   }
 
   successCallbackCopy[2](successCallbackCopy, v9);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getStyleSheetWithErrorCallback:(id)callback successCallback:(id)successCallback styleSheetId:(id)id
@@ -586,31 +592,31 @@ LABEL_13:
 
 - (void)getSupportedCSSPropertiesWithErrorCallback:(id)callback successCallback:(id)successCallback
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   successCallbackCopy = successCallback;
   v4 = +[IKViewElementStyle registeredStyles];
   array = [MEMORY[0x277CBEB18] array];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v15 = v4;
+  v14 = v4;
   obj = [v4 allKeys];
-  v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
-    v18 = *v21;
+    v17 = *v20;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v18)
+        if (*v20 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * i);
+        v8 = *(*(&v19 + 1) + 8 * i);
         v9 = [IKViewElementStyle propertiesForStyleName:v8];
         v10 = [v9 objectForKey:@"IKViewElementStyleAliasesKey"];
         v11 = [v9 objectForKey:@"IKViewElementStyleLonghandKey"];
@@ -631,43 +637,42 @@ LABEL_13:
         [array addObject:v12];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v6);
   }
 
   successCallbackCopy[2](successCallbackCopy, array);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_styleNodeForStylesheetId:(id)id
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   idCopy = id;
   controller = [(IKJSInspectorCSSAgent *)self controller];
   activeDocument = [controller activeDocument];
   v7 = [activeDocument nodesForXPath:@"/document/head/style" error:0];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
-    v10 = *v17;
+    v10 = *v16;
     while (2)
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         iTMLID = [v12 ITMLID];
         if (iTMLID == [idCopy integerValue])
         {
@@ -676,7 +681,7 @@ LABEL_13:
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v9)
       {
         continue;
@@ -688,35 +693,33 @@ LABEL_13:
 
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)_stylesheetBodyForStylesheetId:(id)id
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   idCopy = id;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   keyEnumerator = [(NSMapTable *)self->_authorStylesheets keyEnumerator];
-  v6 = [keyEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [keyEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         styleSheetId = [v10 styleSheetId];
         v12 = [styleSheetId isEqualToString:idCopy];
 
@@ -727,7 +730,7 @@ LABEL_11:
         }
       }
 
-      v7 = [keyEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [keyEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -740,40 +743,103 @@ LABEL_11:
   v13 = 0;
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
+}
+
+- (id)_updatedInlineStyleForNode:(int)node withStyleString:(id)string
+{
+  v4 = *&node;
+  stringCopy = string;
+  controller = [(IKJSInspectorCSSAgent *)self controller];
+  v8 = [controller nodeById:v4];
+
+  inlineStyleMap = self->_inlineStyleMap;
+  v10 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+  v11 = [(NSMutableDictionary *)inlineStyleMap objectForKey:v10];
+  v12 = v11;
+  if (v11)
+  {
+    v13 = v11;
+  }
+
+  else
+  {
+    v13 = [MEMORY[0x277D7B6E0] ik_cssStyleFromDeclarationList:0 forStyleMarkup:0 withNewLineIndexSet:0 existingStyle:0];
+  }
+
+  v14 = v13;
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v15 = [MEMORY[0x277D7B6F0] safe_initWithStyleSheetId:@"inline" ordinal:{objc_msgSend(v8, "ITMLID")}];
+    [v14 setStyleId:v15];
+
+    ik_emptySourceRange = [MEMORY[0x277D7B6D8] ik_emptySourceRange];
+    [v14 setRange:ik_emptySourceRange];
+
+    if ([stringCopy length])
+    {
+      v17 = stringCopy;
+    }
+
+    else
+    {
+      v17 = [v8 getAttribute:@"style"];
+    }
+
+    v18 = v17;
+    v19 = [MEMORY[0x277D7B6D8] ik_newLineIndexSetForStyleMarkup:v17];
+    if (v18 && ([v18 isEqualToString:&stru_2866C1E60] & 1) == 0)
+    {
+      nodeName = [v8 nodeName];
+      v21 = [IKViewElementStyle elementStyleWithSelector:nodeName inlineStyleString:v18 filterBlockedStyles:0 inlineStyleRangeCorrect:1];
+
+      v22 = MEMORY[0x277D7B6E0];
+      cssRule = [v21 cssRule];
+      declarationList = [cssRule declarationList];
+      v25 = [v22 ik_cssStyleFromDeclarationList:declarationList forStyleMarkup:v18 withNewLineIndexSet:v19 existingStyle:v14];
+
+      v14 = v25;
+    }
+  }
+
+  v26 = self->_inlineStyleMap;
+  v27 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v8, "ITMLID")}];
+  [(NSMutableDictionary *)v26 setObject:v14 forKey:v27];
+
+  return v14;
 }
 
 - (id)_getMatchedTemplateStylesForNode:(id)node
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
-  v28 = [MEMORY[0x277CBEB18] arrayWithCapacity:0];
+  v27 = [MEMORY[0x277CBEB18] arrayWithCapacity:0];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v27 = [(IKViewElementStyleFactory *)self->_styleFactory styleComposerForElement:nodeCopy elementStyleOverrides:0];
+    v26 = [(IKViewElementStyleFactory *)self->_styleFactory styleComposerForElement:nodeCopy elementStyleOverrides:0];
     v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:0];
-    v41 = 0u;
-    v39 = 0u;
     v40 = 0u;
     v38 = 0u;
-    consolidatedDefaultStyleList = [v27 consolidatedDefaultStyleList];
-    v7 = [consolidatedDefaultStyleList countByEnumeratingWithState:&v38 objects:v42 count:16];
+    v39 = 0u;
+    v37 = 0u;
+    consolidatedDefaultStyleList = [v26 consolidatedDefaultStyleList];
+    v7 = [consolidatedDefaultStyleList countByEnumeratingWithState:&v37 objects:v41 count:16];
     if (v7)
     {
-      v8 = *v39;
+      v8 = *v38;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v39 != v8)
+          if (*v38 != v8)
           {
             objc_enumerationMutation(consolidatedDefaultStyleList);
           }
 
-          v10 = *(*(&v38 + 1) + 8 * i);
+          v10 = *(*(&v37 + 1) + 8 * i);
           styles = [v10 styles];
           if (styles)
           {
@@ -782,7 +848,7 @@ LABEL_11:
           }
         }
 
-        v7 = [consolidatedDefaultStyleList countByEnumeratingWithState:&v38 objects:v42 count:16];
+        v7 = [consolidatedDefaultStyleList countByEnumeratingWithState:&v37 objects:v41 count:16];
       }
 
       while (v7);
@@ -796,68 +862,66 @@ LABEL_11:
       ik_templateElementCSSSelectorList = [nodeCopy ik_templateElementCSSSelectorList];
       objc_initWeak(&location, self);
       controller = [(IKJSInspectorCSSAgent *)self controller];
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __58__IKJSInspectorCSSAgent__getMatchedTemplateStylesForNode___block_invoke;
-      v30[3] = &unk_27979B600;
-      objc_copyWeak(&v36, &location);
-      v31 = v5;
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __58__IKJSInspectorCSSAgent__getMatchedTemplateStylesForNode___block_invoke;
+      v29[3] = &unk_27979B600;
+      objc_copyWeak(&v35, &location);
+      v30 = v5;
       v18 = ik_templateElementCSSSelectorList;
-      v32 = v18;
+      v31 = v18;
       v19 = v13;
-      v33 = v19;
+      v32 = v19;
       v20 = v14;
-      v34 = v20;
+      v33 = v20;
       v21 = v15;
-      v35 = v21;
-      [controller evaluateMediaQuery:v30];
+      v34 = v21;
+      [controller evaluateMediaQuery:v29];
 
-      v29 = 0;
-      __58__IKJSInspectorCSSAgent__getMatchedTemplateStylesForNode___block_invoke_44(v22, v20, &v29);
-      __58__IKJSInspectorCSSAgent__getMatchedTemplateStylesForNode___block_invoke_44(v23, v21, &v29);
-      __58__IKJSInspectorCSSAgent__getMatchedTemplateStylesForNode___block_invoke_44(v24, v19, &v29);
-      [v28 addObjectsFromArray:v20];
-      [v28 addObjectsFromArray:v21];
-      [v28 addObjectsFromArray:v19];
+      v28 = 0;
+      __58__IKJSInspectorCSSAgent__getMatchedTemplateStylesForNode___block_invoke_44(v22, v20, &v28);
+      __58__IKJSInspectorCSSAgent__getMatchedTemplateStylesForNode___block_invoke_44(v23, v21, &v28);
+      __58__IKJSInspectorCSSAgent__getMatchedTemplateStylesForNode___block_invoke_44(v24, v19, &v28);
+      [v27 addObjectsFromArray:v20];
+      [v27 addObjectsFromArray:v21];
+      [v27 addObjectsFromArray:v19];
 
-      objc_destroyWeak(&v36);
+      objc_destroyWeak(&v35);
       objc_destroyWeak(&location);
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return v27;
 }
 
 void __58__IKJSInspectorCSSAgent__getMatchedTemplateStylesForNode___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   if (WeakRetained)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     obj = *(a1 + 32);
-    v5 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v15;
+      v7 = *v14;
       do
       {
         v8 = 0;
         do
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = [*(*(&v14 + 1) + 8 * v8) cssRule];
+          v9 = [*(*(&v13 + 1) + 8 * v8) cssRule];
           v10 = [MEMORY[0x277D7B6A8] ik_cssRuleForRule:v9 withOrdinal:0 forStyleSheetHeader:WeakRetained[2] forStyleMarkup:0 withNewLineIndexSet:0];
           [v10 setSelectorList:*(a1 + 40)];
           v11 = [v10 ik_ruleMatchForClassSelectors:0 andIdSelector:0];
@@ -868,39 +932,37 @@ void __58__IKJSInspectorCSSAgent__getMatchedTemplateStylesForNode___block_invoke
         }
 
         while (v6 != v8);
-        v6 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v6);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __58__IKJSInspectorCSSAgent__getMatchedTemplateStylesForNode___block_invoke_44(uint64_t a1, void *a2, unsigned int *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = a2;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = [v9 rule];
         v11 = [v10 style];
         v12 = [v11 styleId];
@@ -913,13 +975,11 @@ void __58__IKJSInspectorCSSAgent__getMatchedTemplateStylesForNode___block_invoke
         ++*a3;
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getMatchedStyleRulesForNode:(id)node
@@ -984,31 +1044,31 @@ void __58__IKJSInspectorCSSAgent__getMatchedTemplateStylesForNode___block_invoke
 
 void __54__IKJSInspectorCSSAgent__getMatchedStyleRulesForNode___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   v5 = WeakRetained;
   if (WeakRetained)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     obj = [WeakRetained[4] objectEnumerator];
-    v17 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
-    if (v17)
+    v16 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+    if (v16)
     {
-      v16 = *v19;
+      v15 = *v18;
       do
       {
-        for (i = 0; i != v17; ++i)
+        for (i = 0; i != v16; ++i)
         {
-          if (*v19 != v16)
+          if (*v18 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v18 + 1) + 8 * i);
+          v7 = *(*(&v17 + 1) + 8 * i);
           v8 = [v7 rules];
           if ([v8 count])
           {
@@ -1029,19 +1089,17 @@ void __54__IKJSInspectorCSSAgent__getMatchedStyleRulesForNode___block_invoke(uin
           }
         }
 
-        v17 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v16 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
-      while (v17);
+      while (v16);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_evaluator:(id)_evaluator updateMediaStylesWithActiveStyles:(id)styles inActiveStyles:(id)activeStyles defaultStyles:(id)defaultStyles forRule:(id)rule withMatch:(id)match
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   _evaluatorCopy = _evaluator;
   stylesCopy = styles;
   activeStylesCopy = activeStyles;
@@ -1067,34 +1125,34 @@ void __54__IKJSInspectorCSSAgent__getMatchedStyleRulesForNode___block_invoke(uin
 
       else
       {
-        v35 = 0u;
-        v36 = 0u;
-        v33 = 0u;
         v34 = 0u;
+        v35 = 0u;
+        v32 = 0u;
+        v33 = 0u;
         rule = [matchCopy rule];
         style = [rule style];
         cssProperties = [style cssProperties];
 
-        v28 = [cssProperties countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v28 = [cssProperties countByEnumeratingWithState:&v32 objects:v36 count:16];
         if (v28)
         {
           v29 = v28;
-          v30 = *v34;
+          v30 = *v33;
           do
           {
             v31 = 0;
             do
             {
-              if (*v34 != v30)
+              if (*v33 != v30)
               {
                 objc_enumerationMutation(cssProperties);
               }
 
-              [*(*(&v33 + 1) + 8 * v31++) setStatus:2];
+              [*(*(&v32 + 1) + 8 * v31++) setStatus:2];
             }
 
             while (v29 != v31);
-            v29 = [cssProperties countByEnumeratingWithState:&v33 objects:v37 count:16];
+            v29 = [cssProperties countByEnumeratingWithState:&v32 objects:v36 count:16];
           }
 
           while (v29);
@@ -1111,8 +1169,6 @@ void __54__IKJSInspectorCSSAgent__getMatchedStyleRulesForNode___block_invoke(uin
 
     [v24 addObject:matchCopy];
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (IKJSInspectorController)controller

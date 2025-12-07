@@ -414,7 +414,7 @@ LABEL_11:
 
 - (void)_adjustAfterMovingOrCopyingFromOldCalendar:(id)calendar toNewCalendar:(id)newCalendar cachedConstraintsForOldCalendar:(id)oldCalendar savingItem:(id)item
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   calendarCopy = calendar;
   newCalendarCopy = newCalendar;
   oldCalendarCopy = oldCalendar;
@@ -434,40 +434,38 @@ LABEL_11:
     if ((supportsAlarmProximity & 1) == 0)
     {
       alarms = [(EKCalendarItem *)self alarms];
+      v24 = 0u;
       v25 = 0u;
       v26 = 0u;
       v27 = 0u;
-      v28 = 0u;
-      v19 = [alarms countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v19 = [alarms countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v26;
+        v21 = *v25;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v26 != v21)
+            if (*v25 != v21)
             {
               objc_enumerationMutation(alarms);
             }
 
-            v23 = *(*(&v25 + 1) + 8 * i);
+            v23 = *(*(&v24 + 1) + 8 * i);
             if ([v23 proximity])
             {
               [v23 setProximity:0];
             }
           }
 
-          v20 = [alarms countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v20 = [alarms countByEnumeratingWithState:&v24 objects:v28 count:16];
         }
 
         while (v20);
       }
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_generateNewUniqueID
@@ -510,7 +508,7 @@ id __20__EKReminder__reset__block_invoke(uint64_t a1)
 
 + (void)_removeSnoozedAlarmsFromReminder:(id)reminder usingDueDate:(id)date
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   reminderCopy = reminder;
   dateCopy = date;
   constraints = [reminderCopy constraints];
@@ -549,26 +547,26 @@ LABEL_4:
   allAlarms2 = [reminderCopy allAlarms];
   v12 = [v10 arrayWithCapacity:{objc_msgSend(allAlarms2, "count")}];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   allAlarms3 = [reminderCopy allAlarms];
-  v14 = [allAlarms3 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v14 = [allAlarms3 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v36;
+    v16 = *v35;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v36 != v16)
+        if (*v35 != v16)
         {
           objc_enumerationMutation(allAlarms3);
         }
 
-        v18 = *(*(&v35 + 1) + 8 * i);
+        v18 = *(*(&v34 + 1) + 8 * i);
         originalAlarm = [v18 originalAlarm];
 
         if (!originalAlarm)
@@ -590,75 +588,74 @@ LABEL_4:
         [v12 addObject:v18];
       }
 
-      v15 = [allAlarms3 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v15 = [allAlarms3 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v15);
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v22 = v12;
-  v23 = [v22 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v32;
+    v25 = *v31;
     do
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v32 != v25)
+        if (*v31 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        [reminderCopy removeAlarm:{*(*(&v31 + 1) + 8 * j), v31}];
+        [reminderCopy removeAlarm:{*(*(&v30 + 1) + 8 * j), v30}];
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v24);
   }
 
 LABEL_23:
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (id)bestDisplayAlarm
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF70];
   alarms = [(EKCalendarItem *)self alarms];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(alarms, "count")}];
 
   if ([(EKCalendarItem *)self hasAlarms])
   {
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     allAlarms = [(EKCalendarItem *)self allAlarms];
-    v7 = [allAlarms countByEnumeratingWithState:&v41 objects:v46 count:16];
+    v7 = [allAlarms countByEnumeratingWithState:&v40 objects:v45 count:16];
     if (v7)
     {
       v8 = v7;
       LOBYTE(v9) = 0;
-      v10 = *v42;
+      v10 = *v41;
       while (1)
       {
         v11 = 0;
         do
         {
-          if (*v42 != v10)
+          if (*v41 != v10)
           {
             objc_enumerationMutation(allAlarms);
           }
 
-          v12 = *(*(&v41 + 1) + 8 * v11);
+          v12 = *(*(&v40 + 1) + 8 * v11);
           structuredLocation = [v12 structuredLocation];
 
           if (structuredLocation)
@@ -692,7 +689,7 @@ LABEL_57:
         }
 
         while (v8 != v11);
-        v15 = [allAlarms countByEnumeratingWithState:&v41 objects:v46 count:16];
+        v15 = [allAlarms countByEnumeratingWithState:&v40 objects:v45 count:16];
         v8 = v15;
         if (!v15)
         {
@@ -717,30 +714,30 @@ LABEL_20:
     timeZone = [eventStore timeZone];
     v20 = EKDateComponentsGetDate();
 
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v21 = v5;
-    v22 = [v21 countByEnumeratingWithState:&v37 objects:v45 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v36 objects:v44 count:16];
     if (v22)
     {
       v23 = v22;
       v16 = 0;
-      v24 = *v38;
+      v24 = *v37;
       while (2)
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v38 != v24)
+          if (*v37 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          v26 = *(*(&v37 + 1) + 8 * i);
+          v26 = *(*(&v36 + 1) + 8 * i);
           if (v16)
           {
-            if ([*(*(&v37 + 1) + 8 * i) isAbsolute])
+            if ([*(*(&v36 + 1) + 8 * i) isAbsolute])
             {
               [v26 absoluteDate];
             }
@@ -810,7 +807,7 @@ LABEL_46:
           }
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v37 objects:v45 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v36 objects:v44 count:16];
         if (v23)
         {
           continue;
@@ -832,8 +829,6 @@ LABEL_46:
   }
 
 LABEL_58:
-
-  v35 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

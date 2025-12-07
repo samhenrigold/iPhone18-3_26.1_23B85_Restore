@@ -321,37 +321,37 @@ LABEL_56:
 
 - (id)serializeWithError:(id *)error
 {
-  v85 = *MEMORY[0x277D85DE8];
-  v83 = 0u;
-  v84 = 0u;
-  v81 = 0u;
+  v84 = *MEMORY[0x277D85DE8];
   v82 = 0u;
-  v79 = 0u;
+  v83 = 0u;
   v80 = 0u;
-  v77 = 0u;
+  v81 = 0u;
   v78 = 0u;
-  v75 = 0u;
+  v79 = 0u;
   v76 = 0u;
-  v73 = 0u;
+  v77 = 0u;
   v74 = 0u;
-  v71 = 0u;
+  v75 = 0u;
   v72 = 0u;
-  v69 = 0u;
+  v73 = 0u;
   v70 = 0u;
+  v71 = 0u;
   v68 = 0u;
-  v66 = 0u;
+  v69 = 0u;
   v67 = 0u;
-  v64 = 0u;
   v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   TLV8BufferInit();
   instanceID = [(HAP2TLVParamCharacteristicSignature *)self instanceID];
 
   if (instanceID)
   {
     instanceID2 = [(HAP2TLVParamCharacteristicSignature *)self instanceID];
-    v63 = 0;
-    v7 = [instanceID2 serializeWithError:&v63];
-    v8 = v63;
+    v62 = 0;
+    v7 = [instanceID2 serializeWithError:&v62];
+    v8 = v62;
 
     if (v8)
     {
@@ -387,9 +387,9 @@ LABEL_71:
   if (characteristicType)
   {
     characteristicType2 = [(HAP2TLVParamCharacteristicSignature *)self characteristicType];
-    v62 = 0;
-    v7 = [characteristicType2 serializeWithError:&v62];
-    v8 = v62;
+    v61 = 0;
+    v7 = [characteristicType2 serializeWithError:&v61];
+    v8 = v61;
 
     if (!v8)
     {
@@ -422,9 +422,9 @@ LABEL_18:
   if (characteristicProperties)
   {
     characteristicProperties2 = [(HAP2TLVParamCharacteristicSignature *)self characteristicProperties];
-    v61 = 0;
-    v7 = [characteristicProperties2 serializeWithError:&v61];
-    v8 = v61;
+    v60 = 0;
+    v7 = [characteristicProperties2 serializeWithError:&v60];
+    v8 = v60;
 
     if (v8)
     {
@@ -445,9 +445,9 @@ LABEL_18:
   if (userDescription)
   {
     userDescription2 = [(HAP2TLVParamCharacteristicSignature *)self userDescription];
-    v60 = 0;
-    v7 = [userDescription2 serializeWithError:&v60];
-    v8 = v60;
+    v59 = 0;
+    v7 = [userDescription2 serializeWithError:&v59];
+    v8 = v59;
 
     if (!v8)
     {
@@ -480,9 +480,9 @@ LABEL_31:
   if (bluetoothFormat)
   {
     bluetoothFormat2 = [(HAP2TLVParamCharacteristicSignature *)self bluetoothFormat];
-    v59 = 0;
-    v7 = [bluetoothFormat2 serializeWithError:&v59];
-    v8 = v59;
+    v58 = 0;
+    v7 = [bluetoothFormat2 serializeWithError:&v58];
+    v8 = v58;
 
     if (!v8)
     {
@@ -515,9 +515,9 @@ LABEL_40:
   if (validRange)
   {
     validRange2 = [(HAP2TLVParamCharacteristicSignature *)self validRange];
-    v58 = 0;
-    v7 = [validRange2 serializeWithError:&v58];
-    v8 = v58;
+    v57 = 0;
+    v7 = [validRange2 serializeWithError:&v57];
+    v8 = v57;
 
     if (!v8)
     {
@@ -550,9 +550,9 @@ LABEL_49:
   if (stepValue)
   {
     stepValue2 = [(HAP2TLVParamCharacteristicSignature *)self stepValue];
-    v57 = 0;
-    v7 = [stepValue2 serializeWithError:&v57];
-    v8 = v57;
+    v56 = 0;
+    v7 = [stepValue2 serializeWithError:&v56];
+    v8 = v56;
 
     if (!v8)
     {
@@ -585,9 +585,9 @@ LABEL_58:
   if (validValues)
   {
     validValues2 = [(HAP2TLVParamCharacteristicSignature *)self validValues];
-    v56 = 0;
-    v7 = [validValues2 serializeWithError:&v56];
-    v8 = v56;
+    v55 = 0;
+    v7 = [validValues2 serializeWithError:&v55];
+    v8 = v55;
 
     if (!v8)
     {
@@ -630,9 +630,9 @@ LABEL_67:
   if (validValuesRange)
   {
     validValuesRange2 = [(HAP2TLVParamCharacteristicSignature *)self validValuesRange];
-    v55 = 0;
-    v7 = [validValuesRange2 serializeWithError:&v55];
-    v8 = v55;
+    v54 = 0;
+    v7 = [validValuesRange2 serializeWithError:&v54];
+    v8 = v54;
 
     if (v8)
     {
@@ -640,44 +640,44 @@ LABEL_67:
     }
 
     bytes7 = [v7 bytes];
-    v50 = bytes7 + [v7 length];
+    v49 = bytes7 + [v7 length];
     do
     {
-      if ((v50 - bytes7) >= 255)
+      if ((v49 - bytes7) >= 255)
       {
-        v51 = 255;
+        v50 = 255;
       }
 
       else
       {
-        v51 = v50 - bytes7;
+        v50 = v49 - bytes7;
       }
 
-      v52 = TLV8BufferAppend();
-      if (v52)
+      v51 = TLV8BufferAppend();
+      if (v51)
       {
-        v53 = 0;
-      }
-
-      else
-      {
-        v53 = v51;
-      }
-
-      bytes7 += v53;
-      if (v52)
-      {
-        v54 = 1;
+        v52 = 0;
       }
 
       else
       {
-        v54 = bytes7 >= v50;
+        v52 = v50;
+      }
+
+      bytes7 += v52;
+      if (v51)
+      {
+        v53 = 1;
+      }
+
+      else
+      {
+        v53 = bytes7 >= v49;
       }
     }
 
-    while (!v54);
-    v10 = v52;
+    while (!v53);
+    v10 = v51;
 
     if (v10)
     {
@@ -685,12 +685,10 @@ LABEL_67:
     }
   }
 
-  v11 = [MEMORY[0x277CBEA90] dataWithBytes:v64 length:?];
+  v11 = [MEMORY[0x277CBEA90] dataWithBytes:v63 length:?];
   v8 = 0;
 LABEL_72:
   TLV8BufferFree();
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -741,7 +739,7 @@ LABEL_47:
   v12 = bytes + v8;
   while (1)
   {
-    v67 = 0;
+    v67[0] = 0;
     v65[1] = 0;
     v66 = 0;
     v65[0] = 0;
@@ -773,11 +771,11 @@ LABEL_47:
       break;
     }
 
-    if (v67 <= 0xBu)
+    if (v67[0] <= 0xBu)
     {
-      if (v67 > 9u)
+      if (v67[0] > 9u)
       {
-        if (v67 == 10)
+        if (v67[0] == 10)
         {
           v14 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:? length:? freeWhenDone:?];
           v61 = v9;
@@ -793,7 +791,7 @@ LABEL_28:
           goto LABEL_35;
         }
 
-        if (v67 == 11)
+        if (v67[0] == 11)
         {
           v60 = v9;
           v14 = HAPTLVParseContiguousTlvs(11, bytes, v12, v65, &v60);
@@ -815,7 +813,7 @@ LABEL_28:
 
       else
       {
-        if (v67 == 4)
+        if (v67[0] == 4)
         {
           v63 = v9;
           v14 = HAPTLVParseContiguousTlvs(4, bytes, v12, v65, &v63);
@@ -834,7 +832,7 @@ LABEL_28:
           goto LABEL_28;
         }
 
-        if (v67 == 5)
+        if (v67[0] == 5)
         {
           v14 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:? length:? freeWhenDone:?];
           v64 = v9;
@@ -848,9 +846,9 @@ LABEL_28:
       }
     }
 
-    else if (v67 <= 0xDu)
+    else if (v67[0] <= 0xDu)
     {
-      if (v67 == 12)
+      if (v67[0] == 12)
       {
         v58 = v9;
         v14 = HAPTLVParseContiguousTlvs(12, bytes, v12, v65, &v58);
@@ -869,7 +867,7 @@ LABEL_28:
         goto LABEL_28;
       }
 
-      if (v67 == 13)
+      if (v67[0] == 13)
       {
         v56 = v9;
         v14 = HAPTLVParseContiguousTlvs(13, bytes, v12, v65, &v56);
@@ -893,9 +891,9 @@ LABEL_35:
 
     else
     {
-      switch(v67)
+      switch(v67[0])
       {
-        case 0xEu:
+        case 0xE:
           v54 = v9;
           v14 = HAPTLVParseContiguousTlvs(14, bytes, v12, v65, &v54);
           v15 = v54;
@@ -911,7 +909,7 @@ LABEL_35:
           v17 = v43;
           v43 = v24;
           goto LABEL_28;
-        case 0x11u:
+        case 0x11:
           v52 = v9;
           v14 = HAPTLVParseContiguousTlvs(17, bytes, v12, v65, &v52);
           v15 = v52;
@@ -927,7 +925,7 @@ LABEL_35:
           v17 = v42;
           v42 = v26;
           goto LABEL_28;
-        case 0x12u:
+        case 0x12:
           v50 = v9;
           v14 = HAPTLVParseContiguousTlvs(18, bytes, v12, v65, &v50);
           v15 = v50;

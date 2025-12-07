@@ -65,14 +65,14 @@
   }
 
   [v5 setPersonLinks:v8];
-  v18 = [v5 copy];
+  v18 = objc_msgSend_copy(v5);
 
   return v18;
 }
 
 - (void)updateWithHMPerson:(id)person
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   personCopy = person;
   name = [(_MKFPhotosPerson *)self name];
   name2 = [personCopy name];
@@ -94,27 +94,27 @@
     [(_MKFPhotosPerson *)self setPhotoLibraryPersonUUID:externalPersonUUID2];
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   personLinks = [personCopy personLinks];
-  v14 = [personLinks countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v14 = [personLinks countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       v17 = 0;
       do
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(personLinks);
         }
 
-        personUUID = [*(*(&v21 + 1) + 8 * v17) personUUID];
+        personUUID = [*(*(&v20 + 1) + 8 * v17) personUUID];
         v19 = [HMCContext findHomePersonWithModelID:personUUID];
 
         if (v19)
@@ -126,13 +126,11 @@
       }
 
       while (v15 != v17);
-      v15 = [personLinks countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v15 = [personLinks countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v15);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

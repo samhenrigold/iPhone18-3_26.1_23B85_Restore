@@ -46,99 +46,101 @@
   v7 = latlon1Copy;
   if (!lonCopy)
   {
-    v25 = sub_100024218();
+    v25 = sub_100024218(latlon1Copy);
     if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v31 = 0;
-      v32 = 2082;
-      v33 = "";
-      v34 = 2082;
-      v35 = "assert";
-      v36 = 2081;
-      v37 = "latlon0 != nullptr";
+      v36 = 0;
+      v37 = 2082;
+      v38 = "";
+      v39 = 2082;
+      v40 = "assert";
+      v41 = 2081;
+      v42 = "latlon0 != nullptr";
       _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:distBetweenLatLon: first coordinate must be valid!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v26 = sub_100024218();
-    if (os_signpost_enabled(v26))
+    v27 = sub_100024218(v26);
+    if (os_signpost_enabled(v27))
     {
       *buf = 68289539;
-      v31 = 0;
-      v32 = 2082;
-      v33 = "";
-      v34 = 2082;
-      v35 = "assert";
-      v36 = 2081;
-      v37 = "latlon0 != nullptr";
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v26, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "distBetweenLatLon: first coordinate must be valid!", "{msg%{public}.0s:distBetweenLatLon: first coordinate must be valid!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v36 = 0;
+      v37 = 2082;
+      v38 = "";
+      v39 = 2082;
+      v40 = "assert";
+      v41 = 2081;
+      v42 = "latlon0 != nullptr";
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v27, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "distBetweenLatLon: first coordinate must be valid!", "{msg%{public}.0s:distBetweenLatLon: first coordinate must be valid!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v27 = sub_100024218();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+    v29 = sub_100024218(v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v31 = 0;
-      v32 = 2082;
-      v33 = "";
-      v34 = 2082;
-      v35 = "assert";
-      v36 = 2081;
-      v37 = "latlon0 != nullptr";
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "{msg%{public}.0s:distBetweenLatLon: first coordinate must be valid!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v36 = 0;
+      v37 = 2082;
+      v38 = "";
+      v39 = 2082;
+      v40 = "assert";
+      v41 = 2081;
+      v42 = "latlon0 != nullptr";
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "{msg%{public}.0s:distBetweenLatLon: first coordinate must be valid!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-LABEL_17:
+    v30 = 104;
+LABEL_18:
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/Framework/CLAvailableVenuesStateMachine.mm", v30, "+[CLAvailableVenuesStateMachine distBetweenLatLon:latlon1:]");
     __break(1u);
   }
 
   if (!latlon1Copy)
   {
-    v28 = sub_100024218();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+    v31 = sub_100024218(0);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v31 = 0;
-      v32 = 2082;
-      v33 = "";
-      v34 = 2082;
-      v35 = "assert";
-      v36 = 2081;
-      v37 = "latlon1 != nullptr";
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:distBetweenLatLon: second coordinate must be valid!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v36 = 0;
+      v37 = 2082;
+      v38 = "";
+      v39 = 2082;
+      v40 = "assert";
+      v41 = 2081;
+      v42 = "latlon1 != nullptr";
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:distBetweenLatLon: second coordinate must be valid!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v29 = sub_100024218();
-    if (os_signpost_enabled(v29))
+    v33 = sub_100024218(v32);
+    if (os_signpost_enabled(v33))
     {
       *buf = 68289539;
-      v31 = 0;
-      v32 = 2082;
-      v33 = "";
-      v34 = 2082;
-      v35 = "assert";
-      v36 = 2081;
-      v37 = "latlon1 != nullptr";
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v29, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "distBetweenLatLon: second coordinate must be valid!", "{msg%{public}.0s:distBetweenLatLon: second coordinate must be valid!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v36 = 0;
+      v37 = 2082;
+      v38 = "";
+      v39 = 2082;
+      v40 = "assert";
+      v41 = 2081;
+      v42 = "latlon1 != nullptr";
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v33, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "distBetweenLatLon: second coordinate must be valid!", "{msg%{public}.0s:distBetweenLatLon: second coordinate must be valid!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v27 = sub_100024218();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+    v29 = sub_100024218(v34);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v31 = 0;
-      v32 = 2082;
-      v33 = "";
-      v34 = 2082;
-      v35 = "assert";
-      v36 = 2081;
-      v37 = "latlon1 != nullptr";
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "{msg%{public}.0s:distBetweenLatLon: second coordinate must be valid!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v36 = 0;
+      v37 = 2082;
+      v38 = "";
+      v39 = 2082;
+      v40 = "assert";
+      v41 = 2081;
+      v42 = "latlon1 != nullptr";
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "{msg%{public}.0s:distBetweenLatLon: second coordinate must be valid!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    goto LABEL_17;
+    v30 = 105;
+    goto LABEL_18;
   }
 
   [lonCopy latitude];
@@ -220,7 +222,7 @@ LABEL_17:
         {
           sub_100382924(&v13);
 
-          result = abort_report_np();
+          result = abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/Framework/CLAvailableVenuesStateMachine.mm", 143, "[CLAvailableVenuesStateMachine computeAvailableVenues:nearCoordinates:]");
           __break(1u);
           return result;
         }
@@ -255,14 +257,14 @@ LABEL_17:
   }
 
   while (v8);
-  v130 = [[NSMutableArray alloc] initWithCapacity:120];
-  v133 = v7;
-  v131 = objc_alloc_init(GeographicCoordinate);
-  v137 = objc_alloc_init(ENUCoordinate);
-  v120 = objc_alloc_init(ECEFCoordinate);
-  v124 = objc_alloc_init(GeographicCoordinate);
+  v132 = [[NSMutableArray alloc] initWithCapacity:120];
+  v135 = v7;
+  v133 = objc_alloc_init(GeographicCoordinate);
+  v139 = objc_alloc_init(ENUCoordinate);
+  v122 = objc_alloc_init(ECEFCoordinate);
+  v126 = objc_alloc_init(GeographicCoordinate);
   numVenuesExpected = [venuesCopy numVenuesExpected];
-  v125 = [NSMutableArray arrayWithCapacity:numVenuesExpected];
+  v127 = [NSMutableArray arrayWithCapacity:numVenuesExpected];
   numTotalExpectedExteriorsInVenues = [venuesCopy numTotalExpectedExteriorsInVenues];
   if (qword_10045B060 != -1)
   {
@@ -273,11 +275,11 @@ LABEL_17:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v156 = numTotalExpectedExteriorsInVenues;
+    v157 = numTotalExpectedExteriorsInVenues;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "@IndoorAvl, load, Reserving %zu entries for AvailabilityTile entries in result", buf, 0xCu);
   }
 
-  v115 = [NSMutableArray arrayWithCapacity:numTotalExpectedExteriorsInVenues];
+  v117 = [NSMutableArray arrayWithCapacity:numTotalExpectedExteriorsInVenues];
   if (qword_10045B060 != -1)
   {
     sub_100382AAC();
@@ -287,15 +289,15 @@ LABEL_17:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    LODWORD(v156) = numVenuesExpected;
+    LODWORD(v157) = numVenuesExpected;
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "@IndoorAvl, load, iterating over %d venues in the availability tile", buf, 8u);
   }
 
   if (numVenuesExpected >= 1)
   {
+    v118 = 0;
     v116 = 0;
-    v114 = 0;
-    v129 = 0;
+    v131 = 0;
     while (1)
     {
       context = objc_autoreleasePoolPush();
@@ -312,8 +314,8 @@ LABEL_17:
           v13 = qword_10045B068;
           if (os_log_type_enabled(qword_10045B068, OS_LOG_TYPE_ERROR))
           {
-            *v154 = 0;
-            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "@IndoorAvl, load, failed to incrementally read venue bounds from tile", v154, 2u);
+            *v155 = 0;
+            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "@IndoorAvl, load, failed to incrementally read venue bounds from tile", v155, 2u);
           }
 
           v14 = 1;
@@ -324,13 +326,13 @@ LABEL_17:
 
       else
       {
-        sub_100170790([venuesCopy getAvlTile], v129, v154);
-        sub_100345A64(buf, v154);
-        sub_100344504(v154);
+        sub_100170790([venuesCopy getAvlTile], v131, v155);
+        sub_100345A64(buf, v155);
+        sub_100344504(v155);
       }
 
-      sub_10002629C(&v158[2], ", ", __p);
-      if (!v161)
+      sub_10002629C(&v159[2], ", ", &__p);
+      if (!v162)
       {
         if (qword_10045B060 != -1)
         {
@@ -340,15 +342,15 @@ LABEL_17:
         v21 = qword_10045B068;
         if (os_log_type_enabled(qword_10045B068, OS_LOG_TYPE_ERROR))
         {
-          v22 = __p;
-          if (v151 < 0)
+          p_p = &__p;
+          if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
           {
-            v22 = __p[0];
+            p_p = __p.__r_.__value_.__r.__words[0];
           }
 
-          *v154 = 136446210;
-          *&v154[4] = v22;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "@IndoorAvl, load, venue [%{public}s] is missing exterior", v154, 0xCu);
+          *v155 = 136446210;
+          *&v155[4] = p_p;
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "@IndoorAvl, load, venue [%{public}s] is missing exterior", v155, 0xCu);
           v14 = 11;
         }
 
@@ -360,28 +362,28 @@ LABEL_17:
         goto LABEL_172;
       }
 
+      v151[0] = 0;
+      v151[1] = 0;
+      v150 = v151;
       v149[0] = 0;
       v149[1] = 0;
       v148 = v149;
-      v147[0] = 0;
-      v147[1] = 0;
-      v146 = v147;
-      if ((v163 & 4) != 0)
+      if ((v164 & 4) != 0)
       {
-        v15 = v162;
-        if (!v162)
+        v15 = v163;
+        if (!v163)
         {
           v15 = *(qword_100471D00 + 64);
         }
 
-        sub_100343200(v154, v15);
-        if (*&v154[24] >= 1)
+        sub_100343200(v155, v15);
+        if (*&v155[24] >= 1)
         {
           v16 = 0;
           do
           {
-            v17 = *(*&v154[16] + 4 * v16);
-            v18 = v147[0];
+            v17 = *(*&v155[16] + 4 * v16);
+            v18 = v149[0];
 LABEL_31:
             if (!v18)
             {
@@ -414,14 +416,14 @@ LABEL_35:
             ++v16;
           }
 
-          while (v16 < *&v154[24]);
+          while (v16 < *&v155[24]);
         }
 
-        sub_1003432BC(v154);
+        sub_1003432BC(v155);
       }
 
-      [v125 removeAllObjects];
-      if (v159 < 1)
+      [v127 removeAllObjects];
+      if (v160 < 1)
       {
         goto LABEL_163;
       }
@@ -430,14 +432,90 @@ LABEL_35:
       v24 = 0;
       do
       {
-        v25 = *(*&v158[2] + 8 * v23);
+        v25 = *(*&v159[2] + 8 * v23);
         if (*(v25 + 23) < 0)
         {
           v25 = *v25;
         }
 
         v26 = [NSString stringWithUTF8String:v25];
-        if (![v26 hasPrefix:@"G"])
+        if ([v26 hasPrefix:@"G"])
+        {
+          if (v24)
+          {
+
+            if (qword_10045B060 != -1)
+            {
+              sub_100382AAC();
+            }
+
+            v85 = qword_10045B068;
+            if (os_log_type_enabled(qword_10045B068, OS_LOG_TYPE_ERROR))
+            {
+              v86 = &__p;
+              if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+              {
+                v86 = __p.__r_.__value_.__r.__words[0];
+              }
+
+              *v155 = 136446210;
+              *&v155[4] = v86;
+              v87 = v85;
+              v88 = OS_LOG_TYPE_ERROR;
+              v89 = "Multiple groups associated with venue [%{public}s].  Ignoring from availability tile";
+              goto LABEL_183;
+            }
+
+LABEL_170:
+            v14 = 11;
+            goto LABEL_171;
+          }
+
+          if ([(CLAvailableVenuesStateMachine *)self isVenueDisabled:v26 locationId:0])
+          {
+            if (qword_10045B060 != -1)
+            {
+              sub_100382AAC();
+            }
+
+            v90 = qword_10045B068;
+            if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
+            {
+              v91 = v26;
+              uTF8String = [v26 UTF8String];
+              *v155 = 136315138;
+              *&v155[4] = uTF8String;
+              _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEBUG, "%s in availability tile is disabled by settings", v155, 0xCu);
+            }
+
+LABEL_163:
+            if (qword_10045B060 != -1)
+            {
+              sub_100382AAC();
+            }
+
+            v93 = qword_10045B068;
+            if (os_log_type_enabled(qword_10045B068, OS_LOG_TYPE_DEFAULT))
+            {
+              v94 = &__p;
+              if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+              {
+                v94 = __p.__r_.__value_.__r.__words[0];
+              }
+
+              *v155 = 136315138;
+              *&v155[4] = v94;
+              _os_log_impl(&_mh_execute_header, v93, OS_LOG_TYPE_DEFAULT, "#Warning Cannot find location group in venue [%s]", v155, 0xCu);
+            }
+
+            v24 = 0;
+            goto LABEL_170;
+          }
+
+          v24 = v26;
+        }
+
+        else
         {
           if (![v26 hasPrefix:@"L"])
           {
@@ -450,10 +528,10 @@ LABEL_35:
             if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
               v30 = v26;
-              uTF8String = [v26 UTF8String];
-              *v154 = 136315138;
-              *&v154[4] = uTF8String;
-              _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "#Warning Encountered invalid venue id %s in availability tile. Skipping", v154, 0xCu);
+              uTF8String2 = [v26 UTF8String];
+              *v155 = 136315138;
+              *&v155[4] = uTF8String2;
+              _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "#Warning Encountered invalid venue id %s in availability tile. Skipping", v155, 0xCu);
             }
 
             goto LABEL_62;
@@ -470,10 +548,10 @@ LABEL_35:
             if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
             {
               v28 = v26;
-              uTF8String2 = [v26 UTF8String];
-              *v154 = 136315138;
-              *&v154[4] = uTF8String2;
-              _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "%s in availability tile is disabled by settings", v154, 0xCu);
+              uTF8String3 = [v26 UTF8String];
+              *v155 = 136315138;
+              *&v155[4] = uTF8String3;
+              _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "%s in availability tile is disabled by settings", v155, 0xCu);
             }
 
 LABEL_62:
@@ -481,617 +559,543 @@ LABEL_62:
             goto LABEL_63;
           }
 
-          [v125 addObject:v26];
-          if (v23 < v159)
+          [v127 addObject:v26];
+          if (v23 >= v160)
           {
-            if ((v163 & 4) != 0)
-            {
-              v32 = v147[0];
-              if (v147[0])
-              {
-                v33 = v147;
-                do
-                {
-                  v34 = *(v32 + 7);
-                  v35 = v23 <= v34;
-                  v36 = v23 > v34;
-                  if (v35)
-                  {
-                    v33 = v32;
-                  }
+            sub_100382AD4();
+            abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/Framework/CLAvailableVenuesStateMachine.mm", 154, "operator()");
+            goto LABEL_227;
+          }
 
-                  v32 = v32[v36];
+          if ((v164 & 4) != 0)
+          {
+            v32 = v149[0];
+            if (v149[0])
+            {
+              v33 = v149;
+              do
+              {
+                v34 = *(v32 + 7);
+                v35 = v23 <= v34;
+                v36 = v23 > v34;
+                if (v35)
+                {
+                  v33 = v32;
                 }
 
-                while (v32);
-                if (v33 != v147 && v23 >= *(v33 + 7))
-                {
+                v32 = v32[v36];
+              }
+
+              while (v32);
+              if (v33 != v149 && v23 >= *(v33 + 7))
+              {
 LABEL_77:
-                  v37 = [v125 count] - 1;
-                  for (i = v149[0]; i; i = *v39)
+                v37 = [v127 count] - 1;
+                for (i = v151[0]; i; i = *v39)
+                {
+                  while (1)
                   {
-                    while (1)
+                    v39 = i;
+                    v40 = i[4];
+                    if (v37 < v40)
                     {
-                      v39 = i;
-                      v40 = i[4];
-                      if (v37 < v40)
-                      {
-                        break;
-                      }
+                      break;
+                    }
 
-                      if (v40 >= v37)
-                      {
-                        goto LABEL_63;
-                      }
+                    if (v40 >= v37)
+                    {
+                      goto LABEL_63;
+                    }
 
-                      i = v39[1];
-                      if (!i)
-                      {
-                        goto LABEL_83;
-                      }
+                    i = v39[1];
+                    if (!i)
+                    {
+                      goto LABEL_83;
                     }
                   }
+                }
 
 LABEL_83:
-                  operator new();
-                }
+                operator new();
               }
             }
-
-            else if ([CLLocationContextUtil isRegional:[CLAvailableVenuesStateMachine getLocationContextFromVenueBounds:buf]])
-            {
-              goto LABEL_77;
-            }
-
-            goto LABEL_63;
           }
 
-          sub_100382AD4();
-          abort_report_np();
-LABEL_227:
-          while (2)
+          else if ([CLLocationContextUtil isRegional:[CLAvailableVenuesStateMachine getLocationContextFromVenueBounds:buf]])
           {
-            __break(1u);
-            sub_100382AAC();
-            v104 = qword_10045B068;
-            if (os_log_type_enabled(v104, OS_LOG_TYPE_FAULT))
-            {
-              *v154 = 68289539;
-              *&v154[4] = 0;
-              *&v154[8] = 2082;
-              *&v154[10] = "";
-              *&v154[18] = 2082;
-              *&v154[20] = "assert";
-              *&v154[28] = 2081;
-              *&v154[30] = "!std::isnan(vertexENU.x())";
-              _os_log_impl(&_mh_execute_header, v104, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:vertexENU.x() must not be NaN, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v154, 0x26u);
-            }
-
-            if (qword_10045B060 == -1)
-            {
-              v105 = qword_10045B068;
-              if (os_signpost_enabled(v105))
-              {
-                goto LABEL_210;
-              }
-            }
-
-            else
-            {
-              dispatch_once(&qword_10045B060, &stru_100432A60);
-              v105 = qword_10045B068;
-              if (os_signpost_enabled(v105))
-              {
-LABEL_210:
-                *v154 = 68289539;
-                *&v154[4] = 0;
-                *&v154[8] = 2082;
-                *&v154[10] = "";
-                *&v154[18] = 2082;
-                *&v154[20] = "assert";
-                *&v154[28] = 2081;
-                *&v154[30] = "!std::isnan(vertexENU.x())";
-                _os_signpost_emit_with_name_impl(&_mh_execute_header, v105, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "vertexENU.x() must not be NaN", "{msg%{public}.0s:vertexENU.x() must not be NaN, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v154, 0x26u);
-              }
-            }
-
-            if (qword_10045B060 != -1)
-            {
-              dispatch_once(&qword_10045B060, &stru_100432A60);
-            }
-
-            v106 = qword_10045B068;
-            if (os_log_type_enabled(v106, OS_LOG_TYPE_INFO))
-            {
-              *v154 = 68289539;
-              *&v154[4] = 0;
-              *&v154[8] = 2082;
-              *&v154[10] = "";
-              *&v154[18] = 2082;
-              *&v154[20] = "assert";
-              *&v154[28] = 2081;
-              *&v154[30] = "!std::isnan(vertexENU.x())";
-              _os_log_impl(&_mh_execute_header, v106, OS_LOG_TYPE_INFO, "{msg%{public}.0s:vertexENU.x() must not be NaN, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v154, 0x26u);
-            }
-
-LABEL_215:
-
-            abort_report_np();
-            continue;
+            goto LABEL_77;
           }
         }
 
-        if (v24)
-        {
-
-          if (qword_10045B060 != -1)
-          {
-            sub_100382AAC();
-          }
-
-          v86 = qword_10045B068;
-          if (!os_log_type_enabled(qword_10045B068, OS_LOG_TYPE_ERROR))
-          {
-            goto LABEL_170;
-          }
-
-          v87 = __p;
-          if (v151 < 0)
-          {
-            v87 = __p[0];
-          }
-
-          *v154 = 136446210;
-          *&v154[4] = v87;
-          v88 = v86;
-          v89 = OS_LOG_TYPE_ERROR;
-          v90 = "Multiple groups associated with venue [%{public}s].  Ignoring from availability tile";
-          goto LABEL_183;
-        }
-
-        if ([(CLAvailableVenuesStateMachine *)self isVenueDisabled:v26 locationId:0])
-        {
-          if (qword_10045B060 != -1)
-          {
-            sub_100382AAC();
-          }
-
-          v91 = qword_10045B068;
-          if (os_log_type_enabled(v91, OS_LOG_TYPE_DEBUG))
-          {
-            v92 = v26;
-            uTF8String3 = [v26 UTF8String];
-            *v154 = 136315138;
-            *&v154[4] = uTF8String3;
-            _os_log_impl(&_mh_execute_header, v91, OS_LOG_TYPE_DEBUG, "%s in availability tile is disabled by settings", v154, 0xCu);
-          }
-
-LABEL_163:
-          if (qword_10045B060 != -1)
-          {
-            sub_100382AAC();
-          }
-
-          v94 = qword_10045B068;
-          if (os_log_type_enabled(qword_10045B068, OS_LOG_TYPE_DEFAULT))
-          {
-            v95 = __p;
-            if (v151 < 0)
-            {
-              v95 = __p[0];
-            }
-
-            *v154 = 136315138;
-            *&v154[4] = v95;
-            _os_log_impl(&_mh_execute_header, v94, OS_LOG_TYPE_DEFAULT, "#Warning Cannot find location group in venue [%s]", v154, 0xCu);
-          }
-
-          v24 = 0;
-          goto LABEL_170;
-        }
-
-        v24 = v26;
 LABEL_63:
 
         ++v23;
       }
 
-      while (v23 < v159);
+      while (v23 < v160);
       if (!v24)
       {
         goto LABEL_163;
       }
 
-      if ([v125 count] && v125)
+      if (![v127 count] || !v127)
       {
-        v41 = [v125 count];
-        v113 = [v24 substringFromIndex:1];
-
-        v112 = [CLAvailableVenuesStateMachine getLocationContextFromVenueBounds:buf];
-        v116 += v41;
-        if (v161)
+        if (qword_10045B060 != -1)
         {
-          v121 = 0;
-          v122 = v160;
-          v119 = &v160[v161];
-          do
+          sub_100382AAC();
+        }
+
+        v95 = qword_10045B068;
+        if (os_log_type_enabled(qword_10045B068, OS_LOG_TYPE_DEFAULT))
+        {
+          v96 = &__p;
+          if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
           {
-            if (v121)
-            {
-              v121 = 1;
-            }
+            v96 = __p.__r_.__value_.__r.__words[0];
+          }
 
-            else
+          *v155 = 136315138;
+          *&v155[4] = v96;
+          v87 = v95;
+          v88 = OS_LOG_TYPE_DEFAULT;
+          v89 = "#Warning No venues associated with availability tile [%s]";
+LABEL_183:
+          _os_log_impl(&_mh_execute_header, v87, v88, v89, v155, 0xCu);
+          goto LABEL_170;
+        }
+
+        goto LABEL_170;
+      }
+
+      v41 = [v127 count];
+      v115 = [v24 substringFromIndex:1];
+
+      removeAllObjects = [CLAvailableVenuesStateMachine getLocationContextFromVenueBounds:buf];
+      v114 = removeAllObjects;
+      v118 += v41;
+      if (v162)
+      {
+        v123 = 0;
+        v124 = v161;
+        v121 = &v161[v162];
+        do
+        {
+          if (v123)
+          {
+            v123 = 1;
+          }
+
+          else
+          {
+            v43 = *(*v124 + 24);
+            v129 = *v124;
+            if (v43 == *(*v124 + 48))
             {
-              v42 = *(*v122 + 24);
-              v127 = *v122;
-              if (v42 == *(*v122 + 48))
+              if ((v43 & 0x80000000) != 0)
               {
-                if ((v42 & 0x80000000) != 0)
+                v106 = sub_100024218(removeAllObjects);
+                if (os_log_type_enabled(v106, OS_LOG_TYPE_FAULT))
                 {
-                  v107 = sub_100024218();
-                  if (os_log_type_enabled(v107, OS_LOG_TYPE_FAULT))
-                  {
-                    v108 = *(v127 + 48);
-                    *v154 = 68289795;
-                    *&v154[8] = 2082;
-                    *&v154[10] = "";
-                    *&v154[18] = 1026;
-                    *&v154[20] = v108;
-                    *&v154[24] = 2082;
-                    *&v154[26] = "assert";
-                    *&v154[34] = 2081;
-                    *&v154[36] = "exterior.longitude_size() >= 0";
-                    _os_log_impl(&_mh_execute_header, v107, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:@IndoorAvl, load, exterior longitude_size() returned a negative value?!, longitude_size:%{public}d, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v154, 0x2Cu);
-                  }
-
-                  v109 = sub_100024218();
-                  if (os_signpost_enabled(v109))
-                  {
-                    v110 = *(v127 + 48);
-                    *v154 = 68289795;
-                    *&v154[8] = 2082;
-                    *&v154[10] = "";
-                    *&v154[18] = 1026;
-                    *&v154[20] = v110;
-                    *&v154[24] = 2082;
-                    *&v154[26] = "assert";
-                    *&v154[34] = 2081;
-                    *&v154[36] = "exterior.longitude_size() >= 0";
-                    _os_signpost_emit_with_name_impl(&_mh_execute_header, v109, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "@IndoorAvl, load, exterior longitude_size() returned a negative value?!", "{msg%{public}.0s:@IndoorAvl, load, exterior longitude_size() returned a negative value?!, longitude_size:%{public}d, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v154, 0x2Cu);
-                  }
-
-                  v106 = sub_100024218();
-                  if (os_log_type_enabled(v106, OS_LOG_TYPE_INFO))
-                  {
-                    v111 = *(v127 + 48);
-                    *v154 = 68289795;
-                    *&v154[8] = 2082;
-                    *&v154[10] = "";
-                    *&v154[18] = 1026;
-                    *&v154[20] = v111;
-                    *&v154[24] = 2082;
-                    *&v154[26] = "assert";
-                    *&v154[34] = 2081;
-                    *&v154[36] = "exterior.longitude_size() >= 0";
-                    _os_log_impl(&_mh_execute_header, v106, OS_LOG_TYPE_INFO, "{msg%{public}.0s:@IndoorAvl, load, exterior longitude_size() returned a negative value?!, longitude_size:%{public}d, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v154, 0x2Cu);
-                  }
-
-                  goto LABEL_215;
+                  v107 = *(v129 + 48);
+                  *v155 = 68289795;
+                  *&v155[8] = 2082;
+                  *&v155[10] = "";
+                  *&v155[18] = 1026;
+                  *&v155[20] = v107;
+                  *&v155[24] = 2082;
+                  *&v155[26] = "assert";
+                  *&v155[34] = 2081;
+                  *&v155[36] = "exterior.longitude_size() >= 0";
+                  _os_log_impl(&_mh_execute_header, v106, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:@IndoorAvl, load, exterior longitude_size() returned a negative value?!, longitude_size:%{public}d, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v155, 0x2Cu);
                 }
 
-                if ([v7 count] < v42)
+                v109 = sub_100024218(v108);
+                if (os_signpost_enabled(v109))
                 {
-                  v43 = [v7 count];
-                  v44 = v42 - v43;
-                  if (v42 != v43)
+                  v110 = *(v129 + 48);
+                  *v155 = 68289795;
+                  *&v155[8] = 2082;
+                  *&v155[10] = "";
+                  *&v155[18] = 1026;
+                  *&v155[20] = v110;
+                  *&v155[24] = 2082;
+                  *&v155[26] = "assert";
+                  *&v155[34] = 2081;
+                  *&v155[36] = "exterior.longitude_size() >= 0";
+                  _os_signpost_emit_with_name_impl(&_mh_execute_header, v109, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "@IndoorAvl, load, exterior longitude_size() returned a negative value?!", "{msg%{public}.0s:@IndoorAvl, load, exterior longitude_size() returned a negative value?!, longitude_size:%{public}d, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v155, 0x2Cu);
+                }
+
+                v112 = sub_100024218(v111);
+                if (os_log_type_enabled(v112, OS_LOG_TYPE_INFO))
+                {
+                  v113 = *(v129 + 48);
+                  *v155 = 68289795;
+                  *&v155[8] = 2082;
+                  *&v155[10] = "";
+                  *&v155[18] = 1026;
+                  *&v155[20] = v113;
+                  *&v155[24] = 2082;
+                  *&v155[26] = "assert";
+                  *&v155[34] = 2081;
+                  *&v155[36] = "exterior.longitude_size() >= 0";
+                  _os_log_impl(&_mh_execute_header, v112, OS_LOG_TYPE_INFO, "{msg%{public}.0s:@IndoorAvl, load, exterior longitude_size() returned a negative value?!, longitude_size:%{public}d, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v155, 0x2Cu);
+                }
+
+                abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/Framework/CLAvailableVenuesStateMachine.mm", 337, "[CLAvailableVenuesStateMachine computeAvailableVenues:nearCoordinates:withError:]");
+LABEL_227:
+                while (2)
+                {
+                  __break(1u);
+                  sub_100382AAC();
+                  v103 = qword_10045B068;
+                  if (os_log_type_enabled(v103, OS_LOG_TYPE_FAULT))
                   {
-                    do
+                    *v155 = 68289539;
+                    *&v155[4] = 0;
+                    *&v155[8] = 2082;
+                    *&v155[10] = "";
+                    *&v155[18] = 2082;
+                    *&v155[20] = "assert";
+                    *&v155[28] = 2081;
+                    *&v155[30] = "!std::isnan(vertexENU.x())";
+                    _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:vertexENU.x() must not be NaN, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v155, 0x26u);
+                  }
+
+                  if (qword_10045B060 == -1)
+                  {
+                    v104 = qword_10045B068;
+                    if (os_signpost_enabled(v104))
                     {
-                      v45 = objc_alloc_init(ECEFCoordinate);
-                      [v7 addObject:v45];
-
-                      --v44;
-                    }
-
-                    while (v44);
-                  }
-
-                  if (qword_10045B060 != -1)
-                  {
-                    sub_100382AAC();
-                  }
-
-                  v46 = qword_10045B068;
-                  if (os_log_type_enabled(qword_10045B068, OS_LOG_TYPE_FAULT))
-                  {
-                    *v154 = 67109120;
-                    *&v154[4] = v42;
-                    _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_FAULT, "@IndoorAvl, load, Needed to allocate additional ECEFCoordinates for the pool: total required %d", v154, 8u);
-                  }
-                }
-
-                if (v42)
-                {
-                  v47 = 0;
-                  v48 = 8 * v42;
-                  do
-                  {
-                    [(GeographicCoordinate *)v131 setFromLatitude:*(*(v127 + 16) + v47) longitude:*(*(v127 + 40) + v47) andAltitude:0.0];
-                    lastObject = [v7 lastObject];
-                    [v7 removeLastObject];
-                    [lastObject setFromLatLon:v131];
-                    [v130 addObject:lastObject];
-
-                    v47 += 8;
-                  }
-
-                  while (v48 != v47);
-                }
-
-                [CLLocationGroup storeAverage:v120 ofVertices:v130];
-                [(GeographicCoordinate *)v124 setFromECEFCoordinate:v120];
-                if ([coordinatesCopy count])
-                {
-                  v144 = 0u;
-                  v145 = 0u;
-                  v142 = 0u;
-                  v143 = 0u;
-                  v50 = coordinatesCopy;
-                  v51 = [v50 countByEnumeratingWithState:&v142 objects:v153 count:16];
-                  if (v51)
-                  {
-                    v52 = *v143;
-LABEL_107:
-                    v53 = 0;
-                    while (1)
-                    {
-                      if (*v143 != v52)
-                      {
-                        objc_enumerationMutation(v50);
-                      }
-
-                      v54 = *(*(&v142 + 1) + 8 * v53);
-                      [CLAvailableVenuesStateMachine distBetweenLatLon:v124 latlon1:v54];
-                      v56 = v55;
-                      v57 = v55 >= self->_maxLoadRadius;
-
-                      if (!v57)
-                      {
-                        break;
-                      }
-
-                      if (v51 == ++v53)
-                      {
-                        v51 = [v50 countByEnumeratingWithState:&v142 objects:v153 count:16];
-                        if (v51)
-                        {
-                          goto LABEL_107;
-                        }
-
-                        break;
-                      }
+                      goto LABEL_210;
                     }
                   }
 
                   else
                   {
-                    v56 = 1.79769313e308;
-                  }
-                }
-
-                else
-                {
-                  v56 = 0.0;
-                }
-
-                maxLoadRadius = self->_maxLoadRadius;
-                v121 = v56 > maxLoadRadius;
-                if (v56 > maxLoadRadius)
-                {
-                  v116 -= [v125 count];
-                }
-
-                else
-                {
-                  v63 = [[CLLocationGroup alloc] initWithGroupId:v113 locationIds:v125 center:v120 wifiOnlyDownloadLocIdxs:&v148 locationContext:v112 andTolerance:*(v127 + 64)];
-                  v136 = v63;
-                  getVertices = [(CLLocationGroup *)v63 getVertices];
-                  v140 = 0u;
-                  v141 = 0u;
-                  v138 = 0u;
-                  v139 = 0u;
-                  obj = v130;
-                  v65 = [obj countByEnumeratingWithState:&v138 objects:v152 count:16];
-                  v66 = v65;
-                  if (v65)
-                  {
-                    v135 = *v139;
-                    do
+                    dispatch_once(&qword_10045B060, &stru_100432A60);
+                    v104 = qword_10045B068;
+                    if (os_signpost_enabled(v104))
                     {
-                      v67 = 0;
-                      do
-                      {
-                        if (*v139 != v135)
-                        {
-                          objc_enumerationMutation(obj);
-                        }
-
-                        v68 = *(*(&v138 + 1) + 8 * v67);
-                        v69 = *getVertices;
-                        centerLatLon = [(CLLocationGroup *)v63 centerLatLon];
-                        centerECEF = [(CLLocationGroup *)v63 centerECEF];
-                        [v68 toBoostEnuWithLatLonOrigin:centerLatLon andEcefOrigin:centerECEF usingENU:v137];
-                        v75 = v69[1];
-                        v74 = v69[2];
-                        if (v75 >= v74)
-                        {
-                          v77 = *v69;
-                          v78 = v75 - *v69;
-                          v79 = v78 >> 4;
-                          v80 = (v78 >> 4) + 1;
-                          if (v80 >> 60)
-                          {
-                            sub_10000FC84();
-                          }
-
-                          v81 = v74 - v77;
-                          if (v81 >> 3 > v80)
-                          {
-                            v80 = v81 >> 3;
-                          }
-
-                          if (v81 >= 0x7FFFFFFFFFFFFFF0)
-                          {
-                            v82 = 0xFFFFFFFFFFFFFFFLL;
-                          }
-
-                          else
-                          {
-                            v82 = v80;
-                          }
-
-                          if (v82)
-                          {
-                            if (!(v82 >> 60))
-                            {
-                              operator new();
-                            }
-
-                            sub_10000D444();
-                          }
-
-                          v83 = (16 * v79);
-                          *v83 = v72;
-                          v83[1] = v73;
-                          v76 = 16 * v79 + 16;
-                          memcpy(0, v77, v78);
-                          *v69 = 0;
-                          v69[1] = v76;
-                          v69[2] = 0;
-                          if (v77)
-                          {
-                            operator delete(v77);
-                          }
-
-                          v7 = v133;
-                        }
-
-                        else
-                        {
-                          *v75 = v72;
-                          v75[1] = v73;
-                          v76 = (v75 + 2);
-                        }
-
-                        v69[1] = v76;
-
-                        v84 = (*getVertices)[1];
-                        v85 = *(v84 - 16);
-                        v63 = v136;
-                        v67 = v67 + 1;
-                      }
-
-                      while (v66 != v67);
-                      v66 = [obj countByEnumeratingWithState:&v138 objects:v152 count:{16, *(v84 - 8)}];
+LABEL_210:
+                      *v155 = 68289539;
+                      *&v155[4] = 0;
+                      *&v155[8] = 2082;
+                      *&v155[10] = "";
+                      *&v155[18] = 2082;
+                      *&v155[20] = "assert";
+                      *&v155[28] = 2081;
+                      *&v155[30] = "!std::isnan(vertexENU.x())";
+                      _os_signpost_emit_with_name_impl(&_mh_execute_header, v104, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "vertexENU.x() must not be NaN", "{msg%{public}.0s:vertexENU.x() must not be NaN, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v155, 0x26u);
                     }
-
-                    while (v66);
                   }
 
-                  if (*(v127 + 48) != ((*getVertices)[1] - **getVertices) >> 4)
+                  if (qword_10045B060 != -1)
                   {
-                    sub_100382CB4(v154);
-
-                    abort_report_np();
-                    goto LABEL_227;
+                    dispatch_once(&qword_10045B060, &stru_100432A60);
                   }
 
-                  sub_100027918(*getVertices);
-                  [v115 addObject:v136];
+                  v105 = qword_10045B068;
+                  if (os_log_type_enabled(v105, OS_LOG_TYPE_INFO))
+                  {
+                    *v155 = 68289539;
+                    *&v155[4] = 0;
+                    *&v155[8] = 2082;
+                    *&v155[10] = "";
+                    *&v155[18] = 2082;
+                    *&v155[20] = "assert";
+                    *&v155[28] = 2081;
+                    *&v155[30] = "!std::isnan(vertexENU.x())";
+                    _os_log_impl(&_mh_execute_header, v105, OS_LOG_TYPE_INFO, "{msg%{public}.0s:vertexENU.x() must not be NaN, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v155, 0x26u);
+                  }
 
-                  ++v114;
+                  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/Framework/CLAvailableVenuesStateMachine.mm", 366, "[CLAvailableVenuesStateMachine computeAvailableVenues:nearCoordinates:withError:]");
+                  continue;
                 }
-
-                [v7 addObjectsFromArray:v130];
-                [v130 removeAllObjects];
               }
 
-              else
+              if ([v7 count] < v43)
               {
+                v44 = [v7 count];
+                v45 = v43 - v44;
+                if (v43 != v44)
+                {
+                  do
+                  {
+                    v46 = objc_alloc_init(ECEFCoordinate);
+                    [v7 addObject:v46];
+
+                    --v45;
+                  }
+
+                  while (v45);
+                }
+
                 if (qword_10045B060 != -1)
                 {
                   sub_100382AAC();
                 }
 
-                v58 = qword_10045B068;
-                if (os_log_type_enabled(qword_10045B068, OS_LOG_TYPE_ERROR))
+                v47 = qword_10045B068;
+                if (os_log_type_enabled(qword_10045B068, OS_LOG_TYPE_FAULT))
                 {
-                  v59 = __p;
-                  if (v151 < 0)
-                  {
-                    v59 = __p[0];
-                  }
+                  *v155 = 67109120;
+                  *&v155[4] = v43;
+                  _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_FAULT, "@IndoorAvl, load, Needed to allocate additional ECEFCoordinates for the pool: total required %d", v155, 8u);
+                }
+              }
 
-                  v60 = *(v127 + 24);
-                  v61 = *(v127 + 48);
-                  *v154 = 136446722;
-                  *&v154[4] = v59;
-                  *&v154[12] = 1026;
-                  *&v154[14] = v60;
-                  *&v154[18] = 1026;
-                  *&v154[20] = v61;
-                  _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_ERROR, "@IndoorAvl, load, exterior polygon of venue [%{public}s] is corrupt.  %{public}d latitudes, %{public}d longitudes", v154, 0x18u);
+              if (v43)
+              {
+                v48 = 0;
+                v49 = 8 * v43;
+                do
+                {
+                  [(GeographicCoordinate *)v133 setFromLatitude:*(*(v129 + 16) + v48) longitude:*(*(v129 + 40) + v48) andAltitude:0.0];
+                  lastObject = [v7 lastObject];
+                  [v7 removeLastObject];
+                  [lastObject setFromLatLon:v133];
+                  [v132 addObject:lastObject];
+
+                  v48 += 8;
                 }
 
-                v121 = 0;
+                while (v49 != v48);
               }
+
+              [CLLocationGroup storeAverage:v122 ofVertices:v132];
+              [(GeographicCoordinate *)v126 setFromECEFCoordinate:v122];
+              if ([coordinatesCopy count])
+              {
+                v146 = 0u;
+                v147 = 0u;
+                v144 = 0u;
+                v145 = 0u;
+                v51 = coordinatesCopy;
+                v52 = [v51 countByEnumeratingWithState:&v144 objects:v154 count:16];
+                if (v52)
+                {
+                  v53 = *v145;
+LABEL_107:
+                  v54 = 0;
+                  while (1)
+                  {
+                    if (*v145 != v53)
+                    {
+                      objc_enumerationMutation(v51);
+                    }
+
+                    v55 = *(*(&v144 + 1) + 8 * v54);
+                    [CLAvailableVenuesStateMachine distBetweenLatLon:v126 latlon1:v55];
+                    v57 = v56;
+                    v58 = v56 >= self->_maxLoadRadius;
+
+                    if (!v58)
+                    {
+                      break;
+                    }
+
+                    if (v52 == ++v54)
+                    {
+                      v52 = [v51 countByEnumeratingWithState:&v144 objects:v154 count:16];
+                      if (v52)
+                      {
+                        goto LABEL_107;
+                      }
+
+                      break;
+                    }
+                  }
+                }
+
+                else
+                {
+                  v57 = 1.79769313e308;
+                }
+              }
+
+              else
+              {
+                v57 = 0.0;
+              }
+
+              maxLoadRadius = self->_maxLoadRadius;
+              v123 = v57 > maxLoadRadius;
+              if (v57 > maxLoadRadius)
+              {
+                v118 -= [v127 count];
+              }
+
+              else
+              {
+                v64 = [[CLLocationGroup alloc] initWithGroupId:v115 locationIds:v127 center:v122 wifiOnlyDownloadLocIdxs:&v150 locationContext:v114 andTolerance:*(v129 + 64)];
+                v138 = v64;
+                getVertices = [(CLLocationGroup *)v64 getVertices];
+                v142 = 0u;
+                v143 = 0u;
+                v140 = 0u;
+                v141 = 0u;
+                obj = v132;
+                v66 = [obj countByEnumeratingWithState:&v140 objects:v153 count:16];
+                v67 = v66;
+                if (v66)
+                {
+                  v137 = *v141;
+                  do
+                  {
+                    v68 = 0;
+                    do
+                    {
+                      if (*v141 != v137)
+                      {
+                        objc_enumerationMutation(obj);
+                      }
+
+                      v69 = *(*(&v140 + 1) + 8 * v68);
+                      v70 = *getVertices;
+                      centerLatLon = [(CLLocationGroup *)v64 centerLatLon];
+                      centerECEF = [(CLLocationGroup *)v64 centerECEF];
+                      [v69 toBoostEnuWithLatLonOrigin:centerLatLon andEcefOrigin:centerECEF usingENU:v139];
+                      v76 = v70[1];
+                      v75 = v70[2];
+                      if (v76 >= v75)
+                      {
+                        v78 = *v70;
+                        v79 = v76 - *v70;
+                        v80 = v79 >> 4;
+                        v81 = (v79 >> 4) + 1;
+                        if (v81 >> 60)
+                        {
+                          sub_10000FC84();
+                        }
+
+                        v82 = v75 - v78;
+                        if (v82 >> 3 > v81)
+                        {
+                          v81 = v82 >> 3;
+                        }
+
+                        if (v82 >= 0x7FFFFFFFFFFFFFF0)
+                        {
+                          v83 = 0xFFFFFFFFFFFFFFFLL;
+                        }
+
+                        else
+                        {
+                          v83 = v81;
+                        }
+
+                        if (v83)
+                        {
+                          if (!(v83 >> 60))
+                          {
+                            operator new();
+                          }
+
+                          sub_10000D444();
+                        }
+
+                        v84 = (16 * v80);
+                        *v84 = v73;
+                        v84[1] = v74;
+                        v77 = 16 * v80 + 16;
+                        memcpy(0, v78, v79);
+                        *v70 = 0;
+                        v70[1] = v77;
+                        v70[2] = 0;
+                        if (v78)
+                        {
+                          operator delete(v78);
+                        }
+
+                        v7 = v135;
+                      }
+
+                      else
+                      {
+                        *v76 = v73;
+                        v76[1] = v74;
+                        v77 = (v76 + 2);
+                      }
+
+                      v70[1] = v77;
+
+                      v64 = v138;
+                      v68 = v68 + 1;
+                    }
+
+                    while (v67 != v68);
+                    v67 = [obj countByEnumeratingWithState:&v140 objects:v153 count:{16, *((*getVertices)[1] - 8)}];
+                  }
+
+                  while (v67);
+                }
+
+                if (*(v129 + 48) != ((*getVertices)[1] - **getVertices) >> 4)
+                {
+                  sub_100382CB4(v155);
+
+                  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/Framework/CLAvailableVenuesStateMachine.mm", 372, "[CLAvailableVenuesStateMachine computeAvailableVenues:nearCoordinates:withError:]");
+                  goto LABEL_227;
+                }
+
+                sub_100027918(*getVertices);
+                [v117 addObject:v138];
+
+                ++v116;
+              }
+
+              [v7 addObjectsFromArray:v132];
+              removeAllObjects = [v132 removeAllObjects];
             }
 
-            ++v122;
+            else
+            {
+              if (qword_10045B060 != -1)
+              {
+                sub_100382AAC();
+              }
+
+              v59 = qword_10045B068;
+              removeAllObjects = os_log_type_enabled(qword_10045B068, OS_LOG_TYPE_ERROR);
+              if (removeAllObjects)
+              {
+                v60 = &__p;
+                if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                {
+                  v60 = __p.__r_.__value_.__r.__words[0];
+                }
+
+                v61 = *(v129 + 24);
+                v62 = *(v129 + 48);
+                *v155 = 136446722;
+                *&v155[4] = v60;
+                *&v155[12] = 1026;
+                *&v155[14] = v61;
+                *&v155[18] = 1026;
+                *&v155[20] = v62;
+                _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_ERROR, "@IndoorAvl, load, exterior polygon of venue [%{public}s] is corrupt.  %{public}d latitudes, %{public}d longitudes", v155, 0x18u);
+              }
+
+              v123 = 0;
+            }
           }
 
-          while (v122 != v119);
+          ++v124;
         }
 
-        v14 = 0;
-        v24 = v113;
-        goto LABEL_171;
+        while (v124 != v121);
       }
 
-      if (qword_10045B060 != -1)
-      {
-        sub_100382AAC();
-      }
-
-      v96 = qword_10045B068;
-      if (os_log_type_enabled(qword_10045B068, OS_LOG_TYPE_DEFAULT))
-      {
-        v97 = __p;
-        if (v151 < 0)
-        {
-          v97 = __p[0];
-        }
-
-        *v154 = 136315138;
-        *&v154[4] = v97;
-        v88 = v96;
-        v89 = OS_LOG_TYPE_DEFAULT;
-        v90 = "#Warning No venues associated with availability tile [%s]";
-LABEL_183:
-        _os_log_impl(&_mh_execute_header, v88, v89, v90, v154, 0xCu);
-      }
-
-LABEL_170:
-      v14 = 11;
+      v14 = 0;
+      v24 = v115;
 LABEL_171:
-      sub_1000275F4(&v146, v147[0]);
       sub_1000275F4(&v148, v149[0]);
+      sub_1000275F4(&v150, v151[0]);
 
 LABEL_172:
-      if (v151 < 0)
+      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(__p[0]);
+        operator delete(__p.__r_.__value_.__l.__data_);
       }
 
 LABEL_174:
@@ -1099,20 +1103,20 @@ LABEL_174:
       objc_autoreleasePoolPop(context);
       if (v14 != 11 && v14)
       {
-        v102 = 0;
-        v103 = v115;
+        v101 = 0;
+        v102 = v117;
         goto LABEL_203;
       }
 
-      if (++v129 == numVenuesExpected)
+      if (++v131 == numVenuesExpected)
       {
         goto LABEL_186;
       }
     }
   }
 
-  v114 = 0;
   v116 = 0;
+  v118 = 0;
 LABEL_186:
   if ([venuesCopy tileIsOpenForIncrementalIO])
   {
@@ -1122,11 +1126,11 @@ LABEL_186:
       sub_100382AAC();
     }
 
-    v98 = qword_10045B068;
-    if (os_log_type_enabled(v98, OS_LOG_TYPE_INFO))
+    v97 = qword_10045B068;
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_INFO))
     {
-      *v154 = 0;
-      _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_INFO, "@IndoorAvl, load, make sure we have no more venue bounds to read", v154, 2u);
+      *v155 = 0;
+      _os_log_impl(&_mh_execute_header, v97, OS_LOG_TYPE_INFO, "@IndoorAvl, load, make sure we have no more venue bounds to read", v155, 2u);
     }
 
     if ([venuesCopy getNextVenueBoundsIncrementally:buf])
@@ -1136,11 +1140,11 @@ LABEL_186:
         sub_100382AAC();
       }
 
-      v99 = qword_10045B068;
-      if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
+      v98 = qword_10045B068;
+      if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
       {
-        *v154 = 0;
-        _os_log_impl(&_mh_execute_header, v99, OS_LOG_TYPE_ERROR, "@IndoorAvl, load, had venues left over after iterating over all venues in tile. why?", v154, 2u);
+        *v155 = 0;
+        _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_ERROR, "@IndoorAvl, load, had venues left over after iterating over all venues in tile. why?", v155, 2u);
       }
     }
 
@@ -1152,21 +1156,21 @@ LABEL_186:
     sub_100382AAC();
   }
 
-  v100 = qword_10045B068;
-  if (os_log_type_enabled(v100, OS_LOG_TYPE_DEBUG))
+  v99 = qword_10045B068;
+  if (os_log_type_enabled(v99, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218240;
-    v156 = v116;
-    v157 = 2048;
-    *v158 = v114;
-    _os_log_impl(&_mh_execute_header, v100, OS_LOG_TYPE_DEBUG, "Found %zu floors across %zu venues", buf, 0x16u);
+    v157 = v118;
+    v158 = 2048;
+    *v159 = v116;
+    _os_log_impl(&_mh_execute_header, v99, OS_LOG_TYPE_DEBUG, "Found %zu floors across %zu venues", buf, 0x16u);
   }
 
-  v103 = v115;
-  v102 = v115;
+  v102 = v117;
+  v101 = v117;
 LABEL_203:
 
-  return v102;
+  return v101;
 }
 
 - (id)getNearbyLocationGroupsForTile:(id)tile withUpdatedPos:(id)pos
@@ -1472,18 +1476,13 @@ LABEL_21:
   v5 = 8 * v3;
   while (1)
   {
-    if (*(*v4 + 23) < 0)
-    {
-      v6 = **v4;
-    }
-
-    v7 = [NSString stringWithUTF8String:?];
-    if (([v7 hasPrefix:@"G"] & 1) == 0)
+    v6 = [NSString stringWithUTF8String:?];
+    if (([v6 hasPrefix:@"G"] & 1) == 0)
     {
       break;
     }
 
-    ++v4;
+    v4 += 8;
     v5 -= 8;
     if (!v5)
     {
@@ -1491,9 +1490,9 @@ LABEL_21:
     }
   }
 
-  v9 = [v7 hasPrefix:@"LR"];
+  v8 = [v6 hasPrefix:@"LR"];
 
-  return v9;
+  return v8;
 }
 
 @end

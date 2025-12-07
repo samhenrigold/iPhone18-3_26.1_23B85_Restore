@@ -11,19 +11,60 @@
 + (void)_getRequestWithBaseURLString:(id)string path:(id)path params:(id)params token:(id)token errorParser:(id)parser completion:(id)completion;
 + (void)_handleRequest:(id)request errorParser:(id)parser completion:(id)completion;
 + (void)_jsonBodyRequestWithBaseURLString:(id)string path:(id)path body:(id)body method:(id)method token:(id)token needsBAA:(BOOL)a errorParser:(id)parser completion:(id)self0;
++ (void)requestWithType:(unint64_t)type baseURLString:(id)string path:(id)path body:(id)body token:(id)token needsBAA:(BOOL)a errorParser:(id)parser completion:(id)self0;
 @end
 
 @implementation NNMKURLRequest
 
 + (id)mailNotificationURL
 {
-  nnmk_setupLoggingSubsystems();
+  nnmk_setupLoggingSubsystems(self, a2);
   if (!os_variant_has_internal_ui() || (v2 = CFPreferencesCopyAppValue(@"NanoMailCloudNotificationStagingServer", @"com.apple.NanoMail")) == 0)
   {
     v2 = @"https://mailnotifications.apple.com";
   }
 
   return v2;
+}
+
++ (void)requestWithType:(unint64_t)type baseURLString:(id)string path:(id)path body:(id)body token:(id)token needsBAA:(BOOL)a errorParser:(id)parser completion:(id)self0
+{
+  aCopy = a;
+  stringCopy = string;
+  pathCopy = path;
+  bodyCopy = body;
+  tokenCopy = token;
+  parserCopy = parser;
+  completionCopy = completion;
+  if (type > 2)
+  {
+    if (type - 3 >= 2)
+    {
+      goto LABEL_9;
+    }
+
+    goto LABEL_7;
+  }
+
+  switch(type)
+  {
+    case 0uLL:
+      [self _getRequestWithBaseURLString:stringCopy path:pathCopy params:bodyCopy token:tokenCopy errorParser:parserCopy completion:completionCopy];
+      break;
+    case 1uLL:
+LABEL_7:
+      v22 = [self _methodNameForType:type];
+      [self _jsonBodyRequestWithBaseURLString:stringCopy path:pathCopy body:bodyCopy method:v22 token:tokenCopy needsBAA:aCopy errorParser:parserCopy completion:completionCopy];
+
+      break;
+    case 2uLL:
+      v21 = [self _methodNameForType:2];
+      [self _formBodyRequestWithBaseURLString:stringCopy path:pathCopy body:bodyCopy method:v21 token:tokenCopy errorParser:parserCopy completion:completionCopy];
+
+      break;
+  }
+
+LABEL_9:
 }
 
 + (void)_getRequestWithBaseURLString:(id)string path:(id)path params:(id)params token:(id)token errorParser:(id)parser completion:(id)completion
@@ -160,21 +201,20 @@ uint64_t __107__NNMKURLRequest__jsonBodyRequestWithBaseURLString_path_body_metho
 {
   if (a3)
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 40) + 16);
+    v4 = *(*(a1 + 40) + 16);
 
-    return v5();
+    return v4();
   }
 
   else
   {
     [*(a1 + 32) addValue:a2 forHTTPHeaderField:@"X-Apple-Authentication"];
-    v8 = *(a1 + 48);
-    v7 = *(a1 + 56);
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 40);
+    v7 = *(a1 + 48);
+    v6 = *(a1 + 56);
+    v8 = *(a1 + 32);
+    v9 = *(a1 + 40);
 
-    return [v7 _handleRequest:v9 errorParser:v8 completion:v10];
+    return [v6 _handleRequest:v8 errorParser:v7 completion:v9];
   }
 }
 
@@ -270,7 +310,7 @@ void __98__NNMKURLRequest__formBodyRequestWithBaseURLString_path_body_method_tok
 
 void __56__NNMKURLRequest__handleRequest_errorParser_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -291,9 +331,9 @@ LABEL_3:
       v17 = MEMORY[0x277CCA9B8];
       v18 = [v9 domain];
       v19 = [v9 code];
-      v39 = *MEMORY[0x277CCA450];
-      v40[0] = v15;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+      v38 = *MEMORY[0x277CCA450];
+      v39[0] = v15;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
       v21 = [v17 errorWithDomain:v18 code:v19 userInfo:v20];
       (*(v16 + 16))(v16, 0, v21);
 
@@ -314,8 +354,8 @@ LABEL_3:
   {
     if ([v7 length])
     {
-      v37 = 0;
-      v9 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v7 options:0 error:&v37];
+      v36 = 0;
+      v9 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v7 options:0 error:&v36];
       v24 = *(a1 + 48);
       if (v24)
       {
@@ -365,9 +405,9 @@ LABEL_20:
 
   if ([v7 length])
   {
-    v38 = 0;
-    v9 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v7 options:0 error:&v38];
-    v22 = v38;
+    v37 = 0;
+    v9 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v7 options:0 error:&v37];
+    v22 = v37;
     if (v22)
     {
       v23 = __logCategories;
@@ -385,8 +425,6 @@ LABEL_20:
 
   (*(*(a1 + 40) + 16))();
 LABEL_24:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_methodNameForType:(unint64_t)type
@@ -421,38 +459,37 @@ LABEL_24:
 
 void __43__NNMKURLRequest_serverFriendlyDescription__block_invoke(uint64_t a1)
 {
-  v23 = +[NNMKURLRequest _hardwareModel];
-  v2 = MEMORY[0x277CCACA8];
-  v3 = +[NNMKURLRequest _osName];
-  v4 = +[NNMKURLRequest _osVersion];
-  v5 = +[NNMKURLRequest _buildNumber];
-  v6 = [v2 stringWithFormat:@"%@%@;%@", v3, v4, v5];;
+  v21 = +[NNMKURLRequest _hardwareModel];
+  v1 = MEMORY[0x277CCACA8];
+  v2 = +[NNMKURLRequest _osName];
+  v3 = +[NNMKURLRequest _osVersion];
+  v4 = +[NNMKURLRequest _buildNumber];
+  v5 = [v1 stringWithFormat:@"%@%@;%@", v2, v3, v4];;
 
-  v7 = *(a1 + 32);
-  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v9 = [v8 infoDictionary];
-  v10 = *MEMORY[0x277CBED58];
-  v11 = [v9 objectForKey:*MEMORY[0x277CBED58]];
+  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v7 = [v6 infoDictionary];
+  v8 = *MEMORY[0x277CBED58];
+  v9 = [v7 objectForKey:*MEMORY[0x277CBED58]];
 
-  v12 = [MEMORY[0x277CCA8D8] mainBundle];
-  v13 = [v12 infoDictionary];
-  v14 = [v13 objectForKey:v10];
+  v10 = [MEMORY[0x277CCA8D8] mainBundle];
+  v11 = [v10 infoDictionary];
+  v12 = [v11 objectForKey:v8];
 
-  v15 = MEMORY[0x277CCACA8];
-  v16 = [v8 bundleIdentifier];
-  v17 = [v12 bundleIdentifier];
-  v18 = v17;
-  v19 = @"1.0";
-  if (v14)
+  v13 = MEMORY[0x277CCACA8];
+  v14 = [v6 bundleIdentifier];
+  v15 = [v10 bundleIdentifier];
+  v16 = v15;
+  v17 = @"1.0";
+  if (v12)
   {
-    v19 = v14;
+    v17 = v12;
   }
 
-  v20 = [v15 stringWithFormat:@"%@/%@ (%@/%@)", v16, v11, v17, v19];
+  v18 = [v13 stringWithFormat:@"%@/%@ (%@/%@)", v14, v9, v15, v17];
 
-  v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"<%@> <%@> <%@>", v23, v6, v20];
-  v22 = serverFriendlyDescription__serverFriendlyDescription;
-  serverFriendlyDescription__serverFriendlyDescription = v21;
+  v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"<%@> <%@> <%@>", v21, v5, v18];
+  v20 = serverFriendlyDescription__serverFriendlyDescription;
+  serverFriendlyDescription__serverFriendlyDescription = v19;
 }
 
 + (id)_systemVersionDictionary
@@ -541,14 +578,12 @@ uint64_t __42__NNMKURLRequest__systemVersionDictionary__block_invoke()
 
 void __56__NNMKURLRequest__handleRequest_errorParser_completion___block_invoke_cold_1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 localizedDescription];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_25B19F000, v3, OS_LOG_TYPE_ERROR, "Unable to parse JSON response: %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_25B19F000, v3, OS_LOG_TYPE_ERROR, "Unable to parse JSON response: %{public}@", &v5, 0xCu);
 }
 
 @end

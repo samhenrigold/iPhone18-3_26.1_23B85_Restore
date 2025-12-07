@@ -5,12 +5,14 @@
 + (BOOL)makeDatabaseAtURLClassCDataProtected:(id)protected;
 + (BOOL)moveDBAtLocation:(id)location toLocation:(id)toLocation withModel:(id)model;
 + (BOOL)moveDBAtLocation:(id)location toLocation:(id)toLocation withModelAtLocation:(id)atLocation;
++ (BOOL)performMigrationFrom:(id)from sourceModel:(id)model toDestinationURL:(id)l destinationModel:(id)destinationModel mappingModel:(id)mappingModel isEncrypted:(BOOL)encrypted;
 + (BOOL)replacePersistentStore:(id)store withURL:(id)l;
 + (id)entityDescriptionHavingName:(id)name forContext:(id)context;
 + (id)getManagedObjectModelFromDB:(id)b orModelURL:(id)l orMetadata:(id)metadata;
 + (id)getPersistentCoordinatorWithModel:(id)model;
 + (id)getPropertyValueForKey:(id)key forContext:(id)context;
 + (id)instanceWithModelURL:(id)l;
++ (id)migrateDataStoreAtLocation:(id)location withGetDestinationModel:(id)model isEncrypted:(BOOL)encrypted;
 + (id)migrationDirectoryFromSourceURL:(id)l;
 + (id)migrationStoreURLIn:(id)in fromSourceURL:(id)l andModelURL:(id)rL;
 + (id)persistentStoreOptionsWithURL:(id)l isEncrypted:(BOOL)encrypted;
@@ -20,6 +22,7 @@
 + (int64_t)versionForDBAtLocation:(id)location;
 + (int64_t)versionForManagedObjectModel:(id)model;
 + (void)setPropertyValue:(id)value forKey:(id)key forContext:(id)context;
+- (BOOL)addDataStoreAtLocation:(id)location isEncrypted:(BOOL)encrypted;
 - (DBManager)init;
 - (id)createManagedObjectContext;
 - (void)removeDataStoreAtLocation:(id)location;
@@ -66,7 +69,7 @@
 
 + (id)getManagedObjectModelFromDB:(id)b orModelURL:(id)l orMetadata:(id)metadata
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   bCopy = b;
   lCopy = l;
   metadataCopy = metadata;
@@ -84,9 +87,9 @@
     goto LABEL_10;
   }
 
-  v23 = 0;
-  v11 = [MEMORY[0x1E695D6B8] cachedModelForPersistentStoreWithURL:bCopy options:0 error:&v23];
-  v12 = v23;
+  v22 = 0;
+  v11 = [MEMORY[0x1E695D6B8] cachedModelForPersistentStoreWithURL:bCopy options:0 error:&v22];
+  v12 = v22;
   v13 = v12;
   if (!v11 || v12)
   {
@@ -128,13 +131,13 @@ LABEL_19:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           *buf = 138544130;
-          v25 = bCopy;
-          v26 = 2114;
-          v27 = lCopy;
-          v28 = 2114;
-          v29 = v10;
-          v30 = 2114;
-          v31 = v13;
+          v24 = bCopy;
+          v25 = 2114;
+          v26 = lCopy;
+          v27 = 2114;
+          v28 = v10;
+          v29 = 2114;
+          v30 = v13;
           _os_log_error_impl(&dword_1C3E90000, v19, OS_LOG_TYPE_ERROR, "Couldn't get managedObjectModel from db at %{public}@, model at %{public}@, or metadata %{public}@: %{public}@", buf, 0x2Au);
         }
 
@@ -160,8 +163,6 @@ LABEL_23:
   }
 
 LABEL_24:
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -192,16 +193,16 @@ LABEL_24:
 
 + (int64_t)isDataStoreAtURLInitialized:(id)initialized withModelAtURL:(id)l
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   initializedCopy = initialized;
   lCopy = l;
   v7 = lCopy;
   if (initializedCopy && lCopy)
   {
     v8 = *MEMORY[0x1E695D4A8];
-    v23 = 0;
-    v9 = [MEMORY[0x1E695D6C0] metadataForPersistentStoreOfType:v8 URL:initializedCopy error:&v23];
-    v10 = v23;
+    v22 = 0;
+    v9 = [MEMORY[0x1E695D6C0] metadataForPersistentStoreOfType:v8 URL:initializedCopy error:&v22];
+    v10 = v22;
     v11 = v10;
     if (!v9)
     {
@@ -214,7 +215,7 @@ LABEL_24:
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v25 = initializedCopy;
+          v24 = initializedCopy;
           _os_log_impl(&dword_1C3E90000, v13, OS_LOG_TYPE_DEFAULT, "Data store at path %{public}@ does not exist", buf, 0xCu);
         }
       }
@@ -246,7 +247,7 @@ LABEL_23:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v25 = initializedCopy;
+        v24 = initializedCopy;
         _os_log_impl(&dword_1C3E90000, v19, OS_LOG_TYPE_DEFAULT, "Destination store at location %{public}@ is not compatible with newer version, migration required", buf, 0xCu);
       }
 
@@ -280,7 +281,6 @@ LABEL_23:
   v14 = 3;
 LABEL_24:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -330,7 +330,7 @@ LABEL_24:
 
 + (int64_t)versionForManagedObjectModel:(id)model
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   versionIdentifiers = [model versionIdentifiers];
   if ([versionIdentifiers count] == 1)
   {
@@ -346,17 +346,16 @@ LABEL_24:
     v8 = v7;
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 134218240;
-      v12 = versionIdentifiers;
-      v13 = 2048;
-      v14 = [versionIdentifiers count];
-      _os_log_impl(&dword_1C3E90000, v8, OS_LOG_TYPE_DEFAULT, "Either version indentifier set is nil (%p) or has count not equal to 1 (%lu)", &v11, 0x16u);
+      v10 = 134218240;
+      v11 = versionIdentifiers;
+      v12 = 2048;
+      v13 = [versionIdentifiers count];
+      _os_log_impl(&dword_1C3E90000, v8, OS_LOG_TYPE_DEFAULT, "Either version indentifier set is nil (%p) or has count not equal to 1 (%lu)", &v10, 0x16u);
     }
 
     integerValue = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return integerValue;
 }
 
@@ -454,6 +453,404 @@ LABEL_24:
   return v8;
 }
 
++ (id)migrateDataStoreAtLocation:(id)location withGetDestinationModel:(id)model isEncrypted:(BOOL)encrypted
+{
+  encryptedCopy = encrypted;
+  v75 = *MEMORY[0x1E69E9840];
+  locationCopy = location;
+  modelCopy = model;
+  v9 = [[DBMigrationResult alloc] initWithErrorCode:3 andDBVersion:-1];
+  v10 = [DBManager persistentStoreOptionsWithURL:locationCopy isEncrypted:encryptedCopy];
+  v11 = [DBManager sourceMetadataForDBAtLocation:locationCopy withOptions:v10];
+
+  v12 = +[CHLogServer sharedInstance];
+  v13 = [v12 logHandleForDomain:"ch.dbm"];
+
+  if (v11)
+  {
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_1C3E90000, v13, OS_LOG_TYPE_DEFAULT, "Completed migration step 1: Fetching source metadata", buf, 2u);
+    }
+
+    v14 = [DBManager getManagedObjectModelFromDB:locationCopy orModelURL:0 orMetadata:v11];
+    v15 = +[CHLogServer sharedInstance];
+    v16 = [v15 logHandleForDomain:"ch.dbm"];
+
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+    if (v14)
+    {
+      if (v17)
+      {
+        *buf = 0;
+        _os_log_impl(&dword_1C3E90000, v16, OS_LOG_TYPE_DEFAULT, "Completed migration step 2: Fetching source model", buf, 2u);
+      }
+
+      v18 = [DBManager versionForManagedObjectModel:v14];
+      v19 = +[CHLogServer sharedInstance];
+      v16 = [v19 logHandleForDomain:"ch.dbm"];
+
+      v67 = v18;
+      if (v18 > 0)
+      {
+        v20 = v14;
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_1C3E90000, v16, OS_LOG_TYPE_DEFAULT, "Completed migration step 3: Fetching source version", buf, 2u);
+        }
+
+        v21 = modelCopy[2](modelCopy, v67);
+        v22 = +[CHLogServer sharedInstance];
+        v23 = [v22 logHandleForDomain:"ch.dbm"];
+
+        v68 = v21;
+        if (!v21)
+        {
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          {
+            +[DBManager migrateDataStoreAtLocation:withGetDestinationModel:isEncrypted:];
+          }
+
+          v34 = v9;
+          v35 = 0;
+          v14 = v20;
+          goto LABEL_67;
+        }
+
+        v64 = encryptedCopy;
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_1C3E90000, v23, OS_LOG_TYPE_DEFAULT, "Completed migration step 4: Fetching temp model URL", buf, 2u);
+        }
+
+        v24 = [objc_alloc(MEMORY[0x1E695D638]) initWithContentsOfURL:v21];
+        v25 = +[CHLogServer sharedInstance];
+        v26 = [v25 logHandleForDomain:"ch.dbm"];
+
+        v14 = v20;
+        v65 = v24;
+        if (v24)
+        {
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 0;
+            _os_log_impl(&dword_1C3E90000, v26, OS_LOG_TYPE_DEFAULT, "Completed migration step 5: Fetching temp model", buf, 2u);
+          }
+
+          v27 = [DBManager versionForManagedObjectModel:v24];
+          v28 = +[CHLogServer sharedInstance];
+          v26 = [v28 logHandleForDomain:"ch.dbm"];
+
+          if (v27 > 0)
+          {
+            v62 = modelCopy;
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 0;
+              _os_log_impl(&dword_1C3E90000, v26, OS_LOG_TYPE_DEFAULT, "Completed migration step 6: Fetching temp version", buf, 2u);
+            }
+
+            v63 = [DBManager migrationDirectoryFromSourceURL:locationCopy];
+            v29 = [v65 isConfiguration:0 compatibleWithStoreMetadata:v11];
+            v30 = +[CHLogServer sharedInstance];
+            v31 = [v30 logHandleForDomain:"ch.dbm"];
+
+            v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
+            if (v29)
+            {
+              modelCopy = v62;
+              if (v32)
+              {
+                *buf = 138543362;
+                v72 = locationCopy;
+                _os_log_impl(&dword_1C3E90000, v31, OS_LOG_TYPE_DEFAULT, "Destination store at location %{public}@ is compatible with newer version; no migration required", buf, 0xCu);
+              }
+
+              v33 = v63;
+              [DBManager deleteDirectoryAtLocation:v63];
+              [(DBMigrationResult *)v9 setDbVersion:v27];
+              [(DBMigrationResult *)v9 setErrorCode:0];
+              v34 = v9;
+              v35 = 0;
+              goto LABEL_65;
+            }
+
+            if (v32)
+            {
+              *buf = 134218240;
+              v72 = v67;
+              v73 = 2048;
+              v74 = v27;
+              _os_log_impl(&dword_1C3E90000, v31, OS_LOG_TYPE_DEFAULT, "Completed migration step 7: Stores were incompatible. Beginning migration from version %ld to version %ld", buf, 0x16u);
+            }
+
+            v36 = MEMORY[0x1E695DEC8];
+            v37 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+            v38 = [v36 arrayWithObjects:{v37, 0}];
+
+            v61 = v38;
+            v66 = [MEMORY[0x1E695D648] mappingModelFromBundles:v38 forSourceModel:v20 destinationModel:v65];
+            if (v66)
+            {
+              v35 = 0;
+            }
+
+            else
+            {
+              v39 = +[CHLogServer sharedInstance];
+              v40 = [v39 logHandleForDomain:"ch.dbm"];
+
+              if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = 0;
+                _os_log_impl(&dword_1C3E90000, v40, OS_LOG_TYPE_DEFAULT, "Failed to look for the mapping bundle in the framework bundle, now inferring automatically", buf, 2u);
+              }
+
+              v70 = 0;
+              v41 = [MEMORY[0x1E695D648] inferredMappingModelForSourceModel:v20 destinationModel:v65 error:&v70];
+              v35 = v70;
+              v66 = v41;
+              if (!v41)
+              {
+                v58 = +[CHLogServer sharedInstance];
+                v59 = [v58 logHandleForDomain:"ch.dbm"];
+
+                modelCopy = v62;
+                if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+                {
+                  *buf = 0;
+                  _os_log_impl(&dword_1C3E90000, v59, OS_LOG_TYPE_DEFAULT, "Failed to infer the mapping model automatically", buf, 2u);
+                }
+
+                v34 = v9;
+                v33 = v63;
+                goto LABEL_64;
+              }
+            }
+
+            v42 = +[CHLogServer sharedInstance];
+            v43 = [v42 logHandleForDomain:"ch.dbm"];
+
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 0;
+              _os_log_impl(&dword_1C3E90000, v43, OS_LOG_TYPE_DEFAULT, "Completed migration step 8: Fetching mapping model", buf, 2u);
+            }
+
+            v44 = [DBManager migrationStoreURLIn:v63 fromSourceURL:locationCopy andModelURL:v68];
+            defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+            path = [v44 path];
+            v47 = [defaultManager fileExistsAtPath:path];
+
+            if (v47)
+            {
+              defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
+              v69 = v35;
+              v49 = [defaultManager2 removeItemAtURL:v44 error:&v69];
+              v60 = v69;
+
+              if ((v49 & 1) == 0)
+              {
+                v50 = +[CHLogServer sharedInstance];
+                v51 = [v50 logHandleForDomain:"ch.dbm"];
+
+                modelCopy = v62;
+                v35 = v60;
+                if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+                {
+                  +[DBManager migrateDataStoreAtLocation:withGetDestinationModel:isEncrypted:];
+                }
+
+                v34 = v9;
+                v33 = v63;
+LABEL_63:
+
+LABEL_64:
+LABEL_65:
+
+                goto LABEL_66;
+              }
+            }
+
+            else
+            {
+              v60 = v35;
+            }
+
+            v52 = +[CHLogServer sharedInstance];
+            v53 = [v52 logHandleForDomain:"ch.dbm"];
+
+            if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 0;
+              _os_log_impl(&dword_1C3E90000, v53, OS_LOG_TYPE_DEFAULT, "Completed migration step 9: Fetching tempURL", buf, 2u);
+            }
+
+            v54 = [DBManager performMigrationFrom:locationCopy sourceModel:v14 toDestinationURL:v44 destinationModel:v65 mappingModel:v66 isEncrypted:v64];
+            v55 = +[CHLogServer sharedInstance];
+            v56 = [v55 logHandleForDomain:"ch.dbm"];
+
+            if (v54)
+            {
+              modelCopy = v62;
+              v33 = v63;
+              if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = 0;
+                _os_log_impl(&dword_1C3E90000, v56, OS_LOG_TYPE_DEFAULT, "Completed migration step 10: Performing migration", buf, 2u);
+              }
+
+              v34 = [DBManager migrateDataStoreAtLocation:locationCopy withGetDestinationModel:v62 isEncrypted:v64];
+              v35 = v60;
+            }
+
+            else
+            {
+              modelCopy = v62;
+              v33 = v63;
+              v35 = v60;
+              if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+              {
+                +[DBManager migrateDataStoreAtLocation:withGetDestinationModel:isEncrypted:];
+              }
+
+              [(DBMigrationResult *)v9 setDbVersion:v67];
+              [(DBMigrationResult *)v9 setErrorCode:[DBManager mapToDBMErrorCode:v60]];
+              v34 = v9;
+            }
+
+            goto LABEL_63;
+          }
+
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+          {
+            +[DBManager migrateDataStoreAtLocation:withGetDestinationModel:isEncrypted:];
+          }
+        }
+
+        else if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        {
+          +[DBManager migrateDataStoreAtLocation:withGetDestinationModel:isEncrypted:];
+        }
+
+        v34 = v9;
+        v35 = 0;
+LABEL_66:
+
+LABEL_67:
+        goto LABEL_68;
+      }
+
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        +[DBManager migrateDataStoreAtLocation:withGetDestinationModel:isEncrypted:];
+      }
+    }
+
+    else if (v17)
+    {
+      *buf = 0;
+      _os_log_impl(&dword_1C3E90000, v16, OS_LOG_TYPE_DEFAULT, "Failed to look up the managed object model for the source meta data", buf, 2u);
+    }
+
+    v34 = v9;
+    v35 = 0;
+LABEL_68:
+
+    goto LABEL_69;
+  }
+
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  {
+    +[DBManager migrateDataStoreAtLocation:withGetDestinationModel:isEncrypted:];
+  }
+
+  v34 = v9;
+LABEL_69:
+
+  return v34;
+}
+
++ (BOOL)performMigrationFrom:(id)from sourceModel:(id)model toDestinationURL:(id)l destinationModel:(id)destinationModel mappingModel:(id)mappingModel isEncrypted:(BOOL)encrypted
+{
+  encryptedCopy = encrypted;
+  v40 = *MEMORY[0x1E69E9840];
+  fromCopy = from;
+  lCopy = l;
+  destinationModelCopy = destinationModel;
+  mappingModelCopy = mappingModel;
+  v17 = MEMORY[0x1E695D658];
+  modelCopy = model;
+  v19 = [[v17 alloc] initWithSourceModel:modelCopy destinationModel:destinationModelCopy];
+
+  v20 = [DBManager persistentStoreOptionsWithURL:lCopy isEncrypted:encryptedCopy];
+  v21 = +[CHLogServer sharedInstance];
+  v22 = [v21 logHandleForDomain:"ch.dbm"];
+
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138544130;
+    v33 = fromCopy;
+    v34 = 2114;
+    v35 = lCopy;
+    v36 = 2114;
+    v37 = mappingModelCopy;
+    v38 = 2114;
+    v39 = v20;
+    _os_log_impl(&dword_1C3E90000, v22, OS_LOG_TYPE_DEFAULT, "Migrating from %{public}@ to %{public}@ with mapping model %{public}@ and options %{public}@", buf, 0x2Au);
+  }
+
+  v23 = *MEMORY[0x1E695D4A8];
+  v31 = 0;
+  v24 = [v19 migrateStoreFromURL:fromCopy type:v23 options:0 withMappingModel:mappingModelCopy toDestinationURL:lCopy destinationType:v23 destinationOptions:v20 error:&v31];
+  v25 = v31;
+  v26 = +[CHLogServer sharedInstance];
+  v27 = [v26 logHandleForDomain:"ch.dbm"];
+
+  if ((v24 & 1) == 0)
+  {
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    {
+      +[DBManager migrateDataStoreAtLocation:withGetDestinationModel:isEncrypted:];
+    }
+
+    goto LABEL_12;
+  }
+
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543618;
+    v33 = fromCopy;
+    v34 = 2114;
+    v35 = lCopy;
+    _os_log_impl(&dword_1C3E90000, v27, OS_LOG_TYPE_DEFAULT, "Replacing source DB at %{public}@ with migrated DB at %{public}@", buf, 0x16u);
+  }
+
+  if (![DBManager moveDBAtLocation:lCopy toLocation:fromCopy withModel:destinationModelCopy])
+  {
+    v29 = +[CHLogServer sharedInstance];
+    v27 = [v29 logHandleForDomain:"ch.dbm"];
+
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    {
+      +[DBManager performMigrationFrom:sourceModel:toDestinationURL:destinationModel:mappingModel:isEncrypted:];
+    }
+
+LABEL_12:
+
+    v28 = 0;
+    goto LABEL_13;
+  }
+
+  v28 = 1;
+LABEL_13:
+
+  return v28;
+}
+
 + (id)migrationDirectoryFromSourceURL:(id)l
 {
   uRLByDeletingLastPathComponent = [l URLByDeletingLastPathComponent];
@@ -510,7 +907,7 @@ LABEL_24:
 
 + (id)migrationStoreURLIn:(id)in fromSourceURL:(id)l andModelURL:(id)rL
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   lCopy = l;
   rLCopy = rL;
   inCopy = in;
@@ -531,15 +928,13 @@ LABEL_24:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
-    v22 = v16;
-    v23 = 2114;
-    v24 = lCopy;
-    v25 = 2114;
-    v26 = stringByDeletingPathExtension2;
+    v21 = v16;
+    v22 = 2114;
+    v23 = lCopy;
+    v24 = 2114;
+    v25 = stringByDeletingPathExtension2;
     _os_log_impl(&dword_1C3E90000, v18, OS_LOG_TYPE_DEFAULT, "Got destinationURL %{public}@ from sourceURL %{public}@ and modelName %{public}@", buf, 0x20u);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -608,7 +1003,7 @@ LABEL_24:
 
 + (BOOL)moveDBAtLocation:(id)location toLocation:(id)toLocation withModel:(id)model
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   toLocationCopy = toLocation;
   modelCopy = model;
@@ -629,9 +1024,9 @@ LABEL_24:
   }
 
   v12 = *MEMORY[0x1E695D4A8];
-  v21 = 0;
-  v13 = [v10 _replacePersistentStoreAtURL:toLocationCopy destinationOptions:0 withPersistentStoreFromURL:locationCopy sourceOptions:0 storeType:v12 error:&v21];
-  v14 = v21;
+  v20 = 0;
+  v13 = [v10 _replacePersistentStoreAtURL:toLocationCopy destinationOptions:0 withPersistentStoreFromURL:locationCopy sourceOptions:0 storeType:v12 error:&v20];
+  v14 = v20;
   if ((v13 & 1) == 0)
   {
     v18 = +[CHLogServer sharedInstance];
@@ -640,11 +1035,11 @@ LABEL_24:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
-      v23 = locationCopy;
-      v24 = 2114;
-      v25 = toLocationCopy;
-      v26 = 2114;
-      v27 = v14;
+      v22 = locationCopy;
+      v23 = 2114;
+      v24 = toLocationCopy;
+      v25 = 2114;
+      v26 = v14;
       _os_log_error_impl(&dword_1C3E90000, v17, OS_LOG_TYPE_ERROR, "Failed to copy data store src: %{public}@ dst: %{public}@ error: %{public}@", buf, 0x20u);
     }
 
@@ -657,13 +1052,73 @@ LABEL_9:
   v15 = 1;
 LABEL_10:
 
-  v19 = *MEMORY[0x1E69E9840];
+  return v15;
+}
+
+- (BOOL)addDataStoreAtLocation:(id)location isEncrypted:(BOOL)encrypted
+{
+  encryptedCopy = encrypted;
+  locationCopy = location;
+  if (locationCopy)
+  {
+    v7 = [objc_opt_class() persistentStoreOptionsWithURL:locationCopy isEncrypted:encryptedCopy];
+    uRLByDeletingLastPathComponent = [locationCopy URLByDeletingLastPathComponent];
+    v9 = getDBDirCreateOptions();
+    DirectoryAtPath = createDirectoryAtPath(uRLByDeletingLastPathComponent, v9);
+
+    if (DirectoryAtPath)
+    {
+      fPersistentStoreCoordinator = [(DBManager *)self fPersistentStoreCoordinator];
+      v12 = *MEMORY[0x1E695D4A8];
+      v18 = 0;
+      v13 = [fPersistentStoreCoordinator addPersistentStoreWithType:v12 configuration:0 URL:locationCopy options:v7 error:&v18];
+      logHandle2 = v18;
+
+      if (v13)
+      {
+        v15 = 1;
+LABEL_14:
+
+        goto LABEL_15;
+      }
+
+      logHandle = [(CHLogger *)self logHandle];
+      if (os_log_type_enabled(logHandle, OS_LOG_TYPE_ERROR))
+      {
+        [DBManager addDataStoreAtLocation:isEncrypted:];
+      }
+    }
+
+    else
+    {
+      logHandle = [(CHLogger *)self logHandle];
+      if (os_log_type_enabled(logHandle, OS_LOG_TYPE_ERROR))
+      {
+        [DBManager addDataStoreAtLocation:isEncrypted:];
+      }
+
+      logHandle2 = 0;
+    }
+
+    v15 = 0;
+    goto LABEL_14;
+  }
+
+  logHandle2 = [(CHLogger *)self logHandle];
+  if (os_log_type_enabled(logHandle2, OS_LOG_TYPE_ERROR))
+  {
+    [DBManager addDataStoreAtLocation:isEncrypted:];
+  }
+
+  v15 = 0;
+LABEL_15:
+
   return v15;
 }
 
 - (void)removeDataStoreAtLocation:(id)location
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   if (locationCopy)
   {
@@ -673,9 +1128,9 @@ LABEL_10:
     if (logHandle3)
     {
       fPersistentStoreCoordinator2 = [(DBManager *)self fPersistentStoreCoordinator];
-      v12 = 0;
-      v8 = [fPersistentStoreCoordinator2 removePersistentStore:logHandle3 error:&v12];
-      logHandle2 = v12;
+      v11 = 0;
+      v8 = [fPersistentStoreCoordinator2 removePersistentStore:logHandle3 error:&v11];
+      logHandle2 = v11;
 
       if ((v8 & 1) == 0)
       {
@@ -693,7 +1148,7 @@ LABEL_10:
       if (os_log_type_enabled(logHandle2, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v14 = locationCopy;
+        v13 = locationCopy;
         _os_log_impl(&dword_1C3E90000, logHandle2, OS_LOG_TYPE_DEFAULT, "Persistent store at URL %{public}@ is not present", buf, 0xCu);
       }
     }
@@ -707,8 +1162,6 @@ LABEL_10:
       [DBManager addDataStoreAtLocation:isEncrypted:];
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (id)entityDescriptionHavingName:(id)name forContext:(id)context
@@ -881,14 +1334,14 @@ LABEL_15:
 
 + (BOOL)replacePersistentStore:(id)store withURL:(id)l
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   lCopy = l;
   v7 = objc_opt_new();
   v8 = *MEMORY[0x1E695D4A8];
-  v15 = 0;
-  v9 = [v7 _replacePersistentStoreAtURL:storeCopy destinationOptions:0 withPersistentStoreFromURL:lCopy sourceOptions:0 storeType:v8 error:&v15];
-  v10 = v15;
+  v14 = 0;
+  v9 = [v7 _replacePersistentStoreAtURL:storeCopy destinationOptions:0 withPersistentStoreFromURL:lCopy sourceOptions:0 storeType:v8 error:&v14];
+  v10 = v14;
   if ((v9 & 1) == 0)
   {
     v11 = +[CHLogServer sharedInstance];
@@ -897,16 +1350,15 @@ LABEL_15:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
-      v17 = storeCopy;
-      v18 = 2114;
-      v19 = lCopy;
-      v20 = 2114;
-      v21 = v10;
+      v16 = storeCopy;
+      v17 = 2114;
+      v18 = lCopy;
+      v19 = 2114;
+      v20 = v10;
       _os_log_error_impl(&dword_1C3E90000, v12, OS_LOG_TYPE_ERROR, "Could not replace persistent data store at %{public}@ with %{public}@: %{public}@", buf, 0x20u);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -924,22 +1376,6 @@ LABEL_15:
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-+ (void)isDataStoreAtURLInitialized:withModelAtURL:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1C3E90000, v0, v1, "Unexpected error: %{public}@ when querying meta data for database: %{public}@, treating as data store not initialized");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)isDataStoreAtURLInitialized:withModelAtURL:.cold.3()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1C3E90000, v0, v1, "Invalid value dbURL: %{public}@ or modelURL: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 + (void)instanceWithModelURL:.cold.1()
 {
   OUTLINED_FUNCTION_2();
@@ -954,140 +1390,60 @@ LABEL_15:
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-+ (void)sourceMetadataForDBAtLocation:withOptions:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1C3E90000, v0, v1, "Failed to get metadata for source datastore at %{public}@: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)migrateDataStoreAtLocation:withGetDestinationModel:isEncrypted:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1C3E90000, v0, v1, "Failed to delete data store at path: %{public}@. Error: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)migrateDataStoreAtLocation:withGetDestinationModel:isEncrypted:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1C3E90000, v0, v1, "Failed to migrate the store at location: %{public}@ with error %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 + (void)migrateDataStoreAtLocation:withGetDestinationModel:isEncrypted:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)migrateDataStoreAtLocation:withGetDestinationModel:isEncrypted:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)migrateDataStoreAtLocation:withGetDestinationModel:isEncrypted:.cold.5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)migrateDataStoreAtLocation:withGetDestinationModel:isEncrypted:.cold.6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)migrateDataStoreAtLocation:withGetDestinationModel:isEncrypted:.cold.7()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)performMigrationFrom:sourceModel:toDestinationURL:destinationModel:mappingModel:isEncrypted:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1C3E90000, v0, v1, "Failed to copy data store src: %{public}@ dst: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (void)migrationDirectoryFromSourceURL:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)deleteDirectoryAtLocation:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)destroyDBAtLocation:withModel:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1C3E90000, v0, v1, "Failed to remove store at URL: %{public}@ with error %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)destroyDBAtLocation:withModel:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1C3E90000, v0, v1, "Couldn't get the coordinator for db at %{public}@ and model at %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)moveDBAtLocation:toLocation:withModel:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1C3E90000, v0, v1, "Couldn't get the coordinator for source db at %{public}@ and model at %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addDataStoreAtLocation:isEncrypted:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)addDataStoreAtLocation:isEncrypted:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1C3E90000, v0, v1, "Failed to add the store at location %{public}@ with error %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addDataStoreAtLocation:isEncrypted:.cold.3()
@@ -1095,14 +1451,6 @@ LABEL_15:
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)removeDataStoreAtLocation:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1C3E90000, v0, v1, "Failed to remove persistent store at URL: %{public}@ with error: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (void)entityDescriptionHavingName:forContext:.cold.1()

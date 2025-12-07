@@ -48,7 +48,7 @@
 
 - (void)userNotificationCenter:(id)center didReceiveNotificationResponse:(id)response withCompletionHandler:(id)handler
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   handlerCopy = handler;
   kdebug_trace();
@@ -67,13 +67,13 @@
 
   if (([categoryIdentifier isEqualToString:@"MTAlarmCategory"] & 1) != 0 || (objc_msgSend(categoryIdentifier, "isEqualToString:", @"MTAlarmNoSnoozeCategory") & 1) != 0 || (objc_msgSend(categoryIdentifier, "isEqualToString:", @"MTWakeUpAlarmNoSnoozeCategory") & 1) != 0 || (objc_msgSend(categoryIdentifier, "isEqualToString:", @"AlarmSnoozeCountdown") & 1) != 0 || (objc_msgSend(categoryIdentifier, "isEqualToString:", @"MTBedtimeAlarmCategory") & 1) != 0 || objc_msgSend(categoryIdentifier, "isEqualToString:", @"MTWakeUpAlarmCategory"))
   {
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __114__MTUserNotificationActionDispatcher_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke;
-    v18[3] = &unk_1E7B0D6F0;
-    v19 = handlerCopy;
-    [(MTUserNotificationActionDispatcher *)self _handleAlarmNotificationResponse:responseCopy withCompletionHandler:v18];
-    v14 = v19;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __114__MTUserNotificationActionDispatcher_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke;
+    v17[3] = &unk_1E7B0D6F0;
+    v18 = handlerCopy;
+    [(MTUserNotificationActionDispatcher *)self _handleAlarmNotificationResponse:responseCopy withCompletionHandler:v17];
+    v14 = v18;
 LABEL_10:
 
     goto LABEL_11;
@@ -81,13 +81,13 @@ LABEL_10:
 
   if ([categoryIdentifier isEqualToString:@"MTTimerCategory"])
   {
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __114__MTUserNotificationActionDispatcher_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke_2;
-    v16[3] = &unk_1E7B0D6F0;
-    v17 = handlerCopy;
-    [(MTUserNotificationActionDispatcher *)self _handleTimerNotificationResponse:responseCopy withCompletionHandler:v16];
-    v14 = v17;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __114__MTUserNotificationActionDispatcher_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke_2;
+    v15[3] = &unk_1E7B0D6F0;
+    v16 = handlerCopy;
+    [(MTUserNotificationActionDispatcher *)self _handleTimerNotificationResponse:responseCopy withCompletionHandler:v15];
+    v14 = v16;
     goto LABEL_10;
   }
 
@@ -98,8 +98,6 @@ LABEL_10:
   }
 
 LABEL_11:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __114__MTUserNotificationActionDispatcher_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke(uint64_t a1)
@@ -190,7 +188,7 @@ LABEL_14:
 
 - (void)_handleAlarmNotificationResponse:(id)response withCompletionHandler:(id)handler
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   handlerCopy = handler;
   actionIdentifier = [responseCopy actionIdentifier];
@@ -202,13 +200,13 @@ LABEL_14:
   v13 = MTLogForCategory(3);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138543874;
+    v20 = 138543874;
     selfCopy = self;
-    v23 = 2114;
-    v24 = categoryIdentifier;
-    v25 = 2114;
-    v26 = actionIdentifier;
-    _os_log_impl(&dword_1B1F9F000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ received response for category %{public}@ and action %{public}@", &v21, 0x20u);
+    v22 = 2114;
+    v23 = categoryIdentifier;
+    v24 = 2114;
+    v25 = actionIdentifier;
+    _os_log_impl(&dword_1B1F9F000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ received response for category %{public}@ and action %{public}@", &v20, 0x20u);
   }
 
   v14 = [objc_opt_class() _alarmNotificationActionForUserNotificationAction:actionIdentifier category:categoryIdentifier];
@@ -234,8 +232,6 @@ LABEL_14:
       handlerCopy[2](handlerCopy);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleAlarmNotificationIdentifier:(id)identifier action:(unint64_t)action category:(id)category completionHandler:(id)handler
@@ -262,7 +258,7 @@ LABEL_14:
 - (void)finishHandlingAlarmNotificationIdentifier:(id)identifier isFirstParty:(BOOL)party action:(unint64_t)action category:(id)category completionHandler:(id)handler
 {
   partyCopy = party;
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   categoryCopy = category;
   handlerCopy = handler;
@@ -284,7 +280,7 @@ LABEL_14:
   aBlock[3] = &unk_1E7B0D230;
   aBlock[4] = self;
   v18 = handlerCopy;
-  v39 = v18;
+  v38 = v18;
   v19 = _Block_copy(aBlock);
   if (action > 2)
   {
@@ -300,8 +296,8 @@ LABEL_14:
       {
         *buf = 138543618;
         selfCopy9 = self;
-        v42 = 2114;
-        v43 = identifierCopy;
+        v41 = 2114;
+        v42 = identifierCopy;
         _os_log_impl(&dword_1B1F9F000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@ received go to bed action for bedtime notification %{public}@", buf, 0x16u);
       }
 
@@ -321,8 +317,8 @@ LABEL_14:
       {
         *buf = 138543618;
         selfCopy9 = self;
-        v42 = 2114;
-        v43 = identifierCopy;
+        v41 = 2114;
+        v42 = identifierCopy;
         _os_log_impl(&dword_1B1F9F000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@ processing secondary action for alarmkit alarm with identifier: %{public}@", buf, 0x16u);
       }
 
@@ -345,8 +341,8 @@ LABEL_13:
       {
         *buf = 138543618;
         selfCopy9 = self;
-        v42 = 2114;
-        v43 = identifierCopy;
+        v41 = 2114;
+        v42 = identifierCopy;
         _os_log_impl(&dword_1B1F9F000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@ received snooze action for %{public}@", buf, 0x16u);
       }
 
@@ -378,8 +374,8 @@ LABEL_13:
     {
       *buf = 138543618;
       selfCopy9 = self;
-      v42 = 2114;
-      v43 = identifierCopy;
+      v41 = 2114;
+      v42 = identifierCopy;
       _os_log_impl(&dword_1B1F9F000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@ processing snooze action for alarmkit alarm with identifier: %{public}@", buf, 0x16u);
     }
 
@@ -401,8 +397,8 @@ LABEL_14:
     {
       *buf = 138543618;
       selfCopy9 = self;
-      v42 = 2114;
-      v43 = identifierCopy;
+      v41 = 2114;
+      v42 = identifierCopy;
       _os_log_impl(&dword_1B1F9F000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@ received dismiss action for wakeup alarm %{public}@", buf, 0x16u);
     }
 
@@ -425,8 +421,8 @@ LABEL_37:
     {
       *buf = 138543618;
       selfCopy9 = self;
-      v42 = 2114;
-      v43 = identifierCopy;
+      v41 = 2114;
+      v42 = identifierCopy;
       _os_log_impl(&dword_1B1F9F000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@ received dismiss action for bedtime notification %{public}@", buf, 0x16u);
     }
 
@@ -445,8 +441,8 @@ LABEL_37:
     {
       *buf = 138543618;
       selfCopy9 = self;
-      v42 = 2114;
-      v43 = identifierCopy;
+      v41 = 2114;
+      v42 = identifierCopy;
       _os_log_impl(&dword_1B1F9F000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@ received dismiss action for snooze countdown notification %{public}@", buf, 0x16u);
     }
 
@@ -465,8 +461,8 @@ LABEL_37:
     {
       *buf = 138543618;
       selfCopy9 = self;
-      v42 = 2114;
-      v43 = identifierCopy;
+      v41 = 2114;
+      v42 = identifierCopy;
       _os_log_impl(&dword_1B1F9F000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@ received dismiss action for alarm %{public}@", buf, 0x16u);
     }
 
@@ -483,36 +479,33 @@ LABEL_37:
   {
     *buf = 138543618;
     selfCopy9 = self;
-    v42 = 2114;
-    v43 = identifierCopy;
+    v41 = 2114;
+    v42 = identifierCopy;
     _os_log_impl(&dword_1B1F9F000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@ processing dismiss action for alarmkit alarm with identifier: %{public}@", buf, 0x16u);
   }
 
   [(MTAlarmKit *)self->_alarmKit dismissAlarmWithIdentifier:identifierCopy];
 LABEL_38:
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __127__MTUserNotificationActionDispatcher_finishHandlingAlarmNotificationIdentifier_isFirstParty_action_category_completionHandler___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(3);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ calling completion", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ calling completion", &v5, 0xCu);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -544,7 +537,7 @@ uint64_t __127__MTUserNotificationActionDispatcher_finishHandlingAlarmNotificati
 
 - (void)_handleTimerNotificationResponse:(id)response withCompletionHandler:(id)handler
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   handlerCopy = handler;
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -553,7 +546,7 @@ uint64_t __127__MTUserNotificationActionDispatcher_finishHandlingAlarmNotificati
   aBlock[3] = &unk_1E7B0D230;
   aBlock[4] = self;
   v8 = handlerCopy;
-  v26 = v8;
+  v25 = v8;
   v9 = _Block_copy(aBlock);
   actionIdentifier = [responseCopy actionIdentifier];
   v11 = MTLogForCategory(3);
@@ -561,8 +554,8 @@ uint64_t __127__MTUserNotificationActionDispatcher_finishHandlingAlarmNotificati
   {
     *buf = 138543618;
     selfCopy = self;
-    v29 = 2114;
-    v30 = actionIdentifier;
+    v28 = 2114;
+    v29 = actionIdentifier;
     _os_log_impl(&dword_1B1F9F000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ received response for action %{public}@", buf, 0x16u);
   }
 
@@ -575,16 +568,16 @@ uint64_t __127__MTUserNotificationActionDispatcher_finishHandlingAlarmNotificati
     identifier = [request identifier];
 
     timerStorage = self->_timerStorage;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __93__MTUserNotificationActionDispatcher__handleTimerNotificationResponse_withCompletionHandler___block_invoke_7;
-    v21[3] = &unk_1E7B0D740;
-    v21[4] = self;
-    v22 = identifier;
-    v24 = v13;
-    v23 = v9;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __93__MTUserNotificationActionDispatcher__handleTimerNotificationResponse_withCompletionHandler___block_invoke_7;
+    v20[3] = &unk_1E7B0D740;
+    v20[4] = self;
+    v21 = identifier;
+    v23 = v13;
+    v22 = v9;
     v18 = identifier;
-    [(MTTimerStorage *)timerStorage getTimerWithIdentifier:v18 completion:v21];
+    [(MTTimerStorage *)timerStorage getTimerWithIdentifier:v18 completion:v20];
   }
 
   else
@@ -597,31 +590,27 @@ uint64_t __127__MTUserNotificationActionDispatcher_finishHandlingAlarmNotificati
 
     v8[2](v8);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __93__MTUserNotificationActionDispatcher__handleTimerNotificationResponse_withCompletionHandler___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(4);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ calling completion", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ calling completion", &v5, 0xCu);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)finishHandlingTimerNotificationWithIdentifier:(id)identifier action:(unint64_t)action isFirstParty:(BOOL)party withCompletionHandler:(id)handler
 {
   partyCopy = party;
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
   switch(action)
@@ -630,11 +619,11 @@ uint64_t __93__MTUserNotificationActionDispatcher__handleTimerNotificationRespon
       v19 = MTLogForCategory(3);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 138543618;
+        v20 = 138543618;
         selfCopy5 = self;
-        v23 = 2114;
-        v24 = identifierCopy;
-        _os_log_impl(&dword_1B1F9F000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ processing secondary action for alarmkit timer with identifier: %{public}@", &v21, 0x16u);
+        v22 = 2114;
+        v23 = identifierCopy;
+        _os_log_impl(&dword_1B1F9F000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ processing secondary action for alarmkit timer with identifier: %{public}@", &v20, 0x16u);
       }
 
       [(MTAlarmKit *)self->_alarmKit performSecondaryActionWithIdentifier:identifierCopy];
@@ -646,11 +635,11 @@ uint64_t __93__MTUserNotificationActionDispatcher__handleTimerNotificationRespon
       {
         if (v17)
         {
-          v21 = 138543618;
+          v20 = 138543618;
           selfCopy5 = self;
-          v23 = 2114;
-          v24 = identifierCopy;
-          _os_log_impl(&dword_1B1F9F000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ received repeat action for timer %{public}@", &v21, 0x16u);
+          v22 = 2114;
+          v23 = identifierCopy;
+          _os_log_impl(&dword_1B1F9F000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ received repeat action for timer %{public}@", &v20, 0x16u);
         }
 
         timerStorage = [(MTUserNotificationActionDispatcher *)self timerStorage];
@@ -663,11 +652,11 @@ uint64_t __93__MTUserNotificationActionDispatcher__handleTimerNotificationRespon
 
       if (v17)
       {
-        v21 = 138543618;
+        v20 = 138543618;
         selfCopy5 = self;
-        v23 = 2114;
-        v24 = identifierCopy;
-        _os_log_impl(&dword_1B1F9F000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ processing repeat action for alarmkit timer with identifier: %{public}@", &v21, 0x16u);
+        v22 = 2114;
+        v23 = identifierCopy;
+        _os_log_impl(&dword_1B1F9F000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ processing repeat action for alarmkit timer with identifier: %{public}@", &v20, 0x16u);
       }
 
       [(MTAlarmKit *)self->_alarmKit repeatTimerWithIdentifier:identifierCopy];
@@ -679,11 +668,11 @@ uint64_t __93__MTUserNotificationActionDispatcher__handleTimerNotificationRespon
       {
         if (v13)
         {
-          v21 = 138543618;
+          v20 = 138543618;
           selfCopy5 = self;
-          v23 = 2114;
-          v24 = identifierCopy;
-          _os_log_impl(&dword_1B1F9F000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ received dismiss action for timer %{public}@", &v21, 0x16u);
+          v22 = 2114;
+          v23 = identifierCopy;
+          _os_log_impl(&dword_1B1F9F000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ received dismiss action for timer %{public}@", &v20, 0x16u);
         }
 
         timerStorage2 = [(MTUserNotificationActionDispatcher *)self timerStorage];
@@ -698,36 +687,32 @@ LABEL_12:
 
       if (v13)
       {
-        v21 = 138543618;
+        v20 = 138543618;
         selfCopy5 = self;
-        v23 = 2114;
-        v24 = identifierCopy;
-        _os_log_impl(&dword_1B1F9F000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ processing dismiss action for alarmkit timer with identifier: %{public}@", &v21, 0x16u);
+        v22 = 2114;
+        v23 = identifierCopy;
+        _os_log_impl(&dword_1B1F9F000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ processing dismiss action for alarmkit timer with identifier: %{public}@", &v20, 0x16u);
       }
 
       [(MTAlarmKit *)self->_alarmKit dismissTimerWithIdentifier:identifierCopy];
       break;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleAlarmNotificationResponse:(uint64_t)a1 withCompletionHandler:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "Unexpected alarm notification action: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "Unexpected alarm notification action: %{public}@", &v2, 0xCu);
 }
 
 - (void)_handleTimerNotificationResponse:(uint64_t)a1 withCompletionHandler:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "Unexpected timer notification action: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "Unexpected timer notification action: %{public}@", &v2, 0xCu);
 }
 
 @end

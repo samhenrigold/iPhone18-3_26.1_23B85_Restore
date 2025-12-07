@@ -94,90 +94,106 @@ void sub_23A4(uint64_t a1, void *a2)
         }
 
         v17 = [*(a1 + 32) start];
-        if (!v17)
+        if (v17)
         {
-          goto LABEL_51;
+          v18 = [*(a1 + 32) start];
+          v19 = [v6 date];
+          v20 = [v18 compare:v19] == &dword_0 + 1;
+
+          if (v20)
+          {
+            continue;
+          }
         }
 
-        v18 = [*(a1 + 32) start];
-        v19 = [v6 date];
-        v20 = [v18 compare:v19] == &dword_0 + 1;
-
-        if (!v20)
+        v21 = [*(a1 + 32) end];
+        if (v21)
         {
-LABEL_51:
-          v21 = [*(a1 + 32) end];
-          if (!v21)
-          {
-            goto LABEL_52;
-          }
-
           v22 = [*(a1 + 32) end];
           v23 = [v6 date];
           v24 = [v22 compare:v23] == -1;
 
-          if (!v24)
+          if (v24)
           {
-LABEL_52:
-            v25 = [*(a1 + 32) outgoing];
-            if (!v25 || ([*(a1 + 32) outgoing], v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(v26, "BOOLValue"), v28 = objc_msgSend(v6, "isOutgoing"), v26, v25, ((v27 ^ v28) & 1) == 0))
+            continue;
+          }
+        }
+
+        v25 = [*(a1 + 32) outgoing];
+        if (v25)
+        {
+          v26 = [*(a1 + 32) outgoing];
+          v27 = [v26 BOOLValue];
+          v28 = [v6 isOutgoing];
+
+          if ((v27 ^ v28))
+          {
+            continue;
+          }
+        }
+
+        v29 = [*(a1 + 32) unread];
+        if (v29)
+        {
+          v30 = [*(a1 + 32) unread];
+          v31 = [v30 BOOLValue];
+          v32 = [v6 isRead];
+
+          if (v31 == v32)
+          {
+            continue;
+          }
+        }
+
+        v33 = [*(a1 + 32) _smsForIMSPIMessage:v6];
+        v34 = [v6 referencedMessage];
+        v35 = v34 == 0;
+
+        v36 = IMOSLoggingEnabled();
+        if (v35)
+        {
+          if (v36)
+          {
+            v43 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
             {
-              v29 = [*(a1 + 32) unread];
-              if (!v29 || ([*(a1 + 32) unread], v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v30, "BOOLValue"), v32 = objc_msgSend(v6, "isRead"), v30, v29, v31 ^ v32))
-              {
-                v33 = [*(a1 + 32) _smsForIMSPIMessage:v6];
-                v34 = [v6 referencedMessage];
-                v35 = v34 == 0;
-
-                v36 = IMOSLoggingEnabled();
-                if (v35)
-                {
-                  if (v36)
-                  {
-                    v43 = OSLogHandleForIMFoundationCategory();
-                    if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
-                    {
-                      v44 = [v6 guid];
-                      *buf = v49;
-                      v61 = v44;
-                      _os_log_impl(&dword_0, v43, OS_LOG_TYPE_INFO, "AssistantSearch - Found message with guid %@", buf, 0xCu);
-                    }
-                  }
-                }
-
-                else
-                {
-                  if (v36)
-                  {
-                    v37 = OSLogHandleForIMFoundationCategory();
-                    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
-                    {
-                      v38 = [v6 referencedMessage];
-                      v39 = [v38 guid];
-                      *buf = v49;
-                      v61 = v39;
-                      _os_log_impl(&dword_0, v37, OS_LOG_TYPE_INFO, "AssistantSearch - Found referenced message with guid %@", buf, 0xCu);
-                    }
-                  }
-
-                  v40 = *(a1 + 32);
-                  v41 = [v6 referencedMessage];
-                  v42 = [v40 _smsForIMSPIMessage:v41];
-
-                  [v33 setReferencedMessage:v42];
-                }
-
-                v45 = [*(a1 + 32) _appInfoForMessage:v6];
-                if (v45)
-                {
-                  [v33 setAppInfo:v45];
-                }
-
-                [*(a1 + 40) addObject:v33];
-              }
+              v44 = [v6 guid];
+              *buf = v49;
+              v61 = v44;
+              _os_log_impl(&dword_0, v43, OS_LOG_TYPE_INFO, "AssistantSearch - Found message with guid %@", buf, 0xCu);
             }
           }
         }
+
+        else
+        {
+          if (v36)
+          {
+            v37 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+            {
+              v38 = [v6 referencedMessage];
+              v39 = [v38 guid];
+              *buf = v49;
+              v61 = v39;
+              _os_log_impl(&dword_0, v37, OS_LOG_TYPE_INFO, "AssistantSearch - Found referenced message with guid %@", buf, 0xCu);
+            }
+          }
+
+          v40 = *(a1 + 32);
+          v41 = [v6 referencedMessage];
+          v42 = [v40 _smsForIMSPIMessage:v41];
+
+          [v33 setReferencedMessage:v42];
+        }
+
+        v45 = [*(a1 + 32) _appInfoForMessage:v6];
+        if (v45)
+        {
+          [v33 setAppInfo:v45];
+        }
+
+        [*(a1 + 40) addObject:v33];
       }
 
       v55 = [v3 countByEnumeratingWithState:&v56 objects:v76 count:16];
@@ -225,22 +241,14 @@ uint64_t sub_4FF8(uint64_t result, uint64_t a2)
 
 uint64_t sub_5010(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = IMDMessageRecordCopyMostRecentUseageOfAddresses();
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = IMDMessageRecordCopyMostRecentUseageOfAddresses();
 
   return _objc_release_x1();
 }
 
 uint64_t sub_5A28(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = IMDMessageRecordCopyMostRecentUseageOfAddresses();
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = IMDMessageRecordCopyMostRecentUseageOfAddresses();
 
   return _objc_release_x1();
 }

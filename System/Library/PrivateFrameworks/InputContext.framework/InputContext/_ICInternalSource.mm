@@ -152,7 +152,7 @@ LABEL_16:
   handlerCopy[2](handlerCopy, array, v37);
   v40 = mach_absolute_time();
   v41 = _ICMachTimeToNanoseconds(v40 - v13);
-  v42 = _ICProactiveQuickTypeOSLogFacility();
+  v42 = _ICProactiveQuickTypeOSLogFacility(v41);
   if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
   {
     [_ICInternalSource predictedItemsWithProactiveTrigger:searchContext:limit:timeoutInMilliseconds:handler:];
@@ -161,20 +161,18 @@ LABEL_16:
   if (!v41)
   {
     v43 = mach_absolute_time();
-    _ICMachTimeToNanoseconds(v43 - v13);
-    v44 = _ICProactiveQuickTypeOSLogFacility();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+    v44 = _ICMachTimeToNanoseconds(v43 - v13);
+    v45 = _ICProactiveQuickTypeOSLogFacility(v44);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
     {
       [_ICInternalSource predictedItemsWithProactiveTrigger:searchContext:limit:timeoutInMilliseconds:handler:];
     }
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (id)localizedStringForKey:(id)key withLocale:(id)locale
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   localeCopy = locale;
   locale = [localeCopy locale];
@@ -192,34 +190,34 @@ LABEL_16:
     v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     if (!v10)
     {
-      v27 = localeCopy;
-      v28 = keyCopy;
-      v34[0] = locale;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
+      v26 = localeCopy;
+      v27 = keyCopy;
+      v33[0] = locale;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
       v14 = MEMORY[0x277CCA8D8];
       localizations = [v12 localizations];
       v16 = [v14 preferredLocalizationsFromArray:localizations forPreferences:v13];
 
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       v17 = v16;
-      v18 = [v17 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v28 objects:v32 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v30;
+        v20 = *v29;
 LABEL_8:
         v21 = 0;
         while (1)
         {
-          if (*v30 != v20)
+          if (*v29 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = [v12 pathForResource:@"Predictions" ofType:@"strings" inDirectory:0 forLocalization:*(*(&v29 + 1) + 8 * v21)];
+          v22 = [v12 pathForResource:@"Predictions" ofType:@"strings" inDirectory:0 forLocalization:*(*(&v28 + 1) + 8 * v21)];
           v23 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:v22];
           if (v23)
           {
@@ -228,7 +226,7 @@ LABEL_8:
 
           if (v19 == ++v21)
           {
-            v19 = [v17 countByEnumeratingWithState:&v29 objects:v33 count:16];
+            v19 = [v17 countByEnumeratingWithState:&v28 objects:v32 count:16];
             if (v19)
             {
               goto LABEL_8;
@@ -240,25 +238,25 @@ LABEL_8:
 
         v24 = v23;
         [localizedStringForKey_withLocale__localizationsCache setObject:v23 forKey:locale];
-        keyCopy = v28;
-        v11 = [v24 objectForKeyedSubscript:v28];
+        keyCopy = v27;
+        v11 = [v24 objectForKeyedSubscript:v27];
 
         if (!v11)
         {
           goto LABEL_17;
         }
 
-        localeCopy = v27;
+        localeCopy = v26;
         v10 = 0;
         goto LABEL_19;
       }
 
 LABEL_14:
 
-      keyCopy = v28;
+      keyCopy = v27;
 LABEL_17:
 
-      localeCopy = v27;
+      localeCopy = v26;
       v10 = 0;
     }
 
@@ -266,18 +264,15 @@ LABEL_17:
 LABEL_19:
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (void)predictedItemsWithProactiveTrigger:searchContext:limit:timeoutInMilliseconds:handler:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 138412546;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 138412546;
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(&dword_254BD0000, v0, OS_LOG_TYPE_DEBUG, "_ICScales: %@ took %f seconds", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_254BD0000, v0, OS_LOG_TYPE_DEBUG, "_ICScales: %@ took %f seconds", v1, 0x16u);
 }
 
 @end

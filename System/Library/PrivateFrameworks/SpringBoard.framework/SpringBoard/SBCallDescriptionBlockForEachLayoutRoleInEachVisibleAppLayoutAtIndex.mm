@@ -9,7 +9,7 @@ void ___SBCallDescriptionBlockForEachLayoutRoleInEachVisibleAppLayoutAtIndex_blo
   v5 = a2;
   v24 = a3;
   v25 = v5;
-  if ([*(a1 + 32) containsObject:v5])
+  if (objc_msgSend_containsObject_(*(a1 + 32)))
   {
     v22 = 0u;
     v23 = 0u;

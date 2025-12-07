@@ -27,7 +27,7 @@
   isa = [(TabBarController *)&v5 tabs];
   if (!isa)
   {
-    sub_100009F78(0, &qword_101181F70);
+    sub_100009F78(0, &qword_101181F70, UITab_ptr);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
     isa = Array._bridgeToObjectiveC()().super.isa;
   }

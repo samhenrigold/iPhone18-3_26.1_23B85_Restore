@@ -116,14 +116,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if (has)
   {
-    connectingMs = self->_connectingMs;
     PBDataWriterWriteUint64Field();
   }
 
@@ -132,17 +130,15 @@
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if ((v7 & 8) != 0)
+  v5 = self->_has;
+  if ((v5 & 8) != 0)
   {
-    isVideo = self->_isVideo;
     PBDataWriterWriteBOOLField();
-    v7 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v7 & 4) != 0)
+  if ((v5 & 4) != 0)
   {
-    isHosted = self->_isHosted;
 
     PBDataWriterWriteBOOLField();
   }
@@ -226,7 +222,6 @@
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 36);
     if ((has & 2) != 0)
     {
       if ((*(equal + 36) & 2) == 0 || self->_timestamp != *(equal + 2))
@@ -272,7 +267,6 @@
         goto LABEL_23;
       }
 
-      v9 = *(equal + 33);
       if (self->_isVideo)
       {
         if ((*(equal + 33) & 1) == 0)

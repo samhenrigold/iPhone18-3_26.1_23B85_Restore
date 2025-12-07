@@ -68,8 +68,8 @@ void __44__SBFocusModesHomeScreenSettingsServer_init__block_invoke(uint64_t a1, 
 
   authenticator = [(SBFocusModesHomeScreenSettingsServer *)self authenticator];
   remoteProcess = [connectionCopy remoteProcess];
-  auditToken = [remoteProcess auditToken];
-  if ([authenticator authenticateAuditToken:auditToken])
+  v10 = objc_msgSend_auditToken(remoteProcess);
+  if ([authenticator authenticateAuditToken:v10])
   {
     queue = [(SBFocusModesHomeScreenSettingsServer *)self queue];
     v14 = MEMORY[0x277D85DD0];

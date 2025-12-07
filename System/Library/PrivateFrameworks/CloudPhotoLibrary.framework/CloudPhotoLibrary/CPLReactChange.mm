@@ -8,18 +8,18 @@
 
 - (id)translateToClientChangeUsingIDMapping:(id)mapping error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   mappingCopy = mapping;
-  v15.receiver = self;
-  v15.super_class = CPLReactChange;
-  v7 = [(CPLRecordChange *)&v15 translateToClientChangeUsingIDMapping:mappingCopy error:error];
+  v14.receiver = self;
+  v14.super_class = CPLReactChange;
+  v7 = [(CPLRecordChange *)&v14 translateToClientChangeUsingIDMapping:mappingCopy error:error];
   if (v7)
   {
-    v14 = 0;
+    v13 = 0;
     assetScopedIdentifier = [(CPLCommentChange *)self assetScopedIdentifier];
     if (assetScopedIdentifier)
     {
-      v9 = [mappingCopy localScopedIdentifierForCloudScopedIdentifier:assetScopedIdentifier isFinal:&v14];
+      v9 = [mappingCopy localScopedIdentifierForCloudScopedIdentifier:assetScopedIdentifier isFinal:&v13];
       if (v9)
       {
         [v7 setAssetScopedIdentifier:v9];
@@ -39,8 +39,8 @@
           if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v17 = assetScopedIdentifier;
-            v18 = 2112;
+            v16 = assetScopedIdentifier;
+            v17 = 2112;
             selfCopy = self;
             _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "Can't map cloud assetScopedIdentifier (%@) of %@", buf, 0x16u);
           }
@@ -51,25 +51,23 @@
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)translateToCloudChangeUsingIDMapping:(id)mapping error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   mappingCopy = mapping;
-  v15.receiver = self;
-  v15.super_class = CPLReactChange;
-  v7 = [(CPLRecordChange *)&v15 translateToCloudChangeUsingIDMapping:mappingCopy error:error];
+  v14.receiver = self;
+  v14.super_class = CPLReactChange;
+  v7 = [(CPLRecordChange *)&v14 translateToCloudChangeUsingIDMapping:mappingCopy error:error];
   if (v7)
   {
-    v14 = 0;
+    v13 = 0;
     assetScopedIdentifier = [(CPLCommentChange *)self assetScopedIdentifier];
     if (assetScopedIdentifier)
     {
-      v9 = [mappingCopy cloudScopedIdentifierForLocalScopedIdentifier:assetScopedIdentifier isFinal:&v14];
+      v9 = [mappingCopy cloudScopedIdentifierForLocalScopedIdentifier:assetScopedIdentifier isFinal:&v13];
       if (v9)
       {
         [v7 setAssetScopedIdentifier:v9];
@@ -89,8 +87,8 @@
           if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v17 = assetScopedIdentifier;
-            v18 = 2112;
+            v16 = assetScopedIdentifier;
+            v17 = 2112;
             selfCopy = self;
             _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "Can't map local assetScopedIdentifier (%@) of %@", buf, 0x16u);
           }
@@ -100,8 +98,6 @@
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

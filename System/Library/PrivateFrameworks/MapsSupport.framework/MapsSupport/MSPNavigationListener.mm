@@ -17,6 +17,7 @@
 - (void)_checkStateIsReady;
 - (void)_clearArrivedState;
 - (void)_initPendingStateIfNeeded;
+- (void)_initPendingStateIfNeededWithTransportType:(int)type isResumingMultipointRoute:(BOOL)route;
 - (void)_performDelegateNotificationBlockIfReady:(id)ready;
 - (void)_updateCurrentWaypointIndexFromArrivalTimeInfo:(id)info;
 - (void)_updateRoute:(id)route;
@@ -24,6 +25,7 @@
 - (void)_updateTransportTypeFromCurrentState;
 - (void)dealloc;
 - (void)navigationListener:(id)listener didArriveAtWaypoint:(id)waypoint endOfLegIndex:(unint64_t)index;
+- (void)navigationListener:(id)listener didChangeNavigationState:(unint64_t)state transportType:(int)type;
 - (void)navigationListener:(id)listener didResumeNavigatingFromWaypoint:(id)waypoint endOfLegIndex:(unint64_t)index;
 - (void)navigationListener:(id)listener didUpdateETA:(id)a;
 - (void)navigationListener:(id)listener didUpdateGuidanceState:(id)state;
@@ -41,26 +43,26 @@
   v9.receiver = self;
   v9.super_class = MSPNavigationListener;
   v2 = [(MSPNavigationListener *)&v9 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = MSPGetSharedTripLog(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136380675;
       v11 = "[MSPNavigationListener init]";
-      _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_DEBUG, "[NavListener] %{private}s", buf, 0xCu);
+      _os_log_impl(&dword_25813A000, v4, OS_LOG_TYPE_DEBUG, "[NavListener] %{private}s", buf, 0xCu);
     }
 
-    v4 = objc_alloc(MEMORY[0x277D0EBF0]);
-    v5 = [v4 initWithQueue:MEMORY[0x277D85CD0] wantsRoutes:1];
-    navigationListener = v2->_navigationListener;
-    v2->_navigationListener = v5;
+    v5 = objc_alloc(MEMORY[0x277D0EBF0]);
+    v6 = [v5 initWithQueue:MEMORY[0x277D85CD0] wantsRoutes:1];
+    navigationListener = v3->_navigationListener;
+    v3->_navigationListener = v6;
 
-    [(GEONavigationListener *)v2->_navigationListener setDelegate:v2];
+    [(GEONavigationListener *)v3->_navigationListener setDelegate:v3];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return v2;
+  return v3;
 }
 
 - (void)_initPendingStateIfNeeded
@@ -71,14 +73,136 @@
   [(MSPNavigationListener *)self _initPendingStateIfNeededWithTransportType:_currentTransportType isResumingMultipointRoute:isResumingMultipointRoute];
 }
 
+- (void)_initPendingStateIfNeededWithTransportType:(int)type isResumingMultipointRoute:(BOOL)route
+{
+  routeCopy = route;
+  v5 = *&type;
+  v24 = *MEMORY[0x277D85DE8];
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  v8 = WeakRetained;
+  if (!WeakRetained)
+  {
+    v9 = MSPGetSharedTripLog(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      v10 = "MSPNavigationListener not creating state, no delegate";
+      goto LABEL_16;
+    }
+
+LABEL_17:
+
+    goto LABEL_18;
+  }
+
+  if (self->_state)
+  {
+    v9 = MSPGetSharedTripLog(WeakRetained);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      v10 = "MSPNavigationListener not creating state, we already have one";
+LABEL_16:
+      _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_INFO, v10, buf, 2u);
+      goto LABEL_17;
+    }
+
+    goto LABEL_17;
+  }
+
+  isInNavigatingState = [(MSPNavigationListener *)self isInNavigatingState];
+  if ((isInNavigatingState & 1) == 0)
+  {
+    v9 = MSPGetSharedTripLog(isInNavigatingState);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      v10 = "MSPNavigationListener not creating state, not navigating";
+      goto LABEL_16;
+    }
+
+    goto LABEL_17;
+  }
+
+  if (v5 == 4 || (isInNavigatingState = [(MSPNavigationListener *)self _isCompatibleTransportType:v5], (isInNavigatingState & 1) == 0))
+  {
+    v9 = MSPGetSharedTripLog(isInNavigatingState);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      if (v5 >= 7)
+      {
+        v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v5];
+      }
+
+      else
+      {
+        v17 = off_2798684E0[v5];
+      }
+
+      *buf = 138412290;
+      v21 = v17;
+      _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_INFO, "MSPNavigationListener not creating state, unknown or incompatible transport type: %@", buf, 0xCu);
+    }
+
+    goto LABEL_17;
+  }
+
+  v12 = objc_alloc_init(MEMORY[0x277D0ED30]);
+  state = self->_state;
+  self->_state = v12;
+
+  navigationSessionIdentifier = [(MSPNavigationListener *)self navigationSessionIdentifier];
+  [(GEOSharedNavState *)self->_state setGroupIdentifier:navigationSessionIdentifier];
+
+  [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+  v15 = MSPGetSharedTripLog([(GEOSharedNavState *)self->_state setUpdatedTimestamp:?]);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    if (v5 < 7 && ((0x6Fu >> v5) & 1) != 0)
+    {
+      v16 = off_2798684A8[v5];
+    }
+
+    else
+    {
+      v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v5];
+    }
+
+    *buf = 138412546;
+    v21 = v16;
+    v22 = 1024;
+    v23 = routeCopy;
+    _os_log_impl(&dword_25813A000, v15, OS_LOG_TYPE_DEFAULT, "MSPNavigationListener create state for transport type: %@ isResumingMultipointRoute: %d", buf, 0x12u);
+  }
+
+  [(GEOSharedNavState *)self->_state setTransportType:v5];
+  [(GEOSharedNavState *)self->_state setProtocolVersion:1];
+  [(GEOSharedNavState *)self->_state setClosed:0];
+  [(GEOSharedNavState *)self->_state setArrived:[(MSPNavigationListener *)self _currentlyArrivedAtWaypoint]];
+  v18 = [(GEOSharedNavState *)self->_state setResumed:routeCopy];
+  self->_postedStateIsReady = 0;
+  v19 = MSPGetSharedTripLog(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_25813A000, v19, OS_LOG_TYPE_INFO, "MSPNavigationListener requesting current guidance, route, ETA and current step...", buf, 2u);
+  }
+
+  [(GEONavigationListener *)self->_navigationListener requestGuidanceState];
+  [(GEONavigationListener *)self->_navigationListener requestRoute];
+  [(GEONavigationListener *)self->_navigationListener requestETAUpdate];
+  [(GEONavigationListener *)self->_navigationListener requestStepIndex];
+LABEL_18:
+}
+
 - (void)_checkStateIsReady
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   v4 = WeakRetained;
   if (self->_state && !self->_postedStateIsReady && WeakRetained)
   {
-    v5 = MSPGetSharedTripLog();
+    v5 = MSPGetSharedTripLog(WeakRetained);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -104,8 +228,7 @@ LABEL_15:
     if (hasCurrentWaypointIndex)
     {
       destinationInfo = [(GEONavigationListener *)self->_navigationListener lastLocation];
-      [(MSPNavigationListener *)self _updateLocation:destinationInfo withRouteMatchedCoordinate:*MEMORY[0x277D0E9F8]];
-      v9 = MSPGetSharedTripLog();
+      v9 = MSPGetSharedTripLog([(MSPNavigationListener *)self _updateLocation:destinationInfo withRouteMatchedCoordinate:*MEMORY[0x277D0E9F8]]);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         transportType = [(GEOSharedNavState *)self->_state transportType];
@@ -120,21 +243,21 @@ LABEL_15:
         }
 
         state = self->_state;
-        v14 = v11;
+        v13 = v11;
         etaInfos = [(GEOSharedNavState *)state etaInfos];
         destinationName = [(GEOSharedNavState *)self->_state destinationName];
         waypointInfosCount = [(GEOSharedNavState *)self->_state waypointInfosCount];
 
         *buf = 138413314;
-        v19 = v11;
-        v20 = 2112;
-        v21 = etaInfos;
-        v22 = 2112;
-        v23 = destinationName;
-        v24 = 2048;
-        v25 = waypointInfosCount;
-        v26 = 2112;
-        v27 = destinationInfo;
+        v18 = v11;
+        v19 = 2112;
+        v20 = etaInfos;
+        v21 = 2112;
+        v22 = destinationName;
+        v23 = 2048;
+        v24 = waypointInfosCount;
+        v25 = 2112;
+        v26 = destinationInfo;
         _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_DEFAULT, "MSPNavigationListener has required info (transportType: %@, ETAs: %@, destination: %@, %lu waypoints), optional (location: %@)", buf, 0x34u);
       }
 
@@ -145,8 +268,6 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)navigationSessionIdentifier
@@ -185,19 +306,18 @@ LABEL_16:
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = MSPGetSharedTripLog();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = MSPGetSharedTripLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136380675;
-    v7 = "[MSPNavigationListener dealloc]";
+    v6 = "[MSPNavigationListener dealloc]";
     _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_DEBUG, "[NavListener] %{private}s", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = MSPNavigationListener;
-  [(MSPNavigationListener *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = MSPNavigationListener;
+  [(MSPNavigationListener *)&v4 dealloc];
 }
 
 - (BOOL)isCompatibleNavigationType
@@ -271,7 +391,7 @@ LABEL_16:
 
 - (void)_updateRoute:(id)route
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   routeCopy = route;
   state = self->_state;
   if (state)
@@ -282,52 +402,44 @@ LABEL_16:
       [(GEOSharedNavState *)self->_state setReferenceFrame:[(MSPNavigationListener *)self _referenceFrameForDestination:destination]];
     }
 
-    [(GEOSharedNavState *)self->_state updateRouteInfoFromComposedRoute:routeCopy];
-    v7 = MSPGetSharedTripNavEventsLog();
+    v7 = MSPGetSharedTripNavEventsLog([(GEOSharedNavState *)self->_state updateRouteInfoFromComposedRoute:routeCopy]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       mspDescription = [(GEOSharedNavState *)self->_state mspDescription];
-      v10 = 138412290;
-      v11 = mspDescription;
-      _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_DEBUG, "_updateRoute %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = mspDescription;
+      _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_DEBUG, "_updateRoute %@", &v9, 0xCu);
     }
 
     [(MSPNavigationListener *)self _checkStateIsReady];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_updateTraffic:(id)traffic
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if (self->_state)
+  v11 = *MEMORY[0x277D85DE8];
+  if (!self->_state)
   {
-    trafficCopy = traffic;
-    v5 = MSPGetSharedTripNavEventsLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
-    {
-      mspDescription = [(GEOSharedNavState *)self->_state mspDescription];
-      v10 = 138412290;
-      v11 = mspDescription;
-      _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_DEBUG, "_updateTraffic %@", &v10, 0xCu);
-    }
-
-    v7 = [(GEOSharedNavState *)self->_state updateFromTraffic:trafficCopy];
+    return 0;
   }
 
-  else
+  trafficCopy = traffic;
+  v5 = MSPGetSharedTripNavEventsLog(trafficCopy);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 0;
+    mspDescription = [(GEOSharedNavState *)self->_state mspDescription];
+    v9 = 138412290;
+    v10 = mspDescription;
+    _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_DEBUG, "_updateTraffic %@", &v9, 0xCu);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = [(GEOSharedNavState *)self->_state updateFromTraffic:trafficCopy];
   return v7;
 }
 
 - (BOOL)_updateLocation:(id)location withRouteMatchedCoordinate:(id)coordinate
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   v7 = locationCopy;
   if (self->_state)
@@ -372,14 +484,13 @@ LABEL_13:
 
       [(GEOSharedNavState *)self->_state setLastLocation:v15];
       [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-      [(GEOSharedNavState *)self->_state setUpdatedTimestamp:?];
-      v18 = MSPGetSharedTripNavEventsLog();
+      v18 = MSPGetSharedTripNavEventsLog([(GEOSharedNavState *)self->_state setUpdatedTimestamp:?]);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         mspDescription = [(GEOSharedNavState *)self->_state mspDescription];
-        v22 = 138412290;
-        v23 = mspDescription;
-        _os_log_impl(&dword_25813A000, v18, OS_LOG_TYPE_DEBUG, "_updateLocation %@", &v22, 0xCu);
+        v21 = 138412290;
+        v22 = mspDescription;
+        _os_log_impl(&dword_25813A000, v18, OS_LOG_TYPE_DEBUG, "_updateLocation %@", &v21, 0xCu);
       }
 
       v14 = 1;
@@ -390,7 +501,6 @@ LABEL_13:
   v14 = 0;
 LABEL_14:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -404,16 +514,17 @@ LABEL_14:
     state = self->_state;
     if (state)
     {
-      if ([(GEOSharedNavState *)state updateWaypointsFromComposedRoute:neededCopy])
+      v7 = [(GEOSharedNavState *)state updateWaypointsFromComposedRoute:neededCopy];
+      if (v7)
       {
-        v7 = MSPGetSharedTripNavEventsLog();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v8 = MSPGetSharedTripNavEventsLog(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           waypoints = [neededCopy waypoints];
-          v9 = [waypoints valueForKey:@"name"];
+          v10 = [waypoints valueForKey:@"name"];
           v12 = 138477827;
-          v13 = v9;
-          _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_DEFAULT, "MSPNavigationListener waypoints updated %{private}@", &v12, 0xCu);
+          v13 = v10;
+          _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_DEFAULT, "MSPNavigationListener waypoints updated %{private}@", &v12, 0xCu);
         }
 
         [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
@@ -428,29 +539,30 @@ LABEL_14:
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)_updateCurrentWaypointIndexFromArrivalTimeInfo:(id)info
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (info && self->_state)
   {
     legIndex = [info legIndex];
-    if (([(GEOSharedNavState *)self->_state hasCurrentWaypointIndex]& 1) != 0)
+    hasCurrentWaypointIndex = [(GEOSharedNavState *)self->_state hasCurrentWaypointIndex];
+    if (hasCurrentWaypointIndex)
     {
-      if ([(GEOSharedNavState *)self->_state currentWaypointIndex]!= legIndex)
+      currentWaypointIndex = [(GEOSharedNavState *)self->_state currentWaypointIndex];
+      if (currentWaypointIndex != legIndex)
       {
-        v5 = MSPGetSharedTripNavEventsLog();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+        v7 = MSPGetSharedTripNavEventsLog(currentWaypointIndex);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          currentWaypointIndex = [(GEOSharedNavState *)self->_state currentWaypointIndex];
-          v9 = 134218240;
-          v10 = currentWaypointIndex;
-          v11 = 2048;
-          v12 = legIndex;
-          _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_DEFAULT, "_updateETA: update current waypoint %lu -> %lu", &v9, 0x16u);
+          currentWaypointIndex2 = [(GEOSharedNavState *)self->_state currentWaypointIndex];
+          v10 = 134218240;
+          v11 = currentWaypointIndex2;
+          v12 = 2048;
+          v13 = legIndex;
+          _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_DEFAULT, "_updateETA: update current waypoint %lu -> %lu", &v10, 0x16u);
         }
 
         [(GEOSharedNavState *)self->_state setCurrentWaypointIndex:legIndex];
@@ -463,20 +575,18 @@ LABEL_14:
 
     else
     {
-      v7 = MSPGetSharedTripNavEventsLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = MSPGetSharedTripNavEventsLog(hasCurrentWaypointIndex);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 134217984;
-        v10 = legIndex;
-        _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_DEFAULT, "_updateETA: setting initial waypoint index: %lu", &v9, 0xCu);
+        v10 = 134217984;
+        v11 = legIndex;
+        _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_DEFAULT, "_updateETA: setting initial waypoint index: %lu", &v10, 0xCu);
       }
 
       [(GEOSharedNavState *)self->_state setCurrentWaypointIndex:legIndex];
       [(MSPNavigationListener *)self _checkStateIsReady];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_updateArrivalTimeAndDistance:(id)distance
@@ -514,49 +624,47 @@ LABEL_14:
       if (v31[24] == 1)
       {
         [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-        [(GEOSharedNavState *)self->_state setUpdatedTimestamp:?];
-        v14 = MSPGetSharedTripNavEventsLog();
+        v14 = MSPGetSharedTripNavEventsLog([(GEOSharedNavState *)self->_state setUpdatedTimestamp:?]);
         v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
 
         if (v15)
         {
-          v16 = MSPGetSharedTripNavEventsLog();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+          v17 = MSPGetSharedTripNavEventsLog(v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
             etaInfos2 = [(GEOSharedNavState *)self->_state etaInfos];
-            v18 = MapsMap(etaInfos2, &__block_literal_global_24);
+            v19 = MapsMap(etaInfos2, &__block_literal_global_24);
             *buf = 138412290;
-            v35 = v18;
-            _os_log_impl(&dword_25813A000, v16, OS_LOG_TYPE_DEBUG, "_updateETA complete: %@", buf, 0xCu);
+            v35 = v19;
+            _os_log_impl(&dword_25813A000, v17, OS_LOG_TYPE_DEBUG, "_updateETA complete: %@", buf, 0xCu);
           }
         }
       }
 
-      v19 = v31[24];
+      v20 = v31[24];
 
       _Block_object_dispose(v30, 8);
     }
 
     else
     {
-      v13 = MSPGetSharedTripNavEventsLog();
+      v13 = MSPGetSharedTripNavEventsLog(0);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *v30 = 0;
         _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_DEBUG, "_updateETA: we don't have ETAs to fill out, waiting for route update", v30, 2u);
       }
 
-      v19 = 0;
+      v20 = 0;
     }
   }
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v19 & 1;
+  return v20 & 1;
 }
 
 uint64_t __55__MSPNavigationListener__updateArrivalTimeAndDistance___block_invoke(uint64_t a1, void *a2)
@@ -569,38 +677,37 @@ uint64_t __55__MSPNavigationListener__updateArrivalTimeAndDistance___block_invok
 
 void __55__MSPNavigationListener__updateArrivalTimeAndDistance___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = *(a1 + 32);
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a3];
   v8 = [v6 objectForKeyedSubscript:v7];
 
-  if (v8 || ![v5 hasEtaTimestamp])
+  if (v8 || (v9 = [v5 hasEtaTimestamp], !v9))
   {
     [v5 remainingTime];
-    v13 = v12;
-    [v8 remainingTime];
-    if (vabdd_f64(v13, v14) >= 0.00999999978)
+    v14 = v13;
+    v15 = [v8 remainingTime];
+    if (vabdd_f64(v14, v16) >= 0.00999999978)
     {
       *(*(*(a1 + 56) + 8) + 24) = 1;
       [v8 remainingTime];
       MNDisplayETAAndRemainingMinutes();
-      v10 = 0;
-      [v10 timeIntervalSinceReferenceDate];
-      [v5 setEtaTimestamp:?];
-      v15 = MSPGetSharedTripNavEventsLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v11 = 0;
+      [v11 timeIntervalSinceReferenceDate];
+      v17 = MSPGetSharedTripNavEventsLog([v5 setEtaTimestamp:?]);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         [v5 remainingTime];
-        v17 = v16;
+        v19 = v18;
         [v8 remainingTime];
         *buf = 134218496;
-        v21 = a3;
-        v22 = 2048;
-        v23 = v17;
-        v24 = 2048;
-        v25 = v18;
-        _os_log_impl(&dword_25813A000, v15, OS_LOG_TYPE_INFO, "_updateETA: updating waypoint %lu remaining time: %#.1lfs -> %#.1lfs", buf, 0x20u);
+        v22 = a3;
+        v23 = 2048;
+        v24 = v19;
+        v25 = 2048;
+        v26 = v20;
+        _os_log_impl(&dword_25813A000, v17, OS_LOG_TYPE_INFO, "_updateETA: updating waypoint %lu remaining time: %#.1lfs -> %#.1lfs", buf, 0x20u);
       }
 
       [v8 remainingTime];
@@ -620,12 +727,12 @@ void __55__MSPNavigationListener__updateArrivalTimeAndDistance___block_invoke_2(
 
     else
     {
-      v10 = MSPGetSharedTripNavEventsLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = MSPGetSharedTripNavEventsLog(v15);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134217984;
-        v21 = a3;
-        _os_log_impl(&dword_25813A000, v10, OS_LOG_TYPE_DEBUG, "_updateETA: skipping unchanged waypoint %lu eta", buf, 0xCu);
+        v22 = a3;
+        _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_DEBUG, "_updateETA: skipping unchanged waypoint %lu eta", buf, 0xCu);
       }
     }
   }
@@ -633,20 +740,18 @@ void __55__MSPNavigationListener__updateArrivalTimeAndDistance___block_invoke_2(
   else
   {
     *(*(*(a1 + 56) + 8) + 24) = 1;
-    v9 = MSPGetSharedTripNavEventsLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = MSPGetSharedTripNavEventsLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      v21 = a3;
-      _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_DEBUG, "_updateETA: clearing passed waypoint %lu etaInfo", buf, 0xCu);
+      v22 = a3;
+      _os_log_impl(&dword_25813A000, v10, OS_LOG_TYPE_DEBUG, "_updateETA: clearing passed waypoint %lu etaInfo", buf, 0xCu);
     }
 
-    v10 = [*(*(a1 + 40) + 32) etaInfos];
-    v11 = objc_alloc_init(MEMORY[0x277D0ED10]);
-    [v10 replaceObjectAtIndex:a3 withObject:v11];
+    v11 = [*(*(a1 + 40) + 32) etaInfos];
+    v12 = objc_alloc_init(MEMORY[0x277D0ED10]);
+    [v11 replaceObjectAtIndex:a3 withObject:v12];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateTransportTypeFromCurrentState
@@ -657,47 +762,46 @@ void __55__MSPNavigationListener__updateArrivalTimeAndDistance___block_invoke_2(
   {
     if ([(GEONavigationGuidanceState *)guidanceState hasTrackedTransportType])
     {
-      if (![(GEOSharedNavState *)self->_state hasTransportType]|| (v4 = [(GEOSharedNavState *)self->_state transportType], v4 != [(GEONavigationGuidanceState *)self->_guidanceState trackedTransportType]))
+      hasTransportType = [(GEOSharedNavState *)self->_state hasTransportType];
+      if (!hasTransportType || (v5 = [(GEOSharedNavState *)self->_state transportType], hasTransportType = [(GEONavigationGuidanceState *)self->_guidanceState trackedTransportType], v5 != hasTransportType))
       {
-        v5 = MSPGetSharedTripNavEventsLog();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+        v6 = MSPGetSharedTripNavEventsLog(hasTransportType);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
           transportType = [(GEOSharedNavState *)self->_state transportType];
           if (transportType >= 7)
           {
-            v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", transportType];
+            v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", transportType];
           }
 
           else
           {
-            v7 = off_2798684E0[transportType];
+            v8 = off_2798684E0[transportType];
           }
 
-          v8 = v7;
+          v9 = v8;
           trackedTransportType = [(GEONavigationGuidanceState *)self->_guidanceState trackedTransportType];
           if (trackedTransportType >= 7)
           {
-            v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", trackedTransportType];
+            v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", trackedTransportType];
           }
 
           else
           {
-            v10 = off_2798684E0[trackedTransportType];
+            v11 = off_2798684E0[trackedTransportType];
           }
 
           *buf = 138412546;
-          v13 = v8;
+          v13 = v9;
           v14 = 2112;
-          v15 = v10;
-          _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_DEBUG, "_updateTransportType %@ -> %@", buf, 0x16u);
+          v15 = v11;
+          _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_DEBUG, "_updateTransportType %@ -> %@", buf, 0x16u);
         }
 
         [(GEOSharedNavState *)self->_state setTransportType:[(GEONavigationGuidanceState *)self->_guidanceState trackedTransportType]];
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (int)_referenceFrameForDestination:(id)destination
@@ -804,46 +908,116 @@ LABEL_17:
       v7 = 0;
     }
 
-    if (v7 && ![(MSPNavigationListener *)self isInNavigatingState])
+    if (v7)
     {
-      v8 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      isInNavigatingState = [(MSPNavigationListener *)self isInNavigatingState];
+      if ((isInNavigatingState & 1) == 0)
       {
-        *v12 = 0;
-        _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_INFO, "MSPNavigationListener not navigating or no delegate, stopping transaction", v12, 2u);
-      }
+        v9 = MSPGetSharedTripLog(isInNavigatingState);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+        {
+          *v14 = 0;
+          _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_INFO, "MSPNavigationListener not navigating or no delegate, stopping transaction", v14, 2u);
+        }
 
-      v9 = 0;
-      goto LABEL_19;
+        v10 = 0;
+        goto LABEL_19;
+      }
     }
   }
 
-  else if ([(MSPNavigationListener *)self isInNavigatingState])
+  else
   {
-    v10 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    isInNavigatingState2 = [(MSPNavigationListener *)self isInNavigatingState];
+    if (isInNavigatingState2)
     {
-      *buf = 0;
-      _os_log_impl(&dword_25813A000, v10, OS_LOG_TYPE_INFO, "MSPNavigationListener now navigating with delegate, starting transaction", buf, 2u);
+      v12 = MSPGetSharedTripLog(isInNavigatingState2);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_25813A000, v12, OS_LOG_TYPE_INFO, "MSPNavigationListener now navigating with delegate, starting transaction", buf, 2u);
+      }
+
+      v10 = os_transaction_create();
+LABEL_19:
+      v13 = self->_transaction;
+      self->_transaction = v10;
+    }
+  }
+}
+
+- (void)navigationListener:(id)listener didChangeNavigationState:(unint64_t)state transportType:(int)type
+{
+  v5 = *&type;
+  v24 = *MEMORY[0x277D85DE8];
+  listenerCopy = listener;
+  v9 = MSPGetSharedTripNavEventsLog(listenerCopy);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = GEONavigationListenerStateAsString();
+    if (v5 >= 7)
+    {
+      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v5];
     }
 
-    v9 = os_transaction_create();
-LABEL_19:
-    v11 = self->_transaction;
-    self->_transaction = v9;
+    else
+    {
+      v11 = off_2798684E0[v5];
+    }
+
+    *buf = 138412546;
+    v21 = v10;
+    v22 = 2112;
+    v23 = v11;
+    _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_DEFAULT, "MSPNavigationListener state change (navigation: %@, transport type: %@)", buf, 0x16u);
+  }
+
+  if (state == 2)
+  {
+    [(MSPNavigationListener *)self _updateTransaction];
+    [(GEONavigationListener *)self->_navigationListener requestGuidanceState];
+    -[MSPNavigationListener _initPendingStateIfNeededWithTransportType:isResumingMultipointRoute:](self, "_initPendingStateIfNeededWithTransportType:isResumingMultipointRoute:", v5, [listenerCopy isResumingMultipointRoute]);
+    v12 = [(MSPNavigationListener *)self _analyticsPipelineTransportModeForGEOTransportType:v5];
+    mEMORY[0x277D0E790] = [MEMORY[0x277D0E790] sharedData];
+    [mEMORY[0x277D0E790] setMapUiShownActiveNavMode:v12];
+  }
+
+  else
+  {
+    navigationSessionIdentifier = self->_navigationSessionIdentifier;
+    self->_navigationSessionIdentifier = 0;
+
+    state = self->_state;
+    if (state)
+    {
+      [(GEOSharedNavState *)state setClosed:1];
+      [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+      v17 = v16;
+      [(GEOSharedNavState *)self->_state setClosedTimestamp:?];
+      [(GEOSharedNavState *)self->_state setUpdatedTimestamp:v17];
+      [(MSPNavigationListener *)self _performDelegateNotificationBlockIfReady:&__block_literal_global_29];
+    }
+
+    mEMORY[0x277D0E790]2 = [MEMORY[0x277D0E790] sharedData];
+    [mEMORY[0x277D0E790]2 setMapUiShownActiveNavMode:0];
+
+    mEMORY[0x277D0E790]3 = [MEMORY[0x277D0E790] sharedData];
+    [mEMORY[0x277D0E790]3 setHasMapUiShownActiveNavMode:0];
+
+    [(MSPNavigationListener *)self _updateTransaction];
   }
 }
 
 - (void)navigationListener:(id)listener didUpdateGuidanceState:(id)state
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   stateCopy = state;
-  v6 = MSPGetSharedTripNavEventsLog();
+  v6 = MSPGetSharedTripNavEventsLog(stateCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = stateCopy;
-    _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_DEFAULT, "MSPNavigationListener guidance state change: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = stateCopy;
+    _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_DEFAULT, "MSPNavigationListener guidance state change: %@", &v8, 0xCu);
   }
 
   if ([(GEONavigationListener *)self->_navigationListener navigationState]== 2)
@@ -868,20 +1042,18 @@ LABEL_19:
   {
     [(MSPNavigationListener *)self _initPendingStateIfNeeded];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)navigationListener:(id)listener didUpdateETA:(id)a
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   aCopy = a;
-  v6 = MSPGetSharedTripNavEventsLog();
+  v6 = MSPGetSharedTripNavEventsLog(aCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543362;
-    v11 = aCopy;
-    _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_DEFAULT, "MSPNavigationListener ETA update: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = aCopy;
+    _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_DEFAULT, "MSPNavigationListener ETA update: %{public}@", &v9, 0xCu);
   }
 
   arrivalTimeInfo = [aCopy arrivalTimeInfo];
@@ -892,41 +1064,37 @@ LABEL_19:
   {
     [(MSPNavigationListener *)self _performDelegateNotificationBlockIfReady:&__block_literal_global_31];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)navigationListener:(id)listener didUpdateLocation:(id)location routeMatchedCoordinate:(id)coordinate
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   locationCopy = location;
-  v8 = MSPGetSharedTripNavEventsLog();
+  v8 = MSPGetSharedTripNavEventsLog(locationCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 138412290;
-    v11 = locationCopy;
-    _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_DEBUG, "MSPNavigationListener location update: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = locationCopy;
+    _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_DEBUG, "MSPNavigationListener location update: %@", &v9, 0xCu);
   }
 
   if ([(MSPNavigationListener *)self _updateLocation:locationCopy withRouteMatchedCoordinate:coordinate])
   {
     [(MSPNavigationListener *)self _performDelegateNotificationBlockIfReady:&__block_literal_global_33];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)navigationListener:(id)listener didUpdateRoute:(id)route
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   routeCopy = route;
-  v6 = MSPGetSharedTripNavEventsLog();
+  v6 = MSPGetSharedTripNavEventsLog(routeCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     uniqueRouteID = [routeCopy uniqueRouteID];
-    v10 = 138543362;
-    v11 = uniqueRouteID;
-    _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_DEFAULT, "MSPNavigationListener route update: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = uniqueRouteID;
+    _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_DEFAULT, "MSPNavigationListener route update: %{public}@", &v9, 0xCu);
   }
 
   if ([(MSPNavigationListener *)self _updateWaypointsIfNeeded:routeCopy])
@@ -941,13 +1109,12 @@ LABEL_19:
   [(MSPNavigationListener *)self _updateTraffic:traffic];
 
   [(MSPNavigationListener *)self _performDelegateNotificationBlockIfReady:&__block_literal_global_37];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)navigationListener:(id)listener didUpdateTrafficForCurrentRoute:(id)route
 {
   routeCopy = route;
-  v6 = MSPGetSharedTripNavEventsLog();
+  v6 = MSPGetSharedTripNavEventsLog(routeCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -963,17 +1130,17 @@ LABEL_19:
 
 - (void)navigationListener:(id)listener didArriveAtWaypoint:(id)waypoint endOfLegIndex:(unint64_t)index
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   waypointCopy = waypoint;
-  v8 = MSPGetSharedTripNavEventsLog();
+  v8 = MSPGetSharedTripNavEventsLog(waypointCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     shortDescription = [waypointCopy shortDescription];
-    v13 = 138412546;
-    v14 = shortDescription;
-    v15 = 2048;
+    v12 = 138412546;
+    v13 = shortDescription;
+    v14 = 2048;
     indexCopy = index;
-    _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_DEFAULT, "MSPNavigationListener did arrive at waypoint: %@ legIndex: %lu", &v13, 0x16u);
+    _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_DEFAULT, "MSPNavigationListener did arrive at waypoint: %@ legIndex: %lu", &v12, 0x16u);
   }
 
   [(GEOSharedNavState *)self->_state setArrived:1];
@@ -983,22 +1150,20 @@ LABEL_19:
   [(GEOSharedNavState *)self->_state setArrivedTimestamp:?];
   [(GEOSharedNavState *)self->_state setUpdatedTimestamp:v11];
   [(MSPNavigationListener *)self _performDelegateNotificationBlockIfReady:&__block_literal_global_41];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)navigationListener:(id)listener didResumeNavigatingFromWaypoint:(id)waypoint endOfLegIndex:(unint64_t)index
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   waypointCopy = waypoint;
-  v8 = MSPGetSharedTripNavEventsLog();
+  v8 = MSPGetSharedTripNavEventsLog(waypointCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412546;
-    v11 = waypointCopy;
-    v12 = 2048;
+    v9 = 138412546;
+    v10 = waypointCopy;
+    v11 = 2048;
     indexCopy = index;
-    _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_DEFAULT, "MSPNavigationListener did resume navigating from waypoint: %@ legIndex: %lu", &v10, 0x16u);
+    _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_DEFAULT, "MSPNavigationListener did resume navigating from waypoint: %@ legIndex: %lu", &v9, 0x16u);
   }
 
   [(MSPNavigationListener *)self _clearArrivedState];
@@ -1006,8 +1171,6 @@ LABEL_19:
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   [(GEOSharedNavState *)self->_state setUpdatedTimestamp:?];
   [(MSPNavigationListener *)self _performDelegateNotificationBlockIfReady:&__block_literal_global_43];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearArrivedState

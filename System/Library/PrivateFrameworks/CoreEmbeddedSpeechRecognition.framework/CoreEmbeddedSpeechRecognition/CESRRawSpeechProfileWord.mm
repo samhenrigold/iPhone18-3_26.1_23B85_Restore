@@ -9,7 +9,7 @@
 
 - (id)_extractOrthographyFromSpeechWord:(id)word
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   wordCopy = word;
   v4 = [wordCopy objectForKey:@"orthography"];
   objc_opt_class();
@@ -23,17 +23,15 @@
     v6 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "[CESRRawSpeechProfileWord _extractOrthographyFromSpeechWord:]";
-      v11 = 2112;
-      v12 = wordCopy;
-      _os_log_error_impl(&dword_225EEB000, v6, OS_LOG_TYPE_ERROR, "%s Missing orthography string value in speech word: %@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[CESRRawSpeechProfileWord _extractOrthographyFromSpeechWord:]";
+      v10 = 2112;
+      v11 = wordCopy;
+      _os_log_error_impl(&dword_225EEB000, v6, OS_LOG_TYPE_ERROR, "%s Missing orthography string value in speech word: %@", &v8, 0x16u);
     }
 
     v5 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -74,11 +72,11 @@ LABEL_8:
 
 - (CESRRawSpeechProfileWord)initWithSpeechWordDictionary:(id)dictionary
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v16.receiver = self;
-  v16.super_class = CESRRawSpeechProfileWord;
-  v5 = [(CESRRawSpeechProfileWord *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = CESRRawSpeechProfileWord;
+  v5 = [(CESRRawSpeechProfileWord *)&v15 init];
   if (!v5)
   {
     goto LABEL_5;
@@ -90,9 +88,9 @@ LABEL_8:
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v18 = "[CESRRawSpeechProfileWord initWithSpeechWordDictionary:]";
-      v19 = 2112;
-      v20 = dictionaryCopy;
+      v17 = "[CESRRawSpeechProfileWord initWithSpeechWordDictionary:]";
+      v18 = 2112;
+      v19 = dictionaryCopy;
       _os_log_error_impl(&dword_225EEB000, v13, OS_LOG_TYPE_ERROR, "%s Cannot construct speech word from empty dictionary: %@", buf, 0x16u);
     }
 
@@ -121,7 +119,6 @@ LABEL_5:
   v12 = v5;
 LABEL_9:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

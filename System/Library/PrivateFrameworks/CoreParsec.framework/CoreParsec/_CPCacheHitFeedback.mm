@@ -100,7 +100,6 @@ LABEL_15:
   toCopy = to;
   if ([(_CPCacheHitFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -108,24 +107,21 @@ LABEL_15:
 
   if (input)
   {
-    input = self->_input;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPCacheHitFeedback *)self triggerEvent])
   {
-    triggerEvent = self->_triggerEvent;
     PBDataWriterWriteInt32Field();
   }
 
   uuid = [(_CPCacheHitFeedback *)self uuid];
 
-  v9 = toCopy;
+  v6 = toCopy;
   if (uuid)
   {
-    uuid = self->_uuid;
     PBDataWriterWriteStringField();
-    v9 = toCopy;
+    v6 = toCopy;
   }
 }
 

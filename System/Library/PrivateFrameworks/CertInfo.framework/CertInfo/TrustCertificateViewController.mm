@@ -1,8 +1,12 @@
 @interface TrustCertificateViewController
+- (TrustCertificateViewController)initWithTrust:(__SecTrust *)trust action:(int)action delegate:(id)delegate allowTrust:(BOOL)allowTrust;
 - (TrustCertificateViewController)initWithTrustCertificateDelegate:(id)delegate allowTrust:(BOOL)trust;
 - (TrustCertificateViewControllerDelegate)trustCertificateDelegate;
+- (void)_dismissWithResult:(int)result;
 - (void)_setupNavItem;
 - (void)didReceiveMemoryWarning;
+- (void)setCertificateInfo:(id)info issuer:(id)issuer purpose:(id)purpose expiration:(id)expiration isRoot:(BOOL)root properties:(id)properties action:(int)action;
+- (void)setShowCertificateButton:(BOOL)button localizedTitle:(id)title localizedDescription:(id)description destructive:(BOOL)destructive handler:(id)handler;
 @end
 
 @implementation TrustCertificateViewController
@@ -24,6 +28,26 @@
   }
 
   return v9;
+}
+
+- (TrustCertificateViewController)initWithTrust:(__SecTrust *)trust action:(int)action delegate:(id)delegate allowTrust:(BOOL)allowTrust
+{
+  v7 = *&action;
+  delegateCopy = delegate;
+  v11 = [[CertificateViewController alloc] initWithTrust:trust action:v7];
+  v15.receiver = self;
+  v15.super_class = TrustCertificateViewController;
+  v12 = [(TrustCertificateViewController *)&v15 initWithRootViewController:v11];
+  v13 = v12;
+  if (v12)
+  {
+    v12->_allowCertificateTrust = allowTrust;
+    objc_storeWeak(&v12->_trustCertificateDelegate, delegateCopy);
+    objc_storeStrong(&v13->_certificateViewController, v11);
+    [(TrustCertificateViewController *)v13 _setupNavItem];
+  }
+
+  return v13;
 }
 
 - (void)_setupNavItem
@@ -53,6 +77,37 @@
   v2.receiver = self;
   v2.super_class = TrustCertificateViewController;
   [(TrustCertificateViewController *)&v2 didReceiveMemoryWarning];
+}
+
+- (void)_dismissWithResult:(int)result
+{
+  v3 = *&result;
+  WeakRetained = objc_loadWeakRetained(&self->_trustCertificateDelegate);
+  [WeakRetained trustCertificateViewController:self finishedWithReturnCode:v3];
+}
+
+- (void)setCertificateInfo:(id)info issuer:(id)issuer purpose:(id)purpose expiration:(id)expiration isRoot:(BOOL)root properties:(id)properties action:(int)action
+{
+  rootCopy = root;
+  propertiesCopy = properties;
+  expirationCopy = expiration;
+  purposeCopy = purpose;
+  issuerCopy = issuer;
+  infoCopy = info;
+  certificateViewController = [(TrustCertificateViewController *)self certificateViewController];
+  LODWORD(v20) = action;
+  [certificateViewController setCertificateTitle:infoCopy issuer:issuerCopy purpose:purposeCopy expiration:expirationCopy properties:propertiesCopy isRoot:rootCopy action:v20];
+}
+
+- (void)setShowCertificateButton:(BOOL)button localizedTitle:(id)title localizedDescription:(id)description destructive:(BOOL)destructive handler:(id)handler
+{
+  destructiveCopy = destructive;
+  buttonCopy = button;
+  handlerCopy = handler;
+  descriptionCopy = description;
+  titleCopy = title;
+  certificateViewController = [(TrustCertificateViewController *)self certificateViewController];
+  [certificateViewController setShowCertificateButton:buttonCopy localizedTitle:titleCopy localizedDescription:descriptionCopy destructive:destructiveCopy handler:handlerCopy];
 }
 
 - (TrustCertificateViewControllerDelegate)trustCertificateDelegate

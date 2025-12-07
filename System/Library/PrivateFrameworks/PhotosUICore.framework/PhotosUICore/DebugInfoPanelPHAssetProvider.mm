@@ -8,7 +8,7 @@
 {
   swift_unknownObjectRetain();
 
-  sub_1A43BF8B0();
+  sub_1A43BF8B0(container);
   swift_unknownObjectRelease();
 }
 

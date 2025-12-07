@@ -568,7 +568,7 @@ float __59__AVSampleBufferRenderSynchronizer__updateRateFromTimebase__block_invo
   return v3;
 }
 
-uint64_t __97__AVSampleBufferRenderSynchronizer_AVSampleBufferRenderSynchronizerRendererManagement__renderers__block_invoke(uint64_t a1)
+void *__97__AVSampleBufferRenderSynchronizer_AVSampleBufferRenderSynchronizerRendererManagement__renderers__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 72) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -724,7 +724,7 @@ void __107__AVSampleBufferRenderSynchronizer_AVSampleBufferRenderSynchronizerRen
   AVTelemetryIntervalEnd(&v35);
 }
 
-uint64_t __100__AVSampleBufferRenderSynchronizer_AVSampleBufferRenderSynchronizerRendererManagement__addRenderer___block_invoke(uint64_t a1)
+void *__100__AVSampleBufferRenderSynchronizer_AVSampleBufferRenderSynchronizerRendererManagement__addRenderer___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _addRenderer:*(a1 + 40) error:*(*(a1 + 56) + 8) + 40];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -890,7 +890,7 @@ void __159__AVSampleBufferRenderSynchronizer_AVSampleBufferRenderSynchronizerRen
   _Block_object_dispose(&v21, 8);
 }
 
-uint64_t __128__AVSampleBufferRenderSynchronizer_AVSampleBufferRenderSynchronizerRendererManagement__removeRenderer_atTime_completionHandler___block_invoke(uint64_t a1)
+void *__128__AVSampleBufferRenderSynchronizer_AVSampleBufferRenderSynchronizerRendererManagement__removeRenderer_atTime_completionHandler___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
@@ -999,7 +999,7 @@ LABEL_6:
   return v3;
 }
 
-uint64_t __114__AVSampleBufferRenderSynchronizer_AVSampleBufferRenderSynchronizerRendererRestrictions___addedAudioRendererCount__block_invoke(uint64_t a1)
+void *__114__AVSampleBufferRenderSynchronizer_AVSampleBufferRenderSynchronizerRendererRestrictions___addedAudioRendererCount__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _addedAudioRendererCountInternal];
   *(*(*(a1 + 40) + 8) + 24) = result;

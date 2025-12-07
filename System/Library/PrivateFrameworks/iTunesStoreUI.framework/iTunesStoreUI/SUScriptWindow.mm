@@ -150,16 +150,22 @@ uint64_t __26__SUScriptWindow_dismiss___block_invoke(uint64_t a1)
     v8 = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = v8 | 2;
+      LODWORD(v9) = v8 | 2;
     }
 
     else
     {
-      v9 = v8;
+      LODWORD(v9) = v8;
     }
 
-    result = os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_DEFAULT);
-    if (!result)
+    v10 = [v7 OSLogObject];
+    result = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    if (result)
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
@@ -168,13 +174,12 @@ uint64_t __26__SUScriptWindow_dismiss___block_invoke(uint64_t a1)
     {
       v13 = 138412290;
       v14 = objc_opt_class();
-      LODWORD(v12) = 12;
-      result = _os_log_send_and_compose_impl();
+      result = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1C21AF000, v10, 0, "%@: Ignoring iTunesWindow.dismiss because not visible", &v13, 12);
       if (result)
       {
-        v11 = result;
-        [MEMORY[0x1E696AEC0] stringWithCString:result encoding:{4, &v13, v12}];
-        free(v11);
+        v12 = result;
+        [MEMORY[0x1E696AEC0] stringWithCString:result encoding:4];
+        free(v12);
         return SSFileLog();
       }
     }
@@ -206,15 +211,21 @@ void __23__SUScriptWindow_flip___block_invoke(uint64_t a1)
     v5 = [v4 shouldLog];
     if ([v4 shouldLogToDisk])
     {
-      v6 = v5 | 2;
+      LODWORD(v6) = v5 | 2;
     }
 
     else
     {
-      v6 = v5;
+      LODWORD(v6) = v5;
     }
 
-    if (!os_log_type_enabled([v4 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    v7 = [v4 OSLogObject];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
@@ -223,13 +234,12 @@ void __23__SUScriptWindow_flip___block_invoke(uint64_t a1)
     {
       v11 = 138412290;
       v12 = objc_opt_class();
-      LODWORD(v9) = 12;
-      v7 = _os_log_send_and_compose_impl();
-      if (v7)
+      v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1C21AF000, v7, 0, "%@: Ignoring iTunesWindow.flip because not visible", &v11, 12);
+      if (v8)
       {
-        v8 = v7;
-        [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v11, v9}];
-        free(v8);
+        v9 = v8;
+        [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+        free(v9);
         SSFileLog();
       }
     }
@@ -244,7 +254,7 @@ void __23__SUScriptWindow_flip___block_invoke(uint64_t a1)
 
 void __23__SUScriptWindow_show___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) context];
   v3 = [*(a1 + 32) _backgroundViewController:1];
   if ([v3 viewControllerForScriptWindowContext:v2])
@@ -253,155 +263,169 @@ void __23__SUScriptWindow_show___block_invoke(uint64_t a1)
     v5 = [v4 shouldLog];
     if ([v4 shouldLogToDisk])
     {
-      v6 = v5 | 2;
+      LODWORD(v6) = v5 | 2;
     }
 
     else
     {
-      v6 = v5;
+      LODWORD(v6) = v5;
     }
 
-    if (!os_log_type_enabled([v4 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    v7 = [v4 OSLogObject];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
 
     if (v6)
     {
-LABEL_8:
-      v36 = 138412290;
-      v37 = objc_opt_class();
-      LODWORD(v34) = 12;
-      v7 = _os_log_send_and_compose_impl();
-      if (v7)
-      {
-        v8 = v7;
-        [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v36, v34}];
-        free(v8);
-        SSFileLog();
-      }
+      v37 = 138412290;
+      v38 = objc_opt_class();
+      v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1C21AF000, v7, 0, "%@: Ignoring iTunesWindow.show because already visible", &v37, 12);
+      goto LABEL_10;
     }
   }
 
   else
   {
-    v9 = *(a1 + 32);
-    if (*(v9 + 72) || *(v9 + 96))
+    v10 = *(a1 + 32);
+    if (*(v10 + 72) || *(v10 + 96))
     {
       if (v3)
       {
-        v10 = objc_alloc_init(SUOverlayViewController);
-        [(SUOverlayViewController *)v10 setCanSwipeToDismiss:*(*(a1 + 32) + 80)];
-        -[SUViewController setClientInterface:](v10, "setClientInterface:", [v3 clientInterface]);
-        [(SUOverlayViewController *)v10 setScriptWindowContext:v2];
-        -[SUOverlayViewController setBackViewController:](v10, "setBackViewController:", [*(*(a1 + 32) + 72) nativeViewController]);
-        -[SUOverlayViewController setFrontViewController:](v10, "setFrontViewController:", [*(*(a1 + 32) + 96) nativeViewController]);
+        v11 = objc_alloc_init(SUOverlayViewController);
+        [(SUOverlayViewController *)v11 setCanSwipeToDismiss:*(*(a1 + 32) + 80)];
+        -[SUViewController setClientInterface:](v11, "setClientInterface:", [v3 clientInterface]);
+        [(SUOverlayViewController *)v11 setScriptWindowContext:v2];
+        -[SUOverlayViewController setBackViewController:](v11, "setBackViewController:", [*(*(a1 + 32) + 72) nativeViewController]);
+        -[SUOverlayViewController setFrontViewController:](v11, "setFrontViewController:", [*(*(a1 + 32) + 96) nativeViewController]);
         [*(a1 + 32) lock];
-        v11 = *(a1 + 32);
-        if (*(v11 + 112))
+        v12 = *(a1 + 32);
+        if (*(v12 + 112))
         {
-          v12 = [[SUCanvasMaskProvider alloc] initWithFunction:*(*(a1 + 32) + 112)];
-          v11 = *(a1 + 32);
+          v13 = [[SUCanvasMaskProvider alloc] initWithFunction:*(*(a1 + 32) + 112)];
+          v12 = *(a1 + 32);
         }
 
         else
         {
-          v12 = 0;
+          v13 = 0;
         }
 
-        [(SUOverlayViewController *)v10 setShouldDismissFunction:*(v11 + 136)];
+        [(SUOverlayViewController *)v11 setShouldDismissFunction:*(v12 + 136)];
         [*(a1 + 32) unlock];
-        [(SUOverlayViewController *)v10 setMaskProvider:v12];
+        [(SUOverlayViewController *)v11 setMaskProvider:v13];
 
-        v13 = *(a1 + 32);
-        v14 = *(v13 + 120);
-        if (v14)
+        v14 = *(a1 + 32);
+        v15 = *(v14 + 120);
+        if (v15)
         {
-          [v14 floatValue];
-          [(SUOverlayViewController *)v10 setShadowOpacity:v15];
-          v13 = *(a1 + 32);
+          [v15 floatValue];
+          [(SUOverlayViewController *)v11 setShadowOpacity:v16];
+          v14 = *(a1 + 32);
         }
 
-        v16 = *(v13 + 128);
-        if (v16)
+        v17 = *(v14 + 128);
+        if (v17)
         {
-          [v16 floatValue];
-          [(SUOverlayViewController *)v10 setShadowRadius:v17];
+          [v17 floatValue];
+          [(SUOverlayViewController *)v11 setShadowRadius:v18];
         }
 
         [objc_opt_class() defaultOverlaySize];
-        v20 = v19;
-        v21 = *(a1 + 32);
-        v22 = *(v21 + 104);
-        if (v22)
+        v21 = v20;
+        v22 = *(a1 + 32);
+        v23 = *(v22 + 104);
+        if (v23)
         {
-          [v22 floatValue];
-          v24 = v23;
-          v21 = *(a1 + 32);
+          [v23 floatValue];
+          v25 = v24;
+          v22 = *(a1 + 32);
         }
 
         else
         {
-          v24 = v18;
+          v25 = v19;
         }
 
-        v25 = *(v21 + 144);
-        if (v25)
+        v26 = *(v22 + 144);
+        if (v26)
         {
-          [v25 floatValue];
-          v20 = v26;
+          [v26 floatValue];
+          v21 = v27;
         }
 
-        [(SUOverlayViewController *)v10 setOverlaySize:v20, v24];
-        v27 = [*(a1 + 32) _newOverlayTransitionWithOptions:*(a1 + 40)];
-        v28 = [v27 sourceElement];
-        if ([v28 webView])
+        [(SUOverlayViewController *)v11 setOverlaySize:v21, v25];
+        v28 = [*(a1 + 32) _newOverlayTransitionWithOptions:*(a1 + 40)];
+        v29 = [v28 sourceElement];
+        if ([v29 webView])
         {
-          v29 = objc_alloc_init(SUScrollViewScroller);
-          v30 = [objc_msgSend(v28 "webView")];
-          [(SUScrollViewScroller *)v29 attachToScrollView:v30];
-          [v28 frame];
-          [v30 convertRect:0 fromView:?];
-          v35[0] = MEMORY[0x1E69E9820];
-          v35[1] = 3221225472;
-          v35[2] = __23__SUScriptWindow_show___block_invoke_16;
-          v35[3] = &unk_1E8165198;
-          v35[4] = v3;
-          v35[5] = v10;
-          v35[6] = v27;
-          v35[7] = v29;
-          [(SUScrollViewScroller *)v29 scrollFrameToVisible:1 animated:v35 completionBlock:?];
+          v30 = objc_alloc_init(SUScrollViewScroller);
+          v31 = [objc_msgSend(v29 "webView")];
+          [(SUScrollViewScroller *)v30 attachToScrollView:v31];
+          [v29 frame];
+          [v31 convertRect:0 fromView:?];
+          v36[0] = MEMORY[0x1E69E9820];
+          v36[1] = 3221225472;
+          v36[2] = __23__SUScriptWindow_show___block_invoke_16;
+          v36[3] = &unk_1E8165198;
+          v36[4] = v3;
+          v36[5] = v11;
+          v36[6] = v28;
+          v36[7] = v30;
+          [(SUScrollViewScroller *)v30 scrollFrameToVisible:1 animated:v36 completionBlock:?];
         }
 
         else
         {
-          [v3 presentOverlay:v10 withTransition:v27];
+          [v3 presentOverlay:v11 withTransition:v28];
         }
       }
     }
 
     else
     {
-      v31 = [MEMORY[0x1E69D4938] sharedConfig];
-      v32 = [v31 shouldLog];
-      if ([v31 shouldLogToDisk])
+      v32 = [MEMORY[0x1E69D4938] sharedConfig];
+      v33 = [v32 shouldLog];
+      if ([v32 shouldLogToDisk])
       {
-        v33 = v32 | 2;
+        LODWORD(v34) = v33 | 2;
       }
 
       else
       {
-        v33 = v32;
+        LODWORD(v34) = v33;
       }
 
-      if (!os_log_type_enabled([v31 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      v35 = [v32 OSLogObject];
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
-        v33 &= 2u;
+        v34 = v34;
       }
 
-      if (v33)
+      else
       {
-        goto LABEL_8;
+        v34 &= 2u;
+      }
+
+      if (v34)
+      {
+        v37 = 138412290;
+        v38 = objc_opt_class();
+        v8 = _os_log_send_and_compose_impl(v34, 0, 0, 0, &dword_1C21AF000, v35, 0, "%@: Ignoring iTunesWindow.show because no view controllers", &v37, 12);
+LABEL_10:
+        if (v8)
+        {
+          v9 = v8;
+          [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+          free(v9);
+          SSFileLog();
+        }
       }
     }
   }
@@ -564,7 +588,7 @@ id __37__SUScriptWindow_frontViewController__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __24__SUScriptWindow_height__block_invoke(uint64_t a1)
+void *__24__SUScriptWindow_height__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _overlaySize];
   v3 = *(*(a1 + 40) + 8);
@@ -669,7 +693,7 @@ uint64_t __39__SUScriptWindow_setCanSwipeToDismiss___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __28__SUScriptWindow_setHeight___block_invoke(uint64_t a1)
+void *__28__SUScriptWindow_setHeight___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _overlayViewController:0];
   if (v2)
@@ -799,7 +823,7 @@ id __41__SUScriptWindow_setFrontViewController___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __35__SUScriptWindow_setShadowOpacity___block_invoke(uint64_t a1)
+void *__35__SUScriptWindow_setShadowOpacity___block_invoke(uint64_t a1)
 {
   [objc_msgSend(*(a1 + 32) _overlayViewController:{0), "setShadowOpacity:", *(a1 + 40)}];
 
@@ -828,7 +852,7 @@ uint64_t __35__SUScriptWindow_setShadowOpacity___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __34__SUScriptWindow_setShadowRadius___block_invoke(uint64_t a1)
+void *__34__SUScriptWindow_setShadowRadius___block_invoke(uint64_t a1)
 {
   [objc_msgSend(*(a1 + 32) _overlayViewController:{0), "setShadowRadius:", *(a1 + 40)}];
 
@@ -888,7 +912,7 @@ uint64_t __43__SUScriptWindow_setShouldDismissFunction___block_invoke(uint64_t a
   }
 }
 
-uint64_t __27__SUScriptWindow_setWidth___block_invoke(uint64_t a1)
+void *__27__SUScriptWindow_setWidth___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _overlayViewController:0];
   if (v2)
@@ -1052,7 +1076,7 @@ id __39__SUScriptWindow_shouldDismissFunction__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __23__SUScriptWindow_width__block_invoke(uint64_t a1)
+void *__23__SUScriptWindow_width__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _overlaySize];
   v3 = *(*(a1 + 40) + 8);
@@ -1091,7 +1115,7 @@ uint64_t __23__SUScriptWindow_width__block_invoke(uint64_t a1)
   return v5;
 }
 
-uint64_t __44__SUScriptWindow_windowParentViewController__block_invoke(uint64_t a1)
+void *__44__SUScriptWindow_windowParentViewController__block_invoke(uint64_t a1)
 {
   v2 = [objc_msgSend(*(a1 + 32) _backgroundViewController:{0), "parentViewController"}];
   objc_opt_class();

@@ -34,12 +34,12 @@
 
 - (id)jsonDict
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"ambientLightType";
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"ambientLightType";
   ambientLightType = self->_ambientLightType;
   if (ambientLightType >= 8)
   {
-    v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", ambientLightType, v7];
+    v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", ambientLightType, v6];
   }
 
   else
@@ -47,10 +47,8 @@
     v3 = off_278599878[ambientLightType];
   }
 
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }
@@ -93,12 +91,13 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v6 = __atxlog_handle_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      [(ATXPredictionAmbientLightContext *)self initWithProto:v6];
+      [(ATXPredictionAmbientLightContext *)self initWithProto:v7];
     }
 
     goto LABEL_7;
@@ -138,14 +137,12 @@ LABEL_8:
 
 - (void)initWithProto:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "%@: tried to initialize with a non-ATXPBPredictionAmbientLightContext proto", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "%@: tried to initialize with a non-ATXPBPredictionAmbientLightContext proto", &v5, 0xCu);
 }
 
 @end

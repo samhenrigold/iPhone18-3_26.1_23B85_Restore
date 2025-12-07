@@ -2,9 +2,9 @@
 - (BOOL)isEqual:(id)equal;
 - (_GCDevicePhysicalInputClickableDirectionPadElementParameters)init;
 - (id)copyWithZone:(_NSZone *)zone;
-- (id)pressedSources;
 - (uint64_t)eventPressedValueField;
 - (uint64_t)setEventPressedValueField:(uint64_t)result;
+- (void)pressedSources;
 - (void)setPressedSources:(void *)sources;
 @end
 
@@ -49,7 +49,7 @@
   return result;
 }
 
-- (id)pressedSources
+- (void)pressedSources
 {
   selfCopy = self;
   if (self)

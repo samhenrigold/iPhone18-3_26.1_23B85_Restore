@@ -86,50 +86,48 @@
 
 - (void)prepareFirstPhaseRecordBatch
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (self->_should2PhasePCSChain)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     objectEnumerator = [(NSMutableDictionary *)self->_halfChainedRecordMap objectEnumerator];
-    v4 = [objectEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v4 = [objectEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v12;
+      v6 = *v11;
       do
       {
         v7 = 0;
         do
         {
-          if (*v12 != v6)
+          if (*v11 != v6)
           {
             objc_enumerationMutation(objectEnumerator);
           }
 
           recordsForFirstPhase = self->_recordsForFirstPhase;
-          record = [*(*(&v11 + 1) + 8 * v7) record];
+          record = [*(*(&v10 + 1) + 8 * v7) record];
           [(NSMutableArray *)recordsForFirstPhase addObject:record];
 
           ++v7;
         }
 
         while (v5 != v7);
-        v5 = [objectEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [objectEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v5);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addFullyChainedRecordInfo:(id)info
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   defaultClientZone = [(BRCAppLibrary *)self->_appLibrary defaultClientZone];
   serverZone = [defaultClientZone serverZone];
@@ -159,25 +157,25 @@
     structuralCKInfo = [infoCopy structuralCKInfo];
     etag = [structuralCKInfo etag];
     [infoCopy contentCKInfo];
-    v43 = v63 = zoneID;
+    v43 = v62 = zoneID;
     etag2 = [v43 etag];
     parentID = [infoCopy parentID];
     debugItemIDString2 = [parentID debugItemIDString];
     *buf = 138413570;
-    v65 = debugItemIDString;
-    v66 = 2112;
-    v67 = etag;
-    v68 = 2112;
-    v69 = etag2;
-    v70 = 2112;
-    v71 = debugItemIDString2;
-    v72 = 2112;
+    v64 = debugItemIDString;
+    v65 = 2112;
+    v66 = etag;
+    v67 = 2112;
+    v68 = etag2;
+    v69 = 2112;
+    v70 = debugItemIDString2;
+    v71 = 2112;
     selfCopy = self;
-    v74 = 2112;
-    v75 = v14;
+    v73 = 2112;
+    v74 = v14;
     _os_log_debug_impl(&dword_223E7A000, v15, OS_LOG_TYPE_DEBUG, "[DEBUG] PCS chaining %@ (st:%@, ct:%@) to %@ for op %@%@", buf, 0x3Eu);
 
-    zoneID = v63;
+    zoneID = v62;
     v9 = 0x277CBC000;
   }
 
@@ -245,7 +243,7 @@ LABEL_23:
 
   if (([(NSMutableSet *)self->_alreadyHalfChainedRecords containsObject:v33]& 1) == 0)
   {
-    v62 = zoneID;
+    v61 = zoneID;
     v35 = [(NSMutableDictionary *)self->_fullyChainRecordInfoMap objectForKeyedSubscript:v33];
 
     if (v35)
@@ -254,11 +252,11 @@ LABEL_23:
     }
 
     v34 = [objc_alloc(*(v9 + 1440)) initWithRecordType:@"structure" recordID:v33];
-    v60 = [(BRCAppLibrary *)self->_appLibrary db];
+    v59 = [(BRCAppLibrary *)self->_appLibrary db];
     parentID3 = [infoCopy parentID];
     defaultClientZone4 = [(BRCAppLibrary *)self->_appLibrary defaultClientZone];
     dbRowID = [defaultClientZone4 dbRowID];
-    v39 = [v60 fetch:{@"SELECT pcs_state, item_stat_ckinfo FROM server_items WHERE item_id = %@ AND zone_rowid = %@", parentID3, dbRowID}];
+    v39 = [v59 fetch:{@"SELECT pcs_state, item_stat_ckinfo FROM server_items WHERE item_id = %@ AND zone_rowid = %@", parentID3, dbRowID}];
 
     v40 = v39;
     if ([v39 next])
@@ -266,7 +264,7 @@ LABEL_23:
       if ([v39 intAtIndex:0] < 2)
       {
         v56 = [v39 objectOfClass:objc_opt_class() atIndex:1];
-        zoneID = v62;
+        zoneID = v61;
         if (!v56)
         {
           [BRCPCSChainBatchInfo addFullyChainedRecordInfo:];
@@ -293,13 +291,11 @@ LABEL_23:
       }
     }
 
-    zoneID = v62;
+    zoneID = v61;
 LABEL_41:
 
 LABEL_42:
   }
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_chainPreppedRecordToParent:(id)parent
@@ -348,7 +344,7 @@ LABEL_42:
 
 - (void)chainPreparedRecordBatch:(id)batch
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   batchCopy = batch;
   v5 = batchCopy;
   if (self->_should2PhasePCSChain)
@@ -455,58 +451,58 @@ LABEL_42:
       [BRCPCSChainBatchInfo chainPreparedRecordBatch:];
     }
 
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     v10 = self->_fullyChainRecordBatch;
-    v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v42 objects:v47 count:16];
+    v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v41 objects:v46 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v43;
+      v13 = *v42;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v43 != v13)
+          if (*v42 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          [(BRCPCSChainBatchInfo *)self _chainPreppedRecordToParent:*(*(&v42 + 1) + 8 * i)];
+          [(BRCPCSChainBatchInfo *)self _chainPreppedRecordToParent:*(*(&v41 + 1) + 8 * i)];
         }
 
-        v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v42 objects:v47 count:16];
+        v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v41 objects:v46 count:16];
       }
 
       while (v12);
     }
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     objectEnumerator = [(NSMutableDictionary *)self->_halfChainedRecordMap objectEnumerator];
-    v15 = [objectEnumerator countByEnumeratingWithState:&v38 objects:v46 count:16];
+    v15 = [objectEnumerator countByEnumeratingWithState:&v37 objects:v45 count:16];
     if (v15)
     {
       v16 = v15;
       v17 = 0;
-      v18 = *v39;
+      v18 = *v38;
       do
       {
         v19 = 0;
         v20 = v17;
         do
         {
-          if (*v39 != v18)
+          if (*v38 != v18)
           {
             objc_enumerationMutation(objectEnumerator);
           }
 
           fullyChainRecordBatch = self->_fullyChainRecordBatch;
-          record = [*(*(&v38 + 1) + 8 * v19) record];
+          record = [*(*(&v37 + 1) + 8 * v19) record];
           v17 = v20 + 1;
           [(NSMutableArray *)fullyChainRecordBatch insertObject:record atIndex:v20];
 
@@ -515,19 +511,16 @@ LABEL_42:
         }
 
         while (v16 != v19);
-        v16 = [objectEnumerator countByEnumeratingWithState:&v38 objects:v46 count:16];
+        v16 = [objectEnumerator countByEnumeratingWithState:&v37 objects:v45 count:16];
       }
 
       while (v16);
     }
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addFullyChainedRecordInfo:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -535,22 +528,19 @@ LABEL_42:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: !_fullyChainRecordInfoMap[parentRecordID]%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: !_fullyChainRecordInfoMap[parentRecordID]%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addFullyChainedRecordInfo:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, a2, a3, "[CRIT] UNREACHABLE: No parent item?!?!%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_2(&dword_223E7A000, a2, a3, "[CRIT] UNREACHABLE: No parent item?!?!%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)addFullyChainedRecordInfo:.cold.3()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -558,22 +548,19 @@ LABEL_42:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: parentCKInfo%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: parentCKInfo%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_chainPreppedRecordToParent:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, a2, a3, "[CRIT] UNREACHABLE: unkown record type%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_2(&dword_223E7A000, a2, a3, "[CRIT] UNREACHABLE: unkown record type%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)chainPreparedRecordBatch:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -581,19 +568,15 @@ LABEL_42:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: preppedRecords.count == 0%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: preppedRecords.count == 0%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)chainPreparedRecordBatch:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_8(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)chainPreparedRecordBatch:.cold.3()
@@ -612,7 +595,6 @@ LABEL_42:
 
 - (void)chainPreparedRecordBatch:.cold.4()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -620,10 +602,8 @@ LABEL_42:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: j + _halfChainedRecordMap.count == preppedRecords.count%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: j + _halfChainedRecordMap.count == preppedRecords.count%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)chainPreparedRecordBatch:.cold.5()

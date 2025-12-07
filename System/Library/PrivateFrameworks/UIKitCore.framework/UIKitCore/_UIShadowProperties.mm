@@ -19,7 +19,7 @@
   if (v2)
   {
     [(_UIShadowProperties *)v2 setOpacity:0.0];
-    v4 = +[UIColor blackColor];
+    v4 = objc_msgSend_blackColor(UIColor);
     [(_UIShadowProperties *)v3 setColor:v4];
 
     [(_UIShadowProperties *)v3 setOffset:*MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8)];

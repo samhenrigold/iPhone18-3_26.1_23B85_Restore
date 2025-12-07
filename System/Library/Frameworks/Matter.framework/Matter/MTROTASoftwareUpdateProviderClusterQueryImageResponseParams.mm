@@ -111,11 +111,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:v6 clusterID:41 commandID:1 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v14)
   {
     sub_2393C5AAC(v13);
-    sub_2393C5ADC(v13, *(v14 + 1), *(v14 + 3));
+    sub_2393C5ADC(v13, *(v14 + 8), *(v14 + 24));
     v8 = sub_2393C6FD0(v13, 256);
     if (!v8)
     {
@@ -181,8 +181,8 @@ LABEL_6:
 
   if (*(struct + 4) == 1)
   {
-    v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*sub_238DE3698(struct + 4)];
-    [(MTROTASoftwareUpdateProviderClusterQueryImageResponseParams *)self setDelayedActionTime:v6];
+    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{*sub_238DE3698(struct + 4, v6)}];
+    [(MTROTASoftwareUpdateProviderClusterQueryImageResponseParams *)self setDelayedActionTime:v7];
   }
 
   else
@@ -192,18 +192,18 @@ LABEL_6:
 
   if (*(struct + 16) == 1)
   {
-    v7 = sub_238DE36B8(struct + 16);
-    v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v7 length:v7[1] encoding:4];
-    [(MTROTASoftwareUpdateProviderClusterQueryImageResponseParams *)self setImageURI:v8];
+    v9 = sub_238DE36B8(struct + 16, v8);
+    v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v9 length:v9[1] encoding:4];
+    [(MTROTASoftwareUpdateProviderClusterQueryImageResponseParams *)self setImageURI:v10];
 
     imageURI = [(MTROTASoftwareUpdateProviderClusterQueryImageResponseParams *)self imageURI];
 
     if (!imageURI)
     {
-      v10 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-      v11 = 0x106E00000000;
+      v13 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+      v14 = 0x106E00000000;
 LABEL_14:
-      v16 = 47;
+      v21 = 47;
       goto LABEL_26;
     }
   }
@@ -215,8 +215,8 @@ LABEL_14:
 
   if (*(struct + 40) == 1)
   {
-    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*sub_238DE3698(struct + 40)];
-    [(MTROTASoftwareUpdateProviderClusterQueryImageResponseParams *)self setSoftwareVersion:v12];
+    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{*sub_238DE3698(struct + 40, v12)}];
+    [(MTROTASoftwareUpdateProviderClusterQueryImageResponseParams *)self setSoftwareVersion:v15];
   }
 
   else
@@ -226,16 +226,16 @@ LABEL_14:
 
   if (*(struct + 48) == 1)
   {
-    v13 = sub_238DE36B8(struct + 48);
-    v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v13 length:v13[1] encoding:4];
-    [(MTROTASoftwareUpdateProviderClusterQueryImageResponseParams *)self setSoftwareVersionString:v14];
+    v17 = sub_238DE36B8(struct + 48, v16);
+    v18 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v17 length:v17[1] encoding:4];
+    [(MTROTASoftwareUpdateProviderClusterQueryImageResponseParams *)self setSoftwareVersionString:v18];
 
     softwareVersionString = [(MTROTASoftwareUpdateProviderClusterQueryImageResponseParams *)self softwareVersionString];
 
     if (!softwareVersionString)
     {
-      v10 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-      v11 = 0x108000000000;
+      v13 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+      v14 = 0x108000000000;
       goto LABEL_14;
     }
   }
@@ -247,9 +247,9 @@ LABEL_14:
 
   if (*(struct + 72) == 1)
   {
-    v17 = sub_238DE36B8(struct + 72);
-    v18 = [MEMORY[0x277CBEA90] dataWithBytes:*v17 length:v17[1]];
-    [(MTROTASoftwareUpdateProviderClusterQueryImageResponseParams *)self setUpdateToken:v18];
+    v22 = sub_238DE36B8(struct + 72, v20);
+    v23 = [MEMORY[0x277CBEA90] dataWithBytes:*v22 length:v22[1]];
+    [(MTROTASoftwareUpdateProviderClusterQueryImageResponseParams *)self setUpdateToken:v23];
   }
 
   else
@@ -259,8 +259,8 @@ LABEL_14:
 
   if (*(struct + 96) == 1)
   {
-    v19 = [MEMORY[0x277CCABB0] numberWithBool:*sub_238DE36D8(struct + 96)];
-    [(MTROTASoftwareUpdateProviderClusterQueryImageResponseParams *)self setUserConsentNeeded:v19];
+    v25 = [MEMORY[0x277CCABB0] numberWithBool:{LOBYTE(sub_238DE36D8(struct + 96, v24)->super.isa)}];
+    [(MTROTASoftwareUpdateProviderClusterQueryImageResponseParams *)self setUserConsentNeeded:v25];
   }
 
   else
@@ -268,13 +268,13 @@ LABEL_14:
     [(MTROTASoftwareUpdateProviderClusterQueryImageResponseParams *)self setUserConsentNeeded:0];
   }
 
-  v21 = *(struct + 104);
-  v20 = struct + 104;
-  if (v21 == 1)
+  v28 = *(struct + 104);
+  v27 = struct + 104;
+  if (v28 == 1)
   {
-    v22 = sub_238DE36B8(v20);
-    v23 = [MEMORY[0x277CBEA90] dataWithBytes:*v22 length:v22[1]];
-    [(MTROTASoftwareUpdateProviderClusterQueryImageResponseParams *)self setMetadataForRequestor:v23];
+    v29 = sub_238DE36B8(v27, v26);
+    v30 = [MEMORY[0x277CBEA90] dataWithBytes:*v29 length:v29[1]];
+    [(MTROTASoftwareUpdateProviderClusterQueryImageResponseParams *)self setMetadataForRequestor:v30];
   }
 
   else
@@ -282,14 +282,14 @@ LABEL_14:
     [(MTROTASoftwareUpdateProviderClusterQueryImageResponseParams *)self setMetadataForRequestor:0];
   }
 
-  v11 = 0;
-  v16 = 0;
-  v10 = 0;
+  v14 = 0;
+  v21 = 0;
+  v13 = 0;
 LABEL_26:
-  v24 = v16 | v11;
-  result.mFile = v10;
-  result.mError = v24;
-  result.mLine = HIDWORD(v24);
+  v31 = v21 | v14;
+  result.mFile = v13;
+  result.mError = v31;
+  result.mLine = HIDWORD(v31);
   return result;
 }
 

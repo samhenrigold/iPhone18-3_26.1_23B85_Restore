@@ -349,7 +349,6 @@ LABEL_39:
 
       v27 = objc_opt_class();
       v26 = NSStringFromClass(v27);
-      v28 = *&v6[*v9];
       v10 = CCSkipFieldErrorForMessage();
 LABEL_40:
 
@@ -372,22 +371,21 @@ LABEL_41:
 LABEL_46:
   if (!*&v6[*v9])
   {
-    v32 = 1;
+    v30 = 1;
     goto LABEL_50;
   }
 
 LABEL_47:
-  v29 = objc_opt_class();
-  v10 = NSStringFromClass(v29);
-  v30 = *&v6[*v9];
-  v31 = CCInvalidBufferErrorForMessage();
+  v28 = objc_opt_class();
+  v10 = NSStringFromClass(v28);
+  v29 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_48:
-  v32 = 0;
+  v30 = 0;
 LABEL_50:
 
-  return v32;
+  return v30;
 }
 
 - (CCAppIntentsExtractedEntityTransitCard)initWithProvider:(id)provider underName:(id)name number:(id)number issueDate:(id)date expirationDate:(id)expirationDate issuedBy:(id)by eventSubType:(id)type error:(id *)self0
@@ -400,12 +398,11 @@ LABEL_50:
   byCopy = by;
   typeCopy = type;
   v20 = objc_opt_new();
-  v21 = 0x1E696A000uLL;
   if (providerCopy)
   {
     objc_opt_class();
     IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
-    v23 = 0;
+    v22 = 0;
     if (!IsInstanceOfExpectedClass)
     {
       goto LABEL_25;
@@ -415,7 +412,7 @@ LABEL_50:
     if (!nameCopy)
     {
 LABEL_4:
-      v24 = v23;
+      v23 = v22;
       if (numberCopy)
       {
         goto LABEL_5;
@@ -427,7 +424,7 @@ LABEL_4:
 
   else
   {
-    v23 = 0;
+    v22 = 0;
     if (!nameCopy)
     {
       goto LABEL_4;
@@ -435,27 +432,25 @@ LABEL_4:
   }
 
   objc_opt_class();
-  v27 = CCValidateIsInstanceOfExpectedClass();
-  v24 = v23;
+  v26 = CCValidateIsInstanceOfExpectedClass();
+  v23 = v22;
 
-  if (!v27)
+  if (!v26)
   {
     goto LABEL_20;
   }
 
   CCPBDataWriterWriteStringField();
-  v21 = 0x1E696A000uLL;
   if (numberCopy)
   {
 LABEL_5:
     objc_opt_class();
-    v25 = CCValidateIsInstanceOfExpectedClass();
-    v23 = v24;
+    v24 = CCValidateIsInstanceOfExpectedClass();
+    v22 = v23;
 
-    if (v25)
+    if (v24)
     {
       CCPBDataWriterWriteStringField();
-      v21 = 0x1E696A000uLL;
       if (!dateCopy)
       {
         goto LABEL_7;
@@ -466,38 +461,37 @@ LABEL_5:
 
 LABEL_25:
     CCSetError();
-    v31 = 0;
+    v29 = 0;
     goto LABEL_26;
   }
 
 LABEL_13:
-  v23 = v24;
+  v22 = v23;
   if (!dateCopy)
   {
 LABEL_7:
-    v24 = v23;
+    v23 = v22;
     if (expirationDateCopy)
     {
       goto LABEL_8;
     }
 
 LABEL_16:
-    v23 = v24;
+    v22 = v23;
     goto LABEL_17;
   }
 
 LABEL_14:
   objc_opt_class();
-  v28 = CCValidateIsInstanceOfExpectedClass();
-  v24 = v23;
+  v27 = CCValidateIsInstanceOfExpectedClass();
+  v23 = v22;
 
-  if (!v28)
+  if (!v27)
   {
     goto LABEL_20;
   }
 
   CCPBDataWriterWriteStringField();
-  v21 = 0x1E696A000uLL;
   if (!expirationDateCopy)
   {
     goto LABEL_16;
@@ -505,52 +499,48 @@ LABEL_14:
 
 LABEL_8:
   objc_opt_class();
-  v26 = CCValidateIsInstanceOfExpectedClass();
-  v23 = v24;
+  v25 = CCValidateIsInstanceOfExpectedClass();
+  v22 = v23;
 
-  if (!v26)
+  if (!v25)
   {
     goto LABEL_25;
   }
 
   CCPBDataWriterWriteStringField();
-  v21 = 0x1E696A000;
 LABEL_17:
   if (!byCopy)
   {
-    v24 = v23;
+    v23 = v22;
     goto LABEL_22;
   }
 
-  v29 = *(v21 + 3776);
   objc_opt_class();
-  v30 = CCValidateIsInstanceOfExpectedClass();
-  v24 = v23;
+  v28 = CCValidateIsInstanceOfExpectedClass();
+  v23 = v22;
 
-  if (v30)
+  if (v28)
   {
     CCPBDataWriterWriteStringField();
-    v21 = 0x1E696A000;
 LABEL_22:
     if (!typeCopy)
     {
-      v23 = v24;
+      v22 = v23;
       goto LABEL_29;
     }
 
-    v32 = *(v21 + 3776);
     objc_opt_class();
-    v33 = CCValidateIsInstanceOfExpectedClass();
-    v23 = v24;
+    v30 = CCValidateIsInstanceOfExpectedClass();
+    v22 = v23;
 
-    if (v33)
+    if (v30)
     {
       CCPBDataWriterWriteStringField();
 LABEL_29:
       immutableData = [v20 immutableData];
-      selfCopy = [v38 initWithData:immutableData error:error];
+      selfCopy = [v35 initWithData:immutableData error:error];
 
-      v31 = selfCopy;
+      v29 = selfCopy;
       goto LABEL_27;
     }
 
@@ -559,13 +549,13 @@ LABEL_29:
 
 LABEL_20:
   CCSetError();
-  v31 = 0;
-  v23 = v24;
+  v29 = 0;
+  v22 = v23;
 LABEL_26:
   selfCopy = self;
 LABEL_27:
 
-  return v31;
+  return v29;
 }
 
 @end

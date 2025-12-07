@@ -41,7 +41,7 @@
     *(v14 + 2) = v8;
     *(v14 + 3) = v7;
     v14[32] = v11;
-    sub_21431C5DC(v10);
+    sub_21431C5DC(v10, v9, v8, v7);
     v15.receiver = v13;
     v15.super_class = v12;
     v5 = [(BlastDoorRelayGroupMutationWrapper *)&v15 init];

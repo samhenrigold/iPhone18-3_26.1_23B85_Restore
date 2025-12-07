@@ -1,5 +1,6 @@
 @interface DBGBool
 + (id)valueWithEncodedValue:(id)value format:(id)format error:(id *)error;
++ (id)withValue:(BOOL)value;
 - (DBGBool)initWithBool:(BOOL)bool;
 - (NSString)debugDescription;
 - (NSString)description;
@@ -8,6 +9,13 @@
 @end
 
 @implementation DBGBool
+
++ (id)withValue:(BOOL)value
+{
+  v3 = [[self alloc] initWithBool:value];
+
+  return v3;
+}
 
 - (DBGBool)initWithBool:(BOOL)bool
 {

@@ -58,7 +58,7 @@
   v5 = 0;
   v6 = 0;
   v7 = 0;
-  [(WBSSQLiteRow *)self uncopiedRawDataAtIndex:index];
+  objc_msgSend_uncopiedRawDataAtIndex_(self, a2, index);
   v3 = 0;
   if ((v5 & 1) == 0)
   {
@@ -73,7 +73,7 @@
   v5 = 0;
   v6 = 0;
   v7 = 0;
-  [(WBSSQLiteRow *)self uncopiedRawDataAtIndex:index];
+  objc_msgSend_uncopiedRawDataAtIndex_(self, a2, index);
   v3 = 0;
   if ((v5 & 1) == 0)
   {

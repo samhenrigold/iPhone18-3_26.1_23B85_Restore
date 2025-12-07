@@ -32,11 +32,13 @@
   return v2;
 }
 
-uint64_t __41__StockDataFormatter_sharedDataFormatter__block_invoke()
+uint64_t __41__StockDataFormatter_sharedDataFormatter__block_invoke(uint64_t a1)
 {
-  sharedDataFormatter_instance = [objc_alloc(objc_opt_class()) initPrivate];
+  v1 = [objc_alloc(objc_opt_class()) initPrivate];
+  v2 = sharedDataFormatter_instance;
+  sharedDataFormatter_instance = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (id)initPrivate
@@ -155,7 +157,7 @@ uint64_t __41__StockDataFormatter_sharedDataFormatter__block_invoke()
   return v13;
 }
 
-unint64_t __108__StockDataFormatter_formattedNumber_withPrecision_useGroupSeparator_droppingFractionDigitsIfLengthExceeds___block_invoke(uint64_t a1)
+void *__108__StockDataFormatter_formattedNumber_withPrecision_useGroupSeparator_droppingFractionDigitsIfLengthExceeds___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _locked_formatNumber:*(a1 + 40) withPrecision:*(a1 + 56) useGroupSeparator:*(a1 + 72)];
   v3 = *(*(a1 + 48) + 8);
@@ -165,9 +167,12 @@ unint64_t __108__StockDataFormatter_formattedNumber_withPrecision_useGroupSepara
   result = [*(*(*(a1 + 48) + 8) + 40) length];
   if (result > *(a1 + 64))
   {
-    *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _locked_formatNumber:*(a1 + 40) withPrecision:0 useGroupSeparator:*(a1 + 72)];
+    v6 = [*(a1 + 32) _locked_formatNumber:*(a1 + 40) withPrecision:0 useGroupSeparator:*(a1 + 72)];
+    v7 = *(*(a1 + 48) + 8);
+    v8 = *(v7 + 40);
+    *(v7 + 40) = v6;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v6, v8);
   }
 
   return result;
@@ -202,9 +207,12 @@ unint64_t __108__StockDataFormatter_formattedNumber_withPrecision_useGroupSepara
 
 uint64_t __53__StockDataFormatter_formattedPercent_withPrecision___block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _locked_formatPercent:*(a1 + 40) withPrecision:*(a1 + 56)];
+  v2 = [*(a1 + 32) _locked_formatPercent:*(a1 + 40) withPrecision:*(a1 + 56)];
+  v3 = *(*(a1 + 48) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (id)_locked_formatNumber:(id)number withPrecision:(unint64_t)precision useGroupSeparator:(BOOL)separator

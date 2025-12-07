@@ -32,7 +32,7 @@
 
 - (BOOL)shouldAcceptSafariDonation:(id)donation
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   donationCopy = donation;
   bundleId = [donationCopy bundleId];
   intentType = [donationCopy intentType];
@@ -42,14 +42,14 @@
 
     if (!action)
     {
-      webpageURL = __atxlog_handle_default();
+      webpageURL = __atxlog_handle_default(v8);
       if (os_log_type_enabled(webpageURL, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = objc_opt_class();
-        v19 = NSStringFromClass(v18);
-        v23 = 138412290;
-        v24 = v19;
-        _os_log_impl(&dword_2263AA000, webpageURL, OS_LOG_TYPE_DEFAULT, "%@ - No ATXAction found. Skipping this action.", &v23, 0xCu);
+        v21 = objc_opt_class();
+        v22 = NSStringFromClass(v21);
+        v25 = 138412290;
+        v26 = v22;
+        _os_log_impl(&dword_2263AA000, webpageURL, OS_LOG_TYPE_DEFAULT, "%@ - No ATXAction found. Skipping this action.", &v25, 0xCu);
       }
 
       goto LABEL_15;
@@ -60,60 +60,60 @@
     webpageURL = [userActivity webpageURL];
 
     absoluteString = [webpageURL absoluteString];
-    v12 = [absoluteString length];
+    v13 = [absoluteString length];
 
-    if (v12)
+    if (v13)
     {
-      if (![(ATXSafariIntentEventQualityFilter *)self shouldBlockURLForObjectionableContent:webpageURL])
+      v15 = [(ATXSafariIntentEventQualityFilter *)self shouldBlockURLForObjectionableContent:webpageURL];
+      if (!v15)
       {
-        v17 = 1;
+        v20 = 1;
         goto LABEL_16;
       }
 
-      v13 = __atxlog_handle_default();
-      if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v16 = __atxlog_handle_default(v15);
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_14;
       }
 
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
-      v23 = 138412290;
-      v24 = v15;
-      v16 = "%@ - Objectionable Safari donation found by ContextKit. Skipping this action.";
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
+      v25 = 138412290;
+      v26 = v18;
+      v19 = "%@ - Objectionable Safari donation found by ContextKit. Skipping this action.";
     }
 
     else
     {
-      v13 = __atxlog_handle_default();
-      if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v16 = __atxlog_handle_default(v14);
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_14:
 
 LABEL_15:
-        v17 = 0;
+        v20 = 0;
 LABEL_16:
 
         goto LABEL_17;
       }
 
-      v20 = objc_opt_class();
-      v15 = NSStringFromClass(v20);
-      v23 = 138412290;
-      v24 = v15;
-      v16 = "%@ - No webpageURL found. Skipping this action.";
+      v23 = objc_opt_class();
+      v18 = NSStringFromClass(v23);
+      v25 = 138412290;
+      v26 = v18;
+      v19 = "%@ - No webpageURL found. Skipping this action.";
     }
 
-    _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, v16, &v23, 0xCu);
+    _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, v19, &v25, 0xCu);
 
     goto LABEL_14;
   }
 
-  v17 = 1;
+  v20 = 1;
 LABEL_17:
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v20;
 }
 
 - (BOOL)shouldBlockURLForObjectionableContent:(id)content

@@ -97,9 +97,9 @@ LABEL_18:
 
     if (v39)
     {
-      v41 = [v38 isEqual:v39];
+      isEqual = objc_msgSend_isEqual_(v38);
 
-      if (!v41)
+      if (!isEqual)
       {
         isSpringLoaded = 0;
         v32 = v40;

@@ -1,3 +1,910 @@
+xmlChar *__cdecl xmlURIEscape(const xmlChar *str)
+{
+  v1 = str;
+  v39 = *MEMORY[0x1E69E9840];
+  if (str)
+  {
+    URI = xmlCreateURI();
+    if (!URI)
+    {
+      return 0;
+    }
+
+    v3 = URI;
+    URI->cleanup = 1;
+    if (xmlParse3986URIReference(URI, v1))
+    {
+LABEL_4:
+      xmlFreeURI(v3);
+      return 0;
+    }
+
+    if (v3->scheme)
+    {
+      v4 = xmlURIEscapeStr(v3->scheme, "+-.");
+      if (!v4)
+      {
+        xmlURIErrMemory("escaping URI value\n");
+        goto LABEL_4;
+      }
+
+      v5 = v4;
+      v6 = xmlStrcat(0, v4);
+      v1 = xmlStrcat(v6, ":");
+      free(v5);
+    }
+
+    else
+    {
+      v1 = 0;
+    }
+
+    authority = v3->authority;
+    if (authority)
+    {
+      v8 = xmlURIEscapeStr(authority, "/?;:@");
+      if (!v8)
+      {
+        goto LABEL_38;
+      }
+
+      v9 = v8;
+      v10 = xmlStrcat(v1, "//");
+      v1 = xmlStrcat(v10, v9);
+      free(v9);
+    }
+
+    user = v3->user;
+    if (user)
+    {
+      v12 = xmlURIEscapeStr(user, ";:&=+$,");
+      if (!v12)
+      {
+        goto LABEL_38;
+      }
+
+      v13 = v12;
+      v14 = xmlStrcat(v1, "//");
+      v15 = xmlStrcat(v14, v13);
+      v1 = xmlStrcat(v15, "@");
+      free(v13);
+    }
+
+    server = v3->server;
+    if (server)
+    {
+      v17 = xmlURIEscapeStr(server, "/?;:@");
+      if (!v17)
+      {
+        goto LABEL_38;
+      }
+
+      v18 = v17;
+      if (!v3->user)
+      {
+        v1 = xmlStrcat(v1, "//");
+      }
+
+      v1 = xmlStrcat(v1, v18);
+      free(v18);
+    }
+
+    port = v3->port;
+    if (port)
+    {
+      v38 = 0;
+      *__str = 0;
+      snprintf(__str, 0xAuLL, "%d", port);
+      v20 = xmlStrcat(v1, ":");
+      v1 = xmlStrcat(v20, __str);
+    }
+
+    path = v3->path;
+    if (path)
+    {
+      v22 = xmlURIEscapeStr(path, ":@&=+$,/?;");
+      if (!v22)
+      {
+        goto LABEL_38;
+      }
+
+      v23 = v22;
+      v1 = xmlStrcat(v1, v22);
+      free(v23);
+    }
+
+    if (v3->query_raw)
+    {
+      v24 = xmlStrcat(v1, "?");
+      v1 = xmlStrcat(v24, v3->query_raw);
+    }
+
+    else
+    {
+      query = v3->query;
+      if (query)
+      {
+        v33 = xmlURIEscapeStr(query, ";/?:@&=+,$");
+        if (!v33)
+        {
+          goto LABEL_38;
+        }
+
+        v34 = v33;
+        v35 = xmlStrcat(v1, "?");
+        v1 = xmlStrcat(v35, v34);
+        free(v34);
+      }
+    }
+
+    opaque = v3->opaque;
+    if (opaque)
+    {
+      v26 = xmlURIEscapeStr(opaque, "");
+      if (!v26)
+      {
+        goto LABEL_38;
+      }
+
+      v27 = v26;
+      v1 = xmlStrcat(v1, v26);
+      free(v27);
+    }
+
+    fragment = v3->fragment;
+    if (!fragment)
+    {
+LABEL_33:
+      xmlFreeURI(v3);
+      return v1;
+    }
+
+    v29 = xmlURIEscapeStr(fragment, "#");
+    if (v29)
+    {
+      v30 = v29;
+      v31 = xmlStrcat(v1, "#");
+      v1 = xmlStrcat(v31, v30);
+      free(v30);
+      goto LABEL_33;
+    }
+
+LABEL_38:
+    xmlURIErrMemory("escaping URI value\n");
+    xmlFreeURI(v3);
+    free(v1);
+    return 0;
+  }
+
+  return v1;
+}
+
+xmlChar *__cdecl xmlBuildURI(const xmlChar *URI, const xmlChar *base)
+{
+  if (!URI)
+  {
+    return 0;
+  }
+
+  v4 = *URI;
+  if (!*URI)
+  {
+    v6 = 0;
+    goto LABEL_9;
+  }
+
+  v5 = xmlCreateURI();
+  if (!v5)
+  {
+    return 0;
+  }
+
+  v6 = v5;
+  if (xmlParse3986URIReference(v5, URI))
+  {
+    v7 = 0;
+    v8 = 0;
+LABEL_6:
+    v9 = 0;
+LABEL_23:
+    xmlFreeURI(v6);
+LABEL_24:
+    if (!v8)
+    {
+      goto LABEL_26;
+    }
+
+    goto LABEL_25;
+  }
+
+  if (v6->scheme)
+  {
+    v9 = xmlStrdup(URI);
+    v7 = 0;
+    v8 = 0;
+    goto LABEL_23;
+  }
+
+LABEL_9:
+  if (base)
+  {
+    v10 = xmlCreateURI();
+    v8 = v10;
+    if (!v10)
+    {
+LABEL_21:
+      v9 = 0;
+LABEL_22:
+      v7 = 0;
+      if (!v6)
+      {
+        goto LABEL_24;
+      }
+
+      goto LABEL_23;
+    }
+
+    if (!xmlParse3986URIReference(v10, base))
+    {
+      if (v4)
+      {
+        v11 = xmlCreateURI();
+        if (v11)
+        {
+          v7 = v11;
+          if (v6->scheme)
+          {
+            v12 = v6;
+LABEL_55:
+            v9 = xmlSaveUri(v12);
+            goto LABEL_23;
+          }
+
+          path = v6->path;
+          if (path || v6->authority || v6->server)
+          {
+            if (v8->scheme)
+            {
+              v11->scheme = strdup(v8->scheme);
+            }
+
+            query_raw = v6->query_raw;
+            if (query_raw)
+            {
+              v17 = 80;
+            }
+
+            else
+            {
+              query_raw = v6->query;
+              if (!query_raw)
+              {
+                goto LABEL_44;
+              }
+
+              v17 = 56;
+            }
+
+            *(&v7->scheme + v17) = strdup(query_raw);
+LABEL_44:
+            fragment = v6->fragment;
+            if (fragment)
+            {
+              v7->fragment = strdup(fragment);
+            }
+
+            authority = v6->authority;
+            if (authority)
+            {
+              v7->authority = strdup(authority);
+              goto LABEL_52;
+            }
+
+            server = v6->server;
+            if (server)
+            {
+              v7->server = strdup(server);
+              user = v6->user;
+              if (user)
+              {
+                v7->user = strdup(user);
+              }
+
+              v7->port = v6->port;
+LABEL_52:
+              if (!path)
+              {
+LABEL_54:
+                v12 = v7;
+                goto LABEL_55;
+              }
+
+LABEL_53:
+              v7->path = strdup(path);
+              goto LABEL_54;
+            }
+
+            v22 = v8->authority;
+            if (v22)
+            {
+              v7->authority = strdup(v22);
+              goto LABEL_73;
+            }
+
+            v24 = v8->server;
+            if (v24)
+            {
+              v7->server = strdup(v24);
+            }
+
+            else if (v8->port != -1)
+            {
+              goto LABEL_73;
+            }
+
+            v25 = v8->user;
+            if (v25)
+            {
+              v7->user = strdup(v25);
+            }
+
+            v7->port = v8->port;
+LABEL_73:
+            if (path)
+            {
+              if (*path == 47)
+              {
+                goto LABEL_53;
+              }
+
+              v28 = strlen(path) + 2;
+            }
+
+            else
+            {
+              v28 = 2;
+            }
+
+            v29 = v8->path;
+            if (v29)
+            {
+              v28 += strlen(v29);
+            }
+
+            v30 = malloc_type_malloc(v28, 0x100004077774924uLL);
+            v7->path = v30;
+            if (!v30)
+            {
+              xmlURIErrMemory("resolving URI against base\n");
+              goto LABEL_6;
+            }
+
+            *v30 = 0;
+            v31 = v8->path;
+            if (v31)
+            {
+              v32 = *v31;
+              if (*v31)
+              {
+                v33 = 0;
+                v34 = 0;
+                do
+                {
+                  v35 = v34;
+                  for (i = v34 - v33 + 1; ; ++i)
+                  {
+                    if (!v31[v35])
+                    {
+                      v32 = v33;
+                      goto LABEL_97;
+                    }
+
+                    if (v31[v35] == 47)
+                    {
+                      break;
+                    }
+
+                    ++v35;
+                  }
+
+                  v34 = v35 + 1;
+                  if (v33 <= v35)
+                  {
+                    v32 = v35 + 1;
+                    v37 = v33;
+                    do
+                    {
+                      v7->path[v37] = v8->path[v37];
+                      ++v37;
+                      --i;
+                    }
+
+                    while (i);
+                    v31 = v8->path;
+                    v33 = v34;
+                  }
+
+                  else
+                  {
+                    v32 = v33;
+                  }
+                }
+
+                while (v31[v34]);
+              }
+            }
+
+            else
+            {
+              v32 = 0;
+            }
+
+LABEL_97:
+            v7->path[v32] = 0;
+            v38 = v6->path;
+            if (v38)
+            {
+              v39 = *v38;
+              if (v39)
+              {
+                if (v32)
+                {
+                  goto LABEL_100;
+                }
+
+                if (v8->server)
+                {
+                  *v7->path = 47;
+                  LOBYTE(v39) = *v6->path;
+                  v32 = 1;
+                  if (!v39)
+                  {
+                    goto LABEL_103;
+                  }
+                }
+
+                else
+                {
+                  v32 = 0;
+                }
+
+LABEL_100:
+                v40 = 0;
+                do
+                {
+                  v7->path[v32 + v40] = v39;
+                  v41 = &v6->path[v40++];
+                  v39 = v41[1];
+                }
+
+                while (v39);
+                v32 += v40;
+              }
+            }
+
+LABEL_103:
+            v7->path[v32] = 0;
+            xmlNormalizeURIPath(v7->path);
+            goto LABEL_54;
+          }
+
+          if (v8->scheme)
+          {
+            v11->scheme = strdup(v8->scheme);
+          }
+
+          v23 = v8->authority;
+          if (v23)
+          {
+            v7->authority = strdup(v23);
+            goto LABEL_108;
+          }
+
+          v26 = v8->server;
+          if (v26)
+          {
+            v7->server = strdup(v26);
+          }
+
+          else if (v8->port != -1)
+          {
+            goto LABEL_108;
+          }
+
+          v27 = v8->user;
+          if (v27)
+          {
+            v7->user = strdup(v27);
+          }
+
+          v7->port = v8->port;
+LABEL_108:
+          v42 = v8->path;
+          if (v42)
+          {
+            v7->path = strdup(v42);
+          }
+
+          query = v6->query_raw;
+          if (query)
+          {
+            goto LABEL_111;
+          }
+
+          query = v6->query;
+          if (!query)
+          {
+            query = v8->query_raw;
+            if (query)
+            {
+LABEL_111:
+              v44 = 80;
+LABEL_114:
+              *(&v7->scheme + v44) = strdup(query);
+              goto LABEL_115;
+            }
+
+            query = v8->query;
+            if (!query)
+            {
+LABEL_115:
+              v45 = v6->fragment;
+              if (v45)
+              {
+                v7->fragment = strdup(v45);
+              }
+
+              goto LABEL_54;
+            }
+          }
+
+          v44 = 56;
+          goto LABEL_114;
+        }
+
+        goto LABEL_21;
+      }
+
+      v14 = v8->fragment;
+      if (v14)
+      {
+        free(v14);
+        v8->fragment = 0;
+      }
+
+      v9 = xmlSaveUri(v8);
+      v7 = 0;
+LABEL_25:
+      xmlFreeURI(v8);
+      goto LABEL_26;
+    }
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  if (v4)
+  {
+    v9 = xmlSaveUri(v6);
+    goto LABEL_22;
+  }
+
+  v7 = 0;
+  v9 = 0;
+  if (v8)
+  {
+    goto LABEL_25;
+  }
+
+LABEL_26:
+  if (v7)
+  {
+    xmlFreeURI(v7);
+  }
+
+  return v9;
+}
+
+xmlChar *__cdecl xmlBuildRelativeURI(const xmlChar *URI, const xmlChar *base)
+{
+  if (URI)
+  {
+    v2 = URI;
+    if (*URI)
+    {
+      v4 = xmlCreateURI();
+      if (v4)
+      {
+        v5 = v4;
+        if (*v2 == 46)
+        {
+          v4->path = xmlStrdup(v2);
+        }
+
+        else if (xmlParse3986URIReference(v4, v2))
+        {
+          goto LABEL_14;
+        }
+
+        if (!base || !*base)
+        {
+          v6 = xmlStrdup(v2);
+LABEL_15:
+          v8 = v5;
+LABEL_16:
+          xmlFreeURI(v8);
+          return v6;
+        }
+
+        v7 = xmlCreateURI();
+        if (v7)
+        {
+          v8 = v7;
+          if (*base == 46)
+          {
+            v7->path = xmlStrdup(base);
+          }
+
+          else if (xmlParse3986URIReference(v7, base))
+          {
+            v6 = 0;
+LABEL_36:
+            xmlFreeURI(v5);
+            goto LABEL_16;
+          }
+
+          if (v5->scheme && (!v8->scheme || xmlStrcmp(v8->scheme, v5->scheme) || xmlStrcmp(v8->server, v5->server)))
+          {
+            goto LABEL_34;
+          }
+
+          if (xmlStrEqual(v8->path, v5->path))
+          {
+            v10 = "";
+LABEL_35:
+            v6 = xmlStrdup(v10);
+            goto LABEL_36;
+          }
+
+          path = v8->path;
+          v2 = v5->path;
+          if (!path)
+          {
+LABEL_34:
+            v10 = v2;
+            goto LABEL_35;
+          }
+
+          v12 = v5->path;
+          if (!v2)
+          {
+            v12 = "/";
+            v5->path = "/";
+            path = v8->path;
+          }
+
+          if (*v12 == 46)
+          {
+            v12 += 2 * (v12[1] == 47);
+          }
+
+          v13 = *path;
+          if (v13 == 47)
+          {
+            if (*v12 != 47)
+            {
+              ++path;
+            }
+          }
+
+          else if (v13 == 46)
+          {
+            path += 2 * (path[1] == 47);
+          }
+
+          v14 = 0;
+          do
+          {
+            v15 = path[v14];
+            v16 = v12[v14++];
+            if (v15)
+            {
+              v17 = v15 == v16;
+            }
+
+            else
+            {
+              v17 = 0;
+            }
+          }
+
+          while (v17);
+          if (v15 == v16)
+          {
+            v18 = "";
+          }
+
+          else
+          {
+            while (1)
+            {
+              v20 = v14 - 1;
+              if (v14 - 1 < 1)
+              {
+                break;
+              }
+
+              v21 = v12[v14-- - 2];
+              v22 = v20;
+              if (v21 == 47)
+              {
+                goto LABEL_53;
+              }
+            }
+
+            v22 = 0;
+LABEL_53:
+            v23 = 0;
+            v24 = &path[v20 & ~(v20 >> 63)];
+            do
+            {
+              while (1)
+              {
+                v26 = *v24++;
+                v25 = v26;
+                if (v26 != 47)
+                {
+                  break;
+                }
+
+                ++v23;
+              }
+            }
+
+            while (v25);
+            v27 = &v12[v22];
+            if (v23)
+            {
+              v28 = xmlStrlen(&v12[v22]);
+              if ((v23 & 0x80000000) != 0 || v28 < -1 || (v29 = v28, v23 > (2147483646 - v28) / 3u) || (v30 = (v28 + 1), (v31 = malloc_type_malloc(v30 + 3 * v23, 0x100004077774924uLL)) == 0))
+              {
+                xmlURIErrMemory("building relative URI\n");
+                v6 = 0;
+                if (v2)
+                {
+                  goto LABEL_36;
+                }
+              }
+
+              else
+              {
+                v32 = v31;
+                v33 = v23 + 1;
+                v34 = v31;
+                do
+                {
+                  *v34 = 11822;
+                  v34[2] = 47;
+                  v34 += 3;
+                  --v33;
+                }
+
+                while (v33 > 1);
+                if (v34 <= v31 || (v29 & 0x80000000) != 0 || *v27 != 47)
+                {
+                  memcpy(v34, v27, v30);
+                  v35 = &v34[v29];
+                }
+
+                else
+                {
+                  memcpy(v34, v27 + 1, v29);
+                  v35 = &v34[v29 - 1];
+                }
+
+                *v35 = 0;
+                v6 = xmlURIEscapeStr(v32, "/;&=+$,");
+                free(v32);
+                if (v2)
+                {
+                  goto LABEL_36;
+                }
+              }
+
+              goto LABEL_70;
+            }
+
+            if (*v27)
+            {
+              xmlStrlen(v27);
+              v19 = xmlURIEscapeStr(v27, "/;&=+$,");
+LABEL_47:
+              v6 = v19;
+              if (v2)
+              {
+                goto LABEL_36;
+              }
+
+LABEL_70:
+              v5->path = 0;
+              goto LABEL_36;
+            }
+
+            v18 = "./";
+          }
+
+          v19 = xmlStrdup(v18);
+          goto LABEL_47;
+        }
+
+LABEL_14:
+        v6 = 0;
+        goto LABEL_15;
+      }
+    }
+  }
+
+  return 0;
+}
+
+xmlChar *__cdecl xmlCanonicPath(const xmlChar *path)
+{
+  if (path)
+  {
+    v1 = path;
+    if (*path == 47 && path[1] == 47 && path[2] != 47)
+    {
+      v1 = path + 1;
+    }
+
+    v2 = xmlParseURI(v1);
+    if (v2)
+    {
+      xmlFreeURI(v2);
+    }
+
+    else
+    {
+      v5 = xmlStrstr(v1, "://");
+      if (v5 && (v5 - v1 - 21) >= 0xFFFFFFEC)
+      {
+        v6 = 0;
+        while ((v1[v6] & 0xDFu) - 65 < 0x1A)
+        {
+          if (((v5 - v1) & 0x7FFFFFFF) == ++v6)
+          {
+            v7 = xmlURIEscapeStr(v1, ":/?_.#&;=");
+            if (!v7)
+            {
+              break;
+            }
+
+            v4 = v7;
+            v8 = xmlParseURI(v7);
+            if (v8)
+            {
+              xmlFreeURI(v8);
+              return v4;
+            }
+
+            free(v4);
+            break;
+          }
+        }
+      }
+    }
+
+    return xmlStrdup(v1);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
 uint64_t xmlParse3986Query(uint64_t a1, const xmlChar **a2)
 {
   if (!a2)
@@ -213,7 +1120,7 @@ uint64_t xmlParse3986PathAbsolute(uint64_t a1, unsigned __int8 **a2)
     return 1;
   }
 
-  v11 = v2 + 1;
+  v11 = (v2 + 1);
   if (!xmlParse3986Segment(&v11, 0, 0))
   {
     while (*v11 == 47)
@@ -317,80 +1224,79 @@ LABEL_11:
 
 int xmlValidBuildContentModel(xmlValidCtxtPtr ctxt, xmlElementPtr elem)
 {
-  v3 = MEMORY[0x1EEE9AC00](ctxt, elem);
+  v3 = MEMORY[0x1EEE9AC00](ctxt);
   result = 0;
-  v11 = *MEMORY[0x1E69E9840];
-  if (v3)
+  v10 = *MEMORY[0x1E69E9840];
+  if (!v3)
   {
-    v5 = v2;
-    if (v2)
-    {
-      if (*(v2 + 8) == 15)
-      {
-        if (*(v2 + 72) != 4)
-        {
-LABEL_7:
-          result = 1;
-          goto LABEL_15;
-        }
-
-        v6 = *(v2 + 104);
-        if (v6)
-        {
-          result = xmlRegexpIsDeterminist(v6);
-          if (!result)
-          {
-            *(v3 + 64) = 0;
-            goto LABEL_15;
-          }
-
-          goto LABEL_7;
-        }
-
-        v7 = xmlNewAutomata();
-        *(v3 + 96) = v7;
-        if (v7)
-        {
-          *(v3 + 104) = xmlAutomataGetInitState(v7);
-          if (xmlValidBuildAContentModel(*(v5 + 80), v3, *(v5 + 16)))
-          {
-            xmlAutomataSetFinalState(*(v3 + 96), *(v3 + 104));
-            v8 = xmlAutomataCompile(*(v3 + 96));
-            *(v5 + 104) = v8;
-            if (xmlRegexpIsDeterminist(v8) == 1)
-            {
-              *(v3 + 104) = 0;
-              xmlFreeAutomata(*(v3 + 96));
-              *(v3 + 96) = 0;
-              goto LABEL_7;
-            }
-
-            bzero(v10, 0x1388uLL);
-            xmlSnprintfElementContent(v10, 5000, *(v5 + 80), 1);
-            xmlErrValidNode(v3, v5, 505, "Content model of %s is not determinist: %s\n", *(v5 + 16), v10, 0);
-            *(v3 + 64) = 0;
-          }
-
-          *(v3 + 104) = 0;
-          xmlFreeAutomata(*(v3 + 96));
-          result = 0;
-          *(v3 + 96) = 0;
-          goto LABEL_15;
-        }
-
-        xmlErrValidNode(v3, v5, 1, "Cannot create automata for element %s\n", *(v5 + 16), 0, 0);
-      }
-
-      result = 0;
-    }
+    return result;
   }
 
-LABEL_15:
-  v9 = *MEMORY[0x1E69E9840];
+  v5 = v2;
+  if (!v2)
+  {
+    return result;
+  }
+
+  if (*(v2 + 8) != 15)
+  {
+    return 0;
+  }
+
+  if (*(v2 + 72) != 4)
+  {
+    return 1;
+  }
+
+  v6 = *(v2 + 104);
+  if (!v6)
+  {
+    v7 = xmlNewAutomata();
+    *(v3 + 96) = v7;
+    if (v7)
+    {
+      *(v3 + 104) = xmlAutomataGetInitState(v7);
+      if (xmlValidBuildAContentModel(*(v5 + 80), v3, *(v5 + 16)))
+      {
+        xmlAutomataSetFinalState(*(v3 + 96), *(v3 + 104));
+        v8 = xmlAutomataCompile(*(v3 + 96));
+        *(v5 + 104) = v8;
+        if (xmlRegexpIsDeterminist(v8) == 1)
+        {
+          *(v3 + 104) = 0;
+          xmlFreeAutomata(*(v3 + 96));
+          *(v3 + 96) = 0;
+          return 1;
+        }
+
+        bzero(v9, 0x1388uLL);
+        xmlSnprintfElementContent(v9, 5000, *(v5 + 80), 1);
+        xmlErrValidNode(v3, v5, 505, "Content model of %s is not determinist: %s\n", *(v5 + 16), v9, 0);
+        *(v3 + 64) = 0;
+      }
+
+      *(v3 + 104) = 0;
+      xmlFreeAutomata(*(v3 + 96));
+      result = 0;
+      *(v3 + 96) = 0;
+      return result;
+    }
+
+    xmlErrValidNode(v3, v5, 1, "Cannot create automata for element %s\n", *(v5 + 16), 0, 0);
+    return 0;
+  }
+
+  result = xmlRegexpIsDeterminist(v6);
+  if (result)
+  {
+    return 1;
+  }
+
+  *(v3 + 64) = 0;
   return result;
 }
 
-_DWORD *xmlErrValidNode(uint64_t a1, uint64_t a2, int a3, const char *a4, const xmlChar *a5, xmlChar *a6, xmlChar *a7)
+xmlError *xmlErrValidNode(uint64_t a1, uint64_t a2, int a3, const char *a4, const xmlChar *a5, xmlChar *a6, xmlChar *a7)
 {
   if (a1)
   {
@@ -419,13 +1325,13 @@ _DWORD *xmlErrValidNode(uint64_t a1, uint64_t a2, int a3, const char *a4, const 
 
 uint64_t xmlValidBuildAContentModel(uint64_t a1, uint64_t a2, const xmlChar *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     v12 = "Found NULL content in content model of %s\n";
 LABEL_17:
     xmlErrValidNode(a2, 0, 1, v12, a3, 0, 0);
-    goto LABEL_18;
+    return 0;
   }
 
   v5 = a1;
@@ -447,7 +1353,7 @@ LABEL_17:
         result = xmlValidBuildAContentModel(*(v5 + 16), a2, a3);
         if (!result)
         {
-          goto LABEL_56;
+          return result;
         }
 
         v5 = *(v5 + 24);
@@ -457,7 +1363,7 @@ LABEL_17:
       result = xmlValidBuildAContentModel(v5, a2, a3);
       if (!result)
       {
-        goto LABEL_56;
+        return result;
       }
 
       v17 = *(a2 + 104);
@@ -473,7 +1379,7 @@ LABEL_17:
             goto LABEL_38;
           }
 
-          goto LABEL_55;
+          return 1;
         }
 
         xmlAutomataNewEpsilon(*(a2 + 96), v14, v18);
@@ -507,7 +1413,7 @@ LABEL_53:
         result = xmlValidBuildAContentModel(*(v5 + 16), a2, a3);
         if (!result)
         {
-          goto LABEL_56;
+          return result;
         }
 
         xmlAutomataNewEpsilon(*(a2 + 96), *(a2 + 104), v20);
@@ -519,7 +1425,7 @@ LABEL_53:
       result = xmlValidBuildAContentModel(v5, a2, a3);
       if (!result)
       {
-        goto LABEL_56;
+        return result;
       }
 
       xmlAutomataNewEpsilon(*(a2 + 96), *(a2 + 104), v20);
@@ -532,7 +1438,7 @@ LABEL_53:
         {
           if (v13 != 2)
           {
-            goto LABEL_55;
+            return 1;
           }
 
 LABEL_38:
@@ -540,7 +1446,7 @@ LABEL_38:
           v23 = v14;
 LABEL_54:
           xmlAutomataNewEpsilon(v22, v23, v19);
-          goto LABEL_55;
+          return 1;
         }
 
         xmlAutomataNewEpsilon(*(a2 + 96), v14, v21);
@@ -564,68 +1470,62 @@ LABEL_54:
   {
 LABEL_15:
     xmlErrValid_0(a2, 1, "ContentModel broken for element %s\n", a3);
-    goto LABEL_18;
+    return 0;
   }
 
   v7 = *(a2 + 104);
-  v27 = 0;
-  memset(v26, 0, sizeof(v26));
-  v8 = xmlBuildQName(*(a1 + 8), *(a1 + 40), v26, 50);
-  if (v8)
+  v26 = 0;
+  memset(v25, 0, sizeof(v25));
+  v8 = xmlBuildQName(*(a1 + 8), *(a1 + 40), v25, 50);
+  if (!v8)
   {
-    v9 = v8;
-    v10 = *(v5 + 4);
-    if (v10 <= 2)
+    xmlVErrMemory(a2, "Building content model");
+    return 0;
+  }
+
+  v9 = v8;
+  v10 = *(v5 + 4);
+  if (v10 <= 2)
+  {
+    if (v10 == 1)
     {
-      if (v10 == 1)
-      {
-        *(a2 + 104) = xmlAutomataNewTransition(*(a2 + 96), *(a2 + 104), 0, v8, 0);
-      }
-
-      else if (v10 == 2)
-      {
-        v11 = xmlAutomataNewTransition(*(a2 + 96), *(a2 + 104), 0, v8, 0);
-        *(a2 + 104) = v11;
-        xmlAutomataNewEpsilon(*(a2 + 96), v7, v11);
-      }
-
-      goto LABEL_46;
+      *(a2 + 104) = xmlAutomataNewTransition(*(a2 + 96), *(a2 + 104), 0, v8, 0);
     }
 
-    if (v10 == 3)
+    else if (v10 == 2)
     {
-      v24 = xmlAutomataNewEpsilon(*(a2 + 96), *(a2 + 104), 0);
+      v11 = xmlAutomataNewTransition(*(a2 + 96), *(a2 + 104), 0, v8, 0);
+      *(a2 + 104) = v11;
+      xmlAutomataNewEpsilon(*(a2 + 96), v7, v11);
     }
 
-    else
-    {
-      if (v10 != 4)
-      {
-LABEL_46:
-        if (v9 != v26 && v9 != *(v5 + 8))
-        {
-          free(v9);
-        }
-
-LABEL_55:
-        result = 1;
-        goto LABEL_56;
-      }
-
-      v24 = xmlAutomataNewTransition(*(a2 + 96), *(a2 + 104), 0, v8, 0);
-    }
-
-    *(a2 + 104) = v24;
-    xmlAutomataNewTransition(*(a2 + 96), v24, v24, v9, 0);
     goto LABEL_46;
   }
 
-  xmlVErrMemory(a2, "Building content model");
-LABEL_18:
-  result = 0;
-LABEL_56:
-  v25 = *MEMORY[0x1E69E9840];
-  return result;
+  if (v10 == 3)
+  {
+    v24 = xmlAutomataNewEpsilon(*(a2 + 96), *(a2 + 104), 0);
+  }
+
+  else
+  {
+    if (v10 != 4)
+    {
+      goto LABEL_46;
+    }
+
+    v24 = xmlAutomataNewTransition(*(a2 + 96), *(a2 + 104), 0, v8, 0);
+  }
+
+  *(a2 + 104) = v24;
+  xmlAutomataNewTransition(*(a2 + 96), v24, v24, v9, 0);
+LABEL_46:
+  if (v9 != v25 && v9 != *(v5 + 8))
+  {
+    free(v9);
+  }
+
+  return 1;
 }
 
 void xmlSnprintfElementContent(char *buf, int size, xmlElementContentPtr content, int englob)
@@ -798,7 +1698,7 @@ xmlValidCtxtPtr xmlNewValidCtxt(void)
   return v1;
 }
 
-_DWORD *xmlVErrMemory(uint64_t a1, const xmlChar *a2)
+xmlError *xmlVErrMemory(uint64_t a1, const xmlChar *a2)
 {
   if (a1)
   {
@@ -945,7 +1845,7 @@ LABEL_25:
   return v8;
 }
 
-_DWORD *xmlErrValid_0(uint64_t a1, int a2, const char *a3, const xmlChar *a4)
+xmlError *xmlErrValid_0(uint64_t a1, int a2, const char *a3, const xmlChar *a4)
 {
   if (a1)
   {
@@ -1728,7 +2628,7 @@ void xmlDumpElementContent(xmlBuffer *a1, int *a2)
           xmlBufferWriteChar(a1, off_1E82C5E70[v10]);
         }
 
-        v11 = v4 == v9[2];
+        v11 = v4 == *(v9 + 16);
         v4 = v9;
       }
 
@@ -1743,7 +2643,7 @@ void xmlDumpElementContent(xmlBuffer *a1, int *a2)
         if (*v9 != 4)
         {
 LABEL_33:
-          v7 = v9 + 3;
+          v7 = (v9 + 24);
           goto LABEL_34;
         }
 
@@ -2154,7 +3054,7 @@ uint64_t xmlValidateAttributeValueInternal(uint64_t a1, int a2, const xmlChar *a
   return 1;
 }
 
-_DWORD *xmlErrValidWarning(uint64_t a1, uint64_t a2, int a3, const char *a4, const xmlChar *a5, xmlChar *a6, xmlChar *a7)
+xmlError *xmlErrValidWarning(uint64_t a1, uint64_t a2, int a3, const char *a4, const xmlChar *a5, xmlChar *a6, xmlChar *a7)
 {
   if (a1)
   {
@@ -3507,10 +4407,10 @@ uint64_t xmlValidateNmtokensValueInternal(uint64_t a1, const xmlChar *a2)
 xmlChar *__cdecl xmlValidCtxtNormalizeAttributeValue(xmlValidCtxtPtr ctxt, xmlDocPtr doc, xmlNodePtr elem, const xmlChar *name, const xmlChar *value)
 {
   v5 = 0;
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (!doc || !elem || !name || !value)
   {
-    goto LABEL_25;
+    return v5;
   }
 
   ns = elem->ns;
@@ -3520,12 +4420,12 @@ xmlChar *__cdecl xmlValidCtxtNormalizeAttributeValue(xmlValidCtxtPtr ctxt, xmlDo
     goto LABEL_12;
   }
 
-  v24 = 0;
-  memset(v23, 0, sizeof(v23));
-  v5 = xmlBuildQName(elem->name, prefix, v23, 50);
+  v23 = 0;
+  memset(v22, 0, sizeof(v22));
+  v5 = xmlBuildQName(elem->name, prefix, v22, 50);
   if (!v5)
   {
-    goto LABEL_25;
+    return v5;
   }
 
   DtdAttrDesc = xmlGetDtdAttrDesc(doc->intSubset, v5, name);
@@ -3549,7 +4449,7 @@ xmlChar *__cdecl xmlValidCtxtNormalizeAttributeValue(xmlValidCtxtPtr ctxt, xmlDo
 
   v15 = 0;
 LABEL_19:
-  if (v5 != v23 && v5 != elem->name)
+  if (v5 != v22 && v5 != elem->name)
   {
     free(v5);
   }
@@ -3563,13 +4463,13 @@ LABEL_12:
       v17 = doc->extSubset;
       if (!v17)
       {
-        goto LABEL_24;
+        return 0;
       }
 
       v18 = xmlGetDtdAttrDesc(v17, elem->name, name);
       if (!v18)
       {
-        goto LABEL_24;
+        return 0;
       }
 
       v14 = v18;
@@ -3579,16 +4479,14 @@ LABEL_12:
 
   if (v14->atype == XML_ATTRIBUTE_CDATA)
   {
-LABEL_24:
-    v5 = 0;
-    goto LABEL_25;
+    return 0;
   }
 
-  v22 = xmlStrdup(value);
-  v5 = v22;
-  if (v22)
+  v21 = xmlStrdup(value);
+  v5 = v21;
+  if (v21)
   {
-    xmlValidNormalizeString(v22);
+    xmlValidNormalizeString(v21);
     if (v15 && doc->standalone && !xmlStrEqual(value, v5))
     {
       xmlErrValidNode(ctxt, elem, 530, "standalone: %s on %s value had to be normalized based on external subset declaration\n", name, elem->name, 0);
@@ -3596,18 +4494,16 @@ LABEL_24:
     }
   }
 
-LABEL_25:
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 xmlChar *__cdecl xmlValidNormalizeAttributeValue(xmlDocPtr doc, xmlNodePtr elem, const xmlChar *name, const xmlChar *value)
 {
   v4 = 0;
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (!doc || !elem || !name || !value)
   {
-    goto LABEL_18;
+    return v4;
   }
 
   ns = elem->ns;
@@ -3616,17 +4512,15 @@ xmlChar *__cdecl xmlValidNormalizeAttributeValue(xmlDocPtr doc, xmlNodePtr elem,
     prefix = ns->prefix;
     if (prefix)
     {
-      v18 = 0;
-      memset(v17, 0, sizeof(v17));
-      v11 = xmlBuildQName(elem->name, prefix, v17, 50);
+      v17 = 0;
+      memset(v16, 0, sizeof(v16));
+      v11 = xmlBuildQName(elem->name, prefix, v16, 50);
       if (!v11)
       {
-LABEL_17:
-        v4 = 0;
-        goto LABEL_18;
+        return 0;
       }
 
-      if (v11 != v17 && v11 != elem->name)
+      if (v11 != v16 && v11 != elem->name)
       {
         free(v11);
       }
@@ -3639,19 +4533,19 @@ LABEL_17:
     extSubset = doc->extSubset;
     if (!extSubset)
     {
-      goto LABEL_17;
+      return 0;
     }
 
     DtdAttrDesc = xmlGetDtdAttrDesc(extSubset, elem->name, name);
     if (!DtdAttrDesc)
     {
-      goto LABEL_17;
+      return 0;
     }
   }
 
   if (DtdAttrDesc->atype == XML_ATTRIBUTE_CDATA)
   {
-    goto LABEL_17;
+    return 0;
   }
 
   v13 = xmlStrdup(value);
@@ -3661,8 +4555,6 @@ LABEL_17:
     xmlValidNormalizeString(v13);
   }
 
-LABEL_18:
-  v15 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -3826,7 +4718,7 @@ uint64_t xmlValidateAttributeIdCallback(uint64_t result, _DWORD *a2)
   return result;
 }
 
-_DWORD *xmlErrValidNodeNr(uint64_t a1, uint64_t a2, int a3, const char *a4, const xmlChar *a5, int a6, xmlChar *cur)
+xmlError *xmlErrValidNodeNr(uint64_t a1, uint64_t a2, int a3, const char *a4, const xmlChar *a5, int a6, xmlChar *cur)
 {
   if (a1)
   {
@@ -4020,7 +4912,7 @@ LABEL_29:
 
 int xmlValidateOneAttribute(xmlValidCtxtPtr ctxt, xmlDocPtr doc, xmlNodePtr elem, xmlAttrPtr attr, const xmlChar *value)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   if (!doc)
   {
     goto LABEL_44;
@@ -4039,38 +4931,38 @@ int xmlValidateOneAttribute(xmlValidCtxtPtr ctxt, xmlDocPtr doc, xmlNodePtr elem
     LODWORD(v10) = 0;
     if (!elem || !doc->extSubset)
     {
-      goto LABEL_45;
+      return v10;
     }
   }
 
   LODWORD(v10) = 0;
   if (!attr)
   {
-    goto LABEL_45;
+    return v10;
   }
 
   name = elem->name;
   if (!name)
   {
-    goto LABEL_45;
+    return v10;
   }
 
   if (!attr->name)
   {
 LABEL_44:
     LODWORD(v10) = 0;
-    goto LABEL_45;
+    return v10;
   }
 
   ns = elem->ns;
   if (ns && ns->prefix)
   {
-    v42 = 0;
-    memset(v41, 0, sizeof(v41));
-    v10 = xmlBuildQName(name, ns->prefix, v41, 50);
+    v41 = 0;
+    memset(v40, 0, sizeof(v40));
+    v10 = xmlBuildQName(name, ns->prefix, v40, 50);
     if (!v10)
     {
-      goto LABEL_45;
+      return v10;
     }
 
     v13 = v10;
@@ -4101,7 +4993,7 @@ LABEL_44:
 LABEL_23:
           v21 = DtdAttrDesc;
 LABEL_25:
-          if (v13 != v41 && v13 != elem->name)
+          if (v13 != v40 && v13 != elem->name)
           {
             free(v13);
           }
@@ -4202,47 +5094,47 @@ LABEL_41:
     v31 = 0;
   }
 
-  v33 = *(v21 + 20);
-  if (v33 == 2)
+  v32 = *(v21 + 20);
+  if (v32 == 2)
   {
     if (!xmlAddID(ctxt, doc, value, attr))
     {
       v31 = 0;
     }
 
-    v33 = *(v21 + 20);
+    v32 = *(v21 + 20);
   }
 
-  if ((v33 - 3) <= 1)
+  if ((v32 - 3) <= 1)
   {
     if (!xmlAddRef(ctxt, doc, value, attr))
     {
       v31 = 0;
     }
 
-    v33 = *(v21 + 20);
+    v32 = *(v21 + 20);
   }
 
-  if (v33 == 10)
+  if (v32 == 10)
   {
-    v34 = *(v21 + 12);
-    v35 = doc->intSubset;
-    if (!v35 || (v36 = v35->notations) == 0 || !xmlHashLookup(v36, value))
+    v33 = *(v21 + 12);
+    v34 = doc->intSubset;
+    if (!v34 || (v35 = v34->notations) == 0 || !xmlHashLookup(v35, value))
     {
-      v37 = doc->extSubset;
-      if (!v37 || (notations = v37->notations) == 0 || !xmlHashLookup(notations, value))
+      v36 = doc->extSubset;
+      if (!v36 || (notations = v36->notations) == 0 || !xmlHashLookup(notations, value))
       {
         xmlErrValidNode(ctxt, elem, 537, "Value %s for attribute %s of %s is not a declared Notation\n", value, attr->name, elem->name);
         v31 = 0;
       }
     }
 
-    if (v34)
+    if (v33)
     {
-      while (!xmlStrEqual(v34[1], value))
+      while (!xmlStrEqual(v33[1], value))
       {
-        v34 = *v34;
-        if (!v34)
+        v33 = *v33;
+        if (!v33)
         {
           goto LABEL_69;
         }
@@ -4259,16 +5151,16 @@ LABEL_69:
 
   if (*(v21 + 20) == 9)
   {
-    v39 = (v21 + 96);
+    v38 = (v21 + 96);
     while (1)
     {
-      v39 = *v39;
-      if (!v39)
+      v38 = *v38;
+      if (!v38)
       {
         break;
       }
 
-      if (xmlStrEqual(v39[1], value))
+      if (xmlStrEqual(v38[1], value))
       {
         goto LABEL_76;
       }
@@ -4286,8 +5178,6 @@ LABEL_76:
   }
 
   LODWORD(v10) = xmlValidateAttributeValue2(ctxt, doc, attr->name, *(v21 + 20), value) & v31;
-LABEL_45:
-  v32 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -4425,17 +5315,17 @@ LABEL_40:
 
 int xmlValidateOneNamespace(xmlValidCtxtPtr ctxt, xmlDocPtr doc, xmlNodePtr elem, const xmlChar *prefix, xmlNsPtr ns, const xmlChar *value)
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   if (!doc)
   {
-    goto LABEL_49;
+    return 0;
   }
 
   if (doc->intSubset)
   {
     if (!elem)
     {
-      goto LABEL_49;
+      return 0;
     }
   }
 
@@ -4444,27 +5334,25 @@ int xmlValidateOneNamespace(xmlValidCtxtPtr ctxt, xmlDocPtr doc, xmlNodePtr elem
     result = 0;
     if (!elem || !doc->extSubset)
     {
-      goto LABEL_50;
+      return result;
     }
   }
 
   result = 0;
   if (!ns)
   {
-    goto LABEL_50;
+    return result;
   }
 
   name = elem->name;
   if (!name)
   {
-    goto LABEL_50;
+    return result;
   }
 
   if (!ns->href)
   {
-LABEL_49:
-    result = 0;
-    goto LABEL_50;
+    return 0;
   }
 
   if (!prefix)
@@ -4472,13 +5360,13 @@ LABEL_49:
     goto LABEL_29;
   }
 
-  v82 = 0;
-  memset(v81, 0, sizeof(v81));
-  v13 = xmlBuildQName(name, prefix, v81, 50);
+  v81 = 0;
+  memset(v80, 0, sizeof(v80));
+  v13 = xmlBuildQName(name, prefix, v80, 50);
   if (!v13)
   {
     xmlVErrMemory(ctxt, "Validating namespace");
-    goto LABEL_49;
+    return 0;
   }
 
   v14 = v13;
@@ -4533,7 +5421,7 @@ LABEL_24:
 LABEL_23:
   v22 = DtdAttrDesc;
 LABEL_25:
-  if (v14 != v81 && v14 != elem->name)
+  if (v14 != v80 && v14 != elem->name)
   {
     free(v14);
   }
@@ -4590,7 +5478,7 @@ LABEL_43:
       }
 
       xmlErrValidNode(v35, v36, 533, v34, v32, v33, 0);
-      goto LABEL_49;
+      return 0;
     }
   }
 
@@ -4643,71 +5531,71 @@ LABEL_41:
 
   if (*(v22 + 21) == 4 && !xmlStrEqual(value, *(v22 + 11)))
   {
-    v43 = ns->prefix;
-    v44 = elem->name;
-    v45 = *(v22 + 11);
-    if (v43)
+    v42 = ns->prefix;
+    v43 = elem->name;
+    v44 = *(v22 + 11);
+    if (v42)
     {
-      v46 = "Value for attribute xmlns:%s of %s is different from default %s\n";
-      v47 = ctxt;
-      v48 = elem;
+      v45 = "Value for attribute xmlns:%s of %s is different from default %s\n";
+      v46 = ctxt;
+      v47 = elem;
     }
 
     else
     {
-      v46 = "Value for attribute xmlns of %s is different from default %s\n";
-      v47 = ctxt;
-      v48 = elem;
-      v43 = elem->name;
-      v44 = *(v22 + 11);
-      v45 = 0;
+      v45 = "Value for attribute xmlns of %s is different from default %s\n";
+      v46 = ctxt;
+      v47 = elem;
+      v42 = elem->name;
+      v43 = *(v22 + 11);
+      v44 = 0;
     }
 
-    xmlErrValidNode(v47, v48, 500, v46, v43, v44, v45);
+    xmlErrValidNode(v46, v47, 500, v45, v42, v43, v44);
     v31 = 0;
   }
 
-  v49 = *(v22 + 20);
-  if (v49 == 10)
+  v48 = *(v22 + 20);
+  if (v48 == 10)
   {
-    v50 = *(v22 + 12);
-    v51 = doc->intSubset;
-    if (!v51 || (v52 = v51->notations) == 0 || !xmlHashLookup(v52, value))
+    v49 = *(v22 + 12);
+    v50 = doc->intSubset;
+    if (!v50 || (v51 = v50->notations) == 0 || !xmlHashLookup(v51, value))
     {
-      v53 = doc->extSubset;
-      if (!v53 || (notations = v53->notations) == 0 || !xmlHashLookup(notations, value))
+      v52 = doc->extSubset;
+      if (!v52 || (notations = v52->notations) == 0 || !xmlHashLookup(notations, value))
       {
-        v55 = ns->prefix;
-        v56 = elem->name;
-        if (v55)
+        v54 = ns->prefix;
+        v55 = elem->name;
+        if (v54)
         {
-          v57 = "Value %s for attribute xmlns:%s of %s is not a declared Notation\n";
-          v58 = ctxt;
-          v59 = elem;
-          v60 = value;
+          v56 = "Value %s for attribute xmlns:%s of %s is not a declared Notation\n";
+          v57 = ctxt;
+          v58 = elem;
+          v59 = value;
         }
 
         else
         {
-          v57 = "Value %s for attribute xmlns of %s is not a declared Notation\n";
-          v58 = ctxt;
-          v59 = elem;
-          v60 = value;
-          v55 = elem->name;
-          v56 = 0;
+          v56 = "Value %s for attribute xmlns of %s is not a declared Notation\n";
+          v57 = ctxt;
+          v58 = elem;
+          v59 = value;
+          v54 = elem->name;
+          v55 = 0;
         }
 
-        xmlErrValidNode(v58, v59, 537, v57, v60, v55, v56);
+        xmlErrValidNode(v57, v58, 537, v56, v59, v54, v55);
         v31 = 0;
       }
     }
 
-    if (v50)
+    if (v49)
     {
-      while (!xmlStrEqual(v50[1], value))
+      while (!xmlStrEqual(v49[1], value))
       {
-        v50 = *v50;
-        if (!v50)
+        v49 = *v49;
+        if (!v49)
         {
           goto LABEL_73;
         }
@@ -4717,115 +5605,112 @@ LABEL_41:
     else
     {
 LABEL_73:
-      v61 = ns->prefix;
-      v62 = elem->name;
-      if (v61)
+      v60 = ns->prefix;
+      v61 = elem->name;
+      if (v60)
       {
-        v63 = "Value %s for attribute xmlns:%s of %s is not among the enumerated notations\n";
-        v64 = ctxt;
-        v65 = elem;
-        v66 = value;
+        v62 = "Value %s for attribute xmlns:%s of %s is not among the enumerated notations\n";
+        v63 = ctxt;
+        v64 = elem;
+        v65 = value;
       }
 
       else
       {
-        v63 = "Value %s for attribute xmlns of %s is not among the enumerated notations\n";
-        v64 = ctxt;
-        v65 = elem;
-        v66 = value;
-        v61 = elem->name;
-        v62 = 0;
+        v62 = "Value %s for attribute xmlns of %s is not among the enumerated notations\n";
+        v63 = ctxt;
+        v64 = elem;
+        v65 = value;
+        v60 = elem->name;
+        v61 = 0;
       }
 
-      xmlErrValidNode(v64, v65, 527, v63, v66, v61, v62);
+      xmlErrValidNode(v63, v64, 527, v62, v65, v60, v61);
       v31 = 0;
     }
 
-    v49 = *(v22 + 20);
+    v48 = *(v22 + 20);
   }
 
-  if (v49 == 9)
+  if (v48 == 9)
   {
-    v67 = (v22 + 96);
+    v66 = (v22 + 96);
     while (1)
     {
-      v67 = *v67;
-      if (!v67)
+      v66 = *v66;
+      if (!v66)
       {
         break;
       }
 
-      if (xmlStrEqual(v67[1], value))
+      if (xmlStrEqual(v66[1], value))
       {
         goto LABEL_87;
       }
     }
 
-    v68 = ns->prefix;
-    v69 = elem->name;
-    if (v68)
+    v67 = ns->prefix;
+    v68 = elem->name;
+    if (v67)
     {
-      v70 = "Value %s for attribute xmlns:%s of %s is not among the enumerated set\n";
-      v71 = ctxt;
-      v72 = elem;
-      v73 = value;
+      v69 = "Value %s for attribute xmlns:%s of %s is not among the enumerated set\n";
+      v70 = ctxt;
+      v71 = elem;
+      v72 = value;
     }
 
     else
     {
-      v70 = "Value %s for attribute xmlns of %s is not among the enumerated set\n";
-      v71 = ctxt;
-      v72 = elem;
-      v73 = value;
-      v68 = elem->name;
-      v69 = 0;
+      v69 = "Value %s for attribute xmlns of %s is not among the enumerated set\n";
+      v70 = ctxt;
+      v71 = elem;
+      v72 = value;
+      v67 = elem->name;
+      v68 = 0;
     }
 
-    xmlErrValidNode(v71, v72, 502, v70, v73, v68, v69);
+    xmlErrValidNode(v70, v71, 502, v69, v72, v67, v68);
     v31 = 0;
   }
 
 LABEL_87:
   if (*(v22 + 21) == 4 && !xmlStrEqual(*(v22 + 11), value))
   {
-    v74 = ns->prefix;
-    v75 = elem->name;
-    v76 = *(v22 + 11);
-    if (v74)
+    v73 = ns->prefix;
+    v74 = elem->name;
+    v75 = *(v22 + 11);
+    if (v73)
     {
-      v77 = "Value for attribute xmlns:%s of %s must be %s\n";
-      v78 = ctxt;
-      v79 = elem;
+      v76 = "Value for attribute xmlns:%s of %s must be %s\n";
+      v77 = ctxt;
+      v78 = elem;
     }
 
     else
     {
-      v77 = "Value for attribute xmlns of %s must be %s\n";
-      v78 = ctxt;
-      v79 = elem;
-      v74 = elem->name;
-      v75 = *(v22 + 11);
-      v76 = 0;
+      v76 = "Value for attribute xmlns of %s must be %s\n";
+      v77 = ctxt;
+      v78 = elem;
+      v73 = elem->name;
+      v74 = *(v22 + 11);
+      v75 = 0;
     }
 
-    xmlErrValidNode(v78, v79, 508, v77, v74, v75, v76);
+    xmlErrValidNode(v77, v78, 508, v76, v73, v74, v75);
     v31 = 0;
   }
 
   if (ns->prefix)
   {
-    v80 = ns->prefix;
+    v79 = ns->prefix;
   }
 
   else
   {
-    v80 = "xmlns";
+    v79 = "xmlns";
   }
 
-  result = xmlValidateAttributeValue2(ctxt, doc, v80, *(v22 + 20), value) & v31;
-LABEL_50:
-  v42 = *MEMORY[0x1E69E9840];
-  return result;
+  return xmlValidateAttributeValue2(ctxt, doc, v79, *(v22 + 20), value) & v31;
 }
 
 int xmlValidatePushElement(xmlValidCtxtPtr ctxt, xmlDocPtr doc, xmlNodePtr elem, const xmlChar *qname)
@@ -5336,11 +6221,11 @@ int xmlValidatePopElement(xmlValidCtxtPtr ctxt, xmlDocPtr doc, xmlNodePtr elem, 
 
 int xmlValidateOneElement(xmlValidCtxtPtr ctxt, xmlDocPtr doc, xmlNodePtr elem)
 {
-  v72 = *MEMORY[0x1E69E9840];
-  v67 = 0;
+  v71 = *MEMORY[0x1E69E9840];
+  v66 = 0;
   if (!doc)
   {
-    goto LABEL_84;
+    return 0;
   }
 
   v5 = ctxt;
@@ -5348,7 +6233,7 @@ int xmlValidateOneElement(xmlValidCtxtPtr ctxt, xmlDocPtr doc, xmlNodePtr elem)
   {
     if (!elem)
     {
-      goto LABEL_84;
+      return 0;
     }
   }
 
@@ -5357,7 +6242,7 @@ int xmlValidateOneElement(xmlValidCtxtPtr ctxt, xmlDocPtr doc, xmlNodePtr elem)
     v6 = 0;
     if (!elem || !doc->extSubset)
     {
-      goto LABEL_85;
+      return v6;
     }
   }
 
@@ -5369,7 +6254,7 @@ int xmlValidateOneElement(xmlValidCtxtPtr ctxt, xmlDocPtr doc, xmlNodePtr elem)
     {
       if (type - 19 < 2)
       {
-        goto LABEL_85;
+        return v6;
       }
 
       if (type == XML_HTML_DOCUMENT_NODE)
@@ -5401,7 +6286,7 @@ int xmlValidateOneElement(xmlValidCtxtPtr ctxt, xmlDocPtr doc, xmlNodePtr elem)
   {
     if (type - 4 < 2 || type - 7 < 2)
     {
-      goto LABEL_85;
+      return v6;
     }
 
     if (type == XML_ENTITY_NODE)
@@ -5435,7 +6320,7 @@ LABEL_79:
         {
           if (elem->content)
           {
-            goto LABEL_85;
+            return v6;
           }
 
           v8 = "Text element has no content !\n";
@@ -5454,15 +6339,13 @@ LABEL_82:
     name = 0;
 LABEL_83:
     xmlErrValidNode(ctxt, v39, v40, v8, name, 0, 0);
-    goto LABEL_84;
+    return 0;
   }
 
-  ElemDecl = xmlValidGetElemDecl(ctxt, doc, elem, &v67);
+  ElemDecl = xmlValidGetElemDecl(ctxt, doc, elem, &v66);
   if (!ElemDecl)
   {
-LABEL_84:
-    v6 = 0;
-    goto LABEL_85;
+    return 0;
   }
 
   v10 = ElemDecl;
@@ -5471,10 +6354,10 @@ LABEL_84:
     goto LABEL_27;
   }
 
-  v44 = ElemDecl[18];
-  if (v44 <= 2)
+  v43 = ElemDecl[18];
+  if (v43 <= 2)
   {
-    if (!v44)
+    if (!v43)
     {
       name = elem->name;
       v8 = "No declaration for element %s\n";
@@ -5484,27 +6367,27 @@ LABEL_84:
       goto LABEL_83;
     }
 
-    if (v44 != 1 || !elem->children)
+    if (v43 != 1 || !elem->children)
     {
       goto LABEL_27;
     }
 
-    v45 = elem->name;
-    v46 = "Element %s was declared EMPTY this one has content\n";
-    v47 = v5;
-    v48 = elem;
-    v49 = 528;
+    v44 = elem->name;
+    v45 = "Element %s was declared EMPTY this one has content\n";
+    v46 = v5;
+    v47 = elem;
+    v48 = 528;
 LABEL_91:
-    xmlErrValidNode(v47, v48, v49, v46, v45, 0, 0);
+    xmlErrValidNode(v46, v47, v48, v45, v44, 0, 0);
     v6 = 0;
     goto LABEL_27;
   }
 
-  if (v44 != 3)
+  if (v43 != 3)
   {
-    if (v44 == 4)
+    if (v43 == 4)
     {
-      if (doc->standalone == 1 && v67 == 1)
+      if (doc->standalone == 1 && v66 == 1)
       {
         children = elem->children;
         if (children)
@@ -5515,13 +6398,13 @@ LABEL_91:
             {
               for (i = children->content; ; ++i)
               {
-                v52 = *i;
-                if (v52 > 0x20)
+                v51 = *i;
+                if (v51 > 0x20)
                 {
                   break;
                 }
 
-                if (((1 << v52) & 0x100002600) == 0)
+                if (((1 << v51) & 0x100002600) == 0)
                 {
                   if (*i)
                   {
@@ -5544,108 +6427,108 @@ LABEL_91:
       }
 
 LABEL_149:
-      v66 = xmlValidateElementContent(v5, elem->children);
-      if (v66 < 1)
+      v65 = xmlValidateElementContent(v5);
+      if (v65 < 1)
       {
-        v6 = v66;
+        v6 = v65;
       }
     }
 
     goto LABEL_27;
   }
 
-  v53 = *(ElemDecl + 10);
-  if (v53 && *v53 == 1)
+  v52 = *(ElemDecl + 10);
+  if (v52 && *v52 == 1)
   {
     if (xmlValidateOneCdataElement(v5, elem))
     {
       goto LABEL_27;
     }
 
-    v45 = elem->name;
-    v46 = "Element %s was declared #PCDATA but contains non text nodes\n";
-    v47 = v5;
-    v48 = elem;
-    v49 = 529;
+    v44 = elem->name;
+    v45 = "Element %s was declared #PCDATA but contains non text nodes\n";
+    v46 = v5;
+    v47 = elem;
+    v48 = 529;
     goto LABEL_91;
   }
 
-  v54 = elem->children;
-  if (!v54)
+  v53 = elem->children;
+  if (!v53)
   {
     goto LABEL_27;
   }
 
   do
   {
-    if (v54->type != XML_ELEMENT_NODE)
+    if (v53->type != XML_ELEMENT_NODE)
     {
       goto LABEL_146;
     }
 
-    v55 = v54->name;
-    ns = v54->ns;
+    v54 = v53->name;
+    ns = v53->ns;
     if (!ns || !ns->prefix)
     {
       goto LABEL_134;
     }
 
-    v71 = 0;
+    v70 = 0;
+    v68 = 0u;
     v69 = 0u;
-    v70 = 0u;
     *memory = 0u;
-    v57 = xmlBuildQName(v54->name, ns->prefix, memory, 50);
-    if (!v57)
+    v56 = xmlBuildQName(v53->name, ns->prefix, memory, 50);
+    if (!v56)
     {
-      goto LABEL_84;
+      return 0;
     }
 
-    v58 = v57;
-    v59 = *(v10 + 10);
-    if (!v59)
+    v57 = v56;
+    v58 = *(v10 + 10);
+    if (!v58)
     {
 LABEL_127:
-      v62 = 1;
+      v61 = 1;
       goto LABEL_130;
     }
 
     while (1)
     {
-      if (*v59 != 4)
+      if (*v58 != 4)
       {
-        if (*v59 != 2)
+        if (*v58 != 2)
         {
           goto LABEL_128;
         }
 
-        v60 = *(v59 + 8);
+        v59 = *(v58 + 8);
         goto LABEL_125;
       }
 
-      v61 = *(v59 + 16);
-      if (!v61)
+      v60 = *(v58 + 16);
+      if (!v60)
       {
         goto LABEL_128;
       }
 
-      if (*v61 != 1)
+      if (*v60 != 1)
       {
         break;
       }
 
 LABEL_126:
-      v59 = *(v59 + 24);
-      if (!v59)
+      v58 = *(v58 + 24);
+      if (!v58)
       {
         goto LABEL_127;
       }
     }
 
-    if (*v61 == 2)
+    if (*v60 == 2)
     {
-      v60 = *(v61 + 8);
+      v59 = *(v60 + 8);
 LABEL_125:
-      if (xmlStrEqual(v60, v58))
+      if (xmlStrEqual(v59, v57))
       {
         goto LABEL_129;
       }
@@ -5656,63 +6539,63 @@ LABEL_125:
 LABEL_128:
     xmlErrValid_0(0, 519, "Internal: MIXED struct corrupted\n", 0);
 LABEL_129:
-    v62 = 0;
+    v61 = 0;
 LABEL_130:
-    if (v58 != memory && v58 != v54->name)
+    if (v57 != memory && v57 != v53->name)
     {
-      free(v58);
+      free(v57);
     }
 
-    if (v62)
+    if (v61)
     {
 LABEL_134:
-      v63 = *(v10 + 10);
-      if (!v63)
+      v62 = *(v10 + 10);
+      if (!v62)
       {
 LABEL_144:
-        xmlErrValidNode(v5, elem, 515, "Element %s is not declared in %s list of possible children\n", v55, elem->name, 0);
+        xmlErrValidNode(v5, elem, 515, "Element %s is not declared in %s list of possible children\n", v54, elem->name, 0);
         v6 = 0;
         goto LABEL_146;
       }
 
       while (2)
       {
-        if (*v63 != 4)
+        if (*v62 != 4)
         {
-          if (*v63 != 2)
+          if (*v62 != 2)
           {
             goto LABEL_145;
           }
 
-          v64 = *(v63 + 8);
+          v63 = *(v62 + 8);
           goto LABEL_142;
         }
 
-        v65 = *(v63 + 16);
-        if (!v65)
+        v64 = *(v62 + 16);
+        if (!v64)
         {
           goto LABEL_145;
         }
 
-        if (*v65 != 1)
+        if (*v64 != 1)
         {
-          if (*v65 != 2)
+          if (*v64 != 2)
           {
 LABEL_145:
             xmlErrValid_0(v5, 519, "Internal: MIXED struct corrupted\n", 0);
             break;
           }
 
-          v64 = *(v65 + 8);
+          v63 = *(v64 + 8);
 LABEL_142:
-          if (xmlStrEqual(v64, v55))
+          if (xmlStrEqual(v63, v54))
           {
             break;
           }
         }
 
-        v63 = *(v63 + 24);
-        if (!v63)
+        v62 = *(v62 + 24);
+        if (!v62)
         {
           goto LABEL_144;
         }
@@ -5722,10 +6605,10 @@ LABEL_142:
     }
 
 LABEL_146:
-    v54 = v54->next;
+    v53 = v53->next;
   }
 
-  while (v54);
+  while (v53);
 LABEL_27:
   for (j = *(v10 + 11); j; j = *(j + 72))
   {
@@ -5941,8 +6824,6 @@ LABEL_72:
     ;
   }
 
-LABEL_85:
-  v42 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -6037,22 +6918,22 @@ LABEL_18:
   return v4;
 }
 
-uint64_t xmlValidateElementContent(uint64_t a1, uint64_t a2)
+uint64_t xmlValidateElementContent(uint64_t a1)
 {
-  v2 = MEMORY[0x1EEE9AC00](a1, a2);
-  v58 = *MEMORY[0x1E69E9840];
-  if (!v2)
+  v1 = MEMORY[0x1EEE9AC00](a1);
+  v54 = *MEMORY[0x1E69E9840];
+  if (!v1)
   {
-    goto LABEL_43;
+    return 0xFFFFFFFFLL;
   }
 
-  v6 = v5;
-  v7 = v4;
-  v8 = v3;
-  v9 = v2;
-  content = v4->content;
-  name = v4->name;
-  contModel = v4->contModel;
+  v5 = v4;
+  v6 = v3;
+  v7 = v2;
+  v8 = v1;
+  content = v3->content;
+  name = v3->name;
+  contModel = v3->contModel;
   if (contModel)
   {
     valid = 1;
@@ -6060,49 +6941,47 @@ uint64_t xmlValidateElementContent(uint64_t a1, uint64_t a2)
 
   else
   {
-    valid = xmlValidBuildContentModel(v9, v4);
-    contModel = v7->contModel;
+    valid = xmlValidBuildContentModel(v8, v3);
+    contModel = v6->contModel;
     if (!contModel)
     {
-LABEL_43:
-      v26 = 0xFFFFFFFFLL;
-      goto LABEL_79;
+      return 0xFFFFFFFFLL;
     }
   }
 
   if (!xmlRegexpIsDeterminist(contModel))
   {
-    goto LABEL_43;
+    return 0xFFFFFFFFLL;
   }
 
-  *(v9 + 32) = 0;
-  *(v9 + 40) = 0;
-  v14 = xmlRegNewExecCtxt(v7->contModel, 0, 0);
-  if (!v14)
+  *(v8 + 32) = 0;
+  *(v8 + 40) = 0;
+  v13 = xmlRegNewExecCtxt(v6->contModel, 0, 0);
+  if (!v13)
   {
     goto LABEL_36;
   }
 
-  v15 = v14;
-  if (!v8)
+  v14 = v13;
+  if (!v7)
   {
 LABEL_34:
-    valid = xmlRegExecPushString(v15, 0, 0);
+    valid = xmlRegExecPushString(v14, 0, 0);
     goto LABEL_35;
   }
 
-  v16 = v8;
+  v15 = v7;
   while (1)
   {
-    v17 = *(v16 + 8);
-    if (v17 <= 3)
+    v16 = *(v15 + 8);
+    if (v16 <= 3)
     {
       break;
     }
 
-    if (v17 != 5)
+    if (v16 != 5)
     {
-      if (v17 != 4)
+      if (v16 != 4)
       {
         goto LABEL_28;
       }
@@ -6112,24 +6991,24 @@ LABEL_80:
       goto LABEL_35;
     }
 
-    v18 = *(v16 + 24);
-    if (!v18 || !*(v18 + 24))
+    v17 = *(v15 + 24);
+    if (!v17 || !*(v17 + 24))
     {
       goto LABEL_28;
     }
 
-    nodeVPush(v9, v16);
-    v16 = *(*(v16 + 24) + 24);
+    nodeVPush(v8, v15);
+    v15 = *(*(v15 + 24) + 24);
 LABEL_18:
-    if (!v16)
+    if (!v15)
     {
       goto LABEL_34;
     }
   }
 
-  if (v17 != 1)
+  if (v16 != 1)
   {
-    if (v17 != 3 || xmlIsBlankNode(v16))
+    if (v16 != 3 || xmlIsBlankNode(v15))
     {
       goto LABEL_28;
     }
@@ -6137,45 +7016,45 @@ LABEL_18:
     goto LABEL_80;
   }
 
-  v19 = *(v16 + 72);
-  if (!v19 || !*(v19 + 24))
+  v18 = *(v15 + 72);
+  if (!v18 || !*(v18 + 24))
   {
-    xmlRegExecPushString(v15, *(v16 + 16), 0);
+    xmlRegExecPushString(v14, *(v15 + 16), 0);
     goto LABEL_28;
   }
 
-  v57 = 0;
-  memset(v56, 0, sizeof(v56));
-  v20 = xmlBuildQName(*(v16 + 16), *(v19 + 24), v56, 50);
-  if (v20)
+  v53 = 0;
+  memset(v52, 0, sizeof(v52));
+  v19 = xmlBuildQName(*(v15 + 16), *(v18 + 24), v52, 50);
+  if (v19)
   {
-    v21 = v20;
-    xmlRegExecPushString(v15, v20, 0);
-    if (v21 != v56 && v21 != *(v16 + 16))
+    v20 = v19;
+    xmlRegExecPushString(v14, v19, 0);
+    if (v20 != v52 && v20 != *(v15 + 16))
     {
-      free(v21);
+      free(v20);
     }
 
 LABEL_28:
     while (1)
     {
-      v16 = *(v16 + 48);
-      if (v16)
+      v15 = *(v15 + 48);
+      if (v15)
       {
         goto LABEL_18;
       }
 
-      v22 = *(v9 + 32);
-      if (v22 >= 1)
+      v21 = *(v8 + 32);
+      if (v21 >= 1)
       {
-        v23 = *(v9 + 40);
-        v24 = v22 - 1;
-        *(v9 + 32) = v22 - 1;
-        v25 = v22 == 1 ? 0 : *(v23 + 8 * v22 - 16);
-        *(v9 + 24) = v25;
-        v16 = *(v23 + 8 * v24);
-        *(v23 + 8 * v24) = 0;
-        if (v16)
+        v22 = *(v8 + 40);
+        v23 = v21 - 1;
+        *(v8 + 32) = v21 - 1;
+        v24 = v21 == 1 ? 0 : *(v22 + 8 * v21 - 16);
+        *(v8 + 24) = v24;
+        v15 = *(v22 + 8 * v23);
+        *(v22 + 8 * v23) = 0;
+        if (v15)
         {
           continue;
         }
@@ -6187,139 +7066,137 @@ LABEL_28:
 
   valid = -1;
 LABEL_35:
-  xmlRegFreeExecCtxt(v15);
+  xmlRegFreeExecCtxt(v14);
 LABEL_36:
-  v26 = 1;
+  v25 = 1;
   if (valid == -3 || valid == 1)
   {
     goto LABEL_77;
   }
 
-  bzero(&v56[1], 0x1387uLL);
-  bzero(v55, 0x1387uLL);
-  v56[0] = 0;
-  xmlSnprintfElementContent(v56, 5000, content, 1);
+  bzero(&v52[1], 0x1387uLL);
+  bzero(v51, 0x1387uLL);
+  v52[0] = 0;
+  xmlSnprintfElementContent(v52, 5000, content, 1);
   __s = 0;
-  if (!v8)
+  if (!v7)
   {
     goto LABEL_41;
   }
 
-  v27 = strlen(&__s);
-  if (v27 < 4998)
+  v26 = strlen(&__s);
+  if (v26 < 4998)
   {
     __strncat_chk();
-    v34 = v27 + 1;
+    v33 = v26 + 1;
     while (1)
     {
-      if (v34 >= 4951)
+      if (v33 >= 4951)
       {
         goto LABEL_40;
       }
 
-      v35 = 5000 - v34;
-      v36 = *(v8 + 8);
-      if (v36 > 0x15)
+      v34 = 5000 - v33;
+      v35 = *(v7 + 8);
+      if (v35 > 0x15)
       {
 LABEL_59:
-        if (v36 == 1)
+        if (v35 == 1)
         {
-          v39 = *(v8 + 48);
-          v40 = *(v8 + 72);
-          if (v40)
+          v38 = *(v7 + 48);
+          v39 = *(v7 + 72);
+          if (v39)
           {
-            v41 = *(v40 + 24);
-            if (v41)
+            v40 = *(v39 + 24);
+            if (v40)
             {
-              v42 = xmlStrlen(v41);
-              if (v39)
+              v41 = xmlStrlen(v40);
+              if (v38)
               {
-                v43 = 4;
+                v42 = 4;
               }
 
               else
               {
-                v43 = 3;
+                v42 = 3;
               }
 
-              if (v35 < v42 + v43)
+              if (v34 < v41 + v42)
               {
                 goto LABEL_40;
               }
 
-              v44 = v42;
-              v45 = *(*(v8 + 72) + 24);
+              v43 = v41;
               __strncat_chk();
-              v46 = v44 + v34;
+              v44 = v43 + v33;
               __strncat_chk();
-              v34 += v44 + 1;
-              v35 = 4999 - v46;
+              v33 += v43 + 1;
+              v34 = 4999 - v44;
             }
           }
 
-          v47 = xmlStrlen(*(v8 + 16));
-          if (v39)
+          v45 = xmlStrlen(*(v7 + 16));
+          if (v38)
           {
-            v48 = 3;
+            v46 = 3;
           }
 
           else
           {
-            v48 = 2;
+            v46 = 2;
           }
 
-          if (v35 < v47 + v48)
+          if (v34 < v45 + v46)
           {
             goto LABEL_40;
           }
 
-          v49 = v47;
-          v50 = *(v8 + 16);
+          v47 = v45;
           __strncat_chk();
-          v34 += v49;
-          if (*(v8 + 48))
+          v33 += v47;
+          if (*(v7 + 48))
           {
             __strncat_chk();
-            v34 += v39 != 0;
+            v33 += v38 != 0;
           }
         }
 
         goto LABEL_73;
       }
 
-      if (((1 << v36) & 0x243E04) != 0)
+      if (((1 << v35) & 0x243E04) != 0)
       {
         break;
       }
 
-      if (((1 << v36) & 0x30) != 0)
+      if (((1 << v35) & 0x30) != 0)
       {
         goto LABEL_51;
       }
 
-      if (v36 != 3)
+      if (v35 != 3)
       {
         goto LABEL_59;
       }
 
-      if (!xmlIsBlankNode(v8))
+      if (!xmlIsBlankNode(v7))
       {
 LABEL_51:
-        v37 = *(v8 + 48);
+        v36 = *(v7 + 48);
         __strncat_chk();
-        v38 = v34 + 5;
-        if (*(v8 + 48))
+        v37 = v33 + 5;
+        if (*(v7 + 48))
         {
 LABEL_52:
           __strncat_chk();
-          if (v37)
+          if (v36)
           {
-            v34 = v38 + 1;
+            v33 = v37 + 1;
           }
 
           else
           {
-            v34 = v38;
+            v33 = v37;
           }
 
           goto LABEL_73;
@@ -6329,11 +7206,11 @@ LABEL_52:
       }
 
 LABEL_73:
-      v8 = *(v8 + 48);
-      if (!v8)
+      v7 = *(v7 + 48);
+      if (!v7)
       {
         __strncat_chk();
-        v55[4998] = 0;
+        v51[4998] = 0;
         if (name)
         {
           goto LABEL_42;
@@ -6343,16 +7220,16 @@ LABEL_73:
       }
     }
 
-    v37 = *(v8 + 48);
+    v36 = *(v7 + 48);
     __strncat_chk();
-    v38 = v34 + 3;
-    if (*(v8 + 48))
+    v37 = v33 + 3;
+    if (*(v7 + 48))
     {
       goto LABEL_52;
     }
 
 LABEL_55:
-    v34 = v38;
+    v33 = v37;
     goto LABEL_73;
   }
 
@@ -6362,110 +7239,105 @@ LABEL_41:
   if (name)
   {
 LABEL_42:
-    v28 = "Element %s content does not follow the DTD, expecting %s, got %s\n";
-    v29 = v56;
+    v27 = "Element %s content does not follow the DTD, expecting %s, got %s\n";
+    v28 = v52;
     p_s = &__s;
-    v31 = v9;
-    v32 = v6;
-    v33 = name;
+    v30 = v8;
+    v31 = v5;
+    v32 = name;
   }
 
   else
   {
 LABEL_75:
-    v28 = "Element content does not follow the DTD, expecting %s, got %s\n";
-    v33 = v56;
-    v29 = &__s;
-    v31 = v9;
-    v32 = v6;
+    v27 = "Element content does not follow the DTD, expecting %s, got %s\n";
+    v32 = v52;
+    v28 = &__s;
+    v30 = v8;
+    v31 = v5;
     p_s = 0;
   }
 
-  xmlErrValidNode(v31, v32, 504, v28, v33, v29, p_s);
-  v26 = 0;
+  xmlErrValidNode(v30, v31, 504, v27, v32, v28, p_s);
+  v25 = 0;
 LABEL_77:
-  *(v9 + 32) = 0;
-  v51 = *(v9 + 40);
-  if (v51)
+  *(v8 + 32) = 0;
+  v48 = *(v8 + 40);
+  if (v48)
   {
-    free(v51);
-    *(v9 + 40) = 0;
+    free(v48);
+    *(v8 + 40) = 0;
   }
 
-LABEL_79:
-  v52 = *MEMORY[0x1E69E9840];
-  return v26;
+  return v25;
 }
 
 int xmlValidateRoot(xmlValidCtxtPtr ctxt, xmlDocPtr doc)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (!doc)
   {
-    goto LABEL_9;
+    return 0;
   }
 
   RootElement = xmlDocGetRootElement(doc);
-  if (!RootElement || (v5 = RootElement, (name = RootElement->name) == 0))
+  if (RootElement && (v5 = RootElement, (v6 = RootElement->name) != 0))
   {
-    xmlErrValid_0(ctxt, 525, "no root element\n", 0);
-LABEL_9:
-    result = 0;
-    goto LABEL_10;
-  }
-
-  intSubset = doc->intSubset;
-  if (!intSubset)
-  {
-    goto LABEL_7;
-  }
-
-  v8 = intSubset->name;
-  if (!v8 || xmlStrEqual(v8, name))
-  {
-    goto LABEL_7;
-  }
-
-  v11 = *(v5 + 72);
-  if (v11)
-  {
-    v12 = *(v11 + 24);
-    if (v12)
+    intSubset = doc->intSubset;
+    if (!intSubset)
     {
-      v17 = 0;
-      memset(v16, 0, sizeof(v16));
-      v13 = xmlBuildQName(*(v5 + 16), v12, v16, 50);
-      if (!v13)
-      {
-        xmlVErrMemory(ctxt, 0);
-        goto LABEL_9;
-      }
+      return 1;
+    }
 
-      v14 = v13;
-      v15 = xmlStrEqual(doc->intSubset->name, v13);
-      if (v14 != v16 && v14 != *(v5 + 16))
-      {
-        free(v14);
-      }
+    name = intSubset->name;
+    if (!name || xmlStrEqual(name, v6))
+    {
+      return 1;
+    }
 
-      if (v15 == 1)
+    v10 = *(v5 + 72);
+    if (v10)
+    {
+      v11 = *(v10 + 24);
+      if (v11)
       {
-        goto LABEL_7;
+        v16 = 0;
+        memset(v15, 0, sizeof(v15));
+        v12 = xmlBuildQName(*(v5 + 16), v11, v15, 50);
+        if (!v12)
+        {
+          xmlVErrMemory(ctxt, 0);
+          return 0;
+        }
+
+        v13 = v12;
+        v14 = xmlStrEqual(doc->intSubset->name, v12);
+        if (v13 != v15 && v13 != *(v5 + 16))
+        {
+          free(v13);
+        }
+
+        if (v14 == 1)
+        {
+          return 1;
+        }
       }
     }
-  }
 
-  if (!xmlStrEqual(doc->intSubset->name, "HTML") || !xmlStrEqual(*(v5 + 16), "html"))
-  {
+    if (xmlStrEqual(doc->intSubset->name, "HTML") && xmlStrEqual(*(v5 + 16), "html"))
+    {
+      return 1;
+    }
+
     xmlErrValidNode(ctxt, v5, 531, "root and DTD name do not match '%s' and '%s'\n", *(v5 + 16), doc->intSubset->name, 0);
-    goto LABEL_9;
   }
 
-LABEL_7:
-  result = 1;
-LABEL_10:
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  else
+  {
+    xmlErrValid_0(ctxt, 525, "no root element\n", 0);
+  }
+
+  return 0;
 }
 
 int xmlValidateElement(xmlValidCtxtPtr ctxt, xmlDocPtr doc, xmlNodePtr elem)
@@ -6671,55 +7543,55 @@ int xmlValidateDtdFinal(xmlValidCtxtPtr ctxt, xmlDocPtr doc)
   return result;
 }
 
-_DWORD *xmlValidateAttributeCallback(_DWORD *result, uint64_t a2)
+xmlError *xmlValidateAttributeCallback(xmlError *result, uint64_t a2)
 {
   if (result)
   {
     v3 = result;
-    v4 = result[20];
-    if (v4 <= 0xA && ((1 << v4) & 0x460) != 0)
+    node = result->node;
+    if (node <= 0xA && ((1 << node) & 0x460) != 0)
     {
-      v6 = *(result + 11);
+      v6 = *&result[1].domain;
       if (v6)
       {
-        result = xmlValidateAttributeValue2(a2, *(a2 + 56), *(result + 2), v4, v6);
+        result = xmlValidateAttributeValue2(a2, *(a2 + 56), *&result->level, node, v6);
         if (!result && *(a2 + 64) == 1)
         {
           *(a2 + 64) = 0;
         }
       }
 
-      for (i = *(v3 + 96); i; i = *i)
+      for (i = v3[1].message; i; i = *i)
       {
-        result = xmlValidateAttributeValue2(a2, *(a2 + 56), *(v3 + 16), *(v3 + 80), i[1]);
+        result = xmlValidateAttributeValue2(a2, *(a2 + 56), *&v3->level, v3->node, *(i + 1));
         if (!result && *(a2 + 64) == 1)
         {
           *(a2 + 64) = 0;
         }
       }
 
-      v4 = *(v3 + 80);
+      node = v3->node;
     }
 
-    if (v4 == 10)
+    if (node == 10)
     {
-      v8 = *(v3 + 112);
-      if (v8)
+      file = v3[1].file;
+      if (file)
       {
-        v9 = *(v3 + 64);
-        if (v9 && ((result = xmlGetDtdElementDesc(*(v9 + 80), v8)) != 0 || (result = xmlGetDtdElementDesc(*(v9 + 88), *(v3 + 112))) != 0) || (v10 = *(v3 + 40)) != 0 && *(v10 + 8) == 14 && (result = xmlGetDtdElementDesc(v10, *(v3 + 112))) != 0)
+        v9 = *&v3->int1;
+        if (v9 && ((result = xmlGetDtdElementDesc(*(v9 + 80), file)) != 0 || (result = xmlGetDtdElementDesc(*(v9 + 88), v3[1].file)) != 0) || (str1 = v3->str1) != 0 && *(str1 + 2) == 14 && (result = xmlGetDtdElementDesc(str1, v3[1].file)) != 0)
         {
-          if (result[18] == 1)
+          if (LODWORD(result->ctxt) == 1)
           {
-            result = xmlErrValidNode(a2, 0, 510, "NOTATION attribute %s declared for EMPTY element %s\n", *(v3 + 16), *(v3 + 112), 0);
+            result = xmlErrValidNode(a2, 0, 510, "NOTATION attribute %s declared for EMPTY element %s\n", *&v3->level, v3[1].file, 0);
             *(a2 + 64) = 0;
           }
         }
 
         else
         {
-          v12 = *(v3 + 16);
-          v13 = *(v3 + 112);
+          v12 = *&v3->level;
+          v13 = v3[1].file;
 
           return xmlErrValidNode(a2, 0, 534, "attribute %s: could not find decl for element %s\n", v12, v13, 0);
         }
@@ -6727,7 +7599,7 @@ _DWORD *xmlValidateAttributeCallback(_DWORD *result, uint64_t a2)
 
       else
       {
-        v11 = *(v3 + 16);
+        v11 = *&v3->level;
 
         return xmlErrValid_0(a2, 1, "xmlValidateAttributeCallback(%s): internal error\n", v11);
       }
@@ -6947,6 +7819,178 @@ LABEL_13:
   return result;
 }
 
+int xmlValidGetValidElements(xmlNode *prev, xmlNode *next, const xmlChar **names, int max)
+{
+  v4 = *&max;
+  namesa[256] = *MEMORY[0x1E69E9840];
+  bzero(namesa, 0x800uLL);
+  len = 0;
+  v8 = -1;
+  if (!(prev | next) || !names || v4 < 1)
+  {
+    return v8;
+  }
+
+  memset(&ctxt.warning, 0, 96);
+  ctxt.userData = 0;
+  ctxt.error = xmlNoValidityErr;
+  if (prev)
+  {
+    v9 = prev;
+  }
+
+  else
+  {
+    v9 = next;
+  }
+
+  parent = v9->parent;
+  DtdElementDesc = xmlGetDtdElementDesc(parent->doc->intSubset, parent->name);
+  if (!DtdElementDesc)
+  {
+    extSubset = parent->doc->extSubset;
+    if (!extSubset)
+    {
+      return -1;
+    }
+
+    DtdElementDesc = xmlGetDtdElementDesc(extSubset, parent->name);
+    if (!DtdElementDesc)
+    {
+      return -1;
+    }
+  }
+
+  v12 = DtdElementDesc;
+  if (!prev)
+  {
+    v13 = 0;
+    if (next)
+    {
+      goto LABEL_10;
+    }
+
+LABEL_15:
+    v14 = 0;
+    goto LABEL_16;
+  }
+
+  v13 = prev->next;
+  if (!next)
+  {
+    goto LABEL_15;
+  }
+
+LABEL_10:
+  v14 = next->prev;
+LABEL_16:
+  v34 = *&parent->children;
+  v16 = xmlNewDocNode(v9->doc, 0, "<!dummy?>", 0);
+  if (!v16)
+  {
+    return -1;
+  }
+
+  v17 = v16;
+  v32 = prev;
+  p_last = &parent->last;
+  v16->next = next;
+  v16->prev = prev;
+  v16->parent = parent;
+  v30 = v13;
+  name = v16->name;
+  p_next = &prev->next;
+  v28 = &prev->next;
+  if (!prev)
+  {
+    p_next = &parent->children;
+  }
+
+  *p_next = v16;
+  v33 = next;
+  p_prev = &next->prev;
+  if (next)
+  {
+    p_last = &next->prev;
+  }
+
+  *p_last = v16;
+  len = xmlValidGetPotentialChildren(v12->content, namesa, &len, 256);
+  if (len < 1)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v20 = 0;
+    v8 = 0;
+    do
+    {
+      v17->name = namesa[v20];
+      if (xmlValidateOneElement(&ctxt, parent->doc, parent))
+      {
+        if (v8 <= 0)
+        {
+          v22 = v8;
+        }
+
+        else
+        {
+          v21 = v4;
+          v22 = v8;
+          v23 = 1;
+          v24 = names;
+          do
+          {
+            v25 = *v24++;
+            if (xmlStrEqual(namesa[v20], v25))
+            {
+              v26 = 1;
+            }
+
+            else
+            {
+              v26 = v23 >= v8;
+            }
+
+            ++v23;
+          }
+
+          while (!v26);
+          v4 = v21;
+        }
+
+        ++v8;
+        names[v22] = namesa[v20];
+        if (v8 >= v4)
+        {
+          break;
+        }
+      }
+
+      ++v20;
+    }
+
+    while (v20 < len);
+  }
+
+  if (v32)
+  {
+    *v28 = v30;
+  }
+
+  if (v33)
+  {
+    *p_prev = v14;
+  }
+
+  *&parent->children = v34;
+  v17->name = name;
+  xmlFreeNode(v17);
+  return v8;
+}
+
 uint64_t xmlIsDocNameStartChar(uint64_t a1, signed int val)
 {
   if (!a1 || (*(a1 + 172) & 4) == 0)
@@ -7089,7 +8133,7 @@ uint64_t xmlIsDocNameChar(uint64_t a1, signed int val)
   return result;
 }
 
-_DWORD *nodeVPush(uint64_t a1, uint64_t a2)
+xmlError *nodeVPush(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 32);
   v5 = *(a1 + 36);
@@ -7097,7 +8141,7 @@ _DWORD *nodeVPush(uint64_t a1, uint64_t a2)
   {
     result = *(a1 + 40);
 LABEL_12:
-    *&result[2 * v4] = a2;
+    *(&result->domain + v4) = a2;
     *(a1 + 24) = a2;
     *(a1 + 32) = v4 + 1;
     return result;
@@ -7322,7 +8366,7 @@ xmlXIncludeCtxtPtr xmlXIncludeNewContext(xmlXIncludeCtxtPtr doc)
   return doc;
 }
 
-_DWORD *xmlXIncludeErrMemory(uint64_t a1, uint64_t a2, const xmlChar *a3)
+xmlError *xmlXIncludeErrMemory(uint64_t a1, uint64_t a2, const xmlChar *a3)
 {
   if (a1)
   {
@@ -8155,7 +9199,7 @@ LABEL_149:
       v78 = v83;
       if (!v83)
       {
-        xmlXIncludeErr(v226, *(*(*(v226 + 24) + 8 * v17) + 24), 1605, "failed build URL\n", 0);
+        xmlXIncludeErr(v226, *(*(v226[3] + 8 * v17) + 24), 1605, "failed build URL\n", 0);
         if (v73)
         {
           free(v73);
@@ -8341,10 +9385,10 @@ LABEL_225:
               if (myDoc)
               {
                 *(*(a1[3] + 8 * v17) + 16) = myDoc;
-                if (!xmlStrEqual(URLa, myDoc->URL))
+                if (!xmlStrEqual(URLa, *(myDoc + 136)))
                 {
                   free(URLa);
-                  URLa = xmlStrdup(myDoc->URL);
+                  URLa = xmlStrdup(*(myDoc + 136));
                 }
 
                 v125 = 8 * v17 + 8;
@@ -8365,8 +9409,8 @@ LABEL_225:
                 v128 = *(a1[3] + 8 * v17);
                 ++*(v128 + 44);
 LABEL_249:
-                intSubset = myDoc->intSubset;
-                if (!intSubset)
+                v129 = *(myDoc + 80);
+                if (!v129)
                 {
                   goto LABEL_362;
                 }
@@ -8381,24 +9425,24 @@ LABEL_249:
                 RootElement = xmlDocGetRootElement(*a1);
                 if (RootElement)
                 {
-                  v171 = xmlCreateIntSubset(v130, RootElement->name, 0, 0);
-                  if (v171)
+                  IntSubset = xmlCreateIntSubset(v130, RootElement->name, 0, 0);
+                  if (IntSubset)
                   {
-                    v131 = v171;
-                    intSubset = myDoc->intSubset;
-                    if (!intSubset)
+                    v131 = IntSubset;
+                    v129 = *(myDoc + 80);
+                    if (!v129)
                     {
 LABEL_253:
-                      extSubset = myDoc->extSubset;
-                      if (extSubset)
+                      v133 = *(myDoc + 88);
+                      if (v133)
                       {
-                        if (extSubset->entities)
+                        if (*(v133 + 96))
                         {
                           data = v130;
                           v244 = a1;
-                          if (!xmlStrEqual(v131->ExternalID, extSubset->ExternalID) && !xmlStrEqual(v131->SystemID, extSubset->SystemID))
+                          if (!xmlStrEqual(v131->ExternalID, *(v133 + 104)) && !xmlStrEqual(v131->SystemID, *(v133 + 112)))
                           {
-                            xmlHashScan(extSubset->entities, xmlXIncludeMergeEntity, &data);
+                            xmlHashScan(*(v133 + 96), xmlXIncludeMergeEntity, &data);
                           }
                         }
                       }
@@ -8407,12 +9451,12 @@ LABEL_253:
                     }
 
 LABEL_251:
-                    entities = intSubset->entities;
-                    if (entities)
+                    v132 = *(v129 + 96);
+                    if (v132)
                     {
                       data = v130;
                       v244 = a1;
-                      xmlHashScan(entities, xmlXIncludeMergeEntity, &data);
+                      xmlHashScan(v132, xmlXIncludeMergeEntity, &data);
                     }
 
                     goto LABEL_253;
@@ -8616,14 +9660,14 @@ LABEL_331:
                   }
 
 LABEL_374:
-                  *(*(a1[3] + 8 * v67) + 32) = xmlXIncludeCopyNodeList(*a1, myDoc, myDoc->children);
+                  *(*(a1[3] + 8 * v67) + 32) = xmlXIncludeCopyNodeList(*a1, myDoc, *(myDoc + 24));
                   if (!myDoc)
                   {
                     goto LABEL_395;
                   }
 
 LABEL_375:
-                  if (v94 && (*(a1 + 90) & 4) == 0 && (myDoc->parseFlags & 0x40000) == 0)
+                  if (v94 && (*(a1 + 90) & 4) == 0 && (*(myDoc + 170) & 4) == 0)
                   {
                     NsProp = xmlGetNsProp(*(*(a1[3] + 8 * v67) + 24), "base", "http://www.w3.org/XML/1998/namespace");
                     if (NsProp)
@@ -9011,22 +10055,22 @@ LABEL_264:
       goto LABEL_271;
     }
 
-    while (children->type != XML_ELEMENT_NODE || !children->ns || !xmlStrEqual(children->name, "fallback") || !xmlStrEqual(children->ns->href, "http://www.w3.org/2003/XInclude") && !xmlStrEqual(children->ns->href, "http://www.w3.org/2001/XInclude"))
+    while (*(children + 8) != 1 || !*(children + 72) || !xmlStrEqual(*(children + 16), "fallback") || !xmlStrEqual(*(*(children + 72) + 16), "http://www.w3.org/2003/XInclude") && !xmlStrEqual(*(*(children + 72) + 16), "http://www.w3.org/2001/XInclude"))
     {
-      children = children->next;
+      children = *(children + 48);
       if (!children)
       {
         goto LABEL_271;
       }
     }
 
-    if (children->type == XML_NAMESPACE_DECL)
+    if (*(children + 8) == 18)
     {
 LABEL_271:
       xmlXIncludeErr(a1, *(*(a1[3] + 8 * v237) + 24), 1604, "could not load %s, and no fallback was found\n", v242);
     }
 
-    else if (children->children)
+    else if (*(children + 24))
     {
       v135 = *(a1 + 20);
       v136 = xmlXIncludeNewContext(*a1);
@@ -9046,7 +10090,7 @@ LABEL_271:
       a1[14] = *(v137 + 14);
       v140 = *(a1 + 20);
       xmlXIncludeFreeContext(v137);
-      v141 = xmlDocCopyNodeList(*a1, children->children);
+      v141 = xmlDocCopyNodeList(*a1, *(children + 24));
       v142 = a1[3];
       *(*(v142 + 8 * v237) + 32) = v141;
       v143 = *(v142 + 8 * v237);
@@ -9260,609 +10304,4 @@ LABEL_438:
   }
 
   return v198;
-}
-
-int xmlXIncludeProcessFlagsData(xmlDocPtr doc, int flags, void *data)
-{
-  if (!doc)
-  {
-    return -1;
-  }
-
-  RootElement = xmlDocGetRootElement(doc);
-  if (!RootElement)
-  {
-    return -1;
-  }
-
-  return xmlXIncludeProcessTreeFlagsData(RootElement, flags, data);
-}
-
-int xmlXIncludeProcessTreeFlags(xmlNodePtr tree, int flags)
-{
-  if (!tree)
-  {
-    return -1;
-  }
-
-  if (tree->type == XML_NAMESPACE_DECL)
-  {
-    return -1;
-  }
-
-  doc = tree->doc;
-  if (!doc)
-  {
-    return -1;
-  }
-
-  v5 = xmlXIncludeNewContext(doc);
-  if (!v5)
-  {
-    return -1;
-  }
-
-  v6 = v5;
-  *(v5 + 12) = xmlNodeGetBase(tree->doc, tree);
-  *(v6 + 22) = flags;
-  v7 = xmlXIncludeDoProcess(v6, tree->doc, tree, 0);
-  if (v7 < 0)
-  {
-    v8 = -1;
-  }
-
-  else if (*(v6 + 20) > 0)
-  {
-    v8 = -1;
-  }
-
-  else
-  {
-    v8 = v7;
-  }
-
-  xmlXIncludeFreeContext(v6);
-  return v8;
-}
-
-int xmlXIncludeProcessNode(xmlXIncludeCtxtPtr ctxt, xmlNodePtr tree)
-{
-  if (!tree || tree->type == XML_NAMESPACE_DECL)
-  {
-    return -1;
-  }
-
-  result = -1;
-  if (ctxt)
-  {
-    doc = tree->doc;
-    if (doc)
-    {
-      result = xmlXIncludeDoProcess(ctxt, doc, tree, 0);
-      if (result < 0)
-      {
-        return -1;
-      }
-
-      else if (*(ctxt + 20) > 0)
-      {
-        return -1;
-      }
-    }
-  }
-
-  return result;
-}
-
-xmlChar *xmlXIncludeGetProp(uint64_t a1, xmlNode *node, const xmlChar *a3)
-{
-  result = xmlGetNsProp(node, "http://www.w3.org/2003/XInclude", a3);
-  if (!result && (!*(a1 + 84) || (result = xmlGetNsProp(node, "http://www.w3.org/2001/XInclude", a3)) == 0))
-  {
-
-    return xmlGetProp(node, a3);
-  }
-
-  return result;
-}
-
-xmlNodePtr xmlXIncludeCopyNodeList(xmlDoc *a1, uint64_t a2, xmlNode *a3)
-{
-  v3 = 0;
-  if (a1)
-  {
-    if (a2)
-    {
-      v5 = a3;
-      if (a3)
-      {
-        v7 = 0;
-        v3 = 0;
-        do
-        {
-          v8 = xmlXIncludeCopyNode(a1, a2, v5);
-          if (v8)
-          {
-            if (v3)
-            {
-              v7->next = v8;
-              v8->prev = v7;
-            }
-
-            else
-            {
-              v3 = v8;
-            }
-          }
-
-          else
-          {
-            v8 = v7;
-          }
-
-          v5 = v5->next;
-          v7 = v8;
-        }
-
-        while (v5);
-      }
-    }
-  }
-
-  return v3;
-}
-
-xmlNodePtr xmlXIncludeCopyXPointer(uint64_t *a1, xmlDoc *a2, uint64_t a3, int *a4)
-{
-  v4 = a3;
-  if (!a3)
-  {
-    v4 = *a1;
-  }
-
-  v7 = 0;
-  if (!a4 || !a2 || !v4)
-  {
-    return v7;
-  }
-
-  v8 = *a4;
-  if (*a4 == 7)
-  {
-    v52 = *(a4 + 5);
-    if (!v52 || *v52 < 1)
-    {
-      return 0;
-    }
-
-    v53 = 0;
-    v54 = 0;
-    v7 = 0;
-    while (1)
-    {
-      v55 = xmlXIncludeCopyXPointer(a1, a2, v4, *(*(v52 + 1) + 8 * v53));
-      v56 = v55;
-      if (v54)
-      {
-        break;
-      }
-
-      v7 = v55;
-      if (v55)
-      {
-        goto LABEL_98;
-      }
-
-      v54 = 0;
-LABEL_99:
-      if (++v53 >= *v52)
-      {
-        return v7;
-      }
-    }
-
-    xmlAddNextSibling(v54, v55);
-    v56 = v54;
-    do
-    {
-LABEL_98:
-      v54 = v56;
-      v56 = v56->next;
-    }
-
-    while (v56);
-    goto LABEL_99;
-  }
-
-  if (v8 != 6)
-  {
-    if (v8 == 1)
-    {
-      v9 = *(a4 + 1);
-      if (v9)
-      {
-        if (*v9 >= 1)
-        {
-          v10 = 0;
-          v11 = 0;
-          v7 = 0;
-          while (1)
-          {
-            v12 = *(*(v9 + 1) + 8 * v10);
-            if (v12)
-            {
-              v13 = *(v12 + 8);
-              if (v13 > 0x13)
-              {
-                goto LABEL_30;
-              }
-
-              if (((1 << v13) & 0x7DC04) == 0)
-              {
-                if (v13 != 19)
-                {
-LABEL_30:
-                  v19 = xmlXIncludeCopyNode(a2, v4, v12);
-                  next = v19;
-                  if (v11)
-                  {
-                    xmlAddNextSibling(v11, v19);
-                    if (v11->next)
-                    {
-                      next = v11->next;
-                    }
-
-                    else
-                    {
-                      next = v11;
-                    }
-                  }
-
-                  else
-                  {
-                    v7 = v19;
-                  }
-
-                  goto LABEL_16;
-                }
-
-                v15 = *(v12 + 48);
-                if (v15)
-                {
-                  while (1)
-                  {
-                    v16 = *(v15 + 8);
-                    if ((v16 - 3) >= 6 && v16 != 1)
-                    {
-                      break;
-                    }
-
-                    v18 = xmlXIncludeCopyNode(a2, v4, v15);
-                    next = v18;
-                    if (v11)
-                    {
-                      next = xmlAddNextSibling(v11, v18);
-                    }
-
-                    else
-                    {
-                      v7 = v18;
-                    }
-
-                    v15 = *(v15 + 48);
-                    v11 = next;
-                    if (!v15)
-                    {
-                      goto LABEL_16;
-                    }
-                  }
-                }
-              }
-            }
-
-            next = v11;
-LABEL_16:
-            ++v10;
-            v11 = next;
-            if (v10 >= *v9)
-            {
-              return v7;
-            }
-          }
-        }
-      }
-    }
-
-    return 0;
-  }
-
-  v71 = 0;
-  v20 = *(a4 + 5);
-  if (!v20 || *(v20 + 8) == 18)
-  {
-    return 0;
-  }
-
-  v21 = *(a4 + 7);
-  if (!v21)
-  {
-    return xmlDocCopyNode(*(a4 + 5), a2, 1);
-  }
-
-  if (*(v21 + 8) == 18)
-  {
-    return 0;
-  }
-
-  v22 = 0;
-  v23 = 0;
-  v24 = 0;
-  v25 = 0;
-  v26 = 0;
-  v7 = 0;
-  v27 = a4[16];
-  v68 = a4[16];
-  v69 = a4[12];
-  v28 = 1;
-  NthChild = *(a4 + 5);
-  while (2)
-  {
-    v70 = v21;
-    v30 = v23;
-    v23 = v22;
-    Sibling = v26;
-    while (1)
-    {
-      if (v23 < 0)
-      {
-        do
-        {
-          v33 = v7;
-          v7 = xmlDocCopyNode(v25, a2, 2);
-          xmlAddChild(v7, v33);
-          v25 = v25->parent;
-          v34 = v71;
-          v23 = ++v71;
-        }
-
-        while (v34 < -1);
-        v24 = 0;
-        Sibling = v7;
-LABEL_48:
-        v32 = v70;
-        goto LABEL_49;
-      }
-
-      if (v23 >= v24)
-      {
-        goto LABEL_48;
-      }
-
-      v32 = v70;
-      do
-      {
-        Sibling = Sibling->parent;
-        --v24;
-      }
-
-      while (v23 < v24);
-      v24 = v23;
-LABEL_49:
-      if (NthChild == v32)
-      {
-        break;
-      }
-
-      v35 = *(NthChild + 8);
-      if (NthChild != v20)
-      {
-        v42 = v35 > 0x14;
-        v36 = (1 << v35) & 0x1BC044;
-        if (v42 || v36 == 0)
-        {
-          v38 = xmlDocCopyNode(NthChild, a2, 2);
-          if (v38)
-          {
-            if (v71 == v24)
-            {
-              Sibling = xmlAddNextSibling(Sibling, v38);
-            }
-
-            else
-            {
-              Sibling = xmlAddChild(Sibling, v38);
-              v24 = v71;
-            }
-          }
-        }
-
-        goto LABEL_72;
-      }
-
-      if (v35 - 3 <= 1)
-      {
-        v39 = *(NthChild + 80);
-        if (v39)
-        {
-          v40 = v69;
-          v41 = v39 + v69 - 1;
-          v42 = v69 <= 1;
-          if (v69 > 1)
-          {
-            v40 = 0;
-          }
-
-          v69 = v40;
-          if (v42)
-          {
-            v43 = *(NthChild + 80);
-          }
-
-          else
-          {
-            v43 = v41;
-          }
-
-          v44 = xmlNewDocText(a2, v43);
-        }
-
-        else
-        {
-          v44 = xmlNewDocTextLen(a2, 0, 0);
-        }
-
-        v7 = v44;
-        v25 = *(NthChild + 40);
-LABEL_71:
-        Sibling = v7;
-LABEL_72:
-        v45 = xmlXPtrAdvanceNode(NthChild, &v71);
-        v23 = v71;
-        if (!(v28 & 1 | (v71 < v30)))
-        {
-          return v7;
-        }
-
-        NthChild = v45;
-        goto LABEL_74;
-      }
-
-      v7 = xmlDocCopyNode(NthChild, a2, 2);
-      v25 = *(NthChild + 40);
-      if (v69 < 2)
-      {
-        goto LABEL_71;
-      }
-
-      NthChild = xmlXIncludeGetNthChild(NthChild, v69 - 1);
-      v69 = 0;
-      v23 = 1;
-      v71 = 1;
-      Sibling = v7;
-      v24 = 1;
-LABEL_74:
-      if (!NthChild)
-      {
-        return v7;
-      }
-    }
-
-    if (*(NthChild + 8) != 3)
-    {
-      v46 = xmlDocCopyNode(NthChild, a2, 2);
-      v26 = v46;
-      if (v7)
-      {
-        if (v71 == v24)
-        {
-          v26 = xmlAddNextSibling(Sibling, v46);
-        }
-
-        else
-        {
-          v26 = xmlAddChild(Sibling, v46);
-          v24 = v71;
-        }
-      }
-
-      else
-      {
-        v25 = *(NthChild + 40);
-        v7 = v46;
-      }
-
-      if (v68 >= 2)
-      {
-        v48 = v26;
-        v49 = xmlXIncludeGetNthChild(NthChild, v68 - 1);
-        v26 = v48;
-        v21 = v49;
-        v68 = 0;
-        v47 = v70;
-      }
-
-      else
-      {
-        v47 = v70;
-        v21 = v70;
-      }
-
-      if (v47 == v20 && v69 >= 2)
-      {
-        v50 = v26;
-        v51 = xmlXIncludeGetNthChild(NthChild, v69 - 1);
-        v26 = v50;
-        NthChild = v51;
-        v69 = 0;
-      }
-
-      else
-      {
-        NthChild = *(NthChild + 24);
-      }
-
-      v28 = 0;
-      v22 = ++v71;
-      if (!NthChild)
-      {
-        return v7;
-      }
-
-      continue;
-    }
-
-    break;
-  }
-
-  v58 = *(NthChild + 80);
-  if (v58)
-  {
-    v59 = v70 == v20;
-    v60 = v69 - 1;
-    v61 = v69 > 1;
-    v62 = !v59 || !v61;
-    if (v59 && v61)
-    {
-      v63 = (v69 - 1);
-    }
-
-    else
-    {
-      v63 = 0;
-    }
-
-    if (v62)
-    {
-      v60 = 0;
-    }
-
-    v64 = v68 - v60;
-    v65 = (v58 + v63);
-    v66 = a2;
-  }
-
-  else
-  {
-    v66 = a2;
-    v65 = 0;
-    v64 = 0;
-  }
-
-  v67 = xmlNewDocTextLen(v66, v65, v64);
-  if (!v7)
-  {
-    return v67;
-  }
-
-  if (v71 == v24)
-  {
-    xmlAddNextSibling(Sibling, v67);
-  }
-
-  else
-  {
-    xmlAddChild(Sibling, v67);
-  }
-
-  return v7;
 }

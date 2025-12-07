@@ -13,14 +13,12 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"ServiceType";
-  v7[1] = @"DataAssetReference";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v6[0] = @"ServiceType";
+  v6[1] = @"DataAssetReference";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -39,14 +37,12 @@
 
 void __63__RMModelServicesConfigurationFilesDeclaration_assetReferences__block_invoke()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
   v0 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287467DA8 keyPath:@"$.payloadDataAssetReference"];
-  v4[0] = v0;
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
+  v3[0] = v0;
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
   v2 = assetReferences_assetPaths_15;
   assetReferences_assetPaths_15 = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (id)buildWithIdentifier:(id)identifier serviceType:(id)type dataAssetReference:(id)reference
@@ -105,17 +101,15 @@ void __63__RMModelServicesConfigurationFilesDeclaration_assetReferences__block_i
 
 + (id)supportedOS
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = &unk_28746BBA0;
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = &unk_28746BBA0;
   v2 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467DC0];
-  v8[0] = v2;
+  v7[0] = v2;
   v3 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467DD8];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
-  v10[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v9[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   return v5;
 }

@@ -13,6 +13,7 @@
 - (void)_executeAfterMinimumAnimationDurationForStateTransition:(id)transition;
 - (void)_executeTransitionCompletionHandlers:(BOOL)handlers;
 - (void)_finishTransitionForIndex:(unint64_t)index;
+- (void)_performTransitionWithTransitionIndex:(unint64_t)index animated:(BOOL)animated;
 - (void)_restartRotationIfNecessary;
 - (void)_setProgress:(double)progress withDuration:(double)duration forShapeLayerAtIndex:(unint64_t)index;
 - (void)_setRingState:(unint64_t)state withTransitionIndex:(unint64_t)index animated:(BOOL)animated;
@@ -25,8 +26,11 @@
 - (void)layoutSubviews;
 - (void)setContentLayerOpacity:(double)opacity withDuration:(double)duration;
 - (void)setPathState:(id)state forLayer:(id)layer;
+- (void)setPrimaryColor:(id)color animated:(BOOL)animated;
 - (void)setProgress:(double)progress withDuration:(double)duration;
 - (void)setRecognizedIfNecessaryWithCompletion:(id)completion;
+- (void)setSecondaryColor:(id)color animated:(BOOL)animated;
+- (void)setState:(int64_t)state animated:(BOOL)animated completionHandler:(id)handler;
 @end
 
 @implementation PKFingerprintGlyphView
@@ -40,43 +44,43 @@
 
 - (PKFingerprintGlyphView)init
 {
-  v186 = *MEMORY[0x277D85DE8];
+  v185 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CD9F28];
   v4 = PKPassKitUIFoundationBundle();
   v5 = [v4 URLForResource:@"Payment_glyph" withExtension:@"caar"];
   v6 = *MEMORY[0x277CDA7E8];
-  v176 = 0;
-  v7 = [v3 packageWithContentsOfURL:v5 type:v6 options:0 error:&v176];
-  v8 = v176;
+  v175 = 0;
+  v7 = [v3 packageWithContentsOfURL:v5 type:v6 options:0 error:&v175];
+  v8 = v175;
 
-  memset(&v175, 0, sizeof(v175));
-  CATransform3DMakeScale(&v175, 0.5, 0.5, 1.0);
+  memset(&v174, 0, sizeof(v174));
+  CATransform3DMakeScale(&v174, 0.5, 0.5, 1.0);
   rootLayer = [v7 rootLayer];
-  v157 = v7;
+  v156 = v7;
   [rootLayer setGeometryFlipped:{objc_msgSend(v7, "isGeometryFlipped")}];
-  v185 = v175;
-  [rootLayer setTransform:&v185];
+  v184 = v174;
+  [rootLayer setTransform:&v184];
   [rootLayer bounds];
   v10 = *MEMORY[0x277CBF348];
   v11 = *(MEMORY[0x277CBF348] + 8);
-  v174.receiver = self;
-  v174.super_class = PKFingerprintGlyphView;
-  v149 = v11;
-  v150 = v10;
-  v147 = v13 * 0.5;
-  v148 = v12 * 0.5;
-  v14 = [(PKFingerprintGlyphView *)&v174 initWithFrame:?];
+  v173.receiver = self;
+  v173.super_class = PKFingerprintGlyphView;
+  v148 = v11;
+  v149 = v10;
+  v146 = v13 * 0.5;
+  v147 = v12 * 0.5;
+  v14 = [(PKFingerprintGlyphView *)&v173 initWithFrame:?];
   v15 = v14;
   if (v14)
   {
-    v146 = v8;
+    v145 = v8;
     v14->_state = 0;
     v16 = 0x277CBE000uLL;
     v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
     transitionCompletionHandlers = v15->_transitionCompletionHandlers;
     v15->_transitionCompletionHandlers = v17;
 
-    v145 = rootLayer;
+    v144 = rootLayer;
     objc_storeStrong(&v15->_backgroundLayer, rootLayer);
     backgroundLayer = v15->_backgroundLayer;
     v20 = PKLayerNullActions();
@@ -89,26 +93,26 @@
       sublayers = [(CALayer *)v21 sublayers];
       v23 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(sublayers, "count")}];
       v24 = PKLayerNullActions();
+      v176 = 0u;
       v177 = 0u;
       v178 = 0u;
       v179 = 0u;
-      v180 = 0u;
       v25 = sublayers;
-      v26 = [v25 countByEnumeratingWithState:&v177 objects:&v185 count:16];
+      v26 = [v25 countByEnumeratingWithState:&v176 objects:&v184 count:16];
       if (v26)
       {
         v27 = v26;
-        v28 = *v178;
+        v28 = *v177;
         do
         {
           for (i = 0; i != v27; ++i)
           {
-            if (*v178 != v28)
+            if (*v177 != v28)
             {
               objc_enumerationMutation(v25);
             }
 
-            v30 = *(*(&v177 + 1) + 8 * i);
+            v30 = *(*(&v176 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -117,7 +121,7 @@
             }
           }
 
-          v27 = [v25 countByEnumeratingWithState:&v177 objects:&v185 count:16];
+          v27 = [v25 countByEnumeratingWithState:&v176 objects:&v184 count:16];
         }
 
         while (v27);
@@ -157,15 +161,15 @@
     v41 = v15->_backgroundLayer;
     if (v41)
     {
-      [(CALayer *)v41 transform];
+      objc_msgSend_transform(v41);
     }
 
     else
     {
-      memset(&v185, 0, sizeof(v185));
+      memset(&v184, 0, sizeof(v184));
     }
 
-    [(CALayer *)v40 setTransform:&v185];
+    [(CALayer *)v40 setTransform:&v184];
     [(CALayer *)v15->_foregroundLayer setGeometryFlipped:[(CALayer *)v15->_backgroundLayer isGeometryFlipped]];
     v42 = v15->_backgroundShapeLayers;
     v43 = v15->_foregroundLayer;
@@ -176,31 +180,31 @@
     {
       v47 = v16;
       v46 = [objc_alloc(*(v16 + 2840)) initWithCapacity:{-[NSArray count](v44, "count")}];
+      v176 = 0u;
       v177 = 0u;
       v178 = 0u;
       v179 = 0u;
-      v180 = 0u;
       v48 = v45;
-      v49 = [(NSArray *)v48 countByEnumeratingWithState:&v177 objects:&v185 count:16];
+      v49 = [(NSArray *)v48 countByEnumeratingWithState:&v176 objects:&v184 count:16];
       if (v49)
       {
         v50 = v49;
-        v51 = *v178;
+        v51 = *v177;
         do
         {
           for (j = 0; j != v50; ++j)
           {
-            if (*v178 != v51)
+            if (*v177 != v51)
             {
               objc_enumerationMutation(v48);
             }
 
-            v53 = CloneShapeLayer(*(*(&v177 + 1) + 8 * j));
+            v53 = CloneShapeLayer(*(*(&v176 + 1) + 8 * j));
             [v46 addObject:v53];
             [(CALayer *)v43 addSublayer:v53];
           }
 
-          v50 = [(NSArray *)v48 countByEnumeratingWithState:&v177 objects:&v185 count:16];
+          v50 = [(NSArray *)v48 countByEnumeratingWithState:&v176 objects:&v184 count:16];
         }
 
         while (v50);
@@ -215,32 +219,32 @@
     v15->_foregroundShapeLayers = v54;
 
     v56 = objc_alloc_init(*(v16 + 2840));
+    v169 = 0u;
     v170 = 0u;
     v171 = 0u;
     v172 = 0u;
-    v173 = 0u;
-    publishedObjectNames = [v157 publishedObjectNames];
-    v58 = [publishedObjectNames countByEnumeratingWithState:&v170 objects:v184 count:16];
+    publishedObjectNames = [v156 publishedObjectNames];
+    v58 = [publishedObjectNames countByEnumeratingWithState:&v169 objects:v183 count:16];
     if (v58)
     {
       v59 = v58;
-      v60 = *v171;
+      v60 = *v170;
       do
       {
         for (k = 0; k != v59; ++k)
         {
-          if (*v171 != v60)
+          if (*v170 != v60)
           {
             objc_enumerationMutation(publishedObjectNames);
           }
 
-          v62 = *(*(&v170 + 1) + 8 * k);
+          v62 = *(*(&v169 + 1) + 8 * k);
           if (![v62 hasPrefix:@"ring_"])
           {
             goto LABEL_39;
           }
 
-          v63 = [v157 publishedObjectWithName:v62];
+          v63 = [v156 publishedObjectWithName:v62];
           if (v63)
           {
             v64 = [(NSArray *)v15->_backgroundShapeLayers indexOfObjectIdenticalTo:v63];
@@ -258,30 +262,30 @@
                 if (!CGRectIsNull(PathBoundingBox))
                 {
                   [v66 anchorPoint];
-                  v153 = v72;
-                  v155 = v71;
+                  v152 = v72;
+                  v154 = v71;
                   [v66 position];
                   v74 = v73;
                   v76 = v75;
                   [v66 bounds];
-                  v151 = v77;
-                  v152 = v78;
+                  v150 = v77;
+                  v151 = v78;
                   v80 = v79;
                   v82 = v81;
-                  v154 = v76 - v153 * v81;
-                  v156 = v74 - v155 * v79;
+                  v153 = v76 - v152 * v81;
+                  v155 = v74 - v154 * v79;
+                  v187.origin.x = x;
+                  v187.origin.y = y;
+                  v187.size.width = width;
+                  v187.size.height = height;
+                  v83 = (CGRectGetMidX(v187) - v150) / v80;
                   v188.origin.x = x;
                   v188.origin.y = y;
                   v188.size.width = width;
                   v188.size.height = height;
-                  v83 = (CGRectGetMidX(v188) - v151) / v80;
-                  v189.origin.x = x;
-                  v189.origin.y = y;
-                  v189.size.width = width;
-                  v189.size.height = height;
-                  v84 = (CGRectGetMidY(v189) - v152) / v82;
+                  v84 = (CGRectGetMidY(v188) - v151) / v82;
                   [v66 setAnchorPoint:{v83, v84}];
-                  [v66 setPosition:{v156 + v83 * v80, v154 + v84 * v82}];
+                  [v66 setPosition:{v155 + v83 * v80, v153 + v84 * v82}];
                 }
 
                 [v56 addObject:v66];
@@ -294,7 +298,7 @@ LABEL_39:
           }
         }
 
-        v59 = [publishedObjectNames countByEnumeratingWithState:&v170 objects:v184 count:16];
+        v59 = [publishedObjectNames countByEnumeratingWithState:&v169 objects:v183 count:16];
       }
 
       while (v59);
@@ -341,33 +345,33 @@ LABEL_39:
       [(CALayer *)v101 setActions:v102];
 
       MatchLayerGeometry(v15->_maskForegroundLayer, v15->_foregroundLayer);
-      v168 = 0u;
-      v169 = 0u;
-      v166 = 0u;
       v167 = 0u;
+      v168 = 0u;
+      v165 = 0u;
+      v166 = 0u;
       v103 = v15->_foregroundRingShapeLayers;
-      v104 = [(NSArray *)v103 countByEnumeratingWithState:&v166 objects:v183 count:16];
+      v104 = [(NSArray *)v103 countByEnumeratingWithState:&v165 objects:v182 count:16];
       if (v104)
       {
         v105 = v104;
-        v106 = *v167;
+        v106 = *v166;
         do
         {
           for (m = 0; m != v105; ++m)
           {
-            if (*v167 != v106)
+            if (*v166 != v106)
             {
               objc_enumerationMutation(v103);
             }
 
-            v108 = *(*(&v166 + 1) + 8 * m);
+            v108 = *(*(&v165 + 1) + 8 * m);
             [(CALayer *)v15->_foregroundRingContainerLayer addSublayer:v108];
             [v108 position];
           }
 
           v111 = v109;
           v112 = v110;
-          v105 = [(NSArray *)v103 countByEnumeratingWithState:&v166 objects:v183 count:16];
+          v105 = [(NSArray *)v103 countByEnumeratingWithState:&v165 objects:v182 count:16];
         }
 
         while (v105);
@@ -375,8 +379,8 @@ LABEL_39:
 
       else
       {
-        v112 = v149;
-        v111 = v150;
+        v112 = v148;
+        v111 = v149;
       }
 
       firstObject = [(NSArray *)v15->_foregroundRingShapeLayers firstObject];
@@ -413,64 +417,64 @@ LABEL_39:
     }
 
     cGColor = [(UIColor *)v15->_secondaryColor CGColor];
+    v161 = 0u;
     v162 = 0u;
     v163 = 0u;
     v164 = 0u;
-    v165 = 0u;
     v123 = v15->_backgroundShapeLayers;
-    v124 = [(NSArray *)v123 countByEnumeratingWithState:&v162 objects:v182 count:16];
+    v124 = [(NSArray *)v123 countByEnumeratingWithState:&v161 objects:v181 count:16];
     if (v124)
     {
       v125 = v124;
-      v126 = *v163;
+      v126 = *v162;
       do
       {
         for (n = 0; n != v125; ++n)
         {
-          if (*v163 != v126)
+          if (*v162 != v126)
           {
             objc_enumerationMutation(v123);
           }
 
-          v128 = *(*(&v162 + 1) + 8 * n);
+          v128 = *(*(&v161 + 1) + 8 * n);
           v129 = [objc_alloc(MEMORY[0x277D38280]) initWithShapeLayer:v128 reverse:1];
           [(PKFingerprintGlyphView *)v15 setPathState:v129 forLayer:v128];
           [v128 setStrokeColor:cGColor];
         }
 
-        v125 = [(NSArray *)v123 countByEnumeratingWithState:&v162 objects:v182 count:16];
+        v125 = [(NSArray *)v123 countByEnumeratingWithState:&v161 objects:v181 count:16];
       }
 
       while (v125);
     }
 
     cGColor2 = [(UIColor *)v15->_primaryColor CGColor];
+    v157 = 0u;
     v158 = 0u;
     v159 = 0u;
     v160 = 0u;
-    v161 = 0u;
     v131 = v15->_foregroundShapeLayers;
-    v132 = [(NSArray *)v131 countByEnumeratingWithState:&v158 objects:v181 count:16];
+    v132 = [(NSArray *)v131 countByEnumeratingWithState:&v157 objects:v180 count:16];
     if (v132)
     {
       v133 = v132;
-      v134 = *v159;
+      v134 = *v158;
       do
       {
         for (ii = 0; ii != v133; ++ii)
         {
-          if (*v159 != v134)
+          if (*v158 != v134)
           {
             objc_enumerationMutation(v131);
           }
 
-          v136 = *(*(&v158 + 1) + 8 * ii);
+          v136 = *(*(&v157 + 1) + 8 * ii);
           v137 = [objc_alloc(MEMORY[0x277D38280]) initWithShapeLayer:v136];
           [(PKFingerprintGlyphView *)v15 setPathState:v137 forLayer:v136];
           [v136 setStrokeColor:cGColor2];
         }
 
-        v133 = [(NSArray *)v131 countByEnumeratingWithState:&v158 objects:v181 count:16];
+        v133 = [(NSArray *)v131 countByEnumeratingWithState:&v157 objects:v180 count:16];
       }
 
       while (v133);
@@ -484,7 +488,7 @@ LABEL_39:
     v141 = PKLayerNullActions();
     [(CALayer *)v140 setActions:v141];
 
-    [(CALayer *)v15->_contentLayer setFrame:v150, v149, v148, v147];
+    [(CALayer *)v15->_contentLayer setFrame:v149, v148, v147, v146];
     [(CALayer *)v15->_contentLayer setMask:v15->_maskLayer];
     layer = [(PKFingerprintGlyphView *)v15 layer];
     [layer addSublayer:v15->_backgroundLayer];
@@ -496,11 +500,10 @@ LABEL_39:
     [(PKFingerprintGlyphView *)v15 setContentLayerOpacity:0.0 withDuration:0.0];
     [(PKFingerprintGlyphView *)v15 setNeedsLayout];
 
-    rootLayer = v145;
-    v8 = v146;
+    rootLayer = v144;
+    v8 = v145;
   }
 
-  v143 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -653,43 +656,100 @@ uint64_t __30__PKFingerprintGlyphView_init__block_invoke(uint64_t a1, void *a2, 
   MEMORY[0x2821F97D0]();
 }
 
+- (void)setState:(int64_t)state animated:(BOOL)animated completionHandler:(id)handler
+{
+  animatedCopy = animated;
+  handlerCopy = handler;
+  if (self->_state == state)
+  {
+    if (!handlerCopy)
+    {
+      goto LABEL_12;
+    }
+
+    v16 = handlerCopy;
+    if (self->_transitioning)
+    {
+      transitionCompletionHandlers = self->_transitionCompletionHandlers;
+      v10 = [handlerCopy copy];
+      v11 = MEMORY[0x25F8AAFE0]();
+      [(NSMutableArray *)transitionCompletionHandlers addObject:v11];
+    }
+
+    else
+    {
+      (*(handlerCopy + 2))(handlerCopy, 0);
+    }
+  }
+
+  else
+  {
+    v16 = handlerCopy;
+    if (self->_transitioning)
+    {
+      self->_transitioning = 0;
+      [(PKFingerprintGlyphView *)self _executeTransitionCompletionHandlers:1];
+      [(PKFingerprintGlyphView *)self setState:state animated:animatedCopy completionHandler:v16];
+    }
+
+    else
+    {
+      v12 = self->_transitionIndex + 1;
+      self->_transitionIndex = v12;
+      self->_transitioning = 1;
+      self->_priorState = self->_state;
+      self->_state = state;
+      if (handlerCopy)
+      {
+        v13 = self->_transitionCompletionHandlers;
+        v14 = [handlerCopy copy];
+        v15 = MEMORY[0x25F8AAFE0]();
+        [(NSMutableArray *)v13 addObject:v15];
+      }
+
+      [(PKFingerprintGlyphView *)self _performTransitionWithTransitionIndex:v12 animated:animatedCopy];
+    }
+  }
+
+  handlerCopy = v16;
+LABEL_12:
+}
+
 - (void)_executeTransitionCompletionHandlers:(BOOL)handlers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = [(NSMutableArray *)self->_transitionCompletionHandlers copy];
   [(NSMutableArray *)self->_transitionCompletionHandlers removeAllObjects];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        (*(*(*(&v11 + 1) + 8 * v9) + 16))(*(*(&v11 + 1) + 8 * v9));
+        (*(*(*(&v10 + 1) + 8 * v9) + 16))(*(*(&v10 + 1) + 8 * v9));
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishTransitionForIndex:(unint64_t)index
@@ -736,6 +796,167 @@ uint64_t __30__PKFingerprintGlyphView_init__block_invoke(uint64_t a1, void *a2, 
 
     transitionCopy = block;
   }
+}
+
+- (void)_performTransitionWithTransitionIndex:(unint64_t)index animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  [(PKFingerprintGlyphView *)self _minimumAnimationDurationForStateTransition];
+  v8 = v7;
+  objc_initWeak(&location, self);
+  state = self->_state;
+  if (state <= 1)
+  {
+    if (state)
+    {
+      if (state == 1)
+      {
+        if (animatedCopy)
+        {
+          v13 = 0.75;
+          if (self->_fadeOnRecognized)
+          {
+            v13 = 0.5;
+          }
+
+          v8 = fmax(v13, v8);
+        }
+
+        [(PKFingerprintGlyphView *)self setContentLayerOpacity:0.0 withDuration:v8];
+        if (animatedCopy)
+        {
+          [(PKFingerprintGlyphView *)self setProgress:1.0 withDuration:v8];
+          v14 = dispatch_time(0, (v8 * 0.85 * 1000000000.0));
+          block[0] = MEMORY[0x277D85DD0];
+          block[1] = 3221225472;
+          block[2] = __73__PKFingerprintGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_3;
+          block[3] = &unk_279A003F0;
+          v12 = v31;
+          objc_copyWeak(v31, &location);
+          v31[1] = index;
+          dispatch_after(v14, MEMORY[0x277D85CD0], block);
+        }
+
+        else
+        {
+          [(PKFingerprintGlyphView *)self setProgress:0.8 withDuration:v8];
+          v28[0] = MEMORY[0x277D85DD0];
+          v28[1] = 3221225472;
+          v28[2] = __73__PKFingerprintGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_4;
+          v28[3] = &unk_279A003F0;
+          v12 = v29;
+          objc_copyWeak(v29, &location);
+          v29[1] = index;
+          [(PKFingerprintGlyphView *)self _executeAfterMinimumAnimationDurationForStateTransition:v28];
+        }
+
+        goto LABEL_27;
+      }
+
+LABEL_29:
+      [(PKFingerprintGlyphView *)self _updateRotationAnimationsIfNecessary:v21];
+      goto LABEL_30;
+    }
+
+    [(CALayer *)self->_contentLayer opacity];
+    if (v18 != 0.0)
+    {
+      v19 = 0.0;
+      if (animatedCopy)
+      {
+        v19 = 0.25;
+      }
+
+      v20 = fmax(v19, v8);
+      [(PKFingerprintGlyphView *)self setContentLayerOpacity:0.0 withDuration:v20];
+      [(PKFingerprintGlyphView *)self _updateLastAnimationTimeWithAnimationOfDuration:v20];
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __73__PKFingerprintGlyphView__performTransitionWithTransitionIndex_animated___block_invoke;
+      v34[3] = &unk_279A003C8;
+      v12 = v35;
+      objc_copyWeak(v35, &location);
+      v35[1] = index;
+      v36 = animatedCopy;
+      [(PKFingerprintGlyphView *)self _executeAfterMinimumAnimationDurationForStateTransition:v34];
+      goto LABEL_27;
+    }
+
+LABEL_24:
+    [(PKFingerprintGlyphView *)self _showFingerprintWithTransitionIndex:index animated:animatedCopy];
+    goto LABEL_28;
+  }
+
+  if ((state - 2) < 2)
+  {
+    v21 = MEMORY[0x277D85DD0];
+    v22 = 3221225472;
+    v23 = __73__PKFingerprintGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_5;
+    v24 = &unk_279A00418;
+    v12 = v26;
+    objc_copyWeak(v26, &location);
+    v26[1] = index;
+    selfCopy = self;
+    v27 = animatedCopy;
+    v15 = MEMORY[0x25F8AAFE0](&v21);
+    v16 = v15;
+    if (self->_priorState == 1)
+    {
+      v17 = 0.4;
+      if (!animatedCopy)
+      {
+        v17 = 0.0;
+      }
+
+      [(PKFingerprintGlyphView *)self setProgress:1.0 withDuration:fmax(v17, v8), v21, v22, v23, v24];
+      [(PKFingerprintGlyphView *)self _executeAfterMinimumAnimationDurationForStateTransition:v16];
+    }
+
+    else
+    {
+      (*(v15 + 16))(v15);
+    }
+
+    goto LABEL_27;
+  }
+
+  if (state == 4)
+  {
+    goto LABEL_24;
+  }
+
+  if (state != 5)
+  {
+    goto LABEL_29;
+  }
+
+  [(PKFingerprintGlyphView *)self _minimumAnimationDurationForStateTransition];
+  v11 = 0.3;
+  if (!animatedCopy)
+  {
+    v11 = 0.0;
+  }
+
+  [(PKFingerprintGlyphView *)self setContentLayerOpacity:1.0 withDuration:fmax(v11, v10)];
+  [(PKFingerprintGlyphView *)self _setRingState:2 withTransitionIndex:index animated:animatedCopy];
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __73__PKFingerprintGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_2;
+  v32[3] = &unk_279A003F0;
+  v12 = v33;
+  objc_copyWeak(v33, &location);
+  v33[1] = index;
+  [(PKFingerprintGlyphView *)self _executeAfterMinimumAnimationDurationForStateTransition:v32];
+LABEL_27:
+  objc_destroyWeak(v12);
+LABEL_28:
+  if (self->_state != 3)
+  {
+    goto LABEL_29;
+  }
+
+LABEL_30:
+  objc_destroyWeak(&location);
 }
 
 void __73__PKFingerprintGlyphView__performTransitionWithTransitionIndex_animated___block_invoke(uint64_t a1)
@@ -788,24 +1009,23 @@ void __73__PKFingerprintGlyphView__performTransitionWithTransitionIndex_animated
   v3 = WeakRetained;
   if (WeakRetained && WeakRetained[59] == *(a1 + 48))
   {
-    v4 = *(a1 + 56);
     [WeakRetained _setRingState:*(*(a1 + 32) + 552) != 2 withTransitionIndex:? animated:?];
-    v5 = 0.0;
+    v4 = 0.0;
     if (*(a1 + 56) == 1)
     {
       [v3 _minimumAnimationDurationForStateTransition];
-      v5 = v6;
+      v4 = v5;
     }
 
-    [v3 setContentLayerOpacity:0.0 withDuration:v5];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __73__PKFingerprintGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_6;
-    v7[3] = &unk_279A003F0;
-    objc_copyWeak(v8, (a1 + 40));
-    v8[1] = *(a1 + 48);
-    [v3 _executeAfterMinimumAnimationDurationForStateTransition:v7];
-    objc_destroyWeak(v8);
+    [v3 setContentLayerOpacity:0.0 withDuration:v4];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __73__PKFingerprintGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_6;
+    v6[3] = &unk_279A003F0;
+    objc_copyWeak(v7, (a1 + 40));
+    v7[1] = *(a1 + 48);
+    [v3 _executeAfterMinimumAnimationDurationForStateTransition:v6];
+    objc_destroyWeak(v7);
   }
 }
 
@@ -984,13 +1204,13 @@ void __82__PKFingerprintGlyphView__continueHoldingStateForPathAtIndex_withTransi
 
 - (void)_setRingState:(unint64_t)state withTransitionIndex:(unint64_t)index animated:(BOOL)animated
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   if (self->_transitionIndex == index)
   {
-    v59 = 0;
-    v60 = &v59;
-    v61 = 0x2020000000;
-    v62 = 0;
+    v58 = 0;
+    v59 = &v58;
+    v60 = 0x2020000000;
+    v61 = 0;
     fadeOnRecognized = self->_fadeOnRecognized;
     if (animated)
     {
@@ -1002,76 +1222,76 @@ void __82__PKFingerprintGlyphView__continueHoldingStateForPathAtIndex_withTransi
       v8 = 0.0;
     }
 
-    v57[0] = MEMORY[0x277D85DD0];
-    v57[1] = 3221225472;
-    v57[2] = __69__PKFingerprintGlyphView__setRingState_withTransitionIndex_animated___block_invoke;
-    v57[3] = &unk_279A00468;
-    *&v57[5] = v8;
-    v57[4] = &v59;
-    v58 = fadeOnRecognized;
-    v9 = MEMORY[0x25F8AAFE0](v57, a2);
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = __69__PKFingerprintGlyphView__setRingState_withTransitionIndex_animated___block_invoke;
+    v56[3] = &unk_279A00468;
+    *&v56[5] = v8;
+    v56[4] = &v58;
+    v57 = fadeOnRecognized;
+    v9 = MEMORY[0x25F8AAFE0](v56, a2);
     v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
     v10 = self->_backgroundShapeLayers;
-    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v53 objects:v64 count:16];
+    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v52 objects:v63 count:16];
     if (v11)
     {
-      v12 = *v54;
+      v12 = *v53;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v54 != v12)
+          if (*v53 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v53 + 1) + 8 * i);
+          v14 = *(*(&v52 + 1) + 8 * i);
           if (state)
           {
-            [*(*(&v53 + 1) + 8 * i) strokeEnd];
+            [*(*(&v52 + 1) + 8 * i) strokeEnd];
           }
 
           else
           {
-            [*(*(&v53 + 1) + 8 * i) strokeStart];
+            [*(*(&v52 + 1) + 8 * i) strokeStart];
           }
 
           v9[2](v9, v14, v15, v15.n128_f64[0]);
         }
 
-        v11 = [(NSArray *)v10 countByEnumeratingWithState:&v53 objects:v64 count:16];
+        v11 = [(NSArray *)v10 countByEnumeratingWithState:&v52 objects:v63 count:16];
       }
 
       while (v11);
     }
 
     v16 = [(NSArray *)self->_foregroundRingShapeLayers count];
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     obj = self->_foregroundShapeLayers;
-    v17 = [(NSArray *)obj countByEnumeratingWithState:&v49 objects:v63 count:16];
+    v17 = [(NSArray *)obj countByEnumeratingWithState:&v48 objects:v62 count:16];
     if (v17)
     {
-      v45 = v16 - 1;
-      v47 = *v50;
+      v44 = v16 - 1;
+      v46 = *v49;
       do
       {
-        v48 = v17;
-        for (j = 0; j != v48; ++j)
+        v47 = v17;
+        for (j = 0; j != v47; ++j)
         {
-          if (*v50 != v47)
+          if (*v49 != v46)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v49 + 1) + 8 * j);
+          v19 = *(*(&v48 + 1) + 8 * j);
           foregroundRingShapeLayers = self->_foregroundRingShapeLayers;
-          if (foregroundRingShapeLayers && (v21 = [(NSArray *)foregroundRingShapeLayers indexOfObjectIdenticalTo:*(*(&v49 + 1) + 8 * j)], v21 != 0x7FFFFFFFFFFFFFFFLL))
+          if (foregroundRingShapeLayers && (v21 = [(NSArray *)foregroundRingShapeLayers indexOfObjectIdenticalTo:*(*(&v48 + 1) + 8 * j)], v21 != 0x7FFFFFFFFFFFFFFFLL))
           {
             v23 = [(PKFingerprintGlyphView *)self pathStateForLayer:v19];
             [v23 strokeStartAtProgress:1.0];
@@ -1095,7 +1315,7 @@ void __82__PKFingerprintGlyphView__continueHoldingStateForPathAtIndex_withTransi
             }
 
             v33 = 1.0;
-            if (v21 < v45)
+            if (v21 < v44)
             {
               v34 = [(NSArray *)self->_foregroundRingShapeLayers objectAtIndexedSubscript:v21 + 1, 1.0];
               v35 = [(PKFingerprintGlyphView *)self pathStateForLayer:v34];
@@ -1124,7 +1344,7 @@ void __82__PKFingerprintGlyphView__continueHoldingStateForPathAtIndex_withTransi
                 v39 = v32;
               }
 
-              if (v21 == v45)
+              if (v21 == v44)
               {
                 v33 = v33 + -0.025;
               }
@@ -1172,21 +1392,19 @@ void __82__PKFingerprintGlyphView__continueHoldingStateForPathAtIndex_withTransi
           }
         }
 
-        v17 = [(NSArray *)obj countByEnumeratingWithState:&v49 objects:v63 count:16];
+        v17 = [(NSArray *)obj countByEnumeratingWithState:&v48 objects:v62 count:16];
       }
 
       while (v17);
     }
 
-    if (*(v60 + 24) == 1)
+    if (*(v59 + 24) == 1)
     {
       [(PKFingerprintGlyphView *)self _updateLastAnimationTimeWithAnimationOfDuration:v8];
     }
 
-    _Block_object_dispose(&v59, 8);
+    _Block_object_dispose(&v58, 8);
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __69__PKFingerprintGlyphView__setRingState_withTransitionIndex_animated___block_invoke(uint64_t a1, void *a2, double a3, double a4)
@@ -1286,20 +1504,19 @@ LABEL_14:
 
 - (void)_updateRotationAnimationsIfNecessary
 {
-  rotatingRing = self->_rotatingRing;
-  v3 = self->_state == 3;
+  v2 = self->_state == 3;
   if (self->_state == 3)
   {
     if (!self->_rotatingRing)
     {
-      self->_rotatingRing = v3;
+      self->_rotatingRing = v2;
       [(PKFingerprintGlyphView *)self _startRotationAnimation];
     }
   }
 
   else if (self->_rotatingRing)
   {
-    self->_rotatingRing = v3;
+    self->_rotatingRing = v2;
     [(PKFingerprintGlyphView *)self _endRotationAnimation];
   }
 }
@@ -1322,92 +1539,93 @@ LABEL_14:
 
 - (void)_startRotationAnimation
 {
-  v43 = *MEMORY[0x277D85DE8];
-  if (self->_foregroundRingContainerLayer && !self->_rotationAnimationKey)
+  v42 = *MEMORY[0x277D85DE8];
+  if (self->_foregroundRingContainerLayer)
   {
-    v3 = [MEMORY[0x277CD9EC8] animationWithKeyPath:@"transform"];
-    [v3 setAdditive:1];
-    v4 = *MEMORY[0x277CDA080];
-    [v3 setBeginTimeMode:*MEMORY[0x277CDA080]];
-    [v3 setDuration:0.55];
-    v36 = *MEMORY[0x277CDA230];
-    [v3 setFillMode:?];
-    v5 = MEMORY[0x277CCAE60];
-    CATransform3DMakeRotation(&v37, -3.14159265, 0.0, 0.0, -1.0);
-    v6 = [v5 valueWithCATransform3D:&v37];
-    v38 = v6;
-    v7 = MEMORY[0x277CCAE60];
-    CATransform3DMakeRotation(&v37, -1.57079633, 0.0, 0.0, -1.0);
-    v8 = [v7 valueWithCATransform3D:&v37];
-    v39 = v8;
-    v9 = MEMORY[0x277CCAE60];
-    CATransform3DMakeRotation(&v37, 0.0, 0.0, 0.0, -1.0);
-    v10 = [v9 valueWithCATransform3D:&v37];
-    v40 = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:3];
-    [v3 setValues:v11];
+    if (!self->_rotationAnimationKey)
+    {
+      v3 = [MEMORY[0x277CD9EC8] animationWithKeyPath:@"transform"];
+      [v3 setAdditive:1];
+      v4 = *MEMORY[0x277CDA080];
+      [v3 setBeginTimeMode:*MEMORY[0x277CDA080]];
+      [v3 setDuration:0.55];
+      v35 = *MEMORY[0x277CDA230];
+      [v3 setFillMode:?];
+      v5 = MEMORY[0x277CCAE60];
+      CATransform3DMakeRotation(&v36, -3.14159265, 0.0, 0.0, -1.0);
+      v6 = [v5 valueWithCATransform3D:&v36];
+      v37 = v6;
+      v7 = MEMORY[0x277CCAE60];
+      CATransform3DMakeRotation(&v36, -1.57079633, 0.0, 0.0, -1.0);
+      v8 = [v7 valueWithCATransform3D:&v36];
+      v38 = v8;
+      v9 = MEMORY[0x277CCAE60];
+      CATransform3DMakeRotation(&v36, 0.0, 0.0, 0.0, -1.0);
+      v10 = [v9 valueWithCATransform3D:&v36];
+      v39 = v10;
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:3];
+      [v3 setValues:v11];
 
-    [v3 setKeyTimes:&unk_286FD1328];
-    v12 = [MEMORY[0x277CD9EF8] functionWithName:*MEMORY[0x277CDA7B0]];
-    *&v37.m11 = v12;
-    v13 = *MEMORY[0x277CDA7C8];
-    v14 = [MEMORY[0x277CD9EF8] functionWithName:*MEMORY[0x277CDA7C8]];
-    *&v37.m12 = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:2];
-    [v3 setTimingFunctions:v15];
+      [v3 setKeyTimes:&unk_286FD1328];
+      v12 = [MEMORY[0x277CD9EF8] functionWithName:*MEMORY[0x277CDA7B0]];
+      *&v36.m11 = v12;
+      v13 = *MEMORY[0x277CDA7C8];
+      v14 = [MEMORY[0x277CD9EF8] functionWithName:*MEMORY[0x277CDA7C8]];
+      *&v36.m12 = v14;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:2];
+      [v3 setTimingFunctions:v15];
 
-    v16 = [MEMORY[0x277CD9EC8] animationWithKeyPath:@"transform"];
-    [v16 setAdditive:1];
-    [v16 setBeginTimeMode:v4];
-    [v16 setDuration:1.0];
-    v17 = [MEMORY[0x277CD9EF8] functionWithName:v13];
-    [v16 setTimingFunction:v17];
+      v16 = [MEMORY[0x277CD9EC8] animationWithKeyPath:@"transform"];
+      [v16 setAdditive:1];
+      [v16 setBeginTimeMode:v4];
+      [v16 setDuration:1.0];
+      v17 = [MEMORY[0x277CD9EF8] functionWithName:v13];
+      [v16 setTimingFunction:v17];
 
-    [v16 setFillMode:v36];
-    v18 = MEMORY[0x277CCAE60];
-    CATransform3DMakeRotation(&v37, 0.0, 0.0, 0.0, -1.0);
-    v19 = [v18 valueWithCATransform3D:&v37];
-    v38 = v19;
-    v20 = MEMORY[0x277CCAE60];
-    CATransform3DMakeRotation(&v37, 1.57079633, 0.0, 0.0, -1.0);
-    v21 = [v20 valueWithCATransform3D:&v37];
-    v39 = v21;
-    v22 = MEMORY[0x277CCAE60];
-    CATransform3DMakeRotation(&v37, 3.14159265, 0.0, 0.0, -1.0);
-    v23 = [v22 valueWithCATransform3D:&v37];
-    v40 = v23;
-    v24 = MEMORY[0x277CCAE60];
-    CATransform3DMakeRotation(&v37, 4.71238898, 0.0, 0.0, -1.0);
-    v25 = [v24 valueWithCATransform3D:&v37];
-    v41 = v25;
-    v26 = MEMORY[0x277CCAE60];
-    CATransform3DMakeRotation(&v37, 0.0, 0.0, 0.0, -1.0);
-    v27 = [v26 valueWithCATransform3D:&v37];
-    v42 = v27;
-    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:5];
-    [v16 setValues:v28];
+      [v16 setFillMode:v35];
+      v18 = MEMORY[0x277CCAE60];
+      CATransform3DMakeRotation(&v36, 0.0, 0.0, 0.0, -1.0);
+      v19 = [v18 valueWithCATransform3D:&v36];
+      v37 = v19;
+      v20 = MEMORY[0x277CCAE60];
+      CATransform3DMakeRotation(&v36, 1.57079633, 0.0, 0.0, -1.0);
+      v21 = [v20 valueWithCATransform3D:&v36];
+      v38 = v21;
+      v22 = MEMORY[0x277CCAE60];
+      CATransform3DMakeRotation(&v36, 3.14159265, 0.0, 0.0, -1.0);
+      v23 = [v22 valueWithCATransform3D:&v36];
+      v39 = v23;
+      v24 = MEMORY[0x277CCAE60];
+      CATransform3DMakeRotation(&v36, 4.71238898, 0.0, 0.0, -1.0);
+      v25 = [v24 valueWithCATransform3D:&v36];
+      v40 = v25;
+      v26 = MEMORY[0x277CCAE60];
+      CATransform3DMakeRotation(&v36, 0.0, 0.0, 0.0, -1.0);
+      v27 = [v26 valueWithCATransform3D:&v36];
+      v41 = v27;
+      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:5];
+      [v16 setValues:v28];
 
-    [v16 setKeyTimes:&unk_286FD1340];
-    LODWORD(v29) = 2139095040;
-    [v16 setRepeatCount:v29];
-    [v16 setBeginTime:0.55];
-    v30 = [(CALayer *)self->_foregroundRingContainerLayer pkui_addAdditiveAnimation:v3];
-    v31 = [(CALayer *)self->_foregroundRingContainerLayer pkui_addAdditiveAnimation:v16];
-    v32 = [v31 copy];
-    rotationAnimationKey = self->_rotationAnimationKey;
-    self->_rotationAnimationKey = v32;
+      [v16 setKeyTimes:&unk_286FD1340];
+      LODWORD(v29) = 2139095040;
+      [v16 setRepeatCount:v29];
+      [v16 setBeginTime:0.55];
+      v30 = [(CALayer *)self->_foregroundRingContainerLayer pkui_addAdditiveAnimation:v3];
+      v31 = [(CALayer *)self->_foregroundRingContainerLayer pkui_addAdditiveAnimation:v16];
+      v32 = [v31 copy];
+      rotationAnimationKey = self->_rotationAnimationKey;
+      self->_rotationAnimationKey = v32;
 
-    foregroundRingContainerLayer = self->_foregroundRingContainerLayer;
-    CATransform3DMakeRotation(&v37, 3.14159265, 0.0, 0.0, -1.0);
-    [(CALayer *)foregroundRingContainerLayer setTransform:&v37];
+      foregroundRingContainerLayer = self->_foregroundRingContainerLayer;
+      CATransform3DMakeRotation(&v36, 3.14159265, 0.0, 0.0, -1.0);
+      [(CALayer *)foregroundRingContainerLayer setTransform:&v36];
+    }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_endRotationAnimation
 {
-  v35[3] = *MEMORY[0x277D85DE8];
+  v34[3] = *MEMORY[0x277D85DE8];
   if (self->_foregroundRingContainerLayer && self->_rotationAnimationKey)
   {
     v3 = [MEMORY[0x277CD9EC8] animationWithKeyPath:@"transform"];
@@ -1416,26 +1634,26 @@ LABEL_14:
     [v3 setDuration:0.55];
     [v3 setFillMode:*MEMORY[0x277CDA230]];
     v4 = MEMORY[0x277CCAE60];
-    CATransform3DMakeRotation(&v34, -3.14159265, 0.0, 0.0, -1.0);
-    v5 = [v4 valueWithCATransform3D:&v34];
-    v35[0] = v5;
+    CATransform3DMakeRotation(&v33, -3.14159265, 0.0, 0.0, -1.0);
+    v5 = [v4 valueWithCATransform3D:&v33];
+    v34[0] = v5;
     v6 = MEMORY[0x277CCAE60];
-    CATransform3DMakeRotation(&v34, -1.57079633, 0.0, 0.0, -1.0);
-    v7 = [v6 valueWithCATransform3D:&v34];
-    v35[1] = v7;
+    CATransform3DMakeRotation(&v33, -1.57079633, 0.0, 0.0, -1.0);
+    v7 = [v6 valueWithCATransform3D:&v33];
+    v34[1] = v7;
     v8 = MEMORY[0x277CCAE60];
-    CATransform3DMakeRotation(&v34, 0.0, 0.0, 0.0, -1.0);
-    v9 = [v8 valueWithCATransform3D:&v34];
-    v35[2] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:3];
+    CATransform3DMakeRotation(&v33, 0.0, 0.0, 0.0, -1.0);
+    v9 = [v8 valueWithCATransform3D:&v33];
+    v34[2] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:3];
     [v3 setValues:v10];
 
     [v3 setKeyTimes:&unk_286FD1358];
     v11 = [MEMORY[0x277CD9EF8] functionWithName:*MEMORY[0x277CDA7C8]];
-    *&v34.m11 = v11;
+    *&v33.m11 = v11;
     v12 = [MEMORY[0x277CD9EF8] functionWithName:*MEMORY[0x277CDA7C0]];
-    *&v34.m12 = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:2];
+    *&v33.m12 = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:2];
     [v3 setTimingFunctions:v13];
 
     v14 = self->_rotationAnimationKey;
@@ -1443,14 +1661,14 @@ LABEL_14:
     self->_rotationAnimationKey = 0;
 
     [(CALayer *)self->_foregroundRingContainerLayer pkui_elapsedDurationForAnimationWithKey:v14];
-    v27 = v16;
+    v26 = v16;
     v17 = v16;
     if (*v16.i64 <= 0.0)
     {
       [(CALayer *)self->_foregroundRingContainerLayer removeAnimationForKey:v14];
 
       v14 = 0;
-      v19 = fabs(*v27.i64);
+      v19 = fabs(*v26.i64);
     }
 
     else
@@ -1465,37 +1683,35 @@ LABEL_14:
     [v3 setBeginTimeMode:*MEMORY[0x277CDA048]];
     if (v14)
     {
-      objc_initWeak(&v34, self);
-      v28 = MEMORY[0x277D85DD0];
-      v29 = 3221225472;
-      v30 = __47__PKFingerprintGlyphView__endRotationAnimation__block_invoke;
-      v31 = &unk_2799FFAF8;
-      objc_copyWeak(&v33, &v34);
-      v32 = v14;
-      [v3 pkui_setDidStartHandler:&v28];
+      objc_initWeak(&v33, self);
+      v27 = MEMORY[0x277D85DD0];
+      v28 = 3221225472;
+      v29 = __47__PKFingerprintGlyphView__endRotationAnimation__block_invoke;
+      v30 = &unk_2799FFAF8;
+      objc_copyWeak(&v32, &v33);
+      v31 = v14;
+      [v3 pkui_setDidStartHandler:&v27];
 
+      objc_destroyWeak(&v32);
       objc_destroyWeak(&v33);
-      objc_destroyWeak(&v34);
     }
 
-    v20 = [(CALayer *)self->_foregroundRingContainerLayer pkui_addAdditiveAnimation:v3, *&v27, v28, v29, v30, v31];
+    v20 = [(CALayer *)self->_foregroundRingContainerLayer pkui_addAdditiveAnimation:v3, *&v26, v27, v28, v29, v30];
     foregroundRingContainerLayer = self->_foregroundRingContainerLayer;
     v22 = *(MEMORY[0x277CD9DE8] + 80);
-    *&v34.m31 = *(MEMORY[0x277CD9DE8] + 64);
-    *&v34.m33 = v22;
+    *&v33.m31 = *(MEMORY[0x277CD9DE8] + 64);
+    *&v33.m33 = v22;
     v23 = *(MEMORY[0x277CD9DE8] + 112);
-    *&v34.m41 = *(MEMORY[0x277CD9DE8] + 96);
-    *&v34.m43 = v23;
+    *&v33.m41 = *(MEMORY[0x277CD9DE8] + 96);
+    *&v33.m43 = v23;
     v24 = *(MEMORY[0x277CD9DE8] + 16);
-    *&v34.m11 = *MEMORY[0x277CD9DE8];
-    *&v34.m13 = v24;
+    *&v33.m11 = *MEMORY[0x277CD9DE8];
+    *&v33.m13 = v24;
     v25 = *(MEMORY[0x277CD9DE8] + 48);
-    *&v34.m21 = *(MEMORY[0x277CD9DE8] + 32);
-    *&v34.m23 = v25;
-    [(CALayer *)foregroundRingContainerLayer setTransform:&v34];
+    *&v33.m21 = *(MEMORY[0x277CD9DE8] + 32);
+    *&v33.m23 = v25;
+    [(CALayer *)foregroundRingContainerLayer setTransform:&v33];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __47__PKFingerprintGlyphView__endRotationAnimation__block_invoke(uint64_t a1)
@@ -1573,84 +1789,156 @@ void __73__PKFingerprintGlyphView__setProgress_withDuration_forShapeLayerAtIndex
   v11 = [v12 pkui_addAdditiveAnimation:v9];
 }
 
+- (void)setPrimaryColor:(id)color animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  colorCopy = color;
+  primaryColor = self->_primaryColor;
+  v11 = colorCopy;
+  if (!colorCopy || !primaryColor)
+  {
+LABEL_5:
+    if (primaryColor == colorCopy)
+    {
+      goto LABEL_7;
+    }
+
+    goto LABEL_6;
+  }
+
+  v8 = [(UIColor *)primaryColor isEqual:colorCopy];
+  colorCopy = v11;
+  if (v8)
+  {
+    primaryColor = self->_primaryColor;
+    goto LABEL_5;
+  }
+
+LABEL_6:
+  v9 = [(UIColor *)colorCopy copy];
+  v10 = self->_primaryColor;
+  self->_primaryColor = v9;
+
+  primaryColor = [(PKFingerprintGlyphView *)self _applyPrimaryColorAnimated:animatedCopy];
+  colorCopy = v11;
+LABEL_7:
+
+  MEMORY[0x2821F96F8](primaryColor, colorCopy);
+}
+
+- (void)setSecondaryColor:(id)color animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  colorCopy = color;
+  secondaryColor = self->_secondaryColor;
+  v11 = colorCopy;
+  if (!colorCopy || !secondaryColor)
+  {
+LABEL_5:
+    if (secondaryColor == colorCopy)
+    {
+      goto LABEL_7;
+    }
+
+    goto LABEL_6;
+  }
+
+  v8 = [(UIColor *)secondaryColor isEqual:colorCopy];
+  colorCopy = v11;
+  if (v8)
+  {
+    secondaryColor = self->_secondaryColor;
+    goto LABEL_5;
+  }
+
+LABEL_6:
+  v9 = [(UIColor *)colorCopy copy];
+  v10 = self->_secondaryColor;
+  self->_secondaryColor = v9;
+
+  secondaryColor = [(PKFingerprintGlyphView *)self _applySecondaryColorAnimated:animatedCopy];
+  colorCopy = v11;
+LABEL_7:
+
+  MEMORY[0x2821F96F8](secondaryColor, colorCopy);
+}
+
 - (void)_applyColor:(id)color toShapeLayers:(id)layers animated:(BOOL)animated
 {
   animatedCopy = animated;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   colorCopy = color;
   layersCopy = layers;
   if (layersCopy)
   {
-    v34 = 0;
-    v35 = &v34;
-    v36 = 0x2020000000;
-    v37 = 0;
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v30 = __61__PKFingerprintGlyphView__applyColor_toShapeLayers_animated___block_invoke;
-    v31 = &unk_279A004B0;
-    v33 = &v34;
-    v32 = colorCopy;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x2020000000;
+    v36 = 0;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v29 = __61__PKFingerprintGlyphView__applyColor_toShapeLayers_animated___block_invoke;
+    v30 = &unk_279A004B0;
+    v32 = &v33;
+    v31 = colorCopy;
     v8 = MEMORY[0x277D75C80];
-    v9 = v29;
+    v9 = v28;
     selfCopy = self;
     currentTraitCollection = [v8 currentTraitCollection];
     v12 = MEMORY[0x277D75C80];
     traitCollection = [(PKFingerprintGlyphView *)selfCopy traitCollection];
 
     [v12 setCurrentTraitCollection:traitCollection];
-    v30(v9);
+    v29(v9);
 
     [MEMORY[0x277D75C80] setCurrentTraitCollection:currentTraitCollection];
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v14 = layersCopy;
-    v15 = [v14 countByEnumeratingWithState:&v25 objects:v38 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v24 objects:v37 count:16];
     if (v15)
     {
-      v16 = *v26;
+      v16 = *v25;
       do
       {
         v17 = 0;
         do
         {
-          if (*v26 != v16)
+          if (*v25 != v16)
           {
             objc_enumerationMutation(v14);
           }
 
-          v18 = *(*(&v25 + 1) + 8 * v17);
+          v18 = *(*(&v24 + 1) + 8 * v17);
           if (animatedCopy)
           {
-            [*(*(&v25 + 1) + 8 * v17) removeAnimationForKey:@"color"];
+            [*(*(&v24 + 1) + 8 * v17) removeAnimationForKey:@"color"];
             presentationLayer = [v18 presentationLayer];
             strokeColor = [presentationLayer strokeColor];
 
             v21 = [MEMORY[0x277D382C8] springAnimationWithKeyPath:@"strokeColor"];
             [v21 setAdditive:0];
             [v21 setFromValue:strokeColor];
-            [v21 setToValue:v35[3]];
+            [v21 setToValue:v34[3]];
             [v18 addAnimation:v21 forKey:@"color"];
           }
 
-          [v18 setStrokeColor:{v35[3], layersCopy}];
+          [v18 setStrokeColor:{v34[3], layersCopy}];
           ++v17;
         }
 
         while (v15 != v17);
-        v15 = [v14 countByEnumeratingWithState:&v25 objects:v38 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v24 objects:v37 count:16];
       }
 
       while (v15);
     }
 
-    CGColorRelease(v35[3]);
-    _Block_object_dispose(&v34, 8);
+    CGColorRelease(v34[3]);
+    _Block_object_dispose(&v33, 8);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 CGColorRef __61__PKFingerprintGlyphView__applyColor_toShapeLayers_animated___block_invoke(uint64_t a1)

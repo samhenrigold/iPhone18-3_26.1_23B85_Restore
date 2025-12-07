@@ -31,7 +31,7 @@ LABEL_6:
 
 - (void)inflateLZRawWithError:()Compression
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CBEB28] dataWithLength:0x4000];
   v6 = compression_decode_buffer([v5 mutableBytes], objc_msgSend(v5, "length"), objc_msgSend(self, "bytes"), objc_msgSend(self, "length"), 0, COMPRESSION_LZ4_RAW);
   if (v6)
@@ -45,29 +45,27 @@ LABEL_6:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v14 = "[NSData(Compression) inflateLZRawWithError:]";
+      v13 = "[NSData(Compression) inflateLZRawWithError:]";
       _os_log_impl(&dword_242072000, v7, OS_LOG_TYPE_DEFAULT, "%s - Failed to unzip", buf, 0xCu);
     }
 
     if (a3)
     {
-      v11 = *MEMORY[0x277CCA450];
-      v12 = @"Failed to decompress data";
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+      v10 = *MEMORY[0x277CCA450];
+      v11 = @"Failed to decompress data";
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
       *a3 = [BCSError errorWithDomain:@"com.apple.businessservices" code:100 userInfo:v8];
 
       a3 = 0;
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return a3;
 }
 
 - (void)inflateGzipWithError:()Compression
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   if (![self length])
   {
     a3 = self;
@@ -77,17 +75,17 @@ LABEL_6:
   v5 = [self length];
   v6 = [self length];
   v7 = [MEMORY[0x277CBEB28] dataWithLength:v5 + (v6 >> 1)];
-  v25.avail_in = [self length];
-  v25.zalloc = 0;
-  v25.zfree = 0;
-  v25.total_out = 0;
-  if (inflateInit2_(&v25, 47, "1.2.12", 112))
+  v24.avail_in = [self length];
+  v24.zalloc = 0;
+  v24.zfree = 0;
+  v24.total_out = 0;
+  if (inflateInit2_(&v24, 47, "1.2.12", 112))
   {
     v8 = ABSLogCommon();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v33 = "[NSData(Compression) inflateGzipWithError:]";
+      v32 = "[NSData(Compression) inflateGzipWithError:]";
       _os_log_impl(&dword_242072000, v8, OS_LOG_TYPE_DEFAULT, "%s - Failed to inflate (gzip inflateInit2())", buf, 0xCu);
     }
 
@@ -96,28 +94,28 @@ LABEL_6:
       goto LABEL_29;
     }
 
-    v36 = *MEMORY[0x277CCA450];
-    v37[0] = @"Failed to decompress data";
+    v35 = *MEMORY[0x277CCA450];
+    v36[0] = @"Failed to decompress data";
     v9 = MEMORY[0x277CBEAC0];
-    v10 = v37;
-    v11 = &v36;
+    v10 = v36;
+    v11 = &v35;
     goto LABEL_28;
   }
 
   v12 = v6 >> 1;
   do
   {
-    total_out = v25.total_out;
+    total_out = v24.total_out;
     if (total_out >= [v7 length])
     {
       [v7 increaseLengthBy:v12];
     }
 
     mutableBytes = [v7 mutableBytes];
-    v25.next_out = (mutableBytes + v25.total_out);
+    v24.next_out = (mutableBytes + v24.total_out);
     v15 = [v7 length];
-    v25.avail_out = v15 - LODWORD(v25.total_out);
-    v16 = inflate(&v25, 2);
+    v24.avail_out = v15 - LODWORD(v24.total_out);
+    v16 = inflate(&v24, 2);
   }
 
   while (!v16);
@@ -128,27 +126,27 @@ LABEL_6:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v33 = "[NSData(Compression) inflateGzipWithError:]";
-      v34 = 1024;
-      v35 = v17;
+      v32 = "[NSData(Compression) inflateGzipWithError:]";
+      v33 = 1024;
+      v34 = v17;
       _os_log_impl(&dword_242072000, v18, OS_LOG_TYPE_DEFAULT, "%s - Failed to inflate (gzip inflate()): %d", buf, 0x12u);
     }
 
     if (a3)
     {
-      v30 = *MEMORY[0x277CCA450];
-      v31 = @"Failed to decompress data";
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      v29 = *MEMORY[0x277CCA450];
+      v30 = @"Failed to decompress data";
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
       *a3 = [BCSError errorWithDomain:@"com.apple.businessservices" code:100 userInfo:v19];
     }
 
-    if (!inflateEnd(&v25))
+    if (!inflateEnd(&v24))
     {
       v21 = ABSLogCommon();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v33 = "[NSData(Compression) inflateGzipWithError:]";
+        v32 = "[NSData(Compression) inflateGzipWithError:]";
         _os_log_impl(&dword_242072000, v21, OS_LOG_TYPE_DEFAULT, "%s - Failed to inflate (!done)", buf, 0xCu);
       }
 
@@ -157,11 +155,11 @@ LABEL_6:
         goto LABEL_29;
       }
 
-      v26 = *MEMORY[0x277CCA450];
-      v27 = @"Failed to decompress data";
+      v25 = *MEMORY[0x277CCA450];
+      v26 = @"Failed to decompress data";
       v9 = MEMORY[0x277CBEAC0];
-      v10 = &v27;
-      v11 = &v26;
+      v10 = &v26;
+      v11 = &v25;
 LABEL_28:
       v22 = [v9 dictionaryWithObjects:v10 forKeys:v11 count:1];
       *a3 = [BCSError errorWithDomain:@"com.apple.businessservices" code:100 userInfo:v22];
@@ -175,7 +173,7 @@ LABEL_20:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v33 = "[NSData(Compression) inflateGzipWithError:]";
+      v32 = "[NSData(Compression) inflateGzipWithError:]";
       _os_log_impl(&dword_242072000, v20, OS_LOG_TYPE_DEFAULT, "%s - Failed to inflate (gzip inflatedEnd())", buf, 0xCu);
     }
 
@@ -184,25 +182,24 @@ LABEL_20:
       goto LABEL_29;
     }
 
-    v28 = *MEMORY[0x277CCA450];
-    v29 = @"Failed to decompress data";
+    v27 = *MEMORY[0x277CCA450];
+    v28 = @"Failed to decompress data";
     v9 = MEMORY[0x277CBEAC0];
-    v10 = &v29;
-    v11 = &v28;
+    v10 = &v28;
+    v11 = &v27;
     goto LABEL_28;
   }
 
-  if (inflateEnd(&v25))
+  if (inflateEnd(&v24))
   {
     goto LABEL_20;
   }
 
-  [v7 setLength:v25.total_out];
+  [v7 setLength:v24.total_out];
   a3 = [MEMORY[0x277CBEA90] dataWithData:v7];
 LABEL_29:
 
 LABEL_30:
-  v23 = *MEMORY[0x277D85DE8];
 
   return a3;
 }

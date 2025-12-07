@@ -585,20 +585,20 @@ void __61__PBUIPosterVariantViewController_initWithScene_counterpart___block_inv
 
 - (void)setCounterpart:(id)counterpart
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   counterpartCopy = counterpart;
   WeakRetained = objc_loadWeakRetained(&self->_counterpart);
 
   if (WeakRetained != counterpartCopy)
   {
     v6 = objc_loadWeakRetained(&self->_counterpart);
-    objc_storeWeak(&self->_counterpart, counterpartCopy);
+    v7 = objc_storeWeak(&self->_counterpart, counterpartCopy);
     if (!self->_scene)
     {
       if (v6)
       {
-        v7 = PBUILogCommon();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+        v8 = PBUILogCommon(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
         {
           [PBUIPosterVariantViewController setCounterpart:];
         }
@@ -621,16 +621,16 @@ void __61__PBUIPosterVariantViewController_initWithScene_counterpart___block_inv
 
       else
       {
-        scene4 = PBUILogCommon();
+        scene4 = PBUILogCommon(v13);
         if (os_log_type_enabled(scene4, OS_LOG_TYPE_DEFAULT))
         {
-          v13 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
-          v14 = PBUIStringForWallpaperVariant([counterpartCopy variant]);
-          v15 = 138412546;
-          v16 = v13;
-          v17 = 2112;
-          v18 = v14;
-          _os_log_impl(&dword_21E67D000, scene4, OS_LOG_TYPE_DEFAULT, "Neither %@ nor counterpart: %@ has a scene.", &v15, 0x16u);
+          v15 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
+          v16 = PBUIStringForWallpaperVariant([counterpartCopy variant]);
+          v17 = 138412546;
+          v18 = v15;
+          v19 = 2112;
+          v20 = v16;
+          _os_log_impl(&dword_21E67D000, scene4, OS_LOG_TYPE_DEFAULT, "Neither %@ nor counterpart: %@ has a scene.", &v17, 0x16u);
         }
       }
     }
@@ -722,7 +722,7 @@ void __61__PBUIPosterVariantViewController_initWithScene_counterpart___block_inv
 - (void)invalidate
 {
   v16 = *MEMORY[0x277D85DE8];
-  v3 = PBUILogCommon();
+  v3 = PBUILogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
@@ -767,7 +767,7 @@ void __61__PBUIPosterVariantViewController_initWithScene_counterpart___block_inv
     variant = [(PBUIPosterVariantViewController *)self variant];
     if (variant == 1)
     {
-      v11 = colorCopy;
+      v12 = colorCopy;
       BSDispatchMain();
     }
 
@@ -776,11 +776,11 @@ void __61__PBUIPosterVariantViewController_initWithScene_counterpart___block_inv
       v6 = variant;
       counterpart = [(PBUIPosterVariantViewController *)self counterpart];
 
-      v8 = PBUILogSnapshot();
-      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+      v9 = PBUILogSnapshot(v8);
+      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
       if (counterpart)
       {
-        if (v9)
+        if (v10)
         {
           [PBUIPosterVariantViewController fetchWallpaperProminentColor:v6];
         }
@@ -791,7 +791,7 @@ void __61__PBUIPosterVariantViewController_initWithScene_counterpart___block_inv
 
       else
       {
-        if (v9)
+        if (v10)
         {
           [PBUIPosterVariantViewController fetchWallpaperProminentColor:v6];
         }
@@ -805,33 +805,34 @@ void __61__PBUIPosterVariantViewController_initWithScene_counterpart___block_inv
 
 void __64__PBUIPosterVariantViewController_fetchWallpaperProminentColor___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v2 = PBUILogSnapshot();
+  v31 = *MEMORY[0x277D85DE8];
+  v2 = PBUILogSnapshot(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = PBUIStringForWallpaperVariant(*(a1 + 48));
     *buf = 138543362;
-    v24 = v3;
+    v26 = v3;
     _os_log_impl(&dword_21E67D000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Checking preferred prominent color...", buf, 0xCu);
   }
 
   v4 = *(a1 + 32);
-  v22 = 0;
-  v5 = [v4 _preferredProminentColor:0 source:&v22];
-  v6 = v22;
+  v24 = 0;
+  v5 = [v4 _preferredProminentColor:0 source:&v24];
+  v6 = v24;
+  v7 = v6;
   if (v5)
   {
-    v7 = PBUILogSnapshot();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = PBUILogSnapshot(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = PBUIStringForWallpaperVariant(*(a1 + 48));
+      v9 = PBUIStringForWallpaperVariant(*(a1 + 48));
       *buf = 138543874;
-      v24 = v8;
-      v25 = 2114;
-      v26 = v5;
+      v26 = v9;
       v27 = 2114;
-      v28 = v6;
-      _os_log_impl(&dword_21E67D000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Found preferred prominent color: %{public}@/%{public}@", buf, 0x20u);
+      v28 = v5;
+      v29 = 2114;
+      v30 = v7;
+      _os_log_impl(&dword_21E67D000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Found preferred prominent color: %{public}@/%{public}@", buf, 0x20u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -839,52 +840,53 @@ void __64__PBUIPosterVariantViewController_fetchWallpaperProminentColor___block_
 
   else
   {
-    v9 = *(*(a1 + 32) + 1168);
-    if (!v9)
+    v10 = *(*(a1 + 32) + 1168);
+    if (!v10)
     {
-      v10 = objc_opt_new();
-      v11 = *(a1 + 32);
-      v12 = *(v11 + 1168);
-      *(v11 + 1168) = v10;
+      v11 = objc_opt_new();
+      v12 = *(a1 + 32);
+      v13 = *(v12 + 1168);
+      *(v12 + 1168) = v11;
 
-      v9 = *(*(a1 + 32) + 1168);
+      v10 = *(*(a1 + 32) + 1168);
     }
 
-    v13 = [*(a1 + 40) copy];
-    [v9 addObject:v13];
+    v14 = [*(a1 + 40) copy];
+    [v10 addObject:v14];
 
-    v14 = [*(*(a1 + 32) + 1048) snapshot];
-    v15 = [v14 pui_canDetermineProminentColor];
-    v16 = PBUILogSnapshot();
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
-    if (v15)
+    v15 = [*(*(a1 + 32) + 1048) snapshot];
+    v16 = [v15 pui_canDetermineProminentColor];
+    v17 = v16;
+    v18 = PBUILogSnapshot(v16);
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+    if (v17)
     {
-      if (v17)
+      if (v19)
       {
-        v18 = PBUIStringForWallpaperVariant(*(a1 + 48));
+        v20 = PBUIStringForWallpaperVariant(*(a1 + 48));
         *buf = 138543362;
-        v24 = v18;
-        _os_log_impl(&dword_21E67D000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] using last snapshot taken to determine prominent color...", buf, 0xCu);
+        v26 = v20;
+        _os_log_impl(&dword_21E67D000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] using last snapshot taken to determine prominent color...", buf, 0xCu);
       }
 
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __64__PBUIPosterVariantViewController_fetchWallpaperProminentColor___block_invoke_44;
-      v21[3] = &unk_278363C58;
-      v19 = *(a1 + 48);
-      v21[4] = *(a1 + 32);
-      v21[5] = v19;
-      [v14 pui_determineProminentColorWithCompletion:v21];
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __64__PBUIPosterVariantViewController_fetchWallpaperProminentColor___block_invoke_44;
+      v23[3] = &unk_278363C58;
+      v21 = *(a1 + 48);
+      v23[4] = *(a1 + 32);
+      v23[5] = v21;
+      [v15 pui_determineProminentColorWithCompletion:v23];
     }
 
     else
     {
-      if (v17)
+      if (v19)
       {
-        v20 = PBUIStringForWallpaperVariant(*(a1 + 48));
+        v22 = PBUIStringForWallpaperVariant(*(a1 + 48));
         *buf = 138543362;
-        v24 = v20;
-        _os_log_impl(&dword_21E67D000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] scheduling prominent color snapshot for *NOW*...", buf, 0xCu);
+        v26 = v22;
+        _os_log_impl(&dword_21E67D000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] scheduling prominent color snapshot for *NOW*...", buf, 0xCu);
       }
 
       [*(a1 + 32) _snapshotNow:@"prominent color fetch"];
@@ -894,30 +896,31 @@ void __64__PBUIPosterVariantViewController_fetchWallpaperProminentColor___block_
 
 void __64__PBUIPosterVariantViewController_fetchWallpaperProminentColor___block_invoke_44(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = PBUILogSnapshot();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = PBUILogSnapshot(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __64__PBUIPosterVariantViewController_fetchWallpaperProminentColor___block_invoke_44_cold_1();
     }
   }
 
-  v8 = PBUILogSnapshot();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v9 = PBUILogSnapshot(v6);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
-    if (v9)
+    if (v10)
     {
-      v10 = PBUIStringForWallpaperVariant(*(a1 + 40));
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2114;
-      v15 = v5;
-      _os_log_impl(&dword_21E67D000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] using last snapshot determined a color: %{public}@", &v12, 0x16u);
+      v11 = PBUIStringForWallpaperVariant(*(a1 + 40));
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2114;
+      v16 = v5;
+      _os_log_impl(&dword_21E67D000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] using last snapshot determined a color: %{public}@", &v13, 0x16u);
     }
 
     [*(a1 + 32) _handleUpdateProminentPosterDerivedColor:v5 posterPreferredProminentColor:0 timeColor:0 fallbackColor:0];
@@ -925,12 +928,12 @@ void __64__PBUIPosterVariantViewController_fetchWallpaperProminentColor___block_
 
   else
   {
-    if (v9)
+    if (v10)
     {
-      v11 = PBUIStringForWallpaperVariant(*(a1 + 40));
-      v12 = 138543362;
-      v13 = v11;
-      _os_log_impl(&dword_21E67D000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] last snapshot prominent color determination failed; scheduling prominent color snapshot for *NOW*...", &v12, 0xCu);
+      v12 = PBUIStringForWallpaperVariant(*(a1 + 40));
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_21E67D000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] last snapshot prominent color determination failed; scheduling prominent color snapshot for *NOW*...", &v13, 0xCu);
     }
 
     [*(a1 + 32) _snapshotNow:@"prominent color fetch after failing to use last snapshot taken"];
@@ -1067,13 +1070,13 @@ void __50__PBUIPosterVariantViewController_setBlurEnabled___block_invoke_3(uint6
   sceneCopy = scene;
   if (!sceneCopy)
   {
-    [PBUIPosterVariantViewController _monitorScene:a2];
+    [(PBUIPosterVariantViewController *)a2 _monitorScene:?];
   }
 
   scene = self->_scene;
   if (scene != sceneCopy && scene != 0)
   {
-    [PBUIPosterVariantViewController _monitorScene:a2];
+    [(PBUIPosterVariantViewController *)a2 _monitorScene:?];
   }
 
   [(FBScene *)sceneCopy addObserver:self];
@@ -1134,7 +1137,7 @@ void __50__PBUIPosterVariantViewController_setBlurEnabled___block_invoke_3(uint6
 
 - (void)_updateInterfaceStyle
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   _applicableScene = [(PBUIPosterVariantViewController *)self _applicableScene];
   settings = [_applicableScene settings];
   pui_userInterfaceStyle = [settings pui_userInterfaceStyle];
@@ -1145,13 +1148,13 @@ void __50__PBUIPosterVariantViewController_setBlurEnabled___block_invoke_3(uint6
     settings2 = [_applicableScene2 settings];
     self->_mostRecentSnapshotInterfaceStyle = [settings2 pui_userInterfaceStyle];
 
-    v8 = PBUILogSnapshot();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = PBUILogSnapshot(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       mostRecentSnapshotInterfaceStyle = self->_mostRecentSnapshotInterfaceStyle;
-      v10 = 134217984;
-      v11 = mostRecentSnapshotInterfaceStyle;
-      _os_log_impl(&dword_21E67D000, v8, OS_LOG_TYPE_DEFAULT, "Updating most recent snapshot interface style: %lu", &v10, 0xCu);
+      v11 = 134217984;
+      v12 = mostRecentSnapshotInterfaceStyle;
+      _os_log_impl(&dword_21E67D000, v9, OS_LOG_TYPE_DEFAULT, "Updating most recent snapshot interface style: %lu", &v11, 0xCu);
     }
   }
 }
@@ -1194,19 +1197,20 @@ void __50__PBUIPosterVariantViewController_setBlurEnabled___block_invoke_3(uint6
 
 - (void)invalidateSnapshotPreconditions:(id)preconditions
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   preconditionsCopy = preconditions;
-  if ([(BSAtomicFlag *)self->_snapshotNeeded getFlag])
+  getFlag = [(BSAtomicFlag *)self->_snapshotNeeded getFlag];
+  if (getFlag)
   {
-    v5 = PBUILogSnapshot();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PBUILogSnapshot(getFlag);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
+      v7 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
       *buf = 138543618;
-      v9 = v6;
-      v10 = 2114;
-      v11 = preconditionsCopy;
-      _os_log_impl(&dword_21E67D000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] invalidateSnapshotPreconditions for reason: %{public}@", buf, 0x16u);
+      v10 = v7;
+      v11 = 2114;
+      v12 = preconditionsCopy;
+      _os_log_impl(&dword_21E67D000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] invalidateSnapshotPreconditions for reason: %{public}@", buf, 0x16u);
     }
 
     preconditionsCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"snapshot preconditions invalidated for reason '%@' so scheduling a new snapshot", preconditionsCopy];;
@@ -1216,12 +1220,13 @@ void __50__PBUIPosterVariantViewController_setBlurEnabled___block_invoke_3(uint6
 
 - (void)_scheduleSnapshotIfNeeded:(id)needed
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
-  if ([(BSAtomicFlag *)self->_isSnapshotting getFlag])
+  getFlag = [(BSAtomicFlag *)self->_isSnapshotting getFlag];
+  if (getFlag)
   {
-    v5 = PBUILogSnapshot();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = PBUILogSnapshot(getFlag);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [PBUIPosterVariantViewController _scheduleSnapshotIfNeeded:];
     }
@@ -1231,54 +1236,55 @@ LABEL_6:
     goto LABEL_10;
   }
 
-  if (([(BSAtomicFlag *)self->_snapshotScheduled getFlag]& 1) != 0)
+  getFlag2 = [(BSAtomicFlag *)self->_snapshotScheduled getFlag];
+  if (getFlag2)
   {
-    v5 = PBUILogSnapshot();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = PBUILogSnapshot(getFlag2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v10 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
-      getFlag = [(BSAtomicFlag *)self->_isSnapshotting getFlag];
-      v12 = @"scheduled";
+      v12 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
+      getFlag3 = [(BSAtomicFlag *)self->_isSnapshotting getFlag];
+      v14 = @"scheduled";
       *buf = 138543874;
-      v16 = v10;
-      if (getFlag)
+      v18 = v12;
+      if (getFlag3)
       {
-        v12 = @"in progress";
+        v14 = @"in progress";
       }
 
-      v17 = 2112;
-      v18 = v12;
-      v19 = 2114;
-      v20 = neededCopy;
-      _os_log_debug_impl(&dword_21E67D000, v5, OS_LOG_TYPE_DEBUG, "[%{public}@] Snapshot already %@, not scheduling for reason: %{public}@", buf, 0x20u);
+      v19 = 2112;
+      v20 = v14;
+      v21 = 2114;
+      v22 = neededCopy;
+      _os_log_debug_impl(&dword_21E67D000, v6, OS_LOG_TYPE_DEBUG, "[%{public}@] Snapshot already %@, not scheduling for reason: %{public}@", buf, 0x20u);
     }
 
     goto LABEL_6;
   }
 
   [(BSAtomicFlag *)self->_snapshotScheduled setFlag:1];
-  v6 = dispatch_time(0, 250000000);
-  v7 = PBUILogSnapshot();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = dispatch_time(0, 250000000);
+  v9 = PBUILogSnapshot(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
-    v9 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:0.25];
+    v10 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
+    v11 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:0.25];
     *buf = 138543874;
-    v16 = v8;
-    v17 = 2114;
-    v18 = v9;
+    v18 = v10;
     v19 = 2114;
-    v20 = neededCopy;
-    _os_log_impl(&dword_21E67D000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Snapshot scheduled for %{public}@ for reason: %{public}@", buf, 0x20u);
+    v20 = v11;
+    v21 = 2114;
+    v22 = neededCopy;
+    _os_log_impl(&dword_21E67D000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Snapshot scheduled for %{public}@ for reason: %{public}@", buf, 0x20u);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __61__PBUIPosterVariantViewController__scheduleSnapshotIfNeeded___block_invoke;
-  v13[3] = &unk_2783622E0;
-  v13[4] = self;
-  v14 = neededCopy;
-  dispatch_after(v6, MEMORY[0x277D85CD0], v13);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __61__PBUIPosterVariantViewController__scheduleSnapshotIfNeeded___block_invoke;
+  v15[3] = &unk_2783622E0;
+  v15[4] = self;
+  v16 = neededCopy;
+  dispatch_after(v8, MEMORY[0x277D85CD0], v15);
 
 LABEL_10:
 }
@@ -1295,11 +1301,12 @@ uint64_t __61__PBUIPosterVariantViewController__scheduleSnapshotIfNeeded___block
 {
   nowCopy = now;
   getFlag = [(BSAtomicFlag *)self->_isSnapshotting getFlag];
-  v6 = PBUILogSnapshot();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
-  if (getFlag)
+  v6 = getFlag;
+  v7 = PBUILogSnapshot(getFlag);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+  if (v6)
   {
-    if (v7)
+    if (v8)
     {
       [PBUIPosterVariantViewController _snapshotNow:?];
     }
@@ -1307,12 +1314,12 @@ uint64_t __61__PBUIPosterVariantViewController__scheduleSnapshotIfNeeded___block
 
   else
   {
-    if (v7)
+    if (v8)
     {
       [PBUIPosterVariantViewController _snapshotNow:];
     }
 
-    v8 = nowCopy;
+    v9 = nowCopy;
     BSDispatchMain();
   }
 }
@@ -1331,11 +1338,12 @@ uint64_t __48__PBUIPosterVariantViewController__snapshotNow___block_invoke(uint6
 - (void)snapshotIfNeeded:(BOOL)needed reason:(id)reason
 {
   neededCopy = needed;
-  v30 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   BSDispatchQueueAssertMain();
-  if ([(BSAtomicFlag *)self->_isSnapshotting getFlag])
+  getFlag = [(BSAtomicFlag *)self->_isSnapshotting getFlag];
+  if (getFlag)
   {
-    evaluateSnapshotPreconditions = PBUILogSnapshot();
+    evaluateSnapshotPreconditions = PBUILogSnapshot(getFlag);
     if (os_log_type_enabled(evaluateSnapshotPreconditions, OS_LOG_TYPE_ERROR))
     {
       [PBUIPosterVariantViewController snapshotIfNeeded:? reason:?];
@@ -1350,74 +1358,76 @@ LABEL_23:
   {
     variant = [(PBUIPosterVariantViewController *)self variant];
     evaluateSnapshotPreconditions = [(PBUIPosterVariantViewController *)self evaluateSnapshotPreconditions];
-    if (([evaluateSnapshotPreconditions canSnapshot]& 1) != 0 || neededCopy)
+    canSnapshot = [evaluateSnapshotPreconditions canSnapshot];
+    if ((canSnapshot & 1) != 0 || neededCopy)
     {
       [(BSAtomicFlag *)self->_isSnapshotting setFlag:1];
       Current = CFAbsoluteTimeGetCurrent();
-      v18 = PBUILogSnapshot();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v21 = PBUILogSnapshot(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [PBUIPosterVariantViewController snapshotIfNeeded:variant reason:?];
       }
 
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __59__PBUIPosterVariantViewController_snapshotIfNeeded_reason___block_invoke;
-      v24[3] = &unk_278363CF0;
-      v24[4] = self;
-      *&v24[5] = Current;
-      v19 = MEMORY[0x223D62EE0](v24);
-      (v19)[2](v19, evaluateSnapshotPreconditions);
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __59__PBUIPosterVariantViewController_snapshotIfNeeded_reason___block_invoke;
+      v27[3] = &unk_278363CF0;
+      v27[4] = self;
+      *&v27[5] = Current;
+      v22 = MEMORY[0x223D62EE0](v27);
+      (v22)[2](v22, evaluateSnapshotPreconditions);
     }
 
     else
     {
-      v8 = PBUILogSnapshot();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = PBUILogSnapshot(canSnapshot);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [PBUIPosterVariantViewController snapshotIfNeeded:variant reason:?];
       }
 
-      v22 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       v23 = 0u;
-      v20 = 0u;
-      v21 = 0u;
+      v24 = 0u;
       reasonsToNotSnapshot = [evaluateSnapshotPreconditions reasonsToNotSnapshot];
-      v10 = [reasonsToNotSnapshot countByEnumeratingWithState:&v20 objects:v29 count:16];
-      if (v10)
+      v12 = [reasonsToNotSnapshot countByEnumeratingWithState:&v23 objects:v32 count:16];
+      if (v12)
       {
-        v11 = v10;
-        v12 = *v21;
+        v13 = v12;
+        v14 = *v24;
         do
         {
-          v13 = 0;
+          v15 = 0;
           do
           {
-            if (*v21 != v12)
+            if (*v24 != v14)
             {
               objc_enumerationMutation(reasonsToNotSnapshot);
             }
 
-            v14 = *(*(&v20 + 1) + 8 * v13);
-            v15 = PBUILogSnapshot();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+            v16 = *(*(&v23 + 1) + 8 * v15);
+            v17 = PBUILogSnapshot(v12);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
-              v16 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
+              v18 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
               *buf = 138543618;
-              v26 = v16;
-              v27 = 2114;
-              v28 = v14;
-              _os_log_error_impl(&dword_21E67D000, v15, OS_LOG_TYPE_ERROR, "[%{public}@]\t--> snapshot failure reason '%{public}@'", buf, 0x16u);
+              v29 = v18;
+              v30 = 2114;
+              v31 = v16;
+              _os_log_error_impl(&dword_21E67D000, v17, OS_LOG_TYPE_ERROR, "[%{public}@]\t--> snapshot failure reason '%{public}@'", buf, 0x16u);
             }
 
-            ++v13;
+            ++v15;
           }
 
-          while (v11 != v13);
-          v11 = [reasonsToNotSnapshot countByEnumeratingWithState:&v20 objects:v29 count:16];
+          while (v13 != v15);
+          v12 = [reasonsToNotSnapshot countByEnumeratingWithState:&v23 objects:v32 count:16];
+          v13 = v12;
         }
 
-        while (v11);
+        while (v12);
       }
     }
 
@@ -1434,71 +1444,72 @@ void __59__PBUIPosterVariantViewController_snapshotIfNeeded_reason___block_invok
   {
     [v4 _prepareFauxExternalScene];
     v5 = *(*(a1 + 32) + 1080);
-    v21 = 0;
-    v6 = [v5 pui_sceneIsReadyToSnapshot:&v21];
-    v7 = v21;
+    v22 = 0;
+    v6 = [v5 pui_sceneIsReadyToSnapshot:&v22];
+    v7 = v22;
+    v8 = v7;
     if (v6)
     {
-      v8 = *(*(a1 + 32) + 1080);
+      v9 = *(*(a1 + 32) + 1080);
       objc_initWeak(location, *(a1 + 32));
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __59__PBUIPosterVariantViewController_snapshotIfNeeded_reason___block_invoke_2;
-      v19[3] = &unk_278362FA8;
-      objc_copyWeak(&v20, location);
-      v9 = MEMORY[0x223D62EE0](v19);
-      objc_destroyWeak(&v20);
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __59__PBUIPosterVariantViewController_snapshotIfNeeded_reason___block_invoke_2;
+      v20[3] = &unk_278362FA8;
+      objc_copyWeak(&v21, location);
+      v10 = MEMORY[0x223D62EE0](v20);
+      objc_destroyWeak(&v21);
       objc_destroyWeak(location);
     }
 
     else
     {
-      v10 = PBUILogSnapshot();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = PBUILogSnapshot(v7);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = PBUIStringForWallpaperVariant([*(a1 + 32) variant]);
+        v12 = PBUIStringForWallpaperVariant([*(a1 + 32) variant]);
         LODWORD(location[0]) = 138543362;
-        *(location + 4) = v11;
-        _os_log_impl(&dword_21E67D000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Faux external scene is not ready for snapshot. Scheduling a new snapshot.", location, 0xCu);
+        *(location + 4) = v12;
+        _os_log_impl(&dword_21E67D000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Faux external scene is not ready for snapshot. Scheduling a new snapshot.", location, 0xCu);
       }
 
       [*(*(a1 + 32) + 1128) setFlag:0];
-      v12 = *(a1 + 32);
-      v13 = MEMORY[0x277CCACA8];
-      v14 = PBUIStringForWallpaperVariant([v12 variant]);
-      v15 = [v13 stringWithFormat:@"scheduling new snapshot because faux %@ external scene is not ready", v14];
-      [v12 _scheduleSnapshotIfNeeded:v15];
+      v13 = *(a1 + 32);
+      v14 = MEMORY[0x277CCACA8];
+      v15 = PBUIStringForWallpaperVariant([v13 variant]);
+      v16 = [v14 stringWithFormat:@"scheduling new snapshot because faux %@ external scene is not ready", v15];
+      [v13 _scheduleSnapshotIfNeeded:v16];
 
+      v10 = 0;
       v9 = 0;
-      v8 = 0;
     }
   }
 
   else
   {
-    v8 = [v4 _applicableScene];
+    v9 = [v4 _applicableScene];
     objc_initWeak(location, *(a1 + 32));
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __59__PBUIPosterVariantViewController_snapshotIfNeeded_reason___block_invoke_87;
-    v17[3] = &unk_278363CC8;
-    objc_copyWeak(v18, location);
-    v18[1] = *(a1 + 40);
-    v9 = MEMORY[0x223D62EE0](v17);
-    objc_destroyWeak(v18);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __59__PBUIPosterVariantViewController_snapshotIfNeeded_reason___block_invoke_87;
+    v18[3] = &unk_278363CC8;
+    objc_copyWeak(v19, location);
+    v19[1] = *(a1 + 40);
+    v10 = MEMORY[0x223D62EE0](v18);
+    objc_destroyWeak(v19);
     objc_destroyWeak(location);
   }
 
-  v16 = *(a1 + 32);
-  if (v8)
+  v17 = *(a1 + 32);
+  if (v9)
   {
-    [v16 _snapshotScene:v8 completion:v9];
+    [v17 _snapshotScene:v9 completion:v10];
     [*(a1 + 32) _updateInterfaceStyle];
   }
 
   else
   {
-    [v16[140] setFlag:0];
+    [v17[140] setFlag:0];
   }
 }
 
@@ -1539,13 +1550,13 @@ void __59__PBUIPosterVariantViewController_snapshotIfNeeded_reason___block_invok
   if (WeakRetained)
   {
     CFAbsoluteTimeGetCurrent();
-    [WeakRetained[140] setFlag:0];
-    v3 = *(a1 + 48);
-    v4 = PBUILogSnapshot();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
-    if (v3 == 1)
+    v3 = [WeakRetained[140] setFlag:0];
+    v4 = *(a1 + 48);
+    v5 = PBUILogSnapshot(v3);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    if (v4 == 1)
     {
-      if (v5)
+      if (v6)
       {
         __59__PBUIPosterVariantViewController_snapshotIfNeeded_reason___block_invoke_2_88_cold_2(WeakRetained);
       }
@@ -1555,7 +1566,7 @@ void __59__PBUIPosterVariantViewController_snapshotIfNeeded_reason___block_invok
 
     else
     {
-      if (v5)
+      if (v6)
       {
         __59__PBUIPosterVariantViewController_snapshotIfNeeded_reason___block_invoke_2_88_cold_1(WeakRetained);
       }
@@ -1567,7 +1578,7 @@ void __59__PBUIPosterVariantViewController_snapshotIfNeeded_reason___block_invok
 {
   if (!self->_fauxExternalScene)
   {
-    v3 = PBUILogSnapshot();
+    v3 = PBUILogSnapshot(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
@@ -1602,7 +1613,7 @@ void __60__PBUIPosterVariantViewController__prepareFauxExternalScene__block_invo
 
     else
     {
-      v7 = PBUILogSnapshot();
+      v7 = PBUILogSnapshot(WeakRetained);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __60__PBUIPosterVariantViewController__prepareFauxExternalScene__block_invoke_cold_1();
@@ -1624,31 +1635,31 @@ void __60__PBUIPosterVariantViewController__prepareFauxExternalScene__block_invo
 
     if (identifier)
     {
-      v14 = [getPFPosterExtensionInstanceClass() extensionInstanceForPath:pui_posterContents instanceIdentifier:identifier];
-      if (v14)
+      v15 = [getPFPosterExtensionInstanceClass() extensionInstanceForPath:pui_posterContents instanceIdentifier:identifier];
+      if (v15)
       {
         objc_initWeak(&location, self);
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __95__PBUIPosterVariantViewController__prepareFauxExternalSceneFromScene_completion_attemptNumber___block_invoke;
-        v18[3] = &unk_278363DE0;
-        objc_copyWeak(v24, &location);
-        v23 = completionCopy;
-        v19 = pui_posterContents;
-        v20 = v14;
-        v21 = settings;
-        v24[1] = number;
-        v22 = sceneCopy;
-        [v20 bootupExtensionInstance:v18];
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 3221225472;
+        v19[2] = __95__PBUIPosterVariantViewController__prepareFauxExternalSceneFromScene_completion_attemptNumber___block_invoke;
+        v19[3] = &unk_278363DE0;
+        objc_copyWeak(v25, &location);
+        v24 = completionCopy;
+        v20 = pui_posterContents;
+        v21 = v15;
+        v22 = settings;
+        v25[1] = number;
+        v23 = sceneCopy;
+        [v21 bootupExtensionInstance:v19];
 
-        objc_destroyWeak(v24);
+        objc_destroyWeak(v25);
         objc_destroyWeak(&location);
       }
 
       else
       {
-        v17 = PBUILogSnapshot();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v18 = PBUILogSnapshot(0);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           [PBUIPosterVariantViewController _prepareFauxExternalSceneFromScene:completion:attemptNumber:];
         }
@@ -1659,8 +1670,8 @@ void __60__PBUIPosterVariantViewController__prepareFauxExternalScene__block_invo
 
     else
     {
-      v16 = PBUILogSnapshot();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = PBUILogSnapshot(v14);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [PBUIPosterVariantViewController _prepareFauxExternalSceneFromScene:completion:attemptNumber:];
       }
@@ -1671,8 +1682,8 @@ void __60__PBUIPosterVariantViewController__prepareFauxExternalScene__block_invo
 
   else
   {
-    v15 = PBUILogSnapshot();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = PBUILogSnapshot(0);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [PBUIPosterVariantViewController _prepareFauxExternalSceneFromScene:completion:attemptNumber:];
     }
@@ -1685,6 +1696,7 @@ void __95__PBUIPosterVariantViewController__prepareFauxExternalSceneFromScene_co
 {
   v4 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 72));
+  v6 = WeakRetained;
   if (!WeakRetained)
   {
 LABEL_10:
@@ -1694,26 +1706,26 @@ LABEL_10:
 
   if (!v4)
   {
-    v16 = MEMORY[0x277D85DD0];
-    v17 = 3221225472;
-    v18 = __95__PBUIPosterVariantViewController__prepareFauxExternalSceneFromScene_completion_attemptNumber___block_invoke_2;
-    v19 = &unk_278363D90;
-    v20 = *(a1 + 32);
-    v21 = *(a1 + 40);
-    v22 = *(a1 + 48);
-    v23 = WeakRetained;
-    v24 = *(a1 + 64);
+    v17 = MEMORY[0x277D85DD0];
+    v18 = 3221225472;
+    v19 = __95__PBUIPosterVariantViewController__prepareFauxExternalSceneFromScene_completion_attemptNumber___block_invoke_2;
+    v20 = &unk_278363D90;
+    v21 = *(a1 + 32);
+    v22 = *(a1 + 40);
+    v23 = *(a1 + 48);
+    v24 = v6;
+    v25 = *(a1 + 64);
     BSDispatchMain();
 
-    v10 = v20;
+    v11 = v21;
     goto LABEL_6;
   }
 
-  v6 = *(a1 + 80);
-  if (v6 > 2)
+  v7 = *(a1 + 80);
+  if (v7 > 2)
   {
-    v11 = PBUILogSnapshot();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = PBUILogSnapshot(WeakRetained);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       __95__PBUIPosterVariantViewController__prepareFauxExternalSceneFromScene_completion_attemptNumber___block_invoke_cold_1(v4);
     }
@@ -1721,20 +1733,20 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v7 = dispatch_time(0, (v6 * 0.1));
+  v8 = dispatch_time(0, (v7 * 0.1));
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __95__PBUIPosterVariantViewController__prepareFauxExternalSceneFromScene_completion_attemptNumber___block_invoke_5;
   block[3] = &unk_278363DB8;
-  block[4] = WeakRetained;
-  v13 = *(a1 + 56);
-  v8 = *(a1 + 64);
-  v9 = *(a1 + 80);
-  v14 = v8;
+  block[4] = v6;
+  v14 = *(a1 + 56);
+  v9 = *(a1 + 64);
+  v10 = *(a1 + 80);
   v15 = v9;
-  dispatch_after(v7, MEMORY[0x277D85CD0], block);
+  v16 = v10;
+  dispatch_after(v8, MEMORY[0x277D85CD0], block);
 
-  v10 = v13;
+  v11 = v14;
 LABEL_6:
 
 LABEL_11:
@@ -1795,30 +1807,30 @@ void __95__PBUIPosterVariantViewController__prepareFauxExternalSceneFromScene_co
 {
   sceneCopy = scene;
   completionCopy = completion;
-  v8 = PBUILogSnapshot();
+  v8 = PBUILogSnapshot(completionCopy);
   v9 = os_signpost_id_generate(v8);
 
-  v10 = PBUILogSnapshot();
-  v11 = v10;
-  if ((v9 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v11 = PBUILogSnapshot(v10);
+  v12 = v11;
+  if ((v9 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     LOWORD(buf[0]) = 0;
-    _os_signpost_emit_with_name_impl(&dword_21E67D000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "SnapshotUpdating", &unk_21E7190AA, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_21E67D000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "SnapshotUpdating", &unk_21E7190AA, buf, 2u);
   }
 
-  objc_initWeak(buf, self);
-  v12 = PBUIColorSamplingQueue();
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __61__PBUIPosterVariantViewController__snapshotScene_completion___block_invoke;
-  v14[3] = &unk_278363E58;
-  objc_copyWeak(v16, buf);
-  v13 = completionCopy;
-  v15 = v13;
-  v16[1] = v9;
-  [(PBUIPosterVariantViewController *)self performSnapshotOnQueue:v12 scene:sceneCopy completion:v14];
+  inited = objc_initWeak(buf, self);
+  v14 = PBUIColorSamplingQueue(inited);
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __61__PBUIPosterVariantViewController__snapshotScene_completion___block_invoke;
+  v16[3] = &unk_278363E58;
+  objc_copyWeak(v18, buf);
+  v15 = completionCopy;
+  v17 = v15;
+  v18[1] = v9;
+  [(PBUIPosterVariantViewController *)self performSnapshotOnQueue:v14 scene:sceneCopy completion:v16];
 
-  objc_destroyWeak(v16);
+  objc_destroyWeak(v18);
   objc_destroyWeak(buf);
 }
 
@@ -1836,65 +1848,66 @@ void __61__PBUIPosterVariantViewController__snapshotScene_completion___block_inv
   {
     if (v15)
     {
-      if ([WeakRetained variant] == 1)
+      v21 = [WeakRetained variant];
+      if (v21 == 1)
       {
-        v21 = MEMORY[0x277CCAAC8];
-        v40 = v18;
-        v22 = objc_opt_self();
+        v22 = MEMORY[0x277CCAAC8];
+        v41 = v18;
+        v23 = objc_opt_self();
         [v17 objectForKeyedSubscript:@"kDerivedProminentPosterColorMetadataKey"];
-        v23 = v41 = v13;
-        v24 = [v21 unarchivedObjectOfClass:v22 fromData:v23 error:0];
-        v39 = [v24 UIColor];
+        v24 = v42 = v13;
+        v25 = [v22 unarchivedObjectOfClass:v23 fromData:v24 error:0];
+        v40 = [v25 UIColor];
 
-        v25 = MEMORY[0x277CCAAC8];
-        v26 = objc_opt_self();
-        v27 = [v17 objectForKeyedSubscript:@"kPosterPreferredProminentPosterColorMetadataKey"];
-        v28 = [v25 unarchivedObjectOfClass:v26 fromData:v27 error:0];
-        v29 = [v28 UIColor];
+        v26 = MEMORY[0x277CCAAC8];
+        v27 = objc_opt_self();
+        v28 = [v17 objectForKeyedSubscript:@"kPosterPreferredProminentPosterColorMetadataKey"];
+        v29 = [v26 unarchivedObjectOfClass:v27 fromData:v28 error:0];
+        v30 = [v29 UIColor];
 
-        v30 = [v16 averageColor];
-        v31 = [v30 pui_invertColor];
-        v32 = [v31 colorWithAlphaComponent:1.0];
+        v31 = [v16 averageColor];
+        v32 = [v31 pui_invertColor];
+        v33 = [v32 colorWithAlphaComponent:1.0];
 
-        v13 = v41;
-        [v20 _handleUpdateProminentPosterDerivedColor:v39 posterPreferredProminentColor:v29 timeColor:0 fallbackColor:v32];
+        v13 = v42;
+        [v20 _handleUpdateProminentPosterDerivedColor:v40 posterPreferredProminentColor:v30 timeColor:0 fallbackColor:v33];
 
-        v18 = v40;
+        v18 = v41;
       }
 
-      v33 = PBUIColorSamplingQueue();
+      v34 = PBUIColorSamplingQueue(v21);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __61__PBUIPosterVariantViewController__snapshotScene_completion___block_invoke_4;
       block[3] = &unk_278363E30;
       block[4] = v20;
-      v43 = v15;
-      v44 = v13;
-      v45 = v16;
-      v46 = v17;
-      v47 = v18;
-      v34 = *(a1 + 32);
-      v35 = *(a1 + 48);
-      v49 = v34;
+      v44 = v15;
+      v45 = v13;
+      v46 = v16;
+      v47 = v17;
+      v48 = v18;
+      v35 = *(a1 + 32);
+      v36 = *(a1 + 48);
       v50 = v35;
-      v48 = v14;
-      dispatch_async(v33, block);
+      v51 = v36;
+      v49 = v14;
+      dispatch_async(v34, block);
 
-      v36 = v43;
+      v37 = v44;
       goto LABEL_10;
     }
 
     [v14 invalidate];
-    v38 = *(a1 + 32);
-    if (v38)
+    v39 = *(a1 + 32);
+    if (v39)
     {
-      v51 = MEMORY[0x277D85DD0];
-      v52 = 3221225472;
-      v53 = __61__PBUIPosterVariantViewController__snapshotScene_completion___block_invoke_3;
-      v54 = &unk_278362668;
-      v55 = v38;
+      v52 = MEMORY[0x277D85DD0];
+      v53 = 3221225472;
+      v54 = __61__PBUIPosterVariantViewController__snapshotScene_completion___block_invoke_3;
+      v55 = &unk_278362668;
+      v56 = v39;
       BSDispatchMain();
-      v36 = v55;
+      v37 = v56;
       goto LABEL_10;
     }
   }
@@ -1902,16 +1915,16 @@ void __61__PBUIPosterVariantViewController__snapshotScene_completion___block_inv
   else
   {
     [v14 invalidate];
-    v37 = *(a1 + 32);
-    if (v37)
+    v38 = *(a1 + 32);
+    if (v38)
     {
-      v56 = MEMORY[0x277D85DD0];
-      v57 = 3221225472;
-      v58 = __61__PBUIPosterVariantViewController__snapshotScene_completion___block_invoke_2;
-      v59 = &unk_278362668;
-      v60 = v37;
+      v57 = MEMORY[0x277D85DD0];
+      v58 = 3221225472;
+      v59 = __61__PBUIPosterVariantViewController__snapshotScene_completion___block_invoke_2;
+      v60 = &unk_278362668;
+      v61 = v38;
       BSDispatchMain();
-      v36 = v60;
+      v37 = v61;
 LABEL_10:
     }
   }
@@ -1943,54 +1956,55 @@ void __61__PBUIPosterVariantViewController__snapshotScene_completion___block_inv
 
 void __61__PBUIPosterVariantViewController__snapshotScene_completion___block_invoke_5(uint64_t a1, int a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v6 = *(a1 + 32) == 0;
+    v7 = *(a1 + 32) == 0;
   }
 
-  v7 = !v6;
-  v8 = PBUILogSnapshot();
-  v9 = v8;
-  if (v7 == 1)
+  v8 = !v7;
+  v9 = PBUILogSnapshot(v5);
+  v10 = v9;
+  if (v8 == 1)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = PBUIStringForWallpaperVariant([*(a1 + 40) variant]);
-      v16 = 138543618;
-      v17 = v10;
-      v18 = 1024;
-      v19 = a2;
-      _os_log_impl(&dword_21E67D000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Snapshotted poster; didUpdate? %{BOOL}u", &v16, 0x12u);
+      v11 = PBUIStringForWallpaperVariant([*(a1 + 40) variant]);
+      v17 = 138543618;
+      v18 = v11;
+      v19 = 1024;
+      v20 = a2;
+      _os_log_impl(&dword_21E67D000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Snapshotted poster; didUpdate? %{BOOL}u", &v17, 0x12u);
     }
   }
 
-  else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    __61__PBUIPosterVariantViewController__snapshotScene_completion___block_invoke_5_cold_1(a1, v9);
+    __61__PBUIPosterVariantViewController__snapshotScene_completion___block_invoke_5_cold_1(a1, v10);
   }
 
-  v11 = *(a1 + 64);
-  if (v11)
+  v12 = *(a1 + 64);
+  if (v12)
   {
-    (*(v11 + 16))(v11, v7);
+    v12 = (*(v12 + 16))(v12, v8);
   }
 
-  v12 = PBUILogSnapshot();
-  v13 = v12;
-  v14 = *(a1 + 72);
-  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v13 = PBUILogSnapshot(v12);
+  v14 = v13;
+  v15 = *(a1 + 72);
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
-    v15 = MEMORY[0x223D622C0](v7);
-    v16 = 138543362;
-    v17 = v15;
-    _os_signpost_emit_with_name_impl(&dword_21E67D000, v13, OS_SIGNPOST_INTERVAL_END, v14, "SnapshotUpdating", "wasSnapshotUpdated=%{public, name=wasSnapshotUpdated}@", &v16, 0xCu);
+    v16 = MEMORY[0x223D622C0](v8);
+    v17 = 138543362;
+    v18 = v16;
+    _os_signpost_emit_with_name_impl(&dword_21E67D000, v14, OS_SIGNPOST_INTERVAL_END, v15, "SnapshotUpdating", "wasSnapshotUpdated=%{public, name=wasSnapshotUpdated}@", &v17, 0xCu);
   }
 
   [*(a1 + 56) invalidate];
@@ -2107,7 +2121,7 @@ uint64_t __111__PBUIPosterVariantViewController_postprocessNewSnapshot_orSnapsho
   v13 = processHandle;
   if (processHandle)
   {
-    [processHandle auditToken];
+    objc_msgSend_auditToken(processHandle);
   }
 
   else
@@ -2388,39 +2402,41 @@ void __46__PBUIPosterVariantViewController_viewDidLoad__block_invoke(uint64_t a1
 
 - (void)scene:(id)scene didApplyUpdateWithContext:(id)context
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   contextCopy = context;
-  self->_lastExtantUpdate = [contextCopy transactionID];
-  v8 = PBUILogRuntime();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  transactionID = [contextCopy transactionID];
+  self->_lastExtantUpdate = transactionID;
+  v9 = PBUILogRuntime(transactionID);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
+    v10 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
     lastExtantUpdate = self->_lastExtantUpdate;
-    v29 = 138543618;
-    v30 = v9;
-    v31 = 2048;
-    v32 = lastExtantUpdate;
-    _os_log_impl(&dword_21E67D000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Poster last extant update changed %lu", &v29, 0x16u);
+    v31 = 138543618;
+    v32 = v10;
+    v33 = 2048;
+    v34 = lastExtantUpdate;
+    _os_log_impl(&dword_21E67D000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Poster last extant update changed %lu", &v31, 0x16u);
   }
 
   settingsDiff = [contextCopy settingsDiff];
   transitionContext = [contextCopy transitionContext];
-  if ([settingsDiff pui_posterContentDidChange] & 1) != 0 || -[PBUIPosterVariantViewController variant](self, "variant") == 1 && (objc_msgSend(transitionContext, "pb_homeAppearanceChanged"))
+  pui_posterContentDidChange = [settingsDiff pui_posterContentDidChange];
+  if (pui_posterContentDidChange & 1) != 0 || -[PBUIPosterVariantViewController variant](self, "variant") == 1 && (pui_posterContentDidChange = [transitionContext pb_homeAppearanceChanged], (pui_posterContentDidChange))
   {
-    pui_provider = PBUILogRuntime();
+    pui_provider = PBUILogRuntime(pui_posterContentDidChange);
     if (os_log_type_enabled(pui_provider, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
-      v15 = self->_lastExtantUpdate;
-      v29 = 138543618;
-      v30 = v14;
-      v31 = 2048;
-      v32 = v15;
-      _os_log_impl(&dword_21E67D000, pui_provider, OS_LOG_TYPE_DEFAULT, "[%{public}@] Poster Extant %lu did change content", &v29, 0x16u);
+      v16 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
+      v17 = self->_lastExtantUpdate;
+      v31 = 138543618;
+      v32 = v16;
+      v33 = 2048;
+      v34 = v17;
+      _os_log_impl(&dword_21E67D000, pui_provider, OS_LOG_TYPE_DEFAULT, "[%{public}@] Poster Extant %lu did change content", &v31, 0x16u);
     }
 
-    v16 = 1;
+    v18 = 1;
     goto LABEL_7;
   }
 
@@ -2433,17 +2449,17 @@ void __46__PBUIPosterVariantViewController_viewDidLoad__block_invoke(uint64_t a1
     settings2 = [_applicableScene settings];
     pui_provider = [settings2 pui_provider];
 
-    v26 = [pui_provider isEqualToString:@"com.apple.WallpaperKit.CollectionsPoster"];
-    v16 = v26;
-    if (v26)
+    v28 = [pui_provider isEqualToString:@"com.apple.WallpaperKit.CollectionsPoster"];
+    v18 = v28;
+    if (v28)
     {
-      v27 = PBUILogRuntime();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v29 = PBUILogRuntime(v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
-        v29 = 138543362;
-        v30 = v28;
-        _os_log_impl(&dword_21E67D000, v27, OS_LOG_TYPE_DEFAULT, "[%{public}@] catching undetected system appearance change for collections poster", &v29, 0xCu);
+        v30 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
+        v31 = 138543362;
+        v32 = v30;
+        _os_log_impl(&dword_21E67D000, v29, OS_LOG_TYPE_DEFAULT, "[%{public}@] catching undetected system appearance change for collections poster", &v31, 0xCu);
       }
     }
 
@@ -2452,7 +2468,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v16 = 0;
+  v18 = 0;
 LABEL_8:
   clientSettings = [sceneCopy clientSettings];
   pui_significantEventOptions = [clientSettings pui_significantEventOptions];
@@ -2460,15 +2476,15 @@ LABEL_8:
   pui_significantEventsCounterDidChange = [settingsDiff pui_significantEventsCounterDidChange];
   if (pui_significantEventOptions)
   {
-    v20 = pui_significantEventsCounterDidChange;
+    v22 = pui_significantEventsCounterDidChange;
   }
 
   else
   {
-    v20 = 0;
+    v22 = 0;
   }
 
-  if (v16 & 1) != 0 || (v20)
+  if (v18 & 1) != 0 || (v22)
   {
     [(PBUIPosterVariantViewController *)self _setupCachesIfNeeded];
     if ([(PBUIPosterVariantViewController *)self variant]== 1)
@@ -2491,32 +2507,33 @@ LABEL_20:
 
 - (void)scene:(id)scene didCompleteUpdateWithContext:(id)context error:(id)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v7 = PBUILogRuntime();
+  v7 = PBUILogRuntime(contextCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
     lastExtantUpdate = self->_lastExtantUpdate;
-    v13 = 138543874;
-    v14 = v8;
-    v15 = 2048;
-    v16 = lastExtantUpdate;
-    v17 = 2048;
+    v14 = 138543874;
+    v15 = v8;
+    v16 = 2048;
+    v17 = lastExtantUpdate;
+    v18 = 2048;
     transactionID = [contextCopy transactionID];
-    _os_log_impl(&dword_21E67D000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Poster Extant update COULD change %lu (%lu)", &v13, 0x20u);
+    _os_log_impl(&dword_21E67D000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Poster Extant update COULD change %lu (%lu)", &v14, 0x20u);
   }
 
   v10 = self->_lastExtantUpdate;
-  if (v10 == [contextCopy transactionID])
+  transactionID2 = [contextCopy transactionID];
+  if (v10 == transactionID2)
   {
-    v11 = PBUILogRuntime();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = PBUILogRuntime(transactionID2);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
-      v13 = 138543362;
-      v14 = v12;
-      _os_log_impl(&dword_21E67D000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Poster Extant update DID change", &v13, 0xCu);
+      v13 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
+      v14 = 138543362;
+      v15 = v13;
+      _os_log_impl(&dword_21E67D000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Poster Extant update DID change", &v14, 0xCu);
     }
 
     self->_lastExtantUpdate = 0;
@@ -2830,8 +2847,7 @@ LABEL_11:
     v13 = v18;
     if (v8)
     {
-      [(PBUIPosterVariantViewController *)self setPreferredProminentColor:v8 chosenColorSource:v13 notifyObservers:1];
-      v14 = PBUILogSnapshot();
+      v14 = PBUILogSnapshot([(PBUIPosterVariantViewController *)self setPreferredProminentColor:v8 chosenColorSource:v13 notifyObservers:1]);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         v15 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
@@ -2922,7 +2938,7 @@ void __96__PBUIPosterVariantViewController_setPreferredProminentColor_chosenColo
 - (void)snapshotSource:(id)source failedToReadSnapshotAtURL:(id)l error:(id)error
 {
   errorCopy = error;
-  v7 = PBUILogSnapshot();
+  v7 = PBUILogSnapshot(errorCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [PBUIPosterVariantViewController snapshotSource:failedToReadSnapshotAtURL:error:];
@@ -2934,7 +2950,7 @@ void __96__PBUIPosterVariantViewController_setPreferredProminentColor_chosenColo
 - (void)snapshotSource:(id)source failedToReadColorStatisticsAtURL:(id)l error:(id)error
 {
   errorCopy = error;
-  v7 = PBUILogSnapshot();
+  v7 = PBUILogSnapshot(errorCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [PBUIPosterVariantViewController snapshotSource:failedToReadColorStatisticsAtURL:error:];
@@ -2945,7 +2961,7 @@ void __96__PBUIPosterVariantViewController_setPreferredProminentColor_chosenColo
 
 - (void)snapshotSourceReceivedNewSnapshot:(id)snapshot
 {
-  v4 = PBUILogSnapshot();
+  v4 = PBUILogSnapshot(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [PBUIPosterVariantViewController snapshotSourceReceivedNewSnapshot:?];
@@ -2956,29 +2972,29 @@ void __96__PBUIPosterVariantViewController_setPreferredProminentColor_chosenColo
 
 - (void)colorStatisticsDidChange:(id)change
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   if ([MEMORY[0x277CCACC8] isMainThread])
   {
     desiredLegibilitySettings = [(PBUIPosterVariantViewController *)self desiredLegibilitySettings];
-    [(PBUIPosterVariantViewController *)self legibilitySettingsDidChange];
+    legibilitySettingsDidChange = [(PBUIPosterVariantViewController *)self legibilitySettingsDidChange];
     if (desiredLegibilitySettings)
     {
-      v6 = PBUILogSnapshot();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = PBUILogSnapshot(legibilitySettingsDidChange);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
+        v8 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
         *buf = 138543362;
-        v26 = v7;
-        _os_log_impl(&dword_21E67D000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Legibility settings did change", buf, 0xCu);
+        v30 = v8;
+        _os_log_impl(&dword_21E67D000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Legibility settings did change", buf, 0xCu);
       }
 
-      v8 = PBUILogSnapshot();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = PBUILogSnapshot(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v26 = desiredLegibilitySettings;
-        _os_log_impl(&dword_21E67D000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Legibility settings will use desired legibility:", buf, 0xCu);
+        v30 = desiredLegibilitySettings;
+        _os_log_impl(&dword_21E67D000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Legibility settings will use desired legibility:", buf, 0xCu);
       }
 
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -2991,37 +3007,37 @@ void __96__PBUIPosterVariantViewController_setPreferredProminentColor_chosenColo
       averageColor = [changeCopy averageColor];
       WeakRetained = [averageColor BSColor];
 
-      v12 = PBUILogSnapshot();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v15 = PBUILogSnapshot(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
+        v16 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
         *buf = 138543362;
-        v26 = v13;
-        _os_log_impl(&dword_21E67D000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Legibility settings did change", buf, 0xCu);
+        v30 = v16;
+        _os_log_impl(&dword_21E67D000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] Legibility settings did change", buf, 0xCu);
       }
 
-      v14 = PBUILogSnapshot();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v18 = PBUILogSnapshot(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
+        v19 = PBUIStringForWallpaperVariant([(PBUIPosterVariantViewController *)self variant]);
         [WeakRetained red];
-        v17 = (v16 * 255.0);
-        [WeakRetained green];
-        v19 = (v18 * 255.0);
-        [WeakRetained blue];
         v21 = (v20 * 255.0);
+        [WeakRetained green];
+        v23 = (v22 * 255.0);
+        [WeakRetained blue];
+        v25 = (v24 * 255.0);
         [WeakRetained alpha];
         *buf = 138544386;
-        v26 = v15;
-        v27 = 1024;
-        v28 = v17;
-        v29 = 1024;
         v30 = v19;
         v31 = 1024;
         v32 = v21;
-        v33 = 2048;
-        v34 = v22;
-        _os_log_impl(&dword_21E67D000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updated average color to: #%02X%02X%02X (%.1f)", buf, 0x28u);
+        v33 = 1024;
+        v34 = v23;
+        v35 = 1024;
+        v36 = v25;
+        v37 = 2048;
+        v38 = v26;
+        _os_log_impl(&dword_21E67D000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updated average color to: #%02X%02X%02X (%.1f)", buf, 0x28u);
       }
 
       convertToUILegibility = objc_loadWeakRetained(&self->_delegate);
@@ -3032,7 +3048,7 @@ void __96__PBUIPosterVariantViewController_setPreferredProminentColor_chosenColo
 
   else
   {
-    v24 = changeCopy;
+    v28 = changeCopy;
     BSDispatchMain();
   }
 }
@@ -3065,9 +3081,9 @@ void __96__PBUIPosterVariantViewController_setPreferredProminentColor_chosenColo
       if (!uIColor)
       {
         lockScreenConfiguration = [(PBUIPosterVariantViewController *)self lockScreenConfiguration];
-        v15 = 0;
-        v9 = [lockScreenConfiguration pr_loadHomeScreenConfigurationWithError:&v15];
-        v10 = v15;
+        v16 = 0;
+        v9 = [lockScreenConfiguration pr_loadHomeScreenConfigurationWithError:&v16];
+        v10 = v16;
 
         customizationConfiguration = [v9 customizationConfiguration];
         suggestedTintColor = [customizationConfiguration suggestedTintColor];
@@ -3075,8 +3091,8 @@ void __96__PBUIPosterVariantViewController_setPreferredProminentColor_chosenColo
 
         if (v10)
         {
-          v13 = PBUILogCommon();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v14 = PBUILogCommon(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             [PBUIPosterVariantViewController _fetchPosterPreferredProminentColor];
           }
@@ -3151,7 +3167,7 @@ void __96__PBUIPosterVariantViewController_setPreferredProminentColor_chosenColo
 
 - (void)_handleUpdateProminentPosterDerivedColor:(id)color posterPreferredProminentColor:(id)prominentColor timeColor:(id)timeColor fallbackColor:(id)fallbackColor
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   colorCopy = color;
   prominentColorCopy = prominentColor;
   timeColorCopy = timeColor;
@@ -3161,23 +3177,24 @@ void __96__PBUIPosterVariantViewController_setPreferredProminentColor_chosenColo
     if ([MEMORY[0x277CCACC8] isMainThread])
     {
       v14 = self->_preferredProminentColor;
+      v15 = v14;
       if (timeColorCopy || colorCopy || prominentColorCopy || fallbackColorCopy)
       {
-        v18 = PBUILogSnapshot();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v19 = PBUILogSnapshot(v14);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = PBUIStringForWallpaperVariant(1);
+          v20 = PBUIStringForWallpaperVariant(1);
           *buf = 138544386;
-          v73 = v19;
-          v74 = 2114;
-          v75 = colorCopy;
-          v76 = 2114;
-          v77 = prominentColorCopy;
-          v78 = 2114;
-          v79 = timeColorCopy;
-          v80 = 2114;
-          v81 = fallbackColorCopy;
-          _os_log_impl(&dword_21E67D000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] running _handleUpdateProminentPosterDerivedColor; derivedProminentColor %{public}@ posterPreferredProminentColor %{public}@ timeColor %{public}@ fallbackColor: %{public}@", buf, 0x34u);
+          v74 = v20;
+          v75 = 2114;
+          v76 = colorCopy;
+          v77 = 2114;
+          v78 = prominentColorCopy;
+          v79 = 2114;
+          v80 = timeColorCopy;
+          v81 = 2114;
+          v82 = fallbackColorCopy;
+          _os_log_impl(&dword_21E67D000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] running _handleUpdateProminentPosterDerivedColor; derivedProminentColor %{public}@ posterPreferredProminentColor %{public}@ timeColor %{public}@ fallbackColor: %{public}@", buf, 0x34u);
         }
 
         if (colorCopy)
@@ -3193,17 +3210,17 @@ void __96__PBUIPosterVariantViewController_setPreferredProminentColor_chosenColo
 
       else
       {
-        timeColor = PBUILogSnapshot();
-        v16 = os_log_type_enabled(timeColor, OS_LOG_TYPE_DEFAULT);
-        if (v14)
+        timeColor = PBUILogSnapshot(v14);
+        v17 = os_log_type_enabled(timeColor, OS_LOG_TYPE_DEFAULT);
+        if (v15)
         {
-          if (v16)
+          if (v17)
           {
-            v17 = PBUIStringForWallpaperVariant(1);
+            v18 = PBUIStringForWallpaperVariant(1);
             *buf = 138543618;
-            v73 = v17;
-            v74 = 2114;
-            v75 = v14;
+            v74 = v18;
+            v75 = 2114;
+            v76 = v15;
             _os_log_impl(&dword_21E67D000, timeColor, OS_LOG_TYPE_DEFAULT, "[%{public}@] skipping _handleUpdateProminentPosterDerivedColor; no colors specified and currentPreferredProminentColor is populated %{public}@", buf, 0x16u);
           }
 
@@ -3213,11 +3230,11 @@ void __96__PBUIPosterVariantViewController_setPreferredProminentColor_chosenColo
           goto LABEL_67;
         }
 
-        if (v16)
+        if (v17)
         {
-          v51 = PBUIStringForWallpaperVariant(1);
+          v52 = PBUIStringForWallpaperVariant(1);
           *buf = 138543362;
-          v73 = v51;
+          v74 = v52;
           _os_log_impl(&dword_21E67D000, timeColor, OS_LOG_TYPE_DEFAULT, "[%{public}@] running _handleUpdateProminentPosterDerivedColor; no currentPreferredProminentColor is populated", buf, 0xCu);
         }
       }
@@ -3248,7 +3265,7 @@ LABEL_17:
       posterPreferredProminentColor = [(PBUIPosterVariantViewController *)self posterPreferredProminentColor];
       derivedProminentColor = [(PBUIPosterVariantViewController *)self derivedProminentColor];
       [(PBUIPosterVariantViewController *)self fallbackColor];
-      v58 = v57 = derivedProminentColor;
+      v59 = v58 = derivedProminentColor;
       if (derivedProminentColor)
       {
         if ([derivedProminentColor isEqual:colorCopy])
@@ -3268,16 +3285,15 @@ LABEL_19:
         goto LABEL_26;
       }
 
-      [(PBUIPosterVariantViewController *)self setDerivedProminentColor:colorCopy];
-      v21 = PBUILogSnapshot();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v22 = PBUILogSnapshot([(PBUIPosterVariantViewController *)self setDerivedProminentColor:colorCopy]);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = PBUIStringForWallpaperVariant(1);
+        v23 = PBUIStringForWallpaperVariant(1);
         *buf = 138543618;
-        v73 = v22;
-        v74 = 2114;
-        v75 = colorCopy;
-        _os_log_impl(&dword_21E67D000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] updating DERIVED PROMINENT COLOR: %{public}@", buf, 0x16u);
+        v74 = v23;
+        v75 = 2114;
+        v76 = colorCopy;
+        _os_log_impl(&dword_21E67D000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] updating DERIVED PROMINENT COLOR: %{public}@", buf, 0x16u);
       }
 
       if (timeColor)
@@ -3298,16 +3314,15 @@ LABEL_26:
       }
 
 LABEL_27:
-      [(PBUIPosterVariantViewController *)self setTimeColor:timeColorCopy];
-      v23 = PBUILogSnapshot();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v24 = PBUILogSnapshot([(PBUIPosterVariantViewController *)self setTimeColor:timeColorCopy]);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = PBUIStringForWallpaperVariant(1);
+        v25 = PBUIStringForWallpaperVariant(1);
         *buf = 138543618;
-        v73 = v24;
-        v74 = 2114;
-        v75 = timeColorCopy;
-        _os_log_impl(&dword_21E67D000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}@] updating TIME COLOR: %{public}@", buf, 0x16u);
+        v74 = v25;
+        v75 = 2114;
+        v76 = timeColorCopy;
+        _os_log_impl(&dword_21E67D000, v24, OS_LOG_TYPE_DEFAULT, "[%{public}@] updating TIME COLOR: %{public}@", buf, 0x16u);
       }
 
 LABEL_30:
@@ -3324,49 +3339,49 @@ LABEL_30:
         goto LABEL_42;
       }
 
-      v53 = timeColor;
-      v55 = v14;
+      v54 = timeColor;
+      v56 = v15;
       [(PBUIPosterVariantViewController *)self setPosterPreferredProminentColor:prominentColorCopy];
       [(PBUIURLBackedSnapshotSource *)self->_snapshotSource updatePosterPreferredProminentColor:prominentColorCopy error:0];
       PRSPosterUpdateClass = getPRSPosterUpdateClass();
       bSColor = [(UIColor *)prominentColorCopy BSColor];
-      v27 = [PRSPosterUpdateClass posterUpdateHomeScreenSuggestedTintColor:bSColor];
+      v28 = [PRSPosterUpdateClass posterUpdateHomeScreenSuggestedTintColor:bSColor];
 
       PRSPosterUpdaterClass = getPRSPosterUpdaterClass();
       _lockVariantScene = [(PBUIPosterVariantViewController *)self _lockVariantScene];
       pui_posterPath = [_lockVariantScene pui_posterPath];
-      v31 = [PRSPosterUpdaterClass updaterForPath:pui_posterPath];
+      v32 = [PRSPosterUpdaterClass updaterForPath:pui_posterPath];
 
-      v65 = 0;
-      LODWORD(PRSPosterUpdaterClass) = [v31 applyUpdateLocally:v27 error:&v65];
-      v32 = v65;
-      v33 = v32;
-      if (!PRSPosterUpdaterClass || v32)
+      v66 = 0;
+      LODWORD(PRSPosterUpdaterClass) = [v32 applyUpdateLocally:v28 error:&v66];
+      v33 = v66;
+      v34 = v33;
+      if (!PRSPosterUpdaterClass || v33)
       {
-        v34 = PBUILogSnapshot();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v35 = PBUILogSnapshot(v33);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
           [PBUIPosterVariantViewController _handleUpdateProminentPosterDerivedColor:posterPreferredProminentColor:timeColor:fallbackColor:];
         }
       }
 
-      v35 = PBUILogSnapshot();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+      v36 = PBUILogSnapshot(v33);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
-        v36 = PBUIStringForWallpaperVariant(1);
+        v37 = PBUIStringForWallpaperVariant(1);
         *buf = 138543618;
-        v73 = v36;
-        v74 = 2114;
-        v75 = prominentColorCopy;
-        _os_log_impl(&dword_21E67D000, v35, OS_LOG_TYPE_DEFAULT, "[%{public}@] updating POSTER PREFERRED PROMINENT COLOR color: %{public}@", buf, 0x16u);
+        v74 = v37;
+        v75 = 2114;
+        v76 = prominentColorCopy;
+        _os_log_impl(&dword_21E67D000, v36, OS_LOG_TYPE_DEFAULT, "[%{public}@] updating POSTER PREFERRED PROMINENT COLOR color: %{public}@", buf, 0x16u);
       }
 
-      timeColor = v53;
-      v14 = v55;
+      timeColor = v54;
+      v15 = v56;
 LABEL_42:
-      if (v58)
+      if (v59)
       {
-        if ([v58 isEqual:fallbackColorCopy])
+        if ([v59 isEqual:fallbackColorCopy])
         {
           goto LABEL_49;
         }
@@ -3377,34 +3392,33 @@ LABEL_42:
         goto LABEL_49;
       }
 
-      [(PBUIPosterVariantViewController *)self setFallbackColor:fallbackColorCopy];
-      v37 = PBUILogSnapshot();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v38 = PBUILogSnapshot([(PBUIPosterVariantViewController *)self setFallbackColor:fallbackColorCopy]);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
         PBUIStringForWallpaperVariant(1);
-        v39 = v38 = timeColor;
+        v40 = v39 = timeColor;
         *buf = 138543618;
-        v73 = v39;
-        v74 = 2114;
-        v75 = prominentColorCopy;
-        _os_log_impl(&dword_21E67D000, v37, OS_LOG_TYPE_DEFAULT, "[%{public}@] updating POSTER FALLBACK COLOR: %{public}@", buf, 0x16u);
+        v74 = v40;
+        v75 = 2114;
+        v76 = prominentColorCopy;
+        _os_log_impl(&dword_21E67D000, v38, OS_LOG_TYPE_DEFAULT, "[%{public}@] updating POSTER FALLBACK COLOR: %{public}@", buf, 0x16u);
 
-        timeColor = v38;
+        timeColor = v39;
       }
 
 LABEL_49:
-      v64 = 0;
-      v40 = [objc_opt_class() _determinePreferredProminentColorFromDerivedProminentColor:colorCopy posterPreferredProminentColor:prominentColorCopy timeColor:timeColorCopy fallbackColor:fallbackColorCopy outChosenColor:&v64];
-      v41 = v64;
-      if (v14)
+      v65 = 0;
+      v41 = [objc_opt_class() _determinePreferredProminentColorFromDerivedProminentColor:colorCopy posterPreferredProminentColor:prominentColorCopy timeColor:timeColorCopy fallbackColor:fallbackColorCopy outChosenColor:&v65];
+      v42 = v65;
+      if (v15)
       {
-        if (([(UIColor *)v14 isEqual:v40]& 1) != 0)
+        if (([(UIColor *)v15 isEqual:v41]& 1) != 0)
         {
           goto LABEL_66;
         }
       }
 
-      else if (!v40)
+      else if (!v41)
       {
 LABEL_66:
 
@@ -3412,61 +3426,60 @@ LABEL_67:
         goto LABEL_68;
       }
 
-      v52 = v41;
-      [(PBUIPosterVariantViewController *)self setPreferredProminentColor:v40 chosenColorSource:v41 notifyObservers:v40 != 0];
-      v42 = PBUILogSnapshot();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      v53 = v42;
+      v43 = PBUILogSnapshot([(PBUIPosterVariantViewController *)self setPreferredProminentColor:v41 chosenColorSource:v42 notifyObservers:v41 != 0]);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
-        v43 = PBUIStringForWallpaperVariant(1);
+        v44 = PBUIStringForWallpaperVariant(1);
         *buf = 138543874;
-        v73 = v43;
-        v74 = 2114;
-        v75 = v40;
-        v76 = 2114;
-        v77 = v52;
-        _os_log_impl(&dword_21E67D000, v42, OS_LOG_TYPE_DEFAULT, "[%{public}@] preferred prominent color WAS UPDATED: %{public}@/%{public}@", buf, 0x20u);
+        v74 = v44;
+        v75 = 2114;
+        v76 = v41;
+        v77 = 2114;
+        v78 = v53;
+        _os_log_impl(&dword_21E67D000, v43, OS_LOG_TYPE_DEFAULT, "[%{public}@] preferred prominent color WAS UPDATED: %{public}@/%{public}@", buf, 0x20u);
       }
 
-      v44 = [(NSMutableArray *)self->_fetchBlocks copy];
-      v45 = v44;
-      if (v40 && [v44 count])
+      v45 = [(NSMutableArray *)self->_fetchBlocks copy];
+      v46 = v45;
+      if (v41 && [v45 count])
       {
-        v54 = timeColor;
-        v56 = v14;
+        v55 = timeColor;
+        v57 = v15;
         [(NSMutableArray *)self->_fetchBlocks removeAllObjects];
-        v62 = 0u;
         v63 = 0u;
-        v60 = 0u;
+        v64 = 0u;
         v61 = 0u;
-        v46 = v45;
-        v47 = [v46 countByEnumeratingWithState:&v60 objects:v71 count:16];
-        if (v47)
+        v62 = 0u;
+        v47 = v46;
+        v48 = [v47 countByEnumeratingWithState:&v61 objects:v72 count:16];
+        if (v48)
         {
-          v48 = v47;
-          v49 = *v61;
+          v49 = v48;
+          v50 = *v62;
           do
           {
-            for (i = 0; i != v48; ++i)
+            for (i = 0; i != v49; ++i)
             {
-              if (*v61 != v49)
+              if (*v62 != v50)
               {
-                objc_enumerationMutation(v46);
+                objc_enumerationMutation(v47);
               }
 
-              (*(*(*(&v60 + 1) + 8 * i) + 16))();
+              (*(*(*(&v61 + 1) + 8 * i) + 16))();
             }
 
-            v48 = [v46 countByEnumeratingWithState:&v60 objects:v71 count:16];
+            v49 = [v47 countByEnumeratingWithState:&v61 objects:v72 count:16];
           }
 
-          while (v48);
+          while (v49);
         }
 
-        timeColor = v54;
-        v14 = v56;
+        timeColor = v55;
+        v15 = v57;
       }
 
-      v41 = v52;
+      v42 = v53;
       goto LABEL_66;
     }
 
@@ -3476,12 +3489,12 @@ LABEL_67:
     block[3] = &unk_278363EF8;
     block[4] = self;
     colorCopy = colorCopy;
-    v67 = colorCopy;
+    v68 = colorCopy;
     prominentColorCopy = prominentColorCopy;
-    v68 = prominentColorCopy;
+    v69 = prominentColorCopy;
     timeColorCopy = timeColorCopy;
-    v69 = timeColorCopy;
-    v70 = fallbackColorCopy;
+    v70 = timeColorCopy;
+    v71 = fallbackColorCopy;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
@@ -3764,46 +3777,46 @@ void __64__PBUIPosterVariantViewController_fetchWallpaperProminentColor___block_
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-- (void)_monitorScene:(const char *)a1 .cold.1(const char *a1)
+- (void)_monitorScene:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"only one scene should be monitored"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"only one scene should be monitored"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    v8 = @"PBUIPosterVariantViewController.m";
-    v9 = 1024;
-    v10 = 520;
-    v11 = v6;
-    v12 = v2;
-    _os_log_error_impl(&dword_21E67D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, 0x3Au);
+    v9 = @"PBUIPosterVariantViewController.m";
+    v10 = 1024;
+    v11 = 520;
+    v12 = v7;
+    v13 = v3;
+    _os_log_error_impl(&dword_21E67D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)_monitorScene:(const char *)a1 .cold.2(const char *a1)
+- (void)_monitorScene:(const char *)a1 .cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"can't monitor a scene that doesn't exist"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"can't monitor a scene that doesn't exist"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    v8 = @"PBUIPosterVariantViewController.m";
-    v9 = 1024;
-    v10 = 519;
-    v11 = v6;
-    v12 = v2;
-    _os_log_error_impl(&dword_21E67D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, 0x3Au);
+    v9 = @"PBUIPosterVariantViewController.m";
+    v10 = 1024;
+    v11 = 519;
+    v12 = v7;
+    v13 = v3;
+    _os_log_error_impl(&dword_21E67D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

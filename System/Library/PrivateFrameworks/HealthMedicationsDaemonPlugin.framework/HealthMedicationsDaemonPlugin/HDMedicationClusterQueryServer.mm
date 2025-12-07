@@ -113,26 +113,26 @@ LABEL_4:
 - (id)_queryMedicationsWithMachineReadableCode:(uint64_t)code errorOut:
 {
   selfCopy = self;
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if (self)
   {
-    v13 = 0;
+    v12 = 0;
     v6 = a2;
     [v6 machineReadableCode];
     objc_claimAutoreleasedReturnValue();
     codeAttributeType = [OUTLINED_FUNCTION_2_3() codeAttributeType];
 
     profile = [selfCopy profile];
-    v9 = [HDMedicationSearchEngine medicationCluster:&v13 machineReadableCode:v3 codeAttributeType:codeAttributeType profile:profile errorOut:code];
-    v10 = v13;
+    v9 = [HDMedicationSearchEngine medicationCluster:&v12 machineReadableCode:v3 codeAttributeType:codeAttributeType profile:profile errorOut:code];
+    v10 = v12;
 
     selfCopy = 0;
     if (v9)
     {
       if (v10)
       {
-        v14[0] = v10;
-        selfCopy = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+        v13[0] = v10;
+        selfCopy = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
       }
 
       else
@@ -141,8 +141,6 @@ LABEL_4:
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }

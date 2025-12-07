@@ -9,25 +9,23 @@
 
 - (id)orderedProperties
 {
-  v9[12] = *MEMORY[0x277D85DE8];
-  v9[0] = @"monday";
-  v9[1] = @"tuesday";
-  v9[2] = @"wednesday";
-  v9[3] = @"thursday";
-  v9[4] = @"friday";
-  v9[5] = @"saturday";
-  v9[6] = @"sunday";
-  v9[7] = @"wake_hour";
-  v9[8] = @"wake_minute";
-  v9[9] = @"bed_hour";
-  v9[10] = @"bed_minute";
-  v9[11] = @"override_day_index";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:12];
+  v8[12] = *MEMORY[0x277D85DE8];
+  v8[0] = @"monday";
+  v8[1] = @"tuesday";
+  v8[2] = @"wednesday";
+  v8[3] = @"thursday";
+  v8[4] = @"friday";
+  v8[5] = @"saturday";
+  v8[6] = @"sunday";
+  v8[7] = @"wake_hour";
+  v8[8] = @"wake_minute";
+  v8[9] = @"bed_hour";
+  v8[10] = @"bed_minute";
+  v8[11] = @"override_day_index";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:12];
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v6 = [v3 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

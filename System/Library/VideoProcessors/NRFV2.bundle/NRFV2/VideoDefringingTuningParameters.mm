@@ -3,7 +3,6 @@
 + ($B5339CD3011AE9733252D32A415F0BF1)defaultCorrectionParams:(SEL)params;
 + ($E2C29196C7A5C696474C6955C5A9CE06)defaultLUTParams:(unint64_t)params;
 + (BOOL)_validateTuning:(id)tuning mode:(unint64_t)mode parameterKey:(id)key;
-+ (id)_tuningHeaderForMode:(unint64_t)mode;
 + (id)defaultTuningDictionary;
 - ($6B6A6628744B4DF06B73A717F4EE0DD2)radialParams;
 - ($B5339CD3011AE9733252D32A415F0BF1)correctionParams;
@@ -126,18 +125,6 @@ LABEL_5:
   return v11;
 }
 
-+ (id)_tuningHeaderForMode:(unint64_t)mode
-{
-  if (mode < 3)
-  {
-    return *(&off_29EDDC438 + mode);
-  }
-
-  fig_log_get_emitter();
-  FigDebugAssert3();
-  return 0;
-}
-
 + (BOOL)_validateTuning:(id)tuning mode:(unint64_t)mode parameterKey:(id)key
 {
   tuningCopy = tuning;
@@ -146,16 +133,16 @@ LABEL_5:
   {
     sub_2958BC734();
     v14 = 0;
-LABEL_18:
+LABEL_19:
     v26 = 0;
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
   v14 = objc_msgSend__tuningHeaderForMode_(VideoDefringingTuningParameters, v8, mode, v9);
   if (!v14)
   {
     sub_2958BC6B8();
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
   v15 = objc_msgSend_defaultTuningDictionary(VideoDefringingTuningParameters, v11, v12, v13);
@@ -172,7 +159,7 @@ LABEL_18:
   if (v28)
   {
     v31 = v28;
-    v32 = 0;
+    LODWORD(v32) = 0;
     v33 = *v39;
     do
     {
@@ -185,9 +172,14 @@ LABEL_18:
 
         v35 = objc_msgSend_objectForKeyedSubscript_(tuningCopy, v29, *(*(&v38 + 1) + 8 * i), v30);
 
-        if (!v35)
+        if (v35)
         {
-          v32 = -12780;
+          v32 = v32;
+        }
+
+        else
+        {
+          v32 = 4294954516;
         }
       }
 
@@ -198,8 +190,8 @@ LABEL_18:
 
     if (v32)
     {
-      sub_2958BC63C();
-LABEL_19:
+      sub_2958BC63C(v32);
+LABEL_20:
       LOBYTE(v32) = 1;
     }
   }
@@ -215,8 +207,8 @@ LABEL_19:
 
 - (int)_parseDesaturateTuning:(id)tuning
 {
-  v5 = objc_msgSend_objectForKeyedSubscript_(tuning, a2, @"DesaturateParameters", v3);
-  if (objc_msgSend__validateTuning_mode_parameterKey_(VideoDefringingTuningParameters, v6, v5, self->_mode, @"DesaturateParameters"))
+  v6 = objc_msgSend_objectForKeyedSubscript_(tuning, a2, @"DesaturateParameters", v3);
+  if (objc_msgSend__validateTuning_mode_parameterKey_(VideoDefringingTuningParameters, v7, v6, self->_mode, @"DesaturateParameters"))
   {
     sub_2958BC7B0();
     goto LABEL_5;
@@ -225,34 +217,35 @@ LABEL_19:
   if (self->_mode > 2)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    v31 = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v31, v4, v32, v33, v34, v35, vars0, vars8);
 LABEL_5:
-    v28 = -12780;
+    v29 = -12780;
     goto LABEL_6;
   }
 
-  v9 = objc_msgSend_objectForKeyedSubscript_(v5, v7, @"Amount", v8);
-  objc_msgSend_floatValue(v9, v10, v11, v12);
-  self->_desaturationParams.amount = v13;
+  v10 = objc_msgSend_objectForKeyedSubscript_(v6, v8, @"Amount", v9);
+  objc_msgSend_floatValue(v10, v11, v12, v13);
+  self->_desaturationParams.amount = v14;
 
-  v16 = objc_msgSend_objectForKeyedSubscript_(v5, v14, @"Angle", v15);
-  objc_msgSend_floatValue(v16, v17, v18, v19);
-  self->_desaturationParams.angle = v20;
+  v17 = objc_msgSend_objectForKeyedSubscript_(v6, v15, @"Angle", v16);
+  objc_msgSend_floatValue(v17, v18, v19, v20);
+  self->_desaturationParams.angle = v21;
 
-  v23 = objc_msgSend_objectForKeyedSubscript_(v5, v21, @"Cutoff", v22);
-  objc_msgSend_floatValue(v23, v24, v25, v26);
-  self->_desaturationParams.cutoff = v27;
+  v24 = objc_msgSend_objectForKeyedSubscript_(v6, v22, @"Cutoff", v23);
+  objc_msgSend_floatValue(v24, v25, v26, v27);
+  self->_desaturationParams.cutoff = v28;
 
-  v28 = 0;
+  v29 = 0;
 LABEL_6:
 
-  return v28;
+  return v29;
 }
 
 - (int)_parseRadialTuning:(id)tuning
 {
-  v5 = objc_msgSend_objectForKeyedSubscript_(tuning, a2, @"RadialParameters", v3);
-  if (objc_msgSend__validateTuning_mode_parameterKey_(VideoDefringingTuningParameters, v6, v5, self->_mode, @"RadialParameters"))
+  v6 = objc_msgSend_objectForKeyedSubscript_(tuning, a2, @"RadialParameters", v3);
+  if (objc_msgSend__validateTuning_mode_parameterKey_(VideoDefringingTuningParameters, v7, v6, self->_mode, @"RadialParameters"))
   {
     sub_2958BC830();
     goto LABEL_5;
@@ -261,46 +254,48 @@ LABEL_6:
   if (self->_mode > 2)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    v45 = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v45, v4, v46, v47, v48, v49, vars0, vars8);
 LABEL_5:
-    v42 = -12780;
+    v43 = -12780;
     goto LABEL_6;
   }
 
-  v9 = objc_msgSend_objectForKeyedSubscript_(v5, v7, @"a0", v8);
-  objc_msgSend_floatValue(v9, v10, v11, v12);
-  self->_radialParams.a0 = v13;
+  v10 = objc_msgSend_objectForKeyedSubscript_(v6, v8, @"a0", v9);
+  objc_msgSend_floatValue(v10, v11, v12, v13);
+  self->_radialParams.a0 = v14;
 
-  v16 = objc_msgSend_objectForKeyedSubscript_(v5, v14, @"self", v15);
-  objc_msgSend_floatValue(v16, v17, v18, v19);
-  self->_radialParams.self = v20;
+  v17 = objc_msgSend_objectForKeyedSubscript_(v6, v15, @"self", v16);
+  objc_msgSend_floatValue(v17, v18, v19, v20);
+  self->_radialParams.self = v21;
 
-  v23 = objc_msgSend_objectForKeyedSubscript_(v5, v21, @"a2", v22);
-  objc_msgSend_floatValue(v23, v24, v25, v26);
-  self->_radialParams.a2 = v27;
+  v24 = objc_msgSend_objectForKeyedSubscript_(v6, v22, @"a2", v23);
+  objc_msgSend_floatValue(v24, v25, v26, v27);
+  self->_radialParams.a2 = v28;
 
-  v30 = objc_msgSend_objectForKeyedSubscript_(v5, v28, @"tuning", v29);
-  objc_msgSend_floatValue(v30, v31, v32, v33);
-  self->_radialParams.tuning = v34;
+  v31 = objc_msgSend_objectForKeyedSubscript_(v6, v29, @"tuning", v30);
+  objc_msgSend_floatValue(v31, v32, v33, v34);
+  self->_radialParams.tuning = v35;
 
   *self->_anon_40 = self->_radialParams;
-  v37 = objc_msgSend_objectForKeyedSubscript_(v5, v35, @"MinCoefficient", v36);
-  objc_msgSend_floatValue(v37, v38, v39, v40);
-  *&self->_anon_40[36] = v41;
+  v38 = objc_msgSend_objectForKeyedSubscript_(v6, v36, @"MinCoefficient", v37);
+  objc_msgSend_floatValue(v38, v39, v40, v41);
+  *&self->_anon_40[36] = v42;
 
-  v42 = 0;
+  v43 = 0;
 LABEL_6:
 
-  return v42;
+  return v43;
 }
 
 - (int)_parseCorrectionTuning:(id)tuning
 {
-  v5 = objc_msgSend_objectForKeyedSubscript_(tuning, a2, @"CorrectionParameters", v3);
-  v9 = objc_msgSend__validateTuning_mode_parameterKey_(VideoDefringingTuningParameters, v6, v5, self->_mode, @"CorrectionParameters");
-  if (v9)
+  v6 = objc_msgSend_objectForKeyedSubscript_(tuning, a2, @"CorrectionParameters", v3);
+  v8 = objc_msgSend__validateTuning_mode_parameterKey_(VideoDefringingTuningParameters, v7, v6, self->_mode, @"CorrectionParameters");
+  v11 = v8;
+  if (v8)
   {
-    sub_2958BC8B0();
+    sub_2958BC8B0(v8);
     goto LABEL_10;
   }
 
@@ -309,351 +304,351 @@ LABEL_6:
   {
     if (mode == 1)
     {
-      v9 = 0;
+      v11 = 0;
       goto LABEL_16;
     }
 
     if (mode == 2)
     {
-      v11 = objc_msgSend_objectForKeyedSubscript_(v5, v7, @"MaxChroma", v8);
-      objc_msgSend_floatValue(v11, v12, v13, v14);
-      self->_correctionParams.max_chroma = v15;
+      v13 = objc_msgSend_objectForKeyedSubscript_(v6, v9, @"MaxChroma", v10);
+      objc_msgSend_floatValue(v13, v14, v15, v16);
+      self->_correctionParams.max_chroma = v17;
 
-      v18 = objc_msgSend_objectForKeyedSubscript_(v5, v16, @"BlueTh0", v17);
-      objc_msgSend_floatValue(v18, v19, v20, v21);
-      self->_correctionParams.blueTh0 = v22;
+      v20 = objc_msgSend_objectForKeyedSubscript_(v6, v18, @"BlueTh0", v19);
+      objc_msgSend_floatValue(v20, v21, v22, v23);
+      self->_correctionParams.blueTh0 = v24;
 
-      v25 = objc_msgSend_objectForKeyedSubscript_(v5, v23, @"BlueTh1", v24);
-      objc_msgSend_floatValue(v25, v26, v27, v28);
-      self->_correctionParams.blueTh1 = v29;
+      v27 = objc_msgSend_objectForKeyedSubscript_(v6, v25, @"BlueTh1", v26);
+      objc_msgSend_floatValue(v27, v28, v29, v30);
+      self->_correctionParams.blueTh1 = v31;
 
-      v32 = objc_msgSend_objectForKeyedSubscript_(v5, v30, @"BlueCrTh0", v31);
-      objc_msgSend_floatValue(v32, v33, v34, v35);
-      self->_correctionParams.blueCrTh0 = v36;
+      v34 = objc_msgSend_objectForKeyedSubscript_(v6, v32, @"BlueCrTh0", v33);
+      objc_msgSend_floatValue(v34, v35, v36, v37);
+      self->_correctionParams.blueCrTh0 = v38;
 
-      v39 = objc_msgSend_objectForKeyedSubscript_(v5, v37, @"ContrastTh0", v38);
-      objc_msgSend_floatValue(v39, v40, v41, v42);
-      self->_correctionParams.contrastTh0 = v43;
+      v41 = objc_msgSend_objectForKeyedSubscript_(v6, v39, @"ContrastTh0", v40);
+      objc_msgSend_floatValue(v41, v42, v43, v44);
+      self->_correctionParams.contrastTh0 = v45;
 
-      v46 = objc_msgSend_objectForKeyedSubscript_(v5, v44, @"ContrastTh1", v45);
-      objc_msgSend_floatValue(v46, v47, v48, v49);
-      self->_correctionParams.contrastTh1 = v50;
+      v48 = objc_msgSend_objectForKeyedSubscript_(v6, v46, @"ContrastTh1", v47);
+      objc_msgSend_floatValue(v48, v49, v50, v51);
+      self->_correctionParams.contrastTh1 = v52;
 
-      v53 = objc_msgSend_objectForKeyedSubscript_(v5, v51, @"DarknessTh0", v52);
-      objc_msgSend_floatValue(v53, v54, v55, v56);
-      self->_correctionParams.darknessTh0 = v57;
+      v55 = objc_msgSend_objectForKeyedSubscript_(v6, v53, @"DarknessTh0", v54);
+      objc_msgSend_floatValue(v55, v56, v57, v58);
+      self->_correctionParams.darknessTh0 = v59;
 
-      v60 = objc_msgSend_objectForKeyedSubscript_(v5, v58, @"DarknessTh1", v59);
-      objc_msgSend_floatValue(v60, v61, v62, v63);
-      self->_correctionParams.darknessTh1 = v64;
+      v62 = objc_msgSend_objectForKeyedSubscript_(v6, v60, @"DarknessTh1", v61);
+      objc_msgSend_floatValue(v62, v63, v64, v65);
+      self->_correctionParams.darknessTh1 = v66;
 
-      v67 = objc_msgSend_objectForKeyedSubscript_(v5, v65, @"PbrightnessTh0", v66);
-      objc_msgSend_floatValue(v67, v68, v69, v70);
-      self->_correctionParams.pbrightnessTh0 = v71;
+      v69 = objc_msgSend_objectForKeyedSubscript_(v6, v67, @"PbrightnessTh0", v68);
+      objc_msgSend_floatValue(v69, v70, v71, v72);
+      self->_correctionParams.pbrightnessTh0 = v73;
 
-      v74 = objc_msgSend_objectForKeyedSubscript_(v5, v72, @"PbrightnessTh1", v73);
-      objc_msgSend_floatValue(v74, v75, v76, v77);
-      self->_correctionParams.pbrightnessTh1 = v78;
+      v76 = objc_msgSend_objectForKeyedSubscript_(v6, v74, @"PbrightnessTh1", v75);
+      objc_msgSend_floatValue(v76, v77, v78, v79);
+      self->_correctionParams.pbrightnessTh1 = v80;
 
-      v81 = objc_msgSend_objectForKeyedSubscript_(v5, v79, @"BlueBrightThr0", v80);
-      objc_msgSend_floatValue(v81, v82, v83, v84);
-      self->_correctionParams.blueBrightThr0 = v85;
+      v83 = objc_msgSend_objectForKeyedSubscript_(v6, v81, @"BlueBrightThr0", v82);
+      objc_msgSend_floatValue(v83, v84, v85, v86);
+      self->_correctionParams.blueBrightThr0 = v87;
 
-      v88 = objc_msgSend_objectForKeyedSubscript_(v5, v86, @"BlueBrightThr1", v87);
-      objc_msgSend_floatValue(v88, v89, v90, v91);
-      self->_correctionParams.blueBrightThr1 = v92;
+      v90 = objc_msgSend_objectForKeyedSubscript_(v6, v88, @"BlueBrightThr1", v89);
+      objc_msgSend_floatValue(v90, v91, v92, v93);
+      self->_correctionParams.blueBrightThr1 = v94;
 
-      v95 = objc_msgSend_objectForKeyedSubscript_(v5, v93, @"ColorfullThr0", v94);
-      objc_msgSend_floatValue(v95, v96, v97, v98);
-      self->_correctionParams.colorfullThr0 = v99;
+      v97 = objc_msgSend_objectForKeyedSubscript_(v6, v95, @"ColorfullThr0", v96);
+      objc_msgSend_floatValue(v97, v98, v99, v100);
+      self->_correctionParams.colorfullThr0 = v101;
 
-      v102 = objc_msgSend_objectForKeyedSubscript_(v5, v100, @"ColorfullThr1", v101);
-      objc_msgSend_floatValue(v102, v103, v104, v105);
-      self->_correctionParams.colorfullThr1 = v106;
+      v104 = objc_msgSend_objectForKeyedSubscript_(v6, v102, @"ColorfullThr1", v103);
+      objc_msgSend_floatValue(v104, v105, v106, v107);
+      self->_correctionParams.colorfullThr1 = v108;
 
-      v109 = objc_msgSend_objectForKeyedSubscript_(v5, v107, @"ColorfullPThr0", v108);
-      objc_msgSend_floatValue(v109, v110, v111, v112);
-      self->_correctionParams.colorfull_PThr0 = v113;
+      v111 = objc_msgSend_objectForKeyedSubscript_(v6, v109, @"ColorfullPThr0", v110);
+      objc_msgSend_floatValue(v111, v112, v113, v114);
+      self->_correctionParams.colorfull_PThr0 = v115;
 
-      v116 = objc_msgSend_objectForKeyedSubscript_(v5, v114, @"ColorfullPThr1", v115);
-      objc_msgSend_floatValue(v116, v117, v118, v119);
-      self->_correctionParams.colorfull_PThr1 = v120;
+      v118 = objc_msgSend_objectForKeyedSubscript_(v6, v116, @"ColorfullPThr1", v117);
+      objc_msgSend_floatValue(v118, v119, v120, v121);
+      self->_correctionParams.colorfull_PThr1 = v122;
 
-      v123 = objc_msgSend_objectForKeyedSubscript_(v5, v121, @"BlueCrThr0", v122);
-      objc_msgSend_floatValue(v123, v124, v125, v126);
-      self->_correctionParams.blueCrThr0 = v127;
+      v125 = objc_msgSend_objectForKeyedSubscript_(v6, v123, @"BlueCrThr0", v124);
+      objc_msgSend_floatValue(v125, v126, v127, v128);
+      self->_correctionParams.blueCrThr0 = v129;
 
-      v130 = objc_msgSend_objectForKeyedSubscript_(v5, v128, @"BlueCrThr1", v129);
-      objc_msgSend_floatValue(v130, v131, v132, v133);
-      self->_correctionParams.blueCrThr1 = v134;
+      v132 = objc_msgSend_objectForKeyedSubscript_(v6, v130, @"BlueCrThr1", v131);
+      objc_msgSend_floatValue(v132, v133, v134, v135);
+      self->_correctionParams.blueCrThr1 = v136;
 
-      v137 = objc_msgSend_objectForKeyedSubscript_(v5, v135, @"DarkBlueCbThr0", v136);
-      objc_msgSend_floatValue(v137, v138, v139, v140);
-      self->_correctionParams.darkBlue_CbThr0 = v141;
+      v139 = objc_msgSend_objectForKeyedSubscript_(v6, v137, @"DarkBlueCbThr0", v138);
+      objc_msgSend_floatValue(v139, v140, v141, v142);
+      self->_correctionParams.darkBlue_CbThr0 = v143;
 
-      v144 = objc_msgSend_objectForKeyedSubscript_(v5, v142, @"DarkBlueCbThr1", v143);
-      objc_msgSend_floatValue(v144, v145, v146, v147);
-      self->_correctionParams.darkBlue_CbThr1 = v148;
+      v146 = objc_msgSend_objectForKeyedSubscript_(v6, v144, @"DarkBlueCbThr1", v145);
+      objc_msgSend_floatValue(v146, v147, v148, v149);
+      self->_correctionParams.darkBlue_CbThr1 = v150;
 
-      v151 = objc_msgSend_objectForKeyedSubscript_(v5, v149, @"SkyBlueYThr0", v150);
-      objc_msgSend_floatValue(v151, v152, v153, v154);
-      self->_correctionParams.skyBlue_YThr0 = v155;
+      v153 = objc_msgSend_objectForKeyedSubscript_(v6, v151, @"SkyBlueYThr0", v152);
+      objc_msgSend_floatValue(v153, v154, v155, v156);
+      self->_correctionParams.skyBlue_YThr0 = v157;
 
-      v158 = objc_msgSend_objectForKeyedSubscript_(v5, v156, @"SkyBlueYThr1", v157);
-      objc_msgSend_floatValue(v158, v159, v160, v161);
-      self->_correctionParams.skyBlue_YThr1 = v162;
+      v160 = objc_msgSend_objectForKeyedSubscript_(v6, v158, @"SkyBlueYThr1", v159);
+      objc_msgSend_floatValue(v160, v161, v162, v163);
+      self->_correctionParams.skyBlue_YThr1 = v164;
 
-      v165 = objc_msgSend_objectForKeyedSubscript_(v5, v163, @"SkyBlueCbThr0", v164);
-      objc_msgSend_floatValue(v165, v166, v167, v168);
-      self->_correctionParams.skyBlue_CbThr0 = v169;
+      v167 = objc_msgSend_objectForKeyedSubscript_(v6, v165, @"SkyBlueCbThr0", v166);
+      objc_msgSend_floatValue(v167, v168, v169, v170);
+      self->_correctionParams.skyBlue_CbThr0 = v171;
 
-      v172 = objc_msgSend_objectForKeyedSubscript_(v5, v170, @"SkyBlueCbThr1", v171);
-      objc_msgSend_floatValue(v172, v173, v174, v175);
-      self->_correctionParams.skyBlue_CbThr1 = v176;
+      v174 = objc_msgSend_objectForKeyedSubscript_(v6, v172, @"SkyBlueCbThr1", v173);
+      objc_msgSend_floatValue(v174, v175, v176, v177);
+      self->_correctionParams.skyBlue_CbThr1 = v178;
 
-      v179 = objc_msgSend_objectForKeyedSubscript_(v5, v177, @"SkyBluePThr0", v178);
-      objc_msgSend_floatValue(v179, v180, v181, v182);
-      self->_correctionParams.skyBlue_PThr0 = v183;
+      v181 = objc_msgSend_objectForKeyedSubscript_(v6, v179, @"SkyBluePThr0", v180);
+      objc_msgSend_floatValue(v181, v182, v183, v184);
+      self->_correctionParams.skyBlue_PThr0 = v185;
 
-      v186 = objc_msgSend_objectForKeyedSubscript_(v5, v184, @"SkyBluePThr1", v185);
-      objc_msgSend_floatValue(v186, v187, v188, v189);
-      self->_correctionParams.skyBlue_PThr1 = v190;
+      v188 = objc_msgSend_objectForKeyedSubscript_(v6, v186, @"SkyBluePThr1", v187);
+      objc_msgSend_floatValue(v188, v189, v190, v191);
+      self->_correctionParams.skyBlue_PThr1 = v192;
 
-      v193 = objc_msgSend_objectForKeyedSubscript_(v5, v191, @"FiltThr", v192);
-      objc_msgSend_floatValue(v193, v194, v195, v196);
-      self->_correctionParams.filtThr = v197;
+      v195 = objc_msgSend_objectForKeyedSubscript_(v6, v193, @"FiltThr", v194);
+      objc_msgSend_floatValue(v195, v196, v197, v198);
+      self->_correctionParams.filtThr = v199;
 
       goto LABEL_6;
     }
 
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v4, v555, v556, v557, v558, v559, v560);
 LABEL_10:
-    v9 = -12780;
+    v11 = -12780;
     goto LABEL_16;
   }
 
 LABEL_6:
-  v198 = objc_msgSend_objectForKeyedSubscript_(v5, v7, @"RadialScale", v8);
-  objc_msgSend_floatValue(v198, v199, v200, v201);
-  self->_correctionParams.radialScale = v202;
+  v200 = objc_msgSend_objectForKeyedSubscript_(v6, v9, @"RadialScale", v10);
+  objc_msgSend_floatValue(v200, v201, v202, v203);
+  self->_correctionParams.radialScale = v204;
 
-  v205 = objc_msgSend_objectForKeyedSubscript_(v5, v203, @"RadialR0", v204);
-  objc_msgSend_floatValue(v205, v206, v207, v208);
-  self->_correctionParams.radialR0 = v209;
+  v207 = objc_msgSend_objectForKeyedSubscript_(v6, v205, @"RadialR0", v206);
+  objc_msgSend_floatValue(v207, v208, v209, v210);
+  self->_correctionParams.radialR0 = v211;
 
-  v212 = objc_msgSend_objectForKeyedSubscript_(v5, v210, @"RadialR1", v211);
-  objc_msgSend_floatValue(v212, v213, v214, v215);
-  self->_correctionParams.radialR1 = v216;
+  v214 = objc_msgSend_objectForKeyedSubscript_(v6, v212, @"RadialR1", v213);
+  objc_msgSend_floatValue(v214, v215, v216, v217);
+  self->_correctionParams.radialR1 = v218;
 
-  v219 = objc_msgSend_objectForKeyedSubscript_(v5, v217, @"RadialF0", v218);
-  objc_msgSend_floatValue(v219, v220, v221, v222);
-  self->_correctionParams.radialF0 = v223;
+  v221 = objc_msgSend_objectForKeyedSubscript_(v6, v219, @"RadialF0", v220);
+  objc_msgSend_floatValue(v221, v222, v223, v224);
+  self->_correctionParams.radialF0 = v225;
 
-  v226 = objc_msgSend_objectForKeyedSubscript_(v5, v224, @"RadialF1", v225);
-  objc_msgSend_floatValue(v226, v227, v228, v229);
-  self->_correctionParams.radialF1 = v230;
+  v228 = objc_msgSend_objectForKeyedSubscript_(v6, v226, @"RadialF1", v227);
+  objc_msgSend_floatValue(v228, v229, v230, v231);
+  self->_correctionParams.radialF1 = v232;
 
-  v233 = objc_msgSend_objectForKeyedSubscript_(v5, v231, @"RadialF2", v232);
-  objc_msgSend_floatValue(v233, v234, v235, v236);
-  self->_correctionParams.radialF2 = v237;
+  v235 = objc_msgSend_objectForKeyedSubscript_(v6, v233, @"RadialF2", v234);
+  objc_msgSend_floatValue(v235, v236, v237, v238);
+  self->_correctionParams.radialF2 = v239;
 
-  v242 = objc_msgSend_objectForKeyedSubscript_(v5, v238, @"RadialFXScaleFactorByQuadraBinningFactor", v239);
-  if (v242)
+  v244 = objc_msgSend_objectForKeyedSubscript_(v6, v240, @"RadialFXScaleFactorByQuadraBinningFactor", v241);
+  if (v244)
   {
-    v243 = objc_msgSend_objectForKeyedSubscript_(v5, v240, @"RadialFXScaleFactorByQuadraBinningFactor", v241);
+    v245 = objc_msgSend_objectForKeyedSubscript_(v6, v242, @"RadialFXScaleFactorByQuadraBinningFactor", v243);
   }
 
   else
   {
-    v243 = &unk_2A1CC4480;
+    v245 = &unk_2A1CC4480;
   }
 
-  if (objc_msgSend_count(v243, v244, v245, v246))
+  if (objc_msgSend_count(v245, v246, v247, v248))
   {
-    v249 = 0;
+    v251 = 0;
     do
     {
-      v250 = objc_msgSend_objectAtIndexedSubscript_(v243, v247, v249, v248);
-      objc_msgSend_floatValue(v250, v251, v252, v253);
-      self->_correctionParams.radialFXScaleFactorByQuadraBinningFactor[v249] = v254;
+      v252 = objc_msgSend_objectAtIndexedSubscript_(v245, v249, v251, v250);
+      objc_msgSend_floatValue(v252, v253, v254, v255);
+      self->_correctionParams.radialFXScaleFactorByQuadraBinningFactor[v251] = v256;
 
-      ++v249;
+      ++v251;
     }
 
-    while (v249 < objc_msgSend_count(v243, v255, v256, v257));
+    while (v251 < objc_msgSend_count(v245, v257, v258, v259));
   }
 
-  v260 = objc_msgSend_objectForKeyedSubscript_(v5, v258, @"MaxChroma", v259);
-  objc_msgSend_floatValue(v260, v261, v262, v263);
-  self->_correctionParams.max_chroma = v264;
+  v262 = objc_msgSend_objectForKeyedSubscript_(v6, v260, @"MaxChroma", v261);
+  objc_msgSend_floatValue(v262, v263, v264, v265);
+  self->_correctionParams.max_chroma = v266;
 
-  v267 = objc_msgSend_objectForKeyedSubscript_(v5, v265, @"BlueTh0", v266);
-  objc_msgSend_floatValue(v267, v268, v269, v270);
-  self->_correctionParams.blueTh0 = v271;
+  v269 = objc_msgSend_objectForKeyedSubscript_(v6, v267, @"BlueTh0", v268);
+  objc_msgSend_floatValue(v269, v270, v271, v272);
+  self->_correctionParams.blueTh0 = v273;
 
-  v274 = objc_msgSend_objectForKeyedSubscript_(v5, v272, @"BlueTh1", v273);
-  objc_msgSend_floatValue(v274, v275, v276, v277);
-  self->_correctionParams.blueTh1 = v278;
+  v276 = objc_msgSend_objectForKeyedSubscript_(v6, v274, @"BlueTh1", v275);
+  objc_msgSend_floatValue(v276, v277, v278, v279);
+  self->_correctionParams.blueTh1 = v280;
 
-  v281 = objc_msgSend_objectForKeyedSubscript_(v5, v279, @"BlueCrTh0", v280);
-  objc_msgSend_floatValue(v281, v282, v283, v284);
-  self->_correctionParams.blueCrTh0 = v285;
+  v283 = objc_msgSend_objectForKeyedSubscript_(v6, v281, @"BlueCrTh0", v282);
+  objc_msgSend_floatValue(v283, v284, v285, v286);
+  self->_correctionParams.blueCrTh0 = v287;
 
-  v288 = objc_msgSend_objectForKeyedSubscript_(v5, v286, @"BrightnessTh0", v287);
-  objc_msgSend_floatValue(v288, v289, v290, v291);
-  self->_correctionParams.brightnessTh0 = v292;
+  v290 = objc_msgSend_objectForKeyedSubscript_(v6, v288, @"BrightnessTh0", v289);
+  objc_msgSend_floatValue(v290, v291, v292, v293);
+  self->_correctionParams.brightnessTh0 = v294;
 
-  v295 = objc_msgSend_objectForKeyedSubscript_(v5, v293, @"BrightnessTh1", v294);
-  objc_msgSend_floatValue(v295, v296, v297, v298);
-  self->_correctionParams.brightnessTh1 = v299;
+  v297 = objc_msgSend_objectForKeyedSubscript_(v6, v295, @"BrightnessTh1", v296);
+  objc_msgSend_floatValue(v297, v298, v299, v300);
+  self->_correctionParams.brightnessTh1 = v301;
 
-  v302 = objc_msgSend_objectForKeyedSubscript_(v5, v300, @"ContrastTh0", v301);
-  objc_msgSend_floatValue(v302, v303, v304, v305);
-  self->_correctionParams.contrastTh0 = v306;
+  v304 = objc_msgSend_objectForKeyedSubscript_(v6, v302, @"ContrastTh0", v303);
+  objc_msgSend_floatValue(v304, v305, v306, v307);
+  self->_correctionParams.contrastTh0 = v308;
 
-  v309 = objc_msgSend_objectForKeyedSubscript_(v5, v307, @"ContrastTh1", v308);
-  objc_msgSend_floatValue(v309, v310, v311, v312);
-  self->_correctionParams.contrastTh1 = v313;
+  v311 = objc_msgSend_objectForKeyedSubscript_(v6, v309, @"ContrastTh1", v310);
+  objc_msgSend_floatValue(v311, v312, v313, v314);
+  self->_correctionParams.contrastTh1 = v315;
 
-  v316 = objc_msgSend_objectForKeyedSubscript_(v5, v314, @"DarknessTh0", v315);
-  objc_msgSend_floatValue(v316, v317, v318, v319);
-  self->_correctionParams.darknessTh0 = v320;
+  v318 = objc_msgSend_objectForKeyedSubscript_(v6, v316, @"DarknessTh0", v317);
+  objc_msgSend_floatValue(v318, v319, v320, v321);
+  self->_correctionParams.darknessTh0 = v322;
 
-  v323 = objc_msgSend_objectForKeyedSubscript_(v5, v321, @"DarknessTh1", v322);
-  objc_msgSend_floatValue(v323, v324, v325, v326);
-  self->_correctionParams.darknessTh1 = v327;
+  v325 = objc_msgSend_objectForKeyedSubscript_(v6, v323, @"DarknessTh1", v324);
+  objc_msgSend_floatValue(v325, v326, v327, v328);
+  self->_correctionParams.darknessTh1 = v329;
 
-  v330 = objc_msgSend_objectForKeyedSubscript_(v5, v328, @"LumaKnee", v329);
-  objc_msgSend_floatValue(v330, v331, v332, v333);
-  self->_correctionParams.luma_knee = v334;
+  v332 = objc_msgSend_objectForKeyedSubscript_(v6, v330, @"LumaKnee", v331);
+  objc_msgSend_floatValue(v332, v333, v334, v335);
+  self->_correctionParams.luma_knee = v336;
 
-  v337 = objc_msgSend_objectForKeyedSubscript_(v5, v335, @"LumaAmp", v336);
-  objc_msgSend_floatValue(v337, v338, v339, v340);
-  self->_correctionParams.luma_amp = v341;
+  v339 = objc_msgSend_objectForKeyedSubscript_(v6, v337, @"LumaAmp", v338);
+  objc_msgSend_floatValue(v339, v340, v341, v342);
+  self->_correctionParams.luma_amp = v343;
 
-  v344 = objc_msgSend_objectForKeyedSubscript_(v5, v342, @"PbrightnessTh0", v343);
-  objc_msgSend_floatValue(v344, v345, v346, v347);
-  self->_correctionParams.pbrightnessTh0 = v348;
+  v346 = objc_msgSend_objectForKeyedSubscript_(v6, v344, @"PbrightnessTh0", v345);
+  objc_msgSend_floatValue(v346, v347, v348, v349);
+  self->_correctionParams.pbrightnessTh0 = v350;
 
-  v351 = objc_msgSend_objectForKeyedSubscript_(v5, v349, @"PbrightnessTh1", v350);
-  objc_msgSend_floatValue(v351, v352, v353, v354);
-  self->_correctionParams.pbrightnessTh1 = v355;
+  v353 = objc_msgSend_objectForKeyedSubscript_(v6, v351, @"PbrightnessTh1", v352);
+  objc_msgSend_floatValue(v353, v354, v355, v356);
+  self->_correctionParams.pbrightnessTh1 = v357;
 
-  v358 = objc_msgSend_objectForKeyedSubscript_(v5, v356, @"BlueBrightThr0", v357);
-  objc_msgSend_floatValue(v358, v359, v360, v361);
-  self->_correctionParams.blueBrightThr0 = v362;
+  v360 = objc_msgSend_objectForKeyedSubscript_(v6, v358, @"BlueBrightThr0", v359);
+  objc_msgSend_floatValue(v360, v361, v362, v363);
+  self->_correctionParams.blueBrightThr0 = v364;
 
-  v365 = objc_msgSend_objectForKeyedSubscript_(v5, v363, @"BlueBrightThr1", v364);
-  objc_msgSend_floatValue(v365, v366, v367, v368);
-  self->_correctionParams.blueBrightThr1 = v369;
+  v367 = objc_msgSend_objectForKeyedSubscript_(v6, v365, @"BlueBrightThr1", v366);
+  objc_msgSend_floatValue(v367, v368, v369, v370);
+  self->_correctionParams.blueBrightThr1 = v371;
 
-  v372 = objc_msgSend_objectForKeyedSubscript_(v5, v370, @"ColorfullThr0", v371);
-  objc_msgSend_floatValue(v372, v373, v374, v375);
-  self->_correctionParams.colorfullThr0 = v376;
+  v374 = objc_msgSend_objectForKeyedSubscript_(v6, v372, @"ColorfullThr0", v373);
+  objc_msgSend_floatValue(v374, v375, v376, v377);
+  self->_correctionParams.colorfullThr0 = v378;
 
-  v379 = objc_msgSend_objectForKeyedSubscript_(v5, v377, @"ColorfullThr1", v378);
-  objc_msgSend_floatValue(v379, v380, v381, v382);
-  self->_correctionParams.colorfullThr1 = v383;
+  v381 = objc_msgSend_objectForKeyedSubscript_(v6, v379, @"ColorfullThr1", v380);
+  objc_msgSend_floatValue(v381, v382, v383, v384);
+  self->_correctionParams.colorfullThr1 = v385;
 
-  v386 = objc_msgSend_objectForKeyedSubscript_(v5, v384, @"ColorfullPThr0", v385);
-  objc_msgSend_floatValue(v386, v387, v388, v389);
-  self->_correctionParams.colorfull_PThr0 = v390;
+  v388 = objc_msgSend_objectForKeyedSubscript_(v6, v386, @"ColorfullPThr0", v387);
+  objc_msgSend_floatValue(v388, v389, v390, v391);
+  self->_correctionParams.colorfull_PThr0 = v392;
 
-  v393 = objc_msgSend_objectForKeyedSubscript_(v5, v391, @"ColorfullPThr1", v392);
-  objc_msgSend_floatValue(v393, v394, v395, v396);
-  self->_correctionParams.colorfull_PThr1 = v397;
+  v395 = objc_msgSend_objectForKeyedSubscript_(v6, v393, @"ColorfullPThr1", v394);
+  objc_msgSend_floatValue(v395, v396, v397, v398);
+  self->_correctionParams.colorfull_PThr1 = v399;
 
-  v400 = objc_msgSend_objectForKeyedSubscript_(v5, v398, @"BlueCrThr0", v399);
-  objc_msgSend_floatValue(v400, v401, v402, v403);
-  self->_correctionParams.blueCrThr0 = v404;
+  v402 = objc_msgSend_objectForKeyedSubscript_(v6, v400, @"BlueCrThr0", v401);
+  objc_msgSend_floatValue(v402, v403, v404, v405);
+  self->_correctionParams.blueCrThr0 = v406;
 
-  v407 = objc_msgSend_objectForKeyedSubscript_(v5, v405, @"BlueCrThr1", v406);
-  objc_msgSend_floatValue(v407, v408, v409, v410);
-  self->_correctionParams.blueCrThr1 = v411;
+  v409 = objc_msgSend_objectForKeyedSubscript_(v6, v407, @"BlueCrThr1", v408);
+  objc_msgSend_floatValue(v409, v410, v411, v412);
+  self->_correctionParams.blueCrThr1 = v413;
 
-  v414 = objc_msgSend_objectForKeyedSubscript_(v5, v412, @"DarkAchromThr0", v413);
-  objc_msgSend_floatValue(v414, v415, v416, v417);
-  self->_correctionParams.darkAchromThr0 = v418;
+  v416 = objc_msgSend_objectForKeyedSubscript_(v6, v414, @"DarkAchromThr0", v415);
+  objc_msgSend_floatValue(v416, v417, v418, v419);
+  self->_correctionParams.darkAchromThr0 = v420;
 
-  v421 = objc_msgSend_objectForKeyedSubscript_(v5, v419, @"DarkAchromThr1", v420);
-  objc_msgSend_floatValue(v421, v422, v423, v424);
-  self->_correctionParams.darkAchromThr1 = v425;
+  v423 = objc_msgSend_objectForKeyedSubscript_(v6, v421, @"DarkAchromThr1", v422);
+  objc_msgSend_floatValue(v423, v424, v425, v426);
+  self->_correctionParams.darkAchromThr1 = v427;
 
-  v428 = objc_msgSend_objectForKeyedSubscript_(v5, v426, @"DarkAchromCThr", v427);
-  objc_msgSend_floatValue(v428, v429, v430, v431);
-  self->_correctionParams.darkAchromCThr = v432;
+  v430 = objc_msgSend_objectForKeyedSubscript_(v6, v428, @"DarkAchromCThr", v429);
+  objc_msgSend_floatValue(v430, v431, v432, v433);
+  self->_correctionParams.darkAchromCThr = v434;
 
-  v435 = objc_msgSend_objectForKeyedSubscript_(v5, v433, @"DarkAchromYThr", v434);
-  objc_msgSend_floatValue(v435, v436, v437, v438);
-  self->_correctionParams.darkAchromYThr = v439;
+  v437 = objc_msgSend_objectForKeyedSubscript_(v6, v435, @"DarkAchromYThr", v436);
+  objc_msgSend_floatValue(v437, v438, v439, v440);
+  self->_correctionParams.darkAchromYThr = v441;
 
-  v442 = objc_msgSend_objectForKeyedSubscript_(v5, v440, @"DarkBlueYThr0", v441);
-  objc_msgSend_floatValue(v442, v443, v444, v445);
-  self->_correctionParams.darkBlue_YThr0 = v446;
+  v444 = objc_msgSend_objectForKeyedSubscript_(v6, v442, @"DarkBlueYThr0", v443);
+  objc_msgSend_floatValue(v444, v445, v446, v447);
+  self->_correctionParams.darkBlue_YThr0 = v448;
 
-  v449 = objc_msgSend_objectForKeyedSubscript_(v5, v447, @"DarkBlueYThr1", v448);
-  objc_msgSend_floatValue(v449, v450, v451, v452);
-  self->_correctionParams.darkBlue_YThr1 = v453;
+  v451 = objc_msgSend_objectForKeyedSubscript_(v6, v449, @"DarkBlueYThr1", v450);
+  objc_msgSend_floatValue(v451, v452, v453, v454);
+  self->_correctionParams.darkBlue_YThr1 = v455;
 
-  v456 = objc_msgSend_objectForKeyedSubscript_(v5, v454, @"DarkBlueCbThr0", v455);
-  objc_msgSend_floatValue(v456, v457, v458, v459);
-  self->_correctionParams.darkBlue_CbThr0 = v460;
+  v458 = objc_msgSend_objectForKeyedSubscript_(v6, v456, @"DarkBlueCbThr0", v457);
+  objc_msgSend_floatValue(v458, v459, v460, v461);
+  self->_correctionParams.darkBlue_CbThr0 = v462;
 
-  v463 = objc_msgSend_objectForKeyedSubscript_(v5, v461, @"DarkBlueCbThr1", v462);
-  objc_msgSend_floatValue(v463, v464, v465, v466);
-  self->_correctionParams.darkBlue_CbThr1 = v467;
+  v465 = objc_msgSend_objectForKeyedSubscript_(v6, v463, @"DarkBlueCbThr1", v464);
+  objc_msgSend_floatValue(v465, v466, v467, v468);
+  self->_correctionParams.darkBlue_CbThr1 = v469;
 
-  v470 = objc_msgSend_objectForKeyedSubscript_(v5, v468, @"SkyBlueYThr0", v469);
-  objc_msgSend_floatValue(v470, v471, v472, v473);
-  self->_correctionParams.skyBlue_YThr0 = v474;
+  v472 = objc_msgSend_objectForKeyedSubscript_(v6, v470, @"SkyBlueYThr0", v471);
+  objc_msgSend_floatValue(v472, v473, v474, v475);
+  self->_correctionParams.skyBlue_YThr0 = v476;
 
-  v477 = objc_msgSend_objectForKeyedSubscript_(v5, v475, @"SkyBlueYThr1", v476);
-  objc_msgSend_floatValue(v477, v478, v479, v480);
-  self->_correctionParams.skyBlue_YThr1 = v481;
+  v479 = objc_msgSend_objectForKeyedSubscript_(v6, v477, @"SkyBlueYThr1", v478);
+  objc_msgSend_floatValue(v479, v480, v481, v482);
+  self->_correctionParams.skyBlue_YThr1 = v483;
 
-  v484 = objc_msgSend_objectForKeyedSubscript_(v5, v482, @"SkyBlueCbThr0", v483);
-  objc_msgSend_floatValue(v484, v485, v486, v487);
-  self->_correctionParams.skyBlue_CbThr0 = v488;
+  v486 = objc_msgSend_objectForKeyedSubscript_(v6, v484, @"SkyBlueCbThr0", v485);
+  objc_msgSend_floatValue(v486, v487, v488, v489);
+  self->_correctionParams.skyBlue_CbThr0 = v490;
 
-  v491 = objc_msgSend_objectForKeyedSubscript_(v5, v489, @"SkyBlueCbThr1", v490);
-  objc_msgSend_floatValue(v491, v492, v493, v494);
-  self->_correctionParams.skyBlue_CbThr1 = v495;
+  v493 = objc_msgSend_objectForKeyedSubscript_(v6, v491, @"SkyBlueCbThr1", v492);
+  objc_msgSend_floatValue(v493, v494, v495, v496);
+  self->_correctionParams.skyBlue_CbThr1 = v497;
 
-  v498 = objc_msgSend_objectForKeyedSubscript_(v5, v496, @"SkyBluePThr0", v497);
-  objc_msgSend_floatValue(v498, v499, v500, v501);
-  self->_correctionParams.skyBlue_PThr0 = v502;
+  v500 = objc_msgSend_objectForKeyedSubscript_(v6, v498, @"SkyBluePThr0", v499);
+  objc_msgSend_floatValue(v500, v501, v502, v503);
+  self->_correctionParams.skyBlue_PThr0 = v504;
 
-  v505 = objc_msgSend_objectForKeyedSubscript_(v5, v503, @"SkyBluePThr1", v504);
-  objc_msgSend_floatValue(v505, v506, v507, v508);
-  self->_correctionParams.skyBlue_PThr1 = v509;
+  v507 = objc_msgSend_objectForKeyedSubscript_(v6, v505, @"SkyBluePThr1", v506);
+  objc_msgSend_floatValue(v507, v508, v509, v510);
+  self->_correctionParams.skyBlue_PThr1 = v511;
 
-  v512 = objc_msgSend_objectForKeyedSubscript_(v5, v510, @"FiltThr", v511);
-  objc_msgSend_floatValue(v512, v513, v514, v515);
-  self->_correctionParams.filtThr = v516;
+  v514 = objc_msgSend_objectForKeyedSubscript_(v6, v512, @"FiltThr", v513);
+  objc_msgSend_floatValue(v514, v515, v516, v517);
+  self->_correctionParams.filtThr = v518;
 
-  v519 = objc_msgSend_objectForKeyedSubscript_(v5, v517, @"MixFiltLUT", v518);
-  objc_msgSend_floatValue(v519, v520, v521, v522);
-  self->_correctionParams.mixFiltLUT = v523;
+  v521 = objc_msgSend_objectForKeyedSubscript_(v6, v519, @"MixFiltLUT", v520);
+  objc_msgSend_floatValue(v521, v522, v523, v524);
+  self->_correctionParams.mixFiltLUT = v525;
 
-  v526 = objc_msgSend_objectForKeyedSubscript_(v5, v524, @"EITThr0", v525);
-  objc_msgSend_floatValue(v526, v527, v528, v529);
-  self->_correctionParams.eitThr0 = v530;
+  v528 = objc_msgSend_objectForKeyedSubscript_(v6, v526, @"EITThr0", v527);
+  objc_msgSend_floatValue(v528, v529, v530, v531);
+  self->_correctionParams.eitThr0 = v532;
 
-  v533 = objc_msgSend_objectForKeyedSubscript_(v5, v531, @"EITThr1", v532);
-  objc_msgSend_floatValue(v533, v534, v535, v536);
-  self->_correctionParams.eitThr1 = v537;
+  v535 = objc_msgSend_objectForKeyedSubscript_(v6, v533, @"EITThr1", v534);
+  objc_msgSend_floatValue(v535, v536, v537, v538);
+  self->_correctionParams.eitThr1 = v539;
 
-  v540 = objc_msgSend_objectForKeyedSubscript_(v5, v538, @"AwbRatioThr0", v539);
-  objc_msgSend_floatValue(v540, v541, v542, v543);
-  self->_correctionParams.awbRatioThr0 = v544;
+  v542 = objc_msgSend_objectForKeyedSubscript_(v6, v540, @"AwbRatioThr0", v541);
+  objc_msgSend_floatValue(v542, v543, v544, v545);
+  self->_correctionParams.awbRatioThr0 = v546;
 
-  v547 = objc_msgSend_objectForKeyedSubscript_(v5, v545, @"AwbRatioThr1", v546);
-  objc_msgSend_floatValue(v547, v548, v549, v550);
-  self->_correctionParams.awbRatioThr1 = v551;
+  v549 = objc_msgSend_objectForKeyedSubscript_(v6, v547, @"AwbRatioThr1", v548);
+  objc_msgSend_floatValue(v549, v550, v551, v552);
+  self->_correctionParams.awbRatioThr1 = v553;
 
 LABEL_16:
-  return v9;
+  return v11;
 }
 
 - (void)setDefaults
@@ -709,25 +704,25 @@ LABEL_16:
 - (int)selectParametersForTuningMode:(unint64_t)mode
 {
   self->_mode = mode;
-  v5 = objc_msgSend__tuningHeaderForMode_(VideoDefringingTuningParameters, a2, mode, v3);
-  v8 = objc_msgSend_objectForKeyedSubscript_(self->_tuningParameters, v6, v5, v7);
-  v11 = v8;
-  if (!v8)
+  v6 = objc_msgSend__tuningHeaderForMode_(VideoDefringingTuningParameters, a2, mode, v3);
+  v9 = objc_msgSend_objectForKeyedSubscript_(self->_tuningParameters, v7, v6, v8);
+  v12 = v9;
+  if (!v9)
   {
     sub_2958BCD88();
     goto LABEL_18;
   }
 
-  v12 = objc_msgSend_objectForKeyedSubscript_(v8, v9, @"CorrectionEnabled", v10);
+  v13 = objc_msgSend_objectForKeyedSubscript_(v9, v10, @"CorrectionEnabled", v11);
 
-  if (!v12)
+  if (!v13)
   {
     sub_2958BCD0C();
     goto LABEL_18;
   }
 
-  v15 = objc_msgSend_objectForKeyedSubscript_(v11, v13, @"CorrectionEnabled", v14);
-  self->_defringingEnabled = objc_msgSend_BOOLValue(v15, v16, v17, v18);
+  v16 = objc_msgSend_objectForKeyedSubscript_(v12, v14, @"CorrectionEnabled", v15);
+  self->_defringingEnabled = objc_msgSend_BOOLValue(v16, v17, v18, v19);
 
   mode = self->_mode;
   if (mode)
@@ -736,19 +731,20 @@ LABEL_16:
     {
       if (mode == 1)
       {
-        v22 = objc_msgSend__parseDesaturateTuning_(self, v19, v11, v20);
-        if (v22)
+        v23 = objc_msgSend__parseDesaturateTuning_(self, v20, v12, v21);
+        if (v23)
         {
-          v25 = v22;
+          v27 = v23;
           sub_2958BCC14();
         }
 
         else
         {
-          v25 = objc_msgSend__parseRadialTuning_(self, v23, v11, v24);
-          if (v25)
+          v26 = objc_msgSend__parseRadialTuning_(self, v24, v12, v25);
+          v27 = v26;
+          if (v26)
           {
-            sub_2958BCC90();
+            sub_2958BCC90(v26);
           }
         }
 
@@ -756,34 +752,35 @@ LABEL_16:
       }
 
       fig_log_get_emitter();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v4, v43, v44, v45, v46, v47, v48);
 LABEL_18:
-      v25 = -12780;
+      v27 = -12780;
       goto LABEL_19;
     }
 
-    v26 = objc_msgSend__parseCorrectionTuning_(self, v19, v11, v20);
-    if (v26)
+    v28 = objc_msgSend__parseCorrectionTuning_(self, v20, v12, v21);
+    if (v28)
     {
-      v25 = v26;
+      v27 = v28;
       sub_2958BCAA0();
     }
 
     else
     {
-      v29 = objc_msgSend__parseDesaturateTuning_(self, v27, v11, v28);
-      if (v29)
+      v31 = objc_msgSend__parseDesaturateTuning_(self, v29, v12, v30);
+      if (v31)
       {
-        v25 = v29;
+        v27 = v31;
         sub_2958BCB1C();
       }
 
       else
       {
-        v25 = objc_msgSend__parseRadialTuning_(self, v30, v11, v31);
-        if (v25)
+        v34 = objc_msgSend__parseRadialTuning_(self, v32, v12, v33);
+        v27 = v34;
+        if (v34)
         {
-          sub_2958BCB98();
+          sub_2958BCB98(v34);
         }
       }
     }
@@ -791,28 +788,29 @@ LABEL_18:
 
   else
   {
-    v32 = objc_msgSend__parseCorrectionTuning_(self, v19, v11, v20);
-    if (v32)
+    v35 = objc_msgSend__parseCorrectionTuning_(self, v20, v12, v21);
+    if (v35)
     {
-      v25 = v32;
+      v27 = v35;
       sub_2958BC92C();
     }
 
     else
     {
-      v35 = objc_msgSend__parseDesaturateTuning_(self, v33, v11, v34);
-      if (v35)
+      v38 = objc_msgSend__parseDesaturateTuning_(self, v36, v12, v37);
+      if (v38)
       {
-        v25 = v35;
+        v27 = v38;
         sub_2958BC9A8();
       }
 
       else
       {
-        v25 = objc_msgSend__parseRadialTuning_(self, v36, v11, v37);
-        if (v25)
+        v41 = objc_msgSend__parseRadialTuning_(self, v39, v12, v40);
+        v27 = v41;
+        if (v41)
         {
-          sub_2958BCA24();
+          sub_2958BCA24(v41);
         }
       }
     }
@@ -820,7 +818,7 @@ LABEL_18:
 
 LABEL_19:
 
-  return v25;
+  return v27;
 }
 
 - ($B5339CD3011AE9733252D32A415F0BF1)correctionParams

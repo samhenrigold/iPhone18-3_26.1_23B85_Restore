@@ -5,6 +5,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (int64_t)opt_in_status;
 - (void)setApp_id:(id)app_id;
+- (void)setDisable_log:(BOOL)disable_log;
+- (void)setIs_partial:(BOOL)is_partial;
 - (void)setOpt_in_status:(int64_t)opt_in_status;
 - (void)setOptions:(id)options;
 - (void)setRequest_id:(id)request_id;
@@ -122,6 +124,12 @@
   return bOOLValue;
 }
 
+- (void)setDisable_log:(BOOL)disable_log
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:disable_log];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (int64_t)opt_in_status
 {
   v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"opt_in_status"];
@@ -160,6 +168,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setIs_partial:(BOOL)is_partial
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:is_partial];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

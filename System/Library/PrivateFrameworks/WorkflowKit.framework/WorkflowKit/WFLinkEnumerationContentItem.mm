@@ -92,9 +92,9 @@ uint64_t __48__WFLinkEnumerationContentItem_enumCaseMetadata__block_invoke(uint6
 {
   v3 = [a2 identifier];
   v4 = [*(a1 + 32) identifier];
-  v5 = [v3 isEqualToString:v4];
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-  return v5;
+  return isEqualToString;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -159,7 +159,7 @@ uint64_t __48__WFLinkEnumerationContentItem_enumCaseMetadata__block_invoke(uint6
 
 + (id)localizedCountDescriptionWithValue:(int64_t)value
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   enumMetadata = [self enumMetadata];
   displayRepresentation = [enumMetadata displayRepresentation];
   numericFormat = [displayRepresentation numericFormat];
@@ -167,8 +167,8 @@ uint64_t __48__WFLinkEnumerationContentItem_enumCaseMetadata__block_invoke(uint6
   if (numericFormat)
   {
     localizedPluralTypeDescription = [MEMORY[0x1E696AD98] numberWithInteger:value];
-    v16[0] = localizedPluralTypeDescription;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+    v15[0] = localizedPluralTypeDescription;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
     v10 = [numericFormat localizedStringWithReplacements:v9 forLocaleIdentifier:0];
   }
 
@@ -186,8 +186,6 @@ uint64_t __48__WFLinkEnumerationContentItem_enumCaseMetadata__block_invoke(uint6
     v13 = [MEMORY[0x1E696AD98] numberWithInteger:value];
     v10 = [v12 stringWithFormat:@"%@ %@", v13, localizedPluralTypeDescription];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

@@ -37,10 +37,10 @@
 
 - (WFLSMMap)initWithMap:(__LSMMap *)map
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = WFLSMMap;
-  v4 = [(WFLSMMap *)&v15 init];
+  v17 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = WFLSMMap;
+  v4 = [(WFLSMMap *)&v14 init];
   v5 = v4;
   if (v4)
   {
@@ -55,7 +55,7 @@
       {
         [v9 floatValue];
         *buf = 134217984;
-        v17 = v11;
+        v16 = v11;
         _os_log_impl(&dword_272D73000, v10, OS_LOG_TYPE_INFO, "Threshold from LSM map: %f", buf, 0xCu);
       }
     }
@@ -72,7 +72,6 @@
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -130,27 +129,27 @@
 
 - (__LSMText)_createLSMTextFromString:(id)string
 {
-  v4 = LSMTextCreate(*MEMORY[0x277CBECE8], self->map);
-  if (!v4)
+  v5 = LSMTextCreate(*MEMORY[0x277CBECE8], self->map);
+  if (!v5)
   {
-    v7 = __WFDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __WFDefaultLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [WFLSMMap _createLSMTextFromString:];
+      [WFLSMMap _createLSMTextFromString:?];
     }
 
     return 0;
   }
 
-  v5 = v4;
+  v6 = v5;
   if (string)
   {
-    if (LSMTextAddWords(v4, string, 0, 0))
+    if (LSMTextAddWords(v5, string, 0, 0))
     {
-      v6 = __WFDefaultLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = __WFDefaultLog();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        [WFLSMMap _createLSMTextFromString:];
+        [WFLSMMap _createLSMTextFromString:?];
       }
 
       return 0;
@@ -159,14 +158,14 @@
 
   else
   {
-    v8 = __WFDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __WFDefaultLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [WFLSMMap _createLSMTextFromString:];
+      [WFLSMMap _createLSMTextFromString:?];
     }
   }
 
-  return v5;
+  return v6;
 }
 
 - (id)evaluate:(id)evaluate
@@ -179,7 +178,7 @@
     v6 = __WFDefaultLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [WFLSMMap evaluate:];
+      [WFLSMMap evaluate:?];
     }
   }
 
@@ -226,54 +225,44 @@
 
 - (void)initWithMapFromURL:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_272D73000, v0, OS_LOG_TYPE_ERROR, "**** WFLSMMap initWithMapFromURL:%@ an error occurred loading the map", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_272D73000, v0, OS_LOG_TYPE_ERROR, "**** WFLSMMap initWithMapFromURL:%@ an error occurred loading the map", v1, 0xCu);
 }
 
 - (void)initWithMapFromURL:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_272D73000, v0, OS_LOG_TYPE_ERROR, "**** WFLSMMap initWithMapFromURL:%@ file doesn't exist", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_272D73000, v0, OS_LOG_TYPE_ERROR, "**** WFLSMMap initWithMapFromURL:%@ file doesn't exist", v1, 0xCu);
 }
 
-- (void)_createLSMTextFromString:.cold.1()
+- (void)_createLSMTextFromString:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_272D73000, v0, v1, "**** %@: LSMTextAddWords failed", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_272D73000, v1, v2, "**** %@: LSMTextAddWords failed", v3, v4, v5, v6);
 }
 
-- (void)_createLSMTextFromString:.cold.2()
+- (void)_createLSMTextFromString:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_272D73000, v0, v1, "**** %@: Couldn't create text because the strippedContent is nil", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_272D73000, v1, v2, "**** %@: Couldn't create text because the strippedContent is nil", v3, v4, v5, v6);
 }
 
-- (void)_createLSMTextFromString:.cold.3()
+- (void)_createLSMTextFromString:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_272D73000, v0, v1, "**** %@: Couldn't create text", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_272D73000, v1, v2, "**** %@: Couldn't create text", v3, v4, v5, v6);
 }
 
-- (void)evaluate:.cold.1()
+- (void)evaluate:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_272D73000, v0, v1, "**** %@: LSMResultCreate failed", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_272D73000, v1, v2, "**** %@: LSMResultCreate failed", v3, v4, v5, v6);
 }
 
 @end

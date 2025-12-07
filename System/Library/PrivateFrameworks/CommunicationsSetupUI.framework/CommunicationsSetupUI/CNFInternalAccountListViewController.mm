@@ -6,6 +6,8 @@
 - (void)_startListeningForNotifications;
 - (void)_stopListeningForNotifications;
 - (void)accountTappedWithSpecifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CNFInternalAccountListViewController
@@ -39,9 +41,25 @@ LABEL_6:
   return v10;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CNFInternalAccountListViewController;
+  [(CNFInternalAccountListViewController *)&v4 viewDidAppear:appear];
+  [(CNFInternalAccountListViewController *)self _startListeningForNotifications];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = CNFInternalAccountListViewController;
+  [(CNFInternalAccountListViewController *)&v4 viewWillDisappear:disappear];
+  [(CNFInternalAccountListViewController *)self _stopListeningForNotifications];
+}
+
 - (id)specifiers
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   v4 = *(&self->super.super.super.super.super.isa + v3);
   if (!v4)
@@ -52,34 +70,34 @@ LABEL_6:
     [v5 addObject:v7];
     if ([(FTRegConnectionHandler *)self->_connectionHandler isConnectedToDaemon])
     {
-      v26 = v7;
-      v27 = v3;
-      v29 = v5;
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
+      v25 = v7;
+      v26 = v3;
+      v28 = v5;
       v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
       mEMORY[0x277D18D28] = [MEMORY[0x277D18D28] sharedInstance];
       service = [(CNFInternalAccountListViewController *)self service];
       v10 = [mEMORY[0x277D18D28] accountsForService:service];
 
       obj = v10;
-      v11 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v31;
+        v13 = *v30;
         v14 = *MEMORY[0x277D3FF38];
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v31 != v13)
+            if (*v30 != v13)
             {
               objc_enumerationMutation(obj);
             }
 
-            v16 = *(*(&v30 + 1) + 8 * i);
+            v16 = *(*(&v29 + 1) + 8 * i);
             login = [v16 login];
             v18 = login;
             if (!login || ![(__CFString *)login length])
@@ -96,21 +114,21 @@ LABEL_6:
               [v20 setProperty:v16 forKey:@"cnf-internal-account"];
               [v21 setButtonAction:sel_accountTappedWithSpecifier_];
               [v21 setProperty:MEMORY[0x277CBEC38] forKey:v14];
-              [v29 addObject:v21];
+              [v28 addObject:v21];
             }
 
             v6 = v19;
           }
 
-          v12 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+          v12 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
         }
 
         while (v12);
       }
 
-      v7 = v26;
-      v3 = v27;
-      v5 = v29;
+      v7 = v25;
+      v3 = v26;
+      v5 = v28;
     }
 
     else
@@ -124,8 +142,6 @@ LABEL_6:
 
     v4 = *(&self->super.super.super.super.super.isa + v3);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

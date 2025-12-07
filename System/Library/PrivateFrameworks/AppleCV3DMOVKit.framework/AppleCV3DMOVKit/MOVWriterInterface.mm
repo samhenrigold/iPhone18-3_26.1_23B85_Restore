@@ -61,6 +61,7 @@
 - (void)registerBLE:(int64_t *)e;
 - (void)registerCVADepthIR;
 - (void)registerCVAFeatureBuffer;
+- (void)registerCVAFeatureBuffer:(id)buffer compress:(BOOL)compress;
 - (void)registerCompass:(int64_t *)compass;
 - (void)registerDeviceMotion:(int64_t *)motion;
 - (void)registerGyro:(int64_t *)gyro;
@@ -85,7 +86,7 @@
 
 - (MOVWriterInterface)initWithFileURL:(id)l expectedFrameRate:(double)rate fileSummary:(id)summary callbackQueue:(id)queue
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   lCopy = l;
   summaryCopy = summary;
   queueCopy = queue;
@@ -99,9 +100,9 @@
     }
   }
 
-  v60.receiver = self;
-  v60.super_class = MOVWriterInterface;
-  v14 = [(MOVStreamWriter *)&v60 initWithURL:lCopy andExpectedFrameRate:rate];
+  v59.receiver = self;
+  v59.super_class = MOVWriterInterface;
+  v14 = [(MOVStreamWriter *)&v59 initWithURL:lCopy andExpectedFrameRate:rate];
   v15 = v14;
   if (v14)
   {
@@ -184,20 +185,20 @@
     bundleID = v15->_bundleID;
     v15->_bundleID = bundleIdentifier;
 
-    v59 = 0uLL;
+    v58 = 0uLL;
     processInfo = [MEMORY[0x277CCAC38] processInfo];
     v48 = processInfo;
     if (processInfo)
     {
-      [processInfo operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(processInfo);
     }
 
     else
     {
-      v59 = 0uLL;
+      v58 = 0uLL;
     }
 
-    v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu.%lu.%lu", v59, 0];
+    v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu.%lu.%lu", v58, 0];
     osBuildVersion = v15->_osBuildVersion;
     v15->_osBuildVersion = v49;
 
@@ -216,7 +217,6 @@
     objc_storeStrong(&v15->_fileSummary, summary);
   }
 
-  v57 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -247,19 +247,18 @@
 
 - (void)registerSpuIMU:(int64_t *)u version:(int64_t)version
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v6 = [CVAMetadataWrapperTracks imuTrackName:u prefix:self->_spuIMUTrackName];
   [(MOVWriterInterface *)self registerMetadataID:v6];
   v7 = MEMORY[0x277CBEB38];
-  v12 = @"com.apple.AppleCV3DMOVKit.fastPathIMUVersion";
+  v11 = @"com.apple.AppleCV3DMOVKit.fastPathIMUVersion";
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:version];
-  v13[0] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v12[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v10 = [v7 dictionaryWithDictionary:v9];
   [(NSMutableDictionary *)self->_metadataTrackMetadata setObject:v10 forKeyedSubscript:v6];
 
   [(MOVWriterInterface *)self setTrackMetadata:0 forMetadataStream:v6];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerAccelerometer:(int64_t *)accelerometer
@@ -328,6 +327,17 @@
   [(MOVWriterInterface *)self registerMetadataID:v3];
 }
 
+- (void)registerCVAFeatureBuffer:(id)buffer compress:(BOOL)compress
+{
+  compressCopy = compress;
+  v6 = MEMORY[0x277CCABB0];
+  bufferCopy = buffer;
+  v7 = [v6 numberWithBool:compressCopy];
+  [(NSMutableDictionary *)self->_cvaFeatureBufferCompression setObject:v7 forKeyedSubscript:bufferCopy];
+
+  [(MOVWriterInterface *)self registerMetadataID:bufferCopy];
+}
+
 - (void)registerCVADepthIR
 {
   v3 = [[MOVWriterInterfaceStreamEncodingObject alloc] initWithLossless:1 bitrate:0 forceH264:0 expectedFPS:0.0 extraConfigs:0.0];
@@ -353,7 +363,7 @@
 
 - (void)addMovieMetadataDictionary:(id)dictionary value:(id)value
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   valueCopy = value;
   lastError = self->_lastError;
@@ -373,7 +383,7 @@
       {
         identifier = [v9 identifier];
         *buf = 138412290;
-        v18 = identifier;
+        v17 = identifier;
         _os_log_impl(&dword_24016D000, v10, OS_LOG_TYPE_DEBUG, "[MOVWriterInterface] Added metadata item with NSDictionary %@", buf, 0xCu);
       }
     }
@@ -387,13 +397,11 @@
     v15 = self->_lastError;
     self->_lastError = v14;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addMovieMetadataData:(id)data rawValue:(id)value
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   valueCopy = value;
   lastError = self->_lastError;
@@ -413,7 +421,7 @@
       {
         identifier = [v9 identifier];
         *buf = 138412290;
-        v18 = identifier;
+        v17 = identifier;
         _os_log_impl(&dword_24016D000, v10, OS_LOG_TYPE_DEBUG, "[MOVWriterInterface] Added metadata item with NSData %@", buf, 0xCu);
       }
     }
@@ -427,13 +435,11 @@
     v15 = self->_lastError;
     self->_lastError = v14;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addMovieMetadataItem:(id)item
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   [(NSMutableArray *)self->_movMetadataArray addObject:itemCopy];
   if (+[AppleCV3DMOVKitLog debugEnabled])
@@ -442,13 +448,11 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       identifier = [itemCopy identifier];
-      v8 = 138412290;
-      v9 = identifier;
-      _os_log_impl(&dword_24016D000, v5, OS_LOG_TYPE_DEBUG, "[MOVWriterInterface] Added metadata item %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = identifier;
+      _os_log_impl(&dword_24016D000, v5, OS_LOG_TYPE_DEBUG, "[MOVWriterInterface] Added metadata item %@", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)addDefaultSummary
@@ -545,197 +549,193 @@
 
 - (void)addSWToWExtrinsics:(id)extrinsics
 {
-  v34[12] = *MEMORY[0x277D85DE8];
+  v33[12] = *MEMORY[0x277D85DE8];
   extrinsicsCopy = extrinsics;
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
-  if ([MOVWriterInterface getSWToWExtrinsics:&v30])
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  if ([MOVWriterInterface getSWToWExtrinsics:&v29])
   {
-    LODWORD(v4) = v30;
-    v29 = [MEMORY[0x277CCABB0] numberWithFloat:v4];
-    v34[0] = v29;
-    LODWORD(v5) = v31;
-    v28 = [MEMORY[0x277CCABB0] numberWithFloat:v5];
-    v34[1] = v28;
-    LODWORD(v6) = v32;
-    v27 = [MEMORY[0x277CCABB0] numberWithFloat:v6];
-    v34[2] = v27;
-    LODWORD(v7) = v33;
-    v26 = [MEMORY[0x277CCABB0] numberWithFloat:v7];
-    v34[3] = v26;
-    LODWORD(v8) = DWORD1(v30);
+    LODWORD(v4) = v29;
+    v28 = [MEMORY[0x277CCABB0] numberWithFloat:v4];
+    v33[0] = v28;
+    LODWORD(v5) = v30;
+    v27 = [MEMORY[0x277CCABB0] numberWithFloat:v5];
+    v33[1] = v27;
+    LODWORD(v6) = v31;
+    v26 = [MEMORY[0x277CCABB0] numberWithFloat:v6];
+    v33[2] = v26;
+    LODWORD(v7) = v32;
+    v25 = [MEMORY[0x277CCABB0] numberWithFloat:v7];
+    v33[3] = v25;
+    LODWORD(v8) = DWORD1(v29);
     v9 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
-    v34[4] = v9;
-    LODWORD(v10) = DWORD1(v31);
+    v33[4] = v9;
+    LODWORD(v10) = DWORD1(v30);
     v11 = [MEMORY[0x277CCABB0] numberWithFloat:v10];
-    v34[5] = v11;
-    LODWORD(v12) = DWORD1(v32);
+    v33[5] = v11;
+    LODWORD(v12) = DWORD1(v31);
     v13 = [MEMORY[0x277CCABB0] numberWithFloat:v12];
-    v34[6] = v13;
-    LODWORD(v14) = DWORD1(v33);
+    v33[6] = v13;
+    LODWORD(v14) = DWORD1(v32);
     v15 = [MEMORY[0x277CCABB0] numberWithFloat:v14];
-    v34[7] = v15;
-    LODWORD(v16) = DWORD2(v30);
+    v33[7] = v15;
+    LODWORD(v16) = DWORD2(v29);
     v17 = [MEMORY[0x277CCABB0] numberWithFloat:v16];
-    v34[8] = v17;
-    LODWORD(v18) = DWORD2(v31);
+    v33[8] = v17;
+    LODWORD(v18) = DWORD2(v30);
     v19 = [MEMORY[0x277CCABB0] numberWithFloat:v18];
-    v34[9] = v19;
-    LODWORD(v20) = DWORD2(v32);
+    v33[9] = v19;
+    LODWORD(v20) = DWORD2(v31);
     v21 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
-    v34[10] = v21;
-    LODWORD(v22) = DWORD2(v33);
+    v33[10] = v21;
+    LODWORD(v22) = DWORD2(v32);
     v23 = [MEMORY[0x277CCABB0] numberWithFloat:v22];
-    v34[11] = v23;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:12];
+    v33[11] = v23;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:12];
 
     [extrinsicsCopy setObject:v24 forKeyedSubscript:@"extrinsicsSWToW"];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addJasperExtrinsics:(id)extrinsics
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   extrinsicsCopy = extrinsics;
-  v37 = [MEMORY[0x277CE5AC8] defaultDeviceWithDeviceType:*MEMORY[0x277CE5858] mediaType:0 position:1];
-  if (v37)
+  v36 = [MEMORY[0x277CE5AC8] defaultDeviceWithDeviceType:*MEMORY[0x277CE5858] mediaType:0 position:1];
+  if (v36)
   {
-    v32 = extrinsicsCopy;
+    v31 = extrinsicsCopy;
     v4 = objc_opt_new();
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
-    v33 = *MEMORY[0x277CE5870];
+    v32 = *MEMORY[0x277CE5870];
     v5 = *MEMORY[0x277CE5870];
-    v34 = *MEMORY[0x277CE5878];
-    v57[0] = *MEMORY[0x277CE5878];
-    v57[1] = v5;
-    obj = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
-    v40 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
-    if (v40)
+    v33 = *MEMORY[0x277CE5878];
+    v56[0] = *MEMORY[0x277CE5878];
+    v56[1] = v5;
+    obj = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
+    v39 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
+    if (v39)
     {
-      v38 = *MEMORY[0x277CE5EA8];
-      v39 = *v53;
-      v36 = v4;
+      v37 = *MEMORY[0x277CE5EA8];
+      v38 = *v52;
+      v35 = v4;
       do
       {
-        for (i = 0; i != v40; ++i)
+        for (i = 0; i != v39; ++i)
         {
-          if (*v53 != v39)
+          if (*v52 != v38)
           {
             objc_enumerationMutation(obj);
           }
 
-          v29 = *(*(&v52 + 1) + 8 * i);
-          v28 = [MEMORY[0x277CE5AC8] defaultDeviceWithDeviceType:v29 mediaType:v38 position:1];
+          v29 = *(*(&v51 + 1) + 8 * i);
+          v28 = [MEMORY[0x277CE5AC8] defaultDeviceWithDeviceType:v29 mediaType:v37 position:1];
           if (v28)
           {
-            v50 = 0u;
-            v51 = 0u;
-            v48 = 0u;
             v49 = 0u;
-            v47 = v28;
-            v30 = [MEMORY[0x277CE5AC8] extrinsicMatrixFromDevice:v28 toDevice:v37];
-            v46 = v30;
+            v50 = 0u;
+            v47 = 0u;
+            v48 = 0u;
+            v46 = v28;
+            v30 = [MEMORY[0x277CE5AC8] extrinsicMatrixFromDevice:v28 toDevice:v36];
+            v45 = v30;
             if (v30)
             {
-              [v30 getBytes:&v48 length:64];
+              [v30 getBytes:&v47 length:64];
             }
 
-            else if (v29 == v34)
+            else if (v29 == v33)
             {
-              DWORD2(v48) = 987939115;
-              *&v48 = 0x3F7FFC11BC281DC1;
-              DWORD2(v49) = 965922039;
-              *&v49 = 0xBC28198FBF7FFC87;
-              DWORD2(v50) = 1065353048;
-              *&v50 = 0xBAE1719F399BB6AALL;
-              DWORD2(v51) = 1039292160;
-              *&v51 = 0x406CDA9041468A09;
-              if (v29 == v33)
+              DWORD2(v47) = 987939115;
+              *&v47 = 0x3F7FFC11BC281DC1;
+              DWORD2(v48) = 965922039;
+              *&v48 = 0xBC28198FBF7FFC87;
+              DWORD2(v49) = 1065353048;
+              *&v49 = 0xBAE1719F399BB6AALL;
+              DWORD2(v50) = 1039292160;
+              *&v50 = 0x406CDA9041468A09;
+              if (v29 == v32)
               {
                 goto LABEL_17;
               }
             }
 
-            else if (v29 == v33)
+            else if (v29 == v32)
             {
 LABEL_17:
-              DWORD2(v48) = -1150855277;
-              *&v48 = 0x3F7FFE3BBBCEC41ELL;
-              DWORD2(v49) = 991362741;
-              *&v49 = 0xBBCEC41EBF7FFE09;
-              DWORD2(v50) = 1065353065;
-              *&v50 = 0x3B6842743B157CD4;
-              DWORD2(v51) = 1035551109;
-              *&v51 = 0xC1044D6041478794;
+              DWORD2(v47) = -1150855277;
+              *&v47 = 0x3F7FFE3BBBCEC41ELL;
+              DWORD2(v48) = 991362741;
+              *&v48 = 0xBBCEC41EBF7FFE09;
+              DWORD2(v49) = 1065353065;
+              *&v49 = 0x3B6842743B157CD4;
+              DWORD2(v50) = 1035551109;
+              *&v50 = 0xC1044D6041478794;
             }
 
-            v45 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%ld", v29, 1];
-            LODWORD(v7) = v48;
-            v44 = [MEMORY[0x277CCABB0] numberWithFloat:v7];
-            v56[0] = v44;
-            LODWORD(v8) = v49;
-            v43 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
-            v56[1] = v43;
-            LODWORD(v9) = v50;
-            v42 = [MEMORY[0x277CCABB0] numberWithFloat:v9];
-            v56[2] = v42;
-            LODWORD(v10) = v51;
-            v41 = [MEMORY[0x277CCABB0] numberWithFloat:v10];
-            v56[3] = v41;
-            LODWORD(v11) = DWORD1(v48);
+            v44 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%ld", v29, 1];
+            LODWORD(v7) = v47;
+            v43 = [MEMORY[0x277CCABB0] numberWithFloat:v7];
+            v55[0] = v43;
+            LODWORD(v8) = v48;
+            v42 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
+            v55[1] = v42;
+            LODWORD(v9) = v49;
+            v41 = [MEMORY[0x277CCABB0] numberWithFloat:v9];
+            v55[2] = v41;
+            LODWORD(v10) = v50;
+            v40 = [MEMORY[0x277CCABB0] numberWithFloat:v10];
+            v55[3] = v40;
+            LODWORD(v11) = DWORD1(v47);
             v12 = [MEMORY[0x277CCABB0] numberWithFloat:v11];
-            v56[4] = v12;
-            LODWORD(v13) = DWORD1(v49);
+            v55[4] = v12;
+            LODWORD(v13) = DWORD1(v48);
             v14 = [MEMORY[0x277CCABB0] numberWithFloat:v13];
-            v56[5] = v14;
-            LODWORD(v15) = DWORD1(v50);
+            v55[5] = v14;
+            LODWORD(v15) = DWORD1(v49);
             v16 = [MEMORY[0x277CCABB0] numberWithFloat:v15];
-            v56[6] = v16;
-            LODWORD(v17) = DWORD1(v51);
+            v55[6] = v16;
+            LODWORD(v17) = DWORD1(v50);
             v18 = [MEMORY[0x277CCABB0] numberWithFloat:v17];
-            v56[7] = v18;
-            LODWORD(v19) = DWORD2(v48);
+            v55[7] = v18;
+            LODWORD(v19) = DWORD2(v47);
             v20 = [MEMORY[0x277CCABB0] numberWithFloat:v19];
-            v56[8] = v20;
-            LODWORD(v21) = DWORD2(v49);
+            v55[8] = v20;
+            LODWORD(v21) = DWORD2(v48);
             v22 = [MEMORY[0x277CCABB0] numberWithFloat:v21];
-            v56[9] = v22;
-            LODWORD(v23) = DWORD2(v50);
+            v55[9] = v22;
+            LODWORD(v23) = DWORD2(v49);
             v24 = [MEMORY[0x277CCABB0] numberWithFloat:v23];
-            v56[10] = v24;
-            LODWORD(v25) = DWORD2(v51);
+            v55[10] = v24;
+            LODWORD(v25) = DWORD2(v50);
             v26 = [MEMORY[0x277CCABB0] numberWithFloat:v25];
-            v56[11] = v26;
-            v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:12];
+            v55[11] = v26;
+            v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:12];
 
-            v4 = v36;
-            [v36 setObject:v27 forKeyedSubscript:v45];
+            v4 = v35;
+            [v35 setObject:v27 forKeyedSubscript:v44];
 
-            v28 = v47;
+            v28 = v46;
           }
         }
 
-        v40 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
+        v39 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
       }
 
-      while (v40);
+      while (v39);
     }
 
-    extrinsicsCopy = v32;
+    extrinsicsCopy = v31;
     if ([v4 count])
     {
-      [v32 setObject:v4 forKeyedSubscript:@"extrinsicsToJasper"];
+      [v31 setObject:v4 forKeyedSubscript:@"extrinsicsToJasper"];
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createFileMetadata
@@ -960,7 +960,7 @@ LABEL_17:
     v14 = v13;
     if (v13)
     {
-      [v13 timestamp];
+      objc_msgSend_timestamp(v13);
     }
 
     else
@@ -983,27 +983,27 @@ LABEL_17:
 
 - (BOOL)receivedAllFramesForStreams:(id)streams
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   streamsCopy = streams;
-  v5 = [streamsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [streamsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(streamsCopy);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         firstFrameContainer = [(MOVWriterInterface *)self firstFrameContainer];
         v11 = [firstFrameContainer objectForKeyedSubscript:v9];
 
@@ -1014,7 +1014,7 @@ LABEL_17:
         }
       }
 
-      v6 = [streamsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [streamsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -1027,36 +1027,35 @@ LABEL_17:
   v12 = 1;
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)intelligentlyAppendBuffersForStreams:(id)streams
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   streamsCopy = streams;
   firstFrameContainer = [(MOVWriterInterface *)self firstFrameContainer];
   v6 = [firstFrameContainer keysSortedByValueUsingComparator:&unk_28521ABA8];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v26;
+    v11 = *v25;
     *&v9 = 138412546;
-    v23 = v9;
+    v22 = v9;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v26 == v11)
+        if (*v25 == v11)
         {
-          v13 = *(*(&v25 + 1) + 8 * i);
+          v13 = *(*(&v24 + 1) + 8 * i);
           if ([streamsCopy containsObject:v13])
           {
             goto LABEL_12;
@@ -1066,7 +1065,7 @@ LABEL_11:
         else
         {
           objc_enumerationMutation(v7);
-          v13 = *(*(&v25 + 1) + 8 * i);
+          v13 = *(*(&v24 + 1) + 8 * i);
           if ([streamsCopy containsObject:v13])
           {
 LABEL_12:
@@ -1074,13 +1073,13 @@ LABEL_12:
             v15 = [firstFrameContainer2 objectForKeyedSubscript:v13];
             buffer = [v15 buffer];
 
-            v24 = 0uLL;
+            v23 = 0uLL;
             firstFrameContainer3 = [(MOVWriterInterface *)self firstFrameContainer];
             v18 = [firstFrameContainer3 objectForKeyedSubscript:v13];
             v19 = v18;
             if (v18)
             {
-              [v18 timestamp];
+              objc_msgSend_timestamp(v18);
 
               if (+[AppleCV3DMOVKitLog debugEnabled])
               {
@@ -1088,10 +1087,10 @@ LABEL_16:
                 v20 = +[AppleCV3DMOVKitLog defaultLog];
                 if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
                 {
-                  *&time.value = v24;
+                  *&time.value = v23;
                   time.epoch = 0;
                   Seconds = CMTimeGetSeconds(&time);
-                  LODWORD(time.value) = v23;
+                  LODWORD(time.value) = v22;
                   *(&time.value + 4) = v13;
                   LOWORD(time.flags) = 2048;
                   *(&time.flags + 2) = Seconds;
@@ -1102,7 +1101,7 @@ LABEL_16:
 
             else
             {
-              v24 = 0uLL;
+              v23 = 0uLL;
 
               if (+[AppleCV3DMOVKitLog debugEnabled])
               {
@@ -1110,23 +1109,22 @@ LABEL_16:
               }
             }
 
-            *&time.value = v24;
+            *&time.value = v23;
             time.epoch = 0;
             [(MOVStreamWriter *)self appendPixelBuffer:buffer presentationTime:&time toStreamId:v13];
           }
         }
 
-        [(MOVWriterInterface *)self clearFirstBufferForStream:v13, v23];
+        [(MOVWriterInterface *)self clearFirstBufferForStream:v13, v22];
       }
 
-      v10 = [v7 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v10 = [v7 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v10);
   }
 
   [(MOVWriterInterface *)self setFirstFrameContainer:0];
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearFirstBufferForStream:(id)stream
@@ -1264,7 +1262,7 @@ LABEL_22:
 
 - (BOOL)addVideoTrack:(opaqueCMFormatDescription *)track streamID:(id)d encoding:(id)encoding
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dCopy = d;
   encodingCopy = encoding;
   lastError = self->_lastError;
@@ -1282,18 +1280,17 @@ LABEL_22:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v15 = dCopy;
+      v14 = dCopy;
       _os_log_impl(&dword_24016D000, v11, OS_LOG_TYPE_DEBUG, "MOVKit:MOVWriterInterface - Added track %@", buf, 0xCu);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)processPixelBuffer:(__CVBuffer *)buffer withTimeStamp:(id *)stamp beforeAppend:(id)append streamID:(id)d
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   appendCopy = append;
   dCopy = d;
   selfCopy = self;
@@ -1338,12 +1335,12 @@ LABEL_22:
     CFRelease(v18);
   }
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   allKeys = [(NSMutableDictionary *)selfCopy->_trackAddedByStream allKeys];
-  v22 = [allKeys countByEnumeratingWithState:&v50 objects:v58 count:16];
+  v22 = [allKeys countByEnumeratingWithState:&v49 objects:v57 count:16];
   if (!v22)
   {
 
@@ -1356,25 +1353,25 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v23 = *v51;
+  v23 = *v50;
   v24 = 1;
   do
   {
     for (i = 0; i != v22; ++i)
     {
-      if (*v51 != v23)
+      if (*v50 != v23)
       {
         objc_enumerationMutation(allKeys);
       }
 
-      v26 = [(NSMutableDictionary *)obj->_trackAddedByStream objectForKeyedSubscript:*(*(&v50 + 1) + 8 * i)];
+      v26 = [(NSMutableDictionary *)obj->_trackAddedByStream objectForKeyedSubscript:*(*(&v49 + 1) + 8 * i)];
       v27 = [v26 objectForKeyedSubscript:@"added"];
       bOOLValue2 = [v27 BOOLValue];
 
       v24 &= bOOLValue2;
     }
 
-    v22 = [allKeys countByEnumeratingWithState:&v50 objects:v58 count:16];
+    v22 = [allKeys countByEnumeratingWithState:&v49 objects:v57 count:16];
   }
 
   while (v22);
@@ -1423,9 +1420,9 @@ LABEL_25:
         time = *stamp;
         Seconds = CMTimeGetSeconds(&time);
         *buf = 138412546;
-        v55 = dCopy;
-        v56 = 2048;
-        v57 = Seconds;
+        v54 = dCopy;
+        v55 = 2048;
+        v56 = Seconds;
         _os_log_impl(&dword_24016D000, v34, OS_LOG_TYPE_DEBUG, "[MOVWriterInterface] First frame received for: %@ at ts: %f", buf, 0x16u);
       }
 
@@ -1476,7 +1473,6 @@ LABEL_40:
   v41 = 1;
 LABEL_45:
 
-  v42 = *MEMORY[0x277D85DE8];
   return v41;
 }
 
@@ -1495,14 +1491,14 @@ LABEL_45:
 
 - (BOOL)processCVADepthIR:(id)r
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   rCopy = r;
   PixelFormatType = CVPixelBufferGetPixelFormatType([rCopy dataBuffer]);
   if (PixelFormatType == 825437747)
   {
     dataBuffer = [rCopy dataBuffer];
-    [rCopy timestamp];
-    [MOVWriterInterface cmTimeFromTimestamp:?];
+    objc_msgSend_timestamp(rCopy);
+    objc_msgSend_cmTimeFromTimestamp_(MOVWriterInterface);
     v6 = [(MOVWriterInterface *)self processPixelBuffer:dataBuffer withTimeStamp:buf beforeAppend:0 streamID:@"com.apple.reality.kind.data.pcam_avdepth"];
   }
 
@@ -1513,14 +1509,13 @@ LABEL_45:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = v7;
+      v12 = v7;
       _os_log_impl(&dword_24016D000, v8, OS_LOG_TYPE_ERROR, "MOVKit:MOVWriterInterface - ERROR - pixel format type for depth IR data should be kCVPixelFormatType_FixedPointUnsigned13_3, but received pixel buffer with format '%@'", buf, 0xCu);
     }
 
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1578,7 +1573,7 @@ LABEL_45:
 
 - (void)setMetadataAttachmentTo:(__CVBuffer *)to streamID:(id)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -1586,31 +1581,31 @@ LABEL_45:
   v9 = v8;
   if (v8)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v11)
     {
-      v12 = *v16;
+      v12 = *v15;
       do
       {
         v13 = 0;
         do
         {
-          if (*v16 != v12)
+          if (*v15 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          CVBufferSetAttachment(to, *(*(&v15 + 1) + 8 * v13), [v10 objectForKey:{*(*(&v15 + 1) + 8 * v13), v15}], kCVAttachmentMode_ShouldPropagate);
+          CVBufferSetAttachment(to, *(*(&v14 + 1) + 8 * v13), [v10 objectForKey:{*(*(&v14 + 1) + 8 * v13), v14}], kCVAttachmentMode_ShouldPropagate);
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v11);
@@ -1620,7 +1615,6 @@ LABEL_45:
   }
 
   objc_sync_exit(selfCopy);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishWriting:(id *)writing
@@ -1646,11 +1640,12 @@ LABEL_45:
   }
 
   memset(buf, 0, sizeof(buf));
-  v10 = 0;
-  [MOVWriterInterface cmTimeFromTimestamp:CACurrentMediaTime()];
-  v7 = *buf;
-  v8 = v10;
-  [(MOVWriterInterface *)selfCopy appendAllMetadataWithTimeStamp:&v7];
+  v11 = 0;
+  v7 = CACurrentMediaTime();
+  objc_msgSend_cmTimeFromTimestamp_(MOVWriterInterface, v7);
+  v8 = *buf;
+  v9 = v11;
+  [(MOVWriterInterface *)selfCopy appendAllMetadataWithTimeStamp:&v8];
   [(MOVStreamWriter *)selfCopy finishRecording];
 }
 
@@ -1760,7 +1755,7 @@ LABEL_45:
 
 - (void)streamWriter:(id)writer stream:(id)stream preparedTrackInputs:(id)inputs mediaType:(int64_t)type
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   inputsCopy = inputs;
   if (+[AppleCV3DMOVKitLog debugEnabled])
@@ -1769,46 +1764,44 @@ LABEL_45:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v23 = streamCopy;
+      v22 = streamCopy;
       _os_log_impl(&dword_24016D000, v9, OS_LOG_TYPE_DEBUG, "[MOVWriterInterface] StreamWriter prepared track inputs for %@", buf, 0xCu);
     }
   }
 
   if ([streamCopy isEqualToString:@"com.apple.reality.kind.data.pcam_avdepth"])
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v10 = inputsCopy;
-    v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v18;
+      v13 = *v17;
       v14 = *MEMORY[0x277CE5CD0];
       do
       {
         v15 = 0;
         do
         {
-          if (*v18 != v13)
+          if (*v17 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          [*(*(&v17 + 1) + 8 * v15++) setMediaDataLocation:{v14, v17}];
+          [*(*(&v16 + 1) + 8 * v15++) setMediaDataLocation:{v14, v16}];
         }
 
         while (v12 != v15);
-        v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v12);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addFrameMetadata:(id)metadata value:(id)value streamID:(id)d
@@ -1877,7 +1870,7 @@ LABEL_45:
   if (toData)
   {
     v7 = [CVAMetadataWrapperTracks imuTrackName:location prefix:self->_spuIMUTrackName];
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     [(MOVWriterInterface *)self appendMetadata:toData metadataID:v7 timestamp:?];
   }
 }
@@ -1889,7 +1882,7 @@ LABEL_45:
   if (v8)
   {
     v9 = [CVAMetadataWrapperTracks accelerometerTrackName:location prefix:self->_accelTrackName];
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     [(MOVWriterInterface *)self appendMetadata:v8 metadataID:v9 timestamp:?];
   }
 }
@@ -1901,7 +1894,7 @@ LABEL_45:
   if (v8)
   {
     v9 = [CVAMetadataWrapperTracks gyroTrackName:location prefix:self->_gyroTrackName];
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     [(MOVWriterInterface *)self appendMetadata:v8 metadataID:v9 timestamp:?];
   }
 }
@@ -1913,7 +1906,7 @@ LABEL_45:
   if (toData)
   {
     v7 = [CVAMetadataWrapperTracks motionTrackName:location prefix:self->_motionTrackName];
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     [(MOVWriterInterface *)self appendMetadata:toData metadataID:v7 timestamp:?];
   }
 }
@@ -1925,7 +1918,7 @@ LABEL_45:
   if (toData)
   {
     v7 = [CVAMetadataWrapperTracks alsTrackName:location prefix:self->_alsTrackName];
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     [(MOVWriterInterface *)self appendMetadata:toData metadataID:v7 timestamp:?];
   }
 }
@@ -1937,7 +1930,7 @@ LABEL_45:
   if (toData)
   {
     v7 = [CVAMetadataWrapperTracks wifiTrackName:location prefix:self->_wifiTrackName];
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     [(MOVWriterInterface *)self appendMetadata:toData metadataID:v7 timestamp:?];
   }
 }
@@ -1949,7 +1942,7 @@ LABEL_45:
   if (toData)
   {
     v7 = [CVAMetadataWrapperTracks uwbTrackName:location prefix:self->_uwbTrackName];
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     [(MOVWriterInterface *)self appendMetadata:toData metadataID:v7 timestamp:?];
   }
 }
@@ -1961,7 +1954,7 @@ LABEL_45:
   if (toData)
   {
     v7 = [CVAMetadataWrapperTracks bleTrackName:location prefix:self->_bleTrackName];
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     [(MOVWriterInterface *)self appendMetadata:toData metadataID:v7 timestamp:?];
   }
 }
@@ -1973,7 +1966,7 @@ LABEL_45:
   if (toData)
   {
     barometerTrackName = self->_barometerTrackName;
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     [(MOVWriterInterface *)self appendMetadata:toData metadataID:barometerTrackName timestamp:?];
   }
 }
@@ -1985,7 +1978,7 @@ LABEL_45:
   if (toData)
   {
     v7 = [CVAMetadataWrapperTracks compassTrackName:location prefix:self->_compassTrackName];
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     [(MOVWriterInterface *)self appendMetadata:toData metadataID:v7 timestamp:?];
   }
 }
@@ -1997,7 +1990,7 @@ LABEL_45:
   if (v7)
   {
     v8 = [CVAMetadataWrapperTracks deviceMotionTrackName:location prefix:self->_deviceMotionTrackName];
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     [(MOVWriterInterface *)self appendMetadata:v7 metadataID:v8 timestamp:?];
   }
 }
@@ -2009,7 +2002,7 @@ LABEL_45:
   if (toData)
   {
     v7 = [CVAMetadataWrapperTracks deviceMotionTrackName:location prefix:self->_deviceMotionTrackName];
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     [(MOVWriterInterface *)self appendMetadata:toData metadataID:v7 timestamp:?];
   }
 }
@@ -2033,7 +2026,7 @@ LABEL_45:
   toData = [dataCopy toData];
   if (toData)
   {
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     [(MOVWriterInterface *)self appendMetadata:toData metadataID:@"CMData" timestamp:?];
   }
 }
@@ -2044,7 +2037,7 @@ LABEL_45:
   toData = [eventCopy toData];
   if (toData)
   {
-    [eventCopy timestamp];
+    objc_msgSend_timestamp(eventCopy);
     [(MOVWriterInterface *)self appendMetadata:toData metadataID:@"CVAUserEvent" timestamp:?];
   }
 }
@@ -2055,7 +2048,7 @@ LABEL_45:
   toData = [valueCopy toData];
   if (toData)
   {
-    [valueCopy timestamp];
+    objc_msgSend_timestamp(valueCopy);
     [(MOVWriterInterface *)self appendMetadata:toData metadataID:@"CVATimedValue" timestamp:?];
   }
 }
@@ -2066,7 +2059,7 @@ LABEL_45:
   toData = [deviceCopy toData];
   if (toData)
   {
-    [deviceCopy timestamp];
+    objc_msgSend_timestamp(deviceCopy);
     [(MOVWriterInterface *)self appendMetadata:toData metadataID:@"CVAPRDevice" timestamp:?];
   }
 }
@@ -2094,7 +2087,7 @@ LABEL_45:
   if (toData)
   {
     v5 = [CVAFeatureBuffer streamName:0];
-    [bufferCopy timestamp];
+    objc_msgSend_timestamp(bufferCopy);
     [(MOVWriterInterface *)self appendMetadata:toData metadataID:v5 timestamp:?];
   }
 }
@@ -2126,7 +2119,7 @@ LABEL_45:
     else
     {
       depthTOFTrackName = self->_depthTOFTrackName;
-      [fCopy timestamp];
+      objc_msgSend_timestamp(fCopy);
       [(MOVWriterInterface *)self appendMetadata:v7 metadataID:depthTOFTrackName timestamp:?];
     }
   }
@@ -2138,7 +2131,7 @@ LABEL_45:
   toData = [dataCopy toData];
   if (toData)
   {
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     [(MOVWriterInterface *)self appendMetadata:toData metadataID:@"CVACameraCalibration" timestamp:0 enforceMonotonicity:?];
   }
 }
@@ -2236,7 +2229,7 @@ LABEL_20:
         v21 = [MEMORY[0x277CBEA60] arrayWithArray:v15];
         [v15 removeAllObjects];
         memset(&v31, 0, sizeof(v31));
-        [MOVWriterInterface cmTimeFromTimestamp:timestamp];
+        objc_msgSend_cmTimeFromTimestamp_(MOVWriterInterface, timestamp);
         v30.receiver = selfCopy;
         v30.super_class = MOVWriterInterface;
         time1 = v31;
@@ -2257,10 +2250,10 @@ LABEL_20:
       }
 
       memset(&v31, 0, sizeof(v31));
-      [MOVWriterInterface cmTimeFromTimestamp:timestamp - selfCopy->_writeMetadataTimeInterval];
+      objc_msgSend_cmTimeFromTimestamp_(MOVWriterInterface, timestamp - selfCopy->_writeMetadataTimeInterval);
       if ((selfCopy->_lastAppendMetadata.flags & 1) == 0 || (time1 = v31, v25 = *&selfCopy->_lastAppendMetadata.value, time2.epoch = selfCopy->_lastAppendMetadata.epoch, *&time2.value = v25, CMTimeCompare(&time1, &time2) >= 1))
       {
-        [MOVWriterInterface cmTimeFromTimestamp:timestamp];
+        objc_msgSend_cmTimeFromTimestamp_(MOVWriterInterface, timestamp);
         [(MOVWriterInterface *)selfCopy appendAllMetadataWithTimeStamp:&time1];
       }
     }
@@ -2276,85 +2269,84 @@ LABEL_21:
 
 - (void)clearAllMetadataBuffers
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = selfCopy->_metadataAttachmentArrays;
-  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = [(NSMutableDictionary *)selfCopy->_metadataAttachmentArrays objectForKeyedSubscript:*(*(&v9 + 1) + 8 * v6), v9];
+        v7 = [(NSMutableDictionary *)selfCopy->_metadataAttachmentArrays objectForKeyedSubscript:*(*(&v8 + 1) + 8 * v6), v8];
         [v7 removeAllObjects];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
 
   objc_sync_exit(selfCopy);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appendAllMetadataWithTimeStamp:(id *)stamp
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   allKeys = [(NSMutableDictionary *)selfCopy->_metadataAttachmentArrays allKeys];
   if (selfCopy->_writeMetadataTimeInterval > 0.0)
   {
     allKeys2 = [(NSMutableDictionary *)selfCopy->_metadataAttachmentArrays allKeys];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = sub_240198004;
-    v30[3] = &unk_278C9B1C8;
-    v30[4] = selfCopy;
-    v6 = [allKeys2 sortedArrayUsingComparator:v30];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = sub_240198004;
+    v29[3] = &unk_278C9B1C8;
+    v29[4] = selfCopy;
+    v6 = [allKeys2 sortedArrayUsingComparator:v29];
 
     allKeys = v6;
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = allKeys;
-  v7 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v7 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v7)
   {
-    v8 = *v27;
+    v8 = *v26;
     do
     {
       v9 = 0;
-      v18 = v7;
+      v17 = v7;
       do
       {
-        if (*v27 != v8)
+        if (*v26 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v26 + 1) + 8 * v9);
+        v10 = *(*(&v25 + 1) + 8 * v9);
         v11 = [(NSMutableDictionary *)selfCopy->_metadataAttachmentArrays objectForKeyedSubscript:v10];
         v12 = [MEMORY[0x277CBEA60] arrayWithArray:v11];
         [v11 removeAllObjects];
@@ -2364,26 +2356,26 @@ LABEL_21:
           v14 = v13;
           if (v13)
           {
-            v24 = 0uLL;
+            v23 = 0uLL;
             var3 = 0;
             [v13 doubleValue];
-            [MOVWriterInterface cmTimeFromTimestamp:?];
-            v23.receiver = selfCopy;
-            v23.super_class = MOVWriterInterface;
-            v21 = v24;
-            v22 = var3;
-            [(MOVStreamWriter *)&v23 appendMetadata:v12 withTimeStamp:&v21 toStream:v10];
+            objc_msgSend_cmTimeFromTimestamp_(MOVWriterInterface);
+            v22.receiver = selfCopy;
+            v22.super_class = MOVWriterInterface;
+            v20 = v23;
+            v21 = var3;
+            [(MOVStreamWriter *)&v22 appendMetadata:v12 withTimeStamp:&v20 toStream:v10];
             [(NSMutableDictionary *)selfCopy->_metadataAttachmentArraysTimestamp setObject:0 forKeyedSubscript:v10];
-            v7 = v18;
+            v7 = v17;
           }
 
           else
           {
-            v20.receiver = selfCopy;
-            v20.super_class = MOVWriterInterface;
-            v24 = *&stamp->var0;
+            v19.receiver = selfCopy;
+            v19.super_class = MOVWriterInterface;
+            v23 = *&stamp->var0;
             var3 = stamp->var3;
-            [(MOVStreamWriter *)&v20 appendMetadata:v12 withTimeStamp:&v24 toStream:v10];
+            [(MOVStreamWriter *)&v19 appendMetadata:v12 withTimeStamp:&v23 toStream:v10];
           }
         }
 
@@ -2391,7 +2383,7 @@ LABEL_21:
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v7 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v7);
@@ -2402,7 +2394,6 @@ LABEL_21:
   selfCopy->_lastAppendMetadata.epoch = v15;
 
   objc_sync_exit(selfCopy);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (MOVWriterInterfaceDelegate)interface_delegate

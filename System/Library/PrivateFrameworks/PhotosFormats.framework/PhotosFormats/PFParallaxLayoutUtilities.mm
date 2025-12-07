@@ -18,9 +18,9 @@
 + (float)headroomPenaltyForIntermediateLayout:(id)layout originalFullExtent:(CGRect)extent layoutConfiguration:(id)configuration;
 + (id)computeLayoutWithHelper:(id)helper;
 + (id)computeLayoutsWithHelper:(id)helper;
-+ (uint64_t)computeSpatialFrameForVisibleRect:(double)rect@<D0> adaptiveVisibleRect:(double)visibleRect@<D1> spatialPaddingPercentage:(double)percentage@<D2> effectiveImageRect:(double)imageRect@<D3>;
 + (unint64_t)clockIntersectionFromTopRectMatteCoverage:(double)coverage bottomRectMatteCoverage:(double)matteCoverage;
 + (unint64_t)layoutTypeFromLayoutConfiguration:(id)configuration;
++ (void)computeSpatialFrameForVisibleRect:(double)rect@<D0> adaptiveVisibleRect:(double)visibleRect@<D1> spatialPaddingPercentage:(double)percentage@<D2> effectiveImageRect:(double)imageRect@<D3>;
 @end
 
 @implementation PFParallaxLayoutUtilities
@@ -103,7 +103,7 @@
   return fmax(v17 * (v13 / v19), 0.0) / 489574.4 * 5.0;
 }
 
-+ (uint64_t)computeSpatialFrameForVisibleRect:(double)rect@<D0> adaptiveVisibleRect:(double)visibleRect@<D1> spatialPaddingPercentage:(double)percentage@<D2> effectiveImageRect:(double)imageRect@<D3>
++ (void)computeSpatialFrameForVisibleRect:(double)rect@<D0> adaptiveVisibleRect:(double)visibleRect@<D1> spatialPaddingPercentage:(double)percentage@<D2> effectiveImageRect:(double)imageRect@<D3>
 {
   *(a2 + 96) = 0u;
   *(a2 + 112) = 0u;
@@ -331,106 +331,106 @@
 + (double)computeInactiveAvoidingRectForVisibleRect:(CGFloat)rect acceptableFrame:(CGFloat)frame unsafeRect:(CGFloat)unsafeRect imageSize:(CGFloat)size considerHeadroom:(CGFloat)headroom newVisibleRect:(CGFloat)visibleRect
 {
   selfCopy = self;
-  v29 = self + rect * 0.5;
-  memset(&v76, 0, sizeof(v76));
-  CGAffineTransformMakeTranslation(&v76, -v29, -a2);
-  memset(&v75, 0, sizeof(v75));
-  CGAffineTransformMakeScale(&v75, 1.03, 1.03);
-  memset(&v74, 0, sizeof(v74));
-  CGAffineTransformMakeTranslation(&v74, v29, a2);
-  memset(&v73, 0, sizeof(v73));
-  t1 = v76;
-  t2 = v75;
-  CGAffineTransformConcat(&v72, &t1, &t2);
-  t1 = v74;
-  CGAffineTransformConcat(&v73, &v72, &t1);
-  v72 = v73;
-  v77.origin.x = selfCopy;
-  rect2 = a2;
-  v77.origin.y = a2;
-  v77.size.width = rect;
-  v77.size.height = frame;
-  v78 = CGRectApplyAffineTransform(v77, &v72);
-  x = v78.origin.x;
-  unsafeRectCopy = unsafeRect;
-  y = v78.origin.y;
-  width = v78.size.width;
-  height = v78.size.height;
-  v78.origin.x = unsafeRect;
-  v78.origin.y = size;
-  v78.size.width = headroom;
-  v78.size.height = visibleRect;
-  MaxY = CGRectGetMaxY(v78);
-  v79.origin.y = a2 + a14 * frame;
-  v79.size.width = rect * a15;
-  v79.size.height = frame * a16;
-  v79.origin.x = selfCopy + a13 * rect;
-  v58 = v79.origin.y;
-  v57 = frame * a16;
-  v34 = MaxY - CGRectGetMinY(v79);
-  if (v34 > 0.0)
-  {
-    v34 = 0.0;
-  }
-
+  v25 = self + rect * 0.5;
   memset(&v72, 0, sizeof(v72));
-  v35 = -v34;
-  if (v34 < -0.03)
+  CGAffineTransformMakeTranslation(&v72, -v25, -a2);
+  memset(&v71, 0, sizeof(v71));
+  CGAffineTransformMakeScale(&v71, 1.03, 1.03);
+  memset(&v70, 0, sizeof(v70));
+  CGAffineTransformMakeTranslation(&v70, v25, a2);
+  memset(&v69, 0, sizeof(v69));
+  t1 = v72;
+  t2 = v71;
+  CGAffineTransformConcat(&v68, &t1, &t2);
+  t1 = v70;
+  CGAffineTransformConcat(&v69, &v68, &t1);
+  v68 = v69;
+  v73.origin.x = selfCopy;
+  rect2 = a2;
+  v73.origin.y = a2;
+  v73.size.width = rect;
+  v73.size.height = frame;
+  v74 = CGRectApplyAffineTransform(v73, &v68);
+  x = v74.origin.x;
+  unsafeRectCopy = unsafeRect;
+  y = v74.origin.y;
+  width = v74.size.width;
+  height = v74.size.height;
+  v74.origin.x = unsafeRect;
+  v74.origin.y = size;
+  v74.size.width = headroom;
+  v74.size.height = visibleRect;
+  MaxY = CGRectGetMaxY(v74);
+  v75.origin.y = a2 + a14 * frame;
+  v75.size.width = rect * a15;
+  v75.size.height = frame * a16;
+  v75.origin.x = selfCopy + a13 * rect;
+  v54 = v75.origin.y;
+  v53 = frame * a16;
+  v30 = MaxY - CGRectGetMinY(v75);
+  if (v30 > 0.0)
   {
-    v35 = 0.03;
+    v30 = 0.0;
   }
 
-  CGAffineTransformMakeTranslation(&v72, 0.0, v35);
-  t1 = v72;
-  v80.origin.x = x;
-  v80.origin.y = y;
-  v80.size.width = width;
-  v80.size.height = height;
-  v81 = CGRectApplyAffineTransform(v80, &t1);
-  v36 = v81.origin.x;
-  v37 = v81.origin.y;
-  v38 = v81.size.width;
-  v39 = v81.size.height;
-  v81.origin.x = 0.0;
-  v81.origin.y = 0.0;
-  v81.size.width = a17;
-  v81.size.height = a18;
-  v85.origin.x = selfCopy;
-  v85.origin.y = rect2;
-  v85.size.width = rect;
-  frameCopy = frame;
-  v85.size.height = frame;
-  v40 = v38;
-  if (CGRectContainsRect(v81, v85) || (a11 & 1) == 0)
+  memset(&v68, 0, sizeof(v68));
+  v31 = -v30;
+  if (v30 < -0.03)
   {
-    v41 = a18;
+    v31 = 0.03;
+  }
+
+  CGAffineTransformMakeTranslation(&v68, 0.0, v31);
+  t1 = v68;
+  v76.origin.x = x;
+  v76.origin.y = y;
+  v76.size.width = width;
+  v76.size.height = height;
+  v77 = CGRectApplyAffineTransform(v76, &t1);
+  v32 = v77.origin.x;
+  v33 = v77.origin.y;
+  v34 = v77.size.width;
+  v35 = v77.size.height;
+  v77.origin.x = 0.0;
+  v77.origin.y = 0.0;
+  v77.size.width = a17;
+  v77.size.height = a18;
+  v81.origin.x = selfCopy;
+  v81.origin.y = rect2;
+  v81.size.width = rect;
+  frameCopy = frame;
+  v81.size.height = frame;
+  v36 = v34;
+  if (CGRectContainsRect(v77, v81) || (a11 & 1) == 0)
+  {
+    v37 = a18;
   }
 
   else
   {
-    v41 = a18 * 1.35;
+    v37 = a18 * 1.35;
   }
 
-  v42 = 0;
-  v43 = 0;
-  v86.origin.x = v36;
-  v86.origin.y = v37;
-  v86.size.width = v40;
-  v86.size.height = v39;
-  if (CGRectContainsRect(*(&v41 - 3), v86))
+  v38 = 0;
+  v39 = 0;
+  v82.origin.x = v32;
+  v82.origin.y = v33;
+  v82.size.width = v36;
+  v82.size.height = v35;
+  if (CGRectContainsRect(*(&v37 - 3), v82))
   {
     if (a12)
     {
       *a12 = selfCopy;
       a12[1] = rect2;
-      selfCopy = v36;
+      selfCopy = v32;
       a12[2] = rect;
       a12[3] = frameCopy;
     }
 
     else
     {
-      return v36;
+      return v32;
     }
   }
 
@@ -439,75 +439,75 @@
     memset(&t1, 0, sizeof(t1));
     CGAffineTransformMakeScale(&t1, 0.970873786, 0.970873786);
     memset(&t2, 0, sizeof(t2));
-    v68 = v76;
-    v67 = t1;
-    CGAffineTransformConcat(&v69, &v68, &v67);
-    v68 = v74;
-    CGAffineTransformConcat(&t2, &v69, &v68);
-    v69 = t2;
-    v82.origin.x = selfCopy;
-    v82.origin.y = rect2;
-    v82.size.width = rect;
-    v82.size.height = frameCopy;
-    v83 = CGRectApplyAffineTransform(v82, &v69);
-    v45 = v83.origin.x;
-    v46 = v83.origin.y;
-    v61 = v83.size.width;
-    v47 = v83.size.height;
-    v83.origin.x = unsafeRectCopy;
-    v83.origin.y = size;
-    v83.size.width = headroom;
-    v83.size.height = visibleRect;
-    v48 = CGRectGetMaxY(v83);
-    v84.origin.x = selfCopy + a13 * rect;
-    v84.size.width = rect * a15;
-    v84.origin.y = v58;
-    v84.size.height = v57;
-    MinY = CGRectGetMinY(v84);
+    v64 = v72;
+    v63 = t1;
+    CGAffineTransformConcat(&v65, &v64, &v63);
+    v64 = v70;
+    CGAffineTransformConcat(&t2, &v65, &v64);
+    v65 = t2;
+    v78.origin.x = selfCopy;
+    v78.origin.y = rect2;
+    v78.size.width = rect;
+    v78.size.height = frameCopy;
+    v79 = CGRectApplyAffineTransform(v78, &v65);
+    v41 = v79.origin.x;
+    v42 = v79.origin.y;
+    v57 = v79.size.width;
+    v43 = v79.size.height;
+    v79.origin.x = unsafeRectCopy;
+    v79.origin.y = size;
+    v79.size.width = headroom;
+    v79.size.height = visibleRect;
+    v44 = CGRectGetMaxY(v79);
+    v80.origin.x = selfCopy + a13 * rect;
+    v80.size.width = rect * a15;
+    v80.origin.y = v54;
+    v80.size.height = v53;
+    MinY = CGRectGetMinY(v80);
     if (a12)
     {
-      v50 = v48 - MinY <= 0.0;
-      v51 = vabdd_f64(v48, MinY) > 0.03;
-      if (v50 && v51)
+      v46 = v44 - MinY <= 0.0;
+      v47 = vabdd_f64(v44, MinY) > 0.03;
+      if (v46 && v47)
       {
-        v52 = frameCopy;
+        v48 = frameCopy;
       }
 
       else
       {
-        v52 = v47;
+        v48 = v43;
       }
 
-      if (v50 && v51)
+      if (v46 && v47)
       {
-        v53 = rect2;
+        v49 = rect2;
       }
 
       else
       {
-        v53 = v46;
+        v49 = v42;
       }
 
-      if (v50 && v51)
+      if (v46 && v47)
       {
-        v54 = selfCopy;
+        v50 = selfCopy;
       }
 
       else
       {
-        v54 = v45;
+        v50 = v41;
       }
 
-      *a12 = v54;
-      a12[1] = v53;
-      rectCopy = v61;
-      if (v50 && v51)
+      *a12 = v50;
+      a12[1] = v49;
+      rectCopy = v57;
+      if (v46 && v47)
       {
         rectCopy = rect;
       }
 
       a12[2] = rectCopy;
-      a12[3] = v52;
+      a12[3] = v48;
     }
   }
 
@@ -717,7 +717,7 @@
   width = acceptable.size.width;
   y = acceptable.origin.y;
   x = acceptable.origin.x;
-  +[PFParallaxLayoutUtilities facePositionLimits];
+  objc_msgSend_facePositionLimits(PFParallaxLayoutUtilities, a2);
   if (aspect <= 1.0)
   {
     v9 = width * aspect;
@@ -1136,7 +1136,7 @@ LABEL_9:
   y = areaRectNormalized;
   width = a8;
   height = a9;
-  if (![self _rectIsValid:?])
+  if (![self _rectIsValid:{1, *&a12, a13, a14, a15, a16}])
   {
     goto LABEL_10;
   }
@@ -1198,27 +1198,27 @@ LABEL_9:
       width = gazeAreaRectNormalized;
       y = areaRectNormalized;
       x = rectNormalized;
-      if ([self _rectIsValid:{a13, a14, a15, a16}])
+      if ([self _rectIsValid:{1, *&a12, a13, a14, a15, a16}])
       {
         if ([self _rectIsValid:{a17, a18, a19, a20}])
         {
-          v34 = +[PFWallpaperCompoundDeviceConfiguration deviceSupportsLandscapeConfiguration];
+          v30 = +[PFWallpaperCompoundDeviceConfiguration deviceSupportsLandscapeConfiguration];
           height = a16;
           width = a15;
-          v37 = a13;
+          v33 = a13;
           y = a14;
           x = a13;
-          if (v34)
+          if (v30)
           {
-            v41.origin.x = a17;
-            v41.origin.y = a18;
-            v41.size.width = a19;
-            v41.size.height = a20;
-            v40 = CGRectUnion(*&v37, v41);
-            x = v40.origin.x;
-            y = v40.origin.y;
-            width = v40.size.width;
-            height = v40.size.height;
+            v37.origin.x = a17;
+            v37.origin.y = a18;
+            v37.size.width = a19;
+            v37.size.height = a20;
+            v36 = CGRectUnion(*&v33, v37);
+            x = v36.origin.x;
+            y = v36.origin.y;
+            width = v36.size.width;
+            height = v36.size.height;
           }
         }
 
@@ -1256,11 +1256,11 @@ LABEL_9:
   }
 
 LABEL_10:
-  v39.origin.x = x;
-  v39.origin.y = y;
-  v39.size.width = width;
-  v39.size.height = height;
-  if (CGRectIsEmpty(v39))
+  v35.origin.x = x;
+  v35.origin.y = y;
+  v35.size.width = width;
+  v35.size.height = height;
+  if (CGRectIsEmpty(v35))
   {
     return *MEMORY[0x1E69BDDA8];
   }

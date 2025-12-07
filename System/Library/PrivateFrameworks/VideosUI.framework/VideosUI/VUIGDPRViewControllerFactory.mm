@@ -26,59 +26,60 @@
 {
   controllerCopy = controller;
   completionCopy = completion;
-  if (WLKIsRegulatedSKU())
+  v7 = WLKIsRegulatedSKU();
+  if (v7)
   {
-    v7 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = VUIDefaultLogObject(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUIGDPRViewControllerFactory - Returning China controller", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUIGDPRViewControllerFactory - Returning China controller", buf, 2u);
     }
 
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v28 = __64__VUIGDPRViewControllerFactory_createViewController_completion___block_invoke;
-    v29 = &unk_1E872E230;
-    v8 = v30;
-    v30[0] = completionCopy;
-    v30[1] = self;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v29 = __64__VUIGDPRViewControllerFactory_createViewController_completion___block_invoke;
+    v30 = &unk_1E872E230;
+    v9 = v31;
+    v31[0] = completionCopy;
+    v31[1] = self;
     if ([MEMORY[0x1E696AF00] isMainThread])
     {
-      v28(v27);
+      v29(v28);
       goto LABEL_19;
     }
 
-    v10 = MEMORY[0x1E69E96A0];
-    v11 = v27;
+    v11 = MEMORY[0x1E69E96A0];
+    v12 = v28;
 LABEL_16:
-    dispatch_async(v10, v11);
+    dispatch_async(v11, v12);
     goto LABEL_19;
   }
 
   if (controllerCopy)
   {
-    v9 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = VUIDefaultLogObject(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "VUIGDPRViewControllerFactory - Returning Library-only controller (offline)", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUIGDPRViewControllerFactory - Returning Library-only controller (offline)", buf, 2u);
     }
 
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
-    v24 = __64__VUIGDPRViewControllerFactory_createViewController_completion___block_invoke_6;
-    v25 = &unk_1E872E230;
-    v8 = v26;
-    v26[0] = completionCopy;
-    v26[1] = self;
+    v25 = __64__VUIGDPRViewControllerFactory_createViewController_completion___block_invoke_6;
+    v26 = &unk_1E872E230;
+    v9 = v27;
+    v27[0] = completionCopy;
+    v27[1] = self;
     if ([MEMORY[0x1E696AF00] isMainThread])
     {
-      v24(block);
+      v25(block);
       goto LABEL_19;
     }
 
-    v10 = MEMORY[0x1E69E96A0];
-    v11 = block;
+    v11 = MEMORY[0x1E69E96A0];
+    v12 = block;
     goto LABEL_16;
   }
 
@@ -86,33 +87,33 @@ LABEL_16:
   aBlock[1] = 3221225472;
   aBlock[2] = __64__VUIGDPRViewControllerFactory_createViewController_completion___block_invoke_2;
   aBlock[3] = &unk_1E872F690;
-  v8 = v22;
-  v22[0] = completionCopy;
-  v22[1] = self;
-  v12 = _Block_copy(aBlock);
+  v9 = v23;
+  v23[0] = completionCopy;
+  v23[1] = self;
+  v13 = _Block_copy(aBlock);
   if (_os_feature_enabled_impl())
   {
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __64__VUIGDPRViewControllerFactory_createViewController_completion___block_invoke_2_17;
-    v19[3] = &unk_1E872E470;
-    v13 = &v20;
-    v20 = v12;
-    v14 = v12;
-    [_TtC8VideosUI22VUIBagServiceProxyObjC isFullTVAppEnabledWithCompletionHandler:v19];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __64__VUIGDPRViewControllerFactory_createViewController_completion___block_invoke_2_17;
+    v20[3] = &unk_1E872E470;
+    v14 = &v21;
+    v21 = v13;
+    v15 = v13;
+    [_TtC8VideosUI22VUIBagServiceProxyObjC isFullTVAppEnabledWithCompletionHandler:v20];
   }
 
   else
   {
-    v15 = objc_opt_class();
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __64__VUIGDPRViewControllerFactory_createViewController_completion___block_invoke_3;
-    v17[3] = &unk_1E872E470;
-    v13 = &v18;
-    v18 = v12;
-    v16 = v12;
-    [v15 isFullTVAppEnabledWithCompletion:v17];
+    v16 = objc_opt_class();
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __64__VUIGDPRViewControllerFactory_createViewController_completion___block_invoke_3;
+    v18[3] = &unk_1E872E470;
+    v14 = &v19;
+    v19 = v13;
+    v17 = v13;
+    [v16 isFullTVAppEnabledWithCompletion:v18];
   }
 
 LABEL_19:
@@ -144,55 +145,55 @@ void __64__VUIGDPRViewControllerFactory_createViewController_completion___block_
 
     if (v12)
     {
-      v13 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = VUIDefaultLogObject(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_DEFAULT, "VUIGDPRViewControllerFactory - Overriding hasSeenGDPR flag from using user defaults", buf, 2u);
+        _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_DEFAULT, "VUIGDPRViewControllerFactory - Overriding hasSeenGDPR flag from using user defaults", buf, 2u);
       }
 
       goto LABEL_11;
     }
 
-    v18 = [MEMORY[0x1E69DF6E0] sharedInstance];
-    v19 = [v18 gdprFirstTimeFlowEnabled];
+    v20 = [MEMORY[0x1E69DF6E0] sharedInstance];
+    v21 = [v20 gdprFirstTimeFlowEnabled];
 
-    if (v19)
+    if (v21)
     {
-      v20 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v22 = VUIDefaultLogObject(v15);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1E323F000, v20, OS_LOG_TYPE_DEFAULT, "VUIGDPRViewControllerFactory - Overriding hasSeenGDPR flag from using user defaults", buf, 2u);
+        _os_log_impl(&dword_1E323F000, v22, OS_LOG_TYPE_DEFAULT, "VUIGDPRViewControllerFactory - Overriding hasSeenGDPR flag from using user defaults", buf, 2u);
       }
     }
 
     else if (v10)
     {
 LABEL_11:
-      v14 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = VUIDefaultLogObject(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
       }
 
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v30 = __64__VUIGDPRViewControllerFactory_createViewController_completion___block_invoke_11;
-      v31 = &unk_1E872E230;
-      v15 = v32;
-      v16 = *(a1 + 32);
-      v17 = *(a1 + 40);
-      v32[0] = v16;
-      v32[1] = v17;
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v32 = __64__VUIGDPRViewControllerFactory_createViewController_completion___block_invoke_11;
+      v33 = &unk_1E872E230;
+      v17 = v34;
+      v18 = *(a1 + 32);
+      v19 = *(a1 + 40);
+      v34[0] = v18;
+      v34[1] = v19;
       if ([MEMORY[0x1E696AF00] isMainThread])
       {
-        v30(v29);
+        v32(v31);
       }
 
       else
       {
-        dispatch_async(MEMORY[0x1E69E96A0], v29);
+        dispatch_async(MEMORY[0x1E69E96A0], v31);
       }
 
 LABEL_29:
@@ -200,37 +201,37 @@ LABEL_29:
       goto LABEL_30;
     }
 
-    v21 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v23 = VUIDefaultLogObject(v15);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v21, OS_LOG_TYPE_DEFAULT, "VUIGDPRViewControllerFactory - Returning default controller", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v23, OS_LOG_TYPE_DEFAULT, "VUIGDPRViewControllerFactory - Returning default controller", buf, 2u);
     }
 
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v25 = __64__VUIGDPRViewControllerFactory_createViewController_completion___block_invoke_12;
-    v26 = &unk_1E8732AF0;
-    v15 = v28;
-    v22 = *(a1 + 32);
-    v23 = *(a1 + 40);
-    v28[0] = v22;
-    v28[1] = v23;
-    v27 = v5;
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v27 = __64__VUIGDPRViewControllerFactory_createViewController_completion___block_invoke_12;
+    v28 = &unk_1E8732AF0;
+    v17 = v30;
+    v24 = *(a1 + 32);
+    v25 = *(a1 + 40);
+    v30[0] = v24;
+    v30[1] = v25;
+    v29 = v5;
     if ([MEMORY[0x1E696AF00] isMainThread])
     {
-      v25(v24);
+      v27(v26);
     }
 
     else
     {
-      dispatch_async(MEMORY[0x1E69E96A0], v24);
+      dispatch_async(MEMORY[0x1E69E96A0], v26);
     }
 
     goto LABEL_29;
   }
 
-  v6 = VUIDefaultLogObject();
+  v6 = VUIDefaultLogObject(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -239,15 +240,15 @@ LABEL_29:
 
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
-  v34 = __64__VUIGDPRViewControllerFactory_createViewController_completion___block_invoke_7;
-  v35 = &unk_1E872E230;
+  v36 = __64__VUIGDPRViewControllerFactory_createViewController_completion___block_invoke_7;
+  v37 = &unk_1E872E230;
   v7 = *(a1 + 32);
   v8 = *(a1 + 40);
-  v36 = v7;
-  v37 = v8;
+  v38 = v7;
+  v39 = v8;
   if ([MEMORY[0x1E696AF00] isMainThread])
   {
-    v34(block);
+    v36(block);
   }
 
   else
@@ -255,7 +256,7 @@ LABEL_29:
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 
-  v9 = v36;
+  v9 = v38;
 LABEL_30:
 }
 

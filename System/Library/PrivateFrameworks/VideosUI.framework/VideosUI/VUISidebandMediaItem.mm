@@ -97,20 +97,20 @@ LABEL_9:
   objectID = [objectCopy objectID];
   v16 = [(VUISidebandMediaEntityIdentifier *)v14 initWithManagedObjectID:objectID mediaEntityType:v11];
 
-  v17 = VUISidebandMediaItemKind();
-  v22.receiver = self;
-  v22.super_class = VUISidebandMediaItem;
-  v18 = [(VUIMediaEntity *)&v22 initWithMediaLibrary:libraryCopy identifier:v16 requestedProperties:propertiesCopy kind:v17];
+  v18 = VUISidebandMediaItemKind(v17);
+  v23.receiver = self;
+  v23.super_class = VUISidebandMediaItem;
+  v19 = [(VUIMediaEntity *)&v23 initWithMediaLibrary:libraryCopy identifier:v16 requestedProperties:propertiesCopy kind:v18];
 
-  if (v18)
+  if (v19)
   {
-    objc_storeStrong(&v18->_videoManagedObject, object);
+    objc_storeStrong(&v19->_videoManagedObject, object);
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    objectID2 = [(VUIVideoManagedObject *)v18->_videoManagedObject objectID];
-    [defaultCenter addObserver:v18 selector:sel__videoManagedObjectPlaybackExpirationWillChange_ name:@"VUIVideoManagedObjectPlaybackExpirationWillChangeNotification" object:objectID2];
+    objectID2 = [(VUIVideoManagedObject *)v19->_videoManagedObject objectID];
+    [defaultCenter addObserver:v19 selector:sel__videoManagedObjectPlaybackExpirationWillChange_ name:@"VUIVideoManagedObjectPlaybackExpirationWillChangeNotification" object:objectID2];
   }
 
-  return v18;
+  return v19;
 }
 
 - (void)dealloc
@@ -274,7 +274,7 @@ void __35__VUISidebandMediaItem_canonicalID__block_invoke(uint64_t a1)
   return managedObjectContext;
 }
 
-uint64_t __39__VUISidebandMediaItem_markedAsDeleted__block_invoke(uint64_t a1)
+void *__39__VUISidebandMediaItem_markedAsDeleted__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) markedAsDeleted];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1044,7 +1044,7 @@ void __43__VUISidebandMediaItem_availabilityEndDate__block_invoke(uint64_t a1)
   return managedObjectContext;
 }
 
-uint64_t __51__VUISidebandMediaItem_allowsManualDownloadRenewal__block_invoke(uint64_t a1)
+void *__51__VUISidebandMediaItem_allowsManualDownloadRenewal__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) allowsManualRenewal];
   *(*(*(a1 + 40) + 8) + 24) = result;

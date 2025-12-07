@@ -225,7 +225,7 @@ uint64_t __24__TUIUtils_isAuthError___block_invoke()
 
 + (BOOL)_checkNetworkError:(id)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -283,65 +283,65 @@ LABEL_11:
   }
 
   domain7 = [errorCopy domain];
-  v35 = [domain7 isEqualToString:*MEMORY[0x277D46258]];
-  if ((v35 & 1) == 0)
+  v34 = [domain7 isEqualToString:*MEMORY[0x277D46258]];
+  if ((v34 & 1) == 0)
   {
     domain8 = [errorCopy domain];
     if (![domain8 isEqualToString:*MEMORY[0x277D46260]])
     {
-      v34 = 0;
+      v33 = 0;
       goto LABEL_29;
     }
 
-    v32 = domain8;
+    v31 = domain8;
   }
 
   userInfo = [errorCopy userInfo];
-  v16 = [userInfo objectForKeyedSubscript:@"statusCode"];
-  if ([v16 integerValue] < 500)
+  v15 = [userInfo objectForKeyedSubscript:@"statusCode"];
+  if ([v15 integerValue] < 500)
   {
 
-    if (v35)
+    if (v34)
     {
 
       goto LABEL_31;
     }
 
-    v34 = 0;
-    domain8 = v32;
+    v33 = 0;
+    domain8 = v31;
     goto LABEL_29;
   }
 
   userInfo2 = [errorCopy userInfo];
   [userInfo2 objectForKeyedSubscript:@"statusCode"];
-  v17 = v31 = domain7;
-  v34 = [v17 integerValue] < 600;
+  v16 = v30 = domain7;
+  v33 = [v16 integerValue] < 600;
 
-  domain7 = v31;
-  domain8 = v32;
-  if ((v35 & 1) == 0)
+  domain7 = v30;
+  domain8 = v31;
+  if ((v34 & 1) == 0)
   {
 LABEL_29:
   }
 
-  if (v34)
+  if (v33)
   {
     goto LABEL_16;
   }
 
 LABEL_31:
   domain9 = [errorCopy domain];
-  v19 = [domain9 isEqual:*MEMORY[0x277D735D8]];
+  v18 = [domain9 isEqual:*MEMORY[0x277D735D8]];
 
-  if (v19)
+  if (v18)
   {
     goto LABEL_16;
   }
 
   userInfo3 = [errorCopy userInfo];
-  v21 = [userInfo3 objectForKeyedSubscript:*MEMORY[0x277CCA7E8]];
+  v20 = [userInfo3 objectForKeyedSubscript:*MEMORY[0x277CCA7E8]];
 
-  if ([self _checkNetworkError:v21])
+  if ([self _checkNetworkError:v20])
   {
     v11 = 1;
   }
@@ -349,47 +349,47 @@ LABEL_31:
   else
   {
     userInfo4 = [errorCopy userInfo];
-    v23 = [userInfo4 objectForKeyedSubscript:*MEMORY[0x277CCA578]];
+    v22 = [userInfo4 objectForKeyedSubscript:*MEMORY[0x277CCA578]];
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
       v37 = 0u;
-      v24 = v23;
-      v25 = [v24 countByEnumeratingWithState:&v36 objects:v40 count:16];
-      if (v25)
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
+      v23 = v22;
+      v24 = [v23 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      if (v24)
       {
-        v26 = v25;
-        v27 = *v37;
+        v25 = v24;
+        v26 = *v36;
         while (2)
         {
-          v28 = 0;
-          v29 = v21;
+          v27 = 0;
+          v28 = v20;
           do
           {
-            if (*v37 != v27)
+            if (*v36 != v26)
             {
-              objc_enumerationMutation(v24);
+              objc_enumerationMutation(v23);
             }
 
-            v21 = *(*(&v36 + 1) + 8 * v28);
+            v20 = *(*(&v35 + 1) + 8 * v27);
 
-            if ([self _checkNetworkError:v21])
+            if ([self _checkNetworkError:v20])
             {
               v11 = 1;
               goto LABEL_46;
             }
 
-            ++v28;
-            v29 = v21;
+            ++v27;
+            v28 = v20;
           }
 
-          while (v26 != v28);
-          v26 = [v24 countByEnumeratingWithState:&v36 objects:v40 count:16];
-          if (v26)
+          while (v25 != v27);
+          v25 = [v23 countByEnumeratingWithState:&v35 objects:v39 count:16];
+          if (v25)
           {
             continue;
           }
@@ -398,7 +398,7 @@ LABEL_31:
         }
       }
 
-      v21 = 0;
+      v20 = 0;
       v11 = 0;
 LABEL_46:
     }
@@ -410,13 +410,12 @@ LABEL_46:
   }
 
 LABEL_18:
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 + (BOOL)_checkMismatchedAccountError:(id)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -457,30 +456,30 @@ LABEL_18:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       v12 = v11;
-      v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v21;
+        v15 = *v20;
         while (2)
         {
           v16 = 0;
           v17 = v9;
           do
           {
-            if (*v21 != v15)
+            if (*v20 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v9 = *(*(&v20 + 1) + 8 * v16);
+            v9 = *(*(&v19 + 1) + 8 * v16);
 
-            if ([self _checkMismatchedAccountError:{v9, v20}])
+            if ([self _checkMismatchedAccountError:{v9, v19}])
             {
               v7 = 1;
               goto LABEL_21;
@@ -491,7 +490,7 @@ LABEL_18:
           }
 
           while (v14 != v16);
-          v14 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
           if (v14)
           {
             continue;
@@ -513,7 +512,6 @@ LABEL_21:
   }
 
 LABEL_24:
-  v18 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -559,69 +557,57 @@ uint64_t __18__TUIUtils_isHSA2__block_invoke()
 
 + (void)isTransparencyFeatureEnabled:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)isTransparencyFeatureEnabled:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)isNetworkError:.cold.2()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2_0(&dword_26F50B000, v0, v1, "%s YES: error = %{public}@ on %{public}@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_26F50B000, v0, v1, "%s YES: error = %{public}@ on %{public}@", v2);
 }
 
 + (void)isMismatchedAccountError:.cold.2()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2_0(&dword_26F50B000, v0, v1, "%s YES: error = %{public}@ on %{public}@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_26F50B000, v0, v1, "%s YES: error = %{public}@ on %{public}@", v2);
 }
 
 + (void)isAuthError:(uint64_t)a3 .cold.2(void *a1, void *a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 domain];
   v7 = [a2 code];
   v8 = [a2 localizedDescription];
-  v10 = 136316162;
-  v11 = "+[TUIUtils isAuthError:]";
-  v12 = 2114;
-  v13 = v6;
-  v14 = 2048;
-  v15 = v7;
-  v16 = 2114;
-  v17 = v8;
-  v18 = 2114;
-  v19 = a3;
-  _os_log_debug_impl(&dword_26F50B000, v5, OS_LOG_TYPE_DEBUG, "%s YES: domain = %{public}@, code = %ld, description = %{public}@ on %{public}@", &v10, 0x34u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 136316162;
+  v10 = "+[TUIUtils isAuthError:]";
+  v11 = 2114;
+  v12 = v6;
+  v13 = 2048;
+  v14 = v7;
+  v15 = 2114;
+  v16 = v8;
+  v17 = 2114;
+  v18 = a3;
+  _os_log_debug_impl(&dword_26F50B000, v5, OS_LOG_TYPE_DEBUG, "%s YES: domain = %{public}@, code = %ld, description = %{public}@ on %{public}@", &v9, 0x34u);
 }
 
 + (void)isHSA2
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

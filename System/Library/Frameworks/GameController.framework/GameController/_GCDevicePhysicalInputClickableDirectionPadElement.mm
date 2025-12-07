@@ -7,9 +7,9 @@
 - (NSString)description;
 - (_GCDevicePhysicalInputClickableDirectionPadElement)initWithParameters:(id)parameters;
 - (_GCDevicePhysicalInputClickableDirectionPadElement)initWithTemplate:(id)template context:(id)context;
+- (id)_pressedValueField;
+- (id)_setPressedValueField:(id *)result;
 - (uint64_t)_pressedInput;
-- (uint64_t)_pressedValueField;
-- (uint64_t)_setPressedValueField:(uint64_t)result;
 - (void)postCommit:(const void *)commit sender:(id)sender;
 - (void)preCommit:(const void *)commit sender:(id)sender;
 @end
@@ -83,7 +83,7 @@
   v5 = [(_GCDevicePhysicalInputDirectionPadElement *)&v7 isEqualToElement:?];
   if (v5)
   {
-    [(_GCDevicePhysicalInputClickableDirectionPadElement *)self isEqualToElement:element, &v8];
+    [(_GCDevicePhysicalInputClickableDirectionPadElement *)&self->super.super.super.super.isa isEqualToElement:element, &v8];
     LOBYTE(v5) = v8;
   }
 
@@ -139,7 +139,7 @@ LABEL_15:
   }
 
 LABEL_3:
-  v10 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
+  v10 = [(_GCDevicePhysicalInputView *)&self->super.super.super.super.isa _primitiveValueForSlot:?];
   if (v10 == -1)
   {
     return v8;
@@ -211,7 +211,7 @@ LABEL_6:
   if (v5)
   {
 LABEL_3:
-    [(_GCDevicePhysicalInputView *)v5 _testAndSetPrimitiveValue:v7 forSlot:&v5->_pressedValueFieldSlot];
+    [(_GCDevicePhysicalInputView *)&v5->super.super.super.super.isa _testAndSetPrimitiveValue:v7 forSlot:&v5->_pressedValueFieldSlot];
   }
 
 LABEL_4:
@@ -227,11 +227,11 @@ LABEL_4:
   return v6;
 }
 
-- (uint64_t)_setPressedValueField:(uint64_t)result
+- (id)_setPressedValueField:(id *)result
 {
   if (result)
   {
-    return [(_GCDevicePhysicalInputView *)result _testAndSetPrimitiveValue:a2 forSlot:result + 144];
+    return [(_GCDevicePhysicalInputView *)result _testAndSetPrimitiveValue:a2 forSlot:(result + 18)];
   }
 
   return result;
@@ -268,7 +268,7 @@ LABEL_3:
       if (self)
       {
 LABEL_5:
-        v12 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:v11 forSlot:&self->_pressedValueFieldSlot];
+        v12 = [(_GCDevicePhysicalInputView *)&self->super.super.super.super.isa _testAndSetPrimitiveValue:v11 forSlot:&self->_pressedValueFieldSlot];
 LABEL_6:
         *(update + v10) = *(update + v10) & 0xFE | v12;
         v9 |= v12;
@@ -342,7 +342,7 @@ LABEL_7:
   return v9 | v18;
 }
 
-- (uint64_t)_pressedValueField
+- (id)_pressedValueField
 {
   if (result)
   {
@@ -393,7 +393,7 @@ LABEL_7:
   [OUTLINED_FUNCTION_2_5() postCommit:? sender:?];
 }
 
-- (void)isEqualToElement:(BOOL *)a3 .cold.1(uint64_t a1, uint64_t a2, BOOL *a3)
+- (void)isEqualToElement:(BOOL *)a3 .cold.1(id *a1, id *a2, BOOL *a3)
 {
   if (a1)
   {

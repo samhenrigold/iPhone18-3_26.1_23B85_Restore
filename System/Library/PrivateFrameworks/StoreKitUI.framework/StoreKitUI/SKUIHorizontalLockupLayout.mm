@@ -253,9 +253,9 @@ LABEL_62:
 
         v12 = [v5 style];
         v13 = [v12 columnType];
-        v14 = [v13 isEqualToString:@"buttons"];
+        isEqualToString = objc_msgSend_isEqualToString_(v13);
 
-        if (!v14)
+        if (!isEqualToString)
         {
           goto LABEL_62;
         }
@@ -517,10 +517,10 @@ LABEL_65:
 
   if (!v6)
   {
-    v7 = SKUIFontForTextStyle(25);
-    v8 = MEMORY[0x277D74300];
-    [v7 pointSize];
-    v6 = [v8 _lightSystemFontOfSize:?];
+    v8 = SKUIFontForTextStyle(25, v7);
+    v9 = MEMORY[0x277D74300];
+    [v8 pointSize];
+    v6 = [v9 _lightSystemFontOfSize:?];
   }
 
   return v6;

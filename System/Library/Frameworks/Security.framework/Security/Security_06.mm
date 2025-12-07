@@ -1,954 +1,13 @@
-BOOL __client_is_mediaserverd_block_invoke()
-{
-  result = process_matches_target("mediaplaybackd");
-  client_is_mediaserverd_is_mediaplaybackd = result;
-  return result;
-}
-
-BOOL sec_protocol_configuration_tls_required_for_host(void *a1, const char *a2, int a3)
-{
-  v5 = a1;
-  v6 = sec_protocol_configuration_find_exception_for_host(v5, a2, 0);
-  v7 = sec_protocol_configuration_tls_required_for_host_or_address_internal(v5, a3, v6);
-
-  return v7;
-}
-
-BOOL sec_protocol_configuration_tls_required_for_address(void *a1, const char *a2, int a3)
-{
-  v5 = a1;
-  v6 = sec_protocol_configuration_find_exception_for_address(v5[1], a2);
-  v7 = sec_protocol_configuration_tls_required_for_host_or_address_internal(v5, a3, v6);
-
-  return v7;
-}
-
-id sec_protocol_configuration_find_exception_for_address(void *a1, const char *a2)
-{
-  v3 = a1;
-  v4 = v3;
-  if (!v3)
-  {
-    v9 = 0;
-    goto LABEL_19;
-  }
-
-  v5 = xpc_dictionary_get_dictionary(v3, "NSExceptionDomains");
-  v6 = v5;
-  if (v5)
-  {
-    v7 = xpc_dictionary_get_dictionary(v5, a2);
-    v8 = v7;
-    if (v7)
-    {
-      v9 = v7;
-LABEL_17:
-
-      goto LABEL_18;
-    }
-
-    v10 = xpc_dictionary_get_dictionary(v4, "NSCIDRExceptions");
-    if (!v10)
-    {
-      goto LABEL_15;
-    }
-
-    v14 = 0;
-    v15[0] = 0;
-    v15[1] = 0xAAAAAAAAAAAAAAAALL;
-    v16 = -1431655766;
-    v11 = strlen(a2);
-    if (!v11)
-    {
-      goto LABEL_15;
-    }
-
-    if (v11 > 0xF)
-    {
-      if (v11 > 0x27)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    else
-    {
-      v12 = 2;
-      if (inet_pton(2, a2, &v14 + 4))
-      {
-LABEL_14:
-        v9 = _find_cidr_exception(v10, &v14, v12);
-LABEL_16:
-
-        goto LABEL_17;
-      }
-    }
-
-    v12 = 30;
-    if (inet_pton(30, a2, v15))
-    {
-      goto LABEL_14;
-    }
-
-LABEL_15:
-    v9 = 0;
-    goto LABEL_16;
-  }
-
-  v9 = 0;
-LABEL_18:
-
-LABEL_19:
-
-  return v9;
-}
-
-id _find_cidr_exception(void *a1, uint64_t a2, char a3)
-{
-  v5 = a1;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy__5176;
-  v16 = __Block_byref_object_dispose__5177;
-  v17 = 0;
-  v10[0] = 0;
-  v10[1] = v10;
-  v10[2] = 0x2020000000;
-  v11 = 0;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = ___find_cidr_exception_block_invoke;
-  v8[3] = &unk_1E70D6C28;
-  v9 = a3;
-  v8[5] = &v12;
-  v8[6] = a2;
-  v8[4] = v10;
-  xpc_dictionary_apply(v5, v8);
-  v6 = v13[5];
-  _Block_object_dispose(v10, 8);
-  _Block_object_dispose(&v12, 8);
-
-  return v6;
-}
-
-void sub_18885CB78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__5176(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-uint64_t ___find_cidr_exception_block_invoke(uint64_t a1, uint64_t a2, void *a3)
-{
-  v5 = a3;
-  length = 0xAAAAAAAAAAAAAAAALL;
-  data = xpc_dictionary_get_data(v5, "NSParsedCIDRAddressKey", &length);
-  if (data)
-  {
-    v7 = data;
-    if (data[1] == *(a1 + 56))
-    {
-      v21 = 0xAAAAAAAAAAAAAAAALL;
-      v8 = xpc_dictionary_get_data(v5, "NSParsedCIDRMaskKey", &v21);
-      if (*(a1 + 56) == 2)
-      {
-        v9 = 4;
-      }
-
-      else
-      {
-        v9 = 8;
-      }
-
-      v10 = 16;
-      if (*(a1 + 56) == 2)
-      {
-        v10 = 4;
-      }
-
-      v11 = (*(a1 + 48) + v9);
-      v12 = &v7[v9];
-      v13 = &v8[v9];
-      do
-      {
-        v15 = *v11++;
-        v14 = v15;
-        v17 = *v13++;
-        v16 = v17;
-        v18 = *v12++;
-        if (((v18 ^ v14) & v16) != 0)
-        {
-          xpc_dictionary_get_uint64(v5, "NSParsedCIDRPrefixKey");
-          goto LABEL_14;
-        }
-
-        --v10;
-      }
-
-      while (v10);
-      uint64 = xpc_dictionary_get_uint64(v5, "NSParsedCIDRPrefixKey");
-      if (*(*(*(a1 + 32) + 8) + 24) <= uint64)
-      {
-        objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
-        *(*(*(a1 + 32) + 8) + 24) = uint64;
-      }
-    }
-  }
-
-LABEL_14:
-
-  return 1;
-}
-
-id sec_protocol_configuration_copy_transformed_options_for_address(void *a1, const char *a2, int a3)
-{
-  v5 = a1;
-  v6 = sec_protocol_options_copy_sec_protocol_configuration(v5);
-  v7 = v6;
-  if (!v6 || ((sec_protocol_configuration_find_exception_for_address(*(v6 + 8), a2), v8 = objc_claimAutoreleasedReturnValue(), v9 = sec_protocol_configuration_tls_required_for_host_or_address_internal(v7, a3, v8), !v8) ? (v10 = !v9) : (v10 = 0), v10))
-  {
-    v11 = v5;
-  }
-
-  else
-  {
-    v11 = sec_protocol_options_copy(v5);
-    sec_protocol_configuration_copy_transformed_options_with_ats_minimums(v11);
-    objc_claimAutoreleasedReturnValue();
-    sec_protocol_configuration_copy_transformed_options_for_host_or_address_internal(v7, v11, v8);
-    objc_claimAutoreleasedReturnValue();
-  }
-
-  return v11;
-}
-
-uint64_t tls1x_minor_version_digit_to_version(char a1)
-{
-  if (((a1 - 48) & 0xFC) != 0)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return (a1 - 48) + 769;
-  }
-}
-
-uint64_t dtls1x_minor_version_digit_to_version(int a1)
-{
-  if (a1 == 50)
-  {
-    v1 = -259;
-  }
-
-  else
-  {
-    v1 = 0;
-  }
-
-  if (a1 == 48)
-  {
-    return -257;
-  }
-
-  return v1;
-}
-
-void sec_protocol_configuration_register_builtin_exception(void *a1, const char *a2, unsigned int a3)
-{
-  v5 = xpc_dictionary_get_dictionary(a1, "NSExceptionDomains");
-  if (v5)
-  {
-    value = v5;
-    v6 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_value(v6, "NSExceptionDomains", value);
-    xpc_dictionary_set_BOOL(v6, "NSIncludesSubdomains", 1);
-    xpc_dictionary_set_int64(v6, "NSExceptionMinimumTLSVersion", a3);
-    xpc_dictionary_set_BOOL(v6, "NSExceptionAllowsInsecureHTTPLoads", 1);
-    xpc_dictionary_set_BOOL(v6, "NSExceptionRequiresForwardSecrecy", 0);
-    xpc_dictionary_set_value(value, a2, v6);
-
-    v5 = value;
-  }
-}
-
-BOOL sec_protocol_configuration_set_ats_overrides(uint64_t a1, void *a2)
-{
-  v25 = *MEMORY[0x1E69E9840];
-  if (a2)
-  {
-    v3 = *(a1 + 8);
-    if (!v3)
-    {
-      v7 = 0;
-LABEL_50:
-
-      goto LABEL_51;
-    }
-
-    v4 = a2;
-    v5 = [v4 objectForKeyedSubscript:@"NSAllowsArbitraryLoads"];
-    if (v5)
-    {
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
-      {
-        if ([v5 isEqual:MEMORY[0x1E695E118]])
-        {
-          v6 = 2;
-        }
-
-        else
-        {
-          v6 = 1;
-        }
-
-LABEL_13:
-
-        v8 = [v4 objectForKeyedSubscript:@"NSAllowsArbitraryLoadsInWebContent"];
-        if (v8)
-        {
-          objc_opt_class();
-          if (objc_opt_isKindOfClass())
-          {
-            if ([v8 isEqual:MEMORY[0x1E695E118]])
-            {
-              v9 = 2;
-            }
-
-            else
-            {
-              v9 = 1;
-            }
-
-LABEL_21:
-
-            v10 = [v4 objectForKeyedSubscript:@"NSAllowsArbitraryLoadsForMedia"];
-            if (v10)
-            {
-              objc_opt_class();
-              if (objc_opt_isKindOfClass())
-              {
-                if ([v10 isEqual:MEMORY[0x1E695E118]])
-                {
-                  v11 = 2;
-                }
-
-                else
-                {
-                  v11 = 1;
-                }
-
-LABEL_29:
-
-                v12 = [v4 objectForKeyedSubscript:@"NSAllowsLocalNetworking"];
-                if (v12)
-                {
-                  objc_opt_class();
-                  if (objc_opt_isKindOfClass())
-                  {
-                    if ([v12 isEqual:MEMORY[0x1E695E118]])
-                    {
-                      v13 = 2;
-                    }
-
-                    else
-                    {
-                      v13 = 1;
-                    }
-
-                    goto LABEL_37;
-                  }
-
-                  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-                  {
-                    *buf = 136315138;
-                    v24 = "NSAllowsLocalNetworking";
-                    _os_log_error_impl(&dword_1887D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "App Transport Security value for key %s must be a BOOLean", buf, 0xCu);
-                  }
-                }
-
-                v13 = 0;
-LABEL_37:
-
-                xpc_dictionary_set_uint64(v3, "NSAllowsArbitraryLoads", v6);
-                xpc_dictionary_set_uint64(v3, "NSAllowsArbitraryLoadsInWebContent", v9);
-                xpc_dictionary_set_uint64(v3, "NSAllowsArbitraryLoadsForMedia", v11);
-                xpc_dictionary_set_uint64(v3, "NSAllowsLocalNetworking", v13);
-                v14 = [v4 valueForKey:@"NSExceptionDomains"];
-                if (v14)
-                {
-                  objc_opt_class();
-                  if (objc_opt_isKindOfClass())
-                  {
-                    v15 = xpc_dictionary_get_dictionary(v3, "NSExceptionDomains");
-                    if (v15)
-                    {
-                      v16 = xpc_dictionary_get_dictionary(v3, "NSCIDRExceptions");
-                      v17 = v16;
-                      v7 = v16 != 0;
-                      if (v16)
-                      {
-                        v20[0] = MEMORY[0x1E69E9820];
-                        v20[1] = 3221225472;
-                        v20[2] = __sec_protocol_configuration_set_ats_overrides_block_invoke;
-                        v20[3] = &unk_1E70DDD08;
-                        v21 = v16;
-                        v22 = v15;
-                        [v14 enumerateKeysAndObjectsUsingBlock:v20];
-                      }
-                    }
-
-                    else
-                    {
-                      v7 = 0;
-                    }
-                  }
-
-                  else
-                  {
-                    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-                    {
-                      *buf = 0;
-                      _os_log_error_impl(&dword_1887D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "App Transport Security exceptions must be a dictionary", buf, 2u);
-                    }
-
-                    v7 = 0;
-                  }
-                }
-
-                else
-                {
-                  v7 = 1;
-                }
-
-                goto LABEL_50;
-              }
-
-              if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-              {
-                *buf = 136315138;
-                v24 = "NSAllowsArbitraryLoadsForMedia";
-                _os_log_error_impl(&dword_1887D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "App Transport Security value for key %s must be a BOOLean", buf, 0xCu);
-              }
-            }
-
-            v11 = 0;
-            goto LABEL_29;
-          }
-
-          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-          {
-            *buf = 136315138;
-            v24 = "NSAllowsArbitraryLoadsInWebContent";
-            _os_log_error_impl(&dword_1887D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "App Transport Security value for key %s must be a BOOLean", buf, 0xCu);
-          }
-        }
-
-        v9 = 0;
-        goto LABEL_21;
-      }
-
-      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-      {
-        *buf = 136315138;
-        v24 = "NSAllowsArbitraryLoads";
-        _os_log_error_impl(&dword_1887D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "App Transport Security value for key %s must be a BOOLean", buf, 0xCu);
-      }
-    }
-
-    v6 = 0;
-    goto LABEL_13;
-  }
-
-  v7 = 0;
-LABEL_51:
-  v18 = *MEMORY[0x1E69E9840];
-  return v7;
-}
-
-void __sec_protocol_configuration_set_ats_overrides_block_invoke(uint64_t a1, void *a2, void *a3)
-{
-  v70 = *MEMORY[0x1E69E9840];
-  v5 = a2;
-  v6 = a3;
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
-  {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_error_impl(&dword_1887D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "App Transport Security exception must be a dictionary", buf, 2u);
-    }
-
-    goto LABEL_88;
-  }
-
-  v7 = v5;
-  v8 = v6;
-  v9 = [v8 objectForKeyedSubscript:@"NSExceptionAllowsInsecureHTTPLoads"];
-  v57 = a1;
-  if (v9)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v10 = [v9 isEqual:MEMORY[0x1E695E118]];
-      goto LABEL_11;
-    }
-
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315138;
-      *&buf[4] = "NSExceptionAllowsInsecureHTTPLoads";
-      _os_log_error_impl(&dword_1887D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "App Transport Security value for key %s must be a BOOLean", buf, 0xCu);
-    }
-  }
-
-  v10 = 0;
-LABEL_11:
-
-  v11 = [v8 objectForKeyedSubscript:@"NSIncludesSubdomains"];
-  if (v11)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v12 = [v11 isEqual:MEMORY[0x1E695E118]];
-      goto LABEL_17;
-    }
-
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315138;
-      *&buf[4] = "NSIncludesSubdomains";
-      _os_log_error_impl(&dword_1887D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "App Transport Security value for key %s must be a BOOLean", buf, 0xCu);
-    }
-  }
-
-  v12 = 0;
-LABEL_17:
-
-  v13 = [v8 objectForKeyedSubscript:@"NSExceptionRequiresForwardSecrecy"];
-  if (v13)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v14 = [v13 isEqual:MEMORY[0x1E695E118]];
-      goto LABEL_23;
-    }
-
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315138;
-      *&buf[4] = "NSExceptionRequiresForwardSecrecy";
-      _os_log_error_impl(&dword_1887D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "App Transport Security value for key %s must be a BOOLean", buf, 0xCu);
-    }
-  }
-
-  v14 = 1;
-LABEL_23:
-
-  v15 = [v8 objectForKeyedSubscript:@"NSExceptionMinimumTLSVersion"];
-  if (!v15)
-  {
-LABEL_28:
-    v16 = @"TLSv1.2";
-    goto LABEL_29;
-  }
-
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315138;
-      *&buf[4] = "NSExceptionMinimumTLSVersion";
-      _os_log_error_impl(&dword_1887D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "App Transport Security value for key %s must be a string", buf, 0xCu);
-    }
-
-    goto LABEL_28;
-  }
-
-  v16 = v15;
-LABEL_29:
-
-  v17 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_BOOL(v17, "NSIncludesSubdomains", v12);
-  xpc_dictionary_set_BOOL(v17, "NSExceptionAllowsInsecureHTTPLoads", v10);
-  xpc_dictionary_set_BOOL(v17, "NSExceptionRequiresForwardSecrecy", v14);
-  v18 = [(__CFString *)v16 cStringUsingEncoding:4];
-  if (!v18)
-  {
-    goto LABEL_34;
-  }
-
-  v19 = *v18;
-  v20 = (v19 == 68 ? v18 + 1 : v18);
-  if (strncmp(v20, "TLSv1.", 6uLL))
-  {
-    goto LABEL_34;
-  }
-
-  v34 = tls1x_minor_version_digit_to_version;
-  if (v19 == 68)
-  {
-    v34 = dtls1x_minor_version_digit_to_version;
-  }
-
-  v35 = v34(*(v20 + 6));
-  if (v35)
-  {
-    if (*(v20 + 7))
-    {
-      v21 = 0;
-    }
-
-    else
-    {
-      v21 = v35;
-    }
-  }
-
-  else
-  {
-LABEL_34:
-    v21 = 0;
-  }
-
-  xpc_dictionary_set_int64(v17, "NSExceptionMinimumTLSVersion", v21);
-  if ([v7 rangeOfString:@"/"] == 0x7FFFFFFFFFFFFFFFLL)
-  {
-    v22 = *(v57 + 40);
-    goto LABEL_87;
-  }
-
-  v56 = v16;
-  v64 = 0;
-  v65 = 0;
-  v66 = 0xAAAAAAAAAAAAAAAALL;
-  v67 = -1431655766;
-  v60 = 0;
-  v61 = 0;
-  v62 = 0xAAAAAAAAAAAAAAAALL;
-  v63 = -1431655766;
-  v23 = [v7 UTF8String];
-  if (!v23)
-  {
-    goto LABEL_83;
-  }
-
-  v24 = v23;
-  v25 = strlen(v23);
-  if (!v25)
-  {
-    v29 = 0;
-    v28 = 0;
-    v27 = 0;
-    v31 = 0;
-    v36 = 1;
-    goto LABEL_80;
-  }
-
-  v26 = 0;
-  v27 = 0;
-  v28 = 0;
-  v29 = 0;
-  v30 = 0;
-  v31 = v25;
-  do
-  {
-    v32 = v24[v30];
-    v33 = (v32 - 47);
-    if (v33 > 0x37)
-    {
-      goto LABEL_55;
-    }
-
-    if (((1 << (v32 - 47)) & 0xFC000000FC0000) != 0)
-    {
-      if (v29 || v31 <= v30)
-      {
-        goto LABEL_83;
-      }
-
-      v29 = 0;
-      ++v26;
-      goto LABEL_45;
-    }
-
-    if (v32 != 47)
-    {
-      if (v33 == 11)
-      {
-        if (v29 || v31 <= v30)
-        {
-          goto LABEL_83;
-        }
-
-        ++v28;
-        if (v30 && v24[v30 - 1] == 58)
-        {
-          if (v27)
-          {
-            goto LABEL_83;
-          }
-
-          v29 = 0;
-          v27 = 1;
-        }
-
-        else
-        {
-          v29 = 0;
-        }
-
-        goto LABEL_45;
-      }
-
-LABEL_55:
-      if (v32 == 46)
-      {
-        if (v26 | v28 || !v30 || v31 <= v30)
-        {
-          goto LABEL_83;
-        }
-
-        v28 = 0;
-        v26 = 0;
-        ++v29;
-      }
-
-      else if ((v32 - 48) > 9)
-      {
-        goto LABEL_83;
-      }
-
-      goto LABEL_45;
-    }
-
-    if (!v30 || v31 <= v30 || v29 && v24[v30 - 1] == 46)
-    {
-      goto LABEL_83;
-    }
-
-    if (v28 && v30 >= 3 && v24[v30 - 1] == 58)
-    {
-      v31 = v30;
-      if (v24[v30 - 2] != 58)
-      {
-        goto LABEL_83;
-      }
-    }
-
-    else
-    {
-      v31 = v30;
-    }
-
-LABEL_45:
-    ++v30;
-  }
-
-  while (v25 != v30);
-  v36 = v26 == 0;
-LABEL_80:
-  value = v36;
-  if (v31 >= v25)
-  {
-    goto LABEL_83;
-  }
-
-  v64 = 0;
-  v65 = 0;
-  v67 = 0;
-  v66 = 0;
-  v61 = 0;
-  v62 = 0;
-  v60 = 0;
-  v63 = 0;
-  v52 = v31 + 1;
-  v37 = strtol(&v24[v31 + 1], 0, 0);
-  if (v37 < 0)
-  {
-    goto LABEL_83;
-  }
-
-  v53 = v37;
-  if (*__error() == 22)
-  {
-    goto LABEL_83;
-  }
-
-  v41 = value;
-  if (v28)
-  {
-    v41 = 0;
-  }
-
-  if (v41)
-  {
-    if (v53 > 0x20)
-    {
-      goto LABEL_83;
-    }
-
-    LOWORD(v60) = 528;
-    LOWORD(v64) = 528;
-    memset(buf, 170, 15);
-    if (v31 > 0xD)
-    {
-      goto LABEL_83;
-    }
-
-    v42 = &v60 + 4;
-    __memcpy_chk();
-    if (v29 <= 2 && v31 != 13)
-    {
-      do
-      {
-        v43 = v31;
-        *&buf[v31] = 12334;
-        v31 += 2;
-        if (v43 > 0xA)
-        {
-          break;
-        }
-
-        v49 = v29++ < 2;
-      }
-
-      while (v49);
-    }
-
-    buf[v31] = 0;
-    v44 = inet_pton(2, buf, &v64 + 4);
-    v45 = v53;
-    if (v44 != 1)
-    {
-      goto LABEL_83;
-    }
-
-LABEL_107:
-    if (v45)
-    {
-      v48 = v45;
-      do
-      {
-        v50 = v48 - 8;
-        v49 = v48 <= 8;
-        if (v48 >= 8)
-        {
-          v48 = 8;
-        }
-
-        *v42++ = cidr_string_to_subnet_and_mask_bb[v48 - 1];
-        v48 = v50;
-      }
-
-      while (!v49);
-      valuea = v45;
-    }
-
-    else
-    {
-      valuea = 0;
-    }
-
-    v16 = v56;
-    v39 = [MEMORY[0x1E695DEF0] dataWithBytes:&v64 length:{28, v52}];
-    v51 = [MEMORY[0x1E695DEF0] dataWithBytes:&v60 length:28];
-    xpc_dictionary_set_data(v17, "NSParsedCIDRAddressKey", [v39 bytes], objc_msgSend(v39, "length"));
-    xpc_dictionary_set_data(v17, "NSParsedCIDRMaskKey", [v51 bytes], objc_msgSend(v51, "length"));
-    xpc_dictionary_set_uint64(v17, "NSParsedCIDRPrefixKey", valuea);
-
-    v38 = v57;
-  }
-
-  else
-  {
-    if (v53 <= 0x80)
-    {
-      LOWORD(v60) = 7708;
-      LOWORD(v64) = 7708;
-      *&v69[15] = 0xAAAAAAAAAAAAAAAALL;
-      *&v46 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v46 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      *buf = v46;
-      *v69 = v46;
-      if (v31 <= 0x25)
-      {
-        __memcpy_chk();
-        if (!(v27 & 1 | (v28 > 6)))
-        {
-          if (v31 - 36 < 0xFFFFFFFFFFFFFFD9)
-          {
-            goto LABEL_83;
-          }
-
-          buf[v31] = 58;
-          buf[v52] = 58;
-          v31 += 2;
-        }
-
-        buf[v31] = 0;
-        v47 = inet_pton(30, buf, &v65);
-        v45 = v53;
-        if (v47 == 1)
-        {
-          v42 = &v61;
-          goto LABEL_107;
-        }
-      }
-    }
-
-LABEL_83:
-    block[0] = MEMORY[0x1E69E9820];
-    block[1] = 3221225472;
-    block[2] = __sec_protocol_configuration_set_ats_overrides_block_invoke_59;
-    block[3] = &unk_1E70E4300;
-    v59 = v7;
-    if (_block_invoke_onceToken != -1)
-    {
-      dispatch_once(&_block_invoke_onceToken, block);
-    }
-
-    v16 = v56;
-    v38 = v57;
-    v39 = v59;
-  }
-
-  v22 = *(v38 + 32);
-LABEL_87:
-  xpc_dictionary_set_value(v22, [v7 cStringUsingEncoding:4], v17);
-
-LABEL_88:
-  v40 = *MEMORY[0x1E69E9840];
-}
-
 void __sec_protocol_configuration_set_ats_overrides_block_invoke_59(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = 138543362;
-    v5 = v3;
-    _os_log_fault_impl(&dword_1887D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "App Transport Security exception %{public}@ is not a valid CIDR notation.", &v4, 0xCu);
+    v2 = *(a1 + 32);
+    v3 = 138543362;
+    v4 = v2;
+    _os_log_fault_impl(&dword_1887D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "App Transport Security exception %{public}@ is not a valid CIDR notation.", &v3, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t SECSFAActionTapToRadarReadFrom(uint64_t a1, void *a2)
@@ -1031,19 +90,19 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void sub_18885F3CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_18885F3CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
   v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
   v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -1056,42 +115,42 @@ uint64_t __Block_byref_object_copy__5565(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_188860154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_188860154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_188863518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_188863518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 64), 8);
+  _Block_object_dispose((v13 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_188863870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_188863870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1888645E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1888645E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
   v17 = va_arg(va1, void);
   v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1121,9 +180,9 @@ id getAAFAnalyticsEventSecurityClass()
   return v1;
 }
 
-void sub_188865308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_188865308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1161,9 +220,9 @@ void getkSecurityRTCEventNameOctagonTrustLost()
   }
 }
 
-void sub_18886546C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18886546C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1201,9 +260,9 @@ void getkSecurityRTCEventCategoryAccountDataAccessRecovery()
   }
 }
 
-void sub_1888655D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1888655D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1241,9 +300,9 @@ void getkSecurityRTCErrorDomain()
   }
 }
 
-void sub_188865734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_188865734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1259,18 +318,18 @@ void *__getkSecurityRTCErrorDomainSymbolLoc_block_invoke(uint64_t a1)
 
 void *KeychainCircleLibrary()
 {
-  v5[9] = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v4[9] = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!KeychainCircleLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __KeychainCircleLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v5[7] = 0;
-    v5[8] = 0;
-    v5[6] = "/System/Library/PrivateFrameworks/KeychainCircle.framework/KeychainCircle";
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __KeychainCircleLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v4[7] = 0;
+    v4[8] = 0;
+    v4[6] = "/System/Library/PrivateFrameworks/KeychainCircle.framework/KeychainCircle";
     KeychainCircleLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
@@ -1278,31 +337,27 @@ void *KeychainCircleLibrary()
   if (!KeychainCircleLibraryCore_frameworkLibrary)
   {
     v0 = [MEMORY[0x1E696AAA8] currentHandler];
-    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *KeychainCircleLibrary(void)"];
-    [v0 handleFailureInFunction:v4 file:@"OTClique.m" lineNumber:71 description:{@"%s", v5[0]}];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *KeychainCircleLibrary(void)"];
+    [v0 handleFailureInFunction:v3 file:@"OTClique.m" lineNumber:71 description:{@"%s", v4[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v1 = v5[0];
-  if (v5[0])
+  v1 = v4[0];
+  if (v4[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
 uint64_t __KeychainCircleLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   KeychainCircleLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1343,11 +398,19 @@ void __getAAFAnalyticsEventSecurityClass_block_invoke(uint64_t a1)
   }
 }
 
-void sub_188866B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_18886618C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_188866B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
   _Block_object_dispose(&a19, 8);
   _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a35, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1375,9 +438,9 @@ id getKCPairingChannelClass()
   return v1;
 }
 
-void sub_1888671EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1888671EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1401,22 +464,22 @@ void __getKCPairingChannelClass_block_invoke(uint64_t a1)
   }
 }
 
-void sub_188867B60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_188867B60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  _Block_object_dispose((v15 - 144), 8);
+  va_start(va, a22);
+  _Block_object_dispose((v22 - 144), 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_188868814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_188868814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -1431,9 +494,10 @@ void *__getkSecurityRTCEventNameEstablishSymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-void sub_188869348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_188869348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose(&a31, 8);
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
   _Block_object_dispose(&a25, 8);
   _Unwind_Resume(a1);
 }
@@ -1447,9 +511,9 @@ void *__getkSecurityRTCEventNameCliqueMemberIdentifierSymbolLoc_block_invoke(uin
   return result;
 }
 
-void sub_188869DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_188869DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1487,9 +551,9 @@ void getkSecurityRTCFieldAccountIsG()
   }
 }
 
-void sub_188869F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_188869F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1527,9 +591,9 @@ void getkSecurityRTCFieldAccountIsDBR()
   }
 }
 
-void sub_18886A0D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18886A0D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1576,9 +640,9 @@ void getkSecurityRTCFieldAccountIsW()
   }
 }
 
-void sub_18886A3CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18886A3CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1610,9 +674,9 @@ void *__getkSecurityRTCFieldAccountIsGSymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-void sub_18886AE78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_18886AE78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1653,153 +717,154 @@ void *__getkSecurityRTCEventNameResetSOSSymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-void sub_18886C83C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_18886C83C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_18886CBD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_18886D158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
+  va_start(va1, a15);
   va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_18886D924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_18886E0DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_18886E884(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_18886F000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_18886F76C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_18886FEF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_188870698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_188870E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_188871608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_188871DB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_18887252C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_188872C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_188873428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1888748B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 144), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_188874DC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18886CBD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a9);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18887706C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_18886D158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v26 - 160), 8);
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_18886D924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_18886E0DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_18886E884(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_18886F000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_18886F76C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_18886FEF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_188870698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_188870E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_188871608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_188871DB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_18887252C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_188872C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_188873428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1888748B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Block_object_dispose((v16 - 144), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_188874DC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v16 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_18887706C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v25 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1874,7 +939,7 @@ __CFString *OTCDPStatusToString(uint64_t a1)
 
 id deserializedRecordFromRow(void *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [v1 indexForColumnName:@"data"];
   if (v2 == 0x7FFFFFFFFFFFFFFFLL)
@@ -1886,9 +951,9 @@ id deserializedRecordFromRow(void *a1)
   {
     v4 = MEMORY[0x1E696ACB0];
     v5 = [v1 blobAtIndex:v2];
-    v10 = 0;
-    v3 = [v4 JSONObjectWithData:v5 options:3 error:&v10];
-    v6 = v10;
+    v9 = 0;
+    v3 = [v4 JSONObjectWithData:v5 options:3 error:&v9];
+    v6 = v9;
 
     if (v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
@@ -1896,7 +961,7 @@ id deserializedRecordFromRow(void *a1)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v12 = v6;
+        v11 = v6;
         _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, "SFAnalytics: failed to deserialize record: %{public}@", buf, 0xCu);
       }
 
@@ -1904,29 +969,25 @@ id deserializedRecordFromRow(void *a1)
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 id makeLightweightCodeRequirement(const __CFData *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6 = 0;
-  v1 = [sec_LWCR withData:a1 withError:&v6];
-  v2 = v6;
+  v8 = *MEMORY[0x1E69E9840];
+  v5 = 0;
+  v1 = [sec_LWCR withData:a1 withError:&v5];
+  v2 = v5;
   if (v2)
   {
     v3 = secLogObjForScope("SecError");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v8 = "makeLightweightCodeRequirement";
+      v7 = "makeLightweightCodeRequirement";
       _os_log_impl(&dword_1887D2000, v3, OS_LOG_TYPE_DEFAULT, "%s: failed to parse LightweightCodeRequirement", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v1;
 }
@@ -1965,34 +1026,35 @@ void bindAndAddStringFact(void *a1, const char *a2, uint64_t a3)
   bindAndAdd(v7, a2, v6);
 }
 
-void sub_18887994C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_18887994C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = sec_LWCR;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_188879F68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_188879F68(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = sec_LWCRFact;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_18887A688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, id a30)
+void sub_18887A688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, ...)
 {
-  v34 = *(v32 - 104);
-  if (v34)
+  va_start(va, a29);
+  v33 = *(v31 - 104);
+  if (v33)
   {
-    libkern::safe_allocation<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>,os_detail::IOKit_typed_allocator<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>>,os_detail::panic_trapping_policy>::destroy_dealloc_(v34, *(v32 - 96));
+    libkern::safe_allocation<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>,os_detail::IOKit_typed_allocator<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>>,os_detail::panic_trapping_policy>::destroy_dealloc_(v33, *(v31 - 96));
   }
 
-  TLE::CallbackEncyclopedia::~CallbackEncyclopedia(&a30);
+  TLE::CallbackEncyclopedia::~CallbackEncyclopedia(va);
 
   _Unwind_Resume(a1);
 }
 
-void **libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>::reset(void **a1)
+TLE::RefCounted **libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>::reset(TLE::RefCounted **a1)
 {
   v2 = *a1;
   if (v2)
@@ -2087,7 +1149,7 @@ LABEL_14:
   }
 }
 
-void sub_18887AC2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, unsigned int a15)
+void sub_18887AC2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, TLE::RefCounted **a14, unsigned int a15)
 {
   if (a14)
   {
@@ -2097,19 +1159,19 @@ void sub_18887AC2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void TLE::opArrayOpDeserializer(uint64_t a1, uint64_t a2, const der_vm_context *a3, _DWORD *a4)
+void TLE::opArrayOpDeserializer(uint64_t result, uint64_t a2, const der_vm_context *a3, _DWORD *a4)
 {
   if (*a4)
   {
-    *a1 = 0u;
-    *(a1 + 16) = 0u;
-    *(a1 + 32) = 0;
-    *a1 = 6;
+    *result = 0u;
+    *(result + 16) = 0u;
+    *(result + 32) = 0;
+    *result = 6;
     v5 = "factless operator disallowed for active fact";
     v6 = 44;
 LABEL_11:
-    *(a1 + 8) = v5;
-    *(a1 + 16) = v6;
+    *(result + 8) = v5;
+    *(result + 16) = v6;
     return;
   }
 
@@ -2120,10 +1182,10 @@ LABEL_11:
   der_end = a3->var0.ccstate.der_end;
   if (der_vm_CEType_from_context() != 2)
   {
-    *a1 = 0u;
-    *(a1 + 16) = 0u;
-    *(a1 + 32) = 0;
-    *a1 = 3;
+    *result = 0u;
+    *(result + 16) = 0u;
+    *(result + 32) = 0;
+    *result = 3;
     v5 = "Got an unexpected type (not a sequence) when trying to read the array of matches.";
     v6 = 81;
     goto LABEL_11;
@@ -2132,10 +1194,10 @@ LABEL_11:
   v9 = count_ce_elements(a3);
   if (!v9)
   {
-    *a1 = 0u;
-    *(a1 + 16) = 0u;
-    *(a1 + 32) = 0;
-    *a1 = 4;
+    *result = 0u;
+    *(result + 16) = 0u;
+    *(result + 32) = 0;
+    *result = 4;
     v5 = "The array of dependent operations is empty.";
     v6 = 43;
     goto LABEL_11;
@@ -2173,16 +1235,16 @@ LABEL_11:
   v12 = *(&v15 + 1) + 40;
   if (*(*(&v15 + 1) + 40))
   {
-    *(a1 + 32) = 0;
-    *(a1 + 24) = 0;
+    *(result + 32) = 0;
+    *(result + 24) = 0;
     v13 = *v12;
-    *(a1 + 16) = *(v12 + 16);
-    *a1 = v13;
+    *(result + 16) = *(v12 + 16);
+    *result = v13;
   }
 
   else
   {
-    TLE::Tuple<TLE::Error,libkern::safe_allocation<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>,os_detail::IOKit_typed_allocator<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>>,os_detail::panic_trapping_policy>>::Tuple(a1, &v20);
+    TLE::Tuple<TLE::Error,libkern::safe_allocation<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>,os_detail::IOKit_typed_allocator<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>>,os_detail::panic_trapping_policy>>::Tuple(result, &v20);
   }
 
   _Block_object_dispose(v14, 8);
@@ -2193,20 +1255,20 @@ LABEL_11:
   }
 }
 
-void sub_18887AEA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_18887AEA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  v13 = *(v11 - 80);
-  if (v13)
+  v20 = *(v18 - 80);
+  if (v20)
   {
-    libkern::safe_allocation<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>,os_detail::IOKit_typed_allocator<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>>,os_detail::panic_trapping_policy>::destroy_dealloc_(v13, *(v11 - 72));
+    libkern::safe_allocation<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>,os_detail::IOKit_typed_allocator<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>>,os_detail::panic_trapping_policy>::destroy_dealloc_(v20, *(v18 - 72));
   }
 
   _Unwind_Resume(a1);
@@ -2267,7 +1329,7 @@ void **libkern::intrusive_shared_ptr<TLE::OrOperation,TLE::RefCountPolicy>::rese
   return a1;
 }
 
-void libkern::safe_allocation<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>,os_detail::IOKit_typed_allocator<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>>,os_detail::panic_trapping_policy>::destroy_dealloc_(void **a1, uint64_t a2)
+void libkern::safe_allocation<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>,os_detail::IOKit_typed_allocator<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>>,os_detail::panic_trapping_policy>::destroy_dealloc_(TLE::RefCounted **a1, uint64_t a2)
 {
   v2 = a1;
   if (a2)
@@ -2297,9 +1359,9 @@ uint64_t count_ce_elements(const der_vm_context *a1)
   return v1;
 }
 
-void sub_18887B0EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18887B0EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2314,36 +1376,36 @@ __n128 __Block_byref_object_copy__5983(uint64_t a1, uint64_t a2)
 
 BOOL ___ZN3TLE21opArrayOpDeserializerERNS_8ExecutorER14der_vm_contextRKNS_14FactDefinitionE_block_invoke(void *a1, uint64_t a2)
 {
-  v35 = 0u;
-  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v3 = a1[7];
   if (*v3)
   {
-    LODWORD(v35) = 6;
+    LODWORD(v33) = 6;
     v4 = "factless operator disallowed for active fact";
     v5 = 44;
 LABEL_9:
-    *(&v35 + 1) = v4;
-    *&v36 = v5;
+    *(&v33 + 1) = v4;
+    *&v34 = v5;
 LABEL_10:
     v10 = 0;
     v11 = *(a1[4] + 8);
-    *(v11 + 40) = v35;
-    *(v11 + 56) = v36;
+    *(v11 + 40) = v33;
+    *(v11 + 56) = v34;
     goto LABEL_11;
   }
 
   v7 = a1[6];
   v8 = *(a2 + 72);
-  v44 = *(a2 + 56);
-  v45 = v8;
-  v46 = *(a2 + 88);
-  v47 = *(a2 + 104);
+  *&v39.runtime = *(a2 + 56);
+  *&v39.lookup.index_count = v8;
+  *&v39.sorted = *(a2 + 88);
+  v39.var0.ccstate.der_end = *(a2 + 104);
   if (der_vm_CEType_from_context() != 2)
   {
-    v35 = 0u;
-    v36 = 0u;
-    LODWORD(v35) = 6;
+    v33 = 0u;
+    v34 = 0u;
+    LODWORD(v33) = 6;
     v4 = "Non array element found in operator Array";
     v5 = 41;
     goto LABEL_9;
@@ -2351,40 +1413,28 @@ LABEL_10:
 
   if (count_ce_elements((a2 + 56)) != 2)
   {
-    v35 = 0u;
-    v36 = 0u;
-    LODWORD(v35) = 6;
+    v33 = 0u;
+    v34 = 0u;
+    LODWORD(v33) = 6;
     v4 = "Incorrect number of elements in operator Array tuple";
     v5 = 52;
     goto LABEL_9;
   }
 
-  v43 = 0;
-  v41 = 0u;
-  v42 = 0u;
-  TLE::keyForContext(&v41, (a2 + 56));
-  if (v41)
+  v38 = 0;
+  v36 = 0u;
+  v37 = 0u;
+  TLE::keyForContext(&v36, (a2 + 56));
+  if (v36)
   {
-    v35 = v41;
-    v36 = v42;
+    v33 = v36;
+    v34 = v37;
     goto LABEL_27;
   }
 
-  v47 = 0;
-  v45 = 0u;
-  v46 = 0u;
-  v44 = 0u;
-  v13 = *(a2 + 72);
-  v37 = *(a2 + 56);
-  v38 = v13;
-  v39 = *(a2 + 88);
-  v40 = *(a2 + 104);
-  v14 = *MEMORY[0x1E69E50A8];
+  memset(&v39, 0, sizeof(v39));
   der_vm_execute_nocopy();
-  v37 = v44;
-  v38 = v45;
-  v39 = v46;
-  v40 = v47;
+  v35 = v39;
   if (der_vm_CEType_from_context() == 1)
   {
     if (CEBuffer_cmp())
@@ -2393,35 +1443,32 @@ LABEL_10:
       {
         if (!CEBuffer_cmp())
         {
-          TLE::optionalOpDeserializer(v7, &v44, v3, &v35);
+          TLE::optionalOpDeserializer(v7, &v39, v3, &v33);
           goto LABEL_27;
         }
 
         goto LABEL_20;
       }
 
-      TLE::orDeserializer(v7, &v44, v3, &v35);
+      TLE::orDeserializer(v7, &v39, v3, &v33);
     }
 
     else
     {
-      TLE::andDeserializer(v7, &v44, v3, &v35);
+      TLE::andDeserializer(v7, &v39, v3, &v33);
     }
   }
 
   else
   {
-    v37 = v44;
-    v38 = v45;
-    v39 = v46;
-    v40 = v47;
+    v35 = v39;
     if (der_vm_CEType_from_context() != 2)
     {
-      v35 = 0u;
-      v36 = 0u;
-      LODWORD(v35) = 3;
-      v15 = "Unexpected type in Array tuple";
-      v16 = 30;
+      v33 = 0u;
+      v34 = 0u;
+      LODWORD(v33) = 3;
+      v13 = "Unexpected type in Array tuple";
+      v14 = 30;
       goto LABEL_22;
     }
 
@@ -2430,41 +1477,41 @@ LABEL_10:
       if (CEBuffer_cmp())
       {
 LABEL_20:
-        v35 = 0u;
-        v36 = 0u;
-        LODWORD(v35) = 9;
-        v15 = "Unexpected operator in Array tuple";
-        v16 = 34;
+        v33 = 0u;
+        v34 = 0u;
+        LODWORD(v33) = 9;
+        v13 = "Unexpected operator in Array tuple";
+        v14 = 34;
 LABEL_22:
-        *(&v35 + 1) = v15;
-        *&v36 = v16;
+        *(&v33 + 1) = v13;
+        *&v34 = v14;
         goto LABEL_27;
       }
 
-      TLE::orArrayOpDeserializer(&v35, v7, &v44, v3);
+      TLE::orArrayOpDeserializer(v7, &v39, v3, &v33);
     }
 
     else
     {
-      TLE::andArrayOpDeserializer(v7, &v44, v3, &v35);
+      TLE::andArrayOpDeserializer(v7, &v39, v3, &v33);
     }
   }
 
 LABEL_27:
-  if (v35)
+  if (v33)
   {
     goto LABEL_10;
   }
 
-  v17 = a1[8];
-  v18 = *(*(a1[5] + 8) + 24);
-  v19 = *v17;
-  if (*v17)
+  v15 = a1[8];
+  v16 = *(*(a1[5] + 8) + 24);
+  v17 = *v15;
+  if (*v15)
   {
-    v20 = v19 + 8 * *(v17 + 2);
-    v21 = v20 >= v19;
-    v22 = v20 - v19;
-    if (!v21 || HIDWORD(v22))
+    v18 = v17 + 8 * *(v15 + 2);
+    v19 = v18 >= v17;
+    v20 = v18 - v17;
+    if (!v19 || HIDWORD(v20))
     {
       os_detail::panic_trapping_policy::trap("The range of valid memory is too large to be represented by this type, or [begin, end) is not a well-formed range", v9);
     }
@@ -2472,80 +1519,80 @@ LABEL_27:
 
   else
   {
-    LODWORD(v22) = 0;
+    LODWORD(v20) = 0;
   }
 
-  if (v18 >= 0)
+  if (v16 >= 0)
   {
-    v23 = *(*(a1[5] + 8) + 24);
-  }
-
-  else
-  {
-    v23 = -v18;
-  }
-
-  v24 = (v18 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
-  if (v18 >= 0)
-  {
-    v25 = 8 * v23;
+    v21 = *(*(a1[5] + 8) + 24);
   }
 
   else
   {
-    v25 = -8 * v23;
+    v21 = -v16;
   }
 
-  if (v23 >> 61)
+  v22 = (v16 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+  if (v16 >= 0)
   {
-    v26 = 1;
+    v23 = 8 * v21;
   }
 
   else
   {
-    v26 = 8 * v23 > v24;
+    v23 = -8 * v21;
   }
 
-  if (v26)
+  if (v21 >> 61)
   {
-    v27 = "bounded_ptr<T>::operator+=(n): Calculating the number of bytes to add to the offset (n * sizeof(T)) would trigger an overflow";
+    v24 = 1;
+  }
+
+  else
+  {
+    v24 = 8 * v21 > v22;
+  }
+
+  if (v24)
+  {
+    v25 = "bounded_ptr<T>::operator+=(n): Calculating the number of bytes to add to the offset (n * sizeof(T)) would trigger an overflow";
     goto LABEL_58;
   }
 
-  if (v25 != v25)
+  if (v23 != v23)
   {
-    v27 = "bounded_ptr<T>::operator+=(n): Adding the specified number of bytes to the offset representing the current position would overflow.";
+    v25 = "bounded_ptr<T>::operator+=(n): Adding the specified number of bytes to the offset representing the current position would overflow.";
     goto LABEL_58;
   }
 
-  v27 = "bounded_ptr<T>::operator*: Dereferencing this pointer would access memory outside of the bounds set originally";
-  if ((v25 & 0x80000000) != 0 || v25 + 8 > v22 || ((v21 = __CFADD__(v19, v25 & 0x7FFFFFF8), v28 = (v19 + (v25 & 0x7FFFFFF8)), !v21) ? (v29 = 0) : (v29 = 1), (v30 = v29 << 63 >> 63, v27 = "This bounded_ptr is pointing to memory outside of what can be represented by a native pointer.", v30 ^ v29) || v30 < 0))
+  v25 = "bounded_ptr<T>::operator*: Dereferencing this pointer would access memory outside of the bounds set originally";
+  if ((v23 & 0x80000000) != 0 || v23 + 8 > v20 || ((v19 = __CFADD__(v17, v23 & 0x7FFFFFF8), v26 = (v17 + (v23 & 0x7FFFFFF8)), !v19) ? (v27 = 0) : (v27 = 1), (v28 = v27 << 63 >> 63, v25 = "This bounded_ptr is pointing to memory outside of what can be represented by a native pointer.", v28 ^ v27) || v28 < 0))
   {
 LABEL_58:
-    os_detail::panic_trapping_policy::trap(v27, v9);
+    os_detail::panic_trapping_policy::trap(v25, v9);
   }
 
-  libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>::reset(v28, *(&v36 + 1));
-  *(&v36 + 1) = 0;
-  v31 = *(a1[5] + 8);
-  v32 = *(v31 + 24);
-  v33 = (((v32 == -1) << 63) >> 63) ^ (v32 == -1);
-  if (v33)
+  libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>::reset(v26, *(&v34 + 1));
+  *(&v34 + 1) = 0;
+  v29 = *(a1[5] + 8);
+  v30 = *(v29 + 24);
+  v31 = (((v30 == -1) << 63) >> 63) ^ (v30 == -1);
+  if (v31)
   {
-    v34 = *(a1[4] + 8);
-    *(v34 + 40) = 10;
-    *(v34 + 48) = "Array contains too many elements";
-    *(v34 + 56) = 32;
+    v32 = *(a1[4] + 8);
+    *(v32 + 40) = 10;
+    *(v32 + 48) = "Array contains too many elements";
+    *(v32 + 56) = 32;
   }
 
   else
   {
-    *(v31 + 24) = v32 + 1;
+    *(v29 + 24) = v30 + 1;
   }
 
-  v10 = v33 == 0;
+  v10 = v31 == 0;
 LABEL_11:
-  libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>::reset(&v36 + 1);
+  libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>::reset(&v34 + 1);
   return v10;
 }
 
@@ -2567,8 +1614,6 @@ uint64_t TLE::Tuple<TLE::Error,libkern::safe_allocation<libkern::intrusive_share
 
 uint64_t TLE::keyForContext(TLE *this, der_vm_context *a2)
 {
-  v7 = *a2;
-  v3 = *MEMORY[0x1E69E50A0];
   der_vm_execute_nocopy();
   result = der_vm_CEType_from_context();
   if (result == 4)
@@ -2578,7 +1623,7 @@ uint64_t TLE::keyForContext(TLE *this, der_vm_context *a2)
     *(this + 1) = 0;
     *(this + 2) = 0;
     *(this + 3) = result;
-    v6 = 32;
+    v5 = 32;
   }
 
   else
@@ -2588,11 +1633,11 @@ uint64_t TLE::keyForContext(TLE *this, der_vm_context *a2)
     *(this + 1) = 0u;
     *this = 3;
     *(this + 1) = "Expected operator string in Array tuple";
-    v5 = 39;
-    v6 = 16;
+    v4 = 39;
+    v5 = 16;
   }
 
-  *(this + v6) = v5;
+  *(this + v5) = v4;
   return result;
 }
 
@@ -2617,7 +1662,7 @@ void TLE::andDeserializer(uint64_t a1@<X0>, uint64_t a2@<X1>, _DWORD *a3@<X2>, u
     *&v9.lookup.index_count = v5;
     *&v9.sorted = *(a2 + 32);
     v9.var0.ccstate.der_end = *(a2 + 48);
-    TLE::Executor::getDependentOpsFromDictionary(&v10, a1, &v9);
+    TLE::Executor::getDependentOpsFromDictionary(&v10, a1, &v9, a3, 1, 0, 0);
     if (v10)
     {
       *a4 = v10;
@@ -2694,7 +1739,7 @@ void TLE::orDeserializer(uint64_t a1@<X0>, uint64_t a2@<X1>, _DWORD *a3@<X2>, ui
     *&v9.lookup.index_count = v5;
     *&v9.sorted = *(a2 + 32);
     v9.var0.ccstate.der_end = *(a2 + 48);
-    TLE::Executor::getDependentOpsFromDictionary(&v10, a1, &v9);
+    TLE::Executor::getDependentOpsFromDictionary(&v10, a1, &v9, a3, 1, 0, 0);
     if (v10)
     {
       *a4 = v10;
@@ -2750,45 +1795,44 @@ void sub_18887BA6C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void TLE::optionalOpDeserializer(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned int *a3@<X2>, uint64_t a4@<X8>)
+void TLE::optionalOpDeserializer(uint64_t a1@<X0>, uint64_t a2@<X1>, _DWORD *a3@<X2>, uint64_t a4@<X8>)
 {
-  v12 = 0;
-  v10 = 0u;
-  *v11 = 0u;
+  v11 = 0;
+  v9 = 0u;
+  *v10 = 0u;
   v5 = *(a2 + 16);
-  *&v9.runtime = *a2;
-  *&v9.lookup.index_count = v5;
-  *&v9.sorted = *(a2 + 32);
-  v9.var0.ccstate.der_end = *(a2 + 48);
-  v6 = *a3;
-  TLE::Executor::getDependentOpsFromDictionary(&v10, a1, &v9);
-  if (v10)
+  *&v8.runtime = *a2;
+  *&v8.lookup.index_count = v5;
+  *&v8.sorted = *(a2 + 32);
+  v8.var0.ccstate.der_end = *(a2 + 48);
+  TLE::Executor::getDependentOpsFromDictionary(&v9, a1, &v8, a3, *a3 == 0, 3, &TLE::restrict_list);
+  if (v9)
   {
-    *a4 = v10;
-    *(a4 + 16) = v11[0];
+    *a4 = v9;
+    *(a4 + 16) = v10[0];
     *(a4 + 24) = 0;
   }
 
   else
   {
-    if (v12 == 1)
+    if (v11 == 1)
     {
-      v9.runtime = 0;
-      if (v11[1])
+      v8.runtime = 0;
+      if (v10[1])
       {
-        v8 = 8 * v12;
-        if (v11[1] + v8 < v11[1] || HIDWORD(v8))
+        v7 = 8 * v11;
+        if (v10[1] + v7 < v10[1] || HIDWORD(v7))
         {
-          os_detail::panic_trapping_policy::trap("The range of valid memory is too large to be represented by this type, or [begin, end) is not a well-formed range", v7);
+          os_detail::panic_trapping_policy::trap("The range of valid memory is too large to be represented by this type, or [begin, end) is not a well-formed range", v6);
         }
 
-        if (v8 >= 8)
+        if (v7 >= 8)
         {
           operator new();
         }
       }
 
-      os_detail::panic_trapping_policy::trap("bounded_ptr<T>::operator*: Dereferencing this pointer would access memory outside of the bounds set originally", v7);
+      os_detail::panic_trapping_policy::trap("bounded_ptr<T>::operator*: Dereferencing this pointer would access memory outside of the bounds set originally", v6);
     }
 
     *a4 = 0u;
@@ -2798,13 +1842,13 @@ void TLE::optionalOpDeserializer(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned in
     *(a4 + 16) = 52;
   }
 
-  if (v11[1])
+  if (v10[1])
   {
-    libkern::safe_allocation<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>,os_detail::IOKit_typed_allocator<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>>,os_detail::panic_trapping_policy>::destroy_dealloc_(v11[1], v12);
+    libkern::safe_allocation<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>,os_detail::IOKit_typed_allocator<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>>,os_detail::panic_trapping_policy>::destroy_dealloc_(v10[1], v11);
   }
 }
 
-void sub_18887BC1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void **a20, unsigned int a21)
+void sub_18887BC1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, TLE::RefCounted **a20, int a21)
 {
   if (a20)
   {
@@ -2814,7 +1858,7 @@ void sub_18887BC1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void TLE::andArrayOpDeserializer(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+void TLE::andArrayOpDeserializer(uint64_t a1@<X0>, const der_vm_context *a2@<X1>, _DWORD *a3@<X2>, uint64_t a4@<X8>)
 {
   v10 = 0;
   v8 = 0u;
@@ -2863,7 +1907,7 @@ LABEL_14:
   }
 }
 
-void sub_18887BD9C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, unsigned int a15)
+void sub_18887BD9C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, TLE::RefCounted **a14, int a15)
 {
   if (a14)
   {
@@ -2885,29 +1929,29 @@ void **libkern::intrusive_shared_ptr<TLE::AndOperation,TLE::RefCountPolicy>::res
   return a1;
 }
 
-void TLE::Executor::getDependentOpsFromDictionary(uint64_t a1, uint64_t a2, const der_vm_context *a3)
+void TLE::Executor::getDependentOpsFromDictionary(uint64_t a1, uint64_t a2, const der_vm_context *a3, uint64_t a4, char a5, uint64_t a6, uint64_t a7)
 {
-  v5 = *(a2 + 8);
-  *(a2 + 8) = v5 + 1;
-  if ((v5 + 1) >= 6)
+  v9 = *(a2 + 8);
+  *(a2 + 8) = v9 + 1;
+  if ((v9 + 1) >= 6)
   {
-    *(a2 + 8) = v5;
+    *(a2 + 8) = v9;
     *a1 = 0u;
     *(a1 + 16) = 0u;
     *(a1 + 32) = 0;
     *a1 = 8;
-    v6 = "Constraint is too deeply nested. Failing to avoid recursion overflow";
-    v7 = 68;
+    v10 = "Constraint is too deeply nested. Failing to avoid recursion overflow";
+    v11 = 68;
 LABEL_11:
-    *(a1 + 8) = v6;
-    *(a1 + 16) = v7;
+    *(a1 + 8) = v10;
+    *(a1 + 16) = v11;
     return;
   }
 
-  v9 = *&a3->lookup.index_count;
-  v17 = *&a3->runtime;
-  v18 = v9;
-  v19 = *&a3->sorted;
+  v13 = *&a3->lookup.index_count;
+  v21 = *&a3->runtime;
+  v22 = v13;
+  v23 = *&a3->sorted;
   der_end = a3->var0.ccstate.der_end;
   if (der_vm_CEType_from_context() != 1)
   {
@@ -2916,92 +1960,92 @@ LABEL_11:
     *(a1 + 16) = 0u;
     *(a1 + 32) = 0;
     *a1 = 3;
-    v6 = "Got an unexpected type (not a dictionary) when trying to generate dependent operations for evaluation.";
-    v7 = 102;
+    v10 = "Got an unexpected type (not a dictionary) when trying to generate dependent operations for evaluation.";
+    v11 = 102;
     goto LABEL_11;
   }
 
-  v10 = count_ce_elements(a3);
-  if (!v10)
+  v14 = count_ce_elements(a3);
+  if (!v14)
   {
     --*(a2 + 8);
     *a1 = 0u;
     *(a1 + 16) = 0u;
     *(a1 + 32) = 0;
     *a1 = 4;
-    v6 = "The dictionary of dependent operations is empty.";
-    v7 = 48;
+    v10 = "The dictionary of dependent operations is empty.";
+    v11 = 48;
     goto LABEL_11;
   }
 
-  v11 = v10;
-  v23 = 0;
-  if (HIDWORD(v10))
+  v15 = v14;
+  v27 = 0;
+  if (HIDWORD(v14))
   {
-    v12 = 0;
-    LODWORD(v11) = 0;
+    v16 = 0;
+    LODWORD(v15) = 0;
   }
 
   else
   {
-    v12 = malloc_type_malloc(8 * v10, 0x2000093837F09uLL);
-    bzero(v12, 8 * v11);
+    v16 = malloc_type_malloc(8 * v14, 0x2000093837F09uLL);
+    bzero(v16, 8 * v15);
   }
 
-  v22 = v12;
-  LODWORD(v23) = v11;
-  *&v17 = 0;
-  *(&v17 + 1) = &v17;
-  *&v18 = 0x4002000000;
-  *(&v18 + 1) = __Block_byref_object_copy__5983;
-  *&v19 = __Block_byref_object_dispose__5984;
-  *(&v19 + 1) = 0;
+  v26 = v16;
+  LODWORD(v27) = v15;
+  *&v21 = 0;
+  *(&v21 + 1) = &v21;
+  *&v22 = 0x4002000000;
+  *(&v22 + 1) = __Block_byref_object_copy__5983;
+  *&v23 = __Block_byref_object_dispose__5984;
+  *(&v23 + 1) = 0;
   der_end = 0;
-  v21 = 0;
-  v16[0] = 0;
-  v16[1] = v16;
-  v16[2] = 0x2000000000;
-  v16[3] = 0;
+  v25 = 0;
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x2000000000;
+  v20[3] = 0;
   der_vm_iterate_b();
-  v13 = *(&v17 + 1) + 40;
-  v14 = *(*(&v17 + 1) + 40);
+  v17 = *(&v21 + 1) + 40;
+  v18 = *(*(&v21 + 1) + 40);
   --*(a2 + 8);
-  if (v14)
+  if (v18)
   {
     *(a1 + 32) = 0;
     *(a1 + 24) = 0;
-    v15 = *v13;
-    *(a1 + 16) = *(v13 + 16);
-    *a1 = v15;
+    v19 = *v17;
+    *(a1 + 16) = *(v17 + 16);
+    *a1 = v19;
   }
 
   else
   {
-    TLE::Tuple<TLE::Error,libkern::safe_allocation<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>,os_detail::IOKit_typed_allocator<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>>,os_detail::panic_trapping_policy>>::Tuple(a1, &v22);
+    TLE::Tuple<TLE::Error,libkern::safe_allocation<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>,os_detail::IOKit_typed_allocator<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>>,os_detail::panic_trapping_policy>>::Tuple(a1, &v26);
   }
 
-  _Block_object_dispose(v16, 8);
-  _Block_object_dispose(&v17, 8);
-  if (v22)
+  _Block_object_dispose(v20, 8);
+  _Block_object_dispose(&v21, 8);
+  if (v26)
   {
-    libkern::safe_allocation<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>,os_detail::IOKit_typed_allocator<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>>,os_detail::panic_trapping_policy>::destroy_dealloc_(v22, v23);
+    libkern::safe_allocation<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>,os_detail::IOKit_typed_allocator<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>>,os_detail::panic_trapping_policy>::destroy_dealloc_(v26, v27);
   }
 }
 
-void sub_18887C0A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_18887C0A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v16 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
-  v20 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v23 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  v27 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  v15 = *(v13 - 104);
-  if (v15)
+  v22 = *(v20 - 104);
+  if (v22)
   {
-    libkern::safe_allocation<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>,os_detail::IOKit_typed_allocator<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>>,os_detail::panic_trapping_policy>::destroy_dealloc_(v15, *(v13 - 96));
+    libkern::safe_allocation<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>,os_detail::IOKit_typed_allocator<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>>,os_detail::panic_trapping_policy>::destroy_dealloc_(v22, *(v20 - 96));
   }
 
   _Unwind_Resume(a1);
@@ -3009,316 +2053,311 @@ void sub_18887C0A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t ___ZN3TLE8Executor29getDependentOpsFromDictionaryE14der_vm_contextRKNS_14FactDefinitionEbmPK8CEBuffer_block_invoke(void *a1, uint64_t a2)
 {
-  v110 = *MEMORY[0x1E69E9840];
-  v98 = a1[6];
-  memset(v106, 0, 40);
-  TLE::keyForContext(v106, (a2 + 56));
-  if (LODWORD(v106[0]))
+  v104 = *MEMORY[0x1E69E9840];
+  v92 = a1[6];
+  memset(v100, 0, 40);
+  TLE::keyForContext(v100, (a2 + 56));
+  if (LODWORD(v100[0]))
   {
     result = 0;
     v4 = *(a1[4] + 8);
-    *(v4 + 40) = v106[0];
-    *(v4 + 56) = *&v106[1];
-    goto LABEL_114;
+    *(v4 + 40) = v100[0];
+    *(v4 + 56) = *&v100[1];
+    return result;
   }
 
-  v105 = 0;
-  v103 = 0u;
-  v104 = 0u;
-  v102 = 0u;
+  v99 = 0;
+  v97 = 0u;
+  v98 = 0u;
+  v96 = 0u;
   v5 = *(a2 + 72);
-  v107[0] = *(a2 + 56);
-  v107[1] = v5;
-  v108 = *(a2 + 88);
-  v109 = *(a2 + 104);
-  v6 = *MEMORY[0x1E69E50A8];
+  v101[0] = *(a2 + 56);
+  v101[1] = v5;
+  v102 = *(a2 + 88);
+  v103 = *(a2 + 104);
   der_vm_execute_nocopy();
-  v8 = a1;
-  v9 = a1[7];
-  if (v9)
+  v7 = a1;
+  v8 = a1[7];
+  if (v8)
   {
-    v10 = *(&v106[1] + 1);
-    v11 = v9 - 1;
-    v12 = (a1[8] + 8);
+    v9 = *(&v100[1] + 1);
+    v10 = v8 - 1;
+    v11 = a1[8] + 8;
     do
     {
-      v13 = *(v12 - 1);
-      v14 = *v12;
       result = CEBuffer_cmp();
       if (result)
       {
-        v15 = v11 == 0;
+        v12 = v10 == 0;
       }
 
       else
       {
-        v15 = 1;
+        v12 = 1;
       }
 
-      --v11;
-      v12 += 2;
+      --v10;
+      v11 += 16;
     }
 
-    while (!v15);
-    v8 = a1;
+    while (!v12);
+    v7 = a1;
     if (!result)
     {
-      v16 = *(a1[4] + 8);
-      *(v16 + 40) = 6;
-      v17 = "Unexpected key for parsing context";
-      v18 = 34;
+      v13 = *(a1[4] + 8);
+      *(v13 + 40) = 6;
+      v14 = "Unexpected key for parsing context";
+      v15 = 34;
 LABEL_46:
-      *(v16 + 48) = v17;
-      *(v16 + 56) = v18;
-      goto LABEL_114;
+      *(v13 + 48) = v14;
+      *(v13 + 56) = v15;
+      return result;
     }
   }
 
   else
   {
-    v10 = *(&v106[1] + 1);
+    v9 = *(&v100[1] + 1);
   }
 
-  if (*v10 == 36)
+  if (*v9 == 36)
   {
-    v19 = &_ZTVN3TLE11BinaryIntOpIxXtlNS_3__0EEEEE - &TLE::details::operations;
-    if (&_ZTVN3TLE11BinaryIntOpIxXtlNS_3__0EEEEE < &TLE::details::operations || HIDWORD(v19))
+    v16 = &_ZTVN3TLE11BinaryIntOpIxXtlNS_3__0EEEEE - &TLE::details::operations;
+    if (&_ZTVN3TLE11BinaryIntOpIxXtlNS_3__0EEEEE < &TLE::details::operations || HIDWORD(v16))
     {
-      os_detail::panic_trapping_policy::trap("The range of valid memory is too large to be represented by this type, or [begin, end) is not a well-formed range", v7);
+      os_detail::panic_trapping_policy::trap("The range of valid memory is too large to be represented by this type, or [begin, end) is not a well-formed range", v6);
     }
 
-    v21 = &_ZTVN3TLE11BinaryIntOpIxXtlNS_3__0EEEEE - &TLE::details::operations;
-    v20 = (&_ZTVN3TLE11BinaryIntOpIxXtlNS_3__0EEEEE - __PAIR128__(v8, &TLE::details::operations)) >> 64;
+    v18 = &_ZTVN3TLE11BinaryIntOpIxXtlNS_3__0EEEEE - &TLE::details::operations;
+    v17 = (&_ZTVN3TLE11BinaryIntOpIxXtlNS_3__0EEEEE - __PAIR128__(v7, &TLE::details::operations)) >> 64;
     if ((&_ZTVN3TLE11BinaryIntOpIxXtlNS_3__0EEEEE - &TLE::details::operations) >= 0xFFFFFFFF80000000)
     {
-      LOBYTE(v20) = v20 + 1;
+      LOBYTE(v17) = v17 + 1;
     }
 
-    *(&v22 + 1) = v20 & 1;
-    *&v22 = v21 + 0x80000000;
-    if ((v22 >> 32))
+    *(&v19 + 1) = v17 & 1;
+    *&v19 = v18 + 0x80000000;
+    if ((v19 >> 32))
     {
-      os_detail::panic_trapping_policy::trap("The offset of the pointer inside its valid memory range can't be represented using int32_t", v7);
+      os_detail::panic_trapping_policy::trap("The offset of the pointer inside its valid memory range can't be represented using int32_t", v6);
     }
 
-    if (__CFADD__(&TLE::details::operations, v21))
+    if (__CFADD__(&TLE::details::operations, v18))
     {
-      v23 = (v21 >> 63) + 1;
+      v20 = (v18 >> 63) + 1;
     }
 
     else
     {
-      v23 = v21 >> 63;
+      v20 = v18 >> 63;
     }
 
-    v25 = v23 << 63 >> 63 != v23 || v23 << 63 >> 63 == -1;
+    v22 = v20 << 63 >> 63 != v20 || v20 << 63 >> 63 == -1;
     while (1)
     {
-      v26 = &TLE::details::operations + (v19 >> 32);
-      if (__CFADD__(&TLE::details::operations, v19 >> 32))
+      v23 = &TLE::details::operations + (v16 >> 32);
+      if (__CFADD__(&TLE::details::operations, v16 >> 32))
       {
-        v27 = (v19 >> 63) + 1;
+        v24 = (v16 >> 63) + 1;
       }
 
       else
       {
-        v27 = v19 >> 63;
+        v24 = v16 >> 63;
       }
 
-      v28 = v27 << 63 >> 63;
-      if (v28 != v27 || v28 < 0)
+      v25 = v24 << 63 >> 63;
+      if (v25 != v24 || v25 < 0)
       {
-        os_detail::panic_trapping_policy::trap("This bounded_ptr is pointing to memory outside of what can be represented by a native pointer.", v7);
+        os_detail::panic_trapping_policy::trap("This bounded_ptr is pointing to memory outside of what can be represented by a native pointer.", v6);
       }
 
-      if (v25)
+      if (v22)
       {
-        os_detail::panic_trapping_policy::trap("This bounded_ptr is pointing to memory outside of what can be represented by a native pointer.", v7);
+        os_detail::panic_trapping_policy::trap("This bounded_ptr is pointing to memory outside of what can be represented by a native pointer.", v6);
       }
 
-      if (v26 == &TLE::details::operations + v21)
+      if (v23 == &TLE::details::operations + v18)
       {
         goto LABEL_84;
       }
 
-      if (v19 < 0 || HIDWORD(v19) + 24 > v19)
+      if (v16 < 0 || HIDWORD(v16) + 24 > v16)
       {
-        os_detail::panic_trapping_policy::trap("bounded_ptr<T>::operator*: Dereferencing this pointer would access memory outside of the bounds set originally", v7);
+        os_detail::panic_trapping_policy::trap("bounded_ptr<T>::operator*: Dereferencing this pointer would access memory outside of the bounds set originally", v6);
       }
 
-      v29 = *v26;
-      v30 = *(v26 + 1);
       if (!CEBuffer_cmp())
       {
         break;
       }
 
-      if (HIDWORD(v19) - 2147483624 < 0xFFFFFFFF00000000)
+      if (HIDWORD(v16) - 2147483624 < 0xFFFFFFFF00000000)
       {
-        os_detail::panic_trapping_policy::trap("bounded_ptr<T>::operator+=(n): Adding the specified number of bytes to the offset representing the current position would overflow.", v7);
+        os_detail::panic_trapping_policy::trap("bounded_ptr<T>::operator+=(n): Adding the specified number of bytes to the offset representing the current position would overflow.", v6);
       }
 
-      v19 = (v19 & 0x7FFFFFFFFFFFFFFFLL) + 0x1800000000;
+      v16 = (v16 & 0x7FFFFFFFFFFFFFFFLL) + 0x1800000000;
     }
 
-    memset(v107, 0, sizeof(v107));
-    (*(v26 + 2))(v107, v98, &v102, a1[9]);
-    if (LODWORD(v107[0]))
+    memset(v101, 0, sizeof(v101));
+    (*(v23 + 2))(v101, v92, &v96, a1[9]);
+    if (LODWORD(v101[0]))
     {
-      v33 = *(a1[4] + 8);
-      v34 = v107[0];
+      v28 = *(a1[4] + 8);
+      v29 = v101[0];
       goto LABEL_49;
     }
 
-    v36 = a1[10];
-    v37 = *(*(a1[5] + 8) + 24);
-    v38 = *v36;
-    if (*v36)
+    v31 = a1[10];
+    v32 = *(*(a1[5] + 8) + 24);
+    v33 = *v31;
+    if (*v31)
     {
-      v39 = v38 + 8 * *(v36 + 2);
-      v40 = v39 >= v38;
-      v41 = v39 - v38;
-      if (!v40 || HIDWORD(v41))
+      v34 = v33 + 8 * *(v31 + 2);
+      v35 = v34 >= v33;
+      v36 = v34 - v33;
+      if (!v35 || HIDWORD(v36))
       {
-        os_detail::panic_trapping_policy::trap("The range of valid memory is too large to be represented by this type, or [begin, end) is not a well-formed range", v35);
+        os_detail::panic_trapping_policy::trap("The range of valid memory is too large to be represented by this type, or [begin, end) is not a well-formed range", v30);
       }
     }
 
     else
     {
-      LODWORD(v41) = 0;
+      LODWORD(v36) = 0;
     }
 
-    if (v37 >= 0)
+    if (v32 >= 0)
     {
-      v50 = *(*(a1[5] + 8) + 24);
-    }
-
-    else
-    {
-      v50 = -v37;
-    }
-
-    v51 = (v37 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
-    if (v37 >= 0)
-    {
-      v52 = 8 * v50;
+      v45 = *(*(a1[5] + 8) + 24);
     }
 
     else
     {
-      v52 = -8 * v50;
+      v45 = -v32;
     }
 
-    if (v50 >> 61)
+    v46 = (v32 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+    if (v32 >= 0)
     {
-      v53 = 1;
+      v47 = 8 * v45;
     }
 
     else
     {
-      v53 = 8 * v50 > v51;
+      v47 = -8 * v45;
     }
 
-    if (v53)
+    if (v45 >> 61)
     {
-      v54 = "bounded_ptr<T>::operator+=(n): Calculating the number of bytes to add to the offset (n * sizeof(T)) would trigger an overflow";
+      v48 = 1;
     }
 
-    else if (v52 == v52)
+    else
     {
-      v54 = "bounded_ptr<T>::operator*: Dereferencing this pointer would access memory outside of the bounds set originally";
-      if ((v52 & 0x80000000) == 0 && v52 + 8 <= v41)
+      v48 = 8 * v45 > v46;
+    }
+
+    if (v48)
+    {
+      v49 = "bounded_ptr<T>::operator+=(n): Calculating the number of bytes to add to the offset (n * sizeof(T)) would trigger an overflow";
+    }
+
+    else if (v47 == v47)
+    {
+      v49 = "bounded_ptr<T>::operator*: Dereferencing this pointer would access memory outside of the bounds set originally";
+      if ((v47 & 0x80000000) == 0 && v47 + 8 <= v36)
       {
-        v40 = __CFADD__(v38, v52 & 0x7FFFFFF8);
-        v55 = (v38 + (v52 & 0x7FFFFFF8));
-        v56 = v40;
-        v57 = v56 << 63 >> 63;
-        v54 = "This bounded_ptr is pointing to memory outside of what can be represented by a native pointer.";
-        if (v57 == v56 && (v57 & 0x8000000000000000) == 0)
+        v35 = __CFADD__(v33, v47 & 0x7FFFFFF8);
+        v50 = (v33 + (v47 & 0x7FFFFFF8));
+        v51 = v35;
+        v52 = v51 << 63 >> 63;
+        v49 = "This bounded_ptr is pointing to memory outside of what can be represented by a native pointer.";
+        if (v52 == v51 && (v52 & 0x8000000000000000) == 0)
         {
-          libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>::reset(v55, *(&v107[1] + 1));
-          *(&v107[1] + 1) = 0;
-          libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>::reset(&v107[1] + 1);
+          libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>::reset(v50, *(&v101[1] + 1));
+          *(&v101[1] + 1) = 0;
+          libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>::reset(&v101[1] + 1);
 LABEL_84:
-          v44 = a1;
-          v58 = a1[10];
-          v59 = *(a1[5] + 8);
-          v60 = *(v59 + 24);
-          v61 = *v58;
-          if (*v58)
+          v39 = a1;
+          v53 = a1[10];
+          v54 = *(a1[5] + 8);
+          v55 = *(v54 + 24);
+          v56 = *v53;
+          if (*v53)
           {
-            v62 = v61 + 8 * *(v58 + 2);
-            v40 = v62 >= v61;
-            v63 = v62 - v61;
-            if (!v40 || HIDWORD(v63))
+            v57 = v56 + 8 * *(v53 + 2);
+            v35 = v57 >= v56;
+            v58 = v57 - v56;
+            if (!v35 || HIDWORD(v58))
             {
-              os_detail::panic_trapping_policy::trap("The range of valid memory is too large to be represented by this type, or [begin, end) is not a well-formed range", v7);
+              os_detail::panic_trapping_policy::trap("The range of valid memory is too large to be represented by this type, or [begin, end) is not a well-formed range", v6);
             }
           }
 
           else
           {
-            LODWORD(v63) = 0;
+            LODWORD(v58) = 0;
           }
 
-          if (v60 >= 0)
+          if (v55 >= 0)
           {
-            v64 = *(v59 + 24);
-          }
-
-          else
-          {
-            v64 = -v60;
-          }
-
-          if (v60 >= 0)
-          {
-            v65 = 8 * v64;
+            v59 = *(v54 + 24);
           }
 
           else
           {
-            v65 = -8 * v64;
+            v59 = -v55;
           }
 
-          if (v64 >> 61)
+          if (v55 >= 0)
           {
-            v66 = 1;
+            v60 = 8 * v59;
           }
 
           else
           {
-            v66 = 8 * v64 > (v60 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+            v60 = -8 * v59;
           }
 
-          if (v66)
+          if (v59 >> 61)
           {
-            os_detail::panic_trapping_policy::trap("bounded_ptr<T>::operator+=(n): Calculating the number of bytes to add to the offset (n * sizeof(T)) would trigger an overflow", v7);
+            v61 = 1;
           }
 
-          if (v65 != v65)
+          else
           {
-            os_detail::panic_trapping_policy::trap("bounded_ptr<T>::operator+=(n): Adding the specified number of bytes to the offset representing the current position would overflow.", v7);
+            v61 = 8 * v59 > (v55 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
           }
 
-          if ((v65 & 0x80000000) != 0 || v65 + 8 > v63)
+          if (v61)
           {
-            os_detail::panic_trapping_policy::trap("bounded_ptr<T>::operator*: Dereferencing this pointer would access memory outside of the bounds set originally", v7);
+            os_detail::panic_trapping_policy::trap("bounded_ptr<T>::operator+=(n): Calculating the number of bytes to add to the offset (n * sizeof(T)) would trigger an overflow", v6);
           }
 
-          v40 = __CFADD__(v61, v65 & 0x7FFFFFF8);
-          v67 = (v61 + (v65 & 0x7FFFFFF8));
-          v68 = v40;
-          v69 = v68 << 63 >> 63;
-          if (v69 != v68 || v69 < 0)
+          if (v60 != v60)
           {
-            os_detail::panic_trapping_policy::trap("This bounded_ptr is pointing to memory outside of what can be represented by a native pointer.", v7);
+            os_detail::panic_trapping_policy::trap("bounded_ptr<T>::operator+=(n): Adding the specified number of bytes to the offset representing the current position would overflow.", v6);
           }
 
-          if (!*v67)
+          if ((v60 & 0x80000000) != 0 || v60 + 8 > v58)
           {
-            *(v107 + 4) = *(&v106[1] + 8);
+            os_detail::panic_trapping_policy::trap("bounded_ptr<T>::operator*: Dereferencing this pointer would access memory outside of the bounds set originally", v6);
+          }
+
+          v35 = __CFADD__(v56, v60 & 0x7FFFFFF8);
+          v62 = (v56 + (v60 & 0x7FFFFFF8));
+          v63 = v35;
+          v64 = v63 << 63 >> 63;
+          if (v64 != v63 || v64 < 0)
+          {
+            os_detail::panic_trapping_policy::trap("This bounded_ptr is pointing to memory outside of what can be represented by a native pointer.", v6);
+          }
+
+          if (!*v62)
+          {
+            *(v101 + 4) = *(&v100[1] + 8);
             operator new();
           }
 
@@ -3329,260 +2368,255 @@ LABEL_84:
 
     else
     {
-      v54 = "bounded_ptr<T>::operator+=(n): Adding the specified number of bytes to the offset representing the current position would overflow.";
+      v49 = "bounded_ptr<T>::operator+=(n): Adding the specified number of bytes to the offset representing the current position would overflow.";
     }
 
-    os_detail::panic_trapping_policy::trap(v54, v35);
+    os_detail::panic_trapping_policy::trap(v49, v30);
   }
 
-  if (*(v8 + 88) != 1)
+  if (*(v7 + 88) != 1)
   {
     result = 0;
-    v16 = *(v8[4] + 8);
-    *(v16 + 40) = 6;
-    v17 = "Fact not allowed in context";
-    v18 = 27;
+    v13 = *(v7[4] + 8);
+    *(v13 + 40) = 6;
+    v14 = "Fact not allowed in context";
+    v15 = 27;
     goto LABEL_46;
   }
 
-  if (((*(**v98 + 32))(*v98, v10, *&v106[2]) & 1) == 0)
+  if (((*(**v92 + 32))(*v92, v9, *&v100[2]) & 1) == 0)
   {
-    *(v107 + 4) = *(&v106[1] + 8);
+    *(v101 + 4) = *(&v100[1] + 8);
     operator new();
   }
 
-  v100 = 0;
-  v101 = 0uLL;
-  (*(**v98 + 16))(&v100);
-  v107[0] = v102;
-  v107[1] = v103;
-  v108 = v104;
-  v109 = v105;
-  v31 = der_vm_CEType_from_context();
-  if (v31 != 1)
+  v94 = 0;
+  v95 = 0uLL;
+  (*(**v92 + 16))(&v94);
+  v101[0] = v96;
+  v101[1] = v97;
+  v102 = v98;
+  v103 = v99;
+  v26 = der_vm_CEType_from_context();
+  if (v26 != 1)
   {
-    if (v31 == v100)
+    if (v26 == v94)
     {
-      v42 = TLE::opForContext(v31);
-      v43 = v42;
-      if (v42)
+      v37 = TLE::opForContext(v26, &v96);
+      v38 = v37;
+      if (v37)
       {
-        *(v42 + 16) = v101;
-        *&v107[0] = v42;
-        v44 = a1;
-        v45 = a1[10];
-        v46 = *(*(a1[5] + 8) + 24);
-        v47 = *v45;
-        if (*v45)
+        *(v37 + 16) = v95;
+        *&v101[0] = v37;
+        v39 = a1;
+        v40 = a1[10];
+        v41 = *(*(a1[5] + 8) + 24);
+        v42 = *v40;
+        if (*v40)
         {
-          v48 = v47 + 8 * *(v45 + 2);
-          v40 = v48 >= v47;
-          v49 = v48 - v47;
-          if (!v40 || HIDWORD(v49))
+          v43 = v42 + 8 * *(v40 + 2);
+          v35 = v43 >= v42;
+          v44 = v43 - v42;
+          if (!v35 || HIDWORD(v44))
           {
-            os_detail::panic_trapping_policy::trap("The range of valid memory is too large to be represented by this type, or [begin, end) is not a well-formed range", v42);
+            os_detail::panic_trapping_policy::trap("The range of valid memory is too large to be represented by this type, or [begin, end) is not a well-formed range", v37);
           }
         }
 
         else
         {
-          LODWORD(v49) = 0;
+          LODWORD(v44) = 0;
         }
 
-        if (v46 >= 0)
+        if (v41 >= 0)
         {
-          v90 = *(*(a1[5] + 8) + 24);
-        }
-
-        else
-        {
-          v90 = -v46;
-        }
-
-        v91 = (v46 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
-        if (v46 >= 0)
-        {
-          v92 = 8 * v90;
+          v84 = *(*(a1[5] + 8) + 24);
         }
 
         else
         {
-          v92 = -8 * v90;
+          v84 = -v41;
         }
 
-        if (v90 >> 61)
+        v85 = (v41 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+        if (v41 >= 0)
         {
-          v93 = 1;
+          v86 = 8 * v84;
         }
 
         else
         {
-          v93 = 8 * v90 > v91;
+          v86 = -8 * v84;
         }
 
-        if (v93)
+        if (v84 >> 61)
         {
-          v94 = "bounded_ptr<T>::operator+=(n): Calculating the number of bytes to add to the offset (n * sizeof(T)) would trigger an overflow";
+          v87 = 1;
         }
 
-        else if (v92 == v92)
+        else
         {
-          v94 = "bounded_ptr<T>::operator*: Dereferencing this pointer would access memory outside of the bounds set originally";
-          if ((v92 & 0x80000000) == 0 && v92 + 8 <= v49)
+          v87 = 8 * v84 > v85;
+        }
+
+        if (v87)
+        {
+          v88 = "bounded_ptr<T>::operator+=(n): Calculating the number of bytes to add to the offset (n * sizeof(T)) would trigger an overflow";
+        }
+
+        else if (v86 == v86)
+        {
+          v88 = "bounded_ptr<T>::operator*: Dereferencing this pointer would access memory outside of the bounds set originally";
+          if ((v86 & 0x80000000) == 0 && v86 + 8 <= v44)
           {
-            v40 = __CFADD__(v47, v92 & 0x7FFFFFF8);
-            v95 = (v47 + (v92 & 0x7FFFFFF8));
-            v96 = v40;
-            v97 = v96 << 63 >> 63;
-            v94 = "This bounded_ptr is pointing to memory outside of what can be represented by a native pointer.";
-            if (v97 == v96 && (v97 & 0x8000000000000000) == 0)
+            v35 = __CFADD__(v42, v86 & 0x7FFFFFF8);
+            v89 = (v42 + (v86 & 0x7FFFFFF8));
+            v90 = v35;
+            v91 = v90 << 63 >> 63;
+            v88 = "This bounded_ptr is pointing to memory outside of what can be represented by a native pointer.";
+            if (v91 == v90 && (v91 & 0x8000000000000000) == 0)
             {
-              libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>::reset(v95, v43);
-              *&v107[0] = 0;
-              v89 = v107;
-              goto LABEL_163;
+              libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>::reset(v89, v38);
+              *&v101[0] = 0;
+              v83 = v101;
+              goto LABEL_162;
             }
           }
         }
 
         else
         {
-          v94 = "bounded_ptr<T>::operator+=(n): Adding the specified number of bytes to the offset representing the current position would overflow.";
+          v88 = "bounded_ptr<T>::operator+=(n): Adding the specified number of bytes to the offset representing the current position would overflow.";
         }
 
-        os_detail::panic_trapping_policy::trap(v94, v43);
+        os_detail::panic_trapping_policy::trap(v88, v38);
       }
 
-      v73 = *(a1[4] + 8);
-      *(v73 + 40) = 3;
-      v74 = "Unexpected type of an fact declaration.";
-      v75 = 39;
+      v67 = *(a1[4] + 8);
+      *(v67 + 40) = 3;
+      v68 = "Unexpected type of an fact declaration.";
+      v69 = 39;
     }
 
     else
     {
-      v73 = *(a1[4] + 8);
-      *(v73 + 40) = 3;
-      v74 = "Unexpected type of an operation declaration.";
-      v75 = 44;
+      v67 = *(a1[4] + 8);
+      *(v67 + 40) = 3;
+      v68 = "Unexpected type of an operation declaration.";
+      v69 = 44;
     }
 
-    *(v73 + 48) = v74;
-    *(v73 + 56) = v75;
-    goto LABEL_50;
+    *(v67 + 48) = v68;
+    *(v67 + 56) = v69;
+    return 0;
   }
 
-  memset(v107, 0, sizeof(v107));
-  TLE::factOpDeserializer(v107, v98, &v102, &v100);
-  if (LODWORD(v107[0]))
+  memset(v101, 0, sizeof(v101));
+  TLE::factOpDeserializer(v101, v92, &v96, &v94);
+  if (LODWORD(v101[0]))
   {
-    v33 = *(a1[4] + 8);
-    v34 = v107[0];
+    v28 = *(a1[4] + 8);
+    v29 = v101[0];
 LABEL_49:
-    *(v33 + 40) = v34;
-    *(v33 + 56) = *&v107[1];
-    libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>::reset(&v107[1] + 1);
-LABEL_50:
-    result = 0;
-    goto LABEL_114;
+    *(v28 + 40) = v29;
+    *(v28 + 56) = *&v101[1];
+    libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>::reset(&v101[1] + 1);
+    return 0;
   }
 
-  v44 = a1;
-  v76 = a1[10];
-  v77 = *(*(a1[5] + 8) + 24);
-  v78 = *v76;
-  if (*v76)
+  v39 = a1;
+  v70 = a1[10];
+  v71 = *(*(a1[5] + 8) + 24);
+  v72 = *v70;
+  if (*v70)
   {
-    v79 = v78 + 8 * *(v76 + 2);
-    v40 = v79 >= v78;
-    v80 = v79 - v78;
-    if (!v40 || HIDWORD(v80))
+    v73 = v72 + 8 * *(v70 + 2);
+    v35 = v73 >= v72;
+    v74 = v73 - v72;
+    if (!v35 || HIDWORD(v74))
     {
-      os_detail::panic_trapping_policy::trap("The range of valid memory is too large to be represented by this type, or [begin, end) is not a well-formed range", v32);
+      os_detail::panic_trapping_policy::trap("The range of valid memory is too large to be represented by this type, or [begin, end) is not a well-formed range", v27);
     }
   }
 
   else
   {
-    LODWORD(v80) = 0;
+    LODWORD(v74) = 0;
   }
 
-  if (v77 >= 0)
+  if (v71 >= 0)
   {
-    v81 = *(*(a1[5] + 8) + 24);
+    v75 = *(*(a1[5] + 8) + 24);
   }
 
   else
   {
-    v81 = -v77;
+    v75 = -v71;
   }
 
-  v82 = (v77 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
-  if (v77 >= 0)
+  v76 = (v71 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+  if (v71 >= 0)
   {
-    v83 = 8 * v81;
+    v77 = 8 * v75;
   }
 
   else
   {
-    v83 = -8 * v81;
+    v77 = -8 * v75;
   }
 
-  if (v81 >> 61)
+  if (v75 >> 61)
   {
-    v84 = 1;
+    v78 = 1;
   }
 
   else
   {
-    v84 = 8 * v81 > v82;
+    v78 = 8 * v75 > v76;
   }
 
-  if (v84)
+  if (v78)
   {
-    v85 = "bounded_ptr<T>::operator+=(n): Calculating the number of bytes to add to the offset (n * sizeof(T)) would trigger an overflow";
-    goto LABEL_179;
+    v79 = "bounded_ptr<T>::operator+=(n): Calculating the number of bytes to add to the offset (n * sizeof(T)) would trigger an overflow";
+    goto LABEL_178;
   }
 
-  if (v83 != v83)
+  if (v77 != v77)
   {
-    v85 = "bounded_ptr<T>::operator+=(n): Adding the specified number of bytes to the offset representing the current position would overflow.";
-    goto LABEL_179;
+    v79 = "bounded_ptr<T>::operator+=(n): Adding the specified number of bytes to the offset representing the current position would overflow.";
+    goto LABEL_178;
   }
 
-  v85 = "bounded_ptr<T>::operator*: Dereferencing this pointer would access memory outside of the bounds set originally";
-  if ((v83 & 0x80000000) != 0 || v83 + 8 > v80 || ((v40 = __CFADD__(v78, v83 & 0x7FFFFFF8), v86 = (v78 + (v83 & 0x7FFFFFF8)), !v40) ? (v87 = 0) : (v87 = 1), (v88 = v87 << 63 >> 63, v85 = "This bounded_ptr is pointing to memory outside of what can be represented by a native pointer.", v88 ^ v87) || v88 < 0))
+  v79 = "bounded_ptr<T>::operator*: Dereferencing this pointer would access memory outside of the bounds set originally";
+  if ((v77 & 0x80000000) != 0 || v77 + 8 > v74 || ((v35 = __CFADD__(v72, v77 & 0x7FFFFFF8), v80 = (v72 + (v77 & 0x7FFFFFF8)), !v35) ? (v81 = 0) : (v81 = 1), (v82 = v81 << 63 >> 63, v79 = "This bounded_ptr is pointing to memory outside of what can be represented by a native pointer.", v82 ^ v81) || v82 < 0))
   {
-LABEL_179:
-    os_detail::panic_trapping_policy::trap(v85, v32);
+LABEL_178:
+    os_detail::panic_trapping_policy::trap(v79, v27);
   }
 
-  libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>::reset(v86, *(&v107[1] + 1));
-  *(&v107[1] + 1) = 0;
-  v89 = &v107[1] + 1;
-LABEL_163:
-  libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>::reset(v89);
-  v59 = *(v44[5] + 8);
-  v60 = *(v59 + 24);
+  libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>::reset(v80, *(&v101[1] + 1));
+  *(&v101[1] + 1) = 0;
+  v83 = &v101[1] + 1;
+LABEL_162:
+  libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>::reset(v83);
+  v54 = *(v39[5] + 8);
+  v55 = *(v54 + 24);
 LABEL_109:
-  v70 = (((v60 == -1) << 63) >> 63) ^ (v60 == -1);
-  if (v70)
+  v65 = (((v55 == -1) << 63) >> 63) ^ (v55 == -1);
+  if (v65)
   {
-    v71 = *(v44[4] + 8);
-    *(v71 + 40) = 10;
-    *(v71 + 48) = "Too many elements in dictionary";
-    *(v71 + 56) = 31;
+    v66 = *(v39[4] + 8);
+    *(v66 + 40) = 10;
+    *(v66 + 48) = "Too many elements in dictionary";
+    *(v66 + 56) = 31;
   }
 
   else
   {
-    *(v59 + 24) = v60 + 1;
+    *(v54 + 24) = v55 + 1;
   }
 
-  result = v70 == 0;
-LABEL_114:
-  v72 = *MEMORY[0x1E69E9840];
-  return result;
+  return v65 == 0;
 }
 
 void sub_18887CC6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
@@ -3609,32 +2643,32 @@ void **libkern::intrusive_shared_ptr<TLE::ConstErrorOperation,TLE::RefCountPolic
 
 void TLE::factOpDeserializer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13 = 0;
-  v11 = 0u;
-  *v12 = 0u;
+  v12 = 0;
+  v10 = 0u;
+  *v11 = 0u;
   v5 = *(a3 + 16);
-  v9[0] = *a3;
-  v9[1] = v5;
-  v9[2] = *(a3 + 32);
-  v10 = *(a3 + 48);
-  TLE::Executor::getDependentOpsFromDictionary(&v11, a2, v9, a4, 0, 0, 0);
-  if (v11)
+  *&v9.runtime = *a3;
+  *&v9.lookup.index_count = v5;
+  *&v9.sorted = *(a3 + 32);
+  v9.var0.ccstate.der_end = *(a3 + 48);
+  TLE::Executor::getDependentOpsFromDictionary(&v10, a2, &v9, a4, 0, 0, 0);
+  if (v10)
   {
-    *a1 = v11;
-    *(a1 + 16) = v12[0];
+    *a1 = v10;
+    *(a1 + 16) = v11[0];
     *(a1 + 24) = 0;
   }
 
-  else if (v13 == 1)
+  else if (v12 == 1)
   {
-    v7 = v12[1];
-    if (!v12[1])
+    v7 = v11[1];
+    if (!v11[1])
     {
       goto LABEL_14;
     }
 
-    v8 = 8 * v13;
-    if (v12[1] + v8 < v12[1] || HIDWORD(v8))
+    v8 = 8 * v12;
+    if (v11[1] + v8 < v11[1] || HIDWORD(v8))
     {
       os_detail::panic_trapping_policy::trap("The range of valid memory is too large to be represented by this type, or [begin, end) is not a well-formed range", v6);
     }
@@ -3659,13 +2693,13 @@ LABEL_14:
     *(a1 + 16) = 50;
   }
 
-  if (v12[1])
+  if (v11[1])
   {
-    libkern::safe_allocation<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>,os_detail::IOKit_typed_allocator<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>>,os_detail::panic_trapping_policy>::destroy_dealloc_(v12[1], v13);
+    libkern::safe_allocation<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>,os_detail::IOKit_typed_allocator<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>>,os_detail::panic_trapping_policy>::destroy_dealloc_(v11[1], v12);
   }
 }
 
-void sub_18887CE28(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void **a20, unsigned int a21)
+void sub_18887CE28(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, TLE::RefCounted **a20, int a21)
 {
   if (a20)
   {
@@ -3675,7 +2709,7 @@ void sub_18887CE28(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t TLE::opForContext(int a1)
+uint64_t TLE::opForContext(int a1, __int128 *a2)
 {
   if (a1 > 4)
   {
@@ -3708,13 +2742,11 @@ uint64_t TLE::opForContext(int a1)
 
 void *_ZN3TLE12BinaryDataOpI8CEBufferXtlNS_3__8EEEE7ExecuteERNS_12EncyclopediaE@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v9 = 0;
-  memset(v8, 0, sizeof(v8));
-  result = (*(*a2 + 24))(v8, a2, a1[2], a1[3]);
-  if (LODWORD(v8[0]) == 6)
+  v6 = 0;
+  memset(v5, 0, sizeof(v5));
+  result = (*(*a2 + 24))(v5, a2, a1[2], a1[3]);
+  if (LODWORD(v5[0]) == 6)
   {
-    v6 = a1[4];
-    v7 = a1[5];
     result = CEBuffer_cmp();
     *(a3 + 8) = 0;
     *(a3 + 16) = 0;
@@ -3760,13 +2792,11 @@ void TLE::RefCounted::~RefCounted(TLE::RefCounted *this)
 
 void *_ZN3TLE11BinaryStrOpI8CEBufferXtlNS_3__7EEEE7ExecuteERNS_12EncyclopediaE@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v9 = 0;
-  memset(v8, 0, sizeof(v8));
-  result = (*(*a2 + 24))(v8, a2, a1[2], a1[3]);
-  if (LODWORD(v8[0]) == 4)
+  v6 = 0;
+  memset(v5, 0, sizeof(v5));
+  result = (*(*a2 + 24))(v5, a2, a1[2], a1[3]);
+  if (LODWORD(v5[0]) == 4)
   {
-    v6 = a1[4];
-    v7 = a1[5];
     result = CEBuffer_cmp();
     *(a3 + 8) = 0;
     *(a3 + 16) = 0;
@@ -3894,41 +2924,41 @@ BOOL ___ZL17count_ce_elementsRK14der_vm_context_block_invoke(uint64_t a1)
   return v6 == 0;
 }
 
-void TLE::queryOpDeserializer(_DWORD *a1@<X2>, uint64_t a2@<X8>)
+void TLE::queryOpDeserializer(_DWORD *a2@<X2>, uint64_t a3@<X8>)
 {
-  if (*a1 == 1)
+  if (*a2 == 1)
   {
-    v3 = 0;
-    v4 = &v3;
-    v5 = 0x2000000000;
-    v6 = 1;
+    v4 = 0;
+    v5 = &v4;
+    v6 = 0x2000000000;
+    v7 = 1;
     der_vm_iterate_b();
-    if (v4[3])
+    if (v5[3])
     {
       operator new();
     }
 
-    *a2 = 0u;
-    *(a2 + 16) = 0u;
-    *a2 = 6;
-    *(a2 + 8) = "$query deserialization failed since it has an invalid query definition";
-    *(a2 + 16) = 70;
-    _Block_object_dispose(&v3, 8);
+    *a3 = 0u;
+    *(a3 + 16) = 0u;
+    *a3 = 6;
+    *(a3 + 8) = "$query deserialization failed since it has an invalid query definition";
+    *(a3 + 16) = 70;
+    _Block_object_dispose(&v4, 8);
   }
 
   else
   {
-    *a2 = 0u;
-    *(a2 + 16) = 0u;
-    *a2 = 3;
-    *(a2 + 8) = "Got an unexpected type (not a dictionary) when trying to generate a query operation.";
-    *(a2 + 16) = 84;
+    *a3 = 0u;
+    *(a3 + 16) = 0u;
+    *a3 = 3;
+    *(a3 + 8) = "Got an unexpected type (not a dictionary) when trying to generate a query operation.";
+    *(a3 + 16) = 84;
   }
 }
 
-void sub_18887D718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18887D718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4265,7 +3295,7 @@ void _ZN3TLE11BinaryIntOpIxXtlNS_3__0EEEED0Ev(TLE::RefCounted *a1)
   JUMPOUT(0x18CFD9760);
 }
 
-void TLE::inDeserializer(__int128 *a1@<X1>, _DWORD *a2@<X2>, uint64_t a3@<X8>)
+void TLE::inDeserializer(_DWORD *a2@<X2>, uint64_t a3@<X8>)
 {
   if (*a2 > 6u || ((1 << *a2) & 0x58) == 0)
   {
@@ -4278,10 +3308,6 @@ void TLE::inDeserializer(__int128 *a1@<X1>, _DWORD *a2@<X2>, uint64_t a3@<X8>)
 
   else
   {
-    v7 = *a1;
-    v8 = a1[1];
-    v9 = a1[2];
-    v10 = *(a1 + 6);
     if (der_vm_CEType_from_context() == 2)
     {
       operator new();
@@ -4602,10 +3628,6 @@ uint64_t ___ZN3TLE11InOperation7ExecuteERNS_12EncyclopediaE_block_invoke(uint64_
     return 1;
   }
 
-  v5 = *(a2 + 56);
-  v6 = *(a2 + 72);
-  v7 = *(a2 + 88);
-  v8 = *(a2 + 104);
   v3 = der_vm_integer_from_context();
   result = 1;
   if (v3 == *(a1 + 40))
@@ -4624,16 +3646,10 @@ uint64_t ___ZN3TLE11InOperation7ExecuteERNS_12EncyclopediaE_block_invoke_2(void 
     return 1;
   }
 
-  v3 = a1[5];
-  v4 = a1[6];
-  v7 = *(a2 + 56);
-  v8 = *(a2 + 72);
-  v9 = *(a2 + 88);
-  v10 = *(a2 + 104);
   der_vm_string_from_context();
-  v5 = CEBuffer_cmp();
+  v3 = CEBuffer_cmp();
   result = 1;
-  if (!v5)
+  if (!v3)
   {
     *(*(a1[4] + 8) + 24) = 1;
     return 0;
@@ -4649,16 +3665,10 @@ uint64_t ___ZN3TLE11InOperation7ExecuteERNS_12EncyclopediaE_block_invoke_3(void 
     return 1;
   }
 
-  v3 = a1[5];
-  v4 = a1[6];
-  v7 = *(a2 + 56);
-  v8 = *(a2 + 72);
-  v9 = *(a2 + 88);
-  v10 = *(a2 + 104);
   der_vm_data_from_context();
-  v5 = CEBuffer_cmp();
+  v3 = CEBuffer_cmp();
   result = 1;
-  if (!v5)
+  if (!v3)
   {
     *(*(a1[4] + 8) + 24) = 1;
     return 0;
@@ -4676,105 +3686,100 @@ void TLE::InOperation::~InOperation(TLE::InOperation *this)
 
 void TLE::QueryOperation::Execute(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v52 = *MEMORY[0x1E69E9840];
-  v35 = 0;
-  v33 = 0u;
-  v34 = 0u;
-  (*(*a2 + 24))(&v33, a2, *(a1 + 16), *(a1 + 24));
-  if (v33 == 1)
+  v43 = *MEMORY[0x1E69E9840];
+  v26 = 0;
+  v24 = 0u;
+  v25 = 0u;
+  (*(*a2 + 24))(&v24, a2, *(a1 + 16), *(a1 + 24));
+  if (v24 != 1)
   {
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x6002000000;
-    v27 = __Block_byref_object_copy__6066;
-    v29 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = __Block_byref_object_dispose__6067;
-    v32 = 0;
-    v5 = *(*(&v34 + 1) + 16);
-    v4 = *(*(&v34 + 1) + 32);
-    v6 = *(*(&v34 + 1) + 48);
-    v29 = **(&v34 + 1);
-    v32 = v6;
-    v31 = v4;
-    v30 = v5;
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x4002000000;
-    v19 = __Block_byref_object_copy__5;
-    v20 = __Block_byref_object_dispose__6;
-    v21 = 0;
-    v22 = 0;
-    v23 = 0;
-    v7 = der_vm_iterate_b();
-    v8 = v17 + 5;
-    if (*(v17 + 10))
-    {
-      *(a3 + 24) = 0;
-      *a3 = *v8;
-      v9 = v8[2];
-    }
-
-    else
-    {
-      if (v7 == *MEMORY[0x1E69E50B8])
-      {
-        v15 = v25[11];
-        v12 = *(v25 + 5);
-        v13 = *(v25 + 7);
-        v14 = *(v25 + 9);
-        is_valid = der_vm_context_is_valid();
-        *a3 = 0;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = is_valid;
-        goto LABEL_8;
-      }
-
-      *(a3 + 24) = 0;
-      *a3 = 0;
-      *(a3 + 8) = "Attempted to execute a non-iterable query";
-      *a3 = 6;
-      v9 = 41;
-    }
-
-    *(a3 + 16) = v9;
-LABEL_8:
-    _Block_object_dispose(&v16, 8);
-    _Block_object_dispose(&v24, 8);
-    goto LABEL_9;
+    *(a3 + 24) = 0;
+    *a3 = 0;
+    *(a3 + 8) = "Query Operation expected the Fact to be a CoreEntitlements dictionary";
+    *a3 = 3;
+    *(a3 + 16) = 69;
+    return;
   }
 
-  *(a3 + 24) = 0;
-  *a3 = 0;
-  *(a3 + 8) = "Query Operation expected the Fact to be a CoreEntitlements dictionary";
-  *a3 = 3;
-  *(a3 + 16) = 69;
-LABEL_9:
-  v10 = *MEMORY[0x1E69E9840];
+  v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v19[0] = 0;
+  v19[1] = v19;
+  v19[2] = 0x6002000000;
+  v19[3] = __Block_byref_object_copy__6066;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v19[4] = __Block_byref_object_dispose__6067;
+  v23 = 0;
+  v5 = *(*(&v25 + 1) + 16);
+  v4 = *(*(&v25 + 1) + 32);
+  v6 = *(*(&v25 + 1) + 48);
+  v20 = **(&v25 + 1);
+  v23 = v6;
+  v22 = v4;
+  v21 = v5;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x4002000000;
+  v14 = __Block_byref_object_copy__5;
+  v15 = __Block_byref_object_dispose__6;
+  v16 = 0;
+  v17 = 0;
+  v18 = 0;
+  v7 = der_vm_iterate_b();
+  v8 = v12 + 5;
+  if (*(v12 + 10))
+  {
+    *(a3 + 24) = 0;
+    *a3 = *v8;
+    v9 = v8[2];
+  }
+
+  else
+  {
+    if (v7 == *MEMORY[0x1E69E50B8])
+    {
+      is_valid = der_vm_context_is_valid();
+      *a3 = 0;
+      *(a3 + 8) = 0;
+      *(a3 + 16) = 0;
+      *(a3 + 24) = is_valid;
+      goto LABEL_8;
+    }
+
+    *(a3 + 24) = 0;
+    *a3 = 0;
+    *(a3 + 8) = "Attempted to execute a non-iterable query";
+    *a3 = 6;
+    v9 = 41;
+  }
+
+  *(a3 + 16) = v9;
+LABEL_8:
+  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(v19, 8);
 }
 
-void sub_18887EFE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_18887EFE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4800,34 +3805,24 @@ __n128 __Block_byref_object_copy__5(uint64_t a1, uint64_t a2)
 
 uint64_t ___ZN3TLE14QueryOperation7ExecuteERNS_12EncyclopediaE_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v28 = *(a2 + 56);
-  v29 = *(a2 + 72);
-  v30 = *(a2 + 88);
-  v31 = *(a2 + 104);
-  v4 = *MEMORY[0x1E69E50A0];
   der_vm_execute_nocopy();
-  v20 = *(a2 + 56);
-  v22 = *(a2 + 72);
-  v24 = *(a2 + 88);
-  v26 = *(a2 + 104);
-  v5 = *MEMORY[0x1E69E50A8];
   der_vm_execute_nocopy();
-  v6 = der_vm_integer_from_context() & 0xBFFFFFFFFFFFFFFFLL;
-  **(a1 + 48) = v6;
-  if (v6 > 0xB)
+  v3 = der_vm_integer_from_context() & 0xBFFFFFFFFFFFFFFFLL;
+  **(a1 + 48) = v3;
+  if (v3 > 0xB)
   {
     goto LABEL_12;
   }
 
-  if (((1 << v6) & 0x35A) == 0)
+  if (((1 << v3) & 0x35A) == 0)
   {
-    if (((1 << v6) & 0xC80) != 0)
+    if (((1 << v3) & 0xC80) != 0)
     {
       *(*(a1 + 48) + 8) = der_vm_integer_from_context();
       goto LABEL_8;
     }
 
-    if (v6 == 5)
+    if (v3 == 5)
     {
       *(*(a1 + 48) + 8) = der_vm_BOOL_from_context();
       goto LABEL_8;
@@ -4835,38 +3830,32 @@ uint64_t ___ZN3TLE14QueryOperation7ExecuteERNS_12EncyclopediaE_block_invoke(uint
 
 LABEL_12:
     result = 0;
-    v15 = *(*(a1 + 32) + 8);
-    *(v15 + 40) = 1;
-    *(v15 + 48) = "Attempted to execute unknown CoreEntitlements operation";
-    *(v15 + 56) = 55;
+    v10 = *(*(a1 + 32) + 8);
+    *(v10 + 40) = 1;
+    *(v10 + 48) = "Attempted to execute unknown CoreEntitlements operation";
+    *(v10 + 56) = 55;
     return result;
   }
 
-  v7 = der_vm_string_from_context();
-  v8 = *(a1 + 48);
-  *(v8 + 8) = v7;
-  *(v8 + 16) = v9;
+  v4 = der_vm_string_from_context();
+  v5 = *(a1 + 48);
+  *(v5 + 8) = v4;
+  *(v5 + 16) = v6;
   **(a1 + 48) |= 0x4000000000000000uLL;
 LABEL_8:
-  v10 = *(*(a1 + 40) + 8);
-  v27 = *(v10 + 88);
-  v21 = *(v10 + 40);
-  v23 = *(v10 + 56);
-  v25 = *(v10 + 72);
+  v7 = *(*(a1 + 40) + 8);
+  v14 = *(v7 + 88);
+  v11 = *(v7 + 40);
+  v12 = *(v7 + 56);
+  v13 = *(v7 + 72);
   if (der_vm_context_is_valid())
   {
-    v11 = *(a1 + 48);
-    v12 = *(*(a1 + 40) + 8);
-    v19 = *(v12 + 88);
-    v16 = *(v12 + 40);
-    v17 = *(v12 + 56);
-    v18 = *(v12 + 72);
     der_vm_execute_nocopy();
-    v13 = *(*(a1 + 40) + 8);
-    *(v13 + 40) = v21;
-    *(v13 + 56) = v23;
-    *(v13 + 72) = v25;
-    *(v13 + 88) = v27;
+    v8 = *(*(a1 + 40) + 8);
+    *(v8 + 40) = v11;
+    *(v8 + 56) = v12;
+    *(v8 + 72) = v13;
+    *(v8 + 88) = v14;
   }
 
   return 1;
@@ -4913,7 +3902,7 @@ void *TLE::OptionalOperation::Execute@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-void TLE::OptionalOperation::~OptionalOperation(TLE::OptionalOperation *this)
+void TLE::OptionalOperation::~OptionalOperation(TLE::RefCounted **this)
 {
   *this = &unk_1EFA890D8;
   libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>::reset(this + 4);
@@ -4953,19 +3942,18 @@ double SecCmsSignedDataCreate(uint64_t a1)
   return result;
 }
 
-uint64_t SecCmsSignedDataDestroy(uint64_t result)
+void SecCmsSignedDataDestroy(uint64_t *result)
 {
   if (result)
   {
-    v1 = result;
-    v2 = *(result + 176);
+    v2 = result[22];
     if (v2)
     {
-      *(v1 + 176) = 0;
+      result[22] = 0;
       CFRelease(v2);
     }
 
-    v3 = *(v1 + 160);
+    v3 = result[20];
     if (v3)
     {
       v4 = *v3;
@@ -5009,16 +3997,14 @@ uint64_t SecCmsSignedDataDestroy(uint64_t result)
       }
     }
 
-    return SecCmsContentInfoDestroy(v1);
+    SecCmsContentInfoDestroy(result);
   }
-
-  return result;
 }
 
-uint64_t SecCmsSignedDataEncodeBeforeStart(uint64_t a1)
+uint64_t SecCmsSignedDataEncodeBeforeStart(void *a1)
 {
-  v2 = *(a1 + 136);
-  if (v2 && (v3 = *(a1 + 168)) != 0)
+  v2 = a1[17];
+  if (v2 && (v3 = a1[21]) != 0)
   {
     if (*v2)
     {
@@ -5052,9 +4038,9 @@ LABEL_7:
     v5 = 0;
   }
 
-  v7 = *(*(a1 + 24) + 120);
-  OID = *(a1 + 32);
-  if (OID || (OID = SECOID_FindOID(a1), (*(a1 + 32) = OID) != 0))
+  v7 = *(a1[3] + 120);
+  OID = a1[4];
+  if (OID || (OID = SECOID_FindOID(a1), (a1[4] = OID) != 0))
   {
     if (*(OID + 16) == 25)
     {
@@ -5074,7 +4060,7 @@ LABEL_7:
 
   for (i = 0; ; ++i)
   {
-    v11 = *(a1 + 160);
+    v11 = a1[20];
     if (v11)
     {
       v12 = *v11;
@@ -5117,7 +4103,7 @@ LABEL_7:
       v18 = 0;
     }
 
-    IndexByAlgTag = SecCmsAlgArrayGetIndexByAlgTag(*(a1 + 136), v18);
+    IndexByAlgTag = SecCmsAlgArrayGetIndexByAlgTag(a1[17], v18);
     v20 = IndexByAlgTag < 0 && v5;
     if (v20 || IndexByAlgTag < 0 && SecCmsSignedDataAddDigest(v7, a1, v18, 0))
     {
@@ -5125,12 +4111,12 @@ LABEL_7:
     }
   }
 
-  if (!SEC_ASN1EncodeInteger(v7, (a1 + 120), v9))
+  if (!SEC_ASN1EncodeInteger(v7, a1 + 15, v9))
   {
     return 0xFFFFFFFFLL;
   }
 
-  if (SecCmsArraySortByDER(*(a1 + 136), &SECOID_AlgorithmIDTemplate, *(a1 + 168)))
+  if (SecCmsArraySortByDER(a1[17], &SECOID_AlgorithmIDTemplate, a1[21]))
   {
     return 0xFFFFFFFFLL;
   }
@@ -5141,8 +4127,9 @@ LABEL_7:
   }
 }
 
-uint64_t SecCmsSignedDataAddDigest(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4)
+uint64_t SecCmsSignedDataAddDigest(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a3;
   v8 = PORT_ArenaAlloc(a1, 0x20uLL);
   if (!v8)
   {
@@ -5152,7 +4139,7 @@ uint64_t SecCmsSignedDataAddDigest(uint64_t a1, uint64_t a2, unsigned int a3, ui
   v9 = v8;
   *v8 = 0u;
   *(v8 + 16) = 0u;
-  if (SECOID_SetAlgorithmID(a1, v8, a3, 0))
+  if (SECOID_SetAlgorithmID(a1, v8, v5, 0))
   {
     return 0xFFFFFFFFLL;
   }
@@ -5805,7 +4792,7 @@ LABEL_20:
                 v36 = v22;
                 v24 = 0;
                 v26 = *v21;
-                v25 = v21[1];
+                v25 = *(v21 + 8);
                 while (1)
                 {
                   v27 = *v23;
@@ -5814,9 +4801,9 @@ LABEL_20:
                   {
                     v31 = v23[2];
                     v30 = v23[3];
-                    v32 = v21[2];
-                    v33 = v31 >= v32 ? v21[2] : v31;
-                    if (!memcmp(v30, v21[3], v33) && v31 == v32)
+                    v32 = *(v21 + 16);
+                    v33 = v31 >= v32 ? *(v21 + 16) : v31;
+                    if (!memcmp(v30, *(v21 + 24), v33) && v31 == v32)
                     {
                       break;
                     }
@@ -5873,7 +4860,7 @@ LABEL_48:
 
   v10 = -8187;
 LABEL_9:
-  ThreadErrInfo = PR_getThreadErrInfo(1, &v37);
+  ThreadErrInfo = PR_getThreadErrInfo(1, v37);
   if (ThreadErrInfo)
   {
     *ThreadErrInfo = 0;
@@ -5909,14 +4896,14 @@ uint64_t SecCmsSignedDataDecodeAfterData(void *a1)
   return result;
 }
 
-uint64_t SecCmsSignedDataVerifySignerInfo_internal(uint64_t a1, int a2, const void *a3, SecTrustRef *a4)
+uint64_t SecCmsSignedDataVerifySignerInfo_internal(void *a1, int a2, const void *a3, SecTrustRef *a4)
 {
   if (!a1)
   {
     return 4294967246;
   }
 
-  v5 = *(a1 + 160);
+  v5 = a1[20];
   if (!v5)
   {
     return 4294967246;
@@ -5943,34 +4930,34 @@ uint64_t SecCmsSignedDataVerifySignerInfo_internal(uint64_t a1, int a2, const vo
   }
 
   v12 = OID;
-  if (!*(a1 + 168))
+  if (!a1[21])
   {
-    started = SecCmsDigestContextStartMultiple(*(a1 + 136));
+    started = SecCmsDigestContextStartMultiple(a1[17]);
     SecCmsSignedDataSetDigestContext(a1, started);
     SecCmsDigestContextCancel(started);
-    if (!*(a1 + 168))
+    if (!a1[21])
     {
       return 4294941980;
     }
   }
 
-  IndexByAlgTag = SecCmsAlgArrayGetIndexByAlgTag(*(a1 + 136), *(v12 + 16));
+  IndexByAlgTag = SecCmsAlgArrayGetIndexByAlgTag(a1[17], *(v12 + 16));
   if ((IndexByAlgTag & 0x80000000) != 0)
   {
     return 4294941980;
   }
 
-  v15 = *(*(a1 + 168) + 8 * IndexByAlgTag);
+  v15 = *(a1[21] + 8 * IndexByAlgTag);
   if (!v15)
   {
     return 4294941980;
   }
 
-  v16 = *(a1 + 32);
+  v16 = a1[4];
   if (!v16)
   {
     v16 = SECOID_FindOID(a1);
-    *(a1 + 32) = v16;
+    a1[4] = v16;
   }
 
   v31 = 0xAAAAAAAAAAAAAAAALL;
@@ -6090,7 +5077,7 @@ LABEL_30:
   return SecCmsSignerInfoVerifyCertificate(v10, a3, a4);
 }
 
-uint64_t SecCmsSignedDataSetDigestContext(void *a1, uint64_t a2)
+uint64_t SecCmsSignedDataSetDigestContext(void *a1, void *a2)
 {
   v4 = 0xAAAAAAAAAAAAAAAALL;
   v5 = 0xAAAAAAAAAAAAAAAALL;
@@ -6250,7 +5237,7 @@ BOOL SecCmsSignedDataContainsCertsOrCrls(uint64_t a1)
   return result;
 }
 
-uint64_t SecCmsSignedDataSetDigestValue(void *a1, unsigned int a2, uint64_t a3)
+uint64_t SecCmsSignedDataSetDigestValue(void *a1, uint64_t a2, size_t *a3)
 {
   v5 = a1[3];
   v6 = *(v5 + 120);
@@ -6350,7 +5337,7 @@ LABEL_24:
   return result;
 }
 
-unint64_t *SecCmsSignedDataCreateCertsOnly(uint64_t a1, void *a2, int a3)
+uint64_t *SecCmsSignedDataCreateCertsOnly(uint64_t a1, void *a2, int a3)
 {
   v6 = PORT_ArenaAlloc(*(a1 + 120), 0xB8uLL);
   v7 = v6;
@@ -6508,32 +5495,15 @@ LABEL_18:
   return result;
 }
 
-uint64_t SecCmsEncryptedDataCreate(uint64_t a1, unsigned int a2, int a3)
+unint64_t SecCmsEncryptedDataCreate(uint64_t a1, uint64_t a2, int a3)
 {
+  v4 = a2;
   result = PORT_ArenaAlloc(*(a1 + 120), 0x90uLL);
   if (result)
   {
-    v7 = result;
-    *(result + 112) = 0u;
-    *(result + 128) = 0u;
-    *(result + 80) = 0u;
-    *(result + 96) = 0u;
-    *(result + 48) = 0u;
-    *(result + 64) = 0u;
-    *(result + 16) = 0u;
-    *(result + 32) = 0u;
-    *result = 0u;
-    *(result + 24) = a1;
-    if (a2 <= 0xA && ((1 << a2) & 0x4A0) != 0)
+    if ((v7 = result, *(result + 112) = 0u, *(result + 128) = 0u, *(result + 80) = 0u, *(result + 96) = 0u, *(result + 48) = 0u, *(result + 64) = 0u, *(result + 16) = 0u, *(result + 32) = 0u, *result = 0u, *(result + 24) = a1, v4 <= 0xA) && ((1 << v4) & 0x4A0) != 0 || (result = 0, v4 - 184 <= 4) && ((1 << (v4 + 72)) & 0x15) != 0)
     {
-      goto LABEL_12;
-    }
-
-    result = 0;
-    if (a2 - 184 <= 4 && ((1 << (a2 + 72)) & 0x15) != 0)
-    {
-LABEL_12:
-      if (SECOID_SetAlgorithmID(*(a1 + 120), (v7 + 40), a2, 0))
+      if (SECOID_SetAlgorithmID(*(a1 + 120), (v7 + 40), v4, 0))
       {
         return 0;
       }
@@ -6549,11 +5519,11 @@ LABEL_12:
   return result;
 }
 
-void SecCmsEncryptedDataDestroy(uint64_t *a1)
+void SecCmsEncryptedDataDestroy(uint64_t *result)
 {
-  if (a1)
+  if (result)
   {
-    SecCmsContentInfoDestroy(a1);
+    SecCmsContentInfoDestroy(result);
   }
 }
 
@@ -6854,14 +5824,14 @@ __CFDictionary *_create_mail_keychain_query(const __CFDictionary *a1)
 
 CFTypeRef CERT_FindItemInAllAvailableKeychains(const __CFDictionary *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   cf = 0;
   result = 0;
-  v14 = 0x104B57A5353A5AA7;
-  v15 = -1803342146;
+  v13 = 0x104B57A5353A5AA7;
+  v14 = -1803342146;
   if (SecItemCopyMatching(a1, &result) != -25300)
   {
-    goto LABEL_20;
+    return result;
   }
 
   v2 = _SecSecuritydCopyWhoAmI(&cf);
@@ -6886,7 +5856,7 @@ CFTypeRef CERT_FindItemInAllAvailableKeychains(const __CFDictionary *a1)
         if (Value && CFDataGetLength(Value) == 16)
         {
           BytePtr = CFDataGetBytePtr(Value);
-          if (v14 == *BytePtr && v15 == *(BytePtr + 2))
+          if (v13 == *BytePtr && v14 == *(BytePtr + 2))
           {
             Count = CFDictionaryGetCount(a1);
             MutableCopy = CFDictionaryCreateMutableCopy(0, Count + 1, a1);
@@ -6917,10 +5887,7 @@ LABEL_17:
     CFRelease(v3);
   }
 
-LABEL_20:
-  v10 = result;
-  v11 = *MEMORY[0x1E69E9840];
-  return v10;
+  return result;
 }
 
 __CFBundle *___is_apple_mail_bundle_block_invoke()
@@ -7151,72 +6118,69 @@ CFTypeRef *CERT_FindByIssuerAndSN(const void *a1, const void *a2, uint64_t a3)
   v4 = *(a3 + 8);
   if (v4 < 0)
   {
-    ItemInAllAvailableKeychains = 0;
+    return 0;
   }
 
-  else
+  v7 = *MEMORY[0x1E695E480];
+  v8 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], *(a3 + 16), v4, *MEMORY[0x1E695E498]);
+  v9 = *(a3 + 24);
+  v26[0] = *(a3 + 32);
+  v26[1] = v9;
+  memset(v25, 170, sizeof(v25));
+  if (DERDecodeItem(v26, v25) || (NormalizedX501Name = createNormalizedX501Name(v7, &v25[1])) == 0)
   {
-    v7 = *MEMORY[0x1E695E480];
-    v8 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], *(a3 + 16), v4, *MEMORY[0x1E695E498]);
-    v9 = *(a3 + 24);
-    v27[0] = *(a3 + 32);
-    v27[1] = v9;
-    memset(v26, 170, sizeof(v26));
-    if (DERDecodeItem(v27, v26) || (NormalizedX501Name = createNormalizedX501Name(v7, &v26[1])) == 0)
+    ItemInAllAvailableKeychains = 0;
+    if (!v8)
     {
-      ItemInAllAvailableKeychains = 0;
-      if (!v8)
-      {
-        goto LABEL_30;
-      }
-
-      goto LABEL_29;
+      return ItemInAllAvailableKeychains;
     }
 
-    v11 = NormalizedX501Name;
-    if (a1)
-    {
-      v12 = CFGetTypeID(a1);
-      if (v12 == CFArrayGetTypeID())
-      {
-        if (a2)
-        {
-          if (CFEqual(a2, @"cert"))
-          {
-            Count = CFArrayGetCount(a1);
-            if (Count >= 1)
-            {
-              v14 = Count;
-              for (i = 0; v14 != i; ++i)
-              {
-                ValueAtIndex = CFArrayGetValueAtIndex(a1, i);
-                if (ValueAtIndex)
-                {
-                  ItemInAllAvailableKeychains = ValueAtIndex;
-                  v18 = ValueAtIndex[72];
-                  if (v18)
-                  {
-                    if (CFEqual(v18, v11))
-                    {
-                      v19 = ItemInAllAvailableKeychains[71];
-                      if (v19)
-                      {
-                        CFRetain(ItemInAllAvailableKeychains[71]);
-                        if (v8)
-                        {
-                          v20 = CFEqual(v19, v8);
-                          CFRelease(v19);
-                          if (v20)
-                          {
-                            CFRetain(ItemInAllAvailableKeychains);
-                            goto LABEL_28;
-                          }
-                        }
+    goto LABEL_29;
+  }
 
-                        else
+  v11 = NormalizedX501Name;
+  if (a1)
+  {
+    v12 = CFGetTypeID(a1);
+    if (v12 == CFArrayGetTypeID())
+    {
+      if (a2)
+      {
+        if (CFEqual(a2, @"cert"))
+        {
+          Count = CFArrayGetCount(a1);
+          if (Count >= 1)
+          {
+            v14 = Count;
+            for (i = 0; v14 != i; ++i)
+            {
+              ValueAtIndex = CFArrayGetValueAtIndex(a1, i);
+              if (ValueAtIndex)
+              {
+                ItemInAllAvailableKeychains = ValueAtIndex;
+                v18 = ValueAtIndex[72];
+                if (v18)
+                {
+                  if (CFEqual(v18, v11))
+                  {
+                    v19 = ItemInAllAvailableKeychains[71];
+                    if (v19)
+                    {
+                      CFRetain(ItemInAllAvailableKeychains[71]);
+                      if (v8)
+                      {
+                        v20 = CFEqual(v19, v8);
+                        CFRelease(v19);
+                        if (v20)
                         {
-                          CFRelease(v19);
+                          CFRetain(ItemInAllAvailableKeychains);
+                          goto LABEL_28;
                         }
+                      }
+
+                      else
+                      {
+                        CFRelease(v19);
                       }
                     }
                   }
@@ -7227,153 +6191,159 @@ CFTypeRef *CERT_FindByIssuerAndSN(const void *a1, const void *a2, uint64_t a3)
         }
       }
     }
+  }
 
-    keys[0] = @"class";
-    keys[1] = @"issr";
-    keys[2] = @"slnr";
-    keys[3] = @"r_Ref";
-    values[0] = a2;
-    values[1] = v11;
-    v21 = *MEMORY[0x1E695E4D0];
-    values[2] = v8;
-    values[3] = v21;
-    v22 = CFDictionaryCreate(v7, keys, values, 4, 0, 0);
-    if (_is_apple_mail_bundle_onceToken != -1)
-    {
-      dispatch_once(&_is_apple_mail_bundle_onceToken, &__block_literal_global_6274);
-    }
+  keys[0] = @"class";
+  keys[1] = @"issr";
+  keys[2] = @"slnr";
+  keys[3] = @"r_Ref";
+  values[0] = a2;
+  values[1] = v11;
+  v21 = *MEMORY[0x1E695E4D0];
+  values[2] = v8;
+  values[3] = v21;
+  v22 = CFDictionaryCreate(v7, keys, values, 4, 0, 0);
+  if (_is_apple_mail_bundle_onceToken != -1)
+  {
+    dispatch_once(&_is_apple_mail_bundle_onceToken, &__block_literal_global_6274);
+  }
 
-    if (_is_apple_mail_bundle_result == 1)
+  if (_is_apple_mail_bundle_result == 1)
+  {
+    mail_keychain_query = _create_mail_keychain_query(v22);
+    if (v22)
     {
-      mail_keychain_query = _create_mail_keychain_query(v22);
-      if (v22)
-      {
-        CFRelease(v22);
-      }
-    }
-
-    else
-    {
-      mail_keychain_query = v22;
-    }
-
-    ItemInAllAvailableKeychains = CERT_FindItemInAllAvailableKeychains(mail_keychain_query);
-    if (mail_keychain_query)
-    {
-      CFRelease(mail_keychain_query);
-    }
-
-LABEL_28:
-    CFRelease(v11);
-    if (v8)
-    {
-LABEL_29:
-      CFRelease(v8);
+      CFRelease(v22);
     }
   }
 
-LABEL_30:
-  v24 = *MEMORY[0x1E69E9840];
+  else
+  {
+    mail_keychain_query = v22;
+  }
+
+  ItemInAllAvailableKeychains = CERT_FindItemInAllAvailableKeychains(mail_keychain_query);
+  if (mail_keychain_query)
+  {
+    CFRelease(mail_keychain_query);
+  }
+
+LABEL_28:
+  CFRelease(v11);
+  if (v8)
+  {
+LABEL_29:
+    CFRelease(v8);
+  }
+
   return ItemInAllAvailableKeychains;
 }
 
 CFTypeRef CERT_FindBySubjectKeyID(const void *a1, const void *a2, CFIndex *a3)
 {
   keys[3] = *MEMORY[0x1E69E9840];
-  if (a3 && (v4 = a3[1]) != 0 && (v5 = *a3, v5 >= 1))
+  if (!a3)
   {
-    v7 = *MEMORY[0x1E695E480];
-    v8 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], v4, v5, *MEMORY[0x1E695E498]);
-    if (a1)
-    {
-      v9 = CFGetTypeID(a1);
-      if (v9 == CFArrayGetTypeID())
-      {
-        if (a2)
-        {
-          if (CFEqual(a2, @"cert"))
-          {
-            Count = CFArrayGetCount(a1);
-            if (Count >= 1)
-            {
-              v11 = Count;
-              v12 = 0;
-              while (1)
-              {
-                ValueAtIndex = CFArrayGetValueAtIndex(a1, v12);
-                if (ValueAtIndex)
-                {
-                  ItemInAllAvailableKeychains = ValueAtIndex;
-                  SubjectKeyID = SecCertificateGetSubjectKeyID(ValueAtIndex);
-                  if (SubjectKeyID)
-                  {
-                    if (v8 && CFEqual(SubjectKeyID, v8))
-                    {
-                      break;
-                    }
-                  }
-                }
+    return 0;
+  }
 
-                if (v11 == ++v12)
+  v4 = a3[1];
+  if (!v4)
+  {
+    return 0;
+  }
+
+  v5 = *a3;
+  if (v5 < 1)
+  {
+    return 0;
+  }
+
+  v7 = *MEMORY[0x1E695E480];
+  v8 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], v4, v5, *MEMORY[0x1E695E498]);
+  if (a1)
+  {
+    v9 = CFGetTypeID(a1);
+    if (v9 == CFArrayGetTypeID())
+    {
+      if (a2)
+      {
+        if (CFEqual(a2, @"cert"))
+        {
+          Count = CFArrayGetCount(a1);
+          if (Count >= 1)
+          {
+            v11 = Count;
+            v12 = 0;
+            while (1)
+            {
+              ValueAtIndex = CFArrayGetValueAtIndex(a1, v12);
+              if (ValueAtIndex)
+              {
+                ItemInAllAvailableKeychains = ValueAtIndex;
+                SubjectKeyID = SecCertificateGetSubjectKeyID(ValueAtIndex);
+                if (SubjectKeyID)
                 {
-                  goto LABEL_15;
+                  if (v8 && CFEqual(SubjectKeyID, v8))
+                  {
+                    break;
+                  }
                 }
               }
 
-              CFRetain(ItemInAllAvailableKeychains);
-              goto LABEL_26;
+              if (v11 == ++v12)
+              {
+                goto LABEL_15;
+              }
             }
+
+            CFRetain(ItemInAllAvailableKeychains);
+            goto LABEL_26;
           }
         }
       }
     }
+  }
 
 LABEL_15:
-    keys[0] = @"class";
-    keys[1] = @"skid";
-    keys[2] = @"r_Ref";
-    values[0] = a2;
-    values[1] = v8;
-    values[2] = *MEMORY[0x1E695E4D0];
-    v16 = CFDictionaryCreate(v7, keys, values, 3, 0, 0);
-    if (_is_apple_mail_bundle_onceToken != -1)
-    {
-      dispatch_once(&_is_apple_mail_bundle_onceToken, &__block_literal_global_6274);
-    }
+  keys[0] = @"class";
+  keys[1] = @"skid";
+  keys[2] = @"r_Ref";
+  values[0] = a2;
+  values[1] = v8;
+  values[2] = *MEMORY[0x1E695E4D0];
+  v16 = CFDictionaryCreate(v7, keys, values, 3, 0, 0);
+  if (_is_apple_mail_bundle_onceToken != -1)
+  {
+    dispatch_once(&_is_apple_mail_bundle_onceToken, &__block_literal_global_6274);
+  }
 
-    if (_is_apple_mail_bundle_result == 1)
+  if (_is_apple_mail_bundle_result == 1)
+  {
+    mail_keychain_query = _create_mail_keychain_query(v16);
+    if (v16)
     {
-      mail_keychain_query = _create_mail_keychain_query(v16);
-      if (v16)
-      {
-        CFRelease(v16);
-      }
-    }
-
-    else
-    {
-      mail_keychain_query = v16;
-    }
-
-    ItemInAllAvailableKeychains = CERT_FindItemInAllAvailableKeychains(mail_keychain_query);
-    if (mail_keychain_query)
-    {
-      CFRelease(mail_keychain_query);
-    }
-
-    if (v8)
-    {
-LABEL_26:
-      CFRelease(v8);
+      CFRelease(v16);
     }
   }
 
   else
   {
-    ItemInAllAvailableKeychains = 0;
+    mail_keychain_query = v16;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
+  ItemInAllAvailableKeychains = CERT_FindItemInAllAvailableKeychains(mail_keychain_query);
+  if (mail_keychain_query)
+  {
+    CFRelease(mail_keychain_query);
+  }
+
+  if (v8)
+  {
+LABEL_26:
+    CFRelease(v8);
+  }
+
   return ItemInAllAvailableKeychains;
 }
 
@@ -7428,7 +6398,7 @@ LABEL_5:
   return v11;
 }
 
-uint64_t SecCmsDecoderCreate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t **a7)
+uint64_t SecCmsDecoderCreate(unint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t **a7)
 {
   ThreadErrInfo = PR_getThreadErrInfo(1, &v22);
   if (ThreadErrInfo)
@@ -7447,7 +6417,7 @@ uint64_t SecCmsDecoderCreate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
     if (v16)
     {
       v17 = v16;
-      v18 = SEC_ASN1DecoderStart(*(v15 + 120), v15, &SecCmsMessageTemplate, 0, 0);
+      v18 = SEC_ASN1DecoderStart(v15[15], v15, &SecCmsMessageTemplate, 0, 0);
       *v17 = v18;
       if (v18)
       {
@@ -7478,16 +6448,16 @@ uint64_t SecCmsDecoderCreate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
   return Error;
 }
 
-void nss_cms_decoder_notify(uint64_t a1, int a2, void *a3)
+void nss_cms_decoder_notify(uint64_t *started, int a2, void *a3)
 {
-  v139 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 16);
+  v138 = *MEMORY[0x1E69E9840];
+  v4 = *(started + 4);
   if (v4 > 0x1E)
   {
     goto LABEL_15;
   }
 
-  v5 = *(a1 + 8);
+  v5 = started[1];
   if (((1 << v4) & 0x6C000000) == 0)
   {
     if (!v4)
@@ -7495,7 +6465,7 @@ void nss_cms_decoder_notify(uint64_t a1, int a2, void *a3)
       if (!a2 && v5 == a3)
       {
         OID = v5[4];
-        if (OID || (OID = SECOID_FindOID(*(a1 + 8)), (v5[4] = OID) != 0))
+        if (OID || (OID = SECOID_FindOID(started[1]), (v5[4] = OID) != 0))
         {
           v14 = *(OID + 16);
         }
@@ -7505,11 +6475,11 @@ void nss_cms_decoder_notify(uint64_t a1, int a2, void *a3)
           v14 = 0;
         }
 
-        *(a1 + 16) = v14;
-        *(a1 + 24) = v5[2];
+        *(started + 4) = v14;
+        started[3] = v5[2];
       }
 
-      goto LABEL_113;
+      return;
     }
 
     if (v4 == 25)
@@ -7517,41 +6487,41 @@ void nss_cms_decoder_notify(uint64_t a1, int a2, void *a3)
       v10 = v5 + 2;
       if (a2 && v10 == a3)
       {
-        v11 = *a1;
-        v12 = *(a1 + 48) != 0;
+        v11 = *started;
+        v12 = started[6] != 0;
         *(v11 + 56) = nss_cms_decoder_update_filter;
-        *(v11 + 64) = a1;
+        *(v11 + 64) = started;
         *(v11 + 72) = v12;
-        goto LABEL_113;
+        return;
       }
 
       if (a2 || v10 != a3)
       {
-        goto LABEL_113;
+        return;
       }
 
 LABEL_94:
-      v48 = *a1;
+      v48 = *started;
       *(v48 + 56) = 0;
       *(v48 + 64) = 0;
       *(v48 + 72) = 0;
-      goto LABEL_113;
+      return;
     }
 
 LABEL_15:
-    *(a1 + 44) = -8058;
-    goto LABEL_113;
+    *(started + 11) = -8058;
+    return;
   }
 
   v6 = a2 != 0;
   v7 = v5 + 2;
   if (a2 && v7 == a3)
   {
-    goto LABEL_113;
+    return;
   }
 
-  v8 = *(a1 + 24);
-  if ((v8 || (v8 = *v7, *(a1 + 24) = *v7, v8)) && ((1 << v4) & 0x6C000000) != 0)
+  v8 = started[3];
+  if ((v8 || (v8 = *v7, started[3] = *v7, v8)) && ((1 << v4) & 0x6C000000) != 0)
   {
     v9 = v8;
     if (!a2)
@@ -7584,11 +6554,11 @@ LABEL_26:
   {
     if (a2 || v9 + 9 != a3)
     {
-      goto LABEL_113;
+      return;
     }
 
-    nss_cms_decoder_work_data(a1, 0, 0, 1);
-    v22 = *(a1 + 32);
+    nss_cms_decoder_work_data(started, 0, 0, 1);
+    v22 = started[4];
     if (!v22)
     {
       v23 = -1;
@@ -7609,7 +6579,7 @@ LABEL_26:
       }
 
       v24 = 0;
-      v22 = *(a1 + 32);
+      v22 = started[4];
       if (!v22)
       {
         goto LABEL_79;
@@ -7624,9 +6594,9 @@ LABEL_26:
     free(v22);
     v23 = v24;
 LABEL_79:
-    *(a1 + 32) = 0;
+    started[4] = 0;
 LABEL_80:
-    v46 = *(a1 + 16);
+    v46 = *(started + 4);
     if (v46 <= 26)
     {
       if (v46 != 25)
@@ -7636,7 +6606,7 @@ LABEL_80:
           goto LABEL_92;
         }
 
-        v23 = SecCmsSignedDataDecodeAfterData(*(a1 + 24));
+        v23 = SecCmsSignedDataDecodeAfterData(started[3]);
       }
     }
 
@@ -7644,7 +6614,7 @@ LABEL_80:
     {
       if (v46 == 27)
       {
-        SecCmsEnvelopedDataDecodeAfterData(*(a1 + 24));
+        SecCmsEnvelopedDataDecodeAfterData(started[3]);
         goto LABEL_94;
       }
 
@@ -7652,12 +6622,12 @@ LABEL_80:
       {
         if (v46 == 30)
         {
-          SecCmsEncryptedDataEncodeAfterData(*(a1 + 24));
+          SecCmsEncryptedDataEncodeAfterData(started[3]);
           goto LABEL_94;
         }
 
 LABEL_92:
-        *(a1 + 44) = PORT_GetError();
+        *(started + 11) = PORT_GetError();
         ThreadErrInfo = PR_getThreadErrInfo(1, &plainTextLen);
         if (ThreadErrInfo)
         {
@@ -7667,7 +6637,7 @@ LABEL_92:
         goto LABEL_94;
       }
 
-      v23 = SecCmsDigestedDataEncodeAfterData(*(a1 + 24));
+      v23 = SecCmsDigestedDataEncodeAfterData(started[3]);
     }
 
     if (!v23)
@@ -7678,17 +6648,17 @@ LABEL_92:
     goto LABEL_92;
   }
 
-  v15 = *a1;
-  v16 = *(a1 + 48) != 0;
+  v15 = *started;
+  v16 = started[6] != 0;
   *(v15 + 56) = nss_cms_decoder_update_filter;
-  *(v15 + 64) = a1;
+  *(v15 + 64) = started;
   *(v15 + 72) = v16;
-  v17 = *(*(a1 + 8) + 120);
+  v17 = *(started[1] + 120);
   if (v4 > 28)
   {
     if (v4 != 29)
     {
-      v25 = *(a1 + 24);
+      v25 = started[3];
       v26 = *(v25 + 24);
       v27 = *(v26 + 144);
       if (!v27)
@@ -7715,7 +6685,7 @@ LABEL_92:
       goto LABEL_59;
     }
 
-    v31 = *(a1 + 24);
+    v31 = started[3];
     if (!v31[17])
     {
       goto LABEL_111;
@@ -7728,7 +6698,7 @@ LABEL_92:
 
   if (v4 == 26)
   {
-    v31 = *(a1 + 24);
+    v31 = started[3];
     p_plainTextLen = v31[17];
     if (!p_plainTextLen)
     {
@@ -7741,9 +6711,9 @@ LABEL_92:
     }
 
 LABEL_58:
-    started = SecCmsDigestContextStartMultiple(p_plainTextLen);
-    v31[13] = started;
-    if (!started)
+    v33 = SecCmsDigestContextStartMultiple(p_plainTextLen);
+    v31[13] = v33;
+    if (!v33)
     {
       goto LABEL_111;
     }
@@ -7756,7 +6726,7 @@ LABEL_58:
     goto LABEL_111;
   }
 
-  v18 = *(a1 + 24);
+  v18 = started[3];
   v19 = *(v18 + 144);
   if (!v19 || !*v19 || (v20 = nss_cms_recipients_traverse(*(v18 + 144), 0), (v20 - 268435454) <= 0xF0000002))
   {
@@ -7827,20 +6797,20 @@ LABEL_104:
     goto LABEL_105;
   }
 
-  v62 = v54[2];
+  v61 = v54[2];
+  CFRetain(v61);
+  v62 = v55[3];
   CFRetain(v62);
-  v63 = v55[3];
-  CFRetain(v63);
   CFRelease(v55);
-  *(v51 + 24) = v62;
-  *(v51 + 32) = v63;
-  v64 = *&v50[8 * v52];
-  if (!*(v64 + 3) || !*(v64 + 4))
+  *(v51 + 24) = v61;
+  *(v51 + 32) = v62;
+  v63 = *&v50[8 * v52];
+  if (!*(v63 + 3) || !*(v63 + 4))
   {
     goto LABEL_109;
   }
 
-  v65 = *(*(v18 + 144) + 8 * *v64);
+  v64 = *(*(v18 + 144) + 8 * *v63);
   if (!SecCmsContentInfoGetContentEncAlgTag(v18))
   {
     v57 = PR_getThreadErrInfo(1, &plainTextLen);
@@ -7855,43 +6825,43 @@ LABEL_108:
     goto LABEL_109;
   }
 
-  v66 = v64[1];
-  v67 = *(v64 + 3);
-  v68 = *(v64 + 4);
-  if (v67)
+  v65 = v63[1];
+  v66 = *(v63 + 3);
+  v67 = *(v63 + 4);
+  if (v66)
   {
-    CFRetain(*(v64 + 3));
+    CFRetain(*(v63 + 3));
   }
 
-  *(v65 + 18) = v67;
-  v69 = *v65;
-  if (*v65 == 2)
+  *(v64 + 18) = v66;
+  v68 = *v64;
+  if (*v64 == 2)
   {
     goto LABEL_146;
   }
 
-  v70 = v68;
-  if (v69 != 1)
+  v69 = v67;
+  if (v68 != 1)
   {
-    if (!v69)
+    if (!v68)
     {
-      if (*(v65 + 6))
+      if (*(v64 + 6))
       {
-        v71 = SECOID_FindOID((v65 + 10));
-        if (v71)
+        v70 = SECOID_FindOID((v64 + 10));
+        if (v70)
         {
-          if (*(v71 + 16) == 16)
+          if (*(v70 + 16) == 16)
           {
-            v72 = *(v65 + 9);
-            *&plainTextLen = v72;
-            if (v72 <= 0x400 && (v73 = malloc_type_malloc(v72, 0x100004077774924uLL)) != 0 && (v74 = v73, !SecKeyDecrypt(v68, 1u, *(v65 + 10), *(v65 + 9), v73, &plainTextLen)))
+            v71 = *(v64 + 9);
+            *&plainTextLen = v71;
+            if (v71 <= 0x400 && (v72 = malloc_type_malloc(v71, 0x100004077774924uLL)) != 0 && (v73 = v72, !SecKeyDecrypt(v67, 1u, *(v64 + 10), *(v64 + 9), v72, &plainTextLen)))
             {
-              v75 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], v74, plainTextLen, *MEMORY[0x1E695E488]);
+              v74 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], v73, plainTextLen, *MEMORY[0x1E695E488]);
             }
 
             else
             {
-              v75 = 0;
+              v74 = 0;
             }
 
             goto LABEL_158;
@@ -7900,13 +6870,13 @@ LABEL_108:
       }
 
 LABEL_146:
-      v83 = -8144;
+      v82 = -8144;
 LABEL_147:
-      v84 = PR_getThreadErrInfo(1, &plainTextLen);
-      if (v84)
+      v83 = PR_getThreadErrInfo(1, &plainTextLen);
+      if (v83)
       {
-        *v84 = 0;
-        v84[1] = v83;
+        *v83 = 0;
+        v83[1] = v82;
       }
     }
 
@@ -7915,230 +6885,245 @@ LABEL_109:
     goto LABEL_111;
   }
 
-  if (!*(v65 + 13))
+  if (!*(v64 + 13))
   {
     goto LABEL_146;
   }
 
-  v76 = SECOID_FindOID((v65 + 24));
-  if (!v76 || *(v76 + 16) != 204)
+  v75 = SECOID_FindOID((v64 + 24));
+  if (!v75 || *(v75 + 16) != 204)
   {
     goto LABEL_146;
   }
 
-  if (v65[6] != 2)
+  if (v64[6] != 2)
   {
-    v83 = -8191;
+    v82 = -8191;
     goto LABEL_147;
   }
 
-  v77 = *(v65 + 8);
-  v113 = *(*(v65 + 16) + 8 * v66);
-  bytes = *(v65 + 9);
-  *&v78 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v78 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v128 = v78;
-  v129 = v78;
-  v126 = 0;
-  iv = 0;
-  v137 = v78;
-  v138 = v78;
-  plainTextLen = v78;
-  v136 = v78;
-  length = 0;
+  v76 = *(v64 + 8);
+  v112 = *(*(v64 + 16) + 8 * v65);
+  bytes = *(v64 + 9);
+  *&v77 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v77 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v127 = v77;
+  v128 = v77;
   v125 = 0;
-  v123 = 5;
-  v122 = -1431655766;
+  iv = 0;
+  v136 = v77;
+  v137 = v77;
+  plainTextLen = v77;
+  v135 = v77;
+  length = 0;
+  v124 = 0;
+  v122 = 5;
+  v121 = -1431655766;
   cryptorRef = 0;
   cf = 0;
   valuePtr = 0;
-  v79 = PORT_NewArena(1024);
-  if (!v79)
+  v78 = PORT_NewArena(1024);
+  if (!v78)
   {
     goto LABEL_138;
   }
 
-  v80 = v79;
+  v79 = v78;
+  v127 = 0u;
   v128 = 0u;
-  v129 = 0u;
-  if (SEC_ASN1Decode(v79, &v128, &SECOID_AlgorithmIDTemplate, *(v65 + 15), *(v65 + 14)))
+  if (SEC_ASN1Decode(v78, &v127, &SECOID_AlgorithmIDTemplate, *(v64 + 15), *(v64 + 14)))
   {
     goto LABEL_137;
   }
 
-  v111 = SECOID_FindOID(&v128);
-  if (!v111)
+  v110 = SECOID_FindOID(&v127);
+  if (!v110)
   {
     goto LABEL_137;
   }
 
-  v85 = v111[4];
-  if (v85 > 183)
+  v84 = v110[4];
+  if (v84 > 183)
   {
-    if (v85 <= 185)
+    if (v84 <= 185)
     {
-      if (v85 == 184)
+      if (v84 == 184)
       {
-        v108 = 0;
-        v86 = 1;
+        v107 = 0;
+        v85 = 1;
 LABEL_174:
-        v109 = v86;
-        v89 = 128;
+        v108 = v85;
+        v88 = 128;
         goto LABEL_181;
       }
 
-      v108 = 0;
-      v90 = 2;
+      v107 = 0;
+      v89 = 2;
     }
 
     else
     {
-      if (v85 != 186)
+      if (v84 != 186)
       {
-        if (v85 == 187)
+        if (v84 == 187)
         {
-          v108 = 0;
-          v88 = 2;
+          v107 = 0;
+          v87 = 2;
         }
 
         else
         {
-          if (v85 != 188)
+          if (v84 != 188)
           {
             goto LABEL_137;
           }
 
-          v108 = 0;
-          v88 = 1;
+          v107 = 0;
+          v87 = 1;
         }
 
-        v109 = v88;
-        v89 = 256;
+        v108 = v87;
+        v88 = 256;
         goto LABEL_181;
       }
 
-      v108 = 0;
-      v90 = 1;
+      v107 = 0;
+      v89 = 1;
     }
 
-    v109 = v90;
+    v108 = v89;
     goto LABEL_178;
   }
 
-  v109 = 1;
-  if (v85 <= 9)
+  v108 = 1;
+  if (v84 <= 9)
   {
-    if (v85 != 7)
+    if (v84 != 7)
     {
-      if (v85 != 9)
+      if (v84 != 9)
       {
         goto LABEL_137;
       }
 
-      v109 = 2;
+      v108 = 2;
       goto LABEL_169;
     }
 
-    v108 = 2;
+    v107 = 2;
 LABEL_178:
-    v89 = 192;
+    v88 = 192;
     goto LABEL_181;
   }
 
-  switch(v85)
+  switch(v84)
   {
     case 10:
 LABEL_169:
-      v108 = 1;
-      v89 = 64;
+      v107 = 1;
+      v88 = 64;
 LABEL_181:
-      v110 = v89;
+      v109 = v88;
 LABEL_182:
-      if (SEC_ASN1Decode(v80, &v126, kSecAsn1OctetStringTemplate, *(&v129 + 1), v129))
+      if (SEC_ASN1Decode(v79, &v125, kSecAsn1OctetStringTemplate, *(&v128 + 1), v128))
       {
         break;
       }
 
-      v137 = 0u;
-      v138 = 0u;
-      plainTextLen = 0u;
       v136 = 0u;
-      plainTextLen = *v111;
-      *&v136 = 2;
-      *(&v136 + 1) = &v123;
-      v137 = *(v65 + 5);
-      v91 = 3;
-      v92 = v110;
+      v137 = 0u;
+      plainTextLen = 0u;
+      v135 = 0u;
+      plainTextLen = *v110;
+      *&v135 = 2;
+      *(&v135 + 1) = &v122;
+      v136 = *(v64 + 5);
+      v90 = 3;
+      v91 = v109;
       do
       {
-        *(&v122 + v91) = v92;
-        v92 >>= 8;
-        --v91;
+        *(&v121 + v90) = v91;
+        v91 >>= 8;
+        --v90;
       }
 
-      while (v91 != -1);
-      *&v138 = 4;
-      *(&v138 + 1) = &v122;
-      if (!SEC_ASN1EncodeItem(v80, &length, &plainTextLen, &ECC_CMS_SharedInfoTemplate))
+      while (v90 != -1);
+      *&v137 = 4;
+      *(&v137 + 1) = &v121;
+      if (!SEC_ASN1EncodeItem(v79, &length, &plainTextLen, &ECC_CMS_SharedInfoTemplate))
       {
         break;
       }
 
-      valuePtr = v77;
-      v93 = CFDataCreate(0, bytes, (v77 + 7) >> 3);
-      v94 = CFNumberCreate(0, kCFNumberSInt64Type, &valuePtr);
+      valuePtr = v76;
+      v92 = CFDataCreate(0, bytes, (v76 + 7) >> 3);
+      v93 = CFNumberCreate(0, kCFNumberSInt64Type, &valuePtr);
       keys[0] = @"type";
       keys[1] = @"kcls";
       keys[2] = @"bsiz";
       values[0] = @"73";
       values[1] = @"0";
-      v106 = v94;
-      values[2] = v94;
-      v104 = v93;
-      v105 = CFDictionaryCreate(0, keys, values, 3, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-      bytesa = SecKeyCreateWithData(v93, v105, &cf);
-      v75 = 0;
+      v105 = v93;
+      values[2] = v93;
+      v103 = v92;
+      v104 = CFDictionaryCreate(0, keys, values, 3, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+      bytesa = SecKeyCreateWithData(v92, v104, &cf);
+      v74 = 0;
       if (cf)
       {
-        v107 = 0;
-        v112 = 0;
+        v106 = 0;
+        v111 = 0;
+        v94 = 0;
         v95 = 0;
-        v96 = 0;
       }
 
       else
       {
-        v107 = 0;
-        v112 = 0;
+        v106 = 0;
+        v111 = 0;
+        v94 = 0;
         v95 = 0;
-        v96 = 0;
         if ((length & 0x8000000000000000) == 0)
         {
-          v97 = CFDataCreate(0, v125, length);
-          v118 = v110 >> 3;
-          v98 = CFNumberCreate(0, kCFNumberSInt32Type, &v118);
-          v132[0] = @"requestedSize";
-          v132[1] = @"sharedInfo";
-          v112 = v98;
-          v131[0] = v98;
-          v131[1] = v97;
-          v107 = v97;
-          v95 = CFDictionaryCreate(0, v132, v131, 2, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-          v99 = SecKeyCopyKeyExchangeResult(v70, @"algid:keyexchange:ECDH:KDFX963:SHA1", bytesa, v95, &cf);
-          v96 = v99;
-          if (cf || CFDataGetLength(v99) < 0 || (BytePtr = CFDataGetBytePtr(v96), v101 = CFDataGetLength(v96), CCCryptorCreate(1u, v108, v109, BytePtr, v101, iv, &cryptorRef)) || (OutputLength = CCCryptorGetOutputLength(cryptorRef, *(v113 + 56), 1), dataOutMoved = 0, v103 = PORT_ArenaAlloc(v80, OutputLength), CCCryptorUpdate(cryptorRef, *(v113 + 64), *(v113 + 56), v103, OutputLength, &dataOutMoved)) || (v116 = 0, CCCryptorFinal(cryptorRef, &v103[dataOutMoved], OutputLength - dataOutMoved, &v116)) || (v116 + dataOutMoved) < 0)
+          v96 = CFDataCreate(0, v124, length);
+          v117 = v109 >> 3;
+          v97 = CFNumberCreate(0, kCFNumberSInt32Type, &v117);
+          v131[0] = @"requestedSize";
+          v131[1] = @"sharedInfo";
+          v111 = v97;
+          v130[0] = v97;
+          v130[1] = v96;
+          v106 = v96;
+          v94 = CFDictionaryCreate(0, v131, v130, 2, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+          v98 = SecKeyCopyKeyExchangeResult(v69, @"algid:keyexchange:ECDH:KDFX963:SHA1", bytesa, v94, &cf);
+          v95 = v98;
+          if (cf || CFDataGetLength(v98) < 0 || (BytePtr = CFDataGetBytePtr(v95), v100 = CFDataGetLength(v95), CCCryptorCreate(1u, v107, v108, BytePtr, v100, iv, &cryptorRef)) || (OutputLength = CCCryptorGetOutputLength(cryptorRef, *(v112 + 56), 1), dataOutMoved = 0, v102 = PORT_ArenaAlloc(v79, OutputLength), CCCryptorUpdate(cryptorRef, *(v112 + 64), *(v112 + 56), v102, OutputLength, &dataOutMoved)) || (v115 = 0, CCCryptorFinal(cryptorRef, &v102[dataOutMoved], OutputLength - dataOutMoved, &v115)) || (v115 + dataOutMoved) < 0)
           {
-            v75 = 0;
+            v74 = 0;
           }
 
           else
           {
-            v75 = CFDataCreate(0, v103, v116 + dataOutMoved);
+            v74 = CFDataCreate(0, v102, v115 + dataOutMoved);
           }
         }
       }
 
-      PORT_FreeArena(v80, 0);
+      PORT_FreeArena(v79, 0);
+      if (v103)
+      {
+        CFRelease(v103);
+      }
+
+      if (v105)
+      {
+        CFRelease(v105);
+      }
+
+      if (bytesa)
+      {
+        CFRelease(bytesa);
+      }
+
       if (v104)
       {
         CFRelease(v104);
@@ -8149,24 +7134,14 @@ LABEL_182:
         CFRelease(v106);
       }
 
-      if (bytesa)
+      if (v111)
       {
-        CFRelease(bytesa);
+        CFRelease(v111);
       }
 
-      if (v105)
+      if (v94)
       {
-        CFRelease(v105);
-      }
-
-      if (v107)
-      {
-        CFRelease(v107);
-      }
-
-      if (v112)
-      {
-        CFRelease(v112);
+        CFRelease(v94);
       }
 
       if (v95)
@@ -8174,33 +7149,28 @@ LABEL_182:
         CFRelease(v95);
       }
 
-      if (v96)
-      {
-        CFRelease(v96);
-      }
-
       goto LABEL_139;
     case 14:
-      v110 = 192;
+      v109 = 192;
+      v107 = 2;
       v108 = 2;
-      v109 = 2;
       goto LABEL_182;
     case 183:
-      v108 = 0;
-      v86 = 2;
+      v107 = 0;
+      v85 = 2;
       goto LABEL_174;
   }
 
 LABEL_137:
-  PORT_FreeArena(v80, 0);
+  PORT_FreeArena(v79, 0);
 LABEL_138:
-  v75 = 0;
+  v74 = 0;
 LABEL_139:
-  v81 = cf;
+  v80 = cf;
   if (cf)
   {
     cf = 0;
-    CFRelease(v81);
+    CFRelease(v80);
   }
 
   if (cryptorRef)
@@ -8208,51 +7178,51 @@ LABEL_139:
     CCCryptorRelease(cryptorRef);
   }
 
-  if (!v75)
+  if (!v74)
   {
-    v82 = PR_getThreadErrInfo(1, &v130);
-    if (v82)
+    v81 = PR_getThreadErrInfo(1, v129);
+    if (v81)
     {
-      *v82 = 0xFFFFE01A00000000;
+      *v81 = 0xFFFFE01A00000000;
     }
   }
 
 LABEL_158:
-  if (!v75)
+  if (!v74)
   {
     goto LABEL_109;
   }
 
-  SecCmsContentInfoSetBulkKey(v18, v75);
-  CFRetain(*(v64 + 4));
-  *(v18 + 112) = *(v64 + 4);
-  v87 = SecCmsCipherContextStart(0, v75, v18 + 40, 0);
-  *(v18 + 96) = v87;
-  CFRelease(v75);
+  SecCmsContentInfoSetBulkKey(v18, v74);
+  CFRetain(*(v63 + 4));
+  *(v18 + 112) = *(v63 + 4);
+  v86 = SecCmsCipherContextStart(0, v74, v18 + 40, 0);
+  *(v18 + 96) = v86;
+  CFRelease(v74);
   nss_cms_recipient_list_destroy(v50);
-  if (!v87)
+  if (!v86)
   {
 LABEL_111:
-    v59 = *a1;
+    v59 = *started;
     *(v59 + 56) = 0;
     *(v59 + 64) = 0;
     *(v59 + 72) = 0;
-    *(a1 + 44) = PORT_GetError();
+    *(started + 11) = PORT_GetError();
     v60 = PR_getThreadErrInfo(1, &plainTextLen);
     if (v60)
     {
       *v60 = 0;
     }
 
-    goto LABEL_113;
+    return;
   }
 
 LABEL_59:
-  v31 = *(a1 + 24);
+  v31 = started[3];
   if (v31)
   {
 LABEL_60:
-    v34 = *(a1 + 16);
+    v34 = *(started + 4);
     if (v34 > 0x1E || ((1 << v34) & 0x6C000000) == 0)
     {
       v31 = 0;
@@ -8280,7 +7250,7 @@ LABEL_60:
       goto LABEL_111;
     }
 
-    *(a1 + 32) = 0;
+    started[4] = 0;
   }
 
   else
@@ -8318,25 +7288,22 @@ LABEL_60:
     if (!v43 || (v44 = v43, bzero(v43, v42), v41[3] = v44, v45 = SEC_ASN1DecoderStart(v17, v44, v39, 0, 0), (*v41 = v45) == 0))
     {
       free(v41);
-      *(a1 + 32) = 0;
+      started[4] = 0;
       goto LABEL_111;
     }
 
     *(v45 + 32) = nss_cms_decoder_notify;
     *(v45 + 40) = v41;
-    *(a1 + 32) = v41;
+    started[4] = v41;
     *(v41 + 4) = v36;
-    v41[1] = *(a1 + 8);
-    *(v41 + 3) = *(a1 + 48);
-    *(a1 + 48) = callback;
-    *(a1 + 56) = v41;
+    v41[1] = started[1];
+    *(v41 + 3) = *(started + 3);
+    started[6] = callback;
+    started[7] = v41;
   }
-
-LABEL_113:
-  v61 = *MEMORY[0x1E69E9840];
 }
 
-void nss_cms_decoder_work_data(uint64_t a1, char *dataIn, size_t dataInLength, int a4)
+void nss_cms_decoder_work_data(uint64_t a1, char *dataIn, size_t dataInLength, uint64_t a4)
 {
   if (dataIn)
   {
@@ -8369,6 +7336,7 @@ void nss_cms_decoder_work_data(uint64_t a1, char *dataIn, size_t dataInLength, i
     v15 = *(v14 + 96);
     if (v15)
     {
+      v16 = a4;
       v33 = 0;
       v17 = *(v15 + 12);
       if (a4)
@@ -8402,7 +7370,7 @@ LABEL_46:
         }
 
         v25 = v24;
-        v26 = SecCmsCipherContextCrypt(*(v14 + 96), v24, &v33, v20, v9, v8, a4);
+        v26 = SecCmsCipherContextCrypt(*(v14 + 96), v24, &v33, v20, v9, v8, v16);
         v9 = v25;
         if (v26)
         {
@@ -8455,7 +7423,7 @@ LABEL_47:
     v23 = *(a1 + 48);
     if (v23)
     {
-      v23(*(a1 + 56), v9, v8);
+      v23(*(a1 + 56), v9, v8, a4);
     }
 
     else
@@ -8632,7 +7600,7 @@ void SecCmsDecoderDestroy(uint64_t *a1)
   free(a1);
 }
 
-uint64_t SecCmsDecoderFinish(uint64_t *a1, uint64_t *a2)
+uint64_t SecCmsDecoderFinish(uint64_t *a1, uint64_t **a2)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -8657,7 +7625,7 @@ uint64_t SecCmsDecoderFinish(uint64_t *a1, uint64_t *a2)
   Error = PORT_GetError();
 LABEL_8:
   free(a1);
-  ThreadErrInfo = PR_getThreadErrInfo(1, &v11);
+  ThreadErrInfo = PR_getThreadErrInfo(1, v11);
   if (ThreadErrInfo)
   {
     *ThreadErrInfo = 0;
@@ -8666,7 +7634,7 @@ LABEL_8:
   return Error;
 }
 
-uint64_t SecCmsMessageDecode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t *a8)
+uint64_t SecCmsMessageDecode(unint64_t *a1, unint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t **a8)
 {
   v14 = 0;
   v10 = SecCmsDecoderCreate(a2, a3, a3, a5, a6, a7, &v14);
@@ -8681,7 +7649,7 @@ uint64_t SecCmsMessageDecode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   v12 = v14;
-  v13 = SecCmsDecoderUpdate(v14, *(a1 + 8), *a1);
+  v13 = SecCmsDecoderUpdate(v14, a1[1], *a1);
   if (v13)
   {
     v10 = v13;
@@ -8711,28 +7679,28 @@ uint64_t cmsDecoderClassInitialize()
   return result;
 }
 
-void cmsDecoderFinalize(void *a1)
+void cmsDecoderFinalize(void *result)
 {
-  if (a1)
+  if (result)
   {
-    v2 = a1[3];
+    v2 = result[3];
     if (v2)
     {
       SecCmsDecoderDestroy(v2);
-      a1[5] = 0;
+      result[5] = 0;
     }
 
-    v3 = a1[4];
+    v3 = result[4];
     if (v3)
     {
       CFRelease(v3);
     }
 
-    v4 = a1[5];
+    v4 = result[5];
     if (v4)
     {
       SecCmsMessageDestroy(v4);
-      a1[5] = 0;
+      result[5] = 0;
     }
   }
 }
@@ -9086,7 +8054,7 @@ OSStatus CMSDecoderCopySignerStatus(CMSDecoderRef cmsDecoder, size_t signerIndex
 
     else
     {
-      if (*(v14 + 168))
+      if (v14[21])
       {
         cf = 0;
         v15 = SecCmsSignedDataVerifySignerInfo_internal(v14, signerIndex, policyOrArray, &cf);
@@ -9768,4 +8736,1018 @@ double CMSDecoderCopySignerAppleExpirationTime(uint64_t a1, int a2, double *a3, 
   }
 
   return result;
+}
+
+uint64_t nss_cms_recipients_traverse(uint64_t *a1, uint64_t a2)
+{
+  v3 = *a1;
+  if (!*a1)
+  {
+    v7 = 0;
+    v16 = 0;
+    if (a2)
+    {
+LABEL_30:
+      v7 = 0;
+      *(a2 + 8 * v16) = 0;
+      return v7;
+    }
+
+    return v7;
+  }
+
+  v5 = 0;
+  v6 = 0;
+  v7 = 0;
+  while (1)
+  {
+    if (*v3 == 1)
+    {
+      v10 = *(v3 + 128);
+      if (!v10)
+      {
+        goto LABEL_25;
+      }
+
+      v11 = *v10;
+      if (!*v10)
+      {
+        goto LABEL_25;
+      }
+
+      v12 = 0;
+      while (!a2)
+      {
+        v7 = (v7 + 1);
+LABEL_22:
+        v15 = &v10[v12++];
+        v11 = v15[1];
+        if (!v11)
+        {
+          goto LABEL_25;
+        }
+      }
+
+      v13 = PORT_ZAlloc(0x28uLL);
+      if (!v13)
+      {
+        return 0xFFFFFFFFLL;
+      }
+
+      *v13 = v5;
+      v13[1] = v12;
+      if (*v11 == 1)
+      {
+        v13[2] = 1;
+        v14 = v11 + 8;
+      }
+
+      else
+      {
+        if (*v11)
+        {
+LABEL_21:
+          *(a2 + 8 * v6) = v13;
+          v10 = *(v3 + 128);
+          ++v6;
+          goto LABEL_22;
+        }
+
+        v13[2] = 0;
+        v14 = *(v11 + 8);
+      }
+
+      *(v13 + 2) = v14;
+      goto LABEL_21;
+    }
+
+    if (!*v3)
+    {
+      break;
+    }
+
+LABEL_25:
+    v3 = a1[++v5];
+    if (!v3)
+    {
+      v16 = v6;
+      if (!a2)
+      {
+        return v7;
+      }
+
+      goto LABEL_30;
+    }
+  }
+
+  if (!a2)
+  {
+    v7 = (v7 + 1);
+    goto LABEL_25;
+  }
+
+  v8 = PORT_ZAlloc(0x28uLL);
+  if (v8)
+  {
+    *v8 = v5;
+    v8[1] = -1;
+    v9 = *(v3 + 24);
+    if (v9 <= 1)
+    {
+      v8[2] = v9;
+      *(v8 + 2) = *(v3 + 32);
+    }
+
+    *(a2 + 8 * v6++) = v8;
+    goto LABEL_25;
+  }
+
+  return 0xFFFFFFFFLL;
+}
+
+void nss_cms_recipient_list_destroy(char *a1)
+{
+  v2 = *a1;
+  if (*a1)
+  {
+    v3 = a1 + 8;
+    do
+    {
+      v4 = v2[3];
+      if (v4)
+      {
+        v2[3] = 0;
+        CFRelease(v4);
+      }
+
+      v5 = v2[4];
+      if (v5)
+      {
+        v2[4] = 0;
+        CFRelease(v5);
+      }
+
+      free(v2);
+      v6 = *v3;
+      v3 += 8;
+      v2 = v6;
+    }
+
+    while (v6);
+  }
+
+  free(a1);
+}
+
+uint64_t SecSMIMEFindBulkAlgForRecipients(__SecCertificate **a1, _DWORD *a2, _DWORD *a3)
+{
+  v6 = PORT_NewArena(1024);
+  v7 = 65545;
+  if (v6)
+  {
+    v8 = v6;
+    v9 = PORT_ArenaAlloc(v6, 0x24uLL);
+    v10 = v9;
+    if (v9)
+    {
+      *(v9 + 32) = 0;
+      *v9 = 0u;
+      *(v9 + 16) = 0u;
+    }
+
+    v11 = PORT_ArenaAlloc(v8, 0x24uLL);
+    v7 = 65545;
+    if (v11)
+    {
+      v12 = v11;
+      *(v11 + 32) = 0;
+      *v11 = 0u;
+      *(v11 + 16) = 0u;
+      v7 = 65545;
+      if (v10)
+      {
+        v13 = *a1;
+        if (*a1)
+        {
+          v14 = 0;
+          v15 = a1 + 1;
+          do
+          {
+            v16 = v14;
+            v17 = SecCertificateCopyKey(v13);
+            if (v17 && (v18 = v17, Size = SecKeyGetSize(v17, 0), CFRelease(v18), Size >= 0x201))
+            {
+              ++*(v10 + 16);
+              *(v12 + 16) += 9;
+              v20 = 8;
+            }
+
+            else
+            {
+              v20 = 9;
+            }
+
+            ++*(v10 + 4);
+            *(v12 + 4) += v20;
+            v14 = v16 + 1;
+            v13 = v15[v16];
+          }
+
+          while (v13);
+        }
+
+        else
+        {
+          LODWORD(v14) = 0;
+        }
+
+        v21 = 0;
+        v22 = 0;
+        v7 = 65545;
+        v23 = &byte_1E70D9571;
+        do
+        {
+          if (*(v10 + 4 * v21) == v14 && *(v23 - 1) && *v23 && *(v23 - 25) != 65561)
+          {
+            v24 = *(v12 + 4 * v21);
+            if (v24 >= v22)
+            {
+              v7 = *(v23 - 25);
+            }
+
+            if (v24 > v22)
+            {
+              v22 = *(v12 + 4 * v21);
+            }
+          }
+
+          ++v21;
+          v23 += 32;
+        }
+
+        while (v21 != 9);
+      }
+    }
+
+    PORT_FreeArena(v8, 0);
+  }
+
+  v25 = smime_keysize_by_cipher(v7);
+  v26 = 0;
+  if (v25 < 128)
+  {
+    v27 = 65546;
+  }
+
+  else
+  {
+    v27 = v7;
+  }
+
+  v28 = smime_cipher_map;
+  while (1)
+  {
+    v29 = *v28;
+    v28 += 4;
+    if (v29 == v27)
+    {
+      break;
+    }
+
+    if (++v26 == 9)
+    {
+      return 0xFFFFFFFFLL;
+    }
+  }
+
+  v31 = &smime_cipher_map[4 * v26];
+  *a2 = *(v31 + 2);
+  v32 = smime_keysize_by_cipher(*v31);
+  result = 0;
+  *a3 = v32;
+  return result;
+}
+
+uint64_t smime_keysize_by_cipher(uint64_t a1)
+{
+  if (a1 <= 65544)
+  {
+    if (a1 == 65537)
+    {
+      return 40;
+    }
+
+    if (a1 != 65538)
+    {
+      if (a1 == 65539)
+      {
+        return 128;
+      }
+
+      return 0xFFFFFFFFLL;
+    }
+
+    return 64;
+  }
+
+  if (a1 == 65545)
+  {
+    return 64;
+  }
+
+  if (a1 != 65546)
+  {
+    if (a1 == 65561)
+    {
+      return 0;
+    }
+
+    return 0xFFFFFFFFLL;
+  }
+
+  return 192;
+}
+
+void *SecSMIMEGetCertFromEncryptionKeyPreference(int64_t **a1, unint64_t *a2)
+{
+  v15 = 0xAAAAAAAAAAAAAAAALL;
+  v16 = 0xAAAAAAAAAAAAAAAALL;
+  v4 = PORT_NewArena(1024);
+  if (!v4)
+  {
+    return 0;
+  }
+
+  v5 = v4;
+  if (SEC_ASN1Decode(v4, &v15, &smime_encryptionkeypref_template, a2[1], *a2))
+  {
+    PORT_FreeArena(v5, 0);
+    return 0;
+  }
+
+  if (a1 && *a1)
+  {
+    v8 = 0;
+      ;
+    }
+
+    Mutable = CFArrayCreateMutable(0, v8, MEMORY[0x1E695E9C0]);
+    do
+    {
+      v11 = **a1;
+      if ((v11 & 0x8000000000000000) == 0)
+      {
+        v12 = SecCertificateCreateWithBytes(0, (*a1)[1], v11);
+        if (v12)
+        {
+          v13 = v12;
+          CFArrayAppendValue(Mutable, v12);
+          CFRelease(v13);
+        }
+      }
+
+      ++a1;
+      --v8;
+    }
+
+    while (v8);
+  }
+
+  else
+  {
+    Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
+  }
+
+  if (!CFArrayGetCount(Mutable) && Mutable)
+  {
+    CFRelease(Mutable);
+    Mutable = 0;
+  }
+
+  if (v15 == 2 || v15 == 1)
+  {
+    v14 = CERT_FindBySubjectKeyID(Mutable, @"cert", v16);
+    goto LABEL_25;
+  }
+
+  if (!v15)
+  {
+    v14 = CERT_FindByIssuerAndSN(Mutable, @"cert", v16);
+LABEL_25:
+    v6 = v14;
+    goto LABEL_27;
+  }
+
+  v6 = 0;
+LABEL_27:
+  PORT_FreeArena(v5, 0);
+  if (Mutable)
+  {
+    CFRelease(Mutable);
+  }
+
+  return v6;
+}
+
+uint64_t SecCmsEncoderCreate(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9)
+{
+  ThreadErrInfo = PR_getThreadErrInfo(1, &v28);
+  if (ThreadErrInfo)
+  {
+    *ThreadErrInfo = 0;
+  }
+
+  a1[17] = a6;
+  a1[18] = a7;
+  a1[19] = a8;
+  v17 = PORT_ZAlloc(0x50uLL);
+  if (!v17)
+  {
+    return 4294967188;
+  }
+
+  v18 = v17;
+  *(v17 + 5) = a2;
+  v19 = (v17 + 40);
+  *(v17 + 2) = a1;
+  *(v17 + 6) = a3;
+  *(v17 + 7) = a4;
+  *(v17 + 6) = 0;
+  OID = a1[4];
+  if (!OID)
+  {
+    OID = SECOID_FindOID(a1);
+    a1[4] = OID;
+    if (!OID)
+    {
+      Error = 4294967246;
+      goto LABEL_21;
+    }
+  }
+
+  v21 = *(OID + 16);
+  Error = 4294967246;
+  if (v21 > 28)
+  {
+    if (v21 == 29)
+    {
+      v23 = SecCmsDigestedDataEncodeBeforeStart(a1[2]);
+    }
+
+    else
+    {
+      if (v21 != 30)
+      {
+        goto LABEL_21;
+      }
+
+      v23 = SecCmsEncryptedDataEncodeBeforeStart(a1[2]);
+    }
+  }
+
+  else
+  {
+    if (v21 != 26)
+    {
+      if (v21 == 27)
+      {
+        v23 = SecCmsEnvelopedDataEncodeBeforeStart(a1[2]);
+        goto LABEL_16;
+      }
+
+LABEL_21:
+      free(v18);
+      return Error;
+    }
+
+    v23 = SecCmsSignedDataEncodeBeforeStart(a1[2]);
+  }
+
+LABEL_16:
+  Error = v23;
+  if (v23)
+  {
+    goto LABEL_21;
+  }
+
+  v24 = SEC_ASN1EncoderStart(a1, &SecCmsMessageTemplate, nss_cms_encoder_out, v19);
+  *v18 = v24;
+  if (v24)
+  {
+    v18[8] = 0;
+    *(v24 + 20) = 1;
+    *(v24 + 32) = nss_cms_encoder_notify;
+    *(v24 + 40) = v18;
+    if (!SEC_ASN1EncoderUpdate(v24, 0, 0))
+    {
+      Error = 0;
+      *a9 = v18;
+      return Error;
+    }
+
+    Error = PORT_GetError();
+    free(v18);
+    v25 = &v30;
+  }
+
+  else
+  {
+    Error = PORT_GetError();
+    free(v18);
+    v25 = &v29;
+  }
+
+  v27 = PR_getThreadErrInfo(1, v25);
+  if (v27)
+  {
+    *v27 = 0;
+  }
+
+  return Error;
+}
+
+void nss_cms_encoder_notify(uint64_t *a1, int a2, uint64_t a3)
+{
+  v43[2] = *MEMORY[0x1E69E9840];
+  v6 = a1[2];
+  v7 = *(a1 + 6);
+  if (v7 <= 0x1E)
+  {
+    if (((1 << v7) & 0x6C000000) != 0)
+    {
+      v8 = v7 > 0x1E;
+      v9 = (1 << v7) & 0x6C000000;
+      if (v8 || v9 == 0)
+      {
+        v11 = 0;
+      }
+
+      else
+      {
+        v11 = a1[4];
+      }
+
+      if (a1[4])
+      {
+        v12 = v11;
+      }
+
+      else
+      {
+        v12 = 0;
+      }
+
+      OID = *(v12 + 32);
+      if (OID || (OID = SECOID_FindOID(v12), (*(v12 + 32) = OID) != 0))
+      {
+        v14 = *(OID + 16) == 25;
+        if (a2)
+        {
+          goto LABEL_38;
+        }
+      }
+
+      else
+      {
+        v14 = 0;
+        if (a2)
+        {
+          goto LABEL_38;
+        }
+      }
+
+      if (v12 == a3)
+      {
+        v15 = *(a1 + 6);
+        if (v15 > 28)
+        {
+          if (v15 != 29)
+          {
+            if (v15 != 30)
+            {
+              goto LABEL_97;
+            }
+
+LABEL_27:
+            v17 = a1[4];
+            if (!v17)
+            {
+              goto LABEL_97;
+            }
+
+            v18 = *(v17 + 80);
+            if (!v18)
+            {
+              goto LABEL_97;
+            }
+
+            CFRetain(*(v17 + 80));
+            *(v17 + 96) = SecCmsCipherContextStart(*(*(v17 + 24) + 120), v18, v17 + 40, 1);
+            CFRelease(v18);
+            if (!*(v17 + 96))
+            {
+              goto LABEL_97;
+            }
+
+            goto LABEL_58;
+          }
+
+          v26 = a1[4];
+          if (!v26[17])
+          {
+            goto LABEL_61;
+          }
+
+          if (v26[21])
+          {
+LABEL_58:
+            v26 = a1[4];
+            if (!v26)
+            {
+              goto LABEL_61;
+            }
+
+            goto LABEL_59;
+          }
+
+          v43[0] = v26 + 17;
+          v43[1] = 0;
+          v27 = v43;
+        }
+
+        else
+        {
+          if (v15 != 26)
+          {
+            if (v15 != 27)
+            {
+LABEL_97:
+              *(a1 + 16) = PORT_GetError();
+              ThreadErrInfo = PR_getThreadErrInfo(1, v43);
+              if (ThreadErrInfo)
+              {
+                *ThreadErrInfo = 0;
+              }
+
+              return;
+            }
+
+            goto LABEL_27;
+          }
+
+          v26 = a1[4];
+          v27 = v26[17];
+          if (!v27)
+          {
+LABEL_59:
+            v29 = *(a1 + 6);
+            if (v29 > 0x1E || ((1 << v29) & 0x6C000000) == 0)
+            {
+              v26 = 0;
+            }
+
+LABEL_61:
+            v30 = v26[4];
+            if (v30 || (v30 = SECOID_FindOID(v26), (v26[4] = v30) != 0))
+            {
+              v31 = *(v30 + 16);
+              if (v31 <= 0x1E)
+              {
+                if (((1 << v31) & 0x6C000000) != 0)
+                {
+                  v32 = PORT_ZAlloc(0x50uLL);
+                  if (!v32)
+                  {
+                    goto LABEL_97;
+                  }
+
+                  v33 = v32;
+                  *(v32 + 6) = v31;
+                  v34 = v26[2];
+                  *(v32 + 5) = nss_cms_encoder_update;
+                  v35 = (v32 + 40);
+                  *(v32 + 4) = v34;
+                  *(v32 + 6) = a1;
+                  *(v32 + 7) = 0;
+                  *(v32 + 2) = a1[2];
+                  if (v31 == 28)
+                  {
+                    goto LABEL_94;
+                  }
+
+                  v36 = *(&off_1E70D9708 + (v31 - 26));
+                  if (v31 > 28)
+                  {
+                    if (v31 == 29)
+                    {
+                      v37 = SecCmsDigestedDataEncodeBeforeStart(v26[2]);
+                    }
+
+                    else
+                    {
+                      v37 = SecCmsEncryptedDataEncodeBeforeStart(v26[2]);
+                    }
+                  }
+
+                  else if (v31 == 26)
+                  {
+                    v37 = SecCmsSignedDataEncodeBeforeStart(v26[2]);
+                  }
+
+                  else
+                  {
+                    if (v31 != 27)
+                    {
+LABEL_92:
+                      v41 = SEC_ASN1EncoderStart(v26[2], v36, nss_cms_encoder_out, v35);
+                      *v33 = v41;
+                      if (!v41)
+                      {
+LABEL_96:
+                        free(v33);
+                        goto LABEL_97;
+                      }
+
+                      v33[8] = 0;
+                      *(v41 + 20) = 1;
+                      *(v41 + 32) = nss_cms_encoder_notify;
+                      *(v41 + 40) = v33;
+                      if (!SEC_ASN1EncoderUpdate(v41, 0, 0))
+                      {
+                        a1[9] = v33;
+                        return;
+                      }
+
+LABEL_94:
+                      if (*v33)
+                      {
+                        PORT_FreeArena(**v33, 0);
+                      }
+
+                      goto LABEL_96;
+                    }
+
+                    v37 = SecCmsEnvelopedDataEncodeBeforeStart(v26[2]);
+                  }
+
+                  if (v37)
+                  {
+                    goto LABEL_94;
+                  }
+
+                  goto LABEL_92;
+                }
+
+                if (v31 == 25)
+                {
+                  a1[9] = 0;
+                  return;
+                }
+              }
+            }
+
+            *(a1 + 16) = -8183;
+            return;
+          }
+        }
+
+        started = SecCmsDigestContextStartMultiple(v27);
+        v26[13] = started;
+        if (!started)
+        {
+          goto LABEL_97;
+        }
+
+        goto LABEL_58;
+      }
+
+LABEL_38:
+      v21 = v12 + 72;
+      if (a2 && v21 == a3)
+      {
+        if (v14 && (v22 = *(v12 + 16)) != 0)
+        {
+          v24 = *v22;
+          v23 = v22[1];
+
+          nss_cms_encoder_work_data(a1, v23, v24, 1, 1);
+        }
+
+        else
+        {
+          *(*a1 + 24) = 1;
+        }
+
+        return;
+      }
+
+      if (a2 || v21 != a3)
+      {
+        return;
+      }
+
+      v25 = *(a1 + 6);
+      if (v25 > 28)
+      {
+        if (v25 != 29)
+        {
+          if (v25 == 30)
+          {
+            goto LABEL_50;
+          }
+
+          goto LABEL_82;
+        }
+
+        v39 = SecCmsDigestedDataEncodeAfterData(a1[4]);
+      }
+
+      else
+      {
+        if (v25 != 26)
+        {
+          if (v25 == 27)
+          {
+LABEL_50:
+            SecCmsEncryptedDataEncodeAfterData(a1[4]);
+            goto LABEL_84;
+          }
+
+LABEL_82:
+          *(a1 + 16) = PORT_GetError();
+          v40 = PR_getThreadErrInfo(1, v43);
+          if (v40)
+          {
+            *v40 = 0;
+          }
+
+          goto LABEL_84;
+        }
+
+        v39 = SecCmsSignedDataEncodeAfterData(a1[4]);
+      }
+
+      if (!v39)
+      {
+        goto LABEL_84;
+      }
+
+      goto LABEL_82;
+    }
+
+    if (v7 == 25)
+    {
+      if (!a2 || v6 + 72 != a3)
+      {
+        return;
+      }
+
+      v16 = *(v6 + 16);
+      if (!v16)
+      {
+        v38 = *a1;
+        *(*a1 + 24) = 1;
+LABEL_85:
+        *(v38 + 32) = 0;
+        *(v38 + 40) = 0;
+        return;
+      }
+
+      nss_cms_encoder_work_data(a1, *(v16 + 8), *v16, 1, 1);
+LABEL_84:
+      v38 = *a1;
+      goto LABEL_85;
+    }
+  }
+
+  if (!a2 && v6 == a3)
+  {
+    v19 = *(v6 + 32);
+    if (v19 || (v19 = SECOID_FindOID(v6), (*(v6 + 32) = v19) != 0))
+    {
+      v20 = *(v19 + 16);
+    }
+
+    else
+    {
+      v20 = 0;
+    }
+
+    *(a1 + 6) = v20;
+    a1[4] = *(v6 + 16);
+  }
+}
+
+uint64_t nss_cms_encoder_work_data(uint64_t a1, char *dataIn, size_t dataInLength, int a4, int a5)
+{
+  v7 = dataInLength;
+  v8 = dataIn;
+  if (*(a1 + 32))
+  {
+    v10 = *(a1 + 24);
+    v11 = v10 > 0x1E;
+    v12 = (1 << v10) & 0x6C000000;
+    if (v11 || v12 == 0)
+    {
+      v14 = 0;
+    }
+
+    else
+    {
+      v14 = *(a1 + 32);
+    }
+
+    if (!dataInLength)
+    {
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+    v14 = 0;
+    if (!dataInLength)
+    {
+      goto LABEL_13;
+    }
+  }
+
+  v15 = *(v14 + 104);
+  if (v15)
+  {
+    SecCmsDigestContextUpdate(v15, dataIn, dataInLength);
+  }
+
+LABEL_13:
+  v16 = *(v14 + 96);
+  if (!v16)
+  {
+    v22 = 0;
+    goto LABEL_22;
+  }
+
+  v25 = 0;
+  v17 = *(v16 + 12);
+  if (a4)
+  {
+    v18 = *(v16 + 12);
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  v19 = (v7 + v17 - 1) / v17;
+  v20 = v18 + v19 * v17;
+  if (!v20)
+  {
+    return SecCmsCipherContextCrypt(v16, 0, 0, 0, v8, v7, a4);
+  }
+
+  v21 = PORT_Alloc(v18 + v19 * v17);
+  if (!v21)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v22 = v21;
+  v23 = SecCmsCipherContextCrypt(*(v14 + 96), v21, &v25, v20, v8, v7, a4);
+  if (!v23)
+  {
+    v7 = v25;
+    v8 = v22;
+LABEL_22:
+    v23 = 0;
+    if (*a1 && v7)
+    {
+      if (a5 && !*(v14 + 72))
+      {
+        v23 = 0;
+        if (!v22)
+        {
+          return v23;
+        }
+
+LABEL_28:
+        if (*(v14 + 96))
+        {
+          free(v22);
+        }
+
+        return v23;
+      }
+
+      v23 = SEC_ASN1EncoderUpdate(*a1, v8, v7);
+    }
+
+    if (!v22)
+    {
+      return v23;
+    }
+
+    goto LABEL_28;
+  }
+
+  return v23;
 }

@@ -77,33 +77,31 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_sectionID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    subtypeID = self->_subtypeID;
     PBDataWriterWriteUint64Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    defaultSubtype = self->_defaultSubtype;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_icon)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -183,7 +181,6 @@
     }
   }
 
-  v6 = *(equalCopy + 36);
   if (*&self->_has)
   {
     if ((*(equalCopy + 36) & 1) == 0 || self->_subtypeID != *(equalCopy + 1))
@@ -205,7 +202,7 @@
     }
 
 LABEL_14:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_15;
   }
 
@@ -214,7 +211,6 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v10 = *(equalCopy + 32);
   if (self->_defaultSubtype)
   {
     if ((*(equalCopy + 32) & 1) == 0)
@@ -232,17 +228,17 @@ LABEL_11:
   icon = self->_icon;
   if (icon | *(equalCopy + 2))
   {
-    v8 = [(BLTPBSectionIcon *)icon isEqual:?];
+    v7 = [(BLTPBSectionIcon *)icon isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_15:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash
@@ -300,18 +296,28 @@ LABEL_3:
   v7 = *(fromCopy + 2);
   if (icon)
   {
-    if (v7)
+    if (!v7)
     {
-      [(BLTPBSectionIcon *)icon mergeFrom:?];
+      goto LABEL_13;
     }
+
+    icon = [(BLTPBSectionIcon *)icon mergeFrom:?];
   }
 
-  else if (v7)
+  else
   {
-    [(BLTPBSetSectionSubtypeParametersIconRequest *)self setIcon:?];
+    if (!v7)
+    {
+      goto LABEL_13;
+    }
+
+    icon = [(BLTPBSetSectionSubtypeParametersIconRequest *)self setIcon:?];
   }
 
-  MEMORY[0x2821F96F8]();
+  fromCopy = v8;
+LABEL_13:
+
+  MEMORY[0x2821F96F8](icon, fromCopy);
 }
 
 @end

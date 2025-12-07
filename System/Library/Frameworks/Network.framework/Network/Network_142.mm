@@ -1,3 +1,88 @@
+nw_group_descriptor_t nw_group_descriptor_create_multiplex(nw_endpoint_t remote_endpoint)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v1 = remote_endpoint;
+  if (v1)
+  {
+    v2 = [[NWConcrete_nw_group_descriptor alloc] initWithType:v1 member:0 groupID:?];
+    goto LABEL_3;
+  }
+
+  v4 = __nwlog_obj();
+  *buf = 136446210;
+  v15 = "nw_group_descriptor_create_multiplex";
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null remote_endpoint", buf, 12);
+
+  type = OS_LOG_TYPE_ERROR;
+  v12 = 0;
+  if (__nwlog_fault(v5, &type, &v12))
+  {
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v6 = __nwlog_obj();
+      v7 = type;
+      if (os_log_type_enabled(v6, type))
+      {
+        *buf = 136446210;
+        v15 = "nw_group_descriptor_create_multiplex";
+        _os_log_impl(&dword_181A37000, v6, v7, "%{public}s called with null remote_endpoint", buf, 0xCu);
+      }
+    }
+
+    else if (v12 == 1)
+    {
+      backtrace_string = __nw_create_backtrace_string();
+      v6 = __nwlog_obj();
+      v9 = type;
+      v10 = os_log_type_enabled(v6, type);
+      if (backtrace_string)
+      {
+        if (v10)
+        {
+          *buf = 136446466;
+          v15 = "nw_group_descriptor_create_multiplex";
+          v16 = 2082;
+          v17 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v6, v9, "%{public}s called with null remote_endpoint, dumping backtrace:%{public}s", buf, 0x16u);
+        }
+
+        free(backtrace_string);
+        goto LABEL_20;
+      }
+
+      if (v10)
+      {
+        *buf = 136446210;
+        v15 = "nw_group_descriptor_create_multiplex";
+        _os_log_impl(&dword_181A37000, v6, v9, "%{public}s called with null remote_endpoint, no backtrace", buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      v6 = __nwlog_obj();
+      v11 = type;
+      if (os_log_type_enabled(v6, type))
+      {
+        *buf = 136446210;
+        v15 = "nw_group_descriptor_create_multiplex";
+        _os_log_impl(&dword_181A37000, v6, v11, "%{public}s called with null remote_endpoint, backtrace limit exceeded", buf, 0xCu);
+      }
+    }
+  }
+
+LABEL_20:
+  if (v5)
+  {
+    free(v5);
+  }
+
+  v2 = 0;
+LABEL_3:
+
+  return v2;
+}
+
 uint64_t *nw_group_descriptor_create_apple_id(void *a1, _OWORD *a2)
 {
   v20 = *MEMORY[0x1E69E9840];
@@ -11,7 +96,7 @@ uint64_t *nw_group_descriptor_create_apple_id(void *a1, _OWORD *a2)
   v6 = __nwlog_obj();
   *buf = 136446210;
   v17 = "nw_group_descriptor_create_apple_id";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null apple_id", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v14 = 0;
@@ -96,7 +181,7 @@ uint64_t *nw_group_descriptor_create_application_service(void *a1, _OWORD *a2)
   v6 = __nwlog_obj();
   *buf = 136446210;
   v17 = "nw_group_descriptor_create_application_service";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null endpoint", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v14 = 0;
@@ -181,7 +266,7 @@ uint64_t *nw_group_descriptor_create_with_type(int a1, _OWORD *a2)
   v6 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_group_descriptor_create_with_type";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null (type != nw_group_type_invalid)", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -268,7 +353,7 @@ uint64_t *nw_group_descriptor_copy(void *a1)
     v8 = __nwlog_obj();
     *buf = 136446210;
     v19 = "nw_group_descriptor_copy";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null descriptor", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v16 = 0;
@@ -373,7 +458,7 @@ uint64_t nw_group_descriptor_get_type(void *a1)
   v4 = __nwlog_obj();
   *buf = 136446210;
   v15 = "nw_group_descriptor_get_type";
-  v5 = _os_log_send_and_compose_impl();
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null descriptor", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v12 = 0;
@@ -459,7 +544,7 @@ void nw_group_descriptor_get_id(void *a1, _OWORD *a2)
   v4 = __nwlog_obj();
   *buf = 136446210;
   v15 = "nw_group_descriptor_get_id";
-  v5 = _os_log_send_and_compose_impl();
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null descriptor", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v12 = 0;
@@ -539,7 +624,7 @@ uint64_t nw_group_descriptor_supports_known_membership(void *a1)
     v14 = __nwlog_obj();
     *buf = 136446210;
     v23 = "nw_group_descriptor_supports_known_membership";
-    v5 = _os_log_send_and_compose_impl();
+    v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s called with null descriptor", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v20 = 0;
@@ -633,7 +718,7 @@ LABEL_24:
       v4 = gLogObj;
       *buf = 136446210;
       v23 = "nw_group_descriptor_supports_known_membership";
-      v5 = _os_log_send_and_compose_impl();
+      v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s Invalid group descriptor type", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v20 = 0;
@@ -728,7 +813,7 @@ BOOL nw_group_descriptor_add_endpoint(nw_group_descriptor_t descriptor, nw_endpo
     v14 = __nwlog_obj();
     *buf = 136446210;
     v30 = "nw_group_descriptor_add_endpoint";
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s called with null descriptor", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v27 = 0;
@@ -798,7 +883,7 @@ BOOL nw_group_descriptor_add_endpoint(nw_group_descriptor_t descriptor, nw_endpo
     v18 = __nwlog_obj();
     *buf = 136446210;
     v30 = "nw_group_descriptor_add_endpoint";
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v18, 16, "%{public}s called with null endpoint", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v27 = 0;
@@ -969,7 +1054,7 @@ uint64_t nw_group_descriptor_supports_multiple_members(NWConcrete_nw_group_descr
   v4 = gLogObj;
   *buf = 136446210;
   v17 = "nw_group_descriptor_supports_multiple_members";
-  v5 = _os_log_send_and_compose_impl();
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s Invalid group descriptor type", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v14 = 0;
@@ -1065,7 +1150,7 @@ void nw_group_descriptor_remove_endpoint(void *a1, void *a2)
     v6 = __nwlog_obj();
     *buf = 136446210;
     v23 = "nw_group_descriptor_remove_endpoint";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null descriptor", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v20 = 0;
@@ -1149,7 +1234,7 @@ LABEL_37:
   v10 = __nwlog_obj();
   *buf = 136446210;
   v23 = "nw_group_descriptor_remove_endpoint";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null endpoint", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v20 = 0;
@@ -1301,7 +1386,7 @@ LABEL_16:
     v21 = __nwlog_obj();
     *buf = 136446210;
     v35 = "nw_group_descriptor_set_members";
-    v18 = _os_log_send_and_compose_impl();
+    v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v21, 16, "%{public}s called with null endpoints", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v32 = 0;
@@ -1371,7 +1456,7 @@ LABEL_49:
     v17 = __nwlog_obj();
     *buf = 136446210;
     v35 = "nw_group_descriptor_set_members";
-    v18 = _os_log_send_and_compose_impl();
+    v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v17, 16, "%{public}s called with null descriptor", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v32 = 0;
@@ -1459,7 +1544,7 @@ void nw_group_descriptor_enumerate_endpoints(nw_group_descriptor_t descriptor, n
     v8 = __nwlog_obj();
     *buf = 136446210;
     v27 = "nw_group_descriptor_enumerate_endpoints";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null descriptor", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v24 = 0;
@@ -1555,7 +1640,7 @@ LABEL_39:
   v12 = __nwlog_obj();
   *buf = 136446210;
   v27 = "nw_group_descriptor_enumerate_endpoints";
-  v9 = _os_log_send_and_compose_impl();
+  v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null enumerate_block", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v24 = 0;
@@ -1636,7 +1721,7 @@ uint64_t nw_group_descriptor_copy_member(void *a1)
     v10 = __nwlog_obj();
     *buf = 136446210;
     v26 = "nw_group_descriptor_copy_member";
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null descriptor", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v23 = 0;
@@ -1706,7 +1791,7 @@ uint64_t nw_group_descriptor_copy_member(void *a1)
     v14 = __nwlog_obj();
     *buf = 136446210;
     v26 = "nw_group_descriptor_copy_member";
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s called on group descriptor that supports multiple endpoints", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v23 = 0;
@@ -1839,7 +1924,7 @@ id nw_group_descriptor_copy_members(void *a1)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_group_descriptor_copy_members";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null descriptor", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -1925,7 +2010,7 @@ void nw_multicast_group_descriptor_set_specific_source(nw_group_descriptor_t mul
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_multicast_group_descriptor_set_specific_source";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null multicast_descriptor", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -2008,7 +2093,7 @@ id nw_multicast_group_descriptor_get_specific_source(void *a1)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_multicast_group_descriptor_get_specific_source";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null multicast_descriptor", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -2093,7 +2178,7 @@ void nw_multicast_group_descriptor_set_disable_unicast_traffic(nw_group_descript
   v4 = __nwlog_obj();
   *buf = 136446210;
   v15 = "nw_multicast_group_descriptor_set_disable_unicast_traffic";
-  v5 = _os_log_send_and_compose_impl();
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null multicast_descriptor", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v12 = 0;
@@ -2176,7 +2261,7 @@ BOOL nw_multicast_group_descriptor_get_disable_unicast_traffic(nw_group_descript
   v4 = __nwlog_obj();
   *buf = 136446210;
   v15 = "nw_multicast_group_descriptor_get_disable_unicast_traffic";
-  v5 = _os_log_send_and_compose_impl();
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null multicast_descriptor", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v12 = 0;
@@ -2283,7 +2368,7 @@ void nw_privacy_context_flush_cache(nw_privacy_context_t privacy_context)
   v3 = __nwlog_obj();
   *buf = 136446210;
   v15 = "nw_privacy_context_flush_cache";
-  v4 = _os_log_send_and_compose_impl();
+  v4 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v3, 16, "%{public}s called with null privacy_context", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v12 = 0;
@@ -2360,7 +2445,7 @@ void nw_privacy_context_disable_logging(nw_privacy_context_t privacy_context)
     v11 = __nwlog_obj();
     *buf = 136446210;
     v20 = "nw_privacy_context_disable_logging";
-    v4 = _os_log_send_and_compose_impl();
+    v4 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s called with null privacy_context", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v17 = 0;
@@ -2444,7 +2529,7 @@ LABEL_22:
   v3 = gLogObj;
   *buf = 136446210;
   v20 = "nw_privacy_context_disable_logging";
-  v4 = _os_log_send_and_compose_impl();
+  v4 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v3, 16, "%{public}s Logging cannot be disabled for the default privacy context", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v17 = 0;
@@ -2548,7 +2633,7 @@ void nw_privacy_context_require_encrypted_name_resolution(nw_privacy_context_t p
   v7 = __nwlog_obj();
   *buf = 136446210;
   v18 = "nw_privacy_context_require_encrypted_name_resolution";
-  v8 = _os_log_send_and_compose_impl();
+  v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s called with null privacy_context", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v15 = 0;
@@ -2642,7 +2727,7 @@ void nw_privacy_context_add_proxy(nw_privacy_context_t privacy_context, nw_proxy
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_privacy_context_add_proxy";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null privacy_context", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -2736,7 +2821,7 @@ void nw_privacy_context_clear_proxies(nw_privacy_context_t privacy_context)
   v3 = __nwlog_obj();
   *buf = 136446210;
   v14 = "nw_privacy_context_clear_proxies";
-  v4 = _os_log_send_and_compose_impl();
+  v4 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v3, 16, "%{public}s called with null privacy_context", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v11 = 0;
@@ -2830,7 +2915,7 @@ void nw_protocol_instance_flush_batched_input(void *a1)
   v4 = __nwlog_obj();
   *buf = 136446210;
   v15 = "nw_protocol_instance_flush_batched_input";
-  v5 = _os_log_send_and_compose_impl();
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null instance", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v12 = 0;
@@ -2909,7 +2994,7 @@ uint64_t nw_protocol_instance_wait_for_early_data(void *a1)
     v4 = __nwlog_obj();
     *buf = 136446210;
     v16 = "nw_protocol_instance_wait_for_early_data";
-    v5 = _os_log_send_and_compose_impl();
+    v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null instance", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v13 = 0;
@@ -2978,7 +3063,7 @@ LABEL_20:
     goto LABEL_22;
   }
 
-  nw_context_assert_queue(*(v1 + 15));
+  nw_context_assert_queue(v1[15]);
   if (!*(v2 - 6))
   {
 LABEL_22:
@@ -2986,7 +3071,7 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  v2[413] |= 4u;
+  *(v2 + 413) |= 4u;
   v3 = 1;
 LABEL_23:
 
@@ -3001,7 +3086,7 @@ void nw_protocol_instance_reset_after_early_data(void *a1)
   if (v1)
   {
     *(v1 + 413) &= ~4u;
-    if (*(v1[1] + 16) == 3)
+    if (v1[1][16]._os_unfair_lock_opaque == 3)
     {
       nw_hash_table_apply(v1[29], &__block_literal_global_62);
     }
@@ -3012,7 +3097,7 @@ void nw_protocol_instance_reset_after_early_data(void *a1)
   v3 = __nwlog_obj();
   *buf = 136446210;
   v14 = "nw_protocol_instance_reset_after_early_data";
-  v4 = _os_log_send_and_compose_impl();
+  v4 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v3, 16, "%{public}s called with null instance", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v11 = 0;
@@ -3131,7 +3216,7 @@ void nw_protocol_instance_early_data_rejected(void *a1)
   v6 = __nwlog_obj();
   *buf = 136446210;
   v19 = "nw_protocol_instance_early_data_rejected";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null instance", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v16 = 0;
@@ -3328,7 +3413,7 @@ LABEL_26:
       v57 = v20;
       v58 = 2048;
       v59 = object;
-      v21 = _os_log_send_and_compose_impl();
+      v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v19, 16, "%{public}s protocol %{public}s (%p) has invalid notify callback", buf, 32);
 
       type = OS_LOG_TYPE_ERROR;
       v48 = 0;
@@ -3448,7 +3533,7 @@ LABEL_85:
     v29 = __nwlog_obj();
     *buf = 136446210;
     v55 = "__nw_protocol_notify";
-    v30 = _os_log_send_and_compose_impl();
+    v30 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v29, 16, "%{public}s called with null other_protocol", buf, 12);
 
     v49[0] = OS_LOG_TYPE_ERROR;
     type = OS_LOG_TYPE_DEFAULT;
@@ -3520,7 +3605,7 @@ LABEL_95:
   v25 = __nwlog_obj();
   *buf = 136446210;
   v55 = "__nw_protocol_notify";
-  v26 = _os_log_send_and_compose_impl();
+  v26 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v25, 16, "%{public}s called with null protocol", buf, 12);
 
   v52[0] = OS_LOG_TYPE_ERROR;
   v49[0] = OS_LOG_TYPE_DEFAULT;
@@ -3656,7 +3741,7 @@ void nw_protocol_instance_assert_fallback_agent(void *a1)
   v4 = __nwlog_obj();
   *buf = 136446210;
   v14 = "nw_protocol_instance_assert_fallback_agent";
-  v5 = _os_log_send_and_compose_impl();
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null instance", buf, 12);
 
   LOBYTE(v19) = 16;
   v12 = 0;
@@ -3764,7 +3849,7 @@ void nw_protocol_instance_unassert_fallback_agent(void *a1)
   v4 = __nwlog_obj();
   *buf = 136446210;
   v14 = "nw_protocol_instance_unassert_fallback_agent";
-  v5 = _os_log_send_and_compose_impl();
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null instance", buf, 12);
 
   LOBYTE(v19) = 16;
   v12 = 0;
@@ -3843,7 +3928,7 @@ id nw_protocol_instance_copy_remote_endpoint_for_path(void *a1, uint64_t a2)
     v11 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_protocol_instance_copy_remote_endpoint_for_path";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s called with null instance", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v26 = 0;
@@ -3918,7 +4003,7 @@ id nw_protocol_instance_copy_remote_endpoint_for_path(void *a1, uint64_t a2)
     v15 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_protocol_instance_copy_remote_endpoint_for_path";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s called with null path", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v26 = 0;
@@ -3995,7 +4080,7 @@ LABEL_42:
     goto LABEL_43;
   }
 
-  v5 = *(v3 + 37);
+  v5 = v3[37];
   if (!v5)
   {
     goto LABEL_45;
@@ -4014,7 +4099,7 @@ LABEL_42:
 
   *buf = 0;
   *&buf[8] = 0;
-  nw_path_flow_registration_get_id(*(node + 56), buf);
+  nw_path_flow_registration_get_id(node[7], buf);
   v7 = _nw_path_copy_flow_for_registration(v4[36], buf);
   v8 = v7;
   if (v7)
@@ -4042,7 +4127,7 @@ uint64_t nw_protocol_instance_path_has_migration_info(void *a1, uint64_t a2)
     v8 = __nwlog_obj();
     *buf = 136446210;
     v25 = "nw_protocol_instance_path_has_migration_info";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null instance", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v22 = 0;
@@ -4112,7 +4197,7 @@ uint64_t nw_protocol_instance_path_has_migration_info(void *a1, uint64_t a2)
     v12 = __nwlog_obj();
     *buf = 136446210;
     v25 = "nw_protocol_instance_path_has_migration_info";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null path", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v22 = 0;
@@ -4212,7 +4297,7 @@ uint64_t nw_protocol_instance_get_sockfd_for_path(void *a1, uint64_t a2)
     v8 = __nwlog_obj();
     *buf = 136446210;
     v25 = "nw_protocol_instance_get_sockfd_for_path";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null instance", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v22 = 0;
@@ -4282,7 +4367,7 @@ uint64_t nw_protocol_instance_get_sockfd_for_path(void *a1, uint64_t a2)
     v12 = __nwlog_obj();
     *buf = 136446210;
     v25 = "nw_protocol_instance_get_sockfd_for_path";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null path", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v22 = 0;
@@ -4366,7 +4451,7 @@ LABEL_40:
     goto LABEL_41;
   }
 
-  v7 = *(node + 180);
+  v7 = *(node + 45);
 LABEL_41:
 
   return v7;
@@ -4382,7 +4467,7 @@ uint64_t nw_protocol_instance_is_path_injected(void *a1, uint64_t a2)
     v8 = __nwlog_obj();
     *buf = 136446210;
     v25 = "nw_protocol_instance_is_path_injected";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null instance", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v22 = 0;
@@ -4452,7 +4537,7 @@ uint64_t nw_protocol_instance_is_path_injected(void *a1, uint64_t a2)
     v12 = __nwlog_obj();
     *buf = 136446210;
     v25 = "nw_protocol_instance_is_path_injected";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null path", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v22 = 0;
@@ -4542,7 +4627,7 @@ LABEL_41:
   return v7;
 }
 
-void nw_protocol_instance_set_current_path(void *a1, uint64_t a2)
+void nw_protocol_instance_set_current_path(void *a1, OS_nw_path *a2)
 {
   v108 = *MEMORY[0x1E69E9840];
   v3 = a1;
@@ -4555,7 +4640,7 @@ void nw_protocol_instance_set_current_path(void *a1, uint64_t a2)
       if (v5)
       {
         v6 = v5;
-        v7 = *(v5 + 112);
+        v7 = v5[14];
         v8 = v7;
         v9 = v8;
         if (v8)
@@ -4571,11 +4656,11 @@ void nw_protocol_instance_set_current_path(void *a1, uint64_t a2)
           v86 = 0;
         }
 
-        v20 = *(v6 + 16);
+        v20 = v6[2];
         if (v20)
         {
           v18 = v20;
-          v21 = *(v6 + 24);
+          v21 = v6[3];
           v22 = SBYTE5(v4->flow_in_connected);
           if (!v21)
           {
@@ -4626,7 +4711,7 @@ void nw_protocol_instance_set_current_path(void *a1, uint64_t a2)
             }
           }
 
-          v25 = *(v6 + 32);
+          v25 = v6[4];
           v26 = *&v4[-1].log_str[25];
           if (v26 != v25)
           {
@@ -4968,7 +5053,7 @@ LABEL_91:
         v100 = 2048;
         v85 = v59;
         v101 = v59;
-        v62 = _os_log_send_and_compose_impl();
+        v62 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v60, 16, "%{public}s protocol %{public}s (%p) has invalid notify callback", buf, 32);
 
         v91 = OS_LOG_TYPE_ERROR;
         v90 = 0;
@@ -5080,7 +5165,7 @@ LABEL_160:
       v69 = __nwlog_obj();
       *buf = 136446210;
       v97 = "__nw_protocol_notify";
-      v70 = _os_log_send_and_compose_impl();
+      v70 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v69, 16, "%{public}s called with null protocol", buf, 12);
 
       type[0] = OS_LOG_TYPE_ERROR;
       LOBYTE(v92) = 0;
@@ -5174,7 +5259,7 @@ LABEL_56:
   v54 = __nwlog_obj();
   *buf = 136446210;
   v97 = "nw_protocol_instance_set_current_path";
-  v55 = _os_log_send_and_compose_impl();
+  v55 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v54, 16, "%{public}s called with null instance", buf, 12);
 
   type[0] = OS_LOG_TYPE_ERROR;
   LOBYTE(v92) = 0;
@@ -5381,7 +5466,7 @@ LABEL_25:
       v58 = 2048;
       v20 = v17;
       v59 = v17;
-      v21 = _os_log_send_and_compose_impl();
+      v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v18, 16, "%{public}s protocol %{public}s (%p) has invalid notify callback", buf, 32);
 
       type = OS_LOG_TYPE_ERROR;
       v48 = 0;
@@ -5493,7 +5578,7 @@ LABEL_82:
     v29 = __nwlog_obj();
     *buf = 136446210;
     v55 = "__nw_protocol_notify";
-    v30 = _os_log_send_and_compose_impl();
+    v30 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v29, 16, "%{public}s called with null other_protocol", buf, 12);
 
     v49[0] = OS_LOG_TYPE_ERROR;
     type = OS_LOG_TYPE_DEFAULT;
@@ -5565,7 +5650,7 @@ LABEL_92:
   v25 = __nwlog_obj();
   *buf = 136446210;
   v55 = "__nw_protocol_notify";
-  v26 = _os_log_send_and_compose_impl();
+  v26 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v25, 16, "%{public}s called with null protocol", buf, 12);
 
   v52[0] = OS_LOG_TYPE_ERROR;
   v49[0] = OS_LOG_TYPE_DEFAULT;
@@ -5660,7 +5745,7 @@ uint64_t nw_protocol_instance_create_extra_path(void *a1, uint64_t a2, void *a3)
     v32 = __nwlog_obj();
     *buf = 136446210;
     v49 = "nw_protocol_instance_create_extra_path";
-    v33 = _os_log_send_and_compose_impl();
+    v33 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v32, 16, "%{public}s called with null instance", buf, 12);
 
     LOBYTE(__buf) = 16;
     v47 = 0;
@@ -5735,7 +5820,7 @@ uint64_t nw_protocol_instance_create_extra_path(void *a1, uint64_t a2, void *a3)
     v36 = __nwlog_obj();
     *buf = 136446210;
     v49 = "nw_protocol_instance_create_extra_path";
-    v33 = _os_log_send_and_compose_impl();
+    v33 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v36, 16, "%{public}s called with null existing_path", buf, 12);
 
     LOBYTE(__buf) = 16;
     v47 = 0;
@@ -5887,7 +5972,7 @@ LABEL_73:
   }
 
   v10 = node;
-  v11 = *(node + 48);
+  v11 = node[6];
   v12 = v11;
   if (v12)
   {
@@ -5900,27 +5985,27 @@ LABEL_73:
       v15 = v14;
       if (v14)
       {
-        *(v14 + 32) = 0u;
-        *(v14 + 48) = 0u;
+        *(v14 + 2) = 0u;
+        *(v14 + 3) = 0u;
         v16 = (v14 + 48);
-        *(v14 + 160) = 0u;
-        *(v14 + 176) = 0u;
-        *(v14 + 128) = 0u;
-        *(v14 + 144) = 0u;
-        *(v14 + 96) = 0u;
-        *(v14 + 112) = 0u;
-        *(v14 + 64) = 0u;
-        *(v14 + 80) = 0u;
-        objc_storeStrong((v14 + 48), v11);
-        v17 = *(v10 + 32);
-        *(v15 + 176) = 1;
-        *(v15 + 32) = v17;
-        *(v15 + 185) = *(v15 + 185) & 0xB7 | 0x40;
+        *(v14 + 10) = 0u;
+        *(v14 + 11) = 0u;
+        *(v14 + 8) = 0u;
+        *(v14 + 9) = 0u;
+        *(v14 + 6) = 0u;
+        *(v14 + 7) = 0u;
+        *(v14 + 4) = 0u;
+        *(v14 + 5) = 0u;
+        objc_storeStrong(v14 + 6, v11);
+        v17 = *(v10 + 2);
+        *(v15 + 44) = 1;
+        *(v15 + 2) = v17;
+        v15[185] = v15[185] & 0xB7 | 0x40;
         v18 = (v15 + 168);
-        objc_storeStrong((v15 + 168), a3);
-        *(v15 + 152) = 0;
-        *(v15 + 160) = v15 + 152;
-        v19 = *(v15 + 176);
+        objc_storeStrong(v15 + 21, a3);
+        *(v15 + 19) = 0;
+        *(v15 + 20) = v15 + 152;
+        v19 = *(v15 + 44);
         v20 = __buf;
         v21 = v5;
         v22 = v21;
@@ -6194,7 +6279,7 @@ LABEL_18:
   _Block_object_dispose(buf, 8);
 }
 
-void sub_18240369C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_18240369C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   _Block_object_dispose(&a21, 8);
 
@@ -6261,14 +6346,14 @@ uint64_t __nw_protocol_instance_establish_path_block_invoke_69(uint64_t a1, uint
   if (node)
   {
     v13 = node;
-    v14 = *(node + 56);
+    v14 = node[7];
     if (v14)
     {
       v15 = nw_path_flow_registration_force_update(v14);
       v45[0] = 0;
       v45[1] = 0;
       v44 = 0;
-      if (nw_path_flow_registration_get_nexus_instance(v15, *(v13 + 56), v45, &v44))
+      if (nw_path_flow_registration_get_nexus_instance(v15, v13[7], v45, &v44))
       {
         v16 = *(a1 + 40);
         if (!v16 || (*(v16 + 413) & 0x80000000) == 0)
@@ -6306,7 +6391,7 @@ uint64_t __nw_protocol_instance_establish_path_block_invoke_69(uint64_t a1, uint
           }
         }
 
-        nw_protocol_instance_bring_up_channel(*(a1 + 32), value, v13 + 32, v15);
+        nw_protocol_instance_bring_up_channel(*(a1 + 32), value, (v13 + 4), v15);
       }
 
       else
@@ -6728,9 +6813,9 @@ uint64_t ___ZL43nw_protocol_instance_update_available_pathsP31NWConcrete_nw_prot
   return 1;
 }
 
-void sub_182404418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_182404418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -6745,7 +6830,7 @@ uint64_t ___ZL43nw_protocol_instance_update_available_pathsP31NWConcrete_nw_prot
     node = nw_hash_table_get_node(*(*(a1 + 32) + 296), value, 8);
     if (node)
     {
-      v7 = *(node + 176);
+      v7 = *(node + 44);
     }
 
     else
@@ -6780,7 +6865,7 @@ void nw_protocol_instance_async(void *a1, void *a2)
     v6 = __nwlog_obj();
     *buf = 136446210;
     v28 = "nw_protocol_instance_async";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null instance", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v25 = 0;
@@ -6861,7 +6946,7 @@ LABEL_54:
     v10 = __nwlog_obj();
     *buf = 136446210;
     v28 = "nw_protocol_instance_async";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null instance->context", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v25 = 0;
@@ -6931,7 +7016,7 @@ LABEL_54:
     v12 = __nwlog_obj();
     *buf = 136446210;
     v28 = "nw_protocol_instance_async";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null block", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v25 = 0;
@@ -7017,7 +7102,7 @@ uint64_t ___ZL43nw_protocol_instance_update_available_pathsP31NWConcrete_nw_prot
   if (node)
   {
     v7 = node;
-    nw_protocol_path_state_dispose(*(a1 + 32), node + 32);
+    nw_protocol_path_state_dispose(*(a1 + 32), (node + 4));
     nw_hash_table_remove_node(*(*(a1 + 32) + 296), v7);
   }
 
@@ -7037,7 +7122,7 @@ void *nw_protocol_instance_copy_endpoint(uint64_t a1)
   v3 = __nwlog_obj();
   *buf = 136446210;
   v14 = "nw_protocol_instance_copy_endpoint";
-  v4 = _os_log_send_and_compose_impl();
+  v4 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v3, 16, "%{public}s called with null instance", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v11 = 0;
@@ -7106,7 +7191,7 @@ LABEL_21:
   return 0;
 }
 
-uint64_t nw_protocol_instance_get_maximum_message_size(void *a1, uint64_t a2)
+uint64_t nw_protocol_instance_get_maximum_message_size(void *a1, OS_nw_path *a2)
 {
   v82 = *MEMORY[0x1E69E9840];
   v3 = a1;
@@ -7116,7 +7201,7 @@ uint64_t nw_protocol_instance_get_maximum_message_size(void *a1, uint64_t a2)
     v27 = __nwlog_obj();
     *buf = 136446210;
     v75 = "nw_protocol_instance_get_maximum_message_size";
-    v28 = _os_log_send_and_compose_impl();
+    v28 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v27, 16, "%{public}s called with null instance", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     LOBYTE(v70) = 0;
@@ -7189,7 +7274,7 @@ uint64_t nw_protocol_instance_get_maximum_message_size(void *a1, uint64_t a2)
       goto LABEL_137;
     }
 
-    v6 = *(v5 + 32);
+    v6 = v5[4];
     if (!v6)
     {
       goto LABEL_137;
@@ -7285,7 +7370,7 @@ LABEL_40:
     v78 = 2048;
     v45 = v42;
     v79 = v42;
-    v35 = _os_log_send_and_compose_impl();
+    v35 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v43, 16, "%{public}s protocol %{public}s (%p) has invalid get_message_properties callback", buf, 32);
 
     v69 = OS_LOG_TYPE_ERROR;
     v68 = 0;
@@ -7475,7 +7560,7 @@ LABEL_16:
     v78 = 2048;
     v34 = v31;
     v79 = v31;
-    v35 = _os_log_send_and_compose_impl();
+    v35 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v32, 16, "%{public}s protocol %{public}s (%p) has invalid get_message_properties callback", buf, 32);
 
     v69 = OS_LOG_TYPE_ERROR;
     v68 = 0;
@@ -7597,7 +7682,7 @@ LABEL_130:
   v48 = __nwlog_obj();
   *buf = 136446210;
   v75 = "__nw_protocol_get_message_properties";
-  v28 = _os_log_send_and_compose_impl();
+  v28 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v48, 16, "%{public}s called with null protocol", buf, 12);
 
   type[0] = OS_LOG_TYPE_ERROR;
   LOBYTE(v70) = 0;
@@ -7674,18 +7759,18 @@ LABEL_137:
   return 0;
 }
 
-void sub_182405BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_182405BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  if ((v9 & 1) == 0)
+  va_start(va1, a13);
+  va_start(va, a13);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  if ((v15 & 1) == 0)
   {
     nw::release_if_needed<nw_protocol *>(va);
   }
 
-  if ((v8 & 1) == 0)
+  if ((v14 & 1) == 0)
   {
     nw::release_if_needed<nw_protocol *>(va1);
   }
@@ -7693,14 +7778,14 @@ void sub_182405BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *nw_protocol_instance_get_buffer_manager(void *a1, unsigned int a2)
+const char **nw_protocol_instance_get_buffer_manager(void *a1, unsigned int a2)
 {
   v27 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = v3;
   if (v3)
   {
-    v5 = *(v3 + 15);
+    v5 = v3[15];
     if (v5)
     {
       buffer_manager_with_context = nw_frame_get_buffer_manager_with_context(v5, a2);
@@ -7710,7 +7795,7 @@ void *nw_protocol_instance_get_buffer_manager(void *a1, unsigned int a2)
     v12 = __nwlog_obj();
     *buf = 136446210;
     v24 = "nw_protocol_instance_get_buffer_manager";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null instance->context", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v21 = 0;
@@ -7780,7 +7865,7 @@ LABEL_36:
     v8 = __nwlog_obj();
     *buf = 136446210;
     v24 = "nw_protocol_instance_get_buffer_manager";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null instance", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v21 = 0;
@@ -7868,7 +7953,7 @@ uint64_t nw_protocol_instance_access_cached_content(void *a1, void *a2)
     v11 = __nwlog_obj();
     *buf = 136446210;
     v51 = "nw_protocol_instance_access_cached_content";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s called with null instance", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v48 = 0;
@@ -7941,7 +8026,7 @@ LABEL_63:
     v15 = __nwlog_obj();
     *buf = 136446210;
     v51 = "nw_protocol_instance_access_cached_content";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s called with null access_block", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v48 = 0;
@@ -8012,7 +8097,7 @@ LABEL_63:
     v17 = __nwlog_obj();
     *buf = 136446210;
     v51 = "nw_protocol_instance_access_cached_content";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v17, 16, "%{public}s called with null instance->parent_definition", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v48 = 0;
@@ -8083,7 +8168,7 @@ LABEL_63:
     v19 = __nwlog_obj();
     *buf = 136446210;
     v51 = "nw_protocol_instance_access_cached_content";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v19, 16, "%{public}s called with null instance->parent_definition->common_state", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v48 = 0;
@@ -8170,7 +8255,7 @@ LABEL_110:
     v23 = __nwlog_obj();
     *buf = 136446210;
     v51 = "nw_protocol_instance_access_cached_content";
-    v24 = _os_log_send_and_compose_impl();
+    v24 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v23, 16, "%{public}s called with null association", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v48 = 0;
@@ -8242,7 +8327,7 @@ LABEL_108:
   v21 = __nwlog_obj();
   *buf = 136446210;
   v51 = "nw_protocol_instance_access_cached_content";
-  v12 = _os_log_send_and_compose_impl();
+  v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v21, 16, "%{public}s called with null instance->parent_definition->common_state->deallocate_cache_entry", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v48 = 0;
@@ -8328,7 +8413,7 @@ void nw_protocol_instance_set_cached_content(void *a1, uint64_t a2, uint64_t a3)
     v11 = __nwlog_obj();
     *buf = 136446210;
     v46 = "nw_protocol_instance_set_cached_content";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s called with null instance", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v43 = 0;
@@ -8409,7 +8494,7 @@ LABEL_86:
     v15 = __nwlog_obj();
     *buf = 136446210;
     v46 = "nw_protocol_instance_set_cached_content";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s called with null instance->parent_definition", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v43 = 0;
@@ -8480,7 +8565,7 @@ LABEL_86:
     v17 = __nwlog_obj();
     *buf = 136446210;
     v46 = "nw_protocol_instance_set_cached_content";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v17, 16, "%{public}s called with null instance->parent_definition->common_state", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v43 = 0;
@@ -8550,7 +8635,7 @@ LABEL_86:
     v19 = __nwlog_obj();
     *buf = 136446210;
     v46 = "nw_protocol_instance_set_cached_content";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v19, 16, "%{public}s called with null instance->parent_definition->common_state->deallocate_cache_entry", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v43 = 0;
@@ -8630,7 +8715,7 @@ LABEL_53:
     v21 = __nwlog_obj();
     *buf = 136446210;
     v46 = "nw_protocol_instance_set_cached_content";
-    v22 = _os_log_send_and_compose_impl();
+    v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v21, 16, "%{public}s called with null association", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v43 = 0;
@@ -8719,7 +8804,7 @@ id nw_protocol_instance_copy_definition(void *a1)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_protocol_instance_copy_definition";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null instance", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -8814,7 +8899,7 @@ void nw_protocol_instance_set_limit_outbound_data(void *a1, int a2)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_protocol_instance_set_limit_outbound_data";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null instance", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -8897,7 +8982,7 @@ void nw_protocol_instance_set_reserve_header_size(void *a1, uint64_t a2)
   v4 = __nwlog_obj();
   *buf = 136446210;
   v15 = "nw_protocol_instance_set_reserve_header_size";
-  v5 = _os_log_send_and_compose_impl();
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null instance", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v12 = 0;
@@ -8980,7 +9065,7 @@ void nw_protocol_instance_set_reserve_footer_size(void *a1, uint64_t a2)
   v4 = __nwlog_obj();
   *buf = 136446210;
   v15 = "nw_protocol_instance_set_reserve_footer_size";
-  v5 = _os_log_send_and_compose_impl();
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null instance", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v12 = 0;
@@ -9063,7 +9148,7 @@ void nw_protocol_instance_set_maximum_content_size(void *a1, uint64_t a2)
   v4 = __nwlog_obj();
   *buf = 136446210;
   v15 = "nw_protocol_instance_set_maximum_content_size";
-  v5 = _os_log_send_and_compose_impl();
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null instance", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v12 = 0;
@@ -9156,7 +9241,7 @@ void nw_protocol_instance_set_is_datagram(void *a1, int a2)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_protocol_instance_set_is_datagram";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null instance", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -9236,7 +9321,7 @@ void nw_protocol_instance_notify_updated_internal(void *a1, unsigned int a2, int
     v23 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_protocol_instance_notify_updated_internal";
-    v24 = _os_log_send_and_compose_impl();
+    v24 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v23, 16, "%{public}s called with null instance", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v37 = 0;

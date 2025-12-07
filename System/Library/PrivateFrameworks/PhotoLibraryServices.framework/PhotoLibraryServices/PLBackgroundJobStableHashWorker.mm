@@ -379,7 +379,7 @@ void __63__PLBackgroundJobStableHashWorker__checkItems_forType_library___block_i
 {
   v4 = [*(a1 + 32) valueForKey:@"jobType"];
   v2 = [MEMORY[0x1E695DFD8] setWithArray:?];
-  *(*(*(a1 + 40) + 8) + 24) = [v2 count] == 1;
+  *(*(*(a1 + 40) + 8) + 24) = objc_msgSend_count(v2) == 1;
   if (*(*(*(a1 + 40) + 8) + 24) == 1)
   {
     v3 = [v2 anyObject];
@@ -518,7 +518,7 @@ void __63__PLBackgroundJobStableHashWorker__checkItems_forType_library___block_i
   v45 = v13;
   v50 = &v66;
   [v12 performBlockAndWait:v43];
-  if (![v61[5] count])
+  if (!objc_msgSend_count(v61[5]))
   {
 LABEL_7:
     v16 = 0;
@@ -573,7 +573,7 @@ LABEL_9:
       v25 = PLBackgroundJobServiceGetLog();
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        v26 = [v61[5] count];
+        v26 = objc_msgSend_count(v61[5]);
         v27 = v73[5];
         *buf = 134218242;
         v79 = v26;
@@ -636,7 +636,7 @@ void __66__PLBackgroundJobStableHashWorker__processOnItem_inLibrary_error___bloc
     v8 = *(*(*(a1 + 56) + 8) + 40);
     if (v8)
     {
-      if ([v8 count] <= 0x63)
+      if (objc_msgSend_count(v8) <= 0x63)
       {
         *(*(*(a1 + 80) + 8) + 24) = 1;
       }
@@ -715,7 +715,7 @@ void __66__PLBackgroundJobStableHashWorker__processOnItem_inLibrary_error___bloc
     v5 = PLBackgroundJobServiceGetLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v6 = [*(*(*(a1 + 72) + 8) + 40) count];
+      v6 = objc_msgSend_count(*(*(*(a1 + 72) + 8) + 40));
       *buf = 134217984;
       v25 = v6;
       _os_log_impl(&dword_19BF1F000, v5, OS_LOG_TYPE_DEBUG, "Stable Hash Worker: Work items to remove: %td", buf, 0xCu);
@@ -813,21 +813,21 @@ void __53__PLBackgroundJobStableHashWorker__fingerPrintScheme__block_invoke(uint
     if (objc_opt_isKindOfClass())
     {
       firstObject2 = [itemCopy firstObject];
-      v6 = [firstObject2 isEqualToString:@"BackgroundJobStableHashProcessEntireLibrary"];
+      isEqualToString = objc_msgSend_isEqualToString_(firstObject2);
     }
 
     else
     {
-      v6 = 0;
+      isEqualToString = 0;
     }
   }
 
   else
   {
-    v6 = 0;
+    isEqualToString = 0;
   }
 
-  return v6;
+  return isEqualToString;
 }
 
 - (void)_setProcessedEntireLibrary:(id)library
@@ -1064,7 +1064,7 @@ void __74__PLBackgroundJobStableHashWorker_performWorkOnItem_inLibrary_completio
       v25 = libraryCopy;
       v26 = buf;
       [v25 performBlockAndWait:v24];
-      if ([*(v28 + 5) count])
+      if (objc_msgSend_count(*(v28 + 5)))
       {
         v19 = [PLBackgroundJobWorkerPendingWorkItems alloc];
         v20 = +[PLBackgroundJobCriteria criteriaForStableHashWorker];
@@ -1130,12 +1130,12 @@ void __86__PLBackgroundJobStableHashWorker_workItemsNeedingProcessingInLibrary_v
       v7 = *(*(*(a1 + 48) + 8) + 40);
     }
 
-    if ([v7 count])
+    if (objc_msgSend_count(v7))
     {
       v9 = PLBackgroundJobServiceGetLog();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v10 = [*(*(*(a1 + 48) + 8) + 40) count];
+        v10 = objc_msgSend_count(*(*(*(a1 + 48) + 8) + 40));
         v11 = *(a1 + 40);
         *buf = 134218242;
         v16 = v10;

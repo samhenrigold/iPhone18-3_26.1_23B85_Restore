@@ -8,31 +8,30 @@
 - (BOOL)isSatisfiedByConditions:(id)conditions
 {
   conditionsCopy = conditions;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = 1;
-  serverDict = self->_serverDict;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 1;
   objc_opt_class();
   objc_opt_isKindOfClass();
-  v6 = self->_serverDict;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __50__ICQDaemonOfferCriteria_isSatisfiedByConditions___block_invoke;
-  v9[3] = &unk_27A652DD8;
-  v11 = &v12;
-  v7 = conditionsCopy;
-  v10 = v7;
-  [(NSDictionary *)v6 enumerateKeysAndObjectsUsingBlock:v9];
-  LOBYTE(v6) = *(v13 + 24);
+  serverDict = self->_serverDict;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __50__ICQDaemonOfferCriteria_isSatisfiedByConditions___block_invoke;
+  v8[3] = &unk_27A652DD8;
+  v10 = &v11;
+  v6 = conditionsCopy;
+  v9 = v6;
+  [(NSDictionary *)serverDict enumerateKeysAndObjectsUsingBlock:v8];
+  LOBYTE(serverDict) = *(v12 + 24);
 
-  _Block_object_dispose(&v12, 8);
-  return v6;
+  _Block_object_dispose(&v11, 8);
+  return serverDict;
 }
 
 void __50__ICQDaemonOfferCriteria_isSatisfiedByConditions___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = *(*(a1 + 40) + 8);
@@ -72,8 +71,8 @@ void __50__ICQDaemonOfferCriteria_isSatisfiedByConditions___block_invoke(uint64_
       v12 = _ICQGetLogSystem();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 138412290;
-        v26 = v7;
+        v24 = 138412290;
+        v25 = v7;
         v13 = "unexpected criterion key %@";
         v14 = v12;
         v15 = 12;
@@ -91,18 +90,18 @@ void __50__ICQDaemonOfferCriteria_isSatisfiedByConditions___block_invoke(uint64_
         goto LABEL_17;
       }
 
-      v25 = 138412546;
-      v26 = v7;
-      v27 = 2112;
-      v28 = v8;
+      v24 = 138412546;
+      v25 = v7;
+      v26 = 2112;
+      v27 = v8;
       v13 = "criterion: %@: %@ not convertible to long long";
       goto LABEL_15;
     }
 
-    v17 = [v10 photosLibrarySize];
-    v18 = objc_opt_respondsToSelector();
+    v16 = [v10 photosLibrarySize];
+    v17 = objc_opt_respondsToSelector();
 
-    if ((v18 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
       v12 = _ICQGetLogSystem();
       if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
@@ -110,55 +109,55 @@ void __50__ICQDaemonOfferCriteria_isSatisfiedByConditions___block_invoke(uint64_
         goto LABEL_17;
       }
 
-      LOWORD(v25) = 0;
+      LOWORD(v24) = 0;
       v13 = "criterion: photos library size unknown";
       v14 = v12;
       v15 = 2;
       goto LABEL_16;
     }
 
-    v19 = [v8 longLongValue];
-    v20 = [v10 photosLibrarySize];
-    v21 = [v20 longLongValue];
+    v18 = [v8 longLongValue];
+    v19 = [v10 photosLibrarySize];
+    v20 = [v19 longLongValue];
 
-    LODWORD(v20) = [v7 isEqualToString:@"minPhotoLibraryInBytes"];
-    v22 = _ICQGetLogSystem();
-    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
-    if (v20)
+    LODWORD(v19) = [v7 isEqualToString:@"minPhotoLibraryInBytes"];
+    v21 = _ICQGetLogSystem();
+    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+    if (v19)
     {
-      LOBYTE(v12) = v21 >= v19;
-      if (v23)
+      LOBYTE(v12) = v20 >= v18;
+      if (v22)
       {
-        v24 = @"<";
-        v25 = 138544130;
-        v26 = v7;
-        if (v21 >= v19)
+        v23 = @"<";
+        v24 = 138544130;
+        v25 = v7;
+        if (v20 >= v18)
         {
-          v24 = @">=";
+          v23 = @">=";
         }
 
 LABEL_42:
-        v27 = 2048;
-        v28 = v21;
-        v29 = 2114;
-        v30 = v24;
-        v31 = 2048;
-        v32 = v19;
-        _os_log_impl(&dword_275572000, v22, OS_LOG_TYPE_DEFAULT, "criterion: %{public}@: %lld %{public}@ %lld", &v25, 0x2Au);
+        v26 = 2048;
+        v27 = v20;
+        v28 = 2114;
+        v29 = v23;
+        v30 = 2048;
+        v31 = v18;
+        _os_log_impl(&dword_275572000, v21, OS_LOG_TYPE_DEFAULT, "criterion: %{public}@: %lld %{public}@ %lld", &v24, 0x2Au);
       }
     }
 
     else
     {
-      LODWORD(v12) = v21 <= v19;
-      if (v23)
+      LODWORD(v12) = v20 <= v18;
+      if (v22)
       {
-        v24 = @">";
-        v25 = 138544130;
-        v26 = v7;
-        if (v21 <= v19)
+        v23 = @">";
+        v24 = 138544130;
+        v25 = v7;
+        if (v20 <= v18)
         {
-          v24 = @"<=";
+          v23 = @"<=";
         }
 
         goto LABEL_42;
@@ -176,11 +175,11 @@ LABEL_8:
     v12 = _ICQGetLogSystem();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = 138543618;
-      v26 = v7;
-      v27 = 2114;
-      v28 = v8;
-      _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "criterion: %{public}@ matches %{public}@", &v25, 0x16u);
+      v24 = 138543618;
+      v25 = v7;
+      v26 = 2114;
+      v27 = v8;
+      _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "criterion: %{public}@ matches %{public}@", &v24, 0x16u);
     }
 
     LOBYTE(v12) = 1;
@@ -191,16 +190,16 @@ LABEL_13:
   v12 = _ICQGetLogSystem();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 138543618;
-    v26 = v7;
-    v27 = 2114;
-    v28 = v8;
+    v24 = 138543618;
+    v25 = v7;
+    v26 = 2114;
+    v27 = v8;
     v13 = "criterion: %{public}@ doesn't match %{public}@";
 LABEL_15:
     v14 = v12;
     v15 = 22;
 LABEL_16:
-    _os_log_impl(&dword_275572000, v14, OS_LOG_TYPE_DEFAULT, v13, &v25, v15);
+    _os_log_impl(&dword_275572000, v14, OS_LOG_TYPE_DEFAULT, v13, &v24, v15);
   }
 
 LABEL_17:
@@ -215,17 +214,15 @@ LABEL_19:
   {
     *a4 = 1;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (ICQDaemonOfferCriteria)initWithServerDictionary:(id)dictionary
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v14.receiver = self;
-  v14.super_class = ICQDaemonOfferCriteria;
-  v5 = [(ICQDaemonOfferCriteria *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = ICQDaemonOfferCriteria;
+  v5 = [(ICQDaemonOfferCriteria *)&v13 init];
   if (v5)
   {
     objc_opt_class();
@@ -245,13 +242,13 @@ LABEL_19:
           v9 = objc_opt_class();
           v10 = NSStringFromClass(v9);
           *buf = 138412290;
-          v18 = v10;
+          v17 = v10;
           _os_log_impl(&dword_275572000, v7, OS_LOG_TYPE_DEFAULT, "criteria: expected NSDictionary, got %@", buf, 0xCu);
         }
 
-        v15 = @"fail";
-        v16 = &stru_288431E38;
-        v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+        v14 = @"fail";
+        v15 = &stru_288431E38;
+        v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
       }
 
       else
@@ -270,7 +267,6 @@ LABEL_19:
     v5->_serverDict = v6;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

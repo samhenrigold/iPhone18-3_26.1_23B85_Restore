@@ -31,7 +31,7 @@
     v17 = 0u;
     v14 = 0u;
     v15 = 0u;
-    if (itemSourceController2 && (v11 = itemSourceController2, [itemSourceController2 requestAssetsMediaTypeCount], v11, *(&v14 + 1)))
+    if (itemSourceController2 && (v11 = itemSourceController2, objc_msgSend_requestAssetsMediaTypeCount(itemSourceController2), v11, *(&v14 + 1)))
     {
       v9 = 0;
     }

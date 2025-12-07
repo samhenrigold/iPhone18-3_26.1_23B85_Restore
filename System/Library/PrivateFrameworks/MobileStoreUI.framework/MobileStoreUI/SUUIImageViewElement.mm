@@ -72,9 +72,9 @@
     }
 
     v18 = [(NSURL *)v11->_url scheme:v32];
-    v19 = [v18 isEqualToString:@"resource"];
+    isEqualToString = objc_msgSend_isEqualToString_(v18);
 
-    if (v19)
+    if (isEqualToString)
     {
       host = [(NSURL *)v11->_url host];
       resourceName = v11->_resourceName;
@@ -420,9 +420,9 @@ LABEL_8:
         v9 = [entityValueProvider imageURLForEntityArtworkProperty:v6 fittingSize:self->_size.width destinationScale:{self->_size.height, v8}];
 
         scheme = [(NSURL *)v9 scheme];
-        v11 = [scheme isEqualToString:@"resource"];
+        isEqualToString = objc_msgSend_isEqualToString_(scheme);
 
-        if (v11)
+        if (isEqualToString)
         {
           host = [(NSURL *)v9 host];
         }

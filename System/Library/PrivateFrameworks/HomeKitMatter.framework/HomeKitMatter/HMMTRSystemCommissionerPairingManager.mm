@@ -22,6 +22,7 @@
 - (void)_removeAllDevicePairingsForSystemCommissionerPairingUUID:(id)d completionHandler:(id)handler;
 - (void)_removeDevicePairingWithUUID:(id)d forSystemCommissionerPairingUUID:(id)iD completionHandler:(id)handler;
 - (void)_removeSystemCommissionerPairingWithUUID:(id)d completionHandler:(id)handler;
+- (void)_updateThreadCredentialManagementEnabled:(BOOL)enabled forSystemCommissionerPairingUUID:(id)d completionHandler:(id)handler;
 - (void)cleanUpStaleSystemCommissionerPairingsWithNewlyPairedUUID:(id)d vendorID:(id)iD productID:(id)productID serialNumber:(id)number setupPayload:(id)payload;
 - (void)fetchDevicePairingsForSystemCommissionerPairingUUID:(id)d completionHandler:(id)handler;
 - (void)fetchSystemCommissionerPairingsWithCompletionHandler:(id)handler;
@@ -46,7 +47,7 @@
 
 - (id)_deviceForSystemCommissionerNode:(id)node
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   browser = [(HMMTRSystemCommissionerPairingManager *)self browser];
   systemCommissionerControllerWrapper = [browser systemCommissionerControllerWrapper];
@@ -65,23 +66,21 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v12;
-      _os_log_impl(&dword_22AEAE000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to acquire System Commissioner device controller", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v12;
+      _os_log_impl(&dword_22AEAE000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to acquire System Commissioner device controller", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
     v8 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)_augmentDatasetWithBorderAgentIDsForDevice:(id)device endpoint:(id)endpoint dataset:(id)dataset
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   datasetCopy = dataset;
   v9 = MEMORY[0x277CD51D0];
   endpointCopy = endpoint;
@@ -89,65 +88,63 @@
   v12 = [v9 requestPathWithEndpointID:endpointCopy clusterID:&unk_283EE8190 attributeID:&unk_283EE81A8];
   v13 = [MEMORY[0x277CD51D0] requestPathWithEndpointID:endpointCopy clusterID:&unk_283EE81C0 attributeID:&unk_283EE81D8];
 
-  v24 = 0;
-  v14 = [MEMORY[0x277D0F7C0] futureWithPromise:&v24];
-  resolverBlock = [v24 resolverBlock];
-  v25[0] = v12;
-  v25[1] = v13;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+  v23 = 0;
+  v14 = [MEMORY[0x277D0F7C0] futureWithPromise:&v23];
+  resolverBlock = [v23 resolverBlock];
+  v24[0] = v12;
+  v24[1] = v13;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
   workQueue = [(HMMTRSystemCommissionerPairingManager *)self workQueue];
   [deviceCopy readAttributePaths:v16 eventPaths:0 params:0 queue:workQueue completion:resolverBlock];
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __101__HMMTRSystemCommissionerPairingManager__augmentDatasetWithBorderAgentIDsForDevice_endpoint_dataset___block_invoke;
-  v22[3] = &unk_2786EE2F8;
-  v22[4] = v12;
-  v22[5] = v13;
-  v23 = datasetCopy;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __101__HMMTRSystemCommissionerPairingManager__augmentDatasetWithBorderAgentIDsForDevice_endpoint_dataset___block_invoke;
+  v21[3] = &unk_2786EE2F8;
+  v21[4] = v12;
+  v21[5] = v13;
+  v22 = datasetCopy;
   v18 = datasetCopy;
-  v19 = [v14 then:v22];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = [v14 then:v21];
 
   return v19;
 }
 
-uint64_t __101__HMMTRSystemCommissionerPairingManager__augmentDatasetWithBorderAgentIDsForDevice_endpoint_dataset___block_invoke(uint64_t a1, void *a2)
+uint64_t __101__HMMTRSystemCommissionerPairingManager__augmentDatasetWithBorderAgentIDsForDevice_endpoint_dataset___block_invoke(void *a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = a2;
-  v3 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v3 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v3)
   {
     v4 = v3;
-    v21 = 0;
+    v20 = 0;
     v5 = 0;
-    v6 = *v25;
+    v6 = *v24;
     v7 = *MEMORY[0x277CD50B8];
-    v22 = *MEMORY[0x277CD50D8];
+    v21 = *MEMORY[0x277CD50D8];
     v8 = *MEMORY[0x277CD51A0];
     while (1)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v25 != v6)
+        if (*v24 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
+        v10 = *(*(&v23 + 1) + 8 * i);
         v11 = [v10 objectForKeyedSubscript:v7];
         v12 = v11;
         if (v11)
         {
-          if (attributePathMatches(v11, *(a1 + 32)))
+          if (attributePathMatches(v11, a1[4]))
           {
-            v13 = [v10 objectForKeyedSubscript:v22];
+            v13 = [v10 objectForKeyedSubscript:v21];
             v14 = [v13 objectForKeyedSubscript:v8];
 
             objc_opt_class();
@@ -167,12 +164,12 @@ uint64_t __101__HMMTRSystemCommissionerPairingManager__augmentDatasetWithBorderA
 
           else
           {
-            if (!attributePathMatches(v12, *(a1 + 40)))
+            if (!attributePathMatches(v12, a1[5]))
             {
               goto LABEL_18;
             }
 
-            v17 = [v10 objectForKeyedSubscript:v22];
+            v17 = [v10 objectForKeyedSubscript:v21];
             v14 = [v17 objectForKeyedSubscript:v8];
 
             objc_opt_class();
@@ -186,8 +183,8 @@ uint64_t __101__HMMTRSystemCommissionerPairingManager__augmentDatasetWithBorderA
               v15 = 0;
             }
 
-            v16 = v21;
-            v21 = v15;
+            v16 = v20;
+            v20 = v15;
           }
 
           v18 = v15;
@@ -196,7 +193,7 @@ uint64_t __101__HMMTRSystemCommissionerPairingManager__augmentDatasetWithBorderA
 LABEL_18:
       }
 
-      v4 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v4 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (!v4)
       {
         goto LABEL_22;
@@ -204,12 +201,11 @@ LABEL_18:
     }
   }
 
-  v21 = 0;
+  v20 = 0;
   v5 = 0;
 LABEL_22:
-  [objc_alloc(MEMORY[0x277CD55D0]) initWithDataset:*(a1 + 48) borderAgentEUI:v5 borderAgentID:v21];
+  [objc_alloc(MEMORY[0x277CD55D0]) initWithDataset:a1[6] borderAgentEUI:v5 borderAgentID:v20];
 
-  v19 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -349,7 +345,7 @@ uint64_t __83__HMMTRSystemCommissionerPairingManager__armFailSafeForDevice_expir
 
 - (id)_provisionBorderRouterWithSystemCommissionerNode:(id)node endpoint:(id)endpoint dataset:(id)dataset
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   endpointCopy = endpoint;
   datasetCopy = dataset;
@@ -360,9 +356,9 @@ uint64_t __83__HMMTRSystemCommissionerPairingManager__armFailSafeForDevice_expir
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v41 = v14;
-    v42 = 2112;
-    v43 = nodeCopy;
+    v40 = v14;
+    v41 = 2112;
+    v42 = nodeCopy;
     _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Attempting to provision unconfigured Border Router on System Commissioner node %@", buf, 0x16u);
   }
 
@@ -371,47 +367,47 @@ uint64_t __83__HMMTRSystemCommissionerPairingManager__armFailSafeForDevice_expir
   if (v15)
   {
     v16 = [(HMMTRSystemCommissionerPairingManager *)selfCopy _armFailSafeForDevice:v15 expiryLengthSeconds:10];
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __107__HMMTRSystemCommissionerPairingManager__provisionBorderRouterWithSystemCommissionerNode_endpoint_dataset___block_invoke;
-    v37[3] = &unk_2786EE240;
-    v37[4] = selfCopy;
-    v37[5] = v15;
-    v17 = endpointCopy;
-    v38 = v17;
-    v18 = datasetCopy;
-    v39 = v18;
-    v19 = [v16 then:v37];
     v36[0] = MEMORY[0x277D85DD0];
     v36[1] = 3221225472;
-    v36[2] = __107__HMMTRSystemCommissionerPairingManager__provisionBorderRouterWithSystemCommissionerNode_endpoint_dataset___block_invoke_2;
-    v36[3] = &unk_2786EE268;
+    v36[2] = __107__HMMTRSystemCommissionerPairingManager__provisionBorderRouterWithSystemCommissionerNode_endpoint_dataset___block_invoke;
+    v36[3] = &unk_2786EE240;
     v36[4] = selfCopy;
     v36[5] = v15;
-    [v19 then:v36];
-    v28 = datasetCopy;
+    v17 = endpointCopy;
+    v37 = v17;
+    v18 = datasetCopy;
+    v38 = v18;
+    v19 = [v16 then:v36];
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __107__HMMTRSystemCommissionerPairingManager__provisionBorderRouterWithSystemCommissionerNode_endpoint_dataset___block_invoke_2;
+    v35[3] = &unk_2786EE268;
+    v35[4] = selfCopy;
+    v35[5] = v15;
+    [v19 then:v35];
+    v27 = datasetCopy;
     v21 = v20 = endpointCopy;
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __107__HMMTRSystemCommissionerPairingManager__provisionBorderRouterWithSystemCommissionerNode_endpoint_dataset___block_invoke_3;
-    v31[3] = &unk_2786EE290;
-    v31[4] = selfCopy;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __107__HMMTRSystemCommissionerPairingManager__provisionBorderRouterWithSystemCommissionerNode_endpoint_dataset___block_invoke_3;
+    v30[3] = &unk_2786EE290;
+    v30[4] = selfCopy;
     v22 = nodeCopy;
-    v32 = v22;
-    v33 = v15;
-    v34 = v17;
-    v35 = v18;
-    v23 = [v21 then:v31];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __107__HMMTRSystemCommissionerPairingManager__provisionBorderRouterWithSystemCommissionerNode_endpoint_dataset___block_invoke_68;
-    v29[3] = &unk_2786EE218;
-    v29[4] = selfCopy;
-    v30 = v22;
-    v24 = [v23 then:v29];
+    v31 = v22;
+    v32 = v15;
+    v33 = v17;
+    v34 = v18;
+    v23 = [v21 then:v30];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __107__HMMTRSystemCommissionerPairingManager__provisionBorderRouterWithSystemCommissionerNode_endpoint_dataset___block_invoke_68;
+    v28[3] = &unk_2786EE218;
+    v28[4] = selfCopy;
+    v29 = v22;
+    v24 = [v23 then:v28];
 
     endpointCopy = v20;
-    datasetCopy = v28;
+    datasetCopy = v27;
   }
 
   else
@@ -420,8 +416,6 @@ uint64_t __83__HMMTRSystemCommissionerPairingManager__armFailSafeForDevice_expir
     v16 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:11 reason:@"device controller unavailable"];
     v24 = [v25 futureWithError:v16];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -440,7 +434,7 @@ uint64_t __107__HMMTRSystemCommissionerPairingManager__provisionBorderRouterWith
   else
   {
     v7 = _HMFPreconditionFailure();
-    return __107__HMMTRSystemCommissionerPairingManager__provisionBorderRouterWithSystemCommissionerNode_endpoint_dataset___block_invoke_2(v7);
+    return __107__HMMTRSystemCommissionerPairingManager__provisionBorderRouterWithSystemCommissionerNode_endpoint_dataset___block_invoke_2(v7, v8);
   }
 }
 
@@ -458,13 +452,13 @@ uint64_t __107__HMMTRSystemCommissionerPairingManager__provisionBorderRouterWith
   else
   {
     v7 = _HMFPreconditionFailure();
-    return __107__HMMTRSystemCommissionerPairingManager__provisionBorderRouterWithSystemCommissionerNode_endpoint_dataset___block_invoke_3(v7);
+    return __107__HMMTRSystemCommissionerPairingManager__provisionBorderRouterWithSystemCommissionerNode_endpoint_dataset___block_invoke_3(v7, v8);
   }
 }
 
 uint64_t __107__HMMTRSystemCommissionerPairingManager__provisionBorderRouterWithSystemCommissionerNode_endpoint_dataset___block_invoke_3(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -473,11 +467,11 @@ uint64_t __107__HMMTRSystemCommissionerPairingManager__provisionBorderRouterWith
   {
     v7 = HMFGetLogIdentifier();
     v8 = *(a1 + 40);
-    v13 = 138543618;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Successfully enabled Border Router on System Commissioner node %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Successfully enabled Border Router on System Commissioner node %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -489,13 +483,12 @@ uint64_t __107__HMMTRSystemCommissionerPairingManager__provisionBorderRouterWith
 
   v10 = v9;
 
-  v11 = *MEMORY[0x277D85DE8];
   return 3;
 }
 
 uint64_t __107__HMMTRSystemCommissionerPairingManager__provisionBorderRouterWithSystemCommissionerNode_endpoint_dataset___block_invoke_68(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   a2;
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -504,15 +497,14 @@ uint64_t __107__HMMTRSystemCommissionerPairingManager__provisionBorderRouterWith
   {
     v6 = HMFGetLogIdentifier();
     v7 = *(a1 + 40);
-    v10 = 138543618;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Successfully provisioned Thread credentials on System Commissioner node %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Successfully provisioned Thread credentials on System Commissioner node %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -563,7 +555,7 @@ uint64_t __107__HMMTRSystemCommissionerPairingManager__provisionBorderRouterWith
 
 uint64_t __103__HMMTRSystemCommissionerPairingManager__retrieveThreadCredentialsFromSystemCommissionerNode_endpoint___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 dataset];
   if (v4 && (v5 = v4, [v3 dataset], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "length"), v6, v5, v7))
@@ -592,11 +584,11 @@ uint64_t __103__HMMTRSystemCommissionerPairingManager__retrieveThreadCredentials
     {
       v18 = HMFGetLogIdentifier();
       v19 = *(a1 + 40);
-      v25 = 138543618;
-      v26 = v18;
-      v27 = 2112;
-      v28 = v19;
-      _os_log_impl(&dword_22AEAE000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Thread Border Router is not configured for System Commissioner node %@", &v25, 0x16u);
+      v24 = 138543618;
+      v25 = v18;
+      v26 = 2112;
+      v27 = v19;
+      _os_log_impl(&dword_22AEAE000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Thread Border Router is not configured for System Commissioner node %@", &v24, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
@@ -616,13 +608,12 @@ uint64_t __103__HMMTRSystemCommissionerPairingManager__retrieveThreadCredentials
     v14 = 2;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 uint64_t __103__HMMTRSystemCommissionerPairingManager__retrieveThreadCredentialsFromSystemCommissionerNode_endpoint___block_invoke_66(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   a2;
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -631,52 +622,51 @@ uint64_t __103__HMMTRSystemCommissionerPairingManager__retrieveThreadCredentials
   {
     v6 = HMFGetLogIdentifier();
     v7 = *(a1 + 40);
-    v10 = 138543618;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Successfully retrieved Thread credentials from System Commissioner node %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Successfully retrieved Thread credentials from System Commissioner node %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (id)_retrievePreferredThreadCredentialsOrCreateWithDataset:(id)dataset
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   datasetCopy = dataset;
   threadCredentialManagementNodesAndEndpointsForSystemCommissioner = [(HMMTRStorage *)self->_storage threadCredentialManagementNodesAndEndpointsForSystemCommissioner];
   if ([threadCredentialManagementNodesAndEndpointsForSystemCommissioner count])
   {
     v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
     allKeys = [threadCredentialManagementNodesAndEndpointsForSystemCommissioner allKeys];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
-    v8 = [allKeys countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v8 = [allKeys countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v32;
+      v10 = *v31;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v32 != v10)
+          if (*v31 != v10)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v12 = *(*(&v31 + 1) + 8 * i);
+          v12 = *(*(&v30 + 1) + 8 * i);
           v13 = [threadCredentialManagementNodesAndEndpointsForSystemCommissioner objectForKeyedSubscript:v12];
           v14 = [(HMMTRSystemCommissionerPairingManager *)self _retrieveThreadCredentialsFromSystemCommissionerNode:v12 endpoint:v13];
           [v6 addObject:v14];
         }
 
-        v9 = [allKeys countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v9 = [allKeys countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v9);
@@ -693,15 +683,15 @@ uint64_t __103__HMMTRSystemCommissionerPairingManager__retrieveThreadCredentials
 
     if (datasetCopy)
     {
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __96__HMMTRSystemCommissionerPairingManager__retrievePreferredThreadCredentialsOrCreateWithDataset___block_invoke;
-      v27[3] = &unk_2786EE1A0;
-      v27[4] = allKeys;
-      v28 = threadCredentialManagementNodesAndEndpointsForSystemCommissioner;
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __96__HMMTRSystemCommissionerPairingManager__retrievePreferredThreadCredentialsOrCreateWithDataset___block_invoke;
+      v26[3] = &unk_2786EE1A0;
+      v26[4] = allKeys;
+      v27 = threadCredentialManagementNodesAndEndpointsForSystemCommissioner;
       selfCopy = self;
-      v30 = datasetCopy;
-      v22 = [v21 recover:v27];
+      v29 = datasetCopy;
+      v22 = [v21 recover:v26];
 
       v21 = v22;
     }
@@ -713,8 +703,6 @@ uint64_t __103__HMMTRSystemCommissionerPairingManager__retrieveThreadCredentials
     v24 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:2];
     v21 = [v23 futureWithError:v24];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -844,7 +832,7 @@ uint64_t __96__HMMTRSystemCommissionerPairingManager__retrievePreferredThreadCre
 
 - (id)_donateThreadNetwork:(id)network toSystemCommissionerNode:(id)node endpoint:(id)endpoint
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   networkCopy = network;
   nodeCopy = node;
   endpointCopy = endpoint;
@@ -861,34 +849,34 @@ uint64_t __96__HMMTRSystemCommissionerPairingManager__retrievePreferredThreadCre
       {
         v16 = HMFGetLogIdentifier();
         [networkCopy networkName];
-        v17 = v27 = endpointCopy;
+        v17 = v26 = endpointCopy;
         [networkCopy extendedPANID];
-        v18 = v28 = v13;
+        v18 = v27 = v13;
         hmf_hexadecimalRepresentation = [v18 hmf_hexadecimalRepresentation];
         *buf = 138544130;
-        v33 = v16;
-        v34 = 2112;
-        v35 = v17;
-        v36 = 2112;
-        v37 = hmf_hexadecimalRepresentation;
-        v38 = 2112;
-        v39 = nodeCopy;
+        v32 = v16;
+        v33 = 2112;
+        v34 = v17;
+        v35 = 2112;
+        v36 = hmf_hexadecimalRepresentation;
+        v37 = 2112;
+        v38 = nodeCopy;
         _os_log_impl(&dword_22AEAE000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Donating Thread network '%@' (%@) to system commissioner node %@", buf, 0x2Au);
 
-        v13 = v28;
-        endpointCopy = v27;
+        v13 = v27;
+        endpointCopy = v26;
       }
 
       objc_autoreleasePoolPop(v13);
       v20 = [(HMMTRSystemCommissionerPairingManager *)selfCopy _addNetworkToThreadNetworkDirectoryForDevice:v12 endpoint:endpointCopy dataset:activeOperationalDataSet];
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __96__HMMTRSystemCommissionerPairingManager__donateThreadNetwork_toSystemCommissionerNode_endpoint___block_invoke;
-      v29[3] = &unk_2786EE178;
-      v29[4] = selfCopy;
-      v30 = networkCopy;
-      v31 = nodeCopy;
-      v21 = [v20 then:v29];
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __96__HMMTRSystemCommissionerPairingManager__donateThreadNetwork_toSystemCommissionerNode_endpoint___block_invoke;
+      v28[3] = &unk_2786EE178;
+      v28[4] = selfCopy;
+      v29 = networkCopy;
+      v30 = nodeCopy;
+      v21 = [v20 then:v28];
     }
 
     else
@@ -906,14 +894,12 @@ uint64_t __96__HMMTRSystemCommissionerPairingManager__retrievePreferredThreadCre
     v21 = [v22 futureWithError:v23];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
 uint64_t __96__HMMTRSystemCommissionerPairingManager__donateThreadNetwork_toSystemCommissionerNode_endpoint___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -925,19 +911,18 @@ uint64_t __96__HMMTRSystemCommissionerPairingManager__donateThreadNetwork_toSyst
     v9 = [*(a1 + 40) extendedPANID];
     v10 = [v9 hmf_hexadecimalRepresentation];
     v11 = *(a1 + 48);
-    v14 = 138544130;
-    v15 = v7;
-    v16 = 2112;
-    v17 = v8;
-    v18 = 2112;
-    v19 = v10;
-    v20 = 2112;
-    v21 = v11;
-    _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Successfully donated Thread network '%@' (%@) to Thread Network Directory of system commissioner node %@", &v14, 0x2Au);
+    v13 = 138544130;
+    v14 = v7;
+    v15 = 2112;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v10;
+    v19 = 2112;
+    v20 = v11;
+    _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Successfully donated Thread network '%@' (%@) to Thread Network Directory of system commissioner node %@", &v13, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v4);
-  v12 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -963,7 +948,7 @@ uint64_t __96__HMMTRSystemCommissionerPairingManager__retrieveTHClientPreferredN
   v4 = *(a1 + 40);
   if (a2)
   {
-    return [v4 fulfillWithValue:a2];
+    return [v4 fulfillWithValue:{a2, a4}];
   }
 
   else
@@ -1013,13 +998,13 @@ uint64_t __96__HMMTRSystemCommissionerPairingManager__donateThreadNetworksToSyst
   else
   {
     v7 = _HMFPreconditionFailure();
-    return __96__HMMTRSystemCommissionerPairingManager__donateThreadNetworksToSystemCommissionerNode_endpoint___block_invoke_2(v7);
+    return __96__HMMTRSystemCommissionerPairingManager__donateThreadNetworksToSystemCommissionerNode_endpoint___block_invoke_2(v7, v8);
   }
 }
 
 uint64_t __96__HMMTRSystemCommissionerPairingManager__donateThreadNetworksToSystemCommissionerNode_endpoint___block_invoke_2(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1028,13 +1013,13 @@ uint64_t __96__HMMTRSystemCommissionerPairingManager__donateThreadNetworksToSyst
   {
     v7 = HMFGetLogIdentifier();
     v8 = *(a1 + 40);
-    v14 = 138543874;
-    v15 = v7;
-    v16 = 2112;
-    v17 = v8;
-    v18 = 2112;
-    v19 = v3;
-    _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to donate Thread credentials to System Commissioner node %@: %@", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v7;
+    v15 = 2112;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v3;
+    _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to donate Thread credentials to System Commissioner node %@: %@", &v13, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -1051,13 +1036,82 @@ uint64_t __96__HMMTRSystemCommissionerPairingManager__donateThreadNetworksToSyst
     objc_claimAutoreleasedReturnValue();
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 2;
+}
+
+- (void)_updateThreadCredentialManagementEnabled:(BOOL)enabled forSystemCommissionerPairingUUID:(id)d completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  v29 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  handlerCopy = handler;
+  storage = [(HMMTRSystemCommissionerPairingManager *)self storage];
+  v11 = [storage systemCommissionerFabricNodeIDForUuid:dCopy];
+
+  if (v11)
+  {
+    storage2 = [(HMMTRSystemCommissionerPairingManager *)self storage];
+    v13 = [storage2 threadCredentialManagementEndpointForSystemCommissionerFabricNode:v11];
+
+    if (v13)
+    {
+      storage3 = [(HMMTRSystemCommissionerPairingManager *)self storage];
+      [storage3 setThreadCredentialManagementEnabled:enabledCopy forSystemCommissionerFabricNode:v11];
+
+      handlerCopy[2](handlerCopy, 0);
+      if (enabledCopy)
+      {
+        v15 = [(HMMTRSystemCommissionerPairingManager *)self _donateThreadNetworksToSystemCommissionerNode:v11 endpoint:v13];
+      }
+    }
+
+    else
+    {
+      v20 = objc_autoreleasePoolPush();
+      selfCopy = self;
+      v22 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      {
+        v23 = HMFGetLogIdentifier();
+        v25 = 138543618;
+        v26 = v23;
+        v27 = 2112;
+        v28 = dCopy;
+        _os_log_impl(&dword_22AEAE000, v22, OS_LOG_TYPE_ERROR, "%{public}@Thread credential management is not supported for System Commissioner pairing with UUID = %@", &v25, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v20);
+      v24 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:3];
+      (handlerCopy)[2](handlerCopy, v24);
+
+      v13 = 0;
+    }
+  }
+
+  else
+  {
+    v16 = objc_autoreleasePoolPush();
+    selfCopy2 = self;
+    v18 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      v19 = HMFGetLogIdentifier();
+      v25 = 138543618;
+      v26 = v19;
+      v27 = 2112;
+      v28 = dCopy;
+      _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find Node on System Commissioner Fabric with UUID = %@", &v25, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v16);
+    v13 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:2];
+    (handlerCopy)[2](handlerCopy, v13);
+  }
 }
 
 - (void)_readCommissioningWindowStatusForSystemCommissionerPairingUUID:(id)d completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   storage = [(HMMTRSystemCommissionerPairingManager *)self storage];
@@ -1077,24 +1131,22 @@ uint64_t __96__HMMTRSystemCommissionerPairingManager__donateThreadNetworksToSyst
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v14;
-      v18 = 2112;
-      v19 = dCopy;
-      _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find Node on System Commissioner Fabric with UUID = %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v14;
+      v17 = 2112;
+      v18 = dCopy;
+      _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find Node on System Commissioner Fabric with UUID = %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
     browser = [MEMORY[0x277CCA9B8] hmfErrorWithCode:2];
     handlerCopy[2](handlerCopy, 0, browser);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_openCommissioningWindowForSystemCommissionerPairingUUID:(id)d duration:(double)duration completionHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   storage = [(HMMTRSystemCommissionerPairingManager *)self storage];
@@ -1103,14 +1155,14 @@ uint64_t __96__HMMTRSystemCommissionerPairingManager__donateThreadNetworksToSyst
   if (v11)
   {
     browser = [(HMMTRSystemCommissionerPairingManager *)self browser];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __125__HMMTRSystemCommissionerPairingManager__openCommissioningWindowForSystemCommissionerPairingUUID_duration_completionHandler___block_invoke;
-    v19[3] = &unk_2786EE100;
-    v20 = handlerCopy;
-    [browser openCommissioningWindowForSystemCommissionerDeviceWithNodeID:v11 duration:v19 completionHandler:duration];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __125__HMMTRSystemCommissionerPairingManager__openCommissioningWindowForSystemCommissionerPairingUUID_duration_completionHandler___block_invoke;
+    v18[3] = &unk_2786EE100;
+    v19 = handlerCopy;
+    [browser openCommissioningWindowForSystemCommissionerDeviceWithNodeID:v11 duration:v18 completionHandler:duration];
 
-    v13 = v20;
+    v13 = v19;
   }
 
   else
@@ -1122,9 +1174,9 @@ uint64_t __96__HMMTRSystemCommissionerPairingManager__donateThreadNetworksToSyst
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v17;
-      v23 = 2112;
-      v24 = dCopy;
+      v21 = v17;
+      v22 = 2112;
+      v23 = dCopy;
       _os_log_impl(&dword_22AEAE000, v16, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find Node on System Commissioner Fabric with UUID = %@", buf, 0x16u);
     }
 
@@ -1132,8 +1184,6 @@ uint64_t __96__HMMTRSystemCommissionerPairingManager__donateThreadNetworksToSyst
     v13 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:2];
     (*(handlerCopy + 2))(handlerCopy, 0, 0, v13);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __125__HMMTRSystemCommissionerPairingManager__openCommissioningWindowForSystemCommissionerPairingUUID_duration_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1149,48 +1199,48 @@ void __125__HMMTRSystemCommissionerPairingManager__openCommissioningWindowForSys
 
 - (void)_cleanUpStaleSystemCommissionerPairingsWithNewlyPairedUUID:(id)d vendorID:(id)iD productID:(id)productID serialNumber:(id)number setupPayload:(id)payload
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   productIDCopy = productID;
   numberCopy = number;
   payloadCopy = payload;
   v17 = [[HMMTRSystemCommissionerPairingManagerPairingIdentity alloc] initWithUUID:dCopy vendorID:iDCopy productID:productIDCopy serialNumber:numberCopy setupPayload:payloadCopy];
-  v56 = v17;
+  v55 = v17;
   if ([(HMMTRSystemCommissionerPairingManagerPairingIdentity *)v17 isIdentifiable])
   {
-    v46 = payloadCopy;
-    v47 = numberCopy;
-    v48 = productIDCopy;
-    v49 = iDCopy;
-    v50 = dCopy;
+    v45 = payloadCopy;
+    v46 = numberCopy;
+    v47 = productIDCopy;
+    v48 = iDCopy;
+    v49 = dCopy;
     storage = [(HMMTRSystemCommissionerPairingManager *)self storage];
     v19 = [storage pairedNodeIDsOnSystemCommissionerFabric:1];
 
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
     v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
     obj = v19;
-    v55 = [obj countByEnumeratingWithState:&v59 objects:v69 count:16];
-    if (!v55)
+    v54 = [obj countByEnumeratingWithState:&v58 objects:v68 count:16];
+    if (!v54)
     {
       goto LABEL_16;
     }
 
     selfCopy = self;
-    v54 = *v60;
+    v53 = *v59;
     selfCopy2 = self;
     while (1)
     {
-      for (i = 0; i != v55; ++i)
+      for (i = 0; i != v54; ++i)
       {
-        if (*v60 != v54)
+        if (*v59 != v53)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v59 + 1) + 8 * i);
+        v22 = *(*(&v58 + 1) + 8 * i);
         storage2 = [(HMMTRSystemCommissionerPairingManager *)selfCopy storage];
         v24 = [storage2 uuidForSystemCommissionerFabricNode:v22];
 
@@ -1206,7 +1256,7 @@ void __125__HMMTRSystemCommissionerPairingManager__openCommissioningWindowForSys
         storage6 = [(HMMTRSystemCommissionerPairingManager *)selfCopy storage];
         v32 = [storage6 setupPayloadForSystemCommissionerFabricNode:v22];
 
-        v58 = v24;
+        v57 = v24;
         v33 = [[HMMTRSystemCommissionerPairingManagerPairingIdentity alloc] initWithUUID:v24 vendorID:v28 productID:v30 serialNumber:v26 setupPayload:v32];
         uuid = [(HMMTRSystemCommissionerPairingManagerPairingIdentity *)v33 uuid];
         uuid2 = [(HMMTRSystemCommissionerPairingManagerPairingIdentity *)v17 uuid];
@@ -1228,14 +1278,14 @@ void __125__HMMTRSystemCommissionerPairingManager__openCommissioningWindowForSys
           v38 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
           {
-            v51 = HMFGetLogIdentifier();
-            uuid3 = [(HMMTRSystemCommissionerPairingManagerPairingIdentity *)v56 uuid];
+            v50 = HMFGetLogIdentifier();
+            uuid3 = [(HMMTRSystemCommissionerPairingManagerPairingIdentity *)v55 uuid];
             *buf = 138543874;
-            v64 = v51;
-            v65 = 2112;
-            v66 = v58;
-            v67 = 2112;
-            v68 = uuid3;
+            v63 = v50;
+            v64 = 2112;
+            v65 = v57;
+            v66 = 2112;
+            v67 = uuid3;
             v40 = uuid3;
             _os_log_impl(&dword_22AEAE000, v38, OS_LOG_TYPE_INFO, "%{public}@Removed stale system commissioner pairing %@ replaced by %@", buf, 0x20u);
           }
@@ -1246,20 +1296,20 @@ void __125__HMMTRSystemCommissionerPairingManager__openCommissioningWindowForSys
         }
 
 LABEL_14:
-        v17 = v56;
+        v17 = v55;
         selfCopy = selfCopy2;
       }
 
-      v55 = [obj countByEnumeratingWithState:&v59 objects:v69 count:16];
-      if (!v55)
+      v54 = [obj countByEnumeratingWithState:&v58 objects:v68 count:16];
+      if (!v54)
       {
 LABEL_16:
 
-        iDCopy = v49;
-        dCopy = v50;
-        numberCopy = v47;
-        productIDCopy = v48;
-        payloadCopy = v46;
+        iDCopy = v48;
+        dCopy = v49;
+        numberCopy = v46;
+        productIDCopy = v47;
+        payloadCopy = v45;
         goto LABEL_20;
       }
     }
@@ -1272,22 +1322,20 @@ LABEL_16:
   {
     v44 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v64 = v44;
-    v65 = 2112;
-    v66 = dCopy;
+    v63 = v44;
+    v64 = 2112;
+    v65 = dCopy;
     _os_log_impl(&dword_22AEAE000, v43, OS_LOG_TYPE_INFO, "%{public}@A new system commissioner pairing %@ doesn't have sufficient information to identify redundant stale pairings.", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v41);
-  v17 = v56;
+  v17 = v55;
 LABEL_20:
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeAllDevicePairingsForSystemCommissionerPairingUUID:(id)d completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   storage = [(HMMTRSystemCommissionerPairingManager *)self storage];
@@ -1307,24 +1355,22 @@ LABEL_20:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v14;
-      v18 = 2112;
-      v19 = dCopy;
-      _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find Node on System Commissioner Fabric with UUID = %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v14;
+      v17 = 2112;
+      v18 = dCopy;
+      _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find Node on System Commissioner Fabric with UUID = %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
     browser = [MEMORY[0x277CCA9B8] hmfErrorWithCode:2];
     handlerCopy[2](handlerCopy, browser);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeDevicePairingWithUUID:(id)d forSystemCommissionerPairingUUID:(id)iD completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   handlerCopy = handler;
@@ -1345,24 +1391,22 @@ LABEL_20:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v19 = 138543618;
-      v20 = v17;
-      v21 = 2112;
-      v22 = dCopy;
-      _os_log_impl(&dword_22AEAE000, v16, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find Node on System Commissioner Fabric with UUID = %@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v17;
+      v20 = 2112;
+      v21 = dCopy;
+      _os_log_impl(&dword_22AEAE000, v16, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find Node on System Commissioner Fabric with UUID = %@", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
     browser = [MEMORY[0x277CCA9B8] hmfErrorWithCode:2];
     handlerCopy[2](handlerCopy, browser);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchAllDevicePairingsForSystemCommissionerDevicePairingWithUUID:(id)d completionHandler:(id)handler
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   storage = [(HMMTRSystemCommissionerPairingManager *)self storage];
@@ -1385,24 +1429,22 @@ LABEL_20:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v17 = 138543618;
-      v18 = v15;
-      v19 = 2112;
-      v20 = dCopy;
-      _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find Node on System Commissioner Fabric with UUID = %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v15;
+      v18 = 2112;
+      v19 = dCopy;
+      _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find Node on System Commissioner Fabric with UUID = %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
     browser = [MEMORY[0x277CCA9B8] hmfErrorWithCode:2];
     handlerCopy[2](handlerCopy, 0, browser);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeSystemCommissionerPairingWithUUID:(id)d completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   storage = [(HMMTRSystemCommissionerPairingManager *)self storage];
@@ -1422,24 +1464,22 @@ LABEL_20:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v14;
-      v18 = 2112;
-      v19 = dCopy;
-      _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find Node on System Commissioner Fabric with UUID = %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v14;
+      v17 = 2112;
+      v18 = dCopy;
+      _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find Node on System Commissioner Fabric with UUID = %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
     browser = [MEMORY[0x277CCA9B8] hmfErrorWithCode:2];
     handlerCopy[2](handlerCopy, browser);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchSystemCommissionerPairingsWithCompletionHandler:(id)handler
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   storage = [(HMMTRSystemCommissionerPairingManager *)self storage];
   [storage endLocalStorageModeBySyncingToRemote:0];
@@ -1448,30 +1488,30 @@ LABEL_20:
   storage2 = [(HMMTRSystemCommissionerPairingManager *)self storage];
   v6 = [storage2 pairedNodeIDsOnSystemCommissionerFabric:1];
 
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
   v73 = 0u;
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
   obj = v6;
-  v61 = [obj countByEnumeratingWithState:&v72 objects:v94 count:16];
-  if (v61)
+  v60 = [obj countByEnumeratingWithState:&v71 objects:v93 count:16];
+  if (v60)
   {
-    v60 = *v73;
+    v59 = *v72;
     do
     {
-      for (i = 0; i != v61; ++i)
+      for (i = 0; i != v60; ++i)
       {
-        if (*v73 != v60)
+        if (*v72 != v59)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v72 + 1) + 8 * i);
+        v8 = *(*(&v71 + 1) + 8 * i);
         storage3 = [(HMMTRSystemCommissionerPairingManager *)self storage];
         v10 = [storage3 uuidForSystemCommissionerFabricNode:v8];
 
         storage4 = [(HMMTRSystemCommissionerPairingManager *)self storage];
-        v68 = [storage4 serialNumberForSystemCommissionerFabricNode:v8];
+        v67 = [storage4 serialNumberForSystemCommissionerFabricNode:v8];
 
         storage5 = [(HMMTRSystemCommissionerPairingManager *)self storage];
         v13 = [storage5 vendorIDForSystemCommissionerFabricNode:v8];
@@ -1483,7 +1523,7 @@ LABEL_20:
         v17 = [storage7 categoryForSystemCommissionerFabricNode:v8];
 
         storage8 = [(HMMTRSystemCommissionerPairingManager *)self storage];
-        v67 = [storage8 deviceNameForSystemCommissionerFabricNode:v8];
+        v66 = [storage8 deviceNameForSystemCommissionerFabricNode:v8];
 
         storage9 = [(HMMTRSystemCommissionerPairingManager *)self storage];
         v20 = [storage9 setupPayloadForSystemCommissionerFabricNode:v8];
@@ -1492,21 +1532,21 @@ LABEL_20:
         {
           v23 = MEMORY[0x277CCABB0];
           storage10 = [(HMMTRSystemCommissionerPairingManager *)self storage];
-          v66 = [v23 numberWithBool:{objc_msgSend(storage10, "threadCredentialManagementEnabledForSystemCommissionerFabricNode:", v8)}];
+          v65 = [v23 numberWithBool:{objc_msgSend(storage10, "threadCredentialManagementEnabledForSystemCommissionerFabricNode:", v8)}];
         }
 
         else
         {
-          v66 = 0;
+          v65 = 0;
         }
 
-        v69 = v20;
+        v68 = v20;
         if (v20)
         {
-          v71 = 0;
-          v65 = [MEMORY[0x277CD5528] setupPayloadWithOnboardingPayload:v20 error:&v71];
-          v70 = v71;
-          if (v70)
+          v70 = 0;
+          v64 = [MEMORY[0x277CD5528] setupPayloadWithOnboardingPayload:v20 error:&v70];
+          v69 = v70;
+          if (v69)
           {
             v25 = objc_autoreleasePoolPush();
             selfCopy = self;
@@ -1519,11 +1559,11 @@ LABEL_20:
               v29 = v10;
               v31 = v30 = v13;
               *buf = 138543874;
-              v77 = v31;
-              v78 = 2112;
-              v79 = v69;
-              v80 = 2112;
-              v81 = v70;
+              v76 = v31;
+              v77 = 2112;
+              v78 = v68;
+              v79 = 2112;
+              v80 = v69;
               _os_log_impl(&dword_22AEAE000, v27, OS_LOG_TYPE_ERROR, "%{public}@Onboarding payload %@ in System Commissioner Fabric storage could not be converted: %@", buf, 0x20u);
 
               v13 = v30;
@@ -1547,9 +1587,9 @@ LABEL_24:
                 v43 = v10;
                 v45 = v44 = v13;
                 *buf = 138543618;
-                v77 = v45;
-                v78 = 2112;
-                v79 = v8;
+                v76 = v45;
+                v77 = 2112;
+                v78 = v8;
                 v46 = v41;
                 v47 = "%{public}@Missing UUID in System Commissioner Fabric storage for nodeID %@";
                 goto LABEL_32;
@@ -1564,7 +1604,7 @@ LABEL_33:
 
           else
           {
-            v70 = 0;
+            v69 = 0;
             if (!v10)
             {
               goto LABEL_24;
@@ -1574,8 +1614,8 @@ LABEL_33:
 
         else
         {
-          v70 = 0;
-          v65 = 0;
+          v69 = 0;
+          v64 = 0;
           if (!v10)
           {
             goto LABEL_24;
@@ -1598,9 +1638,9 @@ LABEL_33:
           v43 = v10;
           v45 = v44 = 0;
           *buf = 138543618;
-          v77 = v45;
-          v78 = 2112;
-          v79 = v8;
+          v76 = v45;
+          v77 = 2112;
+          v78 = v8;
           v46 = v41;
           v47 = "%{public}@Missing VendorID in System Commissioner Fabric storage for nodeID %@";
 LABEL_32:
@@ -1629,9 +1669,9 @@ LABEL_32:
           v43 = v10;
           v45 = v44 = v13;
           *buf = 138543618;
-          v77 = v45;
-          v78 = 2112;
-          v79 = v8;
+          v76 = v45;
+          v77 = 2112;
+          v78 = v8;
           v46 = v41;
           v47 = "%{public}@Missing ProductID in System Commissioner Fabric storage for nodeID %@";
           goto LABEL_32;
@@ -1653,21 +1693,21 @@ LABEL_32:
           v43 = v10;
           v45 = v44 = v13;
           *buf = 138543618;
-          v77 = v45;
-          v78 = 2112;
-          v79 = v8;
+          v76 = v45;
+          v77 = 2112;
+          v78 = v8;
           v46 = v41;
           v47 = "%{public}@Missing DeviceType in System Commissioner Fabric storage for nodeID %@";
           goto LABEL_32;
         }
 
-        v32 = [objc_alloc(MEMORY[0x277CD55B8]) initWithUUID:v10 nodeID:v8 vendorID:v13 productID:v15 deviceType:v17 serialNumber:v68 name:v67 setupPayload:v65 threadCredentialManagementEnabled:v66];
+        v32 = [objc_alloc(MEMORY[0x277CD55B8]) initWithUUID:v10 nodeID:v8 vendorID:v13 productID:v15 deviceType:v17 serialNumber:v67 name:v66 setupPayload:v64 threadCredentialManagementEnabled:v65];
         context = objc_autoreleasePoolPush();
         selfCopy6 = self;
         v34 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
         {
-          v58 = HMFGetLogIdentifier();
+          v57 = HMFGetLogIdentifier();
           uuid = [v32 uuid];
           nodeID = [v32 nodeID];
           log = v34;
@@ -1676,31 +1716,31 @@ LABEL_32:
           productID = [v32 productID];
           deviceType = [v32 deviceType];
           [v32 name];
-          v37 = v51 = v13;
+          v37 = v50 = v13;
           [v32 setupPayload];
-          v38 = v50 = selfCopy6;
+          v38 = v49 = selfCopy6;
           *buf = 138545410;
-          v77 = v58;
-          v78 = 2112;
-          v79 = uuid;
-          v80 = 2112;
-          v81 = nodeID;
-          v82 = 2112;
-          v83 = serialNumber;
-          v84 = 2112;
-          v85 = vendorID;
-          v86 = 2112;
-          v87 = productID;
-          v88 = 2112;
-          v89 = deviceType;
-          v90 = 2112;
-          v91 = v37;
-          v92 = 2112;
-          v93 = v38;
+          v76 = v57;
+          v77 = 2112;
+          v78 = uuid;
+          v79 = 2112;
+          v80 = nodeID;
+          v81 = 2112;
+          v82 = serialNumber;
+          v83 = 2112;
+          v84 = vendorID;
+          v85 = 2112;
+          v86 = productID;
+          v87 = 2112;
+          v88 = deviceType;
+          v89 = 2112;
+          v90 = v37;
+          v91 = 2112;
+          v92 = v38;
           _os_log_impl(&dword_22AEAE000, log, OS_LOG_TYPE_INFO, "%{public}@UUID = %@, Node ID = %@, Serial Number = %@, VID = %@, PID = %@, DeviceType = %@, Name = %@, Payload = %@", buf, 0x5Cu);
 
-          selfCopy6 = v50;
-          v13 = v51;
+          selfCopy6 = v49;
+          v13 = v50;
 
           v34 = log;
         }
@@ -1711,14 +1751,13 @@ LABEL_32:
 LABEL_34:
       }
 
-      v61 = [obj countByEnumeratingWithState:&v72 objects:v94 count:16];
+      v60 = [obj countByEnumeratingWithState:&v71 objects:v93 count:16];
     }
 
-    while (v61);
+    while (v60);
   }
 
   handlerCopy[2](handlerCopy, array, 0);
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retrievePreferredThreadCredentialsOrCreateWithDataset:(id)dataset completionHandler:(id)handler
@@ -1842,7 +1881,7 @@ void __113__HMMTRSystemCommissionerPairingManager_retrievePreferredThreadCredent
 
 - (void)removeDevicePairingWithUUID:(id)d completionHandler:(id)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   v8 = objc_autoreleasePoolPush();
@@ -1851,18 +1890,16 @@ void __113__HMMTRSystemCommissionerPairingManager_retrievePreferredThreadCredent
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v11;
-    v16 = 2080;
-    v17 = "[HMMTRSystemCommissionerPairingManager removeDevicePairingWithUUID:completionHandler:]";
-    _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_ERROR, "%{public}@%s is deprecated", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v11;
+    v15 = 2080;
+    v16 = "[HMMTRSystemCommissionerPairingManager removeDevicePairingWithUUID:completionHandler:]";
+    _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_ERROR, "%{public}@%s is deprecated", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   v12 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:5];
   handlerCopy[2](handlerCopy, v12);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeDevicePairingWithUUID:(id)d forSystemCommissionerPairingUUID:(id)iD completionHandler:(id)handler
@@ -1969,12 +2006,11 @@ void __113__HMMTRSystemCommissionerPairingManager_retrievePreferredThreadCredent
 
 uint64_t __52__HMMTRSystemCommissionerPairingManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v41_5906;
-  logCategory__hmf_once_v41_5906 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v41_5906;
+  logCategory__hmf_once_v41_5906 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

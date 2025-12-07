@@ -818,7 +818,7 @@ LABEL_23:
       identifiersForActiveDisplayLayoutElements2 = identifiersForActiveDisplayLayoutElements;
       if (activeCopy)
       {
-        v8 = [identifiersForActiveDisplayLayoutElements containsObject:preferredDisplayLayoutElementIdentifier];
+        v8 = objc_msgSend_containsObject_(identifiersForActiveDisplayLayoutElements);
 
         if (v8)
         {

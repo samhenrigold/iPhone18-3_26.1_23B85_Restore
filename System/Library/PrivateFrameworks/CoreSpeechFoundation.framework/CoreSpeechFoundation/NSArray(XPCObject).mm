@@ -21,7 +21,7 @@
 
 - (id)_cs_initWithXPCObject:()XPCObject
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = v4;
   if (!v4)
@@ -37,7 +37,7 @@ LABEL_5:
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v15 = "[NSArray(XPCObject) _cs_initWithXPCObject:]";
+      v14 = "[NSArray(XPCObject) _cs_initWithXPCObject:]";
       _os_log_error_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_ERROR, "%s xpc object should be XPC_TYPE_ARRAY", buf, 0xCu);
     }
 
@@ -52,14 +52,13 @@ LABEL_5:
     applier[1] = 3221225472;
     applier[2] = __44__NSArray_XPCObject___cs_initWithXPCObject___block_invoke;
     applier[3] = &unk_1E865B648;
-    v13 = array;
+    v12 = array;
     xpc_array_apply(v5, applier);
   }
 
   v7 = [self initWithArray:v9];
 
 LABEL_9:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

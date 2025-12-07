@@ -42,13 +42,13 @@
 
 - (void)_generateParagraphRequests
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:self->_text];
   paragraphs = [v3 paragraphs];
   if (![paragraphs count])
   {
-    v21[0] = v3;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+    v20[0] = v3;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
 
     paragraphs = v5;
   }
@@ -56,32 +56,30 @@
   v6 = dispatch_group_create();
   v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(paragraphs, "count")}];
   objc_initWeak(&location, self);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __65___LTMultiParagraphTranslationRequest__generateParagraphRequests__block_invoke;
-  v16[3] = &unk_278B6D328;
-  objc_copyWeak(&v19, &location);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __65___LTMultiParagraphTranslationRequest__generateParagraphRequests__block_invoke;
+  v15[3] = &unk_278B6D328;
+  objc_copyWeak(&v18, &location);
   v8 = v6;
-  v17 = v8;
+  v16 = v8;
   v9 = v7;
-  v18 = v9;
-  [paragraphs enumerateObjectsUsingBlock:v16];
+  v17 = v9;
+  [paragraphs enumerateObjectsUsingBlock:v15];
   queue = self->_queue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __65___LTMultiParagraphTranslationRequest__generateParagraphRequests__block_invoke_9;
   block[3] = &unk_278B6CD30;
-  objc_copyWeak(&v15, &location);
+  objc_copyWeak(&v14, &location);
   dispatch_group_notify(v8, queue, block);
   v11 = [v9 copy];
   paragraphRequests = self->_paragraphRequests;
   self->_paragraphRequests = v11;
 
-  objc_destroyWeak(&v15);
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(&location);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanUp

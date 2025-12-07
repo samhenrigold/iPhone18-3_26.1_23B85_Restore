@@ -12,7 +12,7 @@
 
 - (BOOL)_shouldStopPlaybackWhenRequestBegins
 {
-  v2 = off_10058E9A8();
+  v2 = off_10058E9A8(self, a2);
 
   return [v2 shouldStopPlaybackOnSiriActivation];
 }

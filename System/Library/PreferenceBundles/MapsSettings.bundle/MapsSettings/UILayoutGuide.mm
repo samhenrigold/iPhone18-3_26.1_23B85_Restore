@@ -34,9 +34,10 @@
   if (edges)
   {
     v9 = objc_alloc_init(NSMutableArray);
+    v11 = v9;
     if (priority >= 1000.0)
     {
-      sub_3B3D0();
+      sub_3B3D0(v9);
     }
 
     LODWORD(v10) = 1148829696;
@@ -45,16 +46,16 @@
       *&v10 = priority;
     }
 
-    v11 = [guideCopy _maps_constraintsEqualToEdges:edges ofLayoutGuide:self priority:v10];
-    allConstraints = [v11 allConstraints];
-    [v9 addObjectsFromArray:allConstraints];
+    v12 = [guideCopy _maps_constraintsEqualToEdges:edges ofLayoutGuide:self priority:v10];
+    allConstraints = [v12 allConstraints];
+    [v11 addObjectsFromArray:allConstraints];
 
     if (edges)
     {
       topAnchor = [guideCopy topAnchor];
       topAnchor2 = [(UILayoutGuide *)self topAnchor];
-      v20 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2];
-      [v9 addObject:v20];
+      v21 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2];
+      [v11 addObject:v21];
 
       if ((edges & 2) == 0)
       {
@@ -75,8 +76,8 @@ LABEL_8:
 
     leadingAnchor = [guideCopy leadingAnchor];
     leadingAnchor2 = [(UILayoutGuide *)self leadingAnchor];
-    v23 = [leadingAnchor constraintGreaterThanOrEqualToAnchor:leadingAnchor2];
-    [v9 addObject:v23];
+    v24 = [leadingAnchor constraintGreaterThanOrEqualToAnchor:leadingAnchor2];
+    [v11 addObject:v24];
 
     if ((edges & 4) == 0)
     {
@@ -84,7 +85,7 @@ LABEL_9:
       if ((edges & 8) == 0)
       {
 LABEL_11:
-        v16 = [v9 copy];
+        v17 = [v11 copy];
 
         goto LABEL_13;
       }
@@ -92,8 +93,8 @@ LABEL_11:
 LABEL_10:
       trailingAnchor = [(UILayoutGuide *)self trailingAnchor];
       trailingAnchor2 = [guideCopy trailingAnchor];
-      v15 = [trailingAnchor constraintGreaterThanOrEqualToAnchor:trailingAnchor2];
-      [v9 addObject:v15];
+      v16 = [trailingAnchor constraintGreaterThanOrEqualToAnchor:trailingAnchor2];
+      [v11 addObject:v16];
 
       goto LABEL_11;
     }
@@ -101,8 +102,8 @@ LABEL_10:
 LABEL_18:
     bottomAnchor = [(UILayoutGuide *)self bottomAnchor];
     bottomAnchor2 = [guideCopy bottomAnchor];
-    v26 = [bottomAnchor constraintGreaterThanOrEqualToAnchor:bottomAnchor2];
-    [v9 addObject:v26];
+    v27 = [bottomAnchor constraintGreaterThanOrEqualToAnchor:bottomAnchor2];
+    [v11 addObject:v27];
 
     if ((edges & 8) == 0)
     {
@@ -112,10 +113,10 @@ LABEL_18:
     goto LABEL_10;
   }
 
-  v16 = &__NSArray0__struct;
+  v17 = &__NSArray0__struct;
 LABEL_13:
 
-  return v16;
+  return v17;
 }
 
 - (id)_maps_layoutGuidePinnedToEdgesWithRelation:(int64_t)relation withPriority:(float)priority

@@ -8,6 +8,7 @@
 - (void)dismiss;
 - (void)dismiss:(id)dismiss;
 - (void)leftNavigationButtonPressed;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation STKTextAlertViewController
@@ -135,6 +136,18 @@
   text = [sessionData text];
 
   return text;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  alertText = [(STKTextAlertViewController *)self alertText];
+  [(STKBaseAlertViewController *)self setTextViewText:alertText];
+
+  [(STKBaseAlertViewController *)self startTimeoutTimerIfNecessary];
+  v6.receiver = self;
+  v6.super_class = STKTextAlertViewController;
+  [(STKTextAlertViewController *)&v6 viewWillAppear:appearCopy];
 }
 
 - (void)accept:(id)accept

@@ -196,16 +196,18 @@ void __71__ICCreateNoteAction_performWithTitle_contents_pinned_container_error__
 
 uint64_t __71__ICCreateNoteAction_performWithTitle_contents_pinned_container_error___block_invoke_162(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) defaultFolder];
+  v2 = [*(a1 + 32) defaultFolder];
+  *(*(*(a1 + 40) + 8) + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2);
 }
 
 uint64_t __71__ICCreateNoteAction_performWithTitle_contents_pinned_container_error___block_invoke_2(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) defaultFolder];
+  v2 = [*(a1 + 32) defaultFolder];
+  *(*(*(a1 + 40) + 8) + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2);
 }
 
 void __71__ICCreateNoteAction_performWithTitle_contents_pinned_container_error___block_invoke_cold_1(uint64_t a1, NSObject *a2)

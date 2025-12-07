@@ -6,11 +6,11 @@
 
 - (id)settingsForBundleIdentifier:(id)identifier fromAllSettings:(id)settings handled:(BOOL *)handled
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   settingsCopy = settings;
-  v36[0] = @"com.apple.NanoPhone";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
+  v35[0] = @"com.apple.NanoPhone";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
   if (![v9 containsObject:identifierCopy])
   {
     v12 = [MEMORY[0x277CC1E70] bundleRecordWithApplicationIdentifier:identifierCopy error:0];
@@ -44,11 +44,11 @@
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v35 = identifierCopy;
+          v34 = identifierCopy;
           _os_log_impl(&dword_22CE92000, v17, OS_LOG_TYPE_INFO, "Live activities settings requested for: %@", buf, 0xCu);
         }
 
-        v33 = v16;
+        v32 = v16;
         v18 = [CSLPRFApp appWithApplicationRecord:v16];
         unionedBackgroundModes = [v18 unionedBackgroundModes];
         if ([unionedBackgroundModes containsObject:@"audio"])
@@ -111,7 +111,7 @@ LABEL_35:
           goto LABEL_29;
         }
 
-        v16 = v33;
+        v16 = v32;
       }
     }
 
@@ -131,15 +131,13 @@ LABEL_35:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v35 = identifierCopy;
+    v34 = identifierCopy;
     _os_log_impl(&dword_22CE92000, v10, OS_LOG_TYPE_INFO, "%@ is configured as a media app but will use app specific settings.", buf, 0xCu);
   }
 
   v11 = 0;
   *handled = 0;
 LABEL_36:
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

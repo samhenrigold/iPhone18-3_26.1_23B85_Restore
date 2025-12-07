@@ -1,10 +1,10 @@
 @interface LAAuthorizationViewController
 - (LAAuthorizationViewController)initWithConfiguration:(id)configuration completion:(id)completion;
 - (LAAuthorizationViewControllerDelegate)delegate;
+- (id)dismissFromContainerViewController;
 - (int64_t)modalPresentationStyle;
 - (int64_t)preferredStatusBarStyle;
 - (uint64_t)_finishWithError:(uint64_t)error;
-- (uint64_t)dismissFromContainerViewController;
 - (void)_applicationDidEnterBackground:(id)background;
 - (void)_prepareHostedSceneWithCompletion:(void *)completion;
 - (void)_prepareRemoteUI;
@@ -130,7 +130,7 @@
 
 void __49__LAAuthorizationViewController__prepareRemoteUI__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -139,13 +139,13 @@ void __49__LAAuthorizationViewController__prepareRemoteUI__block_invoke(uint64_t
   {
     if (v7)
     {
-      v11 = LA_LOG_0();
-      v12 = LALogTypeForInternalError();
-      if (os_log_type_enabled(v11, v12))
+      v10 = LA_LOG_0(WeakRetained);
+      v11 = LALogTypeForInternalError();
+      if (os_log_type_enabled(v10, v11))
       {
-        v13 = 138412290;
-        v14 = v7;
-        _os_log_impl(&dword_238BCD000, v11, v12, "Could not obtain remote VC %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = v7;
+        _os_log_impl(&dword_238BCD000, v10, v11, "Could not obtain remote VC %@", &v12, 0xCu);
       }
 
       [(LAAuthorizationViewController *)v9 _finishWithError:v7];
@@ -158,8 +158,6 @@ void __49__LAAuthorizationViewController__prepareRemoteUI__block_invoke(uint64_t
       [(LAAuthorizationViewController *)v9 _presentRemoteView];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_prepareHostedSceneWithCompletion:(void *)completion
@@ -281,7 +279,7 @@ void __51__LAAuthorizationViewController__presentRemoteView__block_invoke(uint64
   if (WeakRetained)
   {
     v2 = WeakRetained;
-    [LAAuthorizationViewController _presentRemoteView];
+    [(LAAuthorizationViewController *)WeakRetained _presentRemoteView];
     WeakRetained = v2;
   }
 }
@@ -321,27 +319,28 @@ void __49__LAAuthorizationViewController__startRemoteView__block_invoke_2(uint64
 
 - (void)dismiss
 {
-  if ([(LAAuthorizationViewController *)self active])
+  active = [(LAAuthorizationViewController *)self active];
+  if (active)
   {
     objc_initWeak(location, self);
     remoteVC = self->_remoteVC;
-    v5[0] = MEMORY[0x277D85DD0];
-    v5[1] = 3221225472;
-    v5[2] = __40__LAAuthorizationViewController_dismiss__block_invoke;
-    v5[3] = &unk_278A656D0;
-    objc_copyWeak(&v6, location);
-    [(LACUIAuthenticatorUI *)remoteVC stopWithReply:v5];
-    objc_destroyWeak(&v6);
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __40__LAAuthorizationViewController_dismiss__block_invoke;
+    v6[3] = &unk_278A656D0;
+    objc_copyWeak(&v7, location);
+    [(LACUIAuthenticatorUI *)remoteVC stopWithReply:v6];
+    objc_destroyWeak(&v7);
     objc_destroyWeak(location);
   }
 
   else
   {
-    v4 = LA_LOG_0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = LA_LOG_0(active);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(location[0]) = 0;
-      _os_log_impl(&dword_238BCD000, v4, OS_LOG_TYPE_DEFAULT, "Ignoring dismiss request for inactive sheet", location, 2u);
+      _os_log_impl(&dword_238BCD000, v5, OS_LOG_TYPE_DEFAULT, "Ignoring dismiss request for inactive sheet", location, 2u);
     }
   }
 }
@@ -361,18 +360,19 @@ void __40__LAAuthorizationViewController_dismiss__block_invoke(uint64_t a1, void
 - (void)presentInContainerViewController:(id)controller
 {
   controllerCopy = controller;
-  if ([(LAAuthorizationViewController *)self active])
+  active = [(LAAuthorizationViewController *)self active];
+  if (active)
   {
     [controllerCopy presentViewController:self animated:1 completion:&__block_literal_global_3];
   }
 
   else
   {
-    v5 = LA_LOG_0();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = LA_LOG_0(active);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_238BCD000, v5, OS_LOG_TYPE_DEFAULT, "Ignoring presentation request for inactive sheet", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_238BCD000, v6, OS_LOG_TYPE_DEFAULT, "Ignoring presentation request for inactive sheet", v7, 2u);
     }
   }
 }
@@ -442,11 +442,11 @@ void __40__LAAuthorizationViewController_dismiss__block_invoke(uint64_t a1, void
         {
           DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
           CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.LocalAuthentication.ui.presented", 0, 0, 1u);
-          v8 = LA_LOG_0();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+          v9 = LA_LOG_0(v8);
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
           {
             LOWORD(buf[0]) = 0;
-            _os_log_impl(&dword_238BCD000, v8, OS_LOG_TYPE_INFO, "Presenting remote UI", buf, 2u);
+            _os_log_impl(&dword_238BCD000, v9, OS_LOG_TYPE_INFO, "Presenting remote UI", buf, 2u);
           }
 
           view3 = [self view];
@@ -462,8 +462,8 @@ void __40__LAAuthorizationViewController_dismiss__block_invoke(uint64_t a1, void
           view7 = [OUTLINED_FUNCTION_2() view];
           [view7 topAnchor];
           objc_claimAutoreleasedReturnValue();
-          v14 = [OUTLINED_FUNCTION_0() constraintEqualToAnchor:?];
-          OUTLINED_FUNCTION_4(v14, v15);
+          v15 = [OUTLINED_FUNCTION_0() constraintEqualToAnchor:?];
+          OUTLINED_FUNCTION_4(v15, v16);
 
           view8 = [OUTLINED_FUNCTION_1() view];
           [view8 bottomAnchor];
@@ -471,8 +471,8 @@ void __40__LAAuthorizationViewController_dismiss__block_invoke(uint64_t a1, void
           view9 = [OUTLINED_FUNCTION_2() view];
           [view9 bottomAnchor];
           objc_claimAutoreleasedReturnValue();
-          v18 = [OUTLINED_FUNCTION_0() constraintEqualToAnchor:?];
-          OUTLINED_FUNCTION_4(v18, v19);
+          v19 = [OUTLINED_FUNCTION_0() constraintEqualToAnchor:?];
+          OUTLINED_FUNCTION_4(v19, v20);
 
           view10 = [OUTLINED_FUNCTION_1() view];
           [view10 leadingAnchor];
@@ -480,8 +480,8 @@ void __40__LAAuthorizationViewController_dismiss__block_invoke(uint64_t a1, void
           view11 = [OUTLINED_FUNCTION_2() view];
           [view11 leadingAnchor];
           objc_claimAutoreleasedReturnValue();
-          v22 = [OUTLINED_FUNCTION_0() constraintEqualToAnchor:?];
-          OUTLINED_FUNCTION_4(v22, v23);
+          v23 = [OUTLINED_FUNCTION_0() constraintEqualToAnchor:?];
+          OUTLINED_FUNCTION_4(v23, v24);
 
           view12 = [OUTLINED_FUNCTION_1() view];
           [view12 trailingAnchor];
@@ -489,8 +489,8 @@ void __40__LAAuthorizationViewController_dismiss__block_invoke(uint64_t a1, void
           view13 = [OUTLINED_FUNCTION_2() view];
           [view13 trailingAnchor];
           objc_claimAutoreleasedReturnValue();
-          v26 = [OUTLINED_FUNCTION_0() constraintEqualToAnchor:?];
-          OUTLINED_FUNCTION_4(v26, v27);
+          v27 = [OUTLINED_FUNCTION_0() constraintEqualToAnchor:?];
+          OUTLINED_FUNCTION_4(v27, v28);
 
           [self addChildViewController:self[124]];
           [(LAAuthorizationViewController *)self _startRemoteView];
@@ -505,20 +505,20 @@ void __40__LAAuthorizationViewController_dismiss__block_invoke(uint64_t a1, void
       block[1] = 3221225472;
       block[2] = __51__LAAuthorizationViewController__presentRemoteView__block_invoke;
       block[3] = &unk_278A657F0;
-      objc_copyWeak(&v29, buf);
+      objc_copyWeak(&v30, buf);
       dispatch_async(MEMORY[0x277D85CD0], block);
-      objc_destroyWeak(&v29);
+      objc_destroyWeak(&v30);
       objc_destroyWeak(buf);
     }
   }
 }
 
-- (uint64_t)dismissFromContainerViewController
+- (id)dismissFromContainerViewController
 {
   if (result)
   {
     v1 = result;
-    v2 = [*(result + 1016) style] == 1;
+    v2 = [result[127] style] == 1;
 
     return [v1 dismissViewControllerAnimated:v2 completion:&__block_literal_global_72];
   }
@@ -534,42 +534,38 @@ void __40__LAAuthorizationViewController_dismiss__block_invoke(uint64_t a1, void
 
 void __67__LAAuthorizationViewController__prepareHostedSceneWithCompletion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_238BCD000, a2, OS_LOG_TYPE_ERROR, "prepareRemoteSceneWithCompletion returned error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_238BCD000, a2, OS_LOG_TYPE_ERROR, "prepareRemoteSceneWithCompletion returned error: %@", &v2, 0xCu);
 }
 
 uint64_t __49__LAAuthorizationViewController__startRemoteView__block_invoke_2_cold_1(void **a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v4 = LA_LOG_0();
+  v4 = LA_LOG_0(a1);
   v5 = LALogTypeForInternalError();
   if (os_log_type_enabled(v4, v5))
   {
-    v14 = HIDWORD(*a1);
-    OUTLINED_FUNCTION_3(&dword_238BCD000, v6, v7, "Failed to start with error (%@).", v8, v9, v10, v11, 2u);
+    LODWORD(v13) = 138412290;
+    *(&v13 + 4) = *a1;
+    OUTLINED_FUNCTION_3(&dword_238BCD000, v6, v7, "Failed to start with error (%@).", v8, v9, v10, v11, v13, DWORD2(v13));
   }
 
-  result = [(LAAuthorizationViewController *)a2 _finishWithError:?];
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(LAAuthorizationViewController *)a2 _finishWithError:?];
 }
 
 uint64_t __40__LAAuthorizationViewController_dismiss__block_invoke_cold_1(void *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v4 = LA_LOG_0();
+  v4 = LA_LOG_0(a1);
   v5 = LALogTypeForInternalError();
   if (os_log_type_enabled(v4, v5))
   {
-    OUTLINED_FUNCTION_3(&dword_238BCD000, v6, v7, "Failed to dismiss with error (%@).", v8, v9, v10, v11, 2u);
+    LODWORD(v13) = 138412290;
+    *(&v13 + 4) = a1;
+    OUTLINED_FUNCTION_3(&dword_238BCD000, v6, v7, "Failed to dismiss with error (%@).", v8, v9, v10, v11, v13, DWORD2(v13));
   }
 
-  result = [(LAAuthorizationViewController *)a2 _finishWithError:a1];
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(LAAuthorizationViewController *)a2 _finishWithError:a1];
 }
 
 @end

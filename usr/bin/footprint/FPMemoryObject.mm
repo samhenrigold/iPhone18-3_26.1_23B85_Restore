@@ -56,7 +56,7 @@
   else
   {
     objc_opt_self();
-    v4 = byte_100038638 == 1 && sub_10000EDEC();
+    v4 = byte_100038638 == 1 && sub_10000EDEC(FPFootprint);
     sub_1000030C4(self, v4);
   }
 

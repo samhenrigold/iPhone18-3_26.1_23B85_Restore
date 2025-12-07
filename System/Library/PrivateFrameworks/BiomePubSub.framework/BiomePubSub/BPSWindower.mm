@@ -50,19 +50,17 @@
 
 - (id)upstreamPublishers
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   upstream = [(BPSWindower *)self upstream];
-  v6[0] = upstream;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = upstream;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
 
 - (void)updateWindowsWithEvent:(id)event
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v5 = (*(self->_key + 2))();
   v6 = [v5 copyWithZone:0];
@@ -86,29 +84,29 @@
   }
 
   assigner = [(BPSWindower *)self assigner];
-  v23 = eventCopy;
+  v22 = eventCopy;
   v13 = [assigner updateAndReturnNewWindowStates:v10 input:eventCopy];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v25;
+    v17 = *v24;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v25 != v17)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v24 + 1) + 8 * i);
+        v19 = *(*(&v23 + 1) + 8 * i);
         if (([v10 containsObject:v19] & 1) == 0)
         {
           windows4 = [(BPSWindower *)self windows];
@@ -117,13 +115,11 @@
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v16);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (id)firstCompletedWindowShouldRemove:(BOOL)remove
@@ -309,7 +305,7 @@ LABEL_3:
 
 - (id)validateBookmark:(id)bookmark
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   bookmarkCopy = bookmark;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -323,13 +319,11 @@ LABEL_3:
     v6 = objc_opt_class();
     bookmarkCopy = [v5 initWithFormat:@"%@ expected bookmark of class %@, but received %@", v6, objc_opt_class(), bookmarkCopy];
     v8 = MEMORY[0x1E696ABC0];
-    v12 = *MEMORY[0x1E696A578];
-    v13[0] = bookmarkCopy;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x1E696A578];
+    v12[0] = bookmarkCopy;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v4 = [v8 errorWithDomain:@"BiomePubSubError" code:2 userInfo:v9];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -350,14 +344,14 @@ LABEL_3:
 
 - (NSArray)bookmarkableUpstreams
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   upstream = [(BPSWindower *)self upstream];
 
   if (upstream)
   {
     upstream2 = [(BPSWindower *)self upstream];
-    v8[0] = upstream2;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+    v7[0] = upstream2;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   }
 
   else
@@ -370,8 +364,6 @@ LABEL_3:
 
     v5 = MEMORY[0x1E695E0F0];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

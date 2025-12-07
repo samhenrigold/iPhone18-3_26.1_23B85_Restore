@@ -36,9 +36,9 @@
   g_waitingForSerialsSema = v11;
 
   self->_leUarpBranchDone = 0;
-  v83 = CBCentralManagerOptionEnableFindMy;
-  v84 = &__kCFBooleanTrue;
-  v13 = [NSDictionary dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+  v82 = CBCentralManagerOptionEnableFindMy;
+  v83 = &__kCFBooleanTrue;
+  v13 = [NSDictionary dictionaryWithObjects:&v83 forKeys:&v82 count:1];
   cmOptions = self->_cmOptions;
   self->_cmOptions = v13;
 
@@ -77,39 +77,38 @@
   v30 = getprogname();
   v31 = [NSString stringWithFormat:@"%s-%u", v30, getpid()];
   [v31 UTF8String];
-  v32 = self->_queue;
-  v33 = BTSessionAttachWithQueue();
+  v32 = BTSessionAttachWithQueue();
 
-  if (v33)
+  if (v32)
   {
-    NSLog(@"attachmentsForParameters: Failed to attach to bluetoothd with error 0x%08x", v33);
+    NSLog(@"attachmentsForParameters: Failed to attach to bluetoothd with error 0x%08x", v32);
     dispatch_group_leave(g_waitingBranchesGroup);
-    v34 = g_loggingFilenames;
+    v33 = g_loggingFilenames;
     objc_autoreleasePoolPop(v29);
   }
 
   else
   {
-    v66 = v21;
+    v65 = v21;
     dispatch_group_enter(g_waitingBranchesGroup);
-    v35 = g_waitingPeripheralsGroup;
-    v36 = dispatch_time(0, 5000000000);
-    if (dispatch_group_wait(v35, v36))
+    v34 = g_waitingPeripheralsGroup;
+    v35 = dispatch_time(0, 5000000000);
+    if (dispatch_group_wait(v34, v35))
     {
       NSLog(@"attachmentsForParameters: Timed out waiting for CBCentralManager didUpdateState callback");
     }
 
-    v37 = self->_queue;
+    v36 = self->_queue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000019E4;
     block[3] = &unk_100008300;
     block[4] = self;
-    dispatch_async(v37, block);
+    dispatch_async(v36, block);
     NSLog(@"attachmentsForParameters: Awaiting logging response ... ");
-    v38 = g_waitingBranchesGroup;
-    v39 = dispatch_time(0, 495000000000);
-    if (dispatch_group_wait(v38, v39))
+    v37 = g_waitingBranchesGroup;
+    v38 = dispatch_time(0, 495000000000);
+    if (dispatch_group_wait(v37, v38))
     {
       NSLog(@"attachmentsForParameters: Log Collection Timed Out");
       if (g_result)
@@ -130,131 +129,131 @@
       NSLog(@"attachmentsForParameters: Failed to register callback with error 0x%08x", g_result);
     }
 
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
     v76 = 0u;
-    v40 = self->_peripherals;
-    v41 = [(NSMutableArray *)v40 countByEnumeratingWithState:&v75 objects:v82 count:16];
-    if (v41)
+    v77 = 0u;
+    v74 = 0u;
+    v75 = 0u;
+    v39 = self->_peripherals;
+    v40 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v74 objects:v81 count:16];
+    if (v40)
     {
-      v42 = v41;
-      v43 = *v76;
+      v41 = v40;
+      v42 = *v75;
       do
       {
-        for (i = 0; i != v42; i = i + 1)
+        for (i = 0; i != v41; i = i + 1)
         {
-          if (*v76 != v43)
+          if (*v75 != v42)
           {
-            objc_enumerationMutation(v40);
+            objc_enumerationMutation(v39);
           }
 
-          [(CBCentralManager *)self->_centralManager cancelPeripheralConnection:*(*(&v75 + 1) + 8 * i)];
+          [(CBCentralManager *)self->_centralManager cancelPeripheralConnection:*(*(&v74 + 1) + 8 * i)];
         }
 
-        v42 = [(NSMutableArray *)v40 countByEnumeratingWithState:&v75 objects:v82 count:16];
+        v41 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v74 objects:v81 count:16];
       }
 
-      while (v42);
+      while (v41);
     }
 
     [(BluetoothHeadsetExtension *)self cancelXPCConnection];
     objc_autoreleasePoolPop(v29);
-    v34 = objc_opt_new();
+    v33 = objc_opt_new();
+    v70 = 0u;
     v71 = 0u;
     v72 = 0u;
     v73 = 0u;
-    v74 = 0u;
-    v45 = g_loggingFilenames;
-    v46 = [v45 countByEnumeratingWithState:&v71 objects:v81 count:16];
-    if (v46)
+    v44 = g_loggingFilenames;
+    v45 = [v44 countByEnumeratingWithState:&v70 objects:v80 count:16];
+    if (v45)
     {
-      v47 = v46;
-      v48 = 0;
-      v49 = *v72;
+      v46 = v45;
+      v47 = 0;
+      v48 = *v71;
       do
       {
-        for (j = 0; j != v47; j = j + 1)
+        for (j = 0; j != v46; j = j + 1)
         {
-          if (*v72 != v49)
+          if (*v71 != v48)
           {
-            objc_enumerationMutation(v45);
+            objc_enumerationMutation(v44);
           }
 
-          v51 = *(*(&v71 + 1) + 8 * j);
-          v52 = +[NSFileManager defaultManager];
-          v53 = [v52 fileExistsAtPath:v51];
+          v50 = *(*(&v70 + 1) + 8 * j);
+          v51 = +[NSFileManager defaultManager];
+          v52 = [v51 fileExistsAtPath:v50];
 
-          if (v53)
+          if (v52)
           {
-            v54 = [DEAttachmentItem attachmentWithPath:v51];
-            v55 = [v34 arrayByAddingObject:v54];
+            v53 = [DEAttachmentItem attachmentWithPath:v50];
+            v54 = [v33 arrayByAddingObject:v53];
 
-            v48 = (v48 + 1);
-            NSLog(@"attachmentsForParameters: attaching %@", v51);
-            v34 = v55;
+            v47 = (v47 + 1);
+            NSLog(@"attachmentsForParameters: attaching %@", v50);
+            v33 = v54;
           }
         }
 
-        v47 = [v45 countByEnumeratingWithState:&v71 objects:v81 count:16];
+        v46 = [v44 countByEnumeratingWithState:&v70 objects:v80 count:16];
       }
 
-      while (v47);
+      while (v46);
     }
 
     else
     {
-      v48 = 0;
+      v47 = 0;
     }
 
-    v56 = productId;
+    v55 = productId;
     if (((productId - 8194) > 0xE || ((1 << (productId - 2)) & 0x409B) == 0) && productId)
     {
-      v58 = CLGetAccessoryMotionSensorLogs();
+      v57 = CLGetAccessoryMotionSensorLogs();
+      v66 = 0u;
       v67 = 0u;
       v68 = 0u;
       v69 = 0u;
-      v70 = 0u;
-      v59 = [v58 countByEnumeratingWithState:&v67 objects:v80 count:16];
-      if (v59)
+      v58 = [v57 countByEnumeratingWithState:&v66 objects:v79 count:16];
+      if (v58)
       {
-        v60 = v59;
-        v61 = *v68;
+        v59 = v58;
+        v60 = *v67;
         do
         {
-          v62 = 0;
-          v63 = v34;
+          v61 = 0;
+          v62 = v33;
           do
           {
-            if (*v68 != v61)
+            if (*v67 != v60)
             {
-              objc_enumerationMutation(v58);
+              objc_enumerationMutation(v57);
             }
 
-            v64 = *(*(&v67 + 1) + 8 * v62);
-            NSLog(@"attachmentsForParameters: added motion sensor log %@", v64);
-            v65 = [DEAttachmentItem attachmentWithPath:v64];
-            v34 = [v63 arrayByAddingObject:v65];
+            v63 = *(*(&v66 + 1) + 8 * v61);
+            NSLog(@"attachmentsForParameters: added motion sensor log %@", v63);
+            v64 = [DEAttachmentItem attachmentWithPath:v63];
+            v33 = [v62 arrayByAddingObject:v64];
 
-            v62 = v62 + 1;
-            v63 = v34;
+            v61 = v61 + 1;
+            v62 = v33;
           }
 
-          while (v60 != v62);
-          v60 = [v58 countByEnumeratingWithState:&v67 objects:v80 count:16];
+          while (v59 != v61);
+          v59 = [v57 countByEnumeratingWithState:&v66 objects:v79 count:16];
         }
 
-        while (v60);
+        while (v59);
       }
 
-      v56 = productId;
+      v55 = productId;
     }
 
-    NSLog(@"attachmentsForParameters: pId %u, passed %lu filename(s), attached %d", v56, [g_loggingFilenames count], v48);
-    v21 = v66;
+    NSLog(@"attachmentsForParameters: pId %u, passed %lu filename(s), attached %d", v55, [g_loggingFilenames count], v47);
+    v21 = v65;
   }
 
-  return v34;
+  return v33;
 }
 
 - (id)getFilesAtPathSortedByModificationDate:(id)date numberOfFirstNFiles:(int)files

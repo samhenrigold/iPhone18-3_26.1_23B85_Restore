@@ -24,14 +24,20 @@
   v7 = _Block_copy(completion);
   if (v7)
   {
-    *(swift_allocObject() + 16) = v7;
+    v8 = swift_allocObject();
+    *(v8 + 16) = v7;
     v7 = sub_100685EBC;
+  }
+
+  else
+  {
+    v8 = 0;
   }
 
   controllerCopy = controller;
   selfCopy = self;
   sub_101066564(controllerCopy);
-  sub_1000C1014(v7);
+  sub_1000C1014(v7, v8);
 }
 
 - (_TtC8Freeform53CRLiOSMiniFormatterTextEditingAccessoryViewController)initWithNibName:(id)name bundle:(id)bundle

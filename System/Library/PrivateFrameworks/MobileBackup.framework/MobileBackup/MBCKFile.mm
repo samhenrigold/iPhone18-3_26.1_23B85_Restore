@@ -12,6 +12,7 @@
 - (BOOL)_createResourceCopyWithError:(id *)error;
 - (BOOL)_decryptWithOperationTracker:(id)tracker destination:(id)destination device:(id)device error:(id *)error;
 - (BOOL)decodeWithFileAtPath:(id)path destinationDirectory:(id)directory error:(id *)error;
+- (BOOL)encodeWithFileAtPath:(id)path encodingMethod:(char)method hasSnapshot:(BOOL)snapshot destinationDirectory:(id)directory account:(id)account device:(id)device error:(id *)error;
 - (BOOL)fetchEncryptionKeyWithAccount:(id)account device:(id)device error:(id *)error;
 - (BOOL)hasResources;
 - (BOOL)isEqual:(id)equal;
@@ -83,6 +84,7 @@
 - (void)setAbsolutePath:(id)path;
 - (void)setDecodedAssetPath:(id)path;
 - (void)setFileID:(id)d;
+- (void)setStashedAssetIsDecrypted:(BOOL)decrypted;
 - (void)setStashedAssetPath:(id)path;
 - (void)setupWithDomain:(id)domain;
 - (void)sqliteBind:(sqlite3_stmt *)bind index:(int)index;
@@ -280,7 +282,7 @@
           *buf = 136315138;
           v28 = "_absolutePath";
           _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_FAULT, "nil %s", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"F ", "nil %s", "_absolutePath");
         }
       }
 
@@ -292,7 +294,7 @@
           *buf = 136315138;
           v28 = "_domain";
           _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_FAULT, "nil %s", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"F ", "nil %s", "_domain");
         }
       }
     }
@@ -460,7 +462,7 @@
       v15 = 2112;
       v16 = v6;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "Allowing file %@ in domain without root path %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"Db", "Allowing file %@ in domain without root path %@", self, v6);
     }
   }
 }
@@ -584,13 +586,11 @@
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        *v26 = absolutePath;
-        *&v26[8] = 1024;
-        *&v26[10] = v15;
+        *v24 = absolutePath;
+        *&v24[8] = 1024;
+        *&v24[10] = v15;
         _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "MBNodeForPath() failed at %@: %{errno}d", buf, 0x12u);
-        v23 = absolutePath;
-        selfCopy = v15;
-        _MBLog();
+        _MBLog(@"E ", "MBNodeForPath() failed at %@: %{errno}d", absolutePath, v15);
       }
 
       goto LABEL_15;
@@ -621,19 +621,17 @@ LABEL_15:
         {
           v22 = BYTE6(self->_mbNode.cloneID);
           *buf = 67109378;
-          *v26 = v22;
-          *&v26[4] = 2112;
-          *&v26[6] = self;
+          *v24 = v22;
+          *&v24[4] = 2112;
+          *&v24[6] = self;
           _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Filesystem returned an invalid protection class %d for %@", buf, 0x12u);
-          v23 = BYTE6(self->_mbNode.cloneID);
-          selfCopy = self;
-          _MBLog();
+          _MBLog(@"Df", "Filesystem returned an invalid protection class %d for %@", BYTE6(self->_mbNode.cloneID), self);
         }
 
         BYTE6(self->_mbNode.cloneID) = 4;
       }
 
-      if (![(MBCKFile *)self fetchEncryptionKeyWithAccount:accountCopy device:v10 error:error, v23, selfCopy])
+      if (![(MBCKFile *)self fetchEncryptionKeyWithAccount:accountCopy device:v10 error:error])
       {
         goto LABEL_15;
       }
@@ -702,7 +700,7 @@ LABEL_16:
 
         v20 = *&self->_contentEncodingMethod;
         manifest = [(MBCKFile *)self absolutePath];
-        _MBLog();
+        _MBLog(@"E ", "Failed to lstat file copy at %@ on behalf of %@: %{errno}d", v20, manifest, v13);
       }
 
       else
@@ -945,10 +943,9 @@ LABEL_21:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v34 = "_absolutePath";
+      v33 = "_absolutePath";
       _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_FAULT, "nil %s", buf, 0xCu);
-      v32 = "_absolutePath";
-      _MBLog();
+      _MBLog(@"F ", "nil %s", "_absolutePath");
     }
   }
 
@@ -958,10 +955,9 @@ LABEL_21:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v34 = "_domain";
+      v33 = "_domain";
       _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_FAULT, "nil %s", buf, 0xCu);
-      v32 = "_domain";
-      _MBLog();
+      _MBLog(@"F ", "nil %s", "_domain");
     }
   }
 
@@ -989,12 +985,11 @@ LABEL_21:
     {
       protectionClass = [fileCopy protectionClass];
       *buf = 138412546;
-      v34 = fileCopy;
-      v35 = 1024;
-      v36 = protectionClass;
+      v33 = fileCopy;
+      v34 = 1024;
+      v35 = protectionClass;
       _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "File %@ has an invalid protection class: %d", buf, 0x12u);
-      [fileCopy protectionClass];
-      _MBLog();
+      _MBLog(@"Df", "File %@ has an invalid protection class: %d", fileCopy, [fileCopy protectionClass]);
     }
 
     BYTE6(selfCopy->_mbNode.cloneID) = 4;
@@ -1119,28 +1114,27 @@ LABEL_21:
     {
       v42 = [dictionaryCopy objectForKeyedSubscript:@"protectionClass"];
       *buf = 138412546;
-      v51 = dictionaryCopy;
-      v52 = 2112;
-      v53 = v42;
+      v50 = dictionaryCopy;
+      v51 = 2112;
+      v52 = v42;
       _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "File dictionary %@ has an invalid protection class: %@", buf, 0x16u);
 
-      [dictionaryCopy objectForKeyedSubscript:@"protectionClass"];
-      v49 = v48 = dictionaryCopy;
-      _MBLog();
+      v43 = [dictionaryCopy objectForKeyedSubscript:@"protectionClass"];
+      _MBLog(@"Df", "File dictionary %@ has an invalid protection class: %@", dictionaryCopy, v43);
     }
 
     BYTE6(p_mbNode->cloneID) = 4;
   }
 
   LOBYTE(selfCopy->_restoreState) = selfCopy->_restoreState & 0xF7 | (8 * (selfCopy->_resources == 0));
-  v43 = [dictionaryCopy objectForKeyedSubscript:{@"device", v48, v49}];
-  v44 = v43;
-  if (v43)
+  v44 = [dictionaryCopy objectForKeyedSubscript:@"device"];
+  v45 = v44;
+  if (v44)
   {
-    hmacKey = [v43 hmacKey];
-    v46 = [(MBCKFile *)selfCopy fileIDWithHmacKey:hmacKey];
+    hmacKey = [v44 hmacKey];
+    v47 = [(MBCKFile *)selfCopy fileIDWithHmacKey:hmacKey];
     manifest = selfCopy->_manifest;
-    selfCopy->_manifest = v46;
+    selfCopy->_manifest = v47;
   }
 }
 
@@ -1170,11 +1164,11 @@ LABEL_21:
           _os_log_impl(&_mh_execute_header, cache, OS_LOG_TYPE_ERROR, "File %@ does not appear to have been modified on disk", buf, 0xCu);
 
           assetPath3 = [(MBCKFile *)self assetPath];
-          _MBLog();
+          _MBLog(@"E ", "File %@ does not appear to have been modified on disk", assetPath3);
         }
 
         cache = [(MBCKModel *)self cache];
-        v25 = [cache markFileAsCopyable:self];
+        v27 = [cache markFileAsCopyable:self];
       }
 
       else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
@@ -1198,11 +1192,11 @@ LABEL_21:
         v20 = MBGetLogDateFormatter();
         v21 = [v20 stringFromDate:v6];
         v22 = MBGetLogDateFormatter();
-        v27 = [v22 stringFromDate:modified];
-        _MBLog();
+        v23 = [v22 stringFromDate:modified];
+        _MBLog(@"I ", "File %@ was modified at %@, %f seconds after %@, the modified date cached during the last scan.", assetPath5, v21, *&v11, v23);
       }
 
-      goto LABEL_16;
+      goto LABEL_15;
     }
 
     v5 = *__error();
@@ -1218,9 +1212,8 @@ LABEL_21:
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "File %@ is no longer on disk", buf, 0xCu);
 
         modified = [(MBCKFile *)self assetPath];
-LABEL_11:
-        _MBLog();
-LABEL_16:
+        _MBLog(@"E ", "File %@ is no longer on disk", modified);
+LABEL_15:
       }
     }
 
@@ -1234,7 +1227,8 @@ LABEL_16:
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Cannot tell if file %@ has changed on disk: stat failed: %{errno}d", buf, 0x12u);
 
       modified = [(MBCKFile *)self assetPath];
-      goto LABEL_11;
+      _MBLog(@"E ", "Cannot tell if file %@ has changed on disk: stat failed: %{errno}d", modified, v5);
+      goto LABEL_15;
     }
   }
 }
@@ -1354,8 +1348,8 @@ LABEL_25:
       {
         assetPath = [(MBCKFile *)self assetPath];
         st_ino = [(MBCKFile *)self inode];
-        v129 = *&self->_is;
-        if (!v129)
+        v122 = *&self->_is;
+        if (!v122)
         {
           __assert_rtn("[MBCKFile fetchEncryptionKeyWithAccount:device:error:]", "MBCKFile.m", 613, "volumeType != MBVolumeTypeUnspecified");
         }
@@ -1375,12 +1369,12 @@ LABEL_25:
             v26 = MBGetDefaultLog();
             if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
-              *v137 = 138412546;
-              v138 = assetPath;
-              v139 = 1024;
-              v140 = v25;
-              _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Failed to stat %@: %{errno}d", v137, 0x12u);
-              _MBLog();
+              *v130 = 138412546;
+              v131 = assetPath;
+              v132 = 1024;
+              v133 = v25;
+              _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Failed to stat %@: %{errno}d", v130, 0x12u);
+              _MBLog(@"E ", "Failed to stat %@: %{errno}d", assetPath, v25);
             }
 
             v23 = 0;
@@ -1390,32 +1384,29 @@ LABEL_25:
           st_ino = buf.st_ino;
         }
 
-        v130 = st_ino;
+        v123 = st_ino;
         if (![(MBCKFile *)self size])
         {
           cache = [(MBCKModel *)self cache];
-          v136 = 0;
-          v28 = [cache encryptionKeyForFileWithInodeNumber:v130 volumeType:v129 error:&v136];
-          v132 = v136;
+          v129 = 0;
+          v28 = [cache encryptionKeyForFileWithInodeNumber:v123 volumeType:v122 error:&v129];
+          v125 = v129;
           resources = self->_resources;
           self->_resources = v28;
 
-          if (v132)
+          if (v125)
           {
             v30 = MBGetDefaultLog();
             if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
             {
               buf.st_dev = 134218498;
-              *&buf.st_mode = v130;
+              *&buf.st_mode = v123;
               WORD2(buf.st_ino) = 2112;
               *(&buf.st_ino + 6) = assetPath;
               HIWORD(buf.st_gid) = 2112;
-              *&buf.st_rdev = v132;
+              *&buf.st_rdev = v125;
               _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Failed to fetch the cached encryption key for 0-byte inode:%llu at %@: %@", &buf, 0x20u);
-              v124 = assetPath;
-              v125 = v132;
-              v122 = v130;
-              _MBLog();
+              _MBLog(@"E ", "Failed to fetch the cached encryption key for 0-byte inode:%llu at %@: %@", v123, assetPath, v125);
             }
           }
 
@@ -1431,13 +1422,11 @@ LABEL_25:
               if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
               {
                 buf.st_dev = 134218242;
-                *&buf.st_mode = v130;
+                *&buf.st_mode = v123;
                 WORD2(buf.st_ino) = 2112;
                 *(&buf.st_ino + 6) = assetPath;
                 _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "Keybag UUID mismatch for 0-byte inode:%llu at %@", &buf, 0x16u);
-                v122 = v130;
-                v124 = assetPath;
-                _MBLog();
+                _MBLog(@"E ", "Keybag UUID mismatch for 0-byte inode:%llu at %@", v123, assetPath);
               }
 
               v35 = self->_resources;
@@ -1445,9 +1434,9 @@ LABEL_25:
             }
           }
 
-          v36 = [(MBCKFile *)self encryptionKey:v122];
+          encryptionKey = [(MBCKFile *)self encryptionKey];
 
-          if (!v36)
+          if (!encryptionKey)
           {
             v23 = 1;
 LABEL_185:
@@ -1464,12 +1453,11 @@ LABEL_186:
             buf.st_dev = 134218498;
             *&buf.st_mode = v37;
             WORD2(buf.st_ino) = 2048;
-            *(&buf.st_ino + 6) = v130;
+            *(&buf.st_ino + 6) = v123;
             HIWORD(buf.st_gid) = 2112;
             *&buf.st_rdev = assetPath;
             _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_INFO, "Found cached encryption key (size: %tu) for 0-byte inode:%llu at %@", &buf, 0x20u);
-            [(NSData *)self->_resources length];
-            _MBLog();
+            _MBLog(@"I ", "Found cached encryption key (size: %tu) for 0-byte inode:%llu at %@", [(NSData *)self->_resources length], v123, assetPath);
           }
 
 LABEL_184:
@@ -1477,9 +1465,9 @@ LABEL_184:
           goto LABEL_185;
         }
 
-        v135 = 0;
-        oslog = [MBKeyBagFile keybagFileWithPath:assetPath error:&v135];
-        v132 = v135;
+        v128 = 0;
+        oslog = [MBKeyBagFile keybagFileWithPath:assetPath error:&v128];
+        v125 = v128;
         if (!oslog)
         {
           v38 = MBGetDefaultLog();
@@ -1488,16 +1476,16 @@ LABEL_184:
             buf.st_dev = 138412546;
             *&buf.st_mode = assetPath;
             WORD2(buf.st_ino) = 2112;
-            *(&buf.st_ino + 6) = v132;
+            *(&buf.st_ino + 6) = v125;
             _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "Failed to open file to get encryption key %@: %@", &buf, 0x16u);
-            _MBLog();
+            _MBLog(@"E ", "Failed to open file to get encryption key %@: %@", assetPath, v125);
           }
 
           if (error)
           {
-            v39 = v132;
+            v39 = v125;
             v23 = 0;
-            *error = v132;
+            *error = v125;
           }
 
           else
@@ -1511,7 +1499,7 @@ LABEL_184:
         rsrcTemporaryPath = self->_rsrcTemporaryPath;
         if (rsrcTemporaryPath)
         {
-          v128 = rsrcTemporaryPath;
+          v121 = rsrcTemporaryPath;
         }
 
         else
@@ -1519,13 +1507,13 @@ LABEL_184:
           domain = [(MBCKFile *)self domain];
           rootPath = [domain rootPath];
           relativePath = [(MBCKFile *)self relativePath];
-          v128 = [rootPath stringByAppendingPathComponent:relativePath];
+          v121 = [rootPath stringByAppendingPathComponent:relativePath];
         }
 
         self->_resourceAsset = [oslog size];
-        encryptionKey = [(MBCKFile *)self encryptionKey];
+        encryptionKey2 = [(MBCKFile *)self encryptionKey];
 
-        if (encryptionKey)
+        if (encryptionKey2)
         {
           v44 = MBGetDefaultLog();
           if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
@@ -1537,16 +1525,13 @@ LABEL_184:
               buf.st_dev = 134218498;
               *&buf.st_mode = v46;
               WORD2(buf.st_ino) = 2048;
-              *(&buf.st_ino + 6) = v130;
+              *(&buf.st_ino + 6) = v123;
               HIWORD(buf.st_gid) = 2112;
               *&buf.st_rdev = assetPath;
               _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_INFO, "Found encryption key (size: %tu) for inode:%llu at %@", &buf, 0x20u);
             }
 
-            v124 = v130;
-            v125 = assetPath;
-            v122 = [(NSData *)self->_resources length];
-            _MBLog();
+            _MBLog(@"I ", "Found encryption key (size: %tu) for inode:%llu at %@", [(NSData *)self->_resources length], v123, assetPath);
           }
 
           keybagManager3 = [v10 keybagManager];
@@ -1559,31 +1544,28 @@ LABEL_184:
             {
               if ([MBProtectionClassUtils canOpenWhenLocked:v11])
               {
-                v127 = v132;
+                v120 = v125;
 LABEL_130:
                 v55 = MBGetDefaultLog();
                 v23 = 1;
                 if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
                 {
-                  v95 = v55;
-                  if (os_log_type_enabled(v95, OS_LOG_TYPE_INFO))
+                  v92 = v55;
+                  if (os_log_type_enabled(v92, OS_LOG_TYPE_INFO))
                   {
-                    v96 = [(NSData *)self->_resources length];
+                    v93 = [(NSData *)self->_resources length];
                     buf.st_dev = 134218498;
-                    *&buf.st_mode = v96;
+                    *&buf.st_mode = v93;
                     WORD2(buf.st_ino) = 2048;
-                    *(&buf.st_ino + 6) = v130;
+                    *(&buf.st_ino + 6) = v123;
                     HIWORD(buf.st_gid) = 2112;
                     *&buf.st_rdev = assetPath;
-                    _os_log_impl(&_mh_execute_header, v95, OS_LOG_TYPE_INFO, "Cached encryption key (size: %tu) for inode:%llu at %@", &buf, 0x20u);
+                    _os_log_impl(&_mh_execute_header, v92, OS_LOG_TYPE_INFO, "Cached encryption key (size: %tu) for inode:%llu at %@", &buf, 0x20u);
                   }
 
-                  v56 = v95;
+                  v56 = v92;
 
-                  v124 = v130;
-                  v125 = assetPath;
-                  v122 = [(NSData *)self->_resources length];
-                  _MBLog();
+                  _MBLog(@"I ", "Cached encryption key (size: %tu) for inode:%llu at %@", [(NSData *)self->_resources length], v123, assetPath);
                   v51 = 0;
                   goto LABEL_149;
                 }
@@ -1591,61 +1573,60 @@ LABEL_130:
                 v51 = 0;
 LABEL_151:
 
-                v92 = 0;
-                v132 = v127;
+                v89 = 0;
+                v125 = v120;
 LABEL_152:
 
                 if (([oslog closeWithError:error]& 1) == 0)
                 {
-                  v101 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
+                  v98 = MBGetDefaultLog();
+                  if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
                   {
                     if (error)
                     {
-                      v102 = *error;
+                      v99 = *error;
                       buf.st_dev = 138412290;
-                      *&buf.st_mode = v102;
-                      _os_log_impl(&_mh_execute_header, v101, OS_LOG_TYPE_ERROR, "Failed to close keybag file: %@", &buf, 0xCu);
-                      v103 = *error;
+                      *&buf.st_mode = v99;
+                      _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_ERROR, "Failed to close keybag file: %@", &buf, 0xCu);
+                      v100 = *error;
                     }
 
                     else
                     {
                       buf.st_dev = 138412290;
-                      v103 = @"(no error available)";
+                      v100 = @"(no error available)";
                       *&buf.st_mode = @"(no error available)";
-                      _os_log_impl(&_mh_execute_header, v101, OS_LOG_TYPE_ERROR, "Failed to close keybag file: %@", &buf, 0xCu);
+                      _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_ERROR, "Failed to close keybag file: %@", &buf, 0xCu);
                     }
 
-                    v122 = v103;
-                    _MBLog();
+                    _MBLog(@"E ", "Failed to close keybag file: %@", v100);
                   }
                 }
 
-                if (!v92)
+                if (!v89)
                 {
                   goto LABEL_183;
                 }
 
-                encryptionKey2 = [(MBCKFile *)self encryptionKey];
+                encryptionKey3 = [(MBCKFile *)self encryptionKey];
 
-                if (encryptionKey2 && ([v10 keybagManager], v105 = objc_claimAutoreleasedReturnValue(), -[MBCKFile keybagUUIDString](self, "keybagUUIDString"), v106 = objc_claimAutoreleasedReturnValue(), v107 = objc_msgSend(v105, "hasKeybagWithUUID:", v106), v106, v105, (v107 & 1) == 0))
+                if (encryptionKey3 && ([v10 keybagManager], v102 = objc_claimAutoreleasedReturnValue(), -[MBCKFile keybagUUIDString](self, "keybagUUIDString"), v103 = objc_claimAutoreleasedReturnValue(), v104 = objc_msgSend(v102, "hasKeybagWithUUID:", v103), v103, v102, (v104 & 1) == 0))
                 {
-                  v114 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
+                  v111 = MBGetDefaultLog();
+                  if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
                   {
                     keybagUUIDString3 = [(MBCKFile *)self keybagUUIDString];
                     buf.st_dev = 138412290;
                     *&buf.st_mode = keybagUUIDString3;
-                    _os_log_impl(&_mh_execute_header, v114, OS_LOG_TYPE_ERROR, "Current device keybags do not contain file keybag (%@)", &buf, 0xCu);
+                    _os_log_impl(&_mh_execute_header, v111, OS_LOG_TYPE_ERROR, "Current device keybags do not contain file keybag (%@)", &buf, 0xCu);
 
                     keybagUUIDString4 = [(MBCKFile *)self keybagUUIDString];
-                    _MBLog();
+                    _MBLog(@"E ", "Current device keybags do not contain file keybag (%@)", keybagUUIDString4);
                   }
 
-                  [(MBCKFile *)self _setFileMissingEncryptionKeyForPath:v128 account:accountCopy];
+                  [(MBCKFile *)self _setFileMissingEncryptionKeyForPath:v121 account:accountCopy];
                   cache2 = [(MBCKModel *)self cache];
-                  [cache2 removeFileEncryptionKeyForInode:v130 volumeType:v129];
+                  [cache2 removeFileEncryptionKeyForInode:v123 volumeType:v122];
 
                   if (error)
                   {
@@ -1656,58 +1637,57 @@ LABEL_152:
 
                 else
                 {
-                  v108 = [(MBCKFile *)self encryptionKey:v122];
-                  v109 = v108 == 0;
+                  encryptionKey4 = [(MBCKFile *)self encryptionKey];
+                  v106 = encryptionKey4 == 0;
 
-                  if (!v109)
+                  if (!v106)
                   {
                     if (![MBProtectionClassUtils canOpenWhenLocked:v11])
                     {
                       cache3 = [(MBCKModel *)self cache];
-                      v111 = [cache3 setFileEncryptionKey:self->_resources forInodeNumber:v130 volumeType:v129 atPath:assetPath];
+                      v108 = [cache3 setFileEncryptionKey:self->_resources forInodeNumber:v123 volumeType:v122 atPath:assetPath];
 
-                      if (v111)
+                      if (v108)
                       {
                         if (error)
                         {
-                          v112 = v111;
-                          *error = v111;
+                          v109 = v108;
+                          *error = v108;
                         }
 
-                        v113 = MBGetDefaultLog();
-                        if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
+                        v110 = MBGetDefaultLog();
+                        if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
                         {
                           buf.st_dev = 134218498;
-                          *&buf.st_mode = v130;
+                          *&buf.st_mode = v123;
                           WORD2(buf.st_ino) = 2112;
                           *(&buf.st_ino + 6) = assetPath;
                           HIWORD(buf.st_gid) = 2112;
-                          *&buf.st_rdev = v111;
-                          _os_log_impl(&_mh_execute_header, v113, OS_LOG_TYPE_ERROR, "Failed to save the encryption key for inode:%llu at %@: %@", &buf, 0x20u);
-                          _MBLog();
+                          *&buf.st_rdev = v108;
+                          _os_log_impl(&_mh_execute_header, v110, OS_LOG_TYPE_ERROR, "Failed to save the encryption key for inode:%llu at %@: %@", &buf, 0x20u);
+                          _MBLog(@"E ", "Failed to save the encryption key for inode:%llu at %@: %@", v123, assetPath, v108);
                         }
 
                         v23 = 0;
-                        v132 = v111;
+                        v125 = v108;
                         goto LABEL_183;
                       }
 
-                      v119 = MBGetDefaultLog();
-                      if (os_log_type_enabled(v119, OS_LOG_TYPE_INFO))
+                      v117 = MBGetDefaultLog();
+                      if (os_log_type_enabled(v117, OS_LOG_TYPE_INFO))
                       {
-                        v120 = [(NSData *)self->_resources length];
+                        v118 = [(NSData *)self->_resources length];
                         buf.st_dev = 134218498;
-                        *&buf.st_mode = v120;
+                        *&buf.st_mode = v118;
                         WORD2(buf.st_ino) = 2048;
-                        *(&buf.st_ino + 6) = v130;
+                        *(&buf.st_ino + 6) = v123;
                         HIWORD(buf.st_gid) = 2112;
                         *&buf.st_rdev = assetPath;
-                        _os_log_impl(&_mh_execute_header, v119, OS_LOG_TYPE_INFO, "Cached encryption key (size: %tu) for inode:%llu at %@", &buf, 0x20u);
-                        [(NSData *)self->_resources length];
-                        _MBLog();
+                        _os_log_impl(&_mh_execute_header, v117, OS_LOG_TYPE_INFO, "Cached encryption key (size: %tu) for inode:%llu at %@", &buf, 0x20u);
+                        _MBLog(@"I ", "Cached encryption key (size: %tu) for inode:%llu at %@", [(NSData *)self->_resources length], v123, assetPath);
                       }
 
-                      v132 = 0;
+                      v125 = 0;
                     }
 
                     v23 = 1;
@@ -1716,18 +1696,18 @@ LABEL_183:
                     goto LABEL_184;
                   }
 
-                  v118 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v118, OS_LOG_TYPE_INFO))
+                  v116 = MBGetDefaultLog();
+                  if (os_log_type_enabled(v116, OS_LOG_TYPE_INFO))
                   {
                     buf.st_dev = 134218242;
-                    *&buf.st_mode = v130;
+                    *&buf.st_mode = v123;
                     WORD2(buf.st_ino) = 2112;
-                    *(&buf.st_ino + 6) = v128;
-                    _os_log_impl(&_mh_execute_header, v118, OS_LOG_TYPE_INFO, "Setting missing encryption key for inode:%llu at %@", &buf, 0x16u);
-                    _MBLog();
+                    *(&buf.st_ino + 6) = v121;
+                    _os_log_impl(&_mh_execute_header, v116, OS_LOG_TYPE_INFO, "Setting missing encryption key for inode:%llu at %@", &buf, 0x16u);
+                    _MBLog(@"I ", "Setting missing encryption key for inode:%llu at %@", v123, v121);
                   }
 
-                  [(MBCKFile *)self _setFileMissingEncryptionKeyForPath:v128 account:accountCopy];
+                  [(MBCKFile *)self _setFileMissingEncryptionKeyForPath:v121 account:accountCopy];
                   if (error)
                   {
                     [MBError errorWithCode:100 path:assetPath format:@"Failed to retrieve encryption key for file"];
@@ -1741,35 +1721,32 @@ LABEL_183:
               }
 
               cache4 = [(MBCKModel *)self cache];
-              v127 = [cache4 setFileEncryptionKey:self->_resources forInodeNumber:v130 volumeType:v129 atPath:assetPath];
+              v120 = [cache4 setFileEncryptionKey:self->_resources forInodeNumber:v123 volumeType:v122 atPath:assetPath];
 
-              if (!v127)
+              if (!v120)
               {
-                v127 = 0;
+                v120 = 0;
                 goto LABEL_130;
               }
 
               if (error)
               {
-                v58 = v127;
-                *error = v127;
+                v58 = v120;
+                *error = v120;
               }
 
               v55 = MBGetDefaultLog();
               if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
               {
                 buf.st_dev = 134218498;
-                *&buf.st_mode = v130;
+                *&buf.st_mode = v123;
                 WORD2(buf.st_ino) = 2112;
                 *(&buf.st_ino + 6) = assetPath;
                 HIWORD(buf.st_gid) = 2112;
-                *&buf.st_rdev = v127;
+                *&buf.st_rdev = v120;
                 v56 = v55;
                 _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "Failed to save the encryption key for inode:%llu at %@: %@", &buf, 0x20u);
-                v124 = assetPath;
-                v125 = v127;
-                v122 = v130;
-                _MBLog();
+                _MBLog(@"E ", "Failed to save the encryption key for inode:%llu at %@: %@", v123, assetPath, v120);
                 v51 = 0;
                 goto LABEL_109;
               }
@@ -1778,8 +1755,8 @@ LABEL_183:
               goto LABEL_136;
             }
 
-            encryptionKey3 = [(MBCKFile *)self encryptionKey];
-            v51 = [oslog updatedEncryptionKeyForCurrentKey:encryptionKey3 withError:0];
+            encryptionKey5 = [(MBCKFile *)self encryptionKey];
+            v51 = [oslog updatedEncryptionKeyForCurrentKey:encryptionKey5 withError:0];
 
             if (v51)
             {
@@ -1789,31 +1766,28 @@ LABEL_183:
                 if (![MBProtectionClassUtils canOpenWhenLocked:v11])
                 {
                   cache5 = [(MBCKModel *)self cache];
-                  v127 = [cache5 setFileEncryptionKey:self->_resources forInodeNumber:v130 volumeType:v129 atPath:assetPath];
+                  v120 = [cache5 setFileEncryptionKey:self->_resources forInodeNumber:v123 volumeType:v122 atPath:assetPath];
 
-                  if (v127)
+                  if (v120)
                   {
                     if (error)
                     {
-                      v54 = v127;
-                      *error = v127;
+                      v54 = v120;
+                      *error = v120;
                     }
 
                     v55 = MBGetDefaultLog();
                     if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
                     {
                       buf.st_dev = 134218498;
-                      *&buf.st_mode = v130;
+                      *&buf.st_mode = v123;
                       WORD2(buf.st_ino) = 2112;
                       *(&buf.st_ino + 6) = assetPath;
                       HIWORD(buf.st_gid) = 2112;
-                      *&buf.st_rdev = v127;
+                      *&buf.st_rdev = v120;
                       v56 = v55;
                       _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "Failed to save the encryption key for inode:%llu at %@: %@", &buf, 0x20u);
-                      v124 = assetPath;
-                      v125 = v127;
-                      v122 = v130;
-                      _MBLog();
+                      _MBLog(@"E ", "Failed to save the encryption key for inode:%llu at %@: %@", v123, assetPath, v120);
 LABEL_109:
                       v23 = 0;
 LABEL_149:
@@ -1826,34 +1800,31 @@ LABEL_136:
                     goto LABEL_151;
                   }
 
-                  v132 = 0;
+                  v125 = 0;
                 }
 
                 v55 = MBGetDefaultLog();
                 v23 = 1;
                 if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
                 {
-                  v99 = v55;
-                  if (os_log_type_enabled(v99, OS_LOG_TYPE_INFO))
+                  v96 = v55;
+                  if (os_log_type_enabled(v96, OS_LOG_TYPE_INFO))
                   {
-                    v100 = [(NSData *)self->_resources length];
+                    v97 = [(NSData *)self->_resources length];
                     buf.st_dev = 134218498;
-                    *&buf.st_mode = v100;
+                    *&buf.st_mode = v97;
                     WORD2(buf.st_ino) = 2048;
-                    *(&buf.st_ino + 6) = v130;
+                    *(&buf.st_ino + 6) = v123;
                     HIWORD(buf.st_gid) = 2112;
                     *&buf.st_rdev = assetPath;
-                    _os_log_impl(&_mh_execute_header, v99, OS_LOG_TYPE_INFO, "Updated key (size: %tu) for inode:%llu at %@ from the cache with new extent information", &buf, 0x20u);
+                    _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_INFO, "Updated key (size: %tu) for inode:%llu at %@ from the cache with new extent information", &buf, 0x20u);
                   }
 
-                  v56 = v99;
+                  v56 = v96;
 
-                  v124 = v130;
-                  v125 = assetPath;
-                  v122 = [(NSData *)self->_resources length];
-                  _MBLog();
+                  _MBLog(@"I ", "Updated key (size: %tu) for inode:%llu at %@ from the cache with new extent information", [(NSData *)self->_resources length], v123, assetPath);
 LABEL_148:
-                  v127 = v132;
+                  v120 = v125;
                   goto LABEL_149;
                 }
 
@@ -1866,25 +1837,20 @@ LABEL_148:
                 v59 = v59;
                 if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
                 {
-                  v63 = [v51 length];
-                  v64 = *error;
+                  v62 = [v51 length];
+                  v63 = *error;
                   buf.st_dev = 134218754;
-                  *&buf.st_mode = v63;
+                  *&buf.st_mode = v62;
                   WORD2(buf.st_ino) = 2048;
-                  *(&buf.st_ino + 6) = v130;
+                  *(&buf.st_ino + 6) = v123;
                   HIWORD(buf.st_gid) = 2112;
                   *&buf.st_rdev = assetPath;
                   LOWORD(buf.st_atimespec.tv_sec) = 2112;
-                  *(&buf.st_atimespec.tv_sec + 2) = v64;
+                  *(&buf.st_atimespec.tv_sec + 2) = v63;
                   _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_ERROR, "Failed to validate updated encryption key (size: %tu) for inode:%llu at %@: %@", &buf, 0x2Au);
                 }
 
-                v65 = [v51 length];
-                v125 = assetPath;
-                v126 = *error;
-                v122 = v65;
-                v124 = v130;
-                _MBLog();
+                _MBLog(@"E ", "Failed to validate updated encryption key (size: %tu) for inode:%llu at %@: %@", [v51 length], v123, assetPath, *error);
               }
             }
 
@@ -1901,7 +1867,7 @@ LABEL_148:
                   buf.st_dev = 134218754;
                   *&buf.st_mode = v60;
                   WORD2(buf.st_ino) = 2048;
-                  *(&buf.st_ino + 6) = v130;
+                  *(&buf.st_ino + 6) = v123;
                   HIWORD(buf.st_gid) = 2112;
                   *&buf.st_rdev = assetPath;
                   LOWORD(buf.st_atimespec.tv_sec) = 2112;
@@ -1909,16 +1875,11 @@ LABEL_148:
                   _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_ERROR, "Failed to update cached encryption key (size: %tu) for inode:%llu at %@: %@", &buf, 0x2Au);
                 }
 
-                v62 = [(NSData *)self->_resources length];
-                v125 = assetPath;
-                v126 = *error;
-                v122 = v62;
-                v124 = v130;
-                _MBLog();
+                _MBLog(@"E ", "Failed to update cached encryption key (size: %tu) for inode:%llu at %@: %@", [(NSData *)self->_resources length], v123, assetPath, *error);
               }
             }
 
-            v66 = self->_resources;
+            v64 = self->_resources;
             self->_resources = 0;
           }
 
@@ -1928,13 +1889,11 @@ LABEL_148:
             if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
             {
               buf.st_dev = 134218242;
-              *&buf.st_mode = v130;
+              *&buf.st_mode = v123;
               WORD2(buf.st_ino) = 2112;
               *(&buf.st_ino + 6) = assetPath;
               _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, "Keybag UUID mismatch for inode:%llu at %@", &buf, 0x16u);
-              v122 = v130;
-              v124 = assetPath;
-              _MBLog();
+              _MBLog(@"E ", "Keybag UUID mismatch for inode:%llu at %@", v123, assetPath);
             }
 
             v51 = self->_resources;
@@ -1943,56 +1902,49 @@ LABEL_148:
         }
 
         cache6 = [(MBCKModel *)self cache];
-        v134 = 0;
-        v68 = [cache6 encryptionKeyForFileWithInodeNumber:v130 volumeType:v129 error:&v134];
-        v132 = v134;
-        v69 = self->_resources;
-        self->_resources = v68;
+        v127 = 0;
+        v66 = [cache6 encryptionKeyForFileWithInodeNumber:v123 volumeType:v122 error:&v127];
+        v125 = v127;
+        v67 = self->_resources;
+        self->_resources = v66;
 
-        if (v132)
+        if (v125)
         {
-          v70 = MBGetDefaultLog();
-          if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+          v68 = MBGetDefaultLog();
+          if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
           {
             buf.st_dev = 134218754;
-            *&buf.st_mode = v130;
+            *&buf.st_mode = v123;
             WORD2(buf.st_ino) = 2048;
-            *(&buf.st_ino + 6) = v129;
+            *(&buf.st_ino + 6) = v122;
             HIWORD(buf.st_gid) = 2112;
             *&buf.st_rdev = assetPath;
             LOWORD(buf.st_atimespec.tv_sec) = 2112;
-            *(&buf.st_atimespec.tv_sec + 2) = v132;
-            _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_ERROR, "Failed to fetch the cached encryption key for inode:%llu volumeType:%lu at %@: %@", &buf, 0x2Au);
-            v125 = assetPath;
-            v126 = v132;
-            v122 = v130;
-            v124 = v129;
-            _MBLog();
+            *(&buf.st_atimespec.tv_sec + 2) = v125;
+            _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_ERROR, "Failed to fetch the cached encryption key for inode:%llu volumeType:%lu at %@: %@", &buf, 0x2Au);
+            _MBLog(@"E ", "Failed to fetch the cached encryption key for inode:%llu volumeType:%lu at %@: %@", v123, v122, assetPath, v125);
           }
         }
 
         if (self->_resources)
         {
-          v71 = MBGetDefaultLog();
-          if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
+          v69 = MBGetDefaultLog();
+          if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
           {
-            v72 = v71;
-            if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
+            v70 = v69;
+            if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
             {
-              v73 = [(NSData *)self->_resources length];
+              v71 = [(NSData *)self->_resources length];
               buf.st_dev = 134218498;
-              *&buf.st_mode = v73;
+              *&buf.st_mode = v71;
               WORD2(buf.st_ino) = 2048;
-              *(&buf.st_ino + 6) = v130;
+              *(&buf.st_ino + 6) = v123;
               HIWORD(buf.st_gid) = 2112;
               *&buf.st_rdev = assetPath;
-              _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_INFO, "Found cached encryption key (size: %tu) for inode:%llu at %@", &buf, 0x20u);
+              _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_INFO, "Found cached encryption key (size: %tu) for inode:%llu at %@", &buf, 0x20u);
             }
 
-            v124 = v130;
-            v125 = assetPath;
-            v122 = [(NSData *)self->_resources length];
-            _MBLog();
+            _MBLog(@"I ", "Found cached encryption key (size: %tu) for inode:%llu at %@", [(NSData *)self->_resources length], v123, assetPath);
           }
 
           if (([oslog validateEncryptionKey:self->_resources error:error]& 1) != 0)
@@ -2002,8 +1954,8 @@ LABEL_148:
 
           else
           {
-            encryptionKey4 = [(MBCKFile *)self encryptionKey];
-            v51 = [oslog updatedEncryptionKeyForCurrentKey:encryptionKey4 withError:0];
+            encryptionKey6 = [(MBCKFile *)self encryptionKey];
+            v51 = [oslog updatedEncryptionKeyForCurrentKey:encryptionKey6 withError:0];
 
             if (v51 && ([oslog validateEncryptionKey:v51 error:error]& 1) != 0)
             {
@@ -2011,102 +1963,91 @@ LABEL_148:
               if (![MBProtectionClassUtils canOpenWhenLocked:v11])
               {
                 cache7 = [(MBCKModel *)self cache];
-                v127 = [cache7 setFileEncryptionKey:self->_resources forInodeNumber:v130 volumeType:v129 atPath:assetPath];
+                v120 = [cache7 setFileEncryptionKey:self->_resources forInodeNumber:v123 volumeType:v122 atPath:assetPath];
 
-                if (v127)
+                if (v120)
                 {
                   if (error)
                   {
-                    v76 = v127;
-                    *error = v127;
+                    v74 = v120;
+                    *error = v120;
                   }
 
                   v55 = MBGetDefaultLog();
                   if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
                   {
                     buf.st_dev = 134218498;
-                    *&buf.st_mode = v130;
+                    *&buf.st_mode = v123;
                     WORD2(buf.st_ino) = 2112;
                     *(&buf.st_ino + 6) = assetPath;
                     HIWORD(buf.st_gid) = 2112;
-                    *&buf.st_rdev = v127;
+                    *&buf.st_rdev = v120;
                     v56 = v55;
                     _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "Failed to save the encryption key for inode:%llu at %@: %@", &buf, 0x20u);
-                    v124 = assetPath;
-                    v125 = v127;
-                    v122 = v130;
-                    _MBLog();
+                    _MBLog(@"E ", "Failed to save the encryption key for inode:%llu at %@: %@", v123, assetPath, v120);
                     goto LABEL_109;
                   }
 
                   goto LABEL_136;
                 }
 
-                v132 = 0;
+                v125 = 0;
               }
 
               v55 = MBGetDefaultLog();
               v23 = 1;
               if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
               {
-                v97 = v55;
-                if (os_log_type_enabled(v97, OS_LOG_TYPE_INFO))
+                v94 = v55;
+                if (os_log_type_enabled(v94, OS_LOG_TYPE_INFO))
                 {
-                  v98 = [(NSData *)self->_resources length];
+                  v95 = [(NSData *)self->_resources length];
                   buf.st_dev = 134218498;
-                  *&buf.st_mode = v98;
+                  *&buf.st_mode = v95;
                   WORD2(buf.st_ino) = 2048;
-                  *(&buf.st_ino + 6) = v130;
+                  *(&buf.st_ino + 6) = v123;
                   HIWORD(buf.st_gid) = 2112;
                   *&buf.st_rdev = assetPath;
-                  _os_log_impl(&_mh_execute_header, v97, OS_LOG_TYPE_INFO, "Updated key (size: %tu) for inode:%llu at %@ from the cache with new extent information", &buf, 0x20u);
+                  _os_log_impl(&_mh_execute_header, v94, OS_LOG_TYPE_INFO, "Updated key (size: %tu) for inode:%llu at %@ from the cache with new extent information", &buf, 0x20u);
                 }
 
-                v56 = v97;
+                v56 = v94;
 
-                v124 = v130;
-                v125 = assetPath;
-                v122 = [(NSData *)self->_resources length];
-                _MBLog();
+                _MBLog(@"I ", "Updated key (size: %tu) for inode:%llu at %@ from the cache with new extent information", [(NSData *)self->_resources length], v123, assetPath);
                 goto LABEL_148;
               }
 
 LABEL_150:
-              v127 = v132;
+              v120 = v125;
               goto LABEL_151;
             }
 
-            v77 = MBGetDefaultLog();
-            if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+            v75 = MBGetDefaultLog();
+            if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
             {
-              v78 = v77;
-              if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
+              v76 = v75;
+              if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
               {
-                v79 = [v51 length];
-                v80 = *error;
+                v77 = [v51 length];
+                v78 = *error;
                 buf.st_dev = 134218754;
-                *&buf.st_mode = v79;
+                *&buf.st_mode = v77;
                 WORD2(buf.st_ino) = 2048;
-                *(&buf.st_ino + 6) = v130;
+                *(&buf.st_ino + 6) = v123;
                 HIWORD(buf.st_gid) = 2112;
                 *&buf.st_rdev = assetPath;
                 LOWORD(buf.st_atimespec.tv_sec) = 2112;
-                *(&buf.st_atimespec.tv_sec + 2) = v80;
-                _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_ERROR, "Failed to validate cached encryption key (size: %tu) for inode:%llu at %@: %@", &buf, 0x2Au);
+                *(&buf.st_atimespec.tv_sec + 2) = v78;
+                _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_ERROR, "Failed to validate cached encryption key (size: %tu) for inode:%llu at %@: %@", &buf, 0x2Au);
               }
 
-              v81 = [v51 length];
-              v125 = assetPath;
-              v126 = *error;
-              v122 = v81;
-              v124 = v130;
-              _MBLog();
+              _MBLog(@"E ", "Failed to validate cached encryption key (size: %tu) for inode:%llu at %@: %@", [v51 length], v123, assetPath, *error);
             }
 
             cache8 = [(MBCKModel *)self cache];
-            [cache8 removeFileEncryptionKeyForInode:v130 volumeType:v129];
+            [cache8 removeFileEncryptionKeyForInode:v123 volumeType:v122];
 
-            v83 = self->_resources;
+            v80 = self->_resources;
             self->_resources = 0;
           }
 
@@ -2116,24 +2057,23 @@ LABEL_150:
             if (keybagUUIDString5)
             {
               keybagManager4 = [v10 keybagManager];
-              v86 = [keybagManager4 hasKeybagWithUUID:keybagUUIDString5];
+              v83 = [keybagManager4 hasKeybagWithUUID:keybagUUIDString5];
 
-              if ((v86 & 1) == 0)
+              if ((v83 & 1) == 0)
               {
-                v87 = MBGetDefaultLog();
-                if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
+                v84 = MBGetDefaultLog();
+                if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
                 {
                   buf.st_dev = 138412290;
                   *&buf.st_mode = keybagUUIDString5;
-                  _os_log_impl(&_mh_execute_header, v87, OS_LOG_TYPE_ERROR, "Device keybags do not contain file keybag (%@)", &buf, 0xCu);
-                  v122 = keybagUUIDString5;
-                  _MBLog();
+                  _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_ERROR, "Device keybags do not contain file keybag (%@)", &buf, 0xCu);
+                  _MBLog(@"E ", "Device keybags do not contain file keybag (%@)", keybagUUIDString5);
                 }
 
                 cache9 = [(MBCKModel *)self cache];
-                [cache9 removeFileEncryptionKeyForInode:v130 volumeType:v129];
+                [cache9 removeFileEncryptionKeyForInode:v123 volumeType:v122];
 
-                v89 = self->_resources;
+                v86 = self->_resources;
                 self->_resources = 0;
               }
             }
@@ -2142,7 +2082,7 @@ LABEL_150:
             {
 LABEL_123:
               v23 = 0;
-              v92 = 1;
+              v89 = 1;
               goto LABEL_152;
             }
           }
@@ -2153,29 +2093,27 @@ LABEL_123:
           v51 = 0;
         }
 
-        v126 = [oslog encryptionKeyWithError:0, v122, v124, v125, v126];
-        v91 = self->_resources;
-        self->_resources = v126;
+        v87 = [oslog encryptionKeyWithError:0];
+        v88 = self->_resources;
+        self->_resources = v87;
 
         if (!self->_resources)
         {
-          v93 = MBGetDefaultLog();
-          if (os_log_type_enabled(v93, OS_LOG_TYPE_INFO))
+          v90 = MBGetDefaultLog();
+          if (os_log_type_enabled(v90, OS_LOG_TYPE_INFO))
           {
             buf.st_dev = 134218242;
-            *&buf.st_mode = v130;
+            *&buf.st_mode = v123;
             WORD2(buf.st_ino) = 2112;
-            *(&buf.st_ino + 6) = v128;
-            _os_log_impl(&_mh_execute_header, v93, OS_LOG_TYPE_INFO, "Setting missing encryption key for inode:%llu at %@", &buf, 0x16u);
-            v122 = v130;
-            v124 = v128;
-            _MBLog();
+            *(&buf.st_ino + 6) = v121;
+            _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_INFO, "Setting missing encryption key for inode:%llu at %@", &buf, 0x16u);
+            _MBLog(@"I ", "Setting missing encryption key for inode:%llu at %@", v123, v121);
           }
 
-          [(MBCKFile *)self _setFileMissingEncryptionKeyForPath:v128 account:accountCopy];
+          [(MBCKFile *)self _setFileMissingEncryptionKeyForPath:v121 account:accountCopy];
           if (!error)
           {
-            v92 = 0;
+            v89 = 0;
             v23 = 0;
             goto LABEL_152;
           }
@@ -2183,7 +2121,7 @@ LABEL_123:
           birth = [(MBCKFile *)self birth];
           [MBError errorWithCode:209 path:assetPath format:@"Missing encryption key for file (created at %@)", birth];
           *error = v23 = 0;
-          v127 = v132;
+          v120 = v125;
           v55 = birth;
           goto LABEL_151;
         }
@@ -2211,7 +2149,7 @@ LABEL_123:
       buf.st_dev = 138412290;
       *&buf.st_mode = self;
       _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "Not fetching the encryption key for %@", &buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Db", "Not fetching the encryption key for %@", self);
     }
   }
 
@@ -2297,10 +2235,10 @@ LABEL_48:
 
     serviceAccount2 = [v7 serviceAccount];
     device = [v7 device];
-    v65 = sqliteCopyDirectory;
-    v66 = 0;
-    LOBYTE(persona) = [(MBCKFile *)self encodeWithFileAtPath:absolutePath encodingMethod:1 hasSnapshot:1 destinationDirectory:sqliteCopyDirectory account:serviceAccount2 device:device error:&v66];
-    v36 = v66;
+    v61 = sqliteCopyDirectory;
+    v62 = 0;
+    LOBYTE(persona) = [(MBCKFile *)self encodeWithFileAtPath:absolutePath encodingMethod:1 hasSnapshot:1 destinationDirectory:sqliteCopyDirectory account:serviceAccount2 device:device error:&v62];
+    v36 = v62;
 
     if ((persona & 1) == 0)
     {
@@ -2308,22 +2246,20 @@ LABEL_48:
       if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v70 = absolutePath;
-        v71 = 2112;
-        v72 = v36;
+        v66 = absolutePath;
+        v67 = 2112;
+        v68 = v36;
         _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Failed to compress the file at %@: %@", buf, 0x16u);
-        v60 = absolutePath;
-        v61 = v36;
-        _MBLog();
+        _MBLog(@"Df", "Failed to compress the file at %@: %@", absolutePath, v36);
       }
     }
 
-    v24 = v65;
+    v24 = v61;
 LABEL_44:
 
 LABEL_45:
 LABEL_46:
-    if (![(MBCKFile *)self hasResources:v60]|| [(MBCKFile *)self _createResourceCopyWithError:error])
+    if (![(MBCKFile *)self hasResources]|| [(MBCKFile *)self _createResourceCopyWithError:error])
     {
       goto LABEL_48;
     }
@@ -2333,10 +2269,9 @@ LABEL_46:
     {
       v59 = *error;
       *buf = 138412290;
-      v70 = v59;
+      v66 = v59;
       _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_ERROR, "Failed to create copy of file resources: %@", buf, 0xCu);
-      v60 = *error;
-      _MBLog();
+      _MBLog(@"E ", "Failed to create copy of file resources: %@", *error);
     }
 
     v38 = 0;
@@ -2361,13 +2296,11 @@ LABEL_55:
       {
         v44 = *error;
         *buf = 138412546;
-        v70 = absolutePath;
-        v71 = 2112;
-        v72 = v44;
+        v66 = absolutePath;
+        v67 = 2112;
+        v68 = v44;
         _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "Failed to SQLite temporary dir to copy %@, %@", buf, 0x16u);
-        v60 = absolutePath;
-        v61 = *error;
-        _MBLog();
+        _MBLog(@"E ", "Failed to SQLite temporary dir to copy %@, %@", absolutePath, *error);
       }
 
       v38 = 0;
@@ -2397,10 +2330,10 @@ LABEL_55:
     v21 = *&self->_contentEncodingMethod;
     serviceAccount3 = [v7 serviceAccount];
     device2 = [v7 device];
-    v68 = 0;
-    v64 = sqliteCopyDirectory2;
-    LOBYTE(sqliteCopyDirectory2) = [(MBCKFile *)self encodeWithFileAtPath:v21 encodingMethod:1 hasSnapshot:1 destinationDirectory:sqliteCopyDirectory2 account:serviceAccount3 device:device2 error:&v68];
-    v24 = v68;
+    v64 = 0;
+    v60 = sqliteCopyDirectory2;
+    LOBYTE(sqliteCopyDirectory2) = [(MBCKFile *)self encodeWithFileAtPath:v21 encodingMethod:1 hasSnapshot:1 destinationDirectory:sqliteCopyDirectory2 account:serviceAccount3 device:device2 error:&v64];
+    v24 = v64;
 
     rsrcTemporaryPath = self->_rsrcTemporaryPath;
     if (sqliteCopyDirectory2)
@@ -2432,23 +2365,20 @@ LABEL_55:
       {
         v46 = *&self->_contentEncodingMethod;
         *buf = 138412802;
-        v70 = v46;
-        v71 = 2112;
-        v72 = absolutePath;
-        v73 = 2112;
-        v74[0] = v24;
+        v66 = v46;
+        v67 = 2112;
+        v68 = absolutePath;
+        v69 = 2112;
+        v70[0] = v24;
         _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Failed to compress the SQLite file at %@(%@): %@", buf, 0x20u);
-        v61 = absolutePath;
-        v62 = v24;
-        v60 = *&self->_contentEncodingMethod;
-        _MBLog();
+        _MBLog(@"Df", "Failed to compress the SQLite file at %@(%@): %@", *&self->_contentEncodingMethod, absolutePath, v24);
       }
 
       serviceAccount4 = [v7 serviceAccount];
       device3 = [v7 device];
-      v67 = 0;
-      v49 = [(MBCKFile *)self refreshFromCopyWithAccount:serviceAccount4 device:device3 error:&v67];
-      v24 = v67;
+      v63 = 0;
+      v49 = [(MBCKFile *)self refreshFromCopyWithAccount:serviceAccount4 device:device3 error:&v63];
+      v24 = v63;
 
       if ((v49 & 1) == 0)
       {
@@ -2457,13 +2387,11 @@ LABEL_55:
         {
           v51 = *&self->_contentEncodingMethod;
           *buf = 138412546;
-          v70 = v51;
-          v71 = 2112;
-          v72 = v24;
+          v66 = v51;
+          v67 = 2112;
+          v68 = v24;
           _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, "Failed to refresh file stats from temporary copy at %@: %@", buf, 0x16u);
-          v60 = *&self->_contentEncodingMethod;
-          v61 = v24;
-          _MBLog();
+          _MBLog(@"E ", "Failed to refresh file stats from temporary copy at %@: %@", *&self->_contentEncodingMethod, v24);
         }
 
         sub_1000D2F84(*&self->_contentEncodingMethod);
@@ -2474,7 +2402,7 @@ LABEL_55:
       }
     }
 
-    v31 = v64;
+    v31 = v60;
     goto LABEL_44;
   }
 
@@ -2485,19 +2413,15 @@ LABEL_55:
     v40 = *&self->_contentEncodingMethod;
     v41 = *error;
     *buf = 138413058;
-    v70 = absolutePath;
-    v71 = 2112;
-    v72 = v40;
-    v73 = 1024;
-    LODWORD(v74[0]) = 0;
-    WORD2(v74[0]) = 2112;
-    *(v74 + 6) = v41;
+    v66 = absolutePath;
+    v67 = 2112;
+    v68 = v40;
+    v69 = 1024;
+    LODWORD(v70[0]) = 0;
+    WORD2(v70[0]) = 2112;
+    *(v70 + 6) = v41;
     _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Failed to create copy of SQLite file %@ to %@: %d, %@", buf, 0x26u);
-    v62 = 0;
-    v63 = *error;
-    v60 = absolutePath;
-    v61 = *&self->_contentEncodingMethod;
-    _MBLog();
+    _MBLog(@"E ", "Failed to create copy of SQLite file %@ to %@: %d, %@", absolutePath, *&self->_contentEncodingMethod, 0, *error);
   }
 
   LOBYTE(self->_restoreState) &= ~4u;
@@ -2661,7 +2585,7 @@ LABEL_9:
 {
   engineCopy = engine;
   directoryCopy = directory;
-  v32 = engineCopy;
+  v28 = engineCopy;
   serviceAccount = [engineCopy serviceAccount];
   if (!serviceAccount)
   {
@@ -2673,64 +2597,60 @@ LABEL_9:
   v8 = [(MBCKFile *)self _copySQLiteDatabaseAtPath:absolutePath temporaryDirectory:directoryCopy error:error];
   if (!v8)
   {
-    v19 = MBGetDefaultLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v17 = MBGetDefaultLog();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v24 = *error;
+      v22 = *error;
       *buf = 138412546;
-      v43 = absolutePath;
-      v44 = 2112;
-      v45 = v24;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Failed to copy SQLite database at %@: %@", buf, 0x16u);
-      v30 = *error;
-      _MBLog();
+      v39 = absolutePath;
+      v40 = 2112;
+      v41 = v22;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to copy SQLite database at %@: %@", buf, 0x16u);
+      _MBLog(@"E ", "Failed to copy SQLite database at %@: %@", absolutePath, *error);
     }
 
 LABEL_20:
-    v23 = 0;
+    v21 = 0;
     goto LABEL_25;
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   settingsContext = [engineCopy settingsContext];
   plugins = [settingsContext plugins];
 
-  v11 = [plugins countByEnumeratingWithState:&v38 objects:v48 count:16];
+  v11 = [plugins countByEnumeratingWithState:&v34 objects:v44 count:16];
   if (v11)
   {
-    v12 = *v39;
-    v13 = &selRef_rebuildEncryptionKeysTable;
+    v12 = *v35;
 LABEL_5:
-    v14 = 0;
-    v15 = v13[362];
+    v13 = 0;
     while (1)
     {
-      if (*v39 != v12)
+      if (*v35 != v12)
       {
         objc_enumerationMutation(plugins);
       }
 
-      v16 = *(*(&v38 + 1) + 8 * v14);
-      v17 = objc_autoreleasePoolPush();
+      v14 = *(*(&v34 + 1) + 8 * v13);
+      v15 = objc_autoreleasePoolPush();
       if (objc_opt_respondsToSelector())
       {
         domain = [(MBCKFile *)self domain];
-        v19 = [v16 scrubSQLiteFileCopyAtRelativePath:relativePath copyTemporaryPath:v8 domain:domain];
+        v17 = [v14 scrubSQLiteFileCopyAtRelativePath:relativePath copyTemporaryPath:v8 domain:domain];
 
-        if (v19)
+        if (v17)
         {
           break;
         }
       }
 
-      objc_autoreleasePoolPop(v17);
-      if (v11 == ++v14)
+      objc_autoreleasePoolPop(v15);
+      if (v11 == ++v13)
       {
-        v11 = [plugins countByEnumeratingWithState:&v38 objects:v48 count:16];
-        v13 = &selRef_rebuildEncryptionKeysTable;
+        v11 = [plugins countByEnumeratingWithState:&v34 objects:v44 count:16];
         if (v11)
         {
           goto LABEL_5;
@@ -2740,27 +2660,27 @@ LABEL_5:
       }
     }
 
-    objc_autoreleasePoolPop(v17);
+    objc_autoreleasePoolPop(v15);
 
-    v25 = MBGetDefaultLog();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v23 = MBGetDefaultLog();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v43 = v8;
-      v44 = 2112;
-      v45 = relativePath;
-      v46 = 2112;
-      v47 = v19;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Failed to scrub SQLite database at %@ (%@): %@", buf, 0x20u);
-      _MBLog();
+      v39 = v8;
+      v40 = 2112;
+      v41 = relativePath;
+      v42 = 2112;
+      v43 = v17;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Failed to scrub SQLite database at %@ (%@): %@", buf, 0x20u);
+      _MBLog(@"E ", "Failed to scrub SQLite database at %@ (%@): %@", v8, relativePath, v17);
     }
 
     [MBSQLiteFileHandle removeAllSQLiteFilesAtPath:v8];
     if (error)
     {
-      v26 = v19;
-      v23 = 0;
-      *error = v19;
+      v24 = v17;
+      v21 = 0;
+      *error = v17;
       goto LABEL_25;
     }
 
@@ -2770,41 +2690,40 @@ LABEL_5:
 LABEL_12:
 
   makeTemporaryFilePath = [directoryCopy makeTemporaryFilePath];
-  v21 = objc_opt_class();
-  objc_sync_enter(v21);
-  v22 = [MBSQLiteFileHandle compactSQLiteDatabaseAtPath:v8 toPath:makeTemporaryFilePath error:error];
-  objc_sync_exit(v21);
+  v19 = objc_opt_class();
+  objc_sync_enter(v19);
+  v20 = [MBSQLiteFileHandle compactSQLiteDatabaseAtPath:v8 toPath:makeTemporaryFilePath error:error];
+  objc_sync_exit(v19);
 
   [MBSQLiteFileHandle removeAllSQLiteFilesAtPath:v8];
-  if (v22)
+  if (v20)
   {
-    v23 = makeTemporaryFilePath;
+    v21 = makeTemporaryFilePath;
   }
 
   else
   {
-    v27 = MBGetDefaultLog();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v25 = MBGetDefaultLog();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v28 = *error;
+      v26 = *error;
       *buf = 138412802;
-      v43 = v8;
-      v44 = 2112;
-      v45 = relativePath;
-      v46 = 2112;
-      v47 = v28;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Failed to compact SQLite database at %@ (%@): %@", buf, 0x20u);
-      v31 = *error;
-      _MBLog();
+      v39 = v8;
+      v40 = 2112;
+      v41 = relativePath;
+      v42 = 2112;
+      v43 = v26;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Failed to compact SQLite database at %@ (%@): %@", buf, 0x20u);
+      _MBLog(@"E ", "Failed to compact SQLite database at %@ (%@): %@", v8, relativePath, *error);
     }
 
-    v23 = 0;
+    v21 = 0;
   }
 
-  v19 = 0;
+  v17 = 0;
 LABEL_25:
 
-  return v23;
+  return v21;
 }
 
 - (int)_createTemporarySQLiteCopyWithEngine:(id)engine temporaryDirectory:(id)directory error:(id *)error
@@ -2851,59 +2770,56 @@ LABEL_25:
   v17 = *&self->_contentEncodingMethod;
   *&self->_contentEncodingMethod = 0;
 
-  v72 = 0;
-  if (![MBSQLiteFileHandle lastModifiedForSQLiteFileAtPath:absolutePath time:&v72 error:error])
+  v65 = 0;
+  if (![MBSQLiteFileHandle lastModifiedForSQLiteFileAtPath:absolutePath time:&v65 error:error])
   {
     goto LABEL_49;
   }
 
-  v58 = v11;
-  v59 = v10;
+  v51 = v11;
+  v52 = v10;
   errorCopy = error;
-  self->_mbNode.modified = v72;
+  self->_mbNode.modified = v65;
   self->_encryptedSize = [(MBCKFile *)self size];
-  v68 = 0u;
-  v69 = 0u;
-  v70 = 0u;
-  v71 = 0u;
-  v61 = engineCopy;
+  v61 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v64 = 0u;
+  v54 = engineCopy;
   settingsContext = [engineCopy settingsContext];
   plugins = [settingsContext plugins];
 
-  v20 = [plugins countByEnumeratingWithState:&v68 objects:v80 count:16];
+  v20 = [plugins countByEnumeratingWithState:&v61 objects:v73 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v69;
-    v23 = &selRef_setServiceDelegate_;
+    v22 = *v62;
 LABEL_12:
-    v24 = 0;
-    v25 = v23[292];
+    v23 = 0;
     while (1)
     {
-      if (*v69 != v22)
+      if (*v62 != v22)
       {
         objc_enumerationMutation(plugins);
       }
 
-      v26 = *(*(&v68 + 1) + 8 * v24);
-      v27 = objc_autoreleasePoolPush();
+      v24 = *(*(&v61 + 1) + 8 * v23);
+      v25 = objc_autoreleasePoolPush();
       if (objc_opt_respondsToSelector())
       {
         domain = [(MBCKFile *)self domain];
-        v29 = [v26 shouldScrubSQLiteFileCopyAtRelativePath:relativePath domain:domain];
+        v27 = [v24 shouldScrubSQLiteFileCopyAtRelativePath:relativePath domain:domain];
 
-        if (v29)
+        if (v27)
         {
           break;
         }
       }
 
-      objc_autoreleasePoolPop(v27);
-      if (v21 == ++v24)
+      objc_autoreleasePoolPop(v25);
+      if (v21 == ++v23)
       {
-        v21 = [plugins countByEnumeratingWithState:&v68 objects:v80 count:16];
-        v23 = &selRef_setServiceDelegate_;
+        v21 = [plugins countByEnumeratingWithState:&v61 objects:v73 count:16];
         if (v21)
         {
           goto LABEL_12;
@@ -2913,30 +2829,29 @@ LABEL_12:
       }
     }
 
-    objc_autoreleasePoolPop(v27);
+    objc_autoreleasePoolPop(v25);
 
     error = errorCopy;
-    engineCopy = v61;
-    v10 = v59;
-    v12 = [(MBCKFile *)self _scrubSQLiteDatabaseWithEngine:v61 temporaryDirectory:v59 error:errorCopy];
+    engineCopy = v54;
+    v10 = v52;
+    v12 = [(MBCKFile *)self _scrubSQLiteDatabaseWithEngine:v54 temporaryDirectory:v52 error:errorCopy];
     objc_storeStrong(&self->_contentEncodingMethod, v12);
     if (v12)
     {
-      v30 = 1;
+      v28 = 1;
       goto LABEL_23;
     }
 
-    v45 = MBGetDefaultLog();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v43 = MBGetDefaultLog();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
-      v46 = *errorCopy;
+      v44 = *errorCopy;
       *buf = 138412546;
-      v75 = absolutePath;
-      v76 = 2112;
-      v77 = v46;
-      _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "Failed to scrub SQLite database at %@: %@", buf, 0x16u);
-      v55 = *errorCopy;
-      _MBLog();
+      v68 = absolutePath;
+      v69 = 2112;
+      v70 = v44;
+      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "Failed to scrub SQLite database at %@: %@", buf, 0x16u);
+      _MBLog(@"E ", "Failed to scrub SQLite database at %@: %@", absolutePath, *errorCopy);
     }
 
     [(MBCKFile *)self _removeTemporaryCopy];
@@ -2947,29 +2862,27 @@ LABEL_12:
 
 LABEL_19:
 
-  v10 = v59;
+  v10 = v52;
   error = errorCopy;
-  v12 = [(MBCKFile *)self _compactSQLiteDatabaseAtPath:absolutePath temporaryDirectory:v59 error:errorCopy];
+  v12 = [(MBCKFile *)self _compactSQLiteDatabaseAtPath:absolutePath temporaryDirectory:v52 error:errorCopy];
   objc_storeStrong(&self->_contentEncodingMethod, v12);
   if (!v12)
   {
-    v48 = MBGetDefaultLog();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+    v46 = MBGetDefaultLog();
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
-      v49 = *errorCopy;
+      v47 = *errorCopy;
       *buf = 138412546;
-      v75 = absolutePath;
-      v76 = 2112;
-      v77 = v49;
-      _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "Failed to compact SQLite database at %@: %@", buf, 0x16u);
-      v53 = absolutePath;
-      v54 = *errorCopy;
-      _MBLog();
+      v68 = absolutePath;
+      v69 = 2112;
+      v70 = v47;
+      _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "Failed to compact SQLite database at %@: %@", buf, 0x16u);
+      _MBLog(@"E ", "Failed to compact SQLite database at %@: %@", absolutePath, *errorCopy);
     }
 
-    engineCopy = v61;
+    engineCopy = v54;
 LABEL_49:
-    [(MBCKFile *)self _removeTemporaryCopy:v53];
+    [(MBCKFile *)self _removeTemporaryCopy];
     v15 = 0;
     v12 = 0;
 LABEL_50:
@@ -2982,29 +2895,28 @@ LABEL_50:
     goto LABEL_52;
   }
 
-  v30 = 0;
-  engineCopy = v61;
+  v28 = 0;
+  engineCopy = v54;
 LABEL_23:
-  if (![MBProtectionClassUtils setWithPath:v12 value:v58 error:error])
+  if (![MBProtectionClassUtils setWithPath:v12 value:v51 error:error])
   {
-    v43 = MBGetDefaultLog();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v41 = MBGetDefaultLog();
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
-      v44 = *error;
+      v42 = *error;
       *buf = 138412802;
-      v75 = v12;
-      v76 = 2112;
-      v77 = relativePath;
-      v78 = 2112;
-      v79 = v44;
-      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "Failed to set protection class on SQLite database copy at %@ (%@): %@", buf, 0x20u);
-      v56 = *error;
-      _MBLog();
+      v68 = v12;
+      v69 = 2112;
+      v70 = relativePath;
+      v71 = 2112;
+      v72 = v42;
+      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "Failed to set protection class on SQLite database copy at %@ (%@): %@", buf, 0x20u);
+      _MBLog(@"E ", "Failed to set protection class on SQLite database copy at %@ (%@): %@", v12, relativePath, *error);
     }
 
     [(MBCKFile *)self _removeTemporaryCopy];
     v15 = 0;
-    if ((v30 & 1) == 0)
+    if ((v28 & 1) == 0)
     {
       goto LABEL_50;
     }
@@ -3012,43 +2924,43 @@ LABEL_23:
     goto LABEL_42;
   }
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
-  v65 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   settingsContext2 = [engineCopy settingsContext];
   plugins2 = [settingsContext2 plugins];
 
-  v33 = [plugins2 countByEnumeratingWithState:&v64 objects:v73 count:16];
-  if (v33)
+  v31 = [plugins2 countByEnumeratingWithState:&v57 objects:v66 count:16];
+  if (v31)
   {
-    v34 = v33;
-    v35 = *v65;
+    v32 = v31;
+    v33 = *v58;
 LABEL_26:
-    v36 = 0;
+    v34 = 0;
     while (1)
     {
-      if (*v65 != v35)
+      if (*v58 != v33)
       {
         objc_enumerationMutation(plugins2);
       }
 
-      v37 = *(*(&v64 + 1) + 8 * v36);
-      v38 = objc_autoreleasePoolPush();
+      v35 = *(*(&v57 + 1) + 8 * v34);
+      v36 = objc_autoreleasePoolPush();
       if (objc_opt_respondsToSelector())
       {
-        v39 = [v37 backingUpSQLiteFileCopyAtPath:absolutePath temporaryPath:v12];
-        if (v39)
+        v37 = [v35 backingUpSQLiteFileCopyAtPath:absolutePath temporaryPath:v12];
+        if (v37)
         {
           break;
         }
       }
 
-      objc_autoreleasePoolPop(v38);
-      if (v34 == ++v36)
+      objc_autoreleasePoolPop(v36);
+      if (v32 == ++v34)
       {
-        v34 = [plugins2 countByEnumeratingWithState:&v64 objects:v73 count:16];
-        if (v34)
+        v32 = [plugins2 countByEnumeratingWithState:&v57 objects:v66 count:16];
+        if (v32)
         {
           goto LABEL_26;
         }
@@ -3057,54 +2969,53 @@ LABEL_26:
       }
     }
 
-    v15 = v39;
-    objc_autoreleasePoolPop(v38);
+    v15 = v37;
+    objc_autoreleasePoolPop(v36);
 
-    v47 = v15;
+    v45 = v15;
     error = errorCopy;
     *errorCopy = v15;
     [(MBCKFile *)self _removeTemporaryCopy];
-    if (v30)
+    if (v28)
     {
       v16 = 1;
-      engineCopy = v61;
+      engineCopy = v54;
       goto LABEL_45;
     }
 
-    engineCopy = v61;
-    v10 = v59;
+    engineCopy = v54;
+    v10 = v52;
     goto LABEL_50;
   }
 
 LABEL_33:
 
-  engineCopy = v61;
-  serviceAccount = [v61 serviceAccount];
-  device = [v61 device];
+  engineCopy = v54;
+  serviceAccount = [v54 serviceAccount];
+  device = [v54 device];
   error = errorCopy;
-  v42 = [(MBCKFile *)self refreshFromCopyWithAccount:serviceAccount device:device error:errorCopy];
+  v40 = [(MBCKFile *)self refreshFromCopyWithAccount:serviceAccount device:device error:errorCopy];
 
-  if ((v42 & 1) == 0)
+  if ((v40 & 1) == 0)
   {
-    v51 = MBGetDefaultLog();
-    v10 = v59;
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+    v49 = MBGetDefaultLog();
+    v10 = v52;
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
-      v52 = *errorCopy;
+      v50 = *errorCopy;
       *buf = 138412802;
-      v75 = v12;
-      v76 = 2112;
-      v77 = relativePath;
-      v78 = 2112;
-      v79 = v52;
-      _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_ERROR, "Failed to refresh file stats for SQLite database copy at %@ (%@): %@", buf, 0x20u);
-      v57 = *errorCopy;
-      _MBLog();
+      v68 = v12;
+      v69 = 2112;
+      v70 = relativePath;
+      v71 = 2112;
+      v72 = v50;
+      _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_ERROR, "Failed to refresh file stats for SQLite database copy at %@ (%@): %@", buf, 0x20u);
+      _MBLog(@"E ", "Failed to refresh file stats for SQLite database copy at %@ (%@): %@", v12, relativePath, *errorCopy);
     }
 
     [(MBCKFile *)self _removeTemporaryCopy];
     v15 = 0;
-    if ((v30 & 1) == 0)
+    if ((v28 & 1) == 0)
     {
       goto LABEL_50;
     }
@@ -3117,7 +3028,7 @@ LABEL_42:
   v15 = 0;
   v16 = 2;
 LABEL_45:
-  v10 = v59;
+  v10 = v52;
 LABEL_52:
 
   return v16;
@@ -3137,17 +3048,8 @@ LABEL_52:
 
 - (BOOL)_createResourceCopyWithError:(id *)error
 {
-  if (!self->_temporaryPath)
+  if (!self->_temporaryPath || (+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 fileExistsAtPath:self->_temporaryPath], v5, !v6) || (+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "removeItemAtPath:error:", self->_temporaryPath, error), v7, v8))
   {
-    goto LABEL_4;
-  }
-
-  v5 = +[NSFileManager defaultManager];
-  v6 = [v5 fileExistsAtPath:self->_temporaryPath];
-
-  if (!v6 || (+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 removeItemAtPath:self->_temporaryPath error:error], v7, v8))
-  {
-LABEL_4:
     if ([(MBCKFile *)self hasAbsolutePath])
     {
       v9 = MBTemporaryPath();
@@ -3166,156 +3068,150 @@ LABEL_4:
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Creating a copy of xattrs for %@ (%@)", &buf, 0x16u);
 
         absolutePath2 = [(MBCKFile *)self absolutePath];
-        v39 = self->_temporaryPath;
-        _MBLog();
+        _MBLog(@"Db", "Creating a copy of xattrs for %@ (%@)", absolutePath2, self->_temporaryPath);
       }
 
       absolutePath3 = [(MBCKFile *)self absolutePath];
-      v44 = 0;
-      domainName2 = +[MBExtendedAttributes attributesForPathFSR:error:](MBExtendedAttributes, "attributesForPathFSR:error:", [absolutePath3 fileSystemRepresentation], &v44);
-      v16 = v44;
+      v39 = 0;
+      domainName2 = +[MBExtendedAttributes attributesForPathFSR:error:](MBExtendedAttributes, "attributesForPathFSR:error:", [absolutePath3 fileSystemRepresentation], &v39);
+      v17 = v39;
 
       if (domainName2)
       {
-        v17 = [NSURL fileURLWithPath:self->_temporaryPath isDirectory:0];
-        v43 = v16;
-        v18 = [domainName2 writeToURL:v17 error:&v43];
-        v19 = v43;
+        v18 = [NSURL fileURLWithPath:self->_temporaryPath isDirectory:0];
+        v38 = v17;
+        v19 = [domainName2 writeToURL:v18 error:&v38];
+        v20 = v38;
 
-        if (v18)
+        if (v19)
         {
           memset(&buf, 0, sizeof(buf));
-          v20 = lstat([(NSString *)self->_temporaryPath fileSystemRepresentation], &buf);
-          v21 = v20 == 0;
-          if (v20)
+          v21 = lstat([(NSString *)self->_temporaryPath fileSystemRepresentation], &buf);
+          v22 = v21 == 0;
+          if (v21)
           {
-            v22 = *__error();
-            v23 = MBGetDefaultLog();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+            v23 = *__error();
+            v24 = MBGetDefaultLog();
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
-              v24 = self->_temporaryPath;
-              *v45 = 138412546;
-              v46 = v24;
-              v47 = 1024;
-              LODWORD(v48) = v22;
-              _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Failed to lstat %@: %{errno}d", v45, 0x12u);
-              v38 = self->_temporaryPath;
-              _MBLog();
+              v25 = self->_temporaryPath;
+              *v40 = 138412546;
+              v41 = v25;
+              v42 = 1024;
+              LODWORD(v43) = v23;
+              _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Failed to lstat %@: %{errno}d", v40, 0x12u);
+              _MBLog(@"E ", "Failed to lstat %@: %{errno}d", self->_temporaryPath, v23);
             }
 
             if (error)
             {
-              *error = [MBError errorWithCode:100 path:self->_temporaryPath format:@"Failed to stat xattrs copy: %d (%s)", v22, strerror(v22)];
+              *error = [MBError errorWithCode:100 path:self->_temporaryPath format:@"Failed to stat xattrs copy: %d (%s)", v23, strerror(v23)];
             }
 
-            v25 = self->_temporaryPath;
+            v26 = self->_temporaryPath;
             self->_temporaryPath = 0;
           }
 
           else
           {
             self->_signature = buf.st_size;
-            v25 = MBGetDefaultLog();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+            v26 = MBGetDefaultLog();
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
             {
-              v33 = [domainName2 count];
+              v34 = [domainName2 count];
               signature = self->_signature;
               volumeType = self->_volumeType;
-              *v45 = 134218498;
-              v46 = v33;
-              v47 = 2048;
-              v48 = signature;
-              v49 = 2112;
-              v50 = volumeType;
-              _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Found %lu xattrs (%llu) for %@", v45, 0x20u);
-              [domainName2 count];
-              v41 = self->_signature;
-              v42 = self->_volumeType;
-              _MBLog();
+              *v40 = 134218498;
+              v41 = v34;
+              v42 = 2048;
+              v43 = signature;
+              v44 = 2112;
+              v45 = volumeType;
+              _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Found %lu xattrs (%llu) for %@", v40, 0x20u);
+              _MBLog(@"I ", "Found %lu xattrs (%llu) for %@", [domainName2 count], self->_signature, self->_volumeType);
             }
           }
         }
 
         else
         {
-          v30 = self->_temporaryPath;
+          v31 = self->_temporaryPath;
           self->_temporaryPath = 0;
 
-          v31 = MBGetDefaultLog();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          v32 = MBGetDefaultLog();
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
             buf.st_dev = 138412546;
             *&buf.st_mode = self;
             WORD2(buf.st_ino) = 2112;
-            *(&buf.st_ino + 6) = v19;
-            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "Failed to serialize xattrs to disk for %@: %@", &buf, 0x16u);
-            _MBLog();
+            *(&buf.st_ino + 6) = v20;
+            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "Failed to serialize xattrs to disk for %@: %@", &buf, 0x16u);
+            _MBLog(@"E ", "Failed to serialize xattrs to disk for %@: %@", self, v20);
           }
 
           if (error)
           {
             absolutePath4 = [(MBCKFile *)self absolutePath];
-            *error = [MBError errorWithCode:100 error:v19 path:absolutePath4 format:@"Failed to serialize xattrs to disk"];
+            *error = [MBError errorWithCode:100 error:v20 path:absolutePath4 format:@"Failed to serialize xattrs to disk"];
           }
 
-          v21 = 0;
+          v22 = 0;
         }
       }
 
       else
       {
-        v28 = MBGetDefaultLog();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v29 = MBGetDefaultLog();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           buf.st_dev = 138412546;
           *&buf.st_mode = self;
           WORD2(buf.st_ino) = 2112;
-          *(&buf.st_ino + 6) = v16;
-          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Failed to read xattrs for %@: %@", &buf, 0x16u);
-          _MBLog();
+          *(&buf.st_ino + 6) = v17;
+          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Failed to read xattrs for %@: %@", &buf, 0x16u);
+          _MBLog(@"E ", "Failed to read xattrs for %@: %@", self, v17);
         }
 
         if (error)
         {
-          v29 = v16;
+          v30 = v17;
           domainName2 = 0;
-          v21 = 0;
-          *error = v16;
+          v22 = 0;
+          *error = v17;
         }
 
         else
         {
           domainName2 = 0;
-          v21 = 0;
+          v22 = 0;
         }
 
-        v19 = v16;
+        v20 = v17;
       }
     }
 
     else
     {
-      v19 = MBGetDefaultLog();
-      if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = MBGetDefaultLog();
+      if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v21 = 0;
+        v22 = 0;
 LABEL_35:
 
-        return v21;
+        return v22;
       }
 
       domainName = [(MBDomain *)self->_domain domainName];
-      v27 = self->_volumeType;
+      v28 = self->_volumeType;
       buf.st_dev = 138412546;
       *&buf.st_mode = domainName;
       WORD2(buf.st_ino) = 2112;
-      *(&buf.st_ino + 6) = v27;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Can't make a copy of xattrs without an absolute path (%@:%@)", &buf, 0x16u);
+      *(&buf.st_ino + 6) = v28;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Can't make a copy of xattrs without an absolute path (%@:%@)", &buf, 0x16u);
 
       domainName2 = [(MBDomain *)self->_domain domainName];
-      v40 = self->_volumeType;
-      _MBLog();
-      v21 = 0;
+      _MBLog(@"E ", "Can't make a copy of xattrs without an absolute path (%@:%@)", domainName2, self->_volumeType);
+      v22 = 0;
     }
 
     goto LABEL_35;
@@ -3394,7 +3290,7 @@ LABEL_35:
         *buf = 138412290;
         selfCopy = self;
         _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Mark file as already downloaded because a file of the same signature has already been downloaded: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"Df", "Mark file as already downloaded because a file of the same signature has already been downloaded: %@", self);
       }
 
       v8[2](v8, 0);
@@ -3482,22 +3378,19 @@ LABEL_35:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      *v130 = relativePath;
-      *&v130[8] = 2048;
-      *&v130[10] = [(MBCKFile *)self size];
-      *&v130[18] = 2048;
-      *&v130[20] = [(MBCKFile *)self resourcesSize];
+      *v128 = relativePath;
+      *&v128[8] = 2048;
+      *&v128[10] = [(MBCKFile *)self size];
+      *&v128[18] = 2048;
+      *&v128[20] = [(MBCKFile *)self resourcesSize];
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "Stashing assets for file, relativePath:%@, size:%llu, resourceSize:%llu", buf, 0x20u);
-      path4 = [(MBCKFile *)self size];
-      resourcesSize = [(MBCKFile *)self resourcesSize];
-      v105 = relativePath;
-      _MBLog();
+      _MBLog(@"Db", "Stashing assets for file, relativePath:%@, size:%llu, resourceSize:%llu", relativePath, [(MBCKFile *)self size], [(MBCKFile *)self resourcesSize]);
     }
 
-    v125 = relativePath;
+    v123 = relativePath;
 
     restoreState = [(MBCKFile *)self restoreState];
-    v124 = accountCopy;
+    v122 = accountCopy;
     if (![(MBCKFile *)self isRegularFile])
     {
       goto LABEL_39;
@@ -3518,7 +3411,7 @@ LABEL_35:
       v23 = [v20 fileExistsAtPath:v22];
 
       trackerCopy = v21;
-      accountCopy = v124;
+      accountCopy = v122;
 
       if (v23)
       {
@@ -3533,7 +3426,7 @@ LABEL_35:
       fileURL = [v24 fileURL];
       if (fileURL)
       {
-        v120 = v25;
+        v118 = v25;
         stashedAssetIsDecrypted = [(MBCKFile *)self stashedAssetIsDecrypted];
         if (stashedAssetIsDecrypted)
         {
@@ -3541,27 +3434,27 @@ LABEL_35:
         }
 
         path = [fileURL path];
-        v128 = 0;
+        v126 = 0;
         v28 = trackerCopy;
-        v29 = [(MBCKFile *)self _decryptWithOperationTracker:trackerCopy destination:path device:deviceCopy error:&v128];
-        v30 = v128;
+        v29 = [(MBCKFile *)self _decryptWithOperationTracker:trackerCopy destination:path device:deviceCopy error:&v126];
+        v30 = v126;
 
         if (v29)
         {
 
-          accountCopy = v124;
+          accountCopy = v122;
           trackerCopy = v28;
 LABEL_18:
           if (BYTE6(self->_mbNode.cloneID) == 4)
           {
-            v121 = cacheCopy;
+            v119 = cacheCopy;
             v31 = restoreState;
             v32 = trackerCopy;
             path2 = [fileURL path];
             v34 = BYTE6(self->_mbNode.cloneID);
-            v127 = 0;
-            v35 = [MBProtectionClassUtils setWithPath:path2 value:v34 error:&v127];
-            v36 = v127;
+            v125 = 0;
+            v35 = [MBProtectionClassUtils setWithPath:path2 value:v34 error:&v125];
+            v36 = v125;
 
             if ((v35 & 1) == 0)
             {
@@ -3571,30 +3464,28 @@ LABEL_18:
                 v38 = BYTE6(self->_mbNode.cloneID);
                 path3 = [fileURL path];
                 *buf = 67109634;
-                *v130 = v38;
-                *&v130[4] = 2112;
-                *&v130[6] = path3;
-                *&v130[14] = 2112;
-                *&v130[16] = v36;
+                *v128 = v38;
+                *&v128[4] = 2112;
+                *&v128[6] = path3;
+                *&v128[14] = 2112;
+                *&v128[16] = v36;
                 _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "Failed to set protection class %d at path %@: %@", buf, 0x1Cu);
 
                 v40 = BYTE6(self->_mbNode.cloneID);
                 path4 = [fileURL path];
-                resourcesSize = v36;
-                v105 = v40;
-                _MBLog();
+                _MBLog(@"E ", "Failed to set protection class %d at path %@: %@", v40, path4, v36);
               }
             }
 
             trackerCopy = v32;
             restoreState = v31;
-            cacheCopy = v121;
-            accountCopy = v124;
+            cacheCopy = v119;
+            accountCopy = v122;
           }
 
-          v114 = trackerCopy;
-          v41 = [(MBCKFile *)self signature:v105];
-          mb_base64EncodedFileSystemPathString = [v41 mb_base64EncodedFileSystemPathString];
+          v112 = trackerCopy;
+          signature = [(MBCKFile *)self signature];
+          mb_base64EncodedFileSystemPathString = [signature mb_base64EncodedFileSystemPathString];
 
           if (!mb_base64EncodedFileSystemPathString)
           {
@@ -3604,119 +3495,113 @@ LABEL_18:
           path5 = [fileURL path];
           persona = [accountCopy persona];
           domain = [(MBCKFile *)self domain];
-          v46 = [persona restorePrefetchDirectoryForDomain:domain];
+          v47 = [persona restorePrefetchDirectoryForDomain:domain];
 
-          v116 = mb_base64EncodedFileSystemPathString;
-          v117 = v46;
-          v47 = [MBFileOperation createPathInDirectory:v46 fileName:mb_base64EncodedFileSystemPathString];
-          v122 = path5;
+          v114 = mb_base64EncodedFileSystemPathString;
+          v115 = v47;
+          v48 = [MBFileOperation createPathInDirectory:v47 fileName:mb_base64EncodedFileSystemPathString];
+          v120 = path5;
           fileSystemRepresentation = [path5 fileSystemRepresentation];
-          fileSystemRepresentation2 = [v47 fileSystemRepresentation];
+          fileSystemRepresentation2 = [v48 fileSystemRepresentation];
           if (!renamex_np(fileSystemRepresentation, fileSystemRepresentation2, 4u))
           {
             goto LABEL_35;
           }
 
-          v50 = *__error();
-          if (v50 == 17)
+          v51 = *__error();
+          if (v51 == 17)
           {
             goto LABEL_35;
           }
 
-          if (v50 == 18)
+          if (v51 == 18)
           {
-            v51 = MBGetDefaultLog();
-            if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+            v52 = MBGetDefaultLog();
+            if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
             {
               [path5 lastPathComponent];
-              v52 = log = v51;
+              v53 = log = v52;
               *buf = 138412546;
-              *v130 = v52;
-              *&v130[8] = 2112;
-              *&v130[10] = v47;
+              *v128 = v53;
+              *&v128[8] = 2112;
+              *&v128[10] = v48;
               _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "Could not move stashed resource (%@) across volumes, copying to %@", buf, 0x16u);
 
               lastPathComponent = [path5 lastPathComponent];
-              v109 = v47;
-              _MBLog();
+              _MBLog(@"I ", "Could not move stashed resource (%@) across volumes, copying to %@", lastPathComponent, v48);
 
-              v51 = log;
+              v52 = log;
             }
 
-            if ([MBFileOperation crossVolumeMoveFrom:path5 intoDir:v117 toFileNamed:v116 error:error])
+            if ([MBFileOperation crossVolumeMoveFrom:path5 intoDir:v115 toFileNamed:v114 error:error])
             {
               goto LABEL_35;
             }
 
-            v53 = [MBError errnoForError:*error];
-            v54 = MBGetDefaultLog();
-            v55 = v54;
-            if (v53 == 17)
+            v55 = [MBError errnoForError:*error];
+            v56 = MBGetDefaultLog();
+            v57 = v56;
+            if (v55 == 17)
             {
-              if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
+              if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412546;
-                *v130 = v122;
-                *&v130[8] = 2112;
-                *&v130[10] = v47;
-                _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_INFO, "Cross-volume copied %@ to %@", buf, 0x16u);
-                lastPathComponent = v122;
-                v109 = v47;
-                _MBLog();
+                *v128 = v120;
+                *&v128[8] = 2112;
+                *&v128[10] = v48;
+                _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_INFO, "Cross-volume copied %@ to %@", buf, 0x16u);
+                _MBLog(@"I ", "Cross-volume copied %@ to %@", v120, v48);
               }
 
 LABEL_35:
-              v118 = fileURL;
-              [restoreState setStashedAssetPath:{v47, lastPathComponent, v109}];
+              v116 = fileURL;
+              [restoreState setStashedAssetPath:v48];
               [restoreState setStashedAssetDecrypted:stashedAssetIsDecrypted ^ 1];
-              signature = [(MBCKFile *)self signature];
-              v57 = [cacheCopy fileAssetMetadataForSignature:signature volumeType:{-[MBCKFile volumeType](self, "volumeType")}];
+              signature2 = [(MBCKFile *)self signature];
+              v59 = [cacheCopy fileAssetMetadataForSignature:signature2 volumeType:{-[MBCKFile volumeType](self, "volumeType")}];
 
-              if (!v57)
+              if (!v59)
               {
                 stashedAssetPath2 = [restoreState stashedAssetPath];
-                signature2 = [(MBCKFile *)self signature];
-                v99 = [cacheCopy updateStashPath:stashedAssetPath2 forSignature:signature2 volumeType:-[MBCKFile volumeType](self isDecrypted:{"volumeType"), -[MBCKFile stashedAssetIsDecrypted](self, "stashedAssetIsDecrypted")}];
+                signature3 = [(MBCKFile *)self signature];
+                v105 = [cacheCopy updateStashPath:stashedAssetPath2 forSignature:signature3 volumeType:-[MBCKFile volumeType](self isDecrypted:{"volumeType"), -[MBCKFile stashedAssetIsDecrypted](self, "stashedAssetIsDecrypted")}];
 
-                if (v99)
+                if (v105)
                 {
-                  v100 = v99;
-                  *error = v99;
+                  v106 = v105;
+                  *error = v105;
 
-                  trackerCopy = v114;
-                  v69 = v125;
-                  fileURL = v118;
-                  v101 = v116;
-                  path5 = v122;
+                  trackerCopy = v112;
+                  v71 = v123;
+                  fileURL = v116;
+                  v107 = v114;
+                  path5 = v120;
 LABEL_86:
 
                   goto LABEL_87;
                 }
               }
 
-              v58 = MBGetDefaultLog();
-              if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
+              v60 = MBGetDefaultLog();
+              if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412802;
-                *v130 = v125;
-                *&v130[8] = 2112;
-                *&v130[10] = v122;
-                *&v130[18] = 2112;
-                *&v130[20] = v47;
-                _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEBUG, "Stashed downloaded file (%@) %@ at %@", buf, 0x20u);
-                path4 = v122;
-                resourcesSize = v47;
-                v105 = v125;
-                _MBLog();
+                *v128 = v123;
+                *&v128[8] = 2112;
+                *&v128[10] = v120;
+                *&v128[18] = 2112;
+                *&v128[20] = v48;
+                _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEBUG, "Stashed downloaded file (%@) %@ at %@", buf, 0x20u);
+                _MBLog(@"Db", "Stashed downloaded file (%@) %@ at %@", v123, v120, v48);
               }
 
-              accountCopy = v124;
-              trackerCopy = v114;
+              accountCopy = v122;
+              trackerCopy = v112;
 LABEL_39:
               if (!self->_contentAsset)
               {
-                v68 = 1;
-                v69 = v125;
+                v70 = 1;
+                v71 = v123;
                 goto LABEL_88;
               }
 
@@ -3724,270 +3609,272 @@ LABEL_39:
               stashedResourcePath = [restoreState stashedResourcePath];
               if (stashedResourcePath)
               {
-                v61 = stashedResourcePath;
-                v62 = +[NSFileManager defaultManager];
+                v63 = stashedResourcePath;
+                v64 = +[NSFileManager defaultManager];
                 [restoreState stashedResourcePath];
-                v63 = cacheCopy;
-                v64 = restoreState;
-                v66 = v65 = trackerCopy;
-                v67 = [v62 fileExistsAtPath:v66];
+                v65 = cacheCopy;
+                v66 = restoreState;
+                v68 = v67 = trackerCopy;
+                v69 = [v64 fileExistsAtPath:v68];
 
-                trackerCopy = v65;
-                restoreState = v64;
-                cacheCopy = v63;
+                trackerCopy = v67;
+                restoreState = v66;
+                cacheCopy = v65;
 
-                if (v67)
+                if (v69)
                 {
-                  v68 = 1;
-                  accountCopy = v124;
-                  v69 = v125;
+                  v70 = 1;
+                  accountCopy = v122;
+                  v71 = v123;
 LABEL_88:
 
                   goto LABEL_89;
                 }
               }
 
-              v70 = [(CKAsset *)self->_contentAsset fileURL:v105];
-              if (v70)
+              fileURL2 = [(CKAsset *)self->_contentAsset fileURL];
+              if (fileURL2)
               {
-                v71 = v70;
-                v123 = cacheCopy;
-                v72 = trackerCopy;
-                accountCopy = v124;
-                persona2 = [v124 persona];
+                v73 = fileURL2;
+                v121 = cacheCopy;
+                v74 = trackerCopy;
+                accountCopy = v122;
+                persona2 = [v122 persona];
                 domain2 = [(MBCKFile *)self domain];
-                v75 = [persona2 stashAsset:v71 forDomain:domain2 error:errorCopy];
+                v77 = [persona2 stashAsset:v73 forDomain:domain2 error:errorCopy];
 
-                if (v75)
+                if (v77)
                 {
-                  [restoreState setStashedResourcePath:v75];
-                  v76 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
+                  [restoreState setStashedResourcePath:v77];
+                  v78 = MBGetDefaultLog();
+                  if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
                   {
-                    fileURL2 = [(CKAsset *)self->_contentAsset fileURL];
-                    path6 = [fileURL2 path];
-                    *buf = 138412802;
-                    *v130 = v125;
-                    *&v130[8] = 2112;
-                    *&v130[10] = path6;
-                    *&v130[18] = 2112;
-                    *&v130[20] = v75;
-                    _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEBUG, "Stashed downloaded file resource (%@) %@ at %@", buf, 0x20u);
-
                     fileURL3 = [(CKAsset *)self->_contentAsset fileURL];
-                    path7 = [fileURL3 path];
-                    _MBLog();
+                    path6 = [fileURL3 path];
+                    *buf = 138412802;
+                    *v128 = v123;
+                    *&v128[8] = 2112;
+                    *&v128[10] = path6;
+                    *&v128[18] = 2112;
+                    *&v128[20] = v77;
+                    _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEBUG, "Stashed downloaded file resource (%@) %@ at %@", buf, 0x20u);
+
+                    fileURL4 = [(CKAsset *)self->_contentAsset fileURL];
+                    path7 = [fileURL4 path];
+                    _MBLog(@"Db", "Stashed downloaded file resource (%@) %@ at %@", v123, path7, v77);
                   }
 
-                  v68 = 1;
-                  accountCopy = v124;
+                  v70 = 1;
+                  accountCopy = v122;
                 }
 
                 else
                 {
 
-                  v68 = 0;
+                  v70 = 0;
                 }
 
-                trackerCopy = v72;
-                v69 = v125;
-                cacheCopy = v123;
+                trackerCopy = v74;
+                v71 = v123;
+                cacheCopy = v121;
                 goto LABEL_88;
               }
 
-              v80 = MBIsInternalInstall();
-              v81 = MBGetDefaultLog();
-              v82 = v81;
-              accountCopy = v124;
-              if (v80)
+              v83 = MBIsInternalInstall();
+              v84 = MBGetDefaultLog();
+              v85 = v84;
+              accountCopy = v122;
+              if (v83)
               {
-                v69 = v125;
-                if (os_log_type_enabled(v81, OS_LOG_TYPE_FAULT))
+                v71 = v123;
+                if (os_log_type_enabled(v84, OS_LOG_TYPE_FAULT))
                 {
                   contentAsset = self->_contentAsset;
                   *buf = 138412546;
-                  *v130 = contentAsset;
-                  *&v130[8] = 2112;
-                  *&v130[10] = self;
-                  _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_FAULT, "Nil fileURL for resource asset (xattrs) %@ for file %@", buf, 0x16u);
+                  *v128 = contentAsset;
+                  *&v128[8] = 2112;
+                  *&v128[10] = self;
+                  _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_FAULT, "Nil fileURL for resource asset (xattrs) %@ for file %@", buf, 0x16u);
+                  v87 = @"F ";
 LABEL_60:
-                  v107 = self->_contentAsset;
-                  _MBLog();
+                  _MBLog(v87, "Nil fileURL for resource asset (xattrs) %@ for file %@", self->_contentAsset, self);
                 }
               }
 
               else
               {
-                v69 = v125;
-                if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
+                v71 = v123;
+                if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
                 {
-                  v88 = self->_contentAsset;
+                  v93 = self->_contentAsset;
                   *buf = 138412546;
-                  *v130 = v88;
-                  *&v130[8] = 2112;
-                  *&v130[10] = self;
-                  _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_ERROR, "Nil fileURL for resource asset (xattrs) %@ for file %@", buf, 0x16u);
+                  *v128 = v93;
+                  *&v128[8] = 2112;
+                  *&v128[10] = self;
+                  _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_ERROR, "Nil fileURL for resource asset (xattrs) %@ for file %@", buf, 0x16u);
+                  v87 = @"E ";
                   goto LABEL_60;
                 }
               }
 
-              [MBError errorWithCode:302 path:v69 format:@"Nil fileURL for resource asset (xattrs)"];
-              *errorCopy = v68 = 0;
+              [MBError errorWithCode:302 path:v71 format:@"Nil fileURL for resource asset (xattrs)"];
+              *errorCopy = v70 = 0;
               goto LABEL_88;
             }
 
-            trackerCopy = v114;
-            v69 = v125;
-            if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+            trackerCopy = v112;
+            v71 = v123;
+            if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
             {
-              v103 = *error;
+              v109 = *error;
               *buf = 138543874;
-              *v130 = v122;
-              *&v130[8] = 2082;
-              *&v130[10] = fileSystemRepresentation2;
-              *&v130[18] = 2112;
-              *&v130[20] = v103;
-              _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "rename of stashed resource from %{public}@ to %{public}s failed: %@", buf, 0x20u);
-              v112 = *error;
-              _MBLog();
+              *v128 = v120;
+              *&v128[8] = 2082;
+              *&v128[10] = fileSystemRepresentation2;
+              *&v128[18] = 2112;
+              *&v128[20] = v109;
+              _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_ERROR, "rename of stashed resource from %{public}@ to %{public}s failed: %@", buf, 0x20u);
+              _MBLog(@"E ", "rename of stashed resource from %{public}@ to %{public}s failed: %@", v120, fileSystemRepresentation2, *error);
             }
 
-            path5 = v122;
+            path5 = v120;
           }
 
           else
           {
-            v102 = MBGetDefaultLog();
-            if (os_log_type_enabled(v102, OS_LOG_TYPE_ERROR))
+            v108 = MBGetDefaultLog();
+            if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412802;
-              *v130 = path5;
-              *&v130[8] = 2112;
-              *&v130[10] = v47;
-              *&v130[18] = 1024;
-              *&v130[20] = v50;
-              _os_log_impl(&_mh_execute_header, v102, OS_LOG_TYPE_ERROR, "rename of stashed resource from %@ to %@ failed: %{errno}d", buf, 0x1Cu);
-              _MBLog();
+              *v128 = path5;
+              *&v128[8] = 2112;
+              *&v128[10] = v48;
+              *&v128[18] = 1024;
+              *&v128[20] = v51;
+              _os_log_impl(&_mh_execute_header, v108, OS_LOG_TYPE_ERROR, "rename of stashed resource from %@ to %@ failed: %{errno}d", buf, 0x1Cu);
+              _MBLog(@"E ", "rename of stashed resource from %@ to %@ failed: %{errno}d", path5, v48, v51);
             }
 
-            *error = [MBError posixErrorWithCode:v50 format:@"rename of stashed resource from %@ to %@ failed", path5, v47];
-            trackerCopy = v114;
-            v69 = v125;
+            *error = [MBError posixErrorWithCode:v51 format:@"rename of stashed resource from %@ to %@ failed", path5, v48];
+            trackerCopy = v112;
+            v71 = v123;
           }
 
-          v101 = v116;
+          v107 = v114;
           goto LABEL_86;
         }
 
-        v119 = fileURL;
-        v95 = MBGetDefaultLog();
-        if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
+        v117 = fileURL;
+        v101 = MBGetDefaultLog();
+        if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412802;
-          *v130 = v119;
-          *&v130[8] = 2112;
-          *&v130[10] = self;
-          *&v130[18] = 2112;
-          *&v130[20] = v30;
-          _os_log_impl(&_mh_execute_header, v95, OS_LOG_TYPE_ERROR, "Failed to decrypt prefetched asset at %@ for %@: %@", buf, 0x20u);
-          _MBLog();
+          *v128 = v117;
+          *&v128[8] = 2112;
+          *&v128[10] = self;
+          *&v128[18] = 2112;
+          *&v128[20] = v30;
+          _os_log_impl(&_mh_execute_header, v101, OS_LOG_TYPE_ERROR, "Failed to decrypt prefetched asset at %@ for %@: %@", buf, 0x20u);
+          _MBLog(@"E ", "Failed to decrypt prefetched asset at %@ for %@: %@", v117, self, v30);
         }
 
-        v96 = v30;
+        v102 = v30;
         *error = v30;
 
         trackerCopy = v28;
-        v69 = v125;
-        fileURL = v119;
+        v71 = v123;
+        fileURL = v117;
 LABEL_76:
 
 LABEL_87:
-        v68 = 0;
-        accountCopy = v124;
+        v70 = 0;
+        accountCopy = v122;
         goto LABEL_88;
       }
 
-      v89 = MBIsInternalInstall();
-      v90 = MBGetDefaultLog();
-      v91 = v90;
-      if (v89)
+      v94 = MBIsInternalInstall();
+      v95 = MBGetDefaultLog();
+      v96 = v95;
+      if (v94)
       {
-        if (os_log_type_enabled(v90, OS_LOG_TYPE_FAULT))
+        if (os_log_type_enabled(v95, OS_LOG_TYPE_FAULT))
         {
-          v92 = [(MBCKFile *)self size];
+          v97 = [(MBCKFile *)self size];
           *buf = 138412802;
-          *v130 = v25;
-          *&v130[8] = 2112;
-          *&v130[10] = self;
-          *&v130[18] = 2048;
-          *&v130[20] = v92;
-          _os_log_impl(&_mh_execute_header, v91, OS_LOG_TYPE_FAULT, "Nil fileURL for content asset %@ for file %@ with size:%llu", buf, 0x20u);
+          *v128 = v25;
+          *&v128[8] = 2112;
+          *&v128[10] = self;
+          *&v128[18] = 2048;
+          *&v128[20] = v97;
+          _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_FAULT, "Nil fileURL for content asset %@ for file %@ with size:%llu", buf, 0x20u);
+          v98 = @"F ";
 LABEL_71:
-          [(MBCKFile *)self size:v105];
-          _MBLog();
+          _MBLog(v98, "Nil fileURL for content asset %@ for file %@ with size:%llu", v25, self, [(MBCKFile *)self size]);
           fileURL = 0;
         }
       }
 
-      else if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
       {
-        v94 = [(MBCKFile *)self size];
+        v100 = [(MBCKFile *)self size];
         *buf = 138412802;
-        *v130 = v25;
-        *&v130[8] = 2112;
-        *&v130[10] = self;
-        *&v130[18] = 2048;
-        *&v130[20] = v94;
-        _os_log_impl(&_mh_execute_header, v91, OS_LOG_TYPE_ERROR, "Nil fileURL for content asset %@ for file %@ with size:%llu", buf, 0x20u);
+        *v128 = v25;
+        *&v128[8] = 2112;
+        *&v128[10] = self;
+        *&v128[18] = 2048;
+        *&v128[20] = v100;
+        _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_ERROR, "Nil fileURL for content asset %@ for file %@ with size:%llu", buf, 0x20u);
+        v98 = @"E ";
         goto LABEL_71;
       }
 
-      v69 = v125;
-      *error = [MBError errorWithCode:302 path:v125 format:@"Nil fileURL for content asset with size:%llu", [(MBCKFile *)self size]];
+      v71 = v123;
+      *error = [MBError errorWithCode:302 path:v123 format:@"Nil fileURL for content asset with size:%llu", [(MBCKFile *)self size]];
       goto LABEL_76;
     }
 
-    v84 = MBIsInternalInstall();
-    v85 = MBGetDefaultLog();
-    v86 = v85;
-    if (v84)
+    v88 = MBIsInternalInstall();
+    v89 = MBGetDefaultLog();
+    v90 = v89;
+    if (v88)
     {
-      if (os_log_type_enabled(v85, OS_LOG_TYPE_FAULT))
+      if (os_log_type_enabled(v89, OS_LOG_TYPE_FAULT))
       {
-        v87 = [(MBCKFile *)self size];
+        v91 = [(MBCKFile *)self size];
         *buf = 138412546;
-        *v130 = self;
-        *&v130[8] = 2048;
-        *&v130[10] = v87;
-        _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_FAULT, "Nil content asset for file %@ with size:%llu", buf, 0x16u);
+        *v128 = self;
+        *&v128[8] = 2048;
+        *&v128[10] = v91;
+        _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_FAULT, "Nil content asset for file %@ with size:%llu", buf, 0x16u);
+        v92 = @"F ";
 LABEL_67:
-        [(MBCKFile *)self size:v105];
-        _MBLog();
-        accountCopy = v124;
+        _MBLog(v92, "Nil content asset for file %@ with size:%llu", self, [(MBCKFile *)self size]);
+        accountCopy = v122;
       }
     }
 
-    else if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
     {
-      v93 = [(MBCKFile *)self size];
+      v99 = [(MBCKFile *)self size];
       *buf = 138412546;
-      *v130 = self;
-      *&v130[8] = 2048;
-      *&v130[10] = v93;
-      _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_ERROR, "Nil content asset for file %@ with size:%llu", buf, 0x16u);
+      *v128 = self;
+      *&v128[8] = 2048;
+      *&v128[10] = v99;
+      _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_ERROR, "Nil content asset for file %@ with size:%llu", buf, 0x16u);
+      v92 = @"E ";
       goto LABEL_67;
     }
 
-    v69 = v125;
-    [MBError errorWithCode:100 path:v125 format:@"Nil content asset for file with size:%llu", [(MBCKFile *)self size]];
-    *error = v68 = 0;
+    v71 = v123;
+    [MBError errorWithCode:100 path:v123 format:@"Nil content asset for file with size:%llu", [(MBCKFile *)self size]];
+    *error = v70 = 0;
     goto LABEL_88;
   }
 
-  v68 = 1;
+  v70 = 1;
 LABEL_89:
 
-  return v68;
+  return v70;
 }
 
 - (BOOL)restoreAssetWithOperationTracker:(id)tracker destination:(id)destination logger:(id)logger cache:(id)cache device:(id)device error:(id *)error
@@ -4019,15 +3906,15 @@ LABEL_89:
     __assert_rtn("[MBCKFile restoreAssetWithOperationTracker:destination:logger:cache:device:error:]", "MBCKFile.m", 1371, "serviceAccount");
   }
 
-  fileSystemRepresentation = [(MBCKFile *)destinationCopy fileSystemRepresentation];
+  fileSystemRepresentation = [destinationCopy fileSystemRepresentation];
   relativePath = [(MBCKFile *)self relativePath];
   v21 = [relativePath length];
 
   if (!v21)
   {
 LABEL_18:
-    memset(&v205, 0, sizeof(v205));
-    if (lstat(fileSystemRepresentation, &v205))
+    memset(&v201, 0, sizeof(v201));
+    if (lstat(fileSystemRepresentation, &v201))
     {
       if (*__error() == 63)
       {
@@ -4036,18 +3923,18 @@ LABEL_18:
         {
           v32 = *__error();
           *buf = 138412546;
-          *v207 = destinationCopy;
-          *&v207[8] = 1024;
-          *&v207[10] = v32;
+          *v203 = destinationCopy;
+          *&v203[8] = 1024;
+          *&v203[10] = v32;
           _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Skipping restore asset, lstat failed at %@: %{errno}d", buf, 0x12u);
-          v171 = *__error();
-          _MBLog();
+          v33 = __error();
+          _MBLog(@"Df", "Skipping restore asset, lstat failed at %@: %{errno}d", destinationCopy, *v33);
         }
 
         if (error)
         {
           [MBError posixErrorWithCode:107 path:destinationCopy format:@"lstat error"];
-          *error = v33 = 0;
+          *error = v34 = 0;
           goto LABEL_232;
         }
 
@@ -4056,9 +3943,9 @@ LABEL_18:
 
       if (*__error() == 2)
       {
-        v34 = cacheCopy;
+        v35 = cacheCopy;
 LABEL_42:
-        v35 = 0;
+        v36 = 0;
         goto LABEL_43;
       }
 
@@ -4067,17 +3954,17 @@ LABEL_42:
         *error = [MBError posixErrorWithCode:101 path:destinationCopy format:@"lstat error"];
       }
 
-      v38 = MBGetDefaultLog();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      v39 = MBGetDefaultLog();
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
-        v39 = *__error();
+        v40 = *__error();
         *buf = 138412546;
-        *v207 = destinationCopy;
-        *&v207[8] = 1024;
-        *&v207[10] = v39;
-        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "lstat failed at %@: %{errno}d", buf, 0x12u);
-        v172 = *__error();
-        _MBLog();
+        *v203 = destinationCopy;
+        *&v203[8] = 1024;
+        *&v203[10] = v40;
+        _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "lstat failed at %@: %{errno}d", buf, 0x12u);
+        v41 = __error();
+        _MBLog(@"E ", "lstat failed at %@: %{errno}d", destinationCopy, *v41);
       }
 
 LABEL_73:
@@ -4085,20 +3972,20 @@ LABEL_73:
       goto LABEL_74;
     }
 
-    if ((v205.st_mode & 0xF000) == 0x4000)
+    if ((v201.st_mode & 0xF000) == 0x4000)
     {
-      v34 = cacheCopy;
-      v35 = 1;
+      v35 = cacheCopy;
+      v36 = 1;
 LABEL_43:
       if ([(MBCKFile *)self isRegularFile]&& [(MBCKFile *)self size])
       {
-        v193 = +[NSFileManager defaultManager];
+        v189 = +[NSFileManager defaultManager];
         restoreState = [(MBCKFile *)self restoreState];
         signature = [(MBCKFile *)self signature];
-        cacheCopy = v34;
-        v45 = [v34 fileAssetMetadataForSignature:signature volumeType:{-[MBCKFile volumeType](self, "volumeType")}];
+        cacheCopy = v35;
+        v47 = [v35 fileAssetMetadataForSignature:signature volumeType:{-[MBCKFile volumeType](self, "volumeType")}];
 
-        stashedAssetPath = [v45 stashedAssetPath];
+        stashedAssetPath = [v47 stashedAssetPath];
         if (stashedAssetPath)
         {
           [restoreState setStashedAssetPath:stashedAssetPath];
@@ -4111,77 +3998,73 @@ LABEL_43:
 
         else
         {
-          stashedAssetIsDecrypted = [v45 stashedAssetIsDecrypted];
+          stashedAssetIsDecrypted = [v47 stashedAssetIsDecrypted];
         }
 
         [restoreState setStashedAssetDecrypted:stashedAssetIsDecrypted];
-        v191 = v45;
-        decodedAssetPath = [v45 decodedAssetPath];
+        v187 = v47;
+        decodedAssetPath = [v47 decodedAssetPath];
         if (decodedAssetPath)
         {
           [restoreState setDecodedAssetPath:decodedAssetPath];
         }
 
-        v189 = decodedAssetPath;
+        v185 = decodedAssetPath;
         decodedAssetPath2 = [restoreState decodedAssetPath];
-        v190 = stashedAssetPath;
+        v186 = stashedAssetPath;
         if (decodedAssetPath2)
         {
-          v62 = decodedAssetPath2;
-          if ([v193 fileExistsAtPath:decodedAssetPath2])
+          v65 = decodedAssetPath2;
+          if ([v189 fileExistsAtPath:decodedAssetPath2])
           {
-            v188 = restoreState;
+            v184 = restoreState;
             [(MBCKFile *)self hasContentEncodingMethod];
-            v63 = 0;
+            v66 = 0;
 LABEL_70:
-            path2 = v62;
-            v185 = path2;
-            v65 = v191;
+            path2 = v65;
+            v181 = path2;
+            v68 = v187;
             goto LABEL_108;
           }
 
-          v74 = MBGetDefaultLog();
-          if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+          v79 = MBGetDefaultLog();
+          if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            *v207 = v62;
-            *&v207[8] = 2112;
-            *&v207[10] = self;
-            _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_ERROR, "Missing decoded asset at %@ for %@", buf, 0x16u);
-            permissions2 = v62;
-            selfCopy8 = self;
-            _MBLog();
+            *v203 = v65;
+            *&v203[8] = 2112;
+            *&v203[10] = self;
+            _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_ERROR, "Missing decoded asset at %@ for %@", buf, 0x16u);
+            _MBLog(@"E ", "Missing decoded asset at %@ for %@", v65, self);
           }
         }
 
-        v75 = [(MBCKFile *)self hasContentEncodingMethod:permissions2];
+        hasContentEncodingMethod = [(MBCKFile *)self hasContentEncodingMethod];
         stashedAssetPath2 = [restoreState stashedAssetPath];
         path2 = stashedAssetPath2;
-        if (v75)
+        if (hasContentEncodingMethod)
         {
-          v77 = v191;
-          v188 = restoreState;
+          v82 = v187;
+          v184 = restoreState;
           if (stashedAssetPath2)
           {
-            if ([v193 fileExistsAtPath:stashedAssetPath2])
+            if ([v189 fileExistsAtPath:stashedAssetPath2])
             {
-              v78 = path2;
-              v186 = cacheCopy;
-              v63 = 0;
+              v83 = path2;
+              v182 = cacheCopy;
+              v66 = 0;
               goto LABEL_145;
             }
 
-            v100 = MBGetDefaultLog();
-            if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
+            v105 = MBGetDefaultLog();
+            if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              *v207 = path2;
-              *&v207[8] = 2112;
-              *&v207[10] = self;
-              _os_log_impl(&_mh_execute_header, v100, OS_LOG_TYPE_ERROR, "Missing stashed asset at %@ for %@", buf, 0x16u);
-              permissions2 = path2;
-              selfCopy8 = self;
-              _MBLog();
+              *v203 = path2;
+              *&v203[8] = 2112;
+              *&v203[10] = self;
+              _os_log_impl(&_mh_execute_header, v105, OS_LOG_TYPE_ERROR, "Missing stashed asset at %@ for %@", buf, 0x16u);
+              _MBLog(@"E ", "Missing stashed asset at %@ for %@", path2, self);
             }
 
             [restoreState setStashedAssetPath:0];
@@ -4191,119 +4074,116 @@ LABEL_70:
           fileURL = [self->_changeType fileURL];
           path = [fileURL path];
 
-          if (path && ([v193 fileExistsAtPath:path] & 1) != 0)
+          if (path && ([v189 fileExistsAtPath:path] & 1) != 0)
           {
-            v203 = 0;
-            v103 = [(MBCKFile *)self stashAssetsToTemporaryDirectoryWithAccount:account operationTracker:trackerCopy cache:cacheCopy device:v18 error:&v203];
-            v63 = v203;
-            if (v103)
+            v199 = 0;
+            v108 = [(MBCKFile *)self stashAssetsToTemporaryDirectoryWithAccount:account operationTracker:trackerCopy cache:cacheCopy device:v18 error:&v199];
+            v66 = v199;
+            if (v108)
             {
-              v186 = cacheCopy;
+              v182 = cacheCopy;
               restoreState2 = [(MBCKFile *)self restoreState];
               [restoreState2 stashedAssetPath];
-              v106 = v105 = path;
+              v111 = v110 = path;
 
-              v78 = v106;
-              if (!v106)
+              v83 = v111;
+              if (!v111)
               {
                 __assert_rtn("[MBCKFile restoreAssetWithOperationTracker:destination:logger:cache:device:error:]", "MBCKFile.m", 1486, "stashedAssetPath");
               }
 
 LABEL_145:
-              v107 = v63;
+              v112 = v66;
               persona = [account persona];
               domain = [(MBCKFile *)self domain];
-              v110 = [persona restorePrefetchDirectoryForDomain:domain];
+              v115 = [persona restorePrefetchDirectoryForDomain:domain];
 
-              v202 = v107;
-              v184 = v110;
-              LOBYTE(persona) = [(MBCKFile *)self decodeWithFileAtPath:v78 destinationDirectory:v110 error:&v202];
-              v63 = v202;
+              v198 = v112;
+              v180 = v115;
+              LOBYTE(persona) = [(MBCKFile *)self decodeWithFileAtPath:v83 destinationDirectory:v115 error:&v198];
+              v66 = v198;
 
               if (persona)
               {
-                v111 = loggerCopy;
-                decodedAssetPath3 = [v188 decodedAssetPath];
+                v116 = loggerCopy;
+                decodedAssetPath3 = [v184 decodedAssetPath];
                 if (!decodedAssetPath3)
                 {
                   __assert_rtn("[MBCKFile restoreAssetWithOperationTracker:destination:logger:cache:device:error:]", "MBCKFile.m", 1495, "decodedAssetPath");
                 }
 
-                v62 = decodedAssetPath3;
-                v113 = MBGetDefaultLog();
-                if (os_log_type_enabled(v113, OS_LOG_TYPE_DEFAULT))
+                v65 = decodedAssetPath3;
+                v118 = MBGetDefaultLog();
+                if (os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412802;
-                  *v207 = v78;
-                  *&v207[8] = 2112;
-                  *&v207[10] = v62;
-                  v208 = 2112;
-                  selfCopy5 = self;
-                  _os_log_impl(&_mh_execute_header, v113, OS_LOG_TYPE_DEFAULT, "Decoded stashed asset from %@ to %@ for %@", buf, 0x20u);
-                  selfCopy8 = v62;
-                  selfCopy4 = self;
-                  permissions2 = v78;
-                  _MBLog();
+                  *v203 = v83;
+                  *&v203[8] = 2112;
+                  *&v203[10] = v65;
+                  v204 = 2112;
+                  selfCopy2 = self;
+                  _os_log_impl(&_mh_execute_header, v118, OS_LOG_TYPE_DEFAULT, "Decoded stashed asset from %@ to %@ for %@", buf, 0x20u);
+                  _MBLog(@"Df", "Decoded stashed asset from %@ to %@ for %@", v83, v65, self);
                 }
 
                 signature2 = [(MBCKFile *)self signature];
-                v115 = [v186 updateDecodedAssetPath:v62 forSignature:signature2 volumeType:{-[MBCKFile volumeType](self, "volumeType")}];
+                v120 = [v182 updateDecodedAssetPath:v65 forSignature:signature2 volumeType:{-[MBCKFile volumeType](self, "volumeType")}];
 
-                if (!v115)
+                if (!v120)
                 {
 
-                  loggerCopy = v111;
-                  cacheCopy = v186;
+                  loggerCopy = v116;
+                  cacheCopy = v182;
                   goto LABEL_70;
                 }
 
-                v116 = MBGetDefaultLog();
-                if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
+                v121 = MBGetDefaultLog();
+                if (os_log_type_enabled(v121, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  *v207 = v115;
-                  _os_log_impl(&_mh_execute_header, v116, OS_LOG_TYPE_ERROR, "Failed to update decoded asset path: %@", buf, 0xCu);
-                  _MBLog();
+                  *v203 = v120;
+                  _os_log_impl(&_mh_execute_header, v121, OS_LOG_TYPE_ERROR, "Failed to update decoded asset path: %@", buf, 0xCu);
+                  _MBLog(@"E ", "Failed to update decoded asset path: %@", v120);
                 }
 
                 if (error)
                 {
-                  v117 = v115;
-                  *error = v115;
+                  v122 = v120;
+                  *error = v120;
                 }
 
-                path = v62;
-                loggerCopy = v111;
-                cacheCopy = v186;
-                v77 = v191;
-                v118 = v193;
+                path = v65;
+                loggerCopy = v116;
+                cacheCopy = v182;
+                v82 = v187;
+                v123 = v189;
               }
 
               else
               {
-                v135 = MBGetDefaultLog();
-                if (os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
+                v141 = MBGetDefaultLog();
+                if (os_log_type_enabled(v141, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412802;
-                  *v207 = v78;
-                  *&v207[8] = 2112;
-                  *&v207[10] = self;
-                  v208 = 2112;
-                  selfCopy5 = v63;
-                  _os_log_impl(&_mh_execute_header, v135, OS_LOG_TYPE_ERROR, "Failed to decode the stashed asset at %@ for %@: %@", buf, 0x20u);
-                  _MBLog();
+                  *v203 = v83;
+                  *&v203[8] = 2112;
+                  *&v203[10] = self;
+                  v204 = 2112;
+                  selfCopy2 = v66;
+                  _os_log_impl(&_mh_execute_header, v141, OS_LOG_TYPE_ERROR, "Failed to decode the stashed asset at %@ for %@: %@", buf, 0x20u);
+                  _MBLog(@"E ", "Failed to decode the stashed asset at %@ for %@: %@", v83, self, v66);
                 }
 
-                cacheCopy = v186;
+                cacheCopy = v182;
                 if (error)
                 {
-                  v136 = v63;
-                  *error = v63;
+                  v142 = v66;
+                  *error = v66;
                 }
 
-                v77 = v191;
-                path = v78;
-                v118 = v193;
+                v82 = v187;
+                path = v83;
+                v123 = v189;
               }
 
 LABEL_195:
@@ -4311,242 +4191,237 @@ LABEL_195:
               goto LABEL_196;
             }
 
-            v138 = MBGetDefaultLog();
-            if (os_log_type_enabled(v138, OS_LOG_TYPE_ERROR))
+            v144 = MBGetDefaultLog();
+            if (os_log_type_enabled(v144, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *v207 = v63;
-              _os_log_impl(&_mh_execute_header, v138, OS_LOG_TYPE_ERROR, "Failed to stash content asset %@", buf, 0xCu);
-              _MBLog();
+              *v203 = v66;
+              _os_log_impl(&_mh_execute_header, v144, OS_LOG_TYPE_ERROR, "Failed to stash content asset %@", buf, 0xCu);
+              _MBLog(@"E ", "Failed to stash content asset %@", v66);
             }
 
             if (error)
             {
-              v139 = v63;
-              *error = v63;
+              v145 = v66;
+              *error = v66;
             }
           }
 
           else
           {
-            v119 = MBGetDefaultLog();
-            if (os_log_type_enabled(v119, OS_LOG_TYPE_ERROR))
+            v124 = MBGetDefaultLog();
+            if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              *v207 = path;
-              *&v207[8] = 2112;
-              *&v207[10] = self;
-              _os_log_impl(&_mh_execute_header, v119, OS_LOG_TYPE_ERROR, "Missing content asset at %@ for %@", buf, 0x16u);
-              _MBLog();
+              *v203 = path;
+              *&v203[8] = 2112;
+              *&v203[10] = self;
+              _os_log_impl(&_mh_execute_header, v124, OS_LOG_TYPE_ERROR, "Missing content asset at %@ for %@", buf, 0x16u);
+              _MBLog(@"E ", "Missing content asset at %@ for %@", path, self);
             }
 
             if (error)
             {
               [(MBCKFile *)self absolutePath];
-              v121 = v120 = path;
-              *error = [MBError errorWithCode:205 path:v121 format:@"Missing content asset"];
+              v126 = v125 = path;
+              *error = [MBError errorWithCode:205 path:v126 format:@"Missing content asset"];
 
-              path = v120;
-              v77 = v191;
-              v118 = v193;
-              v63 = 0;
+              path = v125;
+              v82 = v187;
+              v123 = v189;
+              v66 = 0;
               goto LABEL_195;
             }
 
-            v63 = 0;
+            v66 = 0;
           }
 
-          v118 = v193;
+          v123 = v189;
           goto LABEL_195;
         }
 
-        v65 = v191;
+        v68 = v187;
         if (stashedAssetPath2)
         {
-          if ([v193 fileExistsAtPath:stashedAssetPath2])
+          if ([v189 fileExistsAtPath:stashedAssetPath2])
           {
 LABEL_107:
-            v188 = restoreState;
-            v185 = 0;
-            v63 = 0;
+            v184 = restoreState;
+            v181 = 0;
+            v66 = 0;
 LABEL_108:
-            v187 = loggerCopy;
+            v183 = loggerCopy;
             if (_os_feature_enabled_impl())
             {
-              v182 = path2;
+              v178 = path2;
               volumeType = [(MBCKFile *)self volumeType];
               signature3 = [(MBCKFile *)self signature];
-              v201 = v63;
-              v83 = [cacheCopy retainCountForSignature:signature3 volumeType:volumeType error:&v201];
-              v179 = v201;
+              v197 = v66;
+              v88 = [cacheCopy retainCountForSignature:signature3 volumeType:volumeType error:&v197];
+              destinationCopy = v197;
 
-              v181 = v83;
-              if (v179)
+              v177 = v88;
+              if (destinationCopy)
               {
-                v85 = MBGetDefaultLog();
-                restoreState = v188;
-                path2 = v182;
-                if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+                v90 = MBGetDefaultLog();
+                restoreState = v184;
+                path2 = v178;
+                if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412546;
-                  *v207 = self;
-                  *&v207[8] = 2112;
-                  *&v207[10] = v179;
-                  _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_ERROR, "Failed to fetch retain count for %@: %@", buf, 0x16u);
-                  _MBLog();
+                  *v203 = self;
+                  *&v203[8] = 2112;
+                  *&v203[10] = destinationCopy;
+                  _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_ERROR, "Failed to fetch retain count for %@: %@", buf, 0x16u);
+                  _MBLog(@"E ", "Failed to fetch retain count for %@: %@", self, destinationCopy);
                 }
 
                 errorCopy3 = error;
-                v65 = v191;
+                v68 = v187;
                 if (!error)
                 {
                   goto LABEL_114;
                 }
 
 LABEL_113:
-                v87 = v179;
-                *errorCopy3 = v179;
+                v92 = destinationCopy;
+                *errorCopy3 = destinationCopy;
 LABEL_114:
 
-                v88 = v185;
+                v93 = v181;
 LABEL_221:
-                v137 = v193;
+                v143 = v189;
 LABEL_222:
 
-                v33 = 0;
+                v34 = 0;
 LABEL_231:
-                loggerCopy = v187;
+                loggerCopy = v183;
                 goto LABEL_232;
               }
 
-              unsignedLongLongValue = [v83 unsignedLongLongValue];
+              unsignedLongLongValue = [v88 unsignedLongLongValue];
               if (!unsignedLongLongValue)
               {
-                v122 = MBGetDefaultLog();
-                if (os_log_type_enabled(v122, OS_LOG_TYPE_FAULT))
+                v127 = MBGetDefaultLog();
+                if (os_log_type_enabled(v127, OS_LOG_TYPE_FAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&_mh_execute_header, v122, OS_LOG_TYPE_FAULT, "retainCount == 0, clones may not be preserved", buf, 2u);
-                  _MBLog();
+                  _os_log_impl(&_mh_execute_header, v127, OS_LOG_TYPE_FAULT, "retainCount == 0, clones may not be preserved", buf, 2u);
+                  _MBLog(@"F ", "retainCount == 0, clones may not be preserved");
                 }
               }
 
-              if ([(MBCKFile *)self sourceDeviceInode:permissions2])
+              if ([(MBCKFile *)self sourceDeviceInode])
               {
                 sourceDeviceInode = [(MBCKFile *)self sourceDeviceInode];
                 signature4 = [(MBCKFile *)self signature];
-                v200 = 0;
-                v125 = [cacheCopy countRestoreFilesWithSourceDeviceInode:sourceDeviceInode signature:signature4 volumeType:volumeType error:&v200];
-                v126 = v200;
+                v196 = 0;
+                v130 = [cacheCopy countRestoreFilesWithSourceDeviceInode:sourceDeviceInode signature:signature4 volumeType:volumeType error:&v196];
+                v131 = v196;
 
-                path2 = v182;
-                if (!v125 || v126)
+                path2 = v178;
+                if (!v130 || v131)
                 {
-                  v127 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
+                  v132 = MBGetDefaultLog();
+                  if (os_log_type_enabled(v132, OS_LOG_TYPE_ERROR))
                   {
-                    v128 = [NSNumber numberWithUnsignedLongLong:[(MBCKFile *)self sourceDeviceInode]];
+                    v133 = [NSNumber numberWithUnsignedLongLong:[(MBCKFile *)self sourceDeviceInode]];
                     *buf = 138412546;
-                    *v207 = v128;
-                    *&v207[8] = 2112;
-                    *&v207[10] = v126;
-                    _os_log_impl(&_mh_execute_header, v127, OS_LOG_TYPE_ERROR, "Failed to get link count for %@: %@", buf, 0x16u);
+                    *v203 = v133;
+                    *&v203[8] = 2112;
+                    *&v203[10] = v131;
+                    _os_log_impl(&_mh_execute_header, v132, OS_LOG_TYPE_ERROR, "Failed to get link count for %@: %@", buf, 0x16u);
 
-                    lastPathComponent2 = [NSNumber numberWithUnsignedLongLong:[(MBCKFile *)self sourceDeviceInode]];
-                    v176 = v126;
-                    _MBLog();
+                    v134 = [NSNumber numberWithUnsignedLongLong:[(MBCKFile *)self sourceDeviceInode]];
+                    _MBLog(@"E ", "Failed to get link count for %@: %@", v134, v131);
 
-                    path2 = v182;
+                    path2 = v178;
                   }
                 }
 
-                v129 = cacheCopy;
+                v135 = cacheCopy;
 
-                v130 = v125 > 1;
+                v136 = v130 > 1;
               }
 
               else
               {
-                v129 = cacheCopy;
-                v130 = 0;
-                path2 = v182;
+                v135 = cacheCopy;
+                v136 = 0;
+                path2 = v178;
               }
 
-              fileSystemRepresentation2 = [(MBCKFile *)path2 fileSystemRepresentation];
+              fileSystemRepresentation2 = [path2 fileSystemRepresentation];
               if (!fileSystemRepresentation2)
               {
                 __assert_rtn("[MBCKFile restoreAssetWithOperationTracker:destination:logger:cache:device:error:]", "MBCKFile.m", 1564, "sourcePathFSR");
               }
 
-              v141 = fileSystemRepresentation2;
-              fileSystemRepresentation3 = [(MBCKFile *)destinationCopy fileSystemRepresentation];
+              v147 = fileSystemRepresentation2;
+              fileSystemRepresentation3 = [destinationCopy fileSystemRepresentation];
               if (!fileSystemRepresentation3)
               {
                 __assert_rtn("[MBCKFile restoreAssetWithOperationTracker:destination:logger:cache:device:error:]", "MBCKFile.m", 1566, "destinationFSR");
               }
 
-              v143 = fileSystemRepresentation3;
-              v144 = MBGetDefaultLog();
-              v145 = os_log_type_enabled(v144, OS_LOG_TYPE_INFO);
-              if (v130)
+              v149 = fileSystemRepresentation3;
+              v150 = MBGetDefaultLog();
+              v151 = os_log_type_enabled(v150, OS_LOG_TYPE_INFO);
+              if (v136)
               {
-                if (v145)
+                if (v151)
                 {
                   fileID = [(MBCKFile *)self fileID];
                   *buf = 138413058;
-                  *v207 = v182;
-                  *&v207[8] = 2112;
-                  *&v207[10] = destinationCopy;
-                  v208 = 2112;
-                  selfCopy5 = fileID;
-                  v210 = 2048;
-                  v211 = unsignedLongLongValue;
-                  _os_log_impl(&_mh_execute_header, v144, OS_LOG_TYPE_INFO, "Restoring hard link from %@ to %@ (%@) rc:%lld", buf, 0x2Au);
+                  *v203 = v178;
+                  *&v203[8] = 2112;
+                  *&v203[10] = destinationCopy;
+                  v204 = 2112;
+                  selfCopy2 = fileID;
+                  v206 = 2048;
+                  v207 = unsignedLongLongValue;
+                  _os_log_impl(&_mh_execute_header, v150, OS_LOG_TYPE_INFO, "Restoring hard link from %@ to %@ (%@) rc:%lld", buf, 0x2Au);
 
-                  selfCopy6 = [(MBCKFile *)self fileID];
-                  v179 = unsignedLongLongValue;
-                  lastPathComponent2 = v182;
-                  v176 = destinationCopy;
-                  _MBLog();
+                  fileID2 = [(MBCKFile *)self fileID];
+                  _MBLog(@"I ", "Restoring hard link from %@ to %@ (%@) rc:%lld", v178, destinationCopy, fileID2, unsignedLongLongValue);
                 }
 
-                cacheCopy = v129;
-                if (!link(v141, v143))
+                cacheCopy = v135;
+                if (!link(v147, v149))
                 {
-                  v179 = 0;
-                  restoreState = v188;
-                  v65 = v191;
-                  path2 = v182;
+                  destinationCopy = 0;
+                  restoreState = v184;
+                  v68 = v187;
+                  path2 = v178;
                   goto LABEL_225;
                 }
 
-                v147 = *__error();
-                v148 = MBGetDefaultLog();
-                v149 = v148;
-                path2 = v182;
-                if (v147 == 18)
+                v154 = *__error();
+                v155 = MBGetDefaultLog();
+                v156 = v155;
+                path2 = v178;
+                if (v154 == 18)
                 {
-                  restoreState = v188;
-                  if (os_log_type_enabled(v148, OS_LOG_TYPE_FAULT))
+                  restoreState = v184;
+                  if (os_log_type_enabled(v155, OS_LOG_TYPE_FAULT))
                   {
-                    lastPathComponent = [(MBCKFile *)v182 lastPathComponent];
+                    lastPathComponent = [v178 lastPathComponent];
                     *buf = 138412546;
-                    *v207 = lastPathComponent;
-                    *&v207[8] = 2112;
-                    *&v207[10] = destinationCopy;
-                    _os_log_impl(&_mh_execute_header, v149, OS_LOG_TYPE_FAULT, "Could not restore hard link (%@) across volumes, copying to %@", buf, 0x16u);
+                    *v203 = lastPathComponent;
+                    *&v203[8] = 2112;
+                    *&v203[10] = destinationCopy;
+                    _os_log_impl(&_mh_execute_header, v156, OS_LOG_TYPE_FAULT, "Could not restore hard link (%@) across volumes, copying to %@", buf, 0x16u);
 
-                    lastPathComponent2 = [(MBCKFile *)v182 lastPathComponent];
-                    v176 = destinationCopy;
-                    _MBLog();
+                    lastPathComponent2 = [v178 lastPathComponent];
+                    _MBLog(@"F ", "Could not restore hard link (%@) across volumes, copying to %@", lastPathComponent2, destinationCopy);
 
-                    path2 = v182;
+                    path2 = v178;
                   }
 
-                  v151 = [MBFileOperation crossVolumeCopyFrom:v141 toDestination:v143 shouldDeleteSource:0 error:error];
-                  v179 = 0;
-                  v65 = v191;
-                  if ((v151 & 1) == 0)
+                  v159 = [MBFileOperation crossVolumeCopyFrom:v147 toDestination:v149 shouldDeleteSource:0 error:error];
+                  destinationCopy = 0;
+                  v68 = v187;
+                  if ((v159 & 1) == 0)
                   {
                     goto LABEL_114;
                   }
@@ -4554,36 +4429,33 @@ LABEL_231:
                   goto LABEL_225;
                 }
 
-                if (os_log_type_enabled(v148, OS_LOG_TYPE_ERROR))
+                if (os_log_type_enabled(v155, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412802;
-                  *v207 = v182;
-                  *&v207[8] = 2112;
-                  *&v207[10] = destinationCopy;
-                  v208 = 1024;
-                  LODWORD(selfCopy5) = v147;
-                  _os_log_impl(&_mh_execute_header, v149, OS_LOG_TYPE_ERROR, "Failed to hardlink file from %@ to %@: %{errno}d", buf, 0x1Cu);
-                  v176 = destinationCopy;
-                  selfCopy6 = v147;
-                  lastPathComponent2 = v182;
-                  _MBLog();
+                  *v203 = v178;
+                  *&v203[8] = 2112;
+                  *&v203[10] = destinationCopy;
+                  v204 = 1024;
+                  LODWORD(selfCopy2) = v154;
+                  _os_log_impl(&_mh_execute_header, v156, OS_LOG_TYPE_ERROR, "Failed to hardlink file from %@ to %@: %{errno}d", buf, 0x1Cu);
+                  _MBLog(@"E ", "Failed to hardlink file from %@ to %@: %{errno}d", v178, destinationCopy, v154);
                 }
 
-                v65 = v191;
-                if (v147 == 17)
+                v68 = v187;
+                if (v154 == 17)
                 {
                   domainName = [(MBCKFile *)self domainName];
-                  v160 = [domainName isEqualToString:@"AppDomainGroup-group.com.apple.FileProvider.LocalStorage"];
+                  v169 = [domainName isEqualToString:@"AppDomainGroup-group.com.apple.FileProvider.LocalStorage"];
 
-                  if (v160)
+                  if (v169)
                   {
-                    v199 = 0;
-                    path2 = v182;
-                    v161 = [MBRestorableOperation move:self fromSource:v182 destination:destinationCopy destinationSize:v205.st_size conflictResolution:2 error:&v199];
-                    v179 = v199;
+                    v195 = 0;
+                    path2 = v178;
+                    v170 = [MBRestorableOperation move:self fromSource:v178 destination:destinationCopy destinationSize:v201.st_size conflictResolution:2 error:&v195];
+                    destinationCopy = v195;
 
-                    restoreState = v188;
-                    if (!v161)
+                    restoreState = v184;
+                    if (!v170)
                     {
 LABEL_244:
                       errorCopy3 = error;
@@ -4596,89 +4468,82 @@ LABEL_244:
                     }
 
 LABEL_225:
-                    [v187 logLinkForRestorable:self state:5 source:path2 target:{destinationCopy, lastPathComponent2, v176, selfCopy6, v179}];
+                    [v183 logLinkForRestorable:self state:5 source:path2 target:destinationCopy];
 LABEL_228:
 
                     goto LABEL_229;
                   }
                 }
 
-                path2 = v182;
-                v179 = [MBError errorWithErrno:v147 format:@"Failed hardlinking from %@ to %@", v182, destinationCopy, selfCopy6, v179];
-                v165 = MBGetDefaultLog();
-                if (!os_log_type_enabled(v165, OS_LOG_TYPE_ERROR))
+                path2 = v178;
+                destinationCopy = [MBError errorWithErrno:v154 format:@"Failed hardlinking from %@ to %@", v178, destinationCopy];
+                v174 = MBGetDefaultLog();
+                if (os_log_type_enabled(v174, OS_LOG_TYPE_ERROR))
                 {
-LABEL_251:
-
-                  errorCopy3 = error;
-                  restoreState = v188;
-                  if (!error)
-                  {
-                    goto LABEL_114;
-                  }
-
-                  goto LABEL_113;
+                  *buf = 138412802;
+                  *v203 = v178;
+                  *&v203[8] = 2112;
+                  *&v203[10] = destinationCopy;
+                  v204 = 2112;
+                  selfCopy2 = destinationCopy;
+                  _os_log_impl(&_mh_execute_header, v174, OS_LOG_TYPE_ERROR, "link error from %@ to %@: %@", buf, 0x20u);
+                  _MBLog(@"E ", "link error from %@ to %@: %@", v178, destinationCopy, destinationCopy);
                 }
 
-                *buf = 138412802;
-                *v207 = v182;
-                *&v207[8] = 2112;
-                *&v207[10] = destinationCopy;
-                v208 = 2112;
-                selfCopy5 = v179;
-                _os_log_impl(&_mh_execute_header, v165, OS_LOG_TYPE_ERROR, "link error from %@ to %@: %@", buf, 0x20u);
 LABEL_250:
-                _MBLog();
-                goto LABEL_251;
+
+                errorCopy3 = error;
+                restoreState = v184;
+                if (!error)
+                {
+                  goto LABEL_114;
+                }
+
+                goto LABEL_113;
               }
 
-              if (v145)
+              if (v151)
               {
                 *buf = 138413058;
-                *v207 = path2;
-                *&v207[8] = 2112;
-                *&v207[10] = destinationCopy;
-                v208 = 2112;
-                selfCopy5 = self;
-                v210 = 2048;
-                v211 = unsignedLongLongValue;
-                _os_log_impl(&_mh_execute_header, v144, OS_LOG_TYPE_INFO, "Cloning from %@ to %@ (%@) rc:%lld", buf, 0x2Au);
-                selfCopy6 = self;
-                v179 = unsignedLongLongValue;
-                lastPathComponent2 = path2;
-                v176 = destinationCopy;
-                _MBLog();
+                *v203 = path2;
+                *&v203[8] = 2112;
+                *&v203[10] = destinationCopy;
+                v204 = 2112;
+                selfCopy2 = self;
+                v206 = 2048;
+                v207 = unsignedLongLongValue;
+                _os_log_impl(&_mh_execute_header, v150, OS_LOG_TYPE_INFO, "Cloning from %@ to %@ (%@) rc:%lld", buf, 0x2Au);
+                _MBLog(@"I ", "Cloning from %@ to %@ (%@) rc:%lld", path2, destinationCopy, self, unsignedLongLongValue);
               }
 
-              cacheCopy = v129;
-              if (clonefile(v141, v143, 0))
+              cacheCopy = v135;
+              if (clonefile(v147, v149, 0))
               {
-                v152 = *__error();
-                v153 = MBGetDefaultLog();
-                v154 = v153;
-                if (v152 == 18)
+                v160 = *__error();
+                v161 = MBGetDefaultLog();
+                v162 = v161;
+                if (v160 == 18)
                 {
-                  restoreState = v188;
-                  if (os_log_type_enabled(v153, OS_LOG_TYPE_INFO))
+                  restoreState = v184;
+                  if (os_log_type_enabled(v161, OS_LOG_TYPE_INFO))
                   {
-                    lastPathComponent3 = [(MBCKFile *)path2 lastPathComponent];
+                    lastPathComponent3 = [path2 lastPathComponent];
                     *buf = 138412546;
-                    *v207 = lastPathComponent3;
-                    *&v207[8] = 2112;
-                    *&v207[10] = destinationCopy;
-                    _os_log_impl(&_mh_execute_header, v154, OS_LOG_TYPE_INFO, "Could not restore clone (%@) across volumes, copying to %@", buf, 0x16u);
+                    *v203 = lastPathComponent3;
+                    *&v203[8] = 2112;
+                    *&v203[10] = destinationCopy;
+                    _os_log_impl(&_mh_execute_header, v162, OS_LOG_TYPE_INFO, "Could not restore clone (%@) across volumes, copying to %@", buf, 0x16u);
 
-                    lastPathComponent2 = [(MBCKFile *)v182 lastPathComponent];
-                    v176 = destinationCopy;
-                    _MBLog();
+                    lastPathComponent4 = [v178 lastPathComponent];
+                    _MBLog(@"I ", "Could not restore clone (%@) across volumes, copying to %@", lastPathComponent4, destinationCopy);
 
-                    path2 = v182;
+                    path2 = v178;
                   }
 
-                  v156 = [MBFileOperation crossVolumeCopyFrom:v141 toDestination:v143 shouldDeleteSource:0 error:error];
-                  v179 = 0;
-                  v65 = v191;
-                  if ((v156 & 1) == 0)
+                  v165 = [MBFileOperation crossVolumeCopyFrom:v147 toDestination:v149 shouldDeleteSource:0 error:error];
+                  destinationCopy = 0;
+                  v68 = v187;
+                  if ((v165 & 1) == 0)
                   {
                     goto LABEL_114;
                   }
@@ -4686,49 +4551,46 @@ LABEL_250:
 
                 else
                 {
-                  if (os_log_type_enabled(v153, OS_LOG_TYPE_ERROR))
+                  if (os_log_type_enabled(v161, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412802;
-                    *v207 = path2;
-                    *&v207[8] = 2112;
-                    *&v207[10] = destinationCopy;
-                    v208 = 1024;
-                    LODWORD(selfCopy5) = v152;
-                    _os_log_impl(&_mh_execute_header, v154, OS_LOG_TYPE_ERROR, "Failed to clone file from %@ to %@: %{errno}d", buf, 0x1Cu);
-                    v176 = destinationCopy;
-                    selfCopy6 = v152;
-                    lastPathComponent2 = path2;
-                    _MBLog();
+                    *v203 = path2;
+                    *&v203[8] = 2112;
+                    *&v203[10] = destinationCopy;
+                    v204 = 1024;
+                    LODWORD(selfCopy2) = v160;
+                    _os_log_impl(&_mh_execute_header, v162, OS_LOG_TYPE_ERROR, "Failed to clone file from %@ to %@: %{errno}d", buf, 0x1Cu);
+                    _MBLog(@"E ", "Failed to clone file from %@ to %@: %{errno}d", path2, destinationCopy, v160);
                   }
 
-                  v65 = v191;
-                  if (v152 != 17 || (-[MBCKFile domainName](self, "domainName"), v162 = objc_claimAutoreleasedReturnValue(), v163 = [v162 isEqualToString:@"AppDomainGroup-group.com.apple.FileProvider.LocalStorage"], v162, !v163))
+                  v68 = v187;
+                  if (v160 != 17 || (-[MBCKFile domainName](self, "domainName"), v171 = objc_claimAutoreleasedReturnValue(), v172 = [v171 isEqualToString:@"AppDomainGroup-group.com.apple.FileProvider.LocalStorage"], v171, !v172))
                   {
-                    path2 = v182;
-                    v179 = [MBError errorWithErrno:v152 format:@"Failed cloning from %@ to %@", v182, destinationCopy, selfCopy6, v179];
-                    v165 = MBGetDefaultLog();
-                    if (!os_log_type_enabled(v165, OS_LOG_TYPE_ERROR))
+                    path2 = v178;
+                    destinationCopy = [MBError errorWithErrno:v160 format:@"Failed cloning from %@ to %@", v178, destinationCopy];
+                    v174 = MBGetDefaultLog();
+                    if (os_log_type_enabled(v174, OS_LOG_TYPE_ERROR))
                     {
-                      goto LABEL_251;
+                      *buf = 138412802;
+                      *v203 = v178;
+                      *&v203[8] = 2112;
+                      *&v203[10] = destinationCopy;
+                      v204 = 2112;
+                      selfCopy2 = destinationCopy;
+                      _os_log_impl(&_mh_execute_header, v174, OS_LOG_TYPE_ERROR, "clone error from %@ to %@: %@", buf, 0x20u);
+                      _MBLog(@"E ", "clone error from %@ to %@: %@", v178, destinationCopy, destinationCopy);
                     }
 
-                    *buf = 138412802;
-                    *v207 = v182;
-                    *&v207[8] = 2112;
-                    *&v207[10] = destinationCopy;
-                    v208 = 2112;
-                    selfCopy5 = v179;
-                    _os_log_impl(&_mh_execute_header, v165, OS_LOG_TYPE_ERROR, "clone error from %@ to %@: %@", buf, 0x20u);
                     goto LABEL_250;
                   }
 
-                  v198 = 0;
-                  path2 = v182;
-                  v164 = [MBRestorableOperation move:self fromSource:v182 destination:destinationCopy destinationSize:v205.st_size conflictResolution:1 error:&v198];
-                  v179 = v198;
+                  v194 = 0;
+                  path2 = v178;
+                  v173 = [MBRestorableOperation move:self fromSource:v178 destination:destinationCopy destinationSize:v201.st_size conflictResolution:1 error:&v194];
+                  destinationCopy = v194;
 
-                  restoreState = v188;
-                  if (!v164)
+                  restoreState = v184;
+                  if (!v173)
                   {
                     goto LABEL_244;
                   }
@@ -4737,132 +4599,125 @@ LABEL_250:
 
               else
               {
-                v179 = 0;
-                restoreState = v188;
-                v65 = v191;
+                destinationCopy = 0;
+                restoreState = v184;
+                v68 = v187;
               }
 
-              [v187 logCloneForRestorable:self state:5 source:path2 target:{destinationCopy, lastPathComponent2, v176, selfCopy6, v179}];
+              [v183 logCloneForRestorable:self state:5 source:path2 target:destinationCopy];
               goto LABEL_228;
             }
 
-            v89 = MBGetDefaultLog();
-            if (os_log_type_enabled(v89, OS_LOG_TYPE_DEBUG))
+            v94 = MBGetDefaultLog();
+            if (os_log_type_enabled(v94, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412546;
-              *v207 = path2;
-              *&v207[8] = 2112;
-              *&v207[10] = destinationCopy;
-              _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_DEBUG, "Moving downloaded file from %@ to %@", buf, 0x16u);
-              permissions2 = path2;
-              selfCopy8 = destinationCopy;
-              _MBLog();
+              *v203 = path2;
+              *&v203[8] = 2112;
+              *&v203[10] = destinationCopy;
+              _os_log_impl(&_mh_execute_header, v94, OS_LOG_TYPE_DEBUG, "Moving downloaded file from %@ to %@", buf, 0x16u);
+              _MBLog(@"Db", "Moving downloaded file from %@ to %@", path2, destinationCopy);
             }
 
-            v197 = v63;
-            v90 = [v193 moveItemAtPath:path2 toPath:destinationCopy error:&v197];
-            v179 = v197;
+            v193 = v66;
+            v95 = [v189 moveItemAtPath:path2 toPath:destinationCopy error:&v193];
+            destinationCopy = v193;
 
-            if (v90)
+            if (v95)
             {
-              restoreState = v188;
+              restoreState = v184;
 LABEL_229:
-              v99 = v190;
+              v104 = v186;
               goto LABEL_230;
             }
 
-            v92 = MBGetDefaultLog();
-            if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
+            v97 = MBGetDefaultLog();
+            if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543874;
-              *v207 = path2;
-              *&v207[8] = 2114;
-              *&v207[10] = destinationCopy;
-              v208 = 2114;
-              selfCopy5 = v179;
-              _os_log_impl(&_mh_execute_header, v92, OS_LOG_TYPE_ERROR, "Failed to move file into place from %{public}@ to %{public}@: %{public}@", buf, 0x20u);
-              selfCopy8 = destinationCopy;
-              selfCopy4 = v179;
-              permissions2 = path2;
-              _MBLog();
+              *v203 = path2;
+              *&v203[8] = 2114;
+              *&v203[10] = destinationCopy;
+              v204 = 2114;
+              selfCopy2 = destinationCopy;
+              _os_log_impl(&_mh_execute_header, v97, OS_LOG_TYPE_ERROR, "Failed to move file into place from %{public}@ to %{public}@: %{public}@", buf, 0x20u);
+              _MBLog(@"E ", "Failed to move file into place from %{public}@ to %{public}@: %{public}@", path2, destinationCopy, destinationCopy);
             }
 
             domainName2 = [(MBCKFile *)self domainName];
             if ([domainName2 isEqualToString:@"AppDomainGroup-group.com.apple.FileProvider.LocalStorage"])
             {
-              v183 = path2;
-              domain2 = [(MBCKFile *)v179 domain];
+              v179 = path2;
+              domain2 = [(MBCKFile *)destinationCopy domain];
               if ([domain2 isEqualToString:NSCocoaErrorDomain])
               {
-                code = [(MBCKFile *)v179 code];
+                code = [(MBCKFile *)destinationCopy code];
 
-                v96 = code == 516;
-                v65 = v191;
-                path2 = v183;
-                if (v96)
+                v101 = code == 516;
+                v68 = v187;
+                path2 = v179;
+                if (v101)
                 {
-                  v196 = v179;
-                  v97 = [MBRestorableOperation move:self fromSource:v183 destination:destinationCopy destinationSize:v205.st_size conflictResolution:3 error:&v196];
-                  v98 = v196;
+                  v192 = destinationCopy;
+                  v102 = [MBRestorableOperation move:self fromSource:v179 destination:destinationCopy destinationSize:v201.st_size conflictResolution:3 error:&v192];
+                  v103 = v192;
 
-                  if (!v97)
+                  if (!v102)
                   {
-                    v88 = v185;
+                    v93 = v181;
                     if (error)
                     {
-                      v166 = v98;
-                      *error = v98;
+                      v175 = v103;
+                      *error = v103;
                     }
 
-                    v179 = v98;
-                    v137 = v193;
-                    restoreState = v188;
-                    path2 = v183;
+                    destinationCopy = v103;
+                    v143 = v189;
+                    restoreState = v184;
+                    path2 = v179;
                     goto LABEL_222;
                   }
 
-                  v179 = v98;
-                  restoreState = v188;
-                  v99 = v190;
-                  path2 = v183;
+                  destinationCopy = v103;
+                  restoreState = v184;
+                  v104 = v186;
+                  path2 = v179;
 LABEL_230:
-                  [restoreState setStashedAssetPath:{0, permissions2, selfCopy8, selfCopy4}];
+                  [restoreState setStashedAssetPath:0];
 
-                  v33 = 1;
+                  v34 = 1;
                   goto LABEL_231;
                 }
 
 LABEL_219:
-                restoreState = v188;
-                [v188 setStashedAssetPath:{0, permissions2, selfCopy8, selfCopy4}];
-                [v188 setStashedAssetDecrypted:0];
-                v88 = v185;
+                restoreState = v184;
+                [v184 setStashedAssetPath:0];
+                [v184 setStashedAssetDecrypted:0];
+                v93 = v181;
                 if (error)
                 {
-                  v157 = v179;
-                  *error = v179;
+                  v166 = destinationCopy;
+                  *error = destinationCopy;
                 }
 
                 goto LABEL_221;
               }
 
-              path2 = v183;
+              path2 = v179;
             }
 
             goto LABEL_219;
           }
 
-          v79 = MBGetDefaultLog();
-          if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+          v84 = MBGetDefaultLog();
+          if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            *v207 = path2;
-            *&v207[8] = 2112;
-            *&v207[10] = self;
-            _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_ERROR, "Missing stashed asset at %@ for %@", buf, 0x16u);
-            permissions2 = path2;
-            selfCopy8 = self;
-            _MBLog();
+            *v203 = path2;
+            *&v203[8] = 2112;
+            *&v203[10] = self;
+            _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_ERROR, "Missing stashed asset at %@ for %@", buf, 0x16u);
+            _MBLog(@"E ", "Missing stashed asset at %@ for %@", path2, self);
           }
 
           [restoreState setStashedAssetPath:0];
@@ -4874,98 +4729,94 @@ LABEL_219:
 
         if (path2)
         {
-          if ([v193 fileExistsAtPath:path2])
+          if ([v189 fileExistsAtPath:path2])
           {
             goto LABEL_107;
           }
 
-          v131 = MBGetDefaultLog();
-          if (os_log_type_enabled(v131, OS_LOG_TYPE_ERROR))
+          v137 = MBGetDefaultLog();
+          if (os_log_type_enabled(v137, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            *v207 = path2;
-            *&v207[8] = 2112;
-            *&v207[10] = self;
-            _os_log_impl(&_mh_execute_header, v131, OS_LOG_TYPE_ERROR, "Missing content asset at %@ for %@", buf, 0x16u);
-            permissions2 = path2;
-            selfCopy8 = self;
-            _MBLog();
+            *v203 = path2;
+            *&v203[8] = 2112;
+            *&v203[10] = self;
+            _os_log_impl(&_mh_execute_header, v137, OS_LOG_TYPE_ERROR, "Missing content asset at %@ for %@", buf, 0x16u);
+            _MBLog(@"E ", "Missing content asset at %@ for %@", path2, self);
           }
         }
 
-        v187 = loggerCopy;
-        v132 = [(MBCKFile *)self absolutePath:permissions2];
-        v179 = [MBError errorWithCode:205 path:v132 format:@"Missing content asset"];
+        v183 = loggerCopy;
+        absolutePath = [(MBCKFile *)self absolutePath];
+        destinationCopy = [MBError errorWithCode:205 path:absolutePath format:@"Missing content asset"];
 
-        v133 = MBGetDefaultLog();
-        if (os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
+        v139 = MBGetDefaultLog();
+        if (os_log_type_enabled(v139, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          *v207 = self;
-          *&v207[8] = 2112;
-          *&v207[10] = v179;
-          _os_log_impl(&_mh_execute_header, v133, OS_LOG_TYPE_ERROR, "Missing content asset on %@: %@", buf, 0x16u);
-          _MBLog();
+          *v203 = self;
+          *&v203[8] = 2112;
+          *&v203[10] = destinationCopy;
+          _os_log_impl(&_mh_execute_header, v139, OS_LOG_TYPE_ERROR, "Missing content asset on %@: %@", buf, 0x16u);
+          _MBLog(@"E ", "Missing content asset on %@: %@", self, destinationCopy);
         }
 
         if (error)
         {
-          v134 = v179;
-          v88 = 0;
+          v140 = destinationCopy;
+          v93 = 0;
           path2 = 0;
-          *error = v179;
+          *error = destinationCopy;
         }
 
         else
         {
-          v88 = 0;
+          v93 = 0;
           path2 = 0;
         }
 
-        v137 = v193;
-        v65 = v191;
+        v143 = v189;
+        v68 = v187;
         goto LABEL_222;
       }
 
       if ([(MBCKFile *)self isRegularFile]&& ![(MBCKFile *)self size])
       {
-        v67 = open_dprotected_np(fileSystemRepresentation, 1793, 4, 0, [(MBCKFile *)self permissions]);
-        if (v67 < 0)
+        v70 = open_dprotected_np(fileSystemRepresentation, 1793, 4, 0, [(MBCKFile *)self permissions]);
+        if (v70 < 0)
         {
-          cacheCopy = v34;
+          cacheCopy = v35;
           errorCopy6 = error;
           if (!error)
           {
             goto LABEL_196;
           }
 
-          v52 = @"open_dprotected_np error";
+          v54 = @"open_dprotected_np error";
           goto LABEL_129;
         }
 
-        close(v67);
+        close(v70);
       }
 
       else
       {
         if ([(MBCKFile *)self isDirectory])
         {
-          v48 = MBGetDefaultLog();
-          v49 = os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG);
-          if (v35)
+          v50 = MBGetDefaultLog();
+          v51 = os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG);
+          if (v36)
           {
-            cacheCopy = v34;
-            if (v49)
+            cacheCopy = v35;
+            if (v51)
             {
               permissions = [(MBCKFile *)self permissions];
               *buf = 67109378;
-              *v207 = permissions;
-              *&v207[4] = 2112;
-              *&v207[6] = destinationCopy;
-              _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEBUG, "Directory already exists, restoring permissions 0%o at %@", buf, 0x12u);
-              permissions2 = [(MBCKFile *)self permissions];
-              selfCopy8 = destinationCopy;
-              _MBLog();
+              *v203 = permissions;
+              *&v203[4] = 2112;
+              *&v203[6] = destinationCopy;
+              _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEBUG, "Directory already exists, restoring permissions 0%o at %@", buf, 0x12u);
+              _MBLog(@"Db", "Directory already exists, restoring permissions 0%o at %@", [(MBCKFile *)self permissions], destinationCopy);
             }
 
             if (lchmod(fileSystemRepresentation, [(MBCKFile *)self permissions]))
@@ -4976,28 +4827,26 @@ LABEL_219:
                 goto LABEL_196;
               }
 
-              v52 = @"lchmod error";
+              v54 = @"lchmod error";
 LABEL_129:
-              [MBError posixErrorWithCode:102 path:destinationCopy format:v52, permissions2, selfCopy8];
-              *errorCopy6 = v33 = 0;
+              [MBError posixErrorWithCode:102 path:destinationCopy format:v54];
+              *errorCopy6 = v34 = 0;
               goto LABEL_232;
             }
           }
 
           else
           {
-            cacheCopy = v34;
-            if (v49)
+            cacheCopy = v35;
+            if (v51)
             {
-              permissions3 = [(MBCKFile *)self permissions];
+              permissions2 = [(MBCKFile *)self permissions];
               *buf = 138412546;
-              *v207 = destinationCopy;
-              *&v207[8] = 1024;
-              *&v207[10] = permissions3;
-              _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEBUG, "Making directory at %@ (0%o)", buf, 0x12u);
-              permissions2 = destinationCopy;
-              selfCopy8 = [(MBCKFile *)self permissions];
-              _MBLog();
+              *v203 = destinationCopy;
+              *&v203[8] = 1024;
+              *&v203[10] = permissions2;
+              _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEBUG, "Making directory at %@ (0%o)", buf, 0x12u);
+              _MBLog(@"Db", "Making directory at %@ (0%o)", destinationCopy, [(MBCKFile *)self permissions]);
             }
 
             if (mkdir(fileSystemRepresentation, [(MBCKFile *)self permissions]))
@@ -5008,12 +4857,12 @@ LABEL_129:
                 goto LABEL_196;
               }
 
-              v52 = @"mkdir error";
+              v54 = @"mkdir error";
               goto LABEL_129;
             }
           }
 
-          v33 = 1;
+          v34 = 1;
           goto LABEL_232;
         }
 
@@ -5021,22 +4870,22 @@ LABEL_129:
         {
           linkTarget = [(MBCKFile *)self linkTarget];
 
-          v54 = MBGetDefaultLog();
-          v55 = v54;
-          cacheCopy = v34;
+          v56 = MBGetDefaultLog();
+          v57 = v56;
+          cacheCopy = v35;
           if (linkTarget)
           {
-            if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+            if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
             {
               linkTarget2 = [(MBCKFile *)self linkTarget];
               *buf = 138412546;
-              *v207 = destinationCopy;
-              *&v207[8] = 2112;
-              *&v207[10] = linkTarget2;
-              _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEBUG, "Creating symbolic link at %@ to target %@", buf, 0x16u);
+              *v203 = destinationCopy;
+              *&v203[8] = 2112;
+              *&v203[10] = linkTarget2;
+              _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEBUG, "Creating symbolic link at %@ to target %@", buf, 0x16u);
 
               linkTarget3 = [(MBCKFile *)self linkTarget];
-              _MBLog();
+              _MBLog(@"Db", "Creating symbolic link at %@ to target %@", destinationCopy, linkTarget3);
             }
 
             linkTarget4 = [(MBCKFile *)self linkTarget];
@@ -5059,58 +4908,57 @@ LABEL_129:
               }
 
               [MBError posixErrorWithCode:102 path:destinationCopy format:@"symlink error"];
-              *error = v33 = 0;
+              *error = v34 = 0;
             }
 
             else
             {
-              v33 = 1;
+              v34 = 1;
             }
 
             goto LABEL_232;
           }
 
-          if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            *v207 = self;
-            _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "Failed to set symbolic link: file missing link target: %@", buf, 0xCu);
-            _MBLog();
+            *v203 = self;
+            _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_ERROR, "Failed to set symbolic link: file missing link target: %@", buf, 0xCu);
+            _MBLog(@"E ", "Failed to set symbolic link: file missing link target: %@", self);
           }
 
           if (error)
           {
-            absolutePath = [(MBCKFile *)self absolutePath];
-            *error = [MBError errorWithCode:205 path:absolutePath format:@"Symbolic link missing link target"];
+            absolutePath2 = [(MBCKFile *)self absolutePath];
+            *error = [MBError errorWithCode:205 path:absolutePath2 format:@"Symbolic link missing link target"];
           }
 
 LABEL_74:
-          v33 = 0;
+          v34 = 0;
           goto LABEL_232;
         }
       }
 
-      v33 = 1;
-      cacheCopy = v34;
+      v34 = 1;
+      cacheCopy = v35;
       goto LABEL_232;
     }
 
     domainName3 = [(MBCKFile *)self domainName];
     if ([domainName3 isEqualToString:@"AppDomainGroup-group.com.apple.FileProvider.LocalStorage"])
     {
-      v37 = _os_feature_enabled_impl();
+      v38 = _os_feature_enabled_impl();
 
-      if (v37)
+      if (v38)
       {
-        v34 = cacheCopy;
-        v38 = MBGetDefaultLog();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        v35 = cacheCopy;
+        v39 = MBGetDefaultLog();
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          *v207 = destinationCopy;
-          _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Not removing existing On My iPhone file at %@", buf, 0xCu);
-          v167 = destinationCopy;
-          _MBLog();
+          *v203 = destinationCopy;
+          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Not removing existing On My iPhone file at %@", buf, 0xCu);
+          _MBLog(@"Df", "Not removing existing On My iPhone file at %@", destinationCopy);
         }
 
         goto LABEL_41;
@@ -5121,32 +4969,31 @@ LABEL_74:
     {
     }
 
-    v40 = MBGetDefaultLog();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+    v42 = MBGetDefaultLog();
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *v207 = destinationCopy;
-      _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Removing existing item at %@", buf, 0xCu);
-      v167 = destinationCopy;
-      _MBLog();
+      *v203 = destinationCopy;
+      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Removing existing item at %@", buf, 0xCu);
+      _MBLog(@"Df", "Removing existing item at %@", destinationCopy);
     }
 
-    v41 = +[NSFileManager defaultManager];
-    v204 = 0;
-    v42 = [v41 removeItemAtPath:destinationCopy error:&v204];
-    v38 = v204;
+    v43 = +[NSFileManager defaultManager];
+    v200 = 0;
+    v44 = [v43 removeItemAtPath:destinationCopy error:&v200];
+    v39 = v200;
 
-    if ((v42 & 1) == 0)
+    if ((v44 & 1) == 0)
     {
       if (error)
       {
-        *error = [MBError errorWithCode:102 error:v38 path:destinationCopy format:@"Failed to remove existing file"];
+        *error = [MBError errorWithCode:102 error:v39 path:destinationCopy format:@"Failed to remove existing file"];
       }
 
       goto LABEL_73;
     }
 
-    v34 = cacheCopy;
+    v35 = cacheCopy;
 LABEL_41:
 
     goto LABEL_42;
@@ -5156,7 +5003,7 @@ LABEL_41:
   stringByDeletingLastPathComponent = [relativePath2 stringByDeletingLastPathComponent];
 
   relativePath3 = [(MBCKFile *)self relativePath];
-  v25 = [(MBCKFile *)destinationCopy rangeOfString:relativePath3];
+  v25 = [destinationCopy rangeOfString:relativePath3];
 
   if (v25 == 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -5167,8 +5014,8 @@ LABEL_17:
 
   v26 = destinationCopy;
   v27 = loggerCopy;
-  v192 = v26;
-  v28 = [(MBCKFile *)v26 substringToIndex:v25];
+  v188 = v26;
+  v28 = [v26 substringToIndex:v25];
   if (![stringByDeletingLastPathComponent length])
   {
     v23StringByDeletingLastPathComponent = stringByDeletingLastPathComponent;
@@ -5176,27 +5023,27 @@ LABEL_16:
 
     stringByDeletingLastPathComponent = v23StringByDeletingLastPathComponent;
     loggerCopy = v27;
-    destinationCopy = v192;
+    destinationCopy = v188;
     goto LABEL_17;
   }
 
   while (1)
   {
     v29 = [v28 stringByAppendingPathComponent:stringByDeletingLastPathComponent];
-    memset(&v205, 0, sizeof(v205));
-    if (!lstat([v29 fileSystemRepresentation], &v205))
+    memset(&v201, 0, sizeof(v201));
+    if (!lstat([v29 fileSystemRepresentation], &v201))
     {
-      if ((~v205.st_mode & 0xA000) == 0)
+      if ((~v201.st_mode & 0xA000) == 0)
       {
         loggerCopy = v27;
         errorCopy8 = error;
-        destinationCopy = v192;
+        destinationCopy = v188;
         if (!error)
         {
           goto LABEL_122;
         }
 
-        v71 = [MBError errorWithCode:205 path:v29 format:@"Restore path parent directory is a symlink"];
+        v75 = [MBError errorWithCode:205 path:v29 format:@"Restore path parent directory is a symlink"];
         goto LABEL_121;
       }
 
@@ -5215,21 +5062,21 @@ LABEL_16:
         *error = [MBError posixErrorWithPath:v29 format:@"lstat error"];
       }
 
-      v72 = MBGetDefaultLog();
+      v76 = MBGetDefaultLog();
       loggerCopy = v27;
-      if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
       {
-        v73 = *__error();
+        v77 = *__error();
         *buf = 138412546;
-        *v207 = v29;
-        *&v207[8] = 1024;
-        *&v207[10] = v73;
-        _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_ERROR, "lstat failed at %@: %{errno}d", buf, 0x12u);
-        v175 = *__error();
-        _MBLog();
+        *v203 = v29;
+        *&v203[8] = 1024;
+        *&v203[10] = v77;
+        _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_ERROR, "lstat failed at %@: %{errno}d", buf, 0x12u);
+        v78 = __error();
+        _MBLog(@"E ", "lstat failed at %@: %{errno}d", v29, *v78);
       }
 
-      destinationCopy = v192;
+      destinationCopy = v188;
       goto LABEL_122;
     }
 
@@ -5243,36 +5090,36 @@ LABEL_13:
     }
   }
 
-  v68 = MBGetDefaultLog();
+  v71 = MBGetDefaultLog();
   loggerCopy = v27;
-  if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
   {
-    v69 = *__error();
+    v72 = *__error();
     *buf = 138412546;
-    *v207 = v29;
-    *&v207[8] = 1024;
-    *&v207[10] = v69;
-    _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEFAULT, "Skipping restore asset, lstat failed at %@: %{errno}d", buf, 0x12u);
-    v174 = *__error();
-    _MBLog();
+    *v203 = v29;
+    *&v203[8] = 1024;
+    *&v203[10] = v72;
+    _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, "Skipping restore asset, lstat failed at %@: %{errno}d", buf, 0x12u);
+    v73 = __error();
+    _MBLog(@"Df", "Skipping restore asset, lstat failed at %@: %{errno}d", v29, *v73);
   }
 
   errorCopy8 = error;
-  destinationCopy = v192;
+  destinationCopy = v188;
   if (error)
   {
-    v71 = [MBError posixErrorWithCode:107 path:v192 format:@"lstat error"];
+    v75 = [MBError posixErrorWithCode:107 path:v188 format:@"lstat error"];
 LABEL_121:
-    *errorCopy8 = v71;
+    *errorCopy8 = v75;
   }
 
 LABEL_122:
 
 LABEL_196:
-  v33 = 0;
+  v34 = 0;
 LABEL_232:
 
-  return v33;
+  return v34;
 }
 
 - (BOOL)_decryptWithOperationTracker:(id)tracker destination:(id)destination device:(id)device error:(id *)error
@@ -5290,10 +5137,10 @@ LABEL_232:
         buf.st_dev = 138412290;
         *&buf.st_mode = self;
         _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "Not decrypting %@", &buf, 0xCu);
-        _MBLog();
+        _MBLog(@"Db", "Not decrypting %@", self);
       }
 
-      v29 = 1;
+      v30 = 1;
       goto LABEL_57;
     }
 
@@ -5328,8 +5175,7 @@ LABEL_232:
       buf.st_dev = 138412290;
       *&buf.st_mode = self;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Decrypting file %@", &buf, 0xCu);
-      selfCopy = self;
-      _MBLog();
+      _MBLog(@"I ", "Decrypting file %@", self);
     }
 
     keybagManager = [deviceCopy keybagManager];
@@ -5350,8 +5196,8 @@ LABEL_232:
       {
         absolutePath10 = 0;
 LABEL_15:
-        v22 = [(MBCKFile *)self encryptionKey:selfCopy];
-        v23 = v22 == 0;
+        encryptionKey2 = [(MBCKFile *)self encryptionKey];
+        v23 = encryptionKey2 == 0;
 
         v24 = MBGetDefaultLog();
         v25 = v24;
@@ -5367,13 +5213,13 @@ LABEL_15:
             _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Failed to decrypt file at %@(%@) without an encryption key", &buf, 0x16u);
 
             absolutePath2 = [(MBCKFile *)self absolutePath];
-            _MBLog();
+            _MBLog(@"E ", "Failed to decrypt file at %@(%@) without an encryption key", destinationCopy, absolutePath2);
           }
 
           absolutePath3 = [(MBCKFile *)self absolutePath];
           *error = [MBError errorWithCode:205 path:absolutePath3 format:@"No encryption key found for protected file"];
 
-          v29 = 0;
+          v30 = 0;
           goto LABEL_56;
         }
 
@@ -5387,7 +5233,7 @@ LABEL_15:
           _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEBUG, "Decrypting file in place at %@ with keybag %@", &buf, 0x16u);
 
           keybagUUIDString3 = [v20 keybagUUIDString];
-          _MBLog();
+          _MBLog(@"Db", "Decrypting file in place at %@ with keybag %@", destinationCopy, keybagUUIDString3);
         }
 
         v83 = 0;
@@ -5406,19 +5252,19 @@ LABEL_15:
         v70[2] = sub_1000D8E28;
         v70[3] = &unk_1003BE2B8;
         v74 = &v83;
-        v66 = destinationCopy;
-        v71 = v66;
-        selfCopy2 = self;
+        v65 = destinationCopy;
+        v71 = v65;
+        selfCopy = self;
         v73 = deviceCopy;
         v75 = &v77;
-        v27 = [MBCKKeyBag unlockKeybag:v20 accountType:accountType error:&v76 block:v70];
-        v28 = v76;
+        v28 = [MBCKKeyBag unlockKeybag:v20 accountType:accountType error:&v76 block:v70];
+        v29 = v76;
 
-        if (v27)
+        if (v28)
         {
           if (v84[3])
           {
-            v29 = 1;
+            v30 = 1;
           }
 
           else
@@ -5429,8 +5275,8 @@ LABEL_15:
             }
 
             memset(&buf, 0, sizeof(buf));
-            v45 = v66;
-            if (lstat([v66 fileSystemRepresentation], &buf))
+            v51 = v65;
+            if (lstat([v65 fileSystemRepresentation], &buf))
             {
               st_size = -1;
             }
@@ -5440,82 +5286,82 @@ LABEL_15:
               st_size = buf.st_size;
             }
 
-            v47 = MBGetDefaultLog();
-            if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+            v53 = MBGetDefaultLog();
+            if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
             {
-              v65 = v47;
-              v48 = v47;
-              if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+              v68 = st_size;
+              v64 = v53;
+              v54 = v53;
+              if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
               {
-                v63 = v48;
+                v62 = v54;
                 absolutePath4 = [(MBCKFile *)self absolutePath];
                 fileID = [(MBCKFile *)self fileID];
-                v50 = [(MBCKFile *)self size];
-                v51 = v78[5];
+                v56 = [(MBCKFile *)self size];
+                v57 = v78[5];
                 *v89 = 138413570;
-                v90 = v66;
+                v90 = v65;
                 v91 = 2112;
                 v92 = absolutePath4;
                 v93 = 2112;
                 v94 = fileID;
                 v95 = 2048;
-                v96 = v50;
+                v96 = v56;
                 v97 = 2048;
                 v98 = st_size;
                 v99 = 2112;
-                v100 = v51;
-                _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, "Failed to decrypt file at %@(%@), fileID:%@, size:%llu, sizeOnDisk:%llu: %@", v89, 0x3Eu);
+                v100 = v57;
+                _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_ERROR, "Failed to decrypt file at %@(%@), fileID:%@, size:%llu, sizeOnDisk:%llu: %@", v89, 0x3Eu);
 
-                v48 = v63;
+                v54 = v62;
               }
 
               absolutePath5 = [(MBCKFile *)self absolutePath];
               fileID2 = [(MBCKFile *)self fileID];
-              [(MBCKFile *)self size];
-              v62 = v78[5];
-              _MBLog();
+              v60 = [(MBCKFile *)self size];
+              _MBLog(@"E ", "Failed to decrypt file at %@(%@), fileID:%@, size:%llu, sizeOnDisk:%llu: %@", v65, absolutePath5, fileID2, v60, v68, v78[5]);
 
-              v47 = v65;
+              v53 = v64;
             }
 
-            v29 = 0;
+            v30 = 0;
             *error = v78[5];
           }
         }
 
         else
         {
-          v36 = MBGetDefaultLog();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+          v39 = MBGetDefaultLog();
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
-            v37 = v36;
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+            v40 = v39;
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
             {
               absolutePath6 = [(MBCKFile *)self absolutePath];
               buf.st_dev = 138412802;
-              *&buf.st_mode = v66;
+              *&buf.st_mode = v65;
               WORD2(buf.st_ino) = 2112;
               *(&buf.st_ino + 6) = absolutePath6;
               HIWORD(buf.st_gid) = 2112;
-              *&buf.st_rdev = v28;
-              v68 = absolutePath6;
-              _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "Failed to decrypt file at %@(%@): %@", &buf, 0x20u);
+              *&buf.st_rdev = v29;
+              v67 = absolutePath6;
+              _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "Failed to decrypt file at %@(%@): %@", &buf, 0x20u);
             }
 
             absolutePath7 = [(MBCKFile *)self absolutePath];
-            _MBLog();
+            _MBLog(@"E ", "Failed to decrypt file at %@(%@): %@", v65, absolutePath7, v29);
           }
 
-          v39 = v28;
-          v29 = 0;
-          *error = v28;
+          v43 = v29;
+          v30 = 0;
+          *error = v29;
         }
 
         _Block_object_dispose(&v77, 8);
         _Block_object_dispose(&v83, 8);
 
 LABEL_55:
-        absolutePath10 = v28;
+        absolutePath10 = v29;
 LABEL_56:
 
 LABEL_57:
@@ -5525,83 +5371,82 @@ LABEL_57:
       keybagUUIDData = [(MBCKFile *)self keybagUUIDData];
       v88 = 0;
       v20 = [MBCKKeyBag keybagWithDevice:deviceCopy keybagUUID:keybagUUIDData operationTracker:trackerCopy error:&v88];
-      v28 = v88;
+      v29 = v88;
 
       if (v20)
       {
         [keybagManager addKeybag:v20];
-        v87 = v28;
-        v31 = [deviceCopy saveWithOperationTracker:trackerCopy error:&v87];
+        v87 = v29;
+        v32 = [deviceCopy saveWithOperationTracker:trackerCopy error:&v87];
         absolutePath10 = v87;
 
-        if ((v31 & 1) == 0)
+        if ((v32 & 1) == 0)
         {
-          v32 = MBGetDefaultLog();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          v33 = MBGetDefaultLog();
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
             keybagUUIDString4 = [v20 keybagUUIDString];
             buf.st_dev = 138543618;
             *&buf.st_mode = keybagUUIDString4;
             WORD2(buf.st_ino) = 2112;
             *(&buf.st_ino + 6) = absolutePath10;
-            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "Failed to save device record with recovered keybag %{public}@: %@", &buf, 0x16u);
+            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Failed to save device record with recovered keybag %{public}@: %@", &buf, 0x16u);
 
-            selfCopy = [v20 keybagUUIDString];
-            v57 = absolutePath10;
-            _MBLog();
+            keybagUUIDString5 = [v20 keybagUUIDString];
+            _MBLog(@"E ", "Failed to save device record with recovered keybag %{public}@: %@", keybagUUIDString5, absolutePath10);
           }
         }
 
         goto LABEL_15;
       }
 
-      v40 = MBGetDefaultLog();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v44 = MBGetDefaultLog();
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
-        keybagUUIDString5 = [(MBCKFile *)self keybagUUIDString];
-        buf.st_dev = 138543618;
-        *&buf.st_mode = keybagUUIDString5;
-        WORD2(buf.st_ino) = 2112;
-        *(&buf.st_ino + 6) = v28;
-        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "No keybag found for %{public}@: %@", &buf, 0x16u);
-
         keybagUUIDString6 = [(MBCKFile *)self keybagUUIDString];
-        _MBLog();
+        buf.st_dev = 138543618;
+        *&buf.st_mode = keybagUUIDString6;
+        WORD2(buf.st_ino) = 2112;
+        *(&buf.st_ino + 6) = v29;
+        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "No keybag found for %{public}@: %@", &buf, 0x16u);
+
+        keybagUUIDString7 = [(MBCKFile *)self keybagUUIDString];
+        _MBLog(@"E ", "No keybag found for %{public}@: %@", keybagUUIDString7, v29);
       }
 
-      if (v28)
+      if (v29)
       {
-        v42 = v28;
-        v29 = 0;
-        *error = v28;
+        v47 = v29;
+        v30 = 0;
+        *error = v29;
         goto LABEL_55;
       }
     }
 
-    v43 = MBGetDefaultLog();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v48 = MBGetDefaultLog();
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
       absolutePath8 = [(MBCKFile *)self absolutePath];
       buf.st_dev = 138412546;
       *&buf.st_mode = destinationCopy;
       WORD2(buf.st_ino) = 2112;
       *(&buf.st_ino + 6) = absolutePath8;
-      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "Failed to decrypt file at %@(%@) without a keybag", &buf, 0x16u);
+      _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "Failed to decrypt file at %@(%@) without a keybag", &buf, 0x16u);
 
       absolutePath9 = [(MBCKFile *)self absolutePath];
-      _MBLog();
+      _MBLog(@"E ", "Failed to decrypt file at %@(%@) without a keybag", destinationCopy, absolutePath9);
     }
 
     absolutePath10 = [(MBCKFile *)self absolutePath];
     [MBError errorWithCode:205 path:absolutePath10 format:@"No keybag found for protected file"];
-    *error = v29 = 0;
+    *error = v30 = 0;
     goto LABEL_56;
   }
 
-  v29 = 1;
+  v30 = 1;
 LABEL_58:
 
-  return v29;
+  return v30;
 }
 
 - (BOOL)restoreExtendedAttributesToDestination:(id)destination withError:(id *)error
@@ -5628,23 +5473,23 @@ LABEL_58:
 
         v11 = self->_contentAsset;
         stashedResourcePath2 = [restoreState stashedResourcePath];
-        _MBLog();
+        _MBLog(@"I ", "Restoring extended attributes for %@, resourceAsset:%p, stashedResourcePath:%@", self, v11, stashedResourcePath2);
       }
 
       v17 = 0;
-      v12 = +[MBExtendedAttributes setAttributes:forPathFSR:error:](MBExtendedAttributes, "setAttributes:forPathFSR:error:", extendedAttributes, [destinationCopy fileSystemRepresentation], &v17);
-      v13 = v17;
-      if ((v12 & 1) == 0)
+      v13 = +[MBExtendedAttributes setAttributes:forPathFSR:error:](MBExtendedAttributes, "setAttributes:forPathFSR:error:", extendedAttributes, [destinationCopy fileSystemRepresentation], &v17);
+      v14 = v17;
+      if ((v13 & 1) == 0)
       {
-        v14 = MBGetDefaultLog();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v15 = MBGetDefaultLog();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
           selfCopy2 = self;
           v20 = 2112;
-          v21 = v13;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to restore extended attributes for %@: %@", buf, 0x16u);
-          _MBLog();
+          v21 = v14;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to restore extended attributes for %@: %@", buf, 0x16u);
+          _MBLog(@"E ", "Failed to restore extended attributes for %@: %@", self, v14);
         }
       }
     }
@@ -5719,7 +5564,7 @@ LABEL_8:
       *buf = 136315138;
       v7 = "_absolutePath";
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_FAULT, "nil %s", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"F ", "nil %s", "_absolutePath");
     }
 
     fileID = self->_fileID;
@@ -5758,7 +5603,7 @@ LABEL_8:
       *buf = 136315138;
       v7 = "_domain";
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_FAULT, "nil %s", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"F ", "nil %s", "_domain");
     }
 
     domainName = self->_domainName;
@@ -5917,7 +5762,7 @@ LABEL_11:
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to list xattrs at %@: %@", buf, 0x16u);
 
       absolutePath3 = [(MBCKFile *)self absolutePath];
-      _MBLog();
+      _MBLog(@"E ", "Failed to list xattrs at %@: %@", absolutePath3, v5);
     }
   }
 
@@ -5934,9 +5779,9 @@ LABEL_11:
     {
       domainName = [(MBCKFile *)self domainName];
       relativePath = [(MBCKFile *)self relativePath];
-      v34 = 0;
-      v9 = [v6 uploadedFileInPendingSnapshotWithDomainName:domainName relativePath:relativePath error:&v34];
-      v10 = v34;
+      v32 = 0;
+      v9 = [v6 uploadedFileInPendingSnapshotWithDomainName:domainName relativePath:relativePath error:&v32];
+      v10 = v32;
 
       if (v10)
       {
@@ -5944,26 +5789,22 @@ LABEL_11:
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v37 = v9;
-          v38 = 2112;
-          v39 = v10;
+          v35 = v9;
+          v36 = 2112;
+          v37 = v10;
           _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Error fetching uploaded file in pending snapshot %@: %@", buf, 0x16u);
-          v32 = v9;
-          v33 = v10;
-LABEL_10:
-          _MBLog();
-          goto LABEL_11;
+          _MBLog(@"E ", "Error fetching uploaded file in pending snapshot %@: %@", v9, v10);
         }
 
-        goto LABEL_11;
+LABEL_10:
       }
     }
 
     else
     {
-      v35 = 0;
-      v9 = [cache lastBackedUpFileForFile:self error:&v35];
-      v10 = v35;
+      v33 = 0;
+      v9 = [cache lastBackedUpFileForFile:self error:&v33];
+      v10 = v33;
 
       if (v10)
       {
@@ -5971,23 +5812,21 @@ LABEL_10:
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v37 = v9;
-          v38 = 2112;
-          v39 = v10;
+          v35 = v9;
+          v36 = 2112;
+          v37 = v10;
           _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Error fetching last modified version of file %@: %@", buf, 0x16u);
-          v32 = v9;
-          v33 = v10;
-          goto LABEL_10;
+          _MBLog(@"E ", "Error fetching last modified version of file %@: %@", v9, v10);
         }
 
-LABEL_11:
+        goto LABEL_10;
       }
     }
 
     if (!v9 || ([v9 encryptionKey], v13 = objc_claimAutoreleasedReturnValue(), resources = self->_resources, self->_resources = v13, resources, (objc_msgSend(v9, "deleted") & 1) != 0))
     {
       v12 = 1;
-LABEL_40:
+LABEL_39:
 
       return v12;
     }
@@ -6009,7 +5848,7 @@ LABEL_40:
           if (linkTarget | linkTarget2 && (!linkTarget2 || ![linkTarget isEqualToString:linkTarget2]))
           {
 
-            goto LABEL_39;
+            goto LABEL_38;
           }
         }
 
@@ -6020,7 +5859,7 @@ LABEL_40:
             v19 = [(MBCKFile *)self size];
             if (v19 != [v9 sizeBeforeCopy] && -[MBCKFile isSQLiteFile](self, "isSQLiteFile"))
             {
-              goto LABEL_39;
+              goto LABEL_38;
             }
           }
 
@@ -6029,13 +5868,13 @@ LABEL_40:
             v20 = [(MBCKFile *)self size];
             if (v20 != [v9 size] && !-[MBCKFile isSQLiteFile](self, "isSQLiteFile"))
             {
-              goto LABEL_39;
+              goto LABEL_38;
             }
           }
         }
 
-        v24 = [(MBCKFile *)self permissions:v32];
-        if (v24 == [v9 permissions])
+        permissions = [(MBCKFile *)self permissions];
+        if (permissions == [v9 permissions])
         {
           groupID = [(MBCKFile *)self groupID];
           if (groupID == [v9 groupID])
@@ -6052,7 +5891,7 @@ LABEL_40:
                 if (fileType > 1 || (v30 = BYTE6(self->_mbNode.cloneID), v30 == [v9 protectionClass]))
                 {
                   v12 = 0;
-                  goto LABEL_40;
+                  goto LABEL_39;
                 }
               }
             }
@@ -6061,9 +5900,9 @@ LABEL_40:
       }
     }
 
-LABEL_39:
+LABEL_38:
     v12 = 2;
-    goto LABEL_40;
+    goto LABEL_39;
   }
 
   return 3;
@@ -6206,7 +6045,7 @@ LABEL_39:
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_FAULT, "Failed to get UUID from encryption key for file %@", buf, 0xCu);
 
         relativePath2 = [(MBCKFile *)self relativePath];
-        _MBLog();
+        _MBLog(@"F ", "Failed to get UUID from encryption key for file %@", relativePath2);
       }
     }
   }
@@ -6328,31 +6167,30 @@ LABEL_11:
   v5 = objc_opt_new();
   allKeys = [attributesCopy allKeys];
   [allKeys sortedArrayUsingComparator:&stru_1003BE2D8];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
-  v6 = v41 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v38 objects:v44 count:16];
+  v6 = v40 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v37 objects:v43 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = MBError_ptr;
     v10 = @"%@:%s;";
-    v36 = attributesCopy;
-    v37 = *v39;
+    v35 = attributesCopy;
+    v36 = *v38;
     while (2)
     {
       v11 = 0;
       do
       {
-        if (*v39 != v37)
+        if (*v38 != v36)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v38 + 1) + 8 * v11);
+        v12 = *(*(&v37 + 1) + 8 * v11);
         v13 = [attributesCopy objectForKeyedSubscript:v12];
-        v14 = v9[101];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -6373,7 +6211,7 @@ LABEL_11:
             if (objc_opt_isKindOfClass())
             {
               [v13 timeIntervalSinceReferenceDate];
-              [v5 appendFormat:@"%@:%.3lf;", v12, v15];
+              [v5 appendFormat:@"%@:%.3lf;", v12, v14];
             }
 
             else
@@ -6381,37 +6219,37 @@ LABEL_11:
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
-                v24 = MBGetDefaultLog();
-                if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+                v23 = MBGetDefaultLog();
+                if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
                 {
                   *buf = 138412290;
-                  v43 = v13;
-                  _os_log_fault_impl(&_mh_execute_header, v24, OS_LOG_TYPE_FAULT, "Unknown attribute data value %@", buf, 0xCu);
+                  v42 = v13;
+                  _os_log_fault_impl(&_mh_execute_header, v23, OS_LOG_TYPE_FAULT, "Unknown attribute data value %@", buf, 0xCu);
                 }
 
-                v32 = sub_10012F338(@"Unknown attribute data value %@", v25, v26, v27, v28, v29, v30, v31, v13);
-                v23 = allKeys;
+                v31 = sub_10012F338(@"Unknown attribute data value %@", v24, v25, v26, v27, v28, v29, v30, v13);
+                v22 = allKeys;
                 if (error)
                 {
-                  v32 = v32;
-                  *error = v32;
+                  v31 = v31;
+                  *error = v31;
                 }
 
-                v22 = 0;
-                v21 = v6;
+                v21 = 0;
+                v20 = v6;
                 goto LABEL_23;
               }
 
               [v13 base64EncodedStringWithOptions:49];
-              v16 = v9;
-              v17 = v6;
-              v19 = v18 = v10;
-              [v5 appendFormat:@"%@:%@;", v12, v19];
+              v15 = v9;
+              v16 = v6;
+              v18 = v17 = v10;
+              [v5 appendFormat:@"%@:%@;", v12, v18];
 
-              v10 = v18;
-              v6 = v17;
-              v9 = v16;
-              attributesCopy = v36;
+              v10 = v17;
+              v6 = v16;
+              v9 = v15;
+              attributesCopy = v35;
             }
           }
         }
@@ -6420,9 +6258,9 @@ LABEL_11:
       }
 
       while (v8 != v11);
-      v20 = [v6 countByEnumeratingWithState:&v38 objects:v44 count:16];
-      v8 = v20;
-      if (v20)
+      v19 = [v6 countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v8 = v19;
+      if (v19)
       {
         continue;
       }
@@ -6431,12 +6269,12 @@ LABEL_11:
     }
   }
 
-  v21 = [v5 dataUsingEncoding:4];
-  v22 = [MBDigest sha1ForData:v21];
-  v23 = allKeys;
+  v20 = [v5 dataUsingEncoding:4];
+  v21 = [MBDigest sha1ForData:v20];
+  v22 = allKeys;
 LABEL_23:
 
-  return v22;
+  return v21;
 }
 
 - (id)attributeDataTruncatedHashWithError:(id *)error
@@ -6535,20 +6373,17 @@ LABEL_23:
         fileID = self->_fileID;
         domainName = self->_domainName;
         *buf = 67109634;
-        v24 = flags;
-        v25 = 2114;
-        v26 = fileID;
-        v27 = 2112;
-        v28 = domainName;
+        v21 = flags;
+        v22 = 2114;
+        v23 = fileID;
+        v24 = 2112;
+        v25 = domainName;
         _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Including BSD flags (0x%x) for %{public}@ (%@)", buf, 0x1Cu);
-        v21 = self->_fileID;
-        v22 = self->_domainName;
-        v20 = flags;
-        _MBLog();
+        _MBLog(@"I ", "Including BSD flags (0x%x) for %{public}@ (%@)", flags, self->_fileID, self->_domainName);
       }
     }
 
-    if ([(MBCKFile *)self hasContentEncodingMethod:v20])
+    if ([(MBCKFile *)self hasContentEncodingMethod])
     {
       sqliteTemporaryDirectory_low = LOBYTE(self->_sqliteTemporaryDirectory);
       if (!LOBYTE(self->_sqliteTemporaryDirectory))
@@ -6745,15 +6580,15 @@ LABEL_17:
 LABEL_25:
       if ([(MBCKFileAttributesArchive *)v6 hasSize])
       {
-        v16 = [(MBCKFileAttributesArchive *)v6 size];
+        v17 = [(MBCKFileAttributesArchive *)v6 size];
       }
 
       else
       {
-        v16 = 0;
+        v17 = 0;
       }
 
-      self->_mbNode.fileSize = v16;
+      self->_mbNode.fileSize = v17;
       hasGroupID = [(MBCKFileAttributesArchive *)v6 hasGroupID];
       if (hasGroupID)
       {
@@ -6841,7 +6676,7 @@ LABEL_24:
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Unable to refresh attributes: %@", buf, 0xCu);
 
     dictionaryRepresentation2 = [0 dictionaryRepresentation];
-    _MBLog();
+    _MBLog(@"E ", "Unable to refresh attributes: %@", dictionaryRepresentation2);
   }
 
 LABEL_47:
@@ -6869,15 +6704,15 @@ LABEL_47:
 
 - (id)recordRepresentation
 {
-  v63.receiver = self;
-  v63.super_class = MBCKFile;
-  recordRepresentation = [(MBCKModel *)&v63 recordRepresentation];
+  v64.receiver = self;
+  v64.super_class = MBCKFile;
+  recordRepresentation = [(MBCKModel *)&v64 recordRepresentation];
   [recordRepresentation setUseLightweightPCS:1];
   v5 = [(MBCKFile *)self attributeDataWithError:0];
   if (!v5)
   {
-    v55 = +[NSAssertionHandler currentHandler];
-    [v55 handleFailureInMethod:a2 object:self file:@"MBCKFile.m" lineNumber:2428 description:@"Failed to serialize file attribute data"];
+    v57 = +[NSAssertionHandler currentHandler];
+    [v57 handleFailureInMethod:a2 object:self file:@"MBCKFile.m" lineNumber:2428 description:@"Failed to serialize file attribute data"];
   }
 
   encryptedValues = [recordRepresentation encryptedValues];
@@ -6942,15 +6777,15 @@ LABEL_47:
       restoreState = self->_restoreState;
       v23 = [MBProtectionClassUtils canOpenWhenLocked:v9];
       isProtected = [(MBCKFile *)self isProtected];
-      v62 = v20;
-      v61 = v23;
+      v63 = v20;
+      v62 = v23;
       if (isProtected)
       {
         v25 = 0;
         goto LABEL_29;
       }
 
-      v59 = encryptionKey;
+      v60 = encryptionKey;
       v26 = restoreState;
       domainName = [(MBCKFile *)self domainName];
       if ([domainName isEqualToString:@"CameraRollDomain"])
@@ -6961,8 +6796,8 @@ LABEL_47:
         if (shouldBeBackedUpIgnoringProtectionClass)
         {
           restoreState = v26;
-          v23 = v61;
-          encryptionKey = v59;
+          v23 = v62;
+          encryptionKey = v60;
           if ((restoreState & 8) == 0)
           {
             __assert_rtn("[MBCKFile recordRepresentation]", "MBCKFile.m", 2459, "!useMMVCSv1 || isMMCSEncryptedOnly");
@@ -7002,37 +6837,37 @@ LABEL_29:
 
           if ((v30 & 1) == 0)
           {
-            v57 = v25;
-            v58 = restoreState;
+            v58 = v25;
+            v59 = restoreState;
             v31 = MBGetDefaultLog();
             if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
             {
               [(MBCKFile *)self relativePath];
-              v32 = v60 = encryptionKey;
+              v32 = v61 = encryptionKey;
               *buf = 138412290;
-              v69 = v32;
+              v70 = v32;
               _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEBUG, "Treating file with pc C or Cx as having pc D: %@", buf, 0xCu);
 
               relativePath = [(MBCKFile *)self relativePath];
-              _MBLog();
+              _MBLog(@"Db", "Treating file with pc C or Cx as having pc D: %@", relativePath);
 
-              encryptionKey = v60;
+              encryptionKey = v61;
             }
 
-            v25 = v57;
-            restoreState = v58;
+            v25 = v58;
+            restoreState = v59;
           }
 
           if (((v25 | v29) & 1) == 0)
           {
-            v34 = v62;
+            v35 = v63;
             if ((v9 & 0xFB) == 3)
             {
-              [v62 setItemTypeHint:@"fxd"];
+              [v63 setItemTypeHint:@"fxd"];
             }
 
-            [v62 setAssetTransferOptions:{qword_1004216C0, relativePath}];
-            assetTransferOptions3 = [v62 assetTransferOptions];
+            [v63 setAssetTransferOptions:qword_1004216C0];
+            assetTransferOptions3 = [v63 assetTransferOptions];
             useMMCSEncryptionV22 = [assetTransferOptions3 useMMCSEncryptionV2];
             if (([useMMCSEncryptionV22 BOOLValue] & 1) == 0)
             {
@@ -7042,16 +6877,16 @@ LABEL_29:
             goto LABEL_63;
           }
 
-          v33 = isProtected ^ 1;
+          v34 = isProtected ^ 1;
           if (!encryptionKey)
           {
-            v33 = 1;
+            v34 = 1;
           }
 
-          v34 = v62;
-          if (v33)
+          v35 = v63;
+          if (v34)
           {
-            assetTransferOptions3 = [v62 assetTransferOptions];
+            assetTransferOptions3 = [v63 assetTransferOptions];
             if (!assetTransferOptions3)
             {
 LABEL_64:
@@ -7060,22 +6895,22 @@ LABEL_64:
               {
                 if ([(MBCKFile *)self hasContentEncodingMethod])
                 {
-                  [v34 setItemTypeHint:@"fxd"];
+                  [v35 setItemTypeHint:@"fxd"];
                 }
 
                 else if ([(MBCKFile *)self isSQLiteFile])
                 {
-                  v64 = kCKAssetChunkLength;
-                  v65 = &off_1003E0D98;
-                  [NSDictionary dictionaryWithObjects:&v65 forKeys:&v64 count:1];
-                  v46 = v45 = encryptionKey;
-                  [v34 setAssetChunkerOptions:v46];
+                  v65 = kCKAssetChunkLength;
+                  v66 = &off_1003E0D98;
+                  [NSDictionary dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+                  v48 = v47 = encryptionKey;
+                  [v35 setAssetChunkerOptions:v48];
 
-                  encryptionKey = v45;
+                  encryptionKey = v47;
                 }
               }
 
-              shouldReadRawEncryptedData = [v34 shouldReadRawEncryptedData];
+              shouldReadRawEncryptedData = [v35 shouldReadRawEncryptedData];
               if ((restoreState & 8) != 0)
               {
                 if (shouldReadRawEncryptedData)
@@ -7089,14 +6924,14 @@ LABEL_64:
                 __assert_rtn("[MBCKFile recordRepresentation]", "MBCKFile.m", 2503, "isMMCSEncryptedOnly || contents.shouldReadRawEncryptedData");
               }
 
-              [recordRepresentation setObject:v34 forKeyedSubscript:@"contents"];
+              [recordRepresentation setObject:v35 forKeyedSubscript:@"contents"];
 
               goto LABEL_74;
             }
 
-            useMMCSEncryptionV22 = [v62 assetTransferOptions];
-            v43UseMMCSEncryptionV2 = [useMMCSEncryptionV22 useMMCSEncryptionV2];
-            if ([v43UseMMCSEncryptionV2 BOOLValue])
+            useMMCSEncryptionV22 = [v63 assetTransferOptions];
+            v45UseMMCSEncryptionV2 = [useMMCSEncryptionV22 useMMCSEncryptionV2];
+            if ([v45UseMMCSEncryptionV2 BOOLValue])
             {
               __assert_rtn("[MBCKFile recordRepresentation]", "MBCKFile.m", 2491, "!contents.assetTransferOptions || !contents.assetTransferOptions.useMMCSEncryptionV2.BOOLValue");
             }
@@ -7104,35 +6939,35 @@ LABEL_64:
             goto LABEL_62;
           }
 
-          [v62 setShouldReadRawEncryptedData:1];
+          [v63 setShouldReadRawEncryptedData:1];
           domainName2 = [(MBCKFile *)self domainName];
           if ([domainName2 isEqualToString:@"HealthDomain"])
           {
             [(MBCKFile *)self relativePath];
-            v37 = v36 = encryptionKey;
-            v38 = [v37 hasSuffix:@"healthdb_secure.sqlite"];
+            v38 = v37 = encryptionKey;
+            v39 = [v38 hasSuffix:@"healthdb_secure.sqlite"];
 
-            encryptionKey = v36;
-            if (v38)
+            encryptionKey = v37;
+            if (v39)
             {
-              v39 = MBGetDefaultLog();
-              if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+              v40 = MBGetDefaultLog();
+              if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
               {
                 relativePath2 = [(MBCKFile *)self relativePath];
                 *buf = 138412290;
-                v69 = relativePath2;
-                _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_INFO, "Not using fxd for: %@", buf, 0xCu);
+                v70 = relativePath2;
+                _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_INFO, "Not using fxd for: %@", buf, 0xCu);
 
-                relativePath = [(MBCKFile *)self relativePath];
-                _MBLog();
+                relativePath3 = [(MBCKFile *)self relativePath];
+                _MBLog(@"I ", "Not using fxd for: %@", relativePath3);
               }
 
-              v66 = kCKAssetChunkLength;
-              v67 = &off_1003E0D98;
-              v41 = [NSDictionary dictionaryWithObjects:&v67 forKeys:&v66 count:1];
-              [v62 setAssetChunkerOptions:v41];
+              v67 = kCKAssetChunkLength;
+              v68 = &off_1003E0D98;
+              v43 = [NSDictionary dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+              [v63 setAssetChunkerOptions:v43];
 
-              encryptionKey = v36;
+              encryptionKey = v37;
               goto LABEL_60;
             }
           }
@@ -7141,25 +6976,25 @@ LABEL_64:
           {
           }
 
-          [v62 setItemTypeHint:{@"fxd", relativePath}];
+          [v63 setItemTypeHint:@"fxd"];
 LABEL_60:
-          assetTransferOptions3 = [v62 assetTransferOptions];
+          assetTransferOptions3 = [v63 assetTransferOptions];
           if (!assetTransferOptions3)
           {
-            v23 = v61;
+            v23 = v62;
             goto LABEL_64;
           }
 
-          useMMCSEncryptionV22 = [v62 assetTransferOptions];
-          v43UseMMCSEncryptionV2 = [useMMCSEncryptionV22 useMMCSEncryptionV2];
-          if ([v43UseMMCSEncryptionV2 BOOLValue])
+          useMMCSEncryptionV22 = [v63 assetTransferOptions];
+          v45UseMMCSEncryptionV2 = [useMMCSEncryptionV22 useMMCSEncryptionV2];
+          if ([v45UseMMCSEncryptionV2 BOOLValue])
           {
             __assert_rtn("[MBCKFile recordRepresentation]", "MBCKFile.m", 2489, "!contents.assetTransferOptions || !contents.assetTransferOptions.useMMCSEncryptionV2.BOOLValue");
           }
 
 LABEL_62:
 
-          v23 = v61;
+          v23 = v62;
 LABEL_63:
 
           goto LABEL_64;
@@ -7173,46 +7008,46 @@ LABEL_63:
       }
 
       restoreState = v26;
-      v23 = v61;
-      encryptionKey = v59;
+      v23 = v62;
+      encryptionKey = v60;
       goto LABEL_29;
     }
   }
 
 LABEL_74:
-  v48 = objc_opt_new();
+  v50 = objc_opt_new();
   aggregateDictionaryGroup = [(MBCKFile *)self aggregateDictionaryGroup];
   domainName3 = [(MBCKFile *)self domainName];
 
   if (domainName3)
   {
     domainName4 = [(MBCKFile *)self domainName];
-    [v48 setObject:domainName4 forKeyedSubscript:@"domainName"];
+    [v50 setObject:domainName4 forKeyedSubscript:@"domainName"];
   }
 
   if (aggregateDictionaryGroup)
   {
-    [v48 setObject:aggregateDictionaryGroup forKeyedSubscript:@"subDomain"];
+    [v50 setObject:aggregateDictionaryGroup forKeyedSubscript:@"subDomain"];
   }
 
   if ([(MBCKFile *)self hasContentEncodingMethod])
   {
-    v52 = [NSNumber numberWithLongLong:self->_sizeBeforeCopy];
-    [v48 setObject:v52 forKeyedSubscript:@"originalSize"];
+    v54 = [NSNumber numberWithLongLong:self->_sizeBeforeCopy];
+    [v50 setObject:v54 forKeyedSubscript:@"originalSize"];
   }
 
-  if ([v48 count])
+  if ([v50 count])
   {
-    [recordRepresentation setPluginFields:v48];
+    [recordRepresentation setPluginFields:v50];
   }
 
-  v53 = MBGetDefaultLog();
-  if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
+  v55 = MBGetDefaultLog();
+  if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v69 = recordRepresentation;
-    _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEBUG, "Saving file record: %@", buf, 0xCu);
-    _MBLog();
+    v70 = recordRepresentation;
+    _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEBUG, "Saving file record: %@", buf, 0xCu);
+    _MBLog(@"Db", "Saving file record: %@", recordRepresentation);
   }
 
   return recordRepresentation;
@@ -7410,16 +7245,13 @@ LABEL_7:
         v13 = *&self->_mbNode.mode;
         v14 = self->_volumeType;
         *buf = 67109634;
-        v27 = v11;
-        v28 = 2112;
-        v29 = v13;
-        v30 = 2112;
-        v31 = v14;
+        v24 = v11;
+        v25 = 2112;
+        v26 = v13;
+        v27 = 2112;
+        v28 = v14;
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_FAULT, "CKFile archiving invalid PC (%d) for: %@:%@", buf, 0x1Cu);
-        v24 = *&self->_mbNode.mode;
-        v25 = self->_volumeType;
-        v23 = v11;
-        _MBLog();
+        _MBLog(@"F ", "CKFile archiving invalid PC (%d) for: %@:%@", v11, *&self->_mbNode.mode, self->_volumeType);
       }
     }
   }
@@ -7429,7 +7261,7 @@ LABEL_7:
     [(MBCKFileArchive *)v3 setProtectionClass:v11];
   }
 
-  if ([(MBCKFile *)self inode:v23]&& ![MBProtectionClassUtils canOpenWhenLocked:v11])
+  if ([(MBCKFile *)self inode]&& ![MBProtectionClassUtils canOpenWhenLocked:v11])
   {
     [(MBCKFileArchive *)v3 setInode:[(MBCKFile *)self inode]];
   }
@@ -7528,9 +7360,9 @@ LABEL_7:
     goto LABEL_108;
   }
 
-  v82.receiver = self;
-  v82.super_class = MBCKFile;
-  v6 = [(MBCKModel *)&v82 initWithRecord:0 cache:0];
+  v79.receiver = self;
+  v79.super_class = MBCKFile;
+  v6 = [(MBCKModel *)&v79 initWithRecord:0 cache:0];
 
   if (v6)
   {
@@ -7843,15 +7675,14 @@ LABEL_37:
         {
           stashedAssetPath4 = [(MBCKFileArchive *)v5 stashedAssetPath];
           *buf = 138412546;
-          v84 = v6;
-          v85 = 2112;
-          v86 = stashedAssetPath4;
+          v81 = v6;
+          v82 = 2112;
+          v83 = stashedAssetPath4;
           _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, "Prefetch: %@ prefetched, no file asset: %@", buf, 0x16u);
         }
 
-        [(MBCKFileArchive *)v5 stashedAssetPath];
-        v79 = v76 = v6;
-        _MBLog();
+        stashedAssetPath5 = [(MBCKFileArchive *)v5 stashedAssetPath];
+        _MBLog(@"E ", "Prefetch: %@ prefetched, no file asset: %@", v6, stashedAssetPath5);
       }
 
       stashedAssetPath3 = [(MBCKFile *)v6 restoreState];
@@ -7859,13 +7690,13 @@ LABEL_37:
     }
 
 LABEL_80:
-    v56 = [(NSString *)v6->_encodedAssetPath stashedResourcePath:v76];
-    if (!v56)
+    stashedResourcePath3 = [(NSString *)v6->_encodedAssetPath stashedResourcePath];
+    if (!stashedResourcePath3)
     {
       if (![(MBCKFileArchive *)v5 hasStashedResourcePath])
       {
 LABEL_82:
-        if ([(MBCKFileArchive *)v5 hasContentEncodingMethod:v77])
+        if ([(MBCKFileArchive *)v5 hasContentEncodingMethod])
         {
           if ([(MBCKFileArchive *)v5 hasSizeBeforeEncoding])
           {
@@ -7880,11 +7711,11 @@ LABEL_82:
 
           if ([(MBCKFileArchive *)v5 hasDecodedAssetPath])
           {
-            v57 = +[NSFileManager defaultManager];
+            v58 = +[NSFileManager defaultManager];
             decodedAssetPath = [(MBCKFileArchive *)v5 decodedAssetPath];
-            v59 = [v57 fileExistsAtPath:decodedAssetPath];
+            v60 = [v58 fileExistsAtPath:decodedAssetPath];
 
-            if (v59)
+            if (v60)
             {
               decodedAssetPath2 = [(MBCKFileArchive *)v5 decodedAssetPath];
               restoreState4 = [(MBCKFile *)v6 restoreState];
@@ -7903,20 +7734,19 @@ LABEL_82:
             decodedAssetPath3 = MBGetDefaultLog();
             if (os_log_type_enabled(decodedAssetPath3, OS_LOG_TYPE_ERROR))
             {
-              v73 = decodedAssetPath3;
-              if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+              v75 = decodedAssetPath3;
+              if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
               {
                 decodedAssetPath4 = [(MBCKFileArchive *)v5 decodedAssetPath];
                 *buf = 138412546;
-                v84 = v6;
-                v85 = 2112;
-                v86 = decodedAssetPath4;
-                _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_ERROR, "Prefetch: %@ prefetched, no decoded asset: %@", buf, 0x16u);
+                v81 = v6;
+                v82 = 2112;
+                v83 = decodedAssetPath4;
+                _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_ERROR, "Prefetch: %@ prefetched, no decoded asset: %@", buf, 0x16u);
               }
 
-              [(MBCKFileArchive *)v5 decodedAssetPath];
-              v81 = v78 = v6;
-              _MBLog();
+              decodedAssetPath5 = [(MBCKFileArchive *)v5 decodedAssetPath];
+              _MBLog(@"E ", "Prefetch: %@ prefetched, no decoded asset: %@", v6, decodedAssetPath5);
             }
           }
         }
@@ -7924,59 +7754,58 @@ LABEL_82:
 LABEL_92:
         if (v6->_mbNode.fileSize)
         {
-          stashedAssetPath5 = [(NSString *)v6->_encodedAssetPath stashedAssetPath];
-          v64 = stashedAssetPath5 == 0;
+          stashedAssetPath6 = [(NSString *)v6->_encodedAssetPath stashedAssetPath];
+          v65 = stashedAssetPath6 == 0;
         }
 
         else
         {
-          v64 = 0;
+          v65 = 0;
         }
 
         if (v6->_signature || (*p_flags & 0x80) != 0)
         {
-          v68 = [(NSString *)v6->_encodedAssetPath stashedResourcePath:v78];
-          v67 = 32 * (v68 != 0);
+          stashedResourcePath4 = [(NSString *)v6->_encodedAssetPath stashedResourcePath];
+          v69 = 32 * (stashedResourcePath4 != 0);
         }
 
         else
         {
-          v67 = 32;
+          v69 = 32;
         }
 
-        v69 = [(NSString *)v6->_encodedAssetPath decodedAssetPath:v78];
+        decodedAssetPath6 = [(NSString *)v6->_encodedAssetPath decodedAssetPath];
 
-        if (v64 && v69 == 0)
+        if (v65 && decodedAssetPath6 == 0)
         {
-          v70 = 0;
+          v72 = 0;
         }
 
         else
         {
-          v70 = v67;
+          v72 = v69;
         }
 
-        LOBYTE(v6->_restoreState) = v6->_restoreState & 0xDF | v70;
+        LOBYTE(v6->_restoreState) = v6->_restoreState & 0xDF | v72;
         goto LABEL_108;
       }
 
-      v56 = MBGetDefaultLog();
-      if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+      stashedResourcePath3 = MBGetDefaultLog();
+      if (os_log_type_enabled(stashedResourcePath3, OS_LOG_TYPE_ERROR))
       {
-        v65 = v56;
-        if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+        v66 = stashedResourcePath3;
+        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
         {
-          stashedResourcePath3 = [(MBCKFileArchive *)v5 stashedResourcePath];
+          stashedResourcePath5 = [(MBCKFileArchive *)v5 stashedResourcePath];
           *buf = 138412546;
-          v84 = v6;
-          v85 = 2112;
-          v86 = stashedResourcePath3;
-          _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_ERROR, "Prefetch: %@ prefetched, no resource asset: %@", buf, 0x16u);
+          v81 = v6;
+          v82 = 2112;
+          v83 = stashedResourcePath5;
+          _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "Prefetch: %@ prefetched, no resource asset: %@", buf, 0x16u);
         }
 
-        [(MBCKFileArchive *)v5 stashedResourcePath];
-        v80 = v77 = v6;
-        _MBLog();
+        stashedResourcePath6 = [(MBCKFileArchive *)v5 stashedResourcePath];
+        _MBLog(@"E ", "Prefetch: %@ prefetched, no resource asset: %@", v6, stashedResourcePath6);
       }
     }
 
@@ -7984,9 +7813,9 @@ LABEL_92:
   }
 
 LABEL_108:
-  v71 = v6;
+  v73 = v6;
 
-  return v71;
+  return v73;
 }
 
 - (id)initFromPQLResultSet:(id)set error:(id *)error
@@ -8053,7 +7882,7 @@ LABEL_108:
       v16 = 1024;
       indexCopy = index;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Invalid type (%d) for the column at index %d", buf, 0xEu);
-      _MBLog();
+      _MBLog(@"E ", "Invalid type (%d) for the column at index %d", v12, index);
     }
 
     return 0;
@@ -8087,6 +7916,171 @@ LABEL_108:
   return *&qword_1004216D8;
 }
 
+- (BOOL)encodeWithFileAtPath:(id)path encodingMethod:(char)method hasSnapshot:(BOOL)snapshot destinationDirectory:(id)directory account:(id)account device:(id)device error:(id *)error
+{
+  snapshotCopy = snapshot;
+  methodCopy = method;
+  pathCopy = path;
+  directoryCopy = directory;
+  accountCopy = account;
+  deviceCopy = device;
+  if (!pathCopy)
+  {
+    __assert_rtn("[MBCKFile(EncodingPrivate) encodeWithFileAtPath:encodingMethod:hasSnapshot:destinationDirectory:account:device:error:]", "MBCKFile.m", 2925, "path");
+  }
+
+  switch(methodCopy)
+  {
+    case 0:
+      __assert_rtn("[MBCKFile(EncodingPrivate) encodeWithFileAtPath:encodingMethod:hasSnapshot:destinationDirectory:account:device:error:]", "MBCKFile.m", 2926, "encodingMethod != MBFileEncodingMethodUnspecified");
+    case 2:
+      __assert_rtn("[MBCKFile(EncodingPrivate) encodeWithFileAtPath:encodingMethod:hasSnapshot:destinationDirectory:account:device:error:]", "MBCKFile.m", 2927, "encodingMethod != MBFileEncodingMethodCompressedSQLiteText");
+    case 3:
+      __assert_rtn("[MBCKFile(EncodingPrivate) encodeWithFileAtPath:encodingMethod:hasSnapshot:destinationDirectory:account:device:error:]", "MBCKFile.m", 2928, "encodingMethod != MBFileEncodingMethodCompressedSQLiteBinary");
+  }
+
+  v19 = deviceCopy;
+  if (!deviceCopy)
+  {
+    __assert_rtn("[MBCKFile(EncodingPrivate) encodeWithFileAtPath:encodingMethod:hasSnapshot:destinationDirectory:account:device:error:]", "MBCKFile.m", 2929, "device");
+  }
+
+  if (!error)
+  {
+    __assert_rtn("[MBCKFile(EncodingPrivate) encodeWithFileAtPath:encodingMethod:hasSnapshot:destinationDirectory:account:device:error:]", "MBCKFile.m", 2930, "error");
+  }
+
+  v43 = accountCopy;
+  isSQLiteFile = [(MBCKFile *)self isSQLiteFile];
+  domainName = [(MBCKFile *)self domainName];
+  inode = [(MBCKFile *)self inode];
+  v23 = directoryCopy;
+  v24 = domainName;
+  if (!v23)
+  {
+    __assert_rtn("_encodingPath", "MBCKFile.m", 2861, "destinationDirectory");
+  }
+
+  v25 = v24;
+  v44 = v19;
+  if (inode)
+  {
+    v26 = MBRandomUUID();
+    v27 = [[NSString alloc] initWithFormat:@"%@-%llu-%@.%@", v25, inode, v26, @"e"];
+    v28 = [v23 stringByAppendingPathComponent:v27];
+  }
+
+  else
+  {
+    v28 = MBTemporaryPath();
+    v26 = MBGetDefaultLog();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v47 = v28;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Invalid inode - reverting to: %@", buf, 0xCu);
+      _MBLog(@"E ", "Invalid inode - reverting to: %@", v28);
+    }
+  }
+
+  if (!v28)
+  {
+    __assert_rtn("[MBCKFile(EncodingPrivate) encodeWithFileAtPath:encodingMethod:hasSnapshot:destinationDirectory:account:device:error:]", "MBCKFile.m", 2934, "destinationPath");
+  }
+
+  v29 = BYTE6(self->_mbNode.cloneID);
+  if (![MBProtectionClassUtils canOpenWhenLocked:v29])
+  {
+    __assert_rtn("[MBCKFile(EncodingPrivate) encodeWithFileAtPath:encodingMethod:hasSnapshot:destinationDirectory:account:device:error:]", "MBCKFile.m", 2936, "[MBProtectionClassUtils canOpenWhenLocked:pc]");
+  }
+
+  [objc_opt_class() sqliteSpaceSavingsThreshold];
+  v31 = v30;
+  v32 = dispatch_group_create();
+  v33 = [MBFileEncodingTask encodingTaskWithEncodingMethod:methodCopy];
+  [v33 setValidate:{objc_msgSend(objc_opt_class(), "shouldValidateFileEncoding")}];
+  [v33 setSourcePath:pathCopy];
+  [v33 setSourceIsLive:!snapshotCopy];
+  [v33 setDestinationPath:v28];
+  [v33 setProtectionClass:v29];
+  if (isSQLiteFile)
+  {
+    v34 = [NSNumber numberWithDouble:v31];
+    [v33 setSpaceSavingsThreshold:v34];
+  }
+
+  else
+  {
+    [v33 setSpaceSavingsThreshold:0];
+  }
+
+  [v33 setGroup:v32];
+  [v33 start];
+  dispatch_group_wait(v32, 0xFFFFFFFFFFFFFFFFLL);
+  error = [v33 error];
+  if (error)
+  {
+    goto LABEL_26;
+  }
+
+  objc_storeStrong(&self->_rsrcTemporaryPath, v28);
+  resources = self->_resources;
+  self->_resources = 0;
+
+  v45 = 0;
+  v37 = [(MBCKFile *)self fetchEncryptionKeyWithAccount:v43 device:v44 error:&v45];
+  error = v45;
+  if ((v37 & 1) == 0)
+  {
+    v39 = MBGetDefaultLog();
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412546;
+      v47 = v28;
+      v48 = 2112;
+      v49 = error;
+      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Failed to fetch the encryption key for encoding file at %@, error:%@", buf, 0x16u);
+      _MBLog(@"E ", "Failed to fetch the encryption key for encoding file at %@, error:%@", v28, error);
+    }
+
+LABEL_26:
+    v40 = error;
+    *error = error;
+    rsrcTemporaryPath = self->_rsrcTemporaryPath;
+    self->_rsrcTemporaryPath = 0;
+
+    LOBYTE(self->_sqliteTemporaryDirectory) = -1;
+    BYTE1(self->_sqliteTemporaryDirectory) = -1;
+    sub_1000D2F84(v28);
+    v38 = 0;
+    goto LABEL_27;
+  }
+
+  if ([v33 encodingMethod] == -1)
+  {
+    __assert_rtn("[MBCKFile(EncodingPrivate) encodeWithFileAtPath:encodingMethod:hasSnapshot:destinationDirectory:account:device:error:]", "MBCKFile.m", 2966, "task.encodingMethod != MBFileEncodingMethodDefault");
+  }
+
+  if (![v33 encodingMethod])
+  {
+    __assert_rtn("[MBCKFile(EncodingPrivate) encodeWithFileAtPath:encodingMethod:hasSnapshot:destinationDirectory:account:device:error:]", "MBCKFile.m", 2967, "task.encodingMethod != MBFileEncodingMethodUnspecified");
+  }
+
+  if (![v33 compressionMethod])
+  {
+    __assert_rtn("[MBCKFile(EncodingPrivate) encodeWithFileAtPath:encodingMethod:hasSnapshot:destinationDirectory:account:device:error:]", "MBCKFile.m", 2968, "task.compressionMethod != MBFileCompressionMethodUnspecified");
+  }
+
+  LOBYTE(self->_sqliteTemporaryDirectory) = [v33 encodingMethod];
+  BYTE1(self->_sqliteTemporaryDirectory) = [v33 compressionMethod];
+  self->_sizeBeforeCopy = self->_mbNode.fileSize;
+  self->_mbNode.fileSize = [v33 destinationSize];
+  v38 = 1;
+LABEL_27:
+
+  return v38;
+}
+
 - (BOOL)decodeWithFileAtPath:(id)path destinationDirectory:(id)directory error:(id *)error
 {
   pathCopy = path;
@@ -8109,24 +8103,24 @@ LABEL_108:
 
   v11 = [v10 stringByAppendingPathComponent:@"DecodedAssets"];
   v12 = +[NSFileManager defaultManager];
-  v47 = 0;
-  v13 = [v12 createDirectoryAtPath:v11 withIntermediateDirectories:1 attributes:0 error:&v47];
-  v14 = v47;
+  v44 = 0;
+  v13 = [v12 createDirectoryAtPath:v11 withIntermediateDirectories:1 attributes:0 error:&v44];
+  v14 = v44;
 
   if (v13)
   {
-    v46 = 0;
-    v15 = [MBTemporaryDirectory temporaryDirectoryOnSameVolumeAsPath:v11 identifiedBy:@"decoded-assets-tmp" error:&v46];
-    v16 = v46;
+    v43 = 0;
+    v15 = [MBTemporaryDirectory temporaryDirectoryOnSameVolumeAsPath:v11 identifiedBy:@"decoded-assets-tmp" error:&v43];
+    v16 = v43;
     if (!v15)
     {
       v25 = MBGetDefaultLog();
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v49 = v11;
+        v46 = v11;
         _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Failed to create tempdir on same volume as %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Failed to create tempdir on same volume as %@", v11);
       }
 
       v24 = 0;
@@ -8141,8 +8135,8 @@ LABEL_108:
       __assert_rtn("[MBCKFile(Encoding) decodeWithFileAtPath:destinationDirectory:error:]", "MBCKFile.m", 3013, "signature");
     }
 
-    v42 = mb_base64EncodedFileSystemPathString;
-    v43 = [v11 stringByAppendingPathComponent:mb_base64EncodedFileSystemPathString];
+    v39 = mb_base64EncodedFileSystemPathString;
+    v40 = [v11 stringByAppendingPathComponent:mb_base64EncodedFileSystemPathString];
     makeTemporaryFilePath = [v15 makeTemporaryFilePath];
     if (!makeTemporaryFilePath)
     {
@@ -8150,11 +8144,11 @@ LABEL_108:
     }
 
     v20 = makeTemporaryFilePath;
-    v44 = v15;
-    v41 = v14;
+    v41 = v15;
+    v38 = v14;
     v21 = BYTE6(self->_mbNode.cloneID);
     sqliteTemporaryDirectory_low = SLOBYTE(self->_sqliteTemporaryDirectory);
-    v39 = v10;
+    v36 = v10;
     if ([(MBCKFile *)self hasContentCompressionMethod])
     {
       v23 = BYTE1(self->_sqliteTemporaryDirectory);
@@ -8174,29 +8168,29 @@ LABEL_108:
     [v27 setProtectionClass:v21];
     [v27 setGroup:v26];
     [v27 start];
-    v40 = v26;
+    v37 = v26;
     dispatch_group_wait(v26, 0xFFFFFFFFFFFFFFFFLL);
     error = [v27 error];
 
     if (error)
     {
       error2 = [v27 error];
-      v10 = v39;
+      v10 = v36;
     }
 
     else
     {
-      v45 = 0;
-      v32 = [MBFileOperation rename:4294967294 sourceRpath:v20 destinationBasePath:@"/" destinationBaseFD:4294967294 destinationRpath:v43 flags:4 error:&v45];
-      error2 = v45;
-      v10 = v39;
+      v42 = 0;
+      v32 = [MBFileOperation rename:4294967294 sourceRpath:v20 destinationBasePath:@"/" destinationBaseFD:4294967294 destinationRpath:v40 flags:4 error:&v42];
+      error2 = v42;
+      v10 = v36;
       if ((v32 & 1) != 0 || [MBError errnoForError:error2]== 17)
       {
         restoreState = [(MBCKFile *)self restoreState];
-        [restoreState setDecodedAssetPath:v43];
+        [restoreState setDecodedAssetPath:v40];
 
         self->_mbNode.fileSize = [v27 destinationSize];
-        [v44 dispose];
+        [v41 dispose];
         v24 = 1;
         goto LABEL_23;
       }
@@ -8205,20 +8199,17 @@ LABEL_108:
       if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v49 = v20;
-        v50 = 2112;
-        v51 = v43;
-        v52 = 2112;
-        v53 = error2;
+        v46 = v20;
+        v47 = 2112;
+        v48 = v40;
+        v49 = 2112;
+        v50 = error2;
         _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "Decode failed to move file from %@ to %@: %@", buf, 0x20u);
-        v37 = v43;
-        v38 = error2;
-        v36 = v20;
-        _MBLog();
+        _MBLog(@"E ", "Decode failed to move file from %@ to %@: %@", v20, v40, error2);
       }
     }
 
-    [v44 dispose];
+    [v41 dispose];
     v30 = error2;
     *error = error2;
     restoreState2 = [(MBCKFile *)self restoreState];
@@ -8228,9 +8219,9 @@ LABEL_108:
     v24 = 0;
 LABEL_23:
 
-    v14 = v41;
-    v25 = v42;
-    v15 = v44;
+    v14 = v38;
+    v25 = v39;
+    v15 = v41;
 LABEL_24:
 
     goto LABEL_25;
@@ -8240,11 +8231,11 @@ LABEL_24:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v49 = v11;
-    v50 = 2112;
-    v51 = v14;
+    v46 = v11;
+    v47 = 2112;
+    v48 = v14;
     _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Failed to create DecodedAssets directory %@: %@", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"E ", "Failed to create DecodedAssets directory %@: %@", v11, v14);
   }
 
   v24 = 0;
@@ -8314,6 +8305,13 @@ LABEL_25:
   {
     return &v3->isa;
   }
+}
+
+- (void)setStashedAssetIsDecrypted:(BOOL)decrypted
+{
+  decryptedCopy = decrypted;
+  restoreState = [(MBCKFile *)self restoreState];
+  [restoreState setStashedAssetDecrypted:decryptedCopy];
 }
 
 - (void)setStashedAssetPath:(id)path

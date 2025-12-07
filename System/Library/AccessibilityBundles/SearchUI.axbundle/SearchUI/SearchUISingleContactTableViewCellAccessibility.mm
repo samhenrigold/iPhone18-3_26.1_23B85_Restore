@@ -33,39 +33,39 @@
 
 - (id)accessibilityCustomActions
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   _axActionButton = [(SearchUISingleContactTableViewCellAccessibility *)self _axActionButton];
-  v27 = 0;
+  v26 = 0;
   objc_opt_class();
   v3 = [_axActionButton safeValueForKey:@"actions"];
   v4 = __UIAccessibilityCastAsClass();
 
   if (v4 && [v4 count])
   {
-    v19 = _axActionButton;
-    v22 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{objc_msgSend(v4, "count")}];
+    v18 = _axActionButton;
+    v21 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{objc_msgSend(v4, "count")}];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     obj = v4;
-    v5 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v5 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v24;
+      v7 = *v23;
       do
       {
         v8 = 0;
         do
         {
-          if (*v24 != v7)
+          if (*v23 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v23 + 1) + 8 * v8);
-          v10 = [v9 safeValueForKey:{@"category", v15, v16, v17, v18}];
+          v9 = *(*(&v22 + 1) + 8 * v8);
+          v10 = [v9 safeValueForKey:{@"category", v14, v15, v16, v17}];
           if (AXLocalizedStringFromQuickActionCategory_onceToken != -1)
           {
             [SearchUISingleContactTableViewCellAccessibility accessibilityCustomActions];
@@ -76,15 +76,15 @@
           {
             v12 = [objc_alloc(MEMORY[0x29EDC78E0]) initWithName:v11 target:self selector:sel__axPerformCustomAction_];
             [v12 _accessibilitySetRetainedValue:v9 forKey:@"AXCNActionKey"];
-            [v22 addObject:v12];
+            [v21 addObject:v12];
           }
 
           else
           {
-            v17 = v9;
-            v18 = v10;
-            v16 = @"Could not create title for action %@ with category %@";
-            LOBYTE(v15) = 1;
+            v16 = v9;
+            v17 = v10;
+            v15 = @"Could not create title for action %@ with category %@";
+            LOBYTE(v14) = 1;
             _AXLogWithFacility();
           }
 
@@ -92,24 +92,22 @@
         }
 
         while (v6 != v8);
-        v6 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v6 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v6);
     }
 
-    _axActionButton = v19;
+    _axActionButton = v18;
   }
 
   else
   {
     _AXLogWithFacility();
-    v22 = 0;
+    v21 = 0;
   }
 
-  v13 = *MEMORY[0x29EDCA608];
-
-  return v22;
+  return v21;
 }
 
 - (void)_axPerformCustomAction:(id)action

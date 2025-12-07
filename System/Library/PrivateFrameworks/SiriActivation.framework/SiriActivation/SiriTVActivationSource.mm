@@ -1,6 +1,8 @@
 @interface SiriTVActivationSource
 + (id)activationSourceForIdentifier:(int64_t)identifier;
 - (void)setDeviceIdentifier:(id)identifier;
+- (void)setListening:(BOOL)listening;
+- (void)setPTTEligible:(BOOL)eligible;
 - (void)setRemoteType:(unint64_t)type;
 @end
 
@@ -55,6 +57,34 @@
   {
     context2 = [(SiriTVActivationSource *)self context];
     [context2 setRemoteType:type];
+  }
+}
+
+- (void)setListening:(BOOL)listening
+{
+  listeningCopy = listening;
+  context = [(SiriTVActivationSource *)self context];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    context2 = [(SiriTVActivationSource *)self context];
+    [context2 setIsListening:listeningCopy];
+  }
+}
+
+- (void)setPTTEligible:(BOOL)eligible
+{
+  eligibleCopy = eligible;
+  context = [(SiriTVActivationSource *)self context];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    context2 = [(SiriTVActivationSource *)self context];
+    [context2 setSourcePTTEligibility:eligibleCopy];
   }
 }
 

@@ -340,7 +340,7 @@ LABEL_7:
 {
   valueCopy = value;
   IsValid = _HKWorkoutActivityTypeIsValid([valueCopy intValue]);
-  if ((IsValid & 1) == 0)
+  if (!IsValid)
   {
     [MEMORY[0x1E696ABC0] hk_assignError:error code:3 format:{@"Invalid metadata value for %@: %@", @"HKMetadataKeyHeartRateRecoveryActivityType", valueCopy}];
   }

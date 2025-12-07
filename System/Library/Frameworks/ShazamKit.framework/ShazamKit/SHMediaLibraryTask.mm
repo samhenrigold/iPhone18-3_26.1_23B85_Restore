@@ -68,15 +68,15 @@
 
 - (void)_libraryWillBeginSync:(id)sync
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v4 = sh_log_object();
+  v12 = *MEMORY[0x277D85DE8];
+  v4 = sh_log_object(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [(SHMediaLibraryTask *)self identifier];
     uUIDString = [identifier UUIDString];
-    v11 = 138412290;
-    v12 = uUIDString;
-    _os_log_impl(&dword_230F52000, v4, OS_LOG_TYPE_DEFAULT, "Library sync task <ID:%@> will begin", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = uUIDString;
+    _os_log_impl(&dword_230F52000, v4, OS_LOG_TYPE_DEFAULT, "Library sync task <ID:%@> will begin", &v10, 0xCu);
   }
 
   delegate = [(SHMediaLibraryTask *)self delegate];
@@ -87,24 +87,22 @@
     delegate2 = [(SHMediaLibraryTask *)self delegate];
     [delegate2 _libraryWillBeginSync:self];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_library:(id)_library didChangeWithSnapshot:(id)snapshot
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   snapshotCopy = snapshot;
-  v6 = sh_log_object();
+  v6 = sh_log_object(snapshotCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [(SHMediaLibraryTask *)self identifier];
     uUIDString = [identifier UUIDString];
-    v13 = 138412546;
-    v14 = uUIDString;
-    v15 = 2112;
-    v16 = snapshotCopy;
-    _os_log_impl(&dword_230F52000, v6, OS_LOG_TYPE_DEFAULT, "Library sync task <ID:%@> produced changes %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = uUIDString;
+    v14 = 2112;
+    v15 = snapshotCopy;
+    _os_log_impl(&dword_230F52000, v6, OS_LOG_TYPE_DEFAULT, "Library sync task <ID:%@> produced changes %@", &v12, 0x16u);
   }
 
   delegate = [(SHMediaLibraryTask *)self delegate];
@@ -115,25 +113,23 @@
     delegate2 = [(SHMediaLibraryTask *)self delegate];
     [delegate2 _library:self didChangeWithSnapshot:snapshotCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_library:(id)_library didProduceError:(id)error failedItemIdentifiers:(id)identifiers
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   identifiersCopy = identifiers;
-  v9 = sh_log_object();
+  v9 = sh_log_object(identifiersCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     identifier = [(SHMediaLibraryTask *)self identifier];
     uUIDString = [identifier UUIDString];
-    v16 = 138412546;
-    v17 = uUIDString;
-    v18 = 2112;
-    v19 = errorCopy;
-    _os_log_impl(&dword_230F52000, v9, OS_LOG_TYPE_ERROR, "Library sync task <ID:%@> produced error %@", &v16, 0x16u);
+    v15 = 138412546;
+    v16 = uUIDString;
+    v17 = 2112;
+    v18 = errorCopy;
+    _os_log_impl(&dword_230F52000, v9, OS_LOG_TYPE_ERROR, "Library sync task <ID:%@> produced error %@", &v15, 0x16u);
   }
 
   [(SHMediaLibraryTask *)self setSyncError:errorCopy];
@@ -145,21 +141,19 @@
     delegate2 = [(SHMediaLibraryTask *)self delegate];
     [delegate2 _library:self didProduceError:errorCopy failedItemIdentifiers:identifiersCopy];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_libraryDidCompleteSync:(id)sync
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v4 = sh_log_object();
+  v15 = *MEMORY[0x277D85DE8];
+  v4 = sh_log_object(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [(SHMediaLibraryTask *)self identifier];
     uUIDString = [identifier UUIDString];
-    v14 = 138412290;
-    v15 = uUIDString;
-    _os_log_impl(&dword_230F52000, v4, OS_LOG_TYPE_DEFAULT, "Library sync task <ID:%@> execution complete", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = uUIDString;
+    _os_log_impl(&dword_230F52000, v4, OS_LOG_TYPE_DEFAULT, "Library sync task <ID:%@> execution complete", &v13, 0xCu);
   }
 
   delegate = [(SHMediaLibraryTask *)self delegate];
@@ -181,8 +175,6 @@
 
     [(SHMediaLibraryTask *)self setSyncCompletionBlock:0];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (SHMediaLibrarySyncDelegate)delegate

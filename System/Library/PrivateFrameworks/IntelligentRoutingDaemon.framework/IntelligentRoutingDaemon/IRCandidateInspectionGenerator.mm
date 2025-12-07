@@ -52,7 +52,7 @@
 
 - (id)exportCandidateInspectionAsDictionary
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   if ([(IRCandidateInspectionGenerator *)self sameSpaceBasedOnMiLo])
   {
@@ -120,26 +120,26 @@
   }
 
   [v3 setObject:v9 forKeyedSubscript:@"sameSpaceBasedOnHistory"];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   candidateSelectorReasons = [(IRCandidateInspectionGenerator *)self candidateSelectorReasons];
-  v11 = [candidateSelectorReasons countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v11 = [candidateSelectorReasons countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v22;
+    v13 = *v21;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v22 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(candidateSelectorReasons);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * i);
+        v15 = *(*(&v20 + 1) + 8 * i);
         candidateSelectorReasons2 = [(IRCandidateInspectionGenerator *)self candidateSelectorReasons];
         v17 = [candidateSelectorReasons2 objectForKeyedSubscript:v15];
         if (v17)
@@ -155,13 +155,11 @@
         [v3 setObject:v18 forKeyedSubscript:v15];
       }
 
-      v12 = [candidateSelectorReasons countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v12 = [candidateSelectorReasons countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v12);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

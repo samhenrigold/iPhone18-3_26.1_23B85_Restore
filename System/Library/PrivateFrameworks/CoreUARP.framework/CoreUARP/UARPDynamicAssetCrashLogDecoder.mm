@@ -57,7 +57,7 @@ LABEL_5:
 
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
   {
-    [UARPDynamicAssetCrashLogDecoder decodeCrashLog:? inDictionary:?];
+    [UARPDynamicAssetCrashLogDecoder decodeCrashLog:inDictionary:];
   }
 
   v10 = 0;
@@ -68,7 +68,7 @@ LABEL_9:
 
 - (BOOL)copySectionName:(id)name inDictionary:(id)dictionary
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   dictionaryCopy = dictionary;
   v8 = [(NSDictionary *)self->_cmapDictionary objectForKey:@"CrashLogKey"];
@@ -96,26 +96,26 @@ LABEL_19:
   }
 
   [nameCopy allKeys];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v9 = v23 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = v22 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
-    v19 = dictionaryCopy;
+    v12 = *v20;
+    v18 = dictionaryCopy;
 LABEL_5:
     v13 = 0;
     while (1)
     {
-      if (*v21 != v12)
+      if (*v20 != v12)
       {
         objc_enumerationMutation(v9);
       }
 
-      v14 = *(*(&v20 + 1) + 8 * v13);
+      v14 = *(*(&v19 + 1) + 8 * v13);
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
       if ((isKindOfClass & 1) == 0)
@@ -126,8 +126,8 @@ LABEL_5:
       if ([v8 isEqualToString:v14])
       {
         v16 = [nameCopy objectForKey:v8];
-        dictionaryCopy = v19;
-        [v19 setObject:v16 forKey:v8];
+        dictionaryCopy = v18;
+        [v18 setObject:v16 forKey:v8];
 
 LABEL_23:
         goto LABEL_24;
@@ -135,8 +135,8 @@ LABEL_23:
 
       if (v11 == ++v13)
       {
-        v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
-        dictionaryCopy = v19;
+        v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        dictionaryCopy = v18;
         if (v11)
         {
           goto LABEL_5;
@@ -146,7 +146,7 @@ LABEL_23:
       }
     }
 
-    dictionaryCopy = v19;
+    dictionaryCopy = v18;
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
       [UARPDynamicAssetCrashLogDecoder copySectionName:inDictionary:];
@@ -166,13 +166,12 @@ LABEL_12:
 LABEL_24:
 
 LABEL_25:
-  v17 = *MEMORY[0x277D85DE8];
   return isKindOfClass & 1;
 }
 
 - (BOOL)createDictionary:(id)dictionary inDictionary:(id)inDictionary
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   inDictionaryCopy = inDictionary;
   v8 = [(NSDictionary *)self->_cmapDictionary objectForKey:@"CrashLogKey"];
@@ -268,10 +267,10 @@ LABEL_40:
   v16 = 0;
   while (2)
   {
-    v30 = v15;
+    v29 = v15;
     v17 = [v8 objectAtIndexedSubscript:v15];
     objc_opt_class();
-    v34 = v17;
+    v33 = v17;
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
@@ -282,13 +281,13 @@ LABEL_40:
       goto LABEL_49;
     }
 
-    v28 = v16;
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
+    v27 = v16;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     obj = allKeys;
-    v18 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v18 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     if (!v18)
     {
 
@@ -305,24 +304,24 @@ LABEL_49:
     }
 
     v19 = v18;
-    v31 = v14;
-    v29 = allKeys;
+    v30 = v14;
+    v28 = allKeys;
     v20 = 0;
-    v33 = *v36;
+    v32 = *v35;
     while (2)
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v36 != v33)
+        if (*v35 != v32)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v35 + 1) + 8 * i);
+        v22 = *(*(&v34 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          allKeys = v29;
+          allKeys = v28;
           if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
           {
             [UARPDynamicAssetCrashLogDecoder createDictionary:inDictionary:];
@@ -331,12 +330,12 @@ LABEL_49:
           goto LABEL_48;
         }
 
-        if (![v22 isEqualToString:v34])
+        if (![v22 isEqualToString:v33])
         {
           continue;
         }
 
-        v23 = [v9 objectAtIndexedSubscript:v30];
+        v23 = [v9 objectAtIndexedSubscript:v29];
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -345,20 +344,20 @@ LABEL_49:
             [UARPDynamicAssetCrashLogDecoder createDictionary:inDictionary:];
           }
 
-          allKeys = v29;
+          allKeys = v28;
 LABEL_48:
 
-          v14 = v31;
+          v14 = v30;
           goto LABEL_49;
         }
 
-        v24 = [dictionaryCopy objectForKey:v34];
-        [v31 setObject:v24 forKey:v23];
+        v24 = [dictionaryCopy objectForKey:v33];
+        [v30 setObject:v24 forKey:v23];
 
         v20 = 1;
       }
 
-      v19 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v19 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
       if (v19)
       {
         continue;
@@ -367,15 +366,15 @@ LABEL_48:
       break;
     }
 
-    allKeys = v29;
-    v14 = v31;
+    allKeys = v28;
+    v14 = v30;
     if ((v20 & 1) == 0)
     {
       goto LABEL_54;
     }
 
-    v15 = (v28 + 1);
-    v16 = v28 + 1;
+    v15 = (v27 + 1);
+    v16 = v27 + 1;
     if ([v8 count] > v15)
     {
       continue;
@@ -392,41 +391,7 @@ LABEL_50:
 LABEL_41:
 LABEL_42:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v25;
-}
-
-- (void)decodeCrashLog:(int *)a1 inDictionary:.cold.1(int *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)copySectionName:inDictionary:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)copySectionName:inDictionary:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)copySectionName:inDictionary:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copySectionName:inDictionary:.cold.4()
@@ -436,67 +401,11 @@ LABEL_42:
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)createDictionary:inDictionary:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)createDictionary:inDictionary:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)createDictionary:inDictionary:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)createDictionary:inDictionary:.cold.4()
 {
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)createDictionary:inDictionary:.cold.5()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)createDictionary:inDictionary:.cold.6()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)createDictionary:inDictionary:.cold.7()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)createDictionary:inDictionary:.cold.8()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createDictionary:inDictionary:.cold.9()

@@ -61,9 +61,9 @@
   diskCopy = disk;
   delegateCopy = delegate;
   kdebug_trace();
-  v24.receiver = self;
-  v24.super_class = BCCloudDataSource;
-  v17 = [(BCCloudDataSource *)&v24 init];
+  v25.receiver = self;
+  v25.super_class = BCCloudDataSource;
+  v17 = [(BCCloudDataSource *)&v25 init];
   if (v17)
   {
     v18 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:modelCopy];
@@ -71,17 +71,18 @@
     *(v17 + 2) = v18;
 
     objc_storeWeak(v17 + 3, delegateCopy);
-    if ([v17 _setupPersistentStoreWithRootDirectoryURL:lCopy legacyRootDirectoryURL:rLCopy nameOnDisk:diskCopy] && (objc_msgSend(*(v17 + 2), "persistentStores"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "count"), v20, v21))
+    v20 = [v17 _setupPersistentStoreWithRootDirectoryURL:lCopy legacyRootDirectoryURL:rLCopy nameOnDisk:diskCopy];
+    if (v20 && ([*(v17 + 2) persistentStores], v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v21, "count"), v21, v22))
     {
       [v17 _setupManagedObjectContext];
     }
 
     else
     {
-      v22 = sub_100002660();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v23 = sub_100002660(v20);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        sub_1001C0AD8(v17 + 2, v22);
+        sub_1001C0AD8(v17 + 2, v23);
       }
     }
   }
@@ -145,12 +146,13 @@
   ifCopy = if;
   errorCopy = error;
   operationCopy = operation;
+  v9 = operationCopy;
   if (ifCopy)
   {
-    v9 = sub_100002660();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100002660(operationCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_1001C0B54(operationCopy, errorCopy, v9);
+      sub_1001C0B54(v9, errorCopy, v10);
     }
   }
 }
@@ -165,19 +167,20 @@
   {
     v12 = [rLCopy URLByAppendingPathComponent:diskCopy];
     [(BCCloudDataSource *)self _createDirectoryForStoreAtURL:v11];
-    if ([(BCCloudDataSource *)self _directoryExistsForStoreAtURL:v12])
+    v13 = [(BCCloudDataSource *)self _directoryExistsForStoreAtURL:v12];
+    if (v13)
     {
       [(BCCloudDataSource *)self _migrateAndDestroyStoreAtLegacyURL:v12 toModernURL:v11];
     }
 
     else
     {
-      v13 = sub_100002660();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100002660(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = 138412290;
-        v28 = v12;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Unable to migrate legacy database since file does not exist at URL %@", &v27, 0xCu);
+        v32 = 138412290;
+        v33 = v12;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Unable to migrate legacy database since file does not exist at URL %@", &v32, 0xCu);
       }
     }
   }
@@ -187,63 +190,65 @@
     goto LABEL_14;
   }
 
-  v14 = +[BUAppGroup books];
-  userDefaults = [v14 userDefaults];
+  v15 = +[BUAppGroup books];
+  userDefaults = [v15 userDefaults];
 
-  v16 = [userDefaults stringForKey:@"BDSDevelopmentForceAddStoreFailureOnce"];
-  if (![v16 isEqual:diskCopy])
+  v17 = [userDefaults stringForKey:@"BDSDevelopmentForceAddStoreFailureOnce"];
+  v18 = [v17 isEqual:diskCopy];
+  if (!v18)
   {
 
 LABEL_14:
-    v18 = [(BCCloudDataSource *)self _addStoreAtURL:v11];
-    v19 = 0;
+    v20 = [(BCCloudDataSource *)self _addStoreAtURL:v11];
+    v21 = v20;
+    v22 = 0;
     goto LABEL_15;
   }
 
-  v17 = sub_100002660();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v19 = sub_100002660(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 138543874;
-    v28 = diskCopy;
-    v29 = 2160;
-    v30 = 1752392040;
-    v31 = 2112;
-    v32 = v11;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "_setupPersistentStoreWithRootDirectoryURL -- Forcing store failure once for %{public}@, url: %{mask.hash}@", &v27, 0x20u);
+    v32 = 138543874;
+    v33 = diskCopy;
+    v34 = 2160;
+    v35 = 1752392040;
+    v36 = 2112;
+    v37 = v11;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "_setupPersistentStoreWithRootDirectoryURL -- Forcing store failure once for %{public}@, url: %{mask.hash}@", &v32, 0x20u);
   }
 
   [userDefaults removeObjectForKey:@"BDSDevelopmentForceAddStoreFailureOnce"];
-  v18 = 0;
-  v19 = 1;
+  v21 = 0;
+  v22 = 1;
 LABEL_15:
-  v20 = sub_100002660();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v23 = sub_100002660(v20);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 138412546;
-    v28 = v11;
-    v29 = 1024;
-    LODWORD(v30) = v18;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "_setupPersistentStoreWithRootDirectoryURL: %@, storeAdded: %d", &v27, 0x12u);
+    v32 = 138412546;
+    v33 = v11;
+    v34 = 1024;
+    LODWORD(v35) = v21;
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "_setupPersistentStoreWithRootDirectoryURL: %@, storeAdded: %d", &v32, 0x12u);
   }
 
-  if (v18)
+  if (v21)
   {
     goto LABEL_26;
   }
 
-  v21 = sub_100002660();
-  v22 = v21;
-  if (v19)
+  v25 = sub_100002660(v24);
+  v26 = v25;
+  if (v22)
   {
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      sub_1001C0C64(v22);
+      sub_1001C0C64(v26);
     }
   }
 
-  else if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+  else if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
   {
-    sub_1001C0C20(v22);
+    sub_1001C0C20(v26);
   }
 
   if ([(BCCloudDataSource *)self _deleteDirectoryForStoreAtURL:v11])
@@ -253,24 +258,25 @@ LABEL_15:
     [delegate dataSource:self storeDidReset:diskCopy];
   }
 
-  if ([(BCCloudDataSource *)self _addStoreAtURL:v11])
+  v28 = [(BCCloudDataSource *)self _addStoreAtURL:v11];
+  if (v28)
   {
 LABEL_26:
-    v24 = 1;
+    v29 = 1;
   }
 
   else
   {
-    v25 = sub_100002660();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+    v30 = sub_100002660(v28);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
     {
-      sub_1001C0CA8(v25);
+      sub_1001C0CA8(v30);
     }
 
-    v24 = 0;
+    v29 = 0;
   }
 
-  return v24;
+  return v29;
 }
 
 - (void)_setupManagedObjectContext
@@ -324,7 +330,7 @@ LABEL_26:
 {
   lCopy = l;
   rLCopy = rL;
-  v8 = sub_100002660();
+  v8 = sub_100002660(rLCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
@@ -341,8 +347,7 @@ LABEL_26:
   v12 = [(NSPersistentStoreCoordinator *)persistentStoreCoordinator replacePersistentStoreAtURL:rLCopy destinationOptions:_persistentStoreOptions withPersistentStoreFromURL:lCopy sourceOptions:_persistentStoreOptions2 storeType:NSSQLiteStoreType error:&v19];
   v13 = v19;
 
-  [(BCCloudDataSource *)self _logIf:v12 ^ 1 error:v13 operation:@"[MIGRATE] migrate legacy store"];
-  v14 = sub_100002660();
+  v14 = sub_100002660([(BCCloudDataSource *)self _logIf:v12 ^ 1 error:v13 operation:@"[MIGRATE] migrate legacy store"]);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -360,7 +365,7 @@ LABEL_26:
 - (BOOL)_addStoreAtURL:(id)l
 {
   lCopy = l;
-  v5 = sub_100002660();
+  v5 = sub_100002660(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     lastPathComponent = [lCopy lastPathComponent];

@@ -540,7 +540,7 @@ void __90__UISystemKeyboardDockController_dictationItemButtonWasPressed_withEven
   [v1 switchToDictationInputModeWithTouch:0];
 }
 
-uint64_t __90__UISystemKeyboardDockController_dictationItemButtonWasPressed_withEvent_isRunningButton___block_invoke_71(uint64_t a1)
+void *__90__UISystemKeyboardDockController_dictationItemButtonWasPressed_withEvent_isRunningButton___block_invoke_71(uint64_t a1)
 {
   result = [*(a1 + 32) gestureConflictsWithTypingWindow];
   v3 = *(a1 + 40);
@@ -591,9 +591,9 @@ uint64_t __90__UISystemKeyboardDockController_dictationItemButtonWasPressed_with
   v22 = +[UIKeyboardInputMode dictationInputMode];
   v23 = +[UIKeyboardInputModeController sharedInputModeController];
   currentInputMode = [v23 currentInputMode];
-  v25 = [v22 isEqual:currentInputMode];
+  isEqual = objc_msgSend_isEqual_(v22);
 
-  if (v25)
+  if (isEqual)
   {
     v26 = +[UIDictationView sharedInstance];
     [v26 globeButtonPressed:pressedCopy withEvent:eventCopy location:{v12, v14}];
@@ -730,7 +730,7 @@ void __70__UISystemKeyboardDockController_globeItemButtonWasPressed_withEvent___
     if ([anyObject phase] == 3)
     {
       lastTouchUp = [tappedCopy lastTouchUp];
-      v18 = ([anyObject isEqual:lastTouchUp] ^ 1) & v16;
+      v18 = (objc_msgSend_isEqual_(anyObject) ^ 1) & v16;
 
       if (v18 == 1)
       {

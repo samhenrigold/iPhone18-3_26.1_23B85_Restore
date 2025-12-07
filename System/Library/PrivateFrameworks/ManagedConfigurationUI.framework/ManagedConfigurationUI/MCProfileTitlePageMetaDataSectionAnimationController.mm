@@ -14,6 +14,7 @@
 - (unint64_t)_binarySearch:(id)search target:(double)target;
 - (void)_animateView:(id)view progress:(double)progress startFrame:(CGRect)frame endY:(double)y endScale:(double)scale extraYOffset:(double)offset;
 - (void)startTrackingWithMetaDataSectionController:(id)controller topBar:(id)bar;
+- (void)updateProgressWithTranslationDistance:(double)distance referenceDistance:(double)referenceDistance isScrolling:(BOOL)scrolling;
 @end
 
 @implementation MCProfileTitlePageMetaDataSectionAnimationController
@@ -43,6 +44,150 @@
   tableView = [controllerCopy tableView];
 
   [(MCProfileTitlePageMetaDataSectionAnimationController *)self setTableView:tableView];
+}
+
+- (void)updateProgressWithTranslationDistance:(double)distance referenceDistance:(double)referenceDistance isScrolling:(BOOL)scrolling
+{
+  scrollingCopy = scrolling;
+  titleView = [(MCProfileTitlePageMetaDataSectionAnimationController *)self titleView];
+  iconView = [(MCProfileTitlePageMetaDataSectionAnimationController *)self iconView];
+  subtitleView = [(MCProfileTitlePageMetaDataSectionAnimationController *)self subtitleView];
+  orgView = [(MCProfileTitlePageMetaDataSectionAnimationController *)self orgView];
+  if (distance != 0.0 || scrollingCopy)
+  {
+    referenceDistanceCopy = referenceDistance;
+    v24 = distance / referenceDistance;
+    v25 = 1.0;
+    if (distance / referenceDistance <= 1.0)
+    {
+      v25 = distance / referenceDistance;
+    }
+
+    v26 = fmax(v25, 0.0);
+    sectionController = [(MCProfileTitlePageMetaDataSectionAnimationController *)self sectionController];
+    titleCell = [sectionController titleCell];
+    contentView = [titleCell contentView];
+    topBar = [(MCProfileTitlePageMetaDataSectionAnimationController *)self topBar];
+    v31 = [(MCProfileTitlePageMetaDataSectionAnimationController *)self _relocateViewIfNeeded:titleView fromView:contentView toView:topBar];
+
+    if (v31)
+    {
+      [titleView frame];
+      [(MCProfileTitlePageMetaDataSectionAnimationController *)self setTitleLabelOriginFrame:?];
+    }
+
+    else
+    {
+      [(MCProfileTitlePageMetaDataSectionAnimationController *)self titleLabelOriginFrame];
+      v33 = v32;
+      v35 = v34;
+      v37 = v36;
+      v39 = v38;
+      topBar2 = [(MCProfileTitlePageMetaDataSectionAnimationController *)self topBar];
+      [topBar2 frame];
+      MidY = CGRectGetMidY(v70);
+      if (v24 >= 0.0)
+      {
+        distanceCopy = 0.0;
+      }
+
+      else
+      {
+        distanceCopy = distance;
+      }
+
+      [(MCProfileTitlePageMetaDataSectionAnimationController *)self _animateView:titleView progress:v26 startFrame:v33 endY:v35 endScale:v37 extraYOffset:v39, MidY, 0.6, distanceCopy];
+    }
+
+    v43 = fmax(distance, 0.0);
+    sectionController2 = [(MCProfileTitlePageMetaDataSectionAnimationController *)self sectionController];
+    iconCell = [sectionController2 iconCell];
+    contentView2 = [iconCell contentView];
+    topBar3 = [(MCProfileTitlePageMetaDataSectionAnimationController *)self topBar];
+    v48 = [(MCProfileTitlePageMetaDataSectionAnimationController *)self _relocateViewIfNeeded:iconView fromView:contentView2 toView:topBar3];
+
+    if (v48)
+    {
+      [iconView frame];
+      [(MCProfileTitlePageMetaDataSectionAnimationController *)self setIconViewOriginFrame:?];
+    }
+
+    else
+    {
+      [(MCProfileTitlePageMetaDataSectionAnimationController *)self iconViewOriginFrame];
+      v50 = v49;
+      v52 = v51;
+      v54 = v53;
+      v56 = v55;
+      topBar4 = [(MCProfileTitlePageMetaDataSectionAnimationController *)self topBar];
+      [topBar4 frame];
+      MinY = CGRectGetMinY(v71);
+      if (v24 >= 0.0)
+      {
+        distanceCopy2 = 0.0;
+      }
+
+      else
+      {
+        distanceCopy2 = distance;
+      }
+
+      [(MCProfileTitlePageMetaDataSectionAnimationController *)self _animateView:iconView progress:v26 startFrame:v50 endY:v52 endScale:v54 extraYOffset:v56, MinY, 1.0, distanceCopy2];
+    }
+
+    sectionController3 = [(MCProfileTitlePageMetaDataSectionAnimationController *)self sectionController];
+    subtitleCell = [sectionController3 subtitleCell];
+    [subtitleCell updateProgressWithTranslationDistance:scrollingCopy referenceDistance:v43 isScrolling:v67];
+
+    sectionController4 = [(MCProfileTitlePageMetaDataSectionAnimationController *)self sectionController];
+    orgCell = [sectionController4 orgCell];
+    [orgCell updateProgressWithTranslationDistance:scrollingCopy referenceDistance:v43 isScrolling:v67];
+
+    if (updateProgressWithTranslationDistance_referenceDistance_isScrolling__onceToken != -1)
+    {
+      [MCProfileTitlePageMetaDataSectionAnimationController updateProgressWithTranslationDistance:referenceDistance:isScrolling:];
+    }
+
+    [(MCProfileTitlePageMetaDataSectionAnimationController *)self _alphaWithProgress:updateProgressWithTranslationDistance_referenceDistance_isScrolling__iconViewAlphaKeyArray keys:updateProgressWithTranslationDistance_referenceDistance_isScrolling__iconViewAlphaValueArray values:v26];
+    [iconView setAlpha:?];
+    [(MCProfileTitlePageMetaDataSectionAnimationController *)self _alphaWithProgress:updateProgressWithTranslationDistance_referenceDistance_isScrolling__subtitleViewAlphaKeyArray keys:updateProgressWithTranslationDistance_referenceDistance_isScrolling__subtitleViewAlphaValueArray values:v26];
+    [subtitleView setAlpha:?];
+    [(MCProfileTitlePageMetaDataSectionAnimationController *)self _alphaWithProgress:updateProgressWithTranslationDistance_referenceDistance_isScrolling__orgViewAlphaKeyArray keys:updateProgressWithTranslationDistance_referenceDistance_isScrolling__orgViewAlphaValueArray values:v26];
+    [orgView setAlpha:?];
+    topBar5 = [(MCProfileTitlePageMetaDataSectionAnimationController *)self topBar];
+    backgroundColor = [topBar5 backgroundColor];
+    [(MCProfileTitlePageMetaDataSectionAnimationController *)self _alphaWithProgress:updateProgressWithTranslationDistance_referenceDistance_isScrolling__topBarAlphaKeyArray keys:updateProgressWithTranslationDistance_referenceDistance_isScrolling__topBarAlphaValueArray values:v26];
+    sectionController8 = [backgroundColor colorWithAlphaComponent:?];
+
+    topBar6 = [(MCProfileTitlePageMetaDataSectionAnimationController *)self topBar];
+    [topBar6 setBackgroundColor:sectionController8];
+    goto LABEL_24;
+  }
+
+  sectionController5 = [(MCProfileTitlePageMetaDataSectionAnimationController *)self sectionController];
+  iconCell2 = [sectionController5 iconCell];
+  contentView3 = [iconCell2 contentView];
+  v15 = [(MCProfileTitlePageMetaDataSectionAnimationController *)self _putBackViewIfNeeded:iconView toView:contentView3];
+
+  if (v15)
+  {
+    sectionController6 = [(MCProfileTitlePageMetaDataSectionAnimationController *)self sectionController];
+    iconCell3 = [sectionController6 iconCell];
+    [iconCell3 setNeedsLayout];
+  }
+
+  sectionController7 = [(MCProfileTitlePageMetaDataSectionAnimationController *)self sectionController];
+  titleCell2 = [sectionController7 titleCell];
+  contentView4 = [titleCell2 contentView];
+  v21 = [(MCProfileTitlePageMetaDataSectionAnimationController *)self _putBackViewIfNeeded:titleView toView:contentView4];
+
+  if (v21)
+  {
+    sectionController8 = [(MCProfileTitlePageMetaDataSectionAnimationController *)self sectionController];
+    topBar6 = [sectionController8 titleCell];
+    [topBar6 setNeedsLayout];
+LABEL_24:
+  }
 }
 
 void __124__MCProfileTitlePageMetaDataSectionAnimationController_updateProgressWithTranslationDistance_referenceDistance_isScrolling___block_invoke()

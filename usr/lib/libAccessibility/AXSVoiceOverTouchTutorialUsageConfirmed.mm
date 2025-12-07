@@ -3,7 +3,7 @@
 
 @implementation AXSVoiceOverTouchTutorialUsageConfirmed
 
-uint64_t ___AXSVoiceOverTouchTutorialUsageConfirmed_block_invoke()
+void *___AXSVoiceOverTouchTutorialUsageConfirmed_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

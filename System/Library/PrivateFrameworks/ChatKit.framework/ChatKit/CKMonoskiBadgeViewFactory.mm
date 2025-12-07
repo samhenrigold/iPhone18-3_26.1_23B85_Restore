@@ -7,7 +7,7 @@
 
 + (id)badgeViewWithSupportsGradient:(BOOL)gradient
 {
-  sub_190A4CB00();
+  sub_190A4CB00(gradient);
 
   return v3;
 }

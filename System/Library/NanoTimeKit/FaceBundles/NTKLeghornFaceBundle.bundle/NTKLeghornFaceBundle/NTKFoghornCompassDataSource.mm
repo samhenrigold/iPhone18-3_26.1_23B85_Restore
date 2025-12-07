@@ -60,7 +60,7 @@
   {
     northCopy = north;
     self->_usesTrueNorth = north;
-    v5 = NTKFoghornFaceBundleLogObject();
+    v5 = NTKFoghornFaceBundleLogObject(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = @"NO";
@@ -95,21 +95,22 @@
 
 - (void)_stopCompassUpdates
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   if (self->_receivingCompassUpdates)
   {
-    if (objc_msgSend_isDeviceMotionAvailable(self->_motionManager, v3, v4))
+    isDeviceMotionAvailable = objc_msgSend_isDeviceMotionAvailable(self->_motionManager, v3, v4);
+    if (isDeviceMotionAvailable)
     {
-      v5 = NTKFoghornFaceBundleLogObject();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = NTKFoghornFaceBundleLogObject(isDeviceMotionAvailable, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 136315138;
-        v9 = "[NTKFoghornCompassDataSource _stopCompassUpdates]";
-        _os_log_impl(&dword_23BEB1000, v5, OS_LOG_TYPE_DEFAULT, "%s: stop", &v8, 0xCu);
+        v10 = 136315138;
+        v11 = "[NTKFoghornCompassDataSource _stopCompassUpdates]";
+        _os_log_impl(&dword_23BEB1000, v7, OS_LOG_TYPE_DEFAULT, "%s: stop", &v10, 0xCu);
       }
 
-      objc_msgSend_stopDeviceMotionUpdates(self->_motionManager, v6, v7);
+      objc_msgSend_stopDeviceMotionUpdates(self->_motionManager, v8, v9);
     }
 
     self->_receivingCompassUpdates = 0;
@@ -120,79 +121,83 @@
 {
   v22 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  if (!self->_receivingCompassUpdates && objc_msgSend_isDeviceMotionAvailable(self->_motionManager, v3, v4))
+  if (!self->_receivingCompassUpdates)
   {
-    v5 = NTKFoghornFaceBundleLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    isDeviceMotionAvailable = objc_msgSend_isDeviceMotionAvailable(self->_motionManager, v3, v4);
+    if (isDeviceMotionAvailable)
     {
-      *buf = 136315138;
-      v21 = "[NTKFoghornCompassDataSource _startCompassUpdates]";
-      _os_log_impl(&dword_23BEB1000, v5, OS_LOG_TYPE_DEFAULT, "%s: start", buf, 0xCu);
+      v7 = NTKFoghornFaceBundleLogObject(isDeviceMotionAvailable, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136315138;
+        v21 = "[NTKFoghornCompassDataSource _startCompassUpdates]";
+        _os_log_impl(&dword_23BEB1000, v7, OS_LOG_TYPE_DEFAULT, "%s: start", buf, 0xCu);
+      }
+
+      motionManager = self->_motionManager;
+      v11 = objc_msgSend__referenceFrameForDeviceMotion(self, v9, v10);
+      objc_msgSend_startDeviceMotionUpdatesUsingReferenceFrame_(motionManager, v12, v11);
+      objc_initWeak(buf, self);
+      v13 = self->_motionManager;
+      v16 = objc_msgSend_mainQueue(MEMORY[0x277CCABD8], v14, v15);
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = sub_23BEC4928;
+      v18[3] = &unk_278BA11D8;
+      objc_copyWeak(&v19, buf);
+      objc_msgSend__startDeviceMotionErrorUpdatesToQueue_withHandler_(v13, v17, v16, v18);
+
+      self->_receivingCompassUpdates = 1;
+      objc_destroyWeak(&v19);
+      objc_destroyWeak(buf);
     }
-
-    motionManager = self->_motionManager;
-    v9 = objc_msgSend__referenceFrameForDeviceMotion(self, v7, v8);
-    objc_msgSend_startDeviceMotionUpdatesUsingReferenceFrame_(motionManager, v10, v11, v9);
-    objc_initWeak(buf, self);
-    v12 = self->_motionManager;
-    v15 = objc_msgSend_mainQueue(MEMORY[0x277CCABD8], v13, v14);
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = sub_23BEC4928;
-    v18[3] = &unk_278BA11D8;
-    objc_copyWeak(&v19, buf);
-    objc_msgSend__startDeviceMotionErrorUpdatesToQueue_withHandler_(v12, v16, v17, v15, v18);
-
-    self->_receivingCompassUpdates = 1;
-    objc_destroyWeak(&v19);
-    objc_destroyWeak(buf);
   }
 }
 
 - (void)_queue_motionError:(id)error
 {
   errorCopy = error;
-  v5 = NTKFoghornFaceBundleLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = NTKFoghornFaceBundleLogObject(errorCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    sub_23BEE6F20(errorCopy, v5);
+    sub_23BEE6F20(errorCopy, v6);
   }
 
-  v8 = objc_msgSend_domain(errorCopy, v6, v7);
-  v9 = *MEMORY[0x277CC1BC0];
+  v9 = objc_msgSend_domain(errorCopy, v7, v8);
+  v10 = *MEMORY[0x277CC1BC0];
 
-  if (v8 == v9)
+  if (v9 == v10)
   {
-    v12 = objc_msgSend_code(errorCopy, v10, v11);
-    if (v12 == 101)
+    v13 = objc_msgSend_code(errorCopy, v11, v12);
+    if (v13 == 101)
     {
-      v25 = NTKFoghornFaceBundleLogObject();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v26 = NTKFoghornFaceBundleLogObject(101, v14);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        sub_23BEE6F98(v25, v26, v27, v28, v29, v30, v31, v32);
+        sub_23BEE6F98(v26, v27, v28, v29, v30, v31, v32, v33);
       }
     }
 
-    else if (v12 == 102)
+    else if (v13 == 102)
     {
       usesTrueNorth = self->_usesTrueNorth;
-      v14 = NTKFoghornFaceBundleLogObject();
-      v15 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
+      v16 = NTKFoghornFaceBundleLogObject(102, v14);
+      v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
       if (usesTrueNorth)
       {
-        if (v15)
+        if (v17)
         {
-          sub_23BEE7008(v14, v16, v17, v18, v19, v20, v21, v22);
+          sub_23BEE7008(v16, v18, v19, v20, v21, v22, v23, v24);
         }
 
-        objc_msgSend__setUsesTrueNorth_(self, v23, v24, 0);
+        objc_msgSend__setUsesTrueNorth_(self, v25, 0);
       }
 
       else
       {
-        if (v15)
+        if (v17)
         {
-          sub_23BEE6FD0(v14, v16, v17, v18, v19, v20, v21, v22);
+          sub_23BEE6FD0(v16, v18, v19, v20, v21, v22, v23, v24);
         }
       }
     }
@@ -222,16 +227,16 @@
 
   objc_initWeak(&location, self);
   v13 = objc_msgSend_sharedInstance(MEMORY[0x277CBB700], v11, v12);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = sub_23BEC4C04;
-  v18[3] = &unk_278BA0E40;
-  objc_copyWeak(&v19, &location);
-  v16 = objc_msgSend_startUpdatesWithUpdateFrequency_withHandler_identificationLog_(v13, v14, v15, v10, v18, &unk_284EA8A88);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = sub_23BEC4C04;
+  v17[3] = &unk_278BA0E40;
+  objc_copyWeak(&v18, &location);
+  v15 = objc_msgSend_startUpdatesWithUpdateFrequency_withHandler_identificationLog_(v13, v14, v10, v17, &unk_284EA8A88);
   clockTimerToken = self->_clockTimerToken;
-  self->_clockTimerToken = v16;
+  self->_clockTimerToken = v15;
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(&location);
 }
 
@@ -240,7 +245,7 @@
   if (self->_clockTimerToken)
   {
     v4 = objc_msgSend_sharedInstance(MEMORY[0x277CBB700], a2, v2);
-    objc_msgSend_stopUpdatesForToken_(v4, v5, v6, self->_clockTimerToken);
+    objc_msgSend_stopUpdatesForToken_(v4, v5, self->_clockTimerToken);
 
     clockTimerToken = self->_clockTimerToken;
     self->_clockTimerToken = 0;

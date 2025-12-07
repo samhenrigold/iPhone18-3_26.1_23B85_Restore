@@ -166,7 +166,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    nwMimoCap = self->_nwMimoCap;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -186,7 +185,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  ueMimoCap = self->_ueMimoCap;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -201,7 +199,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  maxUeRank = self->_maxUeRank;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -216,12 +213,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  maxRxAnt = self->_maxRxAnt;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_6:
-    maxSchdMimoLyr = self->_maxSchdMimoLyr;
     PBDataWriterWriteUint32Field();
   }
 

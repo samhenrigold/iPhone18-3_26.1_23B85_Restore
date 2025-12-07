@@ -40,9 +40,9 @@
     +[NSURL(MessagesAdditions) __ms_cachesDirectory];
   }
 
-  v1 = __ms_cachesDirectory_sCachesDirectory;
+  v2 = __ms_cachesDirectory_sCachesDirectory;
 
-  return v1;
+  return v2;
 }
 
 @end

@@ -13,10 +13,10 @@
 
 - (SSVFairPlaySAPContext)initWithSAPVersion:(int64_t)version
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v28.receiver = self;
-  v28.super_class = SSVFairPlaySAPContext;
-  v4 = [(SSVFairPlaySAPContext *)&v28 init];
+  v32 = *MEMORY[0x1E69E9840];
+  v27.receiver = self;
+  v27.super_class = SSVFairPlaySAPContext;
+  v4 = [(SSVFairPlaySAPContext *)&v27 init];
   v5 = v4;
   if (v4)
   {
@@ -27,7 +27,7 @@
       {
         if (v5->_context)
         {
-LABEL_29:
+LABEL_31:
           v5->_version = version;
           return v5;
         }
@@ -44,33 +44,37 @@ LABEL_29:
       shouldLog = [v9 shouldLog];
       if ([v9 shouldLogToDisk])
       {
-        v11 = shouldLog | 2;
+        LODWORD(v11) = shouldLog | 2;
       }
 
       else
       {
-        v11 = shouldLog;
+        LODWORD(v11) = shouldLog;
       }
 
       oSLogObject = [v9 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      {
+        v11 = v11;
+      }
+
+      else
       {
         v11 &= 2u;
       }
 
       if (!v11)
       {
-        goto LABEL_27;
+        goto LABEL_29;
       }
 
       v13 = objc_opt_class();
-      v29 = 138543618;
-      v30 = v13;
-      v31 = 2048;
-      v32 = v8;
+      v28 = 138543618;
+      v29 = v13;
+      v30 = 2048;
+      v31 = v8;
       v14 = v13;
-      LODWORD(v27) = 22;
-      v15 = _os_log_send_and_compose_impl();
+      v15 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: SAPInit failed: %ld", &v28, 22);
     }
 
     else
@@ -84,46 +88,50 @@ LABEL_29:
       shouldLog2 = [v9 shouldLog];
       if ([v9 shouldLogToDisk])
       {
-        v17 = shouldLog2 | 2;
+        LODWORD(v17) = shouldLog2 | 2;
       }
 
       else
       {
-        v17 = shouldLog2;
+        LODWORD(v17) = shouldLog2;
       }
 
       oSLogObject = [v9 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      {
+        v17 = v17;
+      }
+
+      else
       {
         v17 &= 2u;
       }
 
       if (!v17)
       {
-        goto LABEL_27;
+        goto LABEL_29;
       }
 
       v18 = objc_opt_class();
-      v29 = 138543362;
-      v30 = v18;
+      v28 = 138543362;
+      v29 = v18;
       v19 = v18;
-      LODWORD(v27) = 12;
-      v15 = _os_log_send_and_compose_impl();
+      v15 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Unable to fetch hardware info", &v28, 12);
     }
 
     if (!v15)
     {
-LABEL_28:
+LABEL_30:
 
-      goto LABEL_29;
+      goto LABEL_31;
     }
 
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v29, v27}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
     free(v15);
     SSFileLog(v9, @"%@", v20, v21, v22, v23, v24, v25, oSLogObject);
-LABEL_27:
+LABEL_29:
 
-    goto LABEL_28;
+    goto LABEL_30;
   }
 
   return v5;
@@ -144,7 +152,7 @@ LABEL_27:
 
 - (id)exchangeData:(id)data error:(id *)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v7 = dataCopy;
   context = self->_context;
@@ -153,15 +161,15 @@ LABEL_27:
     v25 = SSError(@"SSErrorDomain", 122, 0, 0);
     if (!error)
     {
-      goto LABEL_24;
+      goto LABEL_25;
     }
 
-    goto LABEL_22;
+    goto LABEL_23;
   }
 
-  v30 = 0;
   v29 = 0;
-  v28 = -1;
+  v28 = 0;
+  v27 = -1;
   if (self->_version == 1)
   {
     v9 = 210;
@@ -172,7 +180,7 @@ LABEL_27:
     v9 = 200;
   }
 
-  Mib5yocT(v9, &self->_hardwareInfo, context, [dataCopy bytes], objc_msgSend(dataCopy, "length"), &v30, &v29, &v28);
+  Mib5yocT(v9, &self->_hardwareInfo, context, [dataCopy bytes], objc_msgSend(dataCopy, "length"), &v29, &v28, &v27);
   if (v10)
   {
     v11 = v10;
@@ -185,16 +193,21 @@ LABEL_27:
     shouldLog = [v12 shouldLog];
     if ([v12 shouldLogToDisk])
     {
-      v14 = shouldLog | 2;
+      LODWORD(v14) = shouldLog | 2;
     }
 
     else
     {
-      v14 = shouldLog;
+      LODWORD(v14) = shouldLog;
     }
 
     oSLogObject = [v12 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = v14;
+    }
+
+    else
     {
       v14 &= 2u;
     }
@@ -202,63 +215,62 @@ LABEL_27:
     if (v14)
     {
       v16 = objc_opt_class();
-      v31 = 138412546;
-      v32 = v16;
-      v33 = 2048;
-      v34 = v11;
+      v30 = 138412546;
+      v31 = v16;
+      v32 = 2048;
+      v33 = v11;
       v17 = v16;
-      LODWORD(v27) = 22;
-      v18 = _os_log_send_and_compose_impl();
+      v18 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%@: SAPExchange failed: %ld", &v30, 22);
 
       if (!v18)
       {
-LABEL_17:
+LABEL_18:
 
         context = 0;
-        goto LABEL_21;
+        goto LABEL_22;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:{4, &v31, v27}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:4];
       free(v18);
       SSFileLog(v12, @"%@", v19, v20, v21, v22, v23, v24, oSLogObject);
     }
 
-    goto LABEL_17;
+    goto LABEL_18;
   }
 
-  self->_complete = v28 == 0;
-  context = SSVCreateDataWithFairPlayBytes(v30, v29);
-LABEL_21:
+  self->_complete = v27 == 0;
+  context = SSVCreateDataWithFairPlayBytes(v29, v28);
+LABEL_22:
   v25 = 0;
   if (!error)
   {
-    goto LABEL_24;
+    goto LABEL_25;
   }
 
-LABEL_22:
+LABEL_23:
   if (!context)
   {
     v25 = v25;
     *error = v25;
   }
 
-LABEL_24:
+LABEL_25:
 
   return context;
 }
 
 - (id)primingSignatureForData:(id)data error:(id *)error
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v30 = 0;
+  v34 = *MEMORY[0x1E69E9840];
   v29 = 0;
+  v28 = 0;
   context = self->_context;
   dataCopy = data;
   dataCopy2 = data;
   bytes = [dataCopy2 bytes];
   v10 = [dataCopy2 length];
 
-  jfkdDAjba3jd(context, 100, bytes, v10, &v30, &v29);
+  jfkdDAjba3jd(context, 100, bytes, v10, &v29, &v28);
   if (v11)
   {
     v12 = v11;
@@ -271,16 +283,21 @@ LABEL_24:
     shouldLog = [v13 shouldLog];
     if ([v13 shouldLogToDisk])
     {
-      v15 = shouldLog | 2;
+      LODWORD(v15) = shouldLog | 2;
     }
 
     else
     {
-      v15 = shouldLog;
+      LODWORD(v15) = shouldLog;
     }
 
     oSLogObject = [v13 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = v15;
+    }
+
+    else
     {
       v15 &= 2u;
     }
@@ -288,71 +305,70 @@ LABEL_24:
     if (v15)
     {
       v17 = objc_opt_class();
-      v31 = 138412546;
-      v32 = v17;
-      v33 = 2048;
-      v34 = v12;
+      v30 = 138412546;
+      v31 = v17;
+      v32 = 2048;
+      v33 = v12;
       v18 = v17;
-      LODWORD(v28) = 22;
-      v19 = _os_log_send_and_compose_impl();
+      v19 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%@: Could not SAP prime: %lu", &v30, 22);
 
       if (!v19)
       {
-        goto LABEL_13;
+        goto LABEL_14;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:{4, &v31, v28}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:4];
       free(v19);
       SSFileLog(v13, @"%@", v20, v21, v22, v23, v24, v25, oSLogObject);
     }
 
-LABEL_13:
+LABEL_14:
     v26 = 0;
     if (!error)
     {
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
-  v26 = SSVCreateDataWithFairPlayBytes(v30, v29);
+  v26 = SSVCreateDataWithFairPlayBytes(v29, v28);
   if (!error)
   {
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
-LABEL_16:
+LABEL_17:
   if (!v26)
   {
     *error = 0;
   }
 
-LABEL_18:
+LABEL_19:
 
   return v26;
 }
 
 - (id)signData:(id)data error:(id *)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v7 = dataCopy;
   context = self->_context;
   if (!context)
   {
     v26 = SSError(@"SSErrorDomain", 122, @"No SAP context for signing", 0);
-    goto LABEL_20;
+    goto LABEL_21;
   }
 
-  v30 = 0;
   v29 = 0;
-  Fc3vhtJDvr(context, [dataCopy bytes], objc_msgSend(dataCopy, "length"), &v30, &v29);
+  v28 = 0;
+  Fc3vhtJDvr(context, [dataCopy bytes], objc_msgSend(dataCopy, "length"), &v29, &v28);
   if (!v9)
   {
-    context = SSVCreateDataWithFairPlayBytes(v30, v29);
+    context = SSVCreateDataWithFairPlayBytes(v29, v28);
     v26 = 0;
-    goto LABEL_20;
+    goto LABEL_21;
   }
 
   v10 = v9;
@@ -365,40 +381,44 @@ LABEL_18:
   shouldLog = [v11 shouldLog];
   if ([v11 shouldLogToDisk])
   {
-    v13 = shouldLog | 2;
+    LODWORD(v13) = shouldLog | 2;
   }
 
   else
   {
-    v13 = shouldLog;
+    LODWORD(v13) = shouldLog;
   }
 
   oSLogObject = [v11 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = v13;
+  }
+
+  else
   {
     v13 &= 2u;
   }
 
   if (!v13)
   {
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
   v15 = objc_opt_class();
-  v31 = 138412546;
-  v32 = v15;
-  v33 = 2048;
-  v34 = v10;
+  v30 = 138412546;
+  v31 = v15;
+  v32 = 2048;
+  v33 = v10;
   v16 = v15;
-  LODWORD(v28) = 22;
-  v17 = _os_log_send_and_compose_impl();
+  v17 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%@: SAPExchange failed: %ld", &v30, 22);
 
   if (v17)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:{4, &v31, v28}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:4];
     free(v17);
     SSFileLog(v11, @"%@", v18, v19, v20, v21, v22, v23, oSLogObject);
-LABEL_13:
+LABEL_14:
   }
 
   if (v10 == -42186)
@@ -415,7 +435,7 @@ LABEL_13:
 
   v26 = SSError(@"SSErrorDomain", v25, v24, 0);
   context = 0;
-LABEL_20:
+LABEL_21:
   if (error && !context)
   {
     v26 = v26;
@@ -427,7 +447,7 @@ LABEL_20:
 
 - (BOOL)verifyPrimeSignature:(id)signature error:(id *)error
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   signatureCopy = signature;
   v7 = signatureCopy;
   if (!self->_context)
@@ -435,12 +455,12 @@ LABEL_20:
     v22 = [MEMORY[0x1E696ABC0] errorWithDomain:@"SSErrorDomain" code:122 userInfo:0];
     if (error)
     {
-      goto LABEL_15;
+      goto LABEL_16;
     }
 
-LABEL_17:
+LABEL_18:
     v23 = 0;
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
   [signatureCopy bytes];
@@ -450,7 +470,7 @@ LABEL_17:
   {
     v22 = 0;
     v23 = 1;
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
   v9 = v8;
@@ -463,66 +483,70 @@ LABEL_17:
   shouldLog = [v10 shouldLog];
   if ([v10 shouldLogToDisk])
   {
-    v12 = shouldLog | 2;
+    LODWORD(v12) = shouldLog | 2;
   }
 
   else
   {
-    v12 = shouldLog;
+    LODWORD(v12) = shouldLog;
   }
 
   oSLogObject = [v10 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = v12;
+  }
+
+  else
   {
     v12 &= 2u;
   }
 
   if (v12)
   {
-    *v26 = 138412546;
-    *&v26[4] = objc_opt_class();
-    *&v26[12] = 2048;
-    *&v26[14] = v9;
-    v14 = *&v26[4];
-    LODWORD(v25) = 22;
-    v15 = _os_log_send_and_compose_impl();
+    v25 = 138412546;
+    v26 = objc_opt_class();
+    v27 = 2048;
+    v28 = v9;
+    v14 = v26;
+    v15 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%@: SAPExchange failed: %ld", &v25, 22);
 
     if (!v15)
     {
-      goto LABEL_14;
+      goto LABEL_15;
     }
 
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, v26, v25, *v26, *&v26[16], v27}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
     free(v15);
     SSFileLog(v10, @"%@", v16, v17, v18, v19, v20, v21, oSLogObject);
   }
 
-LABEL_14:
+LABEL_15:
   [(SSVFairPlaySAPContext *)self _teardownSession];
   v22 = 0;
   if (!error)
   {
-    goto LABEL_17;
+    goto LABEL_18;
   }
 
-LABEL_15:
+LABEL_16:
   v22 = v22;
   v23 = 0;
   *error = v22;
-LABEL_19:
+LABEL_20:
 
   return v23;
 }
 
 - (BOOL)verifySignature:(id)signature forData:(id)data error:(id *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   signatureCopy = signature;
   dataCopy = data;
   if (!self->_context)
   {
     v24 = @"No SAP context for signature verification";
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
   [signatureCopy bytes];
@@ -534,7 +558,7 @@ LABEL_19:
   {
     v26 = 0;
     v27 = 1;
-    goto LABEL_23;
+    goto LABEL_24;
   }
 
   v11 = v10;
@@ -547,52 +571,56 @@ LABEL_19:
   shouldLog = [v12 shouldLog];
   if ([v12 shouldLogToDisk])
   {
-    v14 = shouldLog | 2;
+    LODWORD(v14) = shouldLog | 2;
   }
 
   else
   {
-    v14 = shouldLog;
+    LODWORD(v14) = shouldLog;
   }
 
   oSLogObject = [v12 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = v14;
+  }
+
+  else
   {
     v14 &= 2u;
   }
 
   if (!v14)
   {
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-  *v30 = 138412546;
-  *&v30[4] = objc_opt_class();
-  *&v30[12] = 2048;
-  *&v30[14] = v11;
-  v16 = *&v30[4];
-  LODWORD(v29) = 22;
-  v17 = _os_log_send_and_compose_impl();
+  v29 = 138412546;
+  v30 = objc_opt_class();
+  v31 = 2048;
+  v32 = v11;
+  v16 = v30;
+  v17 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%@: SAPExchange failed: %ld", &v29, 22);
 
   if (v17)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:{4, v30, v29, *v30, *&v30[16], v31}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:4];
     free(v17);
     SSFileLog(v12, @"%@", v18, v19, v20, v21, v22, v23, oSLogObject);
-LABEL_13:
+LABEL_14:
   }
 
   if (v11 == -42186)
   {
     v24 = @"Bad SAP session for signature verification";
     v25 = 148;
-    goto LABEL_20;
+    goto LABEL_21;
   }
 
   v24 = @"Bad SAP signature verification";
-LABEL_19:
-  v25 = 122;
 LABEL_20:
+  v25 = 122;
+LABEL_21:
   v26 = SSError(@"SSErrorDomain", v25, v24, 0);
   if (error)
   {
@@ -606,7 +634,7 @@ LABEL_20:
     v27 = 0;
   }
 
-LABEL_23:
+LABEL_24:
 
   return v27;
 }

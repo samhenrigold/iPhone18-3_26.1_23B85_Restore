@@ -12,47 +12,47 @@
 
 - (CUINamedSolidLayerImage)initWithName:(id)name usingRenditionKey:(id)key fromTheme:(unint64_t)theme
 {
-  v26.receiver = self;
-  v26.super_class = CUINamedSolidLayerImage;
+  v13.receiver = self;
+  v13.super_class = CUINamedSolidLayerImage;
   v7 = [CUINamedImage initWithName:sel_initWithName_usingRenditionKey_fromTheme_ usingRenditionKey:name fromTheme:?];
-  v9 = v7;
+  v8 = v7;
   if (v7)
   {
     v7->_opacity = 1.0;
     v7->_blendMode = 0;
-    v10 = _LookupStructuredThemeProvider(theme, v8);
+    v9 = _LookupStructuredThemeProvider();
+    v10 = [key copy];
     v11 = [key copy];
-    v12 = [key copy];
+    [v10 setThemeElement:41];
+    [v10 setThemePart:0];
+    [v10 setThemeDimension1:1];
+    [v10 setThemeDimension2:0];
     [v11 setThemeElement:41];
     [v11 setThemePart:0];
-    [v11 setThemeDimension1:1];
+    [v11 setThemeDimension1:2];
     [v11 setThemeDimension2:0];
-    [v12 setThemeElement:41];
-    [v12 setThemePart:0];
-    [v12 setThemeDimension1:2];
-    [v12 setThemeDimension2:0];
-    if ([v10 canGetRenditionWithKey:{objc_msgSend(v11, "keyList")}])
+    if ([v9 canGetRenditionWithKey:{objc_msgSend(v10, "keyList")}])
     {
-      v9->_edgeTexture = [(CUINamedLookup *)[CUINamedTexture alloc] initWithName:[(CUINamedLookup *)v9 name] usingRenditionKey:v11 fromTheme:theme];
+      v8->_edgeTexture = [(CUINamedLookup *)[CUINamedTexture alloc] initWithName:[(CUINamedLookup *)v8 name] usingRenditionKey:v10 fromTheme:theme];
     }
 
     else
     {
-      _CUILog(4, "CoreUI: %s can't find edgeTexture", v13, v14, v15, v16, v17, v18, "[CUINamedSolidLayerImage initWithName:usingRenditionKey:fromTheme:]");
+      _CUILog(4, "CoreUI: %s can't find edgeTexture", "[CUINamedSolidLayerImage initWithName:usingRenditionKey:fromTheme:]");
     }
 
-    if ([v10 canGetRenditionWithKey:{objc_msgSend(v12, "keyList")}])
+    if ([v9 canGetRenditionWithKey:{objc_msgSend(v11, "keyList")}])
     {
-      v9->_gradientTexture = [(CUINamedLookup *)[CUINamedTexture alloc] initWithName:[(CUINamedLookup *)v9 name] usingRenditionKey:v12 fromTheme:theme];
+      v8->_gradientTexture = [(CUINamedLookup *)[CUINamedTexture alloc] initWithName:[(CUINamedLookup *)v8 name] usingRenditionKey:v11 fromTheme:theme];
     }
 
     else
     {
-      _CUILog(4, "CoreUI: %s can't find edgeTexture", v19, v20, v21, v22, v23, v24, "[CUINamedSolidLayerImage initWithName:usingRenditionKey:fromTheme:]");
+      _CUILog(4, "CoreUI: %s can't find edgeTexture", "[CUINamedSolidLayerImage initWithName:usingRenditionKey:fromTheme:]");
     }
   }
 
-  return v9;
+  return v8;
 }
 
 - (void)dealloc

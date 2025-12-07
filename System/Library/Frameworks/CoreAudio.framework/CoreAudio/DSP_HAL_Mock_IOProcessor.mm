@@ -13,6 +13,7 @@
 - (void)adaptToConfigurationChange:withCallbacks:error:;
 - (void)dealloc;
 - (void)setDspCallbacks:(void *)callbacks;
+- (void)setFeatureFlag:(int)flag;
 - (void)setTestHookFetcher:(function<DSP_HAL_Mock_TestHooks)(;
 @end
 
@@ -20,33 +21,33 @@
 
 - (void)setTestHookFetcher:(function<DSP_HAL_Mock_TestHooks)(
 {
-  v10[3] = *MEMORY[0x1E69E9840];
-  std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::__value_func[abi:ne200100](v8, a3);
+  v9[3] = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::__value_func[abi:ne200100](v7, a3);
   p_testHookFetcher = &self->_testHookFetcher;
-  if (&self->_testHookFetcher != v8)
+  if (&self->_testHookFetcher != v7)
   {
-    v5 = v9;
+    v5 = v8;
     f = self->_testHookFetcher.__f_.__f_;
-    if (v9 == v8)
+    if (v8 == v7)
     {
       if (f == p_testHookFetcher)
       {
-        (*(*v9 + 24))();
-        (*(*v9 + 32))(v9);
-        v9 = 0;
-        (*(*self->_testHookFetcher.__f_.__f_ + 24))(self->_testHookFetcher.__f_.__f_, v8);
+        (*(*v8 + 24))();
+        (*(*v8 + 32))(v8);
+        v8 = 0;
+        (*(*self->_testHookFetcher.__f_.__f_ + 24))(self->_testHookFetcher.__f_.__f_, v7);
         (*(*self->_testHookFetcher.__f_.__f_ + 32))(self->_testHookFetcher.__f_.__f_);
         self->_testHookFetcher.__f_.__f_ = 0;
-        v9 = v8;
-        (*(v10[0] + 24))(v10, &self->_testHookFetcher);
-        (*(v10[0] + 32))(v10);
+        v8 = v7;
+        (*(v9[0] + 24))(v9, &self->_testHookFetcher);
+        (*(v9[0] + 32))(v9);
       }
 
       else
       {
-        (*(*v9 + 24))();
-        (*(*v9 + 32))(v9);
-        v9 = self->_testHookFetcher.__f_.__f_;
+        (*(*v8 + 24))();
+        (*(*v8 + 32))(v8);
+        v8 = self->_testHookFetcher.__f_.__f_;
       }
 
       self->_testHookFetcher.__f_.__f_ = p_testHookFetcher;
@@ -54,26 +55,25 @@
 
     else if (f == p_testHookFetcher)
     {
-      (*(*f->__f_.__buf_.__data + 24))(self->_testHookFetcher.__f_.__f_, v8);
+      (*(*f->__f_.__buf_.__data + 24))(self->_testHookFetcher.__f_.__f_, v7);
       (*(*self->_testHookFetcher.__f_.__f_ + 32))(self->_testHookFetcher.__f_.__f_);
-      self->_testHookFetcher.__f_.__f_ = v9;
-      v9 = v8;
+      self->_testHookFetcher.__f_.__f_ = v8;
+      v8 = v7;
     }
 
     else
     {
-      v9 = self->_testHookFetcher.__f_.__f_;
+      v8 = self->_testHookFetcher.__f_.__f_;
       self->_testHookFetcher.__f_.__f_ = v5;
     }
   }
 
-  std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](v8);
-  v7 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](v7);
 }
 
 - (id)adaptToConfigurationChange:(id)change withCallbacks:(void *)callbacks error:(id *)error
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   featureFlag = [(DSP_HAL_Mock_IOProcessor *)self featureFlag];
   applesauce::CF::DictionaryRef::from_get(&cf, changeCopy);
@@ -110,8 +110,6 @@ LABEL_9:
     v10 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MockDSP Failure" code:-1 userInfo:0];
     goto LABEL_9;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return 0;
 }
@@ -310,7 +308,7 @@ LABEL_18:
   DSP_Host_Types::FormatDescription::FormatDescription(&cf, (change + 120));
   if (DSP_Dictionariable::DictionarySet::has_all_values(__p, v30) && v25 == 1 && v28 == 1 && v26[17] == 1 && v27[4] == 1 && v26[16] & 1 | (v24[4] == 1))
   {
-    std::allocate_shared[abi:ne200100]<DSP_Host_Types::FormatDescription,std::allocator<DSP_Host_Types::FormatDescription>,DSP_Host_Types::FormatDescription&,0>();
+    std::allocate_shared[abi:ne200100]<DSP_Host_Types::FormatDescription,std::allocator<DSP_Host_Types::FormatDescription>,DSP_Host_Types::FormatDescription&,0>(&Mutable, &cf);
   }
 
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9E0], MEMORY[0x1E695E9F0]);
@@ -365,7 +363,7 @@ LABEL_21:
 
 - (id)conference_negotiateConfigurationChange:(void *)change error:(id *)error
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   if (*(change + 41) == 1)
   {
     v7 = *(change + 40);
@@ -428,39 +426,39 @@ LABEL_21:
 
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
-          v39 = 0;
-          v40 = 0;
-          v41 = 47;
+          v35 = 0;
+          v36 = 0;
+          v37 = 47;
           do
           {
-            v42 = &aLibraryCachesC_11[v39];
-            if (v41 == 47)
+            v38 = &aLibraryCachesC_11[v35];
+            if (v37 == 47)
             {
-              v40 = &aLibraryCachesC_11[v39];
+              v36 = &aLibraryCachesC_11[v35];
             }
 
-            v41 = v42[1];
-            if (!v42[1])
+            v37 = v38[1];
+            if (!v38[1])
             {
               break;
             }
           }
 
-          while (v39++ < 0xFFF);
-          if (v40)
+          while (v35++ < 0xFFF);
+          if (v36)
           {
-            v44 = v40 + 1;
+            v40 = v36 + 1;
           }
 
           else
           {
-            v44 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/DSP/Factories/DSP_HAL_MockFeature_Processors.mm";
+            v40 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/DSP/Factories/DSP_HAL_MockFeature_Processors.mm";
           }
 
           *cf = 136315394;
-          *&cf[4] = v44;
-          v46 = 1024;
-          v47 = 461;
+          *&cf[4] = v40;
+          v42 = 1024;
+          v43 = 461;
           _os_log_debug_impl(&dword_1DE1F9000, v16, OS_LOG_TYPE_DEBUG, "%32s:%-5d [hal_dsp] MOCK WARNING: It is not normal for VAD to request format changes.", cf, 0x12u);
         }
       }
@@ -495,52 +493,40 @@ LABEL_21:
 
           if (v20)
           {
-            for (i = v20[89]; i != v20[90]; i += 2)
-            {
-              v26 = *i;
-              if (*(*i + 44) == 1 && *(v26 + 40) == 2)
-              {
-                if (*(v26 + 188) == 1)
-                {
-                  v27 = *(v26 + 184);
-                }
-
-                break;
-              }
+              ;
             }
 
             for (j = v20[83]; j != v20[84] && v22 == 0.0; j += 2)
             {
-              v29 = *j;
-              v30 = *(*j + 336);
-              v31 = *(*j + 344);
-              v32 = *(*j + 336);
-              if (v32 != v31 && *(v29 + 160) == 1 && *(v29 + 44) == 1 && *(v29 + 40) == 1)
+              v27 = *j;
+              v28 = *(*j + 344);
+              v29 = *(*j + 336);
+              if (v29 != v28 && *(v27 + 160) == 1 && *(v27 + 44) == 1 && *(v27 + 40) == 1)
               {
                 if (!v12)
                 {
-                  v22 = *(v29 + 152);
+                  v22 = *(v27 + 152);
                   break;
                 }
 
                 while (1)
                 {
-                  if (*(v32 + 48) == 1 && *(v32 + 76) == 1 && *(v32 + 124) == 1 && *(v32 + 97) == 1 && *(v32 + 120) == 1)
+                  if (*(v29 + 48) == 1 && *(v29 + 76) == 1 && *(v29 + 124) == 1 && *(v29 + 97) == 1 && *(v29 + 120) == 1)
                   {
-                    if (*(v32 + 96) & 1 | (*(v32 + 72) == 1))
+                    if (*(v29 + 96) & 1 | (*(v29 + 72) == 1))
                     {
-                      v22 = *(v32 + 40);
-                      if (v22 != *(v29 + 152))
+                      v22 = *(v29 + 40);
+                      if (v22 != *(v27 + 152))
                       {
                         break;
                       }
                     }
                   }
 
-                  v32 += 152;
-                  if (v32 == v31)
+                  v29 += 152;
+                  if (v29 == v28)
                   {
-                    v22 = *(v29 + 152);
+                    v22 = *(v27 + 152);
                     break;
                   }
                 }
@@ -554,53 +540,53 @@ LABEL_21:
           }
         }
 
-LABEL_73:
+LABEL_71:
         v18 += 16;
         if (v18 == v19)
         {
-          goto LABEL_74;
+          goto LABEL_72;
         }
       }
 
       if (*(v21 + 64))
       {
-        v33 = v21;
+        v30 = v21;
       }
 
       else
       {
-        v33 = 0;
+        v30 = 0;
       }
 
-      v34 = v33[89];
-      v35 = v33[90];
-      while (v34 != v35)
+      v31 = v30[89];
+      v32 = v30[90];
+      while (v31 != v32)
       {
-        if (*(*v34 + 44) != 1 || *(*v34 + 40) != 2)
+        if (*(*v31 + 44) != 1 || *(*v31 + 40) != 2)
         {
           v21 = 0;
-          goto LABEL_73;
+          goto LABEL_71;
         }
 
-        v34 += 16;
+        v31 += 16;
       }
 
       if (v22 == 0.0)
       {
-        goto LABEL_73;
+        goto LABEL_71;
       }
 
-LABEL_74:
+LABEL_72:
       if (v22 != 0.0)
       {
-        std::allocate_shared[abi:ne200100]<DSP_Host_Types::DeviceConfiguration,std::allocator<DSP_Host_Types::DeviceConfiguration>,char const(&)[1],0>();
+        std::allocate_shared[abi:ne200100]<DSP_Host_Types::DeviceConfiguration,std::allocator<DSP_Host_Types::DeviceConfiguration>,char const(&)[1],0>(cf, "");
       }
     }
 
     if (error)
     {
-      v36 = objc_alloc(MEMORY[0x1E696ABC0]);
-      *error = [v36 initWithDomain:*MEMORY[0x1E696A798] code:2003329396 userInfo:0];
+      v33 = objc_alloc(MEMORY[0x1E696ABC0]);
+      *error = [v33 initWithDomain:*MEMORY[0x1E696A798] code:2003329396 userInfo:0];
     }
 
     v17 = objc_alloc_init(MEMORY[0x1E695DF18]);
@@ -617,14 +603,12 @@ LABEL_74:
     v17 = 0;
   }
 
-  v37 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
 - (id)spatial_negotiateConfigurationChange:(void *)change error:(id *)error
 {
-  v48[1] = *MEMORY[0x1E69E9840];
+  v47[1] = *MEMORY[0x1E69E9840];
   if (*(change + 41) == 1)
   {
     v7 = *(change + 40);
@@ -635,57 +619,57 @@ LABEL_74:
     v7 = 0;
   }
 
-  [(DSP_HAL_Mock_IOProcessor *)self testHookFetcher];
-  if (!*&v26[0])
+  objc_msgSend_testHookFetcher(self, a2);
+  if (!*&v25[0])
   {
-    v48[0] = 0;
+    v47[0] = 0;
     goto LABEL_14;
   }
 
-  [(DSP_HAL_Mock_IOProcessor *)self testHookFetcher];
-  if (!v31)
+  objc_msgSend_testHookFetcher(self);
+  if (!v30)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  (*(*v31 + 48))(&cf);
-  if (v35)
+  (*(*v30 + 48))(&cf);
+  if (v34)
   {
-    if (v35 == &cf)
+    if (v34 == &cf)
     {
-      v48[0] = v47;
-      (*(*v35 + 3))();
+      v47[0] = v46;
+      (*(*v34 + 3))();
       goto LABEL_13;
     }
 
-    v8 = &v35;
-    v48[0] = v35;
+    v8 = &v34;
+    v47[0] = v34;
   }
 
   else
   {
-    v8 = v48;
+    v8 = v47;
   }
 
   *v8 = 0;
 LABEL_13:
   std::__function::__value_func<unsigned int ()(AudioObjectPropertyAddress const&,unsigned int)>::~__value_func[abi:ne200100](&__p);
-  std::__function::__value_func<void ()(DSP_HAL_Bypass_Utils::AMCP_IOData_Helper<(DSP_HAL_Bypass_Utils::InterleavePolicy)0> &,applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v42);
-  std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](&v38);
-  std::__function::__value_func<BOOL ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](&v36);
+  std::__function::__value_func<void ()(DSP_HAL_Bypass_Utils::AMCP_IOData_Helper<(DSP_HAL_Bypass_Utils::InterleavePolicy)0> &,applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v41);
+  std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](&v37);
+  std::__function::__value_func<BOOL ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](&v35);
   std::__function::__value_func<BOOL ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](&cf);
   std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](&Mutable);
 LABEL_14:
-  std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](&v23);
-  if (v48[0])
+  std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](&v22);
+  if (v47[0])
   {
     DSP_Host_Types::DSP_Host_DictionaryData<DSP_Host_Types::ConfigurationChangeRequest>::operator applesauce::CF::DictionaryRef(&cf, change);
-    if (!v48[0])
+    if (!v47[0])
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    v9 = (*(*v48[0] + 48))(v48[0], &cf);
+    v9 = (*(*v47[0] + 48))(v47[0], &cf);
     if (cf)
     {
       CFRelease(cf);
@@ -741,13 +725,13 @@ LABEL_26:
     goto LABEL_70;
   }
 
+  v23 = 0;
   v24 = 0;
-  v25 = 0;
-  v23 = &unk_1F598EA30;
-  memset(v26, 0, sizeof(v26));
-  v27 = 0u;
-  v28 = 0;
-  v29 = -1;
+  v22 = &unk_1F598EA30;
+  memset(v25, 0, sizeof(v25));
+  v26 = 0u;
+  v27 = 0;
+  v28 = -1;
   DSP_Host_Types::FormatDescription::FormatDescription(&cf, (change + 272));
   if (v7)
   {
@@ -784,8 +768,8 @@ LABEL_26:
           }
 
 LABEL_50:
-          v39 = v16;
-          v40 = 1;
+          v38 = v16;
+          v39 = 1;
         }
       }
 
@@ -796,20 +780,20 @@ LABEL_50:
       }
     }
 
-    if (DSP_Dictionariable::DictionarySet::has_all_values(__p, v46) && v40 == 1 && v44 == 1 && v42[1] == 1 && v43[4] == 1 && v42[0] & 1 | (v39 == 1))
+    if (DSP_Dictionariable::DictionarySet::has_all_values(__p, v45) && v39 == 1 && v43 == 1 && v41[1] == 1 && v42[4] == 1 && v41[0] & 1 | (v38 == 1))
     {
-      std::allocate_shared[abi:ne200100]<DSP_Host_Types::FormatDescription,std::allocator<DSP_Host_Types::FormatDescription>,DSP_Host_Types::FormatDescription&,0>();
+      std::allocate_shared[abi:ne200100]<DSP_Host_Types::FormatDescription,std::allocator<DSP_Host_Types::FormatDescription>,DSP_Host_Types::FormatDescription&,0>(&Mutable, &cf);
     }
 
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9E0], MEMORY[0x1E695E9F0]);
-    v23[3](&v23, &Mutable);
-    mcp_applesauce::CF::Dictionary_Builder::get_dictionary(&v22, Mutable);
+    v22[3](&v22, &Mutable);
+    mcp_applesauce::CF::Dictionary_Builder::get_dictionary(&v21, Mutable);
     if (Mutable)
     {
       CFRelease(Mutable);
     }
 
-    v19 = v22;
+    v19 = v21;
     v13 = v19;
     if (v19)
     {
@@ -821,14 +805,14 @@ LABEL_61:
   else
   {
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9E0], MEMORY[0x1E695E9F0]);
-    v23[3](&v23, &Mutable);
-    mcp_applesauce::CF::Dictionary_Builder::get_dictionary(&v22, Mutable);
+    v22[3](&v22, &Mutable);
+    mcp_applesauce::CF::Dictionary_Builder::get_dictionary(&v21, Mutable);
     if (Mutable)
     {
       CFRelease(Mutable);
     }
 
-    v19 = v22;
+    v19 = v21;
     v13 = v19;
     if (v19)
     {
@@ -839,36 +823,35 @@ LABEL_61:
   cf = &unk_1F598DDD8;
   if (__p)
   {
-    v46 = __p;
+    v45 = __p;
     operator delete(__p);
   }
 
-  DSP_Dictionariable::DictionariableKvp::~DictionariableKvp(v43);
-  DSP_Dictionariable::DictionariableKvp::~DictionariableKvp(&v41);
-  DSP_Dictionariable::DictionariableKvp::~DictionariableKvp(&v37);
-  DSP_Dictionariable::DictionariableKvp::~DictionariableKvp(&v35);
+  DSP_Dictionariable::DictionariableKvp::~DictionariableKvp(v42);
+  DSP_Dictionariable::DictionariableKvp::~DictionariableKvp(&v40);
+  DSP_Dictionariable::DictionariableKvp::~DictionariableKvp(&v36);
+  DSP_Dictionariable::DictionariableKvp::~DictionariableKvp(&v34);
   cf = &unk_1F598DE18;
-  if (v34 == 1 && v33)
+  if (v33 == 1 && v32)
   {
-    CFRelease(v33);
+    CFRelease(v32);
   }
 
-  v23 = &unk_1F598EA30;
-  cf = &v27;
+  v22 = &unk_1F598EA30;
+  cf = &v26;
   std::vector<std::shared_ptr<DSP_Host_Types::DeviceConfiguration>>::__destroy_vector::operator()[abi:ne200100](&cf);
-  cf = &v26[1] + 8;
+  cf = &v25[1] + 8;
   std::vector<std::shared_ptr<DSP_Host_Types::DeviceConfiguration>>::__destroy_vector::operator()[abi:ne200100](&cf);
-  cf = v26;
+  cf = v25;
   std::vector<std::shared_ptr<DSP_Host_Types::DeviceConfiguration>>::__destroy_vector::operator()[abi:ne200100](&cf);
-  v23 = &unk_1F598EA70;
-  if (v25 == 1 && v24)
+  v22 = &unk_1F598EA70;
+  if (v24 == 1 && v23)
   {
-    CFRelease(v24);
+    CFRelease(v23);
   }
 
 LABEL_70:
-  std::__function::__value_func<BOOL ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v47);
-  v20 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v46);
 
   return v13;
 }
@@ -890,113 +873,118 @@ LABEL_70:
 
 - (BOOL)callAdaptHook:(const void *)hook
 {
-  v19 = *MEMORY[0x1E69E9840];
-  [(DSP_HAL_Mock_IOProcessor *)self testHookFetcher];
-  if (!v18)
+  v18 = *MEMORY[0x1E69E9840];
+  objc_msgSend_testHookFetcher(self, a2);
+  if (!v17)
   {
-    std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](v17);
-LABEL_8:
-    v6 = 1;
-    goto LABEL_9;
+    std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](v16);
+    return 1;
   }
 
-  [(DSP_HAL_Mock_IOProcessor *)self testHookFetcher];
-  if (!v10)
+  objc_msgSend_testHookFetcher(self);
+  if (!v9)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  (*(*v10 + 48))(v11);
-  v5 = v13;
-  std::__function::__value_func<unsigned int ()(AudioObjectPropertyAddress const&,unsigned int)>::~__value_func[abi:ne200100](v16);
-  std::__function::__value_func<void ()(DSP_HAL_Bypass_Utils::AMCP_IOData_Helper<(DSP_HAL_Bypass_Utils::InterleavePolicy)0> &,applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v15);
-  std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v14);
-  std::__function::__value_func<BOOL ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v12);
-  std::__function::__value_func<BOOL ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v11);
-  std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](v9);
-  std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](v17);
-  if (!v5)
-  {
-    goto LABEL_8;
-  }
-
-  [(DSP_HAL_Mock_IOProcessor *)self testHookFetcher];
-  if (!v18)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  (*(*v18 + 48))(v11);
-  if (!v13)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  v6 = (*(*v13 + 48))(v13, hook);
-  std::__function::__value_func<unsigned int ()(AudioObjectPropertyAddress const&,unsigned int)>::~__value_func[abi:ne200100](v16);
-  std::__function::__value_func<void ()(DSP_HAL_Bypass_Utils::AMCP_IOData_Helper<(DSP_HAL_Bypass_Utils::InterleavePolicy)0> &,applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v15);
-  std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v14);
-  std::__function::__value_func<BOOL ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v12);
-  std::__function::__value_func<BOOL ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v11);
-  std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](v17);
-LABEL_9:
-  v7 = *MEMORY[0x1E69E9840];
-  return v6;
-}
-
-- (BOOL)callNegotiateHook:(const void *)hook
-{
-  v19 = *MEMORY[0x1E69E9840];
-  [(DSP_HAL_Mock_IOProcessor *)self testHookFetcher];
-  if (!v18)
-  {
-    std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](v17);
-LABEL_8:
-    v6 = 1;
-    goto LABEL_9;
-  }
-
-  [(DSP_HAL_Mock_IOProcessor *)self testHookFetcher];
-  if (!v10)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  (*(*v10 + 48))(v11);
+  (*(*v9 + 48))(v10);
   v5 = v12;
-  std::__function::__value_func<unsigned int ()(AudioObjectPropertyAddress const&,unsigned int)>::~__value_func[abi:ne200100](v16);
-  std::__function::__value_func<void ()(DSP_HAL_Bypass_Utils::AMCP_IOData_Helper<(DSP_HAL_Bypass_Utils::InterleavePolicy)0> &,applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v15);
-  std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v14);
-  std::__function::__value_func<BOOL ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v13);
+  std::__function::__value_func<unsigned int ()(AudioObjectPropertyAddress const&,unsigned int)>::~__value_func[abi:ne200100](v15);
+  std::__function::__value_func<void ()(DSP_HAL_Bypass_Utils::AMCP_IOData_Helper<(DSP_HAL_Bypass_Utils::InterleavePolicy)0> &,applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v14);
+  std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v13);
   std::__function::__value_func<BOOL ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v11);
-  std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](v9);
-  std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](v17);
+  std::__function::__value_func<BOOL ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v10);
+  std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](v8);
+  std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](v16);
   if (!v5)
   {
-    goto LABEL_8;
+    return 1;
   }
 
-  [(DSP_HAL_Mock_IOProcessor *)self testHookFetcher];
-  if (!v18)
+  objc_msgSend_testHookFetcher(self);
+  if (!v17)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  (*(*v18 + 48))(v11);
+  (*(*v17 + 48))(v10);
   if (!v12)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
   v6 = (*(*v12 + 48))(v12, hook);
-  std::__function::__value_func<unsigned int ()(AudioObjectPropertyAddress const&,unsigned int)>::~__value_func[abi:ne200100](v16);
-  std::__function::__value_func<void ()(DSP_HAL_Bypass_Utils::AMCP_IOData_Helper<(DSP_HAL_Bypass_Utils::InterleavePolicy)0> &,applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v15);
-  std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v14);
-  std::__function::__value_func<BOOL ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v13);
+  std::__function::__value_func<unsigned int ()(AudioObjectPropertyAddress const&,unsigned int)>::~__value_func[abi:ne200100](v15);
+  std::__function::__value_func<void ()(DSP_HAL_Bypass_Utils::AMCP_IOData_Helper<(DSP_HAL_Bypass_Utils::InterleavePolicy)0> &,applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v14);
+  std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v13);
   std::__function::__value_func<BOOL ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v11);
-  std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](v17);
-LABEL_9:
-  v7 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v10);
+  std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](v16);
+  return v6;
+}
+
+- (void)setFeatureFlag:(int)flag
+{
+  v3 = *&flag;
+  self->_featureFlag = flag;
+  processorProperties = [(DSP_HAL_Mock_IOProcessor *)self processorProperties];
+
+  if (processorProperties)
+  {
+    processorProperties2 = [(DSP_HAL_Mock_IOProcessor *)self processorProperties];
+    [processorProperties2 configureForFeatureFlag:v3];
+  }
+}
+
+- (BOOL)callNegotiateHook:(const void *)hook
+{
+  v18 = *MEMORY[0x1E69E9840];
+  objc_msgSend_testHookFetcher(self, a2);
+  if (!v17)
+  {
+    std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](v16);
+    return 1;
+  }
+
+  objc_msgSend_testHookFetcher(self);
+  if (!v9)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  (*(*v9 + 48))(v10);
+  v5 = v11;
+  std::__function::__value_func<unsigned int ()(AudioObjectPropertyAddress const&,unsigned int)>::~__value_func[abi:ne200100](v15);
+  std::__function::__value_func<void ()(DSP_HAL_Bypass_Utils::AMCP_IOData_Helper<(DSP_HAL_Bypass_Utils::InterleavePolicy)0> &,applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v14);
+  std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v13);
+  std::__function::__value_func<BOOL ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v12);
+  std::__function::__value_func<BOOL ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v10);
+  std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](v8);
+  std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](v16);
+  if (!v5)
+  {
+    return 1;
+  }
+
+  objc_msgSend_testHookFetcher(self);
+  if (!v17)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  (*(*v17 + 48))(v10);
+  if (!v11)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  v6 = (*(*v11 + 48))(v11, hook);
+  std::__function::__value_func<unsigned int ()(AudioObjectPropertyAddress const&,unsigned int)>::~__value_func[abi:ne200100](v15);
+  std::__function::__value_func<void ()(DSP_HAL_Bypass_Utils::AMCP_IOData_Helper<(DSP_HAL_Bypass_Utils::InterleavePolicy)0> &,applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v14);
+  std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v13);
+  std::__function::__value_func<BOOL ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v12);
+  std::__function::__value_func<BOOL ()(applesauce::CF::DictionaryRef const&)>::~__value_func[abi:ne200100](v10);
+  std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](v16);
   return v6;
 }
 
@@ -1022,10 +1010,10 @@ LABEL_9:
 
 - (DSP_HAL_Mock_IOProcessor)init
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v12.receiver = self;
-  v12.super_class = DSP_HAL_Mock_IOProcessor;
-  v2 = [(DSP_HAL_Mock_IOProcessor *)&v12 init];
+  v14 = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = DSP_HAL_Mock_IOProcessor;
+  v2 = [(DSP_HAL_Mock_IOProcessor *)&v11 init];
   v3 = v2;
   v4 = v2;
   if (v2)
@@ -1054,12 +1042,11 @@ LABEL_9:
     [(DSP_HAL_Mock_IOProcessor *)v4 setProcessorProperties:v8];
 
     processorProperties = [(DSP_HAL_Mock_IOProcessor *)v4 processorProperties];
-    v14 = 0;
-    [processorProperties configureForProcessor:v13];
-    std::__function::__value_func<void ()(unsigned int,unsigned int)>::~__value_func[abi:ne200100](v13);
+    v13 = 0;
+    [processorProperties configureForProcessor:v12];
+    std::__function::__value_func<void ()(unsigned int,unsigned int)>::~__value_func[abi:ne200100](v12);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

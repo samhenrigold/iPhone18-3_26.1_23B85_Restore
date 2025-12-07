@@ -85,11 +85,10 @@ void __73__MFMessageContentViewAccessibility_generateSnapshotImageWithCompletion
 
 void __73__MFMessageContentViewAccessibility_generateSnapshotImageWithCompletion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_29BF99000, a2, OS_LOG_TYPE_ERROR, "Could not encode ax hierarchy for mail snapshot. %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_29BF99000, a2, OS_LOG_TYPE_ERROR, "Could not encode ax hierarchy for mail snapshot. %@", &v2, 0xCu);
 }
 
 @end

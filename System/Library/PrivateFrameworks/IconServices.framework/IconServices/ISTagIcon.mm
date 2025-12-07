@@ -104,15 +104,16 @@
   {
     v13 = [objc_alloc(MEMORY[0x1E6963638]) initWithTypeIdentifier:identifier];
     [v13 setBundleClassMask:2052];
-    v16 = 0;
-    v5 = [objc_alloc(MEMORY[0x1E6963630]) initWithConfiguration:v13 error:&v16];
-    v14 = v16;
+    v17 = 0;
+    v5 = [objc_alloc(MEMORY[0x1E6963630]) initWithConfiguration:v13 error:&v17];
+    v14 = v17;
+    v15 = v14;
     if (!v5)
     {
-      v15 = _ISDefaultLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v16 = _ISDefaultLog(v14);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        [(ISTagIcon *)v14 makeResourceProvider];
+        [(ISTagIcon *)v15 makeResourceProvider];
       }
     }
   }
@@ -154,11 +155,9 @@
 {
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
   Class = object_getClass(self);
-  Name = class_getName(Class);
-  tagClass = self->_tagClass;
-  v7 = [v3 initWithFormat:@"<%s %p> Tag: %@, Class: %@, Base type: %@", Name, self, self->_tag, tagClass, self->_baseType];
+  v5 = [v3 initWithFormat:@"<%s %p> Tag: %@, Class: %@, Base type: %@", class_getName(Class), self, self->_tag, self->_tagClass, self->_baseType];
 
-  return v7;
+  return v5;
 }
 
 - (id)_fallbackKey
@@ -182,11 +181,10 @@
 
 - (void)makeResourceProvider
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_DEBUG, "Claim not found with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_DEBUG, "Claim not found with error: %@", &v2, 0xCu);
 }
 
 @end

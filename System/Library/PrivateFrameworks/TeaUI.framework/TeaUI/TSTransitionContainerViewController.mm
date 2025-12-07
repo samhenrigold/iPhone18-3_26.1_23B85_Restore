@@ -2,7 +2,6 @@
 - (BOOL)hidesBottomBarWhenPushed;
 - (NSString)description;
 - (TSTransitionContainerViewController)initWithNibName:(id)name bundle:(id)bundle;
-- (TSTransitionContainerViewController)initWithRootViewController:(id)controller identifier:(id)identifier;
 - (UITabBarItem)tabBarItem;
 - (id)childViewControllerForStatusBarStyle;
 - (void)handleDismiss;
@@ -43,13 +42,6 @@
 {
   selfCopy = self;
   TransitionContainerViewController.viewWillLayoutSubviews()();
-}
-
-- (TSTransitionContainerViewController)initWithRootViewController:(id)controller identifier:(id)identifier
-{
-  sub_1D8190F14();
-  controllerCopy = controller;
-  return TransitionContainerViewController.init(rootViewController:identifier:)();
 }
 
 - (NSString)description

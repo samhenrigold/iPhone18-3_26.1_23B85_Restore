@@ -723,7 +723,7 @@ LABEL_79:
   return v8;
 }
 
-uint64_t __62__NSTextRange_combineTextRanges_withTextRanges_usingOperator___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__62__NSTextRange_combineTextRanges_withTextRanges_usingOperator___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [*a2 compare:*a3];
   if (!result)

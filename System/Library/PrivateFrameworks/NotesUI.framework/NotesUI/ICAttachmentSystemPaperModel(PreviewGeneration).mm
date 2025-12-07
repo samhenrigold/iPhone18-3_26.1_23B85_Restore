@@ -244,59 +244,59 @@ LABEL_20:
 
 + (id)previewImageForAttachment:()PreviewGeneration fullImage:scale:appearanceInfo:
 {
-  v6 = a5;
-  v7 = TSUCreateRGBABitmapContext();
-  v8 = v7;
-  if (a4 && v7)
+  v7 = a6;
+  v8 = TSUCreateRGBABitmapContext();
+  v9 = v8;
+  if (a5 && v8)
   {
-    if (([v6 isDark] & 1) == 0)
+    if (([v7 isDark] & 1) == 0)
     {
-      v9 = [MEMORY[0x1E69DD1B8] traitCollectionWithUserInterfaceStyle:1];
+      v10 = [MEMORY[0x1E69DD1B8] traitCollectionWithUserInterfaceStyle:1];
       systemBackgroundColor = [MEMORY[0x1E69DC888] systemBackgroundColor];
-      v11 = [systemBackgroundColor resolvedColorWithTraitCollection:v9];
-      CGContextSetFillColorWithColor(v8, [v11 CGColor]);
+      v12 = [systemBackgroundColor resolvedColorWithTraitCollection:v10];
+      CGContextSetFillColorWithColor(v9, [v12 CGColor]);
 
-      v20.size.width = 384.0;
-      v20.origin.x = 0.0;
-      v20.origin.y = 0.0;
-      v20.size.height = 384.0;
-      CGContextFillRect(v8, v20);
+      v21.size.width = 384.0;
+      v21.origin.x = 0.0;
+      v21.origin.y = 0.0;
+      v21.size.height = 384.0;
+      CGContextFillRect(v9, v21);
     }
 
-    CGContextTranslateCTM(v8, 30.72, -30.72);
-    Width = CGImageGetWidth(a4);
-    Height = CGImageGetHeight(a4);
-    v21.size.width = 322.56 / Width * Width;
-    v21.size.height = 322.56 / Width * Height;
-    v21.origin.y = 0.0 - (v21.size.height + -384.0);
-    v21.origin.x = 0.0;
-    CGContextDrawImage(v8, v21, a4);
-    Image = CGBitmapContextCreateImage(v8);
+    CGContextTranslateCTM(v9, 30.72, -30.72);
+    Width = CGImageGetWidth(a5);
+    Height = CGImageGetHeight(a5);
+    v22.size.width = 322.56 / Width * Width;
+    v22.size.height = 322.56 / Width * Height;
+    v22.origin.y = 0.0 - (v22.size.height + -384.0);
+    v22.origin.x = 0.0;
+    CGContextDrawImage(v9, v22, a5);
+    Image = CGBitmapContextCreateImage(v9);
     if (Image)
     {
-      v15 = Image;
-      v16 = [MEMORY[0x1E69DCAB8] ic_imageWithCGImage:Image];
-      CFRelease(v15);
+      v16 = Image;
+      v17 = [MEMORY[0x1E69DCAB8] ic_imageWithCGImage:Image];
+      CFRelease(v16);
     }
 
     else
     {
-      v16 = 0;
+      v17 = 0;
     }
 
     goto LABEL_10;
   }
 
-  v16 = 0;
   v17 = 0;
-  if (v7)
+  v18 = 0;
+  if (v8)
   {
 LABEL_10:
-    CGContextRelease(v8);
-    v17 = v16;
+    CGContextRelease(v9);
+    v18 = v17;
   }
 
-  return v17;
+  return v18;
 }
 
 + (uint64_t)generatePreviewsForAttachment:()PreviewGeneration paperIdentifier:

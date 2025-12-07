@@ -109,79 +109,89 @@
   shouldLog = [v13 shouldLog];
   if ([v13 shouldLogToDisk])
   {
-    v15 = shouldLog | 2;
+    LODWORD(v15) = shouldLog | 2;
   }
 
   else
   {
-    v15 = shouldLog;
+    LODWORD(v15) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v13 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v13 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v15 = v15;
+  }
+
+  else
   {
     v15 &= 2u;
   }
 
   if (v15)
   {
-    v28 = 138412802;
-    v29 = objc_opt_class();
-    v30 = 2112;
-    identifierCopy = identifier;
+    v30 = 138412802;
+    v31 = objc_opt_class();
     v32 = 2112;
+    identifierCopy = identifier;
+    v34 = 2112;
     identifier = [contact identifier];
-    LODWORD(v26) = 32;
-    v25 = &v28;
-    v16 = _os_log_send_and_compose_impl();
-    if (v16)
+    v17 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Assigning tone (%@) to contact (%@).", &v30, 32);
+    if (v17)
     {
-      v17 = v16;
-      v18 = [NSString stringWithCString:v16 encoding:4, &v28, v26];
-      free(v17);
-      v25 = v18;
+      v18 = v17;
+      v19 = [NSString stringWithCString:v17 encoding:4];
+      free(v18);
+      v27 = v19;
       SSFileLog();
     }
   }
 
-  v27 = 0;
-  if (([store executeSaveRequest:v12 error:{&v27, v25}] & 1) == 0)
+  v29 = 0;
+  if (([store executeSaveRequest:v12 error:{&v29, v27}] & 1) == 0)
   {
-    v19 = +[SSLogConfig sharedDaemonConfig];
-    if (!v19)
+    v20 = +[SSLogConfig sharedDaemonConfig];
+    if (!v20)
     {
-      v19 = +[SSLogConfig sharedConfig];
+      v20 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v19 shouldLog];
-    if ([v19 shouldLogToDisk])
+    shouldLog2 = [v20 shouldLog];
+    if ([v20 shouldLogToDisk])
     {
-      v21 = shouldLog2 | 2;
+      LODWORD(v22) = shouldLog2 | 2;
     }
 
     else
     {
-      v21 = shouldLog2;
+      LODWORD(v22) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v19 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject2 = [v20 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
     {
-      v21 &= 2u;
+      v22 = v22;
     }
 
-    if (v21)
+    else
     {
-      v22 = objc_opt_class();
-      v28 = 138412546;
-      v29 = v22;
-      v30 = 2112;
-      identifierCopy = v27;
-      LODWORD(v26) = 22;
-      v23 = _os_log_send_and_compose_impl();
-      if (v23)
+      v22 &= 2u;
+    }
+
+    if (v22)
+    {
+      v24 = objc_opt_class();
+      v30 = 138412546;
+      v31 = v24;
+      v32 = 2112;
+      identifierCopy = v29;
+      LODWORD(v28) = 22;
+      v25 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Failed to assign tone to contact. %@", &v30, v28);
+      if (v25)
       {
-        v24 = v23;
-        [NSString stringWithCString:v23 encoding:4, &v28, v26];
-        free(v24);
+        v26 = v25;
+        [NSString stringWithCString:v25 encoding:4];
+        free(v26);
         SSFileLog();
       }
     }

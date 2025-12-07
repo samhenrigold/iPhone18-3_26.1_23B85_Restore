@@ -13,7 +13,7 @@
 
 - (void)service:(id)service connectedDevicesChanged:(id)changed
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   changedCopy = changed;
   service = [(HMDCompanionManager *)self service];
@@ -26,23 +26,21 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v12;
-      v16 = 2112;
-      v17 = changedCopy;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Connected devices changed: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v12;
+      v15 = 2112;
+      v16 = changedCopy;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Connected devices changed: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
     __HMDCompanionManagerUpdateWithConnectedDevices(selfCopy, changedCopy);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service devicesChanged:(id)changed
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   changedCopy = changed;
   service = [(HMDCompanionManager *)self service];
@@ -56,41 +54,41 @@
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v12;
-      v28 = 2112;
-      v29 = changedCopy;
+      v26 = v12;
+      v27 = 2112;
+      v28 = changedCopy;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Devices changed: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
     v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(changedCopy, "count")}];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v14 = changedCopy;
-    v15 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v22;
+      v17 = *v21;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v22 != v17)
+          if (*v21 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v21 + 1) + 8 * i);
+          v19 = *(*(&v20 + 1) + 8 * i);
           if ([v19 isConnected])
           {
             [v13 addObject:v19];
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v16);
@@ -98,8 +96,6 @@
 
     __HMDCompanionManagerUpdateWithConnectedDevices(selfCopy, v13);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDDevice)companion
@@ -113,57 +109,54 @@
 
 - (void)__initializeConnectedDevices
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   service = [(HMDCompanionManager *)self service];
   devices = [service devices];
 
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(devices, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v6 = devices;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * i);
+        v11 = *(*(&v12 + 1) + 8 * i);
         if ([v11 isConnected])
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
 
   __HMDCompanionManagerUpdateWithConnectedDevices(self, v5);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   companion = [(HMDCompanionManager *)self companion];
   v5 = [v3 initWithName:@"Companion" value:companion];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
@@ -208,10 +201,9 @@
 
 void __34__HMDCompanionManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v7_104942;
-  logCategory__hmf_once_v7_104942 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v7_104942;
+  logCategory__hmf_once_v7_104942 = v0;
 }
 
 + (id)sharedManager

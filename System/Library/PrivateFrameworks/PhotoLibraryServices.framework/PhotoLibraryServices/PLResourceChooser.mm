@@ -190,7 +190,7 @@ LABEL_14:
 
   v20 = isOriginalRAW;
   isRAWPlusJPEG = [assetCopy isRAWPlusJPEG];
-  if (((v20 | isRAWPlusJPEG) & 1) != 0 && [v15 count] >= 2)
+  if (((v20 | isRAWPlusJPEG) & 1) != 0 && objc_msgSend_count(v15) >= 2)
   {
     v57 = 0u;
     v58 = 0u;
@@ -253,7 +253,7 @@ LABEL_31:
     v31 = v30[2](v30, [v27 type]);
     if (!v31)
     {
-      if ([v28 count])
+      if (objc_msgSend_count(v28))
       {
         v40 = type;
         v48 = 0u;
@@ -454,7 +454,7 @@ LABEL_5:
   [array addObjectsFromArray:v30];
   firstObject = [array firstObject];
   v12 = 0;
-  if ([array count] >= 2)
+  if (objc_msgSend_count(array) >= 2)
   {
     [array removeObjectAtIndex:0];
     v12 = array;
@@ -563,7 +563,7 @@ void __79__PLResourceChooser__itemMatchingFormat_allItems_acceptableSortedAltern
   v5 = [v3 predicateWithFormat:@"type == %d", 15];
   v6 = [itemsCopy filteredArrayUsingPredicate:v5];
 
-  if ([v6 count])
+  if (objc_msgSend_count(v6))
   {
     v7 = [v6 objectAtIndexedSubscript:0];
   }
@@ -583,9 +583,9 @@ void __79__PLResourceChooser__itemMatchingFormat_allItems_acceptableSortedAltern
   v5 = [v3 predicateWithFormat:@"type == %d OR type == %d", 17, 1];
   v6 = [itemsCopy filteredArrayUsingPredicate:v5];
 
-  if ([v6 count] < 2)
+  if (objc_msgSend_count(v6) < 2)
   {
-    v9 = [v6 count];
+    v9 = objc_msgSend_count(v6);
     v7 = 0;
     if (v9 != 1)
     {

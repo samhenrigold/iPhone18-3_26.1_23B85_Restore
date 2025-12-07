@@ -1,3 +1,32 @@
+void *ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>::~sparse_set(void *a1)
+{
+  *a1 = &unk_1F2A33660;
+  v2 = a1[1];
+  for (i = a1[2]; v2 != i; ++v2)
+  {
+    if (*v2)
+    {
+      MEMORY[0x1B8C62190](*v2, 0x1000C409DBC6682);
+    }
+  }
+
+  v4 = a1[4];
+  if (v4)
+  {
+    a1[5] = v4;
+    operator delete(v4);
+  }
+
+  v5 = a1[1];
+  if (v5)
+  {
+    a1[2] = v5;
+    operator delete(v5);
+  }
+
+  return a1;
+}
+
 void md::VKMRenderResourcesStore::resetV2(md::VKMRenderResourcesStore *this)
 {
   v213 = *MEMORY[0x1E69E9840];
@@ -1186,127 +1215,127 @@ void sub_1B2A7F0C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void md::ita::PrepareSlices::operator()(uint64_t **a1)
+void md::ita::PrepareSlices::operator()(uint64_t **a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   +[VKDebugSettings sharedSettings];
-  v22 = [objc_claimAutoreleasedReturnValue() daVinciRenderLineGeometry];
-  v2 = a1[1];
-  if (!v2)
+  v23 = [objc_claimAutoreleasedReturnValue() daVinciRenderLineGeometry];
+  v3 = a1[1];
+  if (!v3)
   {
-    v3 = **a1;
-    v4 = *v3;
-    v5 = *(v3 + 8);
-    if (v4 == v5)
+    v4 = **a1;
+    v5 = *v4;
+    v6 = *(v4 + 8);
+    if (v5 == v6)
     {
       goto LABEL_5;
     }
 
-    while (*v4 != 0x22D45F5AAD4BF408)
+    while (*v5 != 0x22D45F5AAD4BF408)
     {
-      v4 += 5;
-      if (v4 == v5)
+      v5 += 5;
+      if (v5 == v6)
       {
         goto LABEL_5;
       }
     }
 
-    if (v4 == v5)
+    if (v5 == v6)
     {
 LABEL_5:
-      v2 = 0;
+      v3 = 0;
     }
 
     else
     {
-      v2 = v4[3];
-      v6 = v4[4];
-      if (v6)
+      v3 = v5[3];
+      v7 = v5[4];
+      if (v7)
       {
-        atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v6);
+        atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v7);
       }
     }
 
-    a1[1] = v2;
+    a1[1] = v3;
   }
 
-  v7 = (**v2)(v2);
-  v8 = md::LayoutContext::get<md::LightingLogicContext>(*(v7 + 8));
-  if (v8)
+  v8 = (**v3)(v3);
+  v9 = md::LayoutContext::get<md::LightingLogicContext>(*(v8 + 8));
+  if (v9)
   {
-    if (*(v8 + 256))
+    if (*(v9 + 256))
     {
-      v9 = 2;
+      v10 = 2;
     }
 
     else
     {
-      v9 = 1;
+      v10 = 1;
     }
   }
 
   else
   {
-    v9 = -1;
+    v10 = -1;
   }
 
-  v21 = v9;
-  v20 = &v22;
-  v10 = a1[3];
-  if (!v10)
+  v22 = v10;
+  v21 = &v23;
+  v11 = a1[3];
+  if (!v11)
   {
-    v11 = **a1;
-    v12 = *v11;
-    v13 = *(v11 + 8);
-    if (v12 == v13)
+    v12 = **a1;
+    v13 = *v12;
+    v14 = *(v12 + 8);
+    if (v13 == v14)
     {
       goto LABEL_19;
     }
 
-    while (*v12 != 0x4EDAD23DFB014132)
+    while (*v13 != 0x4EDAD23DFB014132)
     {
-      v12 += 5;
-      if (v12 == v13)
+      v13 += 5;
+      if (v13 == v14)
       {
         goto LABEL_19;
       }
     }
 
-    if (v12 == v13)
+    if (v13 == v14)
     {
 LABEL_19:
-      v10 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v10 = v12[3];
-      v14 = v12[4];
-      if (v14)
+      v11 = v13[3];
+      v15 = v13[4];
+      if (v15)
       {
-        atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v14);
+        atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v15);
       }
     }
 
-    a1[3] = v10;
+    a1[3] = v11;
   }
 
-  v19 = v10;
-  v15 = md::LayoutContext::get<md::ElevationContext>(*(v7 + 8));
-  if (*(v15 + 4) <= 0.01)
+  v20 = v11;
+  v16 = md::LayoutContext::get<md::ElevationContext>(*(v8 + 8));
+  if (*(v16 + 4) <= 0.01)
   {
-    v16 = *(v15 + 3);
+    v17 = *(v16 + 3);
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
-  v18 = v16 & 1;
-  v17 = *v15;
+  v19 = v17 & 1;
+  v18 = *v16;
   operator new();
 }
 
@@ -2086,9 +2115,9 @@ uint64_t md::ita::KeepMaterialAlbedoTextureAlive::operator()(void *a1, void *a2,
   return std::__function::__value_func<void ()(md::ls::UniqueMaterialAlbedoTexture &)>::~__value_func[abi:nn200100](v22);
 }
 
-void sub_1B2A806F0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B2A806F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(md::ls::UniqueMaterialAlbedoTexture &)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -2689,7 +2718,7 @@ void md::RenderLayerProviderWrapper::addCommandBuffer(uint64_t a1, uint64_t a2, 
     v24 = v13[15];
     v25 = v13[16];
     v23 = v13 + 15;
-    std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::resize((v13 + 12), v16 + 1);
+    std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::resize(v13 + 12, v16 + 1);
     v26 = (v25 - v24) >> 4;
     v27 = v15 & 0x7F;
     if (*(v13[12] + 8 * v16))
@@ -2798,13 +2827,13 @@ LABEL_9:
           std::__throw_bad_array_new_length[abi:nn200100]();
         }
 
-        v51 = 24 * v47;
+        v51 = (24 * v47);
         v67 = 0;
         v68 = v51;
         v69 = 24 * v47;
         v70 = 0;
-        *(v51 + 8) = 0;
-        *(v51 + 16) = 0;
+        v51[1] = 0;
+        v51[2] = 0;
         *v51 = 0;
         v44 = v63;
         if (*(&v63 + 1) != v63)
@@ -2812,10 +2841,10 @@ LABEL_9:
           std::vector<gdc::Entity>::__vallocate[abi:nn200100](v51, (*(&v63 + 1) - v63) >> 3);
         }
 
-        v45 = (v51 + 24);
+        v45 = v51 + 3;
         v52 = v13[18];
         v53 = v13[19] - v52;
-        v54 = (v51 - v53);
+        v54 = v51 - v53;
         memcpy(v54, v52, v53);
         v55 = v13[18];
         v13[18] = v54;
@@ -2883,12 +2912,13 @@ LABEL_30:
   }
 }
 
-void sub_1B2A8473C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_1B2A8473C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  std::__split_buffer<arComponents::CustomBoxCreateDesc>::~__split_buffer(&a15);
-  if (v15)
+  va_start(va, a14);
+  std::__split_buffer<arComponents::CustomBoxCreateDesc>::~__split_buffer(va);
+  if (v14)
   {
-    operator delete(v15);
+    operator delete(v14);
   }
 
   if (__p)
@@ -2956,57 +2986,57 @@ uint64_t std::__function::__value_func<void ()(md::ls::InView const&,md::ls::Ren
   return a1;
 }
 
-void md::ita::PrepareMaterialStyleConstantDataHandle::operator()(uint64_t **a1)
+void md::ita::PrepareMaterialStyleConstantDataHandle::operator()(uint64_t **a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = a1[1];
-  if (!v2)
+  v14 = *MEMORY[0x1E69E9840];
+  v3 = a1[1];
+  if (!v3)
   {
-    v3 = **a1;
-    v4 = *v3;
-    v5 = *(v3 + 8);
-    if (v4 == v5)
+    v4 = **a1;
+    v5 = *v4;
+    v6 = *(v4 + 8);
+    if (v5 == v6)
     {
       goto LABEL_3;
     }
 
-    while (*v4 != 0x41D4E9297E100630)
+    while (*v5 != 0x41D4E9297E100630)
     {
-      v2 = 0;
-      v4 += 5;
-      if (v4 == v5)
+      v3 = 0;
+      v5 += 5;
+      if (v5 == v6)
       {
         goto LABEL_6;
       }
     }
 
-    if (v4 == v5)
+    if (v5 == v6)
     {
 LABEL_3:
-      v2 = 0;
+      v3 = 0;
     }
 
     else
     {
-      v2 = v4[3];
-      v9 = v4[4];
-      if (v9)
+      v3 = v5[3];
+      v10 = v5[4];
+      if (v10)
       {
-        atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v9);
+        atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v10);
       }
     }
 
 LABEL_6:
-    a1[1] = v2;
+    a1[1] = v3;
   }
 
-  v12 = v2;
-  v11 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *,md::MaterialResourceStore *,md::LayoutContextProvider *>::service<md::MaterialResourceStore>(a1);
-  v6 = *ecs2::ExecutionTask<md::VKMRenderResourcesStore *,md::MaterialResourceStore *,md::LayoutContextProvider *>::service<md::LayoutContextProvider>(a1);
-  v7 = (*v6)();
-  v8 = md::LayoutContext::get<md::CameraContext>(*(v7 + 8));
-  v10 = fmaxf(*(v8 + 3080) + *(v8 + 3076), 1.0);
+  v13 = v3;
+  v12 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *,md::MaterialResourceStore *,md::LayoutContextProvider *>::service<md::MaterialResourceStore>(a1);
+  v7 = *ecs2::ExecutionTask<md::VKMRenderResourcesStore *,md::MaterialResourceStore *,md::LayoutContextProvider *>::service<md::LayoutContextProvider>(a1);
+  v8 = (*v7)();
+  v9 = md::LayoutContext::get<md::CameraContext>(*(v8 + 8));
+  v11 = fmaxf(*(v9 + 3080) + *(v9 + 3076), 1.0);
   operator new();
 }
 
@@ -3638,7 +3668,7 @@ LABEL_39:
 
       else
       {
-        v134 = *(v55 + 160);
+        v134 = *(v55 + 40);
         v68 = v185;
         if (v66 == 2)
         {
@@ -4537,9 +4567,9 @@ LABEL_15:
   return std::__function::__value_func<void ()(md::ls::RenderItemPendingDeletion const&)>::~__value_func[abi:nn200100](&v26);
 }
 
-void sub_1B2A8A238(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B2A8A238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(md::ls::RenderItemPendingDeletion const&)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -5132,7 +5162,7 @@ void std::__function::__func<ecs2::ForwardToExecute<md::ita::PrepareCulledSlice>
 {
   *(a1 + 8) = a2;
   v2 = (a1 + 8);
-  md::ita::PrepareCulledSlice::operator()((a1 + 8), a2);
+  md::ita::PrepareCulledSlice::operator()((a1 + 8), a2, a2);
   *v2 = 0;
   v2[1] = 0;
   v2[2] = 0;
@@ -5456,7 +5486,7 @@ LABEL_15:
 
   LODWORD(v111) = 3;
   v115 = &v111;
-  v16 = std::__hash_table<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v12 + 1555, 3u);
+  v16 = std::__hash_table<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v12 + 1555, 3u, &v115);
   v17 = md::LayoutContext::get<md::LightingLogicContext>(*(v11 + 8));
   if (v17)
   {
@@ -5534,8 +5564,8 @@ LABEL_15:
               v49 = v40[1];
               v50 = (v49 >> 3) & 0x1FF8;
               v51 = v49 & 0x3F;
-              v52 = *(*(*(v41 + 8) + v50) + 4 * v51 + 2);
-              v53 = *(*(v41 + 56) + ((v52 >> 3) & 0x1FF8));
+              v52 = *(*(v41[1] + v50) + 4 * v51 + 2);
+              v53 = *(v41[7] + ((v52 >> 3) & 0x1FF8));
               v54 = *(*(*(v42 + 8) + v50) + 4 * v51 + 2);
               v55 = *(*(v42 + 56) + ((v54 >> 3) & 0x1FF8));
               v56 = *(v43 + 32);
@@ -5662,8 +5692,8 @@ LABEL_45:
               v72 = v63[1];
               v73 = (v72 >> 3) & 0x1FF8;
               v74 = v72 & 0x3F;
-              v75 = *(*(*(v64 + 8) + v73) + 4 * v74 + 2);
-              v76 = *(*(v64 + 56) + ((v75 >> 3) & 0x1FF8));
+              v75 = *(*(v64[1] + v73) + 4 * v74 + 2);
+              v76 = *(v64[7] + ((v75 >> 3) & 0x1FF8));
               v77 = *(*(*(v65 + 8) + v73) + 4 * v74 + 2);
               v78 = *(*(v65 + 56) + ((v77 >> 3) & 0x1FF8));
               v79 = *(v66 + 32);
@@ -5727,9 +5757,9 @@ LABEL_55:
   }
 }
 
-void sub_1B2A8DEB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1B2A8DEB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   std::__function::__value_func<void ()(md::ls::MeshRenderableID const&,md::ls::VisibilityGroupID const&,md::ls::CanCastShadow const&,md::ls::SliceAssignmentT<(md::SliceType)1> const&)>::~__value_func[abi:nn200100](va);
 
   _Unwind_Resume(a1);
@@ -6162,7 +6192,7 @@ double std::__function::__func<ecs2::ForwardToExecute<md::ita::CollectFlyoverMes
 {
   *(a1 + 8) = a2;
   v2 = (a1 + 8);
-  md::ita::CollectFlyoverMeshRenderables::operator()((a1 + 8));
+  md::ita::CollectFlyoverMeshRenderables::operator()((a1 + 8), a2);
   result = 0.0;
   *v2 = 0u;
   v2[1] = 0u;
@@ -6278,18 +6308,18 @@ uint64_t ecs2::BasicRegistry<void>::remove<md::ls::FrameGraphRenderResourcesRegi
   return ecs2::BasicRegistry<void>::didWrite<md::ls::FrameGraphRenderResourcesRegistry>(a1);
 }
 
-void md::ita::CreateTileClearRenderItemsForDepthPrePass::operator()(uint64_t **a1)
+void md::ita::CreateTileClearRenderItemsForDepthPrePass::operator()(uint64_t **a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(a1);
-  v2 = ecs2::ExecutionTask<md::LayoutContextProvider *,md::RenderLayerProvider *>::service<md::RenderLayerProvider>(a1);
-  if (!*((*(*v2 + 48))(v2) + 2856))
+  v8 = *MEMORY[0x1E69E9840];
+  v7 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(a1);
+  v3 = ecs2::ExecutionTask<md::LayoutContextProvider *,md::RenderLayerProvider *>::service<md::RenderLayerProvider>(a1);
+  if (!*((*(*v3 + 48))(v3) + 2856))
   {
-    v3 = (*(*v2 + 48))(v2);
-    md::DaVinciGroundRenderResources::buildShadowPlane(v3);
+    v4 = (*(*v3 + 48))(v3);
+    md::DaVinciGroundRenderResources::buildShadowPlane(v4);
   }
 
-  v4 = 0;
+  v5 = 0;
   operator new();
 }
 
@@ -6306,17 +6336,17 @@ void *_ZNSt3__18functionIFvN4ecs26EntityEEEaSIZNS1_13BasicRegistryIvE7storageIN2
 
 void md::CartographicRenderer::layoutRenderLayers(md::CartographicRenderer *this, md::LayoutContext *a2)
 {
-  v2[4] = *MEMORY[0x1E69E9840];
-  v2[0] = &unk_1F29E5750;
-  v2[1] = this;
-  v2[2] = a2;
-  v2[3] = v2;
-  std::allocate_shared[abi:nn200100]<geo::Task,std::allocator<geo::Task>,std::function<void ()(void)> &,0>();
+  v3[4] = *MEMORY[0x1E69E9840];
+  v3[0] = &unk_1F29E5750;
+  v3[1] = this;
+  v3[2] = a2;
+  v3[3] = v3;
+  std::allocate_shared[abi:nn200100]<geo::Task,std::allocator<geo::Task>,std::function<void ()(void)> &,0>(&v2, v3);
 }
 
-void sub_1B2A8F738(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1B2A8F738(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -6449,97 +6479,97 @@ void *md::LayoutContext::get<md::MaterialContext>(void *a1)
   return result;
 }
 
-void md::ita::PrepareColorCorrectionFactorsConstantHandle::operator()(uint64_t **a1)
+void md::ita::PrepareColorCorrectionFactorsConstantHandle::operator()(uint64_t **a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = a1[1];
-  if (!v2)
+  v15 = *MEMORY[0x1E69E9840];
+  v3 = a1[1];
+  if (!v3)
   {
-    v3 = **a1;
-    v4 = *v3;
-    v5 = *(v3 + 8);
-    if (v4 == v5)
+    v4 = **a1;
+    v5 = *v4;
+    v6 = *(v4 + 8);
+    if (v5 == v6)
     {
       goto LABEL_5;
     }
 
-    while (*v4 != 0x4EDAD23DFB014132)
+    while (*v5 != 0x4EDAD23DFB014132)
     {
-      v4 += 5;
-      if (v4 == v5)
+      v5 += 5;
+      if (v5 == v6)
       {
         goto LABEL_5;
       }
     }
 
-    if (v4 == v5)
+    if (v5 == v6)
     {
 LABEL_5:
-      v2 = 0;
+      v3 = 0;
     }
 
     else
     {
-      v2 = v4[3];
-      v6 = v4[4];
-      if (v6)
+      v3 = v5[3];
+      v7 = v5[4];
+      if (v7)
       {
-        atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v6);
+        atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v7);
       }
     }
 
-    a1[1] = v2;
+    a1[1] = v3;
   }
 
-  v13 = v2;
-  v7 = a1[2];
-  if (!v7)
+  v14 = v3;
+  v8 = a1[2];
+  if (!v8)
   {
-    v8 = **a1;
-    v9 = *v8;
-    v10 = *(v8 + 8);
-    if (v9 == v10)
+    v9 = **a1;
+    v10 = *v9;
+    v11 = *(v9 + 8);
+    if (v10 == v11)
     {
       goto LABEL_14;
     }
 
-    while (*v9 != 0x41D4E9297E100630)
+    while (*v10 != 0x41D4E9297E100630)
     {
-      v9 += 5;
-      if (v9 == v10)
+      v10 += 5;
+      if (v10 == v11)
       {
         goto LABEL_14;
       }
     }
 
-    if (v9 == v10)
+    if (v10 == v11)
     {
 LABEL_14:
-      v7 = 0;
+      v8 = 0;
     }
 
     else
     {
-      v7 = v9[3];
-      v11 = v9[4];
-      if (v11)
+      v8 = v10[3];
+      v12 = v10[4];
+      if (v12)
       {
-        atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v11);
+        atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v12);
       }
     }
 
-    a1[2] = v7;
+    a1[2] = v8;
   }
 
-  v12 = v7;
+  v13 = v8;
   operator new();
 }
 
-void sub_1B2A8FF64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1B2A8FF64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   std::__function::__value_func<void ()(md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::CanEnableTexture const&,md::ls::SharedColorCorrectionDataHandle const&,md::ls::ColorCorrectionDataKeyHandle *)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -6649,103 +6679,103 @@ uint64_t ecs2::BasicRegistry<void>::remove<md::ls::PassDOFConfiguration>(uint64_
   return ecs2::BasicRegistry<void>::didWrite<md::ls::PassDOFConfiguration>(a1);
 }
 
-void md::ita::CheckIfOpaque::operator()(uint64_t **a1)
+void md::ita::CheckIfOpaque::operator()(uint64_t **a1, uint64_t a2)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
-    v2 = ecs2::RuntimeTaskContext::service<md::LayoutContextProvider>(***a1, *(**a1 + 8));
-    a1[1] = v2;
+    v3 = ecs2::RuntimeTaskContext::service<md::LayoutContextProvider>(***a1, *(**a1 + 8));
+    a1[1] = v3;
   }
 
-  v3 = (**v2)(v2);
-  md::LayoutContext::get<md::CameraContext>(*(v3 + 8));
+  v4 = (**v3)(v3, a2);
+  md::LayoutContext::get<md::CameraContext>(*(v4 + 8));
   if (!a1[2])
   {
-    v4 = **a1;
-    v5 = *v4;
-    v6 = *(v4 + 8);
-    if (v5 == v6)
+    v5 = **a1;
+    v6 = *v5;
+    v7 = *(v5 + 8);
+    if (v6 == v7)
     {
       goto LABEL_7;
     }
 
-    while (*v5 != 0x4EDAD23DFB014132)
+    while (*v6 != 0x4EDAD23DFB014132)
     {
-      v5 += 5;
-      if (v5 == v6)
+      v6 += 5;
+      if (v6 == v7)
       {
         goto LABEL_7;
       }
     }
 
-    if (v5 == v6)
+    if (v6 == v7)
     {
 LABEL_7:
-      v7 = 0;
+      v8 = 0;
     }
 
     else
     {
-      v7 = v5[3];
-      v8 = v5[4];
-      if (v8)
+      v8 = v6[3];
+      v9 = v6[4];
+      if (v9)
       {
-        atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v8);
+        atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v9);
       }
     }
 
-    a1[2] = v7;
+    a1[2] = v8;
   }
 
-  v9 = a1[3];
-  if (!v9)
+  v10 = a1[3];
+  if (!v10)
   {
-    v10 = **a1;
-    v11 = *v10;
-    v12 = *(v10 + 8);
-    if (v11 == v12)
+    v11 = **a1;
+    v12 = *v11;
+    v13 = *(v11 + 8);
+    if (v12 == v13)
     {
       goto LABEL_16;
     }
 
-    while (*v11 != 0xC94DD89A7B09BE9CLL)
+    while (*v12 != 0xC94DD89A7B09BE9CLL)
     {
-      v11 += 5;
-      if (v11 == v12)
+      v12 += 5;
+      if (v12 == v13)
       {
         goto LABEL_16;
       }
     }
 
-    if (v11 == v12)
+    if (v12 == v13)
     {
 LABEL_16:
-      v9 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v9 = v11[3];
-      v13 = v11[4];
-      if (v13)
+      v10 = v12[3];
+      v14 = v12[4];
+      if (v14)
       {
-        atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v13);
+        atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v14);
       }
     }
 
-    a1[3] = v9;
+    a1[3] = v10;
   }
 
-  (*(*v9 + 48))(v9);
+  (*(*v10 + 48))(v10);
   operator new();
 }
 
-void sub_1B2A90A20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1B2A90A20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   std::__function::__value_func<void ()(md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::CanEnableTexture const*,md::ls::ColorDataHandle const&,md::ls::RenderableMaterialData const&,md::ls::HasOverlayPatch const*)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -6886,97 +6916,97 @@ uint64_t ecs2::BasicRegistry<void>::storage<md::ls::AlbedoTintColor>(uint64_t a1
   return result;
 }
 
-void md::ita::ProcessRenderableForStyleRouteLineMask::operator()(uint64_t **a1)
+void md::ita::ProcessRenderableForStyleRouteLineMask::operator()(uint64_t **a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = a1[1];
-  if (!v2)
+  v15 = *MEMORY[0x1E69E9840];
+  v3 = a1[1];
+  if (!v3)
   {
-    v3 = **a1;
-    v4 = *v3;
-    v5 = *(v3 + 8);
-    if (v4 == v5)
+    v4 = **a1;
+    v5 = *v4;
+    v6 = *(v4 + 8);
+    if (v5 == v6)
     {
       goto LABEL_5;
     }
 
-    while (*v4 != 0x41D4E9297E100630)
+    while (*v5 != 0x41D4E9297E100630)
     {
-      v4 += 5;
-      if (v4 == v5)
+      v5 += 5;
+      if (v5 == v6)
       {
         goto LABEL_5;
       }
     }
 
-    if (v4 == v5)
+    if (v5 == v6)
     {
 LABEL_5:
-      v2 = 0;
+      v3 = 0;
     }
 
     else
     {
-      v2 = v4[3];
-      v6 = v4[4];
-      if (v6)
+      v3 = v5[3];
+      v7 = v5[4];
+      if (v7)
       {
-        atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v6);
+        atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v7);
       }
     }
 
-    a1[1] = v2;
+    a1[1] = v3;
   }
 
-  v13 = v2;
-  v7 = a1[3];
-  if (!v7)
+  v14 = v3;
+  v8 = a1[3];
+  if (!v8)
   {
-    v8 = **a1;
-    v9 = *v8;
-    v10 = *(v8 + 8);
-    if (v9 == v10)
+    v9 = **a1;
+    v10 = *v9;
+    v11 = *(v9 + 8);
+    if (v10 == v11)
     {
       goto LABEL_14;
     }
 
-    while (*v9 != 0x4EDAD23DFB014132)
+    while (*v10 != 0x4EDAD23DFB014132)
     {
-      v9 += 5;
-      if (v9 == v10)
+      v10 += 5;
+      if (v10 == v11)
       {
         goto LABEL_14;
       }
     }
 
-    if (v9 == v10)
+    if (v10 == v11)
     {
 LABEL_14:
-      v7 = 0;
+      v8 = 0;
     }
 
     else
     {
-      v7 = v9[3];
-      v11 = v9[4];
-      if (v11)
+      v8 = v10[3];
+      v12 = v10[4];
+      if (v12)
       {
-        atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v11);
+        atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v12);
       }
     }
 
-    a1[3] = v7;
+    a1[3] = v8;
   }
 
-  v12 = v7;
+  v13 = v8;
   operator new();
 }
 
-void sub_1B2A91460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1B2A91460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   std::__function::__value_func<void ()(md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::SharedGradientMaskDataHandle const&,md::ls::StyleRouteLineMaskDataKeyHandle *)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -7634,9 +7664,9 @@ LABEL_5:
   return result;
 }
 
-void sub_1B2A92B7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B2A92B7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<void ()(md::ls::PassToCommandBuffers &)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -7667,32 +7697,32 @@ uint64_t gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls:
   return v0[53];
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -7700,49 +7730,49 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_12:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_12;
   }
 
-  return v6;
+  return v7;
 }
 
-void sub_1B2A92E80(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B2A92E80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,void *>>>>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -8420,7 +8450,7 @@ LABEL_16:
 
       v27 = (**v23)(v23);
       v28 = v18 & 0x3F;
-      v29 = md::LayoutContext::camera(v27);
+      md::LayoutContext::camera(v27);
       gdc::CameraView::geocentricCameraView(v65, v29);
       geo::RigidTransform<double,double>::inverse(v63, v66);
       v30 = v64;
@@ -9031,9 +9061,9 @@ LABEL_31:
   return std::__function::__value_func<void ()(md::ls::IsDynamicRenderable const&,md::ls::MeshRenderableTransformConstantDataHandle const&,md::ls::MeshRenderableBounds &,md::ls::RenderableVisibilityOptions &,md::ls::GeocentricBounds *)>::~__value_func[abi:nn200100](v66);
 }
 
-void sub_1B2A95C8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1B2A95C8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   std::__function::__value_func<void ()(md::ls::IsDynamicRenderable const&,md::ls::MeshRenderableTransformConstantDataHandle const&,md::ls::MeshRenderableBounds &,md::ls::RenderableVisibilityOptions &,md::ls::GeocentricBounds *)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -9064,7 +9094,7 @@ uint64_t geo::Pool<geo::IntrusiveNode<gdc::tf::TaskData>>::~Pool(uint64_t a1)
   {
     do
     {
-      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v26, v2);
+      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v26, v2, v3);
       v2 = **v3;
       *v3 = v2;
     }
@@ -9417,9 +9447,9 @@ LABEL_6:
   return result;
 }
 
-void sub_1B2A963C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1B2A963C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__function::__value_func<void ()(md::ls::MeshRenderableID const&,md::ls::ColorCorrectionDataKeyHandle const&)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -9597,25 +9627,25 @@ LABEL_5:
   return v1;
 }
 
-void md::ita::ResolveMaterialDiffuseTexture::operator()(uint64_t **a1)
+void md::ita::ResolveMaterialDiffuseTexture::operator()(uint64_t **a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = a1[1];
-  if (!v2)
+  v12 = *MEMORY[0x1E69E9840];
+  v3 = a1[1];
+  if (!v3)
   {
-    v2 = ecs2::RuntimeTaskContext::service<md::LayoutContextProvider>(***a1, *(**a1 + 8));
-    a1[1] = v2;
+    v3 = ecs2::RuntimeTaskContext::service<md::LayoutContextProvider>(***a1, *(**a1 + 8));
+    a1[1] = v3;
   }
 
-  v3 = (**v2)(v2);
-  v4 = ecs2::ExecutionTask<md::LayoutContextProvider *,md::RenderLayerProvider *>::service<md::RenderLayerProvider>(a1);
-  v5 = md::LayoutContext::get<md::CameraContext>(*(v3 + 1));
-  v10 = fmaxf(*(v5 + 3080) + *(v5 + 3076), 1.0);
-  v9 = ecs2::ExecutionTask<md::LayoutContextProvider *,md::RenderLayerProvider *,md::MaterialResourceStore *,mre::GGLResourceStore *>::service<md::MaterialResourceStore>(a1);
-  v8 = ecs2::ExecutionTask<md::LayoutContextProvider *,md::RenderLayerProvider *,md::MaterialResourceStore *,mre::GGLResourceStore *>::service<mre::GGLResourceStore>(a1);
-  (*(*v4 + 48))(v4);
-  md::LayoutContext::frameState(v3);
-  v7 = *(v6 + 624);
+  v4 = (**v3)(v3, a2);
+  v5 = ecs2::ExecutionTask<md::LayoutContextProvider *,md::RenderLayerProvider *>::service<md::RenderLayerProvider>(a1);
+  v6 = md::LayoutContext::get<md::CameraContext>(*(v4 + 1));
+  v11 = fmaxf(*(v6 + 3080) + *(v6 + 3076), 1.0);
+  v10 = ecs2::ExecutionTask<md::LayoutContextProvider *,md::RenderLayerProvider *,md::MaterialResourceStore *,mre::GGLResourceStore *>::service<md::MaterialResourceStore>(a1);
+  v9 = ecs2::ExecutionTask<md::LayoutContextProvider *,md::RenderLayerProvider *,md::MaterialResourceStore *,mre::GGLResourceStore *>::service<mre::GGLResourceStore>(a1);
+  (*(*v5 + 48))(v5);
+  md::LayoutContext::frameState(v4);
+  v8 = *(v7 + 624);
   operator new();
 }
 
@@ -9731,175 +9761,4 @@ uint64_t gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls:
   }
 
   return v0[253];
-}
-
-uint64_t std::__function::__func<ecs2::ForwardToExecute<md::ita::ProcessMaterialsForUpdatedStyle>,std::allocator<ecs2::ForwardToExecute<md::ita::ProcessMaterialsForUpdatedStyle>>,void ()(ecs2::Runtime &)>::operator()(uint64_t a1, uint64_t a2)
-{
-  *(a1 + 8) = a2;
-  v2 = (a1 + 8);
-  result = md::ita::ProcessMaterialsForUpdatedStyle::operator()((a1 + 8), a2, a2);
-  *v2 = 0;
-  v2[1] = 0;
-  v2[2] = 0;
-  return result;
-}
-
-char *ecs2::Runtime::_entities<md::ita::CheckIfMaterialRequiresEmissiveColor,md::ls::MaterialPendingProcessing const&,md::ls::UniqueStyleEmissiveDataKeyHandle *,md::ls::UniqueMaterialData const&>(uint64_t a1, uint64_t **a2)
-{
-  v58 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 8);
-  v3 = ecs2::BasicRegistry<void>::storage<md::ls::MaterialPendingProcessing>(v2);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::UniqueStyleEmissiveDataKeyHandle>(v2);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::UniqueMaterialData>(v2);
-  v6 = v5;
-  if (*(v5 + 40) - *(v5 + 32) >= v3[5] - v3[4])
-  {
-    v7 = v3;
-  }
-
-  else
-  {
-    v7 = v5;
-  }
-
-  v9 = v7[4];
-  v8 = v7[5];
-  if (v9 != v8)
-  {
-    v10 = v3[1];
-    v11 = v3[2];
-    do
-    {
-      if (ecs2::ViewIterator<void,std::tuple<md::ls::MaterialPendingProcessing const&,md::ls::UniqueStyleEmissiveDataKeyHandle *,md::ls::UniqueMaterialData const&>,std::tuple<>>::containsAll<md::ls::MaterialPendingProcessing const,md::ls::UniqueMaterialData const>(v10, v11, v6, *v9, v9[1]))
-      {
-        break;
-      }
-
-      v9 += 2;
-    }
-
-    while (v9 != v8);
-  }
-
-  if (v9 == v8)
-  {
-    v23 = _ZTWN4ecs27Runtime11_localStateE();
-    result = _ZTWN4ecs27Runtime11_stackIndexE();
-    v14 = 0;
-  }
-
-  else
-  {
-    _ZTWN4ecs27Runtime11_localStateE();
-    v12 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v14 = 0;
-    v43 = v4;
-    v45 = v12;
-LABEL_10:
-    v15 = v9[1];
-    v16 = v15 >> 6;
-    v17 = v4[1];
-    v46 = v14;
-    if (v15 >> 6 < (v4[2] - v17) >> 3 && (v18 = *(v17 + 8 * v16)) != 0 && *(v18 + 4 * (v15 & 0x3F)) == *v9)
-    {
-      v19 = *(v18 + 4 * (v15 & 0x3F) + 2);
-      v20 = (*(v4[7] + ((v19 >> 3) & 0x1FF8)) + 16 * (v19 & 0x3F));
-    }
-
-    else
-    {
-      v20 = 0;
-    }
-
-    v21 = *(*(*(v6 + 8) + 8 * v16) + 4 * (v15 & 0x3F) + 2);
-    v22 = (*(*(v6 + 56) + ((v21 >> 3) & 0x1FF8)) + 24 * (v21 & 0x3F));
-    v23 = v13;
-    *(v13 + 104 * *v12 + 24) = *v9;
-    v24 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(a2);
-    v25 = ecs2::ExecutionTask<md::LayoutContextProvider *,md::MaterialResourceStore *>::service<md::MaterialResourceStore>(a2);
-    md::MaterialResourceStore::getMaterial(&v48, v25, *v22);
-    v26 = v48;
-    v27 = (*(*v48 + 984))(v48);
-    v28 = (*(*v26 + 176))(v26);
-    if ((v27 | v28))
-    {
-      if (!v20)
-      {
-        v54 = v22[1];
-        v51 = v54;
-        v29 = md::VKMRenderResourcesStore::addKey<md::StyleEmissiveColorCacheKey>(v24, &v54, &v51);
-        ecs2::ExecutionTaskContext::currentEntity(v29);
-        operator new();
-      }
-    }
-
-    else if (v20)
-    {
-      v30 = ecs2::ExecutionTaskContext::currentEntity(v28);
-      v51 = &unk_1F2A1E208;
-      v52 = v30;
-      v53 = &v51;
-      v56 = &v54;
-      v54 = &unk_1F2A1E208;
-      v55 = v30;
-      v57 = 2;
-      ecs2::Runtime::queueCommand();
-      if (v57 != -1)
-      {
-        (off_1F2A1E2C8[v57])(&v50, &v54);
-      }
-
-      v57 = -1;
-      std::__function::__value_func<void ()(ecs2::BasicRegistry<void> &)>::~__value_func[abi:nn200100](&v51);
-      md::updateRetainedCounter(v24 + 501, *v20);
-      v31 = v20[1];
-      if (v31)
-      {
-        md::updateRetainedCounter(v24 + 447, v31);
-      }
-    }
-
-    if (v49)
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v49);
-    }
-
-    v14 = v46 + 1;
-    v32 = v3[1];
-    v33 = v3[2];
-    v34 = v9 + 2;
-    while (v34 != v8)
-    {
-      v9 = v34;
-      v35 = ecs2::ViewIterator<void,std::tuple<md::ls::MaterialPendingProcessing const&,md::ls::UniqueStyleEmissiveDataKeyHandle *,md::ls::UniqueMaterialData const&>,std::tuple<>>::containsAll<md::ls::MaterialPendingProcessing const,md::ls::UniqueMaterialData const>(v32, v33, v6, *v34, v34[1]);
-      v34 = v9 + 2;
-      if (v35)
-      {
-        v4 = v43;
-        v13 = v23;
-        v12 = v45;
-        goto LABEL_10;
-      }
-    }
-
-    v36 = *(a1 + 8);
-    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::UniqueStyleEmissiveDataKeyHandle>();
-    *(v36 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::UniqueStyleEmissiveDataKeyHandle>(void)::metadata) = *(v36 + 4096);
-    result = v45;
-  }
-
-  *(v23 + 104 * *result + 24) = -65536;
-  v38 = v23 + 104 * *result;
-  v39 = *(v38 + 92);
-  *(v38 + 92) = v39 + 1;
-  *(v38 + 4 * v39 + 28) = v14;
-  v40 = v23 + 104 * *result;
-  v42 = *(v40 + 92);
-  v41 = (v40 + 92);
-  if (v42 >= 0x10)
-  {
-    *v41 = 0;
-  }
-
-  return result;
 }

@@ -68,7 +68,7 @@
 
 - (BOOL)_verifyCerts:(id)certs policy:(__SecPolicy *)policy
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   certsCopy = certs;
   if (![certsCopy count])
   {
@@ -109,7 +109,7 @@ LABEL_5:
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v16 = v9;
+      v15 = v9;
       _os_log_impl(&dword_1A795B000, v10, OS_LOG_TYPE_ERROR, "Write defaults, trust evaluation failed: %{public}@", buf, 0xCu);
     }
 
@@ -120,13 +120,12 @@ LABEL_5:
   CFRelease(trust);
 LABEL_13:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (BOOL)sanitizedProfileSignerCertificateChainIsAllowedToInstallUnsupportedPayload:(id)payload
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   if (os_variant_has_internal_ui())
   {
@@ -169,7 +168,7 @@ LABEL_13:
           if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v18 = v11;
+            v17 = v11;
             _os_log_impl(&dword_1A795B000, v12, OS_LOG_TYPE_ERROR, "Unsupported payload, trust evaluation failed: %{public}@", buf, 0xCu);
           }
 
@@ -205,13 +204,12 @@ LABEL_21:
   LOBYTE(v5) = 0;
 LABEL_22:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)sanitizedProfileSignerCertificateChainIsAllowedToInstallSupervisedRestrictionsOnUnsupervisedDevices:(id)devices
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   devicesCopy = devices;
   ConfigurationProfileSigner = SecPolicyCreateConfigurationProfileSigner();
   if (ConfigurationProfileSigner)
@@ -241,7 +239,7 @@ LABEL_22:
           if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v17 = v10;
+            v16 = v10;
             _os_log_impl(&dword_1A795B000, v11, OS_LOG_TYPE_ERROR, "Install supervised restrictions on unsupervised devices, trust evaluation failed: %{public}@", buf, 0xCu);
           }
 
@@ -277,7 +275,6 @@ LABEL_17:
   LOBYTE(v7) = 0;
 LABEL_18:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

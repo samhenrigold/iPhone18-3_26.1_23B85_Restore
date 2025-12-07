@@ -37,9 +37,10 @@
 - (BOOL)hasVideoArtwork
 {
   selfCopy = self;
-  v3 = sub_38DBC4();
+  sub_38DBC4();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 @end

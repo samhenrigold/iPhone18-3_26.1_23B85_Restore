@@ -11,8 +11,8 @@
 
 - (void)swift_propagateEnvironmentValuesToExtendedTraitCollection:(id)collection
 {
-  sub_1A3C35DC4(&unk_1EB126760);
-  sub_1A3C52C70(0, &qword_1EB126868);
+  sub_1A3C35DC4(&unk_1EB126760, &protocol conformance descriptor for PXCuratedLibraryViewConfiguration);
+  sub_1A3C52C70(0, &qword_1EB126868, &off_1E7721558);
   collection;
   self;
   sub_1A5245C64();
@@ -20,13 +20,14 @@
 
 - (PXLemonadeFeatureAvailabilityMonitor)featureAvailabilityMonitor
 {
-  type metadata accessor for LemonadeFeatureAvailabilityMonitor();
-  v7 = 6;
+  type metadata accessor for LemonadeFeatureAvailabilityMonitor(0);
+  v8 = 6;
   selfCopy = self;
   photoLibrary = [(PXCuratedLibraryViewConfiguration *)selfCopy photoLibrary];
-  v5 = static LemonadeFeatureAvailabilityMonitor.sharedStatus(feature:for:)(&v7, photoLibrary);
+  static LemonadeFeatureAvailabilityMonitor.sharedStatus(feature:for:)(&v8, photoLibrary);
+  v6 = v5;
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)isZoomLevelEnabled:(int64_t)enabled

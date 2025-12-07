@@ -1,6 +1,5 @@
 @interface CMIColourConstancyToneCompressionV1
 - (CMIColourConstancyToneCompressionV1)initWithMetalContext:(id)context;
-- (id)calculateToneCompressionCurve:(double)curve strobeComponentRGBTexture:(double)texture strobeCCM:(uint64_t)m;
 - (int)_clearHistogramBuffer:(id)buffer outputHistogramBuffer:(id)histogramBuffer;
 - (int)_encodeBalancedIntensityDensityHistogramCalculate:(id)calculate inputIntensityHistogramBuffer:(id)buffer histogramScaleFactor:(float)factor balanceDenseToSparseExponentFactor:(float)exponentFactor minimumProbabilityDensity:(float)density outputBalancedIntensityDensityHistogramTexture:(id)texture;
 - (int)_encodeGaussianWeightedSupportApply:(id)apply inputBalancedIntensityDensityHistogramTexture:(id)texture kernelSupportGaussianSigma:(float)sigma sigmaToFilterScale:(float)scale outputKernelWeightedIntensityDensityHistogramTexture:(id)histogramTexture;
@@ -8,6 +7,7 @@
 - (int)prepareToProcessWithConfig:(id)config;
 - (int)purgeResources;
 - (uint64_t)_encodeIntensityHistogramCalculate:(__n128)calculate strobeComponentRGBTexture:(__n128)texture strobeCCM:(uint64_t)m numHistogramBins:(void *)bins outputIntensityHistogramBuffer:(void *)buffer;
+- (void)calculateToneCompressionCurve:(double)curve strobeComponentRGBTexture:(double)texture strobeCCM:(uint64_t)m;
 @end
 
 @implementation CMIColourConstancyToneCompressionV1
@@ -398,7 +398,7 @@ LABEL_4:
   return v15;
 }
 
-- (id)calculateToneCompressionCurve:(double)curve strobeComponentRGBTexture:(double)texture strobeCCM:(uint64_t)m
+- (void)calculateToneCompressionCurve:(double)curve strobeComponentRGBTexture:(double)texture strobeCCM:(uint64_t)m
 {
   v9 = a6;
   v10 = a7;

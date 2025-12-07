@@ -61,7 +61,7 @@
   v25.receiver = self;
   v25.super_class = HRCAACPSource;
   v5 = [(HRCAACPSource *)&v25 init];
-  v6 = sub_10000132C();
+  v6 = sub_10000132C(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -112,8 +112,7 @@
 
   [(AASystemStateMonitor *)self->_audioSystemStateMonitor invalidate];
   [(HIDEventSystemClient *)self->_streamingClient cancel];
-  [(HIDEventSystemClient *)self->_monitorClient cancel];
-  v4 = sub_10000132C();
+  v4 = sub_10000132C([(HIDEventSystemClient *)self->_monitorClient cancel]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -192,7 +191,7 @@
 
 - (void)setOpportunisticMode:(BOOL)mode
 {
-  v3 = sub_10000132C();
+  v3 = sub_10000132C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -345,8 +344,7 @@
   v7[3] = &unk_1000407A0;
   objc_copyWeak(&v8, &location);
   [(AASystemStateMonitor *)self->_audioSystemStateMonitor setInvalidationHandler:v7];
-  [(AASystemStateMonitor *)self->_audioSystemStateMonitor activateWithCompletion:&stru_100040D10];
-  v5 = sub_10000132C();
+  v5 = sub_10000132C([(AASystemStateMonitor *)self->_audioSystemStateMonitor activateWithCompletion:&stru_100040D10]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -364,73 +362,73 @@
   deviceCopy = device;
   changedCopy = changed;
   dispatch_assert_queue_V2(self->_serviceQueue);
-  v8 = sub_10000132C();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_10000132C(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     name = [changedCopy name];
     bluetoothAddress = [changedCopy bluetoothAddress];
-    v11 = bluetoothAddress;
+    v12 = bluetoothAddress;
     if (deviceCopy > 2)
     {
-      v12 = "default";
+      v13 = "default";
     }
 
     else
     {
-      v12 = off_100040D58[deviceCopy];
+      v13 = off_100040D58[deviceCopy];
     }
 
     *buf = 138543874;
-    v30 = name;
-    v31 = 2114;
-    v32 = bluetoothAddress;
-    v33 = 2082;
-    v34 = v12;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "HRCAACPSource Active HRM route set to %{public}@ (%{public}@) %{public}s", buf, 0x20u);
+    v32 = name;
+    v33 = 2114;
+    v34 = bluetoothAddress;
+    v35 = 2082;
+    v36 = v13;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "HRCAACPSource Active HRM route set to %{public}@ (%{public}@) %{public}s", buf, 0x20u);
   }
 
   if (!changedCopy || deviceCopy)
   {
     objc_storeStrong(&self->_aaDevice, changed);
     self->_virtualDevice = deviceCopy == 2;
-    v24 = 0u;
-    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     services = [(HRCAACPSource *)self services];
     allValues = [services allValues];
 
-    v17 = [allValues countByEnumeratingWithState:&v24 objects:v28 count:16];
-    if (v17)
+    v19 = [allValues countByEnumeratingWithState:&v26 objects:v30 count:16];
+    if (v19)
     {
-      v18 = *v25;
+      v20 = *v27;
       do
       {
-        for (i = 0; i != v17; i = i + 1)
+        for (i = 0; i != v19; i = i + 1)
         {
-          if (*v25 != v18)
+          if (*v27 != v20)
           {
             objc_enumerationMutation(allValues);
           }
 
           if (self->_aaDevice)
           {
-            v20 = *(*(&v24 + 1) + 8 * i);
-            bluetoothAddress2 = [v20 bluetoothAddress];
+            v22 = *(*(&v26 + 1) + 8 * i);
+            bluetoothAddress2 = [v22 bluetoothAddress];
             bluetoothAddressData = [(AudioAccessoryDevice *)self->_aaDevice bluetoothAddressData];
-            v23 = [bluetoothAddress2 isEqualToData:bluetoothAddressData];
+            v25 = [bluetoothAddress2 isEqualToData:bluetoothAddressData];
 
-            if (v23)
+            if (v25)
             {
-              [v20 setAaDevice:self->_aaDevice];
+              [v22 setAaDevice:self->_aaDevice];
             }
           }
         }
 
-        v17 = [allValues countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v19 = [allValues countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
-      while (v17);
+      while (v19);
     }
 
     [(HRCAACPSource *)self _updateStreamingMode];
@@ -438,11 +436,11 @@
 
   else
   {
-    v13 = sub_10000132C();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v15 = sub_10000132C(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       name2 = [changedCopy name];
-      sub_100017114(name2, buf, v13);
+      sub_100017114(name2, buf, v15);
     }
   }
 }
@@ -526,22 +524,23 @@
     }
   }
 
-  self->_available = [(NSMutableDictionary *)self->_services count]!= 0;
-  v13 = sub_10000132C();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v13 = [(NSMutableDictionary *)self->_services count];
+  self->_available = v13 != 0;
+  v14 = sub_10000132C(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     services = [(HRCAACPSource *)self services];
-    v15 = [NSNumber numberWithUnsignedLongLong:handler];
-    v16 = [services objectForKeyedSubscript:v15];
-    uuid = [v16 uuid];
+    v16 = [NSNumber numberWithUnsignedLongLong:handler];
+    v17 = [services objectForKeyedSubscript:v16];
+    uuid = [v17 uuid];
     available = self->_available;
-    v19 = 134218498;
+    v20 = 134218498;
     handlerCopy = handler;
-    v21 = 2114;
-    v22 = uuid;
-    v23 = 1024;
-    v24 = available;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "AACP HR service removed:0x%llx uuid: %{public}@ available:%{BOOL}u", &v19, 0x1Cu);
+    v22 = 2114;
+    v23 = uuid;
+    v24 = 1024;
+    v25 = available;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "AACP HR service removed:0x%llx uuid: %{public}@ available:%{BOOL}u", &v20, 0x1Cu);
   }
 
   [(HRCAACPSource *)self _updateStreamingMode];
@@ -553,15 +552,15 @@
   if (self->_streamingMode != mode)
   {
     self->_streamingMode = mode;
-    v5 = sub_10000132C();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_10000132C(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       available = self->_available;
-      v7[0] = 67240448;
-      v7[1] = mode;
-      v8 = 1024;
-      v9 = available;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "AACP Source streaming mode set %{public}d available:%{BOOL}u", v7, 0xEu);
+      v8[0] = 67240448;
+      v8[1] = mode;
+      v9 = 1024;
+      v10 = available;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "AACP Source streaming mode set %{public}d available:%{BOOL}u", v8, 0xEu);
     }
 
     [(HRCAACPSource *)self _updateStreamingMode];
@@ -578,38 +577,38 @@
     if (activeService)
     {
       [(HRCAACPSource *)self _notifySourceUpdate:0 forSource:?];
-      v27 = self->_activeService;
+      v30 = self->_activeService;
       self->_activeService = 0;
     }
 
-    v45 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
+    v47 = 0u;
     services = [(HRCAACPSource *)self services];
     allValues = [services allValues];
 
-    v29 = [allValues countByEnumeratingWithState:&v43 objects:v50 count:16];
-    if (v29)
+    v32 = [allValues countByEnumeratingWithState:&v46 objects:v53 count:16];
+    if (v32)
     {
-      v30 = *v44;
+      v33 = *v47;
       do
       {
-        for (i = 0; i != v29; i = i + 1)
+        for (i = 0; i != v32; i = i + 1)
         {
-          if (*v44 != v30)
+          if (*v47 != v33)
           {
             objc_enumerationMutation(allValues);
           }
 
-          service = [*(*(&v43 + 1) + 8 * i) service];
+          service = [*(*(&v46 + 1) + 8 * i) service];
           [(HRCAACPSource *)self _setStreamingMode:0 forService:service];
         }
 
-        v29 = [allValues countByEnumeratingWithState:&v43 objects:v50 count:16];
+        v32 = [allValues countByEnumeratingWithState:&v46 objects:v53 count:16];
       }
 
-      while (v29);
+      while (v32);
     }
 
     goto LABEL_37;
@@ -622,9 +621,10 @@
   if (((*location != 0) & v6) == 1)
   {
     virtualDevice = self->_virtualDevice;
-    if (virtualDevice == [*location virtualDevice])
+    virtualDevice = [*location virtualDevice];
+    if (virtualDevice == virtualDevice)
     {
-      allValues = sub_10000132C();
+      allValues = sub_10000132C(virtualDevice);
       if (os_log_type_enabled(allValues, OS_LOG_TYPE_DEFAULT))
       {
         service2 = [*location service];
@@ -635,119 +635,120 @@
 
 LABEL_37:
 
-      v12 = 0;
-      v25 = 0;
+      v13 = 0;
+      v28 = 0;
       goto LABEL_45;
     }
   }
 
-  v41 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v42 = 0u;
-  v39 = 0u;
-  v40 = 0u;
+  v43 = 0u;
   services2 = [(HRCAACPSource *)self services];
   allValues2 = [services2 allValues];
 
   obj = allValues2;
-  v12 = 0;
   v13 = 0;
-  v14 = [allValues2 countByEnumeratingWithState:&v39 objects:v47 count:16];
-  if (!v14)
+  v14 = 0;
+  v15 = [allValues2 countByEnumeratingWithState:&v42 objects:v50 count:16];
+  if (!v15)
   {
     goto LABEL_40;
   }
 
-  v15 = *v40;
+  v16 = *v43;
   do
   {
-    for (j = 0; j != v14; j = j + 1)
+    for (j = 0; j != v15; j = j + 1)
     {
-      if (*v40 != v15)
+      if (*v43 != v16)
       {
         objc_enumerationMutation(obj);
       }
 
-      v17 = *(*(&v39 + 1) + 8 * j);
-      bluetoothAddress2 = [v17 bluetoothAddress];
+      v18 = *(*(&v42 + 1) + 8 * j);
+      bluetoothAddress2 = [v18 bluetoothAddress];
       bluetoothAddressData2 = [(AudioAccessoryDevice *)self->_aaDevice bluetoothAddressData];
-      v20 = [bluetoothAddress2 isEqualToData:bluetoothAddressData2];
+      v21 = [bluetoothAddress2 isEqualToData:bluetoothAddressData2];
 
-      if (v20)
+      if (v21)
       {
-        v21 = self->_virtualDevice;
-        if (v21 == [v17 virtualDevice])
+        v22 = self->_virtualDevice;
+        virtualDevice2 = [v18 virtualDevice];
+        if (v22 == virtualDevice2)
         {
-          if (v13)
+          if (v14)
           {
-            v22 = sub_10000132C();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+            v24 = sub_10000132C(virtualDevice2);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
             {
-              sub_10001716C(buf, &buf[1], v22);
+              sub_10001716C(buf, &buf[1], v24);
             }
           }
 
-          service3 = v13;
-          v13 = v17;
+          service3 = v14;
+          v14 = v18;
           goto LABEL_20;
         }
       }
 
-      if (([v17 simulator]& 1) != 0)
+      if (([v18 simulator]& 1) != 0)
       {
-        service3 = v12;
-        v12 = v17;
+        service3 = v13;
+        v13 = v18;
 LABEL_20:
-        v24 = v17;
+        v26 = v18;
         goto LABEL_22;
       }
 
-      service3 = [v17 service];
+      service3 = [v18 service];
       [(HRCAACPSource *)self _setStreamingMode:0 forService:service3];
 LABEL_22:
     }
 
-    v14 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
+    v15 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
   }
 
-  while (v14);
+  while (v15);
 
-  v25 = v13;
-  if (v13 && v12)
+  v28 = v14;
+  if (v14 && v13)
   {
-    v26 = sub_10000132C();
-    obj = v26;
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v29 = sub_10000132C(v27);
+    obj = v29;
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      sub_1000171AC(v26);
+      sub_1000171AC(v29);
     }
 
 LABEL_40:
 
-    v25 = v13;
+    v28 = v14;
   }
 
-  else if (v12)
+  else if (v13)
   {
-    v13 = v12;
-    obj = v25;
-    v12 = v13;
+    v14 = v13;
+    obj = v28;
+    v13 = v14;
     goto LABEL_40;
   }
 
   if (*locationa)
   {
     [(HRCAACPSource *)self _notifySourceUpdate:0 forSource:?];
-    v33 = *locationa;
+    v36 = *locationa;
     *locationa = 0;
   }
 
-  if (v25)
+  if (v28)
   {
     streamingMode = self->_streamingMode;
-    service4 = [v25 service];
+    service4 = [v28 service];
     [(HRCAACPSource *)self _setStreamingMode:streamingMode forService:service4];
 
-    objc_storeStrong(locationa, v25);
+    objc_storeStrong(locationa, v28);
     [(HRCAACPSource *)self _notifySourceUpdate:self->_streamingMode forSource:self->_activeService];
   }
 
@@ -813,23 +814,24 @@ LABEL_45:
 - (void)_startStreaming:(id)streaming
 {
   streamingCopy = streaming;
-  if ([streamingCopy setProperty:&off_1000432A0 forKey:@"ReportInterval"])
+  v4 = [streamingCopy setProperty:&off_1000432A0 forKey:@"ReportInterval"];
+  if (v4)
   {
-    v4 = sub_10000132C();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_10000132C(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 134349056;
+      v6 = 134349056;
       serviceID = [streamingCopy serviceID];
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Streaming started for AACP source 0x%{public}llx", &v5, 0xCu);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Streaming started for AACP source 0x%{public}llx", &v6, 0xCu);
     }
   }
 
   else
   {
-    v4 = sub_10000132C();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_10000132C(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_1000171F0(&v5, [streamingCopy serviceID], v4);
+      sub_1000171F0(&v6, [streamingCopy serviceID], v5);
     }
   }
 }
@@ -837,23 +839,24 @@ LABEL_45:
 - (void)_stopStreaming:(id)streaming
 {
   streamingCopy = streaming;
-  if ([streamingCopy setProperty:&off_1000432E8 forKey:@"ReportInterval"])
+  v4 = [streamingCopy setProperty:&off_1000432E8 forKey:@"ReportInterval"];
+  if (v4)
   {
-    v4 = sub_10000132C();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_10000132C(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 134349056;
+      v6 = 134349056;
       serviceID = [streamingCopy serviceID];
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Streaming stopped for AACP source 0x%{public}llx", &v5, 0xCu);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Streaming stopped for AACP source 0x%{public}llx", &v6, 0xCu);
     }
   }
 
   else
   {
-    v4 = sub_10000132C();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_10000132C(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_10001722C(&v5, [streamingCopy serviceID], v4);
+      sub_10001722C(&v6, [streamingCopy serviceID], v5);
     }
   }
 }
@@ -867,19 +870,19 @@ LABEL_45:
     goto LABEL_53;
   }
 
-  v58 = rateCopy;
+  v65 = rateCopy;
   [rateCopy doubleValueForField:2818049];
   v6 = v5;
-  v54 = [v4 integerValueForField:2818050];
+  v61 = [v4 integerValueForField:2818050];
   timestamp = [v4 timestamp];
-  v53 = [v4 integerValueForField:2818048];
+  v60 = [v4 integerValueForField:2818048];
   dispatch_assert_queue_V2(self->_serviceQueue);
-  v55 = +[NSUUID UUID];
+  v62 = +[NSUUID UUID];
   services = [(HRCAACPSource *)self services];
-  v9 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v58 senderID]);
+  v9 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v65 senderID]);
   v10 = [services objectForKeyedSubscript:v9];
 
-  v57 = v10;
+  v64 = v10;
   hrcDevice = [v10 hrcDevice];
 
   if (!hrcDevice)
@@ -887,220 +890,232 @@ LABEL_45:
     service = [v10 service];
     aaDevice = [v10 aaDevice];
     v14 = [HRCServiceInfo makeDevice:service aaDevice:aaDevice];
-    [v57 setHrcDevice:v14];
+    [v64 setHrcDevice:v14];
   }
 
   services2 = [(HRCAACPSource *)self services];
-  v16 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v58 senderID]);
+  v16 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v65 senderID]);
   v17 = [services2 objectForKeyedSubscript:v16];
   uuid = [v17 uuid];
 
-  v18 = sub_10000132C();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = sub_10000132C(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134547203;
-    v68 = v53;
-    v69 = 2053;
-    v70 = v6;
-    v71 = 1026;
-    v72 = v54;
-    v73 = 2050;
-    v74 = timestamp;
-    v75 = 2050;
-    senderID = [v58 senderID];
-    v77 = 2114;
-    v78 = uuid;
-    v79 = 2114;
-    v80 = v55;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "AACP HR %{sensitive}ld (%{sensitive}f conf) loc:%{public}hu gen:%{public}llu sender:0x%{public}llx Source:%{public}@ Sample:%{public}@ \n", buf, 0x44u);
+    v75 = v60;
+    v76 = 2053;
+    v77 = v6;
+    v78 = 1026;
+    v79 = v61;
+    v80 = 2050;
+    v81 = timestamp;
+    v82 = 2050;
+    senderID = [v65 senderID];
+    v84 = 2114;
+    v85 = uuid;
+    v86 = 2114;
+    v87 = v62;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "AACP HR %{sensitive}ld (%{sensitive}f conf) loc:%{public}hu gen:%{public}llu sender:0x%{public}llx Source:%{public}@ Sample:%{public}@ \n", buf, 0x44u);
   }
 
   uuid2 = [(HRCServiceInfo *)self->_activeService uuid];
-  v20 = [uuid isEqual:uuid2];
+  v21 = [uuid isEqual:uuid2];
 
-  if ((v20 & 1) == 0)
+  if ((v21 & 1) == 0)
   {
-    v21 = sub_10000132C();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v23 = sub_10000132C(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       uuid3 = [(HRCServiceInfo *)self->_activeService uuid];
-      sub_100017268(uuid3, uuid, buf, v21);
+      sub_100017268(uuid3, uuid, buf, v23);
     }
   }
 
-  hrcDevice2 = [v57 hrcDevice];
-  v24 = hrcDevice2 == 0;
+  hrcDevice2 = [v64 hrcDevice];
+  v26 = hrcDevice2 == 0;
 
-  if (v24)
+  if (v26)
   {
-    v49 = sub_10000132C();
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+    v56 = sub_10000132C(v27);
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
     {
-      sub_100017314(v65, [v58 senderID], v49);
+      sub_100017314(v72, [v65 senderID], v56);
     }
 
     goto LABEL_51;
   }
 
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
-  v61 = 0u;
-  children = [v58 children];
-  v26 = [children countByEnumeratingWithState:&v60 objects:v64 count:16];
-  if (!v26)
+  v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
+  children = [v65 children];
+  type = [children countByEnumeratingWithState:&v67 objects:v71 count:16];
+  v30 = type;
+  if (!type)
   {
 
 LABEL_49:
-    v49 = sub_10000132C();
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
+    v56 = sub_10000132C(v51);
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_FAULT))
     {
-      sub_1000172D0(v49);
+      sub_1000172D0(v56);
     }
 
 LABEL_51:
-    v28 = 0;
+    v32 = 0;
     goto LABEL_52;
   }
 
-  v27 = 0;
-  v28 = 0;
-  v29 = *v61;
+  v31 = 0;
+  v32 = 0;
+  v33 = *v68;
   do
   {
-    v30 = 0;
+    v34 = 0;
     do
     {
-      if (*v61 != v29)
+      if (*v68 != v33)
       {
         objc_enumerationMutation(children);
       }
 
-      v31 = *(*(&v60 + 1) + 8 * v30);
-      v32 = sub_10000132C();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+      v35 = *(*(&v67 + 1) + 8 * v34);
+      v36 = sub_10000132C(type);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
       {
-        *v65 = 138543362;
-        v66 = v31;
-        _os_log_debug_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEBUG, "AACP child event %{public}@", v65, 0xCu);
+        *v72 = 138543362;
+        v73 = v35;
+        _os_log_debug_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEBUG, "AACP child event %{public}@", v72, 0xCu);
       }
 
-      if ([v31 type] == 1 && objc_msgSend(v31, "integerValueForField:", 0x10000) == 65301 && objc_msgSend(v31, "integerValueForField:", 65537) == 290)
+      if ([v35 type] == 1 && objc_msgSend(v35, "integerValueForField:", 0x10000) == 65301 && objc_msgSend(v35, "integerValueForField:", 65537) == 290)
       {
-        v33 = [v31 dataValueForField:65540];
-        v34 = [v31 integerValueForField:65539];
-        if (v34 == 20)
+        v37 = [v35 dataValueForField:65540];
+        v38 = [v35 integerValueForField:65539];
+        v41 = v38;
+        if (v38 == 20)
         {
-          LODWORD(v35) = v33[3];
-          LODWORD(v36) = v33[4];
-          v37 = [NSDate dateWithTimeIntervalSince1970:v36 / 1000000000.0 + v35];
+          LODWORD(v39) = v37[3];
+          LODWORD(v40) = v37[4];
+          v42 = [NSDate dateWithTimeIntervalSince1970:v40 / 1000000000.0 + v39];
 
-          v38 = sub_10000132C();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+          v44 = sub_10000132C(v43);
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
           {
-            v39 = [(NSDateFormatter *)self->_timeSyncFormatter stringFromDate:v37];
-            *v65 = 138543362;
-            v66 = v39;
-            _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "AACP HR TimeSync: %{public}@", v65, 0xCu);
+            v45 = [(NSDateFormatter *)self->_timeSyncFormatter stringFromDate:v42];
+            *v72 = 138543362;
+            v73 = v45;
+            _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "AACP HR TimeSync: %{public}@", v72, 0xCu);
           }
 
           goto LABEL_34;
         }
 
-        v38 = sub_10000132C();
-        if (!os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        v44 = sub_10000132C(v38);
+        if (!os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_33;
         }
 
-        *v65 = 134349056;
-        v66 = v34;
-        v42 = v38;
-        v43 = "AACP HR TimeSync invalid size %{public}zu";
+        *v72 = 134349056;
+        v73 = v41;
+        v49 = v44;
+        v50 = "AACP HR TimeSync invalid size %{public}zu";
         goto LABEL_38;
       }
 
-      if ([v31 type] == 1 && objc_msgSend(v31, "integerValueForField:", 0x10000) == 65301 && objc_msgSend(v31, "integerValueForField:", 65537) == 18)
+      type = [v35 type];
+      if (type == 1)
       {
-        v40 = [v31 dataValueForField:65540];
-        v41 = [v31 integerValueForField:65539];
-        if (v41 == 4)
+        type = [v35 integerValueForField:0x10000];
+        if (type == 65301)
         {
-          v27 = *v40;
-          v38 = sub_10000132C();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+          type = [v35 integerValueForField:65537];
+          if (type == 18)
           {
-            *v65 = 67240192;
-            LODWORD(v66) = v27;
-            _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "AACP Flags %{public}08x\n", v65, 8u);
-          }
+            v46 = [v35 dataValueForField:65540];
+            v47 = [v35 integerValueForField:65539];
+            v48 = v47;
+            if (v47 == 4)
+            {
+              v31 = *v46;
+              v44 = sub_10000132C(4);
+              if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+              {
+                *v72 = 67240192;
+                LODWORD(v73) = v31;
+                _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "AACP Flags %{public}08x\n", v72, 8u);
+              }
 
 LABEL_33:
-          v37 = v28;
+              v42 = v32;
 LABEL_34:
 
-          v28 = v37;
-          goto LABEL_35;
-        }
+              v32 = v42;
+              goto LABEL_35;
+            }
 
-        v38 = sub_10000132C();
-        if (!os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_33;
-        }
+            v44 = sub_10000132C(v47);
+            if (!os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+            {
+              goto LABEL_33;
+            }
 
-        *v65 = 134349056;
-        v66 = v41;
-        v42 = v38;
-        v43 = "AACP Flags invalid size %{public}zu";
+            *v72 = 134349056;
+            v73 = v48;
+            v49 = v44;
+            v50 = "AACP Flags invalid size %{public}zu";
 LABEL_38:
-        _os_log_error_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, v43, v65, 0xCu);
-        goto LABEL_33;
+            _os_log_error_impl(&_mh_execute_header, v49, OS_LOG_TYPE_ERROR, v50, v72, 0xCu);
+            goto LABEL_33;
+          }
+        }
       }
 
 LABEL_35:
-      v30 = v30 + 1;
+      v34 = v34 + 1;
     }
 
-    while (v26 != v30);
-    v44 = [children countByEnumeratingWithState:&v60 objects:v64 count:16];
-    v26 = v44;
+    while (v30 != v34);
+    type = [children countByEnumeratingWithState:&v67 objects:v71 count:16];
+    v30 = type;
   }
 
-  while (v44);
+  while (type);
 
-  if (!v28)
+  if (!v32)
   {
     goto LABEL_49;
   }
 
-  if ((v54 & 0xFFFC) != 0)
+  if ((v61 & 0xFFFC) != 0)
   {
-    v45 = 0;
+    v52 = 0;
   }
 
   else
   {
-    v45 = v54;
+    v52 = v61;
   }
 
-  v46 = [HRCHeartRateData alloc];
-  v47 = [NSNumber numberWithDouble:v6];
-  hrcDevice3 = [v57 hrcDevice];
-  HIDWORD(v52) = v27;
-  LOBYTE(v52) = v45;
-  LOWORD(v51) = 1;
-  v49 = [v46 initWithHeartRate:v47 confidence:0 confidenceLevel:1 arbitrationStatus:2 context:2 hrContext:v28 timestamp:v53 sampleUuid:v55 sourceType:v51 streamingThrottleStatus:uuid deviceUuid:hrcDevice3 device:v52 sensorLocation:? flags:?];
+  v53 = [HRCHeartRateData alloc];
+  v54 = [NSNumber numberWithDouble:v6];
+  hrcDevice3 = [v64 hrcDevice];
+  HIDWORD(v59) = v31;
+  LOBYTE(v59) = v52;
+  LOWORD(v58) = 1;
+  v56 = [v53 initWithHeartRate:v54 confidence:0 confidenceLevel:1 arbitrationStatus:2 context:2 hrContext:v32 timestamp:v60 sampleUuid:v62 sourceType:v58 streamingThrottleStatus:uuid deviceUuid:hrcDevice3 device:v59 sensorLocation:? flags:?];
 
   heartRateHandler = self->_heartRateHandler;
   if (heartRateHandler)
   {
-    heartRateHandler[2](heartRateHandler, v49);
+    heartRateHandler[2](heartRateHandler, v56);
   }
 
 LABEL_52:
 
-  v4 = v58;
+  v4 = v65;
 LABEL_53:
 }
 
@@ -1115,14 +1130,14 @@ LABEL_53:
     v8 = v7;
     if (v6 != 65290 || v7 != 19)
     {
-      v11 = sub_10000132C();
+      v11 = sub_10000132C(v7);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v22 = 134218240;
-        v23 = v6;
-        v24 = 2048;
-        v25 = v8;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Ignoring vendor-defined event usage page: %04lX usage: %04lX", &v22, 0x16u);
+        v23 = 134218240;
+        v24 = v6;
+        v25 = 2048;
+        v26 = v8;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Ignoring vendor-defined event usage page: %04lX usage: %04lX", &v23, 0x16u);
       }
 
       goto LABEL_27;
@@ -1137,25 +1152,29 @@ LABEL_53:
     {
     }
 
-    else if (([v11 simulator]& 1) == 0)
+    else
     {
-      v19 = sub_10000132C();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      simulator = [v11 simulator];
+      if ((simulator & 1) == 0)
       {
-        sub_100017350(v19);
-      }
+        v20 = sub_10000132C(simulator);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        {
+          sub_100017350(v20);
+        }
 
-      goto LABEL_27;
+        goto LABEL_27;
+      }
     }
 
-    v13 = [v5 dataValueForField:65540];
-    v14 = [v5 integerValueForField:65539];
-    v15 = sub_10000132C();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v14 = [v5 dataValueForField:65540];
+    v15 = [v5 integerValueForField:65539];
+    v16 = sub_10000132C(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 134217984;
-      v23 = v14;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Handling CoreAnalytics Event length %zu", &v22, 0xCu);
+      v23 = 134217984;
+      v24 = v15;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Handling CoreAnalytics Event length %zu", &v23, 0xCu);
     }
 
     if (!self->_analyticsHandler)
@@ -1165,7 +1184,7 @@ LABEL_27:
       goto LABEL_28;
     }
 
-    v16 = [NSData dataWithBytes:v13 length:v14];
+    v17 = [NSData dataWithBytes:v14 length:v15];
     aaDevice2 = [v11 aaDevice];
     if ([aaDevice2 productID] == 8221)
     {
@@ -1175,9 +1194,9 @@ LABEL_27:
 
     if ([v11 simulator])
     {
-      v18 = [v11 simProductID]== 8221;
+      v19 = [v11 simProductID]== 8221;
 
-      if (v18)
+      if (v19)
       {
         goto LABEL_26;
       }

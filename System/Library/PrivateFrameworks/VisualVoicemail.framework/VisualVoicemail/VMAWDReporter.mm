@@ -7,11 +7,14 @@
 - (void)reportCustomGreetingSaved;
 - (void)reportServiceAccountStateChanged:(int)changed;
 - (void)reportServiceBeaconMaxedOut:(unsigned int)out mcc:(id)mcc mnc:(id)mnc;
+- (void)reportVoicemailDownloadedWithDuration:(int)duration slotID:(unsigned int)d mcc:(id)mcc mnc:(id)mnc;
 - (void)reportVoicemailProcessed:(id)processed transcriptionSuccess:(BOOL)success transcriptionFailureReason:(id)reason assetLocale:(id)locale transcriptionConfidence:(id)confidence lidSuccess:(BOOL)lidSuccess lidFailureReason:(id)failureReason isEnglish:(BOOL)self0 dominantLocale:(id)self1 dominantLocaleConfidence:(id)self2 altLocaleDict:(id)self3;
+- (void)reportVoicemailReceivedNotification:(unsigned int)notification mcc:(id)mcc mnc:(id)mnc notificationType:(unsigned int)type slotID:(unsigned int)d;
 - (void)reportVoicemailTranscriptionAttempted;
 - (void)reportVoicemailTranscriptionCompleted;
 - (void)reportVoicemailTranscriptionFailedWithReason:(unint64_t)reason;
 - (void)reportVoicemailTranscriptionProcessed:(id)processed success:(BOOL)success reason:(id)reason assetLocale:(id)locale confidence:(id)confidence;
+- (void)reportVoicemailTranscriptionRatedAccurate:(BOOL)accurate;
 @end
 
 @implementation VMAWDReporter
@@ -137,6 +140,93 @@
   }
 
   [(VMAWDReporter *)self _reportMetricWithID:4718596 metric:v5];
+}
+
+- (void)reportVoicemailDownloadedWithDuration:(int)duration slotID:(unsigned int)d mcc:(id)mcc mnc:(id)mnc
+{
+  v8 = *&duration;
+  mccCopy = mcc;
+  mncCopy = mnc;
+  v12 = objc_alloc_init(AWDVisualVoicemailDownloaded);
+  [(AWDVisualVoicemailDownloaded *)v12 setLengthInSeconds:v8];
+  v13 = vm_vmd_log();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134219010;
+    lengthInSeconds = [(AWDVisualVoicemailDownloaded *)v12 lengthInSeconds];
+    v20 = 1024;
+    dCopy = d;
+    v22 = 2112;
+    v23 = mccCopy;
+    v24 = 2112;
+    v25 = mncCopy;
+    v26 = 2048;
+    timestamp = [(AWDVisualVoicemailDownloaded *)v12 timestamp];
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Reporting metric for voicemail download length: %llu for slot: %u mcc: '%@' mnc: '%@' timestamp: %llu", buf, 0x30u);
+  }
+
+  [(VMAWDReporter *)self _reportMetricWithID:4718592 metric:v12];
+  AnalyticsSendEventLazy();
+  v16 = @"duration";
+  v14 = [NSNumber numberWithInt:v8];
+  v17 = v14;
+  v15 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+  [(VMAWDReporter *)self powerlog:@"VoicemailDuration" eventData:v15];
+}
+
+- (void)reportVoicemailReceivedNotification:(unsigned int)notification mcc:(id)mcc mnc:(id)mnc notificationType:(unsigned int)type slotID:(unsigned int)d
+{
+  v7 = *&d;
+  v8 = *&type;
+  v10 = *&notification;
+  mccCopy = mcc;
+  mncCopy = mnc;
+  v14 = objc_alloc_init(AWDVisualVoicemailReceivedNotification);
+  [(AWDVisualVoicemailReceivedNotification *)v14 setAccountType:v10];
+  [(AWDVisualVoicemailReceivedNotification *)v14 setMcc:mccCopy];
+  [(AWDVisualVoicemailReceivedNotification *)v14 setMnc:mncCopy];
+  [(AWDVisualVoicemailReceivedNotification *)v14 setNotificationType:v8];
+  [(AWDVisualVoicemailReceivedNotification *)v14 setSubsid:v7];
+  v15 = vm_vmd_log();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67110402;
+    v19 = v10;
+    v20 = 2112;
+    v21 = mccCopy;
+    v22 = 2112;
+    v23 = mncCopy;
+    v24 = 1024;
+    v25 = v8;
+    v26 = 1024;
+    v27 = v7;
+    v28 = 2048;
+    timestamp = [(AWDVisualVoicemailReceivedNotification *)v14 timestamp];
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Reporting metric for voicemail notification accauntState: %u mcc: '%@' mnc: '%@' notificationType: %u slot: %u timestamp: %llu", buf, 0x32u);
+  }
+
+  [(VMAWDReporter *)self _reportMetricWithID:4718598 metric:v14];
+  v17 = v14;
+  v16 = v14;
+  AnalyticsSendEventLazy();
+}
+
+- (void)reportVoicemailTranscriptionRatedAccurate:(BOOL)accurate
+{
+  accurateCopy = accurate;
+  v5 = objc_alloc_init(AWDVisualVoicemailTranscriptionRated);
+  [(AWDVisualVoicemailTranscriptionRated *)v5 setAccurate:accurateCopy];
+  v6 = vm_vmd_log();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Reporting metric for transcription accuracy rating", buf, 2u);
+  }
+
+  [(VMAWDReporter *)self _reportMetricWithID:4718593 metric:v5];
+  v8 = v5;
+  v7 = v5;
+  AnalyticsSendEventLazy();
 }
 
 - (void)reportVoicemailTranscriptionAttempted

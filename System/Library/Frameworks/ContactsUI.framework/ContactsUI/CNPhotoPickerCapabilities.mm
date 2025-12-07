@@ -118,7 +118,7 @@ uint64_t __47__CNPhotoPickerCapabilities_isCameraTCCEnabled__block_invoke()
 
   if ((v5 & 1) == 0)
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPhotoPickerCapabilities.m", 35, 3, @"Photo Picker doesn't have access to avatar store %@", v7, v8, v9, v10, v6);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPhotoPickerCapabilities.m", 35, 3u, @"Photo Picker doesn't have access to avatar store %@", v7, v8, v9, v10, v6);
   }
 
   return v5;

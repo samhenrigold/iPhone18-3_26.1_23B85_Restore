@@ -13,35 +13,33 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[23] = *MEMORY[0x277D85DE8];
+  v6[23] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"VisibleName";
-  v7[1] = @"EnabledProtocolTypes";
-  v7[2] = @"UserIdentityAssetReference";
-  v7[3] = @"HostName";
-  v7[4] = @"Port";
-  v7[5] = @"Path";
-  v7[6] = @"ExternalHostName";
-  v7[7] = @"ExternalPort";
-  v7[8] = @"External Path";
-  v7[9] = @"OAuth";
-  v7[10] = @"AuthenticationCredentialsAssetReference";
-  v7[11] = @"AuthenticationIdentityAssetReference";
-  v7[12] = @"SMIME";
-  v7[13] = @"MailServiceActive";
-  v7[14] = @"LockMailService";
-  v7[15] = @"ContactsServiceActive";
-  v7[16] = @"LockContactsService";
-  v7[17] = @"CalendarServiceActive";
-  v7[18] = @"LockCalendarService";
-  v7[19] = @"RemindersServiceActive";
-  v7[20] = @"LockRemindersService";
-  v7[21] = @"NotesServiceActive";
-  v7[22] = @"LockNotesService";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:23];
+  v6[0] = @"VisibleName";
+  v6[1] = @"EnabledProtocolTypes";
+  v6[2] = @"UserIdentityAssetReference";
+  v6[3] = @"HostName";
+  v6[4] = @"Port";
+  v6[5] = @"Path";
+  v6[6] = @"ExternalHostName";
+  v6[7] = @"ExternalPort";
+  v6[8] = @"External Path";
+  v6[9] = @"OAuth";
+  v6[10] = @"AuthenticationCredentialsAssetReference";
+  v6[11] = @"AuthenticationIdentityAssetReference";
+  v6[12] = @"SMIME";
+  v6[13] = @"MailServiceActive";
+  v6[14] = @"LockMailService";
+  v6[15] = @"ContactsServiceActive";
+  v6[16] = @"LockContactsService";
+  v6[17] = @"CalendarServiceActive";
+  v6[18] = @"LockCalendarService";
+  v6[19] = @"RemindersServiceActive";
+  v6[20] = @"LockRemindersService";
+  v6[21] = @"NotesServiceActive";
+  v6[22] = @"LockNotesService";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:23];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -60,21 +58,19 @@
 
 void __52__RMModelAccountExchangeDeclaration_assetReferences__block_invoke()
 {
-  v8[5] = *MEMORY[0x277D85DE8];
+  v7[5] = *MEMORY[0x277D85DE8];
   v0 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287465AF8 keyPath:@"$.payloadUserIdentityAssetReference"];
   v1 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287465B10 keyPath:@"$.payloadAuthenticationCredentialsAssetReference", v0];
-  v8[1] = v1;
+  v7[1] = v1;
   v2 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287465B28 keyPath:@"$.payloadAuthenticationIdentityAssetReference"];
-  v8[2] = v2;
+  v7[2] = v2;
   v3 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287465B40 keyPath:@"$.payloadSMIME.payloadSigning.payloadIdentityAssetReference"];
-  v8[3] = v3;
+  v7[3] = v3;
   v4 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287465B58 keyPath:@"$.payloadSMIME.payloadEncryption.payloadIdentityAssetReference"];
-  v8[4] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:5];
+  v7[4] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:5];
   v6 = assetReferences_assetPaths_1;
   assetReferences_assetPaths_1 = v5;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (id)buildWithIdentifier:(id)identifier visibleName:(id)name enabledProtocolTypes:(id)types userIdentityAssetReference:(id)reference hostName:(id)hostName port:(id)port path:(id)path externalHostName:(id)self0 externalPort:(id)self1 externalPath:(id)self2 oAuth:(id)self3 authenticationCredentialsAssetReference:(id)self4 authenticationIdentityAssetReference:(id)self5 SMIME:(id)self6 mailServiceActive:(id)self7 lockMailService:(id)self8 contactsServiceActive:(id)self9 lockContactsService:(id)contactsService calendarServiceActive:(id)calendarServiceActive lockCalendarService:(id)calendarService remindersServiceActive:(id)remindersServiceActive lockRemindersService:(id)remindersService notesServiceActive:(id)notesServiceActive lockNotesService:(id)notesService
@@ -302,38 +298,36 @@ void __52__RMModelAccountExchangeDeclaration_assetReferences__block_invoke()
 
 + (id)supportedOS
 {
-  v22[4] = *MEMORY[0x277D85DE8];
-  v21[0] = &unk_28746A9D0;
-  v16 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465B70];
-  v20[0] = v16;
-  v15 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465B88];
-  v20[1] = v15;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
-  v22[0] = v14;
-  v21[1] = &unk_28746AA18;
+  v21[4] = *MEMORY[0x277D85DE8];
+  v20[0] = &unk_28746A9D0;
+  v15 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465B70];
+  v19[0] = v15;
+  v14 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465B88];
+  v19[1] = v14;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+  v21[0] = v13;
+  v20[1] = &unk_28746AA18;
   v2 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465BA0];
-  v19[0] = v2;
+  v18[0] = v2;
   v3 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465BB8];
-  v19[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
-  v22[1] = v4;
-  v21[2] = &unk_28746A9E8;
+  v18[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+  v21[1] = v4;
+  v20[2] = &unk_28746A9E8;
   v5 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465BD0];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465BE8];
-  v18[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
-  v22[2] = v7;
-  v21[3] = &unk_28746AA30;
+  v17[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v21[2] = v7;
+  v20[3] = &unk_28746AA30;
   v8 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465C00];
-  v17[0] = v8;
+  v16[0] = v8;
   v9 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465C18];
-  v17[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
-  v22[3] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v16[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v21[3] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
 
   return v11;
 }

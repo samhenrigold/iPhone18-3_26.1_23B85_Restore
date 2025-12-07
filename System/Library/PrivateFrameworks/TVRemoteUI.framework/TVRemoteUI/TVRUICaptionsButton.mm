@@ -49,42 +49,42 @@
 
 - (void)_boldTextEnabledStatusChanged:(id)changed
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = TVRUICaptionsButton;
-  [(TVRUIButton *)&v8 _boldTextEnabledStatusChanged:changed];
-  v4 = _TVRUIViewControllerLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v12 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = TVRUICaptionsButton;
+  v4 = [(TVRUIButton *)&v9 _boldTextEnabledStatusChanged:changed];
+  v5 = _TVRUIViewControllerLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[TVRUICaptionsButton _boldTextEnabledStatusChanged:]";
-    _os_log_impl(&dword_26CFEB000, v4, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+    v11 = "[TVRUICaptionsButton _boldTextEnabledStatusChanged:]";
+    _os_log_impl(&dword_26CFEB000, v5, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
   styleProvider = [(TVRUIButton *)self styleProvider];
-  v6 = [styleProvider captionsButtonIcon:{-[TVRUICaptionsButton captionsEnabled](self, "captionsEnabled")}];
+  v7 = [styleProvider captionsButtonIcon:{-[TVRUICaptionsButton captionsEnabled](self, "captionsEnabled")}];
   imageView = [(TVRUIButton *)self imageView];
-  [imageView setImage:v6];
+  [imageView setImage:v7];
 }
 
 - (void)_largeTextEnabledStatusChanged:(id)changed
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = TVRUICaptionsButton;
-  [(TVRUIButton *)&v8 _largeTextEnabledStatusChanged:changed];
-  v4 = _TVRUIViewControllerLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v12 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = TVRUICaptionsButton;
+  v4 = [(TVRUIButton *)&v9 _largeTextEnabledStatusChanged:changed];
+  v5 = _TVRUIViewControllerLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[TVRUICaptionsButton _largeTextEnabledStatusChanged:]";
-    _os_log_impl(&dword_26CFEB000, v4, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+    v11 = "[TVRUICaptionsButton _largeTextEnabledStatusChanged:]";
+    _os_log_impl(&dword_26CFEB000, v5, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
   styleProvider = [(TVRUIButton *)self styleProvider];
-  v6 = [styleProvider captionsButtonIcon:{-[TVRUICaptionsButton captionsEnabled](self, "captionsEnabled")}];
+  v7 = [styleProvider captionsButtonIcon:{-[TVRUICaptionsButton captionsEnabled](self, "captionsEnabled")}];
   imageView = [(TVRUIButton *)self imageView];
-  [imageView setImage:v6];
+  [imageView setImage:v7];
 }
 
 @end

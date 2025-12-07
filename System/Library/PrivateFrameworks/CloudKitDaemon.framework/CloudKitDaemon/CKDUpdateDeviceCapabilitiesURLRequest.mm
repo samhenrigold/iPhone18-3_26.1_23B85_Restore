@@ -70,7 +70,7 @@ LABEL_9:
 
 - (id)generateRequestOperations
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v6 = objc_msgSend_supportedCapabilities(self, v4, v5);
 
@@ -79,7 +79,7 @@ LABEL_9:
     goto LABEL_16;
   }
 
-  v68 = objc_opt_new();
+  v67 = objc_opt_new();
   v11 = objc_msgSend_translator(self, v9, v10);
   v14 = objc_msgSend_supportedCapabilities(self, v12, v13);
   v17 = objc_msgSend_container(self, v15, v16);
@@ -89,13 +89,13 @@ LABEL_9:
   v25 = objc_msgSend_data(v22, v23, v24);
   v28 = objc_msgSend_container(self, v26, v27);
   v31 = objc_msgSend_pcsManager(v28, v29, v30);
-  v75 = 0;
-  v33 = objc_msgSend_createCloudKitFeaturesSignatureForData_forScope_error_(v31, v32, v25, 1, &v75);
-  v34 = v75;
+  v74 = 0;
+  v33 = objc_msgSend_createCloudKitFeaturesSignatureForData_forScope_error_(v31, v32, v25, 1, &v74);
+  v34 = v74;
 
   v35 = v34 || v33 == 0;
   v36 = !v35;
-  v67 = v36;
+  v66 = v36;
   if (v35)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -121,16 +121,16 @@ LABEL_9:
     objc_msgSend_setVersion_(v37, v38, 1);
     objc_msgSend_setSerializedObject_(v37, v39, v25);
     objc_msgSend_setSignature_(v37, v40, v33);
-    objc_msgSend_setSignedSupportedAdopterCapabilities_(v68, v41, v37);
+    objc_msgSend_setSignedSupportedAdopterCapabilities_(v67, v41, v37);
     v43 = objc_msgSend_operationRequestWithType_(self, v42, 407);
-    objc_msgSend_setAdopterCapabilitiesSaveRequest_(v43, v44, v68);
+    objc_msgSend_setAdopterCapabilitiesSaveRequest_(v43, v44, v67);
     objc_msgSend_addObject_(v3, v45, v43);
     v48 = objc_msgSend_request(v43, v46, v47);
     v51 = objc_msgSend_operationUUID(v48, v49, v50);
     objc_msgSend_setDeviceCapabilitiesSaveRequestID_(self, v52, v51);
   }
 
-  if (!v67)
+  if (!v66)
   {
     v61 = 0;
   }
@@ -140,18 +140,18 @@ LABEL_9:
 LABEL_16:
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v77 = 0x2020000000;
-    v78 = 0;
+    v76 = 0x2020000000;
+    v77 = 0;
     v56 = objc_msgSend_zoneUsages(self, v7, v8);
-    v72[0] = MEMORY[0x277D85DD0];
-    v72[1] = 3221225472;
-    v72[2] = sub_2253E331C;
-    v72[3] = &unk_27854D688;
-    v72[4] = self;
+    v71[0] = MEMORY[0x277D85DD0];
+    v71[1] = 3221225472;
+    v71[2] = sub_2253E331C;
+    v71[3] = &unk_27854D688;
+    v71[4] = self;
     p_buf = &buf;
     v57 = v3;
-    v73 = v57;
-    objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v56, v58, v72);
+    v72 = v57;
+    objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v56, v58, v71);
 
     if (*(*(&buf + 1) + 24))
     {
@@ -161,15 +161,15 @@ LABEL_16:
     else
     {
       v62 = objc_msgSend_shareUsages(self, v59, v60);
-      v69[0] = MEMORY[0x277D85DD0];
-      v69[1] = 3221225472;
-      v69[2] = sub_2253E3660;
-      v69[3] = &unk_27854D6B0;
-      v69[4] = self;
-      v71 = &buf;
+      v68[0] = MEMORY[0x277D85DD0];
+      v68[1] = 3221225472;
+      v68[2] = sub_2253E3660;
+      v68[3] = &unk_27854D6B0;
+      v68[4] = self;
+      v70 = &buf;
       v63 = v57;
-      v70 = v63;
-      objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v62, v64, v69);
+      v69 = v63;
+      objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v62, v64, v68);
 
       if (*(*(&buf + 1) + 24))
       {
@@ -185,14 +185,12 @@ LABEL_16:
     _Block_object_dispose(&buf, 8);
   }
 
-  v65 = *MEMORY[0x277D85DE8];
-
   return v61;
 }
 
 - (id)requestDidParseProtobufObject:(id)object
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v7 = objc_msgSend_response(objectCopy, v5, v6);
   v10 = objc_msgSend_operationUUID(v7, v8, v9);
@@ -240,11 +238,11 @@ LABEL_20:
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v86 = v10;
-        v87 = 2112;
-        v88 = v39;
-        v89 = 2112;
-        v90 = v44;
+        v85 = v10;
+        v86 = 2112;
+        v87 = v39;
+        v88 = 2112;
+        v89 = v44;
         v77 = "Unexpected zone usage save response for operationUUID %@, zoneID: %@, date: %@";
 LABEL_40:
         _os_log_error_impl(&dword_22506F000, v75, OS_LOG_TYPE_ERROR, v77, buf, 0x20u);
@@ -267,9 +265,9 @@ LABEL_40:
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v86 = v10;
-          v87 = 2112;
-          v88 = objectCopy;
+          v85 = v10;
+          v86 = 2112;
+          v87 = objectCopy;
           _os_log_error_impl(&dword_22506F000, v78, OS_LOG_TYPE_ERROR, "Unexpected response type for operationUUID %@: %@", buf, 0x16u);
         }
 
@@ -308,11 +306,11 @@ LABEL_35:
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v86 = v10;
-        v87 = 2112;
-        v88 = v39;
-        v89 = 2112;
-        v90 = v44;
+        v85 = v10;
+        v86 = 2112;
+        v87 = v39;
+        v88 = 2112;
+        v89 = v44;
         v77 = "Unexpected share usage save response for operationUUID %@, shareID: %@, date: %@";
         goto LABEL_40;
       }
@@ -349,26 +347,24 @@ LABEL_30:
   v53 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
   {
-    v81 = v53;
-    v84 = objc_msgSend_deviceCapabilitiesSaveRequestID(self, v82, v83);
+    v80 = v53;
+    v83 = objc_msgSend_deviceCapabilitiesSaveRequestID(self, v81, v82);
     *buf = 138412546;
-    v86 = v10;
-    v87 = 2112;
-    v88 = v84;
-    _os_log_error_impl(&dword_22506F000, v81, OS_LOG_TYPE_ERROR, "Unexpected device capabilities save response operationUUID: %@, expeccted: %@", buf, 0x16u);
+    v85 = v10;
+    v86 = 2112;
+    v87 = v83;
+    _os_log_error_impl(&dword_22506F000, v80, OS_LOG_TYPE_ERROR, "Unexpected device capabilities save response operationUUID: %@, expeccted: %@", buf, 0x16u);
   }
 
   v55 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v54, *MEMORY[0x277CBBF50], 1, @"Unrecognized operation UUID in server response: %@", v10);
 LABEL_36:
-
-  v79 = *MEMORY[0x277D85DE8];
 
   return v55;
 }
 
 - (void)requestDidParseNodeFailure:(id)failure
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   failureCopy = failure;
   v7 = objc_msgSend_response(failureCopy, v5, v6);
   v10 = objc_msgSend_operationUUID(v7, v8, v9);
@@ -426,11 +422,11 @@ LABEL_36:
         v57 = *MEMORY[0x277CBC830];
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
         {
-          v59 = 138412546;
-          v60 = v10;
-          v61 = 2112;
-          v62 = failureCopy;
-          _os_log_error_impl(&dword_22506F000, v57, OS_LOG_TYPE_ERROR, "Unexpected response for operationUUID %@: %@", &v59, 0x16u);
+          v58 = 138412546;
+          v59 = v10;
+          v60 = 2112;
+          v61 = failureCopy;
+          _os_log_error_impl(&dword_22506F000, v57, OS_LOG_TYPE_ERROR, "Unexpected response for operationUUID %@: %@", &v58, 0x16u);
         }
       }
     }
@@ -448,8 +444,6 @@ LABEL_36:
 
 LABEL_16:
   }
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 @end

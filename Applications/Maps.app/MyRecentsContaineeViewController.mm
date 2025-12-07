@@ -29,12 +29,13 @@
 
 - (id)initIncludingRecentSearches:(BOOL)searches
 {
+  searchesCopy = searches;
   ObjectType = swift_getObjectType();
   swift_unknownObjectWeakInit();
   swift_unknownObjectWeakInit();
   type metadata accessor for MyRecentsViewModel(0);
   swift_allocObject();
-  *(self + OBJC_IVAR____TtC4Maps32MyRecentsContaineeViewController_viewModel) = sub_100537434(searches);
+  *(self + OBJC_IVAR____TtC4Maps32MyRecentsContaineeViewController_viewModel) = sub_100537434(searchesCopy);
   v8.receiver = self;
   v8.super_class = ObjectType;
   v6 = [(MapsHostingContaineeViewController *)&v8 initWithNibName:0 bundle:0];

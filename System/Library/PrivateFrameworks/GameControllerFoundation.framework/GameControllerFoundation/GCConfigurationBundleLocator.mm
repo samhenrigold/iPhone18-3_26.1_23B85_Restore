@@ -181,11 +181,11 @@ LABEL_5:
 
 _GCConfigurationBundle *__61___GCConfigurationBundleLocator__onqueue_asset_updateBundles__block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v20 = 0;
-  [v3 getResourceValue:&v20 forKey:@"NSURLAssetKey" error:0];
-  v4 = v20;
+  v19 = 0;
+  [v3 getResourceValue:&v19 forKey:@"NSURLAssetKey" error:0];
+  v4 = v19;
   v5 = *(*(a1 + 32) + 8);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
@@ -194,9 +194,9 @@ _GCConfigurationBundle *__61___GCConfigurationBundleLocator__onqueue_asset_updat
 
   v6 = [_GCConfigurationBundle alloc];
   v7 = [v3 path];
-  v19 = 0;
-  v8 = [(_GCConfigurationBundle *)v6 initWithPath:v7 error:&v19];
-  v9 = v19;
+  v18 = 0;
+  v8 = [(_GCConfigurationBundle *)v6 initWithPath:v7 error:&v18];
+  v9 = v18;
 
   if (v8)
   {
@@ -204,17 +204,17 @@ _GCConfigurationBundle *__61___GCConfigurationBundleLocator__onqueue_asset_updat
     goto LABEL_5;
   }
 
-  v13 = [v9 domain];
-  if ([v13 isEqual:0x1F4E1F970])
+  v12 = [v9 domain];
+  if ([v12 isEqual:0x1F4E1F970])
   {
-    v14 = [v9 code];
+    v13 = [v9 code];
 
-    if (v14 == 2)
+    if (v13 == 2)
     {
-      v15 = *(*(a1 + 32) + 8);
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v14 = *(*(a1 + 32) + 8);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        __61___GCConfigurationBundleLocator__onqueue_asset_updateBundles__block_invoke_cold_2(v15);
+        __61___GCConfigurationBundleLocator__onqueue_asset_updateBundles__block_invoke_cold_2(v14);
       }
 
       goto LABEL_5;
@@ -225,82 +225,66 @@ _GCConfigurationBundle *__61___GCConfigurationBundleLocator__onqueue_asset_updat
   {
   }
 
-  v16 = *(*(a1 + 32) + 8);
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+  v15 = *(*(a1 + 32) + 8);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
   {
-    v17 = v16;
-    v18 = [v3 lastPathComponent];
+    v16 = v15;
+    v17 = [v3 lastPathComponent];
     *buf = 138543874;
-    v22 = v18;
-    v23 = 2112;
-    v24 = v4;
-    v25 = 2114;
-    v26 = v9;
-    _os_log_fault_impl(&dword_1D2C3B000, v17, OS_LOG_TYPE_FAULT, "[Source/Asset] Failed to load bundle '%{public}@' in asset '%@': %{public}@", buf, 0x20u);
+    v21 = v17;
+    v22 = 2112;
+    v23 = v4;
+    v24 = 2114;
+    v25 = v9;
+    _os_log_fault_impl(&dword_1D2C3B000, v16, OS_LOG_TYPE_FAULT, "[Source/Asset] Failed to load bundle '%{public}@' in asset '%@': %{public}@", buf, 0x20u);
   }
 
 LABEL_5:
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 void __66___GCConfigurationBundleLocator__onqueue_filesystem_updateBundles__block_invoke_cold_1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 path];
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4_2(&dword_1D2C3B000, v5, v6, "[Source/FS] (Re)Loading bundle at '%@'.", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_2(&dword_1D2C3B000, v5, v6, "[Source/FS] (Re)Loading bundle at '%@'.", v7, v8, v9, v10);
 }
 
 void __66___GCConfigurationBundleLocator__onqueue_filesystem_updateBundles__block_invoke_cold_2(void *a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = [OUTLINED_FUNCTION_2_5() path];
   OUTLINED_FUNCTION_2_0();
-  v9 = 2114;
-  v10 = a3;
-  _os_log_fault_impl(&dword_1D2C3B000, v3, OS_LOG_TYPE_FAULT, "[Source/FS] Failed to load bundle at '%@': %{public}@", v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = 2114;
+  v9 = a3;
+  _os_log_fault_impl(&dword_1D2C3B000, v3, OS_LOG_TYPE_FAULT, "[Source/FS] Failed to load bundle at '%@': %{public}@", v7, 0x16u);
 }
 
 void __66___GCConfigurationBundleLocator__onqueue_filesystem_updateBundles__block_invoke_cold_3(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 path];
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4_2(&dword_1D2C3B000, v5, v6, "[Source/FS] Skipping bundle at '%@'.  Incompatible with host.", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_2(&dword_1D2C3B000, v5, v6, "[Source/FS] Skipping bundle at '%@'.  Incompatible with host.", v7, v8, v9, v10);
 }
 
 void __61___GCConfigurationBundleLocator__onqueue_asset_updateBundles__block_invoke_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_5() lastPathComponent];
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_5_3(&dword_1D2C3B000, v4, v5, "[Source/Asset] (Re)Loading bundle '%{public}@' in asset '%@'.", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5_3(&dword_1D2C3B000, v4, v5, "[Source/Asset] (Re)Loading bundle '%{public}@' in asset '%@'.", v6, v7, v8, v9);
 }
 
 void __61___GCConfigurationBundleLocator__onqueue_asset_updateBundles__block_invoke_cold_2(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_5() lastPathComponent];
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_5_3(&dword_1D2C3B000, v4, v5, "[Source/Asset] Skipping bundle '%{public}@' in asset '%@'.  Incompatible with host.", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5_3(&dword_1D2C3B000, v4, v5, "[Source/Asset] Skipping bundle '%{public}@' in asset '%@'.  Incompatible with host.", v6, v7, v8, v9);
 }
 
 @end

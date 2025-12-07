@@ -54,8 +54,8 @@
   remainingCapacity = [(MTRScenesManagementClusterSceneInfoStruct *)self remainingCapacity];
   [(MTRScenesManagementClusterSceneInfoStruct *)v4 setRemainingCapacity:remainingCapacity];
 
-  fabricIndex = [(MTRScenesManagementClusterSceneInfoStruct *)self fabricIndex];
-  [(MTRScenesManagementClusterSceneInfoStruct *)v4 setFabricIndex:fabricIndex];
+  v10 = objc_msgSend_fabricIndex(self);
+  [(MTRScenesManagementClusterSceneInfoStruct *)v4 setFabricIndex:v10];
 
   return v4;
 }

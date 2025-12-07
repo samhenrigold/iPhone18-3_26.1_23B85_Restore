@@ -52,23 +52,26 @@
 
 - (JUMeasurements)measurementsWithFitting:(CGSize)fitting in:(id)in
 {
-  swift_getObjectType();
+  height = fitting.height;
+  width = fitting.width;
+  ObjectType = swift_getObjectType();
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = sub_2707B0(in);
-  v9 = v8;
-  v11 = v10;
+  v10.n128_f64[0] = width;
+  v11 = sub_2707B0(in, v10, height, selfCopy, ObjectType);
   v13 = v12;
+  v15 = v14;
+  v17 = v16;
   swift_unknownObjectRelease();
 
-  v14 = v7;
-  v15 = v9;
-  v16 = v11;
-  v17 = v13;
-  result.var3 = v17;
-  result.var2 = v16;
-  result.var1 = v15;
-  result.var0 = v14;
+  v18 = v11;
+  v19 = v13;
+  v20 = v15;
+  v21 = v17;
+  result.var3 = v21;
+  result.var2 = v20;
+  result.var1 = v19;
+  result.var0 = v18;
   return result;
 }
 

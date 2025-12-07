@@ -2,6 +2,7 @@
 + (id)instanceWithExtensionIdentity:(id)identity;
 - (BOOL)isEqual:(id)equal;
 - (FSModuleInstance)initWithExtensionIdentity:(id)identity;
+- (FSModuleInstance)initWithExtensionRecord:(id)record enabled:(BOOL)enabled;
 - (NSDictionary)entitlements;
 - (NSDictionary)extensionDictionary;
 - (NSDictionary)sdkDictionary;
@@ -11,6 +12,29 @@
 @end
 
 @implementation FSModuleInstance
+
+- (FSModuleInstance)initWithExtensionRecord:(id)record enabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  recordCopy = record;
+  v15.receiver = self;
+  v15.super_class = FSModuleInstance;
+  v8 = [(FSModuleInstance *)&v15 init];
+  v9 = v8;
+  if (v8)
+  {
+    objc_storeStrong(&v8->_record, record);
+    v10 = [FSModuleIdentity alloc];
+    identity = v9->_identity;
+    v9->_identity = v10;
+
+    v12 = [(FSModuleIdentity *)v9->_identity initWithApplicationExtensionRecord:recordCopy isEnabled:enabledCopy];
+    v13 = v9->_identity;
+    v9->_identity = v12;
+  }
+
+  return v9;
+}
 
 - (FSModuleInstance)initWithExtensionIdentity:(id)identity
 {

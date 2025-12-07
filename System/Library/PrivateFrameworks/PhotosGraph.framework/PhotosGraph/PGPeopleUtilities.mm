@@ -101,28 +101,28 @@
 
 uint64_t __82__PGPeopleUtilities_validateSocialGroups_withPhotoLibrary_graph_usePersonMoments___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        if (![*(a1 + 32) containsObject:{*(*(&v11 + 1) + 8 * v7), v11}])
+        if (![*(a1 + 32) containsObject:{*(*(&v10 + 1) + 8 * v7), v10}])
         {
 
           v8 = 0;
@@ -133,7 +133,7 @@ uint64_t __82__PGPeopleUtilities_validateSocialGroups_withPhotoLibrary_graph_use
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -146,7 +146,6 @@ uint64_t __82__PGPeopleUtilities_validateSocialGroups_withPhotoLibrary_graph_use
   v8 = [*(a1 + 56) _hasMomentsForPersonLocalIdentifiers:v3 inGraph:*(a1 + 40) photoLibrary:*(a1 + 48) usePersonMoments:*(a1 + 64)];
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -196,31 +195,31 @@ LABEL_11:
 
 void __70__PGPeopleUtilities_validateKeyedSocialGroups_withPhotoLibrary_graph___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     while (2)
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        if (![*(a1 + 32) containsObject:{*(*(&v14 + 1) + 8 * v12), v14}])
+        if (![*(a1 + 32) containsObject:{*(*(&v13 + 1) + 8 * v12), v13}])
         {
 
           goto LABEL_12;
@@ -230,7 +229,7 @@ void __70__PGPeopleUtilities_validateKeyedSocialGroups_withPhotoLibrary_graph___
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v10)
       {
         continue;
@@ -243,43 +242,41 @@ void __70__PGPeopleUtilities_validateKeyedSocialGroups_withPhotoLibrary_graph___
   if (([*(a1 + 64) _hasMomentsForPersonLocalIdentifiers:v8 inGraph:*(a1 + 40) photoLibrary:*(a1 + 48) usePersonMoments:0] & 1) == 0)
   {
 LABEL_12:
-    [*(a1 + 56) addObject:{v5, v14}];
+    [*(a1 + 56) addObject:{v5, v13}];
   }
 
   objc_autoreleasePoolPop(v7);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_validPersonLocalIdentifiersFromSocialGroups:(id)groups withPhotoLibrary:(id)library
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   groupsCopy = groups;
   libraryCopy = library;
   v7 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v8 = groupsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v32;
+    v11 = *v31;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v32 != v11)
+        if (*v31 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [v7 addObjectsFromArray:*(*(&v31 + 1) + 8 * i)];
+        [v7 addObjectsFromArray:*(*(&v30 + 1) + 8 * i)];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v10);
@@ -293,26 +290,26 @@ LABEL_12:
     v16 = [v14 fetchPersonsWithLocalIdentifiers:allObjects options:librarySpecificFetchOptions];
 
     v17 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(v16, "count")}];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v18 = v16;
-    v19 = [v18 countByEnumeratingWithState:&v27 objects:v35 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v26 objects:v34 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v28;
+      v21 = *v27;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v28 != v21)
+          if (*v27 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v27 + 1) + 8 * j);
+          v23 = *(*(&v26 + 1) + 8 * j);
           if ([v23 type] != -1)
           {
             localIdentifier = [v23 localIdentifier];
@@ -320,7 +317,7 @@ LABEL_12:
           }
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v26 objects:v34 count:16];
       }
 
       while (v20);
@@ -331,8 +328,6 @@ LABEL_12:
   {
     v17 = [MEMORY[0x277CBEB98] set];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

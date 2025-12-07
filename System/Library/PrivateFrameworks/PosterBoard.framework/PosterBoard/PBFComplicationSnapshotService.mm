@@ -424,8 +424,7 @@ void __139__PBFComplicationSnapshotService_fetchComplicationSnapshotsForRequests
   v9[3] = &unk_2782C5888;
   v7 = v5;
   v10 = v7;
-  [(PBFComplicationSnapshotterOperation *)v6 setCompletionBlock:v9];
-  v8 = PBFLogComplicationSnapshotter();
+  v8 = PBFLogComplicationSnapshotter([(PBFComplicationSnapshotterOperation *)v6 setCompletionBlock:v9]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -436,16 +435,16 @@ void __139__PBFComplicationSnapshotService_fetchComplicationSnapshotsForRequests
   [(NSOperationQueue *)self->_operationQueue addOperation:v6];
 }
 
-void __84__PBFComplicationSnapshotService__buildAndExecuteComplicationSnapshotterForRequest___block_invoke(uint64_t a1)
+void __84__PBFComplicationSnapshotService__buildAndExecuteComplicationSnapshotterForRequest___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = PBFLogComplicationSnapshotter();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = PBFLogComplicationSnapshotter(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = 138543362;
-    v5 = v3;
-    _os_log_impl(&dword_21B526000, v2, OS_LOG_TYPE_DEFAULT, "ComplicationSnapshotterOperation for snapshotter %{public}@ completed", &v4, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = 138543362;
+    v6 = v4;
+    _os_log_impl(&dword_21B526000, v3, OS_LOG_TYPE_DEFAULT, "ComplicationSnapshotterOperation for snapshotter %{public}@ completed", &v5, 0xCu);
   }
 }
 
@@ -476,12 +475,12 @@ void __84__PBFComplicationSnapshotService__buildAndExecuteComplicationSnapshotte
   NSClassFromString(&cfstr_Pbfcomplicatio_1.isa);
   if (!v12)
   {
-    [PBFComplicationSnapshotService _fireCompletionHandlersForRequest:a2 snapshot:? error:?];
+    [PBFComplicationSnapshotService _fireCompletionHandlersForRequest:a2 snapshot:self error:?];
   }
 
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [PBFComplicationSnapshotService _fireCompletionHandlersForRequest:a2 snapshot:? error:?];
+    [PBFComplicationSnapshotService _fireCompletionHandlersForRequest:a2 snapshot:self error:?];
   }
 
   if (errorCopy && (key = "hasTriedBeforeKey", objc_getAssociatedObject(v12, &key), v13 = objc_claimAutoreleasedReturnValue(), v13, !v13))
@@ -539,54 +538,55 @@ void __84__PBFComplicationSnapshotService__buildAndExecuteComplicationSnapshotte
 - (void)_lock_trimCachedSnapshotsToRequests:(id)requests trimCache:(BOOL)cache
 {
   cacheCopy = cache;
-  v85 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
-  v51 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v72 = 0u;
+  v52 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v73 = 0u;
   v74 = 0u;
   v75 = 0u;
+  v76 = 0u;
   operations = [(NSOperationQueue *)self->_operationQueue operations];
-  v7 = [operations countByEnumeratingWithState:&v72 objects:v84 count:16];
+  v7 = [operations countByEnumeratingWithState:&v73 objects:v85 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v73;
+    v9 = *v74;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v73 != v9)
+        if (*v74 != v9)
         {
           objc_enumerationMutation(operations);
         }
 
-        v11 = *(*(&v72 + 1) + 8 * i);
+        v11 = *(*(&v73 + 1) + 8 * i);
         request = [v11 request];
-        if (([requestsCopy containsObject:request] & 1) == 0)
+        v13 = [requestsCopy containsObject:request];
+        if ((v13 & 1) == 0)
         {
-          v13 = PBFLogComplicationSnapshotter();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v14 = PBFLogComplicationSnapshotter(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             snapshotter = [v11 snapshotter];
             *buf = 138543618;
-            v81 = request;
-            v82 = 2114;
-            v83 = snapshotter;
-            _os_log_impl(&dword_21B526000, v13, OS_LOG_TYPE_DEFAULT, "Trimming request: %{public}@. Associated operation snapshotter: %{public}@", buf, 0x16u);
+            v82 = request;
+            v83 = 2114;
+            v84 = snapshotter;
+            _os_log_impl(&dword_21B526000, v14, OS_LOG_TYPE_DEFAULT, "Trimming request: %{public}@. Associated operation snapshotter: %{public}@", buf, 0x16u);
           }
 
-          v15 = [(NSMapTable *)self->_lock_inflightRequestToFuture objectForKey:request];
-          v16 = v15;
-          if (v15)
+          v16 = [(NSMapTable *)self->_lock_inflightRequestToFuture objectForKey:request];
+          v17 = v16;
+          if (v16)
           {
             aBlock[0] = MEMORY[0x277D85DD0];
             aBlock[1] = 3221225472;
             aBlock[2] = __80__PBFComplicationSnapshotService__lock_trimCachedSnapshotsToRequests_trimCache___block_invoke;
             aBlock[3] = &unk_2782C5888;
-            v71 = v15;
-            v17 = _Block_copy(aBlock);
-            [v51 addObject:v17];
+            v72 = v16;
+            v18 = _Block_copy(aBlock);
+            [v52 addObject:v18];
 
             [(NSMapTable *)self->_lock_inflightRequestToFuture removeObjectForKey:request];
           }
@@ -596,154 +596,154 @@ void __84__PBFComplicationSnapshotService__buildAndExecuteComplicationSnapshotte
         }
       }
 
-      v8 = [operations countByEnumeratingWithState:&v72 objects:v84 count:16];
+      v8 = [operations countByEnumeratingWithState:&v73 objects:v85 count:16];
     }
 
     while (v8);
   }
 
-  v68 = 0u;
   v69 = 0u;
-  v66 = 0u;
+  v70 = 0u;
   v67 = 0u;
-  v19 = [(NSMapTable *)self->_lock_inflightRequestToFuture copy];
-  keyEnumerator = [v19 keyEnumerator];
+  v68 = 0u;
+  v20 = [(NSMapTable *)self->_lock_inflightRequestToFuture copy];
+  keyEnumerator = [v20 keyEnumerator];
 
-  v21 = [keyEnumerator countByEnumeratingWithState:&v66 objects:v79 count:16];
-  if (v21)
+  v22 = [keyEnumerator countByEnumeratingWithState:&v67 objects:v80 count:16];
+  if (v22)
   {
-    v22 = v21;
-    v23 = *v67;
+    v23 = v22;
+    v24 = *v68;
     do
     {
-      for (j = 0; j != v22; ++j)
+      for (j = 0; j != v23; ++j)
       {
-        if (*v67 != v23)
+        if (*v68 != v24)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        v25 = *(*(&v66 + 1) + 8 * j);
-        if (([requestsCopy containsObject:v25] & 1) == 0)
+        v26 = *(*(&v67 + 1) + 8 * j);
+        if (([requestsCopy containsObject:v26] & 1) == 0)
         {
-          v26 = [(NSMapTable *)self->_lock_inflightRequestToFuture objectForKey:v25];
-          v27 = v26;
-          if (v26)
+          v27 = [(NSMapTable *)self->_lock_inflightRequestToFuture objectForKey:v26];
+          v28 = v27;
+          if (v27)
           {
-            v64[0] = MEMORY[0x277D85DD0];
-            v64[1] = 3221225472;
-            v64[2] = __80__PBFComplicationSnapshotService__lock_trimCachedSnapshotsToRequests_trimCache___block_invoke_2;
-            v64[3] = &unk_2782C5888;
-            v65 = v26;
-            v28 = _Block_copy(v64);
-            [v51 addObject:v28];
+            v65[0] = MEMORY[0x277D85DD0];
+            v65[1] = 3221225472;
+            v65[2] = __80__PBFComplicationSnapshotService__lock_trimCachedSnapshotsToRequests_trimCache___block_invoke_2;
+            v65[3] = &unk_2782C5888;
+            v66 = v27;
+            v29 = _Block_copy(v65);
+            [v52 addObject:v29];
           }
         }
       }
 
-      v22 = [keyEnumerator countByEnumeratingWithState:&v66 objects:v79 count:16];
+      v23 = [keyEnumerator countByEnumeratingWithState:&v67 objects:v80 count:16];
     }
 
-    while (v22);
+    while (v23);
   }
 
-  v62 = 0u;
   v63 = 0u;
-  v60 = 0u;
+  v64 = 0u;
   v61 = 0u;
-  v29 = [(NSMapTable *)self->_lock_finishedRequestToFuture copy];
-  keyEnumerator2 = [v29 keyEnumerator];
+  v62 = 0u;
+  v30 = [(NSMapTable *)self->_lock_finishedRequestToFuture copy];
+  keyEnumerator2 = [v30 keyEnumerator];
 
-  v31 = [keyEnumerator2 countByEnumeratingWithState:&v60 objects:v78 count:16];
-  if (v31)
+  v32 = [keyEnumerator2 countByEnumeratingWithState:&v61 objects:v79 count:16];
+  if (v32)
   {
-    v32 = v31;
-    v33 = *v61;
+    v33 = v32;
+    v34 = *v62;
     do
     {
-      for (k = 0; k != v32; ++k)
+      for (k = 0; k != v33; ++k)
       {
-        if (*v61 != v33)
+        if (*v62 != v34)
         {
           objc_enumerationMutation(keyEnumerator2);
         }
 
-        v35 = *(*(&v60 + 1) + 8 * k);
-        if (([requestsCopy containsObject:v35] & 1) == 0)
+        v36 = *(*(&v61 + 1) + 8 * k);
+        if (([requestsCopy containsObject:v36] & 1) == 0)
         {
-          [(NSMapTable *)self->_lock_finishedRequestToFuture removeObjectForKey:v35];
+          [(NSMapTable *)self->_lock_finishedRequestToFuture removeObjectForKey:v36];
         }
       }
 
-      v32 = [keyEnumerator2 countByEnumeratingWithState:&v60 objects:v78 count:16];
+      v33 = [keyEnumerator2 countByEnumeratingWithState:&v61 objects:v79 count:16];
     }
 
-    while (v32);
+    while (v33);
   }
 
   if (cacheCopy)
   {
-    v36 = MEMORY[0x277CBEB58];
+    v37 = MEMORY[0x277CBEB58];
     allKeys = [(BSUIMappedImageCache *)self->_complicationImageCache allKeys];
-    v38 = [v36 setWithArray:allKeys];
+    v39 = [v37 setWithArray:allKeys];
 
-    v39 = [requestsCopy bs_map:&__block_literal_global_40];
-    [v38 minusSet:v39];
-    v58 = 0u;
+    v40 = [requestsCopy bs_map:&__block_literal_global_40];
+    [v39 minusSet:v40];
     v59 = 0u;
-    v56 = 0u;
+    v60 = 0u;
     v57 = 0u;
-    v40 = v38;
-    v41 = [v40 countByEnumeratingWithState:&v56 objects:v77 count:16];
-    if (v41)
+    v58 = 0u;
+    v41 = v39;
+    v42 = [v41 countByEnumeratingWithState:&v57 objects:v78 count:16];
+    if (v42)
     {
-      v42 = v41;
-      v43 = *v57;
+      v43 = v42;
+      v44 = *v58;
       do
       {
-        for (m = 0; m != v42; ++m)
+        for (m = 0; m != v43; ++m)
         {
-          if (*v57 != v43)
+          if (*v58 != v44)
           {
-            objc_enumerationMutation(v40);
+            objc_enumerationMutation(v41);
           }
 
-          [(BSUIMappedImageCache *)self->_complicationImageCache removeImageForKey:*(*(&v56 + 1) + 8 * m)];
+          [(BSUIMappedImageCache *)self->_complicationImageCache removeImageForKey:*(*(&v57 + 1) + 8 * m)];
         }
 
-        v42 = [v40 countByEnumeratingWithState:&v56 objects:v77 count:16];
+        v43 = [v41 countByEnumeratingWithState:&v57 objects:v78 count:16];
       }
 
-      while (v42);
+      while (v43);
     }
   }
 
-  v54 = 0u;
   v55 = 0u;
-  v52 = 0u;
+  v56 = 0u;
   v53 = 0u;
-  v45 = v51;
-  v46 = [v45 countByEnumeratingWithState:&v52 objects:v76 count:16];
-  if (v46)
+  v54 = 0u;
+  v46 = v52;
+  v47 = [v46 countByEnumeratingWithState:&v53 objects:v77 count:16];
+  if (v47)
   {
-    v47 = v46;
-    v48 = *v53;
+    v48 = v47;
+    v49 = *v54;
     do
     {
-      for (n = 0; n != v47; ++n)
+      for (n = 0; n != v48; ++n)
       {
-        if (*v53 != v48)
+        if (*v54 != v49)
         {
-          objc_enumerationMutation(v45);
+          objc_enumerationMutation(v46);
         }
 
-        dispatch_async(self->_callbackQueue, *(*(&v52 + 1) + 8 * n));
+        dispatch_async(self->_callbackQueue, *(*(&v53 + 1) + 8 * n));
       }
 
-      v47 = [v45 countByEnumeratingWithState:&v52 objects:v76 count:16];
+      v48 = [v46 countByEnumeratingWithState:&v53 objects:v77 count:16];
     }
 
-    while (v47);
+    while (v48);
   }
 }
 
@@ -773,46 +773,46 @@ void __80__PBFComplicationSnapshotService__lock_trimCachedSnapshotsToRequests_tr
   }
 }
 
-- (void)_fireCompletionHandlersForRequest:(const char *)a1 snapshot:error:.cold.1(const char *a1)
+- (void)_fireCompletionHandlersForRequest:(const char *)a1 snapshot:(uint64_t)a2 error:.cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PBFComplicationSnapshotRequestClass]"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PBFComplicationSnapshotRequestClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    v8 = @"PBFComplicationSnapshotService.m";
-    v9 = 1024;
-    v10 = 220;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"PBFComplicationSnapshotService.m";
+    v10 = 1024;
+    v11 = 220;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_21B526000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)_fireCompletionHandlersForRequest:(const char *)a1 snapshot:error:.cold.2(const char *a1)
+- (void)_fireCompletionHandlersForRequest:(const char *)a1 snapshot:(uint64_t)a2 error:.cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    v8 = @"PBFComplicationSnapshotService.m";
-    v9 = 1024;
-    v10 = 220;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"PBFComplicationSnapshotService.m";
+    v10 = 1024;
+    v11 = 220;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_21B526000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

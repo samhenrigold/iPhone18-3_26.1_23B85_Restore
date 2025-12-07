@@ -9,23 +9,21 @@
 
 - (id)_generateErrorWithErrorCode:(int64_t)code errorMessage:(id)message
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCA9B8];
-  v12 = *MEMORY[0x277CCA450];
-  v13[0] = message;
+  v11 = *MEMORY[0x277CCA450];
+  v12[0] = message;
   v6 = MEMORY[0x277CBEAC0];
   messageCopy = message;
-  v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v8 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [v5 errorWithDomain:@"com.apple.PhotosGraph.PGFeatureValidator" code:code userInfo:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (int64_t)_isValidEntity:(id)entity featureExtractor:(id)extractor error:(id *)error
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   extractorCopy = extractor;
   if ([extractorCopy featureLength] >= 1)
@@ -80,9 +78,9 @@
       v24 = [v22 stringWithFormat:@"Feature index %lu out of bounds for feature extractor '%@'", v10, name];
 
       v25 = MEMORY[0x277CCA9B8];
-      v33 = *MEMORY[0x277CCA450];
-      v34[0] = v24;
-      v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+      v32 = *MEMORY[0x277CCA450];
+      v33[0] = v24;
+      v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
       *error = [v25 errorWithDomain:@"com.apple.PhotosGraph.PGFeatureValidator" code:1 userInfo:v26];
     }
 
@@ -106,7 +104,6 @@ LABEL_5:
 
 LABEL_16:
 
-  v31 = *MEMORY[0x277D85DE8];
   return error;
 }
 

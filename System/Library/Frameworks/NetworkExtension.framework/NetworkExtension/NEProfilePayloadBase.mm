@@ -35,21 +35,20 @@
 
 - (id)validatePayload
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = ne_log_large_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v6 = objc_opt_class();
-    v7 = v6;
+    v5 = objc_opt_class();
+    v6 = v5;
     payloadAtom = [(NEProfilePayloadBase *)self payloadAtom];
-    v9 = 138412546;
-    v10 = v6;
-    v11 = 2112;
-    v12 = payloadAtom;
-    _os_log_debug_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_DEBUG, "%@: NEProfilePayloadBase validatePayload should be overriden, dict %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v5;
+    v10 = 2112;
+    v11 = payloadAtom;
+    _os_log_debug_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_DEBUG, "%@: NEProfilePayloadBase validatePayload should be overriden, dict %@", &v8, 0x16u);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

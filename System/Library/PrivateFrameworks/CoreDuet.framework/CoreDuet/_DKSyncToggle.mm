@@ -2,9 +2,9 @@
 + (_DKSyncToggle)toggleWithObject:(void *)object name:(uint64_t)name enableSelector:(uint64_t)selector disableSelector:;
 - (_DKSyncToggle)initWithObject:(id)object name:(id)name enableSelector:(SEL)selector disableSelector:(SEL)disableSelector;
 - (uint64_t)isEnabled;
-- (uint64_t)setEnabled:(uint64_t)result;
 - (void)_setEnabled:(BOOL)enabled;
 - (void)dealloc;
+- (void)setEnabled:(void *)result;
 @end
 
 @implementation _DKSyncToggle
@@ -61,7 +61,7 @@
     {
       if (v6)
       {
-        [_DKSyncToggle _setEnabled:?];
+        [(_DKSyncToggle *)self _setEnabled:v5];
       }
 
       v7 = 32;
@@ -71,7 +71,7 @@
     {
       if (v6)
       {
-        [_DKSyncToggle _setEnabled:?];
+        [(_DKSyncToggle *)self _setEnabled:v5];
       }
 
       v7 = 40;
@@ -85,7 +85,7 @@
   }
 }
 
-- (uint64_t)setEnabled:(uint64_t)result
+- (void)setEnabled:(void *)result
 {
   if (result)
   {
@@ -114,26 +114,18 @@
   return v1 & 1;
 }
 
-- (void)_setEnabled:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)_setEnabled:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v2 = [objc_opt_class() description];
-  v3 = *(a1 + 24);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_3(&dword_191750000, v4, v5, "%{public}@: Disabling '%@' toggle", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_3(&dword_191750000, v3, v4, "%{public}@: Disabling '%@' toggle", v5, v6, v7, v8);
 }
 
-- (void)_setEnabled:(uint64_t)a1 .cold.2(uint64_t a1)
+- (void)_setEnabled:(uint64_t)a1 .cold.2(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v2 = [objc_opt_class() description];
-  v3 = *(a1 + 24);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_3(&dword_191750000, v4, v5, "%{public}@: Enabling '%@' toggle", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_3(&dword_191750000, v3, v4, "%{public}@: Enabling '%@' toggle", v5, v6, v7, v8);
 }
 
 @end

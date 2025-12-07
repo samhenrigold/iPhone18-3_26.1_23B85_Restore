@@ -2769,11 +2769,11 @@ void __78__PKPassGroupsViewController_presentPassWithUpdateUserNotificationIdent
   }
 }
 
-uint64_t __78__PKPassGroupsViewController_presentPassWithUpdateUserNotificationIdentifier___block_invoke_2(uint64_t result, char a2)
+void *__78__PKPassGroupsViewController_presentPassWithUpdateUserNotificationIdentifier___block_invoke_2(void *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    return [*(*(result + 32) + 1152) presentDiff:*(result + 40) completion:0];
+    return [*(result[4] + 1152) presentDiff:result[5] completion:0];
   }
 
   return result;
@@ -3538,10 +3538,10 @@ uint64_t __83__PKPassGroupsViewController_presentOffscreenAnimated_split_withCom
   [(PKPassGroupsViewController *)self _presentWithUpdatedPasses:v5];
 }
 
-uint64_t __56__PKPassGroupsViewController_presentGroupTableAnimated___block_invoke(uint64_t result)
+void *__56__PKPassGroupsViewController_presentGroupTableAnimated___block_invoke(void *result)
 {
-  *(*(result + 32) + 1248) = 4;
-  v1 = *(result + 32);
+  *(result[4] + 1248) = 4;
+  v1 = result[4];
   if (*(v1 + 1289) == 1)
   {
     return [*(v1 + 1152) setPresentationState:*(v1 + 1248) animated:*(result + 40)];
@@ -4141,11 +4141,11 @@ void __126__PKPassGroupsViewController__setupItemForExpressUpgradeWithAsset_hide
   }
 }
 
-void __126__PKPassGroupsViewController__setupItemForExpressUpgradeWithAsset_hideDisableAction_pass_reportingMetadata_completionHandler___block_invoke_2(uint64_t a1)
+void __126__PKPassGroupsViewController__setupItemForExpressUpgradeWithAsset_hideDisableAction_pass_reportingMetadata_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 48);
-  v2 = PKPaymentSetupMoreInfoItemDictionaryForExpressUpgradeMarket();
-  (*(v1 + 16))(v1, v2);
+  v2 = *(a1 + 48);
+  v3 = PKPaymentSetupMoreInfoItemDictionaryForExpressUpgradeMarket();
+  (*(v2 + 16))(v2, v3);
 }
 
 - (void)presentExpiredPassWithUniqueID:(id)d animated:(BOOL)animated completionHandler:(id)handler
@@ -4393,7 +4393,7 @@ void __89__PKPassGroupsViewController_presentPassWithUniqueID_context_animated_c
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __89__PKPassGroupsViewController_presentPassWithUniqueID_context_animated_completionHandler___block_invoke_3(uint64_t a1)
+void *__89__PKPassGroupsViewController_presentPassWithUniqueID_context_animated_completionHandler___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) invalidate];
   if (result)
@@ -6566,11 +6566,11 @@ void __63__PKPassGroupsViewController_presentPeerPaymentTermsAcceptance__block_i
   }
 }
 
-uint64_t __63__PKPassGroupsViewController_presentPeerPaymentTermsAcceptance__block_invoke_2(uint64_t result, uint64_t a2)
+id *__63__PKPassGroupsViewController_presentPeerPaymentTermsAcceptance__block_invoke_2(id *result, uint64_t a2)
 {
   if ((a2 - 1) <= 1)
   {
-    return [*(result + 32) dismissViewControllerAnimated:1 completion:0];
+    return [result[4] dismissViewControllerAnimated:1 completion:0];
   }
 
   return result;
@@ -8964,66 +8964,66 @@ void __114__PKPassGroupsViewController_presentDiscoveryArticleForItemWithIdentif
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __114__PKPassGroupsViewController_presentDiscoveryArticleForItemWithIdentifier_referrerIdentifier_animated_completion___block_invoke_4(uint64_t a1)
+uint64_t __114__PKPassGroupsViewController_presentDiscoveryArticleForItemWithIdentifier_referrerIdentifier_animated_completion___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v24[1] = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  if (v2 || !*(a1 + 40))
+  v25[1] = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 32);
+  if (v3 || !*(a1 + 40))
   {
-    v3 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 64);
+      v5 = *(a1 + 64);
       *buf = 138412546;
-      v21 = v4;
-      v22 = 2112;
-      v23 = v2;
-      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Error presenting Discovery Article for itemIdentifier: %@ error: %@", buf, 0x16u);
+      v22 = v5;
+      v23 = 2112;
+      v24 = v3;
+      _os_log_impl(&dword_1BD026000, v4, OS_LOG_TYPE_DEFAULT, "Error presenting Discovery Article for itemIdentifier: %@ error: %@", buf, 0x16u);
     }
 
-    v5 = PKLocalizedDiscoveryString(&cfstr_DiscoveryArtic_0.isa);
-    v6 = PKLocalizedPaymentString(&cfstr_GenericErrorMe.isa);
-    v7 = [*(a1 + 32) domain];
-    if ([v7 isEqualToString:*MEMORY[0x1E696A978]])
+    v6 = PKLocalizedDiscoveryString(&cfstr_DiscoveryArtic_0.isa);
+    v7 = PKLocalizedPaymentString(&cfstr_GenericErrorMe.isa);
+    v8 = [*(a1 + 32) domain];
+    if ([v8 isEqualToString:*MEMORY[0x1E696A978]])
     {
-      v8 = [*(a1 + 32) code];
+      v9 = [*(a1 + 32) code];
 
-      if (v8 != -1009)
+      if (v9 != -1009)
       {
 LABEL_8:
-        v10 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v5 message:v6 preferredStyle:1];
-        v11 = MEMORY[0x1E69DC648];
-        v12 = PKLocalizedString(&cfstr_OkButtonTitle.isa);
-        v18[0] = MEMORY[0x1E69E9820];
-        v18[1] = 3221225472;
-        v18[2] = __114__PKPassGroupsViewController_presentDiscoveryArticleForItemWithIdentifier_referrerIdentifier_animated_completion___block_invoke_290;
-        v18[3] = &unk_1E80112E8;
-        v19 = *(a1 + 72);
-        v13 = [v11 actionWithTitle:v12 style:1 handler:v18];
-        [v10 addAction:v13];
+        v11 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v6 message:v7 preferredStyle:1];
+        v12 = MEMORY[0x1E69DC648];
+        v13 = PKLocalizedString(&cfstr_OkButtonTitle.isa);
+        v19[0] = MEMORY[0x1E69E9820];
+        v19[1] = 3221225472;
+        v19[2] = __114__PKPassGroupsViewController_presentDiscoveryArticleForItemWithIdentifier_referrerIdentifier_animated_completion___block_invoke_290;
+        v19[3] = &unk_1E80112E8;
+        v20 = *(a1 + 72);
+        v14 = [v12 actionWithTitle:v13 style:1 handler:v19];
+        [v11 addAction:v14];
 
         [*(a1 + 56) setIsDownloading:0];
-        [*(a1 + 72) presentViewController:v10 animated:1 completion:0];
+        [*(a1 + 72) presentViewController:v11 animated:1 completion:0];
 
         goto LABEL_11;
       }
 
-      v9 = PKLocalizedDiscoveryString(&cfstr_DiscoveryArtic_1.isa);
+      v10 = PKLocalizedDiscoveryString(&cfstr_DiscoveryArtic_1.isa);
 
       PKLocalizedPaymentString(&cfstr_CouldNotConnec_0.isa);
-      v6 = v7 = v6;
-      v5 = v9;
+      v7 = v8 = v7;
+      v6 = v10;
     }
 
     goto LABEL_8;
   }
 
-  v14 = *(a1 + 48);
-  v24[0] = *(a1 + 40);
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
-  v16 = [v14 _cardSizeTypeForArticleLayouts:v15];
+  v15 = *(a1 + 48);
+  v25[0] = *(a1 + 40);
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+  v17 = [v15 _cardSizeTypeForArticleLayouts:v16];
 
-  [*(a1 + 56) setArticleLayout:*(a1 + 40) cardSize:v16 animated:*(a1 + 88)];
+  [*(a1 + 56) setArticleLayout:*(a1 + 40) cardSize:v17 animated:*(a1 + 88)];
 LABEL_11:
   result = *(a1 + 80);
   if (result)
@@ -10722,20 +10722,20 @@ void __231__PKPassGroupsViewController_startPaymentPreflight_withPaymentSetupMod
   v6 = PKTimeProfileEnd();
 }
 
-void __231__PKPassGroupsViewController_startPaymentPreflight_withPaymentSetupMode_referrerIdentifier_referralSource_campaignIdentifier_paymentNetworks_transitNetworkIdentifiers_allowedFeatureIdentifiers_productIdentifiers_sectionIdentifier___block_invoke_2_352(uint64_t a1)
+void __231__PKPassGroupsViewController_startPaymentPreflight_withPaymentSetupMode_referrerIdentifier_referralSource_campaignIdentifier_paymentNetworks_transitNetworkIdentifiers_allowedFeatureIdentifiers_productIdentifiers_sectionIdentifier___block_invoke_2_352(uint64_t a1, uint64_t a2)
 {
-  v2 = PKLogFacilityTypeGetObject();
-  v3 = PKTimeProfileEnd();
+  v3 = PKLogFacilityTypeGetObject();
+  v4 = PKTimeProfileEnd();
 
-  v4 = PKLogFacilityTypeGetObject();
-  v5 = os_signpost_id_make_with_pointer(v4, *(a1 + 32));
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v5 = PKLogFacilityTypeGetObject();
+  v6 = os_signpost_id_make_with_pointer(v5, *(a1 + 32));
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v6 = v5;
-    if (os_signpost_enabled(v4))
+    v7 = v6;
+    if (os_signpost_enabled(v5))
     {
-      *v7 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1BD026000, v4, OS_SIGNPOST_INTERVAL_END, v6, "provisioning:preflight:add_card_button_total", "", v7, 2u);
+      *v8 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1BD026000, v5, OS_SIGNPOST_INTERVAL_END, v7, "provisioning:preflight:add_card_button_total", "", v8, 2u);
     }
   }
 }
@@ -11261,7 +11261,7 @@ void __75__PKPassGroupsViewController_presentBackgroundRefreshConfirmationAnimat
 
 - (void)_invalidateForType:(int64_t)type
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   invalidationStatus = self->_invalidationStatus;
   if (invalidationStatus != type)
   {
@@ -11272,11 +11272,11 @@ void __75__PKPassGroupsViewController_presentBackgroundRefreshConfirmationAnimat
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         groupStackView = self->_groupStackView;
-        v13 = 134349312;
+        v14 = 134349312;
         selfCopy2 = self;
-        v15 = 2050;
-        v16 = groupStackView;
-        _os_log_impl(&dword_1BD026000, v6, OS_LOG_TYPE_DEFAULT, "PKPassGroupsViewController (%{public}p:%{public}p): partially invalidated.", &v13, 0x16u);
+        v16 = 2050;
+        v17 = groupStackView;
+        _os_log_impl(&dword_1BD026000, v6, OS_LOG_TYPE_DEFAULT, "PKPassGroupsViewController (%{public}p:%{public}p): partially invalidated.", &v14, 0x16u);
       }
 
       [(PKPassGroupStackView *)self->_groupStackView _tombstone];
@@ -11289,33 +11289,33 @@ void __75__PKPassGroupsViewController_presentBackgroundRefreshConfirmationAnimat
 
     if (type > 1 && invalidationStatus <= 1)
     {
-      v9 = PKLogFacilityTypeGetObject();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = PKLogFacilityTypeGetObject();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = self->_groupStackView;
-        v13 = 134349312;
+        v11 = self->_groupStackView;
+        v14 = 134349312;
         selfCopy2 = self;
-        v15 = 2050;
-        v16 = v10;
-        _os_log_impl(&dword_1BD026000, v9, OS_LOG_TYPE_DEFAULT, "PKPassGroupsViewController (%{public}p:%{public}p): invalidated.", &v13, 0x16u);
+        v16 = 2050;
+        v17 = v11;
+        _os_log_impl(&dword_1BD026000, v10, OS_LOG_TYPE_DEFAULT, "PKPassGroupsViewController (%{public}p:%{public}p): invalidated.", &v14, 0x16u);
       }
 
       self->_externalNavigationController = 0;
       [(PKPassGroupStackView *)self->_groupStackView setPaused:1];
       [(PKPassGroupStackView *)self->_groupStackView setDelegate:0];
-      v11 = self->_groupStackView;
-      if (v11)
+      v12 = self->_groupStackView;
+      if (v12)
       {
-        v11->_externalNavigationController = 0;
-        v12 = self->_groupStackView;
+        v12->_externalNavigationController = 0;
+        v13 = self->_groupStackView;
       }
 
       else
       {
-        v12 = 0;
+        v13 = 0;
       }
 
-      [(PKPassGroupStackView *)v12 invalidate];
+      [(PKPassGroupStackView *)v13 invalidate];
     }
   }
 }
@@ -12670,13 +12670,13 @@ void __56__PKPassGroupsViewController__handleExpressNotification__block_invoke(u
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __71__PKPassGroupsViewController__regionConfigurationDidChangeNotification__block_invoke(uint64_t a1)
+uint64_t __71__PKPassGroupsViewController__regionConfigurationDidChangeNotification__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Region configuration changed", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Region configuration changed", v5, 2u);
   }
 
   return [*(*(a1 + 32) + 1152) updateHeaderAndSubheaderViewsIfNecessary];

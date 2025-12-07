@@ -1,6 +1,7 @@
 @interface VerificationSummaryViewControllerAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation VerificationSummaryViewControllerAccessibility
@@ -18,6 +19,14 @@
   v2.super_class = VerificationSummaryViewControllerAccessibility;
   [(VerificationSummaryViewControllerAccessibility *)&v2 _accessibilityLoadAccessibilityInformation];
   UIAccessibilityPostNotification(*MEMORY[0x29EDC7F10], 0);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = VerificationSummaryViewControllerAccessibility;
+  [(VerificationSummaryViewControllerAccessibility *)&v4 viewDidAppear:appear];
+  [(VerificationSummaryViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 @end

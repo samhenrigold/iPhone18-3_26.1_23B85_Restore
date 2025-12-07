@@ -34,7 +34,7 @@
 - (id)newRenderJob
 {
   v3 = [(NURenderJob *)[PIDisparitySampleJob alloc] initWithRequest:self];
-  [(PIDisparitySampleRequest *)self sampleTime];
+  objc_msgSend_sampleTime(self);
   v5 = v7;
   v6 = v8;
   [(PIDisparitySampleJob *)v3 setSampleTime:&v5];
@@ -48,7 +48,7 @@
   v10.receiver = self;
   v10.super_class = PIDisparitySampleRequest;
   v4 = [(NURenderRequest *)&v10 copyWithZone:zone];
-  [(PIDisparitySampleRequest *)self sampleTime];
+  objc_msgSend_sampleTime(self);
   v6 = v8;
   v7 = v9;
   [v4 setSampleTime:&v6];

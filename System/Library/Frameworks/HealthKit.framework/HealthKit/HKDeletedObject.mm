@@ -29,12 +29,12 @@
 
   if (metadataCopy)
   {
-    v18 = 0;
-    v13 = [metadataCopy hk_validateMetadataKeysAndValuesAllowingPrivateMetadataKeys:0 applicationSDKVersionToken:HKApplicationSDKVersionToken() error:&v18];
-    v14 = v18;
-    if ((v13 & 1) == 0)
+    v20 = 0;
+    v15 = [metadataCopy hk_validateMetadataKeysAndValuesAllowingPrivateMetadataKeys:0 applicationSDKVersionToken:HKApplicationSDKVersionToken(v13 error:{v14), &v20}];
+    v16 = v20;
+    if ((v15 & 1) == 0)
     {
-      [(HKDeletedObject *)a2 _deletedObjectWithUUID:self metadata:v14];
+      [(HKDeletedObject *)a2 _deletedObjectWithUUID:self metadata:v16];
     }
 
     if ([metadataCopy count] != 2)
@@ -42,16 +42,16 @@
       +[HKDeletedObject _deletedObjectWithUUID:metadata:];
     }
 
-    v15 = [metadataCopy objectForKeyedSubscript:@"HKMetadataKeySyncIdentifier"];
+    v17 = [metadataCopy objectForKeyedSubscript:@"HKMetadataKeySyncIdentifier"];
 
-    if (!v15)
+    if (!v17)
     {
       +[HKDeletedObject _deletedObjectWithUUID:metadata:];
     }
 
-    v16 = [metadataCopy objectForKeyedSubscript:@"HKMetadataKeySyncVersion"];
+    v18 = [metadataCopy objectForKeyedSubscript:@"HKMetadataKeySyncVersion"];
 
-    if (!v16)
+    if (!v18)
     {
       +[HKDeletedObject _deletedObjectWithUUID:metadata:];
     }

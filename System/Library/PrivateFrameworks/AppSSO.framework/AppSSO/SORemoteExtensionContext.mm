@@ -75,7 +75,7 @@ uint64_t __61__SORemoteExtensionContext__extensionAuxiliaryVendorProtocol__block
 
 - (void)saveRequest:(id)request forIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   identifierCopy = identifier;
   selfCopy = self;
@@ -90,22 +90,20 @@ uint64_t __61__SORemoteExtensionContext__extensionAuxiliaryVendorProtocol__block
     requests = selfCopy->_requests;
   }
 
-  [(NSMapTable *)requests setObject:requestCopy forKey:identifierCopy];
-  v12 = SO_LOG_SORemoteExtensionContext();
+  v12 = SO_LOG_SORemoteExtensionContext([(NSMapTable *)requests setObject:requestCopy forKey:identifierCopy]);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSMapTable count](selfCopy->_requests, "count")}];
-    v15 = 136315650;
-    v16 = "[SORemoteExtensionContext saveRequest:forIdentifier:]";
-    v17 = 2114;
-    v18 = v13;
-    v19 = 2112;
-    v20 = selfCopy;
-    _os_log_impl(&dword_1C1317000, v12, OS_LOG_TYPE_DEFAULT, "%s current requests: %{public}@ on %@", &v15, 0x20u);
+    v14 = 136315650;
+    v15 = "[SORemoteExtensionContext saveRequest:forIdentifier:]";
+    v16 = 2114;
+    v17 = v13;
+    v18 = 2112;
+    v19 = selfCopy;
+    _os_log_impl(&dword_1C1317000, v12, OS_LOG_TYPE_DEFAULT, "%s current requests: %{public}@ on %@", &v14, 0x20u);
   }
 
   objc_sync_exit(selfCopy);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)findRequestForIdentifier:(id)identifier
@@ -131,7 +129,7 @@ uint64_t __61__SORemoteExtensionContext__extensionAuxiliaryVendorProtocol__block
 
 - (void)removeRequestForIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -145,22 +143,20 @@ uint64_t __61__SORemoteExtensionContext__extensionAuxiliaryVendorProtocol__block
     requests = selfCopy->_requests;
   }
 
-  [(NSMapTable *)requests removeObjectForKey:identifierCopy];
-  v9 = SO_LOG_SORemoteExtensionContext();
+  v9 = SO_LOG_SORemoteExtensionContext([(NSMapTable *)requests removeObjectForKey:identifierCopy]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSMapTable count](selfCopy->_requests, "count")}];
-    v12 = 136315650;
-    v13 = "[SORemoteExtensionContext removeRequestForIdentifier:]";
-    v14 = 2114;
-    v15 = v10;
-    v16 = 2112;
-    v17 = selfCopy;
-    _os_log_impl(&dword_1C1317000, v9, OS_LOG_TYPE_DEFAULT, "%s current requests: %{public}@ on %@", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "[SORemoteExtensionContext removeRequestForIdentifier:]";
+    v13 = 2114;
+    v14 = v10;
+    v15 = 2112;
+    v16 = selfCopy;
+    _os_log_impl(&dword_1C1317000, v9, OS_LOG_TYPE_DEFAULT, "%s current requests: %{public}@ on %@", &v11, 0x20u);
   }
 
   objc_sync_exit(selfCopy);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (ASAuthorizationProviderExtensionAuthorizationRequestHandler)extensionViewController
@@ -217,7 +213,7 @@ LABEL_3:
     goto LABEL_4;
   }
 
-  v7 = SO_LOG_SORemoteExtensionContext();
+  v7 = SO_LOG_SORemoteExtensionContext(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [SORemoteExtensionContext extensionAuthorizationRequestHandlerWithError:];
@@ -238,7 +234,7 @@ LABEL_3:
       goto LABEL_16;
     }
 
-    v24 = SO_LOG_SORemoteExtensionContext();
+    v24 = SO_LOG_SORemoteExtensionContext(0);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       [SORemoteExtensionContext extensionAuthorizationRequestHandlerWithError:];
@@ -258,7 +254,7 @@ LABEL_26:
     v15 = [v10 objectForKeyedSubscript:@"NSExtensionMainStoryboard"];
     if (!v15)
     {
-      v27 = SO_LOG_SORemoteExtensionContext();
+      v27 = SO_LOG_SORemoteExtensionContext(0);
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         [SORemoteExtensionContext extensionAuthorizationRequestHandlerWithError:];
@@ -300,7 +296,7 @@ LABEL_16:
       goto LABEL_3;
     }
 
-    v28 = SO_LOG_SORemoteExtensionContext();
+    v28 = SO_LOG_SORemoteExtensionContext(0);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       [SORemoteExtensionContext extensionAuthorizationRequestHandlerWithError:];
@@ -349,7 +345,7 @@ LABEL_5:
 void __49__SORemoteExtensionContext_hostContextWithError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = SO_LOG_SORemoteExtensionContext();
+  v4 = SO_LOG_SORemoteExtensionContext(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __49__SORemoteExtensionContext_hostContextWithError___block_invoke_cold_1();
@@ -389,7 +385,7 @@ void __49__SORemoteExtensionContext_hostContextWithError___block_invoke(uint64_t
 void __60__SORemoteExtensionContext_synchronousHostContextWithError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = SO_LOG_SORemoteExtensionContext();
+  v4 = SO_LOG_SORemoteExtensionContext(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __60__SORemoteExtensionContext_synchronousHostContextWithError___block_invoke_cold_1();
@@ -405,7 +401,7 @@ void __60__SORemoteExtensionContext_synchronousHostContextWithError___block_invo
   v31 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   completionCopy = completion;
-  v8 = SO_LOG_SORemoteExtensionContext();
+  v8 = SO_LOG_SORemoteExtensionContext(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [parametersCopy identifier];
@@ -442,19 +438,19 @@ void __60__SORemoteExtensionContext_synchronousHostContextWithError___block_invo
 
       if ((v13 & 1) == 0)
       {
-        v14 = SO_LOG_SORemoteExtensionContext();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+        v15 = SO_LOG_SORemoteExtensionContext(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_1C1317000, v14, OS_LOG_TYPE_INFO, "SOAuthorizationOperationConfigurationRemoved requires extension built with newer SDK", buf, 2u);
+          _os_log_impl(&dword_1C1317000, v15, OS_LOG_TYPE_INFO, "SOAuthorizationOperationConfigurationRemoved requires extension built with newer SDK", buf, 2u);
         }
 
         if (completionCopy)
         {
-          v15 = [getSOErrorHelperClass() errorWithCode:-5];
+          v16 = [getSOErrorHelperClass() errorWithCode:-5];
 LABEL_15:
-          v16 = v15;
-          completionCopy[2](completionCopy, 0, v15);
+          v17 = v16;
+          completionCopy[2](completionCopy, 0, v16);
 
           goto LABEL_20;
         }
@@ -486,13 +482,11 @@ LABEL_15:
 
   if (completionCopy)
   {
-    v15 = [getSOErrorHelperClass() internalErrorWithMessage:@"required beginAuthorizationWithRequest is not implemented in extension"];
+    v16 = [getSOErrorHelperClass() internalErrorWithMessage:@"required beginAuthorizationWithRequest is not implemented in extension"];
     goto LABEL_15;
   }
 
 LABEL_20:
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __79__SORemoteExtensionContext_beginAuthorizationWithRequestParameters_completion___block_invoke(uint64_t a1)
@@ -503,15 +497,14 @@ void __79__SORemoteExtensionContext_beginAuthorizationWithRequestParameters_comp
   v5 = [*(a1 + 32) identifier];
   [v4 saveRequest:v3 forIdentifier:v5];
 
-  v6 = SO_LOG_SORemoteExtensionContext();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = SO_LOG_SORemoteExtensionContext(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __79__SORemoteExtensionContext_beginAuthorizationWithRequestParameters_completion___block_invoke_cold_1();
   }
 
-  [*(a1 + 48) beginAuthorizationWithRequest:v3];
-  v7 = SO_LOG_SORemoteExtensionContext();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = SO_LOG_SORemoteExtensionContext([*(a1 + 48) beginAuthorizationWithRequest:v3]);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     __79__SORemoteExtensionContext_beginAuthorizationWithRequestParameters_completion___block_invoke_cold_2();
   }
@@ -519,17 +512,17 @@ void __79__SORemoteExtensionContext_beginAuthorizationWithRequestParameters_comp
 
 - (void)beginAuthorizationWithServiceXPCEndpoint:(id)endpoint completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   completionCopy = completion;
-  v8 = SO_LOG_SORemoteExtensionContext();
+  v8 = SO_LOG_SORemoteExtensionContext(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v17 = "[SORemoteExtensionContext beginAuthorizationWithServiceXPCEndpoint:completion:]";
-    v18 = 2114;
-    v19 = endpointCopy;
-    v20 = 2112;
+    v16 = "[SORemoteExtensionContext beginAuthorizationWithServiceXPCEndpoint:completion:]";
+    v17 = 2114;
+    v18 = endpointCopy;
+    v19 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "%s %{public}@ on %@", buf, 0x20u);
   }
@@ -539,16 +532,14 @@ void __79__SORemoteExtensionContext_beginAuthorizationWithRequestParameters_comp
   self->_extensionServiceConnection = v9;
 
   v11 = self->_extensionServiceConnection;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __80__SORemoteExtensionContext_beginAuthorizationWithServiceXPCEndpoint_completion___block_invoke;
-  v14[3] = &unk_1E813E368;
-  v14[4] = self;
-  v15 = completionCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __80__SORemoteExtensionContext_beginAuthorizationWithServiceXPCEndpoint_completion___block_invoke;
+  v13[3] = &unk_1E813E368;
+  v13[4] = self;
+  v14 = completionCopy;
   v12 = completionCopy;
-  [(SOExtensionServiceConnection *)v11 beginAuthorizationWithCompletion:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(SOExtensionServiceConnection *)v11 beginAuthorizationWithCompletion:v13];
 }
 
 void __80__SORemoteExtensionContext_beginAuthorizationWithServiceXPCEndpoint_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -623,15 +614,14 @@ void __80__SORemoteExtensionContext_beginAuthorizationWithServiceXPCEndpoint_com
   v5 = [*(a1 + 32) identifier];
   [v4 saveRequest:v3 forIdentifier:v5];
 
-  v6 = SO_LOG_SORemoteExtensionContext();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = SO_LOG_SORemoteExtensionContext(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __80__SORemoteExtensionContext_beginAuthorizationWithServiceXPCEndpoint_completion___block_invoke_2_cold_1();
   }
 
-  [*(a1 + 48) beginAuthorizationWithRequest:v3];
-  v7 = SO_LOG_SORemoteExtensionContext();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = SO_LOG_SORemoteExtensionContext([*(a1 + 48) beginAuthorizationWithRequest:v3]);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     __79__SORemoteExtensionContext_beginAuthorizationWithRequestParameters_completion___block_invoke_cold_2();
   }
@@ -639,23 +629,23 @@ void __80__SORemoteExtensionContext_beginAuthorizationWithServiceXPCEndpoint_com
 
 - (void)cancelAuthorization:(id)authorization completion:(id)completion
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   authorizationCopy = authorization;
   completionCopy = completion;
-  v8 = SO_LOG_SORemoteExtensionContext();
+  v8 = SO_LOG_SORemoteExtensionContext(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v27 = "[SORemoteExtensionContext cancelAuthorization:completion:]";
-    v28 = 2114;
-    v29 = authorizationCopy;
-    v30 = 2112;
+    v28 = "[SORemoteExtensionContext cancelAuthorization:completion:]";
+    v29 = 2114;
+    v30 = authorizationCopy;
+    v31 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "%s requestIdentifier = %{public}@ on %@", buf, 0x20u);
   }
 
   v9 = [(SORemoteExtensionContext *)self findRequestForIdentifier:authorizationCopy];
-  [(SORemoteExtensionContext *)self removeRequestForIdentifier:authorizationCopy];
+  v10 = [(SORemoteExtensionContext *)self removeRequestForIdentifier:authorizationCopy];
   if (v9)
   {
     authorizationRequest = [v9 authorizationRequest];
@@ -664,9 +654,9 @@ void __80__SORemoteExtensionContext_beginAuthorizationWithServiceXPCEndpoint_com
     authorizationRequest2 = [v9 authorizationRequest];
     [authorizationRequest2 setCanceledAuthorizationCredential:0];
 
-    v12 = [getSOErrorHelperClass() errorWithCode:-2];
+    v13 = [getSOErrorHelperClass() errorWithCode:-2];
     authorizationRequest3 = [v9 authorizationRequest];
-    [authorizationRequest3 setCanceledAuthorizationError:v12];
+    [authorizationRequest3 setCanceledAuthorizationError:v13];
 
     if (completionCopy)
     {
@@ -678,62 +668,58 @@ void __80__SORemoteExtensionContext_beginAuthorizationWithServiceXPCEndpoint_com
     }
 
     extensionViewController = [(SORemoteExtensionContext *)self extensionViewController];
-    v19 = objc_opt_respondsToSelector();
+    v20 = objc_opt_respondsToSelector();
 
-    if (v19)
+    if (v20)
     {
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invoke;
-      v23[3] = &unk_1E813E390;
-      v24 = v9;
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invoke;
+      v24[3] = &unk_1E813E390;
+      v25 = v9;
       selfCopy2 = self;
-      dispatch_async(MEMORY[0x1E69E96A0], v23);
+      dispatch_async(MEMORY[0x1E69E96A0], v24);
     }
 
     else
     {
-      v21 = SO_LOG_SORemoteExtensionContext();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v23 = SO_LOG_SORemoteExtensionContext(v21);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1C1317000, v21, OS_LOG_TYPE_DEFAULT, "optional API cancelAuthorizationWithRequest is not implemented in extension", buf, 2u);
+        _os_log_impl(&dword_1C1317000, v23, OS_LOG_TYPE_DEFAULT, "optional API cancelAuthorizationWithRequest is not implemented in extension", buf, 2u);
       }
     }
   }
 
   else
   {
-    v20 = SO_LOG_SORemoteExtensionContext();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v22 = SO_LOG_SORemoteExtensionContext(v10);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C1317000, v20, OS_LOG_TYPE_DEFAULT, "Request already completed.", buf, 2u);
+      _os_log_impl(&dword_1C1317000, v22, OS_LOG_TYPE_DEFAULT, "Request already completed.", buf, 2u);
     }
 
     completionCopy[2](completionCopy, 0, 0);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invoke(uint64_t a1)
 {
-  v2 = SO_LOG_SORemoteExtensionContext();
+  v2 = SO_LOG_SORemoteExtensionContext(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invoke_cold_1(a1);
+    __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invoke_cold_1();
   }
 
   v3 = [*(a1 + 40) extensionViewController];
-  v5 = *(a1 + 32);
-  v4 = (a1 + 32);
-  [v3 cancelAuthorizationWithRequest:v5];
+  [v3 cancelAuthorizationWithRequest:*(a1 + 32)];
 
-  v6 = SO_LOG_SORemoteExtensionContext();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v5 = SO_LOG_SORemoteExtensionContext(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invoke_cold_2(v4);
+    __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invoke_cold_2();
   }
 }
 
@@ -742,7 +728,7 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
   v26 = *MEMORY[0x1E69E9840];
   authorizationCopy = authorization;
   completionCopy = completion;
-  v8 = SO_LOG_SORemoteExtensionContext();
+  v8 = SO_LOG_SORemoteExtensionContext(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v20 = 136315650;
@@ -762,19 +748,19 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
 
   if (secKeyProxiesConnectedClients)
   {
-    v13 = SO_LOG_SORemoteExtensionContext();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = SO_LOG_SORemoteExtensionContext(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       authorizationRequest3 = [v9 authorizationRequest];
       secKeyProxiesConnectedClients2 = [authorizationRequest3 secKeyProxiesConnectedClients];
       v20 = 67109120;
       LODWORD(v21) = secKeyProxiesConnectedClients2;
-      _os_log_debug_impl(&dword_1C1317000, v13, OS_LOG_TYPE_DEBUG, "postponing finishAuthorization completion because of connected secKeyProxies clients (%d)", &v20, 8u);
+      _os_log_debug_impl(&dword_1C1317000, v14, OS_LOG_TYPE_DEBUG, "postponing finishAuthorization completion because of connected secKeyProxies clients (%d)", &v20, 8u);
     }
 
-    v14 = MEMORY[0x1C68F1C40](completionCopy);
+    v15 = MEMORY[0x1C68F1C40](completionCopy);
     finishAuthorizationCompletion = self->_finishAuthorizationCompletion;
-    self->_finishAuthorizationCompletion = v14;
+    self->_finishAuthorizationCompletion = v15;
 
     objc_sync_exit(authorizationRequest);
   }
@@ -792,27 +778,25 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
 
     [(SORemoteExtensionContext *)self removeRequestForIdentifier:authorizationCopy];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)completeFinishAuthorization:(id)authorization error:(id)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   authorizationCopy = authorization;
   errorCopy = error;
-  v8 = SO_LOG_SORemoteExtensionContext();
+  v8 = SO_LOG_SORemoteExtensionContext(errorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315906;
-    v16 = "[SORemoteExtensionContext completeFinishAuthorization:error:]";
-    v17 = 2114;
-    v18 = authorizationCopy;
-    v19 = 2114;
-    v20 = errorCopy;
-    v21 = 2112;
+    v14 = 136315906;
+    v15 = "[SORemoteExtensionContext completeFinishAuthorization:error:]";
+    v16 = 2114;
+    v17 = authorizationCopy;
+    v18 = 2114;
+    v19 = errorCopy;
+    v20 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "%s requestIdentifier = %{public}@, error: %{public}@ on %@", &v15, 0x2Au);
+    _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "%s requestIdentifier = %{public}@, error: %{public}@ on %@", &v14, 0x2Au);
   }
 
   v9 = [(SORemoteExtensionContext *)self findRequestForIdentifier:authorizationCopy];
@@ -831,7 +815,7 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
 
   else
   {
-    v13 = SO_LOG_SORemoteExtensionContext();
+    v13 = SO_LOG_SORemoteExtensionContext(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [SORemoteExtensionContext completeFinishAuthorization:error:];
@@ -839,8 +823,6 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
 
     objc_sync_exit(authorizationRequest);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)openURL:(id)l completionHandler:(id)handler
@@ -848,7 +830,7 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
   v22 = *MEMORY[0x1E69E9840];
   lCopy = l;
   handlerCopy = handler;
-  v8 = SO_LOG_SORemoteExtensionContext();
+  v8 = SO_LOG_SORemoteExtensionContext(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315907;
@@ -865,6 +847,7 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
   v13 = 0;
   v9 = [(SORemoteExtensionContext *)self hostContextWithError:&v13];
   v10 = v13;
+  v11 = v10;
   if (v9)
   {
     [v9 openURL:lCopy completionHandler:handlerCopy];
@@ -872,8 +855,8 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
 
   else
   {
-    v11 = SO_LOG_SORemoteExtensionContext();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = SO_LOG_SORemoteExtensionContext(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [SORemoteExtensionContext openURL:completionHandler:];
     }
@@ -883,15 +866,13 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
       handlerCopy[2](handlerCopy, 0);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)canOpenURL:(id)l
 {
   v18 = *MEMORY[0x1E69E9840];
   lCopy = l;
-  v5 = SO_LOG_SORemoteExtensionContext();
+  v5 = SO_LOG_SORemoteExtensionContext(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315907;
@@ -908,6 +889,7 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
   v13 = 0;
   v6 = [(SORemoteExtensionContext *)self synchronousHostContextWithError:&v13];
   v7 = v13;
+  v8 = v7;
   if (v6)
   {
     *buf = 0;
@@ -920,30 +902,29 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
     v12[3] = &unk_1E813E3B8;
     v12[4] = buf;
     [v6 canOpenURL:lCopy completionHandler:v12];
-    v8 = *(*&buf[8] + 24);
+    v9 = *(*&buf[8] + 24);
     _Block_object_dispose(buf, 8);
   }
 
   else
   {
-    v9 = SO_LOG_SORemoteExtensionContext();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = SO_LOG_SORemoteExtensionContext(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [SORemoteExtensionContext canOpenURL:];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-  return v8 & 1;
+  return v9 & 1;
 }
 
 - (void)beginDeviceRegistrationUsingOptions:(int64_t)options extensionData:(id)data completion:(id)completion
 {
   v18 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v8 = SO_LOG_SORemoteExtensionContext();
+  v8 = SO_LOG_SORemoteExtensionContext(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [MEMORY[0x1E696AD98] numberWithInteger:options];
@@ -956,26 +937,24 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
     _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "%s options = %{public}@ on %@", &v12, 0x20u);
   }
 
-  v10 = SO_LOG_SORemoteExtensionContext();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = SO_LOG_SORemoteExtensionContext(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v12) = 0;
-    _os_log_impl(&dword_1C1317000, v10, OS_LOG_TYPE_DEFAULT, "extension PSSO API beginDeviceRegistrationUsingLoginManager is not implemented in extension", &v12, 2u);
+    _os_log_impl(&dword_1C1317000, v11, OS_LOG_TYPE_DEFAULT, "extension PSSO API beginDeviceRegistrationUsingLoginManager is not implemented in extension", &v12, 2u);
   }
 
   if (completionCopy)
   {
     completionCopy[2](completionCopy, 3);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginUserRegistrationUsingUserName:(id)name authenticationMethod:(int)method options:(int64_t)options extensionData:(id)data completion:(id)completion
 {
   v16 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v9 = SO_LOG_SORemoteExtensionContext();
+  v9 = SO_LOG_SORemoteExtensionContext(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 136315394;
@@ -985,26 +964,24 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
     _os_log_impl(&dword_1C1317000, v9, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v12, 0x16u);
   }
 
-  v10 = SO_LOG_SORemoteExtensionContext();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = SO_LOG_SORemoteExtensionContext(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v12) = 0;
-    _os_log_impl(&dword_1C1317000, v10, OS_LOG_TYPE_DEFAULT, "extension PSSO API beginUserRegistrationUsingLoginManager is not implemented in extension", &v12, 2u);
+    _os_log_impl(&dword_1C1317000, v11, OS_LOG_TYPE_DEFAULT, "extension PSSO API beginUserRegistrationUsingLoginManager is not implemented in extension", &v12, 2u);
   }
 
   if (completionCopy)
   {
     completionCopy[2](completionCopy, 3);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registrationDidCompleteWithCompletion:(id)completion
 {
   v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = SO_LOG_SORemoteExtensionContext();
+  v5 = SO_LOG_SORemoteExtensionContext(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315394;
@@ -1014,22 +991,21 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
     _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v8, 0x16u);
   }
 
-  v6 = SO_LOG_SORemoteExtensionContext();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SO_LOG_SORemoteExtensionContext(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v8) = 0;
-    _os_log_impl(&dword_1C1317000, v6, OS_LOG_TYPE_DEFAULT, "extension PSSO API registrationDidComplete is not implemented in extension", &v8, 2u);
+    _os_log_impl(&dword_1C1317000, v7, OS_LOG_TYPE_DEFAULT, "extension PSSO API registrationDidComplete is not implemented in extension", &v8, 2u);
   }
 
   completionCopy[2](completionCopy);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registrationDidCancelWithCompletion:(id)completion
 {
   v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = SO_LOG_SORemoteExtensionContext();
+  v5 = SO_LOG_SORemoteExtensionContext(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315394;
@@ -1039,21 +1015,20 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
     _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v8, 0x16u);
   }
 
-  v6 = SO_LOG_SORemoteExtensionContext();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SO_LOG_SORemoteExtensionContext(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v8) = 0;
-    _os_log_impl(&dword_1C1317000, v6, OS_LOG_TYPE_DEFAULT, "extension PSSO API registrationDidCancel is not implemented in extension", &v8, 2u);
+    _os_log_impl(&dword_1C1317000, v7, OS_LOG_TYPE_DEFAULT, "extension PSSO API registrationDidCancel is not implemented in extension", &v8, 2u);
   }
 
   completionCopy[2](completionCopy);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)supportedGrantTypesCompletion:(id)completion
 {
   completionCopy = completion;
-  v4 = SO_LOG_SORemoteExtensionContext();
+  v4 = SO_LOG_SORemoteExtensionContext(completionCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -1069,7 +1044,7 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
 - (void)protocolVersionCompletion:(id)completion
 {
   completionCopy = completion;
-  v4 = SO_LOG_SORemoteExtensionContext();
+  v4 = SO_LOG_SORemoteExtensionContext(completionCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -1086,7 +1061,7 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
 {
   v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = SO_LOG_SORemoteExtensionContext();
+  v5 = SO_LOG_SORemoteExtensionContext(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315394;
@@ -1096,37 +1071,35 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
     _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v8, 0x16u);
   }
 
-  v6 = SO_LOG_SORemoteExtensionContext();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = SO_LOG_SORemoteExtensionContext(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    [SORemoteExtensionContext canPerformRegistrationCompletion:v6];
+    [SORemoteExtensionContext canPerformRegistrationCompletion:v7];
   }
 
   completionCopy[2](completionCopy, 0);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_disableAppSSOInCFNetwork
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v3 = SO_LOG_SORemoteExtensionContext();
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = SO_LOG_SORemoteExtensionContext(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "[SORemoteExtensionContext _disableAppSSOInCFNetwork]";
-    v7 = 2112;
+    v4 = 136315394;
+    v5 = "[SORemoteExtensionContext _disableAppSSOInCFNetwork]";
+    v6 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_1C1317000, v3, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v5, 0x16u);
+    _os_log_impl(&dword_1C1317000, v3, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v4, 0x16u);
   }
 
   [MEMORY[0x1E696AF78] _disableAppSSO];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)supportedDeviceSigningAlgorithmsCompletion:(id)completion
 {
   completionCopy = completion;
-  v4 = SO_LOG_SORemoteExtensionContext();
+  v4 = SO_LOG_SORemoteExtensionContext(completionCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -1142,7 +1115,7 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
 - (void)supportedDeviceEncryptionAlgorithmsCompletion:(id)completion
 {
   completionCopy = completion;
-  v4 = SO_LOG_SORemoteExtensionContext();
+  v4 = SO_LOG_SORemoteExtensionContext(completionCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -1158,7 +1131,7 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
 - (void)supportedUserSecureEnclaveKeySigningAlgorithmsCompletion:(id)completion
 {
   completionCopy = completion;
-  v4 = SO_LOG_SORemoteExtensionContext();
+  v4 = SO_LOG_SORemoteExtensionContext(completionCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -1174,7 +1147,7 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
 - (void)keyWillRotateForKeyType:(int64_t)type keyProxyEndpoint:(id)endpoint extensionData:(id)data completion:(id)completion
 {
   completionCopy = completion;
-  v7 = SO_LOG_SORemoteExtensionContext();
+  v7 = SO_LOG_SORemoteExtensionContext(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -1191,7 +1164,7 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
 {
   v14 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v7 = SO_LOG_SORemoteExtensionContext();
+  v7 = SO_LOG_SORemoteExtensionContext(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 136315394;
@@ -1201,26 +1174,24 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
     _os_log_impl(&dword_1C1317000, v7, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v10, 0x16u);
   }
 
-  v8 = SO_LOG_SORemoteExtensionContext();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = SO_LOG_SORemoteExtensionContext(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v10) = 0;
-    _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "extension PSSO API displayNamesForGroups is not implemented in extension", &v10, 2u);
+    _os_log_impl(&dword_1C1317000, v9, OS_LOG_TYPE_DEFAULT, "extension PSSO API displayNamesForGroups is not implemented in extension", &v10, 2u);
   }
 
   if (completionCopy)
   {
     completionCopy[2](completionCopy, 0);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)profilePictureForUserUsingExtensionData:(id)data completion:(id)completion
 {
   v13 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v6 = SO_LOG_SORemoteExtensionContext();
+  v6 = SO_LOG_SORemoteExtensionContext(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315394;
@@ -1230,19 +1201,17 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
     _os_log_impl(&dword_1C1317000, v6, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v9, 0x16u);
   }
 
-  v7 = SO_LOG_SORemoteExtensionContext();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = SO_LOG_SORemoteExtensionContext(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v9) = 0;
-    _os_log_impl(&dword_1C1317000, v7, OS_LOG_TYPE_DEFAULT, "extension PSSO API profilePictureForUser is not implemented in extension", &v9, 2u);
+    _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "extension PSSO API profilePictureForUser is not implemented in extension", &v9, 2u);
   }
 
   if (completionCopy)
   {
     completionCopy[2](completionCopy, 0);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (SOExtensionViewService)viewService
@@ -1252,111 +1221,28 @@ void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invok
   return WeakRetained;
 }
 
-- (void)extensionAuthorizationRequestHandlerWithError:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_1C1317000, v0, v1, "Failed to get extension principalClass for principalClassName: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)extensionAuthorizationRequestHandlerWithError:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_1C1317000, v0, v1, "Failed to instantiate initial view controller from storyboard: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)extensionAuthorizationRequestHandlerWithError:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_1C1317000, v0, v1, "Failed to get NSExtensionPrincipalClass or NSExtensionMainStoryboard: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __49__SORemoteExtensionContext_hostContextWithError___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_1C1317000, v0, v1, "Error getting host context %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __60__SORemoteExtensionContext_synchronousHostContextWithError___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_1C1317000, v0, v1, "Error getting synchronous host context %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void __79__SORemoteExtensionContext_beginAuthorizationWithRequestParameters_completion___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v0 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_6(v1) identifier];
+  v1 = [OUTLINED_FUNCTION_6(v0) identifier];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_1C1317000, v3, v4, "calling extension API beginAuthorizationWithRequest, requestIdentifier = %{public}@ %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1C1317000, v2, v3, "calling extension API beginAuthorizationWithRequest, requestIdentifier = %{public}@ %{public}@", v4, v5, v6, v7);
 }
 
 void __79__SORemoteExtensionContext_beginAuthorizationWithRequestParameters_completion___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_4();
-  v0 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_6(v1) identifier];
+  v1 = [OUTLINED_FUNCTION_6(v0) identifier];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_1C1317000, v3, v4, "finished extension API beginAuthorizationWithRequest, requestIdentifier = %{public}@, %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1C1317000, v2, v3, "finished extension API beginAuthorizationWithRequest, requestIdentifier = %{public}@, %{public}@", v4, v5, v6, v7);
 }
 
 void __80__SORemoteExtensionContext_beginAuthorizationWithServiceXPCEndpoint_completion___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v0 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_6(v1) identifier];
+  v1 = [OUTLINED_FUNCTION_6(v0) identifier];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_1C1317000, v3, v4, "calling extension API beginAuthorizationWithRequest, requestIdentifier = %{public}@, %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 32);
-  OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __59__SORemoteExtensionContext_cancelAuthorization_completion___block_invoke_cold_2(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)openURL:completionHandler:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_1C1317000, v0, v1, "failed to get host context to open URL, error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)canOpenURL:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_1C1317000, v0, v1, "failed to get synchronous host context to open URL, error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1C1317000, v2, v3, "calling extension API beginAuthorizationWithRequest, requestIdentifier = %{public}@, %{public}@", v4, v5, v6, v7);
 }
 
 @end

@@ -47,7 +47,7 @@
 
 - (NLModelImplM)initWithModelData:(id)data configuration:(id)configuration labelMap:(id)map vocabularyMap:(id)vocabularyMap documentFrequencyMap:(id)frequencyMap customEmbeddingData:(id)embeddingData trainingInfo:(id)info error:(id *)self0
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   mapCopy = map;
   vocabularyMapCopy = vocabularyMap;
@@ -66,16 +66,15 @@
     if (error)
     {
       v21 = MEMORY[0x1E696ABC0];
-      v25 = *MEMORY[0x1E696A578];
-      v26[0] = @"Failed to load model file, invalid RNN model data";
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+      v24 = *MEMORY[0x1E696A578];
+      v25[0] = @"Failed to load model file, invalid RNN model data";
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
       *error = [v21 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:1 userInfo:v22];
     }
 
     selfCopy = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -120,7 +119,7 @@
   mrlModel = self->_mrlModel;
   if (mrlModel)
   {
-    mrlModel = dataFromMRLModel();
+    mrlModel = dataFromMRLModel(mrlModel);
     v2 = vars8;
   }
 

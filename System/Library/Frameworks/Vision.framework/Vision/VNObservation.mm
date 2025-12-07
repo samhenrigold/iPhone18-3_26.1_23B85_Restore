@@ -240,7 +240,7 @@ LABEL_20:
         *&range1.duration.timescale = *&self->_timeRange.duration.timescale;
         if (v5)
         {
-          [(VNObservation *)v5 timeRange];
+          objc_msgSend_timeRange(v5);
         }
 
         else
@@ -300,7 +300,7 @@ LABEL_20:
   [(VNObservation *)self confidence];
   [v3 appendFormat:@" confidence=%f", v7];
   memset(&v14, 0, sizeof(v14));
-  [(VNObservation *)self timeRange];
+  objc_msgSend_timeRange(self);
   range1 = v14;
   v8 = *(MEMORY[0x1E6960CA8] + 16);
   *&range2.start.value = *MEMORY[0x1E6960CA8];
@@ -426,7 +426,7 @@ LABEL_12:
   self->_confidence = v17;
   if (coderCopy)
   {
-    [coderCopy vn_decodeTimeRangeForKey:@"timeRange"];
+    objc_msgSend_vn_decodeTimeRangeForKey_(coderCopy);
   }
 
   else

@@ -18,7 +18,7 @@
     appBundleIdentifier = v5->_appBundleIdentifier;
     v5->_appBundleIdentifier = v6;
 
-    v8 = sub_100016348();
+    v8 = sub_100016348(NSSet);
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"appStoreMetadata"];
     appStoreMetadata = v5->_appStoreMetadata;
     v5->_appStoreMetadata = v9;

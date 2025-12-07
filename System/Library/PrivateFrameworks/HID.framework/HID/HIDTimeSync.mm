@@ -139,50 +139,45 @@ LABEL_8:
 
 - (void)setEventHandler:(id)handler
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (atomic_load(&self->_state))
   {
-    [(HIDTimeSync *)&self->_state setEventHandler:v11];
+    [(HIDTimeSync *)&self->_state setEventHandler:v10];
   }
 
-  v9 = handlerCopy;
+  v8 = handlerCopy;
   v6 = _Block_copy(handlerCopy);
   eventHandler = self->_eventHandler;
   self->_eventHandler = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDispatchQueue:(id)queue
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   if (atomic_load(&self->_state))
   {
-    [(HIDTimeSync *)&self->_state setEventHandler:v9];
+    [(HIDTimeSync *)&self->_state setEventHandler:v8];
   }
 
   queue = self->_queue;
   self->_queue = queueCopy;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCancelHandler:(id)handler
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (atomic_load(&self->_state))
   {
-    [(HIDTimeSync *)&self->_state setEventHandler:v11];
+    [(HIDTimeSync *)&self->_state setEventHandler:v10];
   }
 
-  v9 = handlerCopy;
+  v8 = handlerCopy;
   v6 = _Block_copy(handlerCopy);
   cancelHandler = self->_cancelHandler;
   self->_cancelHandler = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activate
@@ -190,8 +185,8 @@ LABEL_8:
   OUTLINED_FUNCTION_5(self, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0_0(v2, v3, v4, v5, &dword_22DF7D000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -207,8 +202,8 @@ void __23__HIDTimeSync_activate__block_invoke(uint64_t a1)
   OUTLINED_FUNCTION_1_0(self, a2, a3);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3();
+  v7 = OUTLINED_FUNCTION_0_0(v3, v4, v5, v6, &dword_22DF7D000);
+  OUTLINED_FUNCTION_3(v7);
   __break(1u);
 }
 
@@ -230,7 +225,6 @@ uint64_t __21__HIDTimeSync_cancel__block_invoke(uint64_t a1)
   os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
   atomic_load(a3);
   _os_log_send_and_compose_impl();
-  v5 = *self;
   _os_crash_msg();
   __break(1u);
 }
@@ -269,14 +263,14 @@ uint64_t __21__HIDTimeSync_cancel__block_invoke(uint64_t a1)
   v4 = IORegistryEntryIDMatching(d);
   if (!v4)
   {
-    +[HIDTimeSync findDeviceForServiceID:];
+    [HIDTimeSync findDeviceForServiceID:d];
     return 0;
   }
 
   MatchingService = IOServiceGetMatchingService(*MEMORY[0x277CD2898], v4);
   if (!MatchingService)
   {
-    +[HIDTimeSync findDeviceForServiceID:];
+    [HIDTimeSync findDeviceForServiceID:d];
     return 0;
   }
 
@@ -457,60 +451,55 @@ LABEL_13:
   OUTLINED_FUNCTION_1_0(a1, a2, a3);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3();
+  v7 = OUTLINED_FUNCTION_0_0(v3, v4, v5, v6, &dword_22DF7D000);
+  OUTLINED_FUNCTION_3(v7);
   __break(1u);
 }
 
 + (void)findDeviceForServiceID:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_22DF7D000, a2, OS_LOG_TYPE_ERROR, "Failed to create iterator for ID 0x%llx", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_22DF7D000, a2, OS_LOG_TYPE_ERROR, "Failed to create iterator for ID 0x%llx", &v2, 0xCu);
 }
 
 + (void)findDeviceForServiceID:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_22DF7D000, a2, OS_LOG_TYPE_ERROR, "Failed find device for ID 0x%llx", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_22DF7D000, a2, OS_LOG_TYPE_ERROR, "Failed find device for ID 0x%llx", &v2, 0xCu);
 }
 
-+ (void)findDeviceForServiceID:.cold.3()
++ (void)findDeviceForServiceID:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = _IOHIDLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = _IOHIDLog();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_6(&dword_22DF7D000, v1, v2, "Failed to get service for ID 0x%llx", v3, v4, v5, v6, 0);
+    LODWORD(v9) = 134217984;
+    *(&v9 + 4) = a1;
+    OUTLINED_FUNCTION_6(&dword_22DF7D000, v3, v4, "Failed to get service for ID 0x%llx", v5, v6, v7, v8, v9, DWORD2(v9));
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-+ (void)findDeviceForServiceID:.cold.4()
++ (void)findDeviceForServiceID:(uint64_t)a1 .cold.4(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = _IOHIDLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = _IOHIDLog();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_6(&dword_22DF7D000, v1, v2, "Failed to get matching for ID 0x%llx", v3, v4, v5, v6, 0);
+    LODWORD(v9) = 134217984;
+    *(&v9 + 4) = a1;
+    OUTLINED_FUNCTION_6(&dword_22DF7D000, v3, v4, "Failed to get matching for ID 0x%llx", v5, v6, v7, v8, v9, DWORD2(v9));
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerPropertyNotification:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_22DF7D000, a2, OS_LOG_TYPE_ERROR, "IOServiceAddInterestNotification 0x%x", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_22DF7D000, a2, OS_LOG_TYPE_ERROR, "IOServiceAddInterestNotification 0x%x", v2, 8u);
 }
 
 @end

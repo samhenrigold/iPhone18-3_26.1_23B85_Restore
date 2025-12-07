@@ -185,7 +185,7 @@
 
 - (void)preparingSync
 {
-  v3 = sub_10005318C();
+  v3 = sub_10005318C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v5 = 138477827;
@@ -199,7 +199,7 @@
 
 - (void)completedPreparingSync
 {
-  v3 = sub_10005318C();
+  v3 = sub_10005318C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v6 = 138477827;
@@ -216,7 +216,7 @@
 
 - (void)_completedInitialSync
 {
-  v3 = sub_10005318C();
+  v3 = sub_10005318C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v6 = 138477827;
@@ -233,7 +233,7 @@
 
 - (void)completedSync
 {
-  v3 = sub_10005318C();
+  v3 = sub_10005318C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     waitingOnInitialSyncLock = self->_waitingOnInitialSyncLock;
@@ -247,8 +247,7 @@
   [(NSLock *)self->_waitingOnInitialSyncLock lock];
   self->_waitingOnInternalInitialSync = 0;
   waitingOnDelegateInitialSync = self->_waitingOnDelegateInitialSync;
-  [(NSLock *)self->_waitingOnInitialSyncLock unlock];
-  v6 = sub_10005318C();
+  v6 = sub_10005318C([(NSLock *)self->_waitingOnInitialSyncLock unlock]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = self->_waitingOnDelegateInitialSync;
@@ -320,15 +319,15 @@
   waitingOnInitialSyncLock = self->_waitingOnInitialSyncLock;
   self->_waitingOnInitialSyncLock = v11;
 
-  v13 = sub_10005318C();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = sub_10005318C(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v14 = self->_waitingOnInitialSyncLock;
+    v15 = self->_waitingOnInitialSyncLock;
     *buf = 138478083;
-    v23 = @"beginSync";
-    v24 = 2113;
-    v25 = v14;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "com.apple.pairedsync.mapssync sync:%{private}@ (lock:%{private}@)", buf, 0x16u);
+    v25 = @"beginSync";
+    v26 = 2113;
+    v27 = v15;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "com.apple.pairedsync.mapssync sync:%{private}@ (lock:%{private}@)", buf, 0x16u);
   }
 
   self->_waitingOnInternalInitialSync = 1;
@@ -337,24 +336,24 @@
   if (WeakRetained)
   {
     self->_waitingOnDelegateInitialSync = 1;
-    v16 = sub_10005318C();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v18 = sub_10005318C(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v17 = self->_waitingOnInitialSyncLock;
+      v19 = self->_waitingOnInitialSyncLock;
       *buf = 138478083;
-      v23 = @"beginDelegateSync";
-      v24 = 2113;
-      v25 = v17;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "com.apple.pairedsync.mapssync sync:%{private}@ (lock:%{private}@)", buf, 0x16u);
+      v25 = @"beginDelegateSync";
+      v26 = 2113;
+      v27 = v19;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "com.apple.pairedsync.mapssync sync:%{private}@ (lock:%{private}@)", buf, 0x16u);
     }
 
-    v18 = objc_loadWeakRetained(&self->_delegate);
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_100031F68;
-    v21[3] = &unk_100086278;
-    v21[4] = self;
-    [v18 syncManager:self didRequestInitialSync:v21];
+    v20 = objc_loadWeakRetained(&self->_delegate);
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_100031F68;
+    v23[3] = &unk_100086278;
+    v23[4] = self;
+    [v20 syncManager:self didRequestInitialSync:v23];
   }
 
   else
@@ -362,15 +361,15 @@
     self->_waitingOnDelegateInitialSync = 0;
   }
 
-  v19 = sub_10005318C();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v21 = sub_10005318C(v17);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
-    v20 = self->_waitingOnInitialSyncLock;
+    v22 = self->_waitingOnInitialSyncLock;
     *buf = 138478083;
-    v23 = @"beginInternalSync";
-    v24 = 2113;
-    v25 = v20;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "com.apple.pairedsync.mapssync sync:%{private}@ (lock:%{private}@)", buf, 0x16u);
+    v25 = @"beginInternalSync";
+    v26 = 2113;
+    v27 = v22;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "com.apple.pairedsync.mapssync sync:%{private}@ (lock:%{private}@)", buf, 0x16u);
   }
 
   [(NMCSyncManager *)self setNeedsFullSync];

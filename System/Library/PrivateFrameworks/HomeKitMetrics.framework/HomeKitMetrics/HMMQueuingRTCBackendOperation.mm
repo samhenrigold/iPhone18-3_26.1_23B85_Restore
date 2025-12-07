@@ -88,23 +88,23 @@
 
 void __38__HMMQueuingRTCBackendOperation_start__block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3)
   {
-    v24 = v3;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
+    v23 = v3;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     obj = [*(a1 + 32) messages];
-    v5 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v5 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v5)
     {
       v6 = v5;
-      v27 = *v29;
-      v26 = *MEMORY[0x277D43FF0];
+      v26 = *v28;
+      v25 = *MEMORY[0x277D43FF0];
       v7 = *MEMORY[0x277D44008];
       v8 = *MEMORY[0x277D44000];
       v9 = *MEMORY[0x277D43FF8];
@@ -112,20 +112,20 @@ void __38__HMMQueuingRTCBackendOperation_start__block_invoke(uint64_t a1, void *
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v29 != v27)
+          if (*v28 != v26)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v28 + 1) + 8 * i);
+          v11 = *(*(&v27 + 1) + 8 * i);
           v12 = *(a1 + 40);
           v13 = [*(a1 + 32) isRealtime];
-          v33[0] = v26;
-          v33[1] = v7;
+          v32[0] = v25;
+          v32[1] = v7;
           *buf = &unk_283EF3CA8;
           *&buf[8] = &unk_283EF3CA8;
-          v33[2] = v8;
-          v33[3] = v9;
+          v32[2] = v8;
+          v32[3] = v9;
           v14 = &unk_283EF3CC0;
           if (v13)
           {
@@ -133,21 +133,21 @@ void __38__HMMQueuingRTCBackendOperation_start__block_invoke(uint64_t a1, void *
           }
 
           *&buf[16] = v11;
-          v35 = v14;
+          v34 = v14;
           v15 = MEMORY[0x277CBEAC0];
           v16 = v11;
-          v17 = [v15 dictionaryWithObjects:buf forKeys:v33 count:4];
+          v17 = [v15 dictionaryWithObjects:buf forKeys:v32 count:4];
 
           [v12 sendMessageWithDictionary:v17 error:0];
         }
 
-        v6 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v6 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v6);
     }
 
-    v4 = v24;
+    v4 = v23;
   }
 
   else
@@ -170,8 +170,6 @@ void __38__HMMQueuingRTCBackendOperation_start__block_invoke(uint64_t a1, void *
   }
 
   [*(a1 + 32) changeOperationState:2];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (HMMQueuingRTCBackendOperation)initWithMessages:(id)messages serviceName:(id)name sessionUUID:(id)d isRealtime:(BOOL)realtime rtcFactory:(id)factory staleSessionBlock:(id)block
@@ -216,7 +214,6 @@ void __38__HMMQueuingRTCBackendOperation_start__block_invoke(uint64_t a1, void *
 
 uint64_t __44__HMMQueuingRTCBackendOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1C0];
   logCategory__hmf_once_v10 = HMFCreateOSLogHandle();
 
   return MEMORY[0x2821F96F8]();

@@ -1099,7 +1099,7 @@ LABEL_13:
   [v7 setStepEndPathPointIndex:{objc_msgSend(stepCopy, "endRouteCoordinate")}];
   [v7 setStepEndPathPointOffset:{COERCE_FLOAT(objc_msgSend(stepCopy, "endRouteCoordinate") >> 32)}];
   [v7 setManeuverType:{objc_msgSend(stepCopy, "maneuverType")}];
-  [v7 setExpectedTime:{objc_msgSend(stepCopy, "duration")}];
+  [v7 setExpectedTime:objc_msgSend_duration(stepCopy)];
   etauResponseID = [routeCopy etauResponseID];
 
   if (etauResponseID)

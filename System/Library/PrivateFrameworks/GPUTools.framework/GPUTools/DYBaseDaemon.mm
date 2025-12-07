@@ -1,4 +1,5 @@
 @interface DYBaseDaemon
+- (BOOL)createInferiorTransportAndSetEnvironment:(id)environment withAPI:(unsigned int)i uniqueIdentifier:(id)identifier error:(id *)error;
 - (DYBaseDaemon)init;
 - (void)dealloc;
 - (void)handleMessage:(id)message;
@@ -80,35 +81,88 @@ _BYTE *__31__DYBaseDaemon_observeInferior__block_invoke_2(uint64_t a1)
   return result;
 }
 
+- (BOOL)createInferiorTransportAndSetEnvironment:(id)environment withAPI:(unsigned int)i uniqueIdentifier:(id)identifier error:(id *)error
+{
+  selfCopy = self;
+  [(DYBaseDaemon *)self setCaptureApiSupport:[(DYBaseDaemon *)self captureAPISupportForAPI:*&i]];
+  if (i || (DYCheckGLDispatchTableSize() & 1) != 0)
+  {
+    v11 = [(DYBaseSocketTransport *)selfCopy->_transport createNewSharedMemoryTransportWithUniqueIdentifier:identifier loadCapture:selfCopy->_shouldLoadCapture loadDiagnostics:selfCopy->_shouldLoadDiagnostics];
+    v13 = v12;
+    absoluteString = [v11 absoluteString];
+    absoluteString2 = [v13 absoluteString];
+    if (selfCopy->_shouldLoadCapture)
+    {
+      if (!absoluteString)
+      {
+        selfCopy = selfCopy->_transport;
+        DYLog(*MEMORY[0x277D0B230], "failed to get host transport URL for Interposer <transport %p, %s>", selfCopy, [-[DYBaseDaemon debugDescription](selfCopy "debugDescription")]);
+        dy_abort("failed to get Interposer host transport URL from shared memory transport");
+LABEL_15:
+        DYLog(*MEMORY[0x277D0B230], "failed to get host transport URL for Diagnostics <transport %p, %s>", selfCopy->_transport, [-[DYBaseSocketTransport debugDescription](selfCopy->_transport "debugDescription")]);
+        v18 = dy_abort("failed to get Diagnostrics host transport URL from shared memory transport");
+        [(DYBaseDaemon *)v18 run];
+        return result;
+      }
+
+      [environment setObject:absoluteString forKeyedSubscript:{-[DYCaptureAPISupport transportEnvironmentVariable](-[DYBaseDaemon captureApiSupport](selfCopy, "captureApiSupport"), "transportEnvironmentVariable")}];
+      [(DYCaptureAPISupport *)selfCopy->_captureApiSupport interposeDylibPath];
+      DYAppendInsertLibrary();
+    }
+
+    if (!selfCopy->_shouldLoadDiagnostics || ![-[DYCaptureAPISupport diagnosticsDylibPath](selfCopy->_captureApiSupport "diagnosticsDylibPath")])
+    {
+      return 1;
+    }
+
+    if (absoluteString2)
+    {
+      [environment setObject:absoluteString2 forKeyedSubscript:{-[DYCaptureAPISupport diagnosticsTransportEnvironmentVariable](-[DYBaseDaemon captureApiSupport](selfCopy, "captureApiSupport"), "diagnosticsTransportEnvironmentVariable")}];
+      DYAppendInsertLibrary();
+      return 1;
+    }
+
+    goto LABEL_15;
+  }
+
+  if (!error)
+  {
+    return 0;
+  }
+
+  v17 = [MEMORY[0x277D0AFC0] errorWithDomain:*MEMORY[0x277D0AFB8] code:517 userInfo:0];
+  result = 0;
+  *error = v17;
+  return result;
+}
+
 - (void)run
 {
   v3 = [(DYBaseSocketTransport *)self->_transport newSourceWithQueue:MEMORY[0x277D85CD0]];
   if (!v3)
   {
-    v4 = *MEMORY[0x277D0B240];
-    v5 = [objc_msgSend(-[DYBaseSocketTransport error](self->_transport "error")];
-    DYLog();
-    [(DYBaseDaemon *)self terminate:1, v5];
+    DYLog(*MEMORY[0x277D0B240], "failed to create transport source: %s", [objc_msgSend(-[DYBaseSocketTransport error](self->_transport "error")]);
+    [(DYBaseDaemon *)self terminate:1];
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __19__DYBaseDaemon_run__block_invoke;
-  v8[3] = &unk_279309890;
-  v8[4] = self;
-  [v3 setCancellationHandler:v8];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __19__DYBaseDaemon_run__block_invoke_2;
-  v7[3] = &unk_279309D68;
-  v7[4] = self;
-  [v3 setMessageHandler:v7];
   v6[0] = MEMORY[0x277D85DD0];
   v6[1] = 3221225472;
-  v6[2] = __19__DYBaseDaemon_run__block_invoke_3;
+  v6[2] = __19__DYBaseDaemon_run__block_invoke;
   v6[3] = &unk_279309890;
   v6[4] = self;
-  [v3 setRegistrationHandler:v6];
+  [v3 setCancellationHandler:v6];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __19__DYBaseDaemon_run__block_invoke_2;
+  v5[3] = &unk_279309D68;
+  v5[4] = self;
+  [v3 setMessageHandler:v5];
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __19__DYBaseDaemon_run__block_invoke_3;
+  v4[3] = &unk_279309890;
+  v4[4] = self;
+  [v3 setRegistrationHandler:v4];
   [v3 resume];
   self->_source = v3;
 }
@@ -132,15 +186,14 @@ void __19__DYBaseDaemon_run__block_invoke_2(uint64_t a1, id a2)
   [*(a1 + 32) handleMessage:a2];
 }
 
-uint64_t __19__DYBaseDaemon_run__block_invoke_3(uint64_t a1)
+_BYTE *__19__DYBaseDaemon_run__block_invoke_3(uint64_t a1)
 {
   result = [objc_msgSend(*(*(a1 + 32) + 40) "connect")];
   if ((result & 1) == 0)
   {
-    v3 = *MEMORY[0x277D0B240];
-    DYLog();
+    DYLog(*MEMORY[0x277D0B240], "failed to connect transport");
     result = *(a1 + 32);
-    if ((*(result + 24) & 1) == 0)
+    if ((result[24] & 1) == 0)
     {
 
       return [result terminate:1];
@@ -194,9 +247,9 @@ uint64_t __19__DYBaseDaemon_run__block_invoke_3(uint64_t a1)
       }
 
 LABEL_29:
-      v18 = self->_transport;
+      v20 = self->_transport;
 
-      [(DYBaseSocketTransport *)v18 relayMessageOverSharedMemoryTransport:message error:0];
+      [(DYBaseSocketTransport *)v20 relayMessageOverSharedMemoryTransport:message error:0];
       return;
     }
 
@@ -206,17 +259,17 @@ LABEL_29:
       [(DYBaseDaemon *)self terminate:1];
     }
 
-    v19 = objc_opt_new();
+    v21 = objc_opt_new();
     *target_task = 0;
     if (self->_inferiorPid)
     {
-      v25 = [MEMORY[0x277D0AFC0] errorWithDomain:*MEMORY[0x277D0AFB8] code:516 userInfo:0];
-      v26 = 0;
-      *target_task = v25;
-      if (!v25)
+      v27 = [MEMORY[0x277D0AFC0] errorWithDomain:*MEMORY[0x277D0AFB8] code:516 userInfo:0];
+      v28 = 0;
+      *target_task = v27;
+      if (!v27)
       {
 LABEL_45:
-        -[DYBaseSocketTransport send:inReplyTo:error:](self->_transport, "send:inReplyTo:error:", [MEMORY[0x277D0AFE0] messageWithKind:1280 attributes:v19 objectPayload:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithBool:", v26)}], message, 0);
+        -[DYBaseSocketTransport send:inReplyTo:error:](self->_transport, "send:inReplyTo:error:", [MEMORY[0x277D0AFE0] messageWithKind:1280 attributes:v21 objectPayload:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithBool:", v28)}], message, 0);
 LABEL_50:
 
         return;
@@ -226,22 +279,22 @@ LABEL_50:
     else
     {
       v36 = 0;
-      v26 = [(DYBaseDaemon *)self launchInferior:plistPayload finalEnvironment:&v36 error:target_task];
+      v28 = [(DYBaseDaemon *)self launchInferior:plistPayload finalEnvironment:&v36 error:target_task];
       if (v36)
       {
-        [v19 setObject:v36 forKey:@"final environment"];
+        [v21 setObject:v36 forKey:@"final environment"];
       }
 
-      v25 = *target_task;
+      v27 = *target_task;
       if (!*target_task)
       {
         goto LABEL_45;
       }
     }
 
-    [v19 setObject:objc_msgSend(v25 forKey:{"domain"), @"error domain"}];
-    [v19 setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithInteger:", objc_msgSend(*target_task, "code")), @"error code"}];
-    [v19 setObject:objc_msgSend(*target_task forKey:{"localizedDescription"), @"error description"}];
+    [v21 setObject:objc_msgSend(v27 forKey:{"domain"), @"error domain"}];
+    [v21 setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithInteger:", objc_msgSend(*target_task, "code")), @"error code"}];
+    [v21 setObject:objc_msgSend(*target_task forKey:{"localizedDescription"), @"error description"}];
     goto LABEL_45;
   }
 
@@ -262,19 +315,19 @@ LABEL_50:
           {
             v13 = *MEMORY[0x277D0B240];
             v14 = self->_inferiorPid;
-            v34 = mach_error_string(v11);
-            DYLog();
-            [(DYBaseDaemon *)self terminate:1, v14, v34];
+            v15 = mach_error_string(v11);
+            DYLog(v13, "failed to get task port for process %d: %s", v14, v15);
+            [(DYBaseDaemon *)self terminate:1];
           }
 
-          v15 = task_resume(target_task[0]);
-          if (v15)
+          v16 = task_resume(target_task[0]);
+          if (v16)
           {
-            v16 = *v12;
-            v17 = self->_inferiorPid;
-            v35 = mach_error_string(v15);
-            DYLog();
-            [(DYBaseDaemon *)self terminate:1, v17, v35];
+            v17 = *v12;
+            v18 = self->_inferiorPid;
+            v19 = mach_error_string(v16);
+            DYLog(v17, "failed resume task for process %d: %s", v18, v19);
+            [(DYBaseDaemon *)self terminate:1];
           }
         }
 
@@ -284,28 +337,28 @@ LABEL_50:
       goto LABEL_29;
     }
 
-    v19 = objc_opt_new();
+    v21 = objc_opt_new();
     *target_task = 0;
     if (self->_inferiorPid)
     {
-      v20 = [MEMORY[0x277D0AFC0] errorWithDomain:*MEMORY[0x277D0AFB8] code:516 userInfo:0];
-      v21 = 0;
-      *target_task = v20;
-      if (!v20)
+      v22 = [MEMORY[0x277D0AFC0] errorWithDomain:*MEMORY[0x277D0AFB8] code:516 userInfo:0];
+      v23 = 0;
+      *target_task = v22;
+      if (!v22)
       {
 LABEL_38:
-        v22 = objc_alloc(MEMORY[0x277D0AFE0]);
-        if (v21)
+        v24 = objc_alloc(MEMORY[0x277D0AFE0]);
+        if (v23)
         {
-          v23 = [v22 initWithKind:1286 attributes:v19 plistPayload:v21];
+          v25 = [v24 initWithKind:1286 attributes:v21 plistPayload:v23];
         }
 
         else
         {
-          v23 = [v22 initWithKind:1286 attributes:v19 payload:0];
+          v25 = [v24 initWithKind:1286 attributes:v21 payload:0];
         }
 
-        [(DYBaseSocketTransport *)self->_transport send:v23 inReplyTo:message error:0];
+        [(DYBaseSocketTransport *)self->_transport send:v25 inReplyTo:message error:0];
 
         goto LABEL_50;
       }
@@ -316,33 +369,33 @@ LABEL_38:
       plistPayload2 = [message plistPayload];
       if ([plistPayload2 objectForKey:*MEMORY[0x277D0B208]])
       {
-        v28 = [objc_msgSend(plistPayload2 objectForKeyedSubscript:{*MEMORY[0x277D0B1E0]), "BOOLValue"}];
+        v30 = [objc_msgSend(plistPayload2 objectForKeyedSubscript:{*MEMORY[0x277D0B1E0]), "BOOLValue"}];
       }
 
       else
       {
-        v28 = 1;
+        v30 = 1;
       }
 
-      self->_shouldLoadCapture = v28;
+      self->_shouldLoadCapture = v30;
       self->_shouldLoadDiagnostics = [objc_msgSend(plistPayload2 objectForKeyedSubscript:{*MEMORY[0x277D0B1F0]), "BOOLValue"}];
-      v21 = [objc_msgSend(plistPayload2 objectForKey:{*MEMORY[0x277D0B1F8]), "mutableCopy"}];
-      v32 = [v21 objectForKey:@"GPUTOOLS_LOAD_GTMTLCAPTURE"];
-      v33 = [plistPayload2 objectForKey:*MEMORY[0x277D0B218]];
-      [v32 intValue];
+      v23 = [objc_msgSend(plistPayload2 objectForKey:{*MEMORY[0x277D0B1F8]), "mutableCopy"}];
+      v34 = [v23 objectForKey:@"GPUTOOLS_LOAD_GTMTLCAPTURE"];
+      v35 = [plistPayload2 objectForKey:*MEMORY[0x277D0B218]];
+      [v34 intValue];
       DYSetGTMTLCaptureMode();
-      [(DYBaseDaemon *)self createInferiorTransportAndSetEnvironment:v21 uniqueIdentifier:v33 error:target_task];
+      [(DYBaseDaemon *)self createInferiorTransportAndSetEnvironment:v23 uniqueIdentifier:v35 error:target_task];
       DYModifyEnvironmentForDualCaptureSupport();
-      v20 = *target_task;
+      v22 = *target_task;
       if (!*target_task)
       {
         goto LABEL_38;
       }
     }
 
-    [v19 setObject:objc_msgSend(v20 forKey:{"domain"), @"error domain"}];
-    [v19 setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithInteger:", objc_msgSend(*target_task, "code")), @"error code"}];
-    [v19 setObject:objc_msgSend(*target_task forKey:{"localizedDescription"), @"error description"}];
+    [v21 setObject:objc_msgSend(v22 forKey:{"domain"), @"error domain"}];
+    [v21 setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithInteger:", objc_msgSend(*target_task, "code")), @"error code"}];
+    [v21 setObject:objc_msgSend(*target_task forKey:{"localizedDescription"), @"error description"}];
     goto LABEL_38;
   }
 
@@ -360,10 +413,10 @@ LABEL_38:
       else
       {
         getApplications = [(DYBaseDaemon *)self getApplications];
-        v30 = [MEMORY[0x277D0AFE0] messageWithKind:1284 plistPayload:getApplications];
-        v31 = self->_transport;
+        v32 = [MEMORY[0x277D0AFE0] messageWithKind:1284 plistPayload:getApplications];
+        v33 = self->_transport;
 
-        [(DYBaseSocketTransport *)v31 send:v30 inReplyTo:message error:0];
+        [(DYBaseSocketTransport *)v33 send:v32 inReplyTo:message error:0];
       }
 
       return;

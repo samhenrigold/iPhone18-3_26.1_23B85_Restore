@@ -135,7 +135,7 @@
   v3 = *&self->BPSListController_opaque[OBJC_IVAR___PSListController__specifiers];
   if (!v3)
   {
-    v111 = OBJC_IVAR___PSListController__specifiers;
+    v110 = OBJC_IVAR___PSListController__specifiers;
     v4 = [(COSSoundsController *)self loadSpecifiersFromPlistName:@"Sounds" target:self];
     v5 = [v4 specifierForID:@"audio_slider"];
     audioSlider = self->_audioSlider;
@@ -163,23 +163,23 @@
     self->_contextualVolumeProfile = v15;
 
     activeWatch = [UIApp activeWatch];
-    v110 = [v4 indexOfSpecifierWithID:@"haptic_group_id"];
+    v109 = [v4 indexOfSpecifierWithID:@"haptic_group_id"];
     v18 = [[NSUUID alloc] initWithUUIDString:@"5DA2E6C5-2C4D-444E-B3E8-CCDEF7AB41AB"];
     v19 = [activeWatch supportsCapability:v18];
 
-    v113 = activeWatch;
+    v112 = activeWatch;
     if (v19)
     {
       v20 = [v4 specifierForID:@"haptic_group_id"];
-      [v4 removeObject:v20];
+      objc_msgSend_removeObject_(v4);
 
       v21 = [v4 specifierForID:@"haptic_slider"];
-      [v4 removeObject:v21];
+      objc_msgSend_removeObject_(v4);
 
       v22 = [v4 specifierForID:@"prominent_haptic_group_id"];
-      [v4 removeObject:v22];
+      objc_msgSend_removeObject_(v4);
 
-      [v4 removeObject:self->_prominentHapticSwitch];
+      objc_msgSend_removeObject_(v4);
       v23 = self->_prominentHapticSwitch;
       self->_prominentHapticSwitch = 0;
 
@@ -198,13 +198,13 @@
         v31 = [PSSpecifier preferenceSpecifierNamed:v30 target:self set:"setHapticState:specifier:" get:"hapticState:" detail:0 cell:6 edit:0];
 
         v32 = v28;
-        [v4 insertObject:v28 atIndex:v110];
-        v33 = v110 + 2;
-        [v4 insertObject:v31 atIndex:v110 + 1];
+        [v4 insertObject:v28 atIndex:v109];
+        v33 = v109 + 2;
+        [v4 insertObject:v31 atIndex:v109 + 1];
         if (hapticState >= 1)
         {
-          v105 = +[PSSpecifier emptyGroupSpecifier];
-          [v105 setProperty:&__kCFBooleanTrue forKey:PSIsRadioGroupKey];
+          v104 = +[PSSpecifier emptyGroupSpecifier];
+          [v104 setProperty:&__kCFBooleanTrue forKey:PSIsRadioGroupKey];
           v34 = +[NSBundle mainBundle];
           v35 = [v34 localizedStringForKey:@"DEFAULTS_HAPTIC_RADIO_TITLE" value:&stru_10026E598 table:@"Sounds"];
           v36 = [PSSpecifier preferenceSpecifierNamed:v35 target:0 set:0 get:0 detail:0 cell:3 edit:0];
@@ -230,14 +230,14 @@
             v42 = v41;
           }
 
-          [v105 setProperty:v42 forKey:PSRadioGroupCheckedSpecifierKey];
-          [v4 insertObject:v105 atIndex:v110 + 2];
-          [v4 insertObject:v36 atIndex:v110 + 3];
-          v33 = v110 + 5;
-          [v4 insertObject:v41 atIndex:v110 + 4];
+          [v104 setProperty:v42 forKey:PSRadioGroupCheckedSpecifierKey];
+          [v4 insertObject:v104 atIndex:v109 + 2];
+          [v4 insertObject:v36 atIndex:v109 + 3];
+          v33 = v109 + 5;
+          [v4 insertObject:v41 atIndex:v109 + 4];
         }
 
-        v110 = v33;
+        v109 = v33;
       }
     }
 
@@ -287,7 +287,7 @@
     }
 
     v63 = PSSliderRightImageKey;
-    v109 = imageFlippedForRightToLeftLayoutDirection;
+    v108 = imageFlippedForRightToLeftLayoutDirection;
     [(PSSpecifier *)*p_audioSlider setProperty:imageFlippedForRightToLeftLayoutDirection forKey:PSSliderRightImageKey];
     [(NACVolumeController *)self->_volumeController volumeValue];
     v65 = v64;
@@ -315,15 +315,15 @@
     [(PSSpecifier *)v71 setProperty:v72 forKey:PSValueKey];
 
     v73 = [[NSUUID alloc] initWithUUIDString:@"1E189BE1-6A71-44AA-B116-0066A83035E8"];
-    v74 = v113;
-    LODWORD(v72) = [v113 supportsCapability:v73];
+    v74 = v112;
+    LODWORD(v72) = [v112 supportsCapability:v73];
 
     v75 = v48;
     if (v72)
     {
-      v107 = v48;
+      v106 = v48;
       v76 = [[NSUUID alloc] initWithUUIDString:@"9B2FB519-D14B-49AB-BB91-67A6BF4E2B9A"];
-      if ([v113 supportsCapability:v76])
+      if ([v112 supportsCapability:v76])
       {
         v77 = +[NSBundle mainBundle];
         v78 = [v77 localizedStringForKey:@"SYSTEM_SOUNDS_AND_HAPTICS_GROUP_TITLE" value:&stru_10026E598 table:@"Sounds"];
@@ -335,7 +335,7 @@
         v79 = [PSSpecifier groupSpecifierWithID:@"JACKRABBIT_GROUP_ID" name:0];
       }
 
-      v106 = v79;
+      v105 = v79;
 
       v80 = +[NSBundle mainBundle];
       v81 = [v80 localizedStringForKey:@"JACKRABBIT_GROUP_FOOTER" value:&stru_10026E598 table:@"JackRabbitLocalizable-n1y1"];
@@ -347,8 +347,8 @@
       v85 = [PSSpecifier preferenceSpecifierNamed:v84 target:self set:"setJackrabbitState:specifier:" get:"jackrabbitState:" detail:0 cell:6 edit:0];
 
       [v85 setIdentifier:@"JACKRABBIT_ID"];
-      [v4 insertObject:v79 atIndex:v110];
-      [v4 insertObject:v85 atIndex:v110 + 1];
+      [v4 insertObject:v79 atIndex:v109];
+      [v4 insertObject:v85 atIndex:v109 + 1];
       v86 = [PSSpecifier groupSpecifierWithID:@"SYSTEM_HAPTICS_GROUP_ID"];
       v87 = +[NSBundle mainBundle];
       v88 = [v87 localizedStringForKey:@"SYSTEM_HAPTICS_DESCRIPTION" value:&stru_10026E598 table:@"Sounds"];
@@ -360,11 +360,11 @@
 
       [v91 setIdentifier:@"SYSTEM_HAPTICS_ID"];
       [v91 setProperty:@"com.apple.coreaudio.disable_watch_ui_haptics_did_change" forKey:PSValueChangedNotificationKey];
-      [v4 insertObject:v86 atIndex:v110 + 2];
-      [v4 insertObject:v91 atIndex:v110 + 3];
+      [v4 insertObject:v86 atIndex:v109 + 2];
+      [v4 insertObject:v91 atIndex:v109 + 3];
 
-      v74 = v113;
-      v75 = v107;
+      v74 = v112;
+      v75 = v106;
     }
 
     v92 = [[NSUUID alloc] initWithUUIDString:@"78E1881C-F6E1-421F-BC90-A1EBF1784BB1"];
@@ -373,34 +373,34 @@
     if (v93)
     {
       v94 = [v4 specifierForID:@"tap_to_speak_group"];
-      [v4 removeObject:v94];
+      objc_msgSend_removeObject_(v4);
 
       v95 = [v4 specifierForID:@"tap_to_speak_switch"];
-      [v4 removeObject:v95];
+      objc_msgSend_removeObject_(v4);
     }
 
     v96 = [[NSUUID alloc] initWithUUIDString:@"27EC88C0-A142-4C22-BCEB-4B6A90B5184F"];
-    p_contextualVolumeProfile = &self->_contextualVolumeProfile;
     if ([v74 supportsCapability:v96])
     {
-      v98 = _os_feature_enabled_impl();
+      v97 = _os_feature_enabled_impl();
 
-      if (v98)
+      if (v97)
       {
-        v99 = self->_contextualVolumeProfile;
+        v98 = self->_contextualVolumeProfile;
         contextualVolumeController = [(COSSoundsController *)self contextualVolumeController];
-        v101 = +[COSContextualVolumeController propertyKey];
-        [(PSSpecifier *)v99 setProperty:contextualVolumeController forKey:v101];
+        v100 = +[COSContextualVolumeController propertyKey];
+        [(PSSpecifier *)v98 setProperty:contextualVolumeController forKey:v100];
 
         contextualVolumeController2 = [(COSSoundsController *)self contextualVolumeController];
-        LODWORD(contextualVolumeController) = [contextualVolumeController2 enabled];
+        [contextualVolumeController2 enabled];
 
-        if (contextualVolumeController)
-        {
-          p_contextualVolumeProfile = &self->_audioSlider;
-        }
+LABEL_29:
+        objc_msgSend_removeObject_(v4);
+        v102 = *&self->BPSListController_opaque[v110];
+        *&self->BPSListController_opaque[v110] = v4;
 
-        goto LABEL_31;
+        v3 = *&self->BPSListController_opaque[v110];
+        goto LABEL_30;
       }
     }
 
@@ -408,14 +408,11 @@
     {
     }
 
-    [v4 removeObject:self->_contextualVolumeSwitch];
-LABEL_31:
-    [v4 removeObject:*p_contextualVolumeProfile];
-    v103 = *&self->BPSListController_opaque[v111];
-    *&self->BPSListController_opaque[v111] = v4;
-
-    v3 = *&self->BPSListController_opaque[v111];
+    objc_msgSend_removeObject_(v4);
+    goto LABEL_29;
   }
+
+LABEL_30:
 
   return v3;
 }

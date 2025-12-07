@@ -1,13 +1,13 @@
-id _DKLogSystem()
+id _DKLogSystem(uint64_t a1)
 {
   if (_DKLogSystem_onceToken != -1)
   {
     _DKLogSystem_cold_1();
   }
 
-  v1 = _DKLogSystem_log;
+  v2 = _DKLogSystem_log;
 
-  return v1;
+  return v2;
 }
 
 void sub_248D6B104(_Unwind_Exception *a1)
@@ -38,16 +38,18 @@ void sub_248D6C734(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_248D7C988(_Unwind_Exception *a1)
@@ -81,16 +83,15 @@ void sub_248D7E528(_Unwind_Exception *a1)
 
 uint64_t sub_248D7FC44(uint64_t a1, void *aBlock)
 {
-  v3 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v4 = _Block_copy(aBlock);
-  v5 = swift_allocObject();
-  *(v5 + 16) = v4;
+  v2 = *(a1 + 32);
+  v3 = _Block_copy(aBlock);
+  v4 = swift_allocObject();
+  *(v4 + 16) = v3;
 
-  v3(sub_248D81F04, v5);
+  v2(sub_248D81F04, v4);
 }
 
-void sub_248D7FCD8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_248D7FCD8(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
@@ -118,21 +119,20 @@ uint64_t sub_248D7FDB8(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_248D7FE74(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
+  v4 = *(a1 + 32);
   if (a2)
   {
-    v6 = sub_248D82F20();
-    v8 = v7;
+    v5 = sub_248D82F20();
+    v7 = v6;
   }
 
   else
   {
-    v6 = 0;
-    v8 = 0;
+    v5 = 0;
+    v7 = 0;
   }
 
-  v5(v6, v8, a3);
+  v4(v5, v7, a3);
 }
 
 id DKAppleCareProvider.init()()
@@ -437,7 +437,7 @@ LABEL_23:
     MEMORY[0x24C1EAEC0](v12, -1, -1);
   }
 
-  sub_248D80C80();
+  sub_248D80C80(0xD000000000000019, 0x8000000248D873F0, 0xD000000000000025, 0x8000000248D87410);
   v14 = objc_allocWithZone(DKNotableUserDataAppleCare);
   v15 = sub_248D82F10();
 
@@ -446,13 +446,13 @@ LABEL_23:
   a1(v24);
 }
 
-uint64_t sub_248D80C80()
+uint64_t sub_248D80C80(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v1 = [objc_opt_self() bundleForClass_];
-  v2 = sub_248D82ED0();
+  v5 = [objc_opt_self() bundleForClass_];
+  v6 = sub_248D82ED0();
 
-  return v2;
+  return v6;
 }
 
 uint64_t sub_248D80D7C(void *a1, int a2, void *aBlock, uint64_t a4, uint64_t a5, void (*a6)(uint64_t, uint64_t))
@@ -521,12 +521,11 @@ uint64_t sub_248D80E78(void *a1, void *a2, uint64_t (*a3)(uint64_t, uint64_t, id
 
 void sub_248D810EC(uint64_t a1, void *a2, void *a3)
 {
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
+  v5 = *(a1 + 32);
 
-  v8 = a2;
-  v7 = a3;
-  v6(a2, a3);
+  v7 = a2;
+  v6 = a3;
+  v5(a2, a3);
 }
 
 void sub_248D811D4()
@@ -685,7 +684,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -693,12 +691,11 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   return result;
 }
 
-uint64_t sub_248D81748(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_248D81748(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -717,7 +714,7 @@ uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_248D817DC(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_248D817DC(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_248D818A8(v11, 0, 0, 1, a1, a2);
@@ -815,16 +812,14 @@ LABEL_8:
   }
 }
 
-uint64_t sub_248D819B4(uint64_t a1, unint64_t a2)
+void *sub_248D819B4(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_248D81A00(a1, a2);
+  v3 = sub_248D81A00(a1, a2);
   sub_248D81B30(&unk_285BC27D0);
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  return v3;
 }
 
-uint64_t sub_248D81A00(uint64_t a1, unint64_t a2)
+void *sub_248D81A00(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -921,7 +916,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -935,15 +929,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_248D81C90(result, v12, 1, v3);
+  result = sub_248D81C90(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -958,15 +952,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -975,12 +969,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -1088,15 +1082,17 @@ char *sub_248D81C90(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_248D81DD0(uint64_t a1, uint64_t a2)
@@ -1123,9 +1119,6 @@ uint64_t sub_248D81E78()
 
 uint64_t sub_248D81EB0()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 32);
 
   return MEMORY[0x2821FE8E8](v0, 40, 7);
 }
@@ -1170,7 +1163,6 @@ void sub_248D81F0C(uint64_t a1, uint64_t a2)
 
 uint64_t sub_248D82044()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
@@ -1192,14 +1184,11 @@ uint64_t sub_248D821D0()
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;

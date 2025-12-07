@@ -58,7 +58,7 @@ uint64_t __38__PLManagedObject_objectIDDescription__block_invoke()
     if ([(PLManagedObject *)self hasChanges])
     {
       changedValues = [(PLManagedObject *)self changedValues];
-      v5 = [changedValues count];
+      v5 = objc_msgSend_count(changedValues);
 
       if (v5)
       {
@@ -66,8 +66,8 @@ uint64_t __38__PLManagedObject_objectIDDescription__block_invoke()
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           objectID = [(PLManagedObject *)self objectID];
-          entity = [objectID entity];
-          name = [entity name];
+          v8 = objc_msgSend_entity(objectID);
+          name = [v8 name];
           changedValues2 = [(PLManagedObject *)self changedValues];
           allKeys = [changedValues2 allKeys];
           v12 = [allKeys componentsJoinedByString:{@", "}];

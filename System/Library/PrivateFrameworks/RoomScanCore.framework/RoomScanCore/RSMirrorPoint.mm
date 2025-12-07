@@ -10,16 +10,14 @@
 
 - (id)dictionaryRepresentation
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = @"origin";
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11[0] = @"origin";
   v4 = sub_262294488(*self->_origin, self, a2, v2);
-  v12[1] = @"reflect";
-  v13[0] = v4;
+  v11[1] = @"reflect";
+  v12[0] = v4;
   v7 = sub_262294488(*self->_reflect, v4, v5, v6);
-  v13[1] = v7;
-  v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, v13, v12, 2);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = v7;
+  v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, v12, v11, 2);
 
   return v9;
 }

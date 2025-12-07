@@ -25,7 +25,7 @@
 - (void)LockScreenStateChanging:(BOOL)changing
 {
   changingCopy = changing;
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if (currentLogLevel == 5)
   {
@@ -50,9 +50,9 @@
       }
 
       *buf = 134218242;
-      v22 = v7;
-      v23 = 2080;
-      *v24 = v12;
+      v21 = v7;
+      v22 = 2080;
+      *v23 = v12;
       v13 = "%13.5f: Device %s on lock screen";
       v14 = v5;
       v15 = 22;
@@ -93,18 +93,18 @@
 
         v16 = "IS NOT";
         *buf = 136315906;
-        v22 = *&v8;
-        v23 = 1024;
+        v21 = *&v8;
+        v22 = 1024;
         if (changingCopy)
         {
           v16 = "IS";
         }
 
-        *v24 = 539;
-        *&v24[4] = 2048;
-        *&v24[6] = v11;
-        v25 = 2080;
-        v26 = v16;
+        *v23 = 539;
+        *&v23[4] = 2048;
+        *&v23[6] = v11;
+        v24 = 2080;
+        v25 = v16;
         v13 = "%30s:%-4d: %13.5f: Device %s on lock screen";
         v14 = v5;
         v15 = 38;
@@ -118,19 +118,18 @@ LABEL_24:
   }
 
   schedulers = self->_schedulers;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __51__AWAttentionAwareService_LockScreenStateChanging___block_invoke;
-  v19[3] = &__block_descriptor_33_e38_v32__0__NSString_8__AWScheduler_16_B24l;
-  v20 = changingCopy;
-  [(NSMutableDictionary *)schedulers enumerateKeysAndObjectsUsingBlock:v19];
-  v18 = *MEMORY[0x1E69E9840];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __51__AWAttentionAwareService_LockScreenStateChanging___block_invoke;
+  v18[3] = &__block_descriptor_33_e38_v32__0__NSString_8__AWScheduler_16_B24l;
+  v19 = changingCopy;
+  [(NSMutableDictionary *)schedulers enumerateKeysAndObjectsUsingBlock:v18];
 }
 
 - (void)MotionStateChanging:(BOOL)changing
 {
   changingCopy = changing;
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if (currentLogLevel == 5)
   {
@@ -155,9 +154,9 @@ LABEL_24:
       }
 
       *buf = 134218242;
-      v22 = v7;
-      v23 = 2080;
-      *v24 = v12;
+      v21 = v7;
+      v22 = 2080;
+      *v23 = v12;
       v13 = "%13.5f: Device %s stationary";
       v14 = v5;
       v15 = 22;
@@ -198,18 +197,18 @@ LABEL_24:
 
         v16 = "IS NOT";
         *buf = 136315906;
-        v22 = *&v8;
-        v23 = 1024;
+        v21 = *&v8;
+        v22 = 1024;
         if (changingCopy)
         {
           v16 = "IS";
         }
 
-        *v24 = 531;
-        *&v24[4] = 2048;
-        *&v24[6] = v11;
-        v25 = 2080;
-        v26 = v16;
+        *v23 = 531;
+        *&v23[4] = 2048;
+        *&v23[6] = v11;
+        v24 = 2080;
+        v25 = v16;
         v13 = "%30s:%-4d: %13.5f: Device %s stationary";
         v14 = v5;
         v15 = 38;
@@ -223,13 +222,12 @@ LABEL_24:
   }
 
   schedulers = self->_schedulers;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __47__AWAttentionAwareService_MotionStateChanging___block_invoke;
-  v19[3] = &__block_descriptor_33_e38_v32__0__NSString_8__AWScheduler_16_B24l;
-  v20 = changingCopy;
-  [(NSMutableDictionary *)schedulers enumerateKeysAndObjectsUsingBlock:v19];
-  v18 = *MEMORY[0x1E69E9840];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __47__AWAttentionAwareService_MotionStateChanging___block_invoke;
+  v18[3] = &__block_descriptor_33_e38_v32__0__NSString_8__AWScheduler_16_B24l;
+  v19 = changingCopy;
+  [(NSMutableDictionary *)schedulers enumerateKeysAndObjectsUsingBlock:v18];
 }
 
 - (void)carPlayStateChanging:(BOOL)changing
@@ -258,7 +256,7 @@ LABEL_24:
 
 - (void)crashWithReply:(id)reply
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   currentConnection = [MEMORY[0x1E696B0B8] currentConnection];
   HasEntitlement = connectionHasEntitlement(currentConnection, @"com.apple.private.attentionawareness.unittest");
@@ -272,9 +270,9 @@ LABEL_24:
 
     v6 = MEMORY[0x1E696ABC0];
     v7 = *MEMORY[0x1E696A798];
-    v26 = *MEMORY[0x1E696A578];
-    v27[0] = @" Client not allowed to crash the process";
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v25 = *MEMORY[0x1E696A578];
+    v26[0] = @" Client not allowed to crash the process";
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
     v9 = v6;
     v10 = v7;
     v11 = 22;
@@ -287,21 +285,21 @@ LABEL_24:
       v12 = _AALog();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v17 = absTimeNS();
-        if (v17 == -1)
+        v16 = absTimeNS();
+        if (v16 == -1)
         {
-          v18 = INFINITY;
+          v17 = INFINITY;
         }
 
         else
         {
-          v18 = v17 / 1000000000.0;
+          v17 = v16 / 1000000000.0;
         }
 
         currentConnection2 = [MEMORY[0x1E696B0B8] currentConnection];
         *buf = 134218240;
-        v23 = v18;
-        v24 = 1024;
+        v22 = v17;
+        v23 = 1024;
         processIdentifier = [currentConnection2 processIdentifier];
         _os_log_error_impl(&dword_1BB2EF000, v12, OS_LOG_TYPE_ERROR, "%13.5f: process %d not entitled to use unit test sampling", buf, 0x12u);
       }
@@ -309,9 +307,9 @@ LABEL_24:
 
     v13 = MEMORY[0x1E696ABC0];
     v14 = *MEMORY[0x1E696A798];
-    v20 = *MEMORY[0x1E696A578];
-    v21 = @" Client not entitled to use crash the process";
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x1E696A578];
+    v20 = @" Client not entitled to use crash the process";
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
     v9 = v13;
     v10 = v14;
     v11 = 1;
@@ -320,32 +318,31 @@ LABEL_24:
   v15 = [v9 errorWithDomain:v10 code:v11 userInfo:v8];
 
   replyCopy[2](replyCopy, v15);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getUnitTestSamplerWithReply:(id)reply
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy_;
-  v19 = __Block_byref_object_dispose_;
-  v20 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy_;
+  v18 = __Block_byref_object_dispose_;
+  v19 = 0;
   currentConnection = [MEMORY[0x1E696B0B8] currentConnection];
   HasEntitlement = connectionHasEntitlement(currentConnection, @"com.apple.private.attentionawareness.unittest");
 
   if (HasEntitlement)
   {
     queue = self->_queue;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __55__AWAttentionAwareService_getUnitTestSamplerWithReply___block_invoke;
-    v14[3] = &unk_1E7F37F00;
-    v14[4] = self;
-    v14[5] = &v15;
-    dispatch_sync(queue, v14);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __55__AWAttentionAwareService_getUnitTestSamplerWithReply___block_invoke;
+    v13[3] = &unk_1E7F37F00;
+    v13[4] = self;
+    v13[5] = &v14;
+    dispatch_sync(queue, v13);
   }
 
   else if (currentLogLevel >= 3)
@@ -353,31 +350,29 @@ LABEL_24:
     v8 = _AALog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = absTimeNS();
-      if (v10 == -1)
+      v9 = absTimeNS();
+      if (v9 == -1)
       {
-        v11 = INFINITY;
+        v10 = INFINITY;
       }
 
       else
       {
-        v11 = v10 / 1000000000.0;
+        v10 = v9 / 1000000000.0;
       }
 
       currentConnection2 = [MEMORY[0x1E696B0B8] currentConnection];
       processIdentifier = [currentConnection2 processIdentifier];
       *buf = 134218240;
-      v22 = v11;
-      v23 = 1024;
-      v24 = processIdentifier;
+      v21 = v10;
+      v22 = 1024;
+      v23 = processIdentifier;
       _os_log_error_impl(&dword_1BB2EF000, v8, OS_LOG_TYPE_ERROR, "%13.5f: process %d not entitled to use unit test sampling", buf, 0x12u);
     }
   }
 
-  replyCopy[2](replyCopy, v16[5]);
-  _Block_object_dispose(&v15, 8);
-
-  v9 = *MEMORY[0x1E69E9840];
+  replyCopy[2](replyCopy, v15[5]);
+  _Block_object_dispose(&v14, 8);
 }
 
 void __55__AWAttentionAwareService_getUnitTestSamplerWithReply___block_invoke(uint64_t a1)
@@ -589,7 +584,7 @@ uint64_t __47__AWAttentionAwareService_setSmartCoverClosed___block_invoke(uint64
 
 void __67__AWAttentionAwareService_processHIDEvent_mask_timestamp_senderID___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   if (currentLogLevel < 7)
   {
     goto LABEL_17;
@@ -638,15 +633,15 @@ LABEL_8:
 
   v9 = getEventMaskDescription(*(a1 + 48));
   *buf = 136316162;
-  v31 = v3;
-  v32 = 1024;
-  v33 = 307;
-  v34 = 2048;
-  v35 = v6;
-  v36 = 2048;
-  v37 = v8;
-  v38 = 2112;
-  v39 = v9;
+  v30 = v3;
+  v31 = 1024;
+  v32 = 307;
+  v33 = 2048;
+  v34 = v6;
+  v35 = 2048;
+  v36 = v8;
+  v37 = 2112;
+  v38 = v9;
   _os_log_impl(&dword_1BB2EF000, v2, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: received event %13.5f: %@", buf, 0x30u);
 
 LABEL_16:
@@ -703,17 +698,17 @@ LABEL_31:
 
 LABEL_32:
   v19 = *(*(a1 + 32) + 16);
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __67__AWAttentionAwareService_processHIDEvent_mask_timestamp_senderID___block_invoke_69;
-  v25[3] = &unk_1E7F37570;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __67__AWAttentionAwareService_processHIDEvent_mask_timestamp_senderID___block_invoke_69;
+  v24[3] = &unk_1E7F37570;
   v20 = *(a1 + 56);
-  v27 = *(a1 + 64);
-  v28 = vextq_s8(*(a1 + 40), *(a1 + 40), 8uLL);
-  v29 = v20;
+  v26 = *(a1 + 64);
+  v27 = vextq_s8(*(a1 + 40), *(a1 + 40), 8uLL);
+  v28 = v20;
   v21 = Property;
-  v26 = v21;
-  [v19 enumerateKeysAndObjectsUsingBlock:v25];
+  v25 = v21;
+  [v19 enumerateKeysAndObjectsUsingBlock:v24];
   CFRelease(*(a1 + 64));
   v22 = *(a1 + 56);
   if (v22)
@@ -723,8 +718,6 @@ LABEL_32:
 
   v23 = +[AWEventStatistics sharedStatistics];
   [v23 logEvent:*(a1 + 48)];
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __67__AWAttentionAwareService_processHIDEvent_mask_timestamp_senderID___block_invoke_69(void *a1, uint64_t a2, void *a3)
@@ -739,7 +732,7 @@ void __67__AWAttentionAwareService_processHIDEvent_mask_timestamp_senderID___blo
 - (void)addClient:(id)client clientConfig:(id)config clientIndex:(int)index clientId:(id)id unitTestMode:(BOOL)mode reply:(id)reply subscribeForStreamingEvents:(BOOL)events
 {
   modeCopy = mode;
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   configCopy = config;
   idCopy = id;
@@ -751,31 +744,31 @@ void __67__AWAttentionAwareService_processHIDEvent_mask_timestamp_senderID___blo
       v22 = _AALog();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        v28 = absTimeNS();
-        if (v28 == -1)
+        v27 = absTimeNS();
+        if (v27 == -1)
         {
-          v29 = INFINITY;
+          v28 = INFINITY;
         }
 
         else
         {
-          v29 = v28 / 1000000000.0;
+          v28 = v27 / 1000000000.0;
         }
 
         identifier = [configCopy identifier];
         *buf = 134218242;
-        v42 = v29;
-        v43 = 2112;
-        v44 = identifier;
+        v41 = v28;
+        v42 = 2112;
+        v43 = identifier;
         _os_log_error_impl(&dword_1BB2EF000, v22, OS_LOG_TYPE_ERROR, "%13.5f: client %@ not entitled for unit test access", buf, 0x16u);
       }
     }
 
     v23 = MEMORY[0x1E696ABC0];
     v24 = *MEMORY[0x1E696A798];
-    v39 = *MEMORY[0x1E696A578];
-    v40 = @" Client not entitled to unit test access";
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+    v38 = *MEMORY[0x1E696A578];
+    v39 = @" Client not entitled to unit test access";
+    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
     v26 = [v23 errorWithDomain:v24 code:1 userInfo:v25];
 
     replyCopy[2](replyCopy, 0, 0xFFFFFFFFLL, v26);
@@ -784,27 +777,25 @@ void __67__AWAttentionAwareService_processHIDEvent_mask_timestamp_senderID___blo
   else
   {
     queue = self->_queue;
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __118__AWAttentionAwareService_addClient_clientConfig_clientIndex_clientId_unitTestMode_reply_subscribeForStreamingEvents___block_invoke;
-    v31[3] = &unk_1E7F37548;
-    v37 = modeCopy;
-    v31[4] = self;
-    v32 = configCopy;
-    v35 = replyCopy;
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __118__AWAttentionAwareService_addClient_clientConfig_clientIndex_clientId_unitTestMode_reply_subscribeForStreamingEvents___block_invoke;
+    v30[3] = &unk_1E7F37548;
+    v36 = modeCopy;
+    v30[4] = self;
+    v31 = configCopy;
+    v34 = replyCopy;
     eventsCopy = events;
-    v33 = idCopy;
-    v34 = clientCopy;
+    v32 = idCopy;
+    v33 = clientCopy;
     indexCopy = index;
-    dispatch_sync(queue, v31);
+    dispatch_sync(queue, v30);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __118__AWAttentionAwareService_addClient_clientConfig_clientIndex_clientId_unitTestMode_reply_subscribeForStreamingEvents___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (*(a1 + 76) == 1)
   {
     [*(a1 + 32) _createUnitTestScheduler];
@@ -859,9 +850,9 @@ LABEL_10:
       v12 = *(a1 + 72);
       v13 = *(a1 + 40);
       v14 = *(a1 + 48);
-      v30 = 0;
-      v7 = [(AWRemoteClient *)v9 initWithProxy:v10 connection:v11 clientConfig:v13 clientIndex:v12 clientId:v14 scheduler:v5 error:&v30];
-      v8 = v30;
+      v29 = 0;
+      v7 = [(AWRemoteClient *)v9 initWithProxy:v10 connection:v11 clientConfig:v13 clientIndex:v12 clientId:v14 scheduler:v5 error:&v29];
+      v8 = v29;
 
       if (!v7)
       {
@@ -882,9 +873,9 @@ LABEL_10:
             }
 
             *buf = 134218242;
-            v35 = v21;
-            v36 = 2112;
-            v37 = v8;
+            v34 = v21;
+            v35 = 2112;
+            v36 = v8;
             _os_log_error_impl(&dword_1BB2EF000, v17, OS_LOG_TYPE_ERROR, "%13.5f: addClient failed: %@", buf, 0x16u);
           }
         }
@@ -922,37 +913,35 @@ LABEL_23:
     v22 = _AALog();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v27 = absTimeNS();
-      if (v27 == -1)
+      v26 = absTimeNS();
+      if (v26 == -1)
       {
-        v28 = INFINITY;
+        v27 = INFINITY;
       }
 
       else
       {
-        v28 = v27 / 1000000000.0;
+        v27 = v26 / 1000000000.0;
       }
 
-      v29 = *(a1 + 40);
+      v28 = *(a1 + 40);
       *buf = 134218242;
-      v35 = v28;
-      v36 = 2112;
-      v37 = v29;
+      v34 = v27;
+      v35 = 2112;
+      v36 = v28;
       _os_log_error_impl(&dword_1BB2EF000, v22, OS_LOG_TYPE_ERROR, "%13.5f: Unable to get a scheduler for client %@", buf, 0x16u);
     }
   }
 
   v23 = MEMORY[0x1E696ABC0];
   v24 = *MEMORY[0x1E696A798];
-  v32 = *MEMORY[0x1E696A578];
-  v33 = @" Unable to get a suitable scheduler for client";
-  v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+  v31 = *MEMORY[0x1E696A578];
+  v32 = @" Unable to get a suitable scheduler for client";
+  v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
   v8 = [v23 errorWithDomain:v24 code:42 userInfo:v25];
 
   (*(*(a1 + 64) + 16))();
 LABEL_33:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __118__AWAttentionAwareService_addClient_clientConfig_clientIndex_clientId_unitTestMode_reply_subscribeForStreamingEvents___block_invoke_2(uint64_t a1)
@@ -962,12 +951,12 @@ uint64_t __118__AWAttentionAwareService_addClient_clientConfig_clientIndex_clien
   v4 = *(v3 + 64);
   *(v3 + 64) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)clientCountChangedFrom:(unint64_t)from to:(unint64_t)to forScheduler:(id)scheduler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   schedulerCopy = scheduler;
   dispatch_assert_queue_V2(self->_queue);
   [(AWAttentionAwareService *)self setClientCount:to - from + [(AWAttentionAwareService *)self clientCount]];
@@ -987,15 +976,15 @@ uint64_t __118__AWAttentionAwareService_addClient_clientConfig_clientIndex_clien
         v11 = v10 / 1000000000.0;
       }
 
-      v24 = 134218240;
-      v25 = v11;
-      v26 = 2048;
-      *v27 = [(AWAttentionAwareService *)self clientCount];
+      v23 = 134218240;
+      v24 = v11;
+      v25 = 2048;
+      *v26 = [(AWAttentionAwareService *)self clientCount];
       v16 = "%13.5f: %lu total attention aware service clients";
       v17 = v9;
       v18 = 22;
 LABEL_19:
-      _os_log_impl(&dword_1BB2EF000, v17, OS_LOG_TYPE_DEFAULT, v16, &v24, v18);
+      _os_log_impl(&dword_1BB2EF000, v17, OS_LOG_TYPE_DEFAULT, v16, &v23, v18);
     }
 
 LABEL_20:
@@ -1029,13 +1018,13 @@ LABEL_20:
             v15 = v14 / 1000000000.0;
           }
 
-          v24 = 136315906;
-          v25 = *&v12;
-          v26 = 1024;
-          *v27 = 171;
-          *&v27[4] = 2048;
-          *&v27[6] = v15;
-          v28 = 2048;
+          v23 = 136315906;
+          v24 = *&v12;
+          v25 = 1024;
+          *v26 = 171;
+          *&v26[4] = 2048;
+          *&v26[6] = v15;
+          v27 = 2048;
           clientCount = [(AWAttentionAwareService *)self clientCount];
           v16 = "%30s:%-4d: %13.5f: %lu total attention aware service clients";
           v17 = v9;
@@ -1051,23 +1040,21 @@ LABEL_20:
 LABEL_21:
   if (!to)
   {
-    v20 = [(NSMutableDictionary *)self->_schedulers valueForKey:@"Unit test scheduler"];
-    if (v20)
+    v19 = [(NSMutableDictionary *)self->_schedulers valueForKey:@"Unit test scheduler"];
+    if (v19)
     {
-      v21 = v20;
-      v22 = [(NSMutableDictionary *)self->_schedulers objectForKeyedSubscript:@"Unit test scheduler"];
+      v20 = v19;
+      v21 = [(NSMutableDictionary *)self->_schedulers objectForKeyedSubscript:@"Unit test scheduler"];
 
-      if (v22 == schedulerCopy)
+      if (v21 == schedulerCopy)
       {
-        v23 = [(NSMutableDictionary *)self->_schedulers objectForKeyedSubscript:@"Unit test scheduler"];
-        [v23 setObserver:0];
+        v22 = [(NSMutableDictionary *)self->_schedulers objectForKeyedSubscript:@"Unit test scheduler"];
+        [v22 setObserver:0];
 
         [(NSMutableDictionary *)self->_schedulers removeObjectForKey:@"Unit test scheduler"];
       }
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
@@ -1224,7 +1211,7 @@ void __62__AWAttentionAwareService_listener_shouldAcceptNewConnection___block_in
   return v2;
 }
 
-uint64_t __31__AWAttentionAwareService_init__block_invoke(uint64_t a1)
+void *__31__AWAttentionAwareService_init__block_invoke(uint64_t a1)
 {
   if (deviceSupportsPearl())
   {
@@ -1269,9 +1256,11 @@ uint64_t __31__AWAttentionAwareService_init__block_invoke(uint64_t a1)
 
 uint64_t __49__AWAttentionAwareService_sharedAttentionService__block_invoke()
 {
-  sharedAttentionService_attentionService = objc_alloc_init(AWAttentionAwareService);
+  v0 = objc_alloc_init(AWAttentionAwareService);
+  v1 = sharedAttentionService_attentionService;
+  sharedAttentionService_attentionService = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

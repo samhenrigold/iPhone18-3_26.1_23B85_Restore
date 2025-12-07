@@ -356,40 +356,37 @@ LABEL_22:
 + (id)extractFirstValueForKeyPath:(id)path fromPredicates:(id)predicates
 {
   pathCopy = path;
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
   predicatesCopy = predicates;
-  v6 = [predicatesCopy countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v6 = [predicatesCopy countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v33;
+    v8 = *v30;
     v9 = &pc_session_add_metric_ptr;
-    v10 = &pc_session_add_metric_ptr;
 LABEL_3:
-    v11 = 0;
+    v10 = 0;
     while (1)
     {
-      if (*v33 != v8)
+      if (*v30 != v8)
       {
         objc_enumerationMutation(predicatesCopy);
       }
 
-      v12 = *(*(&v32 + 1) + 8 * v11);
-      v13 = v9[258];
+      v11 = *(*(&v29 + 1) + 8 * v10);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
         break;
       }
 
-      v24 = v10[259];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        subpredicates = [v12 subpredicates];
+        subpredicates = [v11 subpredicates];
         constantValue = [self extractFirstValueForKeyPath:pathCopy fromPredicates:subpredicates];
 
         if (constantValue)
@@ -400,9 +397,9 @@ LABEL_3:
 LABEL_15:
       }
 
-      if (v7 == ++v11)
+      if (v7 == ++v10)
       {
-        v7 = [predicatesCopy countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v7 = [predicatesCopy countByEnumeratingWithState:&v29 objects:v33 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -412,32 +409,31 @@ LABEL_15:
       }
     }
 
-    v14 = v12;
-    leftExpression = [v14 leftExpression];
+    v12 = v11;
+    leftExpression = [v12 leftExpression];
     if ([leftExpression expressionType] == 3)
     {
-      leftExpression2 = [v14 leftExpression];
+      leftExpression2 = [v12 leftExpression];
       [leftExpression2 keyPath];
-      v17 = v7;
-      v18 = v8;
-      v19 = v9;
-      v21 = v20 = predicatesCopy;
-      v30 = [v21 isEqualToString:pathCopy];
+      v15 = v7;
+      v16 = v8;
+      v17 = v9;
+      v19 = v18 = predicatesCopy;
+      v27 = [v19 isEqualToString:pathCopy];
 
-      predicatesCopy = v20;
-      v9 = v19;
-      v8 = v18;
-      v7 = v17;
-      v10 = &pc_session_add_metric_ptr;
+      predicatesCopy = v18;
+      v9 = v17;
+      v8 = v16;
+      v7 = v15;
 
-      if (v30)
+      if (v27)
       {
-        rightExpression = [v14 rightExpression];
+        rightExpression = [v12 rightExpression];
         expressionType = [rightExpression expressionType];
 
         if (!expressionType)
         {
-          rightExpression2 = [v14 rightExpression];
+          rightExpression2 = [v12 rightExpression];
           constantValue = [rightExpression2 constantValue];
 
 LABEL_19:
@@ -464,7 +460,7 @@ LABEL_20:
 {
   v1 = [a1 variable];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v2, v3, "Variable: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v2, v3, "Variable: %@", v4, v5, v6, v7);
 }
 
 + (void)inspectExpression:.cold.2()
@@ -485,7 +481,7 @@ LABEL_20:
 {
   v1 = [a1 function];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v2, v3, "Function: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v2, v3, "Function: %@", v4, v5, v6, v7);
 }
 
 + (void)inspectExpression:.cold.5()
@@ -506,14 +502,14 @@ LABEL_20:
 {
   v1 = [a1 keyPath];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v2, v3, "Key Path: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v2, v3, "Key Path: %@", v4, v5, v6, v7);
 }
 
 + (void)inspectExpression:(void *)a1 .cold.8(void *a1)
 {
   v1 = [a1 constantValue];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v2, v3, "Constant Value: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v2, v3, "Constant Value: %@", v4, v5, v6, v7);
 }
 
 + (void)inspectExpression:.cold.9()
@@ -534,7 +530,7 @@ LABEL_20:
 {
   v2 = [a1 stringForCompoundPredicateType:a2];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v3, v4, "Compound Predicate Type: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v3, v4, "Compound Predicate Type: %@", v5, v6, v7, v8);
 }
 
 + (void)disassemblePredicate:.cold.3()
@@ -555,7 +551,7 @@ LABEL_20:
 {
   v2 = [a1 stringForOperatorType:a2];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v3, v4, "Operator Type: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v3, v4, "Operator Type: %@", v5, v6, v7, v8);
 }
 
 @end

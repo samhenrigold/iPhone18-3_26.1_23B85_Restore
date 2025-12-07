@@ -40,16 +40,16 @@
   {
     v7 = *&sent;
     statsCopy = stats;
-    pthread_rwlock_wrlock(&self->_stateRWLock);
-    v11 = micro();
-    v12 = VCConnectionIDS_LinkID(connection);
-    v13 = self->_uplinkServerStatsByteUsed + [(VCStatsRecorder *)self serverStatsSizeInByteForUplink:1 connection:connection];
-    self->_uplinkServerStatsByteUsed = v13;
-    v14 = (self + 24 * (statsCopy & 0x7F));
-    v14[26] = v11;
-    *(v14 + 27) = (statsCopy << 16) | (v7 << 32) | v12;
-    *(v14 + 56) = received;
-    *(v14 + 57) = v13;
+    v11 = pthread_rwlock_wrlock(&self->_stateRWLock);
+    v13 = micro(v11, v12);
+    v14 = VCConnectionIDS_LinkID(connection);
+    v15 = self->_uplinkServerStatsByteUsed + [(VCStatsRecorder *)self serverStatsSizeInByteForUplink:1 connection:connection];
+    self->_uplinkServerStatsByteUsed = v15;
+    v16 = (self + 24 * (statsCopy & 0x7F));
+    v16[26] = v13;
+    *(v16 + 27) = (statsCopy << 16) | (v7 << 32) | v14;
+    *(v16 + 56) = received;
+    *(v16 + 57) = v15;
     self->_currentLocalStatsIndex = statsCopy & 0x7F;
 
     pthread_rwlock_unlock(&self->_stateRWLock);
@@ -145,21 +145,21 @@
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Connection is NIL", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Connection is NIL", v2, v3, v4, v5);
 }
 
 - (void)getLocalStats:localSessionStats:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d localSessionStats is invalid", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d localSessionStats is invalid", v2, v3, v4, v5);
 }
 
 - (void)serverStatsSizeInByteForUplink:connection:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Connection is NIL", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Connection is NIL", v2, v3, v4, v5);
 }
 
 @end

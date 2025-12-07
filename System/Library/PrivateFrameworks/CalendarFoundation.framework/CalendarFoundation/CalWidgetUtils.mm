@@ -83,50 +83,50 @@ uint64_t __37__CalWidgetUtils_refreshEventWidgets__block_invoke_2(uint64_t a1)
 
 + (void)_reloadTimelinesForWidgetKinds:(id)kinds reason:(id)reason
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   kindsCopy = kinds;
   reasonCopy = reason;
   _widgetBundleIdentifier = [self _widgetBundleIdentifier];
-  if (ChronoServicesLibraryCore())
+  if (ChronoServicesLibraryCore(0))
   {
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x2050000000;
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x2050000000;
     v7 = getCHSTimelineControllerClass_softClass;
-    v28 = getCHSTimelineControllerClass_softClass;
+    v27 = getCHSTimelineControllerClass_softClass;
     if (!getCHSTimelineControllerClass_softClass)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getCHSTimelineControllerClass_block_invoke;
-      v31 = &unk_1E7EC65D0;
-      v32 = &v25;
+      v30 = &unk_1E7EC65D0;
+      v31 = &v24;
       __getCHSTimelineControllerClass_block_invoke(buf);
-      v7 = v26[3];
+      v7 = v25[3];
     }
 
     v8 = v7;
-    _Block_object_dispose(&v25, 8);
+    _Block_object_dispose(&v24, 8);
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     obj = kindsCopy;
-    v9 = [obj countByEnumeratingWithState:&v21 objects:v29 count:16];
+    v9 = [obj countByEnumeratingWithState:&v20 objects:v28 count:16];
     if (v9)
     {
-      v10 = *v22;
+      v10 = *v21;
       do
       {
         v11 = 0;
         do
         {
-          if (*v22 != v10)
+          if (*v21 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v21 + 1) + 8 * v11);
+          v12 = *(*(&v20 + 1) + 8 * v11);
           v13 = [[v7 alloc] initWithExtensionBundleIdentifier:_widgetBundleIdentifier kind:v12];
           v14 = [v13 reloadTimelineWithReason:reasonCopy];
           v15 = +[CalFoundationLogSubsystem defaultCategory];
@@ -154,72 +154,67 @@ uint64_t __37__CalWidgetUtils_refreshEventWidgets__block_invoke_2(uint64_t a1)
         }
 
         while (v9 != v11);
-        v9 = [obj countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v9 = [obj countByEnumeratingWithState:&v20 objects:v28 count:16];
       }
 
       while (v9);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_invalidateRelevanceForWidgetKinds:(id)kinds
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   kindsCopy = kinds;
   v4 = @"com.apple.mobilecal";
-  if (ChronoServicesLibraryCore())
+  if (ChronoServicesLibraryCore(0))
   {
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x2050000000;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x2050000000;
     v5 = getCHSWidgetServiceClass_softClass;
-    v22 = getCHSWidgetServiceClass_softClass;
+    v20 = getCHSWidgetServiceClass_softClass;
     if (!getCHSWidgetServiceClass_softClass)
     {
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __getCHSWidgetServiceClass_block_invoke;
-      v18[3] = &unk_1E7EC65D0;
-      v18[4] = &v19;
-      __getCHSWidgetServiceClass_block_invoke(v18);
-      v5 = v20[3];
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __getCHSWidgetServiceClass_block_invoke;
+      v16[3] = &unk_1E7EC65D0;
+      v16[4] = &v17;
+      __getCHSWidgetServiceClass_block_invoke(v16);
+      v5 = v18[3];
     }
 
     v6 = v5;
-    _Block_object_dispose(&v19, 8);
+    _Block_object_dispose(&v17, 8);
     sharedWidgetService = [v5 sharedWidgetService];
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v8 = kindsCopy;
-    v9 = [v8 countByEnumeratingWithState:&v14 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v12 objects:v21 count:16];
     if (v9)
     {
-      v10 = *v15;
+      v10 = *v13;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v15 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v14 + 1) + 8 * i);
           [sharedWidgetService invalidateRelevancesOfKind:? inBundle:? completion:?];
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v14 objects:v23 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v12 objects:v21 count:16];
       }
 
       while (v9);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __53__CalWidgetUtils__invalidateRelevanceForWidgetKinds___block_invoke(uint64_t a1, void *a2)
@@ -243,24 +238,22 @@ void __53__CalWidgetUtils__invalidateRelevanceForWidgetKinds___block_invoke(uint
 
 void __53__CalWidgetUtils__invalidateRelevanceForWidgetKinds___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_1B990D000, log, OS_LOG_TYPE_ERROR, "Error while trying to invalidate widget relevances with kind %@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_1B990D000, log, OS_LOG_TYPE_ERROR, "Error while trying to invalidate widget relevances with kind %@: %@", &v4, 0x16u);
 }
 
 void __53__CalWidgetUtils__invalidateRelevanceForWidgetKinds___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1B990D000, a2, OS_LOG_TYPE_DEBUG, "Successfully invalidate widget relevances with kind %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1B990D000, a2, OS_LOG_TYPE_DEBUG, "Successfully invalidate widget relevances with kind %@", &v3, 0xCu);
 }
 
 @end

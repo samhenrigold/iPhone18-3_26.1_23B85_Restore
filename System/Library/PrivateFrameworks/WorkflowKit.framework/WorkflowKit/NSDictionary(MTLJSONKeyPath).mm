@@ -6,7 +6,7 @@
 
 - (id)mtl_valueForJSONKeyPath:()MTLJSONKeyPath success:error:
 {
-  v53[1] = *MEMORY[0x1E69E9840];
+  v52[1] = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = [v6 length];
   if (v7)
@@ -107,30 +107,30 @@
     v20 = v6;
   }
 
-  v53[0] = v20;
-  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:1];
+  v52[0] = v20;
+  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:1];
   v22 = 0;
 LABEL_27:
 
   selfCopy = self;
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   v25 = v23;
-  v26 = [v25 countByEnumeratingWithState:&v46 objects:v52 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v45 objects:v51 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v47;
-    v43 = selfCopy;
+    v28 = *v46;
+    v42 = selfCopy;
     while (2)
     {
       v29 = 0;
       v30 = selfCopy;
       do
       {
-        if (*v47 != v28)
+        if (*v46 != v28)
         {
           objc_enumerationMutation(v25);
         }
@@ -141,7 +141,7 @@ LABEL_27:
           goto LABEL_40;
         }
 
-        v31 = *(*(&v46 + 1) + 8 * v29);
+        v31 = *(*(&v45 + 1) + 8 * v29);
         null = [MEMORY[0x1E695DFB0] null];
 
         if (v30 == null)
@@ -155,19 +155,19 @@ LABEL_27:
         {
           if (a5)
           {
-            v50[0] = *MEMORY[0x1E696A578];
+            v49[0] = *MEMORY[0x1E696A578];
             mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
-            v37 = [mainBundle localizedStringForKey:@"Invalid JSON dictionary" value:&stru_1F4A1C408 table:0];
-            v50[1] = *MEMORY[0x1E696A588];
-            v51[0] = v37;
-            v38 = MEMORY[0x1E696AEC0];
+            v36 = [mainBundle localizedStringForKey:@"Invalid JSON dictionary" value:&stru_1F4A1C408 table:0];
+            v49[1] = *MEMORY[0x1E696A588];
+            v50[0] = v36;
+            v37 = MEMORY[0x1E696AEC0];
             mainBundle2 = [MEMORY[0x1E696AAE8] mainBundle];
-            v40 = [mainBundle2 localizedStringForKey:@"JSON key path %1$@ could not resolved because an incompatible JSON dictionary was supplied: %2$@" value:&stru_1F4A1C408 table:0];
-            v41 = [v38 stringWithFormat:v40, v6, v43];
-            v51[1] = v41;
-            v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:v50 count:2];
+            v39 = [mainBundle2 localizedStringForKey:@"JSON key path %1$@ could not resolved because an incompatible JSON dictionary was supplied: %2$@" value:&stru_1F4A1C408 table:0];
+            v40 = [v37 stringWithFormat:v39, v6, v42];
+            v50[1] = v40;
+            v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:v49 count:2];
 
-            *a5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLJSONAdapterErrorDomain" code:3 userInfo:v42];
+            *a5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLJSONAdapterErrorDomain" code:3 userInfo:v41];
           }
 
           if (a4)
@@ -186,7 +186,7 @@ LABEL_27:
       }
 
       while (v27 != v29);
-      v27 = [v25 countByEnumeratingWithState:&v46 objects:v52 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v45 objects:v51 count:16];
       if (v27)
       {
         continue;
@@ -206,8 +206,6 @@ LABEL_40:
   v30 = selfCopy;
   v33 = v30;
 LABEL_43:
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return v33;
 }

@@ -86,62 +86,66 @@ LABEL_11:
   expressionCopy = expression;
   expressionsCopy = expressions;
   dataCopy = data;
-  if (expressionCopy && [expressionCopy count] > 1)
+  if (expressionCopy)
   {
-    v15 = opTokens();
-    v16 = [expressionCopy objectAtIndexedSubscript:0];
-    expressionCopy2 = [v15 objectForKey:v16];
-
-    if (expressionCopy2)
+    v13 = [expressionCopy count];
+    if (v13 > 1)
     {
-      integerValue = [expressionCopy2 integerValue];
-      if (integerValue)
+      v16 = opTokens(v13);
+      v17 = [expressionCopy objectAtIndexedSubscript:0];
+      expressionCopy2 = [v16 objectForKey:v17];
+
+      if (expressionCopy2)
       {
-        [(APTargetingExpressionNode *)self setOperator:integerValue];
-        error = [(APTargetingExpressionNode *)self createChildrenFromExpression:expressionCopy subExpressions:expressionsCopy data:dataCopy error:error];
+        integerValue = [expressionCopy2 integerValue];
+        if (integerValue)
+        {
+          [(APTargetingExpressionNode *)self setOperator:integerValue];
+          error = [(APTargetingExpressionNode *)self createChildrenFromExpression:expressionCopy subExpressions:expressionsCopy data:dataCopy error:error];
 LABEL_14:
 
-        goto LABEL_15;
+          goto LABEL_15;
+        }
+
+        if (!error)
+        {
+          goto LABEL_14;
+        }
+
+        expressionCopy = [NSString stringWithFormat:@"Unknown operator in expression %@", expressionCopy];
+        v23 = NSLocalizedDescriptionKey;
+        v24 = expressionCopy;
+        v20 = [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+        v21 = -1110;
       }
 
-      if (!error)
+      else
       {
-        goto LABEL_14;
+        if (!error)
+        {
+          goto LABEL_14;
+        }
+
+        expressionCopy = [NSString stringWithFormat:@"Operator expected.\n%@", expressionCopy];
+        v25 = NSLocalizedDescriptionKey;
+        v26 = expressionCopy;
+        v20 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+        v21 = -1114;
       }
 
-      expressionCopy = [NSString stringWithFormat:@"Unknown operator in expression %@", expressionCopy];
-      v22 = NSLocalizedDescriptionKey;
-      v23 = expressionCopy;
-      v19 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-      v20 = -1110;
+      *error = [NSError errorWithDomain:@"com.apple.ap.targetingexpressions" code:v21 userInfo:v20];
+
+      goto LABEL_13;
     }
-
-    else
-    {
-      if (!error)
-      {
-        goto LABEL_14;
-      }
-
-      expressionCopy = [NSString stringWithFormat:@"Operator expected.\n%@", expressionCopy];
-      v24 = NSLocalizedDescriptionKey;
-      v25 = expressionCopy;
-      v19 = [NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-      v20 = -1114;
-    }
-
-    *error = [NSError errorWithDomain:@"com.apple.ap.targetingexpressions" code:v20 userInfo:v19];
-
-    goto LABEL_13;
   }
 
   if (error)
   {
     expressionCopy2 = [NSString stringWithFormat:@"Expression requires at least 2 elements.\n%@", expressionCopy];
-    v26 = NSLocalizedDescriptionKey;
-    v27 = expressionCopy2;
-    v14 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
-    *error = [NSError errorWithDomain:@"com.apple.ap.targetingexpressions" code:-1114 userInfo:v14];
+    v27 = NSLocalizedDescriptionKey;
+    v28 = expressionCopy2;
+    v15 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    *error = [NSError errorWithDomain:@"com.apple.ap.targetingexpressions" code:-1114 userInfo:v15];
 
 LABEL_13:
     error = 0;
@@ -183,8 +187,8 @@ LABEL_15:
   if ([expressionCopy count] < 2)
   {
 LABEL_23:
-    v30 = [v11 copy];
-    [(APTargetingExpressionNode *)self setChildren:v30];
+    v31 = [v11 copy];
+    [(APTargetingExpressionNode *)self setChildren:v31];
 
     selfCopy = self;
     goto LABEL_24;
@@ -192,7 +196,7 @@ LABEL_23:
 
   v12 = 1;
   selfCopy2 = self;
-  v36 = dataCopy;
+  v37 = dataCopy;
   while (1)
   {
     v13 = [expressionCopy objectAtIndexedSubscript:v12];
@@ -200,19 +204,20 @@ LABEL_23:
     isKindOfClass = objc_opt_isKindOfClass();
 
     v15 = [expressionCopy objectAtIndexedSubscript:v12];
+    v16 = v15;
     if (isKindOfClass)
     {
       break;
     }
 
     objc_opt_class();
-    v21 = objc_opt_isKindOfClass();
+    v22 = objc_opt_isKindOfClass();
 
-    if (v21)
+    if (v22)
     {
-      v22 = [APTargetingExpressionNode alloc];
-      v15 = [expressionCopy objectAtIndexedSubscript:v12];
-      v20 = [(APTargetingExpressionNode *)v22 initWithParent:self identifier:0 expressionOrReference:v15 subExpressions:expressionsCopy data:dataCopy error:error];
+      v23 = [APTargetingExpressionNode alloc];
+      v16 = [expressionCopy objectAtIndexedSubscript:v12];
+      v21 = [(APTargetingExpressionNode *)v23 initWithParent:self identifier:0 expressionOrReference:v16 subExpressions:expressionsCopy data:dataCopy error:error];
       goto LABEL_20;
     }
 
@@ -223,28 +228,28 @@ LABEL_22:
     }
   }
 
-  v16 = opTokens();
-  v17 = [v16 objectForKeyedSubscript:v15];
+  v17 = opTokens(v15);
+  v18 = [v17 objectForKeyedSubscript:v16];
 
-  if (!v17)
+  if (!v18)
   {
-    v18 = v11;
-    v19 = [expressionsCopy objectForKeyedSubscript:v15];
-    if (v19)
+    v19 = v11;
+    v20 = [expressionsCopy objectForKeyedSubscript:v16];
+    if (v20)
     {
-      v20 = [[APTargetingExpressionNode alloc] initWithParent:self identifier:v15 expressionOrReference:v15 subExpressions:expressionsCopy data:dataCopy error:error];
-      if (v20)
+      v21 = [[APTargetingExpressionNode alloc] initWithParent:self identifier:v16 expressionOrReference:v16 subExpressions:expressionsCopy data:dataCopy error:error];
+      if (v21)
       {
 LABEL_7:
-        [(APTargetingExpressionNode *)v20 setParent:self];
+        [(APTargetingExpressionNode *)v21 setParent:self];
 LABEL_19:
 
-        v11 = v18;
+        v11 = v19;
 LABEL_20:
 
-        if (v20)
+        if (v21)
         {
-          [v11 addObject:v20];
+          [v11 addObject:v21];
         }
 
         goto LABEL_22;
@@ -253,58 +258,58 @@ LABEL_20:
 
     else
     {
-      v23 = [dataCopy objectForKeyedSubscript:v15];
-      if (v23)
+      v24 = [dataCopy objectForKeyedSubscript:v16];
+      if (v24)
       {
-        v24 = [APDataSourceNode alloc];
-        v25 = [dataCopy objectForKeyedSubscript:v15];
-        v20 = [(APDataSourceNode *)v24 initWithParent:self identifier:v15 dataSource:v25 error:error];
+        v25 = [APDataSourceNode alloc];
+        v26 = [dataCopy objectForKeyedSubscript:v16];
+        v21 = [(APDataSourceNode *)v25 initWithParent:self identifier:v16 dataSource:v26 error:error];
 
-        dataCopy = v36;
+        dataCopy = v37;
       }
 
       else
       {
-        v20 = [[APExternalReferenceNode alloc] initWithIdentifier:v15];
+        v21 = [[APExternalReferenceNode alloc] initWithIdentifier:v16];
       }
 
-      if (v20)
+      if (v21)
       {
         goto LABEL_7;
       }
     }
 
     identifier = [(APTargetingExpressionNode *)self identifier];
-    v27 = [NSString stringWithFormat:@"Unable to create child node %@ for node %@. Reference not found.", v15, identifier];
+    v28 = [NSString stringWithFormat:@"Unable to create child node %@ for node %@. Reference not found.", v16, identifier];
 
-    v28 = APLogForCategory();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v29 = APLogForCategory();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v42 = v27;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+      v43 = v28;
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
     }
 
     if (error)
     {
-      v39 = NSLocalizedDescriptionKey;
-      v40 = v27;
-      v29 = [NSDictionary dictionaryWithObjects:&v40 forKeys:&v39 count:1];
-      *error = [NSError errorWithDomain:@"com.apple.ap.targetingexpressions" code:-1128 userInfo:v29];
+      v40 = NSLocalizedDescriptionKey;
+      v41 = v28;
+      v30 = [NSDictionary dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+      *error = [NSError errorWithDomain:@"com.apple.ap.targetingexpressions" code:-1128 userInfo:v30];
     }
 
     self = selfCopy2;
-    dataCopy = v36;
+    dataCopy = v37;
     goto LABEL_19;
   }
 
   if (error)
   {
-    v33 = [NSString stringWithFormat:@"Duplicate operator '%@'", v15];
-    v43 = NSLocalizedDescriptionKey;
-    v44 = v33;
-    v34 = [NSDictionary dictionaryWithObjects:&v44 forKeys:&v43 count:1];
-    *error = [NSError errorWithDomain:@"com.apple.ap.targetingexpressions" code:-1118 userInfo:v34];
+    v34 = [NSString stringWithFormat:@"Duplicate operator '%@'", v16];
+    v44 = NSLocalizedDescriptionKey;
+    v45 = v34;
+    v35 = [NSDictionary dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+    *error = [NSError errorWithDomain:@"com.apple.ap.targetingexpressions" code:-1118 userInfo:v35];
   }
 
   selfCopy = 0;

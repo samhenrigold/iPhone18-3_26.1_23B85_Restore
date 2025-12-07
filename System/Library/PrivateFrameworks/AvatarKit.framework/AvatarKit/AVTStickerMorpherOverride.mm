@@ -9,7 +9,7 @@
 + (id)morpherOverrideFromDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v4 = [dictionaryCopy objectForKeyedSubscript:@"node"];
+  v4 = [dictionaryCopy objectForKeyedSubscript:?];
   v5 = v4;
   if (v4)
   {
@@ -18,16 +18,16 @@
 
   else
   {
-    v6 = [dictionaryCopy objectForKeyedSubscript:@"geometry"];
+    v6 = [dictionaryCopy objectForKeyedSubscript:?];
   }
 
   v7 = v6;
 
   v8 = [AVTStickerMorpherOverride alloc];
-  v9 = [dictionaryCopy objectForKeyedSubscript:@"morpher"];
-  v10 = [dictionaryCopy objectForKeyedSubscript:@"value"];
+  v9 = [dictionaryCopy objectForKeyedSubscript:?];
+  v10 = [dictionaryCopy objectForKeyedSubscript:?];
   [v10 floatValue];
-  v11 = [(AVTStickerMorpherOverride *)v8 initWithNodeNames:v7 morphTargetName:v9 weight:?];
+  v11 = [AVTStickerMorpherOverride initWithNodeNames:v8 morphTargetName:"initWithNodeNames:morphTargetName:weight:" weight:?];
 
   return v11;
 }
@@ -52,57 +52,44 @@
 
 - (void)applyToAvatar:(id)avatar inHierarchy:(id)hierarchy reversionContext:(id)context
 {
-  v30 = *MEMORY[0x1E69E9840];
   contextCopy = context;
-  v9 = [avatar nodesMatchingStickerPattern:self->_nodeNames inHierarchy:hierarchy options:1 includingDerivedNodes:1];
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
-  if (v10)
+  v7 = [avatar nodesMatchingStickerPattern:? inHierarchy:? options:? includingDerivedNodes:?];
+  v8 = [v7 countByEnumeratingWithState:0 objects:? count:?];
+  if (v8)
   {
-    v11 = v10;
-    v12 = 0;
-    v13 = *v26;
+    v9 = v8;
+    v10 = 0;
+    v11 = MEMORY[0];
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v9; i = (i + 1))
       {
-        if (*v26 != v13)
+        if (MEMORY[0] != v11)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v7);
         }
 
-        morpher = [*(*(&v25 + 1) + 8 * i) morpher];
-        v16 = [morpher _weightIndexForTargetNamed:self->_morphTargetName];
-        if (v16 != 0x7FFFFFFFFFFFFFFFLL)
+        morpher = [*(8 * i) morpher];
+        if ([morpher _weightIndexForTargetNamed:?] != 0x7FFFFFFFFFFFFFFFLL)
         {
-          v18 = v16;
-          if (!((contextCopy == 0) | v12 & 1))
+          if (!((contextCopy == 0) | v10 & 1))
           {
-            [morpher weightForTargetAtIndex:v16];
-            v20 = v19;
-            v21 = [AVTStickerMorpherOverride alloc];
-            LODWORD(v22) = v20;
-            v23 = [(AVTStickerMorpherOverride *)v21 initWithNodeNames:self->_nodeNames morphTargetName:self->_morphTargetName weight:v22];
-            [contextCopy saveMorpherOverride:v23];
+            [morpher weightForTargetAtIndex:?];
+            v14 = [AVTStickerMorpherOverride initWithNodeNames:"initWithNodeNames:morphTargetName:weight:" morphTargetName:? weight:?];
+            [contextCopy saveMorpherOverride:?];
 
-            v12 = 1;
+            v10 = 1;
           }
 
-          *&v17 = self->_weight;
-          [morpher setWeight:v18 forTargetAtIndex:v17];
+          [morpher setWeight:? forTargetAtIndex:?];
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v9 = [v7 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v11);
+    while (v9);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 @end

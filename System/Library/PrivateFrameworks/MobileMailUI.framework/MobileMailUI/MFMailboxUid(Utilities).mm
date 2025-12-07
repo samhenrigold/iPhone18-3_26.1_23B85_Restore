@@ -13,34 +13,34 @@
 
 + (id)shorcutIconNameForMailboxType:()Utilities
 {
-  v20[8] = *MEMORY[0x277D85DE8];
+  v19[8] = *MEMORY[0x277D85DE8];
   v4 = shorcutIconNameForMailboxType___mailboxAppShortcutIconNames;
   if (!shorcutIconNameForMailboxType___mailboxAppShortcutIconNames)
   {
     v5 = *MEMORY[0x277D281A0];
-    v19[0] = &unk_2826DC980;
-    v19[1] = &unk_2826DC998;
+    v18[0] = &unk_2826DC980;
+    v18[1] = &unk_2826DC998;
     v6 = *MEMORY[0x277D281D0];
-    v20[0] = v5;
-    v20[1] = v6;
+    v19[0] = v5;
+    v19[1] = v6;
     v7 = *MEMORY[0x277D281C0];
-    v19[2] = &unk_2826DC9B0;
-    v19[3] = &unk_2826DC9C8;
+    v18[2] = &unk_2826DC9B0;
+    v18[3] = &unk_2826DC9C8;
     v8 = *MEMORY[0x277D28190];
-    v20[2] = v7;
-    v20[3] = v8;
+    v19[2] = v7;
+    v19[3] = v8;
     v9 = *MEMORY[0x277D281B8];
-    v19[4] = &unk_2826DC9E0;
-    v19[5] = &unk_2826DC9F8;
+    v18[4] = &unk_2826DC9E0;
+    v18[5] = &unk_2826DC9F8;
     v10 = *MEMORY[0x277D281A8];
-    v20[4] = v9;
-    v20[5] = v10;
-    v19[6] = &unk_2826DCA10;
-    v19[7] = &unk_2826DCA28;
+    v19[4] = v9;
+    v19[5] = v10;
+    v18[6] = &unk_2826DCA10;
+    v18[7] = &unk_2826DCA28;
     v11 = *MEMORY[0x277D281B0];
-    v20[6] = *MEMORY[0x277D28188];
-    v20[7] = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:8];
+    v19[6] = *MEMORY[0x277D28188];
+    v19[7] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:8];
     v13 = shorcutIconNameForMailboxType___mailboxAppShortcutIconNames;
     shorcutIconNameForMailboxType___mailboxAppShortcutIconNames = v12;
 
@@ -60,41 +60,39 @@
   v15 = [MEMORY[0x277CCABB0] numberWithInteger:v14];
   v16 = [v4 objectForKeyedSubscript:v15];
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 + (id)iconNameForType:()Utilities
 {
-  v20[8] = *MEMORY[0x277D85DE8];
+  v19[8] = *MEMORY[0x277D85DE8];
   v4 = iconNameForType__mailboxImages;
   if (!iconNameForType__mailboxImages)
   {
     v5 = *MEMORY[0x277D281A0];
-    v19[0] = &unk_2826DC980;
-    v19[1] = &unk_2826DC998;
+    v18[0] = &unk_2826DC980;
+    v18[1] = &unk_2826DC998;
     v6 = *MEMORY[0x277D281D0];
-    v20[0] = v5;
-    v20[1] = v6;
+    v19[0] = v5;
+    v19[1] = v6;
     v7 = *MEMORY[0x277D281C0];
-    v19[2] = &unk_2826DC9B0;
-    v19[3] = &unk_2826DC9C8;
+    v18[2] = &unk_2826DC9B0;
+    v18[3] = &unk_2826DC9C8;
     v8 = *MEMORY[0x277D28190];
-    v20[2] = v7;
-    v20[3] = v8;
+    v19[2] = v7;
+    v19[3] = v8;
     v9 = *MEMORY[0x277D281B8];
-    v19[4] = &unk_2826DC9E0;
-    v19[5] = &unk_2826DC9F8;
+    v18[4] = &unk_2826DC9E0;
+    v18[5] = &unk_2826DC9F8;
     v10 = *MEMORY[0x277D281A8];
-    v20[4] = v9;
-    v20[5] = v10;
-    v19[6] = &unk_2826DCA10;
-    v19[7] = &unk_2826DCA28;
+    v19[4] = v9;
+    v19[5] = v10;
+    v18[6] = &unk_2826DCA10;
+    v18[7] = &unk_2826DCA28;
     v11 = *MEMORY[0x277D281B0];
-    v20[6] = *MEMORY[0x277D28188];
-    v20[7] = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:8];
+    v19[6] = *MEMORY[0x277D28188];
+    v19[7] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:8];
     v13 = iconNameForType__mailboxImages;
     iconNameForType__mailboxImages = v12;
 
@@ -113,8 +111,6 @@
 
   v15 = [MEMORY[0x277CCABB0] numberWithInteger:v14];
   v16 = [v4 objectForKeyedSubscript:v15];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -199,23 +195,8 @@
     }
   }
 
-  if (!a3)
+  if (!a3 || (v13 = [self type], (v13 - 2) >= 4) && v13 != 7 || (objc_msgSend(self, "account"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "displayName"), v15 = objc_claimAutoreleasedReturnValue(), v14, !v15) || (_folderNameFormatString(1, v8), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", v16, v15, displayNameUsingSpecialNames), v17 = objc_claimAutoreleasedReturnValue(), v16, v15, !v17))
   {
-    goto LABEL_12;
-  }
-
-  type = [self type];
-  if ((type - 2) >= 4 && type != 7)
-  {
-    goto LABEL_12;
-  }
-
-  account = [self account];
-  displayName = [account displayName];
-
-  if (!displayName || (_folderNameFormatString(1, v8), v16 = objc_claimAutoreleasedReturnValue(), [MEMORY[0x277CCACA8] stringWithFormat:v16, displayName, displayNameUsingSpecialNames], v17 = objc_claimAutoreleasedReturnValue(), v16, displayName, !v17))
-  {
-LABEL_12:
     v18 = MEMORY[0x277CCACA8];
     v19 = _folderNameFormatString(0, v8);
     v17 = [v18 stringWithFormat:v19, displayNameUsingSpecialNames];

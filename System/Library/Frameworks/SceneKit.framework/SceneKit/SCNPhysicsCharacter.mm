@@ -187,7 +187,7 @@ uint64_t __35__SCNPhysicsCharacter_setVelocity___block_invoke(uint64_t result)
 
   if (!v7)
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNPhysicsHingeJoint _addToPhysicsWorld:v8 definition:?];
@@ -226,49 +226,49 @@ uint64_t __35__SCNPhysicsCharacter_setVelocity___block_invoke(uint64_t result)
     _handle = [(SCNPhysicsBody *)self->_definition.characterBody _handle];
     if (_handle)
     {
-      v5 = _handle;
+      v6 = _handle;
       btCollisionObject::setActivationState(_handle, 4);
-      if ((*(v5 + 232) & 2) == 0)
+      if ((*(v6 + 232) & 2) == 0)
       {
         operator new();
       }
 
-      v13 = *(v5 + 2);
-      *buf = *(v5 + 1);
-      v14 = *buf;
-      v18 = v13;
-      v11 = *(v5 + 4);
-      v19 = *(v5 + 3);
-      v12 = v19;
-      v20 = v11;
-      v7 = btAlignedAllocInternal(336, 16);
-      btPairCachingGhostObject::btPairCachingGhostObject(v7);
-      self->_ghostObject = v7;
-      *(v7 + 1) = v14;
-      *(v7 + 2) = v13;
-      *(v7 + 3) = v12;
-      *(v7 + 4) = v11;
-      v8 = *(v5 + 26);
-      if (v8->var1 != 10)
+      v14 = *(v6 + 2);
+      *buf = *(v6 + 1);
+      v15 = *buf;
+      v19 = v14;
+      v12 = *(v6 + 4);
+      v20 = *(v6 + 3);
+      v13 = v20;
+      v21 = v12;
+      v8 = btAlignedAllocInternal(336, 16);
+      btPairCachingGhostObject::btPairCachingGhostObject(v8);
+      self->_ghostObject = v8;
+      *(v8 + 1) = v15;
+      *(v8 + 2) = v14;
+      *(v8 + 3) = v13;
+      *(v8 + 4) = v12;
+      v9 = *(v6 + 26);
+      if (v9->var1 != 10)
       {
-        (*(v8->var0 + 2))(*(v5 + 26), buf, v16, v15);
-        v9 = v15[1] - v16[1];
-        v10 = v15[0] - v16[0];
-        v8 = btAlignedAllocInternal(80, 16);
-        btCapsuleShape::btCapsuleShape(v8, v10, v9);
-        self->_capsuleShape = v8;
+        (*(v9->var0 + 2))(*(v6 + 26), buf, v17, v16);
+        v10 = v16[1] - v17[1];
+        v11 = v16[0] - v17[0];
+        v9 = btAlignedAllocInternal(80, 16);
+        btCapsuleShape::btCapsuleShape(v9, v11, v10);
+        self->_capsuleShape = v9;
       }
 
-      (*(*self->_ghostObject + 24))(self->_ghostObject, v8);
+      (*(*self->_ghostObject + 24))(self->_ghostObject, v9);
       *(self->_ghostObject + 58) = 16;
       operator new();
     }
 
-    v6 = scn_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = scn_default_log(0, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21BEF7000, v6, OS_LOG_TYPE_DEFAULT, "Warning: Character should already have a body", buf, 2u);
+      _os_log_impl(&dword_21BEF7000, v7, OS_LOG_TYPE_DEFAULT, "Warning: Character should already have a body", buf, 2u);
     }
   }
 }

@@ -111,18 +111,14 @@
 
 - (void)setMediaRouteIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  mediaRouteIdentifier = self->_mediaRouteIdentifier;
-  self->_mediaRouteIdentifier = v4;
+  self->_mediaRouteIdentifier = [identifier copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setCameraCapabilities:(id)capabilities
 {
-  v4 = [capabilities copy];
-  cameraCapabilities = self->_cameraCapabilities;
-  self->_cameraCapabilities = v4;
+  self->_cameraCapabilities = [capabilities copy];
 
   MEMORY[0x2821F96F8]();
 }
@@ -145,18 +141,8 @@
     v5 = [version componentsSeparatedByString:@"."];
 
     v6 = [v5 count];
-    if (v6 < 1)
+    if (v6 < 1 || (v7 = v6, [v5 objectAtIndexedSubscript:0], v8 = objc_claimAutoreleasedReturnValue(), self->_rapportVersion += 10000 * objc_msgSend(v8, "integerValue"), v8, v7 == 1) || (objc_msgSend(v5, "objectAtIndexedSubscript:", 1), v9 = objc_claimAutoreleasedReturnValue(), self->_rapportVersion = (fmax(objc_msgSend(v9, "integerValue"), 99.0) * 100.0 + self->_rapportVersion), v9, v7 <= 2))
     {
-      goto LABEL_6;
-    }
-
-    v7 = v6;
-    v8 = [v5 objectAtIndexedSubscript:0];
-    self->_rapportVersion += 10000 * [v8 integerValue];
-
-    if (v7 == 1 || ([v5 objectAtIndexedSubscript:1], v9 = objc_claimAutoreleasedReturnValue(), self->_rapportVersion = (fmax(objc_msgSend(v9, "integerValue"), 99.0) * 100.0 + self->_rapportVersion), v9, v7 <= 2))
-    {
-LABEL_6:
       self->_rapportVersion = self->_rapportVersion;
     }
 
@@ -490,30 +476,30 @@ LABEL_6:
 + (id)allDevicesByForcingFetchFromRelay:(BOOL)relay
 {
   relayCopy = relay;
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   SidecarRegisterStateNotification();
   v4 = atomic_load(&SidecarDeviceState);
   v5 = atomic_exchange(&allDevicesByForcingFetchFromRelay__allDevicesGeneration, v4);
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x3032000000;
-  v51 = __Block_byref_object_copy__493;
-  v52 = __Block_byref_object_dispose__494;
-  v53 = 0;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x3032000000;
+  v50 = __Block_byref_object_copy__493;
+  v51 = __Block_byref_object_dispose__494;
+  v52 = 0;
   if (v5 != v4 || relayCopy)
   {
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x3032000000;
-    v45 = __Block_byref_object_copy__493;
-    v46 = __Block_byref_object_dispose__494;
-    v47 = 0;
+    v41 = 0;
+    v42 = &v41;
+    v43 = 0x3032000000;
+    v44 = __Block_byref_object_copy__493;
+    v45 = __Block_byref_object_dispose__494;
+    v46 = 0;
     v7 = SidecarQueue();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __51__SidecarDevice_allDevicesByForcingFetchFromRelay___block_invoke;
     block[3] = &unk_279BC31F8;
-    block[4] = &v42;
+    block[4] = &v41;
     dispatch_sync(v7, block);
 
     if (v4 || relayCopy)
@@ -522,29 +508,29 @@ LABEL_6:
       if (relayCopy)
       {
         v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v8, "count")}];
-        v39 = 0u;
-        v40 = 0u;
-        v37 = 0u;
         v38 = 0u;
+        v39 = 0u;
+        v36 = 0u;
+        v37 = 0u;
         v10 = v8;
-        v11 = [v10 countByEnumeratingWithState:&v37 objects:v57 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v36 objects:v56 count:16];
         if (v11)
         {
-          v12 = *v38;
+          v12 = *v37;
           do
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v38 != v12)
+              if (*v37 != v12)
               {
                 objc_enumerationMutation(v10);
               }
 
-              identifier = [*(*(&v37 + 1) + 8 * i) identifier];
+              identifier = [*(*(&v36 + 1) + 8 * i) identifier];
               [v9 addObject:identifier];
             }
 
-            v11 = [v10 countByEnumeratingWithState:&v37 objects:v57 count:16];
+            v11 = [v10 countByEnumeratingWithState:&v36 objects:v56 count:16];
           }
 
           while (v11);
@@ -555,7 +541,7 @@ LABEL_6:
         if (v15 && os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v56 = v9;
+          v55 = v9;
           _os_log_impl(&dword_26604C000, v16, OS_LOG_TYPE_DEFAULT, "Forced a fetch of devices from SidecarRelay. Identifiers of devices fetched: [%@]", buf, 0xCu);
         }
       }
@@ -567,30 +553,30 @@ LABEL_6:
     }
 
     v17 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v8, "count")}];
-    v18 = v49[5];
-    v49[5] = v17;
+    v18 = v48[5];
+    v48[5] = v17;
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v19 = v8;
-    v20 = [v19 countByEnumeratingWithState:&v33 objects:v54 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v32 objects:v53 count:16];
     if (v20)
     {
-      v21 = *v34;
+      v21 = *v33;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v34 != v21)
+          if (*v33 != v21)
           {
             objc_enumerationMutation(v19);
           }
 
-          v23 = *(*(&v33 + 1) + 8 * j);
+          v23 = *(*(&v32 + 1) + 8 * j);
           identifier2 = [v23 identifier];
-          v25 = [v43[5] objectForKeyedSubscript:identifier2];
+          v25 = [v42[5] objectForKeyedSubscript:identifier2];
           v26 = v25;
           if (v25)
           {
@@ -603,89 +589,86 @@ LABEL_6:
             v23[8] = v4;
           }
 
-          [v49[5] setObject:v23 forKeyedSubscript:identifier2];
+          [v48[5] setObject:v23 forKeyedSubscript:identifier2];
         }
 
-        v20 = [v19 countByEnumeratingWithState:&v33 objects:v54 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v32 objects:v53 count:16];
       }
 
       while (v20);
     }
 
-    _Block_object_dispose(&v42, 8);
+    _Block_object_dispose(&v41, 8);
   }
 
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy__493;
-  v46 = __Block_byref_object_dispose__494;
-  v47 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__493;
+  v45 = __Block_byref_object_dispose__494;
+  v46 = 0;
   v27 = SidecarQueue();
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __51__SidecarDevice_allDevicesByForcingFetchFromRelay___block_invoke_52;
-  v32[3] = &unk_279BC3248;
-  v32[4] = &v48;
-  v32[5] = &v42;
-  dispatch_sync(v27, v32);
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __51__SidecarDevice_allDevicesByForcingFetchFromRelay___block_invoke_52;
+  v31[3] = &unk_279BC3248;
+  v31[4] = &v47;
+  v31[5] = &v41;
+  dispatch_sync(v27, v31);
 
-  v28 = v43[5];
+  v28 = v42[5];
   if (!v28)
   {
     v28 = MEMORY[0x277CBEBF8];
   }
 
   v29 = v28;
-  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v41, 8);
 
-  _Block_object_dispose(&v48, 8);
-  v30 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v47, 8);
 
   return v29;
 }
 
 void __51__SidecarDevice_allDevicesByForcingFetchFromRelay___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [allDevicesByForcingFetchFromRelay__allDevicesArray count];
   v3 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:v2];
   v4 = *(*(a1 + 32) + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = allDevicesByForcingFetchFromRelay__allDevicesArray;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         v12 = *(*(*(a1 + 32) + 8) + 40);
         v13 = [v11 identifier];
         [v12 setObject:v11 forKeyedSubscript:v13];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __51__SidecarDevice_allDevicesByForcingFetchFromRelay___block_invoke_52(uint64_t a1)

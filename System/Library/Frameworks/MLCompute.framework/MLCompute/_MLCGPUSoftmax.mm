@@ -1,4 +1,5 @@
 @interface _MLCGPUSoftmax
++ (id)layerWithDevice:(id)device operation:(int)operation dimension:(unint64_t)dimension;
 - (_MLCGPUSoftmax)initWithDevice:(id)device operation:(int)operation dimension:(unint64_t)dimension;
 @end
 
@@ -99,6 +100,15 @@
     v42.super_class = _MLCGPUSoftmax;
     [(_MLCGPULayer *)&v42 setDeviceOps:v33];
   }
+
+  return v9;
+}
+
++ (id)layerWithDevice:(id)device operation:(int)operation dimension:(unint64_t)dimension
+{
+  v6 = *&operation;
+  deviceCopy = device;
+  v9 = [[self alloc] initWithDevice:deviceCopy operation:v6 dimension:dimension];
 
   return v9;
 }

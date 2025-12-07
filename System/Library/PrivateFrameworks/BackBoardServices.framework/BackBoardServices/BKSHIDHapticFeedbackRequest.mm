@@ -47,7 +47,7 @@
       if (v3 != objc_opt_class())
       {
         currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-        [currentHandler handleFailureInMethod:sel__init object:v1 file:@"BKSHIDHapticFeedbackRequest.m" lineNumber:64 description:@"BKSHIDHapticFeedbackRequest cannot be subclassed"];
+        [currentHandler handleFailureInMethod:? object:? file:? lineNumber:? description:?];
       }
     }
 
@@ -62,13 +62,13 @@
 - (void)appendDescriptionToFormatter:(id)formatter
 {
   formatterCopy = formatter;
-  v4 = [formatterCopy appendObject:self->_pattern withName:@"pattern"];
+  v4 = [formatterCopy appendObject:? withName:?];
   v5 = NSStringFromBKSHIDHapticFeedbackRequestDeviceType(self->_deviceType);
-  v6 = [formatterCopy appendObject:v5 withName:@"deviceType"];
+  v6 = [formatterCopy appendObject:? withName:?];
 
-  v7 = [formatterCopy appendUInt64:self->_senderID withName:@"senderID" format:1];
-  v8 = [formatterCopy appendObject:self->_powerSourceID withName:@"powerSourceID"];
-  v9 = [formatterCopy appendInt64:self->_timestamp withName:@"timestamp"];
+  v7 = [formatterCopy appendUInt64:? withName:? format:?];
+  v8 = [formatterCopy appendObject:? withName:?];
+  v9 = [formatterCopy appendInt64:? withName:?];
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
@@ -85,30 +85,28 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    v6 = v5[1];
-    pattern = self->_pattern;
-    v10 = BSEqualObjects() && v5[2] == self->_deviceType && v5[3] == self->_senderID && (v8 = v5[4], powerSourceID = self->_powerSourceID, BSEqualObjects()) && v5[5] == self->_timestamp;
+    v6 = BSEqualObjects() && v5[2] == self->_deviceType && v5[3] == self->_senderID && BSEqualObjects() && v5[5] == self->_timestamp;
   }
 
   else
   {
-    v10 = 0;
+    v6 = 0;
   }
 
-  return v10;
+  return v6;
 }
 
 - (unint64_t)hash
 {
   [(NSString *)self->_pattern hash];
   [(NSNumber *)self->_powerSourceID hash];
-  v3 = [MEMORY[0x1E696AD98] numberWithInteger:self->_deviceType];
+  v3 = [MEMORY[0x1E696AD98] numberWithInteger:?];
   [v3 hash];
 
-  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_senderID];
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
   [v4 hash];
 
-  v5 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_timestamp];
+  v5 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
   [v5 hash];
 
   return BSHashPurifyNS();
@@ -117,21 +115,19 @@
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  pattern = self->_pattern;
-  if (pattern)
+  if (self->_pattern)
   {
-    [coderCopy encodeObject:pattern forKey:@"pattern"];
+    [coderCopy encodeObject:? forKey:?];
   }
 
-  [coderCopy encodeInteger:self->_deviceType forKey:@"deviceType"];
-  [coderCopy encodeInt64:self->_senderID forKey:@"senderID"];
-  powerSourceID = self->_powerSourceID;
-  if (powerSourceID)
+  [coderCopy encodeInteger:? forKey:?];
+  [coderCopy encodeInt64:? forKey:?];
+  if (self->_powerSourceID)
   {
-    [coderCopy encodeObject:powerSourceID forKey:@"powerSourceID"];
+    [coderCopy encodeObject:? forKey:?];
   }
 
-  [coderCopy encodeInt64:self->_timestamp forKey:@"timestamp"];
+  [coderCopy encodeInt64:? forKey:?];
 }
 
 - (BKSHIDHapticFeedbackRequest)initWithCoder:(id)coder
@@ -140,17 +136,19 @@
   v11.super_class = BKSHIDHapticFeedbackRequest;
   coderCopy = coder;
   v4 = [(BKSHIDHapticFeedbackRequest *)&v11 init];
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:{@"pattern", v11.receiver, v11.super_class}];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:v11.receiver forKey:v11.super_class];
   pattern = v4->_pattern;
   v4->_pattern = v5;
 
-  v4->_deviceType = [coderCopy decodeIntegerForKey:@"deviceType"];
-  v4->_senderID = [coderCopy decodeInt64ForKey:@"senderID"];
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"powerSourceID"];
+  v4->_deviceType = [coderCopy decodeIntegerForKey:?];
+  v4->_senderID = [coderCopy decodeInt64ForKey:?];
+  objc_opt_class();
+  v7 = [coderCopy decodeObjectOfClass:? forKey:?];
   powerSourceID = v4->_powerSourceID;
   v4->_powerSourceID = v7;
 
-  v9 = [coderCopy decodeInt64ForKey:@"timestamp"];
+  v9 = [coderCopy decodeInt64ForKey:?];
   v4->_timestamp = v9;
   return v4;
 }
@@ -158,8 +156,8 @@
 - (BKSHIDHapticFeedbackRequest)init
 {
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[BKSHIDHapticFeedbackRequest init]"];
-  [currentHandler handleFailureInFunction:v4 file:@"BKSHIDHapticFeedbackRequest.m" lineNumber:53 description:@"cannot directly allocate BKSHIDHapticFeedbackRequest"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+  [currentHandler handleFailureInFunction:? file:? lineNumber:? description:?];
 
   return 0;
 }
@@ -167,18 +165,18 @@
 void __45__BKSHIDHapticFeedbackRequest_protobufSchema__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  [v2 addField:"_pattern"];
-  [v2 addField:"_deviceType"];
-  [v2 addField:"_senderID"];
-  [v2 addField:"_powerSourceID"];
-  [v2 addField:"_timestamp"];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
 }
 
 + (id)new
 {
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[BKSHIDHapticFeedbackRequest new]"];
-  [currentHandler handleFailureInFunction:v3 file:@"BKSHIDHapticFeedbackRequest.m" lineNumber:58 description:@"cannot directly allocate BKSHIDHapticFeedbackRequest"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+  [currentHandler handleFailureInFunction:? file:? lineNumber:? description:?];
 
   return 0;
 }

@@ -61,24 +61,8 @@ LABEL_8:
   v24.super_class = KVEmbeddedDatasetReader;
   v10 = [(KVEmbeddedDatasetReader *)&v24 init];
   v11 = v10;
-  if (!v10)
+  if (!v10 || (objc_storeStrong(&v10->_data, data), v11->_dataset = dataset, v12 = &dataset[*dataset[-*dataset->var0 + 4].var0], objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(MEMORY[0x277CBEA90], v13, &v12[*v12->var0 + 4], *v12[*v12->var0].var0, 0, v14), v15 = objc_claimAutoreleasedReturnValue(), v16 = [KVDatasetInfo alloc], v20 = objc_msgSend_initWithBuffer_error_(v16, v17, v15, error, v18, v19), datasetInfo = v11->_datasetInfo, v11->_datasetInfo = v20, datasetInfo, v22 = v11->_datasetInfo, v15, v22))
   {
-    goto LABEL_3;
-  }
-
-  objc_storeStrong(&v10->_data, data);
-  v11->_dataset = dataset;
-  v12 = &dataset[*dataset[-*dataset->var0 + 4].var0];
-  v15 = objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(MEMORY[0x277CBEA90], v13, &v12[*v12->var0 + 4], *v12[*v12->var0].var0, 0, v14);
-  v16 = [KVDatasetInfo alloc];
-  v20 = objc_msgSend_initWithBuffer_error_(v16, v17, v15, error, v18, v19);
-  datasetInfo = v11->_datasetInfo;
-  v11->_datasetInfo = v20;
-
-  v22 = v11->_datasetInfo;
-  if (v22)
-  {
-LABEL_3:
     v22 = v11;
   }
 

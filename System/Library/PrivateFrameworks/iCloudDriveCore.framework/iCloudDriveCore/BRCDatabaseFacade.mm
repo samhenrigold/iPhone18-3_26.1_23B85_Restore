@@ -1,5 +1,6 @@
 @interface BRCDatabaseFacade
 - (BOOL)groupInTransaction:(id)transaction;
+- (BOOL)performWithFlags:(unsigned int)flags action:(id)action;
 - (BRCDatabaseFacade)initWithDB:(id)b workloop:(id)workloop;
 - (id)_initWithDB:(id)b workloop:(id)workloop;
 - (id)deviceKeyForName:(id)name;
@@ -92,6 +93,22 @@
   v8 = batchCopy;
   v6 = batchCopy;
   [(BRCPQLConnection *)db groupInBatch:v7];
+}
+
+- (BOOL)performWithFlags:(unsigned int)flags action:(id)action
+{
+  v4 = *&flags;
+  actionCopy = action;
+  db = self->_db;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __45__BRCDatabaseFacade_performWithFlags_action___block_invoke;
+  v10[3] = &unk_2785021E0;
+  v11 = actionCopy;
+  v8 = actionCopy;
+  LOBYTE(v4) = [(BRCPQLConnection *)db performWithFlags:v4 action:v10];
+
+  return v4;
 }
 
 - (id)userKeyForOwnerName:(id)name
@@ -390,11 +407,10 @@ void __65__BRCDatabaseFacade_getParticipantsAndRecordIDsWithIsRequesters___block
 
 - (void)initWithDB:(uint64_t)a1 workloop:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: You should sub class%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: You should sub class%@", &v2, 0xCu);
 }
 
 @end

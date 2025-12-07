@@ -148,7 +148,7 @@
   forDisplay = [optionsCopy forDisplay];
 
   [self _transformContextToModelCoordinates:context forAnnotation:annotationCopy forDisplay:forDisplay pageControllerOrNil:nilCopy];
-  [AKGeometryHelper rotationTransformForRectangularAnnotation:annotationCopy hasRotation:0];
+  objc_msgSend_rotationTransformForRectangularAnnotation_hasRotation_(AKGeometryHelper);
   memset(&transform, 0, sizeof(transform));
   CGContextConcatCTM(context, &transform);
   v14 = [self _newPathForAnnotation:annotationCopy axisAlignedForStroke:0 alignToScreenUsingPageController:nilCopy orAlignToContext:context];
@@ -271,7 +271,7 @@
 
   v12 = [AKAnnotationRendererUtilities newStandardStrokedBorderPathWithPath:v10 withStrokeWidth:thicknessCopy];
   memset(&m, 0, sizeof(m));
-  [AKGeometryHelper rotationTransformForRectangularAnnotation:annotationCopy hasRotation:0];
+  objc_msgSend_rotationTransformForRectangularAnnotation_hasRotation_(AKGeometryHelper);
 
   v15 = m;
   CGAffineTransformInvert(&v16, &v15);
@@ -291,7 +291,7 @@
   annotationCopy = annotation;
   v8 = [self _newPathForAnnotation:annotationCopy axisAlignedForStroke:0 alignToScreenUsingPageController:0 orAlignToContext:0];
   memset(&m, 0, sizeof(m));
-  [AKGeometryHelper rotationTransformForRectangularAnnotation:annotationCopy hasRotation:0];
+  objc_msgSend_rotationTransformForRectangularAnnotation_hasRotation_(AKGeometryHelper);
 
   v10 = m;
   CGAffineTransformInvert(&v11, &v10);

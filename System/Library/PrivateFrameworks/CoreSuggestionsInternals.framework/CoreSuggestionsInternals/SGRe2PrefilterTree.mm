@@ -7,7 +7,7 @@
 
 - (id)regexpIdsThatMightMatchUtf8:(const char *)utf8
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   if (!utf8 || !*utf8)
   {
     v55 = 0;
@@ -16,7 +16,7 @@
 
   v4 = objc_opt_new();
   utf8Copy4 = utf8;
-  v82 = v4;
+  v81 = v4;
   v6 = *utf8;
   if (*utf8)
   {
@@ -41,15 +41,15 @@
       n2 = 1;
     }
 
-    v80 = n2;
-    v81 = n3;
+    v79 = n2;
+    v80 = n3;
     n1 = self->_n1;
     if (n1 <= 1)
     {
       n1 = 1;
     }
 
-    v79 = n1;
+    v78 = n1;
     do
     {
       v15 = &utf8Copy4[v11];
@@ -60,9 +60,9 @@
         v17 = self->_n1;
         if (v17)
         {
-          v18 = v7 % v79;
+          v18 = v7 % v78;
           h1 = self->_h1;
-          v20 = h1[v7 % v79];
+          v20 = h1[v7 % v78];
           if (v20 != 0xFFFF)
           {
             v29 = v15 - 2;
@@ -93,17 +93,17 @@
                 goto LABEL_28;
               }
 
-              v77 = v16;
+              v76 = v16;
               v35 = v9;
               v36 = v8;
               v37 = v7;
               v38 = v15;
-              [v82 addIndex:*(v30 - 1)];
+              [v81 addIndex:*(v30 - 1)];
               v15 = v38;
               v7 = v37;
               v8 = v36;
               v9 = v35;
-              v16 = v77;
+              v16 = v76;
               utf8Copy4 = utf8;
               v17 = self->_n1;
               h1 = self->_h1;
@@ -132,9 +132,9 @@ LABEL_28:
         v21 = self->_n2;
         if (v21)
         {
-          v22 = v8 % v80;
+          v22 = v8 % v79;
           h2 = self->_h2;
-          v24 = h2[v8 % v80];
+          v24 = h2[v8 % v79];
           if (v24 != 0xFFFF)
           {
             v39 = v15 - 5;
@@ -165,17 +165,17 @@ LABEL_28:
                 goto LABEL_39;
               }
 
-              v78 = v16;
+              v77 = v16;
               v45 = v9;
               v46 = v8;
               v47 = v7;
               v48 = v15;
-              [v82 addIndex:*(v40 - 1)];
+              [v81 addIndex:*(v40 - 1)];
               v15 = v48;
               v7 = v47;
               v8 = v46;
               v9 = v45;
-              v16 = v78;
+              v16 = v77;
               utf8Copy4 = utf8;
               v21 = self->_n2;
               h2 = self->_h2;
@@ -204,9 +204,9 @@ LABEL_39:
         v25 = self->_n3;
         if (v25)
         {
-          v26 = v9 % v81;
+          v26 = v9 % v80;
           h3 = self->_h3;
-          v28 = h3[v9 % v81];
+          v28 = h3[v9 % v80];
           if (v28 != 0xFFFF)
           {
             v49 = v15 - 7;
@@ -237,7 +237,7 @@ LABEL_39:
                 goto LABEL_50;
               }
 
-              [v82 addIndex:*(v50 - 1)];
+              [v81 addIndex:*(v50 - 1)];
               utf8Copy4 = utf8;
               v25 = self->_n3;
               h3 = self->_h3;
@@ -268,7 +268,7 @@ LABEL_50:
   }
 
   v56 = objc_opt_new();
-  memset(v85, 0, sizeof(v85));
+  memset(v84, 0, sizeof(v84));
   if (!self->_nrpns)
   {
 LABEL_87:
@@ -306,14 +306,14 @@ LABEL_84:
   {
     if (v63 == 64)
     {
-      v74 = sgLogHandle();
-      if (!os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+      v73 = sgLogHandle();
+      if (!os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_97;
       }
 
       *buf = 0;
-      v75 = "Prefilter tree stack overflow";
+      v74 = "Prefilter tree stack overflow";
       goto LABEL_96;
     }
 
@@ -326,7 +326,7 @@ LABEL_84:
 
     if (!*rpns)
     {
-      *(v85 + v63) = [v82 containsIndex:v65];
+      *(v84 + v63) = [v81 containsIndex:v65];
       goto LABEL_81;
     }
 
@@ -340,7 +340,7 @@ LABEL_84:
       if (rpns[1])
       {
         v66 = v65 - 1;
-        v67 = &v84 + v63;
+        v67 = &v83 + v63;
         v68 = 1;
         do
         {
@@ -361,7 +361,7 @@ LABEL_82:
     rpns += 2;
     if (++v62 == v60)
     {
-      v57 = LOBYTE(v85[0]);
+      v57 = LOBYTE(v84[0]);
       goto LABEL_84;
     }
   }
@@ -370,7 +370,7 @@ LABEL_82:
   {
     if (v64 == 3)
     {
-      *(v85 + v63) = 1;
+      *(v84 + v63) = 1;
 LABEL_81:
       ++v63;
       goto LABEL_82;
@@ -385,7 +385,7 @@ LABEL_81:
     if (rpns[1])
     {
       v66 = v65 - 1;
-      v70 = &v84 + v63;
+      v70 = &v83 + v63;
       do
       {
         v71 = *v70--;
@@ -399,28 +399,27 @@ LABEL_78:
     }
 
 LABEL_80:
-    *(v85 + v63) = v68;
+    *(v84 + v63) = v68;
     goto LABEL_81;
   }
 
 LABEL_94:
-  v74 = sgLogHandle();
-  if (!os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+  v73 = sgLogHandle();
+  if (!os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
   {
     goto LABEL_97;
   }
 
   *buf = 0;
-  v75 = "Prefilter tree stack underflow";
+  v74 = "Prefilter tree stack underflow";
 LABEL_96:
-  _os_log_impl(&dword_231E60000, v74, OS_LOG_TYPE_DEFAULT, v75, buf, 2u);
+  _os_log_impl(&dword_231E60000, v73, OS_LOG_TYPE_DEFAULT, v74, buf, 2u);
 LABEL_97:
 
   v55 = 0;
 LABEL_88:
 
 LABEL_89:
-  v72 = *MEMORY[0x277D85DE8];
 
   return v55;
 }

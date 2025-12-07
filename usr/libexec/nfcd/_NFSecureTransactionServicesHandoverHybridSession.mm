@@ -18,6 +18,7 @@
 - (void)getAppletsWithCompletion:(id)completion;
 - (void)getFelicaAppletState:(id)state completion:(id)completion;
 - (void)getTransitAppletState:(id)state completion:(id)completion;
+- (void)handleFieldChanged:(BOOL)changed;
 - (void)handleFieldNotification:(id)notification;
 - (void)handleHostCardReaderDetected:(id)detected;
 - (void)handleReaderBurnoutCleared;
@@ -331,6 +332,19 @@
   v11 = [NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:4];
   v12 = [v6 initWithDomain:v7 code:14 userInfo:v11];
   (*(completion + 2))(completionCopy, v12);
+}
+
+- (void)handleFieldChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_100240C54;
+  v5[3] = &unk_1003162B8;
+  v5[4] = self;
+  v5[5] = a2;
+  v4 = [(_NFSecureTransactionServicesHandoverHybridSession *)self _asynchronousRemoteProxyWithErrorHandler:v5];
+  [v4 fieldChange:changedCopy];
 }
 
 - (void)handleFieldNotification:(id)notification
@@ -1332,7 +1346,7 @@ LABEL_93:
   }
 
   v13 = +[_NFHardwareManager sharedHardwareManager];
-  v14 = sub_10004BF2C();
+  v14 = sub_10004BF2C(NFRoutingConfig);
   v15 = [v13 setRoutingConfig:v14];
 }
 
@@ -1484,7 +1498,7 @@ LABEL_93:
   }
 
   v13 = +[_NFHardwareManager sharedHardwareManager];
-  v14 = sub_10004C144();
+  v14 = sub_10004C144(NFRoutingConfig);
   v15 = [v13 setRoutingConfig:v14];
 }
 

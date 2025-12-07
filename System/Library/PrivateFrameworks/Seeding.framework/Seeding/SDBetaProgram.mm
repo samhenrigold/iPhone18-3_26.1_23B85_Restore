@@ -13,7 +13,7 @@
 
 + (id)betaProgramWithJSON:(id)n
 {
-  v90[1] = *MEMORY[0x277D85DE8];
+  v89[1] = *MEMORY[0x277D85DE8];
   nCopy = n;
   v5 = [nCopy objectForKeyedSubscript:@"catalog"];
   v6 = NilIfNSNull(v5);
@@ -22,12 +22,12 @@
   {
     v7 = MEMORY[0x277CBEBC0];
     v8 = [nCopy objectForKeyedSubscript:@"catalog"];
-    v78 = [v7 URLWithString:v8];
+    v77 = [v7 URLWithString:v8];
   }
 
   else
   {
-    v78 = 0;
+    v77 = 0;
   }
 
   v9 = [nCopy objectForKeyedSubscript:@"id"];
@@ -99,12 +99,12 @@
   {
     v28 = MEMORY[0x277CBEBC0];
     v29 = [nCopy objectForKeyedSubscript:@"asset_brain_url"];
-    v77 = [v28 URLWithString:v29];
+    v76 = [v28 URLWithString:v29];
   }
 
   else
   {
-    v77 = 0;
+    v76 = 0;
   }
 
   v30 = [nCopy objectForKeyedSubscript:@"asset_audience"];
@@ -112,12 +112,12 @@
 
   if (v31)
   {
-    v76 = [nCopy objectForKeyedSubscript:@"asset_audience"];
+    v75 = [nCopy objectForKeyedSubscript:@"asset_audience"];
   }
 
   else
   {
-    v76 = 0;
+    v75 = 0;
   }
 
   v32 = [nCopy objectForKeyedSubscript:@"legal_id"];
@@ -131,15 +131,15 @@
     [nCopy objectForKeyedSubscript:@"legal"];
     v37 = v36 = v25;
     v38 = [SDLegalDoc legalDocWithID:integerValue2 title:@"Legal" content:v37];
-    v90[0] = v38;
-    v75 = [MEMORY[0x277CBEA60] arrayWithObjects:v90 count:1];
+    v89[0] = v38;
+    v74 = [MEMORY[0x277CBEA60] arrayWithObjects:v89 count:1];
 
     v25 = v36;
   }
 
   else
   {
-    v75 = MEMORY[0x277CBEBF8];
+    v74 = MEMORY[0x277CBEBF8];
   }
 
   v39 = [nCopy objectForKeyedSubscript:@"platform"];
@@ -148,7 +148,7 @@
   if (v40)
   {
     v41 = [nCopy objectForKeyedSubscript:@"platform"];
-    v73 = SDPlatformFromString(v41);
+    v72 = SDPlatformFromString(v41);
   }
 
   else
@@ -157,13 +157,13 @@
     if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v87 = integerValue;
-      v88 = 2114;
-      v89 = v15;
+      v86 = integerValue;
+      v87 = 2114;
+      v88 = v15;
       _os_log_impl(&dword_22E41E000, v41, OS_LOG_TYPE_DEFAULT, "No platform specified for beta program [%ld: %{public}@], falling back to TV", buf, 0x16u);
     }
 
-    v73 = 4;
+    v72 = 4;
   }
 
   v42 = [nCopy objectForKeyedSubscript:@"program"];
@@ -181,9 +181,9 @@
     if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v87 = integerValue;
-      v88 = 2114;
-      v89 = v15;
+      v86 = integerValue;
+      v87 = 2114;
+      v88 = v15;
       _os_log_impl(&dword_22E41E000, v44, OS_LOG_TYPE_DEFAULT, "No programType specified for beta program [%ld: %{public}@], falling back to None", buf, 0x16u);
     }
   }
@@ -217,41 +217,41 @@
     v52 = 0;
   }
 
-  v80 = [MEMORY[0x277CBEB58] setWithCapacity:3];
+  v79 = [MEMORY[0x277CBEB58] setWithCapacity:3];
   v53 = [nCopy objectForKeyedSubscript:@"provided_by"];
   v54 = NilIfNSNull(v53);
 
   v55 = v54;
-  v79 = nCopy;
+  v78 = nCopy;
   if (v54)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v70 = v47;
-      v71 = v20;
-      v72 = integerValue;
-      v83 = 0u;
-      v84 = 0u;
-      v81 = 0u;
+      v69 = v47;
+      v70 = v20;
+      v71 = integerValue;
       v82 = 0u;
-      v69 = v54;
+      v83 = 0u;
+      v80 = 0u;
+      v81 = 0u;
+      v68 = v54;
       v56 = v54;
-      v57 = [v56 countByEnumeratingWithState:&v81 objects:v85 count:16];
+      v57 = [v56 countByEnumeratingWithState:&v80 objects:v84 count:16];
       if (v57)
       {
         v58 = v57;
-        v59 = *v82;
+        v59 = *v81;
         do
         {
           for (i = 0; i != v58; ++i)
           {
-            if (*v82 != v59)
+            if (*v81 != v59)
             {
               objc_enumerationMutation(v56);
             }
 
-            v61 = *(*(&v81 + 1) + 8 * i);
+            v61 = *(*(&v80 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -269,30 +269,28 @@
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) != 0 && [v64 isEqualToString:@"BetaEnrollmentToken"] && objc_msgSend(v66, "length"))
                 {
-                  [v80 addObject:v66];
+                  [v79 addObject:v66];
                 }
               }
             }
           }
 
-          v58 = [v56 countByEnumeratingWithState:&v81 objects:v85 count:16];
+          v58 = [v56 countByEnumeratingWithState:&v80 objects:v84 count:16];
         }
 
         while (v58);
       }
 
-      integerValue = v72;
-      v20 = v71;
-      v47 = v70;
-      v55 = v69;
+      integerValue = v71;
+      v20 = v70;
+      v47 = v69;
+      v55 = v68;
     }
   }
 
-  v74 = [[SDBetaProgram alloc] initWithID:integerValue title:v15 program:v20 catalog:v78 assetUpdate:v25 assetBrain:v77 assetAudience:v76 legalDocs:v75 platform:v73 buildPrefix:v47 accountID:v52 betaEnrollmentTokens:v80];
+  v73 = [[SDBetaProgram alloc] initWithID:integerValue title:v15 program:v20 catalog:v77 assetUpdate:v25 assetBrain:v76 assetAudience:v75 legalDocs:v74 platform:v72 buildPrefix:v47 accountID:v52 betaEnrollmentTokens:v79];
 
-  v67 = *MEMORY[0x277D85DE8];
-
-  return v74;
+  return v73;
 }
 
 - (SDBetaProgram)initWithID:(int64_t)d title:(id)title program:(id)program catalog:(id)catalog assetUpdate:(id)update assetBrain:(id)brain assetAudience:(id)audience legalDocs:(id)self0 platform:(unint64_t)self1 buildPrefix:(id)self2 accountID:(int64_t)self3 betaEnrollmentTokens:(id)self4
@@ -331,33 +329,33 @@
 
 - (BOOL)isMDMProgram
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   betaEnrollmentTokens = [(SDBetaProgram *)self betaEnrollmentTokens];
-  v3 = [betaEnrollmentTokens countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [betaEnrollmentTokens countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(betaEnrollmentTokens);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) length])
+        if ([*(*(&v7 + 1) + 8 * i) length])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [betaEnrollmentTokens countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [betaEnrollmentTokens countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -369,17 +367,16 @@
 
 LABEL_11:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (SDBetaProgram)initWithCoder:(id)coder
 {
-  v29[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v28.receiver = self;
-  v28.super_class = SDBetaProgram;
-  v5 = [(SDBetaProgram *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = SDBetaProgram;
+  v5 = [(SDBetaProgram *)&v27 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"programID"];
@@ -416,9 +413,9 @@ LABEL_11:
     v19 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"accountID"];
     -[SDBetaProgram setAccountID:](v5, "setAccountID:", [v19 integerValue]);
     v20 = MEMORY[0x277CBEB98];
-    v29[0] = objc_opt_class();
-    v29[1] = objc_opt_class();
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+    v28[0] = objc_opt_class();
+    v28[1] = objc_opt_class();
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
     v22 = [v20 setWithArray:v21];
     v23 = [coderCopy decodeObjectOfClasses:v22 forKey:@"betaEnrollmentTokens"];
 
@@ -438,7 +435,6 @@ LABEL_11:
     }
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -70,17 +70,17 @@ LABEL_4:
 
 - (void)setOutputDevice:(id)device withOptions:(__CFDictionary *)options onRoutingContext:(OpaqueFigRoutingContext *)context completionHandler:(id)handler
 {
-  v22[1] = *MEMORY[0x1E69E9840];
-  v21 = 0;
+  v19[1] = *MEMORY[0x1E69E9840];
+  v18 = 0;
   v11 = objc_alloc_init(AVRoutingEventWaiter);
-  if (AVOutputDeviceGetFigRouteDescriptor(device, &v21))
+  if (AVOutputDeviceGetFigRouteDescriptor(device, &v18))
   {
     if (self->_useRoutingContextCallbacks)
     {
       if (device)
       {
-        v22[0] = device;
-        v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+        v19[0] = device;
+        v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
       }
 
       else
@@ -89,27 +89,25 @@ LABEL_4:
       }
 
       v14 = [[AVFigRoutingContextOutputContextCompletionContext alloc] initWithCompletionHandler:handler outputDevices:v12 figRoutingContext:context];
-      v15 = v21;
-      VTable = CMBaseObjectGetVTable();
-      v17 = *(*(VTable + 16) + 216);
-      if (v17)
+      v15 = v18;
+      v16 = *(*(CMBaseObjectGetVTable() + 16) + 216);
+      if (v16)
       {
-        v18 = *(VTable + 16) + 216;
-        v17(context, v15, options, AVFigRoutingContextModificationCallback_0, v14);
+        v16(context, v15, options, AVFigRoutingContextModificationCallback_0, v14);
       }
     }
 
     else
     {
-      v13 = AVMakeSelectRouteDescriptorOperation(context, v21, options, self->_useRouteConfigUpdatedNotification, 0);
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __126__AVFigRouteDescriptorFigRoutingContextOutputDeviceTranslator_setOutputDevice_withOptions_onRoutingContext_completionHandler___block_invoke;
-      v20[3] = &unk_1E794E958;
-      v20[5] = v11;
-      v20[6] = handler;
-      v20[4] = v13;
-      [(AVRoutingRouteConfigUpdatedFigRoutingContextRouteChangeOperation *)v13 setCompletionBlock:v20];
+      v13 = AVMakeSelectRouteDescriptorOperation(context, v18, options, self->_useRouteConfigUpdatedNotification, 0);
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __126__AVFigRouteDescriptorFigRoutingContextOutputDeviceTranslator_setOutputDevice_withOptions_onRoutingContext_completionHandler___block_invoke;
+      v17[3] = &unk_1E794E958;
+      v17[5] = v11;
+      v17[6] = handler;
+      v17[4] = v13;
+      [(AVRoutingRouteConfigUpdatedFigRoutingContextRouteChangeOperation *)v13 setCompletionBlock:v17];
       [(AVRoutingRouteConfigUpdatedFigRoutingContextRouteChangeOperation *)v13 start];
       if ([(AVRoutingOperation *)v13 isFinished])
       {
@@ -122,8 +120,6 @@ LABEL_4:
   {
     [AVFigEndpointFigRoutingContextOutputDeviceTranslator setOutputDevice:withOptions:onRoutingContext:completionHandler:];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __126__AVFigRouteDescriptorFigRoutingContextOutputDeviceTranslator_setOutputDevice_withOptions_onRoutingContext_completionHandler___block_invoke(uint64_t a1)
@@ -136,27 +132,27 @@ uint64_t __126__AVFigRouteDescriptorFigRoutingContextOutputDeviceTranslator_setO
 
 - (void)setOutputDevices:(id)devices withOptions:(__CFDictionary *)options onRoutingContext:(OpaqueFigRoutingContext *)context completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v12 = [devices countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v12 = [devices countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v26;
+    v14 = *v23;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v26 != v14)
+        if (*v23 != v14)
         {
           objc_enumerationMutation(devices);
         }
 
-        v16 = *(*(&v25 + 1) + 8 * i);
+        v16 = *(*(&v22 + 1) + 8 * i);
         value = 0;
         if (!AVOutputDeviceGetFigRouteDescriptor(v16, &value))
         {
@@ -165,7 +161,7 @@ uint64_t __126__AVFigRouteDescriptorFigRoutingContextOutputDeviceTranslator_setO
             CFRelease(Mutable);
           }
 
-          goto LABEL_18;
+          goto LABEL_17;
         }
 
         if (value)
@@ -174,7 +170,7 @@ uint64_t __126__AVFigRouteDescriptorFigRoutingContextOutputDeviceTranslator_setO
         }
       }
 
-      v13 = [devices countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v13 = [devices countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v13)
       {
         continue;
@@ -189,25 +185,23 @@ uint64_t __126__AVFigRouteDescriptorFigRoutingContextOutputDeviceTranslator_setO
     if (self->_useRoutingContextCallbacks)
     {
       v17 = [[AVFigRoutingContextOutputContextCompletionContext alloc] initWithCompletionHandler:handler outputDevices:devices figRoutingContext:context];
-      VTable = CMBaseObjectGetVTable();
-      v19 = *(*(VTable + 16) + 224);
-      if (v19)
+      v18 = *(*(CMBaseObjectGetVTable() + 16) + 224);
+      if (v18)
       {
-        v20 = *(VTable + 16) + 224;
-        v19(context, Mutable, options, AVFigRoutingContextModificationCallback_0, v17);
+        v18(context, Mutable, options, AVFigRoutingContextModificationCallback_0, v17);
       }
     }
 
     else
     {
-      v21 = AVMakeSelectRouteDescriptorsOperation(context, Mutable, options, self->_useRouteConfigUpdatedNotification);
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __127__AVFigRouteDescriptorFigRoutingContextOutputDeviceTranslator_setOutputDevices_withOptions_onRoutingContext_completionHandler___block_invoke;
-      v23[3] = &unk_1E794EA68;
-      v23[4] = v21;
-      v23[5] = handler;
-      [(AVRoutingRouteConfigUpdatedFigRoutingContextRouteChangeOperation *)v21 setCompletionBlock:v23];
+      v19 = AVMakeSelectRouteDescriptorsOperation(context, Mutable, options, self->_useRouteConfigUpdatedNotification);
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __127__AVFigRouteDescriptorFigRoutingContextOutputDeviceTranslator_setOutputDevices_withOptions_onRoutingContext_completionHandler___block_invoke;
+      v20[3] = &unk_1E794EA68;
+      v20[4] = v19;
+      v20[5] = handler;
+      [(AVRoutingRouteConfigUpdatedFigRoutingContextRouteChangeOperation *)v19 setCompletionBlock:v20];
       [+[AVRoutingGlobalOperationQueue defaultQueue](AVRoutingGlobalOperationQueue "defaultQueue")];
     }
 
@@ -216,11 +210,9 @@ uint64_t __126__AVFigRouteDescriptorFigRoutingContextOutputDeviceTranslator_setO
 
   else
   {
-LABEL_18:
+LABEL_17:
     [AVFigEndpointFigRoutingContextOutputDeviceTranslator setOutputDevice:withOptions:onRoutingContext:completionHandler:];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __127__AVFigRouteDescriptorFigRoutingContextOutputDeviceTranslator_setOutputDevices_withOptions_onRoutingContext_completionHandler___block_invoke(uint64_t a1)
@@ -243,16 +235,16 @@ uint64_t __126__AVFigRouteDescriptorFigRoutingContextOutputDeviceTranslator_addO
 
 - (void)removeOutputDevice:(id)device withOptions:(__CFDictionary *)options fromRoutingContext:(OpaqueFigRoutingContext *)context completionHandler:(id)handler
 {
-  v21[1] = *MEMORY[0x1E69E9840];
-  v20 = 0;
-  if (AVOutputDeviceGetFigRouteDescriptor(device, &v20) && v20)
+  v18[1] = *MEMORY[0x1E69E9840];
+  v17 = 0;
+  if (AVOutputDeviceGetFigRouteDescriptor(device, &v17) && v17)
   {
     if (self->_useRoutingContextCallbacks)
     {
       if (device)
       {
-        v21[0] = device;
-        v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+        v18[0] = device;
+        v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
       }
 
       else
@@ -261,26 +253,24 @@ uint64_t __126__AVFigRouteDescriptorFigRoutingContextOutputDeviceTranslator_addO
       }
 
       v13 = [[AVFigRoutingContextOutputContextCompletionContext alloc] initWithCompletionHandler:handler outputDevices:v11 figRoutingContext:context];
-      v14 = v20;
-      VTable = CMBaseObjectGetVTable();
-      v16 = *(*(VTable + 16) + 208);
-      if (v16)
+      v14 = v17;
+      v15 = *(*(CMBaseObjectGetVTable() + 16) + 208);
+      if (v15)
       {
-        v17 = *(VTable + 16) + 208;
-        v16(context, v14, options, AVFigRoutingContextModificationCallback_0, v13);
+        v15(context, v14, options, AVFigRoutingContextModificationCallback_0, v13);
       }
     }
 
     else
     {
-      v12 = AVMakeRemoveRouteDescriptorOperation(context, v20, options, self->_useRouteConfigUpdatedNotification);
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __131__AVFigRouteDescriptorFigRoutingContextOutputDeviceTranslator_removeOutputDevice_withOptions_fromRoutingContext_completionHandler___block_invoke;
-      v19[3] = &unk_1E794EA68;
-      v19[4] = v12;
-      v19[5] = handler;
-      [(AVRoutingRouteConfigUpdatedFigRoutingContextRouteChangeOperation *)v12 setCompletionBlock:v19];
+      v12 = AVMakeRemoveRouteDescriptorOperation(context, v17, options, self->_useRouteConfigUpdatedNotification);
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __131__AVFigRouteDescriptorFigRoutingContextOutputDeviceTranslator_removeOutputDevice_withOptions_fromRoutingContext_completionHandler___block_invoke;
+      v16[3] = &unk_1E794EA68;
+      v16[4] = v12;
+      v16[5] = handler;
+      [(AVRoutingRouteConfigUpdatedFigRoutingContextRouteChangeOperation *)v12 setCompletionBlock:v16];
       [+[AVRoutingGlobalOperationQueue defaultQueue](AVRoutingGlobalOperationQueue "defaultQueue")];
     }
   }
@@ -289,8 +279,6 @@ uint64_t __126__AVFigRouteDescriptorFigRoutingContextOutputDeviceTranslator_addO
   {
     [AVFigEndpointFigRoutingContextOutputDeviceTranslator setOutputDevice:withOptions:onRoutingContext:completionHandler:];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __131__AVFigRouteDescriptorFigRoutingContextOutputDeviceTranslator_removeOutputDevice_withOptions_fromRoutingContext_completionHandler___block_invoke(uint64_t a1)
@@ -360,31 +348,26 @@ LABEL_4:
 {
   array = [MEMORY[0x1E695DF70] array];
   theArray = 0;
-  VTable = CMBaseObjectGetVTable();
-  v6 = *(*(VTable + 16) + 64);
-  if (v6)
+  v5 = *(*(CMBaseObjectGetVTable() + 16) + 64);
+  if (v5 && !v5(context, &theArray))
   {
-    v7 = *(VTable + 16) + 64;
-    if (!v6(context, &theArray))
+    for (i = 0; ; ++i)
     {
-      for (i = 0; ; ++i)
+      Count = theArray;
+      if (theArray)
       {
-        Count = theArray;
-        if (theArray)
-        {
-          Count = CFArrayGetCount(theArray);
-        }
+        Count = CFArrayGetCount(theArray);
+      }
 
-        if (i >= Count)
-        {
-          break;
-        }
+      if (i >= Count)
+      {
+        break;
+      }
 
-        context = [AVOutputDevice outputDeviceWithRouteDescriptor:CFArrayGetValueAtIndex(theArray withRoutingContext:i), context];
-        if (context)
-        {
-          [array addObject:context];
-        }
+      context = [AVOutputDevice outputDeviceWithRouteDescriptor:CFArrayGetValueAtIndex(theArray withRoutingContext:i), context];
+      if (context)
+      {
+        [array addObject:context];
       }
     }
   }
@@ -399,18 +382,18 @@ LABEL_4:
 
 - (void)addOutputDevice:(id)device withOptions:(__CFDictionary *)options toRoutingContext:(OpaqueFigRoutingContext *)context completionHandler:(id)handler
 {
-  v29[1] = *MEMORY[0x1E69E9840];
-  v28 = 0;
-  FigRouteDescriptor = AVOutputDeviceGetFigRouteDescriptor(device, &v28);
+  v28[1] = *MEMORY[0x1E69E9840];
+  v27 = 0;
+  FigRouteDescriptor = AVOutputDeviceGetFigRouteDescriptor(device, &v27);
   v12 = FigRouteDescriptor;
-  if (FigRouteDescriptor && v28)
+  if (FigRouteDescriptor && v27)
   {
     if (self->_useRoutingContextCallbacks)
     {
       if (device)
       {
-        v29[0] = device;
-        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
+        v28[0] = device;
+        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
       }
 
       else
@@ -419,7 +402,7 @@ LABEL_4:
       }
 
       v16 = [[AVFigRoutingContextOutputContextCompletionContext alloc] initWithCompletionHandler:handler outputDevices:v13 figRoutingContext:context];
-      v17 = v28;
+      v17 = v27;
       v18 = *(CMBaseObjectGetVTable() + 16);
       if (*(v18 + 88))
       {
@@ -429,14 +412,14 @@ LABEL_4:
 
     else
     {
-      v14 = AVMakeAddRouteDescriptorOperation(context, v28, options, self->_useRouteConfigUpdatedNotification);
+      v14 = AVMakeAddRouteDescriptorOperation(context, v27, options, self->_useRouteConfigUpdatedNotification);
       OUTLINED_FUNCTION_0_1();
       OUTLINED_FUNCTION_3();
-      v24 = __126__AVFigRouteDescriptorFigRoutingContextOutputDeviceTranslator_addOutputDevice_withOptions_toRoutingContext_completionHandler___block_invoke;
-      v25 = &unk_1E794EA68;
-      v26 = v15;
+      v23 = __126__AVFigRouteDescriptorFigRoutingContextOutputDeviceTranslator_addOutputDevice_withOptions_toRoutingContext_completionHandler___block_invoke;
+      v24 = &unk_1E794EA68;
+      v25 = v15;
       handlerCopy = handler;
-      [v15 setCompletionBlock:v23];
+      [v15 setCompletionBlock:v22];
       [+[AVRoutingGlobalOperationQueue defaultQueue](AVRoutingGlobalOperationQueue "defaultQueue")];
     }
   }
@@ -448,8 +431,6 @@ LABEL_4:
     v20 = OUTLINED_FUNCTION_1_0();
     v21(v20);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 @end

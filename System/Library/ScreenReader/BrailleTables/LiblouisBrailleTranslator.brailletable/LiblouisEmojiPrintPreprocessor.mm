@@ -13,66 +13,65 @@
   dataCopy = data;
   if (stringCopy)
   {
-    v24 = dataCopy;
-    v10 = [stringCopy length];
-    v11 = +[NSMutableString string];
+    v22 = dataCopy;
+    v9 = [stringCopy length];
+    v10 = +[NSMutableString string];
     if (map)
     {
-      v12 = [NSMutableData dataWithLength:0];
+      v11 = [NSMutableData dataWithLength:0];
     }
 
     else
     {
-      v12 = 0;
+      v11 = 0;
     }
 
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x2020000000;
-    v29 = 0;
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x2020000000;
+    v27 = 0;
     [stringCopy length];
-    locale = self->_locale;
-    v15 = stringCopy;
-    v16 = v11;
-    v17 = v12;
-    v25 = v24;
+    v13 = stringCopy;
+    v14 = v10;
+    v15 = v11;
+    v23 = v22;
     CEMEnumerateEmojiTokensInStringWithLocaleAndBlock();
-    v18 = v27[3];
-    if (v10 > v18)
+    v16 = v25[3];
+    if (v9 > v16)
     {
-      v19 = v16;
-      v20 = v17;
-      v21 = [v15 substringWithRange:{v18, v10 - v18}];
-      [v19 appendString:v21];
+      v17 = v14;
+      v18 = v15;
+      v19 = [v13 substringWithRange:{v16, v9 - v16}];
+      [v17 appendString:v19];
 
       do
       {
-        v30 = v18;
-        [v20 appendBytes:&v30 length:8];
-        ++v18;
+        v28 = v16;
+        [v18 appendBytes:&v28 length:8];
+        ++v16;
       }
 
-      while (v10 != v18);
+      while (v9 != v16);
     }
 
     if (map)
     {
-      v22 = v17;
-      *map = v17;
+      v20 = v15;
+      *map = v15;
     }
 
-    v13 = v16;
+    v12 = v14;
 
-    _Block_object_dispose(&v26, 8);
-    dataCopy = v24;
+    _Block_object_dispose(&v24, 8);
+    dataCopy = v22;
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  return v13;
+  return v12;
 }
 
 - (LiblouisEmojiPrintPreprocessor)init

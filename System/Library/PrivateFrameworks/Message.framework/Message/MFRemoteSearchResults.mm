@@ -44,42 +44,40 @@
 
 - (void)addRemoteIDs:(id)ds mailbox:(id)mailbox
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   mailboxCopy = mailbox;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v8 = dsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        stringValue = [*(*(&v14 + 1) + 8 * v11) stringValue];
+        stringValue = [*(*(&v13 + 1) + 8 * v11) stringValue];
         [(MFRemoteSearchResults *)self addRemoteID:stringValue mailbox:mailboxCopy];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)count

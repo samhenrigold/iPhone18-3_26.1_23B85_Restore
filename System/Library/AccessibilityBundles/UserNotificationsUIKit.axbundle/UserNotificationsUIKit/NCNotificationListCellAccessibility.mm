@@ -104,7 +104,7 @@ void __60__NCNotificationListCellAccessibility_accessibilityActivate__block_invo
 
 - (id)accessibilityCustomActions
 {
-  v20[1] = *MEMORY[0x29EDCA608];
+  v19[1] = *MEMORY[0x29EDCA608];
   v3 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
   _accessibilityCellActions = [(NCNotificationListCellAccessibility *)self _accessibilityCellActions];
   v5 = _accessibilityCellActions;
@@ -116,8 +116,8 @@ void __60__NCNotificationListCellAccessibility_accessibilityActivate__block_invo
     if (firstObject)
     {
       v9 = [v5 objectAtIndex:v8];
-      v20[0] = v9;
-      v10 = [MEMORY[0x29EDB8D80] arrayWithObjects:v20 count:1];
+      v19[0] = v9;
+      v10 = [MEMORY[0x29EDB8D80] arrayWithObjects:v19 count:1];
       v11 = [(NCNotificationListCellAccessibility *)self axCustomActionsForActions:v10];
       firstObject = [v11 firstObject];
     }
@@ -129,12 +129,12 @@ void __60__NCNotificationListCellAccessibility_accessibilityActivate__block_invo
     v8 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v19[0] = MEMORY[0x29EDCA5F8];
-  v19[1] = 3221225472;
-  v19[2] = __65__NCNotificationListCellAccessibility_accessibilityCustomActions__block_invoke_2;
-  v19[3] = &__block_descriptor_40_e25_B32__0__UIAction_8Q16_B24l;
-  v19[4] = v8;
-  v12 = [v5 ax_filteredArrayUsingBlock:v19];
+  v18[0] = MEMORY[0x29EDCA5F8];
+  v18[1] = 3221225472;
+  v18[2] = __65__NCNotificationListCellAccessibility_accessibilityCustomActions__block_invoke_2;
+  v18[3] = &__block_descriptor_40_e25_B32__0__UIAction_8Q16_B24l;
+  v18[4] = v8;
+  v12 = [v5 ax_filteredArrayUsingBlock:v18];
   v13 = [(NCNotificationListCellAccessibility *)self axCustomActionsForActions:v12];
   [v3 axSafelyAddObjectsFromArray:v13];
 
@@ -145,8 +145,6 @@ void __60__NCNotificationListCellAccessibility_accessibilityActivate__block_invo
 
   [v3 axSafelyAddObjectsFromArray:v16];
   [v3 axSafelyAddObject:firstObject];
-
-  v17 = *MEMORY[0x29EDCA608];
 
   return v3;
 }
@@ -306,10 +304,7 @@ uint64_t __56__NCNotificationListCellAccessibility_accessibilityHint__block_invo
 
 uint64_t __50__NCNotificationListCellAccessibility__axLookView__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _lookView];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _lookView];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -467,10 +462,7 @@ LABEL_12:
 
 uint64_t __63__NCNotificationListCellAccessibility__accessibilityOpenAction__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) defaultActionForNotificationListCell:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) defaultActionForNotificationListCell:*(a1 + 40)];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -503,10 +495,7 @@ uint64_t __63__NCNotificationListCellAccessibility__accessibilityOpenAction__blo
 
 uint64_t __64__NCNotificationListCellAccessibility__accessibilityCellActions__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) supplementaryActionsForNotificationListCell:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) supplementaryActionsForNotificationListCell:*(a1 + 40)];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -537,29 +526,29 @@ uint64_t __64__NCNotificationListCellAccessibility__accessibilityCellActions__bl
 
 - (id)axCustomActionsForActions:(id)actions
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   actionsCopy = actions;
   array = [MEMORY[0x29EDB8DE8] array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = actionsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         title = [v10 title];
         if (!title)
         {
@@ -570,32 +559,23 @@ uint64_t __64__NCNotificationListCellAccessibility__accessibilityCellActions__bl
         if ([title length])
         {
           v13 = objc_alloc(MEMORY[0x29EDC78E0]);
-          v17[0] = MEMORY[0x29EDCA5F8];
-          v17[1] = 3221225472;
-          v17[2] = __65__NCNotificationListCellAccessibility_axCustomActionsForActions___block_invoke;
-          v17[3] = &unk_29F3170E0;
-          v17[4] = v10;
-          v14 = [v13 initWithName:title actionHandler:v17];
+          v16[0] = MEMORY[0x29EDCA5F8];
+          v16[1] = 3221225472;
+          v16[2] = __65__NCNotificationListCellAccessibility_axCustomActionsForActions___block_invoke;
+          v16[3] = &unk_29F3170E0;
+          v16[4] = v10;
+          v14 = [v13 initWithName:title actionHandler:v16];
           [array axSafelyAddObject:v14];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
 
-  v15 = *MEMORY[0x29EDCA608];
-
   return array;
-}
-
-uint64_t __65__NCNotificationListCellAccessibility_axCustomActionsForActions___block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  AXPerformSafeBlock();
-  return 1;
 }
 
 void __65__NCNotificationListCellAccessibility_axCustomActionsForActions___block_invoke_2(uint64_t a1)
@@ -608,7 +588,7 @@ void __65__NCNotificationListCellAccessibility_axCustomActionsForActions___block
 
 - (id)_accessibilitySupplementaryFooterViews
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   v3 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
   _axLookView = [(NCNotificationListCellAccessibility *)self _axLookView];
   v5 = [_axLookView safeValueForKey:@"_auxiliaryOptionsView"];
@@ -618,35 +598,33 @@ void __65__NCNotificationListCellAccessibility_axCustomActionsForActions___block
   v7 = [v5 safeArrayForKey:@"auxiliaryOptionButtons"];
   [v3 axSafelyAddObjectsFromArray:v7];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v8 = v3;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(*(&v15 + 1) + 8 * i) setAccessibilityContainer:{self, v15}];
+        [*(*(&v14 + 1) + 8 * i) setAccessibilityContainer:{self, v14}];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 
   return v8;
 }
@@ -681,7 +659,7 @@ void __65__NCNotificationListCellAccessibility_axCustomActionsForActions___block
   return v6 & 1;
 }
 
-uint64_t __60__NCNotificationListCellAccessibility__axIsInCollapsedStack__block_invoke(uint64_t a1)
+void *__60__NCNotificationListCellAccessibility__axIsInCollapsedStack__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isNotificationGroupListInCollapsedStack:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -711,21 +689,17 @@ uint64_t __60__NCNotificationListCellAccessibility__axIsInCollapsedStack__block_
 
 uint64_t __55__NCNotificationListCellAccessibility__axIsLeadingView__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) visibleViewAtIndex:0];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) visibleViewAtIndex:0];
 
   return MEMORY[0x2A1C71028]();
 }
 
 - (void)_axLookView
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_29C6DA000, a2, OS_LOG_TYPE_DEBUG, "Found unrecognized selector for VC: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  _os_log_debug_impl(&dword_29C6DA000, a2, OS_LOG_TYPE_DEBUG, "Found unrecognized selector for VC: %@", &v2, 0xCu);
 }
 
 @end

@@ -25,7 +25,7 @@
   if (v7)
   {
     v7->_trackIndex = index;
-    v9 = [MEMORY[0x277CBEB18] arrayWithObject:blobCopy];
+    v9 = [MEMORY[0x277CBEB18] arrayWithObject:?];
     blobs = v8->_blobs;
     v8->_blobs = v9;
 
@@ -48,10 +48,9 @@
   v3 = MEMORY[0x277CCACA8];
   blobs = [(HMIVideoAnalyzerTrack *)self blobs];
   firstObject = [blobs firstObject];
-  v23 = firstObject;
   if (firstObject)
   {
-    [firstObject timeStamp];
+    [&time timeStamp];
   }
 
   else
@@ -62,10 +61,9 @@
   Seconds = CMTimeGetSeconds(&time);
   blobs2 = [(HMIVideoAnalyzerTrack *)self blobs];
   lastObject = [blobs2 lastObject];
-  v8 = lastObject;
   if (lastObject)
   {
-    [lastObject timeStamp];
+    [&time timeStamp];
   }
 
   else
@@ -73,27 +71,26 @@
     memset(&time, 0, sizeof(time));
   }
 
-  v9 = CMTimeGetSeconds(&time);
+  v7 = CMTimeGetSeconds(&time);
   blobs3 = [(HMIVideoAnalyzerTrack *)self blobs];
   lastObject2 = [blobs3 lastObject];
   [lastObject2 boundingBox];
-  v16 = HMICGRectDescription(v12, v13, v14, v15);
+  v14 = HMICGRectDescription(v10, v11, v12, v13);
   eventClasses = [(HMIVideoAnalyzerTrack *)self eventClasses];
   allObjects = [eventClasses allObjects];
-  v19 = [allObjects na_map:&__block_literal_global_32];
-  v20 = [v19 componentsJoinedByString:{@", "}];
-  v21 = [v3 stringWithFormat:@"Track:%.2f-%.2f @ %@ (%@)", *&Seconds, *&v9, v16, v20];
+  v17 = [allObjects na_map:?];
+  v18 = [v17 componentsJoinedByString:?];
+  v19 = [v3 stringWithFormat:*&Seconds, *&v7, v14, v18];
 
-  return v21;
+  return v19;
 }
 
 - (void)appendBlob:(id)blob
 {
   blobCopy = blob;
-  v5 = blobCopy;
   if (blobCopy)
   {
-    [blobCopy timeStamp];
+    [&lhs timeStamp];
   }
 
   else
@@ -103,10 +100,9 @@
 
   blobs = [(HMIVideoAnalyzerTrack *)self blobs];
   firstObject = [blobs firstObject];
-  v8 = firstObject;
   if (firstObject)
   {
-    [firstObject timeStamp];
+    [&rhs timeStamp];
   }
 
   else
@@ -116,47 +112,47 @@
 
   CMTimeSubtract(&time1, &lhs, &rhs);
   CMTimeMakeWithSeconds(&lhs, 3.0, 1000);
-  v9 = CMTimeCompare(&time1, &lhs);
+  v7 = CMTimeCompare(&time1, &lhs);
 
-  if (v9 >= 1)
+  if (v7 >= 1)
   {
     blobs2 = [(HMIVideoAnalyzerTrack *)self blobs];
     [blobs2 hmf_removeFirstObject];
 
     if ([(HMIVideoAnalyzerTrack *)self stationaryBlobIndex])
     {
-      [(HMIVideoAnalyzerTrack *)self setStationaryBlobIndex:[(HMIVideoAnalyzerTrack *)self stationaryBlobIndex]- 1];
+      [(HMIVideoAnalyzerTrack *)self stationaryBlobIndex];
+      [(HMIVideoAnalyzerTrack *)self setStationaryBlobIndex:?];
     }
   }
 
-  [v5 boundingBox];
-  v11 = [(HMIVideoAnalyzerTrack *)self stationaryIndexToBoundingBox:?];
+  [blobCopy boundingBox];
+  v9 = [(HMIVideoAnalyzerTrack *)self stationaryIndexToBoundingBox:?];
   blobs3 = [(HMIVideoAnalyzerTrack *)self blobs];
-  [blobs3 addObject:v5];
+  [blobs3 addObject:?];
 
-  if (v11 > [(HMIVideoAnalyzerTrack *)self stationaryBlobIndex])
+  if (v9 > [(HMIVideoAnalyzerTrack *)self stationaryBlobIndex])
   {
     blobs4 = [(HMIVideoAnalyzerTrack *)self blobs];
-    v14 = [blobs4 count];
+    v12 = [blobs4 count];
 
-    if (v11 < v14)
+    if (v9 < v12)
     {
       while (1)
       {
         analysisTimeStamps = [(HMIVideoAnalyzerTrack *)self analysisTimeStamps];
-        v16 = [analysisTimeStamps count];
+        v14 = [analysisTimeStamps count];
 
-        if (!v16)
+        if (!v14)
         {
           break;
         }
 
         analysisTimeStamps2 = [(HMIVideoAnalyzerTrack *)self analysisTimeStamps];
         firstObject2 = [analysisTimeStamps2 firstObject];
-        v19 = firstObject2;
         if (firstObject2)
         {
-          [firstObject2 CMTimeValue];
+          [&time1 CMTimeValue];
         }
 
         else
@@ -165,11 +161,10 @@
         }
 
         blobs5 = [(HMIVideoAnalyzerTrack *)self blobs];
-        v21 = [blobs5 objectAtIndexedSubscript:v11];
-        v22 = v21;
-        if (v21)
+        v18 = [blobs5 objectAtIndexedSubscript:?];
+        if (v18)
         {
-          [v21 timeStamp];
+          [&lhs timeStamp];
         }
 
         else
@@ -177,9 +172,9 @@
           memset(&lhs, 0, sizeof(lhs));
         }
 
-        v23 = CMTimeCompare(&time1, &lhs);
+        v19 = CMTimeCompare(&time1, &lhs);
 
-        if (v23 > 0)
+        if (v19 > 0)
         {
           break;
         }
@@ -188,7 +183,7 @@
         [analysisTimeStamps3 hmf_removeFirstObject];
       }
 
-      [(HMIVideoAnalyzerTrack *)self setStationaryBlobIndex:v11];
+      [(HMIVideoAnalyzerTrack *)self setStationaryBlobIndex:?];
     }
   }
 }
@@ -219,7 +214,7 @@ LABEL_8:
     while (1)
     {
       blobs4 = [(HMIVideoAnalyzerTrack *)self blobs];
-      v15 = [blobs4 objectAtIndexedSubscript:stationaryBlobIndex];
+      v15 = [blobs4 objectAtIndexedSubscript:?];
       [v15 boundingBox];
       v20 = HMICGRectMaxElementwiseDistance(v16, v17, v18, v19, x, y, width, height);
 
@@ -294,7 +289,8 @@ LABEL_8:
   else
   {
     eventClasses = [(HMIVideoAnalyzerTrack *)self eventClasses];
-    if ([eventClasses containsObject:objc_opt_class()])
+    objc_opt_class();
+    if ([eventClasses containsObject:?])
     {
       v5 = 1;
     }
@@ -302,7 +298,8 @@ LABEL_8:
     else
     {
       eventClasses2 = [(HMIVideoAnalyzerTrack *)self eventClasses];
-      v5 = [eventClasses2 containsObject:objc_opt_class()];
+      objc_opt_class();
+      v5 = [eventClasses2 containsObject:?];
     }
   }
 
@@ -313,10 +310,9 @@ LABEL_8:
 {
   blobs = [(HMIVideoAnalyzerTrack *)self blobs];
   lastObject = [blobs lastObject];
-  v6 = lastObject;
   if (lastObject)
   {
-    [lastObject timeStamp];
+    [&time2 timeStamp];
   }
 
   else
@@ -324,20 +320,19 @@ LABEL_8:
     memset(&time2, 0, sizeof(time2));
   }
 
-  v9 = *stamp;
-  v7 = CMTimeCompare(&v9, &time2) > 0;
+  v8 = *stamp;
+  v6 = CMTimeCompare(&v8, &time2) > 0;
 
-  return v7;
+  return v6;
 }
 
 - (BOOL)isExpiredAtTimeStamp:(id *)stamp
 {
   blobs = [(HMIVideoAnalyzerTrack *)self blobs];
   lastObject = [blobs lastObject];
-  v6 = lastObject;
   if (lastObject)
   {
-    [lastObject timeStamp];
+    [&rhs timeStamp];
   }
 
   else
@@ -345,22 +340,21 @@ LABEL_8:
     memset(&rhs, 0, sizeof(rhs));
   }
 
-  v9 = *stamp;
-  CMTimeSubtract(&time1, &v9, &rhs);
+  v8 = *stamp;
+  CMTimeSubtract(&time1, &v8, &rhs);
   CMTimeMakeWithSeconds(&rhs, 3.0, 1000);
-  v7 = CMTimeCompare(&time1, &rhs) > 0;
+  v6 = CMTimeCompare(&time1, &rhs) > 0;
 
-  return v7;
+  return v6;
 }
 
 - (BOOL)isStationaryAtTimeStamp:(id *)stamp
 {
   blobs = [(HMIVideoAnalyzerTrack *)self blobs];
   lastObject = [blobs lastObject];
-  v7 = lastObject;
   if (lastObject)
   {
-    [lastObject timeStamp];
+    [&time2 timeStamp];
   }
 
   else
@@ -371,17 +365,17 @@ LABEL_8:
   time1 = *stamp;
   if (CMTimeCompare(&time1, &time2))
   {
-    v8 = 0;
+    v7 = 0;
   }
 
   else
   {
     blobs2 = [(HMIVideoAnalyzerTrack *)self blobs];
-    v10 = [blobs2 objectAtIndexedSubscript:{-[HMIVideoAnalyzerTrack stationaryBlobIndex](self, "stationaryBlobIndex")}];
-    v11 = v10;
-    if (v10)
+    [(HMIVideoAnalyzerTrack *)self stationaryBlobIndex];
+    v9 = [blobs2 objectAtIndexedSubscript:?];
+    if (v9)
     {
-      [v10 timeStamp];
+      [&time1 timeStamp];
     }
 
     else
@@ -389,13 +383,13 @@ LABEL_8:
       memset(&time1, 0, sizeof(time1));
     }
 
-    v13 = *stamp;
-    CMTimeSubtract(&time2, &v13, &time1);
+    v11 = *stamp;
+    CMTimeSubtract(&time2, &v11, &time1);
     CMTimeMakeWithSeconds(&time1, 2.0, 1000);
-    v8 = CMTimeCompare(&time2, &time1) > 0;
+    v7 = CMTimeCompare(&time2, &time1) > 0;
   }
 
-  return v8;
+  return v7;
 }
 
 - (id)blobAtTimeStamp:(id *)stamp
@@ -409,17 +403,16 @@ LABEL_8:
     if (v7 < 1)
     {
 LABEL_11:
-      v16 = 0;
+      v14 = 0;
       goto LABEL_13;
     }
 
     --v7;
     blobs2 = [(HMIVideoAnalyzerTrack *)self blobs];
-    v9 = [blobs2 objectAtIndexedSubscript:v7];
-    v10 = v9;
+    v9 = [blobs2 objectAtIndexedSubscript:?];
     if (v9)
     {
-      [v9 timeStamp];
+      [&time2 timeStamp];
     }
 
     else
@@ -427,20 +420,19 @@ LABEL_11:
       memset(&time2, 0, sizeof(time2));
     }
 
-    v19 = *stamp;
-    v11 = CMTimeCompare(&v19, &time2);
+    v17 = *stamp;
+    v10 = CMTimeCompare(&v17, &time2);
 
-    if (!v11)
+    if (!v10)
     {
       break;
     }
 
     blobs3 = [(HMIVideoAnalyzerTrack *)self blobs];
-    v13 = [blobs3 objectAtIndexedSubscript:v7];
-    v14 = v13;
-    if (v13)
+    v12 = [blobs3 objectAtIndexedSubscript:?];
+    if (v12)
     {
-      [v13 timeStamp];
+      [&time2 timeStamp];
     }
 
     else
@@ -448,38 +440,36 @@ LABEL_11:
       memset(&time2, 0, sizeof(time2));
     }
 
-    v19 = *stamp;
-    v15 = CMTimeCompare(&v19, &time2);
+    v17 = *stamp;
+    v13 = CMTimeCompare(&v17, &time2);
 
-    if (v15 >= 1)
+    if (v13 >= 1)
     {
       goto LABEL_11;
     }
   }
 
   blobs4 = [(HMIVideoAnalyzerTrack *)self blobs];
-  v16 = [blobs4 objectAtIndexedSubscript:v7];
+  v14 = [blobs4 objectAtIndexedSubscript:?];
 
 LABEL_13:
 
-  return v16;
+  return v14;
 }
 
 - (id)createPackageEventAtTimeStamp:(id *)stamp
 {
-  v12 = *stamp;
-  v5 = [(HMIVideoAnalyzerTrack *)self blobAtTimeStamp:&v12];
+  v5 = [(HMIVideoAnalyzerTrack *)self blobAtTimeStamp:*&stamp->var0, stamp->var3];
   if (v5)
   {
     analysisTimeStamps = [(HMIVideoAnalyzerTrack *)self analysisTimeStamps];
-    v12 = *stamp;
-    v7 = [MEMORY[0x277CCAE60] valueWithCMTime:&v12];
-    [analysisTimeStamps addObject:v7];
+    v7 = [MEMORY[0x277CCAE60] valueWithCMTime:{*&stamp->var0, stamp->var3}];
+    [analysisTimeStamps addObject:?];
 
     v8 = [HMIVideoAnalyzerEventPackage alloc];
-    v9 = [[HMIConfidence alloc] initWithValue:&unk_284075678 levelThresholds:1.0];
+    v9 = [HMIConfidence initWithValue:"initWithValue:levelThresholds:" levelThresholds:?];
     [v5 boundingBox];
-    v10 = [(HMIVideoAnalyzerEventPackage *)v8 initWithConfidence:v9 boundingBox:?];
+    v10 = [HMIVideoAnalyzerEventPackage initWithConfidence:v8 boundingBox:"initWithConfidence:boundingBox:"];
   }
 
   else

@@ -3648,7 +3648,7 @@ LABEL_11:
 
   if (!self->_state)
   {
-    [(VCAudioIO *)&v22 stopWithCompletionHandlerInternal:buf];
+    [(VCAudioIO *)v22 stopWithCompletionHandlerInternal:v23, buf];
     return *buf;
   }
 
@@ -4073,24 +4073,24 @@ LABEL_12:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d The controller audio format is invalid!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d The controller audio format is invalid!", v2, v3, v4, v5);
 }
 
 - (void)didStart:error:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to start!!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to start!!", v2, v3, v4, v5);
 }
 
 - (void)didStop:error:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to stop!!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to stop!!", v2, v3, v4, v5);
 }
 
-- (uint64_t)startWithCompletionHandler:.cold.1()
+- (void)startWithCompletionHandler:.cold.1()
 {
   OUTLINED_FUNCTION_9_20();
   v2 = MEMORY[0x1E696ABC0];
@@ -4101,7 +4101,7 @@ LABEL_12:
   return result;
 }
 
-- (uint64_t)startWithCompletionHandler:.cold.2()
+- (void)startWithCompletionHandler:.cold.2()
 {
   OUTLINED_FUNCTION_9_20();
   v2 = MEMORY[0x1E696ABC0];
@@ -4125,10 +4125,10 @@ LABEL_12:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d start timed out", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d start timed out", v2, v3, v4, v5);
 }
 
-- (uint64_t)stopWithCompletionHandlerInternal:(uint64_t *)a3 .cold.2(void *a1, void *a2, uint64_t *a3)
+- (void)stopWithCompletionHandlerInternal:(void *)a3 .cold.2(void *a1, void *a2, void *a3)
 {
   v4 = MEMORY[0x1E696ABC0];
   *a1 = @"state";
@@ -4151,7 +4151,7 @@ LABEL_12:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d stop timed out", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d stop timed out", v2, v3, v4, v5);
 }
 
 @end

@@ -37,8 +37,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v13[3] = *MEMORY[0x1E69E9840];
-  v12[0] = @"userTask";
+  v12[3] = *MEMORY[0x1E69E9840];
+  v11[0] = @"userTask";
   userTask = [(INControlHomeIntent *)self userTask];
   null = userTask;
   if (!userTask)
@@ -46,8 +46,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[0] = null;
-  v12[1] = @"filters";
+  v12[0] = null;
+  v11[1] = @"filters";
   filters = [(INControlHomeIntent *)self filters];
   null2 = filters;
   if (!filters)
@@ -55,8 +55,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = null2;
-  v12[2] = @"time";
+  v12[1] = null2;
+  v11[2] = @"time";
   time = [(INControlHomeIntent *)self time];
   null3 = time;
   if (!time)
@@ -64,8 +64,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[2] = null3;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = null3;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
   if (!time)
   {
   }
@@ -77,8 +77,6 @@
   if (!userTask)
   {
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -105,7 +103,7 @@
 
 - (void)setContents:(id)contents
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   firstObject = [contents firstObject];
   actions = [firstObject actions];
   firstObject2 = [actions firstObject];
@@ -126,24 +124,22 @@
   if (filter)
   {
     filter2 = [firstObject filter];
-    v17[0] = filter2;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    v16[0] = filter2;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
     [(INControlHomeIntent *)self setFilters:v15];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)contents
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   userTask = [(INControlHomeIntent *)self userTask];
   filters = [(INControlHomeIntent *)self filters];
   if (userTask | filters)
   {
     if (userTask)
     {
-      v24 = [INHomeAction alloc];
+      v23 = [INHomeAction alloc];
       attribute = [userTask attribute];
       value = [userTask value];
       type = [value type];
@@ -156,9 +152,9 @@
       integerValue = [value4 integerValue];
       value5 = [userTask value];
       stringValue = [value5 stringValue];
-      v14 = [(INHomeAction *)v24 initWithType:attribute valueType:type BOOLValue:bOOLValue doubleValue:integerValue integerValue:stringValue stringValue:v9];
-      v28[0] = v14;
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+      v14 = [(INHomeAction *)v23 initWithType:attribute valueType:type BOOLValue:bOOLValue doubleValue:integerValue integerValue:stringValue stringValue:v9];
+      v27[0] = v14;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
     }
 
     else
@@ -170,8 +166,8 @@
     filters2 = [(INControlHomeIntent *)self filters];
     firstObject = [filters2 firstObject];
     v20 = [(INHomeContent *)v17 initWithFilter:firstObject actions:v15];
-    v27 = v20;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
+    v26 = v20;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
   }
 
   else
@@ -179,14 +175,12 @@
     v16 = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 - (INControlHomeIntent)initWithContents:(id)contents
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   firstObject = [contents firstObject];
   actions = [firstObject actions];
   firstObject2 = [actions firstObject];
@@ -211,13 +205,12 @@
   if (filter)
   {
     filter2 = [firstObject filter];
-    v18[0] = filter2;
-    filter = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+    v17[0] = filter2;
+    filter = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
   }
 
   v15 = [(INControlHomeIntent *)self initWithUserTask:v12 filters:filter];
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

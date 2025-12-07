@@ -28,22 +28,20 @@
 
 void __107__PHMediaFormatChainedConversionRequest_chainedRequestForAdjustmentRenderRequest_dependingOnRequest_error___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) destination];
   v3 = [v2 fileSignature];
 
   if (!v3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138412290;
-    v8 = v6;
-    _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to get output file signature of previous request %@", &v7, 0xCu);
+    v5 = *(a1 + 32);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to get output file signature of previous request %@", &v6, 0xCu);
   }
 
   v4 = [*(a1 + 40) source];
   [v4 setRenderOriginatingSignature:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (id)chainedRequestForRequest:(id)request dependingOnRequest:(id)onRequest error:(id *)error successUpdateHandler:(id)handler
@@ -151,13 +149,13 @@ LABEL_4:
 
 uint64_t __79__PHMediaFormatChainedConversionRequest_enqueueSubrequestsOnConversionManager___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v2 = [*(a1 + 32) independentRequest];
-    v9 = 138412290;
-    v10 = v2;
-    _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Chained request independent request finished: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v2;
+    _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Chained request independent request finished: %@", &v8, 0xCu);
   }
 
   v3 = [*(a1 + 32) independentRequest];
@@ -174,32 +172,28 @@ uint64_t __79__PHMediaFormatChainedConversionRequest_enqueueSubrequestsOnConvers
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       v6 = [*(a1 + 32) dependentRequest];
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Chained request independent request unsuccessful, cancelling dependent request %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v6;
+      _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Chained request independent request unsuccessful, cancelling dependent request %@", &v8, 0xCu);
     }
 
     v5 = [*(a1 + 32) dependentRequest];
     [v5 markAsCancelled];
   }
 
-  result = [*(a1 + 32) setSuccessUpdateHandler:0];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setSuccessUpdateHandler:0];
 }
 
 void __79__PHMediaFormatChainedConversionRequest_enqueueSubrequestsOnConversionManager___block_invoke_805(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v2 = [*(a1 + 32) dependentRequest];
-    v4 = 138412290;
-    v5 = v2;
-    _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Chained request dependent request finished: %@", &v4, 0xCu);
+    v3 = 138412290;
+    v4 = v2;
+    _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Chained request dependent request finished: %@", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

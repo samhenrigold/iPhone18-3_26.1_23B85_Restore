@@ -1628,7 +1628,7 @@ LABEL_34:
   v13 = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v17 = sub_1001221E0(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+  v17 = sub_1001221E0(rect.origin, *&rect.origin.y, rect.size, *&rect.size.height, size);
   v43 = v18;
   v45 = v17;
   v20 = v19;

@@ -614,7 +614,7 @@ uint64_t __MuxedAlphaEncoder_EncodeFrame_block_invoke_3_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -623,7 +623,7 @@ uint64_t __MuxedAlphaEncoder_EncodeFrame_block_invoke_3_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -632,7 +632,7 @@ uint64_t __MuxedAlphaEncoder_EncodeFrame_block_invoke_3_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -641,7 +641,7 @@ uint64_t __MuxedAlphaEncoder_EncodeFrame_block_invoke_3_cold_4(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -650,7 +650,7 @@ uint64_t __MuxedAlphaEncoder_EncodeFrame_block_invoke_3_cold_5(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -659,7 +659,7 @@ uint64_t __MuxedAlphaEncoder_EncodeFrame_block_invoke_3_cold_6(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -668,7 +668,7 @@ uint64_t __MuxedAlphaEncoder_EncodeMultiImageFrame_block_invoke_3_cold_1(_DWORD 
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -677,7 +677,7 @@ uint64_t __MuxedAlphaEncoder_EncodeMultiImageFrame_block_invoke_3_cold_2(_DWORD 
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -686,14 +686,14 @@ uint64_t __MuxedAlphaEncoder_EncodeMultiImageFrame_block_invoke_3_cold_3()
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1, v2, vars0);
 }
 
 uint64_t __MuxedAlphaEncoder_EncodeMultiImageFrame_block_invoke_3_cold_4(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -702,7 +702,7 @@ uint64_t __MuxedAlphaEncoder_EncodeMultiImageFrame_block_invoke_3_cold_5(_DWORD 
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }

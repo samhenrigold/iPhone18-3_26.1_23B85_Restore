@@ -116,35 +116,35 @@
 {
   v3 = objc_alloc_init(SSMutableURLRequestProperties);
   [v3 setRequiresExtendedValidationCertificates:0];
-  v41[0] = @"retry_count";
-  v41[1] = @"bytes_total";
-  v41[2] = @"body_data";
-  v41[3] = @"body_data_file_path";
-  v41[4] = @"http_headers";
-  v41[5] = @"http_method";
-  v41[6] = @"is_external";
-  v41[7] = @"is_local_cache_server";
-  v41[8] = @"service_type";
-  v41[9] = @"request_parameters";
-  v41[10] = @"timeout_interval";
-  v41[11] = @"asset_type";
-  v41[12] = @"url";
-  [(DownloadAssetEntity *)self getValues:&v30 forProperties:v41 count:13];
-  [v3 setAllowedRetryCount:{objc_msgSend(v30, "integerValue")}];
+  v42[0] = @"retry_count";
+  v42[1] = @"bytes_total";
+  v42[2] = @"body_data";
+  v42[3] = @"body_data_file_path";
+  v42[4] = @"http_headers";
+  v42[5] = @"http_method";
+  v42[6] = @"is_external";
+  v42[7] = @"is_local_cache_server";
+  v42[8] = @"service_type";
+  v42[9] = @"request_parameters";
+  v42[10] = @"timeout_interval";
+  v42[11] = @"asset_type";
+  v42[12] = @"url";
+  [(DownloadAssetEntity *)self getValues:&v31 forProperties:v42 count:13];
+  [v3 setAllowedRetryCount:{objc_msgSend(v31, "integerValue")}];
   [v3 setCachePolicy:1];
-  [v3 setHTTPMethod:v35];
-  [v3 setNetworkServiceType:{objc_msgSend(v37, "integerValue")}];
-  [v39 doubleValue];
+  [v3 setHTTPMethod:v36];
+  [v3 setNetworkServiceType:{objc_msgSend(v38, "integerValue")}];
+  [v40 doubleValue];
   if (v4 > 2.22044605e-16)
   {
-    [v39 doubleValue];
+    [v40 doubleValue];
     [v3 setTimeoutInterval:?];
   }
 
-  if ([v33 length])
+  if ([v34 length])
   {
     v5 = objc_alloc_init(NSFileManager);
-    v6 = [v5 fileExistsAtPath:v33];
+    v6 = [v5 fileExistsAtPath:v34];
     v7 = +[SSLogConfig sharedDaemonConfig];
     v8 = v7;
     if (v6)
@@ -157,41 +157,45 @@
       shouldLog = [v8 shouldLog];
       if ([v8 shouldLogToDisk])
       {
-        v10 = shouldLog | 2;
+        LODWORD(v10) = shouldLog | 2;
       }
 
       else
       {
-        v10 = shouldLog;
+        LODWORD(v10) = shouldLog;
       }
 
-      if (!os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_INFO))
+      oSLogObject = [v8 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+      {
+        v10 = v10;
+      }
+
+      else
       {
         v10 &= 2u;
       }
 
       if (v10)
       {
-        v26 = 138412546;
-        v27 = objc_opt_class();
-        v28 = 2112;
-        v29 = v33;
-        LODWORD(v25) = 22;
-        v24 = &v26;
-        v11 = _os_log_send_and_compose_impl();
-        if (v11)
+        v27 = 138412546;
+        v28 = objc_opt_class();
+        v29 = 2112;
+        v30 = v34;
+        v12 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "[%@] Using HTTPBodyDataFilePath: %@", &v27, 22);
+        if (v12)
         {
-          v12 = v11;
-          v13 = [NSString stringWithCString:v11 encoding:4, &v26, v25];
-          free(v12);
-          v24 = v13;
+          v13 = v12;
+          v14 = [NSString stringWithCString:v12 encoding:4];
+          free(v13);
+          v26 = v14;
           SSFileLog();
         }
       }
 
-      v14 = [NSInputStream alloc];
-      v15 = [v14 initWithFileAtPath:v33];
-      [v3 setHTTPBodyStream:v15];
+      v15 = [NSInputStream alloc];
+      v16 = [v15 initWithFileAtPath:v34];
+      [v3 setHTTPBodyStream:v16];
     }
 
     else
@@ -204,34 +208,38 @@
       shouldLog2 = [v8 shouldLog];
       if ([v8 shouldLogToDisk])
       {
-        v17 = shouldLog2 | 2;
+        LODWORD(v18) = shouldLog2 | 2;
       }
 
       else
       {
-        v17 = shouldLog2;
+        LODWORD(v18) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_ERROR))
+      oSLogObject2 = [v8 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
       {
-        v17 &= 2u;
+        v18 = v18;
       }
 
-      if (v17)
+      else
       {
-        v26 = 138412546;
-        v27 = objc_opt_class();
-        v28 = 2112;
-        v29 = v33;
-        LODWORD(v25) = 22;
-        v24 = &v26;
-        v18 = _os_log_send_and_compose_impl();
-        if (v18)
+        v18 &= 2u;
+      }
+
+      if (v18)
+      {
+        v27 = 138412546;
+        v28 = objc_opt_class();
+        v29 = 2112;
+        v30 = v34;
+        v20 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "[%@] HTTPBodyDataFilePath is present but does not exist on disk: %@", &v27, 22);
+        if (v20)
         {
-          v19 = v18;
-          v20 = [NSString stringWithCString:v18 encoding:4, &v26, v25];
-          free(v19);
-          v24 = v20;
+          v21 = v20;
+          v22 = [NSString stringWithCString:v20 encoding:4];
+          free(v21);
+          v26 = v22;
           SSFileLog();
         }
       }
@@ -240,40 +248,40 @@
 
   else
   {
-    [v3 setHTTPBody:v32];
+    [v3 setHTTPBody:v33];
   }
 
-  bOOLValue = [v36 BOOLValue];
+  bOOLValue = [v37 BOOLValue];
   if (bOOLValue)
   {
-    v22 = 2;
+    v24 = 2;
   }
 
   else
   {
-    v22 = 0;
+    v24 = 0;
   }
 
   [v3 setITunesStoreRequest:bOOLValue ^ 1];
-  [v3 setURLBagType:v22];
-  if (v34)
+  [v3 setURLBagType:v24];
+  if (v35)
   {
-    [v3 setHTTPHeaders:{+[NSPropertyListSerialization propertyListWithData:options:format:error:](NSPropertyListSerialization, "propertyListWithData:options:format:error:", v34, 0, 0, 0)}];
+    [v3 setHTTPHeaders:{+[NSPropertyListSerialization propertyListWithData:options:format:error:](NSPropertyListSerialization, "propertyListWithData:options:format:error:", v35, 0, 0, 0)}];
   }
 
-  if (v38)
+  if (v39)
   {
-    [v3 setRequestParameters:{+[NSPropertyListSerialization propertyListWithData:options:format:error:](NSPropertyListSerialization, "propertyListWithData:options:format:error:", v38, 0, 0, 0)}];
+    [v3 setRequestParameters:{+[NSPropertyListSerialization propertyListWithData:options:format:error:](NSPropertyListSerialization, "propertyListWithData:options:format:error:", v39, 0, 0, 0)}];
   }
 
-  if (v40)
+  if (v41)
   {
     [v3 setURL:{+[NSURL URLWithString:](NSURL, "URLWithString:")}];
   }
 
-  if (v31)
+  if (v32)
   {
-    [v3 setExpectedContentLength:{objc_msgSend(v31, "longLongValue")}];
+    [v3 setExpectedContentLength:{objc_msgSend(v32, "longLongValue")}];
   }
 
   return v3;

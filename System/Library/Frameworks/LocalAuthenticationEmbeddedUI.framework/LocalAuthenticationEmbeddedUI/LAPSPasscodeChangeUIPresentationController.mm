@@ -2,6 +2,7 @@
 - (LAPSPasscodeChangeUIPresentationController)initWithParentVC:(id)c containerVC:(id)vC;
 - (void)_dismissWithCompletion:(id)completion;
 - (void)_restoreParentModalInPresentationFlag;
+- (void)_setupParentVCIfNeededAnimated:(BOOL)animated;
 - (void)_storeParentModalInPresentationFlag;
 - (void)dismissWithCompletion:(id)completion;
 - (void)presentAlertVC:(id)c;
@@ -32,7 +33,7 @@
 
 - (void)dismissWithCompletion:(id)completion
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   v5 = LACLogPasscodeService();
@@ -43,16 +44,14 @@
     _os_log_impl(&dword_238BCD000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ will dismiss UI", buf, 0xCu);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __68__LAPSPasscodeChangeUIPresentationController_dismissWithCompletion___block_invoke;
-  v8[3] = &unk_278A65A20;
-  v8[4] = self;
-  v9 = completionCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __68__LAPSPasscodeChangeUIPresentationController_dismissWithCompletion___block_invoke;
+  v7[3] = &unk_278A65A20;
+  v7[4] = self;
+  v8 = completionCopy;
   v6 = completionCopy;
-  [(LAPSPasscodeChangeUIPresentationController *)self _dismissWithCompletion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [(LAPSPasscodeChangeUIPresentationController *)self _dismissWithCompletion:v7];
 }
 
 uint64_t __68__LAPSPasscodeChangeUIPresentationController_dismissWithCompletion___block_invoke(uint64_t a1)
@@ -65,17 +64,17 @@ uint64_t __68__LAPSPasscodeChangeUIPresentationController_dismissWithCompletion_
 
 - (void)presentAlertVC:(id)c
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   cCopy = c;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   v5 = LACLogPasscodeService();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543618;
+    v9 = 138543618;
     selfCopy = self;
-    v12 = 2114;
-    v13 = cCopy;
-    _os_log_impl(&dword_238BCD000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ will present %{public}@", &v10, 0x16u);
+    v11 = 2114;
+    v12 = cCopy;
+    _os_log_impl(&dword_238BCD000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ will present %{public}@", &v9, 0x16u);
   }
 
   parentViewController = [(LACUIContainerViewController *)self->_containerVC parentViewController];
@@ -93,8 +92,6 @@ uint64_t __68__LAPSPasscodeChangeUIPresentationController_dismissWithCompletion_
 
   [(LACUIContainerViewController *)v8 resignFirstResponder];
   [(LACUIContainerViewController *)v8 presentViewController:cCopy animated:1 completion:&__block_literal_global_5];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentVC:(id)c animated:(BOOL)animated
@@ -125,25 +122,23 @@ BOOL __65__LAPSPasscodeChangeUIPresentationController_presentVC_animated___block
 
 - (void)presentVC:(id)c transitionStyle:(int64_t)style
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   cCopy = c;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   v7 = LACLogPasscodeService();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543874;
+    v8 = 138543874;
     selfCopy = self;
-    v11 = 2114;
-    v12 = cCopy;
-    v13 = 2048;
+    v10 = 2114;
+    v11 = cCopy;
+    v12 = 2048;
     styleCopy = style;
-    _os_log_impl(&dword_238BCD000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ will present %{public}@ with transition style %ld", &v9, 0x20u);
+    _os_log_impl(&dword_238BCD000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ will present %{public}@ with transition style %ld", &v8, 0x20u);
   }
 
   [(LAPSPasscodeChangeUIPresentationController *)self _setupParentVCIfNeededAnimated:1];
   [(LACUIContainerViewController *)self->_containerVC presentViewController:cCopy transitionStyle:style];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dismissWithCompletion:(id)completion
@@ -192,6 +187,40 @@ LABEL_6:
 {
   WeakRetained = objc_loadWeakRetained(&self->_parentVC);
   [WeakRetained setModalInPresentation:self->_parentModalInPresentationOriginalFlag];
+}
+
+- (void)_setupParentVCIfNeededAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  parentViewController = [(LACUIContainerViewController *)self->_containerVC parentViewController];
+
+  if (!parentViewController)
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_parentVC);
+    objc_opt_class();
+    isKindOfClass = objc_opt_isKindOfClass();
+
+    if (isKindOfClass)
+    {
+      obj = objc_loadWeakRetained(&self->_parentVC);
+      [obj setModalInPresentation:1];
+      containerVC = self->_containerVC;
+      viewControllers = [obj viewControllers];
+      [obj pushViewController:containerVC animated:{objc_msgSend(viewControllers, "count") != 0}];
+    }
+
+    else
+    {
+      obj = [objc_alloc(MEMORY[0x277D241D0]) initWithRootViewController:self->_containerVC];
+      [obj setShouldTrackPreferredContentSize:0];
+      [obj setModalInPresentation:1];
+      [obj setModalPresentationStyle:2];
+      viewControllers = objc_loadWeakRetained(&self->_parentVC);
+      [viewControllers presentViewController:obj animated:animatedCopy completion:&__block_literal_global_9];
+    }
+
+    objc_storeWeak(&self->_rootVC, obj);
+  }
 }
 
 @end

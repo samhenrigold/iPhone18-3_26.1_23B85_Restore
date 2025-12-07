@@ -17,9 +17,9 @@
 - (int64_t)hash
 {
   selfCopy = self;
-  v3 = sub_23BFA2010();
+  v4 = sub_23BFA2010(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)isEqual:(id)equal

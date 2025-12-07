@@ -1,5 +1,6 @@
 @interface BELayerHierarchyHostingTransactionCoordinator
 + (id)coordinatorWithError:(id *)error;
++ (id)coordinatorWithPort:(unsigned int)port data:(id)data error:(id *)error;
 + (id)coordinatorWithXPCRepresentation:(id)representation error:(id *)error;
 - (BELayerHierarchyHostingTransactionCoordinator)init;
 - (BELayerHierarchyHostingTransactionCoordinator)initWithCoder:(id)coder;
@@ -71,7 +72,7 @@
 
 - (void)dealloc
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ must commit before dealloc"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ must commit before dealloc", self];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -79,7 +80,7 @@
     v4 = OUTLINED_FUNCTION_2();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_1_0(&dword_19D4FF000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, self, v12, v13);
+    OUTLINED_FUNCTION_1_0(&dword_19D4FF000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -115,6 +116,61 @@
 
     [(BELayerHierarchyHostingTransactionCoordinator *)v3 _addContextForHostingView:view];
   }
+}
+
++ (id)coordinatorWithPort:(unsigned int)port data:(id)data error:(id *)error
+{
+  v17 = 0;
+  v6 = [MEMORY[0x1E6979370] handleWithPort:*&port data:data error:&v17];
+  v7 = v17;
+  v8 = v7;
+  if (v6)
+  {
+    v9 = [[BELayerHierarchyHostingTransactionCoordinator alloc] _initWithFence:v6];
+    goto LABEL_3;
+  }
+
+  if (!error)
+  {
+    v9 = 0;
+    goto LABEL_3;
+  }
+
+  if (!v7)
+  {
+    v13 = MEMORY[0x1E696ABC0];
+    v14 = *MEMORY[0x1E696A250];
+    v15 = 4866;
+    goto LABEL_13;
+  }
+
+  domain = [v7 domain];
+  if ([domain isEqual:*MEMORY[0x1E696A250]])
+  {
+    code = [v8 code];
+
+    if (code == 4865)
+    {
+      v13 = MEMORY[0x1E696ABC0];
+      v14 = *MEMORY[0x1E696A798];
+      v15 = 60;
+LABEL_13:
+      [v13 errorWithDomain:v14 code:v15 userInfo:0];
+      *error = v9 = 0;
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+  }
+
+  v16 = v8;
+  v9 = 0;
+  *error = v8;
+LABEL_3:
+
+  return v9;
 }
 
 + (id)coordinatorWithError:(id *)error
@@ -282,7 +338,7 @@ LABEL_3:
 
 - (void)commit
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ cannot be committed twice"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ cannot be committed twice", self];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -290,7 +346,7 @@ LABEL_3:
     v4 = OUTLINED_FUNCTION_2();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_1_0(&dword_19D4FF000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, self, v12, v13);
+    OUTLINED_FUNCTION_1_0(&dword_19D4FF000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -339,7 +395,7 @@ LABEL_3:
 
 - (void)_addContext:(uint64_t)a1 .cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ cannot add to coordinator after commit"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ cannot add to coordinator after commit", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -347,7 +403,7 @@ LABEL_3:
     v4 = OUTLINED_FUNCTION_2();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_1_0(&dword_19D4FF000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_1_0(&dword_19D4FF000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -377,7 +433,7 @@ LABEL_3:
 
 - (void)_addContextForHostingView:(uint64_t)a1 .cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ cannot add hostingView after commit"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ cannot add hostingView after commit", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -385,7 +441,7 @@ LABEL_3:
     v4 = OUTLINED_FUNCTION_2();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_1_0(&dword_19D4FF000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_1_0(&dword_19D4FF000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];

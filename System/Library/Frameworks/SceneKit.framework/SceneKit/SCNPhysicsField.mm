@@ -332,8 +332,8 @@ __n128 __33__SCNPhysicsField_setHalfExtent___block_invoke(uint64_t a1, __n128 a2
     v2[11] = a2;
   }
 
-  result.n128_u64[0] = a2.n128_u64[0];
-  result.n128_u32[2] = a2.n128_u32[2];
+  result.n128_f64[0] = a2.n128_f64[0];
+  result.n128_f32[2] = a2.n128_f32[2];
   return result;
 }
 
@@ -431,8 +431,8 @@ __n128 __29__SCNPhysicsField_setOffset___block_invoke(uint64_t a1, __n128 a2)
     v2[9] = a2;
   }
 
-  result.n128_u64[0] = a2.n128_u64[0];
-  result.n128_u32[2] = a2.n128_u32[2];
+  result.n128_f64[0] = a2.n128_f64[0];
+  result.n128_f32[2] = a2.n128_f32[2];
   return result;
 }
 
@@ -483,6 +483,7 @@ __n128 __29__SCNPhysicsField_setOffset___block_invoke(uint64_t a1, __n128 a2)
 
 - (void)_setOwner:(id)owner
 {
+  selfCopy = self;
   node = self->_node;
   if (node)
   {
@@ -496,20 +497,21 @@ __n128 __29__SCNPhysicsField_setOffset___block_invoke(uint64_t a1, __n128 a2)
 
   if (!v6)
   {
-    v7 = scn_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(self, a2);
+    self = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+    if (self)
     {
       [SCNPhysicsField _setOwner:v7];
     }
 
-    node = self->_node;
+    node = selfCopy->_node;
   }
 
   if (node)
   {
-    if (self->_field)
+    if (selfCopy->_field)
     {
-      v8 = scn_default_log();
+      v8 = scn_default_log(self, a2);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         [SCNPhysicsField _setOwner:v8];
@@ -517,11 +519,11 @@ __n128 __29__SCNPhysicsField_setOffset___block_invoke(uint64_t a1, __n128 a2)
     }
   }
 
-  self->_node = owner;
-  if (!self->_field)
+  selfCopy->_node = owner;
+  if (!selfCopy->_field)
   {
-    self->_field = [(SCNPhysicsField *)self _createField];
-    [(SCNPhysicsField *)self _setupCommonProperties];
+    selfCopy->_field = [(SCNPhysicsField *)selfCopy _createField];
+    [(SCNPhysicsField *)selfCopy _setupCommonProperties];
   }
 
   C3DNodeSetHasPhysicsField([owner nodeRef], 1);

@@ -71,23 +71,21 @@
 
 void __86__NEAgentPacketTunnelExtension_extension_didSetTunnelConfiguration_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v7;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "%@: Got an error on the XPC connection while waiting for a virtual interface: %@", &v8, 0x16u);
+    v6 = *(a1 + 32);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "%@: Got an error on the XPC connection while waiting for a virtual interface: %@", &v7, 0x16u);
   }
 
   v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"NEAgentErrorDomain" code:1 userInfo:0];
   (*(*(a1 + 40) + 16))();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __86__NEAgentPacketTunnelExtension_extension_didSetTunnelConfiguration_completionHandler___block_invoke_9(id *a1, void *a2)
@@ -114,7 +112,7 @@ void __86__NEAgentPacketTunnelExtension_extension_didSetTunnelConfiguration_comp
 
 void __86__NEAgentPacketTunnelExtension_extension_didSetTunnelConfiguration_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     v2 = *(a1 + 40);
@@ -135,9 +133,9 @@ void __86__NEAgentPacketTunnelExtension_extension_didSetTunnelConfiguration_comp
     v5 = *(a1 + 48);
     v6 = *(a1 + 56);
     v7 = *(a1 + 64);
-    v12.receiver = *(a1 + 40);
-    v12.super_class = NEAgentPacketTunnelExtension;
-    objc_msgSendSuper2(&v12, sel_extension_didSetTunnelConfiguration_completionHandler_, v5, v6, v7);
+    v11.receiver = *(a1 + 40);
+    v11.super_class = NEAgentPacketTunnelExtension;
+    objc_msgSendSuper2(&v11, sel_extension_didSetTunnelConfiguration_completionHandler_, v5, v6, v7);
   }
 
   else
@@ -145,17 +143,15 @@ void __86__NEAgentPacketTunnelExtension_extension_didSetTunnelConfiguration_comp
     v8 = ne_log_obj();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 40);
+      v10 = *(a1 + 40);
       *buf = 138412290;
-      v14 = v11;
+      v13 = v10;
       _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@: Failed to create a user ethernet virtual interface", buf, 0xCu);
     }
 
     v9 = [MEMORY[0x1E696ABC0] errorWithDomain:@"NEAgentErrorDomain" code:1 userInfo:0];
     (*(*(a1 + 64) + 16))();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleExtensionStartedWithCompletionHandler:(id)handler
@@ -174,15 +170,15 @@ void __86__NEAgentPacketTunnelExtension_extension_didSetTunnelConfiguration_comp
 
 void __76__NEAgentPacketTunnelExtension_handleExtensionStartedWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v12 = *(a1 + 32);
+    v11 = *(a1 + 32);
     *buf = 138412546;
-    v19 = v12;
-    v20 = 2048;
-    v21 = a2;
+    v18 = v11;
+    v19 = 2048;
+    v20 = a2;
     _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "%@: Fetched virtual interface type %ld", buf, 0x16u);
   }
 
@@ -200,47 +196,44 @@ void __76__NEAgentPacketTunnelExtension_handleExtensionStartedWithCompletionHand
   else
   {
     v6 = [*(a1 + 32) managerObjectFactory];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __76__NEAgentPacketTunnelExtension_handleExtensionStartedWithCompletionHandler___block_invoke_1;
-    v16[3] = &unk_1E7F0B628;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __76__NEAgentPacketTunnelExtension_handleExtensionStartedWithCompletionHandler___block_invoke_1;
+    v15[3] = &unk_1E7F0B628;
     v7 = *(a1 + 40);
-    v16[4] = *(a1 + 32);
-    v17 = v7;
-    v8 = [v6 managerObjectWithErrorHandler:v16];
+    v15[4] = *(a1 + 32);
+    v16 = v7;
+    v8 = [v6 managerObjectWithErrorHandler:v15];
 
     v9 = [[NEVirtualInterfaceParameters alloc] initWithType:a2 maxPendingPackets:64 ethernetAddress:0 mtu:0];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __76__NEAgentPacketTunnelExtension_handleExtensionStartedWithCompletionHandler___block_invoke_2;
-    v13[3] = &unk_1E7F092A8;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __76__NEAgentPacketTunnelExtension_handleExtensionStartedWithCompletionHandler___block_invoke_2;
+    v12[3] = &unk_1E7F092A8;
     v10 = *(a1 + 40);
-    v13[4] = *(a1 + 32);
-    v15 = a2;
-    v14 = v10;
-    [v8 createVirtualInterfaceWithParameters:v9 completionHandler:v13];
+    v12[4] = *(a1 + 32);
+    v14 = a2;
+    v13 = v10;
+    [v8 createVirtualInterfaceWithParameters:v9 completionHandler:v12];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __76__NEAgentPacketTunnelExtension_handleExtensionStartedWithCompletionHandler___block_invoke_1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v6;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "%@: Got an error on the XPC connection while waiting for a virtual interface: %@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "%@: Got an error on the XPC connection while waiting for a virtual interface: %@", &v6, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __76__NEAgentPacketTunnelExtension_handleExtensionStartedWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -263,7 +256,7 @@ void __76__NEAgentPacketTunnelExtension_handleExtensionStartedWithCompletionHand
 
 uint64_t __76__NEAgentPacketTunnelExtension_handleExtensionStartedWithCompletionHandler___block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     v2 = [*(a1 + 40) sessionContext];
@@ -275,19 +268,17 @@ uint64_t __76__NEAgentPacketTunnelExtension_handleExtensionStartedWithCompletion
     v2 = ne_log_obj();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v5 = *(a1 + 40);
-      v6 = *(a1 + 56);
-      v7 = 138412546;
-      v8 = v5;
-      v9 = 2048;
-      v10 = v6;
-      _os_log_error_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_ERROR, "%@: Failed to obtain a virtual interface of type %ld, aborting", &v7, 0x16u);
+      v4 = *(a1 + 40);
+      v5 = *(a1 + 56);
+      v6 = 138412546;
+      v7 = v4;
+      v8 = 2048;
+      v9 = v5;
+      _os_log_error_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_ERROR, "%@: Failed to obtain a virtual interface of type %ld, aborting", &v6, 0x16u);
     }
   }
 
-  result = (*(*(a1 + 48) + 16))();
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 @end

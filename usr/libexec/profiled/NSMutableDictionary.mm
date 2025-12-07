@@ -4,6 +4,7 @@
 - (void)MCDeleteBoolRestriction:(id)restriction;
 - (void)MCFixUpRestrictionsDictionaryForMDMReporting;
 - (void)MCSanitizeRestrictions;
+- (void)MCSetBoolRestriction:(id)restriction value:(BOOL)value;
 - (void)MCSetIntersectionRestriction:(id)restriction values:(id)values;
 - (void)MCSetIntersectionSetting:(id)setting values:(id)values;
 - (void)MCSetObjectIfNotNil:(id)nil forKey:(id)key;
@@ -184,6 +185,47 @@ LABEL_20:
   {
     [(NSMutableDictionary *)self setObject:nil forKey:key];
   }
+}
+
+- (void)MCSetBoolRestriction:(id)restriction value:(BOOL)value
+{
+  valueCopy = value;
+  restrictionCopy = restriction;
+  v7 = +[MCRestrictionManager sharedManager];
+  defaultRestrictions = [v7 defaultRestrictions];
+
+  v9 = MCRestrictedBoolKey;
+  v10 = [defaultRestrictions objectForKeyedSubscript:MCRestrictedBoolKey];
+  v11 = [v10 objectForKeyedSubscript:restrictionCopy];
+  v12 = MCRestrictedBoolPreferenceKey;
+  v13 = [v11 objectForKeyedSubscript:MCRestrictedBoolPreferenceKey];
+
+  if (!v13)
+  {
+    restrictionCopy = [NSString stringWithFormat:@"%@ is not a BOOL restriction.", restrictionCopy];
+    v19 = [NSException exceptionWithName:NSInvalidArgumentException reason:restrictionCopy userInfo:0];
+    v20 = v19;
+
+    objc_exception_throw(v19);
+  }
+
+  v14 = [(NSMutableDictionary *)self objectForKeyedSubscript:v9];
+  v15 = [v14 mutableCopy];
+
+  if (!v15)
+  {
+    v15 = +[NSMutableDictionary dictionary];
+  }
+
+  v21[0] = v12;
+  v21[1] = MCRestrictedBoolValueKey;
+  v22[0] = v13;
+  v16 = [NSNumber numberWithBool:valueCopy];
+  v22[1] = v16;
+  v17 = [NSDictionary dictionaryWithObjects:v22 forKeys:v21 count:2];
+  [v15 setObject:v17 forKeyedSubscript:restrictionCopy];
+
+  [(NSMutableDictionary *)self setObject:v15 forKeyedSubscript:v9];
 }
 
 - (void)MCDeleteBoolRestriction:(id)restriction

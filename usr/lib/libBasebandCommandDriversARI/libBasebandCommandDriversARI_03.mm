@@ -1,46 +1,3 @@
-void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
-{
-  v4 = strlen(__s);
-  if (v4 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v5 = v4;
-  if (v4 >= 0x17)
-  {
-    if ((v4 | 7) == 0x17)
-    {
-      v7 = 25;
-    }
-
-    else
-    {
-      v7 = (v4 | 7) + 1;
-    }
-
-    v6 = operator new(v7);
-    a1[1] = v5;
-    a1[2] = v7 | 0x8000000000000000;
-    *a1 = v6;
-  }
-
-  else
-  {
-    *(a1 + 23) = v4;
-    v6 = a1;
-    if (!v4)
-    {
-      goto LABEL_10;
-    }
-  }
-
-  memmove(v6, __s, v5);
-LABEL_10:
-  *(v6 + v5) = 0;
-  return a1;
-}
-
 atomic_ullong *std::shared_ptr<trace::ARICommandDriver>::shared_ptr[abi:ne200100]<trace::ARICommandDriver,std::shared_ptr<trace::ARICommandDriver> ctu::SharedSynchronizable<trace::CommandDriver>::make_shared_ptr<trace::ARICommandDriver>(trace::ARICommandDriver*)::{lambda(trace::ARICommandDriver*)#1},0>(atomic_ullong *a1, atomic_ullong a2)
 {
   *a1 = a2;
@@ -319,9 +276,9 @@ void ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFError
   }
 }
 
-void sub_296DA34D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296DA34D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::cf::CFSharedRef<__CFError>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
@@ -369,185 +326,178 @@ void __destroy_helper_block_e8_32c76_ZTSN8dispatch5blockIU13block_pointerFvN3ctu
   }
 }
 
-void ___ZN3ice6detail12wrapCallbackIZZN5trace16ARICommandDriver17pauseTraceTrafficEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEEEUb_E3__0vEENS4_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZZN5trace16ARICommandDriver17pauseTraceTrafficEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEEEUb_E3__0vEENS4_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v30 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (!v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    goto LABEL_41;
-  }
-
-  v3 = v2[1];
-  if (!v3)
-  {
-    goto LABEL_41;
-  }
-
-  v4 = v2[4];
-  v6 = std::__shared_weak_count::lock(v3);
-  v24 = v6;
-  if (!v6)
-  {
-    goto LABEL_41;
-  }
-
-  v7 = v6;
-  if (*v2)
-  {
-    v22 = 0xAAAAAAAAAAAAAAAALL;
-    *&v8 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v21[2] = v8;
-    v21[3] = v8;
-    v21[0] = v8;
-    v21[1] = v8;
-    AriSdk::ARI_CsiTraceProfileSelectRspCb_SDK::ARI_CsiTraceProfileSelectRspCb_SDK(v21, a2);
-    cf = 0xAAAAAAAAAAAAAAAALL;
-    HIBYTE(v26) = 13;
-    strcpy(&block, "disable trace");
-    checkError(v21, &block, &cf);
-    if (SHIBYTE(v26) < 0)
+    v4 = v3[1];
+    if (v4)
     {
-      operator delete(block);
-      if (cf)
+      v5 = v3[4];
+      v7 = std::__shared_weak_count::lock(v4);
+      v24 = v7;
+      if (v7)
       {
-        goto LABEL_17;
-      }
-    }
-
-    else if (cf)
-    {
-      goto LABEL_17;
-    }
-
-    v9 = AriSdk::ARI_CsiTraceProfileSelectRspCb_SDK::unpack(v21);
-    if (v9 || *v22)
-    {
-      v10 = *(v4 + 40);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        v18 = *v22;
-        LODWORD(block) = 67109376;
-        DWORD1(block) = v9;
-        WORD4(block) = 1024;
-        *(&block + 10) = v18;
-        _os_log_error_impl(&dword_296D7D000, v10, OS_LOG_TYPE_ERROR, "Failed to disable trace: unpackResult = %d result_code_t1 = %d", &block, 0xEu);
-      }
-
-      __p = operator new(0x19uLL);
-      strcpy(__p, "Failed to disable trace");
-      CreateError();
-      v11 = cf;
-      cf = block;
-      *&block = 0;
-      if (v11)
-      {
-        CFRelease(v11);
-        if (block)
+        v8 = v7;
+        if (!*v3)
         {
-          CFRelease(block);
+LABEL_39:
+          if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            (v8->__on_zero_shared)(v8);
+            std::__shared_weak_count::__release_weak(v8);
+          }
+
+          return;
         }
-      }
 
-      operator delete(__p);
-    }
+        v22 = 0xAAAAAAAAAAAAAAAALL;
+        *&v9 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v21[2] = v9;
+        v21[3] = v9;
+        v21[0] = v9;
+        v21[1] = v9;
+        AriSdk::ARI_CsiTraceProfileSelectRspCb_SDK::ARI_CsiTraceProfileSelectRspCb_SDK(v21, a2);
+        cf = 0xAAAAAAAAAAAAAAAALL;
+        HIBYTE(v26) = 13;
+        strcpy(&block, "disable trace");
+        checkError(&cf, v21, &block);
+        if (SHIBYTE(v26) < 0)
+        {
+          operator delete(block);
+          if (cf)
+          {
+            goto LABEL_17;
+          }
+        }
 
-    else
-    {
-      v17 = *(v4 + 40);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-      {
-        LOWORD(block) = 0;
-        _os_log_impl(&dword_296D7D000, v17, OS_LOG_TYPE_DEFAULT, "#I Successfully disabled trace", &block, 2u);
-      }
-    }
+        else if (cf)
+        {
+          goto LABEL_17;
+        }
+
+        v10 = AriSdk::ARI_CsiTraceProfileSelectRspCb_SDK::unpack(v21);
+        if (v10 || *v22)
+        {
+          v11 = *(v5 + 40);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          {
+            v18 = *v22;
+            LODWORD(block) = 67109376;
+            DWORD1(block) = v10;
+            WORD4(block) = 1024;
+            *(&block + 10) = v18;
+            _os_log_error_impl(&dword_296D7D000, v11, OS_LOG_TYPE_ERROR, "Failed to disable trace: unpackResult = %d result_code_t1 = %d", &block, 0xEu);
+          }
+
+          __p = operator new(0x19uLL);
+          strcpy(__p, "Failed to disable trace");
+          CreateError();
+          v12 = cf;
+          cf = block;
+          *&block = 0;
+          if (v12)
+          {
+            CFRelease(v12);
+            if (block)
+            {
+              CFRelease(block);
+            }
+          }
+
+          operator delete(__p);
+        }
+
+        else
+        {
+          v17 = *(v5 + 40);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          {
+            LOWORD(block) = 0;
+            _os_log_impl(&dword_296D7D000, v17, OS_LOG_TYPE_DEFAULT, "#I Successfully disabled trace", &block, 2u);
+          }
+        }
 
 LABEL_17:
-    v12 = v2[2];
-    if (!v12 || !v2[3])
-    {
+        v13 = v3[2];
+        if (!v13 || !v3[3])
+        {
 LABEL_36:
-      if (cf)
-      {
-        CFRelease(cf);
-      }
+          if (cf)
+          {
+            CFRelease(cf);
+          }
 
-      MEMORY[0x29C2651F0](v21);
-      goto LABEL_39;
-    }
+          MEMORY[0x29C2651F0](v21);
+          goto LABEL_39;
+        }
 
-    v13 = cf;
-    if (cf && (CFRetain(cf), (v12 = v2[2]) == 0))
-    {
-      v14 = 0;
-    }
+        v14 = cf;
+        if (cf && (CFRetain(cf), (v13 = v3[2]) == 0))
+        {
+          v15 = 0;
+        }
 
-    else
-    {
-      v14 = _Block_copy(v12);
-    }
+        else
+        {
+          v15 = _Block_copy(v13);
+        }
 
-    v15 = v2[3];
-    *&block = MEMORY[0x29EDCA5F8];
-    *(&block + 1) = 1174405120;
-    v26 = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke;
-    v27 = &__block_descriptor_tmp_64_0;
-    if (v14)
-    {
-      v28 = _Block_copy(v14);
-      v29 = v13;
-      if (!v13)
-      {
+        v16 = v3[3];
+        *&block = MEMORY[0x29EDCA5F8];
+        *(&block + 1) = 1174405120;
+        v26 = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke;
+        v27 = &__block_descriptor_tmp_64_0;
+        if (v15)
+        {
+          v28 = _Block_copy(v15);
+          v29 = v14;
+          if (!v14)
+          {
+            goto LABEL_28;
+          }
+        }
+
+        else
+        {
+          v28 = 0;
+          v29 = v14;
+          if (!v14)
+          {
+LABEL_28:
+            dispatch_async(v16, &block);
+            if (v29)
+            {
+              CFRelease(v29);
+            }
+
+            if (v28)
+            {
+              _Block_release(v28);
+            }
+
+            if (v15)
+            {
+              _Block_release(v15);
+            }
+
+            if (v14)
+            {
+              CFRelease(v14);
+            }
+
+            goto LABEL_36;
+          }
+        }
+
+        CFRetain(v14);
         goto LABEL_28;
       }
     }
-
-    else
-    {
-      v28 = 0;
-      v29 = v13;
-      if (!v13)
-      {
-LABEL_28:
-        dispatch_async(v15, &block);
-        if (v29)
-        {
-          CFRelease(v29);
-        }
-
-        if (v28)
-        {
-          _Block_release(v28);
-        }
-
-        if (v14)
-        {
-          _Block_release(v14);
-        }
-
-        if (v13)
-        {
-          CFRelease(v13);
-        }
-
-        goto LABEL_36;
-      }
-    }
-
-    CFRetain(v13);
-    goto LABEL_28;
   }
-
-LABEL_39:
-  if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v7->__on_zero_shared)(v7);
-    std::__shared_weak_count::__release_weak(v7);
-  }
-
-LABEL_41:
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DA3914(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
@@ -614,186 +564,179 @@ void _ZNSt3__120__shared_ptr_emplaceIZZN5trace16ARICommandDriver17pauseTraceTraf
   }
 }
 
-void ___ZN3ice6detail12wrapCallbackIZZN5trace16ARICommandDriver18enableSleepProfileEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEEEUb0_E3__1vEENS4_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZZN5trace16ARICommandDriver18enableSleepProfileEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEEEUb0_E3__1vEENS4_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v30 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (!v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    goto LABEL_41;
-  }
-
-  v3 = v2[1];
-  if (!v3)
-  {
-    goto LABEL_41;
-  }
-
-  v4 = v2[4];
-  v6 = std::__shared_weak_count::lock(v3);
-  v24 = v6;
-  if (!v6)
-  {
-    goto LABEL_41;
-  }
-
-  v7 = v6;
-  if (*v2)
-  {
-    v22 = 0xAAAAAAAAAAAAAAAALL;
-    *&v8 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v21[2] = v8;
-    v21[3] = v8;
-    v21[0] = v8;
-    v21[1] = v8;
-    AriSdk::ARI_CsiTraceProfileSelectRspCb_SDK::ARI_CsiTraceProfileSelectRspCb_SDK(v21, a2);
-    cf = 0xAAAAAAAAAAAAAAAALL;
-    block = operator new(0x19uLL);
-    v26 = xmmword_296E1FAA0;
-    strcpy(block, "configure sleep profile");
-    checkError(v21, &block, &cf);
-    if (SHIBYTE(v26) < 0)
+    v4 = v3[1];
+    if (v4)
     {
-      operator delete(block);
-      if (cf)
+      v5 = v3[4];
+      v7 = std::__shared_weak_count::lock(v4);
+      v24 = v7;
+      if (v7)
       {
-        goto LABEL_17;
-      }
-    }
-
-    else if (cf)
-    {
-      goto LABEL_17;
-    }
-
-    v9 = AriSdk::ARI_CsiTraceProfileSelectRspCb_SDK::unpack(v21);
-    if (v9 || *v22)
-    {
-      v10 = *(v4 + 40);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        v18 = *v22;
-        LODWORD(block) = 67109376;
-        HIDWORD(block) = v9;
-        LOWORD(v26) = 1024;
-        *(&v26 + 2) = v18;
-        _os_log_error_impl(&dword_296D7D000, v10, OS_LOG_TYPE_ERROR, "Failed to configure sleep profile: unpackResult = %d result_code_t1 = %d", &block, 0xEu);
-      }
-
-      __p = operator new(0x28uLL);
-      strcpy(__p, "Failed to configure sleep profile");
-      CreateError();
-      v11 = cf;
-      cf = block;
-      block = 0;
-      if (v11)
-      {
-        CFRelease(v11);
-        if (block)
+        v8 = v7;
+        if (!*v3)
         {
-          CFRelease(block);
+LABEL_39:
+          if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            (v8->__on_zero_shared)(v8);
+            std::__shared_weak_count::__release_weak(v8);
+          }
+
+          return;
         }
-      }
 
-      operator delete(__p);
-    }
+        v22 = 0xAAAAAAAAAAAAAAAALL;
+        *&v9 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v21[2] = v9;
+        v21[3] = v9;
+        v21[0] = v9;
+        v21[1] = v9;
+        AriSdk::ARI_CsiTraceProfileSelectRspCb_SDK::ARI_CsiTraceProfileSelectRspCb_SDK(v21, a2);
+        cf = 0xAAAAAAAAAAAAAAAALL;
+        block = operator new(0x19uLL);
+        v26 = xmmword_296E1FAA0;
+        strcpy(block, "configure sleep profile");
+        checkError(&cf, v21, &block);
+        if (SHIBYTE(v26) < 0)
+        {
+          operator delete(block);
+          if (cf)
+          {
+            goto LABEL_17;
+          }
+        }
 
-    else
-    {
-      v17 = *(v4 + 40);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-      {
-        LOWORD(block) = 0;
-        _os_log_impl(&dword_296D7D000, v17, OS_LOG_TYPE_DEFAULT, "#I Successfully configured sleep profile", &block, 2u);
-      }
-    }
+        else if (cf)
+        {
+          goto LABEL_17;
+        }
+
+        v10 = AriSdk::ARI_CsiTraceProfileSelectRspCb_SDK::unpack(v21);
+        if (v10 || *v22)
+        {
+          v11 = *(v5 + 40);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          {
+            v18 = *v22;
+            LODWORD(block) = 67109376;
+            HIDWORD(block) = v10;
+            LOWORD(v26) = 1024;
+            *(&v26 + 2) = v18;
+            _os_log_error_impl(&dword_296D7D000, v11, OS_LOG_TYPE_ERROR, "Failed to configure sleep profile: unpackResult = %d result_code_t1 = %d", &block, 0xEu);
+          }
+
+          __p = operator new(0x28uLL);
+          strcpy(__p, "Failed to configure sleep profile");
+          CreateError();
+          v12 = cf;
+          cf = block;
+          block = 0;
+          if (v12)
+          {
+            CFRelease(v12);
+            if (block)
+            {
+              CFRelease(block);
+            }
+          }
+
+          operator delete(__p);
+        }
+
+        else
+        {
+          v17 = *(v5 + 40);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          {
+            LOWORD(block) = 0;
+            _os_log_impl(&dword_296D7D000, v17, OS_LOG_TYPE_DEFAULT, "#I Successfully configured sleep profile", &block, 2u);
+          }
+        }
 
 LABEL_17:
-    v12 = v2[2];
-    if (!v12 || !v2[3])
-    {
+        v13 = v3[2];
+        if (!v13 || !v3[3])
+        {
 LABEL_36:
-      if (cf)
-      {
-        CFRelease(cf);
-      }
+          if (cf)
+          {
+            CFRelease(cf);
+          }
 
-      MEMORY[0x29C2651F0](v21);
-      goto LABEL_39;
-    }
+          MEMORY[0x29C2651F0](v21);
+          goto LABEL_39;
+        }
 
-    v13 = cf;
-    if (cf && (CFRetain(cf), (v12 = v2[2]) == 0))
-    {
-      v14 = 0;
-    }
+        v14 = cf;
+        if (cf && (CFRetain(cf), (v13 = v3[2]) == 0))
+        {
+          v15 = 0;
+        }
 
-    else
-    {
-      v14 = _Block_copy(v12);
-    }
+        else
+        {
+          v15 = _Block_copy(v13);
+        }
 
-    v15 = v2[3];
-    block = MEMORY[0x29EDCA5F8];
-    *&v26 = 1174405120;
-    *(&v26 + 1) = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke;
-    v27 = &__block_descriptor_tmp_64_0;
-    if (v14)
-    {
-      v28 = _Block_copy(v14);
-      v29 = v13;
-      if (!v13)
-      {
+        v16 = v3[3];
+        block = MEMORY[0x29EDCA5F8];
+        *&v26 = 1174405120;
+        *(&v26 + 1) = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke;
+        v27 = &__block_descriptor_tmp_64_0;
+        if (v15)
+        {
+          v28 = _Block_copy(v15);
+          v29 = v14;
+          if (!v14)
+          {
+            goto LABEL_28;
+          }
+        }
+
+        else
+        {
+          v28 = 0;
+          v29 = v14;
+          if (!v14)
+          {
+LABEL_28:
+            dispatch_async(v16, &block);
+            if (v29)
+            {
+              CFRelease(v29);
+            }
+
+            if (v28)
+            {
+              _Block_release(v28);
+            }
+
+            if (v15)
+            {
+              _Block_release(v15);
+            }
+
+            if (v14)
+            {
+              CFRelease(v14);
+            }
+
+            goto LABEL_36;
+          }
+        }
+
+        CFRetain(v14);
         goto LABEL_28;
       }
     }
-
-    else
-    {
-      v28 = 0;
-      v29 = v13;
-      if (!v13)
-      {
-LABEL_28:
-        dispatch_async(v15, &block);
-        if (v29)
-        {
-          CFRelease(v29);
-        }
-
-        if (v28)
-        {
-          _Block_release(v28);
-        }
-
-        if (v14)
-        {
-          _Block_release(v14);
-        }
-
-        if (v13)
-        {
-          CFRelease(v13);
-        }
-
-        goto LABEL_36;
-      }
-    }
-
-    CFRetain(v13);
-    goto LABEL_28;
   }
-
-LABEL_39:
-  if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v7->__on_zero_shared)(v7);
-    std::__shared_weak_count::__release_weak(v7);
-  }
-
-LABEL_41:
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DA3ECC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
@@ -860,185 +803,178 @@ void _ZNSt3__120__shared_ptr_emplaceIZZN5trace16ARICommandDriver18enableSleepPro
   }
 }
 
-void ___ZN3ice6detail12wrapCallbackIZZN5trace16ARICommandDriver19enableActiveProfileEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEEEUb1_E3__2vEENS4_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZZN5trace16ARICommandDriver19enableActiveProfileEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEEEUb1_E3__2vEENS4_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v29 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (!v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    goto LABEL_41;
-  }
-
-  v3 = v2[1];
-  if (!v3)
-  {
-    goto LABEL_41;
-  }
-
-  v4 = v2[4];
-  v6 = std::__shared_weak_count::lock(v3);
-  v24 = v6;
-  if (!v6)
-  {
-    goto LABEL_41;
-  }
-
-  v7 = v6;
-  if (*v2)
-  {
-    v22 = 0xAAAAAAAAAAAAAAAALL;
-    *&v8 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v21[2] = v8;
-    v21[3] = v8;
-    v21[0] = v8;
-    v21[1] = v8;
-    AriSdk::ARI_CsiTraceProfileSelectRspCb_SDK::ARI_CsiTraceProfileSelectRspCb_SDK(v21, a2);
-    cf = 0xAAAAAAAAAAAAAAAALL;
-    strcpy(block, "configure wake profile");
-    block[23] = 22;
-    checkError(v21, block, &cf);
-    if ((block[23] & 0x80000000) != 0)
+    v4 = v3[1];
+    if (v4)
     {
-      operator delete(*block);
-      if (cf)
+      v5 = v3[4];
+      v7 = std::__shared_weak_count::lock(v4);
+      v24 = v7;
+      if (v7)
       {
-        goto LABEL_17;
-      }
-    }
-
-    else if (cf)
-    {
-      goto LABEL_17;
-    }
-
-    v9 = AriSdk::ARI_CsiTraceProfileSelectRspCb_SDK::unpack(v21);
-    if (v9 || *v22)
-    {
-      v10 = *(v4 + 40);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        v18 = *v22;
-        *block = 67109376;
-        *&block[4] = v9;
-        *&block[8] = 1024;
-        *&block[10] = v18;
-        _os_log_error_impl(&dword_296D7D000, v10, OS_LOG_TYPE_ERROR, "Failed to configure wake profile: unpackResult = %d result_code_t1 = %d", block, 0xEu);
-      }
-
-      __p = operator new(0x28uLL);
-      strcpy(__p, "Failed to configure wake profile");
-      CreateError();
-      v11 = cf;
-      cf = *block;
-      *block = 0;
-      if (v11)
-      {
-        CFRelease(v11);
-        if (*block)
+        v8 = v7;
+        if (!*v3)
         {
-          CFRelease(*block);
+LABEL_39:
+          if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            (v8->__on_zero_shared)(v8);
+            std::__shared_weak_count::__release_weak(v8);
+          }
+
+          return;
         }
-      }
 
-      operator delete(__p);
-    }
+        v22 = 0xAAAAAAAAAAAAAAAALL;
+        *&v9 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v21[2] = v9;
+        v21[3] = v9;
+        v21[0] = v9;
+        v21[1] = v9;
+        AriSdk::ARI_CsiTraceProfileSelectRspCb_SDK::ARI_CsiTraceProfileSelectRspCb_SDK(v21, a2);
+        cf = 0xAAAAAAAAAAAAAAAALL;
+        strcpy(block, "configure wake profile");
+        block[23] = 22;
+        checkError(&cf, v21, block);
+        if ((block[23] & 0x80000000) != 0)
+        {
+          operator delete(*block);
+          if (cf)
+          {
+            goto LABEL_17;
+          }
+        }
 
-    else
-    {
-      v17 = *(v4 + 40);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-      {
-        *block = 0;
-        _os_log_impl(&dword_296D7D000, v17, OS_LOG_TYPE_DEFAULT, "#I Successfully configured wake profile", block, 2u);
-      }
-    }
+        else if (cf)
+        {
+          goto LABEL_17;
+        }
+
+        v10 = AriSdk::ARI_CsiTraceProfileSelectRspCb_SDK::unpack(v21);
+        if (v10 || *v22)
+        {
+          v11 = *(v5 + 40);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          {
+            v18 = *v22;
+            *block = 67109376;
+            *&block[4] = v10;
+            *&block[8] = 1024;
+            *&block[10] = v18;
+            _os_log_error_impl(&dword_296D7D000, v11, OS_LOG_TYPE_ERROR, "Failed to configure wake profile: unpackResult = %d result_code_t1 = %d", block, 0xEu);
+          }
+
+          __p = operator new(0x28uLL);
+          strcpy(__p, "Failed to configure wake profile");
+          CreateError();
+          v12 = cf;
+          cf = *block;
+          *block = 0;
+          if (v12)
+          {
+            CFRelease(v12);
+            if (*block)
+            {
+              CFRelease(*block);
+            }
+          }
+
+          operator delete(__p);
+        }
+
+        else
+        {
+          v17 = *(v5 + 40);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          {
+            *block = 0;
+            _os_log_impl(&dword_296D7D000, v17, OS_LOG_TYPE_DEFAULT, "#I Successfully configured wake profile", block, 2u);
+          }
+        }
 
 LABEL_17:
-    v12 = v2[2];
-    if (!v12 || !v2[3])
-    {
+        v13 = v3[2];
+        if (!v13 || !v3[3])
+        {
 LABEL_36:
-      if (cf)
-      {
-        CFRelease(cf);
-      }
+          if (cf)
+          {
+            CFRelease(cf);
+          }
 
-      MEMORY[0x29C2651F0](v21);
-      goto LABEL_39;
-    }
+          MEMORY[0x29C2651F0](v21);
+          goto LABEL_39;
+        }
 
-    v13 = cf;
-    if (cf && (CFRetain(cf), (v12 = v2[2]) == 0))
-    {
-      v14 = 0;
-    }
+        v14 = cf;
+        if (cf && (CFRetain(cf), (v13 = v3[2]) == 0))
+        {
+          v15 = 0;
+        }
 
-    else
-    {
-      v14 = _Block_copy(v12);
-    }
+        else
+        {
+          v15 = _Block_copy(v13);
+        }
 
-    v15 = v2[3];
-    *block = MEMORY[0x29EDCA5F8];
-    *&block[8] = 1174405120;
-    *&block[16] = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke;
-    v26 = &__block_descriptor_tmp_64_0;
-    if (v14)
-    {
-      v27 = _Block_copy(v14);
-      v28 = v13;
-      if (!v13)
-      {
+        v16 = v3[3];
+        *block = MEMORY[0x29EDCA5F8];
+        *&block[8] = 1174405120;
+        *&block[16] = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke;
+        v26 = &__block_descriptor_tmp_64_0;
+        if (v15)
+        {
+          v27 = _Block_copy(v15);
+          v28 = v14;
+          if (!v14)
+          {
+            goto LABEL_28;
+          }
+        }
+
+        else
+        {
+          v27 = 0;
+          v28 = v14;
+          if (!v14)
+          {
+LABEL_28:
+            dispatch_async(v16, block);
+            if (v28)
+            {
+              CFRelease(v28);
+            }
+
+            if (v27)
+            {
+              _Block_release(v27);
+            }
+
+            if (v15)
+            {
+              _Block_release(v15);
+            }
+
+            if (v14)
+            {
+              CFRelease(v14);
+            }
+
+            goto LABEL_36;
+          }
+        }
+
+        CFRetain(v14);
         goto LABEL_28;
       }
     }
-
-    else
-    {
-      v27 = 0;
-      v28 = v13;
-      if (!v13)
-      {
-LABEL_28:
-        dispatch_async(v15, block);
-        if (v28)
-        {
-          CFRelease(v28);
-        }
-
-        if (v27)
-        {
-          _Block_release(v27);
-        }
-
-        if (v14)
-        {
-          _Block_release(v14);
-        }
-
-        if (v13)
-        {
-          CFRelease(v13);
-        }
-
-        goto LABEL_36;
-      }
-    }
-
-    CFRetain(v13);
-    goto LABEL_28;
   }
-
-LABEL_39:
-  if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v7->__on_zero_shared)(v7);
-    std::__shared_weak_count::__release_weak(v7);
-  }
-
-LABEL_41:
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DA444C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
@@ -1105,277 +1041,270 @@ void _ZNSt3__120__shared_ptr_emplaceIZZN5trace16ARICommandDriver19enableActivePr
   }
 }
 
-void ___ZN3ice6detail12wrapCallbackIZZN5trace16ARICommandDriver12getTraceModeEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEN3xpc4dictEEEEEUb2_E3__3vEENS4_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZZN5trace16ARICommandDriver12getTraceModeEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEN3xpc4dictEEEEEUb2_E3__3vEENS4_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v41 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (!v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    goto LABEL_61;
-  }
-
-  v3 = v2[1];
-  if (!v3)
-  {
-    goto LABEL_61;
-  }
-
-  v4 = v2[2];
-  v6 = std::__shared_weak_count::lock(v3);
-  v34 = v6;
-  if (!v6)
-  {
-    goto LABEL_61;
-  }
-
-  v7 = v6;
-  if (*v2)
-  {
-    *&v8 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v31[3] = v8;
-    v32 = v8;
-    v31[1] = v8;
-    v31[2] = v8;
-    v31[0] = v8;
-    AriSdk::ARI_CsiXsioGetRspCb_SDK::ARI_CsiXsioGetRspCb_SDK(v31, a2);
-    cf = 0xAAAAAAAAAAAAAAAALL;
-    HIBYTE(v36) = 8;
-    strcpy(&__p, "get mode");
-    checkError(v31, &__p, &cf);
-    if (SHIBYTE(v36) < 0)
+    v4 = v3[1];
+    if (v4)
     {
-      operator delete(__p);
-      if (cf)
+      v5 = v3[2];
+      v7 = std::__shared_weak_count::lock(v4);
+      v34 = v7;
+      if (v7)
       {
-        goto LABEL_17;
-      }
-    }
+        v8 = v7;
+        if (!*v3)
+        {
+LABEL_59:
+          if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            (v8->__on_zero_shared)(v8);
+            std::__shared_weak_count::__release_weak(v8);
+          }
 
-    else if (cf)
-    {
-      goto LABEL_17;
-    }
+          return;
+        }
 
-    v9 = AriSdk::ARI_CsiXsioGetRspCb_SDK::unpack(v31);
-    if (!v9 && !**(&v32 + 1))
-    {
-      v12 = *v32;
-      v27 = *(v4 + 40);
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
-      {
-        LODWORD(__p) = 67109120;
-        DWORD1(__p) = v12;
-        _os_log_impl(&dword_296D7D000, v27, OS_LOG_TYPE_DEFAULT, "#I Successfully retrieved mode (%d)", &__p, 8u);
-      }
+        *&v9 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v31[3] = v9;
+        v32 = v9;
+        v31[1] = v9;
+        v31[2] = v9;
+        v31[0] = v9;
+        AriSdk::ARI_CsiXsioGetRspCb_SDK::ARI_CsiXsioGetRspCb_SDK(v31, a2);
+        cf = 0xAAAAAAAAAAAAAAAALL;
+        HIBYTE(v36) = 8;
+        strcpy(&__p, "get mode");
+        checkError(&cf, v31, &__p);
+        if (SHIBYTE(v36) < 0)
+        {
+          operator delete(__p);
+          if (cf)
+          {
+            goto LABEL_17;
+          }
+        }
+
+        else if (cf)
+        {
+          goto LABEL_17;
+        }
+
+        v10 = AriSdk::ARI_CsiXsioGetRspCb_SDK::unpack(v31);
+        if (!v10 && !**(&v32 + 1))
+        {
+          v13 = *v32;
+          v27 = *(v5 + 40);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+          {
+            LODWORD(__p) = 67109120;
+            DWORD1(__p) = v13;
+            _os_log_impl(&dword_296D7D000, v27, OS_LOG_TYPE_DEFAULT, "#I Successfully retrieved mode (%d)", &__p, 8u);
+          }
 
 LABEL_18:
-      if (!v2[3] || !v2[4])
-      {
-LABEL_56:
-        if (cf)
-        {
-          CFRelease(cf);
-        }
-
-        MEMORY[0x29C263FF0](v31);
-        goto LABEL_59;
-      }
-
-      v13 = xpc_dictionary_create(0, 0, 0);
-      if (v13 || (v13 = xpc_null_create()) != 0)
-      {
-        if (MEMORY[0x29C266420](v13) == MEMORY[0x29EDCAA00])
-        {
-          xpc_retain(v13);
-          v14 = v13;
-        }
-
-        else
-        {
-          v14 = xpc_null_create();
-        }
-      }
-
-      else
-      {
-        v14 = xpc_null_create();
-        v13 = 0;
-      }
-
-      xpc_release(v13);
-      v15 = xpc_null_create();
-      xpc_release(v15);
-      v16 = xpc_int64_create(v12);
-      if (v16 || (v16 = xpc_null_create()) != 0)
-      {
-        xpc_retain(v16);
-        v17 = v16;
-      }
-
-      else
-      {
-        v17 = xpc_null_create();
-        v16 = 0;
-      }
-
-      xpc_dictionary_set_value(v14, "Mode", v17);
-      v18 = xpc_null_create();
-      xpc_release(v17);
-      xpc_release(v18);
-      if (v14)
-      {
-        xpc_retain(v14);
-        v19 = v14;
-      }
-
-      else
-      {
-        v19 = xpc_null_create();
-      }
-
-      xpc_release(v16);
-      xpc_release(v14);
-      v20 = xpc_null_create();
-      xpc_release(v20);
-      v21 = cf;
-      if (cf)
-      {
-        CFRetain(cf);
-      }
-
-      if (v19)
-      {
-        xpc_retain(v19);
-        v22 = v19;
-        v23 = v2[3];
-        if (v23)
-        {
-LABEL_36:
-          v24 = _Block_copy(v23);
-          goto LABEL_39;
-        }
-      }
-
-      else
-      {
-        v22 = xpc_null_create();
-        v23 = v2[3];
-        if (v23)
-        {
-          goto LABEL_36;
-        }
-      }
-
-      v24 = 0;
-LABEL_39:
-      v25 = v2[4];
-      *&__p = MEMORY[0x29EDCA5F8];
-      *(&__p + 1) = 1174405120;
-      v36 = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEN3xpc4dictEEEclIJS5_S7_EEEvDpT__block_invoke;
-      v37 = &__block_descriptor_tmp_84;
-      if (v24)
-      {
-        aBlock = _Block_copy(v24);
-        v39 = v21;
-        if (!v21)
-        {
-          goto LABEL_44;
-        }
-      }
-
-      else
-      {
-        aBlock = 0;
-        v39 = v21;
-        if (!v21)
-        {
-LABEL_44:
-          object = v22;
-          if (v22)
+          if (!v3[3] || !v3[4])
           {
-            xpc_retain(v22);
+LABEL_56:
+            if (cf)
+            {
+              CFRelease(cf);
+            }
+
+            MEMORY[0x29C263FF0](v31);
+            goto LABEL_59;
+          }
+
+          v14 = xpc_dictionary_create(0, 0, 0);
+          if (v14 || (v14 = xpc_null_create()) != 0)
+          {
+            if (MEMORY[0x29C266420](v14) == MEMORY[0x29EDCAA00])
+            {
+              xpc_retain(v14);
+              v15 = v14;
+            }
+
+            else
+            {
+              v15 = xpc_null_create();
+            }
           }
 
           else
           {
-            object = xpc_null_create();
+            v15 = xpc_null_create();
+            v14 = 0;
           }
 
-          dispatch_async(v25, &__p);
-          xpc_release(object);
-          object = 0;
-          if (v39)
+          xpc_release(v14);
+          v16 = xpc_null_create();
+          xpc_release(v16);
+          v17 = xpc_int64_create(v13);
+          if (v17 || (v17 = xpc_null_create()) != 0)
           {
-            CFRelease(v39);
+            xpc_retain(v17);
+            v18 = v17;
           }
 
-          if (aBlock)
+          else
           {
-            _Block_release(aBlock);
+            v18 = xpc_null_create();
+            v17 = 0;
           }
 
-          if (v24)
-          {
-            _Block_release(v24);
-          }
-
-          xpc_release(v22);
-          if (v21)
-          {
-            CFRelease(v21);
-          }
-
+          xpc_dictionary_set_value(v15, "Mode", v18);
+          v19 = xpc_null_create();
+          xpc_release(v18);
           xpc_release(v19);
-          goto LABEL_56;
+          if (v15)
+          {
+            xpc_retain(v15);
+            v20 = v15;
+          }
+
+          else
+          {
+            v20 = xpc_null_create();
+          }
+
+          xpc_release(v17);
+          xpc_release(v15);
+          v21 = xpc_null_create();
+          xpc_release(v21);
+          v22 = cf;
+          if (cf)
+          {
+            CFRetain(cf);
+          }
+
+          if (v20)
+          {
+            xpc_retain(v20);
+            v23 = v20;
+            v24 = v3[3];
+            if (v24)
+            {
+LABEL_36:
+              v25 = _Block_copy(v24);
+              goto LABEL_39;
+            }
+          }
+
+          else
+          {
+            v23 = xpc_null_create();
+            v24 = v3[3];
+            if (v24)
+            {
+              goto LABEL_36;
+            }
+          }
+
+          v25 = 0;
+LABEL_39:
+          v26 = v3[4];
+          *&__p = MEMORY[0x29EDCA5F8];
+          *(&__p + 1) = 1174405120;
+          v36 = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEN3xpc4dictEEEclIJS5_S7_EEEvDpT__block_invoke;
+          v37 = &__block_descriptor_tmp_84;
+          if (v25)
+          {
+            aBlock = _Block_copy(v25);
+            v39 = v22;
+            if (!v22)
+            {
+              goto LABEL_44;
+            }
+          }
+
+          else
+          {
+            aBlock = 0;
+            v39 = v22;
+            if (!v22)
+            {
+LABEL_44:
+              object = v23;
+              if (v23)
+              {
+                xpc_retain(v23);
+              }
+
+              else
+              {
+                object = xpc_null_create();
+              }
+
+              dispatch_async(v26, &__p);
+              xpc_release(object);
+              object = 0;
+              if (v39)
+              {
+                CFRelease(v39);
+              }
+
+              if (aBlock)
+              {
+                _Block_release(aBlock);
+              }
+
+              if (v25)
+              {
+                _Block_release(v25);
+              }
+
+              xpc_release(v23);
+              if (v22)
+              {
+                CFRelease(v22);
+              }
+
+              xpc_release(v20);
+              goto LABEL_56;
+            }
+          }
+
+          CFRetain(v22);
+          goto LABEL_44;
         }
-      }
 
-      CFRetain(v21);
-      goto LABEL_44;
-    }
+        v11 = *(v5 + 40);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        {
+          v28 = **(&v32 + 1);
+          LODWORD(__p) = 67109376;
+          DWORD1(__p) = v10;
+          WORD4(__p) = 1024;
+          *(&__p + 10) = v28;
+          _os_log_error_impl(&dword_296D7D000, v11, OS_LOG_TYPE_ERROR, "Failed to retrieve mode: unpackResult = %d result_code_t2 = %d", &__p, 0xEu);
+        }
 
-    v10 = *(v4 + 40);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      v28 = **(&v32 + 1);
-      LODWORD(__p) = 67109376;
-      DWORD1(__p) = v9;
-      WORD4(__p) = 1024;
-      *(&__p + 10) = v28;
-      _os_log_error_impl(&dword_296D7D000, v10, OS_LOG_TYPE_ERROR, "Failed to retrieve mode: unpackResult = %d result_code_t2 = %d", &__p, 0xEu);
-    }
+        v29 = operator new(0x19uLL);
+        strcpy(v29, "Failed to retrieve mode");
+        CreateError();
+        v12 = cf;
+        cf = __p;
+        *&__p = 0;
+        if (v12)
+        {
+          CFRelease(v12);
+          if (__p)
+          {
+            CFRelease(__p);
+          }
+        }
 
-    v29 = operator new(0x19uLL);
-    strcpy(v29, "Failed to retrieve mode");
-    CreateError();
-    v11 = cf;
-    cf = __p;
-    *&__p = 0;
-    if (v11)
-    {
-      CFRelease(v11);
-      if (__p)
-      {
-        CFRelease(__p);
-      }
-    }
-
-    operator delete(v29);
+        operator delete(v29);
 LABEL_17:
-    v12 = 0;
-    goto LABEL_18;
+        v13 = 0;
+        goto LABEL_18;
+      }
+    }
   }
-
-LABEL_59:
-  if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v7->__on_zero_shared)(v7);
-    std::__shared_weak_count::__release_weak(v7);
-  }
-
-LABEL_61:
-  v26 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DA4B4C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36)
@@ -1536,190 +1465,183 @@ void __destroy_helper_block_e8_32c87_ZTSN8dispatch5blockIU13block_pointerFvN3ctu
   }
 }
 
-void ___ZN3ice6detail12wrapCallbackIZZN5trace16ARICommandDriver12setTraceModeENS2_4ModeEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEEEUb3_E3__4vEENS5_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZZN5trace16ARICommandDriver12setTraceModeENS2_4ModeEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEEEUb3_E3__4vEENS5_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v32 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (!v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    goto LABEL_42;
-  }
-
-  v3 = *(v2 + 8);
-  if (!v3)
-  {
-    goto LABEL_42;
-  }
-
-  v4 = *(v2 + 32);
-  v6 = std::__shared_weak_count::lock(v3);
-  v26 = v6;
-  if (!v6)
-  {
-    goto LABEL_42;
-  }
-
-  v7 = v6;
-  if (*v2)
-  {
-    v24 = 0xAAAAAAAAAAAAAAAALL;
-    *&v8 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v23[2] = v8;
-    v23[3] = v8;
-    v23[0] = v8;
-    v23[1] = v8;
-    AriSdk::ARI_CsiXsioSetRspCb_SDK::ARI_CsiXsioSetRspCb_SDK(v23, a2);
-    cf = 0xAAAAAAAAAAAAAAAALL;
-    HIBYTE(v28) = 8;
-    strcpy(&block, "set mode");
-    checkError(v23, &block, &cf);
-    if (SHIBYTE(v28) < 0)
+    v4 = *(v3 + 8);
+    if (v4)
     {
-      operator delete(block);
-      if (cf)
+      v5 = *(v3 + 32);
+      v7 = std::__shared_weak_count::lock(v4);
+      v26 = v7;
+      if (v7)
       {
-        goto LABEL_18;
-      }
-    }
-
-    else if (cf)
-    {
-      goto LABEL_18;
-    }
-
-    v9 = AriSdk::ARI_CsiXsioSetRspCb_SDK::unpack(v23);
-    if (v9 || *v24)
-    {
-      v10 = *(v4 + 40);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        v19 = *v24;
-        LODWORD(block) = 67109376;
-        DWORD1(block) = v9;
-        WORD4(block) = 1024;
-        *(&block + 10) = v19;
-        _os_log_error_impl(&dword_296D7D000, v10, OS_LOG_TYPE_ERROR, "Failed to set mode: unpackResult = %d result_code_t1 = %d", &block, 0xEu);
-      }
-
-      v21 = 18;
-      strcpy(__p, "Failed to set mode");
-      CreateError();
-      v11 = cf;
-      cf = block;
-      *&block = 0;
-      if (v11)
-      {
-        CFRelease(v11);
-        if (block)
+        v8 = v7;
+        if (!*v3)
         {
-          CFRelease(block);
+LABEL_40:
+          if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            (v8->__on_zero_shared)(v8);
+            std::__shared_weak_count::__release_weak(v8);
+          }
+
+          return;
         }
-      }
 
-      if (v21 < 0)
-      {
-        operator delete(*__p);
-      }
-    }
+        v24 = 0xAAAAAAAAAAAAAAAALL;
+        *&v9 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v23[2] = v9;
+        v23[3] = v9;
+        v23[0] = v9;
+        v23[1] = v9;
+        AriSdk::ARI_CsiXsioSetRspCb_SDK::ARI_CsiXsioSetRspCb_SDK(v23, a2);
+        cf = 0xAAAAAAAAAAAAAAAALL;
+        HIBYTE(v28) = 8;
+        strcpy(&block, "set mode");
+        checkError(&cf, v23, &block);
+        if (SHIBYTE(v28) < 0)
+        {
+          operator delete(block);
+          if (cf)
+          {
+            goto LABEL_18;
+          }
+        }
 
-    else
-    {
-      v17 = *(v4 + 40);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-      {
-        v18 = *(v2 + 40);
-        LODWORD(block) = 67109120;
-        DWORD1(block) = v18;
-        _os_log_impl(&dword_296D7D000, v17, OS_LOG_TYPE_DEFAULT, "#I Successfully set mode %d", &block, 8u);
-      }
-    }
+        else if (cf)
+        {
+          goto LABEL_18;
+        }
+
+        v10 = AriSdk::ARI_CsiXsioSetRspCb_SDK::unpack(v23);
+        if (v10 || *v24)
+        {
+          v11 = *(v5 + 40);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          {
+            v19 = *v24;
+            LODWORD(block) = 67109376;
+            DWORD1(block) = v10;
+            WORD4(block) = 1024;
+            *(&block + 10) = v19;
+            _os_log_error_impl(&dword_296D7D000, v11, OS_LOG_TYPE_ERROR, "Failed to set mode: unpackResult = %d result_code_t1 = %d", &block, 0xEu);
+          }
+
+          v21 = 18;
+          strcpy(__p, "Failed to set mode");
+          CreateError();
+          v12 = cf;
+          cf = block;
+          *&block = 0;
+          if (v12)
+          {
+            CFRelease(v12);
+            if (block)
+            {
+              CFRelease(block);
+            }
+          }
+
+          if (v21 < 0)
+          {
+            operator delete(*__p);
+          }
+        }
+
+        else
+        {
+          v17 = *(v5 + 40);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          {
+            v18 = *(v3 + 40);
+            LODWORD(block) = 67109120;
+            DWORD1(block) = v18;
+            _os_log_impl(&dword_296D7D000, v17, OS_LOG_TYPE_DEFAULT, "#I Successfully set mode %d", &block, 8u);
+          }
+        }
 
 LABEL_18:
-    v12 = *(v2 + 16);
-    if (!v12 || !*(v2 + 24))
-    {
+        v13 = *(v3 + 16);
+        if (!v13 || !*(v3 + 24))
+        {
 LABEL_37:
-      if (cf)
-      {
-        CFRelease(cf);
-      }
+          if (cf)
+          {
+            CFRelease(cf);
+          }
 
-      MEMORY[0x29C264020](v23);
-      goto LABEL_40;
-    }
+          MEMORY[0x29C264020](v23);
+          goto LABEL_40;
+        }
 
-    v13 = cf;
-    if (cf && (CFRetain(cf), (v12 = *(v2 + 16)) == 0))
-    {
-      v14 = 0;
-    }
+        v14 = cf;
+        if (cf && (CFRetain(cf), (v13 = *(v3 + 16)) == 0))
+        {
+          v15 = 0;
+        }
 
-    else
-    {
-      v14 = _Block_copy(v12);
-    }
+        else
+        {
+          v15 = _Block_copy(v13);
+        }
 
-    v15 = *(v2 + 24);
-    *&block = MEMORY[0x29EDCA5F8];
-    *(&block + 1) = 1174405120;
-    v28 = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke;
-    v29 = &__block_descriptor_tmp_64_0;
-    if (v14)
-    {
-      v30 = _Block_copy(v14);
-      v31 = v13;
-      if (!v13)
-      {
+        v16 = *(v3 + 24);
+        *&block = MEMORY[0x29EDCA5F8];
+        *(&block + 1) = 1174405120;
+        v28 = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke;
+        v29 = &__block_descriptor_tmp_64_0;
+        if (v15)
+        {
+          v30 = _Block_copy(v15);
+          v31 = v14;
+          if (!v14)
+          {
+            goto LABEL_29;
+          }
+        }
+
+        else
+        {
+          v30 = 0;
+          v31 = v14;
+          if (!v14)
+          {
+LABEL_29:
+            dispatch_async(v16, &block);
+            if (v31)
+            {
+              CFRelease(v31);
+            }
+
+            if (v30)
+            {
+              _Block_release(v30);
+            }
+
+            if (v15)
+            {
+              _Block_release(v15);
+            }
+
+            if (v14)
+            {
+              CFRelease(v14);
+            }
+
+            goto LABEL_37;
+          }
+        }
+
+        CFRetain(v14);
         goto LABEL_29;
       }
     }
-
-    else
-    {
-      v30 = 0;
-      v31 = v13;
-      if (!v13)
-      {
-LABEL_29:
-        dispatch_async(v15, &block);
-        if (v31)
-        {
-          CFRelease(v31);
-        }
-
-        if (v30)
-        {
-          _Block_release(v30);
-        }
-
-        if (v14)
-        {
-          _Block_release(v14);
-        }
-
-        if (v13)
-        {
-          CFRelease(v13);
-        }
-
-        goto LABEL_37;
-      }
-    }
-
-    CFRetain(v13);
-    goto LABEL_29;
   }
-
-LABEL_40:
-  if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v7->__on_zero_shared)(v7);
-    std::__shared_weak_count::__release_weak(v7);
-  }
-
-LABEL_42:
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DA52AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
@@ -1786,224 +1708,217 @@ void _ZNSt3__120__shared_ptr_emplaceIZZN5trace16ARICommandDriver12setTraceModeEN
   }
 }
 
-void ___ZN3ice6detail12wrapCallbackIZN5trace16ARICommandDriver18profileMaskV1_syncENSt3__16vectorIcNS4_9allocatorIcEEEES8_NS4_8weak_ptrINS2_13CommandDriverEEEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEEE3__0vEENSC_5blockIU13block_pointerFiPhjEEENS4_17integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZN5trace16ARICommandDriver18profileMaskV1_syncENSt3__16vectorIcNS4_9allocatorIcEEEES8_NS4_8weak_ptrINS2_13CommandDriverEEEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEEE3__0vEENSC_5blockIU13block_pointerFiPhjEEENS4_17integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v39 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (!v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    goto LABEL_43;
-  }
-
-  v3 = *(v2 + 8);
-  if (!v3)
-  {
-    goto LABEL_43;
-  }
-
-  v4 = *(v2 + 32);
-  v6 = std::__shared_weak_count::lock(v3);
-  v30 = v6;
-  if (!v6)
-  {
-    goto LABEL_43;
-  }
-
-  v7 = v6;
-  if (*v2)
-  {
-    v28 = 0xAAAAAAAAAAAAAAAALL;
-    *&v8 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v27[2] = v8;
-    v27[3] = v8;
-    v27[0] = v8;
-    v27[1] = v8;
-    AriSdk::ARI_CsiTraceProfileInitRspCb_SDK::ARI_CsiTraceProfileInitRspCb_SDK(v27, a2);
-    cf = 0xAAAAAAAAAAAAAAAALL;
-    block[23] = 18;
-    strcpy(block, "update trace masks");
-    checkError(v27, block, &cf);
-    if ((block[23] & 0x80000000) != 0)
+    v4 = *(v3 + 8);
+    if (v4)
     {
-      operator delete(*block);
-      if (cf)
+      v5 = *(v3 + 32);
+      v7 = std::__shared_weak_count::lock(v4);
+      v30 = v7;
+      if (v7)
       {
-        goto LABEL_19;
-      }
-    }
-
-    else if (cf)
-    {
-      goto LABEL_19;
-    }
-
-    v9 = AriSdk::ARI_CsiTraceProfileInitRspCb_SDK::unpack(v27);
-    if (v9 || *v28)
-    {
-      v10 = *(v4 + 40);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        v23 = *v28;
-        *block = 67109376;
-        *&block[4] = v9;
-        *&block[8] = 1024;
-        *&block[10] = v23;
-        _os_log_error_impl(&dword_296D7D000, v10, OS_LOG_TYPE_ERROR, "Failed to update trace masks: unpackResult = %d result_code_t1 = %d", block, 0xEu);
-      }
-
-      __p = operator new(0x20uLL);
-      v25 = xmmword_296E1FAD0;
-      strcpy(__p, "Failed to update trace masks");
-      CreateError();
-      v11 = cf;
-      cf = *block;
-      *block = 0;
-      if (v11)
-      {
-        CFRelease(v11);
-        if (*block)
+        v8 = v7;
+        if (!*v3)
         {
-          CFRelease(*block);
-        }
-      }
+LABEL_41:
+          if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            (v8->__on_zero_shared)(v8);
+            std::__shared_weak_count::__release_weak(v8);
+          }
 
-      if (SHIBYTE(v25) < 0)
-      {
-        v12 = __p;
+          return;
+        }
+
+        v28 = 0xAAAAAAAAAAAAAAAALL;
+        *&v9 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v27[2] = v9;
+        v27[3] = v9;
+        v27[0] = v9;
+        v27[1] = v9;
+        AriSdk::ARI_CsiTraceProfileInitRspCb_SDK::ARI_CsiTraceProfileInitRspCb_SDK(v27, a2);
+        cf = 0xAAAAAAAAAAAAAAAALL;
+        block[23] = 18;
+        strcpy(block, "update trace masks");
+        checkError(&cf, v27, block);
+        if ((block[23] & 0x80000000) != 0)
+        {
+          operator delete(*block);
+          if (cf)
+          {
+            goto LABEL_19;
+          }
+        }
+
+        else if (cf)
+        {
+          goto LABEL_19;
+        }
+
+        v10 = AriSdk::ARI_CsiTraceProfileInitRspCb_SDK::unpack(v27);
+        if (v10 || *v28)
+        {
+          v11 = *(v5 + 40);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          {
+            v23 = *v28;
+            *block = 67109376;
+            *&block[4] = v10;
+            *&block[8] = 1024;
+            *&block[10] = v23;
+            _os_log_error_impl(&dword_296D7D000, v11, OS_LOG_TYPE_ERROR, "Failed to update trace masks: unpackResult = %d result_code_t1 = %d", block, 0xEu);
+          }
+
+          __p = operator new(0x20uLL);
+          v25 = xmmword_296E1FAD0;
+          strcpy(__p, "Failed to update trace masks");
+          CreateError();
+          v12 = cf;
+          cf = *block;
+          *block = 0;
+          if (v12)
+          {
+            CFRelease(v12);
+            if (*block)
+            {
+              CFRelease(*block);
+            }
+          }
+
+          if (SHIBYTE(v25) < 0)
+          {
+            v13 = __p;
 LABEL_18:
-        operator delete(v12);
-      }
-    }
-
-    else
-    {
-      v18 = *(v4 + 40);
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-      {
-        std::string::basic_string[abi:ne200100]<std::__wrap_iter<char const*>,0>(block, *(v2 + 40), *(v2 + 48));
-        v19 = block[23];
-        v20 = *block;
-        std::string::basic_string[abi:ne200100]<std::__wrap_iter<char const*>,0>(&__p, *(v2 + 64), *(v2 + 72));
-        v21 = block;
-        if (v19 < 0)
-        {
-          v21 = v20;
-        }
-
-        if (v25 >= 0)
-        {
-          p_p = &__p;
+            operator delete(v13);
+          }
         }
 
         else
         {
-          p_p = __p;
-        }
+          v18 = *(v5 + 40);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          {
+            std::string::basic_string[abi:ne200100]<std::__wrap_iter<char const*>,0>(block, *(v3 + 40), *(v3 + 48));
+            v19 = block[23];
+            v20 = *block;
+            std::string::basic_string[abi:ne200100]<std::__wrap_iter<char const*>,0>(&__p, *(v3 + 64), *(v3 + 72));
+            v21 = block;
+            if (v19 < 0)
+            {
+              v21 = v20;
+            }
 
-        *buf = 136315394;
-        v32 = v21;
-        v33 = 2080;
-        v34 = p_p;
-        _os_log_impl(&dword_296D7D000, v18, OS_LOG_TYPE_DEFAULT, "#I Successfully updated trace masks\nActive: %s\nSleep: %s", buf, 0x16u);
-        if (SHIBYTE(v25) < 0)
-        {
-          operator delete(__p);
-        }
+            if (v25 >= 0)
+            {
+              p_p = &__p;
+            }
 
-        if ((block[23] & 0x80000000) != 0)
-        {
-          v12 = *block;
-          goto LABEL_18;
+            else
+            {
+              p_p = __p;
+            }
+
+            *buf = 136315394;
+            v32 = v21;
+            v33 = 2080;
+            v34 = p_p;
+            _os_log_impl(&dword_296D7D000, v18, OS_LOG_TYPE_DEFAULT, "#I Successfully updated trace masks\nActive: %s\nSleep: %s", buf, 0x16u);
+            if (SHIBYTE(v25) < 0)
+            {
+              operator delete(__p);
+            }
+
+            if ((block[23] & 0x80000000) != 0)
+            {
+              v13 = *block;
+              goto LABEL_18;
+            }
+          }
         }
-      }
-    }
 
 LABEL_19:
-    v13 = *(v2 + 16);
-    if (!v13 || !*(v2 + 24))
-    {
+        v14 = *(v3 + 16);
+        if (!v14 || !*(v3 + 24))
+        {
 LABEL_38:
-      if (cf)
-      {
-        CFRelease(cf);
-      }
+          if (cf)
+          {
+            CFRelease(cf);
+          }
 
-      MEMORY[0x29C264FB0](v27);
-      goto LABEL_41;
-    }
+          MEMORY[0x29C264FB0](v27);
+          goto LABEL_41;
+        }
 
-    v14 = cf;
-    if (cf && (CFRetain(cf), (v13 = *(v2 + 16)) == 0))
-    {
-      v15 = 0;
-    }
+        v15 = cf;
+        if (cf && (CFRetain(cf), (v14 = *(v3 + 16)) == 0))
+        {
+          v16 = 0;
+        }
 
-    else
-    {
-      v15 = _Block_copy(v13);
-    }
+        else
+        {
+          v16 = _Block_copy(v14);
+        }
 
-    v16 = *(v2 + 24);
-    *block = MEMORY[0x29EDCA5F8];
-    *&block[8] = 1174405120;
-    *&block[16] = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke;
-    v36 = &__block_descriptor_tmp_64_0;
-    if (v15)
-    {
-      v37 = _Block_copy(v15);
-      v38 = v14;
-      if (!v14)
-      {
+        v17 = *(v3 + 24);
+        *block = MEMORY[0x29EDCA5F8];
+        *&block[8] = 1174405120;
+        *&block[16] = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke;
+        v36 = &__block_descriptor_tmp_64_0;
+        if (v16)
+        {
+          v37 = _Block_copy(v16);
+          v38 = v15;
+          if (!v15)
+          {
+            goto LABEL_30;
+          }
+        }
+
+        else
+        {
+          v37 = 0;
+          v38 = v15;
+          if (!v15)
+          {
+LABEL_30:
+            dispatch_async(v17, block);
+            if (v38)
+            {
+              CFRelease(v38);
+            }
+
+            if (v37)
+            {
+              _Block_release(v37);
+            }
+
+            if (v16)
+            {
+              _Block_release(v16);
+            }
+
+            if (v15)
+            {
+              CFRelease(v15);
+            }
+
+            goto LABEL_38;
+          }
+        }
+
+        CFRetain(v15);
         goto LABEL_30;
       }
     }
-
-    else
-    {
-      v37 = 0;
-      v38 = v14;
-      if (!v14)
-      {
-LABEL_30:
-        dispatch_async(v16, block);
-        if (v38)
-        {
-          CFRelease(v38);
-        }
-
-        if (v37)
-        {
-          _Block_release(v37);
-        }
-
-        if (v15)
-        {
-          _Block_release(v15);
-        }
-
-        if (v14)
-        {
-          CFRelease(v14);
-        }
-
-        goto LABEL_38;
-      }
-    }
-
-    CFRetain(v14);
-    goto LABEL_30;
   }
-
-LABEL_41:
-  if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v7->__on_zero_shared)(v7);
-    std::__shared_weak_count::__release_weak(v7);
-  }
-
-LABEL_43:
-  v17 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DA58A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, const void *a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
@@ -2087,211 +2002,204 @@ void std::__shared_ptr_emplace<trace::ARICommandDriver::profileMaskV1_sync(std::
   }
 }
 
-void ___ZN3ice6detail12wrapCallbackIZN5trace16ARICommandDriver18profileMaskV2_syncENSt3__16vectorIcNS4_9allocatorIcEEEEtNS4_8weak_ptrINS2_13CommandDriverEEEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEEE3__0vEENSC_5blockIU13block_pointerFiPhjEEENS4_17integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZN5trace16ARICommandDriver18profileMaskV2_syncENSt3__16vectorIcNS4_9allocatorIcEEEEtNS4_8weak_ptrINS2_13CommandDriverEEEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEEE3__0vEENSC_5blockIU13block_pointerFiPhjEEENS4_17integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v33 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (!v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    goto LABEL_43;
-  }
-
-  v3 = *(v2 + 8);
-  if (!v3)
-  {
-    goto LABEL_43;
-  }
-
-  v4 = *(v2 + 16);
-  v6 = std::__shared_weak_count::lock(v3);
-  v27 = v6;
-  if (!v6)
-  {
-    goto LABEL_43;
-  }
-
-  v7 = v6;
-  if (*v2)
-  {
-    v25 = 0xAAAAAAAAAAAAAAAALL;
-    *&v8 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v24[2] = v8;
-    v24[3] = v8;
-    v24[0] = v8;
-    v24[1] = v8;
-    AriSdk::ARI_CsiTraceProfilePacketsRspCb_SDK::ARI_CsiTraceProfilePacketsRspCb_SDK(v24, a2);
-    cf = 0xAAAAAAAAAAAAAAAALL;
-    block[23] = 18;
-    strcpy(block, "update trace masks");
-    checkError(v24, block, &cf);
-    if ((block[23] & 0x80000000) != 0)
+    v4 = *(v3 + 8);
+    if (v4)
     {
-      operator delete(*block);
-      if (cf)
+      v5 = *(v3 + 16);
+      v7 = std::__shared_weak_count::lock(v4);
+      v27 = v7;
+      if (v7)
       {
-        goto LABEL_19;
-      }
-    }
-
-    else if (cf)
-    {
-      goto LABEL_19;
-    }
-
-    v9 = AriSdk::ARI_CsiTraceProfilePacketsRspCb_SDK::unpack(v24);
-    if (v9 || *v25)
-    {
-      v10 = *(v4 + 40);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        v22 = *v25;
-        *block = 67109376;
-        *&block[4] = v9;
-        *&block[8] = 1024;
-        *&block[10] = v22;
-        _os_log_error_impl(&dword_296D7D000, v10, OS_LOG_TYPE_ERROR, "Failed to update trace masks: unpackResult = %d result_code_t1 = %d", block, 0xEu);
-      }
-
-      *__p = operator new(0x20uLL);
-      *&__p[8] = xmmword_296E1FAD0;
-      strcpy(*__p, "Failed to update trace masks");
-      CreateError();
-      v11 = cf;
-      cf = *block;
-      *block = 0;
-      if (v11)
-      {
-        CFRelease(v11);
-        if (*block)
+        v8 = v7;
+        if (!*v3)
         {
-          CFRelease(*block);
-        }
-      }
+LABEL_41:
+          if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            (v8->__on_zero_shared)(v8);
+            std::__shared_weak_count::__release_weak(v8);
+          }
 
-      if ((__p[23] & 0x80000000) != 0)
-      {
-        v12 = *__p;
-LABEL_18:
-        operator delete(v12);
-      }
-    }
-
-    else
-    {
-      v18 = *(v4 + 40);
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-      {
-        v19 = *(v2 + 24);
-        std::string::basic_string[abi:ne200100]<std::__wrap_iter<char const*>,0>(block, *(v2 + 32), *(v2 + 40));
-        v20 = "Active: ";
-        if (!v19)
-        {
-          v20 = "Sleep: ";
+          return;
         }
 
-        v21 = block[23] >= 0 ? block : *block;
-        *__p = 136315394;
-        *&__p[4] = v20;
-        *&__p[12] = 2080;
-        *&__p[14] = v21;
-        _os_log_impl(&dword_296D7D000, v18, OS_LOG_TYPE_DEFAULT, "#I Successfully updated trace masks\n%s%s", __p, 0x16u);
+        v25 = 0xAAAAAAAAAAAAAAAALL;
+        *&v9 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v24[2] = v9;
+        v24[3] = v9;
+        v24[0] = v9;
+        v24[1] = v9;
+        AriSdk::ARI_CsiTraceProfilePacketsRspCb_SDK::ARI_CsiTraceProfilePacketsRspCb_SDK(v24, a2);
+        cf = 0xAAAAAAAAAAAAAAAALL;
+        block[23] = 18;
+        strcpy(block, "update trace masks");
+        checkError(&cf, v24, block);
         if ((block[23] & 0x80000000) != 0)
         {
-          v12 = *block;
-          goto LABEL_18;
+          operator delete(*block);
+          if (cf)
+          {
+            goto LABEL_19;
+          }
         }
-      }
-    }
+
+        else if (cf)
+        {
+          goto LABEL_19;
+        }
+
+        v10 = AriSdk::ARI_CsiTraceProfilePacketsRspCb_SDK::unpack(v24);
+        if (v10 || *v25)
+        {
+          v11 = *(v5 + 40);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          {
+            v22 = *v25;
+            *block = 67109376;
+            *&block[4] = v10;
+            *&block[8] = 1024;
+            *&block[10] = v22;
+            _os_log_error_impl(&dword_296D7D000, v11, OS_LOG_TYPE_ERROR, "Failed to update trace masks: unpackResult = %d result_code_t1 = %d", block, 0xEu);
+          }
+
+          *__p = operator new(0x20uLL);
+          *&__p[8] = xmmword_296E1FAD0;
+          strcpy(*__p, "Failed to update trace masks");
+          CreateError();
+          v12 = cf;
+          cf = *block;
+          *block = 0;
+          if (v12)
+          {
+            CFRelease(v12);
+            if (*block)
+            {
+              CFRelease(*block);
+            }
+          }
+
+          if ((__p[23] & 0x80000000) != 0)
+          {
+            v13 = *__p;
+LABEL_18:
+            operator delete(v13);
+          }
+        }
+
+        else
+        {
+          v18 = *(v5 + 40);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          {
+            v19 = *(v3 + 24);
+            std::string::basic_string[abi:ne200100]<std::__wrap_iter<char const*>,0>(block, *(v3 + 32), *(v3 + 40));
+            v20 = "Active: ";
+            if (!v19)
+            {
+              v20 = "Sleep: ";
+            }
+
+            v21 = block[23] >= 0 ? block : *block;
+            *__p = 136315394;
+            *&__p[4] = v20;
+            *&__p[12] = 2080;
+            *&__p[14] = v21;
+            _os_log_impl(&dword_296D7D000, v18, OS_LOG_TYPE_DEFAULT, "#I Successfully updated trace masks\n%s%s", __p, 0x16u);
+            if ((block[23] & 0x80000000) != 0)
+            {
+              v13 = *block;
+              goto LABEL_18;
+            }
+          }
+        }
 
 LABEL_19:
-    v13 = *(v2 + 56);
-    if (!v13 || !*(v2 + 64))
-    {
+        v14 = *(v3 + 56);
+        if (!v14 || !*(v3 + 64))
+        {
 LABEL_38:
-      if (cf)
-      {
-        CFRelease(cf);
-      }
+          if (cf)
+          {
+            CFRelease(cf);
+          }
 
-      MEMORY[0x29C265320](v24);
-      goto LABEL_41;
-    }
+          MEMORY[0x29C265320](v24);
+          goto LABEL_41;
+        }
 
-    v14 = cf;
-    if (cf && (CFRetain(cf), (v13 = *(v2 + 56)) == 0))
-    {
-      v15 = 0;
-    }
+        v15 = cf;
+        if (cf && (CFRetain(cf), (v14 = *(v3 + 56)) == 0))
+        {
+          v16 = 0;
+        }
 
-    else
-    {
-      v15 = _Block_copy(v13);
-    }
+        else
+        {
+          v16 = _Block_copy(v14);
+        }
 
-    v16 = *(v2 + 64);
-    *block = MEMORY[0x29EDCA5F8];
-    *&block[8] = 1174405120;
-    *&block[16] = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke;
-    v30 = &__block_descriptor_tmp_64_0;
-    if (v15)
-    {
-      v31 = _Block_copy(v15);
-      v32 = v14;
-      if (!v14)
-      {
+        v17 = *(v3 + 64);
+        *block = MEMORY[0x29EDCA5F8];
+        *&block[8] = 1174405120;
+        *&block[16] = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke;
+        v30 = &__block_descriptor_tmp_64_0;
+        if (v16)
+        {
+          v31 = _Block_copy(v16);
+          v32 = v15;
+          if (!v15)
+          {
+            goto LABEL_30;
+          }
+        }
+
+        else
+        {
+          v31 = 0;
+          v32 = v15;
+          if (!v15)
+          {
+LABEL_30:
+            dispatch_async(v17, block);
+            if (v32)
+            {
+              CFRelease(v32);
+            }
+
+            if (v31)
+            {
+              _Block_release(v31);
+            }
+
+            if (v16)
+            {
+              _Block_release(v16);
+            }
+
+            if (v15)
+            {
+              CFRelease(v15);
+            }
+
+            goto LABEL_38;
+          }
+        }
+
+        CFRetain(v15);
         goto LABEL_30;
       }
     }
-
-    else
-    {
-      v31 = 0;
-      v32 = v14;
-      if (!v14)
-      {
-LABEL_30:
-        dispatch_async(v16, block);
-        if (v32)
-        {
-          CFRelease(v32);
-        }
-
-        if (v31)
-        {
-          _Block_release(v31);
-        }
-
-        if (v15)
-        {
-          _Block_release(v15);
-        }
-
-        if (v14)
-        {
-          CFRelease(v14);
-        }
-
-        goto LABEL_38;
-      }
-    }
-
-    CFRetain(v14);
-    goto LABEL_30;
   }
-
-LABEL_41:
-  if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v7->__on_zero_shared)(v7);
-    std::__shared_weak_count::__release_weak(v7);
-  }
-
-LABEL_43:
-  v17 = *MEMORY[0x29EDCA608];
 }
 
-void sub_296DA5EC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
+void sub_296DA5EC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
 {
   ctu::cf::CFSharedRef<__CFError>::~CFSharedRef(&a10);
   MEMORY[0x29C265320](&a11);
@@ -2360,195 +2268,188 @@ void std::__shared_ptr_emplace<trace::ARICommandDriver::profileMaskV2_sync(std::
   }
 }
 
-void ___ZN3ice6detail12wrapCallbackIZZN5trace16ARICommandDriver14setTraceParamsERNS2_11TraceParamsEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEEEUb4_E3__7vEENS6_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZZN5trace16ARICommandDriver14setTraceParamsERNS2_11TraceParamsEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEEEUb4_E3__7vEENS6_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v32 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (!v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    goto LABEL_41;
-  }
-
-  v3 = *(v2 + 8);
-  if (!v3)
-  {
-    goto LABEL_41;
-  }
-
-  v4 = *(v2 + 32);
-  v6 = std::__shared_weak_count::lock(v3);
-  v27 = v6;
-  if (!v6)
-  {
-    goto LABEL_41;
-  }
-
-  v7 = v6;
-  if (*v2)
-  {
-    v25 = 0xAAAAAAAAAAAAAAAALL;
-    *&v8 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v24[2] = v8;
-    v24[3] = v8;
-    v24[0] = v8;
-    v24[1] = v8;
-    AriSdk::ARI_CsiTraceModeInitRspCb_SDK::ARI_CsiTraceModeInitRspCb_SDK(v24, a2);
-    cf = 0xAAAAAAAAAAAAAAAALL;
-    block = operator new(0x19uLL);
-    *v29 = xmmword_296E1FAA0;
-    strcpy(block, "update trace parameters");
-    checkError(v24, &block, &cf);
-    if ((v29[15] & 0x80000000) != 0)
+    v4 = *(v3 + 8);
+    if (v4)
     {
-      operator delete(block);
-      if (cf)
+      v5 = *(v3 + 32);
+      v7 = std::__shared_weak_count::lock(v4);
+      v27 = v7;
+      if (v7)
       {
-        goto LABEL_17;
-      }
-    }
-
-    else if (cf)
-    {
-      goto LABEL_17;
-    }
-
-    v9 = AriSdk::ARI_CsiTraceModeInitRspCb_SDK::unpack(v24);
-    if (v9 || *v25)
-    {
-      v10 = *(v4 + 40);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        v21 = *v25;
-        LODWORD(block) = 67109376;
-        HIDWORD(block) = v9;
-        *v29 = 1024;
-        *&v29[2] = v21;
-        _os_log_error_impl(&dword_296D7D000, v10, OS_LOG_TYPE_ERROR, "Failed to update trace parameters: unpackResult = %d result_code_t1 = %d", &block, 0xEu);
-      }
-
-      __p = operator new(0x20uLL);
-      strcpy(__p, "Failed to update watermarks");
-      CreateError();
-      v11 = cf;
-      cf = block;
-      block = 0;
-      if (v11)
-      {
-        CFRelease(v11);
-        if (block)
+        v8 = v7;
+        if (!*v3)
         {
-          CFRelease(block);
+LABEL_39:
+          if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            (v8->__on_zero_shared)(v8);
+            std::__shared_weak_count::__release_weak(v8);
+          }
+
+          return;
         }
-      }
 
-      operator delete(__p);
-    }
+        v25 = 0xAAAAAAAAAAAAAAAALL;
+        *&v9 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v24[2] = v9;
+        v24[3] = v9;
+        v24[0] = v9;
+        v24[1] = v9;
+        AriSdk::ARI_CsiTraceModeInitRspCb_SDK::ARI_CsiTraceModeInitRspCb_SDK(v24, a2);
+        cf = 0xAAAAAAAAAAAAAAAALL;
+        block = operator new(0x19uLL);
+        *v29 = xmmword_296E1FAA0;
+        strcpy(block, "update trace parameters");
+        checkError(&cf, v24, &block);
+        if ((v29[15] & 0x80000000) != 0)
+        {
+          operator delete(block);
+          if (cf)
+          {
+            goto LABEL_17;
+          }
+        }
 
-    else
-    {
-      v17 = *(v4 + 40);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-      {
-        v18 = *(v2 + 41);
-        v19 = *(v2 + 44);
-        v20 = *(v2 + 48);
-        block = __PAIR64__(*(v2 + 40), 67109888);
-        *v29 = 1024;
-        *&v29[2] = v18;
-        *&v29[6] = 1024;
-        *&v29[8] = v19;
-        *&v29[12] = 1024;
-        *&v29[14] = v20;
-        _os_log_impl(&dword_296D7D000, v17, OS_LOG_TYPE_DEFAULT, "#I Successfully updated trace parameters to Enabled: %d, BackgroundMode: %d, Watermarks: %d, %d", &block, 0x1Au);
-      }
-    }
+        else if (cf)
+        {
+          goto LABEL_17;
+        }
+
+        v10 = AriSdk::ARI_CsiTraceModeInitRspCb_SDK::unpack(v24);
+        if (v10 || *v25)
+        {
+          v11 = *(v5 + 40);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          {
+            v21 = *v25;
+            LODWORD(block) = 67109376;
+            HIDWORD(block) = v10;
+            *v29 = 1024;
+            *&v29[2] = v21;
+            _os_log_error_impl(&dword_296D7D000, v11, OS_LOG_TYPE_ERROR, "Failed to update trace parameters: unpackResult = %d result_code_t1 = %d", &block, 0xEu);
+          }
+
+          __p = operator new(0x20uLL);
+          strcpy(__p, "Failed to update watermarks");
+          CreateError();
+          v12 = cf;
+          cf = block;
+          block = 0;
+          if (v12)
+          {
+            CFRelease(v12);
+            if (block)
+            {
+              CFRelease(block);
+            }
+          }
+
+          operator delete(__p);
+        }
+
+        else
+        {
+          v17 = *(v5 + 40);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          {
+            v18 = *(v3 + 41);
+            v19 = *(v3 + 44);
+            v20 = *(v3 + 48);
+            block = __PAIR64__(*(v3 + 40), 67109888);
+            *v29 = 1024;
+            *&v29[2] = v18;
+            *&v29[6] = 1024;
+            *&v29[8] = v19;
+            *&v29[12] = 1024;
+            *&v29[14] = v20;
+            _os_log_impl(&dword_296D7D000, v17, OS_LOG_TYPE_DEFAULT, "#I Successfully updated trace parameters to Enabled: %d, BackgroundMode: %d, Watermarks: %d, %d", &block, 0x1Au);
+          }
+        }
 
 LABEL_17:
-    v12 = *(v2 + 16);
-    if (!v12 || !*(v2 + 24))
-    {
+        v13 = *(v3 + 16);
+        if (!v13 || !*(v3 + 24))
+        {
 LABEL_36:
-      if (cf)
-      {
-        CFRelease(cf);
-      }
+          if (cf)
+          {
+            CFRelease(cf);
+          }
 
-      MEMORY[0x29C264940](v24);
-      goto LABEL_39;
-    }
+          MEMORY[0x29C264940](v24);
+          goto LABEL_39;
+        }
 
-    v13 = cf;
-    if (cf && (CFRetain(cf), (v12 = *(v2 + 16)) == 0))
-    {
-      v14 = 0;
-    }
+        v14 = cf;
+        if (cf && (CFRetain(cf), (v13 = *(v3 + 16)) == 0))
+        {
+          v15 = 0;
+        }
 
-    else
-    {
-      v14 = _Block_copy(v12);
-    }
+        else
+        {
+          v15 = _Block_copy(v13);
+        }
 
-    v15 = *(v2 + 24);
-    block = MEMORY[0x29EDCA5F8];
-    *v29 = 1174405120;
-    *&v29[8] = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke;
-    *&v29[16] = &__block_descriptor_tmp_64_0;
-    if (v14)
-    {
-      v30 = _Block_copy(v14);
-      v31 = v13;
-      if (!v13)
-      {
+        v16 = *(v3 + 24);
+        block = MEMORY[0x29EDCA5F8];
+        *v29 = 1174405120;
+        *&v29[8] = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke;
+        *&v29[16] = &__block_descriptor_tmp_64_0;
+        if (v15)
+        {
+          v30 = _Block_copy(v15);
+          v31 = v14;
+          if (!v14)
+          {
+            goto LABEL_28;
+          }
+        }
+
+        else
+        {
+          v30 = 0;
+          v31 = v14;
+          if (!v14)
+          {
+LABEL_28:
+            dispatch_async(v16, &block);
+            if (v31)
+            {
+              CFRelease(v31);
+            }
+
+            if (v30)
+            {
+              _Block_release(v30);
+            }
+
+            if (v15)
+            {
+              _Block_release(v15);
+            }
+
+            if (v14)
+            {
+              CFRelease(v14);
+            }
+
+            goto LABEL_36;
+          }
+        }
+
+        CFRetain(v14);
         goto LABEL_28;
       }
     }
-
-    else
-    {
-      v30 = 0;
-      v31 = v13;
-      if (!v13)
-      {
-LABEL_28:
-        dispatch_async(v15, &block);
-        if (v31)
-        {
-          CFRelease(v31);
-        }
-
-        if (v30)
-        {
-          _Block_release(v30);
-        }
-
-        if (v14)
-        {
-          _Block_release(v14);
-        }
-
-        if (v13)
-        {
-          CFRelease(v13);
-        }
-
-        goto LABEL_36;
-      }
-    }
-
-    CFRetain(v13);
-    goto LABEL_28;
   }
-
-LABEL_39:
-  if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v7->__on_zero_shared)(v7);
-    std::__shared_weak_count::__release_weak(v7);
-  }
-
-LABEL_41:
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DA64A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
@@ -2615,7 +2516,7 @@ void _ZNSt3__120__shared_ptr_emplaceIZZN5trace16ARICommandDriver14setTraceParams
   }
 }
 
-void cpms::ARICommandDriver::create(uint64_t *a1@<X0>, atomic_ullong *a2@<X8>)
+void cpms::ARICommandDriver::create(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
   *a2 = 0xAAAAAAAAAAAAAAAALL;
   a2[1] = 0xAAAAAAAAAAAAAAAALL;
@@ -2649,18 +2550,18 @@ void cpms::ARICommandDriver::create(uint64_t *a1@<X0>, atomic_ullong *a2@<X8>)
   ctu::SharedSynchronizable<cpms::CommandDriver>::execute_wrapped((v8 + 8), v11);
 }
 
-void sub_296DA67D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296DA67D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_296DA67E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296DA67E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
-  operator delete(v2);
+  operator delete(v3);
   _Unwind_Resume(a1);
 }
 
@@ -2677,18 +2578,17 @@ void cpms::ARICommandDriver::init(cpms::ARICommandDriver *this)
 cpms::CommandDriver *cpms::ARICommandDriver::ARICommandDriver(cpms::CommandDriver *a1, uint64_t *a2)
 {
   v3 = a2[1];
-  v7 = *a2;
-  v8 = v3;
+  v7 = v3;
   if (v3)
   {
-    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
   cpms::CommandDriver::CommandDriver();
-  if (v8 && !atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v8->__on_zero_shared)(v8);
-    std::__shared_weak_count::__release_weak(v8);
+    (v7->__on_zero_shared)(v7);
+    std::__shared_weak_count::__release_weak(v7);
   }
 
   *a1 = &unk_2A1E0B2D0;
@@ -2711,9 +2611,9 @@ cpms::CommandDriver *cpms::ARICommandDriver::ARICommandDriver(cpms::CommandDrive
   return a1;
 }
 
-void sub_296DA6964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296DA6964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2829,32 +2729,31 @@ uint64_t ___ZN4cpms16ARICommandDriver4initEv_block_invoke(uint64_t a1)
   v2 = *(v1 + 40);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v16) = 0;
-    _os_log_impl(&dword_296D7D000, v2, OS_LOG_TYPE_DEFAULT, "#I Initializing", &v16, 2u);
+    LOWORD(v14) = 0;
+    _os_log_impl(&dword_296D7D000, v2, OS_LOG_TYPE_DEFAULT, "#I Initializing", &v14, 2u);
   }
 
-  v3 = *(v1 + 64);
-  v4 = operator new(0x20uLL);
-  v4->__shared_owners_ = 0;
-  p_shared_owners = &v4->__shared_owners_;
-  v4->__shared_weak_owners_ = 0;
-  v4->__vftable = &unk_2A1E0B4C0;
-  v4[1].__vftable = v1;
-  v16 = MEMORY[0x29EDCA5F8];
-  v17 = 1174405120;
-  v18 = ___ZN3ice6detail17wrapEventCallbackIZZN4cpms16ARICommandDriver4initEvEUb_E3__1vEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEOT__block_invoke;
-  v19 = &__block_descriptor_tmp_11_1;
-  v20 = v4 + 1;
-  v21 = v4;
-  atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
+  v3 = operator new(0x20uLL);
+  v3->__shared_owners_ = 0;
+  p_shared_owners = &v3->__shared_owners_;
+  v3->__shared_weak_owners_ = 0;
+  v3->__vftable = &unk_2A1E0B4C0;
+  v3[1].__vftable = v1;
+  v14 = MEMORY[0x29EDCA5F8];
+  v15 = 1174405120;
+  v16 = ___ZN3ice6detail17wrapEventCallbackIZZN4cpms16ARICommandDriver4initEvEUb_E3__1vEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEOT__block_invoke;
+  v17 = &__block_descriptor_tmp_11_1;
+  v18 = v3 + 1;
+  v19 = v3;
+  atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
   aBlock = MEMORY[0x29EDCA5F8];
-  v23 = 0x40000000;
-  v24 = ___ZN3ice6detail17wrapEventCallbackIvEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEU13block_pointerFT_vE_block_invoke_1;
-  v25 = &unk_29EE5B840;
-  v26 = &v16;
-  v6 = _Block_copy(&aBlock);
-  v7 = v21;
-  if (!v21 || atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v21 = 0x40000000;
+  v22 = ___ZN3ice6detail17wrapEventCallbackIvEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEU13block_pointerFT_vE_block_invoke_1;
+  v23 = &unk_29EE5B840;
+  v24 = &v14;
+  v5 = _Block_copy(&aBlock);
+  v6 = v19;
+  if (!v19 || atomic_fetch_add(&v19->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     if (atomic_fetch_add(p_shared_owners, 0xFFFFFFFFFFFFFFFFLL))
     {
@@ -2862,9 +2761,9 @@ uint64_t ___ZN4cpms16ARICommandDriver4initEv_block_invoke(uint64_t a1)
     }
 
 LABEL_9:
-    (v4->__on_zero_shared)(v4);
-    std::__shared_weak_count::__release_weak(v4);
-    if (v6)
+    (v3->__on_zero_shared)(v3);
+    std::__shared_weak_count::__release_weak(v3);
+    if (v5)
     {
       goto LABEL_7;
     }
@@ -2872,68 +2771,67 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  (v7->__on_zero_shared)(v7);
-  std::__shared_weak_count::__release_weak(v7);
+  (v6->__on_zero_shared)(v6);
+  std::__shared_weak_count::__release_weak(v6);
   if (!atomic_fetch_add(p_shared_owners, 0xFFFFFFFFFFFFFFFFLL))
   {
     goto LABEL_9;
   }
 
 LABEL_6:
-  if (v6)
+  if (v5)
   {
 LABEL_7:
-    v8 = _Block_copy(v6);
+    v7 = _Block_copy(v5);
     goto LABEL_11;
   }
 
 LABEL_10:
-  v8 = 0;
+  v7 = 0;
 LABEL_11:
-  v16 = v8;
+  v14 = v7;
   ice::Client::regEventHandlerInternal();
-  if (v16)
+  if (v14)
   {
-    _Block_release(v16);
+    _Block_release(v14);
   }
 
-  if (v6)
+  if (v5)
   {
-    _Block_release(v6);
+    _Block_release(v5);
   }
 
-  v9 = *(v1 + 64);
-  v10 = operator new(0x20uLL);
-  v10->__shared_owners_ = 0;
-  v11 = &v10->__shared_owners_;
-  v10->__shared_weak_owners_ = 0;
-  v10->__vftable = &unk_2A1E0B540;
-  v10[1].__vftable = v1;
-  v16 = MEMORY[0x29EDCA5F8];
-  v17 = 1174405120;
-  v18 = ___ZN3ice6detail17wrapEventCallbackIZZN4cpms16ARICommandDriver4initEvEUb_E3__2vEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEOT__block_invoke;
-  v19 = &__block_descriptor_tmp_15_1;
-  v20 = v10 + 1;
-  v21 = v10;
-  atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+  v8 = operator new(0x20uLL);
+  v8->__shared_owners_ = 0;
+  v9 = &v8->__shared_owners_;
+  v8->__shared_weak_owners_ = 0;
+  v8->__vftable = &unk_2A1E0B540;
+  v8[1].__vftable = v1;
+  v14 = MEMORY[0x29EDCA5F8];
+  v15 = 1174405120;
+  v16 = ___ZN3ice6detail17wrapEventCallbackIZZN4cpms16ARICommandDriver4initEvEUb_E3__2vEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEOT__block_invoke;
+  v17 = &__block_descriptor_tmp_15_1;
+  v18 = v8 + 1;
+  v19 = v8;
+  atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   aBlock = MEMORY[0x29EDCA5F8];
-  v23 = 0x40000000;
-  v24 = ___ZN3ice6detail17wrapEventCallbackIvEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEU13block_pointerFT_vE_block_invoke_1;
-  v25 = &unk_29EE5B840;
-  v26 = &v16;
-  v12 = _Block_copy(&aBlock);
-  v13 = v21;
-  if (!v21 || atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v21 = 0x40000000;
+  v22 = ___ZN3ice6detail17wrapEventCallbackIvEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEU13block_pointerFT_vE_block_invoke_1;
+  v23 = &unk_29EE5B840;
+  v24 = &v14;
+  v10 = _Block_copy(&aBlock);
+  v11 = v19;
+  if (!v19 || atomic_fetch_add(&v19->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    if (atomic_fetch_add(v11, 0xFFFFFFFFFFFFFFFFLL))
+    if (atomic_fetch_add(v9, 0xFFFFFFFFFFFFFFFFLL))
     {
       goto LABEL_18;
     }
 
 LABEL_21:
-    (v10->__on_zero_shared)(v10);
-    std::__shared_weak_count::__release_weak(v10);
-    if (v12)
+    (v8->__on_zero_shared)(v8);
+    std::__shared_weak_count::__release_weak(v8);
+    if (v10)
     {
       goto LABEL_19;
     }
@@ -2941,34 +2839,34 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  (v13->__on_zero_shared)(v13);
-  std::__shared_weak_count::__release_weak(v13);
-  if (!atomic_fetch_add(v11, 0xFFFFFFFFFFFFFFFFLL))
+  (v11->__on_zero_shared)(v11);
+  std::__shared_weak_count::__release_weak(v11);
+  if (!atomic_fetch_add(v9, 0xFFFFFFFFFFFFFFFFLL))
   {
     goto LABEL_21;
   }
 
 LABEL_18:
-  if (v12)
+  if (v10)
   {
 LABEL_19:
-    v14 = _Block_copy(v12);
+    v12 = _Block_copy(v10);
     goto LABEL_23;
   }
 
 LABEL_22:
-  v14 = 0;
+  v12 = 0;
 LABEL_23:
-  v16 = v14;
+  v14 = v12;
   ice::Client::regEventHandlerInternal();
-  if (v16)
+  if (v14)
   {
-    _Block_release(v16);
+    _Block_release(v14);
   }
 
-  if (v12)
+  if (v10)
   {
-    _Block_release(v12);
+    _Block_release(v10);
   }
 
   return ice::Client::start(*(v1 + 64));
@@ -3254,44 +3152,38 @@ void cpms::ARICommandDriver::enablePowerBudgetIndication(cpms::ARICommandDriver 
 
 void cpms::ARICommandDriver::queryThermalID(uint64_t a1)
 {
-  v5 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
   v1 = *(a1 + 40);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    v3 = 136315138;
-    v4 = "virtual void cpms::ARICommandDriver::queryThermalID(QueryThermalIDCallback)";
-    _os_log_error_impl(&dword_296D7D000, v1, OS_LOG_TYPE_ERROR, "%s is not implemented!", &v3, 0xCu);
+    v2 = 136315138;
+    v3 = "virtual void cpms::ARICommandDriver::queryThermalID(QueryThermalIDCallback)";
+    _os_log_error_impl(&dword_296D7D000, v1, OS_LOG_TYPE_ERROR, "%s is not implemented!", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x29EDCA608];
 }
 
 void cpms::ARICommandDriver::setThermalReportFrequency(uint64_t a1)
 {
-  v5 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
   v1 = *(a1 + 40);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    v3 = 136315138;
-    v4 = "virtual void cpms::ARICommandDriver::setThermalReportFrequency(ThermalReportVersion, uint32_t, ThermalDataBlock, utils::Callback)";
-    _os_log_error_impl(&dword_296D7D000, v1, OS_LOG_TYPE_ERROR, "%s is not implemented!", &v3, 0xCu);
+    v2 = 136315138;
+    v3 = "virtual void cpms::ARICommandDriver::setThermalReportFrequency(ThermalReportVersion, uint32_t, ThermalDataBlock, utils::Callback)";
+    _os_log_error_impl(&dword_296D7D000, v1, OS_LOG_TYPE_ERROR, "%s is not implemented!", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x29EDCA608];
 }
 
 void cpms::ARICommandDriver::getPowerMitigation(uint64_t a1)
 {
-  v5 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
   v1 = *(a1 + 40);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    v3 = 136315138;
-    v4 = "virtual void cpms::ARICommandDriver::getPowerMitigation(QueryPwrMitigationCallback)";
-    _os_log_error_impl(&dword_296D7D000, v1, OS_LOG_TYPE_ERROR, "%s is not implemented!", &v3, 0xCu);
+    v2 = 136315138;
+    v3 = "virtual void cpms::ARICommandDriver::getPowerMitigation(QueryPwrMitigationCallback)";
+    _os_log_error_impl(&dword_296D7D000, v1, OS_LOG_TYPE_ERROR, "%s is not implemented!", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x29EDCA608];
 }
 
 atomic_ullong *std::shared_ptr<cpms::ARICommandDriver>::shared_ptr[abi:ne200100]<cpms::ARICommandDriver,std::shared_ptr<cpms::ARICommandDriver> ctu::SharedSynchronizable<cpms::CommandDriver>::make_shared_ptr<cpms::ARICommandDriver>(cpms::ARICommandDriver*)::{lambda(cpms::ARICommandDriver*)#1},0>(atomic_ullong *a1, atomic_ullong a2)
@@ -3552,20 +3444,20 @@ void __destroy_helper_block_e8_40c49_ZTSNSt3__110shared_ptrIKN4cpms13CommandDriv
 
 void dispatch::async<void ctu::SharedSynchronizable<cpms::CommandDriver>::execute_wrapped<cpms::ARICommandDriver::sendPowerBudget(BudgetData,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::$_0>(cpms::ARICommandDriver::sendPowerBudget(BudgetData,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<cpms::ARICommandDriver::sendPowerBudget(BudgetData,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::$_0,dispatch_queue_s *::default_delete<cpms::ARICommandDriver::sendPowerBudget(BudgetData,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::$_0>>)::{lambda(void *)#1}::__invoke(std::__shared_weak_count **a1)
 {
-  v61 = *MEMORY[0x29EDCA608];
+  v60 = *MEMORY[0x29EDCA608];
   v1 = *a1;
-  v35 = *a1;
+  v34 = *a1;
   v2 = (*a1)->__vftable;
   *&v3 = 0xAAAAAAAAAAAAAAAALL;
   *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v45[0] = v3;
-  v45[1] = v3;
+  v44[0] = v3;
+  v44[1] = v3;
   __p = v3;
-  v43[2] = v3;
-  v43[3] = v3;
-  v43[0] = v3;
-  v43[1] = v3;
-  AriSdk::ARI_CsiIceCltmReq_SDK::ARI_CsiIceCltmReq_SDK(v43);
+  v42[2] = v3;
+  v42[3] = v3;
+  v42[0] = v3;
+  v42[1] = v3;
+  AriSdk::ARI_CsiIceCltmReq_SDK::ARI_CsiIceCltmReq_SDK(v42);
   v4 = operator new(4uLL);
   *v4 = 0x7FFF;
   v5 = __p;
@@ -3584,16 +3476,16 @@ void dispatch::async<void ctu::SharedSynchronizable<cpms::CommandDriver>::execut
     operator delete(v7);
   }
 
-  v42 = 0;
   v41 = 0;
-  v60 = 0;
+  v40 = 0;
+  v59 = 0;
   v8 = operator new(0x20uLL);
   v9 = &unk_2A1E0B5C8;
   *v8 = &unk_2A1E0B5C8;
-  *(v8 + 1) = &v42;
-  *(v8 + 2) = v43;
-  *(v8 + 3) = &v41;
-  v60 = v8;
+  *(v8 + 1) = &v41;
+  *(v8 + 2) = v42;
+  *(v8 + 3) = &v40;
+  v59 = v8;
   v10 = v1[1].__vftable;
   if (v10 == &v1[1].__shared_owners_)
   {
@@ -3602,12 +3494,12 @@ void dispatch::async<void ctu::SharedSynchronizable<cpms::CommandDriver>::execut
 
   do
   {
-    if (!v60)
+    if (!v59)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    if (!(*(*v60 + 48))(v60, &v10->__get_deleter + 4, &v10->__on_zero_shared_weak))
+    if (!(*(*v59 + 48))(v59, &v10->__get_deleter + 4, &v10->__on_zero_shared_weak))
     {
       break;
     }
@@ -3640,10 +3532,10 @@ void dispatch::async<void ctu::SharedSynchronizable<cpms::CommandDriver>::execut
   }
 
   while (on_zero_shared != &v1[1].__shared_owners_);
-  if (v60 == &v59)
+  if (v59 == &v58)
   {
-    (*(*v60 + 32))(v60);
-    if (v41 > 4)
+    (*(*v59 + 32))(v59);
+    if (v40 > 4)
     {
       goto LABEL_23;
     }
@@ -3651,14 +3543,14 @@ void dispatch::async<void ctu::SharedSynchronizable<cpms::CommandDriver>::execut
     goto LABEL_21;
   }
 
-  if (v60)
+  if (v59)
   {
-    v9 = *v60;
+    v9 = *v59;
 LABEL_19:
     v9[5]();
   }
 
-  if (v41 > 4)
+  if (v40 > 4)
   {
     goto LABEL_23;
   }
@@ -3667,16 +3559,16 @@ LABEL_21:
   v14 = 0;
   do
   {
-    v42 = 0;
-    AriSdk::TlvArray<IBI_CPMS_POWER_BUDGET,5ul>::emplace_back<IBI_CPMS_POWER_BUDGET&>((v45 + 8), 0);
+    v41 = 0;
+    AriSdk::TlvArray<IBI_CPMS_POWER_BUDGET,5ul>::emplace_back<IBI_CPMS_POWER_BUDGET&>((v44 + 8), 0);
     ++v14;
   }
 
-  while (v14 < 5 - v41);
+  while (v14 < 5 - v40);
 LABEL_23:
   get_deleter = v2[1].__get_deleter;
   on_zero_shared_weak = v2[1].__on_zero_shared_weak;
-  v40 = on_zero_shared_weak;
+  v39 = on_zero_shared_weak;
   if (on_zero_shared_weak)
   {
     atomic_fetch_add_explicit(&on_zero_shared_weak->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -3687,8 +3579,8 @@ LABEL_23:
   {
     v18 = _Block_copy(shared_owners);
     shared_weak_owners = v1->__shared_weak_owners_;
-    v36 = v18;
-    v37 = shared_weak_owners;
+    v35 = v18;
+    v36 = shared_weak_owners;
     if (!shared_weak_owners)
     {
       goto LABEL_28;
@@ -3699,8 +3591,8 @@ LABEL_23:
 
   v18 = 0;
   shared_weak_owners = v1->__shared_weak_owners_;
-  v36 = 0;
-  v37 = shared_weak_owners;
+  v35 = 0;
+  v36 = shared_weak_owners;
   if (shared_weak_owners)
   {
 LABEL_27:
@@ -3708,14 +3600,14 @@ LABEL_27:
   }
 
 LABEL_28:
-  strcpy(v46, "Send power budget");
-  *&v46[18] = v38;
-  v46[22] = v39;
-  v46[23] = 17;
+  strcpy(v45, "Send power budget");
+  *&v45[18] = v37;
+  v45[22] = v38;
+  v45[23] = 17;
   if (!v18)
   {
     v20 = 0;
-    v47 = 0;
+    v46 = 0;
     object = shared_weak_owners;
     if (!shared_weak_owners)
     {
@@ -3726,7 +3618,7 @@ LABEL_28:
   }
 
   v20 = _Block_copy(v18);
-  v47 = v20;
+  v46 = v20;
   object = shared_weak_owners;
   if (shared_weak_owners)
   {
@@ -3740,30 +3632,30 @@ LABEL_31:
   p_shared_owners = &v21->__shared_owners_;
   v21->__shared_weak_owners_ = 0;
   v21->__vftable = &unk_2A1E0B688;
-  v21[1].std::__shared_count = *v46;
-  *v46 = 0;
-  *&v46[8] = 0;
-  v21[1].__shared_weak_owners_ = *&v46[16];
+  v21[1].std::__shared_count = *v45;
+  *v45 = 0;
+  *&v45[8] = 0;
+  v21[1].__shared_weak_owners_ = *&v45[16];
   v21[2].__vftable = v20;
   v21[2].__shared_owners_ = shared_weak_owners;
-  v47 = 0;
+  v46 = 0;
   object = 0;
-  *&v46[16] = 0;
-  *&v50 = MEMORY[0x29EDCA5F8];
-  *(&v50 + 1) = 1174405120;
-  *&v51 = ___ZN3ice6detail12wrapCallbackIZN5utils7sendMsgIN6AriSdk23ARI_CsiIceCltmRspCb_SDKEEEvNSt3__110shared_ptrINS_6ClientEEERNS4_7MsgBaseENS6_12basic_stringIcNS6_11char_traitsIcEENS6_9allocatorIcEEEEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEEEUlPKhjE_vEENSI_5blockIU13block_pointerFiPhjEEENS6_17integral_constantIiLi2EEEOT__block_invoke;
-  *(&v51 + 1) = &__block_descriptor_tmp_33_1;
-  v52 = &v21[1];
-  v53 = v21;
+  *&v45[16] = 0;
+  *&v49 = MEMORY[0x29EDCA5F8];
+  *(&v49 + 1) = 1174405120;
+  *&v50 = ___ZN3ice6detail12wrapCallbackIZN5utils7sendMsgIN6AriSdk23ARI_CsiIceCltmRspCb_SDKEEEvNSt3__110shared_ptrINS_6ClientEEERNS4_7MsgBaseENS6_12basic_stringIcNS6_11char_traitsIcEENS6_9allocatorIcEEEEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEEEUlPKhjE_vEENSI_5blockIU13block_pointerFiPhjEEENS6_17integral_constantIiLi2EEEOT__block_invoke;
+  *(&v50 + 1) = &__block_descriptor_tmp_33_1;
+  v51 = &v21[1];
+  v52 = v21;
   atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
   aBlock = MEMORY[0x29EDCA5F8];
-  v55 = 0x40000000;
-  v56 = ___ZN3ice6detail12wrapCallbackIvEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEU13block_pointerFT_S4_jE_block_invoke_2;
-  v57 = &unk_29EE5B868;
-  v58 = &v50;
+  v54 = 0x40000000;
+  v55 = ___ZN3ice6detail12wrapCallbackIvEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEU13block_pointerFT_S4_jE_block_invoke_2;
+  v56 = &unk_29EE5B868;
+  v57 = &v49;
   v23 = _Block_copy(&aBlock);
-  v24 = v53;
-  if (!v53 || atomic_fetch_add(&v53->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v24 = v52;
+  if (!v52 || atomic_fetch_add(&v52->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     if (atomic_fetch_add(p_shared_owners, 0xFFFFFFFFFFFFFFFFLL))
     {
@@ -3785,72 +3677,72 @@ LABEL_34:
 LABEL_35:
   *&v25 = 0xAAAAAAAAAAAAAAAALL;
   *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v49 = v25;
   v50 = v25;
-  v51 = v25;
-  v52 = 0xAAAAAAAAAAAAAAAALL;
+  v51 = 0xAAAAAAAAAAAAAAAALL;
   v26 = *(get_deleter + 2);
   aBlock = *(get_deleter + 1);
   if (!v26)
   {
-    v55 = 0;
+    v54 = 0;
 LABEL_78:
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v55 = std::__shared_weak_count::lock(v26);
-  if (!v55)
+  v54 = std::__shared_weak_count::lock(v26);
+  if (!v54)
   {
     goto LABEL_78;
   }
 
   ice::SendMsgBaseProxy::SendMsgBaseProxy();
-  v27 = v55;
-  if (v55 && !atomic_fetch_add((v55 + 8), 0xFFFFFFFFFFFFFFFFLL))
+  v27 = v54;
+  if (v54 && !atomic_fetch_add((v54 + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
     (v27->__on_zero_shared)(v27);
     std::__shared_weak_count::__release_weak(v27);
   }
 
-  v49 = v23;
+  v48 = v23;
   ice::SendMsgBaseProxy::callback();
-  if (v49)
+  if (v48)
   {
-    _Block_release(v49);
+    _Block_release(v48);
   }
 
-  MEMORY[0x29C263BF0](&v50);
+  MEMORY[0x29C263BF0](&v49);
   if (object)
   {
     dispatch_release(object);
   }
 
-  if (v47)
+  if (v46)
   {
-    _Block_release(v47);
+    _Block_release(v46);
   }
 
-  if ((v46[23] & 0x80000000) != 0)
+  if ((v45[23] & 0x80000000) != 0)
   {
-    operator delete(*v46);
-  }
-
-  if (v37)
-  {
-    dispatch_release(v37);
+    operator delete(*v45);
   }
 
   if (v36)
   {
-    _Block_release(v36);
+    dispatch_release(v36);
   }
 
-  if (v40 && !atomic_fetch_add(&v40->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v35)
   {
-    (v40->__on_zero_shared)(v40);
-    std::__shared_weak_count::__release_weak(v40);
-    MEMORY[0x29C263DF0](v43);
-    v28 = &v35->__vftable;
-    if (!v35)
+    _Block_release(v35);
+  }
+
+  if (v39 && !atomic_fetch_add(&v39->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v39->__on_zero_shared)(v39);
+    std::__shared_weak_count::__release_weak(v39);
+    MEMORY[0x29C263DF0](v42);
+    v28 = &v34->__vftable;
+    if (!v34)
     {
       goto LABEL_60;
     }
@@ -3858,9 +3750,9 @@ LABEL_78:
 
   else
   {
-    MEMORY[0x29C263DF0](v43);
-    v28 = &v35->__vftable;
-    if (!v35)
+    MEMORY[0x29C263DF0](v42);
+    v28 = &v34->__vftable;
+    if (!v34)
     {
       goto LABEL_60;
     }
@@ -3888,17 +3780,18 @@ LABEL_60:
   if (a1)
   {
     v32 = a1[2];
-    if (v32 && !atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v32)
     {
-      (v32->__on_zero_shared)(v32);
-      std::__shared_weak_count::__release_weak(v32);
-      v31 = a1;
+      if (!atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v32->__on_zero_shared)(v32);
+        std::__shared_weak_count::__release_weak(v32);
+        v31 = a1;
+      }
     }
 
     operator delete(v31);
   }
-
-  v33 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DA86C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, __int16 a12, char a13, char a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
@@ -3911,24 +3804,24 @@ void sub_296DA86C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::unique_ptr<cpms::ARICommandDriver::sendPowerBudget(BudgetData,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::$_0,std::default_delete<cpms::ARICommandDriver::sendPowerBudget(BudgetData,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::$_0>>::~unique_ptr[abi:ne200100](void *result)
+void **std::unique_ptr<cpms::ARICommandDriver::sendPowerBudget(BudgetData,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::$_0,std::default_delete<cpms::ARICommandDriver::sendPowerBudget(BudgetData,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::$_0>>::~unique_ptr[abi:ne200100](void **result)
 {
   v1 = *result;
   *result = 0;
   if (v1)
   {
     v2 = result;
-    std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::destroy(v1 + 24, *(v1 + 32));
-    *(v1 + 32) = 0;
-    *(v1 + 40) = 0;
-    *(v1 + 24) = v1 + 32;
-    v3 = *(v1 + 16);
+    std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::destroy((v1 + 3), v1[4]);
+    v1[4] = 0;
+    v1[5] = 0;
+    v1[3] = v1 + 4;
+    v3 = v1[2];
     if (v3)
     {
       dispatch_release(v3);
     }
 
-    v4 = *(v1 + 8);
+    v4 = v1[1];
     if (v4)
     {
       _Block_release(v4);
@@ -3943,7 +3836,7 @@ void *std::unique_ptr<cpms::ARICommandDriver::sendPowerBudget(BudgetData,dispatc
 
 void AriSdk::TlvArray<IBI_CPMS_POWER_BUDGET,5ul>::emplace_back<IBI_CPMS_POWER_BUDGET&>(Ari *a1, uint64_t a2)
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   v2 = *a1;
   v3 = *(a1 + 1);
   v4 = v3 - *a1;
@@ -3956,23 +3849,23 @@ void AriSdk::TlvArray<IBI_CPMS_POWER_BUDGET,5ul>::emplace_back<IBI_CPMS_POWER_BU
       OsLog = AriOsa::GetOsLog(LogLevels);
       if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
       {
-        AriOsa::LogSrcInfo(v21, "/AppleInternal/Library/BuildRoots/4~CAp_ugD_GGG5SdFuDyE0u0QUXWlPVHp8kVTh2Vg/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/local/include/ARI/ari_sdk_msg.h", "emplace_back", v11);
-        v20 = v22 >= 0 ? v21 : v21[0];
+        AriOsa::LogSrcInfo(v20, "/AppleInternal/Library/BuildRoots/4~CAp_ugD_GGG5SdFuDyE0u0QUXWlPVHp8kVTh2Vg/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/local/include/ARI/ari_sdk_msg.h", "emplace_back", v11);
+        v19 = v21 >= 0 ? v20 : v20[0];
         *__p = 136315650;
         *&__p[4] = "ari";
-        v24 = 2080;
-        v25 = v20;
-        v26 = 1024;
-        v27 = 371;
+        v23 = 2080;
+        v24 = v19;
+        v25 = 1024;
+        v26 = 371;
         _os_log_error_impl(&dword_296D7D000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Array is full, cannot add new values", __p, 0x1Cu);
-        if (v22 < 0)
+        if (v21 < 0)
         {
-          operator delete(v21[0]);
+          operator delete(v20[0]);
         }
       }
 
       AriOsa::LogSrcInfo(__p, "/AppleInternal/Library/BuildRoots/4~CAp_ugD_GGG5SdFuDyE0u0QUXWlPVHp8kVTh2Vg/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/local/include/ARI/ari_sdk_msg.h", "emplace_back", v11);
-      if (v26 >= 0)
+      if (v25 >= 0)
       {
         v13 = __p;
       }
@@ -3983,7 +3876,7 @@ void AriSdk::TlvArray<IBI_CPMS_POWER_BUDGET,5ul>::emplace_back<IBI_CPMS_POWER_BU
       }
 
       AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Array is full, cannot add new values", v12, v13, 371);
-      if (SHIBYTE(v26) < 0)
+      if (SHIBYTE(v25) < 0)
       {
         operator delete(*__p);
       }
@@ -4038,8 +3931,6 @@ void AriSdk::TlvArray<IBI_CPMS_POWER_BUDGET,5ul>::emplace_back<IBI_CPMS_POWER_BU
 
     *(a1 + 1) = v8;
   }
-
-  v19 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DA8A2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
@@ -4136,53 +4027,53 @@ uint64_t std::function<BOOL ()(abm::BasebandCPMSPowerBudgetScale const&,std::opt
   }
 }
 
-uint64_t ___ZN3ice6detail12wrapCallbackIZN5utils7sendMsgIN6AriSdk23ARI_CsiIceCltmRspCb_SDKEEEvNSt3__110shared_ptrINS_6ClientEEERNS4_7MsgBaseENS6_12basic_stringIcNS6_11char_traitsIcEENS6_9allocatorIcEEEEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEEEUlPKhjE_vEENSI_5blockIU13block_pointerFiPhjEEENS6_17integral_constantIiLi2EEEOT__block_invoke(uint64_t result, const unsigned __int8 *a2)
+uint64_t ___ZN3ice6detail12wrapCallbackIZN5utils7sendMsgIN6AriSdk23ARI_CsiIceCltmRspCb_SDKEEEvNSt3__110shared_ptrINS_6ClientEEERNS4_7MsgBaseENS6_12basic_stringIcNS6_11char_traitsIcEENS6_9allocatorIcEEEEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEEEUlPKhjE_vEENSI_5blockIU13block_pointerFiPhjEEENS6_17integral_constantIiLi2EEEOT__block_invoke(uint64_t result, const unsigned __int8 *a2, unsigned int a3)
 {
-  v2 = *(result + 32);
-  if (v2)
+  v3 = *(result + 32);
+  if (v3)
   {
-    v10 = 0xAAAAAAAAAAAAAAAALL;
-    *&v3 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v9[2] = v3;
-    v9[3] = v3;
-    v9[0] = v3;
-    v9[1] = v3;
-    AriSdk::ARI_CsiIceCltmRspCb_SDK::ARI_CsiIceCltmRspCb_SDK(v9, a2);
-    if (!*(v2 + 24) || !*(v2 + 32))
+    v11 = 0xAAAAAAAAAAAAAAAALL;
+    *&v4 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v10[2] = v4;
+    v10[3] = v4;
+    v10[0] = v4;
+    v10[1] = v4;
+    AriSdk::ARI_CsiIceCltmRspCb_SDK::ARI_CsiIceCltmRspCb_SDK(v10, a2);
+    if (!*(v3 + 24) || !*(v3 + 32))
     {
-      return MEMORY[0x29C263F60](v9);
+      return MEMORY[0x29C263F60](v10);
     }
 
     cf = 0xAAAAAAAAAAAAAAAALL;
-    checkError(v9, v2, &cf);
-    v4 = cf;
+    checkError(&cf, v10, v3);
+    v5 = cf;
     if (cf)
     {
       CFRetain(cf);
     }
 
-    v5 = *(v2 + 24);
-    if (v5)
+    v6 = *(v3 + 24);
+    if (v6)
     {
-      v6 = _Block_copy(v5);
+      v7 = _Block_copy(v6);
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
 
-    v7 = *(v2 + 32);
+    v8 = *(v3 + 32);
     block[0] = MEMORY[0x29EDCA5F8];
     block[1] = 1174405120;
     block[2] = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke_0;
     block[3] = &__block_descriptor_tmp_37_0;
-    if (v6)
+    if (v7)
     {
-      v12 = _Block_copy(v6);
-      v13 = v4;
-      if (!v4)
+      v13 = _Block_copy(v7);
+      v14 = v5;
+      if (!v5)
       {
         goto LABEL_14;
       }
@@ -4190,30 +4081,30 @@ uint64_t ___ZN3ice6detail12wrapCallbackIZN5utils7sendMsgIN6AriSdk23ARI_CsiIceClt
 
     else
     {
-      v12 = 0;
-      v13 = v4;
-      if (!v4)
+      v13 = 0;
+      v14 = v5;
+      if (!v5)
       {
 LABEL_14:
-        dispatch_async(v7, block);
+        dispatch_async(v8, block);
+        if (v14)
+        {
+          CFRelease(v14);
+        }
+
         if (v13)
         {
-          CFRelease(v13);
+          _Block_release(v13);
         }
 
-        if (v12)
+        if (v7)
         {
-          _Block_release(v12);
+          _Block_release(v7);
         }
 
-        if (v6)
+        if (v5)
         {
-          _Block_release(v6);
-        }
-
-        if (v4)
-        {
-          CFRelease(v4);
+          CFRelease(v5);
         }
 
         if (cf)
@@ -4221,11 +4112,11 @@ LABEL_14:
           CFRelease(cf);
         }
 
-        return MEMORY[0x29C263F60](v9);
+        return MEMORY[0x29C263F60](v10);
       }
     }
 
-    CFRetain(v4);
+    CFRetain(v5);
     goto LABEL_14;
   }
 
@@ -4303,9 +4194,9 @@ void ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFError
   }
 }
 
-void sub_296DA8FDC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296DA8FDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::cf::CFSharedRef<__CFError>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
@@ -4415,7 +4306,7 @@ void dispatch::async<void ctu::SharedSynchronizable<cpms::CommandDriver>::execut
   operator delete(a1);
 }
 
-void sub_296DA91E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17)
+void sub_296DA91E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17)
 {
   if (a17)
   {
@@ -4459,19 +4350,19 @@ void **std::unique_ptr<cpms::ARICommandDriver::registerPowerBudgetIndication(dis
   return result;
 }
 
-void ___ZZN4cpms16ARICommandDriver29registerPowerBudgetIndicationEN8dispatch8callbackIU13block_pointerFv10BudgetDataEEEENK3__0clEv_block_invoke(void *a1, const unsigned __int8 *a2)
+void ___ZZN4cpms16ARICommandDriver29registerPowerBudgetIndicationEN8dispatch8callbackIU13block_pointerFv10BudgetDataEEEENK3__0clEv_block_invoke(void *a1, const unsigned __int8 *a2, unsigned int a3)
 {
-  v3 = a1[6];
-  if (v3)
+  v4 = a1[6];
+  if (v4)
   {
-    v5 = a1[4];
-    v6 = std::__shared_weak_count::lock(v3);
-    if (v6)
+    v6 = a1[4];
+    v7 = std::__shared_weak_count::lock(v4);
+    if (v7)
     {
-      v7 = a1[5];
-      if (atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      v8 = a1[5];
+      if (atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        if (!v7)
+        if (!v8)
         {
           return;
         }
@@ -4479,123 +4370,124 @@ void ___ZZN4cpms16ARICommandDriver29registerPowerBudgetIndicationEN8dispatch8cal
 
       else
       {
-        v8 = v6;
-        (v6->__on_zero_shared)();
-        std::__shared_weak_count::__release_weak(v8);
-        if (!v7)
+        v9 = v7;
+        (v7->__on_zero_shared)();
+        std::__shared_weak_count::__release_weak(v9);
+        if (!v8)
         {
           return;
         }
       }
 
-      *&v9 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v22[4] = v9;
-      v23 = v9;
-      v22[2] = v9;
-      v22[3] = v9;
-      v22[0] = v9;
-      v22[1] = v9;
-      AriSdk::ARI_IBICpsMaxCellularPowerForRatInd_SDK::ARI_IBICpsMaxCellularPowerForRatInd_SDK(v22, a2);
-      if (!AriSdk::ARI_IBICpsMaxCellularPowerForRatInd_SDK::unpack(v22) && *(v5 + 80) && *(v5 + 88))
+      *&v10 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v23[4] = v10;
+      v24 = v10;
+      v23[2] = v10;
+      v23[3] = v10;
+      v23[0] = v10;
+      v23[1] = v10;
+      AriSdk::ARI_IBICpsMaxCellularPowerForRatInd_SDK::ARI_IBICpsMaxCellularPowerForRatInd_SDK(v23, a2);
+      if (!AriSdk::ARI_IBICpsMaxCellularPowerForRatInd_SDK::unpack(v23) && *(v6 + 80) && *(v6 + 88))
       {
-        v10 = **(&v23 + 1);
-        v20 = 0;
+        v11 = **(&v24 + 1);
         v21 = 0;
-        v11 = operator new(0x28uLL);
-        v11[28] = 0;
-        v11[32] = 0;
-        v11[36] = 0;
-        *v11 = 0;
-        *(v11 + 1) = 0;
-        *(v11 + 2) = &v20;
-        v19 = v11;
-        v20 = v11;
-        std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(v11, v11);
-        ++v21;
-        *(v11 + 8) = v10;
-        v11[36] = 1;
-        v17 = 0;
+        v22 = 0;
+        v12 = operator new(0x28uLL);
+        v12[28] = 0;
+        v12[32] = 0;
+        v12[36] = 0;
+        *v12 = 0;
+        *(v12 + 1) = 0;
+        *(v12 + 2) = &v21;
+        v20 = v12;
+        v21 = v12;
+        std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(v12, v12);
+        ++v22;
+        *(v12 + 8) = v11;
+        v12[36] = 1;
         v18 = 0;
-        v16 = &v17;
-        std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__tree_node<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,void *> *,long>>(&v16, v11, &v20);
-        v12 = *(v5 + 80);
-        if (v12)
+        v19 = 0;
+        v17 = &v18;
+        std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__tree_node<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,void *> *,long>>(&v17, v12, &v21);
+        v13 = *(v6 + 80);
+        if (v13)
         {
-          v13 = _Block_copy(v12);
+          v14 = _Block_copy(v13);
         }
 
         else
         {
-          v13 = 0;
+          v14 = 0;
         }
 
-        v14 = *(v5 + 88);
+        v15 = *(v6 + 88);
         block[0] = MEMORY[0x29EDCA5F8];
         block[1] = 1174405120;
         block[2] = ___ZNK8dispatch8callbackIU13block_pointerFv10BudgetDataEEclIJS1_EEEvDpT__block_invoke;
         block[3] = &__block_descriptor_tmp_40_0;
-        if (v13)
+        if (v14)
         {
-          v15 = _Block_copy(v13);
+          v16 = _Block_copy(v14);
         }
 
         else
         {
-          v15 = 0;
+          v16 = 0;
         }
 
-        v27 = 0;
         v28 = 0;
-        v25 = v15;
-        v26 = &v27;
-        std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__tree_node<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,void *> *,long>>(&v26, v16, &v17);
-        dispatch_async(v14, block);
-        std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::destroy(&v26, v27);
-        v27 = 0;
+        v29 = 0;
+        v26 = v16;
+        v27 = &v28;
+        std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__tree_node<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,void *> *,long>>(&v27, v17, &v18);
+        dispatch_async(v15, block);
+        std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::destroy(&v27, v28);
         v28 = 0;
-        v26 = &v27;
-        if (v25)
+        v29 = 0;
+        v27 = &v28;
+        if (v26)
         {
-          _Block_release(v25);
+          _Block_release(v26);
         }
 
-        if (v13)
+        if (v14)
         {
-          _Block_release(v13);
+          _Block_release(v14);
         }
 
-        std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::destroy(&v16, v17);
-        v17 = 0;
+        std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::destroy(&v17, v18);
         v18 = 0;
-        v16 = &v17;
-        std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::destroy(&v19, v20);
+        v19 = 0;
+        v17 = &v18;
+        std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::destroy(&v20, v21);
       }
 
-      MEMORY[0x29C265620](v22);
+      MEMORY[0x29C265620](v23);
     }
   }
 }
 
-void sub_296DA94E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, char a12, void *a13, uint64_t a14, char a15)
+void sub_296DA94E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, ...)
 {
-  std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::destroy(v16 + 40, *(v17 - 64));
-  v19 = *(v17 - 80);
-  if (v19)
+  va_start(va, a14);
+  std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::destroy(v15 + 40, *(v16 - 64));
+  v18 = *(v16 - 80);
+  if (v18)
   {
-    _Block_release(v19);
+    _Block_release(v18);
   }
 
-  if (v15)
+  if (v14)
   {
-    _Block_release(v15);
+    _Block_release(v14);
   }
 
   std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::destroy(&a9, a10);
   a10 = 0;
   a11 = 0;
   std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::destroy(&a12, a13);
-  MEMORY[0x29C265620](&a15);
+  MEMORY[0x29C265620](va);
   _Unwind_Resume(a1);
 }
 
@@ -4636,21 +4528,21 @@ void ___ZNK8dispatch8callbackIU13block_pointerFv10BudgetDataEEclIJS1_EEEvDpT__bl
   std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::destroy(&v2, v3[0]);
 }
 
-void __copy_helper_block_e8_32c54_ZTSN8dispatch5blockIU13block_pointerFv10BudgetDataEEE40c16_ZTS10BudgetData(uint64_t a1, uint64_t a2)
+void __copy_helper_block_e8_32c54_ZTSN8dispatch5blockIU13block_pointerFv10BudgetDataEEE40c16_ZTS10BudgetData(void *a1, void *a2)
 {
-  v4 = *(a2 + 32);
+  v4 = a2[4];
   if (v4)
   {
     v4 = _Block_copy(v4);
   }
 
-  *(a1 + 48) = 0;
-  *(a1 + 32) = v4;
-  *(a1 + 40) = a1 + 48;
-  *(a1 + 56) = 0;
+  a1[6] = 0;
+  a1[4] = v4;
+  a1[5] = a1 + 6;
+  a1[7] = 0;
   if (a1 != a2)
   {
-    std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__tree_node<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,void *> *,long>>((a1 + 40), *(a2 + 40), (a2 + 48));
+    std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__tree_node<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,void *> *,long>>(a1 + 5, a2[5], a2 + 6);
   }
 }
 
@@ -4692,19 +4584,19 @@ void dispatch::async<void ctu::SharedSynchronizable<cpms::CommandDriver>::execut
   v24[0] = v3;
   v24[1] = v3;
   AriSdk::ARI_IBICPMSPowerQueryReq_SDK::ARI_IBICPMSPowerQueryReq_SDK(v24);
-  v4 = *(v2 + 64);
-  v6 = v1[1];
-  v5 = v1[2];
-  if (v5)
+  get_deleter = v2[1].__get_deleter;
+  shared_owners = v1->__shared_owners_;
+  shared_weak_owners = v1->__shared_weak_owners_;
+  if (shared_weak_owners)
   {
-    atomic_fetch_add_explicit((v5 + 16), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((shared_weak_owners + 16), 1uLL, memory_order_relaxed);
   }
 
-  v7 = v1[3];
+  v7 = v1[1].__vftable;
   if (!v7)
   {
     v8 = 0;
-    v9 = v1[4];
+    v9 = v1[1].__shared_owners_;
     if (!v9)
     {
       goto LABEL_6;
@@ -4714,7 +4606,7 @@ void dispatch::async<void ctu::SharedSynchronizable<cpms::CommandDriver>::execut
   }
 
   v8 = _Block_copy(v7);
-  v9 = v1[4];
+  v9 = v1[1].__shared_owners_;
   if (v9)
   {
 LABEL_5:
@@ -4726,9 +4618,9 @@ LABEL_6:
   v10->__shared_owners_ = 0;
   p_shared_owners = &v10->__shared_owners_;
   v10->__shared_weak_owners_ = 0;
-  v10[1].__vftable = v6;
+  v10[1].__vftable = shared_owners;
   v10->__vftable = &unk_2A1E0B798;
-  v10[1].__shared_owners_ = v5;
+  v10[1].__shared_owners_ = shared_weak_owners;
   v10[1].__shared_weak_owners_ = v2;
   v10[2].__vftable = v8;
   v10[2].__shared_owners_ = v9;
@@ -4771,8 +4663,8 @@ LABEL_10:
   v26 = v14;
   v27 = v14;
   v28 = 0xAAAAAAAAAAAAAAAALL;
-  v15 = *(v4 + 16);
-  aBlock = *(v4 + 8);
+  v15 = *(get_deleter + 2);
+  aBlock = *(get_deleter + 1);
   if (!v15)
   {
     v31 = 0;
@@ -4805,10 +4697,10 @@ LABEL_36:
   MEMORY[0x29C2647C0](v24);
   if (__p)
   {
-    shared_owners = __p[1].__shared_owners_;
-    if (shared_owners)
+    v17 = __p[1].__shared_owners_;
+    if (v17)
     {
-      dispatch_release(shared_owners);
+      dispatch_release(v17);
     }
 
     v18 = __p[1].__vftable;
@@ -4817,10 +4709,10 @@ LABEL_36:
       _Block_release(v18);
     }
 
-    shared_weak_owners = __p->__shared_weak_owners_;
-    if (shared_weak_owners)
+    v19 = __p->__shared_weak_owners_;
+    if (v19)
     {
-      std::__shared_weak_count::__release_weak(shared_weak_owners);
+      std::__shared_weak_count::__release_weak(v19);
     }
 
     operator delete(__p);
@@ -4844,16 +4736,16 @@ LABEL_36:
   }
 }
 
-void sub_296DA9AF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *aBlock, char a27)
+void sub_296DA9AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, uint64_t a15, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *aBlock, char a32)
 {
   if (aBlock)
   {
     _Block_release(aBlock);
   }
 
-  MEMORY[0x29C263BF0](&a27);
-  cpms::ARICommandDriver::getCurrentPower(dispatch::callback<void({block_pointer})(BudgetData)>)::$_0::operator() const(void)::{lambda(unsigned char const*,unsigned int)#1}::~(&a12);
-  MEMORY[0x29C2647C0](&a17);
+  MEMORY[0x29C263BF0](&a32, a2, a3, a4, a5, a6, a7, a8);
+  cpms::ARICommandDriver::getCurrentPower(dispatch::callback<void({block_pointer})(BudgetData)>)::$_0::operator() const(void)::{lambda(unsigned char const*,unsigned int)#1}::~(&a15);
+  MEMORY[0x29C2647C0](&a22);
   std::unique_ptr<cpms::ARICommandDriver::getCurrentPower(dispatch::callback<void({block_pointer})(BudgetData)>)::$_0,std::default_delete<cpms::ARICommandDriver::getCurrentPower(dispatch::callback<void({block_pointer})(BudgetData)>)::$_0>>::~unique_ptr[abi:ne200100](&a11);
   std::unique_ptr<void ctu::SharedSynchronizable<CellularCertCommandDriver>::execute_wrapped<ARICellularCertCommandDriver::init(void)::$_0>(ARICellularCertCommandDriver::init(void)::$_0 &&)::{lambda(void)#1},std::default_delete<ARICellularCertCommandDriver::init(void)::$_0 &&>>::~unique_ptr[abi:ne200100](&a10);
   _Unwind_Resume(a1);
@@ -4912,47 +4804,47 @@ void *cpms::ARICommandDriver::getCurrentPower(dispatch::callback<void({block_poi
   return a1;
 }
 
-void ___ZN3ice6detail12wrapCallbackIZZN4cpms16ARICommandDriver15getCurrentPowerEN8dispatch8callbackIU13block_pointerFv10BudgetDataEEEENK3__0clEvEUlPKhjE_vEENS4_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZZN4cpms16ARICommandDriver15getCurrentPowerEN8dispatch8callbackIU13block_pointerFv10BudgetDataEEEENK3__0clEvEUlPKhjE_vEENS4_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v38 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    v3 = v2[1];
-    if (v3)
+    v4 = v3[1];
+    if (v4)
     {
-      v5 = v2[2];
-      v6 = std::__shared_weak_count::lock(v3);
-      if (v6)
+      v6 = v3[2];
+      v7 = std::__shared_weak_count::lock(v4);
+      if (v7)
       {
-        v7 = *v2;
-        if (atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        v8 = *v3;
+        if (atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
-          if (!v7)
+          if (!v8)
           {
-            goto LABEL_43;
+            return;
           }
         }
 
         else
         {
-          v8 = v6;
-          (v6->__on_zero_shared)();
-          std::__shared_weak_count::__release_weak(v8);
-          if (!v7)
+          v9 = v7;
+          (v7->__on_zero_shared)();
+          std::__shared_weak_count::__release_weak(v9);
+          if (!v8)
           {
-            goto LABEL_43;
+            return;
           }
         }
 
         v31 = 0xAAAAAAAAAAAAAAAALL;
-        *&v9 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v30 = v9;
-        v29[2] = v9;
-        v29[3] = v9;
-        v29[0] = v9;
-        v29[1] = v9;
+        *&v10 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v30 = v10;
+        v29[2] = v10;
+        v29[3] = v10;
+        v29[0] = v10;
+        v29[1] = v10;
         AriSdk::ARI_IBICPMSPowerQueryRspCb_SDK::ARI_IBICPMSPowerQueryRspCb_SDK(v29, a2);
         memset(&v28, 170, sizeof(v28));
         *buf = operator new(0x20uLL);
@@ -4968,7 +4860,7 @@ void ___ZN3ice6detail12wrapCallbackIZZN4cpms16ARICommandDriver15getCurrentPowerE
         v27[1] = 0;
         v26 = v27;
         size = HIBYTE(v28.__r_.__value_.__r.__words[2]);
-        v11 = SHIBYTE(v28.__r_.__value_.__r.__words[2]);
+        v12 = SHIBYTE(v28.__r_.__value_.__r.__words[2]);
         if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
           size = v28.__r_.__value_.__l.__size_;
@@ -4976,33 +4868,33 @@ void ___ZN3ice6detail12wrapCallbackIZZN4cpms16ARICommandDriver15getCurrentPowerE
 
         if (size)
         {
-          v12 = *(v5 + 40);
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          v13 = *(v6 + 40);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            v13 = v28.__r_.__value_.__r.__words[0];
-            if (v11 >= 0)
+            v14 = v28.__r_.__value_.__r.__words[0];
+            if (v12 >= 0)
             {
-              v13 = &v28;
+              v14 = &v28;
             }
 
             *buf = 136315138;
-            *&buf[4] = v13;
-            _os_log_error_impl(&dword_296D7D000, v12, OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
+            *&buf[4] = v14;
+            _os_log_error_impl(&dword_296D7D000, v13, OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
           }
         }
 
         else
         {
-          v14 = AriSdk::ARI_IBICPMSPowerQueryRspCb_SDK::unpack(v29);
-          if (v14)
+          v15 = AriSdk::ARI_IBICPMSPowerQueryRspCb_SDK::unpack(v29);
+          if (v15)
           {
-            v15 = v14;
-            v16 = *(v5 + 40);
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+            v16 = v15;
+            v17 = *(v6 + 40);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               *buf = 67109120;
-              *&buf[4] = v15;
-              _os_log_error_impl(&dword_296D7D000, v16, OS_LOG_TYPE_ERROR, "Failed to unpack query current power response: unpackResult = %d", buf, 8u);
+              *&buf[4] = v16;
+              _os_log_error_impl(&dword_296D7D000, v17, OS_LOG_TYPE_ERROR, "Failed to unpack query current power response: unpackResult = %d", buf, 8u);
             }
 
             std::string::__assign_external(&v28, "Failed to unpack to query current power", 0x27uLL);
@@ -5010,22 +4902,22 @@ void ___ZN3ice6detail12wrapCallbackIZZN4cpms16ARICommandDriver15getCurrentPowerE
 
           else
           {
-            v17 = v30;
+            v18 = v30;
             if ((*v30 - 1) < 3)
             {
               BudgetData::set(&v26, (*v30 - 1), *(v30 + 4));
-              if ((*(v17 + 8) - 1) <= 2)
+              if ((*(v18 + 8) - 1) <= 2)
               {
-                BudgetData::set(&v26, (*(v17 + 8) - 1), *(v17 + 12));
-                if ((*(v17 + 16) - 1) <= 2)
+                BudgetData::set(&v26, (*(v18 + 8) - 1), *(v18 + 12));
+                if ((*(v18 + 16) - 1) <= 2)
                 {
-                  BudgetData::set(&v26, (*(v17 + 16) - 1), *(v17 + 20));
-                  if ((*(v17 + 24) - 1) <= 2)
+                  BudgetData::set(&v26, (*(v18 + 16) - 1), *(v18 + 20));
+                  if ((*(v18 + 24) - 1) <= 2)
                   {
-                    BudgetData::set(&v26, (*(v17 + 24) - 1), *(v17 + 28));
-                    if ((*(v17 + 32) - 1) <= 2)
+                    BudgetData::set(&v26, (*(v18 + 24) - 1), *(v18 + 28));
+                    if ((*(v18 + 32) - 1) <= 2)
                     {
-                      BudgetData::set(&v26, (*(v17 + 32) - 1), *(v17 + 36));
+                      BudgetData::set(&v26, (*(v18 + 32) - 1), *(v18 + 36));
                     }
                   }
                 }
@@ -5034,44 +4926,44 @@ void ___ZN3ice6detail12wrapCallbackIZZN4cpms16ARICommandDriver15getCurrentPowerE
           }
         }
 
-        if (v2[3] && v2[4])
+        if (v3[3] && v3[4])
         {
           v24 = 0;
           v25 = 0;
           v23 = &v24;
           std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__tree_node<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,void *> *,long>>(&v23, v26, v27);
-          v18 = v2[3];
-          if (v18)
+          v19 = v3[3];
+          if (v19)
           {
-            v19 = _Block_copy(v18);
+            v20 = _Block_copy(v19);
           }
 
           else
           {
-            v19 = 0;
+            v20 = 0;
           }
 
-          v20 = v2[4];
+          v21 = v3[4];
           *buf = MEMORY[0x29EDCA5F8];
           *&buf[8] = 1174405120;
           *&buf[16] = ___ZNK8dispatch8callbackIU13block_pointerFv10BudgetDataEEclIJS1_EEEvDpT__block_invoke;
           v33 = &__block_descriptor_tmp_40_0;
-          if (v19)
+          if (v20)
           {
-            v21 = _Block_copy(v19);
+            v22 = _Block_copy(v20);
           }
 
           else
           {
-            v21 = 0;
+            v22 = 0;
           }
 
           v36 = 0;
           v37 = 0;
-          v34 = v21;
+          v34 = v22;
           v35 = &v36;
           std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__tree_node<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,void *> *,long>>(&v35, v23, &v24);
-          dispatch_async(v20, buf);
+          dispatch_async(v21, buf);
           std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::destroy(&v35, v36);
           v36 = 0;
           v37 = 0;
@@ -5081,9 +4973,9 @@ void ___ZN3ice6detail12wrapCallbackIZZN4cpms16ARICommandDriver15getCurrentPowerE
             _Block_release(v34);
           }
 
-          if (v19)
+          if (v20)
           {
-            _Block_release(v19);
+            _Block_release(v20);
           }
 
           std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::destroy(&v23, v24);
@@ -5102,12 +4994,9 @@ void ___ZN3ice6detail12wrapCallbackIZZN4cpms16ARICommandDriver15getCurrentPowerE
       }
     }
   }
-
-LABEL_43:
-  v22 = *MEMORY[0x29EDCA608];
 }
 
-void sub_296DAA060(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, void *a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, char a22)
+void sub_296DAA060(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, char a22)
 {
   std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::destroy(&a13, a14);
   if (a21 < 0)
@@ -5504,90 +5393,89 @@ LABEL_49:
   }
 }
 
-void sub_296DAA928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, char a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_296DAA928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  v35 = *(v33 - 184);
-  if (v35)
+  va_start(va, a30);
+  v34 = *(v32 - 184);
+  if (v34)
   {
-    _Block_release(v35);
+    _Block_release(v34);
   }
 
-  MEMORY[0x29C263BF0](v33 - 176);
-  utils::sendMsg<AriSdk::ARI_IBICpsConfigureCellularPowerReportRsp_SDK>(std::shared_ptr<ice::Client>,AriSdk::MsgBase &,std::string,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::{lambda(unsigned char const*,unsigned int)#1}::~callback(&a31);
+  MEMORY[0x29C263BF0](v32 - 176, a2, a3, a4, a5, a6, a7, a8);
+  utils::sendMsg<AriSdk::ARI_IBICpsConfigureCellularPowerReportRsp_SDK>(std::shared_ptr<ice::Client>,AriSdk::MsgBase &,std::string,dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>)::{lambda(unsigned char const*,unsigned int)#1}::~callback(va);
   dispatch::callback<void({block_pointer})(ctu::cf::CFSharedRef<__CFError>)>::~callback(&a15);
-  operator delete(v32);
+  operator delete(v31);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&a17);
   MEMORY[0x29C265850](&a19);
-  operator delete(v31);
+  operator delete(v30);
   std::unique_ptr<void ctu::SharedSynchronizable<CellularCertCommandDriver>::execute_wrapped<ARICellularCertCommandDriver::init(void)::$_0>(ARICellularCertCommandDriver::init(void)::$_0 &&)::{lambda(void)#1},std::default_delete<ARICellularCertCommandDriver::init(void)::$_0 &&>>::~unique_ptr[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
 void ___ZZN4cpms16ARICommandDriver27enablePowerBudgetIndicationEbjENK3__0clEv_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
-  if (*a2 && (v3 = *(*(a1 + 32) + 40), os_log_type_enabled(v3, OS_LOG_TYPE_ERROR)))
+  if (*a2)
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_296D7D000, v3, OS_LOG_TYPE_ERROR, "%@", &v6, 0xCu);
-    v5 = *MEMORY[0x29EDCA608];
-  }
-
-  else
-  {
-    v4 = *MEMORY[0x29EDCA608];
+    v3 = *(*(a1 + 32) + 40);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    {
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_error_impl(&dword_296D7D000, v3, OS_LOG_TYPE_ERROR, "%@", &v4, 0xCu);
+    }
   }
 }
 
-uint64_t ___ZN3ice6detail12wrapCallbackIZN5utils7sendMsgIN6AriSdk45ARI_IBICpsConfigureCellularPowerReportRsp_SDKEEEvNSt3__110shared_ptrINS_6ClientEEERNS4_7MsgBaseENS6_12basic_stringIcNS6_11char_traitsIcEENS6_9allocatorIcEEEEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEEEUlPKhjE_vEENSI_5blockIU13block_pointerFiPhjEEENS6_17integral_constantIiLi2EEEOT__block_invoke(uint64_t result, const unsigned __int8 *a2)
+uint64_t ___ZN3ice6detail12wrapCallbackIZN5utils7sendMsgIN6AriSdk45ARI_IBICpsConfigureCellularPowerReportRsp_SDKEEEvNSt3__110shared_ptrINS_6ClientEEERNS4_7MsgBaseENS6_12basic_stringIcNS6_11char_traitsIcEENS6_9allocatorIcEEEEN8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEEEUlPKhjE_vEENSI_5blockIU13block_pointerFiPhjEEENS6_17integral_constantIiLi2EEEOT__block_invoke(uint64_t result, const unsigned __int8 *a2, unsigned int a3)
 {
-  v2 = *(result + 32);
-  if (v2)
+  v3 = *(result + 32);
+  if (v3)
   {
-    *&v3 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v9[3] = v3;
-    v9[4] = v3;
-    v9[1] = v3;
-    v9[2] = v3;
-    v9[0] = v3;
-    AriSdk::ARI_IBICpsConfigureCellularPowerReportRsp_SDK::ARI_IBICpsConfigureCellularPowerReportRsp_SDK(v9, a2);
-    if (!*(v2 + 24) || !*(v2 + 32))
+    *&v4 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v10[3] = v4;
+    v10[4] = v4;
+    v10[1] = v4;
+    v10[2] = v4;
+    v10[0] = v4;
+    AriSdk::ARI_IBICpsConfigureCellularPowerReportRsp_SDK::ARI_IBICpsConfigureCellularPowerReportRsp_SDK(v10, a2);
+    if (!*(v3 + 24) || !*(v3 + 32))
     {
-      return MEMORY[0x29C265870](v9);
+      return MEMORY[0x29C265870](v10);
     }
 
     cf = 0xAAAAAAAAAAAAAAAALL;
-    checkError(v9, v2, &cf);
-    v4 = cf;
+    checkError(&cf, v10, v3);
+    v5 = cf;
     if (cf)
     {
       CFRetain(cf);
     }
 
-    v5 = *(v2 + 24);
-    if (v5)
+    v6 = *(v3 + 24);
+    if (v6)
     {
-      v6 = _Block_copy(v5);
+      v7 = _Block_copy(v6);
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
 
-    v7 = *(v2 + 32);
+    v8 = *(v3 + 32);
     block[0] = MEMORY[0x29EDCA5F8];
     block[1] = 1174405120;
     block[2] = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEEEEclIJS5_EEEvDpT__block_invoke_0;
     block[3] = &__block_descriptor_tmp_37_0;
-    if (v6)
+    if (v7)
     {
-      v11 = _Block_copy(v6);
-      v12 = v4;
-      if (!v4)
+      v12 = _Block_copy(v7);
+      v13 = v5;
+      if (!v5)
       {
         goto LABEL_14;
       }
@@ -5595,30 +5483,30 @@ uint64_t ___ZN3ice6detail12wrapCallbackIZN5utils7sendMsgIN6AriSdk45ARI_IBICpsCon
 
     else
     {
-      v11 = 0;
-      v12 = v4;
-      if (!v4)
+      v12 = 0;
+      v13 = v5;
+      if (!v5)
       {
 LABEL_14:
-        dispatch_async(v7, block);
+        dispatch_async(v8, block);
+        if (v13)
+        {
+          CFRelease(v13);
+        }
+
         if (v12)
         {
-          CFRelease(v12);
+          _Block_release(v12);
         }
 
-        if (v11)
+        if (v7)
         {
-          _Block_release(v11);
+          _Block_release(v7);
         }
 
-        if (v6)
+        if (v5)
         {
-          _Block_release(v6);
-        }
-
-        if (v4)
-        {
-          CFRelease(v4);
+          CFRelease(v5);
         }
 
         if (cf)
@@ -5626,11 +5514,11 @@ LABEL_14:
           CFRelease(cf);
         }
 
-        return MEMORY[0x29C265870](v9);
+        return MEMORY[0x29C265870](v10);
       }
     }
 
-    CFRetain(v4);
+    CFRetain(v5);
     goto LABEL_14;
   }
 
@@ -5713,7 +5601,7 @@ uint64_t utils::sendMsg<AriSdk::ARI_IBICpsConfigureCellularPowerReportRsp_SDK>(s
   return a1;
 }
 
-void radio::ARIRFSCommandDriver::create(uint64_t *a1@<X0>, atomic_ullong *a2@<X8>)
+void radio::ARIRFSCommandDriver::create(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
   *a2 = 0xAAAAAAAAAAAAAAAALL;
   a2[1] = 0xAAAAAAAAAAAAAAAALL;
@@ -5747,18 +5635,18 @@ void radio::ARIRFSCommandDriver::create(uint64_t *a1@<X0>, atomic_ullong *a2@<X8
   ctu::SharedSynchronizable<radio::RFSCommandDriver>::execute_wrapped((v8 + 8), v11);
 }
 
-void sub_296DAAF38(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296DAAF38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_296DAAF4C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296DAAF4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
-  operator delete(v2);
+  operator delete(v3);
   _Unwind_Resume(a1);
 }
 
@@ -5775,18 +5663,17 @@ void radio::ARIRFSCommandDriver::init(radio::ARIRFSCommandDriver *this)
 uint64_t radio::ARIRFSCommandDriver::ARIRFSCommandDriver(uint64_t a1, uint64_t *a2)
 {
   v3 = a2[1];
-  v7 = *a2;
-  v8 = v3;
+  v7 = v3;
   if (v3)
   {
-    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
   radio::RFSCommandDriver::RFSCommandDriver();
-  if (v8 && !atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v8->__on_zero_shared)(v8);
-    std::__shared_weak_count::__release_weak(v8);
+    (v7->__on_zero_shared)(v7);
+    std::__shared_weak_count::__release_weak(v7);
   }
 
   *a1 = &unk_2A1E0B868;
@@ -5811,9 +5698,9 @@ uint64_t radio::ARIRFSCommandDriver::ARIRFSCommandDriver(uint64_t a1, uint64_t *
   return a1;
 }
 
-void sub_296DAB0D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296DAB0D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5840,32 +5727,31 @@ uint64_t ___ZN5radio19ARIRFSCommandDriver4initEv_block_invoke(uint64_t a1)
   }
 
   v3 = *(v1 + 112);
-  v14[0] = MEMORY[0x29EDCA5F8];
-  v14[1] = 0x40000000;
-  v14[2] = ___ZN5radio19ARIRFSCommandDriver4initEv_block_invoke_2;
-  v14[3] = &__block_descriptor_tmp_4;
-  v14[4] = v1;
-  *buf = v14;
-  ice::Client::setEventHandler<void({block_pointer})(void)>(v3, 0, buf);
-  v4 = *(v1 + 112);
   v13[0] = MEMORY[0x29EDCA5F8];
   v13[1] = 0x40000000;
-  v13[2] = ___ZN5radio19ARIRFSCommandDriver4initEv_block_invoke_3;
+  v13[2] = ___ZN5radio19ARIRFSCommandDriver4initEv_block_invoke_2;
   v13[3] = &__block_descriptor_tmp_4;
   v13[4] = v1;
   *buf = v13;
-  ice::Client::setEventHandler<void({block_pointer})(void)>(v4, 1, buf);
-  v5 = *(v1 + 112);
+  ice::Client::setEventHandler<void({block_pointer})(void)>(v3, 0, buf);
+  v4 = *(v1 + 112);
   v12[0] = MEMORY[0x29EDCA5F8];
   v12[1] = 0x40000000;
-  v12[2] = ___ZN5radio19ARIRFSCommandDriver4initEv_block_invoke_5;
-  v12[3] = &__block_descriptor_tmp_7;
+  v12[2] = ___ZN5radio19ARIRFSCommandDriver4initEv_block_invoke_3;
+  v12[3] = &__block_descriptor_tmp_4;
   v12[4] = v1;
+  *buf = v12;
+  ice::Client::setEventHandler<void({block_pointer})(void)>(v4, 1, buf);
+  v11[0] = MEMORY[0x29EDCA5F8];
+  v11[1] = 0x40000000;
+  v11[2] = ___ZN5radio19ARIRFSCommandDriver4initEv_block_invoke_5;
+  v11[3] = &__block_descriptor_tmp_7;
+  v11[4] = v1;
   *buf = MEMORY[0x29EDCA5F8];
-  v16 = 0x40000000;
-  v17 = ___ZN3ice6detail12wrapCallbackIiEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEU13block_pointerFT_S4_jE_block_invoke;
-  v18 = &unk_29EE5B990;
-  v19 = v12;
+  v15 = 0x40000000;
+  v16 = ___ZN3ice6detail12wrapCallbackIiEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEU13block_pointerFT_S4_jE_block_invoke;
+  v17 = &unk_29EE5B990;
+  v18 = v11;
   *buf = _Block_copy(buf);
   ice::Client::regIndicationInternal();
   if (*buf)
@@ -5874,29 +5760,29 @@ uint64_t ___ZN5radio19ARIRFSCommandDriver4initEv_block_invoke(uint64_t a1)
   }
 
   ice::Client::setIndShouldWake(*(v1 + 112));
-  v6 = *(v1 + 40);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v5 = *(v1 + 40);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_296D7D000, v6, OS_LOG_TYPE_DEFAULT, "#I Enabling CsiFpPrioSyncReqInd as wakeable", buf, 2u);
+    _os_log_impl(&dword_296D7D000, v5, OS_LOG_TYPE_DEFAULT, "#I Enabling CsiFpPrioSyncReqInd as wakeable", buf, 2u);
   }
 
-  v7 = *(v1 + 112);
-  v11[0] = MEMORY[0x29EDCA5F8];
-  v11[1] = 0x40000000;
-  v11[2] = ___ZN5radio19ARIRFSCommandDriver4initEv_block_invoke_8;
-  v11[3] = &__block_descriptor_tmp_10_0;
-  v11[4] = v1;
-  *buf = v11;
-  ice::Client::setEventHandler<void({block_pointer})(dispatch::group_session)>(v7, 2, buf);
-  v8 = *(v1 + 112);
+  v6 = *(v1 + 112);
   v10[0] = MEMORY[0x29EDCA5F8];
   v10[1] = 0x40000000;
-  v10[2] = ___ZN5radio19ARIRFSCommandDriver4initEv_block_invoke_11;
-  v10[3] = &__block_descriptor_tmp_12;
+  v10[2] = ___ZN5radio19ARIRFSCommandDriver4initEv_block_invoke_8;
+  v10[3] = &__block_descriptor_tmp_10_0;
   v10[4] = v1;
   *buf = v10;
-  ice::Client::setEventHandler<void({block_pointer})(void)>(v8, 3, buf);
+  ice::Client::setEventHandler<void({block_pointer})(dispatch::group_session)>(v6, 2, buf);
+  v7 = *(v1 + 112);
+  v9[0] = MEMORY[0x29EDCA5F8];
+  v9[1] = 0x40000000;
+  v9[2] = ___ZN5radio19ARIRFSCommandDriver4initEv_block_invoke_11;
+  v9[3] = &__block_descriptor_tmp_12;
+  v9[4] = v1;
+  *buf = v9;
+  ice::Client::setEventHandler<void({block_pointer})(void)>(v7, 3, buf);
   return ice::Client::start(*(v1 + 112));
 }
 
@@ -5913,65 +5799,63 @@ void sub_296DAB3D0(_Unwind_Exception *exception_object)
 
 void ___ZN5radio19ARIRFSCommandDriver4initEv_block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v1 = *(a1 + 32);
   v2 = *(v1 + 128);
-  if (v2 && *(v1 + 136))
+  if (!v2 || !*(v1 + 136))
   {
-    v3 = *(v1 + 112);
-    v4 = _Block_copy(v2);
-    v5 = *(v1 + 136);
-    if (v5)
+LABEL_8:
+    v5 = *(v1 + 40);
+    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      dispatch_retain(*(v1 + 136));
-    }
-
-    v12[0] = &unk_2A1E0B9E8;
-    v12[1] = v4;
-    v10 = 0;
-    v11 = 0;
-    v12[2] = v5;
-    v13 = v12;
-    ice::Client::getClientId();
-    if (v13 == v12)
-    {
-      (*(*v13 + 32))(v13);
-      v6 = *(v1 + 40);
-      if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-      {
-        goto LABEL_9;
-      }
-
-LABEL_12:
-      *v9 = 0;
-      _os_log_debug_impl(&dword_296D7D000, v6, OS_LOG_TYPE_DEBUG, "#D Started", v9, 2u);
-      v8 = *MEMORY[0x29EDCA608];
       return;
     }
 
-    if (v13)
-    {
-      (*(*v13 + 40))();
-    }
+LABEL_11:
+    *v6 = 0;
+    _os_log_debug_impl(&dword_296D7D000, v5, OS_LOG_TYPE_DEBUG, "#D Started", v6, 2u);
+    return;
   }
 
-  v6 = *(v1 + 40);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v3 = _Block_copy(v2);
+  v4 = *(v1 + 136);
+  if (v4)
   {
-    goto LABEL_12;
+    dispatch_retain(*(v1 + 136));
   }
 
-LABEL_9:
-  v7 = *MEMORY[0x29EDCA608];
+  v9[0] = &unk_2A1E0B9E8;
+  v9[1] = v3;
+  v7 = 0;
+  v8 = 0;
+  v9[2] = v4;
+  v10 = v9;
+  ice::Client::getClientId();
+  if (v10 != v9)
+  {
+    if (v10)
+    {
+      (*(*v10 + 40))();
+    }
+
+    goto LABEL_8;
+  }
+
+  (*(*v10 + 32))(v10);
+  v5 = *(v1 + 40);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    goto LABEL_11;
+  }
 }
 
-void sub_296DAB578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296DAB578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   std::function<void ()(int)>::~function(va1);
   dispatch::callback<void({block_pointer})>::~callback(va);
   _Unwind_Resume(a1);
@@ -5997,89 +5881,89 @@ void ___ZN5radio19ARIRFSCommandDriver4initEv_block_invoke_3(uint64_t a1)
   }
 }
 
-uint64_t ___ZN5radio19ARIRFSCommandDriver4initEv_block_invoke_5(uint64_t a1, const unsigned __int8 *a2)
+uint64_t ___ZN5radio19ARIRFSCommandDriver4initEv_block_invoke_5(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
-  v2 = *(a1 + 32);
-  *&v3 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v11[3] = v3;
-  v12 = v3;
-  v11[1] = v3;
-  v11[2] = v3;
-  v11[0] = v3;
-  AriSdk::ARI_CsiFpPrioSyncReqInd_SDK::ARI_CsiFpPrioSyncReqInd_SDK(v11, a2);
+  v3 = *(a1 + 32);
+  *&v4 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v12[3] = v4;
+  v13 = v4;
+  v12[1] = v4;
+  v12[2] = v4;
+  v12[0] = v4;
+  AriSdk::ARI_CsiFpPrioSyncReqInd_SDK::ARI_CsiFpPrioSyncReqInd_SDK(v12, a2);
   if (ice::isARIResponseValid())
   {
-    if (!v2[18] || !v2[19])
+    if (!v3[18] || !v3[19])
     {
       goto LABEL_19;
     }
 
-    if (AriSdk::ARI_CsiFpPrioSyncReqInd_SDK::unpack(v11) || !*(&v12 + 1))
+    if (AriSdk::ARI_CsiFpPrioSyncReqInd_SDK::unpack(v12) || !*(&v13 + 1))
     {
-      v4 = 0;
-      v5 = v2[18];
-      if (!v5)
+      v5 = 0;
+      v6 = v3[18];
+      if (!v6)
       {
 LABEL_11:
-        v6 = 0;
+        v7 = 0;
         goto LABEL_12;
       }
     }
 
     else
     {
-      v4 = **(&v12 + 1) != 0;
-      v5 = v2[18];
-      if (!v5)
+      v5 = **(&v13 + 1) != 0;
+      v6 = v3[18];
+      if (!v6)
       {
         goto LABEL_11;
       }
     }
 
-    v6 = _Block_copy(v5);
+    v7 = _Block_copy(v6);
 LABEL_12:
-    v8 = v2[19];
+    v9 = v3[19];
     *buf = MEMORY[0x29EDCA5F8];
-    v14 = 1174405120;
-    v15 = ___ZNK8dispatch8callbackIU13block_pointerFvbyyEEclIJbiiEEEvDpT__block_invoke;
-    v16 = &__block_descriptor_tmp_48_0;
-    if (v6)
+    v15 = 1174405120;
+    v16 = ___ZNK8dispatch8callbackIU13block_pointerFvbyyEEclIJbiiEEEvDpT__block_invoke;
+    v17 = &__block_descriptor_tmp_48_0;
+    if (v7)
     {
-      v9 = _Block_copy(v6);
+      v10 = _Block_copy(v7);
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
 
-    aBlock = v9;
-    v18 = 0;
-    v19 = v4;
-    dispatch_async(v8, buf);
+    aBlock = v10;
+    v19 = 0;
+    v20 = v5;
+    dispatch_async(v9, buf);
     if (aBlock)
     {
       _Block_release(aBlock);
     }
 
-    if (v6)
+    if (v7)
     {
-      _Block_release(v6);
+      _Block_release(v7);
     }
 
     goto LABEL_19;
   }
 
-  v7 = v2[5];
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = v3[5];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_error_impl(&dword_296D7D000, v7, OS_LOG_TYPE_ERROR, "Got invalid ARI indication, was expecting CsiFpPrioSyncReqInd", buf, 2u);
+    _os_log_error_impl(&dword_296D7D000, v8, OS_LOG_TYPE_ERROR, "Got invalid ARI indication, was expecting CsiFpPrioSyncReqInd", buf, 2u);
   }
 
 LABEL_19:
-  MEMORY[0x29C2644B0](v11);
+  MEMORY[0x29C2644B0](v12);
   return 0;
 }
 
@@ -6224,7 +6108,7 @@ LABEL_10:
 
 void radio::ARIRFSCommandDriver::sync(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   v4 = *(a1 + 40);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
@@ -6234,7 +6118,7 @@ void radio::ARIRFSCommandDriver::sync(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   cf = 0xAAAAAAAAAAAAAAAALL;
-  v9 = 13;
+  v8 = 13;
   strcpy(__p, "Not supported");
   CreateError();
   CFRetain(0xAAAAAAAAAAAAAAAALL);
@@ -6251,31 +6135,31 @@ void radio::ARIRFSCommandDriver::sync(uint64_t a1, uint64_t a2, uint64_t a3)
   v6 = *(a3 + 8);
   *&block = MEMORY[0x29EDCA5F8];
   *(&block + 1) = 1174405120;
-  v12 = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEENS3_IK14__CFDictionaryEEEEclIJS5_S8_EEEvDpT__block_invoke;
-  v13 = &__block_descriptor_tmp_55;
+  v11 = ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFErrorEENS3_IK14__CFDictionaryEEEEclIJS5_S8_EEEvDpT__block_invoke;
+  v12 = &__block_descriptor_tmp_55;
   if (v5)
   {
     aBlock = _Block_copy(v5);
-    v15 = 0xAAAAAAAAAAAAAAAALL;
+    v14 = 0xAAAAAAAAAAAAAAAALL;
   }
 
   else
   {
     aBlock = 0;
-    v15 = 0xAAAAAAAAAAAAAAAALL;
+    v14 = 0xAAAAAAAAAAAAAAAALL;
   }
 
   CFRetain(0xAAAAAAAAAAAAAAAALL);
-  v16 = 0;
+  v15 = 0;
   dispatch_async(v6, &block);
-  if (v16)
-  {
-    CFRelease(v16);
-  }
-
   if (v15)
   {
     CFRelease(v15);
+  }
+
+  if (v14)
+  {
+    CFRelease(v14);
   }
 
   if (aBlock)
@@ -6290,7 +6174,6 @@ void radio::ARIRFSCommandDriver::sync(uint64_t a1, uint64_t a2, uint64_t a3)
 
   CFRelease(0xAAAAAAAAAAAAAAAALL);
   CFRelease(cf);
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DABC8C(_Unwind_Exception *exception_object, int a2)
@@ -6443,41 +6326,42 @@ LABEL_29:
   std::__shared_weak_count::__release_weak(v7);
 }
 
-void sub_296DAC058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_296DAC058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  v18 = *(v16 - 104);
-  if (v18)
+  va_start(va, a14);
+  v17 = *(v15 - 104);
+  if (v17)
   {
-    _Block_release(v18);
+    _Block_release(v17);
   }
 
-  MEMORY[0x29C263BF0](&a9);
-  MEMORY[0x29C263DD0](&a15);
-  std::__shared_weak_count::__release_weak(v15);
+  MEMORY[0x29C263BF0](&a9, a2, a3, a4, a5, a6, a7, a8);
+  MEMORY[0x29C263DD0](va);
+  std::__shared_weak_count::__release_weak(v14);
   _Unwind_Resume(a1);
 }
 
-void sub_296DAC08C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_296DAC08C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
   v18 = va_arg(va1, void);
   v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va1);
-  if (v8)
+  if (v14)
   {
-    _Block_release(v8);
+    _Block_release(v14);
   }
 
   MEMORY[0x29C263DD0](va);
-  std::__shared_weak_count::__release_weak(v7);
+  std::__shared_weak_count::__release_weak(v13);
   _Unwind_Resume(a1);
 }
 
@@ -6588,41 +6472,42 @@ LABEL_21:
   std::__shared_weak_count::__release_weak(v5);
 }
 
-void sub_296DAC428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_296DAC428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  v18 = *(v16 - 104);
-  if (v18)
+  va_start(va, a14);
+  v17 = *(v15 - 104);
+  if (v17)
   {
-    _Block_release(v18);
+    _Block_release(v17);
   }
 
-  MEMORY[0x29C263BF0](&a9);
-  MEMORY[0x29C2640B0](&a15);
-  std::__shared_weak_count::__release_weak(v15);
+  MEMORY[0x29C263BF0](&a9, a2, a3, a4, a5, a6, a7, a8);
+  MEMORY[0x29C2640B0](va);
+  std::__shared_weak_count::__release_weak(v14);
   _Unwind_Resume(a1);
 }
 
-void sub_296DAC45C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_296DAC45C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
   v18 = va_arg(va1, void);
   v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va1);
-  if (v8)
+  if (v14)
   {
-    _Block_release(v8);
+    _Block_release(v14);
   }
 
   MEMORY[0x29C2640B0](va);
-  std::__shared_weak_count::__release_weak(v7);
+  std::__shared_weak_count::__release_weak(v13);
   _Unwind_Resume(a1);
 }
 
@@ -6871,41 +6756,42 @@ LABEL_21:
   std::__shared_weak_count::__release_weak(v5);
 }
 
-void sub_296DACAD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_296DACAD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  v18 = *(v16 - 104);
-  if (v18)
+  va_start(va, a14);
+  v17 = *(v15 - 104);
+  if (v17)
   {
-    _Block_release(v18);
+    _Block_release(v17);
   }
 
-  MEMORY[0x29C263BF0](&a9);
-  MEMORY[0x29C263ED0](&a15);
-  std::__shared_weak_count::__release_weak(v15);
+  MEMORY[0x29C263BF0](&a9, a2, a3, a4, a5, a6, a7, a8);
+  MEMORY[0x29C263ED0](va);
+  std::__shared_weak_count::__release_weak(v14);
   _Unwind_Resume(a1);
 }
 
-void sub_296DACB08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_296DACB08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
   v18 = va_arg(va1, void);
   v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va1);
-  if (v8)
+  if (v14)
   {
-    _Block_release(v8);
+    _Block_release(v14);
   }
 
   MEMORY[0x29C263ED0](va);
-  std::__shared_weak_count::__release_weak(v7);
+  std::__shared_weak_count::__release_weak(v13);
   _Unwind_Resume(a1);
 }
 
@@ -7846,249 +7732,242 @@ void __destroy_helper_block_e8_32c100_ZTSN8dispatch5blockIU13block_pointerFvN3ct
   }
 }
 
-void ___ZN3ice6detail12wrapCallbackIZN5radio19ARIRFSCommandDriver16registerRFS_syncEbE3__0vEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZN5radio19ARIRFSCommandDriver16registerRFS_syncEbE3__0vEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v35 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (!v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    goto LABEL_45;
-  }
-
-  v3 = *(v2 + 8);
-  if (!v3)
-  {
-    goto LABEL_45;
-  }
-
-  v4 = *(v2 + 16);
-  v6 = std::__shared_weak_count::lock(v3);
-  v33 = v6;
-  if (!v6)
-  {
-    goto LABEL_45;
-  }
-
-  v7 = v6;
-  if (*v2)
-  {
-    v31 = 0xAAAAAAAAAAAAAAAALL;
-    *&v8 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v30[2] = v8;
-    v30[3] = v8;
-    v30[0] = v8;
-    v30[1] = v8;
-    AriSdk::ARI_CsiFpRegisterRsp_SDK::ARI_CsiFpRegisterRsp_SDK(v30, a2);
-    cf = 0xAAAAAAAAAAAAAAAALL;
-    *__p = operator new(0x20uLL);
-    *&__p[8] = xmmword_296E20BE0;
-    strcpy(*__p, "registering rfs-get-status");
-    checkError(v30, __p, &cf);
-    if ((__p[23] & 0x80000000) != 0)
+    v4 = *(v3 + 8);
+    if (v4)
     {
-      operator delete(*__p);
-      v9 = cf;
-      if (cf)
+      v5 = *(v3 + 16);
+      v7 = std::__shared_weak_count::lock(v4);
+      v33 = v7;
+      if (v7)
       {
-        goto LABEL_38;
-      }
-    }
-
-    else
-    {
-      v9 = cf;
-      if (cf)
-      {
-        goto LABEL_38;
-      }
-    }
-
-    if (AriSdk::ARI_CsiFpRegisterRsp_SDK::unpack(v30))
-    {
-      *__p = operator new(0x40uLL);
-      *&__p[8] = xmmword_296E20BF0;
-      strcpy(*__p, "Failed to unpack response in registering for RFS Get Status");
-      CreateError();
-      v10 = cf;
-      cf = v34.__r_.__value_.__r.__words[0];
-      v34.__r_.__value_.__r.__words[0] = 0;
-      if (v10)
-      {
-        CFRelease(v10);
-        if (v34.__r_.__value_.__r.__words[0])
+        v8 = v7;
+        if (!*v3)
         {
-          CFRelease(v34.__r_.__value_.__l.__data_);
-        }
-      }
-
-      if ((__p[23] & 0x80000000) == 0)
-      {
-LABEL_37:
-        v9 = cf;
-        if (!cf)
-        {
-          if (*(v2 + 24) == 1)
+LABEL_43:
+          if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            radio::ARIRFSCommandDriver::getRFSStatus_sync(v4);
+            (v8->__on_zero_shared)(v8);
+            std::__shared_weak_count::__release_weak(v8);
           }
 
-          goto LABEL_40;
+          return;
         }
+
+        v31 = 0xAAAAAAAAAAAAAAAALL;
+        *&v9 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v30[2] = v9;
+        v30[3] = v9;
+        v30[0] = v9;
+        v30[1] = v9;
+        AriSdk::ARI_CsiFpRegisterRsp_SDK::ARI_CsiFpRegisterRsp_SDK(v30, a2);
+        cf = 0xAAAAAAAAAAAAAAAALL;
+        *__p = operator new(0x20uLL);
+        *&__p[8] = xmmword_296E20BE0;
+        strcpy(*__p, "registering rfs-get-status");
+        checkError(&cf, v30, __p);
+        if ((__p[23] & 0x80000000) != 0)
+        {
+          operator delete(*__p);
+          v10 = cf;
+          if (cf)
+          {
+            goto LABEL_38;
+          }
+        }
+
+        else
+        {
+          v10 = cf;
+          if (cf)
+          {
+            goto LABEL_38;
+          }
+        }
+
+        if (AriSdk::ARI_CsiFpRegisterRsp_SDK::unpack(v30))
+        {
+          *__p = operator new(0x40uLL);
+          *&__p[8] = xmmword_296E20BF0;
+          strcpy(*__p, "Failed to unpack response in registering for RFS Get Status");
+          CreateError();
+          v11 = cf;
+          cf = v34.__r_.__value_.__r.__words[0];
+          v34.__r_.__value_.__r.__words[0] = 0;
+          if (v11)
+          {
+            CFRelease(v11);
+            if (v34.__r_.__value_.__r.__words[0])
+            {
+              CFRelease(v34.__r_.__value_.__l.__data_);
+            }
+          }
+
+          if ((__p[23] & 0x80000000) == 0)
+          {
+LABEL_37:
+            v10 = cf;
+            if (!cf)
+            {
+              if (*(v3 + 24) == 1)
+              {
+                radio::ARIRFSCommandDriver::getRFSStatus_sync(v5);
+              }
+
+              goto LABEL_40;
+            }
 
 LABEL_38:
-        v22 = *(v4 + 5);
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
-        {
-          LODWORD(v34.__r_.__value_.__l.__data_) = 138412290;
-          *(v34.__r_.__value_.__r.__words + 4) = v9;
-          _os_log_error_impl(&dword_296D7D000, v22, OS_LOG_TYPE_ERROR, "%@", &v34, 0xCu);
-        }
+            v23 = *(v5 + 5);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+            {
+              LODWORD(v34.__r_.__value_.__l.__data_) = 138412290;
+              *(v34.__r_.__value_.__r.__words + 4) = v10;
+              _os_log_error_impl(&dword_296D7D000, v23, OS_LOG_TYPE_ERROR, "%@", &v34, 0xCu);
+            }
 
 LABEL_40:
-        if (cf)
-        {
-          CFRelease(cf);
+            if (cf)
+            {
+              CFRelease(cf);
+            }
+
+            MEMORY[0x29C2640E0](v30);
+            goto LABEL_43;
+          }
+
+          v12 = *__p;
+LABEL_36:
+          operator delete(v12);
+          goto LABEL_37;
         }
 
-        MEMORY[0x29C2640E0](v30);
-        goto LABEL_43;
-      }
+        v13 = *v31;
+        if (!*v31)
+        {
+          goto LABEL_37;
+        }
 
-      v11 = *__p;
-LABEL_36:
-      operator delete(v11);
-      goto LABEL_37;
-    }
+        radio::ARIRFSCommandDriver::asString(*v31, &v25);
+        v14 = std::string::insert(&v25, 0, "Error on enabling RFS Get Status result: ", 0x29uLL);
+        v15 = *&v14->__r_.__value_.__l.__data_;
+        v26.__r_.__value_.__r.__words[2] = v14->__r_.__value_.__r.__words[2];
+        *&v26.__r_.__value_.__l.__data_ = v15;
+        v14->__r_.__value_.__l.__size_ = 0;
+        v14->__r_.__value_.__r.__words[2] = 0;
+        v14->__r_.__value_.__r.__words[0] = 0;
+        v16 = std::string::append(&v26, ", value: ", 9uLL);
+        v17 = *&v16->__r_.__value_.__l.__data_;
+        v34.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
+        *&v34.__r_.__value_.__l.__data_ = v17;
+        v16->__r_.__value_.__l.__size_ = 0;
+        v16->__r_.__value_.__r.__words[2] = 0;
+        v16->__r_.__value_.__r.__words[0] = 0;
+        std::to_string(&v24, v13);
+        if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v18 = &v24;
+        }
 
-    v12 = *v31;
-    if (!*v31)
-    {
-      goto LABEL_37;
-    }
+        else
+        {
+          v18 = v24.__r_.__value_.__r.__words[0];
+        }
 
-    radio::ARIRFSCommandDriver::asString(*v31, &v25);
-    v13 = std::string::insert(&v25, 0, "Error on enabling RFS Get Status result: ", 0x29uLL);
-    v14 = *&v13->__r_.__value_.__l.__data_;
-    v26.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
-    *&v26.__r_.__value_.__l.__data_ = v14;
-    v13->__r_.__value_.__l.__size_ = 0;
-    v13->__r_.__value_.__r.__words[2] = 0;
-    v13->__r_.__value_.__r.__words[0] = 0;
-    v15 = std::string::append(&v26, ", value: ", 9uLL);
-    v16 = *&v15->__r_.__value_.__l.__data_;
-    v34.__r_.__value_.__r.__words[2] = v15->__r_.__value_.__r.__words[2];
-    *&v34.__r_.__value_.__l.__data_ = v16;
-    v15->__r_.__value_.__l.__size_ = 0;
-    v15->__r_.__value_.__r.__words[2] = 0;
-    v15->__r_.__value_.__r.__words[0] = 0;
-    std::to_string(&v24, v12);
-    if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v17 = &v24;
-    }
+        if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          size = HIBYTE(v24.__r_.__value_.__r.__words[2]);
+        }
 
-    else
-    {
-      v17 = v24.__r_.__value_.__r.__words[0];
-    }
+        else
+        {
+          size = v24.__r_.__value_.__l.__size_;
+        }
 
-    if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      size = HIBYTE(v24.__r_.__value_.__r.__words[2]);
-    }
+        v20 = std::string::append(&v34, v18, size);
+        v21 = *&v20->__r_.__value_.__l.__data_;
+        *&__p[16] = *(&v20->__r_.__value_.__l + 2);
+        *__p = v21;
+        v20->__r_.__value_.__l.__size_ = 0;
+        v20->__r_.__value_.__r.__words[2] = 0;
+        v20->__r_.__value_.__r.__words[0] = 0;
+        CreateError();
+        v22 = cf;
+        cf = v27;
+        v27 = 0;
+        if (v22)
+        {
+          CFRelease(v22);
+          if (v27)
+          {
+            CFRelease(v27);
+          }
+        }
 
-    else
-    {
-      size = v24.__r_.__value_.__l.__size_;
-    }
-
-    v19 = std::string::append(&v34, v17, size);
-    v20 = *&v19->__r_.__value_.__l.__data_;
-    *&__p[16] = *(&v19->__r_.__value_.__l + 2);
-    *__p = v20;
-    v19->__r_.__value_.__l.__size_ = 0;
-    v19->__r_.__value_.__r.__words[2] = 0;
-    v19->__r_.__value_.__r.__words[0] = 0;
-    CreateError();
-    v21 = cf;
-    cf = v27;
-    v27 = 0;
-    if (v21)
-    {
-      CFRelease(v21);
-      if (v27)
-      {
-        CFRelease(v27);
-      }
-    }
-
-    if ((__p[23] & 0x80000000) != 0)
-    {
-      operator delete(*__p);
-      if ((SHIBYTE(v24.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
+        if ((__p[23] & 0x80000000) != 0)
+        {
+          operator delete(*__p);
+          if ((SHIBYTE(v24.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+          {
 LABEL_27:
+            if ((SHIBYTE(v34.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            {
+              goto LABEL_28;
+            }
+
+            goto LABEL_33;
+          }
+        }
+
+        else if ((SHIBYTE(v24.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        {
+          goto LABEL_27;
+        }
+
+        operator delete(v24.__r_.__value_.__l.__data_);
         if ((SHIBYTE(v34.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
-          goto LABEL_28;
+LABEL_28:
+          if ((SHIBYTE(v26.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+          {
+            goto LABEL_29;
+          }
+
+          goto LABEL_34;
         }
 
-        goto LABEL_33;
-      }
-    }
-
-    else if ((SHIBYTE(v24.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-      goto LABEL_27;
-    }
-
-    operator delete(v24.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v34.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-LABEL_28:
-      if ((SHIBYTE(v26.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-        goto LABEL_29;
-      }
-
-      goto LABEL_34;
-    }
-
 LABEL_33:
-    operator delete(v34.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v26.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
+        operator delete(v34.__r_.__value_.__l.__data_);
+        if ((SHIBYTE(v26.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        {
 LABEL_29:
-      if ((SHIBYTE(v25.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-        goto LABEL_37;
-      }
+          if ((SHIBYTE(v25.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+          {
+            goto LABEL_37;
+          }
 
 LABEL_35:
-      v11 = v25.__r_.__value_.__r.__words[0];
-      goto LABEL_36;
-    }
+          v12 = v25.__r_.__value_.__r.__words[0];
+          goto LABEL_36;
+        }
 
 LABEL_34:
-    operator delete(v26.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v25.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-      goto LABEL_37;
+        operator delete(v26.__r_.__value_.__l.__data_);
+        if ((SHIBYTE(v25.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        {
+          goto LABEL_37;
+        }
+
+        goto LABEL_35;
+      }
     }
-
-    goto LABEL_35;
   }
-
-LABEL_43:
-  if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v7->__on_zero_shared)(v7);
-    std::__shared_weak_count::__release_weak(v7);
-  }
-
-LABEL_45:
-  v23 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DAE2E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, void *__p, uint64_t a29, int a30, __int16 a31, char a32, char a33, char a34, int a35, __int16 a36, char a37, char a38)
@@ -8142,51 +8021,59 @@ void std::__shared_ptr_emplace<radio::ARIRFSCommandDriver::registerRFS_sync(BOOL
   }
 }
 
-void ___ZN3ice6detail12wrapCallbackIZN5radio19ARIRFSCommandDriver17getRFSStatus_syncEvE3__0vEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZN5radio19ARIRFSCommandDriver17getRFSStatus_syncEvE3__0vEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v49 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (!v2)
-  {
-    goto LABEL_44;
-  }
-
-  v3 = v2[1];
+  v3 = *(a1 + 32);
   if (!v3)
   {
-    goto LABEL_44;
+    return;
   }
 
-  v4 = v2[2];
-  v6 = std::__shared_weak_count::lock(v3);
-  v44 = v6;
-  if (!v6)
+  v4 = v3[1];
+  if (!v4)
   {
-    goto LABEL_44;
+    return;
   }
 
-  if (!*v2)
+  v5 = v3[2];
+  v7 = std::__shared_weak_count::lock(v4);
+  v44 = v7;
+  if (!v7)
   {
-    goto LABEL_42;
+    return;
   }
 
-  *&v7 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v41[3] = v7;
-  v42 = v7;
-  v41[1] = v7;
-  v41[2] = v7;
-  v41[0] = v7;
+  if (!*v3)
+  {
+LABEL_42:
+    if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      v30 = v7;
+      (v7->__on_zero_shared)();
+      std::__shared_weak_count::__release_weak(v30);
+    }
+
+    return;
+  }
+
+  *&v8 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v41[3] = v8;
+  v42 = v8;
+  v41[1] = v8;
+  v41[2] = v8;
+  v41[0] = v8;
   AriSdk::ARI_CsiFpGetStatusRsp_SDK::ARI_CsiFpGetStatusRsp_SDK(v41, a2);
   cf = 0xAAAAAAAAAAAAAAAALL;
   *v45 = operator new(0x20uLL);
   *&v45[8] = xmmword_296E20BE0;
   strcpy(*v45, "registering rfs-get-status");
-  checkError(v41, v45, &cf);
+  checkError(&cf, v41, v45);
   if ((v45[23] & 0x80000000) != 0)
   {
     operator delete(*v45);
-    v8 = cf;
+    v9 = cf;
     if (!cf)
     {
       goto LABEL_9;
@@ -8195,7 +8082,7 @@ void ___ZN3ice6detail12wrapCallbackIZN5radio19ARIRFSCommandDriver17getRFSStatus_
 
   else
   {
-    v8 = cf;
+    v9 = cf;
     if (!cf)
     {
 LABEL_9:
@@ -8205,18 +8092,18 @@ LABEL_9:
         *&v45[8] = xmmword_296E20BF0;
         strcpy(*v45, "Failed to unpack response in registering for RFS Get Status");
         CreateError();
-        v9 = cf;
+        v10 = cf;
         cf = v37[0];
         v37[0] = 0;
-        if (v9)
+        if (v10)
         {
-          CFRelease(v9);
+          CFRelease(v10);
         }
 
         if ((v45[23] & 0x80000000) != 0)
         {
           operator delete(*v45);
-          v8 = cf;
+          v9 = cf;
           if (!cf)
           {
             goto LABEL_39;
@@ -8228,13 +8115,13 @@ LABEL_9:
         goto LABEL_36;
       }
 
-      v10 = *v42;
-      v12 = **(&v42 + 1);
-      v11 = *(*(&v42 + 1) + 4);
-      v14 = *(*(&v42 + 1) + 8);
-      v13 = *(*(&v42 + 1) + 12);
-      v16 = *(*(&v42 + 1) + 16);
-      v15 = *(*(&v42 + 1) + 20);
+      v11 = *v42;
+      v13 = **(&v42 + 1);
+      v12 = *(*(&v42 + 1) + 4);
+      v15 = *(*(&v42 + 1) + 8);
+      v14 = *(*(&v42 + 1) + 12);
+      v17 = *(*(&v42 + 1) + 16);
+      v16 = *(*(&v42 + 1) + 20);
       v32 = *(*(&v42 + 1) + 24);
       v33 = *(*(&v42 + 1) + 40);
       v34 = *(*(&v42 + 1) + 56);
@@ -8243,30 +8130,30 @@ LABEL_9:
         goto LABEL_30;
       }
 
-      radio::ARIRFSCommandDriver::asString(v10, &v36);
-      v17 = std::string::insert(&v36, 0, "Error on getting RFS Status result: ", 0x24uLL);
-      v18 = *&v17->__r_.__value_.__l.__data_;
-      v48.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
-      *&v48.__r_.__value_.__l.__data_ = v18;
-      v17->__r_.__value_.__l.__size_ = 0;
-      v17->__r_.__value_.__r.__words[2] = 0;
-      v17->__r_.__value_.__r.__words[0] = 0;
-      v19 = std::string::append(&v48, ", value: ", 9uLL);
-      v20 = *&v19->__r_.__value_.__l.__data_;
-      *&v45[16] = *(&v19->__r_.__value_.__l + 2);
-      *v45 = v20;
-      v19->__r_.__value_.__l.__size_ = 0;
-      v19->__r_.__value_.__r.__words[2] = 0;
-      v19->__r_.__value_.__r.__words[0] = 0;
-      std::to_string(&v35, v10);
+      radio::ARIRFSCommandDriver::asString(v11, &v36);
+      v18 = std::string::insert(&v36, 0, "Error on getting RFS Status result: ", 0x24uLL);
+      v19 = *&v18->__r_.__value_.__l.__data_;
+      v48.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
+      *&v48.__r_.__value_.__l.__data_ = v19;
+      v18->__r_.__value_.__l.__size_ = 0;
+      v18->__r_.__value_.__r.__words[2] = 0;
+      v18->__r_.__value_.__r.__words[0] = 0;
+      v20 = std::string::append(&v48, ", value: ", 9uLL);
+      v21 = *&v20->__r_.__value_.__l.__data_;
+      *&v45[16] = *(&v20->__r_.__value_.__l + 2);
+      *v45 = v21;
+      v20->__r_.__value_.__l.__size_ = 0;
+      v20->__r_.__value_.__r.__words[2] = 0;
+      v20->__r_.__value_.__r.__words[0] = 0;
+      std::to_string(&v35, v11);
       if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v21 = &v35;
+        v22 = &v35;
       }
 
       else
       {
-        v21 = v35.__r_.__value_.__r.__words[0];
+        v22 = v35.__r_.__value_.__r.__words[0];
       }
 
       if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -8279,21 +8166,21 @@ LABEL_9:
         size = v35.__r_.__value_.__l.__size_;
       }
 
-      v23 = std::string::append(v45, v21, size);
-      v24 = *&v23->__r_.__value_.__l.__data_;
-      v38 = v23->__r_.__value_.__r.__words[2];
-      *v37 = v24;
-      v23->__r_.__value_.__l.__size_ = 0;
-      v23->__r_.__value_.__r.__words[2] = 0;
-      v23->__r_.__value_.__r.__words[0] = 0;
+      v24 = std::string::append(v45, v22, size);
+      v25 = *&v24->__r_.__value_.__l.__data_;
+      v38 = v24->__r_.__value_.__r.__words[2];
+      *v37 = v25;
+      v24->__r_.__value_.__l.__size_ = 0;
+      v24->__r_.__value_.__r.__words[2] = 0;
+      v24->__r_.__value_.__r.__words[0] = 0;
       CreateError();
-      v26 = v39;
-      v25 = cf;
+      v27 = v39;
+      v26 = cf;
       v39 = 0;
-      cf = v26;
-      if (v25)
+      cf = v27;
+      if (v26)
       {
-        CFRelease(v25);
+        CFRelease(v26);
         if (v39)
         {
           CFRelease(v39);
@@ -8337,8 +8224,8 @@ LABEL_48:
         }
 
 LABEL_30:
-        v27 = *(v4 + 5);
-        if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+        v28 = *(v5 + 40);
+        if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_31;
         }
@@ -8358,11 +8245,11 @@ LABEL_29:
 
 LABEL_49:
         operator delete(v36.__r_.__value_.__l.__data_);
-        v27 = *(v4 + 5);
-        if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+        v28 = *(v5 + 40);
+        if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
 LABEL_31:
-          if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+          if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
           {
             goto LABEL_32;
           }
@@ -8371,7 +8258,7 @@ LABEL_31:
         }
 
 LABEL_50:
-        radio::ARIRFSCommandDriver::asString(v10, v45);
+        radio::ARIRFSCommandDriver::asString(v11, v45);
         v31 = v45;
         if (v45[23] < 0)
         {
@@ -8380,17 +8267,17 @@ LABEL_50:
 
         LODWORD(v48.__r_.__value_.__l.__data_) = 136315138;
         *(v48.__r_.__value_.__r.__words + 4) = v31;
-        _os_log_debug_impl(&dword_296D7D000, v27, OS_LOG_TYPE_DEBUG, "#D RFS Status: %s\n", &v48, 0xCu);
+        _os_log_debug_impl(&dword_296D7D000, v28, OS_LOG_TYPE_DEBUG, "#D RFS Status: %s\n", &v48, 0xCu);
         if ((v45[23] & 0x80000000) != 0)
         {
           operator delete(*v45);
         }
 
-        v27 = *(v4 + 5);
-        if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+        v28 = *(v5 + 40);
+        if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
 LABEL_32:
-          if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+          if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
           {
             goto LABEL_33;
           }
@@ -8401,19 +8288,19 @@ LABEL_32:
 LABEL_55:
         *v45 = 67110144;
         *&v45[8] = 1024;
-        *&v45[10] = v12;
+        *&v45[10] = v13;
         *&v45[14] = 1024;
-        *&v45[16] = v11;
+        *&v45[16] = v12;
         *&v45[20] = 1024;
-        *&v45[22] = v14;
+        *&v45[22] = v15;
         v46 = 1024;
-        v47 = v13;
-        _os_log_debug_impl(&dword_296D7D000, v27, OS_LOG_TYPE_DEBUG, "#D \tTable[%d]\tError Code: %d, Data Type: %d, Offset: %d Group ID: %d\n", v45, 0x20u);
-        v27 = *(v4 + 5);
-        if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+        v47 = v14;
+        _os_log_debug_impl(&dword_296D7D000, v28, OS_LOG_TYPE_DEBUG, "#D \tTable[%d]\tError Code: %d, Data Type: %d, Offset: %d Group ID: %d\n", v45, 0x20u);
+        v28 = *(v5 + 40);
+        if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
 LABEL_33:
-          if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+          if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
           {
             goto LABEL_34;
           }
@@ -8422,21 +8309,22 @@ LABEL_33:
         }
 
 LABEL_56:
-        *v45 = 0x104000500;
+        *v45 = 67110144;
+        *&v45[4] = 1;
         *&v45[8] = 1024;
-        *&v45[10] = v16;
+        *&v45[10] = v17;
         *&v45[14] = 1024;
-        *&v45[16] = v15;
+        *&v45[16] = v16;
         *&v45[20] = 1024;
         *&v45[22] = v32;
         v46 = 1024;
         v47 = DWORD1(v32);
-        _os_log_debug_impl(&dword_296D7D000, v27, OS_LOG_TYPE_DEBUG, "#D \tTable[%d]\tError Code: %d, Data Type: %d, Offset: %d Group ID: %d\n", v45, 0x20u);
-        v27 = *(v4 + 5);
-        if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+        _os_log_debug_impl(&dword_296D7D000, v28, OS_LOG_TYPE_DEBUG, "#D \tTable[%d]\tError Code: %d, Data Type: %d, Offset: %d Group ID: %d\n", v45, 0x20u);
+        v28 = *(v5 + 40);
+        if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
 LABEL_34:
-          if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+          if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
           {
             goto LABEL_35;
           }
@@ -8445,7 +8333,8 @@ LABEL_34:
         }
 
 LABEL_57:
-        *v45 = 0x204000500;
+        *v45 = 67110144;
+        *&v45[4] = 2;
         *&v45[8] = 1024;
         *&v45[10] = DWORD2(v32);
         *&v45[14] = 1024;
@@ -8454,12 +8343,12 @@ LABEL_57:
         *&v45[22] = v33;
         v46 = 1024;
         v47 = DWORD1(v33);
-        _os_log_debug_impl(&dword_296D7D000, v27, OS_LOG_TYPE_DEBUG, "#D \tTable[%d]\tError Code: %d, Data Type: %d, Offset: %d Group ID: %d\n", v45, 0x20u);
-        v27 = *(v4 + 5);
-        if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+        _os_log_debug_impl(&dword_296D7D000, v28, OS_LOG_TYPE_DEBUG, "#D \tTable[%d]\tError Code: %d, Data Type: %d, Offset: %d Group ID: %d\n", v45, 0x20u);
+        v28 = *(v5 + 40);
+        if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
 LABEL_35:
-          if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+          if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
           {
             goto LABEL_36;
           }
@@ -8470,12 +8359,12 @@ LABEL_35:
 LABEL_58:
         *v45 = 67109120;
         *&v45[4] = DWORD2(v33);
-        _os_log_debug_impl(&dword_296D7D000, v27, OS_LOG_TYPE_DEBUG, "#D \tNumber of Errors: %d\n", v45, 8u);
-        v27 = *(v4 + 5);
-        if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+        _os_log_debug_impl(&dword_296D7D000, v28, OS_LOG_TYPE_DEBUG, "#D \tNumber of Errors: %d\n", v45, 8u);
+        v28 = *(v5 + 40);
+        if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
 LABEL_36:
-          v8 = cf;
+          v9 = cf;
           if (!cf)
           {
             goto LABEL_39;
@@ -8495,8 +8384,8 @@ LABEL_59:
         *&v45[22] = DWORD2(v34);
         v46 = 1024;
         v47 = HIDWORD(v34);
-        _os_log_debug_impl(&dword_296D7D000, v27, OS_LOG_TYPE_DEBUG, "#D \tSpare: [%d,%d,%d,%d,%d]\n", v45, 0x20u);
-        v8 = cf;
+        _os_log_debug_impl(&dword_296D7D000, v28, OS_LOG_TYPE_DEBUG, "#D \tSpare: [%d,%d,%d,%d,%d]\n", v45, 0x20u);
+        v9 = cf;
         if (!cf)
         {
           goto LABEL_39;
@@ -8510,36 +8399,27 @@ LABEL_59:
   }
 
 LABEL_37:
-  v28 = *(v4 + 5);
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+  v29 = *(v5 + 40);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
   {
     LODWORD(v48.__r_.__value_.__l.__data_) = 138412290;
-    *(v48.__r_.__value_.__r.__words + 4) = v8;
-    _os_log_error_impl(&dword_296D7D000, v28, OS_LOG_TYPE_ERROR, "%@", &v48, 0xCu);
+    *(v48.__r_.__value_.__r.__words + 4) = v9;
+    _os_log_error_impl(&dword_296D7D000, v29, OS_LOG_TYPE_ERROR, "%@", &v48, 0xCu);
   }
 
 LABEL_39:
-  radio::ARIRFSCommandDriver::registerRFS_sync(v4, 0);
+  radio::ARIRFSCommandDriver::registerRFS_sync(v5, 0);
   if (cf)
   {
     CFRelease(cf);
   }
 
   MEMORY[0x29C2641C0](v41);
-  v6 = v44;
+  v7 = v44;
   if (v44)
   {
-LABEL_42:
-    if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      v29 = v6;
-      (v6->__on_zero_shared)();
-      std::__shared_weak_count::__release_weak(v29);
-    }
+    goto LABEL_42;
   }
-
-LABEL_44:
-  v30 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DAEC94(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, uint64_t a34, char a35, int a36, __int16 a37, char a38, char a39)
@@ -8593,391 +8473,389 @@ void std::__shared_ptr_emplace<radio::ARIRFSCommandDriver::getRFSStatus_sync(voi
   }
 }
 
-void ___ZN3ice6detail12wrapCallbackIZN5radio19ARIRFSCommandDriver20getRFSStatus_V2_syncEvE3__0vEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZN5radio19ARIRFSCommandDriver20getRFSStatus_V2_syncEvE3__0vEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v49 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (!v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    goto LABEL_42;
-  }
-
-  v3 = v2[1];
-  if (!v3)
-  {
-    goto LABEL_42;
-  }
-
-  v4 = v2[2];
-  v6 = std::__shared_weak_count::lock(v3);
-  v44 = v6;
-  if (!v6)
-  {
-    goto LABEL_42;
-  }
-
-  if (*v2)
-  {
-    *&v7 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v41[3] = v7;
-    v42 = v7;
-    v41[1] = v7;
-    v41[2] = v7;
-    v41[0] = v7;
-    AriSdk::ARI_CsiFpGetStatusRspV2_SDK::ARI_CsiFpGetStatusRspV2_SDK(v41, a2);
-    cf = 0xAAAAAAAAAAAAAAAALL;
-    *v45 = operator new(0x20uLL);
-    *&v45[8] = xmmword_296E20BE0;
-    strcpy(*v45, "registering rfs-get-status");
-    checkError(v41, v45, &cf);
-    if ((v45[23] & 0x80000000) != 0)
+    v4 = v3[1];
+    if (v4)
     {
-      operator delete(*v45);
-      v8 = cf;
-      if (!cf)
+      v5 = v3[2];
+      v7 = std::__shared_weak_count::lock(v4);
+      v44 = v7;
+      if (v7)
       {
-        goto LABEL_9;
-      }
-    }
-
-    else
-    {
-      v8 = cf;
-      if (!cf)
-      {
-LABEL_9:
-        if (AriSdk::ARI_CsiFpGetStatusRspV2_SDK::unpack(v41))
+        if (!*v3)
         {
-          *v45 = operator new(0x40uLL);
-          *&v45[8] = xmmword_296E20BF0;
-          strcpy(*v45, "Failed to unpack response in registering for RFS Get Status");
-          CreateError();
+LABEL_40:
+          if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            v30 = v7;
+            (v7->__on_zero_shared)();
+            std::__shared_weak_count::__release_weak(v30);
+          }
+
+          return;
+        }
+
+        *&v8 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v41[3] = v8;
+        v42 = v8;
+        v41[1] = v8;
+        v41[2] = v8;
+        v41[0] = v8;
+        AriSdk::ARI_CsiFpGetStatusRspV2_SDK::ARI_CsiFpGetStatusRspV2_SDK(v41, a2);
+        cf = 0xAAAAAAAAAAAAAAAALL;
+        *v45 = operator new(0x20uLL);
+        *&v45[8] = xmmword_296E20BE0;
+        strcpy(*v45, "registering rfs-get-status");
+        checkError(&cf, v41, v45);
+        if ((v45[23] & 0x80000000) != 0)
+        {
+          operator delete(*v45);
           v9 = cf;
-          cf = v37[0];
-          v37[0] = 0;
-          if (v9)
+          if (!cf)
           {
-            CFRelease(v9);
+            goto LABEL_9;
           }
-
-          if ((v45[23] & 0x80000000) != 0)
-          {
-            operator delete(*v45);
-            v8 = cf;
-            if (!cf)
-            {
-              goto LABEL_39;
-            }
-
-            goto LABEL_37;
-          }
-
-          goto LABEL_36;
-        }
-
-        v10 = *v42;
-        v12 = **(&v42 + 1);
-        v11 = *(*(&v42 + 1) + 4);
-        v14 = *(*(&v42 + 1) + 8);
-        v13 = *(*(&v42 + 1) + 12);
-        v16 = *(*(&v42 + 1) + 16);
-        v15 = *(*(&v42 + 1) + 20);
-        v32 = *(*(&v42 + 1) + 24);
-        v33 = *(*(&v42 + 1) + 40);
-        v34 = *(*(&v42 + 1) + 64);
-        if (!*v42)
-        {
-          goto LABEL_30;
-        }
-
-        radio::ARIRFSCommandDriver::asString(v10, &v36);
-        v17 = std::string::insert(&v36, 0, "Error on getting RFS Status result: ", 0x24uLL);
-        v18 = *&v17->__r_.__value_.__l.__data_;
-        v48.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
-        *&v48.__r_.__value_.__l.__data_ = v18;
-        v17->__r_.__value_.__l.__size_ = 0;
-        v17->__r_.__value_.__r.__words[2] = 0;
-        v17->__r_.__value_.__r.__words[0] = 0;
-        v19 = std::string::append(&v48, ", value: ", 9uLL);
-        v20 = *&v19->__r_.__value_.__l.__data_;
-        *&v45[16] = *(&v19->__r_.__value_.__l + 2);
-        *v45 = v20;
-        v19->__r_.__value_.__l.__size_ = 0;
-        v19->__r_.__value_.__r.__words[2] = 0;
-        v19->__r_.__value_.__r.__words[0] = 0;
-        std::to_string(&v35, v10);
-        if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v21 = &v35;
         }
 
         else
         {
-          v21 = v35.__r_.__value_.__r.__words[0];
-        }
-
-        if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          size = HIBYTE(v35.__r_.__value_.__r.__words[2]);
-        }
-
-        else
-        {
-          size = v35.__r_.__value_.__l.__size_;
-        }
-
-        v23 = std::string::append(v45, v21, size);
-        v24 = *&v23->__r_.__value_.__l.__data_;
-        v38 = v23->__r_.__value_.__r.__words[2];
-        *v37 = v24;
-        v23->__r_.__value_.__l.__size_ = 0;
-        v23->__r_.__value_.__r.__words[2] = 0;
-        v23->__r_.__value_.__r.__words[0] = 0;
-        CreateError();
-        v26 = v39;
-        v25 = cf;
-        v39 = 0;
-        cf = v26;
-        if (v25)
-        {
-          CFRelease(v25);
-          if (v39)
+          v9 = cf;
+          if (!cf)
           {
-            CFRelease(v39);
-          }
-        }
-
-        if (SHIBYTE(v38) < 0)
-        {
-          operator delete(v37[0]);
-          if ((SHIBYTE(v35.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-          {
-LABEL_27:
-            if ((v45[23] & 0x80000000) == 0)
+LABEL_9:
+            if (AriSdk::ARI_CsiFpGetStatusRspV2_SDK::unpack(v41))
             {
-              goto LABEL_28;
-            }
+              *v45 = operator new(0x40uLL);
+              *&v45[8] = xmmword_296E20BF0;
+              strcpy(*v45, "Failed to unpack response in registering for RFS Get Status");
+              CreateError();
+              v10 = cf;
+              cf = v37[0];
+              v37[0] = 0;
+              if (v10)
+              {
+                CFRelease(v10);
+              }
 
-            goto LABEL_47;
-          }
-        }
+              if ((v45[23] & 0x80000000) != 0)
+              {
+                operator delete(*v45);
+                v9 = cf;
+                if (!cf)
+                {
+                  goto LABEL_39;
+                }
 
-        else if ((SHIBYTE(v35.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-        {
-          goto LABEL_27;
-        }
+                goto LABEL_37;
+              }
 
-        operator delete(v35.__r_.__value_.__l.__data_);
-        if ((v45[23] & 0x80000000) == 0)
-        {
-LABEL_28:
-          if ((SHIBYTE(v48.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-          {
-            goto LABEL_29;
-          }
-
-LABEL_48:
-          operator delete(v48.__r_.__value_.__l.__data_);
-          if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
-          {
-            goto LABEL_49;
-          }
-
-LABEL_30:
-          v27 = *(v4 + 40);
-          if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
-          {
-            goto LABEL_31;
-          }
-
-          goto LABEL_50;
-        }
-
-LABEL_47:
-        operator delete(*v45);
-        if ((SHIBYTE(v48.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-        {
-LABEL_29:
-          if ((SHIBYTE(v36.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-          {
-            goto LABEL_30;
-          }
-
-LABEL_49:
-          operator delete(v36.__r_.__value_.__l.__data_);
-          v27 = *(v4 + 40);
-          if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
-          {
-LABEL_31:
-            if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
-            {
-              goto LABEL_32;
-            }
-
-            goto LABEL_55;
-          }
-
-LABEL_50:
-          radio::ARIRFSCommandDriver::asString(v10, v45);
-          v31 = v45;
-          if (v45[23] < 0)
-          {
-            v31 = *v45;
-          }
-
-          LODWORD(v48.__r_.__value_.__l.__data_) = 136315138;
-          *(v48.__r_.__value_.__r.__words + 4) = v31;
-          _os_log_debug_impl(&dword_296D7D000, v27, OS_LOG_TYPE_DEBUG, "#D RFS Status: %s\n", &v48, 0xCu);
-          if ((v45[23] & 0x80000000) != 0)
-          {
-            operator delete(*v45);
-          }
-
-          v27 = *(v4 + 40);
-          if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
-          {
-LABEL_32:
-            if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
-            {
-              goto LABEL_33;
-            }
-
-            goto LABEL_56;
-          }
-
-LABEL_55:
-          *v45 = 67110144;
-          *&v45[8] = 1024;
-          *&v45[10] = v12;
-          *&v45[14] = 1024;
-          *&v45[16] = v11;
-          *&v45[20] = 1024;
-          *&v45[22] = v14;
-          v46 = 1024;
-          v47 = v13;
-          _os_log_debug_impl(&dword_296D7D000, v27, OS_LOG_TYPE_DEBUG, "#D \tTable[%d]\tError Code: %d, Data Type: %d, Offset: %d Group ID: %d\n", v45, 0x20u);
-          v27 = *(v4 + 40);
-          if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
-          {
-LABEL_33:
-            if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
-            {
-              goto LABEL_34;
-            }
-
-            goto LABEL_57;
-          }
-
-LABEL_56:
-          *v45 = 0x104000500;
-          *&v45[8] = 1024;
-          *&v45[10] = v16;
-          *&v45[14] = 1024;
-          *&v45[16] = v15;
-          *&v45[20] = 1024;
-          *&v45[22] = v32;
-          v46 = 1024;
-          v47 = DWORD1(v32);
-          _os_log_debug_impl(&dword_296D7D000, v27, OS_LOG_TYPE_DEBUG, "#D \tTable[%d]\tError Code: %d, Data Type: %d, Offset: %d Group ID: %d\n", v45, 0x20u);
-          v27 = *(v4 + 40);
-          if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
-          {
-LABEL_34:
-            if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
-            {
-              goto LABEL_35;
-            }
-
-            goto LABEL_58;
-          }
-
-LABEL_57:
-          *v45 = 0x204000500;
-          *&v45[8] = 1024;
-          *&v45[10] = DWORD2(v32);
-          *&v45[14] = 1024;
-          *&v45[16] = HIDWORD(v32);
-          *&v45[20] = 1024;
-          *&v45[22] = v33;
-          v46 = 1024;
-          v47 = HIDWORD(v33);
-          _os_log_debug_impl(&dword_296D7D000, v27, OS_LOG_TYPE_DEBUG, "#D \tTable[%d]\tError Code: %d, Data Type: %d, Offset: %d Group ID: %d\n", v45, 0x20u);
-          v27 = *(v4 + 40);
-          if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
-          {
-LABEL_35:
-            if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
-            {
               goto LABEL_36;
             }
 
-            goto LABEL_59;
-          }
-
-LABEL_58:
-          *v45 = 67109120;
-          *&v45[4] = v34;
-          _os_log_debug_impl(&dword_296D7D000, v27, OS_LOG_TYPE_DEBUG, "#D \tNumber of Errors: %d\n", v45, 8u);
-          v27 = *(v4 + 40);
-          if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
-          {
-LABEL_36:
-            v8 = cf;
-            if (!cf)
+            v11 = *v42;
+            v13 = **(&v42 + 1);
+            v12 = *(*(&v42 + 1) + 4);
+            v15 = *(*(&v42 + 1) + 8);
+            v14 = *(*(&v42 + 1) + 12);
+            v17 = *(*(&v42 + 1) + 16);
+            v16 = *(*(&v42 + 1) + 20);
+            v32 = *(*(&v42 + 1) + 24);
+            v33 = *(*(&v42 + 1) + 40);
+            v34 = *(*(&v42 + 1) + 64);
+            if (!*v42)
             {
-              goto LABEL_39;
+              goto LABEL_30;
             }
 
-            goto LABEL_37;
-          }
+            radio::ARIRFSCommandDriver::asString(v11, &v36);
+            v18 = std::string::insert(&v36, 0, "Error on getting RFS Status result: ", 0x24uLL);
+            v19 = *&v18->__r_.__value_.__l.__data_;
+            v48.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
+            *&v48.__r_.__value_.__l.__data_ = v19;
+            v18->__r_.__value_.__l.__size_ = 0;
+            v18->__r_.__value_.__r.__words[2] = 0;
+            v18->__r_.__value_.__r.__words[0] = 0;
+            v20 = std::string::append(&v48, ", value: ", 9uLL);
+            v21 = *&v20->__r_.__value_.__l.__data_;
+            *&v45[16] = *(&v20->__r_.__value_.__l + 2);
+            *v45 = v21;
+            v20->__r_.__value_.__l.__size_ = 0;
+            v20->__r_.__value_.__r.__words[2] = 0;
+            v20->__r_.__value_.__r.__words[0] = 0;
+            std::to_string(&v35, v11);
+            if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            {
+              v22 = &v35;
+            }
+
+            else
+            {
+              v22 = v35.__r_.__value_.__r.__words[0];
+            }
+
+            if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            {
+              size = HIBYTE(v35.__r_.__value_.__r.__words[2]);
+            }
+
+            else
+            {
+              size = v35.__r_.__value_.__l.__size_;
+            }
+
+            v24 = std::string::append(v45, v22, size);
+            v25 = *&v24->__r_.__value_.__l.__data_;
+            v38 = v24->__r_.__value_.__r.__words[2];
+            *v37 = v25;
+            v24->__r_.__value_.__l.__size_ = 0;
+            v24->__r_.__value_.__r.__words[2] = 0;
+            v24->__r_.__value_.__r.__words[0] = 0;
+            CreateError();
+            v27 = v39;
+            v26 = cf;
+            v39 = 0;
+            cf = v27;
+            if (v26)
+            {
+              CFRelease(v26);
+              if (v39)
+              {
+                CFRelease(v39);
+              }
+            }
+
+            if (SHIBYTE(v38) < 0)
+            {
+              operator delete(v37[0]);
+              if ((SHIBYTE(v35.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+              {
+LABEL_27:
+                if ((v45[23] & 0x80000000) == 0)
+                {
+                  goto LABEL_28;
+                }
+
+                goto LABEL_47;
+              }
+            }
+
+            else if ((SHIBYTE(v35.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            {
+              goto LABEL_27;
+            }
+
+            operator delete(v35.__r_.__value_.__l.__data_);
+            if ((v45[23] & 0x80000000) == 0)
+            {
+LABEL_28:
+              if ((SHIBYTE(v48.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+              {
+                goto LABEL_29;
+              }
+
+LABEL_48:
+              operator delete(v48.__r_.__value_.__l.__data_);
+              if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+              {
+                goto LABEL_49;
+              }
+
+LABEL_30:
+              v28 = *(v5 + 40);
+              if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+              {
+                goto LABEL_31;
+              }
+
+              goto LABEL_50;
+            }
+
+LABEL_47:
+            operator delete(*v45);
+            if ((SHIBYTE(v48.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            {
+LABEL_29:
+              if ((SHIBYTE(v36.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+              {
+                goto LABEL_30;
+              }
+
+LABEL_49:
+              operator delete(v36.__r_.__value_.__l.__data_);
+              v28 = *(v5 + 40);
+              if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+              {
+LABEL_31:
+                if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+                {
+                  goto LABEL_32;
+                }
+
+                goto LABEL_55;
+              }
+
+LABEL_50:
+              radio::ARIRFSCommandDriver::asString(v11, v45);
+              v31 = v45;
+              if (v45[23] < 0)
+              {
+                v31 = *v45;
+              }
+
+              LODWORD(v48.__r_.__value_.__l.__data_) = 136315138;
+              *(v48.__r_.__value_.__r.__words + 4) = v31;
+              _os_log_debug_impl(&dword_296D7D000, v28, OS_LOG_TYPE_DEBUG, "#D RFS Status: %s\n", &v48, 0xCu);
+              if ((v45[23] & 0x80000000) != 0)
+              {
+                operator delete(*v45);
+              }
+
+              v28 = *(v5 + 40);
+              if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+              {
+LABEL_32:
+                if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+                {
+                  goto LABEL_33;
+                }
+
+                goto LABEL_56;
+              }
+
+LABEL_55:
+              *v45 = 67110144;
+              *&v45[8] = 1024;
+              *&v45[10] = v13;
+              *&v45[14] = 1024;
+              *&v45[16] = v12;
+              *&v45[20] = 1024;
+              *&v45[22] = v15;
+              v46 = 1024;
+              v47 = v14;
+              _os_log_debug_impl(&dword_296D7D000, v28, OS_LOG_TYPE_DEBUG, "#D \tTable[%d]\tError Code: %d, Data Type: %d, Offset: %d Group ID: %d\n", v45, 0x20u);
+              v28 = *(v5 + 40);
+              if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+              {
+LABEL_33:
+                if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+                {
+                  goto LABEL_34;
+                }
+
+                goto LABEL_57;
+              }
+
+LABEL_56:
+              *v45 = 67110144;
+              *&v45[4] = 1;
+              *&v45[8] = 1024;
+              *&v45[10] = v17;
+              *&v45[14] = 1024;
+              *&v45[16] = v16;
+              *&v45[20] = 1024;
+              *&v45[22] = v32;
+              v46 = 1024;
+              v47 = DWORD1(v32);
+              _os_log_debug_impl(&dword_296D7D000, v28, OS_LOG_TYPE_DEBUG, "#D \tTable[%d]\tError Code: %d, Data Type: %d, Offset: %d Group ID: %d\n", v45, 0x20u);
+              v28 = *(v5 + 40);
+              if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+              {
+LABEL_34:
+                if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+                {
+                  goto LABEL_35;
+                }
+
+                goto LABEL_58;
+              }
+
+LABEL_57:
+              *v45 = 67110144;
+              *&v45[4] = 2;
+              *&v45[8] = 1024;
+              *&v45[10] = DWORD2(v32);
+              *&v45[14] = 1024;
+              *&v45[16] = HIDWORD(v32);
+              *&v45[20] = 1024;
+              *&v45[22] = v33;
+              v46 = 1024;
+              v47 = HIDWORD(v33);
+              _os_log_debug_impl(&dword_296D7D000, v28, OS_LOG_TYPE_DEBUG, "#D \tTable[%d]\tError Code: %d, Data Type: %d, Offset: %d Group ID: %d\n", v45, 0x20u);
+              v28 = *(v5 + 40);
+              if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+              {
+LABEL_35:
+                if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+                {
+                  goto LABEL_36;
+                }
+
+                goto LABEL_59;
+              }
+
+LABEL_58:
+              *v45 = 67109120;
+              *&v45[4] = v34;
+              _os_log_debug_impl(&dword_296D7D000, v28, OS_LOG_TYPE_DEBUG, "#D \tNumber of Errors: %d\n", v45, 8u);
+              v28 = *(v5 + 40);
+              if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+              {
+LABEL_36:
+                v9 = cf;
+                if (!cf)
+                {
+                  goto LABEL_39;
+                }
+
+                goto LABEL_37;
+              }
 
 LABEL_59:
-          *v45 = 67110144;
-          *&v45[4] = HIDWORD(v34);
-          *&v45[8] = 1024;
-          *&v45[14] = 1024;
-          *&v45[20] = 1024;
-          v46 = 1024;
-          _os_log_debug_impl(&dword_296D7D000, v27, OS_LOG_TYPE_DEBUG, "#D \tSpare: [%d,%d,%d,%d,%d]\n", v45, 0x20u);
-          v8 = cf;
-          if (!cf)
-          {
-            goto LABEL_39;
-          }
+              *v45 = 67110144;
+              *&v45[4] = HIDWORD(v34);
+              *&v45[8] = 1024;
+              *&v45[14] = 1024;
+              *&v45[20] = 1024;
+              v46 = 1024;
+              _os_log_debug_impl(&dword_296D7D000, v28, OS_LOG_TYPE_DEBUG, "#D \tSpare: [%d,%d,%d,%d,%d]\n", v45, 0x20u);
+              v9 = cf;
+              if (!cf)
+              {
+                goto LABEL_39;
+              }
 
-          goto LABEL_37;
+              goto LABEL_37;
+            }
+
+            goto LABEL_48;
+          }
         }
 
-        goto LABEL_48;
-      }
-    }
-
 LABEL_37:
-    v28 = *(v4 + 40);
-    if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR) || (LODWORD(v48.__r_.__value_.__l.__data_) = 138412290, *(v48.__r_.__value_.__r.__words + 4) = v8, _os_log_error_impl(&dword_296D7D000, v28, OS_LOG_TYPE_ERROR, "%@", &v48, 0xCu), (v8 = cf) != 0))
-    {
-      CFRelease(v8);
-    }
+        v29 = *(v5 + 40);
+        if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR) || (LODWORD(v48.__r_.__value_.__l.__data_) = 138412290, *(v48.__r_.__value_.__r.__words + 4) = v9, _os_log_error_impl(&dword_296D7D000, v29, OS_LOG_TYPE_ERROR, "%@", &v48, 0xCu), (v9 = cf) != 0))
+        {
+          CFRelease(v9);
+        }
 
 LABEL_39:
-    MEMORY[0x29C264480](v41);
-    v6 = v44;
-    if (!v44)
-    {
-      goto LABEL_42;
+        MEMORY[0x29C264480](v41);
+        v7 = v44;
+        if (!v44)
+        {
+          return;
+        }
+
+        goto LABEL_40;
+      }
     }
   }
-
-  if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    v29 = v6;
-    (v6->__on_zero_shared)();
-    std::__shared_weak_count::__release_weak(v29);
-  }
-
-LABEL_42:
-  v30 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DAF5F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, uint64_t a32, char a33, int a34, __int16 a35, char a36, char a37)
@@ -9074,26 +8952,26 @@ void abm::trace::getCoreDumpDirSuffix(std::string *a1@<X8>)
 {
   if ((atomic_load_explicit(&_MergedGlobals_1, memory_order_acquire) & 1) == 0)
   {
-    v4 = __cxa_guard_acquire(&_MergedGlobals_1);
-    if (v4)
+    v3 = __cxa_guard_acquire(&_MergedGlobals_1);
+    if (v3)
     {
-      v5 = capabilities::radio::maverick(v4);
-      v6 = &abm::trace::kEURCoreDumpSnapshotDirectorySuffix;
-      if (!v5)
+      v4 = capabilities::radio::maverick(v3);
+      v5 = &abm::trace::kEURCoreDumpSnapshotDirectorySuffix;
+      if (!v4)
       {
-        v6 = &abm::trace::kCoreDumpSnapshotDirectorySuffix;
+        v5 = &abm::trace::kCoreDumpSnapshotDirectorySuffix;
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&xmmword_2A18CA870, *v6);
+      std::string::basic_string[abi:ne200100]<0>(&xmmword_2A18CA870, *v5);
       __cxa_guard_release(&_MergedGlobals_1);
     }
   }
 
   if (byte_2A18CA887 < 0)
   {
-    v3 = xmmword_2A18CA870;
+    v2 = xmmword_2A18CA870;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else
@@ -9318,18 +9196,17 @@ void sub_296DAFE18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 desense::CommandDriver *desense::ARICommandDriver::ARICommandDriver(desense::CommandDriver *a1, uint64_t *a2)
 {
   v3 = a2[1];
-  v7 = *a2;
-  v8 = v3;
+  v7 = v3;
   if (v3)
   {
-    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
   desense::CommandDriver::CommandDriver();
-  if (v8 && !atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v8->__on_zero_shared)(v8);
-    std::__shared_weak_count::__release_weak(v8);
+    (v7->__on_zero_shared)(v7);
+    std::__shared_weak_count::__release_weak(v7);
   }
 
   *a1 = &unk_2A1E0BD20;
@@ -9350,9 +9227,9 @@ desense::CommandDriver *desense::ARICommandDriver::ARICommandDriver(desense::Com
   return a1;
 }
 
-void sub_296DAFF20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296DAFF20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9568,64 +9445,63 @@ uint64_t ___ZN7desense16ARICommandDriver4initEv_block_invoke(uint64_t a1)
   }
 
   v3 = *(v1 + 136);
-  v18[0] = MEMORY[0x29EDCA5F8];
-  v18[1] = 0x40000000;
-  v18[2] = ___ZN7desense16ARICommandDriver4initEv_block_invoke_2;
-  v18[3] = &__block_descriptor_tmp_5;
-  v18[4] = v1;
-  *buf = v18;
-  ice::Client::setEventHandler<void({block_pointer})(void)>(v3, 0, buf);
-  v4 = *(v1 + 136);
   v17[0] = MEMORY[0x29EDCA5F8];
   v17[1] = 0x40000000;
-  v17[2] = ___ZN7desense16ARICommandDriver4initEv_block_invoke_3;
-  v17[3] = &__block_descriptor_tmp_4_0;
+  v17[2] = ___ZN7desense16ARICommandDriver4initEv_block_invoke_2;
+  v17[3] = &__block_descriptor_tmp_5;
   v17[4] = v1;
   *buf = v17;
+  ice::Client::setEventHandler<void({block_pointer})(void)>(v3, 0, buf);
+  v4 = *(v1 + 136);
+  v16[0] = MEMORY[0x29EDCA5F8];
+  v16[1] = 0x40000000;
+  v16[2] = ___ZN7desense16ARICommandDriver4initEv_block_invoke_3;
+  v16[3] = &__block_descriptor_tmp_4_0;
+  v16[4] = v1;
+  *buf = v16;
   ice::Client::setEventHandler<void({block_pointer})(void)>(v4, 1, buf);
-  v5 = *(v1 + 136);
-  v7 = *(v1 + 8);
-  v6 = *(v1 + 16);
-  if (!v6 || (v8 = std::__shared_weak_count::lock(v6), (v16 = v8) == 0))
+  v6 = *(v1 + 8);
+  v5 = *(v1 + 16);
+  if (!v5 || (v7 = std::__shared_weak_count::lock(v5), (v15 = v7) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v9 = v8;
-  atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-  p_shared_weak_owners = &v8->__shared_weak_owners_;
-  atomic_fetch_add_explicit(&v8->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v8 = v7;
+  atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+  p_shared_weak_owners = &v7->__shared_weak_owners_;
+  atomic_fetch_add_explicit(&v7->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v8->__on_zero_shared)(v8);
-    std::__shared_weak_count::__release_weak(v9);
+    (v7->__on_zero_shared)(v7);
+    std::__shared_weak_count::__release_weak(v8);
   }
 
   atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
-  v11 = operator new(0x38uLL);
-  v11->__shared_owners_ = 0;
-  p_shared_owners = &v11->__shared_owners_;
-  v11->__shared_weak_owners_ = 0;
-  v11->__vftable = &unk_2A1E0C260;
-  v11[1].__vftable = v7;
-  v11[1].__shared_owners_ = v9;
-  v11[1].__shared_weak_owners_ = desense::ARICommandDriver::handleCurrentFrequencyInfoIndication_sync;
-  v11[2].__vftable = 0;
+  v10 = operator new(0x38uLL);
+  v10->__shared_owners_ = 0;
+  p_shared_owners = &v10->__shared_owners_;
+  v10->__shared_weak_owners_ = 0;
+  v10->__vftable = &unk_2A1E0C260;
+  v10[1].__vftable = v6;
+  v10[1].__shared_owners_ = v8;
+  v10[1].__shared_weak_owners_ = desense::ARICommandDriver::handleCurrentFrequencyInfoIndication_sync;
+  v10[2].__vftable = 0;
   *buf = MEMORY[0x29EDCA5F8];
-  v20 = 1174405120;
-  v21 = ___ZN3ice6detail12wrapCallbackIZNS_6Client13regIndicationIN7desense13CommandDriverENS4_16ARICommandDriverEvJPKhjEEEvjNSt3__110shared_ptrIT_EEMT0_FT1_DpT2_EEUlS8_jE_vEEN8dispatch5blockIU13block_pointerFiPhjEEENS9_17integral_constantIiLi2EEEOSB__block_invoke;
-  v22 = &__block_descriptor_tmp_28_1;
-  v23 = v11 + 1;
-  v24 = v11;
-  atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+  v19 = 1174405120;
+  v20 = ___ZN3ice6detail12wrapCallbackIZNS_6Client13regIndicationIN7desense13CommandDriverENS4_16ARICommandDriverEvJPKhjEEEvjNSt3__110shared_ptrIT_EEMT0_FT1_DpT2_EEUlS8_jE_vEEN8dispatch5blockIU13block_pointerFiPhjEEENS9_17integral_constantIiLi2EEEOSB__block_invoke;
+  v21 = &__block_descriptor_tmp_28_1;
+  v22 = v10 + 1;
+  v23 = v10;
+  atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
   aBlock[0] = MEMORY[0x29EDCA5F8];
   aBlock[1] = 0x40000000;
   aBlock[2] = ___ZN3ice6detail12wrapCallbackIvEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEU13block_pointerFT_S4_jE_block_invoke_4;
   aBlock[3] = &unk_29EE5BA40;
   aBlock[4] = buf;
-  v13 = _Block_copy(aBlock);
-  v14 = v24;
-  if (!v24 || atomic_fetch_add(&v24->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v12 = _Block_copy(aBlock);
+  v13 = v23;
+  if (!v23 || atomic_fetch_add(&v23->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     if (atomic_fetch_add(p_shared_owners, 0xFFFFFFFFFFFFFFFFLL))
     {
@@ -9635,28 +9511,28 @@ uint64_t ___ZN7desense16ARICommandDriver4initEv_block_invoke(uint64_t a1)
     goto LABEL_10;
   }
 
-  (v14->__on_zero_shared)(v14);
-  std::__shared_weak_count::__release_weak(v14);
+  (v13->__on_zero_shared)(v13);
+  std::__shared_weak_count::__release_weak(v13);
   if (!atomic_fetch_add(p_shared_owners, 0xFFFFFFFFFFFFFFFFLL))
   {
 LABEL_10:
-    (v11->__on_zero_shared)(v11);
-    std::__shared_weak_count::__release_weak(v11);
+    (v10->__on_zero_shared)(v10);
+    std::__shared_weak_count::__release_weak(v10);
   }
 
 LABEL_11:
-  *buf = v13;
+  *buf = v12;
   ice::Client::regIndicationInternal();
   if (*buf)
   {
     _Block_release(*buf);
   }
 
-  std::__shared_weak_count::__release_weak(v9);
-  if (v16 && !atomic_fetch_add(&v16->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  std::__shared_weak_count::__release_weak(v8);
+  if (v15 && !atomic_fetch_add(&v15->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v16->__on_zero_shared)(v16);
-    std::__shared_weak_count::__release_weak(v16);
+    (v15->__on_zero_shared)(v15);
+    std::__shared_weak_count::__release_weak(v15);
   }
 
   return ice::Client::start(*(v1 + 136));
@@ -9676,7 +9552,7 @@ void sub_296DB0984(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t ___ZN7desense16ARICommandDriver4initEv_block_invoke_2(uint64_t a1)
 {
-  v65 = *MEMORY[0x29EDCA608];
+  v64 = *MEMORY[0x29EDCA608];
   v1 = *(a1 + 32);
   v2 = *(v1 + 40);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
@@ -9686,26 +9562,26 @@ uint64_t ___ZN7desense16ARICommandDriver4initEv_block_invoke_2(uint64_t a1)
   }
 
   v3 = *(v1 + 56);
-  v39 = 0;
-  v37 = 0;
   v38 = 0;
+  v36 = 0;
+  v37 = 0;
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v51 = v4;
-  v52 = v4;
-  v49 = v4;
   v50 = v4;
-  v47 = v4;
+  v51 = v4;
   v48 = v4;
-  v45 = v4;
+  v49 = v4;
   v46 = v4;
-  *buf = v4;
+  v47 = v4;
   v44 = v4;
+  v45 = v4;
+  *buf = v4;
+  v43 = v4;
   v5 = *(v3 + 24);
   __p[0] = 10;
   __p[1] = buf;
-  v54[0] = 0;
-  v54[1] = v5;
+  v53[0] = 0;
+  v53[1] = v5;
   pthread_mutex_lock(v5);
   v6 = *(v3 + 8);
   if (!v6)
@@ -9723,7 +9599,7 @@ uint64_t ___ZN7desense16ARICommandDriver4initEv_block_invoke_2(uint64_t a1)
     if (v10 == *v8)
     {
       v10 = *(v9 + 8);
-      *&v40 = v10;
+      *&v39 = v10;
       if (v9 == v10)
       {
 LABEL_12:
@@ -9734,7 +9610,7 @@ LABEL_12:
 
     else
     {
-      *&v40 = *(v3 + 16);
+      *&v39 = *(v3 + 16);
     }
 
     v11 = v10[2];
@@ -9745,7 +9621,7 @@ LABEL_12:
 
     else
     {
-      v10 = boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>>>::erase(v9, (v11 + 64), &v40);
+      v10 = boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>>>::erase(v9, (v11 + 64), &v39);
       v8 = *v3;
     }
 
@@ -9760,9 +9636,9 @@ LABEL_13:
   }
 
 LABEL_15:
-  v12 = v38;
-  v37 = v8;
-  v38 = v6;
+  v12 = v37;
+  v36 = v8;
+  v37 = v6;
   if (v12)
   {
     if (atomic_fetch_add(v12 + 2, 0xFFFFFFFF) == 1)
@@ -9775,32 +9651,32 @@ LABEL_15:
     }
   }
 
-  pthread_mutex_unlock(v54[1]);
+  pthread_mutex_unlock(v53[1]);
   v13 = __p[1];
   if (__p[1])
   {
-    if (v54[0] > 0)
+    if (v53[0] > 0)
     {
-      v29 = __p[1] + 16 * v54[0];
+      v28 = __p[1] + 16 * v53[0];
       do
       {
-        v30 = *(v29 - 1);
-        if (v30)
+        v29 = *(v28 - 1);
+        if (v29)
         {
-          if (atomic_fetch_add(v30 + 2, 0xFFFFFFFF) == 1)
+          if (atomic_fetch_add(v29 + 2, 0xFFFFFFFF) == 1)
           {
-            (*(*v30 + 16))(v30);
-            if (atomic_fetch_add(v30 + 3, 0xFFFFFFFF) == 1)
+            (*(*v29 + 16))(v29);
+            if (atomic_fetch_add(v29 + 3, 0xFFFFFFFF) == 1)
             {
-              (*(*v30 + 24))(v30);
+              (*(*v29 + 24))(v29);
             }
           }
         }
 
-        v29 -= 16;
+        v28 -= 16;
       }
 
-      while (v29 > v13);
+      while (v28 > v13);
     }
 
     if (__p[0] >= 0xB)
@@ -9811,96 +9687,96 @@ LABEL_15:
 
   *&v14 = 0xAAAAAAAAAAAAAAAALL;
   *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v56 = v14;
-  v57 = v14;
-  *v54 = v14;
   v55 = v14;
-  v52 = v14;
-  *__p = v14;
-  v50 = v14;
+  v56 = v14;
+  *v53 = v14;
+  v54 = v14;
   v51 = v14;
-  v48 = v14;
+  *__p = v14;
   v49 = v14;
-  v46 = v14;
+  v50 = v14;
   v47 = v14;
-  v44 = v14;
+  v48 = v14;
   v45 = v14;
+  v46 = v14;
+  v43 = v14;
+  v44 = v14;
   *buf = v14;
   buf[0] = 0;
-  v58 = 0xAAAAAAAAAAAAAAAALL;
-  v59 = 10;
-  v60 = &buf[8];
-  v61 = 0;
+  v57 = 0xAAAAAAAAAAAAAAAALL;
+  v58 = 10;
+  v59 = &buf[8];
+  v60 = 0;
+  v62 = 0;
   v63 = 0;
-  v64 = 0;
-  v62 = &v39;
-  v15 = v37;
-  v16 = *v37;
-  v34 = buf;
-  v35 = v3;
-  v36 = v16;
-  *&v32 = *(v16 + 8);
+  v61 = &v38;
+  v15 = v36;
+  v16 = *v36;
+  v33 = buf;
+  v34 = v3;
+  v35 = v16;
+  *&v31 = *(v16 + 8);
+  *(&v31 + 1) = v16;
+  *&v32 = buf;
   *(&v32 + 1) = v16;
-  *&v33 = buf;
-  *(&v33 + 1) = v16;
-  boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,coex::SubId>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>>::lock_next_callable(&v32);
-  v31[0] = *v15;
-  v31[1] = v31[0];
-  v31[2] = buf;
-  v31[3] = v31[0];
-  boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,coex::SubId>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>>::lock_next_callable(v31);
+  boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,coex::SubId>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>>::lock_next_callable(&v31);
+  v30[0] = *v15;
+  v30[1] = v30[0];
+  v30[2] = buf;
+  v30[3] = v30[0];
+  boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,coex::SubId>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>>::lock_next_callable(v30);
+  v39 = v31;
   v40 = v32;
-  v41 = v33;
-  v17 = v31[0];
-  v18 = v32;
-  if (v32 == v31[0])
+  v17 = v30[0];
+  v18 = v31;
+  if (v31 == v30[0])
   {
-    if (HIDWORD(v63) <= v63)
+    if (HIDWORD(v62) <= v62)
     {
       goto LABEL_43;
     }
 
 LABEL_42:
-    boost::signals2::detail::signal_impl<void ()(coex::SubId),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(coex::SubId)>,boost::function<void ()(boost::signals2::connection const&,coex::SubId)>,boost::signals2::mutex>::force_cleanup_connections(v35, v36);
+    boost::signals2::detail::signal_impl<void ()(coex::SubId),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(coex::SubId)>,boost::function<void ()(boost::signals2::connection const&,coex::SubId)>,boost::signals2::mutex>::force_cleanup_connections(v34, v35);
     goto LABEL_43;
   }
 
-  v19 = v41;
-  if ((*v41 & 1) == 0)
+  v19 = v40;
+  if ((*v40 & 1) == 0)
   {
-    v20 = *(*(v32 + 16) + 32);
+    v20 = *(*(v31 + 16) + 32);
     v21 = *(v20 + 24);
     if (!v21)
     {
-      std::runtime_error::runtime_error(&v42, "call to empty boost::function");
-      v42.__vftable = &unk_2A1E0C118;
-      boost::throw_exception<boost::bad_function_call>(&v42);
+      std::runtime_error::runtime_error(&v41, "call to empty boost::function");
+      v41.__vftable = &unk_2A1E0C118;
+      boost::throw_exception<boost::bad_function_call>(&v41);
     }
 
-    (*((v21 & 0xFFFFFFFFFFFFFFFELL) + 8))(v20 + 32, **(v41 + 272));
+    (*((v21 & 0xFFFFFFFFFFFFFFFELL) + 8))(v20 + 32, **(v40 + 272));
     if ((*v19 & 1) == 0)
     {
       *v19 = 1;
     }
   }
 
-  *&v40 = *(v18 + 8);
-  boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,coex::SubId>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>>::lock_next_callable(&v40);
-  v22 = v41;
-  if (*v41 == 1)
+  *&v39 = *(v18 + 8);
+  boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,coex::SubId>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>>::lock_next_callable(&v39);
+  v22 = v40;
+  if (*v40 == 1)
   {
-    *v41 = 0;
+    *v40 = 0;
   }
 
-  for (i = v40; v40 != v17; i = v40)
+  for (i = v39; v39 != v17; i = v39)
   {
     v24 = *(*(i + 16) + 32);
     v25 = *(v24 + 24);
     if (!v25)
     {
-      std::runtime_error::runtime_error(&v42, "call to empty boost::function");
-      v42.__vftable = &unk_2A1E0C118;
-      boost::throw_exception<boost::bad_function_call>(&v42);
+      std::runtime_error::runtime_error(&v41, "call to empty boost::function");
+      v41.__vftable = &unk_2A1E0C118;
+      boost::throw_exception<boost::bad_function_call>(&v41);
     }
 
     (*((v25 & 0xFFFFFFFFFFFFFFFELL) + 8))(v24 + 32, **(v22 + 272));
@@ -9909,35 +9785,31 @@ LABEL_42:
       *v22 = 1;
     }
 
-    *&v40 = *(i + 8);
-    boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,coex::SubId>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>>::lock_next_callable(&v40);
-    v22 = v41;
-    if (*v41 == 1)
+    *&v39 = *(i + 8);
+    boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,coex::SubId>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>>::lock_next_callable(&v39);
+    v22 = v40;
+    if (*v40 == 1)
     {
-      *v41 = 0;
+      *v40 = 0;
     }
   }
 
-  if (*(v34 + 71) > *(v34 + 70))
+  if (*(v33 + 71) > *(v33 + 70))
   {
     goto LABEL_42;
   }
 
 LABEL_43:
   result = boost::signals2::detail::slot_call_iterator_cache<boost::signals2::detail::void_type,boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,coex::SubId>>::~slot_call_iterator_cache(buf);
-  v27 = v38;
-  if (v38)
+  v27 = v37;
+  if (v37 && atomic_fetch_add(v37 + 2, 0xFFFFFFFF) == 1)
   {
-    if (atomic_fetch_add(v38 + 2, 0xFFFFFFFF) == 1)
+    result = (*(*v27 + 16))(v27);
+    if (atomic_fetch_add(v27 + 3, 0xFFFFFFFF) == 1)
     {
-      result = (*(*v27 + 16))(v27);
-      if (atomic_fetch_add(v27 + 3, 0xFFFFFFFF) == 1)
-      {
-        result = (*(*v27 + 24))(v27);
-      }
+      return (*(*v27 + 24))(v27);
     }
   }
 
-  v28 = *MEMORY[0x29EDCA608];
   return result;
 }

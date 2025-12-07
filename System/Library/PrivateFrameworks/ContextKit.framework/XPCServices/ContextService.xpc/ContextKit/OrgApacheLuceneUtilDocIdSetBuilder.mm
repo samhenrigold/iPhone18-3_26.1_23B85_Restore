@@ -1,7 +1,9 @@
 @interface OrgApacheLuceneUtilDocIdSetBuilder
 - (id)buildWithLong:(int64_t)long;
+- (void)addWithInt:(int)int;
 - (void)addWithOrgApacheLuceneSearchDocIdSetIterator:(id)iterator;
 - (void)dealloc;
+- (void)growWithInt:(int)int;
 @end
 
 @implementation OrgApacheLuceneUtilDocIdSetBuilder
@@ -93,6 +95,76 @@ LABEL_22:
       JreThrowNullPointerException();
     }
   }
+}
+
+- (void)growWithInt:(int)int
+{
+  if (!self->bitSet_)
+  {
+    v8 = self->bufferSize_ + int;
+    if (v8 >= self->threshold_)
+    {
+      sub_1000DFA70(self);
+    }
+
+    else
+    {
+      sub_1000DFB40(self, v8, *&int, v3, v4, v5, v6, v7);
+    }
+  }
+}
+
+- (void)addWithInt:(int)int
+{
+  v8 = *&int;
+  bitSet = self->bitSet_;
+  if (bitSet)
+  {
+LABEL_2:
+
+    [(OrgApacheLuceneUtilBitSet *)bitSet setWithInt:v8];
+    return;
+  }
+
+  buffer = self->buffer_;
+  if (!buffer)
+  {
+LABEL_13:
+    JreThrowNullPointerException();
+  }
+
+  bufferSize = self->bufferSize_;
+  v13 = bufferSize + 1;
+  if (bufferSize + 1 <= buffer->super.size_)
+  {
+    goto LABEL_9;
+  }
+
+  if (v13 >= self->threshold_)
+  {
+    sub_1000DFA70(self);
+    bitSet = self->bitSet_;
+    if (bitSet)
+    {
+      goto LABEL_2;
+    }
+
+    goto LABEL_13;
+  }
+
+  sub_1000DFB40(self, v13, *&int, v3, v4, v5, v6, v7);
+  buffer = self->buffer_;
+  bufferSize = self->bufferSize_;
+  v13 = bufferSize + 1;
+LABEL_9:
+  self->bufferSize_ = v13;
+  size = buffer->super.size_;
+  if (bufferSize < 0 || bufferSize >= size)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(size, bufferSize);
+  }
+
+  *(&buffer->super.size_ + bufferSize + 1) = v8;
 }
 
 - (id)buildWithLong:(int64_t)long

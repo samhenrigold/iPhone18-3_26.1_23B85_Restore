@@ -78,150 +78,164 @@
   shouldLog = [v6 shouldLog];
   if ([v6 shouldLogToDisk])
   {
-    v8 = shouldLog | 2;
+    LODWORD(v8) = shouldLog | 2;
   }
 
   else
   {
-    v8 = shouldLog;
+    LODWORD(v8) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v6 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
 
   if (v8)
   {
-    v9 = objc_opt_class();
+    v10 = objc_opt_class();
     accountID = self->_accountID;
-    v36 = 138412546;
-    v37 = v9;
-    v38 = 2112;
-    v39 = accountID;
-    LODWORD(v34) = 22;
-    v32 = &v36;
-    v11 = _os_log_send_and_compose_impl();
-    if (v11)
+    v39 = 138412546;
+    v40 = v10;
+    v41 = 2112;
+    v42 = accountID;
+    v12 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Loading pass for account ID: %@", &v39, 22);
+    if (v12)
     {
-      v12 = v11;
-      v13 = [NSString stringWithCString:v11 encoding:4, &v36, v34];
-      free(v12);
-      v32 = v13;
+      v13 = v12;
+      v14 = [NSString stringWithCString:v12 encoding:4];
+      free(v13);
+      v35 = v14;
       SSFileLog();
     }
   }
 
-  v35 = 0;
-  v14 = [(LoadPassbookPassOperation *)self runSubOperation:v3 returningError:&v35, v32];
-  if (!v14 || (v15 = [objc_msgSend(v3 "dataProvider")], objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (v16 = objc_msgSend(objc_alloc(ISWeakLinkedClassForString()), "initWithData:error:", v15, &v35)) == 0)
+  v38 = 0;
+  v15 = [(LoadPassbookPassOperation *)self runSubOperation:v3 returningError:&v38, v35];
+  if (!v15 || (v16 = [objc_msgSend(v3 "dataProvider")], objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (v17 = objc_msgSend(objc_alloc(ISWeakLinkedClassForString()), "initWithData:error:", v16, &v38)) == 0)
   {
-    v24 = +[SSLogConfig sharedDaemonConfig];
-    if (!v24)
+    v26 = +[SSLogConfig sharedDaemonConfig];
+    if (!v26)
     {
-      v24 = +[SSLogConfig sharedConfig];
+      v26 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v24 shouldLog];
-    if ([v24 shouldLogToDisk])
+    shouldLog2 = [v26 shouldLog];
+    if ([v26 shouldLogToDisk])
     {
-      v26 = shouldLog2 | 2;
+      LODWORD(v28) = shouldLog2 | 2;
     }
 
     else
     {
-      v26 = shouldLog2;
+      LODWORD(v28) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v24 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject2 = [v26 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v26 &= 2u;
+      v28 = v28;
     }
 
-    if (!v26)
+    else
     {
-      v17 = 0;
-      goto LABEL_35;
+      v28 &= 2u;
     }
 
-    v27 = objc_opt_class();
-    v28 = self->_accountID;
-    v36 = 138412802;
-    v37 = v27;
-    v38 = 2112;
-    v39 = v28;
-    v40 = 2112;
-    v41 = v35;
-    LODWORD(v34) = 32;
-    v33 = &v36;
-    v23 = _os_log_send_and_compose_impl();
-    v17 = 0;
-    if (!v23)
+    if (!v28)
     {
-      goto LABEL_35;
+      v18 = 0;
+      goto LABEL_38;
     }
 
-LABEL_33:
-    v29 = v23;
-    v30 = [NSString stringWithCString:v23 encoding:4, &v36, v34];
-    free(v29);
-    v33 = v30;
+    v30 = objc_opt_class();
+    v31 = self->_accountID;
+    v39 = 138412802;
+    v40 = v30;
+    v41 = 2112;
+    v42 = v31;
+    v43 = 2112;
+    v44 = v38;
+    LODWORD(v37) = 32;
+    v25 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Failed to load pass for account ID: %@, error: %@", &v39, v37);
+    v18 = 0;
+    if (!v25)
+    {
+      goto LABEL_38;
+    }
+
+LABEL_36:
+    v32 = v25;
+    v33 = [NSString stringWithCString:v25 encoding:4];
+    free(v32);
+    v36 = v33;
     SSFileLog();
-    goto LABEL_35;
+    goto LABEL_38;
   }
 
-  v17 = v16;
-  v18 = +[SSLogConfig sharedDaemonConfig];
-  if (!v18)
+  v18 = v17;
+  v19 = +[SSLogConfig sharedDaemonConfig];
+  if (!v19)
   {
-    v18 = +[SSLogConfig sharedConfig];
+    v19 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog3 = [v18 shouldLog];
-  if ([v18 shouldLogToDisk])
+  shouldLog3 = [v19 shouldLog];
+  if ([v19 shouldLogToDisk])
   {
-    v20 = shouldLog3 | 2;
+    LODWORD(v21) = shouldLog3 | 2;
   }
 
   else
   {
-    v20 = shouldLog3;
+    LODWORD(v21) = shouldLog3;
   }
 
-  if (!os_log_type_enabled([v18 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject3 = [v19 OSLogObject];
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
   {
-    v20 &= 2u;
+    v21 = v21;
   }
 
-  if (v20)
+  else
   {
-    v21 = objc_opt_class();
-    v22 = self->_accountID;
-    v36 = 138412802;
-    v37 = v21;
-    v38 = 2112;
-    v39 = v22;
-    v40 = 2112;
-    v41 = v17;
-    LODWORD(v34) = 32;
-    v33 = &v36;
-    v23 = _os_log_send_and_compose_impl();
-    if (v23)
+    v21 &= 2u;
+  }
+
+  if (v21)
+  {
+    v23 = objc_opt_class();
+    v24 = self->_accountID;
+    v39 = 138412802;
+    v40 = v23;
+    v41 = 2112;
+    v42 = v24;
+    v43 = 2112;
+    v44 = v18;
+    LODWORD(v37) = 32;
+    v25 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: Loaded account ID: %@, pass: %@", &v39, v37);
+    if (v25)
     {
-      goto LABEL_33;
+      goto LABEL_36;
     }
   }
 
-LABEL_35:
+LABEL_38:
   outputBlock = [(LoadPassbookPassOperation *)self outputBlock];
   if (outputBlock)
   {
-    (outputBlock)[2](outputBlock, v17, v35);
+    (outputBlock)[2](outputBlock, v18, v38);
     [(LoadPassbookPassOperation *)self setOutputBlock:0];
   }
 
-  [(LoadPassbookPassOperation *)self setError:v35];
-  [(LoadPassbookPassOperation *)self setSuccess:v14];
+  [(LoadPassbookPassOperation *)self setError:v38];
+  [(LoadPassbookPassOperation *)self setSuccess:v15];
 }
 
 @end

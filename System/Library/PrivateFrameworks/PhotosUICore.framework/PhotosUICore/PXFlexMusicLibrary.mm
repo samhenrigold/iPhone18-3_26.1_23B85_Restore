@@ -47,7 +47,7 @@
   {
     if (v5)
     {
-      [v5 naturalDuration];
+      objc_msgSend_naturalDuration(v5);
       var2 = HIDWORD(v12);
       var3 = v13;
     }
@@ -437,11 +437,11 @@ void __52__PXFlexMusicLibrary__queue_cueSourceFromRendition___block_invoke(uint6
   _Block_object_dispose(v15, 8);
 }
 
-double __52__PXFlexMusicLibrary__queue_cueSourceFromRendition___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
+double __52__PXFlexMusicLibrary__queue_cueSourceFromRendition___block_invoke_2(void *a1, void *a2, uint64_t a3)
 {
   if (a2)
   {
-    [a2 timeRange];
+    objc_msgSend_timeRange(a2);
   }
 
   else
@@ -455,15 +455,15 @@ double __52__PXFlexMusicLibrary__queue_cueSourceFromRendition___block_invoke_2(u
   v13.epoch = v11;
   v8.epoch = v11;
   v9 = 1;
-  v5 = *(a1 + 32);
-  v6 = *(*(a1 + 56) + 8);
+  v5 = a1[4];
+  v6 = *(a1[7] + 8);
   *&v8.value = v10;
   _PXTestBeatTimeMembership(&v8, v5, 2, (v6 + 24), &v9);
-  _PXTestBeatTimeMembership(&v13, *(a1 + 40), 4, (*(*(a1 + 64) + 8) + 24), &v9);
-  _PXTestBeatTimeMembership(&v13, *(a1 + 48), 3, (*(*(a1 + 72) + 8) + 24), &v9);
+  _PXTestBeatTimeMembership(&v13, a1[5], 4, (*(a1[8] + 8) + 24), &v9);
+  _PXTestBeatTimeMembership(&v13, a1[6], 3, (*(a1[9] + 8) + 24), &v9);
   result = *&v13.value;
-  *(*(a1 + 80) + 32 * a3) = v13;
-  *(*(a1 + 80) + 32 * a3 + 24) = v9;
+  *(a1[10] + 32 * a3) = v13;
+  *(a1[10] + 32 * a3 + 24) = v9;
   return result;
 }
 
@@ -859,11 +859,11 @@ void __35__PXFlexMusicLibrary_cuesForAsset___block_invoke(uint64_t a1)
   v12 = 0uLL;
   v13 = 0;
   v5 = *(a1 + 40);
-  if (!v5 || ([v5 targetDuration], (BYTE12(v12) & 1) == 0))
+  if (!v5 || (objc_msgSend_targetDuration(v5), (BYTE12(v12) & 1) == 0))
   {
     if (v4)
     {
-      [v4 naturalDuration];
+      objc_msgSend_naturalDuration(v4);
     }
 
     else
@@ -1371,25 +1371,29 @@ uint64_t __49__PXFlexMusicLibrary_fetchAssetsWithIdentifiers___block_invoke(uint
       if (v13 < v11 && ([volumeKeyFrames objectAtIndexedSubscript:v13 + 1], (v16 = objc_claimAutoreleasedReturnValue()) != 0))
       {
         v17 = v16;
-        memset(&v28, 0, sizeof(v28));
-        CMTimeMake(&v26.start, [v14 sampleTime], rate);
-        CMTimeMake(&duration, [v17 sampleTime] - objc_msgSend(v14, "sampleTime"), rate);
-        CMTimeRangeMake(&v28, &v26.start, &duration);
+        memset(&v32, 0, sizeof(v32));
+        v18 = objc_msgSend_sampleTime(v14);
+        CMTimeMake(&v30.start, v18, rate);
+        v19 = objc_msgSend_sampleTime(v17);
+        v20 = objc_msgSend_sampleTime(v14);
+        CMTimeMake(&duration, v19 - v20, rate);
+        CMTimeRangeMake(&v32, &v30.start, &duration);
         [v14 value];
-        v19 = v18;
+        v22 = v21;
         [v17 value];
-        LODWORD(v21) = v20;
-        v26 = v28;
-        [v8 setVolumeRampFromStartVolume:&v26 toEndVolume:COERCE_DOUBLE(__PAIR64__(v28.duration.flags timeRange:{v19)), v21}];
+        LODWORD(v24) = v23;
+        v30 = v32;
+        [v8 setVolumeRampFromStartVolume:&v30 toEndVolume:COERCE_DOUBLE(__PAIR64__(v32.duration.flags timeRange:{v22)), v24}];
       }
 
       else
       {
         [v14 value];
-        v23 = v22;
-        CMTimeMake(&v28.start, [v14 sampleTime], rate);
-        LODWORD(v24) = v23;
-        [v8 setVolume:&v28 atTime:v24];
+        v26 = v25;
+        v27 = objc_msgSend_sampleTime(v14);
+        CMTimeMake(&v32.start, v27, rate);
+        LODWORD(v28) = v26;
+        [v8 setVolume:&v32 atTime:v28];
       }
 
       v13 = v15;

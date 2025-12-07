@@ -174,13 +174,11 @@ LABEL_13:
 
   if (name)
   {
-    name = self->_name;
     PBDataWriterWriteStringField();
   }
 
   if (*&self->_has)
   {
-    entityCount = self->_entityCount;
     PBDataWriterWriteInt32Field();
   }
 }

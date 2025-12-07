@@ -1,3 +1,312 @@
+void sub_10007E288()
+{
+  sub_10000827C();
+  sub_100014120();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void sub_10007E470()
+{
+  sub_10000827C();
+  sub_100014120();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void sub_10007E560()
+{
+  sub_10000827C();
+  sub_100014120();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void sub_10007E5D0()
+{
+  sub_10000827C();
+  sub_100014120();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void sub_10007E640()
+{
+  sub_10000827C();
+  sub_100014120();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void sub_10007E6B0()
+{
+  sub_10000827C();
+  sub_100014120();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void sub_10007E720()
+{
+  sub_10000827C();
+  sub_100014120();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void sub_10007E790()
+{
+  sub_1000082AC();
+  sub_100008294();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+}
+
+void sub_10007E80C(os_log_t log)
+{
+  v1 = 136315138;
+  v2 = "sendMessageSync";
+  _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "%s - received reply\n", &v1, 0xCu);
+}
+
+void sub_10007E910()
+{
+  sub_1000082AC();
+  sub_100008294();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+}
+
+void sub_10007EB70(uint64_t a1)
+{
+  v1 = 136315138;
+  v2 = a1;
+  _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "createXpcFromType got a dictionary with null value (for key %s)", &v1, 0xCu);
+}
+
+void sub_10007EFC0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "MyIOHIDEventCallback";
+  sub_100018678(&_mh_execute_header, a1, a3, "%s - IOHID Service Client Reference is NULL\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10007F038(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "H16ISPPhotometerManager_block_invoke";
+  sub_100018678(&_mh_execute_header, a1, a3, "%s - Could not create the audio unit instance\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10007F0B0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "H16ISPPhotometerManager_block_invoke";
+  sub_100018678(&_mh_execute_header, a1, a3, "%s - Unable to create Flicker Detector\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10007F128(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "InitializeHIDEventSystemClientForALS";
+  sub_100018678(&_mh_execute_header, a1, a3, "%s - Could not create primary usage references\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10007F1A0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "InitializeHIDEventSystemClientForALS";
+  sub_100018678(&_mh_execute_header, a1, a3, "%s - Could not create device usage references\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10007F218(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "InitializeHIDEventSystemClientForALS";
+  sub_100018678(&_mh_execute_header, a1, a3, "%s - Could not create device matching array\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10007F290(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "InitializeHIDEventSystemClientForALS";
+  sub_100018678(&_mh_execute_header, a1, a3, "%s - Could not create device matching dictionary\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10007F308(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "InitializeHIDEventSystemClientForALS";
+  sub_100018678(&_mh_execute_header, a1, a3, "%s - Could not create a matching dictionary\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10007F380(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "InitializeHIDEventSystemClientForALS";
+  sub_100018678(&_mh_execute_header, a1, a3, "%s - Could not create HID event system client\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10007F3F8(uint64_t a1)
+{
+  v25 = 255;
+  if (!a1)
+  {
+    return;
+  }
+
+  if (!sub_10005E5B8(a1, &v25))
+  {
+    goto LABEL_42;
+  }
+
+  v2 = IOServiceNameMatching("AppleH16CamIn");
+  MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v2);
+  v4 = IORegistryEntrySearchCFProperty(MatchingService, "IOService", @"LoadHPR", kCFAllocatorDefault, 0);
+  v5 = v4;
+  if (v4)
+  {
+    v6 = CFGetTypeID(v4);
+    if (v6 == CFBooleanGetTypeID() && !CFBooleanGetValue(v5))
+    {
+      CFRelease(v5);
+      v24 = off_10041DCA8;
+      if (off_10041DCA8 == &_os_log_default)
+      {
+        v24 = os_log_create("com.apple.isp", "general");
+        off_10041DCA8 = v24;
+      }
+
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315138;
+        v27 = "LoadFrontIRHPRFile";
+        _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "%s - noHPR boot-arg set\n", buf, 0xCu);
+      }
+
+LABEL_42:
+      v15 = 0;
+      goto LABEL_43;
+    }
+  }
+
+  v7 = IORegistryEntrySearchCFProperty(MatchingService, "IOService", @"SavageChipID", kCFAllocatorDefault, 3u);
+  if (v7)
+  {
+    v8 = v7;
+    v9 = AMFDRCreateInstanceString();
+    if (v9)
+    {
+      v10 = v9;
+      v11 = IORegistryEntrySearchCFProperty(MatchingService, "IOService", @"SavageUID", kCFAllocatorDefault, 3u);
+      if (v11)
+      {
+        v12 = v11;
+        v13 = AMFDRCreateInstanceString();
+        if (v13)
+        {
+          v14 = v13;
+          v15 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@-%@", v10, v13);
+          CFRelease(v12);
+          CFRelease(v14);
+          goto LABEL_11;
+        }
+
+        NSLog(@"Couldn't create SavageUID string ref");
+        CFRelease(v12);
+      }
+
+      else
+      {
+        NSLog(@"Couldn't read SavageUID");
+      }
+
+      v15 = 0;
+LABEL_11:
+      CFRelease(v8);
+      CFRelease(v10);
+      if (!v5)
+      {
+        goto LABEL_13;
+      }
+
+      goto LABEL_12;
+    }
+
+    NSLog(@"Couldn't create SavageChipID string ref");
+    CFRelease(v8);
+  }
+
+  else
+  {
+    NSLog(@"Couldn't read SavageChipID");
+  }
+
+  v15 = 0;
+  if (v5)
+  {
+LABEL_12:
+    CFRelease(v5);
+  }
+
+LABEL_13:
+  if (!v15)
+  {
+    NSLog(@"Couldn't combine frontIR chipIDStr and uidStr");
+LABEL_43:
+    v21 = 0;
+    v17 = 0;
+    goto LABEL_20;
+  }
+
+  v16 = [NSData dataWithContentsOfFile:@"/usr/local/share/firmware/isp/Savage/FrontIRHPR.DER"];
+  if (v16)
+  {
+    v17 = v16;
+    NSLog(@"Found FrontIR override (has highest precedence) HPR file - camChannel = %d", v25);
+    goto LABEL_16;
+  }
+
+  v17 = AMFDRSealingMapCopyLocalMinimalManifestForInstance();
+  if (v17)
+  {
+LABEL_16:
+    BytePtr = CFDataGetBytePtr(v17);
+    Length = CFDataGetLength(v17);
+    v20 = sub_10005D4E0(a1, v25 | 0x80000000, BytePtr, Length, 0x501u);
+    v21 = CFCopyDescription(v17);
+    v22 = off_10041DCA8;
+    if (off_10041DCA8 == &_os_log_default)
+    {
+      v22 = os_log_create("com.apple.isp", "general");
+      off_10041DCA8 = v22;
+    }
+
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
+      CStringPtr = CFStringGetCStringPtr(v21, 0);
+      *buf = 136315650;
+      v27 = "LoadFrontIRHPRFile";
+      v28 = 1024;
+      v29[0] = v20;
+      LOWORD(v29[1]) = 2080;
+      *(&v29[1] + 2) = CStringPtr;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%s - Status = %08x; HPR - %s\n", buf, 0x1Cu);
+    }
+
+    goto LABEL_20;
+  }
+
+  NSLog(@"No HPR file for frontIR found");
+  v21 = 0;
+LABEL_20:
+  if (v15)
+  {
+    CFRelease(v15);
+  }
+
+  if (v17)
+  {
+    CFRelease(v17);
+  }
+
+  if (v21)
+  {
+    CFRelease(v21);
+  }
+}
+
 void sub_10007F8D8(const void *a1)
 {
   NSLog(@"pDevice is NULL");
@@ -15,6 +324,20 @@ void sub_10007F910(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "input/ouput buffer or parameter setting incorrect. win size %d \n\n", v3, 8u);
 }
 
+void sub_100080744()
+{
+  v6 = 136315394;
+  sub_10004E9BC();
+  sub_100008260(&_mh_execute_header, v0, v1, "Failed to send the %s event into the diagnostics system %08X\n\n", v2, v3, v4, v5, v6);
+}
+
+void sub_1000807BC()
+{
+  v6 = 136315394;
+  sub_10004E9BC();
+  sub_100008260(&_mh_execute_header, v0, v1, "Failed to send the %s event into the diagnostics system %08X\n\n", v2, v3, v4, v5, v6);
+}
+
 void sub_100080834(os_log_t log)
 {
   v1[0] = 67109120;
@@ -22,11 +345,67 @@ void sub_100080834(os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Failed to send Pearl Statistics into the diagnostics system %08X\n\n", v1, 8u);
 }
 
+void sub_1000808B0()
+{
+  v6 = 136315394;
+  sub_10004E9BC();
+  sub_100008260(&_mh_execute_header, v0, v1, "Failed to send the %s event into the diagnostics system %08X\n\n", v2, v3, v4, v5, v6);
+}
+
+void sub_100080928()
+{
+  v6 = 136315394;
+  sub_10004E9BC();
+  sub_100008260(&_mh_execute_header, v0, v1, "Failed to send the %s event into the diagnostics system %08X\n\n", v2, v3, v4, v5, v6);
+}
+
+void sub_1000809A0()
+{
+  v6 = 136315394;
+  sub_10004E9BC();
+  sub_100008260(&_mh_execute_header, v0, v1, "Failed to send the %s event into the diagnostics system %08X\n\n", v2, v3, v4, v5, v6);
+}
+
+void sub_100080A18()
+{
+  v6 = 136315394;
+  sub_10004E9BC();
+  sub_100008260(&_mh_execute_header, v0, v1, "Failed to send the %s event into the diagnostics system %08X\n\n", v2, v3, v4, v5, v6);
+}
+
+void sub_100080A90()
+{
+  v6 = 136315394;
+  sub_10004E9BC();
+  sub_100008260(&_mh_execute_header, v0, v1, "Failed to send the %s event into the diagnostics system %08X\n\n", v2, v3, v4, v5, v6);
+}
+
+void sub_100080B08()
+{
+  v6 = 136315394;
+  sub_10004E9BC();
+  sub_100008260(&_mh_execute_header, v0, v1, "Failed to send the %s event into the diagnostics system %d\n\n", v2, v3, v4, v5, v6);
+}
+
+void sub_100080B80()
+{
+  v6 = 136315394;
+  sub_10004E9BC();
+  sub_100008260(&_mh_execute_header, v0, v1, "Failed to send the %s event into the diagnostics system %d\n\n", v2, v3, v4, v5, v6);
+}
+
 void sub_100080BF8(os_log_t log)
 {
   v1 = 136315138;
   v2 = "com.apple.applecamerad.SpmiFaultStatus";
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Failed to send the %s event into the diagnostics system.\n\n", &v1, 0xCu);
+}
+
+void sub_100080C7C()
+{
+  v6 = 136315394;
+  sub_10004E9BC();
+  sub_100008260(&_mh_execute_header, v0, v1, "Failed to send the %s event into the diagnostics system %d\n\n", v2, v3, v4, v5, v6);
 }
 
 void sub_100080D74()
@@ -737,7 +1116,7 @@ void sub_1000852B4(uint64_t a1)
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
-uint64_t DERImg4DecodePropertyWithItem(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
+uint64_t DERImg4DecodePropertyWithItem(uint64_t a1, uint64_t a2, unint64_t a3, void *a4)
 {
   v8 = 0;
   v9[0] = 0;
@@ -754,8 +1133,8 @@ uint64_t DERImg4DecodePropertyWithItem(uint64_t a1, uint64_t a2, unint64_t a3, u
       if ((v8 | 0xE000000000000000) == a2)
       {
         result = 0;
-        *(a4 + 16) = a2 | 0xE000000000000000;
-        *(a4 + 40) = a3;
+        a4[2] = a2 | 0xE000000000000000;
+        a4[5] = a3;
       }
 
       else
@@ -768,7 +1147,7 @@ uint64_t DERImg4DecodePropertyWithItem(uint64_t a1, uint64_t a2, unint64_t a3, u
   return result;
 }
 
-unint64_t *DERImg4DecodeFindProperty(unint64_t *a1, uint64_t a2, unint64_t a3, unint64_t a4)
+unint64_t *DERImg4DecodeFindProperty(unint64_t *a1, uint64_t a2, unint64_t a3, void *a4)
 {
   v8[0] = 0;
   v8[1] = 0;

@@ -87,11 +87,10 @@ uint64_t __31__REBundleCache_sharedInstance__block_invoke()
 
 - (void)bundleAtPath:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Skipping %@ - No NSPrincipalClass", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Skipping %@ - No NSPrincipalClass", &v2, 0xCu);
 }
 
 @end

@@ -20,10 +20,10 @@
 
 - (NSArray)attributeDescriptions
 {
-  v32[6] = *MEMORY[0x1E69E9840];
+  v31[6] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   accessoryIdentifier = [(HMAudioAnalysisEventBulletin *)self accessoryIdentifier];
-  v31 = accessoryIdentifier;
+  v30 = accessoryIdentifier;
   if (accessoryIdentifier)
   {
     v5 = accessoryIdentifier;
@@ -34,8 +34,8 @@
     v5 = @"nil";
   }
 
-  v30 = [v3 initWithName:@"accessory" value:v5];
-  v32[0] = v30;
+  v29 = [v3 initWithName:@"accessory" value:v5];
+  v31[0] = v29;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   homeIdentifier = [(HMAudioAnalysisEventBulletin *)self homeIdentifier];
   v8 = homeIdentifier;
@@ -49,16 +49,16 @@
     v9 = @"nil";
   }
 
-  v29 = [v6 initWithName:@"homeIdentifier" value:v9];
-  v32[1] = v29;
+  v28 = [v6 initWithName:@"homeIdentifier" value:v9];
+  v31[1] = v28;
   v10 = objc_alloc(MEMORY[0x1E69A29C8]);
-  v28 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[HMAudioAnalysisEventBulletin reason](self, "reason")}];
-  v11 = [v10 initWithName:@"reason" value:v28];
-  v32[2] = v11;
+  v27 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[HMAudioAnalysisEventBulletin reason](self, "reason")}];
+  v11 = [v10 initWithName:@"reason" value:v27];
+  v31[2] = v11;
   v12 = objc_alloc(MEMORY[0x1E69A29C8]);
   v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[HMAudioAnalysisEventBulletin state](self, "state")}];
   v14 = [v12 initWithName:@"state" value:v13];
-  v32[3] = v14;
+  v31[3] = v14;
   v15 = objc_alloc(MEMORY[0x1E69A29C8]);
   startDate = [(HMAudioAnalysisEventBulletin *)self startDate];
   v17 = startDate;
@@ -73,7 +73,7 @@
   }
 
   v19 = [v15 initWithName:@"startDate" value:v18];
-  v32[4] = v19;
+  v31[4] = v19;
   v20 = objc_alloc(MEMORY[0x1E69A29C8]);
   dateOfOccurrence = [(HMAudioAnalysisEventBulletin *)self dateOfOccurrence];
   v22 = dateOfOccurrence;
@@ -88,10 +88,8 @@
   }
 
   v24 = [v20 initWithName:@"endDate" value:v23];
-  v32[5] = v24;
-  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:6];
-
-  v26 = *MEMORY[0x1E69E9840];
+  v31[5] = v24;
+  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:6];
 
   return v25;
 }
@@ -220,12 +218,11 @@
 
 uint64_t __43__HMAudioAnalysisEventBulletin_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A29A0];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_47543;
-  logCategory__hmf_once_v2_47543 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_47543;
+  logCategory__hmf_once_v2_47543 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)initWithProto:(id)proto

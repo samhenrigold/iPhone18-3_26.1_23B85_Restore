@@ -1300,7 +1300,7 @@ LABEL_5:
 - (void)passMessage:(id)message sequence:(int)sequence fromParticipant:(id)participant
 {
   v6 = *&sequence;
-  v41 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   objc_sync_enter(self);
   if (!participant)
   {
@@ -1308,104 +1308,104 @@ LABEL_5:
   }
 
   v9 = [MEMORY[0x1E696AD98] numberWithInt:v6];
-  v10 = micro();
-  v11 = [(NSMutableDictionary *)self->transactionCache objectForKeyedSubscript:participant];
-  if (!v11)
-  {
-    v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    [(NSMutableDictionary *)self->transactionCache setObject:v11 forKeyedSubscript:participant];
-  }
-
-  v12 = [v11 objectForKeyedSubscript:@"messageHistory"];
+  v11 = micro(v9, v10);
+  v12 = [(NSMutableDictionary *)self->transactionCache objectForKeyedSubscript:participant];
   if (!v12)
   {
-    v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    [v11 setObject:v12 forKeyedSubscript:@"messageHistory"];
+    v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    [(NSMutableDictionary *)self->transactionCache setObject:v12 forKeyedSubscript:participant];
   }
 
-  [(VCSessionMessageTopic *)self purgeExpiredEntries:v11 messageHistory:participant participantID:v10];
-  if ([(VCSessionMessageTopic *)self isDuplicateMessageID:v9 messageHistory:v11 participantID:participant])
+  v13 = [v12 objectForKeyedSubscript:@"messageHistory"];
+  if (!v13)
+  {
+    v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    [v12 setObject:v13 forKeyedSubscript:@"messageHistory"];
+  }
+
+  [(VCSessionMessageTopic *)self purgeExpiredEntries:v12 messageHistory:participant participantID:v11];
+  if ([(VCSessionMessageTopic *)self isDuplicateMessageID:v9 messageHistory:v12 participantID:participant])
   {
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v13 = VRTraceErrorLogLevelToCSTR();
-      v14 = *MEMORY[0x1E6986650];
+      v14 = VRTraceErrorLogLevelToCSTR();
+      v15 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         topicKey = self->topicKey;
         *buf = 136316674;
-        v28 = v13;
-        v29 = 2080;
-        v30 = "[VCSessionMessageTopic passMessage:sequence:fromParticipant:]";
-        v31 = 1024;
-        v32 = 452;
-        v33 = 2112;
+        v29 = v14;
+        v30 = 2080;
+        v31 = "[VCSessionMessageTopic passMessage:sequence:fromParticipant:]";
+        v32 = 1024;
+        v33 = 452;
+        v34 = 2112;
         participantCopy3 = participant;
-        v35 = 2112;
+        v36 = 2112;
         messageCopy2 = message;
-        v37 = 2112;
-        v38 = v9;
-        v39 = 2112;
-        v40 = topicKey;
-        _os_log_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d passMessage: ParticipantID '%@': Ignoring duplicate message '%@' with transactionID '%@' for topic '%@'", buf, 0x44u);
+        v38 = 2112;
+        v39 = v9;
+        v40 = 2112;
+        v41 = topicKey;
+        _os_log_impl(&dword_1DB56E000, v15, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d passMessage: ParticipantID '%@': Ignoring duplicate message '%@' with transactionID '%@' for topic '%@'", buf, 0x44u);
       }
     }
   }
 
   else
   {
-    v16 = [MEMORY[0x1E696AD98] numberWithDouble:{v10 + -[VCControlChannel reliableMessageResendInterval](self->controlChannel, "reliableMessageResendInterval")}];
+    v17 = [MEMORY[0x1E696AD98] numberWithDouble:{v11 + -[VCControlChannel reliableMessageResendInterval](self->controlChannel, "reliableMessageResendInterval")}];
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v17 = VRTraceErrorLogLevelToCSTR();
-      v18 = *MEMORY[0x1E6986650];
+      v18 = VRTraceErrorLogLevelToCSTR();
+      v19 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136316674;
-        v28 = v17;
-        v29 = 2080;
-        v30 = "[VCSessionMessageTopic passMessage:sequence:fromParticipant:]";
-        v31 = 1024;
-        v32 = 432;
-        v33 = 2112;
+        v29 = v18;
+        v30 = 2080;
+        v31 = "[VCSessionMessageTopic passMessage:sequence:fromParticipant:]";
+        v32 = 1024;
+        v33 = 432;
+        v34 = 2112;
         participantCopy3 = participant;
-        v35 = 2112;
+        v36 = 2112;
         messageCopy2 = v9;
-        v37 = 2112;
-        v38 = v12;
-        v39 = 2112;
-        v40 = v16;
-        _os_log_impl(&dword_1DB56E000, v18, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d passMessage: Participant '%@': Added message ID '%@' to message history '%@', expireTime '%@'", buf, 0x44u);
+        v38 = 2112;
+        v39 = v13;
+        v40 = 2112;
+        v41 = v17;
+        _os_log_impl(&dword_1DB56E000, v19, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d passMessage: Participant '%@': Added message ID '%@' to message history '%@', expireTime '%@'", buf, 0x44u);
       }
     }
 
-    v25[0] = @"messageID";
-    v25[1] = @"expireTime";
-    v26[0] = v9;
-    v26[1] = v16;
-    [v12 addObject:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v26, v25, 2)}];
+    v26[0] = @"messageID";
+    v26[1] = @"expireTime";
+    v27[0] = v9;
+    v27[1] = v17;
+    [v13 addObject:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v27, v26, 2)}];
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v19 = VRTraceErrorLogLevelToCSTR();
-      v20 = *MEMORY[0x1E6986650];
+      v20 = VRTraceErrorLogLevelToCSTR();
+      v21 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v21 = self->topicKey;
+        v22 = self->topicKey;
         *buf = 136316674;
-        v28 = v19;
-        v29 = 2080;
-        v30 = "[VCSessionMessageTopic passMessage:sequence:fromParticipant:]";
-        v31 = 1024;
-        v32 = 438;
-        v33 = 2112;
+        v29 = v20;
+        v30 = 2080;
+        v31 = "[VCSessionMessageTopic passMessage:sequence:fromParticipant:]";
+        v32 = 1024;
+        v33 = 438;
+        v34 = 2112;
         participantCopy3 = participant;
-        v35 = 2112;
+        v36 = 2112;
         messageCopy2 = message;
-        v37 = 2112;
-        v38 = v9;
-        v39 = 2112;
-        v40 = v21;
-        _os_log_impl(&dword_1DB56E000, v20, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d passMessage: ParticipantID '%@': Passing message '%@' with transactionID '%@' for topic '%@'", buf, 0x44u);
+        v38 = 2112;
+        v39 = v9;
+        v40 = 2112;
+        v41 = v22;
+        _os_log_impl(&dword_1DB56E000, v21, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d passMessage: ParticipantID '%@': Passing message '%@' with transactionID '%@' for topic '%@'", buf, 0x44u);
       }
     }
 

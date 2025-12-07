@@ -1,7 +1,10 @@
 @interface APKRemoteInspectorDOMAgent
 - (APKRemoteInspectorDOMAgent)initWithDispatcher:(id)dispatcher;
 - (APKRemoteInspectorDOMAgentDelegate)delegate;
+- (void)getAttributesWithErrorCallback:(id)callback successCallback:(id)successCallback nodeId:(int)id;
 - (void)getDocumentWithErrorCallback:(id)callback successCallback:(id)successCallback;
+- (void)getOuterHTMLWithErrorCallback:(id)callback successCallback:(id)successCallback nodeId:(int)id;
+- (void)requestChildNodesWithErrorCallback:(id)callback successCallback:(id)successCallback nodeId:(int)id depth:(int *)depth;
 @end
 
 @implementation APKRemoteInspectorDOMAgent
@@ -63,6 +66,31 @@ void __75__APKRemoteInspectorDOMAgent_getDocumentWithErrorCallback_successCallba
   }
 }
 
+- (void)getOuterHTMLWithErrorCallback:(id)callback successCallback:(id)successCallback nodeId:(int)id
+{
+  v5 = *&id;
+  callbackCopy = callback;
+  successCallbackCopy = successCallback;
+  delegate = [(APKRemoteInspectorDOMAgent *)self delegate];
+
+  if (delegate)
+  {
+    delegate2 = [(APKRemoteInspectorDOMAgent *)self delegate];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __83__APKRemoteInspectorDOMAgent_getOuterHTMLWithErrorCallback_successCallback_nodeId___block_invoke;
+    v12[3] = &unk_278C5DDB8;
+    v13 = successCallbackCopy;
+    v14 = callbackCopy;
+    [delegate2 DOMAgent:self onOuterHTMLRequestWithIdentifier:v5 completion:v12];
+  }
+
+  else
+  {
+    (*(callbackCopy + 2))(callbackCopy, @"Not supported");
+  }
+}
+
 void __83__APKRemoteInspectorDOMAgent_getOuterHTMLWithErrorCallback_successCallback_nodeId___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   if (a2)
@@ -80,6 +108,31 @@ void __83__APKRemoteInspectorDOMAgent_getOuterHTMLWithErrorCallback_successCallb
   }
 }
 
+- (void)getAttributesWithErrorCallback:(id)callback successCallback:(id)successCallback nodeId:(int)id
+{
+  v5 = *&id;
+  callbackCopy = callback;
+  successCallbackCopy = successCallback;
+  delegate = [(APKRemoteInspectorDOMAgent *)self delegate];
+
+  if (delegate)
+  {
+    delegate2 = [(APKRemoteInspectorDOMAgent *)self delegate];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __84__APKRemoteInspectorDOMAgent_getAttributesWithErrorCallback_successCallback_nodeId___block_invoke;
+    v12[3] = &unk_278C5DD48;
+    v13 = successCallbackCopy;
+    v14 = callbackCopy;
+    [delegate2 DOMAgent:self onAttributesRequestWithIdentifier:v5 completion:v12];
+  }
+
+  else
+  {
+    (*(callbackCopy + 2))(callbackCopy, @"Not supported");
+  }
+}
+
 void __84__APKRemoteInspectorDOMAgent_getAttributesWithErrorCallback_successCallback_nodeId___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   if (a2)
@@ -94,6 +147,47 @@ void __84__APKRemoteInspectorDOMAgent_getAttributesWithErrorCallback_successCall
     v5 = *(a1 + 40);
     v6 = [a3 localizedDescription];
     (*(v5 + 16))(v5, v6);
+  }
+}
+
+- (void)requestChildNodesWithErrorCallback:(id)callback successCallback:(id)successCallback nodeId:(int)id depth:(int *)depth
+{
+  v7 = *&id;
+  callbackCopy = callback;
+  successCallbackCopy = successCallback;
+  delegate = [(APKRemoteInspectorDOMAgent *)self delegate];
+
+  if (delegate)
+  {
+    if (depth)
+    {
+      v13 = *depth;
+    }
+
+    else
+    {
+      v13 = 3;
+    }
+
+    objc_initWeak(&location, self);
+    delegate2 = [(APKRemoteInspectorDOMAgent *)self delegate];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __94__APKRemoteInspectorDOMAgent_requestChildNodesWithErrorCallback_successCallback_nodeId_depth___block_invoke;
+    v15[3] = &unk_278C5DDE0;
+    objc_copyWeak(&v18, &location);
+    v19 = v7;
+    v16 = successCallbackCopy;
+    v17 = callbackCopy;
+    [delegate2 DOMAgent:self onChildNodeRequestWithParentIdentifier:v7 depth:v13 completion:v15];
+
+    objc_destroyWeak(&v18);
+    objc_destroyWeak(&location);
+  }
+
+  else
+  {
+    (*(callbackCopy + 2))(callbackCopy, @"Not supported");
   }
 }
 

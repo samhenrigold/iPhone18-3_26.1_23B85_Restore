@@ -8,80 +8,80 @@
 - (void)makeMLIROpWithBuilder:(void *)builder symbolTable:(void *)table inputValues:(void *)values opInitialization:(BOOL)initialization name:(id)name
 {
   nameCopy = name;
-  mpsFileLoc("[MPSGraphReductionSumOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphReductionOps.mm", v28);
+  mpsFileLoc(v29, "[MPSGraphReductionSumOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphReductionOps.mm");
   v11 = nameCopy;
-  v35 = 260;
-  v34[0] = v28;
-  StringAttr = mlir::Builder::getStringAttr(builder, v34);
-  v14 = mlir::FileLineColLoc::get(StringAttr, 0x3Du, 0);
+  v34 = 260;
+  v33[0] = v29;
+  StringAttr = mlir::Builder::getStringAttr(builder, v33);
+  v15 = mlir::FileLineColLoc::get(StringAttr, 0x3Du, 0);
   if (v11)
   {
     uTF8String = [v11 UTF8String];
-    v16 = strlen(uTF8String);
-    if (v16 >= 0x7FFFFFFFFFFFFFF8)
+    v17 = strlen(uTF8String);
+    if (v17 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v17 = v16;
-    if (v16 >= 0x17)
+    v18 = v17;
+    if (v17 >= 0x17)
     {
       operator new();
     }
 
-    v33[6] = v16;
-    if (v16)
+    *(&__dst.__r_.__value_.__s + 23) = v17;
+    if (v17)
     {
-      memmove(&__dst, uTF8String, v16);
+      memmove(&__dst, uTF8String, v17);
     }
 
-    v18 = &__dst + v17;
+    v19 = &__dst + v18;
   }
 
   else
   {
-    v33[6] = 17;
-    v32 = 109;
-    __dst = *"mps.reduction_sum";
-    v18 = v33;
+    *(&__dst.__r_.__value_.__s + 23) = 17;
+    __dst.__r_.__value_.__s.__data_[16] = 109;
+    *&__dst.__r_.__value_.__l.__data_ = *"mps.reduction_sum";
+    v19 = &__dst.__r_.__value_.__s.__data_[17];
   }
 
-  *v18 = 0;
-  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, v13, &__p);
+  *v19 = 0;
+  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, &__p, v13, v14);
   p_p = __p.__r_.__value_.__r.__words[0];
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
   }
 
-  v20 = 1;
-  HIBYTE(v35) = 1;
+  v21 = 1;
+  HIBYTE(v34) = 1;
   if (p_p->__r_.__value_.__s.__data_[0])
   {
-    v34[0] = p_p;
-    v20 = 3;
+    v33[0] = p_p;
+    v21 = 3;
   }
 
-  LOBYTE(v35) = v20;
-  v21 = mlir::Builder::getStringAttr(builder, v34);
-  v22 = mlir::NameLoc::get(v21, v14);
+  LOBYTE(v34) = v21;
+  v22 = mlir::Builder::getStringAttr(builder, v33);
+  v23 = mlir::NameLoc::get(v22, v15);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if ((v33[6] & 0x80000000) == 0)
+    if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
 LABEL_16:
 
-      if ((v29 & 0x80000000) == 0)
+      if ((v30 & 0x80000000) == 0)
       {
         goto LABEL_17;
       }
 
 LABEL_21:
-      operator delete(v28[0]);
-      v23 = *values;
-      v24 = *(values + 1);
-      if (v24 - *values >= 9)
+      operator delete(v29[0]);
+      v24 = *values;
+      v25 = *(values + 1);
+      if (v25 - *values >= 9)
       {
         goto LABEL_18;
       }
@@ -90,39 +90,39 @@ LABEL_21:
     }
   }
 
-  else if ((v33[6] & 0x80000000) == 0)
+  else if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_16;
   }
 
-  operator delete(__dst);
+  operator delete(__dst.__r_.__value_.__l.__data_);
 
-  if (v29 < 0)
+  if (v30 < 0)
   {
     goto LABEL_21;
   }
 
 LABEL_17:
-  v23 = *values;
-  v24 = *(values + 1);
-  if (v24 - *values >= 9)
+  v24 = *values;
+  v25 = *(values + 1);
+  if (v25 - *values >= 9)
   {
 LABEL_18:
-    v25 = v23[1];
+    v26 = v24[1];
     goto LABEL_23;
   }
 
 LABEL_22:
-  v25 = 0;
+  v26 = 0;
 LABEL_23:
-  v34[0] = v25;
-  if (v24 == v23)
+  v33[0] = v26;
+  if (v25 == v24)
   {
     std::vector<mlir::Value>::__throw_out_of_range[abi:ne200100]();
   }
 
   __p.__r_.__value_.__s.__data_[0] = 1;
-  *&__dst = mlir::OpBuilder::create<mlir::mps::ReductionSumOp,mlir::Value &,mlir::Value &,BOOL &>(builder, v22, v23, v34, &__p) - 16;
+  __dst.__r_.__value_.__r.__words[0] = (mlir::OpBuilder::create<mlir::mps::ReductionSumOp,mlir::Value &,mlir::Value &,BOOL &>(builder, v23, v24, v33, &__p) - 16);
   DefiningOp = mlir::Value::getDefiningOp(&__dst);
 
   return DefiningOp;

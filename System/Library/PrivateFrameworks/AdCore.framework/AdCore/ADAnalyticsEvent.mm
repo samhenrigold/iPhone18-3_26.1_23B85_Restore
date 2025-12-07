@@ -4,6 +4,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)eventAsString:(int)string;
 - (int)StringAsEvent:(id)event;
 - (unint64_t)hash;
 - (void)writeTo:(id)to;
@@ -27,6 +28,21 @@ void __27__ADAnalyticsEvent_options__block_invoke()
 {
   v0 = options_sOptions_5;
   options_sOptions_5 = &unk_285104D08;
+}
+
+- (id)eventAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278C55270[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsEvent:(id)event
@@ -121,10 +137,8 @@ void __27__ADAnalyticsEvent_options__block_invoke()
 
 - (void)writeTo:(id)to
 {
-  event = self->_event;
   toCopy = to;
   PBDataWriterWriteInt32Field();
-  timestamp = self->_timestamp;
   PBDataWriterWriteDoubleField();
 }
 

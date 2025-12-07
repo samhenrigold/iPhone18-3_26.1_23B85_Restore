@@ -211,7 +211,6 @@
   objc_storeStrong(&v37, 0);
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_deviceModelName
@@ -224,7 +223,6 @@
   v4[0] = [MEMORY[0x277CCACA8] stringWithCString:v5.machine encoding:4];
   v3 = MEMORY[0x277D82BE0](v4[0]);
   objc_storeStrong(v4, 0);
-  *MEMORY[0x277D85DE8];
 
   return v3;
 }

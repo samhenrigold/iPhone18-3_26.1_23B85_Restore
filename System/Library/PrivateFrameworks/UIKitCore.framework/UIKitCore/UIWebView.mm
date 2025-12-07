@@ -355,13 +355,13 @@
     }
 
     v8 = NSHomeDirectory();
-    if ([v4 isEqualToString:v8])
+    if (objc_msgSend_isEqualToString_(v4))
     {
       [standardUserDefaults removeObjectForKey:v3];
       v4 = 0;
     }
 
-    if ([v7 isEqualToString:v8])
+    if (objc_msgSend_isEqualToString_(v7))
     {
       [standardUserDefaults removeObjectForKey:*v5];
       v7 = 0;
@@ -393,63 +393,64 @@
 
 void __42__UIWebView__updatePersistentStoragePaths__block_invoke()
 {
-  if (([_UIMainBundleIdentifier() isEqualToString:@"com.apple.webapp"] & 1) == 0)
+  v0 = _UIMainBundleIdentifier();
+  if ((objc_msgSend_isEqualToString_(v0) & 1) == 0)
   {
     if (_sandbox_in_a_container())
     {
       +[UIWebView _fixPathsForSandboxDirectoryChange];
     }
 
-    v0 = [(NSArray *)NSSearchPathForDirectoriesInDomains(NSLibraryDirectory objectAtIndex:1), "objectAtIndex:", 0];
-    v1 = [v0 stringByAppendingPathComponent:@"Caches"];
-    v2 = [v0 stringByAppendingPathComponent:@"WebKit/LocalStorage"];
-    v3 = [v0 stringByAppendingPathComponent:@"WebKit/Databases"];
-    v4 = [MEMORY[0x1E695E000] standardUserDefaults];
-    v5 = *MEMORY[0x1E69E3028];
-    v6 = [v4 objectForKey:*MEMORY[0x1E69E3028]];
-    v7 = MEMORY[0x1E69E2FE0];
-    v8 = [v4 objectForKey:*MEMORY[0x1E69E2FE0]];
-    v9 = [v4 objectForKey:@"WebKitStoreWebDataForBackup"];
-    if (v9)
+    v1 = [(NSArray *)NSSearchPathForDirectoriesInDomains(NSLibraryDirectory objectAtIndex:1), "objectAtIndex:", 0];
+    v2 = [v1 stringByAppendingPathComponent:@"Caches"];
+    v3 = [v1 stringByAppendingPathComponent:@"WebKit/LocalStorage"];
+    v4 = [v1 stringByAppendingPathComponent:@"WebKit/Databases"];
+    v5 = [MEMORY[0x1E695E000] standardUserDefaults];
+    v6 = *MEMORY[0x1E69E3028];
+    v7 = [v5 objectForKey:*MEMORY[0x1E69E3028]];
+    v8 = MEMORY[0x1E69E2FE0];
+    v9 = [v5 objectForKey:*MEMORY[0x1E69E2FE0]];
+    v10 = [v5 objectForKey:@"WebKitStoreWebDataForBackup"];
+    if (v10)
     {
-      v10 = v9;
+      v11 = v10;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        if (![v10 BOOLValue])
+        if (![v11 BOOLValue])
         {
-          v2 = v1;
+          v3 = v2;
         }
 
-        if (([v6 isEqualToString:v2] & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(v7) & 1) == 0)
         {
-          [v4 setObject:v2 forKey:v5];
+          [v5 setObject:v3 forKey:v6];
         }
 
-        if (([v8 isEqualToString:v2] & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(v9) & 1) == 0)
         {
-          v11 = *v7;
+          v12 = *v8;
 
-          [v4 setObject:v2 forKey:v11];
+          [v5 setObject:v3 forKey:v12];
         }
       }
     }
 
-    else if (!v6 || !v8)
+    else if (!v7 || !v9)
     {
-      [v4 setObject:v1 forKey:v5];
-      [v4 setObject:v1 forKey:*v7];
-      [v4 synchronize];
+      [v5 setObject:v2 forKey:v6];
+      [v5 setObject:v2 forKey:*v8];
+      [v5 synchronize];
       if ((_UIIsPrivateMainBundle() & 1) == 0)
       {
         global_queue = dispatch_get_global_queue(-2, 0);
-        v13[0] = MEMORY[0x1E69E9820];
-        v13[1] = 3221225472;
-        v13[2] = __42__UIWebView__updatePersistentStoragePaths__block_invoke_2;
-        v13[3] = &unk_1E7101E78;
-        v13[4] = v2;
-        v13[5] = v3;
-        dispatch_async(global_queue, v13);
+        v14[0] = MEMORY[0x1E69E9820];
+        v14[1] = 3221225472;
+        v14[2] = __42__UIWebView__updatePersistentStoragePaths__block_invoke_2;
+        v14[3] = &unk_1E7101E78;
+        v14[4] = v3;
+        v14[5] = v4;
+        dispatch_async(global_queue, v14);
       }
     }
   }
@@ -954,7 +955,8 @@ uint64_t __42__UIWebView__updatePersistentStoragePaths__block_invoke_2(uint64_t 
   [(UIView *)&v6 setBackgroundColor:color];
   if (self->_internal)
   {
-    if (![(UIColor *)backgroundColor isEqual:[(UIView *)self backgroundColor]])
+    [(UIView *)self backgroundColor];
+    if ((objc_msgSend_isEqual_(backgroundColor) & 1) == 0)
     {
       [(UIWebView *)self _updateOpaqueAndBackgroundColor];
     }
@@ -1720,16 +1722,15 @@ uint64_t __88__UIWebView_webView_runJavaScriptTextInputPanelWithPrompt_defaultTe
   else
   {
     authenticationMethod = [space authenticationMethod];
-    if ([authenticationMethod isEqualToString:*MEMORY[0x1E695AB48]] & 1) != 0 || (objc_msgSend(authenticationMethod, "isEqualToString:", *MEMORY[0x1E695AB58]) & 1) != 0 || (objc_msgSend(authenticationMethod, "isEqualToString:", *MEMORY[0x1E695AB60]) & 1) != 0 || (objc_msgSend(authenticationMethod, "isEqualToString:", *MEMORY[0x1E695AB50]))
+    if (objc_msgSend_isEqualToString_(authenticationMethod) & 1) != 0 || (objc_msgSend_isEqualToString_(authenticationMethod) & 1) != 0 || (objc_msgSend_isEqualToString_(authenticationMethod) & 1) != 0 || (objc_msgSend_isEqualToString_(authenticationMethod))
     {
       return 1;
     }
 
     else
     {
-      v13 = *MEMORY[0x1E695AB68];
 
-      return [authenticationMethod isEqualToString:v13];
+      return objc_msgSend_isEqualToString_(authenticationMethod);
     }
   }
 }

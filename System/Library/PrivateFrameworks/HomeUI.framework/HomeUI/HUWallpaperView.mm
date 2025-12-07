@@ -100,17 +100,17 @@ LABEL_8:
 LABEL_11:
 }
 
-uint64_t __64__HUWallpaperView_populateWallpaper_withAnimation_onlyIfNeeded___block_invoke(uint64_t a1)
+uint64_t __64__HUWallpaperView_populateWallpaper_withAnimation_onlyIfNeeded___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     [*(a1 + 48) setContentMode:{2 * (objc_msgSend(*(a1 + 40), "type") != 2)}];
-    v2 = *(a1 + 48);
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 56);
+    v3 = *(a1 + 48);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 56);
 
-    return [v2 setCurrentImage:v3 withAnimation:v4];
+    return [v3 setCurrentImage:v4 withAnimation:v5];
   }
 
   else
@@ -119,11 +119,11 @@ uint64_t __64__HUWallpaperView_populateWallpaper_withAnimation_onlyIfNeeded___bl
     result = objc_opt_isKindOfClass();
     if (result)
     {
-      v6 = *(a1 + 48);
-      v7 = *(a1 + 32);
-      v8 = *(a1 + 56);
+      v7 = *(a1 + 48);
+      v8 = *(a1 + 32);
+      v9 = *(a1 + 56);
 
-      return [v6 setCurrentLayer:v7 withAnimation:v8];
+      return [v7 setCurrentLayer:v8 withAnimation:v9];
     }
   }
 

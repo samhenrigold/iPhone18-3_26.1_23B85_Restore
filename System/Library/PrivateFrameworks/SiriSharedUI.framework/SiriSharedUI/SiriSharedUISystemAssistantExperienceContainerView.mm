@@ -189,7 +189,7 @@
 {
   y = point.y;
   x = point.x;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC4968);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC4968, &qword_21E4E5240);
   MEMORY[0x28223BE20](v8 - 8);
   v10 = &v17 - v9;
   v11 = _Block_copy(completion);
@@ -227,7 +227,7 @@
   else
   {
     loadingViews = [(SiriSharedUISystemAssistantExperienceContainerView *)selfCopy loadingViews];
-    type metadata accessor for SiriSharedUIDropletContainerView();
+    type metadata accessor for SiriSharedUIDropletContainerView(0);
     v6 = sub_21E4DD088();
 
     if (v6 >> 62)
@@ -261,7 +261,7 @@
 
 - (void)removeSuggestions
 {
-  sub_21E43F008(0, &qword_280C140A0);
+  sub_21E43F008(0, &qword_280C140A0, 0x277D75D18);
   selfCopy = self;
   v3 = sub_21E4DD078();
   [(SiriSharedUISystemAssistantExperienceContainerView *)selfCopy setSuggestions:v3];
@@ -508,7 +508,7 @@
 {
   selfCopy = self;
   loadingViews = [(SiriSharedUISystemAssistantExperienceContainerView *)selfCopy loadingViews];
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   v4 = sub_21E4DD088();
 
   if (v4 >> 62)
@@ -569,7 +569,7 @@
 {
   selfCopy = self;
   continuerSuggestionsViews = [(SiriSharedUISystemAssistantExperienceContainerView *)selfCopy continuerSuggestionsViews];
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   v6 = sub_21E4DD088();
 
   if ((v6 & 0xC000000000000001) != 0)
@@ -823,7 +823,7 @@ LABEL_5:
 
 - (NSArray)suggestionContentViewsToRemove
 {
-  sub_21E43F008(0, &qword_280C140A0);
+  sub_21E43F008(0, &qword_280C140A0, 0x277D75D18);
 
   v2 = sub_21E4DD078();
 
@@ -832,7 +832,7 @@ LABEL_5:
 
 - (void)setSuggestionContentViewsToRemove:(id)remove
 {
-  sub_21E43F008(0, &qword_280C140A0);
+  sub_21E43F008(0, &qword_280C140A0, 0x277D75D18);
   *(self + OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_suggestionContentViewsToRemove) = sub_21E4DD088();
 }
 
@@ -854,9 +854,9 @@ LABEL_5:
 
 - (NSDictionary)originalViewSizeDict
 {
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   type metadata accessor for CGSize(0);
-  sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+  sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
 
   v2 = sub_21E4DCE88();
 
@@ -865,9 +865,9 @@ LABEL_5:
 
 - (void)setOriginalViewSizeDict:(id)dict
 {
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   type metadata accessor for CGSize(0);
-  sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+  sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
   *(self + OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_originalViewSizeDict) = sub_21E4DCE98();
 }
 
@@ -933,7 +933,7 @@ LABEL_5:
 
 - (NSDictionary)backgroundColorAsyncDict
 {
-  sub_21E43F008(0, &qword_280C140A0);
+  sub_21E43F008(0, &qword_280C140A0, 0x277D75D18);
   sub_21E4D1674();
 
   v2 = sub_21E4DCE88();
@@ -943,7 +943,7 @@ LABEL_5:
 
 - (void)setBackgroundColorAsyncDict:(id)dict
 {
-  sub_21E43F008(0, &qword_280C140A0);
+  sub_21E43F008(0, &qword_280C140A0, 0x277D75D18);
   sub_21E4D1674();
   *(self + OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_backgroundColorAsyncDict) = sub_21E4DCE98();
 }
@@ -1021,7 +1021,7 @@ LABEL_5:
   }
 
   v10 = v9;
-  sub_21E43F008(0, &qword_280C140A0);
+  sub_21E43F008(0, &qword_280C140A0, 0x277D75D18);
   v11 = selfCopy;
   selfCopy = v10;
   LOBYTE(v10) = sub_21E4DD2F8();
@@ -1070,9 +1070,10 @@ LABEL_5:
 - (BOOL)attemptToApplySDFMask
 {
   selfCopy = self;
-  v3 = sub_21E4CBB34();
+  sub_21E4CBB34();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (void)mitoseWithDuration:(float)duration mitosingIntoSnippet:(BOOL)snippet

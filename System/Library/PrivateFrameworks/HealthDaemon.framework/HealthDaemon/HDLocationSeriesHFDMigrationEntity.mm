@@ -114,37 +114,21 @@ uint64_t __80__HDLocationSeriesHFDMigrationEntity_enumerateAllKeys_error_enumera
   return v13;
 }
 
-void __99__HDLocationSeriesHFDMigrationEntity_migrateDataFromDataStore_to_database_recoveryAnalytics_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  v12 = a3;
-  v13 = a2;
-  v5 = *(a1 + 40);
-  ++**(a1 + 32);
-  v9 = a4 + -86400.0;
-  v10 = a5 + 86400.0;
-  v11 = v5;
-  v8 = 0;
-  v6 = *(a1 + 64);
-  v7 = *(a1 + 48);
-  operator new();
-}
-
 uint64_t __90__HDLocationSeriesHFDMigrationEntity__migrateSeriesWithKey_toSQLFromStore_database_error___block_invoke(void *a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a1[4];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __90__HDLocationSeriesHFDMigrationEntity__migrateSeriesWithKey_toSQLFromStore_database_error___block_invoke_2;
-  v17[3] = &unk_278615A20;
-  v19 = a1[6];
-  v20 = 0;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __90__HDLocationSeriesHFDMigrationEntity__migrateSeriesWithKey_toSQLFromStore_database_error___block_invoke_2;
+  v16[3] = &unk_278615A20;
+  v18 = a1[6];
+  v19 = 0;
   v7 = v5;
-  v18 = v7;
-  v8 = [v6 executeSQL:@"INSERT OR REPLACE INTO location_series_data (series_identifier error:timestamp bindingHandler:latitude enumerationHandler:{longitude, altitude, speed, course, horizontal_accuracy, vertical_accuracy, speed_accuracy, course_accuracy, signal_environment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", &v20, v17, 0}];
-  v9 = v20;
+  v17 = v7;
+  v8 = [v6 executeSQL:@"INSERT OR REPLACE INTO location_series_data (series_identifier error:timestamp bindingHandler:latitude enumerationHandler:{longitude, altitude, speed, course, horizontal_accuracy, vertical_accuracy, speed_accuracy, course_accuracy, signal_environment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", &v19, v16, 0}];
+  v9 = v19;
   v10 = v9;
   if ((v8 & 1) != 0 || ![v9 hd_isConstraintViolation])
   {
@@ -172,9 +156,9 @@ uint64_t __90__HDLocationSeriesHFDMigrationEntity__migrateSeriesWithKey_toSQLFro
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v22 = v7;
-      v23 = 2112;
-      v24 = v10;
+      v21 = v7;
+      v22 = 2112;
+      v23 = v10;
       _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "[HFDToSQLite] Could not encode HFD location %@ in SQLite (%@); suppressing", buf, 0x16u);
     }
 
@@ -182,7 +166,6 @@ uint64_t __90__HDLocationSeriesHFDMigrationEntity__migrateSeriesWithKey_toSQLFro
     *(*(a1[5] + 8) + 24) = 1;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -192,7 +175,7 @@ uint64_t __90__HDLocationSeriesHFDMigrationEntity__migrateSeriesWithKey_toSQLFro
   v4 = *(a1 + 32);
   if (v4)
   {
-    [v4 clientLocation];
+    objc_msgSend_clientLocation(v4);
     v5 = v16;
   }
 
@@ -223,13 +206,12 @@ uint64_t __90__HDLocationSeriesHFDMigrationEntity__migrateSeriesWithKey_toSQLFro
   return sqlite3_bind_int(a2, 12, [*(a1 + 32) signalEnvironmentType]);
 }
 
-void __90__HDLocationSeriesHFDMigrationEntity__migrateSeriesWithKey_toSQLFromStore_database_error___block_invoke_314(uint64_t a1)
+void __90__HDLocationSeriesHFDMigrationEntity__migrateSeriesWithKey_toSQLFromStore_database_error___block_invoke_314(void *a1, void *a2)
 {
   v8 = *MEMORY[0x277D85DE8];
   v4 = 0;
   v3 = 0;
-  v1 = *(a1 + 48);
-  v2 = *(a1 + 56);
+  v2 = a1[7];
   *buf = 0;
   v7 = v2;
   v5 = 0;
@@ -270,40 +252,38 @@ void __90__HDLocationSeriesHFDMigrationEntity__migrateSeriesWithKey_toSQLFromSto
 
 uint64_t __79__HDLocationSeriesHFDMigrationEntity_migrateDataToSQLFromStore_database_error___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v6 = *(a1 + 40);
-  v5 = *(a1 + 48);
-  v7 = *(a1 + 32);
+  v22 = *MEMORY[0x277D85DE8];
+  v5 = *(a1 + 32);
   objc_opt_self();
   *buf = 0;
-  v22 = buf;
-  v23 = 0x2020000000;
-  v24 = 0;
+  v19 = buf;
+  v20 = 0x2020000000;
+  v21 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __90__HDLocationSeriesHFDMigrationEntity__migrateSeriesWithKey_toSQLFromStore_database_error___block_invoke;
   aBlock[3] = &unk_278628510;
-  v8 = v7;
-  v19 = buf;
-  v20 = a2;
-  v18 = v8;
-  v16 = _Block_copy(aBlock);
-  v9 = v16;
+  v6 = v5;
+  v16 = buf;
+  v17 = a2;
+  v15 = v6;
+  v13 = _Block_copy(aBlock);
+  v7 = v13;
   LOBYTE(a2) = HKWithAutoreleasePool();
 
   _Block_object_dispose(buf, 8);
-  v10 = 0;
+  v8 = 0;
 
   if ((a2 & 1) == 0)
   {
-    v11 = v10;
-    v12 = v11;
-    if (v11)
+    v9 = v8;
+    v10 = v9;
+    if (v9)
     {
       if (a3)
       {
-        v13 = v11;
-        *a3 = v12;
+        v11 = v9;
+        *a3 = v10;
       }
 
       else
@@ -311,16 +291,15 @@ uint64_t __79__HDLocationSeriesHFDMigrationEntity_migrateDataToSQLFromStore_data
         _HKLogDroppedError();
       }
 
-      v10 = v12;
+      v8 = v10;
     }
 
     else
     {
-      v10 = 0;
+      v8 = 0;
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -334,74 +313,68 @@ uint64_t __79__HDLocationSeriesHFDMigrationEntity_migrateDataToSQLFromStore_data
 
 + (void)migrateDataFromDataStore:to:database:recoveryAnalytics:error:
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = (self + 8);
   v4 = **(self + 8);
-  v20 = 0;
-  v21 = v4;
-  v23 = *(a2 + 32);
-  v24 = a2;
-  health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::valueForKey<health::DataStore::ObjectIdentifier>(&v23, &v20, 0, buf);
-  v5 = *(self + 24);
-  v6 = *(self + 32);
-  v7 = *v3;
-  v8 = **v3;
-  v9 = *(self + 40);
-  if (v32 == 1)
+  v14 = 0;
+  v15 = v4;
+  v17 = *(a2 + 32);
+  v18 = a2;
+  health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::valueForKey<health::DataStore::ObjectIdentifier>(&v17, &v14, 0, buf);
+  v5 = *v3;
+  v6 = **v3;
+  v7 = *(self + 40);
+  if (v26 == 1)
   {
-    *&v23 = &unk_283BEBE00;
-    *(&v23 + 1) = v9;
-    v24 = v7;
-    v25 = &v23;
-    v11 = *(self + 48);
-    v10 = *(self + 56);
-    v20 = &unk_283BEBE90;
-    v21 = v11;
-    v22 = &v20;
-    v12 = *v10;
-    v18 = 0;
-    v19 = v8;
+    *&v17 = &unk_283BEBE00;
+    *(&v17 + 1) = v7;
+    v18 = v5;
+    v19 = &v17;
+    v8 = *(self + 48);
+    v14 = &unk_283BEBE90;
+    v15 = v8;
+    v16 = &v14;
+    v12 = 0;
+    v13 = v6;
     _HKInitializeLogging();
-    v13 = *MEMORY[0x277CCC2A0];
+    v9 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218240;
-      v28 = 0;
-      v29 = 2048;
-      v30 = v8;
-      _os_log_debug_impl(&dword_228986000, v13, OS_LOG_TYPE_DEBUG, "HFD rebuild: Migrating (%lld, %llu)", buf, 0x16u);
+      v22 = 0;
+      v23 = 2048;
+      v24 = v6;
+      _os_log_debug_impl(&dword_228986000, v9, OS_LOG_TYPE_DEBUG, "HFD rebuild: Migrating (%lld, %llu)", buf, 0x16u);
     }
 
-    v26 = 0;
-    v31 = 0;
+    v20 = 0;
+    v25 = 0;
     operator new();
   }
 
-  *&v23 = &unk_283BEC1D0;
-  *(&v23 + 1) = v9;
-  v24 = v7;
-  v25 = &v23;
-  v15 = *(self + 48);
-  v14 = *(self + 56);
-  v20 = &unk_283BEC260;
-  v21 = v15;
-  v22 = &v20;
-  v16 = *v14;
-  v18 = 3;
-  v19 = v8;
+  *&v17 = &unk_283BEC1D0;
+  *(&v17 + 1) = v7;
+  v18 = v5;
+  v19 = &v17;
+  v10 = *(self + 48);
+  v14 = &unk_283BEC260;
+  v15 = v10;
+  v16 = &v14;
+  v12 = 3;
+  v13 = v6;
   _HKInitializeLogging();
-  v17 = *MEMORY[0x277CCC2A0];
+  v11 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218240;
-    v28 = 3;
-    v29 = 2048;
-    v30 = v8;
-    _os_log_debug_impl(&dword_228986000, v17, OS_LOG_TYPE_DEBUG, "HFD rebuild: Migrating (%lld, %llu)", buf, 0x16u);
+    v22 = 3;
+    v23 = 2048;
+    v24 = v6;
+    _os_log_debug_impl(&dword_228986000, v11, OS_LOG_TYPE_DEBUG, "HFD rebuild: Migrating (%lld, %llu)", buf, 0x16u);
   }
 
-  v26 = 0;
-  v31 = 0;
+  v20 = 0;
+  v25 = 0;
   operator new();
 }
 

@@ -20,7 +20,7 @@
   optionsCopy = options;
   sub_1C3CCDA10(0, &qword_1EC085770, MEMORY[0x1E6969530], MEMORY[0x1E69E6720]);
   MEMORY[0x1EEE9AC00](v16 - 8);
-  v18 = &v27 - v17;
+  v18 = &v28 - v17;
   sub_1C3D20374();
   sub_1C3D20364();
   sub_1C3D20314();
@@ -44,7 +44,7 @@
 
   if (types)
   {
-    sub_1C3C27CB4(0, &unk_1EC085700);
+    sub_1C3C27CB4(0, &unk_1EC085700, off_1E81B25F8);
     typesCopy = sub_1C3D202B4();
   }
 
@@ -52,18 +52,18 @@
   itemsCopy = items;
   activityCopy = activity;
   modelCopy = model;
-  v25 = sub_1C3CCBD2C(itemsCopy, v18, activity, typesCopy, optionsCopy);
+  v26 = sub_1C3CCBD2C(itemsCopy, v18, activity, typesCopy, optionsCopy, v25);
 
   sub_1C3CCDA74(v18, &qword_1EC085770, MEMORY[0x1E6969530]);
 
-  return v25;
+  return v26;
 }
 
 - (HKBalanceOverlayRoomViewController)initWithDisplayDate:(id)date applicationItems:(id)items factorDisplayTypes:(id)types mode:(int64_t)mode
 {
   sub_1C3CCDA10(0, &qword_1EC085770, MEMORY[0x1E6969530], MEMORY[0x1E69E6720]);
   MEMORY[0x1EEE9AC00](v10 - 8);
-  v12 = &v19 - v11;
+  v12 = &v21 - v11;
   sub_1C3D20374();
   sub_1C3D20364();
   sub_1C3D20314();
@@ -87,7 +87,7 @@
 
   if (types)
   {
-    sub_1C3C27CB4(0, &unk_1EC085700);
+    sub_1C3C27CB4(0, &unk_1EC085700, off_1E81B25F8);
     v15 = sub_1C3D202B4();
   }
 
@@ -97,9 +97,9 @@
   }
 
   itemsCopy = items;
-  v17 = sub_1C3CCBF20(v12, itemsCopy, v15, mode);
+  v19 = sub_1C3CCBF20(v12, itemsCopy, v15, mode, v17, v18);
 
-  return v17;
+  return v19;
 }
 
 - (id)controllerTitleWithApplicationItems:(id)items
@@ -160,7 +160,7 @@
   selfCopy = self;
   sub_1C3CCC7A8(mode, itemsCopy);
 
-  sub_1C3C27CB4(0, &qword_1EC085778);
+  sub_1C3C27CB4(0, &qword_1EC085778, off_1E81B2C00);
   v12 = sub_1C3D202A4();
 
   return v12;
@@ -212,9 +212,9 @@
   }
 
   selfCopy = self;
-  v4 = sub_1C3CC9A04();
+  v9 = sub_1C3CC9A04(selfCopy, v4, v5, v6, v7, v8);
 
-  return v4;
+  return v9;
 }
 
 - (id)stringForValueRange:(id)range timeScope:(int64_t)scope

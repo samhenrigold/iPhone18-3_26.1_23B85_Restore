@@ -63,34 +63,29 @@ LABEL_7:
 
 - (id)attributeDescriptions
 {
-  v23[6] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   identifier = [(HMICamera *)self identifier];
-  v21 = [v3 initWithName:@"Identifier" value:identifier];
-  v23[0] = v21;
+  v18 = [v3 initWithName:? value:?];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   name = [(HMICamera *)self name];
-  v5 = [v4 initWithName:@"Name" value:name];
-  v23[1] = v5;
-  v6 = objc_alloc(MEMORY[0x277D0F778]);
+  v19 = [v4 initWithName:? value:?];
+  v5 = objc_alloc(MEMORY[0x277D0F778]);
   manufacturer = [(HMICamera *)self manufacturer];
-  v8 = [v6 initWithName:@"Manufacturer" value:manufacturer];
-  v23[2] = v8;
-  v9 = objc_alloc(MEMORY[0x277D0F778]);
+  v20 = [v5 initWithName:? value:?];
+  v7 = objc_alloc(MEMORY[0x277D0F778]);
   model = [(HMICamera *)self model];
-  v11 = [v9 initWithName:@"Model" value:model];
-  v23[3] = v11;
-  v12 = objc_alloc(MEMORY[0x277D0F778]);
+  v21 = [v7 initWithName:? value:?];
+  v9 = objc_alloc(MEMORY[0x277D0F778]);
   firmwareVersion = [(HMICamera *)self firmwareVersion];
-  v14 = [v12 initWithName:@"Firmware Version" value:firmwareVersion];
-  v23[4] = v14;
-  v15 = objc_alloc(MEMORY[0x277D0F778]);
-  v16 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMICamera hasBattery](self, "hasBattery")}];
-  v17 = [v15 initWithName:@"Has Battery" value:v16];
-  v23[5] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:6];
+  v22 = [v9 initWithName:? value:?];
+  v11 = objc_alloc(MEMORY[0x277D0F778]);
+  v12 = MEMORY[0x277CCABB0];
+  [(HMICamera *)self hasBattery];
+  v13 = [v12 numberWithBool:?];
+  v23 = [v11 initWithName:? value:?];
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
 
-  return v18;
+  return v14;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -155,31 +150,31 @@ LABEL_7:
 - (HMICamera)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = objc_opt_class();
-  v6 = NSStringFromSelector(sel_identifier);
-  v7 = [coderCopy decodeObjectOfClass:v5 forKey:v6];
+  objc_opt_class();
+  v5 = NSStringFromSelector(sel_identifier);
+  v6 = [coderCopy decodeObjectOfClass:? forKey:?];
 
-  v8 = objc_opt_class();
-  v9 = NSStringFromSelector(sel_name);
-  v10 = [coderCopy decodeObjectOfClass:v8 forKey:v9];
+  objc_opt_class();
+  v7 = NSStringFromSelector(sel_name);
+  v8 = [coderCopy decodeObjectOfClass:? forKey:?];
 
-  v11 = objc_opt_class();
-  v12 = NSStringFromSelector(sel_manufacturer);
-  v13 = [coderCopy decodeObjectOfClass:v11 forKey:v12];
+  objc_opt_class();
+  v9 = NSStringFromSelector(sel_manufacturer);
+  v10 = [coderCopy decodeObjectOfClass:? forKey:?];
 
-  v14 = objc_opt_class();
-  v15 = NSStringFromSelector(sel_model);
-  v16 = [coderCopy decodeObjectOfClass:v14 forKey:v15];
+  objc_opt_class();
+  v11 = NSStringFromSelector(sel_model);
+  v12 = [coderCopy decodeObjectOfClass:? forKey:?];
 
-  v17 = objc_opt_class();
-  v18 = NSStringFromSelector(sel_firmwareVersion);
-  v19 = [coderCopy decodeObjectOfClass:v17 forKey:v18];
+  objc_opt_class();
+  v13 = NSStringFromSelector(sel_firmwareVersion);
+  v14 = [coderCopy decodeObjectOfClass:? forKey:?];
 
-  v20 = NSStringFromSelector(sel_hasBattery);
-  v21 = [coderCopy decodeBoolForKey:v20];
+  v15 = NSStringFromSelector(sel_hasBattery);
+  [coderCopy decodeBoolForKey:?];
 
-  v22 = [(HMICamera *)self initWithIdentifier:v7 name:v10 manufacturer:v13 model:v16 firmwareVersion:v19 hasBattery:v21];
-  return v22;
+  v16 = [HMICamera initWithIdentifier:"initWithIdentifier:name:manufacturer:model:firmwareVersion:hasBattery:" name:? manufacturer:? model:? firmwareVersion:? hasBattery:?];
+  return v16;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -187,27 +182,27 @@ LABEL_7:
   coderCopy = coder;
   identifier = [(HMICamera *)self identifier];
   v6 = NSStringFromSelector(sel_identifier);
-  [coderCopy encodeObject:identifier forKey:v6];
+  [coderCopy encodeObject:? forKey:?];
 
   name = [(HMICamera *)self name];
   v8 = NSStringFromSelector(sel_name);
-  [coderCopy encodeObject:name forKey:v8];
+  [coderCopy encodeObject:? forKey:?];
 
   manufacturer = [(HMICamera *)self manufacturer];
   v10 = NSStringFromSelector(sel_manufacturer);
-  [coderCopy encodeObject:manufacturer forKey:v10];
+  [coderCopy encodeObject:? forKey:?];
 
   model = [(HMICamera *)self model];
   v12 = NSStringFromSelector(sel_model);
-  [coderCopy encodeObject:model forKey:v12];
+  [coderCopy encodeObject:? forKey:?];
 
   firmwareVersion = [(HMICamera *)self firmwareVersion];
   v14 = NSStringFromSelector(sel_firmwareVersion);
-  [coderCopy encodeObject:firmwareVersion forKey:v14];
+  [coderCopy encodeObject:? forKey:?];
 
-  hasBattery = [(HMICamera *)self hasBattery];
-  v16 = NSStringFromSelector(sel_hasBattery);
-  [coderCopy encodeBool:hasBattery forKey:v16];
+  [(HMICamera *)self hasBattery];
+  v15 = NSStringFromSelector(sel_hasBattery);
+  [coderCopy encodeBool:? forKey:?];
 }
 
 @end

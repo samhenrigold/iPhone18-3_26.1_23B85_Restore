@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)domainAsString:(int)string;
+- (id)feedbackTypeAsString:(int)string;
 - (int)StringAsDomain:(id)domain;
 - (int)StringAsFeedbackType:(id)type;
 - (int)domain;
@@ -378,7 +380,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    k = self->_k;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -398,7 +399,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  evaluatedCount = self->_evaluatedCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -413,12 +413,10 @@ LABEL_4:
   }
 
 LABEL_15:
-  domain = self->_domain;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_5:
-    feedbackType = self->_feedbackType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -430,7 +428,6 @@ LABEL_6:
 
   if (*&self->_has)
   {
-    bucket = self->_bucket;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -577,6 +574,21 @@ LABEL_16:
   return v4;
 }
 
+- (id)feedbackTypeAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2789742E8[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasFeedbackType:(BOOL)type
 {
   if (type)
@@ -651,6 +663,21 @@ LABEL_16:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)domainAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2789742A8[string];
   }
 
   return v4;

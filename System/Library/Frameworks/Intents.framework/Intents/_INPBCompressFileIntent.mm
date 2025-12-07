@@ -3,6 +3,7 @@
 - (_INPBCompressFileIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)entityTypeAsString:(int)string;
 - (int)StringAsEntityType:(id)type;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -199,19 +200,18 @@ LABEL_17:
 
   if ([(_INPBCompressFileIntent *)self hasEntityType])
   {
-    entityType = self->_entityType;
     PBDataWriterWriteInt32Field();
   }
 
   intentMetadata = [(_INPBCompressFileIntent *)self intentMetadata];
 
-  v8 = toCopy;
+  v7 = toCopy;
   if (intentMetadata)
   {
     intentMetadata2 = [(_INPBCompressFileIntent *)self intentMetadata];
     PBDataWriterWriteSubmessage();
 
-    v8 = toCopy;
+    v7 = toCopy;
   }
 }
 
@@ -241,6 +241,21 @@ LABEL_17:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)entityTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7282410[string];
   }
 
   return v4;

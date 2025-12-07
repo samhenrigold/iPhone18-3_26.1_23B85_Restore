@@ -1,6 +1,7 @@
 @interface CBRFCOMMChannel
 - (CBRFCOMMChannel)initWithPeer:(id)peer info:(id)info;
 - (id)description;
+- (void)configureChannelPortParams:(unsigned int)params dataBits:(unsigned __int8)bits parity:(unsigned __int8)parity stopBits:(unsigned __int8)stopBits;
 - (void)dealloc;
 @end
 
@@ -116,6 +117,49 @@ LABEL_14:
   [(CBRFCOMMChannel *)&v4 dealloc];
 }
 
+- (void)configureChannelPortParams:(unsigned int)params dataBits:(unsigned __int8)bits parity:(unsigned __int8)parity stopBits:(unsigned __int8)stopBits
+{
+  stopBitsCopy = stopBits;
+  parityCopy = parity;
+  bitsCopy = bits;
+  v9 = *&params;
+  v22 = *MEMORY[0x1E69E9840];
+  if (CBLogInitOnce != -1)
+  {
+    [CBRFCOMMChannel configureChannelPortParams:dataBits:parity:stopBits:];
+  }
+
+  v11 = CBLogComponent;
+  if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v21 = "[CBRFCOMMChannel configureChannelPortParams:dataBits:parity:stopBits:]";
+    _os_log_impl(&dword_1C0AC1000, v11, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+  }
+
+  self->_baudRate = v9;
+  self->_dataBits = bitsCopy;
+  self->_parity = parityCopy;
+  self->_stopBits = stopBitsCopy;
+  v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{v9, @"kCBMsgArgRFCOMMBaudRate"}];
+  v19[0] = v12;
+  v18[1] = @"kCBMsgArgRFCOMMDataBit";
+  v13 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:bitsCopy];
+  v19[1] = v13;
+  v18[2] = @"kCBMsgArgRFCOMMParityBit";
+  v14 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:parityCopy];
+  v19[2] = v14;
+  v18[3] = @"kCBMsgArgRFCOMMStopBit";
+  v15 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:stopBitsCopy];
+  v19[3] = v15;
+  v18[4] = @"kCBMsgArgRFCOMMChannelID";
+  v16 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:self->_channelID];
+  v19[4] = v16;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:5];
+
+  [(CBClassicPeer *)self->_peer configureRFCOMMPortParams:v17];
+}
+
 - (id)description
 {
   v3 = MEMORY[0x1E696AEC0];
@@ -135,17 +179,16 @@ LABEL_14:
 
 - (void)initWithPeer:(os_log_t)log info:.cold.2(unsigned __int8 *a1, uint64_t a2, os_log_t log)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = *a1;
   v4 = *(a2 + 48);
-  v6 = 136315650;
-  v7 = "[CBRFCOMMChannel initWithPeer:info:]";
-  v8 = 1024;
-  v9 = v3;
-  v10 = 2112;
-  v11 = v4;
-  _os_log_debug_impl(&dword_1C0AC1000, log, OS_LOG_TYPE_DEBUG, "%s CID: %u %@", &v6, 0x1Cu);
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 136315650;
+  v6 = "[CBRFCOMMChannel initWithPeer:info:]";
+  v7 = 1024;
+  v8 = v3;
+  v9 = 2112;
+  v10 = v4;
+  _os_log_debug_impl(&dword_1C0AC1000, log, OS_LOG_TYPE_DEBUG, "%s CID: %u %@", &v5, 0x1Cu);
 }
 
 @end

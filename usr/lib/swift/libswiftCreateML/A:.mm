@@ -8,7 +8,6 @@
 {
   if (a3)
   {
-    return self;
   }
 
   return result;

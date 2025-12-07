@@ -27,7 +27,7 @@
 - (void)prepareForReuse
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for EditableTextIconCell();
+  v5.super_class = type metadata accessor for EditableTextIconCell(0);
   v2 = v5.receiver;
   [(HUEditableTextCollectionListCell *)&v5 prepareForReuse];
   v3 = OBJC_IVAR___HUEditableTextIconCell_displayStyle;

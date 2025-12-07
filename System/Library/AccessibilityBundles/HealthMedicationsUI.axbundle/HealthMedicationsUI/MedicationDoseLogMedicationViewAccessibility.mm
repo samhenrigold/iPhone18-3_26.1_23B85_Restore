@@ -40,7 +40,7 @@
   v3 = [(MedicationDoseLogMedicationViewAccessibility *)self safeSwiftValueForKey:@"takenButton"];
   v4 = [(MedicationDoseLogMedicationViewAccessibility *)self safeSwiftValueForKey:@"viewModel"];
   v5 = [v4 safeSwiftValueForKey:@"status"];
-  v6 = _accessibilityConvertToStatus();
+  v6 = _accessibilityConvertToStatus(v5);
 
   if (v6 == 4)
   {

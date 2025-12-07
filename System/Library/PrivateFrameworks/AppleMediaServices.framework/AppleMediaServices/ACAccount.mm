@@ -149,7 +149,7 @@ id __77__ACAccount_AppleMediaServices__ams_isInRestrictedRegionWithBag_waitForSy
   return v13;
 }
 
-void __65__ACAccount_AppleMediaServices__ams_mergePrivacyAcknowledgement___block_invoke(uint64_t a1, void *a2)
+void __65__ACAccount_AppleMediaServices__ams_mergePrivacyAcknowledgement___block_invoke(void *a1, void *a2)
 {
   v31 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -247,7 +247,7 @@ void __65__ACAccount_AppleMediaServices__ams_mergePrivacyAcknowledgement___block
   }
 }
 
-void __65__ACAccount_AppleMediaServices__ams_mergePrivacyAcknowledgement___block_invoke_243(uint64_t a1, void *a2)
+void __65__ACAccount_AppleMediaServices__ams_mergePrivacyAcknowledgement___block_invoke_243(void *a1, void *a2)
 {
   v31 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -497,7 +497,7 @@ LABEL_18:
   return v18;
 }
 
-uint64_t __76__ACAccount_AppleMediaServices__ams_cookiesForURL_bag_cleanupGlobalCookies___block_invoke_260(uint64_t a1, void *a2)
+uint64_t __76__ACAccount_AppleMediaServices__ams_cookiesForURL_bag_cleanupGlobalCookies___block_invoke_260(id *a1, void *a2)
 {
   v32 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -508,7 +508,7 @@ uint64_t __76__ACAccount_AppleMediaServices__ams_cookiesForURL_bag_cleanupGlobal
 
     if (v4)
     {
-      v5 = [*(a1 + 40) host];
+      v5 = [a1[5] host];
       v6 = v5;
       if (v5 && ([v5 hasPrefix:@"."] & 1) == 0)
       {

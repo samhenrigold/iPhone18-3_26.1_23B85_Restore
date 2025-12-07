@@ -1,11 +1,11 @@
 @interface FigCaptureVideoThumbnailSinkPipeline
 - (uint64_t)_buildVideoFilterThumbnailPipeline:(uint64_t)pipeline videoSourceOutput:(uint64_t)output videoSourceTransform:(uint64_t)transform outputTransform:(unint64_t)outputTransform videoThumbnailConnectionConfiguration:(uint64_t)configuration maxLossyCompressionLevel:(void *)level clientAuditToken:(unsigned int)token;
 - (uint64_t)imageQueueSinkNode;
-- (uint64_t)updateClientAuditToken:(uint64_t)result;
 - (void)dealloc;
 - (void)imageQueueSinkNode:(id)node didAttemptToEnqueuePreviewSampleBuffer:(opaqueCMSampleBuffer *)buffer withSuccess:(BOOL)success;
-- (void)initWithGraph:(uint64_t)graph name:(uint64_t)name videoSourceOutput:(uint64_t)output videoSourceTransform:(uint64_t)transform outputTransform:(unint64_t)outputTransform videoThumbnailConnectionConfiguration:(uint64_t)configuration maxLossyCompressionLevel:(void *)level clientAuditToken:(unsigned int)self0 notificationDelegate:(_OWORD *)self1;
+- (void)initWithGraph:(uint64_t)graph name:(uint64_t)name videoSourceOutput:(const char *)output videoSourceTransform:(uint64_t)transform outputTransform:(unint64_t)outputTransform videoThumbnailConnectionConfiguration:(uint64_t)configuration maxLossyCompressionLevel:(void *)level clientAuditToken:(unsigned int)self0 notificationDelegate:(__int128 *)self1;
 - (void)setDiscardsSampleData:(BOOL)data;
+- (void)updateClientAuditToken:(void *)result;
 @end
 
 @implementation FigCaptureVideoThumbnailSinkPipeline
@@ -76,21 +76,21 @@ void __210__FigCaptureVideoThumbnailSinkPipeline__buildVideoFilterThumbnailPipel
   dispatch_sync(notificationQueue, v6);
 }
 
-uint64_t __110__FigCaptureVideoThumbnailSinkPipeline_imageQueueSinkNode_didAttemptToEnqueuePreviewSampleBuffer_withSuccess___block_invoke(uint64_t result)
+void *__110__FigCaptureVideoThumbnailSinkPipeline_imageQueueSinkNode_didAttemptToEnqueuePreviewSampleBuffer_withSuccess___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if ((*(v1 + 72) & 1) == 0)
   {
     v2 = result;
     result = [objc_msgSend(objc_msgSend(objc_msgSend(*(v1 + 48) "input")];
     if ((result & 1) == 0)
     {
-      result = [*(v2 + 40) imageQueueSlot];
+      result = [v2[5] imageQueueSlot];
       if (result)
       {
         v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{result, @"ImageQueueSlot"}];
-        result = [*(*(v2 + 32) + 80) postNotification:@"ThumbnailImageQueueUpdated" notificationPayload:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v4, &v3, 1)}];
-        *(*(v2 + 32) + 72) = 1;
+        result = [*(v2[4] + 80) postNotification:@"ThumbnailImageQueueUpdated" notificationPayload:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v4, &v3, 1)}];
+        *(v2[4] + 72) = 1;
       }
     }
   }
@@ -98,41 +98,41 @@ uint64_t __110__FigCaptureVideoThumbnailSinkPipeline_imageQueueSinkNode_didAttem
   return result;
 }
 
-- (void)initWithGraph:(uint64_t)graph name:(uint64_t)name videoSourceOutput:(uint64_t)output videoSourceTransform:(uint64_t)transform outputTransform:(unint64_t)outputTransform videoThumbnailConnectionConfiguration:(uint64_t)configuration maxLossyCompressionLevel:(void *)level clientAuditToken:(unsigned int)self0 notificationDelegate:(_OWORD *)self1
+- (void)initWithGraph:(uint64_t)graph name:(uint64_t)name videoSourceOutput:(const char *)output videoSourceTransform:(uint64_t)transform outputTransform:(unint64_t)outputTransform videoThumbnailConnectionConfiguration:(uint64_t)configuration maxLossyCompressionLevel:(void *)level clientAuditToken:(unsigned int)self0 notificationDelegate:(__int128 *)self1
 {
   if (!self)
   {
     return 0;
   }
 
-  v23.receiver = self;
-  v23.super_class = FigCaptureVideoThumbnailSinkPipeline;
-  v17 = objc_msgSendSuper2(&v23, sel_initWithGraph_name_sinkID_, a2, graph, [objc_msgSend(level "sinkConfiguration")]);
-  if (v17)
+  v26.receiver = self;
+  v26.super_class = FigCaptureVideoThumbnailSinkPipeline;
+  v18 = objc_msgSendSuper2(&v26, sel_initWithGraph_name_sinkID_, a2, graph, [objc_msgSend(level "sinkConfiguration")]);
+  if (v18)
   {
     if (level)
     {
-      v17[8] = FigDispatchQueueCreateWithPriority();
-      v17[10] = a12;
-      v22.receiver = v17;
-      v22.super_class = FigCaptureVideoThumbnailSinkPipeline;
-      objc_msgSendSuper2(&v22, sel_setUpstreamOutput_, name);
-      v17[11] = [objc_msgSend(level "sourceConfiguration")];
-      *(v17 + 24) = [level underlyingDeviceType];
-      v18 = delegate[1];
-      v21[0] = *delegate;
-      v21[1] = v18;
-      [(FigCaptureVideoThumbnailSinkPipeline *)v17 _buildVideoFilterThumbnailPipeline:a2 videoSourceOutput:name videoSourceTransform:output outputTransform:transform videoThumbnailConnectionConfiguration:outputTransform maxLossyCompressionLevel:configuration clientAuditToken:level, token, v21];
-      return v17;
+      v18[8] = FigDispatchQueueCreateWithPriority();
+      v18[10] = a12;
+      v25.receiver = v18;
+      v25.super_class = FigCaptureVideoThumbnailSinkPipeline;
+      objc_msgSendSuper2(&v25, sel_setUpstreamOutput_, name);
+      v18[11] = [objc_msgSend(level "sourceConfiguration")];
+      *(v18 + 24) = [level underlyingDeviceType];
+      v19 = delegate[1];
+      v23 = *delegate;
+      v24 = v19;
+      [(FigCaptureVideoThumbnailSinkPipeline *)v18 _buildVideoFilterThumbnailPipeline:a2 videoSourceOutput:name videoSourceTransform:output outputTransform:transform videoThumbnailConnectionConfiguration:outputTransform maxLossyCompressionLevel:configuration clientAuditToken:level, token, &v23];
+      return v18;
     }
 
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v12, v21, output, v23, *(&v23 + 1), v24, DWORD2(v24));
 
     return 0;
   }
 
-  return v17;
+  return v18;
 }
 
 - (uint64_t)_buildVideoFilterThumbnailPipeline:(uint64_t)pipeline videoSourceOutput:(uint64_t)output videoSourceTransform:(uint64_t)transform outputTransform:(unint64_t)outputTransform videoThumbnailConnectionConfiguration:(uint64_t)configuration maxLossyCompressionLevel:(void *)level clientAuditToken:(unsigned int)token
@@ -208,23 +208,19 @@ uint64_t __110__FigCaptureVideoThumbnailSinkPipeline_imageQueueSinkNode_didAttem
         [(BWSinkNode *)v32 notifyWhenIdle:v35];
         v34.receiver = self;
         v34.super_class = FigCaptureVideoThumbnailSinkPipeline;
-        if (objc_msgSendSuper2(&v34, sel_addNode_error_, v32, &v39))
+        if ((objc_msgSendSuper2(&v34, sel_addNode_error_, v32, &v39) & 1) == 0 || (self[7] = v32, ([a2 connectOutput:output toInput:-[BWNode input](v32 pipelineStage:{"input"), v15}] & 1) == 0))
         {
-          self[7] = v32;
-          if ([a2 connectOutput:output toInput:-[BWNode input](v32 pipelineStage:{"input"), v15}])
-          {
-            return 0;
-          }
+          fig_log_get_emitter();
+          OUTLINED_FUNCTION_0_9();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
         }
-
-        fig_log_get_emitter();
-        OUTLINED_FUNCTION_0_9();
       }
 
       else
       {
         fig_log_get_emitter();
         OUTLINED_FUNCTION_0_9();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
       }
     }
 
@@ -232,19 +228,18 @@ uint64_t __110__FigCaptureVideoThumbnailSinkPipeline_imageQueueSinkNode_didAttem
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0_9();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
-
-    FigDebugAssert3();
   }
 
   return 0;
 }
 
-- (uint64_t)updateClientAuditToken:(uint64_t)result
+- (void)updateClientAuditToken:(void *)result
 {
   if (result)
   {
-    v2 = *(result + 56);
+    v2 = result[7];
     v3 = a2[1];
     v4[0] = *a2;
     v4[1] = v3;

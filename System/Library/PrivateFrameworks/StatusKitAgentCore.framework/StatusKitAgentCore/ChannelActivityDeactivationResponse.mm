@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)statusAsString:(int)string;
 - (int)StringAsStatus:(id)status;
 - (int)status;
 - (unint64_t)hash;
@@ -42,6 +43,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)statusAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27843DFA0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsStatus:(id)status
@@ -211,7 +227,6 @@ LABEL_12:
   toCopy = to;
   if ((*&self->_has & 8) != 0)
   {
-    status = self->_status;
     PBDataWriterWriteInt32Field();
   }
 
@@ -223,7 +238,6 @@ LABEL_12:
   has = self->_has;
   if (has)
   {
-    serverTimestampSeconds = self->_serverTimestampSeconds;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -243,12 +257,10 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  version = self->_version;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_8:
-    retryIntervalSeconds = self->_retryIntervalSeconds;
     PBDataWriterWriteUint32Field();
   }
 
@@ -367,7 +379,6 @@ LABEL_6:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 40);
   if ((has & 8) != 0)
   {
     if ((*(equalCopy + 40) & 8) == 0 || self->_status != *(equalCopy + 7))
@@ -387,7 +398,7 @@ LABEL_6:
     if (![(NSData *)uuid isEqual:?])
     {
 LABEL_24:
-      v8 = 0;
+      v7 = 0;
       goto LABEL_25;
     }
 
@@ -420,7 +431,7 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v8 = (*(equalCopy + 40) & 4) == 0;
+  v7 = (*(equalCopy + 40) & 4) == 0;
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 40) & 4) == 0 || self->_retryIntervalSeconds != *(equalCopy + 6))
@@ -428,12 +439,12 @@ LABEL_24:
       goto LABEL_24;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_25:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

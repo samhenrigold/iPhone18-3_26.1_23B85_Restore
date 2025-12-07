@@ -282,9 +282,9 @@ LABEL_17:
 
           if (dCopy && altDSID)
           {
-            v16 = [altDSID isEqualToString:v14];
+            isEqualToString = objc_msgSend_isEqualToString_(altDSID);
 
-            if (v16)
+            if (isEqualToString)
             {
               goto LABEL_17;
             }
@@ -348,9 +348,9 @@ LABEL_16:
 
         if (dCopy && altDSID)
         {
-          v13 = [altDSID isEqualToString:v11];
+          isEqualToString = objc_msgSend_isEqualToString_(altDSID);
 
-          if (v13)
+          if (isEqualToString)
           {
             goto LABEL_16;
           }
@@ -420,9 +420,9 @@ LABEL_3:
 
     if (dCopy && altDSID)
     {
-      v16 = [altDSID isEqualToString:v14];
+      isEqualToString = objc_msgSend_isEqualToString_(altDSID);
 
-      if (v16)
+      if (isEqualToString)
       {
         goto LABEL_17;
       }

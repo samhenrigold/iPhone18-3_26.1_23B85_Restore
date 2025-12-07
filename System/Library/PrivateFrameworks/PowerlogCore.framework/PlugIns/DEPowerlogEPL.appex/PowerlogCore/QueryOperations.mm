@@ -148,15 +148,8 @@ LABEL_20:
   }
 
   v24 = v37[5];
-  if (!v24)
+  if (!v24 || ([v24 objectForKeyedSubscript:@"PLBatteryUIXPCVersionKey"], (v25 = objc_claimAutoreleasedReturnValue()) == 0) || (objc_msgSend(v37[5], "objectForKeyedSubscript:", @"PLBatteryUIXPCVersionKey"), v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "doubleValue"), v28 = v27, v26, v25, v28 != 1.0))
   {
-    goto LABEL_19;
-  }
-
-  v25 = [v24 objectForKeyedSubscript:@"PLBatteryUIXPCVersionKey"];
-  if (!v25 || ([v37[5] objectForKeyedSubscript:@"PLBatteryUIXPCVersionKey"], v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "doubleValue"), v28 = v27, v26, v25, v28 != 1.0))
-  {
-LABEL_19:
     NSLog(@"Received invalid BUI graph response on try %d, sleeping...", v18);
     [NSThread sleepForTimeInterval:3.0];
     goto LABEL_20;

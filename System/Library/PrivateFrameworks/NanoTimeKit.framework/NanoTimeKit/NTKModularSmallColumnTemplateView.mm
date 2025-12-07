@@ -453,7 +453,7 @@ void __53__NTKModularSmallColumnTemplateView__newLabelSubview__block_invoke_2(ui
   [(NTKModuleView *)self naturalHorizontalLayoutForViewsAndSpacing:v65 columnAlignmentSpacing:1];
 }
 
-void __55__NTKModularSmallColumnTemplateView__layoutContentView__block_invoke(uint64_t a1, void *a2, void *a3, double a4)
+void __55__NTKModularSmallColumnTemplateView__layoutContentView__block_invoke(uint64_t a1, double *a2, double *a3, double a4)
 {
   v7 = *(a1 + 48) - a4;
   [*(*(a1 + 32) + 608) widthForMaxWidth:*(a1 + 40) withFont:v7];
@@ -467,7 +467,7 @@ void __55__NTKModularSmallColumnTemplateView__layoutContentView__block_invoke(ui
   *a3 = v11;
 }
 
-void __55__NTKModularSmallColumnTemplateView__layoutContentView__block_invoke_2(uint64_t a1, void *a2, void *a3, double a4)
+void __55__NTKModularSmallColumnTemplateView__layoutContentView__block_invoke_2(uint64_t a1, double *a2, double *a3, double a4)
 {
   v7 = *(a1 + 48) - a4;
   [*(*(a1 + 32) + 616) widthForMaxWidth:*(a1 + 40) withFont:v7];

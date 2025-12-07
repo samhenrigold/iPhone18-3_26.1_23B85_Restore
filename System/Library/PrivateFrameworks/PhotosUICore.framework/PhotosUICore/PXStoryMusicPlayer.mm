@@ -259,7 +259,7 @@ void __43__PXStoryMusicPlayer_setTouchingBeganDate___block_invoke(uint64_t a1)
   v9 = player;
   if (player)
   {
-    [player currentTime];
+    objc_msgSend_currentTime(player);
   }
 
   else
@@ -276,7 +276,7 @@ void __43__PXStoryMusicPlayer_setTouchingBeganDate___block_invoke(uint64_t a1)
   else
   {
     v10 = PXAudioAssetDefaultEntryPoint(v6);
-    [v10 time];
+    objc_msgSend_time(v10);
     CMTimeMakeWithSeconds(retstr, v11, 600);
   }
 
@@ -355,7 +355,7 @@ void __50__PXStoryMusicPlayer_settings_changedValueForKey___block_invoke(uint64_
     currentSongResource2 = [(PXStoryMusicPlayer *)self currentSongResource];
     px_storyResourceSongAsset = [currentSongResource2 px_storyResourceSongAsset];
     v15 = PXAudioAssetDefaultEntryPoint(px_storyResourceSongAsset);
-    [v15 time];
+    objc_msgSend_time(v15);
     [v8 appendFormat:@"   Start Time: %.0f\n", v16];
 
     model = [(PXStoryMusicPlayer *)self model];
@@ -451,7 +451,7 @@ void __50__PXStoryMusicPlayer_settings_changedValueForKey___block_invoke(uint64_
     cueSource = [(PXStoryMusicPlayer *)self cueSource];
     if (cueSource)
     {
-      [(PXStoryMusicPlayer *)self currentTime];
+      objc_msgSend_currentTime(self);
       CMTimeMake(&duration, 3, 1);
       CMTimeRangeMake(&v54, start, &duration);
       duration = **&MEMORY[0x1E6960C70];
@@ -698,7 +698,7 @@ LABEL_39:
   memset(&v16, 0, sizeof(v16));
   CMTimeMake(&v16, 3, 1);
   cueSource = [(PXStoryMusicPlayer *)self cueSource];
-  [(PXStoryMusicPlayer *)self currentTime];
+  objc_msgSend_currentTime(self);
   duration = v16;
   CMTimeRangeMake(&v15, v13, &duration);
   v9 = *&time->var0;
@@ -723,7 +723,7 @@ LABEL_39:
     if (player)
     {
       v9 = player;
-      [player currentTime];
+      objc_msgSend_currentTime(player);
       player = v9;
     }
 
@@ -1035,7 +1035,7 @@ LABEL_12:
   v17 = player;
   if (player)
   {
-    [player currentTime];
+    objc_msgSend_currentTime(player);
   }
 
   else
@@ -1054,7 +1054,7 @@ LABEL_12:
 
     if (v21)
     {
-      [v21 time];
+      objc_msgSend_time(v21);
       [v21 fadeInGainAtOffset:Seconds - v22];
       v18 = v18 * v23;
     }
@@ -1207,7 +1207,7 @@ void __51__PXStoryMusicPlayer__updatePlayerDesiredPlayState__block_invoke(uint64
       v7 = v6;
       if (v6)
       {
-        [v6 nominalPlaybackTime];
+        objc_msgSend_nominalPlaybackTime(v6);
       }
 
       else
@@ -1218,7 +1218,7 @@ void __51__PXStoryMusicPlayer__updatePlayerDesiredPlayState__block_invoke(uint64
       lhs = v13;
       v8 = [v4 currentAsset];
       v9 = PXAudioAssetDefaultEntryPoint(v8);
-      [v9 time];
+      objc_msgSend_time(v9);
       CMTimeMakeWithSeconds(&rhs, v10, PXAudioDefaultCMTimeScale);
       CMTimeAdd(&v13, &lhs, &rhs);
       [v4 playFromStartTime:&v13];
@@ -1339,7 +1339,7 @@ LABEL_13:
   currentAudioAsset = [(PXStoryMusicPlayer *)self currentAudioAsset];
   v10 = 0uLL;
   v11 = 0;
-  [(PXStoryMusicPlayer *)self playbackStartTimeForIncomingSong:currentAudioAsset];
+  objc_msgSend_playbackStartTimeForIncomingSong_(self);
   player = [(PXStoryMusicPlayer *)self player];
   v6[0] = MEMORY[0x1E69E9820];
   v6[1] = 3221225472;
@@ -1387,7 +1387,7 @@ uint64_t __47__PXStoryMusicPlayer__updatePlayerCurrentAsset__block_invoke(uint64
   dispatch_async(storyQueue, block);
 }
 
-uint64_t __61__PXStoryMusicPlayer__handleAudioCues_asset_error_requestID___block_invoke(uint64_t a1)
+void *__61__PXStoryMusicPlayer__handleAudioCues_asset_error_requestID___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 64);
@@ -1475,7 +1475,7 @@ void __38__PXStoryMusicPlayer__updateCueSource__block_invoke(uint64_t a1, void *
   px_storyResourceSongAsset = [activeSongResource px_storyResourceSongAsset];
   if ([px_storyResourceSongAsset catalog] == 4)
   {
-    [(PXStoryMusicPlayer *)self targetDuration];
+    objc_msgSend_targetDuration(self);
     if ((v14[36] & 0x1D) == 1)
     {
       v7 = px_storyResourceSongAsset;
@@ -1485,7 +1485,7 @@ void __38__PXStoryMusicPlayer__updateCueSource__block_invoke(uint64_t a1, void *
         if (objc_opt_isKindOfClass())
         {
 LABEL_5:
-          [(PXStoryMusicPlayer *)self targetDuration];
+          objc_msgSend_targetDuration(self);
           v8 = [v7 assetWithTargetDuration:v14];
 
           activeSongResource = v8;
@@ -1530,7 +1530,7 @@ LABEL_6:
     v5 = timeline;
     if (timeline)
     {
-      [timeline timeRange];
+      objc_msgSend_timeRange(timeline);
     }
 
     else
@@ -1569,7 +1569,7 @@ LABEL_6:
 
   memset(&v10, 0, sizeof(v10));
   v5 = PXAudioAssetDefaultEntryPoint(currentAsset);
-  [v5 time];
+  objc_msgSend_time(v5);
   CMTimeMakeWithSeconds(&v10, v6, 600);
 
   player2 = [(PXStoryMusicPlayer *)self player];
@@ -1591,7 +1591,7 @@ uint64_t __28__PXStoryMusicPlayer_replay__block_invoke(uint64_t a1, void *a2)
 - (id)diagnosticTextForHUDType:(int64_t)type
 {
   v4 = objc_alloc(MEMORY[0x1E696AEC0]);
-  [(PXStoryMusicPlayer *)self currentTime];
+  objc_msgSend_currentTime(self);
   v5 = PXStoryTimeDescription(&v8);
   v6 = [v4 initWithFormat:@"Music Time: %@", v5];
 

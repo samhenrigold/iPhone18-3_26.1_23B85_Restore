@@ -7,7 +7,7 @@
 
 - (void)submitEventWithName:(id)name payload:(id)payload
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   payloadCopy = payload;
   v8 = [payloadCopy mutableCopy];
@@ -32,25 +32,23 @@
   {
     v18 = HMFGetLogIdentifier();
     uuid2 = [(HMMNullRTCSession *)selfCopy uuid];
-    v22 = 138543874;
-    v23 = v18;
-    v24 = 2112;
-    v25 = uuid2;
-    v26 = 2112;
-    v27 = v8;
-    _os_log_impl(&dword_22B074000, v17, OS_LOG_TYPE_DEBUG, "%{public}@[%@] Submitting event: %@", &v22, 0x20u);
+    v21 = 138543874;
+    v22 = v18;
+    v23 = 2112;
+    v24 = uuid2;
+    v25 = 2112;
+    v26 = v8;
+    _os_log_impl(&dword_22B074000, v17, OS_LOG_TYPE_DEBUG, "%{public}@[%@] Submitting event: %@", &v21, 0x20u);
   }
 
   objc_autoreleasePoolPop(v15);
   backend = [(HMMRTCSession *)selfCopy backend];
   [backend sendMessage:v8];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (HMMRTCSession)initWithUUID:(id)d serviceName:(id)name commonFields:(id)fields backend:(id)backend
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   nameCopy = name;
   fieldsCopy = fields;
@@ -62,18 +60,18 @@
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v24 = v17;
-    v25 = 2112;
-    v26 = dCopy;
-    v27 = 2112;
-    v28 = nameCopy;
+    v23 = v17;
+    v24 = 2112;
+    v25 = dCopy;
+    v26 = 2112;
+    v27 = nameCopy;
     _os_log_impl(&dword_22B074000, v16, OS_LOG_TYPE_DEBUG, "%{public}@[%@] Creating session with service name: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v14);
-  v22.receiver = selfCopy;
-  v22.super_class = HMMRTCSession;
-  v18 = [(HMMNullRTCSession *)&v22 initWithUUID:dCopy serviceName:nameCopy];
+  v21.receiver = selfCopy;
+  v21.super_class = HMMRTCSession;
+  v18 = [(HMMNullRTCSession *)&v21 initWithUUID:dCopy serviceName:nameCopy];
   v19 = v18;
   if (v18)
   {
@@ -81,7 +79,6 @@
     objc_storeStrong(&v19->_backend, backend);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 

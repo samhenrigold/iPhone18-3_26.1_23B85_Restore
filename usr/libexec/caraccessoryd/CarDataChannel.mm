@@ -159,7 +159,7 @@ void __34__CarDataChannel__startConnection__block_invoke(uint64_t a1)
   v2 = CAFDChannelLogging();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __34__CarDataChannel__startConnection__block_invoke_cold_1(a1);
+    __34__CarDataChannel__startConnection__block_invoke_cold_1();
   }
 
   v4 = *(a1 + 32);
@@ -173,7 +173,7 @@ void __34__CarDataChannel__startConnection__block_invoke(uint64_t a1)
     v7 = CAFDChannelLogging();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      __34__CarDataChannel__startConnection__block_invoke_cold_3(v3);
+      __34__CarDataChannel__startConnection__block_invoke_cold_3();
     }
 
     v8 = [*v3 channelDelegate];
@@ -185,7 +185,7 @@ void __34__CarDataChannel__startConnection__block_invoke(uint64_t a1)
     v9 = CAFDChannelLogging();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __34__CarDataChannel__startConnection__block_invoke_cold_2(v3);
+      __34__CarDataChannel__startConnection__block_invoke_cold_2();
     }
 
     objc_initWeak(&location, *v3);
@@ -210,20 +210,9 @@ void __34__CarDataChannel__startConnection__block_invoke_38(uint64_t a1)
 
 - (void)_stopConnection
 {
-  v3 = CAFDChannelLogging();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
-  {
-    [(CarDataChannel *)self _stopConnection:v3];
-  }
-
-  [(CarDataChannel *)self setIsOpened:0];
-  inputQueue = [(CarDataChannel *)self inputQueue];
-  block[0] = _NSConcreteStackBlock;
-  block[1] = 3221225472;
-  block[2] = __33__CarDataChannel__stopConnection__block_invoke;
-  block[3] = &unk_100055470;
-  block[4] = self;
-  dispatch_sync(inputQueue, block);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_0(&_mh_execute_header, a2, a3, "Stopping channel %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 id __33__CarDataChannel__stopConnection__block_invoke(uint64_t a1)
@@ -231,7 +220,7 @@ id __33__CarDataChannel__stopConnection__block_invoke(uint64_t a1)
   v2 = CAFDChannelLogging();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __33__CarDataChannel__stopConnection__block_invoke_cold_1(a1);
+    __33__CarDataChannel__stopConnection__block_invoke_cold_1();
   }
 
   v3 = [*(a1 + 32) channel];
@@ -283,7 +272,7 @@ void __44__CarDataChannel_channel_didReceiveMessage___block_invoke(uint64_t a1)
     v8 = CAFDChannelLogging();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __44__CarDataChannel_channel_didReceiveMessage___block_invoke_cold_1(a1);
+      __44__CarDataChannel_channel_didReceiveMessage___block_invoke_cold_1();
     }
   }
 
@@ -324,7 +313,7 @@ void __44__CarDataChannel_channel_didReceiveMessage___block_invoke(uint64_t a1)
       v11 = CAFDChannelLogging();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        __44__CarDataChannel_channel_didReceiveMessage___block_invoke_cold_2(a1);
+        __44__CarDataChannel_channel_didReceiveMessage___block_invoke_cold_2();
       }
     }
   }
@@ -353,7 +342,7 @@ void __34__CarDataChannel_didCloseChannel___block_invoke(uint64_t a1)
   v2 = CAFDChannelLogging();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __34__CarDataChannel_didCloseChannel___block_invoke_cold_1(a1);
+    __34__CarDataChannel_didCloseChannel___block_invoke_cold_1();
   }
 
   v3 = [*(a1 + 32) channel];
@@ -381,53 +370,11 @@ void __56__CarDataChannel_sendToPluginID_payload_withCompletion___block_invoke_c
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Unable to package payload: %@", &v2, 0xCu);
 }
 
-void __34__CarDataChannel__startConnection__block_invoke_cold_1(uint64_t a1)
+- (void)didCloseChannel:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&_mh_execute_header, v2, v3, "Starting channel %{public}@", v4, v5, v6, v7, v8);
-}
-
-void __34__CarDataChannel__startConnection__block_invoke_cold_2(uint64_t *a1)
-{
-  v1 = *a1;
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "Failed to open channel %@, will retry later...", v3, 0xCu);
-}
-
-void __34__CarDataChannel__startConnection__block_invoke_cold_3(uint64_t *a1)
-{
-  v1 = *a1;
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&_mh_execute_header, v2, v3, "Did open channel: %{public}@", v4, v5, v6, v7, v8);
-}
-
-void __33__CarDataChannel__stopConnection__block_invoke_cold_1(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&_mh_execute_header, v2, v3, "Stopping channel (inputQueue) %{public}@", v4, v5, v6, v7, v8);
-}
-
-void __44__CarDataChannel_channel_didReceiveMessage___block_invoke_cold_1(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_2_0(&_mh_execute_header, v2, v3, "%{public}@ Error parsing data: %@");
-}
-
-void __44__CarDataChannel_channel_didReceiveMessage___block_invoke_cold_2(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_2_0(&_mh_execute_header, v2, v3, "%{public}@ Received data message without pluginID or data: %@");
-}
-
-void __34__CarDataChannel_didCloseChannel___block_invoke_cold_1(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&_mh_execute_header, v2, v3, "Did close channel (inputQueue): %@", v4, v5, v6, v7, v8);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&_mh_execute_header, a2, a3, "Did close channel: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

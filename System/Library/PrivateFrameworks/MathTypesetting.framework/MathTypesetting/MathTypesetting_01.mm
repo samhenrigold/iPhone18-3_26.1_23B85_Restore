@@ -288,7 +288,7 @@ LABEL_66:
     v4 = *(a2 + 12) - 2;
     if (v4 <= 0xC && ((0x1F09u >> v4) & 1) != 0)
     {
-      return dword_2582D0194[v4] + this - 48;
+      return (dword_2582D0194[v4] + this - 48);
     }
   }
 
@@ -474,18 +474,19 @@ double EQKit::Unicode::emSize(EQKit::Unicode *this)
   return 0.0;
 }
 
-void *std::set<unsigned int>::set[abi:ne200100]<unsigned int const*>(void *a1, unsigned int *a2, unsigned int *a3)
+uint64_t **std::set<unsigned int>::set[abi:ne200100]<unsigned int const*>(uint64_t **a1, unsigned int *a2, unsigned int *a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<unsigned int>::__emplace_hint_unique_key_args<unsigned int,unsigned int const&>(a1, v4, v6++);
+      std::__tree<unsigned int>::__emplace_hint_unique_key_args<unsigned int,unsigned int const&>(a1, v4, v6, v6);
+      ++v6;
     }
 
     while (v6 != a3);
@@ -494,20 +495,20 @@ void *std::set<unsigned int>::set[abi:ne200100]<unsigned int const*>(void *a1, u
   return a1;
 }
 
-uint64_t std::__tree<unsigned int>::__emplace_hint_unique_key_args<unsigned int,unsigned int const&>(void *a1, uint64_t *a2, unsigned int *a3)
+uint64_t std::__tree<unsigned int>::__emplace_hint_unique_key_args<unsigned int,unsigned int const&>(uint64_t **a1, uint64_t *a2, unsigned int *a3, _DWORD *a4)
 {
-  v3 = *std::__tree<unsigned int>::__find_equal<unsigned int>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<unsigned int>::__find_equal<unsigned int>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t *std::__tree<unsigned int>::__find_equal<unsigned int>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned int *a5)
+uint64_t *std::__tree<unsigned int>::__find_equal<unsigned int>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 7), *a5 < v7))
   {
     v8 = *a2;
@@ -534,7 +535,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -595,7 +596,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -674,7 +675,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -869,7 +870,7 @@ void sub_25825612C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t _stringForKey(void *a1, uint64_t a2, void **a3)
+uint64_t _stringForKey(void *a1, uint64_t a2, void *a3)
 {
   v4 = [a1 objectForKey:a2];
   objc_opt_class();
@@ -1120,14 +1121,14 @@ LABEL_15:
   return this;
 }
 
-void sub_258256638(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_258256638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v4 = *(v2 + 48);
-  if (v4)
+  va_start(va, a3);
+  v5 = *(v3 + 48);
+  if (v5)
   {
-    *(v2 + 56) = v4;
-    operator delete(v4);
+    *(v3 + 56) = v5;
+    operator delete(v5);
   }
 
   std::vector<EQKit::StemStretch::FeatureCluster>::__destroy_vector::operator()[abi:ne200100](va);
@@ -1145,9 +1146,9 @@ uint64_t EQKit::StemStretch::Glyph::analyzeParallelStems(EQKit::StemStretch::Gly
   return 0;
 }
 
-void sub_258256940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_258256940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   EQKit::StemStretch::FeatureRange::~FeatureRange(va);
   _Unwind_Resume(a1);
 }
@@ -1209,13 +1210,13 @@ BOOL EQKit::StemStretch::Glyph::analyzeMirrorCurve(EQKit::StemStretch::Glyph *th
     v17 = *(this + 7);
     if (v17 >= *(this + 8))
     {
-      v18 = std::vector<EQKit::StemStretch::Stem>::__emplace_back_slow_path<EQKit::StemStretch::Stem>(this + 48, &v29);
+      v18 = std::vector<EQKit::StemStretch::Stem>::__emplace_back_slow_path<EQKit::StemStretch::Stem>(this + 6, &v29);
     }
 
     else
     {
       *v17 = 0;
-      v18 = (v17 + 1);
+      v18 = v17 + 1;
     }
 
     *(this + 7) = v18;
@@ -1288,7 +1289,7 @@ LABEL_30:
 
         v27 = v15;
 LABEL_32:
-        std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(v27, &v29);
+        std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(v27, &v29, &v29);
         ++v22;
         v21 += 16;
       }
@@ -1404,16 +1405,16 @@ BOOL EQKit::StemStretch::FeatureRange::analyze(EQKit::StemStretch::FeatureRange 
             v22 = v20;
             do
             {
-              v22 = *(*&v22 + 8);
+              v22 = *(v22 + 8);
               --v23;
             }
 
             while (v23 > 1);
           }
 
-          if (*(*&v22 + 24) < x)
+          if (*(v22 + 24) < x)
           {
-            v20 = *(*&v22 + 8);
+            v20 = *(v22 + 8);
             v21 = v18 + ~v21;
           }
 
@@ -1421,9 +1422,9 @@ BOOL EQKit::StemStretch::FeatureRange::analyze(EQKit::StemStretch::FeatureRange 
         }
 
         while (v21);
-        if (x >= v13 || *&v20 == v6)
+        if (x >= v13 || v20 == v6)
         {
-          v33 = x != v13 || *&v20 == v6;
+          v33 = x != v13 || v20 == v6;
           if (!v33 && !v16)
           {
             v34 = 0;
@@ -1442,25 +1443,25 @@ BOOL EQKit::StemStretch::FeatureRange::analyze(EQKit::StemStretch::FeatureRange 
             }
 
             while (v34 != 120);
-            v36 = EQKit::StemStretch::FeatureRange::Span::split(*&v20 + 16, &v81, &v92);
+            v36 = EQKit::StemStretch::FeatureRange::Span::split(v20 + 16, &v81, &v92);
             if (v36)
             {
               if (v36 != 1)
               {
-                std::list<EQKit::StemStretch::FeatureRange::Span>::insert();
+                std::list<EQKit::StemStretch::FeatureRange::Span>::insert(v6, v20, &v92);
               }
 
-              v37 = *&v20;
-              if ((*&v20 + 16) != &v92)
+              v37 = v20;
+              if ((v20 + 16) != &v92)
               {
-                *(*&v20 + 16) = v92;
-                *(*&v20 + 32) = v93;
-                *(*&v20 + 40) = v94;
-                v37 = *&v20;
-                *(*&v20 + 48) = v95;
+                *(v20 + 16) = v92;
+                *(v20 + 32) = v93;
+                *(v20 + 40) = v94;
+                v37 = v20;
+                *(v20 + 48) = v95;
               }
 
-              EQKit::StemStretch::FeatureRange::collapse(this, v37, *&v20);
+              EQKit::StemStretch::FeatureRange::collapse(this, v37, v20);
             }
 
             v5 = v80;
@@ -1469,9 +1470,9 @@ BOOL EQKit::StemStretch::FeatureRange::analyze(EQKit::StemStretch::FeatureRange 
 
         else
         {
-          if (x < *(*&v20 + 16) && *&v20 != v17)
+          if (x < *(v20 + 16) && v20 != v17)
           {
-            v20 = **&v20;
+            v20 = *v20;
           }
 
           if (v16)
@@ -1500,11 +1501,11 @@ BOOL EQKit::StemStretch::FeatureRange::analyze(EQKit::StemStretch::FeatureRange 
             std::vector<EQKit::StemStretch::FeatureRange::Span>::push_back[abi:ne200100](&__p, &v81);
           }
 
-          if (*&v20 != v6)
+          if (v20 != v6)
           {
             v27 = 0;
             v28 = v20;
-            while (*(*&v28 + 16) < v13)
+            while (*(v28 + 16) < v13)
             {
               for (i = 0; i != 120; i += 40)
               {
@@ -1515,29 +1516,29 @@ BOOL EQKit::StemStretch::FeatureRange::analyze(EQKit::StemStretch::FeatureRange 
                 *(v30 + 4) = 0;
               }
 
-              v31 = EQKit::StemStretch::FeatureRange::Span::split(*&v28 + 16, &v81, &v92);
+              v31 = EQKit::StemStretch::FeatureRange::Span::split(v28 + 16, &v81, &v92);
               if (v31)
               {
                 if (v31 != 1)
                 {
-                  std::list<EQKit::StemStretch::FeatureRange::Span>::insert();
+                  std::list<EQKit::StemStretch::FeatureRange::Span>::insert(v6, v28, &v92);
                 }
 
-                if ((*&v28 + 16) != &v92)
+                if ((v28 + 16) != &v92)
                 {
-                  *(*&v28 + 16) = v92;
-                  *(*&v28 + 32) = v93;
-                  *(*&v28 + 40) = v94;
-                  *(*&v28 + 48) = v95;
+                  *(v28 + 16) = v92;
+                  *(v28 + 32) = v93;
+                  *(v28 + 40) = v94;
+                  *(v28 + 48) = v95;
                 }
 
                 v27 = 1;
               }
 
-              v28 = *(*&v28 + 8);
-              if (*&v28 == v6)
+              v28 = *(v28 + 8);
+              if (v28 == v6)
               {
-                v28 = *&v6;
+                v28 = v6;
                 break;
               }
             }
@@ -1545,7 +1546,7 @@ BOOL EQKit::StemStretch::FeatureRange::analyze(EQKit::StemStretch::FeatureRange 
             v5 = v80;
             if (v27)
             {
-              EQKit::StemStretch::FeatureRange::collapse(this, *&v20, *&v28);
+              EQKit::StemStretch::FeatureRange::collapse(this, v20, v28);
             }
           }
 
@@ -1771,13 +1772,13 @@ LABEL_115:
       v70 = *(this + 9);
       if (v70 >= *(this + 10))
       {
-        v71 = std::vector<EQKit::StemStretch::Stem>::__emplace_back_slow_path<EQKit::StemStretch::Stem>(this + 64, &v92);
+        v71 = std::vector<EQKit::StemStretch::Stem>::__emplace_back_slow_path<EQKit::StemStretch::Stem>(this + 8, &v92);
       }
 
       else
       {
         *v70 = v69;
-        v71 = (v70 + 1);
+        v71 = v70 + 1;
       }
 
       *(this + 9) = v71;
@@ -1823,7 +1824,7 @@ void EQKit::StemStretch::FeatureRange::~FeatureRange(EQKit::StemStretch::Feature
   std::__list_imp<EQKit::StemStretch::FeatureRange::Span>::clear(this + 2);
 }
 
-uint64_t std::vector<EQKit::StemStretch::FeatureCluster>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+uint64_t std::vector<EQKit::StemStretch::FeatureCluster>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -1911,7 +1912,7 @@ CGPath *EQKit::StemStretch::Glyph::newPathWithLength(EQKit::StemStretch::Glyph *
     v45 = 0;
     v46 = 0;
     __p = 0;
-    std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(&__p, v19[1], v19[2], (v19[2] - v19[1]) >> 4);
+    std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(&__p, *(v19 + 8), *(v19 + 16), (*(v19 + 16) - *(v19 + 8)) >> 4);
     v20 = *(this + 3);
     v21 = 0xAAAAAAAAAAAAAAABLL * ((*(this + 4) - v20) >> 3);
     v22 = v21 >= 2;
@@ -2025,8 +2026,8 @@ void std::vector<EQKit::StemStretch::FeatureCluster>::__destroy_vector::operator
     {
       do
       {
-        v6 = v4 - 24;
-        std::__tree<std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>,std::__map_value_compare<std::pair<unsigned short,EQKit::Config::Operator::Form>,std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>,std::less<std::pair<unsigned short,EQKit::Config::Operator::Form>>,true>,std::allocator<std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>>>::destroy((v4 - 24), *(v4 - 2));
+        v6 = v4 - 3;
+        std::__tree<std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>,std::__map_value_compare<std::pair<unsigned short,EQKit::Config::Operator::Form>,std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>,std::less<std::pair<unsigned short,EQKit::Config::Operator::Form>>,true>,std::allocator<std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>>>::destroy((v4 - 3), *(v4 - 2));
         v4 = v6;
       }
 
@@ -2259,7 +2260,7 @@ uint64_t EQKit::StemStretch::FeatureRange::Span::split(uint64_t a1, uint64_t a2,
   return v9;
 }
 
-void EQKit::StemStretch::FeatureRange::collapse(uint64_t a1, void **__p, double *a3)
+void EQKit::StemStretch::FeatureRange::collapse(uint64_t a1, void ***__p, double *a3)
 {
   v3 = a3;
   v4 = __p;
@@ -2277,19 +2278,19 @@ void EQKit::StemStretch::FeatureRange::collapse(uint64_t a1, void **__p, double 
   while (v4 != v3)
   {
     v7 = v4;
-    v4 = *(v4 + 1);
+    v4 = v4[1];
     if (v4 != v6)
     {
-      if (v7[3] != v4[2])
+      if (v7[3] != *(v4 + 2))
       {
         EQKit::StemStretch::FeatureRange::collapse();
       }
 
       if (*(v7 + 8) == *(v4 + 8))
       {
-        v4[2] = v7[2];
+        v4[2] = *(v7 + 2);
         v8 = *v7;
-        *(v8 + 8) = v4;
+        v8[1] = v4;
         *v4 = v8;
         --*(a1 + 32);
         operator delete(v7);
@@ -2392,7 +2393,7 @@ void EQKit::StemStretch::FeatureRange::addFeatureCluster(EQKit::StemStretch::Fea
       if (*v14 >= a2 && *v14 <= a3)
       {
         v16 = v12;
-        std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(v13, &v16);
+        std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(v13, &v16, &v16);
         v10 = *(v8 + 1);
         v9 = *(v8 + 2);
       }
@@ -2850,7 +2851,7 @@ LABEL_66:
     }
 
 LABEL_67:
-    a6.n128_f64[0] = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,EQKit::StemStretch::FeatureRange::Span *,BOOL (*&)(EQKit::StemStretch::FeatureRange::Span const&,EQKit::StemStretch::FeatureRange::Span const&)>(v51, v8, a3);
+    std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,EQKit::StemStretch::FeatureRange::Span *,BOOL (*&)(EQKit::StemStretch::FeatureRange::Span const&,EQKit::StemStretch::FeatureRange::Span const&)>(v51, v8, a3);
     v41 = v40;
     if ((v42 & 1) == 0)
     {
@@ -2877,7 +2878,7 @@ LABEL_67:
       if (!v43)
       {
 LABEL_74:
-        result = std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(EQKit::StemStretch::FeatureRange::Span const&,EQKit::StemStretch::FeatureRange::Span const&),EQKit::StemStretch::FeatureRange::Span*,false>(v51, v41, a3, -v10, a5 & 1, a6);
+        result = std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(EQKit::StemStretch::FeatureRange::Span const&,EQKit::StemStretch::FeatureRange::Span const&),EQKit::StemStretch::FeatureRange::Span*,false>(v51, v41, a3, -v10, a5 & 1);
         v9 = (v41 + 40);
 LABEL_76:
         a5 = 0;
@@ -2948,12 +2949,12 @@ __int128 **std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<EQKit:
   if (*result != *a2)
   {
     *v2 = *v3;
-    *(v2 + 4) = *(v3 + 4);
+    *(v2 + 4) = *(v3 + 16);
     *(v2 + 24) = *(v3 + 24);
   }
 
   *v3 = v4;
-  *(v3 + 4) = v5;
+  *(v3 + 16) = v5;
   *(v3 + 24) = v6;
   return result;
 }
@@ -3018,7 +3019,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(EQKit::StemStretch::FeatureRange::Span const&,EQKit::StemStretch::FeatureRange::Span const&),EQKit::StemStretch::FeatureRange::Span*>(uint64_t result, _OWORD *a2, uint64_t (**a3)(_OWORD *, void))
+uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(EQKit::StemStretch::FeatureRange::Span const&,EQKit::StemStretch::FeatureRange::Span const&),EQKit::StemStretch::FeatureRange::Span*>(uint64_t result, _OWORD *a2, uint64_t (**a3)(__int128 *, uint64_t))
 {
   if (result != a2)
   {
@@ -3037,8 +3038,8 @@ uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(EQ
         if (result)
         {
           v15 = *v11;
-          v16 = *(v10 + 14);
-          v17 = v10[4];
+          v16 = *(v10 + 56);
+          v17 = *(v10 + 64);
           v12 = v9;
           while (1)
           {
@@ -3082,7 +3083,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(EQKit::StemStretch::FeatureRange::Span const&,EQKit::StemStretch::FeatureRange::Span const&),EQKit::StemStretch::FeatureRange::Span*>(uint64_t result, _OWORD *a2, uint64_t (**a3)(_OWORD *, void))
+uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(EQKit::StemStretch::FeatureRange::Span const&,EQKit::StemStretch::FeatureRange::Span const&),EQKit::StemStretch::FeatureRange::Span*>(uint64_t result, _OWORD *a2, uint64_t (**a3)(__int128 *, uint64_t))
 {
   if (result != a2)
   {
@@ -3100,8 +3101,8 @@ uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BO
         if (result)
         {
           v12 = *v10;
-          v13 = *(v6 + 14);
-          v14 = v6[4];
+          v13 = *(v6 + 56);
+          v14 = *(v6 + 64);
           v11 = v9;
           do
           {
@@ -3133,13 +3134,13 @@ uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BO
   return result;
 }
 
-__int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,EQKit::StemStretch::FeatureRange::Span *,BOOL (*&)(EQKit::StemStretch::FeatureRange::Span const&,EQKit::StemStretch::FeatureRange::Span const&)>(uint64_t a1, __int128 *a2, uint64_t (**a3)(__int128 *, __int128 *))
+__int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,EQKit::StemStretch::FeatureRange::Span *,BOOL (*&)(EQKit::StemStretch::FeatureRange::Span const&,EQKit::StemStretch::FeatureRange::Span const&)>(uint64_t a1, __int128 *a2, unsigned int (**a3)(__int128 *))
 {
   v13 = a2;
   v10 = *a1;
   v11 = *(a1 + 16);
   v12 = *(a1 + 24);
-  if ((*a3)(&v10, (a2 - 40)))
+  if ((*a3)(&v10, a2 - 40))
   {
     v5 = a1;
     do
@@ -3223,7 +3224,7 @@ __int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   return v5;
 }
 
-double std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,EQKit::StemStretch::FeatureRange::Span *,BOOL (*&)(EQKit::StemStretch::FeatureRange::Span const&,EQKit::StemStretch::FeatureRange::Span const&)>(uint64_t a1, __int128 *a2, uint64_t (**a3)(void))
+double std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,EQKit::StemStretch::FeatureRange::Span *,BOOL (*&)(EQKit::StemStretch::FeatureRange::Span const&,EQKit::StemStretch::FeatureRange::Span const&)>(uint64_t a1, __int128 *a2, uint64_t (**a3)(__int128 *, __int128 *))
 {
   v5 = 0;
   v17 = a2;
@@ -3253,7 +3254,7 @@ double std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolic
       v17 = v7;
     }
 
-    while (((v11)(v7, &v14) & 1) == 0);
+    while ((v11(v7, &v14) & 1) == 0);
   }
 
   else
@@ -3521,7 +3522,7 @@ LABEL_35:
   return v21 + 40 == v28;
 }
 
-__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(EQKit::StemStretch::FeatureRange::Span const&,EQKit::StemStretch::FeatureRange::Span const&),EQKit::StemStretch::FeatureRange::Span*,EQKit::StemStretch::FeatureRange::Span*>(__int128 *a1, __int128 *a2, __int128 *a3, unsigned int (**a4)(int64_t, uint64_t), __n128 a5)
+__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(EQKit::StemStretch::FeatureRange::Span const&,EQKit::StemStretch::FeatureRange::Span const&),EQKit::StemStretch::FeatureRange::Span*,EQKit::StemStretch::FeatureRange::Span*>(__int128 *a1, __int128 *a2, __int128 *a3, uint64_t (**a4)(int64_t, __int128 *), __n128 a5)
 {
   v26 = a1;
   if (a1 != a2)
@@ -3612,7 +3613,7 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
   return a3;
 }
 
-double std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(EQKit::StemStretch::FeatureRange::Span const&,EQKit::StemStretch::FeatureRange::Span const&),EQKit::StemStretch::FeatureRange::Span*>(uint64_t a1, unsigned int (**a2)(int64_t, uint64_t), uint64_t a3, __int128 *a4)
+double std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(EQKit::StemStretch::FeatureRange::Span const&,EQKit::StemStretch::FeatureRange::Span const&),EQKit::StemStretch::FeatureRange::Span*>(uint64_t a1, uint64_t (**a2)(int64_t, __int128 *), uint64_t a3, __int128 *a4)
 {
   v6 = a3 - 2;
   if (a3 >= 2)
@@ -3626,7 +3627,7 @@ double std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(EQKit::St
       v12 = (0x999999999999999ALL * ((a4 - a1) >> 3)) | 1;
       v13 = a1 + 40 * v12;
       v14 = 0x999999999999999ALL * ((a4 - a1) >> 3) + 2;
-      if (v14 < a3 && (*a2)(a1 + 40 * v12, v13 + 40))
+      if (v14 < a3 && (*a2)(a1 + 40 * v12, (v13 + 40)))
       {
         v13 += 40;
         v12 = v14;
@@ -3657,7 +3658,7 @@ double std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(EQKit::St
           v17 = (2 * v12) | 1;
           v13 = a1 + 40 * v17;
           v18 = 2 * v12 + 2;
-          if (v18 < a3 && (*a2)(a1 + 40 * v17, v13 + 40))
+          if (v18 < a3 && (*a2)(a1 + 40 * v17, (v13 + 40)))
           {
             v13 += 40;
             v17 = v18;
@@ -3671,7 +3672,7 @@ double std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(EQKit::St
         if (v16 != &v20)
         {
           *v16 = v20;
-          *(v16 + 4) = v21;
+          *(v16 + 16) = v21;
           *&v15 = v22;
           *(v16 + 24) = v22;
         }
@@ -3768,7 +3769,7 @@ double std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(EQKit::Stem
   return *&v13;
 }
 
-uint64_t std::vector<EQKit::StemStretch::FeatureCluster>::__emplace_back_slow_path<EQKit::StemStretch::FeatureCluster>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<EQKit::StemStretch::FeatureCluster>::__emplace_back_slow_path<EQKit::StemStretch::FeatureCluster>(unint64_t *a1, uint64_t a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -3818,9 +3819,9 @@ uint64_t std::vector<EQKit::StemStretch::FeatureCluster>::__emplace_back_slow_pa
   return v12;
 }
 
-void sub_25825994C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25825994C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<EQKit::StemStretch::FeatureCluster>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3883,16 +3884,16 @@ void std::__split_buffer<EQKit::StemStretch::FeatureCluster>::clear[abi:ne200100
   }
 }
 
-uint64_t std::vector<EQKit::StemStretch::Stem>::__emplace_back_slow_path<EQKit::StemStretch::Stem>(uint64_t a1, void *a2)
+uint64_t *std::vector<EQKit::StemStretch::Stem>::__emplace_back_slow_path<EQKit::StemStretch::Stem>(uint64_t **a1, void *a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 3;
+  v2 = a1[1] - *a1;
   v3 = v2 + 1;
   if ((v2 + 1) >> 61)
   {
     std::vector<std::string>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 2 > v3)
   {
     v3 = v6 >> 2;
@@ -3920,7 +3921,7 @@ uint64_t std::vector<EQKit::StemStretch::Stem>::__emplace_back_slow_path<EQKit::
   v12 = 8 * v2 + 8;
   v13 = 0;
   std::vector<EQKit::StemStretch::Stem>::__swap_out_circular_buffer(a1, &__p);
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   if (v12 != v11)
   {
     v12 += (v11 - v12 + 7) & 0xFFFFFFFFFFFFFFF8;
@@ -3986,7 +3987,7 @@ void *std::set<unsigned long>::set[abi:ne200100](void *a1, uint64_t a2)
   return a1;
 }
 
-uint64_t std::set<unsigned long>::insert[abi:ne200100]<std::__tree_const_iterator<unsigned long,std::__tree_node<unsigned long,void *> *,long>>(uint64_t result, void *a2, void *a3)
+void *std::set<unsigned long>::insert[abi:ne200100]<std::__tree_const_iterator<unsigned long,std::__tree_node<unsigned long,void *> *,long>>(void *result, void *a2, void *a3)
 {
   if (a2 != a3)
   {
@@ -3994,7 +3995,7 @@ uint64_t std::set<unsigned long>::insert[abi:ne200100]<std::__tree_const_iterato
     v5 = result;
     do
     {
-      result = std::__tree<unsigned long>::__emplace_hint_unique_key_args<unsigned long,unsigned long const&>(v5, v5 + 1, v4 + 4);
+      result = std::__tree<unsigned long>::__emplace_hint_unique_key_args<unsigned long,unsigned long const&>(v5, (v5 + 8), v4 + 4, v4 + 4);
       v6 = v4[1];
       if (v6)
       {
@@ -4028,15 +4029,15 @@ uint64_t std::set<unsigned long>::insert[abi:ne200100]<std::__tree_const_iterato
   return result;
 }
 
-uint64_t std::__tree<unsigned long>::__emplace_hint_unique_key_args<unsigned long,unsigned long const&>(void *a1, void *a2, unint64_t *a3)
+void *std::__tree<unsigned long>::__emplace_hint_unique_key_args<unsigned long,unsigned long const&>(uint64_t **a1, void *a2, unint64_t *a3, void *a4)
 {
-  v3 = *std::__tree<unsigned long>::__find_equal<unsigned long>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<unsigned long>::__find_equal<unsigned long>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
 void *std::__tree<unsigned long>::__find_equal<unsigned long>(void *a1, void *a2, void *a3, void *a4, unint64_t *a5)
@@ -4230,41 +4231,41 @@ LABEL_48:
   return a4;
 }
 
-void *std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(uint64_t a1, unint64_t *a2)
+void *std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -4534,9 +4535,9 @@ void EQKit::OpticalKern::Edge::Path::analyze(unsigned int *a1, const CGPath *a2,
   }
 }
 
-void sub_25825A558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25825A558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   EQKitPath::~EQKitPath(va);
   _Unwind_Resume(a1);
 }
@@ -4582,24 +4583,24 @@ void sub_25825A608(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<double>::resize(void *a1, unint64_t a2, uint64_t *a3)
+void std::vector<double>::resize(void *result, unint64_t a2, uint64_t *a3)
 {
-  v3 = (a1[1] - *a1) >> 3;
+  v3 = (result[1] - *result) >> 3;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<double>::__append(a1, a2 - v3, a3);
+    std::vector<double>::__append(result, a2 - v3, a3);
   }
 }
 
-unint64_t EQKit::OpticalKern::Edge::Segment::closestBucketIndex(EQKit::OpticalKern::Edge::Segment *this, double a2)
+uint64_t EQKit::OpticalKern::Edge::Segment::closestBucketIndex(EQKit::OpticalKern::Edge::Segment *this, double a2)
 {
   v3 = a2 - (*(*this + 24))(this);
   v4 = v3 / (*(*this + 56))(this);
@@ -4617,7 +4618,7 @@ unint64_t EQKit::OpticalKern::Edge::Segment::closestBucketIndex(EQKit::OpticalKe
   return v5;
 }
 
-uint64_t EQKit::OpticalKern::Edge::Segment::isDistanceToSmallerThanThreshold(_DWORD *a1, _DWORD *a2, double *a3, _OWORD *a4, uint64_t a5, double a6)
+uint64_t EQKit::OpticalKern::Edge::Segment::isDistanceToSmallerThanThreshold(_DWORD *a1, _DWORD *a2, double *a3, _OWORD *a4, const void **a5, double a6)
 {
   v6 = 0;
   if ((a1[2] & 0xFFFFFFFE) == 2 && a6 >= 0.0 && (a2[2] & 0xFFFFFFFE) != 2)
@@ -4677,8 +4678,8 @@ uint64_t EQKit::OpticalKern::Edge::Segment::isDistanceToSmallerThanThreshold(_DW
 
               if (a5)
               {
-                v36 = *(a5 + 8);
-                v37 = *(a5 + 16);
+                v36 = a5[1];
+                v37 = a5[2];
                 if (v36 >= v37)
                 {
                   v40 = (v36 - *a5) >> 5;
@@ -4715,13 +4716,13 @@ uint64_t EQKit::OpticalKern::Edge::Segment::isDistanceToSmallerThanThreshold(_DW
                   *v45 = v117;
                   v45[1] = v46;
                   v39 = 32 * v40 + 32;
-                  v47 = *(a5 + 8) - *a5;
+                  v47 = a5[1] - *a5;
                   v48 = v45 - v47;
                   memcpy(v45 - v47, *a5, v47);
                   v49 = *a5;
                   *a5 = v48;
-                  *(a5 + 8) = v39;
-                  *(a5 + 16) = 0;
+                  a5[1] = v39;
+                  a5[2] = 0;
                   if (v49)
                   {
                     operator delete(v49);
@@ -4734,11 +4735,11 @@ uint64_t EQKit::OpticalKern::Edge::Segment::isDistanceToSmallerThanThreshold(_DW
                 {
                   v38 = v118;
                   *v36 = v117;
-                  v36[1] = v38;
-                  v39 = (v36 + 2);
+                  *(v36 + 1) = v38;
+                  v39 = (v36 + 32);
                 }
 
-                *(a5 + 8) = v39;
+                a5[1] = v39;
                 v23 = v102;
               }
 
@@ -5329,7 +5330,7 @@ void EQKit::OpticalKern::Edge::ParallelSegment::appendToCGPath(CGFloat *this, CG
   }
 }
 
-uint64_t EQKit::OpticalKern::Edge::Composite::Composite(uint64_t a1, int **a2, uint64_t a3, uint64_t **a4)
+uint64_t EQKit::OpticalKern::Edge::Composite::Composite(uint64_t a1, int **a2, __int128 *a3, uint64_t **a4)
 {
   v4 = a1;
   v5 = *(a2 + 6);
@@ -5411,7 +5412,7 @@ LABEL_14:
   return v4;
 }
 
-void sub_25825BCBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12, uint64_t a13, uint64_t a14, void **a15)
+void sub_25825BCBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
 {
   a15 = a12;
   std::vector<std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>>::__destroy_vector::operator()[abi:ne200100](&a15);
@@ -5479,7 +5480,7 @@ void **std::vector<std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>>::pu
 
     v7 = (v12 + 16);
     v14 = result[1] - *result;
-    v15 = v12 - v14;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
@@ -5555,7 +5556,8 @@ void EQKitCache<EQKit::OpticalKern::Glyph::Key,std::shared_ptr<EQKit::OpticalKer
     else
     {
       v15 = **a1;
-      v13 = std::__hash_table<std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,std::pair<std::shared_ptr<EQKit::OpticalKern::Edge::Path>,unsigned long>>,std::__unordered_map_hasher<EQKit::OpticalKern::Glyph::Key,std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,std::pair<std::shared_ptr<EQKit::OpticalKern::Edge::Path>,unsigned long>>,std::hash<EQKit::OpticalKern::Glyph::Key>,std::equal_to<EQKit::OpticalKern::Glyph::Key>,true>,std::__unordered_map_equal<EQKit::OpticalKern::Glyph::Key,std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,std::pair<std::shared_ptr<EQKit::OpticalKern::Edge::Path>,unsigned long>>,std::equal_to<EQKit::OpticalKern::Glyph::Key>,std::hash<EQKit::OpticalKern::Glyph::Key>,true>,std::allocator<std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,std::pair<std::shared_ptr<EQKit::OpticalKern::Edge::Path>,unsigned long>>>>::__emplace_unique_key_args<EQKit::OpticalKern::Glyph::Key,std::piecewise_construct_t const&,std::tuple<EQKit::OpticalKern::Glyph::Key const&>,std::tuple<>>(a1 + 1, a2);
+      v17 = a2;
+      v13 = std::__hash_table<std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,std::pair<std::shared_ptr<EQKit::OpticalKern::Edge::Path>,unsigned long>>,std::__unordered_map_hasher<EQKit::OpticalKern::Glyph::Key,std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,std::pair<std::shared_ptr<EQKit::OpticalKern::Edge::Path>,unsigned long>>,std::hash<EQKit::OpticalKern::Glyph::Key>,std::equal_to<EQKit::OpticalKern::Glyph::Key>,true>,std::__unordered_map_equal<EQKit::OpticalKern::Glyph::Key,std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,std::pair<std::shared_ptr<EQKit::OpticalKern::Edge::Path>,unsigned long>>,std::equal_to<EQKit::OpticalKern::Glyph::Key>,std::hash<EQKit::OpticalKern::Glyph::Key>,true>,std::allocator<std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,std::pair<std::shared_ptr<EQKit::OpticalKern::Edge::Path>,unsigned long>>>>::__emplace_unique_key_args<EQKit::OpticalKern::Glyph::Key,std::piecewise_construct_t const&,std::tuple<EQKit::OpticalKern::Glyph::Key const&>,std::tuple<>>(a1 + 1, a2, &std::piecewise_construct, &v17, &v16);
       v14 = v13[7];
       v13[6] = 0;
       v13[7] = 0;
@@ -5620,7 +5622,7 @@ uint64_t _compareSegmentsMinOrthogonal(uint64_t *a1, uint64_t a2)
   return result;
 }
 
-uint64_t EQKit::OpticalKern::Edge::Composite::isDistanceSmallerThanThreshold(int *a1, uint64_t a2, double *a3, double *a4, uint64_t a5, double a6)
+uint64_t EQKit::OpticalKern::Edge::Composite::isDistanceSmallerThanThreshold(int *a1, uint64_t a2, double *a3, double *a4, const void **a5, double a6)
 {
   v6 = *a1;
   *a3 = 0.0;
@@ -6172,18 +6174,18 @@ void **std::__split_buffer<std::shared_ptr<EQKit::OpticalKern::Edge::Segment con
   return a1;
 }
 
-void std::__split_buffer<std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>>::clear[abi:ne200100](uint64_t a1)
+void std::__split_buffer<std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>>::clear[abi:ne200100](uint64_t result)
 {
-  v2 = *(a1 + 8);
-  v1 = *(a1 + 16);
+  v2 = *(result + 8);
+  v1 = *(result + 16);
   while (v1 != v2)
   {
-    *(a1 + 16) = v1 - 16;
+    *(result + 16) = v1 - 16;
     v4 = *(v1 - 8);
     if (v4)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-      v1 = *(a1 + 16);
+      v1 = *(result + 16);
     }
 
     else
@@ -6193,15 +6195,15 @@ void std::__split_buffer<std::shared_ptr<EQKit::OpticalKern::Edge::Segment const
   }
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*,false>(uint64_t *a1, uint64_t *a2, uint64_t (**a3)(uint64_t *, uint64_t *), uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*,false>(uint64_t *result, char *a2, uint64_t (**a3)(uint64_t *, uint64_t *), uint64_t a4, char a5)
 {
 LABEL_1:
-  v9 = a1;
+  v9 = result;
 LABEL_2:
   v10 = 1 - a4;
   while (1)
   {
-    a1 = v9;
+    result = v9;
     v11 = v10;
     v12 = (a2 - v9) >> 4;
     if (v12 > 2)
@@ -6376,7 +6378,7 @@ LABEL_25:
     if (!v22)
     {
 LABEL_28:
-      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*,false>(a1, v20, a3, -v11, a5 & 1);
+      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*,false>(result, v20, a3, -v11, a5 & 1);
       v9 = v20 + 2;
 LABEL_30:
       a5 = 0;
@@ -6406,10 +6408,10 @@ void sub_25825CC40(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*,0>(void *a1, void *a2, void *a3, uint64_t (**a4)(uint64_t *, uint64_t *))
+uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*,0>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t (**a4)(uint64_t *, uint64_t *))
 {
   v8 = *a4;
-  v10 = (a2 + 1);
+  v10 = a2 + 1;
   v9 = a2[1];
   v55 = *a2;
   v56 = v9;
@@ -6418,7 +6420,7 @@ uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
     atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v12 = (a1 + 1);
+  v12 = a1 + 1;
   v11 = a1[1];
   v53 = *a1;
   v54 = v11;
@@ -6522,7 +6524,7 @@ uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
       v12 = v10;
     }
 
-    v10 = (a3 + 1);
+    v10 = a3 + 1;
 LABEL_50:
     v35 = *v12;
     *v12 = *v10;
@@ -6921,21 +6923,21 @@ void sub_25825D478(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(uint64_t *a1, uint64_t *a2, uint64_t (**a3)(uint64_t *, uint64_t *))
+void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(uint64_t *result, uint64_t *a2, uint64_t (**a3)(uint64_t *, uint64_t *))
 {
-  if (a1 == a2)
+  if (result == a2)
   {
     return;
   }
 
-  v5 = a1 + 2;
-  if (a1 + 2 == a2)
+  v5 = result + 2;
+  if (result + 2 == a2)
   {
     return;
   }
 
   v7 = 0;
-  v8 = a1;
+  v8 = result;
   do
   {
     v9 = v8;
@@ -6980,11 +6982,11 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::s
     v8[1] = 0;
     while (1)
     {
-      v17 = a1 + v16;
-      v18 = *(a1 + v16);
+      v17 = result + v16;
+      v18 = *(result + v16);
       *v17 = 0;
       *(v17 + 1) = 0;
-      v19 = *(a1 + v16 + 24);
+      v19 = *(result + v16 + 24);
       *(v17 + 1) = v18;
       if (v19)
       {
@@ -6993,7 +6995,7 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::s
 
       if (!v16)
       {
-        v23 = a1;
+        v23 = result;
         goto LABEL_30;
       }
 
@@ -7005,8 +7007,8 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::s
         atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v21 = *(a1 + v16 - 8);
-      v25 = *(a1 + v16 - 16);
+      v21 = *(result + v16 - 8);
+      v25 = *(result + v16 - 16);
       v26 = v21;
       if (v21)
       {
@@ -7040,7 +7042,7 @@ LABEL_27:
     }
 
 LABEL_29:
-    v23 = (a1 + v16);
+    v23 = (result + v16);
 LABEL_30:
     v24 = v23[1];
     *v23 = v14;
@@ -7073,15 +7075,15 @@ void sub_25825D684(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(uint64_t *a1, uint64_t *a2, uint64_t (**a3)(uint64_t *, uint64_t *))
+void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(uint64_t *result, uint64_t *a2, uint64_t (**a3)(uint64_t *, uint64_t *))
 {
-  if (a1 != a2)
+  if (result != a2)
   {
-    v4 = a1;
-    v5 = a1 + 2;
-    if (a1 + 2 != a2)
+    v4 = result;
+    v5 = result + 2;
+    if (result + 2 != a2)
     {
-      v7 = (a1 + 3);
+      v7 = (result + 3);
       do
       {
         v8 = v4;
@@ -7420,7 +7422,7 @@ uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
     while ((v28 & 1) != 0);
   }
 
-  v29 = (i - 2);
+  v29 = i - 2;
   if (i - 2 != a1)
   {
     v30 = *v29;
@@ -7675,7 +7677,7 @@ uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
     while (v21 < v22);
   }
 
-  v33 = (v21 - 2);
+  v33 = v21 - 2;
   if (v21 - 2 != a1)
   {
     v34 = *v33;
@@ -7720,7 +7722,7 @@ void sub_25825DF08(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(uint64_t *a1, uint64_t *a2, uint64_t (**a3)(uint64_t *, uint64_t *))
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(uint64_t *a1, char *a2, uint64_t (**a3)(uint64_t *, uint64_t *))
 {
   v4 = a2;
   v6 = (a2 - a1) >> 4;
@@ -7942,7 +7944,7 @@ void sub_25825E290(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t (**a4)(uint64_t *, uint64_t *))
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(char *a1, char *a2, char *a3, uint64_t (**a4)(uint64_t *, uint64_t *))
 {
   if (a1 != a2)
   {
@@ -7952,7 +7954,7 @@ uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = &a1[2 * v9];
+      v11 = &a1[16 * v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(a1, a4, v8, v11);
@@ -7970,7 +7972,7 @@ uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
       do
       {
         v13 = *a4;
-        v14 = v12[1];
+        v14 = *(v12 + 1);
         v23 = *v12;
         v24 = v14;
         if (v14)
@@ -7978,7 +7980,7 @@ uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
           atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v15 = a1[1];
+        v15 = *(a1 + 1);
         v21 = *a1;
         v22 = v15;
         if (v15)
@@ -8002,13 +8004,13 @@ uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
           v17 = *v12;
           *v12 = *a1;
           *a1 = v17;
-          v18 = v12[1];
-          v12[1] = a1[1];
-          a1[1] = v18;
+          v18 = *(v12 + 1);
+          *(v12 + 1) = *(a1 + 1);
+          *(a1 + 1) = v18;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(a1, a4, v8, a1);
         }
 
-        v12 += 2;
+        v12 += 16;
       }
 
       while (v12 != a3);
@@ -8046,7 +8048,7 @@ void sub_25825E464(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(uint64_t a1, uint64_t (**a2)(uint64_t *, uint64_t *), uint64_t a3, uint64_t *a4)
+void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(uint64_t result, uint64_t (**a2)(uint64_t *, uint64_t *), uint64_t a3, uint64_t *a4)
 {
   v4 = a3 - 2;
   if (a3 < 2)
@@ -8055,16 +8057,16 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
   }
 
   v5 = a4;
-  v6 = a1;
+  v6 = result;
   v36 = v4 >> 1;
-  if ((v4 >> 1) < (a4 - a1) >> 4)
+  if ((v4 >> 1) < (a4 - result) >> 4)
   {
     return;
   }
 
-  v9 = (a4 - a1) >> 3;
+  v9 = (a4 - result) >> 3;
   v10 = v9 + 1;
-  v11 = (a1 + 16 * (v9 + 1));
+  v11 = result + 16 * (v9 + 1);
   v12 = v9 + 2;
   if (v9 + 2 < a3)
   {
@@ -8075,8 +8077,8 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
       atomic_fetch_add_explicit((*(&v50 + 1) + 8), 1uLL, memory_order_relaxed);
     }
 
-    v14 = *(v11 + 3);
-    v48 = *(v11 + 2);
+    v14 = *(v11 + 24);
+    v48 = *(v11 + 16);
     v49 = v14;
     if (v14)
     {
@@ -8103,14 +8105,14 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
     if (v15)
     {
 LABEL_12:
-      ++v11;
+      v11 += 16;
       v10 = v12;
     }
   }
 
 LABEL_13:
   v16 = *a2;
-  v17 = *(v11 + 1);
+  v17 = *(v11 + 8);
   v46 = *v11;
   v47 = v17;
   if (v17)
@@ -8149,7 +8151,7 @@ LABEL_13:
       v22 = v11;
       v23 = *v11;
       *v11 = 0;
-      *(v11 + 1) = 0;
+      *(v11 + 8) = 0;
       v24 = v5[1];
       *v5 = v23;
       if (v24)
@@ -8173,7 +8175,7 @@ LABEL_48:
 
       v25 = 2 * v10;
       v10 = (2 * v10) | 1;
-      v11 = (v6 + 16 * v10);
+      v11 = v6 + 16 * v10;
       v26 = v25 + 2;
       if (v25 + 2 < a3)
       {
@@ -8185,8 +8187,8 @@ LABEL_48:
           atomic_fetch_add_explicit((*(&v28 + 1) + 8), 1uLL, memory_order_relaxed);
         }
 
-        v29 = *(v11 + 3);
-        v41 = *(v11 + 2);
+        v29 = *(v11 + 24);
+        v41 = *(v11 + 16);
         v42 = v29;
         if (v29)
         {
@@ -8207,7 +8209,7 @@ LABEL_48:
           }
 
 LABEL_35:
-          ++v11;
+          v11 += 16;
           v10 = v26;
           goto LABEL_36;
         }
@@ -8221,7 +8223,7 @@ LABEL_35:
 
 LABEL_36:
       v31 = *a2;
-      v32 = *(v11 + 1);
+      v32 = *(v11 + 8);
       v39 = *v11;
       v40 = v32;
       if (v32)
@@ -8272,15 +8274,15 @@ void sub_25825E738(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(uint64_t *a1, uint64_t a2, uint64_t (**a3)(uint64_t *, uint64_t *), uint64_t a4)
+void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(char *result, uint64_t a2, uint64_t (**a3)(uint64_t *, uint64_t *), uint64_t a4)
 {
   if (a4 >= 2)
   {
-    v8 = *a1;
-    v7 = a1[1];
-    *a1 = 0;
-    a1[1] = 0;
-    v9 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(a1, a3, a4);
+    v8 = *result;
+    v7 = *(result + 1);
+    *result = 0;
+    *(result + 1) = 0;
+    v9 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(result, a3, a4);
     v10 = v9;
     if (v9 == (a2 - 16))
     {
@@ -8315,7 +8317,7 @@ void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(std::shared_p
         std::__shared_weak_count::__release_shared[abi:ne200100](v14);
       }
 
-      std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(a1, v13, a3, (v13 - a1) >> 4);
+      std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(result, v13, a3, (v13 - result) >> 4);
     }
   }
 }
@@ -8423,13 +8425,13 @@ void sub_25825E9E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(uint64_t a1, uint64_t a2, uint64_t (**a3)(__int128 *, uint64_t *), uint64_t a4)
+void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(uint64_t result, uint64_t a2, uint64_t (**a3)(__int128 *, uint64_t *), uint64_t a4)
 {
   v4 = a4 - 2;
   if (a4 >= 2)
   {
     v8 = v4 >> 1;
-    v9 = (a1 + 16 * (v4 >> 1));
+    v9 = (result + 16 * (v4 >> 1));
     v10 = *a3;
     v11 = *v9;
     v29 = v11;
@@ -8483,7 +8485,7 @@ void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_p
         }
 
         v8 = (v8 - 1) >> 1;
-        v9 = (a1 + 16 * v8);
+        v9 = (result + 16 * v8);
         v20 = *a3;
         v21 = *v9;
         v26 = v21;
@@ -8552,10 +8554,10 @@ void std::vector<std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>>::__de
   }
 }
 
-void std::vector<std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>>::clear[abi:ne200100](uint64_t *a1)
+void std::vector<std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>>::clear[abi:ne200100](uint64_t *result)
 {
-  v2 = *a1;
-  for (i = a1[1]; i != v2; i -= 16)
+  v2 = *result;
+  for (i = result[1]; i != v2; i -= 16)
   {
     v4 = *(i - 8);
     if (v4)
@@ -8564,7 +8566,7 @@ void std::vector<std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>>::clea
     }
   }
 
-  a1[1] = v2;
+  result[1] = v2;
 }
 
 void std::__shared_weak_count::__release_shared[abi:ne200100](std::__shared_weak_count *a1)
@@ -8801,42 +8803,42 @@ void *std::__hash_table<std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,st
   return v11;
 }
 
-void *std::__hash_table<std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,std::pair<std::shared_ptr<EQKit::OpticalKern::Edge::Path>,unsigned long>>,std::__unordered_map_hasher<EQKit::OpticalKern::Glyph::Key,std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,std::pair<std::shared_ptr<EQKit::OpticalKern::Edge::Path>,unsigned long>>,std::hash<EQKit::OpticalKern::Glyph::Key>,std::equal_to<EQKit::OpticalKern::Glyph::Key>,true>,std::__unordered_map_equal<EQKit::OpticalKern::Glyph::Key,std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,std::pair<std::shared_ptr<EQKit::OpticalKern::Edge::Path>,unsigned long>>,std::equal_to<EQKit::OpticalKern::Glyph::Key>,std::hash<EQKit::OpticalKern::Glyph::Key>,true>,std::allocator<std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,std::pair<std::shared_ptr<EQKit::OpticalKern::Edge::Path>,unsigned long>>>>::__emplace_unique_key_args<EQKit::OpticalKern::Glyph::Key,std::piecewise_construct_t const&,std::tuple<EQKit::OpticalKern::Glyph::Key const&>,std::tuple<>>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,std::pair<std::shared_ptr<EQKit::OpticalKern::Edge::Path>,unsigned long>>,std::__unordered_map_hasher<EQKit::OpticalKern::Glyph::Key,std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,std::pair<std::shared_ptr<EQKit::OpticalKern::Edge::Path>,unsigned long>>,std::hash<EQKit::OpticalKern::Glyph::Key>,std::equal_to<EQKit::OpticalKern::Glyph::Key>,true>,std::__unordered_map_equal<EQKit::OpticalKern::Glyph::Key,std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,std::pair<std::shared_ptr<EQKit::OpticalKern::Edge::Path>,unsigned long>>,std::equal_to<EQKit::OpticalKern::Glyph::Key>,std::hash<EQKit::OpticalKern::Glyph::Key>,true>,std::allocator<std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,std::pair<std::shared_ptr<EQKit::OpticalKern::Edge::Path>,unsigned long>>>>::__emplace_unique_key_args<EQKit::OpticalKern::Glyph::Key,std::piecewise_construct_t const&,std::tuple<EQKit::OpticalKern::Glyph::Key const&>,std::tuple<>>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = *a2;
+  v7 = *a2;
   if (*a2)
   {
-    v4 = CFHash(v4);
+    v7 = CFHash(v7);
   }
 
-  v5 = *(a2 + 8) << 16;
-  v6 = v4 ^ *(a2 + 24);
-  v7 = v6 ^ v5;
-  v8 = a1[1];
-  if (!*&v8)
+  v8 = *(a2 + 8) << 16;
+  v9 = v7 ^ *(a2 + 24);
+  v10 = v9 ^ v8;
+  v11 = a1[1];
+  if (!*&v11)
   {
     goto LABEL_20;
   }
 
-  v9 = vcnt_s8(v8);
-  v9.i16[0] = vaddlv_u8(v9);
-  v10 = v9.u32[0];
-  if (v9.u32[0] > 1uLL)
+  v12 = vcnt_s8(v11);
+  v12.i16[0] = vaddlv_u8(v12);
+  v13 = v12.u32[0];
+  if (v12.u32[0] > 1uLL)
   {
-    v11 = v6 ^ v5;
-    if (v7 >= *&v8)
+    v14 = v9 ^ v8;
+    if (v10 >= *&v11)
     {
-      v11 = v7 % *&v8;
+      v14 = v10 % *&v11;
     }
   }
 
   else
   {
-    v11 = v7 & (*&v8 - 1);
+    v14 = v10 & (*&v11 - 1);
   }
 
-  v12 = *(*a1 + 8 * v11);
-  if (!v12 || (v13 = *v12) == 0)
+  v15 = *(*a1 + 8 * v14);
+  if (!v15 || (v16 = *v15) == 0)
   {
 LABEL_20:
     std::__hash_table<std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,std::pair<std::shared_ptr<EQKit::OpticalKern::Edge::Path>,unsigned long>>,std::__unordered_map_hasher<EQKit::OpticalKern::Glyph::Key,std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,std::pair<std::shared_ptr<EQKit::OpticalKern::Edge::Path>,unsigned long>>,std::hash<EQKit::OpticalKern::Glyph::Key>,std::equal_to<EQKit::OpticalKern::Glyph::Key>,true>,std::__unordered_map_equal<EQKit::OpticalKern::Glyph::Key,std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,std::pair<std::shared_ptr<EQKit::OpticalKern::Edge::Path>,unsigned long>>,std::equal_to<EQKit::OpticalKern::Glyph::Key>,std::hash<EQKit::OpticalKern::Glyph::Key>,true>,std::allocator<std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,std::pair<std::shared_ptr<EQKit::OpticalKern::Edge::Path>,unsigned long>>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<EQKit::OpticalKern::Glyph::Key const&>,std::tuple<>>();
@@ -8844,49 +8846,49 @@ LABEL_20:
 
   while (1)
   {
-    v14 = v13[1];
-    if (v14 == v7)
+    v17 = v16[1];
+    if (v17 == v10)
     {
       break;
     }
 
-    if (v10 > 1)
+    if (v13 > 1)
     {
-      if (v14 >= *&v8)
+      if (v17 >= *&v11)
       {
-        v14 %= *&v8;
+        v17 %= *&v11;
       }
     }
 
     else
     {
-      v14 &= *&v8 - 1;
+      v17 &= *&v11 - 1;
     }
 
-    if (v14 != v11)
+    if (v17 != v14)
     {
       goto LABEL_20;
     }
 
 LABEL_19:
-    v13 = *v13;
-    if (!v13)
+    v16 = *v16;
+    if (!v16)
     {
       goto LABEL_20;
     }
   }
 
-  if (!EQKit::OpticalKern::Glyph::Key::operator==((v13 + 2), a2))
+  if (!EQKit::OpticalKern::Glyph::Key::operator==((v16 + 2), a2))
   {
     goto LABEL_19;
   }
 
-  return v13;
+  return v16;
 }
 
-void sub_25825F46C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25825F46C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,std::pair<std::shared_ptr<EQKit::OpticalKern::Edge::Path>,unsigned long>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<EQKit::OpticalKern::Glyph::Key,std::pair<std::shared_ptr<EQKit::OpticalKern::Edge::Path>,unsigned long>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9124,9 +9126,9 @@ void EQKit::OpticalKern::Spec::appendEntry(EQKit::OpticalKern::Spec *this, CGPoi
   EQKit::OpticalKern::Spec::Entry::~Entry(v4);
 }
 
-void sub_25825F984(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25825F984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   EQKit::OpticalKern::Spec::Entry::~Entry(va);
   _Unwind_Resume(a1);
 }
@@ -9157,9 +9159,9 @@ void EQKit::OpticalKern::Spec::appendEntry(EQKit::OpticalKern::Spec *this, CGPoi
   EQKit::OpticalKern::Spec::Entry::~Entry(v5);
 }
 
-void sub_25825FA30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25825FA30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   EQKit::OpticalKern::Spec::Entry::~Entry(va);
   _Unwind_Resume(a1);
 }
@@ -9178,9 +9180,9 @@ void EQKit::OpticalKern::Spec::appendEntry(EQKit::OpticalKern::Spec *this, CGPoi
   EQKit::OpticalKern::Spec::Entry::~Entry(&v3);
 }
 
-void sub_25825FA98(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25825FA98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   EQKit::OpticalKern::Spec::Entry::~Entry(va);
   _Unwind_Resume(a1);
 }
@@ -9235,9 +9237,9 @@ uint64_t std::vector<EQKit::OpticalKern::Spec::Entry>::__emplace_back_slow_path<
   return v12;
 }
 
-void sub_25825FBE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25825FBE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<EQKit::OpticalKern::Spec::Entry>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9419,14 +9421,14 @@ uint64_t EQKitCache<EQKit::OpticalKern::Glyph::Key,std::shared_ptr<EQKit::Optica
   return result;
 }
 
-void sub_258260168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_258260168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
 {
   a10 = &a15;
   std::vector<std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long>>::__destroy_vector::operator()[abi:ne200100](&a10);
   _Unwind_Resume(a1);
 }
 
-double EQKit::Kerning::Manager::kerningDistanceRequiredToSatisfyMinClearance(void *a1, int a2, void *a3, int a4, void *a5, double a6, double a7, double a8, double a9, double a10)
+double EQKit::Kerning::Manager::kerningDistanceRequiredToSatisfyMinClearance(uint64_t a1, int a2, void *a3, int a4, void *a5, double a6, double a7, double a8, double a9, double a10)
 {
   v58 = 0.0;
   v10 = 0.0;
@@ -9532,8 +9534,8 @@ LABEL_13:
 
       if ((v32 & v36) == 1)
       {
-        EQKit::OpticalKern::Edge::Composite::Composite(&v52, v56, a1 + 3, *a1);
-        EQKit::OpticalKern::Edge::Composite::Composite(&v50, v54, a1 + 3, *a1);
+        EQKit::OpticalKern::Edge::Composite::Composite(&v52, v56, (a1 + 24), *a1);
+        EQKit::OpticalKern::Edge::Composite::Composite(&v50, v54, (a1 + 24), *a1);
         v49[0] = *MEMORY[0x277CBF348];
         v49[1] = v49[0];
         EQKit::OpticalKern::Edge::Composite::isDistanceSmallerThanThreshold(&v52, &v50, &v58, v49, 0, v31);
@@ -9550,7 +9552,7 @@ LABEL_13:
   return v10;
 }
 
-void sub_258260478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void **a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void **a22, uint64_t a23, uint64_t a24, uint64_t a25, void ***a26, uint64_t a27, uint64_t a28, uint64_t a29, void **a30)
+void sub_258260478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void **a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void **a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30)
 {
   a17 = (v30 + 8);
   std::vector<std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>>::__destroy_vector::operator()[abi:ne200100](&a17);
@@ -9558,7 +9560,7 @@ void sub_258260478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   std::vector<std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>>::__destroy_vector::operator()[abi:ne200100](&a22);
   a26 = &a30;
   std::vector<EQKit::OpticalKern::Spec::Entry>::__destroy_vector::operator()[abi:ne200100](&a26);
-  a30 = (v31 - 168);
+  a30 = v31 - 168;
   std::vector<EQKit::OpticalKern::Spec::Entry>::__destroy_vector::operator()[abi:ne200100](&a30);
   _Unwind_Resume(a1);
 }
@@ -9639,21 +9641,21 @@ uint64_t EQKitCache<EQKit::OpticalKern::Glyph::Key,std::shared_ptr<EQKit::Optica
   return a1;
 }
 
-uint64_t std::vector<std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long>>::__emplace_back_slow_path<std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long>>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long>>::__emplace_back_slow_path<std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long>>(unint64_t *a1, uint64_t a2)
 {
-  v2 = 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0x666666666666666)
   {
     std::vector<std::string>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x999999999999999ALL * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x999999999999999ALL * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 16) - *a1) >> 3) >= 0x333333333333333)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 3) >= 0x333333333333333)
   {
     v6 = 0x666666666666666;
   }
@@ -9674,14 +9676,14 @@ uint64_t std::vector<std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long>>::_
   v15 = 40 * v2;
   *(EQKit::OpticalKern::Glyph::Key::Key(40 * v2, a2) + 32) = *(a2 + 32);
   *&v15 = v15 + 40;
-  v7 = *(a1 + 8);
+  v7 = a1[1];
   v8 = v14 + *a1 - v7;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long>>,std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long>*>(a1, *a1, v7, v8);
   v9 = *a1;
   *a1 = v8;
-  v10 = *(a1 + 16);
+  v10 = a1[2];
   v12 = v15;
-  *(a1 + 8) = v15;
+  *(a1 + 1) = v15;
   *&v15 = v9;
   *(&v15 + 1) = v10;
   v13 = v9;
@@ -9690,9 +9692,9 @@ uint64_t std::vector<std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long>>::_
   return v12;
 }
 
-void sub_2582607E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2582607E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9707,7 +9709,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<EQKit::Opti
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long>>,std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long>*>(uint64_t a1, EQKit::OpticalKern::Glyph::Key *a2, EQKit::OpticalKern::Glyph::Key *a3, uint64_t a4)
+void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long>>,std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long>*>(uint64_t a1, const void **a2, const void **a3, uint64_t a4)
 {
   if (a2 != a3)
   {
@@ -9717,8 +9719,8 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::p
     do
     {
       EQKit::OpticalKern::Glyph::Key::Key(a4, v8);
-      *(a4 + 32) = *(v8 + 32);
-      v8 += 40;
+      *(a4 + 32) = v8[4];
+      v8 += 5;
       a4 += 40;
       v7 -= 40;
     }
@@ -9727,7 +9729,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::p
     while (v6 != a3)
     {
       EQKit::OpticalKern::Glyph::Key::~Key(v6);
-      v6 = (v6 + 40);
+      v6 += 5;
     }
   }
 }
@@ -9767,12 +9769,12 @@ uint64_t std::__split_buffer<std::pair<EQKit::OpticalKern::Glyph::Key,unsigned l
   return a1;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long> const&,std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long> const&),std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long>*,false>(uint64_t a1, unint64_t a2, uint64_t (**a3)(uint64_t, uint64_t), uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long> const&,std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long> const&),std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long>*,false>(char *result, char *a2, uint64_t (**a3)(uint64_t, uint64_t), uint64_t a4, char a5)
 {
   v7 = a2;
-  v8 = a1;
+  v8 = result;
   v48 = a2;
-  v49 = a1;
+  v49 = result;
 LABEL_2:
   for (i = 1 - a4; ; ++i)
   {
@@ -9810,7 +9812,7 @@ LABEL_2:
     if (v11 == 4)
     {
       v48 = v7 - 40;
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long> const&,std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long> const&),std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long>*,0>(v8, v8 + 40, v8 + 80, v7 - 40, a3);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long> const&,std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long> const&),std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long>*,0>(v8, (v8 + 40), (v8 + 80), (v7 - 40), a3);
       return;
     }
 
@@ -9822,14 +9824,14 @@ LABEL_2:
       v51 = v8 + 120;
       v52 = v8 + 80;
       v50 = v7 - 40;
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long> const&,std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long> const&),std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long>*,0>(v8, v8 + 40, v8 + 80, v8 + 120, a3);
-      if ((*a3)(v7 - 40, v8 + 120))
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long> const&,std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long> const&),std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long>*,0>(v8, (v8 + 40), (v8 + 80), (v8 + 120), a3);
+      if ((*a3)((v7 - 40), (v8 + 120)))
       {
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long> *&,std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long> *&>(&v51, &v50);
-        if ((*a3)(v51, v8 + 80))
+        if ((*a3)(v51, (v8 + 80)))
         {
           std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long> *&,std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long> *&>(&v52, &v51);
-          if ((*a3)(v52, v8 + 40))
+          if ((*a3)(v52, (v8 + 40)))
           {
             std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long> *&,std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long> *&>(&v53, &v52);
             v40 = (*a3)(v53, v8);
@@ -9868,12 +9870,12 @@ LABEL_10:
     }
 
     v12 = v11 >> 1;
-    v13 = v8 + 40 * (v11 >> 1);
-    v14 = v7 - 40;
+    v13 = &v8[40 * (v11 >> 1)];
+    v14 = (v7 - 40);
     if (v10 < 0x1401)
     {
       v53 = v8;
-      v54[0] = v8 + 40 * (v11 >> 1);
+      v54[0] = &v8[40 * (v11 >> 1)];
       v52 = v14;
       v18 = (*a3)(v8, v13);
       v19 = (*a3)(v14, v8);
@@ -9916,7 +9918,7 @@ LABEL_38:
       goto LABEL_65;
     }
 
-    v53 = v8 + 40 * (v11 >> 1);
+    v53 = &v8[40 * (v11 >> 1)];
     v54[0] = v8;
     v52 = v14;
     v15 = (*a3)(v13, v8);
@@ -9957,12 +9959,12 @@ LABEL_28:
 
 LABEL_29:
     v8 = v49;
-    v23 = v49 + 40 * v12;
-    v53 = v23 - 40;
+    v23 = &v49[40 * v12];
+    v53 = (v23 - 40);
     v54[0] = v49 + 40;
     v52 = v48 - 80;
     v24 = (*a3)(v23 - 40);
-    v25 = (*a3)(v48 - 80, v23 - 40);
+    v25 = (*a3)((v48 - 80), v23 - 40);
     if (v24)
     {
       if (v25)
@@ -9998,11 +10000,11 @@ LABEL_44:
     }
 
 LABEL_45:
-    v53 = v23 + 40;
+    v53 = (v23 + 40);
     v54[0] = v49 + 80;
     v52 = v48 - 120;
     v28 = (*a3)(v23 + 40);
-    v29 = (*a3)(v48 - 120, v23 + 40);
+    v29 = (*a3)((v48 - 120), v23 + 40);
     if (v28)
     {
       if (v29)
@@ -10033,9 +10035,9 @@ LABEL_53:
     }
 
 LABEL_54:
-    v53 = v49 + 40 * v12;
-    v54[0] = v23 - 40;
-    v52 = v23 + 40;
+    v53 = &v49[40 * v12];
+    v54[0] = (v23 - 40);
+    v52 = (v23 + 40);
     v32 = (*a3)(v23, v23 - 40);
     v33 = (*a3)(v23 + 40, v23);
     if (v32)
@@ -10077,8 +10079,8 @@ LABEL_64:
     EQKit::OpticalKern::Glyph::Key::operator=(v49, v23);
     EQKit::OpticalKern::Glyph::Key::operator=(v23, v54);
     EQKit::OpticalKern::Glyph::Key::~Key(v54);
-    v36 = *(v49 + 32);
-    *(v49 + 32) = *(v23 + 32);
+    v36 = *(v49 + 4);
+    *(v49 + 4) = *(v23 + 32);
     *(v23 + 32) = v36;
     if (a5)
     {
@@ -10089,7 +10091,7 @@ LABEL_40:
 
 LABEL_65:
     v7 = v48;
-    if (((*a3)(v8 - 40, v8) & 1) == 0)
+    if (((*a3)((v8 - 40), v8) & 1) == 0)
     {
       v8 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long> *,BOOL (*&)(std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long> const&,std::pair<EQKit::OpticalKern::Glyph::Key,unsigned long> const&)>(v8, v48, a3);
       goto LABEL_75;
@@ -10138,8 +10140,8 @@ LABEL_75:
   v53 = v8 + 40;
   v54[0] = v8;
   v52 = v7 - 40;
-  v42 = (*a3)(v8 + 40, v8);
-  v43 = (*a3)(v7 - 40, v41);
+  v42 = (*a3)((v8 + 40), v8);
+  v43 = (*a3)((v7 - 40), v41);
   if (v42)
   {
     if (v43)

@@ -57,16 +57,16 @@
 
 + (id)msv_dictionaryWithContentsOfJSON:()MSVAdditions error:
 {
-  v15[1] = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v5 = [MEMORY[0x1E696ACB0] JSONObjectWithData:a3 options:0 error:&v13];
-  v6 = v13;
+  v14[1] = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v5 = [MEMORY[0x1E696ACB0] JSONObjectWithData:a3 options:0 error:&v12];
+  v6 = v12;
   if (v5 && (_NSIsNSDictionary() & 1) == 0)
   {
     v7 = MEMORY[0x1E696ABC0];
-    v14 = *MEMORY[0x1E696A278];
-    v15[0] = @"Unexpected non-dictionary object in JSON payload";
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x1E696A278];
+    v14[0] = @"Unexpected non-dictionary object in JSON payload";
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v9 = [v7 errorWithDomain:@"MediaServices" code:400 userInfo:v8];
 
     v6 = v9;
@@ -77,8 +77,6 @@
     v10 = v6;
     *a4 = v6;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

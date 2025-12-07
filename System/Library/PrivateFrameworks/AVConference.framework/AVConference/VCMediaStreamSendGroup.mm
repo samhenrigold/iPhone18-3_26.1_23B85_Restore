@@ -275,7 +275,7 @@ LABEL_17:
       if (VRTraceGetErrorLogLevelForModule() < 3 || (v38 = VRTraceErrorLogLevelToCSTR(), v39 = *MEMORY[0x1E6986650], !os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR)))
       {
 LABEL_35:
-        if ([*(a1 + 32) setupStreamGroupWithConfig:{objc_msgSend(*(*(a1 + 32) + 472), "objectForKeyedSubscript:", objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", *(*(a1 + 32) + 480), *v51, *&v51[16], *v52, *&v52[16], v53))}])
+        if ([*(a1 + 32) setupStreamGroupWithConfig:{objc_msgSend(*(*(a1 + 32) + 472), "objectForKeyedSubscript:", objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", *(*(a1 + 32) + 480), *v51, *&v51[8], *v52, *&v52[16], v53))}])
         {
           return;
         }
@@ -608,7 +608,7 @@ LABEL_24:
           *(*(*(a1 + 48) + 8) + 24) = 1;
         }
 
-        [*(*(a1 + 32) + 472) setObject:*(a1 + 40) forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", objc_msgSend(*(a1 + 40), "streamGroupMode", *v32, *&v32[16], v33, *v34, *&v34[8], v35, v36))}];
+        [*(*(a1 + 32) + 472) setObject:*(a1 + 40) forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", objc_msgSend(*(a1 + 40), "streamGroupMode", *v32, *&v32[8], v33, *v34, *&v34[8], v35, v36))}];
         [*(a1 + 40) setDelegate:0];
         return;
       }
@@ -970,7 +970,7 @@ LABEL_15:
   return v4;
 }
 
-uint64_t __43__VCMediaStreamSendGroup_enableRedundancy___block_invoke(uint64_t a1)
+void *__43__VCMediaStreamSendGroup_enableRedundancy___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dispatchedEnableRedundancy:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -990,7 +990,7 @@ uint64_t __43__VCMediaStreamSendGroup_enableRedundancy___block_invoke(uint64_t a
   dispatch_async(stateQueue, block);
 }
 
-uint64_t __51__VCMediaStreamSendGroup_setRetransmissionEnabled___block_invoke(uint64_t a1)
+void *__51__VCMediaStreamSendGroup_setRetransmissionEnabled___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 736) = *(a1 + 40);
@@ -1014,7 +1014,8 @@ uint64_t __51__VCMediaStreamSendGroup_setRetransmissionEnabled___block_invoke(ui
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) setUplinkRetransmissionEnabled:*(a1 + 40)];
+        [*(*(&v8 + 1) + 8 * v6) setUplinkRetransmissionEnabled:*(a1 + 40)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -1050,7 +1051,7 @@ uint64_t __51__VCMediaStreamSendGroup_setRetransmissionEnabled___block_invoke(ui
   return v5;
 }
 
-uint64_t __76__VCMediaStreamSendGroup_updatePeerSubscribedStreams_containsRepairStreams___block_invoke(uint64_t a1)
+void *__76__VCMediaStreamSendGroup_updatePeerSubscribedStreams_containsRepairStreams___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) checkStreamsForAdditionalOptIn:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = [*(a1 + 32) updateUplinkStreamsForPeerSubscribedStreams:v2];
@@ -1200,25 +1201,25 @@ LABEL_11:
   dispatch_async(stateQueue, v8);
 }
 
-uint64_t __116__VCMediaStreamSendGroup_setActiveConnection_uplinkBitrateCap_activeMediaStreamIDs_mediaBitrates_rateChangeCounter___block_invoke(uint64_t a1)
+_DWORD *__116__VCMediaStreamSendGroup_setActiveConnection_uplinkBitrateCap_activeMediaStreamIDs_mediaBitrates_rateChangeCounter___block_invoke(uint64_t a1)
 {
   v18 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) dispatchedUpdateStreamsWithActiveConnection:*(a1 + 40)];
   result = *(a1 + 32);
-  if (*(a1 + 64) < *(result + 452))
+  if (*(a1 + 64) < result[113])
   {
     if (objc_opt_class() == *(a1 + 32))
     {
       if (VRTraceGetErrorLogLevelForModule() < 7)
       {
-        return [*(a1 + 32) dispatchedUpdateActiveMediaStreamIDs:*(a1 + 48) withTargetBitrate:*(a1 + 64) mediaBitrates:*(a1 + 56) rateChangeCounter:{*(a1 + 68), *v14, *&v14[16], v15, v16, v17}];
+        return [*(a1 + 32) dispatchedUpdateActiveMediaStreamIDs:*(a1 + 48) withTargetBitrate:*(a1 + 64) mediaBitrates:*(a1 + 56) rateChangeCounter:{*(a1 + 68), *v14, *&v14[8], v15, v16, v17}];
       }
 
       v4 = VRTraceErrorLogLevelToCSTR();
       v5 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        return [*(a1 + 32) dispatchedUpdateActiveMediaStreamIDs:*(a1 + 48) withTargetBitrate:*(a1 + 64) mediaBitrates:*(a1 + 56) rateChangeCounter:{*(a1 + 68), *v14, *&v14[16], v15, v16, v17}];
+        return [*(a1 + 32) dispatchedUpdateActiveMediaStreamIDs:*(a1 + 48) withTargetBitrate:*(a1 + 64) mediaBitrates:*(a1 + 56) rateChangeCounter:{*(a1 + 68), *v14, *&v14[8], v15, v16, v17}];
       }
 
       v6 = *(*(a1 + 32) + 452);
@@ -1249,14 +1250,14 @@ uint64_t __116__VCMediaStreamSendGroup_setActiveConnection_uplinkBitrateCap_acti
 
       if (VRTraceGetErrorLogLevelForModule() < 7)
       {
-        return [*(a1 + 32) dispatchedUpdateActiveMediaStreamIDs:*(a1 + 48) withTargetBitrate:*(a1 + 64) mediaBitrates:*(a1 + 56) rateChangeCounter:{*(a1 + 68), *v14, *&v14[16], v15, v16, v17}];
+        return [*(a1 + 32) dispatchedUpdateActiveMediaStreamIDs:*(a1 + 48) withTargetBitrate:*(a1 + 64) mediaBitrates:*(a1 + 56) rateChangeCounter:{*(a1 + 68), *v14, *&v14[8], v15, v16, v17}];
       }
 
       v10 = VRTraceErrorLogLevelToCSTR();
       v11 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        return [*(a1 + 32) dispatchedUpdateActiveMediaStreamIDs:*(a1 + 48) withTargetBitrate:*(a1 + 64) mediaBitrates:*(a1 + 56) rateChangeCounter:{*(a1 + 68), *v14, *&v14[16], v15, v16, v17}];
+        return [*(a1 + 32) dispatchedUpdateActiveMediaStreamIDs:*(a1 + 48) withTargetBitrate:*(a1 + 64) mediaBitrates:*(a1 + 56) rateChangeCounter:{*(a1 + 68), *v14, *&v14[8], v15, v16, v17}];
       }
 
       v12 = *(a1 + 32);
@@ -1279,7 +1280,7 @@ uint64_t __116__VCMediaStreamSendGroup_setActiveConnection_uplinkBitrateCap_acti
     }
 
     _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, v7, v14, v9);
-    return [*(a1 + 32) dispatchedUpdateActiveMediaStreamIDs:*(a1 + 48) withTargetBitrate:*(a1 + 64) mediaBitrates:*(a1 + 56) rateChangeCounter:{*(a1 + 68), *v14, *&v14[16], v15, v16, v17}];
+    return [*(a1 + 32) dispatchedUpdateActiveMediaStreamIDs:*(a1 + 48) withTargetBitrate:*(a1 + 64) mediaBitrates:*(a1 + 56) rateChangeCounter:{*(a1 + 68), *v14, *&v14[8], v15, v16, v17}];
   }
 
   return result;

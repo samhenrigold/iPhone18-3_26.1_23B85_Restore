@@ -1,5 +1,8 @@
 @interface HAPBTLETuple
 + (id)atvState2String:(unint64_t)string;
++ (id)makeTupleWithATVState:(unint64_t)state MaxHAPConnections:(int)connections;
++ (id)makeTupleWithATVState:(unint64_t)state MaxHAPConnections:(int)connections MinBandwidth:(float)bandwidth MaxBandwidth:(float)maxBandwidth;
++ (id)makeTupleWithState:(BTStatus *)state MaxHAPConnections:(int)connections MinBandwidth:(float)bandwidth MaxBandwidth:(float)maxBandwidth;
 + (id)state2String:(BTStatus *)string;
 + (void)bandwidthFromATVState:(unint64_t)state MinBandwidth:(float *)bandwidth MaxBandwidth:(float *)maxBandwidth;
 - (BTStatus)state;
@@ -8,6 +11,32 @@
 @end
 
 @implementation HAPBTLETuple
+
++ (id)makeTupleWithATVState:(unint64_t)state MaxHAPConnections:(int)connections MinBandwidth:(float)bandwidth MaxBandwidth:(float)maxBandwidth
+{
+  v8 = *&connections;
+  v10 = objc_alloc_init(HAPBTLETuple);
+  [(HAPBTLETuple *)v10 setAtvState:state];
+  *&v11 = bandwidth;
+  [(HAPBTLETuple *)v10 setMinBandwidth:v11];
+  *&v12 = maxBandwidth;
+  [(HAPBTLETuple *)v10 setMaxBandwidth:v12];
+  [(HAPBTLETuple *)v10 setMaxHAPConnections:v8];
+
+  return v10;
+}
+
++ (id)makeTupleWithATVState:(unint64_t)state MaxHAPConnections:(int)connections
+{
+  v4 = *&connections;
+  v10 = 0;
+  [HAPBTLETuple bandwidthFromATVState:state MinBandwidth:&v10 + 4 MaxBandwidth:&v10];
+  LODWORD(v6) = HIDWORD(v10);
+  LODWORD(v7) = v10;
+  v8 = [HAPBTLETuple makeTupleWithATVState:state MaxHAPConnections:v4 MinBandwidth:v6 MaxBandwidth:v7];
+
+  return v8;
+}
 
 + (void)bandwidthFromATVState:(unint64_t)state MinBandwidth:(float *)bandwidth MaxBandwidth:(float *)maxBandwidth
 {
@@ -112,6 +141,35 @@ LABEL_22:
   v8 = [NSString stringWithFormat:@"%@"], v4);
 
   return v8;
+}
+
++ (id)makeTupleWithState:(BTStatus *)state MaxHAPConnections:(int)connections MinBandwidth:(float)bandwidth MaxBandwidth:(float)maxBandwidth
+{
+  v8 = *&connections;
+  v10 = objc_alloc_init(HAPBTLETuple);
+  *&v10->_state.leRemote = *&state->leRemote;
+  v11 = *&state->nonHIDConnections;
+  v13 = *&state->btKB;
+  v12 = *&state->btGC;
+  *&v10->_state.hk = *&state->hk;
+  *&v10->_state.nonHIDConnections = v11;
+  *&v10->_state.btKB = v13;
+  *&v10->_state.btGC = v12;
+  v15 = *&state->sco;
+  v14 = *&state->remote;
+  v16 = *&state->oneSniffAttemptDevices;
+  *&v10->_state.isScanning = *&state->isScanning;
+  *&v10->_state.sco = v15;
+  *&v10->_state.remote = v14;
+  *&v10->_state.oneSniffAttemptDevices = v16;
+  [(HAPBTLETuple *)v10 setAtvState:0];
+  *&v17 = bandwidth;
+  [(HAPBTLETuple *)v10 setMinBandwidth:v17];
+  *&v18 = maxBandwidth;
+  [(HAPBTLETuple *)v10 setMaxBandwidth:v18];
+  [(HAPBTLETuple *)v10 setMaxHAPConnections:v8];
+
+  return v10;
 }
 
 + (id)state2String:(BTStatus *)string

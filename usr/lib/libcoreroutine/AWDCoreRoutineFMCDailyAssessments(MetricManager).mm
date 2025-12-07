@@ -68,30 +68,30 @@ LABEL_9:
 
 - (id)description
 {
-  v2 = objc_opt_new();
+  v3 = objc_opt_new();
   if ([self assessmentsCount])
   {
-    v3 = 0;
+    v4 = 0;
     do
     {
-      v4 = [self assessmentAtIndex:v3];
-      v5 = [v4 description];
-      [v2 appendFormat:@"{%@}", v5];
+      v5 = [self assessmentAtIndex:v4];
+      v6 = [v5 description];
+      [v3 appendFormat:@"{%@}", v6];
 
-      ++v3;
+      ++v4;
     }
 
-    while ([self assessmentsCount] > v3);
+    while ([self assessmentsCount] > v4);
   }
 
-  v6 = MEMORY[0x277CCACA8];
-  v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
+  v7 = MEMORY[0x277CCACA8];
+  v8 = objc_opt_class();
+  v9 = NSStringFromClass(v8);
   assessmentsCount = [self assessmentsCount];
-  v10 = [v2 description];
-  v11 = [v6 stringWithFormat:@"%@, count %lu, assessments %@", v8, assessmentsCount, v10];
+  v11 = [v3 description];
+  v12 = [v7 stringWithFormat:@"%@, count %lu, assessments %@", v9, assessmentsCount, v11];
 
-  return v11;
+  return v12;
 }
 
 @end

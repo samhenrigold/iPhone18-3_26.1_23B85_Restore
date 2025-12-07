@@ -171,45 +171,8 @@
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    if (objc_opt_isKindOfClass() & 1) == 0 || ([(HAPMetadataConstraints *)self minimumValue], v5 = objc_claimAutoreleasedReturnValue(), [(HAPMetadataConstraints *)constraintsCopy minimumValue], v6 = objc_claimAutoreleasedReturnValue(), v7 = sub_10007EC60(v5, v6), v6, v5, (v7) || ([(HAPMetadataConstraints *)self maximumValue], v8 = objc_claimAutoreleasedReturnValue(), [(HAPMetadataConstraints *)constraintsCopy maximumValue], v9 = objc_claimAutoreleasedReturnValue(), v10 = sub_10007EC60(v8, v9), v9, v8, (v10) || ([(HAPMetadataConstraints *)self stepValue], v11 = objc_claimAutoreleasedReturnValue(), [(HAPMetadataConstraints *)constraintsCopy stepValue], v12 = objc_claimAutoreleasedReturnValue(), v13 = sub_10007EC60(v11, v12), v12, v11, (v13) || ([(HAPMetadataConstraints *)self minLength], v14 = objc_claimAutoreleasedReturnValue(), [(HAPMetadataConstraints *)constraintsCopy minLength], v15 = objc_claimAutoreleasedReturnValue(), v16 = sub_10007EC60(v14, v15), v15, v14, (v16) || ([(HAPMetadataConstraints *)self maxLength], v17 = objc_claimAutoreleasedReturnValue(), [(HAPMetadataConstraints *)constraintsCopy maxLength], v18 = objc_claimAutoreleasedReturnValue(), v19 = sub_10007EC60(v17, v18), v18, v17, (v19))
     {
-      goto LABEL_8;
-    }
-
-    minimumValue = [(HAPMetadataConstraints *)self minimumValue];
-    minimumValue2 = [(HAPMetadataConstraints *)constraintsCopy minimumValue];
-    v7 = sub_10007EC60(minimumValue, minimumValue2);
-
-    if (v7)
-    {
-      goto LABEL_8;
-    }
-
-    maximumValue = [(HAPMetadataConstraints *)self maximumValue];
-    maximumValue2 = [(HAPMetadataConstraints *)constraintsCopy maximumValue];
-    v10 = sub_10007EC60(maximumValue, maximumValue2);
-
-    if (v10)
-    {
-      goto LABEL_8;
-    }
-
-    stepValue = [(HAPMetadataConstraints *)self stepValue];
-    stepValue2 = [(HAPMetadataConstraints *)constraintsCopy stepValue];
-    v13 = sub_10007EC60(stepValue, stepValue2);
-
-    if (v13)
-    {
-      goto LABEL_8;
-    }
-
-    minLength = [(HAPMetadataConstraints *)self minLength];
-    minLength2 = [(HAPMetadataConstraints *)constraintsCopy minLength];
-    v16 = sub_10007EC60(minLength, minLength2);
-
-    if (v16 & 1) != 0 || ([(HAPMetadataConstraints *)self maxLength], v17 = objc_claimAutoreleasedReturnValue(), [(HAPMetadataConstraints *)constraintsCopy maxLength], v18 = objc_claimAutoreleasedReturnValue(), v19 = sub_10007EC60(v17, v18), v18, v17, (v19))
-    {
-LABEL_8:
       v20 = 0;
     }
 

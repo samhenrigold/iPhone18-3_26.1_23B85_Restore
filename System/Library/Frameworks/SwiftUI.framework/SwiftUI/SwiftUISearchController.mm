@@ -62,26 +62,28 @@
 - (void)updateSearchResultsForSearchController:(id)controller selectingSearchSuggestion:(id)suggestion
 {
   type metadata accessor for UIKitSearchSuggestion(0);
-  v4 = *(swift_dynamicCastClassUnconditional() + OBJC_IVAR____TtC7SwiftUI21UIKitSearchSuggestion_platformItem + 416);
-  if (!v4)
+  v4 = swift_dynamicCastClassUnconditional() + OBJC_IVAR____TtC7SwiftUI21UIKitSearchSuggestion_platformItem;
+  v5 = *(v4 + 416);
+  if (!v5)
   {
     __break(1u);
     goto LABEL_7;
   }
 
-  if (v4 == 1)
+  if (v5 == 1)
   {
 LABEL_7:
     __break(1u);
     return;
   }
 
+  v6 = *(v4 + 424);
   swift_unknownObjectRetain();
-  v5 = outlined copy of AppIntentExecutor?(v4);
-  v4(v5);
+  v7 = outlined copy of AppIntentExecutor?(v5, v6);
+  v5(v7);
   swift_unknownObjectRelease();
 
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v4);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v5, v6);
 }
 
 - (_TtC7SwiftUI23SwiftUISearchController)initWithSearchResultsController:(id)controller

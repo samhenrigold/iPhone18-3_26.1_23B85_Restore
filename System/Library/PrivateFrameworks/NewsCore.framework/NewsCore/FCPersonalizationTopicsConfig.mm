@@ -60,35 +60,35 @@ FCPersonalizationTopicConfig *__48__FCPersonalizationTopicsConfig_initWithConfig
 
 - (FCPersonalizationTopicsConfig)initWithConfig:(id)config defaultConfig:(id)defaultConfig
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   configCopy = config;
   defaultConfigCopy = defaultConfig;
-  v28.receiver = self;
-  v28.super_class = FCPersonalizationTopicsConfig;
-  v8 = [(FCPersonalizationTopicsConfig *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = FCPersonalizationTopicsConfig;
+  v8 = [(FCPersonalizationTopicsConfig *)&v27 init];
   if (v8)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     topicsConfig = [defaultConfigCopy topicsConfig];
-    v11 = [topicsConfig countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v11 = [topicsConfig countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v25;
+      v13 = *v24;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v25 != v13)
+          if (*v24 != v13)
           {
             objc_enumerationMutation(topicsConfig);
           }
 
-          v15 = *(*(&v24 + 1) + 8 * i);
+          v15 = *(*(&v23 + 1) + 8 * i);
           topicID = [v15 topicID];
 
           if (topicID)
@@ -98,24 +98,23 @@ FCPersonalizationTopicConfig *__48__FCPersonalizationTopicsConfig_initWithConfig
           }
         }
 
-        v12 = [topicsConfig countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v12 = [topicsConfig countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v12);
     }
 
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __62__FCPersonalizationTopicsConfig_initWithConfig_defaultConfig___block_invoke;
-    v22[3] = &unk_1E7C41DD8;
-    v23 = dictionary;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __62__FCPersonalizationTopicsConfig_initWithConfig_defaultConfig___block_invoke;
+    v21[3] = &unk_1E7C41DD8;
+    v22 = dictionary;
     v18 = dictionary;
-    [configCopy enumerateObjectsUsingBlock:v22];
+    [configCopy enumerateObjectsUsingBlock:v21];
     allValues = [v18 allValues];
     v8 = [(FCPersonalizationTopicsConfig *)v8 initWithTopicsConfig:allValues];
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

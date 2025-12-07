@@ -12,14 +12,12 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"ExternalStorage";
-  v7[1] = @"NetworkStorage";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v6[0] = @"ExternalStorage";
+  v6[1] = @"NetworkStorage";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -81,28 +79,26 @@
 
 - (void)combineWithOther:(id)other
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   otherCopy = other;
   payloadExternalStorage = [(RMModelDiskManagementSettingsDeclaration_Restrictions *)self payloadExternalStorage];
   payloadExternalStorage2 = [otherCopy payloadExternalStorage];
-  v15[0] = @"Allowed";
-  v15[1] = @"ReadOnly";
-  v15[2] = @"Disallowed";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
+  v14[0] = @"Allowed";
+  v14[1] = @"ReadOnly";
+  v14[2] = @"Disallowed";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
   v8 = [RMModelConfigurationBase combineEnumLast:payloadExternalStorage other:payloadExternalStorage2 enums:v7];
   [(RMModelDiskManagementSettingsDeclaration_Restrictions *)self setPayloadExternalStorage:v8];
 
   payloadNetworkStorage = [(RMModelDiskManagementSettingsDeclaration_Restrictions *)self payloadNetworkStorage];
   payloadNetworkStorage2 = [otherCopy payloadNetworkStorage];
 
-  v14[0] = @"Allowed";
-  v14[1] = @"ReadOnly";
-  v14[2] = @"Disallowed";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+  v13[0] = @"Allowed";
+  v13[1] = @"ReadOnly";
+  v13[2] = @"Disallowed";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
   v12 = [RMModelConfigurationBase combineEnumLast:payloadNetworkStorage other:payloadNetworkStorage2 enums:v11];
   [(RMModelDiskManagementSettingsDeclaration_Restrictions *)self setPayloadNetworkStorage:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

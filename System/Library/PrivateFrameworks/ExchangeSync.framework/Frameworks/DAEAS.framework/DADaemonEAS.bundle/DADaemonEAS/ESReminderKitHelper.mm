@@ -4,6 +4,7 @@
 - (BOOL)_deleteList:(id)list forAccount:(id)account;
 - (BOOL)_populateChangeItem:(id)item forRecurrence:(id)recurrence forReminder:(id)reminder forFolderWithId:(id)id forAccount:(id)account;
 - (BOOL)_populateChangeItem:(id)item forReminder:(id)reminder folderWithId:(id)id forAccount:(id)account;
+- (BOOL)_updateList:(id)list external:(id)external name:(id)name isDefault:(BOOL)default;
 - (BOOL)addFolder:(id)folder forAccount:(id)account;
 - (BOOL)addOrModifyReminder:(id)reminder forFolderWithId:(id)id forAccount:(id)account;
 - (BOOL)bestEffortApplyNewFolders:(id)folders oldFolders:(id)oldFolders forAccount:(id)account shouldCreateFoldersMissingInDB:(BOOL)b;
@@ -482,36 +483,8 @@ LABEL_53:
       folderName2 = [objectID folderName];
       isDefault = [objectID isDefault];
       [v89 addObject:folderID3];
-      if (![externalIdentifier isEqualToString:folderID3])
+      if (![externalIdentifier isEqualToString:folderID3] || ((isDefault ^ 1 | daIsImmutable) & 1) == 0 || ((isDefault | daIsImmutable ^ 1) & 1) == 0 || (v82 = isDefault, objc_msgSend(v81, "objectForKeyedSubscript:", externalIdentifier), v83 = folderID3, v60 = externalIdentifier, v61 = name, v62 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v62, "folderName"), v63 = objc_claimAutoreleasedReturnValue(), v64 = objc_msgSend(v63, "isEqualToString:", folderName2), v63, v62, isDefault = v82, name = v61, externalIdentifier = v60, folderID3 = v83, (v64 & 1) == 0))
       {
-        goto LABEL_51;
-      }
-
-      if (((isDefault ^ 1 | daIsImmutable) & 1) == 0)
-      {
-        goto LABEL_51;
-      }
-
-      if (((isDefault | daIsImmutable ^ 1) & 1) == 0)
-      {
-        goto LABEL_51;
-      }
-
-      v82 = isDefault;
-      [v81 objectForKeyedSubscript:externalIdentifier];
-      v83 = folderID3;
-      v60 = externalIdentifier;
-      v62 = v61 = name;
-      folderName3 = [v62 folderName];
-      v64 = [folderName3 isEqualToString:folderName2];
-
-      isDefault = v82;
-      name = v61;
-      externalIdentifier = v60;
-      folderID3 = v83;
-      if ((v64 & 1) == 0)
-      {
-LABEL_51:
         [(ESReminderKitHelper *)self _updateList:v49 external:folderID3 name:folderName2 isDefault:isDefault];
         v86 = 1;
       }
@@ -670,6 +643,33 @@ LABEL_20:
     v11 = 138412290;
     v12 = listCopy;
     _os_log_impl(&dword_0, v8, v9, "ReminderSupport: reminder list %@ is deleted", &v11, 0xCu);
+  }
+
+  return 1;
+}
+
+- (BOOL)_updateList:(id)list external:(id)external name:(id)name isDefault:(BOOL)default
+{
+  defaultCopy = default;
+  listCopy = list;
+  externalCopy = external;
+  nameCopy = name;
+  _getReminderSaveRequest = [(ESReminderKitHelper *)self _getReminderSaveRequest];
+  v14 = [_getReminderSaveRequest updateList:listCopy];
+  [v14 setExternalIdentifier:externalCopy];
+  [v14 setName:nameCopy];
+  [v14 setDaIsImmutable:defaultCopy];
+  v15 = DALoggingwithCategory();
+  v16 = _CPLog_to_os_log_type[7];
+  if (os_log_type_enabled(v15, v16))
+  {
+    v18 = 138412802;
+    v19 = listCopy;
+    v20 = 2112;
+    v21 = externalCopy;
+    v22 = 2112;
+    v23 = nameCopy;
+    _os_log_impl(&dword_0, v15, v16, "ReminderSupport: reminder list %@ is updated with external ID: %@ and name: %@", &v18, 0x20u);
   }
 
   return 1;

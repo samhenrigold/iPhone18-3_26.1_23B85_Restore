@@ -16,7 +16,7 @@
 - (_NSRange)highlightRange;
 - (id)constrainContextSubstring:(uint64_t)substring range:(unint64_t)range leading:(unsigned __int8)leading;
 - (id)getClientHintKey:(id)key ofType:(Class)type;
-- (uint64_t)textContentRange;
+- (int64_t)textContentRange;
 - (void)commonInitWithText:(unint64_t)text selectedRange:(uint64_t)range customURLParser:(void *)parser lookup:;
 - (void)encodeWithCoder:(id)coder;
 - (void)normalizeWithParser:(uint64_t)parser lookupOnly:(void *)only;
@@ -59,7 +59,7 @@
   return trailingText;
 }
 
-- (uint64_t)textContentRange
+- (int64_t)textContentRange
 {
   if (result)
   {
@@ -68,15 +68,12 @@
     if (v2 && *(v1 + 8) == 2 && *(v1 + 16) == 3)
     {
       urlificationRange = [v2 urlificationRange];
-      v4 = urlificationRange - [*(v1 + 32) range];
-      result = *(v1 + 64) - v4;
-      v5 = *(v1 + 72) + v4;
+      return *(v1 + 64) - (urlificationRange - [*(v1 + 32) range]);
     }
 
     else
     {
-      result = *(v1 + 64);
-      v6 = *(v1 + 72);
+      return *(v1 + 64);
     }
   }
 
@@ -219,7 +216,7 @@ LABEL_6:
 
 - (void)normalizeWithParser:(uint64_t)parser lookupOnly:(void *)only
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   onlyCopy = only;
   if ((*(parser + 96) & 1) == 0)
   {
@@ -252,16 +249,16 @@ LABEL_52:
       if (!v9)
       {
 LABEL_56:
-        *&v60 = v8;
-        *(&v60 + 1) = v9;
-        v43 = onlyCopy[2](onlyCopy, &v60);
+        *&v58 = v8;
+        *(&v58 + 1) = v9;
+        v42 = onlyCopy[2](onlyCopy, &v58);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v44 = *(parser + 72);
-          if (v44)
+          v43 = *(parser + 72);
+          if (v43)
           {
-            if (__PAIR128__(v44, *v7) != v60)
+            if (__PAIR128__(v43, *v7) != v58)
             {
 LABEL_65:
 
@@ -271,26 +268,26 @@ LABEL_65:
 
           else
           {
-            if (!*(&v60 + 1))
+            if (!*(&v58 + 1))
             {
               goto LABEL_65;
             }
 
-            v45 = v60;
-            if (v45 >= [v5 length])
+            v44 = v58;
+            if (v44 >= [v5 length])
             {
               goto LABEL_65;
             }
 
-            *v7 = v60;
+            *v7 = v58;
           }
         }
 
-        if (v43)
+        if (v42)
         {
-          v46 = *(parser + 24);
-          *(parser + 24) = v43;
-          v47 = v43;
+          v45 = *(parser + 24);
+          *(parser + 24) = v42;
+          v46 = v42;
 
           *(parser + 16) = 1;
           goto LABEL_65;
@@ -321,13 +318,13 @@ LABEL_67:
         [*(parser + 32) coreResult];
         if (DDResultGetCategory() == 1)
         {
-          v48 = DDResultCopyExtractedURL();
-          if (v48)
+          v47 = DDResultCopyExtractedURL();
+          if (v47)
           {
-            v49 = [MEMORY[0x277CBEBC0] URLWithString:v48];
-            if (v49)
+            v48 = [MEMORY[0x277CBEBC0] URLWithString:v47];
+            if (v48)
             {
-              objc_storeStrong((parser + 24), v49);
+              objc_storeStrong((parser + 24), v48);
               *(parser + 16) = 1;
             }
           }
@@ -337,13 +334,13 @@ LABEL_67:
       goto LABEL_74;
     }
 
-    v56 = v9;
-    v59 = v10;
-    v51 = v11;
+    v54 = v9;
+    v57 = v10;
+    v49 = v11;
     v12 = [v5 substringWithRange:{v10, v11}];
     v13 = [MEMORY[0x277CBEBC0] URLWithString:v12];
     scheme = [v13 scheme];
-    v57 = v12;
+    v55 = v12;
     obj = v13;
     if ([scheme length])
     {
@@ -354,146 +351,145 @@ LABEL_67:
         lowercaseString = [scheme2 lowercaseString];
         v18 = [&unk_2874ECC80 containsObject:lowercaseString];
 
-        v12 = v57;
+        v12 = v55;
         if (v18)
         {
           v19 = obj;
           objc_storeStrong((parser + 24), obj);
           *(parser + 16) = 1;
-          *(parser + 64) = v59;
-          *(parser + 72) = v51;
+          *(parser + 64) = v57;
+          *(parser + 72) = v49;
 LABEL_51:
 
-          v9 = v56;
+          v9 = v54;
           goto LABEL_52;
         }
 
 LABEL_12:
-        v53 = v8;
-        v54 = v5;
-        v58 = *v7;
+        v51 = v8;
+        v52 = v5;
+        v56 = *v7;
+        v60 = 0u;
+        v61 = 0u;
         v62 = 0u;
         v63 = 0u;
-        v64 = 0u;
-        v65 = 0u;
-        v52 = [objc_alloc(MEMORY[0x277D04228]) initWithScannerType:0 passiveIntent:0];
+        v50 = [objc_alloc(MEMORY[0x277D04228]) initWithScannerType:0 passiveIntent:0];
         v20 = [MEMORY[0x277D04220] scanString:v12 range:0x7FFFFFFFFFFFFFFFLL configuration:0];
-        v21 = [v20 countByEnumeratingWithState:&v62 objects:v67 count:16];
+        v21 = [v20 countByEnumeratingWithState:&v60 objects:v65 count:16];
         if (v21)
         {
           v22 = v21;
-          v23 = *v63;
-          v24 = *MEMORY[0x277D04048];
+          v23 = *v61;
           do
           {
-            v25 = 0;
+            v24 = 0;
             do
             {
-              if (*v63 != v23)
+              if (*v61 != v23)
               {
                 objc_enumerationMutation(v20);
               }
 
-              v26 = *(*(&v62 + 1) + 8 * v25);
-              [v26 coreResult];
+              v25 = *(*(&v60 + 1) + 8 * v24);
+              [v25 coreResult];
               Category = DDResultGetCategory();
               if (Category)
               {
-                v28 = Category == 7;
+                v27 = Category == 7;
               }
 
               else
               {
-                v28 = 1;
+                v27 = 1;
               }
 
-              if (!v28)
+              if (!v27)
               {
                 HasType = DDResultHasType();
                 if ((HasType & 1) == 0)
                 {
-                  v30.location = DDResultGetRangeForURLification();
-                  length = v30.length;
-                  v32 = v30.location + v59;
-                  v33.length = *(parser + 72);
-                  if (v33.length)
+                  v29.location = DDResultGetRangeForURLification();
+                  length = v29.length;
+                  v31 = v29.location + v57;
+                  v32.length = *(parser + 72);
+                  if (v32.length)
                   {
-                    if (v30.length >= 2 && floor(v30.length * 0.66) <= v33.length)
+                    if (v29.length >= 2 && floor(v29.length * 0.66) <= v32.length)
                     {
-                      v34 = v32 | 2;
-                      if (v32 >= 2)
+                      v33 = v31 | 2;
+                      if (v31 >= 2)
                       {
-                        v30.location = v32 - 2;
+                        v29.location = v31 - 2;
                       }
 
                       else
                       {
-                        v30.location = 0;
+                        v29.location = 0;
                       }
 
-                      if (v32 >= 2)
+                      if (v31 >= 2)
                       {
-                        v34 = 4;
+                        v33 = 4;
                       }
 
-                      v33.location = *(parser + 64);
-                      v30.length += v34;
-                      v35 = NSIntersectionRange(v30, v33);
-                      if (v35.location == *(parser + 64) && v35.length == *(parser + 72))
+                      v32.location = *(parser + 64);
+                      v29.length += v33;
+                      v34 = NSIntersectionRange(v29, v32);
+                      if (v34.location == *(parser + 64) && v34.length == *(parser + 72))
                       {
 LABEL_46:
-                        *(parser + 64) = v32;
+                        *(parser + 64) = v31;
                         *(parser + 72) = length;
-                        objc_storeStrong((parser + 32), v26);
+                        objc_storeStrong((parser + 32), v25);
                         *(parser + 16) = 3;
                         goto LABEL_47;
                       }
                     }
                   }
 
-                  else if (v58 >= v32 && v58 - v32 < v30.length)
+                  else if (v56 >= v31 && v56 - v31 < v29.length)
                   {
                     goto LABEL_46;
                   }
                 }
               }
 
-              ++v25;
+              ++v24;
             }
 
-            while (v22 != v25);
-            v38 = [v20 countByEnumeratingWithState:&v62 objects:v67 count:16];
-            v22 = v38;
+            while (v22 != v24);
+            v37 = [v20 countByEnumeratingWithState:&v60 objects:v65 count:16];
+            v22 = v37;
           }
 
-          while (v38);
+          while (v37);
         }
 
 LABEL_47:
 
-        v12 = v57;
+        v12 = v55;
         if (*(parser + 16) == 2 && !*(parser + 72))
         {
-          v66 = *MEMORY[0x277CD8978];
-          v39 = v66;
-          v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
-          v41 = [objc_alloc(MEMORY[0x277CD89D8]) initWithTagSchemes:v40];
-          [v41 setString:v57];
-          v42 = [v57 length];
-          v61[0] = MEMORY[0x277D85DD0];
-          v61[1] = 3221225472;
-          v61[2] = __41__RVItem_normalizeWithParser_lookupOnly___block_invoke;
-          v61[3] = &unk_279B2F9F8;
-          v61[6] = v51;
-          v61[7] = v58;
-          v61[4] = parser;
-          v61[5] = v59;
-          [v41 enumerateTagsInRange:0 unit:v42 scheme:0 options:v39 usingBlock:{46, v61}];
+          v64 = *MEMORY[0x277CD8978];
+          v38 = v64;
+          v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v64 count:1];
+          v40 = [objc_alloc(MEMORY[0x277CD89D8]) initWithTagSchemes:v39];
+          [v40 setString:v55];
+          v41 = [v55 length];
+          v59[0] = MEMORY[0x277D85DD0];
+          v59[1] = 3221225472;
+          v59[2] = __41__RVItem_normalizeWithParser_lookupOnly___block_invoke;
+          v59[3] = &unk_279B2F9F8;
+          v59[6] = v49;
+          v59[7] = v56;
+          v59[4] = parser;
+          v59[5] = v57;
+          [v40 enumerateTagsInRange:0 unit:v41 scheme:0 options:v38 usingBlock:{46, v59}];
         }
 
         v7 = (parser + 64);
-        v5 = v54;
-        v8 = v53;
+        v5 = v52;
+        v8 = v51;
         v19 = obj;
         goto LABEL_51;
       }
@@ -503,8 +499,6 @@ LABEL_47:
   }
 
 LABEL_75:
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 void *__41__RVItem_normalizeWithParser_lookupOnly___block_invoke(void *result, uint64_t a2, uint64_t a3, unint64_t a4, _BYTE *a5)
@@ -623,11 +617,11 @@ void *__41__RVItem_normalizeWithParser_lookupOnly___block_invoke(void *result, u
 
 - (RVItem)initWithCoder:(id)coder
 {
-  v32[2] = *MEMORY[0x277D85DE8];
+  v31[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v31.receiver = self;
-  v31.super_class = RVItem;
-  v5 = [(RVItem *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = RVItem;
+  v5 = [(RVItem *)&v30 init];
   if (v5)
   {
     v5->_type = [coderCopy decodeIntegerForKey:@"type"];
@@ -636,9 +630,9 @@ void *__41__RVItem_normalizeWithParser_lookupOnly___block_invoke(void *result, u
     if (v6)
     {
       v7 = MEMORY[0x277CBEB98];
-      v32[0] = v6;
-      v32[1] = objc_opt_class();
-      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
+      v31[0] = v6;
+      v31[1] = objc_opt_class();
+      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
       v9 = [v7 setWithArray:v8];
       v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"url"];
       url = v5->_url;
@@ -689,7 +683,6 @@ void *__41__RVItem_normalizeWithParser_lookupOnly___block_invoke(void *result, u
     v5->_originalSelectedText = v27;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

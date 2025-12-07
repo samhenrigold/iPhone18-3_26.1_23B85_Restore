@@ -9,7 +9,7 @@
   valueCopy = value;
   pathCopy = path;
   v8 = [(UICABackdropLayer *)self valueForKeyPath:pathCopy];
-  if (([v8 isEqual:valueCopy] & 1) == 0)
+  if ((objc_msgSend_isEqual_(v8) & 1) == 0)
   {
     v9.receiver = self;
     v9.super_class = UICABackdropLayer;

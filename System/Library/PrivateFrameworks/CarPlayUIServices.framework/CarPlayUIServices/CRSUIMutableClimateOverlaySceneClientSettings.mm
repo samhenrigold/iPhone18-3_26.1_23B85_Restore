@@ -3,6 +3,7 @@
 - (NSArray)presentedPopoverFrames;
 - (UIEdgeInsets)stepperInsets;
 - (id)copyWithZone:(_NSZone *)zone;
+- (void)setIsOverlayHidden:(BOOL)hidden;
 - (void)setPresentedPopoverFrames:(id)frames;
 - (void)setStepperInsets:(UIEdgeInsets)insets;
 @end
@@ -67,6 +68,14 @@
   bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setIsOverlayHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  otherSettings = [(FBSSettings *)self otherSettings];
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:hiddenCopy];
+  [otherSettings setObject:v4 forSetting:2075632726];
 }
 
 @end

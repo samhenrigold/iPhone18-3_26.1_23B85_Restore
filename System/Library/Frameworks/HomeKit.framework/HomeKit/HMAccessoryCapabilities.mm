@@ -516,246 +516,48 @@
   }
 
   v6 = v5;
-  if (!v6)
-  {
-    goto LABEL_44;
-  }
-
-  supportsKeychainSync = [(HMAccessoryCapabilities *)self supportsKeychainSync];
-  if (supportsKeychainSync != [v6 supportsKeychainSync])
-  {
-    goto LABEL_44;
-  }
-
-  supportsDeviceSetup = [(HMAccessoryCapabilities *)self supportsDeviceSetup];
-  if (supportsDeviceSetup != [v6 supportsDeviceSetup])
-  {
-    goto LABEL_44;
-  }
-
-  supportsKeyTransferClient = [(HMAccessoryCapabilities *)self supportsKeyTransferClient];
-  if (supportsKeyTransferClient != [v6 supportsKeyTransferClient])
-  {
-    goto LABEL_44;
-  }
-
-  supportsKeyTransferServer = [(HMAccessoryCapabilities *)self supportsKeyTransferServer];
-  if (supportsKeyTransferServer != [v6 supportsKeyTransferServer])
-  {
-    goto LABEL_44;
-  }
-
-  supportsStandaloneMode = [(HMAccessoryCapabilities *)self supportsStandaloneMode];
-  if (supportsStandaloneMode != [v6 supportsStandaloneMode])
-  {
-    goto LABEL_44;
-  }
-
-  supportsCloudDataSync = [(HMAccessoryCapabilities *)self supportsCloudDataSync];
-  if (supportsCloudDataSync != [v6 supportsCloudDataSync])
-  {
-    goto LABEL_44;
-  }
-
-  supportsWholeHouseAudio = [(HMAccessoryCapabilities *)self supportsWholeHouseAudio];
-  if (supportsWholeHouseAudio != [v6 supportsWholeHouseAudio])
-  {
-    goto LABEL_44;
-  }
-
-  supportsAssistantAccessControl = [(HMAccessoryCapabilities *)self supportsAssistantAccessControl];
-  if (supportsAssistantAccessControl != [v6 supportsAssistantAccessControl])
-  {
-    goto LABEL_44;
-  }
-
-  supportsHomeInvitation = [(HMAccessoryCapabilities *)self supportsHomeInvitation];
-  if (supportsHomeInvitation != [v6 supportsHomeInvitation])
-  {
-    goto LABEL_44;
-  }
-
-  supportsTargetControl = [(HMAccessoryCapabilities *)self supportsTargetControl];
-  if (supportsTargetControl != [v6 supportsTargetControl])
-  {
-    goto LABEL_44;
-  }
-
-  supportsMultiUser = [(HMAccessoryCapabilities *)self supportsMultiUser];
-  if (supportsMultiUser != [v6 supportsMultiUser])
-  {
-    goto LABEL_44;
-  }
-
-  supportsHomeLevelLocationServiceSetting = [(HMAccessoryCapabilities *)self supportsHomeLevelLocationServiceSetting];
-  if (supportsHomeLevelLocationServiceSetting != [v6 supportsHomeLevelLocationServiceSetting])
-  {
-    goto LABEL_44;
-  }
-
-  supportsCompanionInitiatedRestart = [(HMAccessoryCapabilities *)self supportsCompanionInitiatedRestart];
-  if (supportsCompanionInitiatedRestart != [v6 supportsCompanionInitiatedRestart])
-  {
-    goto LABEL_44;
-  }
-
-  supportsMusicAlarm = [(HMAccessoryCapabilities *)self supportsMusicAlarm];
-  if (supportsMusicAlarm != [v6 supportsMusicAlarm])
-  {
-    goto LABEL_44;
-  }
-
-  supportsAnnounce = [(HMAccessoryCapabilities *)self supportsAnnounce];
-  if (supportsAnnounce != [v6 supportsAnnounce])
-  {
-    goto LABEL_44;
-  }
-
-  supportsAudioAnalysis = [(HMAccessoryCapabilities *)self supportsAudioAnalysis];
-  if (supportsAudioAnalysis != [v6 supportsAudioAnalysis])
-  {
-    goto LABEL_44;
-  }
-
-  supportsThirdPartyMusic = [(HMAccessoryCapabilities *)self supportsThirdPartyMusic];
-  if (supportsThirdPartyMusic != [v6 supportsThirdPartyMusic])
-  {
-    goto LABEL_44;
-  }
-
-  supportsPreferredMediaUser = [(HMAccessoryCapabilities *)self supportsPreferredMediaUser];
-  if (supportsPreferredMediaUser != [v6 supportsPreferredMediaUser])
-  {
-    goto LABEL_44;
-  }
-
-  supportsThreadBorderRouter = [(HMAccessoryCapabilities *)self supportsThreadBorderRouter];
-  if (supportsThreadBorderRouter != [v6 supportsThreadBorderRouter])
-  {
-    goto LABEL_44;
-  }
-
-  supportsDoorbellChime = [(HMAccessoryCapabilities *)self supportsDoorbellChime];
-  if (supportsDoorbellChime != [v6 supportsDoorbellChime])
-  {
-    goto LABEL_44;
-  }
-
-  supportsUserMediaSettings = [(HMAccessoryCapabilities *)self supportsUserMediaSettings];
-  if (supportsUserMediaSettings != [v6 supportsUserMediaSettings])
-  {
-    goto LABEL_44;
-  }
-
-  supportsCoordinationDoorbellChime = [(HMAccessoryCapabilities *)self supportsCoordinationDoorbellChime];
-  if (supportsCoordinationDoorbellChime != [v6 supportsCoordinationDoorbellChime])
-  {
-    goto LABEL_44;
-  }
-
-  supportsHomeHub = [(HMAccessoryCapabilities *)self supportsHomeHub];
-  if (supportsHomeHub != [v6 supportsHomeHub])
-  {
-    goto LABEL_44;
-  }
-
-  supportsAudioReturnChannel = [(HMAccessoryCapabilities *)self supportsAudioReturnChannel];
-  if (supportsAudioReturnChannel != [v6 supportsAudioReturnChannel])
-  {
-    goto LABEL_44;
-  }
-
-  supportsManagedConfigurationProfile = [(HMAccessoryCapabilities *)self supportsManagedConfigurationProfile];
-  if (supportsManagedConfigurationProfile != [v6 supportsManagedConfigurationProfile])
-  {
-    goto LABEL_44;
-  }
-
-  supportsCaptiveNetworks = [(HMAccessoryCapabilities *)self supportsCaptiveNetworks];
-  if (supportsCaptiveNetworks != [v6 supportsCaptiveNetworks])
-  {
-    goto LABEL_44;
-  }
-
-  supportsMessagedHomePodSettings = [(HMAccessoryCapabilities *)self supportsMessagedHomePodSettings];
-  if (supportsMessagedHomePodSettings != [v6 supportsMessagedHomePodSettings])
-  {
-    goto LABEL_44;
-  }
-
-  supportsMediaActions = [(HMAccessoryCapabilities *)self supportsMediaActions];
-  if (supportsMediaActions != [v6 supportsMediaActions])
-  {
-    goto LABEL_44;
-  }
-
-  supportsDropIn = [(HMAccessoryCapabilities *)self supportsDropIn];
-  if (supportsDropIn != [v6 supportsDropIn])
-  {
-    goto LABEL_44;
-  }
-
-  supportsRMVonAppleTV = [(HMAccessoryCapabilities *)self supportsRMVonAppleTV];
-  if (supportsRMVonAppleTV != [v6 supportsRMVonAppleTV] && (_os_feature_enabled_impl() & 1) != 0)
-  {
-    goto LABEL_44;
-  }
-
-  supportsJustSiri = [(HMAccessoryCapabilities *)self supportsJustSiri];
-  if (supportsJustSiri != [v6 supportsJustSiri])
-  {
-    goto LABEL_44;
-  }
-
-  supportsInstallManagedConfigurationProfile = [(HMAccessoryCapabilities *)self supportsInstallManagedConfigurationProfile];
-  if (supportsInstallManagedConfigurationProfile != [v6 supportsInstallManagedConfigurationProfile])
-  {
-    goto LABEL_44;
-  }
-
-  supportsCoordinationFreeDoorbellChime = [(HMAccessoryCapabilities *)self supportsCoordinationFreeDoorbellChime];
-  if (supportsCoordinationFreeDoorbellChime != [v6 supportsCoordinationFreeDoorbellChime])
-  {
-    goto LABEL_44;
-  }
-
-  supportsCompanionInitiatedObliterate = [(HMAccessoryCapabilities *)self supportsCompanionInitiatedObliterate];
-  if (supportsCompanionInitiatedObliterate != [v6 supportsCompanionInitiatedObliterate])
-  {
-    goto LABEL_44;
-  }
-
-  supportsLoreto = [(HMAccessoryCapabilities *)self supportsLoreto];
-  if (supportsLoreto != [v6 supportsLoreto])
-  {
-    goto LABEL_44;
-  }
-
-  supportsTVOSUpdateManualUpdateAvailableNotification = [(HMAccessoryCapabilities *)self supportsTVOSUpdateManualUpdateAvailableNotification];
-  if (supportsTVOSUpdateManualUpdateAvailableNotification != [v6 supportsTVOSUpdateManualUpdateAvailableNotification])
-  {
-    goto LABEL_44;
-  }
-
-  supportsWiFiRepairV2 = [(HMAccessoryCapabilities *)self supportsWiFiRepairV2];
-  if (supportsWiFiRepairV2 != [v6 supportsWiFiRepairV2])
-  {
-    goto LABEL_44;
-  }
-
-  supportsSoftwareUpdateV2 = [(HMAccessoryCapabilities *)self supportsSoftwareUpdateV2];
-  if (supportsSoftwareUpdateV2 != [v6 supportsSoftwareUpdateV2])
-  {
-    goto LABEL_44;
-  }
-
-  supportsStereoOdeonTTSUBypassingPrimary = [(HMAccessoryCapabilities *)self supportsStereoOdeonTTSUBypassingPrimary];
-  if (supportsStereoOdeonTTSUBypassingPrimary != [v6 supportsStereoOdeonTTSUBypassingPrimary] && (_os_feature_enabled_impl() & 1) != 0)
-  {
-    goto LABEL_44;
-  }
-
-  if (((v48 = -[HMAccessoryCapabilities supportsNetworkDiagnostics](self, "supportsNetworkDiagnostics"), v48 == [v6 supportsNetworkDiagnostics]) || (_os_feature_enabled_impl() & 1) == 0) && ((v49 = -[HMAccessoryCapabilities supportsCrossfadeAsAirPlaySource](self, "supportsCrossfadeAsAirPlaySource"), v49 == objc_msgSend(v6, "supportsCrossfadeAsAirPlaySource")) || (_os_feature_enabled_impl() & 1) == 0))
+  if (v6
+    && (v7 = -[HMAccessoryCapabilities supportsKeychainSync](self, "supportsKeychainSync"), v7 == [v6 supportsKeychainSync])
+    && (v8 = -[HMAccessoryCapabilities supportsDeviceSetup](self, "supportsDeviceSetup"), v8 == [v6 supportsDeviceSetup])
+    && (v9 = -[HMAccessoryCapabilities supportsKeyTransferClient](self, "supportsKeyTransferClient"), v9 == [v6 supportsKeyTransferClient])
+    && (v10 = -[HMAccessoryCapabilities supportsKeyTransferServer](self, "supportsKeyTransferServer"), v10 == [v6 supportsKeyTransferServer])
+    && (v11 = -[HMAccessoryCapabilities supportsStandaloneMode](self, "supportsStandaloneMode"), v11 == [v6 supportsStandaloneMode])
+    && (v12 = -[HMAccessoryCapabilities supportsCloudDataSync](self, "supportsCloudDataSync"), v12 == [v6 supportsCloudDataSync])
+    && (v13 = -[HMAccessoryCapabilities supportsWholeHouseAudio](self, "supportsWholeHouseAudio"), v13 == [v6 supportsWholeHouseAudio])
+    && (v14 = -[HMAccessoryCapabilities supportsAssistantAccessControl](self, "supportsAssistantAccessControl"), v14 == [v6 supportsAssistantAccessControl])
+    && (v15 = -[HMAccessoryCapabilities supportsHomeInvitation](self, "supportsHomeInvitation"), v15 == [v6 supportsHomeInvitation])
+    && (v16 = -[HMAccessoryCapabilities supportsTargetControl](self, "supportsTargetControl"), v16 == [v6 supportsTargetControl])
+    && (v17 = -[HMAccessoryCapabilities supportsMultiUser](self, "supportsMultiUser"), v17 == [v6 supportsMultiUser])
+    && (v18 = -[HMAccessoryCapabilities supportsHomeLevelLocationServiceSetting](self, "supportsHomeLevelLocationServiceSetting"), v18 == [v6 supportsHomeLevelLocationServiceSetting])
+    && (v19 = -[HMAccessoryCapabilities supportsCompanionInitiatedRestart](self, "supportsCompanionInitiatedRestart"), v19 == [v6 supportsCompanionInitiatedRestart])
+    && (v20 = -[HMAccessoryCapabilities supportsMusicAlarm](self, "supportsMusicAlarm"), v20 == [v6 supportsMusicAlarm])
+    && (v21 = -[HMAccessoryCapabilities supportsAnnounce](self, "supportsAnnounce"), v21 == [v6 supportsAnnounce])
+    && (v22 = -[HMAccessoryCapabilities supportsAudioAnalysis](self, "supportsAudioAnalysis"), v22 == [v6 supportsAudioAnalysis])
+    && (v23 = -[HMAccessoryCapabilities supportsThirdPartyMusic](self, "supportsThirdPartyMusic"), v23 == [v6 supportsThirdPartyMusic])
+    && (v24 = -[HMAccessoryCapabilities supportsPreferredMediaUser](self, "supportsPreferredMediaUser"), v24 == [v6 supportsPreferredMediaUser])
+    && (v25 = -[HMAccessoryCapabilities supportsThreadBorderRouter](self, "supportsThreadBorderRouter"), v25 == [v6 supportsThreadBorderRouter])
+    && (v26 = -[HMAccessoryCapabilities supportsDoorbellChime](self, "supportsDoorbellChime"), v26 == [v6 supportsDoorbellChime])
+    && (v27 = -[HMAccessoryCapabilities supportsUserMediaSettings](self, "supportsUserMediaSettings"), v27 == [v6 supportsUserMediaSettings])
+    && (v28 = -[HMAccessoryCapabilities supportsCoordinationDoorbellChime](self, "supportsCoordinationDoorbellChime"), v28 == [v6 supportsCoordinationDoorbellChime])
+    && (v29 = -[HMAccessoryCapabilities supportsHomeHub](self, "supportsHomeHub"), v29 == [v6 supportsHomeHub])
+    && (v30 = -[HMAccessoryCapabilities supportsAudioReturnChannel](self, "supportsAudioReturnChannel"), v30 == [v6 supportsAudioReturnChannel])
+    && (v31 = -[HMAccessoryCapabilities supportsManagedConfigurationProfile](self, "supportsManagedConfigurationProfile"), v31 == [v6 supportsManagedConfigurationProfile])
+    && (v32 = -[HMAccessoryCapabilities supportsCaptiveNetworks](self, "supportsCaptiveNetworks"), v32 == [v6 supportsCaptiveNetworks])
+    && (v33 = -[HMAccessoryCapabilities supportsMessagedHomePodSettings](self, "supportsMessagedHomePodSettings"), v33 == [v6 supportsMessagedHomePodSettings])
+    && (v34 = -[HMAccessoryCapabilities supportsMediaActions](self, "supportsMediaActions"), v34 == [v6 supportsMediaActions])
+    && (v35 = -[HMAccessoryCapabilities supportsDropIn](self, "supportsDropIn"), v35 == [v6 supportsDropIn])
+    && ((v36 = -[HMAccessoryCapabilities supportsRMVonAppleTV](self, "supportsRMVonAppleTV"), v36 == [v6 supportsRMVonAppleTV]) || (_os_feature_enabled_impl() & 1) == 0)
+    && (v37 = -[HMAccessoryCapabilities supportsJustSiri](self, "supportsJustSiri"), v37 == [v6 supportsJustSiri])
+    && (v38 = -[HMAccessoryCapabilities supportsInstallManagedConfigurationProfile](self, "supportsInstallManagedConfigurationProfile"), v38 == [v6 supportsInstallManagedConfigurationProfile])
+    && (v39 = -[HMAccessoryCapabilities supportsCoordinationFreeDoorbellChime](self, "supportsCoordinationFreeDoorbellChime"), v39 == [v6 supportsCoordinationFreeDoorbellChime])
+    && (v40 = -[HMAccessoryCapabilities supportsCompanionInitiatedObliterate](self, "supportsCompanionInitiatedObliterate"), v40 == [v6 supportsCompanionInitiatedObliterate])
+    && (v41 = -[HMAccessoryCapabilities supportsLoreto](self, "supportsLoreto"), v41 == [v6 supportsLoreto])
+    && (v42 = -[HMAccessoryCapabilities supportsTVOSUpdateManualUpdateAvailableNotification](self, "supportsTVOSUpdateManualUpdateAvailableNotification"), v42 == [v6 supportsTVOSUpdateManualUpdateAvailableNotification])
+    && (v43 = -[HMAccessoryCapabilities supportsWiFiRepairV2](self, "supportsWiFiRepairV2"), v43 == [v6 supportsWiFiRepairV2])
+    && (v44 = -[HMAccessoryCapabilities supportsSoftwareUpdateV2](self, "supportsSoftwareUpdateV2"), v44 == [v6 supportsSoftwareUpdateV2])
+    && ((v47 = -[HMAccessoryCapabilities supportsStereoOdeonTTSUBypassingPrimary](self, "supportsStereoOdeonTTSUBypassingPrimary"), v47 == [v6 supportsStereoOdeonTTSUBypassingPrimary]) || (_os_feature_enabled_impl() & 1) == 0)
+    && ((v48 = -[HMAccessoryCapabilities supportsNetworkDiagnostics](self, "supportsNetworkDiagnostics"), v48 == [v6 supportsNetworkDiagnostics]) || (_os_feature_enabled_impl() & 1) == 0)
+    && ((v49 = -[HMAccessoryCapabilities supportsCrossfadeAsAirPlaySource](self, "supportsCrossfadeAsAirPlaySource"), v49 == [v6 supportsCrossfadeAsAirPlaySource]) || (_os_feature_enabled_impl() & 1) == 0))
   {
     clearsKeychainWhenRemovedFromHome = [(HMAccessoryCapabilities *)self clearsKeychainWhenRemovedFromHome];
     v45 = clearsKeychainWhenRemovedFromHome ^ [v6 clearsKeychainWhenRemovedFromHome] ^ 1;
@@ -763,7 +565,6 @@
 
   else
   {
-LABEL_44:
     LOBYTE(v45) = 0;
   }
 

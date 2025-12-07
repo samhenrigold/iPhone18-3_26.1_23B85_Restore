@@ -9,48 +9,48 @@ void sub_128C(uint64_t a1, void *a2, void *a3, void *a4)
   [BPSWatchSettingsNavigationDonation emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"PRIVACY_ID" title:v8 localizedNavigationComponents:v7 deepLink:v9];
 }
 
-id sub_1340()
+id sub_1340(uint64_t a1)
 {
   objc_opt_self();
-  v0 = [NSBundle bundleForClass:objc_opt_class()];
-  v1 = [v0 bundleURL];
+  v1 = [NSBundle bundleForClass:objc_opt_class()];
+  v2 = [v1 bundleURL];
 
-  return v1;
+  return v2;
 }
 
-id sub_13AC()
+id sub_13AC(uint64_t a1)
 {
   objc_opt_self();
-  v0 = [_NSLocalizedStringResource alloc];
-  v1 = +[NSLocale currentLocale];
-  objc_opt_class();
-  v2 = sub_1340();
-  v3 = [v0 initWithKey:@"TITLE" table:@"Privacy" locale:v1 bundleURL:v2];
+  v1 = [_NSLocalizedStringResource alloc];
+  v2 = +[NSLocale currentLocale];
+  v3 = objc_opt_class();
+  v4 = sub_1340(v3);
+  v5 = [v1 initWithKey:@"TITLE" table:@"Privacy" locale:v2 bundleURL:v4];
 
-  return v3;
+  return v5;
 }
 
-id sub_1450()
+id sub_1450(uint64_t a1)
 {
   objc_opt_self();
-  v0 = [_NSLocalizedStringResource alloc];
-  v1 = +[NSLocale currentLocale];
-  objc_opt_class();
-  v2 = sub_1340();
-  v3 = [v0 initWithKey:@"HEADPHONE_AUDIO_MEASUREMENTS_LABEL" table:@"Privacy" locale:v1 bundleURL:v2];
+  v1 = [_NSLocalizedStringResource alloc];
+  v2 = +[NSLocale currentLocale];
+  v3 = objc_opt_class();
+  v4 = sub_1340(v3);
+  v5 = [v1 initWithKey:@"HEADPHONE_AUDIO_MEASUREMENTS_LABEL" table:@"Privacy" locale:v2 bundleURL:v4];
 
-  return v3;
+  return v5;
 }
 
-id sub_1590()
+id sub_1590(uint64_t a1)
 {
   objc_opt_self();
   objc_opt_class();
   objc_opt_self();
-  v0 = [NSString stringWithFormat:@"bridge:root=%@", @"PRIVACY_ID"];
-  v1 = [v0 stringByAppendingString:@"&path=HeadphoneAudio"];
+  v1 = [NSString stringWithFormat:@"bridge:root=%@", @"PRIVACY_ID"];
+  v2 = [v1 stringByAppendingString:@"&path=HeadphoneAudio"];
 
-  return v1;
+  return v2;
 }
 
 void sub_4D50(void *a1, void *a2, uint64_t a3)

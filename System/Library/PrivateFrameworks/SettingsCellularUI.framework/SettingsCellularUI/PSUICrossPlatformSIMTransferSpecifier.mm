@@ -58,13 +58,13 @@
 
 - (void)cellPressed:(id)pressed
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   pressedCopy = pressed;
   getLogger = [(PSUICrossPlatformSIMTransferSpecifier *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v20 = "[PSUICrossPlatformSIMTransferSpecifier cellPressed:]";
+    v19 = "[PSUICrossPlatformSIMTransferSpecifier cellPressed:]";
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -82,11 +82,11 @@
   {
     [pressedCopy setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
     v10 = *MEMORY[0x277D49558];
-    v17[0] = *MEMORY[0x277D49548];
-    v17[1] = v10;
-    v18[0] = &unk_287748FD8;
-    v18[1] = MEMORY[0x277CBEC38];
-    getLogger2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v16[0] = *MEMORY[0x277D49548];
+    v16[1] = v10;
+    v17[0] = &unk_287748FD8;
+    v17[1] = MEMORY[0x277CBEC38];
+    getLogger2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
     v11 = [MEMORY[0x277D49530] flowWithOptions:getLogger2];
     flow = self->_flow;
     self->_flow = v11;
@@ -95,23 +95,21 @@
     self->_isRequestingFirstViewController = 1;
     objc_initWeak(buf, self);
     v13 = self->_flow;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __53__PSUICrossPlatformSIMTransferSpecifier_cellPressed___block_invoke;
-    v15[3] = &unk_279BA9EC8;
-    objc_copyWeak(&v16, buf);
-    v15[4] = self;
-    [(TSSIMSetupFlow *)v13 firstViewController:v15];
-    objc_destroyWeak(&v16);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __53__PSUICrossPlatformSIMTransferSpecifier_cellPressed___block_invoke;
+    v14[3] = &unk_279BA9EC8;
+    objc_copyWeak(&v15, buf);
+    v14[4] = self;
+    [(TSSIMSetupFlow *)v13 firstViewController:v14];
+    objc_destroyWeak(&v15);
     objc_destroyWeak(buf);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __53__PSUICrossPlatformSIMTransferSpecifier_cellPressed___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
@@ -123,9 +121,9 @@ void __53__PSUICrossPlatformSIMTransferSpecifier_cellPressed___block_invoke(uint
     {
       v7 = [v5 hostController];
       v8 = [v7 navigationController];
-      v14 = 134217984;
-      v15 = [v8 modalPresentationStyle];
-      _os_log_impl(&dword_2658DE000, v6, OS_LOG_TYPE_DEFAULT, "modal style:%ld", &v14, 0xCu);
+      v13 = 134217984;
+      v14 = [v8 modalPresentationStyle];
+      _os_log_impl(&dword_2658DE000, v6, OS_LOG_TYPE_DEFAULT, "modal style:%ld", &v13, 0xCu);
     }
 
     v9 = [v5 hostController];
@@ -150,12 +148,10 @@ void __53__PSUICrossPlatformSIMTransferSpecifier_cellPressed___block_invoke(uint
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v14 = 138412290;
-    v15 = objc_opt_class();
-    _os_log_error_impl(&dword_2658DE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "invalid %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = objc_opt_class();
+    _os_log_error_impl(&dword_2658DE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "invalid %@", &v13, 0xCu);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)simSetupFlowCompleted:(unint64_t)completed

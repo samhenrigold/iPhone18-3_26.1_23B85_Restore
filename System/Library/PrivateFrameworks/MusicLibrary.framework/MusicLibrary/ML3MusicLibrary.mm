@@ -427,9 +427,12 @@ uint64_t __48__ML3MusicLibrary_autoupdatingSharedLibraryPath__block_invoke(uint6
     v2 = __sharedLibraryDatabasePath;
   }
 
-  *(*(*(a1 + 32) + 8) + 40) = [v2 copy];
+  v5 = [v2 copy];
+  v6 = *(*(a1 + 32) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v5;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v5, v7);
 }
 
 void __44__ML3MusicLibrary_autoupdatingSharedLibrary__block_invoke(uint64_t a1)
@@ -1397,7 +1400,7 @@ LABEL_10:
   return v3;
 }
 
-uint64_t __47__ML3MusicLibrary__shouldProcessAccountChanges__block_invoke(uint64_t a1)
+void *__47__ML3MusicLibrary__shouldProcessAccountChanges__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if (v2[81])
@@ -3722,7 +3725,7 @@ void __76__ML3MusicLibrary_sanitizeSortMapContentsUsingConnection_didSortMapEntr
 - (void)sanitizeDatabaseContentsUsingConnection:(id)connection removeOrphanedAssets:(BOOL *)assets
 {
   selfCopy = self;
-  v81 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v6 = [connectionCopy executeQuery:@"SELECT COUNT() FROM item"];
   int64ValueForFirstRowAndColumn = [v6 int64ValueForFirstRowAndColumn];
@@ -3740,7 +3743,7 @@ void __76__ML3MusicLibrary_sanitizeSortMapContentsUsingConnection_didSortMapEntr
   int64ValueForFirstRowAndColumn5 = [v14 int64ValueForFirstRowAndColumn];
 
   v16 = int64ValueForFirstRowAndColumn4 == (int64ValueForFirstRowAndColumn3 == (int64ValueForFirstRowAndColumn == int64ValueForFirstRowAndColumn2));
-  v56 = int64ValueForFirstRowAndColumn;
+  v57 = int64ValueForFirstRowAndColumn;
   if (int64ValueForFirstRowAndColumn5 == v16)
   {
     goto LABEL_21;
@@ -3750,15 +3753,15 @@ void __76__ML3MusicLibrary_sanitizeSortMapContentsUsingConnection_didSortMapEntr
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134219008;
-    v72 = int64ValueForFirstRowAndColumn;
-    v73 = 2048;
-    v74 = int64ValueForFirstRowAndColumn2;
-    v75 = 2048;
-    v76 = int64ValueForFirstRowAndColumn3;
-    v77 = 2048;
-    v78 = int64ValueForFirstRowAndColumn4;
-    v79 = 2048;
-    v80 = int64ValueForFirstRowAndColumn5;
+    v73 = int64ValueForFirstRowAndColumn;
+    v74 = 2048;
+    v75 = int64ValueForFirstRowAndColumn2;
+    v76 = 2048;
+    v77 = int64ValueForFirstRowAndColumn3;
+    v78 = 2048;
+    v79 = int64ValueForFirstRowAndColumn4;
+    v80 = 2048;
+    v81 = int64ValueForFirstRowAndColumn5;
     _os_log_impl(&dword_22D2FA000, v17, OS_LOG_TYPE_DEFAULT, "Sanity check recoverable condition for inconsistent counts: item(%lli), item_extra(%lli), item_stats(%lli), item_store(%lli), item_video(%lli) ", buf, 0x34u);
   }
 
@@ -3767,19 +3770,19 @@ void __76__ML3MusicLibrary_sanitizeSortMapContentsUsingConnection_didSortMapEntr
   {
     v19 = int64ValueForFirstRowAndColumn4 == (int64ValueForFirstRowAndColumn3 == (int64ValueForFirstRowAndColumn == int64ValueForFirstRowAndColumn2));
     v20 = [connectionCopy executeQuery:@"SELECT ROWID FROM item WHERE item_pid IN (SELECT item.item_pid FROM item LEFT OUTER JOIN item_extra ON item.item_pid=item_extra.item_pid WHERE item_extra.item_pid ISNULL)"];
-    v66[0] = MEMORY[0x277D85DD0];
-    v66[1] = 3221225472;
-    v66[2] = __80__ML3MusicLibrary_sanitizeDatabaseContentsUsingConnection_removeOrphanedAssets___block_invoke;
-    v66[3] = &unk_278766118;
-    v21 = &v67;
-    v67 = array;
-    [v20 enumerateRowsWithBlock:v66];
+    v67[0] = MEMORY[0x277D85DD0];
+    v67[1] = 3221225472;
+    v67[2] = __80__ML3MusicLibrary_sanitizeDatabaseContentsUsingConnection_removeOrphanedAssets___block_invoke;
+    v67[3] = &unk_278766118;
+    v21 = &v68;
+    v68 = array;
+    [v20 enumerateRowsWithBlock:v67];
     v22 = @"DELETE FROM item WHERE item_pid IN (SELECT item.item_pid FROM item LEFT OUTER JOIN item_extra ON item.item_pid=item_extra.item_pid WHERE item_extra.item_pid ISNULL)";
 LABEL_8:
 
     [connectionCopy executeUpdate:v22];
     v16 = v19;
-    int64ValueForFirstRowAndColumn = v56;
+    int64ValueForFirstRowAndColumn = v57;
     goto LABEL_9;
   }
 
@@ -3787,13 +3790,13 @@ LABEL_8:
   {
     v19 = int64ValueForFirstRowAndColumn4 == (int64ValueForFirstRowAndColumn3 == (int64ValueForFirstRowAndColumn == int64ValueForFirstRowAndColumn2));
     v20 = [connectionCopy executeQuery:@"SELECT ROWID FROM item_extra WHERE item_pid IN (SELECT item_extra.item_pid FROM item_extra LEFT OUTER JOIN item ON item_extra.item_pid=item.item_pid WHERE item.item_pid ISNULL)"];
-    v64[0] = MEMORY[0x277D85DD0];
-    v64[1] = 3221225472;
-    v64[2] = __80__ML3MusicLibrary_sanitizeDatabaseContentsUsingConnection_removeOrphanedAssets___block_invoke_2;
-    v64[3] = &unk_278766118;
-    v21 = &v65;
-    v65 = array;
-    [v20 enumerateRowsWithBlock:v64];
+    v65[0] = MEMORY[0x277D85DD0];
+    v65[1] = 3221225472;
+    v65[2] = __80__ML3MusicLibrary_sanitizeDatabaseContentsUsingConnection_removeOrphanedAssets___block_invoke_2;
+    v65[3] = &unk_278766118;
+    v21 = &v66;
+    v66 = array;
+    [v20 enumerateRowsWithBlock:v65];
     v22 = @"DELETE FROM item_extra WHERE item_pid IN (SELECT item_extra.item_pid FROM item_extra LEFT OUTER JOIN item ON item_extra.item_pid=item.item_pid WHERE item.item_pid ISNULL)";
     goto LABEL_8;
   }
@@ -3806,128 +3809,128 @@ LABEL_9:
   [connectionCopy executeUpdate:@"DELETE FROM item_video WHERE Item_pid IN (SELECT item_video.item_pid FROM item_video LEFT OUTER JOIN item ON item_video.item_pid=item.item_pid WHERE item.item_pid ISNULL)"];
   if ([array count])
   {
-    v53 = v16;
-    v54 = int64ValueForFirstRowAndColumn5;
-    v59 = connectionCopy;
+    v54 = v16;
+    v55 = int64ValueForFirstRowAndColumn5;
+    v60 = connectionCopy;
     assetsCopy = assets;
     v23 = os_log_create("com.apple.amp.medialibrary", "Library");
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v72 = array;
+      v73 = array;
       _os_log_impl(&dword_22D2FA000, v23, OS_LOG_TYPE_DEFAULT, "Sanity check: Incrementing revision for removed tracks: %{public}@", buf, 0xCu);
     }
 
     v24 = [MEMORY[0x277CCABB0] numberWithInteger:{+[ML3Track revisionTrackingCode](ML3Track, "revisionTrackingCode")}];
-    v60 = 0u;
     v61 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v52 = array;
-    v58 = array;
-    v25 = [v58 countByEnumeratingWithState:&v60 objects:v70 count:16];
+    v64 = 0u;
+    v53 = array;
+    v59 = array;
+    v25 = [v59 countByEnumeratingWithState:&v61 objects:v71 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v61;
+      v27 = *v62;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v61 != v27)
+          if (*v62 != v27)
           {
-            objc_enumerationMutation(v58);
+            objc_enumerationMutation(v59);
           }
 
-          v69[0] = *(*(&v60 + 1) + 8 * i);
-          v29 = v69[0];
-          v69[1] = &unk_2840C8A98;
-          v69[2] = v24;
-          v69[3] = &unk_2840C8AB0;
-          v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:{4, v52}];
-          [v59 executeUpdate:@"REPLACE INTO entity_revision (entity_pid withParameters:deleted error:{class, revision_type) VALUES (?, ?, ?, ?)", v30, 0}];
+          v70[0] = *(*(&v61 + 1) + 8 * i);
+          v29 = v70[0];
+          v70[1] = &unk_2840C8A98;
+          v70[2] = v24;
+          v70[3] = &unk_2840C8AB0;
+          v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:{4, v53}];
+          [v60 executeUpdate:@"REPLACE INTO entity_revision (entity_pid withParameters:deleted error:{class, revision_type) VALUES (?, ?, ?, ?)", v30, 0}];
 
-          v68[0] = &unk_2840C8AB0;
-          v68[1] = v24;
-          v68[2] = v29;
-          v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:3];
-          [v59 executeUpdate:@"DELETE FROM entity_revision WHERE revision_type > ? AND class = ? AND entity_pid = ?" withParameters:v31 error:0];
+          v69[0] = &unk_2840C8AB0;
+          v69[1] = v24;
+          v69[2] = v29;
+          v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:3];
+          [v60 executeUpdate:@"DELETE FROM entity_revision WHERE revision_type > ? AND class = ? AND entity_pid = ?" withParameters:v31 error:0];
         }
 
-        v26 = [v58 countByEnumeratingWithState:&v60 objects:v70 count:16];
+        v26 = [v59 countByEnumeratingWithState:&v61 objects:v71 count:16];
       }
 
       while (v26);
     }
 
-    int64ValueForFirstRowAndColumn5 = v54;
+    int64ValueForFirstRowAndColumn5 = v55;
     assets = assetsCopy;
-    connectionCopy = v59;
-    array = v52;
-    v16 = v53;
-    int64ValueForFirstRowAndColumn = v56;
+    connectionCopy = v60;
+    array = v53;
+    v16 = v54;
+    int64ValueForFirstRowAndColumn = v57;
   }
 
 LABEL_21:
-  v32 = [connectionCopy executeQuery:{@"SELECT item_pid FROM item JOIN item_store USING(item_pid) WHERE media_type = 8 AND title_order = 0 AND album_order = 0 AND album_artist_order = 0 AND subscription_store_item_id = 0 AND is_ota_purchased = 0 AND store_saga_id = 0 AND store_item_id = 0 AND sync_id = 0 AND purchase_history_id = 0 AND base_location_id = 0 AND remote_location_id = 0 AND disc_number = 0 AND track_number = 0 AND needs_reporting = 1", v52}];
+  v32 = [connectionCopy executeQuery:{@"SELECT item_pid FROM item JOIN item_store USING(item_pid) WHERE media_type = 8 AND title_order = 0 AND album_order = 0 AND album_artist_order = 0 AND subscription_store_item_id = 0 AND is_ota_purchased = 0 AND store_saga_id = 0 AND store_item_id = 0 AND sync_id = 0 AND purchase_history_id = 0 AND base_location_id = 0 AND remote_location_id = 0 AND disc_number = 0 AND track_number = 0 AND needs_reporting = 1", v53}];
   v33 = [v32 objectsInColumn:0];
 
   if ([v33 count])
   {
-    [v33 count];
-    MEMORY[0x28223BE20]();
-    v35 = &v52 - v34;
+    v34 = [v33 count];
+    MEMORY[0x28223BE20](v34);
+    v36 = &v53 - v35;
     if ([v33 count])
     {
-      v36 = 0;
+      v37 = 0;
       do
       {
-        v37 = [v33 objectAtIndexedSubscript:v36];
-        *&v35[8 * v36] = [v37 longLongValue];
+        v38 = [v33 objectAtIndexedSubscript:v37];
+        *&v36[8 * v37] = [v38 longLongValue];
 
-        ++v36;
+        ++v37;
       }
 
-      while ([v33 count] > v36);
+      while ([v33 count] > v37);
     }
 
-    v38 = [v33 count];
-    v39 = [ML3Track deleteFromLibrary:selfCopy deletionType:2 persistentIDs:v35 count:v38 usingConnection:connectionCopy];
-    int64ValueForFirstRowAndColumn = v56;
-    if (v39)
+    v39 = [v33 count];
+    v40 = [ML3Track deleteFromLibrary:selfCopy deletionType:2 persistentIDs:v36 count:v39 usingConnection:connectionCopy];
+    int64ValueForFirstRowAndColumn = v57;
+    if (v40)
     {
-      v40 = os_log_create("com.apple.amp.medialibrary", "Library");
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      v41 = os_log_create("com.apple.amp.medialibrary", "Library");
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v72 = v33;
-        _os_log_impl(&dword_22D2FA000, v40, OS_LOG_TYPE_DEFAULT, "Sanity check: Deleted garbage tracks %{public}@", buf, 0xCu);
+        v73 = v33;
+        _os_log_impl(&dword_22D2FA000, v41, OS_LOG_TYPE_DEFAULT, "Sanity check: Deleted garbage tracks %{public}@", buf, 0xCu);
       }
     }
   }
 
-  v41 = selfCopy;
+  v42 = selfCopy;
   [ML3Collection removeOrphanedCollectionsInLibrary:selfCopy usingConnection:connectionCopy];
-  [(ML3MusicLibrary *)v41 coalesceMismatchedCollectionsUsingConnection:connectionCopy];
-  [(ML3MusicLibrary *)v41 repairAlbumArtistRelationshipsWithConnection:connectionCopy];
-  [(ML3Collection *)ML3Album canonicalizeCollectionRepresentativeItemsInLibrary:v41 usingConnection:connectionCopy];
-  [(ML3Collection *)ML3AlbumArtist canonicalizeCollectionRepresentativeItemsInLibrary:v41 usingConnection:connectionCopy];
-  [(ML3Collection *)ML3Artist canonicalizeCollectionRepresentativeItemsInLibrary:v41 usingConnection:connectionCopy];
-  [(ML3Collection *)ML3Composer canonicalizeCollectionRepresentativeItemsInLibrary:v41 usingConnection:connectionCopy];
-  [(ML3Collection *)ML3Genre canonicalizeCollectionRepresentativeItemsInLibrary:v41 usingConnection:connectionCopy];
-  v42 = [connectionCopy executeQuery:@"SELECT COUNT() FROM lyrics"];
-  int64ValueForFirstRowAndColumn6 = [v42 int64ValueForFirstRowAndColumn];
+  [(ML3MusicLibrary *)v42 coalesceMismatchedCollectionsUsingConnection:connectionCopy];
+  [(ML3MusicLibrary *)v42 repairAlbumArtistRelationshipsWithConnection:connectionCopy];
+  [(ML3Collection *)ML3Album canonicalizeCollectionRepresentativeItemsInLibrary:v42 usingConnection:connectionCopy];
+  [(ML3Collection *)ML3AlbumArtist canonicalizeCollectionRepresentativeItemsInLibrary:v42 usingConnection:connectionCopy];
+  [(ML3Collection *)ML3Artist canonicalizeCollectionRepresentativeItemsInLibrary:v42 usingConnection:connectionCopy];
+  [(ML3Collection *)ML3Composer canonicalizeCollectionRepresentativeItemsInLibrary:v42 usingConnection:connectionCopy];
+  [(ML3Collection *)ML3Genre canonicalizeCollectionRepresentativeItemsInLibrary:v42 usingConnection:connectionCopy];
+  v43 = [connectionCopy executeQuery:@"SELECT COUNT() FROM lyrics"];
+  int64ValueForFirstRowAndColumn6 = [v43 int64ValueForFirstRowAndColumn];
 
   if (int64ValueForFirstRowAndColumn6 != int64ValueForFirstRowAndColumn)
   {
-    v44 = os_log_create("com.apple.amp.medialibrary", "Library");
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+    v45 = os_log_create("com.apple.amp.medialibrary", "Library");
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v72 = int64ValueForFirstRowAndColumn;
-      v73 = 2048;
-      v74 = int64ValueForFirstRowAndColumn6;
-      _os_log_impl(&dword_22D2FA000, v44, OS_LOG_TYPE_DEFAULT, "Sanity check recoverable condition: %lli rows in item and %lli rows in lyrics", buf, 0x16u);
+      v73 = int64ValueForFirstRowAndColumn;
+      v74 = 2048;
+      v75 = int64ValueForFirstRowAndColumn6;
+      _os_log_impl(&dword_22D2FA000, v45, OS_LOG_TYPE_DEFAULT, "Sanity check recoverable condition: %lli rows in item and %lli rows in lyrics", buf, 0x16u);
     }
 
     [connectionCopy executeUpdate:@"INSERT INTO lyrics (item_pid) SELECT item.item_pid FROM item LEFT OUTER JOIN lyrics USING (item_pid) WHERE lyrics.item_pid ISNULL;"];
@@ -3935,41 +3938,41 @@ LABEL_21:
 
   if (int64ValueForFirstRowAndColumn5 != v16)
   {
-    v45 = [connectionCopy executeQuery:@"SELECT value FROM _MLDatabaseProperties WHERE key = 'MLCloudDatabaseRevision'"];
-    int64ValueForFirstRowAndColumn7 = [v45 int64ValueForFirstRowAndColumn];
+    v46 = [connectionCopy executeQuery:@"SELECT value FROM _MLDatabaseProperties WHERE key = 'MLCloudDatabaseRevision'"];
+    int64ValueForFirstRowAndColumn7 = [v46 int64ValueForFirstRowAndColumn];
 
     if (int64ValueForFirstRowAndColumn7 >= 1)
     {
-      v47 = os_log_create("com.apple.amp.medialibrary", "Library");
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+      v48 = os_log_create("com.apple.amp.medialibrary", "Library");
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_22D2FA000, v47, OS_LOG_TYPE_DEFAULT, "Sanity check: flagging cloud library for full refresh after next update", buf, 2u);
+        _os_log_impl(&dword_22D2FA000, v48, OS_LOG_TYPE_DEFAULT, "Sanity check: flagging cloud library for full refresh after next update", buf, 2u);
       }
 
       [connectionCopy executeUpdate:@"INSERT OR REPLACE INTO _MLDatabaseProperties (value withParameters:key) VALUES (? error:{?)", &unk_2840C6830, 0}];
     }
 
-    v48 = [connectionCopy executeQuery:@"SELECT value FROM _MLDatabaseProperties WHERE key = 'MLJaliscoDatabaseRevision'"];
-    int64ValueForFirstRowAndColumn8 = [v48 int64ValueForFirstRowAndColumn];
+    v49 = [connectionCopy executeQuery:@"SELECT value FROM _MLDatabaseProperties WHERE key = 'MLJaliscoDatabaseRevision'"];
+    int64ValueForFirstRowAndColumn8 = [v49 int64ValueForFirstRowAndColumn];
 
     if (int64ValueForFirstRowAndColumn8 >= 1)
     {
-      v50 = os_log_create("com.apple.amp.medialibrary", "Library");
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+      v51 = os_log_create("com.apple.amp.medialibrary", "Library");
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_22D2FA000, v50, OS_LOG_TYPE_DEFAULT, "Sanity check: flagging purchase history for next update to include all tokens", buf, 2u);
+        _os_log_impl(&dword_22D2FA000, v51, OS_LOG_TYPE_DEFAULT, "Sanity check: flagging purchase history for next update to include all tokens", buf, 2u);
       }
 
       [connectionCopy executeUpdate:@"INSERT OR REPLACE INTO _MLDatabaseProperties (value withParameters:key) VALUES (? error:{?)", &unk_2840C6848, 0}];
     }
 
-    v51 = os_log_create("com.apple.amp.medialibrary", "Library");
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+    v52 = os_log_create("com.apple.amp.medialibrary", "Library");
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22D2FA000, v51, OS_LOG_TYPE_DEFAULT, "Sanity check: resetting sync anchors", buf, 2u);
+      _os_log_impl(&dword_22D2FA000, v52, OS_LOG_TYPE_DEFAULT, "Sanity check: resetting sync anchors", buf, 2u);
     }
 
     [connectionCopy executeUpdate:@"DELETE FROM _MLDatabaseProperties WHERE key = 'MLSyncClientLastSyncedRevision'"];
@@ -7662,7 +7665,7 @@ void __136__ML3MusicLibrary_enumeratePersistentIDsAfterRevision_revisionTracking
   return v2;
 }
 
-uint64_t __32__ML3MusicLibrary_updateSortMap__block_invoke(uint64_t a1, uint64_t a2)
+void *__32__ML3MusicLibrary_updateSortMap__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) updateSortMapOnConnection:a2 forceUpdateOriginals:0];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -8970,9 +8973,12 @@ CFIndex __38__ML3MusicLibrary_unknownSectionIndex__block_invoke(uint64_t a1, uin
 
 uint64_t __57__ML3MusicLibrary_sectionIndexTitleIndexForSectionIndex___block_invoke(uint64_t a1, uint64_t a2)
 {
-  *(*(*(a1 + 32) + 8) + 40) = iPhoneSortKeyBuilderGetHeaderForSection(a2, *(a1 + 40));
+  v3 = iPhoneSortKeyBuilderGetHeaderForSection(a2, *(a1 + 40));
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v5);
 }
 
 - (id)localizedSectionHeaderForSectionIndex:(unint64_t)index
@@ -9013,9 +9019,12 @@ uint64_t __57__ML3MusicLibrary_sectionIndexTitleIndexForSectionIndex___block_inv
 
 uint64_t __57__ML3MusicLibrary_localizedSectionHeaderForSectionIndex___block_invoke(uint64_t a1, uint64_t a2)
 {
-  *(*(*(a1 + 32) + 8) + 40) = iPhoneSortKeyBuilderGetHeaderForSection(a2, *(a1 + 40));
+  v3 = iPhoneSortKeyBuilderGetHeaderForSection(a2, *(a1 + 40));
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v5);
 }
 
 - (id)groupingKeysForStrings:(id)strings
@@ -9119,9 +9128,12 @@ void __42__ML3MusicLibrary_groupingKeysForStrings___block_invoke(uint64_t a1, ui
 
 uint64_t __40__ML3MusicLibrary_groupingKeyForString___block_invoke(uint64_t a1, uint64_t a2)
 {
-  *(*(*(a1 + 40) + 8) + 40) = iPhoneSortKeyBuilderCopyGroupingKeyForString(a2, *(a1 + 32));
+  v3 = iPhoneSortKeyBuilderCopyGroupingKeyForString(a2, *(a1 + 32));
+  v4 = *(*(a1 + 40) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v5);
 }
 
 - (void)accessSortKeyBuilder:(id)builder
@@ -9148,9 +9160,13 @@ uint64_t __39__ML3MusicLibrary_accountCacheDatabase__block_invoke(uint64_t resul
 {
   if (!*(*(result + 32) + 32))
   {
-    *(*(result + 32) + 32) = [[ML3AccountCacheDatabase alloc] initWithLibrary:*(result + 32)];
+    v2 = result;
+    v3 = [[ML3AccountCacheDatabase alloc] initWithLibrary:*(result + 32)];
+    v4 = *(v2 + 32);
+    v5 = *(v4 + 32);
+    *(v4 + 32) = v3;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v3, v5);
   }
 
   return result;
@@ -10176,16 +10192,22 @@ void __33__ML3MusicLibrary_isLibraryEmpty__block_invoke(uint64_t a1, void *a2)
 
 uint64_t __32__ML3MusicLibrary_syncLibraryID__block_invoke_2(uint64_t a1)
 {
-  *(*(a1 + 32) + 24) = [*(a1 + 40) copy];
+  v2 = [*(a1 + 40) copy];
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 24);
+  *(v3 + 24) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 uint64_t __32__ML3MusicLibrary_syncLibraryID__block_invoke_3(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 24) copy];
+  v2 = [*(*(a1 + 32) + 24) copy];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)setSyncLibraryID:(id)d
@@ -10365,9 +10387,12 @@ uint64_t __43__ML3MusicLibrary_setIsHomeSharingLibrary___block_invoke(uint64_t r
 
 uint64_t __33__ML3MusicLibrary_initWithCoder___block_invoke(void *a1)
 {
-  *(*(a1[6] + 8) + 40) = [ML3MusicLibrary _onGlobalQueue_shareableMusicLibraryWithResourcesManager:a1[4] libraryFilePath:a1[5]];
+  v2 = [ML3MusicLibrary _onGlobalQueue_shareableMusicLibraryWithResourcesManager:a1[4] libraryFilePath:a1[5]];
+  v3 = *(a1[6] + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (ML3MusicLibrary)initWithClientIdentity:(id)identity path:(id)path readOnly:(BOOL)only populateUnitTestTablesBlock:(id)block
@@ -10902,9 +10927,11 @@ LABEL_29:
 
 uint64_t __42__ML3MusicLibrary_musicLibraryPerUserDSID__block_invoke()
 {
-  musicLibraryPerUserDSID___musicLibraryPerUserDSID = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:1];
+  v0 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:1];
+  v1 = musicLibraryPerUserDSID___musicLibraryPerUserDSID;
+  musicLibraryPerUserDSID___musicLibraryPerUserDSID = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (void)setAutoupdatingSharedLibraryPath:(id)path
@@ -10922,9 +10949,11 @@ uint64_t __42__ML3MusicLibrary_musicLibraryPerUserDSID__block_invoke()
 
 uint64_t __52__ML3MusicLibrary_setAutoupdatingSharedLibraryPath___block_invoke(uint64_t a1)
 {
-  __sharedLibraryDatabasePath = [*(a1 + 32) copy];
+  v1 = [*(a1 + 32) copy];
+  v2 = __sharedLibraryDatabasePath;
+  __sharedLibraryDatabasePath = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (NSArray)registeredLibraries
@@ -11355,7 +11384,7 @@ LABEL_4:
       *buf = 67109376;
       v41[0] = v8;
       LOWORD(v41[1]) = 1024;
-      *(&v41[1] + 2) = 2310000;
+      strcpy(&v41[1] + 2, "p?#");
       _os_log_impl(&dword_22D2FA000, v14, OS_LOG_TYPE_DEFAULT, "Migrating media library database from %d to %d", buf, 0xEu);
     }
 
@@ -11543,7 +11572,7 @@ LABEL_29:
   return error;
 }
 
-uint64_t __60__ML3MusicLibrary_Validation__coerceValidDatabaseWithError___block_invoke(uint64_t a1, uint64_t a2)
+void *__60__ML3MusicLibrary_Validation__coerceValidDatabaseWithError___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) _validateDatabaseUsingConnection:a2 error:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -11860,9 +11889,12 @@ LABEL_15:
 
 uint64_t __53__ML3MusicLibrary_SortMap___systemUnicodeVersionData__block_invoke(uint64_t a1, uint64_t a2)
 {
-  *(*(*(a1 + 32) + 8) + 40) = iPhoneSortKeyBuilderCopyVersionData(a2);
+  v3 = iPhoneSortKeyBuilderCopyVersionData(a2);
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v5);
 }
 
 - (int64_t)insertStringIntoSortMapNoTransaction:(id)transaction
@@ -13569,7 +13601,7 @@ uint64_t __126__ML3MusicLibrary_CacheManagement___enumeratePurgeableTracksForUrg
 void __126__ML3MusicLibrary_CacheManagement___enumeratePurgeableTracksForUrgency_includeAutoFilledTracks_includeCloudAssets_usingBlock___block_invoke_2(void *a1, uint64_t a2, void *a3, uint64_t a4, _BYTE *a5)
 {
   v9 = a1[4];
-  v10 = [MEMORY[0x277CCABB0] numberWithLongLong:a2];
+  v10 = [MEMORY[0x277CCABB0] numberWithLongLong:{a2, a4}];
   LOBYTE(v9) = [v9 containsObject:v10];
 
   if ((v9 & 1) == 0)
@@ -17391,7 +17423,7 @@ void __107__ML3MusicLibrary_RemoveSourceOrTracks__removeSource_forImportOperatio
   [v4 addObject:v5];
 }
 
-uint64_t __107__ML3MusicLibrary_RemoveSourceOrTracks__removeSource_forImportOperation_usingConnection_postNotifications___block_invoke_112(uint64_t a1, void *a2)
+void *__107__ML3MusicLibrary_RemoveSourceOrTracks__removeSource_forImportOperation_usingConnection_postNotifications___block_invoke_112(uint64_t a1, void *a2)
 {
   result = [a2 longLongValue];
   v4 = *(*(*(a1 + 32) + 8) + 24);

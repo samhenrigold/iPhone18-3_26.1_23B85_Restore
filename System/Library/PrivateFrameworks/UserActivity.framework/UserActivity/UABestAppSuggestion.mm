@@ -116,10 +116,9 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = suggestedActionTypeString(self->_type);
   uUIDString = [(NSUUID *)self->_uniqueIdentifier UUIDString];
-  originatingDeviceIdentifier = self->_originatingDeviceIdentifier;
-  v7 = [v3 stringWithFormat:@"UABestAppSuggestion(%@ %@ %@ %@:%@ %@ from:%@/%@/%@)", v4, uUIDString, self->_bundleIdentifier, self->_activityType, self->_dynamicIdentifier, self->_lastActiveTime, self->_originatingDeviceName, originatingDeviceIdentifier, self->_originatingDeviceType];
+  v6 = [v3 stringWithFormat:@"UABestAppSuggestion(%@ %@ %@ %@:%@ %@ from:%@/%@/%@)", v4, uUIDString, self->_bundleIdentifier, self->_activityType, self->_dynamicIdentifier, self->_lastActiveTime, self->_originatingDeviceName, self->_originatingDeviceIdentifier, self->_originatingDeviceType];
 
-  return v7;
+  return v6;
 }
 
 - (id)debugDescription

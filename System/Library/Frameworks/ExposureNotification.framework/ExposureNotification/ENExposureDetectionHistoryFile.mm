@@ -61,62 +61,65 @@
 
 - (id)description
 {
+  v25 = 0;
   v3 = objc_opt_class();
-  v13 = NSStringFromClass(v3);
-  NSAppendPrintF_safe();
-  v4 = 0;
+  v4 = NSStringFromClass(v3);
+  NSAppendPrintF_safe(&v25, "%@", v4);
+  v5 = v25;
 
-  [(NSData *)self->_fileHash bytes];
-  [(NSData *)self->_fileHash length];
-  [(NSData *)self->_fileHash length];
-  NSAppendPrintF();
-  v5 = v4;
+  v24 = v5;
+  NSAppendPrintF(&v24, ", Hash %.3H", [(NSData *)self->_fileHash bytes], [(NSData *)self->_fileHash length], [(NSData *)self->_fileHash length]);
+  v6 = v24;
 
-  if (self->_sourceAppBundleIdentifier)
+  sourceAppBundleIdentifier = self->_sourceAppBundleIdentifier;
+  if (sourceAppBundleIdentifier)
   {
-    sourceAppBundleIdentifier = self->_sourceAppBundleIdentifier;
-    NSAppendPrintF_safe();
-    v6 = v5;
+    v23 = v6;
+    NSAppendPrintF_safe(&v23, ", %@", sourceAppBundleIdentifier);
+    v8 = v23;
 
-    v5 = v6;
+    v6 = v8;
   }
 
-  if (self->_sourceRegion)
+  sourceRegion = self->_sourceRegion;
+  if (sourceRegion)
   {
-    sourceRegion = self->_sourceRegion;
-    NSAppendPrintF_safe();
-    v7 = v5;
+    v22 = v6;
+    NSAppendPrintF_safe(&v22, ", %@", sourceRegion);
+    v10 = v22;
 
-    v5 = v7;
+    v6 = v10;
   }
 
-  processDate = self->_processDate;
-  NSAppendPrintF_safe();
-  v8 = v5;
+  v21 = v6;
+  NSAppendPrintF_safe(&v21, ", Date %@", self->_processDate);
+  v11 = v21;
 
-  keyCount = self->_keyCount;
-  NSAppendPrintF_safe();
-  v9 = v8;
+  v20 = v11;
+  NSAppendPrintF_safe(&v20, ", Keys %@", self->_keyCount);
+  v12 = v20;
 
-  if (self->_matchCount)
+  matchCount = self->_matchCount;
+  if (matchCount)
   {
-    matchCount = self->_matchCount;
-    NSAppendPrintF_safe();
-    v10 = v9;
+    v19 = v12;
+    NSAppendPrintF_safe(&v19, ", Matches %@", matchCount);
+    v14 = v19;
 
-    v9 = v10;
+    v12 = v14;
   }
 
-  if (self->_metadata)
+  metadata = self->_metadata;
+  if (metadata)
   {
-    metadata = self->_metadata;
-    NSAppendPrintF();
-    v11 = v9;
+    v18 = v12;
+    NSAppendPrintF(&v18, ", Metadata %##@", metadata);
+    v16 = v18;
 
-    v9 = v11;
+    v12 = v16;
   }
 
-  return v9;
+  return v12;
 }
 
 - (ENExposureDetectionHistoryFile)initWithXPCObject:(id)object error:(id *)error
@@ -129,7 +132,7 @@
   {
     if (error)
     {
-      ENErrorF(2);
+      ENErrorF(2, "super init failed");
       *error = v25 = 0;
       goto LABEL_12;
     }
@@ -170,7 +173,7 @@ LABEL_15:
     {
       if (error)
       {
-        ENErrorF(2);
+        ENErrorF(2, "Metadata non-xpc-dict");
         *error = v25 = 0;
         goto LABEL_11;
       }
@@ -186,7 +189,7 @@ LABEL_21:
     {
       if (error)
       {
-        *error = ENErrorF(2);
+        *error = ENErrorF(2, "Metadata non-dict");
       }
 
       goto LABEL_21;

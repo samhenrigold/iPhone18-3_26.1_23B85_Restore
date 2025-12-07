@@ -364,9 +364,9 @@
   [(PXSecondaryToolbarController *)self->_secondaryToolbarController setUpdateDelegate:self];
   v37 = [PXCuratedLibraryBottomSpacerController alloc];
   px_extendedTraitCollection = [(PXCuratedLibraryUIViewController *)self px_extendedTraitCollection];
-  layout = [viewProvider layout];
+  v39 = objc_msgSend_layout(viewProvider);
   gridView2 = [viewProvider gridView];
-  v41 = [(PXCuratedLibraryBottomSpacerController *)v37 initWithViewModel:viewModel extendedTraitCollection:px_extendedTraitCollection layout:layout gridView:gridView2];
+  v41 = [(PXCuratedLibraryBottomSpacerController *)v37 initWithViewModel:viewModel extendedTraitCollection:px_extendedTraitCollection layout:v39 gridView:gridView2];
   bottomSpacerController = self->_bottomSpacerController;
   self->_bottomSpacerController = v41;
 
@@ -481,8 +481,8 @@
   viewProvider4 = [(PXCuratedLibraryUIViewController *)self viewProvider];
   viewModel4 = [viewProvider4 viewModel];
   viewProvider5 = [(PXCuratedLibraryUIViewController *)self viewProvider];
-  layout2 = [viewProvider5 layout];
-  v86 = [(PXCuratedLibraryFilterTipController *)v81 initWithViewModel:viewModel4 layout:layout2];
+  v85 = objc_msgSend_layout(viewProvider5);
+  v86 = [(PXCuratedLibraryFilterTipController *)v81 initWithViewModel:viewModel4 layout:v85];
   filterTipController = self->_filterTipController;
   self->_filterTipController = v86;
 
@@ -1029,7 +1029,7 @@ LABEL_16:
     }
 
     [secondaryToolbarController setAlpha:v9];
-    PXFloatApproximatelyEqualToFloat();
+    PXFloatApproximatelyEqualToFloat(v7);
   }
 }
 
@@ -1468,8 +1468,8 @@ LABEL_14:
     if (allowsSlideshowInYears)
     {
       viewProvider2 = [(PXCuratedLibraryUIViewController *)self viewProvider];
-      layout = [viewProvider2 layout];
-      enableSlideshowInYears = ([layout presentedZoomLevel] != 1 || (objc_msgSend(layout, "libraryBodyLayout"), v12 = ;
+      v11 = objc_msgSend_layout(viewProvider2);
+      enableSlideshowInYears = ([v11 presentedZoomLevel] != 1 || (objc_msgSend(v11, "libraryBodyLayout"), v12 = ;
     }
 
     else
@@ -1988,7 +1988,7 @@ void __119__PXCuratedLibraryUIViewController__handleNavigationRequestConditionCo
 void __119__PXCuratedLibraryUIViewController__handleNavigationRequestConditionCompletionForNavigationRequest_withAssetReference___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  [v3 setAnimated:{(objc_msgSend(*(a1 + 32), "options") >> 1) & 1}];
+  [v3 setAnimated:(objc_msgSend_options(*(a1 + 32)) >> 1) & 1];
   [v3 setActivity:*(a1 + 48)];
   v7[0] = MEMORY[0x1E69E9820];
   v7[1] = 3221225472;
@@ -2036,8 +2036,8 @@ void *__119__PXCuratedLibraryUIViewController__handleNavigationRequestConditionC
     {
       [viewModel performChanges:&__block_literal_global_714];
       [assetsDataSourceManager forceAllPhotosAccurateIfNeeded];
-      layout = [viewProvider layout];
-      [layout updateIfNeeded];
+      v9 = objc_msgSend_layout(viewProvider);
+      [v9 updateIfNeeded];
     }
 
     destination = [requestCopy destination];
@@ -2060,7 +2060,7 @@ void *__119__PXCuratedLibraryUIViewController__handleNavigationRequestConditionC
       v31 = 0u;
       if (v15)
       {
-        [v15 lastItemIndexPath];
+        objc_msgSend_lastItemIndexPath(v15);
         v17 = v30;
       }
 
@@ -2140,7 +2140,7 @@ BOOL __79__PXCuratedLibraryUIViewController__navigateToRevealAssetForNavigationR
   return v5;
 }
 
-void __79__PXCuratedLibraryUIViewController__navigateToRevealAssetForNavigationRequest___block_invoke_2(uint64_t a1, char a2)
+void __79__PXCuratedLibraryUIViewController__navigateToRevealAssetForNavigationRequest___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
@@ -2436,7 +2436,7 @@ LABEL_5:
 {
   visibilityCopy = visibility;
   viewProvider = [(PXCuratedLibraryUIViewController *)self viewProvider];
-  layout = [viewProvider layout];
+  v10 = objc_msgSend_layout(viewProvider);
 
   if (visibilityCopy)
   {
@@ -2448,7 +2448,7 @@ LABEL_5:
     v7 = 1;
   }
 
-  secondSublayout = [layout secondSublayout];
+  secondSublayout = [v10 secondSublayout];
   v9 = [secondSublayout createCuratedLibraryLayoutAnimationIfNeededWithContext:v7];
 
   [v9 setDuration:duration];
@@ -2457,8 +2457,8 @@ LABEL_5:
 - (void)skimmingController:(id)controller willStartSkimmingAssetCollectionReference:(id)reference animationDuration:(double)duration
 {
   v7 = [(PXCuratedLibraryUIViewController *)self viewProvider:controller];
-  layout = [v7 layout];
-  [layout clearLastVisibleAreaAnchoringInformation];
+  v8 = objc_msgSend_layout(v7);
+  [v8 clearLastVisibleAreaAnchoringInformation];
 
   [(PXCuratedLibraryUIViewController *)self _createAnimationForSkimmingWithDuration:0 indicatorsDidChangeVisibility:duration];
 }
@@ -2466,8 +2466,8 @@ LABEL_5:
 - (id)_dominantAssetCollectionReferenceForSkimming
 {
   viewProvider = [(PXCuratedLibraryUIViewController *)self viewProvider];
-  layout = [viewProvider layout];
-  libraryBodyLayout = [layout libraryBodyLayout];
+  v4 = objc_msgSend_layout(viewProvider);
+  libraryBodyLayout = [v4 libraryBodyLayout];
   dominantSectionLayout = [libraryBodyLayout dominantSectionLayout];
 
   zoomLevel = [dominantSectionLayout zoomLevel];
@@ -2545,8 +2545,8 @@ LABEL_5:
     v17 = diagnosticDescription;
     v39 = v17;
     [(PXDiagnosticsItemProvider *)v11 registerItemForIdentifier:@"PXDiagnosticsItemIdentifierViewDescription" loadHandler:v38];
-    layout = [v46[5] layout];
-    diagnosticDescription2 = [layout diagnosticDescription];
+    v18 = objc_msgSend_layout(v46[5]);
+    diagnosticDescription2 = [v18 diagnosticDescription];
 
     v36[0] = MEMORY[0x1E69E9820];
     v36[1] = 3221225472;
@@ -2887,7 +2887,7 @@ uint64_t __96__PXCuratedLibraryUIViewController_pointerController_willEnterRegio
   v10 = 0u;
   if (zoomablePhotosViewModel)
   {
-    [zoomablePhotosViewModel zoomState];
+    objc_msgSend_zoomState(zoomablePhotosViewModel, 0, 0);
   }
 
   isDisplayingIndividualItems = [zoomablePhotosViewModel isDisplayingIndividualItems];
@@ -2946,8 +2946,8 @@ uint64_t __96__PXCuratedLibraryUIViewController_pointerController_willEnterRegio
 - (BOOL)dragController:(id)controller shouldResizeCancelledPreviewForAssetReference:(id)reference
 {
   v4 = [(PXCuratedLibraryUIViewController *)self viewProvider:controller];
-  layout = [v4 layout];
-  hiddenSpriteIndexes = [layout hiddenSpriteIndexes];
+  v5 = objc_msgSend_layout(v4);
+  hiddenSpriteIndexes = [v5 hiddenSpriteIndexes];
   v7 = [hiddenSpriteIndexes count] == 0;
 
   return v7;
@@ -2975,8 +2975,8 @@ uint64_t __96__PXCuratedLibraryUIViewController_pointerController_willEnterRegio
   if (v9 > v10)
   {
     viewProvider2 = [(PXCuratedLibraryUIViewController *)self viewProvider];
-    layout = [viewProvider2 layout];
-    v13 = [layout createFenceWithType:2];
+    v12 = objc_msgSend_layout(viewProvider2);
+    v13 = [v12 createFenceWithType:2];
   }
 
   v15[0] = MEMORY[0x1E69E9820];
@@ -3079,7 +3079,7 @@ LABEL_4:
   if ([viewModel isSelecting] && (objc_msgSend(selectionSnapshot, "isAnyItemSelected") & 1) != 0)
   {
     selectedIndexPaths = [selectionSnapshot selectedIndexPaths];
-    [navigatedAssetReference indexPath];
+    objc_msgSend_indexPath(navigatedAssetReference);
     v12 = [selectedIndexPaths containsIndexPath:v15];
 
     if (v12)
@@ -3109,8 +3109,8 @@ LABEL_4:
 {
   referencesCopy = references;
   viewProvider = [(PXCuratedLibraryUIViewController *)self viewProvider];
-  layout = [viewProvider layout];
-  [layout hideSpritesForObjectReferences:referencesCopy];
+  v6 = objc_msgSend_layout(viewProvider);
+  [v6 hideSpritesForObjectReferences:referencesCopy];
 }
 
 - (void)oneUpPresentation:(id)presentation scrollAssetReferenceToVisible:(id)visible
@@ -3262,7 +3262,7 @@ uint64_t __88__PXCuratedLibraryUIViewController_oneUpPresentation_regionOfIntere
     navigatedAssetReference = [(PXCuratedLibraryUIViewController *)self navigatedAssetReference];
     if (navigatedAssetReference)
     {
-      [navigatedAssetReference indexPath];
+      objc_msgSend_indexPath(navigatedAssetReference);
     }
 
     PXIndexPathFromSimpleIndexPath();
@@ -3425,7 +3425,7 @@ void __91__PXCuratedLibraryUIViewController_oneUpPresentation_secondaryIdentifie
   }
 
   v7 = zoomablePhotosViewModel;
-  [zoomablePhotosViewModel zoomState];
+  objc_msgSend_zoomState(zoomablePhotosViewModel);
   v8 = v13;
 
   if ((v8 - 1) >= 5)
@@ -4091,7 +4091,7 @@ void __106__PXCuratedLibraryUIViewController_curatedLibraryActionPerformer_prese
   {
     if (selectionSnapshot)
     {
-      [selectionSnapshot firstSelectedIndexPath];
+      objc_msgSend_firstSelectedIndexPath(selectionSnapshot);
     }
 
     PXIndexPathFromSimpleIndexPath();
@@ -4259,8 +4259,8 @@ void __106__PXCuratedLibraryUIViewController_curatedLibraryActionPerformer_prese
 
   actionManager = [viewModel actionManager];
   viewProvider = [(PXCuratedLibraryUIViewController *)self viewProvider];
-  layout = [viewProvider layout];
-  v8 = [actionManager actionPerformerForNavigatingToNextZoomLevelInLayout:layout];
+  v7 = objc_msgSend_layout(viewProvider);
+  v8 = [actionManager actionPerformerForNavigatingToNextZoomLevelInLayout:v7];
 
   if (v8)
   {
@@ -4574,8 +4574,8 @@ LABEL_32:
 - (void)swipeSelectionManagerDidAutoScroll:(id)scroll
 {
   viewProvider = [(PXCuratedLibraryUIViewController *)self viewProvider];
-  layout = [viewProvider layout];
-  [layout clearLastVisibleAreaAnchoringInformation];
+  v3 = objc_msgSend_layout(viewProvider);
+  [v3 clearLastVisibleAreaAnchoringInformation];
 }
 
 - (void)swipeSelectionManager:(id)manager extendSelectionInDirection:(unint64_t)direction
@@ -4730,7 +4730,7 @@ LABEL_4:
 
   if (v20)
   {
-    [v20 indexPath];
+    objc_msgSend_indexPath(v20);
 
     goto LABEL_7;
   }
@@ -4748,8 +4748,8 @@ LABEL_7:
 {
   location;
   viewProvider = [(PXCuratedLibraryUIViewController *)self viewProvider];
-  layout = [viewProvider layout];
-  [layout padding];
+  v8 = objc_msgSend_layout(viewProvider);
+  [v8 padding];
 
   *&retstr->dataSourceIdentifier = 0u;
   *&retstr->item = 0u;
@@ -4839,8 +4839,8 @@ LABEL_7:
     scrollViewController = [gridView scrollViewController];
     [scrollViewController stopScrollingAndZoomingAnimations];
 
-    layout = [viewProvider layout];
-    createAnchorForScrollingToInitialPosition = [layout createAnchorForScrollingToInitialPosition];
+    v9 = objc_msgSend_layout(viewProvider);
+    createAnchorForScrollingToInitialPosition = [v9 createAnchorForScrollingToInitialPosition];
     autoInvalidate = [createAnchorForScrollingToInitialPosition autoInvalidate];
 
     viewModel = [viewProvider viewModel];
@@ -5036,14 +5036,14 @@ void __77__PXCuratedLibraryUIViewController_resetToInitialStateWithCompletionHan
   y = velocity.y;
   scrollingCopy = scrolling;
   viewProvider = [(PXCuratedLibraryUIViewController *)self viewProvider];
-  layout = [viewProvider layout];
+  v11 = objc_msgSend_layout(viewProvider);
   gridView = [viewProvider gridView];
   rootLayout = [gridView rootLayout];
-  [rootLayout convertRect:layout toDescendantLayout:{offset->x, offset->y, *MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8)}];
+  [rootLayout convertRect:v11 toDescendantLayout:{offset->x, offset->y, *MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8)}];
   v15 = v14;
 
   decelerationRate = [scrollingCopy decelerationRate];
-  [layout adjustedTargetVisibleTopForProposedTargetVisibleTop:&decelerationRate scrollingVelocity:v15 decelerationRate:y];
+  [v11 adjustedTargetVisibleTopForProposedTargetVisibleTop:&decelerationRate scrollingVelocity:v15 decelerationRate:y];
   offset->y = offset->y + v16 - v15;
   [scrollingCopy setDecelerationRate:decelerationRate];
 
@@ -5529,7 +5529,7 @@ void __80__PXCuratedLibraryUIViewController_touchingUIGestureRecognizerDidBeginT
   {
     viewProvider = [(PXCuratedLibraryUIViewController *)self viewProvider];
     viewModel = [viewProvider viewModel];
-    layout = [viewProvider layout];
+    v7 = objc_msgSend_layout(viewProvider);
     gridView = [(PXCuratedLibraryUIViewController *)self gridView];
     backNavigationTransition = [(PXCuratedLibraryUIViewController *)self backNavigationTransition];
     state = [panCopy state];
@@ -5589,7 +5589,7 @@ LABEL_18:
         zoomLevelControl = [(PXCuratedLibraryUIViewController *)self zoomLevelControl];
         v17 = [zoomLevelControl zoomLevelDisplayedBeforeZoomLevel:zoomLevel];
 
-        v18 = [layout createCuratedLibraryLayoutTransitionIfNeededWithContext:{objc_msgSend(layout, "curatedLibraryLayoutAnimationContextForTransitionToZoomLevel:", v17)}];
+        v18 = [v7 createCuratedLibraryLayoutTransitionIfNeededWithContext:{objc_msgSend(v7, "curatedLibraryLayoutAnimationContextForTransitionToZoomLevel:", v17)}];
 
         [(PXCuratedLibraryUIViewController *)self setBackNavigationTransition:v18];
         v44[0] = MEMORY[0x1E69E9820];
@@ -5912,7 +5912,7 @@ uint64_t __49__PXCuratedLibraryUIViewController__handlePinch___block_invoke_2(ui
   return v7;
 }
 
-uint64_t __49__PXCuratedLibraryUIViewController__handlePinch___block_invoke_3(uint64_t a1, uint64_t a2)
+char *__49__PXCuratedLibraryUIViewController__handlePinch___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) zoomLevelInDirection:a2 fromZoomLevel:{objc_msgSend(*(a1 + 32), "zoomLevel")}];
   if ((result - 1) <= 2)
@@ -5938,15 +5938,15 @@ uint64_t __49__PXCuratedLibraryUIViewController__handlePinch___block_invoke_3(ui
 
   animatedCopy = animated;
   viewProvider = [(PXCuratedLibraryUIViewController *)self viewProvider];
-  layout = [viewProvider layout];
-  if ([layout presentedZoomLevel] == 3)
+  v7 = objc_msgSend_layout(viewProvider);
+  if ([v7 presentedZoomLevel] == 3)
   {
-    [layout visibleRect];
+    [v7 visibleRect];
     v9 = v8;
     v11 = v10;
     v13 = v12;
     v15 = v14;
-    [layout safeAreaInsets];
+    [v7 safeAreaInsets];
     v39.size.height = v16;
     v39.origin.x = v9;
     v39.origin.y = v11;
@@ -5966,13 +5966,13 @@ uint64_t __49__PXCuratedLibraryUIViewController__handlePinch___block_invoke_3(ui
     v32 = v40;
     v31[4] = &v33;
     v31[5] = direction;
-    [layout enumerateSectionBoundariesWithOptions:(direction >> 62) & 2 usingBlock:v31];
+    [v7 enumerateSectionBoundariesWithOptions:(direction >> 62) & 2 usingBlock:v31];
     IsNull = CGRectIsNull(v34[1]);
     if (!IsNull)
     {
       gridView = [viewProvider gridView];
       rootLayout = [gridView rootLayout];
-      [rootLayout convertRect:layout fromDescendantLayout:{v34[1].origin.x, v34[1].origin.y, v34[1].size.width, v34[1].size.height}];
+      [rootLayout convertRect:v7 fromDescendantLayout:{v34[1].origin.x, v34[1].origin.y, v34[1].size.width, v34[1].size.height}];
       p_x = &v34->origin.x;
       v34[1].origin.x = v22;
       p_x[5] = v23;
@@ -6028,20 +6028,20 @@ LABEL_6:
 {
   resultCopy = result;
   viewProvider = [(PXCuratedLibraryUIViewController *)self viewProvider];
-  layout = [viewProvider layout];
+  v6 = objc_msgSend_layout(viewProvider);
   assetCollectionReference = [resultCopy assetCollectionReference];
 
   v8 = 0;
-  if ([layout presentedZoomLevel] == 3 && assetCollectionReference)
+  if ([v6 presentedZoomLevel] == 3 && assetCollectionReference)
   {
     v9 = +[PXCuratedLibrarySettings sharedInstance];
     enableTapOnTitleToScroll = [v9 enableTapOnTitleToScroll];
 
-    if (enableTapOnTitleToScroll && ([layout sectionBoundariesForAssetCollectionReference:assetCollectionReference], x = v27.origin.x, y = v27.origin.y, width = v27.size.width, height = v27.size.height, !CGRectIsNull(v27)))
+    if (enableTapOnTitleToScroll && ([v6 sectionBoundariesForAssetCollectionReference:assetCollectionReference], x = v27.origin.x, y = v27.origin.y, width = v27.size.width, height = v27.size.height, !CGRectIsNull(v27)))
     {
       gridView = [viewProvider gridView];
       rootLayout = [gridView rootLayout];
-      [rootLayout convertRect:layout fromDescendantLayout:{x, y, width, height}];
+      [rootLayout convertRect:v6 fromDescendantLayout:{x, y, width, height}];
       v18 = v17;
       v20 = v19;
 
@@ -6064,7 +6064,7 @@ LABEL_6:
 
 - (BOOL)_handleTapWithHitTestResult:(id)result keyModifierFlags:(int64_t)flags
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -6112,11 +6112,11 @@ LABEL_40:
 
         if (isDragSessionActive)
         {
-          layout = PLCuratedLibraryGetLog();
-          if (os_log_type_enabled(layout, OS_LOG_TYPE_DEBUG))
+          selectionManager = PLCuratedLibraryGetLog();
+          if (os_log_type_enabled(selectionManager, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_impl(&dword_1A3C1C000, layout, OS_LOG_TYPE_DEBUG, "Ignoring tap since it is handled by the drag interaction.", buf, 2u);
+            _os_log_impl(&dword_1A3C1C000, selectionManager, OS_LOG_TYPE_DEBUG, "Ignoring tap since it is handled by the drag interaction.", buf, 2u);
           }
         }
 
@@ -6127,8 +6127,8 @@ LABEL_40:
 
           if (v20 && ([viewProvider zoomablePhotosInteraction], v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "assetReference"), v22 = objc_claimAutoreleasedReturnValue(), v29 = objc_msgSend(v21, "handleTapOnAssetReference:", v22), v22, v21, v29))
           {
-            layout = [viewProvider layout];
-            [layout clearLastVisibleAreaAnchoringInformation];
+            selectionManager = objc_msgSend_layout(viewProvider);
+            [selectionManager clearLastVisibleAreaAnchoringInformation];
           }
 
           else
@@ -6153,9 +6153,9 @@ LABEL_39:
                 *&buf[8] = 1024;
                 *&buf[10] = [viewModel isSelecting];
                 *&buf[14] = 2048;
-                *&v34 = flags;
-                WORD4(v34) = 1024;
-                *(&v34 + 10) = [MEMORY[0x1E69DCBB8] isInHardwareKeyboardMode];
+                *&v35 = flags;
+                WORD4(v35) = 1024;
+                *(&v35 + 10) = [MEMORY[0x1E69DCBB8] isInHardwareKeyboardMode];
                 _os_log_impl(&dword_1A3C1C000, v26, OS_LOG_TYPE_DEBUG, "[PXCuratedLibraryUIViewController] Handling tap wants toggle selection: %i. Select mode enabled: %i. Key modifier flags: %lu. Connected to hardware keyboard: %i.", buf, 0x1Eu);
               }
 
@@ -6180,31 +6180,31 @@ LABEL_38:
               *&buf[8] = 1024;
               *&buf[10] = [viewModel isSelecting];
               *&buf[14] = 2048;
-              *&v34 = flags;
-              WORD4(v34) = 1024;
-              *(&v34 + 10) = [MEMORY[0x1E69DCBB8] isInHardwareKeyboardMode];
+              *&v35 = flags;
+              WORD4(v35) = 1024;
+              *(&v35 + 10) = [MEMORY[0x1E69DCBB8] isInHardwareKeyboardMode];
               _os_log_impl(&dword_1A3C1C000, v23, OS_LOG_TYPE_DEBUG, "[PXCuratedLibraryUIViewController] Handling tap wants range selection: %i. Select mode enabled: %i. Key modifier flags: %lu. Connected to hardware keyboard: %i.", buf, 0x1Eu);
             }
 
             *buf = 0u;
-            v34 = 0u;
+            v35 = 0u;
             assetReference2 = [v7 assetReference];
             v25 = assetReference2;
             if (assetReference2)
             {
-              [assetReference2 indexPath];
+              objc_msgSend_indexPath(assetReference2);
             }
 
             else
             {
               *buf = 0u;
-              v34 = 0u;
+              v35 = 0u;
             }
 
-            layout = [viewModel selectionManager];
-            v32[0] = *buf;
-            v32[1] = v34;
-            [layout extendSelectionToItemIndexPath:v32 withDelegate:viewProvider];
+            selectionManager = [viewModel selectionManager];
+            v32 = *buf;
+            v33 = v35;
+            objc_msgSend_extendSelectionToItemIndexPath_withDelegate_(selectionManager);
           }
         }
 
@@ -6406,7 +6406,7 @@ LABEL_8:
         v11 = currentDataSource;
         if (currentDataSource)
         {
-          [currentDataSource indexPathForObjectReference:assetCollectionReference];
+          objc_msgSend_indexPathForObjectReference_(currentDataSource);
         }
 
         else
@@ -6607,8 +6607,8 @@ uint64_t __80__PXCuratedLibraryUIViewController__handleHoverWithHitTestResults_h
 - (id)_buttonForEllipsisButtonAction
 {
   viewProvider = [(PXCuratedLibraryUIViewController *)self viewProvider];
-  layout = [viewProvider layout];
-  floatingHeaderLayout = [layout floatingHeaderLayout];
+  v5 = objc_msgSend_layout(viewProvider);
+  floatingHeaderLayout = [v5 floatingHeaderLayout];
   ellipsisButtonActionPerformer = [floatingHeaderLayout ellipsisButtonActionPerformer];
   v8 = [floatingHeaderLayout spriteReferenceForObjectReference:ellipsisButtonActionPerformer];
   gridView = [(PXCuratedLibraryUIViewController *)self gridView];
@@ -6633,8 +6633,8 @@ uint64_t __80__PXCuratedLibraryUIViewController__handleHoverWithHitTestResults_h
 - (CGRect)_rectForEllipsisActionPerformerButton
 {
   viewProvider = [(PXCuratedLibraryUIViewController *)self viewProvider];
-  layout = [viewProvider layout];
-  floatingHeaderLayout = [layout floatingHeaderLayout];
+  v4 = objc_msgSend_layout(viewProvider);
+  floatingHeaderLayout = [v4 floatingHeaderLayout];
   ellipsisButtonActionPerformer = [floatingHeaderLayout ellipsisButtonActionPerformer];
   gridView = [(PXCuratedLibraryUIViewController *)self gridView];
   buttonSpriteReference = [ellipsisButtonActionPerformer buttonSpriteReference];
@@ -6684,15 +6684,15 @@ uint64_t __80__PXCuratedLibraryUIViewController__handleHoverWithHitTestResults_h
   if (zoomLevel == 4)
   {
     viewProvider2 = [(PXCuratedLibraryUIViewController *)self viewProvider];
-    layout = [viewProvider2 layout];
+    v7 = objc_msgSend_layout(viewProvider2);
 
     v9[0] = MEMORY[0x1E69E9820];
     v9[1] = 3221225472;
     v9[2] = __71__PXCuratedLibraryUIViewController__saveCurrentAllPhotosScrollPosition__block_invoke;
     v9[3] = &unk_1E7733C70;
-    v10 = layout;
+    v10 = v7;
     selfCopy = self;
-    v8 = layout;
+    v8 = v7;
     [v8 enumerateVisibleAnchoringSpriteIndexesUsingBlock:v9];
   }
 }
@@ -6845,7 +6845,7 @@ LABEL_21:
         if (selectionSnapshot)
         {
 LABEL_13:
-          [selectionSnapshot firstSelectedIndexPath];
+          objc_msgSend_firstSelectedIndexPath(selectionSnapshot);
 LABEL_19:
           v20 = [dataSource assetReferenceAtItemIndexPath:v22];
           [(PXCuratedLibraryUIViewController *)self _requestExpansionIfNeededForInteractionWithAssetReference:v20 animated:1];
@@ -6991,7 +6991,7 @@ LABEL_22:
   v11 = 0u;
   if (selectionSnapshot)
   {
-    [selectionSnapshot cursorIndexPath];
+    objc_msgSend_cursorIndexPath(selectionSnapshot);
     v6 = v10;
   }
 
@@ -7759,8 +7759,8 @@ LABEL_51:
   {
     [(PXCuratedLibraryUIViewController *)self _invalidateSecondaryToolbar];
     viewProvider2 = [(PXCuratedLibraryUIViewController *)self viewProvider];
-    layout = [viewProvider2 layout];
-    [layout clearLastVisibleAreaAnchoringInformation];
+    v12 = objc_msgSend_layout(viewProvider2);
+    [v12 clearLastVisibleAreaAnchoringInformation];
 
     [(PXCuratedLibraryUIViewController *)self invalidateBoopableItemsProvider];
     [(PXCuratedLibraryUIViewController *)self _requestExpansionForSelectionIfNeeded];

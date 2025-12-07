@@ -32,7 +32,7 @@
 {
   ObjectType = swift_getObjectType();
   v4 = OBJC_IVAR____TtC10FinanceKit30FKNFHardwareStateChangeMonitor_implementation;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB99EE40);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB99EE40, &unk_1B7871E08);
   v5 = swift_allocObject();
   *(v5 + 28) = 0;
   *(v5 + 16) = 0;

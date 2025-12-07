@@ -1,6 +1,5 @@
 float awd::metrics::BaroAltitudeCalibrationInfo::CheckTypeAndMergeFrom(awd::metrics::BaroAltitudeCalibrationInfo *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     awd::metrics::BaroAltitudeCalibrationInfo::CheckTypeAndMergeFrom();
   }
@@ -85,24 +84,23 @@ uint64_t wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarin
   return 1;
 }
 
-uint64_t *wireless_diagnostics::google::protobuf::RepeatedField<float>::Reserve(uint64_t *result, int a2)
+_DWORD *wireless_diagnostics::google::protobuf::RepeatedField<float>::Reserve(_DWORD *result, int a2)
 {
-  v2 = *(result + 3);
+  v2 = result[3];
   if (v2 < a2)
   {
-    v3 = *result;
-    v4 = 2 * v2;
-    if (v4 <= a2)
+    v3 = 2 * v2;
+    if (v3 <= a2)
     {
-      v4 = a2;
+      v3 = a2;
     }
 
-    if (v4 <= 4)
+    if (v3 <= 4)
     {
-      v4 = 4;
+      v3 = 4;
     }
 
-    *(result + 3) = v4;
+    result[3] = v3;
     operator new[]();
   }
 
@@ -122,9 +120,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_296471F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296471F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -142,9 +140,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_296472004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296472004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -162,9 +160,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_296472098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296472098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -182,9 +180,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_29647212C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29647212C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -202,9 +200,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_2964721C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2964721C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -222,9 +220,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_296472254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296472254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -242,9 +240,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_2964722E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2964722E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -262,9 +260,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_29647237C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29647237C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -282,9 +280,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_296472410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296472410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -302,9 +300,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_2964724A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2964724A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -322,9 +320,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_296472538(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296472538(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -342,9 +340,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_2964725CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2964725CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -362,9 +360,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_296472660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296472660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -382,9 +380,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_2964726F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2964726F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -402,9 +400,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_296472788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296472788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -422,9 +420,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_29647281C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29647281C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -442,9 +440,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_2964728B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2964728B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -462,9 +460,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_296472944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296472944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -482,9 +480,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_2964729D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2964729D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -502,9 +500,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_296472A6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296472A6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -522,9 +520,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_296472B00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296472B00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -542,9 +540,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_296472B94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296472B94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -562,9 +560,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_296472C28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296472C28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -582,9 +580,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_296472CBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296472CBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -602,9 +600,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_296472D50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296472D50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -622,9 +620,9 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return *(*a1 + 8 * a2);
 }
 
-void sub_296472DE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296472DE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1243,24 +1241,23 @@ std::logic_error *std::length_error::length_error[abi:ne200100](std::logic_error
   return result;
 }
 
-uint64_t *wireless_diagnostics::google::protobuf::RepeatedField<int>::Reserve(uint64_t *result, int a2)
+_DWORD *wireless_diagnostics::google::protobuf::RepeatedField<int>::Reserve(_DWORD *result, int a2)
 {
-  v2 = *(result + 3);
+  v2 = result[3];
   if (v2 < a2)
   {
-    v3 = *result;
-    v4 = 2 * v2;
-    if (v4 <= a2)
+    v3 = 2 * v2;
+    if (v3 <= a2)
     {
-      v4 = a2;
+      v3 = a2;
     }
 
-    if (v4 <= 4)
+    if (v3 <= 4)
     {
-      v4 = 4;
+      v3 = 4;
     }
 
-    *(result + 3) = v4;
+    result[3] = v3;
     operator new[]();
   }
 
@@ -1274,7 +1271,6 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
     v2 = 0;
     do
     {
-      v3 = *(*a1 + 8 * v2);
       wireless_diagnostics::google::protobuf::internal::StringTypeHandlerBase::Delete();
       ++v2;
     }
@@ -1292,48 +1288,46 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
   return result;
 }
 
-uint64_t *wireless_diagnostics::google::protobuf::RepeatedField<unsigned int>::Reserve(uint64_t *result, int a2)
+_DWORD *wireless_diagnostics::google::protobuf::RepeatedField<unsigned int>::Reserve(_DWORD *result, int a2)
 {
-  v2 = *(result + 3);
+  v2 = result[3];
   if (v2 < a2)
   {
-    v3 = *result;
-    v4 = 2 * v2;
-    if (v4 <= a2)
+    v3 = 2 * v2;
+    if (v3 <= a2)
     {
-      v4 = a2;
+      v3 = a2;
     }
 
-    if (v4 <= 4)
+    if (v3 <= 4)
     {
-      v4 = 4;
+      v3 = 4;
     }
 
-    *(result + 3) = v4;
+    result[3] = v3;
     operator new[]();
   }
 
   return result;
 }
 
-uint64_t *wireless_diagnostics::google::protobuf::RepeatedField<unsigned long long>::Reserve(uint64_t *result, int a2)
+_DWORD *wireless_diagnostics::google::protobuf::RepeatedField<unsigned long long>::Reserve(_DWORD *result, int a2)
 {
-  v2 = *(result + 3);
+  v2 = result[3];
   if (v2 < a2)
   {
-    v3 = *result;
-    v4 = 2 * v2;
-    if (v4 <= a2)
+    v3 = 2 * v2;
+    if (v3 <= a2)
     {
-      v4 = a2;
+      v3 = a2;
     }
 
-    if (v4 <= 4)
+    if (v3 <= 4)
     {
-      v4 = 4;
+      v3 = 4;
     }
 
-    *(result + 3) = v4;
+    result[3] = v3;
     operator new[]();
   }
 
@@ -1368,35 +1362,34 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationBatteryState>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationBatteryState>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationBatteryState>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationBatteryState::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationBatteryState::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
@@ -1428,35 +1421,34 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationSubHarvesterUploadAttempt>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationSubHarvesterUploadAttempt>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationSubHarvesterUploadAttempt>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationSubHarvesterUploadAttempt::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationSubHarvesterUploadAttempt::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
@@ -1488,35 +1480,34 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_JammingMetricBucket>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_JammingMetricBucket>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_JammingMetricBucket>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationGPSSessionStatistics_JammingMetricBucket::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationGPSSessionStatistics_JammingMetricBucket::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
@@ -1938,511 +1929,496 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_UncertaintyRangeData>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_UncertaintyRangeData>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_UncertaintyRangeData>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationGPSSessionStatistics_UncertaintyRangeData::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationGPSSessionStatistics_UncertaintyRangeData::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_SignalEnvironmentData>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_SignalEnvironmentData>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_SignalEnvironmentData>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationGPSSessionStatistics_SignalEnvironmentData::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationGPSSessionStatistics_SignalEnvironmentData::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_SatelliteCNORangeData>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_SatelliteCNORangeData>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_SatelliteCNORangeData>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationGPSSessionStatistics_SatelliteCNORangeData::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationGPSSessionStatistics_SatelliteCNORangeData::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_SatelliteCountRangeData>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_SatelliteCountRangeData>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_SatelliteCountRangeData>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationGPSSessionStatistics_SatelliteCountRangeData::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationGPSSessionStatistics_SatelliteCountRangeData::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_MotionActivityData>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_MotionActivityData>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_MotionActivityData>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationGPSSessionStatistics_MotionActivityData::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationGPSSessionStatistics_MotionActivityData::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_MovingStateData>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_MovingStateData>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_MovingStateData>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationGPSSessionStatistics_MovingStateData::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationGPSSessionStatistics_MovingStateData::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_MountedStateData>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_MountedStateData>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_MountedStateData>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationGPSSessionStatistics_MountedStateData::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationGPSSessionStatistics_MountedStateData::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_ChecksumData>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_ChecksumData>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_ChecksumData>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationGPSSessionStatistics_ChecksumData::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationGPSSessionStatistics_ChecksumData::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_PowerStateData>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_PowerStateData>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_PowerStateData>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationGPSSessionStatistics_PowerStateData::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationGPSSessionStatistics_PowerStateData::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_DeviceOrientationData>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_DeviceOrientationData>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_DeviceOrientationData>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationGPSSessionStatistics_DeviceOrientationData::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationGPSSessionStatistics_DeviceOrientationData::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_PowerMeasurementData>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_PowerMeasurementData>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_PowerMeasurementData>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationGPSSessionStatistics_PowerMeasurementData::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationGPSSessionStatistics_PowerMeasurementData::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_ChargerTypeData>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_ChargerTypeData>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_ChargerTypeData>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationGPSSessionStatistics_ChargerTypeData::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationGPSSessionStatistics_ChargerTypeData::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_ThermalLevelData>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_ThermalLevelData>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_ThermalLevelData>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationGPSSessionStatistics_ThermalLevelData::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationGPSSessionStatistics_ThermalLevelData::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_NSForceOffReason>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_NSForceOffReason>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_NSForceOffReason>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationGPSSessionStatistics_NSForceOffReason::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationGPSSessionStatistics_NSForceOffReason::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_NSOnOffState>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_NSOnOffState>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationGPSSessionStatistics_NSOnOffState>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationGPSSessionStatistics_NSOnOffState::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationGPSSessionStatistics_NSOnOffState::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
@@ -2500,35 +2476,34 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_ChargingTypeHistogram>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_ChargingTypeHistogram>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_ChargingTypeHistogram>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationAccessory_ChargingTypeHistogram::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationAccessory_ChargingTypeHistogram::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
@@ -2560,35 +2535,34 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_PerfRangeHistogram>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_PerfRangeHistogram>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_PerfRangeHistogram>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationAccessory_PerfRangeHistogram::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationAccessory_PerfRangeHistogram::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
@@ -2620,35 +2594,34 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_SpeedPerfRangeHistogram>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_SpeedPerfRangeHistogram>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_SpeedPerfRangeHistogram>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationAccessory_SpeedPerfRangeHistogram::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationAccessory_SpeedPerfRangeHistogram::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
@@ -2680,35 +2653,34 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_LatencyRangeHistogram>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_LatencyRangeHistogram>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_LatencyRangeHistogram>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationAccessory_LatencyRangeHistogram::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationAccessory_LatencyRangeHistogram::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
@@ -2766,69 +2738,67 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_PASCDTransmissionHistogram>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_PASCDTransmissionHistogram>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_PASCDTransmissionHistogram>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationAccessory_PASCDTransmissionHistogram::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationAccessory_PASCDTransmissionHistogram::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_PASCDSampleSizeHistogram>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_PASCDSampleSizeHistogram>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_PASCDSampleSizeHistogram>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationAccessory_PASCDSampleSizeHistogram::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationAccessory_PASCDSampleSizeHistogram::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
@@ -2938,69 +2908,67 @@ uint64_t wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase:
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_NavDynamicsHistogram>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_NavDynamicsHistogram>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_NavDynamicsHistogram>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationAccessory_NavDynamicsHistogram::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationAccessory_NavDynamicsHistogram::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
 void wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_NMEAScreeningLocTypeHistogram>::TypeHandler>(wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
-  v4 = (*(a2 + 8) + *(a1 + 2));
   wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
   if (*(a2 + 8) >= 1)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_NMEAScreeningLocTypeHistogram>::TypeHandler>(a2, v5);
-      v7 = *(a1 + 3);
-      v8 = *(a1 + 2);
-      if (v8 >= v7)
+      v5 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Get<wireless_diagnostics::google::protobuf::RepeatedPtrField<awd::metrics::LocationAccessory_NMEAScreeningLocTypeHistogram>::TypeHandler>(a2, v4);
+      v6 = *(a1 + 3);
+      v7 = *(a1 + 2);
+      if (v7 >= v6)
       {
-        if (v7 == *(a1 + 4))
+        if (v6 == *(a1 + 4))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a1);
-          v7 = *(a1 + 3);
+          v6 = *(a1 + 3);
         }
 
-        *(a1 + 3) = v7 + 1;
+        *(a1 + 3) = v6 + 1;
         operator new();
       }
 
-      v9 = *a1;
-      *(a1 + 2) = v8 + 1;
-      awd::metrics::LocationAccessory_NMEAScreeningLocTypeHistogram::MergeFrom(*(v9 + 8 * v8), v6);
-      ++v5;
+      v8 = *a1;
+      *(a1 + 2) = v7 + 1;
+      awd::metrics::LocationAccessory_NMEAScreeningLocTypeHistogram::MergeFrom(*(v8 + 8 * v7), v5);
+      ++v4;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v4 < *(a2 + 8));
   }
 }
 
@@ -3304,9 +3272,9 @@ void awd::metrics::LocationTilesUsage::MergeFrom(awd::metrics::LocationTilesUsag
   }
 }
 
-void sub_296477664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296477664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3352,14 +3320,14 @@ uint64_t awd::metrics::LocationTilesUsage::Clear(uint64_t this)
   return this;
 }
 
-uint64_t awd::metrics::LocationTilesUsage::MergePartialFromCodedStream(awd::metrics::LocationTilesUsage *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2)
+uint64_t awd::metrics::LocationTilesUsage::MergePartialFromCodedStream(awd::metrics::LocationTilesUsage *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2, unsigned int a3)
 {
   while (1)
   {
     while (1)
     {
-      v4 = *(a2 + 1);
-      if (v4 >= *(a2 + 2) || (TagFallback = *v4, (TagFallback & 0x80000000) != 0))
+      v5 = *(a2 + 1);
+      if (v5 >= *(a2 + 2) || (TagFallback = *v5, (TagFallback & 0x80000000) != 0))
       {
         TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(a2);
         *(a2 + 8) = TagFallback;
@@ -3368,7 +3336,7 @@ uint64_t awd::metrics::LocationTilesUsage::MergePartialFromCodedStream(awd::metr
       else
       {
         *(a2 + 8) = TagFallback;
-        *(a2 + 1) = v4 + 1;
+        *(a2 + 1) = v5 + 1;
       }
 
       if (TagFallback != 8)
@@ -3376,9 +3344,9 @@ uint64_t awd::metrics::LocationTilesUsage::MergePartialFromCodedStream(awd::metr
         break;
       }
 
-      v7 = *(a2 + 1);
-      v6 = *(a2 + 2);
-      if (v7 >= v6 || (v8 = *v7, v8 < 0))
+      v8 = *(a2 + 1);
+      v7 = *(a2 + 2);
+      if (v8 >= v7 || (v9 = *v8, v9 < 0))
       {
         result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 2);
         if (!result)
@@ -3386,19 +3354,19 @@ uint64_t awd::metrics::LocationTilesUsage::MergePartialFromCodedStream(awd::metr
           return result;
         }
 
-        v9 = *(a2 + 1);
-        v6 = *(a2 + 2);
+        v10 = *(a2 + 1);
+        v7 = *(a2 + 2);
       }
 
       else
       {
-        *(this + 2) = v8;
-        v9 = v7 + 1;
-        *(a2 + 1) = v9;
+        *(this + 2) = v9;
+        v10 = v8 + 1;
+        *(a2 + 1) = v10;
       }
 
       *(this + 4) |= 1u;
-      if (v9 == v6 && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
+      if (v10 == v7 && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
       {
         *(a2 + 8) = 0;
         result = 1;
@@ -3431,14 +3399,14 @@ uint64_t awd::metrics::LocationTilesUsage::SerializeWithCachedSizes(uint64_t thi
   return this;
 }
 
-uint64_t awd::metrics::LocationTilesUsage::ByteSize(awd::metrics::LocationTilesUsage *this)
+uint64_t awd::metrics::LocationTilesUsage::ByteSize(awd::metrics::LocationTilesUsage *this, unsigned int a2)
 {
   if (*(this + 16))
   {
-    v3 = *(this + 2);
-    if (v3 >= 0x80)
+    v4 = *(this + 2);
+    if (v4 >= 0x80)
     {
-      result = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v3) + 1;
+      result = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v4) + 1;
     }
 
     else
@@ -3458,7 +3426,6 @@ uint64_t awd::metrics::LocationTilesUsage::ByteSize(awd::metrics::LocationTilesU
 
 void awd::metrics::LocationTilesUsage::CheckTypeAndMergeFrom(awd::metrics::LocationTilesUsage *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     awd::metrics::LocationTilesUsage::CheckTypeAndMergeFrom();
   }
@@ -3644,9 +3611,9 @@ LABEL_12:
   }
 }
 
-void sub_296477C84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296477C84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3693,14 +3660,14 @@ uint64_t awd::metrics::LocationALSCacheUsage::Clear(uint64_t this)
   return this;
 }
 
-uint64_t awd::metrics::LocationALSCacheUsage::MergePartialFromCodedStream(awd::metrics::LocationALSCacheUsage *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2)
+uint64_t awd::metrics::LocationALSCacheUsage::MergePartialFromCodedStream(awd::metrics::LocationALSCacheUsage *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2, unsigned int a3)
 {
   while (1)
   {
     while (1)
     {
-      v4 = *(a2 + 1);
-      if (v4 >= *(a2 + 2) || (TagFallback = *v4, (TagFallback & 0x80000000) != 0))
+      v5 = *(a2 + 1);
+      if (v5 >= *(a2 + 2) || (TagFallback = *v5, (TagFallback & 0x80000000) != 0))
       {
         TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(a2);
         *(a2 + 8) = TagFallback;
@@ -3713,50 +3680,50 @@ uint64_t awd::metrics::LocationALSCacheUsage::MergePartialFromCodedStream(awd::m
       else
       {
         *(a2 + 8) = TagFallback;
-        *(a2 + 1) = v4 + 1;
+        *(a2 + 1) = v5 + 1;
         if (!TagFallback)
         {
           return 1;
         }
       }
 
-      v6 = TagFallback >> 3;
+      v7 = TagFallback >> 3;
       if (TagFallback >> 3 > 4)
       {
         if (TagFallback >> 3 > 6)
         {
-          if (v6 == 7)
+          if (v7 == 7)
           {
             if ((TagFallback & 7) == 0)
             {
-              v17 = *(a2 + 1);
-              v7 = *(a2 + 2);
+              v18 = *(a2 + 1);
+              v8 = *(a2 + 2);
               goto LABEL_83;
             }
           }
 
-          else if (v6 == 8 && (TagFallback & 7) == 0)
+          else if (v7 == 8 && (TagFallback & 7) == 0)
           {
-            v11 = *(a2 + 1);
-            v7 = *(a2 + 2);
+            v12 = *(a2 + 1);
+            v8 = *(a2 + 2);
             goto LABEL_91;
           }
         }
 
-        else if (v6 == 5)
+        else if (v7 == 5)
         {
           if ((TagFallback & 7) == 0)
           {
-            v15 = *(a2 + 1);
-            v7 = *(a2 + 2);
+            v16 = *(a2 + 1);
+            v8 = *(a2 + 2);
             goto LABEL_67;
           }
         }
 
-        else if (v6 == 6 && (TagFallback & 7) == 0)
+        else if (v7 == 6 && (TagFallback & 7) == 0)
         {
-          v9 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v10 = *(a2 + 1);
+          v8 = *(a2 + 2);
           goto LABEL_75;
         }
 
@@ -3765,27 +3732,27 @@ uint64_t awd::metrics::LocationALSCacheUsage::MergePartialFromCodedStream(awd::m
 
       if (TagFallback >> 3 > 2)
       {
-        if (v6 == 3)
+        if (v7 == 3)
         {
           if ((TagFallback & 7) == 0)
           {
-            v16 = *(a2 + 1);
-            v7 = *(a2 + 2);
+            v17 = *(a2 + 1);
+            v8 = *(a2 + 2);
             goto LABEL_51;
           }
         }
 
-        else if (v6 == 4 && (TagFallback & 7) == 0)
+        else if (v7 == 4 && (TagFallback & 7) == 0)
         {
-          v10 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v11 = *(a2 + 1);
+          v8 = *(a2 + 2);
           goto LABEL_59;
         }
 
         goto LABEL_34;
       }
 
-      if (v6 != 1)
+      if (v7 != 1)
       {
         break;
       }
@@ -3795,9 +3762,9 @@ uint64_t awd::metrics::LocationALSCacheUsage::MergePartialFromCodedStream(awd::m
         goto LABEL_34;
       }
 
-      v12 = *(a2 + 1);
-      v7 = *(a2 + 2);
-      if (v12 >= v7 || (v13 = *v12, v13 < 0))
+      v13 = *(a2 + 1);
+      v8 = *(a2 + 2);
+      if (v13 >= v8 || (v14 = *v13, v14 < 0))
       {
         result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 2);
         if (!result)
@@ -3805,24 +3772,24 @@ uint64_t awd::metrics::LocationALSCacheUsage::MergePartialFromCodedStream(awd::m
           return result;
         }
 
-        v14 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v15 = *(a2 + 1);
+        v8 = *(a2 + 2);
       }
 
       else
       {
-        *(this + 2) = v13;
-        v14 = v12 + 1;
-        *(a2 + 1) = v14;
+        *(this + 2) = v14;
+        v15 = v13 + 1;
+        *(a2 + 1) = v15;
       }
 
       *(this + 11) |= 1u;
-      if (v14 < v7 && *v14 == 16)
+      if (v15 < v8 && *v15 == 16)
       {
-        v8 = v14 + 1;
-        *(a2 + 1) = v8;
+        v9 = v15 + 1;
+        *(a2 + 1) = v9;
 LABEL_43:
-        if (v8 >= v7 || (v18 = *v8, v18 < 0))
+        if (v9 >= v8 || (v19 = *v9, v19 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 3);
           if (!result)
@@ -3830,24 +3797,24 @@ LABEL_43:
             return result;
           }
 
-          v19 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v20 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 3) = v18;
-          v19 = v8 + 1;
-          *(a2 + 1) = v19;
+          *(this + 3) = v19;
+          v20 = v9 + 1;
+          *(a2 + 1) = v20;
         }
 
         *(this + 11) |= 2u;
-        if (v19 < v7 && *v19 == 24)
+        if (v20 < v8 && *v20 == 24)
         {
-          v16 = v19 + 1;
-          *(a2 + 1) = v16;
+          v17 = v20 + 1;
+          *(a2 + 1) = v17;
 LABEL_51:
-          if (v16 >= v7 || (v20 = *v16, v20 < 0))
+          if (v17 >= v8 || (v21 = *v17, v21 < 0))
           {
             result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 4);
             if (!result)
@@ -3855,24 +3822,24 @@ LABEL_51:
               return result;
             }
 
-            v21 = *(a2 + 1);
-            v7 = *(a2 + 2);
+            v22 = *(a2 + 1);
+            v8 = *(a2 + 2);
           }
 
           else
           {
-            *(this + 4) = v20;
-            v21 = v16 + 1;
-            *(a2 + 1) = v21;
+            *(this + 4) = v21;
+            v22 = v17 + 1;
+            *(a2 + 1) = v22;
           }
 
           *(this + 11) |= 4u;
-          if (v21 < v7 && *v21 == 32)
+          if (v22 < v8 && *v22 == 32)
           {
-            v10 = v21 + 1;
-            *(a2 + 1) = v10;
+            v11 = v22 + 1;
+            *(a2 + 1) = v11;
 LABEL_59:
-            if (v10 >= v7 || (v22 = *v10, v22 < 0))
+            if (v11 >= v8 || (v23 = *v11, v23 < 0))
             {
               result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 5);
               if (!result)
@@ -3880,24 +3847,24 @@ LABEL_59:
                 return result;
               }
 
-              v23 = *(a2 + 1);
-              v7 = *(a2 + 2);
+              v24 = *(a2 + 1);
+              v8 = *(a2 + 2);
             }
 
             else
             {
-              *(this + 5) = v22;
-              v23 = v10 + 1;
-              *(a2 + 1) = v23;
+              *(this + 5) = v23;
+              v24 = v11 + 1;
+              *(a2 + 1) = v24;
             }
 
             *(this + 11) |= 8u;
-            if (v23 < v7 && *v23 == 40)
+            if (v24 < v8 && *v24 == 40)
             {
-              v15 = v23 + 1;
-              *(a2 + 1) = v15;
+              v16 = v24 + 1;
+              *(a2 + 1) = v16;
 LABEL_67:
-              if (v15 >= v7 || (v24 = *v15, v24 < 0))
+              if (v16 >= v8 || (v25 = *v16, v25 < 0))
               {
                 result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 6);
                 if (!result)
@@ -3905,24 +3872,24 @@ LABEL_67:
                   return result;
                 }
 
-                v25 = *(a2 + 1);
-                v7 = *(a2 + 2);
+                v26 = *(a2 + 1);
+                v8 = *(a2 + 2);
               }
 
               else
               {
-                *(this + 6) = v24;
-                v25 = v15 + 1;
-                *(a2 + 1) = v25;
+                *(this + 6) = v25;
+                v26 = v16 + 1;
+                *(a2 + 1) = v26;
               }
 
               *(this + 11) |= 0x10u;
-              if (v25 < v7 && *v25 == 48)
+              if (v26 < v8 && *v26 == 48)
               {
-                v9 = v25 + 1;
-                *(a2 + 1) = v9;
+                v10 = v26 + 1;
+                *(a2 + 1) = v10;
 LABEL_75:
-                if (v9 >= v7 || (v26 = *v9, v26 < 0))
+                if (v10 >= v8 || (v27 = *v10, v27 < 0))
                 {
                   result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 7);
                   if (!result)
@@ -3930,24 +3897,24 @@ LABEL_75:
                     return result;
                   }
 
-                  v27 = *(a2 + 1);
-                  v7 = *(a2 + 2);
+                  v28 = *(a2 + 1);
+                  v8 = *(a2 + 2);
                 }
 
                 else
                 {
-                  *(this + 7) = v26;
-                  v27 = v9 + 1;
-                  *(a2 + 1) = v27;
+                  *(this + 7) = v27;
+                  v28 = v10 + 1;
+                  *(a2 + 1) = v28;
                 }
 
                 *(this + 11) |= 0x20u;
-                if (v27 < v7 && *v27 == 56)
+                if (v28 < v8 && *v28 == 56)
                 {
-                  v17 = v27 + 1;
-                  *(a2 + 1) = v17;
+                  v18 = v28 + 1;
+                  *(a2 + 1) = v18;
 LABEL_83:
-                  if (v17 >= v7 || (v28 = *v17, v28 < 0))
+                  if (v18 >= v8 || (v29 = *v18, v29 < 0))
                   {
                     result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 8);
                     if (!result)
@@ -3955,24 +3922,24 @@ LABEL_83:
                       return result;
                     }
 
-                    v29 = *(a2 + 1);
-                    v7 = *(a2 + 2);
+                    v30 = *(a2 + 1);
+                    v8 = *(a2 + 2);
                   }
 
                   else
                   {
-                    *(this + 8) = v28;
-                    v29 = v17 + 1;
-                    *(a2 + 1) = v29;
+                    *(this + 8) = v29;
+                    v30 = v18 + 1;
+                    *(a2 + 1) = v30;
                   }
 
                   *(this + 11) |= 0x40u;
-                  if (v29 < v7 && *v29 == 64)
+                  if (v30 < v8 && *v30 == 64)
                   {
-                    v11 = v29 + 1;
-                    *(a2 + 1) = v11;
+                    v12 = v30 + 1;
+                    *(a2 + 1) = v12;
 LABEL_91:
-                    if (v11 >= v7 || (v30 = *v11, v30 < 0))
+                    if (v12 >= v8 || (v31 = *v12, v31 < 0))
                     {
                       result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 9);
                       if (!result)
@@ -3980,19 +3947,19 @@ LABEL_91:
                         return result;
                       }
 
-                      v31 = *(a2 + 1);
-                      v7 = *(a2 + 2);
+                      v32 = *(a2 + 1);
+                      v8 = *(a2 + 2);
                     }
 
                     else
                     {
-                      *(this + 9) = v30;
-                      v31 = v11 + 1;
-                      *(a2 + 1) = v31;
+                      *(this + 9) = v31;
+                      v32 = v12 + 1;
+                      *(a2 + 1) = v32;
                     }
 
                     *(this + 11) |= 0x80u;
-                    if (v31 == v7 && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
+                    if (v32 == v8 && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
                     {
                       *(a2 + 8) = 0;
                       result = 1;
@@ -4008,10 +3975,10 @@ LABEL_91:
       }
     }
 
-    if (v6 == 2 && (TagFallback & 7) == 0)
+    if (v7 == 2 && (TagFallback & 7) == 0)
     {
-      v8 = *(a2 + 1);
-      v7 = *(a2 + 2);
+      v9 = *(a2 + 1);
+      v8 = *(a2 + 2);
       goto LABEL_43;
     }
 
@@ -4135,23 +4102,23 @@ LABEL_17:
   return wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteUInt32(8, v7, a2, a4);
 }
 
-uint64_t awd::metrics::LocationALSCacheUsage::ByteSize(awd::metrics::LocationALSCacheUsage *this)
+uint64_t awd::metrics::LocationALSCacheUsage::ByteSize(awd::metrics::LocationALSCacheUsage *this, unsigned int a2)
 {
-  LOBYTE(v2) = *(this + 44);
-  if (!v2)
+  LOBYTE(v3) = *(this + 44);
+  if (!v3)
   {
-    v3 = 0;
+    v4 = 0;
     goto LABEL_45;
   }
 
   if (*(this + 44))
   {
-    v4 = *(this + 2);
-    if (v4 >= 0x80)
+    v5 = *(this + 2);
+    if (v5 >= 0x80)
     {
-      v3 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v4) + 1;
-      v2 = *(this + 11);
-      if ((v2 & 2) == 0)
+      v4 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v5) + 1;
+      v3 = *(this + 11);
+      if ((v3 & 2) == 0)
       {
         goto LABEL_14;
       }
@@ -4159,8 +4126,8 @@ uint64_t awd::metrics::LocationALSCacheUsage::ByteSize(awd::metrics::LocationALS
 
     else
     {
-      v3 = 2;
-      if ((v2 & 2) == 0)
+      v4 = 2;
+      if ((v3 & 2) == 0)
       {
         goto LABEL_14;
       }
@@ -4169,46 +4136,46 @@ uint64_t awd::metrics::LocationALSCacheUsage::ByteSize(awd::metrics::LocationALS
 
   else
   {
-    v3 = 0;
+    v4 = 0;
     if ((*(this + 44) & 2) == 0)
     {
       goto LABEL_14;
     }
   }
 
-  v5 = *(this + 3);
-  if (v5 >= 0x80)
+  v6 = *(this + 3);
+  if (v6 >= 0x80)
   {
-    v6 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v5) + 1;
-    v2 = *(this + 11);
+    v7 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v6) + 1;
+    v3 = *(this + 11);
   }
 
   else
   {
-    v6 = 2;
+    v7 = 2;
   }
 
-  v3 = (v6 + v3);
+  v4 = (v7 + v4);
 LABEL_14:
-  if ((v2 & 4) != 0)
+  if ((v3 & 4) != 0)
   {
-    v7 = *(this + 4);
-    if (v7 >= 0x80)
+    v8 = *(this + 4);
+    if (v8 >= 0x80)
     {
-      v8 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v7) + 1;
-      v2 = *(this + 11);
+      v9 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v8) + 1;
+      v3 = *(this + 11);
     }
 
     else
     {
-      v8 = 2;
+      v9 = 2;
     }
 
-    v3 = (v8 + v3);
-    if ((v2 & 8) == 0)
+    v4 = (v9 + v4);
+    if ((v3 & 8) == 0)
     {
 LABEL_16:
-      if ((v2 & 0x10) == 0)
+      if ((v3 & 0x10) == 0)
       {
         goto LABEL_17;
       }
@@ -4217,28 +4184,28 @@ LABEL_16:
     }
   }
 
-  else if ((v2 & 8) == 0)
+  else if ((v3 & 8) == 0)
   {
     goto LABEL_16;
   }
 
-  v9 = *(this + 5);
-  if (v9 >= 0x80)
+  v10 = *(this + 5);
+  if (v10 >= 0x80)
   {
-    v10 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v9) + 1;
-    v2 = *(this + 11);
+    v11 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v10) + 1;
+    v3 = *(this + 11);
   }
 
   else
   {
-    v10 = 2;
+    v11 = 2;
   }
 
-  v3 = (v10 + v3);
-  if ((v2 & 0x10) == 0)
+  v4 = (v11 + v4);
+  if ((v3 & 0x10) == 0)
   {
 LABEL_17:
-    if ((v2 & 0x20) == 0)
+    if ((v3 & 0x20) == 0)
     {
       goto LABEL_18;
     }
@@ -4247,23 +4214,23 @@ LABEL_17:
   }
 
 LABEL_29:
-  v11 = *(this + 6);
-  if (v11 >= 0x80)
+  v12 = *(this + 6);
+  if (v12 >= 0x80)
   {
-    v12 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v11) + 1;
-    v2 = *(this + 11);
+    v13 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v12) + 1;
+    v3 = *(this + 11);
   }
 
   else
   {
-    v12 = 2;
+    v13 = 2;
   }
 
-  v3 = (v12 + v3);
-  if ((v2 & 0x20) == 0)
+  v4 = (v13 + v4);
+  if ((v3 & 0x20) == 0)
   {
 LABEL_18:
-    if ((v2 & 0x40) == 0)
+    if ((v3 & 0x40) == 0)
     {
       goto LABEL_19;
     }
@@ -4272,23 +4239,23 @@ LABEL_18:
   }
 
 LABEL_33:
-  v13 = *(this + 7);
-  if (v13 >= 0x80)
+  v14 = *(this + 7);
+  if (v14 >= 0x80)
   {
-    v14 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v13) + 1;
-    v2 = *(this + 11);
+    v15 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v14) + 1;
+    v3 = *(this + 11);
   }
 
   else
   {
-    v14 = 2;
+    v15 = 2;
   }
 
-  v3 = (v14 + v3);
-  if ((v2 & 0x40) == 0)
+  v4 = (v15 + v4);
+  if ((v3 & 0x40) == 0)
   {
 LABEL_19:
-    if ((v2 & 0x80) == 0)
+    if ((v3 & 0x80) == 0)
     {
       goto LABEL_45;
     }
@@ -4297,44 +4264,43 @@ LABEL_19:
   }
 
 LABEL_37:
-  v15 = *(this + 8);
-  if (v15 >= 0x80)
+  v16 = *(this + 8);
+  if (v16 >= 0x80)
   {
-    v16 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v15) + 1;
-    v2 = *(this + 11);
+    v17 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v16) + 1;
+    v3 = *(this + 11);
   }
 
   else
   {
-    v16 = 2;
+    v17 = 2;
   }
 
-  v3 = (v16 + v3);
-  if ((v2 & 0x80) != 0)
+  v4 = (v17 + v4);
+  if ((v3 & 0x80) != 0)
   {
 LABEL_41:
-    v17 = *(this + 9);
-    if (v17 >= 0x80)
+    v18 = *(this + 9);
+    if (v18 >= 0x80)
     {
-      v18 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v17) + 1;
+      v19 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v18) + 1;
     }
 
     else
     {
-      v18 = 2;
+      v19 = 2;
     }
 
-    v3 = (v18 + v3);
+    v4 = (v19 + v4);
   }
 
 LABEL_45:
-  *(this + 10) = v3;
-  return v3;
+  *(this + 10) = v4;
+  return v4;
 }
 
 void awd::metrics::LocationALSCacheUsage::CheckTypeAndMergeFrom(awd::metrics::LocationALSCacheUsage *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     awd::metrics::LocationALSCacheUsage::CheckTypeAndMergeFrom();
   }
@@ -4635,9 +4601,9 @@ LABEL_20:
   *(this + 15) = v6;
 }
 
-void sub_296478978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296478978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4692,12 +4658,12 @@ uint64_t awd::metrics::LocationALSNetworkUsage::Clear(uint64_t this)
   return this;
 }
 
-uint64_t awd::metrics::LocationALSNetworkUsage::MergePartialFromCodedStream(awd::metrics::LocationALSNetworkUsage *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2)
+uint64_t awd::metrics::LocationALSNetworkUsage::MergePartialFromCodedStream(awd::metrics::LocationALSNetworkUsage *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2, unsigned int a3)
 {
   while (2)
   {
-    v4 = *(a2 + 1);
-    if (v4 >= *(a2 + 2) || (TagFallback = *v4, (TagFallback & 0x80000000) != 0))
+    v5 = *(a2 + 1);
+    if (v5 >= *(a2 + 2) || (TagFallback = *v5, (TagFallback & 0x80000000) != 0))
     {
       TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(a2);
       *(a2 + 8) = TagFallback;
@@ -4710,7 +4676,7 @@ uint64_t awd::metrics::LocationALSNetworkUsage::MergePartialFromCodedStream(awd:
     else
     {
       *(a2 + 8) = TagFallback;
-      *(a2 + 1) = v4 + 1;
+      *(a2 + 1) = v5 + 1;
       if (!TagFallback)
       {
         return 1;
@@ -4725,22 +4691,22 @@ uint64_t awd::metrics::LocationALSNetworkUsage::MergePartialFromCodedStream(awd:
           goto LABEL_36;
         }
 
-        v7 = *(a2 + 1);
-        v6 = *(a2 + 2);
-        if (v7 < v6)
+        v8 = *(a2 + 1);
+        v7 = *(a2 + 2);
+        if (v8 < v7)
         {
-          v8 = *v7;
-          if ((v8 & 0x80000000) == 0)
+          v9 = *v8;
+          if ((v9 & 0x80000000) == 0)
           {
-            *(this + 2) = v8;
-            v9 = v7 + 1;
-            *(a2 + 1) = v9;
+            *(this + 2) = v9;
+            v10 = v8 + 1;
+            *(a2 + 1) = v10;
 LABEL_42:
             *(this + 17) |= 1u;
-            if (v9 < v6 && *v9 == 16)
+            if (v10 < v7 && *v10 == 16)
             {
-              v17 = v9 + 1;
-              *(a2 + 1) = v17;
+              v18 = v10 + 1;
+              *(a2 + 1) = v18;
               goto LABEL_45;
             }
 
@@ -4751,8 +4717,8 @@ LABEL_42:
         result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 2);
         if (result)
         {
-          v9 = *(a2 + 1);
-          v6 = *(a2 + 2);
+          v10 = *(a2 + 1);
+          v7 = *(a2 + 2);
           goto LABEL_42;
         }
 
@@ -4763,10 +4729,10 @@ LABEL_42:
           goto LABEL_36;
         }
 
-        v17 = *(a2 + 1);
-        v6 = *(a2 + 2);
+        v18 = *(a2 + 1);
+        v7 = *(a2 + 2);
 LABEL_45:
-        if (v17 >= v6 || (v23 = *v17, v23 < 0))
+        if (v18 >= v7 || (v24 = *v18, v24 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 3);
           if (!result)
@@ -4774,27 +4740,27 @@ LABEL_45:
             return result;
           }
 
-          v24 = *(a2 + 1);
-          v6 = *(a2 + 2);
+          v25 = *(a2 + 1);
+          v7 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 3) = v23;
-          v24 = v17 + 1;
-          *(a2 + 1) = v24;
+          *(this + 3) = v24;
+          v25 = v18 + 1;
+          *(a2 + 1) = v25;
         }
 
         *(this + 17) |= 2u;
-        if (v24 >= v6 || *v24 != 24)
+        if (v25 >= v7 || *v25 != 24)
         {
           continue;
         }
 
-        v14 = v24 + 1;
-        *(a2 + 1) = v14;
+        v15 = v25 + 1;
+        *(a2 + 1) = v15;
 LABEL_53:
-        if (v14 >= v6 || (v25 = *v14, v25 < 0))
+        if (v15 >= v7 || (v26 = *v15, v26 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 4);
           if (!result)
@@ -4802,27 +4768,27 @@ LABEL_53:
             return result;
           }
 
-          v26 = *(a2 + 1);
-          v6 = *(a2 + 2);
+          v27 = *(a2 + 1);
+          v7 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 4) = v25;
-          v26 = v14 + 1;
-          *(a2 + 1) = v26;
+          *(this + 4) = v26;
+          v27 = v15 + 1;
+          *(a2 + 1) = v27;
         }
 
         *(this + 17) |= 4u;
-        if (v26 >= v6 || *v26 != 32)
+        if (v27 >= v7 || *v27 != 32)
         {
           continue;
         }
 
-        v15 = v26 + 1;
-        *(a2 + 1) = v15;
+        v16 = v27 + 1;
+        *(a2 + 1) = v16;
 LABEL_61:
-        if (v15 >= v6 || (v27 = *v15, v27 < 0))
+        if (v16 >= v7 || (v28 = *v16, v28 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 5);
           if (!result)
@@ -4830,27 +4796,27 @@ LABEL_61:
             return result;
           }
 
-          v28 = *(a2 + 1);
-          v6 = *(a2 + 2);
+          v29 = *(a2 + 1);
+          v7 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 5) = v27;
-          v28 = v15 + 1;
-          *(a2 + 1) = v28;
+          *(this + 5) = v28;
+          v29 = v16 + 1;
+          *(a2 + 1) = v29;
         }
 
         *(this + 17) |= 8u;
-        if (v28 >= v6 || *v28 != 40)
+        if (v29 >= v7 || *v29 != 40)
         {
           continue;
         }
 
-        v11 = v28 + 1;
-        *(a2 + 1) = v11;
+        v12 = v29 + 1;
+        *(a2 + 1) = v12;
 LABEL_69:
-        if (v11 >= v6 || (v29 = *v11, v29 < 0))
+        if (v12 >= v7 || (v30 = *v12, v30 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 6);
           if (!result)
@@ -4858,27 +4824,27 @@ LABEL_69:
             return result;
           }
 
-          v30 = *(a2 + 1);
-          v6 = *(a2 + 2);
+          v31 = *(a2 + 1);
+          v7 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 6) = v29;
-          v30 = v11 + 1;
-          *(a2 + 1) = v30;
+          *(this + 6) = v30;
+          v31 = v12 + 1;
+          *(a2 + 1) = v31;
         }
 
         *(this + 17) |= 0x10u;
-        if (v30 >= v6 || *v30 != 48)
+        if (v31 >= v7 || *v31 != 48)
         {
           continue;
         }
 
-        v18 = v30 + 1;
-        *(a2 + 1) = v18;
+        v19 = v31 + 1;
+        *(a2 + 1) = v19;
 LABEL_77:
-        if (v18 >= v6 || (v31 = *v18, v31 < 0))
+        if (v19 >= v7 || (v32 = *v19, v32 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 7);
           if (!result)
@@ -4886,27 +4852,27 @@ LABEL_77:
             return result;
           }
 
-          v32 = *(a2 + 1);
-          v6 = *(a2 + 2);
+          v33 = *(a2 + 1);
+          v7 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 7) = v31;
-          v32 = v18 + 1;
-          *(a2 + 1) = v32;
+          *(this + 7) = v32;
+          v33 = v19 + 1;
+          *(a2 + 1) = v33;
         }
 
         *(this + 17) |= 0x20u;
-        if (v32 >= v6 || *v32 != 56)
+        if (v33 >= v7 || *v33 != 56)
         {
           continue;
         }
 
-        v20 = v32 + 1;
-        *(a2 + 1) = v20;
+        v21 = v33 + 1;
+        *(a2 + 1) = v21;
 LABEL_85:
-        if (v20 >= v6 || (v33 = *v20, v33 < 0))
+        if (v21 >= v7 || (v34 = *v21, v34 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 8);
           if (!result)
@@ -4914,27 +4880,27 @@ LABEL_85:
             return result;
           }
 
-          v34 = *(a2 + 1);
-          v6 = *(a2 + 2);
+          v35 = *(a2 + 1);
+          v7 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 8) = v33;
-          v34 = v20 + 1;
-          *(a2 + 1) = v34;
+          *(this + 8) = v34;
+          v35 = v21 + 1;
+          *(a2 + 1) = v35;
         }
 
         *(this + 17) |= 0x40u;
-        if (v34 >= v6 || *v34 != 64)
+        if (v35 >= v7 || *v35 != 64)
         {
           continue;
         }
 
-        v16 = v34 + 1;
-        *(a2 + 1) = v16;
+        v17 = v35 + 1;
+        *(a2 + 1) = v17;
 LABEL_93:
-        if (v16 >= v6 || (v35 = *v16, v35 < 0))
+        if (v17 >= v7 || (v36 = *v17, v36 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 9);
           if (!result)
@@ -4942,27 +4908,27 @@ LABEL_93:
             return result;
           }
 
-          v36 = *(a2 + 1);
-          v6 = *(a2 + 2);
+          v37 = *(a2 + 1);
+          v7 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 9) = v35;
-          v36 = v16 + 1;
-          *(a2 + 1) = v36;
+          *(this + 9) = v36;
+          v37 = v17 + 1;
+          *(a2 + 1) = v37;
         }
 
         *(this + 17) |= 0x80u;
-        if (v36 >= v6 || *v36 != 72)
+        if (v37 >= v7 || *v37 != 72)
         {
           continue;
         }
 
-        v22 = v36 + 1;
-        *(a2 + 1) = v22;
+        v23 = v37 + 1;
+        *(a2 + 1) = v23;
 LABEL_101:
-        if (v22 >= v6 || (v37 = *v22, v37 < 0))
+        if (v23 >= v7 || (v38 = *v23, v38 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 10);
           if (!result)
@@ -4970,27 +4936,27 @@ LABEL_101:
             return result;
           }
 
-          v38 = *(a2 + 1);
-          v6 = *(a2 + 2);
+          v39 = *(a2 + 1);
+          v7 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 10) = v37;
-          v38 = v22 + 1;
-          *(a2 + 1) = v38;
+          *(this + 10) = v38;
+          v39 = v23 + 1;
+          *(a2 + 1) = v39;
         }
 
         *(this + 17) |= 0x100u;
-        if (v38 >= v6 || *v38 != 80)
+        if (v39 >= v7 || *v39 != 80)
         {
           continue;
         }
 
-        v13 = v38 + 1;
-        *(a2 + 1) = v13;
+        v14 = v39 + 1;
+        *(a2 + 1) = v14;
 LABEL_109:
-        if (v13 >= v6 || (v39 = *v13, v39 < 0))
+        if (v14 >= v7 || (v40 = *v14, v40 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 11);
           if (!result)
@@ -4998,27 +4964,27 @@ LABEL_109:
             return result;
           }
 
-          v40 = *(a2 + 1);
-          v6 = *(a2 + 2);
+          v41 = *(a2 + 1);
+          v7 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 11) = v39;
-          v40 = v13 + 1;
-          *(a2 + 1) = v40;
+          *(this + 11) = v40;
+          v41 = v14 + 1;
+          *(a2 + 1) = v41;
         }
 
         *(this + 17) |= 0x200u;
-        if (v40 >= v6 || *v40 != 88)
+        if (v41 >= v7 || *v41 != 88)
         {
           continue;
         }
 
-        v21 = v40 + 1;
-        *(a2 + 1) = v21;
+        v22 = v41 + 1;
+        *(a2 + 1) = v22;
 LABEL_117:
-        if (v21 >= v6 || (v41 = *v21, v41 < 0))
+        if (v22 >= v7 || (v42 = *v22, v42 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 12);
           if (!result)
@@ -5026,27 +4992,27 @@ LABEL_117:
             return result;
           }
 
-          v42 = *(a2 + 1);
-          v6 = *(a2 + 2);
+          v43 = *(a2 + 1);
+          v7 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 12) = v41;
-          v42 = v21 + 1;
-          *(a2 + 1) = v42;
+          *(this + 12) = v42;
+          v43 = v22 + 1;
+          *(a2 + 1) = v43;
         }
 
         *(this + 17) |= 0x400u;
-        if (v42 >= v6 || *v42 != 96)
+        if (v43 >= v7 || *v43 != 96)
         {
           continue;
         }
 
-        v10 = v42 + 1;
-        *(a2 + 1) = v10;
+        v11 = v43 + 1;
+        *(a2 + 1) = v11;
 LABEL_125:
-        if (v10 >= v6 || (v43 = *v10, v43 < 0))
+        if (v11 >= v7 || (v44 = *v11, v44 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 13);
           if (!result)
@@ -5054,27 +5020,27 @@ LABEL_125:
             return result;
           }
 
-          v44 = *(a2 + 1);
-          v6 = *(a2 + 2);
+          v45 = *(a2 + 1);
+          v7 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 13) = v43;
-          v44 = v10 + 1;
-          *(a2 + 1) = v44;
+          *(this + 13) = v44;
+          v45 = v11 + 1;
+          *(a2 + 1) = v45;
         }
 
         *(this + 17) |= 0x800u;
-        if (v44 >= v6 || *v44 != 104)
+        if (v45 >= v7 || *v45 != 104)
         {
           continue;
         }
 
-        v12 = v44 + 1;
-        *(a2 + 1) = v12;
+        v13 = v45 + 1;
+        *(a2 + 1) = v13;
 LABEL_133:
-        if (v12 >= v6 || (v45 = *v12, v45 < 0))
+        if (v13 >= v7 || (v46 = *v13, v46 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 14);
           if (!result)
@@ -5082,27 +5048,27 @@ LABEL_133:
             return result;
           }
 
-          v46 = *(a2 + 1);
-          v6 = *(a2 + 2);
+          v47 = *(a2 + 1);
+          v7 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 14) = v45;
-          v46 = v12 + 1;
-          *(a2 + 1) = v46;
+          *(this + 14) = v46;
+          v47 = v13 + 1;
+          *(a2 + 1) = v47;
         }
 
         *(this + 17) |= 0x1000u;
-        if (v46 >= v6 || *v46 != 112)
+        if (v47 >= v7 || *v47 != 112)
         {
           continue;
         }
 
-        v19 = v46 + 1;
-        *(a2 + 1) = v19;
+        v20 = v47 + 1;
+        *(a2 + 1) = v20;
 LABEL_141:
-        if (v19 >= v6 || (v47 = *v19, v47 < 0))
+        if (v20 >= v7 || (v48 = *v20, v48 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 15);
           if (!result)
@@ -5110,19 +5076,19 @@ LABEL_141:
             return result;
           }
 
-          v48 = *(a2 + 1);
-          v6 = *(a2 + 2);
+          v49 = *(a2 + 1);
+          v7 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 15) = v47;
-          v48 = v19 + 1;
-          *(a2 + 1) = v48;
+          *(this + 15) = v48;
+          v49 = v20 + 1;
+          *(a2 + 1) = v49;
         }
 
         *(this + 17) |= 0x2000u;
-        if (v48 != v6 || !*(a2 + 11) && *(a2 + 6) != *(a2 + 10))
+        if (v49 != v7 || !*(a2 + 11) && *(a2 + 6) != *(a2 + 10))
         {
           continue;
         }
@@ -5137,8 +5103,8 @@ LABEL_141:
           goto LABEL_36;
         }
 
-        v14 = *(a2 + 1);
-        v6 = *(a2 + 2);
+        v15 = *(a2 + 1);
+        v7 = *(a2 + 2);
         goto LABEL_53;
       case 4u:
         if ((TagFallback & 7) != 0)
@@ -5146,8 +5112,8 @@ LABEL_141:
           goto LABEL_36;
         }
 
-        v15 = *(a2 + 1);
-        v6 = *(a2 + 2);
+        v16 = *(a2 + 1);
+        v7 = *(a2 + 2);
         goto LABEL_61;
       case 5u:
         if ((TagFallback & 7) != 0)
@@ -5155,8 +5121,8 @@ LABEL_141:
           goto LABEL_36;
         }
 
-        v11 = *(a2 + 1);
-        v6 = *(a2 + 2);
+        v12 = *(a2 + 1);
+        v7 = *(a2 + 2);
         goto LABEL_69;
       case 6u:
         if ((TagFallback & 7) != 0)
@@ -5164,8 +5130,8 @@ LABEL_141:
           goto LABEL_36;
         }
 
-        v18 = *(a2 + 1);
-        v6 = *(a2 + 2);
+        v19 = *(a2 + 1);
+        v7 = *(a2 + 2);
         goto LABEL_77;
       case 7u:
         if ((TagFallback & 7) != 0)
@@ -5173,8 +5139,8 @@ LABEL_141:
           goto LABEL_36;
         }
 
-        v20 = *(a2 + 1);
-        v6 = *(a2 + 2);
+        v21 = *(a2 + 1);
+        v7 = *(a2 + 2);
         goto LABEL_85;
       case 8u:
         if ((TagFallback & 7) != 0)
@@ -5182,8 +5148,8 @@ LABEL_141:
           goto LABEL_36;
         }
 
-        v16 = *(a2 + 1);
-        v6 = *(a2 + 2);
+        v17 = *(a2 + 1);
+        v7 = *(a2 + 2);
         goto LABEL_93;
       case 9u:
         if ((TagFallback & 7) != 0)
@@ -5191,8 +5157,8 @@ LABEL_141:
           goto LABEL_36;
         }
 
-        v22 = *(a2 + 1);
-        v6 = *(a2 + 2);
+        v23 = *(a2 + 1);
+        v7 = *(a2 + 2);
         goto LABEL_101;
       case 0xAu:
         if ((TagFallback & 7) != 0)
@@ -5200,8 +5166,8 @@ LABEL_141:
           goto LABEL_36;
         }
 
-        v13 = *(a2 + 1);
-        v6 = *(a2 + 2);
+        v14 = *(a2 + 1);
+        v7 = *(a2 + 2);
         goto LABEL_109;
       case 0xBu:
         if ((TagFallback & 7) != 0)
@@ -5209,8 +5175,8 @@ LABEL_141:
           goto LABEL_36;
         }
 
-        v21 = *(a2 + 1);
-        v6 = *(a2 + 2);
+        v22 = *(a2 + 1);
+        v7 = *(a2 + 2);
         goto LABEL_117;
       case 0xCu:
         if ((TagFallback & 7) != 0)
@@ -5218,8 +5184,8 @@ LABEL_141:
           goto LABEL_36;
         }
 
-        v10 = *(a2 + 1);
-        v6 = *(a2 + 2);
+        v11 = *(a2 + 1);
+        v7 = *(a2 + 2);
         goto LABEL_125;
       case 0xDu:
         if ((TagFallback & 7) != 0)
@@ -5227,8 +5193,8 @@ LABEL_141:
           goto LABEL_36;
         }
 
-        v12 = *(a2 + 1);
-        v6 = *(a2 + 2);
+        v13 = *(a2 + 1);
+        v7 = *(a2 + 2);
         goto LABEL_133;
       case 0xEu:
         if ((TagFallback & 7) != 0)
@@ -5236,8 +5202,8 @@ LABEL_141:
           goto LABEL_36;
         }
 
-        v19 = *(a2 + 1);
-        v6 = *(a2 + 2);
+        v20 = *(a2 + 1);
+        v7 = *(a2 + 2);
         goto LABEL_141;
       default:
 LABEL_36:
@@ -5449,23 +5415,23 @@ LABEL_29:
   return wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteUInt32(0xE, v7, a2, a4);
 }
 
-uint64_t awd::metrics::LocationALSNetworkUsage::ByteSize(awd::metrics::LocationALSNetworkUsage *this)
+uint64_t awd::metrics::LocationALSNetworkUsage::ByteSize(awd::metrics::LocationALSNetworkUsage *this, unsigned int a2)
 {
-  v2 = *(this + 17);
-  if (!v2)
+  v3 = *(this + 17);
+  if (!v3)
   {
-    v3 = 0;
+    v4 = 0;
     goto LABEL_45;
   }
 
-  if (v2)
+  if (v3)
   {
-    v4 = *(this + 2);
-    if (v4 >= 0x80)
+    v5 = *(this + 2);
+    if (v5 >= 0x80)
     {
-      v3 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v4) + 1;
-      v2 = *(this + 17);
-      if ((v2 & 2) == 0)
+      v4 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v5) + 1;
+      v3 = *(this + 17);
+      if ((v3 & 2) == 0)
       {
         goto LABEL_14;
       }
@@ -5473,8 +5439,8 @@ uint64_t awd::metrics::LocationALSNetworkUsage::ByteSize(awd::metrics::LocationA
 
     else
     {
-      v3 = 2;
-      if ((v2 & 2) == 0)
+      v4 = 2;
+      if ((v3 & 2) == 0)
       {
         goto LABEL_14;
       }
@@ -5483,46 +5449,46 @@ uint64_t awd::metrics::LocationALSNetworkUsage::ByteSize(awd::metrics::LocationA
 
   else
   {
-    v3 = 0;
-    if ((v2 & 2) == 0)
+    v4 = 0;
+    if ((v3 & 2) == 0)
     {
       goto LABEL_14;
     }
   }
 
-  v5 = *(this + 3);
-  if (v5 >= 0x80)
+  v6 = *(this + 3);
+  if (v6 >= 0x80)
   {
-    v6 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v5) + 1;
-    v2 = *(this + 17);
+    v7 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v6) + 1;
+    v3 = *(this + 17);
   }
 
   else
   {
-    v6 = 2;
+    v7 = 2;
   }
 
-  v3 = (v6 + v3);
+  v4 = (v7 + v4);
 LABEL_14:
-  if ((v2 & 4) != 0)
+  if ((v3 & 4) != 0)
   {
-    v7 = *(this + 4);
-    if (v7 >= 0x80)
+    v8 = *(this + 4);
+    if (v8 >= 0x80)
     {
-      v8 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v7) + 1;
-      v2 = *(this + 17);
+      v9 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v8) + 1;
+      v3 = *(this + 17);
     }
 
     else
     {
-      v8 = 2;
+      v9 = 2;
     }
 
-    v3 = (v8 + v3);
-    if ((v2 & 8) == 0)
+    v4 = (v9 + v4);
+    if ((v3 & 8) == 0)
     {
 LABEL_16:
-      if ((v2 & 0x10) == 0)
+      if ((v3 & 0x10) == 0)
       {
         goto LABEL_17;
       }
@@ -5531,28 +5497,28 @@ LABEL_16:
     }
   }
 
-  else if ((v2 & 8) == 0)
+  else if ((v3 & 8) == 0)
   {
     goto LABEL_16;
   }
 
-  v9 = *(this + 5);
-  if (v9 >= 0x80)
+  v10 = *(this + 5);
+  if (v10 >= 0x80)
   {
-    v10 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v9) + 1;
-    v2 = *(this + 17);
+    v11 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v10) + 1;
+    v3 = *(this + 17);
   }
 
   else
   {
-    v10 = 2;
+    v11 = 2;
   }
 
-  v3 = (v10 + v3);
-  if ((v2 & 0x10) == 0)
+  v4 = (v11 + v4);
+  if ((v3 & 0x10) == 0)
   {
 LABEL_17:
-    if ((v2 & 0x20) == 0)
+    if ((v3 & 0x20) == 0)
     {
       goto LABEL_18;
     }
@@ -5561,23 +5527,23 @@ LABEL_17:
   }
 
 LABEL_29:
-  v11 = *(this + 6);
-  if (v11 >= 0x80)
+  v12 = *(this + 6);
+  if (v12 >= 0x80)
   {
-    v12 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v11) + 1;
-    v2 = *(this + 17);
+    v13 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v12) + 1;
+    v3 = *(this + 17);
   }
 
   else
   {
-    v12 = 2;
+    v13 = 2;
   }
 
-  v3 = (v12 + v3);
-  if ((v2 & 0x20) == 0)
+  v4 = (v13 + v4);
+  if ((v3 & 0x20) == 0)
   {
 LABEL_18:
-    if ((v2 & 0x40) == 0)
+    if ((v3 & 0x40) == 0)
     {
       goto LABEL_19;
     }
@@ -5586,23 +5552,23 @@ LABEL_18:
   }
 
 LABEL_33:
-  v13 = *(this + 7);
-  if (v13 >= 0x80)
+  v14 = *(this + 7);
+  if (v14 >= 0x80)
   {
-    v14 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v13) + 1;
-    v2 = *(this + 17);
+    v15 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v14) + 1;
+    v3 = *(this + 17);
   }
 
   else
   {
-    v14 = 2;
+    v15 = 2;
   }
 
-  v3 = (v14 + v3);
-  if ((v2 & 0x40) == 0)
+  v4 = (v15 + v4);
+  if ((v3 & 0x40) == 0)
   {
 LABEL_19:
-    if ((v2 & 0x80) == 0)
+    if ((v3 & 0x80) == 0)
     {
       goto LABEL_45;
     }
@@ -5611,62 +5577,62 @@ LABEL_19:
   }
 
 LABEL_37:
-  v15 = *(this + 8);
-  if (v15 >= 0x80)
+  v16 = *(this + 8);
+  if (v16 >= 0x80)
   {
-    v16 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v15) + 1;
-    v2 = *(this + 17);
+    v17 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v16) + 1;
+    v3 = *(this + 17);
   }
 
   else
   {
-    v16 = 2;
+    v17 = 2;
   }
 
-  v3 = (v16 + v3);
-  if ((v2 & 0x80) != 0)
+  v4 = (v17 + v4);
+  if ((v3 & 0x80) != 0)
   {
 LABEL_41:
-    v17 = *(this + 9);
-    if (v17 >= 0x80)
+    v18 = *(this + 9);
+    if (v18 >= 0x80)
     {
-      v18 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v17) + 1;
-      v2 = *(this + 17);
+      v19 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v18) + 1;
+      v3 = *(this + 17);
     }
 
     else
     {
-      v18 = 2;
+      v19 = 2;
     }
 
-    v3 = (v18 + v3);
+    v4 = (v19 + v4);
   }
 
 LABEL_45:
-  if ((v2 & 0xFF00) == 0)
+  if ((v3 & 0xFF00) == 0)
   {
     goto LABEL_77;
   }
 
-  if ((v2 & 0x100) != 0)
+  if ((v3 & 0x100) != 0)
   {
-    v19 = *(this + 10);
-    if (v19 >= 0x80)
+    v20 = *(this + 10);
+    if (v20 >= 0x80)
     {
-      v20 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v19) + 1;
-      v2 = *(this + 17);
+      v21 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v20) + 1;
+      v3 = *(this + 17);
     }
 
     else
     {
-      v20 = 2;
+      v21 = 2;
     }
 
-    v3 = (v20 + v3);
-    if ((v2 & 0x200) == 0)
+    v4 = (v21 + v4);
+    if ((v3 & 0x200) == 0)
     {
 LABEL_48:
-      if ((v2 & 0x400) == 0)
+      if ((v3 & 0x400) == 0)
       {
         goto LABEL_49;
       }
@@ -5675,28 +5641,28 @@ LABEL_48:
     }
   }
 
-  else if ((v2 & 0x200) == 0)
+  else if ((v3 & 0x200) == 0)
   {
     goto LABEL_48;
   }
 
-  v21 = *(this + 11);
-  if (v21 >= 0x80)
+  v22 = *(this + 11);
+  if (v22 >= 0x80)
   {
-    v22 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v21) + 1;
-    v2 = *(this + 17);
+    v23 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v22) + 1;
+    v3 = *(this + 17);
   }
 
   else
   {
-    v22 = 2;
+    v23 = 2;
   }
 
-  v3 = (v22 + v3);
-  if ((v2 & 0x400) == 0)
+  v4 = (v23 + v4);
+  if ((v3 & 0x400) == 0)
   {
 LABEL_49:
-    if ((v2 & 0x800) == 0)
+    if ((v3 & 0x800) == 0)
     {
       goto LABEL_50;
     }
@@ -5705,23 +5671,23 @@ LABEL_49:
   }
 
 LABEL_61:
-  v23 = *(this + 12);
-  if (v23 >= 0x80)
+  v24 = *(this + 12);
+  if (v24 >= 0x80)
   {
-    v24 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v23) + 1;
-    v2 = *(this + 17);
+    v25 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v24) + 1;
+    v3 = *(this + 17);
   }
 
   else
   {
-    v24 = 2;
+    v25 = 2;
   }
 
-  v3 = (v24 + v3);
-  if ((v2 & 0x800) == 0)
+  v4 = (v25 + v4);
+  if ((v3 & 0x800) == 0)
   {
 LABEL_50:
-    if ((v2 & 0x1000) == 0)
+    if ((v3 & 0x1000) == 0)
     {
       goto LABEL_51;
     }
@@ -5730,23 +5696,23 @@ LABEL_50:
   }
 
 LABEL_65:
-  v25 = *(this + 13);
-  if (v25 >= 0x80)
+  v26 = *(this + 13);
+  if (v26 >= 0x80)
   {
-    v26 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v25) + 1;
-    v2 = *(this + 17);
+    v27 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v26) + 1;
+    v3 = *(this + 17);
   }
 
   else
   {
-    v26 = 2;
+    v27 = 2;
   }
 
-  v3 = (v26 + v3);
-  if ((v2 & 0x1000) == 0)
+  v4 = (v27 + v4);
+  if ((v3 & 0x1000) == 0)
   {
 LABEL_51:
-    if ((v2 & 0x2000) == 0)
+    if ((v3 & 0x2000) == 0)
     {
       goto LABEL_77;
     }
@@ -5755,44 +5721,43 @@ LABEL_51:
   }
 
 LABEL_69:
-  v27 = *(this + 14);
-  if (v27 >= 0x80)
+  v28 = *(this + 14);
+  if (v28 >= 0x80)
   {
-    v28 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v27) + 1;
-    v2 = *(this + 17);
+    v29 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v28) + 1;
+    v3 = *(this + 17);
   }
 
   else
   {
-    v28 = 2;
+    v29 = 2;
   }
 
-  v3 = (v28 + v3);
-  if ((v2 & 0x2000) != 0)
+  v4 = (v29 + v4);
+  if ((v3 & 0x2000) != 0)
   {
 LABEL_73:
-    v29 = *(this + 15);
-    if (v29 >= 0x80)
+    v30 = *(this + 15);
+    if (v30 >= 0x80)
     {
-      v30 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v29) + 1;
+      v31 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v30) + 1;
     }
 
     else
     {
-      v30 = 2;
+      v31 = 2;
     }
 
-    v3 = (v30 + v3);
+    v4 = (v31 + v4);
   }
 
 LABEL_77:
-  *(this + 16) = v3;
-  return v3;
+  *(this + 16) = v4;
+  return v4;
 }
 
 void awd::metrics::LocationALSNetworkUsage::CheckTypeAndMergeFrom(awd::metrics::LocationALSNetworkUsage *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     awd::metrics::LocationALSNetworkUsage::CheckTypeAndMergeFrom();
   }
@@ -6144,9 +6109,9 @@ LABEL_42:
   }
 }
 
-void sub_296479C40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296479C40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -6287,12 +6252,12 @@ uint64_t awd::metrics::LocationSessionDay::Clear(uint64_t this)
   return this;
 }
 
-uint64_t awd::metrics::LocationSessionDay::MergePartialFromCodedStream(awd::metrics::LocationSessionDay *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2)
+uint64_t awd::metrics::LocationSessionDay::MergePartialFromCodedStream(awd::metrics::LocationSessionDay *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2, unsigned int a3)
 {
   while (2)
   {
-    v4 = *(a2 + 1);
-    if (v4 >= *(a2 + 2) || (TagFallback = *v4, (TagFallback & 0x80000000) != 0))
+    v5 = *(a2 + 1);
+    if (v5 >= *(a2 + 2) || (TagFallback = *v5, (TagFallback & 0x80000000) != 0))
     {
       TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(a2);
       *(a2 + 8) = TagFallback;
@@ -6305,14 +6270,14 @@ uint64_t awd::metrics::LocationSessionDay::MergePartialFromCodedStream(awd::metr
     else
     {
       *(a2 + 8) = TagFallback;
-      *(a2 + 1) = v4 + 1;
+      *(a2 + 1) = v5 + 1;
       if (!TagFallback)
       {
         return 1;
       }
     }
 
-    v6 = TagFallback & 7;
+    v7 = TagFallback & 7;
     switch(TagFallback >> 3)
     {
       case 1u:
@@ -6321,9 +6286,9 @@ uint64_t awd::metrics::LocationSessionDay::MergePartialFromCodedStream(awd::metr
           goto LABEL_36;
         }
 
-        v8 = *(a2 + 1);
-        v7 = *(a2 + 2);
-        if (v8 >= v7 || (v9 = *v8, v9 < 0))
+        v9 = *(a2 + 1);
+        v8 = *(a2 + 2);
+        if (v9 >= v8 || (v10 = *v9, v10 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 2);
           if (!result)
@@ -6331,22 +6296,22 @@ uint64_t awd::metrics::LocationSessionDay::MergePartialFromCodedStream(awd::metr
             return result;
           }
 
-          v10 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v11 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 2) = v9;
-          v10 = v8 + 1;
-          *(a2 + 1) = v10;
+          *(this + 2) = v10;
+          v11 = v9 + 1;
+          *(a2 + 1) = v11;
         }
 
         *(this + 20) |= 1u;
-        if (v10 < v7 && *v10 == 16)
+        if (v11 < v8 && *v11 == 16)
         {
-          v16 = v10 + 1;
-          *(a2 + 1) = v16;
+          v17 = v11 + 1;
+          *(a2 + 1) = v17;
           goto LABEL_45;
         }
 
@@ -6357,10 +6322,10 @@ uint64_t awd::metrics::LocationSessionDay::MergePartialFromCodedStream(awd::metr
           goto LABEL_36;
         }
 
-        v16 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v17 = *(a2 + 1);
+        v8 = *(a2 + 2);
 LABEL_45:
-        if (v16 >= v7 || (v24 = *v16, v24 < 0))
+        if (v17 >= v8 || (v25 = *v17, v25 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 3);
           if (!result)
@@ -6368,27 +6333,27 @@ LABEL_45:
             return result;
           }
 
-          v25 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v26 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 3) = v24;
-          v25 = v16 + 1;
-          *(a2 + 1) = v25;
+          *(this + 3) = v25;
+          v26 = v17 + 1;
+          *(a2 + 1) = v26;
         }
 
         *(this + 20) |= 2u;
-        if (v25 >= v7 || *v25 != 24)
+        if (v26 >= v8 || *v26 != 24)
         {
           continue;
         }
 
-        v13 = v25 + 1;
-        *(a2 + 1) = v13;
+        v14 = v26 + 1;
+        *(a2 + 1) = v14;
 LABEL_53:
-        if (v13 >= v7 || (v26 = *v13, v26 < 0))
+        if (v14 >= v8 || (v27 = *v14, v27 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 4);
           if (!result)
@@ -6396,27 +6361,27 @@ LABEL_53:
             return result;
           }
 
-          v27 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v28 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 4) = v26;
-          v27 = v13 + 1;
-          *(a2 + 1) = v27;
+          *(this + 4) = v27;
+          v28 = v14 + 1;
+          *(a2 + 1) = v28;
         }
 
         *(this + 20) |= 4u;
-        if (v27 >= v7 || *v27 != 32)
+        if (v28 >= v8 || *v28 != 32)
         {
           continue;
         }
 
-        v14 = v27 + 1;
-        *(a2 + 1) = v14;
+        v15 = v28 + 1;
+        *(a2 + 1) = v15;
 LABEL_61:
-        if (v14 >= v7 || (v28 = *v14, v28 < 0))
+        if (v15 >= v8 || (v29 = *v15, v29 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 6);
           if (!result)
@@ -6424,27 +6389,27 @@ LABEL_61:
             return result;
           }
 
-          v29 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v30 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 6) = v28;
-          v29 = v14 + 1;
-          *(a2 + 1) = v29;
+          *(this + 6) = v29;
+          v30 = v15 + 1;
+          *(a2 + 1) = v30;
         }
 
         *(this + 20) |= 0x10u;
-        if (v29 >= v7 || *v29 != 40)
+        if (v30 >= v8 || *v30 != 40)
         {
           continue;
         }
 
-        v11 = v29 + 1;
-        *(a2 + 1) = v11;
+        v12 = v30 + 1;
+        *(a2 + 1) = v12;
 LABEL_69:
-        if (v11 >= v7 || (v30 = *v11, v30 < 0))
+        if (v12 >= v8 || (v31 = *v12, v31 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 7);
           if (!result)
@@ -6452,27 +6417,27 @@ LABEL_69:
             return result;
           }
 
-          v31 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v32 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 7) = v30;
-          v31 = v11 + 1;
-          *(a2 + 1) = v31;
+          *(this + 7) = v31;
+          v32 = v12 + 1;
+          *(a2 + 1) = v32;
         }
 
         *(this + 20) |= 0x20u;
-        if (v31 >= v7 || *v31 != 48)
+        if (v32 >= v8 || *v32 != 48)
         {
           continue;
         }
 
-        v17 = v31 + 1;
-        *(a2 + 1) = v17;
+        v18 = v32 + 1;
+        *(a2 + 1) = v18;
 LABEL_77:
-        if (v17 >= v7 || (v32 = *v17, v32 < 0))
+        if (v18 >= v8 || (v33 = *v18, v33 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 8);
           if (!result)
@@ -6480,27 +6445,27 @@ LABEL_77:
             return result;
           }
 
-          v33 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v34 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 8) = v32;
-          v33 = v17 + 1;
-          *(a2 + 1) = v33;
+          *(this + 8) = v33;
+          v34 = v18 + 1;
+          *(a2 + 1) = v34;
         }
 
         *(this + 20) |= 0x40u;
-        if (v33 >= v7 || *v33 != 56)
+        if (v34 >= v8 || *v34 != 56)
         {
           continue;
         }
 
-        v20 = v33 + 1;
-        *(a2 + 1) = v20;
+        v21 = v34 + 1;
+        *(a2 + 1) = v21;
 LABEL_85:
-        if (v20 >= v7 || (v34 = *v20, v34 < 0))
+        if (v21 >= v8 || (v35 = *v21, v35 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 9);
           if (!result)
@@ -6508,27 +6473,27 @@ LABEL_85:
             return result;
           }
 
-          v35 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v36 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 9) = v34;
-          v35 = v20 + 1;
-          *(a2 + 1) = v35;
+          *(this + 9) = v35;
+          v36 = v21 + 1;
+          *(a2 + 1) = v36;
         }
 
         *(this + 20) |= 0x80u;
-        if (v35 >= v7 || *v35 != 64)
+        if (v36 >= v8 || *v36 != 64)
         {
           continue;
         }
 
-        v15 = v35 + 1;
-        *(a2 + 1) = v15;
+        v16 = v36 + 1;
+        *(a2 + 1) = v16;
 LABEL_93:
-        if (v15 >= v7 || (v36 = *v15, v36 < 0))
+        if (v16 >= v8 || (v37 = *v16, v37 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 10);
           if (!result)
@@ -6536,27 +6501,27 @@ LABEL_93:
             return result;
           }
 
-          v37 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v38 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 10) = v36;
-          v37 = v15 + 1;
-          *(a2 + 1) = v37;
+          *(this + 10) = v37;
+          v38 = v16 + 1;
+          *(a2 + 1) = v38;
         }
 
         *(this + 20) |= 0x100u;
-        if (v37 >= v7 || *v37 != 72)
+        if (v38 >= v8 || *v38 != 72)
         {
           continue;
         }
 
-        v22 = v37 + 1;
-        *(a2 + 1) = v22;
+        v23 = v38 + 1;
+        *(a2 + 1) = v23;
 LABEL_101:
-        if (v22 >= v7 || (v38 = *v22, v38 < 0))
+        if (v23 >= v8 || (v39 = *v23, v39 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 11);
           if (!result)
@@ -6564,27 +6529,27 @@ LABEL_101:
             return result;
           }
 
-          v39 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v40 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 11) = v38;
-          v39 = v22 + 1;
-          *(a2 + 1) = v39;
+          *(this + 11) = v39;
+          v40 = v23 + 1;
+          *(a2 + 1) = v40;
         }
 
         *(this + 20) |= 0x200u;
-        if (v39 >= v7 || *v39 != 80)
+        if (v40 >= v8 || *v40 != 80)
         {
           continue;
         }
 
-        v12 = v39 + 1;
-        *(a2 + 1) = v12;
+        v13 = v40 + 1;
+        *(a2 + 1) = v13;
 LABEL_109:
-        if (v12 >= v7 || (v40 = *v12, v40 < 0))
+        if (v13 >= v8 || (v41 = *v13, v41 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 18);
           if (!result)
@@ -6592,38 +6557,38 @@ LABEL_109:
             return result;
           }
 
-          v41 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v42 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 18) = v40;
-          v41 = v12 + 1;
-          *(a2 + 1) = v41;
+          *(this + 18) = v41;
+          v42 = v13 + 1;
+          *(a2 + 1) = v42;
         }
 
-        v21 = *(this + 20) | 0x400;
-        *(this + 20) = v21;
-        if (v41 >= v7 || *v41 != 90)
+        v22 = *(this + 20) | 0x400;
+        *(this + 20) = v22;
+        if (v42 >= v8 || *v42 != 90)
         {
           continue;
         }
 
-        *(a2 + 1) = v41 + 1;
+        *(a2 + 1) = v42 + 1;
 LABEL_117:
-        *(this + 20) = v21 | 0x800;
-        v42 = *(this + 6);
-        if (!v42)
+        *(this + 20) = v22 | 0x800;
+        v43 = *(this + 6);
+        if (!v43)
         {
           operator new();
         }
 
-        v66 = 0;
-        v43 = *(a2 + 1);
-        if (v43 >= *(a2 + 2) || *v43 < 0)
+        v70 = 0;
+        v44 = *(a2 + 1);
+        if (v44 >= *(a2 + 2) || *v44 < 0)
         {
-          if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v66))
+          if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v70))
           {
             return 0;
           }
@@ -6631,53 +6596,53 @@ LABEL_117:
 
         else
         {
-          v66 = *v43;
-          *(a2 + 1) = v43 + 1;
+          v70 = *v44;
+          *(a2 + 1) = v44 + 1;
         }
 
-        v44 = *(a2 + 14);
-        v45 = *(a2 + 15);
-        *(a2 + 14) = v44 + 1;
-        if (v44 >= v45)
+        v45 = *(a2 + 14);
+        v46 = *(a2 + 15);
+        *(a2 + 14) = v45 + 1;
+        if (v45 >= v46)
         {
           return 0;
         }
 
         wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(a2);
-        if (!awd::metrics::LocationTilesUsage::MergePartialFromCodedStream(v42, a2) || *(a2 + 36) != 1)
+        if (!awd::metrics::LocationTilesUsage::MergePartialFromCodedStream(v43, a2, v47) || *(a2 + 36) != 1)
         {
           return 0;
         }
 
         wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(a2);
-        v46 = *(a2 + 14);
-        v47 = __OFSUB__(v46, 1);
-        v48 = v46 - 1;
-        if (v48 < 0 == v47)
+        v48 = *(a2 + 14);
+        v49 = __OFSUB__(v48, 1);
+        v50 = v48 - 1;
+        if (v50 < 0 == v49)
         {
-          *(a2 + 14) = v48;
+          *(a2 + 14) = v50;
         }
 
-        v49 = *(a2 + 1);
-        if (v49 >= *(a2 + 2) || *v49 != 98)
+        v51 = *(a2 + 1);
+        if (v51 >= *(a2 + 2) || *v51 != 98)
         {
           continue;
         }
 
-        *(a2 + 1) = v49 + 1;
+        *(a2 + 1) = v51 + 1;
 LABEL_131:
         *(this + 20) |= 0x1000u;
-        v50 = *(this + 7);
-        if (!v50)
+        v52 = *(this + 7);
+        if (!v52)
         {
           operator new();
         }
 
-        v67 = 0;
-        v51 = *(a2 + 1);
-        if (v51 >= *(a2 + 2) || *v51 < 0)
+        v71 = 0;
+        v53 = *(a2 + 1);
+        if (v53 >= *(a2 + 2) || *v53 < 0)
         {
-          if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v67))
+          if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v71))
           {
             return 0;
           }
@@ -6685,53 +6650,53 @@ LABEL_131:
 
         else
         {
-          v67 = *v51;
-          *(a2 + 1) = v51 + 1;
+          v71 = *v53;
+          *(a2 + 1) = v53 + 1;
         }
 
-        v52 = *(a2 + 14);
-        v53 = *(a2 + 15);
-        *(a2 + 14) = v52 + 1;
-        if (v52 >= v53)
+        v54 = *(a2 + 14);
+        v55 = *(a2 + 15);
+        *(a2 + 14) = v54 + 1;
+        if (v54 >= v55)
         {
           return 0;
         }
 
         wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(a2);
-        if (!awd::metrics::LocationALSCacheUsage::MergePartialFromCodedStream(v50, a2) || *(a2 + 36) != 1)
+        if (!awd::metrics::LocationALSCacheUsage::MergePartialFromCodedStream(v52, a2, v56) || *(a2 + 36) != 1)
         {
           return 0;
         }
 
         wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(a2);
-        v54 = *(a2 + 14);
-        v47 = __OFSUB__(v54, 1);
-        v55 = v54 - 1;
-        if (v55 < 0 == v47)
+        v57 = *(a2 + 14);
+        v49 = __OFSUB__(v57, 1);
+        v58 = v57 - 1;
+        if (v58 < 0 == v49)
         {
-          *(a2 + 14) = v55;
+          *(a2 + 14) = v58;
         }
 
-        v56 = *(a2 + 1);
-        if (v56 >= *(a2 + 2) || *v56 != 106)
+        v59 = *(a2 + 1);
+        if (v59 >= *(a2 + 2) || *v59 != 106)
         {
           continue;
         }
 
-        *(a2 + 1) = v56 + 1;
+        *(a2 + 1) = v59 + 1;
 LABEL_145:
         *(this + 20) |= 0x2000u;
-        v57 = *(this + 8);
-        if (!v57)
+        v60 = *(this + 8);
+        if (!v60)
         {
           operator new();
         }
 
-        v68 = 0;
-        v58 = *(a2 + 1);
-        if (v58 >= *(a2 + 2) || *v58 < 0)
+        v72 = 0;
+        v61 = *(a2 + 1);
+        if (v61 >= *(a2 + 2) || *v61 < 0)
         {
-          if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v68))
+          if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v72))
           {
             return 0;
           }
@@ -6739,37 +6704,37 @@ LABEL_145:
 
         else
         {
-          v68 = *v58;
-          *(a2 + 1) = v58 + 1;
+          v72 = *v61;
+          *(a2 + 1) = v61 + 1;
         }
 
-        v59 = *(a2 + 14);
-        v60 = *(a2 + 15);
-        *(a2 + 14) = v59 + 1;
-        if (v59 < v60)
+        v62 = *(a2 + 14);
+        v63 = *(a2 + 15);
+        *(a2 + 14) = v62 + 1;
+        if (v62 < v63)
         {
           wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(a2);
-          if (awd::metrics::LocationALSNetworkUsage::MergePartialFromCodedStream(v57, a2))
+          if (awd::metrics::LocationALSNetworkUsage::MergePartialFromCodedStream(v60, a2, v64))
           {
             if (*(a2 + 36) == 1)
             {
               wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(a2);
-              v61 = *(a2 + 14);
-              v47 = __OFSUB__(v61, 1);
-              v62 = v61 - 1;
-              if (v62 < 0 == v47)
+              v65 = *(a2 + 14);
+              v49 = __OFSUB__(v65, 1);
+              v66 = v65 - 1;
+              if (v66 < 0 == v49)
               {
-                *(a2 + 14) = v62;
+                *(a2 + 14) = v66;
               }
 
-              v63 = *(a2 + 1);
-              v18 = *(a2 + 2);
-              if (v63 < v18 && *v63 == 112)
+              v67 = *(a2 + 1);
+              v19 = *(a2 + 2);
+              if (v67 < v19 && *v67 == 112)
               {
-                v19 = v63 + 1;
-                *(a2 + 1) = v19;
+                v20 = v67 + 1;
+                *(a2 + 1) = v20;
 LABEL_159:
-                if (v19 >= v18 || (v64 = *v19, v64 < 0))
+                if (v20 >= v19 || (v68 = *v20, v68 < 0))
                 {
                   result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 5);
                   if (!result)
@@ -6777,19 +6742,19 @@ LABEL_159:
                     return result;
                   }
 
-                  v65 = *(a2 + 1);
-                  v18 = *(a2 + 2);
+                  v69 = *(a2 + 1);
+                  v19 = *(a2 + 2);
                 }
 
                 else
                 {
-                  *(this + 5) = v64;
-                  v65 = v19 + 1;
-                  *(a2 + 1) = v65;
+                  *(this + 5) = v68;
+                  v69 = v20 + 1;
+                  *(a2 + 1) = v69;
                 }
 
                 *(this + 20) |= 8u;
-                if (v65 == v18 && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
+                if (v69 == v19 && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
                 {
                   *(a2 + 8) = 0;
                   result = 1;
@@ -6810,8 +6775,8 @@ LABEL_159:
           goto LABEL_36;
         }
 
-        v13 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v14 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_53;
       case 4u:
         if ((TagFallback & 7) != 0)
@@ -6819,8 +6784,8 @@ LABEL_159:
           goto LABEL_36;
         }
 
-        v14 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v15 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_61;
       case 5u:
         if ((TagFallback & 7) != 0)
@@ -6828,8 +6793,8 @@ LABEL_159:
           goto LABEL_36;
         }
 
-        v11 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v12 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_69;
       case 6u:
         if ((TagFallback & 7) != 0)
@@ -6837,8 +6802,8 @@ LABEL_159:
           goto LABEL_36;
         }
 
-        v17 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v18 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_77;
       case 7u:
         if ((TagFallback & 7) != 0)
@@ -6846,8 +6811,8 @@ LABEL_159:
           goto LABEL_36;
         }
 
-        v20 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v21 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_85;
       case 8u:
         if ((TagFallback & 7) != 0)
@@ -6855,8 +6820,8 @@ LABEL_159:
           goto LABEL_36;
         }
 
-        v15 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v16 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_93;
       case 9u:
         if ((TagFallback & 7) != 0)
@@ -6864,8 +6829,8 @@ LABEL_159:
           goto LABEL_36;
         }
 
-        v22 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v23 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_101;
       case 0xAu:
         if ((TagFallback & 7) != 0)
@@ -6873,26 +6838,26 @@ LABEL_159:
           goto LABEL_36;
         }
 
-        v12 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v13 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_109;
       case 0xBu:
-        if (v6 != 2)
+        if (v7 != 2)
         {
           goto LABEL_36;
         }
 
-        v21 = *(this + 20);
+        v22 = *(this + 20);
         goto LABEL_117;
       case 0xCu:
-        if (v6 == 2)
+        if (v7 == 2)
         {
           goto LABEL_131;
         }
 
         goto LABEL_36;
       case 0xDu:
-        if (v6 == 2)
+        if (v7 == 2)
         {
           goto LABEL_145;
         }
@@ -6904,12 +6869,12 @@ LABEL_159:
           goto LABEL_36;
         }
 
-        v19 = *(a2 + 1);
-        v18 = *(a2 + 2);
+        v20 = *(a2 + 1);
+        v19 = *(a2 + 2);
         goto LABEL_159;
       default:
 LABEL_36:
-        if (v6 == 4)
+        if (v7 == 4)
         {
           return 1;
         }
@@ -7133,23 +7098,23 @@ LABEL_35:
   return this;
 }
 
-uint64_t awd::metrics::LocationSessionDay::ByteSize(awd::metrics::LocationSessionDay *this)
+uint64_t awd::metrics::LocationSessionDay::ByteSize(awd::metrics::LocationSessionDay *this, unsigned int a2)
 {
-  v2 = *(this + 20);
-  if (!v2)
+  v3 = *(this + 20);
+  if (!v3)
   {
-    v3 = 0;
+    v4 = 0;
     goto LABEL_45;
   }
 
-  if (v2)
+  if (v3)
   {
-    v4 = *(this + 2);
-    if (v4 >= 0x80)
+    v5 = *(this + 2);
+    if (v5 >= 0x80)
     {
-      v3 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v4) + 1;
-      v2 = *(this + 20);
-      if ((v2 & 2) == 0)
+      v4 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v5) + 1;
+      v3 = *(this + 20);
+      if ((v3 & 2) == 0)
       {
         goto LABEL_14;
       }
@@ -7157,8 +7122,8 @@ uint64_t awd::metrics::LocationSessionDay::ByteSize(awd::metrics::LocationSessio
 
     else
     {
-      v3 = 2;
-      if ((v2 & 2) == 0)
+      v4 = 2;
+      if ((v3 & 2) == 0)
       {
         goto LABEL_14;
       }
@@ -7167,46 +7132,46 @@ uint64_t awd::metrics::LocationSessionDay::ByteSize(awd::metrics::LocationSessio
 
   else
   {
-    v3 = 0;
-    if ((v2 & 2) == 0)
+    v4 = 0;
+    if ((v3 & 2) == 0)
     {
       goto LABEL_14;
     }
   }
 
-  v5 = *(this + 3);
-  if (v5 >= 0x80)
+  v6 = *(this + 3);
+  if (v6 >= 0x80)
   {
-    v6 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v5) + 1;
-    v2 = *(this + 20);
+    v7 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v6) + 1;
+    v3 = *(this + 20);
   }
 
   else
   {
-    v6 = 2;
+    v7 = 2;
   }
 
-  v3 = (v6 + v3);
+  v4 = (v7 + v4);
 LABEL_14:
-  if ((v2 & 4) != 0)
+  if ((v3 & 4) != 0)
   {
-    v7 = *(this + 4);
-    if (v7 >= 0x80)
+    v8 = *(this + 4);
+    if (v8 >= 0x80)
     {
-      v8 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v7) + 1;
-      v2 = *(this + 20);
+      v9 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v8) + 1;
+      v3 = *(this + 20);
     }
 
     else
     {
-      v8 = 2;
+      v9 = 2;
     }
 
-    v3 = (v8 + v3);
-    if ((v2 & 8) == 0)
+    v4 = (v9 + v4);
+    if ((v3 & 8) == 0)
     {
 LABEL_16:
-      if ((v2 & 0x10) == 0)
+      if ((v3 & 0x10) == 0)
       {
         goto LABEL_17;
       }
@@ -7215,28 +7180,28 @@ LABEL_16:
     }
   }
 
-  else if ((v2 & 8) == 0)
+  else if ((v3 & 8) == 0)
   {
     goto LABEL_16;
   }
 
-  v9 = *(this + 5);
-  if (v9 >= 0x80)
+  v10 = *(this + 5);
+  if (v10 >= 0x80)
   {
-    v10 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v9) + 1;
-    v2 = *(this + 20);
+    v11 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v10) + 1;
+    v3 = *(this + 20);
   }
 
   else
   {
-    v10 = 2;
+    v11 = 2;
   }
 
-  v3 = (v10 + v3);
-  if ((v2 & 0x10) == 0)
+  v4 = (v11 + v4);
+  if ((v3 & 0x10) == 0)
   {
 LABEL_17:
-    if ((v2 & 0x20) == 0)
+    if ((v3 & 0x20) == 0)
     {
       goto LABEL_18;
     }
@@ -7245,23 +7210,23 @@ LABEL_17:
   }
 
 LABEL_29:
-  v11 = *(this + 6);
-  if (v11 >= 0x80)
+  v12 = *(this + 6);
+  if (v12 >= 0x80)
   {
-    v12 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v11) + 1;
-    v2 = *(this + 20);
+    v13 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v12) + 1;
+    v3 = *(this + 20);
   }
 
   else
   {
-    v12 = 2;
+    v13 = 2;
   }
 
-  v3 = (v12 + v3);
-  if ((v2 & 0x20) == 0)
+  v4 = (v13 + v4);
+  if ((v3 & 0x20) == 0)
   {
 LABEL_18:
-    if ((v2 & 0x40) == 0)
+    if ((v3 & 0x40) == 0)
     {
       goto LABEL_19;
     }
@@ -7270,23 +7235,23 @@ LABEL_18:
   }
 
 LABEL_33:
-  v13 = *(this + 7);
-  if (v13 >= 0x80)
+  v14 = *(this + 7);
+  if (v14 >= 0x80)
   {
-    v14 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v13) + 1;
-    v2 = *(this + 20);
+    v15 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v14) + 1;
+    v3 = *(this + 20);
   }
 
   else
   {
-    v14 = 2;
+    v15 = 2;
   }
 
-  v3 = (v14 + v3);
-  if ((v2 & 0x40) == 0)
+  v4 = (v15 + v4);
+  if ((v3 & 0x40) == 0)
   {
 LABEL_19:
-    if ((v2 & 0x80) == 0)
+    if ((v3 & 0x80) == 0)
     {
       goto LABEL_45;
     }
@@ -7295,62 +7260,62 @@ LABEL_19:
   }
 
 LABEL_37:
-  v15 = *(this + 8);
-  if (v15 >= 0x80)
+  v16 = *(this + 8);
+  if (v16 >= 0x80)
   {
-    v16 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v15) + 1;
-    v2 = *(this + 20);
+    v17 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v16) + 1;
+    v3 = *(this + 20);
   }
 
   else
   {
-    v16 = 2;
+    v17 = 2;
   }
 
-  v3 = (v16 + v3);
-  if ((v2 & 0x80) != 0)
+  v4 = (v17 + v4);
+  if ((v3 & 0x80) != 0)
   {
 LABEL_41:
-    v17 = *(this + 9);
-    if (v17 >= 0x80)
+    v18 = *(this + 9);
+    if (v18 >= 0x80)
     {
-      v18 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v17) + 1;
-      v2 = *(this + 20);
+      v19 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v18) + 1;
+      v3 = *(this + 20);
     }
 
     else
     {
-      v18 = 2;
+      v19 = 2;
     }
 
-    v3 = (v18 + v3);
+    v4 = (v19 + v4);
   }
 
 LABEL_45:
-  if ((v2 & 0xFF00) == 0)
+  if ((v3 & 0xFF00) == 0)
   {
     goto LABEL_86;
   }
 
-  if ((v2 & 0x100) != 0)
+  if ((v3 & 0x100) != 0)
   {
-    v19 = *(this + 10);
-    if (v19 >= 0x80)
+    v20 = *(this + 10);
+    if (v20 >= 0x80)
     {
-      v20 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v19) + 1;
-      v2 = *(this + 20);
+      v21 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v20) + 1;
+      v3 = *(this + 20);
     }
 
     else
     {
-      v20 = 2;
+      v21 = 2;
     }
 
-    v3 = (v20 + v3);
-    if ((v2 & 0x200) == 0)
+    v4 = (v21 + v4);
+    if ((v3 & 0x200) == 0)
     {
 LABEL_48:
-      if ((v2 & 0x400) == 0)
+      if ((v3 & 0x400) == 0)
       {
         goto LABEL_49;
       }
@@ -7359,28 +7324,28 @@ LABEL_48:
     }
   }
 
-  else if ((v2 & 0x200) == 0)
+  else if ((v3 & 0x200) == 0)
   {
     goto LABEL_48;
   }
 
-  v21 = *(this + 11);
-  if (v21 >= 0x80)
+  v22 = *(this + 11);
+  if (v22 >= 0x80)
   {
-    v22 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v21) + 1;
-    v2 = *(this + 20);
+    v23 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v22) + 1;
+    v3 = *(this + 20);
   }
 
   else
   {
-    v22 = 2;
+    v23 = 2;
   }
 
-  v3 = (v22 + v3);
-  if ((v2 & 0x400) == 0)
+  v4 = (v23 + v4);
+  if ((v3 & 0x400) == 0)
   {
 LABEL_49:
-    if ((v2 & 0x800) == 0)
+    if ((v3 & 0x800) == 0)
     {
       goto LABEL_50;
     }
@@ -7389,23 +7354,23 @@ LABEL_49:
   }
 
 LABEL_61:
-  v23 = *(this + 18);
-  if (v23 >= 0x80)
+  v24 = *(this + 18);
+  if (v24 >= 0x80)
   {
-    v24 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v23) + 1;
-    v2 = *(this + 20);
+    v25 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v24) + 1;
+    v3 = *(this + 20);
   }
 
   else
   {
-    v24 = 2;
+    v25 = 2;
   }
 
-  v3 = (v24 + v3);
-  if ((v2 & 0x800) == 0)
+  v4 = (v25 + v4);
+  if ((v3 & 0x800) == 0)
   {
 LABEL_50:
-    if ((v2 & 0x1000) == 0)
+    if ((v3 & 0x1000) == 0)
     {
       goto LABEL_51;
     }
@@ -7414,45 +7379,45 @@ LABEL_50:
   }
 
 LABEL_65:
-  v25 = *(this + 6);
-  if (!v25)
+  v26 = *(this + 6);
+  if (!v26)
   {
-    v25 = *(awd::metrics::LocationSessionDay::default_instance_ + 48);
+    v26 = *(awd::metrics::LocationSessionDay::default_instance_ + 48);
   }
 
-  if ((*(v25 + 16) & 1) == 0)
+  if ((*(v26 + 16) & 1) == 0)
   {
-    v26 = 0;
+    v27 = 0;
 LABEL_71:
-    *(v25 + 12) = v26;
+    *(v26 + 12) = v27;
 LABEL_72:
-    v28 = 1;
+    v29 = 1;
     goto LABEL_73;
   }
 
-  v27 = *(v25 + 8);
-  if (v27 <= 0x7F)
+  v28 = *(v26 + 8);
+  if (v28 <= 0x7F)
   {
-    v26 = 2;
+    v27 = 2;
     goto LABEL_71;
   }
 
-  v38 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v27);
-  v26 = v38 + 1;
-  *(v25 + 12) = v38 + 1;
-  if ((v38 + 1) < 0x80)
+  v39 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v28);
+  v27 = v39 + 1;
+  *(v26 + 12) = v39 + 1;
+  if ((v39 + 1) < 0x80)
   {
     goto LABEL_72;
   }
 
-  v28 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback((v38 + 1));
+  v29 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback((v39 + 1));
 LABEL_73:
-  v3 = (v3 + v26 + v28 + 1);
-  v2 = *(this + 20);
-  if ((v2 & 0x1000) == 0)
+  v4 = (v4 + v27 + v29 + 1);
+  v3 = *(this + 20);
+  if ((v3 & 0x1000) == 0)
   {
 LABEL_51:
-    if ((v2 & 0x2000) == 0)
+    if ((v3 & 0x2000) == 0)
     {
       goto LABEL_86;
     }
@@ -7461,57 +7426,56 @@ LABEL_51:
   }
 
 LABEL_74:
-  v29 = *(this + 7);
-  if (!v29)
+  v30 = *(this + 7);
+  if (!v30)
   {
-    v29 = *(awd::metrics::LocationSessionDay::default_instance_ + 56);
+    v30 = *(awd::metrics::LocationSessionDay::default_instance_ + 56);
   }
 
-  v30 = awd::metrics::LocationALSCacheUsage::ByteSize(v29);
-  v31 = v30;
-  if (v30 >= 0x80)
+  v31 = awd::metrics::LocationALSCacheUsage::ByteSize(v30, a2);
+  v32 = v31;
+  if (v31 >= 0x80)
   {
-    v32 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v30);
+    v33 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v31);
   }
 
   else
   {
-    v32 = 1;
+    v33 = 1;
   }
 
-  v3 = (v3 + v31 + v32 + 1);
+  v4 = (v4 + v32 + v33 + 1);
   if ((*(this + 20) & 0x2000) != 0)
   {
 LABEL_80:
-    v33 = *(this + 8);
-    if (!v33)
+    v34 = *(this + 8);
+    if (!v34)
     {
-      v33 = *(awd::metrics::LocationSessionDay::default_instance_ + 64);
+      v34 = *(awd::metrics::LocationSessionDay::default_instance_ + 64);
     }
 
-    v34 = awd::metrics::LocationALSNetworkUsage::ByteSize(v33);
-    v35 = v34;
-    if (v34 >= 0x80)
+    v35 = awd::metrics::LocationALSNetworkUsage::ByteSize(v34, a2);
+    v36 = v35;
+    if (v35 >= 0x80)
     {
-      v36 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v34);
+      v37 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v35);
     }
 
     else
     {
-      v36 = 1;
+      v37 = 1;
     }
 
-    v3 = (v3 + v35 + v36 + 1);
+    v4 = (v4 + v36 + v37 + 1);
   }
 
 LABEL_86:
-  *(this + 19) = v3;
-  return v3;
+  *(this + 19) = v4;
+  return v4;
 }
 
 void awd::metrics::LocationSessionDay::CheckTypeAndMergeFrom(awd::metrics::LocationSessionDay *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     awd::metrics::LocationSessionDay::CheckTypeAndMergeFrom();
   }
@@ -7643,7 +7607,7 @@ void awd::metrics::LocationTileFileUsage::MergeFrom(awd::metrics::LocationTileFi
   v4 = *(a2 + 22);
   if (v4)
   {
-    wireless_diagnostics::google::protobuf::RepeatedField<int>::Reserve(this + 10, *(this + 22) + v4);
+    wireless_diagnostics::google::protobuf::RepeatedField<int>::Reserve(this + 20, *(this + 22) + v4);
     memcpy((*(this + 10) + 4 * *(this + 22)), *(a2 + 10), 4 * *(a2 + 22));
     *(this + 22) += *(a2 + 22);
   }
@@ -7651,7 +7615,7 @@ void awd::metrics::LocationTileFileUsage::MergeFrom(awd::metrics::LocationTileFi
   v5 = *(a2 + 28);
   if (v5)
   {
-    wireless_diagnostics::google::protobuf::RepeatedField<int>::Reserve(this + 13, *(this + 28) + v5);
+    wireless_diagnostics::google::protobuf::RepeatedField<int>::Reserve(this + 26, *(this + 28) + v5);
     memcpy((*(this + 13) + 4 * *(this + 28)), *(a2 + 13), 4 * *(a2 + 28));
     *(this + 28) += *(a2 + 28);
   }
@@ -8010,9 +7974,9 @@ LABEL_35:
   }
 }
 
-void sub_29647B4E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29647B4E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8086,13 +8050,13 @@ uint64_t awd::metrics::LocationTileFileUsage::Clear(uint64_t this)
   return this;
 }
 
-uint64_t awd::metrics::LocationTileFileUsage::MergePartialFromCodedStream(awd::metrics::LocationTileFileUsage *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2)
+uint64_t awd::metrics::LocationTileFileUsage::MergePartialFromCodedStream(awd::metrics::LocationTileFileUsage *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2, unsigned int a3)
 {
 LABEL_1:
   while (2)
   {
-    v4 = *(a2 + 1);
-    if (v4 >= *(a2 + 2) || (TagFallback = *v4, (TagFallback & 0x80000000) != 0))
+    v5 = *(a2 + 1);
+    if (v5 >= *(a2 + 2) || (TagFallback = *v5, (TagFallback & 0x80000000) != 0))
     {
       TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(a2);
       *(a2 + 8) = TagFallback;
@@ -8105,14 +8069,14 @@ LABEL_1:
     else
     {
       *(a2 + 8) = TagFallback;
-      *(a2 + 1) = v4 + 1;
+      *(a2 + 1) = v5 + 1;
       if (!TagFallback)
       {
         return 1;
       }
     }
 
-    v6 = TagFallback & 7;
+    v7 = TagFallback & 7;
     switch(TagFallback >> 3)
     {
       case 1u:
@@ -8121,9 +8085,9 @@ LABEL_1:
           goto LABEL_64;
         }
 
-        v8 = *(a2 + 1);
-        v7 = *(a2 + 2);
-        if (v8 >= v7 || (v9 = *v8, v9 < 0))
+        v9 = *(a2 + 1);
+        v8 = *(a2 + 2);
+        if (v9 >= v8 || (v10 = *v9, v10 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 2);
           if (!result)
@@ -8131,22 +8095,22 @@ LABEL_1:
             return result;
           }
 
-          v10 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v11 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 2) = v9;
-          v10 = v8 + 1;
-          *(a2 + 1) = v10;
+          *(this + 2) = v10;
+          v11 = v9 + 1;
+          *(a2 + 1) = v11;
         }
 
         *(this + 35) |= 1u;
-        if (v10 < v7 && *v10 == 16)
+        if (v11 < v8 && *v11 == 16)
         {
-          v23 = v10 + 1;
-          *(a2 + 1) = v23;
+          v24 = v11 + 1;
+          *(a2 + 1) = v24;
           goto LABEL_75;
         }
 
@@ -8157,10 +8121,10 @@ LABEL_1:
           goto LABEL_64;
         }
 
-        v23 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v24 = *(a2 + 1);
+        v8 = *(a2 + 2);
 LABEL_75:
-        if (v23 >= v7 || (v37 = *v23, v37 < 0))
+        if (v24 >= v8 || (v38 = *v24, v38 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 3);
           if (!result)
@@ -8168,27 +8132,27 @@ LABEL_75:
             return result;
           }
 
-          v38 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v39 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 3) = v37;
-          v38 = v23 + 1;
-          *(a2 + 1) = v38;
+          *(this + 3) = v38;
+          v39 = v24 + 1;
+          *(a2 + 1) = v39;
         }
 
         *(this + 35) |= 2u;
-        if (v38 >= v7 || *v38 != 24)
+        if (v39 >= v8 || *v39 != 24)
         {
           continue;
         }
 
-        v19 = v38 + 1;
-        *(a2 + 1) = v19;
+        v20 = v39 + 1;
+        *(a2 + 1) = v20;
 LABEL_83:
-        if (v19 >= v7 || (v39 = *v19, v39 < 0))
+        if (v20 >= v8 || (v40 = *v20, v40 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 4);
           if (!result)
@@ -8196,27 +8160,27 @@ LABEL_83:
             return result;
           }
 
-          v40 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v41 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 4) = v39;
-          v40 = v19 + 1;
-          *(a2 + 1) = v40;
+          *(this + 4) = v40;
+          v41 = v20 + 1;
+          *(a2 + 1) = v41;
         }
 
         *(this + 35) |= 4u;
-        if (v40 >= v7 || *v40 != 32)
+        if (v41 >= v8 || *v41 != 32)
         {
           continue;
         }
 
-        v21 = v40 + 1;
-        *(a2 + 1) = v21;
+        v22 = v41 + 1;
+        *(a2 + 1) = v22;
 LABEL_91:
-        if (v21 >= v7 || (v41 = *v21, v41 < 0))
+        if (v22 >= v8 || (v42 = *v22, v42 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 5);
           if (!result)
@@ -8224,27 +8188,27 @@ LABEL_91:
             return result;
           }
 
-          v42 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v43 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 5) = v41;
-          v42 = v21 + 1;
-          *(a2 + 1) = v42;
+          *(this + 5) = v42;
+          v43 = v22 + 1;
+          *(a2 + 1) = v43;
         }
 
         *(this + 35) |= 8u;
-        if (v42 >= v7 || *v42 != 40)
+        if (v43 >= v8 || *v43 != 40)
         {
           continue;
         }
 
-        v14 = v42 + 1;
-        *(a2 + 1) = v14;
+        v15 = v43 + 1;
+        *(a2 + 1) = v15;
 LABEL_99:
-        if (v14 >= v7 || (v43 = *v14, v43 < 0))
+        if (v15 >= v8 || (v44 = *v15, v44 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 6);
           if (!result)
@@ -8252,27 +8216,27 @@ LABEL_99:
             return result;
           }
 
-          v44 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v45 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 6) = v43;
-          v44 = v14 + 1;
-          *(a2 + 1) = v44;
+          *(this + 6) = v44;
+          v45 = v15 + 1;
+          *(a2 + 1) = v45;
         }
 
         *(this + 35) |= 0x10u;
-        if (v44 >= v7 || *v44 != 48)
+        if (v45 >= v8 || *v45 != 48)
         {
           continue;
         }
 
-        v26 = v44 + 1;
-        *(a2 + 1) = v26;
+        v27 = v45 + 1;
+        *(a2 + 1) = v27;
 LABEL_107:
-        if (v26 >= v7 || (v45 = *v26, v45 < 0))
+        if (v27 >= v8 || (v46 = *v27, v46 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 7);
           if (!result)
@@ -8280,27 +8244,27 @@ LABEL_107:
             return result;
           }
 
-          v46 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v47 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 7) = v45;
-          v46 = v26 + 1;
-          *(a2 + 1) = v46;
+          *(this + 7) = v46;
+          v47 = v27 + 1;
+          *(a2 + 1) = v47;
         }
 
         *(this + 35) |= 0x20u;
-        if (v46 >= v7 || *v46 != 56)
+        if (v47 >= v8 || *v47 != 56)
         {
           continue;
         }
 
-        v29 = v46 + 1;
-        *(a2 + 1) = v29;
+        v30 = v47 + 1;
+        *(a2 + 1) = v30;
 LABEL_115:
-        if (v29 >= v7 || (v47 = *v29, v47 < 0))
+        if (v30 >= v8 || (v48 = *v30, v48 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 8);
           if (!result)
@@ -8308,27 +8272,27 @@ LABEL_115:
             return result;
           }
 
-          v48 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v49 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 8) = v47;
-          v48 = v29 + 1;
-          *(a2 + 1) = v48;
+          *(this + 8) = v48;
+          v49 = v30 + 1;
+          *(a2 + 1) = v49;
         }
 
         *(this + 35) |= 0x40u;
-        if (v48 >= v7 || *v48 != 64)
+        if (v49 >= v8 || *v49 != 64)
         {
           continue;
         }
 
-        v22 = v48 + 1;
-        *(a2 + 1) = v22;
+        v23 = v49 + 1;
+        *(a2 + 1) = v23;
 LABEL_123:
-        if (v22 >= v7 || (v49 = *v22, v49 < 0))
+        if (v23 >= v8 || (v50 = *v23, v50 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 9);
           if (!result)
@@ -8336,27 +8300,27 @@ LABEL_123:
             return result;
           }
 
-          v50 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v51 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 9) = v49;
-          v50 = v22 + 1;
-          *(a2 + 1) = v50;
+          *(this + 9) = v50;
+          v51 = v23 + 1;
+          *(a2 + 1) = v51;
         }
 
         *(this + 35) |= 0x80u;
-        if (v50 >= v7 || *v50 != 72)
+        if (v51 >= v8 || *v51 != 72)
         {
           continue;
         }
 
-        v32 = v50 + 1;
-        *(a2 + 1) = v32;
+        v33 = v51 + 1;
+        *(a2 + 1) = v33;
 LABEL_131:
-        if (v32 >= v7 || (v51 = *v32, v51 < 0))
+        if (v33 >= v8 || (v52 = *v33, v52 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 10);
           if (!result)
@@ -8364,27 +8328,27 @@ LABEL_131:
             return result;
           }
 
-          v52 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v53 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 10) = v51;
-          v52 = v32 + 1;
-          *(a2 + 1) = v52;
+          *(this + 10) = v52;
+          v53 = v33 + 1;
+          *(a2 + 1) = v53;
         }
 
         *(this + 35) |= 0x100u;
-        if (v52 >= v7 || *v52 != 80)
+        if (v53 >= v8 || *v53 != 80)
         {
           continue;
         }
 
-        v16 = v52 + 1;
-        *(a2 + 1) = v16;
+        v17 = v53 + 1;
+        *(a2 + 1) = v17;
 LABEL_139:
-        if (v16 >= v7 || (v53 = *v16, v53 < 0))
+        if (v17 >= v8 || (v54 = *v17, v54 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 11);
           if (!result)
@@ -8392,27 +8356,27 @@ LABEL_139:
             return result;
           }
 
-          v54 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v55 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 11) = v53;
-          v54 = v16 + 1;
-          *(a2 + 1) = v54;
+          *(this + 11) = v54;
+          v55 = v17 + 1;
+          *(a2 + 1) = v55;
         }
 
         *(this + 35) |= 0x200u;
-        if (v54 >= v7 || *v54 != 88)
+        if (v55 >= v8 || *v55 != 88)
         {
           continue;
         }
 
-        v31 = v54 + 1;
-        *(a2 + 1) = v31;
+        v32 = v55 + 1;
+        *(a2 + 1) = v32;
 LABEL_147:
-        if (v31 >= v7 || (v55 = *v31, v55 < 0))
+        if (v32 >= v8 || (v56 = *v32, v56 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 12);
           if (!result)
@@ -8420,27 +8384,27 @@ LABEL_147:
             return result;
           }
 
-          v56 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v57 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 12) = v55;
-          v56 = v31 + 1;
-          *(a2 + 1) = v56;
+          *(this + 12) = v56;
+          v57 = v32 + 1;
+          *(a2 + 1) = v57;
         }
 
         *(this + 35) |= 0x400u;
-        if (v56 >= v7 || *v56 != 96)
+        if (v57 >= v8 || *v57 != 96)
         {
           continue;
         }
 
-        v13 = v56 + 1;
-        *(a2 + 1) = v13;
+        v14 = v57 + 1;
+        *(a2 + 1) = v14;
 LABEL_155:
-        if (v13 >= v7 || (v57 = *v13, v57 < 0))
+        if (v14 >= v8 || (v58 = *v14, v58 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 13);
           if (!result)
@@ -8448,27 +8412,27 @@ LABEL_155:
             return result;
           }
 
-          v58 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v59 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 13) = v57;
-          v58 = v13 + 1;
-          *(a2 + 1) = v58;
+          *(this + 13) = v58;
+          v59 = v14 + 1;
+          *(a2 + 1) = v59;
         }
 
         *(this + 35) |= 0x800u;
-        if (v58 >= v7 || *v58 != 104)
+        if (v59 >= v8 || *v59 != 104)
         {
           continue;
         }
 
-        v15 = v58 + 1;
-        *(a2 + 1) = v15;
+        v16 = v59 + 1;
+        *(a2 + 1) = v16;
 LABEL_163:
-        if (v15 >= v7 || (v59 = *v15, v59 < 0))
+        if (v16 >= v8 || (v60 = *v16, v60 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 14);
           if (!result)
@@ -8476,27 +8440,27 @@ LABEL_163:
             return result;
           }
 
-          v60 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v61 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 14) = v59;
-          v60 = v15 + 1;
-          *(a2 + 1) = v60;
+          *(this + 14) = v60;
+          v61 = v16 + 1;
+          *(a2 + 1) = v61;
         }
 
         *(this + 35) |= 0x1000u;
-        if (v60 >= v7 || *v60 != 112)
+        if (v61 >= v8 || *v61 != 112)
         {
           continue;
         }
 
-        v28 = v60 + 1;
-        *(a2 + 1) = v28;
+        v29 = v61 + 1;
+        *(a2 + 1) = v29;
 LABEL_171:
-        if (v28 >= v7 || (v61 = *v28, v61 < 0))
+        if (v29 >= v8 || (v62 = *v29, v62 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 15);
           if (!result)
@@ -8504,27 +8468,27 @@ LABEL_171:
             return result;
           }
 
-          v62 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v63 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 15) = v61;
-          v62 = v28 + 1;
-          *(a2 + 1) = v62;
+          *(this + 15) = v62;
+          v63 = v29 + 1;
+          *(a2 + 1) = v63;
         }
 
         *(this + 35) |= 0x2000u;
-        if (v62 >= v7 || *v62 != 120)
+        if (v63 >= v8 || *v63 != 120)
         {
           continue;
         }
 
-        v12 = v62 + 1;
-        *(a2 + 1) = v12;
+        v13 = v63 + 1;
+        *(a2 + 1) = v13;
 LABEL_179:
-        if (v12 >= v7 || (v63 = *v12, v63 < 0))
+        if (v13 >= v8 || (v64 = *v13, v64 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 16);
           if (!result)
@@ -8532,27 +8496,27 @@ LABEL_179:
             return result;
           }
 
-          v64 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v65 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 16) = v63;
-          v64 = (v12 + 1);
-          *(a2 + 1) = v64;
+          *(this + 16) = v64;
+          v65 = (v13 + 1);
+          *(a2 + 1) = v65;
         }
 
         *(this + 35) |= 0x4000u;
-        if (v7 - v64 < 2 || *v64 != 128 || v64[1] != 1)
+        if (v8 - v65 < 2 || *v65 != 128 || v65[1] != 1)
         {
           continue;
         }
 
-        v20 = (v64 + 2);
-        *(a2 + 1) = v20;
+        v21 = (v65 + 2);
+        *(a2 + 1) = v21;
 LABEL_188:
-        if (v20 >= v7 || (v65 = *v20, v65 < 0))
+        if (v21 >= v8 || (v66 = *v21, v66 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 17);
           if (!result)
@@ -8560,27 +8524,27 @@ LABEL_188:
             return result;
           }
 
-          v66 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v67 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 17) = v65;
-          v66 = (v20 + 1);
-          *(a2 + 1) = v66;
+          *(this + 17) = v66;
+          v67 = (v21 + 1);
+          *(a2 + 1) = v67;
         }
 
         *(this + 35) |= 0x8000u;
-        if (v7 - v66 < 2 || *v66 != 136 || v66[1] != 1)
+        if (v8 - v67 < 2 || *v67 != 136 || v67[1] != 1)
         {
           continue;
         }
 
-        v11 = (v66 + 2);
-        *(a2 + 1) = v11;
+        v12 = (v67 + 2);
+        *(a2 + 1) = v12;
 LABEL_197:
-        if (v11 >= v7 || (v67 = *v11, v67 < 0))
+        if (v12 >= v8 || (v68 = *v12, v68 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 18);
           if (!result)
@@ -8588,27 +8552,27 @@ LABEL_197:
             return result;
           }
 
-          v68 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v69 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 18) = v67;
-          v68 = (v11 + 1);
-          *(a2 + 1) = v68;
+          *(this + 18) = v68;
+          v69 = (v12 + 1);
+          *(a2 + 1) = v69;
         }
 
         *(this + 35) |= 0x10000u;
-        if (v7 - v68 < 2 || *v68 != 144 || v68[1] != 1)
+        if (v8 - v69 < 2 || *v69 != 144 || v69[1] != 1)
         {
           continue;
         }
 
-        v24 = (v68 + 2);
-        *(a2 + 1) = v24;
+        v25 = (v69 + 2);
+        *(a2 + 1) = v25;
 LABEL_206:
-        if (v24 >= v7 || (v69 = *v24, v69 < 0))
+        if (v25 >= v8 || (v70 = *v25, v70 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 19);
           if (!result)
@@ -8616,27 +8580,27 @@ LABEL_206:
             return result;
           }
 
-          v70 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v71 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 19) = v69;
-          v70 = (v24 + 1);
-          *(a2 + 1) = v70;
+          *(this + 19) = v70;
+          v71 = (v25 + 1);
+          *(a2 + 1) = v71;
         }
 
         *(this + 35) |= 0x20000u;
-        if (v7 - v70 < 2 || *v70 != 152 || v70[1] != 1)
+        if (v8 - v71 < 2 || *v71 != 152 || v71[1] != 1)
         {
           continue;
         }
 
-        v30 = (v70 + 2);
-        *(a2 + 1) = v30;
+        v31 = (v71 + 2);
+        *(a2 + 1) = v31;
 LABEL_215:
-        if (v30 >= v7 || (v71 = *v30, v71 < 0))
+        if (v31 >= v8 || (v72 = *v31, v72 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 24);
           if (!result)
@@ -8644,19 +8608,19 @@ LABEL_215:
             return result;
           }
 
-          v72 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v73 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 24) = v71;
-          v72 = (v30 + 1);
-          *(a2 + 1) = v72;
+          *(this + 24) = v72;
+          v73 = (v31 + 1);
+          *(a2 + 1) = v73;
         }
 
         *(this + 35) |= 0x40000u;
-        if (v7 - v72 >= 2 && *v72 == 160 && v72[1] == 1)
+        if (v8 - v73 >= 2 && *v73 == 160 && v73[1] == 1)
         {
           goto LABEL_223;
         }
@@ -8668,8 +8632,8 @@ LABEL_215:
           goto LABEL_64;
         }
 
-        v19 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v20 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_83;
       case 4u:
         if ((TagFallback & 7) != 0)
@@ -8677,8 +8641,8 @@ LABEL_215:
           goto LABEL_64;
         }
 
-        v21 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v22 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_91;
       case 5u:
         if ((TagFallback & 7) != 0)
@@ -8686,8 +8650,8 @@ LABEL_215:
           goto LABEL_64;
         }
 
-        v14 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v15 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_99;
       case 6u:
         if ((TagFallback & 7) != 0)
@@ -8695,8 +8659,8 @@ LABEL_215:
           goto LABEL_64;
         }
 
-        v26 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v27 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_107;
       case 7u:
         if ((TagFallback & 7) != 0)
@@ -8704,8 +8668,8 @@ LABEL_215:
           goto LABEL_64;
         }
 
-        v29 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v30 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_115;
       case 8u:
         if ((TagFallback & 7) != 0)
@@ -8713,8 +8677,8 @@ LABEL_215:
           goto LABEL_64;
         }
 
-        v22 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v23 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_123;
       case 9u:
         if ((TagFallback & 7) != 0)
@@ -8722,8 +8686,8 @@ LABEL_215:
           goto LABEL_64;
         }
 
-        v32 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v33 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_131;
       case 0xAu:
         if ((TagFallback & 7) != 0)
@@ -8731,8 +8695,8 @@ LABEL_215:
           goto LABEL_64;
         }
 
-        v16 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v17 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_139;
       case 0xBu:
         if ((TagFallback & 7) != 0)
@@ -8740,8 +8704,8 @@ LABEL_215:
           goto LABEL_64;
         }
 
-        v31 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v32 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_147;
       case 0xCu:
         if ((TagFallback & 7) != 0)
@@ -8749,8 +8713,8 @@ LABEL_215:
           goto LABEL_64;
         }
 
-        v13 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v14 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_155;
       case 0xDu:
         if ((TagFallback & 7) != 0)
@@ -8758,8 +8722,8 @@ LABEL_215:
           goto LABEL_64;
         }
 
-        v15 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v16 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_163;
       case 0xEu:
         if ((TagFallback & 7) != 0)
@@ -8767,8 +8731,8 @@ LABEL_215:
           goto LABEL_64;
         }
 
-        v28 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v29 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_171;
       case 0xFu:
         if ((TagFallback & 7) != 0)
@@ -8776,8 +8740,8 @@ LABEL_215:
           goto LABEL_64;
         }
 
-        v12 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v13 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_179;
       case 0x10u:
         if ((TagFallback & 7) != 0)
@@ -8785,8 +8749,8 @@ LABEL_215:
           goto LABEL_64;
         }
 
-        v20 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v21 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_188;
       case 0x11u:
         if ((TagFallback & 7) != 0)
@@ -8794,8 +8758,8 @@ LABEL_215:
           goto LABEL_64;
         }
 
-        v11 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v12 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_197;
       case 0x12u:
         if ((TagFallback & 7) != 0)
@@ -8803,8 +8767,8 @@ LABEL_215:
           goto LABEL_64;
         }
 
-        v24 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v25 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_206;
       case 0x13u:
         if ((TagFallback & 7) != 0)
@@ -8812,15 +8776,15 @@ LABEL_215:
           goto LABEL_64;
         }
 
-        v30 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v31 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_215;
       case 0x14u:
         if ((TagFallback & 7) != 0)
         {
-          if (v6 == 2)
+          if (v7 == 2)
           {
-            result = wireless_diagnostics::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<int,(wireless_diagnostics::google::protobuf::internal::WireFormatLite::FieldType)5>(a2, this + 80);
+            result = wireless_diagnostics::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<int,(wireless_diagnostics::google::protobuf::internal::WireFormatLite::FieldType)5>(a2, this + 10);
             if (!result)
             {
               return result;
@@ -8832,99 +8796,99 @@ LABEL_215:
           goto LABEL_64;
         }
 
-        v36 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v37 = *(a2 + 1);
+        v8 = *(a2 + 2);
         while (1)
         {
-          v105[0] = 0;
-          if (v36 >= v7 || (v73 = *v36, (v73 & 0x80000000) != 0))
+          v106[0] = 0;
+          if (v37 >= v8 || (v74 = *v37, (v74 & 0x80000000) != 0))
           {
-            result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, v105);
+            result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, v106);
             if (!result)
             {
               return result;
             }
 
-            v73 = v105[0];
+            v74 = v106[0];
           }
 
           else
           {
-            *(a2 + 1) = v36 + 1;
+            *(a2 + 1) = v37 + 1;
           }
 
-          v74 = *(this + 22);
-          if (v74 == *(this + 23))
+          v75 = *(this + 22);
+          if (v75 == *(this + 23))
           {
-            wireless_diagnostics::google::protobuf::RepeatedField<int>::Reserve(this + 10, v74 + 1);
-            v74 = *(this + 22);
+            wireless_diagnostics::google::protobuf::RepeatedField<int>::Reserve(this + 20, v75 + 1);
+            v75 = *(this + 22);
           }
 
-          v75 = *(this + 10);
-          *(this + 22) = v74 + 1;
-          *(v75 + 4 * v74) = v73;
-          v76 = *(this + 23) - *(this + 22);
-          if (v76 >= 1)
+          v76 = *(this + 10);
+          *(this + 22) = v75 + 1;
+          *(v76 + 4 * v75) = v74;
+          v77 = *(this + 23) - *(this + 22);
+          if (v77 >= 1)
           {
-            v77 = v76 + 1;
+            v78 = v77 + 1;
             do
             {
-              v78 = *(a2 + 1);
-              v79 = *(a2 + 2);
-              if (v79 - v78 < 2 || *v78 != 160 || v78[1] != 1)
+              v79 = *(a2 + 1);
+              v80 = *(a2 + 2);
+              if (v80 - v79 < 2 || *v79 != 160 || v79[1] != 1)
               {
                 break;
               }
 
-              *(a2 + 1) = v78 + 2;
-              v105[0] = 0;
-              if ((v78 + 2) >= v79 || (v80 = v78[2], (v80 & 0x80000000) != 0))
+              *(a2 + 1) = v79 + 2;
+              v106[0] = 0;
+              if ((v79 + 2) >= v80 || (v81 = v79[2], (v81 & 0x80000000) != 0))
               {
-                result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, v105);
+                result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, v106);
                 if (!result)
                 {
                   return result;
                 }
 
-                v80 = v105[0];
+                v81 = v106[0];
               }
 
               else
               {
-                *(a2 + 1) = v78 + 3;
+                *(a2 + 1) = v79 + 3;
               }
 
-              v81 = *(this + 22);
-              if (v81 >= *(this + 23))
+              v82 = *(this + 22);
+              if (v82 >= *(this + 23))
               {
                 wireless_diagnostics::google::protobuf::internal::LogMessage::LogMessage();
                 wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<();
                 wireless_diagnostics::google::protobuf::internal::LogFinisher::operator=();
-                wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v105);
-                v81 = *(this + 22);
+                wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v106);
+                v82 = *(this + 22);
               }
 
-              v82 = *(this + 10);
-              *(this + 22) = v81 + 1;
-              *(v82 + 4 * v81) = v80;
-              --v77;
+              v83 = *(this + 10);
+              *(this + 22) = v82 + 1;
+              *(v83 + 4 * v82) = v81;
+              --v78;
             }
 
-            while (v77 > 1);
+            while (v78 > 1);
           }
 
 LABEL_244:
-          v72 = *(a2 + 1);
-          v7 = *(a2 + 2);
-          if (v7 - v72 <= 1)
+          v73 = *(a2 + 1);
+          v8 = *(a2 + 2);
+          if (v8 - v73 <= 1)
           {
             goto LABEL_1;
           }
 
-          v83 = *v72;
-          if (v83 == 168)
+          v84 = *v73;
+          if (v84 == 168)
           {
-            if (v72[1] != 1)
+            if (v73[1] != 1)
             {
               goto LABEL_1;
             }
@@ -8932,117 +8896,117 @@ LABEL_244:
             goto LABEL_250;
           }
 
-          if (v83 != 160 || v72[1] != 1)
+          if (v84 != 160 || v73[1] != 1)
           {
             goto LABEL_1;
           }
 
 LABEL_223:
-          v36 = (v72 + 2);
-          *(a2 + 1) = v36;
+          v37 = (v73 + 2);
+          *(a2 + 1) = v37;
         }
 
       case 0x15u:
         if ((TagFallback & 7) == 0)
         {
-          v35 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v36 = *(a2 + 1);
+          v8 = *(a2 + 2);
           while (1)
           {
-            v105[0] = 0;
-            if (v35 >= v7 || (v84 = *v35, (v84 & 0x80000000) != 0))
+            v106[0] = 0;
+            if (v36 >= v8 || (v85 = *v36, (v85 & 0x80000000) != 0))
             {
-              result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, v105);
+              result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, v106);
               if (!result)
               {
                 return result;
               }
 
-              v84 = v105[0];
+              v85 = v106[0];
             }
 
             else
             {
-              *(a2 + 1) = v35 + 1;
+              *(a2 + 1) = v36 + 1;
             }
 
-            v85 = *(this + 28);
-            if (v85 == *(this + 29))
+            v86 = *(this + 28);
+            if (v86 == *(this + 29))
             {
-              wireless_diagnostics::google::protobuf::RepeatedField<int>::Reserve(this + 13, v85 + 1);
-              v85 = *(this + 28);
+              wireless_diagnostics::google::protobuf::RepeatedField<int>::Reserve(this + 26, v86 + 1);
+              v86 = *(this + 28);
             }
 
-            v86 = *(this + 13);
-            *(this + 28) = v85 + 1;
-            *(v86 + 4 * v85) = v84;
-            v87 = *(this + 29) - *(this + 28);
-            if (v87 >= 1)
+            v87 = *(this + 13);
+            *(this + 28) = v86 + 1;
+            *(v87 + 4 * v86) = v85;
+            v88 = *(this + 29) - *(this + 28);
+            if (v88 >= 1)
             {
-              v88 = v87 + 1;
+              v89 = v88 + 1;
               do
               {
-                v89 = *(a2 + 1);
-                v90 = *(a2 + 2);
-                if (v90 - v89 < 2 || *v89 != 168 || v89[1] != 1)
+                v90 = *(a2 + 1);
+                v91 = *(a2 + 2);
+                if (v91 - v90 < 2 || *v90 != 168 || v90[1] != 1)
                 {
                   break;
                 }
 
-                *(a2 + 1) = v89 + 2;
-                v105[0] = 0;
-                if ((v89 + 2) >= v90 || (v91 = v89[2], (v91 & 0x80000000) != 0))
+                *(a2 + 1) = v90 + 2;
+                v106[0] = 0;
+                if ((v90 + 2) >= v91 || (v92 = v90[2], (v92 & 0x80000000) != 0))
                 {
-                  result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, v105);
+                  result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, v106);
                   if (!result)
                   {
                     return result;
                   }
 
-                  v91 = v105[0];
+                  v92 = v106[0];
                 }
 
                 else
                 {
-                  *(a2 + 1) = v89 + 3;
+                  *(a2 + 1) = v90 + 3;
                 }
 
-                v92 = *(this + 28);
-                if (v92 >= *(this + 29))
+                v93 = *(this + 28);
+                if (v93 >= *(this + 29))
                 {
                   wireless_diagnostics::google::protobuf::internal::LogMessage::LogMessage();
                   wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<();
                   wireless_diagnostics::google::protobuf::internal::LogFinisher::operator=();
-                  wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v105);
-                  v92 = *(this + 28);
+                  wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v106);
+                  v93 = *(this + 28);
                 }
 
-                v93 = *(this + 13);
-                *(this + 28) = v92 + 1;
-                *(v93 + 4 * v92) = v91;
-                --v88;
+                v94 = *(this + 13);
+                *(this + 28) = v93 + 1;
+                *(v94 + 4 * v93) = v92;
+                --v89;
               }
 
-              while (v88 > 1);
+              while (v89 > 1);
             }
 
 LABEL_271:
-            v72 = *(a2 + 1);
-            v7 = *(a2 + 2);
-            if (v7 - v72 <= 1)
+            v73 = *(a2 + 1);
+            v8 = *(a2 + 2);
+            if (v8 - v73 <= 1)
             {
               goto LABEL_1;
             }
 
-            v94 = *v72;
-            if (v94 == 176)
+            v95 = *v73;
+            if (v95 == 176)
             {
-              if (v72[1] == 1)
+              if (v73[1] == 1)
               {
-                v27 = (v72 + 2);
-                *(a2 + 1) = v27;
+                v28 = (v73 + 2);
+                *(a2 + 1) = v28;
 LABEL_278:
-                if (v27 >= v7 || (v95 = *v27, v95 < 0))
+                if (v28 >= v8 || (v96 = *v28, v96 < 0))
                 {
                   result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 25);
                   if (!result)
@@ -9050,24 +9014,24 @@ LABEL_278:
                     return result;
                   }
 
-                  v96 = *(a2 + 1);
-                  v7 = *(a2 + 2);
+                  v97 = *(a2 + 1);
+                  v8 = *(a2 + 2);
                 }
 
                 else
                 {
-                  *(this + 25) = v95;
-                  v96 = (v27 + 1);
-                  *(a2 + 1) = v96;
+                  *(this + 25) = v96;
+                  v97 = (v28 + 1);
+                  *(a2 + 1) = v97;
                 }
 
                 *(this + 35) |= 0x200000u;
-                if (v7 - v96 >= 2 && *v96 == 184 && v96[1] == 1)
+                if (v8 - v97 >= 2 && *v97 == 184 && v97[1] == 1)
                 {
-                  v33 = (v96 + 2);
-                  *(a2 + 1) = v33;
+                  v34 = (v97 + 2);
+                  *(a2 + 1) = v34;
 LABEL_287:
-                  if (v33 >= v7 || (v97 = *v33, v97 < 0))
+                  if (v34 >= v8 || (v98 = *v34, v98 < 0))
                   {
                     result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 30);
                     if (!result)
@@ -9075,24 +9039,24 @@ LABEL_287:
                       return result;
                     }
 
-                    v98 = *(a2 + 1);
-                    v7 = *(a2 + 2);
+                    v99 = *(a2 + 1);
+                    v8 = *(a2 + 2);
                   }
 
                   else
                   {
-                    *(this + 30) = v97;
-                    v98 = (v33 + 1);
-                    *(a2 + 1) = v98;
+                    *(this + 30) = v98;
+                    v99 = (v34 + 1);
+                    *(a2 + 1) = v99;
                   }
 
                   *(this + 35) |= 0x400000u;
-                  if (v7 - v98 >= 2 && *v98 == 192 && v98[1] == 1)
+                  if (v8 - v99 >= 2 && *v99 == 192 && v99[1] == 1)
                   {
-                    v34 = (v98 + 2);
-                    *(a2 + 1) = v34;
+                    v35 = (v99 + 2);
+                    *(a2 + 1) = v35;
 LABEL_296:
-                    if (v34 >= v7 || (v99 = *v34, v99 < 0))
+                    if (v35 >= v8 || (v100 = *v35, v100 < 0))
                     {
                       result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 31);
                       if (!result)
@@ -9100,24 +9064,24 @@ LABEL_296:
                         return result;
                       }
 
-                      v100 = *(a2 + 1);
-                      v7 = *(a2 + 2);
+                      v101 = *(a2 + 1);
+                      v8 = *(a2 + 2);
                     }
 
                     else
                     {
-                      *(this + 31) = v99;
-                      v100 = (v34 + 1);
-                      *(a2 + 1) = v100;
+                      *(this + 31) = v100;
+                      v101 = (v35 + 1);
+                      *(a2 + 1) = v101;
                     }
 
                     *(this + 35) |= 0x800000u;
-                    if (v7 - v100 >= 2 && *v100 == 200 && v100[1] == 1)
+                    if (v8 - v101 >= 2 && *v101 == 200 && v101[1] == 1)
                     {
-                      v18 = (v100 + 2);
-                      *(a2 + 1) = v18;
+                      v19 = (v101 + 2);
+                      *(a2 + 1) = v19;
 LABEL_305:
-                      if (v18 >= v7 || (v101 = *v18, v101 < 0))
+                      if (v19 >= v8 || (v102 = *v19, v102 < 0))
                       {
                         result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 32);
                         if (!result)
@@ -9125,24 +9089,24 @@ LABEL_305:
                           return result;
                         }
 
-                        v102 = *(a2 + 1);
-                        v7 = *(a2 + 2);
+                        v103 = *(a2 + 1);
+                        v8 = *(a2 + 2);
                       }
 
                       else
                       {
-                        *(this + 32) = v101;
-                        v102 = (v18 + 1);
-                        *(a2 + 1) = v102;
+                        *(this + 32) = v102;
+                        v103 = (v19 + 1);
+                        *(a2 + 1) = v103;
                       }
 
                       *(this + 35) |= 0x1000000u;
-                      if (v7 - v102 >= 2 && *v102 == 208 && v102[1] == 1)
+                      if (v8 - v103 >= 2 && *v103 == 208 && v103[1] == 1)
                       {
-                        v17 = (v102 + 2);
-                        *(a2 + 1) = v17;
+                        v18 = (v103 + 2);
+                        *(a2 + 1) = v18;
 LABEL_314:
-                        if (v17 >= v7 || (v103 = *v17, v103 < 0))
+                        if (v18 >= v8 || (v104 = *v18, v104 < 0))
                         {
                           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 33);
                           if (!result)
@@ -9150,19 +9114,19 @@ LABEL_314:
                             return result;
                           }
 
-                          v104 = *(a2 + 1);
-                          v7 = *(a2 + 2);
+                          v105 = *(a2 + 1);
+                          v8 = *(a2 + 2);
                         }
 
                         else
                         {
-                          *(this + 33) = v103;
-                          v104 = v17 + 1;
-                          *(a2 + 1) = v104;
+                          *(this + 33) = v104;
+                          v105 = v18 + 1;
+                          *(a2 + 1) = v105;
                         }
 
                         *(this + 35) |= 0x2000000u;
-                        if (v104 == v7 && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
+                        if (v105 == v8 && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
                         {
                           *(a2 + 8) = 0;
                           result = 1;
@@ -9178,20 +9142,20 @@ LABEL_314:
               goto LABEL_1;
             }
 
-            if (v94 != 168 || v72[1] != 1)
+            if (v95 != 168 || v73[1] != 1)
             {
               goto LABEL_1;
             }
 
 LABEL_250:
-            v35 = (v72 + 2);
-            *(a2 + 1) = v35;
+            v36 = (v73 + 2);
+            *(a2 + 1) = v36;
           }
         }
 
-        if (v6 == 2)
+        if (v7 == 2)
         {
-          result = wireless_diagnostics::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<int,(wireless_diagnostics::google::protobuf::internal::WireFormatLite::FieldType)5>(a2, this + 104);
+          result = wireless_diagnostics::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<int,(wireless_diagnostics::google::protobuf::internal::WireFormatLite::FieldType)5>(a2, this + 13);
           if (!result)
           {
             return result;
@@ -9201,7 +9165,7 @@ LABEL_250:
         }
 
 LABEL_64:
-        if (v6 != 4)
+        if (v7 != 4)
         {
           if ((wireless_diagnostics::google::protobuf::internal::WireFormatLite::SkipField(a2, TagFallback) & 1) == 0)
           {
@@ -9218,8 +9182,8 @@ LABEL_64:
           goto LABEL_64;
         }
 
-        v27 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v28 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_278;
       case 0x17u:
         if ((TagFallback & 7) != 0)
@@ -9227,8 +9191,8 @@ LABEL_64:
           goto LABEL_64;
         }
 
-        v33 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v34 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_287;
       case 0x18u:
         if ((TagFallback & 7) != 0)
@@ -9236,8 +9200,8 @@ LABEL_64:
           goto LABEL_64;
         }
 
-        v34 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v35 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_296;
       case 0x19u:
         if ((TagFallback & 7) != 0)
@@ -9245,8 +9209,8 @@ LABEL_64:
           goto LABEL_64;
         }
 
-        v18 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v19 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_305;
       case 0x1Au:
         if ((TagFallback & 7) != 0)
@@ -9254,8 +9218,8 @@ LABEL_64:
           goto LABEL_64;
         }
 
-        v17 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v18 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_314;
       default:
         goto LABEL_64;
@@ -9263,9 +9227,9 @@ LABEL_64:
   }
 }
 
-void sub_29647C558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29647C558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9611,23 +9575,23 @@ LABEL_56:
   return wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteUInt32(0x1A, v10, a2, a4);
 }
 
-uint64_t awd::metrics::LocationTileFileUsage::ByteSize(awd::metrics::LocationTileFileUsage *this)
+uint64_t awd::metrics::LocationTileFileUsage::ByteSize(awd::metrics::LocationTileFileUsage *this, unsigned int a2)
 {
-  v2 = *(this + 35);
-  if (!v2)
+  v3 = *(this + 35);
+  if (!v3)
   {
-    v3 = 0;
+    v4 = 0;
     goto LABEL_45;
   }
 
-  if (v2)
+  if (v3)
   {
-    v4 = *(this + 2);
-    if (v4 >= 0x80)
+    v5 = *(this + 2);
+    if (v5 >= 0x80)
     {
-      v3 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v4) + 1;
-      v2 = *(this + 35);
-      if ((v2 & 2) == 0)
+      v4 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v5) + 1;
+      v3 = *(this + 35);
+      if ((v3 & 2) == 0)
       {
         goto LABEL_14;
       }
@@ -9635,8 +9599,8 @@ uint64_t awd::metrics::LocationTileFileUsage::ByteSize(awd::metrics::LocationTil
 
     else
     {
-      v3 = 2;
-      if ((v2 & 2) == 0)
+      v4 = 2;
+      if ((v3 & 2) == 0)
       {
         goto LABEL_14;
       }
@@ -9645,46 +9609,46 @@ uint64_t awd::metrics::LocationTileFileUsage::ByteSize(awd::metrics::LocationTil
 
   else
   {
-    v3 = 0;
-    if ((v2 & 2) == 0)
+    v4 = 0;
+    if ((v3 & 2) == 0)
     {
       goto LABEL_14;
     }
   }
 
-  v5 = *(this + 3);
-  if (v5 >= 0x80)
+  v6 = *(this + 3);
+  if (v6 >= 0x80)
   {
-    v6 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v5) + 1;
-    v2 = *(this + 35);
+    v7 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v6) + 1;
+    v3 = *(this + 35);
   }
 
   else
   {
-    v6 = 2;
+    v7 = 2;
   }
 
-  v3 += v6;
+  v4 += v7;
 LABEL_14:
-  if ((v2 & 4) != 0)
+  if ((v3 & 4) != 0)
   {
-    v7 = *(this + 4);
-    if (v7 >= 0x80)
+    v8 = *(this + 4);
+    if (v8 >= 0x80)
     {
-      v8 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v7) + 1;
-      v2 = *(this + 35);
+      v9 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v8) + 1;
+      v3 = *(this + 35);
     }
 
     else
     {
-      v8 = 2;
+      v9 = 2;
     }
 
-    v3 += v8;
-    if ((v2 & 8) == 0)
+    v4 += v9;
+    if ((v3 & 8) == 0)
     {
 LABEL_16:
-      if ((v2 & 0x10) == 0)
+      if ((v3 & 0x10) == 0)
       {
         goto LABEL_17;
       }
@@ -9693,28 +9657,28 @@ LABEL_16:
     }
   }
 
-  else if ((v2 & 8) == 0)
+  else if ((v3 & 8) == 0)
   {
     goto LABEL_16;
   }
 
-  v9 = *(this + 5);
-  if (v9 >= 0x80)
+  v10 = *(this + 5);
+  if (v10 >= 0x80)
   {
-    v10 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v9) + 1;
-    v2 = *(this + 35);
+    v11 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v10) + 1;
+    v3 = *(this + 35);
   }
 
   else
   {
-    v10 = 2;
+    v11 = 2;
   }
 
-  v3 += v10;
-  if ((v2 & 0x10) == 0)
+  v4 += v11;
+  if ((v3 & 0x10) == 0)
   {
 LABEL_17:
-    if ((v2 & 0x20) == 0)
+    if ((v3 & 0x20) == 0)
     {
       goto LABEL_18;
     }
@@ -9723,23 +9687,23 @@ LABEL_17:
   }
 
 LABEL_29:
-  v11 = *(this + 6);
-  if (v11 >= 0x80)
+  v12 = *(this + 6);
+  if (v12 >= 0x80)
   {
-    v12 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v11) + 1;
-    v2 = *(this + 35);
+    v13 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v12) + 1;
+    v3 = *(this + 35);
   }
 
   else
   {
-    v12 = 2;
+    v13 = 2;
   }
 
-  v3 += v12;
-  if ((v2 & 0x20) == 0)
+  v4 += v13;
+  if ((v3 & 0x20) == 0)
   {
 LABEL_18:
-    if ((v2 & 0x40) == 0)
+    if ((v3 & 0x40) == 0)
     {
       goto LABEL_19;
     }
@@ -9748,23 +9712,23 @@ LABEL_18:
   }
 
 LABEL_33:
-  v13 = *(this + 7);
-  if (v13 >= 0x80)
+  v14 = *(this + 7);
+  if (v14 >= 0x80)
   {
-    v14 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v13) + 1;
-    v2 = *(this + 35);
+    v15 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v14) + 1;
+    v3 = *(this + 35);
   }
 
   else
   {
-    v14 = 2;
+    v15 = 2;
   }
 
-  v3 += v14;
-  if ((v2 & 0x40) == 0)
+  v4 += v15;
+  if ((v3 & 0x40) == 0)
   {
 LABEL_19:
-    if ((v2 & 0x80) == 0)
+    if ((v3 & 0x80) == 0)
     {
       goto LABEL_45;
     }
@@ -9773,62 +9737,62 @@ LABEL_19:
   }
 
 LABEL_37:
-  v15 = *(this + 8);
-  if (v15 >= 0x80)
+  v16 = *(this + 8);
+  if (v16 >= 0x80)
   {
-    v16 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v15) + 1;
-    v2 = *(this + 35);
+    v17 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v16) + 1;
+    v3 = *(this + 35);
   }
 
   else
   {
-    v16 = 2;
+    v17 = 2;
   }
 
-  v3 += v16;
-  if ((v2 & 0x80) != 0)
+  v4 += v17;
+  if ((v3 & 0x80) != 0)
   {
 LABEL_41:
-    v17 = *(this + 9);
-    if (v17 >= 0x80)
+    v18 = *(this + 9);
+    if (v18 >= 0x80)
     {
-      v18 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v17) + 1;
-      v2 = *(this + 35);
+      v19 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v18) + 1;
+      v3 = *(this + 35);
     }
 
     else
     {
-      v18 = 2;
+      v19 = 2;
     }
 
-    v3 += v18;
+    v4 += v19;
   }
 
 LABEL_45:
-  if ((v2 & 0xFF00) == 0)
+  if ((v3 & 0xFF00) == 0)
   {
     goto LABEL_87;
   }
 
-  if ((v2 & 0x100) != 0)
+  if ((v3 & 0x100) != 0)
   {
-    v19 = *(this + 10);
-    if (v19 >= 0x80)
+    v20 = *(this + 10);
+    if (v20 >= 0x80)
     {
-      v20 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v19) + 1;
-      v2 = *(this + 35);
+      v21 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v20) + 1;
+      v3 = *(this + 35);
     }
 
     else
     {
-      v20 = 2;
+      v21 = 2;
     }
 
-    v3 += v20;
-    if ((v2 & 0x200) == 0)
+    v4 += v21;
+    if ((v3 & 0x200) == 0)
     {
 LABEL_48:
-      if ((v2 & 0x400) == 0)
+      if ((v3 & 0x400) == 0)
       {
         goto LABEL_49;
       }
@@ -9837,28 +9801,28 @@ LABEL_48:
     }
   }
 
-  else if ((v2 & 0x200) == 0)
+  else if ((v3 & 0x200) == 0)
   {
     goto LABEL_48;
   }
 
-  v21 = *(this + 11);
-  if (v21 >= 0x80)
+  v22 = *(this + 11);
+  if (v22 >= 0x80)
   {
-    v22 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v21) + 1;
-    v2 = *(this + 35);
+    v23 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v22) + 1;
+    v3 = *(this + 35);
   }
 
   else
   {
-    v22 = 2;
+    v23 = 2;
   }
 
-  v3 += v22;
-  if ((v2 & 0x400) == 0)
+  v4 += v23;
+  if ((v3 & 0x400) == 0)
   {
 LABEL_49:
-    if ((v2 & 0x800) == 0)
+    if ((v3 & 0x800) == 0)
     {
       goto LABEL_50;
     }
@@ -9867,23 +9831,23 @@ LABEL_49:
   }
 
 LABEL_63:
-  v23 = *(this + 12);
-  if (v23 >= 0x80)
+  v24 = *(this + 12);
+  if (v24 >= 0x80)
   {
-    v24 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v23) + 1;
-    v2 = *(this + 35);
+    v25 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v24) + 1;
+    v3 = *(this + 35);
   }
 
   else
   {
-    v24 = 2;
+    v25 = 2;
   }
 
-  v3 += v24;
-  if ((v2 & 0x800) == 0)
+  v4 += v25;
+  if ((v3 & 0x800) == 0)
   {
 LABEL_50:
-    if ((v2 & 0x1000) == 0)
+    if ((v3 & 0x1000) == 0)
     {
       goto LABEL_51;
     }
@@ -9892,23 +9856,23 @@ LABEL_50:
   }
 
 LABEL_67:
-  v25 = *(this + 13);
-  if (v25 >= 0x80)
+  v26 = *(this + 13);
+  if (v26 >= 0x80)
   {
-    v26 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v25) + 1;
-    v2 = *(this + 35);
+    v27 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v26) + 1;
+    v3 = *(this + 35);
   }
 
   else
   {
-    v26 = 2;
+    v27 = 2;
   }
 
-  v3 += v26;
-  if ((v2 & 0x1000) == 0)
+  v4 += v27;
+  if ((v3 & 0x1000) == 0)
   {
 LABEL_51:
-    if ((v2 & 0x2000) == 0)
+    if ((v3 & 0x2000) == 0)
     {
       goto LABEL_52;
     }
@@ -9917,23 +9881,23 @@ LABEL_51:
   }
 
 LABEL_71:
-  v27 = *(this + 14);
-  if (v27 >= 0x80)
+  v28 = *(this + 14);
+  if (v28 >= 0x80)
   {
-    v28 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v27) + 1;
-    v2 = *(this + 35);
+    v29 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v28) + 1;
+    v3 = *(this + 35);
   }
 
   else
   {
-    v28 = 2;
+    v29 = 2;
   }
 
-  v3 += v28;
-  if ((v2 & 0x2000) == 0)
+  v4 += v29;
+  if ((v3 & 0x2000) == 0)
   {
 LABEL_52:
-    if ((v2 & 0x4000) == 0)
+    if ((v3 & 0x4000) == 0)
     {
       goto LABEL_53;
     }
@@ -9942,23 +9906,23 @@ LABEL_52:
   }
 
 LABEL_75:
-  v29 = *(this + 15);
-  if (v29 >= 0x80)
+  v30 = *(this + 15);
+  if (v30 >= 0x80)
   {
-    v30 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v29) + 1;
-    v2 = *(this + 35);
+    v31 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v30) + 1;
+    v3 = *(this + 35);
   }
 
   else
   {
-    v30 = 2;
+    v31 = 2;
   }
 
-  v3 += v30;
-  if ((v2 & 0x4000) == 0)
+  v4 += v31;
+  if ((v3 & 0x4000) == 0)
   {
 LABEL_53:
-    if ((v2 & 0x8000) == 0)
+    if ((v3 & 0x8000) == 0)
     {
       goto LABEL_87;
     }
@@ -9967,62 +9931,62 @@ LABEL_53:
   }
 
 LABEL_79:
-  v31 = *(this + 16);
-  if (v31 >= 0x80)
+  v32 = *(this + 16);
+  if (v32 >= 0x80)
   {
-    v32 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v31) + 1;
-    v2 = *(this + 35);
+    v33 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v32) + 1;
+    v3 = *(this + 35);
   }
 
   else
   {
-    v32 = 2;
+    v33 = 2;
   }
 
-  v3 += v32;
-  if ((v2 & 0x8000) != 0)
+  v4 += v33;
+  if ((v3 & 0x8000) != 0)
   {
 LABEL_83:
-    v33 = *(this + 17);
-    if (v33 >= 0x80)
+    v34 = *(this + 17);
+    if (v34 >= 0x80)
     {
-      v34 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v33) + 2;
-      v2 = *(this + 35);
+      v35 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v34) + 2;
+      v3 = *(this + 35);
     }
 
     else
     {
-      v34 = 3;
+      v35 = 3;
     }
 
-    v3 += v34;
+    v4 += v35;
   }
 
 LABEL_87:
-  if ((v2 & 0xFF0000) == 0)
+  if ((v3 & 0xFF0000) == 0)
   {
     goto LABEL_119;
   }
 
-  if ((v2 & 0x10000) != 0)
+  if ((v3 & 0x10000) != 0)
   {
-    v35 = *(this + 18);
-    if (v35 >= 0x80)
+    v36 = *(this + 18);
+    if (v36 >= 0x80)
     {
-      v36 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v35) + 2;
-      v2 = *(this + 35);
+      v37 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v36) + 2;
+      v3 = *(this + 35);
     }
 
     else
     {
-      v36 = 3;
+      v37 = 3;
     }
 
-    v3 += v36;
-    if ((v2 & 0x20000) == 0)
+    v4 += v37;
+    if ((v3 & 0x20000) == 0)
     {
 LABEL_90:
-      if ((v2 & 0x40000) == 0)
+      if ((v3 & 0x40000) == 0)
       {
         goto LABEL_91;
       }
@@ -10031,28 +9995,28 @@ LABEL_90:
     }
   }
 
-  else if ((v2 & 0x20000) == 0)
+  else if ((v3 & 0x20000) == 0)
   {
     goto LABEL_90;
   }
 
-  v37 = *(this + 19);
-  if (v37 >= 0x80)
+  v38 = *(this + 19);
+  if (v38 >= 0x80)
   {
-    v38 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v37) + 2;
-    v2 = *(this + 35);
+    v39 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v38) + 2;
+    v3 = *(this + 35);
   }
 
   else
   {
-    v38 = 3;
+    v39 = 3;
   }
 
-  v3 += v38;
-  if ((v2 & 0x40000) == 0)
+  v4 += v39;
+  if ((v3 & 0x40000) == 0)
   {
 LABEL_91:
-    if ((v2 & 0x200000) == 0)
+    if ((v3 & 0x200000) == 0)
     {
       goto LABEL_92;
     }
@@ -10061,23 +10025,23 @@ LABEL_91:
   }
 
 LABEL_103:
-  v39 = *(this + 24);
-  if (v39 >= 0x80)
+  v40 = *(this + 24);
+  if (v40 >= 0x80)
   {
-    v40 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v39) + 2;
-    v2 = *(this + 35);
+    v41 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v40) + 2;
+    v3 = *(this + 35);
   }
 
   else
   {
-    v40 = 3;
+    v41 = 3;
   }
 
-  v3 += v40;
-  if ((v2 & 0x200000) == 0)
+  v4 += v41;
+  if ((v3 & 0x200000) == 0)
   {
 LABEL_92:
-    if ((v2 & 0x400000) == 0)
+    if ((v3 & 0x400000) == 0)
     {
       goto LABEL_93;
     }
@@ -10086,23 +10050,23 @@ LABEL_92:
   }
 
 LABEL_107:
-  v41 = *(this + 25);
-  if (v41 >= 0x80)
+  v42 = *(this + 25);
+  if (v42 >= 0x80)
   {
-    v42 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v41) + 2;
-    v2 = *(this + 35);
+    v43 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v42) + 2;
+    v3 = *(this + 35);
   }
 
   else
   {
-    v42 = 3;
+    v43 = 3;
   }
 
-  v3 += v42;
-  if ((v2 & 0x400000) == 0)
+  v4 += v43;
+  if ((v3 & 0x400000) == 0)
   {
 LABEL_93:
-    if ((v2 & 0x800000) == 0)
+    if ((v3 & 0x800000) == 0)
     {
       goto LABEL_119;
     }
@@ -10111,147 +10075,147 @@ LABEL_93:
   }
 
 LABEL_111:
-  v43 = *(this + 30);
-  if (v43 >= 0x80)
+  v44 = *(this + 30);
+  if (v44 >= 0x80)
   {
-    v44 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v43) + 2;
-    v2 = *(this + 35);
+    v45 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v44) + 2;
+    v3 = *(this + 35);
   }
 
   else
   {
-    v44 = 3;
+    v45 = 3;
   }
 
-  v3 += v44;
-  if ((v2 & 0x800000) != 0)
+  v4 += v45;
+  if ((v3 & 0x800000) != 0)
   {
 LABEL_115:
-    v45 = *(this + 31);
-    if (v45 >= 0x80)
+    v46 = *(this + 31);
+    if (v46 >= 0x80)
     {
-      v46 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v45) + 2;
-      v2 = *(this + 35);
+      v47 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v46) + 2;
+      v3 = *(this + 35);
     }
 
     else
     {
-      v46 = 3;
+      v47 = 3;
     }
 
-    v3 += v46;
+    v4 += v47;
   }
 
 LABEL_119:
-  if (HIBYTE(v2))
+  if (HIBYTE(v3))
   {
-    if ((v2 & 0x1000000) != 0)
+    if ((v3 & 0x1000000) != 0)
     {
-      v47 = *(this + 32);
-      if (v47 >= 0x80)
+      v48 = *(this + 32);
+      if (v48 >= 0x80)
       {
-        v48 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v47) + 2;
-        v2 = *(this + 35);
+        v49 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v48) + 2;
+        v3 = *(this + 35);
       }
 
       else
       {
-        v48 = 3;
+        v49 = 3;
       }
 
-      v3 += v48;
+      v4 += v49;
     }
 
-    if ((v2 & 0x2000000) != 0)
+    if ((v3 & 0x2000000) != 0)
     {
-      v49 = *(this + 33);
-      if (v49 >= 0x80)
+      v50 = *(this + 33);
+      if (v50 >= 0x80)
       {
-        v50 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v49) + 2;
+        v51 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v50) + 2;
       }
 
       else
       {
-        v50 = 3;
+        v51 = 3;
       }
 
-      v3 += v50;
+      v4 += v51;
     }
   }
 
-  v51 = *(this + 22);
-  if (v51 < 1)
+  v52 = *(this + 22);
+  if (v52 < 1)
   {
-    v53 = 0;
+    v54 = 0;
   }
 
   else
   {
-    v52 = 0;
     v53 = 0;
+    v54 = 0;
     do
     {
-      v54 = *(*(this + 10) + 4 * v52);
-      if ((v54 & 0x80000000) != 0)
+      v55 = *(*(this + 10) + 4 * v53);
+      if ((v55 & 0x80000000) != 0)
       {
-        v55 = 10;
+        v56 = 10;
       }
 
-      else if (v54 >= 0x80)
+      else if (v55 >= 0x80)
       {
-        v55 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v54);
-        v51 = *(this + 22);
+        v56 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v55);
+        v52 = *(this + 22);
       }
 
       else
       {
-        v55 = 1;
+        v56 = 1;
       }
 
-      v53 += v55;
-      ++v52;
+      v54 += v56;
+      ++v53;
     }
 
-    while (v52 < v51);
+    while (v53 < v52);
   }
 
-  v56 = *(this + 28);
-  if (v56 < 1)
+  v57 = *(this + 28);
+  if (v57 < 1)
   {
-    v58 = 0;
+    v59 = 0;
   }
 
   else
   {
-    v57 = 0;
     v58 = 0;
+    v59 = 0;
     do
     {
-      v59 = *(*(this + 13) + 4 * v57);
-      if ((v59 & 0x80000000) != 0)
+      v60 = *(*(this + 13) + 4 * v58);
+      if ((v60 & 0x80000000) != 0)
       {
-        v60 = 10;
+        v61 = 10;
       }
 
-      else if (v59 >= 0x80)
+      else if (v60 >= 0x80)
       {
-        v60 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v59);
-        v56 = *(this + 28);
+        v61 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v60);
+        v57 = *(this + 28);
       }
 
       else
       {
-        v60 = 1;
+        v61 = 1;
       }
 
-      v58 += v60;
-      ++v57;
+      v59 += v61;
+      ++v58;
     }
 
-    while (v57 < v56);
+    while (v58 < v57);
   }
 
-  result = (v53 + v3 + v58 + 2 * (v56 + v51));
+  result = (v54 + v4 + v59 + 2 * (v57 + v52));
   *(this + 34) = result;
   return result;
 }

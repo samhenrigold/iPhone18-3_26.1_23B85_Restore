@@ -46,7 +46,7 @@
     return 0;
   }
 
-  [equal duration];
+  objc_msgSend_duration(equal);
   duration = self->_duration;
   return CMTimeCompare(&duration, &time2) == 0;
 }
@@ -58,7 +58,7 @@
   v5 = NSStringFromClass(v4);
   if (self)
   {
-    [(AVPlannedSegmentConfiguration *)self duration];
+    objc_msgSend_duration(self);
   }
 
   else

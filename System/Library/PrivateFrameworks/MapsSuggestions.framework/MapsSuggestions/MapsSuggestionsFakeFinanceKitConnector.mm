@@ -14,7 +14,7 @@
 - (id)currentOrderPickupsWithPeriod:(double)period
 {
   swift_beginAccess();
-  type metadata accessor for MapsSuggestionsOrderPickup();
+  type metadata accessor for MapsSuggestionsOrderPickup(0);
 
   v3 = sub_1C529D7CC();
 
@@ -24,7 +24,7 @@
 - (NSArray)orderPickups
 {
   swift_beginAccess();
-  type metadata accessor for MapsSuggestionsOrderPickup();
+  type metadata accessor for MapsSuggestionsOrderPickup(0);
 
   v2 = sub_1C529D7CC();
 
@@ -33,7 +33,7 @@
 
 - (void)setOrderPickups:(id)pickups
 {
-  type metadata accessor for MapsSuggestionsOrderPickup();
+  type metadata accessor for MapsSuggestionsOrderPickup(0);
   v4 = sub_1C529D7DC();
   v5 = OBJC_IVAR____TtC15MapsSuggestions38MapsSuggestionsFakeFinanceKitConnector_orderPickups;
   swift_beginAccess();
@@ -82,10 +82,11 @@
   v6 = (self + OBJC_IVAR____TtC15MapsSuggestions38MapsSuggestionsFakeFinanceKitConnector__callbackHandle);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1C513EDF0(v7);
+  sub_1C513EDF0(v7, v8);
 }
 
 - (id)startObservingOrderPickupsIn:(double)in callback:(id)callback
@@ -96,17 +97,18 @@
   v7 = (self + OBJC_IVAR____TtC15MapsSuggestions38MapsSuggestionsFakeFinanceKitConnector__callbackHandle);
   swift_beginAccess();
   v8 = *v7;
+  v9 = v7[1];
   selfCopy = self;
   _Block_copy(v5);
   *v7 = sub_1C51446DC;
   v7[1] = v6;
-  sub_1C513EDF0(v8);
+  sub_1C513EDF0(v8, v9);
   swift_beginAccess();
-  type metadata accessor for MapsSuggestionsOrderPickup();
+  type metadata accessor for MapsSuggestionsOrderPickup(0);
 
-  v10 = sub_1C529D7CC();
+  v11 = sub_1C529D7CC();
 
-  (*(v5 + 2))(v5, v10);
+  (*(v5 + 2))(v5, v11);
 
   _Block_release(v5);
 
@@ -115,18 +117,19 @@
 
 - (void)updatedOrders
 {
-  v3 = (self + OBJC_IVAR____TtC15MapsSuggestions38MapsSuggestionsFakeFinanceKitConnector__callbackHandle);
+  v3 = self + OBJC_IVAR____TtC15MapsSuggestions38MapsSuggestionsFakeFinanceKitConnector__callbackHandle;
   swift_beginAccess();
   v4 = *v3;
   if (*v3)
   {
+    v5 = *(v3 + 1);
     swift_beginAccess();
     selfCopy = self;
-    sub_1C513B684(v4);
+    sub_1C513B684(v4, v5);
 
-    v4(v6);
+    v4(v7);
 
-    sub_1C513EDF0(v4);
+    sub_1C513EDF0(v4, v5);
   }
 }
 

@@ -199,7 +199,6 @@ LABEL_8:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -219,7 +218,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  totalDurationMs = self->_totalDurationMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -234,7 +232,6 @@ LABEL_4:
   }
 
 LABEL_13:
-  rxTxOffDurationMs = self->_rxTxOffDurationMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -249,7 +246,6 @@ LABEL_5:
   }
 
 LABEL_14:
-  rxOnDurationMs = self->_rxOnDurationMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -264,12 +260,10 @@ LABEL_6:
   }
 
 LABEL_15:
-  energy = self->_energy;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_7:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 

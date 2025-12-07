@@ -28,60 +28,60 @@
 
 - (NSString)description
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CCAB68]) initWithFormat:@"<%@: %p", objc_opt_class(), self];
   [(SAAssertion *)self _descriptionConstituents];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  obj = v26 = 0u;
-  v4 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+  obj = v25 = 0u;
+  v4 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v4)
   {
     v5 = v4;
-    v18 = *v24;
+    v17 = *v23;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v24 != v18)
+        if (*v23 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v23 + 1) + 8 * i);
+        v7 = *(*(&v22 + 1) + 8 * i);
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
         v8 = v7;
-        v9 = [v8 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v20;
+          v11 = *v19;
           do
           {
             for (j = 0; j != v10; ++j)
             {
-              if (*v20 != v11)
+              if (*v19 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = *(*(&v19 + 1) + 8 * j);
+              v13 = *(*(&v18 + 1) + 8 * j);
               v14 = [v8 objectForKey:v13];
               [v3 appendFormat:@"; %@: %@", v13, v14];
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
           }
 
           while (v10);
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v5 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v5);
@@ -89,14 +89,12 @@
 
   [v3 appendString:@">"];
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (NSArray)_descriptionConstituents
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   isValid = [(SAAssertion *)self isValid];
   v5 = NSStringFromBOOL();
@@ -111,10 +109,8 @@
     }
   }
 
-  v10[0] = v3;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = v3;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
 
   return v7;
 }
@@ -159,7 +155,7 @@
 
 - (void)invalidateWithReason:(id)reason
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   if (![reasonCopy length])
   {
@@ -179,37 +175,37 @@
     if (os_log_type_enabled(SALogElement, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v24 = selfCopy;
+      v23 = selfCopy;
       _os_log_impl(&dword_26C47D000, v9, OS_LOG_TYPE_DEFAULT, "Assertion did invalidate: %{public}@", buf, 0xCu);
     }
 
     v10 = selfCopy;
     objc_sync_enter(v10);
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v11 = v10[1];
-    v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v12)
     {
-      v13 = *v19;
+      v13 = *v18;
       do
       {
         v14 = 0;
         do
         {
-          if (*v19 != v13)
+          if (*v18 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          (*(*(*(&v18 + 1) + 8 * v14) + 16))(*(*(&v18 + 1) + 8 * v14));
+          (*(*(*(&v17 + 1) + 8 * v14) + 16))(*(*(&v17 + 1) + 8 * v14));
           ++v14;
         }
 
         while (v12 != v14);
-        v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v12);
@@ -230,8 +226,6 @@
       [(SAAssertion *)self invalidateWithReason:v16];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateWithReason:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
@@ -242,11 +236,10 @@
 
 - (void)invalidateWithReason:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_26C47D000, a2, OS_LOG_TYPE_ERROR, "Attempt to invalidate invalid assertion: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_26C47D000, a2, OS_LOG_TYPE_ERROR, "Attempt to invalidate invalid assertion: %{public}@", &v2, 0xCu);
 }
 
 @end

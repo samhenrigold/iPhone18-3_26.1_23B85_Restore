@@ -1083,7 +1083,7 @@ LABEL_15:
 
     view = [(SBTraitsOrientedContentViewController *)self->_orientedContentViewController view];
     settings = [sceneCopy settings];
-    [settings frame];
+    objc_msgSend_frame(settings);
     [view setContentViewBoundsInReferenceSpace:?];
 
     [(SBDashBoardCameraPageViewController *)self _updateZStackPolicyAssistants];
@@ -1144,7 +1144,7 @@ LABEL_15:
 
     view = [(SBTraitsOrientedContentViewController *)self->_orientedContentViewController view];
     settings = [scene settings];
-    [settings frame];
+    objc_msgSend_frame(settings);
     [view setContentViewBoundsInReferenceSpace:?];
 
     [(SBDashBoardCameraPageViewController *)self _updateZStackPolicyAssistants];
@@ -1923,7 +1923,7 @@ LABEL_20:
   return v7 & 1;
 }
 
-uint64_t __97__SBDashBoardCameraPageViewController_homeGestureInteraction_shouldBeginGestureRecognizerOfType___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+uint64_t __97__SBDashBoardCameraPageViewController_homeGestureInteraction_shouldBeginGestureRecognizerOfType___block_invoke(uint64_t a1, uint64_t a2, int a3, _BYTE *a4)
 {
   result = _interfaceOrientedRegionGivenScreenRegion();
   if ((result & 4) != 0)

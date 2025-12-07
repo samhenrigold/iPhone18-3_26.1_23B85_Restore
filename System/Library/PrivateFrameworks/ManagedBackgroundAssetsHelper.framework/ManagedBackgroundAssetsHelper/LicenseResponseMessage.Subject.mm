@@ -10,7 +10,6 @@
 
 - (int64_t)length
 {
-  v6 = *(&self->super.super.isa + OBJC_IVAR____TtCV29ManagedBackgroundAssetsHelper22LicenseResponseMessage7Subject_licenseID);
   selfCopy = self;
   v3 = sub_1D30E977C();
   MEMORY[0x1D38B2610](v3);
@@ -51,7 +50,6 @@
 
 - (unsigned)characterAtIndex:(int64_t)index
 {
-  v8 = *(&self->super.super.isa + OBJC_IVAR____TtCV29ManagedBackgroundAssetsHelper22LicenseResponseMessage7Subject_licenseID);
   selfCopy = self;
   v5 = sub_1D30E977C();
   MEMORY[0x1D38B2610](v5);

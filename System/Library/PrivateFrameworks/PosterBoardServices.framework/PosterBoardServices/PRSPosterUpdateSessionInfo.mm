@@ -103,19 +103,17 @@ void __37__PRSPosterUpdateSessionInfo_dealloc__block_invoke(uint64_t a1, id a2)
       assetURL2 = [configurationCopy assetURL];
       [assetURL2 startAccessingSecurityScopedResource];
 
-      v8 = *MEMORY[0x1E69E9BA8];
       assetURL3 = [configurationCopy assetURL];
       [assetURL3 fileSystemRepresentation];
-      v10 = *MEMORY[0x1E69E9BE0];
-      v11 = sandbox_extension_issue_file();
+      v9 = sandbox_extension_issue_file();
 
-      if (v11)
+      if (v9)
       {
-        v12 = xpc_string_create(v11);
-        v13 = self->_shortcutsWallpaperConfigurationSandboxToken;
-        self->_shortcutsWallpaperConfigurationSandboxToken = v12;
+        v10 = xpc_string_create(v9);
+        v11 = self->_shortcutsWallpaperConfigurationSandboxToken;
+        self->_shortcutsWallpaperConfigurationSandboxToken = v10;
 
-        free(v11);
+        free(v9);
       }
 
       assetURL4 = [configurationCopy assetURL];
@@ -137,12 +135,12 @@ void __37__PRSPosterUpdateSessionInfo_dealloc__block_invoke(uint64_t a1, id a2)
 
 - (void)setAssetURLs:(id)ls
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   lsCopy = ls;
-  v13[0] = objc_opt_class();
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
-  v12 = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
+  v12[0] = objc_opt_class();
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11 = objc_opt_class();
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
   v7 = [lsCopy pf_sanitizeWithAllowedKeyClasses:v5 allowedValueClasses:v6];
 
   if (![(NSDictionary *)self->_assetURLs isEqualToDictionary:v7])
@@ -154,46 +152,42 @@ void __37__PRSPosterUpdateSessionInfo_dealloc__block_invoke(uint64_t a1, id a2)
     assetURLs = self->_assetURLs;
     if (assetURLs)
     {
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 3221225472;
-      v11[2] = __43__PRSPosterUpdateSessionInfo_setAssetURLs___block_invoke;
-      v11[3] = &unk_1E818D428;
-      v11[4] = self;
-      [(NSDictionary *)assetURLs enumerateKeysAndObjectsUsingBlock:v11];
+      v10[0] = MEMORY[0x1E69E9820];
+      v10[1] = 3221225472;
+      v10[2] = __43__PRSPosterUpdateSessionInfo_setAssetURLs___block_invoke;
+      v10[3] = &unk_1E818D428;
+      v10[4] = self;
+      [(NSDictionary *)assetURLs enumerateKeysAndObjectsUsingBlock:v10];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __43__PRSPosterUpdateSessionInfo_setAssetURLs___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = a2;
+  v14 = a2;
   v5 = a3;
   [v5 startAccessingSecurityScopedResource];
-  v6 = *MEMORY[0x1E69E9BA8];
   [v5 fileSystemRepresentation];
-  v7 = *MEMORY[0x1E69E9BE0];
-  v8 = sandbox_extension_issue_file();
-  if (v8)
+  v6 = sandbox_extension_issue_file();
+  if (v6)
   {
-    v9 = v8;
-    v10 = *(*(a1 + 32) + 24);
-    if (!v10)
+    v7 = v6;
+    v8 = *(*(a1 + 32) + 24);
+    if (!v8)
     {
       empty = xpc_dictionary_create_empty();
-      v12 = *(a1 + 32);
-      v13 = *(v12 + 24);
-      *(v12 + 24) = empty;
+      v10 = *(a1 + 32);
+      v11 = *(v10 + 24);
+      *(v10 + 24) = empty;
 
-      v10 = *(*(a1 + 32) + 24);
+      v8 = *(*(a1 + 32) + 24);
     }
 
-    v14 = [v16 UTF8String];
-    v15 = xpc_string_create(v9);
-    xpc_dictionary_set_value(v10, v14, v15);
+    v12 = [v14 UTF8String];
+    v13 = xpc_string_create(v7);
+    xpc_dictionary_set_value(v8, v12, v13);
 
-    free(v9);
+    free(v7);
   }
 
   [v5 stopAccessingSecurityScopedResource];
@@ -274,9 +268,9 @@ void __43__PRSPosterUpdateSessionInfo_setAssetURLs___block_invoke(uint64_t a1, v
         if (v15 == -1)
         {
           v16 = __error();
-          strerror_r(*v16, __strerrbuf, 0x100uLL);
-          v17 = PRSLogPosterContents();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v17 = strerror_r(*v16, __strerrbuf, 0x100uLL);
+          v18 = PRSLogPosterContents(v17);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             v37 = v5->_shortcutsWallpaperConfigurationSandboxToken;
             v38 = *__error();
@@ -293,58 +287,57 @@ void __43__PRSPosterUpdateSessionInfo_setAssetURLs___block_invoke(uint64_t a1, v
             v50 = v40;
             v51 = 2114;
             v52 = assetURL;
-            _os_log_error_impl(&dword_1C26FF000, v17, OS_LOG_TYPE_ERROR, "failed to consume sandboxToken %@ from bsxpc with errno=%i (%{public}s) : <%{public}@ path=%{public}@>", buf, 0x30u);
+            _os_log_error_impl(&dword_1C26FF000, v18, OS_LOG_TYPE_ERROR, "failed to consume sandboxToken %@ from bsxpc with errno=%i (%{public}s) : <%{public}@ path=%{public}@>", buf, 0x30u);
           }
         }
       }
     }
 
-    v18 = [coderCopy decodeXPCObjectOfType:MEMORY[0x1E69E9E80] forKey:@"ui"];
-    v19 = v18;
-    if (v18)
+    v19 = [coderCopy decodeXPCObjectOfType:MEMORY[0x1E69E9E80] forKey:@"ui"];
+    v20 = v19;
+    if (v19)
     {
-      v20 = PRSDictionaryFromXPCObject(v18);
+      v21 = PRSDictionaryFromXPCObject(v19);
       userInfo = v5->_userInfo;
-      v5->_userInfo = v20;
+      v5->_userInfo = v21;
 
       _validateUserInfo(v5->_userInfo);
     }
 
-    v22 = objc_opt_self();
-    v23 = [coderCopy decodeObjectOfClass:v22 forKey:@"ctx"];
+    v23 = objc_opt_self();
+    v24 = [coderCopy decodeObjectOfClass:v23 forKey:@"ctx"];
 
-    if (v23)
+    if (v24)
     {
-      v24 = _decodeContextDictionary(v23);
+      v25 = _decodeContextDictionary(v24);
       context = v5->_context;
-      v5->_context = v24;
+      v5->_context = v25;
     }
 
-    v26 = objc_opt_self();
-    v27 = [coderCopy decodeDictionaryOfClass:v26 forKey:@"asus"];
+    v27 = objc_opt_self();
+    v28 = [coderCopy decodeDictionaryOfClass:v27 forKey:@"asus"];
     assetURLs = v5->_assetURLs;
-    v5->_assetURLs = v27;
+    v5->_assetURLs = v28;
 
     if (v5->_assetURLs)
     {
-      v29 = [coderCopy decodeXPCObjectOfType:MEMORY[0x1E69E9E80] forKey:@"asts"];
+      v30 = [coderCopy decodeXPCObjectOfType:MEMORY[0x1E69E9E80] forKey:@"asts"];
       assetSandboxTokens = v5->_assetSandboxTokens;
-      v5->_assetSandboxTokens = v29;
+      v5->_assetSandboxTokens = v30;
 
       assetSandboxHandles = v5->_assetSandboxHandles;
       v5->_assetSandboxHandles = 0;
 
-      v32 = v5->_assetSandboxTokens;
-      if (v32)
+      v33 = v5->_assetSandboxTokens;
+      if (v33)
       {
-        v33 = _consumeSandboxExtensions(v5->_assetURLs, v32);
-        v34 = v5->_assetSandboxHandles;
-        v5->_assetSandboxHandles = v33;
+        v34 = _consumeSandboxExtensions(v5->_assetURLs, v33);
+        v35 = v5->_assetSandboxHandles;
+        v5->_assetSandboxHandles = v34;
       }
     }
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -419,9 +412,9 @@ void __43__PRSPosterUpdateSessionInfo_setAssetURLs___block_invoke(uint64_t a1, v
       if (v18 == -1)
       {
         v19 = __error();
-        strerror_r(*v19, __strerrbuf, 0x100uLL);
-        v20 = PRSLogPosterContents();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v20 = strerror_r(*v19, __strerrbuf, 0x100uLL);
+        v21 = PRSLogPosterContents(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           v44 = v5->_shortcutsWallpaperConfigurationSandboxToken;
           v45 = *__error();
@@ -438,35 +431,35 @@ void __43__PRSPosterUpdateSessionInfo_setAssetURLs___block_invoke(uint64_t a1, v
           *&buf[30] = v47;
           *&buf[38] = 2114;
           v51 = assetURL;
-          _os_log_error_impl(&dword_1C26FF000, v20, OS_LOG_TYPE_ERROR, "failed to consume sandboxToken %@ from bsxpc with errno=%i (%{public}s) : <%{public}@ path=%{public}@>", buf, 0x30u);
+          _os_log_error_impl(&dword_1C26FF000, v21, OS_LOG_TYPE_ERROR, "failed to consume sandboxToken %@ from bsxpc with errno=%i (%{public}s) : <%{public}@ path=%{public}@>", buf, 0x30u);
         }
       }
     }
 
-    v21 = MEMORY[0x1E695DFD8];
-    v22 = objc_opt_class();
-    v23 = [v21 setWithObjects:{v22, objc_opt_class(), 0}];
-    v24 = [coderCopy decodeObjectOfClasses:v23 forKey:@"ui"];
-    v25 = [v24 copy];
+    v22 = MEMORY[0x1E695DFD8];
+    v23 = objc_opt_class();
+    v24 = [v22 setWithObjects:{v23, objc_opt_class(), 0}];
+    v25 = [coderCopy decodeObjectOfClasses:v24 forKey:@"ui"];
+    v26 = [v25 copy];
     userInfo = v5->_userInfo;
-    v5->_userInfo = v25;
+    v5->_userInfo = v26;
 
     _validateUserInfo(v5->_userInfo);
-    v27 = objc_opt_self();
-    v28 = [coderCopy decodeObjectOfClass:v27 forKey:@"ctx"];
-    v29 = _decodeContextDictionary(v28);
+    v28 = objc_opt_self();
+    v29 = [coderCopy decodeObjectOfClass:v28 forKey:@"ctx"];
+    v30 = _decodeContextDictionary(v29);
     context = v5->_context;
-    v5->_context = v29;
+    v5->_context = v30;
 
-    v31 = objc_opt_class();
-    v32 = [coderCopy decodeDictionaryWithKeysOfClass:v31 objectsOfClass:objc_opt_class() forKey:@"asus"];
+    v32 = objc_opt_class();
+    v33 = [coderCopy decodeDictionaryWithKeysOfClass:v32 objectsOfClass:objc_opt_class() forKey:@"asus"];
     assetURLs = v5->_assetURLs;
-    v5->_assetURLs = v32;
+    v5->_assetURLs = v33;
 
     if (v5->_assetURLs)
     {
-      v34 = objc_opt_class();
-      v35 = [coderCopy decodeDictionaryWithKeysOfClass:v34 objectsOfClass:objc_opt_class() forKey:@"asts"];
+      v35 = objc_opt_class();
+      v36 = [coderCopy decodeDictionaryWithKeysOfClass:v35 objectsOfClass:objc_opt_class() forKey:@"asts"];
       *__strerrbuf = 0;
       v53 = __strerrbuf;
       v54 = 0x3032000000;
@@ -478,27 +471,26 @@ void __43__PRSPosterUpdateSessionInfo_setAssetURLs___block_invoke(uint64_t a1, v
       *&buf[16] = ___decodeSandboxToken_block_invoke;
       *&buf[24] = &unk_1E818D450;
       *&buf[32] = __strerrbuf;
-      [v35 enumerateKeysAndObjectsUsingBlock:buf];
-      v36 = *(v53 + 5);
+      [v36 enumerateKeysAndObjectsUsingBlock:buf];
+      v37 = *(v53 + 5);
       _Block_object_dispose(__strerrbuf, 8);
 
       assetSandboxTokens = v5->_assetSandboxTokens;
-      v5->_assetSandboxTokens = v36;
+      v5->_assetSandboxTokens = v37;
 
       assetSandboxHandles = v5->_assetSandboxHandles;
       v5->_assetSandboxHandles = 0;
 
-      v39 = v5->_assetSandboxTokens;
-      if (v39)
+      v40 = v5->_assetSandboxTokens;
+      if (v40)
       {
-        v40 = _consumeSandboxExtensions(v5->_assetURLs, v39);
-        v41 = v5->_assetSandboxHandles;
-        v5->_assetSandboxHandles = v40;
+        v41 = _consumeSandboxExtensions(v5->_assetURLs, v40);
+        v42 = v5->_assetSandboxHandles;
+        v5->_assetSandboxHandles = v41;
       }
     }
   }
 
-  v42 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

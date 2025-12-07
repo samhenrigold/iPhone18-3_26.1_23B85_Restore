@@ -86,7 +86,7 @@
   [sourceView setIconLabelAlpha:0.0];
   referenceView = [userInfo referenceView];
   [referenceView setIconImageAlpha:0.0];
-  [referenceView bounds];
+  objc_msgSend_bounds(referenceView);
   [sourceView convertRect:containerView toView:?];
   v52 = v51;
   v54 = v53;
@@ -189,7 +189,7 @@
     [userInfo targetContentFrame];
     [platterView setFrame:?];
     [platterView addSubview:targetView];
-    [platterView bounds];
+    objc_msgSend_bounds(platterView);
     [targetView setFrame:?];
     [userInfo targetContentCornerRadius];
     [platterView _setContinuousCornerRadius:?];
@@ -377,7 +377,7 @@ void __91__SBHPeopleWidgetPersonDetailZoomAnimator__configureForEndpoint_context
     UIRectGetCenter();
     UIPointRoundToScale();
     [v3 setCenter:?];
-    [v3 bounds];
+    objc_msgSend_bounds(v3);
     UIRectGetCenter();
     UIPointRoundToScale();
     v20 = v19;
@@ -398,7 +398,7 @@ void __91__SBHPeopleWidgetPersonDetailZoomAnimator__configureForEndpoint_context
     UIRectGetCenter();
     UIPointRoundToScale();
     [v3 setCenter:?];
-    [v3 bounds];
+    objc_msgSend_bounds(v3);
     UIRectGetCenter();
     UIPointRoundToScale();
     v27 = v26;
@@ -428,7 +428,7 @@ void __91__SBHPeopleWidgetPersonDetailZoomAnimator__configureForEndpoint_context
   [v34 setAlpha:*(a1 + 96)];
 
   [*(a1 + 32) setMorphFraction:*(a1 + 96)];
-  [*(a1 + 56) bounds];
+  objc_msgSend_bounds(*(a1 + 56));
   UIRectGetCenter();
   UIPointRoundToScale();
   [*(a1 + 32) setCenter:?];

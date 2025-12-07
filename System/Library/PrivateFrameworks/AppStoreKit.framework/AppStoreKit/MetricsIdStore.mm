@@ -11,10 +11,10 @@
     swift_once();
   }
 
-  v2 = sub_1E15A1060(MEMORY[0x1E69E7CC0]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECEB6BF8);
+  sub_1E15A1060(MEMORY[0x1E69E7CC0]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECEB6BF8, &qword_1E1B1E880);
   swift_allocObject();
-  off_1EE1E1908 = sub_1E14C5D90(v2);
+  off_1EE1E1908 = sub_1E14C5D90();
 }
 
 @end

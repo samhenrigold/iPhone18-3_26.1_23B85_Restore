@@ -33,7 +33,7 @@
 
   else
   {
-    +[BWDeferredCaptureContainer captureRequestIdentifierForManifest:];
+    [(BWDeferredCaptureContainer *)self captureRequestIdentifierForManifest:a2];
     return 0;
   }
 }
@@ -265,9 +265,9 @@ LABEL_8:
 uint64_t __52__BWDeferredCaptureContainer_commitPhotoDescriptor___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 photoIdentifier];
-  v4 = [*(a1 + 32) photoIdentifier];
+  [*(a1 + 32) photoIdentifier];
 
-  return [v3 isEqualToString:v4];
+  return objc_msgSend_isEqualToString_(v3);
 }
 
 - (int)commitInference:(id)inference tag:(id)tag inferenceAttachmentKey:(id)key portType:(id)type
@@ -305,7 +305,7 @@ uint64_t __52__BWDeferredCaptureContainer_commitPhotoDescriptor___block_invoke(u
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v14 = [[BWDeferredInferenceArrayIntermediate alloc] initWithArray:v11 tag:tag inferenceAttachmentKey:key portType:type URL:[(BWDeferredContainer *)self _intermediateArrayURLForTag:tag]];
+          v14 = [[BWDeferredInferenceArrayIntermediate alloc] initWithArray:v11 tag:tag inferenceAttachmentKey:key portType:type URL:[(BWDeferredContainer *)&self->super.super.isa _intermediateArrayURLForTag:tag]];
         }
 
         else
@@ -317,7 +317,7 @@ uint64_t __52__BWDeferredCaptureContainer_commitPhotoDescriptor___block_invoke(u
             objc_exception_throw(v17);
           }
 
-          v14 = [[BWDeferredInferenceDictionaryIntermediate alloc] initWithDictionary:v11 tag:tag inferenceAttachmentKey:key portType:type URL:[(BWDeferredContainer *)self _intermediateArrayURLForTag:tag]];
+          v14 = [[BWDeferredInferenceDictionaryIntermediate alloc] initWithDictionary:v11 tag:tag inferenceAttachmentKey:key portType:type URL:[(BWDeferredContainer *)&self->super.super.isa _intermediateArrayURLForTag:tag]];
         }
 
         v15 = v14;
@@ -348,11 +348,11 @@ LABEL_18:
     kdebug_trace();
   }
 
-  pthread_rwlock_wrlock(&self->super._lock);
+  v4 = pthread_rwlock_wrlock(&self->super._lock);
   if (self->_committed)
   {
-    [BWDeferredCaptureContainer commit];
-    v4 = -16135;
+    [(BWDeferredCaptureContainer *)v4 commit];
+    v5 = -16135;
   }
 
   else
@@ -360,7 +360,7 @@ LABEL_18:
     self->_committed = 1;
     self->_cacheExpiryTime = dispatch_time(0, 0);
     self->_commitTime = [MEMORY[0x1E695DF00] date];
-    v4 = 0;
+    v5 = 0;
     self->_commitDurationNS = FigGetUpTimeNanoseconds() - self->super._creationTimeNS;
   }
 
@@ -370,7 +370,7 @@ LABEL_18:
     kdebug_trace();
   }
 
-  return v4;
+  return v5;
 }
 
 - (int)abort
@@ -381,27 +381,27 @@ LABEL_18:
     kdebug_trace();
   }
 
-  pthread_rwlock_wrlock(&self->super._lock);
+  v4 = pthread_rwlock_wrlock(&self->super._lock);
   if (self->_committed)
   {
-    [BWDeferredCaptureContainer abort];
-    v6 = -16135;
+    [(BWDeferredCaptureContainer *)v4 abort];
+    v7 = -16135;
   }
 
   else
   {
     self->_committed = 1;
     flushGroup = self->_flushGroup;
-    v5 = dispatch_time(0, 10000000000);
-    if (dispatch_group_wait(flushGroup, v5))
+    v6 = dispatch_time(0, 10000000000);
+    if (dispatch_group_wait(flushGroup, v6))
     {
       [BWDeferredCaptureContainer abort];
-      v6 = -16138;
+      v7 = -16138;
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
   }
 
@@ -411,7 +411,7 @@ LABEL_18:
     kdebug_trace();
   }
 
-  return v6;
+  return v7;
 }
 
 - (int)preflush
@@ -445,7 +445,7 @@ LABEL_18:
 
 - (int)flush
 {
-  v42[0] = 0;
+  v44[0] = 0;
   v3 = MEMORY[0x1E695FF58];
   if (*MEMORY[0x1E695FF58] == 1)
   {
@@ -460,15 +460,15 @@ LABEL_18:
 LABEL_27:
     pthread_rwlock_unlock(&self->super._lock);
 LABEL_28:
-    [+[BWDeferredCaptureContainerManager deleteContainerForApplicationID:v25], "deleteContainerForApplicationID:captureRequestIdentifier:", [(BWStillImageCaptureSettings *)self->super._stillImageCaptureSettings applicationID], self->super._captureRequestIdentifier];
+    [+[BWDeferredCaptureContainerManager deleteContainerForApplicationID:v27], "deleteContainerForApplicationID:captureRequestIdentifier:", [(BWStillImageCaptureSettings *)self->super._stillImageCaptureSettings applicationID], self->super._captureRequestIdentifier];
     goto LABEL_29;
   }
 
   v5 = UpTimeNanoseconds;
   if (dword_1EB58E440)
   {
-    v41 = 0;
-    v40 = OS_LOG_TYPE_DEFAULT;
+    v43 = 0;
+    v42 = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -478,7 +478,7 @@ LABEL_28:
   if (_createFolders)
   {
     code = _createFolders;
-    [BWDeferredCaptureContainer flush];
+    [(BWDeferredCaptureContainer *)_createFolders flush];
     goto LABEL_27;
   }
 
@@ -486,34 +486,34 @@ LABEL_28:
   if (_writeManifest)
   {
     code = _writeManifest;
-    [BWDeferredCaptureContainer flush];
+    [(BWDeferredCaptureContainer *)_writeManifest flush];
     goto LABEL_27;
   }
 
-  if ([BWDeferredContainer archiveObjectWithURL:[(BWDeferredContainer *)self _pipelineParametersURL] object:self->super._pipelineParameters error:v42])
+  if ([BWDeferredContainer archiveObjectWithURL:[(BWDeferredContainer *)&self->super.super.isa _pipelineParametersURL] object:self->super._pipelineParameters error:v44])
   {
-    if ([BWDeferredContainer archiveObjectWithURL:[(BWDeferredContainer *)self _stillImageCaptureSettingsURL] object:self->super._stillImageCaptureSettings error:v42]&& [BWDeferredContainer archiveObjectWithURL:[(BWDeferredContainer *)self _stillImageSettingsURL] object:self->super._stillImageSettings error:v42]&& [BWDeferredContainer archiveObjectWithURL:[(BWDeferredContainer *)self _stillImageProcessingSettingsURL] object:self->super._stillImageProcessingSettings error:v42])
+    if ([BWDeferredContainer archiveObjectWithURL:[(BWDeferredContainer *)&self->super.super.isa _stillImageCaptureSettingsURL] object:self->super._stillImageCaptureSettings error:v44]&& [BWDeferredContainer archiveObjectWithURL:[(BWDeferredContainer *)&self->super.super.isa _stillImageSettingsURL] object:self->super._stillImageSettings error:v44]&& [BWDeferredContainer archiveObjectWithURL:[(BWDeferredContainer *)&self->super.super.isa _stillImageProcessingSettingsURL] object:self->super._stillImageProcessingSettings error:v44])
     {
+      v32 = 0u;
+      v33 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v28 = 0u;
-      v29 = 0u;
       intermediates = self->super._intermediates;
-      v10 = [(NSMutableArray *)intermediates countByEnumeratingWithState:&v28 objects:v27 count:16];
-      if (v10)
+      v12 = [(NSMutableArray *)intermediates countByEnumeratingWithState:&v30 objects:v29 count:16];
+      if (v12)
       {
-        v11 = v10;
-        v12 = *v29;
+        v13 = v12;
+        v14 = *v31;
         while (2)
         {
-          for (i = 0; i != v11; ++i)
+          for (i = 0; i != v13; ++i)
           {
-            if (*v29 != v12)
+            if (*v31 != v14)
             {
               objc_enumerationMutation(intermediates);
             }
 
-            flush = [*(*(&v28 + 1) + 8 * i) flush];
+            flush = [*(*(&v30 + 1) + 8 * i) flush];
             if (flush)
             {
               code = flush;
@@ -522,8 +522,8 @@ LABEL_28:
             }
           }
 
-          v11 = [(NSMutableArray *)intermediates countByEnumeratingWithState:&v28 objects:v27 count:16];
-          if (v11)
+          v13 = [(NSMutableArray *)intermediates countByEnumeratingWithState:&v30 objects:v29 count:16];
+          if (v13)
           {
             continue;
           }
@@ -534,8 +534,8 @@ LABEL_28:
 
       dispatch_group_leave(self->_flushGroup);
       flushGroup = self->_flushGroup;
-      v16 = dispatch_time(0, 10000000000);
-      if (dispatch_group_wait(flushGroup, v16))
+      v18 = dispatch_time(0, 10000000000);
+      if (dispatch_group_wait(flushGroup, v18))
       {
         [BWDeferredCaptureContainer flush];
         code = -16138;
@@ -551,13 +551,13 @@ LABEL_28:
 
     else
     {
-      code = [v42[0] code];
+      code = [v44[0] code];
     }
   }
 
   else
   {
-    code = [v42[0] code];
+    code = [v44[0] code];
   }
 
   pthread_rwlock_unlock(&self->super._lock);
@@ -569,33 +569,33 @@ LABEL_28:
 LABEL_29:
   if (dword_1EB58E440)
   {
-    v41 = 0;
-    v40 = OS_LOG_TYPE_DEFAULT;
-    v18 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v19 = v41;
-    if (os_log_type_enabled(v18, v40))
+    v43 = 0;
+    v42 = OS_LOG_TYPE_DEFAULT;
+    v20 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v21 = v43;
+    if (os_log_type_enabled(v20, v42))
     {
-      v20 = v19;
+      v22 = v21;
     }
 
     else
     {
-      v20 = v19 & 0xFFFFFFFE;
+      v22 = v21 & 0xFFFFFFFE;
     }
 
-    if (v20)
+    if (v22)
     {
       settingsID = [(BWStillImageCaptureSettings *)self->super._stillImageCaptureSettings settingsID];
       applicationID = [(BWStillImageCaptureSettings *)self->super._stillImageCaptureSettings applicationID];
       captureRequestIdentifier = self->super._captureRequestIdentifier;
-      v32 = 136315907;
-      v33 = "[BWDeferredCaptureContainer flush]";
-      v34 = 2048;
-      v35 = settingsID;
-      v36 = 2113;
-      v37 = applicationID;
+      v34 = 136315907;
+      v35 = "[BWDeferredCaptureContainer flush]";
+      v36 = 2048;
+      v37 = settingsID;
       v38 = 2113;
-      v39 = captureRequestIdentifier;
+      v39 = applicationID;
+      v40 = 2113;
+      v41 = captureRequestIdentifier;
       _os_log_send_and_compose_impl();
     }
 
@@ -646,7 +646,7 @@ LABEL_29:
   if (!manifest || (v5 = [manifest objectForKeyedSubscript:@"Photos"]) == 0 || (v6 = objc_msgSend(v5, "objectAtIndexedSubscript:", index)) == 0)
   {
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     return 0;
   }
 
@@ -681,14 +681,15 @@ LABEL_5:
       }
 
       OUTLINED_FUNCTION_0();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
     else
     {
       OUTLINED_FUNCTION_0();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
-    FigDebugAssert3();
     v7 = -16133;
     goto LABEL_5;
   }
@@ -700,40 +701,44 @@ LABEL_5:
 {
   if (result)
   {
-    v1 = result;
+    v2 = result;
     if (*(result + 321))
     {
       return 0;
     }
 
     [MEMORY[0x1E696AC08] defaultManager];
-    path = [*(v1 + 216) path];
-    if (OUTLINED_FUNCTION_63_11(path, v3, path, v4, v5, v6))
+    path = [*(v2 + 216) path];
+    if (OUTLINED_FUNCTION_63_11(path, v4, path, v5, v6, v7, v8, v9, v38))
     {
-      v31[0] = [*(v1 + 216) path];
-      v31[1] = @"Intermediates";
-      [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
-      v7 = [objc_msgSend(OUTLINED_FUNCTION_7() "fileURLWithPathComponents:"path"")];
-      if (OUTLINED_FUNCTION_63_11(v7, v8, v7, v9, v10, v11))
+      path2 = [*(v2 + 216) path];
+      v53 = @"Intermediates";
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&path2 count:2];
+      v10 = [objc_msgSend(OUTLINED_FUNCTION_7() "fileURLWithPathComponents:"path"")];
+      if (OUTLINED_FUNCTION_63_11(v10, v11, v10, v12, v13, v14, v15, v16, v39))
       {
         result = 0;
-        *(v1 + 321) = 1;
+        *(v2 + 321) = 1;
         return result;
       }
 
       OUTLINED_FUNCTION_4_64();
-      v20 = FigDebugAssert3();
-      OUTLINED_FUNCTION_44_12(v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, 0);
+      v30 = FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v40, v44, v47, 0, path2, v53, v54, v55);
+      v25 = OUTLINED_FUNCTION_44_12(v30, v31, v32, v33, v34, v35, v36, v37, v43, v46, v49, v51);
+      v28 = v2;
+      v29 = 1584;
     }
 
     else
     {
       OUTLINED_FUNCTION_4_64();
-      v12 = FigDebugAssert3();
-      OUTLINED_FUNCTION_44_12(v12, v13, v14, v15, v16, v17, v18, v19, v28, v29, v30, 0);
+      v17 = FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v39, v44, v47, 0, path2, v53, v54, v55);
+      v25 = OUTLINED_FUNCTION_44_12(v17, v18, v19, v20, v21, v22, v23, v24, v41, v45, v48, v50);
+      v28 = v2;
+      v29 = 1581;
     }
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v28, v25, "<<<< BWDeferredContainer >>>>", v29, v1, v26, v27, v42);
   }
 
   return result;
@@ -758,18 +763,18 @@ LABEL_5:
 
   if (!descriptor)
   {
-    v18[5] = 0;
-    v19 = 0;
-    v20 = 0;
+    v28 = 0;
+    v29 = 0;
+    v30 = 0;
     goto LABEL_17;
   }
 
-  [descriptor presentationTimeStamp];
-  if ((v19 & 0x100000000) == 0)
+  objc_msgSend_presentationTimeStamp(descriptor);
+  if ((v29 & 0x100000000) == 0)
   {
 LABEL_17:
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     v15 = -16134;
     goto LABEL_11;
   }
@@ -777,28 +782,28 @@ LABEL_17:
   if (self->_committed)
   {
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v17, v18, v19, v20, v21, v22, v23, v24);
   }
 
   else
   {
     photoDescriptors = self->super._photoDescriptors;
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __52__BWDeferredCaptureContainer_commitPhotoDescriptor___block_invoke;
-    v18[3] = &unk_1E79998B0;
-    v18[4] = descriptor;
-    [(NSMutableArray *)photoDescriptors indexOfObjectPassingTest:v18];
+    v23 = MEMORY[0x1E69E9820];
+    v24 = 3221225472;
+    v25 = __52__BWDeferredCaptureContainer_commitPhotoDescriptor___block_invoke;
+    v26 = &unk_1E79998B0;
+    descriptorCopy = descriptor;
+    [(NSMutableArray *)photoDescriptors indexOfObjectPassingTest:&v23];
     OUTLINED_FUNCTION_79();
     if (v7)
     {
       v9 = [descriptor processingFlags] & 0xFFFFCFFF;
       v10 = [BWPhotoDescriptor alloc];
       photoIdentifier2 = [OUTLINED_FUNCTION_18_0() photoIdentifier];
-      time = [descriptor time];
+      v12 = objc_msgSend_time(descriptor);
       timeZone = [descriptor timeZone];
-      [descriptor presentationTimeStamp];
-      v14 = [v3 initWithPhotoIdentifier:photoIdentifier2 processingFlags:v9 | 0x2000u time:time timeZone:timeZone presentationTimeStamp:v17];
+      objc_msgSend_presentationTimeStamp(descriptor);
+      v14 = [v3 initWithPhotoIdentifier:photoIdentifier2 processingFlags:v9 | 0x2000u time:v12 timeZone:timeZone presentationTimeStamp:&v20];
       [(NSMutableArray *)self->super._photoDescriptors addObject:v14];
 
       v15 = 0;
@@ -877,7 +882,7 @@ LABEL_9:
 
 - (int)commitBuffer:(__CVBuffer *)buffer tag:(id)tag bufferType:(unint64_t)type captureFrameFlags:(unint64_t)flags compressionProfile:(int)profile metadataTag:(id)metadataTag rawThumbnailsBufferTag:(id)bufferTag rawThumbnailsMetadataTag:(id)self0 mainRawThumbnailBufferTag:(id)self1 mainRawThumbnailMetadataTag:(id)self2 sifrRawThumbnailBufferTag:(id)self3 sifrRawThumbnailMetadataTag:(id)self4 portType:(id)self5
 {
-  v22 = MEMORY[0x1E695FF58];
+  v23 = MEMORY[0x1E695FF58];
   if (*MEMORY[0x1E695FF58] == 1)
   {
     OUTLINED_FUNCTION_28_12();
@@ -886,18 +891,18 @@ LABEL_9:
   }
 
   pthread_rwlock_wrlock(&self->super._lock);
-  _createFolders = -16134;
+  v24 = -16134;
   if (buffer && tag)
   {
     if (self->_committed)
     {
-      _createFolders = -16135;
+      v24 = -16135;
     }
 
     else
     {
-      LODWORD(v27) = profile;
-      [[BWDeferredBufferIntermediate alloc] initWithBuffer:buffer tag:tag bufferType:type captureFrameFlags:flags metadataTag:metadataTag rawThumbnailsBufferTag:bufferTag rawThumbnailsMetadataTag:thumbnailsMetadataTag mainRawThumbnailBufferTag:thumbnailBufferTag mainRawThumbnailMetadataTag:thumbnailMetadataTag sifrRawThumbnailBufferTag:rawThumbnailBufferTag sifrRawThumbnailMetadataTag:rawThumbnailMetadataTag portType:portType compressionProfile:v27 URL:[(BWDeferredContainer *)self _intermediateBufferURLForTag:tag compressionProfile:profile]];
+      LODWORD(v34) = profile;
+      [[BWDeferredBufferIntermediate alloc] initWithBuffer:buffer tag:tag bufferType:type captureFrameFlags:flags metadataTag:metadataTag rawThumbnailsBufferTag:bufferTag rawThumbnailsMetadataTag:thumbnailsMetadataTag mainRawThumbnailBufferTag:thumbnailBufferTag mainRawThumbnailMetadataTag:thumbnailMetadataTag sifrRawThumbnailBufferTag:rawThumbnailBufferTag sifrRawThumbnailMetadataTag:rawThumbnailMetadataTag portType:portType compressionProfile:v34 URL:[(BWDeferredContainer *)&self->super.super.isa _intermediateBufferURLForTag:tag compressionProfile:profile]];
       OUTLINED_FUNCTION_69_4();
       [OUTLINED_FUNCTION_8() setSettingsID:?];
       OUTLINED_FUNCTION_73_5();
@@ -905,9 +910,11 @@ LABEL_9:
       if (self->_flushBuffersUponCommit)
       {
         _createFolders = [(BWDeferredCaptureContainer *)self _createFolders];
+        v24 = _createFolders;
         if (_createFolders)
         {
-          FigDebugAssert3();
+          LODWORD(v29) = _createFolders;
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v29, v15, v30, v31, v32, v33, v35, v36);
         }
 
         else
@@ -925,22 +932,22 @@ LABEL_9:
 
       else
       {
-        _createFolders = 0;
+        v24 = 0;
       }
 
-      v22 = MEMORY[0x1E695FF58];
+      v23 = MEMORY[0x1E695FF58];
     }
   }
 
   pthread_rwlock_unlock(&self->super._lock);
-  if (*v22 == 1)
+  if (*v23 == 1)
   {
     OUTLINED_FUNCTION_58_12(0x6CDu);
     OUTLINED_FUNCTION_17_14();
     kdebug_trace();
   }
 
-  return _createFolders;
+  return v24;
 }
 
 - (int)commitMetadata:(id)metadata tag:(id)tag bufferTag:(id)bufferTag
@@ -968,7 +975,7 @@ LABEL_9:
       v10 = [metadata copy];
       if (![(BWDeferredContainer *)self _intermediateForTag:tag])
       {
-        [[BWDeferredMetadataIntermediate alloc] initWithMetadata:v10 tag:tag bufferTag:bufferTag URL:[(BWDeferredContainer *)self _intermediateArrayURLForTag:tag]];
+        [[BWDeferredMetadataIntermediate alloc] initWithMetadata:v10 tag:tag bufferTag:bufferTag URL:[(BWDeferredContainer *)&self->super.super.isa _intermediateArrayURLForTag:tag]];
         OUTLINED_FUNCTION_69_4();
         [OUTLINED_FUNCTION_8() setSettingsID:?];
         OUTLINED_FUNCTION_73_5();
@@ -996,9 +1003,9 @@ LABEL_9:
 
 - (int)commitInferenceBuffer:(__CVBuffer *)buffer tag:(id)tag metadataTag:(id)metadataTag inferenceAttachedMediaKey:(id)key compressionProfile:(int)profile portType:(id)type
 {
-  v9 = *&profile;
+  v10 = *&profile;
   OUTLINED_FUNCTION_16_2();
-  if (v15)
+  if (v16)
   {
     OUTLINED_FUNCTION_28_12();
     OUTLINED_FUNCTION_17_14();
@@ -1006,59 +1013,61 @@ LABEL_9:
   }
 
   pthread_rwlock_wrlock(&self->super._lock);
-  _createFolders = -16134;
+  v17 = -16134;
   if (buffer && tag && key)
   {
     if (self->_committed)
     {
-      _createFolders = -16135;
+      v17 = -16135;
     }
 
     else
     {
-      v17 = [[BWDeferredInferenceBufferIntermediate alloc] initWithBuffer:buffer tag:tag metadataTag:metadataTag inferenceAttachedMediaKey:key portType:type compressionProfile:v9 URL:[(BWDeferredContainer *)self _intermediateBufferURLForTag:tag compressionProfile:v9]];
+      v18 = [[BWDeferredInferenceBufferIntermediate alloc] initWithBuffer:buffer tag:tag metadataTag:metadataTag inferenceAttachedMediaKey:key portType:type compressionProfile:v10 URL:[(BWDeferredContainer *)&self->super.super.isa _intermediateBufferURLForTag:tag compressionProfile:v10]];
       [(FigCaptureStillImageSettings *)self->super._stillImageSettings settingsID];
       [OUTLINED_FUNCTION_7() setSettingsID:?];
-      [(NSMutableArray *)self->super._intermediates addObject:v17];
+      [(NSMutableArray *)self->super._intermediates addObject:v18];
 
       if (self->_flushBuffersUponCommit)
       {
         _createFolders = [(BWDeferredCaptureContainer *)self _createFolders];
+        v17 = _createFolders;
         if (_createFolders)
         {
-          FigDebugAssert3();
+          LODWORD(v23) = _createFolders;
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v23, v8, v24, block, v26, v27, v28, v29);
         }
 
         else
         {
           flushGroup = self->_flushGroup;
           flushQueue = self->_flushQueue;
-          block[0] = MEMORY[0x1E69E9820];
-          block[1] = 3221225472;
-          block[2] = __122__BWDeferredCaptureContainer_commitInferenceBuffer_tag_metadataTag_inferenceAttachedMediaKey_compressionProfile_portType___block_invoke;
-          block[3] = &unk_1E798F870;
-          block[4] = v17;
-          dispatch_group_async(flushGroup, flushQueue, block);
+          block = MEMORY[0x1E69E9820];
+          v26 = 3221225472;
+          v27 = __122__BWDeferredCaptureContainer_commitInferenceBuffer_tag_metadataTag_inferenceAttachedMediaKey_compressionProfile_portType___block_invoke;
+          v28 = &unk_1E798F870;
+          v29 = v18;
+          dispatch_group_async(flushGroup, flushQueue, &block);
         }
       }
 
       else
       {
-        _createFolders = 0;
+        v17 = 0;
       }
     }
   }
 
   pthread_rwlock_unlock(&self->super._lock);
   OUTLINED_FUNCTION_16_2();
-  if (v15)
+  if (v16)
   {
     OUTLINED_FUNCTION_58_12(0x6CDu);
     OUTLINED_FUNCTION_17_14();
     kdebug_trace();
   }
 
-  return _createFolders;
+  return v17;
 }
 
 - (int)commitDictionary:(id)dictionary tag:(id)tag

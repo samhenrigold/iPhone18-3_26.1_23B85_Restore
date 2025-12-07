@@ -15,7 +15,7 @@ void __APAdvertiserRapportManager_startAdvertising_block_invoke(uint64_t a1, uin
   v16 = 0;
   if (gLogCategory_APAdvertiserRapportManager <= 50 && (gLogCategory_APAdvertiserRapportManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APAdvertiserRapportManager, "void APAdvertiserRapportManager_startAdvertising(APAdvertiserRapportManagerRef)_block_invoke", 33554482, "Rapport manager received getinfo request.\n");
   }
 
   active = _APAdvertiserRapportManager_lookupAndRetainActiveManagerWithKey(*(a1 + 32));
@@ -64,7 +64,7 @@ void __APAdvertiserRapportManager_startAdvertising_block_invoke_3(uint64_t a1, u
 {
   if (a2 && gLogCategory_APAdvertiserRapportManager <= 90 && (gLogCategory_APAdvertiserRapportManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APAdvertiserRapportManager, "void APAdvertiserRapportManager_startAdvertising(APAdvertiserRapportManagerRef)_block_invoke_3", 33554522, "Failure activating Rapport client: %@\n", a2);
   }
 
   active = _APAdvertiserRapportManager_lookupAndRetainActiveManagerWithKey(*(a1 + 32));
@@ -148,11 +148,12 @@ uint64_t ___APAdvertiserRapportManager_getActiveManagers_block_invoke()
   result = FigCFWeakReferenceTableCreate();
   if (result)
   {
+    v1 = result;
     if (gLogCategory_APAdvertiserRapportManager <= 100)
     {
       if (gLogCategory_APAdvertiserRapportManager != -1 || (result = _LogCategory_Initialize(), result))
       {
-        result = LogPrintF();
+        result = LogPrintF(&gLogCategory_APAdvertiserRapportManager, "FigCFWeakReferenceTableRef _APAdvertiserRapportManager_getActiveManagers(void)_block_invoke", 33554532, "### Can't create weak reference table, error: %#m\n", v1);
       }
     }
 

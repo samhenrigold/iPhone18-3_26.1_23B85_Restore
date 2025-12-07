@@ -5,6 +5,7 @@
 - (MNLocationProviderDelegate)delegate;
 - (void)_setEffectiveAccuracy:(double)accuracy;
 - (void)_sharedInit;
+- (void)locationProvider:(id)provider didChangeCoarseMode:(BOOL)mode;
 - (void)locationProvider:(id)provider didEnterRegion:(id)region;
 - (void)locationProvider:(id)provider didExitRegion:(id)region;
 - (void)locationProvider:(id)provider didReceiveError:(id)error;
@@ -115,6 +116,13 @@
   return selfCopy;
 }
 
+- (void)locationProvider:(id)provider didChangeCoarseMode:(BOOL)mode
+{
+  modeCopy = mode;
+  delegate = [(MNHybridLocationProvider *)self delegate];
+  [delegate locationProvider:self didChangeCoarseMode:modeCopy];
+}
+
 - (void)locationProviderDidChangeAuthorizationStatus:(id)status
 {
   delegate = [(MNHybridLocationProvider *)self delegate];
@@ -137,15 +145,15 @@
 
 - (void)locationProvider:(id)provider didUpdateLocation:(id)location
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   v6 = MNGetPuckTrackingLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     uuid = [locationCopy uuid];
-    v13 = 138412290;
-    v14 = uuid;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_INFO, "[MN] [%@] - Processing - in MNHybridLocationProvider::locationProvider:didUpdateLocation:", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = uuid;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_INFO, "[MN] [%@] - Processing - in MNHybridLocationProvider::locationProvider:didUpdateLocation:", &v12, 0xCu);
   }
 
   v8 = GEOFindOrCreateLog();
@@ -158,18 +166,16 @@
       v10 = @"Leeching";
     }
 
-    v13 = 138412546;
-    v14 = v10;
-    v15 = 2112;
-    v16 = locationCopy;
-    _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEBUG, "Received location while in %@ mode:%@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = v10;
+    v14 = 2112;
+    v15 = locationCopy;
+    _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEBUG, "Received location while in %@ mode:%@", &v12, 0x16u);
   }
 
   [locationCopy setIsLeeched:self->_mode == 1];
   delegate = [(MNHybridLocationProvider *)self delegate];
   [delegate locationProvider:self didUpdateLocation:locationCopy];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setHeadingOrientation:(int)orientation
@@ -390,7 +396,7 @@ void __49__MNHybridLocationProvider_startUpdatingLocation__block_invoke(uint64_t
 
 void __50__MNHybridLocationProvider__setEffectiveAccuracy___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -403,13 +409,11 @@ void __50__MNHybridLocationProvider__setEffectiveAccuracy___block_invoke(uint64_
     v4 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315138;
-      v7 = "[MNHybridLocationProvider _setEffectiveAccuracy:]_block_invoke";
-      _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "strongSelf went away in %s", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[MNHybridLocationProvider _setEffectiveAccuracy:]_block_invoke";
+      _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "strongSelf went away in %s", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sharedInit
@@ -450,7 +454,7 @@ void __50__MNHybridLocationProvider__setEffectiveAccuracy___block_invoke(uint64_
 
 void __46__MNHybridLocationProvider_setDistanceFilter___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -463,18 +467,16 @@ void __46__MNHybridLocationProvider_setDistanceFilter___block_invoke(uint64_t a1
     v4 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315138;
-      v7 = "[MNHybridLocationProvider setDistanceFilter:]_block_invoke";
-      _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "strongSelf went away in %s", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[MNHybridLocationProvider setDistanceFilter:]_block_invoke";
+      _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "strongSelf went away in %s", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setMode:(unint64_t)mode
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (self->_mode != mode)
   {
     p_nonLeechedDesiredAccuracy = &self->_nonLeechedDesiredAccuracy;
@@ -494,13 +496,11 @@ void __46__MNHybridLocationProvider_setDistanceFilter___block_invoke(uint64_t a1
         v7 = @"Leeching";
       }
 
-      v9 = 138412290;
-      v10 = v7;
-      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEBUG, "Switched to %@ mode", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEBUG, "Switched to %@ mode", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (MNHybridLocationProvider)initWithEffectiveBundleIdentifier:(id)identifier

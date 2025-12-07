@@ -18,6 +18,7 @@
 - (void)connectionInterrupted;
 - (void)setAdditionalDataSources:(id)sources;
 - (void)setDataSource:(HKLiveWorkoutDataSource *)dataSource;
+- (void)setShouldCollectWorkoutEvents:(BOOL)shouldCollectWorkoutEvents;
 - (void)stateMachine:(id)machine didEnterState:(id)state date:(id)date error:(id)error;
 @end
 
@@ -71,10 +72,41 @@
   return shouldCollectWorkoutEvents;
 }
 
+- (void)setShouldCollectWorkoutEvents:(BOOL)shouldCollectWorkoutEvents
+{
+  v3 = shouldCollectWorkoutEvents;
+  os_unfair_lock_lock(&self->super._lock);
+  configuration = [(HKWorkoutBuilder *)self configuration];
+  if ([configuration shouldCollectWorkoutEvents] == v3)
+  {
+    os_unfair_lock_unlock(&self->super._lock);
+  }
+
+  else
+  {
+    [configuration setShouldCollectWorkoutEvents:v3];
+    [(HKWorkoutBuilder *)self setConfiguration:configuration];
+    WeakRetained = objc_loadWeakRetained(&self->_workoutSession);
+    identifier = [WeakRetained identifier];
+
+    os_unfair_lock_unlock(&self->super._lock);
+    if (identifier)
+    {
+      proxyProvider = [(HKWorkoutBuilder *)self proxyProvider];
+      v9[0] = MEMORY[0x1E69E9820];
+      v9[1] = 3221225472;
+      v9[2] = __54__HKLiveWorkoutBuilder_setShouldCollectWorkoutEvents___block_invoke;
+      v9[3] = &__block_descriptor_33_e43_v16__0___HKWorkoutBuilderServerInterface__8l;
+      v10 = v3;
+      [proxyProvider fetchProxyWithHandler:v9 errorHandler:&__block_literal_global_119];
+    }
+  }
+}
+
 void __54__HKLiveWorkoutBuilder_setShouldCollectWorkoutEvents___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
     __54__HKLiveWorkoutBuilder_setShouldCollectWorkoutEvents___block_invoke_2_cold_1();
@@ -152,38 +184,36 @@ void __54__HKLiveWorkoutBuilder_setShouldCollectWorkoutEvents___block_invoke_2(u
 
 void __43__HKLiveWorkoutBuilder__lock_updateEvents___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) workoutBuilder:*(a1 + 48) didCollectEvent:{*(*(&v8 + 1) + 8 * v6++), v8}];
+        [*(a1 + 40) workoutBuilder:*(a1 + 48) didCollectEvent:{*(*(&v7 + 1) + 8 * v6++), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAdditionalDataSources:(id)sources
@@ -229,7 +259,7 @@ void __49__HKLiveWorkoutBuilder_setAdditionalDataSources___block_invoke(uint64_t
 void __49__HKLiveWorkoutBuilder_setAdditionalDataSources___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
     __49__HKLiveWorkoutBuilder_setAdditionalDataSources___block_invoke_4_cold_1();
@@ -290,21 +320,19 @@ void __49__HKLiveWorkoutBuilder_setAdditionalDataSources___block_invoke_4(uint64
 
 void __38__HKLiveWorkoutBuilder_setDataSource___block_invoke(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 232);
   v3 = a2;
   v4 = [v2 identifier];
-  v7[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+  v6[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
   [v3 remote_removeDataSourcesWithIdentifiers:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __38__HKLiveWorkoutBuilder_setDataSource___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
     __49__HKLiveWorkoutBuilder_setAdditionalDataSources___block_invoke_4_cold_1();
@@ -313,21 +341,19 @@ void __38__HKLiveWorkoutBuilder_setDataSource___block_invoke_2(uint64_t a1, void
 
 void __38__HKLiveWorkoutBuilder_setDataSource___block_invoke_84(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 identifier];
-  v7[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+  v6[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
   [v3 remote_addDataSourcesWithIdentifiers:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __38__HKLiveWorkoutBuilder_setDataSource___block_invoke_2_85(uint64_t a1, void *a2)
 {
   v2 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
     __49__HKLiveWorkoutBuilder_setAdditionalDataSources___block_invoke_4_cold_1();
@@ -336,53 +362,51 @@ void __38__HKLiveWorkoutBuilder_setDataSource___block_invoke_2_85(uint64_t a1, v
 
 - (void)stateMachine:(id)machine didEnterState:(id)state date:(id)date error:(id)error
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   machineCopy = machine;
   stateCopy = state;
   dateCopy = date;
   errorCopy = error;
   os_unfair_lock_assert_owner(&self->super._lock);
-  v25.receiver = self;
-  v25.super_class = HKLiveWorkoutBuilder;
-  [(HKWorkoutBuilder *)&v25 stateMachine:machineCopy didEnterState:stateCopy date:dateCopy error:errorCopy];
+  v24.receiver = self;
+  v24.super_class = HKLiveWorkoutBuilder;
+  [(HKWorkoutBuilder *)&v24 stateMachine:machineCopy didEnterState:stateCopy date:dateCopy error:errorCopy];
   if ([stateCopy index] == 3)
   {
     currentActivity = self->super._currentActivity;
     self->super._currentActivity = 0;
 
     [(HKLiveWorkoutDataSource *)self->_lock_dataSource workoutBuilderDidFinish];
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v15 = self->_lock_additionalDataSources;
-    v16 = [(NSArray *)v15 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v16 = [(NSArray *)v15 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v22;
+      v18 = *v21;
       do
       {
         v19 = 0;
         do
         {
-          if (*v22 != v18)
+          if (*v21 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          [*(*(&v21 + 1) + 8 * v19++) workoutBuilderDidFinish];
+          [*(*(&v20 + 1) + 8 * v19++) workoutBuilderDidFinish];
         }
 
         while (v17 != v19);
-        v17 = [(NSArray *)v15 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v17 = [(NSArray *)v15 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v17);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clientRemote_didUpdateStatistics:(id)statistics
@@ -521,55 +545,53 @@ void __57__HKLiveWorkoutBuilder_clientRemote_didUpdateStatistics___block_invoke(
 
 void __45__HKLiveWorkoutBuilder_connectionInterrupted__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v4 = a2;
   os_unfair_lock_lock(v3 + 4);
-  _HKInitializeLogging();
-  v5 = HKLogWorkouts;
+  _HKInitializeLogging(v5, v6);
+  v7 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_INFO))
   {
-    v6 = *(a1 + 32);
-    v15 = 138543362;
-    v16 = v6;
-    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_INFO, "%{public}@: Recovering data sources after server interruption.", &v15, 0xCu);
+    v8 = *(a1 + 32);
+    v16 = 138543362;
+    v17 = v8;
+    _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_INFO, "%{public}@: Recovering data sources after server interruption.", &v16, 0xCu);
   }
 
-  v7 = [*(*(a1 + 32) + 240) hk_map:&__block_literal_global_105_0];
-  v8 = [v7 mutableCopy];
+  v9 = [*(*(a1 + 32) + 240) hk_map:&__block_literal_global_105_0];
+  v10 = [v9 mutableCopy];
 
-  v9 = *(a1 + 32);
-  v10 = *(v9 + 232);
-  if (v10)
+  v11 = *(a1 + 32);
+  v12 = *(v11 + 232);
+  if (v12)
   {
-    v11 = [v10 identifier];
-    [v8 addObject:v11];
+    v13 = [v12 identifier];
+    [v10 addObject:v13];
 
-    v9 = *(a1 + 32);
+    v11 = *(a1 + 32);
   }
 
-  WeakRetained = objc_loadWeakRetained((v9 + 256));
-  v13 = [WeakRetained identifier];
+  WeakRetained = objc_loadWeakRetained((v11 + 256));
+  v15 = [WeakRetained identifier];
 
-  if (v13)
+  if (v15)
   {
-    [v8 addObject:v13];
+    [v10 addObject:v15];
   }
 
   os_unfair_lock_unlock((*(a1 + 32) + 16));
-  [v4 remote_addDataSourcesWithIdentifiers:v8];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [v4 remote_addDataSourcesWithIdentifiers:v10];
 }
 
 void __45__HKLiveWorkoutBuilder_connectionInterrupted__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogWorkouts;
+  _HKInitializeLogging(v3, v4);
+  v5 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __45__HKLiveWorkoutBuilder_connectionInterrupted__block_invoke_2_cold_1(a1, v3, v4);
+    __45__HKLiveWorkoutBuilder_connectionInterrupted__block_invoke_2_cold_1(a1, v3, v5);
   }
 }
 
@@ -587,32 +609,15 @@ void __45__HKLiveWorkoutBuilder_connectionInterrupted__block_invoke_2(uint64_t a
   return WeakRetained;
 }
 
-void __54__HKLiveWorkoutBuilder_setShouldCollectWorkoutEvents___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_2(&dword_19197B000, v0, v1, "Unable to change should collecte events configuration property with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __49__HKLiveWorkoutBuilder_setAdditionalDataSources___block_invoke_4_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_2(&dword_19197B000, v0, v1, "Unable to update workout builder server's data sources with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void __45__HKLiveWorkoutBuilder_connectionInterrupted__block_invoke_2_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "%{public}@: Failed to recover data sources after connection invalidation: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "%{public}@: Failed to recover data sources after connection invalidation: %{public}@", &v4, 0x16u);
 }
 
 @end

@@ -450,7 +450,6 @@ LABEL_16:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -470,7 +469,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  misToSoftAPActiveTimeInMilliseconds = self->_misToSoftAPActiveTimeInMilliseconds;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -485,7 +483,6 @@ LABEL_4:
   }
 
 LABEL_19:
-  bringUpMethod = self->_bringUpMethod;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -500,7 +497,6 @@ LABEL_5:
   }
 
 LABEL_20:
-  reasonCode = self->_reasonCode;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -515,7 +511,6 @@ LABEL_6:
   }
 
 LABEL_21:
-  teardownReason = self->_teardownReason;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -530,7 +525,6 @@ LABEL_7:
   }
 
 LABEL_22:
-  sessionDuration = self->_sessionDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -545,7 +539,6 @@ LABEL_8:
   }
 
 LABEL_23:
-  appleDeviceConnectCount = self->_appleDeviceConnectCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -560,7 +553,6 @@ LABEL_9:
   }
 
 LABEL_24:
-  otherDeviceConnectCount = self->_otherDeviceConnectCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -575,7 +567,6 @@ LABEL_10:
   }
 
 LABEL_25:
-  appleDeviceDisconnectCount = self->_appleDeviceDisconnectCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -590,7 +581,6 @@ LABEL_11:
   }
 
 LABEL_26:
-  otherDeviceDisconnectCount = self->_otherDeviceDisconnectCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -605,7 +595,6 @@ LABEL_12:
   }
 
 LABEL_27:
-  channel = self->_channel;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -620,7 +609,6 @@ LABEL_13:
   }
 
 LABEL_28:
-  ssidChanged = self->_ssidChanged;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x4000) == 0)
@@ -632,7 +620,6 @@ LABEL_14:
     }
 
 LABEL_30:
-    lowPowerModeDuration = self->_lowPowerModeDuration;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x800) == 0)
     {
@@ -643,7 +630,6 @@ LABEL_30:
   }
 
 LABEL_29:
-  familyDevice = self->_familyDevice;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if (has)
@@ -658,7 +644,6 @@ LABEL_15:
   }
 
 LABEL_31:
-  securityTypes = self->_securityTypes;
 
   PBDataWriterWriteUint32Field();
 }
@@ -1281,7 +1266,6 @@ LABEL_78:
     goto LABEL_78;
   }
 
-  v8 = *(equal + 80);
   if (self->_familyDevice)
   {
     if ((*(equal + 80) & 1) == 0)

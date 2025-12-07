@@ -12,29 +12,29 @@
 
 - (void)resetWatchSync
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   syncDataHandlers = [(VCShortcutsObliterator *)self syncDataHandlers];
   v3 = [syncDataHandlers valueForKeyPath:@"@distinctUnionOfArrays.services"];
 
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if (v8)
         {
           objc_opt_class();
@@ -59,13 +59,11 @@
         [v10 requestFullResync];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)terminateProcessWithIdentifier:(id)identifier assertion:(id *)assertion error:(id *)error
@@ -132,13 +130,13 @@ LABEL_11:
 
 - (BOOL)deleteDataVaultWithError:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277D7A338];
+  v18 = 0;
   v19 = 0;
-  v20 = 0;
-  v5 = [(VCShortcutsObliterator *)self terminateProcessWithIdentifier:v4 assertion:&v20 error:&v19];
-  v6 = v20;
-  v7 = v19;
+  v5 = [(VCShortcutsObliterator *)self terminateProcessWithIdentifier:v4 assertion:&v19 error:&v18];
+  v6 = v19;
+  v7 = v18;
   v8 = v7;
   if (!v5 && v7)
   {
@@ -146,11 +144,11 @@ LABEL_11:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315650;
-      v22 = "[VCShortcutsObliterator deleteDataVaultWithError:]";
-      v23 = 2114;
-      v24 = v4;
-      v25 = 2114;
-      v26 = v8;
+      v21 = "[VCShortcutsObliterator deleteDataVaultWithError:]";
+      v22 = 2114;
+      v23 = v4;
+      v24 = 2114;
+      v25 = v8;
       _os_log_impl(&dword_23103C000, v9, OS_LOG_TYPE_FAULT, "%s Terminating %{public}@ failed with error: %{public}@", buf, 0x20u);
     }
 
@@ -163,9 +161,9 @@ LABEL_11:
 
   wf_shortcutsDirectoryURL = [MEMORY[0x277CBEBC0] wf_shortcutsDirectoryURL];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v18 = 0;
-  v13 = [defaultManager removeItemAtURL:wf_shortcutsDirectoryURL error:&v18];
-  v14 = v18;
+  v17 = 0;
+  v13 = [defaultManager removeItemAtURL:wf_shortcutsDirectoryURL error:&v17];
+  v14 = v17;
 
   if (v6)
   {
@@ -185,13 +183,12 @@ LABEL_11:
     *error = v14;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)deleteAppGroupWithIdentifier:(id)identifier error:(id *)error
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (!identifierCopy)
   {
@@ -202,16 +199,16 @@ LABEL_11:
   [identifierCopy UTF8String];
   container_create_or_lookup_for_current_user();
   v8 = identifierCopy;
-  v19 = v8;
+  v18 = v8;
   v9 = container_delete();
   v10 = v9 == 21 || v9 == 1;
   if (v9 != 1 && v9 != 21)
   {
     v11 = MEMORY[0x277CCA9B8];
-    v20 = *MEMORY[0x277CCA450];
+    v19 = *MEMORY[0x277CCA450];
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"Moving %@'s app group container out of its live location failed with error: %llu", v8, v9];
-    v21[0] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v20[0] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     v14 = [v11 errorWithDomain:@"VCShortcutsObliteratorErrorDomain" code:2 userInfo:v13];
 
     if (error)
@@ -221,42 +218,39 @@ LABEL_11:
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 void __61__VCShortcutsObliterator_deleteAppGroupWithIdentifier_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (a2 != 1 && a2 != 21)
   {
     v4 = getWFObliteratorLogObject();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       v5 = *(a1 + 32);
-      v7 = 136315650;
-      v8 = "[VCShortcutsObliterator deleteAppGroupWithIdentifier:error:]_block_invoke";
-      v9 = 2114;
-      v10 = v5;
-      v11 = 2048;
-      v12 = a2;
-      _os_log_impl(&dword_23103C000, v4, OS_LOG_TYPE_FAULT, "%s container_delete for app group %{public}@ failed with error: %llu", &v7, 0x20u);
+      v6 = 136315650;
+      v7 = "[VCShortcutsObliterator deleteAppGroupWithIdentifier:error:]_block_invoke";
+      v8 = 2114;
+      v9 = v5;
+      v10 = 2048;
+      v11 = a2;
+      _os_log_impl(&dword_23103C000, v4, OS_LOG_TYPE_FAULT, "%s container_delete for app group %{public}@ failed with error: %llu", &v6, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)deleteKeychainItemsWithError:(id *)error
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277CDBEC8];
-  v15[0] = *MEMORY[0x277CDC228];
-  v15[1] = v4;
+  v14[0] = *MEMORY[0x277CDC228];
+  v14[1] = v4;
   v5 = *MEMORY[0x277CFC730];
-  v16[0] = *MEMORY[0x277CDC238];
-  v16[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v15[0] = *MEMORY[0x277CDC238];
+  v15[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
   v7 = SecItemDelete(v6);
   v8 = v7;
   if (v7 != -25300 && v7 != 0)
@@ -281,18 +275,17 @@ void __61__VCShortcutsObliterator_deleteAppGroupWithIdentifier_error___block_inv
 
   v12 = v11;
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)obliterate:(id *)obliterate
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v5 = getWFObliteratorLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v50 = "[VCShortcutsObliterator obliterate:]";
+    v49 = "[VCShortcutsObliterator obliterate:]";
     _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_INFO, "%s Starting obliterator", buf, 0xCu);
   }
 
@@ -302,7 +295,7 @@ void __61__VCShortcutsObliterator_deleteAppGroupWithIdentifier_error___block_inv
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v50 = "[VCShortcutsObliterator obliterate:]";
+    v49 = "[VCShortcutsObliterator obliterate:]";
     _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_INFO, "%s Unregistering triggers...", buf, 0xCu);
   }
 
@@ -313,13 +306,13 @@ void __61__VCShortcutsObliterator_deleteAppGroupWithIdentifier_error___block_inv
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v50 = "[VCShortcutsObliterator obliterate:]";
+    v49 = "[VCShortcutsObliterator obliterate:]";
     _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_INFO, "%s Deleting keychain...", buf, 0xCu);
   }
 
-  v48 = 0;
-  v9 = [(VCShortcutsObliterator *)self deleteKeychainItemsWithError:&v48];
-  v10 = v48;
+  v47 = 0;
+  v9 = [(VCShortcutsObliterator *)self deleteKeychainItemsWithError:&v47];
+  v10 = v47;
   if (v9)
   {
     goto LABEL_12;
@@ -329,9 +322,9 @@ void __61__VCShortcutsObliterator_deleteAppGroupWithIdentifier_error___block_inv
   if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v50 = "[VCShortcutsObliterator obliterate:]";
-    v51 = 2114;
-    v52 = v10;
+    v49 = "[VCShortcutsObliterator obliterate:]";
+    v50 = 2114;
+    v51 = v10;
     _os_log_impl(&dword_23103C000, v11, OS_LOG_TYPE_FAULT, "%s Deleting keychain failed with error: %{public}@", buf, 0x16u);
   }
 
@@ -350,41 +343,41 @@ LABEL_12:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v50 = "[VCShortcutsObliterator obliterate:]";
+    v49 = "[VCShortcutsObliterator obliterate:]";
     _os_log_impl(&dword_23103C000, v13, OS_LOG_TYPE_INFO, "%s Deleting app groups...", buf, 0xCu);
   }
 
-  v40 = v10;
+  v39 = v10;
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v14 = *MEMORY[0x277CFC720];
-  v55[0] = *MEMORY[0x277CFC6E0];
-  v55[1] = v14;
-  v55[2] = *MEMORY[0x277CFC728];
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:3];
-  v16 = [v15 countByEnumeratingWithState:&v44 objects:v56 count:16];
+  v54[0] = *MEMORY[0x277CFC6E0];
+  v54[1] = v14;
+  v54[2] = *MEMORY[0x277CFC728];
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:3];
+  v16 = [v15 countByEnumeratingWithState:&v43 objects:v55 count:16];
   if (v16)
   {
     v17 = v16;
     v18 = 0;
-    v19 = *v45;
+    v19 = *v44;
     do
     {
       for (i = 0; i != v17; ++i)
       {
         v21 = v18;
-        if (*v45 != v19)
+        if (*v44 != v19)
         {
           objc_enumerationMutation(v15);
         }
 
-        v22 = *(*(&v44 + 1) + 8 * i);
-        v43 = v18;
-        v23 = [(VCShortcutsObliterator *)self deleteAppGroupWithIdentifier:v22 error:&v43, v40];
-        v18 = v43;
+        v22 = *(*(&v43 + 1) + 8 * i);
+        v42 = v18;
+        v23 = [(VCShortcutsObliterator *)self deleteAppGroupWithIdentifier:v22 error:&v42, v39];
+        v18 = v42;
 
         if (!v23)
         {
@@ -392,11 +385,11 @@ LABEL_12:
           if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
           {
             *buf = 136315650;
-            v50 = "[VCShortcutsObliterator obliterate:]";
-            v51 = 2112;
-            v52 = v22;
-            v53 = 2114;
-            v54 = v18;
+            v49 = "[VCShortcutsObliterator obliterate:]";
+            v50 = 2112;
+            v51 = v22;
+            v52 = 2114;
+            v53 = v18;
             _os_log_impl(&dword_23103C000, v24, OS_LOG_TYPE_FAULT, "%s Deleting the %@ app group failed with error: %{public}@", buf, 0x20u);
           }
 
@@ -409,7 +402,7 @@ LABEL_12:
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v44 objects:v56 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v43 objects:v55 count:16];
     }
 
     while (v17);
@@ -424,7 +417,7 @@ LABEL_12:
   if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v50 = "[VCShortcutsObliterator obliterate:]";
+    v49 = "[VCShortcutsObliterator obliterate:]";
     _os_log_impl(&dword_23103C000, v26, OS_LOG_TYPE_INFO, "%s Clearing user defaults...", buf, 0xCu);
   }
 
@@ -435,7 +428,7 @@ LABEL_12:
   if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v50 = "[VCShortcutsObliterator obliterate:]";
+    v49 = "[VCShortcutsObliterator obliterate:]";
     _os_log_impl(&dword_23103C000, v28, OS_LOG_TYPE_INFO, "%s Clearing Siri Vocab...", buf, 0xCu);
   }
 
@@ -447,22 +440,22 @@ LABEL_12:
   if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v50 = "[VCShortcutsObliterator obliterate:]";
+    v49 = "[VCShortcutsObliterator obliterate:]";
     _os_log_impl(&dword_23103C000, v31, OS_LOG_TYPE_INFO, "%s Deleting data vault...", buf, 0xCu);
   }
 
-  v42 = 0;
-  v32 = [(VCShortcutsObliterator *)self deleteDataVaultWithError:&v42];
-  v33 = v42;
+  v41 = 0;
+  v32 = [(VCShortcutsObliterator *)self deleteDataVaultWithError:&v41];
+  v33 = v41;
   if (!v32)
   {
     v34 = getWFObliteratorLogObject();
     if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v50 = "[VCShortcutsObliterator obliterate:]";
-      v51 = 2114;
-      v52 = v33;
+      v49 = "[VCShortcutsObliterator obliterate:]";
+      v50 = 2114;
+      v51 = v33;
       _os_log_impl(&dword_23103C000, v34, OS_LOG_TYPE_FAULT, "%s Deleting data vault failed with error: %{public}@", buf, 0x16u);
     }
 
@@ -478,7 +471,7 @@ LABEL_12:
   if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v50 = "[VCShortcutsObliterator obliterate:]";
+    v49 = "[VCShortcutsObliterator obliterate:]";
     _os_log_impl(&dword_23103C000, v36, OS_LOG_TYPE_INFO, "%s Resetting watch sync...", buf, 0xCu);
   }
 
@@ -487,7 +480,7 @@ LABEL_12:
   if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v50 = "[VCShortcutsObliterator obliterate:]";
+    v49 = "[VCShortcutsObliterator obliterate:]";
     _os_log_impl(&dword_23103C000, v37, OS_LOG_TYPE_INFO, "%s Finished obliterating", buf, 0xCu);
   }
 
@@ -496,8 +489,6 @@ LABEL_12:
     v38 = v12;
     *obliterateCopy = v12;
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (VCShortcutsObliterator)initWithTriggerRegistrar:(id)registrar syncDataHandlers:(id)handlers

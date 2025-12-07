@@ -133,11 +133,11 @@
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@> create port listener start", buf, 0xCu);
   }
 
-  v18 = -6753;
-  v17 = -1;
+  v17 = -6753;
+  v16 = -1;
   local_address = [(RSDRemoteNCMDevice *)self local_address];
   interface = [(RSDRemoteNCMDevice *)self interface];
-  v6 = sub_1000240DC(&v17, local_address, &v18, [interface index], &unk_100049E6C);
+  v6 = sub_1000240DC(&v16, local_address, &v17, [interface index], &unk_100049E6C);
 
   if (v6)
   {
@@ -158,7 +158,7 @@
 
   else
   {
-    v9 = dispatch_source_create(&_dispatch_source_type_read, v17, 0, qword_100064590);
+    v9 = dispatch_source_create(&_dispatch_source_type_read, v16, 0, qword_100064590);
     listener_source = self->listener_source;
     self->listener_source = v9;
 
@@ -167,18 +167,17 @@
     handler[1] = 3221225472;
     handler[2] = sub_10002BC58;
     handler[3] = &unk_10005D538;
-    v15 = v17;
+    v14 = v16;
     handler[4] = self;
     dispatch_source_set_event_handler(v11, handler);
-    v12 = self->listener_source;
     dispatch_source_set_mandatory_cancel_handler();
     dispatch_activate(self->listener_source);
-    v13 = qword_100064588;
+    v12 = qword_100064588;
     if (os_log_type_enabled(qword_100064588, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       selfCopy2 = self;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}@> create port listener done", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}@> create port listener done", buf, 0xCu);
     }
   }
 }

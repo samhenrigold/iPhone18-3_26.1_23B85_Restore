@@ -409,8 +409,8 @@ LABEL_16:
 {
   dispatch_assert_queue_V2(self->_isolationQueue);
   routePlanningSession = [(NanoCompanionController *)self routePlanningSession];
-  configuration = [routePlanningSession configuration];
-  destinationWaypointRequest = [configuration destinationWaypointRequest];
+  v4 = objc_msgSend_configuration(routePlanningSession);
+  destinationWaypointRequest = [v4 destinationWaypointRequest];
   routePlanningSession2 = [(NanoCompanionController *)self routePlanningSession];
   resolvedWaypoints = [routePlanningSession2 resolvedWaypoints];
   destination = [resolvedWaypoints destination];
@@ -513,8 +513,8 @@ LABEL_16:
 {
   dispatch_assert_queue_V2(self->_isolationQueue);
   routePlanningSession = [(NanoCompanionController *)self routePlanningSession];
-  configuration = [routePlanningSession configuration];
-  companionContext = [configuration companionContext];
+  v4 = objc_msgSend_configuration(routePlanningSession);
+  companionContext = [v4 companionContext];
 
   return companionContext;
 }
@@ -1159,8 +1159,8 @@ LABEL_29:
     v37 = [Result resultWithValue:?];
     anticipatingContext = self->_anticipatingContext;
     routePlanningSession2 = [(NanoCompanionController *)self routePlanningSession];
-    configuration = [routePlanningSession2 configuration];
-    [configuration setCompanionContext:anticipatingContext];
+    v30 = objc_msgSend_configuration(routePlanningSession2);
+    [v30 setCompanionContext:anticipatingContext];
 
     firstObject = [routes firstObject];
     transportType = [firstObject transportType];

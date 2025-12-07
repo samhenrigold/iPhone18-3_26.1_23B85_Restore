@@ -9,10 +9,10 @@
 - (_TtC22SubscribePageExtension37ContentSearchResultCollectionViewCell)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC22SubscribePageExtension37ContentSearchResultCollectionViewCell_lockupView;
-  *(&self->super.super.super.super.super.isa + v4) = [objc_allocWithZone(type metadata accessor for SmallSearchLockupView()) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  *(&self->super.super.super.super.super.isa + v4) = [objc_allocWithZone(type metadata accessor for SmallSearchLockupView(0)) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
   v5 = OBJC_IVAR____TtC22SubscribePageExtension37ContentSearchResultCollectionViewCell_screenshots;
-  *(&self->super.super.super.super.super.isa + v5) = [objc_allocWithZone(type metadata accessor for LockupMediaView()) init];
-  *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension37ContentSearchResultCollectionViewCell_preferredImageSizes) = &_swiftEmptyDictionarySingleton;
+  *(&self->super.super.super.super.super.isa + v5) = [objc_allocWithZone(type metadata accessor for LockupMediaView(0)) init];
+  *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension37ContentSearchResultCollectionViewCell_preferredImageSizes) = _swiftEmptyDictionarySingleton;
   result = sub_100754644();
   __break(1u);
   return result;
@@ -21,7 +21,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1001D7D60();
+  sub_1001D7D60(selfCopy);
 }
 
 - (void)prepareForReuse

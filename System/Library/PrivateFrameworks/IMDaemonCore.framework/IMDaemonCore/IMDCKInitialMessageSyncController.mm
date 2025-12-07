@@ -19,7 +19,7 @@
 
 - (BOOL)_deviceConditionsAllowsMessageSyncForCurrentBatchCount:(int64_t)count maxBatchCount:(int64_t)batchCount
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = [(IMDCKInitialMessageSyncController *)self ckUtilities:count];
   cloudKitSyncingEnabled = [v5 cloudKitSyncingEnabled];
 
@@ -47,21 +47,20 @@
         v10 = @"YES";
       }
 
-      v14 = 138412546;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v10;
-      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Initial sync device conditions check if CloudKit sync is enabled: %@ has accounts %@", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v10;
+      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Initial sync device conditions check if CloudKit sync is enabled: %@ has accounts %@", &v13, 0x16u);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return cloudKitSyncingEnabled & iCloudAccountMatchesiMessageAccount;
 }
 
 - (BOOL)_deviceConditionsAllowsMessageSyncForActivity:(id)activity deviceConditionsToCheck:(unint64_t)check currentBatchCount:(int64_t)count maxBatchCount:(int64_t)batchCount
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   ckUtilities = [(IMDCKInitialMessageSyncController *)self ckUtilities];
   cloudKitSyncingEnabled = [ckUtilities cloudKitSyncingEnabled];
@@ -90,15 +89,14 @@
         v13 = @"YES";
       }
 
-      v17 = 138412546;
-      v18 = v14;
-      v19 = 2112;
-      v20 = v13;
-      _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Initial sync device conditions check if CloudKit sync is enabled: %@, hasAccounts %@", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = v14;
+      v18 = 2112;
+      v19 = v13;
+      _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Initial sync device conditions check if CloudKit sync is enabled: %@, hasAccounts %@", &v16, 0x16u);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return cloudKitSyncingEnabled & iCloudAccountMatchesiMessageAccount;
 }
 

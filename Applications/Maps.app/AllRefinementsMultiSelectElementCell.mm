@@ -11,7 +11,7 @@
 + (NSString)reuseIdentifier
 {
   swift_getObjCClassMetadata();
-  sub_1000CE6B8(&qword_101915F58);
+  sub_1000CE6B8(&qword_101915F58, &qword_1011F5AC8);
   String.init<A>(describing:)();
   v2 = String._bridgeToObjectiveC()();
 
@@ -20,7 +20,6 @@
 
 - (void)setDisplayName:(id)name isSelected:(BOOL)selected labelWidth:(double)width maxWidth:(double)maxWidth allowSelection:(id)selection tapHandler:(id)handler
 {
-  selectedCopy = selected;
   v13 = _Block_copy(selection);
   v14 = _Block_copy(handler);
   v15 = static String._unconditionallyBridgeFromObjectiveC(_:)();
@@ -40,7 +39,7 @@
   }
 
   selfCopy = self;
-  sub_100263DA4(v15, v17, width, maxWidth, selectedCopy, sub_1002647F0, v18, v14, v19);
+  sub_100263DA4(v15, v17, selected, sub_1002647F0, v18, v14, v19, width, maxWidth);
   sub_1000D3B90(v14, v19);
 }
 

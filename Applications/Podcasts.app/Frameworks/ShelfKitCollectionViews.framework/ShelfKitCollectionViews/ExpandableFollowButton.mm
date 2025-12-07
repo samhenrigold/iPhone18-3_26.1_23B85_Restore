@@ -36,13 +36,14 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+  highlightedCopy = highlighted;
   selfCopy = self;
-  sub_A9D94(highlighted);
+  sub_A9D94(highlightedCopy);
 }
 
 - (id)contextMenuInteraction:(id)interaction configurationForMenuAtLocation:(CGPoint)location
 {
-  sub_124C4(0, &qword_400A88);
+  sub_124C4(0, &qword_400A88, UIContextMenuConfiguration_ptr);
   v4 = swift_allocObject();
   swift_unknownObjectWeakInit();
   v5 = sub_B8A24(0, 0, 0, sub_AB2F8, v4);

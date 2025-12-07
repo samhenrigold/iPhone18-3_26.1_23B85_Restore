@@ -41,11 +41,11 @@
 
 - (void)setDelegate:(id)delegate callbackQueue:(id)queue
 {
-  IsRunningInMediaserverd = AVCaptureIsRunningInMediaserverd();
+  IsRunningInMediaserverd = AVCaptureIsRunningInMediaserverd(self, a2);
   if (queue && IsRunningInMediaserverd)
   {
     v8 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v8, v9))
     {
       objc_exception_throw(v8);
     }
@@ -56,22 +56,22 @@
   else
   {
     [(AVCaptureCameraCalibrationDataOutput *)self willChangeValueForKey:@"delegate"];
-    v10 = 0;
-    if ([(AVCaptureDataOutputDelegateCallbackHelper *)self->_delegateCallbackHelper setClientDelegate:delegate clientCallbackQueue:queue exceptionReason:&v10])
+    v13 = 0;
+    if ([(AVCaptureDataOutputDelegateCallbackHelper *)self->_delegateCallbackHelper setClientDelegate:delegate clientCallbackQueue:queue exceptionReason:&v13])
     {
       [(AVCaptureCameraCalibrationDataOutput *)self didChangeValueForKey:@"delegate"];
     }
 
     else
     {
-      v9 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-      [(AVCaptureCameraCalibrationDataOutput *)self didChangeValueForKey:@"delegate"];
-      if (AVCaptureShouldThrowForAPIViolations())
+      v10 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
+      v11 = [(AVCaptureCameraCalibrationDataOutput *)self didChangeValueForKey:@"delegate"];
+      if (AVCaptureShouldThrowForAPIViolations(v11, v12))
       {
-        objc_exception_throw(v9);
+        objc_exception_throw(v10);
       }
 
-      NSLog(&cfstr_SuppressingExc.isa, v9);
+      NSLog(&cfstr_SuppressingExc.isa, v10);
     }
   }
 }
@@ -129,7 +129,7 @@ LABEL_5:
 
 - (void)setDelegateOverride:(id)override delegateOverrideCallbackQueue:(id)queue
 {
-  IsRunningInMediaserverd = AVCaptureIsRunningInMediaserverd();
+  IsRunningInMediaserverd = AVCaptureIsRunningInMediaserverd(self, a2);
   if (queue && IsRunningInMediaserverd)
   {
     v8 = MEMORY[0x1E695DF30];
@@ -138,8 +138,8 @@ LABEL_5:
 
   else
   {
-    v11 = 0;
-    if ([(AVCaptureDataOutputDelegateCallbackHelper *)self->_delegateCallbackHelper setDelegateOverride:override delegateOverrideCallbackQueue:queue exceptionReason:&v11])
+    v12 = 0;
+    if ([(AVCaptureDataOutputDelegateCallbackHelper *)self->_delegateCallbackHelper setDelegateOverride:override delegateOverrideCallbackQueue:queue exceptionReason:&v12])
     {
       return;
     }
@@ -149,7 +149,7 @@ LABEL_5:
   }
 
   v10 = [v8 exceptionWithName:v9 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v10, v11))
   {
     objc_exception_throw(v10);
   }
@@ -159,18 +159,18 @@ LABEL_5:
 
 - (void)_handleNotification:(id)notification payload:(id)payload
 {
-  if ([objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FCD8]), "isEqual:", -[AVCaptureOutput sinkID](self, "sinkID")}])
+  if ([objc_msgSend_objectForKeyedSubscript_(payload a2])
   {
     if ([notification isEqualToString:*MEMORY[0x1E698FE48]])
     {
-      v7 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FE38]];
+      v7 = objc_msgSend_objectForKeyedSubscript_(payload);
 
       [(AVCaptureCameraCalibrationDataOutput *)self _updateRemoteQueue:v7];
     }
 
     else if ([notification isEqualToString:*MEMORY[0x1E698FE40]])
     {
-      v8 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FBB8]];
+      v8 = objc_msgSend_objectForKeyedSubscript_(payload);
 
       [(AVCaptureCameraCalibrationDataOutput *)self _updateLocalQueue:v8];
     }
@@ -259,7 +259,7 @@ void __58__AVCaptureCameraCalibrationDataOutput__updateLocalQueue___block_invoke
     v21 = 0u;
     v22 = 0u;
     v8 = *MEMORY[0x1E698F880];
-    [objc_msgSend(v7 objectForKeyedSubscript:{*MEMORY[0x1E698F880]), "getBytes:length:", &v21, 64}];
+    [objc_msgSend_objectForKeyedSubscript_(v7) getBytes:&v21 length:64];
     FigCaptureFirmwareToNVMExtrinsicMatrixTransform();
     FigCaptureTransformExtrinsicMatrix();
     DWORD2(v21) = v9;

@@ -11,7 +11,7 @@ uint64_t __63__NSProcessInfo_MTLDeviceCertification__hasPerformanceProfile___blo
   return notify_register_dispatch(v0, &_semNotifyToken, global_queue, &__block_literal_global_20);
 }
 
-uint64_t __63__NSProcessInfo_MTLDeviceCertification__hasPerformanceProfile___block_invoke_2()
+void *__63__NSProcessInfo_MTLDeviceCertification__hasPerformanceProfile___block_invoke_2()
 {
   state64 = 0;
   result = notify_get_state(_semNotifyToken, &state64);

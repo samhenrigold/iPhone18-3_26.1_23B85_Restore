@@ -12,6 +12,8 @@
 - (void)bksAccelerometerClientRequestedOrientationEvents:(id)events enabled:(BOOL)enabled passiveEvents:(BOOL)passiveEvents auditToken:(id *)token;
 - (void)clientDied:(id)died;
 - (void)dealloc;
+- (void)orientationManager:(id)manager deviceOrientationMayHaveChanged:(int64_t)changed changeSource:(int64_t)source isDeviceOrientationLocked:(BOOL)locked;
+- (void)systemAppSetOrientationEventsClient:(id)client wantsOrientationEvents:(BOOL)events auditToken:(id *)token;
 @end
 
 @implementation BKAccelerometerInterface
@@ -254,6 +256,36 @@ LABEL_50:
   }
 }
 
+- (void)orientationManager:(id)manager deviceOrientationMayHaveChanged:(int64_t)changed changeSource:(int64_t)source isDeviceOrientationLocked:(BOOL)locked
+{
+  lockedCopy = locked;
+  [(NSLock *)self->_lock lock:manager];
+  lock_systemAppOrientationClient = self->_lock_systemAppOrientationClient;
+  if (lock_systemAppOrientationClient)
+  {
+    [(BKAccelerometerClient *)lock_systemAppOrientationClient handleOrientationEvent:changed orientationLocked:lockedCopy];
+  }
+
+  else
+  {
+    mach_absolute_time();
+    DeviceOrientationEventWithUsage = IOHIDEventCreateDeviceOrientationEventWithUsage();
+    if (DeviceOrientationEventWithUsage)
+    {
+      v11 = DeviceOrientationEventWithUsage;
+      v12 = +[BKHIDSystemInterface sharedInstance];
+      v13 = +[BKHIDUnknownSender unknownSenderInfo];
+      [v12 postEvent:v11 fromSender:v13];
+
+      CFRelease(v11);
+    }
+  }
+
+  lock = self->_lock;
+
+  [(NSLock *)lock unlock];
+}
+
 - (void)_lock_systemAppSetOrientationEventsClient:(id)client wantsOrientationEvents:(BOOL)events auditToken:(id *)token
 {
   clientCopy = client;
@@ -383,82 +415,81 @@ LABEL_50:
 
 - (int64_t)processEvent:(__IOHIDEvent *)event sender:(id)sender dispatcher:(id)dispatcher
 {
-  v6 = *event;
   IOHIDEventGetTimeStamp();
   BSMonotonicReferencedTimeFromMachTime();
-  v8 = v7;
+  v7 = v6;
   IOHIDEventGetFloatValue();
-  v10 = v9;
+  v9 = v8;
   IOHIDEventGetFloatValue();
-  v12 = v11;
+  v11 = v10;
   IOHIDEventGetFloatValue();
-  v14 = v13;
+  v13 = v12;
   IntegerValue = IOHIDEventGetIntegerValue();
-  v16 = sub_100002C4C();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v15 = sub_100002C4C();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109888;
-    v38 = IntegerValue;
-    v39 = 2048;
-    v40 = v10;
-    v41 = 2048;
-    v42 = v12;
-    v43 = 2048;
-    v44 = v14;
-    _os_log_debug_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "Acc (type %d): %f %f %f", buf, 0x26u);
+    v37 = IntegerValue;
+    v38 = 2048;
+    v39 = v9;
+    v40 = 2048;
+    v41 = v11;
+    v42 = 2048;
+    v43 = v13;
+    _os_log_debug_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "Acc (type %d): %f %f %f", buf, 0x26u);
   }
 
   [(NSLock *)self->_lock lock];
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
-  v17 = self->_lock_accelerometerClients;
-  v18 = [(NSMutableSet *)v17 countByEnumeratingWithState:&v32 objects:v36 count:16];
-  if (v18)
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v16 = self->_lock_accelerometerClients;
+  v17 = [(NSMutableSet *)v16 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  if (v17)
   {
-    v22 = v18;
-    v23 = *v33;
+    v21 = v17;
+    v22 = *v32;
     do
     {
-      v27 = 0;
+      v26 = 0;
       do
       {
-        if (*v33 != v23)
+        if (*v32 != v22)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v16);
         }
 
-        v24 = v10;
+        v23 = v9;
+        *&v18 = v23;
+        v24 = v11;
         *&v19 = v24;
-        v25 = v12;
+        v25 = v13;
         *&v20 = v25;
-        v26 = v14;
-        *&v21 = v26;
-        [*(*(&v32 + 1) + 8 * v27) handleAccelerometerEventWithTimestamp:v8 x:v19 y:v20 z:v21 samplingInterval:self->_lock_samplingInterval];
-        v27 = v27 + 1;
+        [*(*(&v31 + 1) + 8 * v26) handleAccelerometerEventWithTimestamp:v7 x:v18 y:v19 z:v20 samplingInterval:self->_lock_samplingInterval];
+        v26 = v26 + 1;
       }
 
-      while (v22 != v27);
-      v22 = [(NSMutableSet *)v17 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      while (v21 != v26);
+      v21 = [(NSMutableSet *)v16 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
-    while (v22);
+    while (v21);
   }
 
   [(NSLock *)self->_lock unlock];
   if (([(BKSLocalDefaults *)self->_localDefaults disableStudyLogAccelerometerLogging]& 1) == 0)
   {
     studyLog = self->_studyLog;
-    v30[0] = _NSConcreteStackBlock;
-    v30[1] = 3221225472;
-    v30[2] = sub_1000547AC;
-    v30[3] = &unk_1000FB898;
-    *&v30[4] = v10;
-    *&v30[5] = v12;
-    *&v30[6] = v14;
-    v31 = IntegerValue;
-    [(SLGNotificationActivatedLogger *)studyLog logBlock:v30 domain:@"com.apple.backboard.hid.accelerometer"];
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_1000547AC;
+    v29[3] = &unk_1000FB898;
+    *&v29[4] = v9;
+    *&v29[5] = v11;
+    *&v29[6] = v13;
+    v30 = IntegerValue;
+    [(SLGNotificationActivatedLogger *)studyLog logBlock:v29 domain:@"com.apple.backboard.hid.accelerometer"];
   }
 
   return 1;
@@ -497,6 +528,26 @@ LABEL_50:
   build = [v3 build];
 
   return build;
+}
+
+- (void)systemAppSetOrientationEventsClient:(id)client wantsOrientationEvents:(BOOL)events auditToken:(id *)token
+{
+  eventsCopy = events;
+  clientCopy = client;
+  [(NSLock *)self->_lock lock];
+  v9 = BKLogOrientationDevice();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = 138543618;
+    v11 = clientCopy;
+    v12 = 1024;
+    v13 = eventsCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "systemAppSetOrientationEventsClient:%{public}@ wantsOrientationEvents:%{BOOL}u", &v10, 0x12u);
+  }
+
+  [(BKAccelerometerInterface *)self _lock_systemAppSetOrientationEventsClient:clientCopy wantsOrientationEvents:eventsCopy auditToken:token];
+  [(NSLock *)self->_lock unlock];
+  [(BKAccelerometerInterface *)self _updateSettings];
 }
 
 - (void)bksAccelerometerClientRequestedOrientationEvents:(id)events enabled:(BOOL)enabled passiveEvents:(BOOL)passiveEvents auditToken:(id *)token

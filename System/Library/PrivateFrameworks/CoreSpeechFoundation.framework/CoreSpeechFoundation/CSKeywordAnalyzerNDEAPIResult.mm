@@ -8,29 +8,27 @@
 
 - (NSDictionary)dictionary
 {
-  v14[6] = *MEMORY[0x1E69E9840];
-  v13[0] = @"samples_fed";
+  v13[6] = *MEMORY[0x1E69E9840];
+  v12[0] = @"samples_fed";
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_samplesFed];
-  v14[0] = v3;
-  v13[1] = @"best_start";
+  v13[0] = v3;
+  v12[1] = @"best_start";
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_bestStart];
-  v14[1] = v4;
-  v13[2] = @"best_end";
+  v13[1] = v4;
+  v12[2] = @"best_end";
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_bestEnd];
-  v14[2] = v5;
-  v13[3] = @"best_score";
+  v13[2] = v5;
+  v12[3] = @"best_score";
   *&v6 = self->_bestScore;
   v7 = [MEMORY[0x1E696AD98] numberWithFloat:v6];
-  v14[3] = v7;
-  v13[4] = @"is_secondchance";
+  v13[3] = v7;
+  v12[4] = @"is_secondchance";
   v8 = [MEMORY[0x1E696AD98] numberWithBool:self->_isSecondChance];
-  v14[4] = v8;
-  v13[5] = @"isEarlyDetect";
+  v13[4] = v8;
+  v12[5] = @"isEarlyDetect";
   v9 = [MEMORY[0x1E696AD98] numberWithBool:self->_isEarlyDetect];
-  v14[5] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:6];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v13[5] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:6];
 
   return v10;
 }

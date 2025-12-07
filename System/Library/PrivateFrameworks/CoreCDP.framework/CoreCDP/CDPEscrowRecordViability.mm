@@ -39,10 +39,11 @@
 
 - (unint64_t)localViability
 {
-  if (![(CDPEscrowRecordViability *)self hasRecords])
+  hasRecords = [(CDPEscrowRecordViability *)self hasRecords];
+  if ((hasRecords & 1) == 0)
   {
-    v4 = _CDPLogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v10 = _CDPLogSystem(hasRecords);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [CDPEscrowRecordViability localViability];
     }
@@ -50,10 +51,11 @@
     goto LABEL_16;
   }
 
-  if (![(CDPEscrowRecordViability *)self recordIsValid])
+  recordIsValid = [(CDPEscrowRecordViability *)self recordIsValid];
+  if ((recordIsValid & 1) == 0)
   {
-    v4 = _CDPLogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v10 = _CDPLogSystem(recordIsValid);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [CDPEscrowRecordViability localViability];
     }
@@ -61,10 +63,11 @@
     goto LABEL_16;
   }
 
-  if (![(CDPEscrowRecordViability *)self isForCurrentDevice])
+  isForCurrentDevice = [(CDPEscrowRecordViability *)self isForCurrentDevice];
+  if ((isForCurrentDevice & 1) == 0)
   {
-    v4 = _CDPLogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v10 = _CDPLogSystem(isForCurrentDevice);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [CDPEscrowRecordViability localViability];
     }
@@ -74,12 +77,14 @@ LABEL_16:
     return 2;
   }
 
-  if ([(CDPEscrowRecordViability *)self recordViability]== 1)
+  recordViability = [(CDPEscrowRecordViability *)self recordViability];
+  if (recordViability == 1)
   {
-    if (![(CDPEscrowRecordViability *)self hasMachineId])
+    hasMachineId = [(CDPEscrowRecordViability *)self hasMachineId];
+    if ((hasMachineId & 1) == 0)
     {
-      v3 = _CDPLogSystem();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+      v9 = _CDPLogSystem(hasMachineId);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         [CDPEscrowRecordViability localViability];
       }
@@ -87,21 +92,26 @@ LABEL_16:
       goto LABEL_22;
     }
 
-    if (+[CDPUtilities shouldValidatePasscodeGenerations]&& [(CDPEscrowRecordViability *)self localSecretViability]== 3)
+    localSecretViability = +[CDPUtilities shouldValidatePasscodeGenerations];
+    if (localSecretViability)
     {
-      v3 = _CDPLogSystem();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+      localSecretViability = [(CDPEscrowRecordViability *)self localSecretViability];
+      if (localSecretViability == 3)
       {
-        [CDPEscrowRecordViability localViability];
-      }
+        v9 = _CDPLogSystem(3);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        {
+          [CDPEscrowRecordViability localViability];
+        }
 
 LABEL_22:
 
-      return 3;
+        return 3;
+      }
     }
 
-    v7 = _CDPLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v13 = _CDPLogSystem(localSecretViability);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [CDPEscrowRecordViability localViability];
     }
@@ -111,8 +121,8 @@ LABEL_22:
 
   else
   {
-    v6 = _CDPLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v12 = _CDPLogSystem(recordViability);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       [CDPEscrowRecordViability localViability];
     }
@@ -331,7 +341,7 @@ LABEL_18:
 
 - (int64x2_t)updatedViabiltyWithRecord:(int64x2_t *)record
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (record)
   {
@@ -347,11 +357,11 @@ LABEL_18:
 
     if ([(int64x2_t *)record recordViability]== 1)
     {
-      v4 = _CDPLogSystem();
+      v4 = _CDPLogSystem(1);
       if (os_log_type_enabled(&v4->super, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v13[0]) = 0;
-        _os_log_impl(&dword_1DED99000, &v4->super, OS_LOG_TYPE_DEFAULT, "Report already received a viable record.", v13, 2u);
+        LOWORD(v14[0]) = 0;
+        _os_log_impl(&dword_1DED99000, &v4->super, OS_LOG_TYPE_DEFAULT, "Report already received a viable record.", v14, 2u);
       }
     }
 
@@ -368,51 +378,50 @@ LABEL_18:
         v5 = 1;
       }
 
-      if (([(int64x2_t *)record hasMachineId]& 1) == 0)
+      hasMachineId = [(int64x2_t *)record hasMachineId];
+      if ((hasMachineId & 1) == 0)
       {
         machineID = [(CDPDevice *)v4 machineID];
 
         if (machineID)
         {
-          v7 = _CDPLogSystem();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+          v8 = _CDPLogSystem(hasMachineId);
+          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
           {
-            LOWORD(v13[0]) = 0;
+            LOWORD(v14[0]) = 0;
           }
 
           record->i8[10] = 1;
         }
       }
 
-      v8 = _CDPLogSystem();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = _CDPLogSystem(hasMachineId);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        hasMachineId = [(int64x2_t *)record hasMachineId];
-        v13[0] = 67109376;
-        v13[1] = v5;
-        v14 = 1024;
-        v15 = hasMachineId;
-        _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "Checking viability. hasRecordViability = (%{BOOL}d), hasMachineId = (%{BOOL}d)", v13, 0xEu);
+        hasMachineId2 = [(int64x2_t *)record hasMachineId];
+        v14[0] = 67109376;
+        v14[1] = v5;
+        v15 = 1024;
+        v16 = hasMachineId2;
+        _os_log_impl(&dword_1DED99000, v9, OS_LOG_TYPE_DEFAULT, "Checking viability. hasRecordViability = (%{BOOL}d), hasMachineId = (%{BOOL}d)", v14, 0xEu);
       }
 
-      if (v5 && [(int64x2_t *)record hasMachineId])
+      if (v5 && (v11 = [(int64x2_t *)record hasMachineId], v11))
       {
         record[2].i64[0] = 1;
       }
 
       else
       {
-        v10 = _CDPLogSystem();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v12 = _CDPLogSystem(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v13[0]) = 0;
-          _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, "Record is not viable.", v13, 2u);
+          LOWORD(v14[0]) = 0;
+          _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "Record is not viable.", v14, 2u);
         }
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return record;
 }

@@ -53,9 +53,9 @@
   [dictionary setObject:v13 forKey:@"version"];
 
   initiative = [(PKPaymentMerchantSession *)self->_merchantSession initiative];
-  v15 = [initiative isEqualToString:@"virtual_card"];
+  isEqualToString = objc_msgSend_isEqualToString_(initiative);
 
-  if (v15)
+  if (isEqualToString)
   {
     v16 = &unk_1F23B41D8;
   }

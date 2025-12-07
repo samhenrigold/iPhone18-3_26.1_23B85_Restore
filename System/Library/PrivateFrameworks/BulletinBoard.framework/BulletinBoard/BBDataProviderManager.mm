@@ -12,6 +12,7 @@
 - (void)dataProviderStore:(id)store didAddParentSectionFactory:(id)factory;
 - (void)dataProviderStore:(id)store didRemoveDataProvider:(id)provider;
 - (void)dealloc;
+- (void)loadAllDataProvidersAndPerformMigration:(BOOL)migration;
 - (void)noteSettingsChanged:(id)changed forSectionID:(id)d;
 - (void)performBlockOnDataProviders:(id)providers;
 - (void)reloadIdentityForSectionID:(id)d withCompletion:(id)completion;
@@ -62,7 +63,7 @@
 
 - (id)debugDescriptionWithChildren:(unint64_t)children
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CCAB68] stringWithString:&stru_28541A970];
   if (children)
   {
@@ -90,29 +91,29 @@
   if ([(NSMutableDictionary *)self->_parentFactoriesBySectionID count])
   {
     [v10 appendFormat:@"    %@Parent Sections", v5];
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v11 = self->_parentFactoriesBySectionID;
-    v12 = [(NSMutableDictionary *)v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v12 = [(NSMutableDictionary *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v21;
+      v14 = *v20;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v21 != v14)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          [v10 appendFormat:@"        %@%@", v5, *(*(&v20 + 1) + 8 * i)];
+          [v10 appendFormat:@"        %@%@", v5, *(*(&v19 + 1) + 8 * i)];
         }
 
-        v13 = [(NSMutableDictionary *)v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v13 = [(NSMutableDictionary *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v13);
@@ -126,9 +127,18 @@
   [v10 appendFormat:@"\n%@", v17];
 
   dispatch_resume(self->_queue);
-  v18 = *MEMORY[0x277D85DE8];
 
   return v10;
+}
+
+- (void)loadAllDataProvidersAndPerformMigration:(BOOL)migration
+{
+  migrationCopy = migration;
+  self->_loadQueueSuspended = 0;
+  dispatch_resume(self->_loadDataProviderQueue);
+  localDataProviderStore = self->_localDataProviderStore;
+
+  [(BBLocalDataProviderStore *)localDataProviderStore loadAllDataProvidersAndPerformMigration:migrationCopy];
 }
 
 - (void)noteSettingsChanged:(id)changed forSectionID:(id)d
@@ -150,7 +160,7 @@
 
 - (id)rebuildSectionInfo:(id)info forSectionID:(id)d
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   dCopy = d;
   v8 = [(BBDataProviderManager *)self dataProviderForSectionID:dCopy];
@@ -160,29 +170,29 @@
     v10 = v9;
     if (v9)
     {
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       dataProviderIDs = [v9 dataProviderIDs];
-      v12 = [dataProviderIDs countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v12 = [dataProviderIDs countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v21;
+        v14 = *v20;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v21 != v14)
+            if (*v20 != v14)
             {
               objc_enumerationMutation(dataProviderIDs);
             }
 
-            v16 = [(BBDataProviderManager *)self rebuildSectionInfo:infoCopy forSectionID:*(*(&v20 + 1) + 8 * i)];
+            v16 = [(BBDataProviderManager *)self rebuildSectionInfo:infoCopy forSectionID:*(*(&v19 + 1) + 8 * i)];
           }
 
-          v13 = [dataProviderIDs countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v13 = [dataProviderIDs countByEnumeratingWithState:&v19 objects:v23 count:16];
         }
 
         while (v13);
@@ -196,8 +206,6 @@
   }
 
   v17 = [(BBDataProviderManager *)self _configureSectionInfo:infoCopy forDataProvider:v8];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -250,36 +258,36 @@ uint64_t __67__BBDataProviderManager_reloadIdentityForSectionID_withCompletion__
 
 - (id)localSectionIdentifiersFromDismissalSectionIdentifer:(id)identifer
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identiferCopy = identifer;
   v5 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v6 = [(BBDataProviderManager *)self _queue_dataProvidersForUniversalSectionID:identiferCopy];
   if ([v6 count])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          sectionIdentifier = [*(*(&v15 + 1) + 8 * i) sectionIdentifier];
+          sectionIdentifier = [*(*(&v14 + 1) + 8 * i) sectionIdentifier];
           [v5 addObject:sectionIdentifier];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
@@ -290,8 +298,6 @@ uint64_t __67__BBDataProviderManager_reloadIdentityForSectionID_withCompletion__
   {
     [v5 addObject:identiferCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -471,32 +477,29 @@ void __90__BBDataProviderManager_dataProviderStore_didAddDataProvider_performMig
 
 void __90__BBDataProviderManager_dataProviderStore_didAddDataProvider_performMigration_completion___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
-    v5 = objc_opt_class();
-    v6 = *(a1 + 40);
-    *v11 = 138543618;
-    *&v11[4] = v5;
-    *&v11[12] = 2114;
-    *&v11[14] = v6;
-    v7 = v5;
-    _os_log_impl(&dword_241EFF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ adding data provider %{public}@ to BBServer", v11, 0x16u);
+    v3 = v2;
+    v4 = objc_opt_class();
+    v5 = *(a1 + 40);
+    *v9 = 138543618;
+    *&v9[4] = v4;
+    *&v9[12] = 2114;
+    *&v9[14] = v5;
+    v6 = v4;
+    _os_log_impl(&dword_241EFF000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ adding data provider %{public}@ to BBServer", v9, 0x16u);
   }
 
-  v8 = [*(a1 + 32) _configureDataProvider:*(a1 + 40) performMigration:{*(a1 + 56), *v11, *&v11[16], v12}];
+  v7 = [*(a1 + 32) _configureDataProvider:*(a1 + 40) performMigration:{*(a1 + 56), *v9, *&v9[8], v10}];
   [*(a1 + 40) startWatchdog];
-  [*(*(a1 + 32) + 8) dpManager:*(a1 + 32) addDataProvider:*(a1 + 40) withSectionInfo:v8];
-  v9 = *(a1 + 48);
-  if (v9)
+  [*(*(a1 + 32) + 8) dpManager:*(a1 + 32) addDataProvider:*(a1 + 40) withSectionInfo:v7];
+  v8 = *(a1 + 48);
+  if (v8)
   {
-    (*(v9 + 16))();
+    (*(v8 + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataProviderStore:(id)store didRemoveDataProvider:(id)provider
@@ -515,52 +518,49 @@ void __90__BBDataProviderManager_dataProviderStore_didAddDataProvider_performMig
 
 void __65__BBDataProviderManager_dataProviderStore_didRemoveDataProvider___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
-    v5 = objc_opt_class();
-    v6 = *(a1 + 40);
-    *v20 = 138543618;
-    *&v20[4] = v5;
-    *&v20[12] = 2114;
-    *&v20[14] = v6;
-    v7 = v5;
-    _os_log_impl(&dword_241EFF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ removing data provider %{public}@ from BBServer", v20, 0x16u);
+    v3 = v2;
+    v4 = objc_opt_class();
+    v5 = *(a1 + 40);
+    *v18 = 138543618;
+    *&v18[4] = v4;
+    *&v18[12] = 2114;
+    *&v18[14] = v5;
+    v6 = v4;
+    _os_log_impl(&dword_241EFF000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ removing data provider %{public}@ from BBServer", v18, 0x16u);
   }
 
-  v8 = *(a1 + 32);
-  v9 = [*(a1 + 40) sectionIdentifier];
-  v10 = [v8 _queue_getSectionInfoForSectionID:v9];
+  v7 = *(a1 + 32);
+  v8 = [*(a1 + 40) sectionIdentifier];
+  v9 = [v7 _queue_getSectionInfoForSectionID:v8];
 
-  v11 = [v10 factorySectionID];
+  v10 = [v9 factorySectionID];
 
-  if (v11)
+  if (v10)
   {
-    v12 = *(a1 + 32);
-    v13 = [v10 factorySectionID];
-    v14 = [v12 _queue_getSectionInfoForSectionID:v13];
+    v11 = *(a1 + 32);
+    v12 = [v9 factorySectionID];
+    v13 = [v11 _queue_getSectionInfoForSectionID:v12];
 
-    if (v14)
+    if (v13)
     {
-      [v14 _dissociateDataProviderSectionInfo:v10];
+      [v13 _dissociateDataProviderSectionInfo:v9];
     }
   }
 
-  v16 = *(a1 + 32);
-  v15 = *(a1 + 40);
-  v17 = *(v16 + 8);
-  v18 = [v15 sectionIdentifier];
-  [v17 dpManager:v16 removeDataProviderSectionID:v18];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v15 = *(a1 + 32);
+  v14 = *(a1 + 40);
+  v16 = *(v15 + 8);
+  v17 = [v14 sectionIdentifier];
+  [v16 dpManager:v15 removeDataProviderSectionID:v17];
 }
 
 - (id)_configureDataProvider:(id)provider performMigration:(BOOL)migration
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   sectionIdentifier = [providerCopy sectionIdentifier];
   if (!migration)
@@ -593,15 +593,15 @@ LABEL_6:
       v16 = BBLogMigration;
       if (os_log_type_enabled(BBLogMigration, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = 138544130;
-        v21 = sectionIdentifier;
-        v22 = 2114;
-        v23 = v11;
-        v24 = 2114;
-        v25 = v14;
-        v26 = 2114;
-        v27 = v15;
-        _os_log_impl(&dword_241EFF000, v16, OS_LOG_TYPE_DEFAULT, "Data provider <%{public}@> performed settings migration.\n\tPrevious build settings:   %{public}@\n\tPre-migration settings:    %{public}@\n\tMigrated (final) settings: %{public}@", &v20, 0x2Au);
+        v19 = 138544130;
+        v20 = sectionIdentifier;
+        v21 = 2114;
+        v22 = v11;
+        v23 = 2114;
+        v24 = v14;
+        v25 = 2114;
+        v26 = v15;
+        _os_log_impl(&dword_241EFF000, v16, OS_LOG_TYPE_DEFAULT, "Data provider <%{public}@> performed settings migration.\n\tPrevious build settings:   %{public}@\n\tPre-migration settings:    %{public}@\n\tMigrated (final) settings: %{public}@", &v19, 0x2Au);
       }
 
       goto LABEL_16;
@@ -611,28 +611,26 @@ LABEL_6:
   v17 = BBLogSettings;
   if (os_log_type_enabled(BBLogSettings, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 138543618;
-    v21 = sectionIdentifier;
-    v22 = 2114;
-    v23 = v14;
-    _os_log_impl(&dword_241EFF000, v17, OS_LOG_TYPE_DEFAULT, "Section settings for data provider %{public}@: %{public}@", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = sectionIdentifier;
+    v21 = 2114;
+    v22 = v14;
+    _os_log_impl(&dword_241EFF000, v17, OS_LOG_TYPE_DEFAULT, "Section settings for data provider %{public}@: %{public}@", &v19, 0x16u);
   }
 
   v15 = v14;
 LABEL_16:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 - (id)_configureSectionInfo:(id)info forDataProvider:(id)provider
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   providerCopy = provider;
   sectionIdentifier = [providerCopy sectionIdentifier];
-  v58 = providerCopy;
+  v57 = providerCopy;
   v7 = [BBSectionInfo defaultSectionInfoForSection:providerCopy];
   v8 = v7;
   if (infoCopy || !v7)
@@ -658,7 +656,7 @@ LABEL_16:
 
   v10 = v9;
 
-  defaultSubsectionInfos = [v58 defaultSubsectionInfos];
+  defaultSubsectionInfos = [v57 defaultSubsectionInfos];
   if ([defaultSubsectionInfos count])
   {
   }
@@ -675,30 +673,30 @@ LABEL_16:
     }
   }
 
-  v55 = v8;
+  v54 = v8;
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
   v15 = [MEMORY[0x277CBEB58] set];
+  v66 = 0u;
   v67 = 0u;
   v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
-  defaultSubsectionInfos2 = [v58 defaultSubsectionInfos];
-  v17 = [defaultSubsectionInfos2 countByEnumeratingWithState:&v67 objects:v77 count:16];
+  defaultSubsectionInfos2 = [v57 defaultSubsectionInfos];
+  v17 = [defaultSubsectionInfos2 countByEnumeratingWithState:&v66 objects:v76 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v68;
+    v19 = *v67;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v68 != v19)
+        if (*v67 != v19)
         {
           objc_enumerationMutation(defaultSubsectionInfos2);
         }
 
-        v21 = *(*(&v67 + 1) + 8 * i);
+        v21 = *(*(&v66 + 1) + 8 * i);
         subsectionID = [v21 subsectionID];
         if (subsectionID && ([v15 containsObject:subsectionID] & 1) == 0)
         {
@@ -712,71 +710,71 @@ LABEL_16:
           if (os_log_type_enabled(BBLogDataProvider, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v74 = subsectionID;
-            v75 = 2112;
-            v76 = sectionIdentifier;
+            v73 = subsectionID;
+            v74 = 2112;
+            v75 = sectionIdentifier;
             _os_log_error_impl(&dword_241EFF000, v23, OS_LOG_TYPE_ERROR, "BBServer: Ignoring empty or duplicate subsectionID (%@) from data provider %@.", buf, 0x16u);
           }
         }
       }
 
-      v18 = [defaultSubsectionInfos2 countByEnumeratingWithState:&v67 objects:v77 count:16];
+      v18 = [defaultSubsectionInfos2 countByEnumeratingWithState:&v66 objects:v76 count:16];
     }
 
     while (v18);
   }
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v62 = 0u;
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
   subsections2 = [v10 subsections];
-  v26 = [subsections2 countByEnumeratingWithState:&v63 objects:v72 count:16];
+  v26 = [subsections2 countByEnumeratingWithState:&v62 objects:v71 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v64;
+    v28 = *v63;
     do
     {
       for (j = 0; j != v27; ++j)
       {
-        if (*v64 != v28)
+        if (*v63 != v28)
         {
           objc_enumerationMutation(subsections2);
         }
 
-        v30 = *(*(&v63 + 1) + 8 * j);
+        v30 = *(*(&v62 + 1) + 8 * j);
         subsectionID2 = [v30 subsectionID];
         [dictionary setObject:v30 forKey:subsectionID2];
       }
 
-      v27 = [subsections2 countByEnumeratingWithState:&v63 objects:v72 count:16];
+      v27 = [subsections2 countByEnumeratingWithState:&v62 objects:v71 count:16];
     }
 
     while (v27);
   }
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   v32 = array2;
-  v33 = [v32 countByEnumeratingWithState:&v59 objects:v71 count:16];
+  v33 = [v32 countByEnumeratingWithState:&v58 objects:v70 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v60;
+    v35 = *v59;
     do
     {
       for (k = 0; k != v34; ++k)
       {
-        if (*v60 != v35)
+        if (*v59 != v35)
         {
           objc_enumerationMutation(v32);
         }
 
-        v37 = *(*(&v59 + 1) + 8 * k);
+        v37 = *(*(&v58 + 1) + 8 * k);
         subsectionID3 = [v37 subsectionID];
         if (!subsectionID3)
         {
@@ -787,7 +785,7 @@ LABEL_16:
           }
 
           *buf = 138412290;
-          v74 = sectionIdentifier;
+          v73 = sectionIdentifier;
           v43 = v42;
           v44 = "BBServer: Ignoring subsection with no subsectionID, from data provider %@.";
           v45 = 12;
@@ -805,9 +803,9 @@ LABEL_48:
           }
 
           *buf = 138412546;
-          v74 = subsectionID3;
-          v75 = 2112;
-          v76 = sectionIdentifier;
+          v73 = subsectionID3;
+          v74 = 2112;
+          v75 = sectionIdentifier;
           v43 = v46;
           v44 = "BBServer: Ignoring subsection (%@) not flagged as BBSectionTypeSubsection from data provider %@.";
           v45 = 22;
@@ -833,7 +831,7 @@ LABEL_48:
           [dictionary removeObjectForKey:subsectionID3];
 LABEL_50:
           [array addObject:v41];
-          v47 = [v58 displayNameForSubsectionID:subsectionID3];
+          v47 = [v57 displayNameForSubsectionID:subsectionID3];
           [v41 setDisplayName:v47];
 
           goto LABEL_51;
@@ -850,7 +848,7 @@ LABEL_50:
 LABEL_51:
       }
 
-      v34 = [v32 countByEnumeratingWithState:&v59 objects:v71 count:16];
+      v34 = [v32 countByEnumeratingWithState:&v58 objects:v70 count:16];
     }
 
     while (v34);
@@ -864,14 +862,14 @@ LABEL_51:
       v49 = v48;
       allKeys = [dictionary allKeys];
       *buf = 138543618;
-      v74 = sectionIdentifier;
-      v75 = 2114;
-      v76 = allKeys;
+      v73 = sectionIdentifier;
+      v74 = 2114;
+      v75 = allKeys;
       _os_log_impl(&dword_241EFF000, v49, OS_LOG_TYPE_DEFAULT, "Abandoned subsections for data provider <%{public}@>, removing them: %{public}@", buf, 0x16u);
     }
   }
 
-  v8 = v55;
+  v8 = v54;
 LABEL_57:
   if ([array count])
   {
@@ -886,32 +884,28 @@ LABEL_57:
   [v10 setSubsections:v51];
   v52 = v10;
 
-  v53 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)noteSettingsChanged:forSectionID:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_2(&dword_241EFF000, v0, v1, "%s no data provider found for: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_241EFF000, v0, v1, "%s no data provider found for: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)rebuildSectionInfo:forSectionID:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_2(&dword_241EFF000, v0, v1, "%s no data provider found for: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_241EFF000, v0, v1, "%s no data provider found for: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)reloadIdentityForSectionID:withCompletion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_2(&dword_241EFF000, v0, v1, "%s no data provider found for: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_241EFF000, v0, v1, "%s no data provider found for: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)performBlockOnDataProviders:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

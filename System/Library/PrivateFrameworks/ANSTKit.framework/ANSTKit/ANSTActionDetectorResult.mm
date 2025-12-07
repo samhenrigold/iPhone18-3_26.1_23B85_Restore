@@ -68,31 +68,31 @@
 
 - (unint64_t)hash
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = self->_actions;
-  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v3, &v13, v17, 16);
+  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v3, &v12, v16, 16);
   if (v4)
   {
     v7 = v4;
     v8 = 0;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = objc_msgSend_hash(*(*(&v13 + 1) + 8 * i), v5, v6, v13) - v8 + 32 * v8;
+        v8 = objc_msgSend_hash(*(*(&v12 + 1) + 8 * i), v5, v6, v12) - v8 + 32 * v8;
       }
 
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v5, &v13, v17, 16);
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v5, &v12, v16, 16);
     }
 
     while (v7);
@@ -103,7 +103,6 @@
     v8 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -117,7 +116,7 @@
 
 - (ANSTActionDetectorResult)initWithCoder:(id)coder
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
@@ -136,16 +135,15 @@
   {
     v15 = MEMORY[0x277CCA9B8];
     v16 = *MEMORY[0x277CCA050];
-    v23 = *MEMORY[0x277CCA068];
-    v24[0] = @"actions was not encoded.";
-    v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, v24, &v23, 1);
+    v22 = *MEMORY[0x277CCA068];
+    v23[0] = @"actions was not encoded.";
+    v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, v23, &v22, 1);
     v19 = objc_msgSend_errorWithDomain_code_userInfo_(v15, v18, v16, 4865, v17);
     objc_msgSend_failWithError_(coderCopy, v20, v19);
 
     selfCopy = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

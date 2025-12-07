@@ -9,11 +9,11 @@
 
 - (OSLogEntryLog)initWithCoder:(id)coder
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v26.receiver = self;
-  v26.super_class = OSLogEntryLog;
-  v5 = [(OSLogEntry *)&v26 initWithCoder:coderCopy];
+  v25.receiver = self;
+  v25.super_class = OSLogEntryLog;
+  v5 = [(OSLogEntry *)&v25 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"activityIdentifier"];
@@ -36,9 +36,9 @@
     v5->_category = v12;
 
     v14 = MEMORY[0x277CBEB98];
-    v27[0] = objc_opt_class();
-    v27[1] = objc_opt_class();
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+    v26[0] = objc_opt_class();
+    v26[1] = objc_opt_class();
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
     v16 = [v14 setWithArray:v15];
     v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"components"];
     components = v5->_components;
@@ -56,7 +56,6 @@
     v23 = v5;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

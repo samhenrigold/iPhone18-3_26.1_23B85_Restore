@@ -15,7 +15,7 @@
 
 - (CRSUICAPackageView)initWithPackage:(id)package state:(id)state dynamicStateProvider:(id)provider
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   packageCopy = package;
   stateCopy = state;
   providerCopy = provider;
@@ -27,9 +27,9 @@
 
   v12 = rootLayer;
   [rootLayer frame];
-  v32.receiver = self;
-  v32.super_class = CRSUICAPackageView;
-  v13 = [(CRSUICAPackageView *)&v32 initWithFrame:?];
+  v31.receiver = self;
+  v31.super_class = CRSUICAPackageView;
+  v13 = [(CRSUICAPackageView *)&v31 initWithFrame:?];
   v14 = v13;
   if (v13)
   {
@@ -71,13 +71,12 @@
     if (providerCopy)
     {
       v27 = objc_opt_self();
-      v33[0] = v27;
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+      v32[0] = v27;
+      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
       v29 = [(CRSUICAPackageView *)v14 registerForTraitChanges:v28 withAction:sel_userInterfaceStyleChanged];
     }
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

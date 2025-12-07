@@ -131,7 +131,7 @@ void RcpHostContext::get_device_data(uint64_t a1, uint64_t a2)
     LOBYTE(v54) = *(v10 + 73) | v54;
     v12 = *(v10 + 74) | v7;
     HIDWORD(v54) += *(v10 + 84);
-    for (i = (v10 + 112); ; std::__hash_table<unsigned short,std::hash<unsigned short>,std::equal_to<unsigned short>,std::allocator<unsigned short>>::__emplace_unique_key_args<unsigned short,unsigned short const&>(&v58, i + 8))
+    for (i = (v10 + 112); ; std::__hash_table<unsigned short,std::hash<unsigned short>,std::equal_to<unsigned short>,std::allocator<unsigned short>>::__emplace_unique_key_args<unsigned short,unsigned short const&>(&v58, i + 8, i + 8))
     {
       i = *i;
       if (!i)
@@ -140,7 +140,7 @@ void RcpHostContext::get_device_data(uint64_t a1, uint64_t a2)
       }
     }
 
-    for (j = (v10 + 152); ; std::__hash_table<unsigned short,std::hash<unsigned short>,std::equal_to<unsigned short>,std::allocator<unsigned short>>::__emplace_unique_key_args<unsigned short,unsigned short const&>(v55, j + 8))
+    for (j = (v10 + 152); ; std::__hash_table<unsigned short,std::hash<unsigned short>,std::equal_to<unsigned short>,std::allocator<unsigned short>>::__emplace_unique_key_args<unsigned short,unsigned short const&>(v55, j + 8, j + 8))
     {
       j = *j;
       if (!j)
@@ -503,11 +503,11 @@ LABEL_104:
   }
 }
 
-void sub_1000CD218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000CD218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   std::unordered_set<unsigned short>::~unordered_set[abi:ne200100](va);
-  std::unordered_set<unsigned short>::~unordered_set[abi:ne200100](v13 - 128);
+  std::unordered_set<unsigned short>::~unordered_set[abi:ne200100](v20 - 128);
   _Unwind_Resume(a1);
 }
 
@@ -1047,16 +1047,17 @@ void sub_1000CDCE8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1000CDD30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_1000CDD30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, ...)
 {
-  boost::detail::shared_count::~shared_count(v10);
-  boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>>::~grouped_list(&a10);
+  va_start(va, a9);
+  boost::detail::shared_count::~shared_count(v9);
+  boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>>::~grouped_list(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1000CDD4C(uint64_t a1, ...)
+void sub_1000CDD4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a1);
+  va_start(va, a3);
   boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>>::~grouped_list(va);
   operator delete();
 }
@@ -1288,9 +1289,9 @@ void sub_1000CE998(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1000CE9B4(uint64_t a1, ...)
+void sub_1000CE9B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a1);
+  va_start(va, a3);
   boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>>::~grouped_list(va);
   operator delete();
 }
@@ -1353,9 +1354,9 @@ void sub_1000CEF20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1000CEF3C(uint64_t a1, ...)
+void sub_1000CEF3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a1);
+  va_start(va, a3);
   boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>>::~grouped_list(va);
   operator delete();
 }
@@ -1418,9 +1419,9 @@ void sub_1000CF4A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1000CF4C4(uint64_t a1, ...)
+void sub_1000CF4C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a1);
+  va_start(va, a3);
   boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>>::~grouped_list(va);
   operator delete();
 }
@@ -1435,20 +1436,20 @@ void sub_1000CF4E8(_Unwind_Exception *exception_object, int a2)
   __clang_call_terminate(exception_object);
 }
 
-void std::__list_imp<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(boost::any const&),boost::function<void ()(boost::any const&)>>,boost::signals2::mutex>>>::clear(uint64_t *a1)
+void std::__list_imp<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(boost::any const&),boost::function<void ()(boost::any const&)>>,boost::signals2::mutex>>>::clear(uint64_t *result)
 {
-  if (a1[2])
+  if (result[2])
   {
-    v2 = a1[1];
-    v3 = *(*a1 + 8);
+    v2 = result[1];
+    v3 = *(*result + 8);
     v4 = *v2;
     *(v4 + 8) = v3;
     *v3 = v4;
-    a1[2] = 0;
-    while (v2 != a1)
+    result[2] = 0;
+    while (v2 != result)
     {
       v5 = v2[1];
-      std::__list_imp<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(boost::any const&),boost::function<void ()(boost::any const&)>>,boost::signals2::mutex>>>::__delete_node[abi:ne200100](a1, v2);
+      std::__list_imp<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(boost::any const&),boost::function<void ()(boost::any const&)>>,boost::signals2::mutex>>>::__delete_node[abi:ne200100](result, v2);
       v2 = v5;
     }
   }
@@ -1479,28 +1480,28 @@ void sub_1000CF6BC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(boost::any const&),boost::function<void ()(boost::any const&)>>,boost::signals2::mutex>>>::grouped_list(uint64_t a1, uint64_t a2)
+uint64_t *boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(boost::any const&),boost::function<void ()(boost::any const&)>>,boost::signals2::mutex>>>::grouped_list(uint64_t *a1, uint64_t a2)
 {
   *a1 = a1;
-  *(a1 + 8) = a1;
-  *(a1 + 16) = 0;
+  a1[1] = a1;
+  a1[2] = 0;
   if (*(a2 + 8) != a2)
   {
     operator new();
   }
 
-  *(a1 + 24) = 0;
-  *(a1 + 32) = 0;
-  *(a1 + 40) = 0;
+  a1[3] = 0;
+  a1[4] = 0;
+  a1[5] = 0;
   *(a1 + 48) = *(a2 + 48);
-  *(a1 + 24) = a1 + 32;
+  a1[3] = (a1 + 4);
   v4 = *(a2 + 24);
   v5 = (a2 + 32);
   if (v4 != (a2 + 32))
   {
     do
     {
-      if (!*std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>>>::__find_equal<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>>((a1 + 24), (a1 + 32), &v23, &v22, v4 + 8))
+      if (!*std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>>>::__find_equal<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>>(a1 + 3, a1 + 4, &v23, &v22, v4 + 8))
       {
         operator new();
       }
@@ -1539,8 +1540,8 @@ uint64_t boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_
   v9 = *(a2 + 24);
   if (v9 != v5)
   {
-    v10 = *(a1 + 24);
-    v11 = *(a1 + 8);
+    v10 = a1[3];
+    v11 = a1[1];
     do
     {
       v10[6] = v11;
@@ -1707,9 +1708,9 @@ void sub_1000D005C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1000D0078(uint64_t a1, ...)
+void sub_1000D0078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a1);
+  va_start(va, a3);
   boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>>::~grouped_list(va);
   operator delete();
 }
@@ -1938,7 +1939,7 @@ LABEL_13:
   v23 = v30;
   v24 = a1;
   v25 = v14;
-  *&v21 = *(v14 + 8);
+  *&v21 = v14[1];
   *(&v21 + 1) = v14;
   *&v22 = v30;
   *(&v22 + 1) = v14;
@@ -1992,6 +1993,13 @@ LABEL_29:
   }
 
   return result;
+}
+
+void sub_1000D09E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  boost::signals2::detail::garbage_collecting_lock<boost::signals2::mutex>::~garbage_collecting_lock(va);
+  JUMPOUT(0x1000D0A38);
 }
 
 void sub_1000D09F0(void *a1, int a2)
@@ -2215,9 +2223,9 @@ LABEL_14:
   }
 }
 
-void sub_1000D0F3C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1000D0F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   boost::signals2::detail::garbage_collecting_lock<boost::signals2::detail::connection_body_base>::~garbage_collecting_lock(va);
   _Unwind_Resume(a1);
 }
@@ -2232,7 +2240,7 @@ void sub_1000D0F50(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   __clang_call_terminate(exception_object);
 }
 
-uint64_t *boost::signals2::detail::signal_impl<void ()(std::string const&),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(std::string const&)>,boost::function<void ()(boost::signals2::connection const&,std::string const&)>,boost::signals2::mutex>::invocation_janitor::~invocation_janitor(uint64_t *result)
+void *boost::signals2::detail::signal_impl<void ()(std::string const&),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(std::string const&)>,boost::function<void ()(boost::signals2::connection const&,std::string const&)>,boost::signals2::mutex>::invocation_janitor::~invocation_janitor(void *result)
 {
   if (*(*result + 284) > *(*result + 280))
   {
@@ -2244,9 +2252,9 @@ uint64_t *boost::signals2::detail::signal_impl<void ()(std::string const&),boost
   return result;
 }
 
-void boost::signals2::detail::signal_impl<void ()(std::string const&),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(std::string const&)>,boost::function<void ()(boost::signals2::connection const&,std::string const&)>,boost::signals2::mutex>::force_cleanup_connections(uint64_t a1, uint64_t a2)
+void boost::signals2::detail::signal_impl<void ()(std::string const&),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(std::string const&)>,boost::function<void ()(boost::signals2::connection const&,std::string const&)>,boost::signals2::mutex>::force_cleanup_connections(uint64_t ***a1, uint64_t *a2)
 {
-  v4 = *(a1 + 24);
+  v4 = a1[3];
   v14 = 10;
   __p = &v13;
   v16 = 0;
@@ -2254,7 +2262,7 @@ void boost::signals2::detail::signal_impl<void ()(std::string const&),boost::sig
   pthread_mutex_lock(v4);
   if (**a1 == a2)
   {
-    v5 = *(a1 + 8);
+    v5 = a1[1];
     if (!v5 || atomic_load_explicit((v5 + 8), memory_order_acquire) != 1)
     {
       operator new();
@@ -2293,7 +2301,7 @@ LABEL_10:
       v7 = v6;
     }
 
-    *(a1 + 16) = v7;
+    a1[2] = v7;
   }
 
   pthread_mutex_unlock(v17);
@@ -2431,58 +2439,58 @@ uint64_t boost::detail::sp_counted_impl_p<HostCmdTask>::dispose(uint64_t result)
   return result;
 }
 
-uint64_t **std::__hash_table<unsigned short,std::hash<unsigned short>,std::equal_to<unsigned short>,std::allocator<unsigned short>>::__emplace_unique_key_args<unsigned short,unsigned short const&>(void *a1, unsigned __int16 *a2)
+uint64_t **std::__hash_table<unsigned short,std::hash<unsigned short>,std::equal_to<unsigned short>,std::allocator<unsigned short>>::__emplace_unique_key_args<unsigned short,unsigned short const&>(void *a1, unsigned __int16 *a2, _WORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_23;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % a1[1];
+      v6 = v3 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_23:
     operator new();
   }
 
-  if (v4.u32[0] < 2uLL)
+  if (v5.u32[0] < 2uLL)
   {
     while (1)
     {
-      v9 = v7[1];
-      if (v9 == v2)
+      v10 = v8[1];
+      if (v10 == v3)
       {
-        if (*(v7 + 8) == v2)
+        if (*(v8 + 8) == v3)
         {
-          return v7;
+          return v8;
         }
       }
 
-      else if ((v9 & (*&v3 - 1)) != v5)
+      else if ((v10 & (*&v4 - 1)) != v6)
       {
         goto LABEL_23;
       }
 
-      v7 = *v7;
-      if (!v7)
+      v8 = *v8;
+      if (!v8)
       {
         goto LABEL_23;
       }
@@ -2491,53 +2499,43 @@ LABEL_23:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v8 >= *&v3)
+    if (v9 >= *&v4)
     {
-      v8 %= *&v3;
+      v9 %= *&v4;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_23;
     }
 
 LABEL_12:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_23;
     }
   }
 
-  if (*(v7 + 8) != v2)
+  if (*(v8 + 8) != v3)
   {
     goto LABEL_12;
   }
 
-  return v7;
+  return v8;
 }
 
-void OUTLINED_FUNCTION_4_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x12u);
-}
-
-uint64_t *OUTLINED_FUNCTION_6@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  if (*(result + 23) < 0)
-  {
-    v3 = *result;
-  }
-
-  return result;
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x12u);
 }
 
 void _GLOBAL__sub_I_host_context_cpp()
@@ -2593,7 +2591,7 @@ void InternalIPCAPI::~InternalIPCAPI(InternalIPCAPI *this)
   std::__tree<std::__value_type<std::string,std::shared_ptr<InternalClient>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<InternalClient>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<InternalClient>>>>::destroy(this + 24, *(this + 4));
 }
 
-uint64_t InternalIPCAPI::getInstance(InternalIPCAPI *this)
+InternalIPCAPI *InternalIPCAPI::getInstance(InternalIPCAPI *this)
 {
   result = InternalIPCAPI::_instance;
   if (!InternalIPCAPI::_instance)
@@ -2665,12 +2663,12 @@ void InternalIPCAPI::property_changed(NSObject **a1, const std::string::value_ty
 {
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v34, *a2, a2[1]);
+    std::string::__init_copy_ctor_external(&v33, *a2, a2[1]);
   }
 
   else
   {
-    v34 = *a2;
+    v33 = *a2;
   }
 
   if (a3->var0)
@@ -2696,26 +2694,26 @@ void InternalIPCAPI::property_changed(NSObject **a1, const std::string::value_ty
           v10 = *a2;
         }
 
-        any_to_string(a3, __p);
-        v11 = SHIBYTE(v32);
-        v12 = __p[0];
+        any_to_string(&__p, a3);
+        v11 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
+        v12 = __p.__r_.__value_.__r.__words[0];
         SystemTime = TelephonyUtilGetSystemTime();
-        v14 = __p;
+        p_p = &__p;
         *buf = 136315650;
         if (v11 < 0)
         {
-          v14 = v12;
+          p_p = v12;
         }
 
-        v36 = v10;
-        v37 = 2080;
-        v38 = v14;
-        v39 = 2048;
-        v40 = SystemTime;
+        v35 = v10;
+        v36 = 2080;
+        v37 = p_p;
+        v38 = 2048;
+        v39 = SystemTime;
         _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "InternalIPCAPI:PropChanged: Key %s, Value: %s, at: %llu", buf, 0x20u);
-        if (SHIBYTE(v32) < 0)
+        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(__p[0]);
+          operator delete(__p.__r_.__value_.__l.__data_);
         }
       }
 
@@ -2750,15 +2748,15 @@ LABEL_27:
   }
 
 LABEL_28:
-  __p[0] = 0;
-  __p[1] = __p;
-  v32 = 0x2000000000;
-  v33 = TelephonyUtilGetSystemTime();
+  __p.__r_.__value_.__r.__words[0] = 0;
+  __p.__r_.__value_.__l.__size_ = &__p;
+  __p.__r_.__value_.__r.__words[2] = 0x2000000000;
+  v32 = TelephonyUtilGetSystemTime();
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1174405120;
   aBlock[2] = ___ZN14InternalIPCAPI16property_changedENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEN5boost3anyE_block_invoke;
   aBlock[3] = &unk_1004C2D78;
-  aBlock[4] = __p;
+  aBlock[4] = &__p;
   if (*(a2 + 23) < 0)
   {
     std::string::__init_copy_ctor_external(&v28, *a2, a2[1]);
@@ -2793,13 +2791,13 @@ LABEL_28:
 
       v19 = TelephonyUtilGetSystemTime();
       *buf = 136315906;
-      v36 = v18;
-      v37 = 2048;
-      v38 = v19;
-      v39 = 2048;
-      v40 = numPendingEventsToBeSent;
-      v41 = 2048;
-      v42 = numPendingEventsToRcvResponse;
+      v35 = v18;
+      v36 = 2048;
+      v37 = v19;
+      v38 = 2048;
+      v39 = numPendingEventsToBeSent;
+      v40 = 2048;
+      v41 = numPendingEventsToRcvResponse;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Posting event (%s) to Internal Broadcast Event Handler, at: %llu, numPendingEventsToBeSent: %lld numPendingEventsToRcvResponse : %lld", buf, 0x2Au);
     }
   }
@@ -2886,20 +2884,20 @@ LABEL_49:
 
   if ((SHIBYTE(v28.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    _Block_object_dispose(__p, 8);
-    if ((SHIBYTE(v34.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    _Block_object_dispose(&__p, 8);
+    if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       return;
     }
 
 LABEL_67:
-    operator delete(v34.__r_.__value_.__l.__data_);
+    operator delete(v33.__r_.__value_.__l.__data_);
     return;
   }
 
   operator delete(v28.__r_.__value_.__l.__data_);
-  _Block_object_dispose(__p, 8);
-  if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+  _Block_object_dispose(&__p, 8);
+  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
   {
     goto LABEL_67;
   }
@@ -2920,12 +2918,12 @@ void sub_1000D3230(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void InternalIPCAPI::received_beacon(uint64_t a1, uint64_t a2)
+void InternalIPCAPI::received_beacon(uint64_t a1, _BYTE *a2)
 {
-  v7[0] = 0;
-  v7[1] = 0;
-  v6 = v7;
-  if (*(a2 + 23) >= 0)
+  v6[0] = 0;
+  v6[1] = 0;
+  v5 = v6;
+  if (a2[23] >= 0)
   {
     v3 = a2;
   }
@@ -2940,14 +2938,13 @@ void InternalIPCAPI::received_beacon(uint64_t a1, uint64_t a2)
     operator new();
   }
 
-  memcpyrev(&__p, a2 + 24, 8uLL);
+  memcpyrev(&__p, (a2 + 24), 8uLL);
   if (__p.i64[0])
   {
-    memcpyrev(&__p, a2 + 24, 8uLL);
+    memcpyrev(&__p, (a2 + 24), 8uLL);
     operator new();
   }
 
-  v4 = *(a2 + 32);
   operator new();
 }
 
@@ -3023,16 +3020,16 @@ LABEL_8:
   }
 }
 
-void boost::signals2::signal<void ()(boost::any const&),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(boost::any const&)>,boost::function<void ()(boost::signals2::connection const&,boost::any const&)>,boost::signals2::mutex>::connect(uint64_t a1)
+void boost::signals2::signal<void ()(boost::any const&),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(boost::any const&)>,boost::function<void ()(boost::signals2::connection const&,boost::any const&)>,boost::signals2::mutex>::connect(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *(a1 + 8);
-  v2 = *(v1 + 24);
-  v4 = 10;
-  __p = v3;
-  v6 = 0;
-  v7 = v2;
-  pthread_mutex_lock(v2);
-  boost::signals2::detail::signal_impl<void ()(boost::any const&),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(boost::any const&)>,boost::function<void ()(boost::signals2::connection const&,boost::any const&)>,boost::signals2::mutex>::nolock_connect(v1, v3);
+  v3 = *(a1 + 8);
+  v4 = *(v3 + 24);
+  v6 = 10;
+  __p = v5;
+  v8 = 0;
+  v9 = v4;
+  pthread_mutex_lock(v4);
+  boost::signals2::detail::signal_impl<void ()(boost::any const&),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(boost::any const&)>,boost::function<void ()(boost::signals2::connection const&,boost::any const&)>,boost::signals2::mutex>::nolock_connect(v3, v5);
 }
 
 void sub_1000D4114(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
@@ -3364,13 +3361,13 @@ void sub_1000D4B48(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1000D4C7C()
+void sub_1000D4C7C(_Unwind_Exception *a1)
 {
-  v2 = *v1;
-  if (*v1)
+  v3 = *v2;
+  if (*v2)
   {
-    *(v0 + 16) = v2;
-    operator delete(v2);
+    *(v1 + 16) = v3;
+    operator delete(v3);
   }
 
   operator delete();
@@ -3426,7 +3423,7 @@ void InternalIPCAPI::IntBroadcastEvent(void *a1, const std::string::value_type *
       {
         if (InternalClient::isEventsOn(v8))
         {
-          InternalClient::getClientEventListenersPtr(v8, &v71);
+          InternalClient::getClientEventListenersPtr(&v71, v8);
           v10 = v71 + 8;
           v9 = *(v71 + 8);
           if (!v9)
@@ -3950,7 +3947,7 @@ LABEL_149:
   dispatch_release(group);
 }
 
-void sub_1000D55F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, uint64_t a45, char a46, uint64_t a47, char a48)
+void sub_1000D55F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
 {
   if (a39 < 0)
   {
@@ -3973,7 +3970,7 @@ void InternalIPCAPI::add_client(uint64_t a1, const void **a2, uint64_t *a3)
 {
   v4 = a2;
   *buf = a2;
-  v6 = std::__tree<std::__value_type<std::string,std::shared_ptr<InternalClient>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<InternalClient>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<InternalClient>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 24, a2);
+  v6 = std::__tree<std::__value_type<std::string,std::shared_ptr<InternalClient>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<InternalClient>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<InternalClient>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 24), a2, &std::piecewise_construct, buf);
   v8 = *a3;
   v7 = a3[1];
   if (v7)
@@ -4190,7 +4187,7 @@ void InternalIPCAPI::remove_client(void *a1, const void **a2)
   }
 }
 
-void InternalIPCAPI::CallbackOtctl_Helper(int a1, char *__s, uint64_t a3, uint64_t *a4, uint64_t *a5, void *a6)
+void InternalIPCAPI::CallbackOtctl_Helper(int a1, char *__s, uint64_t *a3, uint64_t ***a4, uint64_t a5, void *a6)
 {
   v10 = strlen(__s);
   if (v10 >= 0x7FFFFFFFFFFFFFF8)
@@ -4259,7 +4256,7 @@ void InternalIPCAPI::CallbackOtctl_Helper(int a1, char *__s, uint64_t a3, uint64
     HIBYTE(v23) = 6;
     strcpy(buf, "method");
     v19 = buf;
-    std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v16, buf);
+    std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v16, buf, &std::piecewise_construct, &v19);
     operator new();
   }
 
@@ -4269,7 +4266,7 @@ void InternalIPCAPI::CallbackOtctl_Helper(int a1, char *__s, uint64_t a3, uint64
   }
 }
 
-void InternalIPCAPI::CallbackWithStatus2_Helper(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, void *a7)
+void InternalIPCAPI::CallbackWithStatus2_Helper(uint64_t a1, int a2, uint64_t *a3, uint64_t ***a4, uint64_t a5, uint64_t a6, void *a7)
 {
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg)
@@ -4290,8 +4287,8 @@ void InternalIPCAPI::CallbackWithStatus2_Helper(uint64_t a1, uint64_t a2, uint64
 
       *buf = 136315394;
       *&buf[4] = v12;
-      v16 = 2080;
-      v17 = a4;
+      v17 = 2080;
+      v18 = a4;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "WPANTUND-InternalIPCAPI Sending response for method %s to %s", buf, 0x16u);
     }
   }
@@ -4308,16 +4305,16 @@ void InternalIPCAPI::CallbackWithStatus2_Helper(uint64_t a1, uint64_t a2, uint64
       v14[0] = 0;
       v14[1] = 0;
       v13 = v14;
-      v18 = 6;
+      v19 = 6;
       strcpy(buf, "method");
-      v14[3] = buf;
-      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v13, buf);
+      v15 = buf;
+      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v13, buf, &std::piecewise_construct, &v15);
       operator new();
     }
   }
 }
 
-void InternalIPCAPI::CallbackWithStatus_Helper(uint64_t a1, int a2, uint64_t a3, uint64_t *a4, uint64_t *a5, void *a6)
+void InternalIPCAPI::CallbackWithStatus_Helper(uint64_t a1, int a2, uint64_t *a3, uint64_t ***a4, uint64_t a5, void *a6)
 {
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg)
@@ -4338,10 +4335,10 @@ void InternalIPCAPI::CallbackWithStatus_Helper(uint64_t a1, int a2, uint64_t a3,
 
       *buf = 136315650;
       *&buf[4] = v12;
-      v16 = 2080;
-      v17 = a4;
-      v18 = 1024;
-      LODWORD(v19) = a2;
+      v17 = 2080;
+      v18 = a4;
+      v19 = 1024;
+      LODWORD(v20) = a2;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "ThreadRadioD-InternalIPCAPI Sending Internal response for method %s to %s, ret : %d", buf, 0x1Cu);
     }
   }
@@ -4358,16 +4355,16 @@ void InternalIPCAPI::CallbackWithStatus_Helper(uint64_t a1, int a2, uint64_t a3,
       v14[0] = 0;
       v14[1] = 0;
       v13 = v14;
-      HIBYTE(v18) = 6;
+      HIBYTE(v19) = 6;
       strcpy(buf, "method");
-      v14[3] = buf;
-      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v13, buf);
+      v15 = buf;
+      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v13, buf, &std::piecewise_construct, &v15);
       operator new();
     }
   }
 }
 
-void InternalIPCAPI::CallbackWithStatusArg1_Helper(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, void *a7)
+void InternalIPCAPI::CallbackWithStatusArg1_Helper(uint64_t a1, int a2, void *a3, char *a4, uint64_t a5, uint64_t a6, const void **a7)
 {
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg)
@@ -4383,15 +4380,15 @@ void InternalIPCAPI::CallbackWithStatusArg1_Helper(uint64_t a1, uint64_t a2, uin
         if ((*(a6 + 23) & 0x80000000) == 0)
         {
 LABEL_6:
-          if ((*(a4 + 23) & 0x80000000) == 0)
+          if ((a4[23] & 0x80000000) == 0)
           {
 LABEL_7:
             *buf = 136315650;
             *&buf[4] = v13;
-            v19 = 2080;
-            v20 = v14;
-            v21 = 2080;
-            v22 = a4;
+            v20 = 2080;
+            v21 = v14;
+            v22 = 2080;
+            v23 = a4;
             _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "ThreadRadioD-InternalIPCAPI Sending internal response for method %s for property %s to %s", buf, 0x20u);
             goto LABEL_10;
           }
@@ -4412,7 +4409,7 @@ LABEL_21:
       }
 
       v14 = *a6;
-      if ((*(a4 + 23) & 0x80000000) == 0)
+      if ((a4[23] & 0x80000000) == 0)
       {
         goto LABEL_7;
       }
@@ -4450,39 +4447,39 @@ LABEL_10:
     v17[0] = 0;
     v17[1] = 0;
     v16 = v17;
-    HIBYTE(v21) = 6;
+    HIBYTE(v22) = 6;
     strcpy(buf, "method");
-    v17[3] = buf;
-    std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v16, buf);
+    v18 = buf;
+    std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v16, buf, &std::piecewise_construct, &v18);
     operator new();
   }
 }
 
-void InternalIPCAPI::getProperty(uint64_t a1, std::string::size_type a2, uint64_t a3)
+void InternalIPCAPI::getProperty(uint64_t a1, std::string::size_type a2, uint64_t a3, uint64_t a4)
 {
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg)
   {
-    v6 = logging_obg;
-    if (syslog_is_the_mask_enabled(5) && os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = logging_obg;
+    if (syslog_is_the_mask_enabled(5) && os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = a3;
+      v8 = a3;
       if (*(a3 + 23) < 0)
       {
-        v7 = *a3;
+        v8 = *a3;
       }
 
-      v8 = a2;
+      v9 = a2;
       if (*(a2 + 23) < 0)
       {
-        v8 = *a2;
+        v9 = *a2;
       }
 
       LODWORD(buf.__r_.__value_.__l.__data_) = 136315394;
-      *(buf.__r_.__value_.__r.__words + 4) = v7;
+      *(buf.__r_.__value_.__r.__words + 4) = v8;
       WORD2(buf.__r_.__value_.__r.__words[1]) = 2080;
-      *(&buf.__r_.__value_.__r.__words[1] + 6) = v8;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "OTD InternalIPCAPI Handling method handler for property %s for client %s", &buf, 0x16u);
+      *(&buf.__r_.__value_.__r.__words[1] + 6) = v9;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "OTD InternalIPCAPI Handling method handler for property %s for client %s", &buf, 0x16u);
     }
   }
 
@@ -4542,7 +4539,7 @@ void boost::function<void ()(int,boost::any const&)>::operator=<boost::_bi::bind
 {
   v2 = *a2;
   boost::_bi::storage7<boost::_bi::value<XPCIPCAPI_v1_rcp *>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>::storage7(&v3, (a2 + 1));
-  boost::function<void ()(int,boost::any const&)>::function<boost::_bi::bind_t<void,boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list7<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(v4, &v2);
+  boost::function<void ()(int,boost::any const&)>::function<boost::_bi::bind_t<void,boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list7<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(&v4, &v2);
 }
 
 void sub_1000D7B6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -5042,19 +5039,19 @@ void __destroy_helper_block_e8_32c67_ZTSKNSt3__112basic_stringIcNS_11char_traits
   }
 }
 
-void InternalIPCAPI::interface_send_ping_req()
+void InternalIPCAPI::interface_send_ping_req(uint64_t a1, const std::string *a2, __int16 a3, char a4, const std::string::value_type **a5, const std::string::value_type **a6, uint64_t a7)
 {
-  v1[0] = 0;
-  v1[1] = 0;
-  v0 = v1;
-  v3 = 6;
+  v8[0] = 0;
+  v8[1] = 0;
+  v7 = v8;
+  v11 = 6;
   strcpy(buf, "method");
-  v1[3] = buf;
-  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v0, buf);
+  v9 = buf;
+  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v7, buf, &std::piecewise_construct, &v9);
   operator new();
 }
 
-void sub_1000D8A20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, char a25, char *a26, uint64_t a27, char a28)
+void sub_1000D8A20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, char *a26, uint64_t a27, char a28)
 {
   if (a23 < 0)
   {
@@ -5176,7 +5173,7 @@ LABEL_23:
   std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(v22, v22[1]);
 }
 
-void sub_1000D8CCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24, char *a25, uint64_t a26, char a27)
+void sub_1000D8CCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, char *a25, uint64_t a26, char a27)
 {
   if ((a23 & 0x80000000) == 0)
   {
@@ -5193,7 +5190,7 @@ void boost::function<void ()(int)>::operator=<boost::_bi::bind_t<void,boost::_mf
 {
   v2 = *a2;
   boost::_bi::storage6<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::storage6(&v3, (a2 + 1));
-  boost::function<void ()(int)>::function<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(v4, &v2);
+  boost::function<void ()(int)>::function<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(&v4, &v2);
 }
 
 void sub_1000D8E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -5240,15 +5237,15 @@ LABEL_7:
   return a1;
 }
 
-void InternalIPCAPI::interface_trm_get_ot_data()
+void InternalIPCAPI::interface_trm_get_ot_data(uint64_t a1, const std::string *a2, const std::string::value_type **a3, const std::string::value_type **a4, uint64_t a5)
 {
-  v3[0] = 0;
-  v3[1] = 0;
-  v2 = v3;
-  *(&v1.__r_.__value_.__s + 23) = 6;
-  strcpy(&v1, "method");
-  v0.__r_.__value_.__r.__words[0] = &v1;
-  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v2, &v1.__r_.__value_.__l.__data_);
+  v8[0] = 0;
+  v8[1] = 0;
+  v7 = v8;
+  *(&v6.__r_.__value_.__s + 23) = 6;
+  strcpy(&v6, "method");
+  v5.__r_.__value_.__r.__words[0] = &v6;
+  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v7, &v6.__r_.__value_.__l.__data_, &std::piecewise_construct, &v5);
   operator new();
 }
 
@@ -5265,19 +5262,19 @@ void sub_1000D9380(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void InternalIPCAPI::interface_get_device_data_diag_req()
+void InternalIPCAPI::interface_get_device_data_diag_req(uint64_t a1, uint64_t a2, const std::string::value_type **a3, const std::string::value_type **a4, uint64_t a5)
 {
-  v1[0] = 0;
-  v1[1] = 0;
-  v0 = v1;
-  v3 = 6;
+  v6[0] = 0;
+  v6[1] = 0;
+  v5 = v6;
+  v9 = 6;
   strcpy(buf, "method");
-  v1[3] = buf;
-  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v0, buf);
+  v7 = buf;
+  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v5, buf, &std::piecewise_construct, &v7);
   operator new();
 }
 
-void sub_1000D990C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, char a25, char *a26, uint64_t a27, char a28)
+void sub_1000D990C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, char *a26, uint64_t a27, char a28)
 {
   if (a23 < 0)
   {
@@ -5289,16 +5286,16 @@ void sub_1000D990C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void InternalIPCAPI::interface_send_network_diagnostics_req(uint64_t a1, void *a2)
+void InternalIPCAPI::interface_send_network_diagnostics_req(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
-  v4[0] = 0;
-  v4[1] = 0;
-  v3 = v4;
-  boost::any_cast<std::map<std::string,boost::any>>(a2, v2);
+  v5[0] = 0;
+  v5[1] = 0;
+  v4[3] = v5;
+  boost::any_cast<std::map<std::string,boost::any>>(a2, v4);
   operator new();
 }
 
-void sub_1000DA198(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42, int a43, __int16 a44, char a45, char a46)
+void sub_1000DA198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42, int a43, __int16 a44, char a45, char a46)
 {
   if (a27 < 0)
   {
@@ -5325,7 +5322,7 @@ LABEL_3:
     }
   }
 
-  (*(*v50 + 8))(v50);
+  (*(*v50 + 8))(v50, a2, a3, a4, a5, a6, a7, a8);
   if (*(v48 - 193) < 0)
   {
 LABEL_4:
@@ -5493,7 +5490,7 @@ LABEL_27:
   return (*(*result + 8))(result);
 }
 
-void sub_1000DA564(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, char a25)
+void sub_1000DA564(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, char a25)
 {
   if (a23 < 0)
   {
@@ -5515,7 +5512,7 @@ LABEL_3:
     }
   }
 
-  (*(*v26 + 8))(v26);
+  (*(*v26 + 8))(v26, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(exception_object);
 }
 
@@ -5523,7 +5520,7 @@ void boost::function<void ()(int)>::operator=<boost::_bi::bind_t<void,boost::_mf
 {
   v2 = *a2;
   boost::_bi::storage6<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::storage6(&v3, (a2 + 1));
-  boost::function<void ()(int)>::function<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(v4, &v2);
+  boost::function<void ()(int)>::function<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(&v4, &v2);
 }
 
 void sub_1000DA71C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -5582,15 +5579,15 @@ LABEL_8:
   return a1;
 }
 
-void InternalIPCAPI::interface_update_primary_resident_handler()
+void InternalIPCAPI::interface_update_primary_resident_handler(uint64_t a1, uint64_t a2, char a3, char a4, uint64_t a5, uint64_t a6)
 {
-  v1[0] = 0;
-  v1[1] = 0;
-  v0 = v1;
+  v7[0] = 0;
+  v7[1] = 0;
+  v6 = v7;
   operator new();
 }
 
-void sub_1000DAC24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24, char *a25, uint64_t a26, char a27)
+void sub_1000DAC24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, char *a25, uint64_t a26, char a27)
 {
   if (a23 < 0)
   {
@@ -5609,15 +5606,15 @@ void sub_1000DAC24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void InternalIPCAPI::interface_update_home_thread_info_handler()
+void InternalIPCAPI::interface_update_home_thread_info_handler(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1[0] = 0;
-  v1[1] = 0;
-  v0 = v1;
+  v5[0] = 0;
+  v5[1] = 0;
+  v4 = v5;
   operator new();
 }
 
-void sub_1000DB188(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24, char *a25, uint64_t a26, char a27)
+void sub_1000DB188(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, char *a25, uint64_t a26, char a27)
 {
   if (a23 < 0)
   {
@@ -5636,15 +5633,15 @@ void sub_1000DB188(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void InternalIPCAPI::interface_wed_start_handler()
+void InternalIPCAPI::interface_wed_start_handler(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1[0] = 0;
-  v1[1] = 0;
-  v0 = v1;
+  v5[0] = 0;
+  v5[1] = 0;
+  v4 = v5;
   operator new();
 }
 
-void sub_1000DB6DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24, char *a25, uint64_t a26, char a27)
+void sub_1000DB6DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, char *a25, uint64_t a26, char a27)
 {
   if (a23 < 0)
   {
@@ -5663,15 +5660,15 @@ void sub_1000DB6DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void InternalIPCAPI::interface_wed_stop_handler()
+void InternalIPCAPI::interface_wed_stop_handler(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1[0] = 0;
-  v1[1] = 0;
-  v0 = v1;
+  v4[0] = 0;
+  v4[1] = 0;
+  v3 = v4;
   operator new();
 }
 
-void sub_1000DBC24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24, char *a25, uint64_t a26, char a27)
+void sub_1000DBC24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, char *a25, uint64_t a26, char a27)
 {
   if (a23 < 0)
   {
@@ -5690,11 +5687,11 @@ void sub_1000DBC24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void InternalIPCAPI::interface_leave_handler(uint64_t a1, uint64_t a2, int a3)
+void InternalIPCAPI::interface_leave_handler(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v4[0] = 0;
-  v4[1] = 0;
-  v3 = v4;
+  v5[0] = 0;
+  v5[1] = 0;
+  v4 = v5;
   if (a3)
   {
     operator new();
@@ -5703,7 +5700,7 @@ void InternalIPCAPI::interface_leave_handler(uint64_t a1, uint64_t a2, int a3)
   operator new();
 }
 
-void sub_1000DC4D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24, char *a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, uint64_t a49, void *a50, uint64_t a51, int a52, __int16 a53, char a54, char a55, char a56, uint64_t a57, uint64_t a58, char a59)
+void sub_1000DC4D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, char *a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, uint64_t a49, void *a50, uint64_t a51, int a52, __int16 a53, char a54, char a55, char a56, uint64_t a57, uint64_t a58, char a59)
 {
   if (a23 < 0)
   {
@@ -5726,7 +5723,7 @@ void boost::function<void ()(char const*)>::operator=<boost::_bi::bind_t<void,bo
 {
   v2 = *a2;
   boost::_bi::storage6<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::storage6(&v3, (a2 + 1));
-  boost::function<void ()(char const*)>::function<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,char const*,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(v4, &v2);
+  boost::function<void ()(char const*)>::function<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,char const*,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(&v4, &v2);
 }
 
 void sub_1000DC774(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -5751,16 +5748,16 @@ void sub_1000DE55C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   JUMPOUT(0x1000DE4BCLL);
 }
 
-void InternalIPCAPI::interface_join_handler(uint64_t a1, void *a2)
+void InternalIPCAPI::interface_join_handler(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v4[0] = 0;
-  v4[1] = 0;
-  v3 = v4;
-  boost::any_cast<std::map<std::string,boost::any>>(a2, v2);
+  v5[0] = 0;
+  v5[1] = 0;
+  v4[3] = v5;
+  boost::any_cast<std::map<std::string,boost::any>>(a2, v4);
   operator new();
 }
 
-void sub_1000DF2E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42, int a43, __int16 a44, char a45, char a46, void *a47, uint64_t a48, int a49, __int16 a50, char a51, char a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58)
+void sub_1000DF2E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42, int a43, __int16 a44, char a45, char a46, void *a47, uint64_t a48, int a49, __int16 a50, char a51, char a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58)
 {
   if (a27 < 0)
   {
@@ -5804,7 +5801,7 @@ LABEL_6:
     }
   }
 
-  (*(*v61 + 8))(v61);
+  (*(*v61 + 8))(v61, a2, a3, a4, a5, a6, a7, a8);
   goto LABEL_6;
 }
 
@@ -5812,14 +5809,13 @@ void sub_1000DF51C()
 {
   if (*(v0 - 137) < 0)
   {
-    v1 = *(v0 - 160);
     JUMPOUT(0x1000DF4D8);
   }
 
   JUMPOUT(0x1000DF4DCLL);
 }
 
-void sub_1000DF93C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24, char *a25, uint64_t a26, char a27)
+void sub_1000DF93C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, char *a25, uint64_t a26, char a27)
 {
   if (a23 < 0)
   {
@@ -5836,18 +5832,18 @@ void sub_1000DF93C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void InternalIPCAPI::interface_energy_scan_start_handler(uint64_t a1, void *a2)
+void InternalIPCAPI::interface_energy_scan_start_handler(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v6[0] = 0;
-  v6[1] = 0;
-  v5 = v6;
-  boost::any_cast<std::map<std::string,boost::any>>(a2, v4);
-  v8 = 6;
+  v7[0] = 0;
+  v7[1] = 0;
+  v6[3] = v7;
+  boost::any_cast<std::map<std::string,boost::any>>(a2, v6);
+  v10 = 6;
   strcpy(buf, "method");
-  v6[3] = buf;
-  v2 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, buf);
-  any_to_string(v2 + 7, &__p);
-  if (v8 < 0)
+  v8 = buf;
+  v4 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6, buf, &std::piecewise_construct, &v8);
+  any_to_string(&__p, v4 + 7);
+  if (v10 < 0)
   {
     operator delete(*buf);
   }
@@ -5855,7 +5851,7 @@ void InternalIPCAPI::interface_energy_scan_start_handler(uint64_t a1, void *a2)
   operator new();
 }
 
-void sub_1000DFF60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43)
+void sub_1000DFF60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43)
 {
   if (a23 < 0)
   {
@@ -5884,11 +5880,11 @@ LABEL_6:
     }
   }
 
-  (*(*v45 + 8))(v45);
+  (*(*v45 + 8))(v45, a2, a3, a4, a5, a6, a7, a8);
   goto LABEL_6;
 }
 
-void sub_1000E0A38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, char a27, char *a28, uint64_t a29, char a30)
+void sub_1000E0A38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, uint64_t a27, char *a28, uint64_t a29, char a30)
 {
   if (a25 < 0)
   {
@@ -5910,23 +5906,22 @@ void sub_1000E0B60()
 {
   if (*(v0 - 105) < 0)
   {
-    v1 = *(v0 - 128);
     JUMPOUT(0x1000E0B3CLL);
   }
 
   JUMPOUT(0x1000E0B40);
 }
 
-void InternalIPCAPI::interface_net_scan_start_handler(uint64_t a1, void *a2)
+void InternalIPCAPI::interface_net_scan_start_handler(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v4[0] = 0;
-  v4[1] = 0;
-  v3 = v4;
-  boost::any_cast<std::map<std::string,boost::any>>(a2, v2);
+  v5[0] = 0;
+  v5[1] = 0;
+  v4[3] = v5;
+  boost::any_cast<std::map<std::string,boost::any>>(a2, v4);
   operator new();
 }
 
-void sub_1000E10B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43)
+void sub_1000E10B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43)
 {
   if (a23 < 0)
   {
@@ -5955,7 +5950,7 @@ LABEL_6:
     }
   }
 
-  (*(*v45 + 8))(v45);
+  (*(*v45 + 8))(v45, a2, a3, a4, a5, a6, a7, a8);
   goto LABEL_6;
 }
 
@@ -5963,7 +5958,6 @@ void sub_1000E11EC()
 {
   if (*(v0 - 89) < 0)
   {
-    v1 = *(v0 - 112);
     JUMPOUT(0x1000E11C8);
   }
 
@@ -5982,13 +5976,13 @@ void InternalIPCAPI::interface_hard_reset_handler(uint64_t a1, uint64_t a2, void
       v6 = 6;
       strcpy(&__p, "method");
       p_p = &__p;
-      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v3, &__p);
+      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v3, &__p, &std::piecewise_construct, &p_p);
       operator new();
     }
   }
 }
 
-void sub_1000E14D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char *a10, uint64_t a11, char a12, char *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *aBlock)
+void sub_1000E14D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char *a10, uint64_t a11, uint64_t a12, char *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *aBlock)
 {
   if (aBlock)
   {
@@ -6005,7 +5999,7 @@ void sub_1000E14D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1000E1534(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, char *a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+void sub_1000E1534(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char *a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
 {
   if (a20 < 0)
   {
@@ -6016,15 +6010,15 @@ void sub_1000E1534(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void InternalIPCAPI::interface_status_handler(uint64_t a1, void *a2, uint64_t **a3, uint64_t a4)
+void InternalIPCAPI::interface_status_handler(uint64_t a1, uint64_t *a2, uint64_t ***a3, uint64_t a4)
 {
   boost::any_cast<std::map<std::string,boost::any>>(a2, v23);
-  v27 = 6;
+  v26 = 6;
   strcpy(buf, "method");
-  v25 = buf;
-  v6 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v23, buf);
-  any_to_string(v6 + 7, &v22);
-  if (v27 < 0)
+  v24 = buf;
+  v6 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v23, buf, &std::piecewise_construct, &v24);
+  any_to_string(&v22, v6 + 7);
+  if (v26 < 0)
   {
     operator delete(*buf);
   }
@@ -6058,8 +6052,8 @@ void InternalIPCAPI::interface_status_handler(uint64_t a1, void *a2, uint64_t **
     [PowerEventHandler_Rcp init:];
   }
 
-  RcpHostContext::get_rcp_state(RcpHostContext::sRcpHostContext, buf);
-  if (v27 < 0)
+  RcpHostContext::get_rcp_state(buf, RcpHostContext::sRcpHostContext);
+  if (v26 < 0)
   {
     if (*&buf[8] == 13 && **buf == 0x616974696E696E75 && *(*buf + 5) == 0x64657A696C616974)
     {
@@ -6076,9 +6070,9 @@ void InternalIPCAPI::interface_status_handler(uint64_t a1, void *a2, uint64_t **
 
   else
   {
-    if (v27 != 7)
+    if (v26 != 7)
     {
-      if (v27 != 13)
+      if (v26 != 13)
       {
         goto LABEL_34;
       }
@@ -6156,7 +6150,7 @@ LABEL_46:
     operator delete(v21.__r_.__value_.__l.__data_);
   }
 
-  if (v27 < 0)
+  if (v26 < 0)
   {
     operator delete(*buf);
     if ((SHIBYTE(v22.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
@@ -6175,7 +6169,7 @@ LABEL_41:
   }
 
 LABEL_39:
-  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(v23, v24);
+  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(v23, v23[1]);
 }
 
 void sub_1000E19A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, void *__p, uint64_t a29, int a30, __int16 a31, char a32, char a33)
@@ -6194,14 +6188,14 @@ void sub_1000E19A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void InternalIPCAPI::status_offline_response_helper(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void InternalIPCAPI::status_offline_response_helper(uint64_t a1, int a2, uint64_t a3, void *a4)
 {
   if (*a4 && a4[1])
   {
     v9[0] = 0;
     v9[1] = 0;
     v8 = v9;
-    RcpHostContext::get_rcp_state(RcpHostContext::sRcpHostContext, &block);
+    RcpHostContext::get_rcp_state(&block, RcpHostContext::sRcpHostContext);
     size = HIBYTE(block.__r_.__value_.__r.__words[2]);
     if ((block.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
@@ -6213,7 +6207,7 @@ void InternalIPCAPI::status_offline_response_helper(uint64_t a1, uint64_t a2, ui
       v7 = 9;
       strcpy(__p, "NCP:State");
       v5.__r_.__value_.__r.__words[0] = __p;
-      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v8, __p);
+      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v8, __p, &std::piecewise_construct, &v5);
       operator new();
     }
 
@@ -6221,12 +6215,12 @@ void InternalIPCAPI::status_offline_response_helper(uint64_t a1, uint64_t a2, ui
     v7 = 14;
     strcpy(__p, "Daemon:Enabled");
     v5.__r_.__value_.__r.__words[0] = __p;
-    std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v8, __p);
+    std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v8, __p, &std::piecewise_construct, &v5);
     operator new();
   }
 }
 
-void InternalIPCAPI::status_response_helper(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void InternalIPCAPI::status_response_helper(uint64_t a1, int a2, uint64_t a3, void *a4)
 {
   if (*a4)
   {
@@ -6243,7 +6237,7 @@ void InternalIPCAPI::status_response_helper(uint64_t a1, uint64_t a2, uint64_t a
       v11 = 14;
       strcpy(__p, "Status at Time");
       v5.__r_.__value_.__r.__words[0] = __p;
-      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v8, __p);
+      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v8, __p, &std::piecewise_construct, &v5);
       operator new();
     }
   }
@@ -6279,7 +6273,7 @@ LABEL_6:
         dispatch_retain(v4);
       }
 
-      boost::function<void ()(int)>::function<boost::_bi::bind_t<void,boost::_mfi::mf3<void,InternalIPCAPI,int,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list4<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(v10, &v5);
+      boost::function<void ()(int)>::function<boost::_bi::bind_t<void,boost::_mfi::mf3<void,InternalIPCAPI,int,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list4<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(&v10, &v5);
     }
   }
 
@@ -6298,7 +6292,6 @@ void sub_1000E57E4()
 {
   if (*(v0 - 105) < 0)
   {
-    v1 = *(v0 - 128);
     JUMPOUT(0x1000E57CCLL);
   }
 
@@ -6469,7 +6462,7 @@ LABEL_41:
   return (*(*result + 8))(result);
 }
 
-void sub_1000E5A74(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, uint64_t a32, char a33)
+void sub_1000E5A74(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, uint64_t a32, char a33)
 {
   if (a23 < 0)
   {
@@ -6501,7 +6494,7 @@ LABEL_4:
   }
 
 LABEL_7:
-  (*(*v34 + 8))(v34);
+  (*(*v34 + 8))(v34, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(exception_object);
 }
 
@@ -6509,7 +6502,7 @@ void boost::function<void ()(int)>::operator=<boost::_bi::bind_t<void,boost::_mf
 {
   v2 = *a2;
   boost::_bi::list7<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::list7(&v3, (a2 + 1));
-  boost::function<void ()(int)>::function<boost::_bi::bind_t<void,boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list7<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(v4, &v2);
+  boost::function<void ()(int)>::function<boost::_bi::bind_t<void,boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list7<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(&v4, &v2);
 }
 
 void sub_1000E5C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -7167,9 +7160,9 @@ uint64_t boost::detail::function::void_function_obj_invoker1<boost::_bi::bind_t<
   }
 }
 
-void sub_1000E756C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1000E756C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   boost::shared_ptr<void>::~shared_ptr(va);
   _Unwind_Resume(a1);
 }
@@ -7193,9 +7186,9 @@ uint64_t *boost::signals2::detail::signal_impl<void ()(boost::any const&),boost:
   return boost::signals2::detail::signal_impl<void ()(boost::any const&),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(boost::any const&)>,boost::function<void ()(boost::signals2::connection const&,boost::any const&)>,boost::signals2::mutex>::nolock_cleanup_connections_from(a1, a2, 1, &v6, 2);
 }
 
-void sub_1000E7828(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1000E7828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   boost::detail::shared_count::~shared_count(va);
   _Unwind_Resume(a1);
 }
@@ -7298,7 +7291,7 @@ LABEL_33:
   return result;
 }
 
-void *boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(boost::any const&),boost::function<void ()(boost::any const&)>>,boost::signals2::mutex>>>::erase(void *a1, int *a2, uint64_t **a3)
+void *boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(boost::any const&),boost::function<void ()(boost::any const&)>>,boost::signals2::mutex>>>::erase(uint64_t *a1, int *a2, uint64_t **a3)
 {
   v6 = a1 + 4;
   v5 = a1[4];
@@ -7315,7 +7308,8 @@ void *boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr
     if (v12 != a1)
     {
 LABEL_43:
-      std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>>>::__emplace_unique_key_args<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::piecewise_construct_t const&,std::tuple<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>> const&>,std::tuple<>>(v13, a2)[6] = v12;
+      v36 = a2;
+      std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>>>::__emplace_unique_key_args<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::piecewise_construct_t const&,std::tuple<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>> const&>,std::tuple<>>(v13, a2, &std::piecewise_construct, &v36)[6] = v12;
       goto LABEL_52;
     }
 
@@ -7550,7 +7544,7 @@ LABEL_52:
   return v33;
 }
 
-void boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(boost::any const&),boost::function<void ()(boost::any const&)>>,boost::signals2::mutex>::connection_body(uint64_t a1)
+void boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(boost::any const&),boost::function<void ()(boost::any const&)>>,boost::signals2::mutex>::connection_body(uint64_t a1, uint64_t a2, void *a3)
 {
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
@@ -7679,117 +7673,117 @@ uint64_t boost::detail::function::void_function_obj_invoker1<boost::_bi::bind_t<
   }
 }
 
-void *std::__tree<std::__value_type<std::string,std::shared_ptr<InternalClient>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<InternalClient>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<InternalClient>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t *std::__tree<std::__value_type<std::string,std::shared_ptr<InternalClient>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<InternalClient>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<InternalClient>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, __int128 **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
 LABEL_25:
     operator new();
   }
 
-  v3 = *(a2 + 23);
-  if (v3 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v4 = *(a2 + 23);
+    v6 = *(a2 + 23);
   }
 
   else
   {
-    v4 = a2[1];
+    v6 = a2[1];
   }
 
-  if (v3 >= 0)
+  if (v5 >= 0)
   {
-    v5 = a2;
+    v7 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v7 = *a2;
   }
 
   while (1)
   {
     while (1)
     {
-      v6 = v2;
-      v9 = v2[4];
-      v7 = v2 + 4;
-      v8 = v9;
-      v10 = *(v7 + 23);
-      if (v10 >= 0)
+      v8 = v4;
+      v11 = v4[4];
+      v9 = v4 + 4;
+      v10 = v11;
+      v12 = *(v9 + 23);
+      if (v12 >= 0)
       {
-        v11 = *(v7 + 23);
+        v13 = *(v9 + 23);
       }
 
       else
       {
-        v11 = v7[1];
+        v13 = v9[1];
       }
 
-      if (v10 >= 0)
+      if (v12 >= 0)
       {
-        v12 = v7;
+        v14 = v9;
       }
 
       else
       {
-        v12 = v8;
+        v14 = v10;
       }
 
-      if (v11 >= v4)
+      if (v13 >= v6)
       {
-        v13 = v4;
+        v15 = v6;
       }
 
       else
       {
-        v13 = v11;
+        v15 = v13;
       }
 
-      v14 = memcmp(v5, v12, v13);
-      v15 = v4 < v11;
-      if (v14)
+      v16 = memcmp(v7, v14, v15);
+      v17 = v6 < v13;
+      if (v16)
       {
-        v15 = v14 < 0;
+        v17 = v16 < 0;
       }
 
-      if (!v15)
+      if (!v17)
       {
         break;
       }
 
-      v2 = *v6;
-      if (!*v6)
+      v4 = *v8;
+      if (!*v8)
       {
         goto LABEL_25;
       }
     }
 
-    v16 = memcmp(v12, v5, v13);
-    v17 = v11 < v4;
-    if (v16)
+    v18 = memcmp(v14, v7, v15);
+    v19 = v13 < v6;
+    if (v18)
     {
-      v17 = v16 < 0;
+      v19 = v18 < 0;
     }
 
-    if (!v17)
+    if (!v19)
     {
-      return v6;
+      return v8;
     }
 
-    v2 = v6[1];
-    if (!v2)
+    v4 = v8[1];
+    if (!v4)
     {
       goto LABEL_25;
     }
   }
 }
 
-void sub_1000E859C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1000E859C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::shared_ptr<InternalClient>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::shared_ptr<InternalClient>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7852,7 +7846,7 @@ void *std::__tree<std::__value_type<std::string,std::shared_ptr<InternalClient>>
     v5 = a2;
     do
     {
-      v4 = v5[2];
+      v4 = *(v5 + 16);
       v6 = *v4 == v5;
       v5 = v4;
     }
@@ -7913,11 +7907,11 @@ uint64_t ___ZNK8dispatch8callbackIU13block_pointerFvhN5boost3anyEEEclIJhS2_EEEvD
   return result;
 }
 
-void sub_1000E8808(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t *a10)
+void sub_1000E8808(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a10);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
   }
 
   _Unwind_Resume(exception_object);
@@ -7989,17 +7983,17 @@ uint64_t ___ZNK8dispatch8callbackIU13block_pointerFvhN5boost3anyEEEclIJiS2_EEEvD
   return result;
 }
 
-void sub_1000E89A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t *a10)
+void sub_1000E89A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a10);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void boost::function<void ()(int,boost::any const&)>::function<boost::_bi::bind_t<void,boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list7<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(void *a1, __int128 *a2)
+void boost::function<void ()(int,boost::any const&)>::function<boost::_bi::bind_t<void,boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list7<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(uint64_t (***a1)(), __int128 *a2)
 {
   v3 = *a2;
   boost::_bi::storage7<boost::_bi::value<XPCIPCAPI_v1_rcp *>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>::storage7(&v4, (a2 + 1));
@@ -8009,38 +8003,40 @@ void boost::function<void ()(int,boost::any const&)>::function<boost::_bi::bind_
   boost::function2<void,int,boost::any const&>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list7<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(a1, &v5);
 }
 
-void sub_1000E8B0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
+void sub_1000E8B0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  boost::_bi::bind_t<void,boost::_mfi::mf6<void,XPCIPCAPI_v1_rcp,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list7<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>>::~bind_t(&a23);
+  va_start(va, a22);
+  boost::_bi::bind_t<void,boost::_mfi::mf6<void,XPCIPCAPI_v1_rcp,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list7<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>>::~bind_t(va);
   boost::_bi::bind_t<void,boost::_mfi::mf6<void,XPCIPCAPI_v1_rcp,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list7<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>>::~bind_t(&a9);
   _Unwind_Resume(a1);
 }
 
-void boost::function2<void,int,boost::any const&>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list7<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(uint64_t a1, __int128 *a2)
+void boost::function2<void,int,boost::any const&>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list7<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(uint64_t (***a1)(), __int128 *a2)
 {
-  v2 = *a2;
-  boost::_bi::storage7<boost::_bi::value<XPCIPCAPI_v1_rcp *>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>::storage7(&v3, (a2 + 1));
-  v4 = v2;
-  boost::_bi::storage7<boost::_bi::value<XPCIPCAPI_v1_rcp *>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>::storage7(&v5, &v3);
-  boost::detail::function::basic_vtable2<void,int,boost::any const&>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf6<void,XPCIPCAPI_v1_rcp,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list7<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>>>(boost::function2<void,int,boost::any const&>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list7<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(boost::_bi::bind_t<void,boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list7<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>)::stored_vtable, &v4);
+  v3 = *a2;
+  boost::_bi::storage7<boost::_bi::value<XPCIPCAPI_v1_rcp *>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>::storage7(&v4, (a2 + 1));
+  v5 = v3;
+  boost::_bi::storage7<boost::_bi::value<XPCIPCAPI_v1_rcp *>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>::storage7(&v6, &v4);
+  boost::detail::function::basic_vtable2<void,int,boost::any const&>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf6<void,XPCIPCAPI_v1_rcp,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list7<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>>>(boost::function2<void,int,boost::any const&>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list7<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(boost::_bi::bind_t<void,boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list7<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>)::stored_vtable, &v5, a1 + 1);
 }
 
-void sub_1000E8C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
+void sub_1000E8C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  boost::_bi::bind_t<void,boost::_mfi::mf6<void,XPCIPCAPI_v1_rcp,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list7<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>>::~bind_t(&a23);
+  va_start(va, a22);
+  boost::_bi::bind_t<void,boost::_mfi::mf6<void,XPCIPCAPI_v1_rcp,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list7<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>>::~bind_t(va);
   boost::_bi::bind_t<void,boost::_mfi::mf6<void,XPCIPCAPI_v1_rcp,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list7<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>>::~bind_t(&a9);
   _Unwind_Resume(a1);
 }
 
-void *boost::detail::function::functor_manager<boost::_bi::bind_t<void,boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list7<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>::manage(void *result, _WORD *a2, int a3)
+void *boost::detail::function::functor_manager<boost::_bi::bind_t<void,boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list7<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>::manage(void *a1, _WORD *a2, int a3)
 {
   if (a3 != 4)
   {
-    return boost::detail::function::functor_manager<boost::_bi::bind_t<void,boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list7<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>::manager(result, a2, a3);
+    return boost::detail::function::functor_manager<boost::_bi::bind_t<void,boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list7<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>::manager(a1, a2, a3);
   }
 
   a2[4] = 0;
-  return result;
+  return a1;
 }
 
 void boost::detail::function::void_function_obj_invoker2<boost::_bi::bind_t<void,boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list7<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>,void,int,boost::any const&>::invoke(uint64_t *a1, int a2, unsigned int *a3)
@@ -8049,7 +8045,7 @@ void boost::detail::function::void_function_obj_invoker2<boost::_bi::bind_t<void
   v3 = *a1;
   v5[0] = &v4;
   v5[1] = a3;
-  boost::_bi::list7<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::operator()<boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::rrlist2<int,boost::any const&>>(v3 + 16, v3, v5);
+  boost::_bi::list7<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::operator()<boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::rrlist2<int,boost::any const&>>((v3 + 16), v3, v5);
 }
 
 void *boost::detail::function::functor_manager<boost::_bi::bind_t<void,boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list7<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>::manager(void *result, _WORD *a2, int a3)
@@ -8058,7 +8054,6 @@ void *boost::detail::function::functor_manager<boost::_bi::bind_t<void,boost::_m
   {
     if (!a3)
     {
-      v6 = *result;
       operator new();
     }
 
@@ -8074,49 +8069,49 @@ void *boost::detail::function::functor_manager<boost::_bi::bind_t<void,boost::_m
 
   if (a3 == 2)
   {
-    v7 = *a2;
+    v6 = *a2;
     if (!*a2)
     {
       goto LABEL_9;
     }
 
-    v8 = *(v7 + 104);
+    v7 = *(v6 + 104);
+    if (v7)
+    {
+      dispatch_release(v7);
+    }
+
+    v8 = *(v6 + 96);
     if (v8)
     {
-      dispatch_release(v8);
+      _Block_release(v8);
     }
 
-    v9 = *(v7 + 96);
-    if (v9)
+    if (*(v6 + 95) < 0)
     {
-      _Block_release(v9);
-    }
-
-    if (*(v7 + 95) < 0)
-    {
-      operator delete(*(v7 + 72));
-      if ((*(v7 + 71) & 0x80000000) == 0)
+      operator delete(*(v6 + 72));
+      if ((*(v6 + 71) & 0x80000000) == 0)
       {
 LABEL_19:
-        if ((*(v7 + 47) & 0x80000000) == 0)
+        if ((*(v6 + 47) & 0x80000000) == 0)
         {
           goto LABEL_20;
         }
 
 LABEL_24:
-        operator delete(*(v7 + 24));
+        operator delete(*(v6 + 24));
 LABEL_20:
         operator delete();
       }
     }
 
-    else if ((*(v7 + 71) & 0x80000000) == 0)
+    else if ((*(v6 + 71) & 0x80000000) == 0)
     {
       goto LABEL_19;
     }
 
-    operator delete(*(v7 + 48));
-    if ((*(v7 + 47) & 0x80000000) == 0)
+    operator delete(*(v6 + 48));
+    if ((*(v6 + 47) & 0x80000000) == 0)
     {
       goto LABEL_20;
     }
@@ -8148,14 +8143,14 @@ LABEL_9:
   return result;
 }
 
-void boost::_bi::list7<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::operator()<boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::rrlist2<int,boost::any const&>>(uint64_t a1, uint64_t a2, unsigned int **a3)
+void boost::_bi::list7<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::operator()<boost::_mfi::mf6<void,InternalIPCAPI,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::rrlist2<int,boost::any const&>>(uint64_t *a1, uint64_t a2, unsigned int **a3)
 {
   v5 = *a1;
   v6 = a3[1];
   v7 = **a3;
   if (*(a1 + 31) < 0)
   {
-    std::string::__init_copy_ctor_external(&v14, *(a1 + 8), *(a1 + 16));
+    std::string::__init_copy_ctor_external(&v14, a1[1], a1[2]);
     if ((*(a1 + 55) & 0x80000000) == 0)
     {
       goto LABEL_3;
@@ -8164,34 +8159,34 @@ void boost::_bi::list7<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::
 
   else
   {
-    v14 = *(a1 + 8);
+    v14 = *(a1 + 1);
     if ((*(a1 + 55) & 0x80000000) == 0)
     {
 LABEL_3:
-      v13 = *(a1 + 32);
+      v13 = *(a1 + 4);
       goto LABEL_6;
     }
   }
 
-  std::string::__init_copy_ctor_external(&v13, *(a1 + 32), *(a1 + 40));
+  std::string::__init_copy_ctor_external(&v13, a1[4], a1[5]);
 LABEL_6:
   if (*(a1 + 79) < 0)
   {
-    std::string::__init_copy_ctor_external(&v12, *(a1 + 56), *(a1 + 64));
+    std::string::__init_copy_ctor_external(&v12, a1[7], a1[8]);
   }
 
   else
   {
-    v12 = *(a1 + 56);
+    v12 = *(a1 + 7);
   }
 
-  v8 = *(a1 + 80);
+  v8 = a1[10];
   if (v8)
   {
     v8 = _Block_copy(v8);
   }
 
-  v9 = *(a1 + 88);
+  v9 = a1[11];
   aBlock = v8;
   object = v9;
   if (v9)
@@ -8405,11 +8400,11 @@ uint64_t ___ZNK8dispatch8callbackIU13block_pointerFvN5boost3anyEEEclIJS2_EEEvDpT
   return result;
 }
 
-void sub_1000E938C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t *a10)
+void sub_1000E938C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a10);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
   }
 
   _Unwind_Resume(exception_object);
@@ -8552,7 +8547,7 @@ LABEL_17:
   return a1;
 }
 
-void sub_1000E9620(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24, char *a25)
+void sub_1000E9620(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, char *a25)
 {
   if ((a23 & 0x80000000) == 0)
   {
@@ -8635,7 +8630,7 @@ LABEL_14:
   return a1;
 }
 
-void sub_1000E97D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, char a22, char *a23)
+void sub_1000E97D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, char *a23)
 {
   if ((a21 & 0x80000000) == 0)
   {
@@ -8663,7 +8658,7 @@ uint64_t boost::_bi::storage5<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,
 
   std::map<std::string,boost::any>::map[abi:ne200100](v14, &v12);
   *a1 = a2;
-  std::map<std::string,boost::any>::map[abi:ne200100](a1 + 8, v14);
+  std::map<std::string,boost::any>::map[abi:ne200100]((a1 + 8), v14);
   std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(v14, v14[1]);
   if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
@@ -8706,7 +8701,7 @@ LABEL_11:
   return a1;
 }
 
-void sub_1000E99B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, char a16, char *a17, uint64_t a18, char a19)
+void sub_1000E99B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, char *a17, uint64_t a18, char a19)
 {
   std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(v20, *(v19 + 16));
   if (a14 < 0)
@@ -8722,7 +8717,7 @@ uint64_t boost::_bi::storage6<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,
 {
   *a1 = *a2;
   v4 = (a1 + 32);
-  std::map<std::string,boost::any>::map[abi:ne200100](a1 + 8, (a2 + 8));
+  std::map<std::string,boost::any>::map[abi:ne200100]((a1 + 8), (a2 + 8));
   if (*(a2 + 55) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(a2 + 32), *(a2 + 40));
@@ -8764,7 +8759,7 @@ uint64_t boost::_bi::storage6<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,
   return a1;
 }
 
-void boost::function<void ()(int)>::function<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(void *a1, __int128 *a2)
+void boost::function<void ()(int)>::function<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(uint64_t (***a1)(), __int128 *a2)
 {
   v3 = *a2;
   boost::_bi::storage6<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::storage6(v4, (a2 + 1));
@@ -8774,38 +8769,40 @@ void boost::function<void ()(int)>::function<boost::_bi::bind_t<void,boost::_mfi
   boost::function1<void,int>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(a1, &v5);
 }
 
-void sub_1000E9C3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
+void sub_1000E9C3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>::~bind_t(&a23);
+  va_start(va, a22);
+  boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>::~bind_t(va);
   boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>::~bind_t(&a9);
   _Unwind_Resume(a1);
 }
 
-void boost::function1<void,int>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(uint64_t a1, __int128 *a2)
+void boost::function1<void,int>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(uint64_t (***a1)(), __int128 *a2)
 {
-  v2 = *a2;
-  boost::_bi::storage6<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::storage6(v3, (a2 + 1));
-  v4 = v2;
-  boost::_bi::storage6<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::storage6(&v5, v3);
-  boost::detail::function::basic_vtable1<void,int>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(boost::function1<void,int>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>)::stored_vtable, &v4);
+  v3 = *a2;
+  boost::_bi::storage6<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::storage6(v4, (a2 + 1));
+  v5 = v3;
+  boost::_bi::storage6<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::storage6(&v6, v4);
+  boost::detail::function::basic_vtable1<void,int>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(boost::function1<void,int>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>)::stored_vtable, &v5, a1 + 1);
 }
 
-void sub_1000E9DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
+void sub_1000E9DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>::~bind_t(&a23);
+  va_start(va, a22);
+  boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>::~bind_t(va);
   boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>::~bind_t(&a9);
   _Unwind_Resume(a1);
 }
 
-void *boost::detail::function::functor_manager<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>::manage(void *result, _WORD *a2, int a3)
+void *boost::detail::function::functor_manager<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>::manage(void *a1, _WORD *a2, int a3)
 {
   if (a3 != 4)
   {
-    return boost::detail::function::functor_manager<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>::manager(result, a2, a3);
+    return boost::detail::function::functor_manager<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>::manager(a1, a2, a3);
   }
 
   a2[4] = 0;
-  return result;
+  return a1;
 }
 
 void boost::detail::function::void_function_obj_invoker1<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>,void,int>::invoke(uint64_t *a1, int a2)
@@ -8822,7 +8819,6 @@ void *boost::detail::function::functor_manager<boost::_bi::bind_t<void,boost::_m
   {
     if (!a3)
     {
-      v6 = *result;
       operator new();
     }
 
@@ -8838,32 +8834,32 @@ void *boost::detail::function::functor_manager<boost::_bi::bind_t<void,boost::_m
 
   if (a3 == 2)
   {
-    v7 = *a2;
+    v6 = *a2;
     if (*a2)
     {
-      v8 = *(v7 + 104);
+      v7 = *(v6 + 104);
+      if (v7)
+      {
+        dispatch_release(v7);
+      }
+
+      v8 = *(v6 + 96);
       if (v8)
       {
-        dispatch_release(v8);
+        _Block_release(v8);
       }
 
-      v9 = *(v7 + 96);
-      if (v9)
+      if (*(v6 + 95) < 0)
       {
-        _Block_release(v9);
+        operator delete(*(v6 + 72));
       }
 
-      if (*(v7 + 95) < 0)
+      if (*(v6 + 71) < 0)
       {
-        operator delete(*(v7 + 72));
+        operator delete(*(v6 + 48));
       }
 
-      if (*(v7 + 71) < 0)
-      {
-        operator delete(*(v7 + 48));
-      }
-
-      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(v7 + 24, *(v7 + 32));
+      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(v6 + 24, *(v6 + 32));
       operator delete();
     }
 
@@ -8894,14 +8890,7 @@ LABEL_9:
   return result;
 }
 
-void boost::_bi::list6<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::operator()<boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::rrlist1<int>>(uint64_t *a1, uint64_t a2, unsigned int **a3)
-{
-  v3 = *a1;
-  v4 = **a3;
-  operator new();
-}
-
-void sub_1000EA1A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24)
+void sub_1000EA1A8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24)
 {
   if (a23 < 0)
   {
@@ -8923,7 +8912,7 @@ LABEL_6:
     }
   }
 
-  (*(*v25 + 8))(v25);
+  (*(*v25 + 8))(v25, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(exception_object);
 }
 
@@ -9029,7 +9018,7 @@ LABEL_22:
   return (*(*result + 8))(result);
 }
 
-void sub_1000EA404(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24)
+void sub_1000EA404(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24)
 {
   if (a23 < 0)
   {
@@ -9051,14 +9040,14 @@ LABEL_3:
     }
   }
 
-  (*(*v25 + 8))(v25);
+  (*(*v25 + 8))(v25, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(exception_object);
 }
 
-void boost::detail::function::basic_vtable1<void,int>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(uint64_t a1, __int128 *a2)
+void boost::detail::function::basic_vtable1<void,int>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(uint64_t a1, __int128 *a2, void *a3)
 {
-  v2 = *a2;
-  boost::_bi::storage6<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::storage6(&v3, (a2 + 1));
+  v3 = *a2;
+  boost::_bi::storage6<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::storage6(&v4, (a2 + 1));
   operator new();
 }
 
@@ -9151,7 +9140,7 @@ LABEL_20:
   return a1;
 }
 
-void sub_1000EA6E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_1000EA6E4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   if (a23 < 0)
   {
@@ -9173,7 +9162,7 @@ LABEL_3:
     }
   }
 
-  (*(*v25 + 8))(v25);
+  (*(*v25 + 8))(v25, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(exception_object);
 }
 
@@ -9254,7 +9243,7 @@ LABEL_13:
   return a1;
 }
 
-void sub_1000EA8E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22)
+void sub_1000EA8E8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22)
 {
   if (a21 < 0)
   {
@@ -9276,7 +9265,7 @@ LABEL_3:
     }
   }
 
-  (*(*v23 + 8))(v23);
+  (*(*v23 + 8))(v23, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(exception_object);
 }
 
@@ -9363,11 +9352,11 @@ LABEL_14:
   return a1;
 }
 
-void sub_1000EAB74(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+void sub_1000EAB74(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
 {
   if (*v15)
   {
-    (*(**v15 + 8))(*v15);
+    (*(**v15 + 8))(*v15, a2, a3, a4, a5, a6, a7, a8);
     if ((a14 & 0x80000000) == 0)
     {
 LABEL_3:
@@ -9393,7 +9382,7 @@ LABEL_4:
   }
 
 LABEL_7:
-  (*(*v14 + 8))(v14);
+  (*(*v14 + 8))(v14, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(exception_object);
 }
 
@@ -9459,7 +9448,7 @@ void sub_1000EAD08(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void boost::function<void ()(int)>::function<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(void *a1, __int128 *a2)
+void boost::function<void ()(int)>::function<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(uint64_t (***a1)(), __int128 *a2)
 {
   v3 = *a2;
   boost::_bi::storage6<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::storage6(&v4, (a2 + 1));
@@ -9469,38 +9458,40 @@ void boost::function<void ()(int)>::function<boost::_bi::bind_t<void,boost::_mfi
   boost::function1<void,int>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(a1, &v5);
 }
 
-void sub_1000EAE84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
+void sub_1000EAE84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>::~bind_t(&a21);
+  va_start(va, a20);
+  boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>::~bind_t(va);
   boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>::~bind_t(&a9);
   _Unwind_Resume(a1);
 }
 
-void boost::function1<void,int>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(uint64_t a1, __int128 *a2)
+void boost::function1<void,int>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(uint64_t (***a1)(), __int128 *a2)
 {
-  v2 = *a2;
-  boost::_bi::storage6<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::storage6(&v3, (a2 + 1));
-  v4 = v2;
-  boost::_bi::storage6<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::storage6(&v5, &v3);
-  boost::detail::function::basic_vtable1<void,int>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(boost::function1<void,int>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>)::stored_vtable, &v4);
+  v3 = *a2;
+  boost::_bi::storage6<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::storage6(&v4, (a2 + 1));
+  v5 = v3;
+  boost::_bi::storage6<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::storage6(&v6, &v4);
+  boost::detail::function::basic_vtable1<void,int>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(boost::function1<void,int>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>)::stored_vtable, &v5, a1 + 1);
 }
 
-void sub_1000EB030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
+void sub_1000EB030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>::~bind_t(&a21);
+  va_start(va, a20);
+  boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>::~bind_t(va);
   boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>::~bind_t(&a9);
   _Unwind_Resume(a1);
 }
 
-void *boost::detail::function::functor_manager<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>::manage(void *result, _WORD *a2, int a3)
+void *boost::detail::function::functor_manager<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>::manage(void *a1, _WORD *a2, int a3)
 {
   if (a3 != 4)
   {
-    return boost::detail::function::functor_manager<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>::manager(result, a2, a3);
+    return boost::detail::function::functor_manager<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>::manager(a1, a2, a3);
   }
 
   a2[4] = 0;
-  return result;
+  return a1;
 }
 
 uint64_t boost::detail::function::void_function_obj_invoker1<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>,void,int>::invoke(uint64_t *a1, int a2)
@@ -9517,7 +9508,6 @@ void *boost::detail::function::functor_manager<boost::_bi::bind_t<void,boost::_m
   {
     if (!a3)
     {
-      v6 = *result;
       operator new();
     }
 
@@ -9533,32 +9523,32 @@ void *boost::detail::function::functor_manager<boost::_bi::bind_t<void,boost::_m
 
   if (a3 == 2)
   {
-    v7 = *a2;
+    v6 = *a2;
     if (!*a2)
     {
       goto LABEL_9;
     }
 
-    v8 = *(v7 + 88);
+    v7 = *(v6 + 88);
+    if (v7)
+    {
+      dispatch_release(v7);
+    }
+
+    v8 = *(v6 + 80);
     if (v8)
     {
-      dispatch_release(v8);
+      _Block_release(v8);
     }
 
-    v9 = *(v7 + 80);
-    if (v9)
+    if (*(v6 + 79) < 0)
     {
-      _Block_release(v9);
-    }
-
-    if (*(v7 + 79) < 0)
-    {
-      operator delete(*(v7 + 56));
-      if ((*(v7 + 55) & 0x80000000) == 0)
+      operator delete(*(v6 + 56));
+      if ((*(v6 + 55) & 0x80000000) == 0)
       {
 LABEL_19:
-        v10 = *(v7 + 24);
-        if (!v10)
+        v9 = *(v6 + 24);
+        if (!v9)
         {
           goto LABEL_21;
         }
@@ -9567,21 +9557,21 @@ LABEL_19:
       }
     }
 
-    else if ((*(v7 + 55) & 0x80000000) == 0)
+    else if ((*(v6 + 55) & 0x80000000) == 0)
     {
       goto LABEL_19;
     }
 
-    operator delete(*(v7 + 32));
-    v10 = *(v7 + 24);
-    if (!v10)
+    operator delete(*(v6 + 32));
+    v9 = *(v6 + 24);
+    if (!v9)
     {
 LABEL_21:
       operator delete();
     }
 
 LABEL_20:
-    (*(*v10 + 8))(v10);
+    (*(*v9 + 8))(v9);
     goto LABEL_21;
   }
 
@@ -9696,7 +9686,7 @@ LABEL_19:
   return (*(*result + 8))(result);
 }
 
-void sub_1000EB424(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_1000EB424(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   if (a23 < 0)
   {
@@ -9718,18 +9708,18 @@ LABEL_3:
     }
   }
 
-  (*(*v25 + 8))(v25);
+  (*(*v25 + 8))(v25, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(exception_object);
 }
 
-void boost::detail::function::basic_vtable1<void,int>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(uint64_t a1, __int128 *a2)
+void boost::detail::function::basic_vtable1<void,int>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(uint64_t a1, __int128 *a2, void *a3)
 {
-  v2 = *a2;
-  boost::_bi::storage6<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::storage6(&v3, (a2 + 1));
+  v3 = *a2;
+  boost::_bi::storage6<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::_bi::value<boost::any>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::storage6(&v4, (a2 + 1));
   operator new();
 }
 
-void boost::function<void ()(char const*)>::function<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,char const*,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(void *a1, __int128 *a2)
+void boost::function<void ()(char const*)>::function<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,char const*,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(uint64_t (***a1)(), __int128 *a2)
 {
   v3 = *a2;
   boost::_bi::storage6<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::storage6(v4, (a2 + 1));
@@ -9737,4 +9727,12 @@ void boost::function<void ()(char const*)>::function<boost::_bi::bind_t<void,boo
   v5 = v3;
   boost::_bi::storage6<boost::_bi::value<InternalIPCAPI *>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>::storage6(&v6, v4);
   boost::function1<void,char const*>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,char const*,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>>(a1, &v5);
+}
+
+void sub_1000EB6BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>::~bind_t(va);
+  boost::_bi::bind_t<void,boost::_mfi::mf5<void,InternalIPCAPI,int,boost::any,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>,boost::_bi::list6<boost::_bi::value<InternalIPCAPI*>,boost::arg<1>,boost::_bi::value<std::map<std::string,boost::any>>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,boost::any)>>>>::~bind_t(&a9);
+  _Unwind_Resume(a1);
 }

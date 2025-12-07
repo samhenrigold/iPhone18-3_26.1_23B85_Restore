@@ -41,35 +41,35 @@ id UNContactFromBBContact(void *a1)
 
 id UNCommunicationContextFromBBCommunicationContext(void *a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_alloc_init(MEMORY[0x277CE2048]);
   v3 = [v1 recipients];
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = UNContactFromBBContact(*(*(&v22 + 1) + 8 * i));
-        [v4 addObject:{v10, v22}];
+        v10 = UNContactFromBBContact(*(*(&v21 + 1) + 8 * i));
+        [v4 addObject:{v10, v21}];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v7);
@@ -97,7 +97,7 @@ id UNCommunicationContextFromBBCommunicationContext(void *a1)
     [v2 setSender:v17];
   }
 
-  [v2 setRecipients:{v4, v22}];
+  [v2 setRecipients:{v4, v21}];
   v18 = [v1 contentURL];
   [v2 setContentURL:v18];
 
@@ -111,8 +111,6 @@ id UNCommunicationContextFromBBCommunicationContext(void *a1)
   [v2 setRecipientCount:{objc_msgSend(v1, "recipientCount")}];
   [v2 setCapabilities:{objc_msgSend(v1, "capabilities") & 1}];
   [v2 setBusinessCorrespondence:{objc_msgSend(v1, "isBusinessCorrespondence")}];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

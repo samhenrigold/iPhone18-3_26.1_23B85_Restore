@@ -177,8 +177,8 @@
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "[%{public}p] Enabling %@", buf, 0x16u);
     }
 
-    configuration = [(VIOSessionMonitor *)v4 configuration];
-    isVLF = [configuration isVLF];
+    v8 = objc_msgSend_configuration(v4);
+    isVLF = [v8 isVLF];
 
     if (!isVLF)
     {
@@ -202,7 +202,7 @@ LABEL_15:
     }
 
     session = [(VIOSessionMonitor *)v4 session];
-    configuration2 = [session configuration];
+    v11 = objc_msgSend_configuration(session);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {

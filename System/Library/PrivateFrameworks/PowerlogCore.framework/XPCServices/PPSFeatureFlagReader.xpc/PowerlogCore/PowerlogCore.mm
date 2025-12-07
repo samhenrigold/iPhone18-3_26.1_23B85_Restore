@@ -1,13 +1,13 @@
-id PPSFeatureFlagReaderLog()
+id PPSFeatureFlagReaderLog(uint64_t a1)
 {
   if (qword_100008828 != -1)
   {
     sub_100001DE4();
   }
 
-  v1 = qword_100008820;
+  v2 = qword_100008820;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000D1C(id a1)
@@ -19,7 +19,7 @@ void sub_100000D1C(id a1)
 
 void sub_100000E10(id a1)
 {
-  v1 = PPSFeatureFlagReaderLog();
+  v1 = PPSFeatureFlagReaderLog(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     sub_100001DF8(v1);
@@ -31,7 +31,7 @@ void sub_100000E10(id a1)
 
 void sub_100000E7C(id a1)
 {
-  v1 = PPSFeatureFlagReaderLog();
+  v1 = PPSFeatureFlagReaderLog(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     *v2 = 0;
@@ -51,16 +51,16 @@ int main(int argc, const char **argv, const char **envp)
   return 0;
 }
 
-id logPPSFeatureFlagReader()
+id logPPSFeatureFlagReader(uint64_t a1)
 {
   if (qword_100008838 != -1)
   {
     sub_100001E78();
   }
 
-  v1 = qword_100008830;
+  v2 = qword_100008830;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000F88(id a1)
@@ -72,7 +72,7 @@ void sub_100000F88(id a1)
 
 void sub_1000010C8(id a1)
 {
-  v1 = logPPSFeatureFlagReader();
+  v1 = logPPSFeatureFlagReader(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *v2 = 0;
@@ -87,7 +87,7 @@ void sub_10000178C(_Unwind_Exception *a1, int a2)
   if (a2 == 1)
   {
     v2 = objc_begin_catch(a1);
-    v3 = logPPSFeatureFlagReader();
+    v3 = logPPSFeatureFlagReader(v2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       sub_100002004(v2, v3);
@@ -100,16 +100,16 @@ void sub_10000178C(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-id logPPSFeatureFlagReaderHelper()
+id logPPSFeatureFlagReaderHelper(uint64_t a1)
 {
   if (qword_100008848 != -1)
   {
     sub_1000020C4();
   }
 
-  v1 = qword_100008840;
+  v2 = qword_100008840;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001898(id a1)
@@ -119,9 +119,9 @@ void sub_100001898(id a1)
   _objc_release_x1();
 }
 
-void sub_100001B14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100001B14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -135,7 +135,7 @@ uint64_t sub_100001B3C(uint64_t result, uint64_t a2)
 
 void sub_100001C70(id a1)
 {
-  v1 = logPPSFeatureFlagReaderHelper();
+  v1 = logPPSFeatureFlagReaderHelper(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_1000021F4();
@@ -144,7 +144,7 @@ void sub_100001C70(id a1)
 
 void sub_100001CB4(id a1)
 {
-  v1 = logPPSFeatureFlagReaderHelper();
+  v1 = logPPSFeatureFlagReaderHelper(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_100002234();
@@ -154,17 +154,18 @@ void sub_100001CB4(id a1)
 void sub_100001CF8(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = logPPSFeatureFlagReaderHelper();
+  v3 = logPPSFeatureFlagReaderHelper(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_100002274(v2, v3);
   }
 }
 
-void sub_100001DC8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100001DC8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void sub_100001DF8(os_log_t log)

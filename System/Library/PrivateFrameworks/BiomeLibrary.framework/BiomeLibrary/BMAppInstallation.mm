@@ -17,18 +17,16 @@
 
 + (id)columns
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"app_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_238];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"transition" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"metadata_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_240_90328];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"transitionDate" dataType:3 requestOnly:0 fieldNumber:4 protoDataType:0 convertedType:2];
-  v9[0] = v2;
-  v9[1] = v3;
-  v9[2] = v4;
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v2;
+  v8[1] = v3;
+  v8[2] = v4;
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
@@ -130,7 +128,7 @@ LABEL_17:
 
 - (id)jsonDictionary
 {
-  v20[4] = *MEMORY[0x1E69E9840];
+  v19[4] = *MEMORY[0x1E69E9840];
   v3 = [(BMAppInstallation *)self app];
   jsonDictionary = [v3 jsonDictionary];
 
@@ -152,39 +150,39 @@ LABEL_17:
     v11 = 0;
   }
 
-  v19[0] = @"app";
+  v18[0] = @"app";
   null = jsonDictionary;
   if (!jsonDictionary)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20[0] = null;
-  v19[1] = @"transition";
+  v19[0] = null;
+  v18[1] = @"transition";
   null2 = v5;
   if (!v5)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20[1] = null2;
-  v19[2] = @"metadata";
+  v19[1] = null2;
+  v18[2] = @"metadata";
   null3 = jsonDictionary2;
   if (!jsonDictionary2)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20[2] = null3;
-  v19[3] = @"transitionDate";
+  v19[2] = null3;
+  v18[3] = @"transitionDate";
   null4 = v11;
   if (!v11)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20[3] = null4;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:4];
+  v19[3] = null4;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:4];
   if (v11)
   {
     if (jsonDictionary2)
@@ -229,14 +227,13 @@ LABEL_15:
 LABEL_22:
 
 LABEL_16:
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (BMAppInstallation)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v57[1] = *MEMORY[0x1E69E9840];
+  v56[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v6 = [dictionaryCopy objectForKeyedSubscript:@"app"];
   if (!v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -249,9 +246,9 @@ LABEL_16:
   if (objc_opt_isKindOfClass())
   {
     v9 = v6;
-    v49 = 0;
-    v7 = [[BMAppInstallationApp alloc] initWithJSONDictionary:v9 error:&v49];
-    v10 = v49;
+    v48 = 0;
+    v7 = [[BMAppInstallationApp alloc] initWithJSONDictionary:v9 error:&v48];
+    v10 = v48;
     if (v10)
     {
       selfCopy8 = self;
@@ -291,11 +288,11 @@ LABEL_4:
           v35 = objc_alloc(MEMORY[0x1E696ABC0]);
           errorCopy = error;
           v37 = *MEMORY[0x1E698F240];
-          v54 = *MEMORY[0x1E696A578];
+          v53 = *MEMORY[0x1E696A578];
           v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"transition"];
-          v55 = v16;
-          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
-          v46 = 0;
+          v54 = v16;
+          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+          v45 = 0;
           errorCopy3 = 0;
           *errorCopy = [v35 initWithDomain:v37 code:2 userInfo:v18];
           goto LABEL_43;
@@ -313,7 +310,7 @@ LABEL_4:
     }
 
     v16 = [dictionaryCopy objectForKeyedSubscript:@"metadata"];
-    v46 = v9;
+    v45 = v9;
     if (!v16 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       errorCopy3 = error;
@@ -352,14 +349,14 @@ LABEL_22:
           {
             if (errorCopy3)
             {
-              v43 = objc_alloc(MEMORY[0x1E696ABC0]);
-              v42 = *MEMORY[0x1E698F240];
-              v50 = *MEMORY[0x1E696A578];
-              v45 = errorCopy3;
-              v40 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"transitionDate"];
-              v51 = v40;
-              v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
-              v45->super.super.isa = [v43 initWithDomain:v42 code:2 userInfo:v41];
+              v42 = objc_alloc(MEMORY[0x1E696ABC0]);
+              v41 = *MEMORY[0x1E698F240];
+              v49 = *MEMORY[0x1E696A578];
+              v44 = errorCopy3;
+              v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"transitionDate"];
+              v50 = v39;
+              v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+              v44->super.super.isa = [v42 initWithDomain:v41 code:2 userInfo:v40];
 
               v20 = 0;
               errorCopy3 = 0;
@@ -386,14 +383,14 @@ LABEL_22:
       }
 
 LABEL_37:
-      selfCopy8 = -[BMAppInstallation initWithApp:transition:metadata:transitionDate:](selfCopy8, "initWithApp:transition:metadata:transitionDate:", v17, [v46 intValue], v18, v20);
+      selfCopy8 = -[BMAppInstallation initWithApp:transition:metadata:transitionDate:](selfCopy8, "initWithApp:transition:metadata:transitionDate:", v17, [v45 intValue], v18, v20);
       errorCopy3 = selfCopy8;
 LABEL_38:
 
       v7 = v17;
 LABEL_44:
 
-      v9 = v46;
+      v9 = v45;
 LABEL_45:
 
 LABEL_46:
@@ -404,9 +401,9 @@ LABEL_46:
     if (objc_opt_isKindOfClass())
     {
       v21 = v16;
-      v48 = 0;
-      v18 = [[BMAppInstallationMetadata alloc] initWithJSONDictionary:v21 error:&v48];
-      v22 = v48;
+      v47 = 0;
+      v18 = [[BMAppInstallationMetadata alloc] initWithJSONDictionary:v21 error:&v47];
+      v22 = v47;
       if (!v22)
       {
         errorCopy3 = error;
@@ -438,10 +435,10 @@ LABEL_46:
       errorCopy4 = error;
       v30 = v7;
       v31 = *MEMORY[0x1E698F240];
-      v52 = *MEMORY[0x1E696A578];
+      v51 = *MEMORY[0x1E696A578];
       v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"metadata"];
-      v53 = v18;
-      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+      v52 = v18;
+      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
       v33 = v31;
       v7 = v30;
       *errorCopy4 = [v29 initWithDomain:v33 code:2 userInfo:v32];
@@ -458,10 +455,10 @@ LABEL_43:
   {
     v14 = objc_alloc(MEMORY[0x1E696ABC0]);
     v15 = *MEMORY[0x1E698F240];
-    v56 = *MEMORY[0x1E696A578];
+    v55 = *MEMORY[0x1E696A578];
     v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"app"];
-    v57[0] = v7;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:&v56 count:1];
+    v56[0] = v7;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:&v55 count:1];
     errorCopy3 = 0;
     *error = [v14 initWithDomain:v15 code:2 userInfo:v9];
     selfCopy8 = self;
@@ -474,7 +471,6 @@ LABEL_47:
   selfCopy8 = self;
 LABEL_48:
 
-  v38 = *MEMORY[0x1E69E9840];
   return errorCopy3;
 }
 
@@ -497,7 +493,6 @@ LABEL_48:
     PBDataWriterRecallMark();
   }
 
-  transition = self->_transition;
   PBDataWriterWriteUint32Field();
   if (self->_metadata)
   {
@@ -508,7 +503,6 @@ LABEL_48:
 
   if (self->_hasRaw_transitionDate)
   {
-    raw_transitionDate = self->_raw_transitionDate;
     PBDataWriterWriteDoubleField();
   }
 }
@@ -768,40 +762,38 @@ LABEL_53:
 
 + (id)protoFields
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"app" number:1 type:14 subMessageClass:objc_opt_class()];
-  v9[0] = v2;
+  v8[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"transition" number:2 type:4 subMessageClass:0];
-  v9[1] = v3;
+  v8[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"metadata" number:3 type:14 subMessageClass:objc_opt_class()];
-  v9[2] = v4;
+  v8[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"transitionDate" number:4 type:0 subMessageClass:0];
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
 
-id __28__BMAppInstallation_columns__block_invoke_2(uint64_t a1, void *a2)
+id __28__BMAppInstallation_columns__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 metadata];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 metadata];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __28__BMAppInstallation_columns__block_invoke(uint64_t a1, void *a2)
+id __28__BMAppInstallation_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 app];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 app];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

@@ -4,7 +4,7 @@
 - (id)_categoryPredicateWithTypeCode:(void *)code matchingValue:(uint64_t)value errorOut:;
 - (id)_sqlitePredicateForObjectType:(uint64_t)type errorOut:;
 - (id)_walkSampleDatesWithPredicate:(uint64_t)predicate entityClass:(char)class includeUUID:(uint64_t)d errorOut:;
-- (id)_walkSampleDatesWithPredicate:(uint64_t)predicate entityClass:(uint64_t)class errorOut:;
+- (id)_walkSampleDatesWithPredicate:(uint64_t)predicate entityClass:(uint64_t)class errorOut:(__n128)out;
 - (void)_addAttenuatedSamplesUsingAttenuateSamples:(uint64_t)samples sampleCount:(void *)count distributionCalculator:(int)calculator computeAverageAndDuration:(void *)duration calculatorForAverageAndDuration:(void *)andDuration attenuationEngine:;
 - (void)_addSampleIntoDistributionCalculatorAndAverageAndDurationCalculator:(void *)calculator distributionCalculator:(int)distributionCalculator computeAverageAndDuration:(void *)duration calculatorForAverageAndDuration:(double)andDuration dataFactor:;
 - (void)_queue_start;
@@ -24,7 +24,7 @@
     overlapProcessor = v11->_overlapProcessor;
     v11->_overlapProcessor = v12;
 
-    v14 = [configurationCopy copy];
+    v14 = objc_msgSend_copy(configurationCopy);
     quantityDistributionQueryServerConfiguration = v11->_quantityDistributionQueryServerConfiguration;
     v11->_quantityDistributionQueryServerConfiguration = v14;
   }
@@ -35,31 +35,31 @@
 - (void)_queue_start
 {
   p_isa = &self->super.super.isa;
-  v253 = *MEMORY[0x277D85DE8];
-  v231.receiver = self;
-  v231.super_class = HDQuantityDistributionQueryServer;
-  [(HDQueryServer *)&v231 _queue_start];
+  v254 = *MEMORY[0x277D85DE8];
+  v232.receiver = self;
+  v232.super_class = HDQuantityDistributionQueryServer;
+  [(HDQueryServer *)&v232 _queue_start];
   clientProxy = [p_isa clientProxy];
   sampleType = [p_isa sampleType];
-  v230 = 0;
-  v5 = [p_isa authorizationStatusRecordForType:sampleType error:&v230];
-  v205 = v230;
+  v231 = 0;
+  v5 = [p_isa authorizationStatusRecordForType:sampleType error:&v231];
+  v206 = v231;
   if (!v5)
   {
     queryUUID = [p_isa queryUUID];
-    [clientProxy client_deliverError:v205 forQuery:queryUUID];
+    [clientProxy client_deliverError:v206 forQuery:queryUUID];
   }
 
-  v206 = p_isa;
-  v204 = v5;
+  v207 = p_isa;
+  v205 = v5;
   if (![v5 canRead])
   {
     p_isa = MEMORY[0x277CBEBF8];
-    v15 = v205;
+    v15 = v206;
     goto LABEL_126;
   }
 
-  v201 = sampleType;
+  v202 = sampleType;
   if (p_isa)
   {
     histogramBucketSize = [p_isa[26] histogramBucketSize];
@@ -92,14 +92,14 @@
     endDate = [p_isa[26] endDate];
     anchorDate = [p_isa[26] anchorDate];
     intervalComponents = [p_isa[26] intervalComponents];
-    v203 = [(HDQuantityDistributionCalculator *)v19 initWithStartDate:startDate endDate:endDate anchorDate:anchorDate intervalComponents:intervalComponents histogramBucketAnchor:v14 histogramBucketSize:v18];
+    v204 = [(HDQuantityDistributionCalculator *)v19 initWithStartDate:startDate endDate:endDate anchorDate:anchorDate intervalComponents:intervalComponents histogramBucketAnchor:v14 histogramBucketSize:v18];
 
-    v24 = v206;
-    options = [v206[26] options];
+    v24 = v207;
+    options = [v207[26] options];
     if (options)
     {
-      intervalComponents2 = [v206[26] intervalComponents];
-      v27 = [intervalComponents2 copy];
+      intervalComponents2 = [v207[26] intervalComponents];
+      v27 = objc_msgSend_copy(intervalComponents2);
 
       calendar = [v27 calendar];
 
@@ -110,44 +110,44 @@
       }
 
       v30 = objc_alloc(MEMORY[0x277CCDD78]);
-      anchorDate2 = [v206[26] anchorDate];
+      anchorDate2 = [v207[26] anchorDate];
       v32 = [v30 initWithAnchorDate:anchorDate2 intervalComponents:v27];
 
       v33 = [HDStatisticsCollectionCalculatorDefaultSourceOrderProvider alloc];
-      profile = [v206 profile];
-      quantityType2 = [v206 quantityType];
+      profile = [v207 profile];
+      quantityType2 = [v207 quantityType];
       v36 = [(HDStatisticsCollectionCalculatorDefaultSourceOrderProvider *)v33 initWithProfile:profile quantityType:quantityType2];
 
-      quantityType3 = [v206 quantityType];
+      quantityType3 = [v207 quantityType];
       v38 = [HDStatisticsCollectionCalculator calculatorForQuantityType:quantityType3 intervalCollection:v32 options:66 mergeStrategy:0];
 
-      v24 = v206;
+      v24 = v207;
       [v38 setSourceOrderProvider:v36];
 
       v39 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v235[0] = MEMORY[0x277D85DD0];
-      v235[1] = 3221225472;
-      v235[2] = __72__HDQuantityDistributionQueryServer__queue_fetchHistogramDataWithError___block_invoke;
-      v235[3] = &unk_278614AE0;
-      v200 = v39;
-      v236 = v200;
-      [v38 setStatisticsHandler:v235];
-      v202 = v38;
+      v236[0] = MEMORY[0x277D85DD0];
+      v236[1] = 3221225472;
+      v236[2] = __72__HDQuantityDistributionQueryServer__queue_fetchHistogramDataWithError___block_invoke;
+      v236[3] = &unk_278614AE0;
+      v201 = v39;
+      v237 = v201;
+      [v38 setStatisticsHandler:v236];
+      v203 = v38;
       [v38 reset];
     }
 
     else
     {
-      v200 = 0;
-      v202 = 0;
+      v201 = 0;
+      v203 = 0;
     }
 
     options2 = [v24[26] options];
     contextStyle = [v24[26] contextStyle];
     v42 = 0;
-    v234 = 0;
-    v208 = _unit;
-    v227 = options;
+    v235 = 0;
+    v209 = _unit;
+    v228 = options;
     if (contextStyle > 3)
     {
       if (contextStyle <= 5)
@@ -172,7 +172,7 @@
       {
         v64 = _HKCategoryValueSleepAnalysisAsleepValues();
         v67 = [MEMORY[0x277CCD0C0] dataTypeWithCode:63];
-        v68 = [(HDQuantityDistributionQueryServer *)v24 _sqlitePredicateForObjectType:v67 errorOut:&v234];
+        v68 = [(HDQuantityDistributionQueryServer *)v24 _sqlitePredicateForObjectType:v67 errorOut:&v235];
 
         if (v64)
         {
@@ -183,7 +183,7 @@
         }
 
         v71 = objc_opt_class();
-        v46 = [(HDQuantityDistributionQueryServer *)v24 _walkSampleDatesWithPredicate:v68 entityClass:v71 errorOut:&v234];
+        v46 = [(HDQuantityDistributionQueryServer *)v24 _walkSampleDatesWithPredicate:v68 entityClass:v71 errorOut:&v235, v72];
 
         goto LABEL_35;
       }
@@ -196,14 +196,14 @@
         v44 = v24;
         v45 = 199;
 LABEL_28:
-        v64 = [(HDQuantityDistributionQueryServer *)v44 _categoryPredicateWithTypeCode:v45 matchingValue:v47 errorOut:&v234];
+        v64 = [(HDQuantityDistributionQueryServer *)v44 _categoryPredicateWithTypeCode:v45 matchingValue:v47 errorOut:&v235];
         v65 = objc_opt_class();
-        v66 = [(HDQuantityDistributionQueryServer *)v24 _walkSampleDatesWithPredicate:v64 entityClass:v65 includeUUID:v43 errorOut:&v234];
+        v66 = [(HDQuantityDistributionQueryServer *)v24 _walkSampleDatesWithPredicate:v64 entityClass:v65 includeUUID:v43 errorOut:&v235];
 LABEL_34:
         v46 = v66;
 LABEL_35:
 
-        v42 = v234;
+        v42 = v235;
         goto LABEL_36;
       }
 
@@ -213,22 +213,22 @@ LABEL_35:
     if (contextStyle == 1)
     {
       v48 = [MEMORY[0x277CCD720] categoryTypeForIdentifier:*MEMORY[0x277CCBA30]];
-      v223 = [(HDQuantityDistributionQueryServer *)v24 _sqlitePredicateForObjectType:v48 errorOut:&v234];
+      v224 = [(HDQuantityDistributionQueryServer *)v24 _sqlitePredicateForObjectType:v48 errorOut:&v235];
 
-      v221 = HDDataEntityPredicateForObjectsFromAppleWatchSources(1);
+      v222 = HDDataEntityPredicateForObjectsFromAppleWatchSources(1);
       profile2 = [v24 profile];
       metadataManager = [profile2 metadataManager];
       v51 = *MEMORY[0x277CCE060];
       v52 = [metadataManager predicateWithMetadataKey:*MEMORY[0x277CCE060] exists:0];
 
       v53 = MEMORY[0x277D10B20];
-      aBlock = v221;
-      v238 = v52;
+      aBlock = v222;
+      v239 = v52;
       [MEMORY[0x277CBEA60] arrayWithObjects:&aBlock count:2];
       v55 = v54 = options2;
       v56 = [v53 predicateMatchingAllPredicates:v55];
 
-      profile3 = [v206 profile];
+      profile3 = [v207 profile];
       metadataManager2 = [profile3 metadataManager];
       [MEMORY[0x277CBEB98] setWithObject:&unk_283CB3F00];
       v60 = v59 = clientProxy;
@@ -236,17 +236,17 @@ LABEL_35:
 
       clientProxy = v59;
       v62 = MEMORY[0x277D10B20];
-      *&v249 = v56;
-      *(&v249 + 1) = v61;
-      v63 = [MEMORY[0x277CBEA60] arrayWithObjects:&v249 count:2];
+      *&v250 = v56;
+      *(&v250 + 1) = v61;
+      v63 = [MEMORY[0x277CBEA60] arrayWithObjects:&v250 count:2];
       options2 = [v62 predicateMatchingAnyPredicates:v63];
 
-      v64 = [MEMORY[0x277D10B20] compoundPredicateWithPredicate:v223 otherPredicate:options2];
+      v64 = [MEMORY[0x277D10B20] compoundPredicateWithPredicate:v224 otherPredicate:options2];
 
       LOBYTE(options2) = v54;
-      _unit = v208;
+      _unit = v209;
 
-      v24 = v206;
+      v24 = v207;
     }
 
     else
@@ -265,324 +265,324 @@ LABEL_27:
         }
 
 LABEL_36:
-        v74 = v42;
-        if (!v46 && v74)
+        v76 = v42;
+        if (!v46 && v76)
         {
           p_isa = 0;
-          v75 = v74;
-          v76 = v75;
+          v77 = v76;
+          v78 = v77;
 LABEL_124:
 
           goto LABEL_125;
         }
 
-        v224 = options2;
-        v196 = v74;
+        v225 = options2;
+        v197 = v76;
         objectType = [v24[26] objectType];
-        v233 = 0;
-        v78 = [(HDQuantityDistributionQueryServer *)v24 _sqlitePredicateForObjectType:objectType errorOut:&v233];
-        v79 = v233;
-        v197 = v78;
-        v195 = v79;
-        if (!v78)
+        v234 = 0;
+        v80 = [(HDQuantityDistributionQueryServer *)v24 _sqlitePredicateForObjectType:objectType errorOut:&v234];
+        v81 = v234;
+        v198 = v80;
+        v196 = v81;
+        if (!v80)
         {
-          v102 = v79;
-          if (v102)
+          v104 = v81;
+          if (v104)
           {
-            v76 = v102;
+            v78 = v104;
             p_isa = 0;
-            v103 = v102;
+            v105 = v104;
           }
 
           else
           {
-            v103 = 0;
+            v105 = 0;
             p_isa = 0;
-            v76 = v205;
+            v78 = v206;
           }
 
           goto LABEL_123;
         }
 
-        v207 = v46;
-        v219 = v227 & 1;
-        v80 = *MEMORY[0x277CCCB58];
-        v81 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCCB58]];
-        v82 = [objectType isEqual:v81];
+        v208 = v46;
+        v220 = v228 & 1;
+        v82 = *MEMORY[0x277CCCB58];
+        v83 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCCB58]];
+        v84 = [objectType isEqual:v83];
 
         options3 = [v24[26] options];
-        v84 = [MEMORY[0x277CCD830] _quantityTypeWithCode:272];
-        v85 = [HDQuantitySampleAttenuationProvider alloc];
+        v86 = [MEMORY[0x277CCD830] _quantityTypeWithCode:272];
+        v87 = [HDQuantitySampleAttenuationProvider alloc];
         profile4 = [v24 profile];
-        v193 = v84;
-        v87 = [(HDQuantitySampleAttenuationProvider *)v85 initWithQuantityType:v84 profile:profile4];
+        v194 = v86;
+        v89 = [(HDQuantitySampleAttenuationProvider *)v87 initWithQuantityType:v86 profile:profile4];
 
-        v192 = v87;
-        v88 = [[HDQuantitySampleAttenuationEngine alloc] initWithAttenuationEngineDelegate:v87];
-        v222 = objectType;
-        v191 = v88;
-        if (v82 && (options3 & 4) != 0)
+        v193 = v89;
+        v90 = [[HDQuantitySampleAttenuationEngine alloc] initWithAttenuationEngineDelegate:v89];
+        v223 = objectType;
+        v192 = v90;
+        if (v84 && (options3 & 4) != 0)
         {
-          v89 = v88;
-          v90 = v46;
-          v91 = v197;
-          v92 = v203;
-          v93 = v202;
-          v94 = v89;
+          v91 = v90;
+          v92 = v46;
+          v93 = v198;
+          v94 = v204;
+          v95 = v203;
+          v96 = v91;
           aBlock = MEMORY[0x277D85DD0];
-          v238 = 3221225472;
-          v239 = __208__HDQuantityDistributionQueryServer__attenuatedSampleWalkBlockUsingDateIntervals_sqlitePredicate_dataFactor_distributionCalculator_computeAverageAndDuration_calculatorForAverageAndDuration_attenuationEngine___block_invoke;
-          v240 = &unk_27862B228;
-          v241 = v206;
-          v95 = v91;
-          v242 = v95;
-          v96 = v90;
-          v243 = v96;
-          v247 = v10;
-          v97 = v92;
-          v244 = v97;
-          v98 = v227 & 1;
-          v248 = v227 & 1;
-          v99 = v93;
+          v239 = 3221225472;
+          v240 = __208__HDQuantityDistributionQueryServer__attenuatedSampleWalkBlockUsingDateIntervals_sqlitePredicate_dataFactor_distributionCalculator_computeAverageAndDuration_calculatorForAverageAndDuration_attenuationEngine___block_invoke;
+          v241 = &unk_27862B228;
+          v242 = v207;
+          v97 = v93;
+          v243 = v97;
+          v98 = v92;
+          v244 = v98;
+          v248 = v10;
+          v99 = v94;
           v245 = v99;
-          v100 = v94;
-          v246 = v100;
-          v194 = _Block_copy(&aBlock);
+          v100 = v228 & 1;
+          v249 = v228 & 1;
+          v101 = v95;
+          v246 = v101;
+          v102 = v96;
+          v247 = v102;
+          v195 = _Block_copy(&aBlock);
 
-          sampleType = v201;
-          if (v227)
+          sampleType = v202;
+          if (v228)
           {
 LABEL_43:
-            v232 = 0;
-            v101 = [v202 performInitialStatisticsTransaction:v194 error:&v232];
+            v233 = 0;
+            v103 = [v203 performInitialStatisticsTransaction:v195 error:&v233];
             goto LABEL_51;
           }
         }
 
         else
         {
-          quantityType4 = [v206 quantityType];
-          v105 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:v80];
-          v106 = [quantityType4 isEqual:v105];
+          quantityType4 = [v207 quantityType];
+          v107 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:v82];
+          v108 = [quantityType4 isEqual:v107];
 
-          sampleType = v201;
-          if (v106)
+          sampleType = v202;
+          if (v108)
           {
-            v107 = 1;
+            v109 = 1;
           }
 
           else
           {
-            quantityType5 = [v206 quantityType];
-            v109 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCCB88]];
-            v107 = [quantityType5 isEqual:v109];
+            quantityType5 = [v207 quantityType];
+            v111 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCCB88]];
+            v109 = [quantityType5 isEqual:v111];
           }
 
-          v110 = v46;
-          v111 = v197;
-          v112 = v203;
-          v113 = v202;
+          v112 = v46;
+          v113 = v198;
+          v114 = v204;
+          v115 = v203;
           aBlock = MEMORY[0x277D85DD0];
-          v238 = 3221225472;
-          v239 = __214__HDQuantityDistributionQueryServer__standardSampleWalkBlockUsingDateIntervals_sqlitePredicate_dataFactor_distributionCalculator_computeAverageAndDuration_calculatorForAverageAndDuration_resolveOverlappingSamples___block_invoke;
-          v240 = &unk_27862B1B0;
-          v241 = v206;
-          v114 = v111;
-          v242 = v114;
-          v115 = v110;
-          v243 = v115;
-          v246 = v10;
-          LOBYTE(v247) = v107;
-          v116 = v112;
-          v244 = v116;
-          v98 = v227 & 1;
-          BYTE1(v247) = v227 & 1;
-          v117 = v113;
-          v245 = v117;
-          v194 = _Block_copy(&aBlock);
+          v239 = 3221225472;
+          v240 = __214__HDQuantityDistributionQueryServer__standardSampleWalkBlockUsingDateIntervals_sqlitePredicate_dataFactor_distributionCalculator_computeAverageAndDuration_calculatorForAverageAndDuration_resolveOverlappingSamples___block_invoke;
+          v241 = &unk_27862B1B0;
+          v242 = v207;
+          v116 = v113;
+          v243 = v116;
+          v117 = v112;
+          v244 = v117;
+          v247 = v10;
+          LOBYTE(v248) = v109;
+          v118 = v114;
+          v245 = v118;
+          v100 = v228 & 1;
+          BYTE1(v248) = v228 & 1;
+          v119 = v115;
+          v246 = v119;
+          v195 = _Block_copy(&aBlock);
 
-          objectType = v222;
-          if (v227)
+          objectType = v223;
+          if (v228)
           {
             goto LABEL_43;
           }
         }
 
-        v232 = 0;
-        v101 = v194[2](v194, &v232);
+        v233 = 0;
+        v103 = v195[2](v195, &v233);
 LABEL_51:
-        v118 = v101;
-        v119 = v232;
-        if (v118)
+        v120 = v103;
+        v121 = v233;
+        if (v120)
         {
-          v186 = v119;
-          v217 = [(HDQuantityDistributionCalculator *)v203 quantityDistributionsWithUnit:_unit];
-          v187 = clientProxy;
-          if ((v224 & 2) != 0 && v46)
+          v187 = v121;
+          v218 = [(HDQuantityDistributionCalculator *)v204 quantityDistributionsWithUnit:_unit];
+          v188 = clientProxy;
+          if ((v225 & 2) != 0 && v46)
           {
-            v120 = v217;
-            v121 = v46;
-            v122 = *(v121 + 5);
-            if (v122 && [v122 count])
+            v122 = v218;
+            v123 = v46;
+            v124 = *(v123 + 5);
+            if (v124 && [v124 count])
             {
-              v123 = [*(v121 + 5) objectAtIndexedSubscript:0];
-              v124 = 0;
-              v125 = 0;
-              if (v123)
+              v125 = [*(v123 + 5) objectAtIndexedSubscript:0];
+              v126 = 0;
+              v127 = 0;
+              if (v125)
               {
-                v125 = v123[1];
+                v127 = v125[1];
               }
 
-              *(v121 + 1) = v125;
+              *(v123 + 1) = v127;
 
-              v126 = [*(v121 + 5) objectAtIndexedSubscript:0];
-              if (v126)
+              v128 = [*(v123 + 5) objectAtIndexedSubscript:0];
+              if (v128)
               {
-                v124 = v126[2];
+                v126 = v128[2];
               }
 
-              *(v121 + 2) = v124;
+              *(v123 + 2) = v126;
 
-              *(v121 + 3) = 0;
+              *(v123 + 3) = 0;
             }
 
-            v217 = objc_alloc_init(MEMORY[0x277CBEB18]);
-            v249 = 0u;
+            v218 = objc_alloc_init(MEMORY[0x277CBEB18]);
             v250 = 0u;
             v251 = 0u;
             v252 = 0u;
-            obj = v120;
-            v225 = [obj countByEnumeratingWithState:&v249 objects:&aBlock count:16];
-            if (v225)
+            v253 = 0u;
+            obj = v122;
+            v226 = [obj countByEnumeratingWithState:&v250 objects:&aBlock count:16];
+            if (v226)
             {
-              v215 = *v250;
+              v216 = *v251;
               do
               {
-                v127 = 0;
+                v129 = 0;
                 do
                 {
-                  if (*v250 != v215)
+                  if (*v251 != v216)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v128 = *(*(&v249 + 1) + 8 * v127);
-                  startDate2 = [v128 startDate];
+                  v130 = *(*(&v250 + 1) + 8 * v129);
+                  startDate2 = [v130 startDate];
                   [startDate2 timeIntervalSinceReferenceDate];
-                  v131 = v130;
-                  endDate2 = [v128 endDate];
+                  v133 = v132;
+                  endDate2 = [v130 endDate];
                   [endDate2 timeIntervalSinceReferenceDate];
-                  v134 = *(v121 + 5);
-                  if (!v134)
+                  v136 = *(v123 + 5);
+                  if (!v136)
                   {
                     goto LABEL_94;
                   }
 
-                  if (!*(v121 + 32))
+                  if (!*(v123 + 32))
                   {
                     goto LABEL_94;
                   }
 
-                  v135 = v133;
-                  if (*(v121 + 1) > v133)
+                  v137 = v135;
+                  if (*(v123 + 1) > v135)
                   {
                     goto LABEL_94;
                   }
 
-                  v136 = *(v121 + 3);
-                  if (v136 >= [v134 count])
+                  v138 = *(v123 + 3);
+                  if (v138 >= [v136 count])
                   {
                     goto LABEL_94;
                   }
 
-                  while (*(v121 + 2) < v131)
+                  while (*(v123 + 2) < v133)
                   {
-                    v137 = *(v121 + 3);
-                    if (v137 >= [*(v121 + 5) count] - 1)
+                    v139 = *(v123 + 3);
+                    if (v139 >= [*(v123 + 5) count] - 1)
                     {
                       break;
                     }
 
-                    ++*(v121 + 3);
-                    v138 = [*(v121 + 5) objectAtIndexedSubscript:?];
-                    v139 = 0;
-                    v140 = 0;
-                    if (v138)
+                    ++*(v123 + 3);
+                    v140 = [*(v123 + 5) objectAtIndexedSubscript:?];
+                    v141 = 0;
+                    v142 = 0;
+                    if (v140)
                     {
-                      v140 = v138[1];
+                      v142 = v140[1];
                     }
 
-                    *(v121 + 1) = v140;
+                    *(v123 + 1) = v142;
 
-                    v141 = [*(v121 + 5) objectAtIndexedSubscript:*(v121 + 3)];
-                    if (v141)
+                    v143 = [*(v123 + 5) objectAtIndexedSubscript:*(v123 + 3)];
+                    if (v143)
                     {
-                      v139 = v141[2];
+                      v141 = v143[2];
                     }
 
-                    *(v121 + 2) = v139;
+                    *(v123 + 2) = v141;
                   }
 
-                  if (*(v121 + 1) < v135)
+                  if (*(v123 + 1) < v137)
                   {
-                    v142 = 0;
+                    v144 = 0;
                     while (1)
                     {
-                      v143 = [*(v121 + 5) objectAtIndexedSubscript:*(v121 + 3)];
-                      v144 = v143;
-                      if (v143)
+                      v145 = [*(v123 + 5) objectAtIndexedSubscript:*(v123 + 3)];
+                      v146 = v145;
+                      if (v145)
                       {
-                        v145 = *(v143 + 24);
+                        v147 = *(v145 + 24);
                       }
 
                       else
                       {
-                        v145 = 0;
+                        v147 = 0;
                       }
 
-                      v146 = v145;
+                      v148 = v147;
 
-                      if (v146)
-                      {
-                        if (!v142)
-                        {
-                          v142 = objc_alloc_init(MEMORY[0x277CBEB18]);
-                        }
-
-                        [v142 addObject:v146];
-                      }
-
-                      if (*(v121 + 2) > v135)
-                      {
-                        break;
-                      }
-
-                      v147 = *(v121 + 3) + 1;
-                      *(v121 + 3) = v147;
-                      if (v147 >= [*(v121 + 5) count])
-                      {
-                        break;
-                      }
-
-                      v148 = [*(v121 + 5) objectAtIndexedSubscript:*(v121 + 3)];
-                      v149 = 0;
-                      v150 = 0;
                       if (v148)
                       {
-                        v150 = v148[1];
+                        if (!v144)
+                        {
+                          v144 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                        }
+
+                        [v144 addObject:v148];
                       }
 
-                      *(v121 + 1) = v150;
-
-                      v151 = [*(v121 + 5) objectAtIndexedSubscript:*(v121 + 3)];
-                      if (v151)
+                      if (*(v123 + 2) > v137)
                       {
-                        v149 = v151[2];
+                        break;
                       }
 
-                      *(v121 + 2) = v149;
+                      v149 = *(v123 + 3) + 1;
+                      *(v123 + 3) = v149;
+                      if (v149 >= [*(v123 + 5) count])
+                      {
+                        break;
+                      }
 
-                      if (*(v121 + 1) >= v135)
+                      v150 = [*(v123 + 5) objectAtIndexedSubscript:*(v123 + 3)];
+                      v151 = 0;
+                      v152 = 0;
+                      if (v150)
+                      {
+                        v152 = v150[1];
+                      }
+
+                      *(v123 + 1) = v152;
+
+                      v153 = [*(v123 + 5) objectAtIndexedSubscript:*(v123 + 3)];
+                      if (v153)
+                      {
+                        v151 = v153[2];
+                      }
+
+                      *(v123 + 2) = v151;
+
+                      if (*(v123 + 1) >= v137)
                       {
                         goto LABEL_95;
                       }
@@ -592,198 +592,197 @@ LABEL_51:
                   else
                   {
 LABEL_94:
-                    v142 = 0;
+                    v144 = 0;
                   }
 
 LABEL_95:
 
-                  if (v142 && [v142 count])
+                  if (v144 && [v144 count])
                   {
-                    v213 = objc_alloc(MEMORY[0x277CCDE20]);
-                    startDate3 = [v128 startDate];
-                    endDate3 = [v128 endDate];
-                    minimumBucketValue = [v128 minimumBucketValue];
-                    [v128 minimumValue];
-                    v154 = v228 = v142;
-                    maximumValue = [v128 maximumValue];
-                    averageValue = [v128 averageValue];
-                    duration = [v128 duration];
-                    histogramCounts = [v128 histogramCounts];
-                    v159 = [v213 initWithStartDate:startDate3 endDate:endDate3 minimumBucketValue:minimumBucketValue minimumValue:v154 maximumValue:maximumValue averageValue:averageValue duration:duration histogramCounts:histogramCounts contextIdentifiers:v228];
+                    v214 = objc_alloc(MEMORY[0x277CCDE20]);
+                    startDate3 = [v130 startDate];
+                    endDate3 = [v130 endDate];
+                    minimumBucketValue = [v130 minimumBucketValue];
+                    [v130 minimumValue];
+                    v156 = v229 = v144;
+                    maximumValue = [v130 maximumValue];
+                    averageValue = [v130 averageValue];
+                    duration = [v130 duration];
+                    histogramCounts = [v130 histogramCounts];
+                    v161 = [v214 initWithStartDate:startDate3 endDate:endDate3 minimumBucketValue:minimumBucketValue minimumValue:v156 maximumValue:maximumValue averageValue:averageValue duration:duration histogramCounts:histogramCounts contextIdentifiers:v229];
 
-                    v46 = v207;
-                    _unit = v208;
+                    v46 = v208;
+                    _unit = v209;
 
-                    v142 = v228;
-                    [v217 addObject:v159];
+                    v144 = v229;
+                    [v218 addObject:v161];
                   }
 
                   else
                   {
-                    [v217 addObject:v128];
+                    [v218 addObject:v130];
                   }
 
-                  ++v127;
-                  objectType = v222;
-                  v98 = v219;
+                  ++v129;
+                  objectType = v223;
+                  v100 = v220;
                 }
 
-                while (v127 != v225);
-                v160 = [obj countByEnumeratingWithState:&v249 objects:&aBlock count:16];
-                v225 = v160;
+                while (v129 != v226);
+                v162 = [obj countByEnumeratingWithState:&v250 objects:&aBlock count:16];
+                v226 = v162;
               }
 
-              while (v160);
+              while (v162);
             }
 
-            clientProxy = v187;
-            sampleType = v201;
+            clientProxy = v188;
+            sampleType = v202;
           }
 
-          v229 = v217;
-          if (v98)
+          v230 = v218;
+          if (v100)
           {
-            v163 = v200;
-            v190 = _unit;
+            v165 = v201;
+            v191 = _unit;
             p_isa = objc_alloc_init(MEMORY[0x277CBEB18]);
-            if ([v229 count])
+            if ([v230 count])
             {
-              v164 = 0;
-              v165 = 0;
-              v188 = p_isa;
-              v189 = v163;
+              v166 = 0;
+              v167 = 0;
+              v189 = p_isa;
+              v190 = v165;
               do
               {
-                if (v165 >= [v163 count])
+                if (v167 >= [v165 count])
                 {
                   break;
                 }
 
-                v166 = [v229 objectAtIndexedSubscript:v164];
-                v167 = [v163 objectAtIndexedSubscript:v165];
-                startDate4 = [v166 startDate];
-                startDate5 = [v167 startDate];
-                v226 = startDate5;
+                v168 = [v230 objectAtIndexedSubscript:v166];
+                v169 = [v165 objectAtIndexedSubscript:v167];
+                startDate4 = [v168 startDate];
+                startDate5 = [v169 startDate];
+                v227 = startDate5;
                 if ([startDate4 isEqual:startDate5])
                 {
-                  averageQuantity = [v167 averageQuantity];
-                  v216 = v164;
-                  [averageQuantity doubleValueForUnit:v190];
-                  v172 = v171;
+                  averageQuantity = [v169 averageQuantity];
+                  v217 = v166;
+                  [averageQuantity doubleValueForUnit:v191];
+                  v174 = v173;
 
-                  v220 = [MEMORY[0x277CCD7E8] quantityWithUnit:v190 doubleValue:v172];
-                  v214 = objc_alloc(MEMORY[0x277CCDE20]);
-                  startDate6 = [v166 startDate];
-                  obja = [v166 endDate];
-                  minimumBucketValue2 = [v166 minimumBucketValue];
-                  minimumValue = [v166 minimumValue];
-                  maximumValue2 = [v166 maximumValue];
-                  duration2 = [v167 duration];
-                  histogramCounts2 = [v166 histogramCounts];
-                  [v166 contextIdentifiers];
-                  v212 = v167;
-                  v178 = startDate4;
-                  v180 = v179 = v165;
-                  v181 = minimumValue;
-                  v182 = [v214 initWithStartDate:startDate6 endDate:obja minimumBucketValue:minimumBucketValue2 minimumValue:minimumValue maximumValue:maximumValue2 averageValue:v220 duration:duration2 histogramCounts:histogramCounts2 contextIdentifiers:v180];
+                  v221 = [MEMORY[0x277CCD7E8] quantityWithUnit:v191 doubleValue:v174];
+                  v215 = objc_alloc(MEMORY[0x277CCDE20]);
+                  startDate6 = [v168 startDate];
+                  obja = [v168 endDate];
+                  minimumBucketValue2 = [v168 minimumBucketValue];
+                  minimumValue = [v168 minimumValue];
+                  maximumValue2 = [v168 maximumValue];
+                  duration2 = [v169 duration];
+                  histogramCounts2 = [v168 histogramCounts];
+                  [v168 contextIdentifiers];
+                  v213 = v169;
+                  v180 = startDate4;
+                  v182 = v181 = v167;
+                  v183 = minimumValue;
+                  v184 = [v215 initWithStartDate:startDate6 endDate:obja minimumBucketValue:minimumBucketValue2 minimumValue:minimumValue maximumValue:maximumValue2 averageValue:v221 duration:duration2 histogramCounts:histogramCounts2 contextIdentifiers:v182];
 
-                  v183 = v179;
-                  startDate4 = v178;
-                  v167 = v212;
+                  v185 = v181;
+                  startDate4 = v180;
+                  v169 = v213;
 
-                  v163 = v189;
-                  sampleType = v201;
+                  v165 = v190;
+                  sampleType = v202;
 
-                  p_isa = v188;
-                  [v188 addObject:v182];
-                  v164 = v216 + 1;
-                  v165 = v183 + 1;
+                  p_isa = v189;
+                  [v189 addObject:v184];
+                  v166 = v217 + 1;
+                  v167 = v185 + 1;
 
-                  objectType = v222;
+                  objectType = v223;
                 }
 
                 else if ([startDate4 hk_isBeforeDate:startDate5])
                 {
-                  [p_isa addObject:v166];
-                  ++v164;
+                  [p_isa addObject:v168];
+                  ++v166;
                 }
 
                 else
                 {
-                  ++v165;
+                  ++v167;
                 }
               }
 
-              while (v164 < [v229 count]);
+              while (v166 < [v230 count]);
             }
 
-            v76 = v205;
-            clientProxy = v187;
-            v46 = v207;
-            _unit = v208;
+            v78 = v206;
+            clientProxy = v188;
+            v46 = v208;
+            _unit = v209;
           }
 
           else
           {
-            v76 = v205;
-            p_isa = v229;
+            v78 = v206;
+            p_isa = v230;
           }
 
-          v162 = v186;
+          v164 = v187;
         }
 
         else
         {
-          v161 = v119;
-          if (v161)
+          v163 = v121;
+          if (v163)
           {
-            v76 = v161;
+            v78 = v163;
             p_isa = 0;
-            v162 = v161;
+            v164 = v163;
 
 LABEL_122:
-            v103 = v194;
+            v105 = v195;
 LABEL_123:
 
-            v75 = v196;
+            v77 = v197;
             goto LABEL_124;
           }
 
-          v229 = 0;
-          v162 = 0;
+          v230 = 0;
+          v164 = 0;
           p_isa = 0;
-          v76 = v205;
+          v78 = v206;
         }
 
         goto LABEL_122;
       }
 
       workoutType = [MEMORY[0x277CCD720] workoutType];
-      v64 = [(HDQuantityDistributionQueryServer *)v24 _sqlitePredicateForObjectType:workoutType errorOut:&v234];
+      v64 = [(HDQuantityDistributionQueryServer *)v24 _sqlitePredicateForObjectType:workoutType errorOut:&v235];
     }
 
-    v73 = objc_opt_class();
-    v66 = [(HDQuantityDistributionQueryServer *)v24 _walkSampleDatesWithPredicate:v64 entityClass:v73 errorOut:&v234];
+    v74 = objc_opt_class();
+    v66 = [(HDQuantityDistributionQueryServer *)v24 _walkSampleDatesWithPredicate:v64 entityClass:v74 errorOut:&v235, v75];
     goto LABEL_34;
   }
 
-  v76 = v205;
+  v78 = v206;
 LABEL_125:
-  v15 = v76;
+  v15 = v78;
 
   if (!p_isa)
   {
-    p_isa = [v206 queryUUID];
+    p_isa = [v207 queryUUID];
     [clientProxy client_deliverError:v15 forQuery:p_isa];
     goto LABEL_127;
   }
 
 LABEL_126:
-  queryUUID2 = [v206 queryUUID];
+  queryUUID2 = [v207 queryUUID];
   [clientProxy client_deliverDistributionCollection:p_isa forQuery:queryUUID2];
 
 LABEL_127:
-  v185 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_sqlitePredicateForObjectType:(uint64_t)type errorOut:
@@ -1069,54 +1068,54 @@ uint64_t __214__HDQuantityDistributionQueryServer__standardSampleWalkBlockUsingD
 
 uint64_t __208__HDQuantityDistributionQueryServer__attenuatedSampleWalkBlockUsingDateIntervals_sqlitePredicate_dataFactor_distributionCalculator_computeAverageAndDuration_calculatorForAverageAndDuration_attenuationEngine___block_invoke(uint64_t a1, void *a2)
 {
-  v50 = *MEMORY[0x277D85DE8];
-  v46[0] = 0;
-  v46[1] = v46;
-  v46[2] = 0x2020000000;
-  v47 = 1;
+  v49 = *MEMORY[0x277D85DE8];
+  v45[0] = 0;
+  v45[1] = v45;
+  v45[2] = 0x2020000000;
+  v46 = 1;
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
-  v45 = 0;
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __208__HDQuantityDistributionQueryServer__attenuatedSampleWalkBlockUsingDateIntervals_sqlitePredicate_dataFactor_distributionCalculator_computeAverageAndDuration_calculatorForAverageAndDuration_attenuationEngine___block_invoke_2;
-  v36[3] = &unk_27862B200;
+  v44 = 0;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __208__HDQuantityDistributionQueryServer__attenuatedSampleWalkBlockUsingDateIntervals_sqlitePredicate_dataFactor_distributionCalculator_computeAverageAndDuration_calculatorForAverageAndDuration_attenuationEngine___block_invoke_2;
+  v35[3] = &unk_27862B200;
   v6 = *(a1 + 48);
-  v43 = *(a1 + 80);
+  v42 = *(a1 + 80);
   v7 = *(a1 + 32);
-  v37 = v6;
-  v38 = v7;
-  v42 = v46;
-  v39 = *(a1 + 56);
-  v44 = *(a1 + 88);
-  v40 = *(a1 + 64);
-  v41 = *(a1 + 72);
-  LOBYTE(v4) = [(HDQuantityDistributionQueryServer *)v4 _walkSampleValuesWithPredicate:v5 errorOut:&v45 handler:v36];
-  v8 = v45;
+  v36 = v6;
+  v37 = v7;
+  v41 = v45;
+  v38 = *(a1 + 56);
+  v43 = *(a1 + 88);
+  v39 = *(a1 + 64);
+  v40 = *(a1 + 72);
+  LOBYTE(v4) = [(HDQuantityDistributionQueryServer *)v4 _walkSampleValuesWithPredicate:v5 errorOut:&v44 handler:v35];
+  v8 = v44;
   v9 = v8;
   if (v4)
   {
     v10 = *(a1 + 32);
     v11 = *(v10 + 216);
-    v35 = v8;
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __208__HDQuantityDistributionQueryServer__attenuatedSampleWalkBlockUsingDateIntervals_sqlitePredicate_dataFactor_distributionCalculator_computeAverageAndDuration_calculatorForAverageAndDuration_attenuationEngine___block_invoke_4;
-    v30[3] = &unk_27862B1D8;
-    v30[4] = v10;
-    v31 = *(a1 + 56);
-    v34 = *(a1 + 88);
-    v32 = *(a1 + 64);
-    v33 = *(a1 + 72);
-    v12 = [v11 fetchFinalOverlapSamplesWithErrorOut:&v35 handler:v30];
-    v13 = v35;
+    v34 = v8;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __208__HDQuantityDistributionQueryServer__attenuatedSampleWalkBlockUsingDateIntervals_sqlitePredicate_dataFactor_distributionCalculator_computeAverageAndDuration_calculatorForAverageAndDuration_attenuationEngine___block_invoke_4;
+    v29[3] = &unk_27862B1D8;
+    v29[4] = v10;
+    v30 = *(a1 + 56);
+    v33 = *(a1 + 88);
+    v31 = *(a1 + 64);
+    v32 = *(a1 + 72);
+    v12 = [v11 fetchFinalOverlapSamplesWithErrorOut:&v34 handler:v29];
+    v13 = v34;
 
     if (v12)
     {
       v14 = *(a1 + 72);
-      v29 = 0;
-      v15 = [v14 delegateLoadingWasSuccessful:&v29];
-      v16 = v29;
+      v28 = 0;
+      v15 = [v14 delegateLoadingWasSuccessful:&v28];
+      v16 = v28;
       v17 = v16;
       if ((v15 & 1) == 0)
       {
@@ -1161,7 +1160,7 @@ uint64_t __208__HDQuantityDistributionQueryServer__attenuatedSampleWalkBlockUsin
       if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v49 = v24;
+        v48 = v24;
         _os_log_error_impl(&dword_228986000, v26, OS_LOG_TYPE_ERROR, "Unable to fetch hearing protection samples: %{public}@", buf, 0xCu);
       }
 
@@ -1190,8 +1189,7 @@ uint64_t __208__HDQuantityDistributionQueryServer__attenuatedSampleWalkBlockUsin
     v15 = 0;
   }
 
-  _Block_object_dispose(v46, 8);
-  v27 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v45, 8);
   return v15;
 }
 
@@ -1245,38 +1243,32 @@ uint64_t __208__HDQuantityDistributionQueryServer__attenuatedSampleWalkBlockUsin
     v16 = 0;
     do
     {
-      v30 = 0;
-      v28 = 0u;
-      v29 = 0u;
+      v24 = 0;
+      v22 = 0u;
+      v23 = 0u;
       if (andDurationCopy)
       {
         v17 = (a2 + 40 * v16);
         v18 = v17[1];
-        v25 = *v17;
-        v26 = v18;
-        v27 = *(v17 + 4);
-        [andDurationCopy attenuateSample:&v25];
-        while (*(&v28 + 1) - *&v28 > 0.000001)
+        v19 = *v17;
+        v20 = v18;
+        v21 = *(v17 + 4);
+        objc_msgSend_attenuateSample_(andDurationCopy);
+        while (*(&v22 + 1) - *&v22 > 0.000001)
         {
-          v25 = v28;
-          v26 = v29;
-          v27 = v30;
+          v19 = v22;
+          v20 = v23;
+          v21 = v24;
           [(HDQuantityDistributionQueryServer *)self _addSampleIntoDistributionCalculatorAndAverageAndDurationCalculator:countCopy distributionCalculator:calculator computeAverageAndDuration:durationCopy calculatorForAverageAndDuration:1.0 dataFactor:?];
-          v19 = *(v17 + 8);
-          if (*&v19 - *(&v28 + 1) <= 0.000001)
+          if (*(v17 + 1) - *(&v22 + 1) <= 0.000001)
           {
             break;
           }
 
-          v20 = *(v17 + 24);
-          v21 = *(&v28 + 1);
+          objc_msgSend_attenuateSample_(andDurationCopy);
           v22 = v19;
           v23 = v20;
-          v24 = 0;
-          [andDurationCopy attenuateSample:&v21];
-          v28 = v25;
-          v29 = v26;
-          v30 = v27;
+          v24 = v21;
         }
       }
 
@@ -1287,11 +1279,11 @@ uint64_t __208__HDQuantityDistributionQueryServer__attenuatedSampleWalkBlockUsin
   }
 }
 
-- (id)_walkSampleDatesWithPredicate:(uint64_t)predicate entityClass:(uint64_t)class errorOut:
+- (id)_walkSampleDatesWithPredicate:(uint64_t)predicate entityClass:(uint64_t)class errorOut:(__n128)out
 {
-  v4 = [(HDQuantityDistributionQueryServer *)self _walkSampleDatesWithPredicate:a2 entityClass:predicate includeUUID:0 errorOut:class];
+  v5 = [(HDQuantityDistributionQueryServer *)self _walkSampleDatesWithPredicate:a2 entityClass:predicate includeUUID:0 errorOut:class];
 
-  return v4;
+  return v5;
 }
 
 - (id)_categoryPredicateWithTypeCode:(void *)code matchingValue:(uint64_t)value errorOut:
@@ -1302,7 +1294,7 @@ uint64_t __208__HDQuantityDistributionQueryServer__attenuatedSampleWalkBlockUsin
 
   if (codeCopy)
   {
-    v10 = HDCategorySampleEntityPredicateForValue(1);
+    v10 = HDCategorySampleEntityPredicateForValue(1, codeCopy);
     v11 = [MEMORY[0x277D10B20] compoundPredicateWithPredicate:v9 otherPredicate:v10];
 
     v9 = v11;
@@ -1350,14 +1342,14 @@ uint64_t __208__HDQuantityDistributionQueryServer__attenuatedSampleWalkBlockUsin
 
 uint64_t __100__HDQuantityDistributionQueryServer__walkSampleDatesWithPredicate_entityClass_includeUUID_errorOut___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277D10B80];
   v6 = a2;
   v7 = objc_alloc_init(v5);
   [v7 setEntityClass:*(a1 + 48)];
   v8 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"start_date" entityClass:objc_opt_class() ascending:1];
-  v28[0] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+  v27[0] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
   [v7 setOrderingTerms:v9];
 
   [v7 setPredicate:*(a1 + 32)];
@@ -1366,9 +1358,9 @@ uint64_t __100__HDQuantityDistributionQueryServer__walkSampleDatesWithPredicate_
 
   v12 = [v10 initWithDatabase:v11 descriptor:v7];
   v13 = MEMORY[0x277CBEB18];
-  v27[0] = @"start_date";
-  v27[1] = @"end_date";
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+  v26[0] = @"start_date";
+  v26[1] = @"end_date";
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
   v15 = [v13 arrayWithArray:v14];
 
   v16 = *(a1 + 56);
@@ -1378,15 +1370,15 @@ uint64_t __100__HDQuantityDistributionQueryServer__walkSampleDatesWithPredicate_
     LOBYTE(v16) = *(a1 + 56);
   }
 
-  v26 = 0;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __100__HDQuantityDistributionQueryServer__walkSampleDatesWithPredicate_entityClass_includeUUID_errorOut___block_invoke_2;
-  v24[3] = &unk_27862B278;
-  v25 = v16;
-  v24[4] = *(a1 + 40);
-  v17 = [v12 enumerateProperties:v15 error:&v26 enumerationHandler:v24];
-  v18 = v26;
+  v25 = 0;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __100__HDQuantityDistributionQueryServer__walkSampleDatesWithPredicate_entityClass_includeUUID_errorOut___block_invoke_2;
+  v23[3] = &unk_27862B278;
+  v24 = v16;
+  v23[4] = *(a1 + 40);
+  v17 = [v12 enumerateProperties:v15 error:&v25 enumerationHandler:v23];
+  v18 = v25;
   v19 = v18;
   if ((v17 & 1) == 0)
   {
@@ -1406,7 +1398,6 @@ uint64_t __100__HDQuantityDistributionQueryServer__walkSampleDatesWithPredicate_
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

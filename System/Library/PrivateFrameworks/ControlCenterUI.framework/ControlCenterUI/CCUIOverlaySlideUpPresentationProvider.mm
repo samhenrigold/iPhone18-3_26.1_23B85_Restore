@@ -23,7 +23,6 @@
 - (id)prepareForPresentation;
 - (id)transitionBetweenEditing;
 - (id)transitionStateForType:(unint64_t)type interactive:(BOOL)interactive translation:(CGPoint)translation;
-- (uint64_t)_headerViewFrameForContentSize:(double)size withinBounds:(CGFloat)bounds contentInset:(CGFloat)inset contentEdgeInsets:(CGFloat)insets orientation:(CGFloat)orientation;
 - (unint64_t)finalTransitionTypeForState:(id)state gestureTranslation:(CGPoint)translation gestureVelocity:(CGPoint)velocity;
 - (void)_addAccessoryAlphaAnimationsToBatch:(id)batch transitionState:(id)state;
 - (void)_addBackgroundViewWeightingAnimationToBatch:(id)batch transitionState:(id)state;
@@ -36,6 +35,7 @@
 - (void)_addModuleTransformAnimationsToBatch:(id)batch transitionState:(id)state moduleView:(id)view layoutRect:(CCUILayoutRect *)rect;
 - (void)_applyPageStretch;
 - (void)_handleReduceMotionStateChangedNotification:(id)notification;
+- (void)_headerViewFrameForContentSize:(double)size withinBounds:(CGFloat)bounds contentInset:(CGFloat)inset contentEdgeInsets:(CGFloat)insets orientation:(CGFloat)orientation;
 - (void)_setUpStretchSources;
 - (void)_tearDownStretchSources;
 - (void)_updateForScrollPositionChange;
@@ -398,7 +398,7 @@ uint64_t __66__CCUIOverlaySlideUpPresentationProvider_transitionBetweenEditing__
   return result;
 }
 
-- (uint64_t)_headerViewFrameForContentSize:(double)size withinBounds:(CGFloat)bounds contentInset:(CGFloat)inset contentEdgeInsets:(CGFloat)insets orientation:(CGFloat)orientation
+- (void)_headerViewFrameForContentSize:(double)size withinBounds:(CGFloat)bounds contentInset:(CGFloat)inset contentEdgeInsets:(CGFloat)insets orientation:(CGFloat)orientation
 {
   if ((a9 - 1) > 1)
   {
@@ -438,7 +438,7 @@ uint64_t __66__CCUIOverlaySlideUpPresentationProvider_transitionBetweenEditing__
 
 - (double)_effectiveHeaderViewHeight
 {
-  v3 = CCUIPortraitHeaderHeight();
+  v3 = CCUIPortraitHeaderHeight(self);
   [(CCUIOverlaySlideUpPresentationProvider *)self _additionalHeaderHeight];
   return v3 + v4;
 }
@@ -471,7 +471,7 @@ uint64_t __66__CCUIOverlaySlideUpPresentationProvider_transitionBetweenEditing__
     overlayInterfaceOrientation = [metricsProvider overlayInterfaceOrientation];
 
     v6 = CCUILayoutEdgeInsetsForInterfaceOrientation(overlayInterfaceOrientation);
-    return -CCUIStatusBarHeight() - v6;
+    return -CCUIStatusBarHeight(v7, v8) - v6;
   }
 
   return result;
@@ -687,7 +687,7 @@ void __101__CCUIOverlaySlideUpPresentationProvider__addHeaderContentTransformAni
   v4 = *(a1 + 32);
   if (v4)
   {
-    [v4 _headerViewTransformForTransitionState:*(a1 + 40)];
+    objc_msgSend__headerViewTransformForTransitionState_(v4);
   }
 
   v5[0] = v6;
@@ -876,35 +876,35 @@ void __106__CCUIOverlaySlideUpPresentationProvider__addHeaderSensorStatusViewAlp
   [batchCopy addAnimation:{v10, v11, v12, v13, v14, selfCopy}];
 }
 
-void __103__CCUIOverlaySlideUpPresentationProvider__addHeaderContentTranslationAnimationToBatch_transitionState___block_invoke(uint64_t a1)
+void __103__CCUIOverlaySlideUpPresentationProvider__addHeaderContentTranslationAnimationToBatch_transitionState___block_invoke(uint64_t a1, const char *a2)
 {
+  v15 = 0u;
+  v16 = 0;
   v14 = 0u;
-  v15 = 0;
-  v13 = 0u;
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 _transformForTransitionState:*(a1 + 40) rubberBandingHeight:{460.0, 0, 0, 0}];
-    v2 = *(a1 + 32);
+    objc_msgSend__transformForTransitionState_rubberBandingHeight_(v3, a2, *(a1 + 40), 460.0, 0, 0, 0);
+    v3 = *(a1 + 32);
   }
 
-  v3 = [v2 viewProvider];
-  v4 = [v3 pagingView];
+  v4 = [v3 viewProvider];
+  v5 = [v4 pagingView];
 
-  [v4 bounds];
-  [v4 convertRect:0 toView:?];
-  v6 = v5;
-  v7 = [*(a1 + 32) viewProvider];
-  v8 = [v7 overlayHeaderView];
+  [v5 bounds];
+  [v5 convertRect:0 toView:?];
+  v7 = v6;
+  v8 = [*(a1 + 32) viewProvider];
+  v9 = [v8 overlayHeaderView];
 
-  v9 = [v8 statusBar];
-  [v9 bounds];
-  [v9 convertRect:0 toView:?];
-  v12 = fmax(v6 - (v10 + v11) + 0.0, 0.0);
-  [v9 setExpandedStatusBarTranslation:v12];
+  v10 = [v9 statusBar];
+  [v10 bounds];
+  [v10 convertRect:0 toView:?];
+  v13 = fmax(v7 - (v11 + v12) + 0.0, 0.0);
+  [v10 setExpandedStatusBarTranslation:v13];
+  [v10 layoutIfNeeded];
+  [v9 setVerticalContentTranslation:v13];
   [v9 layoutIfNeeded];
-  [v8 setVerticalContentTranslation:v12];
-  [v8 layoutIfNeeded];
 }
 
 - (void)_addModuleTransformAnimationsToBatch:(id)batch transitionState:(id)state
@@ -925,7 +925,7 @@ void __103__CCUIOverlaySlideUpPresentationProvider__addHeaderContentTranslationA
 
   memset(&v17, 0, sizeof(v17));
   memset(&v16, 0, 32);
-  [(CCUIOverlaySlideUpPresentationProvider *)self _moduleViewTransformForTransitionState:v9 layoutRect:&v16];
+  objc_msgSend__moduleViewTransformForTransitionState_layoutRect_(self);
   transform = v17;
   memset(&v16, 0, sizeof(v16));
   CGAffineTransformDecompose(&v16, &transform);
@@ -977,51 +977,51 @@ void __95__CCUIOverlaySlideUpPresentationProvider__addModuleTransformAnimationsT
   [batchCopy addAnimation:v15];
 }
 
-void __117__CCUIOverlaySlideUpPresentationProvider__addModuleTransformAnimationsToBatch_transitionState_moduleView_layoutRect___block_invoke(uint64_t a1)
+void __117__CCUIOverlaySlideUpPresentationProvider__addModuleTransformAnimationsToBatch_transitionState_moduleView_layoutRect___block_invoke(uint64_t a1, const char *a2)
 {
-  memset(&v10, 0, sizeof(v10));
-  v2 = *(a1 + 32);
-  if (v2)
+  memset(&v11, 0, sizeof(v11));
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    v3 = *(a1 + 40);
-    memset(&v9, 0, 32);
-    [v2 _moduleViewTransformForTransitionState:v3 layoutRect:&v9];
+    v4 = *(a1 + 40);
+    memset(&v10, 0, 32);
+    objc_msgSend__moduleViewTransformForTransitionState_layoutRect_(v3, a2, v4, &v10);
   }
 
-  memset(&v9, 0, sizeof(v9));
-  transform = v10;
-  CGAffineTransformDecompose(&v9, &transform);
-  v4 = [*(a1 + 48) c2AnimationContainerView];
-  v5 = v4;
+  memset(&v10, 0, sizeof(v10));
+  transform = v11;
+  CGAffineTransformDecompose(&v10, &transform);
+  v5 = [*(a1 + 48) c2AnimationContainerView];
+  v6 = v5;
   memset(&transform, 0, sizeof(transform));
-  if (v4)
+  if (v5)
   {
-    [v4 transform];
+    objc_msgSend_transform(v5);
   }
 
   else
   {
-    memset(&v7, 0, sizeof(v7));
+    memset(&v8, 0, sizeof(v8));
   }
 
-  CGAffineTransformDecompose(&transform, &v7);
-  *&transform.tx = v9.translation;
-  *&v6.tx = v9.translation;
-  memset(&v7, 0, sizeof(v7));
-  *&v6.a = *&transform.a;
-  *&v6.c = *&transform.c;
-  CGAffineTransformMakeWithComponents(&v7, &v6);
-  v6 = v7;
-  [v5 setTransform:&v6];
+  CGAffineTransformDecompose(&transform, &v8);
+  *&transform.tx = v10.translation;
+  *&v7.tx = v10.translation;
+  memset(&v8, 0, sizeof(v8));
+  *&v7.a = *&transform.a;
+  *&v7.c = *&transform.c;
+  CGAffineTransformMakeWithComponents(&v8, &v7);
+  v7 = v8;
+  [v6 setTransform:&v7];
 }
 
 - (CGAffineTransform)_moduleViewTransformForTransitionState:(SEL)state layoutRect:(id)rect
 {
   memset(&v11[1], 0, sizeof(CGAffineTransform));
   rectCopy = rect;
-  [(CCUIOverlaySlideUpPresentationProvider *)self _transformForTransitionState:rectCopy rubberBandingHeight:460.0];
+  objc_msgSend__transformForTransitionState_rubberBandingHeight_(self, 460.0);
   memset(v11, 0, 48);
-  [(CCUIOverlaySlideUpPresentationProvider *)self _moduleViewScaleTransformForTransitionState:rectCopy];
+  objc_msgSend__moduleViewScaleTransformForTransitionState_(self);
 
   *&retstr->c = 0u;
   *&retstr->tx = 0u;

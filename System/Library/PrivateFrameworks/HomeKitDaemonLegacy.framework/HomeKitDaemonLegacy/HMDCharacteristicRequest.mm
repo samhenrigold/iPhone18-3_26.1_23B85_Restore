@@ -67,7 +67,7 @@
 
 - (id)attributeDescriptions
 {
-  v40[5] = *MEMORY[0x277D85DE8];
+  v39[5] = *MEMORY[0x277D85DE8];
   characteristic = [(HMDCharacteristicRequest *)self characteristic];
   accessory = [characteristic accessory];
 
@@ -76,21 +76,21 @@
 
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   v8 = MEMORY[0x277CCACA8];
-  v39 = accessory;
+  v38 = accessory;
   name = [accessory name];
   uniqueIdentifier = [accessory uniqueIdentifier];
-  v36 = [v8 stringWithFormat:@"(%@/%@)", name, uniqueIdentifier];
-  v35 = [v7 initWithName:@"Accessory" value:v36];
-  v40[0] = v35;
+  v35 = [v8 stringWithFormat:@"(%@/%@)", name, uniqueIdentifier];
+  v34 = [v7 initWithName:@"Accessory" value:v35];
+  v39[0] = v34;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   v10 = MEMORY[0x277CCACA8];
-  v34 = service;
+  v33 = service;
   type = [service type];
-  v32 = shortHAPTypeDescription(type);
+  v31 = shortHAPTypeDescription(type);
   instanceID = [service instanceID];
-  v30 = [v10 stringWithFormat:@"(%@/%@)", v32, instanceID];
-  v29 = [v9 initWithName:@"Service" value:v30];
-  v40[1] = v29;
+  v29 = [v10 stringWithFormat:@"(%@/%@)", v31, instanceID];
+  v28 = [v9 initWithName:@"Service" value:v29];
+  v39[1] = v28;
   v11 = objc_alloc(MEMORY[0x277D0F778]);
   v12 = MEMORY[0x277CCACA8];
   characteristic3 = [(HMDCharacteristicRequest *)self characteristic];
@@ -100,20 +100,18 @@
   instanceID2 = [characteristic4 instanceID];
   v17 = [v12 stringWithFormat:@"(%@/%@)", v14, instanceID2];
   v18 = [v11 initWithName:@"Characteristic" value:v17];
-  v40[2] = v18;
+  v39[2] = v18;
   v19 = objc_alloc(MEMORY[0x277D0F778]);
   previousValue = [(HMDCharacteristicRequest *)self previousValue];
   v21 = [v19 initWithName:@"Previous Value" value:previousValue];
-  v40[3] = v21;
+  v39[3] = v21;
   v22 = objc_alloc(MEMORY[0x277D0F778]);
   previousValue2 = [(HMDCharacteristicRequest *)self previousValue];
   v24 = [v22 initWithName:@"Type" value:objc_opt_class()];
-  v40[4] = v24;
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:5];
+  v39[4] = v24;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:5];
 
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v27;
+  return v26;
 }
 
 - (HMDCharacteristicRequest)initWithCharacteristic:(id)characteristic
@@ -148,12 +146,11 @@
 
 uint64_t __39__HMDCharacteristicRequest_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_191885;
-  logCategory__hmf_once_v2_191885 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_191885;
+  logCategory__hmf_once_v2_191885 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)requestWithCharacteristic:(id)characteristic

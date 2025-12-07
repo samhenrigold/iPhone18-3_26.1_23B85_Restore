@@ -26,7 +26,7 @@
 {
   height = size.height;
   width = size.width;
-  v35[1] = *MEMORY[0x1E69E9840];
+  v34[1] = *MEMORY[0x1E69E9840];
   v8 = objc_alloc(MEMORY[0x1E69793D0]);
   LODWORD(v9) = 1046631210;
   LODWORD(v10) = 1000812293;
@@ -36,7 +36,7 @@
   v14 = (height * 5.0);
   v15 = objc_opt_new();
   MEMORY[0x1EEE9AC00](v15);
-  v18 = (v35 - v17);
+  v18 = (v34 - v17);
   if (v14 >= 1)
   {
     v19 = 0;
@@ -71,17 +71,15 @@
     v29 = *MEMORY[0x1E695EFF8];
     v30 = *(MEMORY[0x1E695EFF8] + 8);
     cgContext = [v26 cgContext];
-    v38.x = 0.0;
-    v37.x = v29;
-    v37.y = v30;
-    v38.y = height;
-    CGContextDrawLinearGradient(cgContext, v28, v37, v38, 0);
+    v37.x = 0.0;
+    v36.x = v29;
+    v36.y = v30;
+    v37.y = height;
+    CGContextDrawLinearGradient(cgContext, v28, v36, v37, 0);
     CGGradientRelease(v28);
   }
 
   image = [v26 image];
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return image;
 }

@@ -16,6 +16,7 @@
 
 - (void)expireOrRenewSubscriptionWithIdentifier:(id)identifier expire:(BOOL)expire forBundleID:(id)d withReply:(id)reply
 {
+  expireCopy = expire;
   v8 = _Block_copy(reply);
   v9 = sub_1001F6B58();
   v11 = v10;
@@ -23,7 +24,7 @@
   v14 = v13;
   _Block_copy(v8);
   selfCopy = self;
-  sub_100182BF0(v9, v11, expire, v12, v14, selfCopy, v8);
+  sub_100182BF0(v9, v11, expireCopy, v12, v14, selfCopy, v8);
   _Block_release(v8);
 }
 
@@ -68,13 +69,13 @@
 {
   v4 = sub_1001F6578();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4, v6);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1001F6558();
   selfCopy = self;
-  sub_100183C90(v8);
+  sub_100183C90(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)messageOfTypeForBundleID:(id)d messageReason:(id)reason withReply:(id)reply

@@ -98,60 +98,59 @@ void __38__MFDADeferredStoreDraftOperation_log__block_invoke(uint64_t a1)
 
 - (BOOL)translateToLocalActionWithConnection:(id)connection
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v37[1] = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__15;
-  v36 = __Block_byref_object_dispose__15;
-  v37 = 0;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__15;
-  v30 = __Block_byref_object_dispose__15;
-  v31 = 0;
-  v5 = [connectionCopy preparedStatementForQueryString:{@"SELECT ROWID, mailbox FROM messages JOIN WHERE message_id = ? LIMIT 1"}];
-  messageIDHeader = self->_messageIDHeader;
-  v7 = [MEMORY[0x1E696AD98] numberWithLongLong:MFStringHashForMessageIDHeader()];
-  v40[0] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:1];
-  v24 = 0;
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __72__MFDADeferredStoreDraftOperation_translateToLocalActionWithConnection___block_invoke;
-  v25[3] = &unk_1E7AA4130;
-  v25[4] = &v32;
-  v25[5] = &v26;
-  v9 = [v5 executeWithIndexedBindings:v8 usingBlock:v25 error:&v24];
-  v10 = v24;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__15;
+  v33 = __Block_byref_object_dispose__15;
+  v34 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__15;
+  v27 = __Block_byref_object_dispose__15;
+  v28 = 0;
+  v4 = [connectionCopy preparedStatementForQueryString:{@"SELECT ROWID, mailbox FROM messages JOIN WHERE message_id = ? LIMIT 1"}];
+  v5 = [MEMORY[0x1E696AD98] numberWithLongLong:MFStringHashForMessageIDHeader()];
+  v37[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:1];
+  v21 = 0;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __72__MFDADeferredStoreDraftOperation_translateToLocalActionWithConnection___block_invoke;
+  v22[3] = &unk_1E7AA4130;
+  v22[4] = &v29;
+  v22[5] = &v23;
+  v7 = [v4 executeWithIndexedBindings:v6 usingBlock:v22 error:&v21];
+  v8 = v21;
 
-  if (v9)
+  if (v7)
   {
-    if (v27[5])
+    if (v24[5])
     {
-      v11 = [connectionCopy preparedStatementForQueryString:{@"INSERT INTO local_message_actions (action_type, mailbox, source_mailbox, destination_mailbox, user_initiated) VALUES (2, ?, NULL, ?, 0)"}];
-      v39[0] = v27[5];
-      v39[1] = v39[0];
-      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
-      v23 = v10;
-      v13 = [v11 executeWithIndexedBindings:v12 usingBlock:0 error:&v23];
-      v14 = v23;
+      v9 = [connectionCopy preparedStatementForQueryString:{@"INSERT INTO local_message_actions (action_type, mailbox, source_mailbox, destination_mailbox, user_initiated) VALUES (2, ?, NULL, ?, 0)"}];
+      v36[0] = v24[5];
+      v36[1] = v36[0];
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
+      v20 = v8;
+      v11 = [v9 executeWithIndexedBindings:v10 usingBlock:0 error:&v20];
+      v12 = v20;
 
-      if (!v13)
+      if (!v11)
       {
-        [connectionCopy handleError:v14 message:@"Inserting append action"];
-        v16 = 0;
+        [connectionCopy handleError:v12 message:@"Inserting append action"];
+        v14 = 0;
 LABEL_10:
 
-        v10 = v14;
+        v8 = v12;
         goto LABEL_11;
       }
 
       lastInsertedDatabaseID = [connectionCopy lastInsertedDatabaseID];
 
-      v10 = v14;
+      v8 = v12;
     }
 
     else
@@ -159,33 +158,32 @@ LABEL_10:
       lastInsertedDatabaseID = 0;
     }
 
-    v11 = [connectionCopy preparedStatementForQueryString:{@"INSERT INTO action_messages (action, message, remote_id, destination_message, action_phase) VALUES (?, NULL, NULL, ?, 3)"}];
-    v17 = [MEMORY[0x1E696AD98] numberWithLongLong:lastInsertedDatabaseID];
-    v18 = v33[5];
-    v38[0] = v17;
-    v38[1] = v18;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
-    v22 = v10;
-    v16 = [v11 executeWithIndexedBindings:v19 usingBlock:0 error:&v22];
-    v14 = v22;
+    v9 = [connectionCopy preparedStatementForQueryString:{@"INSERT INTO action_messages (action, message, remote_id, destination_message, action_phase) VALUES (?, NULL, NULL, ?, 3)"}];
+    v15 = [MEMORY[0x1E696AD98] numberWithLongLong:lastInsertedDatabaseID];
+    v16 = v30[5];
+    v35[0] = v15;
+    v35[1] = v16;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
+    v19 = v8;
+    v14 = [v9 executeWithIndexedBindings:v17 usingBlock:0 error:&v19];
+    v12 = v19;
 
-    if ((v16 & 1) == 0)
+    if ((v14 & 1) == 0)
     {
-      [connectionCopy handleError:v14 message:@"Inserting message for append"];
+      [connectionCopy handleError:v12 message:@"Inserting message for append"];
     }
 
     goto LABEL_10;
   }
 
-  [connectionCopy handleError:v10 message:@"Selecting message for append"];
-  v16 = 0;
+  [connectionCopy handleError:v8 message:@"Selecting message for append"];
+  v14 = 0;
 LABEL_11:
 
-  _Block_object_dispose(&v26, 8);
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v29, 8);
 
-  v20 = *MEMORY[0x1E69E9840];
-  return v16;
+  return v14;
 }
 
 void __72__MFDADeferredStoreDraftOperation_translateToLocalActionWithConnection___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)

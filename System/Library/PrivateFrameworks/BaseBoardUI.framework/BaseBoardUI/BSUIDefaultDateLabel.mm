@@ -222,18 +222,18 @@ LABEL_13:
 
 - (void)_resetModelProperties
 {
-  if (self)
+  if (result)
   {
-    *(self + 856) = 0;
-    *(self + 841) = 0;
-    *(self + 842) = 0;
-    v2 = *(self + 880);
-    *(self + 880) = 0;
+    *(result + 856) = 0;
+    *(result + 841) = 0;
+    *(result + 842) = 0;
+    v2 = *(result + 880);
+    *(result + 880) = 0;
 
-    v3 = *(self + 808);
-    *(self + 808) = 0;
+    v3 = *(result + 808);
+    *(result + 808) = 0;
 
-    [BSUIDefaultDateLabel _resetEffectiveAllDayState:self];
+    [BSUIDefaultDateLabel _resetEffectiveAllDayState:?];
   }
 }
 

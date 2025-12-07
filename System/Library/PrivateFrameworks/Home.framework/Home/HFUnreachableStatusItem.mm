@@ -6,7 +6,7 @@
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v5 = [optionsCopy objectForKeyedSubscript:HFItemUpdateOptionFastInitialUpdate];
   bOOLValue = [v5 BOOLValue];
@@ -14,24 +14,24 @@
   if (bOOLValue)
   {
     v7 = MEMORY[0x277D2C900];
-    v33 = @"hidden";
-    v34[0] = MEMORY[0x277CBEC38];
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v32 = @"hidden";
+    v33[0] = MEMORY[0x277CBEC38];
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     v9 = [HFItemUpdateOutcome outcomeWithResults:v8];
     v10 = [v7 futureWithResult:v9];
   }
 
   else
   {
-    home = [(HFStatusItem *)self home];
-    hf_shouldBlockCurrentRestrictedGuestFromHome = [home hf_shouldBlockCurrentRestrictedGuestFromHome];
+    v11 = objc_msgSend_home(self);
+    hf_shouldBlockCurrentRestrictedGuestFromHome = [v11 hf_shouldBlockCurrentRestrictedGuestFromHome];
 
     if (hf_shouldBlockCurrentRestrictedGuestFromHome)
     {
       v13 = MEMORY[0x277D2C900];
-      v31 = @"hidden";
-      v32 = MEMORY[0x277CBEC38];
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+      v30 = @"hidden";
+      v31 = MEMORY[0x277CBEC38];
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
       v14 = [HFItemUpdateOutcome outcomeWithResults:v8];
       v10 = [v13 futureWithResult:v14];
     }
@@ -39,35 +39,33 @@
     else
     {
       filteredServices = [(HFStatusItem *)self filteredServices];
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke;
-      v30[3] = &unk_277DF4020;
-      v30[4] = self;
-      v16 = [filteredServices na_filter:v30];
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke;
+      v29[3] = &unk_277DF4020;
+      v29[4] = self;
+      v16 = [filteredServices na_filter:v29];
       objc_initWeak(&location, self);
       v17 = MEMORY[0x277D2C900];
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_3;
-      v24[3] = &unk_277DFCA88;
-      objc_copyWeak(&v28, &location);
-      v25 = optionsCopy;
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_3;
+      v23[3] = &unk_277DFCA88;
+      objc_copyWeak(&v27, &location);
+      v24 = optionsCopy;
       v8 = filteredServices;
-      v26 = v8;
+      v25 = v8;
       v18 = v16;
-      v27 = v18;
+      v26 = v18;
       globalAsyncScheduler = [MEMORY[0x277D2C938] globalAsyncScheduler];
-      v20 = [v17 futureWithBlock:v24 scheduler:globalAsyncScheduler];
+      v20 = [v17 futureWithBlock:v23 scheduler:globalAsyncScheduler];
       mainThreadScheduler = [MEMORY[0x277D2C938] mainThreadScheduler];
       v10 = [v20 reschedule:mainThreadScheduler];
 
-      objc_destroyWeak(&v28);
+      objc_destroyWeak(&v27);
       objc_destroyWeak(&location);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -84,7 +82,7 @@ uint64_t __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invok
 
     if (v8)
     {
-      v9 = [*(a1 + 32) home];
+      v9 = objc_msgSend_home(*(a1 + 32));
       v10 = [v9 hf_characteristicValueManager];
       v11 = [v3 accessory];
       v14[0] = MEMORY[0x277D85DD0];
@@ -115,13 +113,13 @@ uint64_t __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invok
 BOOL __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
-  v6 = [a2 service];
+  v6 = objc_msgSend_service(a2);
   v7 = *(a1 + 32);
 
   if (v6 == v7)
   {
     v9 = [MEMORY[0x277CBEB98] set];
-    v10 = [*(a1 + 40) home];
+    v10 = objc_msgSend_home(*(a1 + 40));
     v11 = [HFCharacteristicValueDisplayError errorWithUnderlyingError:v5 readTraits:v9 contextProvider:v10];
 
     if (v11)
@@ -150,23 +148,23 @@ BOOL __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_2(
 
 void __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_3(id *a1, void *a2)
 {
-  v167[1] = *MEMORY[0x277D85DE8];
+  v166[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained(a1 + 7);
   if (!WeakRetained)
   {
-    v166 = @"hidden";
-    v167[0] = MEMORY[0x277CBEC38];
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v167 forKeys:&v166 count:1];
+    v165 = @"hidden";
+    v166[0] = MEMORY[0x277CBEC38];
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v166 forKeys:&v165 count:1];
     v8 = [HFItemUpdateOutcome outcomeWithResults:v7];
     [v3 finishWithResult:v8];
     goto LABEL_53;
   }
 
-  v142 = [a1[4] objectForKeyedSubscript:HFItemUpdateOptionLogger];
+  v141 = [a1[4] objectForKeyedSubscript:HFItemUpdateOptionLogger];
   v5 = [WeakRetained room];
   v6 = MEMORY[0x277CBEB98];
-  v138 = v3;
+  v137 = v3;
   if (v5)
   {
     [WeakRetained room];
@@ -174,83 +172,83 @@ void __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_3(
 
   else
   {
-    [WeakRetained home];
+    objc_msgSend_home(WeakRetained);
   }
   v9 = ;
   v10 = [v9 accessories];
   v11 = [v6 setWithArray:v10];
 
-  v156[0] = MEMORY[0x277D85DD0];
-  v156[1] = 3221225472;
-  v156[2] = __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_4;
-  v156[3] = &unk_277DF3888;
-  v157 = a1[5];
-  v12 = [v11 na_filter:v156];
-  v154[0] = MEMORY[0x277D85DD0];
-  v154[1] = 3221225472;
-  v154[2] = __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_5;
-  v154[3] = &unk_277DF3888;
-  v13 = v12;
-  v155 = v13;
-  v139 = v11;
-  v14 = [v11 na_filter:v154];
-  v15 = MEMORY[0x277CBEB98];
-  v16 = [WeakRetained home];
-  v17 = [v16 residentDevices];
-  v18 = [v15 setWithArray:v17];
+  v155[0] = MEMORY[0x277D85DD0];
+  v155[1] = 3221225472;
+  v155[2] = __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_4;
+  v155[3] = &unk_277DF3888;
+  v156 = a1[5];
+  v12 = [v11 na_filter:v155];
   v153[0] = MEMORY[0x277D85DD0];
   v153[1] = 3221225472;
-  v153[2] = __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_6;
-  v153[3] = &unk_277DF7F00;
-  v153[4] = WeakRetained;
-  v19 = [v18 na_filter:v153];
+  v153[2] = __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_5;
+  v153[3] = &unk_277DF3888;
+  v13 = v12;
+  v154 = v13;
+  v138 = v11;
+  v14 = [v11 na_filter:v153];
+  v15 = MEMORY[0x277CBEB98];
+  v16 = objc_msgSend_home(WeakRetained);
+  v17 = [v16 residentDevices];
+  v18 = [v15 setWithArray:v17];
+  v152[0] = MEMORY[0x277D85DD0];
+  v152[1] = 3221225472;
+  v152[2] = __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_6;
+  v152[3] = &unk_277DF7F00;
+  v152[4] = WeakRetained;
+  v19 = [v18 na_filter:v152];
 
-  v151[0] = MEMORY[0x277D85DD0];
-  v151[1] = 3221225472;
-  v151[2] = __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_7;
-  v151[3] = &unk_277DF3888;
-  v137 = a1;
-  v152 = a1[6];
-  v145 = v13;
-  v20 = v13;
-  v21 = v14;
-  v22 = [v20 na_filter:v151];
-  v23 = [v21 na_filter:&__block_literal_global_165];
   v150[0] = MEMORY[0x277D85DD0];
   v150[1] = 3221225472;
-  v150[2] = __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_9;
-  v150[3] = &unk_277DF7F00;
-  v143 = WeakRetained;
-  v144 = v19;
-  v150[4] = WeakRetained;
-  v24 = [v19 na_filter:v150];
-  if (v142)
+  v150[2] = __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_7;
+  v150[3] = &unk_277DF3888;
+  v136 = a1;
+  v151 = a1[6];
+  v144 = v13;
+  v20 = v13;
+  v21 = v14;
+  v22 = [v20 na_filter:v150];
+  v23 = [v21 na_filter:&__block_literal_global_165];
+  v149[0] = MEMORY[0x277D85DD0];
+  v149[1] = 3221225472;
+  v149[2] = __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_9;
+  v149[3] = &unk_277DF7F00;
+  v142 = WeakRetained;
+  v143 = v19;
+  v149[4] = WeakRetained;
+  v24 = [v19 na_filter:v149];
+  if (v141)
   {
     state.opaque[0] = 0;
     state.opaque[1] = 0;
-    v25 = [v142 loggerActivity];
+    v25 = [v141 loggerActivity];
     os_activity_scope_enter(v25, &state);
 
     v26 = HFLogForCategory(0x2CuLL);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       v27 = [v22 count];
-      v28 = [v145 count];
+      v28 = [v144 count];
       *buf = 138413058;
-      v159 = WeakRetained;
-      v160 = 2048;
-      v161 = v27;
-      v162 = 2048;
-      v163 = v28;
-      v164 = 2112;
-      v165 = v22;
+      v158 = WeakRetained;
+      v159 = 2048;
+      v160 = v27;
+      v161 = 2048;
+      v162 = v28;
+      v163 = 2112;
+      v164 = v22;
       _os_log_impl(&dword_20D9BF000, v26, OS_LOG_TYPE_DEFAULT, "%@: %lu of %lu service based accessories unreachable: %@", buf, 0x2Au);
     }
 
     os_activity_scope_leave(&state);
     state.opaque[0] = 0;
     state.opaque[1] = 0;
-    v29 = [v142 loggerActivity];
+    v29 = [v141 loggerActivity];
     os_activity_scope_enter(v29, &state);
 
     v30 = HFLogForCategory(0x2CuLL);
@@ -259,20 +257,20 @@ void __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_3(
       v31 = [v23 count];
       v32 = [v21 count];
       *buf = 138413058;
-      v159 = WeakRetained;
-      v160 = 2048;
-      v161 = v31;
-      v162 = 2048;
-      v163 = v32;
-      v164 = 2112;
-      v165 = v23;
+      v158 = WeakRetained;
+      v159 = 2048;
+      v160 = v31;
+      v161 = 2048;
+      v162 = v32;
+      v163 = 2112;
+      v164 = v23;
       _os_log_impl(&dword_20D9BF000, v30, OS_LOG_TYPE_DEFAULT, "%@: %lu of %lu non-service based accessories unreachable: %@", buf, 0x2Au);
     }
 
     os_activity_scope_leave(&state);
     state.opaque[0] = 0;
     state.opaque[1] = 0;
-    v33 = [v142 loggerActivity];
+    v33 = [v141 loggerActivity];
     os_activity_scope_enter(v33, &state);
 
     v34 = HFLogForCategory(0x2CuLL);
@@ -281,13 +279,13 @@ void __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_3(
       v35 = [v24 count];
       v36 = [v19 count];
       *buf = 138413058;
-      v159 = WeakRetained;
-      v160 = 2048;
-      v161 = v35;
-      v162 = 2048;
-      v163 = v36;
-      v164 = 2112;
-      v165 = v24;
+      v158 = WeakRetained;
+      v159 = 2048;
+      v160 = v35;
+      v161 = 2048;
+      v162 = v36;
+      v163 = 2112;
+      v164 = v24;
       _os_log_impl(&dword_20D9BF000, v34, OS_LOG_TYPE_DEFAULT, "%@: %lu of %lu resident devices unreachable: %@", buf, 0x2Au);
     }
 
@@ -296,83 +294,83 @@ void __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_3(
 
   else
   {
-    v117 = HFLogForCategory(0x2CuLL);
-    if (os_log_type_enabled(v117, OS_LOG_TYPE_DEFAULT))
+    v116 = HFLogForCategory(0x2CuLL);
+    if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
     {
-      v118 = [v22 count];
-      v119 = [v145 count];
+      v117 = [v22 count];
+      v118 = [v144 count];
       *buf = 138413058;
-      v159 = WeakRetained;
-      v160 = 2048;
-      v161 = v118;
-      v162 = 2048;
-      v163 = v119;
-      v164 = 2112;
-      v165 = v22;
-      _os_log_impl(&dword_20D9BF000, v117, OS_LOG_TYPE_DEFAULT, "%@: %lu of %lu service based accessories unreachable: %@", buf, 0x2Au);
+      v158 = WeakRetained;
+      v159 = 2048;
+      v160 = v117;
+      v161 = 2048;
+      v162 = v118;
+      v163 = 2112;
+      v164 = v22;
+      _os_log_impl(&dword_20D9BF000, v116, OS_LOG_TYPE_DEFAULT, "%@: %lu of %lu service based accessories unreachable: %@", buf, 0x2Au);
     }
 
-    v120 = HFLogForCategory(0x2CuLL);
-    if (os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
+    v119 = HFLogForCategory(0x2CuLL);
+    if (os_log_type_enabled(v119, OS_LOG_TYPE_DEFAULT))
     {
-      v121 = [v23 count];
-      v122 = [v21 count];
+      v120 = [v23 count];
+      v121 = [v21 count];
       *buf = 138413058;
-      v159 = WeakRetained;
-      v160 = 2048;
-      v161 = v121;
-      v162 = 2048;
-      v163 = v122;
-      v164 = 2112;
-      v165 = v23;
-      _os_log_impl(&dword_20D9BF000, v120, OS_LOG_TYPE_DEFAULT, "%@: %lu of %lu non-service based accessories unreachable: %@", buf, 0x2Au);
+      v158 = WeakRetained;
+      v159 = 2048;
+      v160 = v120;
+      v161 = 2048;
+      v162 = v121;
+      v163 = 2112;
+      v164 = v23;
+      _os_log_impl(&dword_20D9BF000, v119, OS_LOG_TYPE_DEFAULT, "%@: %lu of %lu non-service based accessories unreachable: %@", buf, 0x2Au);
     }
 
-    v123 = HFLogForCategory(0x2CuLL);
-    if (os_log_type_enabled(v123, OS_LOG_TYPE_DEFAULT))
+    v122 = HFLogForCategory(0x2CuLL);
+    if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
     {
-      v124 = [v24 count];
-      v125 = [v19 count];
+      v123 = [v24 count];
+      v124 = [v19 count];
       *buf = 138413058;
-      v159 = WeakRetained;
-      v160 = 2048;
-      v161 = v124;
-      v162 = 2048;
-      v163 = v125;
-      v164 = 2112;
-      v165 = v24;
-      _os_log_impl(&dword_20D9BF000, v123, OS_LOG_TYPE_DEFAULT, "%@: %lu of %lu resident devices unreachable: %@", buf, 0x2Au);
+      v158 = WeakRetained;
+      v159 = 2048;
+      v160 = v123;
+      v161 = 2048;
+      v162 = v124;
+      v163 = 2112;
+      v164 = v24;
+      _os_log_impl(&dword_20D9BF000, v122, OS_LOG_TYPE_DEFAULT, "%@: %lu of %lu resident devices unreachable: %@", buf, 0x2Au);
     }
   }
 
   v37 = [v22 setByAddingObjectsFromSet:v23];
   v38 = [MEMORY[0x277CBEB98] setWithSet:v37];
-  v146[0] = MEMORY[0x277D85DD0];
-  v146[1] = 3221225472;
-  v146[2] = __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_11;
-  v146[3] = &unk_277DFE4B0;
-  v39 = v142;
-  v147 = v39;
-  v148 = WeakRetained;
+  v145[0] = MEMORY[0x277D85DD0];
+  v145[1] = 3221225472;
+  v145[2] = __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_11;
+  v145[3] = &unk_277DFE4B0;
+  v39 = v141;
+  v146 = v39;
+  v147 = WeakRetained;
   v40 = v23;
   v41 = WeakRetained;
-  v42 = [v24 na_map:v146];
+  v42 = [v24 na_map:v145];
   v43 = [v38 setByAddingObjectsFromSet:v42];
 
-  v136 = v22;
+  v135 = v22;
   v44 = [v22 count];
-  v45 = [v145 count];
+  v45 = [v144 count];
   v46 = v40;
   v47 = [v40 count];
-  v134 = v21;
+  v133 = v21;
   v48 = [v21 count];
   v49 = [v37 count];
   v52 = v44 != v45 || v47 != v48 || v49 == 0;
   v53 = [v24 count];
-  v54 = [v144 count];
-  v140 = v24;
-  v141 = v43;
-  v135 = v37;
+  v54 = [v143 count];
+  v139 = v24;
+  v140 = v43;
+  v134 = v37;
   if (+[HFUtilities shouldShowReachabilityErrors])
   {
     if ([v43 count] == 1)
@@ -382,7 +380,7 @@ void __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_3(
       v57 = [v41 displayNameForHomeKitObject:v55];
 
       v64 = HFLocalizedStringWithFormat(@"HFStatusTitleUnreachable_One", @"%@", v58, v59, v60, v61, v62, v63, v57);
-      if (v142)
+      if (v141)
       {
         state.opaque[0] = 0;
         state.opaque[1] = 0;
@@ -395,11 +393,11 @@ void __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_3(
         {
           v68 = [v43 anyObject];
           *buf = 138412802;
-          v159 = v56;
-          v160 = 2112;
-          v161 = v68;
-          v162 = 2112;
-          v163 = v64;
+          v158 = v56;
+          v159 = 2112;
+          v160 = v68;
+          v161 = 2112;
+          v162 = v64;
           _os_log_impl(&dword_20D9BF000, v66, OS_LOG_TYPE_DEFAULT, "%@: Showing unreachable status for single HomeKit object: %@ with title: %@", buf, 0x20u);
         }
 
@@ -408,17 +406,17 @@ void __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_3(
 
       else
       {
-        v126 = HFLogForCategory(0x2CuLL);
-        if (os_log_type_enabled(v126, OS_LOG_TYPE_DEFAULT))
+        v125 = HFLogForCategory(0x2CuLL);
+        if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
         {
-          v127 = [v43 anyObject];
+          v126 = [v43 anyObject];
           *buf = 138412802;
-          v159 = v41;
-          v160 = 2112;
-          v161 = v127;
-          v162 = 2112;
-          v163 = v64;
-          _os_log_impl(&dword_20D9BF000, v126, OS_LOG_TYPE_DEFAULT, "%@: Showing unreachable status for single HomeKit object: %@ with title: %@", buf, 0x20u);
+          v158 = v41;
+          v159 = 2112;
+          v160 = v126;
+          v161 = 2112;
+          v162 = v64;
+          _os_log_impl(&dword_20D9BF000, v125, OS_LOG_TYPE_DEFAULT, "%@: Showing unreachable status for single HomeKit object: %@ with title: %@", buf, 0x20u);
         }
 
         v67 = v46;
@@ -443,7 +441,7 @@ void __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_3(
 
         v71 = [v43 count];
         v78 = HFLocalizedStringWithFormat(@"HFStatusTitleUnreachable_MultipleAccessories", @"%lu", v72, v73, v74, v75, v76, v77, v71);
-        if (v142)
+        if (v141)
         {
           state.opaque[0] = 0;
           state.opaque[1] = 0;
@@ -455,11 +453,11 @@ void __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_3(
           {
             v81 = [v43 count];
             *buf = 138412802;
-            v159 = v56;
-            v160 = 2048;
-            v161 = v81;
-            v162 = 2112;
-            v163 = v43;
+            v158 = v56;
+            v159 = 2048;
+            v160 = v81;
+            v161 = 2112;
+            v162 = v43;
             _os_log_impl(&dword_20D9BF000, v80, OS_LOG_TYPE_DEFAULT, "%@: Showing unreachable status for %lu HomeKit objects: %@", buf, 0x20u);
           }
 
@@ -467,62 +465,62 @@ void __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_3(
           goto LABEL_42;
         }
 
-        v128 = HFLogForCategory(0x2CuLL);
-        if (os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT))
+        v127 = HFLogForCategory(0x2CuLL);
+        if (os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
         {
-          v131 = [v43 count];
+          v130 = [v43 count];
           *buf = 138412802;
-          v159 = v143;
-          v160 = 2048;
-          v161 = v131;
-          v162 = 2112;
-          v163 = v43;
-          v130 = "%@: Showing unreachable status for %lu HomeKit objects: %@";
+          v158 = v142;
+          v159 = 2048;
+          v160 = v130;
+          v161 = 2112;
+          v162 = v43;
+          v129 = "%@: Showing unreachable status for %lu HomeKit objects: %@";
           goto LABEL_78;
         }
 
         goto LABEL_79;
       }
 
-      if (v53 == v54 && ([v56 room], v103 = objc_claimAutoreleasedReturnValue(), v103, !v103))
+      if (v53 == v54 && ([v56 room], v102 = objc_claimAutoreleasedReturnValue(), v102, !v102))
       {
-        v114 = _HFLocalizedStringWithDefaultValue(@"HFStatusTitleUnreachable_AllResidentDevices", @"HFStatusTitleUnreachable_AllResidentDevices", 1);
-        v69 = v114;
-        if (!v142)
+        v113 = _HFLocalizedStringWithDefaultValue(@"HFStatusTitleUnreachable_AllResidentDevices", @"HFStatusTitleUnreachable_AllResidentDevices", 1);
+        v69 = v113;
+        if (!v141)
         {
-          v78 = v114;
-          v128 = HFLogForCategory(0x2CuLL);
-          if (!os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT))
+          v78 = v113;
+          v127 = HFLogForCategory(0x2CuLL);
+          if (!os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_79;
           }
 
-          v133 = [v141 count];
+          v132 = [v140 count];
           *buf = 138412802;
-          v159 = v143;
-          v160 = 2048;
-          v161 = v133;
-          v162 = 2112;
-          v163 = v141;
-          v130 = "%@: Showing unreachable status for all resident devices (%lu): %@";
+          v158 = v142;
+          v159 = 2048;
+          v160 = v132;
+          v161 = 2112;
+          v162 = v140;
+          v129 = "%@: Showing unreachable status for all resident devices (%lu): %@";
           goto LABEL_78;
         }
 
         state.opaque[0] = 0;
         state.opaque[1] = 0;
-        v115 = [v39 loggerActivity];
-        os_activity_scope_enter(v115, &state);
+        v114 = [v39 loggerActivity];
+        os_activity_scope_enter(v114, &state);
 
         v84 = HFLogForCategory(0x2CuLL);
         if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
         {
-          v116 = [v141 count];
+          v115 = [v140 count];
           *buf = 138412802;
-          v159 = v56;
-          v160 = 2048;
-          v161 = v116;
-          v162 = 2112;
-          v163 = v141;
+          v158 = v56;
+          v159 = 2048;
+          v160 = v115;
+          v161 = 2112;
+          v162 = v140;
           v86 = "%@: Showing unreachable status for all resident devices (%lu): %@";
           goto LABEL_46;
         }
@@ -530,23 +528,23 @@ void __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_3(
 
       else
       {
-        v104 = [v24 count];
-        v111 = HFLocalizedStringWithFormat(@"HFStatusTitleUnreachable_MultipleResidentDevices", @"%lu", v105, v106, v107, v108, v109, v110, v104);
-        v69 = v111;
-        if (!v142)
+        v103 = [v24 count];
+        v110 = HFLocalizedStringWithFormat(@"HFStatusTitleUnreachable_MultipleResidentDevices", @"%lu", v104, v105, v106, v107, v108, v109, v103);
+        v69 = v110;
+        if (!v141)
         {
-          v78 = v111;
-          v128 = HFLogForCategory(0x2CuLL);
-          if (os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT))
+          v78 = v110;
+          v127 = HFLogForCategory(0x2CuLL);
+          if (os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
           {
-            v132 = [v24 count];
+            v131 = [v24 count];
             *buf = 138412802;
-            v159 = v143;
-            v160 = 2048;
-            v161 = v132;
-            v162 = 2112;
-            v163 = v24;
-            v130 = "%@: Showing unreachable status for %lu resident devices: %@";
+            v158 = v142;
+            v159 = 2048;
+            v160 = v131;
+            v161 = 2112;
+            v162 = v24;
+            v129 = "%@: Showing unreachable status for %lu resident devices: %@";
             goto LABEL_78;
           }
 
@@ -555,19 +553,19 @@ void __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_3(
 
         state.opaque[0] = 0;
         state.opaque[1] = 0;
-        v112 = [v39 loggerActivity];
-        os_activity_scope_enter(v112, &state);
+        v111 = [v39 loggerActivity];
+        os_activity_scope_enter(v111, &state);
 
         v84 = HFLogForCategory(0x2CuLL);
         if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
         {
-          v113 = [v24 count];
+          v112 = [v24 count];
           *buf = 138412802;
-          v159 = v56;
-          v160 = 2048;
-          v161 = v113;
-          v162 = 2112;
-          v163 = v24;
+          v158 = v56;
+          v159 = 2048;
+          v160 = v112;
+          v161 = 2112;
+          v162 = v24;
           v86 = "%@: Showing unreachable status for %lu resident devices: %@";
           goto LABEL_46;
         }
@@ -579,27 +577,27 @@ void __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_3(
       v82 = _HFLocalizedStringWithDefaultValue(@"HFStatusTitleUnreachable_AllAccessories", @"HFStatusTitleUnreachable_AllAccessories", 1);
       v69 = v82;
       v67 = v46;
-      if (!v142)
+      if (!v141)
       {
         v78 = v82;
-        v128 = HFLogForCategory(0x2CuLL);
-        if (os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT))
+        v127 = HFLogForCategory(0x2CuLL);
+        if (os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
         {
-          v129 = [v141 count];
+          v128 = [v140 count];
           *buf = 138412802;
-          v159 = v143;
-          v160 = 2048;
-          v161 = v129;
-          v162 = 2112;
-          v163 = v141;
-          v130 = "%@: Showing unreachable status for all HomeKit objects (%lu): %@";
+          v158 = v142;
+          v159 = 2048;
+          v160 = v128;
+          v161 = 2112;
+          v162 = v140;
+          v129 = "%@: Showing unreachable status for all HomeKit objects (%lu): %@";
 LABEL_78:
-          _os_log_impl(&dword_20D9BF000, v128, OS_LOG_TYPE_DEFAULT, v130, buf, 0x20u);
+          _os_log_impl(&dword_20D9BF000, v127, OS_LOG_TYPE_DEFAULT, v129, buf, 0x20u);
         }
 
 LABEL_79:
 
-        v56 = v143;
+        v56 = v142;
 LABEL_42:
         v69 = v78;
         goto LABEL_49;
@@ -613,13 +611,13 @@ LABEL_42:
       v84 = HFLogForCategory(0x2CuLL);
       if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
       {
-        v85 = [v141 count];
+        v85 = [v140 count];
         *buf = 138412802;
-        v159 = v56;
-        v160 = 2048;
-        v161 = v85;
-        v162 = 2112;
-        v163 = v141;
+        v158 = v56;
+        v159 = 2048;
+        v160 = v85;
+        v161 = 2112;
+        v162 = v140;
         v86 = "%@: Showing unreachable status for all HomeKit objects (%lu): %@";
 LABEL_46:
         _os_log_impl(&dword_20D9BF000, v84, OS_LOG_TYPE_DEFAULT, v86, buf, 0x20u);
@@ -648,8 +646,8 @@ LABEL_49:
     [v88 setObject:v93 forKeyedSubscript:@"shortTitle"];
 
     [v88 setObject:&unk_2825248B8 forKeyedSubscript:@"statusItemCategory"];
-    v94 = v141;
-    [v88 setObject:v141 forKeyedSubscript:@"representedHomeKitObjects"];
+    v94 = v140;
+    [v88 setObject:v140 forKeyedSubscript:@"representedHomeKitObjects"];
     [v88 setObject:v69 forKeyedSubscript:@"title"];
     v95 = _HFLocalizedStringWithDefaultValue(@"HFStatusSortKeyAccessoryUnreachable", @"HFStatusSortKeyAccessoryUnreachable", 1);
     [v88 setObject:v95 forKeyedSubscript:@"sortKey"];
@@ -660,29 +658,27 @@ LABEL_49:
   else
   {
     [v87 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"hidden"];
-    v94 = v141;
+    v94 = v140;
   }
 
-  v96 = [v137[5] na_map:&__block_literal_global_51_0];
+  v96 = [v136[5] na_map:&__block_literal_global_51_0];
   v97 = [v96 na_setByFlattening];
 
-  v98 = [v97 setByAddingObjectsFromSet:v137[5]];
-  v99 = [v98 setByAddingObjectsFromSet:v134];
+  v98 = [v97 setByAddingObjectsFromSet:v136[5]];
+  v99 = [v98 setByAddingObjectsFromSet:v133];
   [v88 setObject:v99 forKeyedSubscript:@"dependentHomeKitObjects"];
 
   v100 = [MEMORY[0x277CD1D90] hf_standardServiceTypes];
   [v88 setObject:v100 forKeyedSubscript:@"dependentServiceTypes"];
 
   v101 = [HFItemUpdateOutcome outcomeWithResults:v88];
-  [v138 finishWithResult:v101];
+  [v137 finishWithResult:v101];
 
-  v3 = v157;
-  v8 = v139;
-  WeakRetained = v143;
+  v3 = v156;
+  v8 = v138;
+  WeakRetained = v142;
   v7 = v39;
 LABEL_53:
-
-  v102 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_4(uint64_t a1, void *a2)
@@ -800,7 +796,7 @@ uint64_t __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invok
     }
   }
 
-  v11 = [*(a1 + 32) home];
+  v11 = objc_msgSend_home(*(a1 + 32));
   v12 = [v11 hf_shouldHideResidentDeviceReachabilityIssues];
 
   return v12 ^ 1u;
@@ -808,7 +804,7 @@ uint64_t __55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invok
 
 void *__55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_11(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 hf_linkedAccessory];
   v5 = v4;
@@ -818,33 +814,33 @@ void *__55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_1
     if (v6)
     {
       v7 = [v6 loggerActivity];
-      os_activity_scope_enter(v7, &v16);
+      os_activity_scope_enter(v7, &v15);
 
       v8 = HFLogForCategory(0x2CuLL);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         v9 = *(a1 + 40);
         *buf = 138412546;
-        v18 = v9;
-        v19 = 2112;
-        v20 = v3;
+        v17 = v9;
+        v18 = 2112;
+        v19 = v3;
         _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "%@: Missing linked accessory for unreachable resident device %@", buf, 0x16u);
       }
 
-      os_activity_scope_leave(&v16);
+      os_activity_scope_leave(&v15);
     }
 
     else
     {
-      v14 = HFLogForCategory(0x2CuLL);
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v13 = HFLogForCategory(0x2CuLL);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v15 = *(a1 + 40);
+        v14 = *(a1 + 40);
         *buf = 138412546;
-        v18 = v15;
-        v19 = 2112;
-        v20 = v3;
-        _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_ERROR, "%@: Missing linked accessory for unreachable resident device %@", buf, 0x16u);
+        v17 = v14;
+        v18 = 2112;
+        v19 = v3;
+        _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_ERROR, "%@: Missing linked accessory for unreachable resident device %@", buf, 0x16u);
       }
     }
 
@@ -863,7 +859,6 @@ void *__55__HFUnreachableStatusItem__subclass_updateWithOptions___block_invoke_1
 
   v11 = v10;
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

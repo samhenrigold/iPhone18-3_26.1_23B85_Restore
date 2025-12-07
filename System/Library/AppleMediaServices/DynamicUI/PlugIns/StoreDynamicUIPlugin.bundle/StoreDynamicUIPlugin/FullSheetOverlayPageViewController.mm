@@ -27,7 +27,7 @@
 - (void)loadView
 {
   selfCopy = self;
-  sub_A7394();
+  sub_A7394(v2);
 }
 
 - (void)viewDidLoad
@@ -63,26 +63,26 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_A7B00();
+  sub_A7B00(v2);
 }
 
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_A7BA8();
+  sub_A7BA8(v2);
 }
 
 - (void)didReceiveMemoryWarning
 {
   selfCopy = self;
-  sub_A7CB8();
+  sub_A7CB8(v2);
 }
 
 - (void)traitCollectionDidChange:(id)change
 {
   changeCopy = change;
   selfCopy = self;
-  sub_A7D94(change);
+  sub_A7D94(change, v6);
 }
 
 - (void)dismissButtonPressed:(id)pressed
@@ -103,7 +103,7 @@
 
   sub_A8894();
 
-  sub_928C(v6, &unk_1A06F0);
+  sub_928C(v6, &unk_1A06F0, &unk_13EF80);
 }
 
 - (_TtC20StoreDynamicUIPlugin34FullSheetOverlayPageViewController)initWithNibName:(id)name bundle:(id)bundle

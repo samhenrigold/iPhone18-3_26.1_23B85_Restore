@@ -35,7 +35,7 @@
   v9 = vcvtq_f64_f32(vdiv_f32(vcvt_f32_u32(vand_s8(v3, 0xFF000000FFLL)), vdup_n_s32(0x437F0000u)));
   v10 = (value.var2.b / 255.0);
   v11 = 0x3FF0000000000000;
-  SRGB = _CUIColorSpaceGetSRGB();
+  SRGB = _CUIColorSpaceGetSRGB(self, a2);
   v5 = CGColorCreate(SRGB, v9.f64);
   v6 = [CUIColor alloc];
   v7 = [(CUIColor *)v6 initWithCGColor:v5, *&v9, *&v10, v11];

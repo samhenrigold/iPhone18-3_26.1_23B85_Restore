@@ -1,5 +1,6 @@
 @interface PREAMResponseItem
 - (BOOL)isEqual:(id)equal;
+- (id)ageGroupAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -277,7 +278,6 @@ LABEL_14:
     goto LABEL_60;
   }
 
-  v5 = equalCopy[84];
   if ((*&self->_has & 2) != 0)
   {
     if ((equalCopy[84] & 2) == 0 || self->_modelId != *(equalCopy + 12))
@@ -388,7 +388,6 @@ LABEL_14:
       goto LABEL_60;
     }
 
-    v12 = equalCopy[80];
     if (self->_isApricotDevice)
     {
       if ((equalCopy[80] & 1) == 0)
@@ -428,7 +427,6 @@ LABEL_14:
       goto LABEL_60;
     }
 
-    v14 = equalCopy[81];
     if (self->_isCustomResponse)
     {
       if ((equalCopy[81] & 1) == 0)
@@ -463,20 +461,20 @@ LABEL_14:
       else if (!equalCopy[82])
       {
 LABEL_63:
-        v13 = 1;
+        v11 = 1;
         goto LABEL_61;
       }
     }
 
 LABEL_60:
-    v13 = 0;
+    v11 = 0;
     goto LABEL_61;
   }
 
-  v13 = equalCopy[84] >= 0;
+  v11 = equalCopy[84] >= 0;
 LABEL_61:
 
-  return v13;
+  return v11;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -751,7 +749,6 @@ LABEL_22:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    modelId = self->_modelId;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -771,7 +768,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  responseClassId = self->_responseClassId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -786,12 +782,10 @@ LABEL_4:
   }
 
 LABEL_27:
-  replyTextId = self->_replyTextId;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_5:
-    position = self->_position;
     PBDataWriterWriteUint32Field();
   }
 
@@ -826,22 +820,20 @@ LABEL_6:
     PBDataWriterWriteStringField();
   }
 
-  v6 = self->_has;
-  if ((v6 & 0x20) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x20) != 0)
   {
-    isApricotDevice = self->_isApricotDevice;
     PBDataWriterWriteBOOLField();
-    v6 = self->_has;
-    if ((v6 & 1) == 0)
+    v5 = self->_has;
+    if ((v5 & 1) == 0)
     {
 LABEL_20:
-      if ((v6 & 0x40) == 0)
+      if ((v5 & 0x40) == 0)
       {
         goto LABEL_21;
       }
 
 LABEL_31:
-      isCustomResponse = self->_isCustomResponse;
       PBDataWriterWriteBOOLField();
       if ((*&self->_has & 0x80) == 0)
       {
@@ -857,22 +849,20 @@ LABEL_31:
     goto LABEL_20;
   }
 
-  ageGroup = self->_ageGroup;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((v6 & 0x40) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x40) != 0)
   {
     goto LABEL_31;
   }
 
 LABEL_21:
-  if ((v6 & 0x80) == 0)
+  if ((v5 & 0x80) == 0)
   {
     goto LABEL_22;
   }
 
 LABEL_32:
-  isRobotResponse = self->_isRobotResponse;
   PBDataWriterWriteBOOLField();
 LABEL_22:
 }
@@ -1117,6 +1107,21 @@ LABEL_22:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)ageGroupAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279ABB008[string];
   }
 
   return v4;

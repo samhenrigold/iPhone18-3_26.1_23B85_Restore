@@ -51,7 +51,7 @@
 
 - (void)refreshPreferences
 {
-  v2 = shared_filesystem_metadata_snapshot_service_log_handle();
+  v2 = shared_filesystem_metadata_snapshot_service_log_handle(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v8) = 0;
@@ -59,7 +59,7 @@
   }
 
   v3 = [NSDictionary dictionaryWithContentsOfFile:@"/Library/Managed Preferences/mobile/com.apple.FilesystemMetadataSnapshotService.plist"];
-  v4 = shared_filesystem_metadata_snapshot_service_log_handle();
+  v4 = shared_filesystem_metadata_snapshot_service_log_handle(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v8 = 138543362;
@@ -68,8 +68,7 @@
   }
 
   v5 = +[NSUserDefaults standardUserDefaults];
-  [v5 synchronize];
-  v6 = shared_filesystem_metadata_snapshot_service_log_handle();
+  v6 = shared_filesystem_metadata_snapshot_service_log_handle([v5 synchronize]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     dictionaryRepresentation = [v5 dictionaryRepresentation];

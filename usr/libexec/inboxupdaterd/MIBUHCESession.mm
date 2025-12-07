@@ -671,7 +671,7 @@ LABEL_4:
         if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          LODWORD(v52) = 55;
+          LODWORD(v51) = 55;
           _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Wait reader connection timed out after %ds", buf, 8u);
         }
 
@@ -718,7 +718,7 @@ LABEL_53:
           if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
-            LODWORD(v52) = 3;
+            LODWORD(v51) = 3;
             _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Waiting %ds before stopping HCE listening thread...", buf, 8u);
           }
         }
@@ -769,7 +769,7 @@ LABEL_53:
 
       if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR))
       {
-        sub_100052BE0(v53, v40);
+        sub_100052BE0();
       }
 
       v4 = 0;
@@ -789,7 +789,7 @@ LABEL_53:
         {
           v17 = v43[5];
           *buf = 138543362;
-          v52 = v17;
+          v51 = v17;
           _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Got APDU: %{public}@", buf, 0xCu);
         }
       }
@@ -805,7 +805,7 @@ LABEL_53:
         v18 = qword_1000B84A0;
         if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR))
         {
-          sub_100052C70(v49, &v50, v18);
+          sub_100052C70(v48, &v49, v18);
         }
 
         v4 = [[NSData alloc] initWithBytes:&unk_1000852B2 length:2];
@@ -822,7 +822,7 @@ LABEL_53:
         if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_DEFAULT))
         {
           *buf = v32;
-          v52 = v4;
+          v51 = v4;
           _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Sending APDU response: %@", buf, 0xCu);
         }
       }
@@ -841,7 +841,7 @@ LABEL_53:
 
         if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR))
         {
-          sub_100052D00(v48, v40);
+          sub_100052D00();
         }
       }
     }
@@ -863,7 +863,7 @@ LABEL_53:
     if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v52) = 55;
+      LODWORD(v51) = 55;
       _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Reading APDU timed out after %ds", buf, 8u);
     }
   }

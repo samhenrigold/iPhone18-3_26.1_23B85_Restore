@@ -11,7 +11,7 @@
   v16 = 0u;
   v17 = 0u;
   v15 = 0u;
-  [self transform];
+  objc_msgSend_transform(self);
   memset(&v14, 0, sizeof(v14));
   CGAffineTransformMakeScale(&v14, 0.95, 0.95);
   v13 = v14;
@@ -49,7 +49,7 @@
   v16 = layer;
   if (layer)
   {
-    [layer transform];
+    objc_msgSend_transform(layer);
   }
 
   else

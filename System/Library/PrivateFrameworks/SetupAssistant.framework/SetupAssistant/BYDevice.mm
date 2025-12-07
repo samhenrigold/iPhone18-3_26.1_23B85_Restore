@@ -74,7 +74,7 @@ LABEL_10:
         v2->_size = v7;
         v2->_mainScreenClass = v5;
         v2->_hasHomeButton = MGGetSInt32Answer() != 2;
-        v8 = SpringBoardServicesLibraryCore();
+        v8 = SpringBoardServicesLibraryCore(0);
         if (v8)
         {
           v20 = 0;

@@ -136,10 +136,9 @@ LABEL_6:
 
 - (int)configureConnectionToReceiveHoplimit:(id)hoplimit
 {
-  v13 = *MEMORY[0x1E69E9840];
   if (!hoplimit)
   {
-    [(VCTransportSessionNW *)&v10 configureConnectionToReceiveHoplimit:&v12];
+    [VCTransportSessionNW configureConnectionToReceiveHoplimit:];
 LABEL_11:
     v7 = v10;
     v5 = v11;
@@ -149,14 +148,14 @@ LABEL_11:
 
   if (![hoplimit parameters])
   {
-    [(VCTransportSessionNW *)&v10 configureConnectionToReceiveHoplimit:&v12];
+    [VCTransportSessionNW configureConnectionToReceiveHoplimit:];
     goto LABEL_11;
   }
 
   v4 = nw_parameters_copy_default_protocol_stack([hoplimit parameters]);
   if (!v4)
   {
-    [(VCTransportSessionNW *)&v10 configureConnectionToReceiveHoplimit:&v12];
+    [VCTransportSessionNW configureConnectionToReceiveHoplimit:];
     goto LABEL_11;
   }
 
@@ -288,7 +287,7 @@ LABEL_9:
   v33 = *MEMORY[0x1E69E9840];
   if (!d)
   {
-    [(VCTransportSessionNW *)&v22 setRTPNWConnectionID:buf rtcpNWConnectionID:&v23, iD];
+    [VCTransportSessionNW setRTPNWConnectionID:rtcpNWConnectionID:];
 LABEL_19:
     v11 = v22;
     v7 = *buf;
@@ -652,9 +651,9 @@ id __46__VCTransportSessionNW_removeNetworkAssertion__block_invoke(uint64_t a1)
 
 - (tagVCNWConnectionMonitor)createNWMonitor
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = [(VCNWConnectionInfo *)self->_rtpConnectionInfo connection];
-  return VCNWConnectionMonitor_Create(v3);
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = [(VCNWConnectionInfo *)self->_rtpConnectionInfo connection];
+  return VCNWConnectionMonitor_Create(v4, v2);
 }
 
 - (int)dupRTPNWConnectionBackingSocket
@@ -1331,6 +1330,65 @@ LABEL_22:
   OUTLINED_FUNCTION_20();
 }
 
+- (void)configureConnectionToReceiveHoplimit:.cold.2()
+{
+  OUTLINED_FUNCTION_37();
+  OUTLINED_FUNCTION_15();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_31())
+    {
+      OUTLINED_FUNCTION_8();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d network protocolStack is nil", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_6_6();
+  OUTLINED_FUNCTION_36();
+}
+
+- (void)configureConnectionToReceiveHoplimit:.cold.3()
+{
+  OUTLINED_FUNCTION_37();
+  OUTLINED_FUNCTION_15();
+  OUTLINED_FUNCTION_24_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_31())
+    {
+      OUTLINED_FUNCTION_8();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d network parameters is nil", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_6_6();
+  OUTLINED_FUNCTION_36();
+}
+
+- (void)configureConnectionToReceiveHoplimit:.cold.4()
+{
+  OUTLINED_FUNCTION_37();
+  OUTLINED_FUNCTION_15();
+  OUTLINED_FUNCTION_24_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_31())
+    {
+      OUTLINED_FUNCTION_8();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d nwConnectionInfo is nil", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_6_6();
+  OUTLINED_FUNCTION_36();
+}
+
 - (void)createNWConnection:.cold.1()
 {
   OUTLINED_FUNCTION_37();
@@ -1487,6 +1545,26 @@ LABEL_22:
   OUTLINED_FUNCTION_0();
   v5 = 241;
   OUTLINED_FUNCTION_26(&dword_1DB56E000, v1, v2, " [%s] %s:%d Failed recreating the NW connections", &v3);
+}
+
+- (void)setRTPNWConnectionID:rtcpNWConnectionID:.cold.3()
+{
+  OUTLINED_FUNCTION_37();
+  OUTLINED_FUNCTION_15();
+  OUTLINED_FUNCTION_24_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_31())
+    {
+      OUTLINED_FUNCTION_8();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d rtpNWConnectionID=nil", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_6_6();
+  OUTLINED_FUNCTION_36();
 }
 
 - (void)setStateChangeHandlerForConnection:result:.cold.1()

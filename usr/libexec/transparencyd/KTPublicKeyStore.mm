@@ -4,6 +4,7 @@
 - (BOOL)configureWithDisk:(id)disk contextStore:(id)store error:(id *)error;
 - (BOOL)hasApplicationPublicKeyStoreOnDisk:(id)disk error:(id *)error;
 - (BOOL)initiallyFetched;
+- (BOOL)readyWithRefresh:(BOOL)refresh;
 - (BOOL)saveDiskApplicationKeyStore:(id)store error:(id *)error;
 - (BOOL)writePublicKeyStoreToDisk:(id)disk error:(id *)error;
 - (KTPublicKeyStore)initWithDataStore:(id)store settings:(id)settings;
@@ -1050,6 +1051,86 @@ LABEL_15:
       }
     }
   }
+}
+
+- (BOOL)readyWithRefresh:(BOOL)refresh
+{
+  refreshCopy = refresh;
+  if ([(KTPublicKeyStore *)self forceRefresh])
+  {
+    LOBYTE(v5) = 0;
+  }
+
+  else
+  {
+    applicationKeyStores = [(KTPublicKeyStore *)self applicationKeyStores];
+    v21 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    applications = [(KTPublicKeyStore *)self applications];
+    v8 = [applications countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v8)
+    {
+      v9 = v8;
+      v10 = *v22;
+      while (2)
+      {
+        for (i = 0; i != v9; i = i + 1)
+        {
+          if (*v22 != v10)
+          {
+            objc_enumerationMutation(applications);
+          }
+
+          v12 = *(*(&v21 + 1) + 8 * i);
+          v13 = [applicationKeyStores objectForKeyedSubscript:v12];
+          if (v13)
+          {
+            v14 = v13;
+            v15 = [applicationKeyStores objectForKeyedSubscript:v12];
+            v16 = [v15 readyWithRefresh:refreshCopy];
+
+            if (v16)
+            {
+              continue;
+            }
+          }
+
+          goto LABEL_16;
+        }
+
+        v9 = [applications countByEnumeratingWithState:&v21 objects:v25 count:16];
+        if (v9)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+    tltKeyStore = [(KTPublicKeyStore *)self tltKeyStore];
+    if (tltKeyStore)
+    {
+      v18 = tltKeyStore;
+      tltKeyStore2 = [(KTPublicKeyStore *)self tltKeyStore];
+      v5 = [tltKeyStore2 readyWithRefresh:refreshCopy];
+
+      if (v5)
+      {
+        LOBYTE(v5) = [applicationKeyStores count] != 0;
+      }
+    }
+
+    else
+    {
+LABEL_16:
+      LOBYTE(v5) = 0;
+    }
+  }
+
+  return v5;
 }
 
 - (BOOL)anyStoreExpired

@@ -32,32 +32,25 @@
     v6 = NSStringFromClass(v5);
     v7 = objc_opt_class();
     v8 = NSStringFromClass(v7);
-    v9 = [v6 isEqualToString:v8];
+    [v6 isEqualToString:v8];
 
-    v10 = off_27A650E90;
-    if (!v9)
-    {
-      v10 = off_27A650E48;
-    }
-
-    v11 = *v10;
-    v12 = objc_alloc(objc_opt_class());
+    v9 = objc_alloc(objc_opt_class());
     serverDictionary = [daemonOffer serverDictionary];
     accountAltDSID = [daemonOffer accountAltDSID];
     notificationID = [daemonOffer notificationID];
     retrievalDate = [daemonOffer retrievalDate];
     [daemonOffer callbackInterval];
-    v18 = v17;
-    v19 = [daemonOffer appLaunchLinkForBundleID:bundleIdentifier];
-    v20 = [v12 initWithServerDictionary:serverDictionary accountAltDSID:accountAltDSID notificationID:notificationID retrievalDate:retrievalDate callbackInterval:v19 appLaunchLink:bundleIdentifier bundleIdentifier:v18];
+    v15 = v14;
+    v16 = [daemonOffer appLaunchLinkForBundleID:bundleIdentifier];
+    v17 = [v9 initWithServerDictionary:serverDictionary accountAltDSID:accountAltDSID notificationID:notificationID retrievalDate:retrievalDate callbackInterval:v16 appLaunchLink:bundleIdentifier bundleIdentifier:v15];
   }
 
   else
   {
-    v20 = 0;
+    v17 = 0;
   }
 
-  return v20;
+  return v17;
 }
 
 @end

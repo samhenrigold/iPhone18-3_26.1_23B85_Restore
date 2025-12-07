@@ -491,9 +491,9 @@ void __57__UIDropInteraction__dragDestinationGestureStateChanged___block_invoke(
   {
     v2 = objc_opt_class();
     v3 = NSStringFromClass(v2);
-    v4 = [v3 isEqualToString:@"WKContentView"];
+    isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-    if (v4)
+    if (isEqualToString)
     {
       [_UIKitDragAndDropStatistics incrementUIKitScalarValueBy:1 forKey:@"dropOnWebContent"];
     }
@@ -566,11 +566,11 @@ void __57__UIDropInteraction__dragDestinationGestureStateChanged___block_invoke(
   }
 }
 
-uint64_t __57__UIDropInteraction__dragDestinationGestureStateChanged___block_invoke_2(uint64_t result)
+id *__57__UIDropInteraction__dragDestinationGestureStateChanged___block_invoke_2(id *result)
 {
-  if ((*(*(result + 32) + 32) & 0x20) != 0)
+  if ((*(result[4] + 16) & 0x20) != 0)
   {
-    return [*(result + 40) dropInteraction:? concludeDrop:?];
+    return [result[5] dropInteraction:? concludeDrop:?];
   }
 
   return result;
@@ -689,8 +689,8 @@ LABEL_33:
   if ((*&self->_delegateImplements & 0x80) != 0)
   {
     createSnapshotView = [droppedItemCopy createSnapshotView];
-    preview = [droppedItemCopy preview];
-    parameters = [preview parameters];
+    v48 = objc_msgSend_preview(droppedItemCopy);
+    parameters = [v48 parameters];
     v15 = parameters;
     if (parameters)
     {
@@ -795,13 +795,13 @@ LABEL_34:
   return v13;
 }
 
-uint64_t __86__UIDropInteraction__setDownAnimation_prepareForSetDownOfDragItem_visibleDroppedItem___block_invoke(uint64_t result, uint64_t a2)
+void *__86__UIDropInteraction__setDownAnimation_prepareForSetDownOfDragItem_visibleDroppedItem___block_invoke(void *result, uint64_t a2)
 {
-  v2 = *(*(result + 48) + 8);
+  v2 = *(*(result + 6) + 8);
   if ((*(v2 + 24) & 1) == 0)
   {
     *(v2 + 24) = 1;
-    return [*(result + 32) updateTargetedDragPreview:a2 forDragItem:*(result + 40)];
+    return [*(result + 4) updateTargetedDragPreview:a2 forDragItem:*(result + 5)];
   }
 
   return result;

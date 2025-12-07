@@ -88,14 +88,14 @@
 
 - (BOOL)_parseFromTLVData
 {
-  v22[3] = *MEMORY[0x277D85DE8];
+  v21[3] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CFEB38] wrappertlv:1 name:@"kSelectedConfigurationGeneral"];
   v4 = [MEMORY[0x277CFEB38] wrappertlv:2 name:@"kSelectedConfigurationVideo"];
   v5 = [MEMORY[0x277CFEB38] wrappertlv:3 name:@"kSelectedConfigurationAudio"];
-  v22[0] = v3;
-  v22[1] = v4;
-  v22[2] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
+  v21[0] = v3;
+  v21[1] = v4;
+  v21[2] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
   v7 = [(HAPTLVBase *)self _parse:v6];
   if (v7)
   {
@@ -118,7 +118,6 @@
     self->_audioConfiguration = v18;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

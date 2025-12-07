@@ -1,6 +1,6 @@
 @interface CARScreenViewArea
 + (NSEdgeInsets)insetsForOEMUIWithDisplaySize:(CGSize)size safeFrame:(CGRect)frame viewAreaFrame:(CGRect)areaFrame;
-+ (void)insetsForOEMUIWithDisplaySize:(double)size originInDisplay:(double)display safeFrame:(CGFloat)frame viewAreaFrame:(CGFloat)areaFrame;
++ (void)insetsForOEMUIWithDisplaySize:(double)size originInDisplay:(double)display safeFrame:(double)frame viewAreaFrame:(CGFloat)areaFrame;
 - (BOOL)_wantsInternalOverrideInsets;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToViewArea:(id)area;
@@ -26,7 +26,7 @@
 
 - (void)_updateEffectiveSafeFrame
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   size = self->_unadjustedSafeFrame.size;
   self->_safeFrame.origin = self->_unadjustedSafeFrame.origin;
   self->_safeFrame.size = size;
@@ -37,161 +37,163 @@
     v6 = v5;
     v8 = v7;
 
-    v9 = CarGeneralLogging();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = CarGeneralLogging(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v69.width = v6;
-      v69.height = v8;
-      v10 = NSStringFromSize(v69);
-      v11 = NSStringFromRect(self->_unadjustedSafeFrame);
-      v12 = NSStringFromRect(self->_visibleFrame);
+      v73.width = v6;
+      v73.height = v8;
+      v11 = NSStringFromSize(v73);
+      v12 = NSStringFromRect(self->_unadjustedSafeFrame);
+      v13 = NSStringFromRect(self->_visibleFrame);
       *buf = 138412802;
-      v63 = v10;
-      v64 = 2112;
-      v65 = v11;
-      v66 = 2112;
-      v67 = v12;
-      _os_log_impl(&dword_1C81FC000, v9, OS_LOG_TYPE_DEFAULT, "Display (%@) supports view areas and does not want corner masks, applying insets to edges that need to be inset. Safe frame: (%@), viewArea frame: (%@)", buf, 0x20u);
+      v67 = v11;
+      v68 = 2112;
+      v69 = v12;
+      v70 = 2112;
+      v71 = v13;
+      _os_log_impl(&dword_1C81FC000, v10, OS_LOG_TYPE_DEFAULT, "Display (%@) supports view areas and does not want corner masks, applying insets to edges that need to be inset. Safe frame: (%@), viewArea frame: (%@)", buf, 0x20u);
     }
 
     [(CARScreenViewArea *)self oemUIInsets];
-    top = v70.top;
-    left = v70.left;
-    bottom = v70.bottom;
-    right = v70.right;
-    v17 = *MEMORY[0x1E696A2A0];
-    v18 = *(MEMORY[0x1E696A2A0] + 8);
-    v19 = *(MEMORY[0x1E696A2A0] + 16);
-    v20 = *(MEMORY[0x1E696A2A0] + 24);
-    v74.top = *MEMORY[0x1E696A2A0];
-    v74.left = v18;
-    v74.bottom = v19;
-    v74.right = v20;
-    if (NSEdgeInsetsEqual(v70, v74))
+    top = v74.top;
+    left = v74.left;
+    bottom = v74.bottom;
+    right = v74.right;
+    v18 = *MEMORY[0x1E696A2A0];
+    v19 = *(MEMORY[0x1E696A2A0] + 8);
+    v20 = *(MEMORY[0x1E696A2A0] + 16);
+    v21 = *(MEMORY[0x1E696A2A0] + 24);
+    v78.top = *MEMORY[0x1E696A2A0];
+    v78.left = v19;
+    v78.bottom = v20;
+    v78.right = v21;
+    v22 = NSEdgeInsetsEqual(v74, v78);
+    if (v22)
     {
-      v21 = CarGeneralLogging();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v23 = CarGeneralLogging(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = NSStringFromRect(self->_safeFrame);
-        v23 = NSStringFromRect(self->_visibleFrame);
+        v24 = NSStringFromRect(self->_safeFrame);
+        v25 = NSStringFromRect(self->_visibleFrame);
         *buf = 138412546;
-        v63 = v22;
-        v64 = 2112;
-        v65 = v23;
-        _os_log_impl(&dword_1C81FC000, v21, OS_LOG_TYPE_DEFAULT, "No insets will be applied: Safe frame: (%@), viewArea frame: (%@)", buf, 0x16u);
+        v67 = v24;
+        v68 = 2112;
+        v69 = v25;
+        _os_log_impl(&dword_1C81FC000, v23, OS_LOG_TYPE_DEFAULT, "No insets will be applied: Safe frame: (%@), viewArea frame: (%@)", buf, 0x16u);
       }
     }
 
     else
     {
-      v57 = v17;
-      v58 = v20;
-      v59 = v19;
-      v24 = left + self->_safeFrame.origin.x;
+      v61 = v18;
+      v62 = v21;
+      v63 = v20;
+      v26 = left + self->_safeFrame.origin.x;
       aRect = top + self->_safeFrame.origin.y;
-      v25 = self->_safeFrame.size.width - (left + right);
-      v26 = self->_safeFrame.size.height - (top + bottom);
-      v27 = CarGeneralLogging();
-      v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
-      if (v25 < 740.0 || v26 < 456.0)
+      v27 = self->_safeFrame.size.width - (left + right);
+      v28 = self->_safeFrame.size.height - (top + bottom);
+      v29 = CarGeneralLogging(v22);
+      v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
+      if (v27 < 740.0 || v28 < 456.0)
       {
-        if (v28)
+        if (v30)
         {
-          v72.origin.x = v24;
-          v72.size.width = v25;
-          v72.origin.y = aRect;
-          v72.size.height = v26;
-          v32 = NSStringFromRect(v72);
+          v76.origin.x = v26;
+          v76.size.width = v27;
+          v76.origin.y = aRect;
+          v76.size.height = v28;
+          v34 = NSStringFromRect(v76);
           *buf = 138412290;
-          v63 = v32;
-          _os_log_impl(&dword_1C81FC000, v27, OS_LOG_TYPE_DEFAULT, "Visible frame inset with OEM insets is too small (%@), not applying insets", buf, 0xCu);
+          v67 = v34;
+          _os_log_impl(&dword_1C81FC000, v29, OS_LOG_TYPE_DEFAULT, "Visible frame inset with OEM insets is too small (%@), not applying insets", buf, 0xCu);
         }
       }
 
       else
       {
-        if (v28)
+        if (v30)
         {
-          v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Left: %.1f, right: %.1f, top: %.1f, bottom: %.1f", *&left, *&right, *&top, *&bottom];
-          v30 = NSStringFromRect(self->_safeFrame);
-          v71.origin.x = v24;
-          v71.size.width = v25;
-          v71.origin.y = aRect;
-          v71.size.height = v26;
-          v31 = NSStringFromRect(v71);
+          v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Left: %.1f, right: %.1f, top: %.1f, bottom: %.1f", *&left, *&right, *&top, *&bottom];
+          v32 = NSStringFromRect(self->_safeFrame);
+          v75.origin.x = v26;
+          v75.size.width = v27;
+          v75.origin.y = aRect;
+          v75.size.height = v28;
+          v33 = NSStringFromRect(v75);
           *buf = 138412802;
-          v63 = v29;
-          v64 = 2112;
-          v65 = v30;
-          v66 = 2112;
           v67 = v31;
-          _os_log_impl(&dword_1C81FC000, v27, OS_LOG_TYPE_DEFAULT, "Applying OEM UI insets: %@ before frame: %@, after frame: %@", buf, 0x20u);
+          v68 = 2112;
+          v69 = v32;
+          v70 = 2112;
+          v71 = v33;
+          _os_log_impl(&dword_1C81FC000, v29, OS_LOG_TYPE_DEFAULT, "Applying OEM UI insets: %@ before frame: %@, after frame: %@", buf, 0x20u);
         }
 
-        self->_safeFrame.origin.x = v24;
+        self->_safeFrame.origin.x = v26;
         self->_safeFrame.origin.y = aRect;
-        self->_safeFrame.size.width = v25;
-        self->_safeFrame.size.height = v26;
+        self->_safeFrame.size.width = v27;
+        self->_safeFrame.size.height = v28;
       }
 
-      v20 = v58;
-      v19 = v59;
-      v17 = v57;
+      v21 = v62;
+      v20 = v63;
+      v18 = v61;
     }
   }
 
   else
   {
-    v17 = *MEMORY[0x1E696A2A0];
-    v18 = *(MEMORY[0x1E696A2A0] + 8);
-    v19 = *(MEMORY[0x1E696A2A0] + 16);
-    v20 = *(MEMORY[0x1E696A2A0] + 24);
+    v18 = *MEMORY[0x1E696A2A0];
+    v19 = *(MEMORY[0x1E696A2A0] + 8);
+    v20 = *(MEMORY[0x1E696A2A0] + 16);
+    v21 = *(MEMORY[0x1E696A2A0] + 24);
   }
 
-  v75.top = v17;
-  v75.left = v18;
-  v75.bottom = v19;
-  v75.right = v20;
-  if (!NSEdgeInsetsEqual(self->_additionalInsets, v75))
+  v79.top = v18;
+  v79.left = v19;
+  v79.bottom = v20;
+  v79.right = v21;
+  v35 = NSEdgeInsetsEqual(self->_additionalInsets, v79);
+  if (!v35)
   {
-    v33 = CarGeneralLogging();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v36 = CarGeneralLogging(v35);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Left: %.1f, right: %.1f, top: %.1f, bottom: %.1f", *&self->_additionalInsets.left, *&self->_additionalInsets.right, *&self->_additionalInsets.top, *&self->_additionalInsets.bottom];
+      v37 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Left: %.1f, right: %.1f, top: %.1f, bottom: %.1f", *&self->_additionalInsets.left, *&self->_additionalInsets.right, *&self->_additionalInsets.top, *&self->_additionalInsets.bottom];
       *buf = 138412290;
-      v63 = v34;
-      _os_log_impl(&dword_1C81FC000, v33, OS_LOG_TYPE_DEFAULT, "Additional insets provided: %@", buf, 0xCu);
+      v67 = v37;
+      _os_log_impl(&dword_1C81FC000, v36, OS_LOG_TYPE_DEFAULT, "Additional insets provided: %@", buf, 0xCu);
     }
 
-    v35 = *&self->_additionalInsets.top;
-    v36 = vaddq_f64(v35, *&self->_additionalInsets.bottom);
-    v37 = vsubq_f64(self->_safeFrame.size, vextq_s8(v36, v36, 8uLL));
-    if (v37.f64[0] >= 740.0)
+    v39 = *&self->_additionalInsets.top;
+    v40 = vaddq_f64(v39, *&self->_additionalInsets.bottom);
+    v41 = vsubq_f64(self->_safeFrame.size, vextq_s8(v40, v40, 8uLL));
+    if (v41.f64[0] >= 740.0)
     {
-      v38 = v37.f64[1];
-      if (v37.f64[1] >= 456.0)
+      v42 = v41.f64[1];
+      if (v41.f64[1] >= 456.0)
       {
-        aRecta = v37;
-        v39 = self->_safeFrame.origin.x + v35.f64[1];
-        v40 = self->_safeFrame.origin.y + v35.f64[0];
-        v41 = CarGeneralLogging();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        aRecta = v41;
+        v43 = self->_safeFrame.origin.x + v39.f64[1];
+        v44 = self->_safeFrame.origin.y + v39.f64[0];
+        v45 = CarGeneralLogging(v38);
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
         {
-          v42 = NSStringFromRect(self->_safeFrame);
-          v73.origin.x = v39;
-          v73.origin.y = v40;
-          v73.size.width = aRecta.f64[0];
-          v73.size.height = v38;
-          v43 = NSStringFromRect(v73);
+          v46 = NSStringFromRect(self->_safeFrame);
+          v77.origin.x = v43;
+          v77.origin.y = v44;
+          v77.size.width = aRecta.f64[0];
+          v77.size.height = v42;
+          v47 = NSStringFromRect(v77);
           *buf = 138412546;
-          v63 = v42;
-          v64 = 2112;
-          v65 = v43;
-          _os_log_impl(&dword_1C81FC000, v41, OS_LOG_TYPE_DEFAULT, "Applying additional insets: before frame: %@, after frame: %@", buf, 0x16u);
+          v67 = v46;
+          v68 = 2112;
+          v69 = v47;
+          _os_log_impl(&dword_1C81FC000, v45, OS_LOG_TYPE_DEFAULT, "Applying additional insets: before frame: %@, after frame: %@", buf, 0x16u);
         }
 
-        self->_safeFrame.origin.x = v39;
-        self->_safeFrame.origin.y = v40;
+        self->_safeFrame.origin.x = v43;
+        self->_safeFrame.origin.y = v44;
         self->_safeFrame.size = aRecta;
       }
     }
@@ -200,31 +202,31 @@
   if ([(CARScreenViewArea *)self _wantsInternalOverrideInsets])
   {
     standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
-    v45 = [standardUserDefaults valueForKey:@"CARCapabilitesInsets"];
+    v49 = [standardUserDefaults valueForKey:@"CARCapabilitesInsets"];
 
-    if (v45)
+    if (v49)
     {
-      v46 = [v45 objectForKeyedSubscript:@"Top"];
-      [v46 floatValue];
-      v17 = v47;
-      v48 = [v45 objectForKeyedSubscript:@"Left"];
-      [v48 floatValue];
-      v18 = v49;
-      v50 = [v45 objectForKeyedSubscript:@"Bottom"];
+      v50 = [v49 objectForKeyedSubscript:@"Top"];
       [v50 floatValue];
-      v19 = v51;
-      v52 = [v45 objectForKeyedSubscript:@"Right"];
+      v18 = v51;
+      v52 = [v49 objectForKeyedSubscript:@"Left"];
       [v52 floatValue];
-      v20 = v53;
+      v19 = v53;
+      v54 = [v49 objectForKeyedSubscript:@"Bottom"];
+      [v54 floatValue];
+      v20 = v55;
+      v56 = [v49 objectForKeyedSubscript:@"Right"];
+      [v56 floatValue];
+      v21 = v57;
     }
 
-    v54 = v17 + self->_unadjustedSafeFrame.origin.y;
-    v55 = self->_unadjustedSafeFrame.size.width - (v18 + v20);
-    v56 = self->_unadjustedSafeFrame.size.height - (v17 + v19);
-    self->_safeFrame.origin.x = v18 + self->_unadjustedSafeFrame.origin.x;
-    self->_safeFrame.origin.y = v54;
-    self->_safeFrame.size.width = v55;
-    self->_safeFrame.size.height = v56;
+    v58 = v18 + self->_unadjustedSafeFrame.origin.y;
+    v59 = self->_unadjustedSafeFrame.size.width - (v19 + v21);
+    v60 = self->_unadjustedSafeFrame.size.height - (v18 + v20);
+    self->_safeFrame.origin.x = v19 + self->_unadjustedSafeFrame.origin.x;
+    self->_safeFrame.origin.y = v58;
+    self->_safeFrame.size.width = v59;
+    self->_safeFrame.size.height = v60;
   }
 }
 
@@ -427,7 +429,7 @@ LABEL_39:
 
     else
     {
-      v39 = CarGeneralLogging();
+      v39 = CarGeneralLogging(unsignedIntegerValue);
       if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         [(CARScreenViewArea *)v39 initWithPropertySupplier:v40 additionalInsets:v41 viewAreaDictionary:v42 wantsCornerMasks:v43 displayInfoProvider:v44, v45, v46];
@@ -463,7 +465,7 @@ LABEL_40:
 
 - (BOOL)_wantsInternalOverrideInsets
 {
-  if (!CRIsInternalInstall())
+  if (!CRIsInternalInstall(self, a2))
   {
     return 0;
   }
@@ -485,73 +487,73 @@ LABEL_40:
   return result;
 }
 
-+ (void)insetsForOEMUIWithDisplaySize:(double)size originInDisplay:(double)display safeFrame:(CGFloat)frame viewAreaFrame:(CGFloat)areaFrame
++ (void)insetsForOEMUIWithDisplaySize:(double)size originInDisplay:(double)display safeFrame:(double)frame viewAreaFrame:(CGFloat)areaFrame
 {
-  v52 = *MEMORY[0x1E69E9840];
-  v36 = size + a9;
-  aRect = display + a10;
-  v22 = size + frame;
-  v23 = display + areaFrame;
-  v24 = CarGeneralLogging();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v46 = *MEMORY[0x1E69E9840];
+  v30 = display + a10;
+  aRect = frame + a11;
+  v15 = display + areaFrame;
+  v16 = frame + a7;
+  v17 = CarGeneralLogging(self);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = BSNSStringFromCGSize();
-    v26 = BSNSStringFromCGPoint();
-    v53.origin.x = a9;
-    v53.origin.y = a10;
-    v53.size.width = a11;
-    v53.size.height = a12;
-    v27 = NSStringFromRect(v53);
-    v54.origin.x = frame;
-    v54.origin.y = areaFrame;
-    v54.size.width = a7;
-    v54.size.height = a8;
-    v28 = NSStringFromRect(v54);
-    v55.origin.x = v36;
-    v55.origin.y = aRect;
-    v55.size.width = a11;
-    v55.size.height = a12;
-    v29 = NSStringFromRect(v55);
-    v56.origin.x = v22;
-    v56.origin.y = v23;
-    v56.size.width = a7;
-    v56.size.height = a8;
-    v30 = NSStringFromRect(v56);
+    v18 = BSNSStringFromCGSize();
+    v19 = BSNSStringFromCGPoint();
+    v47.origin.x = a10;
+    v47.origin.y = a11;
+    v47.size.width = a12;
+    v47.size.height = a13;
+    v20 = NSStringFromRect(v47);
+    v48.origin.x = areaFrame;
+    v48.origin.y = a7;
+    v48.size.width = a8;
+    v48.size.height = a9;
+    v21 = NSStringFromRect(v48);
+    v49.origin.x = v30;
+    v49.origin.y = aRect;
+    v49.size.width = a12;
+    v49.size.height = a13;
+    v22 = NSStringFromRect(v49);
+    v50.origin.x = v15;
+    v50.origin.y = v16;
+    v50.size.width = a8;
+    v50.size.height = a9;
+    v23 = NSStringFromRect(v50);
     *buf = 138413570;
-    v41 = v25;
+    v35 = v18;
+    v36 = 2112;
+    v37 = v19;
+    v38 = 2112;
+    v39 = v20;
+    v40 = 2112;
+    v41 = v21;
     v42 = 2112;
-    v43 = v26;
+    v43 = v22;
     v44 = 2112;
-    v45 = v27;
-    v46 = 2112;
-    v47 = v28;
-    v48 = 2112;
-    v49 = v29;
-    v50 = 2112;
-    v51 = v30;
-    _os_log_impl(&dword_1C81FC000, v24, OS_LOG_TYPE_DEFAULT, "Display pixel size: %@, origin in display: %@, incoming view area frame: %@, safe frame: %@, adjusted view area frame: %@, safe frame: %@", buf, 0x3Eu);
+    v45 = v23;
+    _os_log_impl(&dword_1C81FC000, v17, OS_LOG_TYPE_DEFAULT, "Display pixel size: %@, origin in display: %@, incoming view area frame: %@, safe frame: %@, adjusted view area frame: %@, safe frame: %@", buf, 0x3Eu);
   }
 
   BSFloatEqualToFloat();
   BSFloatEqualToFloat();
   BSFloatEqualToFloat();
-  BSFloatEqualToFloat();
-  v31 = CarGeneralLogging();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+  v24 = BSFloatEqualToFloat();
+  v25 = CarGeneralLogging(v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    v32 = NSStringFromBOOL();
-    v33 = NSStringFromBOOL();
-    v34 = NSStringFromBOOL();
-    v35 = NSStringFromBOOL();
+    v26 = NSStringFromBOOL();
+    v27 = NSStringFromBOOL();
+    v28 = NSStringFromBOOL();
+    v29 = NSStringFromBOOL();
     *buf = 138413058;
-    v41 = v32;
-    v42 = 2112;
-    v43 = v33;
-    v44 = 2112;
-    v45 = v34;
-    v46 = 2112;
-    v47 = v35;
-    _os_log_impl(&dword_1C81FC000, v31, OS_LOG_TYPE_DEFAULT, "Display supports view area, should inset: left: %@, right: %@, top: %@, bottom: %@", buf, 0x2Au);
+    v35 = v26;
+    v36 = 2112;
+    v37 = v27;
+    v38 = 2112;
+    v39 = v28;
+    v40 = 2112;
+    v41 = v29;
+    _os_log_impl(&dword_1C81FC000, v25, OS_LOG_TYPE_DEFAULT, "Display supports view area, should inset: left: %@, right: %@, top: %@, bottom: %@", buf, 0x2Au);
   }
 }
 

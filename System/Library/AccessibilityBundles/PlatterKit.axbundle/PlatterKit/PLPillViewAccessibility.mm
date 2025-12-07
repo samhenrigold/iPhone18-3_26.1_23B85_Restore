@@ -25,31 +25,31 @@
 
 - (id)accessibilityLabel
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   v2 = [(PLPillViewAccessibility *)self safeArrayForKey:@"centerContentItems"];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v18;
+    v6 = *v17;
     do
     {
       v7 = 0;
       v8 = v5;
       do
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * v7);
-        string = [v9 safeStringForKey:{@"text", v15, v16}];
+        v9 = *(*(&v16 + 1) + 8 * v7);
+        string = [v9 safeStringForKey:{@"text", v14, v15}];
         if (!string)
         {
           objc_opt_class();
@@ -59,8 +59,8 @@
           string = [v12 string];
         }
 
-        v15 = string;
-        v16 = @"__AXStringForVariablesSentinel";
+        v14 = string;
+        v15 = @"__AXStringForVariablesSentinel";
         v5 = __UIAXStringForVariables();
 
         ++v7;
@@ -68,7 +68,7 @@
       }
 
       while (v4 != v7);
-      v4 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:{16, string, @"__AXStringForVariablesSentinel"}];
+      v4 = [v2 countByEnumeratingWithState:&v16 objects:v20 count:{16, string, @"__AXStringForVariablesSentinel"}];
     }
 
     while (v4);
@@ -79,61 +79,55 @@
     v5 = 0;
   }
 
-  v13 = *MEMORY[0x29EDCA608];
-
   return v5;
 }
 
 - (id)_accessibilitySupplementaryHeaderViews
 {
-  v10[1] = *MEMORY[0x29EDCA608];
+  v9[1] = *MEMORY[0x29EDCA608];
   objc_opt_class();
   v3 = [(PLPillViewAccessibility *)self safeValueForKey:@"leadingAccessoryView"];
   v4 = __UIAccessibilityCastAsClass();
 
   if (v4)
   {
-    v10[0] = v4;
-    _accessibilitySupplementaryHeaderViews = [MEMORY[0x29EDB8D80] arrayWithObjects:v10 count:1];
+    v9[0] = v4;
+    _accessibilitySupplementaryHeaderViews = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:1];
   }
 
   else
   {
-    v9.receiver = self;
-    v9.super_class = PLPillViewAccessibility;
-    _accessibilitySupplementaryHeaderViews = [(PLPillViewAccessibility *)&v9 _accessibilitySupplementaryHeaderViews];
+    v8.receiver = self;
+    v8.super_class = PLPillViewAccessibility;
+    _accessibilitySupplementaryHeaderViews = [(PLPillViewAccessibility *)&v8 _accessibilitySupplementaryHeaderViews];
   }
 
   v6 = _accessibilitySupplementaryHeaderViews;
-
-  v7 = *MEMORY[0x29EDCA608];
 
   return v6;
 }
 
 - (id)_accessibilitySupplementaryFooterViews
 {
-  v10[1] = *MEMORY[0x29EDCA608];
+  v9[1] = *MEMORY[0x29EDCA608];
   objc_opt_class();
   v3 = [(PLPillViewAccessibility *)self safeValueForKey:@"trailingAccessoryView"];
   v4 = __UIAccessibilityCastAsClass();
 
   if (v4)
   {
-    v10[0] = v4;
-    _accessibilitySupplementaryFooterViews = [MEMORY[0x29EDB8D80] arrayWithObjects:v10 count:1];
+    v9[0] = v4;
+    _accessibilitySupplementaryFooterViews = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:1];
   }
 
   else
   {
-    v9.receiver = self;
-    v9.super_class = PLPillViewAccessibility;
-    _accessibilitySupplementaryFooterViews = [(PLPillViewAccessibility *)&v9 _accessibilitySupplementaryFooterViews];
+    v8.receiver = self;
+    v8.super_class = PLPillViewAccessibility;
+    _accessibilitySupplementaryFooterViews = [(PLPillViewAccessibility *)&v8 _accessibilitySupplementaryFooterViews];
   }
 
   v6 = _accessibilitySupplementaryFooterViews;
-
-  v7 = *MEMORY[0x29EDCA608];
 
   return v6;
 }

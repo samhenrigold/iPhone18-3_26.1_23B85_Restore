@@ -142,7 +142,7 @@ void __34__FPXObserver__fixupFavoriteRank___block_invoke(uint64_t a1, void *a2, 
     v18 = fp_current_or_default_log();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      [(FPXObserver *)v6 updateForProviderItem:?];
+      [FPXObserver updateForProviderItem:];
     }
 
     v17 = 0;
@@ -165,41 +165,29 @@ void __34__FPXObserver__fixupFavoriteRank___block_invoke(uint64_t a1, void *a2, 
 
 - (void)_fixupFavoriteRank:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  LODWORD(v6) = 134218242;
-  *(&v6 + 4) = a2;
+  v7 = *MEMORY[0x1E69E9840];
+  LODWORD(v5) = 134218242;
+  *(&v5 + 4) = a2;
   OUTLINED_FUNCTION_3_3();
-  *v7 = v2;
-  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, v3, v4, "[DEBUG] fixing up favorite rank (%llu) for %@", v6, DWORD2(v6), *&v7[2], v8);
-  v5 = *MEMORY[0x1E69E9840];
+  *v6 = v2;
+  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, v3, v4, "[DEBUG] fixing up favorite rank (%llu) for %@", v5, DWORD2(v5), *&v6[2], v7);
 }
 
 void __34__FPXObserver__fixupFavoriteRank___block_invoke_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a2 fp_prettyDescription];
-  v8 = 138412546;
-  v9 = a1;
+  v7 = 138412546;
+  v8 = a1;
   OUTLINED_FUNCTION_3_3();
-  v10 = v6;
-  _os_log_error_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_ERROR, "[ERROR] couldn't set favorite rank for %@; %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9 = v6;
+  _os_log_error_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_ERROR, "[ERROR] couldn't set favorite rank for %@; %@", &v7, 0x16u);
 }
 
 - (void)updateForProviderItem:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
   v4 = [MEMORY[0x1E696AAA8] currentHandler];
   [v4 handleFailureInMethod:a1 object:a2 file:@"FPXEnumerator.m" lineNumber:115 description:{@"Invalid parameter not satisfying: %@", @"providerItem"}];
-}
-
-- (void)updateForProviderItem:(uint64_t)a1 .cold.2(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *(a2 + 8);
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, v3, v4, "[DEBUG] item %@ isn't valid for current enumeration (enumeratedItem: %@)");
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)verifyVendorToken:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

@@ -372,21 +372,21 @@
   objc_sync_exit(selfCopy);
 }
 
-uint64_t __61__PUCropGestureHandler__startPitchYawRollGestureTimeoutTimer__block_invoke_2(uint64_t result)
+void *__61__PUCropGestureHandler__startPitchYawRollGestureTimeoutTimer__block_invoke_2(void *result)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   v3 = *(v2 + 192);
   v4 = __OFSUB__(v3--, 1);
   *(v2 + 192) = v3;
   if ((v3 < 0) ^ v4 | (v3 == 0))
   {
     v5 = result;
-    dispatch_source_cancel(*(*(result + 32) + 48));
-    v6 = *(v5 + 32);
+    dispatch_source_cancel(*(result[4] + 48));
+    v6 = v5[4];
     v7 = *(v6 + 48);
     *(v6 + 48) = 0;
 
-    v8 = *(v5 + 32);
+    v8 = v5[4];
 
     return [v8 _clearGestureTypePitchYawRoll];
   }

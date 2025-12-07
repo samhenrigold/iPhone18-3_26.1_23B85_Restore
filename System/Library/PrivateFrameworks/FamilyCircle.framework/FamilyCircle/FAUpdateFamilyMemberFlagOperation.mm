@@ -1,5 +1,6 @@
 @interface FAUpdateFamilyMemberFlagOperation
 - (FAUpdateFamilyMemberFlagOperation)initWithNetworkService:(id)service accountSigner:(id)signer memberDSID:(id)d flag:(id)flag enabled:(BOOL)enabled;
+- (FAUpdateFamilyMemberFlagOperation)initWithNetworkService:(id)service grandSlamSigner:(id)signer familyGrandSlamSigner:(id)slamSigner memberDSID:(id)d flag:(id)flag enabled:(BOOL)enabled;
 - (id)_flagKey;
 - (id)_flagType;
 - (id)updateMemberFlag;
@@ -9,6 +10,24 @@
 @end
 
 @implementation FAUpdateFamilyMemberFlagOperation
+
+- (FAUpdateFamilyMemberFlagOperation)initWithNetworkService:(id)service grandSlamSigner:(id)signer familyGrandSlamSigner:(id)slamSigner memberDSID:(id)d flag:(id)flag enabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_10000D200;
+  v19[3] = &unk_1000A6748;
+  serviceCopy = service;
+  signerCopy = signer;
+  slamSignerCopy = slamSigner;
+  v14 = slamSignerCopy;
+  v15 = signerCopy;
+  v16 = serviceCopy;
+  v17 = [(FAUpdateFamilyMemberFlagOperation *)self initWithNetworkService:v16 accountSigner:v19 memberDSID:d flag:flag enabled:enabledCopy];
+
+  return v17;
+}
 
 - (FAUpdateFamilyMemberFlagOperation)initWithNetworkService:(id)service accountSigner:(id)signer memberDSID:(id)d flag:(id)flag enabled:(BOOL)enabled
 {

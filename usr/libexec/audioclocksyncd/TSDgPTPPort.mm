@@ -1,6 +1,9 @@
 @interface TSDgPTPPort
++ (id)diagnosticInfoForClockIdentifier:(unint64_t)identifier andPortNumber:(unsigned __int16)number;
 + (id)diagnosticInfoForService:(id)service;
++ (id)gPTPPortWithClockIdentifier:(unint64_t)identifier portNumber:(unsigned __int16)number;
 + (id)gPTPPortWithService:(id)service;
++ (id)iokitMatchingDictionaryForPortClass:(id)class clockIdentifier:(unint64_t)identifier andPortNumber:(unsigned __int16)number;
 - (BOOL)startAutomaticPropertyUpdates;
 - (BOOL)stopAutomaticPropertyUpdates;
 - (TSDgPTPPort)init;
@@ -81,6 +84,26 @@
   return v5;
 }
 
++ (id)iokitMatchingDictionaryForPortClass:(id)class clockIdentifier:(unint64_t)identifier andPortNumber:(unsigned __int16)number
+{
+  numberCopy = number;
+  v15[0] = @"IOProviderClass";
+  v15[1] = @"IOPropertyMatch";
+  v16[0] = class;
+  v13[0] = @"PortNumber";
+  classCopy = class;
+  v8 = [NSNumber numberWithUnsignedShort:numberCopy];
+  v13[1] = @"ClockIdentifier";
+  v14[0] = v8;
+  v9 = [NSNumber numberWithUnsignedLongLong:identifier];
+  v14[1] = v9;
+  v10 = [NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v16[1] = v10;
+  v11 = [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:2];
+
+  return v11;
+}
+
 - (TSDgPTPPort)init
 {
   v3 = [NSString stringWithUTF8String:"[TSDgPTPPort init]"];
@@ -158,6 +181,16 @@ LABEL_21:
 LABEL_22:
 
   return v5;
+}
+
++ (id)gPTPPortWithClockIdentifier:(unint64_t)identifier portNumber:(unsigned __int16)number
+{
+  v5 = [self iokitMatchingDictionaryForClockIdentifier:identifier andPortNumber:number];
+  v6 = [IOKService matchingService:v5];
+
+  v7 = [self gPTPPortWithService:v6];
+
+  return v7;
 }
 
 - (TSDgPTPPort)initWithService:(id)service pid:(int)pid
@@ -274,7 +307,6 @@ LABEL_9:
     queueCopy = qword_100058840;
   }
 
-  propertyUpdateQueue = self->_propertyUpdateQueue;
   self->_propertyUpdateQueue = queueCopy;
 
   _objc_release_x1();
@@ -366,6 +398,83 @@ LABEL_13:
   [v4 removeObjectForKey:@"DestinationIPAddress"];
 
   return v4;
+}
+
++ (id)diagnosticInfoForClockIdentifier:(unint64_t)identifier andPortNumber:(unsigned __int16)number
+{
+  v4 = [self iokitMatchingDictionaryForClockIdentifier:identifier andPortNumber:number];
+  v5 = [IOKService matchingService:v4];
+
+  if (v5)
+  {
+    if ([v5 conformsToIOClassName:@"IOTimeSyncEthernetPort"])
+    {
+      v6 = TSDgPTPEthernetPort;
+LABEL_20:
+      v7 = [(__objc2_class *)v6 diagnosticInfoForService:v5];
+      goto LABEL_21;
+    }
+
+    if ([v5 conformsToIOClassName:@"IOTimeSyncUnicastLinkLayerPtPPort"])
+    {
+      v6 = TSDgPTPUnicastLinkLayerPtPPort;
+      goto LABEL_20;
+    }
+
+    if ([v5 conformsToIOClassName:@"IOTimeSyncUnicastLinkLayerEtEPort"])
+    {
+      v6 = TSDgPTPUnicastLinkLayerEtEPort;
+      goto LABEL_20;
+    }
+
+    if ([v5 conformsToIOClassName:@"IOTimeSyncUnicastUDPv4PtPPort"])
+    {
+      v6 = TSDgPTPUnicastUDPv4PtPPort;
+      goto LABEL_20;
+    }
+
+    if ([v5 conformsToIOClassName:@"IOTimeSyncUnicastUDPv6PtPPort"])
+    {
+      v6 = TSDgPTPUnicastUDPv6PtPPort;
+      goto LABEL_20;
+    }
+
+    if ([v5 conformsToIOClassName:@"IOTimeSyncUnicastUDPv4EtEPort"])
+    {
+      v6 = TSDgPTPUnicastUDPv4EtEPort;
+      goto LABEL_20;
+    }
+
+    if ([v5 conformsToIOClassName:@"IOTimeSyncUnicastUDPv6EtEPort"])
+    {
+      v6 = TSDgPTPUnicastUDPv6EtEPort;
+      goto LABEL_20;
+    }
+
+    if ([v5 conformsToIOClassName:@"IOTimeSyncLocalClockPort"])
+    {
+      v6 = TSDgPTPLocalClockPort;
+      goto LABEL_20;
+    }
+
+    if ([v5 conformsToIOClassName:@"IOTimeSyncPort"])
+    {
+      v6 = TSDgPTPPort;
+      goto LABEL_20;
+    }
+
+    v7 = 0;
+  }
+
+  else
+  {
+    sub_10002A8CC(&v9);
+    v7 = v9;
+  }
+
+LABEL_21:
+
+  return v7;
 }
 
 - (id)getMetrics

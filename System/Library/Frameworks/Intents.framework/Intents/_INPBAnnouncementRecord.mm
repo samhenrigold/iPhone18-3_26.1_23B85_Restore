@@ -210,7 +210,6 @@ LABEL_17:
   toCopy = to;
   if ([(_INPBAnnouncementRecord *)self hasDuration])
   {
-    duration = self->_duration;
     PBDataWriterWriteDoubleField();
   }
 
@@ -218,19 +217,18 @@ LABEL_17:
 
   if (identifier)
   {
-    identifier = self->_identifier;
     PBDataWriterWriteStringField();
   }
 
   originator = [(_INPBAnnouncementRecord *)self originator];
 
-  v8 = toCopy;
+  v6 = toCopy;
   if (originator)
   {
     originator2 = [(_INPBAnnouncementRecord *)self originator];
     PBDataWriterWriteSubmessage();
 
-    v8 = toCopy;
+    v6 = toCopy;
   }
 }
 

@@ -103,69 +103,70 @@
 
 - (BOOL)needsToShow
 {
-  if (!_os_feature_enabled_impl() || ([MEMORY[0x1E698E730] sharedInstance], v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_msgSend(v3, "deviceClass"), v3, v4 != 2))
+  v3 = _os_feature_enabled_impl();
+  if (!v3 || ([MEMORY[0x1E698E730] sharedInstance], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "deviceClass"), v4, v5 != 2))
   {
-    v8 = SBLogBuddy();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogBuddy(v3);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v10 = "Should not show multitasking buddy pane due to flexible windowing feature is disabled or current device is not an iPad.";
-      v11 = buf;
+      v12 = "Should not show multitasking buddy pane due to flexible windowing feature is disabled or current device is not an iPad.";
+      v13 = buf;
       goto LABEL_10;
     }
 
 LABEL_11:
-    v12 = 0;
-    v13 = 0;
+    v14 = 0;
+    v15 = 0;
     goto LABEL_12;
   }
 
   if ([(SBSBuddyMultitaskingFlow *)self currentMultitaskingOption]== -1)
   {
-    v8 = SBLogBuddy();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogBuddy(-1);
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_11;
     }
 
-    v17 = 0;
-    v10 = "Should not show multitasking buddy pane due to upgrading from Stage Manager.";
-    v11 = &v17;
+    v19 = 0;
+    v12 = "Should not show multitasking buddy pane due to upgrading from Stage Manager.";
+    v13 = &v19;
     goto LABEL_10;
   }
 
-  v5 = [(NSUserDefaults *)self->_sbDefaults BOOLForKey:@"SBHasEverUsedMultiAppConfiguration"];
-  [(SBSBuddyMultitaskingFlow *)self _currentDeviceMemorySizeInGigabytes];
-  v7 = v6;
-  v8 = SBLogBuddy();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-  if (v7 <= 3.0 && !v5)
+  v6 = [(NSUserDefaults *)self->_sbDefaults BOOLForKey:@"SBHasEverUsedMultiAppConfiguration"];
+  _currentDeviceMemorySizeInGigabytes = [(SBSBuddyMultitaskingFlow *)self _currentDeviceMemorySizeInGigabytes];
+  v9 = v8;
+  v10 = SBLogBuddy(_currentDeviceMemorySizeInGigabytes);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  if (v9 <= 3.0 && !v6)
   {
-    if (v9)
+    if (v11)
     {
-      v16 = 0;
-      v10 = "Should not show multitasking buddy pane due to current device has memory size <= 3GB and user has never used multiple app configuration before.";
-      v11 = &v16;
+      v18 = 0;
+      v12 = "Should not show multitasking buddy pane due to current device has memory size <= 3GB and user has never used multiple app configuration before.";
+      v13 = &v18;
 LABEL_10:
-      _os_log_impl(&dword_19169D000, v8, OS_LOG_TYPE_DEFAULT, v10, v11, 2u);
+      _os_log_impl(&dword_19169D000, v10, OS_LOG_TYPE_DEFAULT, v12, v13, 2u);
       goto LABEL_11;
     }
 
     goto LABEL_11;
   }
 
-  if (v9)
+  if (v11)
   {
-    *v15 = 0;
-    _os_log_impl(&dword_19169D000, v8, OS_LOG_TYPE_DEFAULT, "Should show multitasking buddy pane", v15, 2u);
+    *v17 = 0;
+    _os_log_impl(&dword_19169D000, v10, OS_LOG_TYPE_DEFAULT, "Should show multitasking buddy pane", v17, 2u);
   }
 
-  v12 = 1;
-  v13 = 1;
+  v14 = 1;
+  v15 = 1;
 LABEL_12:
 
-  self->_hasShownMultitaskingBuddyPane = v12;
-  return v13;
+  self->_hasShownMultitaskingBuddyPane = v14;
+  return v15;
 }
 
 - (int64_t)_initialMultitaskingOptionSelectedInViewController

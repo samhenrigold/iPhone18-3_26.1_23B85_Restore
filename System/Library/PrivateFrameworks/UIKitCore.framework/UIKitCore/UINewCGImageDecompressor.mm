@@ -70,7 +70,7 @@ void __45___UINewCGImageDecompressor_decompressAsync___block_invoke_18(uint64_t 
     v9 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:a4 userInfo:0];
   }
 
-  [*(a1 + 32) _finishDecompressingWithImage:a6 error:v9];
+  [*(a1 + 32) _finishDecompressingWithImage:a6 error:{v9, a5}];
   CGImageRetain(a6);
   v10 = *(*(a1 + 32) + 24);
   v13[0] = MEMORY[0x1E69E9820];

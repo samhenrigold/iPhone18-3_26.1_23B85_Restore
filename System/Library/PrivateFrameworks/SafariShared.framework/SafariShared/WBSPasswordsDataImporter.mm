@@ -21,32 +21,32 @@
   v8 = sandbox_extension_issue_file();
   if (v8)
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:v8 length:strlen(v8) encoding:4 freeWhenDone:1];
-    v10 = [(NSXPCConnection *)self->_connectionToCredentialExtractionService remoteObjectProxyWithErrorHandler:&__block_literal_global_46];
-    v11 = [objc_alloc(MEMORY[0x1E69C88F0]) initWithFirst:v10 second:v9];
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:v8 length:strlen(v8) encoding:4 freeWhenDone:1];
+    v11 = [(NSXPCConnection *)self->_connectionToCredentialExtractionService remoteObjectProxyWithErrorHandler:&__block_literal_global_46];
+    v12 = [objc_alloc(MEMORY[0x1E69C88F0]) initWithFirst:v11 second:v10];
   }
 
   else
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXKeychain();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXKeychain(0, v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(WBSPasswordsDataImporter *)lCopy _remoteObjectProxyAndSandboxExtensionForFileURL:v12];
+      [(WBSPasswordsDataImporter *)lCopy _remoteObjectProxyAndSandboxExtensionForFileURL:v13];
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 void __76__WBSPasswordsDataImporter__remoteObjectProxyAndSandboxExtensionForFileURL___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = WBS_LOG_CHANNEL_PREFIXKeychain();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXKeychain(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __76__WBSPasswordsDataImporter__remoteObjectProxyAndSandboxExtensionForFileURL___block_invoke_cold_1(v2, v3);
+    __76__WBSPasswordsDataImporter__remoteObjectProxyAndSandboxExtensionForFileURL___block_invoke_cold_1(v2, v4);
   }
 }
 
@@ -157,81 +157,81 @@ void __69__WBSPasswordsDataImporter_importFromCSVWithFileURL_progressHandler___b
   {
     v7 = *(a1 + 32);
     v8 = *(*(a1 + 40) + 8);
-    v33 = *(v8 + 48);
+    v34 = *(v8 + 48);
     v9 = *(v8 + 72);
-    v34 = *(v8 + 64);
-    v35 = v9;
-    v36 = *(v8 + 80);
-    (*(v7 + 16))(v7, 2, &v33, a3);
+    v35 = *(v8 + 64);
+    v36 = v9;
+    v37 = *(v8 + 80);
+    (*(v7 + 16))(v7, 2, &v34, a3);
     goto LABEL_16;
   }
 
   v10 = [v5 count];
-  v11 = a1 + 40;
+  v12 = a1 + 40;
   *(*(*(a1 + 40) + 8) + 56) = v10;
   if (v10 >= 1)
   {
-    v12 = v10;
-    v13 = 0;
-    v14 = v10;
+    v13 = v10;
+    v14 = 0;
+    v15 = v10;
     while (1)
     {
-      v15 = [v6 objectAtIndexedSubscript:v13];
-      v16 = [WBSPasswordsDataImporter importCredential:v15];
-      if (v16 == 2)
+      v16 = [v6 objectAtIndexedSubscript:v14];
+      v17 = [WBSPasswordsDataImporter importCredential:v16];
+      if (v17 == 2)
       {
-        ++*(*(*v11 + 8) + 64);
+        ++*(*(*v12 + 8) + 64);
         goto LABEL_12;
       }
 
-      if (v16 == 1)
+      if (v17 == 1)
       {
         break;
       }
 
-      if (!v16)
+      if (!v17)
       {
-        v17 = *(*(*v11 + 8) + 72);
+        v18 = *(*(*v12 + 8) + 72);
 LABEL_10:
-        [v17 addObject:v15];
+        [v18 addObject:v16];
       }
 
 LABEL_12:
-      *(*(*(a1 + 40) + 8) + 48) = (v13 / v14);
-      v18 = *(a1 + 32);
-      v19 = *(*(a1 + 40) + 8);
-      v29 = *(v19 + 48);
-      v20 = *(v19 + 72);
-      v30 = *(v19 + 64);
-      v31 = v20;
-      v32 = *(v19 + 80);
-      (*(v18 + 16))(v18, 1, &v29, 0);
+      *(*(*(a1 + 40) + 8) + 48) = (v14 / v15);
+      v19 = *(a1 + 32);
+      v20 = *(*(a1 + 40) + 8);
+      v30 = *(v20 + 48);
+      v21 = *(v20 + 72);
+      v31 = *(v20 + 64);
+      v32 = v21;
+      v33 = *(v20 + 80);
+      (*(v19 + 16))(v19, 1, &v30, 0);
 
-      if (v12 == ++v13)
+      if (v13 == ++v14)
       {
         goto LABEL_13;
       }
     }
 
-    v17 = *(*(*v11 + 8) + 80);
+    v18 = *(*(*v12 + 8) + 80);
     goto LABEL_10;
   }
 
 LABEL_13:
-  v21 = WBS_LOG_CHANNEL_PREFIXKeychain();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  v22 = WBS_LOG_CHANNEL_PREFIXKeychain(v10, v11);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
-    __69__WBSPasswordsDataImporter_importFromCSVWithFileURL_progressHandler___block_invoke_cold_1(v21, v6, a1 + 40);
+    __69__WBSPasswordsDataImporter_importFromCSVWithFileURL_progressHandler___block_invoke_cold_1(v22, v6, a1 + 40);
   }
 
-  v22 = *(a1 + 32);
-  v23 = *(*(a1 + 40) + 8);
-  v25 = *(v23 + 48);
-  v24 = *(v23 + 72);
-  v26 = *(v23 + 64);
-  v27 = v24;
-  v28 = *(v23 + 80);
-  (*(v22 + 16))(v22, 3, &v25, 0);
+  v23 = *(a1 + 32);
+  v24 = *(*(a1 + 40) + 8);
+  v26 = *(v24 + 48);
+  v25 = *(v24 + 72);
+  v27 = *(v24 + 64);
+  v28 = v25;
+  v29 = *(v24 + 80);
+  (*(v23 + 16))(v23, 3, &v26, 0);
 LABEL_16:
 }
 

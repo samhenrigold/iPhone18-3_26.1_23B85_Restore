@@ -14,11 +14,11 @@
 
 - (id)initFromTimer:(id)timer
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   timerCopy = timer;
-  v14.receiver = self;
-  v14.super_class = PCTimerActivity;
-  v5 = [(PCTimerActivity *)&v14 initWithActivityType:@"com.apple.ProximityControl.activity.timer"];
+  v13.receiver = self;
+  v13.super_class = PCTimerActivity;
+  v5 = [(PCTimerActivity *)&v13 initWithActivityType:@"com.apple.ProximityControl.activity.timer"];
   v6 = v5;
   if (v5)
   {
@@ -35,15 +35,14 @@
     v9 = MEMORY[0x277CBEAA8];
     [timerCopy remainingTime];
     v10 = [v9 dateWithTimeIntervalSinceNow:?];
-    v15[0] = @"fireDate";
-    v15[1] = @"displayTitle";
-    v16[0] = v10;
-    v16[1] = displayTitle;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+    v14[0] = @"fireDate";
+    v14[1] = @"displayTitle";
+    v15[0] = v10;
+    v15[1] = displayTitle;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
     [(PCTimerActivity *)v6 setUserInfo:v11];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

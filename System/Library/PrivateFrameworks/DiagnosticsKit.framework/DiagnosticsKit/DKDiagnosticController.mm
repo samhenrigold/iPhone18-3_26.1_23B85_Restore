@@ -36,14 +36,14 @@
 
 - (void)beginRequestWithExtensionContext:(id)context
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = DiagnosticsKitLogHandleForCategory(2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315138;
-    v10 = "[DKDiagnosticController beginRequestWithExtensionContext:]";
-    _os_log_impl(&dword_248B9D000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[DKDiagnosticController beginRequestWithExtensionContext:]";
+    _os_log_impl(&dword_248B9D000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v8, 0xCu);
   }
 
   [(DKDiagnosticController *)self setContext:contextCopy];
@@ -52,20 +52,18 @@
 
   v7 = objc_alloc_init(DKMutableDiagnosticResult);
   [(DKDiagnosticController *)self setResult:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginRequestWithDiagnosticContext:(id)context
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = DiagnosticsKitLogHandleForCategory(2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315138;
-    v10 = "[DKDiagnosticController beginRequestWithDiagnosticContext:]";
-    _os_log_impl(&dword_248B9D000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[DKDiagnosticController beginRequestWithDiagnosticContext:]";
+    _os_log_impl(&dword_248B9D000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v8, 0xCu);
   }
 
   [(DKDiagnosticController *)self setIsXPC:1];
@@ -76,8 +74,6 @@
 
   v7 = objc_alloc_init(DKMutableDiagnosticResult);
   [(DKDiagnosticController *)self setResult:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFinished:(BOOL)finished
@@ -115,7 +111,7 @@
       v11 = context;
       if (context)
       {
-        [context auditToken];
+        objc_msgSend_auditToken(context);
       }
 
       else

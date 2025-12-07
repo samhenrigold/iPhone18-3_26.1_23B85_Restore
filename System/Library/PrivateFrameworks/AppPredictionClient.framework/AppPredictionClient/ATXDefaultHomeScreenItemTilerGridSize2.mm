@@ -15,72 +15,73 @@
 - (NSArray)tiledHomeScreenItems
 {
   v3 = objc_opt_new();
+  v4 = v3;
   p_widgetFamilyMask = &self->_widgetFamilyMask;
   widgetFamilyMask = self->_widgetFamilyMask;
-  v6 = widgetFamilyMask & 6;
-  if (v6 == 6)
+  v7 = widgetFamilyMask & 6;
+  if (v7 == 6)
   {
     if (self->_defaultStack)
     {
-      v7 = [(ATXDefaultHomeScreenItemTilerGridSize2 *)self _addFirstRow:v3];
+      v8 = [(ATXDefaultHomeScreenItemTilerGridSize2 *)self _addFirstRow:v3];
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
 
-    v8 = &unk_1F3E60780;
+    v9 = &unk_1F3E60780;
     goto LABEL_11;
   }
 
   if ((widgetFamilyMask & 2) != 0)
   {
-    v8 = &unk_1F3E60798;
+    v9 = &unk_1F3E60798;
   }
 
   else
   {
-    v8 = &unk_1F3E607B0;
+    v9 = &unk_1F3E607B0;
   }
 
   if ((widgetFamilyMask & 6) != 0)
   {
-    v7 = 0;
+    v8 = 0;
     do
     {
 LABEL_11:
-      if ([v3 count] >= self->_targetNumberOfSuggestions)
+      if ([v4 count] >= self->_targetNumberOfSuggestions)
       {
         break;
       }
 
-      v9 = [v8 objectAtIndexedSubscript:{v7 % objc_msgSend(v8, "count")}];
-      integerValue = [v9 integerValue];
+      v10 = [v9 objectAtIndexedSubscript:{v8 % objc_msgSend(v9, "count")}];
+      integerValue = [v10 integerValue];
 
-      ++v7;
+      ++v8;
     }
 
-    while ([(ATXDefaultHomeScreenItemTilerGridSize2 *)self _addRow:v3 rowSizePreference:integerValue allowAlternateRowSizeAsBackup:v6 == 6]);
+    while ([(ATXDefaultHomeScreenItemTilerGridSize2 *)self _addRow:v4 rowSizePreference:integerValue allowAlternateRowSizeAsBackup:v7 == 6]);
     goto LABEL_13;
   }
 
   if ((widgetFamilyMask & 8) != 0)
   {
-    v7 = 0;
-    v8 = &unk_1F3E607C8;
+    v8 = 0;
+    v9 = &unk_1F3E607C8;
     goto LABEL_11;
   }
 
-  v12 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v13 = __atxlog_handle_modes(v3);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     [(ATXDefaultHomeScreenItemTilerGridSize2 *)p_widgetFamilyMask tiledHomeScreenItems];
   }
 
 LABEL_13:
 
-  return v3;
+  return v4;
 }
 
 - (ATXDefaultHomeScreenItemTilerGridSize2)initWithDefaultStack:(id)stack defaultWidgetsSmall:(id)small defaultWidgetsMedium:(id)medium defaultWidgetsLarge:(id)large defaultWidgetsExtraLarge:(id)extraLarge widgetFamilyMask:(unint64_t)mask targetNumberOfSuggestions:(unint64_t)suggestions

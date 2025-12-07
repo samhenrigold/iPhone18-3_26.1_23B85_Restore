@@ -1,3 +1,50 @@
+void *RB::vector<RB::CustomShader::Closure::marshal_args(RB::RenderPass &,RB::Function &,RB::ColorSpace,RB::Rect const*,unsigned char *,RB::BufferRegion &,std::array<RB::Texture *,3ul> &)::PendingArg,0ul,unsigned long>::reserve_slow(void **a1, char *a2)
+{
+  if (a1[2] + (a1[2] >> 1) <= a2)
+  {
+    v3 = a2;
+  }
+
+  else
+  {
+    v3 = a1[2] + (a1[2] >> 1);
+  }
+
+  result = RB::details::realloc_vector<unsigned long,48ul>(*a1, a1 + 2, v3);
+  *a1 = result;
+  return result;
+}
+
+void *RB::details::realloc_vector<unsigned long,48ul>(void *a1, unint64_t *a2, uint64_t a3)
+{
+  v4 = a1;
+  if (a3)
+  {
+    v5 = malloc_good_size(48 * a3);
+    v6 = v5 / 0x30;
+    if (v5 / 0x30 != *a2)
+    {
+      v7 = malloc_type_realloc(v4, v5, 0x92EAD613uLL);
+      if (!v7)
+      {
+        RB::precondition_failure("allocation failure", v8);
+      }
+
+      v4 = v7;
+      *a2 = v6;
+    }
+  }
+
+  else
+  {
+    *a2 = 0;
+    free(a1);
+    return 0;
+  }
+
+  return v4;
+}
+
 void RB::ImageProvider::submit_all(RB::ImageProvider *this)
 {
   os_unfair_lock_lock(&RB::ImageProvider::_pending_image_providers_lock);
@@ -25,7 +72,7 @@ void RB::ImageProvider::submit_all(RB::ImageProvider *this)
         v6 = v2[v5];
         if (v6 && atomic_fetch_add_explicit((v6 + 8), 0xFFFFFFFF, memory_order_release) == 1)
         {
-          RB::ImageProvider::submit_all();
+          RB::ImageProvider::submit_all(v6);
         }
 
         ++v5;
@@ -49,9 +96,9 @@ void RB::ImageProvider::submit_all(RB::ImageProvider *this)
   }
 }
 
-void sub_195DAF1D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_195DAF1D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   RB::vector<RB::refcounted_ptr<RB::ImageProvider>,0ul,unsigned long>::~vector(va);
   _Unwind_Resume(a1);
 }
@@ -501,7 +548,7 @@ uint64_t RB::ImageProvider::make_cgimage(void)::$_5::__invoke(uint64_t result)
 {
   if (atomic_fetch_add_explicit((result + 8), 0xFFFFFFFF, memory_order_release) == 1)
   {
-    return RB::ImageProvider::submit_all();
+    return RB::ImageProvider::submit_all(result);
   }
 
   return result;
@@ -533,10 +580,11 @@ CGColorSpace *RB::ImageProvider::compatible_cgimage(RB::ImageProvider *this, CGI
 
 void RB::ImageProvider::start_rendering(RB::ImageProvider *this, uint64_t a2)
 {
+  v2 = a2;
   v4 = (this + 112);
   v5 = 1;
   std::mutex::lock((this + 112));
-  RB::ImageProvider::start_rendering_locked(this, a2, &v4);
+  RB::ImageProvider::start_rendering_locked(this, v2, &v4);
   if (v5 == 1)
   {
     std::mutex::unlock(v4);
@@ -625,7 +673,7 @@ void RB::ImageProvider::start_rendering_locked(uint64_t a1, int a2, uint64_t a3)
       RB::ImageProvider::render_bitmap(a1);
       if (atomic_fetch_add_explicit((a1 + 8), 0xFFFFFFFF, memory_order_release) == 1)
       {
-        RB::ImageProvider::submit_all();
+        RB::ImageProvider::submit_all(a1);
       }
     }
   }
@@ -635,7 +683,7 @@ void sub_195DAFAA4(_Unwind_Exception *exception_object)
 {
   if (atomic_fetch_add_explicit((v1 + 8), 0xFFFFFFFF, memory_order_release) == 1)
   {
-    RB::ImageProvider::submit_all();
+    RB::ImageProvider::submit_all(v1);
   }
 
   _Unwind_Resume(exception_object);
@@ -657,7 +705,7 @@ void std::unique_lock<std::mutex>::unlock[abi:nn200100](uint64_t a1)
 
 uint64_t RB::anonymous namespace::image_provider_queue(RB::_anonymous_namespace_ *this)
 {
-  if ((atomic_load_explicit(&qword_1ED6D5398, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6D5398, memory_order_acquire) & 1) == 0)
   {
   }
 
@@ -831,14 +879,14 @@ void RB::ImageProvider::render_bitmap(RB::ImageProvider *this)
       _Q0.i32[0] = *(this + 19);
       __asm { FCVT            H0, S0 }
 
-      v29.i64[0] = *(this + 68);
-      *v29.f32 = vcvt_f16_f32(v29);
+      v29.n128_u64[0] = *(this + 68);
+      v29.n128_u64[0] = vcvt_f16_f32(v29);
       __asm { FCVT            H2, S2 }
 
       v32 = *(this + 105);
       v33 = *(this + 105) | 0x100;
       v37 = _H2;
-      v38 = v29.i32[0];
+      v38 = v29.n128_u32[0];
       v39 = _Q0.i16[0];
       v40 = 0;
       v41 = v33;
@@ -852,9 +900,9 @@ void RB::ImageProvider::render_bitmap(RB::ImageProvider *this)
         goto LABEL_29;
       }
 
-      v29.i32[0] = vzip1_s32(*v29.f32, *_Q0.f32).u32[0];
-      v29.i32[1] = _Q0.u16[0];
-      *_Q0.f32 = vceq_f16(v44, *v29.f32);
+      v29.n128_u32[0] = vzip1_s32(v29.n128_u64[0], *_Q0.f32).u32[0];
+      v29.n128_u32[1] = _Q0.u16[0];
+      *_Q0.f32 = vceq_f16(v44, v29.n128_u64[0]);
       _Q0.i16[0] = vminv_u16(*_Q0.f32);
       if ((_Q0.i8[0] & 1) == 0)
       {
@@ -866,7 +914,7 @@ void RB::ImageProvider::render_bitmap(RB::ImageProvider *this)
       if (!_ZF)
       {
 LABEL_29:
-        RB::CGContext::set_fill_color_slow(c, &v37, _Q0, *v29.f32);
+        RB::CGContext::set_fill_color_slow(c, &v37, _Q0, v29);
       }
 
       CGContextFillRect(*&c[0].a, *MEMORY[0x1E695F040]);
@@ -904,11 +952,11 @@ LABEL_36:
   *(this + 3) = 0;
 }
 
-void sub_195DB014C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_195DB014C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   RB::CGContext::~CGContext(va);
-  CFRelease(v3);
+  CFRelease(v5);
   _Unwind_Resume(a1);
 }
 
@@ -1038,15 +1086,15 @@ LABEL_31:
   RB::vImageBuffer::~vImageBuffer(&dest.data);
 }
 
-void sub_195DB03C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_195DB03C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va1, a12);
-  va_start(va, a12);
-  v13 = va_arg(va1, void *);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a19);
+  va_start(va, a19);
+  v20 = va_arg(va1, void *);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   RB::vImageBuffer::~vImageBuffer(va);
   RB::vImageBuffer::~vImageBuffer(va1);
   _Unwind_Resume(a1);
@@ -1071,7 +1119,7 @@ uint64_t __destroy_helper_block_e8_40c46_ZTSN2RB14refcounted_ptrINS_13ImageProvi
   {
     if (atomic_fetch_add_explicit((result + 8), 0xFFFFFFFF, memory_order_release) == 1)
     {
-      return RB::ImageProvider::submit_all();
+      return RB::ImageProvider::submit_all(result);
     }
   }
 
@@ -1119,7 +1167,7 @@ uint64_t RB::Refcount<RB::ImageProvider,std::atomic<unsigned int>>::release(uint
 {
   if (atomic_fetch_add_explicit((result + 8), 0xFFFFFFFF, memory_order_release) == 1)
   {
-    return RB::ImageProvider::submit_all();
+    return RB::ImageProvider::submit_all(result);
   }
 
   return result;
@@ -1139,7 +1187,7 @@ void RB::ImageProvider::start_rendering_locked(BOOL,std::unique_lock<std::mutex>
 
   if (atomic_fetch_add_explicit(this + 2, 0xFFFFFFFF, memory_order_release) == 1)
   {
-    RB::ImageProvider::submit_all();
+    RB::ImageProvider::submit_all(this);
   }
 }
 
@@ -1147,7 +1195,7 @@ void sub_195DB05C4(_Unwind_Exception *exception_object)
 {
   if (atomic_fetch_add_explicit((v1 + 8), 0xFFFFFFFF, memory_order_release) == 1)
   {
-    RB::ImageProvider::submit_all();
+    RB::ImageProvider::submit_all(v1);
   }
 
   _Unwind_Resume(exception_object);
@@ -1164,7 +1212,7 @@ uint64_t RB::vector<RB::refcounted_ptr<RB::ImageProvider>,0ul,unsigned long>::~v
       v4 = v2[v3];
       if (v4 && atomic_fetch_add_explicit((v4 + 8), 0xFFFFFFFF, memory_order_release) == 1)
       {
-        RB::ImageProvider::submit_all();
+        RB::ImageProvider::submit_all(v4);
       }
 
       ++v3;
@@ -1319,7 +1367,7 @@ void RB::DisplayList::Transform::Term::mix(CGFont **this, CGFont **a2, float32x4
   if (*this == 3)
   {
     v9 = RB::FontMixer::shared(this);
-    RB::FontMixer::mix(v9, this[1], a2[1], LODWORD(v3), &v11);
+    RB::FontMixer::mix(&v11, v9, this[1], a2[1], LODWORD(v3));
     v10 = this[1];
     this[1] = v11;
     v11 = v10;
@@ -1335,9 +1383,9 @@ void RB::DisplayList::Transform::Term::mix(CGFont **this, CGFont **a2, float32x4
   {
     if (v6 == 2)
     {
-      RB::Fill::Color::mix((this + 1), (a2 + 1), 0, a3);
-      v7 = this + 22;
-      v8 = a2 + 22;
+      RB::Fill::Color::mix(a3, (this + 1), (a2 + 1), 0);
+      v7 = (this + 22);
+      v8 = (a2 + 22);
     }
 
     else
@@ -1347,13 +1395,13 @@ void RB::DisplayList::Transform::Term::mix(CGFont **this, CGFont **a2, float32x4
         return;
       }
 
-      v7 = (this + 1);
-      v8 = (a2 + 1);
+      v7 = this + 1;
+      v8 = a2 + 1;
     }
 
     a3.f32[0] = v3;
 
-    RB::Fill::Color::mix(v7, v8, 0, a3);
+    RB::Fill::Color::mix(a3, v7, v8, 0);
   }
 }
 
@@ -1517,7 +1565,7 @@ uint64_t RB::DisplayList::DetachedLayerItem::apply_transform(uint64_t this, cons
   return this;
 }
 
-int *RB::DisplayList::Transform::encode(int *this, RB::Encoder *a2)
+RB::DisplayList::Transform::Term *RB::DisplayList::Transform::encode(RB::DisplayList::Transform::Term *this, RB::Encoder *a2)
 {
   if (*(this + 5))
   {
@@ -1529,7 +1577,7 @@ int *RB::DisplayList::Transform::encode(int *this, RB::Encoder *a2)
     v2 = this;
   }
 
-  v3 = this[12];
+  v3 = *(this + 12);
   if (v3)
   {
     v5 = 40 * v3;
@@ -1689,7 +1737,7 @@ int *RB::DisplayList::Transform::Term::encode(int *this, RB::Encoder *a2)
   return RB::ProtobufEncoder::end_length_delimited(a2);
 }
 
-unint64_t RB::DisplayList::Transform::Term::decode(RB::DisplayList::Transform::Term *this, RB::Decoder *a2)
+uint64_t RB::DisplayList::Transform::Term::decode(RB::DisplayList::Transform::Term *this, RB::Decoder *a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -1981,7 +2029,7 @@ uint64_t _ZZN2RB6Stroke13stroke_pointsEPU18objcproto8RBStroke11objc_objectDv2_dR
   if (result)
   {
     v7 = result;
-    v8 = &a4[2];
+    v8 = a4 + 2;
     do
     {
       v10 = *a2++;
@@ -2021,7 +2069,7 @@ uint64_t _ZZN2RB6Stroke13stroke_pointsEPU18objcproto8RBStroke11objc_objectDv2_dR
       {
         if (v9 == 5)
         {
-          *v8 = fmaxf(a3->f32[0] * 0.5, 0.0);
+          v8->f32[0] = fmaxf(a3->f32[0] * 0.5, 0.0);
         }
 
         else if (v9 == 14)
@@ -2131,9 +2179,9 @@ uint64_t _ZZN2RB6Stroke16stroke_particlesEPU18objcproto8RBStroke11objc_objectDv2
   return result;
 }
 
-void sub_195DB23CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_195DB23CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   RB::DisplayList::Builder::~Builder(va);
   _Unwind_Resume(a1);
 }
@@ -2156,28 +2204,29 @@ void sub_195DB27E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_195DB2DBC(_Unwind_Exception *a1)
+void sub_195DB2DBC(_Unwind_Exception *a1, uint64_t a2)
 {
-  v5 = v1[11];
-  if (v5)
+  v6 = v2[11];
+  if (v6)
   {
-    [RBDrawable renderDisplayList:v5 sourceRect:? destinationOffset:? flags:?];
-    a1 = v1[24];
+    [RBDrawable renderDisplayList:v6 sourceRect:? destinationOffset:? flags:?];
+    a1 = v2[24];
   }
 
-  RB::DisplayList::Builder::~Builder((v1 + 26));
-  RB::vector<RB::refcounted_ptr<RB::DisplayList::Contents>,8ul,unsigned int>::~vector(v3 - 208);
-  if (v1[3] > 0x1000uLL)
+  RB::DisplayList::Builder::~Builder((v2 + 26));
+  RB::vector<RB::refcounted_ptr<RB::DisplayList::Contents>,8ul,unsigned int>::~vector(v4 - 208);
+  if (v2[3] > 0x1000uLL)
   {
-    free(v2);
+    free(v3);
   }
 
   _Unwind_Resume(a1);
 }
 
-void sub_195DB320C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, id a13, id a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_195DB320C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, id a13, id a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
-  RB::RenderFrame::~RenderFrame(&a39);
+  va_start(va, a38);
+  RB::RenderFrame::~RenderFrame(va);
 
   _Block_object_dispose(&a27, 8);
   _Block_object_dispose(&a33, 8);
@@ -2323,7 +2372,7 @@ uint64_t RB::vector<RB::refcounted_ptr<RB::DisplayList::Contents>,8ul,unsigned i
     v4 = 0;
     do
     {
-      v5 = v3[v4];
+      v5 = *(v3 + 8 * v4);
       if (v5 && atomic_fetch_add_explicit((v5 + 8), 0xFFFFFFFF, memory_order_release) == 1)
       {
         [RBMovedDisplayListContents .cxx_destruct];
@@ -2995,7 +3044,7 @@ void sub_195DB51C0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t RB::Function::Info::make_params(uint64_t a1, void *a2, uint64_t *a3)
+uint64_t RB::Function::Info::make_params(uint64_t a1, void *a2, void *a3)
 {
   v31[1] = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 8);
@@ -3112,7 +3161,7 @@ LABEL_24:
       if (*(a1 + 64) < (v16 + 1))
       {
         v29 = a3;
-        RB::vector<unsigned int,8ul,unsigned long>::reserve_slow((a1 + 16), v16 + 1);
+        RB::vector<unsigned int,8ul,unsigned long>::reserve_slow((a1 + 16), (v16 + 1));
         a3 = v29;
         v16 = *(a1 + 56);
       }
@@ -3225,7 +3274,7 @@ void RB::anonymous namespace::custom_function(void *a1, void *a2, void *a3)
   }
 }
 
-void RB::anonymous namespace::param_load_layer(void *a1@<X0>, void *a2@<X1>, void *a3@<X2>, uint64_t a4@<X3>, unsigned int a5@<W4>, uint64_t a6@<X5>, uint64_t *a7@<X8>)
+void RB::anonymous namespace::param_load_layer(void *a1@<X0>, void *a2@<X1>, void *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t *a7@<X8>)
 {
   v20[3] = *MEMORY[0x1E69E9840];
   v14 = objc_opt_new();
@@ -3305,7 +3354,7 @@ uint64_t RB::Function::Param::description(RB::Function::Param *this)
   return [MEMORY[0x1E696AEC0] stringWithFormat:@"%s%s", v4, v5, v1, v2];
 }
 
-uint64_t RB::FunctionLibrary::compile_shader(uint64_t a1, uint64_t *a2, int a3, uint64_t *a4)
+BOOL RB::FunctionLibrary::compile_shader(uint64_t a1, uint64_t *a2, int a3, void *a4)
 {
   v60[1] = *MEMORY[0x1E69E9840];
   v5 = *a2;
@@ -3368,7 +3417,7 @@ uint64_t RB::FunctionLibrary::compile_shader(uint64_t a1, uint64_t *a2, int a3, 
         v55 = __Block_byref_object_dispose__56;
         v56 = 256;
         RB::Function::Info::Info(v57, v5, a3);
-        v12 = (a2 + 1);
+        v12 = a2 + 1;
         v13 = a2[18];
         if (a2[17])
         {
@@ -3456,10 +3505,12 @@ uint64_t RB::FunctionLibrary::compile_shader(uint64_t a1, uint64_t *a2, int a3, 
   return v6;
 }
 
-void sub_195DB5CEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, id a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, id a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, id a57, char a58)
+void sub_195DB5CEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, id a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, id a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, id a57, ...)
 {
-  _Block_object_dispose(&a58, 8);
-  RB::Function::Info::~Info((v59 + 48));
+  va_start(va, a57);
+
+  _Block_object_dispose(va, 8);
+  RB::Function::Info::~Info((v58 + 48));
   _Block_object_dispose(&a33, 8);
   _Block_object_dispose(&a37, 8);
 
@@ -3476,16 +3527,16 @@ uint64_t __Block_byref_object_copy__52(uint64_t result, uint64_t a2)
   return result;
 }
 
-_BYTE *___ZN2RB15FunctionLibrary14compile_shaderERNS_6DeviceERKNS_12CustomShader7ClosureENS3_4TypeEPP7NSError_block_invoke(uint64_t a1)
+id *___ZN2RB15FunctionLibrary14compile_shaderERNS_6DeviceERKNS_12CustomShader7ClosureENS3_4TypeEPP7NSError_block_invoke(uint64_t a1)
 {
   *(*(*(a1 + 32) + 8) + 24) = RB::Device::should_compile_binary_functions(*(a1 + 64));
   result = RB::Device::function_library(*(a1 + 64), *(*(a1 + 72) + 16));
   if (result)
   {
     v3 = result;
-    result[104] = 1;
+    *(result + 104) = 1;
     v4 = *(*(a1 + 40) + 8);
-    v5 = *(result + 1);
+    v5 = result[1];
     v6 = *(v4 + 48);
     if (v6 != v5)
     {
@@ -3502,7 +3553,7 @@ _BYTE *___ZN2RB15FunctionLibrary14compile_shaderERNS_6DeviceERKNS_12CustomShader
       *(v8 + 48) = v7;
     }
 
-    result = RB::UntypedTable::lookup((v3 + 40), *(a1 + 80), 0);
+    result = RB::UntypedTable::lookup((v3 + 5), *(a1 + 80), 0);
     if (result)
     {
       v10 = result;
@@ -3510,12 +3561,12 @@ _BYTE *___ZN2RB15FunctionLibrary14compile_shaderERNS_6DeviceERKNS_12CustomShader
       os_unfair_lock_lock(result);
       if (v11)
       {
-        v12 = *(v10 + 4);
+        v12 = v10[4];
       }
 
       else
       {
-        v12 = *(v10 + 3);
+        v12 = v10[3];
       }
 
       os_unfair_lock_unlock(v10);
@@ -3530,7 +3581,7 @@ _BYTE *___ZN2RB15FunctionLibrary14compile_shaderERNS_6DeviceERKNS_12CustomShader
         *v14 = result;
       }
 
-      v10[144] = 1;
+      *(v10 + 144) = 1;
     }
   }
 
@@ -3588,7 +3639,7 @@ void ___ZN2RB15FunctionLibrary14compile_shaderERNS_6DeviceERKNS_12CustomShader7C
   if (v2)
   {
     v3 = v2;
-    v4 = RB::UntypedTable::lookup((v2 + 40), *(a1 + 72), 0);
+    v4 = RB::UntypedTable::lookup((v2 + 5), *(a1 + 72), 0);
     if (!v4)
     {
       operator new();
@@ -3652,8 +3703,8 @@ LABEL_16:
       v9 = __dst;
     }
 
-    *&v9[4 * v15] = 0;
-    v14 = v15 + 1;
+    *(v9 + v15) = 0;
+    v14 = (v15 + 1);
     v29 = v15 + 1;
     goto LABEL_20;
   }
@@ -3663,7 +3714,7 @@ LABEL_16:
   do
   {
     v11 = v10 + 1;
-    if (v30 < v10 + 1)
+    if (v30 < (v10 + 1))
     {
       RB::vector<unsigned int,8ul,unsigned long>::reserve_slow(__dst, v11);
       v9 = v28;
@@ -3681,7 +3732,7 @@ LABEL_16:
       v12 = __dst;
     }
 
-    *&v12[4 * v10] = a4 & 7;
+    *(v12 + v10) = a4 & 7;
     v29 = v11;
     v10 = v11;
     v13 = a4 >= 8;
@@ -3698,7 +3749,7 @@ LABEL_16:
 
     else
     {
-      RB::vector<unsigned int,8ul,unsigned long>::reserve_slow(__dst, 1uLL);
+      RB::vector<unsigned int,8ul,unsigned long>::reserve_slow(__dst, 1);
       v9 = v28;
       v15 = v29;
     }
@@ -3734,7 +3785,7 @@ LABEL_21:
       v19 = __dst;
     }
 
-    v20 = *&v19[4 * v17];
+    v20 = *(v19 + v17);
     v21 = objc_alloc(MEMORY[0x1E69740A0]);
     [a2 addObject:v22];
     if (v16)
@@ -3783,85 +3834,81 @@ void *RB::anonymous namespace::param_load_fn(void *a1, void *a2, unsigned int a3
 
 void RB::anonymous namespace::diagnose_parameter_error(RB::_anonymous_namespace_ *this, NSMutableString *a2, NSArray *a3, int *a4, const RB::Function::Param *a5)
 {
-  v54 = this;
+  v29 = this;
   if ([(NSMutableString *)a2 count:a3]<= a3)
   {
-    v28 = *a4;
+    v16 = *a4;
     if ((*a4 & 0x3Fu) > 8)
     {
-      v29 = "unknown";
+      v17 = "unknown";
     }
 
     else
     {
     }
 
-    if ((v28 & 0x40) != 0)
+    if ((v16 & 0x40) != 0)
     {
-      v30 = " pointer";
+      v18 = " pointer";
     }
 
     else
     {
-      v30 = "";
+      v18 = "";
     }
 
-    -[RB::_anonymous_namespace_ appendFormat:](this, "appendFormat:", @"Extra function argument at index %d: %@.\n", a3, [MEMORY[0x1E696AEC0] stringWithFormat:@"%s%s", v29, v30]);
+    -[RB::_anonymous_namespace_ appendFormat:](this, "appendFormat:", @"Extra function argument at index %d: %@.\n", a3, [MEMORY[0x1E696AEC0] stringWithFormat:@"%s%s", v17, v18]);
   }
 
   else
   {
     v9 = [-[NSMutableString objectAtIndexedSubscript:](a2 objectAtIndexedSubscript:{a3), "dataTypeDescription"}];
-    if (!v9)
+    if (v9)
     {
-      return;
-    }
-
-    v10 = v9;
-    v11 = [v9 dataType];
-    v53[0] = &v54;
-    v53[1] = a3;
-    if (v11 == 1)
-    {
-      if ((*a4 & 0x40) != 0)
+      v10 = v9;
+      v11 = [v9 dataType];
+      v28[0] = &v29;
+      v28[1] = a3;
+      if (v11 == 1)
       {
+        if ((*a4 & 0x40) != 0)
+        {
+        }
+
+        v19 = [v10 members];
+        if ([v19 count] == 2 && (v20 = objc_msgSend(v19, "objectAtIndexedSubscript:", 0), v21 = objc_msgSend(v19, "objectAtIndexedSubscript:", 1), objc_msgSend(v20, "dataType") == 58) && objc_msgSend(v21, "dataType") == 2 && (v22 = objc_msgSend(v20, "textureReferenceType"), v23 = objc_msgSend(v21, "arrayType"), objc_msgSend(v22, "textureDataType") == 16) && objc_msgSend(v22, "textureType") == 2 && !objc_msgSend(v22, "access") && (objc_msgSend(v22, "isDepthTexture") & 1) == 0 && objc_msgSend(v23, "elementType") == 137 && objc_msgSend(v23, "arrayLength") == 5 && (*a4 & 0x3F) != 3)
+        {
+        }
+
+        else
+        {
+        }
       }
 
-      v31 = [v10 members];
-      if ([v31 count] != 2 || (v38 = objc_msgSend(v31, "objectAtIndexedSubscript:", 0), v39 = objc_msgSend(v31, "objectAtIndexedSubscript:", 1), objc_msgSend(v38, "dataType") != 58) || objc_msgSend(v39, "dataType") != 2 || (v40 = objc_msgSend(v38, "textureReferenceType"), v41 = objc_msgSend(v39, "arrayType"), objc_msgSend(v40, "textureDataType") != 16) || objc_msgSend(v40, "textureType") != 2 || objc_msgSend(v40, "access") || (objc_msgSend(v40, "isDepthTexture") & 1) != 0 || objc_msgSend(v41, "elementType") != 137 || objc_msgSend(v41, "arrayLength") != 5 || (*a4 & 0x3F) == 3)
-      {
-        v42 = "unsupported struct type";
-LABEL_44:
-        return;
-      }
-
-      if ((*a4 & 0x3Fu) > 8)
-      {
-        v51 = "unknown";
-      }
-
-      else
-      {
-      }
-    }
-
-    else
-    {
-      v18 = v11;
-      if (v11 == 60)
+      else if (v11 == 60)
       {
         if ((*a4 & 0x40) == 0)
         {
         }
 
-        if ((v19 & 0x100000000) != 0)
+        if ((v12 & 0x100000000) != 0)
         {
-          v26 = v19;
-          if ((*a4 & 0x3F) != v19)
+          v13 = v12;
+          v14 = *a4 & 0x3FLL;
+          if ((*a4 & 0x3F) != v12)
           {
-            if (v19 > 8)
+            if (v12 > 8)
             {
-              v27 = "unknown";
+              v15 = "unknown";
+            }
+
+            else
+            {
+            }
+
+            if (v14 > 8)
+            {
+              v25 = "unknown";
             }
 
             else
@@ -3869,54 +3916,43 @@ LABEL_44:
             }
           }
 
-          if ([v10 alignment] > RB::Function::Param::alignment_values[v26])
+          if ([v10 alignment] > RB::Function::Param::alignment_values[v13])
           {
           }
 
           if ([v10 access])
           {
-            v42 = "pointer access must be read-only";
-            goto LABEL_44;
           }
         }
       }
 
       else
       {
-        if ((v43 & 0x100000000) == 0)
+        if ((v24 & 0x100000000) != 0)
         {
-          return;
+          if ((*a4 & 0x3F) != v24)
+          {
+          }
         }
 
-        if ((*a4 & 0x3F) != v43)
+        else
         {
-          if (v43 > 8)
-          {
-            v44 = "unknown";
-          }
-
-          else
-          {
-          }
-
-          v52 = v44;
-          v42 = "invalid type, %s, expected %s";
-          goto LABEL_44;
         }
       }
     }
   }
 }
 
-void RB::anonymous namespace::diagnose_parameter_error(NSMutableString *,NSArray *,unsigned long,RB::Function::Param const&)::$_0::operator()(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void RB::anonymous namespace::diagnose_parameter_error(NSMutableString *,NSArray *,unsigned long,RB::Function::Param const&)::$_0::operator()(uint64_t a1, const char *a2, ...)
 {
-  v10[0] = 0;
-  v10[1] = &a9;
-  vasprintf(v10, a2, &a9);
-  if (v10[0])
+  va_start(va, a2);
+  v3[0] = 0;
+  va_copy(&v3[1], va);
+  vasprintf(v3, a2, va);
+  if (v3[0])
   {
-    [**a1 appendFormat:@"Parameter at index %d: %s.\n", *(a1 + 8), v10[0]];
-    free(v10[0]);
+    [**a1 appendFormat:@"Parameter at index %d: %s.\n", *(a1 + 8), v3[0]];
+    free(v3[0]);
   }
 }
 
@@ -4187,7 +4223,7 @@ void RB::Coverage::Path::clip(RB::Coverage::Path *this, CGContextRef *a2)
 
   else
   {
-    RB::Coverage::Path::make_image_mask(this, a2, &mask);
+    RB::Coverage::Path::make_image_mask(&mask, this, a2);
     a = mask.a;
     if (*&mask.a)
     {
@@ -4206,24 +4242,24 @@ void RB::Coverage::Path::clip(RB::Coverage::Path *this, CGContextRef *a2)
   }
 }
 
-void RB::Coverage::Path::make_image_mask(RB::Coverage::Path *this@<X0>, RB::CGContext *a2@<X1>, CGImageRef *a3@<X8>)
+void RB::Coverage::Path::make_image_mask(CGImageRef *__return_ptr a1@<X8>, RB::Coverage::Path *this@<X0>, RB::CGContext *a3@<X1>)
 {
   v37 = *MEMORY[0x1E69E9840];
-  *(&v9 - 8) = CGContextGetClipBoundingBox(*a2);
-  *&v10.f64[1] = v9.i64[0];
+  *(&v9 - 8) = CGContextGetClipBoundingBox(*a3);
+  v10.i64[1] = v9.i64[0];
   v8.f64[1] = v39.size.height;
   *v9.i8 = vcvt_f32_f64(v10);
-  *&v10.f64[0] = vcvt_f32_f64(v8);
+  *v10.i8 = vcvt_f32_f64(v8);
   *&v32 = v9.i64[0];
-  *(&v32 + 1) = *&v10.f64[0];
+  *(&v32 + 1) = v10.i64[0];
   if (*(this + 29) >= 2u)
   {
     LODWORD(v8.f64[0]) = *(this + 6);
-    *&v39.size.height = vcgt_f32(vneg_f32(0x80000000800000), *&v10.f64[0]);
+    *&v39.size.height = vcgt_f32(vneg_f32(0x80000000800000), *v10.i8);
     *v6.i8 = vsub_f32(*v9.i8, vdup_lane_s32(*&v8.f64[0], 0));
     v11 = vcltzq_s32(*&v39.size.height);
     *&v12 = vbslq_s8(v11, v6, v9).u64[0];
-    *v7.i8 = vmla_n_f32(*&v10.f64[0], 0x4000000040000000, *v8.f64);
+    *v7.i8 = vmla_n_f32(*v10.i8, 0x4000000040000000, *v8.f64);
     *(&v12 + 1) = vbslq_s8(v11, v7, v10).u64[0];
     v32 = v12;
   }
@@ -4236,17 +4272,17 @@ void RB::Coverage::Path::make_image_mask(RB::Coverage::Path *this@<X0>, RB::CGCo
   v13 = RB::Coverage::Path::bounds(v38);
   RB::Rect::intersect(&v32, v13, v14);
   v15 = vceqz_f32(*(&v32 + 8));
-  if ((vpmax_u32(v15, v15).u32[0] & 0x80000000) != 0 || ((v16 = *(a2 + 10)) == 0 ? (v17 = *(a2 + 2), v18 = *(a2 + 3), v19 = *(a2 + 4)) : (*&v17 = RB::operator*(v16, a2 + 2)), *v33 = v17, v34 = v18, v35 = v19, v20 = RB::AffineTransform::scale(v33), *&v32 = vmul_n_f32(*&v32, v20), *(&v32 + 1) = vmul_n_f32(*(&v32 + 8), v20), v29 = v20, RB::CGContext::begin_bitmap(a2, &v32, 0x100000000, 0, &c, v21), !c))
+  if ((vpmax_u32(v15, v15).u32[0] & 0x80000000) != 0 || ((v16 = *(a3 + 10)) == 0 ? (v17 = *(a3 + 2), v18 = *(a3 + 3), v19 = *(a3 + 4)) : (*&v17 = RB::operator*(v16, a3 + 2)), *v33 = v17, v34 = v18, v35 = v19, v20 = RB::AffineTransform::scale(v33), *&v32 = vmul_n_f32(*&v32, v20), *(&v32 + 1) = vmul_n_f32(*(&v32 + 8), v20), v29 = v20, RB::CGContext::begin_bitmap(a3, &v32, 0x100000000, 0, &c, v21), !c))
   {
-    *a3 = 0;
-    a3[1] = 0;
-    a3[2] = 0;
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
   }
 
   else
   {
     CGContextScaleCTM(c, v29, v29);
-    RB::CGContext::CGContext(v33, c, *(a2 + 8), *(a2 + 2));
+    RB::CGContext::CGContext(v33, c, *(a3 + 8), *(a3 + 2));
     v22 = rb_clip_mode(*(this + 29));
     if (v36 != v22)
     {
@@ -4281,8 +4317,8 @@ void RB::Coverage::Path::make_image_mask(RB::Coverage::Path *this@<X0>, RB::CGCo
     RB::CGContext::apply_distance_rendering(v33, *(this + 29), v26);
     *&v32 = vmul_n_f32(*&v32, 1.0 / v29);
     *(&v32 + 1) = vmul_n_f32(*(&v32 + 8), 1.0 / v29);
-    *a3 = CGBitmapContextCreateImage(c);
-    *(a3 + 1) = v32;
+    *a1 = CGBitmapContextCreateImage(c);
+    *(a1 + 1) = v32;
     RB::CGContext::~CGContext(v33);
     if (c)
     {
@@ -4291,10 +4327,11 @@ void RB::Coverage::Path::make_image_mask(RB::Coverage::Path *this@<X0>, RB::CGCo
   }
 }
 
-void sub_195DB718C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, CFTypeRef cf, uint64_t a19, uint64_t a20, char a21)
+void sub_195DB718C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, CFTypeRef cf, uint64_t a19, uint64_t a20, ...)
 {
-  CFRelease(v21);
-  RB::CGContext::~CGContext(&a21);
+  va_start(va, a20);
+  CFRelease(v20);
+  RB::CGContext::~CGContext(va);
   if (cf)
   {
     CFRelease(cf);
@@ -4340,6 +4377,16 @@ void *RB::Coverage::Path::encode(RBPath *this, RB::Encoder *a2)
   }
 
   return result;
+}
+
+void RB::Coverage::Path::attributes(RB::Coverage::Path *this, RB::XML::Element *a2)
+{
+  v4 = *this;
+  v5 = *(this + 1);
+  v7[0] = &unk_1F0A38C40;
+  v7[1] = RBPathRetain(v4, v5);
+  v7[2] = v6;
+  RB::XML::Element::set<RB::XML::Value::Path>(a2, "path", v7);
 }
 
 RB::ColorSpace::ToneMap *RB::ColorSpace::ToneMap::ToneMap(RB::ColorSpace::ToneMap *this, float a2, float a3)
@@ -5059,7 +5106,7 @@ void *RB::DisplayList::Layer::Effect::encode(void *this, RB::Encoder *a2)
   return RB::ProtobufEncoder::end_length_delimited(a2);
 }
 
-unint64_t RB::DisplayList::Layer::Effect::decode(RB::DisplayList::Layer::Effect *this, RB::Decoder *a2)
+uint64_t RB::DisplayList::Layer::Effect::decode(RB::DisplayList::Layer::Effect *this, RB::Decoder *a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -5296,12 +5343,12 @@ void *RB::DisplayList::Item::prepare_encode(void *this, RB::Encoder *a2)
     }
 
     while (v4);
-    v9 = *(v3 + 24);
+    v9 = v3[3];
     v10 = v9;
     this = RB::Encoder::prepare_shared_f<void RB::Encoder::prepare_shared<RB::DisplayList::ClipNode>(RB::Encoder::SharedType,RB::DisplayList::ClipNode const&)::{lambda(RB::DisplayList::ClipNode&)#1},void RB::Encoder::prepare_shared<RB::DisplayList::ClipNode>(RB::Encoder::SharedType,RB::DisplayList::ClipNode const&)::{lambda(RB::DisplayList::ClipNode&)#2}>(a2, 4, v9, &v10, &v9);
   }
 
-  v6 = *(v3 + 16);
+  v6 = v3[2];
   if (v6)
   {
     do
@@ -5311,7 +5358,7 @@ void *RB::DisplayList::Item::prepare_encode(void *this, RB::Encoder *a2)
     }
 
     while (v6);
-    v7 = *(v3 + 16);
+    v7 = v3[2];
     v10 = 0;
     this = RB::UntypedTable::lookup((a2 + 80), v7, &v10);
     if (v10 != v7)
@@ -5348,14 +5395,14 @@ void *RB::DisplayList::Item::prepare_encode(void *this, RB::Encoder *a2)
   return this;
 }
 
-unint64_t RB::DisplayList::ClipNode::prepare_encode(unint64_t result, uint64_t a2)
+void *RB::DisplayList::ClipNode::prepare_encode(void *result, uint64_t a2)
 {
   if (result)
   {
     v3 = result;
     do
     {
-      result = v3[1] & 0xFFFFFFFFFFFFFFFELL;
+      result = (v3[1] & 0xFFFFFFFFFFFFFFFELL);
       if (result)
       {
         result = (*(*result + 112))(result, a2);
@@ -5631,7 +5678,7 @@ void *RB::DisplayList::DetachedLayerItem::encode(RB::DisplayList::DetachedLayerI
   return RB::DisplayList::Item::encode(this, a2);
 }
 
-unint64_t RB::DisplayList::DetachedLayerItem::decode(RB::DisplayList::DetachedLayerItem *this, size_t **a2)
+uint64_t RB::DisplayList::DetachedLayerItem::decode(RB::DisplayList::DetachedLayerItem *this, size_t **a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -6184,11 +6231,11 @@ void *RB::DisplayList::Clip::encode(void *this, RB::Encoder *a2)
     this = RB::ProtobufEncoder::encode_varint(a2, 1uLL);
   }
 
-  if (*(v3 + 32) || *(v3 + 40))
+  if (v3[4] || *(v3 + 10))
   {
     RB::ProtobufEncoder::encode_varint(a2, 0x2AuLL);
     RB::ProtobufEncoder::begin_length_delimited(a2);
-    RB::DisplayList::encode_metadata(a2, *(v3 + 32), *(v3 + 40), 0);
+    RB::DisplayList::encode_metadata(a2, v3[4], *(v3 + 10), 0);
 
     return RB::ProtobufEncoder::end_length_delimited(a2);
   }
@@ -6275,7 +6322,7 @@ float32x2_t *RB::DisplayList::Clip::decode(RB::Heap **this, RB::Decoder *a2)
         v27 = v12;
         v28 = 0;
         v29 = 0;
-        RBShapeData::apply<RB::DisplayList::ClipFactory>(&v31, &v24, v13, v14, v15, v16, v17, v18);
+        RBShapeData::apply<RB::DisplayList::ClipFactory>(&v31.type, &v24, v13, v14, v15, v16, v17, v18);
         v3 = v29;
         if (v5)
         {
@@ -6289,7 +6336,7 @@ float32x2_t *RB::DisplayList::Clip::decode(RB::Heap **this, RB::Decoder *a2)
       {
         *&v31.type = 0;
         v24 = 0;
-        v3 = RB::Heap::emplace<RB::DisplayList::LayerClip,decltype(nullptr),RB::DisplayList::Layer::Effect>(this[8], &v31, &v24);
+        v3 = RB::Heap::emplace<RB::DisplayList::LayerClip,decltype(nullptr),RB::DisplayList::Layer::Effect>(this[8]);
         if ((v7 & 7) != 2)
         {
           goto LABEL_40;
@@ -6457,9 +6504,9 @@ void RB::DisplayList::LayerClip::decode(RB::DisplayList::LayerClip *this, size_t
       {
         v6 = *(a2 + 52) + 1;
         *(a2 + 52) = v6;
-        v13 = 0;
-        v14 = v6;
-        v7 = RB::Heap::emplace<RB::DisplayList::Layer,unsigned int,int>(a2[8], &v14, &v13);
+        v14 = 0;
+        v15 = v6;
+        v7 = RB::Heap::emplace<RB::DisplayList::Layer,unsigned int,int>(a2[8], &v15, &v14);
         v9 = v8;
         v10 = *(this + 6);
         *(this + 6) = v9;
@@ -6496,9 +6543,10 @@ void RB::DisplayList::LayerClip::decode(RB::DisplayList::LayerClip *this, size_t
   v11 = *(this + 6);
   if (v11)
   {
-    *(this + 2) = RB::DisplayList::Layer::bounds(v11);
-    *(this + 3) = v12;
-    RB::DisplayList::Layer::Effect::apply_to_bounds((this + 56), (this + 16));
+    v12 = RB::DisplayList::Layer::bounds(v11);
+    *(this + 2) = v12;
+    *(this + 3) = v13.n128_u64[0];
+    RB::DisplayList::Layer::Effect::apply_to_bounds((this + 56), (this + 16), *&v12, v13);
   }
 
   else
@@ -7028,14 +7076,14 @@ __n128 RB::Heap::emplace<RB::DisplayList::GenericEffect<RB::AlphaThresholdEffect
   return result;
 }
 
-unint64_t RB::DisplayList::GenericEffect<RB::AlphaGradientEffect>::copy(uint64_t a1, uint64_t a2)
+size_t RB::DisplayList::GenericEffect<RB::AlphaGradientEffect>::copy(uint64_t a1, uint64_t a2)
 {
   result = RB::Heap::emplace<RB::DisplayList::GenericEffect<RB::AlphaGradientEffect>,RB::DisplayList::GenericEffect<RB::AlphaGradientEffect> const&,RB::DisplayList::Contents &>((*(a2 + 8) + 16), a1, *(a2 + 8));
   *(result + 96) = 0;
   return result;
 }
 
-unint64_t RB::DisplayList::GenericEffect<RB::AlphaGradientEffect>::append_color_fn(uint64_t a1, RB::ColorMatrixFn *a2, uint64_t a3, uint64_t a4)
+size_t RB::DisplayList::GenericEffect<RB::AlphaGradientEffect>::append_color_fn(size_t a1, RB::ColorMatrixFn *a2, uint64_t a3, uint64_t a4)
 {
   v6 = a1;
   if (*(a1 + 96) == 1)
@@ -7062,7 +7110,7 @@ uint64_t RB::DisplayList::GenericEffect<RB::AlphaGradientEffect>::color_info(uin
   return result;
 }
 
-unint64_t RB::Heap::emplace<RB::DisplayList::GenericEffect<RB::AlphaGradientEffect>,RB::DisplayList::GenericEffect<RB::AlphaGradientEffect> const&,RB::DisplayList::Contents &>(size_t *a1, uint64_t a2, RB::DisplayList::Contents *a3)
+size_t RB::Heap::emplace<RB::DisplayList::GenericEffect<RB::AlphaGradientEffect>,RB::DisplayList::GenericEffect<RB::AlphaGradientEffect> const&,RB::DisplayList::Contents &>(size_t *a1, uint64_t a2, RB::DisplayList::Contents *a3)
 {
   v5 = (a1[2] + 7) & 0xFFFFFFFFFFFFFFF8;
   if (v5 + 104 > a1[3])
@@ -7177,7 +7225,7 @@ void RB::DisplayList::GenericEffect<RB::CustomEffect>::~GenericEffect(uint64_t a
   JUMPOUT(0x19A8C09E0);
 }
 
-unint64_t RB::DisplayList::GenericEffect<RB::CustomEffect>::copy(uint64_t a1, uint64_t a2)
+size_t RB::DisplayList::GenericEffect<RB::CustomEffect>::copy(uint64_t a1, uint64_t a2)
 {
   result = RB::Heap::emplace<RB::DisplayList::GenericEffect<RB::CustomEffect>,RB::DisplayList::GenericEffect<RB::CustomEffect> const&,RB::DisplayList::Contents &>((*(a2 + 8) + 16), a1, *(a2 + 8));
   *(result + 288) = 0;
@@ -7187,23 +7235,23 @@ unint64_t RB::DisplayList::GenericEffect<RB::CustomEffect>::copy(uint64_t a1, ui
   return result;
 }
 
-unint64_t RB::DisplayList::GenericEffect<RB::CustomEffect>::apply_transform(uint64_t a1, float64x2_t *a2)
+size_t RB::DisplayList::GenericEffect<RB::CustomEffect>::apply_transform(size_t a1, float64x2_t *a2)
 {
   v3 = a1;
   if (*(a1 + 288) == 1)
   {
     v4 = *(*&a2->f64[0] + 8);
-    v3 = RB::Heap::emplace<RB::DisplayList::GenericEffect<RB::CustomEffect>,RB::DisplayList::GenericEffect<RB::CustomEffect> const&,RB::DisplayList::Contents &>(v4 + 2, a1, v4);
+    v3 = RB::Heap::emplace<RB::DisplayList::GenericEffect<RB::CustomEffect>,RB::DisplayList::GenericEffect<RB::CustomEffect> const&,RB::DisplayList::Contents &>((v4 + 16), a1, v4);
     *(v3 + 288) = 0;
-    *(v3 + 8) = v4[39];
-    v4[39] = v3;
+    *(v3 + 8) = *(v4 + 312);
+    *(v4 + 312) = v3;
   }
 
   RB::CustomEffect::apply_transform((v3 + 16), a2);
   return v3;
 }
 
-unint64_t RB::Heap::emplace<RB::DisplayList::GenericEffect<RB::CustomEffect>,RB::DisplayList::GenericEffect<RB::CustomEffect> const&,RB::DisplayList::Contents &>(size_t *a1, uint64_t a2, RB::DisplayList::Contents *a3)
+size_t RB::Heap::emplace<RB::DisplayList::GenericEffect<RB::CustomEffect>,RB::DisplayList::GenericEffect<RB::CustomEffect> const&,RB::DisplayList::Contents &>(size_t *a1, uint64_t a2, atomic_uint *a3)
 {
   v5 = (a1[2] + 15) & 0xFFFFFFFFFFFFFFF0;
   if (v5 + 304 > a1[3])
@@ -7287,20 +7335,20 @@ double RB::Heap::emplace<RB::DisplayList::LayerItem,int,RB::BlendMode,decltype(n
   return result;
 }
 
-double RB::Heap::emplace<RB::DisplayList::BackdropColorMatrixItem>(size_t *a1)
+double RB::Heap::emplace<RB::DisplayList::BackdropColorMatrixItem>(size_t *a1, __n128 a2)
 {
-  v2 = (a1[2] + 7) & 0xFFFFFFFFFFFFFFF8;
-  if (v2 + 56 > a1[3])
+  v3 = (a1[2] + 7) & 0xFFFFFFFFFFFFFFF8;
+  if (v3 + 56 > a1[3])
   {
-    v2 = RB::Heap::alloc_slow(a1, 0x38uLL, 7);
+    v3 = RB::Heap::alloc_slow(a1, 0x38uLL, 7);
   }
 
   else
   {
-    a1[2] = v2 + 56;
+    a1[2] = v3 + 56;
   }
 
-  *&result = RB::DisplayList::BackdropColorMatrixItem::BackdropColorMatrixItem(v2, 0, 2, 1.0);
+  *&result = RB::DisplayList::BackdropColorMatrixItem::BackdropColorMatrixItem(v3, 0, 2, 1.0);
   return result;
 }
 
@@ -7320,7 +7368,7 @@ uint64_t RB::Decoder::shared_field_f<RB::DisplayList::ClipNode,RB::DisplayList::
   return result;
 }
 
-unint64_t RB::Decoder::shared_field_f<RB::DisplayList::ClipNode,RB::DisplayList::ClipNode const* RB::Decoder::shared_field<RB::DisplayList::ClipNode>(RB::ProtobufDecoder::Field,RB::Encoder::SharedType)::{lambda(RB::DisplayList::ClipNode&)#1}>(RB::ProtobufDecoder::Field,RB::Encoder::SharedType,RB::DisplayList::ClipNode const* RB::Decoder::shared_field<RB::DisplayList::ClipNode>(RB::ProtobufDecoder::Field,RB::Encoder::SharedType)::{lambda(RB::DisplayList::ClipNode&)#1} const&)::{lambda(RB::DisplayList::ClipNode&)#1}::operator()<RB::Decoder>(uint64_t a1, RB::ProtobufDecoder *this)
+uint64_t RB::Decoder::shared_field_f<RB::DisplayList::ClipNode,RB::DisplayList::ClipNode const* RB::Decoder::shared_field<RB::DisplayList::ClipNode>(RB::ProtobufDecoder::Field,RB::Encoder::SharedType)::{lambda(RB::DisplayList::ClipNode&)#1}>(RB::ProtobufDecoder::Field,RB::Encoder::SharedType,RB::DisplayList::ClipNode const* RB::Decoder::shared_field<RB::DisplayList::ClipNode>(RB::ProtobufDecoder::Field,RB::Encoder::SharedType)::{lambda(RB::DisplayList::ClipNode&)#1} const&)::{lambda(RB::DisplayList::ClipNode&)#1}::operator()<RB::Decoder>(uint64_t a1, RB::ProtobufDecoder *this)
 {
   field = RB::ProtobufDecoder::next_field(this);
   if (!field)
@@ -7428,23 +7476,26 @@ _OWORD *RB::Decoder::emplace<RB::DisplayList::ClipNode>(uint64_t a1)
   return v2;
 }
 
-uint64_t RB::Heap::emplace<RB::DisplayList::DetachedLayerItem,int,RB::BlendMode,decltype(nullptr),decltype(nullptr),RB::AffineTransform const*,int>(RB::Heap *this, int *a2, __n128 a3)
+uint64_t RB::Heap::emplace<RB::DisplayList::DetachedLayerItem,int,RB::BlendMode,decltype(nullptr),decltype(nullptr),RB::AffineTransform const*,int>(RB::Heap *this, int *a2, unsigned int *a3, uint64_t a4, uint64_t a5, uint64_t *a6, unsigned int *a7)
 {
-  v5 = *(this + 3);
-  v6 = (*(this + 2) + 7) & 0xFFFFFFFFFFFFFFF8;
-  if (v6 + 88 > v5)
+  v12 = *(this + 3);
+  v13 = (*(this + 2) + 7) & 0xFFFFFFFFFFFFFFF8;
+  if (v13 + 88 > v12)
   {
-    RB::Heap::alloc_slow(this, 0x58uLL, 7);
+    v13 = RB::Heap::alloc_slow(this, 0x58uLL, 7);
   }
 
   else
   {
-    *(this + 2) = v6 + 88;
+    *(this + 2) = v13 + 88;
   }
 
-  a3.n128_f32[0] = *a2;
+  v14 = *a2;
+  v15 = *a3;
+  v16 = *a6;
+  v17 = *a7;
 
-  return RB::DisplayList::DetachedLayerItem::DetachedLayerItem(a3);
+  return RB::DisplayList::DetachedLayerItem::DetachedLayerItem(v13, v15, 0, 0, v16, v17, v14);
 }
 
 double RB::Heap::emplace<RB::DisplayList::Layer,unsigned int,int>(size_t *a1, int *a2, int *a3)
@@ -7466,7 +7517,7 @@ double RB::Heap::emplace<RB::DisplayList::Layer,unsigned int,int>(size_t *a1, in
   return RB::DisplayList::Layer::Layer(v5, v6, v7);
 }
 
-void *RB::Encoder::prepare_shared_f<void RB::Encoder::prepare_shared<RB::DisplayList::Layer>(RB::Encoder::SharedType,RB::DisplayList::Layer const&)::{lambda(RB::DisplayList::Layer&)#1},void RB::Encoder::prepare_shared<RB::DisplayList::Layer>(RB::Encoder::SharedType,RB::DisplayList::Layer const&)::{lambda(RB::DisplayList::Layer&)#2}>(uint64_t a1, uint64_t a2, void *a3, void **a4, int **a5)
+void *RB::Encoder::prepare_shared_f<void RB::Encoder::prepare_shared<RB::DisplayList::Layer>(RB::Encoder::SharedType,RB::DisplayList::Layer const&)::{lambda(RB::DisplayList::Layer&)#1},void RB::Encoder::prepare_shared<RB::DisplayList::Layer>(RB::Encoder::SharedType,RB::DisplayList::Layer const&)::{lambda(RB::DisplayList::Layer&)#2}>(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4, int **a5)
 {
   v12 = 0;
   result = RB::UntypedTable::lookup((a1 + 80), a3, &v12);
@@ -7497,7 +7548,7 @@ void *RB::Encoder::prepare_shared_f<void RB::Encoder::prepare_shared<RB::Display
   return result;
 }
 
-unint64_t RB::Heap::emplace<RB::Filter::ColorMatrix>(size_t *a1)
+size_t RB::Heap::emplace<RB::Filter::ColorMatrix>(size_t *a1)
 {
   v1 = (a1[2] + 7) & 0xFFFFFFFFFFFFFFF8;
   if (v1 + 16 > a1[3])
@@ -7536,23 +7587,21 @@ void *RB::DisplayList::GenericFilter<RB::Filter::ColorMatrix>::copy(uint64_t a1,
   return v5;
 }
 
-uint64_t RB::Heap::emplace<RB::DisplayList::LayerClip,decltype(nullptr),RB::DisplayList::Layer::Effect>(RB::Heap *this, uint64_t a2, uint64_t *a3)
+uint64_t RB::Heap::emplace<RB::DisplayList::LayerClip,decltype(nullptr),RB::DisplayList::Layer::Effect>(RB::Heap *this)
 {
-  v5 = *(this + 3);
-  v6 = (*(this + 2) + 7) & 0xFFFFFFFFFFFFFFF8;
-  if (v6 + 72 > v5)
+  v2 = *(this + 3);
+  v3 = (*(this + 2) + 7) & 0xFFFFFFFFFFFFFFF8;
+  if (v3 + 72 > v2)
   {
-    v6 = RB::Heap::alloc_slow(this, 0x48uLL, 7);
+    LODWORD(v3) = RB::Heap::alloc_slow(this, 0x48uLL, 7);
   }
 
   else
   {
-    *(this + 2) = v6 + 72;
+    *(this + 2) = v3 + 72;
   }
 
-  v7 = *a3;
-
-  return RB::DisplayList::LayerClip::LayerClip(v6, 0, v7, 0, 1.0);
+  return RB::DisplayList::LayerClip::LayerClip(v3, 0, 1.0);
 }
 
 uint64_t RB::Heap::emplace<RB::DisplayList::ItemClip,decltype(nullptr)>(size_t *a1)
@@ -7575,7 +7624,7 @@ uint64_t RB::Path::Mapper::StackItem::cubeto(uint64_t a1, double a2, double a3, 
 {
   *(a1 + 32) = a4;
   *(a1 + 64) = 0;
-  return (*(**(a1 + 16) + 40))();
+  return (*(**(a1 + 16) + 40))(a2, a3);
 }
 
 uint64_t RB::Path::Mapper::add_rect(__n128 *this, CGRect a2, float64x2_t *a3, int a4)
@@ -7759,7 +7808,7 @@ uint64_t RB::Path::Mapper::add_arc(__n128 *a1, int a2, CGAffineTransform *a3, fl
   return RB::Path::Mapper::add_relative_arc(a1, a3, a4, a5, a6, a7 - a6);
 }
 
-uint64_t RB::Path::Mapper::add_arc_to_point(__n128 *a1, int8x16_t *a2, float64x2_t a3, float64x2_t a4, double a5)
+uint64_t RB::Path::Mapper::add_arc_to_point(__n128 *a1, CGAffineTransform *a2, float64x2_t a3, float64x2_t a4, double a5)
 {
   v6 = a4;
   v8 = a1[1].n128_u64[1];
@@ -7771,10 +7820,10 @@ uint64_t RB::Path::Mapper::add_arc_to_point(__n128 *a1, int8x16_t *a2, float64x2
   v9 = v8[2];
   if (a2)
   {
-    v31 = a2[1];
-    v32 = *a2;
-    v34 = a2[2];
-    v45 = *a2;
+    v31 = *&a2->c;
+    v32 = *&a2->a;
+    v34 = *&a2->tx;
+    v45 = *&a2->a;
     v46 = v31;
     v47 = v34;
     v43 = v9;
@@ -7892,11 +7941,11 @@ LABEL_17:
   return RB::Path::Mapper::add_arc(a1, vmovn_s64(vmvnq_s8(vcgtq_f64(v42, v39))).i32[1] & 1, a2, vaddq_f64(v27, v44), v24, v25, v26);
 }
 
-void RB::Path::Mapper::push_stroke(uint64_t a1, uint64_t a2)
+void RB::Path::Mapper::push_stroke(uint64_t a1, unsigned int *a2, double a3, double a4, double a5)
 {
   if (a2)
   {
-    if (*(a2 + 8))
+    if (*(a2 + 1))
     {
       operator new();
     }
@@ -7905,13 +7954,13 @@ void RB::Path::Mapper::push_stroke(uint64_t a1, uint64_t a2)
   operator new();
 }
 
-void RB::Path::Mapper::push_clip_stroke(uint64_t a1, int *a2)
+void RB::Path::Mapper::push_clip_stroke(uint64_t a1, unsigned int *a2, double a3, double a4)
 {
   if (a2)
   {
-    v2 = *a2;
+    v4 = *a2;
     rb_line_cap(a2[1]);
-    if ((v2 & 0x80) != 0)
+    if ((v4 & 0x80) != 0)
     {
       operator new();
     }
@@ -7920,13 +7969,13 @@ void RB::Path::Mapper::push_clip_stroke(uint64_t a1, int *a2)
   operator new();
 }
 
-void *RB::Path::DasherStroker::DasherStroker(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, float a7, float a8, float a9)
+void *RB::Path::DasherStroker::DasherStroker(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, size_t a5, uint64_t *a6, float a7, float a8, float a9)
 {
   *a1 = &unk_1F0A3EB20;
   v13 = a1 + 1;
   v14 = MEMORY[0x1E695EFD0];
-  CG::stroker::stroker(a1 + 1, MEMORY[0x1E695EFD0], a3, a4, a2, 0.0, a7, a8);
-  CG::dasher::dasher(a1 + 32, v14, a6, a5, v13, a9);
+  CG::stroker::stroker((a1 + 1), MEMORY[0x1E695EFD0], a3, a4, a2, 0.0, a7, a8);
+  CG::dasher::dasher((a1 + 32), v14, a6, a5, v13, a9);
   return a1;
 }
 
@@ -8094,20 +8143,20 @@ void *RB::vector<RB::RenderTask *,32ul,unsigned int>::reserve_slow(void *__dst, 
 
 float OUTLINED_FUNCTION_2_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, float a25)
 {
-  *(v17 + 48) = v25;
-  *(v17 + 56) = v19;
-  *(v17 + 64) = v22;
-  *(v17 + 68) = v20;
+  *(v25 + 48) = v33;
+  *(v25 + 56) = v27;
+  *(v25 + 64) = v30;
+  *(v25 + 68) = v28;
   result = a25;
-  *(v17 + 72) = a24;
-  *(v17 + 76) = a25;
-  *(v17 + 80) = v24;
-  *(v17 + 88) = 0;
-  *(v17 + 92) = v23;
-  *(v17 + 100) = 0;
-  *(v17 + 104) = v21;
-  *(v17 + 112) = 1065353216;
-  *(v17 + 116) = v18;
+  *(v25 + 72) = a24;
+  *(v25 + 76) = a25;
+  *(v25 + 80) = v32;
+  *(v25 + 88) = 0;
+  *(v25 + 92) = v31;
+  *(v25 + 100) = 0;
+  *(v25 + 104) = v29;
+  *(v25 + 112) = 1065353216;
+  *(v25 + 116) = v26;
   return result;
 }
 
@@ -8118,25 +8167,25 @@ void sub_195DBD6FC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_195DBE3B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_195DBE3B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   RB::Symbol::Presentation::~Presentation(va);
-  os_unfair_lock_unlock((v3 + v4));
+  os_unfair_lock_unlock((v5 + v6));
   _Unwind_Resume(a1);
 }
 
-__n128 anonymous namespace::Updater::drawing_transform(RB::Symbol::Model **this, CALayer *a2)
+__n128 anonymous namespace::Updater::drawing_transform(__n128 *this, CALayer *a2)
 {
-  RB::Symbol::Model::glyph_info(this[2]);
+  RB::Symbol::Model::glyph_info(this[1].n128_u64[0]);
   if (a2 && ![(CALayer *)a2 contentsAreFlipped])
   {
-    return *(this + 141);
+    return this[141];
   }
 
   else
   {
-    return *(this + 141);
+    return this[141];
   }
 }
 
@@ -8147,7 +8196,7 @@ void ___ZN12_GLOBAL__N_17Updater13update_mergedEv_block_invoke_2(void *a1, uint6
   v7[1] = v5;
   v7[2] = v6;
   RBDrawingStateConcatCTM(State, v7);
-  RB::Symbol::Presentation::draw((v3 + 2), State, 0, a1[5], 1.0);
+  RB::Symbol::Presentation::draw(&v3[1], State, 0, a1[5], 1.0);
 }
 
 uint64_t color_symbols(void)
@@ -8162,17 +8211,17 @@ uint64_t color_symbols(void)
 
 RB::DisplayList::Item *RB::DisplayList::Item::project(RB::DisplayList::Item *this, RB::DisplayList::Builder *a2, const RB::Path::Projection *a3, float64x2_t *a4)
 {
-  v50[12] = *MEMORY[0x1E69E9840];
-  v37 = a3;
-  v38 = a2;
-  v39 = a4;
+  v52[12] = *MEMORY[0x1E69E9840];
+  v39 = a3;
+  v40 = a2;
+  v41 = a4;
   v8 = a4[1];
-  v46 = *a4;
-  v47 = v8;
-  v48 = a4[2];
-  if (RB::AffineTransform::invert(&v46))
+  v48 = *a4;
+  v49 = v8;
+  v50 = a4[2];
+  if (RB::AffineTransform::invert(&v48))
   {
-    v9 = &v46;
+    v9 = &v48;
   }
 
   else
@@ -8182,81 +8231,90 @@ RB::DisplayList::Item *RB::DisplayList::Item::project(RB::DisplayList::Item *thi
 
   v10 = v9[1];
   v11 = v9[2];
-  v40 = *v9;
-  v41 = v10;
-  v42 = v11;
+  v42 = *v9;
+  v43 = v10;
+  v44 = v11;
   if ((*(a3 + 12) & 0x1E) == 2 || (v12 = (*(*this + 40))(this), (v12 + 1) <= 2))
   {
     *&v13 = (*(*this + 136))(this, 0);
     v15 = vcvtq_f64_f32(vmla_f32(v13, 0x3F0000003F000000, v14));
-    v43 = xmmword_195E42760;
-    v44 = xmmword_195E42770;
-    v45 = 0uLL;
-    if (RB::Path::Projection::project(v37, &v43, vcvtq_f64_f32(vcvt_f32_f64(vmlaq_laneq_f64(vmlaq_n_f64(v42, v40, v15.f64[0]), v41, v15, 1)))))
+    v16 = vmlaq_laneq_f64(vmlaq_n_f64(v44, v42, v15.f64[0]), v43, v15, 1);
+    v45 = xmmword_195E42760;
+    v46 = xmmword_195E42770;
+    v47 = 0uLL;
+    if (RB::Path::Projection::project(v39, &v45, vcvtq_f64_f32(vcvt_f32_f64(v16)), 1.0, 0.0, v16))
     {
-      v16.f64[0] = RB::operator*(&v40, &v43);
-      v46 = v16;
-      v47 = v17;
-      v48 = v18;
-      *&v19 = RB::operator*(&v46, v39);
-      v43 = v19;
-      v44 = v20;
-      v45 = v21;
-      RB::DisplayList::CachedTransform::CachedTransform(&v46, v38, &v43, 0, 0);
-      (*(*this + 32))(this, &v46, 1);
-      RB::UntypedTable::~UntypedTable(v50);
-      RB::UntypedTable::~UntypedTable(v49);
-      RB::Heap::~Heap(&v46.f64[1]);
+      v17.f64[0] = RB::operator*(&v42, &v45);
+      v48 = v17;
+      v49 = v18;
+      v50 = v19;
+      *&v20 = RB::operator*(&v48, v41);
+      v45 = v20;
+      v46 = v21;
+      v47 = v22;
+      RB::DisplayList::CachedTransform::CachedTransform(&v48, v40, &v45, 0, 0);
+      (*(*this + 32))(this, &v48, 1);
+      RB::UntypedTable::~UntypedTable(v52);
+      RB::UntypedTable::~UntypedTable(v51);
+      RB::Heap::~Heap(&v48.f64[1]);
     }
   }
 
   else
   {
-    v22 = 0;
-    v36 = 0;
-    v23 = &v36;
+    v23 = 0;
+    v38 = 0;
+    v24 = &v38;
     do
     {
-      v24 = (*(*this + 48))(this, a2, v22, 1, 0);
-      v25 = v24;
-      if (v24)
+      v25 = (*(*this + 48))(this, a2, v23, 1, 0);
+      v26 = v25;
+      if (v25)
       {
-        *&v26 = (*(*v24 + 136))(v24, 0);
-        v28 = vcvtq_f64_f32(vmla_f32(v26, 0x3F0000003F000000, v27));
-        v43 = xmmword_195E42760;
-        v44 = xmmword_195E42770;
-        v45 = 0uLL;
-        if (RB::Path::Projection::project(v37, &v43, vcvtq_f64_f32(vcvt_f32_f64(vmlaq_laneq_f64(vmlaq_n_f64(v42, v40, v28.f64[0]), v41, v28, 1)))))
+        *&v27 = (*(*v25 + 136))(v25, 0);
+        v29 = vcvtq_f64_f32(vmla_f32(v27, 0x3F0000003F000000, v28));
+        v30 = vmlaq_laneq_f64(vmlaq_n_f64(v44, v42, v29.f64[0]), v43, v29, 1);
+        v45 = xmmword_195E42760;
+        v46 = xmmword_195E42770;
+        v47 = 0uLL;
+        if (RB::Path::Projection::project(v39, &v45, vcvtq_f64_f32(vcvt_f32_f64(v30)), 0.0, 1.0, v30))
         {
-          v29.f64[0] = RB::operator*(&v40, &v43);
-          v46 = v29;
-          v47 = v30;
+          v31.f64[0] = RB::operator*(&v42, &v45);
           v48 = v31;
-          *&v32 = RB::operator*(&v46, v39);
-          v43 = v32;
-          v44 = v33;
+          v49 = v32;
+          v50 = v33;
+          *&v34 = RB::operator*(&v48, v41);
           v45 = v34;
-          RB::DisplayList::CachedTransform::CachedTransform(&v46, v38, &v43, 0, 0);
-          (*(*v25 + 32))(v25, &v46, 1);
-          RB::UntypedTable::~UntypedTable(v50);
-          RB::UntypedTable::~UntypedTable(v49);
-          RB::Heap::~Heap(&v46.f64[1]);
+          v46 = v35;
+          v47 = v36;
+          RB::DisplayList::CachedTransform::CachedTransform(&v48, v40, &v45, 0, 0);
+          (*(*v26 + 32))(v26, &v48, 1);
+          RB::UntypedTable::~UntypedTable(v52);
+          RB::UntypedTable::~UntypedTable(v51);
+          RB::Heap::~Heap(&v48.f64[1]);
         }
 
-        *v23 = v25;
-        v23 = v25 + 1;
+        *v24 = v26;
+        v24 = v26 + 1;
       }
 
-      v22 = (v22 + 1);
+      v23 = (v23 + 1);
     }
 
-    while (v12 != v22);
-    *v23 = 0;
+    while (v12 != v23);
+    *v24 = 0;
     (**this)(this);
-    return v36;
+    return v38;
   }
 
   return this;
+}
+
+void sub_195DBEFA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  RB::DisplayList::CachedTransform::~CachedTransform(va);
+  _Unwind_Resume(a1);
 }
 
 void RB::DisplayList::Item::print(RB::DisplayList::Item *this, std::string *a2, uint64_t a3)
@@ -8372,53 +8430,54 @@ uint64_t RB::DisplayList::LayerItem::disable_subpixel_quantization(uint64_t this
   return this;
 }
 
-uint64_t RB::DisplayList::LayerItem::can_append_color_fn(RB::DisplayList::LayerItem *this, const RB::ColorMatrixFn *a2, int a3)
+uint64_t RB::DisplayList::LayerItem::can_append_color_fn(RB::DisplayList::LayerItem *this, const RB::ColorMatrixFn *a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a3;
   if ((*(this + 7) & 3) == 2)
   {
-    v5 = *(*(*(this + 7) & 0xFFFFFFFFFFFFFFFCLL) + 56);
+    v6 = *(*(*(this + 7) & 0xFFFFFFFFFFFFFFFCLL) + 56);
 
-    return v5();
+    return v6();
   }
 
-  v8 = *(this + 6);
-  v9 = *(v8 + 32);
-  if (v9)
+  v9 = *(this + 6);
+  v10 = *(v9 + 32);
+  if (v10)
   {
-    if (!v9[1] && (*(*v9 + 40))(v9) == 1)
+    if (!v10[1] && (*(*v10 + 40))(v10, a2, a3, a4) == 1)
     {
-      return ((*v10 ^ a3) & 7) == 0;
+      return ((*v11 ^ v4) & 7) == 0;
     }
 
     return 0;
   }
 
-  v11 = *(v8 + 76);
-  if (v11)
+  v12 = *(v9 + 76);
+  if (v12)
   {
     return 0;
   }
 
-  if ((a3 & 3) == 0 || (v11 & 0xC) == 0)
+  if ((a3 & 3) == 0 || (v12 & 0xC) == 0)
   {
     goto LABEL_21;
   }
 
-  if ((v11 & 4) != 0)
+  if ((v12 & 4) != 0)
   {
-    v12 = 257;
+    v13 = 257;
   }
 
   else
   {
-    v12 = (v11 << 28 >> 31) & 0x11 | ((((v11 & 8) >> 3) & 1) << 8);
+    v13 = (v12 << 28 >> 31) & 0x11 | ((((v12 & 8) >> 3) & 1) << 8);
   }
 
-  v13 = v12 >> 8;
-  v14 = RB::color_flags_space(a3, 0);
-  if (v12 >> 8 != HIBYTE(v14) || v13 == 0)
+  v14 = v13 >> 8;
+  v15 = RB::color_flags_space(a3, 0);
+  if (v13 >> 8 != HIBYTE(v15) || v14 == 0)
   {
-    if (v13 == HIBYTE(v14))
+    if (v14 == HIBYTE(v15))
     {
       goto LABEL_21;
     }
@@ -8426,15 +8485,15 @@ uint64_t RB::DisplayList::LayerItem::can_append_color_fn(RB::DisplayList::LayerI
     return 0;
   }
 
-  if (v12 != v14)
+  if (v13 != v15)
   {
     return 0;
   }
 
 LABEL_21:
-  v16 = *(this + 6);
+  v17 = *(this + 6);
 
-  return RB::DisplayList::Builder::can_lower_color_fn(v16, a2, a3 | 0x80000000);
+  return RB::DisplayList::Builder::can_lower_color_fn(v17, a2, v4 | 0x80000000);
 }
 
 float RB::DisplayList::LayerItem::append_color_fn(RB::DisplayList::LayerItem *this, const RB::ColorMatrixFn *a2, uint64_t a3, RB::DisplayList::Builder *a4)
@@ -8588,7 +8647,7 @@ void RB::DisplayList::DetachedLayerItem::min_scale(RB::DisplayList::DetachedLaye
   }
 }
 
-BOOL RB::DisplayList::DetachedLayerItem::raster_matches(RB::DisplayList::DetachedLayerItem *this, float64x2_t *a2, unsigned __int8 a3, char a4)
+uint64_t RB::DisplayList::DetachedLayerItem::raster_matches(RB::DisplayList::DetachedLayerItem *this, float64x2_t *a2, unsigned __int8 a3, char a4)
 {
   v4 = *(this + 20);
   if (((v4 ^ a3) & 0xF0) != 0)
@@ -8755,7 +8814,7 @@ __n128 RB::DisplayList::CustomItem::copy(__n128 *this, RB::DisplayList::Builder 
   return result;
 }
 
-unint64_t _ZN2RB4Heap7emplaceINS_11DisplayList10CustomItemEJU13block_pointerFvP18RBMetalRenderStateERKjRKPKNS_15AffineTransformERKNS_4RectERKDF16_RKNS_9BlendModeEEEEPT_DpOT0_(size_t *a1, void **a2, int *a3, uint64_t *a4, _OWORD *a5, __int16 *a6, __int16 *a7)
+size_t _ZN2RB4Heap7emplaceINS_11DisplayList10CustomItemEJU13block_pointerFvP18RBMetalRenderStateERKjRKPKNS_15AffineTransformERKNS_4RectERKDF16_RKNS_9BlendModeEEEEPT_DpOT0_(size_t *a1, void **a2, int *a3, uint64_t *a4, _OWORD *a5, __int16 *a6, __int16 *a7)
 {
   v13 = (a1[2] + 7) & 0xFFFFFFFFFFFFFFF8;
   if (v13 + 88 > a1[3])
@@ -8822,7 +8881,7 @@ void RB::Resource::set_label(void *a1, const char *a2, atomic_uint *a3)
   [a1 setLabel:v4];
 }
 
-void RB::render_glyphs_coverage(uint64_t a1, float64x2_t *a2, float32x2_t *a3, unsigned int a4, float a5)
+void RB::render_glyphs_coverage(int32x2_t *a1, int64x2_t *a2, float32x2_t *a3, unsigned int a4, float a5)
 {
   v9 = &unk_1F0A37840;
   v10 = a5;
@@ -8830,7 +8889,7 @@ void RB::render_glyphs_coverage(uint64_t a1, float64x2_t *a2, float32x2_t *a3, u
   may_discard_shape = RB::may_discard_shape(a4, a3[6].u8[4]);
 }
 
-void RB::render_glyphs(uint64_t a1, float64x2_t *a2, float32x2_t *a3, float32x2_t *this, char a5, unsigned int a6, float a7)
+void RB::render_glyphs(int32x2_t *a1, int64x2_t *a2, float32x2_t *a3, float32x2_t *this, char a5, unsigned int a6, float a7)
 {
   v16[0] = &unk_1F0A37900;
   v16[1] = this;
@@ -8870,7 +8929,7 @@ void RB::render_glyphs(uint64_t a1, float64x2_t *a2, float32x2_t *a3, float32x2_
   may_discard_shape = RB::may_discard_shape(a6, a3[6].u8[4]);
 }
 
-void RB::render_glyphs(uint64_t a1, float64x2_t *a2, float32x2_t *this, uint64_t a4, char a5, int a6, float a7)
+void RB::render_glyphs(int32x2_t *a1, int64x2_t *a2, float32x2_t *this, uint64_t a4, char a5, int a6, float a7)
 {
   v7[0] = &unk_1F0A3EC70;
   v7[1] = a4;
@@ -8880,7 +8939,7 @@ void RB::render_glyphs(uint64_t a1, float64x2_t *a2, float32x2_t *this, uint64_t
   v10 = a6;
 }
 
-void RB::render_glyphs(uint64_t a1, float64x2_t *a2, float32x2_t *a3, uint64_t a4, uint64_t a5, char a6, unsigned int a7)
+void RB::render_glyphs(int32x2_t *a1, int64x2_t *a2, float32x2_t *a3, uint64_t a4, uint64_t a5, char a6, unsigned int a7)
 {
   v15[0] = &unk_1F0A378D0;
   v15[1] = a4;
@@ -8910,7 +8969,7 @@ void RB::render_glyphs(uint64_t a1, float64x2_t *a2, float32x2_t *a3, uint64_t a
   may_discard_shape = RB::may_discard_shape(a7, a3[6].u8[4]);
 }
 
-void RB::render_glyphs(uint64_t a1, float64x2_t *a2, float32x2_t *a3, uint64_t a4, char a5, unsigned int a6, float a7)
+void RB::render_glyphs(int32x2_t *a1, int64x2_t *a2, float32x2_t *a3, uint64_t a4, char a5, unsigned int a6, float a7)
 {
   v12[0] = &unk_1F0A37930;
   v12[1] = a4;
@@ -9037,7 +9096,7 @@ void RB::render_glyphs(RB::RenderPass &,RB::AffineTransform const&,RB::Coverage:
   RB::render_mesh_gradient(a2, v7, v8, 0, v9, v11, v12, v10);
 }
 
-int32x2_t *RB::render_glyphs(RB::RenderPass &,RB::AffineTransform const&,RB::Coverage::Glyphs const&,RB::Shader::ImageGlobals &,RB::Fill::ImageData const&,BOOL,RB::BlendMode)::Renderer::draw_masks(uint64_t a1, int32x2_t *a2, unint64_t a3, uint64_t a4, RB::Buffer *a5, int32x2_t a6, int32x2_t a7)
+int32x2_t *RB::render_glyphs(RB::RenderPass &,RB::AffineTransform const&,RB::Coverage::Glyphs const&,RB::Shader::ImageGlobals &,RB::Fill::ImageData const&,BOOL,RB::BlendMode)::Renderer::draw_masks(uint64_t a1, int32x2_t *a2, unint64_t a3, uint64_t a4, RB::Buffer *a5, double a6, double a7)
 {
   v28[0] = a6;
   v28[1] = a7;
@@ -9250,7 +9309,7 @@ void *RB::AlphaThresholdEffect::encode(RB::AlphaThresholdEffect *this, RB::Encod
   return result;
 }
 
-unint64_t RB::AlphaThresholdEffect::decode(RB::AlphaThresholdEffect *this, RB::Decoder *a2)
+uint64_t RB::AlphaThresholdEffect::decode(RB::AlphaThresholdEffect *this, RB::Decoder *a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -9374,14 +9433,14 @@ uint64_t RB::AlphaGradientEffect::can_mix(RB::AlphaGradientEffect *this, const R
   }
 }
 
-int32x2_t *RB::AlphaGradientEffect::render(int32x2_t *this, int a2, uint64_t a3, float32x2_t *a4, RB::Texture *a5, int a6, float64x2_t *a7, float32x2_t *a8, double a9, double a10, double a11, double a12, float a13, char a14, unsigned int a15)
+int32x2_t *RB::AlphaGradientEffect::render(int32x2_t *this, int a2, uint64_t a3, float32x2_t *a4, RB::Texture *a5, int a6, int8x16_t *a7, float32x2_t *a8, double a9, double a10, double d2_0, double d3_0, float a13, char a11, unsigned int a12)
 {
   if (a5)
   {
     v15 = *&a10;
     v22 = this;
     v23 = &this[1];
-    if (RB::Fill::Gradient::sample_alpha(&this[1], COERCE_FLOAT(*this), a10, a11, a12, a13) <= 0.0 && RB::may_discard_alpha(a15))
+    if (RB::Fill::Gradient::sample_alpha(&this[1], COERCE_FLOAT(*this), a10, d2_0, d3_0, a13) <= 0.0 && RB::may_discard_alpha(a12))
     {
       RB::Bounds::Bounds(&v46, *a4, a4[1], v24, v25);
     }
@@ -9455,7 +9514,7 @@ int32x2_t *RB::AlphaGradientEffect::render(int32x2_t *this, int a2, uint64_t a3,
       v40 = 36;
     }
 
-    if (a14)
+    if (a11)
     {
       v41 = 0x10000;
     }
@@ -9466,7 +9525,7 @@ int32x2_t *RB::AlphaGradientEffect::render(int32x2_t *this, int a2, uint64_t a3,
     }
 
     LODWORD(v48) = v41 | (v39 << 6) | v40;
-    HIDWORD(v48) = a15 & 0x3F;
+    HIDWORD(v48) = a12 & 0x3F;
     RB::Fill::Gradient::set_fill_state(v23, &v48, a3, v15);
     if (a6)
     {
@@ -9531,7 +9590,7 @@ void *RB::AlphaGradientEffect::encode(RB::AlphaGradientEffect *this, RB::Encoder
   return result;
 }
 
-unint64_t RB::AlphaGradientEffect::decode(RB::AlphaGradientEffect *this, RB::Decoder *a2)
+uint64_t RB::AlphaGradientEffect::decode(RB::AlphaGradientEffect *this, RB::Decoder *a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -9609,7 +9668,7 @@ void RB::AlphaGradientEffect::print(RB::AlphaGradientEffect *this, RB::SexpStrin
   operator new();
 }
 
-void sub_195DC1684(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13)
+void sub_195DC1684(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13)
 {
   if (a13)
   {
@@ -9620,7 +9679,7 @@ void sub_195DC1684(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   v13[2] = v15;
   if (!v15)
   {
-    (*(*v13 + 8))(v13);
+    (*(*v13 + 8))(v13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9662,20 +9721,21 @@ uint64_t RB::GlassHighlightEffect::can_mix(float32x2_t *this, float32x2_t *a2)
   return result;
 }
 
-void RB::GlassHighlightEffect::mix(RB::GlassHighlightEffect *this, const RB::GlassHighlightEffect *a2, float32x4_t a3)
+void RB::GlassHighlightEffect::mix(RB::GlassHighlightEffect *this, const RB::GlassHighlightEffect *a2, float32x4_t a1)
 {
-  v3 = vdupq_lane_s32(*a3.f32, 0).u64[0];
+  v3 = vdupq_lane_s32(*a1.f32, 0).u64[0];
   *(this + 2) = vmla_f32(*(this + 16), v3, vsub_f32(*(a2 + 16), *(this + 16)));
-  *(this + 24) = vmlaq_n_f32(*(this + 24), vsubq_f32(*(a2 + 24), *(this + 24)), a3.f32[0]);
+  *(this + 24) = vmlaq_n_f32(*(this + 24), vsubq_f32(*(a2 + 24), *(this + 24)), a1.f32[0]);
   *(this + 5) = vmla_f32(*(this + 40), v3, vsub_f32(*(a2 + 40), *(this + 40)));
-  RB::Fill::Color::mix(this, a2, 0, a3);
+  RB::Fill::Color::mix(a1, this, a2, 0);
 }
 
-int32x2_t *RB::GlassHighlightEffect::render(int32x2_t *result, double a2, float a3, uint64_t a4, uint64_t a5, float32x2_t *a6, RB::Texture *a7, int a8, float64x2_t *a9, float32x2_t *a10, char a11, unsigned int a12)
+int32x2_t *RB::GlassHighlightEffect::render(int32x2_t *result, double a2, float a3, uint64_t a4, uint64_t a5, float32x2_t *a6, RB::Texture *a7, uint64_t a8, int8x16_t *a9, float32x2_t *a10, char a11, unsigned int a12)
 {
   if (a7)
   {
     _S8 = a3;
+    v15 = a8;
     v19 = result;
     if (RB::may_discard_alpha(a12))
     {
@@ -9690,25 +9750,25 @@ int32x2_t *RB::GlassHighlightEffect::render(int32x2_t *result, double a2, float 
       v68 = v23;
     }
 
-    v24 = v19[2];
+    v24 = *(v19 + 16);
     v25 = vdup_lane_s32(v24, 0);
-    v25.i32[0] = v19[3].i32[0];
+    v25.i32[0] = *(v19 + 24);
     *_Q0.f32 = vrev64_s32(vsub_f32(v25, v24));
     *&v65[4] = _Q0.i64[0];
     __asm { FCVT            H0, S8 }
 
-    v59 = v19->i16[0];
-    v60 = *(v19->i32 + 2);
-    v25.i16[0] = v19->i16[3];
+    v59 = *v19;
+    v60 = *(v19 + 2);
+    v25.i16[0] = *(v19 + 6);
     v61 = *v25.i16 * *_Q0.i16;
-    v62 = v19[1].i32[0];
-    v63 = v19[1].i16[2];
+    v62 = *(v19 + 8);
+    v63 = *(v19 + 12);
     _Q0.i32[0] = *(a5 + 124);
     RB::Fill::Color::prepare(&v59, *(a5 + 128), _Q0, *&v25, v30);
     *&v65[12] = v31;
-    LODWORD(v31) = v19[4].i32[0];
-    *&v65[20] = v19[3].i32[1];
-    _S1 = v19[5].i32[1];
+    LODWORD(v31) = *(v19 + 32);
+    *&v65[20] = *(v19 + 28);
+    _S1 = *(v19 + 44);
     __asm { FCVT            H1, S1 }
 
     *&v65[28] = _S1;
@@ -9721,8 +9781,8 @@ int32x2_t *RB::GlassHighlightEffect::render(int32x2_t *result, double a2, float 
     __asm { FCVT            H0, S1 }
 
     *&v65[26] = LOWORD(_S0);
-    _S0 = cosf(*&v19[4].i32[1]);
-    v37 = *v19[5].i32;
+    _S0 = cosf(*(v19 + 36));
+    v37 = *(v19 + 40);
     if (_S0 == -1.0 && v37 == 1.0)
     {
       _S0 = _S0 + -0.01;
@@ -9762,15 +9822,15 @@ int32x2_t *RB::GlassHighlightEffect::render(int32x2_t *result, double a2, float 
 
     *(a5 + 192) = RB::RenderFrame::buffer_id(*(*a5 + 16), v41);
     *(a5 + 196) = vmovn_s64(v70);
-    v48 = v19[6].i8[0] & 3;
+    v48 = *(v19 + 48) & 3;
     if ((*(a7 + 77) & 8) != 0)
     {
       v48 = 0;
     }
 
-    v49 = v19[6].u8[1];
-    v50 = v48 | (32 * (v19[6].i8[1] != 0));
-    if (v19[6].i8[1])
+    v49 = *(v19 + 49);
+    v50 = v48 | (32 * (*(v19 + 49) != 0));
+    if (*(v19 + 49))
     {
       v51 = v49 < 3;
       if (v49 == 4 || v49 == 2)
@@ -9808,7 +9868,7 @@ int32x2_t *RB::GlassHighlightEffect::render(int32x2_t *result, double a2, float 
     }
 
     v57 = v56 | v54 | v55;
-    if (a8)
+    if (v15)
     {
       v58 = 2;
     }

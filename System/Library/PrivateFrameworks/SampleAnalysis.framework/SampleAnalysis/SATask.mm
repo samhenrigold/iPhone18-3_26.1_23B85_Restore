@@ -17,11 +17,13 @@
 - (SABinaryLoadInfo)mainBinaryLoadInfo;
 - (SAFrame)truncatedUserStackFrameSwiftAsync:(SAFrame *)async;
 - (SATask)initWithPid:(int)pid andUniquePid:(unint64_t)pid andName:(id)name sharedCache:(id)cache;
+- (SATask)initWithPid:(int)pid uniquePid:(unint64_t)uniquePid name:(const char *)name mainBinaryPath:(id)path forkTime:(unint64_t)time loadInfos:(const dyld_uuid_info_64 *)infos numLoadInfos:(unsigned int)loadInfos textExecLoadInfos:(const dyld_uuid_info_64 *)self0 numTextExecLoadInfos:(unsigned int)self1 architecture:(_CSArchitecture)self2 sharedCache:(id)self3;
 - (id)architectureString;
 - (id)endTimestamp;
 - (id)firstTaskStateOnOrAfterTime:(id)time sampleIndex:(unint64_t)index;
 - (id)firstTaskStateOnOrAfterTime:(id)time withSampleIndex:(BOOL)index;
 - (id)lastTaskStateOnOrBeforeTime:(id)time sampleIndex:(unint64_t)index;
+- (id)lastTaskStateOnOrBeforeTime:(id)time withSampleIndex:(BOOL)index;
 - (id)leafFrameAfterAddingStack:(void *)stack leafOfCRootFramesReplacedBySwiftAsync:;
 - (id)removeStacksOutsideThisProcess;
 - (id)startTimestamp;
@@ -29,9 +31,9 @@
 - (uint64_t)addOutOfOrderState:(uint64_t)state;
 - (uint64_t)correspondsToName:(uint64_t *)name loadInfos:(int)infos numLoadInfos:(uint64_t)loadInfos architecture:(uint64_t)architecture sharedCache:;
 - (uint64_t)correspondsToName:(void *)name mainBinaryLoadInfo:(uint64_t)info architecture:(uint64_t)architecture sharedCache:;
-- (uint64_t)correspondsToPid:(uint64_t)pid name:(uint64_t *)name loadInfos:(unsigned int)infos numLoadInfos:(uint64_t)loadInfos textExecLoadInfos:(unsigned int)execLoadInfos numTextExecLoadInfos:(uint64_t)textExecLoadInfos architecture:(uint64_t)architecture sharedCache:;
-- (uint64_t)correspondsToUniquePid:(uint64_t)pid name:(uint64_t *)name loadInfos:(unsigned int)infos numLoadInfos:(uint64_t)loadInfos textExecLoadInfos:(unsigned int)execLoadInfos numTextExecLoadInfos:(uint64_t)textExecLoadInfos architecture:(uint64_t)architecture sharedCache:;
-- (uint64_t)gatherLoadInfoFromLiveProcessWithDataGatheringOptions:(int)options additionalCSSymbolicatorFlags:;
+- (uint64_t)correspondsToPid:(uint64_t)pid name:(uint64_t *)name loadInfos:(int)infos numLoadInfos:(void *)loadInfos textExecLoadInfos:(int)execLoadInfos numTextExecLoadInfos:(uint64_t)textExecLoadInfos architecture:(uint64_t)architecture sharedCache:;
+- (uint64_t)correspondsToUniquePid:(uint64_t)pid name:(uint64_t *)name loadInfos:(int)infos numLoadInfos:(void *)loadInfos textExecLoadInfos:(int)execLoadInfos numTextExecLoadInfos:(uint64_t)textExecLoadInfos architecture:(uint64_t)architecture sharedCache:;
+- (uint64_t)gatherLoadInfoFromLiveProcessWithDataGatheringOptions:(uint64_t)options additionalCSSymbolicatorFlags:;
 - (uint64_t)isAliveAtTimestamp:(void *)timestamp;
 - (uint64_t)isFromCurrentBootCycle;
 - (unint64_t)indexOfFirstTaskStateOnOrAfterTime:(id)time sampleIndex:(unint64_t)index;
@@ -42,7 +44,7 @@
 - (unint64_t)sampleCountInTimestampRangeStart:(id)start end:(id)end;
 - (unint64_t)sizeInBytesForSerializedVersion;
 - (void)_gatherDataFromLiveProcessIsLate:(void *)late mainBinaryPath:;
-- (void)_incorporateNewKernelLoadInfos:(unsigned int)infos numLoadInfos:(uint64_t)loadInfos textExecLoadInfos:(unsigned int)execLoadInfos numTextExecLoadInfos:;
+- (void)_incorporateNewKernelLoadInfos:(int)infos numLoadInfos:(void *)loadInfos textExecLoadInfos:(int)execLoadInfos numTextExecLoadInfos:;
 - (void)addDispatchQueue:(uint64_t)queue;
 - (void)addSelfToSerializationDictionary:(id)dictionary;
 - (void)addSwiftTask:(uint64_t)task;
@@ -50,14 +52,15 @@
 - (void)cpuTimeNs:(void *)ns cpuInstructions:(void *)instructions cpuCycles:(void *)cycles nonThreadCpuTimeNs:(void *)timeNs nonThreadCpuInstructions:(void *)cpuInstructions nonThreadCpuCycles:(uint64_t)cpuCycles betweenStartTime:(void *)time endTime:;
 - (void)dealloc;
 - (void)enumerateFrames:(uint64_t)frames;
+- (void)enumerateTaskStatesBetweenStartTime:(id)time endTime:(id)endTime reverseOrder:(BOOL)order withSampleIndex:(BOOL)index block:(id)block;
 - (void)enumerateTaskStatesBetweenStartTime:(id)time startSampleIndex:(unint64_t)index endTime:(id)endTime endSampleIndex:(unint64_t)sampleIndex reverseOrder:(BOOL)order block:(id)block;
-- (void)enumerateThreadStatesForThread:(uint64_t)thread dispatchQueue:(uint64_t)queue betweenStartTime:(unint64_t)time startSampleIndex:(uint64_t)index endTime:(unint64_t)endTime endSampleIndex:(uint64_t)sampleIndex reverseOrder:(uint64_t)order block:;
-- (void)fixupFrameInstructionsWithDataGatheringOptions:(int)options mightBeAlive:(_BYTE *)alive foundNewBinaryInfo:(uint64_t)info uuidsWithNewInstructions:(int)instructions additionalCSSymbolicatorFlags:;
+- (void)enumerateThreadStatesForThread:(unint64_t)thread dispatchQueue:(uint64_t)queue betweenStartTime:(unint64_t)time startSampleIndex:(uint64_t)index endTime:(unint64_t)endTime endSampleIndex:(uint64_t)sampleIndex reverseOrder:(uint64_t)order block:;
+- (void)fixupFrameInstructionsWithDataGatheringOptions:(int)options mightBeAlive:(_BYTE *)alive foundNewBinaryInfo:(uint64_t)info uuidsWithNewInstructions:(uint64_t)instructions additionalCSSymbolicatorFlags:;
 - (void)fixupThreadSuspension;
 - (void)guessArchitectureGivenMachineArchitecture:(uint64_t)architecture dataSource:;
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary;
 - (void)populateReferencesUsingPAStyleSerializedTask:(void *)task andDeserializationDictionary:(void *)dictionary andDataBufferDictionary:;
-- (void)postprocessWithDataGatheringOptions:(int)options mightBeAlive:(void *)alive machineArchitecture:(uint64_t)architecture dataSource:(uint64_t)source spindumpArchitecture:(void *)spindumpArchitecture spindumpSharedCache:(int)cache additionalCSSymbolicatorFlags:;
+- (void)postprocessWithDataGatheringOptions:(int)options mightBeAlive:(void *)alive machineArchitecture:(uint64_t)architecture dataSource:(uint64_t)source spindumpArchitecture:(void *)spindumpArchitecture spindumpSharedCache:(uint64_t)cache additionalCSSymbolicatorFlags:;
 - (void)setMainBinaryPath:(id)path;
 - (void)setName:(uint64_t)name;
 @end
@@ -172,23 +175,23 @@
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = self->_rootFrames;
-  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
@@ -197,16 +200,15 @@
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
-  v9.receiver = self;
-  v9.super_class = SATask;
-  [(SATask *)&v9 dealloc];
-  v8 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = SATask;
+  [(SATask *)&v8 dealloc];
 }
 
 void __22__SATask_endTimestamp__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -274,7 +276,6 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  architecture = self->_architecture;
   if ((CSArchitectureIs32Bit() & 1) != 0 || self->_pid)
   {
     firstObject = [(NSArray *)self->_binaryLoadInfos firstObject];
@@ -285,7 +286,7 @@ LABEL_9:
     firstObject = [(NSArray *)self->_binaryLoadInfos lastObject];
   }
 
-  v6 = firstObject;
+  v5 = firstObject;
   if (self->_mainBinary)
   {
     binary = [firstObject binary];
@@ -295,11 +296,11 @@ LABEL_9:
     {
 
 LABEL_9:
-      v6 = 0;
+      v5 = 0;
     }
   }
 
-  return v6;
+  return v5;
 }
 
 - (NSString)bundleVersion
@@ -418,39 +419,36 @@ uint64_t __29__SATask_addOutOfOrderState___block_invoke(uint64_t a1, void *a2)
 
 - (void)guessArchitectureGivenMachineArchitecture:(uint64_t)architecture dataSource:
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_36;
+    return;
   }
 
   if (*(self + 288))
   {
-    v39 = *__error();
-    v40 = _sa_logt();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v37 = *__error();
+    v38 = _sa_logt();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
-      v41 = [self debugDescription];
-      uTF8String = [v41 UTF8String];
-      v43 = *(self + 288);
+      v39 = [self debugDescription];
       *buf = 136315906;
-      v80 = uTF8String;
-      v81 = 2080;
+      uTF8String = [v39 UTF8String];
+      v67 = 2080;
       FamilyName = CSArchitectureGetFamilyName();
-      v83 = 2080;
-      v84 = CSArchitectureGetFamilyName();
-      v85 = 2048;
+      v69 = 2080;
+      v70 = CSArchitectureGetFamilyName();
+      v71 = 2048;
       architectureCopy = architecture;
-      _os_log_error_impl(&dword_1E0E2F000, v40, OS_LOG_TYPE_ERROR, "%s: already know architecture %s, but guessing from machine architecture %s (data source 0x%llx)", buf, 0x2Au);
+      _os_log_error_impl(&dword_1E0E2F000, v38, OS_LOG_TYPE_ERROR, "%s: already know architecture %s, but guessing from machine architecture %s (data source 0x%llx)", buf, 0x2Au);
     }
 
-    *__error() = v39;
-    v44 = [self debugDescription];
-    uTF8String2 = [v44 UTF8String];
-    v45 = *(self + 288);
-    CSArchitectureGetFamilyName();
-    CSArchitectureGetFamilyName();
-    _SASetCrashLogMessage(106, "%s: already know architecture %s, but guessing from machine architecture %s (data source 0x%llx)", v46, v47, v48, v49, v50, v51, uTF8String2);
+    *__error() = v37;
+    v40 = [self debugDescription];
+    uTF8String2 = [v40 UTF8String];
+    v41 = CSArchitectureGetFamilyName();
+    v42 = CSArchitectureGetFamilyName();
+    _SASetCrashLogMessage(106, "%s: already know architecture %s, but guessing from machine architecture %s (data source 0x%llx)", uTF8String2, v41, v42, architecture);
 
     _os_crash();
     __break(1u);
@@ -471,10 +469,10 @@ uint64_t __29__SATask_addOutOfOrderState___block_invoke(uint64_t a1, void *a2)
     if (lastObject)
     {
       v10 = lastObject;
-      v63 = lastObject;
-      if ((architecture & 1) == 0 && !*(self + 80) || (v11 = [lastObject ssFlags], v10 = v63, (v11 & 1) == 0))
+      v49 = lastObject;
+      if ((architecture & 1) == 0 && !*(self + 80) || (v11 = [lastObject ssFlags], v10 = v49, (v11 & 1) == 0))
       {
-        if ((architecture & 4) == 0 || *(self + 80) || (v12 = [v10 ssFlags], v10 = v63, (v12 & 2) == 0))
+        if ((architecture & 4) == 0 || *(self + 80) || (v12 = [v10 ssFlags], v10 = v49, (v12 & 2) == 0))
         {
           v7 &= ~0x1000000u;
         }
@@ -482,38 +480,37 @@ uint64_t __29__SATask_addOutOfOrderState___block_invoke(uint64_t a1, void *a2)
 
       *(self + 288) = v7;
       *(self + 292) = v8;
-      v13 = *MEMORY[0x1E69E9840];
 
       return;
     }
   }
 
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
-  v73 = 0u;
-  v14 = *(self + 256);
-  v15 = [v14 countByEnumeratingWithState:&v72 objects:v78 count:16];
-  if (v15)
+  v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v13 = *(self + 256);
+  v14 = [v13 countByEnumeratingWithState:&v58 objects:v64 count:16];
+  if (v14)
   {
-    v16 = v15;
-    v17 = *v73;
+    v15 = v14;
+    v16 = *v59;
     do
     {
-      for (i = 0; i != v16; ++i)
+      for (i = 0; i != v15; ++i)
       {
-        if (*v73 != v17)
+        if (*v59 != v16)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v13);
         }
 
-        v19 = *(*(&v72 + 1) + 8 * i);
-        if ([v19 loadAddress] >> 32)
+        v18 = *(*(&v58 + 1) + 8 * i);
+        if ([v18 loadAddress] >> 32)
         {
           goto LABEL_33;
         }
 
-        if ([v19 loadAddress])
+        if ([v18 loadAddress])
         {
           v7 &= ~0x1000000u;
 LABEL_33:
@@ -522,18 +519,18 @@ LABEL_34:
           *(self + 292) = v8;
 LABEL_35:
 
-          goto LABEL_36;
+          return;
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v72 objects:v78 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v58 objects:v64 count:16];
     }
 
-    while (v16);
+    while (v15);
   }
 
-  v20 = *(self + 264);
-  if (v20 && [v20 startAddress] != -1)
+  v19 = *(self + 264);
+  if (v19 && [v19 startAddress] != -1)
   {
     if ([*(self + 264) startAddress] >> 32)
     {
@@ -547,33 +544,33 @@ LABEL_35:
     }
   }
 
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
-  v69 = 0u;
-  v14 = *(self + 280);
-  v22 = [v14 countByEnumeratingWithState:&v68 objects:v77 count:16];
-  if (!v22)
+  v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v13 = *(self + 280);
+  v20 = [v13 countByEnumeratingWithState:&v54 objects:v63 count:16];
+  if (!v20)
   {
     goto LABEL_50;
   }
 
-  v23 = v22;
-  v24 = *v69;
+  v21 = v20;
+  v22 = *v55;
   do
   {
-    v25 = 0;
+    v23 = 0;
     do
     {
-      if (*v69 != v24)
+      if (*v55 != v22)
       {
-        objc_enumerationMutation(v14);
+        objc_enumerationMutation(v13);
       }
 
-      v26 = *(*(&v68 + 1) + 8 * v25);
-      if (v26)
+      v24 = *(*(&v54 + 1) + 8 * v23);
+      if (v24)
       {
-        a2 = *(v26 + 40);
+        a2 = *(v24 + 40);
         if (!a2)
         {
           goto LABEL_46;
@@ -589,36 +586,36 @@ LABEL_60:
           if (objc_opt_isKindOfClass())
           {
             address = [uTF8String2 address];
-            v36 = v7 & 0xFEFFFFFF;
+            v34 = v7 & 0xFEFFFFFF;
             if (HIDWORD(address))
             {
-              v36 = v7;
+              v34 = v7;
             }
 
-            *(self + 288) = v36;
+            *(self + 288) = v34;
             *(self + 292) = v8;
 
             goto LABEL_35;
           }
 
 LABEL_70:
-          v52 = *__error();
-          v53 = _sa_logt();
-          if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+          v43 = *__error();
+          v44 = _sa_logt();
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
           {
             ClassName = object_getClassName(a2);
-            v55 = object_getClassName(uTF8String2);
+            v46 = object_getClassName(uTF8String2);
             *buf = 136315394;
-            v80 = ClassName;
-            v81 = 2080;
-            FamilyName = v55;
-            _os_log_error_impl(&dword_1E0E2F000, v53, OS_LOG_TYPE_ERROR, "children is %s, child is %s", buf, 0x16u);
+            uTF8String = ClassName;
+            v67 = 2080;
+            FamilyName = v46;
+            _os_log_error_impl(&dword_1E0E2F000, v44, OS_LOG_TYPE_ERROR, "children is %s, child is %s", buf, 0x16u);
           }
 
-          *__error() = v52;
-          v56 = object_getClassName(a2);
-          object_getClassName(uTF8String2);
-          _SASetCrashLogMessage(160, "children is %s, child is %s", v57, v58, v59, v60, v61, v62, v56);
+          *__error() = v43;
+          v47 = object_getClassName(a2);
+          v48 = object_getClassName(uTF8String2);
+          _SASetCrashLogMessage(160, "children is %s, child is %s", v47, v48);
           _os_crash();
           __break(1u);
         }
@@ -637,53 +634,53 @@ LABEL_70:
 
 LABEL_46:
 
-      ++v25;
+      ++v23;
     }
 
-    while (v23 != v25);
-    v28 = [v14 countByEnumeratingWithState:&v68 objects:v77 count:16];
-    v23 = v28;
+    while (v21 != v23);
+    v26 = [v13 countByEnumeratingWithState:&v54 objects:v63 count:16];
+    v21 = v26;
   }
 
-  while (v28);
+  while (v26);
 LABEL_50:
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
-  v65 = 0u;
-  v14 = *(self + 280);
-  v29 = [v14 countByEnumeratingWithState:&v64 objects:v76 count:16];
-  if (v29)
+  v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v13 = *(self + 280);
+  v27 = [v13 countByEnumeratingWithState:&v50 objects:v62 count:16];
+  if (v27)
   {
-    v30 = v29;
-    v31 = *v65;
+    v28 = v27;
+    v29 = *v51;
     while (2)
     {
-      for (j = 0; j != v30; ++j)
+      for (j = 0; j != v28; ++j)
       {
-        if (*v65 != v31)
+        if (*v51 != v29)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v13);
         }
 
-        v33 = *(*(&v64 + 1) + 8 * j);
-        if (![v33 isFakeFrame])
+        v31 = *(*(&v50 + 1) + 8 * j);
+        if (![v31 isFakeFrame])
         {
-          address2 = [v33 address];
-          v38 = v7 & 0xFEFFFFFF;
+          address2 = [v31 address];
+          v36 = v7 & 0xFEFFFFFF;
           if (HIDWORD(address2))
           {
-            v38 = v7;
+            v36 = v7;
           }
 
-          *(self + 288) = v38;
+          *(self + 288) = v36;
           goto LABEL_34;
         }
       }
 
-      v30 = [v14 countByEnumeratingWithState:&v64 objects:v76 count:16];
-      if (v30)
+      v28 = [v13 countByEnumeratingWithState:&v50 objects:v62 count:16];
+      if (v28)
       {
         continue;
       }
@@ -696,26 +693,24 @@ LABEL_4:
   *(self + 288) = v7;
 LABEL_5:
   *(self + 292) = v8;
-LABEL_36:
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setMainBinaryPath:(id)path
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (path)
   {
     mainBinary = [(SATask *)self mainBinary];
     v6 = mainBinary;
     if (mainBinary)
     {
-      v21 = 0;
+      v19 = 0;
       path = [mainBinary path];
-      v8 = SAFilepathMatches(path, path, &v21);
+      v8 = SAFilepathMatches(path, path, &v19);
 
       if (v8)
       {
-        if (v21 == 1)
+        if (v19 == 1)
         {
           objc_setProperty_atomic_copy(v6, v9, path, 80);
         }
@@ -724,22 +719,22 @@ LABEL_36:
         goto LABEL_14;
       }
 
-      v13 = *__error();
-      v14 = _sa_logt();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v12 = *__error();
+      v13 = _sa_logt();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        v19 = [(SATask *)self debugDescription];
+        v17 = [(SATask *)self debugDescription];
         path2 = [v6 path];
         *buf = 138412802;
-        v23 = v19;
-        v24 = 2112;
+        v21 = v17;
+        v22 = 2112;
         pathCopy = path;
-        v26 = 2112;
-        v27 = path2;
-        _os_log_debug_impl(&dword_1E0E2F000, v14, OS_LOG_TYPE_DEBUG, "%@: Setting mainBinaryPath to %@ when its already %@", buf, 0x20u);
+        v24 = 2112;
+        v25 = path2;
+        _os_log_debug_impl(&dword_1E0E2F000, v13, OS_LOG_TYPE_DEBUG, "%@: Setting mainBinaryPath to %@ when its already %@", buf, 0x20u);
       }
 
-      *__error() = v13;
+      *__error() = v12;
     }
 
     v10 = SACachedNSString(path);
@@ -757,64 +752,53 @@ LABEL_14:
       }
     }
 
-    v18 = *MEMORY[0x1E69E9840];
     return;
   }
 
   v11 = self->_mainBinaryPath;
   self->_mainBinaryPath = 0;
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setName:(uint64_t)name
 {
-  v15 = *MEMORY[0x1E69E9840];
-  if (!name)
+  v13 = *MEMORY[0x1E69E9840];
+  if (name)
   {
-    goto LABEL_12;
-  }
-
-  if (a2 && ![a2 length])
-  {
-    v7 = *__error();
-    v8 = _sa_logt();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    if (a2 && ![a2 length])
     {
-      [name debugDescription];
-      v11 = v12 = v7;
-      *buf = 136315138;
-      uTF8String = [v11 UTF8String];
-      _os_log_fault_impl(&dword_1E0E2F000, v8, OS_LOG_TYPE_FAULT, "%s: applying emptry string for task name", buf, 0xCu);
+      v6 = *__error();
+      v7 = _sa_logt();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      {
+        [name debugDescription];
+        v9 = v10 = v6;
+        *buf = 136315138;
+        uTF8String = [v9 UTF8String];
+        _os_log_fault_impl(&dword_1E0E2F000, v7, OS_LOG_TYPE_FAULT, "%s: applying emptry string for task name", buf, 0xCu);
 
-      v7 = v12;
+        v6 = v10;
+      }
+
+      *__error() = v6;
+      v8 = *(name + 56);
+      *(name + 56) = 0;
     }
 
-    *__error() = v7;
-    v9 = *(name + 56);
-    *(name + 56) = 0;
-
-    goto LABEL_12;
+    else if (!*(name + 80) || ([a2 isEqualToString:@"kernel_task"] & 1) == 0)
+    {
+      v4 = [a2 copy];
+      v5 = *(name + 56);
+      *(name + 56) = v4;
+    }
   }
-
-  if (*(name + 80) && ([a2 isEqualToString:@"kernel_task"] & 1) != 0)
-  {
-LABEL_12:
-    v10 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  v4 = [a2 copy];
-  v5 = *(name + 56);
-  *(name + 56) = v4;
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (SATask)initWithPid:(int)pid andUniquePid:(unint64_t)pid andName:(id)name sharedCache:(id)cache
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v32.receiver = self;
-  v32.super_class = SATask;
-  v10 = [(SATask *)&v32 init];
+  v34 = *MEMORY[0x1E69E9840];
+  v31.receiver = self;
+  v31.super_class = SATask;
+  v10 = [(SATask *)&v31 init];
   v11 = v10;
   if (v10)
   {
@@ -837,21 +821,21 @@ LABEL_12:
     {
       if (![name length])
       {
-        v26 = *__error();
-        v27 = _sa_logt();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+        v25 = *__error();
+        v26 = _sa_logt();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
         {
           [(SATask *)v11 debugDescription];
-          v29 = v31 = v26;
-          uTF8String = [v29 UTF8String];
+          v28 = v30 = v25;
+          uTF8String = [v28 UTF8String];
           *buf = 136315138;
-          v34 = uTF8String;
-          _os_log_fault_impl(&dword_1E0E2F000, v27, OS_LOG_TYPE_FAULT, "%s: applying empty string for task name", buf, 0xCu);
+          v33 = uTF8String;
+          _os_log_fault_impl(&dword_1E0E2F000, v26, OS_LOG_TYPE_FAULT, "%s: applying empty string for task name", buf, 0xCu);
 
-          v26 = v31;
+          v25 = v30;
         }
 
-        *__error() = v26;
+        *__error() = v25;
         name = v11->_name;
         v11->_name = 0;
       }
@@ -885,7 +869,6 @@ LABEL_12:
     objc_storeStrong(&v11->_sharedCache, cache);
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -896,42 +879,143 @@ LABEL_12:
   return v5;
 }
 
-- (void)_incorporateNewKernelLoadInfos:(unsigned int)infos numLoadInfos:(uint64_t)loadInfos textExecLoadInfos:(unsigned int)execLoadInfos numTextExecLoadInfos:
+- (SATask)initWithPid:(int)pid uniquePid:(unint64_t)uniquePid name:(const char *)name mainBinaryPath:(id)path forkTime:(unint64_t)time loadInfos:(const dyld_uuid_info_64 *)infos numLoadInfos:(unsigned int)loadInfos textExecLoadInfos:(const dyld_uuid_info_64 *)self0 numTextExecLoadInfos:(unsigned int)self1 architecture:(_CSArchitecture)self2 sharedCache:(id)self3
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v17 = *&pid;
+  v46 = *MEMORY[0x1E69E9840];
+  if (name && *name)
+  {
+    v19 = SANSStringForCString(name);
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  v20 = [(SATask *)self initWithPid:v17 andUniquePid:uniquePid andName:v19 sharedCache:cache];
+  if (v20)
+  {
+    if (time)
+    {
+      v21 = [SATimestamp timestampWithMachAbsTime:0 machAbsTimeSec:0 machContTime:0.0 machContTimeSec:0.0 wallTime:time - *MEMORY[0x1E695E468]];
+      forkTimestamp = v20->_forkTimestamp;
+      v20->_forkTimestamp = v21;
+    }
+
+    v20->_architecture = architecture;
+    if (!v17)
+    {
+      [(SATask *)v20 _incorporateNewKernelLoadInfos:infos numLoadInfos:loadInfos textExecLoadInfos:execLoadInfos numTextExecLoadInfos:textExecLoadInfos];
+      goto LABEL_14;
+    }
+
+    if (execLoadInfos || textExecLoadInfos)
+    {
+      v26 = *__error();
+      v27 = _sa_logt();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+      {
+        v37 = [(SATask *)v20 debugDescription];
+        uTF8String = [v37 UTF8String];
+        if (execLoadInfos)
+        {
+          imageLoadAddress = execLoadInfos->imageLoadAddress;
+          add_explicit = atomic_fetch_add_explicit(&uuid_string_index, 1u, memory_order_relaxed);
+          v30 = add_explicit & 3;
+          v32 = -add_explicit;
+          v31 = v32 < 0;
+          v33 = v32 & 3;
+          if (v31)
+          {
+            v34 = v30;
+          }
+
+          else
+          {
+            v34 = -v33;
+          }
+
+          v28 = &uuid_string_string[37 * v34];
+          uuid_unparse(execLoadInfos->imageUUID, v28);
+        }
+
+        else
+        {
+          imageLoadAddress = 0;
+          v28 = "null";
+        }
+
+        *buf = 136315906;
+        v39 = uTF8String;
+        v40 = 1024;
+        textExecLoadInfosCopy = textExecLoadInfos;
+        v42 = 2048;
+        v43 = imageLoadAddress;
+        v44 = 2080;
+        v45 = v28;
+        _os_log_fault_impl(&dword_1E0E2F000, v27, OS_LOG_TYPE_FAULT, "%s has text-exec %u load infos (first is 0x%llx %s)", buf, 0x26u);
+      }
+
+      *__error() = v26;
+      if (loadInfos)
+      {
+        goto LABEL_12;
+      }
+    }
+
+    else if (loadInfos)
+    {
+LABEL_12:
+      v23 = _SABinaryCreateLoadInfoArrayFromDyldImageInfos(infos, loadInfos, path, 0, 0, 0);
+      binaryLoadInfos = v20->_binaryLoadInfos;
+      v20->_binaryLoadInfos = v23;
+
+      v20->_assumeBinaryLoadInfosContainsMainBinary = 1;
+    }
+  }
+
+LABEL_14:
+
+  return v20;
+}
+
+- (void)_incorporateNewKernelLoadInfos:(int)infos numLoadInfos:(void *)loadInfos textExecLoadInfos:(int)execLoadInfos numTextExecLoadInfos:
+{
+  v32 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_23;
+    return;
   }
 
   v8 = a2;
   if (!a2 && infos)
   {
-    v22 = *__error();
-    v23 = _sa_logt();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v21 = *__error();
+    v22 = _sa_logt();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
       execLoadInfosCopy = infos;
-      _os_log_error_impl(&dword_1E0E2F000, v23, OS_LOG_TYPE_ERROR, "%u load infos, but null", buf, 8u);
+      _os_log_error_impl(&dword_1E0E2F000, v22, OS_LOG_TYPE_ERROR, "%u load infos, but null", buf, 8u);
     }
 
-    *__error() = v22;
-    _SASetCrashLogMessage(1352, "%u load infos, but null", v24, v25, v26, v27, v28, v29, infos);
+    *__error() = v21;
+    _SASetCrashLogMessage(1352, "%u load infos, but null", infos);
     _os_crash();
     __break(1u);
 LABEL_28:
-    v30 = *__error();
-    v31 = _sa_logt();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v23 = *__error();
+    v24 = _sa_logt();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
       execLoadInfosCopy = execLoadInfos;
-      _os_log_error_impl(&dword_1E0E2F000, v31, OS_LOG_TYPE_ERROR, "%u text exec load infos, but null", buf, 8u);
+      _os_log_error_impl(&dword_1E0E2F000, v24, OS_LOG_TYPE_ERROR, "%u text exec load infos, but null", buf, 8u);
     }
 
-    *__error() = v30;
-    _SASetCrashLogMessage(1353, "%u text exec load infos, but null", v32, v33, v34, v35, v36, v37, execLoadInfos);
+    *__error() = v23;
+    _SASetCrashLogMessage(1353, "%u text exec load infos, but null", execLoadInfos);
     _os_crash();
     __break(1u);
   }
@@ -957,26 +1041,26 @@ LABEL_28:
         v12 = 0;
       }
 
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
-      v39 = 0u;
+      v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       v13 = v10;
-      v14 = [v13 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v39;
+        v16 = *v26;
         while (2)
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v39 != v16)
+            if (*v26 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v38 + 1) + 8 * i);
+            v18 = *(*(&v25 + 1) + 8 * i);
             if ([v18 loadAddress] == v12)
             {
               binary = [v18 binary];
@@ -987,7 +1071,7 @@ LABEL_28:
             }
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v38 objects:v42 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
           if (v15)
           {
             continue;
@@ -1003,9 +1087,6 @@ LABEL_21:
     [(SATask *)self addImageInfos:v11];
     *(self + 79) = 1;
   }
-
-LABEL_23:
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 + (id)taskWithPid:(uint64_t)pid uniquePid:(uint64_t)uniquePid name:(uint64_t)name mainBinaryPath:(uint64_t)path forkTime:(uint64_t)time loadInfos:(int)infos numLoadInfos:(uint64_t)loadInfos textExecLoadInfos:(int)self0 numTextExecLoadInfos:(uint64_t)self1 architecture:(uint64_t)self2 sharedCache:
@@ -1232,6 +1313,22 @@ uint64_t __57__SATask_indexOfLastTaskStateOnOrBeforeTime_sampleIndex___block_inv
   return [(SATask *)self indexOfFirstTaskStateOnOrAfterTime:time sampleIndex:v4];
 }
 
+- (id)lastTaskStateOnOrBeforeTime:(id)time withSampleIndex:(BOOL)index
+{
+  v5 = [(SATask *)self indexOfLastTaskStateOnOrBeforeTime:time withSampleIndex:index];
+  if (v5 == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v6 = [(NSMutableArray *)self->_taskStates objectAtIndexedSubscript:v5];
+  }
+
+  return v6;
+}
+
 - (unint64_t)indexOfLastTaskStateOnOrBeforeTime:(id)time withSampleIndex:(BOOL)index
 {
   indexCopy = index;
@@ -1317,7 +1414,18 @@ uint64_t __105__SATask_enumerateTaskStatesBetweenStartTime_startSampleIndex_endT
   return v6;
 }
 
-uint64_t __89__SATask_enumerateTaskStatesBetweenStartTime_endTime_reverseOrder_withSampleIndex_block___block_invoke(uint64_t a1, void *a2)
+- (void)enumerateTaskStatesBetweenStartTime:(id)time endTime:(id)endTime reverseOrder:(BOOL)order withSampleIndex:(BOOL)index block:(id)block
+{
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __89__SATask_enumerateTaskStatesBetweenStartTime_endTime_reverseOrder_withSampleIndex_block___block_invoke;
+  v7[3] = &unk_1E86F8638;
+  indexCopy = index;
+  v7[4] = block;
+  [(SATask *)self enumerateTaskStatesBetweenStartTime:time startSampleIndex:0x7FFFFFFFFFFFFFFFLL endTime:endTime endSampleIndex:0x7FFFFFFFFFFFFFFFLL reverseOrder:order block:v7];
+}
+
+void *__89__SATask_enumerateTaskStatesBetweenStartTime_endTime_reverseOrder_withSampleIndex_block___block_invoke(uint64_t a1, void *a2)
 {
   if (*(a1 + 40) != 1 || (result = [a2 startSampleIndex], result != 0x7FFFFFFFFFFFFFFFLL))
   {
@@ -1329,7 +1437,7 @@ uint64_t __89__SATask_enumerateTaskStatesBetweenStartTime_endTime_reverseOrder_w
   return result;
 }
 
-- (void)enumerateThreadStatesForThread:(uint64_t)thread dispatchQueue:(uint64_t)queue betweenStartTime:(unint64_t)time startSampleIndex:(uint64_t)index endTime:(unint64_t)endTime endSampleIndex:(uint64_t)sampleIndex reverseOrder:(uint64_t)order block:
+- (void)enumerateThreadStatesForThread:(unint64_t)thread dispatchQueue:(uint64_t)queue betweenStartTime:(unint64_t)time startSampleIndex:(uint64_t)index endTime:(unint64_t)endTime endSampleIndex:(uint64_t)sampleIndex reverseOrder:(uint64_t)order block:
 {
   if (self)
   {
@@ -1337,24 +1445,24 @@ uint64_t __89__SATask_enumerateTaskStatesBetweenStartTime_endTime_reverseOrder_w
     {
       if (a2)
       {
-        v18[0] = MEMORY[0x1E69E9820];
-        v18[1] = 3221225472;
-        v18[2] = __131__SATask_enumerateThreadStatesForThread_dispatchQueue_betweenStartTime_startSampleIndex_endTime_endSampleIndex_reverseOrder_block___block_invoke;
-        v18[3] = &unk_1E86F8660;
-        v18[5] = a2;
-        v18[6] = order;
-        v18[4] = thread;
-        [a2 enumerateThreadStatesBetweenStartTime:queue startSampleIndex:time endTime:index endSampleIndex:endTime reverseOrder:sampleIndex block:v18];
+        v12[0] = MEMORY[0x1E69E9820];
+        v12[1] = 3221225472;
+        v12[2] = __131__SATask_enumerateThreadStatesForThread_dispatchQueue_betweenStartTime_startSampleIndex_endTime_endSampleIndex_reverseOrder_block___block_invoke;
+        v12[3] = &unk_1E86F8660;
+        v12[5] = a2;
+        v12[6] = order;
+        v12[4] = thread;
+        [a2 enumerateThreadStatesBetweenStartTime:queue startSampleIndex:time endTime:index endSampleIndex:endTime reverseOrder:sampleIndex block:v12];
       }
 
       else
       {
-        v17[0] = MEMORY[0x1E69E9820];
-        v17[1] = 3221225472;
-        v17[2] = __131__SATask_enumerateThreadStatesForThread_dispatchQueue_betweenStartTime_startSampleIndex_endTime_endSampleIndex_reverseOrder_block___block_invoke_2;
-        v17[3] = &unk_1E86F8050;
-        v17[4] = order;
-        [(SARecipe *)thread enumerateStatesBetweenStartTime:queue startSampleIndex:time endTime:index endSampleIndex:endTime reverseOrder:sampleIndex block:v17];
+        v11[0] = MEMORY[0x1E69E9820];
+        v11[1] = 3221225472;
+        v11[2] = __131__SATask_enumerateThreadStatesForThread_dispatchQueue_betweenStartTime_startSampleIndex_endTime_endSampleIndex_reverseOrder_block___block_invoke_2;
+        v11[3] = &unk_1E86F8050;
+        v11[4] = order;
+        [(SARecipe *)thread enumerateStatesBetweenStartTime:queue startSampleIndex:time endTime:index endSampleIndex:endTime reverseOrder:sampleIndex block:v11];
       }
     }
 
@@ -1369,21 +1477,20 @@ uint64_t __89__SATask_enumerateTaskStatesBetweenStartTime_endTime_reverseOrder_w
       }
 
       *__error() = v9;
-      _SASetCrashLogMessage(534, "No thread nor dispatch queue", v11, v12, v13, v14, v15, v16, v17[0]);
+      _SASetCrashLogMessage(534, "No thread nor dispatch queue");
       _os_crash();
       __break(1u);
     }
   }
 }
 
-void __131__SATask_enumerateThreadStatesForThread_dispatchQueue_betweenStartTime_startSampleIndex_endTime_endSampleIndex_reverseOrder_block___block_invoke(void *a1, void *a2)
+void __131__SATask_enumerateThreadStatesForThread_dispatchQueue_betweenStartTime_startSampleIndex_endTime_endSampleIndex_reverseOrder_block___block_invoke(uint64_t a1, void *a2)
 {
-  if (!a1[4] || ([a2 dispatchQueue], v3 = objc_claimAutoreleasedReturnValue(), v4 = a1[4], v3, v3 == v4))
+  if (!*(a1 + 32) || ([a2 dispatchQueue], v3 = objc_claimAutoreleasedReturnValue(), v4 = *(a1 + 32), v3, v3 == v4))
   {
-    v5 = a1[5];
-    v6 = *(a1[6] + 16);
+    v5 = *(*(a1 + 48) + 16);
 
-    v6();
+    v5();
   }
 }
 
@@ -1395,12 +1502,12 @@ void __131__SATask_enumerateThreadStatesForThread_dispatchQueue_betweenStartTime
   (*(v5 + 16))(v5, v7, v6, [a2 threadStateIndex], a3);
 }
 
-- (uint64_t)gatherLoadInfoFromLiveProcessWithDataGatheringOptions:(int)options additionalCSSymbolicatorFlags:
+- (uint64_t)gatherLoadInfoFromLiveProcessWithDataGatheringOptions:(uint64_t)options additionalCSSymbolicatorFlags:
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_6;
+    return 0;
   }
 
   v4 = 0;
@@ -1408,9 +1515,7 @@ void __131__SATask_enumerateThreadStatesForThread_dispatchQueue_betweenStartTime
   {
     if ((a2 & 0x400) == 0 && *(self + 80))
     {
-LABEL_6:
-      v4 = 0;
-      goto LABEL_40;
+      return 0;
     }
 
     selfCopy = self;
@@ -1421,24 +1526,24 @@ LABEL_6:
 LABEL_39:
       objc_sync_exit(selfCopy);
 
-      goto LABEL_40;
+      return v4;
     }
 
     *(self + 64) = 1;
-    v54 = 0;
-    v55 = 0;
-    v8 = *(selfCopy + 20);
-    v52 = 0;
     v53 = 0;
+    v54 = 0;
+    v8 = *(selfCopy + 20);
     v51 = 0;
-    CopyLoadInfosForLiveProcess(v8, a2, &v54, &v53, &v52, &v51, &v55, options);
-    v9 = v54;
-    v10 = v54;
-    v50 = v53;
-    v11 = v52;
-    v12 = v52;
-    v13 = v51;
-    v14 = v51;
+    v52 = 0;
+    v50 = 0;
+    CopyLoadInfosForLiveProcess(v8, a2, &v53, &v52, &v51, &v50, &v54, options);
+    v9 = v53;
+    v10 = v53;
+    v49 = v52;
+    v11 = v51;
+    v12 = v51;
+    v13 = v50;
+    v14 = v50;
     v15 = v14;
     if (!v10)
     {
@@ -1446,9 +1551,9 @@ LABEL_39:
       v21 = _sa_logt();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        v36 = [selfCopy debugDescription];
+        v35 = [selfCopy debugDescription];
         *buf = 138412290;
-        v57 = v36;
+        v56 = v35;
         _os_log_debug_impl(&dword_1E0E2F000, v21, OS_LOG_TYPE_DEBUG, "%@: Unable to inspect live processes for images infos", buf, 0xCu);
       }
 
@@ -1462,7 +1567,7 @@ LABEL_39:
       firstObject = [v10 firstObject];
       binary = [firstObject binary];
       name = [binary name];
-      v19 = [(SATask *)selfCopy correspondsToName:name mainBinaryLoadInfo:firstObject architecture:v55 sharedCache:v12];
+      v19 = [(SATask *)selfCopy correspondsToName:name mainBinaryLoadInfo:firstObject architecture:v54 sharedCache:v12];
 
       if ((v19 & 1) == 0)
       {
@@ -1470,16 +1575,16 @@ LABEL_39:
         v23 = _sa_logt();
         if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
         {
-          v48 = [selfCopy debugDescription];
+          v47 = [selfCopy debugDescription];
           mainBinaryLoadInfo = [selfCopy mainBinaryLoadInfo];
-          v40 = [mainBinaryLoadInfo debugDescription];
-          v41 = [firstObject debugDescription];
+          v39 = [mainBinaryLoadInfo debugDescription];
+          v40 = [firstObject debugDescription];
           *buf = 138412802;
-          v57 = v48;
-          v58 = 2112;
-          v59 = v40;
-          v60 = 2112;
-          v61 = v41;
+          v56 = v47;
+          v57 = 2112;
+          v58 = v39;
+          v59 = 2112;
+          v60 = v40;
           _os_log_debug_impl(&dword_1E0E2F000, v23, OS_LOG_TYPE_DEBUG, "%@: live process has changed %@ -> %@", buf, 0x20u);
         }
 
@@ -1500,18 +1605,18 @@ LABEL_39:
       v25 = _sa_logt();
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        v43 = *(selfCopy + 20);
+        v42 = *(selfCopy + 20);
         *buf = 67109120;
-        LODWORD(v57) = v43;
+        LODWORD(v56) = v42;
         _os_log_error_impl(&dword_1E0E2F000, v25, OS_LOG_TYPE_ERROR, "[%d] Unable to determine main binary", buf, 8u);
       }
 
       *__error() = v24;
     }
 
-    if (v55)
+    if (v54)
     {
-      selfCopy[36] = v55;
+      selfCopy[36] = v54;
     }
 
     else
@@ -1520,9 +1625,9 @@ LABEL_39:
       v27 = _sa_logt();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v42 = *(selfCopy + 20);
+        v41 = *(selfCopy + 20);
         *buf = 67109120;
-        LODWORD(v57) = v42;
+        LODWORD(v56) = v41;
         _os_log_error_impl(&dword_1E0E2F000, v27, OS_LOG_TYPE_ERROR, "[%d] Unable to determine architecture", buf, 8u);
       }
 
@@ -1534,23 +1639,23 @@ LABEL_39:
     v29 = selfCopy[33];
     if (v29 && v12 != v29)
     {
-      v44 = *__error();
-      v45 = _sa_logt();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
+      v43 = *__error();
+      v44 = _sa_logt();
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
       {
-        v49 = [selfCopy debugDescription];
-        v46 = [v12 debugDescription];
-        v47 = [selfCopy[33] debugDescription];
+        v48 = [selfCopy debugDescription];
+        v45 = [v12 debugDescription];
+        v46 = [selfCopy[33] debugDescription];
         *buf = 138412802;
-        v57 = v49;
-        v58 = 2112;
-        v59 = v46;
-        v60 = 2112;
-        v61 = v47;
-        _os_log_fault_impl(&dword_1E0E2F000, v45, OS_LOG_TYPE_FAULT, "%@: Got dyld shared cache %@ though have existing %@", buf, 0x20u);
+        v56 = v48;
+        v57 = 2112;
+        v58 = v45;
+        v59 = 2112;
+        v60 = v46;
+        _os_log_fault_impl(&dword_1E0E2F000, v44, OS_LOG_TYPE_FAULT, "%@: Got dyld shared cache %@ though have existing %@", buf, 0x20u);
       }
 
-      *__error() = v44;
+      *__error() = v43;
     }
 
     objc_storeStrong(selfCopy + 33, v11);
@@ -1563,9 +1668,9 @@ LABEL_39:
         v32 = [selfCopy debugDescription];
         v33 = [selfCopy[32] count];
         *buf = 138412546;
-        v57 = v32;
-        v58 = 2048;
-        v59 = v33;
+        v56 = v32;
+        v57 = 2048;
+        v58 = v33;
         _os_log_impl(&dword_1E0E2F000, v31, OS_LOG_TYPE_INFO, "%@: Inspected live processes for %lu images infos, nothing new", buf, 0x16u);
       }
     }
@@ -1576,14 +1681,14 @@ LABEL_39:
       v31 = _sa_logt();
       if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
-        v37 = [selfCopy debugDescription];
-        v38 = [selfCopy[32] count];
+        v36 = [selfCopy debugDescription];
+        v37 = [selfCopy[32] count];
         *buf = 138412802;
-        v57 = v37;
-        v58 = 2048;
-        v59 = v38;
-        v60 = 2048;
-        v61 = v28;
+        v56 = v36;
+        v57 = 2048;
+        v58 = v37;
+        v59 = 2048;
+        v60 = v28;
         _os_log_debug_impl(&dword_1E0E2F000, v31, OS_LOG_TYPE_DEBUG, "%@: Inspected live processes for %lu images infos (%lu previously)", buf, 0x20u);
       }
     }
@@ -1596,8 +1701,6 @@ LABEL_38:
     goto LABEL_39;
   }
 
-LABEL_40:
-  v34 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -1694,25 +1797,25 @@ LABEL_26:
   return v18;
 }
 
-- (void)postprocessWithDataGatheringOptions:(int)options mightBeAlive:(void *)alive machineArchitecture:(uint64_t)architecture dataSource:(uint64_t)source spindumpArchitecture:(void *)spindumpArchitecture spindumpSharedCache:(int)cache additionalCSSymbolicatorFlags:
+- (void)postprocessWithDataGatheringOptions:(int)options mightBeAlive:(void *)alive machineArchitecture:(uint64_t)architecture dataSource:(uint64_t)source spindumpArchitecture:(void *)spindumpArchitecture spindumpSharedCache:(uint64_t)cache additionalCSSymbolicatorFlags:
 {
-  v252 = *MEMORY[0x1E69E9840];
+  v251 = *MEMORY[0x1E69E9840];
   if (self)
   {
     selfCopy = self;
-    v197 = 0;
-    v198 = &v197;
-    v199 = 0x2020000000;
-    v200 = 0;
-    v196[0] = MEMORY[0x1E69E9820];
-    v196[1] = 3221225472;
-    v196[2] = __161__SATask_postprocessWithDataGatheringOptions_mightBeAlive_machineArchitecture_dataSource_spindumpArchitecture_spindumpSharedCache_additionalCSSymbolicatorFlags___block_invoke;
-    v196[3] = &unk_1E86F5FD8;
-    v196[4] = &v197;
+    v196 = 0;
+    v197 = &v196;
+    v198 = 0x2020000000;
+    v199 = 0;
+    v195[0] = MEMORY[0x1E69E9820];
+    v195[1] = 3221225472;
+    v195[2] = __161__SATask_postprocessWithDataGatheringOptions_mightBeAlive_machineArchitecture_dataSource_spindumpArchitecture_spindumpSharedCache_additionalCSSymbolicatorFlags___block_invoke;
+    v195[3] = &unk_1E86F5FD8;
+    v195[4] = &v196;
     v11 = *(self + 280);
     if (v11)
     {
-      [SAFrame enumerateFrameTree:v11 block:v196];
+      [SAFrame enumerateFrameTree:v11 block:v195];
     }
 
     if ((a2 & 2) != 0)
@@ -1720,7 +1823,7 @@ LABEL_26:
       if (options)
       {
         [(SATask *)selfCopy _gatherDataFromLiveProcessIsLate:0 mainBinaryPath:?];
-        if ((v198[3] & 1) != 0 || ![*(selfCopy + 256) count] || !*(selfCopy + 80))
+        if ((v197[3] & 1) != 0 || ![*(selfCopy + 256) count] || !*(selfCopy + 80))
         {
           [(SATask *)selfCopy gatherLoadInfoFromLiveProcessWithDataGatheringOptions:a2 additionalCSSymbolicatorFlags:cache];
         }
@@ -1728,10 +1831,10 @@ LABEL_26:
     }
 
     mainBinary = [selfCopy mainBinary];
-    v183 = selfCopy;
+    v182 = selfCopy;
     if ((a2 & 1) != 0 && !mainBinary)
     {
-      if ([*(selfCopy + 40) isAbsolutePath] && (v13 = *(selfCopy + 40), objc_copyStruct(dest, (selfCopy + 288), 8, 1, 0), +[SABinary binaryWithPath:architecture:additionalCSSymbolicatorFlags:](SABinary, v13, *dest), v14 = objc_claimAutoreleasedReturnValue(), (v15 = v14) != 0))
+      if ([*(selfCopy + 40) isAbsolutePath] && (v13 = *(selfCopy + 40), objc_copyStruct(dest, (selfCopy + 288), 8, 1, 0), +[SABinary binaryWithPath:architecture:additionalCSSymbolicatorFlags:](SABinary, v13, *dest, cache), v14 = objc_claimAutoreleasedReturnValue(), (v15 = v14) != 0))
       {
         objc_storeStrong((selfCopy + 48), v14);
         mainBinary = v15;
@@ -1743,15 +1846,15 @@ LABEL_26:
       }
     }
 
-    v163 = mainBinary;
+    v162 = mainBinary;
     uuid = [mainBinary uuid];
     mainBinaryPath = [selfCopy mainBinaryPath];
     if (uuid)
     {
       if (([mainBinaryPath isAbsolutePath] & 1) == 0)
       {
-        [v163 gatherInfoWithDataGatheringOptions:a2 pid:*(selfCopy + 80)];
-        path = [v163 path];
+        [v162 gatherInfoWithDataGatheringOptions:a2 pid:*(selfCopy + 80)];
+        path = [v162 path];
         v17 = path;
         if (path)
         {
@@ -1823,10 +1926,10 @@ LABEL_38:
               path5 = [v19 path];
               *dest = 138543874;
               *&dest[4] = uuid;
-              v211 = 2112;
-              v212 = path5;
-              v213 = 2112;
-              v214 = mainBinaryPath;
+              v210 = 2112;
+              v211 = path5;
+              v212 = 2112;
+              v213 = mainBinaryPath;
               _os_log_impl(&dword_1E0E2F000, v29, OS_LOG_TYPE_INFO, "%{public}@ moved: replacing %@ with %@", dest, 0x20u);
             }
 
@@ -1843,7 +1946,7 @@ LABEL_38:
 
 LABEL_39:
 
-        selfCopy = v183;
+        selfCopy = v182;
       }
     }
 
@@ -1858,16 +1961,16 @@ LABEL_39:
         if (v34)
         {
           obj = SACFBundleCopyStringForKey(v34, *MEMORY[0x1E695E4F8]);
-          v188 = CFBundleCopyBundleURL(v35);
-          if (v163)
+          v187 = CFBundleCopyBundleURL(v35);
+          if (v162)
           {
-            [(SABinary *)v163 saveInfoFromBundle:v35];
-            [(SABinary *)v163 getCodeSignInfoWithBundleUrl:v188];
+            [(SABinary *)v162 saveInfoFromBundle:v35];
+            [(SABinary *)v162 getCodeSignInfoWithBundleUrl:v187];
           }
 
           if (obj)
           {
-            name = [v183 name];
+            name = [v182 name];
             v37 = [name compare:obj] == 0;
 
             if (!v37)
@@ -1876,17 +1979,17 @@ LABEL_39:
             }
           }
 
-          if (v188)
+          if (v187)
           {
-            v38 = v188;
+            v38 = v187;
             pathExtension = [(__CFURL *)v38 pathExtension];
             v40 = [pathExtension isEqualToString:@"appex"];
 
             if (v40)
             {
-              v195 = 0;
-              v41 = [objc_alloc(MEMORY[0x1E69635C8]) initWithURL:v38 error:&v195];
-              v42 = v195;
+              v194 = 0;
+              v41 = [objc_alloc(MEMORY[0x1E69635C8]) initWithURL:v38 error:&v194];
+              v42 = v194;
               if (v41)
               {
                 containingBundleRecord = [v41 containingBundleRecord];
@@ -1940,8 +2043,8 @@ LABEL_39:
                 {
                   *dest = 138412546;
                   *&dest[4] = v38;
-                  v211 = 2112;
-                  v212 = v42;
+                  v210 = 2112;
+                  v211 = v42;
                   _os_log_error_impl(&dword_1E0E2F000, v49, OS_LOG_TYPE_ERROR, "No extension record for %@: %@", dest, 0x16u);
                 }
 
@@ -1956,38 +2059,38 @@ LABEL_39:
               v47 = v38;
             }
 
-            v194 = v42;
-            v54 = [objc_alloc(MEMORY[0x1E69635F0]) initWithURL:v47 allowPlaceholder:1 error:&v194];
-            v55 = v194;
+            v193 = v42;
+            v54 = [objc_alloc(MEMORY[0x1E69635F0]) initWithURL:v47 allowPlaceholder:1 error:&v193];
+            v55 = v193;
 
             if (v54)
             {
               deviceIdentifierForVendor = [v54 deviceIdentifierForVendor];
               uUIDString = [deviceIdentifierForVendor UUIDString];
-              v58 = *(v183 + 176);
-              *(v183 + 176) = uUIDString;
+              v58 = *(v182 + 176);
+              *(v182 + 176) = uUIDString;
 
               iTunesMetadata = [v54 iTunesMetadata];
-              *(v183 + 160) = [iTunesMetadata storeItemIdentifier];
+              *(v182 + 160) = [iTunesMetadata storeItemIdentifier];
 
               iTunesMetadata2 = [v54 iTunesMetadata];
               distributorInfo = [iTunesMetadata2 distributorInfo];
               distributorID = [distributorInfo distributorID];
-              v63 = *(v183 + 184);
-              *(v183 + 184) = distributorID;
+              v63 = *(v182 + 184);
+              *(v182 + 184) = distributorID;
 
               iTunesMetadata3 = [v54 iTunesMetadata];
               v65 = [iTunesMetadata3 storeCohortWithError:0];
-              v66 = *(v183 + 192);
-              *(v183 + 192) = v65;
+              v66 = *(v182 + 192);
+              *(v182 + 192) = v65;
 
-              *(v183 + 65) = [v54 developerType];
+              *(v182 + 65) = [v54 developerType];
               entitlements = [v54 entitlements];
               v68 = [entitlements objectForKey:@"beta-reports-active" ofClass:objc_opt_class()];
 
               if (v68)
               {
-                *(v183 + 66) = 1;
+                *(v182 + 66) = 1;
               }
             }
 
@@ -1999,20 +2102,20 @@ LABEL_39:
               if (v70)
               {
                 v72 = SANSDictionaryCopyStringForKey(v70, @"BuildVersion");
-                v73 = *(v183 + 112);
-                *(v183 + 112) = v72;
+                v73 = *(v182 + 112);
+                *(v182 + 112) = v72;
 
                 v74 = SANSDictionaryCopyStringForKey(v71, @"ProjectName");
-                v75 = *(v183 + 120);
-                *(v183 + 120) = v74;
+                v75 = *(v182 + 120);
+                *(v182 + 120) = v74;
 
                 v76 = SANSDictionaryCopyStringForKey(v71, @"SourceVersion");
-                v77 = *(v183 + 128);
-                *(v183 + 128) = v76;
+                v77 = *(v182 + 128);
+                *(v182 + 128) = v76;
 
                 v78 = SANSDictionaryCopyStringForKey(v71, @"ProductBuildVersion");
-                v79 = *(v183 + 136);
-                *(v183 + 136) = v78;
+                v79 = *(v182 + 136);
+                *(v182 + 136) = v78;
               }
             }
           }
@@ -2021,7 +2124,7 @@ LABEL_39:
         }
       }
 
-      selfCopy = v183;
+      selfCopy = v182;
     }
 
     if (*(selfCopy + 40))
@@ -2029,13 +2132,13 @@ LABEL_39:
       mainBinary2 = [selfCopy mainBinary];
       path6 = [mainBinary2 path];
 
-      if (path6 && [path6 isEqualToString:*(v183 + 40)])
+      if (path6 && [path6 isEqualToString:*(v182 + 40)])
       {
-        v82 = *(v183 + 40);
-        *(v183 + 40) = 0;
+        v82 = *(v182 + 40);
+        *(v182 + 40) = 0;
       }
 
-      selfCopy = v183;
+      selfCopy = v182;
     }
 
     if (*(selfCopy + 56))
@@ -2043,53 +2146,53 @@ LABEL_39:
       mainBinaryPath2 = [selfCopy mainBinaryPath];
       copyLastPathComponent = [(NSString *)mainBinaryPath2 copyLastPathComponent];
 
-      if (copyLastPathComponent && [copyLastPathComponent hasPrefix:*(v183 + 56)])
+      if (copyLastPathComponent && [copyLastPathComponent hasPrefix:*(v182 + 56)])
       {
-        v85 = *(v183 + 56);
-        *(v183 + 56) = 0;
+        v85 = *(v182 + 56);
+        *(v182 + 56) = 0;
       }
 
-      selfCopy = v183;
+      selfCopy = v182;
     }
 
     [*(selfCopy + 16) enumerateKeysAndObjectsUsingBlock:&__block_literal_global_94];
-    v207 = 0u;
-    v208 = 0u;
-    v205 = 0u;
     v206 = 0u;
+    v207 = 0u;
+    v204 = 0u;
+    v205 = 0u;
     taskStates = [selfCopy taskStates];
-    v87 = [taskStates countByEnumeratingWithState:&v205 objects:v251 count:16];
+    v87 = [taskStates countByEnumeratingWithState:&v204 objects:v250 count:16];
     if (v87)
     {
       obja = taskStates;
       v88 = 0;
       v89 = 0;
-      v189 = *v206;
+      v188 = *v205;
       do
       {
         v90 = 0;
         v91 = v89;
         do
         {
-          if (*v206 != v189)
+          if (*v205 != v188)
           {
             objc_enumerationMutation(obja);
           }
 
-          v92 = *(*(&v205 + 1) + 8 * v90);
+          v92 = *(*(&v204 + 1) + 8 * v90);
           if (v91)
           {
-            if ([*(*(&v205 + 1) + 8 * v90) terminatedThreadsUserTimeInNs] && (v93 = objc_msgSend(v92, "terminatedThreadsUserTimeInNs"), v93 < objc_msgSend(v91, "terminatedThreadsUserTimeInNs")) || objc_msgSend(v92, "terminatedThreadsSystemTimeInNs") && (v94 = objc_msgSend(v92, "terminatedThreadsSystemTimeInNs"), v94 < objc_msgSend(v91, "terminatedThreadsSystemTimeInNs")) || objc_msgSend(v92, "terminatedThreadsInstructions") && (v95 = objc_msgSend(v92, "terminatedThreadsInstructions"), v95 < objc_msgSend(v91, "terminatedThreadsInstructions")) || objc_msgSend(v92, "terminatedThreadsCycles") && (v96 = objc_msgSend(v92, "terminatedThreadsCycles"), v96 < objc_msgSend(v91, "terminatedThreadsCycles")) || objc_msgSend(v92, "faults") && (v97 = objc_msgSend(v92, "faults"), v97 < objc_msgSend(v91, "faults")) || objc_msgSend(v92, "pageins") && (v98 = objc_msgSend(v92, "pageins"), v98 < objc_msgSend(v91, "pageins")) || objc_msgSend(v92, "cowFaults") && (v99 = objc_msgSend(v92, "cowFaults"), v99 < objc_msgSend(v91, "cowFaults")))
+            if ([*(*(&v204 + 1) + 8 * v90) terminatedThreadsUserTimeInNs] && (v93 = objc_msgSend(v92, "terminatedThreadsUserTimeInNs"), v93 < objc_msgSend(v91, "terminatedThreadsUserTimeInNs")) || objc_msgSend(v92, "terminatedThreadsSystemTimeInNs") && (v94 = objc_msgSend(v92, "terminatedThreadsSystemTimeInNs"), v94 < objc_msgSend(v91, "terminatedThreadsSystemTimeInNs")) || objc_msgSend(v92, "terminatedThreadsInstructions") && (v95 = objc_msgSend(v92, "terminatedThreadsInstructions"), v95 < objc_msgSend(v91, "terminatedThreadsInstructions")) || objc_msgSend(v92, "terminatedThreadsCycles") && (v96 = objc_msgSend(v92, "terminatedThreadsCycles"), v96 < objc_msgSend(v91, "terminatedThreadsCycles")) || objc_msgSend(v92, "faults") && (v97 = objc_msgSend(v92, "faults"), v97 < objc_msgSend(v91, "faults")) || objc_msgSend(v92, "pageins") && (v98 = objc_msgSend(v92, "pageins"), v98 < objc_msgSend(v91, "pageins")) || objc_msgSend(v92, "cowFaults") && (v99 = objc_msgSend(v92, "cowFaults"), v99 < objc_msgSend(v91, "cowFaults")))
             {
               v100 = *__error();
               v101 = _sa_logt();
               if (os_log_type_enabled(v101, OS_LOG_TYPE_DEBUG))
               {
-                v184 = [v183 debugDescription];
-                taskStates2 = [v183 taskStates];
+                v183 = [v182 debugDescription];
+                taskStates2 = [v182 taskStates];
                 v116 = [taskStates2 count];
-                v182 = [v91 debugDescription];
-                v181 = [v92 debugDescription];
+                v181 = [v91 debugDescription];
+                v180 = [v92 debugDescription];
                 terminatedThreadsCpuTimeNs = [v91 terminatedThreadsCpuTimeNs];
                 terminatedThreadsUserTimeInNs = [v91 terminatedThreadsUserTimeInNs];
                 terminatedThreadsSystemTimeInNs = [v91 terminatedThreadsSystemTimeInNs];
@@ -2107,47 +2210,47 @@ LABEL_39:
                 cowFaults = [v91 cowFaults];
                 cowFaults2 = [v92 cowFaults];
                 *dest = 138417410;
-                *&dest[4] = v184;
-                v211 = 2048;
-                v212 = v88;
-                v213 = 2048;
-                v214 = v116;
-                v215 = 2112;
-                v216 = v182;
-                v217 = 2112;
-                v218 = v181;
-                v219 = 2048;
-                v220 = terminatedThreadsCpuTimeNs;
-                v221 = 2048;
-                v222 = terminatedThreadsUserTimeInNs;
-                v223 = 2048;
-                v224 = terminatedThreadsSystemTimeInNs;
-                v225 = 2048;
-                v226 = terminatedThreadsCpuTimeNs2;
-                v227 = 2048;
-                v228 = terminatedThreadsUserTimeInNs2;
-                v229 = 2048;
-                v230 = terminatedThreadsSystemTimeInNs2;
-                v231 = 2048;
-                v232 = terminatedThreadsInstructions;
-                v233 = 2048;
-                v234 = terminatedThreadsInstructions2;
-                v235 = 2048;
-                v236 = terminatedThreadsCycles;
-                v237 = 2048;
-                v238 = terminatedThreadsCycles2;
-                v239 = 1024;
-                v240 = faults;
-                v241 = 1024;
-                v242 = faults2;
-                v243 = 1024;
-                v244 = pageins;
-                v245 = 1024;
-                v246 = pageins2;
-                v247 = 1024;
-                v248 = cowFaults;
-                v249 = 1024;
-                v250 = cowFaults2;
+                *&dest[4] = v183;
+                v210 = 2048;
+                v211 = v88;
+                v212 = 2048;
+                v213 = v116;
+                v214 = 2112;
+                v215 = v181;
+                v216 = 2112;
+                v217 = v180;
+                v218 = 2048;
+                v219 = terminatedThreadsCpuTimeNs;
+                v220 = 2048;
+                v221 = terminatedThreadsUserTimeInNs;
+                v222 = 2048;
+                v223 = terminatedThreadsSystemTimeInNs;
+                v224 = 2048;
+                v225 = terminatedThreadsCpuTimeNs2;
+                v226 = 2048;
+                v227 = terminatedThreadsUserTimeInNs2;
+                v228 = 2048;
+                v229 = terminatedThreadsSystemTimeInNs2;
+                v230 = 2048;
+                v231 = terminatedThreadsInstructions;
+                v232 = 2048;
+                v233 = terminatedThreadsInstructions2;
+                v234 = 2048;
+                v235 = terminatedThreadsCycles;
+                v236 = 2048;
+                v237 = terminatedThreadsCycles2;
+                v238 = 1024;
+                v239 = faults;
+                v240 = 1024;
+                v241 = faults2;
+                v242 = 1024;
+                v243 = pageins;
+                v244 = 1024;
+                v245 = pageins2;
+                v246 = 1024;
+                v247 = cowFaults;
+                v248 = 1024;
+                v249 = cowFaults2;
                 _os_log_debug_impl(&dword_1E0E2F000, v101, OS_LOG_TYPE_DEBUG, "Task %@ monotonically increasing data decreased at index %lu of %lu between %@ and %@:\nterminated threads cpu time %llu (%llu + %llu) -> %llu (%llu + %llu)\nterminated threads instructions %llu -> %llu\nterminated threads cycles %llu -> %llu\nfaults %u -> %u\npageins %u -> %u\ncow faults %u -> %u\n", dest, 0xBCu);
               }
 
@@ -2233,7 +2336,7 @@ LABEL_39:
         }
 
         while (v87 != v90);
-        v87 = [obja countByEnumeratingWithState:&v205 objects:v251 count:16];
+        v87 = [obja countByEnumeratingWithState:&v204 objects:v250 count:16];
       }
 
       while (v87);
@@ -2241,13 +2344,13 @@ LABEL_39:
       taskStates = obja;
     }
 
-    v119 = v183;
-    if (!*(v183 + 288))
+    v119 = v182;
+    if (!*(v182 + 288))
     {
-      [(SATask *)v183 guessArchitectureGivenMachineArchitecture:alive dataSource:architecture];
+      [(SATask *)v182 guessArchitectureGivenMachineArchitecture:alive dataSource:architecture];
     }
 
-    if (*(v183 + 272))
+    if (*(v182 + 272))
     {
 LABEL_175:
       v133 = *(v119 + 264);
@@ -2256,21 +2359,21 @@ LABEL_175:
 LABEL_182:
         if (spindumpArchitecture && !v133)
         {
-          if ((*(v119 + 74) & 1) == 0 && *(v119 + 288) && v159 && CSArchitectureMatchesArchitecture() && *(v119 + 80) && *(v119 + 96))
+          if ((*(v119 + 74) & 1) == 0 && *(v119 + 288) && v158 && CSArchitectureMatchesArchitecture() && *(v119 + 80) && *(v119 + 96))
           {
-            v154 = *__error();
-            v155 = _sa_logt();
-            if (os_log_type_enabled(v155, OS_LOG_TYPE_DEBUG))
+            v153 = *__error();
+            v154 = _sa_logt();
+            if (os_log_type_enabled(v154, OS_LOG_TYPE_DEBUG))
             {
-              v157 = [v183 debugDescription];
+              v156 = [v182 debugDescription];
               *dest = 138412290;
-              *&dest[4] = v157;
-              _os_log_debug_impl(&dword_1E0E2F000, v155, OS_LOG_TYPE_DEBUG, "No info about the shared cache for (native architecture) process %@, assuming native shared cache", dest, 0xCu);
+              *&dest[4] = v156;
+              _os_log_debug_impl(&dword_1E0E2F000, v154, OS_LOG_TYPE_DEBUG, "No info about the shared cache for (native architecture) process %@, assuming native shared cache", dest, 0xCu);
             }
 
-            *__error() = v154;
-            objc_storeStrong((v183 + 264), spindumpArchitecture);
-            v119 = v183;
+            *__error() = v153;
+            objc_storeStrong((v182 + 264), spindumpArchitecture);
+            v119 = v182;
           }
 
           v133 = *(v119 + 264);
@@ -2291,26 +2394,26 @@ LABEL_187:
         if ([*(v119 + 264) startAddress] != -1)
         {
           endAddress = [*(v119 + 264) endAddress];
-          v192 = 0u;
-          v193 = 0u;
-          v190 = 0u;
           v191 = 0u;
+          v192 = 0u;
+          v189 = 0u;
+          v190 = 0u;
           v142 = *(v119 + 256);
           v143 = 0;
-          v144 = [v142 countByEnumeratingWithState:&v190 objects:v209 count:16];
+          v144 = [v142 countByEnumeratingWithState:&v189 objects:v208 count:16];
           if (v144)
           {
-            v145 = *v191;
+            v145 = *v190;
             do
             {
               for (i = 0; i != v144; ++i)
               {
-                if (*v191 != v145)
+                if (*v190 != v145)
                 {
                   objc_enumerationMutation(v142);
                 }
 
-                v147 = *(*(&v190 + 1) + 8 * i);
+                v147 = *(*(&v189 + 1) + 8 * i);
                 loadAddress = [v147 loadAddress];
                 if (loadAddress >= startAddress && loadAddress < endAddress)
                 {
@@ -2323,7 +2426,7 @@ LABEL_187:
                 }
               }
 
-              v144 = [v142 countByEnumeratingWithState:&v190 objects:v209 count:16];
+              v144 = [v142 countByEnumeratingWithState:&v189 objects:v208 count:16];
             }
 
             while (v144);
@@ -2331,18 +2434,18 @@ LABEL_187:
 
           if ([v143 count])
           {
-            v150 = [*(v183 + 256) mutableCopy];
+            v150 = [*(v182 + 256) mutableCopy];
             [v150 removeObjectsInArray:v143];
             v151 = [v150 copy];
-            v152 = *(v183 + 256);
-            *(v183 + 256) = v151;
+            v152 = *(v182 + 256);
+            *(v182 + 256) = v151;
           }
         }
 
 LABEL_205:
 
-        _Block_object_dispose(&v197, 8);
-        goto LABEL_206;
+        _Block_object_dispose(&v196, 8);
+        return;
       }
 
       v134 = v133;
@@ -2365,38 +2468,38 @@ LABEL_205:
         }
       }
 
-      objc_storeStrong((v183 + 264), v136);
+      objc_storeStrong((v182 + 264), v136);
 LABEL_181:
 
-      v119 = v183;
-      v133 = *(v183 + 264);
+      v119 = v182;
+      v133 = *(v182 + 264);
       goto LABEL_182;
     }
 
-    v120 = [*(v183 + 24) objectForKeyedSubscript:&unk_1F5BDCC58];
+    v120 = [*(v182 + 24) objectForKeyedSubscript:&unk_1F5BDCC58];
     v121 = v120;
     if (v120)
     {
-      v207 = 0u;
-      v208 = 0u;
-      v205 = 0u;
       v206 = 0u;
+      v207 = 0u;
+      v204 = 0u;
+      v205 = 0u;
       states = [v120 states];
-      v123 = [states countByEnumeratingWithState:&v205 objects:dest count:16];
+      v123 = [states countByEnumeratingWithState:&v204 objects:dest count:16];
       if (v123)
       {
         v124 = 0;
-        v125 = *v206;
+        v125 = *v205;
         do
         {
           for (j = 0; j != v123; ++j)
           {
-            if (*v206 != v125)
+            if (*v205 != v125)
             {
               objc_enumerationMutation(states);
             }
 
-            thread = [*(*(&v205 + 1) + 8 * j) thread];
+            thread = [*(*(&v204 + 1) + 8 * j) thread];
             if (v124)
             {
               v128 = v124 == thread;
@@ -2414,7 +2517,7 @@ LABEL_181:
             }
           }
 
-          v123 = [states countByEnumeratingWithState:&v205 objects:dest count:16];
+          v123 = [states countByEnumeratingWithState:&v204 objects:dest count:16];
         }
 
         while (v123);
@@ -2424,25 +2527,25 @@ LABEL_181:
           goto LABEL_174;
         }
 
-        v203 = 0u;
-        v204 = 0u;
-        v201 = 0u;
         v202 = 0u;
+        v203 = 0u;
+        v200 = 0u;
+        v201 = 0u;
         threadStates = [v124 threadStates];
-        v130 = [threadStates countByEnumeratingWithState:&v201 objects:v251 count:16];
+        v130 = [threadStates countByEnumeratingWithState:&v200 objects:v250 count:16];
         if (v130)
         {
-          v131 = *v202;
+          v131 = *v201;
           while (2)
           {
             for (k = 0; k != v130; ++k)
             {
-              if (*v202 != v131)
+              if (*v201 != v131)
               {
                 objc_enumerationMutation(threadStates);
               }
 
-              if ([*(*(&v201 + 1) + 8 * k) isIdleWorkQueue])
+              if ([*(*(&v200 + 1) + 8 * k) isIdleWorkQueue])
               {
 
                 v124 = 0;
@@ -2450,7 +2553,7 @@ LABEL_181:
               }
             }
 
-            v130 = [threadStates countByEnumeratingWithState:&v201 objects:v251 count:16];
+            v130 = [threadStates countByEnumeratingWithState:&v200 objects:v250 count:16];
             if (v130)
             {
               continue;
@@ -2462,8 +2565,8 @@ LABEL_181:
 
 LABEL_216:
 
-        v156 = *(v183 + 272);
-        *(v183 + 272) = v124;
+        v155 = *(v182 + 272);
+        *(v182 + 272) = v124;
         states = v124;
 
         if (states)
@@ -2477,12 +2580,9 @@ LABEL_173:
 
 LABEL_174:
 
-    v119 = v183;
+    v119 = v182;
     goto LABEL_175;
   }
-
-LABEL_206:
-  v153 = *MEMORY[0x1E69E9840];
 }
 
 void __161__SATask_postprocessWithDataGatheringOptions_mightBeAlive_machineArchitecture_dataSource_spindumpArchitecture_spindumpSharedCache_additionalCSSymbolicatorFlags___block_invoke(uint64_t a1, id *a2, uint64_t a3, _BYTE *a4)
@@ -2512,254 +2612,247 @@ void __161__SATask_postprocessWithDataGatheringOptions_mightBeAlive_machineArchi
 
 - (void)_gatherDataFromLiveProcessIsLate:(void *)late mainBinaryPath:
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   if (self && (*(self + 73) & 1) == 0)
   {
     v4 = *(self + 80);
-    if (v4)
-    {
-      if ((v4 & 0x80000000) == 0)
-      {
-        *(self + 73) = 1;
-        if (!kill(v4, 0))
-        {
-          v51 = 0u;
-          v52 = 0u;
-          memset(buffer, 0, sizeof(buffer));
-          v6 = proc_pidinfo(*(self + 80), 13, 1uLL, buffer, 64);
-          v7 = DWORD1(buffer[0]);
-          v8 = DWORD1(v51);
-          if (!v6)
-          {
-            v7 = -1;
-            v8 = -314;
-          }
-
-          *(self + 84) = v7;
-          *(self + 92) = v8;
-          lateCopy = late;
-          if (!lateCopy)
-          {
-            v20 = SAExecutablePath(*(self + 80), [*(self + 56) UTF8String]);
-            if (!v20)
-            {
-              goto LABEL_47;
-            }
-
-            lateCopy = v20;
-            if ([v20 isAbsolutePath])
-            {
-              [self setMainBinaryPath:lateCopy];
-            }
-          }
-
-          name = [self name];
-          v11 = [name isEqualToString:@"java"];
-
-          if (v11)
-          {
-            if (_gatherDataFromLiveProcessIsLate_mainBinaryPath__onceToken != -1)
-            {
-              dispatch_once(&_gatherDataFromLiveProcessIsLate_mainBinaryPath__onceToken, &__block_literal_global_13);
-            }
-
-            v12 = malloc_type_calloc(1uLL, _gatherDataFromLiveProcessIsLate_mainBinaryPath__max_arguments_size, 0xE79EE579uLL);
-            v44 = _gatherDataFromLiveProcessIsLate_mainBinaryPath__max_arguments_size;
-            *flags = 0x3100000001;
-            v49 = *(self + 80);
-            if (sysctl(flags, 3u, v12, &v44, 0, 0))
-            {
-              v13 = *__error();
-              v14 = _sa_logt();
-              if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
-              {
-                v31 = *(self + 80);
-                v32 = *__error();
-                v33 = __error();
-                v34 = strerror(*v33);
-                *buf = 67109634;
-                *&buf[4] = v31;
-                v46 = 1024;
-                *v47 = v32;
-                *&v47[4] = 2080;
-                *&v47[6] = v34;
-                _os_log_debug_impl(&dword_1E0E2F000, v14, OS_LOG_TYPE_DEBUG, "unable to get arguments for %d: %d %s", buf, 0x18u);
-              }
-            }
-
-            else
-            {
-              if (v44 >= 5)
-              {
-                v22 = &v12[v44];
-                v23 = v12 + 4;
-                do
-                {
-                  v24 = strlen(v23);
-                  if (&v23[v24] >= v22)
-                  {
-                    break;
-                  }
-
-                  v25 = v24;
-                  if (!strncmp("-jar", v23, 5uLL))
-                  {
-                    v23 += v25 + 1;
-                    v35 = rindex(v23, 47);
-                    if (v35)
-                    {
-                      v23 = v35 + 1;
-                    }
-
-                    v36 = strlen(v23);
-                    if (v36 >= 5 && (v37 = &v23[v36 - 4], !strncmp(".jar", v37, 4uLL)))
-                    {
-                      *v37 = 0;
-                    }
-
-                    else
-                    {
-LABEL_52:
-                      if (!v23)
-                      {
-                        break;
-                      }
-                    }
-
-LABEL_53:
-                    v38 = *__error();
-                    v39 = _sa_logt();
-                    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
-                    {
-                      v43 = *(self + 80);
-                      *buf = 67109378;
-                      *&buf[4] = v43;
-                      v46 = 2080;
-                      *v47 = v23;
-                      _os_log_debug_impl(&dword_1E0E2F000, v39, OS_LOG_TYPE_DEBUG, "Renaming java process [%d] to %s", buf, 0x12u);
-                    }
-
-                    *__error() = v38;
-                    if (!*(self + 80) || strcmp(v23, "kernel_task"))
-                    {
-                      v40 = SANSStringForCString(v23);
-                      v41 = *(self + 56);
-                      *(self + 56) = v40;
-                    }
-
-                    goto LABEL_16;
-                  }
-
-                  if (v25)
-                  {
-                    v26 = *v23;
-                    if (!*v23)
-                    {
-                      goto LABEL_53;
-                    }
-
-                    v27 = 1;
-                    while ((v26 & 0xDFu) - 65 < 0x1A || v26 == 46 || (v26 - 48) <= 9)
-                    {
-                      v26 = v23[v27++];
-                      if (!v26)
-                      {
-                        goto LABEL_52;
-                      }
-                    }
-                  }
-
-                  v23 += v25 + 1;
-                }
-
-                while (v23 < v22);
-              }
-
-              v13 = *__error();
-              v14 = _sa_logt();
-              if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-              {
-                v42 = *(self + 80);
-                *buf = 67109120;
-                *&buf[4] = v42;
-                _os_log_impl(&dword_1E0E2F000, v14, OS_LOG_TYPE_DEFAULT, "WARNING: Unable to find name for java processes [%d]", buf, 8u);
-              }
-            }
-
-            *__error() = v13;
-LABEL_16:
-            free(v12);
-          }
-
-          if (!*(self + 288))
-          {
-            v15 = *(self + 80);
-            *buf = 0;
-            if (proc_pidinfo(v15, 19, 1uLL, buf, 8))
-            {
-              *(self + 288) = *buf | ((*&buf[4] & 0xFFFFFF) << 32);
-            }
-          }
-
-          flags[0] = 0;
-          dirty = proc_get_dirty(*(self + 80), flags);
-          if (dirty)
-          {
-            v17 = dirty;
-            v18 = *__error();
-            v19 = _sa_logt();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
-            {
-              v29 = *(self + 80);
-              v30 = strerror(v17);
-              *buf = 67109634;
-              *&buf[4] = v29;
-              v46 = 2080;
-              *v47 = v30;
-              *&v47[8] = 1024;
-              *&v47[10] = v17;
-              _os_log_debug_impl(&dword_1E0E2F000, v19, OS_LOG_TYPE_DEBUG, "Unable to check dirty state for %d: %s %d", buf, 0x18u);
-            }
-
-            *__error() = v18;
-          }
-
-          else
-          {
-            v21 = flags[0];
-            if (flags[0])
-            {
-              *(self + 68) = 1;
-              *(self + 69) = (v21 & 2) != 0;
-            }
-          }
-
-          *(self + 248) = 0;
-        }
-      }
-    }
-
-    else
+    if (!v4)
     {
       *(self + 73) = 1;
       *(self + 88) = 0;
       *(self + 84) = 0;
+      return;
+    }
+
+    if ((v4 & 0x80000000) == 0)
+    {
+      *(self + 73) = 1;
+      if (!kill(v4, 0))
+      {
+        v50 = 0u;
+        v51 = 0u;
+        memset(buffer, 0, sizeof(buffer));
+        v6 = proc_pidinfo(*(self + 80), 13, 1uLL, buffer, 64);
+        v7 = DWORD1(buffer[0]);
+        v8 = DWORD1(v50);
+        if (!v6)
+        {
+          v7 = -1;
+          v8 = -314;
+        }
+
+        *(self + 84) = v7;
+        *(self + 92) = v8;
+        lateCopy = late;
+        if (!lateCopy)
+        {
+          v20 = SAExecutablePath(*(self + 80), [*(self + 56) UTF8String]);
+          if (!v20)
+          {
+            return;
+          }
+
+          lateCopy = v20;
+          if ([v20 isAbsolutePath])
+          {
+            [self setMainBinaryPath:lateCopy];
+          }
+        }
+
+        name = [self name];
+        v11 = [name isEqualToString:@"java"];
+
+        if (v11)
+        {
+          if (_gatherDataFromLiveProcessIsLate_mainBinaryPath__onceToken != -1)
+          {
+            dispatch_once(&_gatherDataFromLiveProcessIsLate_mainBinaryPath__onceToken, &__block_literal_global_13);
+          }
+
+          v12 = malloc_type_calloc(1uLL, _gatherDataFromLiveProcessIsLate_mainBinaryPath__max_arguments_size, 0xE79EE579uLL);
+          v43 = _gatherDataFromLiveProcessIsLate_mainBinaryPath__max_arguments_size;
+          *flags = 0x3100000001;
+          v48 = *(self + 80);
+          if (sysctl(flags, 3u, v12, &v43, 0, 0))
+          {
+            v13 = *__error();
+            v14 = _sa_logt();
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+            {
+              v30 = *(self + 80);
+              v31 = *__error();
+              v32 = __error();
+              v33 = strerror(*v32);
+              *buf = 67109634;
+              *&buf[4] = v30;
+              v45 = 1024;
+              *v46 = v31;
+              *&v46[4] = 2080;
+              *&v46[6] = v33;
+              _os_log_debug_impl(&dword_1E0E2F000, v14, OS_LOG_TYPE_DEBUG, "unable to get arguments for %d: %d %s", buf, 0x18u);
+            }
+          }
+
+          else
+          {
+            if (v43 >= 5)
+            {
+              v22 = &v12[v43];
+              v23 = v12 + 4;
+              do
+              {
+                v24 = strlen(v23);
+                if (&v23[v24] >= v22)
+                {
+                  break;
+                }
+
+                v25 = v24;
+                if (!strncmp("-jar", v23, 5uLL))
+                {
+                  v23 += v25 + 1;
+                  v34 = rindex(v23, 47);
+                  if (v34)
+                  {
+                    v23 = v34 + 1;
+                  }
+
+                  v35 = strlen(v23);
+                  if (v35 >= 5 && (v36 = &v23[v35 - 4], !strncmp(".jar", v36, 4uLL)))
+                  {
+                    *v36 = 0;
+                  }
+
+                  else
+                  {
+LABEL_52:
+                    if (!v23)
+                    {
+                      break;
+                    }
+                  }
+
+LABEL_53:
+                  v37 = *__error();
+                  v38 = _sa_logt();
+                  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+                  {
+                    v42 = *(self + 80);
+                    *buf = 67109378;
+                    *&buf[4] = v42;
+                    v45 = 2080;
+                    *v46 = v23;
+                    _os_log_debug_impl(&dword_1E0E2F000, v38, OS_LOG_TYPE_DEBUG, "Renaming java process [%d] to %s", buf, 0x12u);
+                  }
+
+                  *__error() = v37;
+                  if (!*(self + 80) || strcmp(v23, "kernel_task"))
+                  {
+                    v39 = SANSStringForCString(v23);
+                    v40 = *(self + 56);
+                    *(self + 56) = v39;
+                  }
+
+                  goto LABEL_16;
+                }
+
+                if (v25)
+                {
+                  v26 = *v23;
+                  if (!*v23)
+                  {
+                    goto LABEL_53;
+                  }
+
+                  v27 = 1;
+                  while ((v26 & 0xDFu) - 65 < 0x1A || v26 == 46 || (v26 - 48) <= 9)
+                  {
+                    v26 = v23[v27++];
+                    if (!v26)
+                    {
+                      goto LABEL_52;
+                    }
+                  }
+                }
+
+                v23 += v25 + 1;
+              }
+
+              while (v23 < v22);
+            }
+
+            v13 = *__error();
+            v14 = _sa_logt();
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+            {
+              v41 = *(self + 80);
+              *buf = 67109120;
+              *&buf[4] = v41;
+              _os_log_impl(&dword_1E0E2F000, v14, OS_LOG_TYPE_DEFAULT, "WARNING: Unable to find name for java processes [%d]", buf, 8u);
+            }
+          }
+
+          *__error() = v13;
+LABEL_16:
+          free(v12);
+        }
+
+        if (!*(self + 288))
+        {
+          v15 = *(self + 80);
+          *buf = 0;
+          if (proc_pidinfo(v15, 19, 1uLL, buf, 8))
+          {
+            *(self + 288) = *buf | ((*&buf[4] & 0xFFFFFF) << 32);
+          }
+        }
+
+        flags[0] = 0;
+        dirty = proc_get_dirty(*(self + 80), flags);
+        if (dirty)
+        {
+          v17 = dirty;
+          v18 = *__error();
+          v19 = _sa_logt();
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+          {
+            v28 = *(self + 80);
+            v29 = strerror(v17);
+            *buf = 67109634;
+            *&buf[4] = v28;
+            v45 = 2080;
+            *v46 = v29;
+            *&v46[8] = 1024;
+            *&v46[10] = v17;
+            _os_log_debug_impl(&dword_1E0E2F000, v19, OS_LOG_TYPE_DEBUG, "Unable to check dirty state for %d: %s %d", buf, 0x18u);
+          }
+
+          *__error() = v18;
+        }
+
+        else
+        {
+          v21 = flags[0];
+          if (flags[0])
+          {
+            *(self + 68) = 1;
+            *(self + 69) = (v21 & 2) != 0;
+          }
+        }
+
+        *(self + 248) = 0;
+      }
     }
   }
-
-LABEL_47:
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __58__SATask__gatherDataFromLiveProcessIsLate_mainBinaryPath___block_invoke()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v4 = 0;
-  *v3 = 0x800000001;
-  v2 = 4;
-  result = sysctl(v3, 2u, &_gatherDataFromLiveProcessIsLate_mainBinaryPath__max_arguments_size, &v2, 0, 0);
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  v4 = *MEMORY[0x1E69E9840];
+  v3 = 0;
+  *v2 = 0x800000001;
+  v1 = 4;
+  return sysctl(v2, 2u, &_gatherDataFromLiveProcessIsLate_mainBinaryPath__max_arguments_size, &v1, 0, 0);
 }
 
 - (id)leafFrameAfterAddingStack:(void *)stack leafOfCRootFramesReplacedBySwiftAsync:
@@ -2970,12 +3063,12 @@ LABEL_26:
       v17 = _sa_logt();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        *v24 = 0;
-        _os_log_error_impl(&dword_1E0E2F000, v17, OS_LOG_TYPE_ERROR, "correspondsToName called for kernel", v24, 2u);
+        *v18 = 0;
+        _os_log_error_impl(&dword_1E0E2F000, v17, OS_LOG_TYPE_ERROR, "correspondsToName called for kernel", v18, 2u);
       }
 
       *__error() = v16;
-      _SASetCrashLogMessage(1341, "correspondsToName called for kernel", v18, v19, v20, v21, v22, v23, v24[0]);
+      _SASetCrashLogMessage(1341, "correspondsToName called for kernel");
       result = _os_crash();
       __break(1u);
     }
@@ -2987,17 +3080,16 @@ LABEL_26:
 - (BOOL)addImageInfos:(uint64_t)infos
 {
   v2 = 0;
-  v116 = *MEMORY[0x1E69E9840];
+  v103 = *MEMORY[0x1E69E9840];
   if (!infos || !a2)
   {
-    goto LABEL_95;
+    return v2;
   }
 
   infosCopy = infos;
   if (![a2 count])
   {
-    v2 = 0;
-    goto LABEL_95;
+    return 0;
   }
 
   v5 = [a2 sortedArrayUsingComparator:&__block_literal_global_70];
@@ -3009,15 +3101,15 @@ LABEL_26:
     goto LABEL_94;
   }
 
-  v88 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v5, "count")}];
-  v105 = 0u;
-  v106 = 0u;
-  v107 = 0u;
-  v108 = 0u;
-  v86 = v5;
+  v75 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v5, "count")}];
+  v92 = 0u;
+  v93 = 0u;
+  v94 = 0u;
+  v95 = 0u;
+  v73 = v5;
   obj = v5;
-  v90 = [obj countByEnumeratingWithState:&v105 objects:v115 count:16];
-  if (!v90)
+  v77 = [obj countByEnumeratingWithState:&v92 objects:v102 count:16];
+  if (!v77)
   {
     v8 = 0;
     goto LABEL_89;
@@ -3025,24 +3117,24 @@ LABEL_26:
 
   v7 = 0;
   v8 = 0;
-  v89 = *v106;
+  v76 = *v93;
   do
   {
     v9 = 0;
     do
     {
-      if (*v106 != v89)
+      if (*v93 != v76)
       {
         objc_enumerationMutation(obj);
       }
 
-      v91 = v9;
-      v10 = *(*(&v105 + 1) + 8 * v9);
+      v78 = v9;
+      v10 = *(*(&v92 + 1) + 8 * v9);
       binary = [v10 binary];
       segment = [v10 segment];
-      v94 = [v10 length];
-      v95 = segment;
-      if (v94)
+      v81 = [v10 length];
+      v82 = segment;
+      if (v81)
       {
         v12 = 0;
       }
@@ -3052,34 +3144,34 @@ LABEL_26:
         v12 = segment == 0;
       }
 
-      v93 = v10;
+      v80 = v10;
       if (v12)
       {
-        v103 = 0u;
-        v104 = 0u;
-        v101 = 0u;
-        v102 = 0u;
+        v90 = 0u;
+        v91 = 0u;
+        v88 = 0u;
+        v89 = 0u;
         segments = [binary segments];
         reverseObjectEnumerator = [segments reverseObjectEnumerator];
 
-        v15 = [reverseObjectEnumerator countByEnumeratingWithState:&v101 objects:v114 count:16];
+        v15 = [reverseObjectEnumerator countByEnumeratingWithState:&v88 objects:v101 count:16];
         if (!v15)
         {
           goto LABEL_27;
         }
 
         v16 = v15;
-        v17 = *v102;
+        v17 = *v89;
         while (1)
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v102 != v17)
+            if (*v89 != v17)
             {
               objc_enumerationMutation(reverseObjectEnumerator);
             }
 
-            v19 = *(*(&v101 + 1) + 8 * i);
+            v19 = *(*(&v88 + 1) + 8 * i);
             if ([v19 hasOffsetIntoBinary])
             {
               if (![v19 length])
@@ -3088,19 +3180,19 @@ LABEL_26:
               }
 
               offsetIntoBinary = [v19 offsetIntoBinary];
-              v94 = [v19 length] + offsetIntoBinary;
+              v81 = [v19 length] + offsetIntoBinary;
 LABEL_28:
 
-              v10 = v93;
+              v10 = v80;
               goto LABEL_29;
             }
           }
 
-          v16 = [reverseObjectEnumerator countByEnumeratingWithState:&v101 objects:v114 count:16];
+          v16 = [reverseObjectEnumerator countByEnumeratingWithState:&v88 objects:v101 count:16];
           if (!v16)
           {
 LABEL_27:
-            v94 = 0;
+            v81 = 0;
             goto LABEL_28;
           }
         }
@@ -3130,29 +3222,29 @@ LABEL_29:
 
         if (v25)
         {
-          v99 = 0u;
-          v100 = 0u;
-          v97 = 0u;
-          v98 = 0u;
+          v86 = 0u;
+          v87 = 0u;
+          v84 = 0u;
+          v85 = 0u;
           segments2 = [binary2 segments];
           reverseObjectEnumerator2 = [segments2 reverseObjectEnumerator];
 
-          v24 = [reverseObjectEnumerator2 countByEnumeratingWithState:&v97 objects:v113 count:16];
+          v24 = [reverseObjectEnumerator2 countByEnumeratingWithState:&v84 objects:v100 count:16];
           if (v24)
           {
-            v92 = v8;
+            v79 = v8;
             v28 = infosCopy;
-            v29 = *v98;
+            v29 = *v85;
             while (2)
             {
               for (j = 0; j != v24; ++j)
               {
-                if (*v98 != v29)
+                if (*v85 != v29)
                 {
                   objc_enumerationMutation(reverseObjectEnumerator2);
                 }
 
-                v31 = *(*(&v97 + 1) + 8 * j);
+                v31 = *(*(&v84 + 1) + 8 * j);
                 if ([v31 hasOffsetIntoBinary])
                 {
                   if ([v31 length])
@@ -3170,7 +3262,7 @@ LABEL_29:
                 }
               }
 
-              v24 = [reverseObjectEnumerator2 countByEnumeratingWithState:&v97 objects:v113 count:16];
+              v24 = [reverseObjectEnumerator2 countByEnumeratingWithState:&v84 objects:v100 count:16];
               if (v24)
               {
                 continue;
@@ -3181,8 +3273,8 @@ LABEL_29:
 
 LABEL_47:
             infosCopy = v28;
-            v8 = v92;
-            v10 = v93;
+            v8 = v79;
+            v10 = v80;
           }
         }
 
@@ -3210,9 +3302,9 @@ LABEL_68:
 LABEL_53:
       loadAddress2 = [v21 loadAddress];
       loadAddress3 = [v10 loadAddress];
-      if (v94)
+      if (v81)
       {
-        if (loadAddress2 >= loadAddress3 + v94)
+        if (loadAddress2 >= loadAddress3 + v81)
         {
           goto LABEL_71;
         }
@@ -3223,7 +3315,7 @@ LABEL_57:
           goto LABEL_79;
         }
 
-        if (segment2 == v95)
+        if (segment2 == v82)
         {
           [v21 loadAddress];
           [v10 loadAddress];
@@ -3232,7 +3324,7 @@ LABEL_79:
           goto LABEL_80;
         }
 
-        if (segment2 && v95)
+        if (segment2 && v82)
         {
           goto LABEL_79;
         }
@@ -3256,44 +3348,43 @@ LABEL_79:
 
           loadAddress7 = [v42 loadAddress];
           v48 = loadAddress7 - [v21 loadAddress];
-          if ([v95 hasOffsetIntoBinary])
+          if ([v82 hasOffsetIntoBinary])
           {
-            if ([v95 offsetIntoBinary] == v48)
+            if ([v82 offsetIntoBinary] == v48)
             {
               goto LABEL_78;
             }
 
 LABEL_99:
-            v71 = *__error();
-            v72 = _sa_logt();
-            if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+            v64 = *__error();
+            v65 = _sa_logt();
+            if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
             {
-              v73 = [v21 debugDescription];
-              uTF8String = [v73 UTF8String];
-              v75 = [v93 debugDescription];
-              uTF8String2 = [v75 UTF8String];
+              v66 = [v21 debugDescription];
+              uTF8String = [v66 UTF8String];
+              v68 = [v80 debugDescription];
+              uTF8String2 = [v68 UTF8String];
               *buf = 136315394;
-              v110 = uTF8String;
-              v111 = 2080;
-              v112 = uTF8String2;
-              _os_log_error_impl(&dword_1E0E2F000, v72, OS_LOG_TYPE_ERROR, "load info for entire binary %s doesn't match segment load info %s", buf, 0x16u);
+              v97 = uTF8String;
+              v98 = 2080;
+              v99 = uTF8String2;
+              _os_log_error_impl(&dword_1E0E2F000, v65, OS_LOG_TYPE_ERROR, "load info for entire binary %s doesn't match segment load info %s", buf, 0x16u);
             }
 
-            *__error() = v71;
-            v77 = [v21 debugDescription];
-            uTF8String3 = [v77 UTF8String];
-            v79 = [v93 debugDescription];
-            [v79 UTF8String];
-            _SASetCrashLogMessage(1570, "load info for entire binary %s doesn't match segment load info %s", v80, v81, v82, v83, v84, v85, uTF8String3);
+            *__error() = v64;
+            v70 = [v21 debugDescription];
+            uTF8String3 = [v70 UTF8String];
+            v72 = [v80 debugDescription];
+            _SASetCrashLogMessage(1570, "load info for entire binary %s doesn't match segment load info %s", uTF8String3, [v72 UTF8String]);
 
             _os_crash();
             __break(1u);
           }
 
-          if (v95)
+          if (v82)
           {
             segment2 = 0;
-            v95[5] = v48;
+            v82[5] = v48;
           }
 
           else
@@ -3325,29 +3416,28 @@ LABEL_78:
         {
           if ([segment2 offsetIntoBinary] != v41)
           {
-            v57 = *__error();
-            v58 = _sa_logt();
-            if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+            v56 = *__error();
+            v57 = _sa_logt();
+            if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
             {
-              v59 = [v10 debugDescription];
-              uTF8String4 = [v59 UTF8String];
-              v61 = [v21 debugDescription];
-              uTF8String5 = [v61 UTF8String];
+              v58 = [v10 debugDescription];
+              uTF8String4 = [v58 UTF8String];
+              v60 = [v21 debugDescription];
+              uTF8String5 = [v60 UTF8String];
               *buf = 136315394;
-              v110 = uTF8String4;
-              v111 = 2080;
-              v112 = uTF8String5;
-              _os_log_error_impl(&dword_1E0E2F000, v58, OS_LOG_TYPE_ERROR, "load info for entire binary %s doesn't match segment load info %s", buf, 0x16u);
+              v97 = uTF8String4;
+              v98 = 2080;
+              v99 = uTF8String5;
+              _os_log_error_impl(&dword_1E0E2F000, v57, OS_LOG_TYPE_ERROR, "load info for entire binary %s doesn't match segment load info %s", buf, 0x16u);
 
-              v10 = v93;
+              v10 = v80;
             }
 
-            *__error() = v57;
-            v63 = [v10 debugDescription];
-            uTF8String6 = [v63 UTF8String];
+            *__error() = v56;
+            v62 = [v10 debugDescription];
+            uTF8String6 = [v62 UTF8String];
             v21 = [v21 debugDescription];
-            [v21 UTF8String];
-            _SASetCrashLogMessage(1546, "load info for entire binary %s doesn't match segment load info %s", v65, v66, v67, v68, v69, v70, uTF8String6);
+            _SASetCrashLogMessage(1546, "load info for entire binary %s doesn't match segment load info %s", uTF8String6, [v21 UTF8String]);
 
             _os_crash();
             __break(1u);
@@ -3385,23 +3475,23 @@ LABEL_67:
 LABEL_71:
 
 LABEL_72:
-      [v88 addObject:v10];
+      [v75 addObject:v10];
 LABEL_80:
 
-      v9 = v91 + 1;
+      v9 = v78 + 1;
     }
 
-    while (v91 + 1 != v90);
-    v49 = [obj countByEnumeratingWithState:&v105 objects:v115 count:16];
-    v90 = v49;
+    while (v78 + 1 != v77);
+    v49 = [obj countByEnumeratingWithState:&v92 objects:v102 count:16];
+    v77 = v49;
   }
 
   while (v49);
 LABEL_89:
 
-  v50 = [v88 count];
+  v50 = [v75 count];
   v2 = v50 != 0;
-  v5 = v86;
+  v5 = v73;
   if (v50)
   {
     v51 = [*(infosCopy + 256) mutableCopy];
@@ -3411,7 +3501,7 @@ LABEL_89:
       [v51 removeObjectsInArray:v8];
     }
 
-    [v52 addObjectsFromArray:v88];
+    [v52 addObjectsFromArray:v75];
     [v52 sortUsingComparator:&__block_literal_global_70];
     v53 = [v52 copy];
     v54 = *(infosCopy + 256);
@@ -3419,12 +3509,10 @@ LABEL_89:
   }
 
 LABEL_94:
-LABEL_95:
-  v55 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
-- (uint64_t)correspondsToUniquePid:(uint64_t)pid name:(uint64_t *)name loadInfos:(unsigned int)infos numLoadInfos:(uint64_t)loadInfos textExecLoadInfos:(unsigned int)execLoadInfos numTextExecLoadInfos:(uint64_t)textExecLoadInfos architecture:(uint64_t)architecture sharedCache:
+- (uint64_t)correspondsToUniquePid:(uint64_t)pid name:(uint64_t *)name loadInfos:(int)infos numLoadInfos:(void *)loadInfos textExecLoadInfos:(int)execLoadInfos numTextExecLoadInfos:(uint64_t)textExecLoadInfos architecture:(uint64_t)architecture sharedCache:
 {
   if (result)
   {
@@ -3465,7 +3553,7 @@ LABEL_95:
   return result;
 }
 
-- (uint64_t)correspondsToPid:(uint64_t)pid name:(uint64_t *)name loadInfos:(unsigned int)infos numLoadInfos:(uint64_t)loadInfos textExecLoadInfos:(unsigned int)execLoadInfos numTextExecLoadInfos:(uint64_t)textExecLoadInfos architecture:(uint64_t)architecture sharedCache:
+- (uint64_t)correspondsToPid:(uint64_t)pid name:(uint64_t *)name loadInfos:(int)infos numLoadInfos:(void *)loadInfos textExecLoadInfos:(int)execLoadInfos numTextExecLoadInfos:(uint64_t)textExecLoadInfos architecture:(uint64_t)architecture sharedCache:
 {
   if (result)
   {
@@ -3529,53 +3617,53 @@ uint64_t __24__SATask_addImageInfos___block_invoke(uint64_t a1, void *a2, void *
 
 - (void)fixupThreadSuspension
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (self)
   {
     allValues = [*(self + 16) allValues];
     v2 = malloc_type_calloc([allValues count], 8uLL, 0x100004000313F17uLL);
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v3 = *(self + 8);
-    v4 = [v3 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v24;
+      v6 = *v23;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v24 != v6)
+          if (*v23 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v23 + 1) + 8 * i);
+          v8 = *(*(&v22 + 1) + 8 * i);
           if ([v8 isSuspended])
           {
             startTimestamp = [v8 startTimestamp];
             endTimestamp = [v8 endTimestamp];
             startSampleIndex = [v8 startSampleIndex];
             endSampleIndex = [v8 endSampleIndex];
-            v17[0] = MEMORY[0x1E69E9820];
-            v17[1] = 3221225472;
-            v17[2] = __31__SATask_fixupThreadSuspension__block_invoke;
-            v17[3] = &unk_1E86F8688;
-            v18 = startTimestamp;
-            v19 = endTimestamp;
-            v20 = v2;
-            v21 = startSampleIndex;
-            v22 = endSampleIndex;
+            v16[0] = MEMORY[0x1E69E9820];
+            v16[1] = 3221225472;
+            v16[2] = __31__SATask_fixupThreadSuspension__block_invoke;
+            v16[3] = &unk_1E86F8688;
+            v17 = startTimestamp;
+            v18 = endTimestamp;
+            v19 = v2;
+            v20 = startSampleIndex;
+            v21 = endSampleIndex;
             v13 = endTimestamp;
             v14 = startTimestamp;
-            [allValues enumerateObjectsUsingBlock:v17];
+            [allValues enumerateObjectsUsingBlock:v16];
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v5);
@@ -3583,14 +3671,12 @@ uint64_t __24__SATask_addImageInfos___block_invoke(uint64_t a1, void *a2, void *
 
     free(v2);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __31__SATask_fixupThreadSuspension__block_invoke(NSObject *a1, void *a2, uint64_t a3)
 {
   v5 = a1;
-  v256 = *MEMORY[0x1E69E9840];
+  v171 = *MEMORY[0x1E69E9840];
   v6 = *(a1[6].isa + a3);
   v7 = [a2 threadStates];
   v8 = [v7 count];
@@ -3640,7 +3726,7 @@ LABEL_38:
         goto LABEL_65;
       }
 
-      v239 = [v10 startSampleIndex];
+      v154 = [v10 startSampleIndex];
       v29 = [v10 endSampleIndex];
       v16 = [v10 copy];
       v30 = v10;
@@ -3686,438 +3772,411 @@ LABEL_65:
         if ((v42 & 1) == 0)
         {
           v16 = *__error();
-          v46 = _sa_logt();
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+          v45 = _sa_logt();
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
           {
-            v47 = [(objc_class *)v5[5].isa debugDescription];
-            v29 = [v47 UTF8String];
-            v48 = [v10 endTimestamp];
-            v49 = [v48 debugDescription];
+            v46 = [(objc_class *)v5[5].isa debugDescription];
+            v29 = [v46 UTF8String];
+            v47 = [v10 endTimestamp];
+            v48 = [v47 debugDescription];
             *buf = 136315394;
-            v241 = v29;
-            v242 = 2080;
-            v243 = [v49 UTF8String];
-            _os_log_error_impl(&dword_1E0E2F000, v46, OS_LOG_TYPE_ERROR, "taskSuspendEndTime %s < threadState.endTimestamp %s", buf, 0x16u);
+            v156 = v29;
+            v157 = 2080;
+            v158 = [v48 UTF8String];
+            _os_log_error_impl(&dword_1E0E2F000, v45, OS_LOG_TYPE_ERROR, "taskSuspendEndTime %s < threadState.endTimestamp %s", buf, 0x16u);
           }
 
           *__error() = v16;
           v5 = [(objc_class *)v5[5].isa debugDescription];
-          v50 = [v5 UTF8String];
-          v51 = [v10 endTimestamp];
-          v52 = [v51 debugDescription];
-          [v52 UTF8String];
-          _SASetCrashLogMessage(1820, "taskSuspendEndTime %s < threadState.endTimestamp %s", v53, v54, v55, v56, v57, v58, v50);
+          v49 = [v5 UTF8String];
+          v50 = [v10 endTimestamp];
+          v51 = [v50 debugDescription];
+          _SASetCrashLogMessage(1820, "taskSuspendEndTime %s < threadState.endTimestamp %s", v49, [v51 UTF8String]);
 
           _os_crash();
           __break(1u);
 LABEL_77:
-          v59 = *__error();
-          v60 = _sa_logt();
-          if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+          v52 = *__error();
+          v53 = _sa_logt();
+          if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
           {
-            v61 = v5[8].isa;
+            v54 = v5[8].isa;
             *buf = 134217984;
-            v241 = v61;
-            _os_log_error_impl(&dword_1E0E2F000, v60, OS_LOG_TYPE_ERROR, "threadEndSampleIndex is NSNotFound, but taskSuspendEndSampleIndex is %lu", buf, 0xCu);
+            v156 = v54;
+            _os_log_error_impl(&dword_1E0E2F000, v53, OS_LOG_TYPE_ERROR, "threadEndSampleIndex is NSNotFound, but taskSuspendEndSampleIndex is %lu", buf, 0xCu);
           }
 
-          *__error() = v59;
-          _SASetCrashLogMessage(1775, "threadEndSampleIndex is NSNotFound, but taskSuspendEndSampleIndex is %lu", v62, v63, v64, v65, v66, v67, v5[8].isa);
+          *__error() = v52;
+          _SASetCrashLogMessage(1775, "threadEndSampleIndex is NSNotFound, but taskSuspendEndSampleIndex is %lu", v5[8].isa);
           _os_crash();
           __break(1u);
 LABEL_80:
-          v68 = *__error();
+          v55 = *__error();
           v5 = _sa_logt();
           if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
           {
             *buf = 134217984;
-            v241 = v29;
+            v156 = v29;
             _os_log_error_impl(&dword_1E0E2F000, v5, OS_LOG_TYPE_ERROR, "threadEndSampleIndex is %lu, but taskSuspendEndSampleIndex is NSNotFound", buf, 0xCu);
           }
 
-          *__error() = v68;
-          _SASetCrashLogMessage(1778, "threadEndSampleIndex is %lu, but taskSuspendEndSampleIndex is NSNotFound", v69, v70, v71, v72, v73, v74, v29);
+          *__error() = v55;
+          _SASetCrashLogMessage(1778, "threadEndSampleIndex is %lu, but taskSuspendEndSampleIndex is NSNotFound", v29);
           _os_crash();
           __break(1u);
 LABEL_83:
-          v230 = *__error();
-          v75 = _sa_logt();
-          if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+          v145 = *__error();
+          v56 = _sa_logt();
+          if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
           {
-            v77 = v5[7].isa;
-            v76 = v5[8].isa;
-            v78 = [v3 startSampleIndex];
-            v79 = [v3 endSampleIndex];
-            v80 = [v16 startSampleIndex];
-            v81 = [v16 endSampleIndex];
+            v58 = v5[7].isa;
+            v57 = v5[8].isa;
+            v59 = [v3 startSampleIndex];
+            v60 = [v3 endSampleIndex];
+            v61 = [v16 startSampleIndex];
+            v62 = [v16 endSampleIndex];
             *buf = 134219776;
-            v241 = v239;
-            v242 = 2048;
-            v243 = v238;
-            v244 = 2048;
-            v245 = v77;
-            v246 = 2048;
-            v247 = v76;
-            v248 = 2048;
-            v249 = v78;
-            v250 = 2048;
-            v251 = v79;
-            v252 = 2048;
-            v253 = v80;
-            v254 = 2048;
-            v255 = v81;
-            _os_log_error_impl(&dword_1E0E2F000, v75, OS_LOG_TYPE_ERROR, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", buf, 0x52u);
+            v156 = v154;
+            v157 = 2048;
+            v158 = v153;
+            v159 = 2048;
+            v160 = v58;
+            v161 = 2048;
+            v162 = v57;
+            v163 = 2048;
+            v164 = v59;
+            v165 = 2048;
+            v166 = v60;
+            v167 = 2048;
+            v168 = v61;
+            v169 = 2048;
+            v170 = v62;
+            _os_log_error_impl(&dword_1E0E2F000, v56, OS_LOG_TYPE_ERROR, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", buf, 0x52u);
           }
 
-          *__error() = v230;
+          *__error() = v145;
           v15 = v5[7].isa;
-          v82 = v5[8].isa;
-          [v3 startSampleIndex];
-          [v3 endSampleIndex];
-          [v16 startSampleIndex];
-          [v16 endSampleIndex];
-          _SASetCrashLogMessage(1807, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", v83, v84, v85, v86, v87, v88, v239);
+          _SASetCrashLogMessage(1807, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", v154, v153, v15, v5[8].isa, [v3 startSampleIndex], objc_msgSend(v3, "endSampleIndex"), objc_msgSend(v16, "startSampleIndex"), objc_msgSend(v16, "endSampleIndex"));
           _os_crash();
           __break(1u);
 LABEL_86:
-          v89 = *__error();
+          v63 = *__error();
           v5 = _sa_logt();
           if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
           {
             *buf = 134217984;
-            v241 = v15;
+            v156 = v15;
             _os_log_error_impl(&dword_1E0E2F000, v5, OS_LOG_TYPE_ERROR, "threadEndSampleIndex is %lu, but taskSuspendEndSampleIndex is NSNotFound", buf, 0xCu);
           }
 
-          *__error() = v89;
-          _SASetCrashLogMessage(1705, "threadEndSampleIndex is %lu, but taskSuspendEndSampleIndex is NSNotFound", v90, v91, v92, v93, v94, v95, v15);
+          *__error() = v63;
+          _SASetCrashLogMessage(1705, "threadEndSampleIndex is %lu, but taskSuspendEndSampleIndex is NSNotFound", v15);
           _os_crash();
           __break(1u);
 LABEL_89:
-          v96 = *__error();
-          v97 = _sa_logt();
-          if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+          v64 = *__error();
+          v65 = _sa_logt();
+          if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
           {
-            v98 = v5[8].isa;
+            v66 = v5[8].isa;
             *buf = 134217984;
-            v241 = v98;
-            _os_log_error_impl(&dword_1E0E2F000, v97, OS_LOG_TYPE_ERROR, "threadEndSampleIndex is NSNotFound, but taskSuspendEndSampleIndex is %lu", buf, 0xCu);
+            v156 = v66;
+            _os_log_error_impl(&dword_1E0E2F000, v65, OS_LOG_TYPE_ERROR, "threadEndSampleIndex is NSNotFound, but taskSuspendEndSampleIndex is %lu", buf, 0xCu);
           }
 
-          *__error() = v96;
-          _SASetCrashLogMessage(1702, "threadEndSampleIndex is NSNotFound, but taskSuspendEndSampleIndex is %lu", v99, v100, v101, v102, v103, v104, v5[8].isa);
+          *__error() = v64;
+          _SASetCrashLogMessage(1702, "threadEndSampleIndex is NSNotFound, but taskSuspendEndSampleIndex is %lu", v5[8].isa);
           _os_crash();
           __break(1u);
 LABEL_92:
-          v231 = *__error();
-          v105 = _sa_logt();
-          if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
+          v146 = *__error();
+          v67 = _sa_logt();
+          if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
           {
-            v106 = v5[7].isa;
-            v107 = v5[8].isa;
-            v108 = [v16 startSampleIndex];
-            v109 = [v16 endSampleIndex];
-            v110 = [v3 startSampleIndex];
-            v111 = [v3 endSampleIndex];
+            v68 = v5[7].isa;
+            v69 = v5[8].isa;
+            v70 = [v16 startSampleIndex];
+            v71 = [v16 endSampleIndex];
+            v72 = [v3 startSampleIndex];
+            v73 = [v3 endSampleIndex];
             *buf = 134219776;
-            v241 = v238;
-            v242 = 2048;
-            v243 = v228;
-            v244 = 2048;
-            v245 = v106;
-            v246 = 2048;
-            v247 = v107;
-            v248 = 2048;
-            v249 = v108;
-            v250 = 2048;
-            v251 = v109;
-            v252 = 2048;
-            v253 = v110;
-            v254 = 2048;
-            v255 = v111;
-            _os_log_error_impl(&dword_1E0E2F000, v105, OS_LOG_TYPE_ERROR, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", buf, 0x52u);
+            v156 = v153;
+            v157 = 2048;
+            v158 = v143;
+            v159 = 2048;
+            v160 = v68;
+            v161 = 2048;
+            v162 = v69;
+            v163 = 2048;
+            v164 = v70;
+            v165 = 2048;
+            v166 = v71;
+            v167 = 2048;
+            v168 = v72;
+            v169 = 2048;
+            v170 = v73;
+            _os_log_error_impl(&dword_1E0E2F000, v67, OS_LOG_TYPE_ERROR, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", buf, 0x52u);
           }
 
-          *__error() = v231;
-          v112 = v5[7].isa;
+          *__error() = v146;
+          v74 = v5[7].isa;
           v36 = v5[8].isa;
           v5 = [v16 startSampleIndex];
-          [v16 endSampleIndex];
-          [v3 startSampleIndex];
-          [v3 endSampleIndex];
-          _SASetCrashLogMessage(1748, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", v113, v114, v115, v116, v117, v118, v238);
+          _SASetCrashLogMessage(1748, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", v153, v143, v74, v36, v5, [v16 endSampleIndex], objc_msgSend(v3, "startSampleIndex"), objc_msgSend(v3, "endSampleIndex"));
           _os_crash();
           __break(1u);
 LABEL_95:
-          v232 = *__error();
-          v119 = _sa_logt();
-          v120 = v36;
-          if (os_log_type_enabled(v119, OS_LOG_TYPE_ERROR))
+          v147 = *__error();
+          v75 = _sa_logt();
+          v76 = v36;
+          if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
           {
-            v122 = v5[7].isa;
-            v121 = v5[8].isa;
-            v123 = [v3 startSampleIndex];
-            v124 = [v3 endSampleIndex];
-            v125 = [v16 startSampleIndex];
-            v126 = [v16 endSampleIndex];
+            v78 = v5[7].isa;
+            v77 = v5[8].isa;
+            v79 = [v3 startSampleIndex];
+            v80 = [v3 endSampleIndex];
+            v81 = [v16 startSampleIndex];
+            v82 = [v16 endSampleIndex];
             *buf = 134219776;
-            v241 = v120;
-            v242 = 2048;
-            v243 = v238;
-            v244 = 2048;
-            v245 = v122;
-            v246 = 2048;
-            v247 = v121;
-            v248 = 2048;
-            v249 = v123;
-            v250 = 2048;
-            v251 = v124;
-            v252 = 2048;
-            v253 = v125;
-            v254 = 2048;
-            v255 = v126;
-            _os_log_error_impl(&dword_1E0E2F000, v119, OS_LOG_TYPE_ERROR, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", buf, 0x52u);
+            v156 = v76;
+            v157 = 2048;
+            v158 = v153;
+            v159 = 2048;
+            v160 = v78;
+            v161 = 2048;
+            v162 = v77;
+            v163 = 2048;
+            v164 = v79;
+            v165 = 2048;
+            v166 = v80;
+            v167 = 2048;
+            v168 = v81;
+            v169 = 2048;
+            v170 = v82;
+            _os_log_error_impl(&dword_1E0E2F000, v75, OS_LOG_TYPE_ERROR, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", buf, 0x52u);
           }
 
-          *__error() = v232;
-          v127 = v5[7].isa;
-          v128 = v5[8].isa;
+          *__error() = v147;
+          v83 = v5[7].isa;
+          v84 = v5[8].isa;
           v5 = [v3 startSampleIndex];
-          [v3 endSampleIndex];
-          [v16 startSampleIndex];
-          [v16 endSampleIndex];
-          _SASetCrashLogMessage(1804, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", v129, v130, v131, v132, v133, v134, v120);
+          _SASetCrashLogMessage(1804, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", v76, v153, v83, v84, v5, [v3 endSampleIndex], objc_msgSend(v16, "startSampleIndex"), objc_msgSend(v16, "endSampleIndex"));
           _os_crash();
           __break(1u);
 LABEL_98:
-          v233 = *__error();
-          v135 = _sa_logt();
-          if (os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
+          v148 = *__error();
+          v85 = _sa_logt();
+          if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
           {
-            v136 = v5[7].isa;
-            v137 = v5[8].isa;
-            v138 = [v16 startSampleIndex];
-            v139 = [v16 endSampleIndex];
-            v140 = [v3 startSampleIndex];
-            v141 = [v3 endSampleIndex];
+            v86 = v5[7].isa;
+            v87 = v5[8].isa;
+            v88 = [v16 startSampleIndex];
+            v89 = [v16 endSampleIndex];
+            v90 = [v3 startSampleIndex];
+            v91 = [v3 endSampleIndex];
             *buf = 134219776;
-            v241 = v238;
-            v242 = 2048;
-            v243 = v228;
-            v244 = 2048;
-            v245 = v136;
-            v246 = 2048;
-            v247 = v137;
-            v248 = 2048;
-            v249 = v138;
-            v250 = 2048;
-            v251 = v139;
-            v252 = 2048;
-            v253 = v140;
-            v254 = 2048;
-            v255 = v141;
-            _os_log_error_impl(&dword_1E0E2F000, v135, OS_LOG_TYPE_ERROR, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", buf, 0x52u);
+            v156 = v153;
+            v157 = 2048;
+            v158 = v143;
+            v159 = 2048;
+            v160 = v86;
+            v161 = 2048;
+            v162 = v87;
+            v163 = 2048;
+            v164 = v88;
+            v165 = 2048;
+            v166 = v89;
+            v167 = 2048;
+            v168 = v90;
+            v169 = 2048;
+            v170 = v91;
+            _os_log_error_impl(&dword_1E0E2F000, v85, OS_LOG_TYPE_ERROR, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", buf, 0x52u);
           }
 
-          *__error() = v233;
-          v142 = v5[7].isa;
-          v143 = v5[8].isa;
+          *__error() = v148;
+          v92 = v5[7].isa;
+          v93 = v5[8].isa;
           v5 = [v16 startSampleIndex];
-          [v16 endSampleIndex];
-          [v3 startSampleIndex];
-          [v3 endSampleIndex];
-          _SASetCrashLogMessage(1745, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", v144, v145, v146, v147, v148, v149, v238);
+          _SASetCrashLogMessage(1745, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", v153, v143, v92, v93, v5, [v16 endSampleIndex], objc_msgSend(v3, "startSampleIndex"), objc_msgSend(v3, "endSampleIndex"));
           _os_crash();
           __break(1u);
 LABEL_101:
-          v234 = *__error();
-          v150 = _sa_logt();
-          if (os_log_type_enabled(v150, OS_LOG_TYPE_ERROR))
+          v149 = *__error();
+          v94 = _sa_logt();
+          if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
           {
-            v152 = v5[7].isa;
-            v151 = v5[8].isa;
-            v153 = [v3 startSampleIndex];
-            v154 = [v3 endSampleIndex];
-            v155 = [v16 startSampleIndex];
-            v156 = [v16 endSampleIndex];
+            v96 = v5[7].isa;
+            v95 = v5[8].isa;
+            v97 = [v3 startSampleIndex];
+            v98 = [v3 endSampleIndex];
+            v99 = [v16 startSampleIndex];
+            v100 = [v16 endSampleIndex];
             *buf = 134219776;
-            v241 = v239;
-            v242 = 2048;
-            v243 = v238;
-            v244 = 2048;
-            v245 = v152;
-            v246 = 2048;
-            v247 = v151;
-            v248 = 2048;
-            v249 = v153;
-            v250 = 2048;
-            v251 = v154;
-            v252 = 2048;
-            v253 = v155;
-            v254 = 2048;
-            v255 = v156;
-            _os_log_error_impl(&dword_1E0E2F000, v150, OS_LOG_TYPE_ERROR, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", buf, 0x52u);
+            v156 = v154;
+            v157 = 2048;
+            v158 = v153;
+            v159 = 2048;
+            v160 = v96;
+            v161 = 2048;
+            v162 = v95;
+            v163 = 2048;
+            v164 = v97;
+            v165 = 2048;
+            v166 = v98;
+            v167 = 2048;
+            v168 = v99;
+            v169 = 2048;
+            v170 = v100;
+            _os_log_error_impl(&dword_1E0E2F000, v94, OS_LOG_TYPE_ERROR, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", buf, 0x52u);
           }
 
-          *__error() = v234;
-          v157 = v5[7].isa;
-          v158 = v5[8].isa;
+          *__error() = v149;
+          v101 = v5[7].isa;
+          v102 = v5[8].isa;
           v5 = [v3 startSampleIndex];
-          [v3 endSampleIndex];
-          [v16 startSampleIndex];
-          [v16 endSampleIndex];
-          _SASetCrashLogMessage(1805, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", v159, v160, v161, v162, v163, v164, v239);
+          _SASetCrashLogMessage(1805, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", v154, v153, v101, v102, v5, [v3 endSampleIndex], objc_msgSend(v16, "startSampleIndex"), objc_msgSend(v16, "endSampleIndex"));
           _os_crash();
           __break(1u);
 LABEL_104:
-          v235 = *__error();
-          v165 = _sa_logt();
-          if (os_log_type_enabled(v165, OS_LOG_TYPE_ERROR))
+          v150 = *__error();
+          v103 = _sa_logt();
+          if (os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
           {
-            v167 = v5[7].isa;
-            v166 = v5[8].isa;
-            v168 = [v3 startSampleIndex];
-            v169 = [v3 endSampleIndex];
-            v170 = [v16 startSampleIndex];
-            v171 = [v16 endSampleIndex];
+            v105 = v5[7].isa;
+            v104 = v5[8].isa;
+            v106 = [v3 startSampleIndex];
+            v107 = [v3 endSampleIndex];
+            v108 = [v16 startSampleIndex];
+            v109 = [v16 endSampleIndex];
             *buf = 134219776;
-            v241 = v239;
-            v242 = 2048;
-            v243 = v238;
-            v244 = 2048;
-            v245 = v167;
-            v246 = 2048;
-            v247 = v166;
-            v248 = 2048;
-            v249 = v168;
-            v250 = 2048;
-            v251 = v169;
-            v252 = 2048;
-            v253 = v170;
-            v254 = 2048;
-            v255 = v171;
-            _os_log_error_impl(&dword_1E0E2F000, v165, OS_LOG_TYPE_ERROR, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", buf, 0x52u);
+            v156 = v154;
+            v157 = 2048;
+            v158 = v153;
+            v159 = 2048;
+            v160 = v105;
+            v161 = 2048;
+            v162 = v104;
+            v163 = 2048;
+            v164 = v106;
+            v165 = 2048;
+            v166 = v107;
+            v167 = 2048;
+            v168 = v108;
+            v169 = 2048;
+            v170 = v109;
+            _os_log_error_impl(&dword_1E0E2F000, v103, OS_LOG_TYPE_ERROR, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", buf, 0x52u);
           }
 
-          *__error() = v235;
-          v172 = v5[7].isa;
-          v173 = v5[8].isa;
+          *__error() = v150;
+          v110 = v5[7].isa;
+          v111 = v5[8].isa;
           v5 = [v3 startSampleIndex];
-          [v3 endSampleIndex];
-          [v16 startSampleIndex];
-          [v16 endSampleIndex];
-          _SASetCrashLogMessage(1806, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", v174, v175, v176, v177, v178, v179, v239);
+          _SASetCrashLogMessage(1806, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", v154, v153, v110, v111, v5, [v3 endSampleIndex], objc_msgSend(v16, "startSampleIndex"), objc_msgSend(v16, "endSampleIndex"));
           _os_crash();
           __break(1u);
 LABEL_107:
-          v236 = *__error();
-          v180 = _sa_logt();
-          if (os_log_type_enabled(v180, OS_LOG_TYPE_ERROR))
+          v151 = *__error();
+          v112 = _sa_logt();
+          if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
           {
-            v181 = v5[7].isa;
-            v182 = v5[8].isa;
-            v183 = [(objc_class *)v239 startSampleIndex];
-            v184 = [(objc_class *)v239 endSampleIndex];
-            v185 = [v3 startSampleIndex];
-            v186 = [v3 endSampleIndex];
+            v113 = v5[7].isa;
+            v114 = v5[8].isa;
+            v115 = [(objc_class *)v154 startSampleIndex];
+            v116 = [(objc_class *)v154 endSampleIndex];
+            v117 = [v3 startSampleIndex];
+            v118 = [v3 endSampleIndex];
             *buf = 134219776;
-            v241 = v238;
-            v242 = 2048;
-            v243 = v228;
-            v244 = 2048;
-            v245 = v181;
-            v246 = 2048;
-            v247 = v182;
-            v248 = 2048;
-            v249 = v183;
-            v250 = 2048;
-            v251 = v184;
-            v252 = 2048;
-            v253 = v185;
-            v254 = 2048;
-            v255 = v186;
-            _os_log_error_impl(&dword_1E0E2F000, v180, OS_LOG_TYPE_ERROR, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", buf, 0x52u);
+            v156 = v153;
+            v157 = 2048;
+            v158 = v143;
+            v159 = 2048;
+            v160 = v113;
+            v161 = 2048;
+            v162 = v114;
+            v163 = 2048;
+            v164 = v115;
+            v165 = 2048;
+            v166 = v116;
+            v167 = 2048;
+            v168 = v117;
+            v169 = 2048;
+            v170 = v118;
+            _os_log_error_impl(&dword_1E0E2F000, v112, OS_LOG_TYPE_ERROR, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", buf, 0x52u);
           }
 
-          *__error() = v236;
-          v187 = v5[7].isa;
+          *__error() = v151;
+          v119 = v5[7].isa;
           v25 = v5[8].isa;
-          v5 = [(objc_class *)v239 startSampleIndex];
-          [(objc_class *)v239 endSampleIndex];
-          [v3 startSampleIndex];
-          [v3 endSampleIndex];
-          _SASetCrashLogMessage(1746, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", v188, v189, v190, v191, v192, v193, v238);
+          v5 = [(objc_class *)v154 startSampleIndex];
+          _SASetCrashLogMessage(1746, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", v153, v143, v119, v25, v5, -[objc_class endSampleIndex](v154, "endSampleIndex"), [v3 startSampleIndex], objc_msgSend(v3, "endSampleIndex"));
           _os_crash();
           __break(1u);
 LABEL_110:
-          v237 = *__error();
-          v194 = _sa_logt();
-          v195 = v25;
-          if (os_log_type_enabled(v194, OS_LOG_TYPE_ERROR))
+          v152 = *__error();
+          v120 = _sa_logt();
+          v121 = v25;
+          if (os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
           {
-            v196 = v5[7].isa;
-            v197 = v5[8].isa;
-            v198 = [(objc_class *)v239 startSampleIndex];
-            v199 = [(objc_class *)v239 endSampleIndex];
-            v200 = [(objc_class *)v25 startSampleIndex];
-            v201 = [(objc_class *)v195 endSampleIndex];
+            v122 = v5[7].isa;
+            v123 = v5[8].isa;
+            v124 = [(objc_class *)v154 startSampleIndex];
+            v125 = [(objc_class *)v154 endSampleIndex];
+            v126 = [(objc_class *)v25 startSampleIndex];
+            v127 = [(objc_class *)v121 endSampleIndex];
             *buf = 134219776;
-            v241 = v238;
-            v242 = 2048;
-            v243 = v228;
-            v244 = 2048;
-            v245 = v196;
-            v246 = 2048;
-            v247 = v197;
-            v248 = 2048;
-            v249 = v198;
-            v250 = 2048;
-            v251 = v199;
-            v252 = 2048;
-            v253 = v200;
-            v254 = 2048;
-            v255 = v201;
-            _os_log_error_impl(&dword_1E0E2F000, v194, OS_LOG_TYPE_ERROR, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", buf, 0x52u);
+            v156 = v153;
+            v157 = 2048;
+            v158 = v143;
+            v159 = 2048;
+            v160 = v122;
+            v161 = 2048;
+            v162 = v123;
+            v163 = 2048;
+            v164 = v124;
+            v165 = 2048;
+            v166 = v125;
+            v167 = 2048;
+            v168 = v126;
+            v169 = 2048;
+            v170 = v127;
+            _os_log_error_impl(&dword_1E0E2F000, v120, OS_LOG_TYPE_ERROR, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", buf, 0x52u);
           }
 
-          *__error() = v237;
-          v202 = v5[7].isa;
-          v203 = v5[8].isa;
-          v5 = [(objc_class *)v239 startSampleIndex];
-          v10 = [(objc_class *)v239 endSampleIndex];
-          [(objc_class *)v195 startSampleIndex];
-          [(objc_class *)v195 endSampleIndex];
-          _SASetCrashLogMessage(1747, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", v204, v205, v206, v207, v208, v209, v238);
+          *__error() = v152;
+          v128 = v5[7].isa;
+          v129 = v5[8].isa;
+          v5 = [(objc_class *)v154 startSampleIndex];
+          v10 = [(objc_class *)v154 endSampleIndex];
+          _SASetCrashLogMessage(1747, "thread state %lu-%lu, task state %lu-%lu -> first half %lu-%lu, second half %lu-%lu", v153, v143, v128, v129, v5, v10, [(objc_class *)v121 startSampleIndex], [(objc_class *)v121 endSampleIndex]);
           _os_crash();
           __break(1u);
 LABEL_113:
-          v210 = *__error();
-          v211 = _sa_logt();
-          if (os_log_type_enabled(v211, OS_LOG_TYPE_ERROR))
+          v130 = *__error();
+          v131 = _sa_logt();
+          if (os_log_type_enabled(v131, OS_LOG_TYPE_ERROR))
           {
-            v212 = v5[7].isa;
-            v213 = [(objc_class *)v5[4].isa debugDescription];
-            v214 = [v213 UTF8String];
-            v215 = [v10 startTimestamp];
-            v216 = [v215 debugDescription];
-            v217 = [v216 UTF8String];
+            v132 = v5[7].isa;
+            v133 = [(objc_class *)v5[4].isa debugDescription];
+            v134 = [v133 UTF8String];
+            v135 = [v10 startTimestamp];
+            v136 = [v135 debugDescription];
+            v137 = [v136 UTF8String];
             *buf = 134218498;
-            v241 = v212;
-            v242 = 2080;
-            v243 = v214;
-            v244 = 2080;
-            v245 = v217;
-            _os_log_error_impl(&dword_1E0E2F000, v211, OS_LOG_TYPE_ERROR, "taskSuspendStartSampleIndex %lu and taskSuspendStartTime %s >= threadState.startTimestamp %s", buf, 0x20u);
+            v156 = v132;
+            v157 = 2080;
+            v158 = v134;
+            v159 = 2080;
+            v160 = v137;
+            _os_log_error_impl(&dword_1E0E2F000, v131, OS_LOG_TYPE_ERROR, "taskSuspendStartSampleIndex %lu and taskSuspendStartTime %s >= threadState.startTimestamp %s", buf, 0x20u);
           }
 
-          *__error() = v210;
-          v218 = v5[7].isa;
-          v219 = [(objc_class *)v5[4].isa debugDescription];
-          [v219 UTF8String];
-          v220 = [v10 startTimestamp];
-          v221 = [v220 debugDescription];
-          [v221 UTF8String];
-          _SASetCrashLogMessage(1819, "taskSuspendStartSampleIndex %lu and taskSuspendStartTime %s >= threadState.startTimestamp %s", v222, v223, v224, v225, v226, v227, v218);
+          *__error() = v130;
+          v138 = v5[7].isa;
+          v139 = [(objc_class *)v5[4].isa debugDescription];
+          v140 = [v139 UTF8String];
+          v141 = [v10 startTimestamp];
+          v142 = [v141 debugDescription];
+          _SASetCrashLogMessage(1819, "taskSuspendStartSampleIndex %lu and taskSuspendStartTime %s >= threadState.startTimestamp %s", v138, v140, [v142 UTF8String]);
 
           _os_crash();
           __break(1u);
@@ -4136,12 +4195,12 @@ LABEL_113:
         goto LABEL_80;
       }
 
-      if (v239 == 0x7FFFFFFFFFFFFFFFLL)
+      if (v154 == 0x7FFFFFFFFFFFFFFFLL)
       {
 LABEL_55:
-        v238 = v29;
-        v36 = v239;
-        if (([v3 startSampleIndex] != 0x7FFFFFFFFFFFFFFFLL || objc_msgSend(v16, "startSampleIndex") != v239) && (objc_msgSend(v3, "startSampleIndex") == 0x7FFFFFFFFFFFFFFFLL || objc_msgSend(v3, "startSampleIndex") != v239))
+        v153 = v29;
+        v36 = v154;
+        if (([v3 startSampleIndex] != 0x7FFFFFFFFFFFFFFFLL || objc_msgSend(v16, "startSampleIndex") != v154) && (objc_msgSend(v3, "startSampleIndex") == 0x7FFFFFFFFFFFFFFFLL || objc_msgSend(v3, "startSampleIndex") != v154))
         {
           goto LABEL_95;
         }
@@ -4175,7 +4234,7 @@ LABEL_55:
 
       [(SAThreadState *)v3 setEndSampleIndex:?];
       v33 = v5[8].isa;
-      if (v33 >= v239)
+      if (v33 >= v154)
       {
         if (v29 > v33)
         {
@@ -4198,7 +4257,7 @@ LABEL_54:
       goto LABEL_54;
     }
 
-    v238 = [v10 startSampleIndex];
+    v153 = [v10 startSampleIndex];
     v15 = [v10 endSampleIndex];
     v16 = [v10 copy];
     v3 = v10;
@@ -4207,7 +4266,7 @@ LABEL_54:
       objc_setProperty_atomic(v16, v17, v5[4].isa, 56);
     }
 
-    v239 = v16;
+    v154 = v16;
     if (v3)
     {
       objc_setProperty_atomic(v3, v17, v5[4].isa, 48);
@@ -4232,9 +4291,9 @@ LABEL_37:
       goto LABEL_86;
     }
 
-    v228 = v15;
-    v19 = v238;
-    if (v238 == 0x7FFFFFFFFFFFFFFFLL)
+    v143 = v15;
+    v19 = v153;
+    if (v153 == 0x7FFFFFFFFFFFFFFFLL)
     {
 LABEL_27:
       if (([v16 startSampleIndex] != 0x7FFFFFFFFFFFFFFFLL || objc_msgSend(v3, "startSampleIndex") != v19) && (objc_msgSend(v16, "startSampleIndex") == 0x7FFFFFFFFFFFFFFFLL || objc_msgSend(v16, "startSampleIndex") != v19))
@@ -4285,15 +4344,15 @@ LABEL_27:
     }
 
     [(SAThreadState *)v16 setEndSampleIndex:v21];
-    if (v21 >= v238)
+    if (v21 >= v153)
     {
-      if (v228 > v21)
+      if (v143 > v21)
       {
         v23 = v21 + 1;
         v22 = v3;
 LABEL_26:
         [(SAThreadState *)v22 setStartSampleIndex:v23];
-        v19 = v238;
+        v19 = v153;
         goto LABEL_27;
       }
 
@@ -4311,7 +4370,6 @@ LABEL_26:
 
 LABEL_73:
   *(v5[6].isa + a3) = v6;
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)isAliveAtTimestamp:(void *)timestamp
@@ -4381,31 +4439,30 @@ LABEL_9:
 
 - (unint64_t)sampleCountInTimestampRangeStart:(id)start end:(id)end
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (start && end && ([start le:end] & 1) == 0)
   {
-    v15 = *__error();
-    v16 = _sa_logt();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v14 = *__error();
+    v15 = _sa_logt();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v17 = [start debugDescription];
-      uTF8String = [v17 UTF8String];
-      v19 = [end debugDescription];
+      v16 = [start debugDescription];
+      uTF8String = [v16 UTF8String];
+      v18 = [end debugDescription];
       *buf = 136315394;
       *&buf[4] = uTF8String;
       *&buf[12] = 2080;
-      *&buf[14] = [v19 UTF8String];
-      _os_log_error_impl(&dword_1E0E2F000, v16, OS_LOG_TYPE_ERROR, "startTime %s > endTime %s", buf, 0x16u);
+      *&buf[14] = [v18 UTF8String];
+      _os_log_error_impl(&dword_1E0E2F000, v15, OS_LOG_TYPE_ERROR, "startTime %s > endTime %s", buf, 0x16u);
     }
 
-    *__error() = v15;
-    v20 = [start debugDescription];
-    v21 = v20;
-    uTF8String2 = [v20 UTF8String];
-    v23 = [end debugDescription];
-    v24 = v23;
-    [v23 UTF8String];
-    _SASetCrashLogMessage(1966, "startTime %s > endTime %s", v25, v26, v27, v28, v29, v30, uTF8String2);
+    *__error() = v14;
+    v19 = [start debugDescription];
+    v20 = v19;
+    uTF8String2 = [v19 UTF8String];
+    v22 = [end debugDescription];
+    v23 = v22;
+    _SASetCrashLogMessage(1966, "startTime %s > endTime %s", uTF8String2, [v22 UTF8String]);
 
     _os_crash();
     __break(1u);
@@ -4416,7 +4473,7 @@ LABEL_9:
     v7 = [(SATask *)self indexOfFirstTaskStateOnOrAfterTime:start sampleIndex:0x7FFFFFFFFFFFFFFFLL];
     if (v7 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v8 = 0;
+      return 0;
     }
 
     else
@@ -4435,12 +4492,12 @@ LABEL_9:
 
       if (v11 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v8 = 0;
+        return 0;
       }
 
       else
       {
-        v8 = v12;
+        return v12;
       }
     }
   }
@@ -4450,21 +4507,20 @@ LABEL_9:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v33 = 0;
+    v26 = 0;
     threads = self->_threads;
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __47__SATask_sampleCountInTimestampRangeStart_end___block_invoke;
-    v31[3] = &unk_1E86F86D0;
-    v31[5] = end;
-    v31[6] = buf;
-    v31[4] = start;
-    [(NSMutableDictionary *)threads enumerateKeysAndObjectsUsingBlock:v31];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __47__SATask_sampleCountInTimestampRangeStart_end___block_invoke;
+    v24[3] = &unk_1E86F86D0;
+    v24[5] = end;
+    v24[6] = buf;
+    v24[4] = start;
+    [(NSMutableDictionary *)threads enumerateKeysAndObjectsUsingBlock:v24];
     v8 = *(*&buf[8] + 24);
     _Block_object_dispose(buf, 8);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -4477,22 +4533,22 @@ uint64_t __47__SATask_sampleCountInTimestampRangeStart_end___block_invoke(void *
 
 - (unint64_t)sampleCountInSampleIndexRangeStart:(unint64_t)start end:(unint64_t)end
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (start != 0x7FFFFFFFFFFFFFFFLL && end != 0x7FFFFFFFFFFFFFFFLL && start > end)
   {
-    v22 = *__error();
+    v21 = *__error();
     p_super = _sa_logt();
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       startCopy = start;
-      v43 = 2048;
+      v29 = 2048;
       endCopy = end;
       _os_log_error_impl(&dword_1E0E2F000, p_super, OS_LOG_TYPE_ERROR, "startSampleIndexCap %lu > endSampleIndexCap %lu", buf, 0x16u);
     }
 
-    *__error() = v22;
-    _SASetCrashLogMessage(2002, "startSampleIndexCap %lu > endSampleIndexCap %lu", v23, v24, v25, v26, v27, v28, start);
+    *__error() = v21;
+    _SASetCrashLogMessage(2002, "startSampleIndexCap %lu > endSampleIndexCap %lu", start, end);
     _os_crash();
     __break(1u);
     goto LABEL_33;
@@ -4510,21 +4566,20 @@ uint64_t __47__SATask_sampleCountInTimestampRangeStart_end___block_invoke(void *
   if ([firstObject endSampleIndex] == 0x7FFFFFFFFFFFFFFFLL)
   {
 LABEL_33:
-    v29 = *__error();
-    v30 = _sa_logt();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v22 = *__error();
+    v23 = _sa_logt();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v31 = [p_super debugDescription];
-      uTF8String = [v31 UTF8String];
+      v24 = [p_super debugDescription];
+      uTF8String = [v24 UTF8String];
       *buf = 136315138;
       startCopy = uTF8String;
-      _os_log_error_impl(&dword_1E0E2F000, v30, OS_LOG_TYPE_ERROR, "Asking for sample count based on sample indexes when there are no sample indexes: %s", buf, 0xCu);
+      _os_log_error_impl(&dword_1E0E2F000, v23, OS_LOG_TYPE_ERROR, "Asking for sample count based on sample indexes when there are no sample indexes: %s", buf, 0xCu);
     }
 
-    *__error() = v29;
-    v33 = [p_super debugDescription];
-    uTF8String2 = [v33 UTF8String];
-    _SASetCrashLogMessage(2009, "Asking for sample count based on sample indexes when there are no sample indexes: %s", v35, v36, v37, v38, v39, v40, uTF8String2);
+    *__error() = v22;
+    v26 = [p_super debugDescription];
+    _SASetCrashLogMessage(2009, "Asking for sample count based on sample indexes when there are no sample indexes: %s", [v26 UTF8String]);
 
     _os_crash();
     __break(1u);
@@ -4590,16 +4645,15 @@ LABEL_33:
   }
 
 LABEL_29:
-  v20 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (void)cpuTimeNs:(void *)ns cpuInstructions:(void *)instructions cpuCycles:(void *)cycles nonThreadCpuTimeNs:(void *)timeNs nonThreadCpuInstructions:(void *)cpuInstructions nonThreadCpuCycles:(uint64_t)cpuCycles betweenStartTime:(void *)time endTime:
 {
-  v106 = *MEMORY[0x1E69E9840];
+  v99 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_45;
+    return;
   }
 
   if (a2)
@@ -4632,28 +4686,28 @@ LABEL_29:
     *cpuInstructions = 0;
   }
 
-  v100 = 0;
-  v101 = &v100;
-  v102 = 0x2020000000;
-  v103 = 0;
+  v93 = 0;
+  v94 = &v93;
+  v95 = 0x2020000000;
   v96 = 0;
-  v97 = &v96;
-  v98 = 0x2020000000;
-  v99 = 0;
+  v89 = 0;
+  v90 = &v89;
+  v91 = 0x2020000000;
   v92 = 0;
-  v93 = &v92;
-  v94 = 0x2020000000;
-  v95 = 0;
+  v85 = 0;
+  v86 = &v85;
+  v87 = 0x2020000000;
+  v88 = 0;
   v14 = [self lastTaskStateOnOrBeforeTime:time sampleIndex:0x7FFFFFFFFFFFFFFFLL];
   terminatedThreadsCpuTimeNs = [v14 terminatedThreadsCpuTimeNs];
   if (v14 && (!cpuCycles || ([v14 endTimestamp], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "gt:", cpuCycles), v15, v16)))
   {
     terminatedThreadsCpuTimeNs2 = [v14 terminatedThreadsCpuTimeNs];
-    v101[3] += terminatedThreadsCpuTimeNs2;
+    v94[3] += terminatedThreadsCpuTimeNs2;
     terminatedThreadsInstructions = [v14 terminatedThreadsInstructions];
-    v97[3] += terminatedThreadsInstructions;
+    v90[3] += terminatedThreadsInstructions;
     terminatedThreadsCycles = [v14 terminatedThreadsCycles];
-    v93[3] += terminatedThreadsCycles;
+    v86[3] += terminatedThreadsCycles;
     endTimestamp = [v14 endTimestamp];
     if (cpuCycles && (v21 = self[29]) != 0 && ![v21 lt:cpuCycles])
     {
@@ -4662,48 +4716,47 @@ LABEL_29:
 
     else
     {
-      v65 = [self firstTaskStateOnOrAfterTime:cpuCycles sampleIndex:0x7FFFFFFFFFFFFFFFLL];
-      if (!v65 || time && ([v65 startTimestamp], v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "le:", time), v22, (v23 & 1) == 0))
+      v58 = [self firstTaskStateOnOrAfterTime:cpuCycles sampleIndex:0x7FFFFFFFFFFFFFFFLL];
+      if (!v58 || time && ([v58 startTimestamp], v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "le:", time), v22, (v23 & 1) == 0))
       {
-        v44 = *__error();
-        v45 = _sa_logt();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+        v43 = *__error();
+        v44 = _sa_logt();
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
-          startTimestamp = [v65 startTimestamp];
-          v47 = [startTimestamp debugDescription];
-          v48 = v47;
-          uTF8String = [v47 UTF8String];
-          v50 = [time debugDescription];
-          v51 = v50;
-          uTF8String2 = [v50 UTF8String];
+          startTimestamp = [v58 startTimestamp];
+          v46 = [startTimestamp debugDescription];
+          v47 = v46;
+          uTF8String = [v46 UTF8String];
+          v49 = [time debugDescription];
+          v50 = v49;
+          uTF8String2 = [v49 UTF8String];
           *buf = 136315394;
           *&buf[4] = uTF8String;
           *&buf[12] = 2080;
           *&buf[14] = uTF8String2;
-          _os_log_error_impl(&dword_1E0E2F000, v45, OS_LOG_TYPE_ERROR, "firstTaskState.startTimestamp %s > endTimestamp %s", buf, 0x16u);
+          _os_log_error_impl(&dword_1E0E2F000, v44, OS_LOG_TYPE_ERROR, "firstTaskState.startTimestamp %s > endTimestamp %s", buf, 0x16u);
         }
 
-        *__error() = v44;
-        startTimestamp2 = [v65 startTimestamp];
-        v54 = [startTimestamp2 debugDescription];
-        v55 = v54;
-        uTF8String3 = [v54 UTF8String];
-        v57 = [time debugDescription];
-        v58 = v57;
-        [v57 UTF8String];
-        _SASetCrashLogMessage(2086, "firstTaskState.startTimestamp %s > endTimestamp %s", v59, v60, v61, v62, v63, v64, uTF8String3);
+        *__error() = v43;
+        startTimestamp2 = [v58 startTimestamp];
+        v53 = [startTimestamp2 debugDescription];
+        v54 = v53;
+        uTF8String3 = [v53 UTF8String];
+        v56 = [time debugDescription];
+        v57 = v56;
+        _SASetCrashLogMessage(2086, "firstTaskState.startTimestamp %s > endTimestamp %s", uTF8String3, [v56 UTF8String]);
 
         _os_crash();
         __break(1u);
       }
 
-      v24 = v65;
-      terminatedThreadsCpuTimeNs3 = [v65 terminatedThreadsCpuTimeNs];
-      v101[3] -= terminatedThreadsCpuTimeNs3;
-      terminatedThreadsInstructions2 = [v65 terminatedThreadsInstructions];
-      v97[3] -= terminatedThreadsInstructions2;
-      terminatedThreadsCycles2 = [v65 terminatedThreadsCycles];
-      v93[3] -= terminatedThreadsCycles2;
+      v24 = v58;
+      terminatedThreadsCpuTimeNs3 = [v58 terminatedThreadsCpuTimeNs];
+      v94[3] -= terminatedThreadsCpuTimeNs3;
+      terminatedThreadsInstructions2 = [v58 terminatedThreadsInstructions];
+      v90[3] -= terminatedThreadsInstructions2;
+      terminatedThreadsCycles2 = [v58 terminatedThreadsCycles];
+      v86[3] -= terminatedThreadsCycles2;
     }
   }
 
@@ -4723,51 +4776,51 @@ LABEL_29:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v105 = 0;
-  v88 = 0;
-  v89 = &v88;
-  v90 = 0x2020000000;
-  v91 = 0;
+  v98 = 0;
+  v81 = 0;
+  v82 = &v81;
+  v83 = 0x2020000000;
   v84 = 0;
-  v85 = &v84;
-  v86 = 0x2020000000;
-  v87 = 0;
+  v77 = 0;
+  v78 = &v77;
+  v79 = 0x2020000000;
+  v80 = 0;
   v30 = self[2];
-  v70[0] = MEMORY[0x1E69E9820];
-  v70[1] = 3221225472;
-  v70[2] = __134__SATask_cpuTimeNs_cpuInstructions_cpuCycles_nonThreadCpuTimeNs_nonThreadCpuInstructions_nonThreadCpuCycles_betweenStartTime_endTime___block_invoke;
-  v70[3] = &unk_1E86F86F8;
+  v63[0] = MEMORY[0x1E69E9820];
+  v63[1] = 3221225472;
+  v63[2] = __134__SATask_cpuTimeNs_cpuInstructions_cpuCycles_nonThreadCpuTimeNs_nonThreadCpuInstructions_nonThreadCpuCycles_betweenStartTime_endTime___block_invoke;
+  v63[3] = &unk_1E86F86F8;
   v31 = v29;
-  v71 = v31;
-  v83 = terminatedThreadsCpuTimeNs != 0;
+  v64 = v31;
+  v76 = terminatedThreadsCpuTimeNs != 0;
   v32 = endTimestamp;
-  v72 = v32;
+  v65 = v32;
   v33 = v14;
-  v73 = v33;
+  v66 = v33;
   cpuCyclesCopy = cpuCycles;
-  v78 = &v96;
-  v79 = &v92;
-  v80 = buf;
-  v81 = &v88;
-  v82 = &v84;
-  v77 = &v100;
+  v71 = &v89;
+  v72 = &v85;
+  v73 = buf;
+  v74 = &v81;
+  v75 = &v77;
+  v70 = &v93;
   selfCopy = self;
   v34 = v24;
-  v76 = v34;
-  [v30 enumerateKeysAndObjectsUsingBlock:v70];
+  v69 = v34;
+  [v30 enumerateKeysAndObjectsUsingBlock:v63];
   v35 = *&buf[8];
   v36 = *(*&buf[8] + 24);
-  v37 = v101;
-  v38 = v89;
-  v39 = v97;
-  if (v36 <= v101[3])
+  v37 = v94;
+  v38 = v82;
+  v39 = v90;
+  if (v36 <= v94[3])
   {
-    v40 = v85;
-    v41 = v93;
-    if (v89[3] <= v97[3])
+    v40 = v78;
+    v41 = v86;
+    if (v82[3] <= v90[3])
     {
       v42 = a2;
-      if (v85[3] <= v93[3])
+      if (v78[3] <= v86[3])
       {
         goto LABEL_32;
       }
@@ -4778,13 +4831,13 @@ LABEL_29:
 
   else
   {
-    v40 = v85;
-    v41 = v93;
+    v40 = v78;
+    v41 = v86;
   }
 
   v42 = a2;
 LABEL_31:
-  v101[3] = v36;
+  v94[3] = v36;
   v39[3] = v38[3];
   v41[3] = v40[3];
 LABEL_32:
@@ -4818,20 +4871,18 @@ LABEL_32:
     *cpuInstructions = v41[3] - v40[3];
   }
 
-  _Block_object_dispose(&v84, 8);
-  _Block_object_dispose(&v88, 8);
+  _Block_object_dispose(&v77, 8);
+  _Block_object_dispose(&v81, 8);
   _Block_object_dispose(buf, 8);
 
-  _Block_object_dispose(&v92, 8);
-  _Block_object_dispose(&v96, 8);
-  _Block_object_dispose(&v100, 8);
-LABEL_45:
-  v43 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v85, 8);
+  _Block_object_dispose(&v89, 8);
+  _Block_object_dispose(&v93, 8);
 }
 
 void __134__SATask_cpuTimeNs_cpuInstructions_cpuCycles_nonThreadCpuTimeNs_nonThreadCpuInstructions_nonThreadCpuCycles_betweenStartTime_endTime___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   if (([a3 isGlobalForcedIdle] & 1) == 0 && (objc_msgSend(a3, "isProcessorIdleThread") & 1) == 0)
   {
     v6 = [a3 lastThreadStateOnOrBeforeTime:*(a1 + 32) sampleIndex:0x7FFFFFFFFFFFFFFFLL];
@@ -4946,7 +4997,7 @@ LABEL_28:
           {
 LABEL_43:
 
-            goto LABEL_44;
+            return;
           }
         }
 
@@ -4974,52 +5025,52 @@ LABEL_43:
               v31 = _sa_logt();
               if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
               {
-                v48 = [*(a1 + 64) debugDescription];
-                v45 = [a3 threadId];
-                v33 = [v26 cpuTimeNs];
-                v43 = *(*(*(a1 + 80) + 8) + 24);
-                v44 = v33;
-                v42 = [v7 cpuTimeNs];
-                v41 = [*(a1 + 72) terminatedThreadsCpuTimeNs];
-                v40 = [*(a1 + 48) terminatedThreadsCpuTimeNs];
-                v47 = [v26 debugDescription];
-                v39 = [v7 debugDescription];
-                v46 = [a3 exitTimestamp];
-                v34 = [v46 debugDescription];
-                v35 = [*(a1 + 48) debugDescription];
-                v38 = *(a1 + 128);
-                v37 = [*(a1 + 56) debugDescription];
-                v36 = [*(a1 + 32) debugDescription];
+                v47 = [*(a1 + 64) debugDescription];
+                v44 = [a3 threadId];
+                v32 = [v26 cpuTimeNs];
+                v42 = *(*(*(a1 + 80) + 8) + 24);
+                v43 = v32;
+                v41 = [v7 cpuTimeNs];
+                v40 = [*(a1 + 72) terminatedThreadsCpuTimeNs];
+                v39 = [*(a1 + 48) terminatedThreadsCpuTimeNs];
+                v46 = [v26 debugDescription];
+                v38 = [v7 debugDescription];
+                v45 = [a3 exitTimestamp];
+                v33 = [v45 debugDescription];
+                v34 = [*(a1 + 48) debugDescription];
+                v37 = *(a1 + 128);
+                v36 = [*(a1 + 56) debugDescription];
+                v35 = [*(a1 + 32) debugDescription];
                 *buf = 138415874;
-                v50 = v48;
-                v51 = 2048;
-                v52 = v45;
-                v53 = 2048;
-                v54 = v44;
-                v55 = 2048;
-                v56 = v43;
-                v57 = 2048;
-                v58 = v42;
-                v59 = 2048;
-                v60 = v41;
-                v61 = 2048;
-                v62 = v40;
-                v63 = 2112;
-                v64 = v47;
-                v65 = 2112;
-                v66 = v39;
-                v67 = 2112;
-                v68 = v34;
-                v69 = 2112;
-                v70 = v35;
-                v71 = 1024;
-                v72 = v38;
-                v73 = 1024;
-                v74 = v12;
-                v75 = 2112;
-                v76 = v37;
-                v77 = 2112;
-                v78 = v36;
+                v49 = v47;
+                v50 = 2048;
+                v51 = v44;
+                v52 = 2048;
+                v53 = v43;
+                v54 = 2048;
+                v55 = v42;
+                v56 = 2048;
+                v57 = v41;
+                v58 = 2048;
+                v59 = v40;
+                v60 = 2048;
+                v61 = v39;
+                v62 = 2112;
+                v63 = v46;
+                v64 = 2112;
+                v65 = v38;
+                v66 = 2112;
+                v67 = v33;
+                v68 = 2112;
+                v69 = v34;
+                v70 = 1024;
+                v71 = v37;
+                v72 = 1024;
+                v73 = v12;
+                v74 = 2112;
+                v75 = v36;
+                v76 = 2112;
+                v77 = v35;
                 _os_log_error_impl(&dword_1E0E2F000, v31, OS_LOG_TYPE_ERROR, "%@ thread 0x%llx starting cpu time %llu < taskCpuTimeNs %llu\nlastThreadState.cpuTimeNs: %llu\nfirstTaskState.terminatedThreadsCpuTimeNs: %llu\nlastTaskState.terminatedThreadsCpuTimeNs: %llu\nfirstThreadState: %@\nlastThreadState: %@\nthread.exitTimestamp: %@\nlastTaskState: %@\ntaskHasTimeInTerminatedThreads: %d\naddEndCPU: %d\nstartTimestamp: %@\nendTimestamp: %@", buf, 0x90u);
               }
 
@@ -5045,17 +5096,14 @@ LABEL_19:
 
     goto LABEL_20;
   }
-
-LABEL_44:
-  v32 = *MEMORY[0x1E69E9840];
 }
 
-- (void)fixupFrameInstructionsWithDataGatheringOptions:(int)options mightBeAlive:(_BYTE *)alive foundNewBinaryInfo:(uint64_t)info uuidsWithNewInstructions:(int)instructions additionalCSSymbolicatorFlags:
+- (void)fixupFrameInstructionsWithDataGatheringOptions:(int)options mightBeAlive:(_BYTE *)alive foundNewBinaryInfo:(uint64_t)info uuidsWithNewInstructions:(uint64_t)instructions additionalCSSymbolicatorFlags:
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_52;
+    return;
   }
 
   selfCopy = self;
@@ -5066,15 +5114,15 @@ LABEL_44:
 
   if (!*(self + 280))
   {
-    goto LABEL_52;
+    return;
   }
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   obj = *(self + 256);
-  v11 = [obj countByEnumeratingWithState:&v57 objects:v66 count:16];
+  v11 = [obj countByEnumeratingWithState:&v56 objects:v65 count:16];
   if (!v11)
   {
     v12 = 0;
@@ -5085,27 +5133,27 @@ LABEL_40:
   }
 
   optionsCopy = options;
-  v44 = a2;
+  v43 = a2;
   instructionsCopy = instructions;
   infoCopy = info;
-  v48 = selfCopy;
+  v47 = selfCopy;
   v12 = 0;
-  v13 = *v58;
+  v13 = *v57;
   v14 = obj;
-  v51 = *v58;
+  v50 = *v57;
   v15 = v11;
   do
   {
     v16 = 0;
-    v52 = v15;
+    v51 = v15;
     do
     {
-      if (*v58 != v13)
+      if (*v57 != v13)
       {
         objc_enumerationMutation(v14);
       }
 
-      v17 = *(*(&v57 + 1) + 8 * v16);
+      v17 = *(*(&v56 + 1) + 8 * v16);
       segment = [v17 segment];
 
       if (!segment)
@@ -5123,7 +5171,7 @@ LABEL_40:
 LABEL_27:
           if (!v12)
           {
-            v12 = [objc_alloc(MEMORY[0x1E695DF70]) initWithArray:*(v48 + 256)];
+            v12 = [objc_alloc(MEMORY[0x1E695DF70]) initWithArray:*(v47 + 256)];
           }
 
           [v12 removeObject:v17];
@@ -5144,27 +5192,27 @@ LABEL_31:
             goto LABEL_33;
           }
 
-          v55 = 0u;
-          v56 = 0u;
-          v53 = 0u;
           v54 = 0u;
+          v55 = 0u;
+          v52 = 0u;
+          v53 = 0u;
           exclave = [segments reverseObjectEnumerator];
-          v23 = [exclave countByEnumeratingWithState:&v53 objects:v65 count:16];
+          v23 = [exclave countByEnumeratingWithState:&v52 objects:v64 count:16];
           if (v23)
           {
             v24 = v23;
-            v50 = v12;
-            v25 = *v54;
+            v49 = v12;
+            v25 = *v53;
 LABEL_17:
             v26 = 0;
             while (1)
             {
-              if (*v54 != v25)
+              if (*v53 != v25)
               {
                 objc_enumerationMutation(exclave);
               }
 
-              v27 = *(*(&v53 + 1) + 8 * v26);
+              v27 = *(*(&v52 + 1) + 8 * v26);
               if ([v27 hasOffsetIntoBinary])
               {
                 break;
@@ -5172,7 +5220,7 @@ LABEL_17:
 
               if (v24 == ++v26)
               {
-                v24 = [exclave countByEnumeratingWithState:&v53 objects:v65 count:16];
+                v24 = [exclave countByEnumeratingWithState:&v52 objects:v64 count:16];
                 if (v24)
                 {
                   goto LABEL_17;
@@ -5185,7 +5233,7 @@ LABEL_17:
             if ([v27 offsetIntoBinary] < 1)
             {
 LABEL_30:
-              v12 = v50;
+              v12 = v49;
               goto LABEL_31;
             }
 
@@ -5195,9 +5243,9 @@ LABEL_30:
 
             v31 = v29 > v30;
             v14 = obj;
-            v12 = v50;
-            v13 = v51;
-            v15 = v52;
+            v12 = v49;
+            v13 = v50;
+            v15 = v51;
             if (v31)
             {
               goto LABEL_27;
@@ -5210,8 +5258,8 @@ LABEL_34:
           }
         }
 
-        v13 = v51;
-        v15 = v52;
+        v13 = v50;
+        v15 = v51;
         goto LABEL_33;
       }
 
@@ -5220,7 +5268,7 @@ LABEL_35:
     }
 
     while (v16 != v15);
-    v15 = [v14 countByEnumeratingWithState:&v57 objects:v66 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v56 objects:v65 count:16];
   }
 
   while (v15);
@@ -5230,20 +5278,20 @@ LABEL_35:
     objc_opt_self();
     [v12 sortUsingComparator:&__block_literal_global_361];
     v35 = [v12 copy];
-    selfCopy = v48;
-    v36 = *(v48 + 256);
-    *(v48 + 256) = v35;
+    selfCopy = v47;
+    v36 = *(v47 + 256);
+    *(v47 + 256) = v35;
     info = infoCopy;
     instructions = instructionsCopy;
-    a2 = v44;
+    a2 = v43;
     options = optionsCopy;
     goto LABEL_40;
   }
 
-  selfCopy = v48;
+  selfCopy = v47;
   info = infoCopy;
   instructions = instructionsCopy;
-  a2 = v44;
+  a2 = v43;
   options = optionsCopy;
 LABEL_42:
   if ([SAFrame fixupLoadInfosInFrameTree:*(selfCopy + 256) binaryLoadInfos:*(selfCopy + 264) libraryCache:info uuidsWithNewInstructions:?]&& options && [(SATask *)selfCopy gatherLoadInfoFromLiveProcessWithDataGatheringOptions:a2 additionalCSSymbolicatorFlags:instructions])
@@ -5261,20 +5309,17 @@ LABEL_42:
       v40 = _sa_logt();
       if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
       {
-        v42 = [selfCopy debugDescription];
+        v41 = [selfCopy debugDescription];
         *buf = 138412546;
-        v62 = v42;
-        v63 = 2048;
-        v64 = v38;
+        v61 = v41;
+        v62 = 2048;
+        v63 = v38;
         _os_log_debug_impl(&dword_1E0E2F000, v40, OS_LOG_TYPE_DEBUG, "%@: still have %lu frames with missing load info after getting load info from the live process", buf, 0x16u);
       }
 
       *__error() = v39;
     }
   }
-
-LABEL_52:
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)isFromCurrentBootCycle
@@ -5343,28 +5388,26 @@ LABEL_52:
 
 - (BOOL)addSelfToBuffer:(id *)buffer bufferLength:(unint64_t)length withCompletedSerializationDictionary:(id)dictionary
 {
-  v163 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   if ([(SATask *)self sizeInBytesForSerializedVersion]!= length)
   {
-    v39 = *__error();
-    v40 = _sa_logt();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v38 = *__error();
+    v39 = _sa_logt();
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
-      v41 = [(SATask *)self debugDescription];
+      v40 = [(SATask *)self debugDescription];
       *buf = 136315650;
-      uTF8String = [v41 UTF8String];
-      v153 = 2048;
-      *v154 = [(SATask *)self sizeInBytesForSerializedVersion];
-      *&v154[8] = 2048;
+      uTF8String = [v40 UTF8String];
+      v91 = 2048;
+      *v92 = [(SATask *)self sizeInBytesForSerializedVersion];
+      *&v92[8] = 2048;
       lengthCopy = length;
-      _os_log_error_impl(&dword_1E0E2F000, v40, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
+      _os_log_error_impl(&dword_1E0E2F000, v39, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
     }
 
-    *__error() = v39;
-    v42 = [(SATask *)self debugDescription];
-    uTF8String2 = [v42 UTF8String];
-    [(SATask *)self sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(3008, "%s: size %lu != buffer length %lu", v44, v45, v46, v47, v48, v49, uTF8String2);
+    *__error() = v38;
+    v41 = [(SATask *)self debugDescription];
+    _SASetCrashLogMessage(3008, "%s: size %lu != buffer length %lu", [v41 UTF8String], -[SATask sizeInBytesForSerializedVersion](self, "sizeInBytesForSerializedVersion"), length);
 
     _os_crash();
     __break(1u);
@@ -5408,25 +5451,23 @@ LABEL_52:
   if ([(NSMutableSet *)self->_rootFrames count]>= 0xFFFFFFFF)
   {
 LABEL_13:
-    v50 = *__error();
-    v51 = _sa_logt();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+    v42 = *__error();
+    v43 = _sa_logt();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
-      v52 = [(SATask *)self debugDescription];
-      uTF8String3 = [v52 UTF8String];
-      v54 = [(NSMutableSet *)self->_rootFrames count];
+      v44 = [(SATask *)self debugDescription];
+      uTF8String2 = [v44 UTF8String];
+      v46 = [(NSMutableSet *)self->_rootFrames count];
       *buf = 136315394;
-      uTF8String = uTF8String3;
-      v153 = 2048;
-      *v154 = v54;
-      _os_log_error_impl(&dword_1E0E2F000, v51, OS_LOG_TYPE_ERROR, "%s: %lu rootFrames", buf, 0x16u);
+      uTF8String = uTF8String2;
+      v91 = 2048;
+      *v92 = v46;
+      _os_log_error_impl(&dword_1E0E2F000, v43, OS_LOG_TYPE_ERROR, "%s: %lu rootFrames", buf, 0x16u);
     }
 
-    *__error() = v50;
-    v55 = [(SATask *)self debugDescription];
-    uTF8String4 = [v55 UTF8String];
-    [(NSMutableSet *)self->_rootFrames count];
-    _SASetCrashLogMessage(3043, "%s: %lu rootFrames", v57, v58, v59, v60, v61, v62, uTF8String4);
+    *__error() = v42;
+    v47 = [(SATask *)self debugDescription];
+    _SASetCrashLogMessage(3043, "%s: %lu rootFrames", [v47 UTF8String], -[NSMutableSet count](self->_rootFrames, "count"));
 
     _os_crash();
     __break(1u);
@@ -5439,25 +5480,23 @@ LABEL_13:
   if ([(NSArray *)self->_binaryLoadInfos count]>= 0xFFFFFFFF)
   {
 LABEL_16:
-    v63 = *__error();
-    v64 = _sa_logt();
-    if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+    v48 = *__error();
+    v49 = _sa_logt();
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
-      v65 = [(SATask *)self debugDescription];
-      uTF8String5 = [v65 UTF8String];
-      v67 = [(NSArray *)self->_binaryLoadInfos count];
+      v50 = [(SATask *)self debugDescription];
+      uTF8String3 = [v50 UTF8String];
+      v52 = [(NSArray *)self->_binaryLoadInfos count];
       *buf = 136315394;
-      uTF8String = uTF8String5;
-      v153 = 2048;
-      *v154 = v67;
-      _os_log_error_impl(&dword_1E0E2F000, v64, OS_LOG_TYPE_ERROR, "%s: %lu binaryLoadInfos", buf, 0x16u);
+      uTF8String = uTF8String3;
+      v91 = 2048;
+      *v92 = v52;
+      _os_log_error_impl(&dword_1E0E2F000, v49, OS_LOG_TYPE_ERROR, "%s: %lu binaryLoadInfos", buf, 0x16u);
     }
 
-    *__error() = v63;
-    v68 = [(SATask *)self debugDescription];
-    uTF8String6 = [v68 UTF8String];
-    [(NSArray *)self->_binaryLoadInfos count];
-    _SASetCrashLogMessage(3048, "%s: %lu binaryLoadInfos", v70, v71, v72, v73, v74, v75, uTF8String6);
+    *__error() = v48;
+    v53 = [(SATask *)self debugDescription];
+    _SASetCrashLogMessage(3048, "%s: %lu binaryLoadInfos", [v53 UTF8String], -[NSArray count](self->_binaryLoadInfos, "count"));
 
     _os_crash();
     __break(1u);
@@ -5471,25 +5510,23 @@ LABEL_16:
   if ([(NSMutableArray *)self->_taskStates count]>= 0xFFFFFFFF)
   {
 LABEL_19:
-    v76 = *__error();
-    v77 = _sa_logt();
-    if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+    v54 = *__error();
+    v55 = _sa_logt();
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
-      v78 = [(SATask *)self debugDescription];
-      uTF8String7 = [v78 UTF8String];
-      v80 = [(NSMutableArray *)self->_taskStates count];
+      v56 = [(SATask *)self debugDescription];
+      uTF8String4 = [v56 UTF8String];
+      v58 = [(NSMutableArray *)self->_taskStates count];
       *buf = 136315394;
-      uTF8String = uTF8String7;
-      v153 = 2048;
-      *v154 = v80;
-      _os_log_error_impl(&dword_1E0E2F000, v77, OS_LOG_TYPE_ERROR, "%s: %lu taskStates", buf, 0x16u);
+      uTF8String = uTF8String4;
+      v91 = 2048;
+      *v92 = v58;
+      _os_log_error_impl(&dword_1E0E2F000, v55, OS_LOG_TYPE_ERROR, "%s: %lu taskStates", buf, 0x16u);
     }
 
-    *__error() = v76;
-    v81 = [(SATask *)self debugDescription];
-    uTF8String8 = [v81 UTF8String];
-    [(NSMutableArray *)self->_taskStates count];
-    _SASetCrashLogMessage(3053, "%s: %lu taskStates", v83, v84, v85, v86, v87, v88, uTF8String8);
+    *__error() = v54;
+    v59 = [(SATask *)self debugDescription];
+    _SASetCrashLogMessage(3053, "%s: %lu taskStates", [v59 UTF8String], -[NSMutableArray count](self->_taskStates, "count"));
 
     _os_crash();
     __break(1u);
@@ -5503,25 +5540,23 @@ LABEL_19:
   if ([(NSMutableDictionary *)self->_threads count]>= 0xFFFFFFFF)
   {
 LABEL_22:
-    v89 = *__error();
-    v90 = _sa_logt();
-    if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
+    v60 = *__error();
+    v61 = _sa_logt();
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
     {
-      v91 = [(SATask *)self debugDescription];
-      uTF8String9 = [v91 UTF8String];
-      v93 = [(NSMutableDictionary *)self->_threads count];
+      v62 = [(SATask *)self debugDescription];
+      uTF8String5 = [v62 UTF8String];
+      v64 = [(NSMutableDictionary *)self->_threads count];
       *buf = 136315394;
-      uTF8String = uTF8String9;
-      v153 = 2048;
-      *v154 = v93;
-      _os_log_error_impl(&dword_1E0E2F000, v90, OS_LOG_TYPE_ERROR, "%s: %lu threads", buf, 0x16u);
+      uTF8String = uTF8String5;
+      v91 = 2048;
+      *v92 = v64;
+      _os_log_error_impl(&dword_1E0E2F000, v61, OS_LOG_TYPE_ERROR, "%s: %lu threads", buf, 0x16u);
     }
 
-    *__error() = v89;
-    v94 = [(SATask *)self debugDescription];
-    uTF8String10 = [v94 UTF8String];
-    [(NSMutableDictionary *)self->_threads count];
-    _SASetCrashLogMessage(3058, "%s: %lu threads", v96, v97, v98, v99, v100, v101, uTF8String10);
+    *__error() = v60;
+    v65 = [(SATask *)self debugDescription];
+    _SASetCrashLogMessage(3058, "%s: %lu threads", [v65 UTF8String], -[NSMutableDictionary count](self->_threads, "count"));
 
     _os_crash();
     __break(1u);
@@ -5538,25 +5573,23 @@ LABEL_22:
   if ([(NSMutableDictionary *)self->_dispatchQueues count]>= 0xFFFFFFFF)
   {
 LABEL_25:
-    v102 = *__error();
-    v103 = _sa_logt();
-    if (os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
+    v66 = *__error();
+    v67 = _sa_logt();
+    if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
     {
-      v104 = [(SATask *)self debugDescription];
-      uTF8String11 = [v104 UTF8String];
-      v106 = [(NSMutableDictionary *)self->_dispatchQueues count];
+      v68 = [(SATask *)self debugDescription];
+      uTF8String6 = [v68 UTF8String];
+      v70 = [(NSMutableDictionary *)self->_dispatchQueues count];
       *buf = 136315394;
-      uTF8String = uTF8String11;
-      v153 = 2048;
-      *v154 = v106;
-      _os_log_error_impl(&dword_1E0E2F000, v103, OS_LOG_TYPE_ERROR, "%s: %lu dispatchQueues", buf, 0x16u);
+      uTF8String = uTF8String6;
+      v91 = 2048;
+      *v92 = v70;
+      _os_log_error_impl(&dword_1E0E2F000, v67, OS_LOG_TYPE_ERROR, "%s: %lu dispatchQueues", buf, 0x16u);
     }
 
-    *__error() = v102;
+    *__error() = v66;
     buffer = [(SATask *)self debugDescription];
-    uTF8String12 = [($0248558AA1E9D335F2AA4C2D9BB3C007 *)buffer UTF8String];
-    [(NSMutableDictionary *)self->_dispatchQueues count];
-    _SASetCrashLogMessage(3063, "%s: %lu dispatchQueues", v108, v109, v110, v111, v112, v113, uTF8String12);
+    _SASetCrashLogMessage(3063, "%s: %lu dispatchQueues", [($0248558AA1E9D335F2AA4C2D9BB3C007 *)buffer UTF8String], [(NSMutableDictionary *)self->_dispatchQueues count]);
 
     _os_crash();
     __break(1u);
@@ -5575,72 +5608,63 @@ LABEL_25:
   if (v5 > [(SATask *)self sizeInBytesForSerializedVersion])
   {
 LABEL_28:
-    v150 = *__error();
-    v114 = _sa_logt();
-    if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
+    v88 = *__error();
+    v71 = _sa_logt();
+    if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
     {
-      v115 = [(SATask *)self debugDescription];
-      uTF8String13 = [v115 UTF8String];
-      v117 = *(&buffer->var11 + 2);
-      v118 = *(&buffer->var11 + 6);
-      v119 = *(&buffer->var12 + 2);
-      v120 = *(&buffer->var13 + 2);
-      log = v114;
-      v121 = *(&buffer->var14 + 2);
+      v72 = [(SATask *)self debugDescription];
+      uTF8String7 = [v72 UTF8String];
+      v74 = *(&buffer->var11 + 2);
+      v75 = *(&buffer->var11 + 6);
+      v76 = *(&buffer->var12 + 2);
+      v77 = *(&buffer->var13 + 2);
+      log = v71;
+      v78 = *(&buffer->var14 + 2);
       sizeInBytesForSerializedVersion = [(SATask *)self sizeInBytesForSerializedVersion];
       *buf = 136316930;
-      uTF8String = uTF8String13;
-      v153 = 1024;
-      *v154 = v117;
-      *&v154[4] = 1024;
-      *&v154[6] = v118;
+      uTF8String = uTF8String7;
+      v91 = 1024;
+      *v92 = v74;
+      *&v92[4] = 1024;
+      *&v92[6] = v75;
       LOWORD(lengthCopy) = 1024;
-      *(&lengthCopy + 2) = v119;
+      *(&lengthCopy + 2) = v76;
       HIWORD(lengthCopy) = 1024;
-      v156 = v120;
-      v157 = 1024;
-      v158 = v121;
-      v114 = log;
-      v159 = 2048;
-      v160 = v5;
-      v161 = 2048;
-      v162 = sizeInBytesForSerializedVersion;
+      v94 = v77;
+      v95 = 1024;
+      v96 = v78;
+      v71 = log;
+      v97 = 2048;
+      v98 = v5;
+      v99 = 2048;
+      v100 = sizeInBytesForSerializedVersion;
       _os_log_error_impl(&dword_1E0E2F000, log, OS_LOG_TYPE_ERROR, "%s: after serializing (with %u rootFrames, %u loadInfos, %u task states, %u threads, %u dispatch queues), ended with length %ld, should be %lu", buf, 0x3Eu);
     }
 
-    *__error() = v150;
-    v123 = [(SATask *)self debugDescription];
-    uTF8String14 = [v123 UTF8String];
-    v125 = *(&buffer->var11 + 2);
-    v126 = *(&buffer->var11 + 6);
-    v127 = *(&buffer->var12 + 2);
-    v128 = *(&buffer->var13 + 2);
-    v129 = *(&buffer->var14 + 2);
-    [(SATask *)self sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(3070, "%s: after serializing (with %u rootFrames, %u loadInfos, %u task states, %u threads, %u dispatch queues), ended with length %ld, should be %lu", v130, v131, v132, v133, v134, v135, uTF8String14);
+    *__error() = v88;
+    v80 = [(SATask *)self debugDescription];
+    _SASetCrashLogMessage(3070, "%s: after serializing (with %u rootFrames, %u loadInfos, %u task states, %u threads, %u dispatch queues), ended with length %ld, should be %lu", [v80 UTF8String], *(&buffer->var11 + 2), *(&buffer->var11 + 6), *(&buffer->var12 + 2), *(&buffer->var13 + 2), *(&buffer->var14 + 2), v5, -[SATask sizeInBytesForSerializedVersion](self, "sizeInBytesForSerializedVersion"));
 
     _os_crash();
     __break(1u);
 LABEL_31:
-    v136 = *__error();
-    v137 = _sa_logt();
-    if (os_log_type_enabled(v137, OS_LOG_TYPE_ERROR))
+    v81 = *__error();
+    v82 = _sa_logt();
+    if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
     {
-      v138 = [(SATask *)self debugDescription];
-      uTF8String15 = [v138 UTF8String];
-      v140 = [(NSMutableDictionary *)self->_swiftTasks count];
+      v83 = [(SATask *)self debugDescription];
+      uTF8String8 = [v83 UTF8String];
+      v85 = [(NSMutableDictionary *)self->_swiftTasks count];
       *buf = 136315394;
-      uTF8String = uTF8String15;
-      v153 = 2048;
-      *v154 = v140;
-      _os_log_error_impl(&dword_1E0E2F000, v137, OS_LOG_TYPE_ERROR, "%s: %lu swiftTasks", buf, 0x16u);
+      uTF8String = uTF8String8;
+      v91 = 2048;
+      *v92 = v85;
+      _os_log_error_impl(&dword_1E0E2F000, v82, OS_LOG_TYPE_ERROR, "%s: %lu swiftTasks", buf, 0x16u);
     }
 
-    *__error() = v136;
-    v141 = [(SATask *)self debugDescription];
-    uTF8String16 = [v141 UTF8String];
-    [(NSMutableDictionary *)self->_swiftTasks count];
-    _SASetCrashLogMessage(3093, "%s: %lu swiftTasks", v143, v144, v145, v146, v147, v148, uTF8String16);
+    *__error() = v81;
+    v86 = [(SATask *)self debugDescription];
+    _SASetCrashLogMessage(3093, "%s: %lu swiftTasks", [v86 UTF8String], -[NSMutableDictionary count](self->_swiftTasks, "count"));
 
     _os_crash();
     __break(1u);
@@ -5675,13 +5699,12 @@ LABEL_31:
   v36 = &v32[8 * *(v32 + 105) + 109];
   *v36 = SASerializableIndexForPointerFromSerializationDictionary(self->_distributorID, dictionary);
   v36[1] = SASerializableIndexForPointerFromSerializationDictionary(self->_resourceCoalitionName, dictionary);
-  v37 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (void)addSelfToSerializationDictionary:(id)dictionary
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   classDictionaryKey = [objc_opt_class() classDictionaryKey];
   v6 = SASerializableAddInstanceToSerializationDictionaryWithClassKey(dictionary, self, classDictionaryKey);
 
@@ -5705,126 +5728,124 @@ LABEL_31:
     [(NSString *)self->_appType addSelfToSerializationDictionary:dictionary];
     [(NSString *)self->_cohortID addSelfToSerializationDictionary:dictionary];
     [(SATimestamp *)self->_forkTimestamp addSelfToSerializationDictionary:dictionary];
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v7 = self->_rootFrames;
-    v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v37 objects:v43 count:16];
+    v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v36 objects:v42 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v38;
+      v10 = *v37;
       do
       {
         v11 = 0;
         do
         {
-          if (*v38 != v10)
+          if (*v37 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [*(*(&v37 + 1) + 8 * v11++) addSelfToSerializationDictionary:dictionary];
+          [*(*(&v36 + 1) + 8 * v11++) addSelfToSerializationDictionary:dictionary];
         }
 
         while (v9 != v11);
-        v9 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v37 objects:v43 count:16];
+        v9 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v36 objects:v42 count:16];
       }
 
       while (v9);
     }
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v12 = self->_binaryLoadInfos;
-    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v33 objects:v42 count:16];
+    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v32 objects:v41 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v34;
+      v15 = *v33;
       do
       {
         v16 = 0;
         do
         {
-          if (*v34 != v15)
+          if (*v33 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          [*(*(&v33 + 1) + 8 * v16++) addSelfToSerializationDictionary:dictionary];
+          [*(*(&v32 + 1) + 8 * v16++) addSelfToSerializationDictionary:dictionary];
         }
 
         while (v14 != v16);
-        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v33 objects:v42 count:16];
+        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v32 objects:v41 count:16];
       }
 
       while (v14);
     }
 
-    v31 = 0u;
-    v32 = 0u;
     v30 = 0u;
+    v31 = 0u;
     v29 = 0u;
+    v28 = 0u;
     v17 = self->_taskStates;
-    v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v29 objects:v41 count:16];
+    v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v28 objects:v40 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v30;
+      v20 = *v29;
       do
       {
         v21 = 0;
         do
         {
-          if (*v30 != v20)
+          if (*v29 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          [*(*(&v29 + 1) + 8 * v21++) addSelfToSerializationDictionary:dictionary];
+          [*(*(&v28 + 1) + 8 * v21++) addSelfToSerializationDictionary:dictionary];
         }
 
         while (v19 != v21);
-        v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v29 objects:v41 count:16];
+        v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v28 objects:v40 count:16];
       }
 
       while (v19);
     }
 
     threads = self->_threads;
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __58__SATask_Serialization__addSelfToSerializationDictionary___block_invoke;
-    v28[3] = &unk_1E86F6028;
-    v28[4] = dictionary;
-    [(NSMutableDictionary *)threads enumerateKeysAndObjectsUsingBlock:v28];
-    dispatchQueues = self->_dispatchQueues;
     v27[0] = MEMORY[0x1E69E9820];
     v27[1] = 3221225472;
-    v27[2] = __58__SATask_Serialization__addSelfToSerializationDictionary___block_invoke_2;
-    v27[3] = &unk_1E86F8720;
+    v27[2] = __58__SATask_Serialization__addSelfToSerializationDictionary___block_invoke;
+    v27[3] = &unk_1E86F6028;
     v27[4] = dictionary;
-    [(NSMutableDictionary *)dispatchQueues enumerateKeysAndObjectsUsingBlock:v27];
-    swiftTasks = self->_swiftTasks;
+    [(NSMutableDictionary *)threads enumerateKeysAndObjectsUsingBlock:v27];
+    dispatchQueues = self->_dispatchQueues;
     v26[0] = MEMORY[0x1E69E9820];
     v26[1] = 3221225472;
-    v26[2] = __58__SATask_Serialization__addSelfToSerializationDictionary___block_invoke_3;
-    v26[3] = &unk_1E86F8748;
+    v26[2] = __58__SATask_Serialization__addSelfToSerializationDictionary___block_invoke_2;
+    v26[3] = &unk_1E86F8720;
     v26[4] = dictionary;
-    [(NSMutableDictionary *)swiftTasks enumerateKeysAndObjectsUsingBlock:v26];
+    [(NSMutableDictionary *)dispatchQueues enumerateKeysAndObjectsUsingBlock:v26];
+    swiftTasks = self->_swiftTasks;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __58__SATask_Serialization__addSelfToSerializationDictionary___block_invoke_3;
+    v25[3] = &unk_1E86F8748;
+    v25[4] = dictionary;
+    [(NSMutableDictionary *)swiftTasks enumerateKeysAndObjectsUsingBlock:v25];
     [(NSString *)self->_resourceCoalitionName addSelfToSerializationDictionary:dictionary];
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 + (id)newInstanceWithoutReferencesFromSerializedBuffer:(const void *)buffer bufferLength:(unint64_t)length
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (*buffer >= 0xCu)
   {
     goto LABEL_14;
@@ -5832,19 +5853,19 @@ LABEL_31:
 
   if (length <= 0x77)
   {
-    v9 = *__error();
+    v8 = *__error();
     bufferCopy = _sa_logt();
     if (os_log_type_enabled(bufferCopy, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy2 = length;
-      v37 = 2048;
-      *v38 = 120;
+      v19 = 2048;
+      *v20 = 120;
       _os_log_error_impl(&dword_1E0E2F000, bufferCopy, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct %lu", buf, 0x16u);
     }
 
-    *__error() = v9;
-    _SASetCrashLogMessage(3165, "bufferLength %lu < serialized SATask struct %lu", v10, v11, v12, v13, v14, v15, length);
+    *__error() = v8;
+    _SASetCrashLogMessage(3165, "bufferLength %lu < serialized SATask struct %lu", length, 120);
     _os_crash();
     __break(1u);
     goto LABEL_11;
@@ -5854,42 +5875,37 @@ LABEL_31:
   if (8 * (vaddvq_s32(*(buffer + 66)) + *(buffer + 82)) + 120 > length)
   {
 LABEL_11:
-    v16 = *__error();
-    v17 = _sa_logt();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v9 = *__error();
+    v10 = _sa_logt();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v18 = *(bufferCopy + 66);
-      v19 = *(bufferCopy + 70);
-      v20 = *(bufferCopy + 74);
-      v21 = *(bufferCopy + 78);
-      v22 = *(bufferCopy + 82);
+      v11 = *(bufferCopy + 66);
+      v12 = *(bufferCopy + 70);
+      v13 = *(bufferCopy + 74);
+      v14 = *(bufferCopy + 78);
+      v15 = *(bufferCopy + 82);
       *buf = 134219264;
       lengthCopy2 = length;
-      v37 = 1024;
-      *v38 = v18;
-      *&v38[4] = 1024;
-      *&v38[6] = v19;
-      v39 = 1024;
-      v40 = v20;
-      v41 = 1024;
-      v42 = v21;
-      v43 = 1024;
-      v44 = v22;
-      _os_log_error_impl(&dword_1E0E2F000, v17, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", buf, 0x2Au);
+      v19 = 1024;
+      *v20 = v11;
+      *&v20[4] = 1024;
+      *&v20[6] = v12;
+      v21 = 1024;
+      v22 = v13;
+      v23 = 1024;
+      v24 = v14;
+      v25 = 1024;
+      v26 = v15;
+      _os_log_error_impl(&dword_1E0E2F000, v10, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", buf, 0x2Au);
     }
 
-    *__error() = v16;
-    v33 = *(bufferCopy + 78);
-    v34 = *(bufferCopy + 82);
-    v31 = *(bufferCopy + 70);
-    v32 = *(bufferCopy + 74);
-    v30 = *(bufferCopy + 66);
-    _SASetCrashLogMessage(3166, "bufferLength %lu < serialized SATask struct with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", v23, v24, v25, v26, v27, v28, length);
+    *__error() = v9;
+    _SASetCrashLogMessage(3166, "bufferLength %lu < serialized SATask struct with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", length, *(bufferCopy + 66), *(bufferCopy + 70), *(bufferCopy + 74), *(bufferCopy + 78), *(bufferCopy + 82));
     _os_crash();
     __break(1u);
 LABEL_14:
-    v29 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SATask version" userInfo:0];
-    objc_exception_throw(v29);
+    v16 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SATask version" userInfo:0];
+    objc_exception_throw(v16);
   }
 
   result = [SATask taskWithPid:*(buffer + 18) uniquePid:0 name:0 sharedCache:?];
@@ -5918,13 +5934,12 @@ LABEL_14:
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary
 {
-  v366 = *MEMORY[0x1E69E9840];
+  v246 = *MEMORY[0x1E69E9840];
   if (*buffer >= 0xCu)
   {
     goto LABEL_82;
@@ -5932,264 +5947,229 @@ LABEL_14:
 
   if (length <= 0x77)
   {
-    v150 = *__error();
+    v149 = *__error();
     bufferCopy = _sa_logt();
     if (os_log_type_enabled(bufferCopy, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy2 = length;
-      v356 = 2048;
-      *v357 = 120;
+      v236 = 2048;
+      *v237 = 120;
       _os_log_error_impl(&dword_1E0E2F000, bufferCopy, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct %lu", buf, 0x16u);
     }
 
-    *__error() = v150;
-    _SASetCrashLogMessage(3203, "bufferLength %lu < serialized SATask struct %lu", v151, v152, v153, v154, v155, v156, length);
+    *__error() = v149;
+    _SASetCrashLogMessage(3203, "bufferLength %lu < serialized SATask struct %lu", length, 120);
     _os_crash();
     __break(1u);
     goto LABEL_52;
   }
 
   bufferCopy = buffer;
-  v349 = 8 * (vaddvq_s32(*(buffer + 66)) + *(buffer + 82));
-  if (v349 + 120 > length)
+  v229 = 8 * (vaddvq_s32(*(buffer + 66)) + *(buffer + 82));
+  if (v229 + 120 > length)
   {
 LABEL_52:
+    v150 = *__error();
+    v151 = _sa_logt();
+    if (os_log_type_enabled(v151, OS_LOG_TYPE_ERROR))
+    {
+      v152 = *(bufferCopy + 66);
+      v153 = *(bufferCopy + 70);
+      v154 = *(bufferCopy + 74);
+      v155 = *(bufferCopy + 78);
+      v156 = *(bufferCopy + 82);
+      *buf = 134219264;
+      lengthCopy2 = length;
+      v236 = 1024;
+      *v237 = v152;
+      *&v237[4] = 1024;
+      *&v237[6] = v153;
+      v238 = 1024;
+      v239 = v154;
+      v240 = 1024;
+      v241 = v155;
+      v242 = 1024;
+      v243 = v156;
+      _os_log_error_impl(&dword_1E0E2F000, v151, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", buf, 0x2Au);
+    }
+
+    *__error() = v150;
+    _SASetCrashLogMessage(3205, "bufferLength %lu < serialized SATask struct with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", length, *(bufferCopy + 66), *(bufferCopy + 70), *(bufferCopy + 74), *(bufferCopy + 78), *(bufferCopy + 82));
+    _os_crash();
+    __break(1u);
+LABEL_55:
     v157 = *__error();
     v158 = _sa_logt();
     if (os_log_type_enabled(v158, OS_LOG_TYPE_ERROR))
     {
-      v159 = *(bufferCopy + 66);
-      v160 = *(bufferCopy + 70);
-      v161 = *(bufferCopy + 74);
-      v162 = *(bufferCopy + 78);
-      v163 = *(bufferCopy + 82);
+      v159 = *(v6 + 66);
+      v160 = *(v6 + 70);
+      v161 = *(v6 + 74);
+      v162 = *(v6 + 78);
+      v163 = *(v6 + 82);
       *buf = 134219264;
-      lengthCopy2 = length;
-      v356 = 1024;
-      *v357 = v159;
-      *&v357[4] = 1024;
-      *&v357[6] = v160;
-      v358 = 1024;
-      v359 = v161;
-      v360 = 1024;
-      v361 = v162;
-      v362 = 1024;
-      v363 = v163;
-      _os_log_error_impl(&dword_1E0E2F000, v158, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", buf, 0x2Au);
+      lengthCopy2 = v8;
+      v236 = 1024;
+      *v237 = v159;
+      *&v237[4] = 1024;
+      *&v237[6] = v160;
+      v238 = 1024;
+      v239 = v161;
+      v240 = 1024;
+      v241 = v162;
+      v242 = 1024;
+      v243 = v163;
+      _os_log_error_impl(&dword_1E0E2F000, v158, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct v2 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", buf, 0x2Au);
     }
 
     *__error() = v157;
-    v321 = *(bufferCopy + 78);
-    v331 = *(bufferCopy + 82);
-    v301 = *(bufferCopy + 70);
-    v311 = *(bufferCopy + 74);
-    v291 = *(bufferCopy + 66);
-    _SASetCrashLogMessage(3205, "bufferLength %lu < serialized SATask struct with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", v164, v165, v166, v167, v168, v169, length);
-    _os_crash();
-    __break(1u);
-LABEL_55:
-    v170 = *__error();
-    v171 = _sa_logt();
-    if (os_log_type_enabled(v171, OS_LOG_TYPE_ERROR))
-    {
-      v172 = *(v6 + 66);
-      v173 = *(v6 + 70);
-      v174 = *(v6 + 74);
-      v175 = *(v6 + 78);
-      v176 = *(v6 + 82);
-      *buf = 134219264;
-      lengthCopy2 = v8;
-      v356 = 1024;
-      *v357 = v172;
-      *&v357[4] = 1024;
-      *&v357[6] = v173;
-      v358 = 1024;
-      v359 = v174;
-      v360 = 1024;
-      v361 = v175;
-      v362 = 1024;
-      v363 = v176;
-      _os_log_error_impl(&dword_1E0E2F000, v171, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct v2 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", buf, 0x2Au);
-    }
-
-    *__error() = v170;
-    v322 = *(v6 + 78);
-    v332 = *(v6 + 82);
-    v302 = *(v6 + 70);
-    v312 = *(v6 + 74);
-    v292 = *(v6 + 66);
-    _SASetCrashLogMessage(3252, "bufferLength %lu < serialized SATask struct v2 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", v177, v178, v179, v180, v181, v182, v8);
+    _SASetCrashLogMessage(3252, "bufferLength %lu < serialized SATask struct v2 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", v8, *(v6 + 66), *(v6 + 70), *(v6 + 74), *(v6 + 78), *(v6 + 82));
     _os_crash();
     __break(1u);
 LABEL_58:
-    v183 = *__error();
-    v184 = _sa_logt();
-    if (os_log_type_enabled(v184, OS_LOG_TYPE_ERROR))
+    v164 = *__error();
+    v165 = _sa_logt();
+    if (os_log_type_enabled(v165, OS_LOG_TYPE_ERROR))
     {
-      v185 = *(v6 + 66);
-      v186 = *(v6 + 70);
-      v187 = *(v6 + 74);
-      v188 = *(v6 + 78);
-      v189 = *(v6 + 82);
+      v166 = *(v6 + 66);
+      v167 = *(v6 + 70);
+      v168 = *(v6 + 74);
+      v169 = *(v6 + 78);
+      v170 = *(v6 + 82);
       *buf = 134219264;
       lengthCopy2 = v8;
-      v356 = 1024;
-      *v357 = v185;
-      *&v357[4] = 1024;
-      *&v357[6] = v186;
-      v358 = 1024;
-      v359 = v187;
-      v360 = 1024;
-      v361 = v188;
-      v362 = 1024;
-      v363 = v189;
-      _os_log_error_impl(&dword_1E0E2F000, v184, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct v3 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", buf, 0x2Au);
+      v236 = 1024;
+      *v237 = v166;
+      *&v237[4] = 1024;
+      *&v237[6] = v167;
+      v238 = 1024;
+      v239 = v168;
+      v240 = 1024;
+      v241 = v169;
+      v242 = 1024;
+      v243 = v170;
+      _os_log_error_impl(&dword_1E0E2F000, v165, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct v3 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", buf, 0x2Au);
     }
 
-    *__error() = v183;
-    v323 = *(v6 + 78);
-    v333 = *(v6 + 82);
-    v303 = *(v6 + 70);
-    v313 = *(v6 + 74);
-    v293 = *(v6 + 66);
-    _SASetCrashLogMessage(3279, "bufferLength %lu < serialized SATask struct v3 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", v190, v191, v192, v193, v194, v195, v8);
+    *__error() = v164;
+    _SASetCrashLogMessage(3279, "bufferLength %lu < serialized SATask struct v3 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", v8, *(v6 + 66), *(v6 + 70), *(v6 + 74), *(v6 + 78), *(v6 + 82));
     _os_crash();
     __break(1u);
 LABEL_61:
-    v196 = *__error();
-    v197 = _sa_logt();
-    if (os_log_type_enabled(v197, OS_LOG_TYPE_ERROR))
+    v171 = *__error();
+    v172 = _sa_logt();
+    if (os_log_type_enabled(v172, OS_LOG_TYPE_ERROR))
     {
-      v198 = *(v6 + 66);
-      v199 = *(v6 + 70);
-      v200 = *(v6 + 74);
-      v201 = *(v6 + 78);
-      v202 = *(v6 + 82);
+      v173 = *(v6 + 66);
+      v174 = *(v6 + 70);
+      v175 = *(v6 + 74);
+      v176 = *(v6 + 78);
+      v177 = *(v6 + 82);
       *buf = 134219264;
       lengthCopy2 = v8;
-      v356 = 1024;
-      *v357 = v198;
-      *&v357[4] = 1024;
-      *&v357[6] = v199;
-      v358 = 1024;
-      v359 = v200;
-      v360 = 1024;
-      v361 = v201;
-      v362 = 1024;
-      v363 = v202;
-      _os_log_error_impl(&dword_1E0E2F000, v197, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct v4 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", buf, 0x2Au);
+      v236 = 1024;
+      *v237 = v173;
+      *&v237[4] = 1024;
+      *&v237[6] = v174;
+      v238 = 1024;
+      v239 = v175;
+      v240 = 1024;
+      v241 = v176;
+      v242 = 1024;
+      v243 = v177;
+      _os_log_error_impl(&dword_1E0E2F000, v172, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct v4 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", buf, 0x2Au);
     }
 
-    *__error() = v196;
-    v324 = *(v6 + 78);
-    v334 = *(v6 + 82);
-    v304 = *(v6 + 70);
-    v314 = *(v6 + 74);
-    v294 = *(v6 + 66);
-    _SASetCrashLogMessage(3291, "bufferLength %lu < serialized SATask struct v4 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", v203, v204, v205, v206, v207, v208, v8);
+    *__error() = v171;
+    _SASetCrashLogMessage(3291, "bufferLength %lu < serialized SATask struct v4 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", v8, *(v6 + 66), *(v6 + 70), *(v6 + 74), *(v6 + 78), *(v6 + 82));
     _os_crash();
     __break(1u);
 LABEL_64:
-    v209 = *__error();
-    v210 = _sa_logt();
-    if (os_log_type_enabled(v210, OS_LOG_TYPE_ERROR))
+    v178 = *__error();
+    v179 = _sa_logt();
+    if (os_log_type_enabled(v179, OS_LOG_TYPE_ERROR))
     {
-      v211 = *(v6 + 66);
-      v212 = *(v6 + 70);
-      v213 = *(v6 + 74);
-      v214 = *(v6 + 78);
-      v215 = *(v6 + 82);
+      v180 = *(v6 + 66);
+      v181 = *(v6 + 70);
+      v182 = *(v6 + 74);
+      v183 = *(v6 + 78);
+      v184 = *(v6 + 82);
       *buf = 134219264;
       lengthCopy2 = v8;
-      v356 = 1024;
-      *v357 = v211;
-      *&v357[4] = 1024;
-      *&v357[6] = v212;
-      v358 = 1024;
-      v359 = v213;
-      v360 = 1024;
-      v361 = v214;
-      v362 = 1024;
-      v363 = v215;
-      _os_log_error_impl(&dword_1E0E2F000, v210, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct v5 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", buf, 0x2Au);
+      v236 = 1024;
+      *v237 = v180;
+      *&v237[4] = 1024;
+      *&v237[6] = v181;
+      v238 = 1024;
+      v239 = v182;
+      v240 = 1024;
+      v241 = v183;
+      v242 = 1024;
+      v243 = v184;
+      _os_log_error_impl(&dword_1E0E2F000, v179, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct v5 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", buf, 0x2Au);
     }
 
-    *__error() = v209;
-    v325 = *(v6 + 78);
-    v335 = *(v6 + 82);
-    v305 = *(v6 + 70);
-    v315 = *(v6 + 74);
-    v295 = *(v6 + 66);
-    _SASetCrashLogMessage(3307, "bufferLength %lu < serialized SATask struct v5 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", v216, v217, v218, v219, v220, v221, v8);
+    *__error() = v178;
+    _SASetCrashLogMessage(3307, "bufferLength %lu < serialized SATask struct v5 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", v8, *(v6 + 66), *(v6 + 70), *(v6 + 74), *(v6 + 78), *(v6 + 82));
     _os_crash();
     __break(1u);
 LABEL_67:
-    v222 = *__error();
-    v223 = _sa_logt();
-    if (os_log_type_enabled(v223, OS_LOG_TYPE_ERROR))
+    v185 = *__error();
+    v186 = _sa_logt();
+    if (os_log_type_enabled(v186, OS_LOG_TYPE_ERROR))
     {
-      v224 = *(v353 + 66);
-      v225 = *(v353 + 70);
-      v226 = *(v353 + 74);
-      v227 = *(v353 + 78);
-      v228 = *(v353 + 82);
+      v187 = *(v233 + 66);
+      v188 = *(v233 + 70);
+      v189 = *(v233 + 74);
+      v190 = *(v233 + 78);
+      v191 = *(v233 + 82);
       *buf = 134219264;
       lengthCopy2 = lengthCopy3;
-      v356 = 1024;
-      *v357 = v224;
-      *&v357[4] = 1024;
-      *&v357[6] = v225;
-      v358 = 1024;
-      v359 = v226;
-      v360 = 1024;
-      v361 = v227;
-      v362 = 1024;
-      v363 = v228;
-      _os_log_error_impl(&dword_1E0E2F000, v223, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct v6 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", buf, 0x2Au);
+      v236 = 1024;
+      *v237 = v187;
+      *&v237[4] = 1024;
+      *&v237[6] = v188;
+      v238 = 1024;
+      v239 = v189;
+      v240 = 1024;
+      v241 = v190;
+      v242 = 1024;
+      v243 = v191;
+      _os_log_error_impl(&dword_1E0E2F000, v186, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct v6 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", buf, 0x2Au);
     }
 
-    *__error() = v222;
-    v326 = *(v353 + 78);
-    v336 = *(v353 + 82);
-    v306 = *(v353 + 70);
-    v316 = *(v353 + 74);
-    v296 = *(v353 + 66);
-    _SASetCrashLogMessage(3319, "bufferLength %lu < serialized SATask struct v6 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", v229, v230, v231, v232, v233, v234, lengthCopy3);
+    *__error() = v185;
+    _SASetCrashLogMessage(3319, "bufferLength %lu < serialized SATask struct v6 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", lengthCopy3, *(v233 + 66), *(v233 + 70), *(v233 + 74), *(v233 + 78), *(v233 + 82));
     _os_crash();
     __break(1u);
 LABEL_70:
-    v235 = *__error();
-    v236 = _sa_logt();
-    if (os_log_type_enabled(v236, OS_LOG_TYPE_ERROR))
+    v192 = *__error();
+    v193 = _sa_logt();
+    if (os_log_type_enabled(v193, OS_LOG_TYPE_ERROR))
     {
-      v237 = *(v353 + 66);
-      v238 = *(v353 + 70);
-      v239 = *(v353 + 74);
-      v240 = *(v353 + 78);
-      v241 = *(v353 + 82);
+      v194 = *(v233 + 66);
+      v195 = *(v233 + 70);
+      v196 = *(v233 + 74);
+      v197 = *(v233 + 78);
+      v198 = *(v233 + 82);
       *buf = 134219264;
       lengthCopy2 = lengthCopy3;
-      v356 = 1024;
-      *v357 = v237;
-      *&v357[4] = 1024;
-      *&v357[6] = v238;
-      v358 = 1024;
-      v359 = v239;
-      v360 = 1024;
-      v361 = v240;
-      v362 = 1024;
-      v363 = v241;
-      _os_log_error_impl(&dword_1E0E2F000, v236, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct v7 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", buf, 0x2Au);
+      v236 = 1024;
+      *v237 = v194;
+      *&v237[4] = 1024;
+      *&v237[6] = v195;
+      v238 = 1024;
+      v239 = v196;
+      v240 = 1024;
+      v241 = v197;
+      v242 = 1024;
+      v243 = v198;
+      _os_log_error_impl(&dword_1E0E2F000, v193, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct v7 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", buf, 0x2Au);
     }
 
-    *__error() = v235;
-    v327 = *(v353 + 78);
-    v337 = *(v353 + 82);
-    v307 = *(v353 + 70);
-    v317 = *(v353 + 74);
-    v297 = *(v353 + 66);
-    _SASetCrashLogMessage(3330, "bufferLength %lu < serialized SATask struct v7 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", v242, v243, v244, v245, v246, v247, lengthCopy3);
+    *__error() = v192;
+    _SASetCrashLogMessage(3330, "bufferLength %lu < serialized SATask struct v7 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues", lengthCopy3, *(v233 + 66), *(v233 + 70), *(v233 + 74), *(v233 + 78), *(v233 + 82));
     _os_crash();
     __break(1u);
     goto LABEL_73;
@@ -6245,7 +6225,7 @@ LABEL_70:
 
   v42 = *(bufferCopy + 66);
   v43 = bufferCopy + 120 + 8 * v42;
-  v353 = bufferCopy;
+  v233 = bufferCopy;
   v44 = *(bufferCopy + 70);
   v45 = objc_opt_class();
   v46 = SASerializableNewMutableArrayFromIndexList(v43, v44, dictionary, bufferDictionary, v45);
@@ -6264,8 +6244,8 @@ LABEL_70:
   v54 = *(bufferCopy + 70);
   v55 = *(v6 + 74);
   v56 = objc_opt_class();
-  v345 = v43 + 8 * v54;
-  v57 = SASerializableNewMutableArrayFromIndexList(v345, v55, dictionary, bufferDictionary, v56);
+  v225 = v43 + 8 * v54;
+  v57 = SASerializableNewMutableArrayFromIndexList(v225, v55, dictionary, bufferDictionary, v56);
   taskStates = self->_taskStates;
   self->_taskStates = v57;
 
@@ -6275,9 +6255,9 @@ LABEL_70:
   self->_threads = v60;
 
   v7 = 0x1E696A000uLL;
-  v347 = v42;
-  v348 = v54;
-  v352 = v59;
+  v227 = v42;
+  v228 = v54;
+  v232 = v59;
   if (*(v6 + 78))
   {
     v62 = 0;
@@ -6290,12 +6270,12 @@ LABEL_70:
       v67 = self->_threads;
       v68 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(v66, "threadId")}];
       v69 = v67;
-      v6 = v353;
+      v6 = v233;
       [(NSMutableDictionary *)v69 setObject:v66 forKeyedSubscript:v68];
 
       v7 = 0x1E696A000;
       ++v62;
-      v70 = *(v353 + 78);
+      v70 = *(v233 + 78);
     }
 
     while (v62 < v70);
@@ -6313,7 +6293,7 @@ LABEL_70:
   if (*(v6 + 82))
   {
     v73 = 0;
-    v74 = 8 * v70 + 8 * v347 + 8 * v352 + 8 * v348 + v6 + 120;
+    v74 = 8 * v70 + 8 * v227 + 8 * v232 + 8 * v228 + v6 + 120;
     v75 = v7;
     do
     {
@@ -6323,11 +6303,11 @@ LABEL_70:
       v79 = self->_dispatchQueues;
       v7 = [*(v75 + 3480) numberWithUnsignedLongLong:{objc_msgSend(v78, "identifier")}];
       v80 = v79;
-      v6 = v353;
+      v6 = v233;
       [(NSMutableDictionary *)v80 setObject:v78 forKeyedSubscript:v7];
 
       ++v73;
-      v81 = *(v353 + 82);
+      v81 = *(v233 + 82);
     }
 
     while (v73 < v81);
@@ -6341,15 +6321,15 @@ LABEL_70:
   v8 = lengthCopy3;
   if (*(v6 + 1) < 2u)
   {
-    goto LABEL_48;
+    return;
   }
 
-  if (v349 + 176 > lengthCopy3)
+  if (v229 + 176 > lengthCopy3)
   {
     goto LABEL_55;
   }
 
-  v7 = v345 + 8 * v352 + 8 * v70 + 8 * v81;
+  v7 = v225 + 8 * v232 + 8 * v70 + 8 * v81;
   v82 = *v7;
   v83 = objc_opt_class();
   v84 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v82, dictionary, bufferDictionary, v83, 0);
@@ -6381,8 +6361,8 @@ LABEL_70:
     v100 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v98, dictionary, bufferDictionary, v99, 0);
     if (v100)
     {
-      v346 = objc_alloc_init(MEMORY[0x1E696ADA0]);
-      v101 = [v346 numberFromString:v100];
+      v226 = objc_alloc_init(MEMORY[0x1E696ADA0]);
+      v101 = [v226 numberFromString:v100];
       v102 = v101;
       if (v101)
       {
@@ -6391,7 +6371,7 @@ LABEL_70:
 
       else
       {
-        v344 = *__error();
+        v224 = *__error();
         v103 = _sa_logt();
         if (os_log_type_enabled(v103, OS_LOG_TYPE_FAULT))
         {
@@ -6400,10 +6380,10 @@ LABEL_70:
           _os_log_fault_impl(&dword_1E0E2F000, v103, OS_LOG_TYPE_FAULT, "Unable to parse commerceAppID %@", buf, 0xCu);
         }
 
-        *__error() = v344;
+        *__error() = v224;
       }
 
-      v6 = v353;
+      v6 = v233;
     }
   }
 
@@ -6421,10 +6401,10 @@ LABEL_70:
 
   if (*(v6 + 1) < 3u)
   {
-    goto LABEL_48;
+    return;
   }
 
-  if (v349 + 184 > lengthCopy3)
+  if (v229 + 184 > lengthCopy3)
   {
     goto LABEL_58;
   }
@@ -6437,10 +6417,10 @@ LABEL_70:
 
   if (*(v6 + 1) < 4u)
   {
-    goto LABEL_48;
+    return;
   }
 
-  if (v349 + 216 > lengthCopy3)
+  if (v229 + 216 > lengthCopy3)
   {
     goto LABEL_61;
   }
@@ -6467,10 +6447,10 @@ LABEL_70:
 
   if (*(v6 + 1) < 5u)
   {
-    goto LABEL_48;
+    return;
   }
 
-  if (v349 + 217 > lengthCopy3)
+  if (v229 + 217 > lengthCopy3)
   {
     goto LABEL_64;
   }
@@ -6479,10 +6459,10 @@ LABEL_70:
   v128 = *(v6 + 1);
   if (v128 < 6)
   {
-    goto LABEL_48;
+    return;
   }
 
-  if (v349 + 225 > lengthCopy3)
+  if (v229 + 225 > lengthCopy3)
   {
     goto LABEL_67;
   }
@@ -6490,53 +6470,47 @@ LABEL_70:
   self->_resourceCoalitionID = *(v7 + 97);
   if (v128 == 6)
   {
-    goto LABEL_48;
+    return;
   }
 
-  if (v349 + 229 > lengthCopy3)
+  if (v229 + 229 > lengthCopy3)
   {
     goto LABEL_70;
   }
 
-  v350 = v349 + 229 + 8 * *(v7 + 105);
-  if (v350 > lengthCopy3)
+  v230 = v229 + 229 + 8 * *(v7 + 105);
+  if (v230 > lengthCopy3)
   {
 LABEL_73:
-    v248 = *__error();
-    v249 = _sa_logt();
-    if (os_log_type_enabled(v249, OS_LOG_TYPE_ERROR))
+    v199 = *__error();
+    v200 = _sa_logt();
+    if (os_log_type_enabled(v200, OS_LOG_TYPE_ERROR))
     {
-      v250 = *(v353 + 66);
-      v251 = *(v353 + 70);
-      v252 = *(v353 + 74);
-      v253 = *(v353 + 78);
-      v254 = *(v353 + 82);
-      v255 = *(v7 + 105);
+      v201 = *(v233 + 66);
+      v202 = *(v233 + 70);
+      v203 = *(v233 + 74);
+      v204 = *(v233 + 78);
+      v205 = *(v233 + 82);
+      v206 = *(v7 + 105);
       *buf = 134219520;
       lengthCopy2 = lengthCopy3;
-      v356 = 1024;
-      *v357 = v250;
-      *&v357[4] = 1024;
-      *&v357[6] = v251;
-      v358 = 1024;
-      v359 = v252;
-      v360 = 1024;
-      v361 = v253;
-      v362 = 1024;
-      v363 = v254;
-      v364 = 1024;
-      v365 = v255;
-      _os_log_error_impl(&dword_1E0E2F000, v249, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct v7 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues, %u swift tasks", buf, 0x30u);
+      v236 = 1024;
+      *v237 = v201;
+      *&v237[4] = 1024;
+      *&v237[6] = v202;
+      v238 = 1024;
+      v239 = v203;
+      v240 = 1024;
+      v241 = v204;
+      v242 = 1024;
+      v243 = v205;
+      v244 = 1024;
+      v245 = v206;
+      _os_log_error_impl(&dword_1E0E2F000, v200, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct v7 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues, %u swift tasks", buf, 0x30u);
     }
 
-    *__error() = v248;
-    v338 = *(v353 + 82);
-    v341 = *(v7 + 105);
-    v318 = *(v353 + 74);
-    v328 = *(v353 + 78);
-    v298 = *(v353 + 66);
-    v308 = *(v353 + 70);
-    _SASetCrashLogMessage(3333, "bufferLength %lu < serialized SATask struct v7 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues, %u swift tasks", v256, v257, v258, v259, v260, v261, lengthCopy3);
+    *__error() = v199;
+    _SASetCrashLogMessage(3333, "bufferLength %lu < serialized SATask struct v7 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues, %u swift tasks", lengthCopy3, *(v233 + 66), *(v233 + 70), *(v233 + 74), *(v233 + 78), *(v233 + 82), *(v7 + 105));
     _os_crash();
     __break(1u);
     goto LABEL_76;
@@ -6549,7 +6523,7 @@ LABEL_73:
   if (*(v7 + 105))
   {
     v131 = 0;
-    v132 = 8 * v70 + 8 * v81 + 8 * v347 + 8 * v352 + 8 * v348 + v6 + 229;
+    v132 = 8 * v70 + 8 * v81 + 8 * v227 + 8 * v232 + 8 * v228 + v6 + 229;
     bufferDictionaryCopy2 = bufferDictionary;
     do
     {
@@ -6573,119 +6547,104 @@ LABEL_73:
     bufferDictionaryCopy2 = bufferDictionary;
   }
 
-  if (*(v353 + 1) < 8u)
+  if (*(v233 + 1) >= 8u)
   {
-    goto LABEL_48;
-  }
-
-  if (v350 + 8 > lengthCopy3)
-  {
-LABEL_76:
-    v262 = *__error();
-    v263 = _sa_logt();
-    if (os_log_type_enabled(v263, OS_LOG_TYPE_ERROR))
+    if (v230 + 8 <= lengthCopy3)
     {
-      v264 = *(v353 + 66);
-      v265 = *(v353 + 70);
-      v266 = *(v353 + 74);
-      v267 = *(v353 + 78);
-      v268 = *(v353 + 82);
-      v269 = *(v7 + 105);
-      *buf = 134219520;
-      lengthCopy2 = lengthCopy3;
-      v356 = 1024;
-      *v357 = v264;
-      *&v357[4] = 1024;
-      *&v357[6] = v265;
-      v358 = 1024;
-      v359 = v266;
-      v360 = 1024;
-      v361 = v267;
-      v362 = 1024;
-      v363 = v268;
-      v364 = 1024;
-      v365 = v269;
-      _os_log_error_impl(&dword_1E0E2F000, v263, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct v8 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues, %u swift tasks", buf, 0x30u);
+      v140 = (v7 + 109 + 8 * v139);
+      v141 = *v140;
+      v142 = objc_opt_class();
+      v143 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v141, dictionary, bufferDictionaryCopy2, v142, 0);
+      distributorID = self->_distributorID;
+      self->_distributorID = v143;
+
+      if (*(v233 + 1) < 9u)
+      {
+        return;
+      }
+
+      if (v230 + 16 <= lengthCopy3)
+      {
+        v145 = v140[1];
+        v146 = objc_opt_class();
+        v147 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v145, dictionary, bufferDictionaryCopy2, v146, 0);
+        resourceCoalitionName = self->_resourceCoalitionName;
+        self->_resourceCoalitionName = v147;
+
+        return;
+      }
+
+      goto LABEL_79;
     }
 
-    *__error() = v262;
-    v339 = *(v353 + 82);
-    v342 = *(v7 + 105);
-    v319 = *(v353 + 74);
-    v329 = *(v353 + 78);
-    v299 = *(v353 + 66);
-    v309 = *(v353 + 70);
-    _SASetCrashLogMessage(3348, "bufferLength %lu < serialized SATask struct v8 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues, %u swift tasks", v270, v271, v272, v273, v274, v275, lengthCopy3);
+LABEL_76:
+    v207 = *__error();
+    v208 = _sa_logt();
+    if (os_log_type_enabled(v208, OS_LOG_TYPE_ERROR))
+    {
+      v209 = *(v233 + 66);
+      v210 = *(v233 + 70);
+      v211 = *(v233 + 74);
+      v212 = *(v233 + 78);
+      v213 = *(v233 + 82);
+      v214 = *(v7 + 105);
+      *buf = 134219520;
+      lengthCopy2 = lengthCopy3;
+      v236 = 1024;
+      *v237 = v209;
+      *&v237[4] = 1024;
+      *&v237[6] = v210;
+      v238 = 1024;
+      v239 = v211;
+      v240 = 1024;
+      v241 = v212;
+      v242 = 1024;
+      v243 = v213;
+      v244 = 1024;
+      v245 = v214;
+      _os_log_error_impl(&dword_1E0E2F000, v208, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct v8 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues, %u swift tasks", buf, 0x30u);
+    }
+
+    *__error() = v207;
+    _SASetCrashLogMessage(3348, "bufferLength %lu < serialized SATask struct v8 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues, %u swift tasks", lengthCopy3, *(v233 + 66), *(v233 + 70), *(v233 + 74), *(v233 + 78), *(v233 + 82), *(v7 + 105));
     _os_crash();
     __break(1u);
 LABEL_79:
-    v276 = *__error();
-    v277 = _sa_logt();
-    if (os_log_type_enabled(v277, OS_LOG_TYPE_ERROR))
+    v215 = *__error();
+    v216 = _sa_logt();
+    if (os_log_type_enabled(v216, OS_LOG_TYPE_ERROR))
     {
-      v278 = *(v353 + 66);
-      v279 = *(v353 + 70);
-      v280 = *(v353 + 74);
-      v281 = *(v353 + 78);
-      v282 = *(v353 + 82);
-      v283 = *(v7 + 105);
+      v217 = *(v233 + 66);
+      v218 = *(v233 + 70);
+      v219 = *(v233 + 74);
+      v220 = *(v233 + 78);
+      v221 = *(v233 + 82);
+      v222 = *(v7 + 105);
       *buf = 134219520;
       lengthCopy2 = lengthCopy3;
-      v356 = 1024;
-      *v357 = v278;
-      *&v357[4] = 1024;
-      *&v357[6] = v279;
-      v358 = 1024;
-      v359 = v280;
-      v360 = 1024;
-      v361 = v281;
-      v362 = 1024;
-      v363 = v282;
-      v364 = 1024;
-      v365 = v283;
-      _os_log_error_impl(&dword_1E0E2F000, v277, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct v9 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues, %u swift tasks", buf, 0x30u);
+      v236 = 1024;
+      *v237 = v217;
+      *&v237[4] = 1024;
+      *&v237[6] = v218;
+      v238 = 1024;
+      v239 = v219;
+      v240 = 1024;
+      v241 = v220;
+      v242 = 1024;
+      v243 = v221;
+      v244 = 1024;
+      v245 = v222;
+      _os_log_error_impl(&dword_1E0E2F000, v216, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATask struct v9 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues, %u swift tasks", buf, 0x30u);
     }
 
-    *__error() = v276;
-    v340 = *(v353 + 82);
-    v343 = *(v7 + 105);
-    v320 = *(v353 + 74);
-    v330 = *(v353 + 78);
-    v300 = *(v353 + 66);
-    v310 = *(v353 + 70);
-    _SASetCrashLogMessage(3359, "bufferLength %lu < serialized SATask struct v9 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues, %u swift tasks", v284, v285, v286, v287, v288, v289, lengthCopy3);
+    *__error() = v215;
+    _SASetCrashLogMessage(3359, "bufferLength %lu < serialized SATask struct v9 with %u root frames, %u image infos, %u task states, %u threads, %u dispatch queues, %u swift tasks", lengthCopy3, *(v233 + 66), *(v233 + 70), *(v233 + 74), *(v233 + 78), *(v233 + 82), *(v7 + 105));
     _os_crash();
     __break(1u);
 LABEL_82:
-    v290 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SATask version" userInfo:0];
-    objc_exception_throw(v290);
+    v223 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SATask version" userInfo:0];
+    objc_exception_throw(v223);
   }
-
-  v140 = (v7 + 109 + 8 * v139);
-  v141 = *v140;
-  v142 = objc_opt_class();
-  v143 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v141, dictionary, bufferDictionaryCopy2, v142, 0);
-  distributorID = self->_distributorID;
-  self->_distributorID = v143;
-
-  if (*(v353 + 1) >= 9u)
-  {
-    if (v350 + 16 <= lengthCopy3)
-    {
-      v145 = v140[1];
-      v146 = objc_opt_class();
-      v147 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v145, dictionary, bufferDictionaryCopy2, v146, 0);
-      resourceCoalitionName = self->_resourceCoalitionName;
-      self->_resourceCoalitionName = v147;
-
-      goto LABEL_48;
-    }
-
-    goto LABEL_79;
-  }
-
-LABEL_48:
-  v149 = *MEMORY[0x1E69E9840];
 }
 
 + (double)taskWithoutReferencesFromPAStyleSerializedTask:(uint64_t)task
@@ -6874,7 +6833,7 @@ LABEL_12:
   return anyObject;
 }
 
-uint64_t __55__SATask_Serialization__removeStacksOutsideThisProcess__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__55__SATask_Serialization__removeStacksOutsideThisProcess__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 isTruncatedBacktraceFrame];
   if (result)

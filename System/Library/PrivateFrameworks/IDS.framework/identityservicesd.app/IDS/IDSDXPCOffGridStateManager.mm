@@ -156,7 +156,7 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v3 doubleValue];
+    objc_msgSend_doubleValue(v3);
     v5 = v4;
   }
 
@@ -2438,7 +2438,7 @@ LABEL_36:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v3 doubleValue];
+    objc_msgSend_doubleValue(v3);
     v5 = v4;
   }
 
@@ -2458,7 +2458,7 @@ LABEL_36:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v3 doubleValue];
+    objc_msgSend_doubleValue(v3);
     v5 = v4;
   }
 
@@ -2512,7 +2512,7 @@ LABEL_36:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v3 doubleValue];
+    objc_msgSend_doubleValue(v3);
     v5 = v4;
   }
 
@@ -2532,7 +2532,7 @@ LABEL_36:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v3 doubleValue];
+    objc_msgSend_doubleValue(v3);
     v5 = v4;
   }
 
@@ -2553,7 +2553,7 @@ LABEL_36:
   v4 = 10.0;
   if (objc_opt_isKindOfClass())
   {
-    [v3 doubleValue];
+    objc_msgSend_doubleValue(v3);
     v4 = v5;
   }
 
@@ -2568,7 +2568,7 @@ LABEL_36:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v3 doubleValue];
+    objc_msgSend_doubleValue(v3);
     v5 = v4;
   }
 
@@ -2588,7 +2588,7 @@ LABEL_36:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v3 doubleValue];
+    objc_msgSend_doubleValue(v3);
     v5 = v4;
   }
 

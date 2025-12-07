@@ -6,80 +6,81 @@
 
 - (ASDTSpeakerThieleSmall)initWithSysCfgData:(id)data
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v22.receiver = self;
-  v22.super_class = ASDTSpeakerThieleSmall;
-  v5 = [(ASDTAcousticData *)&v22 initWithSysCfgData:dataCopy andType:1399870547];
+  v28.receiver = self;
+  v28.super_class = ASDTSpeakerThieleSmall;
+  v5 = [(ASDTAcousticData *)&v28 initWithSysCfgData:dataCopy andType:1399870547];
   if (v5)
   {
     v6 = dataCopy;
-    v7 = *[dataCopy bytes];
-    if (v7 == 2)
+    bytes = [dataCopy bytes];
+    v9 = *bytes;
+    if (v9 == 2)
     {
-      v8 = dataCopy;
-      bytes = [dataCopy bytes];
-      if (ASDT::Acoustic::Base::valid(bytes, [dataCopy length], 0x16uLL, 2))
+      v10 = dataCopy;
+      bytes2 = [dataCopy bytes];
+      v12 = ASDT::Acoustic::Base::valid(bytes2, [dataCopy length], 0x16uLL, 2);
+      if (v12)
       {
-        v10 = ASDT::Acoustic::Data<ASDT::Acoustic::SpeakerThieleSmallV2,(unsigned short)2>::entries(bytes);
-        if (v10)
+        v14 = ASDT::Acoustic::Data<ASDT::Acoustic::SpeakerThieleSmallV2,(unsigned short)2>::entries(bytes2);
+        if (v14)
         {
-          v11 = v10;
-          [(ASDTAcousticData *)v5 setEntries:v10];
-          v12 = ASDTBaseLogType();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          v16 = v14;
+          v17 = [(ASDTAcousticData *)v5 setEntries:v14];
+          v19 = ASDTBaseLogType(v17, v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             name = [(ASDTAcousticData *)v5 name];
             entries = [(ASDTAcousticData *)v5 entries];
             *buf = 138412546;
-            v24 = name;
-            v25 = 2112;
-            v26 = entries;
-            _os_log_impl(&dword_241659000, v12, OS_LOG_TYPE_DEFAULT, "%@: %@", buf, 0x16u);
+            v30 = name;
+            v31 = 2112;
+            v32 = entries;
+            _os_log_impl(&dword_241659000, v19, OS_LOG_TYPE_DEFAULT, "%@: %@", buf, 0x16u);
           }
 
           goto LABEL_8;
         }
 
-        v16 = ASDTBaseLogType();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v23 = ASDTBaseLogType(0, v15);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           name2 = [(ASDTAcousticData *)v5 name];
-          [(ASDTSpeakerThieleSmall *)name2 initWithSysCfgData:buf, v16];
+          [(ASDTSpeakerThieleSmall *)name2 initWithSysCfgData:buf, v23];
         }
       }
 
       else
       {
-        v16 = ASDTBaseLogType();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v23 = ASDTBaseLogType(v12, v13);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           name3 = [(ASDTAcousticData *)v5 name];
-          [(ASDTSpeakerThieleSmall *)name3 initWithSysCfgData:buf, v16];
+          [(ASDTSpeakerThieleSmall *)name3 initWithSysCfgData:buf, v23];
         }
       }
     }
 
     else
     {
-      v16 = ASDTBaseLogType();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v23 = ASDTBaseLogType(bytes, v8);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         name4 = [(ASDTAcousticData *)v5 name];
-        [(ASDTSpeakerThieleSmall *)name4 initWithSysCfgData:buf, v7, v16];
+        [(ASDTSpeakerThieleSmall *)name4 initWithSysCfgData:buf, v9, v23];
       }
     }
 
-    v15 = 0;
+    v22 = 0;
     goto LABEL_16;
   }
 
 LABEL_8:
-  v15 = v5;
+  v22 = v5;
 LABEL_16:
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v22;
 }
 
 - (void)initWithSysCfgData:(int)a3 .cold.1(void *a1, uint8_t *buf, int a3, os_log_t log)

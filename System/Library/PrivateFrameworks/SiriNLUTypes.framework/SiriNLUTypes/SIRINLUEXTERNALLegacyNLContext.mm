@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)legacyContextSourceAsString:(int)string;
 - (int)StringAsLegacyContextSource:(id)source;
 - (int)legacyContextSource;
 - (unint64_t)hash;
@@ -20,7 +21,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   v5 = fromCopy;
   v6 = fromCopy[44];
@@ -48,29 +49,29 @@
     *&self->_has |= 4u;
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v7 = *(v5 + 3);
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v23;
+    v10 = *v22;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(SIRINLUEXTERNALLegacyNLContext *)self addRenderedTexts:*(*(&v22 + 1) + 8 * i)];
+        [(SIRINLUEXTERNALLegacyNLContext *)self addRenderedTexts:*(*(&v21 + 1) + 8 * i)];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v9);
@@ -82,35 +83,33 @@
     *&self->_has |= 1u;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v12 = *(v5 + 4);
-  v13 = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [(SIRINLUEXTERNALLegacyNLContext *)self addResponseSemanticValues:*(*(&v18 + 1) + 8 * j), v18];
+        [(SIRINLUEXTERNALLegacyNLContext *)self addResponseSemanticValues:*(*(&v17 + 1) + 8 * j), v17];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v14);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)hash
@@ -179,7 +178,6 @@ LABEL_6:
       goto LABEL_38;
     }
 
-    v9 = *(equalCopy + 40);
     if (self->_dictationPrompt)
     {
       if ((*(equalCopy + 40) & 1) == 0)
@@ -206,7 +204,6 @@ LABEL_6:
       goto LABEL_38;
     }
 
-    v10 = *(equalCopy + 42);
     if (self->_strictPrompt)
     {
       if ((*(equalCopy + 42) & 1) == 0)
@@ -245,7 +242,6 @@ LABEL_6:
       goto LABEL_38;
     }
 
-    v11 = *(equalCopy + 41);
     if (self->_listenAfterSpeaking)
     {
       if ((*(equalCopy + 41) & 1) == 0)
@@ -274,7 +270,7 @@ LABEL_6:
   if (![(NSMutableArray *)renderedTexts isEqual:?])
   {
 LABEL_38:
-    v13 = 0;
+    v10 = 0;
     goto LABEL_39;
   }
 
@@ -297,22 +293,22 @@ LABEL_14:
   responseSemanticValues = self->_responseSemanticValues;
   if (responseSemanticValues | *(equalCopy + 4))
   {
-    v13 = [(NSMutableArray *)responseSemanticValues isEqual:?];
+    v10 = [(NSMutableArray *)responseSemanticValues isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v10 = 1;
   }
 
 LABEL_39:
 
-  return v13;
+  return v10;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -339,30 +335,30 @@ LABEL_39:
     v6[44] |= 4u;
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v10 = self->_renderedTexts;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v29;
+    v13 = *v28;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v29 != v13)
+        if (*v28 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [*(*(&v28 + 1) + 8 * i) copyWithZone:zone];
+        v15 = [*(*(&v27 + 1) + 8 * i) copyWithZone:zone];
         [v6 addRenderedTexts:v15];
       }
 
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v12);
@@ -374,36 +370,35 @@ LABEL_39:
     v6[44] |= 1u;
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v16 = self->_responseSemanticValues;
-  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v25;
+    v19 = *v24;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v25 != v19)
+        if (*v24 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = [*(*(&v24 + 1) + 8 * j) copyWithZone:{zone, v24}];
+        v21 = [*(*(&v23 + 1) + 8 * j) copyWithZone:{zone, v23}];
         [v6 addResponseSemanticValues:v21];
       }
 
-      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v18);
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -476,19 +471,17 @@ LABEL_39:
 
 - (void)writeTo:(id)to
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   toCopy = to;
   has = self->_has;
   if ((has & 2) != 0)
   {
-    dictationPrompt = self->_dictationPrompt;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if ((has & 8) != 0)
   {
-    strictPrompt = self->_strictPrompt;
     PBDataWriterWriteBOOLField();
   }
 
@@ -499,80 +492,74 @@ LABEL_39:
 
   if ((*&self->_has & 4) != 0)
   {
-    listenAfterSpeaking = self->_listenAfterSpeaking;
     PBDataWriterWriteBOOLField();
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v9 = self->_renderedTexts;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
-  if (v10)
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v6 = self->_renderedTexts;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  if (v7)
   {
-    v11 = v10;
-    v12 = *v28;
+    v8 = v7;
+    v9 = *v21;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v28 != v12)
+        if (*v21 != v9)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v6);
         }
 
-        v14 = *(*(&v27 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
-    while (v11);
+    while (v8);
   }
 
   if (*&self->_has)
   {
-    legacyContextSource = self->_legacyContextSource;
     PBDataWriterWriteInt32Field();
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v16 = self->_responseSemanticValues;
-  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
-  if (v17)
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v11 = self->_responseSemanticValues;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  if (v12)
   {
-    v18 = v17;
-    v19 = *v24;
+    v13 = v12;
+    v14 = *v17;
     do
     {
-      for (j = 0; j != v18; ++j)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v24 != v19)
+        if (*v17 != v14)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v11);
         }
 
-        v21 = *(*(&v23 + 1) + 8 * j);
         PBDataWriterWriteStringField();
       }
 
-      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
-    while (v18);
+    while (v13);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dictionaryRepresentation
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   has = self->_has;
   if ((has & 2) != 0)
@@ -604,30 +591,30 @@ LABEL_39:
   if ([(NSMutableArray *)self->_renderedTexts count])
   {
     v9 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_renderedTexts, "count")}];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v10 = self->_renderedTexts;
-    v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v22;
+      v13 = *v21;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v22 != v13)
+          if (*v21 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          dictionaryRepresentation = [*(*(&v21 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v20 + 1) + 8 * i) dictionaryRepresentation];
           [v9 addObject:dictionaryRepresentation];
         }
 
-        v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v12);
@@ -657,8 +644,6 @@ LABEL_39:
   {
     [dictionary setObject:responseSemanticValues forKey:@"response_semantic_values"];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -719,6 +704,21 @@ LABEL_39:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)legacyContextSourceAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E8328268[string];
   }
 
   return v4;

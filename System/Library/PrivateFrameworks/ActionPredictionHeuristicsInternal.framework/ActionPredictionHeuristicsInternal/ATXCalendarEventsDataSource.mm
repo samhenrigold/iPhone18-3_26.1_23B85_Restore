@@ -25,7 +25,7 @@
 
 - (void)calendarEventsFromStartDate:(id)date toEndDate:(id)endDate callback:(id)callback
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   callbackCopy = callback;
@@ -33,8 +33,8 @@
   {
     eventStore = [(ATXHeuristicDevice *)self->_device eventStore];
     visibleCalendarsInCurrentFocus = [(ATXHeuristicDevice *)self->_device visibleCalendarsInCurrentFocus];
-    v25 = [visibleCalendarsInCurrentFocus _pas_filteredArrayWithTest:&__block_literal_global_16];
-    v24 = [eventStore predicateForEventsWithStartDate:dateCopy endDate:endDateCopy calendars:?];
+    v24 = [visibleCalendarsInCurrentFocus _pas_filteredArrayWithTest:&__block_literal_global_16];
+    v23 = [eventStore predicateForEventsWithStartDate:dateCopy endDate:endDateCopy calendars:?];
     v13 = [eventStore eventsMatchingPredicate:?];
     [endDateCopy timeIntervalSinceDate:dateCopy];
     v15 = vcvtpd_u64_f64(v14 / 86400.0 * 50.0);
@@ -42,36 +42,36 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218752;
-      v32 = v15;
-      v33 = 2048;
-      v34 = [v13 count];
-      v35 = 2048;
-      v36 = eventStore;
-      v37 = 2048;
-      v38 = [visibleCalendarsInCurrentFocus count];
+      v31 = v15;
+      v32 = 2048;
+      v33 = [v13 count];
+      v34 = 2048;
+      v35 = eventStore;
+      v36 = 2048;
+      v37 = [visibleCalendarsInCurrentFocus count];
       _os_log_impl(&dword_23E3EA000, v16, OS_LOG_TYPE_DEFAULT, "Fetching calendar events with limit count of: %ld; actual count: %ld; event store: %p; visible calendars: %ld", buf, 0x2Au);
     }
 
     v17 = objc_opt_new();
     v18 = objc_autoreleasePoolPush();
-    v26 = visibleCalendarsInCurrentFocus;
+    v25 = visibleCalendarsInCurrentFocus;
     if (_ContactCache_onceToken != -1)
     {
       [ATXCalendarEventsDataSource calendarEventsFromStartDate:toEndDate:callback:];
     }
 
     v19 = _ContactCache_contactCache;
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __78__ATXCalendarEventsDataSource_calendarEventsFromStartDate_toEndDate_callback___block_invoke_24;
-    v27[3] = &unk_278C3D708;
-    v30 = v15;
-    v27[4] = self;
-    v28 = v19;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __78__ATXCalendarEventsDataSource_calendarEventsFromStartDate_toEndDate_callback___block_invoke_24;
+    v26[3] = &unk_278C3D708;
+    v29 = v15;
+    v26[4] = self;
+    v27 = v19;
     v20 = v17;
-    v29 = v20;
+    v28 = v20;
     v21 = v19;
-    [v13 enumerateObjectsUsingBlock:v27];
+    [v13 enumerateObjectsUsingBlock:v26];
 
     objc_autoreleasePoolPop(v18);
     callbackCopy[2](callbackCopy, v20, 0);
@@ -83,19 +83,17 @@
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v32 = @"com.apple.mobilecal";
+      v31 = @"com.apple.mobilecal";
       _os_log_impl(&dword_23E3EA000, v22, OS_LOG_TYPE_DEFAULT, "Events data source is not learnable for %{public}@", buf, 0xCu);
     }
 
     callbackCopy[2](callbackCopy, MEMORY[0x277CBEBF8], 0);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-void __78__ATXCalendarEventsDataSource_calendarEventsFromStartDate_toEndDate_callback___block_invoke_24(uint64_t a1, void *a2, void *a3, _BYTE *a4)
+void __78__ATXCalendarEventsDataSource_calendarEventsFromStartDate_toEndDate_callback___block_invoke_24(uint64_t a1, void *a2, unint64_t a3, _BYTE *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = objc_autoreleasePoolPush();
   if (a4 && *(a1 + 56) <= a3)
@@ -103,9 +101,9 @@ void __78__ATXCalendarEventsDataSource_calendarEventsFromStartDate_toEndDate_cal
     v9 = __atxlog_handle_heuristic();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 134217984;
-      v17 = a3;
-      _os_log_impl(&dword_23E3EA000, v9, OS_LOG_TYPE_DEFAULT, "Stopped iterating events early after index: %ld", &v16, 0xCu);
+      v15 = 134217984;
+      v16 = a3;
+      _os_log_impl(&dword_23E3EA000, v9, OS_LOG_TYPE_DEFAULT, "Stopped iterating events early after index: %ld", &v15, 0xCu);
     }
 
     *a4 = 1;
@@ -121,11 +119,11 @@ void __78__ATXCalendarEventsDataSource_calendarEventsFromStartDate_toEndDate_cal
       if (v12)
       {
         v13 = [v7 eventIdentifier];
-        v16 = 138412547;
-        v17 = v13;
-        v18 = 2117;
-        v19 = v7;
-        _os_log_impl(&dword_23E3EA000, v11, OS_LOG_TYPE_DEFAULT, "Considering event: %@ %{sensitive}@", &v16, 0x16u);
+        v15 = 138412547;
+        v16 = v13;
+        v17 = 2117;
+        v18 = v7;
+        _os_log_impl(&dword_23E3EA000, v11, OS_LOG_TYPE_DEFAULT, "Considering event: %@ %{sensitive}@", &v15, 0x16u);
       }
 
       [*(a1 + 48) addObject:v10];
@@ -136,18 +134,16 @@ void __78__ATXCalendarEventsDataSource_calendarEventsFromStartDate_toEndDate_cal
       if (v12)
       {
         v14 = [v7 eventIdentifier];
-        v16 = 138412547;
-        v17 = v14;
-        v18 = 2117;
-        v19 = v7;
-        _os_log_impl(&dword_23E3EA000, v11, OS_LOG_TYPE_DEFAULT, "Ignoring event: %@ %{sensitive}@", &v16, 0x16u);
+        v15 = 138412547;
+        v16 = v14;
+        v17 = 2117;
+        v18 = v7;
+        _os_log_impl(&dword_23E3EA000, v11, OS_LOG_TYPE_DEFAULT, "Ignoring event: %@ %{sensitive}@", &v15, 0x16u);
       }
     }
   }
 
   objc_autoreleasePoolPop(v8);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)visibleCalendarsWithCallback:(id)callback
@@ -168,7 +164,7 @@ void __78__ATXCalendarEventsDataSource_calendarEventsFromStartDate_toEndDate_cal
 
 id __60__ATXCalendarEventsDataSource_visibleCalendarsWithCallback___block_invoke(uint64_t a1, void *a2)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (![v2 atx_isAllowedCalendar])
   {
@@ -204,22 +200,21 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v10[0] = @"title";
-  v10[1] = @"identifier";
-  v11[0] = v3;
-  v11[1] = v4;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v9[0] = @"title";
+  v9[1] = @"identifier";
+  v10[0] = v3;
+  v10[1] = v4;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
 LABEL_11:
 
 LABEL_12:
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)eventsFromStartDate:(id)date endDate:(id)endDate reason:(id)reason
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   reasonCopy = reason;
@@ -230,18 +225,18 @@ LABEL_12:
     v13 = [visibleCalendarsRegardlessOfFocus _pas_filteredArrayWithTest:&__block_literal_global_43_0];
     v14 = [eventStore predicateForEventsWithStartDate:dateCopy endDate:endDateCopy calendars:v13];
     v15 = [eventStore eventsMatchingPredicate:v14];
-    v16 = __atxlog_handle_context_heuristic();
+    v16 = __atxlog_handle_context_heuristic(v15);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138413058;
-      v20 = dateCopy;
-      v21 = 2112;
-      v22 = endDateCopy;
-      v23 = 2048;
-      v24 = [v15 count];
-      v25 = 2114;
-      v26 = reasonCopy;
-      _os_log_impl(&dword_23E3EA000, v16, OS_LOG_TYPE_DEFAULT, "Fetching calendar events start: %@, end: %@ count: %ld reason: %{public}@", &v19, 0x2Au);
+      v18 = 138413058;
+      v19 = dateCopy;
+      v20 = 2112;
+      v21 = endDateCopy;
+      v22 = 2048;
+      v23 = [v15 count];
+      v24 = 2114;
+      v25 = reasonCopy;
+      _os_log_impl(&dword_23E3EA000, v16, OS_LOG_TYPE_DEFAULT, "Fetching calendar events start: %@, end: %@ count: %ld reason: %{public}@", &v18, 0x2Au);
     }
   }
 
@@ -250,15 +245,13 @@ LABEL_12:
     eventStore = __atxlog_handle_heuristic();
     if (os_log_type_enabled(eventStore, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138543362;
-      v20 = @"com.apple.mobilecal";
-      _os_log_impl(&dword_23E3EA000, eventStore, OS_LOG_TYPE_DEFAULT, "Events data source is not learnable for %{public}@", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = @"com.apple.mobilecal";
+      _os_log_impl(&dword_23E3EA000, eventStore, OS_LOG_TYPE_DEFAULT, "Events data source is not learnable for %{public}@", &v18, 0xCu);
     }
 
     v15 = MEMORY[0x277CBEBF8];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

@@ -51,7 +51,7 @@
 
 - (BOOL)initNetwork
 {
-  v127 = *MEMORY[0x277D85DE8];
+  v126 = *MEMORY[0x277D85DE8];
   v3 = [ANSTBaseNetworkEspresso alloc];
   v6 = objc_msgSend_networkEngineType(self->_configuration, v4, v5);
   v9 = objc_msgSend_qualityOfService(self->_configuration, v7, v8);
@@ -76,13 +76,13 @@
     BlobDimensionByName_andDestination = objc_msgSend_prepare(self->_maskNetwork, v38, v39);
     if (BlobDimensionByName_andDestination)
     {
-      memset(v126, 0, sizeof(v126));
+      memset(v125, 0, sizeof(v125));
       v42 = self->_maskNetwork;
       v43 = objc_msgSend_UTF8String(kANSTVMTrackerNetworkOutputHiddenTensorName, v40, v41, 0, 0, 0, 0);
       self->_hiddenStateTensor = objc_msgSend_getTensorByName_(v42, v44, v43);
       v45 = self->_maskNetwork;
       v48 = objc_msgSend_UTF8String(kANSTVMTrackerNetworkInputHiddenStateTensorName, v46, v47);
-      BlobDimensionByName_andDestination = objc_msgSend_getBlobDimensionByName_andDestination_(v45, v49, v48, v126);
+      BlobDimensionByName_andDestination = objc_msgSend_getBlobDimensionByName_andDestination_(v45, v49, v48, v125);
       if (BlobDimensionByName_andDestination)
       {
         bzero(self->_hiddenStateTensor->var0, 4 * self->_hiddenStateTensor->var13);
@@ -91,7 +91,7 @@
         self->_probTensor = objc_msgSend_getTensorByName_(v50, v54, v53);
         v55 = self->_maskNetwork;
         v58 = objc_msgSend_UTF8String(kANSTVMTrackerNetworkOutputTensorName, v56, v57);
-        BlobDimensionByName_andDestination = objc_msgSend_getBlobDimensionByName_andDestination_(v55, v59, v58, v126);
+        BlobDimensionByName_andDestination = objc_msgSend_getBlobDimensionByName_andDestination_(v55, v59, v58, v125);
         if (BlobDimensionByName_andDestination)
         {
           bzero(self->_probTensor->var0, 4 * self->_probTensor->var13);
@@ -100,7 +100,7 @@
           self->_outputMaskBuffer = objc_msgSend_getTensorByName_(v60, v64, v63);
           v65 = self->_maskNetwork;
           v68 = objc_msgSend_UTF8String(kANSTVMTrackerNetworkOutputMattingTensorName, v66, v67);
-          BlobDimensionByName_andDestination = objc_msgSend_getBlobDimensionByName_andDestination_(v65, v69, v68, v126);
+          BlobDimensionByName_andDestination = objc_msgSend_getBlobDimensionByName_andDestination_(v65, v69, v68, v125);
           if (BlobDimensionByName_andDestination)
           {
             bzero(self->_outputMaskBuffer->var0, 4 * self->_outputMaskBuffer->var13);
@@ -121,7 +121,7 @@
               self->_keyTensor = objc_msgSend_getTensorByName_(v90, v92, v91);
               v93 = self->_updateNetwork;
               v96 = objc_msgSend_UTF8String(kANSTVMTrackerNetworkOutputKeyTensorName, v94, v95);
-              BlobDimensionByName_andDestination = objc_msgSend_getBlobDimensionByName_andDestination_(v93, v97, v96, v126);
+              BlobDimensionByName_andDestination = objc_msgSend_getBlobDimensionByName_andDestination_(v93, v97, v96, v125);
               if (BlobDimensionByName_andDestination)
               {
                 bzero(self->_keyTensor->var0, 4 * self->_keyTensor->var13);
@@ -133,7 +133,7 @@
                 self->_valueTensor = objc_msgSend_getTensorByName_(v99, v103, v102);
                 v104 = self->_updateNetwork;
                 v107 = objc_msgSend_UTF8String(kANSTVMTrackerNetworkOutputValueTensorName, v105, v106);
-                BlobDimensionByName_andDestination = objc_msgSend_getBlobDimensionByName_andDestination_(v104, v108, v107, v126);
+                BlobDimensionByName_andDestination = objc_msgSend_getBlobDimensionByName_andDestination_(v104, v108, v107, v125);
                 if (BlobDimensionByName_andDestination)
                 {
                   bzero(self->_valueTensor->var0, 4 * self->_valueTensor->var13);
@@ -147,7 +147,7 @@
                   if (PixelBufferWithPixelFormat_width_height_handle)
                   {
                     v122 = PixelBufferWithPixelFormat_width_height_handle;
-                    v123 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+                    v123 = _ANSTLoggingGetOSLogForCategoryANSTKit(PixelBufferWithPixelFormat_width_height_handle);
                     if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
                     {
                       sub_22E659914(v122, v123);
@@ -170,23 +170,23 @@
     }
   }
 
-  v124 = *MEMORY[0x277D85DE8];
   return BlobDimensionByName_andDestination;
 }
 
 - (id)_expectedMemoryNetworkFileName
 {
   p_configuration = &self->_configuration;
-  if (objc_msgSend_version(self->_configuration, a2, v2) == 0x20000)
+  v4 = objc_msgSend_version(self->_configuration, a2, v2);
+  if (v4 == 0x20000)
   {
-    v6 = objc_msgSend_networkResolution(*p_configuration, v4, v5);
-    if (v6 < 4)
+    v4 = objc_msgSend_networkResolution(*p_configuration, v5, v6);
+    if (v4 < 4)
     {
-      return off_27884FC40[v6];
+      return off_27884FC40[v4];
     }
   }
 
-  v8 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+  v8 = _ANSTLoggingGetOSLogForCategoryANSTKit(v4);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
   {
     sub_22E65998C(p_configuration, v8, v9);
@@ -198,16 +198,17 @@
 - (id)_expectedUpdateNetworkFileName
 {
   p_configuration = &self->_configuration;
-  if (objc_msgSend_version(self->_configuration, a2, v2) == 0x20000)
+  v4 = objc_msgSend_version(self->_configuration, a2, v2);
+  if (v4 == 0x20000)
   {
-    v6 = objc_msgSend_networkResolution(*p_configuration, v4, v5);
-    if (v6 < 4)
+    v4 = objc_msgSend_networkResolution(*p_configuration, v5, v6);
+    if (v4 < 4)
     {
-      return off_27884FC60[v6];
+      return off_27884FC60[v4];
     }
   }
 
-  v8 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+  v8 = _ANSTLoggingGetOSLogForCategoryANSTKit(v4);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
   {
     sub_22E659A2C(p_configuration, v8, v9);
@@ -219,16 +220,17 @@
 - (id)_expectedMaskNetworkFileName
 {
   p_configuration = &self->_configuration;
-  if (objc_msgSend_version(self->_configuration, a2, v2) == 0x20000)
+  v4 = objc_msgSend_version(self->_configuration, a2, v2);
+  if (v4 == 0x20000)
   {
-    v6 = objc_msgSend_networkResolution(*p_configuration, v4, v5);
-    if (v6 < 4)
+    v4 = objc_msgSend_networkResolution(*p_configuration, v5, v6);
+    if (v4 < 4)
     {
-      return off_27884FC80[v6];
+      return off_27884FC80[v4];
     }
   }
 
-  v8 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+  v8 = _ANSTLoggingGetOSLogForCategoryANSTKit(v4);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
   {
     sub_22E659ACC(p_configuration, v8, v9);
@@ -277,7 +279,7 @@
 {
   if (!self->_firstFrame)
   {
-    v6 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v6 = _ANSTLoggingGetOSLogForCategoryANSTKit(self);
     v7 = os_signpost_id_make_with_pointer(v6, self);
 
     if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
@@ -351,7 +353,7 @@ LABEL_22:
 {
   if (!self->_firstFrame)
   {
-    v6 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v6 = _ANSTLoggingGetOSLogForCategoryANSTKit(self);
     v7 = os_signpost_id_make_with_pointer(v6, self);
 
     if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))

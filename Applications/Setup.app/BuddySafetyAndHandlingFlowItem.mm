@@ -83,7 +83,7 @@
 
   if (v7)
   {
-    sub_100029DB4(0, &qword_1003A0C98);
+    sub_100029DB4(0, &qword_1003A0C98, NSObject_ptr);
     controllerCopy = controller;
     viewControllerCopy = viewController;
     selfCopy = self;

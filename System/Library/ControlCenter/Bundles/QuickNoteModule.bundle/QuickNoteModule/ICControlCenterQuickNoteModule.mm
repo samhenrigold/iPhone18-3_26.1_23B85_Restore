@@ -8,16 +8,14 @@
 
 - (id)launchURLForTouchType:(int64_t)type
 {
-  v22[1] = *MEMORY[0x29EDCA608];
+  v21[1] = *MEMORY[0x29EDCA608];
   v5 = MEMORY[0x29EDC5E98];
-  v21 = *MEMORY[0x29EDC5E88];
+  v20 = *MEMORY[0x29EDC5E88];
   v6 = objc_msgSend_numberWithBool_(MEMORY[0x29EDBA070], a2, v3, v4, type == 2);
   v10 = objc_msgSend_stringValue(v6, v7, v8, v9);
-  v22[0] = v10;
-  v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v11, v12, v13, v22, &v21, 1);
+  v21[0] = v10;
+  v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v11, v12, v13, v21, &v20, 1);
   v18 = objc_msgSend_urlForQuickNoteWithOptions_(v5, v15, v16, v17, v14);
-
-  v19 = *MEMORY[0x29EDCA608];
 
   return v18;
 }

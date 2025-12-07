@@ -20,88 +20,82 @@
 
 + (id)entryEventPointDefinitions
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"ConnectionState";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"ConnectionState";
   v2 = +[PLSecureServiceAgent entryEventPointDefinitionConnectionState];
-  v7[1] = @"Summary";
-  v8[0] = v2;
+  v6[1] = @"Summary";
+  v7[0] = v2;
   v3 = +[PLSecureServiceAgent entryEventPointDefinitionSummary];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
 
 + (id)entryEventPointDefinitionConnectionState
 {
-  v20[2] = *MEMORY[0x277D85DE8];
-  v19[0] = *MEMORY[0x277D3F4E8];
-  v17 = *MEMORY[0x277D3F568];
-  v18 = &unk_282C1BF28;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
-  v20[0] = v14;
-  v19[1] = *MEMORY[0x277D3F540];
-  v15[0] = @"keyId";
+  v19[2] = *MEMORY[0x277D85DE8];
+  v18[0] = *MEMORY[0x277D3F4E8];
+  v16 = *MEMORY[0x277D3F568];
+  v17 = &unk_282C1BF28;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+  v19[0] = v13;
+  v18[1] = *MEMORY[0x277D3F540];
+  v14[0] = @"keyId";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v16[0] = commonTypeDict_IntegerFormat;
-  v15[1] = @"UUID";
+  v15[0] = commonTypeDict_IntegerFormat;
+  v14[1] = @"UUID";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat];
-  v16[1] = commonTypeDict_StringFormat;
-  v15[2] = @"EventType";
+  v15[1] = commonTypeDict_StringFormat;
+  v14[2] = @"EventType";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v16[2] = commonTypeDict_IntegerFormat2;
-  v15[3] = @"Confidence";
+  v15[2] = commonTypeDict_IntegerFormat2;
+  v14[3] = @"Confidence";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v16[3] = commonTypeDict_IntegerFormat3;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
-  v20[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v15[3] = commonTypeDict_IntegerFormat3;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v19[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
 
   return v11;
 }
 
 + (id)entryEventPointDefinitionSummary
 {
-  v16[2] = *MEMORY[0x277D85DE8];
-  v15[0] = *MEMORY[0x277D3F4E8];
-  v13 = *MEMORY[0x277D3F568];
-  v14 = &unk_282C1BF28;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-  v16[0] = v2;
-  v15[1] = *MEMORY[0x277D3F540];
-  v11[0] = @"ActiveConnections";
+  v15[2] = *MEMORY[0x277D85DE8];
+  v14[0] = *MEMORY[0x277D3F4E8];
+  v12 = *MEMORY[0x277D3F568];
+  v13 = &unk_282C1BF28;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v15[0] = v2;
+  v14[1] = *MEMORY[0x277D3F540];
+  v10[0] = @"ActiveConnections";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v11[1] = @"ConnectionCount";
-  v12[0] = commonTypeDict_IntegerFormat;
+  v10[1] = @"ConnectionCount";
+  v11[0] = commonTypeDict_IntegerFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v12[1] = commonTypeDict_IntegerFormat2;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-  v16[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[1] = commonTypeDict_IntegerFormat2;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v15[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
   return v8;
 }
 
 - (PLSecureServiceAgent)init
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (+[PLSecureServiceAgent isSecureServiceSupported])
   {
-    v16.receiver = self;
-    v16.super_class = PLSecureServiceAgent;
-    v3 = [(PLAgent *)&v16 init];
+    v15.receiver = self;
+    v15.super_class = PLSecureServiceAgent;
+    v3 = [(PLAgent *)&v15 init];
     v4 = v3;
     if (v3)
     {
@@ -148,7 +142,7 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v18 = previousHash;
+        v17 = previousHash;
         _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -162,11 +156,10 @@ LABEL_13:
   selfCopy = 0;
 LABEL_14:
 
-  v13 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
-uint64_t __28__PLSecureServiceAgent_init__block_invoke(uint64_t a1)
+void *__28__PLSecureServiceAgent_init__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_1_20 = result;
@@ -237,17 +230,16 @@ uint64_t __28__PLSecureServiceAgent_init__block_invoke(uint64_t a1)
 
 void __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setNumEntries:0];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
+    v2 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v12 = 3221225472;
-    v13 = __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2;
-    v14 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v15 = v3;
+    v10 = 3221225472;
+    v11 = __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2;
+    v12 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v13 = v2;
     if (qword_2811F4328 != -1)
     {
       dispatch_once(&qword_2811F4328, &block);
@@ -255,27 +247,25 @@ void __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke(uint64_t 
 
     if (byte_2811F4311 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLSecureServiceAgent:: Timer Credit refreshed %lu", *(*(a1 + 32) + 120), block, v12, v13, v14, v15];
-      v5 = MEMORY[0x277D3F178];
-      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSecureServiceAgent.m"];
-      v7 = [v6 lastPathComponent];
-      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSecureServiceAgent initOperatorDependancies]_block_invoke"];
-      [v5 logMessage:v4 fromFile:v7 fromFunction:v8 fromLineNumber:141];
+      v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLSecureServiceAgent:: Timer Credit refreshed %lu", *(*(a1 + 32) + 120), block, v10, v11, v12, v13];
+      v4 = MEMORY[0x277D3F178];
+      v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSecureServiceAgent.m"];
+      v6 = [v5 lastPathComponent];
+      v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSecureServiceAgent initOperatorDependancies]_block_invoke"];
+      [v4 logMessage:v3 fromFile:v6 fromFunction:v7 fromLineNumber:141];
 
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v8 = PLLogCommon();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v17 = v4;
-        _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v15 = v3;
+        _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2(uint64_t a1)
+void *__48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4311 = result;
@@ -284,18 +274,17 @@ uint64_t __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2(uin
 
 void __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_81(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a5;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v9 = *(a1 + 32);
-    v10 = objc_opt_class();
+    v9 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2_82;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v10;
+    block[4] = v9;
     if (qword_2811F4330 != -1)
     {
       dispatch_once(&qword_2811F4330, block);
@@ -303,29 +292,27 @@ void __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_81(uint64
 
     if (byte_2811F4312 == 1)
     {
-      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLSecureServiceAgent:: Daemon Launch State =%@ for %@", v8, v7];
-      v12 = MEMORY[0x277D3F178];
-      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSecureServiceAgent.m"];
-      v14 = [v13 lastPathComponent];
-      v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSecureServiceAgent initOperatorDependancies]_block_invoke"];
-      [v12 logMessage:v11 fromFile:v14 fromFunction:v15 fromLineNumber:145];
+      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLSecureServiceAgent:: Daemon Launch State =%@ for %@", v8, v7];
+      v11 = MEMORY[0x277D3F178];
+      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSecureServiceAgent.m"];
+      v13 = [v12 lastPathComponent];
+      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSecureServiceAgent initOperatorDependancies]_block_invoke"];
+      [v11 logMessage:v10 fromFile:v13 fromFunction:v14 fromLineNumber:145];
 
-      v16 = PLLogCommon();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v15 = PLLogCommon();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v20 = v11;
-        _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v18 = v10;
+        _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   [*(a1 + 32) logEventPointConnectionState:v8 withEvent:0];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2_82(uint64_t a1)
+void *__48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2_82(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4312 = result;
@@ -334,18 +321,17 @@ uint64_t __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2_82(
 
 void __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_94(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a5;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v9 = *(a1 + 32);
-    v10 = objc_opt_class();
+    v9 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2_95;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v10;
+    block[4] = v9;
     if (qword_2811F4338 != -1)
     {
       dispatch_once(&qword_2811F4338, block);
@@ -353,29 +339,27 @@ void __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_94(uint64
 
     if (byte_2811F4313 == 1)
     {
-      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLSecureServiceAgent:: Connection State=%@ for %@", v8, v7];
-      v12 = MEMORY[0x277D3F178];
-      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSecureServiceAgent.m"];
-      v14 = [v13 lastPathComponent];
-      v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSecureServiceAgent initOperatorDependancies]_block_invoke"];
-      [v12 logMessage:v11 fromFile:v14 fromFunction:v15 fromLineNumber:150];
+      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLSecureServiceAgent:: Connection State=%@ for %@", v8, v7];
+      v11 = MEMORY[0x277D3F178];
+      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSecureServiceAgent.m"];
+      v13 = [v12 lastPathComponent];
+      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSecureServiceAgent initOperatorDependancies]_block_invoke"];
+      [v11 logMessage:v10 fromFile:v13 fromFunction:v14 fromLineNumber:150];
 
-      v16 = PLLogCommon();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v15 = PLLogCommon();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v20 = v11;
-        _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v18 = v10;
+        _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   [*(a1 + 32) logEventPointConnectionState:v8 withEvent:1];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2_95(uint64_t a1)
+void *__48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2_95(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4313 = result;
@@ -384,18 +368,17 @@ uint64_t __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2_95(
 
 void __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_106(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a5;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v9 = *(a1 + 32);
-    v10 = objc_opt_class();
+    v9 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2_107;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v10;
+    block[4] = v9;
     if (qword_2811F4340 != -1)
     {
       dispatch_once(&qword_2811F4340, block);
@@ -403,29 +386,27 @@ void __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_106(uint6
 
     if (byte_2811F4314 == 1)
     {
-      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLSecureServiceAgent:: Disconnection Connection State=%@ for %@", v8, v7];
-      v12 = MEMORY[0x277D3F178];
-      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSecureServiceAgent.m"];
-      v14 = [v13 lastPathComponent];
-      v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSecureServiceAgent initOperatorDependancies]_block_invoke"];
-      [v12 logMessage:v11 fromFile:v14 fromFunction:v15 fromLineNumber:155];
+      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLSecureServiceAgent:: Disconnection Connection State=%@ for %@", v8, v7];
+      v11 = MEMORY[0x277D3F178];
+      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSecureServiceAgent.m"];
+      v13 = [v12 lastPathComponent];
+      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSecureServiceAgent initOperatorDependancies]_block_invoke"];
+      [v11 logMessage:v10 fromFile:v13 fromFunction:v14 fromLineNumber:155];
 
-      v16 = PLLogCommon();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v15 = PLLogCommon();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v20 = v11;
-        _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v18 = v10;
+        _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   [*(a1 + 32) logEventPointConnectionState:v8 withEvent:2];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2_107(uint64_t a1)
+void *__48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2_107(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4314 = result;
@@ -434,18 +415,17 @@ uint64_t __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2_107
 
 void __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_118(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a5;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v9 = *(a1 + 32);
-    v10 = objc_opt_class();
+    v9 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2_119;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v10;
+    block[4] = v9;
     if (qword_2811F4348 != -1)
     {
       dispatch_once(&qword_2811F4348, block);
@@ -453,29 +433,27 @@ void __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_118(uint6
 
     if (byte_2811F4315 == 1)
     {
-      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLSecureServiceAgent:: Device Intent State=%@ for %@", v8, v7];
-      v12 = MEMORY[0x277D3F178];
-      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSecureServiceAgent.m"];
-      v14 = [v13 lastPathComponent];
-      v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSecureServiceAgent initOperatorDependancies]_block_invoke"];
-      [v12 logMessage:v11 fromFile:v14 fromFunction:v15 fromLineNumber:160];
+      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLSecureServiceAgent:: Device Intent State=%@ for %@", v8, v7];
+      v11 = MEMORY[0x277D3F178];
+      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSecureServiceAgent.m"];
+      v13 = [v12 lastPathComponent];
+      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSecureServiceAgent initOperatorDependancies]_block_invoke"];
+      [v11 logMessage:v10 fromFile:v13 fromFunction:v14 fromLineNumber:160];
 
-      v16 = PLLogCommon();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v15 = PLLogCommon();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v20 = v11;
-        _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v18 = v10;
+        _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   [*(a1 + 32) logEventPointConnectionState:v8 withEvent:3];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2_119(uint64_t a1)
+void *__48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2_119(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4315 = result;
@@ -484,18 +462,17 @@ uint64_t __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2_119
 
 void __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_130(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a5;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v9 = *(a1 + 32);
-    v10 = objc_opt_class();
+    v9 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2_131;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v10;
+    block[4] = v9;
     if (qword_2811F4350 != -1)
     {
       dispatch_once(&qword_2811F4350, block);
@@ -503,29 +480,27 @@ void __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_130(uint6
 
     if (byte_2811F4316 == 1)
     {
-      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLSecureServiceAgent:: Periodic Report State=%@ for %@", v8, v7];
-      v12 = MEMORY[0x277D3F178];
-      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSecureServiceAgent.m"];
-      v14 = [v13 lastPathComponent];
-      v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSecureServiceAgent initOperatorDependancies]_block_invoke"];
-      [v12 logMessage:v11 fromFile:v14 fromFunction:v15 fromLineNumber:165];
+      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLSecureServiceAgent:: Periodic Report State=%@ for %@", v8, v7];
+      v11 = MEMORY[0x277D3F178];
+      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSecureServiceAgent.m"];
+      v13 = [v12 lastPathComponent];
+      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSecureServiceAgent initOperatorDependancies]_block_invoke"];
+      [v11 logMessage:v10 fromFile:v13 fromFunction:v14 fromLineNumber:165];
 
-      v16 = PLLogCommon();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v15 = PLLogCommon();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v20 = v11;
-        _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v18 = v10;
+        _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   [*(a1 + 32) logEventPointPeriodicReport:v8];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2_131(uint64_t a1)
+void *__48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2_131(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4316 = result;
@@ -534,7 +509,7 @@ uint64_t __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2_131
 
 - (void)logEventPointConnectionState:(id)state withEvent:(int64_t)event
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v7 = stateCopy;
   if (stateCopy)
@@ -551,14 +526,14 @@ uint64_t __48__PLSecureServiceAgent_initOperatorDependancies__block_invoke_2_131
       }
 
       v11 = objc_opt_class();
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __63__PLSecureServiceAgent_logEventPointConnectionState_withEvent___block_invoke;
-      v36[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v36[4] = v11;
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __63__PLSecureServiceAgent_logEventPointConnectionState_withEvent___block_invoke;
+      v35[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v35[4] = v11;
       if (qword_2811F4358 != -1)
       {
-        dispatch_once(&qword_2811F4358, v36);
+        dispatch_once(&qword_2811F4358, v35);
       }
 
       if (byte_2811F4317 != 1)
@@ -583,7 +558,7 @@ LABEL_29:
       }
 
       *buf = 138412290;
-      v38 = v12;
+      v37 = v12;
 LABEL_32:
       _os_log_debug_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       goto LABEL_23;
@@ -640,7 +615,7 @@ LABEL_17:
           }
 
           *buf = 138412290;
-          v38 = v12;
+          v37 = v12;
           goto LABEL_32;
         }
 
@@ -686,18 +661,16 @@ LABEL_16:
   }
 
 LABEL_30:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __63__PLSecureServiceAgent_logEventPointConnectionState_withEvent___block_invoke(uint64_t a1)
+void *__63__PLSecureServiceAgent_logEventPointConnectionState_withEvent___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4317 = result;
   return result;
 }
 
-uint64_t __63__PLSecureServiceAgent_logEventPointConnectionState_withEvent___block_invoke_145(uint64_t a1)
+void *__63__PLSecureServiceAgent_logEventPointConnectionState_withEvent___block_invoke_145(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4318 = result;

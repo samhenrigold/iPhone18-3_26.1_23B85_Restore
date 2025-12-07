@@ -26,7 +26,7 @@
   return [PAEGloom properties]::sPropertiesDict;
 }
 
-uint64_t __22__PAEGloom_properties__block_invoke()
+void *__22__PAEGloom_properties__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x277CBEAC0]);
   v1 = [MEMORY[0x277CCABB0] numberWithBool:1];
@@ -121,98 +121,98 @@ uint64_t __22__PAEGloom_properties__block_invoke()
   }
 
   versionAtCreation = [v12 versionAtCreation];
-  v49 = 0x4000000000000000;
-  v50 = 10.0;
-  [v9 getFloatValue:&v50 fromParm:1 atFxTime:info->var0.var1];
-  v14 = v50;
-  if (v50 != 0.0)
+  v52 = 0x4000000000000000;
+  v53 = 10.0;
+  [v9 getFloatValue:&v53 fromParm:1 atFxTime:info->var0.var1];
+  v14 = v53;
+  if (v53 != 0.0)
   {
     if (!versionAtCreation)
     {
-      v14 = pow(v50 / 100.0, 1.425) * 253.0;
-      v50 = v14;
+      v14 = pow(v53 / 100.0, 1.425) * 253.0;
+      v53 = v14;
     }
 
-    v48 = 0;
-    [v9 getBoolValue:&v48 fromParm:3 atFxTime:{info->var0.var1, v14}];
-    [v9 getFloatValue:&v49 fromParm:2 atFxTime:info->var0.var1];
-    v47 = 0;
-    [v9 getBoolValue:&v47 fromParm:4 atFxTime:info->var0.var1];
-    v48 &= v47 ^ 1;
-    [(PAESharedDefaultBase *)self getScaleForImage:input];
+    v51 = 0;
+    [v9 getBoolValue:&v51 fromParm:3 atFxTime:{info->var0.var1, v14}];
+    [v9 getFloatValue:&v52 fromParm:2 atFxTime:info->var0.var1];
+    v50 = 0;
+    [v9 getBoolValue:&v50 fromParm:4 atFxTime:info->var0.var1];
+    v51 &= v50 ^ 1;
+    objc_msgSend_getScaleForImage_(self);
     if (input)
     {
-      [input heliumRef];
-      v44 = v45;
-      if (v45 != 0.0)
+      objc_msgSend_heliumRef(input);
+      v47 = v48;
+      if (v48 != 0.0)
       {
-        (*(**&v45 + 16))(COERCE_FLOAT64_T(*&v45));
+        (*(**&v48 + 16))(COERCE_FLOAT64_T(*&v48));
       }
     }
 
     else
     {
-      v44 = 0.0;
-      v45 = 0.0;
+      v47 = 0.0;
+      v48 = 0.0;
     }
 
-    [(PAESharedDefaultBase *)self smear:&v44 fromImage:input toImage:input, v46];
-    v17 = v40[0].f64[0];
-    if (*&v45 == *&v40[0].f64[0])
+    objc_msgSend_smear_fromImage_toImage_(self, v49);
+    v17 = v43[0].f64[0];
+    if (*&v48 == *&v43[0].f64[0])
     {
-      if (v45 != 0.0)
+      if (v48 != 0.0)
       {
-        (*(**&v40[0].f64[0] + 24))(*&v40[0].f64[0]);
+        (*(**&v43[0].f64[0] + 24))(*&v43[0].f64[0]);
       }
     }
 
     else
     {
-      if (v45 != 0.0)
+      if (v48 != 0.0)
       {
-        (*(**&v45 + 24))(COERCE_FLOAT64_T(*&v45));
-        v17 = v40[0].f64[0];
+        (*(**&v48 + 24))(COERCE_FLOAT64_T(*&v48));
+        v17 = v43[0].f64[0];
       }
 
-      v45 = v17;
-      v40[0].f64[0] = 0.0;
+      v48 = v17;
+      v43[0].f64[0] = 0.0;
     }
 
-    if (v44 != 0.0)
+    if (v47 != 0.0)
     {
-      (*(**&v44 + 24))(COERCE_FLOAT64_T(*&v44));
+      (*(**&v47 + 24))(COERCE_FLOAT64_T(*&v47));
     }
 
-    if (v48 == 1)
+    if (v51 == 1)
     {
-      v43 = v45;
-      if (v45 != 0.0)
+      v46 = v48;
+      if (v48 != 0.0)
       {
-        (*(**&v45 + 16))(COERCE_FLOAT64_T(*&v45));
+        (*(**&v48 + 16))(COERCE_FLOAT64_T(*&v48));
       }
 
-      HIDWORD(v18) = HIDWORD(v50);
-      *&v18 = v50;
+      HIDWORD(v18) = HIDWORD(v53);
+      *&v18 = v53;
       v19 = COERCE_DOUBLE(vcvt_f32_f64(v34));
-      v39[0].f64[0] = v19;
+      v39.f64[0] = v19;
       LODWORD(v19) = 1.5;
       LODWORD(v16) = 3.0;
-      [(PAEFilterDefaultBase *)self makePrescaledBlurNode:&v43 radius:v39 withScale:v18 minInputScale:v19 maxInputScale:v16];
-      if (*&v40[0].f64[0])
+      objc_msgSend_makePrescaledBlurNode_radius_withScale_minInputScale_maxInputScale_(self, v18, v19, v16);
+      if (*&v43[0].f64[0])
       {
-        v40[0].f64[0] = 0.0;
+        v43[0].f64[0] = 0.0;
       }
 
-      if (v43 != 0.0)
+      if (v46 != 0.0)
       {
-        (*(**&v43 + 24))(COERCE_FLOAT64_T(*&v43));
+        (*(**&v46 + 24))(COERCE_FLOAT64_T(*&v46));
       }
     }
 
-    else if (v47 == 1)
+    else if (v50 == 1)
     {
-      [(PAESharedDefaultBase *)self getInversePixelTransformForImage:output];
-      [(PAESharedDefaultBase *)self getPixelTransformForImage:output];
+      objc_msgSend_getInversePixelTransformForImage_(self);
+      objc_msgSend_getPixelTransformForImage_(self);
       v20 = HGObject::operator new(0x1C0uLL);
       HGNode::HGNode(v20);
       *v20 = &unk_2871D9F38;
@@ -221,20 +221,20 @@ uint64_t __22__PAEGloom_properties__block_invoke()
       *(v20 + 106) = 0;
       *(v20 + 54) = 0;
       *(v20 + 55) = 0;
-      v21 = v50;
-      v22 = v46;
+      v21 = v53;
+      v22 = v49;
       width = [input width];
-      v24 = v40[0].f64[0];
+      v24 = v43[0].f64[0];
       height = [input height];
       v26 = v21;
       v27 = *&v22;
       v28 = *(&v22 + 1);
-      v38 = vcvt_hight_f32_f64(vcvt_f32_f64(v40[0]), v40[1]);
-      v37 = vcvt_hight_f32_f64(vcvt_f32_f64(v41), v42);
-      v36 = vcvt_hight_f32_f64(vcvt_f32_f64(v39[0]), v39[1]);
-      v35 = vcvt_hight_f32_f64(vcvt_f32_f64(v39[2]), v39[3]);
-      HEquirectGaussianBlur::init(v20, vcvtpd_s64_f64(fabs(v24) * width), vcvtpd_s64_f64(fabs(v41.f64[1]) * height), &v38, &v37, &v36, &v35, v26, v27, v28);
-      (*(*v20 + 120))(v20, 0, COERCE_FLOAT64_T(*&v45));
+      v38 = vcvt_hight_f32_f64(vcvt_f32_f64(v43[0]), v43[1]);
+      v37 = vcvt_hight_f32_f64(vcvt_f32_f64(v44), v45);
+      v36 = vcvt_hight_f32_f64(vcvt_f32_f64(v39), v40);
+      v35 = vcvt_hight_f32_f64(vcvt_f32_f64(v41), v42);
+      HEquirectGaussianBlur::init(v20, vcvtpd_s64_f64(fabs(v24) * width), vcvtpd_s64_f64(fabs(v44.f64[1]) * height), &v38, &v37, &v36, &v35, v26, v27, v28);
+      (*(*v20 + 120))(v20, 0, COERCE_FLOAT64_T(*&v48));
       (*(*v20 + 16))(v20);
       (*(*v20 + 24))(v20);
     }
@@ -243,11 +243,11 @@ uint64_t __22__PAEGloom_properties__block_invoke()
     {
       v29 = HGObject::operator new(0x1B0uLL);
       HGaussianBlur::HGaussianBlur(v29);
-      v30 = v50;
+      v30 = v53;
       v31 = v34.f64[0];
       v32 = v34.f64[1];
       HGaussianBlur::init(v29, v30, v31, v32, versionAtCreation == 0, 0, 0);
-      (*(*v29 + 120))(v29, 0, COERCE_FLOAT64_T(*&v45));
+      (*(*v29 + 120))(v29, 0, COERCE_FLOAT64_T(*&v48));
       (*(*v29 + 16))(v29);
       (*(*v29 + 24))(v29);
     }
@@ -258,18 +258,18 @@ uint64_t __22__PAEGloom_properties__block_invoke()
 
   if (input)
   {
-    [input heliumRef];
+    objc_msgSend_heliumRef(input, v53);
   }
 
   else
   {
-    v40[0].f64[0] = 0.0;
+    v43[0].f64[0] = 0.0;
   }
 
-  [output setHeliumRef:v40];
-  if (*&v40[0].f64[0])
+  [output setHeliumRef:v43];
+  if (*&v43[0].f64[0])
   {
-    (*(**&v40[0].f64[0] + 24))(*&v40[0].f64[0]);
+    (*(**&v43[0].f64[0] + 24))(*&v43[0].f64[0]);
   }
 
   return 1;

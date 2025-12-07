@@ -8,12 +8,10 @@
 
 - (NSString)actionSource
 {
-  v2 = *(self + OBJC_IVAR___PGMusicCurationInflationContext_actionSource);
-  v3 = *(self + OBJC_IVAR___PGMusicCurationInflationContext_actionSource + 8);
 
-  v4 = sub_22F740DF0();
+  v2 = sub_22F740DF0();
 
-  return v4;
+  return v2;
 }
 
 + (id)contextWithMusicCache:(id)cache actionSource:(id)source shouldForceMetadataRefetch:(BOOL)refetch

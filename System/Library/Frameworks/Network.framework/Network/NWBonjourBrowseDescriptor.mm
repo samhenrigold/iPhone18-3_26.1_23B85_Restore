@@ -24,7 +24,7 @@
   v5 = gLogObj;
   *buf = 136446210;
   v19 = "[NWBonjourBrowseDescriptor domain]";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s nw_browse_descriptor_get_service_domain failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v16 = 0;
@@ -139,7 +139,7 @@ LABEL_15:
   v5 = gLogObj;
   *buf = 136446210;
   v19 = "[NWBonjourBrowseDescriptor type]";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s nw_browse_descriptor_get_service_type failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v16 = 0;
@@ -264,7 +264,7 @@ LABEL_15:
   v9 = gLogObj;
   *buf = 136446210;
   v23 = "+[NWBonjourBrowseDescriptor descriptorWithType:domain:]";
-  v10 = _os_log_send_and_compose_impl();
+  v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s nw_browse_descriptor_create_bonjour_service failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v20 = 0;

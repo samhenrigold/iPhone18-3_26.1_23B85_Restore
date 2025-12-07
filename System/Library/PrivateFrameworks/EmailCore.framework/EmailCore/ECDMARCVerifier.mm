@@ -57,7 +57,7 @@ LABEL_10:
 
 + (void)partitionDKIMSignatureHeadersByIdentifierAlignment:(id)alignment forSender:(id)sender strictAligned:(id *)aligned relaxedAligned:(id *)relaxedAligned unaligned:(id *)unaligned
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   alignmentCopy = alignment;
   senderCopy = sender;
   domain = [senderCopy domain];
@@ -65,7 +65,7 @@ LABEL_10:
   {
     if (aligned)
     {
-      v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
       if (relaxedAligned)
       {
         goto LABEL_4;
@@ -74,33 +74,33 @@ LABEL_10:
 
     else
     {
-      v27 = 0;
+      v26 = 0;
       if (relaxedAligned)
       {
 LABEL_4:
-        v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
         if (unaligned)
         {
 LABEL_5:
-          v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
           goto LABEL_15;
         }
 
 LABEL_14:
-        v30 = 0;
+        v29 = 0;
 LABEL_15:
-        if (!v27 && !v28 && !v30)
+        if (!v26 && !v27 && !v29)
         {
           goto LABEL_40;
         }
 
-        v35 = 0u;
-        v36 = 0u;
-        v33 = 0u;
         v34 = 0u;
+        v35 = 0u;
+        v32 = 0u;
+        v33 = 0u;
         obj = alignmentCopy;
-        v31 = domain;
-        v13 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v30 = domain;
+        v13 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
         relaxedAlignedCopy = relaxedAligned;
         unalignedCopy = unaligned;
         v14 = 0;
@@ -109,44 +109,44 @@ LABEL_15:
           goto LABEL_33;
         }
 
-        v15 = *v34;
+        v15 = *v33;
         while (1)
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v34 != v15)
+            if (*v33 != v15)
             {
               objc_enumerationMutation(obj);
             }
 
-            v17 = *(*(&v33 + 1) + 8 * i);
+            v17 = *(*(&v32 + 1) + 8 * i);
             signingDomainIdentifier = [v17 signingDomainIdentifier];
             if (![signingDomainIdentifier length])
             {
-              [v30 addObject:v17];
+              [v29 addObject:v17];
               goto LABEL_31;
             }
 
-            v32 = v14;
-            v19 = [self _alignmentForDKIMSigningDomain:signingDomainIdentifier andSenderDomain:v31 senderOrganizationDomain:&v32 onlyCheckStrictAlignment:(v28 | v30) == 0];
-            v20 = v32;
+            v31 = v14;
+            v19 = [self _alignmentForDKIMSigningDomain:signingDomainIdentifier andSenderDomain:v30 senderOrganizationDomain:&v31 onlyCheckStrictAlignment:(v27 | v29) == 0];
+            v20 = v31;
 
             v14 = v20;
             if (!v19)
             {
-              v21 = v30;
+              v21 = v29;
 LABEL_30:
               [v21 addObject:v17];
               goto LABEL_31;
             }
 
-            v21 = v28;
+            v21 = v27;
             if (v19 == 1)
             {
               goto LABEL_30;
             }
 
-            v21 = v27;
+            v21 = v26;
             if (v19 == 2)
             {
               goto LABEL_30;
@@ -155,34 +155,34 @@ LABEL_30:
 LABEL_31:
           }
 
-          v13 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+          v13 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
           if (!v13)
           {
 LABEL_33:
 
             if (aligned)
             {
-              *aligned = [v27 ef_notEmpty];
+              *aligned = [v26 ef_notEmpty];
             }
 
             if (relaxedAlignedCopy)
             {
-              *relaxedAlignedCopy = [v28 ef_notEmpty];
+              *relaxedAlignedCopy = [v27 ef_notEmpty];
             }
 
             if (unalignedCopy)
             {
-              *unalignedCopy = [v30 ef_notEmpty];
+              *unalignedCopy = [v29 ef_notEmpty];
             }
 
-            domain = v31;
+            domain = v30;
             goto LABEL_40;
           }
         }
       }
     }
 
-    v28 = 0;
+    v27 = 0;
     if (unaligned)
     {
       goto LABEL_5;
@@ -207,8 +207,6 @@ LABEL_33:
   }
 
 LABEL_40:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (ECDMARCVerifier)initWithRecordSource:(id)source

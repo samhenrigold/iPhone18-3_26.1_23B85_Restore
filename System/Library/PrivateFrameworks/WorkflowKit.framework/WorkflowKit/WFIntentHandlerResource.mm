@@ -16,7 +16,7 @@
 
 - (void)action:(id)action parameterStateDidChangeForKey:(id)key
 {
-  if ([key isEqualToString:@"IntentAppDefinition"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"IntentAppDefinition"))
   {
 
     [(WFResource *)self refreshAvailabilityWithNotification];

@@ -184,7 +184,7 @@ void __93__SFTabGroupActivityItemConfiguration_initWithTabGroup_inTabGroupManage
 
 - (void)_beginSharingTabGroupWithCompletionHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = handlerCopy;
   existingShare = self->_existingShare;
@@ -210,28 +210,28 @@ void __93__SFTabGroupActivityItemConfiguration_initWithTabGroup_inTabGroupManage
       v12 = self->_pendingShareCompletionHandlers;
       self->_pendingShareCompletionHandlers = v11;
 
-      v13 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v15 = WBS_LOG_CHANNEL_PREFIXTabGroup(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         tabGroup = self->_tabGroup;
-        v15 = v13;
+        v17 = v15;
         uuid = [(WBTabGroup *)tabGroup uuid];
         *buf = 138543362;
-        v22 = uuid;
-        _os_log_impl(&dword_18B7AC000, v15, OS_LOG_TYPE_INFO, "Requesting share for tab group with UUID %{public}@", buf, 0xCu);
+        v24 = uuid;
+        _os_log_impl(&dword_18B7AC000, v17, OS_LOG_TYPE_INFO, "Requesting share for tab group with UUID %{public}@", buf, 0xCu);
       }
 
       objc_initWeak(buf, self);
       tabGroupManager = self->_tabGroupManager;
       uuid2 = [(WBTabGroup *)self->_tabGroup uuid];
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __82__SFTabGroupActivityItemConfiguration__beginSharingTabGroupWithCompletionHandler___block_invoke;
-      v19[3] = &unk_1E721C2A0;
-      objc_copyWeak(&v20, buf);
-      [(WBTabGroupManager *)tabGroupManager beginSharingTabGroupWithUUID:uuid2 completionHandler:v19];
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __82__SFTabGroupActivityItemConfiguration__beginSharingTabGroupWithCompletionHandler___block_invoke;
+      v21[3] = &unk_1E721C2A0;
+      objc_copyWeak(&v22, buf);
+      [(WBTabGroupManager *)tabGroupManager beginSharingTabGroupWithUUID:uuid2 completionHandler:v21];
 
-      objc_destroyWeak(&v20);
+      objc_destroyWeak(&v22);
       objc_destroyWeak(buf);
     }
   }
@@ -257,80 +257,81 @@ void __82__SFTabGroupActivityItemConfiguration__beginSharingTabGroupWithCompleti
 
 void __82__SFTabGroupActivityItemConfiguration__beginSharingTabGroupWithCompletionHandler___block_invoke_2(id *a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(a1 + 6);
+  v4 = WeakRetained;
   if (!WeakRetained)
   {
     goto LABEL_16;
   }
 
-  v3 = a1[4];
-  v4 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
-  if (v3)
+  v5 = a1[4];
+  v6 = WBS_LOG_CHANNEL_PREFIXTabGroup(WeakRetained, v3);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+  if (v5)
   {
-    if (v5)
+    if (v7)
     {
-      v6 = *(WeakRetained + 5);
-      v7 = v4;
-      v8 = [v6 uuid];
+      v8 = *(v4 + 5);
+      v9 = v6;
+      v10 = [v8 uuid];
       *buf = 138543362;
-      v24 = v8;
-      _os_log_impl(&dword_18B7AC000, v7, OS_LOG_TYPE_INFO, "Received share for tab group with UUID %{public}@", buf, 0xCu);
+      v26 = v10;
+      _os_log_impl(&dword_18B7AC000, v9, OS_LOG_TYPE_INFO, "Received share for tab group with UUID %{public}@", buf, 0xCu);
 
 LABEL_7:
     }
   }
 
-  else if (v5)
+  else if (v7)
   {
-    v9 = *(WeakRetained + 5);
-    v10 = v4;
-    v8 = [v9 uuid];
-    v11 = [a1[5] safari_privacyPreservingDescription];
+    v11 = *(v4 + 5);
+    v12 = v6;
+    v10 = [v11 uuid];
+    v13 = [a1[5] safari_privacyPreservingDescription];
     *buf = 138543618;
-    v24 = v8;
-    v25 = 2114;
-    v26 = v11;
-    _os_log_impl(&dword_18B7AC000, v10, OS_LOG_TYPE_INFO, "Failed to get share for tab group with UUID %{public}@, %{public}@", buf, 0x16u);
+    v26 = v10;
+    v27 = 2114;
+    v28 = v13;
+    _os_log_impl(&dword_18B7AC000, v12, OS_LOG_TYPE_INFO, "Failed to get share for tab group with UUID %{public}@, %{public}@", buf, 0x16u);
 
     goto LABEL_7;
   }
 
+  v22 = 0u;
+  v23 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v12 = *(WeakRetained + 3);
-  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v13)
+  v14 = *(v4 + 3);
+  v15 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v15)
   {
-    v14 = v13;
-    v15 = *v19;
+    v16 = v15;
+    v17 = *v21;
     do
     {
-      v16 = 0;
+      v18 = 0;
       do
       {
-        if (*v19 != v15)
+        if (*v21 != v17)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v14);
         }
 
-        (*(*(*(&v18 + 1) + 8 * v16) + 16))(*(*(&v18 + 1) + 8 * v16));
-        ++v16;
+        (*(*(*(&v20 + 1) + 8 * v18) + 16))(*(*(&v20 + 1) + 8 * v18));
+        ++v18;
       }
 
-      while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      while (v16 != v18);
+      v16 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
-    while (v14);
+    while (v16);
   }
 
-  objc_storeStrong(WeakRetained + 1, a1[4]);
-  v17 = *(WeakRetained + 3);
-  *(WeakRetained + 3) = 0;
+  objc_storeStrong(v4 + 1, a1[4]);
+  v19 = *(v4 + 3);
+  *(v4 + 3) = 0;
 
 LABEL_16:
 }

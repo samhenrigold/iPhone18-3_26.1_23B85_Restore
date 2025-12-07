@@ -46,7 +46,7 @@ apple::aiml::flatbuffers2::DetachedBuffer *__35__FLTSSUCategoryGroup_flatbuffDat
 
 - (Offset<SSUCategoryGroup>)addObjectToBuffer:(void *)buffer
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   name = [(FLTSSUCategoryGroup *)self name];
   v5 = name;
   if (!name)
@@ -56,7 +56,7 @@ apple::aiml::flatbuffers2::DetachedBuffer *__35__FLTSSUCategoryGroup_flatbuffDat
 
   uTF8String = [(__CFString *)name UTF8String];
   v7 = strlen(uTF8String);
-  LODWORD(v33) = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(buffer, uTF8String, v7);
+  LODWORD(v32) = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(buffer, uTF8String, v7);
 
   positive_intents = [(FLTSSUCategoryGroup *)self positive_intents];
   v9 = [positive_intents count];
@@ -70,49 +70,44 @@ apple::aiml::flatbuffers2::DetachedBuffer *__35__FLTSSUCategoryGroup_flatbuffDat
     std::vector<std::unique_ptr<siricommon::StringValue>>::__throw_length_error[abi:ne200100]();
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
+  memset(v42, 0, sizeof(v42));
   positive_intents2 = [(FLTSSUCategoryGroup *)self positive_intents];
-  if ([positive_intents2 countByEnumeratingWithState:&v43 objects:v48 count:16])
+  if ([positive_intents2 countByEnumeratingWithState:v42 objects:v44 count:16])
   {
-    *v44;
-    *v44;
-    [**(&v43 + 1) addObjectToBuffer:{buffer, v33}];
+    [**(&v42[0] + 1) addObjectToBuffer:{buffer, v32}];
     std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(1uLL);
   }
 
   apple::aiml::flatbuffers2::FlatBufferBuilder::StartVector(buffer, 0, 4uLL);
-  HIDWORD(v33) = apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(buffer, 0);
+  HIDWORD(v32) = apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(buffer, 0);
+  v39 = 0;
   v40 = 0;
   v41 = 0;
-  v42 = 0;
   negative_examples = [(FLTSSUCategoryGroup *)self negative_examples];
-  std::vector<apple::aiml::flatbuffers2::Offset<SSUExample>>::reserve(&v40, [negative_examples count]);
+  std::vector<apple::aiml::flatbuffers2::Offset<SSUExample>>::reserve(&v39, [negative_examples count]);
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   obj = [(FLTSSUCategoryGroup *)self negative_examples];
-  v12 = [obj countByEnumeratingWithState:&v36 objects:v47 count:16];
-  v13 = v40;
+  v12 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+  v13 = v39;
   if (v12)
   {
-    v14 = *v37;
-    v15 = v41;
-    v16 = v42;
+    v14 = *v36;
+    v15 = v40;
+    v16 = v41;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v37 != v14)
+        if (*v36 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = [*(*(&v36 + 1) + 8 * i) addObjectToBuffer:{buffer, v33}];
+        v18 = [*(*(&v35 + 1) + 8 * i) addObjectToBuffer:{buffer, v32}];
         v19 = v18;
         if (v15 >= v16)
         {
@@ -121,9 +116,9 @@ apple::aiml::flatbuffers2::DetachedBuffer *__35__FLTSSUCategoryGroup_flatbuffDat
           v22 = v21 + 1;
           if ((v21 + 1) >> 62)
           {
-            v41 = v15;
-            v42 = v16;
-            v40 = v13;
+            v40 = v15;
+            v41 = v16;
+            v39 = v13;
             std::vector<std::unique_ptr<siricommon::StringValue>>::__throw_length_error[abi:ne200100]();
           }
 
@@ -166,10 +161,10 @@ apple::aiml::flatbuffers2::DetachedBuffer *__35__FLTSSUCategoryGroup_flatbuffDat
         }
       }
 
-      v41 = v15;
-      v42 = v16;
-      v40 = v13;
-      v12 = [obj countByEnumeratingWithState:&v36 objects:v47 count:16];
+      v40 = v15;
+      v41 = v16;
+      v39 = v13;
+      v12 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
     }
 
     while (v12);
@@ -177,7 +172,7 @@ apple::aiml::flatbuffers2::DetachedBuffer *__35__FLTSSUCategoryGroup_flatbuffDat
 
   else
   {
-    v15 = v41;
+    v15 = v40;
   }
 
   if (v15 == v13)
@@ -196,10 +191,10 @@ apple::aiml::flatbuffers2::DetachedBuffer *__35__FLTSSUCategoryGroup_flatbuffDat
   v26 = *(buffer + 8);
   v27 = *(buffer + 12);
   v28 = *(buffer + 10);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 4, v33);
-  if (HIDWORD(v33))
+  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 4, v32);
+  if (HIDWORD(v32))
   {
-    v29 = apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo(buffer, HIDWORD(v33));
+    v29 = apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo(buffer, HIDWORD(v32));
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(buffer, 6, v29, 0);
   }
 
@@ -207,11 +202,10 @@ apple::aiml::flatbuffers2::DetachedBuffer *__35__FLTSSUCategoryGroup_flatbuffDat
   v30.var0 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v26 - v27 + v28);
   if (v13)
   {
-    v41 = v13;
+    v40 = v13;
     operator delete(v13);
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v30;
 }
 

@@ -33,11 +33,9 @@
 
 - (NSString)description
 {
-  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  eventType = self->_eventType;
-  v5 = [v3 initWithFormat:@"SiriIntentEvent event with type: %@ and id: %@", eventType, self->_intentId];
+  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SiriIntentEvent event with type: %@ and id: %@", self->_eventType, self->_intentId];
 
-  return v5;
+  return v2;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

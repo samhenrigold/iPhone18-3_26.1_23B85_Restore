@@ -123,7 +123,7 @@
 
 - (void)_suspend
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXPrewarming();
+  v3 = WBS_LOG_CHANNEL_PREFIXPrewarming(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -136,7 +136,7 @@
 
 - (void)_resume
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXPrewarming();
+  v3 = WBS_LOG_CHANNEL_PREFIXPrewarming(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;

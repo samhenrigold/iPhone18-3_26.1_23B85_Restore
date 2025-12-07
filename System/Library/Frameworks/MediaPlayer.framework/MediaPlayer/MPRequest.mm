@@ -702,17 +702,17 @@ void __35__MPRequest_performWithCompletion___block_invoke_84(uint64_t a1, uint64
   }
 }
 
-void __35__MPRequest_performWithCompletion___block_invoke_2(void *a1)
+void __35__MPRequest_performWithCompletion___block_invoke_2(void *a1, uint64_t a2)
 {
   if (MSVDeviceOSIsInternalInstall())
   {
-    v3 = [MEMORY[0x1E696AAA8] currentHandler];
-    [v3 handleFailureInMethod:a1[7] object:a1[4] file:@"MPRequest.m" lineNumber:105 description:{@"-[MPRequest _performWithCompletion: failed to call completion %@", a1[5]}];
+    v4 = [MEMORY[0x1E696AAA8] currentHandler];
+    [v4 handleFailureInMethod:a1[7] object:a1[4] file:@"MPRequest.m" lineNumber:105 description:{@"-[MPRequest _performWithCompletion: failed to call completion %@", a1[5]}];
   }
 
-  v2 = a1[6];
-  v4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MPRequestErrorDomain" code:2 userInfo:0];
-  (*(v2 + 16))(v2, 0, v4);
+  v3 = a1[6];
+  v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MPRequestErrorDomain" code:2 userInfo:0];
+  (*(v3 + 16))(v3, 0, v5);
 }
 
 void __35__MPRequest_performWithCompletion___block_invoke_3(uint64_t a1, void *a2, void *a3)

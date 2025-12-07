@@ -80,7 +80,7 @@
     v6 = v5;
     if (v5)
     {
-      [v5 Xj38ZYkbLwtCgBTH];
+      objc_msgSend_Xj38ZYkbLwtCgBTH(v5);
     }
 
     else

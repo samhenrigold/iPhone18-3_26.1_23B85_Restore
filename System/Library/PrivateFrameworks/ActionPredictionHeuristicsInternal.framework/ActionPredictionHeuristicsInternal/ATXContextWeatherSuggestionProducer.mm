@@ -50,7 +50,7 @@
 
   else
   {
-    v16 = __atxlog_handle_context_heuristic();
+    v16 = __atxlog_handle_context_heuristic(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [ATXContextWeatherSuggestionProducer weatherSuggestionWithRefreshTriggers:v16];
@@ -77,22 +77,20 @@
 
 - (id)_suggestionWithAction:(id)action predictionReasons:(unint64_t)reasons score:(double)score
 {
-  reasonCode = self->_reasonCode;
   actionCopy = action;
-  v9 = stringForATXSuggestionPredictionReasonCode();
-  v10 = [ATXContextHeuristicSuggestionProducer suggestionWithSpotlightAction:actionCopy predictionReasons:reasons localizedReason:v9 score:0 dateInterval:score];
+  v8 = stringForATXSuggestionPredictionReasonCode();
+  v9 = [ATXContextHeuristicSuggestionProducer suggestionWithSpotlightAction:actionCopy predictionReasons:reasons localizedReason:v8 score:0 dateInterval:score];
 
-  return v10;
+  return v9;
 }
 
 - (id)_dummySuggestionWithAction:(id)action predictionReasons:(unint64_t)reasons score:(double)score
 {
-  reasonCode = self->_reasonCode;
   actionCopy = action;
-  v9 = stringForATXSuggestionPredictionReasonCode();
-  v10 = [ATXContextHeuristicSuggestionProducer dummySuggestionWithSpotlightAction:actionCopy predictionReasons:reasons localizedReason:v9 score:score];
+  v8 = stringForATXSuggestionPredictionReasonCode();
+  v9 = [ATXContextHeuristicSuggestionProducer dummySuggestionWithSpotlightAction:actionCopy predictionReasons:reasons localizedReason:v8 score:score];
 
-  return v10;
+  return v9;
 }
 
 @end

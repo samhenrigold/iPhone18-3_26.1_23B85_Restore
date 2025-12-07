@@ -268,11 +268,11 @@ uint64_t __28__MCUIDataManager_itemCount__block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __33__MCUIDataManager_appSignerCount__block_invoke(uint64_t a1)
+char *__33__MCUIDataManager_appSignerCount__block_invoke(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 48) count];
   result = [*(*(a1 + 32) + 56) count];
-  *(*(*(a1 + 40) + 8) + 24) = result + v2;
+  *(*(*(a1 + 40) + 8) + 24) = &result[v2];
   return result;
 }
 
@@ -296,7 +296,7 @@ uint64_t __33__MCUIDataManager_appSignerCount__block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __40__MCUIDataManager_installedProfileCount__block_invoke(uint64_t a1)
+char *__40__MCUIDataManager_installedProfileCount__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(v2 + 24);
@@ -724,7 +724,7 @@ void __113__MCUIDataManager__reloadQueueReloadDataInBackgroundIncludingProfiles_
 
 void __113__MCUIDataManager__reloadQueueReloadDataInBackgroundIncludingProfiles_appSigners_blockedApplications_completion___block_invoke_2(uint64_t a1)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 80);
   if (v2)
   {
@@ -746,17 +746,15 @@ void __113__MCUIDataManager__reloadQueueReloadDataInBackgroundIncludingProfiles_
   if ((*(a1 + 88) & 1) != 0 || (*(a1 + 89) & 1) != 0 || *(a1 + 90) == 1)
   {
     v5 = [MEMORY[0x277CCAB98] defaultCenter];
-    v10[0] = @"kMCUIProfilesUpdatedNotification";
+    v9[0] = @"kMCUIProfilesUpdatedNotification";
     v6 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 88)];
-    v10[1] = @"kMCUIAppSignersUpdatedNotification";
-    v11[0] = v6;
+    v9[1] = @"kMCUIAppSignersUpdatedNotification";
+    v10[0] = v6;
     v7 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 89)];
-    v11[1] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+    v10[1] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
     [v5 postNotificationName:@"kMCUIUpdatedNotification" object:0 userInfo:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reloadProfilesInBackgroundWithCompletion:(id)completion

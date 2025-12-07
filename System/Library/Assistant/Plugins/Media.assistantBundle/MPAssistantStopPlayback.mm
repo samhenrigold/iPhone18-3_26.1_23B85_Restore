@@ -8,19 +8,19 @@
 {
   completionCopy = completion;
   v5 = objc_alloc_init(MPAssistantPausePlayback);
-  hashedRouteUIDs = [(MPAssistantStopPlayback *)self hashedRouteUIDs];
-  [(MPAssistantPausePlayback *)v5 setHashedRouteUIDs:hashedRouteUIDs];
+  v10 = objc_msgSend_hashedRouteUIDs(self, v6, v7, v8, v9);
+  objc_msgSend_setHashedRouteUIDs_(v5, v11, v10, v12, v13);
 
-  refId = [(MPAssistantStopPlayback *)self refId];
-  [(MPAssistantPausePlayback *)v5 setRefId:refId];
+  v18 = objc_msgSend_refId(self, v14, v15, v16, v17);
+  objc_msgSend_setRefId_(v5, v19, v18, v20, v21);
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = sub_233502514;
-  v9[3] = &unk_2789DBC10;
-  v10 = completionCopy;
-  v8 = completionCopy;
-  [(MPAssistantPausePlayback *)v5 performWithCompletion:v9];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = sub_233502514;
+  v26[3] = &unk_2789DBC10;
+  v27 = completionCopy;
+  v22 = completionCopy;
+  objc_msgSend_performWithCompletion_(v5, v23, v26, v24, v25);
 }
 
 @end

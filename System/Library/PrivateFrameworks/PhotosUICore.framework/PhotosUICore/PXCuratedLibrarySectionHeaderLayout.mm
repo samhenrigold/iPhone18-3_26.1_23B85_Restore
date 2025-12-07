@@ -3969,7 +3969,7 @@ uint64_t __58__PXCuratedLibrarySectionHeaderLayout__updateSpritesAlpha__block_in
   v4 = assetCollectionReference;
   if (assetCollectionReference)
   {
-    [assetCollectionReference indexPath];
+    objc_msgSend_indexPath(assetCollectionReference);
   }
 
   else
@@ -3989,18 +3989,16 @@ uint64_t __58__PXCuratedLibrarySectionHeaderLayout__updateSpritesAlpha__block_in
   [(PXCuratedLibrarySectionHeaderLayout *)self modifySpritesInRange:v5 << 32 state:v6];
 }
 
-uint64_t __56__PXCuratedLibrarySectionHeaderLayout__updateSpriteTags__block_invoke_339(uint64_t result, unint64_t a2)
+void __56__PXCuratedLibrarySectionHeaderLayout__updateSpriteTags__block_invoke_339(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (HIDWORD(a2))
   {
-    [*(*(result + 32) + 896) objectAtIndexedSubscript:a2];
-    v2 = [_updateSpriteTags_itemIDToSpriteKindMap objectForKeyedSubscript:objc_claimAutoreleasedReturnValue()];
-    [v2 integerValue];
+    [*(*(a1 + 32) + 896) objectAtIndexedSubscript:{a2, a4, a5}];
+    v5 = [_updateSpriteTags_itemIDToSpriteKindMap objectForKeyedSubscript:objc_claimAutoreleasedReturnValue()];
+    [v5 integerValue];
 
     PXGSectionedSpriteTagMake();
   }
-
-  return result;
 }
 
 void __56__PXCuratedLibrarySectionHeaderLayout__updateSpriteTags__block_invoke()
@@ -4079,7 +4077,7 @@ void __68__PXCuratedLibrarySectionHeaderLayout__updateButtonActionPerformers__bl
     v15 = v19;
     do
     {
-      v10 = [*(*(a1 + 32) + 896) objectAtIndexedSubscript:{(v7 + v9), v15}];
+      v10 = [*(*(a1 + 32) + 896) objectAtIndexedSubscript:{(v7 + v9), a4, v15}];
       aBlock[0] = MEMORY[0x1E69E9820];
       aBlock[1] = 3221225472;
       v19[0] = __68__PXCuratedLibrarySectionHeaderLayout__updateButtonActionPerformers__block_invoke_4;
@@ -4170,7 +4168,7 @@ void __68__PXCuratedLibrarySectionHeaderLayout__updateButtonActionPerformers__bl
   v5 = assetCollectionReference;
   if (assetCollectionReference)
   {
-    [assetCollectionReference indexPath];
+    objc_msgSend_indexPath(assetCollectionReference);
   }
 
   [(PXCuratedLibrarySectionHeaderLayout *)self referenceSize];
@@ -4325,11 +4323,11 @@ void __53__PXCuratedLibrarySectionHeaderLayout__updateSprites__block_invoke_5(id
   PXEdgeInsetsInsetRect();
 }
 
-uint64_t __53__PXCuratedLibrarySectionHeaderLayout__updateSprites__block_invoke_6(uint64_t result, uint64_t a2, int a3)
+id *__53__PXCuratedLibrarySectionHeaderLayout__updateSprites__block_invoke_6(id *result, uint64_t a2, int a3)
 {
   if (a3)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;
@@ -4647,62 +4645,62 @@ void __53__PXCuratedLibrarySectionHeaderLayout__updateSprites__block_invoke_11(u
   *(*(*(a1 + 32) + 8) + 24) = MaxY;
 }
 
-uint64_t __53__PXCuratedLibrarySectionHeaderLayout__updateSprites__block_invoke_9(uint64_t result, uint64_t a2, __int16 a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7)
+void *__53__PXCuratedLibrarySectionHeaderLayout__updateSprites__block_invoke_9(void *result, uint64_t a2, __int16 a3, uint64_t a4, int a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9)
 {
-  if (*(result + 32) == a2)
+  if (result[4] == a2)
   {
-    v12 = result;
-    v13 = (*(result + 48) + 32 * *(result + 136));
-    MidX = CGRectGetMidX(*&a4);
-    v31.origin.x = a4;
-    v31.origin.y = a5;
-    v31.size.width = a6;
-    v31.size.height = a7;
-    MidY = CGRectGetMidY(v31);
-    v32.origin.x = a4;
-    v32.origin.y = a5;
-    v32.size.width = a6;
-    v32.size.height = a7;
-    Width = CGRectGetWidth(v32);
-    v33.origin.x = a4;
-    v33.origin.y = a5;
-    v33.size.width = a6;
-    v33.size.height = a7;
-    Height = CGRectGetHeight(v33);
-    v17.f64[0] = Width;
-    v17.f64[1] = Height;
-    *v13 = MidX;
-    *&v13[1] = MidY;
-    v13[2] = 0;
-    v13[3] = vcvt_f32_f64(v17);
-    [*(v12 + 40) buttonsZIndex];
-    v19 = *(v12 + 136);
-    v20 = *(v12 + 56);
-    *(*(v12 + 48) + 32 * v19 + 16) = v18;
-    v21 = (v20 + 160 * v19);
-    v22 = *(off_1E7722048 + 1);
-    *v21 = *off_1E7722048;
-    v21[1] = v22;
-    v23 = *(off_1E7722048 + 5);
-    v21[4] = *(off_1E7722048 + 4);
-    v21[5] = v23;
-    v24 = *(off_1E7722048 + 3);
-    v21[2] = *(off_1E7722048 + 2);
-    v21[3] = v24;
-    v25 = *(off_1E7722048 + 9);
-    v21[8] = *(off_1E7722048 + 8);
-    v21[9] = v25;
-    v26 = *(off_1E7722048 + 7);
-    v21[6] = *(off_1E7722048 + 6);
-    v21[7] = v26;
-    v27 = *(v12 + 96) + 40 * *(v12 + 136);
-    v28 = *(off_1E7722040 + 1);
-    *v27 = *off_1E7722040;
-    *(v27 + 16) = v28;
-    *(v27 + 32) = *(off_1E7722040 + 4);
-    v29 = (*(v12 + 96) + 40 * *(v12 + 136));
-    *v29 = 2561;
-    v29[16] = a3;
+    v14 = result;
+    v15 = (result[6] + 32 * *(result + 34));
+    MidX = CGRectGetMidX(*&a6);
+    v33.origin.x = a6;
+    v33.origin.y = a7;
+    v33.size.width = a8;
+    v33.size.height = a9;
+    MidY = CGRectGetMidY(v33);
+    v34.origin.x = a6;
+    v34.origin.y = a7;
+    v34.size.width = a8;
+    v34.size.height = a9;
+    Width = CGRectGetWidth(v34);
+    v35.origin.x = a6;
+    v35.origin.y = a7;
+    v35.size.width = a8;
+    v35.size.height = a9;
+    Height = CGRectGetHeight(v35);
+    v19.f64[0] = Width;
+    v19.f64[1] = Height;
+    *v15 = MidX;
+    *&v15[1] = MidY;
+    v15[2] = 0;
+    v15[3] = vcvt_f32_f64(v19);
+    [v14[5] buttonsZIndex];
+    v21 = *(v14 + 34);
+    v22 = v14[7];
+    *(v14[6] + 32 * v21 + 16) = v20;
+    v23 = (v22 + 160 * v21);
+    v24 = *(off_1E7722048 + 1);
+    *v23 = *off_1E7722048;
+    v23[1] = v24;
+    v25 = *(off_1E7722048 + 5);
+    v23[4] = *(off_1E7722048 + 4);
+    v23[5] = v25;
+    v26 = *(off_1E7722048 + 3);
+    v23[2] = *(off_1E7722048 + 2);
+    v23[3] = v26;
+    v27 = *(off_1E7722048 + 9);
+    v23[8] = *(off_1E7722048 + 8);
+    v23[9] = v27;
+    v28 = *(off_1E7722048 + 7);
+    v23[6] = *(off_1E7722048 + 6);
+    v23[7] = v28;
+    v29 = v14[12] + 40 * *(v14 + 34);
+    v30 = *(off_1E7722040 + 1);
+    *v29 = *off_1E7722040;
+    *(v29 + 16) = v30;
+    *(v29 + 32) = *(off_1E7722040 + 4);
+    v31 = (v14[12] + 40 * *(v14 + 34));
+    *v31 = 2561;
+    v31[16] = a3;
     PXGSectionedSpriteTagMake();
   }
 

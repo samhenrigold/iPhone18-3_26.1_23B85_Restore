@@ -2,6 +2,7 @@
 - (NSString)description;
 - (TVRDClientProcessConnection)initWithXPCConnection:(id)connection delegate:(id)delegate;
 - (TVRDClientProcessConnectionDelegate)delegate;
+- (id)_processNameForPid:(int)pid;
 - (void)_invalidateRemoteAlertHandle;
 - (void)_removeAllIdentifiers;
 - (void)_removeIdentifier:(id)identifier;
@@ -10,6 +11,8 @@
 - (void)cancelAuthChallengeForDeviceWithIdentifier:(id)identifier;
 - (void)closeConnectionToDeviceWithIdentifier:(id)identifier withType:(unint64_t)type;
 - (void)dealloc;
+- (void)enableFindingSession:(BOOL)session forDeviceIdentifier:(id)identifier;
+- (void)enableTVRemoteOnLockscreen:(BOOL)lockscreen forDeviceIdentifier:(id)identifier;
 - (void)endDeviceQuery;
 - (void)fetchActiveMREndpointUIDWithCompletion:(id)completion;
 - (void)fetchLaunchableAppsForDeviceWithIdentifier:(id)identifier completion:(id)completion;
@@ -42,9 +45,9 @@
 {
   connectionCopy = connection;
   delegateCopy = delegate;
-  v30.receiver = self;
-  v30.super_class = TVRDClientProcessConnection;
-  v9 = [(TVRDClientProcessConnection *)&v30 init];
+  v31.receiver = self;
+  v31.super_class = TVRDClientProcessConnection;
+  v9 = [(TVRDClientProcessConnection *)&v31 init];
   v10 = v9;
   if (v9)
   {
@@ -65,39 +68,40 @@
 
     objc_initWeak(&location, v10);
     v17 = v10->_xpcConnection;
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = __62__TVRDClientProcessConnection_initWithXPCConnection_delegate___block_invoke;
-    v27[3] = &unk_100020610;
-    objc_copyWeak(&v28, &location);
-    [(NSXPCConnection *)v17 setInterruptionHandler:v27];
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = __62__TVRDClientProcessConnection_initWithXPCConnection_delegate___block_invoke;
+    v28[3] = &unk_100020610;
+    objc_copyWeak(&v29, &location);
+    [(NSXPCConnection *)v17 setInterruptionHandler:v28];
     v18 = v10->_xpcConnection;
-    v25[0] = _NSConcreteStackBlock;
-    v25[1] = 3221225472;
-    v25[2] = __62__TVRDClientProcessConnection_initWithXPCConnection_delegate___block_invoke_2;
-    v25[3] = &unk_100020610;
-    objc_copyWeak(&v26, &location);
-    [(NSXPCConnection *)v18 setInvalidationHandler:v25];
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = __62__TVRDClientProcessConnection_initWithXPCConnection_delegate___block_invoke_2;
+    v26[3] = &unk_100020610;
+    objc_copyWeak(&v27, &location);
+    [(NSXPCConnection *)v18 setInvalidationHandler:v26];
     v19 = [(NSXPCConnection *)v10->_xpcConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_1];
     remoteObjectProxy = v10->_remoteObjectProxy;
     v10->_remoteObjectProxy = v19;
 
-    if (+[TVRCFeatures isPersistOnLockScreenEnabled])
+    v21 = +[TVRCFeatures isPersistOnLockScreenEnabled];
+    if (v21)
     {
-      v21 = _TVRDXPCLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v22 = _TVRDXPCLog(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        *v24 = 0;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Persist on Lock Screen Internal Setting is turned on", v24, 2u);
+        *v25 = 0;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Persist on Lock Screen Internal Setting is turned on", v25, 2u);
       }
 
-      v22 = +[TVRDAssertionManager sharedInstance];
-      [v22 acquireLockScreenAssertion];
+      v23 = +[TVRDAssertionManager sharedInstance];
+      [v23 acquireLockScreenAssertion];
     }
 
     [(NSXPCConnection *)v10->_xpcConnection resume];
-    objc_destroyWeak(&v26);
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v29);
     objc_destroyWeak(&location);
   }
 
@@ -107,7 +111,7 @@
 void __62__TVRDClientProcessConnection_initWithXPCConnection_delegate___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = _TVRDXPCLog();
+  v2 = _TVRDXPCLog(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -122,7 +126,7 @@ void __62__TVRDClientProcessConnection_initWithXPCConnection_delegate___block_in
 void __62__TVRDClientProcessConnection_initWithXPCConnection_delegate___block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = _TVRDXPCLog();
+  v2 = _TVRDXPCLog(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -137,7 +141,7 @@ void __62__TVRDClientProcessConnection_initWithXPCConnection_delegate___block_in
 void __62__TVRDClientProcessConnection_initWithXPCConnection_delegate___block_invoke_3(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = _TVRDXPCLog();
+  v3 = _TVRDXPCLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __62__TVRDClientProcessConnection_initWithXPCConnection_delegate___block_invoke_3_cold_1(v2, v3);
@@ -168,30 +172,48 @@ void __62__TVRDClientProcessConnection_initWithXPCConnection_delegate___block_in
   return build;
 }
 
+- (id)_processNameForPid:(int)pid
+{
+  v3 = *&pid;
+  if (proc_name(pid, buffer, 0x100u))
+  {
+    stringValue = [NSString stringWithUTF8String:buffer];
+  }
+
+  else
+  {
+    v5 = [NSNumber numberWithInt:v3];
+    stringValue = [v5 stringValue];
+  }
+
+  return stringValue;
+}
+
 - (void)openConnectionToDeviceWithIdentifier:(id)identifier connectionContext:(int64_t)context
 {
   identifierCopy = identifier;
-  v7 = _TVRDXPCLog();
+  v7 = _TVRDXPCLog(identifierCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543362;
+    v13 = 138543362;
     selfCopy = identifierCopy;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Open connection to device %{public}@", &v12, 0xCu);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Open connection to device %{public}@", &v13, 0xCu);
   }
 
-  if (([(NSMutableSet *)self->_mutableIdentifiers containsObject:identifierCopy]& 1) != 0)
+  v8 = [(NSMutableSet *)self->_mutableIdentifiers containsObject:identifierCopy];
+  if (v8)
   {
-    v8 = _TVRDXPCLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _TVRDXPCLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       deviceIdentifiers = [(TVRDClientProcessConnection *)self deviceIdentifiers];
-      v12 = 138412802;
+      v13 = 138412802;
       selfCopy = self;
-      v14 = 2114;
-      v15 = identifierCopy;
-      v16 = 2112;
-      v17 = deviceIdentifiers;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@ is already interested in identifier %{public}@. All interested IDs - %@", &v12, 0x20u);
+      v15 = 2114;
+      v16 = identifierCopy;
+      v17 = 2112;
+      v18 = deviceIdentifiers;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@ is already interested in identifier %{public}@. All interested IDs - %@", &v13, 0x20u);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -201,8 +223,8 @@ void __62__TVRDClientProcessConnection_initWithXPCConnection_delegate___block_in
   else
   {
     [(NSMutableSet *)self->_mutableIdentifiers addObject:identifierCopy];
-    v11 = objc_loadWeakRetained(&self->_delegate);
-    [v11 clientConnection:self addedInterestedDeviceIdentifier:identifierCopy connectionContext:context];
+    v12 = objc_loadWeakRetained(&self->_delegate);
+    [v12 clientConnection:self addedInterestedDeviceIdentifier:identifierCopy connectionContext:context];
 
     notify_post("com.apple.TVRemoteCore.connectionRequested");
   }
@@ -211,77 +233,82 @@ void __62__TVRDClientProcessConnection_initWithXPCConnection_delegate___block_in
 - (void)closeConnectionToDeviceWithIdentifier:(id)identifier withType:(unint64_t)type
 {
   identifierCopy = identifier;
-  v7 = _TVRDXPCLog();
+  v7 = _TVRDXPCLog(identifierCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v19 = identifierCopy;
-    v20 = 2048;
+    v22 = identifierCopy;
+    v23 = 2048;
     typeCopy = type;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Close connection to device %{public}@ with type %ld", buf, 0x16u);
   }
 
   if ([(NSMutableSet *)self->_mutableIdentifiers containsObject:identifierCopy])
   {
-    if (type == 1 && (+[TVRCFeatures isWakeToRemoteOnLockScreenDisabled]& 1) == 0)
+    if (type == 1)
     {
-      v14 = _TVRDXPCLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v8 = +[TVRCFeatures isWakeToRemoteOnLockScreenDisabled];
+      if ((v8 & 1) == 0)
       {
-        *buf = 138412290;
-        v19 = identifierCopy;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Disconnect type for device %@ is unknown. Acquiring lock screen assertion.", buf, 0xCu);
-      }
+        v17 = _TVRDXPCLog(v8);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v22 = identifierCopy;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Disconnect type for device %@ is unknown. Acquiring lock screen assertion.", buf, 0xCu);
+        }
 
-      v8 = +[TVRDAssertionManager sharedInstance];
-      [v8 acquireLockScreenAssertion];
-      goto LABEL_19;
+        v10 = +[TVRDAssertionManager sharedInstance];
+        [v10 acquireLockScreenAssertion];
+        goto LABEL_19;
+      }
     }
 
-    if ((+[TVRCFeatures isPersistOnLockScreenEnabled]& 1) != 0)
+    v9 = +[TVRCFeatures isPersistOnLockScreenEnabled];
+    if (v9)
     {
-      v8 = _TVRDXPCLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = _TVRDXPCLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v9 = "Persist on Lock Screen Internal Setting is turned on. Skipping releasing lock screen assertion.";
+        v11 = "Persist on Lock Screen Internal Setting is turned on. Skipping releasing lock screen assertion.";
 LABEL_18:
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, v9, buf, 2u);
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, v11, buf, 2u);
       }
     }
 
     else
     {
-      v10 = +[TVRDAssertionManager sharedInstance];
-      isLockScreenAssertionActive = [v10 isLockScreenAssertionActive];
+      v12 = +[TVRDAssertionManager sharedInstance];
+      isLockScreenAssertionActive = [v12 isLockScreenAssertionActive];
 
-      v8 = _TVRDXPCLog();
-      v12 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+      v10 = _TVRDXPCLog(v14);
+      v15 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
       if (isLockScreenAssertionActive)
       {
-        if (v12)
+        if (v15)
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Releasing lock screen assertion in 1 second", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Releasing lock screen assertion in 1 second", buf, 2u);
         }
 
         objc_initWeak(buf, self);
-        v13 = dispatch_time(0, 1000000000);
+        v16 = dispatch_time(0, 1000000000);
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = __78__TVRDClientProcessConnection_closeConnectionToDeviceWithIdentifier_withType___block_invoke;
         block[3] = &unk_100020610;
-        objc_copyWeak(&v17, buf);
-        dispatch_after(v13, &_dispatch_main_q, block);
-        objc_destroyWeak(&v17);
+        objc_copyWeak(&v20, buf);
+        dispatch_after(v16, &_dispatch_main_q, block);
+        objc_destroyWeak(&v20);
         objc_destroyWeak(buf);
         goto LABEL_20;
       }
 
-      if (v12)
+      if (v15)
       {
         *buf = 0;
-        v9 = "Lock screen assertion is inactive";
+        v11 = "Lock screen assertion is inactive";
         goto LABEL_18;
       }
     }
@@ -312,7 +339,7 @@ uint64_t __78__TVRDClientProcessConnection_closeConnectionToDeviceWithIdentifier
 {
   identifierCopy = identifier;
   codeCopy = code;
-  v8 = _TVRDXPCLog();
+  v8 = _TVRDXPCLog(codeCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138412546;
@@ -329,7 +356,7 @@ uint64_t __78__TVRDClientProcessConnection_closeConnectionToDeviceWithIdentifier
 - (void)cancelAuthChallengeForDeviceWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = _TVRDXPCLog();
+  v5 = _TVRDXPCLog(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -345,7 +372,7 @@ uint64_t __78__TVRDClientProcessConnection_closeConnectionToDeviceWithIdentifier
 {
   eventCopy = event;
   identifierCopy = identifier;
-  v8 = _TVRDXPCLog();
+  v8 = _TVRDXPCLog(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138543618;
@@ -371,7 +398,7 @@ uint64_t __78__TVRDClientProcessConnection_closeConnectionToDeviceWithIdentifier
 {
   eventCopy = event;
   identifierCopy = identifier;
-  v8 = _TVRDXPCLog();
+  v8 = _TVRDXPCLog(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138543618;
@@ -389,7 +416,7 @@ uint64_t __78__TVRDClientProcessConnection_closeConnectionToDeviceWithIdentifier
 {
   textCopy = text;
   identifierCopy = identifier;
-  v8 = _TVRDXPCLog();
+  v8 = _TVRDXPCLog(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138412546;
@@ -406,7 +433,7 @@ uint64_t __78__TVRDClientProcessConnection_closeConnectionToDeviceWithIdentifier
 - (void)sendInputReturnKeyToDeviceWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = _TVRDXPCLog();
+  v5 = _TVRDXPCLog(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -422,7 +449,7 @@ uint64_t __78__TVRDClientProcessConnection_closeConnectionToDeviceWithIdentifier
 {
   payloadCopy = payload;
   identifierCopy = identifier;
-  v8 = _TVRDXPCLog();
+  v8 = _TVRDXPCLog(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138412546;
@@ -439,7 +466,7 @@ uint64_t __78__TVRDClientProcessConnection_closeConnectionToDeviceWithIdentifier
 - (void)beginDeviceQueryWithResponse:(id)response
 {
   responseCopy = response;
-  v5 = _TVRDXPCLog();
+  v5 = _TVRDXPCLog(responseCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -456,7 +483,7 @@ uint64_t __78__TVRDClientProcessConnection_closeConnectionToDeviceWithIdentifier
 
 - (void)endDeviceQuery
 {
-  v3 = _TVRDXPCLog();
+  v3 = _TVRDXPCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -474,7 +501,7 @@ uint64_t __78__TVRDClientProcessConnection_closeConnectionToDeviceWithIdentifier
 - (void)getSuggestedDevicesWithResponse:(id)response
 {
   responseCopy = response;
-  v5 = _TVRDXPCLog();
+  v5 = _TVRDXPCLog(responseCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -488,22 +515,21 @@ uint64_t __78__TVRDClientProcessConnection_closeConnectionToDeviceWithIdentifier
 - (void)removeInterestForDeviceWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = _TVRDXPCLog();
+  v5 = _TVRDXPCLog(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543362;
-    v13 = identifierCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Removing device identifier: %{public}@", &v12, 0xCu);
+    v13 = 138543362;
+    v14 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Removing device identifier: %{public}@", &v13, 0xCu);
   }
 
-  [(TVRDClientProcessConnection *)self _removeIdentifier:identifierCopy];
-  v6 = _TVRDXPCLog();
+  v6 = _TVRDXPCLog([(TVRDClientProcessConnection *)self _removeIdentifier:identifierCopy]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     mutableIdentifiers = [(TVRDClientProcessConnection *)self mutableIdentifiers];
-    v12 = 138543362;
-    v13 = mutableIdentifiers;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Device identifiers interested to connect: %{public}@", &v12, 0xCu);
+    v13 = 138543362;
+    v14 = mutableIdentifiers;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Device identifiers interested to connect: %{public}@", &v13, 0xCu);
   }
 
   mutableIdentifiers2 = [(TVRDClientProcessConnection *)self mutableIdentifiers];
@@ -517,11 +543,11 @@ uint64_t __78__TVRDClientProcessConnection_closeConnectionToDeviceWithIdentifier
 
   if (isLockScreenAssertionActive)
   {
-    v11 = _TVRDXPCLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = _TVRDXPCLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Releasing lock screen assertion", &v12, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Releasing lock screen assertion", &v13, 2u);
     }
 
     mutableIdentifiers2 = +[TVRDAssertionManager sharedInstance];
@@ -567,7 +593,7 @@ uint64_t __70__TVRDClientProcessConnection_fetchActiveMREndpointUIDWithCompletio
 - (void)launchViewServiceForDeviceWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = _TVRDXPCLog();
+  v5 = _TVRDXPCLog(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 136315394;
@@ -594,7 +620,7 @@ uint64_t __70__TVRDClientProcessConnection_fetchActiveMREndpointUIDWithCompletio
   v10 = [SBSRemoteAlertHandle newHandleWithDefinition:v6 configurationContext:v7];
   [v10 registerObserver:self];
   v11 = objc_alloc_init(SBSRemoteAlertActivationContext);
-  v12 = _TVRDXPCLog();
+  v12 = _TVRDXPCLog(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v13) = 0;
@@ -603,6 +629,39 @@ uint64_t __70__TVRDClientProcessConnection_fetchActiveMREndpointUIDWithCompletio
 
   [v10 activateWithContext:v11];
   [(TVRDClientProcessConnection *)self setAlertHandle:v10];
+}
+
+- (void)enableTVRemoteOnLockscreen:(BOOL)lockscreen forDeviceIdentifier:(id)identifier
+{
+  lockscreenCopy = lockscreen;
+  identifierCopy = identifier;
+  v7 = _TVRDXPCLog(identifierCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_delegate);
+    v11 = 136315394;
+    v12 = "[TVRDClientProcessConnection enableTVRemoteOnLockscreen:forDeviceIdentifier:]";
+    v13 = 2112;
+    v14 = WeakRetained;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s with delegate:%@", &v11, 0x16u);
+  }
+
+  v9 = +[TVRCFeatures isPersistOnLockScreenEnabled];
+  if (v9)
+  {
+    v10 = _TVRDXPCLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v11) = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Skipping. PersistOnLockScreen Internal Setting is turned on", &v11, 2u);
+    }
+  }
+
+  else
+  {
+    v10 = objc_loadWeakRetained(&self->_delegate);
+    [v10 clientConnection:self requestsEnablingRemoteOnLockscreen:lockscreenCopy forDeviceWithIdentifier:identifierCopy];
+  }
 }
 
 - (void)getConnectionStatusToDeviceWithIdentifier:(id)identifier response:(id)response
@@ -615,12 +674,36 @@ uint64_t __70__TVRDClientProcessConnection_fetchActiveMREndpointUIDWithCompletio
   responseCopy[2](responseCopy, v8);
 }
 
+- (void)enableFindingSession:(BOOL)session forDeviceIdentifier:(id)identifier
+{
+  sessionCopy = session;
+  identifierCopy = identifier;
+  v7 = _TVRDXPCLog(identifierCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = @"Disable";
+    if (sessionCopy)
+    {
+      v8 = @"Enable";
+    }
+
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2114;
+    v13 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ finding session for device %{public}@", &v10, 0x16u);
+  }
+
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained clientConnection:self requestsEnablingFindingSession:sessionCopy forDeviceWithIdentifier:identifierCopy];
+}
+
 - (void)fetchUpNextInfoForDeviceWithIdentifier:(id)identifier paginationToken:(id)token completion:(id)completion
 {
   completionCopy = completion;
   tokenCopy = token;
   identifierCopy = identifier;
-  v11 = _TVRDXPCLog();
+  v11 = _TVRDXPCLog(identifierCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *v13 = 0;
@@ -636,7 +719,7 @@ uint64_t __70__TVRDClientProcessConnection_fetchActiveMREndpointUIDWithCompletio
   identifierCopy = identifier;
   mediaIdentifierCopy = mediaIdentifier;
   completionCopy = completion;
-  v11 = _TVRDXPCLog();
+  v11 = _TVRDXPCLog(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138412546;
@@ -655,7 +738,7 @@ uint64_t __70__TVRDClientProcessConnection_fetchActiveMREndpointUIDWithCompletio
   identifierCopy = identifier;
   mediaIdentifierCopy = mediaIdentifier;
   completionCopy = completion;
-  v11 = _TVRDXPCLog();
+  v11 = _TVRDXPCLog(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138412546;
@@ -674,7 +757,7 @@ uint64_t __70__TVRDClientProcessConnection_fetchActiveMREndpointUIDWithCompletio
   identifierCopy = identifier;
   mediaIdentifierCopy = mediaIdentifier;
   completionCopy = completion;
-  v11 = _TVRDXPCLog();
+  v11 = _TVRDXPCLog(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138412546;
@@ -693,7 +776,7 @@ uint64_t __70__TVRDClientProcessConnection_fetchActiveMREndpointUIDWithCompletio
   itemCopy = item;
   identifierCopy = identifier;
   completionCopy = completion;
-  v11 = _TVRDXPCLog();
+  v11 = _TVRDXPCLog(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138412546;
@@ -711,7 +794,7 @@ uint64_t __70__TVRDClientProcessConnection_fetchActiveMREndpointUIDWithCompletio
 {
   identifierCopy = identifier;
   completionCopy = completion;
-  v8 = _TVRDXPCLog();
+  v8 = _TVRDXPCLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138543362;
@@ -728,7 +811,7 @@ uint64_t __70__TVRDClientProcessConnection_fetchActiveMREndpointUIDWithCompletio
   identifierCopy = identifier;
   dCopy = d;
   completionCopy = completion;
-  v11 = _TVRDXPCLog();
+  v11 = _TVRDXPCLog(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138543618;
@@ -744,7 +827,7 @@ uint64_t __70__TVRDClientProcessConnection_fetchActiveMREndpointUIDWithCompletio
 
 - (void)remoteAlertHandleDidDeactivate:(id)deactivate
 {
-  v4 = _TVRDXPCLog();
+  v4 = _TVRDXPCLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;
@@ -758,7 +841,7 @@ uint64_t __70__TVRDClientProcessConnection_fetchActiveMREndpointUIDWithCompletio
 - (void)remoteAlertHandle:(id)handle didInvalidateWithError:(id)error
 {
   errorCopy = error;
-  v6 = _TVRDXPCLog();
+  v6 = _TVRDXPCLog(errorCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [TVRDClientProcessConnection remoteAlertHandle:errorCopy didInvalidateWithError:v6];
@@ -769,7 +852,7 @@ uint64_t __70__TVRDClientProcessConnection_fetchActiveMREndpointUIDWithCompletio
 
 - (void)_invalidateRemoteAlertHandle
 {
-  v3 = _TVRDXPCLog();
+  v3 = _TVRDXPCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
@@ -789,31 +872,31 @@ uint64_t __70__TVRDClientProcessConnection_fetchActiveMREndpointUIDWithCompletio
 - (void)_removeAllIdentifiers
 {
   deviceIdentifiers = [(TVRDClientProcessConnection *)self deviceIdentifiers];
-  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v4 = [deviceIdentifiers countByEnumeratingWithState:&v11 objects:v17 count:16];
+  v15 = 0u;
+  v4 = [deviceIdentifiers countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v13;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(deviceIdentifiers);
         }
 
-        [(TVRDClientProcessConnection *)self _removeIdentifier:*(*(&v11 + 1) + 8 * v7)];
+        [(TVRDClientProcessConnection *)self _removeIdentifier:*(*(&v12 + 1) + 8 * v7)];
         v7 = v7 + 1;
       }
 
       while (v5 != v7);
-      v5 = [deviceIdentifiers countByEnumeratingWithState:&v11 objects:v17 count:16];
+      v5 = [deviceIdentifiers countByEnumeratingWithState:&v12 objects:v18 count:16];
     }
 
     while (v5);
@@ -822,13 +905,13 @@ uint64_t __70__TVRDClientProcessConnection_fetchActiveMREndpointUIDWithCompletio
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained clientConnectionRequestsEndingDeviceQuery:self];
 
-  v9 = _TVRDXPCLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _TVRDXPCLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [(NSMutableSet *)self->_mutableIdentifiers count];
+    v11 = [(NSMutableSet *)self->_mutableIdentifiers count];
     *buf = 67109120;
-    v16 = v10;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "After removing all identifiers for connection, counted set now has %d elements.", buf, 8u);
+    v17 = v11;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "After removing all identifiers for connection, counted set now has %d elements.", buf, 8u);
   }
 }
 
@@ -847,7 +930,7 @@ uint64_t __70__TVRDClientProcessConnection_fetchActiveMREndpointUIDWithCompletio
 {
   identifierCopy = identifier;
   toCopy = to;
-  v8 = _TVRDXPCLog();
+  v8 = _TVRDXPCLog(toCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412546;

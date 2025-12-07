@@ -1,5 +1,7 @@
 @interface PDBiomeClient
 - (BOOL)checkScheduledTask:(id)task completionType:(int64_t)type;
+- (BOOL)scheduleHalfWayNotificationIfNeeded:(id)needed appUsage:(id)usage isTryAgain:(BOOL)again tryAgainDate:(id)date;
+- (BOOL)scheduleMarkDoneIfNeeded:(id)needed appUsage:(id)usage isTryAgain:(BOOL)again tryAgainDate:(id)date;
 - (BOOL)triggerScheduledTask:(int64_t)task targetInterval:(double)interval;
 - (PDBiomeClient)init;
 - (double)calculateDelta:(id)delta usage:(id)usage completionType:(int64_t)type isTryAgain:(BOOL)again tryAgainDate:(id)date;
@@ -267,10 +269,10 @@ LABEL_50:
       *(v13 + 8) = 0;
       objc_storeStrong((v13 + 48), stamp);
       [v11 insertOrUpdateObject:v13];
-      v24 = sub_10006DCEC();
+      v24 = sub_10006DCEC(PDTaskScheduler);
       sub_10006DEB8(v24, self->_scheduleHalfDoneTaskID);
 
-      v25 = sub_10006DCEC();
+      v25 = sub_10006DCEC(PDTaskScheduler);
       sub_10006DEB8(v25, self->_scheduleMarkDoneTaskID);
 
       [(PDBiomeClient *)self cleanUpScheduledTaskTriggers:1];
@@ -471,7 +473,7 @@ LABEL_51:
   [(PDTaskSchedulerBlockTask *)v13 setGracePeriod:0];
   [(PDTaskSchedulerBlockTask *)v13 setRepeating:0];
   [(PDTaskSchedulerBlockTask *)v13 setRequiredNetworkState:0];
-  v14 = sub_10006DCEC();
+  v14 = sub_10006DCEC(PDTaskScheduler);
   sub_10006E4A0(v14, v13);
 
   if (triggerCopy)
@@ -520,7 +522,7 @@ LABEL_51:
   [(PDTaskSchedulerBlockTask *)v17 setGracePeriod:0];
   [(PDTaskSchedulerBlockTask *)v17 setRepeating:0];
   [(PDTaskSchedulerBlockTask *)v17 setRequiredNetworkState:0];
-  v18 = sub_10006DCEC();
+  v18 = sub_10006DCEC(PDTaskScheduler);
   sub_10006E4A0(v18, v17);
 
   if (triggerCopy)
@@ -571,7 +573,7 @@ LABEL_51:
       v30 = objectID;
       v29 = [PDSchoolworkCollaborationStateAdaptor setActivityState:2 forAttachment:v13 forHandout:v17 senderPersonID:objectID withStates:v12];
       v21 = [NSMutableArray arrayWithObjects:0];
-      v22 = sub_1000D8698();
+      v22 = sub_1000D8698(PDDaemon);
       operationsManager = [v22 operationsManager];
 
       if (operationsManager)
@@ -677,6 +679,44 @@ LABEL_10:
   }
 
 LABEL_11:
+}
+
+- (BOOL)scheduleMarkDoneIfNeeded:(id)needed appUsage:(id)usage isTryAgain:(BOOL)again tryAgainDate:(id)date
+{
+  againCopy = again;
+  neededCopy = needed;
+  usageCopy = usage;
+  [(PDBiomeClient *)self calculateDelta:neededCopy usage:usageCopy completionType:2 isTryAgain:againCopy tryAgainDate:date];
+  v13 = v12;
+  if (v12 > 0.0)
+  {
+    objectID = [neededCopy objectID];
+    [(PDBiomeClient *)self scheduleActivityDone:objectID appUsage:usageCopy timeInterval:1 saveTrigger:v13];
+  }
+
+  return v13 > 0.0;
+}
+
+- (BOOL)scheduleHalfWayNotificationIfNeeded:(id)needed appUsage:(id)usage isTryAgain:(BOOL)again tryAgainDate:(id)date
+{
+  againCopy = again;
+  neededCopy = needed;
+  usageCopy = usage;
+  dateCopy = date;
+  [neededCopy timeExpectation];
+  if (v13 > 60.0 && ([(PDBiomeClient *)self calculateDelta:neededCopy usage:usageCopy completionType:1 isTryAgain:againCopy tryAgainDate:dateCopy], v15 = v14, v14 >= 60.0))
+  {
+    objectID = [neededCopy objectID];
+    v16 = 1;
+    [(PDBiomeClient *)self scheduleHalfWayDoneNotification:objectID attachmentID:1 saveTrigger:v15];
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  return v16;
 }
 
 - (double)calculateDelta:(id)delta usage:(id)usage completionType:(int64_t)type isTryAgain:(BOOL)again tryAgainDate:(id)date
@@ -805,10 +845,10 @@ LABEL_11:
       currentAttachmentID = self->_currentAttachmentID;
       if (!(currentAttachmentID | objectID) || currentAttachmentID && objectID && [(NSString *)currentAttachmentID isEqualToString:objectID])
       {
-        v15 = sub_10006DCEC();
+        v15 = sub_10006DCEC(PDTaskScheduler);
         sub_10006DEB8(v15, self->_scheduleHalfDoneTaskID);
 
-        v16 = sub_10006DCEC();
+        v16 = sub_10006DCEC(PDTaskScheduler);
         sub_10006DEB8(v16, self->_scheduleMarkDoneTaskID);
 
         [(PDBiomeClient *)self cleanUpScheduledTaskTriggers:1];
@@ -904,7 +944,7 @@ LABEL_11:
 - (void)presentProgressBannerWithAttachmentID:(id)d
 {
   dCopy = d;
-  v5 = sub_1000D8698();
+  v5 = sub_1000D8698(PDDaemon);
   v6 = v5;
   if (v5)
   {

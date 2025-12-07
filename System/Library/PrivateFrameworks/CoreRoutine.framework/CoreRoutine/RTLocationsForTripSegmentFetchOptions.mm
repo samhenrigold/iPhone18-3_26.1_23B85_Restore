@@ -14,12 +14,12 @@
 
 - (RTLocationsForTripSegmentFetchOptions)initWithDateInterval:(id)interval preferredDownsamplingLevel:(int64_t)level boundingBoxLocation:(id)location batchSize:(unint64_t)size offset:(unint64_t)offset
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   intervalCopy = interval;
   locationCopy = location;
-  v25.receiver = self;
-  v25.super_class = RTLocationsForTripSegmentFetchOptions;
-  v16 = [(RTLocationsForTripSegmentFetchOptions *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = RTLocationsForTripSegmentFetchOptions;
+  v16 = [(RTLocationsForTripSegmentFetchOptions *)&v24 init];
   v17 = v16;
   if (v16)
   {
@@ -33,28 +33,27 @@
       v18 = _rt_log_facility_get_os_log(RTLogFacilityTripSegment);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
-        v21 = objc_opt_class();
-        v22 = NSStringFromClass(v21);
-        v23 = NSStringFromSelector(a2);
-        v24 = [intervalCopy description];
+        v20 = objc_opt_class();
+        v21 = NSStringFromClass(v20);
+        v22 = NSStringFromSelector(a2);
+        v23 = [intervalCopy description];
         *buf = 138413570;
-        v27 = v22;
-        v28 = 2112;
-        v29 = v23;
-        v30 = 2112;
-        v31 = v24;
-        v32 = 2048;
+        v26 = v21;
+        v27 = 2112;
+        v28 = v22;
+        v29 = 2112;
+        v30 = v23;
+        v31 = 2048;
         levelCopy = level;
-        v34 = 2048;
+        v33 = 2048;
         sizeCopy = size;
-        v36 = 2048;
+        v35 = 2048;
         offsetCopy = offset;
         _os_log_debug_impl(&dword_1BF1C4000, v18, OS_LOG_TYPE_DEBUG, "%@ %@, dateInterval, %@,preferredDownsamplingLevel,%ld,batchSize,%lu,offset,%lu.", buf, 0x3Eu);
       }
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

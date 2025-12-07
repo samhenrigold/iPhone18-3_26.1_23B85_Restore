@@ -159,7 +159,7 @@
 
   else
   {
-    sub_1005CA660(onCopy, self, &v9, completionCopy);
+    sub_1005CA660(onCopy, self, v9, completionCopy);
   }
 }
 

@@ -116,11 +116,11 @@
   return v4;
 }
 
-uint64_t __32__UISlidingBarState_description__block_invoke(uint64_t result, uint64_t a2, char a3, double a4)
+id *__32__UISlidingBarState_description__block_invoke(id *result, uint64_t a2, char a3, double a4)
 {
   if (a4 != 0.0 || (a3 & 1) == 0)
   {
-    return [*(result + 32) appendFormat:@" %@=%g", a2, *&a4, v4, v5];
+    return [result[4] appendFormat:@" %@=%g", a2, *&a4, v4, v5];
   }
 
   return result;
@@ -174,7 +174,7 @@ LABEL_8:
     {
       _configuration = [(UISlidingBarState *)self _configuration];
       _configuration2 = [v5 _configuration];
-      if ([_configuration isEqual:_configuration2] && (v54 = -[UISlidingBarState _collapsedState](self, "_collapsedState"), v54 == objc_msgSend(v5, "_collapsedState")))
+      if (objc_msgSend_isEqual_(_configuration) && (v54 = -[UISlidingBarState _collapsedState](self, "_collapsedState"), v54 == [v5 _collapsedState]))
       {
         [(UISlidingBarState *)self _keyboardAdjustment];
         v56 = v55;

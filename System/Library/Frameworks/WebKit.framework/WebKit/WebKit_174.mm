@@ -18,7 +18,7 @@ void WebKit::RemoteDisplayListRecorderProxy::strokeRect(WebKit::RemoteDisplayLis
     if (v33)
     {
       ++*(v33 + 5);
-      v34 = WebKit::RemoteRenderingBackendProxy::connection(v33, v7, buf);
+      v34 = WebKit::RemoteRenderingBackendProxy::connection(buf, v33, v7);
       v8 = *buf;
       if (*(v33 + 5) == 1)
       {
@@ -39,7 +39,7 @@ LABEL_3:
           v6 = *(this + 443);
           if (v6)
           {
-            WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(v6, *(this + 442), buf);
+            WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(buf, v6, *(this + 442));
             v6 = *buf;
             if (*buf)
             {
@@ -269,7 +269,7 @@ void WebKit::RemoteDisplayListRecorderProxy::strokeEllipse(WebKit::RemoteDisplay
     if (v33)
     {
       ++*(v33 + 5);
-      v34 = WebKit::RemoteRenderingBackendProxy::connection(v33, v5, buf);
+      v34 = WebKit::RemoteRenderingBackendProxy::connection(buf, v33, v5);
       v6 = *buf;
       if (*(v33 + 5) == 1)
       {
@@ -290,7 +290,7 @@ LABEL_3:
           v4 = *(this + 443);
           if (v4)
           {
-            WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(v4, *(this + 442), buf);
+            WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(buf, v4, *(this + 442));
             v4 = *buf;
             if (*buf)
             {
@@ -521,7 +521,7 @@ void WebKit::RemoteDisplayListRecorderProxy::clearRect(WebKit::RemoteDisplayList
       v4 = *(this + 443);
       if (v4)
       {
-        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(v4, *(this + 442), buf);
+        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(buf, v4, *(this + 442));
         v4 = *buf;
         if (*buf)
         {
@@ -700,7 +700,7 @@ LABEL_54:
     }
 
     ++*(v35 + 5);
-    v36 = WebKit::RemoteRenderingBackendProxy::connection(v35, v5, buf);
+    v36 = WebKit::RemoteRenderingBackendProxy::connection(buf, v35, v5);
     v6 = *buf;
     if (*(v35 + 5) == 1)
     {
@@ -751,11 +751,11 @@ LABEL_21:
   }
 }
 
-void WebKit::RemoteDisplayListRecorderProxy::drawControlPart(uint64_t a1, uint64_t a2, float *a3, int *a4, float a5)
+void WebKit::RemoteDisplayListRecorderProxy::drawControlPart(uint64_t a1, atomic_uint *a2, float *a3, unsigned int *a4, float a5)
 {
   v63 = *MEMORY[0x1E69E9840];
   v10 = WebKit::RemoteDisplayListRecorderProxy::appendStateChangeItemIfNecessary(a1, a2);
-  atomic_fetch_add((a2 + 8), 1u);
+  atomic_fetch_add(a2 + 2, 1u);
   v12 = *(a1 + 3512);
   if (!v12)
   {
@@ -770,7 +770,7 @@ void WebKit::RemoteDisplayListRecorderProxy::drawControlPart(uint64_t a1, uint64
       v10 = *(a1 + 3544);
       if (v10)
       {
-        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(v10, *(a1 + 3536), buf);
+        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(buf, v10, *(a1 + 3536));
         v10 = *buf;
         if (*buf)
         {
@@ -970,7 +970,7 @@ LABEL_65:
     }
 
     ++*(v54 + 5);
-    v55 = WebKit::RemoteRenderingBackendProxy::connection(v54, v11, buf);
+    v55 = WebKit::RemoteRenderingBackendProxy::connection(buf, v54, v11);
     v12 = *buf;
     if (*(v54 + 5) == 1)
     {
@@ -1084,9 +1084,9 @@ LABEL_59:
   }
 
 LABEL_61:
-  if (atomic_fetch_add((a2 + 8), 0xFFFFFFFF) == 1)
+  if (atomic_fetch_add(a2 + 2, 0xFFFFFFFF) == 1)
   {
-    atomic_store(1u, (a2 + 8));
+    atomic_store(1u, a2 + 2);
     (*(*a2 + 8))(a2);
   }
 }
@@ -1109,7 +1109,7 @@ void WebKit::RemoteDisplayListRecorderProxy::applyStrokePattern(WebKit::RemoteDi
       v3 = *(this + 443);
       if (v3)
       {
-        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(v3, *(this + 442), v36);
+        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(v36, v3, *(this + 442));
         v3 = *v36;
         if (*v36)
         {
@@ -1273,7 +1273,7 @@ LABEL_44:
     }
 
     ++*(v31 + 5);
-    v32 = WebKit::RemoteRenderingBackendProxy::connection(v31, v4, v36);
+    v32 = WebKit::RemoteRenderingBackendProxy::connection(v36, v31, v4);
     v5 = *v36;
     if (*(v31 + 5) == 1)
     {
@@ -1341,7 +1341,7 @@ void WebKit::RemoteDisplayListRecorderProxy::applyFillPattern(WebKit::RemoteDisp
       v3 = *(this + 443);
       if (v3)
       {
-        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(v3, *(this + 442), v36);
+        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(v36, v3, *(this + 442));
         v3 = *v36;
         if (*v36)
         {
@@ -1505,7 +1505,7 @@ LABEL_44:
     }
 
     ++*(v31 + 5);
-    v32 = WebKit::RemoteRenderingBackendProxy::connection(v31, v4, v36);
+    v32 = WebKit::RemoteRenderingBackendProxy::connection(v36, v31, v4);
     v5 = *v36;
     if (*(v31 + 5) == 1)
     {
@@ -1580,7 +1580,7 @@ void WebKit::RemoteDisplayListRecorderProxy::applyDeviceScaleFactor(WebKit::Remo
     }
 
     ++*(v36 + 5);
-    v37 = WebKit::RemoteRenderingBackendProxy::connection(v36, v5, buf);
+    v37 = WebKit::RemoteRenderingBackendProxy::connection(buf, v36, v5);
     v6 = *buf;
     if (*(v36 + 5) == 1)
     {
@@ -1615,7 +1615,7 @@ void WebKit::RemoteDisplayListRecorderProxy::applyDeviceScaleFactor(WebKit::Remo
     updated = *(this + 443);
     if (updated)
     {
-      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(updated, *(this + 442), buf);
+      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(buf, updated, *(this + 442));
       updated = *buf;
       if (*buf)
       {
@@ -1877,7 +1877,7 @@ void WebKit::RemoteDisplayListRecorderProxy::beginPage(WebKit::RemoteDisplayList
       v4 = *(this + 443);
       if (v4)
       {
-        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(v4, *(this + 442), buf);
+        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(buf, v4, *(this + 442));
         v4 = *buf;
         if (*buf)
         {
@@ -2056,7 +2056,7 @@ LABEL_60:
     }
 
     ++*(v47 + 5);
-    v48 = WebKit::RemoteRenderingBackendProxy::connection(v47, v5, buf);
+    v48 = WebKit::RemoteRenderingBackendProxy::connection(buf, v47, v5);
     v6 = *buf;
     if (*(v47 + 5) == 1)
     {
@@ -2185,7 +2185,7 @@ void WebKit::RemoteDisplayListRecorderProxy::endPage(WebKit::RemoteDisplayListRe
       v3 = *(this + 443);
       if (v3)
       {
-        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(v3, *(this + 442), v36);
+        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(v36, v3, *(this + 442));
         v3 = *v36;
         if (*v36)
         {
@@ -2349,7 +2349,7 @@ LABEL_44:
     }
 
     ++*(v31 + 5);
-    v32 = WebKit::RemoteRenderingBackendProxy::connection(v31, v4, v36);
+    v32 = WebKit::RemoteRenderingBackendProxy::connection(v36, v31, v4);
     v5 = *v36;
     if (*(v31 + 5) == 1)
     {
@@ -2417,7 +2417,7 @@ void WebKit::RemoteDisplayListRecorderProxy::setURLForRect(WebKit::RemoteDisplay
       v6 = *(this + 443);
       if (v6)
       {
-        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(v6, *(this + 442), buf);
+        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(buf, v6, *(this + 442));
         v6 = *buf;
         if (*buf)
         {
@@ -2597,7 +2597,7 @@ LABEL_60:
     }
 
     ++*(v49 + 5);
-    v50 = WebKit::RemoteRenderingBackendProxy::connection(v49, v7, buf);
+    v50 = WebKit::RemoteRenderingBackendProxy::connection(buf, v49, v7);
     v8 = *buf;
     if (*(v49 + 5) == 1)
     {
@@ -2709,16 +2709,16 @@ LABEL_56:
   }
 }
 
-uint64_t WebKit::RemoteDisplayListRecorderProxy::recordResourceUse(uint64_t result, uint64_t a2)
+void *WebKit::RemoteDisplayListRecorderProxy::recordResourceUse(void *result, uint64_t a2)
 {
   if (result)
   {
-    v2 = *(result + 8);
+    v2 = result[1];
     if (v2)
     {
-      ++v2[5];
-      result = WebKit::RemoteResourceCacheProxy::recordGradientUse((v2 + 22), a2);
-      if (v2[5] == 1)
+      ++*(v2 + 20);
+      result = WebKit::RemoteResourceCacheProxy::recordGradientUse((v2 + 88), a2);
+      if (*(v2 + 20) == 1)
       {
         v3 = *(*v2 + 24);
 
@@ -2727,7 +2727,7 @@ uint64_t WebKit::RemoteDisplayListRecorderProxy::recordResourceUse(uint64_t resu
 
       else
       {
-        --v2[5];
+        --*(v2 + 20);
       }
     }
   }
@@ -2735,12 +2735,13 @@ uint64_t WebKit::RemoteDisplayListRecorderProxy::recordResourceUse(uint64_t resu
   return result;
 }
 
-void WebKit::RemoteDisplayListRecorderProxy::createImageBuffer(WebCore::GraphicsContext *a1@<X0>, uint64_t *a2@<X1>, CFTypeRef *a3@<X2>, __int16 a4@<W3>, __int16 a5@<W4>, __int16 a6@<W5>, void *a7@<X8>, float a8@<S0>)
+void WebKit::RemoteDisplayListRecorderProxy::createImageBuffer(WebCore::GraphicsContext *result@<X0>, const void **a2@<X1>, CFTypeRef *a3@<X2>, __int16 a4@<W3>, __int16 a5@<W4>, __int16 a6@<W5>, uint64_t *a7@<X8>, __n128 a8@<Q0>)
 {
-  v9 = *(a1 + 440);
+  v9 = *(result + 440);
   if (v9 && (v10 = *(v9 + 8)) != 0)
   {
-    ++*(v10 + 20);
+    v13 = a8.n128_f32[0];
+    ++v10[5];
     if ((a5 & 0x100) != 0)
     {
       WebCore::GraphicsContext::createImageBuffer();
@@ -2748,7 +2749,7 @@ void WebKit::RemoteDisplayListRecorderProxy::createImageBuffer(WebCore::Graphics
 
     else
     {
-      v16 = WebCore::GraphicsContext::renderingModeForCompatibleBuffer(a1);
+      v16 = WebCore::GraphicsContext::renderingModeForCompatibleBuffer(result);
       if ((a4 & 0x100) != 0)
       {
         v17 = a4;
@@ -2759,10 +2760,10 @@ void WebKit::RemoteDisplayListRecorderProxy::createImageBuffer(WebCore::Graphics
         v17 = v16;
       }
 
-      WebKit::RemoteRenderingBackendProxy::createImageBuffer(v10, a2, v17, 0, a3, a6, a7, a8);
+      WebKit::RemoteRenderingBackendProxy::createImageBuffer(v10, a2, v17, 0, a3, a6, a7, v13);
     }
 
-    if (*(v10 + 20) == 1)
+    if (v10[5] == 1)
     {
       v18 = *(*v10 + 24);
 
@@ -2771,7 +2772,7 @@ void WebKit::RemoteDisplayListRecorderProxy::createImageBuffer(WebCore::Graphics
 
     else
     {
-      --*(v10 + 20);
+      --v10[5];
     }
   }
 
@@ -2781,7 +2782,7 @@ void WebKit::RemoteDisplayListRecorderProxy::createImageBuffer(WebCore::Graphics
   }
 }
 
-uint64_t WebKit::RemoteDisplayListRecorderProxy::createAlignedImageBuffer(WebCore::GraphicsContext *this, uint64_t a2, uint64_t a3, __int16 a4)
+uint64_t WebKit::RemoteDisplayListRecorderProxy::createAlignedImageBuffer(WebCore::GraphicsContext *this, uint64_t a2, uint64_t a3, unsigned __int16 a4)
 {
   if ((a4 & 0x100) == 0)
   {
@@ -2802,7 +2803,7 @@ uint64_t WebKit::RemoteDisplayListRecorderProxy::createAlignedImageBuffer(WebCor
   return WebCore::GraphicsContext::createScaledImageBuffer();
 }
 
-atomic_uchar **std::optional<WebCore::GraphicsContextState>::operator=[abi:sn200100]<WebCore::GraphicsContextState&,void>(uint64_t a1, uint64_t *a2)
+WTF ***std::optional<WebCore::GraphicsContextState>::operator=[abi:sn200100]<WebCore::GraphicsContextState&,void>(WTF ***a1, const WebCore::GraphicsContextState *a2)
 {
   if (*(a1 + 312) == 1)
   {
@@ -2865,7 +2866,7 @@ unsigned int *WebKit::RemoteDisplayListRecorderProxy::abandon(unsigned int **thi
 
 void WebKit::RemoteGraphicsContextGLProxy::create(_BYTE *a1@<X0>, WebKit::WebPage *a2@<X1>, WebKit::RemoteGraphicsContextGLProxy **a3@<X8>)
 {
-  v5 = WebKit::WebPage::ensureRemoteRenderingBackendProxy(a2);
+  v5 = WebKit::WebPage::ensureRemoteRenderingBackendProxy(a2, a2);
   ++*(v5 + 5);
   v6 = WTF::RunLoop::mainSingleton(v5);
   WebKit::RemoteGraphicsContextGLProxy::create(a1, v5, v6, a3);
@@ -2882,7 +2883,7 @@ void WebKit::RemoteGraphicsContextGLProxy::create(_BYTE *a1@<X0>, WebKit::WebPag
   }
 }
 
-void WebKit::RemoteGraphicsContextGLProxy::create(_BYTE *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, WebKit::RemoteGraphicsContextGLProxy **a4@<X8>)
+void WebKit::RemoteGraphicsContextGLProxy::create(_BYTE *a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, WebKit::RemoteGraphicsContextGLProxy **a4@<X8>)
 {
   if (a1[8] == 1)
   {
@@ -2900,10 +2901,10 @@ void WebKit::RemoteGraphicsContextGLProxy::create(_BYTE *a1@<X0>, uint64_t *a2@<
 
   else
   {
-    v16 = v8;
+    v17 = v8;
     v9 = WebKit::WebProcess::operator new(0x370, a2);
     WebKit::WebProcess::WebProcess(v9);
-    v8 = v16;
+    v8 = v17;
     WebKit::WebProcess::singleton(void)::process = v9;
   }
 
@@ -2913,49 +2914,49 @@ void WebKit::RemoteGraphicsContextGLProxy::create(_BYTE *a1@<X0>, uint64_t *a2@<
     v10 = 15.0;
   }
 
-  IPC::StreamClientConnection::create(v8, &v21, v10);
-  if (v24 == 1)
+  IPC::StreamClientConnection::create(v8, &v22, v10);
+  if (v25 == 1)
   {
-    v11 = v21;
-    v21 = 0;
-    v18 = v11;
+    v11 = v22;
+    v22 = 0;
+    v19 = v11;
     WTF::MachSendRight::MachSendRight();
     WTF::MachSendRight::MachSendRight();
-    v20[1] = v23[1];
-    WebKit::RemoteGraphicsContextGLProxy::platformCreate(a1, &v17);
-    v12 = v17;
+    v21[1] = v24[1];
+    WebKit::RemoteGraphicsContextGLProxy::platformCreate(a1, &v18);
+    v12 = v18;
     WebKit::RemoteRenderingBackendProxy::ensureGPUProcessConnection(a2, v13);
-    WebKit::RemoteGraphicsContextGLProxy::initializeIPC(v12, &v18, a2[10], &v19, a3);
+    WebKit::RemoteGraphicsContextGLProxy::initializeIPC(v12, &v19, a2[10], &v20, a3);
     if (a1[8] == 2)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v12);
-      (*(*(v12 + 3) + 2288))(v12 + 3);
+      v14.n128_f64[0] = (*(*(v12 + 3) + 2288))(v12 + 3);
     }
 
-    WebKit::RemoteGraphicsContextGLProxy::waitUntilInitialized(v12);
+    WebKit::RemoteGraphicsContextGLProxy::waitUntilInitialized(v12, v14);
     *a4 = v12;
-    WTF::MachSendRight::~MachSendRight(v20);
-    WTF::MachSendRight::~MachSendRight(&v19);
-    v14 = v18;
-    v18 = 0;
-    if (v14 && atomic_fetch_add(v14, 0xFFFFFFFF) == 1)
+    WTF::MachSendRight::~MachSendRight(v21);
+    WTF::MachSendRight::~MachSendRight(&v20);
+    v15 = v19;
+    v19 = 0;
+    if (v15 && atomic_fetch_add(v15, 0xFFFFFFFF) == 1)
     {
-      atomic_store(1u, v14);
-      IPC::StreamClientConnection::operator delete(v14);
+      atomic_store(1u, v15);
+      IPC::StreamClientConnection::operator delete(v15);
     }
 
-    if (v24)
+    if (v25)
     {
-      WTF::MachSendRight::~MachSendRight(v23);
-      WTF::MachSendRight::~MachSendRight(&v22);
-      v15 = v21;
-      v21 = 0;
-      if (v15)
+      WTF::MachSendRight::~MachSendRight(v24);
+      WTF::MachSendRight::~MachSendRight(&v23);
+      v16 = v22;
+      v22 = 0;
+      if (v16)
       {
-        if (atomic_fetch_add(v15, 0xFFFFFFFF) == 1)
+        if (atomic_fetch_add(v16, 0xFFFFFFFF) == 1)
         {
-          atomic_store(1u, v15);
-          IPC::StreamClientConnection::operator delete(v15);
+          atomic_store(1u, v16);
+          IPC::StreamClientConnection::operator delete(v16);
         }
       }
     }
@@ -2967,48 +2968,48 @@ void WebKit::RemoteGraphicsContextGLProxy::create(_BYTE *a1@<X0>, uint64_t *a2@<
   }
 }
 
-uint64_t WebKit::RemoteGraphicsContextGLProxy::initializeIPC(uint64_t a1, atomic_uint **a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t WebKit::RemoteGraphicsContextGLProxy::initializeIPC(unint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v12 = a3;
+  v13 = a3;
   WTF::RefPtr<IPC::StreamClientConnection,WTF::RawPtrTraits<IPC::StreamClientConnection>,WTF::DefaultRefDerefTraits<IPC::StreamClientConnection>>::operator=((a1 + 88), *a2);
   IPC::StreamClientConnection::open(*a2, a1, a5);
-  v9 = WTF::fastMalloc(0x20);
-  *v9 = &unk_1F1125120;
-  v9[1] = a1;
-  v9[2] = &v12;
-  v9[3] = a4;
-  v11 = v9;
+  v10 = WTF::fastMalloc(v9, 0x20);
+  *v10 = &unk_1F1125120;
+  v10[1] = a1;
+  v10[2] = &v13;
+  v10[3] = a4;
+  v12 = v10;
   WTF::callOnMainRunLoopAndWait();
-  result = v11;
-  if (v11)
+  result = v12;
+  if (v12)
   {
-    return (*(*v11 + 8))(v11);
+    return (*(*v12 + 8))(v12);
   }
 
   return result;
 }
 
-double WebKit::RemoteGraphicsContextGLProxy::waitUntilInitialized(WebKit::RemoteGraphicsContextGLProxy *this)
+double WebKit::RemoteGraphicsContextGLProxy::waitUntilInitialized(WebKit::RemoteGraphicsContextGLProxy *this, __n128 a2)
 {
-  v1 = *(this + 11);
-  if (v1 && (*(this + 96) & 1) == 0)
+  v2 = *(this + 11);
+  if (v2 && (*(this + 96) & 1) == 0)
   {
-    atomic_fetch_add(v1, 1u);
-    v3 = IPC::StreamClientConnection::waitForAndDispatchImmediately<Messages::RemoteGraphicsContextGLProxy::WasCreated,WebKit::GraphicsContextGLIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>(v1, *(this + 9), 0);
-    v5 = v3;
-    if (atomic_fetch_add(v1, 0xFFFFFFFF) == 1)
+    atomic_fetch_add(v2, 1u);
+    v4 = IPC::StreamClientConnection::waitForAndDispatchImmediately<Messages::RemoteGraphicsContextGLProxy::WasCreated,WebKit::GraphicsContextGLIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>(v2, *(this + 9), 0, a2);
+    v5 = v4;
+    if (atomic_fetch_add(v2, 0xFFFFFFFF) == 1)
     {
-      atomic_store(1u, v1);
-      result = IPC::StreamClientConnection::operator delete(v1);
+      atomic_store(1u, v2);
+      a2.n128_f64[0] = IPC::StreamClientConnection::operator delete(v2);
       if (!v5)
       {
-        return result;
+        return a2.n128_f64[0];
       }
     }
 
-    else if (!v3)
+    else if (!v4)
     {
-      return result;
+      return a2.n128_f64[0];
     }
 
     WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(this);
@@ -3017,10 +3018,10 @@ double WebKit::RemoteGraphicsContextGLProxy::waitUntilInitialized(WebKit::Remote
     v6(this + 24);
   }
 
-  return result;
+  return a2.n128_f64[0];
 }
 
-uint64_t WebKit::RemoteGraphicsContextGLProxy::RemoteGraphicsContextGLProxy(uint64_t a1)
+uint64_t WebKit::RemoteGraphicsContextGLProxy::RemoteGraphicsContextGLProxy(uint64_t a1, uint64_t a2)
 {
   *(a1 + 16) = 0;
   *a1 = &unk_1F11251E8;
@@ -3036,7 +3037,7 @@ uint64_t WebKit::RemoteGraphicsContextGLProxy::RemoteGraphicsContextGLProxy(uint
   *(a1 + 112) = 0;
   *(a1 + 120) = 0;
   *(a1 + 104) = 0;
-  WebKit::SharedVideoFrameWriter::SharedVideoFrameWriter((a1 + 128), v3);
+  WebKit::SharedVideoFrameWriter::SharedVideoFrameWriter((a1 + 128), v4);
   *(a1 + 160) = 0;
   *(a1 + 168) = 0;
   *(a1 + 176) = 0;
@@ -3049,65 +3050,65 @@ void WebKit::RemoteGraphicsContextGLProxy::~RemoteGraphicsContextGLProxy(WebKit:
   v2 = (this + 24);
   *(this + 3) = &unk_1F1124590;
   WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(this);
-  v3 = *(this + 20);
+  v4 = *(this + 20);
   *(this + 20) = 0;
-  if (v3)
-  {
-    WTF::ThreadSafeRefCounted<WebKit::RemoteVideoFrameObjectHeapProxy,(WTF::DestructionThread)2>::deref(v3);
-  }
-
-  v4 = *(this + 18);
-  *(this + 18) = 0;
   if (v4)
   {
-    std::default_delete<WebCore::PixelBufferConformerCV>::operator()[abi:sn200100](this + 144, v4);
+    WTF::ThreadSafeRefCounted<WebKit::RemoteVideoFrameObjectHeapProxy,(WTF::DestructionThread)2>::deref(v4, v3);
   }
 
-  v5 = *(this + 17);
-  *(this + 17) = 0;
+  v5 = *(this + 18);
+  *(this + 18) = 0;
   if (v5)
   {
-    WTF::ThreadSafeRefCounted<WebCore::SharedMemory,(WTF::DestructionThread)0>::deref(v5);
+    std::default_delete<WebCore::PixelBufferConformerCV>::operator()[abi:sn200100](this + 144, v5);
+  }
+
+  v6 = *(this + 17);
+  *(this + 17) = 0;
+  if (v6)
+  {
+    WTF::ThreadSafeRefCounted<WebCore::SharedMemory,(WTF::DestructionThread)0>::deref(v6);
   }
 
   std::unique_ptr<IPC::Semaphore>::reset[abi:sn200100](this + 16, 0);
-  v7 = *(this + 15);
-  if (v7)
-  {
-    WTF::HashTable<WTF::String,WTF::String,WTF::IdentityExtractor,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::deallocateTable(v7, v6);
-  }
-
-  v8 = *(this + 14);
+  v8 = *(this + 15);
   if (v8)
   {
-    WTF::HashTable<WTF::String,WTF::String,WTF::IdentityExtractor,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::deallocateTable(v8, v6);
+    WTF::HashTable<WTF::String,WTF::String,WTF::IdentityExtractor,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::deallocateTable(v8, v7);
   }
 
-  v9 = *(this + 13);
+  v9 = *(this + 14);
   if (v9)
   {
-    WTF::HashTable<WTF::String,WTF::String,WTF::IdentityExtractor,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::deallocateTable(v9, v6);
+    WTF::HashTable<WTF::String,WTF::String,WTF::IdentityExtractor,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::deallocateTable(v9, v7);
   }
 
-  v10 = *(this + 11);
-  *(this + 11) = 0;
-  if (v10 && atomic_fetch_add(v10, 0xFFFFFFFF) == 1)
+  v10 = *(this + 13);
+  if (v10)
   {
-    atomic_store(1u, v10);
-    IPC::StreamClientConnection::operator delete(v10);
+    WTF::HashTable<WTF::String,WTF::String,WTF::IdentityExtractor,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::deallocateTable(v10, v7);
   }
 
-  v11 = *(this + 10);
-  *(this + 10) = 0;
+  v11 = *(this + 11);
+  *(this + 11) = 0;
   if (v11 && atomic_fetch_add(v11, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v11);
-    WTF::fastFree(v11, v6);
+    IPC::StreamClientConnection::operator delete(v11);
+  }
+
+  v12 = *(this + 10);
+  *(this + 10) = 0;
+  if (v12 && atomic_fetch_add(v12, 0xFFFFFFFF) == 1)
+  {
+    atomic_store(1u, v12);
+    WTF::fastFree(v12, v7);
   }
 
   WebCore::GraphicsContextGL::~GraphicsContextGL(v2);
   *this = &unk_1F10EA5E0;
-  WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::~WeakPtrFactory(this + 1, v12);
+  WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::~WeakPtrFactory(this + 1, v13);
 }
 
 uint64_t WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(WebKit::RemoteGraphicsContextGLProxy *this)
@@ -3119,33 +3120,38 @@ uint64_t WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(WebK
   {
     atomic_fetch_add(v3, 1u);
     IPC::Connection::invalidate(*(v3 + 8));
-    if (atomic_fetch_add(v3, 0xFFFFFFFF) == 1)
+    add = atomic_fetch_add(v3, 0xFFFFFFFF);
+    if (add == 1)
     {
       atomic_store(1u, v3);
       IPC::StreamClientConnection::operator delete(v3);
     }
 
-    v4 = *(this + 11);
+    v5 = *(this + 11);
     *(this + 11) = 0;
-    if (v4 && atomic_fetch_add(v4, 0xFFFFFFFF) == 1)
+    if (v5)
     {
-      atomic_store(1u, v4);
-      IPC::StreamClientConnection::operator delete(v4);
+      add = atomic_fetch_add(v5, 0xFFFFFFFF);
+      if (add == 1)
+      {
+        atomic_store(1u, v5);
+        IPC::StreamClientConnection::operator delete(v5);
+      }
     }
 
-    v5 = *(this + 9);
-    v6 = *(this + 10);
+    v6 = *(this + 9);
+    v7 = *(this + 10);
     *(this + 10) = 0;
-    v7 = WTF::fastMalloc(0x18);
-    *v7 = &unk_1F11251C0;
-    v7[1] = v5;
-    v7[2] = v6;
-    v8 = v7;
+    v8 = WTF::fastMalloc(add, 0x18);
+    *v8 = &unk_1F11251C0;
+    v8[1] = v6;
+    v8[2] = v7;
+    v9 = v8;
     WTF::ensureOnMainRunLoop();
-    result = v8;
-    if (v8)
+    result = v9;
+    if (v9)
     {
-      return (*(*v8 + 8))(v8);
+      return (*(*v9 + 8))(v9);
     }
   }
 
@@ -3191,45 +3197,45 @@ unsigned int **WTF::RefPtr<IPC::StreamClientConnection,WTF::RawPtrTraits<IPC::St
   return a1;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGLProxy::supportsExtension(WebKit::RemoteGraphicsContextGLProxy *this, const WTF::StringImpl **a2)
+uint64_t WebKit::RemoteGraphicsContextGLProxy::supportsExtension(WebKit::RemoteGraphicsContextGLProxy *this, const WTF::StringImpl **a2, __n128 a3)
 {
-  WebKit::RemoteGraphicsContextGLProxy::waitUntilInitialized(this);
-  v5 = *(this + 13);
-  if (v5)
+  WebKit::RemoteGraphicsContextGLProxy::waitUntilInitialized(this, a3);
+  v6 = *(this + 13);
+  if (v6)
   {
-    v8 = *a2;
+    v9 = *a2;
     if (*a2 != -1)
     {
-      if (!v8)
+      if (!v9)
       {
         __break(0xC471u);
         JUMPOUT(0x19E1C34F0);
       }
 
-      v9 = *(v5 - 8);
-      v10 = *(v8 + 4);
-      if (v10 < 0x100)
+      v10 = *(v6 - 8);
+      v11 = *(v9 + 4);
+      if (v11 < 0x100)
       {
-        v11 = WTF::StringImpl::hashSlowCase(v8);
+        v12 = WTF::StringImpl::hashSlowCase(v9);
       }
 
       else
       {
-        v11 = v10 >> 8;
+        v12 = v11 >> 8;
       }
 
-      for (i = 0; ; v11 = i + v13)
+      for (i = 0; ; v12 = i + v14)
       {
-        v13 = v11 & v9;
-        v14 = *(v5 + 8 * (v11 & v9));
-        if (v14 != -1)
+        v14 = v12 & v10;
+        v15 = *(v6 + 8 * (v12 & v10));
+        if (v15 != -1)
         {
-          if (!v14)
+          if (!v15)
           {
             goto LABEL_2;
           }
 
-          if (WTF::equal(v14, *a2, v4))
+          if (WTF::equal(v15, *a2, v5))
           {
             break;
           }
@@ -3247,34 +3253,34 @@ LABEL_29:
   }
 
 LABEL_2:
-  v6 = *(this + 14);
-  if (v6)
+  v7 = *(this + 14);
+  if (v7)
   {
-    v15 = *a2;
+    v16 = *a2;
     if (*a2 == -1)
     {
       __break(0xC471u);
       JUMPOUT(0x19E1C3510);
     }
 
-    if (v15)
+    if (v16)
     {
-      v16 = *(v6 - 8);
-      v17 = *(v15 + 4);
-      if (v17 < 0x100)
+      v17 = *(v7 - 8);
+      v18 = *(v16 + 4);
+      if (v18 < 0x100)
       {
-        v18 = WTF::StringImpl::hashSlowCase(v15);
+        v19 = WTF::StringImpl::hashSlowCase(v16);
       }
 
       else
       {
-        v18 = v17 >> 8;
+        v19 = v18 >> 8;
       }
 
-      for (j = 0; ; v18 = j + v20)
+      for (j = 0; ; v19 = j + v21)
       {
-        v20 = v18 & v16;
-        result = *(v6 + 8 * (v18 & v16));
+        v21 = v19 & v17;
+        result = *(v7 + 8 * (v19 & v17));
         if (result != -1)
         {
           if (!result)
@@ -3282,7 +3288,7 @@ LABEL_2:
             return result;
           }
 
-          if (WTF::equal(result, *a2, v4))
+          if (WTF::equal(result, *a2, v5))
           {
             break;
           }
@@ -3300,48 +3306,48 @@ LABEL_2:
   return 0;
 }
 
-void WebKit::RemoteGraphicsContextGLProxy::ensureExtensionEnabled(WebKit::RemoteGraphicsContextGLProxy *this, const WTF::StringImpl **a2)
+void WebKit::RemoteGraphicsContextGLProxy::ensureExtensionEnabled(atomic_uint **this, const WTF::StringImpl **a2, __n128 a3)
 {
-  WebKit::RemoteGraphicsContextGLProxy::waitUntilInitialized(this);
-  v5 = *(this + 14);
-  if (v5)
+  WebKit::RemoteGraphicsContextGLProxy::waitUntilInitialized(this, a3);
+  v6 = this[14];
+  if (v6)
   {
-    v6 = *a2;
+    v7 = *a2;
     if (*a2 == -1)
     {
       goto LABEL_33;
     }
 
-    if (!v6)
+    if (!v7)
     {
       __break(0xC471u);
       JUMPOUT(0x19E1C372CLL);
     }
 
-    v7 = *(v5 - 8);
-    v8 = *(v6 + 4);
-    if (v8 < 0x100)
+    v8 = *(v6 - 2);
+    v9 = *(v7 + 4);
+    if (v9 < 0x100)
     {
-      v9 = WTF::StringImpl::hashSlowCase(v6);
+      v10 = WTF::StringImpl::hashSlowCase(v7);
     }
 
     else
     {
-      v9 = v8 >> 8;
+      v10 = v9 >> 8;
     }
 
-    for (i = 0; ; v9 = i + v11)
+    for (i = 0; ; v10 = i + v12)
     {
-      v11 = v9 & v7;
-      v12 = *(v5 + 8 * (v9 & v7));
-      if (v12 != -1)
+      v12 = v10 & v8;
+      v13 = *&v6[2 * (v10 & v8)];
+      if (v13 != -1)
       {
-        if (!v12)
+        if (!v13)
         {
           return;
         }
 
-        if (WTF::equal(v12, *a2, v4))
+        if (WTF::equal(v13, *a2, v5))
         {
           break;
         }
@@ -3350,81 +3356,81 @@ void WebKit::RemoteGraphicsContextGLProxy::ensureExtensionEnabled(WebKit::Remote
       ++i;
     }
 
-    v13 = (this + 120);
-    v14 = *(this + 15);
-    if (!v14)
+    v14 = (this + 15);
+    v15 = this[15];
+    if (!v15)
     {
 LABEL_13:
-      WTF::HashTable<WTF::String,WTF::String,WTF::IdentityExtractor,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::add<(WTF::ShouldValidateKey)1>(v13, a2, v4, v25);
-      v15 = *(this + 11);
-      if (!v15)
+      WTF::HashTable<WTF::String,WTF::String,WTF::IdentityExtractor,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::add<(WTF::ShouldValidateKey)1>(v14, a2, v5, v26);
+      v16 = this[11];
+      if (!v16)
       {
         return;
       }
 
-      v25[0] = a2;
-      atomic_fetch_add(v15, 1u);
-      v16 = IPC::StreamClientConnection::send<Messages::RemoteGraphicsContextGL::EnsureExtensionEnabled,WebKit::GraphicsContextGLIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>(v15, v25, *(this + 9));
-      v17 = v16;
-      if (atomic_fetch_add(v15, 0xFFFFFFFF) == 1)
+      v26[0] = a2;
+      atomic_fetch_add(v16, 1u);
+      v17 = IPC::StreamClientConnection::send<Messages::RemoteGraphicsContextGL::EnsureExtensionEnabled,WebKit::GraphicsContextGLIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>(v16, v26, this[9]);
+      v18 = v17;
+      if (atomic_fetch_add(v16, 0xFFFFFFFF) == 1)
       {
-        atomic_store(1u, v15);
-        IPC::StreamClientConnection::operator delete(v15);
-        if (!v17)
+        atomic_store(1u, v16);
+        IPC::StreamClientConnection::operator delete(v16);
+        if (!v18)
         {
           return;
         }
       }
 
-      else if (!v16)
+      else if (!v17)
       {
         return;
       }
 
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(this);
-      (*(*(this + 3) + 2288))(this + 24);
+      (*(this[3] + 286))(this + 3);
       return;
     }
 
-    v18 = *a2;
+    v19 = *a2;
     if (*a2 == -1)
     {
       __break(0xC471u);
       JUMPOUT(0x19E1C374CLL);
     }
 
-    if (!v18)
+    if (!v19)
     {
 LABEL_33:
       __break(0xC471u);
       JUMPOUT(0x19E1C370CLL);
     }
 
-    v19 = *(v14 - 8);
-    v20 = *(v18 + 4);
-    if (v20 < 0x100)
+    v20 = *(v15 - 2);
+    v21 = *(v19 + 4);
+    if (v21 < 0x100)
     {
-      v21 = WTF::StringImpl::hashSlowCase(v18);
+      v22 = WTF::StringImpl::hashSlowCase(v19);
     }
 
     else
     {
-      v21 = v20 >> 8;
+      v22 = v21 >> 8;
     }
 
-    for (j = 0; ; v21 = j + v23)
+    for (j = 0; ; v22 = j + v24)
     {
-      v23 = v21 & v19;
-      v24 = *(v14 + 8 * (v21 & v19));
-      if (v24 != -1)
+      v24 = v22 & v20;
+      v25 = *&v15[2 * (v22 & v20)];
+      if (v25 != -1)
       {
-        v13 = (this + 120);
-        if (!v24)
+        v14 = (this + 15);
+        if (!v25)
         {
           goto LABEL_13;
         }
 
-        if (WTF::equal(v24, *a2, v4))
+        if (WTF::equal(v25, *a2, v5))
         {
           break;
         }
@@ -3435,45 +3441,45 @@ LABEL_33:
   }
 }
 
-uint64_t WebKit::RemoteGraphicsContextGLProxy::isExtensionEnabled(WebKit::RemoteGraphicsContextGLProxy *this, const WTF::StringImpl **a2)
+uint64_t WebKit::RemoteGraphicsContextGLProxy::isExtensionEnabled(WebKit::RemoteGraphicsContextGLProxy *this, const WTF::StringImpl **a2, __n128 a3)
 {
-  WebKit::RemoteGraphicsContextGLProxy::waitUntilInitialized(this);
-  v5 = *(this + 13);
-  if (v5)
+  WebKit::RemoteGraphicsContextGLProxy::waitUntilInitialized(this, a3);
+  v6 = *(this + 13);
+  if (v6)
   {
-    v8 = *a2;
+    v9 = *a2;
     if (*a2 != -1)
     {
-      if (!v8)
+      if (!v9)
       {
         __break(0xC471u);
         JUMPOUT(0x19E1C38C0);
       }
 
-      v9 = *(v5 - 8);
-      v10 = *(v8 + 4);
-      if (v10 < 0x100)
+      v10 = *(v6 - 8);
+      v11 = *(v9 + 4);
+      if (v11 < 0x100)
       {
-        v11 = WTF::StringImpl::hashSlowCase(v8);
+        v12 = WTF::StringImpl::hashSlowCase(v9);
       }
 
       else
       {
-        v11 = v10 >> 8;
+        v12 = v11 >> 8;
       }
 
-      for (i = 0; ; v11 = i + v13)
+      for (i = 0; ; v12 = i + v14)
       {
-        v13 = v11 & v9;
-        v14 = *(v5 + 8 * (v11 & v9));
-        if (v14 != -1)
+        v14 = v12 & v10;
+        v15 = *(v6 + 8 * (v12 & v10));
+        if (v15 != -1)
         {
-          if (!v14)
+          if (!v15)
           {
             goto LABEL_2;
           }
 
-          if (WTF::equal(v14, *a2, v4))
+          if (WTF::equal(v15, *a2, v5))
           {
             break;
           }
@@ -3491,34 +3497,34 @@ LABEL_29:
   }
 
 LABEL_2:
-  v6 = *(this + 15);
-  if (v6)
+  v7 = *(this + 15);
+  if (v7)
   {
-    v15 = *a2;
+    v16 = *a2;
     if (*a2 == -1)
     {
       __break(0xC471u);
       JUMPOUT(0x19E1C38E0);
     }
 
-    if (v15)
+    if (v16)
     {
-      v16 = *(v6 - 8);
-      v17 = *(v15 + 4);
-      if (v17 < 0x100)
+      v17 = *(v7 - 8);
+      v18 = *(v16 + 4);
+      if (v18 < 0x100)
       {
-        v18 = WTF::StringImpl::hashSlowCase(v15);
+        v19 = WTF::StringImpl::hashSlowCase(v16);
       }
 
       else
       {
-        v18 = v17 >> 8;
+        v19 = v18 >> 8;
       }
 
-      for (j = 0; ; v18 = j + v20)
+      for (j = 0; ; v19 = j + v21)
       {
-        v20 = v18 & v16;
-        result = *(v6 + 8 * (v18 & v16));
+        v21 = v19 & v17;
+        result = *(v7 + 8 * (v19 & v17));
         if (result != -1)
         {
           if (!result)
@@ -3526,7 +3532,7 @@ LABEL_2:
             return result;
           }
 
-          if (WTF::equal(result, *a2, v4))
+          if (WTF::equal(result, *a2, v5))
           {
             break;
           }
@@ -3625,7 +3631,7 @@ IPC::Decoder *WebKit::RemoteGraphicsContextGLProxy::drawSurfaceBufferToImageBuff
     v9[0] = a2;
     v10 = &v8;
     WebKit::RemoteGraphicsContextGLProxy::sendSync<Messages::RemoteGraphicsContextGL::DrawSurfaceBufferToImageBuffer>(v5, v9, &v11);
-    if (!v12 || (WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v5), result = (*(*(v5 + 3) + 2288))(v5 + 3), !v12))
+    if (!v12 || (WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v5), result = (*(*(v5 + 3) + 2288))(v5 + 24), !v12))
     {
       result = v11;
       v11 = 0;
@@ -3663,29 +3669,29 @@ void WebKit::RemoteGraphicsContextGLProxy::sendSync<Messages::RemoteGraphicsCont
   }
 }
 
-void WebKit::RemoteGraphicsContextGLProxy::surfaceBufferToVideoFrame(WebKit::RemoteGraphicsContextGLProxy *a1@<X0>, char a2@<W1>, uint64_t *a3@<X8>)
+void WebKit::RemoteGraphicsContextGLProxy::surfaceBufferToVideoFrame(WebKit::RemoteGraphicsContextGLProxy *result@<X0>, char a2@<W1>, uint64_t *a3@<X8>)
 {
-  if (!*(a1 + 11))
+  if (!*(result + 11))
   {
     *a3 = 0;
     return;
   }
 
-  LOBYTE(v20[0]) = a2;
-  WebKit::RemoteGraphicsContextGLProxy::sendSync<Messages::RemoteGraphicsContextGL::SurfaceBufferToVideoFrame>(a1, v20, &v21);
-  if (v26)
+  LOBYTE(v22[0]) = a2;
+  WebKit::RemoteGraphicsContextGLProxy::sendSync<Messages::RemoteGraphicsContextGL::SurfaceBufferToVideoFrame>(result, v22, &v23);
+  if (v28)
   {
-    WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(a1);
-    (*(*(a1 + 3) + 2288))(a1 + 3);
+    WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(result);
+    (*(*(result + 3) + 2288))(result + 24);
   }
 
   else
   {
-    v20[0] = v22;
-    v20[1] = v23;
-    v20[2] = v24;
-    v20[3] = v25;
-    if (BYTE8(v25))
+    v22[0] = v24;
+    v22[1] = v25;
+    v22[2] = v26;
+    v22[3] = v27;
+    if (BYTE8(v27))
     {
       {
         v6 = WebKit::WebProcess::singleton(void)::process;
@@ -3693,8 +3699,8 @@ void WebKit::RemoteGraphicsContextGLProxy::surfaceBufferToVideoFrame(WebKit::Rem
 
       else
       {
-        v17 = WebKit::WebProcess::operator new(0x370, v5);
-        v6 = WebKit::WebProcess::WebProcess(v17);
+        v19 = WebKit::WebProcess::operator new(0x370, v5);
+        v6 = WebKit::WebProcess::WebProcess(v19);
         WebKit::WebProcess::singleton(void)::process = v6;
       }
 
@@ -3705,20 +3711,20 @@ void WebKit::RemoteGraphicsContextGLProxy::surfaceBufferToVideoFrame(WebKit::Rem
 
       else
       {
-        v18 = WebKit::WebProcess::operator new(0x370, v7);
-        v9 = WebKit::WebProcess::WebProcess(v18);
+        v20 = WebKit::WebProcess::operator new(0x370, v7);
+        v9 = WebKit::WebProcess::WebProcess(v20);
         WebKit::WebProcess::singleton(void)::process = v9;
       }
 
-      WebKit::WebProcess::ensureProtectedGPUProcessConnection(v9, &v19);
-      v10 = WebKit::GPUProcessConnection::videoFrameObjectHeapProxy(v19);
-      atomic_fetch_add(v10, 1u);
-      v12 = WebKit::RemoteVideoFrameProxy::operator new(0x88, v11);
-      *a3 = WebKit::RemoteVideoFrameProxy::RemoteVideoFrameProxy(v12, v8, v10, v20);
-      WTF::ThreadSafeRefCounted<WebKit::RemoteVideoFrameObjectHeapProxy,(WTF::DestructionThread)2>::deref(v10);
-      if (v19)
+      WebKit::WebProcess::ensureProtectedGPUProcessConnection(&v21, v9);
+      v11 = WebKit::GPUProcessConnection::videoFrameObjectHeapProxy(v21, v10);
+      atomic_fetch_add(v11, 1u);
+      v13 = WebKit::RemoteVideoFrameProxy::operator new(0x88, v12);
+      *a3 = WebKit::RemoteVideoFrameProxy::RemoteVideoFrameProxy(v13, v8, v11, v22);
+      WTF::ThreadSafeRefCounted<WebKit::RemoteVideoFrameObjectHeapProxy,(WTF::DestructionThread)2>::deref(v11, v14);
+      if (v21)
       {
-        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUProcessConnection,(WTF::DestructionThread)0>::deref(v19 + 3, v13);
+        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUProcessConnection,(WTF::DestructionThread)0>::deref(v21 + 3, v15);
       }
 
       goto LABEL_13;
@@ -3727,14 +3733,14 @@ void WebKit::RemoteGraphicsContextGLProxy::surfaceBufferToVideoFrame(WebKit::Rem
 
   *a3 = 0;
 LABEL_13:
-  if (!v26)
+  if (!v28)
   {
-    v14 = v21;
-    v21 = 0;
-    if (v14)
+    v16 = v23;
+    v23 = 0;
+    if (v16)
     {
-      IPC::Decoder::~Decoder(v14);
-      bmalloc::api::tzoneFree(v15, v16);
+      IPC::Decoder::~Decoder(v16);
+      bmalloc::api::tzoneFree(v17, v18);
     }
   }
 }
@@ -3764,105 +3770,106 @@ void WebKit::RemoteGraphicsContextGLProxy::sendSync<Messages::RemoteGraphicsCont
 
 uint64_t WebKit::RemoteGraphicsContextGLProxy::copyTextureFromVideoFrame(WebKit::RemoteGraphicsContextGLProxy *this, WebCore::VideoFrame *a2, int a3, int a4, int a5, int a6, int a7, int a8, BOOL a9, BOOL a10)
 {
-  v38 = a3;
-  if (!*(this + 11) || (++*(this + 8), v17 = WTF::fastMalloc(0x18), *v17 = &unk_1F1125148, v17[1] = this, v17[2] = this, v24[0] = v17, ++*(this + 8), v18 = WTF::fastMalloc(0x18), *v18 = &unk_1F1125170, *(v18 + 1) = this, *(v18 + 2) = this, v32 = v18, WebKit::SharedVideoFrameWriter::write(this + 128, a2, v24, &v32, v35), (*(*v18 + 8))(v18), (*(*v17 + 8))(v17), v37 != 1))
+  v40 = a3;
+  if (!*(this + 11) || (v17 = (*(this + 8) + 1), *(this + 8) = v17, v18 = WTF::fastMalloc(v17, 0x18), *v18 = &unk_1F1125148, v18[1] = this, v18[2] = this, v26[0] = v18, v19 = (*(this + 8) + 1), *(this + 8) = v19, v20 = WTF::fastMalloc(v19, 0x18), *v20 = &unk_1F1125170, v20[1] = this, v20[2] = this, v34 = v20, WebKit::SharedVideoFrameWriter::write(this + 128, a2, v26, &v34, v37), (*(*v20 + 8))(v20), (*(*v18 + 8))(v18), v39 != 1))
   {
-    v20 = 0;
-    return v20 & 1;
+    v22 = 0;
+    return v22 & 1;
   }
 
-  v19 = *(this + 11);
-  if (!v19)
+  v21 = *(this + 11);
+  if (!v21)
   {
-    v20 = 0;
+    v22 = 0;
 LABEL_14:
-    if (v36[16] == 2)
+    if (v38[16] == 2)
     {
-      WTF::MachSendRight::~MachSendRight(v36);
+      WTF::MachSendRight::~MachSendRight(v38);
     }
 
-    return v20 & 1;
+    return v22 & 1;
   }
 
-  v24[0] = v35;
-  v24[1] = &v38;
-  v25 = a4;
-  v26 = a5;
-  v27 = a6;
-  v28 = a7;
-  v29 = a8;
-  v30 = a9;
-  v31 = a10;
-  atomic_fetch_add(v19, 1u);
-  IPC::StreamClientConnection::sendSync<Messages::RemoteGraphicsContextGL::CopyTextureFromVideoFrame,WebKit::GraphicsContextGLIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>(&v32, v19, v24, *(this + 9));
-  if (atomic_fetch_add(v19, 0xFFFFFFFF) == 1)
+  v26[0] = v37;
+  v26[1] = &v40;
+  v27 = a4;
+  v28 = a5;
+  v29 = a6;
+  v30 = a7;
+  v31 = a8;
+  v32 = a9;
+  v33 = a10;
+  atomic_fetch_add(v21, 1u);
+  IPC::StreamClientConnection::sendSync<Messages::RemoteGraphicsContextGL::CopyTextureFromVideoFrame,WebKit::GraphicsContextGLIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>(&v34, v21, v26, *(this + 9));
+  if (atomic_fetch_add(v21, 0xFFFFFFFF) == 1)
   {
-    atomic_store(1u, v19);
-    IPC::StreamClientConnection::operator delete(v19);
+    atomic_store(1u, v21);
+    IPC::StreamClientConnection::operator delete(v21);
   }
 
-  if (v34)
+  if (v36)
   {
     WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(this);
     (*(*(this + 3) + 2288))(this + 24);
-    v20 = 0;
+    v22 = 0;
   }
 
   else
   {
-    v20 = v33;
-    if (v32)
+    v22 = v35;
+    if (v34)
     {
-      IPC::Decoder::~Decoder(v32);
-      bmalloc::api::tzoneFree(v22, v23);
+      IPC::Decoder::~Decoder(v34);
+      bmalloc::api::tzoneFree(v24, v25);
     }
   }
 
-  if (v37)
+  if (v39)
   {
     goto LABEL_14;
   }
 
-  return v20 & 1;
+  return v22 & 1;
 }
 
 uint64_t WebKit::RemoteGraphicsContextGLProxy::videoFrameToImage@<X0>(uint64_t this@<X0>, WebCore::VideoFrame *a2@<X1>, void *a3@<X8>)
 {
-  if (*(this + 88))
+  v4 = *(this + 88);
+  if (v4)
   {
-    v4 = this;
-    v10 = 0;
-    v5 = WTF::fastMalloc(0x20);
-    *v5 = &unk_1F1125198;
-    v5[1] = &v10;
-    v5[2] = v4;
-    v5[3] = a2;
-    v9 = v5;
+    v6 = this;
+    v12 = 0;
+    v7 = WTF::fastMalloc(v4, 0x20);
+    *v7 = &unk_1F1125198;
+    v7[1] = &v12;
+    v7[2] = v6;
+    v7[3] = a2;
+    v11 = v7;
     WTF::callOnMainRunLoopAndWait();
-    if (v9)
+    if (v11)
     {
-      (*(*v9 + 8))(v9);
+      (*(*v11 + 8))(v11);
     }
 
     WebCore::BitmapImage::create();
-    this = v10;
-    v10 = 0;
+    this = v12;
+    v12 = 0;
     if (this)
     {
       do
       {
-        v7 = *(this + 8);
-        if ((v7 & 1) == 0)
+        v9 = *(this + 8);
+        if ((v9 & 1) == 0)
         {
-          return WTF::ThreadSafeWeakPtrControlBlock::strongDeref<WebCore::RenderingResource,(WTF::DestructionThread)0>(*(this + 8), v6);
+          return WTF::ThreadSafeWeakPtrControlBlock::strongDeref<WebCore::RenderingResource,(WTF::DestructionThread)0>(*(this + 8), v8);
         }
 
-        v8 = *(this + 8);
-        atomic_compare_exchange_strong_explicit((this + 8), &v8, v7 - 2, memory_order_relaxed, memory_order_relaxed);
+        v10 = *(this + 8);
+        atomic_compare_exchange_strong_explicit((this + 8), &v10, v9 - 2, memory_order_relaxed, memory_order_relaxed);
       }
 
-      while (v8 != v7);
-      if (v7 == 3)
+      while (v10 != v9);
+      if (v9 == 3)
       {
         return (*(*this + 8))(this);
       }
@@ -3910,9 +3917,9 @@ uint64_t WebKit::RemoteGraphicsContextGLProxy::getErrors(WebKit::RemoteGraphicsC
   return v3;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGLProxy::simulateEventForTesting(uint64_t result, char a2)
+WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::simulateEventForTesting(WebKit::RemoteGraphicsContextGLProxy *result, char a2)
 {
-  if (*(result + 88))
+  if (*(result + 11))
   {
     v2 = result;
     v3 = a2;
@@ -3951,7 +3958,7 @@ uint64_t WebKit::RemoteGraphicsContextGLProxy::send<Messages::RemoteGraphicsCont
   }
 }
 
-uint64_t WebKit::RemoteGraphicsContextGLProxy::getBufferSubData(uint64_t result, int a2, char *a3, char *a4, unint64_t a5)
+uint64_t WebKit::RemoteGraphicsContextGLProxy::getBufferSubData(uint64_t result, unint64_t a2, char *a3, char *a4, unint64_t a5)
 {
   if (*(result + 88))
   {
@@ -3969,8 +3976,9 @@ uint64_t WebKit::RemoteGraphicsContextGLProxy::getBufferSubData(uint64_t result,
   }
 
   v6 = a5;
+  v9 = a2;
   v10 = result;
-  if (a5 <= 0x10000 || (a5 >= 0x6400000 ? (v11 = 104857600) : (v11 = a5), result = WebCore::SharedMemory::allocate(v11), !v34))
+  if (a5 <= 0x10000 || (a5 >= 0x6400000 ? (v11 = 104857600) : (v11 = a5), result = WebCore::SharedMemory::allocate(&v34, v11), !v34))
   {
 LABEL_37:
     if (!v6)
@@ -3990,7 +3998,7 @@ LABEL_37:
         v18 = v6;
       }
 
-      v31 = a2;
+      v31 = v9;
       v32 = a3;
       v33 = v18;
       v19 = *(v10 + 11);
@@ -4090,7 +4098,7 @@ LABEL_50:
       v13 = v6;
     }
 
-    LODWORD(v24) = a2;
+    LODWORD(v24) = v9;
     __src = a3;
     v26 = v13;
     v27 = &v31;
@@ -4183,7 +4191,7 @@ LABEL_34:
   return result;
 }
 
-WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::readPixels(WebKit::RemoteGraphicsContextGLProxy *result, uint64_t a2, unint64_t a3, WebCore::GraphicsContextGL *this, int a5, int a6, unint64_t a7, int a8, int a9, char a10)
+WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::readPixels(WebKit::RemoteGraphicsContextGLProxy *result, uint64_t a2, unint64_t a3, WebCore::GraphicsContextGL *this, unsigned int a5, int a6, unint64_t a7, int a8, int a9, char a10)
 {
   v55 = a2;
   v56 = a3;
@@ -4259,7 +4267,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::read
     goto LABEL_41;
   }
 
-  WebCore::SharedMemory::allocate(v28);
+  WebCore::SharedMemory::allocate(&v54, v28);
   if (!v54)
   {
     goto LABEL_41;
@@ -4295,7 +4303,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::read
     if (v44)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v16);
-      (*(*(v16 + 3) + 2288))(v16 + 3);
+      (*(*(v16 + 3) + 2288))(v16 + 24);
       v25 = v40;
     }
 
@@ -4365,7 +4373,7 @@ LABEL_44:
     if (v46)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v16);
-      return (*(*(v16 + 3) + 2288))(v16 + 3);
+      return (*(*(v16 + 3) + 2288))(v16 + 24);
     }
 
     else
@@ -4433,7 +4441,7 @@ double WebKit::RemoteGraphicsContextGLProxy::multiDrawArraysANGLE(WebKit::Remote
     }
 
     WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(a1);
-    (*(*(a1 + 3) + 2288))(a1 + 3);
+    (*(*(a1 + 3) + 2288))(a1 + 24);
   }
 
   return result;
@@ -4476,7 +4484,7 @@ double WebKit::RemoteGraphicsContextGLProxy::multiDrawArraysInstancedANGLE(WebKi
     }
 
     WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(a1);
-    (*(*(a1 + 3) + 2288))(a1 + 3);
+    (*(*(a1 + 3) + 2288))(a1 + 24);
   }
 
   return result;
@@ -4518,7 +4526,7 @@ double WebKit::RemoteGraphicsContextGLProxy::multiDrawElementsANGLE(WebKit::Remo
     }
 
     WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(a1);
-    (*(*(a1 + 3) + 2288))(a1 + 3);
+    (*(*(a1 + 3) + 2288))(a1 + 24);
   }
 
   return result;
@@ -4562,7 +4570,7 @@ double WebKit::RemoteGraphicsContextGLProxy::multiDrawElementsInstancedANGLE(Web
     }
 
     WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(a1);
-    (*(*(a1 + 3) + 2288))(a1 + 3);
+    (*(*(a1 + 3) + 2288))(a1 + 24);
   }
 
   return result;
@@ -4605,7 +4613,7 @@ double WebKit::RemoteGraphicsContextGLProxy::multiDrawArraysInstancedBaseInstanc
     }
 
     WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(a1);
-    (*(*(a1 + 3) + 2288))(a1 + 3);
+    (*(*(a1 + 3) + 2288))(a1 + 24);
   }
 
   return result;
@@ -4652,17 +4660,17 @@ double WebKit::RemoteGraphicsContextGLProxy::multiDrawElementsInstancedBaseVerte
     }
 
     WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(a1);
-    (*(*(a1 + 3) + 2288))(a1 + 3);
+    (*(*(a1 + 3) + 2288))(a1 + 24);
   }
 
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGLProxy::drawBuffers(uint64_t result, uint64_t a2, uint64_t a3)
+WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::drawBuffers(WebKit::RemoteGraphicsContextGLProxy *result, uint64_t a2, uint64_t a3)
 {
   v5[0] = a2;
   v5[1] = a3;
-  if (*(result + 88))
+  if (*(result + 11))
   {
     v3 = result;
     v4 = v5;
@@ -4701,11 +4709,11 @@ uint64_t WebKit::RemoteGraphicsContextGLProxy::send<Messages::RemoteGraphicsCont
   }
 }
 
-uint64_t WebKit::RemoteGraphicsContextGLProxy::drawBuffersEXT(uint64_t result, uint64_t a2, uint64_t a3)
+WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::drawBuffersEXT(WebKit::RemoteGraphicsContextGLProxy *result, uint64_t a2, uint64_t a3)
 {
   v5[0] = a2;
   v5[1] = a3;
-  if (*(result + 88))
+  if (*(result + 11))
   {
     v3 = result;
     v4 = v5;
@@ -4744,11 +4752,11 @@ uint64_t WebKit::RemoteGraphicsContextGLProxy::send<Messages::RemoteGraphicsCont
   }
 }
 
-uint64_t WebKit::RemoteGraphicsContextGLProxy::invalidateFramebuffer(uint64_t result, int a2, uint64_t a3, uint64_t a4)
+WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::invalidateFramebuffer(WebKit::RemoteGraphicsContextGLProxy *result, int a2, uint64_t a3, uint64_t a4)
 {
   v7[0] = a3;
   v7[1] = a4;
-  if (*(result + 88))
+  if (*(result + 11))
   {
     v4 = result;
     v5 = a2;
@@ -4788,11 +4796,11 @@ uint64_t WebKit::RemoteGraphicsContextGLProxy::send<Messages::RemoteGraphicsCont
   }
 }
 
-uint64_t WebKit::RemoteGraphicsContextGLProxy::invalidateSubFramebuffer(uint64_t result, int a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7, int a8)
+WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::invalidateSubFramebuffer(WebKit::RemoteGraphicsContextGLProxy *result, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, int a8)
 {
   v15[0] = a3;
   v15[1] = a4;
-  if (*(result + 88))
+  if (*(result + 11))
   {
     v8 = result;
     v9 = a2;
@@ -4836,9 +4844,9 @@ uint64_t WebKit::RemoteGraphicsContextGLProxy::send<Messages::RemoteGraphicsCont
   }
 }
 
-void *WebKit::RemoteGraphicsContextGLProxy::wasCreated(void *this, uint64_t a2, uint64_t a3, uint64_t *a4)
+WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::wasCreated(WebKit::RemoteGraphicsContextGLProxy *this, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  v4 = this[11];
+  v4 = *(this + 11);
   if (v4)
   {
     v6 = this;
@@ -4947,7 +4955,7 @@ void *WebKit::RemoteGraphicsContextGLProxy::wasCreated(void *this, uint64_t a2, 
           this = WTF::StringView::SplitResult::Iterator::operator++();
         }
 
-        v6[21] = a4[2];
+        *(v6 + 21) = a4[2];
       }
 
       else
@@ -4960,24 +4968,24 @@ void *WebKit::RemoteGraphicsContextGLProxy::wasCreated(void *this, uint64_t a2, 
     else
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(this);
-      v16 = *(v6[3] + 2288);
+      v16 = *(*(v6 + 3) + 2288);
 
-      return v16(v6 + 3);
+      return v16(v6 + 24);
     }
   }
 
   return this;
 }
 
-void *WebKit::RemoteGraphicsContextGLProxy::wasLost(void *this)
+WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::wasLost(WebKit::RemoteGraphicsContextGLProxy *this)
 {
-  if (this[11])
+  if (*(this + 11))
   {
     v1 = this;
     WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(this);
-    v2 = *(v1[3] + 2288);
+    v2 = *(*(v1 + 3) + 2288);
 
-    return v2(v1 + 3);
+    return v2(v1 + 24);
   }
 
   return this;
@@ -4997,19 +5005,19 @@ void *WebKit::RemoteGraphicsContextGLProxy::addDebugMessage(void *result)
   return result;
 }
 
-uint64_t IPC::StreamClientConnection::waitForAndDispatchImmediately<Messages::RemoteGraphicsContextGLProxy::WasCreated,WebKit::GraphicsContextGLIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>(uint64_t a1, uint64_t a2, int a3)
+uint64_t IPC::StreamClientConnection::waitForAndDispatchImmediately<Messages::RemoteGraphicsContextGLProxy::WasCreated,WebKit::GraphicsContextGLIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>(uint64_t a1, uint64_t a2, int a3, __n128 a4)
 {
-  v6 = *(a1 + 128);
-  v7 = INFINITY;
-  if (fabs(v6) != INFINITY)
+  v7 = *(a1 + 128);
+  a4.n128_u64[0] = 0x7FF0000000000000;
+  if (fabs(v7) != INFINITY)
   {
     WTF::ApproximateTime::now(a1);
-    v7 = v6 + v8;
+    a4.n128_f64[0] = v7 + a4.n128_f64[0];
   }
 
-  v9 = *(a1 + 8);
+  v8 = *(a1 + 8);
 
-  return IPC::Connection::waitForAndDispatchImmediately<Messages::RemoteGraphicsContextGLProxy::WasCreated>(v9, a2, a3, v7);
+  return IPC::Connection::waitForAndDispatchImmediately<Messages::RemoteGraphicsContextGLProxy::WasCreated>(v8, a2, a3, a4);
 }
 
 uint64_t WebKit::RemoteGraphicsContextGLProxy::didClose(WebKit::RemoteGraphicsContextGLProxy *this, IPC::Connection *a2)
@@ -5058,7 +5066,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::acti
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -5100,7 +5108,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::atta
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v3);
-      return (*(*(v3 + 3) + 2288))(v3 + 3);
+      return (*(*(v3 + 3) + 2288))(v3 + 24);
     }
   }
 
@@ -5143,7 +5151,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::bind
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v4);
-      return (*(*(v4 + 3) + 2288))(v4 + 3);
+      return (*(*(v4 + 3) + 2288))(v4 + 24);
     }
   }
 
@@ -5185,7 +5193,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::bind
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v3);
-      return (*(*(v3 + 3) + 2288))(v3 + 3);
+      return (*(*(v3 + 3) + 2288))(v3 + 24);
     }
   }
 
@@ -5227,7 +5235,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::bind
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v3);
-      return (*(*(v3 + 3) + 2288))(v3 + 3);
+      return (*(*(v3 + 3) + 2288))(v3 + 24);
     }
   }
 
@@ -5269,7 +5277,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::bind
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v3);
-      return (*(*(v3 + 3) + 2288))(v3 + 3);
+      return (*(*(v3 + 3) + 2288))(v3 + 24);
     }
   }
 
@@ -5311,7 +5319,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::bind
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v3);
-      return (*(*(v3 + 3) + 2288))(v3 + 3);
+      return (*(*(v3 + 3) + 2288))(v3 + 24);
     }
   }
 
@@ -5355,7 +5363,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::blen
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v5);
-      return (*(*(v5 + 3) + 2288))(v5 + 3);
+      return (*(*(v5 + 3) + 2288))(v5 + 24);
     }
   }
 
@@ -5396,7 +5404,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::blen
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -5438,7 +5446,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::blen
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v3);
-      return (*(*(v3 + 3) + 2288))(v3 + 3);
+      return (*(*(v3 + 3) + 2288))(v3 + 24);
     }
   }
 
@@ -5480,7 +5488,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::blen
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v3);
-      return (*(*(v3 + 3) + 2288))(v3 + 3);
+      return (*(*(v3 + 3) + 2288))(v3 + 24);
     }
   }
 
@@ -5524,7 +5532,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::blen
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v5);
-      return (*(*(v5 + 3) + 2288))(v5 + 3);
+      return (*(*(v5 + 3) + 2288))(v5 + 24);
     }
   }
 
@@ -5624,7 +5632,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::clea
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -5668,7 +5676,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::clea
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v5);
-      return (*(*(v5 + 3) + 2288))(v5 + 3);
+      return (*(*(v5 + 3) + 2288))(v5 + 24);
     }
   }
 
@@ -5709,7 +5717,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::clea
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -5750,7 +5758,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::clea
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -5796,7 +5804,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::colo
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v5);
-      return (*(*(v5 + 3) + 2288))(v5 + 3);
+      return (*(*(v5 + 3) + 2288))(v5 + 24);
     }
   }
 
@@ -5837,7 +5845,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::comp
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -5868,7 +5876,7 @@ uint64_t WebKit::RemoteGraphicsContextGLProxy::send<Messages::RemoteGraphicsCont
   }
 }
 
-WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::copyTexImage2D(WebKit::RemoteGraphicsContextGLProxy *this, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9)
+WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::copyTexImage2D(WebKit::RemoteGraphicsContextGLProxy *this, int a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7, int a8, int a9)
 {
   if (*(this + 11))
   {
@@ -5885,7 +5893,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::copy
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v9);
-      return (*(*(v9 + 3) + 2288))(v9 + 3);
+      return (*(*(v9 + 3) + 2288))(v9 + 24);
     }
   }
 
@@ -5916,7 +5924,7 @@ uint64_t WebKit::RemoteGraphicsContextGLProxy::send<Messages::RemoteGraphicsCont
   }
 }
 
-WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::copyTexSubImage2D(WebKit::RemoteGraphicsContextGLProxy *this, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9)
+WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::copyTexSubImage2D(WebKit::RemoteGraphicsContextGLProxy *this, int a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7, int a8, int a9)
 {
   if (*(this + 11))
   {
@@ -5933,7 +5941,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::copy
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v9);
-      return (*(*(v9 + 3) + 2288))(v9 + 3);
+      return (*(*(v9 + 3) + 2288))(v9 + 24);
     }
   }
 
@@ -6245,7 +6253,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::cull
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -6286,7 +6294,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::dele
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -6327,7 +6335,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::dele
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -6368,7 +6376,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::dele
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -6409,7 +6417,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::dele
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -6450,7 +6458,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::dele
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -6491,7 +6499,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::dele
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -6532,7 +6540,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::dept
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -6573,7 +6581,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::dept
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -6615,7 +6623,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::dept
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v3);
-      return (*(*(v3 + 3) + 2288))(v3 + 3);
+      return (*(*(v3 + 3) + 2288))(v3 + 24);
     }
   }
 
@@ -6657,7 +6665,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::deta
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v3);
-      return (*(*(v3 + 3) + 2288))(v3 + 3);
+      return (*(*(v3 + 3) + 2288))(v3 + 24);
     }
   }
 
@@ -6698,7 +6706,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::disa
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -6739,7 +6747,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::disa
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -6782,7 +6790,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::draw
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v4);
-      return (*(*(v4 + 3) + 2288))(v4 + 3);
+      return (*(*(v4 + 3) + 2288))(v4 + 24);
     }
   }
 
@@ -6826,7 +6834,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::draw
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v5);
-      return (*(*(v5 + 3) + 2288))(v5 + 3);
+      return (*(*(v5 + 3) + 2288))(v5 + 24);
     }
   }
 
@@ -6867,7 +6875,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::enab
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -6908,7 +6916,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::enab
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -6948,7 +6956,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::fini
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v1);
-      return (*(*(v1 + 3) + 2288))(v1 + 3);
+      return (*(*(v1 + 3) + 2288))(v1 + 24);
     }
   }
 
@@ -6988,7 +6996,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::flus
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v1);
-      return (*(*(v1 + 3) + 2288))(v1 + 3);
+      return (*(*(v1 + 3) + 2288))(v1 + 24);
     }
   }
 
@@ -7032,7 +7040,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::fram
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v5);
-      return (*(*(v5 + 3) + 2288))(v5 + 3);
+      return (*(*(v5 + 3) + 2288))(v5 + 24);
     }
   }
 
@@ -7077,7 +7085,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::fram
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v6);
-      return (*(*(v6 + 3) + 2288))(v6 + 3);
+      return (*(*(v6 + 3) + 2288))(v6 + 24);
     }
   }
 
@@ -7118,7 +7126,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::fron
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -7159,7 +7167,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::gene
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -7190,7 +7198,7 @@ uint64_t WebKit::RemoteGraphicsContextGLProxy::send<Messages::RemoteGraphicsCont
   }
 }
 
-uint64_t WebKit::RemoteGraphicsContextGLProxy::getActiveAttrib(WebKit::RemoteGraphicsContextGLProxy *a1, int a2, int a3, uint64_t a4)
+uint64_t WebKit::RemoteGraphicsContextGLProxy::getActiveAttrib(WebKit::RemoteGraphicsContextGLProxy *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (*(a1 + 11))
   {
@@ -7200,7 +7208,7 @@ uint64_t WebKit::RemoteGraphicsContextGLProxy::getActiveAttrib(WebKit::RemoteGra
     if (v20)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(a1);
-      (*(*(a1 + 3) + 2288))(a1 + 3);
+      (*(*(a1 + 3) + 2288))(a1 + 24);
       v7 = 0;
     }
 
@@ -7269,7 +7277,7 @@ void WebKit::RemoteGraphicsContextGLProxy::sendSync<Messages::RemoteGraphicsCont
   }
 }
 
-uint64_t WebKit::RemoteGraphicsContextGLProxy::getActiveUniform(WebKit::RemoteGraphicsContextGLProxy *a1, int a2, int a3, uint64_t a4)
+uint64_t WebKit::RemoteGraphicsContextGLProxy::getActiveUniform(WebKit::RemoteGraphicsContextGLProxy *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (*(a1 + 11))
   {
@@ -7279,7 +7287,7 @@ uint64_t WebKit::RemoteGraphicsContextGLProxy::getActiveUniform(WebKit::RemoteGr
     if (v20)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(a1);
-      (*(*(a1 + 3) + 2288))(a1 + 3);
+      (*(*(a1 + 3) + 2288))(a1 + 24);
       v7 = 0;
     }
 
@@ -7348,7 +7356,7 @@ void WebKit::RemoteGraphicsContextGLProxy::sendSync<Messages::RemoteGraphicsCont
   }
 }
 
-uint64_t WebKit::RemoteGraphicsContextGLProxy::getAttribLocation(WebKit::RemoteGraphicsContextGLProxy *this, int a2, const WTF::String *a3)
+uint64_t WebKit::RemoteGraphicsContextGLProxy::getAttribLocation(WebKit::RemoteGraphicsContextGLProxy *this, unsigned int a2, const WTF::String *a3)
 {
   if (!*(this + 11))
   {
@@ -7468,7 +7476,7 @@ void WebKit::RemoteGraphicsContextGLProxy::sendSync<Messages::RemoteGraphicsCont
   }
 }
 
-void WebKit::RemoteGraphicsContextGLProxy::getString(WebKit::RemoteGraphicsContextGLProxy *this@<X0>, int a2@<W1>, WTF::StringImpl **a3@<X8>)
+void WebKit::RemoteGraphicsContextGLProxy::getString(IPC::Decoder *this@<X0>, int a2@<W1>, WTF::StringImpl **a3@<X8>)
 {
   if (*(this + 11))
   {
@@ -7539,7 +7547,7 @@ void WebKit::RemoteGraphicsContextGLProxy::sendSync<Messages::RemoteGraphicsCont
   }
 }
 
-uint64_t WebKit::RemoteGraphicsContextGLProxy::getFloatv(uint64_t result, int a2, void *a3, unint64_t a4)
+uint64_t WebKit::RemoteGraphicsContextGLProxy::getFloatv(uint64_t result, uint64_t a2, void *a3, unint64_t a4)
 {
   if (*(result + 88))
   {
@@ -7603,7 +7611,7 @@ void WebKit::RemoteGraphicsContextGLProxy::sendSync<Messages::RemoteGraphicsCont
   }
 }
 
-uint64_t WebKit::RemoteGraphicsContextGLProxy::getIntegerv(uint64_t result, int a2, void *a3, unint64_t a4)
+uint64_t WebKit::RemoteGraphicsContextGLProxy::getIntegerv(uint64_t result, uint64_t a2, void *a3, unint64_t a4)
 {
   if (*(result + 88))
   {
@@ -7667,16 +7675,16 @@ void WebKit::RemoteGraphicsContextGLProxy::sendSync<Messages::RemoteGraphicsCont
   }
 }
 
-unint64_t *WebKit::RemoteGraphicsContextGLProxy::getIntegeri_v(unint64_t *result, int a2, int a3, _OWORD *a4)
+WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::getIntegeri_v(WebKit::RemoteGraphicsContextGLProxy *result, int a2, int a3, _OWORD *a4)
 {
-  v4 = result[11];
+  v4 = *(result + 11);
   if (v4)
   {
     v6 = result;
     v9[0] = a2;
     v9[1] = a3;
     atomic_fetch_add(v4, 1u);
-    IPC::StreamClientConnection::sendSync<Messages::RemoteGraphicsContextGL::GetIntegeri_v,WebKit::GraphicsContextGLIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>(v10, v4, v9, result[9]);
+    IPC::StreamClientConnection::sendSync<Messages::RemoteGraphicsContextGL::GetIntegeri_v,WebKit::GraphicsContextGLIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>(v10, v4, v9, *(result + 9));
     if (atomic_fetch_add(v4, 0xFFFFFFFF) == 1)
     {
       atomic_store(1u, v4);
@@ -7686,7 +7694,7 @@ unint64_t *WebKit::RemoteGraphicsContextGLProxy::getIntegeri_v(unint64_t *result
     if (v11)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v6);
-      return (*(v6[3] + 2288))(v6 + 3);
+      return (*(*(v6 + 3) + 2288))(v6 + 24);
     }
 
     else
@@ -7883,7 +7891,7 @@ void WebKit::RemoteGraphicsContextGLProxy::sendSync<Messages::RemoteGraphicsCont
   }
 }
 
-uint64_t WebKit::RemoteGraphicsContextGLProxy::getBooleanv(uint64_t result, int a2, void *a3, size_t a4)
+uint64_t WebKit::RemoteGraphicsContextGLProxy::getBooleanv(uint64_t result, uint64_t a2, void *a3, size_t a4)
 {
   if (*(result + 88))
   {
@@ -8008,7 +8016,7 @@ void WebKit::RemoteGraphicsContextGLProxy::sendSync<Messages::RemoteGraphicsCont
   }
 }
 
-void WebKit::RemoteGraphicsContextGLProxy::getProgramInfoLog(WebKit::RemoteGraphicsContextGLProxy *this@<X0>, int a2@<W1>, WTF::StringImpl **a3@<X8>)
+void WebKit::RemoteGraphicsContextGLProxy::getProgramInfoLog(IPC::Decoder *this@<X0>, int a2@<W1>, WTF::StringImpl **a3@<X8>)
 {
   if (*(this + 11))
   {
@@ -8199,7 +8207,7 @@ void WebKit::RemoteGraphicsContextGLProxy::sendSync<Messages::RemoteGraphicsCont
   }
 }
 
-void WebKit::RemoteGraphicsContextGLProxy::getShaderInfoLog(WebKit::RemoteGraphicsContextGLProxy *this@<X0>, int a2@<W1>, WTF::StringImpl **a3@<X8>)
+void WebKit::RemoteGraphicsContextGLProxy::getShaderInfoLog(IPC::Decoder *this@<X0>, int a2@<W1>, WTF::StringImpl **a3@<X8>)
 {
   if (*(this + 11))
   {
@@ -8289,7 +8297,7 @@ IPC::Decoder *WebKit::RemoteGraphicsContextGLProxy::getShaderPrecisionFormat(IPC
     if (v14)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v8);
-      return (*(*(v8 + 3) + 2288))(v8 + 3);
+      return (*(*(v8 + 3) + 2288))(v8 + 24);
     }
 
     else
@@ -8312,7 +8320,7 @@ IPC::Decoder *WebKit::RemoteGraphicsContextGLProxy::getShaderPrecisionFormat(IPC
   return result;
 }
 
-void WebKit::RemoteGraphicsContextGLProxy::getShaderSource(WebKit::RemoteGraphicsContextGLProxy *this@<X0>, int a2@<W1>, WTF::StringImpl **a3@<X8>)
+void WebKit::RemoteGraphicsContextGLProxy::getShaderSource(IPC::Decoder *this@<X0>, int a2@<W1>, WTF::StringImpl **a3@<X8>)
 {
   if (*(this + 11))
   {
@@ -8503,7 +8511,7 @@ void WebKit::RemoteGraphicsContextGLProxy::sendSync<Messages::RemoteGraphicsCont
   }
 }
 
-uint64_t WebKit::RemoteGraphicsContextGLProxy::getUniformfv(uint64_t result, int a2, int a3, void *a4, unint64_t a5)
+uint64_t WebKit::RemoteGraphicsContextGLProxy::getUniformfv(uint64_t result, uint64_t a2, uint64_t a3, void *a4, unint64_t a5)
 {
   if (*(result + 88))
   {
@@ -8568,7 +8576,7 @@ void WebKit::RemoteGraphicsContextGLProxy::sendSync<Messages::RemoteGraphicsCont
   }
 }
 
-uint64_t WebKit::RemoteGraphicsContextGLProxy::getUniformiv(uint64_t result, int a2, int a3, void *a4, unint64_t a5)
+uint64_t WebKit::RemoteGraphicsContextGLProxy::getUniformiv(uint64_t result, uint64_t a2, uint64_t a3, void *a4, unint64_t a5)
 {
   if (*(result + 88))
   {
@@ -8633,7 +8641,7 @@ void WebKit::RemoteGraphicsContextGLProxy::sendSync<Messages::RemoteGraphicsCont
   }
 }
 
-uint64_t WebKit::RemoteGraphicsContextGLProxy::getUniformuiv(uint64_t result, int a2, int a3, void *a4, unint64_t a5)
+uint64_t WebKit::RemoteGraphicsContextGLProxy::getUniformuiv(uint64_t result, uint64_t a2, uint64_t a3, void *a4, unint64_t a5)
 {
   if (*(result + 88))
   {
@@ -8698,7 +8706,7 @@ void WebKit::RemoteGraphicsContextGLProxy::sendSync<Messages::RemoteGraphicsCont
   }
 }
 
-uint64_t WebKit::RemoteGraphicsContextGLProxy::getUniformLocation(WebKit::RemoteGraphicsContextGLProxy *this, int a2, const WTF::String *a3)
+uint64_t WebKit::RemoteGraphicsContextGLProxy::getUniformLocation(WebKit::RemoteGraphicsContextGLProxy *this, unsigned int a2, const WTF::String *a3)
 {
   if (!*(this + 11))
   {
@@ -8829,7 +8837,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::hint
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v3);
-      return (*(*(v3 + 3) + 2288))(v3 + 3);
+      return (*(*(v3 + 3) + 2288))(v3 + 24);
     }
   }
 
@@ -9283,7 +9291,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::line
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -9324,7 +9332,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::link
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v2);
-      return (*(*(v2 + 3) + 2288))(v2 + 3);
+      return (*(*(v2 + 3) + 2288))(v2 + 24);
     }
   }
 
@@ -9366,7 +9374,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::pixe
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v3);
-      return (*(*(v3 + 3) + 2288))(v3 + 3);
+      return (*(*(v3 + 3) + 2288))(v3 + 24);
     }
   }
 
@@ -9408,7 +9416,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::poly
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v3);
-      return (*(*(v3 + 3) + 2288))(v3 + 3);
+      return (*(*(v3 + 3) + 2288))(v3 + 24);
     }
   }
 
@@ -9452,7 +9460,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::rend
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v5);
-      return (*(*(v5 + 3) + 2288))(v5 + 3);
+      return (*(*(v5 + 3) + 2288))(v5 + 24);
     }
   }
 
@@ -9494,7 +9502,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::samp
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v3);
-      return (*(*(v3 + 3) + 2288))(v3 + 3);
+      return (*(*(v3 + 3) + 2288))(v3 + 24);
     }
   }
 
@@ -9538,7 +9546,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::scis
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v5);
-      return (*(*(v5 + 3) + 2288))(v5 + 3);
+      return (*(*(v5 + 3) + 2288))(v5 + 24);
     }
   }
 
@@ -9580,7 +9588,7 @@ WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::shad
     if (this)
     {
       WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v3);
-      return (*(*(v3 + 3) + 2288))(v3 + 3);
+      return (*(*(v3 + 3) + 2288))(v3 + 24);
     }
   }
 
@@ -9609,23 +9617,4 @@ uint64_t WebKit::RemoteGraphicsContextGLProxy::send<Messages::RemoteGraphicsCont
 
     return IPC::StreamClientConnection::send<Messages::RemoteGraphicsContextGL::ShaderSource,WebKit::GraphicsContextGLIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>(0, a2, v5);
   }
-}
-
-WebKit::RemoteGraphicsContextGLProxy *WebKit::RemoteGraphicsContextGLProxy::stencilFunc(WebKit::RemoteGraphicsContextGLProxy *this, int a2, int a3, int a4)
-{
-  if (*(this + 11))
-  {
-    v4 = this;
-    v5[0] = a2;
-    v5[1] = a3;
-    v5[2] = a4;
-    this = WebKit::RemoteGraphicsContextGLProxy::send<Messages::RemoteGraphicsContextGL::StencilFunc>(this, v5);
-    if (this)
-    {
-      WebKit::RemoteGraphicsContextGLProxy::disconnectGpuProcessIfNeeded(v4);
-      return (*(*(v4 + 3) + 2288))(v4 + 3);
-    }
-  }
-
-  return this;
 }

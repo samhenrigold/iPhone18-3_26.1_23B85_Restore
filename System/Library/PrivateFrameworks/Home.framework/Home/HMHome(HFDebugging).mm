@@ -15,8 +15,8 @@
   [v5 setObject:name forKeyedSubscript:@"name"];
 
   v8 = +[HFHomeKitDispatcher sharedDispatcher];
-  home = [v8 home];
-  [v5 appendBool:home == self withName:@"selected" ifEqualTo:1];
+  v9 = objc_msgSend_home(v8);
+  [v5 appendBool:v9 == self withName:@"selected" ifEqualTo:1];
 
   if ([v4 detailLevel] == 2)
   {

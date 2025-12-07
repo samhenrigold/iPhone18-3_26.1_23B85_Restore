@@ -7,39 +7,20 @@
 - (CSDecryptInfo)initWithPlistObject:(id *)object externalID:(id)d
 {
   dCopy = d;
-  v16.receiver = self;
-  v16.super_class = CSDecryptInfo;
-  v8 = [(CSDecryptInfo *)&v16 init];
-  if (!v8)
+  v12.receiver = self;
+  v12.super_class = CSDecryptInfo;
+  v7 = [(CSDecryptInfo *)&v12 init];
+  if (v7 && (v8 = _MDPlistContainerCopyObject(), decryptInfo = v7->_decryptInfo, v7->_decryptInfo = v8, decryptInfo, objc_storeStrong(&v7->_externalID, d), v7->_decryptInfo) && v7->_externalID)
   {
-    goto LABEL_5;
-  }
-
-  v9 = *MEMORY[0x277CBECE8];
-  v14 = *&object->var0;
-  var2 = object->var2;
-  v10 = _MDPlistContainerCopyObject();
-  decryptInfo = v8->_decryptInfo;
-  v8->_decryptInfo = v10;
-
-  objc_storeStrong(&v8->_externalID, d);
-  if (!v8->_decryptInfo)
-  {
-    goto LABEL_5;
-  }
-
-  if (v8->_externalID)
-  {
-    v12 = v8;
+    v10 = v7;
   }
 
   else
   {
-LABEL_5:
-    v12 = 0;
+    v10 = 0;
   }
 
-  return v12;
+  return v10;
 }
 
 @end

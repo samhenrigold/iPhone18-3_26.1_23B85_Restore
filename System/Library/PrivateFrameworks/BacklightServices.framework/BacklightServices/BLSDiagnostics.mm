@@ -52,12 +52,12 @@
     NSClassFromString(&cfstr_Bsserviceconne.isa);
     if (!v5)
     {
-      [BLSDiagnostics initWithEndpoint:?];
+      [(BLSDiagnostics *)sel_initWithEndpoint_ initWithEndpoint:endpoint];
     }
 
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [BLSDiagnostics initWithEndpoint:?];
+      [(BLSDiagnostics *)sel_initWithEndpoint_ initWithEndpoint:endpoint];
     }
 
     v8.receiver = endpoint;
@@ -87,39 +87,37 @@ void __35__BLSDiagnostics_initWithEndpoint___block_invoke(uint64_t a1, void *a2)
 
 - (id)allFlipbookFrames
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   remoteTarget = [(BSServiceConnection *)self->_connection remoteTarget];
   allFlipbookFrames = [remoteTarget allFlipbookFrames];
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = allFlipbookFrames;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v12 + 1) + 8 * i) setSurfaceProvider:{self, v12}];
+        [*(*(&v11 + 1) + 8 * i) setSurfaceProvider:{self, v11}];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -146,27 +144,28 @@ void __35__BLSDiagnostics_initWithEndpoint___block_invoke(uint64_t a1, void *a2)
 
 - (__IOSurface)surfaceForFrame:(id)frame
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   frameCopy = frame;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__0;
-  v19 = __Block_byref_object_dispose__0;
-  v20 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__0;
+  v18 = __Block_byref_object_dispose__0;
+  v19 = 0;
   remoteTarget = [(BSServiceConnection *)self->_connection remoteTarget];
   uuid = [frameCopy uuid];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __34__BLSDiagnostics_surfaceForFrame___block_invoke;
-  v14[3] = &unk_278428A40;
-  v14[4] = &v15;
-  [remoteTarget surfaceForFrameUUID:uuid reply:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __34__BLSDiagnostics_surfaceForFrame___block_invoke;
+  v13[3] = &unk_278428A40;
+  v13[4] = &v14;
+  [remoteTarget surfaceForFrameUUID:uuid reply:v13];
 
-  v7 = v16[5];
+  v7 = v15[5];
   if (v7)
   {
-    v8 = IOSurfaceLookupFromXPCObject(v7);
+    v7 = IOSurfaceLookupFromXPCObject(v7);
+    v8 = v7;
   }
 
   else
@@ -174,50 +173,50 @@ void __35__BLSDiagnostics_initWithEndpoint___block_invoke(uint64_t a1, void *a2)
     v8 = 0;
   }
 
-  v9 = bls_diagnostics_log();
+  v9 = bls_diagnostics_log(v7);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     bls_shortLoggingString = [frameCopy bls_shortLoggingString];
-    v13 = v16[5];
+    v12 = v15[5];
     *buf = 134218754;
     selfCopy = self;
-    v23 = 2114;
-    v24 = bls_shortLoggingString;
-    v25 = 2114;
-    v26 = v8;
-    v27 = 2114;
-    v28 = v13;
+    v22 = 2114;
+    v23 = bls_shortLoggingString;
+    v24 = 2114;
+    v25 = v8;
+    v26 = 2114;
+    v27 = v12;
     _os_log_debug_impl(&dword_21FE25000, v9, OS_LOG_TYPE_DEBUG, "%p surfaceForFrame:%{public}@ surface:%{public}@ surfaceXPC:%{public}@", buf, 0x2Au);
   }
 
-  _Block_object_dispose(&v15, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v14, 8);
   return v8;
 }
 
 - (__IOSurface)rawSurfaceForFrame:(id)frame
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   frameCopy = frame;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__0;
-  v19 = __Block_byref_object_dispose__0;
-  v20 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__0;
+  v18 = __Block_byref_object_dispose__0;
+  v19 = 0;
   remoteTarget = [(BSServiceConnection *)self->_connection remoteTarget];
   uuid = [frameCopy uuid];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __37__BLSDiagnostics_rawSurfaceForFrame___block_invoke;
-  v14[3] = &unk_278428A40;
-  v14[4] = &v15;
-  [remoteTarget rawSurfaceForFrameUUID:uuid reply:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __37__BLSDiagnostics_rawSurfaceForFrame___block_invoke;
+  v13[3] = &unk_278428A40;
+  v13[4] = &v14;
+  [remoteTarget rawSurfaceForFrameUUID:uuid reply:v13];
 
-  v7 = v16[5];
+  v7 = v15[5];
   if (v7)
   {
-    v8 = IOSurfaceLookupFromXPCObject(v7);
+    v7 = IOSurfaceLookupFromXPCObject(v7);
+    v8 = v7;
   }
 
   else
@@ -225,74 +224,73 @@ void __35__BLSDiagnostics_initWithEndpoint___block_invoke(uint64_t a1, void *a2)
     v8 = 0;
   }
 
-  v9 = bls_diagnostics_log();
+  v9 = bls_diagnostics_log(v7);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     bls_shortLoggingString = [frameCopy bls_shortLoggingString];
-    v13 = v16[5];
+    v12 = v15[5];
     *buf = 134218754;
     selfCopy = self;
-    v23 = 2114;
-    v24 = bls_shortLoggingString;
-    v25 = 2114;
-    v26 = v8;
-    v27 = 2114;
-    v28 = v13;
+    v22 = 2114;
+    v23 = bls_shortLoggingString;
+    v24 = 2114;
+    v25 = v8;
+    v26 = 2114;
+    v27 = v12;
     _os_log_debug_impl(&dword_21FE25000, v9, OS_LOG_TYPE_DEBUG, "%p rawSurfaceForFrame:%{public}@ surface:%{public}@ surfaceXPC:%{public}@", buf, 0x2Au);
   }
 
-  _Block_object_dispose(&v15, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v14, 8);
   return v8;
 }
 
-- (void)initWithEndpoint:(const char *)a1 .cold.1(const char *a1)
+- (void)initWithEndpoint:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSServiceConnectionEndpointClass]"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSServiceConnectionEndpointClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    v8 = @"BLSDiagnostics.m";
-    v9 = 1024;
-    v10 = 41;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"BLSDiagnostics.m";
+    v10 = 1024;
+    v11 = 41;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_21FE25000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)initWithEndpoint:(const char *)a1 .cold.2(const char *a1)
+- (void)initWithEndpoint:(const char *)a1 .cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    v8 = @"BLSDiagnostics.m";
-    v9 = 1024;
-    v10 = 41;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"BLSDiagnostics.m";
+    v10 = 1024;
+    v11 = 41;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_21FE25000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)initWithEndpoint:(uint64_t)a3 .cold.3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v6 = [MEMORY[0x277CF3280] connectionWithEndpoint:a1];
   v7 = *(a2 + 16);
   *(a2 + 16) = v6;
@@ -314,21 +312,18 @@ void __35__BLSDiagnostics_initWithEndpoint___block_invoke(uint64_t a1, void *a2)
   v15 = a2;
   *(a3 + 40) = v15;
   [v13 configureConnection:a3];
-  [*(a2 + 16) activate];
-  v16 = bls_diagnostics_log();
+  v16 = bls_diagnostics_log([*(a2 + 16) activate]);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    v18 = *(a2 + 16);
-    v19 = 134218498;
-    v20 = v15;
-    v21 = 2114;
-    v22 = v18;
-    v23 = 2114;
-    v24 = a1;
-    _os_log_debug_impl(&dword_21FE25000, v16, OS_LOG_TYPE_DEBUG, "%p did activate connection:%{public}@ for endpoint:%{public}@", &v19, 0x20u);
+    v17 = *(a2 + 16);
+    v18 = 134218498;
+    v19 = v15;
+    v20 = 2114;
+    v21 = v17;
+    v22 = 2114;
+    v23 = a1;
+    _os_log_debug_impl(&dword_21FE25000, v16, OS_LOG_TYPE_DEBUG, "%p did activate connection:%{public}@ for endpoint:%{public}@", &v18, 0x20u);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

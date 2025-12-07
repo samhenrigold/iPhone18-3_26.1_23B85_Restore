@@ -24,9 +24,7 @@
 
 - (void)setStateUpdateOnSessionEndedCallback:(id)callback
 {
-  v4 = [callback copy];
-  stateUpdateOnSessionEndedCallback = self->_stateUpdateOnSessionEndedCallback;
-  self->_stateUpdateOnSessionEndedCallback = v4;
+  self->_stateUpdateOnSessionEndedCallback = [callback copy];
 
   _objc_release_x1();
 }

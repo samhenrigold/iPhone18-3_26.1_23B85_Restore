@@ -116,27 +116,27 @@
 
 - (CGRect)alignmentRectForText
 {
-  v3 = MEMORY[0x277D0C2A0];
-  v4 = *MEMORY[0x277D0C2A0];
+  v4 = MEMORY[0x277D0C2A0];
+  v5 = *MEMORY[0x277D0C2A0];
   if (!*MEMORY[0x277D0C2A0])
   {
-    v5 = GKOSLoggers();
-    v4 = *v3;
+    v6 = GKOSLoggers();
+    v5 = *v4;
   }
 
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    [(GKCollectionViewCell *)v4 alignmentRectForText];
+    [(GKCollectionViewCell *)v5 alignmentRectForText];
   }
 
-  v6 = *MEMORY[0x277CBF3A0];
-  v7 = *(MEMORY[0x277CBF3A0] + 8);
-  v8 = *(MEMORY[0x277CBF3A0] + 16);
-  v9 = *(MEMORY[0x277CBF3A0] + 24);
-  result.size.height = v9;
-  result.size.width = v8;
-  result.origin.y = v7;
-  result.origin.x = v6;
+  v7 = *MEMORY[0x277CBF3A0];
+  v8 = *(MEMORY[0x277CBF3A0] + 8);
+  v9 = *(MEMORY[0x277CBF3A0] + 16);
+  v10 = *(MEMORY[0x277CBF3A0] + 24);
+  result.size.height = v10;
+  result.size.width = v9;
+  result.origin.y = v8;
+  result.origin.x = v7;
   return result;
 }
 
@@ -339,12 +339,12 @@ void __63__GKCollectionViewCell_setShouldDisplaySwipeToEditAccessories___block_i
   [v9 setAlpha:v8];
 }
 
-uint64_t __63__GKCollectionViewCell_setShouldDisplaySwipeToEditAccessories___block_invoke_2(uint64_t a1)
+void *__63__GKCollectionViewCell_setShouldDisplaySwipeToEditAccessories___block_invoke_2(uint64_t a1)
 {
   result = *(a1 + 32);
   if ((*(result + 696) & 1) == 0)
   {
-    [result removeConstraints:*(result + 792)];
+    [result removeConstraints:*(result + 99)];
     [*(*(a1 + 32) + 768) removeFromSuperview];
     v3 = *(*(a1 + 32) + 776);
 
@@ -538,15 +538,15 @@ uint64_t __58__GKCollectionViewCell_shutActionPaneAnimated_completion___block_in
 
 - (void)alignmentRectForText
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v4 = NSStringFromSelector(a2);
-  v6 = 138412546;
-  v7 = v4;
-  v8 = 2112;
-  v9 = objc_opt_class();
-  v5 = v9;
-  _os_log_debug_impl(&dword_24DE53000, selfCopy, OS_LOG_TYPE_DEBUG, "base %@ invoked for %@", &v6, 0x16u);
+  v5 = NSStringFromSelector(a2);
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2112;
+  v10 = objc_opt_class();
+  v6 = v10;
+  _os_log_debug_impl(&dword_24DE53000, selfCopy, OS_LOG_TYPE_DEBUG, "base %@ invoked for %@", &v7, 0x16u);
 }
 
 @end

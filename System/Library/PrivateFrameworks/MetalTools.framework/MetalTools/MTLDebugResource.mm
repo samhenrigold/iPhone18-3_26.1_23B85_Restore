@@ -82,8 +82,7 @@
     _MTLMessageContextEnd();
     if (!count)
     {
-      result = 0;
-      goto LABEL_20;
+      return 0;
     }
   }
 
@@ -107,15 +106,12 @@
   v11 = 0;
   do
   {
-    *(&v13 + 8 * v11 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0)) = [resources[v11] baseObject];
+    *(&v12 + 8 * v11 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0)) = [resources[v11] baseObject];
     ++v11;
   }
 
   while (count != v11);
-  result = [-[MTLDebugResource baseObject](self "baseObject")];
-LABEL_20:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return [-[MTLDebugResource baseObject](self "baseObject")];
 }
 
 - (BOOL)doesAliasAnyResources:(const void *)resources count:(unint64_t)count
@@ -162,8 +158,7 @@ LABEL_20:
     _MTLMessageContextEnd();
     if (!count)
     {
-      result = 0;
-      goto LABEL_20;
+      return 0;
     }
   }
 
@@ -187,15 +182,12 @@ LABEL_20:
   v11 = 0;
   do
   {
-    *(&v13 + 8 * v11 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0)) = [resources[v11] baseObject];
+    *(&v12 + 8 * v11 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0)) = [resources[v11] baseObject];
     ++v11;
   }
 
   while (count != v11);
-  result = [-[MTLDebugResource baseObject](self "baseObject")];
-LABEL_20:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return [-[MTLDebugResource baseObject](self "baseObject")];
 }
 
 @end

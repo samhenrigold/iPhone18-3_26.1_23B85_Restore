@@ -18,27 +18,27 @@ uint64_t ___VideoTransmitter_HandleDataBuffer_block_invoke(uint64_t a1)
 
 uint64_t ___VideoTransmitter_RetransmitPacketDispatched_block_invoke(uint64_t a1)
 {
-  result = RTPTransportResendRTP(*(a1 + 48), *(a1 + 40), *(a1 + 64), *(a1 + 68), *(a1 + 56));
+  result = RTPTransportResendRTP(*(a1 + 40), *(a1 + 64), *(a1 + 68), *(a1 + 56), *(a1 + 48));
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
 }
 
 uint64_t ___VideoTransmitter_ReportingRegisterPeriodicTask_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v190 = *MEMORY[0x1E69E9840];
+  v192 = *MEMORY[0x1E69E9840];
   result = CheckInHandleDebug();
   if (result)
   {
     v5 = result;
-    v6 = result + 23632;
+    v6 = (result + 23632);
     v7 = atomic_load((result + 23824));
     if (v7)
     {
       v8 = (result + 16886);
-      v150 = 0.0;
-      VideoTransmitter_GetFramerate(1.0, *(a1 + 32), &v150);
-      v10 = v150;
-      if (v150 > 0.0)
+      v152 = 0.0;
+      VideoTransmitter_GetFramerate(*(a1 + 32), &v152, 1.0);
+      v10 = v152;
+      if (v152 > 0.0)
       {
         ++*(v5 + 16958);
         LOWORD(v9) = *(v5 + 16952);
@@ -58,12 +58,12 @@ uint64_t ___VideoTransmitter_ReportingRegisterPeriodicTask_block_invoke(uint64_t
         }
       }
 
-      v149 = 0.0;
-      VideoTransmitter_GetBitrate(1.0, *(a1 + 32), &v149);
-      v13 = v149;
-      if (*(v5 + 368) < v149)
+      v151 = 0.0;
+      VideoTransmitter_GetBitrate(*(a1 + 32), &v151, 1.0);
+      v13 = v151;
+      if (*(v5 + 368) < v151)
       {
-        *(v5 + 368) = v149;
+        *(v5 + 368) = v151;
       }
 
       if (*(v5 + 376) > v13)
@@ -155,7 +155,7 @@ uint64_t ___VideoTransmitter_ReportingRegisterPeriodicTask_block_invoke(uint64_t
         v35 = CFNumberCreate(v19, kCFNumberIntType, valuePtr);
         CFDictionaryAddValue(v14, @"CodecLayers", v35);
         CFRelease(v35);
-        *valuePtr = *(v6 + 12);
+        *valuePtr = v6[3];
         v36 = CFNumberCreate(v19, kCFNumberIntType, valuePtr);
         CFDictionaryAddValue(v14, @"QID", v36);
         CFRelease(v36);
@@ -208,40 +208,40 @@ uint64_t ___VideoTransmitter_ReportingRegisterPeriodicTask_block_invoke(uint64_t
           v47 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v48 = *(v6 + 184);
-            v49 = *(v6 + 188);
+            v48 = v6[46];
+            v49 = v6[47];
             *valuePtr = 136316418;
             *&valuePtr[4] = v46;
-            v152 = 2080;
-            v153 = "_VideoTransmitter_ReportingRegisterPeriodicTask_block_invoke";
-            v154 = 1024;
-            v155 = 889;
-            v156 = 2048;
-            *v157 = v5;
-            *&v157[8] = 1024;
-            *&v157[10] = v48;
-            *&v157[14] = 1024;
-            *&v157[16] = v49;
+            v154 = 2080;
+            v155 = "_VideoTransmitter_ReportingRegisterPeriodicTask_block_invoke";
+            v156 = 1024;
+            v157 = 889;
+            v158 = 2048;
+            *v159 = v5;
+            *&v159[8] = 1024;
+            *&v159[10] = v48;
+            *&v159[14] = 1024;
+            *&v159[16] = v49;
             _os_log_impl(&dword_1DB56E000, v47, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d VideoTransmitter[%p] numPSFBltrACKsReceived=%u, numAPPltrACKsReceived=%u", valuePtr, 0x32u);
           }
         }
 
-        if (*(v6 + 184))
+        if (v6[46])
         {
-          *valuePtr = *(v6 + 184);
+          *valuePtr = v6[46];
           v50 = CFNumberCreate(v19, kCFNumberIntType, valuePtr);
           CFDictionaryAddValue(v14, @"LTRAckRx", v50);
           CFRelease(v50);
-          *(v6 + 184) = 0;
+          v6[46] = 0;
         }
 
-        if (*(v6 + 188))
+        if (v6[47])
         {
-          *valuePtr = *(v6 + 188);
+          *valuePtr = v6[47];
           v51 = CFNumberCreate(v19, kCFNumberIntType, valuePtr);
           CFDictionaryAddValue(v14, @"RtcpAppLTRAckRx", v51);
           CFRelease(v51);
-          *(v6 + 188) = 0;
+          v6[47] = 0;
         }
 
         v52 = *(v5 + 23832);
@@ -260,9 +260,9 @@ uint64_t ___VideoTransmitter_ReportingRegisterPeriodicTask_block_invoke(uint64_t
           v56 = (v5 + 560);
           do
           {
-            v148 = 0;
-            RTPGetPacketSent(*v56, &v148);
-            v54 += v148;
+            v150 = 0;
+            RTPGetPacketSent(*v56, &v150);
+            v54 += v150;
             *valuePtr = 0;
             v57 = *v56;
             v56 += 19;
@@ -286,7 +286,7 @@ uint64_t ___VideoTransmitter_ReportingRegisterPeriodicTask_block_invoke(uint64_t
           LODWORD(v58) = 0;
         }
 
-        v141 = v55;
+        v143 = v55;
         v59 = *(v5 + 264);
         theDict = v59 - *(v5 + 268);
         *(v5 + 268) = v59;
@@ -307,358 +307,358 @@ uint64_t ___VideoTransmitter_ReportingRegisterPeriodicTask_block_invoke(uint64_t
         v63 = CFNumberCreate(v19, kCFNumberIntType, valuePtr);
         CFDictionaryAddValue(v14, @"VNWET", v63);
         CFRelease(v63);
-        v64 = v5 + 18232;
-        v65 = *(v5 + 18232);
+        v66 = v5 + 18232;
+        v67 = *(v5 + 18232);
         if ((*(v5 + 18216) & 1) == 0)
         {
-          v65 = (v65 / fmax((micro() - *(v5 + 18224)) / 5.0, 1.0));
+          v67 = (v67 / fmax((micro(v64, v65) - *(v5 + 18224)) / 5.0, 1.0));
           *(v5 + 18216) = 1;
         }
 
-        *valuePtr = v65;
-        v66 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-        CFDictionaryAddValue(v14, @"VFCCnt", v66);
-        CFRelease(v66);
+        *valuePtr = v67;
+        v68 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
+        CFDictionaryAddValue(v14, @"VFCCnt", v68);
+        CFRelease(v68);
         *valuePtr = *(v5 + 18260);
-        v67 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-        CFDictionaryAddValue(v14, @"IdleFrameCount", v67);
-        CFRelease(v67);
-        v68 = v14;
-        v140 = (v5 + 18240);
-        *valuePtr = *(v5 + 18240);
         v69 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-        CFDictionaryAddValue(v14, @"EncInFrameCnt", v69);
+        CFDictionaryAddValue(v14, @"IdleFrameCount", v69);
         CFRelease(v69);
-        v70 = (v5 + 18244);
-        *valuePtr = *(v5 + 18244);
+        v70 = v14;
+        v142 = (v5 + 18240);
+        *valuePtr = *(v5 + 18240);
         v71 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-        CFDictionaryAddValue(v68, @"EncOutFrameCnt", v71);
+        CFDictionaryAddValue(v14, @"EncInFrameCnt", v71);
         CFRelease(v71);
-        v72 = (v5 + 18256);
-        *valuePtr = *(v5 + 18256);
+        v72 = (v5 + 18244);
+        *valuePtr = *(v5 + 18244);
         v73 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-        CFDictionaryAddValue(v68, @"VTxNoFecTF", v73);
+        CFDictionaryAddValue(v70, @"EncOutFrameCnt", v73);
         CFRelease(v73);
-        v143 = v5 + 16886;
-        *valuePtr = *(v5 + 16992);
-        v74 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-        CFDictionaryAddValue(v68, @"VTxSinglePktFrame", v74);
-        CFRelease(v74);
-        *valuePtr = v59;
+        v74 = (v5 + 18256);
+        *valuePtr = *(v5 + 18256);
         v75 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-        CFDictionaryAddValue(v68, @"VTxKeyFramesSent", v75);
+        CFDictionaryAddValue(v70, @"VTxNoFecTF", v75);
         CFRelease(v75);
-        v146 = v5;
-        *valuePtr = *(v5 + 272);
+        v145 = v5 + 16886;
+        *valuePtr = *(v5 + 16992);
         v76 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-        CFDictionaryAddValue(v68, @"VTxTotalIDR", v76);
+        CFDictionaryAddValue(v70, @"VTxSinglePktFrame", v76);
         CFRelease(v76);
-        *valuePtr = theDict;
+        *valuePtr = v59;
         v77 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-        v142 = v68;
-        CFDictionaryAddValue(v68, @"VTxDeltaKeyFramesSent", v77);
+        CFDictionaryAddValue(v70, @"VTxKeyFramesSent", v77);
         CFRelease(v77);
+        v148 = v5;
+        *valuePtr = *(v5 + 272);
+        v78 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
+        CFDictionaryAddValue(v70, @"VTxTotalIDR", v78);
+        CFRelease(v78);
+        *valuePtr = theDict;
+        v79 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
+        v144 = v70;
+        CFDictionaryAddValue(v70, @"VTxDeltaKeyFramesSent", v79);
+        CFRelease(v79);
         if (*(v6 + 376) == 1)
         {
-          v78 = *(v6 + 380);
-          if (v78 > 0.0 && (*(v6 + 384) / v78) > 1.0)
+          v80 = *(v6 + 95);
+          if (v80 > 0.0 && (*(v6 + 96) / v80) > 1.0)
           {
-            ++*(v6 + 388);
+            ++v6[97];
           }
 
-          ++*(v6 + 392);
-          *(v6 + 380) = 0;
+          ++v6[98];
+          *(v6 + 95) = 0;
         }
 
-        v79 = *v70;
-        v80 = *v6;
+        v81 = *v72;
+        v82 = *v6;
         if (VRTraceGetErrorLogLevelForModule() >= 6)
         {
-          v81 = VRTraceErrorLogLevelToCSTR();
-          v82 = *MEMORY[0x1E6986650];
+          v83 = VRTraceErrorLogLevelToCSTR();
+          v84 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v139 = *(v146 + 440);
-            v83 = FourccToCStr(*(v146 + 528));
-            v84 = *v64;
-            v85 = *(v143 + 1350);
-            v86 = *(v143 + 1362);
-            v87 = *(v143 + 1378);
-            v88 = *v140;
-            v89 = *(v146 + 12);
-            v90 = *v70;
-            v91 = *(v143 + 1366);
+            v141 = *(v148 + 440);
+            v85 = FourccToCStr(*(v148 + 528));
+            v86 = *v66;
+            v87 = *(v145 + 1350);
+            v88 = *(v145 + 1362);
+            v89 = *(v145 + 1378);
+            v90 = *v142;
+            v91 = *(v148 + 12);
             v92 = *v72;
-            v93 = *(v143 + 106);
+            v93 = *(v145 + 1366);
+            v94 = *v74;
+            v95 = *(v145 + 106);
             *valuePtr = 136321026;
-            v95 = *(v146 + 328);
-            v94 = *(v146 + 336);
-            v96 = *(v146 + 344);
-            v97 = *(v146 + 360);
-            v98 = *(v146 + 4780);
-            *&valuePtr[4] = v81;
-            v152 = 2080;
-            v153 = "_VideoTransmitter_ReportingRegisterPeriodicTask_block_invoke";
-            v154 = 1024;
-            v155 = 964;
+            v97 = *(v148 + 328);
+            v96 = *(v148 + 336);
+            v98 = *(v148 + 344);
+            v99 = *(v148 + 360);
+            v100 = *(v148 + 4780);
+            *&valuePtr[4] = v83;
+            v154 = 2080;
+            v155 = "_VideoTransmitter_ReportingRegisterPeriodicTask_block_invoke";
             v156 = 1024;
-            *v157 = v139;
-            *&v157[4] = 2080;
-            *&v157[6] = v83;
-            *&v157[14] = 1024;
-            *&v157[16] = v84;
-            LOWORD(v158) = 1024;
-            *(&v158 + 2) = v85;
-            HIWORD(v158) = 1024;
-            *v159 = v86;
-            *&v159[4] = 1024;
-            *&v159[6] = v87;
-            v160 = 1024;
-            v161 = v88;
+            v157 = 964;
+            v158 = 1024;
+            *v159 = v141;
+            *&v159[4] = 2080;
+            *&v159[6] = v85;
+            *&v159[14] = 1024;
+            *&v159[16] = v86;
+            LOWORD(v160) = 1024;
+            *(&v160 + 2) = v87;
+            HIWORD(v160) = 1024;
+            *v161 = v88;
+            *&v161[4] = 1024;
+            *&v161[6] = v89;
             v162 = 1024;
-            v163 = v79 / v80;
-            v164 = 2048;
-            v165 = ((v79 / v80) / v89);
-            v166 = 1024;
-            v167 = v90;
-            v168 = 2048;
-            v169 = (v90 / v89);
-            v170 = 1024;
-            v171 = v91;
+            v163 = v90;
+            v164 = 1024;
+            v165 = v81 / v82;
+            v166 = 2048;
+            v167 = ((v81 / v82) / v91);
+            v168 = 1024;
+            v169 = v92;
+            v170 = 2048;
+            v171 = (v92 / v91);
             v172 = 1024;
-            v173 = v92;
+            v173 = v93;
             v174 = 1024;
-            v175 = v93;
-            v176 = 2048;
+            v175 = v94;
+            v176 = 1024;
             v177 = v95;
             v178 = 2048;
-            v179 = v94;
+            v179 = v97;
             v180 = 2048;
             v181 = v96;
             v182 = 2048;
-            v183 = v97;
+            v183 = v98;
             v184 = 2048;
-            v185 = v16;
-            v186 = 1024;
-            v187 = v98;
+            v185 = v99;
+            v186 = 2048;
+            v187 = v16;
             v188 = 1024;
-            v189 = theDict;
-            _os_log_impl(&dword_1DB56E000, v82, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @=@ Health: VideoTransmitter streamID=%d, streamGroupId=%s, toBeBufferedFrameCount=%d, bufferedFrameCount=%d, encoderProcCount=%d, transmitterProcCount=%d toBeEncodedFrameCount=%d, encodedFullFrameCount=%d, encodedFullFrameRate=%f, encodedFrameCount=%d, encodedFrameRate=%f, transmittedFrameCount=%d, transmittedNonFECFrameCount=%d, singlePacketFrameCount=%d, currentMediaBitrate=%f, currentHeaderBitrate=%f, currentFECBitrate=%f, currentTotalBitrate=%f, currentFECOverhead=%2.4f targetBitrate=%d deltaKeyFramesSent=%d", valuePtr, 0xBAu);
+            v189 = v100;
+            v190 = 1024;
+            v191 = theDict;
+            _os_log_impl(&dword_1DB56E000, v84, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @=@ Health: VideoTransmitter streamID=%d, streamGroupId=%s, toBeBufferedFrameCount=%d, bufferedFrameCount=%d, encoderProcCount=%d, transmitterProcCount=%d toBeEncodedFrameCount=%d, encodedFullFrameCount=%d, encodedFullFrameRate=%f, encodedFrameCount=%d, encodedFrameRate=%f, transmittedFrameCount=%d, transmittedNonFECFrameCount=%d, singlePacketFrameCount=%d, currentMediaBitrate=%f, currentHeaderBitrate=%f, currentFECBitrate=%f, currentTotalBitrate=%f, currentFECOverhead=%2.4f targetBitrate=%d deltaKeyFramesSent=%d", valuePtr, 0xBAu);
           }
         }
 
-        _VideoTransmitter_ReportInvalidVideoTxCaptureFrameCount(v146);
-        *(v146 + 360) = 0;
-        *(v143 + 106) = 0;
-        *(v146 + 320) = 0u;
-        *(v146 + 336) = 0u;
-        *v64 = 0u;
-        *(v64 + 16) = 0u;
-        *(v64 + 32) = 0;
-        v99 = MEMORY[0x1E695E9D8];
-        v100 = MEMORY[0x1E695E9E8];
+        _VideoTransmitter_ReportInvalidVideoTxCaptureFrameCount(v148);
+        *(v148 + 360) = 0;
+        *(v145 + 106) = 0;
+        *(v148 + 320) = 0u;
+        *(v148 + 336) = 0u;
+        *v66 = 0u;
+        *(v66 + 16) = 0u;
+        *(v66 + 32) = 0;
+        v101 = MEMORY[0x1E695E9D8];
+        v102 = MEMORY[0x1E695E9E8];
         theDicta = CFDictionaryCreateMutable(allocator, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-        Mutable = CFDictionaryCreateMutable(allocator, 0, v99, v100);
-        v102 = CFDictionaryCreateMutable(allocator, 0, v99, v100);
-        v103 = CFDictionaryCreateMutable(allocator, 0, v99, v100);
-        v104 = CFDictionaryCreateMutable(allocator, 0, v99, v100);
-        v105 = CFDictionaryCreateMutable(allocator, 0, v99, v100);
-        v106 = 0;
-        v107 = (v143 + 1906);
+        Mutable = CFDictionaryCreateMutable(allocator, 0, v101, v102);
+        v104 = CFDictionaryCreateMutable(allocator, 0, v101, v102);
+        v105 = CFDictionaryCreateMutable(allocator, 0, v101, v102);
+        v106 = CFDictionaryCreateMutable(allocator, 0, v101, v102);
+        v107 = CFDictionaryCreateMutable(allocator, 0, v101, v102);
+        v108 = 0;
+        v109 = (v145 + 1906);
         do
         {
-          if (*(v107 - 6))
+          if (*(v109 - 6))
           {
-            v108 = CFStringCreateWithFormat(allocator, 0, @"%u", v106);
-            *valuePtr = *(v107 - 5);
-            v109 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-            CFDictionaryAddValue(Mutable, v108, v109);
-            CFRelease(v109);
-            *valuePtr = *(v107 - 4);
-            v110 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-            CFDictionaryAddValue(v102, v108, v110);
-            CFRelease(v110);
-            *valuePtr = *(v107 - 6);
+            v110 = CFStringCreateWithFormat(allocator, 0, @"%u", v108);
+            *valuePtr = *(v109 - 5);
             v111 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-            CFDictionaryAddValue(v103, v108, v111);
+            CFDictionaryAddValue(Mutable, v110, v111);
             CFRelease(v111);
-            *valuePtr = *v107;
+            *valuePtr = *(v109 - 4);
             v112 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-            CFDictionaryAddValue(v104, v108, v112);
+            CFDictionaryAddValue(v104, v110, v112);
             CFRelease(v112);
-            *valuePtr = *(v107 - 1);
+            *valuePtr = *(v109 - 6);
             v113 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-            CFDictionaryAddValue(v105, v108, v113);
+            CFDictionaryAddValue(v105, v110, v113);
             CFRelease(v113);
-            CFRelease(v108);
+            *valuePtr = *v109;
+            v114 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
+            CFDictionaryAddValue(v106, v110, v114);
+            CFRelease(v114);
+            *valuePtr = *(v109 - 1);
+            v115 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
+            CFDictionaryAddValue(v107, v110, v115);
+            CFRelease(v115);
+            CFRelease(v110);
           }
 
-          ++v106;
-          v107 += 12;
+          ++v108;
+          v109 += 12;
         }
 
-        while (v106 != 101);
+        while (v108 != 101);
         CFDictionaryAddValue(theDicta, @"VFecDB", Mutable);
-        CFDictionaryAddValue(theDicta, @"VFecPB", v102);
-        CFDictionaryAddValue(theDicta, @"VFecTF", v103);
-        CFDictionaryAddValue(theDicta, @"VFecMPC", v104);
-        CFDictionaryAddValue(theDicta, @"VFecPPC", v105);
+        CFDictionaryAddValue(theDicta, @"VFecPB", v104);
+        CFDictionaryAddValue(theDicta, @"VFecTF", v105);
+        CFDictionaryAddValue(theDicta, @"VFecMPC", v106);
+        CFDictionaryAddValue(theDicta, @"VFecPPC", v107);
         CFRelease(Mutable);
-        CFRelease(v102);
-        CFRelease(v103);
         CFRelease(v104);
         CFRelease(v105);
-        CFDictionaryAddValue(v142, @"VTxFecStats", theDicta);
+        CFRelease(v106);
+        CFRelease(v107);
+        CFDictionaryAddValue(v144, @"VTxFecStats", theDicta);
         CFRelease(theDicta);
-        v114 = 0;
-        v115 = (v143 + 1402);
+        v116 = 0;
+        v117 = (v145 + 1402);
         do
         {
-          if (*v115)
+          if (*v117)
           {
-            v116 = FECUtil_GranularLevelToPrecentage(v114);
+            v118 = FECUtil_GranularLevelToPrecentage(v116);
             if (VRTraceGetErrorLogLevelForModule() >= 7)
             {
-              v117 = VRTraceErrorLogLevelToCSTR();
-              v118 = *MEMORY[0x1E6986650];
+              v119 = VRTraceErrorLogLevelToCSTR();
+              v120 = *MEMORY[0x1E6986650];
               if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
               {
-                v119 = *(v115 - 2);
-                v120 = *(v115 - 1);
-                v121 = *v115;
+                v121 = *(v117 - 2);
+                v122 = *(v117 - 1);
+                v123 = *v117;
                 *valuePtr = 136316930;
-                *&valuePtr[4] = v117;
-                v152 = 2080;
-                v153 = "_VideoTransmitter_ReportingRegisterPeriodicTask_block_invoke";
-                v154 = 1024;
-                v155 = 994;
-                v156 = 2048;
-                *v157 = v146;
-                *&v157[8] = 2048;
-                *&v157[10] = v116;
-                *&v157[18] = 2048;
-                v158 = v119;
-                *v159 = 2048;
-                *&v159[2] = v120;
-                v160 = 1024;
-                v161 = v121;
-                _os_log_impl(&dword_1DB56E000, v118, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d VideoTransmitter[%p] FEC health report: fecLevel:%.2f data:%llu, parity:%llu, totalFrame:%d", valuePtr, 0x4Au);
+                *&valuePtr[4] = v119;
+                v154 = 2080;
+                v155 = "_VideoTransmitter_ReportingRegisterPeriodicTask_block_invoke";
+                v156 = 1024;
+                v157 = 994;
+                v158 = 2048;
+                *v159 = v148;
+                *&v159[8] = 2048;
+                *&v159[10] = v118;
+                *&v159[18] = 2048;
+                v160 = v121;
+                *v161 = 2048;
+                *&v161[2] = v122;
+                v162 = 1024;
+                v163 = v123;
+                _os_log_impl(&dword_1DB56E000, v120, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d VideoTransmitter[%p] FEC health report: fecLevel:%.2f data:%llu, parity:%llu, totalFrame:%d", valuePtr, 0x4Au);
               }
             }
           }
 
-          ++v114;
-          v115 += 12;
+          ++v116;
+          v117 += 12;
         }
 
-        while (v114 != 10);
-        bzero((v146 + 18752), 0x12F0uLL);
-        *(v146 + 18720) = 0u;
-        *(v146 + 18736) = 0u;
-        *(v146 + 18688) = 0u;
-        *(v146 + 18704) = 0u;
-        *(v146 + 18656) = 0u;
-        *(v146 + 18672) = 0u;
-        *(v146 + 18624) = 0u;
-        *(v146 + 18640) = 0u;
-        *(v146 + 18592) = 0u;
-        *(v146 + 18608) = 0u;
-        *(v146 + 18560) = 0u;
-        *(v146 + 18576) = 0u;
-        *(v146 + 18528) = 0u;
-        *(v146 + 18544) = 0u;
-        *(v146 + 18496) = 0u;
-        *(v146 + 18512) = 0u;
-        *(v146 + 18464) = 0u;
-        *(v146 + 18480) = 0u;
-        *(v146 + 18432) = 0u;
-        *(v146 + 18448) = 0u;
-        *(v146 + 18400) = 0u;
-        *(v146 + 18416) = 0u;
-        *(v146 + 18368) = 0u;
-        *(v146 + 18384) = 0u;
-        *(v146 + 18336) = 0u;
-        *(v146 + 18352) = 0u;
-        *(v146 + 18304) = 0u;
-        *(v146 + 18320) = 0u;
-        *(v146 + 18272) = 0u;
-        *(v146 + 18288) = 0u;
-        *valuePtr = 0;
-        v122 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-        CFDictionaryAddValue(v142, @"AVPEL", v122);
-        CFRelease(v122);
-        *valuePtr = 0;
-        v123 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-        CFDictionaryAddValue(v142, @"AVEL", v123);
-        CFRelease(v123);
+        while (v116 != 10);
+        bzero((v148 + 18752), 0x12F0uLL);
+        *(v148 + 18720) = 0u;
+        *(v148 + 18736) = 0u;
+        *(v148 + 18688) = 0u;
+        *(v148 + 18704) = 0u;
+        *(v148 + 18656) = 0u;
+        *(v148 + 18672) = 0u;
+        *(v148 + 18624) = 0u;
+        *(v148 + 18640) = 0u;
+        *(v148 + 18592) = 0u;
+        *(v148 + 18608) = 0u;
+        *(v148 + 18560) = 0u;
+        *(v148 + 18576) = 0u;
+        *(v148 + 18528) = 0u;
+        *(v148 + 18544) = 0u;
+        *(v148 + 18496) = 0u;
+        *(v148 + 18512) = 0u;
+        *(v148 + 18464) = 0u;
+        *(v148 + 18480) = 0u;
+        *(v148 + 18432) = 0u;
+        *(v148 + 18448) = 0u;
+        *(v148 + 18400) = 0u;
+        *(v148 + 18416) = 0u;
+        *(v148 + 18368) = 0u;
+        *(v148 + 18384) = 0u;
+        *(v148 + 18336) = 0u;
+        *(v148 + 18352) = 0u;
+        *(v148 + 18304) = 0u;
+        *(v148 + 18320) = 0u;
+        *(v148 + 18272) = 0u;
+        *(v148 + 18288) = 0u;
         *valuePtr = 0;
         v124 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-        CFDictionaryAddValue(v142, @"AVPL", v124);
+        CFDictionaryAddValue(v144, @"AVPEL", v124);
         CFRelease(v124);
         *valuePtr = 0;
         v125 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-        CFDictionaryAddValue(v142, @"APSL", v125);
+        CFDictionaryAddValue(v144, @"AVEL", v125);
         CFRelease(v125);
         *valuePtr = 0;
         v126 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-        CFDictionaryAddValue(v142, @"ATSL", v126);
+        CFDictionaryAddValue(v144, @"AVPL", v126);
         CFRelease(v126);
         *valuePtr = 0;
         v127 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-        CFDictionaryAddValue(v142, @"MVPEL", v127);
+        CFDictionaryAddValue(v144, @"APSL", v127);
         CFRelease(v127);
         *valuePtr = 0;
         v128 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-        CFDictionaryAddValue(v142, @"MVEL", v128);
+        CFDictionaryAddValue(v144, @"ATSL", v128);
         CFRelease(v128);
         *valuePtr = 0;
         v129 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-        CFDictionaryAddValue(v142, @"MVEL", v129);
+        CFDictionaryAddValue(v144, @"MVPEL", v129);
         CFRelease(v129);
         *valuePtr = 0;
         v130 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-        CFDictionaryAddValue(v142, @"MPSL", v130);
+        CFDictionaryAddValue(v144, @"MVEL", v130);
         CFRelease(v130);
         *valuePtr = 0;
         v131 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-        CFDictionaryAddValue(v142, @"MTSL", v131);
+        CFDictionaryAddValue(v144, @"MVEL", v131);
         CFRelease(v131);
-        pthread_mutex_lock((v146 + 17232));
-        *valuePtr = *(v143 + 410);
+        *valuePtr = 0;
         v132 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-        CFDictionaryAddValue(v142, @"AFL", v132);
+        CFDictionaryAddValue(v144, @"MPSL", v132);
         CFRelease(v132);
-        *valuePtr = *(v143 + 414);
+        *valuePtr = 0;
         v133 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-        CFDictionaryAddValue(v142, @"VFL", v133);
+        CFDictionaryAddValue(v144, @"MTSL", v133);
         CFRelease(v133);
-        *(v146 + 17296) = 0;
-        pthread_mutex_unlock((v146 + 17232));
-        *valuePtr = *(v146 + 424);
+        pthread_mutex_lock((v148 + 17232));
+        *valuePtr = *(v145 + 410);
         v134 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
-        CFDictionaryAddValue(v142, @"AVHTDCount", v134);
+        CFDictionaryAddValue(v144, @"AFL", v134);
         CFRelease(v134);
-        *valuePtr = *(v146 + 408);
-        v135 = CFNumberCreate(allocator, kCFNumberDoubleType, valuePtr);
-        CFDictionaryAddValue(v142, @"AVHTDMax", v135);
+        *valuePtr = *(v145 + 414);
+        v135 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
+        CFDictionaryAddValue(v144, @"VFL", v135);
         CFRelease(v135);
-        *valuePtr = *(v146 + 416);
-        v136 = CFNumberCreate(allocator, kCFNumberDoubleType, valuePtr);
-        CFDictionaryAddValue(v142, @"AVHTDMin", v136);
+        *(v148 + 17296) = 0;
+        pthread_mutex_unlock((v148 + 17232));
+        *valuePtr = *(v148 + 424);
+        v136 = CFNumberCreate(allocator, kCFNumberIntType, valuePtr);
+        CFDictionaryAddValue(v144, @"AVHTDCount", v136);
         CFRelease(v136);
-        *valuePtr = *(v146 + 400);
+        *valuePtr = *(v148 + 408);
         v137 = CFNumberCreate(allocator, kCFNumberDoubleType, valuePtr);
-        CFDictionaryAddValue(v142, @"AVHTDSum", v137);
+        CFDictionaryAddValue(v144, @"AVHTDMax", v137);
         CFRelease(v137);
-        *valuePtr = *(v146 + 392);
+        *valuePtr = *(v148 + 416);
         v138 = CFNumberCreate(allocator, kCFNumberDoubleType, valuePtr);
-        CFDictionaryAddValue(v142, @"AVHTDAbsSum", v138);
+        CFDictionaryAddValue(v144, @"AVHTDMin", v138);
         CFRelease(v138);
-        *(v146 + 424) = 0;
-        *(v146 + 408) = xmmword_1DBD485F0;
-        *(v146 + 392) = 0;
-        *(v146 + 400) = 0;
-        *(v146 + 23616) = v141;
+        *valuePtr = *(v148 + 400);
+        v139 = CFNumberCreate(allocator, kCFNumberDoubleType, valuePtr);
+        CFDictionaryAddValue(v144, @"AVHTDSum", v139);
+        CFRelease(v139);
+        *valuePtr = *(v148 + 392);
+        v140 = CFNumberCreate(allocator, kCFNumberDoubleType, valuePtr);
+        CFDictionaryAddValue(v144, @"AVHTDAbsSum", v140);
+        CFRelease(v140);
+        *(v148 + 424) = 0;
+        *(v148 + 408) = xmmword_1DBD485F0;
+        *(v148 + 392) = 0;
+        *(v148 + 400) = 0;
+        *(v148 + 23616) = v143;
       }
 
       return CheckOutHandleDebug();

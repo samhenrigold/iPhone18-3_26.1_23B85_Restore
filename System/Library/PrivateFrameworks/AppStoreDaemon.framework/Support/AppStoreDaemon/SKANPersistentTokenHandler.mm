@@ -68,16 +68,17 @@
   v15 = v14;
 
   v16 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
-
-  v17 = sub_1000BC978(v13, v15, v16);
+  v17 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v19 = v18;
 
-  sub_100088CDC(v13, v15);
-  v20.super.isa = Data._bridgeToObjectiveC()().super.isa;
-  sub_100088CDC(v17, v19);
+  v20 = sub_1000BC978(v13, v15, v16, v17, v19);
+  v22 = v21;
 
-  return v20.super.isa;
+  sub_100088CDC(v13, v15);
+  v23.super.isa = Data._bridgeToObjectiveC()().super.isa;
+  sub_100088CDC(v20, v22);
+
+  return v23.super.isa;
 }
 
 - (_TtC9appstored26SKANPersistentTokenHandler)init

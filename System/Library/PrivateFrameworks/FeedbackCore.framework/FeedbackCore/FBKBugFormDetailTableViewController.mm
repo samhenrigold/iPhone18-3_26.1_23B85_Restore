@@ -21,16 +21,19 @@
 - (void)updateChoices;
 - (void)updateSearchBar;
 - (void)updateSearchResultsForSearchController:(id)controller;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation FBKBugFormDetailTableViewController
 
 - (void)viewDidLoad
 {
-  v13.receiver = self;
-  v13.super_class = FBKBugFormDetailTableViewController;
-  [(FBKBugFormDetailTableViewController *)&v13 viewDidLoad];
+  v15.receiver = self;
+  v15.super_class = FBKBugFormDetailTableViewController;
+  [(FBKBugFormDetailTableViewController *)&v15 viewDidLoad];
   tableView = [(FBKBugFormDetailTableViewController *)self tableView];
   [tableView setEstimatedSectionHeaderHeight:44.0];
 
@@ -51,11 +54,75 @@
   tableView6 = [(FBKBugFormDetailTableViewController *)self tableView];
   [tableView6 setBackgroundColor:secondarySystemGroupedBackgroundColor];
 
-  v11 = FBKIsSolariumEnabled();
+  v13 = FBKIsSolariumEnabled(v11, v12);
   tableView7 = [(FBKBugFormDetailTableViewController *)self tableView];
-  [tableView7 _setHeaderAndFooterViewsFloat:v11];
+  [tableView7 _setHeaderAndFooterViewsFloat:v13];
 
   [(FBKBugFormDetailTableViewController *)self updateSearchBar];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = FBKBugFormDetailTableViewController;
+  [(FBKBugFormDetailTableViewController *)&v9 viewWillAppear:appear];
+  searchController = [(FBKBugFormDetailTableViewController *)self searchController];
+  isActive = [searchController isActive];
+
+  if (isActive)
+  {
+    getPathToScrollTo = +[FBKLog appHandle];
+    if (os_log_type_enabled(getPathToScrollTo, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136446210;
+      v11 = "[FBKBugFormDetailTableViewController viewWillAppear:]";
+      _os_log_impl(&dword_1E54BE000, getPathToScrollTo, OS_LOG_TYPE_DEFAULT, "%{public}s called while searching. Will not scroll Table View.", buf, 0xCu);
+    }
+  }
+
+  else
+  {
+    [(FBKBugFormDetailTableViewController *)self recordCheckboxAnswers];
+    if (!self->_answer)
+    {
+      return;
+    }
+
+    getPathToScrollTo = [(FBKBugFormDetailTableViewController *)self getPathToScrollTo];
+    if (getPathToScrollTo)
+    {
+      v7 = +[FBKLog appHandle];
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      {
+        *buf = 136446210;
+        v11 = "[FBKBugFormDetailTableViewController viewWillAppear:]";
+        _os_log_impl(&dword_1E54BE000, v7, OS_LOG_TYPE_INFO, "%{public}s scrolling to selection", buf, 0xCu);
+      }
+
+      tableView = [(FBKBugFormDetailTableViewController *)self tableView];
+      [tableView scrollToRowAtIndexPath:getPathToScrollTo atScrollPosition:2 animated:0];
+    }
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = FBKBugFormDetailTableViewController;
+  [(FBKBugFormDetailTableViewController *)&v4 viewDidAppear:appear];
+  [(FBKBugFormDetailTableViewController *)self becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = FBKBugFormDetailTableViewController;
+  [(FBKBugFormDetailTableViewController *)&v6 viewWillDisappear:disappear];
+  [(FBKBugFormDetailTableViewController *)self updateCheckboxDelegateIfNeeded];
+  delegate = [(FBKBugFormDetailTableViewController *)self delegate];
+  question = [(FBKBugFormDetailTableViewController *)self question];
+  [delegate editorDidDismissForQuestion:question];
 }
 
 - (void)dealloc
@@ -163,7 +230,7 @@ LABEL_7:
 
 - (void)updateCheckboxDelegateIfNeeded
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   question = [(FBKBugFormDetailTableViewController *)self question];
   answerType = [question answerType];
 
@@ -183,9 +250,9 @@ LABEL_7:
       {
         question2 = [(FBKBugFormDetailTableViewController *)self question];
         role = [question2 role];
-        v17 = 138543362;
-        v18 = role;
-        _os_log_impl(&dword_1E54BE000, v11, OS_LOG_TYPE_INFO, "Checkbox answers changed for question [%{public}@]", &v17, 0xCu);
+        v16 = 138543362;
+        v17 = role;
+        _os_log_impl(&dword_1E54BE000, v11, OS_LOG_TYPE_INFO, "Checkbox answers changed for question [%{public}@]", &v16, 0xCu);
       }
 
       delegate = [(FBKBugFormDetailTableViewController *)self delegate];
@@ -193,8 +260,6 @@ LABEL_7:
       [delegate answerDidChangeForQuestion:question3];
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordCheckboxAnswers
@@ -218,14 +283,14 @@ LABEL_7:
   tableView = [(FBKBugFormDetailTableViewController *)self tableView];
   v8 = [tableView dequeueReusableCellWithIdentifier:@"FBKDetailTableViewHeaderCell"];
 
-  if (FBKIsSolariumEnabled())
+  if (FBKIsSolariumEnabled(v9, v10))
   {
     clearColor = [MEMORY[0x1E69DC888] clearColor];
     contentView = [v8 contentView];
     [contentView setBackgroundColor:clearColor];
 
-    v11 = [objc_alloc(MEMORY[0x1E69DD6C8]) initWithStyle:0];
-    [v8 addInteraction:v11];
+    v13 = [objc_alloc(MEMORY[0x1E69DD6C8]) initWithStyle:0];
+    [v8 addInteraction:v13];
   }
 
   contentView2 = [v8 contentView];
@@ -236,26 +301,26 @@ LABEL_7:
   textLabel = [v8 textLabel];
   [textLabel setTextColor:labelColor];
 
-  v16 = [(FBKBugFormDetailTableViewController *)self tableView:viewCopy titleForHeaderInSection:section];
+  v18 = [(FBKBugFormDetailTableViewController *)self tableView:viewCopy titleForHeaderInSection:section];
 
   textLabel2 = [v8 textLabel];
-  [textLabel2 setText:v16];
+  [textLabel2 setText:v18];
 
   question = [(FBKBugFormDetailTableViewController *)self question];
   answerType = [question answerType];
   if (answerType == 4)
   {
     textLabel2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v20 = [textLabel2 localizedStringForKey:@"CHECKBOX_FOOTER_TITLE" value:&stru_1F5F14EC0 table:0];
+    v22 = [textLabel2 localizedStringForKey:@"CHECKBOX_FOOTER_TITLE" value:&stru_1F5F14EC0 table:0];
   }
 
   else
   {
-    v20 = 0;
+    v22 = 0;
   }
 
   detailTextLabel = [v8 detailTextLabel];
-  [detailTextLabel setText:v20];
+  [detailTextLabel setText:v22];
 
   if (answerType == 4)
   {
@@ -514,7 +579,7 @@ void __73__FBKBugFormDetailTableViewController_tableView_didSelectRowAtIndexPath
 
 - (void)didGetClientSideResolvedNotification:(id)notification
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   object = [notification object];
   question = [(FBKBugFormDetailTableViewController *)self question];
   choiceSetResolver = [question choiceSetResolver];
@@ -527,15 +592,13 @@ void __73__FBKBugFormDetailTableViewController_tableView_didSelectRowAtIndexPath
     {
       question2 = [(FBKBugFormDetailTableViewController *)self question];
       allChoices = [question2 allChoices];
-      v12[0] = 67109120;
-      v12[1] = [allChoices count];
-      _os_log_impl(&dword_1E54BE000, v8, OS_LOG_TYPE_INFO, "updating choice set with [%i] choices", v12, 8u);
+      v11[0] = 67109120;
+      v11[1] = [allChoices count];
+      _os_log_impl(&dword_1E54BE000, v8, OS_LOG_TYPE_INFO, "updating choice set with [%i] choices", v11, 8u);
     }
 
     [(FBKBugFormDetailTableViewController *)self updateChoices];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getPathToScrollTo
@@ -623,7 +686,7 @@ void __73__FBKBugFormDetailTableViewController_tableView_didSelectRowAtIndexPath
 
 - (id)keyCommands
 {
-  v11[4] = *MEMORY[0x1E69E9840];
+  v10[4] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E69DCBA0] keyCommandWithInput:@"f" modifierFlags:0x100000 action:sel_beginSearch];
   v3 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"SEARCH" value:&stru_1F5F14EC0 table:@"CommonStrings"];
@@ -632,13 +695,11 @@ void __73__FBKBugFormDetailTableViewController_tableView_didSelectRowAtIndexPath
   v5 = [MEMORY[0x1E69DCBA0] keyCommandWithInput:*MEMORY[0x1E69DDF30] modifierFlags:0 action:sel_selectPrevious];
   v6 = [MEMORY[0x1E69DCBA0] keyCommandWithInput:*MEMORY[0x1E69DDE90] modifierFlags:0 action:sel_selectNext];
   v7 = [MEMORY[0x1E69DCBA0] keyCommandWithInput:@"\r" modifierFlags:0 action:sel_commitSelection];
-  v11[0] = v2;
-  v11[1] = v5;
-  v11[2] = v6;
-  v11[3] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:4];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[0] = v2;
+  v10[1] = v5;
+  v10[2] = v6;
+  v10[3] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:4];
 
   return v8;
 }

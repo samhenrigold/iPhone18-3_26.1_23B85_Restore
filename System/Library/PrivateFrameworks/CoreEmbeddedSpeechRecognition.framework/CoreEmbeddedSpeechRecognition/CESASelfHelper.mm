@@ -11,22 +11,22 @@
 
 + (void)logASRContextualEntityRetrievalStart:(id)start retrievalParameters:(id)parameters
 {
-  v7[1] = self;
+  v4[1] = self;
   startCopy = start;
   parametersCopy = parameters;
   swift_getObjCClassMetadata();
   MEMORY[0x277D82BE0](startCopy);
   MEMORY[0x277D82BE0](parametersCopy);
-  v11 = sub_226098A78();
-  v8 = *(v11 - 8);
-  v9 = v11 - 8;
-  v7[0] = (*(v8 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](startCopy, v4, v5, v6);
-  v10 = v7 - v7[0];
+  v8 = sub_226098A78();
+  v5 = *(v8 - 8);
+  v6 = v8 - 8;
+  v4[0] = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](startCopy);
+  v7 = v4 - v4[0];
   sub_226098A48();
   swift_getObjCClassMetadata();
-  sub_22603E620(v10, parametersCopy);
-  (*(v8 + 8))(v10, v11);
+  sub_22603E620(v7, parametersCopy);
+  (*(v5 + 8))(v7, v8);
   MEMORY[0x277D82BD8](startCopy);
   MEMORY[0x277D82BD8](parametersCopy);
 }
@@ -39,33 +39,33 @@
   swift_getObjCClassMetadata();
   MEMORY[0x277D82BE0](endCopy);
   MEMORY[0x277D82BE0](metricsCopy);
-  v15 = sub_226098A78();
-  v16 = *(v15 - 8);
-  v17 = v15 - 8;
-  v18 = (*(v16 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](endCopy, v4, v5, v6);
-  v19 = &v7 - v18;
+  v12 = sub_226098A78();
+  v13 = *(v12 - 8);
+  v14 = v12 - 8;
+  v15 = (*(v13 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](endCopy);
+  v16 = &v4 - v15;
   sub_226098A48();
   if (metricsCopy)
   {
-    v12 = metricsCopy;
     v9 = metricsCopy;
+    v6 = metricsCopy;
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D786520, &unk_2260A0490);
-    v10 = sub_226099C88();
-    MEMORY[0x277D82BD8](v9);
-    v11 = v10;
+    v7 = sub_226099C88();
+    MEMORY[0x277D82BD8](v6);
+    v8 = v7;
   }
 
   else
   {
-    v11 = 0;
+    v8 = 0;
   }
 
-  v8 = v11;
+  v5 = v8;
   swift_getObjCClassMetadata();
-  sub_22603F798(v19, v8);
+  sub_22603F798(v16, v5);
 
-  (*(v16 + 8))(v19, v15);
+  (*(v13 + 8))(v16, v12);
   MEMORY[0x277D82BD8](endCopy);
 }
 
@@ -126,34 +126,33 @@
   v5 = dodmlIdCopy;
   if (idCopy)
   {
-    v24 = idCopy2;
-    v19 = idCopy2;
-    v20 = sub_226099A08();
-    v21 = v6;
+    v21 = idCopy2;
+    v16 = idCopy2;
+    v17 = sub_226099A08();
+    v18 = v6;
 
-    v22 = v20;
-    v23 = v21;
+    v19 = v17;
+    v20 = v18;
   }
 
   else
   {
-    v22 = 0;
-    v23 = 0;
+    v19 = 0;
+    v20 = 0;
   }
 
-  v18 = v23;
-  v13 = v22;
-  v16 = sub_226098A78();
-  v12 = *(v16 - 8);
-  v14 = v12;
-  v7 = *(v12 + 64);
-  v17 = &v11;
-  MEMORY[0x28223BE20](dodmlIdCopy, &v11, v8, v9);
-  v15 = &v11 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = v20;
+  v10 = v19;
+  v13 = sub_226098A78();
+  v9 = *(v13 - 8);
+  v11 = v9;
+  v14 = &v8;
+  MEMORY[0x28223BE20](dodmlIdCopy);
+  v12 = &v8 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_226098A48();
   swift_getObjCClassMetadata();
-  sub_22603C3F4(v13, v18, v15);
-  (*(v14 + 8))(v15, v16);
+  sub_22603C3F4(v10, v15, v12);
+  (*(v11 + 8))(v12, v13);
 }
 
 + (void)logPersonalizationExperimentEndedWithAsrId:(id)id dodmlId:(id)dodmlId replayResults:(id)results
@@ -169,36 +168,35 @@
   v7 = resultsCopy;
   if (idCopy)
   {
-    v27 = idCopy2;
-    v22 = idCopy2;
-    v23 = sub_226099A08();
-    v24 = v8;
+    v24 = idCopy2;
+    v19 = idCopy2;
+    v20 = sub_226099A08();
+    v21 = v8;
 
-    v25 = v23;
-    v26 = v24;
+    v22 = v20;
+    v23 = v21;
   }
 
   else
   {
-    v25 = 0;
-    v26 = 0;
+    v22 = 0;
+    v23 = 0;
   }
 
-  v21 = v26;
-  v15 = v25;
-  v19 = sub_226098A78();
-  v14 = *(v19 - 8);
-  v17 = v14;
-  v9 = *(v14 + 64);
-  v20 = &v13;
-  MEMORY[0x28223BE20](dodmlIdCopy, &v13, v10, v11);
-  v18 = &v13 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = v23;
+  v12 = v22;
+  v16 = sub_226098A78();
+  v11 = *(v16 - 8);
+  v14 = v11;
+  v17 = &v10;
+  MEMORY[0x28223BE20](dodmlIdCopy);
+  v15 = &v10 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_226098A48();
-  v16 = sub_226099878();
+  v13 = sub_226099878();
   swift_getObjCClassMetadata();
-  sub_22603C688(v15, v21, v18, v16);
+  sub_22603C688(v12, v18, v15, v13);
 
-  (*(v17 + 8))(v18, v19);
+  (*(v14 + 8))(v15, v16);
 }
 
 @end

@@ -7,6 +7,7 @@
 - (void)_invalidated;
 - (void)_startWithTimer;
 - (void)_timeoutFired;
+- (void)coordinatedAlertUpdatedWithError:(id)error bestIsMe:(BOOL)me info:(id)info;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
 - (void)invalidate;
@@ -44,9 +45,12 @@
 - (void)_startWithTimer
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (gLogCategory_SFCoordinatedAlertRequest <= 30 && (gLogCategory_SFCoordinatedAlertRequest != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SFCoordinatedAlertRequest <= 30)
   {
-    [SFCoordinatedAlertRequest _startWithTimer];
+    if (gLogCategory_SFCoordinatedAlertRequest != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      [(SFCoordinatedAlertRequest *)v3 _startWithTimer];
+    }
   }
 
   if (!self->_completionHandler)
@@ -70,54 +74,55 @@ LABEL_15:
     self->_timeout = timeout;
   }
 
-  v4 = 2.0;
-  if (timeout <= 0.0 || (v4 = 900.0, timeout > 900.0))
+  v7 = 2.0;
+  if (timeout <= 0.0 || (v7 = 900.0, timeout > 900.0))
   {
-    self->_timeout = v4;
+    self->_timeout = v7;
   }
 
-  v5 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
+  v8 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
   timeoutTimer = self->_timeoutTimer;
-  self->_timeoutTimer = v5;
+  self->_timeoutTimer = v8;
 
-  v7 = self->_timeoutTimer;
-  if (!v7)
+  v10 = self->_timeoutTimer;
+  if (!v10)
   {
 LABEL_16:
-    started = [SFBLEScanner _startTimeoutIfNeeded];
+    [SFBLEScanner _startTimeoutIfNeeded];
+    v18 = v17;
     os_activity_scope_leave(&state);
-    _Unwind_Resume(started);
+    _Unwind_Resume(v18);
   }
 
-  v8 = (self->_timeout * 1000000000.0);
-  v9 = dispatch_time(0, v8);
-  dispatch_source_set_timer(v7, v9, v8, v8 >> 2);
-  v10 = self->_timeoutTimer;
+  v11 = (self->_timeout * 1000000000.0);
+  v12 = dispatch_time(0, v11);
+  dispatch_source_set_timer(v10, v12, v11, v11 >> 2);
+  v13 = self->_timeoutTimer;
   handler[0] = MEMORY[0x1E69E9820];
   handler[1] = 3221225472;
   handler[2] = __44__SFCoordinatedAlertRequest__startWithTimer__block_invoke;
   handler[3] = &unk_1E788B198;
   handler[4] = self;
-  dispatch_source_set_event_handler(v10, handler);
+  dispatch_source_set_event_handler(v13, handler);
   dispatch_resume(self->_timeoutTimer);
-  v11 = _os_activity_create(&dword_1A9662000, "Sharing/SFCoordinatedAlertRequest/coordinatedAlertsRequestStart", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  v14 = _os_activity_create(&dword_1A9662000, "Sharing/SFCoordinatedAlertRequest/coordinatedAlertsRequestStart", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
-  os_activity_scope_enter(v11, &state);
+  os_activity_scope_enter(v14, &state);
   [(SFCoordinatedAlertRequest *)self _ensureXPCStarted];
   xpcCnx = self->_xpcCnx;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __44__SFCoordinatedAlertRequest__startWithTimer__block_invoke_2;
-  v16[3] = &unk_1E788B238;
-  v16[4] = self;
-  v13 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v16];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __44__SFCoordinatedAlertRequest__startWithTimer__block_invoke_3;
-  v15[3] = &unk_1E788ECB8;
-  v15[4] = self;
-  [v13 coordinatedAlertsRequestStart:self completion:v15];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __44__SFCoordinatedAlertRequest__startWithTimer__block_invoke_2;
+  v20[3] = &unk_1E788B238;
+  v20[4] = self;
+  v16 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v20];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __44__SFCoordinatedAlertRequest__startWithTimer__block_invoke_3;
+  v19[3] = &unk_1E788ECB8;
+  v19[4] = self;
+  [v16 coordinatedAlertsRequestStart:self completion:v19];
 
   os_activity_scope_leave(&state);
 }
@@ -190,17 +195,20 @@ void __44__SFCoordinatedAlertRequest__startWithTimer__block_invoke_3(uint64_t a1
   if (!self->_invalidateCalled)
   {
     self->_invalidateCalled = 1;
-    if (!self->_invalidateDone && gLogCategory_SFCoordinatedAlertRequest <= 30 && (gLogCategory_SFCoordinatedAlertRequest != -1 || _LogCategory_Initialize()))
+    if (!self->_invalidateDone && gLogCategory_SFCoordinatedAlertRequest <= 30)
     {
-      [SFCoordinatedAlertRequest _invalidate];
+      if (gLogCategory_SFCoordinatedAlertRequest != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(SFCoordinatedAlertRequest *)v3 _invalidate];
+      }
     }
 
     timeoutTimer = self->_timeoutTimer;
     if (timeoutTimer)
     {
-      v4 = timeoutTimer;
-      dispatch_source_cancel(v4);
-      v5 = self->_timeoutTimer;
+      v7 = timeoutTimer;
+      dispatch_source_cancel(v7);
+      v8 = self->_timeoutTimer;
       self->_timeoutTimer = 0;
     }
 
@@ -208,7 +216,7 @@ void __44__SFCoordinatedAlertRequest__startWithTimer__block_invoke_3(uint64_t a1
     if (xpcCnx)
     {
       [(NSXPCConnection *)xpcCnx invalidate];
-      v7 = self->_xpcCnx;
+      v10 = self->_xpcCnx;
       self->_xpcCnx = 0;
     }
 
@@ -222,33 +230,36 @@ void __44__SFCoordinatedAlertRequest__startWithTimer__block_invoke_3(uint64_t a1
 
 - (void)_invalidated
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_invalidateDone)
   {
-    if (!self->_invalidateCalled && gLogCategory_SFCoordinatedAlertRequest <= 50 && (gLogCategory_SFCoordinatedAlertRequest != -1 || _LogCategory_Initialize()))
+    if (!self->_invalidateCalled && gLogCategory_SFCoordinatedAlertRequest <= 50)
     {
-      [SFCoordinatedAlertRequest _invalidated];
+      if (gLogCategory_SFCoordinatedAlertRequest != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(SFCoordinatedAlertRequest *)v3 _invalidated];
+      }
     }
 
     completionHandler = self->_completionHandler;
     if (completionHandler && self->_started)
     {
-      v4 = MEMORY[0x1E696ABC0];
-      v5 = *MEMORY[0x1E696A768];
-      v20 = *MEMORY[0x1E696A578];
-      v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
-      v7 = v6;
-      v8 = @"?";
-      if (v6)
+      v7 = MEMORY[0x1E696ABC0];
+      v8 = *MEMORY[0x1E696A768];
+      v22 = *MEMORY[0x1E696A578];
+      v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
+      v10 = v9;
+      v11 = @"?";
+      if (v9)
       {
-        v8 = v6;
+        v11 = v9;
       }
 
-      v21[0] = v8;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
-      v10 = [v4 errorWithDomain:v5 code:-6723 userInfo:v9];
-      completionHandler[2](completionHandler, v10, 1, 0);
+      v23[0] = v11;
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v13 = [v7 errorWithDomain:v8 code:-6723 userInfo:v12];
+      completionHandler[2](completionHandler, v13, 1, 0);
     }
 
     invalidationHandler = self->_invalidationHandler;
@@ -260,18 +271,18 @@ void __44__SFCoordinatedAlertRequest__startWithTimer__block_invoke_3(uint64_t a1
     remoteObjectProxy = [(NSXPCConnection *)self->_xpcCnx remoteObjectProxy];
     [remoteObjectProxy coordinatedAlertsRequestCancel];
 
-    v13 = self->_completionHandler;
+    v16 = self->_completionHandler;
     self->_completionHandler = 0;
 
-    v14 = self->_invalidationHandler;
+    v17 = self->_invalidationHandler;
     self->_invalidationHandler = 0;
 
     timeoutTimer = self->_timeoutTimer;
     if (timeoutTimer)
     {
-      v16 = timeoutTimer;
-      dispatch_source_cancel(v16);
-      v17 = self->_timeoutTimer;
+      v19 = timeoutTimer;
+      dispatch_source_cancel(v19);
+      v20 = self->_timeoutTimer;
       self->_timeoutTimer = 0;
     }
 
@@ -284,8 +295,6 @@ void __44__SFCoordinatedAlertRequest__startWithTimer__block_invoke_3(uint64_t a1
       [SFCoordinatedAlertRequest _invalidated];
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -338,7 +347,7 @@ void __44__SFCoordinatedAlertRequest__startWithTimer__block_invoke_2(uint64_t a1
   {
     if (gLogCategory_SFCoordinatedAlertRequest != -1 || (v4 = _LogCategory_Initialize(), v3 = v8, v4))
     {
-      __44__SFCoordinatedAlertRequest__startWithTimer__block_invoke_2_cold_1();
+      __44__SFCoordinatedAlertRequest__startWithTimer__block_invoke_2_cold_1(v3);
       v3 = v8;
     }
   }
@@ -360,21 +369,33 @@ void __44__SFCoordinatedAlertRequest__startWithTimer__block_invoke_2(uint64_t a1
   *(v5 + 40) = 0;
 }
 
-- (void)_interrupted
+- (void)coordinatedAlertUpdatedWithError:(id)error bestIsMe:(BOOL)me info:(id)info
 {
-  dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (gLogCategory_SFCoordinatedAlertRequest <= 50 && (gLogCategory_SFCoordinatedAlertRequest != -1 || _LogCategory_Initialize()))
-  {
-    [SFCoordinatedAlertRequest _interrupted];
-  }
-
-  v3 = SFErrorF();
   updateHandler = self->_updateHandler;
   if (updateHandler)
   {
-    v5 = v3;
+    updateHandler[2](updateHandler, error, me, info);
+  }
+}
+
+- (void)_interrupted
+{
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  if (gLogCategory_SFCoordinatedAlertRequest <= 50)
+  {
+    if (gLogCategory_SFCoordinatedAlertRequest != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      [(SFCoordinatedAlertRequest *)v3 _interrupted];
+    }
+  }
+
+  v11 = SFErrorF(4294896154, "SFCoordinatedAlert XPC Connection interrupted", v5, v6, v7, v8, v9, v10, v13);
+  updateHandler = self->_updateHandler;
+  if (updateHandler)
+  {
+    v14 = v11;
     updateHandler[2]();
-    v3 = v5;
+    v11 = v14;
   }
 }
 
@@ -403,33 +424,32 @@ void __44__SFCoordinatedAlertRequest__startWithTimer__block_invoke_2(uint64_t a1
 - (SFCoordinatedAlertRequest)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v15.receiver = self;
-  v15.super_class = SFCoordinatedAlertRequest;
-  v5 = [(SFCoordinatedAlertRequest *)&v15 init];
-  v6 = v5;
+  v14.receiver = self;
+  v14.super_class = SFCoordinatedAlertRequest;
+  v5 = [(SFCoordinatedAlertRequest *)&v14 init];
   if (v5)
   {
-    v7 = SFMainQueue(v5);
-    dispatchQueue = v6->_dispatchQueue;
-    v6->_dispatchQueue = v7;
+    v6 = SFMainQueue();
+    dispatchQueue = v5->_dispatchQueue;
+    v5->_dispatchQueue = v6;
 
     if ([coderCopy containsValueForKey:@"type"])
     {
-      v9 = [coderCopy decodeIntegerForKey:@"type"];
-      v6->_type = v9;
-      if (v9 >= 7)
+      v8 = [coderCopy decodeIntegerForKey:@"type"];
+      v5->_type = v8;
+      if (v8 >= 7)
       {
-        v10 = MEMORY[0x1E695DF30];
-        v11 = *MEMORY[0x1E695D940];
-        v12 = _NSMethodExceptionProem();
-        [v10 raise:v11 format:{@"%@: type (%ld) out-of-range", v12, v6->_type}];
+        v9 = MEMORY[0x1E695DF30];
+        v10 = *MEMORY[0x1E695D940];
+        v11 = _NSMethodExceptionProem();
+        [v9 raise:v10 format:{@"%@: type (%ld) out-of-range", v11, v5->_type}];
       }
     }
 
-    v13 = v6;
+    v12 = v5;
   }
 
-  return v6;
+  return v5;
 }
 
 @end

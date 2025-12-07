@@ -104,10 +104,10 @@
   v8.super_class = SBMoveDisplaysTransitionSwitcherModifier;
   transitionWillBegin = [(SBTransitionSwitcherModifier *)&v8 transitionWillBegin];
   v3 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-  v4 = SBAppendSwitcherModifierResponse(v3, transitionWillBegin);
+  v4 = SBAppendSwitcherModifierResponse();
 
   v5 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:2 updateMode:2];
-  v6 = SBAppendSwitcherModifierResponse(v5, v4);
+  v6 = SBAppendSwitcherModifierResponse();
 
   return v6;
 }
@@ -118,7 +118,7 @@
   v6.super_class = SBMoveDisplaysTransitionSwitcherModifier;
   transitionWillUpdate = [(SBTransitionSwitcherModifier *)&v6 transitionWillUpdate];
   v3 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:4 updateMode:3];
-  v4 = SBAppendSwitcherModifierResponse(v3, transitionWillUpdate);
+  v4 = SBAppendSwitcherModifierResponse();
 
   return v4;
 }
@@ -129,7 +129,7 @@
   v6.super_class = SBMoveDisplaysTransitionSwitcherModifier;
   transitionDidEnd = [(SBTransitionSwitcherModifier *)&v6 transitionDidEnd];
   v3 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-  v4 = SBAppendSwitcherModifierResponse(v3, transitionDidEnd);
+  v4 = SBAppendSwitcherModifierResponse();
 
   return v4;
 }
@@ -147,7 +147,7 @@
   if (moveDisplaysContext)
   {
     v8 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:30 updateMode:0];
-    v9 = SBAppendSwitcherModifierResponse(v8, v5);
+    v9 = SBAppendSwitcherModifierResponse();
 
     v5 = v9;
   }

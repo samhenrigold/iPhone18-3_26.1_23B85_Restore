@@ -2,6 +2,7 @@
 - (BOOL)hidDeviceCreate:(unsigned int)create;
 - (BOOL)hidDeviceReport:(int)report reportID:(unsigned int)d report:(char *)a5 reportLength:(unint64_t)length;
 - (BOOL)startHIDDevice;
+- (UARPHIDDevice)initWithService:(unsigned int)service hidManager:(id)manager uuid:(id)uuid;
 - (UARPHIDDevice)initWithVendorID:(unsigned __int16)d productID:(unsigned __int16)iD;
 - (id)description;
 - (void)dealloc;
@@ -16,6 +17,48 @@
 @end
 
 @implementation UARPHIDDevice
+
+- (UARPHIDDevice)initWithService:(unsigned int)service hidManager:(id)manager uuid:(id)uuid
+{
+  v7 = *&service;
+  managerCopy = manager;
+  uuidCopy = uuid;
+  v20.receiver = self;
+  v20.super_class = UARPHIDDevice;
+  v11 = [(UARPHIDDevice *)&v20 init];
+  if (v11)
+  {
+    v12 = [uuidCopy copy];
+    uuid = v11->_uuid;
+    v11->_uuid = v12;
+
+    v14 = dispatch_queue_create("com.apple.uarp.hid.device", 0);
+    internalQueue = v11->_internalQueue;
+    v11->_internalQueue = v14;
+
+    v16 = os_log_create("com.apple.uarp", "hiddevice");
+    log = v11->_log;
+    v11->_log = v16;
+
+    v11->_hidTxMessageID = 1;
+    *&v11->_maxUARPMessageSize = 0x600000FFALL;
+    v11->_uarpHIDReportID = 2;
+    v11->_hidUsageAppleVendorUARP = 70;
+    v11->_sessionID = 1;
+    if (![(UARPHIDDevice *)v11 hidDeviceCreate:v7])
+    {
+
+      v11 = 0;
+    }
+
+    objc_storeStrong(&v11->_hidManager, manager);
+    v18 = v11->_maxUARPMessageSize + v11->_hidReportHeaderSize + 1;
+    v11->_hidBufferLength = v18;
+    v11->_hidBuffer = malloc_type_calloc(v18, 1uLL, 0x100004077774924uLL);
+  }
+
+  return v11;
+}
 
 - (UARPHIDDevice)initWithVendorID:(unsigned __int16)d productID:(unsigned __int16)iD
 {

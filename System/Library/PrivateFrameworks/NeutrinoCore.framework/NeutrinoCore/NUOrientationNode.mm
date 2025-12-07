@@ -19,53 +19,53 @@
 
 - (id)_evaluateVideo:(id *)video
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   if (!video)
   {
-    v21 = NUAssertLogger_14813();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v16 = NUAssertLogger_14813();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid parameter not satisfying: %s", "error != nil"];
+      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid parameter not satisfying: %s", "error != nil"];
       *buf = 138543362;
-      *&buf[4] = v22;
-      _os_log_error_impl(&dword_1C0184000, v21, OS_LOG_TYPE_ERROR, "Fail: %{public}@", buf, 0xCu);
+      *&buf[4] = v17;
+      _os_log_error_impl(&dword_1C0184000, v16, OS_LOG_TYPE_ERROR, "Fail: %{public}@", buf, 0xCu);
     }
 
     specific = dispatch_get_specific(NUCurrentlyExecutingJobNameKey);
-    v24 = NUAssertLogger_14813();
-    v25 = os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
+    v19 = NUAssertLogger_14813();
+    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
     if (specific)
     {
-      if (v25)
+      if (v20)
       {
-        v28 = dispatch_get_specific(NUCurrentlyExecutingJobNameKey);
-        v29 = MEMORY[0x1E696AF00];
-        v30 = v28;
-        callStackSymbols = [v29 callStackSymbols];
-        v32 = [callStackSymbols componentsJoinedByString:@"\n"];
+        v23 = dispatch_get_specific(NUCurrentlyExecutingJobNameKey);
+        v24 = MEMORY[0x1E696AF00];
+        v25 = v23;
+        callStackSymbols = [v24 callStackSymbols];
+        v27 = [callStackSymbols componentsJoinedByString:@"\n"];
         *buf = 138543618;
-        *&buf[4] = v28;
+        *&buf[4] = v23;
         *&buf[12] = 2114;
-        *&buf[14] = v32;
-        _os_log_error_impl(&dword_1C0184000, v24, OS_LOG_TYPE_ERROR, "job: %{public}@\nTrace:\n%{public}@", buf, 0x16u);
+        *&buf[14] = v27;
+        _os_log_error_impl(&dword_1C0184000, v19, OS_LOG_TYPE_ERROR, "job: %{public}@\nTrace:\n%{public}@", buf, 0x16u);
       }
     }
 
-    else if (v25)
+    else if (v20)
     {
       callStackSymbols2 = [MEMORY[0x1E696AF00] callStackSymbols];
-      v27 = [callStackSymbols2 componentsJoinedByString:@"\n"];
+      v22 = [callStackSymbols2 componentsJoinedByString:@"\n"];
       *buf = 138543362;
-      *&buf[4] = v27;
-      _os_log_error_impl(&dword_1C0184000, v24, OS_LOG_TYPE_ERROR, "Trace:\n%{public}@", buf, 0xCu);
+      *&buf[4] = v22;
+      _os_log_error_impl(&dword_1C0184000, v19, OS_LOG_TYPE_ERROR, "Trace:\n%{public}@", buf, 0xCu);
     }
 
-    _NUAssertFailHandler("[NUOrientationNode _evaluateVideo:]", "/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/neutrino/Core/Pipeline/NURenderNode+Orientation.m", 259, @"Invalid parameter not satisfying: %s", v33, v34, v35, v36, "error != nil");
+    _NUAssertFailHandler("[NUOrientationNode _evaluateVideo:]", "/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/neutrino/Core/Pipeline/NURenderNode+Orientation.m", 259, @"Invalid parameter not satisfying: %s", v28, v29, v30, v31, "error != nil");
   }
 
-  v45.receiver = self;
-  v45.super_class = NUOrientationNode;
-  v5 = [(NURenderNode *)&v45 _evaluateVideo:?];
+  v40.receiver = self;
+  v40.super_class = NUOrientationNode;
+  v5 = [(NURenderNode *)&v40 _evaluateVideo:?];
   v6 = v5;
   if (v5)
   {
@@ -73,56 +73,54 @@
     v8 = v7;
     if (v7)
     {
-      v43 = 0u;
-      v44 = 0u;
-      v41 = 0u;
-      v42 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
       v9 = [v7 tracksWithMediaType:*MEMORY[0x1E6987608]];
-      v10 = [v9 countByEnumeratingWithState:&v41 objects:v48 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v36 objects:v43 count:16];
       if (v10)
       {
-        v11 = *v42;
+        v11 = *v37;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v42 != v11)
+            if (*v37 != v11)
             {
               objc_enumerationMutation(v9);
             }
 
-            v13 = *(*(&v41 + 1) + 8 * i);
+            v13 = *(*(&v36 + 1) + 8 * i);
             [v13 naturalSize];
-            v15 = v14;
-            v17 = v16;
-            v47 = 0u;
+            v42 = 0u;
             memset(buf, 0, sizeof(buf));
             if (v13)
             {
-              [v13 preferredTransform];
+              objc_msgSend_preferredTransform(v13);
             }
 
-            v38 = *buf;
-            v39 = *&buf[16];
-            v40 = v47;
-            v18 = NUOrientationConcat([NUVideoUtilities videoOrientationForAssetPreferredTransform:&v38], [(NUOrientationNode *)self orientation]);
-            v39 = 0u;
-            v40 = 0u;
-            v38 = 0u;
-            [NUVideoUtilities preferredTransformFromOrientation:v18 size:v15, v17];
-            v37[0] = v38;
-            v37[1] = v39;
-            v37[2] = v40;
-            [v13 setPreferredTransform:v37];
+            v33 = *buf;
+            v34 = *&buf[16];
+            v35 = v42;
+            NUOrientationConcat([NUVideoUtilities videoOrientationForAssetPreferredTransform:&v33], [(NUOrientationNode *)self orientation]);
+            v34 = 0u;
+            v35 = 0u;
+            v33 = 0u;
+            objc_msgSend_preferredTransformFromOrientation_size_(NUVideoUtilities);
+            v32[0] = v33;
+            v32[1] = v34;
+            v32[2] = v35;
+            [v13 setPreferredTransform:v32];
           }
 
-          v10 = [v9 countByEnumeratingWithState:&v41 objects:v48 count:16];
+          v10 = [v9 countByEnumeratingWithState:&v36 objects:v43 count:16];
         }
 
         while (v10);
       }
 
-      v19 = v8;
+      v14 = v8;
     }
 
     else
@@ -224,14 +222,14 @@
     v8 = [(NURenderNode *)self outputImageGeometry:properties];
     if (v8)
     {
-      [v7 cleanAperture];
+      objc_msgSend_cleanAperture(v7);
       orientation = [(NUOrientationNode *)self orientation];
       v10 = [v7 size];
       memset(buf, 0, 32);
       NU::RectT<long>::applyOrientation(buf, orientation, v10, v11);
       v53 = *buf;
       v54 = *&buf[16];
-      [v7 originalCleanAperture];
+      objc_msgSend_originalCleanAperture(v7);
       orientation2 = [(NUOrientationNode *)self orientation];
       originalSize = [v7 originalSize];
       memset(buf, 0, 32);
@@ -338,8 +336,8 @@
     _NUAssertFailHandler("[NUOrientationNode _transformWithError:]", "/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/neutrino/Core/Pipeline/NURenderNode+Orientation.m", 170, @"Invalid parameter not satisfying: %s", v30, v31, v32, v33, "error != nil");
   }
 
-  transform = [(NUOrientationNode *)self transform];
-  if (!transform)
+  v5 = objc_msgSend_transform(self, a2);
+  if (!v5)
   {
     v6 = [(NURenderNode *)self inputForKey:*MEMORY[0x1E695FAB0]];
     v36 = 0;
@@ -351,9 +349,9 @@
       orientation = [(NUOrientationNode *)self orientation];
       v11 = [v8 size];
       v13 = v12;
-      [v8 extent];
-      transform = [(NUImageTransformOrientation *)v9 initWithOrientation:orientation imageSize:v11 imageOrigin:v13, v34, v35];
-      [(NUOrientationNode *)self setTransform:transform];
+      objc_msgSend_extent(v8);
+      v5 = [(NUImageTransformOrientation *)v9 initWithOrientation:orientation imageSize:v11 imageOrigin:v13, v34, v35];
+      [(NUOrientationNode *)self setTransform:v5];
     }
 
     else
@@ -362,12 +360,12 @@
       v15 = [NUError errorWithCode:1 reason:@"Cannot obtain input image geometry" object:v6 underlyingError:v14];
       v16 = v15;
 
-      transform = 0;
+      v5 = 0;
       *error = v15;
     }
   }
 
-  return transform;
+  return v5;
 }
 
 - (id)_evaluateImageGeometry:(id *)geometry
@@ -380,7 +378,7 @@
   {
     v15 = 0u;
     v16 = 0u;
-    [v4 extent];
+    objc_msgSend_extent(v4);
     if (([(NUOrientationNode *)self orientation]- 5) <= 3)
     {
       v15 = vextq_s8(v15, v15, 8uLL);
@@ -439,7 +437,7 @@
       v8 = v7;
       scaledSize = [v7 scaledSize];
       v11 = v10;
-      [v8 physicalScaledExtent];
+      objc_msgSend_physicalScaledExtent(v8);
       v16 = 0u;
       v17 = 0u;
       v15 = 0u;

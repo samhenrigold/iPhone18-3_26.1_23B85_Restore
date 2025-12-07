@@ -6,7 +6,7 @@
 
 - (id)_deleteChangesWithDuration:(void *)duration entity:(uint64_t)entity context:(double)context error:
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   if (self)
   {
     durationCopy = duration;
@@ -21,7 +21,7 @@
     v15 = [propertiesByName2 objectForKeyedSubscript:@"changeType"];
 
     v16 = MEMORY[0x277CCAC30];
-    v29 = v13;
+    v28 = v13;
     name = [v13 name];
     name2 = [v9 name];
 
@@ -43,8 +43,8 @@
       [v23 setFetchRequest:fetchRequest];
     }
 
-    v31[0] = self;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+    v30[0] = self;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
     [v23 setAffectedStores:v24];
 
     [v23 setFetchBatchSize:20];
@@ -66,8 +66,6 @@
   {
     result = 0;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return result;
 }

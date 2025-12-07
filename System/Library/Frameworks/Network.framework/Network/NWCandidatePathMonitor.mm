@@ -39,7 +39,7 @@
   v7 = __nwlog_obj();
   *buf = 136446210;
   v19 = "[NWCandidatePathMonitor updateRemoteEndpoints:]";
-  v8 = _os_log_send_and_compose_impl();
+  v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s called with null remoteEndpoints", buf, 12);
 
   v17 = OS_LOG_TYPE_ERROR;
   v16 = 0;
@@ -354,7 +354,7 @@ LABEL_8:
     v11 = __nwlog_obj();
     *location = 136446210;
     *&location[4] = "[NWCandidatePathMonitor startWithQueue:updateHandler:]";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s called with null queue", location, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v27 = 0;
@@ -453,7 +453,7 @@ LABEL_37:
   v15 = __nwlog_obj();
   *location = 136446210;
   *&location[4] = "[NWCandidatePathMonitor startWithQueue:updateHandler:]";
-  v12 = _os_log_send_and_compose_impl();
+  v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s called with null updateHandler", location, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v27 = 0;
@@ -744,7 +744,7 @@ LABEL_23:
               }
 
               internalEndpoint = [v33 internalEndpoint];
-              v37 = _nw_parameters_copy(cParameters);
+              v37 = _nw_parameters_copy();
               internalInterface5 = [v26 internalInterface];
               nw_parameters_require_interface(v37, internalInterface5);
 
@@ -951,7 +951,7 @@ LABEL_23:
               }
 
               internalEndpoint2 = [v68 internalEndpoint];
-              v72 = _nw_parameters_copy(cParameters);
+              v72 = _nw_parameters_copy();
               internalInterface10 = [v116 internalInterface];
               nw_parameters_require_interface(v72, internalInterface10);
 
@@ -1307,7 +1307,7 @@ void __55__NWCandidatePathMonitor_cancelCandidatePathEvaluators__block_invoke(ui
   v12 = __nwlog_obj();
   *buf = 136446210;
   v23 = "[NWCandidatePathMonitor initWithParameters:]";
-  v13 = _os_log_send_and_compose_impl();
+  v13 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v19 = 0;

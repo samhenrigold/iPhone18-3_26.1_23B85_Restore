@@ -76,10 +76,10 @@ uint64_t __69__PKSavingsAccountAssessmentManager_waitForAssessmentWithCompletion
   {
     v21 = _serviceProviderIdentifierForAssessmentType;
     serviceIdentifier = [(PKODIServiceProviderAssessment *)self->_odiServiceProviderAssessment serviceIdentifier];
-    v5 = [v21 isEqualToString:serviceIdentifier];
+    isEqualToString = objc_msgSend_isEqualToString_(v21);
 
     _serviceProviderIdentifierForAssessmentType = v21;
-    if ((v5 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v6 = [PKODIServiceProviderAssessment alloc];
       v7 = PKPassKitCoreBundle();

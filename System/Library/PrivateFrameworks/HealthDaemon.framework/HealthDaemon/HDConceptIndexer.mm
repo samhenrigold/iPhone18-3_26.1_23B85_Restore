@@ -41,202 +41,198 @@
 
 BOOL __78__HDConceptIndexer_indexSamplesForProfile_limit_outIndexedSamplesCount_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v175 = *MEMORY[0x277D85DE8];
-  v121 = *(a1 + 48);
-  v110 = *(a1 + 56);
-  v5 = *(a1 + 40);
-  v6 = *(a1 + 32);
-  v7 = a2;
+  v170 = *MEMORY[0x277D85DE8];
+  v116 = *(a1 + 48);
+  v105 = *(a1 + 56);
+  v5 = *(a1 + 32);
+  v6 = a2;
   objc_opt_self();
+  v7 = v5;
   v8 = v6;
-  v9 = v7;
-  v10 = objc_opt_self();
-  v11 = [(HDConceptIndexer *)v10 _keyValueDomainWithProfile:v8];
-  v113 = a3;
-  v12 = [HDConceptIndexer _stateWithKeyValueDomain:v10 transaction:v11 error:a3];
-  if (!v12)
+  v9 = objc_opt_self();
+  v10 = [(HDConceptIndexer *)v9 _keyValueDomainWithProfile:v7];
+  v108 = a3;
+  v11 = [HDConceptIndexer _stateWithKeyValueDomain:v9 transaction:v10 error:a3];
+  if (!v11)
   {
 
 LABEL_98:
-    v103 = 0;
+    v99 = 0;
     goto LABEL_99;
   }
 
-  v112 = v11;
-  v119 = v9;
-  v123 = v12;
-  v13 = [v12 anchor];
-  v120 = v8;
-  v14 = [v8 daemon];
-  v15 = [v14 behavior];
-  v16 = [v15 futureMigrationsEnabled];
-  v17 = v13;
-  v117 = v10;
+  v107 = v10;
+  v114 = v8;
+  v118 = v11;
+  v12 = [v11 anchor];
+  v115 = v7;
+  v13 = [v7 daemon];
+  v14 = [v13 behavior];
+  v15 = [v14 futureMigrationsEnabled];
+  v16 = v12;
+  v112 = v9;
   objc_opt_self();
-  if (v17)
+  if (v16)
   {
-    v18 = MEMORY[0x277D10B18];
-    v19 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v17, "_rowid")}];
-    v20 = [v18 predicateWithProperty:@"data_id" greaterThanValue:v19];
+    v17 = MEMORY[0x277D10B18];
+    v18 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v16, "_rowid")}];
+    v19 = [v17 predicateWithProperty:@"data_id" greaterThanValue:v18];
   }
 
   else
   {
-    v20 = 0;
+    v19 = 0;
   }
 
-  v21 = [MEMORY[0x277CCD848] medicalRecordDescriptionsWithPredicate:0 futureMigrationsEnabled:v16];
-  *&v171 = MEMORY[0x277D85DD0];
-  *(&v171 + 1) = 3221225472;
-  v172 = __76__HDConceptIndexer__queryDescriptorsFollowingAnchor_futureMigrationEnabled___block_invoke;
-  v173 = &unk_278629D70;
-  v174 = v20;
-  v22 = v20;
-  v23 = [v21 hk_map:&v171];
+  v20 = [MEMORY[0x277CCD848] medicalRecordDescriptionsWithPredicate:0 futureMigrationsEnabled:v15];
+  *&v166 = MEMORY[0x277D85DD0];
+  *(&v166 + 1) = 3221225472;
+  v167 = __76__HDConceptIndexer__queryDescriptorsFollowingAnchor_futureMigrationEnabled___block_invoke;
+  v168 = &unk_278629D70;
+  v169 = v19;
+  v21 = v19;
+  v22 = [v20 hk_map:&v166];
 
-  v111 = v23;
-  v8 = v120;
-  v24 = [[HDMultiTypeSortedSampleIterator alloc] initWithQueryDescriptors:v23 includeDeletedObjects:0 anchor:0 sortDescriptors:0 bufferSize:v121 profile:v120];
-  v116 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v142 = 0;
-  v25 = [(HDMultiTypeSortedSampleIterator *)v24 advanceWithError:&v142];
-  v26 = v142;
-  v27 = v26;
-  v118 = v24;
-  if (v25)
+  v106 = v22;
+  v7 = v115;
+  v23 = [[HDMultiTypeSortedSampleIterator alloc] initWithQueryDescriptors:v22 includeDeletedObjects:0 anchor:0 sortDescriptors:0 bufferSize:v116 profile:v115];
+  v111 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v137 = 0;
+  v24 = [(HDMultiTypeSortedSampleIterator *)v23 advanceWithError:&v137];
+  v25 = v137;
+  v26 = v25;
+  v113 = v23;
+  if (v24)
   {
-    v126 = 0;
-    v122 = 0;
-    v28 = 0x277CCD000;
-    v29 = v26;
+    v121 = 0;
+    v117 = 0;
+    v27 = v25;
     while (1)
     {
-      if (v121 && v126 >= v121)
+      if (v116 && v121 >= v116)
       {
-        v27 = v29;
+        v26 = v27;
         goto LABEL_80;
       }
 
-      v125 = v29;
-      v30 = [(HDMultiTypeSortedSampleIterator *)v24 sample];
-      v141 = 0;
-      v31 = v30;
-      v32 = v8;
-      v33 = v119;
+      v120 = v27;
+      v28 = [(HDMultiTypeSortedSampleIterator *)v23 sample];
+      v136 = 0;
+      v29 = v28;
+      v30 = v7;
+      v31 = v114;
       objc_opt_self();
-      v124 = v33;
-      if ([v31 conformsToProtocol:&unk_283D34DC8])
+      v119 = v31;
+      if ([v29 conformsToProtocol:&unk_283D34DC8])
       {
-        v115 = v31;
-        v34 = v31;
-        v140 = [v32 internalContentDatabaseManager];
-        v137 = [v140 ontologyContentVersionWithError:&v141];
-        if (v137)
+        v110 = v29;
+        v32 = v29;
+        v135 = [v30 internalContentDatabaseManager];
+        v132 = [v135 ontologyContentVersionWithError:&v136];
+        if (v132)
         {
-          v114 = v32;
-          v136 = objc_alloc_init(MEMORY[0x277CBEB18]);
-          v35 = [HDConceptResolutionConfiguration alloc];
-          v36 = [v34 country];
-          v37 = HKCurrentLocaleCountryCodeIfUnknown();
-          v127 = -[HDConceptResolutionConfiguration initWithCountryCode:recordCategoryType:options:](v35, "initWithCountryCode:recordCategoryType:options:", v37, [v34 recordCategoryType], 0);
+          v109 = v30;
+          v131 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v33 = [HDConceptResolutionConfiguration alloc];
+          v34 = [v32 country];
+          v35 = HKCurrentLocaleCountryCodeIfUnknown();
+          v122 = -[HDConceptResolutionConfiguration initWithCountryCode:recordCategoryType:options:](v33, "initWithCountryCode:recordCategoryType:options:", v35, [v32 recordCategoryType], 0);
 
-          v163 = 0u;
-          v164 = 0u;
-          v161 = 0u;
-          v162 = 0u;
+          v158 = 0u;
+          v159 = 0u;
+          v156 = 0u;
+          v157 = 0u;
           obj = [objc_opt_class() indexableConceptKeyPaths];
-          v38 = [obj countByEnumeratingWithState:&v161 objects:&v171 count:16];
-          v132 = v34;
-          if (v38)
+          v36 = [obj countByEnumeratingWithState:&v156 objects:&v166 count:16];
+          v127 = v32;
+          if (v36)
           {
-            v39 = v38;
-            v40 = *v162;
-            v129 = 1;
+            v37 = v36;
+            v38 = *v157;
+            v124 = 1;
             while (2)
             {
-              for (i = 0; i != v39; ++i)
+              for (i = 0; i != v37; ++i)
               {
-                if (*v162 != v40)
+                if (*v157 != v38)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v42 = *(*(&v161 + 1) + 8 * i);
-                v160 = 0;
-                v43 = [v34 codingsForKeyPath:v42 error:&v160];
-                v44 = v160;
-                if (!v43)
+                v40 = *(*(&v156 + 1) + 8 * i);
+                v155 = 0;
+                v41 = [v32 codingsForKeyPath:v40 error:&v155];
+                v42 = v155;
+                if (!v41)
                 {
                   _HKInitializeLogging();
-                  v56 = HKLogConceptIndex();
-                  if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+                  v54 = HKLogConceptIndex();
+                  if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
                   {
-                    v91 = HKSensitiveLogItem();
+                    v87 = HKSensitiveLogItem();
                     *buf = 138543362;
-                    *&buf[4] = v91;
-                    _os_log_error_impl(&dword_228986000, v56, OS_LOG_TYPE_ERROR, "Failed to index sample with error %{public}@", buf, 0xCu);
+                    *&buf[4] = v87;
+                    _os_log_error_impl(&dword_228986000, v54, OS_LOG_TYPE_ERROR, "Failed to index sample with error %{public}@", buf, 0xCu);
                   }
 
-                  v129 = 0;
+                  v124 = 0;
                   goto LABEL_34;
                 }
 
-                v157[0] = MEMORY[0x277D85DD0];
-                v157[1] = 3221225472;
-                v157[2] = __59__HDConceptIndexer__indexSample_profile_transaction_error___block_invoke;
-                v157[3] = &unk_278629D98;
-                v158 = v140;
-                v159 = v127;
-                v45 = [v43 hk_map:v157];
-                v156 = 0;
-                v46 = [v34 applyConcepts:v45 forKeyPath:v42 error:&v156];
-                v47 = v156;
-                if (v46)
+                v152[0] = MEMORY[0x277D85DD0];
+                v152[1] = 3221225472;
+                v152[2] = __59__HDConceptIndexer__indexSample_profile_transaction_error___block_invoke;
+                v152[3] = &unk_278629D98;
+                v153 = v135;
+                v154 = v122;
+                v43 = [v41 hk_map:v152];
+                v151 = 0;
+                v44 = [v32 applyConcepts:v43 forKeyPath:v40 error:&v151];
+                v45 = v151;
+                if (v44)
                 {
-                  v152[0] = MEMORY[0x277D85DD0];
-                  v152[1] = 3221225472;
-                  v152[2] = __59__HDConceptIndexer__indexSample_profile_transaction_error___block_invoke_395;
-                  v152[3] = &unk_278629DC0;
-                  v153 = v34;
-                  v154 = v42;
-                  v155 = v137;
-                  v48 = [v45 hk_map:v152];
-                  [v136 addObjectsFromArray:v48];
+                  v147[0] = MEMORY[0x277D85DD0];
+                  v147[1] = 3221225472;
+                  v147[2] = __59__HDConceptIndexer__indexSample_profile_transaction_error___block_invoke_395;
+                  v147[3] = &unk_278629DC0;
+                  v148 = v32;
+                  v149 = v40;
+                  v150 = v132;
+                  v46 = [v43 hk_map:v147];
+                  [v131 addObjectsFromArray:v46];
 
-                  v49 = v153;
+                  v47 = v148;
                 }
 
                 else
                 {
                   _HKInitializeLogging();
-                  v49 = HKLogConceptIndex();
-                  if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+                  v47 = HKLogConceptIndex();
+                  if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
                   {
-                    v50 = [v132 UUID];
-                    v134 = HKSensitiveLogItem();
+                    v48 = [v127 UUID];
+                    v129 = HKSensitiveLogItem();
                     *buf = 138543618;
-                    *&buf[4] = v50;
-                    v169 = 2114;
-                    v170 = v134;
-                    _os_log_error_impl(&dword_228986000, v49, OS_LOG_TYPE_ERROR, "Failed to apply concepts to sample with UUID %{public}@ with error %{public}@", buf, 0x16u);
+                    *&buf[4] = v48;
+                    v164 = 2114;
+                    v165 = v129;
+                    _os_log_error_impl(&dword_228986000, v47, OS_LOG_TYPE_ERROR, "Failed to apply concepts to sample with UUID %{public}@ with error %{public}@", buf, 0x16u);
                   }
 
-                  v129 = 0;
+                  v124 = 0;
                 }
 
-                if (!v46)
+                if (!v44)
                 {
-                  v28 = 0x277CCD000uLL;
-                  v34 = v132;
+                  v32 = v127;
                   goto LABEL_34;
                 }
 
-                v28 = 0x277CCD000;
-                v34 = v132;
+                v32 = v127;
               }
 
-              v39 = [obj countByEnumeratingWithState:&v161 objects:&v171 count:16];
-              if (v39)
+              v37 = [obj countByEnumeratingWithState:&v156 objects:&v166 count:16];
+              if (v37)
               {
                 continue;
               }
@@ -247,99 +243,95 @@ LABEL_98:
 
           else
           {
-            v129 = 1;
+            v124 = 1;
           }
 
 LABEL_34:
 
-          v151 = 0u;
-          v149 = 0u;
-          v150 = 0u;
-          v148 = 0u;
-          v128 = [objc_opt_class() cachedConceptRelationshipKeyPaths];
-          v131 = [v128 countByEnumeratingWithState:&v148 objects:buf count:16];
-          if (v131)
+          v146 = 0u;
+          v144 = 0u;
+          v145 = 0u;
+          v143 = 0u;
+          v123 = [objc_opt_class() cachedConceptRelationshipKeyPaths];
+          v126 = [v123 countByEnumeratingWithState:&v143 objects:buf count:16];
+          if (v126)
           {
-            v130 = *v149;
+            v125 = *v144;
             while (2)
             {
-              for (j = 0; j != v131; ++j)
+              for (j = 0; j != v126; ++j)
               {
-                if (*v149 != v130)
+                if (*v144 != v125)
                 {
-                  objc_enumerationMutation(v128);
+                  objc_enumerationMutation(v123);
                 }
 
-                obja = *(*(&v148 + 1) + 8 * j);
-                v58 = [obja componentsSeparatedByString:@"."];
-                v59 = v34;
-                v144 = 0u;
-                v145 = 0u;
-                v146 = 0u;
-                v147 = 0u;
-                v60 = v58;
-                v61 = [v60 countByEnumeratingWithState:&v144 objects:v167 count:16];
-                if (v61)
+                obja = *(*(&v143 + 1) + 8 * j);
+                v56 = [obja componentsSeparatedByString:@"."];
+                v57 = v32;
+                v139 = 0u;
+                v140 = 0u;
+                v141 = 0u;
+                v142 = 0u;
+                v58 = v56;
+                v59 = [v58 countByEnumeratingWithState:&v139 objects:v162 count:16];
+                if (v59)
                 {
-                  v62 = v61;
-                  v133 = v59;
-                  v135 = j;
-                  v63 = *v145;
+                  v60 = v59;
+                  v128 = v57;
+                  v130 = j;
+                  v61 = *v140;
                   while (2)
                   {
-                    for (k = 0; k != v62; ++k)
+                    for (k = 0; k != v60; ++k)
                     {
-                      if (*v145 != v63)
+                      if (*v140 != v61)
                       {
-                        objc_enumerationMutation(v60);
+                        objc_enumerationMutation(v58);
                       }
 
-                      v65 = *(*(&v144 + 1) + 8 * k);
-                      v66 = objc_autoreleasePoolPush();
-                      v67 = *(v28 + 432);
+                      v63 = *(*(&v139 + 1) + 8 * k);
+                      v64 = objc_autoreleasePoolPush();
                       objc_opt_class();
                       if (objc_opt_isKindOfClass())
                       {
-                        v68 = v59;
-                        v59 = v68;
-                        if (([v68 relationshipsAreLoaded] & 1) == 0)
+                        v65 = v57;
+                        v57 = v65;
+                        if (([v65 relationshipsAreLoaded] & 1) == 0)
                         {
-                          v69 = [v68 identifier];
-                          v143 = 0;
-                          v70 = [v140 relationshipsForConceptWithIdentifier:v69 error:&v143];
-                          v71 = v143;
+                          v66 = [v65 identifier];
+                          v138 = 0;
+                          v67 = [v135 relationshipsForConceptWithIdentifier:v66 error:&v138];
+                          v68 = v138;
 
-                          if (!v70)
+                          if (!v67)
                           {
                             _HKInitializeLogging();
-                            v73 = HKLogConceptIndex();
-                            if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+                            v70 = HKLogConceptIndex();
+                            if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
                             {
-                              v79 = HKSensitiveLogItem();
-                              *v165 = 138543362;
-                              v166 = v79;
-                              _os_log_error_impl(&dword_228986000, v73, OS_LOG_TYPE_ERROR, "error loading relationships for concept: %{public}@", v165, 0xCu);
+                              v75 = HKSensitiveLogItem();
+                              *v160 = 138543362;
+                              v161 = v75;
+                              _os_log_error_impl(&dword_228986000, v70, OS_LOG_TYPE_ERROR, "error loading relationships for concept: %{public}@", v160, 0xCu);
                             }
 
-                            objc_autoreleasePoolPop(v66);
-                            v129 = 0;
-                            v28 = 0x277CCD000;
+                            objc_autoreleasePoolPop(v64);
+                            v124 = 0;
                             goto LABEL_55;
                           }
 
-                          v59 = [v68 copyWithRelationships:v70];
-
-                          v28 = 0x277CCD000;
+                          v57 = [v65 copyWithRelationships:v67];
                         }
                       }
 
-                      v72 = v59;
-                      objc_autoreleasePoolPop(v66);
-                      v59 = [v59 valueForKey:v65];
+                      v69 = v57;
+                      objc_autoreleasePoolPop(v64);
+                      v57 = [v57 valueForKey:v63];
                     }
 
-                    v62 = [v60 countByEnumeratingWithState:&v144 objects:v167 count:16];
-                    if (v62)
+                    v60 = [v58 countByEnumeratingWithState:&v139 objects:v162 count:16];
+                    if (v60)
                     {
                       continue;
                     }
@@ -347,45 +339,44 @@ LABEL_34:
                     break;
                   }
 
-                  v68 = v59;
+                  v65 = v57;
 LABEL_55:
-                  v34 = v132;
-                  v59 = v133;
-                  j = v135;
+                  v32 = v127;
+                  v57 = v128;
+                  j = v130;
                 }
 
                 else
                 {
-                  v68 = v59;
+                  v65 = v57;
                 }
 
-                v74 = *(v28 + 432);
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
                   _HKInitializeLogging();
-                  v80 = HKLogConceptIndex();
-                  if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+                  v76 = HKLogConceptIndex();
+                  if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
                   {
-                    v89 = objc_opt_class();
-                    v90 = NSStringFromClass(v89);
-                    *v165 = 138543362;
-                    v166 = v90;
-                    _os_log_error_impl(&dword_228986000, v80, OS_LOG_TYPE_ERROR, "Encountered an unsupported class %{public}@ when generating concept relationship cache", v165, 0xCu);
+                    v85 = objc_opt_class();
+                    v86 = NSStringFromClass(v85);
+                    *v160 = 138543362;
+                    v161 = v86;
+                    _os_log_error_impl(&dword_228986000, v76, OS_LOG_TYPE_ERROR, "Encountered an unsupported class %{public}@ when generating concept relationship cache", v160, 0xCu);
                   }
 
                   goto LABEL_65;
                 }
 
-                v75 = [HDConceptIndexEntry alloc];
-                v76 = [v59 UUID];
-                v77 = [v68 identifier];
-                v78 = -[HDConceptIndexEntry initWithSampleUUID:conceptIdentifier:conceptVersion:keyPath:compoundIndex:type:ontologyVersion:](v75, "initWithSampleUUID:conceptIdentifier:conceptVersion:keyPath:compoundIndex:type:ontologyVersion:", v76, [v77 rawIdentifier], objc_msgSend(v68, "version"), obja, 0, 1, v137);
-                [v136 addObject:v78];
+                v71 = [HDConceptIndexEntry alloc];
+                v72 = [v57 UUID];
+                v73 = [v65 identifier];
+                v74 = -[HDConceptIndexEntry initWithSampleUUID:conceptIdentifier:conceptVersion:keyPath:compoundIndex:type:ontologyVersion:](v71, "initWithSampleUUID:conceptIdentifier:conceptVersion:keyPath:compoundIndex:type:ontologyVersion:", v72, [v73 rawIdentifier], objc_msgSend(v65, "version"), obja, 0, 1, v132);
+                [v131 addObject:v74];
               }
 
-              v131 = [v128 countByEnumeratingWithState:&v148 objects:buf count:16];
-              if (v131)
+              v126 = [v123 countByEnumeratingWithState:&v143 objects:buf count:16];
+              if (v126)
               {
                 continue;
               }
@@ -394,139 +385,139 @@ LABEL_55:
             }
           }
 
-          if (v129)
+          if (v124)
           {
-            v55 = v136;
-            v8 = v120;
+            v53 = v131;
+            v7 = v115;
           }
 
           else
           {
 LABEL_65:
             _HKInitializeLogging();
-            v81 = HKLogConceptIndex();
-            v8 = v120;
-            if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
+            v77 = HKLogConceptIndex();
+            v7 = v115;
+            if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
             {
-              v88 = [v34 UUID];
-              *v165 = 138412290;
-              v166 = v88;
-              _os_log_error_impl(&dword_228986000, v81, OS_LOG_TYPE_ERROR, "Failed to index sample with UUID %@", v165, 0xCu);
+              v84 = [v32 UUID];
+              *v160 = 138412290;
+              v161 = v84;
+              _os_log_error_impl(&dword_228986000, v77, OS_LOG_TYPE_ERROR, "Failed to index sample with UUID %@", v160, 0xCu);
             }
 
-            v55 = 0;
+            v53 = 0;
           }
 
-          v32 = v114;
+          v30 = v109;
         }
 
         else
         {
-          v55 = 0;
+          v53 = 0;
         }
 
-        v31 = v115;
+        v29 = v110;
       }
 
       else
       {
-        v51 = v32;
-        v52 = MEMORY[0x277CCA9B8];
-        v53 = objc_opt_class();
-        v34 = NSStringFromClass(v53);
-        v54 = v52;
-        v32 = v51;
-        [v54 hk_assignError:&v141 code:3 format:{@"Unsupported sample class (%@) when generating concept index", v34}];
-        v55 = 0;
+        v49 = v30;
+        v50 = MEMORY[0x277CCA9B8];
+        v51 = objc_opt_class();
+        v32 = NSStringFromClass(v51);
+        v52 = v50;
+        v30 = v49;
+        [v52 hk_assignError:&v136 code:3 format:{@"Unsupported sample class (%@) when generating concept index", v32}];
+        v53 = 0;
       }
 
-      v82 = v141;
-      if (v55)
+      v78 = v136;
+      if (v53)
       {
-        [v116 addObjectsFromArray:v55];
-        v24 = v118;
-        v83 = [MEMORY[0x277CCD840] _anchorWithRowid:{-[HDMultiTypeSortedSampleIterator objectID](v118, "objectID")}];
+        [v111 addObjectsFromArray:v53];
+        v23 = v113;
+        v79 = [MEMORY[0x277CCD840] _anchorWithRowid:{-[HDMultiTypeSortedSampleIterator objectID](v113, "objectID")}];
 
-        v84 = v123;
-        v85 = [v123 copyWithAnchor:v83];
-        v122 = v83;
-        v8 = v120;
-        v123 = v85;
+        v80 = v118;
+        v81 = [v118 copyWithAnchor:v79];
+        v117 = v79;
+        v7 = v115;
+        v118 = v81;
       }
 
       else
       {
-        if ([v82 hk_isDatabaseAccessibilityError])
+        if ([v78 hk_isDatabaseAccessibilityError])
         {
 
-          v97 = 0;
-          v27 = v125;
-          v9 = v119;
+          v93 = 0;
+          v26 = v120;
+          v8 = v114;
           goto LABEL_96;
         }
 
         _HKInitializeLogging();
-        v84 = HKLogConceptIndex();
-        if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+        v80 = HKLogConceptIndex();
+        if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
         {
-          v87 = HKSensitiveLogItem();
-          LODWORD(v171) = 138543362;
-          *(&v171 + 4) = v87;
-          _os_log_error_impl(&dword_228986000, v84, OS_LOG_TYPE_ERROR, "Failed to index sample with error %{public}@", &v171, 0xCu);
+          v83 = HKSensitiveLogItem();
+          LODWORD(v166) = 138543362;
+          *(&v166 + 4) = v83;
+          _os_log_error_impl(&dword_228986000, v80, OS_LOG_TYPE_ERROR, "Failed to index sample with error %{public}@", &v166, 0xCu);
 
-          v8 = v120;
+          v7 = v115;
         }
 
-        v24 = v118;
+        v23 = v113;
       }
 
-      ++v126;
+      ++v121;
 
-      v142 = v125;
-      v86 = [(HDMultiTypeSortedSampleIterator *)v24 advanceWithError:&v142];
-      v27 = v142;
+      v137 = v120;
+      v82 = [(HDMultiTypeSortedSampleIterator *)v23 advanceWithError:&v137];
+      v26 = v137;
 
-      v29 = v27;
-      if (!v86)
+      v27 = v26;
+      if (!v82)
       {
         goto LABEL_80;
       }
     }
   }
 
-  v126 = 0;
-  v122 = 0;
+  v121 = 0;
+  v117 = 0;
 LABEL_80:
-  v92 = v8;
-  v93 = v116;
+  v88 = v7;
+  v89 = v111;
   objc_opt_self();
   *buf = 0;
-  v94 = [HDConceptIndexEntity insertConceptIndexEntries:v93 profile:v92 error:buf];
+  v90 = [HDConceptIndexEntity insertConceptIndexEntries:v89 profile:v88 error:buf];
 
-  v95 = *buf;
-  v96 = v95;
-  if (!v94)
+  v91 = *buf;
+  v92 = v91;
+  if (!v90)
   {
     _HKInitializeLogging();
-    v98 = HKLogConceptIndex();
-    if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+    v94 = HKLogConceptIndex();
+    if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
     {
-      v108 = HKSensitiveLogItem();
-      LODWORD(v171) = 138543362;
-      *(&v171 + 4) = v108;
-      _os_log_error_impl(&dword_228986000, v98, OS_LOG_TYPE_ERROR, "Failed to store concept index entries with error %{public}@", &v171, 0xCu);
+      v103 = HKSensitiveLogItem();
+      LODWORD(v166) = 138543362;
+      *(&v166 + 4) = v103;
+      _os_log_error_impl(&dword_228986000, v94, OS_LOG_TYPE_ERROR, "Failed to store concept index entries with error %{public}@", &v166, 0xCu);
     }
 
-    v99 = v96;
-    v100 = v99;
-    v9 = v119;
-    v8 = v120;
-    if (v99)
+    v95 = v92;
+    v96 = v95;
+    v8 = v114;
+    v7 = v115;
+    if (v95)
     {
-      if (v113)
+      if (v108)
       {
-        v101 = v99;
-        *v113 = v100;
+        v97 = v95;
+        *v108 = v96;
       }
 
       else
@@ -538,62 +529,61 @@ LABEL_80:
     goto LABEL_95;
   }
 
-  v9 = v119;
-  if (![HDConceptIndexer _storeState:v117 keyValueDomain:v123 transaction:v112 error:v113])
+  v8 = v114;
+  if (![HDConceptIndexer _storeState:v112 keyValueDomain:v118 transaction:v107 error:v108])
   {
-    v97 = 0;
-    v8 = v120;
+    v93 = 0;
+    v7 = v115;
     goto LABEL_96;
   }
 
-  if (v110)
+  if (v105)
   {
-    *v110 = v126;
+    *v105 = v121;
   }
 
-  v8 = v120;
-  if (!v27 || ([v27 hk_isHealthKitErrorWithCode:900] & 1) != 0)
+  v7 = v115;
+  if (!v26 || ([v26 hk_isHealthKitErrorWithCode:900] & 1) != 0)
   {
-    v97 = 1;
+    v93 = 1;
     goto LABEL_96;
   }
 
   _HKInitializeLogging();
-  v106 = HKLogConceptIndex();
-  if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+  v101 = HKLogConceptIndex();
+  if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
   {
-    v109 = HKSensitiveLogItem();
-    LODWORD(v171) = 138543362;
-    *(&v171 + 4) = v109;
-    _os_log_error_impl(&dword_228986000, v106, OS_LOG_TYPE_ERROR, "Failed to index samples with error %{public}@", &v171, 0xCu);
+    v104 = HKSensitiveLogItem();
+    LODWORD(v166) = 138543362;
+    *(&v166 + 4) = v104;
+    _os_log_error_impl(&dword_228986000, v101, OS_LOG_TYPE_ERROR, "Failed to index samples with error %{public}@", &v166, 0xCu);
 
-    v9 = v119;
+    v8 = v114;
   }
 
-  if (!v113)
+  if (!v108)
   {
     _HKLogDroppedError();
 LABEL_95:
-    v97 = 0;
+    v93 = 0;
     goto LABEL_96;
   }
 
-  v107 = v27;
-  v97 = 0;
-  *v113 = v27;
+  v102 = v26;
+  v93 = 0;
+  *v108 = v26;
 LABEL_96:
 
-  if (!v97)
+  if (!v93)
   {
     goto LABEL_98;
   }
 
-  v102 = [v8 internalContentDatabaseManager];
-  v103 = [HDAdHocConceptEntity deleteNonIndexedConceptsWithTransaction:v9 internalContentDatabaseManager:v102 error:v113];
+  v98 = [v7 internalContentDatabaseManager];
+  v99 = [HDAdHocConceptEntity deleteNonIndexedConceptsWithTransaction:v8 internalContentDatabaseManager:v98 error:v108];
 
 LABEL_99:
-  v104 = *MEMORY[0x277D85DE8];
-  return v103;
+  return v99;
 }
 
 + (BOOL)resetIndexManagerStateForProfile:(id)profile withError:(id *)error
@@ -709,14 +699,14 @@ HDQueryDescriptor *__76__HDConceptIndexer__queryDescriptorsFollowingAnchor_futur
 
 id __59__HDConceptIndexer__indexSample_profile_transaction_error___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = [v3 object];
   v6 = *(a1 + 40);
-  v15 = 0;
-  v7 = [v4 conceptForCodingCollection:v5 configuration:v6 error:&v15];
-  v8 = v15;
+  v14 = 0;
+  v7 = [v4 conceptForCodingCollection:v5 configuration:v6 error:&v14];
+  v8 = v14;
 
   if (v7)
   {
@@ -729,19 +719,17 @@ id __59__HDConceptIndexer__indexSample_profile_transaction_error___block_invoke(
     v10 = HKLogConceptIndex();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
+      v12 = HKSensitiveLogItem();
       v13 = HKSensitiveLogItem();
-      v14 = HKSensitiveLogItem();
       *buf = 138543618;
-      v17 = v13;
-      v18 = 2114;
-      v19 = v14;
+      v16 = v12;
+      v17 = 2114;
+      v18 = v13;
       _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "Failed to resolve concept for coding collection %{public}@ with error %{public}@", buf, 0x16u);
     }
 
     v9 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

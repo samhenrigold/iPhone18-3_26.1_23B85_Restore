@@ -31,31 +31,31 @@
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[%@] Performing arcade migration", &v21, 0xCu);
   }
 
-  v4 = sub_100355E58();
+  v4 = sub_100355E58(ArcadeManager);
   sub_10035B454(v4, @"Migration");
 
-  v5 = sub_1001DA8BC();
+  v5 = sub_1001DA8BC(ActivityManager);
   v6 = v5;
   if (v5)
   {
     sub_1001DBEB4(v5, 5, @"Migration", 1, 0);
   }
 
-  v7 = sub_1001DA8BC();
+  v7 = sub_1001DA8BC(ActivityManager);
   v8 = v7;
   if (v7)
   {
     sub_1001DBEB4(v7, 1, @"Migration", 1, 0);
   }
 
-  v9 = sub_1001DA8BC();
+  v9 = sub_1001DA8BC(ActivityManager);
   v10 = v9;
   if (v9)
   {
     sub_1001DBEB4(v9, 2, @"Migration", 1, 0);
   }
 
-  v11 = sub_1001DA8BC();
+  v11 = sub_1001DA8BC(ActivityManager);
   v12 = v11;
   if (v11)
   {

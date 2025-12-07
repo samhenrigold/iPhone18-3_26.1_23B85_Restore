@@ -108,34 +108,7 @@
     {
       categoryNumber = [v7 categoryNumber];
       categoryNumber2 = [(HMCHIPVendorMetadataProduct *)self categoryNumber];
-      if (![categoryNumber isEqualToNumber:categoryNumber2])
-      {
-        goto LABEL_13;
-      }
-
-      deviceTypeID = [v7 deviceTypeID];
-      deviceTypeID2 = [(HMCHIPVendorMetadataProduct *)self deviceTypeID];
-      v14 = HMFEqualObjects();
-
-      if (!v14)
-      {
-        goto LABEL_13;
-      }
-
-      name = [v7 name];
-      name2 = [(HMCHIPVendorMetadataProduct *)self name];
-      v17 = HMFEqualObjects();
-
-      if (!v17)
-      {
-        goto LABEL_13;
-      }
-
-      label = [v7 label];
-      label2 = [(HMCHIPVendorMetadataProduct *)self label];
-      v20 = HMFEqualObjects();
-
-      if (v20)
+      if ([categoryNumber isEqualToNumber:categoryNumber2] && (objc_msgSend(v7, "deviceTypeID"), v12 = objc_claimAutoreleasedReturnValue(), -[HMCHIPVendorMetadataProduct deviceTypeID](self, "deviceTypeID"), v13 = objc_claimAutoreleasedReturnValue(), v14 = HMFEqualObjects(), v13, v12, v14) && (objc_msgSend(v7, "name"), v15 = objc_claimAutoreleasedReturnValue(), -[HMCHIPVendorMetadataProduct name](self, "name"), v16 = objc_claimAutoreleasedReturnValue(), v17 = HMFEqualObjects(), v16, v15, v17) && (objc_msgSend(v7, "label"), v18 = objc_claimAutoreleasedReturnValue(), -[HMCHIPVendorMetadataProduct label](self, "label"), v19 = objc_claimAutoreleasedReturnValue(), v20 = HMFEqualObjects(), v19, v18, v20))
       {
         installationGuideURL = [v7 installationGuideURL];
         installationGuideURL2 = [(HMCHIPVendorMetadataProduct *)self installationGuideURL];
@@ -144,7 +117,6 @@
 
       else
       {
-LABEL_13:
         v23 = 0;
       }
     }
@@ -251,7 +223,7 @@ LABEL_9:
 
 + (id)productFromDictionaryRepresentation:(id)representation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = [representationCopy hmf_numberForKey:@"ProductID"];
   v6 = [representationCopy hmf_numberForKey:@"Category"];
@@ -290,21 +262,19 @@ LABEL_8:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     HMFGetLogIdentifier();
-    v15 = v18 = v8;
+    v15 = v17 = v8;
     *buf = 138543618;
-    v21 = v15;
-    v22 = 2112;
-    v23 = representationCopy;
+    v20 = v15;
+    v21 = 2112;
+    v22 = representationCopy;
     _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_ERROR, "%{public}@productFromDictionaryRepresentation cannot build object from dictionary %@", buf, 0x16u);
 
-    v8 = v18;
+    v8 = v17;
   }
 
   objc_autoreleasePoolPop(context);
   v12 = 0;
 LABEL_11:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

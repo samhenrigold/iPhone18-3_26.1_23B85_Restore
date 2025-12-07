@@ -11,94 +11,94 @@
 - (ARDualGuidedFilter)initWithDevice:(id)device useSmoothing:(BOOL)smoothing
 {
   deviceCopy = device;
-  v47.receiver = self;
-  v47.super_class = ARDualGuidedFilter;
-  v8 = [(ARDualGuidedFilter *)&v47 init];
+  v49.receiver = self;
+  v49.super_class = ARDualGuidedFilter;
+  v8 = [(ARDualGuidedFilter *)&v49 init];
   v9 = v8;
   if (v8)
   {
     objc_storeStrong(&v8->_device, device);
-    v10 = ARKitCoreBundle();
-    v11 = [v10 URLForResource:@"default" withExtension:@"metallib"];
+    v11 = ARKitCoreBundle(v10);
+    v12 = [v11 URLForResource:@"default" withExtension:@"metallib"];
 
-    v12 = [(MTLDevice *)v9->_device newLibraryWithURL:v11 error:0];
+    v13 = [(MTLDevice *)v9->_device newLibraryWithURL:v12 error:0];
     mattingLibrary = v9->_mattingLibrary;
-    v9->_mattingLibrary = v12;
+    v9->_mattingLibrary = v13;
 
-    v14 = smoothing || [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.matting.useTemporalSmoothing"];
-    v9->_usingSmoothing = v14;
+    v15 = smoothing || [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.matting.useTemporalSmoothing"];
+    v9->_usingSmoothing = v15;
     v9->_useSoftGuidedFilter = ![ARKitUserDefaults BOOLForKey:@"com.apple.arkit.matting.disableSoftEdges"];
-    v15 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.matting.doubleMLResolutionForIPad"];
-    v9->_enableDoubleMLResolutionMatting = v15;
-    if (v15)
+    v16 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.matting.doubleMLResolutionForIPad"];
+    v9->_enableDoubleMLResolutionMatting = v16;
+    if (v16)
     {
-      v16 = ARDeviceIsiPad();
+      v18 = ARDeviceIsiPad(v16, v17);
     }
 
     else
     {
-      v16 = 0;
+      v18 = 0;
     }
 
-    v9->_enableDoubleMLResolutionMatting = v16;
-    v9->_uncertaintyRadius = [ARKitUserDefaults integerForKey:@"com.apple.arkit.matting.uncertaintyRadius"]<< v16;
-    v17 = [objc_alloc(MEMORY[0x1E69745D0]) initWithDevice:v9->_device kernelDiameter:(2 * v9->_uncertaintyRadius) | 1];
+    v9->_enableDoubleMLResolutionMatting = v18;
+    v9->_uncertaintyRadius = [ARKitUserDefaults integerForKey:@"com.apple.arkit.matting.uncertaintyRadius"]<< v18;
+    v19 = [objc_alloc(MEMORY[0x1E69745D0]) initWithDevice:v9->_device kernelDiameter:(2 * v9->_uncertaintyRadius) | 1];
     guidedFilter = v9->_guidedFilter;
-    v9->_guidedFilter = v17;
+    v9->_guidedFilter = v19;
 
     [ARKitUserDefaults floatForKey:@"com.apple.arkit.matting.epsilon"];
     [(MPSImageGuidedFilter *)v9->_guidedFilter setEpsilon:?];
-    LODWORD(v19) = 1.0;
-    [(MPSImageGuidedFilter *)v9->_guidedFilter setReconstructScale:v19];
+    LODWORD(v21) = 1.0;
+    [(MPSImageGuidedFilter *)v9->_guidedFilter setReconstructScale:v21];
     [(MPSImageGuidedFilter *)v9->_guidedFilter setReconstructOffset:0.0];
     [(MPSImageGuidedFilter *)v9->_guidedFilter setLabel:@"com.apple.arkit.guidedfilter"];
-    v9->_erodeRadius = [ARKitUserDefaults integerForKey:@"com.apple.arkit.matting.erosionRadius"]<< v16;
-    v20 = [(MTLLibrary *)v9->_mattingLibrary newFunctionWithName:@"invert_k"];
-    v21 = [(MTLDevice *)v9->_device newComputePipelineStateWithFunction:v20 error:0];
+    v9->_erodeRadius = [ARKitUserDefaults integerForKey:@"com.apple.arkit.matting.erosionRadius"]<< v18;
+    v22 = [(MTLLibrary *)v9->_mattingLibrary newFunctionWithName:@"invert_k"];
+    v23 = [(MTLDevice *)v9->_device newComputePipelineStateWithFunction:v22 error:0];
     invertPSO = v9->_invertPSO;
-    v9->_invertPSO = v21;
+    v9->_invertPSO = v23;
 
-    v23 = [(MTLLibrary *)v9->_mattingLibrary newFunctionWithName:@"boxblur_vertical_k"];
-    v24 = [(MTLDevice *)v9->_device newComputePipelineStateWithFunction:v23 error:0];
+    v25 = [(MTLLibrary *)v9->_mattingLibrary newFunctionWithName:@"boxblur_vertical_k"];
+    v26 = [(MTLDevice *)v9->_device newComputePipelineStateWithFunction:v25 error:0];
     boxblurVPSO = v9->_boxblurVPSO;
-    v9->_boxblurVPSO = v24;
+    v9->_boxblurVPSO = v26;
 
-    v26 = [(MTLLibrary *)v9->_mattingLibrary newFunctionWithName:@"boxblur_horizontal_k"];
-    v27 = [(MTLDevice *)v9->_device newComputePipelineStateWithFunction:v26 error:0];
+    v28 = [(MTLLibrary *)v9->_mattingLibrary newFunctionWithName:@"boxblur_horizontal_k"];
+    v29 = [(MTLDevice *)v9->_device newComputePipelineStateWithFunction:v28 error:0];
     boxblurHPSO = v9->_boxblurHPSO;
-    v9->_boxblurHPSO = v27;
+    v9->_boxblurHPSO = v29;
 
-    v29 = [(MTLLibrary *)v9->_mattingLibrary newFunctionWithName:@"erode_binary_vertical_k"];
-    v30 = [(MTLDevice *)v9->_device newComputePipelineStateWithFunction:v29 error:0];
+    v31 = [(MTLLibrary *)v9->_mattingLibrary newFunctionWithName:@"erode_binary_vertical_k"];
+    v32 = [(MTLDevice *)v9->_device newComputePipelineStateWithFunction:v31 error:0];
     erodeVPSO = v9->_erodeVPSO;
-    v9->_erodeVPSO = v30;
+    v9->_erodeVPSO = v32;
 
-    v32 = [(MTLLibrary *)v9->_mattingLibrary newFunctionWithName:@"erode_binary_horizontal_k"];
-    v33 = [(MTLDevice *)v9->_device newComputePipelineStateWithFunction:v32 error:0];
+    v34 = [(MTLLibrary *)v9->_mattingLibrary newFunctionWithName:@"erode_binary_horizontal_k"];
+    v35 = [(MTLDevice *)v9->_device newComputePipelineStateWithFunction:v34 error:0];
     erodeHPSO = v9->_erodeHPSO;
-    v9->_erodeHPSO = v33;
+    v9->_erodeHPSO = v35;
 
-    v35 = [(MTLLibrary *)v9->_mattingLibrary newFunctionWithName:@"coeficients_smooth_k"];
-    v36 = [(MTLDevice *)v9->_device newComputePipelineStateWithFunction:v35 error:0];
+    v37 = [(MTLLibrary *)v9->_mattingLibrary newFunctionWithName:@"coeficients_smooth_k"];
+    v38 = [(MTLDevice *)v9->_device newComputePipelineStateWithFunction:v37 error:0];
     smoothCoeficients = v9->_smoothCoeficients;
-    v9->_smoothCoeficients = v36;
+    v9->_smoothCoeficients = v38;
 
     if (v9->_useSoftGuidedFilter)
     {
-      v46 = v11;
-      v38 = deviceCopy;
-      v39 = [(MTLLibrary *)v9->_mattingLibrary newFunctionWithName:@"confidence_k"];
-      v40 = [(MTLDevice *)v9->_device newComputePipelineStateWithFunction:v39 error:0];
+      v48 = v12;
+      v40 = deviceCopy;
+      v41 = [(MTLLibrary *)v9->_mattingLibrary newFunctionWithName:@"confidence_k"];
+      v42 = [(MTLDevice *)v9->_device newComputePipelineStateWithFunction:v41 error:0];
       getConfidence = v9->_getConfidence;
-      v9->_getConfidence = v40;
+      v9->_getConfidence = v42;
 
-      v42 = [(MTLLibrary *)v9->_mattingLibrary newFunctionWithName:@"combineFGBG_k"];
-      v43 = [(MTLDevice *)v9->_device newComputePipelineStateWithFunction:v42 error:0];
+      v44 = [(MTLLibrary *)v9->_mattingLibrary newFunctionWithName:@"combineFGBG_k"];
+      v45 = [(MTLDevice *)v9->_device newComputePipelineStateWithFunction:v44 error:0];
       combineFGBGStencil = v9->_combineFGBGStencil;
-      v9->_combineFGBGStencil = v43;
+      v9->_combineFGBGStencil = v45;
 
-      deviceCopy = v38;
-      v11 = v46;
+      deviceCopy = v40;
+      v12 = v48;
     }
   }
 

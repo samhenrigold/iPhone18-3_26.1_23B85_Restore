@@ -6,6 +6,7 @@
 - (id)newRenderPipelineDescriptorWithName:(id)name error:(id *)error;
 - (id)newRenderPipelineStateWithName:(id)name options:(unint64_t)options reflection:(id *)reflection error:(id *)error;
 - (void)dealloc;
+- (void)setDisableRunTimeCompilation:(BOOL)compilation;
 @end
 
 @implementation _MTLPipelineLibrary
@@ -39,10 +40,20 @@
   return v6;
 }
 
+- (void)setDisableRunTimeCompilation:(BOOL)compilation
+{
+  compilationCopy = compilation;
+  self->_disableRunTimeCompilation = compilation;
+  [*(self->_pipelineLibraryData + 2) setDisableRunTimeCompilation:?];
+  v5 = *(self->_pipelineLibraryData + 3);
+
+  [v5 setDisableRunTimeCompilation:compilationCopy];
+}
+
 - (id)newComputePipelineStateWithName:(id)name options:(unint64_t)options reflection:(id *)reflection error:(id *)error
 {
   v10 = MTLPipelineDescriptions::newComputePipelineDescriptor(*self->_pipelineLibraryData, [name UTF8String], *(self->_pipelineLibraryData + 3), error);
-  [v10 setPipelineLibrary:self];
+  [(MTLComputePipelineDescriptor *)v10 setPipelineLibrary:self];
   if (!v10)
   {
     return 0;
@@ -56,7 +67,7 @@
 - (id)newRenderPipelineStateWithName:(id)name options:(unint64_t)options reflection:(id *)reflection error:(id *)error
 {
   v10 = MTLPipelineDescriptions::newRenderPipelineDescriptor(*self->_pipelineLibraryData, [name UTF8String], *(self->_pipelineLibraryData + 3), error);
-  [v10 setPipelineLibrary:self];
+  [(MTLRenderPipelineDescriptor *)v10 setPipelineLibrary:self];
   if (!v10)
   {
     return 0;

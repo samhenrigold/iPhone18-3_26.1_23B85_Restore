@@ -38,32 +38,32 @@
 
 void __54__SOTimersPublisher__createNewSnapshotWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v31 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v30 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   obj = v2;
-  v32 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
-  if (v32)
+  v31 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+  if (v31)
   {
-    v30 = *v39;
+    v29 = *v38;
     do
     {
-      for (i = 0; i != v32; ++i)
+      for (i = 0; i != v31; ++i)
       {
-        if (*v39 != v30)
+        if (*v38 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v38 + 1) + 8 * i);
+        v4 = *(*(&v37 + 1) + 8 * i);
         v5 = [v4 timerID];
-        v34 = [SOTimer alloc];
+        v33 = [SOTimer alloc];
         v6 = [v4 timerURL];
-        v33 = [v4 isFiring];
+        v32 = [v4 isFiring];
         v7 = [v4 title];
         v8 = [v4 state];
         [v4 duration];
@@ -87,20 +87,20 @@ void __54__SOTimersPublisher__createNewSnapshotWithCompletion___block_invoke(uin
         v17 = [v4 firedDate];
         v18 = [v4 dismissedDate];
         v19 = [v4 lastModifiedDate];
-        v20 = [(SOTimer *)v34 initWithTimerID:v5 timerURL:v6 isFiring:v33 title:v7 state:v8 duration:v13 type:v10 fireTimeInterval:v15 fireDate:v16 firedDate:v17 dismissedDate:v18 lastModifiedDate:v19];
+        v20 = [(SOTimer *)v33 initWithTimerID:v5 timerURL:v6 isFiring:v32 title:v7 state:v8 duration:v13 type:v10 fireTimeInterval:v15 fireDate:v16 firedDate:v17 dismissedDate:v18 lastModifiedDate:v19];
 
-        [v31 setObject:v20 forKey:v5];
+        [v30 setObject:v20 forKey:v5];
       }
 
-      v32 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v31 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
     }
 
-    while (v32);
+    while (v31);
   }
 
   v21 = [SOTimersSnapshot alloc];
   v22 = [MEMORY[0x277CBEAA8] now];
-  v23 = [(SOTimersSnapshot *)v21 initWithDate:v22 timersByID:v31];
+  v23 = [(SOTimersSnapshot *)v21 initWithDate:v22 timersByID:v30];
 
   v24 = *(a1 + 32);
   v25 = *(v24 + 8);
@@ -109,12 +109,10 @@ void __54__SOTimersPublisher__createNewSnapshotWithCompletion___block_invoke(uin
   block[2] = __54__SOTimersPublisher__createNewSnapshotWithCompletion___block_invoke_2;
   block[3] = &unk_279C3D5E8;
   block[4] = v24;
-  v36 = v23;
-  v37 = *(a1 + 40);
+  v35 = v23;
+  v36 = *(a1 + 40);
   v26 = v23;
   dispatch_async(v25, block);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __54__SOTimersPublisher__createNewSnapshotWithCompletion___block_invoke_3(uint64_t a1)
@@ -128,11 +126,10 @@ void __54__SOTimersPublisher__createNewSnapshotWithCompletion___block_invoke_3(u
 void __54__SOTimersPublisher__createNewSnapshotWithCompletion___block_invoke_2(uint64_t a1)
 {
   objc_storeStrong((*(a1 + 32) + 40), *(a1 + 40));
-  v2 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
-  v3 = *(*(a1 + 32) + 16);
+  v2 = *(*(a1 + 32) + 16);
 
-  dispatch_group_leave(v3);
+  dispatch_group_leave(v2);
 }
 
 - (void)dealloc
@@ -186,42 +183,40 @@ void __54__SOTimersPublisher__createNewSnapshotWithCompletion___block_invoke_2(u
 
 void __47__SOTimersPublisher__notifySubscribersOfEvent___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (v5 && !a3)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v6 = *(*(a1 + 32) + 24);
-    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v13;
+      v9 = *v12;
       do
       {
         v10 = 0;
         do
         {
-          if (*v13 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [*(*(&v12 + 1) + 8 * v10++) snapshotAvailable:v5 forEvent:{*(a1 + 40), v12}];
+          [*(*(&v11 + 1) + 8 * v10++) snapshotAvailable:v5 forEvent:{*(a1 + 40), v11}];
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v8);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeSubscriber:(id)subscriber

@@ -16,7 +16,6 @@ void __73___PFTJumpToMainQueueScheduler_performCancellableBlock_qualityOfService
   v2 = objc_autoreleasePoolPush();
   if (([*(a1 + 32) isCancelled] & 1) == 0)
   {
-    v3 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
   }
 

@@ -91,7 +91,7 @@
   v8 = [(HMDPreferredResidentsList *)&v12 init];
   if (v8)
   {
-    v9 = [identifiersCopy copy];
+    v9 = objc_msgSend_copy(identifiersCopy);
     residentIDSIdentifiers = v8->_residentIDSIdentifiers;
     v8->_residentIDSIdentifiers = v9;
 

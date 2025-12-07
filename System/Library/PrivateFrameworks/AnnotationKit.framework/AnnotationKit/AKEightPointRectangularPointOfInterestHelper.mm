@@ -33,7 +33,7 @@
   v69[2] = *(MEMORY[0x277CBF2C0] + 32);
   if (v21)
   {
-    [AKGeometryHelper rotationTransformForRect:x withAngle:y, width, height, v70];
+    objc_msgSend_rotationTransformForRect_withAngle_(AKGeometryHelper, x, y, width, height, v70);
   }
 
   v72.origin.x = x;

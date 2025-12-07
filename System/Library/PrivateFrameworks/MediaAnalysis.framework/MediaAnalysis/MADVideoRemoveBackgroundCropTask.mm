@@ -255,9 +255,9 @@ LABEL_14:
     {
       if (v41)
       {
-        [v41 presentationTimeStamp];
+        objc_msgSend_presentationTimeStamp(v41);
         v15 = *lhs;
-        [v41 presentationTimeStamp];
+        objc_msgSend_presentationTimeStamp(v41);
         timescale = rhs.timescale;
       }
 
@@ -392,7 +392,7 @@ LABEL_14:
       [progressCopy setCompletedUnitCount:{objc_msgSend(progressCopy, "completedUnitCount") + 1}];
       if (v41)
       {
-        [v41 presentationTimeStamp];
+        objc_msgSend_presentationTimeStamp(v41);
       }
 
       else
@@ -443,7 +443,7 @@ LABEL_37:
 - (__CVBuffer)generateMaskForSampleBuffer:(opaqueCMSampleBuffer *)buffer orientation:(unsigned int)orientation error:(id *)error
 {
   v6 = *&orientation;
-  v118[1] = *MEMORY[0x1E69E9840];
+  v123[1] = *MEMORY[0x1E69E9840];
   context = objc_autoreleasePoolPush();
   if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
@@ -454,45 +454,45 @@ LABEL_37:
   v9 = +[MADImageRemoveBackgroundResource sharedResource];
   [v9 setMaskOnly:1];
   v10 = +[VCPMADResourceManager sharedManager];
-  v101 = [v10 activateResource:v9];
+  v106 = [v10 activateResource:v9];
 
   v11 = objc_alloc_init(MEMORY[0x1E6984560]);
-  [v11 setRevision:1];
-  if (DeviceHasANE())
+  v12 = [v11 setRevision:1];
+  if (DeviceHasANE(v12, v13))
   {
     defaultANEDevice = [MEMORY[0x1E6984608] defaultANEDevice];
     [v11 setProcessingDevice:defaultANEDevice];
   }
 
-  v13 = objc_alloc(MEMORY[0x1E69845B8]);
+  v15 = objc_alloc(MEMORY[0x1E69845B8]);
   session = [v9 session];
-  v15 = [v13 initWithCMSampleBuffer:buffer orientation:v6 options:MEMORY[0x1E695E0F8] session:session];
+  v17 = [v15 initWithCMSampleBuffer:buffer orientation:v6 options:MEMORY[0x1E695E0F8] session:session];
 
-  v16 = VCPSignPostLog();
-  v17 = os_signpost_id_generate(v16);
+  v19 = VCPSignPostLog(v18);
+  v20 = os_signpost_id_generate(v19);
 
-  v18 = VCPSignPostLog();
-  v19 = v18;
-  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+  v22 = VCPSignPostLog(v21);
+  v23 = v22;
+  if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v17, "VNGenerateInstanceMaskRequest_PerformRequest", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v23, OS_SIGNPOST_INTERVAL_BEGIN, v20, "VNGenerateInstanceMaskRequest_PerformRequest", "", buf, 2u);
   }
 
-  v118[0] = v11;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v118 count:1];
-  v103 = 0;
-  v21 = [v15 performRequests:v20 error:&v103];
-  v22 = v103;
+  v123[0] = v11;
+  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v123 count:1];
+  v108 = 0;
+  v25 = [v17 performRequests:v24 error:&v108];
+  v26 = v108;
 
-  if (v21)
+  if (v25)
   {
-    v23 = VCPSignPostLog();
-    v24 = v23;
-    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+    v28 = VCPSignPostLog(v27);
+    v29 = v28;
+    if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_END, v17, "VNGenerateInstanceMaskRequest_PerformRequest", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v29, OS_SIGNPOST_INTERVAL_END, v20, "VNGenerateInstanceMaskRequest_PerformRequest", "", buf, 2u);
     }
 
     results = [v11 results];
@@ -506,22 +506,22 @@ LABEL_37:
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[RMBG] Video frame failed to produce a mask", buf, 2u);
       }
 
-      v42 = MEMORY[0x1E696ABC0];
-      v116 = *MEMORY[0x1E696A578];
+      v47 = MEMORY[0x1E696ABC0];
+      v121 = *MEMORY[0x1E696A578];
       allInstances4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Video frame failed to produce a mask"];
-      v117 = allInstances4;
-      v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v117 forKeys:&v116 count:1];
-      v45 = [v42 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v44];
-      v46 = *error;
-      *error = v45;
+      v122 = allInstances4;
+      v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v122 forKeys:&v121 count:1];
+      v50 = [v47 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v49];
+      v51 = *error;
+      *error = v50;
 
       goto LABEL_45;
     }
 
     allInstances = [firstObject allInstances];
-    v28 = [allInstances count] == 0;
+    v33 = [allInstances count] == 0;
 
-    if (v28)
+    if (v33)
     {
       if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
@@ -529,14 +529,14 @@ LABEL_37:
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[RMBG] No instances detected in video frame", buf, 2u);
       }
 
-      v47 = MEMORY[0x1E696ABC0];
-      v114 = *MEMORY[0x1E696A578];
+      v52 = MEMORY[0x1E696ABC0];
+      v119 = *MEMORY[0x1E696A578];
       allInstances4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"No instances detected in video frame"];
-      v115 = allInstances4;
-      v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v115 forKeys:&v114 count:1];
-      v49 = [v47 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v48];
-      v50 = *error;
-      *error = v49;
+      v120 = allInstances4;
+      v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v120 forKeys:&v119 count:1];
+      v54 = [v52 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v53];
+      v55 = *error;
+      *error = v54;
 
       goto LABEL_45;
     }
@@ -549,19 +549,19 @@ LABEL_37:
     else
     {
       instancePoint = [(MADVideoRemoveBackgroundRequest *)self->_request instancePoint];
-      v31 = instancePoint == 0;
+      v36 = instancePoint == 0;
 
-      if (!v31)
+      if (!v36)
       {
         instancePoint2 = [(MADVideoRemoveBackgroundRequest *)self->_request instancePoint];
         [instancePoint2 pointValue];
-        v34 = v33;
-        v36 = v35;
+        v39 = v38;
+        v41 = v40;
 
         instanceMask = [firstObject instanceMask];
-        v38 = instanceMask;
-        *&v112[4] = instanceMask;
-        v113 = 1;
+        v43 = instanceMask;
+        *&v117[4] = instanceMask;
+        v118 = 1;
         if (!instanceMask)
         {
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -573,28 +573,28 @@ LABEL_37:
           goto LABEL_44;
         }
 
-        v39 = CVPixelBufferLockBaseAddress(instanceMask, 1uLL);
-        *buf = v39;
-        if (v39)
+        v44 = CVPixelBufferLockBaseAddress(instanceMask, 1uLL);
+        *buf = v44;
+        if (v44)
         {
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            [MADVideoRemoveBackgroundCropTask generateMaskForSampleBuffer:v38 orientation:v39 error:?];
+            [MADVideoRemoveBackgroundCropTask generateMaskForSampleBuffer:v43 orientation:v44 error:?];
           }
 
 LABEL_44:
-          v58 = MEMORY[0x1E696ABC0];
-          v109 = *MEMORY[0x1E696A578];
-          v59 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to lock instance mask"];
-          v110 = v59;
-          v60 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v110 forKeys:&v109 count:1];
-          v61 = [v58 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v60];
-          v62 = *error;
-          *error = v61;
+          v63 = MEMORY[0x1E696ABC0];
+          v114 = *MEMORY[0x1E696A578];
+          v64 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to lock instance mask"];
+          v115 = v64;
+          v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v115 forKeys:&v114 count:1];
+          v66 = [v63 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v65];
+          v67 = *error;
+          *error = v66;
 
           allInstances4 = 0;
 LABEL_45:
-          v41 = 0;
+          v46 = 0;
 LABEL_46:
 
           goto LABEL_47;
@@ -604,210 +604,210 @@ LABEL_46:
         Height = CVPixelBufferGetHeight([firstObject instanceMask]);
         BytesPerRow = CVPixelBufferGetBytesPerRow([firstObject instanceMask]);
         BaseAddress = CVPixelBufferGetBaseAddress([firstObject instanceMask]);
-        v68 = (v34 * (Width - 1));
-        v69 = Width;
-        v70 = ((1.0 - v36) * (Height - 1));
-        v71 = &BaseAddress[BytesPerRow * v70];
-        v98 = v68;
-        v72 = Height;
-        v73 = v71[v68];
-        if (v71[v68])
+        v73 = (v39 * (Width - 1));
+        v74 = Width;
+        v75 = ((1.0 - v41) * (Height - 1));
+        v76 = &BaseAddress[BytesPerRow * v75];
+        v103 = v73;
+        v77 = Height;
+        v78 = v76[v73];
+        if (v76[v73])
         {
           if (MediaAnalysisLogLevel() < 5 || !os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_79;
           }
 
-          *v106 = 67109632;
-          *v107 = v73;
-          *&v107[4] = 1024;
-          *&v107[6] = v98;
-          LOWORD(v108) = 1024;
-          *(&v108 + 2) = v70;
-          v74 = MEMORY[0x1E69E9C10];
-          v75 = "[RMBG] Selecting instance %d at location (%d, %d)";
+          *v111 = 67109632;
+          *v112 = v78;
+          *&v112[4] = 1024;
+          *&v112[6] = v103;
+          LOWORD(v113) = 1024;
+          *(&v113 + 2) = v75;
+          v79 = MEMORY[0x1E69E9C10];
+          v80 = "[RMBG] Selecting instance %d at location (%d, %d)";
         }
 
         else
         {
-          v95 = BaseAddress;
-          v96 = v72;
-          v97 = v69;
+          v100 = BaseAddress;
+          v101 = v77;
+          v102 = v74;
           if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
           {
-            *v106 = 67109376;
-            *v107 = v98;
-            *&v107[4] = 1024;
-            *&v107[6] = v70;
-            _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[RMBG] No instance at (%d, %d), searching nearby", v106, 0xEu);
+            *v111 = 67109376;
+            *v112 = v103;
+            *&v112[4] = 1024;
+            *&v112[6] = v75;
+            _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[RMBG] No instance at (%d, %d), searching nearby", v111, 0xEu);
           }
 
-          v73 = 0;
-          v76 = 0;
-          v77 = v96 - 50;
-          if (v70 - 25 < v96 - 50)
+          v78 = 0;
+          v81 = 0;
+          v82 = v101 - 50;
+          if (v75 - 25 < v101 - 50)
           {
-            v77 = v70 - 25;
+            v82 = v75 - 25;
           }
 
-          if (v70 <= 25)
+          if (v75 <= 25)
           {
-            v78 = 0;
+            v83 = 0;
           }
 
           else
           {
-            v78 = v77;
+            v83 = v82;
           }
 
-          v79 = v97 - 50;
-          if (v98 - 25 < v97 - 50)
+          v84 = v102 - 50;
+          if (v103 - 25 < v102 - 50)
           {
-            v79 = v98 - 25;
+            v84 = v103 - 25;
           }
 
-          if (v98 <= 25)
+          if (v103 <= 25)
           {
-            v80 = 0;
+            v85 = 0;
           }
 
           else
           {
-            v80 = v79;
+            v85 = v84;
           }
 
-          v81 = &v95[BytesPerRow * v78 + v80];
-          v82 = v78 - v70;
-          v83 = v80 - v98;
-          v84 = 0x7FFFFFFF;
+          v86 = &v100[BytesPerRow * v83 + v85];
+          v87 = v83 - v75;
+          v88 = v85 - v103;
+          v89 = 0x7FFFFFFF;
           do
           {
             for (i = 0; i != 50; ++i)
             {
-              v86 = (v82 + v76) * (v82 + v76) + (v83 + i) * (v83 + i);
-              if (v86 < v84)
+              v91 = (v87 + v81) * (v87 + v81) + (v88 + i) * (v88 + i);
+              if (v91 < v89)
               {
-                v87 = *(v81 + i);
+                v92 = *(v86 + i);
               }
 
               else
               {
-                v86 = v84;
-                v87 = v73;
+                v91 = v89;
+                v92 = v78;
               }
 
-              if (*(v81 + i))
+              if (*(v86 + i))
               {
-                v84 = v86;
-                v73 = v87;
+                v89 = v91;
+                v78 = v92;
               }
             }
 
-            ++v76;
-            v81 += BytesPerRow;
+            ++v81;
+            v86 += BytesPerRow;
           }
 
-          while (v76 != 50);
-          if (!v73)
+          while (v81 != 50);
+          if (!v78)
           {
             if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              *v106 = 134218240;
-              *v107 = v34;
-              *&v107[8] = 2048;
-              v108 = v36;
-              _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[RMBG] No instances near specified point (%0.2f, %0.2f)", v106, 0x16u);
+              *v111 = 134218240;
+              *v112 = v39;
+              *&v112[8] = 2048;
+              v113 = v41;
+              _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[RMBG] No instances near specified point (%0.2f, %0.2f)", v111, 0x16u);
             }
 
-            v91 = MEMORY[0x1E696ABC0];
-            v104 = *MEMORY[0x1E696A578];
-            v99 = [MEMORY[0x1E696AEC0] stringWithFormat:@"No instances near specified point (%0.2f, %0.2f)", *&v34, *&v36];
-            v105 = v99;
-            v92 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
-            v88 = v38;
-            v93 = [v91 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v92];
-            v94 = *error;
-            *error = v93;
+            v96 = MEMORY[0x1E696ABC0];
+            v109 = *MEMORY[0x1E696A578];
+            v104 = [MEMORY[0x1E696AEC0] stringWithFormat:@"No instances near specified point (%0.2f, %0.2f)", *&v39, *&v41];
+            v110 = v104;
+            v97 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v110 forKeys:&v109 count:1];
+            v93 = v43;
+            v98 = [v96 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v97];
+            v99 = *error;
+            *error = v98;
 
             allInstances4 = 0;
-            v89 = 0;
+            v94 = 0;
 LABEL_80:
-            v90 = CVPixelBufferUnlockBaseAddress(v88, 1uLL);
-            if (v90 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+            v95 = CVPixelBufferUnlockBaseAddress(v93, 1uLL);
+            if (v95 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              *v106 = 134218240;
-              *v107 = v88;
-              *&v107[8] = 1024;
-              LODWORD(v108) = v90;
-              _os_log_error_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to unlock CVPixelBuffer (%p, %d)", v106, 0x12u);
+              *v111 = 134218240;
+              *v112 = v93;
+              *&v112[8] = 1024;
+              LODWORD(v113) = v95;
+              _os_log_error_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to unlock CVPixelBuffer (%p, %d)", v111, 0x12u);
             }
 
-            if ((v89 & 1) == 0)
+            if ((v94 & 1) == 0)
             {
               goto LABEL_45;
             }
 
 LABEL_37:
-            v102 = v22;
-            v41 = [firstObject createMaskForInstances:allInstances4 error:&v102];
-            v55 = v102;
+            v107 = v26;
+            v46 = [firstObject createMaskForInstances:allInstances4 error:&v107];
+            v60 = v107;
 
-            if (v41)
+            if (v46)
             {
-              [v101 reset];
+              [v106 reset];
             }
 
             else
             {
-              v56 = [v55 copy];
-              v57 = *error;
-              *error = v56;
+              v61 = [v60 copy];
+              v62 = *error;
+              *error = v61;
 
-              v41 = 0;
+              v46 = 0;
             }
 
-            v22 = v55;
+            v26 = v60;
             goto LABEL_46;
           }
 
           if (MediaAnalysisLogLevel() < 5 || !os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
           {
 LABEL_79:
-            allInstances4 = [MEMORY[0x1E696AC90] indexSetWithIndex:v73];
-            v88 = v38;
-            v89 = 1;
+            allInstances4 = [MEMORY[0x1E696AC90] indexSetWithIndex:v78];
+            v93 = v43;
+            v94 = 1;
             goto LABEL_80;
           }
 
-          *v106 = 67109632;
-          *v107 = v73;
-          *&v107[4] = 1024;
-          *&v107[6] = v98;
-          LOWORD(v108) = 1024;
-          *(&v108 + 2) = v70;
-          v74 = MEMORY[0x1E69E9C10];
-          v75 = "[RMBG] Selecting instance %d near location (%d, %d)";
+          *v111 = 67109632;
+          *v112 = v78;
+          *&v112[4] = 1024;
+          *&v112[6] = v103;
+          LOWORD(v113) = 1024;
+          *(&v113 + 2) = v75;
+          v79 = MEMORY[0x1E69E9C10];
+          v80 = "[RMBG] Selecting instance %d near location (%d, %d)";
         }
 
-        _os_log_impl(&dword_1C9B70000, v74, OS_LOG_TYPE_DEFAULT, v75, v106, 0x14u);
+        _os_log_impl(&dword_1C9B70000, v79, OS_LOG_TYPE_DEFAULT, v80, v111, 0x14u);
         goto LABEL_79;
       }
     }
 
     allInstances3 = [firstObject allInstances];
-    v52 = [allInstances3 count];
-    v53 = @"only instance";
-    if (v52 > 1)
+    v57 = [allInstances3 count];
+    v58 = @"only instance";
+    if (v57 > 1)
     {
-      v53 = @"all instances";
+      v58 = @"all instances";
     }
 
-    v54 = v53;
+    v59 = v58;
 
     if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *v112 = v54;
+      *v117 = v59;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[RMBG] Selecting %@", buf, 0xCu);
     }
 
@@ -816,14 +816,14 @@ LABEL_79:
     goto LABEL_37;
   }
 
-  v40 = [v22 copy];
-  v41 = 0;
+  v45 = [v26 copy];
+  v46 = 0;
   firstObject = *error;
-  *error = v40;
+  *error = v45;
 LABEL_47:
 
   objc_autoreleasePoolPop(context);
-  return v41;
+  return v46;
 }
 
 - (CGRect)scaleNormalizedCropRect:(CGRect)rect forPixelBuffer:(__CVBuffer *)buffer
@@ -847,7 +847,7 @@ LABEL_47:
 
 - (id)processPastSampleBuffers:(id)buffers orientation:(unsigned int)orientation maskPixelBuffer:(__CVBuffer *)buffer cropUnion:(CGRect *)union progress:(id)progress error:(id *)error
 {
-  v77[1] = *MEMORY[0x1E69E9840];
+  v79[1] = *MEMORY[0x1E69E9840];
   buffersCopy = buffers;
   progressCopy = progress;
   context = objc_autoreleasePoolPush();
@@ -856,13 +856,13 @@ LABEL_47:
 
   *&buf[16] = 0;
   *buf = kMaskUpdateInterval;
-  v68 = [objc_alloc(MEMORY[0x1E69846A8]) initWithFrameUpdateSpacing:buf mask:buffer completionHandler:0];
-  [v68 setGenerateCropRect:1];
+  v70 = [objc_alloc(MEMORY[0x1E69846A8]) initWithFrameUpdateSpacing:buf mask:buffer completionHandler:0];
+  [v70 setGenerateCropRect:1];
   array = [MEMORY[0x1E695DF70] array];
-  v60 = objc_alloc_init(MADConfidenceTracker);
+  v62 = objc_alloc_init(MADConfidenceTracker);
   v13 = MEMORY[0x1E69E9C10];
-  v65 = *MEMORY[0x1E696A768];
-  v66 = *MEMORY[0x1E696A578];
+  v67 = *MEMORY[0x1E696A768];
+  v68 = *MEMORY[0x1E696A578];
   do
   {
     if (![buffersCopy count])
@@ -874,11 +874,11 @@ LABEL_47:
     if ([(MADVideoRemoveBackgroundCropTask *)self isCanceled])
     {
       v15 = MEMORY[0x1E696ABC0];
-      v76 = v66;
+      v78 = v68;
       v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request canceled"];
-      v77[0] = v16;
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v77 forKeys:&v76 count:1];
-      v18 = [v15 errorWithDomain:v65 code:-128 userInfo:v17];
+      v79[0] = v16;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v79 forKeys:&v78 count:1];
+      v18 = [v15 errorWithDomain:v67 code:-128 userInfo:v17];
       v19 = *error;
       *error = v18;
 
@@ -889,59 +889,59 @@ LABEL_47:
     {
       lastObject = [buffersCopy lastObject];
 
-      memset(&v73, 0, sizeof(v73));
-      CMSampleBufferGetPresentationTimeStamp(&v73, lastObject);
+      memset(&v75, 0, sizeof(v75));
+      CMSampleBufferGetPresentationTimeStamp(&v75, lastObject);
       if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 134218240;
-        *&buf[4] = v73.value;
+        *&buf[4] = v75.value;
         *&buf[12] = 1024;
-        *&buf[14] = v73.timescale;
+        *&buf[14] = v75.timescale;
         _os_log_impl(&dword_1C9B70000, v13, OS_LOG_TYPE_INFO, "[RMBG][BW] Tracking mask %lld/%d", buf, 0x12u);
       }
 
       v22 = objc_alloc(MEMORY[0x1E69845B8]);
       v23 = [v22 initWithCMSampleBuffer:lastObject orientation:orientation options:MEMORY[0x1E695E0F8] session:session];
-      v24 = VCPSignPostLog();
+      v24 = VCPSignPostLog(v23);
       v25 = os_signpost_id_generate(v24);
 
-      v26 = VCPSignPostLog();
-      v27 = v26;
-      if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+      v27 = VCPSignPostLog(v26);
+      v28 = v27;
+      if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_BEGIN, v25, "VNTrackMaskRequest_PerformRequest", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v28, OS_SIGNPOST_INTERVAL_BEGIN, v25, "VNTrackMaskRequest_PerformRequest", "", buf, 2u);
       }
 
-      v75 = v68;
-      v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v75 count:1];
-      v72 = 0;
-      v29 = [v23 performRequests:v28 error:&v72];
-      v30 = v72;
+      v77 = v70;
+      v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v77 count:1];
+      v74 = 0;
+      v30 = [v23 performRequests:v29 error:&v74];
+      v31 = v74;
 
-      if (v29)
+      if (v30)
       {
-        v31 = VCPSignPostLog();
-        v32 = v31;
-        if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
+        v33 = VCPSignPostLog(v32);
+        v34 = v33;
+        if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v32, OS_SIGNPOST_INTERVAL_END, v25, "VNTrackMaskRequest_PerformRequest", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v34, OS_SIGNPOST_INTERVAL_END, v25, "VNTrackMaskRequest_PerformRequest", "", buf, 2u);
         }
 
-        results = [v68 results];
+        results = [v70 results];
         firstObject = [results firstObject];
 
         if (firstObject)
         {
-          if (+[MADVideoRemoveBackgroundSettings visionTrimEnabled](MADVideoRemoveBackgroundSettings, "visionTrimEnabled") && ([firstObject confidence], -[MADConfidenceTracker updateConfidence:](v60, "updateConfidence:", v35), v37 = v36, +[MADVideoRemoveBackgroundSettings visionTrimThreshold](MADVideoRemoveBackgroundSettings, "visionTrimThreshold"), v37 < v38))
+          if (+[MADVideoRemoveBackgroundSettings visionTrimEnabled](MADVideoRemoveBackgroundSettings, "visionTrimEnabled") && ([firstObject confidence], -[MADConfidenceTracker updateConfidence:](v62, "updateConfidence:", v37), v39 = v38, +[MADVideoRemoveBackgroundSettings visionTrimThreshold](MADVideoRemoveBackgroundSettings, "visionTrimThreshold"), v39 < v40))
           {
             if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 134218240;
-              *&buf[4] = v73.value;
+              *&buf[4] = v75.value;
               *&buf[12] = 1024;
-              *&buf[14] = v73.timescale;
+              *&buf[14] = v75.timescale;
               _os_log_impl(&dword_1C9B70000, v13, OS_LOG_TYPE_DEFAULT, "[RMBG][BW] Confidence below threshold (%lld/%d), trimming", buf, 0x12u);
             }
 
@@ -956,24 +956,24 @@ LABEL_47:
             width = union->size.width;
             height = union->size.height;
             [firstObject croppedBoundingBox];
-            -[MADVideoRemoveBackgroundCropTask scaleNormalizedCropRect:forPixelBuffer:](self, "scaleNormalizedCropRect:forPixelBuffer:", [firstObject pixelBuffer], v43, v44, v45, v46);
-            v80.origin.x = v47;
-            v80.origin.y = v48;
-            v80.size.width = v49;
-            v80.size.height = v50;
-            v79.origin.x = x;
-            v79.origin.y = y;
-            v79.size.width = width;
-            v79.size.height = height;
-            *union = CGRectUnion(v79, v80);
-            v51 = [MADMattedFullFrame alloc];
+            -[MADVideoRemoveBackgroundCropTask scaleNormalizedCropRect:forPixelBuffer:](self, "scaleNormalizedCropRect:forPixelBuffer:", [firstObject pixelBuffer], v45, v46, v47, v48);
+            v82.origin.x = v49;
+            v82.origin.y = v50;
+            v82.size.width = v51;
+            v82.size.height = v52;
+            v81.origin.x = x;
+            v81.origin.y = y;
+            v81.size.width = width;
+            v81.size.height = height;
+            *union = CGRectUnion(v81, v82);
+            v53 = [MADMattedFullFrame alloc];
             pixelBuffer = [firstObject pixelBuffer];
-            [firstObject timeRange];
-            v70 = *buf;
-            v71 = *&buf[16];
+            objc_msgSend_timeRange(firstObject);
+            v72 = *buf;
+            v73 = *&buf[16];
             [firstObject confidence];
-            v54 = [(MADMattedFullFrame *)v51 initWithPixelBuffer:pixelBuffer presentationTimestamp:&v70 confidence:v53];
-            [array addObject:v54];
+            v56 = [(MADMattedFullFrame *)v53 initWithPixelBuffer:pixelBuffer presentationTimestamp:&v72 confidence:v55];
+            [array addObject:v56];
 
             [buffersCopy removeLastObject];
             [progressCopy setCompletedUnitCount:{objc_msgSend(progressCopy, "completedUnitCount") + 1}];
@@ -986,9 +986,9 @@ LABEL_47:
           if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134218240;
-            *&buf[4] = v73.value;
+            *&buf[4] = v75.value;
             *&buf[12] = 1024;
-            *&buf[14] = v73.timescale;
+            *&buf[14] = v75.timescale;
             _os_log_impl(&dword_1C9B70000, v13, OS_LOG_TYPE_DEFAULT, "[RMBG][BW] No observation at time %lld/%d", buf, 0x12u);
           }
 
@@ -1000,15 +1000,15 @@ LABEL_47:
       {
         if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v55 = [v30 description];
+          v57 = [v31 description];
           *buf = 138412290;
-          *&buf[4] = v55;
+          *&buf[4] = v57;
           _os_log_impl(&dword_1C9B70000, v13, OS_LOG_TYPE_ERROR, "[RMBG][BW] VNTrackMaskRequest failed (%@)", buf, 0xCu);
         }
 
-        v56 = [v30 copy];
+        v58 = [v31 copy];
         firstObject = *error;
-        *error = v56;
+        *error = v58;
         v20 = 1;
       }
     }
@@ -1020,26 +1020,26 @@ LABEL_47:
   if (v20 == 3)
   {
 LABEL_35:
-    v57 = array;
+    v59 = array;
     goto LABEL_37;
   }
 
-  v57 = 0;
+  v59 = 0;
 LABEL_37:
 
   objc_autoreleasePoolPop(context);
 
-  return v57;
+  return v59;
 }
 
 - (BOOL)exportPastSamples:(id)samples sequenceWriter:(id)writer progress:(id)progress error:(id *)error
 {
-  v54[1] = *MEMORY[0x1E69E9840];
+  v57[1] = *MEMORY[0x1E69E9840];
   samplesCopy = samples;
   writerCopy = writer;
   progressCopy = progress;
-  v41 = *MEMORY[0x1E696A768];
-  v42 = *MEMORY[0x1E696A578];
+  v44 = *MEMORY[0x1E696A768];
+  v45 = *MEMORY[0x1E696A578];
   do
   {
     v11 = [samplesCopy count];
@@ -1052,11 +1052,11 @@ LABEL_37:
     if ([(MADVideoRemoveBackgroundCropTask *)self isCanceled])
     {
       v13 = MEMORY[0x1E696ABC0];
-      v53 = v42;
+      v56 = v45;
       lastObject = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request canceled"];
-      v54[0] = lastObject;
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:&v53 count:1];
-      v16 = [v13 errorWithDomain:v41 code:-128 userInfo:v15];
+      v57[0] = lastObject;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:&v56 count:1];
+      v16 = [v13 errorWithDomain:v44 code:-128 userInfo:v15];
       v17 = *error;
       *error = v16;
     }
@@ -1064,122 +1064,124 @@ LABEL_37:
     else
     {
       lastObject = [samplesCopy lastObject];
-      if (MediaAnalysisLogLevel() >= 6)
+      v18 = MediaAnalysisLogLevel();
+      if (v18 >= 6)
       {
-        v18 = MEMORY[0x1E69E9C10];
         v19 = MEMORY[0x1E69E9C10];
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+        v20 = MEMORY[0x1E69E9C10];
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
           if (lastObject)
           {
-            [lastObject presentationTimestamp];
-            v20 = *v44;
-            [lastObject presentationTimestamp];
-            v21 = v43;
+            objc_msgSend_presentationTimestamp(lastObject);
+            v21 = *v47;
+            objc_msgSend_presentationTimestamp(lastObject);
+            v22 = v46;
           }
 
           else
           {
+            v22 = 0;
             v21 = 0;
-            v20 = 0;
-            *v44 = 0;
-            v45 = 0;
+            *v47 = 0;
+            v48 = 0;
+            v49 = 0;
             v46 = 0;
-            v43 = 0;
           }
 
           *buf = 134218240;
-          v50 = v20;
-          v51 = 1024;
-          v52 = v21;
-          v18 = MEMORY[0x1E69E9C10];
+          v53 = v21;
+          v54 = 1024;
+          v55 = v22;
+          v19 = MEMORY[0x1E69E9C10];
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[RMBG] Encoding %lld/%d", buf, 0x12u);
         }
       }
 
-      v22 = VCPSignPostLog();
-      v23 = os_signpost_id_generate(v22);
+      v23 = VCPSignPostLog(v18);
+      v24 = os_signpost_id_generate(v23);
 
-      v24 = VCPSignPostLog();
-      v25 = v24;
-      if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+      v26 = VCPSignPostLog(v25);
+      v27 = v26;
+      if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
       {
-        *v44 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v23, "MADVideoRemoveBackground_ExportFrame", "", v44, 2u);
+        *v47 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_BEGIN, v24, "MADVideoRemoveBackground_ExportFrame", "", v47, 2u);
       }
 
       pixelBuffer = [lastObject pixelBuffer];
       if (lastObject)
       {
-        [lastObject presentationTimestamp];
+        objc_msgSend_presentationTimestamp(lastObject);
       }
 
       else
       {
-        *v44 = 0;
-        v45 = 0;
-        v46 = 0;
+        *v47 = 0;
+        v48 = 0;
+        v49 = 0;
       }
 
-      if (![writerCopy addPixelBuffer:pixelBuffer withTime:v44])
+      v29 = [writerCopy addPixelBuffer:pixelBuffer withTime:v47];
+      if (!v29)
       {
-        v31 = VCPSignPostLog();
-        v32 = v31;
-        if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
+        v34 = VCPSignPostLog(v29);
+        v35 = v34;
+        if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
         {
-          *v44 = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v32, OS_SIGNPOST_INTERVAL_END, v23, "MADVideoRemoveBackground_ExportFrame", "", v44, 2u);
+          *v47 = 0;
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v35, OS_SIGNPOST_INTERVAL_END, v24, "MADVideoRemoveBackground_ExportFrame", "", v47, 2u);
         }
 
         [samplesCopy removeLastObject];
         [progressCopy setCompletedUnitCount:{objc_msgSend(progressCopy, "completedUnitCount") + 1}];
-        v33 = 1;
+        v36 = 1;
         goto LABEL_28;
       }
 
-      v27 = MEMORY[0x1E696ABC0];
-      v47 = v42;
-      v28 = MEMORY[0x1E696AEC0];
+      v30 = MEMORY[0x1E696ABC0];
+      v50 = v45;
+      v31 = MEMORY[0x1E696AEC0];
       if (lastObject)
       {
-        [lastObject presentationTimestamp];
-        v29 = *v44;
-        [lastObject presentationTimestamp];
-        v30 = v43;
+        objc_msgSend_presentationTimestamp(lastObject);
+        v32 = *v47;
+        objc_msgSend_presentationTimestamp(lastObject);
+        v33 = v46;
       }
 
       else
       {
-        v30 = 0;
-        v29 = 0;
-        *v44 = 0;
-        v45 = 0;
+        v33 = 0;
+        v32 = 0;
+        *v47 = 0;
+        v48 = 0;
+        v49 = 0;
         v46 = 0;
-        v43 = 0;
       }
 
-      v34 = [v28 stringWithFormat:@"Failed to export matted frame (%lld/%d)", v29, v30];
-      v48 = v34;
-      v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
-      v36 = [v27 errorWithDomain:v41 code:-18 userInfo:v35];
-      v37 = *error;
-      *error = v36;
+      v37 = [v31 stringWithFormat:@"Failed to export matted frame (%lld/%d)", v32, v33];
+      v51 = v37;
+      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+      v39 = [v30 errorWithDomain:v44 code:-18 userInfo:v38];
+      v40 = *error;
+      *error = v39;
     }
 
-    v33 = 0;
+    v36 = 0;
 LABEL_28:
 
     objc_autoreleasePoolPop(v12);
   }
 
-  while ((v33 & 1) != 0);
+  while ((v36 & 1) != 0);
 
   return v11 == 0;
 }
 
 - (id)processFutureSamplesFromTrackOutput:(id)output baseTime:(id *)time orientation:(unsigned int)orientation maskSampleBuffer:(opaqueCMSampleBuffer *)buffer maskPixelBuffer:(__CVBuffer *)pixelBuffer cropUnion:(CGRect *)union endTime:(id *)endTime progress:(id)self0 error:(id *)self1
 {
-  v108[1] = *MEMORY[0x1E69E9840];
+  v112[1] = *MEMORY[0x1E69E9840];
   outputCopy = output;
   progressCopy = progress;
   context = objc_autoreleasePoolPush();
@@ -1188,70 +1190,70 @@ LABEL_28:
 
   buf.duration.epoch = 0;
   *&buf.duration.value = kMaskUpdateInterval;
-  v90 = [objc_alloc(MEMORY[0x1E69846A8]) initWithFrameUpdateSpacing:&buf mask:pixelBuffer completionHandler:0];
-  [v90 setGenerateCropRect:1];
+  v94 = [objc_alloc(MEMORY[0x1E69846A8]) initWithFrameUpdateSpacing:&buf mask:pixelBuffer completionHandler:0];
+  [v94 setGenerateCropRect:1];
   v15 = objc_autoreleasePoolPush();
   v16 = objc_alloc(MEMORY[0x1E69845B8]);
   v17 = [v16 initWithCMSampleBuffer:buffer orientation:orientation options:MEMORY[0x1E695E0F8] session:session];
-  v18 = VCPSignPostLog();
+  v18 = VCPSignPostLog(v17);
   v19 = os_signpost_id_generate(v18);
 
-  v20 = VCPSignPostLog();
-  v21 = v20;
-  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+  v21 = VCPSignPostLog(v20);
+  v22 = v21;
+  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
     LOWORD(buf.duration.value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v19, "VNTrackMaskRequest_PerformRequest", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v19, "VNTrackMaskRequest_PerformRequest", "", &buf, 2u);
   }
 
-  v108[0] = v90;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v108 count:1];
-  v97 = 0;
-  v23 = [v17 performRequests:v22 error:&v97];
-  v24 = v97;
+  v112[0] = v94;
+  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v112 count:1];
+  v101 = 0;
+  v24 = [v17 performRequests:v23 error:&v101];
+  v25 = v101;
 
-  if (v23)
+  if (v24)
   {
-    v25 = VCPSignPostLog();
-    v26 = v25;
-    if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+    v27 = VCPSignPostLog(v26);
+    v28 = v27;
+    if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
     {
       LOWORD(buf.duration.value) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v26, OS_SIGNPOST_INTERVAL_END, v19, "VNTrackMaskRequest_PerformRequest", "", &buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v28, OS_SIGNPOST_INTERVAL_END, v19, "VNTrackMaskRequest_PerformRequest", "", &buf, 2u);
     }
   }
 
   else
   {
-    v27 = [v24 copy];
-    v26 = *error;
-    *error = v27;
+    v29 = [v25 copy];
+    v28 = *error;
+    *error = v29;
   }
 
   objc_autoreleasePoolPop(v15);
-  v28 = v90;
-  if (v23)
+  v30 = v94;
+  if (v24)
   {
     var0 = time->var0;
     array = [MEMORY[0x1E695DF70] array];
-    v82 = objc_alloc_init(MADConfidenceTracker);
-    v29 = *MEMORY[0x1E696A768];
-    v92 = *MEMORY[0x1E696A578];
+    v86 = objc_alloc_init(MADConfidenceTracker);
+    v31 = *MEMORY[0x1E696A768];
+    v96 = *MEMORY[0x1E696A578];
     while (1)
     {
-      v30 = objc_autoreleasePoolPush();
+      v32 = objc_autoreleasePoolPush();
       if ([(MADVideoRemoveBackgroundCropTask *)self isCanceled])
       {
-        v31 = MEMORY[0x1E696ABC0];
-        v106 = v92;
-        v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request canceled"];
-        v107 = v32;
-        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v107 forKeys:&v106 count:1];
-        v34 = [v31 errorWithDomain:v29 code:-128 userInfo:v33];
-        v35 = *error;
-        *error = v34;
+        v33 = MEMORY[0x1E696ABC0];
+        v110 = v96;
+        v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request canceled"];
+        v111 = v34;
+        v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v111 forKeys:&v110 count:1];
+        v36 = [v33 errorWithDomain:v31 code:-128 userInfo:v35];
+        v37 = *error;
+        *error = v36;
 
-        v36 = 1;
+        v38 = 1;
         goto LABEL_57;
       }
 
@@ -1277,13 +1279,13 @@ LABEL_28:
         }
 
         memset(&buf.presentationTimeStamp, 0, 48);
-        v38 = MEMORY[0x1E6960C70];
+        v40 = MEMORY[0x1E6960C70];
         *&buf.duration.value = *MEMORY[0x1E6960C70];
         buf.duration.epoch = *(MEMORY[0x1E6960C70] + 16);
         *lhs = presentationTimeStamp;
         rhs = *time;
         CMTimeSubtract(&buf.presentationTimeStamp, lhs, &rhs);
-        buf.decodeTimeStamp = *v38;
+        buf.decodeTimeStamp = *v40;
         if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
         {
           *lhs = 134218752;
@@ -1292,7 +1294,7 @@ LABEL_28:
           *&lhs[14] = presentationTimeStamp.timescale;
           *&lhs[18] = 2048;
           *&lhs[20] = buf.presentationTimeStamp.value;
-          v103 = 1024;
+          v107 = 1024;
           timescale = buf.presentationTimeStamp.timescale;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[RMBG][FW] Adjusting time %lld/%d --> %lld/%d", lhs, 0x22u);
         }
@@ -1328,42 +1330,42 @@ LABEL_32:
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[RMBG][FW] Tracking mask %lld/%d", &buf, 0x12u);
           }
 
-          v45 = objc_alloc(MEMORY[0x1E69845B8]);
-          v46 = [v45 initWithCMSampleBuffer:originalSBuf orientation:orientation options:MEMORY[0x1E695E0F8] session:session];
-          v47 = VCPSignPostLog();
-          v48 = os_signpost_id_generate(v47);
+          v47 = objc_alloc(MEMORY[0x1E69845B8]);
+          v48 = [v47 initWithCMSampleBuffer:originalSBuf orientation:orientation options:MEMORY[0x1E695E0F8] session:session];
+          v49 = VCPSignPostLog(v48);
+          v50 = os_signpost_id_generate(v49);
 
-          v49 = VCPSignPostLog();
-          v50 = v49;
-          if (v48 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v49))
+          v52 = VCPSignPostLog(v51);
+          v53 = v52;
+          if (v50 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v52))
           {
             LOWORD(buf.duration.value) = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v50, OS_SIGNPOST_INTERVAL_BEGIN, v48, "VNTrackMaskRequest_PerformRequest", "", &buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v53, OS_SIGNPOST_INTERVAL_BEGIN, v50, "VNTrackMaskRequest_PerformRequest", "", &buf, 2u);
           }
 
-          v99 = v90;
-          v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v99 count:1];
-          v94 = 0;
-          v52 = [v46 performRequests:v51 error:&v94];
-          v53 = v94;
+          v103 = v94;
+          v54 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v103 count:1];
+          v98 = 0;
+          v55 = [v48 performRequests:v54 error:&v98];
+          v56 = v98;
 
-          if (v52)
+          if (v55)
           {
-            v54 = VCPSignPostLog();
-            v55 = v54;
-            if (v48 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v54))
+            v58 = VCPSignPostLog(v57);
+            v59 = v58;
+            if (v50 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v58))
             {
               LOWORD(buf.duration.value) = 0;
-              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v55, OS_SIGNPOST_INTERVAL_END, v48, "VNTrackMaskRequest_PerformRequest", "", &buf, 2u);
+              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v59, OS_SIGNPOST_INTERVAL_END, v50, "VNTrackMaskRequest_PerformRequest", "", &buf, 2u);
             }
 
-            results = [v90 results];
+            results = [v94 results];
             firstObject = [results firstObject];
 
             if (firstObject)
             {
               [progressCopy setCompletedUnitCount:{objc_msgSend(progressCopy, "completedUnitCount") + 1}];
-              if (+[MADVideoRemoveBackgroundSettings visionTrimEnabled](MADVideoRemoveBackgroundSettings, "visionTrimEnabled") && ([firstObject confidence], -[MADConfidenceTracker updateConfidence:](v82, "updateConfidence:", v58), v60 = v59, +[MADVideoRemoveBackgroundSettings visionTrimThreshold](MADVideoRemoveBackgroundSettings, "visionTrimThreshold"), v60 < v61))
+              if (+[MADVideoRemoveBackgroundSettings visionTrimEnabled](MADVideoRemoveBackgroundSettings, "visionTrimEnabled") && ([firstObject confidence], -[MADConfidenceTracker updateConfidence:](v86, "updateConfidence:", v62), v64 = v63, +[MADVideoRemoveBackgroundSettings visionTrimThreshold](MADVideoRemoveBackgroundSettings, "visionTrimThreshold"), v64 < v65))
               {
                 if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
                 {
@@ -1375,7 +1377,7 @@ LABEL_32:
                 }
 
                 *endTime = presentationTimeStamp;
-                v36 = 5;
+                v38 = 5;
               }
 
               else
@@ -1385,24 +1387,24 @@ LABEL_32:
                 width = union->size.width;
                 height = union->size.height;
                 [firstObject croppedBoundingBox];
-                -[MADVideoRemoveBackgroundCropTask scaleNormalizedCropRect:forPixelBuffer:](self, "scaleNormalizedCropRect:forPixelBuffer:", [firstObject pixelBuffer], v66, v67, v68, v69);
-                v111.origin.x = v70;
-                v111.origin.y = v71;
-                v111.size.width = v72;
-                v111.size.height = v73;
-                v110.origin.x = x;
-                v110.origin.y = y;
-                v110.size.width = width;
-                v110.size.height = height;
-                *union = CGRectUnion(v110, v111);
-                v74 = [MADMattedFullFrame alloc];
+                -[MADVideoRemoveBackgroundCropTask scaleNormalizedCropRect:forPixelBuffer:](self, "scaleNormalizedCropRect:forPixelBuffer:", [firstObject pixelBuffer], v70, v71, v72, v73);
+                v115.origin.x = v74;
+                v115.origin.y = v75;
+                v115.size.width = v76;
+                v115.size.height = v77;
+                v114.origin.x = x;
+                v114.origin.y = y;
+                v114.size.width = width;
+                v114.size.height = height;
+                *union = CGRectUnion(v114, v115);
+                v78 = [MADMattedFullFrame alloc];
                 pixelBuffer = [firstObject pixelBuffer];
                 buf.duration = presentationTimeStamp;
                 [firstObject confidence];
-                v77 = [(MADMattedFullFrame *)v74 initWithPixelBuffer:pixelBuffer presentationTimestamp:&buf confidence:v76];
-                [array addObject:v77];
+                v81 = [(MADMattedFullFrame *)v78 initWithPixelBuffer:pixelBuffer presentationTimestamp:&buf confidence:v80];
+                [array addObject:v81];
 
-                v36 = 0;
+                v38 = 0;
               }
             }
 
@@ -1410,27 +1412,27 @@ LABEL_32:
             {
               if (MediaAnalysisLogLevel() >= 4)
               {
-                v79 = MEMORY[0x1E69E9C10];
+                v83 = MEMORY[0x1E69E9C10];
                 if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
                 {
                   LODWORD(buf.duration.value) = 134218240;
                   *(&buf.duration.value + 4) = presentationTimeStamp.value;
                   LOWORD(buf.duration.flags) = 1024;
                   *(&buf.duration.flags + 2) = presentationTimeStamp.timescale;
-                  _os_log_impl(&dword_1C9B70000, v79, OS_LOG_TYPE_DEFAULT, "[RMBG][FW] No observation at time %lld/%d", &buf, 0x12u);
+                  _os_log_impl(&dword_1C9B70000, v83, OS_LOG_TYPE_DEFAULT, "[RMBG][FW] No observation at time %lld/%d", &buf, 0x12u);
                 }
               }
 
-              v36 = 4;
+              v38 = 4;
             }
           }
 
           else
           {
-            v78 = [v53 copy];
+            v82 = [v56 copy];
             firstObject = *error;
-            *error = v78;
-            v36 = 1;
+            *error = v82;
+            v38 = 1;
           }
 
           goto LABEL_56;
@@ -1445,52 +1447,52 @@ LABEL_32:
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[RMBG][FW] Failed to adjust sample timing (%lld/%d)", lhs, 0x12u);
         }
 
-        v39 = MEMORY[0x1E696ABC0];
-        v100 = v92;
-        v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to adjust sample timing (%lld/%d)", presentationTimeStamp.value, presentationTimeStamp.timescale];
-        v101 = v40;
-        v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
-        v42 = [v39 errorWithDomain:v29 code:-18 userInfo:v41];
-        v43 = *error;
-        *error = v42;
+        v41 = MEMORY[0x1E696ABC0];
+        v104 = v96;
+        v42 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to adjust sample timing (%lld/%d)", presentationTimeStamp.value, presentationTimeStamp.timescale];
+        v105 = v42;
+        v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
+        v44 = [v41 errorWithDomain:v31 code:-18 userInfo:v43];
+        v45 = *error;
+        *error = v44;
 
         CF<__CVBuffer *>::~CF(&rhs);
-        v36 = 1;
+        v38 = 1;
       }
 
       else
       {
-        v36 = 5;
+        v38 = 5;
       }
 
 LABEL_56:
       CF<__CVBuffer *>::~CF(&originalSBuf);
 LABEL_57:
-      objc_autoreleasePoolPop(v30);
-      if (v36 && v36 != 4)
+      objc_autoreleasePoolPop(v32);
+      if (v38 && v38 != 4)
       {
-        if (v36 == 5)
+        if (v38 == 5)
         {
-          v80 = array;
+          v84 = array;
         }
 
         else
         {
-          v80 = 0;
+          v84 = 0;
         }
 
-        v28 = v90;
+        v30 = v94;
         goto LABEL_64;
       }
     }
   }
 
-  v80 = 0;
+  v84 = 0;
 LABEL_64:
 
   objc_autoreleasePoolPop(context);
 
-  return v80;
+  return v84;
 }
 
 - (BOOL)isAnimatedStickerPreferredWithPastSamples:(id)samples futureSamples:(id)futureSamples
@@ -1578,12 +1580,12 @@ LABEL_64:
 
 - (BOOL)exportFutureSamples:(id)samples sequenceWriter:(id)writer progress:(id)progress error:(id *)error
 {
-  v54[1] = *MEMORY[0x1E69E9840];
+  v57[1] = *MEMORY[0x1E69E9840];
   samplesCopy = samples;
   writerCopy = writer;
   progressCopy = progress;
-  v41 = *MEMORY[0x1E696A768];
-  v42 = *MEMORY[0x1E696A578];
+  v44 = *MEMORY[0x1E696A768];
+  v45 = *MEMORY[0x1E696A578];
   do
   {
     v11 = [samplesCopy count];
@@ -1596,11 +1598,11 @@ LABEL_64:
     if ([(MADVideoRemoveBackgroundCropTask *)self isCanceled])
     {
       v13 = MEMORY[0x1E696ABC0];
-      v53 = v42;
+      v56 = v45;
       firstObject = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request canceled"];
-      v54[0] = firstObject;
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:&v53 count:1];
-      v16 = [v13 errorWithDomain:v41 code:-128 userInfo:v15];
+      v57[0] = firstObject;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:&v56 count:1];
+      v16 = [v13 errorWithDomain:v44 code:-128 userInfo:v15];
       v17 = *error;
       *error = v16;
     }
@@ -1608,122 +1610,124 @@ LABEL_64:
     else
     {
       firstObject = [samplesCopy firstObject];
-      if (MediaAnalysisLogLevel() >= 6)
+      v18 = MediaAnalysisLogLevel();
+      if (v18 >= 6)
       {
-        v18 = MEMORY[0x1E69E9C10];
         v19 = MEMORY[0x1E69E9C10];
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+        v20 = MEMORY[0x1E69E9C10];
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
           if (firstObject)
           {
-            [firstObject presentationTimestamp];
-            v20 = *v44;
-            [firstObject presentationTimestamp];
-            v21 = v43;
+            objc_msgSend_presentationTimestamp(firstObject);
+            v21 = *v47;
+            objc_msgSend_presentationTimestamp(firstObject);
+            v22 = v46;
           }
 
           else
           {
+            v22 = 0;
             v21 = 0;
-            v20 = 0;
-            *v44 = 0;
-            v45 = 0;
+            *v47 = 0;
+            v48 = 0;
+            v49 = 0;
             v46 = 0;
-            v43 = 0;
           }
 
           *buf = 134218240;
-          v50 = v20;
-          v51 = 1024;
-          v52 = v21;
-          v18 = MEMORY[0x1E69E9C10];
+          v53 = v21;
+          v54 = 1024;
+          v55 = v22;
+          v19 = MEMORY[0x1E69E9C10];
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[RMBG] Encoding %lld/%d", buf, 0x12u);
         }
       }
 
-      v22 = VCPSignPostLog();
-      v23 = os_signpost_id_generate(v22);
+      v23 = VCPSignPostLog(v18);
+      v24 = os_signpost_id_generate(v23);
 
-      v24 = VCPSignPostLog();
-      v25 = v24;
-      if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+      v26 = VCPSignPostLog(v25);
+      v27 = v26;
+      if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
       {
-        *v44 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v23, "MADVideoRemoveBackground_ExportFrame", "", v44, 2u);
+        *v47 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_BEGIN, v24, "MADVideoRemoveBackground_ExportFrame", "", v47, 2u);
       }
 
       pixelBuffer = [firstObject pixelBuffer];
       if (firstObject)
       {
-        [firstObject presentationTimestamp];
+        objc_msgSend_presentationTimestamp(firstObject);
       }
 
       else
       {
-        *v44 = 0;
-        v45 = 0;
-        v46 = 0;
+        *v47 = 0;
+        v48 = 0;
+        v49 = 0;
       }
 
-      if (![writerCopy addPixelBuffer:pixelBuffer withTime:v44])
+      v29 = [writerCopy addPixelBuffer:pixelBuffer withTime:v47];
+      if (!v29)
       {
-        v31 = VCPSignPostLog();
-        v32 = v31;
-        if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
+        v34 = VCPSignPostLog(v29);
+        v35 = v34;
+        if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
         {
-          *v44 = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v32, OS_SIGNPOST_INTERVAL_END, v23, "MADVideoRemoveBackground_ExportFrame", "", v44, 2u);
+          *v47 = 0;
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v35, OS_SIGNPOST_INTERVAL_END, v24, "MADVideoRemoveBackground_ExportFrame", "", v47, 2u);
         }
 
         [samplesCopy removeObjectAtIndex:0];
         [progressCopy setCompletedUnitCount:{objc_msgSend(progressCopy, "completedUnitCount") + 1}];
-        v33 = 1;
+        v36 = 1;
         goto LABEL_28;
       }
 
-      v27 = MEMORY[0x1E696ABC0];
-      v47 = v42;
-      v28 = MEMORY[0x1E696AEC0];
+      v30 = MEMORY[0x1E696ABC0];
+      v50 = v45;
+      v31 = MEMORY[0x1E696AEC0];
       if (firstObject)
       {
-        [firstObject presentationTimestamp];
-        v29 = *v44;
-        [firstObject presentationTimestamp];
-        v30 = v43;
+        objc_msgSend_presentationTimestamp(firstObject);
+        v32 = *v47;
+        objc_msgSend_presentationTimestamp(firstObject);
+        v33 = v46;
       }
 
       else
       {
-        v30 = 0;
-        v29 = 0;
-        *v44 = 0;
-        v45 = 0;
+        v33 = 0;
+        v32 = 0;
+        *v47 = 0;
+        v48 = 0;
+        v49 = 0;
         v46 = 0;
-        v43 = 0;
       }
 
-      v34 = [v28 stringWithFormat:@"Failed to export matted frame (%lld/%d)", v29, v30];
-      v48 = v34;
-      v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
-      v36 = [v27 errorWithDomain:v41 code:-18 userInfo:v35];
-      v37 = *error;
-      *error = v36;
+      v37 = [v31 stringWithFormat:@"Failed to export matted frame (%lld/%d)", v32, v33];
+      v51 = v37;
+      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+      v39 = [v30 errorWithDomain:v44 code:-18 userInfo:v38];
+      v40 = *error;
+      *error = v39;
     }
 
-    v33 = 0;
+    v36 = 0;
 LABEL_28:
 
     objc_autoreleasePoolPop(v12);
   }
 
-  while ((v33 & 1) != 0);
+  while ((v36 & 1) != 0);
 
   return v11 == 0;
 }
 
 - (id)compressSequenceData:(id)data sequenceWriter:(id)writer outputWidth:(unint64_t *)width outputHeight:(unint64_t *)height
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   writerCopy = writer;
   maxFileSize = [(MADVideoRemoveBackgroundRequest *)self->_request maxFileSize];
@@ -1732,9 +1736,9 @@ LABEL_28:
   if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    v46 = [dataCopy length];
-    v47 = 1024;
-    v48 = unsignedIntegerValue;
+    v48 = [dataCopy length];
+    v49 = 1024;
+    v50 = unsignedIntegerValue;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[RMBG] Output exceeds max file size (%d > %d); compressing...", buf, 0xEu);
   }
 
@@ -1752,7 +1756,7 @@ LABEL_28:
 
   v12 = MEMORY[0x1E695DF70];
   v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:unsignedIntegerValue2];
-  v33 = [v12 arrayWithObject:v13];
+  v35 = [v12 arrayWithObject:v13];
 
   v14 = *width;
   if (*width <= *height)
@@ -1762,101 +1766,106 @@ LABEL_28:
 
   if (v14 >= 0x259 && unsignedIntegerValue2 <= 0x257)
   {
-    [v33 insertObject:&unk_1F49BBDA0 atIndex:0];
+    [v35 insertObject:&unk_1F49BBDA0 atIndex:0];
   }
 
+  v44 = 0u;
+  v45 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  obj = v33;
-  v15 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+  obj = v35;
+  v15 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (!v15)
   {
     goto LABEL_37;
   }
 
-  v16 = *v41;
+  v16 = *v43;
   v17 = MEMORY[0x1E69E9C10];
   do
   {
     for (i = 0; i != v15; ++i)
     {
-      if (*v41 != v16)
+      if (*v43 != v16)
       {
         objc_enumerationMutation(obj);
       }
 
-      v19 = *(*(&v40 + 1) + 8 * i);
-      if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v19 = *(*(&v42 + 1) + 8 * i);
+      v20 = MediaAnalysisLogLevel();
+      if (v20 >= 5)
       {
-        intValue = [v19 intValue];
-        *buf = 67109120;
-        v46 = intValue;
-        _os_log_impl(&dword_1C9B70000, v17, OS_LOG_TYPE_DEFAULT, "[RMBG] Transcoding to max dimension %d", buf, 8u);
+        v20 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+        if (v20)
+        {
+          intValue = [v19 intValue];
+          *buf = 67109120;
+          v48 = intValue;
+          _os_log_impl(&dword_1C9B70000, v17, OS_LOG_TYPE_DEFAULT, "[RMBG] Transcoding to max dimension %d", buf, 8u);
+        }
       }
 
-      v21 = VCPSignPostLog();
-      v22 = os_signpost_id_generate(v21);
+      v22 = VCPSignPostLog(v20);
+      v23 = os_signpost_id_generate(v22);
 
-      v23 = VCPSignPostLog();
-      v24 = v23;
-      if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+      v25 = VCPSignPostLog(v24);
+      v26 = v25;
+      if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_BEGIN, v22, "MADVideoRemoveBackground_ReEncode", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v26, OS_SIGNPOST_INTERVAL_BEGIN, v23, "MADVideoRemoveBackground_ReEncode", "", buf, 2u);
       }
 
-      v25 = [objc_opt_class() transcodeSequenceData:dataCopy maxDimension:objc_msgSend(v19 outputWidth:"unsignedIntegerValue") outputHeight:{width, height}];
-      v26 = VCPSignPostLog();
-      v27 = v26;
-      if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+      v27 = [objc_opt_class() transcodeSequenceData:dataCopy maxDimension:objc_msgSend(v19 outputWidth:"unsignedIntegerValue") outputHeight:{width, height}];
+      v28 = VCPSignPostLog(v27);
+      v29 = v28;
+      if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_END, v22, "MADVideoRemoveBackground_ReEncode", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v29, OS_SIGNPOST_INTERVAL_END, v23, "MADVideoRemoveBackground_ReEncode", "", buf, 2u);
       }
 
-      if (v25)
+      if (v27)
       {
-        if ([v25 length] <= unsignedIntegerValue)
+        if ([v27 length] <= unsignedIntegerValue)
         {
           goto LABEL_38;
         }
 
         if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v28 = [v25 length];
+          v30 = [v27 length];
           *buf = 67109376;
-          v46 = v28;
-          v47 = 1024;
-          v48 = unsignedIntegerValue;
-          v29 = v17;
-          v30 = "[RMBG] Transcoded output exceeds max file size (%d vs %d)";
-          v31 = 14;
+          v48 = v30;
+          v49 = 1024;
+          v50 = unsignedIntegerValue;
+          v31 = v17;
+          v32 = "[RMBG] Transcoded output exceeds max file size (%d vs %d)";
+          v33 = 14;
 LABEL_34:
-          _os_log_impl(&dword_1C9B70000, v29, OS_LOG_TYPE_ERROR, v30, buf, v31);
+          _os_log_impl(&dword_1C9B70000, v31, OS_LOG_TYPE_ERROR, v32, buf, v33);
         }
       }
 
       else if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v29 = v17;
-        v30 = "[RMBG] Failed to transcode sequence";
-        v31 = 2;
+        v31 = v17;
+        v32 = "[RMBG] Failed to transcode sequence";
+        v33 = 2;
         goto LABEL_34;
       }
     }
 
-    v15 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v15 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
   }
 
   while (v15);
 LABEL_37:
-  v25 = 0;
+  v27 = 0;
 LABEL_38:
 
-  return v25;
+  return v27;
 }
 
 - (void)publishPreviewResultsTimeRange:(id *)range pastSamples:(id)samples futureSamples:(id)futureSamples cropRect:(CGRect)rect
@@ -1895,7 +1904,7 @@ LABEL_38:
         v20 = objc_alloc(MEMORY[0x1E69AE4C0]);
         if (v17)
         {
-          [v17 presentationTimestamp];
+          objc_msgSend_presentationTimestamp(v17);
         }
 
         else
@@ -1940,7 +1949,7 @@ LABEL_38:
         v29 = objc_alloc(MEMORY[0x1E69AE4C0]);
         if (v26)
         {
-          [v26 presentationTimestamp];
+          objc_msgSend_presentationTimestamp(v26);
         }
 
         else
@@ -2037,7 +2046,7 @@ LABEL_38:
 
 - (BOOL)run:(id *)run
 {
-  v262[1] = *MEMORY[0x1E69E9840];
+  v276[1] = *MEMORY[0x1E69E9840];
   if ([(MADVideoRemoveBackgroundCropTask *)self validateRequest:?])
   {
     v5 = [MEMORY[0x1E695DF00] now];
@@ -2050,23 +2059,23 @@ LABEL_38:
 
     if (v10)
     {
-      v236 = 0;
-      v11 = [MEMORY[0x1E6987E78] assetReaderWithAsset:v10 error:&v236];
-      v12 = v236;
-      v204 = v12;
+      v250 = 0;
+      v11 = [MEMORY[0x1E6987E78] assetReaderWithAsset:v10 error:&v250];
+      v12 = v250;
+      v218 = v12;
       if (v11)
       {
         v13 = [v10 vcp_firstEnabledTrackWithMediaType:*MEMORY[0x1E6987608]];
-        v203 = v13;
+        v217 = v13;
         if (!v13)
         {
           if (run)
           {
             v23 = MEMORY[0x1E696ABC0];
-            v259 = *MEMORY[0x1E696A578];
+            v273 = *MEMORY[0x1E696A578];
             v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Asset contains no video tracks"];
-            v260 = v24;
-            v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v260 forKeys:&v259 count:1];
+            v274 = v24;
+            v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v274 forKeys:&v273 count:1];
             v26 = [v23 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v25];
             v27 = *run;
             *run = v26;
@@ -2076,36 +2085,36 @@ LABEL_38:
         }
 
         memset(&buf[1], 0, sizeof(CMTimeRange));
-        [v13 timeRange];
+        objc_msgSend_timeRange(v13);
         if (+[MADVideoRemoveBackgroundSettings autoplayTrimEnabled])
         {
           memset(&range, 0, sizeof(range));
           asset = self->_asset;
-          if (asset && ([(MADServiceVideoAsset *)asset trimTimeRange], (range.start.flags & 1) != 0) && (range.duration.flags & 1) != 0 && !range.duration.epoch && (range.duration.value & 0x8000000000000000) == 0 && (buf[0].start = range.duration, *&time2.start.value = *MEMORY[0x1E6960CC0], time2.start.epoch = *(MEMORY[0x1E6960CC0] + 16), CMTimeCompare(&buf[0].start, &time2.start)))
+          if (asset && (objc_msgSend_trimTimeRange(asset), (range.start.flags & 1) != 0) && (range.duration.flags & 1) != 0 && !range.duration.epoch && (range.duration.value & 0x8000000000000000) == 0 && (buf[0].start = range.duration, *&time2.start.value = *MEMORY[0x1E6960CC0], time2.start.epoch = *(MEMORY[0x1E6960CC0] + 16), CMTimeCompare(&buf[0].start, &time2.start)))
           {
             if (MediaAnalysisLogLevel() >= 6)
             {
-              v56 = MEMORY[0x1E69E9C10];
-              v57 = MEMORY[0x1E69E9C10];
-              if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+              v59 = MEMORY[0x1E69E9C10];
+              v60 = MEMORY[0x1E69E9C10];
+              if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
               {
                 *&buf[0].start.value = *&range.start.value;
                 buf[0].start.epoch = range.start.epoch;
                 Seconds = CMTimeGetSeconds(&buf[0].start);
                 buf[0] = range;
                 CMTimeRangeGetEnd(&time2.start, buf);
-                v59 = CMTimeGetSeconds(&time2.start);
-                LODWORD(v258.start.value) = 134218240;
-                *(&v258.start.value + 4) = Seconds;
-                LOWORD(v258.start.flags) = 2048;
-                *(&v258.start.flags + 2) = v59;
-                _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[RMBG] Applying autoplay trim (%0.3fs-%0.3fs)", &v258, 0x16u);
+                v62 = CMTimeGetSeconds(&time2.start);
+                LODWORD(v272.start.value) = 134218240;
+                *(&v272.start.value + 4) = Seconds;
+                LOWORD(v272.start.flags) = 2048;
+                *(&v272.start.flags + 2) = v62;
+                _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[RMBG] Applying autoplay trim (%0.3fs-%0.3fs)", &v272, 0x16u);
               }
             }
 
             time2 = buf[1];
-            v258 = range;
-            CMTimeRangeGetIntersection(buf, &time2, &v258);
+            v272 = range;
+            CMTimeRangeGetIntersection(buf, &time2, &v272);
             buf[1] = buf[0];
           }
 
@@ -2121,26 +2130,26 @@ LABEL_38:
           }
         }
 
-        v232 = 0uLL;
-        v233 = 0;
+        v246 = 0uLL;
+        v247 = 0;
         request = self->_request;
         if (request)
         {
-          [(MADVideoRemoveBackgroundRequest *)request maskTime];
+          objc_msgSend_maskTime(request);
           if (range.start.flags)
           {
             v18 = self->_request;
             if (v18)
             {
-              [(MADVideoRemoveBackgroundRequest *)v18 maskTime];
+              objc_msgSend_maskTime(v18);
 LABEL_28:
               range = buf[1];
-              *&buf[0].start.value = v232;
-              buf[0].start.epoch = v233;
+              *&buf[0].start.value = v246;
+              buf[0].start.epoch = v247;
               if (CMTimeRangeContainsTime(&range, &buf[0].start))
               {
-                v202 = [(MADVideoRemoveBackgroundCropTask *)self decodeSettingsForTrack:v203];
-                v29 = [MEMORY[0x1E6987EA8] assetReaderTrackOutputWithTrack:v203 outputSettings:?];
+                v216 = [(MADVideoRemoveBackgroundCropTask *)self decodeSettingsForTrack:v217];
+                v29 = [MEMORY[0x1E6987EA8] assetReaderTrackOutputWithTrack:v217 outputSettings:?];
                 if (v29)
                 {
                   [v11 addOutput:v29];
@@ -2148,10 +2157,10 @@ LABEL_28:
                   [v11 setTimeRange:&range];
                   if ([v11 startReading])
                   {
-                    v201 = v29;
-                    vcp_imageOrientation = [v203 vcp_imageOrientation];
+                    v215 = v29;
+                    vcp_imageOrientation = [v217 vcp_imageOrientation];
                     range = buf[1];
-                    v197 = [v203 vcp_sampleCountForTimeRange:&range];
+                    v211 = [v217 vcp_sampleCountForTimeRange:&range];
                     if (MediaAnalysisLogLevel() >= 6)
                     {
                       v30 = MEMORY[0x1E69E9C10];
@@ -2159,7 +2168,7 @@ LABEL_28:
                       if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
                       {
                         LODWORD(range.start.value) = 67109120;
-                        HIDWORD(range.start.value) = v197;
+                        HIDWORD(range.start.value) = v211;
                         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[RMBG] Sample Count: %d", &range, 8u);
                       }
                     }
@@ -2170,15 +2179,15 @@ LABEL_28:
                       progressHandler[2](0.0);
                     }
 
-                    v197 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:3 * v197];
-                    v229[0] = MEMORY[0x1E69E9820];
-                    v229[1] = 3221225472;
-                    v229[2] = __40__MADVideoRemoveBackgroundCropTask_run___block_invoke;
-                    v229[3] = &unk_1E834D238;
-                    v200 = v197;
-                    v230 = v200;
+                    v211 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:3 * v211];
+                    v243[0] = MEMORY[0x1E69E9820];
+                    v243[1] = 3221225472;
+                    v243[2] = __40__MADVideoRemoveBackgroundCropTask_run___block_invoke;
+                    v243[3] = &unk_1E834D238;
+                    v214 = v211;
+                    v244 = v214;
                     selfCopy = self;
-                    v196 = [VCPTimer timerWithInterval:250 unit:2 oneShot:0 andBlock:v229];
+                    v210 = [VCPTimer timerWithInterval:250 unit:2 oneShot:0 andBlock:v243];
                     if (MediaAnalysisLogLevel() >= 7)
                     {
                       v34 = MEMORY[0x1E69E9C10];
@@ -2193,84 +2202,86 @@ LABEL_28:
                     v36 = +[MADImageRemoveBackgroundResource sharedResource];
                     [v36 setCachedMaskState:0];
 
-                    v37 = VCPSignPostLog();
-                    v38 = os_signpost_id_generate(v37);
+                    v38 = VCPSignPostLog(v37);
+                    v39 = os_signpost_id_generate(v38);
 
-                    v39 = VCPSignPostLog();
-                    v40 = v39;
-                    if (v38 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
+                    v41 = VCPSignPostLog(v40);
+                    v42 = v41;
+                    if (v39 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
                     {
                       LOWORD(range.start.value) = 0;
-                      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v40, OS_SIGNPOST_INTERVAL_BEGIN, v38, "MADVideoRemoveBackground_DecodePastFrames", "", &range, 2u);
+                      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v42, OS_SIGNPOST_INTERVAL_BEGIN, v39, "MADVideoRemoveBackground_DecodePastFrames", "", &range, 2u);
                     }
 
-                    *&range.start.value = v232;
-                    range.start.epoch = v233;
+                    *&range.start.value = v246;
+                    range.start.epoch = v247;
                     *&buf[0].start.value = *&buf[1].start.value;
                     buf[0].start.epoch = buf[1].start.epoch;
-                    v199 = [(MADVideoRemoveBackgroundCropTask *)self decodeSamplesUntilTime:&range trackOutput:v201 baseTime:buf progress:v200 error:run];
-                    if (!v199)
+                    v213 = [(MADVideoRemoveBackgroundCropTask *)self decodeSamplesUntilTime:&range trackOutput:v215 baseTime:buf progress:v214 error:run];
+                    if (!v213)
                     {
                       goto LABEL_47;
                     }
 
-                    if ([v11 status] == 3)
+                    status = [v11 status];
+                    if (status == 3)
                     {
                       error = [v11 error];
-                      v42 = *run;
+                      v45 = *run;
                       *run = error;
 
 LABEL_47:
                       v19 = 0;
 LABEL_176:
 
-                      v50 = v230;
+                      v53 = v244;
                       goto LABEL_177;
                     }
 
-                    v60 = VCPSignPostLog();
-                    v61 = v60;
-                    if (v38 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v60))
+                    v63 = VCPSignPostLog(status);
+                    v64 = v63;
+                    if (v39 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v63))
                     {
                       LOWORD(range.start.value) = 0;
-                      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v61, OS_SIGNPOST_INTERVAL_END, v38, "MADVideoRemoveBackground_DecodePastFrames", "", &range, 2u);
+                      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v64, OS_SIGNPOST_INTERVAL_END, v39, "MADVideoRemoveBackground_DecodePastFrames", "", &range, 2u);
                     }
 
-                    lastObject = [v199 lastObject];
-                    v228 = CFRetain(lastObject);
+                    lastObject = [v213 lastObject];
+                    v242 = CFRetain(lastObject);
 
-                    v63 = VCPSignPostLog();
-                    v64 = os_signpost_id_generate(v63);
+                    v67 = VCPSignPostLog(v66);
+                    v68 = os_signpost_id_generate(v67);
 
-                    v65 = VCPSignPostLog();
-                    v66 = v65;
-                    if (v64 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v65))
+                    v70 = VCPSignPostLog(v69);
+                    v71 = v70;
+                    if (v68 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v70))
                     {
                       LOWORD(range.start.value) = 0;
-                      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v66, OS_SIGNPOST_INTERVAL_BEGIN, v64, "MADVideoRemoveBackground_GenerateMask", "", &range, 2u);
+                      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v71, OS_SIGNPOST_INTERVAL_BEGIN, v68, "MADVideoRemoveBackground_GenerateMask", "", &range, 2u);
                     }
 
-                    cf = [(MADVideoRemoveBackgroundCropTask *)self generateMaskForSampleBuffer:v228 orientation:vcp_imageOrientation error:run];
-                    if (!cf)
+                    v72 = [(MADVideoRemoveBackgroundCropTask *)self generateMaskForSampleBuffer:v242 orientation:vcp_imageOrientation error:run];
+                    cf = v72;
+                    if (!v72)
                     {
                       v19 = 0;
 LABEL_175:
                       CF<__CVBuffer *>::~CF(&cf);
-                      CF<__CVBuffer *>::~CF(&v228);
+                      CF<__CVBuffer *>::~CF(&v242);
                       goto LABEL_176;
                     }
 
-                    v67 = VCPSignPostLog();
-                    v68 = v67;
-                    if (v64 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v67))
+                    v73 = VCPSignPostLog(v72);
+                    v74 = v73;
+                    if (v68 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v73))
                     {
                       LOWORD(range.start.value) = 0;
-                      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v68, OS_SIGNPOST_INTERVAL_END, v64, "MADVideoRemoveBackground_GenerateMask", "", &range, 2u);
+                      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v74, OS_SIGNPOST_INTERVAL_END, v68, "MADVideoRemoveBackground_GenerateMask", "", &range, 2u);
                     }
 
-                    v187 = +[MADVideoRemoveBackgroundResource sharedResource];
-                    v69 = +[VCPMADResourceManager sharedManager];
-                    v190 = [v69 activateResource:v187];
+                    v201 = +[MADVideoRemoveBackgroundResource sharedResource];
+                    v75 = +[VCPMADResourceManager sharedManager];
+                    v204 = [v75 activateResource:v201];
 
                     range.start.value = 0;
                     *&range.start.timescale = &range;
@@ -2278,10 +2289,10 @@ LABEL_175:
                     range.duration.value = __Block_byref_object_copy__16;
                     *&range.duration.timescale = __Block_byref_object_dispose__16;
                     range.duration.epoch = &unk_1CA01F5A2;
-                    v70 = MEMORY[0x1E695F050];
-                    v71 = *(MEMORY[0x1E695F050] + 16);
-                    v250 = *MEMORY[0x1E695F050];
-                    v251 = v71;
+                    v76 = MEMORY[0x1E695F050];
+                    v77 = *(MEMORY[0x1E695F050] + 16);
+                    v264 = *MEMORY[0x1E695F050];
+                    v265 = v77;
                     buf[0].start.value = 0;
                     *&buf[0].start.timescale = buf;
                     buf[0].start.epoch = 0x3032000000;
@@ -2295,8 +2306,8 @@ LABEL_175:
                     *&time2.duration.timescale = __Block_byref_object_dispose__521;
                     time2.duration.epoch = 0;
                     group = dispatch_group_create();
-                    v72 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-                    v191 = dispatch_queue_create("trackMaskPastFrames", v72);
+                    v78 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+                    v205 = dispatch_queue_create("trackMaskPastFrames", v78);
 
                     block[0] = MEMORY[0x1E69E9820];
                     block[1] = 3321888768;
@@ -2304,51 +2315,55 @@ LABEL_175:
                     block[3] = &unk_1F4968E50;
                     p_time2 = &time2;
                     block[4] = self;
-                    v226 = vcp_imageOrientation;
-                    v220 = v199;
-                    v225 = cf;
-                    CFRetain(cf);
-                    p_range = &range;
-                    v188 = v200;
-                    v221 = v188;
-                    v224 = buf;
-                    dispatch_group_async(group, v191, block);
-                    v73 = *(v70 + 16);
-                    v218.origin = *v70;
-                    v218.size = v73;
-                    memset(&v217, 0, sizeof(v217));
-                    v258 = buf[1];
-                    CMTimeRangeGetEnd(&v217, &v258);
-                    v74 = VCPSignPostLog();
-                    v75 = os_signpost_id_generate(v74);
-
-                    v76 = VCPSignPostLog();
-                    v77 = v76;
-                    if (v75 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v76))
+                    v240 = vcp_imageOrientation;
+                    v234 = v213;
+                    v239 = cf;
+                    if (cf)
                     {
-                      LOWORD(v258.start.value) = 0;
-                      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v77, OS_SIGNPOST_INTERVAL_BEGIN, v75, "MADVideoRemoveBackground_ProcessFutureFrames", "", &v258, 2u);
+                      CFRetain(cf);
                     }
 
-                    *&v258.start.value = *&buf[1].start.value;
-                    v258.start.epoch = buf[1].start.epoch;
-                    v195 = [(MADVideoRemoveBackgroundCropTask *)self processFutureSamplesFromTrackOutput:v201 baseTime:&v258 orientation:vcp_imageOrientation maskSampleBuffer:v228 maskPixelBuffer:cf cropUnion:&v218 endTime:&v217 progress:v188 error:run];
-                    v78 = VCPSignPostLog();
-                    v79 = v78;
-                    if (v75 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v78))
+                    p_range = &range;
+                    v202 = v214;
+                    v235 = v202;
+                    v238 = buf;
+                    dispatch_group_async(group, v205, block);
+                    v79 = *(v76 + 16);
+                    v232.origin = *v76;
+                    v232.size = v79;
+                    memset(&v231, 0, sizeof(v231));
+                    v272 = buf[1];
+                    End = CMTimeRangeGetEnd(&v231, &v272);
+                    v81 = VCPSignPostLog(End);
+                    v82 = os_signpost_id_generate(v81);
+
+                    v84 = VCPSignPostLog(v83);
+                    v85 = v84;
+                    if (v82 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v84))
                     {
-                      LOWORD(v258.start.value) = 0;
-                      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v79, OS_SIGNPOST_INTERVAL_END, v75, "MADVideoRemoveBackground_ProcessFutureFrames", "", &v258, 2u);
+                      LOWORD(v272.start.value) = 0;
+                      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v85, OS_SIGNPOST_INTERVAL_BEGIN, v82, "MADVideoRemoveBackground_ProcessFutureFrames", "", &v272, 2u);
+                    }
+
+                    *&v272.start.value = *&buf[1].start.value;
+                    v272.start.epoch = buf[1].start.epoch;
+                    v209 = [(MADVideoRemoveBackgroundCropTask *)self processFutureSamplesFromTrackOutput:v215 baseTime:&v272 orientation:vcp_imageOrientation maskSampleBuffer:v242 maskPixelBuffer:cf cropUnion:&v232 endTime:&v231 progress:v202 error:run];
+                    v86 = VCPSignPostLog(v209);
+                    v87 = v86;
+                    if (v82 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v86))
+                    {
+                      LOWORD(v272.start.value) = 0;
+                      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v87, OS_SIGNPOST_INTERVAL_END, v82, "MADVideoRemoveBackground_ProcessFutureFrames", "", &v272, 2u);
                     }
 
                     dispatch_group_wait(group, 0xFFFFFFFFFFFFFFFFLL);
-                    v80 = v195;
-                    if (!v195)
+                    v88 = v209;
+                    if (!v209)
                     {
                       v19 = 0;
 LABEL_174:
 
-                      CF<__CVBuffer *>::~CF(&v225);
+                      CF<__CVBuffer *>::~CF(&v239);
                       _Block_object_dispose(&time2, 8);
 
                       _Block_object_dispose(buf, 8);
@@ -2359,87 +2374,87 @@ LABEL_174:
 
                     if (*(*&time2.start.timescale + 40))
                     {
-                      [v190 reset];
-                      v186 = [v195 count];
-                      v185 = [*(*&time2.start.timescale + 40) count];
+                      [v204 reset];
+                      v200 = [v209 count];
+                      v199 = [*(*&time2.start.timescale + 40) count];
                       if (!+[MADVideoRemoveBackgroundSettings visionTrimEnabled])
                       {
                         goto LABEL_119;
                       }
 
-                      memset(&v216, 0, sizeof(v216));
+                      memset(&v230, 0, sizeof(v230));
                       lastObject2 = [*(*&time2.start.timescale + 40) lastObject];
-                      v82 = lastObject2;
+                      v90 = lastObject2;
                       if (lastObject2)
                       {
-                        [lastObject2 presentationTimestamp];
+                        objc_msgSend_presentationTimestamp(lastObject2);
                       }
 
                       else
                       {
-                        memset(&v216, 0, sizeof(v216));
+                        memset(&v230, 0, sizeof(v230));
                       }
 
                       *lhs = *&buf[1].start.value;
                       *&lhs[16] = buf[1].start.epoch;
-                      rhs = v216;
-                      CMTimeAdd(&v258.start, lhs, &rhs);
-                      *&buf[1].start.value = *&v258.start.value;
-                      v85 = *&v258.start.value;
-                      buf[1].start.epoch = v258.start.epoch;
-                      epoch = v258.start.epoch;
-                      v258.start = v217;
-                      *lhs = v85;
+                      rhs = v230;
+                      CMTimeAdd(&v272.start, lhs, &rhs);
+                      *&buf[1].start.value = *&v272.start.value;
+                      v93 = *&v272.start.value;
+                      buf[1].start.epoch = v272.start.epoch;
+                      epoch = v272.start.epoch;
+                      v272.start = v231;
+                      *lhs = v93;
                       *&lhs[16] = epoch;
-                      CMTimeSubtract(&rhs, &v258.start, lhs);
+                      CMTimeSubtract(&rhs, &v272.start, lhs);
                       buf[1].duration = rhs;
                       if (MediaAnalysisLogLevel() >= 5)
                       {
-                        v87 = MEMORY[0x1E69E9C10];
-                        v88 = MEMORY[0x1E69E9C10];
-                        if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
+                        v95 = MEMORY[0x1E69E9C10];
+                        v96 = MEMORY[0x1E69E9C10];
+                        if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
                         {
-                          *&v258.start.value = *&buf[1].start.value;
-                          v258.start.epoch = buf[1].start.epoch;
-                          v89 = CMTimeGetSeconds(&v258.start);
-                          v258.start = v217;
-                          v90 = CMTimeGetSeconds(&v258.start);
+                          *&v272.start.value = *&buf[1].start.value;
+                          v272.start.epoch = buf[1].start.epoch;
+                          v97 = CMTimeGetSeconds(&v272.start);
+                          v272.start = v231;
+                          v98 = CMTimeGetSeconds(&v272.start);
                           *lhs = 134218240;
-                          *&lhs[4] = v89;
+                          *&lhs[4] = v97;
                           *&lhs[12] = 2048;
-                          *&lhs[14] = v90;
+                          *&lhs[14] = v98;
                           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[RMBG] Tracking based trim (%0.3fs-%0.3fs)", lhs, 0x16u);
                         }
                       }
 
                       +[MADVideoRemoveBackgroundSettings visionTrimMininumDuration];
-                      v92 = v91;
-                      v258.start = buf[1].duration;
-                      v93 = CMTimeGetSeconds(&v258.start);
-                      if (v93 >= v92)
+                      v100 = v99;
+                      v272.start = buf[1].duration;
+                      v101 = CMTimeGetSeconds(&v272.start);
+                      if (v101 >= v100)
                       {
-                        v214 = 0u;
-                        v215 = 0u;
-                        v212 = 0u;
-                        v213 = 0u;
-                        v94 = *(*&time2.start.timescale + 40);
-                        v95 = [v94 countByEnumeratingWithState:&v212 objects:v246 count:16];
-                        if (v95)
+                        v228 = 0u;
+                        v229 = 0u;
+                        v226 = 0u;
+                        v227 = 0u;
+                        v102 = *(*&time2.start.timescale + 40);
+                        v103 = [v102 countByEnumeratingWithState:&v226 objects:v260 count:16];
+                        if (v103)
                         {
-                          v96 = *v213;
+                          v104 = *v227;
                           do
                           {
-                            for (i = 0; i != v95; ++i)
+                            for (i = 0; i != v103; ++i)
                             {
-                              if (*v213 != v96)
+                              if (*v227 != v104)
                               {
-                                objc_enumerationMutation(v94);
+                                objc_enumerationMutation(v102);
                               }
 
-                              v98 = *(*(&v212 + 1) + 8 * i);
-                              if (v98)
+                              v106 = *(*(&v226 + 1) + 8 * i);
+                              if (v106)
                               {
-                                [*(*(&v212 + 1) + 8 * i) presentationTimestamp];
+                                objc_msgSend_presentationTimestamp(*(*(&v226 + 1) + 8 * i));
                               }
 
                               else
@@ -2447,41 +2462,41 @@ LABEL_174:
                                 memset(&rhs, 0, sizeof(rhs));
                               }
 
-                              v258.start = rhs;
-                              *lhs = v216;
-                              CMTimeSubtract(&v211, &v258.start, lhs);
-                              v258.start = v211;
-                              [v98 setPresentationTimestamp:&v258];
+                              v272.start = rhs;
+                              *lhs = v230;
+                              CMTimeSubtract(&v225, &v272.start, lhs);
+                              v272.start = v225;
+                              [v106 setPresentationTimestamp:&v272];
                             }
 
-                            v95 = [v94 countByEnumeratingWithState:&v212 objects:v246 count:16];
+                            v103 = [v102 countByEnumeratingWithState:&v226 objects:v260 count:16];
                           }
 
-                          while (v95);
+                          while (v103);
                         }
 
-                        v209 = 0u;
-                        v210 = 0u;
-                        v207 = 0u;
-                        v208 = 0u;
-                        v99 = v195;
-                        v100 = [v99 countByEnumeratingWithState:&v207 objects:v245 count:16];
-                        if (v100)
+                        v223 = 0u;
+                        v224 = 0u;
+                        v221 = 0u;
+                        v222 = 0u;
+                        v107 = v209;
+                        v108 = [v107 countByEnumeratingWithState:&v221 objects:v259 count:16];
+                        if (v108)
                         {
-                          v101 = *v208;
+                          v109 = *v222;
                           do
                           {
-                            for (j = 0; j != v100; ++j)
+                            for (j = 0; j != v108; ++j)
                             {
-                              if (*v208 != v101)
+                              if (*v222 != v109)
                               {
-                                objc_enumerationMutation(v99);
+                                objc_enumerationMutation(v107);
                               }
 
-                              v103 = *(*(&v207 + 1) + 8 * j);
-                              if (v103)
+                              v111 = *(*(&v221 + 1) + 8 * j);
+                              if (v111)
                               {
-                                [*(*(&v207 + 1) + 8 * j) presentationTimestamp];
+                                objc_msgSend_presentationTimestamp(*(*(&v221 + 1) + 8 * j));
                               }
 
                               else
@@ -2489,52 +2504,52 @@ LABEL_174:
                                 memset(&rhs, 0, sizeof(rhs));
                               }
 
-                              v258.start = rhs;
-                              *lhs = v216;
-                              CMTimeSubtract(&v206, &v258.start, lhs);
-                              v258.start = v206;
-                              [v103 setPresentationTimestamp:&v258];
+                              v272.start = rhs;
+                              *lhs = v230;
+                              CMTimeSubtract(&v220, &v272.start, lhs);
+                              v272.start = v220;
+                              [v111 setPresentationTimestamp:&v272];
                             }
 
-                            v100 = [v99 countByEnumeratingWithState:&v207 objects:v245 count:16];
+                            v108 = [v107 countByEnumeratingWithState:&v221 objects:v259 count:16];
                           }
 
-                          while (v100);
+                          while (v108);
                         }
 
-                        v80 = v195;
+                        v88 = v209;
 LABEL_119:
                         memset(lhs, 0, sizeof(lhs));
-                        v263 = CGRectUnion(*(*&range.start.timescale + 48), v218);
-                        y = v263.origin.y;
-                        *&v263.origin.y = vdupq_n_s64(0xFFFFFFFFFFFFFFFELL);
-                        height = v263.size.height;
-                        *lhs = vcvtq_f64_u64(vandq_s8(vcvtq_u64_f64(v263.origin), *&v263.origin.y));
-                        *&lhs[16] = vcvtq_f64_u64(vandq_s8(vcvtq_u64_f64(v263.size), *&v263.origin.y));
+                        v277 = CGRectUnion(*(*&range.start.timescale + 48), v232);
+                        y = v277.origin.y;
+                        *&v277.origin.y = vdupq_n_s64(0xFFFFFFFFFFFFFFFELL);
+                        height = v277.size.height;
+                        *lhs = vcvtq_f64_u64(vandq_s8(vcvtq_u64_f64(v277.origin), *&v277.origin.y));
+                        *&lhs[16] = vcvtq_f64_u64(vandq_s8(vcvtq_u64_f64(v277.size), *&v277.origin.y));
                         if (MediaAnalysisLogLevel() >= 6)
                         {
-                          v106 = MEMORY[0x1E69E9C10];
-                          v107 = MEMORY[0x1E69E9C10];
-                          if (os_log_type_enabled(v106, OS_LOG_TYPE_INFO))
+                          v114 = MEMORY[0x1E69E9C10];
+                          v115 = MEMORY[0x1E69E9C10];
+                          if (os_log_type_enabled(v114, OS_LOG_TYPE_INFO))
                           {
-                            LODWORD(v258.start.value) = 67109888;
-                            HIDWORD(v258.start.value) = *lhs;
-                            LOWORD(v258.start.timescale) = 1024;
-                            *(&v258.start.timescale + 2) = *&lhs[8];
-                            HIWORD(v258.start.flags) = 1024;
-                            LODWORD(v258.start.epoch) = (*lhs + *&lhs[16]);
-                            WORD2(v258.start.epoch) = 1024;
-                            *(&v258.start.epoch + 6) = (*&lhs[8] + *&lhs[24]);
-                            _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[RMBG] Crop (%d, %d) to (%d, %d)", &v258, 0x1Au);
+                            LODWORD(v272.start.value) = 67109888;
+                            HIDWORD(v272.start.value) = *lhs;
+                            LOWORD(v272.start.timescale) = 1024;
+                            *(&v272.start.timescale + 2) = *&lhs[8];
+                            HIWORD(v272.start.flags) = 1024;
+                            LODWORD(v272.start.epoch) = (*lhs + *&lhs[16]);
+                            WORD2(v272.start.epoch) = 1024;
+                            *(&v272.start.epoch + 6) = (*&lhs[8] + *&lhs[24]);
+                            _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[RMBG] Crop (%d, %d) to (%d, %d)", &v272, 0x1Au);
                           }
 
-                          v80 = v195;
+                          v88 = v209;
                         }
 
                         if (self->_previewRequest)
                         {
-                          v258 = buf[1];
-                          [(MADVideoRemoveBackgroundCropTask *)self publishPreviewResultsTimeRange:&v258 pastSamples:*(*&time2.start.timescale + 40) futureSamples:v80 cropRect:*lhs, *&lhs[8], *&lhs[16], *&lhs[24]];
+                          v272 = buf[1];
+                          [(MADVideoRemoveBackgroundCropTask *)self publishPreviewResultsTimeRange:&v272 pastSamples:*(*&time2.start.timescale + 40) futureSamples:v88 cropRect:*lhs, *&lhs[8], *&lhs[16], *&lhs[24]];
                           if (!self->_request)
                           {
                             (*(self->_completionHandler + 2))();
@@ -2543,48 +2558,50 @@ LABEL_119:
                           }
                         }
 
-                        v184 = [(MADVideoRemoveBackgroundCropTask *)self isAnimatedStickerPreferredWithPastSamples:*(*&time2.start.timescale + 40) futureSamples:v80];
+                        v198 = [(MADVideoRemoveBackgroundCropTask *)self isAnimatedStickerPreferredWithPastSamples:*(*&time2.start.timescale + 40) futureSamples:v88];
                         outputType = [(MADVideoRemoveBackgroundRequest *)self->_request outputType];
-                        v109 = [MADAlphaSequenceWriter writerWithUniformTypeIdentifier:outputType frameCount:v197 crop:lhs];
+                        v117 = [MADAlphaSequenceWriter writerWithUniformTypeIdentifier:outputType frameCount:v211 crop:lhs];
 
-                        if (v109)
+                        if (v117)
                         {
-                          v110 = VCPSignPostLog();
-                          v111 = os_signpost_id_generate(v110);
+                          v119 = VCPSignPostLog(v118);
+                          v120 = os_signpost_id_generate(v119);
 
-                          v112 = VCPSignPostLog();
-                          v113 = v112;
-                          if (v111 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v112))
+                          v122 = VCPSignPostLog(v121);
+                          v123 = v122;
+                          if (v120 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v122))
                           {
-                            LOWORD(v258.start.value) = 0;
-                            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v113, OS_SIGNPOST_INTERVAL_BEGIN, v111, "MADVideoRemoveBackground_EncodePastFrames", "", &v258, 2u);
+                            LOWORD(v272.start.value) = 0;
+                            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v123, OS_SIGNPOST_INTERVAL_BEGIN, v120, "MADVideoRemoveBackground_EncodePastFrames", "", &v272, 2u);
                           }
 
-                          if (![(MADVideoRemoveBackgroundCropTask *)self exportPastSamples:*(*&time2.start.timescale + 40) sequenceWriter:v109 progress:v188 error:run])
+                          v124 = [(MADVideoRemoveBackgroundCropTask *)self exportPastSamples:*(*&time2.start.timescale + 40) sequenceWriter:v117 progress:v202 error:run];
+                          if (!v124)
                           {
                             goto LABEL_159;
                           }
 
-                          v114 = VCPSignPostLog();
-                          v115 = v114;
-                          if (v111 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v114))
+                          v125 = VCPSignPostLog(v124);
+                          v126 = v125;
+                          if (v120 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v125))
                           {
-                            LOWORD(v258.start.value) = 0;
-                            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v115, OS_SIGNPOST_INTERVAL_END, v111, "MADVideoRemoveBackground_EncodePastFrames", "", &v258, 2u);
+                            LOWORD(v272.start.value) = 0;
+                            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v126, OS_SIGNPOST_INTERVAL_END, v120, "MADVideoRemoveBackground_EncodePastFrames", "", &v272, 2u);
                           }
 
-                          v116 = VCPSignPostLog();
-                          v117 = os_signpost_id_generate(v116);
+                          v128 = VCPSignPostLog(v127);
+                          v129 = os_signpost_id_generate(v128);
 
-                          v118 = VCPSignPostLog();
-                          v119 = v118;
-                          if (v117 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v118))
+                          v131 = VCPSignPostLog(v130);
+                          v132 = v131;
+                          if (v129 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v131))
                           {
-                            LOWORD(v258.start.value) = 0;
-                            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v119, OS_SIGNPOST_INTERVAL_BEGIN, v117, "MADVideoRemoveBackground_EncodeFutureFrames", "", &v258, 2u);
+                            LOWORD(v272.start.value) = 0;
+                            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v132, OS_SIGNPOST_INTERVAL_BEGIN, v129, "MADVideoRemoveBackground_EncodeFutureFrames", "", &v272, 2u);
                           }
 
-                          if (![(MADVideoRemoveBackgroundCropTask *)self exportFutureSamples:v195 sequenceWriter:v109 progress:v188 error:run])
+                          v133 = [(MADVideoRemoveBackgroundCropTask *)self exportFutureSamples:v209 sequenceWriter:v117 progress:v202 error:run];
+                          if (!v133)
                           {
 LABEL_159:
                             v19 = 0;
@@ -2593,173 +2610,173 @@ LABEL_172:
                             goto LABEL_173;
                           }
 
-                          v120 = VCPSignPostLog();
-                          v121 = v120;
-                          if (v117 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v120))
+                          v134 = VCPSignPostLog(v133);
+                          v135 = v134;
+                          if (v129 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v134))
                           {
-                            LOWORD(v258.start.value) = 0;
-                            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v121, OS_SIGNPOST_INTERVAL_END, v117, "MADVideoRemoveBackground_EncodeFutureFrames", "", &v258, 2u);
+                            LOWORD(v272.start.value) = 0;
+                            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v135, OS_SIGNPOST_INTERVAL_END, v129, "MADVideoRemoveBackground_EncodeFutureFrames", "", &v272, 2u);
                           }
 
                           if (MediaAnalysisLogLevel() >= 6)
                           {
-                            v122 = MEMORY[0x1E69E9C10];
-                            v123 = MEMORY[0x1E69E9C10];
-                            if (os_log_type_enabled(v122, OS_LOG_TYPE_INFO))
+                            v136 = MEMORY[0x1E69E9C10];
+                            v137 = MEMORY[0x1E69E9C10];
+                            if (os_log_type_enabled(v136, OS_LOG_TYPE_INFO))
                             {
-                              LOWORD(v258.start.value) = 0;
-                              _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[RMBG] Finalizing output", &v258, 2u);
+                              LOWORD(v272.start.value) = 0;
+                              _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[RMBG] Finalizing output", &v272, 2u);
                             }
                           }
 
-                          v258 = buf[1];
-                          CMTimeRangeGetEnd(&rhs, &v258);
-                          outputType4 = [v109 finishWithEndTime:&rhs];
+                          v272 = buf[1];
+                          CMTimeRangeGetEnd(&rhs, &v272);
+                          outputType4 = [v117 finishWithEndTime:&rhs];
                           if (outputType4)
                           {
                             rhs.value = *&lhs[16];
-                            v216.value = *&lhs[24];
+                            v230.value = *&lhs[24];
                             maxFileSize = [(MADVideoRemoveBackgroundRequest *)self->_request maxFileSize];
-                            if (maxFileSize && (v125 = [outputType4 length], -[MADVideoRemoveBackgroundRequest maxFileSize](self->_request, "maxFileSize"), v126 = objc_claimAutoreleasedReturnValue(), v127 = v125 > objc_msgSend(v126, "unsignedIntegerValue"), v126, maxFileSize, v127) && (-[MADVideoRemoveBackgroundCropTask compressSequenceData:sequenceWriter:outputWidth:outputHeight:](self, "compressSequenceData:sequenceWriter:outputWidth:outputHeight:", outputType4, v109, &rhs, &v216), v128 = objc_claimAutoreleasedReturnValue(), outputType4, (outputType4 = v128) == 0))
+                            if (maxFileSize && (v139 = [outputType4 length], -[MADVideoRemoveBackgroundRequest maxFileSize](self->_request, "maxFileSize"), v140 = objc_claimAutoreleasedReturnValue(), v141 = v139 > objc_msgSend(v140, "unsignedIntegerValue"), v140, maxFileSize, v141) && (-[MADVideoRemoveBackgroundCropTask compressSequenceData:sequenceWriter:outputWidth:outputHeight:](self, "compressSequenceData:sequenceWriter:outputWidth:outputHeight:", outputType4, v117, &rhs, &v230), v142 = objc_claimAutoreleasedReturnValue(), outputType4, (outputType4 = v142) == 0))
                             {
                               if (MediaAnalysisLogLevel() >= 3)
                               {
-                                v179 = MEMORY[0x1E69E9C10];
-                                v180 = MEMORY[0x1E69E9C10];
-                                if (os_log_type_enabled(v179, OS_LOG_TYPE_ERROR))
+                                v193 = MEMORY[0x1E69E9C10];
+                                v194 = MEMORY[0x1E69E9C10];
+                                if (os_log_type_enabled(v193, OS_LOG_TYPE_ERROR))
                                 {
-                                  LOWORD(v258.start.value) = 0;
-                                  _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[RMBG] Failed to meet target filesize requirement", &v258, 2u);
+                                  LOWORD(v272.start.value) = 0;
+                                  _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[RMBG] Failed to meet target filesize requirement", &v272, 2u);
                                 }
                               }
 
-                              v181 = MEMORY[0x1E696ABC0];
-                              v238 = *MEMORY[0x1E696A578];
-                              v138 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to meet target filesize requirement"];
-                              v239 = v138;
-                              v189 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v239 forKeys:&v238 count:1];
-                              v182 = [v181 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v189];
+                              v195 = MEMORY[0x1E696ABC0];
+                              v252 = *MEMORY[0x1E696A578];
+                              v152 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to meet target filesize requirement"];
+                              v253 = v152;
+                              v203 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v253 forKeys:&v252 count:1];
+                              v196 = [v195 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v203];
                               outputType4 = 0;
-                              v193 = *run;
-                              *run = v182;
+                              v207 = *run;
+                              *run = v196;
                             }
 
                             else
                             {
                               if (MediaAnalysisLogLevel() >= 5)
                               {
-                                v129 = MEMORY[0x1E69E9C10];
-                                v130 = MEMORY[0x1E69E9C10];
-                                if (os_log_type_enabled(v129, OS_LOG_TYPE_DEFAULT))
+                                v143 = MEMORY[0x1E69E9C10];
+                                v144 = MEMORY[0x1E69E9C10];
+                                if (os_log_type_enabled(v143, OS_LOG_TYPE_DEFAULT))
                                 {
                                   value = rhs.value;
-                                  v132 = v216.value;
-                                  v133 = [outputType4 length];
-                                  LODWORD(v258.start.value) = 67109632;
-                                  HIDWORD(v258.start.value) = value;
-                                  LOWORD(v258.start.timescale) = 1024;
-                                  *(&v258.start.timescale + 2) = v132;
-                                  HIWORD(v258.start.flags) = 1024;
-                                  LODWORD(v258.start.epoch) = v133;
-                                  _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[RMBG] Output - Resolution: %dx%d  Size: %d", &v258, 0x14u);
+                                  v146 = v230.value;
+                                  v147 = [outputType4 length];
+                                  LODWORD(v272.start.value) = 67109632;
+                                  HIDWORD(v272.start.value) = value;
+                                  LOWORD(v272.start.timescale) = 1024;
+                                  *(&v272.start.timescale + 2) = v146;
+                                  HIWORD(v272.start.flags) = 1024;
+                                  LODWORD(v272.start.epoch) = v147;
+                                  _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[RMBG] Output - Resolution: %dx%d  Size: %d", &v272, 0x14u);
                                 }
                               }
 
-                              [v196 destroy];
-                              v134 = self->_progressHandler;
-                              if (v134)
+                              [v210 destroy];
+                              v148 = self->_progressHandler;
+                              if (v148)
                               {
-                                v134[2](1.0);
+                                v148[2](1.0);
                               }
 
                               stickerIdentifiers = [(MADVideoRemoveBackgroundRequest *)self->_request stickerIdentifiers];
-                              v136 = [stickerIdentifiers count] == 0;
+                              v150 = [stickerIdentifiers count] == 0;
 
-                              if (v136)
+                              if (v150)
                               {
                                 goto LABEL_197;
                               }
 
                               animatedStickerScore = [(MADServiceVideoAsset *)self->_asset animatedStickerScore];
-                              v138 = animatedStickerScore;
+                              v152 = animatedStickerScore;
                               if (animatedStickerScore)
                               {
                                 [animatedStickerScore doubleValue];
-                                v140 = v139;
+                                v154 = v153;
                                 +[MADVideoRemoveBackgroundSettings photosPreferredThreshold];
-                                v142 = v141;
-                                v143 = v184;
-                                if (v140 < v141)
+                                v156 = v155;
+                                v157 = v198;
+                                if (v154 < v155)
                                 {
-                                  v143 = 0;
+                                  v157 = 0;
                                 }
 
-                                v183 = v143;
-                                v144 = MEMORY[0x1E696AEC0];
-                                [v138 doubleValue];
-                                [v144 stringWithFormat:@"%0.3f", v145];
-                                v189 = v146 = v140 >= v142;
+                                v197 = v157;
+                                v158 = MEMORY[0x1E696AEC0];
+                                [v152 doubleValue];
+                                [v158 stringWithFormat:@"%0.3f", v159];
+                                v203 = v160 = v154 >= v156;
                               }
 
                               else
                               {
-                                v146 = 1;
-                                v189 = @"-";
-                                v183 = v184;
+                                v160 = 1;
+                                v203 = @"-";
+                                v197 = v198;
                               }
 
                               if (MediaAnalysisLogLevel() >= 5)
                               {
-                                v168 = MEMORY[0x1E69E9C10];
-                                v169 = MEMORY[0x1E69E9C10];
-                                if (os_log_type_enabled(v168, OS_LOG_TYPE_DEFAULT))
+                                v182 = MEMORY[0x1E69E9C10];
+                                v183 = MEMORY[0x1E69E9C10];
+                                if (os_log_type_enabled(v182, OS_LOG_TYPE_DEFAULT))
                                 {
-                                  LODWORD(v258.start.value) = 67109890;
-                                  HIDWORD(v258.start.value) = v183;
-                                  LOWORD(v258.start.timescale) = 1024;
-                                  *(&v258.start.timescale + 2) = v184;
-                                  HIWORD(v258.start.flags) = 1024;
-                                  LODWORD(v258.start.epoch) = v146;
-                                  WORD2(v258.start.epoch) = 2112;
-                                  *(&v258.start.epoch + 6) = v189;
-                                  _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[RMBG] Preferred: %d (Vision: %d, Photos: %d - Score: %@)", &v258, 0x1Eu);
+                                  LODWORD(v272.start.value) = 67109890;
+                                  HIDWORD(v272.start.value) = v197;
+                                  LOWORD(v272.start.timescale) = 1024;
+                                  *(&v272.start.timescale + 2) = v198;
+                                  HIWORD(v272.start.flags) = 1024;
+                                  LODWORD(v272.start.epoch) = v160;
+                                  WORD2(v272.start.epoch) = 2112;
+                                  *(&v272.start.epoch + 6) = v203;
+                                  _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[RMBG] Preferred: %d (Vision: %d, Photos: %d - Score: %@)", &v272, 0x1Eu);
                                 }
                               }
 
-                              v170 = objc_alloc_init(_MADObjCStickerStoreFacade);
+                              v184 = objc_alloc_init(_MADObjCStickerStoreFacade);
                               stickerIdentifiers2 = [(MADVideoRemoveBackgroundRequest *)self->_request stickerIdentifiers];
                               outputType2 = [(MADVideoRemoveBackgroundRequest *)self->_request outputType];
-                              v205 = 0;
-                              v173 = [(_MADObjCStickerStoreFacade *)v170 addAnimatedRepresentationWithIdentifiers:stickerIdentifiers2 data:outputType4 uti:outputType2 size:v183 isPreferred:&v205 error:rhs.value, v216.value];
-                              v193 = v205;
+                              v219 = 0;
+                              v187 = [(_MADObjCStickerStoreFacade *)v184 addAnimatedRepresentationWithIdentifiers:stickerIdentifiers2 data:outputType4 uti:outputType2 size:v197 isPreferred:&v219 error:rhs.value, v230.value];
+                              v207 = v219;
 
-                              if (v173)
+                              if (v187)
                               {
 
 LABEL_197:
-                                [(MADVideoRemoveBackgroundCropTask *)self publishPayloadWidth:rhs.value height:v216.value data:outputType4];
+                                [(MADVideoRemoveBackgroundCropTask *)self publishPayloadWidth:rhs.value height:v230.value data:outputType4];
                                 (*(self->_completionHandler + 2))();
-                                MADPLLogAnimatedStickerCreation(v185 + v186, v7);
+                                MADPLLogAnimatedStickerCreation(v199 + v200, v7);
                                 v19 = 1;
                                 goto LABEL_171;
                               }
 
                               if (MediaAnalysisLogLevel() >= 3)
                               {
-                                v174 = MEMORY[0x1E69E9C10];
-                                v175 = MEMORY[0x1E69E9C10];
-                                if (os_log_type_enabled(v174, OS_LOG_TYPE_ERROR))
+                                v188 = MEMORY[0x1E69E9C10];
+                                v189 = MEMORY[0x1E69E9C10];
+                                if (os_log_type_enabled(v188, OS_LOG_TYPE_ERROR))
                                 {
-                                  v176 = [v193 description];
-                                  LODWORD(v258.start.value) = 138412290;
-                                  *(&v258.start.value + 4) = v176;
-                                  _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[RMBG] Failed to update sticker (%@)", &v258, 0xCu);
+                                  v190 = [v207 description];
+                                  LODWORD(v272.start.value) = 138412290;
+                                  *(&v272.start.value + 4) = v190;
+                                  _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[RMBG] Failed to update sticker (%@)", &v272, 0xCu);
                                 }
                               }
 
-                              v177 = [v193 copy];
-                              v178 = *run;
-                              *run = v177;
+                              v191 = [v207 copy];
+                              v192 = *run;
+                              *run = v191;
                             }
                           }
 
@@ -2767,23 +2784,23 @@ LABEL_197:
                           {
                             if (MediaAnalysisLogLevel() >= 3)
                             {
-                              v162 = MEMORY[0x1E69E9C10];
-                              v163 = MEMORY[0x1E69E9C10];
-                              if (os_log_type_enabled(v162, OS_LOG_TYPE_ERROR))
+                              v176 = MEMORY[0x1E69E9C10];
+                              v177 = MEMORY[0x1E69E9C10];
+                              if (os_log_type_enabled(v176, OS_LOG_TYPE_ERROR))
                               {
-                                LOWORD(v258.start.value) = 0;
-                                _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to finalize output sequence", &v258, 2u);
+                                LOWORD(v272.start.value) = 0;
+                                _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to finalize output sequence", &v272, 2u);
                               }
                             }
 
-                            v164 = MEMORY[0x1E696ABC0];
-                            v240 = *MEMORY[0x1E696A578];
+                            v178 = MEMORY[0x1E696ABC0];
+                            v254 = *MEMORY[0x1E696A578];
                             outputType4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to finalize output sequence"];
-                            v241 = outputType4;
-                            v165 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v241 forKeys:&v240 count:1];
-                            v166 = [v164 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v165];
-                            v167 = *run;
-                            *run = v166;
+                            v255 = outputType4;
+                            v179 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v255 forKeys:&v254 count:1];
+                            v180 = [v178 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v179];
+                            v181 = *run;
+                            *run = v180;
                           }
                         }
 
@@ -2791,27 +2808,27 @@ LABEL_197:
                         {
                           if (MediaAnalysisLogLevel() >= 3)
                           {
-                            v152 = MEMORY[0x1E69E9C10];
-                            v153 = MEMORY[0x1E69E9C10];
-                            if (os_log_type_enabled(v152, OS_LOG_TYPE_ERROR))
+                            v166 = MEMORY[0x1E69E9C10];
+                            v167 = MEMORY[0x1E69E9C10];
+                            if (os_log_type_enabled(v166, OS_LOG_TYPE_ERROR))
                             {
                               outputType3 = [(MADVideoRemoveBackgroundRequest *)self->_request outputType];
-                              LODWORD(v258.start.value) = 138412290;
-                              *(&v258.start.value + 4) = outputType3;
-                              _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[RMBG] Invalid output type specified (%@)", &v258, 0xCu);
+                              LODWORD(v272.start.value) = 138412290;
+                              *(&v272.start.value + 4) = outputType3;
+                              _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[RMBG] Invalid output type specified (%@)", &v272, 0xCu);
                             }
                           }
 
-                          v155 = MEMORY[0x1E696ABC0];
-                          v242 = *MEMORY[0x1E696A578];
-                          v156 = MEMORY[0x1E696AEC0];
+                          v169 = MEMORY[0x1E696ABC0];
+                          v256 = *MEMORY[0x1E696A578];
+                          v170 = MEMORY[0x1E696AEC0];
                           outputType4 = [(MADVideoRemoveBackgroundRequest *)self->_request outputType];
-                          v198 = [v156 stringWithFormat:@"Invalid output type specified (%@)", outputType4];
-                          v243 = v198;
-                          v158 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v243 forKeys:&v242 count:1];
-                          v159 = [v155 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v158];
-                          v160 = *run;
-                          *run = v159;
+                          v212 = [v170 stringWithFormat:@"Invalid output type specified (%@)", outputType4];
+                          v257 = v212;
+                          v172 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v257 forKeys:&v256 count:1];
+                          v173 = [v169 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v172];
+                          v174 = *run;
+                          *run = v173;
                         }
 
                         v19 = 0;
@@ -2822,47 +2839,47 @@ LABEL_171:
 
                       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
                       {
-                        LODWORD(v258.start.value) = 134218240;
-                        *(&v258.start.value + 4) = v93;
-                        LOWORD(v258.start.flags) = 2048;
-                        *(&v258.start.flags + 2) = v92;
-                        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[RMBG] Trimmed duration is too short (%0.3fs < %0.3fs)", &v258, 0x16u);
+                        LODWORD(v272.start.value) = 134218240;
+                        *(&v272.start.value + 4) = v101;
+                        LOWORD(v272.start.flags) = 2048;
+                        *(&v272.start.flags + 2) = v100;
+                        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[RMBG] Trimmed duration is too short (%0.3fs < %0.3fs)", &v272, 0x16u);
                       }
 
-                      v147 = MEMORY[0x1E696ABC0];
-                      v247 = *MEMORY[0x1E696A578];
-                      v148 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Trimmed duration is too short (%0.3fs < %0.3fs)", *&v93, *&v92];
-                      v248 = v148;
-                      v149 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v248 forKeys:&v247 count:1];
-                      v150 = [v147 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v149];
-                      v151 = *run;
-                      *run = v150;
+                      v161 = MEMORY[0x1E696ABC0];
+                      v261 = *MEMORY[0x1E696A578];
+                      v162 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Trimmed duration is too short (%0.3fs < %0.3fs)", *&v101, *&v100];
+                      v262 = v162;
+                      v163 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v262 forKeys:&v261 count:1];
+                      v164 = [v161 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v163];
+                      v165 = *run;
+                      *run = v164;
                     }
 
                     else
                     {
-                      v83 = [*(*&buf[0].start.timescale + 40) copy];
-                      v84 = *run;
-                      *run = v83;
+                      v91 = [*(*&buf[0].start.timescale + 40) copy];
+                      v92 = *run;
+                      *run = v91;
                     }
 
                     v19 = 0;
 LABEL_173:
-                    v80 = v195;
+                    v88 = v209;
                     goto LABEL_174;
                   }
 
                   if (run)
                   {
-                    v53 = MEMORY[0x1E696ABC0];
-                    v252 = *MEMORY[0x1E696A578];
-                    v253 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to start decoding video track"];
-                    v200 = v253;
-                    v201 = v29;
-                    v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v253 forKeys:&v252 count:1];
-                    v54 = [v53 errorWithDomain:*MEMORY[0x1E696A768] code:-19 userInfo:v50];
-                    v55 = *run;
-                    *run = v54;
+                    v56 = MEMORY[0x1E696ABC0];
+                    v266 = *MEMORY[0x1E696A578];
+                    v267 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to start decoding video track"];
+                    v214 = v267;
+                    v215 = v29;
+                    v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v267 forKeys:&v266 count:1];
+                    v57 = [v56 errorWithDomain:*MEMORY[0x1E696A768] code:-19 userInfo:v53];
+                    v58 = *run;
+                    *run = v57;
 
                     goto LABEL_55;
                   }
@@ -2870,21 +2887,21 @@ LABEL_173:
 
                 else if (run)
                 {
-                  v49 = MEMORY[0x1E696ABC0];
-                  v254 = *MEMORY[0x1E696A578];
-                  v255 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create video track output"];
-                  v200 = v255;
-                  v201 = 0;
-                  v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v255 forKeys:&v254 count:1];
-                  v51 = [v49 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v50];
-                  v52 = *run;
-                  *run = v51;
+                  v52 = MEMORY[0x1E696ABC0];
+                  v268 = *MEMORY[0x1E696A578];
+                  v269 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create video track output"];
+                  v214 = v269;
+                  v215 = 0;
+                  v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v269 forKeys:&v268 count:1];
+                  v54 = [v52 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v53];
+                  v55 = *run;
+                  *run = v54;
 
 LABEL_55:
                   v19 = 0;
 LABEL_177:
 
-                  v48 = v200;
+                  v51 = v214;
                   goto LABEL_178;
                 }
 
@@ -2896,34 +2913,34 @@ LABEL_179:
 
               if (run)
               {
-                v43 = MEMORY[0x1E696ABC0];
-                v256 = *MEMORY[0x1E696A578];
-                v44 = MEMORY[0x1E696AEC0];
-                *&range.start.value = v232;
-                range.start.epoch = v233;
-                v45 = CMTimeGetSeconds(&range.start);
+                v46 = MEMORY[0x1E696ABC0];
+                v270 = *MEMORY[0x1E696A578];
+                v47 = MEMORY[0x1E696AEC0];
+                *&range.start.value = v246;
+                range.start.epoch = v247;
+                v48 = CMTimeGetSeconds(&range.start);
                 *&range.start.value = *&buf[1].start.value;
                 range.start.epoch = buf[1].start.epoch;
-                v46 = CMTimeGetSeconds(&range.start);
+                v49 = CMTimeGetSeconds(&range.start);
                 range = buf[1];
                 CMTimeRangeGetEnd(&buf[0].start, &range);
-                v202 = [v44 stringWithFormat:@"Mask time (%0.3fs) falls outside video time range (%0.3fs-%0.3fs)", *&v45, *&v46, CMTimeGetSeconds(&buf[0].start)];
-                v257 = v202;
-                v201 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v257 forKeys:&v256 count:1];
-                v47 = [v43 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:?];
+                v216 = [v47 stringWithFormat:@"Mask time (%0.3fs) falls outside video time range (%0.3fs-%0.3fs)", *&v48, *&v49, CMTimeGetSeconds(&buf[0].start)];
+                v271 = v216;
+                v215 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v271 forKeys:&v270 count:1];
+                v50 = [v46 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:?];
                 v19 = 0;
-                v48 = *run;
-                *run = v47;
+                v51 = *run;
+                *run = v50;
 LABEL_178:
 
-                v29 = v201;
+                v29 = v215;
                 goto LABEL_179;
               }
 
 LABEL_50:
               v19 = 0;
 LABEL_180:
-              v22 = v203;
+              v22 = v217;
               goto LABEL_181;
             }
 
@@ -2939,13 +2956,13 @@ LABEL_180:
         v28 = self->_asset;
         if (v28)
         {
-          [(MADServiceVideoAsset *)v28 stillTime];
+          objc_msgSend_stillTime(v28);
           goto LABEL_28;
         }
 
 LABEL_27:
-        v232 = 0uLL;
-        v233 = 0;
+        v246 = 0uLL;
+        v247 = 0;
         goto LABEL_28;
       }
 
@@ -2963,10 +2980,10 @@ LABEL_182:
       }
 
       v20 = MEMORY[0x1E696ABC0];
-      v261 = *MEMORY[0x1E696A578];
-      v204 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to load asset"];
-      v262[0] = v204;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v262 forKeys:&v261 count:1];
+      v275 = *MEMORY[0x1E696A578];
+      v218 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to load asset"];
+      v276[0] = v218;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v276 forKeys:&v275 count:1];
       v21 = [v20 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v11];
     }
 
@@ -3002,28 +3019,28 @@ void __40__MADVideoRemoveBackgroundCropTask_run___block_invoke(uint64_t a1)
 
 void __40__MADVideoRemoveBackgroundCropTask_run___block_invoke_523(uint64_t a1)
 {
-  v2 = VCPSignPostLog();
+  v2 = VCPSignPostLog(a1);
   v3 = os_signpost_id_generate(v2);
 
-  v4 = VCPSignPostLog();
-  v5 = v4;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v5 = VCPSignPostLog(v4);
+  v6 = v5;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "MADVideoRemoveBackground_TrackMaskPastFrames", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v3, "MADVideoRemoveBackground_TrackMaskPastFrames", "", buf, 2u);
   }
 
-  v6 = [*(a1 + 32) processPastSampleBuffers:*(a1 + 40) orientation:*(a1 + 88) maskPixelBuffer:*(a1 + 80) cropUnion:*(*(a1 + 64) + 8) + 48 progress:*(a1 + 48) error:*(*(a1 + 72) + 8) + 40];
-  v7 = *(*(a1 + 56) + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = v6;
+  v7 = [*(a1 + 32) processPastSampleBuffers:*(a1 + 40) orientation:*(a1 + 88) maskPixelBuffer:*(a1 + 80) cropUnion:*(*(a1 + 64) + 8) + 48 progress:*(a1 + 48) error:*(*(a1 + 72) + 8) + 40];
+  v8 = *(*(a1 + 56) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v7;
 
-  v9 = VCPSignPostLog();
-  v10 = v9;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v11 = VCPSignPostLog(v10);
+  v12 = v11;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
-    *v11 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_END, v3, "MADVideoRemoveBackground_TrackMaskPastFrames", "", v11, 2u);
+    *v13 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v12, OS_SIGNPOST_INTERVAL_END, v3, "MADVideoRemoveBackground_TrackMaskPastFrames", "", v13, 2u);
   }
 }
 

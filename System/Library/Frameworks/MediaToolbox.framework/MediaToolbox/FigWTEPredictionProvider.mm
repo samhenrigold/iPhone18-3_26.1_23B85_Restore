@@ -94,7 +94,7 @@ void __82__FigWTEPredictionProvider_servicePredictionProvider_didUpdateServicePr
     v7 = v4->predictionProvider;
     if (!v7 || ([(WISServicePredictionProvider *)v7 setDelegate:v4], [(WISServicePredictionProvider *)v4->predictionProvider startWithCompletionHandler:&__block_literal_global_301], v8 = FigReentrantMutexCreate(), (v4->predictionProviderMutex = v8) == 0))
     {
-      FigCreateErrorForOSStatus(4294954510, &cf);
+      FigCreateErrorForOSStatus(-12786, &cf);
     }
   }
 

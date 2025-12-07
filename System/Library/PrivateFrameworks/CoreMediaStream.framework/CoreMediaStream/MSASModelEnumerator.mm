@@ -44,42 +44,34 @@
 
 void __33__MSASModelEnumerator_nextObject__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = sqlite3_step([*(a1 + 32) stmt]);
   if (v2 == 101)
   {
     sqlite3_finalize([*(a1 + 32) stmt]);
     [*(a1 + 32) setStmt:0];
-    v7 = *(a1 + 32);
-    v8 = *MEMORY[0x277D85DE8];
+    v6 = *(a1 + 32);
 
-    [v7 setStepBlock:0];
+    [v6 setStepBlock:0];
   }
 
   else if (v2 == 100)
   {
-    v11 = [*(a1 + 32) stepBlock];
-    v3 = v11[2](v11, [*(a1 + 32) stmt]);
+    v8 = [*(a1 + 32) stepBlock];
+    v3 = v8[2](v8, [*(a1 + 32) stmt]);
     v4 = *(*(a1 + 40) + 8);
     v5 = *(v4 + 40);
     *(v4 + 40) = v3;
-
-    v6 = *MEMORY[0x277D85DE8];
   }
 
-  else
+  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      v10 = *(a1 + 32);
-      *buf = 138543618;
-      v13 = v10;
-      v14 = 2082;
-      v15 = sqlite3_errmsg([v10 db]);
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Can't enumerate the next object in the model. Error: %{public}s", buf, 0x16u);
-    }
-
-    v9 = *MEMORY[0x277D85DE8];
+    v7 = *(a1 + 32);
+    *buf = 138543618;
+    v10 = v7;
+    v11 = 2082;
+    v12 = sqlite3_errmsg([v7 db]);
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Can't enumerate the next object in the model. Error: %{public}s", buf, 0x16u);
   }
 }
 
@@ -112,25 +104,25 @@ void __33__MSASModelEnumerator_nextObject__block_invoke(uint64_t a1)
 
 - (MSASModelEnumerator)initWithDatabase:(sqlite3 *)database query:(id)query stepBlock:(id)block
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   blockCopy = block;
-  v16.receiver = self;
-  v16.super_class = MSASModelEnumerator;
-  v10 = [(MSASModelEnumerator *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = MSASModelEnumerator;
+  v10 = [(MSASModelEnumerator *)&v15 init];
   if (v10)
   {
     if (sqlite3_prepare_v2(database, [queryCopy UTF8String], -1, &v10->_stmt, 0))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v15 = sqlite3_errmsg(database);
+        v14 = sqlite3_errmsg(database);
         *buf = 138543874;
-        v18 = v10;
-        v19 = 2114;
-        v20 = queryCopy;
-        v21 = 2082;
-        v22 = v15;
+        v17 = v10;
+        v18 = 2114;
+        v19 = queryCopy;
+        v20 = 2082;
+        v21 = v14;
         _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not compile SQL query: “%{public}@”. sqlite error: %{public}s", buf, 0x20u);
       }
 
@@ -147,7 +139,6 @@ void __33__MSASModelEnumerator_nextObject__block_invoke(uint64_t a1)
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

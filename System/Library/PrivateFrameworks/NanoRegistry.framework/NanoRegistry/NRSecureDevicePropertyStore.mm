@@ -102,36 +102,36 @@
 
 - (void)forceImportSecureProperties:(id)properties
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   if ([propertiesCopy count])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v5 = propertiesCopy;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
+          v10 = *(*(&v14 + 1) + 8 * i);
           v11 = [v5 objectForKeyedSubscript:v10];
           [(NSMutableDictionary *)self->_IDToProperty setObject:v11 forKeyedSubscript:v10];
           [(NSMutableDictionary *)self->_propertyToID setObject:v10 forKeyedSubscript:v11];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
@@ -145,8 +145,6 @@
     block[4] = self;
     dispatch_async(dirtyQueue, block);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)dirty
@@ -170,15 +168,15 @@
 
 - (NRSecureDevicePropertyStore)initWithCoder:(id)coder
 {
-  v27[2] = *MEMORY[0x1E69E9840];
+  v26[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [(NRSecureDevicePropertyStore *)self init];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v27[0] = objc_opt_class();
-    v27[1] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
+    v26[0] = objc_opt_class();
+    v26[1] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = +[NRMutableDeviceProperty enclosedClassTypes];
     v10 = [v8 setByAddingObjectsFromSet:v9];
@@ -187,38 +185,37 @@
     v5->_IDToProperty = v11;
 
     [NRUnarchivedObjectVerifier unarchivingVerifyObjectIsNotNil:v5->_IDToProperty name:@"NRSecureDevicePropertyStore property dictionary" owner:v5];
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v13 = v5->_IDToProperty;
-    v14 = [(NSMutableDictionary *)v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v14 = [(NSMutableDictionary *)v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v23;
+      v16 = *v22;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v23 != v16)
+          if (*v22 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v22 + 1) + 8 * i);
-          v19 = [(NSMutableDictionary *)v5->_IDToProperty objectForKeyedSubscript:v18, v22];
+          v18 = *(*(&v21 + 1) + 8 * i);
+          v19 = [(NSMutableDictionary *)v5->_IDToProperty objectForKeyedSubscript:v18, v21];
           [(NSMutableDictionary *)v5->_propertyToID setObject:v18 forKeyedSubscript:v19];
         }
 
-        v15 = [(NSMutableDictionary *)v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v15 = [(NSMutableDictionary *)v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v15);
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -244,7 +241,7 @@
 
 - (id)description
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
@@ -261,30 +258,30 @@
 
   v8 = [v3 stringWithFormat:@"%@: is %@\n", v5, v7];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v9 = self->_IDToProperty;
-  v10 = [(NSMutableDictionary *)v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [(NSMutableDictionary *)v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     do
     {
       v13 = 0;
       v14 = v8;
       do
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * v13);
+        v15 = *(*(&v19 + 1) + 8 * v13);
         v16 = [(NSMutableDictionary *)self->_IDToProperty objectForKeyedSubscript:v15];
-        v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"\t\t%@ = %@\n", v15, v16, v20];
+        v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"\t\t%@ = %@\n", v15, v16, v19];
         v8 = [v14 stringByAppendingString:v17];
 
         ++v13;
@@ -292,13 +289,11 @@
       }
 
       while (v11 != v13);
-      v11 = [(NSMutableDictionary *)v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [(NSMutableDictionary *)v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v11);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

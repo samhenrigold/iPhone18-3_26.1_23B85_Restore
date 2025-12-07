@@ -50,9 +50,9 @@
   v13.super_class = PNPLockScreenViewController;
   [(PNPLockScreenViewController *)&v13 viewDidLoad];
   v3 = [PNPStackedPillView alloc];
-  v4 = PencilPairingUIBundle();
+  v4 = PencilPairingUIBundle(v3);
   v5 = [v4 localizedStringForKey:@"APPLE_PENCIL_NAME" value:&stru_286FDFDB8 table:0];
-  v6 = PencilPairingUIBundle();
+  v6 = PencilPairingUIBundle(v5);
   v7 = [v6 localizedStringForKey:@"UNLOCK" value:&stru_286FDFDB8 table:0];
   v8 = [(PNPStackedPillView *)v3 initWithFrame:v5 topString:v7 bottomString:0.0, 0.0, 1000.0, 1000.0];
 

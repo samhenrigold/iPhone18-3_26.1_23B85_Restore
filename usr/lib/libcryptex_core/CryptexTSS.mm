@@ -64,13 +64,13 @@
 
 - (void)tssStampRequest
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   memset(out, 0, sizeof(out));
-  memset(v8, 0, 37);
+  memset(v7, 0, 37);
   uuid_generate_random(out);
-  uuid_unparse_lower(out, v8);
-  v3 = [(CryptexTSS *)self tss_request:*v8];
-  xpc_dictionary_set_string(v3, "@UUID", v8);
+  uuid_unparse_lower(out, v7);
+  v3 = [(CryptexTSS *)self tss_request:*v7];
+  xpc_dictionary_set_string(v3, "@UUID", v7);
 
   LOBYTE(v3) = [(CryptexTSS *)self flags];
   tss_request = [(CryptexTSS *)self tss_request];
@@ -86,13 +86,11 @@
   }
 
   xpc_dictionary_set_BOOL(tss_request, v6, 1);
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 - (id)generatePackedSignatures
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v35 = *MEMORY[0x29EDCA608];
   array = [MEMORY[0x29EDB8DE8] array];
   im4m_array = [(CryptexTSS *)self im4m_array];
   v5 = _CFXPCCreateCFObjectFromXPCObject();
@@ -104,55 +102,62 @@
     if (v6)
     {
       v7 = [(CryptexTSS *)self log];
-      os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
-      v32 = 67109120;
-      v33 = 22;
-      LODWORD(v26) = 8;
-      v8 = _os_log_send_and_compose_impl();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        v8 = 3;
+      }
+
+      else
+      {
+        v8 = 2;
+      }
+
+      v33 = 67109120;
+      v34 = 22;
+      v9 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_2986F2000, v7, 16, "Manifest array not available %{darwin.errno}d", &v33, 8);
     }
 
     else
     {
-      v32 = 67109120;
-      v33 = 22;
-      LODWORD(v26) = 8;
-      v8 = _os_log_send_and_compose_impl();
+      v33 = 67109120;
+      v34 = 22;
+      v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_2986F2000, MEMORY[0x29EDCA988], 16, "Manifest array not available %{darwin.errno}d", &v33, 8);
     }
 
-    Error = createError("[CryptexTSS generatePackedSignatures]", "tss.m", 174, "com.apple.security.cryptex.posix", 22, 0, v8);
-    free(v8);
-    [(CryptexTSS *)self setNserr:Error, &v32, v26];
+    Error = createError("[CryptexTSS generatePackedSignatures]", "tss.m", 174, "com.apple.security.cryptex.posix", 22, 0, v9);
+    free(v9);
+    [(CryptexTSS *)self setNserr:Error];
   }
 
-  v29 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v10 = v5;
-  v11 = [v10 countByEnumeratingWithState:&v27 objects:v31 count:16];
-  if (v11)
+  v29 = 0u;
+  v11 = v5;
+  v12 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  if (v12)
   {
-    v12 = *v28;
+    v13 = *v29;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v28 != v12)
+        if (*v29 != v13)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v11);
         }
 
-        v14 = [*(*(&v27 + 1) + 8 * i) base64EncodedStringWithOptions:0];
+        v15 = [*(*(&v28 + 1) + 8 * i) base64EncodedStringWithOptions:0];
         uRLQueryAllowedCharacterSet = [MEMORY[0x29EDB9F50] URLQueryAllowedCharacterSet];
-        v16 = [v14 stringByAddingPercentEncodingWithAllowedCharacters:uRLQueryAllowedCharacterSet];
+        v17 = [v15 stringByAddingPercentEncodingWithAllowedCharacters:uRLQueryAllowedCharacterSet];
 
-        [array addObject:v16];
+        [array addObject:v17];
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
 
   im4m_array2 = [(CryptexTSS *)self im4m_array];
@@ -161,41 +166,48 @@
 
   if (count)
   {
-    v19 = array;
+    v20 = array;
   }
 
   else
   {
-    v20 = [(CryptexTSS *)self log];
+    v21 = [(CryptexTSS *)self log];
 
-    if (v20)
+    if (v21)
     {
-      v21 = [(CryptexTSS *)self log];
-      os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
-      v32 = 67109120;
-      v33 = 33;
-      LODWORD(v26) = 8;
-      v22 = _os_log_send_and_compose_impl();
+      v22 = [(CryptexTSS *)self log];
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      {
+        v23 = 3;
+      }
+
+      else
+      {
+        v23 = 2;
+      }
+
+      v33 = 67109120;
+      v34 = 33;
+      LODWORD(v27) = 8;
+      v24 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &dword_2986F2000, v22, 16, "Encoding error. XPC Object and Foundation object mismatch %{darwin.errno}d", &v33, v27, v28);
     }
 
     else
     {
-      v32 = 67109120;
-      v33 = 33;
-      LODWORD(v26) = 8;
-      v22 = _os_log_send_and_compose_impl();
+      v33 = 67109120;
+      v34 = 33;
+      LODWORD(v27) = 8;
+      v24 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_2986F2000, MEMORY[0x29EDCA988], 16, "Encoding error. XPC Object and Foundation object mismatch %{darwin.errno}d", &v33, v27, v28);
     }
 
-    v23 = createError("[CryptexTSS generatePackedSignatures]", "tss.m", 186, "com.apple.security.cryptex.posix", 33, 0, v22);
-    free(v22);
-    [(CryptexTSS *)self setNserr:v23, &v32, v26, v27];
+    v25 = createError("[CryptexTSS generatePackedSignatures]", "tss.m", 186, "com.apple.security.cryptex.posix", 33, 0, v24);
+    free(v24);
+    [(CryptexTSS *)self setNserr:v25];
 
-    v19 = 0;
+    v20 = 0;
   }
 
-  v24 = *MEMORY[0x29EDCA608];
-
-  return v19;
+  return v20;
 }
 
 - (id)generateDiavloRequest:(id)request
@@ -231,43 +243,49 @@
     if (v14)
     {
       v15 = [(CryptexTSS *)self log];
-      os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
       localizedDescription = [v13 localizedDescription];
+      if (v16)
+      {
+        v18 = 3;
+      }
+
+      else
+      {
+        v18 = 2;
+      }
+
       v25 = 138412546;
       v26 = localizedDescription;
       v27 = 1024;
       v28 = 22;
-      LODWORD(v23) = 18;
-      v17 = _os_log_send_and_compose_impl();
+      v19 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_2986F2000, v15, 16, "JSON Serialization failed with error %@ %{darwin.errno}d", &v25, 18);
     }
 
     else
     {
-      v18 = MEMORY[0x29EDCA988];
+      v20 = MEMORY[0x29EDCA988];
       localizedDescription2 = [v13 localizedDescription];
       v25 = 138412546;
       v26 = localizedDescription2;
       v27 = 1024;
       v28 = 22;
-      LODWORD(v23) = 18;
-      v17 = _os_log_send_and_compose_impl();
+      v19 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_2986F2000, MEMORY[0x29EDCA988], 16, "JSON Serialization failed with error %@ %{darwin.errno}d", &v25, 18);
 
       v15 = MEMORY[0x29EDCA988];
     }
 
-    Error = createError("[CryptexTSS generateDiavloRequest:]", "tss.m", 213, "com.apple.security.cryptex.posix", 22, 0, v17);
-    free(v17);
-    [(CryptexTSS *)self setNserr:Error, &v25, v23];
+    Error = createError("[CryptexTSS generateDiavloRequest:]", "tss.m", 213, "com.apple.security.cryptex.posix", 22, 0, v19);
+    free(v19);
+    [(CryptexTSS *)self setNserr:Error];
   }
-
-  v21 = *MEMORY[0x29EDCA608];
 
   return v12;
 }
 
 - (id)tssSerializeRequest
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   tss_request = [(CryptexTSS *)self tss_request];
   v4 = _CFXPCCreateCFObjectFromXPCObject();
 
@@ -275,16 +293,16 @@
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v18 = v4;
+    v17 = v4;
     _os_log_impl(&dword_2986F2000, v5, OS_LOG_TYPE_INFO, "tss request dictionary:\n%@", buf, 0xCu);
   }
 
   if (v4 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v6 = v4;
-    v16 = 0;
-    v7 = [MEMORY[0x29EDBA0C0] dataWithPropertyList:v6 format:100 options:0 error:&v16];
-    v8 = v16;
+    v15 = 0;
+    v7 = [MEMORY[0x29EDBA0C0] dataWithPropertyList:v6 format:100 options:0 error:&v15];
+    v8 = v15;
     if (!v7)
     {
       v9 = [(CryptexTSS *)self log];
@@ -319,42 +337,41 @@
   }
 
   v13 = v11;
-  v14 = *MEMORY[0x29EDCA608];
   return v11;
 }
 
 - (id)tssFormatRequest:(id)request withHeaders:(id)headers withURL:(id)l
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   requestCopy = request;
   headersCopy = headers;
   lCopy = l;
   v10 = objc_alloc_init(MEMORY[0x29EDBA050]);
   [v10 appendFormat:@"---------REQUEST START---------\n"];
   [v10 appendFormat:@"URL: %@\n", lCopy];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v11 = headersCopy;
-  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = *v20;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [v10 appendFormat:@"%@\n", *(*(&v20 + 1) + 8 * i)];
+        [v10 appendFormat:@"%@\n", *(*(&v19 + 1) + 8 * i)];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v13);
@@ -365,8 +382,6 @@
 
   [v10 appendFormat:@"---------REQUEST END---------\n"];
   v17 = [v10 copy];
-
-  v18 = *MEMORY[0x29EDCA608];
 
   return v17;
 }
@@ -398,29 +413,39 @@
   if (v3)
   {
     v4 = [(CryptexTSS *)self log];
-    os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
-    v5 = _os_log_send_and_compose_impl();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      v5 = 3;
+    }
+
+    else
+    {
+      v5 = 2;
+    }
+
+    v10[0] = 0;
+    v6 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_2986F2000, v4, 16, "curl dependency is missing", v10, 2);
   }
 
   else
   {
-    v5 = _os_log_send_and_compose_impl();
+    v9[0] = 0;
+    v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_2986F2000, MEMORY[0x29EDCA988], 16, "curl dependency is missing", v9, 2);
   }
 
-  Error = createError("[CryptexTSS tssSendRequest]", "tss.m", 396, "com.apple.security.cryptex", 10, 0, v5);
-  free(v5);
+  Error = createError("[CryptexTSS tssSendRequest]", "tss.m", 396, "com.apple.security.cryptex", 10, 0, v6);
+  free(v6);
 
   return Error;
 }
 
 - (void)tssSubmit
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0_2();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_2986F2000, v1, OS_LOG_TYPE_DEBUG, "Response plist %@ -> im4m: %@", v3, 0x16u);
-  v2 = *MEMORY[0x29EDCA608];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_2986F2000, v1, OS_LOG_TYPE_DEBUG, "Response plist %@ -> im4m: %@", v2, 0x16u);
 }
 
 - (void)activate
@@ -449,18 +474,16 @@ void __22__CryptexTSS_activate__block_invoke(uint64_t a1)
 
 - (void)generateDiavloRequest:.cold.1()
 {
-  v4 = *MEMORY[0x29EDCA608];
+  v3 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2_2(&dword_2986F2000, v0, v1, "tss request=%@", v3);
-  v2 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_2_2(&dword_2986F2000, v0, v1, "tss request=%@", v2);
 }
 
 - (void)tssSerializeRequest
 {
-  v4 = *MEMORY[0x29EDCA608];
+  v3 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2_2(&dword_2986F2000, v0, v1, "tss request xml = %@", v3);
-  v2 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_2_2(&dword_2986F2000, v0, v1, "tss request xml = %@", v2);
 }
 
 @end

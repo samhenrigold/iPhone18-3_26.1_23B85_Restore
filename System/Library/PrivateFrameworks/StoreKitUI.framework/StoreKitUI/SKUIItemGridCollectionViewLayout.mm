@@ -33,7 +33,7 @@
   y = rect.origin.y;
   x = rect.origin.x;
   v33 = *MEMORY[0x277D85DE8];
-  ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection();
+  ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection(self, a2);
   v31.receiver = self;
   v31.super_class = SKUIItemGridCollectionViewLayout;
   [(UICollectionViewFlowLayout *)&v31 layoutAttributesForElementsInRect:x, y, width, height];

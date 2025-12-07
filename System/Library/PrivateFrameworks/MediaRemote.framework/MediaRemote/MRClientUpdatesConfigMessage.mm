@@ -5,6 +5,7 @@
 - (BOOL)outputDeviceUpdates;
 - (BOOL)systemEndpointUpdates;
 - (BOOL)volumeUpdates;
+- (MRClientUpdatesConfigMessage)initWithNowPlayingUpdates:(BOOL)updates artworkUpdates:(BOOL)artworkUpdates volumeUpdates:(BOOL)volumeUpdates keyboardUpdates:(BOOL)keyboardUpdates outputDeviceUpdates:(BOOL)deviceUpdates systemEndpointUpdates:(BOOL)endpointUpdates subscribedPlayerPaths:(id)paths;
 - (MRClientUpdatesConfigMessage)initWithUnderlyingCodableMessage:(id)message error:(id)error;
 @end
 
@@ -12,11 +13,11 @@
 
 - (MRClientUpdatesConfigMessage)initWithUnderlyingCodableMessage:(id)message error:(id)error
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   messageCopy = message;
-  v20.receiver = self;
-  v20.super_class = MRClientUpdatesConfigMessage;
-  v7 = [(MRProtocolMessage *)&v20 initWithUnderlyingCodableMessage:messageCopy error:error];
+  v19.receiver = self;
+  v19.super_class = MRClientUpdatesConfigMessage;
+  v7 = [(MRProtocolMessage *)&v19 initWithUnderlyingCodableMessage:messageCopy error:error];
   if (v7)
   {
     subscribedPlayerPaths = [messageCopy subscribedPlayerPaths];
@@ -37,14 +38,13 @@
       subscribedPlayerPaths = +[MRClient anyClient];
       v14 = +[MRPlayer anyPlayer];
       v15 = [(MRPlayerPath *)v13 initWithOrigin:subscribedPlayerPaths2 client:subscribedPlayerPaths player:v14];
-      v21[0] = v15;
-      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+      v20[0] = v15;
+      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
       v17 = v7->_subscribedPlayerPaths;
       v7->_subscribedPlayerPaths = v16;
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -54,6 +54,41 @@ MRPlayerPath *__71__MRClientUpdatesConfigMessage_initWithUnderlyingCodableMessag
   v3 = [[MRPlayerPath alloc] initWithProtobuf:v2];
 
   return v3;
+}
+
+- (MRClientUpdatesConfigMessage)initWithNowPlayingUpdates:(BOOL)updates artworkUpdates:(BOOL)artworkUpdates volumeUpdates:(BOOL)volumeUpdates keyboardUpdates:(BOOL)keyboardUpdates outputDeviceUpdates:(BOOL)deviceUpdates systemEndpointUpdates:(BOOL)endpointUpdates subscribedPlayerPaths:(id)paths
+{
+  endpointUpdatesCopy = endpointUpdates;
+  deviceUpdatesCopy = deviceUpdates;
+  keyboardUpdatesCopy = keyboardUpdates;
+  volumeUpdatesCopy = volumeUpdates;
+  artworkUpdatesCopy = artworkUpdates;
+  updatesCopy = updates;
+  pathsCopy = paths;
+  v24.receiver = self;
+  v24.super_class = MRClientUpdatesConfigMessage;
+  v17 = [(MRProtocolMessage *)&v24 init];
+  if (v17)
+  {
+    v18 = [pathsCopy copy];
+    subscribedPlayerPaths = v17->_subscribedPlayerPaths;
+    v17->_subscribedPlayerPaths = v18;
+
+    v20 = objc_alloc_init(_MRClientUpdatesConfigurationProtobuf);
+    [(_MRClientUpdatesConfigurationProtobuf *)v20 setNowPlayingUpdates:updatesCopy];
+    [(_MRClientUpdatesConfigurationProtobuf *)v20 setArtworkUpdates:artworkUpdatesCopy];
+    [(_MRClientUpdatesConfigurationProtobuf *)v20 setVolumeUpdates:volumeUpdatesCopy];
+    [(_MRClientUpdatesConfigurationProtobuf *)v20 setKeyboardUpdates:keyboardUpdatesCopy];
+    [(_MRClientUpdatesConfigurationProtobuf *)v20 setOutputDeviceUpdates:deviceUpdatesCopy];
+    [(_MRClientUpdatesConfigurationProtobuf *)v20 setSystemEndpointUpdates:endpointUpdatesCopy];
+    v21 = [(NSArray *)v17->_subscribedPlayerPaths mr_map:&__block_literal_global_10];
+    v22 = [v21 mutableCopy];
+    [(_MRClientUpdatesConfigurationProtobuf *)v20 setSubscribedPlayerPaths:v22];
+
+    [(MRProtocolMessage *)v17 setUnderlyingCodableMessage:v20];
+  }
+
+  return v17;
 }
 
 - (BOOL)nowPlayingUpdates

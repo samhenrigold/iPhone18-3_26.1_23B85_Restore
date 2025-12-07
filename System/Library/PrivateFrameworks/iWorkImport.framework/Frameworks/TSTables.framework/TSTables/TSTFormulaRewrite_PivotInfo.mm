@@ -10,17 +10,17 @@
 {
   mapCopy = map;
   rewriteMapCopy = rewriteMap;
-  v19.receiver = self;
-  v19.super_class = TSTFormulaRewrite_PivotInfo;
-  v10 = [(TSTFormulaRewrite_PivotInfo *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = TSTFormulaRewrite_PivotInfo;
+  v10 = [(TSTFormulaRewrite_PivotInfo *)&v18 init];
   v11 = v10;
   if (v10)
   {
     v10->_tableUID = *d;
     objc_storeStrong(&v10->_beforeRewriteMap, rewriteMap);
-    v16 = objc_msgSend_copyOnWriteUIDMapper(mapCopy, v12, v13, v14, v15);
+    v15 = objc_msgSend_copyOnWriteUIDMapper(mapCopy, v12, v13, v14);
     beforeColumnRowUIDMap = v11->_beforeColumnRowUIDMap;
-    v11->_beforeColumnRowUIDMap = v16;
+    v11->_beforeColumnRowUIDMap = v15;
   }
 
   return v11;
@@ -31,9 +31,9 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = TSKUIDStruct::description(&self->_tableUID);
-  v9 = objc_msgSend_stringWithFormat_(v3, v6, @"%@, %p: for PivotTable: %@", v7, v8, v4, self, v5);
+  v8 = objc_msgSend_stringWithFormat_(v3, v6, @"%@, %p: for PivotTable: %@", v7, v4, self, v5);
 
-  return v9;
+  return v8;
 }
 
 - (TSKUIDStruct)tableUID

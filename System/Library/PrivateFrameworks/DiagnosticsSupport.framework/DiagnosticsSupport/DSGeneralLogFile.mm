@@ -63,7 +63,7 @@
 
 void __40__DSGeneralLogFile_parseDetailsWithURL___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -86,9 +86,9 @@ void __40__DSGeneralLogFile_parseDetailsWithURL___block_invoke(uint64_t a1, void
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           v16 = WeakRetained[2];
-          v18 = 138412290;
-          v19 = v16;
-          _os_log_impl(&dword_248BD5000, v15, OS_LOG_TYPE_DEFAULT, "Log appears to be empty: %@", &v18, 0xCu);
+          v17 = 138412290;
+          v18 = v16;
+          _os_log_impl(&dword_248BD5000, v15, OS_LOG_TYPE_DEFAULT, "Log appears to be empty: %@", &v17, 0xCu);
         }
       }
     }
@@ -104,8 +104,6 @@ void __40__DSGeneralLogFile_parseDetailsWithURL___block_invoke(uint64_t a1, void
       [v8 end];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)parseHeadersWithLine:(id)line
@@ -241,24 +239,22 @@ void __56__DSGeneralLogFile_enumerateLogLinesWithIDs_usingBlock___block_invoke(v
 
 - (void)parseHeadersWithLine:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_248BD5000, a2, OS_LOG_TYPE_ERROR, "One or more required keys are missing in the header for %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_248BD5000, a2, OS_LOG_TYPE_ERROR, "One or more required keys are missing in the header for %@", &v3, 0xCu);
 }
 
 - (void)parseHeadersWithLine:(os_log_t)log .cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 16);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_248BD5000, log, OS_LOG_TYPE_ERROR, "Could not parse header for %@ error: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_248BD5000, log, OS_LOG_TYPE_ERROR, "Could not parse header for %@ error: %@", &v4, 0x16u);
 }
 
 @end

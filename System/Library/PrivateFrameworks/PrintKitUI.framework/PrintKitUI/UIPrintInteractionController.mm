@@ -5057,12 +5057,17 @@ LABEL_8:
       [(UIPrintInteractionController *)self resetConvertedPrintableItems];
     }
 
-    if (![(UIPrintInteractionController *)self supressNotifyDismissed]&& (objc_opt_respondsToSelector() & 1) != 0)
+    supressNotifyDismissed = [(UIPrintInteractionController *)self supressNotifyDismissed];
+    if ((supressNotifyDismissed & 1) == 0)
     {
-      [delegate printInteractionControllerWillDismissPrinterOptions:self];
+      supressNotifyDismissed = objc_opt_respondsToSelector();
+      if (supressNotifyDismissed)
+      {
+        supressNotifyDismissed = [delegate printInteractionControllerWillDismissPrinterOptions:self];
+      }
     }
 
-    MEMORY[0x2821F9730]();
+    MEMORY[0x2821F9730](supressNotifyDismissed);
   }
 }
 
@@ -6249,13 +6254,13 @@ LABEL_16:
 LABEL_21:
 }
 
-uint64_t __46__UIPrintInteractionController__startPrinting__block_invoke_3(uint64_t result, uint64_t a2)
+id *__46__UIPrintInteractionController__startPrinting__block_invoke_3(id *result, uint64_t a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(result + 32) setNupFileURL:a2];
-    v3 = *(v2 + 32);
+    [result[4] setNupFileURL:a2];
+    v3 = v2[4];
 
     return [v3 _printPageWithDelay:0.0];
   }
@@ -7728,16 +7733,16 @@ uint64_t __66__UIPrintInteractionController__printItemAsync_completionHandler___
 
   if (!jobName)
   {
-    jobName = GetDefaultJobName();
+    jobName = GetDefaultJobName(v6, v7);
   }
 
-  v6 = *MEMORY[0x277CBF5E0];
-  v7 = *MEMORY[0x277CBF578];
-  v8 = [MEMORY[0x277CBEB38] dictionaryWithObjectsAndKeys:{jobName, *MEMORY[0x277CBF5E0], v3, *MEMORY[0x277CBF578], 0}];
+  v8 = *MEMORY[0x277CBF5E0];
+  v9 = *MEMORY[0x277CBF578];
+  v10 = [MEMORY[0x277CBEB38] dictionaryWithObjectsAndKeys:{jobName, *MEMORY[0x277CBF5E0], v3, *MEMORY[0x277CBF578], 0}];
   paper = [(UIPrintInteractionController *)self paper];
   if (paper)
   {
-    v10 = paper;
+    v12 = paper;
     paper2 = [(UIPrintInteractionController *)self paper];
     _keywordForPDFMetadata = [paper2 _keywordForPDFMetadata];
 
@@ -7745,7 +7750,7 @@ uint64_t __66__UIPrintInteractionController__printItemAsync_completionHandler___
     {
       paper3 = [(UIPrintInteractionController *)self paper];
       _keywordForPDFMetadata2 = [paper3 _keywordForPDFMetadata];
-      [v8 setObject:_keywordForPDFMetadata2 forKey:*MEMORY[0x277CBF5A0]];
+      [v10 setObject:_keywordForPDFMetadata2 forKey:*MEMORY[0x277CBF5A0]];
     }
   }
 
@@ -7757,106 +7762,106 @@ uint64_t __66__UIPrintInteractionController__printItemAsync_completionHandler___
   }
 
   printingItems2 = [(UIPrintInteractionController *)self printingItems];
-  v17 = [printingItems2 objectAtIndexedSubscript:0];
+  v19 = [printingItems2 objectAtIndexedSubscript:0];
 
-  if (!v17)
+  if (!v19)
   {
     goto LABEL_36;
   }
 
-  v18 = [(UIPrintInteractionController *)self convertedPrintableItem:v17];
-  v19 = v18;
-  if (v18)
+  v20 = [(UIPrintInteractionController *)self convertedPrintableItem:v19];
+  v21 = v20;
+  if (v20)
   {
-    v20 = CFGetTypeID(v18);
-    if (v20 == CGPDFDocumentGetTypeID())
+    v22 = CFGetTypeID(v20);
+    if (v22 == CGPDFDocumentGetTypeID())
     {
-      v21 = CGPDFDocumentCopyOutputIntents();
-      if (v21)
+      v23 = CGPDFDocumentCopyOutputIntents();
+      if (v23)
       {
-        v22 = v21;
-        [v8 setObject:v21 forKey:*MEMORY[0x277CBF5B0]];
+        v24 = v23;
+        [v10 setObject:v23 forKey:*MEMORY[0x277CBF5B0]];
       }
 
       pdfPassword = [(UIPrintInteractionController *)self pdfPassword];
       if (pdfPassword)
       {
-        v24 = pdfPassword;
+        v26 = pdfPassword;
         [(UIPrintInteractionController *)self pdfPassword];
-        v25 = v45 = v19;
-        v26 = [v25 length];
+        v27 = v47 = v21;
+        v28 = [v27 length];
 
-        v19 = v45;
-        if (v26)
+        v21 = v47;
+        if (v28)
         {
           pdfPassword2 = [(UIPrintInteractionController *)self pdfPassword];
-          [v8 setObject:pdfPassword2 forKey:*MEMORY[0x277CBF5B8]];
+          [v10 setObject:pdfPassword2 forKey:*MEMORY[0x277CBF5B8]];
 
           pdfPassword3 = [(UIPrintInteractionController *)self pdfPassword];
-          [v8 setObject:pdfPassword3 forKey:*MEMORY[0x277CBF5F0]];
+          [v10 setObject:pdfPassword3 forKey:*MEMORY[0x277CBF5F0]];
         }
       }
 
-      v29 = [MEMORY[0x277CCABB0] numberWithBool:{-[UIPrintInteractionController pdfAllowsPrinting](self, "pdfAllowsPrinting")}];
-      [v8 setObject:v29 forKey:*MEMORY[0x277CBF558]];
+      v31 = [MEMORY[0x277CCABB0] numberWithBool:{-[UIPrintInteractionController pdfAllowsPrinting](self, "pdfAllowsPrinting")}];
+      [v10 setObject:v31 forKey:*MEMORY[0x277CBF558]];
 
-      v30 = [MEMORY[0x277CCABB0] numberWithBool:{-[UIPrintInteractionController pdfAllowsCopying](self, "pdfAllowsCopying")}];
-      [v8 setObject:v30 forKey:*MEMORY[0x277CBF550]];
+      v32 = [MEMORY[0x277CCABB0] numberWithBool:{-[UIPrintInteractionController pdfAllowsCopying](self, "pdfAllowsCopying")}];
+      [v10 setObject:v32 forKey:*MEMORY[0x277CBF550]];
 
-      [v8 setObject:@"pdftopdf filter" forKey:v7];
+      [v10 setObject:@"pdftopdf filter" forKey:v9];
       pdfPassword4 = [(UIPrintInteractionController *)self pdfPassword];
       if (pdfPassword4)
       {
-        v32 = pdfPassword4;
-        IsEncrypted = CGPDFDocumentIsEncrypted(v19);
+        v34 = pdfPassword4;
+        IsEncrypted = CGPDFDocumentIsEncrypted(v21);
 
         if (IsEncrypted)
         {
           pdfPassword5 = [(UIPrintInteractionController *)self pdfPassword];
-          CGPDFDocumentUnlockWithPassword(v19, [pdfPassword5 cStringUsingEncoding:4]);
+          CGPDFDocumentUnlockWithPassword(v21, [pdfPassword5 cStringUsingEncoding:4]);
         }
       }
 
-      Info = CGPDFDocumentGetInfo(v19);
+      Info = CGPDFDocumentGetInfo(v21);
       if (Info)
       {
-        v36 = Info;
-        v46 = 0;
+        v38 = Info;
+        v48 = 0;
         value = 0;
         if (CGPDFDictionaryGetString(Info, "Title", &value))
-        {
-          v37 = CGPDFStringCopyTextString(value);
-          if (v37)
-          {
-            v38 = v37;
-            [v8 setObject:v37 forKey:v6];
-          }
-        }
-
-        if (CGPDFDictionaryGetString(v36, "Author", &value))
         {
           v39 = CGPDFStringCopyTextString(value);
           if (v39)
           {
             v40 = v39;
-            [v8 setObject:v39 forKey:*MEMORY[0x277CBF568]];
+            [v10 setObject:v39 forKey:v8];
           }
         }
 
-        if (CGPDFDictionaryGetString(v36, "Subject", &value))
+        if (CGPDFDictionaryGetString(v38, "Author", &value))
         {
           v41 = CGPDFStringCopyTextString(value);
           if (v41)
           {
             v42 = v41;
-            [v8 setObject:v41 forKey:*MEMORY[0x277CBF5D8]];
+            [v10 setObject:v41 forKey:*MEMORY[0x277CBF568]];
           }
         }
 
-        if (CGPDFDictionaryGetString(v36, "Keywords", &value))
+        if (CGPDFDictionaryGetString(v38, "Subject", &value))
         {
           v43 = CGPDFStringCopyTextString(value);
-          if (!v43)
+          if (v43)
+          {
+            v44 = v43;
+            [v10 setObject:v43 forKey:*MEMORY[0x277CBF5D8]];
+          }
+        }
+
+        if (CGPDFDictionaryGetString(v38, "Keywords", &value))
+        {
+          v45 = CGPDFStringCopyTextString(value);
+          if (!v45)
           {
             goto LABEL_35;
           }
@@ -7864,19 +7869,19 @@ uint64_t __66__UIPrintInteractionController__printItemAsync_completionHandler___
 
         else
         {
-          if (!CGPDFDictionaryGetArray(v36, "AAPL:Keywords", &v46))
+          if (!CGPDFDictionaryGetArray(v38, "AAPL:Keywords", &v48))
           {
             goto LABEL_35;
           }
 
-          v43 = v46;
-          if (!v46)
+          v45 = v48;
+          if (!v48)
           {
             goto LABEL_35;
           }
         }
 
-        [v8 setObject:v43 forKey:*MEMORY[0x277CBF5A0]];
+        [v10 setObject:v45 forKey:*MEMORY[0x277CBF5A0]];
       }
     }
   }
@@ -7885,7 +7890,7 @@ LABEL_35:
 
 LABEL_36:
 
-  return v8;
+  return v10;
 }
 
 - (CGContext)_newSaveContext:(id)context withMediaRect:(CGRect)rect

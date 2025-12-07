@@ -88,49 +88,47 @@ void __39__GCAnalytics_GameController__instance__block_invoke(uint64_t a1)
 
 id __54__GCAnalytics_GameController__sendInputsPressedEvent___block_invoke(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DF90];
-  v9 = @"bundleID";
+  v8 = @"bundleID";
   v3 = [*(a1 + 32) getBundleID];
-  v10[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v5 = [v2 dictionaryWithDictionary:v4];
 
   v6 = convertToDict(*(a1 + 40), numberFromInt);
   [v5 addEntriesFromDictionary:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (void)checkMultipleControllers
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (checkMultipleControllers_maximumControllersConnectedForSentEvent <= 3)
   {
     v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     allValues = [(NSMutableDictionary *)self->_controllersData allValues];
-    v5 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v10 = *(*(&v14 + 1) + 8 * i);
+          v10 = *(*(&v13 + 1) + 8 * i);
           if (([v10 isATVRemote] & 1) == 0)
           {
             ++v7;
@@ -139,7 +137,7 @@ id __54__GCAnalytics_GameController__sendInputsPressedEvent___block_invoke(uint6
           }
         }
 
-        v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v6);
@@ -153,13 +151,11 @@ id __54__GCAnalytics_GameController__sendInputsPressedEvent___block_invoke(uint6
     [v3 sortUsingSelector:sel_localizedCaseInsensitiveCompare_];
     if (v7 >= 2 && v7 > checkMultipleControllers_maximumControllersConnectedForSentEvent)
     {
-      v13 = v3;
+      v12 = v3;
       AnalyticsSendEventLazy();
       checkMultipleControllers_maximumControllersConnectedForSentEvent = v7;
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 id __55__GCAnalytics_GameController__checkMultipleControllers__block_invoke(uint64_t a1)
@@ -221,47 +217,46 @@ void __48__GCAnalytics_GameController__runInputPollTimer__block_invoke(uint64_t 
   *(v3 + 24) = v2;
 }
 
-uint64_t __48__GCAnalytics_GameController__runInputPollTimer__block_invoke_2(uint64_t a1)
+void *__48__GCAnalytics_GameController__runInputPollTimer__block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   result = [*(*(a1 + 32) + 8) count];
   if (result)
   {
-    v13 = 0u;
-    memset(v14, 0, 60);
+    v12 = 0u;
+    memset(v13, 0, 60);
+    v9 = 0u;
     v10 = 0u;
     v11 = 0u;
-    v12 = 0u;
     v3 = [*(*(a1 + 32) + 8) allValues];
-    v4 = [v3 countByEnumeratingWithState:&v10 objects:v15 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v9 objects:v14 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v11;
+      v6 = *v10;
       do
       {
         v7 = 0;
         do
         {
-          if (*v11 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          *&v8 = batchInputData(v14, *(*(&v10 + 1) + 8 * v7++));
+          *&v8 = batchInputData(v13, *(*(&v9 + 1) + 8 * v7++));
         }
 
         while (v5 != v7);
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v15 count:{16, v8}];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v14 count:{16, v8}];
       }
 
       while (v5);
     }
 
-    result = [*(a1 + 32) sendInputsPressedEvent:v14];
+    return [*(a1 + 32) sendInputsPressedEvent:v13];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -299,42 +294,40 @@ uint64_t __48__GCAnalytics_GameController__runInputPollTimer__block_invoke_2(uin
 
 id __49__GCAnalytics_GameController__publishController___block_invoke_2(uint64_t a1)
 {
-  v18[9] = *MEMORY[0x1E69E9840];
-  v17[0] = @"productCategoryName";
-  v17[1] = @"connectionCount";
+  v17[9] = *MEMORY[0x1E69E9840];
+  v16[0] = @"productCategoryName";
+  v16[1] = @"connectionCount";
   v3 = a1 + 32;
   v2 = *(a1 + 32);
-  v18[0] = *(v3 + 8);
-  v18[1] = &unk_1F4E8E000;
-  v17[2] = @"bundleID";
+  v17[0] = *(v3 + 8);
+  v17[1] = &unk_1F4E8E000;
+  v16[2] = @"bundleID";
   v4 = MEMORY[0x1E695DF90];
   v5 = [v2 getBundleID];
   v6 = *(a1 + 48);
   v7 = *(a1 + 56);
-  v18[2] = v5;
-  v18[3] = v6;
-  v17[3] = @"vendorName";
-  v17[4] = @"profileName";
-  v18[4] = v7;
-  v17[5] = @"isFormFitting";
+  v17[2] = v5;
+  v17[3] = v6;
+  v16[3] = @"vendorName";
+  v16[4] = @"profileName";
+  v17[4] = v7;
+  v16[5] = @"isFormFitting";
   v8 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 64)];
-  v18[5] = v8;
-  v17[6] = @"hasClickableThumbsticks";
+  v17[5] = v8;
+  v16[6] = @"hasClickableThumbsticks";
   v9 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 65)];
-  v18[6] = v9;
-  v17[7] = @"isSiriRemote";
+  v17[6] = v9;
+  v16[7] = @"isSiriRemote";
   v10 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 66)];
-  v18[7] = v10;
-  v17[8] = @"isPhysicalRemote";
+  v17[7] = v10;
+  v16[8] = @"isPhysicalRemote";
   v11 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 67)];
-  v18[8] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:9];
+  v17[8] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:9];
   v13 = [v4 dictionaryWithDictionary:v12];
 
   v14 = convertToDict((a1 + 68), stringFromState);
   [v13 addEntriesFromDictionary:v14];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -348,13 +341,11 @@ id __49__GCAnalytics_GameController__publishController___block_invoke_2(uint64_t
 
 id __50__GCAnalytics_GameController__onSiriMotionEnabled__block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"bundleID";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"bundleID";
   v1 = [*(a1 + 32) getBundleID];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -388,18 +379,16 @@ id __50__GCAnalytics_GameController__onSiriMotionEnabled__block_invoke(uint64_t 
 
 id __110__GCAnalytics_SettingsAnalytics__sendSettingsCustomizationsToggledEventForBundleID_productCategory_toggledOn___block_invoke(uint64_t a1)
 {
-  v7[3] = *MEMORY[0x1E69E9840];
-  v6[0] = @"bundleID";
-  v6[1] = @"productCategory";
+  v6[3] = *MEMORY[0x1E69E9840];
+  v5[0] = @"bundleID";
+  v5[1] = @"productCategory";
   v1 = *(a1 + 40);
-  v7[0] = *(a1 + 32);
-  v7[1] = v1;
-  v6[2] = @"customizationsToggledOn";
+  v6[0] = *(a1 + 32);
+  v6[1] = v1;
+  v5[2] = @"customizationsToggledOn";
   v2 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 48)];
-  v7[2] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:3];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[2] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:3];
 
   return v3;
 }
@@ -428,14 +417,13 @@ id __110__GCAnalytics_SettingsAnalytics__sendSettingsCustomizationsToggledEventF
 
 id __98__GCAnalytics_SettingsAnalytics__sendSettingsCustomizationsResetEventForBundleID_productCategory___block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
-  v5[0] = @"bundleID";
-  v5[1] = @"productCategory";
+  v5[2] = *MEMORY[0x1E69E9840];
+  v4[0] = @"bundleID";
+  v4[1] = @"productCategory";
   v1 = *(a1 + 40);
-  v6[0] = *(a1 + 32);
-  v6[1] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = *(a1 + 32);
+  v5[1] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
@@ -471,15 +459,14 @@ id __98__GCAnalytics_SettingsAnalytics__sendSettingsCustomizationsResetEventForB
 
 id __102__GCAnalytics_SettingsAnalytics__sendSettingsButtonCustomizedEventForBundleID_productCategory_button___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v5[0] = @"bundleID";
-  v5[1] = @"productCategory";
-  v6 = v1;
-  v5[2] = @"buttonName";
-  v7 = *(a1 + 48);
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v6 forKeys:v5 count:3];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[0] = @"bundleID";
+  v4[1] = @"productCategory";
+  v5 = v1;
+  v4[2] = @"buttonName";
+  v6 = *(a1 + 48);
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v5 forKeys:v4 count:3];
 
   return v2;
 }
@@ -500,54 +487,49 @@ id __102__GCAnalytics_SettingsAnalytics__sendSettingsButtonCustomizedEventForBun
 
 id __88__GCAnalytics_SettingsAnalytics__sendSettingsIdentifyControllerEventForProductCategory___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v5 = @"productCategory";
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = @"productCategory";
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
 
 id __93__GCAnalytics_SettingsAnalytics__sendSettingsDevicesEventForTotalCustomizedControllersCount___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"customizedControllersCount";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"customizedControllersCount";
   v1 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
 
 id __93__GCAnalytics_SettingsAnalytics__sendSettingsCustomizedAppsEventForTotalCustomizedAppsCount___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"customizedAppsCount";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"customizedAppsCount";
   v1 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
 
 - (void)sendSettingsRPKitGesturesCustomized:(id)customized from:(id)from
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   customizedCopy = customized;
   fromCopy = from;
-  v7 = getGCSettingsLogger();
+  v7 = getGCSettingsLogger(fromCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v35 = customizedCopy;
-    v36 = 2112;
-    v37 = fromCopy;
+    v33 = customizedCopy;
+    v34 = 2112;
+    v35 = fromCopy;
     _os_log_impl(&dword_1D2CD5000, v7, OS_LOG_TYPE_DEFAULT, "sendSettingsRPKitGesturesCustomized %@, %@", buf, 0x16u);
   }
 
@@ -559,96 +541,90 @@ id __93__GCAnalytics_SettingsAnalytics__sendSettingsCustomizedAppsEventForTotalC
 
       if (controllerElementMappingKey)
       {
-        v26 = objc_opt_new();
+        v24 = objc_opt_new();
         singlePressGesture = [customizedCopy singlePressGesture];
         if (singlePressGesture != [fromCopy singlePressGesture])
         {
           v10 = GCSystemGestureModeToString([customizedCopy singlePressGesture]);
-          [v26 setObject:v10 forKeyedSubscript:@"Single Press"];
+          [v24 setObject:v10 forKeyedSubscript:@"Single Press"];
         }
 
         doublePressGesture = [customizedCopy doublePressGesture];
         if (doublePressGesture != [fromCopy doublePressGesture])
         {
           v12 = GCSystemGestureModeToString([customizedCopy doublePressGesture]);
-          [v26 setObject:v12 forKeyedSubscript:@"Double Press"];
+          [v24 setObject:v12 forKeyedSubscript:@"Double Press"];
         }
 
         longPressGesture = [customizedCopy longPressGesture];
-        if (longPressGesture != [fromCopy longPressGesture])
+        longPressGesture2 = [fromCopy longPressGesture];
+        if (longPressGesture != longPressGesture2)
         {
-          v14 = GCSystemGestureModeToString([customizedCopy longPressGesture]);
-          [v26 setObject:v14 forKeyedSubscript:@"Long Press"];
+          v15 = GCSystemGestureModeToString([customizedCopy longPressGesture]);
+          [v24 setObject:v15 forKeyedSubscript:@"Long Press"];
         }
 
-        v25 = fromCopy;
-        v15 = customizedCopy;
-        v16 = getGCSettingsLogger();
+        v23 = fromCopy;
+        v16 = getGCSettingsLogger(longPressGesture2);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v35 = v26;
+          v33 = v24;
           _os_log_impl(&dword_1D2CD5000, v16, OS_LOG_TYPE_DEFAULT, "sendSettingsRPKitGesturesCustomized changedGestures %@", buf, 0xCu);
         }
 
         context = objc_autoreleasePoolPush();
+        v27 = 0u;
+        v28 = 0u;
         v29 = 0u;
         v30 = 0u;
-        v31 = 0u;
-        v32 = 0u;
-        allKeys = [v26 allKeys];
-        v18 = [allKeys countByEnumeratingWithState:&v29 objects:v33 count:16];
+        allKeys = [v24 allKeys];
+        v18 = [allKeys countByEnumeratingWithState:&v27 objects:v31 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v30;
+          v20 = *v28;
           do
           {
             for (i = 0; i != v19; ++i)
             {
-              if (*v30 != v20)
+              if (*v28 != v20)
               {
                 objc_enumerationMutation(allKeys);
               }
 
-              v22 = *(*(&v29 + 1) + 8 * i);
-              v27 = v15;
-              v28 = v26;
+              v25 = customizedCopy;
+              v26 = v24;
               AnalyticsSendEventLazy();
             }
 
-            v19 = [allKeys countByEnumeratingWithState:&v29 objects:v33 count:16];
+            v19 = [allKeys countByEnumeratingWithState:&v27 objects:v31 count:16];
           }
 
           while (v19);
         }
 
         objc_autoreleasePoolPop(context);
-        customizedCopy = v15;
-        fromCopy = v25;
+        fromCopy = v23;
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 id __75__GCAnalytics_SettingsAnalytics__sendSettingsRPKitGesturesCustomized_from___block_invoke(uint64_t a1)
 {
-  v10[3] = *MEMORY[0x1E69E9840];
-  v9[0] = @"buttonName";
+  v9[3] = *MEMORY[0x1E69E9840];
+  v8[0] = @"buttonName";
   v2 = [*(a1 + 32) controllerElementMappingKey];
   v4 = *(a1 + 40);
   v3 = *(a1 + 48);
-  v10[0] = v2;
-  v10[1] = v4;
-  v9[1] = @"gestureType";
-  v9[2] = @"gestureMode";
+  v9[0] = v2;
+  v9[1] = v4;
+  v8[1] = @"gestureType";
+  v8[2] = @"gestureMode";
   v5 = [v3 objectForKeyedSubscript:?];
-  v10[2] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[2] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
@@ -677,14 +653,13 @@ id __75__GCAnalytics_SettingsAnalytics__sendSettingsRPKitGesturesCustomized_from
 
 id __92__GCAnalytics_ReplayKitAnalytics__sendRPKitScreenshotSavedEventForBundleID_productCategory___block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
-  v5[0] = @"bundleID";
-  v5[1] = @"productCategory";
+  v5[2] = *MEMORY[0x1E69E9840];
+  v4[0] = @"bundleID";
+  v4[1] = @"productCategory";
   v1 = *(a1 + 40);
-  v6[0] = *(a1 + 32);
-  v6[1] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = *(a1 + 32);
+  v5[1] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
@@ -718,18 +693,16 @@ id __92__GCAnalytics_ReplayKitAnalytics__sendRPKitScreenshotSavedEventForBundleI
 
 id __106__GCAnalytics_ReplayKitAnalytics__sendRPKitManualRecordingSavedEventForBundleID_productCategory_duration___block_invoke(uint64_t a1)
 {
-  v7[3] = *MEMORY[0x1E69E9840];
-  v6[0] = @"bundleID";
-  v6[1] = @"productCategory";
+  v6[3] = *MEMORY[0x1E69E9840];
+  v5[0] = @"bundleID";
+  v5[1] = @"productCategory";
   v1 = *(a1 + 40);
-  v7[0] = *(a1 + 32);
-  v7[1] = v1;
-  v6[2] = @"duration";
+  v6[0] = *(a1 + 32);
+  v6[1] = v1;
+  v5[2] = @"duration";
   v2 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 48)];
-  v7[2] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:3];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[2] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:3];
 
   return v3;
 }
@@ -758,14 +731,13 @@ id __106__GCAnalytics_ReplayKitAnalytics__sendRPKitManualRecordingSavedEventForB
 
 id __96__GCAnalytics_ReplayKitAnalytics__sendRPKitInstantCaptureSavedEventForBundleID_productCategory___block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
-  v5[0] = @"bundleID";
-  v5[1] = @"productCategory";
+  v5[2] = *MEMORY[0x1E69E9840];
+  v4[0] = @"bundleID";
+  v4[1] = @"productCategory";
   v1 = *(a1 + 40);
-  v6[0] = *(a1 + 32);
-  v6[1] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = *(a1 + 32);
+  v5[1] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
@@ -786,12 +758,11 @@ id __96__GCAnalytics_ReplayKitAnalytics__sendRPKitInstantCaptureSavedEventForBun
 
 id __88__GCAnalytics_ReplayKitAnalytics__sendRPKitInstantCaptureBufferStartedEventForBundleID___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v5 = @"bundleID";
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = @"bundleID";
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -828,15 +799,14 @@ id __88__GCAnalytics_ReplayKitAnalytics__sendRPKitInstantCaptureBufferStartedEve
 
 id __106__GCAnalytics_HapticsAnalytics__sendHapticsEngineCreatedEventForBundleID_productCategory_hapticsLocality___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v5[0] = @"bundleID";
-  v5[1] = @"productCategory";
-  v6 = v1;
-  v5[2] = @"hapticsLocality";
-  v7 = *(a1 + 48);
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v6 forKeys:v5 count:3];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[0] = @"bundleID";
+  v4[1] = @"productCategory";
+  v5 = v1;
+  v4[2] = @"hapticsLocality";
+  v6 = *(a1 + 48);
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v5 forKeys:v4 count:3];
 
   return v2;
 }
@@ -871,24 +841,22 @@ id __106__GCAnalytics_HapticsAnalytics__sendHapticsEngineCreatedEventForBundleID
 
 id __166__GCAnalytics_HapticsAnalytics__sendHapticsClientDestroyedEventForBundleID_productCategory_totalPlayers_sessionTotalDuration_sessionActiveDuration_terminationReason___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v9 = *(a1 + 32);
-  v8[0] = @"bundleID";
-  v8[1] = @"productCategory";
-  v10 = *(a1 + 48);
-  v8[2] = @"terminationReason";
-  v8[3] = @"totalPlayers";
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = *(a1 + 32);
+  v7[0] = @"bundleID";
+  v7[1] = @"productCategory";
+  v9 = *(a1 + 48);
+  v7[2] = @"terminationReason";
+  v7[3] = @"totalPlayers";
   v2 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 56)];
-  v11 = v2;
-  v8[4] = @"sessionTotalDuration";
+  v10 = v2;
+  v7[4] = @"sessionTotalDuration";
   v3 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 60)];
-  v12 = v3;
-  v8[5] = @"sessionActiveDuration";
+  v11 = v3;
+  v7[5] = @"sessionActiveDuration";
   v4 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 64)];
-  v13 = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:v8 count:6];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v12 = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v8 forKeys:v7 count:6];
 
   return v5;
 }
@@ -903,12 +871,12 @@ id __166__GCAnalytics_HapticsAnalytics__sendHapticsClientDestroyedEventForBundle
     self->_lastHapticsEvent = v14;
     if (dCopy)
     {
-      v16 = dCopy;
+      v18 = dCopy;
     }
 
     else
     {
-      v16 = @"N/A";
+      v18 = @"N/A";
     }
 
     if (!categoryCopy)
@@ -916,20 +884,21 @@ id __166__GCAnalytics_HapticsAnalytics__sendHapticsClientDestroyedEventForBundle
       categoryCopy = @"N/A";
     }
 
-    dCopy = v16;
+    dCopy = v18;
     categoryCopy = categoryCopy;
     AnalyticsSendEventLazy();
 
-    v15 = dCopy;
+    v17 = dCopy;
     goto LABEL_11;
   }
 
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(v14, v15);
+  if (isInternalBuild)
   {
-    v15 = getGCLogger();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v17 = getGCLogger(isInternalBuild);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      [GCAnalytics(HapticsAnalytics) sendHapticsPlayerDestroyedEventForBundleID:v15 productCategory:? totalEventsProcessed:? transientEventsProcessed:? continuousEventsProcessed:? parameterCurvesProcessed:? sessionTotalDuration:? sessionActiveDuration:?];
+      [GCAnalytics(HapticsAnalytics) sendHapticsPlayerDestroyedEventForBundleID:v17 productCategory:? totalEventsProcessed:? transientEventsProcessed:? continuousEventsProcessed:? parameterCurvesProcessed:? sessionTotalDuration:? sessionActiveDuration:?];
     }
 
 LABEL_11:
@@ -938,33 +907,31 @@ LABEL_11:
 
 id __232__GCAnalytics_HapticsAnalytics__sendHapticsPlayerDestroyedEventForBundleID_productCategory_totalEventsProcessed_transientEventsProcessed_continuousEventsProcessed_parameterCurvesProcessed_sessionTotalDuration_sessionActiveDuration___block_invoke(uint64_t a1)
 {
-  v13[8] = *MEMORY[0x1E69E9840];
-  v12[0] = @"bundleID";
-  v12[1] = @"productCategory";
+  v12[8] = *MEMORY[0x1E69E9840];
+  v11[0] = @"bundleID";
+  v11[1] = @"productCategory";
   v2 = *(a1 + 40);
-  v13[0] = *(a1 + 32);
-  v13[1] = v2;
-  v12[2] = @"totalEventsProcessed";
+  v12[0] = *(a1 + 32);
+  v12[1] = v2;
+  v11[2] = @"totalEventsProcessed";
   v3 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 48)];
-  v13[2] = v3;
-  v12[3] = @"transientEventsProcessed";
+  v12[2] = v3;
+  v11[3] = @"transientEventsProcessed";
   v4 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 52)];
-  v13[3] = v4;
-  v12[4] = @"continuousEventsProcessed";
+  v12[3] = v4;
+  v11[4] = @"continuousEventsProcessed";
   v5 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 56)];
-  v13[4] = v5;
-  v12[5] = @"parameterCurvesProcessed";
+  v12[4] = v5;
+  v11[5] = @"parameterCurvesProcessed";
   v6 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 60)];
-  v13[5] = v6;
-  v12[6] = @"sessionTotalDuration";
+  v12[5] = v6;
+  v11[6] = @"sessionTotalDuration";
   v7 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 64)];
-  v13[6] = v7;
-  v12[7] = @"sessionActiveDuration";
+  v12[6] = v7;
+  v11[7] = @"sessionActiveDuration";
   v8 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 68)];
-  v13[7] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:8];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v12[7] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:8];
 
   return v9;
 }
@@ -1010,15 +977,14 @@ id __232__GCAnalytics_HapticsAnalytics__sendHapticsPlayerDestroyedEventForBundle
 
 id __97__GCAnalytics_HapticsAnalytics__sendHapticsErrorRaisedEventFromSource_productCategory_errorType___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v5[0] = @"errorType";
-  v5[1] = @"productCategory";
-  v6 = v1;
-  v5[2] = @"source";
-  v7 = *(a1 + 48);
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v6 forKeys:v5 count:3];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[0] = @"errorType";
+  v4[1] = @"productCategory";
+  v5 = v1;
+  v4[2] = @"source";
+  v6 = *(a1 + 48);
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v5 forKeys:v4 count:3];
 
   return v2;
 }

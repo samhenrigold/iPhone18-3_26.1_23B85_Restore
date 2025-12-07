@@ -19,7 +19,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1001C3CC4();
+  sub_1001C3CC4(selfCopy, v2);
 }
 
 - (_TtC6FindMy19FMActionLandingView)initWithFrame:(CGRect)frame

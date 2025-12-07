@@ -13,8 +13,10 @@
 - (id)selectTabWithIdentifier:(id)identifier;
 - (id)stateController:(id)controller dismissViewController:(id)viewController forState:(unint64_t)state;
 - (id)stateController:(id)controller presentViewController:(id)viewController forState:(unint64_t)state;
+- (void)_checkAndRunFeatureOnboardingWithHomeSwitch:(BOOL)switch;
 - (void)_presentLocationAlertForTriggerWithIdentifier:(id)identifier;
 - (void)_presentLocationTriggerAlertsIfNeeded;
+- (void)_userDidConfirmExection:(BOOL)exection ofTriggerWithIdentifier:(id)identifier;
 - (void)appOnboardingWillFinishForStateController:(id)controller;
 - (void)executionEnvironmentWillEnterForeground:(id)foreground;
 - (void)home:(id)home didAddAccessory:(id)accessory;
@@ -183,6 +185,22 @@
   [home fetchTriggerNameForTriggerIdentifier:v7 completionHandler:v8];
 }
 
+- (void)_userDidConfirmExection:(BOOL)exection ofTriggerWithIdentifier:(id)identifier
+{
+  exectionCopy = exection;
+  identifierCopy = identifier;
+  v6 = +[HFHomeKitDispatcher sharedDispatcher];
+  home = [v6 home];
+  uUIDString = [identifierCopy UUIDString];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_10002F770;
+  v10[3] = &unk_1000C1F28;
+  v11 = identifierCopy;
+  v9 = identifierCopy;
+  [home userDidConfirmExecution:exectionCopy ofTriggerWithIdentifier:uUIDString completionHandler:v10];
+}
+
 - (void)showOnboardingIfNeededForHomeInvitation:(id)invitation
 {
   invitationCopy = invitation;
@@ -279,6 +297,89 @@
   presentedViewController = [rootViewController presentedViewController];
 
   return presentedViewController;
+}
+
+- (void)_checkAndRunFeatureOnboardingWithHomeSwitch:(BOOL)switch
+{
+  switchCopy = switch;
+  v6 = +[HFHomeKitDispatcher sharedDispatcher];
+  home = [v6 home];
+
+  v8 = +[HFHomeKitDispatcher sharedDispatcher];
+  homeManager = [v8 homeManager];
+  v10 = [HOBaseController isHomeManagerStatusReady:homeManager];
+
+  [(HOBaseController *)self setUserHasValidHMSettings:[(HOBaseController *)self _areHMSettingsValidForHome:home]];
+  v11 = HFLogForCategory();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = NSStringFromSelector(a2);
+    name = [home name];
+    if (v10)
+    {
+      v14 = @"IS";
+    }
+
+    else
+    {
+      v14 = @"is NOT";
+    }
+
+    userHasValidHMSettings = [(HOBaseController *)self userHasValidHMSettings];
+    *buf = 138413314;
+    v16 = @"DOES NOT have";
+    selfCopy2 = self;
+    v29 = 2112;
+    if (userHasValidHMSettings)
+    {
+      v16 = @"has";
+    }
+
+    v30 = v12;
+    v31 = 2112;
+    v32 = name;
+    v33 = 2112;
+    v34 = v14;
+    v35 = 2112;
+    v36 = v16;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%@:%@ for %@, Home Manager %@ ready, user %@ valid settings", buf, 0x34u);
+  }
+
+  v17 = [(HOBaseController *)self userHasValidHMSettings]& v10;
+  rootViewController = HFLogForCategory();
+  v19 = os_log_type_enabled(rootViewController, OS_LOG_TYPE_DEFAULT);
+  if (v17 == 1)
+  {
+    if (v19)
+    {
+      v20 = NSStringFromSelector(a2);
+      v21 = [NSNumber numberWithBool:switchCopy];
+      *buf = 138412802;
+      selfCopy2 = self;
+      v29 = 2112;
+      v30 = v20;
+      v31 = 2112;
+      v32 = v21;
+      _os_log_impl(&_mh_execute_header, rootViewController, OS_LOG_TYPE_DEFAULT, "%@:%@ Running Feature Onboarding with Switch Homes screen: %@", buf, 0x20u);
+    }
+
+    rootViewController = [(HOBaseController *)self rootViewController];
+    onboardingDisplayOption_ShowSwitchHomeScreen = [NSNumber numberWithBool:switchCopy, OnboardingDisplayOption_ShowSwitchHomeScreen];
+    v26 = onboardingDisplayOption_ShowSwitchHomeScreen;
+    v23 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+    v24 = [HUHomeFeatureOnboardingUtilities home:home onboardAllFeaturesFromPresentingViewController:rootViewController usageOptions:v23];
+
+    goto LABEL_14;
+  }
+
+  if (v19)
+  {
+    onboardingDisplayOption_ShowSwitchHomeScreen = [NSNumber numberWithBool:switchCopy];
+    *buf = 138412290;
+    selfCopy2 = onboardingDisplayOption_ShowSwitchHomeScreen;
+    _os_log_impl(&_mh_execute_header, rootViewController, OS_LOG_TYPE_DEFAULT, "Did not run Feature Onboarding with Switch Homes screen: %@", buf, 0xCu);
+LABEL_14:
+  }
 }
 
 - (void)appOnboardingWillFinishForStateController:(id)controller

@@ -96,7 +96,7 @@ void __38__RPBroadcastSampleHandler_videoQueue__block_invoke()
 
 - (void)_processPayload:(id)payload
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   v5 = [payloadCopy objectForKeyedSubscript:@"RPBroadcastProcessExtensionPayloadKeySampleType"];
   integerValue = [v5 integerValue];
@@ -120,9 +120,9 @@ void __38__RPBroadcastSampleHandler_videoQueue__block_invoke()
 
   if (v9)
   {
-    v18 = @"RPApplicationInfoBundleIdentifier";
-    v19[0] = v9;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = @"RPApplicationInfoBundleIdentifier";
+    v18[0] = v9;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     [(RPBroadcastSampleHandler *)self broadcastAnnotatedWithApplicationInfo:v11];
 LABEL_7:
 
@@ -172,8 +172,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __44__RPBroadcastSampleHandler__processPayload___block_invoke()
@@ -187,7 +185,7 @@ void __44__RPBroadcastSampleHandler__processPayload___block_invoke()
 
 - (void)_processPayloadWithVideoSample:(id)sample
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
@@ -206,8 +204,8 @@ void __44__RPBroadcastSampleHandler__processPayload___block_invoke()
     v8 = [sampleCopy objectForKeyedSubscript:@"RPBroadcastProcessExtensionPayloadKeyTimingInfo"];
     memset(&buf, 0, sizeof(buf));
     [v8 getBytes:&buf length:72];
-    v12 = buf;
-    v9 = RPSampleBufferUtilities_CreateSampleBufferFromIOSurface(v7, &v12);
+    v11 = buf;
+    v9 = RPSampleBufferUtilities_CreateSampleBufferFromIOSurface(v7, &v11);
     v10 = [sampleCopy objectForKeyedSubscript:@"RPSampleBufferVideoOrientation"];
 
     CMSetAttachment(v9, @"RPSampleBufferVideoOrientation", v10, 0);
@@ -227,21 +225,19 @@ void __44__RPBroadcastSampleHandler__processPayload___block_invoke()
   {
     [RPBroadcastSampleHandler _processPayloadWithVideoSample:];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processPayloadWithAudioSample:(id)sample type:(int64_t)type
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136446466;
-    v10 = "[RPBroadcastSampleHandler _processPayloadWithAudioSample:type:]";
-    v11 = 1024;
-    v12 = 180;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Broadcast extension received audio payload from replayd", &v9, 0x12u);
+    v8 = 136446466;
+    v9 = "[RPBroadcastSampleHandler _processPayloadWithAudioSample:type:]";
+    v10 = 1024;
+    v11 = 180;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Broadcast extension received audio payload from replayd", &v8, 0x12u);
   }
 
   DecodeAudioSampleBuffer = RPSampleBufferUtilities_CreateDecodeAudioSampleBuffer(sampleCopy);
@@ -250,8 +246,6 @@ void __44__RPBroadcastSampleHandler__processPayload___block_invoke()
   {
     CFRelease(DecodeAudioSampleBuffer);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processPayload:(id)payload completion:(id)completion
@@ -263,7 +257,7 @@ void __44__RPBroadcastSampleHandler__processPayload___block_invoke()
 
 - (void)_setupListenerWithEndpoint:(id)endpoint
 {
-  v21[8] = *MEMORY[0x277D85DE8];
+  v20[8] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCAE80];
   endpointCopy = endpoint;
   v6 = [[v4 alloc] initWithListenerEndpoint:endpointCopy];
@@ -274,15 +268,15 @@ void __44__RPBroadcastSampleHandler__processPayload___block_invoke()
 
   v8 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284D944E8];
   v9 = MEMORY[0x277CBEB98];
-  v21[0] = objc_opt_class();
-  v21[1] = objc_opt_class();
-  v21[2] = objc_opt_class();
-  v21[3] = objc_opt_class();
-  v21[4] = objc_opt_class();
-  v21[5] = objc_opt_class();
-  v21[6] = objc_opt_class();
-  v21[7] = objc_opt_class();
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:8];
+  v20[0] = objc_opt_class();
+  v20[1] = objc_opt_class();
+  v20[2] = objc_opt_class();
+  v20[3] = objc_opt_class();
+  v20[4] = objc_opt_class();
+  v20[5] = objc_opt_class();
+  v20[6] = objc_opt_class();
+  v20[7] = objc_opt_class();
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:8];
   v11 = [v9 setWithArray:v10];
   [v8 setClasses:v11 forSelector:sel_processPayload_completion_ argumentIndex:0 ofReply:0];
 
@@ -307,7 +301,6 @@ void __44__RPBroadcastSampleHandler__processPayload___block_invoke()
   [(RPBroadcastSampleHandler *)self setDaemonProxy:v19];
 
   [(RPBroadcastDaemonProtocol *)self->_daemonProxy ping];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __55__RPBroadcastSampleHandler__setupListenerWithEndpoint___block_invoke()
@@ -338,29 +331,26 @@ void __55__RPBroadcastSampleHandler__setupListenerWithEndpoint___block_invoke_97
 
 - (void)_processPayloadWithVideoSample:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v2 = 173;
-  _os_log_error_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, " [ERROR] %{public}s:%d Invalid sample buffer", v1, 0x12u);
-  v0 = *MEMORY[0x277D85DE8];
+  v1 = 173;
+  _os_log_error_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, " [ERROR] %{public}s:%d Invalid sample buffer", v0, 0x12u);
 }
 
 - (void)_processPayloadWithVideoSample:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v2 = 155;
-  _os_log_error_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, " [ERROR] %{public}s:%d Invalid video sample", v1, 0x12u);
-  v0 = *MEMORY[0x277D85DE8];
+  v1 = 155;
+  _os_log_error_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, " [ERROR] %{public}s:%d Invalid video sample", v0, 0x12u);
 }
 
 void __55__RPBroadcastSampleHandler__setupListenerWithEndpoint___block_invoke_97_cold_1(void *a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109120;
-  v2[1] = [a1 code];
-  _os_log_error_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "error = %d", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = [a1 code];
+  _os_log_error_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "error = %d", v1, 8u);
 }
 
 @end

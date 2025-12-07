@@ -23,29 +23,27 @@
 {
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  v10 = LACConcurrentEvaluationManagerModel.restartRequests(forContextID:)(v8);
+  v9 = LACConcurrentEvaluationManagerModel.restartRequests(forContextID:)(v7);
 
-  (*(v5 + 8))(v8, v4);
-  return v10 & 1;
+  (*(v5 + 8))(v7, v4);
+  return v9 & 1;
 }
 
 - (void)cancelRequestsForContextID:(id)d
 {
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  LACConcurrentEvaluationManagerModel.cancelRequests(forContextID:)(v8);
+  LACConcurrentEvaluationManagerModel.cancelRequests(forContextID:)(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (_TtC23LocalAuthenticationCore35LACConcurrentEvaluationManagerModel)init

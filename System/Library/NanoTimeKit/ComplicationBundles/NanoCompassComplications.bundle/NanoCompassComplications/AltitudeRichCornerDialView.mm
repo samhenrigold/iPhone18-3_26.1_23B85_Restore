@@ -9,18 +9,18 @@
 {
   v2 = objc_alloc(MEMORY[0x277D755E8]);
   v3 = NanoCompassComplicationImageNamed(@"Altitude/Corner/Top");
-  v6 = objc_msgSend_initWithImage_(v2, v4, v3, v5);
+  v5 = objc_msgSend_initWithImage_(v2, v4, v3);
 
-  return v6;
+  return v5;
 }
 
 - (id)_newBottomView
 {
   v2 = objc_alloc(MEMORY[0x277D755E8]);
   v3 = NanoCompassComplicationImageNamed(@"Altitude/Corner/Bottom");
-  v6 = objc_msgSend_initWithImage_(v2, v4, v3, v5);
+  v5 = objc_msgSend_initWithImage_(v2, v4, v3);
 
-  return v6;
+  return v5;
 }
 
 @end

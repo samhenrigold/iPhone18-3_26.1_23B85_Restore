@@ -9,22 +9,24 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
+  height = fits.height;
+  width = fits.width;
   selfCopy = self;
-  sub_469B8();
-  v5 = v4;
+  sub_469B8(width, height);
   v7 = v6;
+  v9 = v8;
 
-  v8 = v5;
-  v9 = v7;
-  result.height = v9;
-  result.width = v8;
+  v10 = v7;
+  v11 = v9;
+  result.height = v11;
+  result.width = v10;
   return result;
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_46AC8();
+  sub_46AC8(selfCopy);
 }
 
 - (BOOL)isHighlighted
@@ -36,8 +38,9 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+  highlightedCopy = highlighted;
   selfCopy = self;
-  sub_46DDC(highlighted);
+  sub_46DDC(highlightedCopy);
 }
 
 @end

@@ -6,6 +6,8 @@
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)traitCollectionDidChange:(id)change;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation OnboardingRegionSelectionViewController
@@ -16,61 +18,92 @@
   OnboardingRegionSelectionViewController.viewDidLoad()();
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v9.receiver = self;
+  v9.super_class = swift_getObjectType();
+  v4 = v9.receiver;
+  [(OnboardingRegionSelectionViewController *)&v9 viewWillAppear:appearCopy];
+  navigationController = [v4 navigationController];
+  if (navigationController)
+  {
+    v6 = navigationController;
+    [navigationController setNavigationBarHidden:0 animated:appearCopy];
+  }
+
+  v7 = *&v4[OBJC_IVAR____TtC28HealthExposureNotificationUI39OnboardingRegionSelectionViewController_flow + 8];
+  ObjectType = swift_getObjectType();
+  (*(v7 + 16))(0, ObjectType, v7);
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v7.receiver = self;
+  v7.super_class = swift_getObjectType();
+  v4 = v7.receiver;
+  [(OnboardingRegionSelectionViewController *)&v7 viewWillDisappear:disappearCopy];
+  if ([v4 isMovingFromParentViewController])
+  {
+    v5 = *&v4[OBJC_IVAR____TtC28HealthExposureNotificationUI39OnboardingRegionSelectionViewController_flow + 8];
+    ObjectType = swift_getObjectType();
+    (*(v5 + 64))(MEMORY[0x277D84F90], ObjectType, v5);
+  }
+}
+
 - (void)didTapCancel
 {
-  v3 = (self + OBJC_IVAR____TtC28HealthExposureNotificationUI39OnboardingRegionSelectionViewController_flow);
-  v4 = *(&self->super.super.super.isa + OBJC_IVAR____TtC28HealthExposureNotificationUI39OnboardingRegionSelectionViewController_flow);
-  v5 = *(&self->super.super._responderFlags + OBJC_IVAR____TtC28HealthExposureNotificationUI39OnboardingRegionSelectionViewController_flow);
+  v3 = self + OBJC_IVAR____TtC28HealthExposureNotificationUI39OnboardingRegionSelectionViewController_flow;
+  v4 = *(&self->super.super._responderFlags + OBJC_IVAR____TtC28HealthExposureNotificationUI39OnboardingRegionSelectionViewController_flow);
   ObjectType = swift_getObjectType();
-  v7 = *(v5 + 64);
+  v6 = *(v4 + 64);
   selfCopy = self;
-  v7(MEMORY[0x277D84F90], ObjectType, v5);
-  v9 = *v3;
-  v8 = v3[1];
-  v10 = swift_getObjectType();
-  (*(v8 + 128))(selfCopy, &protocol witness table for OnboardingRegionSelectionViewController, v10, v8);
+  v6(MEMORY[0x277D84F90], ObjectType, v4);
+  v7 = *(v3 + 1);
+  v8 = swift_getObjectType();
+  (*(v7 + 128))(selfCopy, &protocol witness table for OnboardingRegionSelectionViewController, v8, v7);
 }
 
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section
 {
   selfCopy = self;
-  v5 = sub_2516B63A0();
+  sub_2516B63A0();
+  v6 = v5;
 
-  v6 = *(v5 + 16);
+  v7 = *(v6 + 16);
 
-  return v6;
+  return v7;
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
 {
   v6 = sub_251702EE4();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_251702EC4();
   viewCopy = view;
   selfCopy = self;
-  v13 = OnboardingRegionSelectionViewController.tableView(_:cellForRowAt:)(viewCopy);
+  v12 = OnboardingRegionSelectionViewController.tableView(_:cellForRowAt:)(viewCopy);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
   v6 = sub_251702EE4();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_251702EC4();
   viewCopy = view;
   selfCopy = self;
-  OnboardingRegionSelectionViewController.tableView(_:didSelectRowAt:)(viewCopy, v10);
+  OnboardingRegionSelectionViewController.tableView(_:didSelectRowAt:)(viewCopy, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)traitCollectionDidChange:(id)change

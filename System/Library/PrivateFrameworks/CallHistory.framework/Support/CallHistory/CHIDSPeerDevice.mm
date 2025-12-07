@@ -422,7 +422,7 @@ LABEL_14:
     {
       if (os_log_type_enabled(logHandle, OS_LOG_TYPE_ERROR))
       {
-        sub_100033B6C(&v33);
+        sub_100033B6C();
       }
 
       coordinator = [(CHIDSPeerDevice *)self coordinator];
@@ -572,7 +572,7 @@ LABEL_34:
     logHandle = [(CHIDSPeerDevice *)self logHandle];
     if (os_log_type_enabled(logHandle, OS_LOG_TYPE_ERROR))
     {
-      sub_100033B6C(&v8);
+      sub_100033B6C();
     }
   }
 }

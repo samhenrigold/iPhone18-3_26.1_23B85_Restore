@@ -132,7 +132,7 @@
 {
   usageCopy = usage;
   v10 = usageCopy;
-  v29[0] = environment;
+  environmentCopy = environment;
   if (!self)
   {
     goto LABEL_27;
@@ -176,7 +176,7 @@ LABEL_30:
   [currentHandler3 handleFailureInMethod:sel_recordTraitUsage_forTraitEnvironment_insideMethod_withInvalidationAction_ object:self file:@"_UITraitChangeRegistry.mm" lineNumber:76 description:{@"Invalid parameter not satisfying: %@", @"invalidationAction != NULL"}];
 
 LABEL_5:
-  v11 = self[4];
+  v11 = *(self + 32);
   if (v11)
   {
     v12 = 0x9DDFEA08EB382D69 * ((8 * (environment & 0x1FFFFFFF) + 8) ^ HIDWORD(environment));
@@ -198,7 +198,7 @@ LABEL_5:
       v16 = v14 & (*&v11 - 1);
     }
 
-    v17 = *(*&self[3] + 8 * v16);
+    v17 = *(*(self + 24) + 8 * v16);
     if (v17)
     {
       for (i = *v17; i; i = *i)
@@ -208,7 +208,8 @@ LABEL_5:
         {
           if (i[2] == environment)
           {
-            v20 = std::__hash_table<std::__hash_value_type<void (*)(void),_UITrackedTraitUsageRecord>,std::__unordered_map_hasher<void (*)(void),std::__hash_value_type<void (*)(void),_UITrackedTraitUsageRecord>,std::hash<void (*)(void)>,std::equal_to<void (*)(void)>,true>,std::__unordered_map_equal<void (*)(void),std::__hash_value_type<void (*)(void),_UITrackedTraitUsageRecord>,std::equal_to<void (*)(void)>,std::hash<void (*)(void)>,true>,std::allocator<std::__hash_value_type<void (*)(void),_UITrackedTraitUsageRecord>>>::__emplace_unique_key_args<void (*)(void),std::piecewise_construct_t const&,std::tuple<void (* const&)(void)>,std::tuple<>>(&self[3], environment)[4];
+            *&v28 = &environmentCopy;
+            v20 = std::__hash_table<std::__hash_value_type<void (*)(void),_UITrackedTraitUsageRecord>,std::__unordered_map_hasher<void (*)(void),std::__hash_value_type<void (*)(void),_UITrackedTraitUsageRecord>,std::hash<void (*)(void)>,std::equal_to<void (*)(void)>,true>,std::__unordered_map_equal<void (*)(void),std::__hash_value_type<void (*)(void),_UITrackedTraitUsageRecord>,std::equal_to<void (*)(void)>,std::hash<void (*)(void)>,true>,std::allocator<std::__hash_value_type<void (*)(void),_UITrackedTraitUsageRecord>>>::__emplace_unique_key_args<void (*)(void),std::piecewise_construct_t const&,std::tuple<void (* const&)(void)>,std::tuple<>>((self + 24), environment, &v28)[4];
             if (v20)
             {
             }
@@ -246,15 +247,17 @@ LABEL_5:
     v21 = *a2;
   }
 
-  v26 = *a2;
-  v27 = a2[1];
-  v28 = *(a2 + 4);
-  v29[1] = v29;
-  v22 = std::__hash_table<std::__hash_value_type<void (*)(void),_UITrackedTraitUsageRecord>,std::__unordered_map_hasher<void (*)(void),std::__hash_value_type<void (*)(void),_UITrackedTraitUsageRecord>,std::hash<void (*)(void)>,std::equal_to<void (*)(void)>,true>,std::__unordered_map_equal<void (*)(void),std::__hash_value_type<void (*)(void),_UITrackedTraitUsageRecord>,std::equal_to<void (*)(void)>,std::hash<void (*)(void)>,true>,std::allocator<std::__hash_value_type<void (*)(void),_UITrackedTraitUsageRecord>>>::__emplace_unique_key_args<void (*)(void),std::piecewise_construct_t const&,std::tuple<void (* const&)(void)>,std::tuple<>>(&self[3], v29[0]);
-  v22[3] = method;
-  *(v22 + 2) = v26;
-  *(v22 + 3) = v27;
-  v22[8] = v28;
+  v22 = a2[1];
+  v28 = *a2;
+  v29 = v22;
+  v30 = *(a2 + 4);
+  v32 = &environmentCopy;
+  v23 = std::__hash_table<std::__hash_value_type<void (*)(void),_UITrackedTraitUsageRecord>,std::__unordered_map_hasher<void (*)(void),std::__hash_value_type<void (*)(void),_UITrackedTraitUsageRecord>,std::hash<void (*)(void)>,std::equal_to<void (*)(void)>,true>,std::__unordered_map_equal<void (*)(void),std::__hash_value_type<void (*)(void),_UITrackedTraitUsageRecord>,std::equal_to<void (*)(void)>,std::hash<void (*)(void)>,true>,std::allocator<std::__hash_value_type<void (*)(void),_UITrackedTraitUsageRecord>>>::__emplace_unique_key_args<void (*)(void),std::piecewise_construct_t const&,std::tuple<void (* const&)(void)>,std::tuple<>>((self + 24), environmentCopy, &v32);
+  v23[3] = method;
+  v24 = v29;
+  *(v23 + 2) = v28;
+  *(v23 + 3) = v24;
+  v23[8] = v30;
 LABEL_27:
 }
 

@@ -333,9 +333,9 @@ void __70__UIWindowSceneActivationInteraction__prewarmAnimationWithCompletion___
     v13 = [_UIWindowSceneActivationIdentifier identifierWithLocation:view inView:x, y];
 
     activeConfiguration2 = [(UIWindowSceneActivationInteraction *)self activeConfiguration];
-    preview = [activeConfiguration2 preview];
+    v15 = objc_msgSend_preview(activeConfiguration2);
 
-    v16 = [_UIWindowSceneActivationEffectDescriptor descriptorWithPreview:preview];
+    v16 = [_UIWindowSceneActivationEffectDescriptor descriptorWithPreview:v15];
     v17 = +[_UIContentEffectManager sharedManager];
     v21[0] = MEMORY[0x1E69E9820];
     v21[1] = 3221225472;

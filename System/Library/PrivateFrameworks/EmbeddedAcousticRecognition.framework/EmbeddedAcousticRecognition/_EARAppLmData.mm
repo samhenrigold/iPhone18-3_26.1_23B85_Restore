@@ -100,13 +100,13 @@
 
 - (_EARAppLmData)initWithConfiguration:(id)configuration ncsRoot:(id)root recognizerConfigPath:(id)path
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   rootCopy = root;
   pathCopy = path;
-  v19.receiver = self;
-  v19.super_class = _EARAppLmData;
-  v11 = [(_EARAppLmData *)&v19 init];
+  v21.receiver = self;
+  v21.super_class = _EARAppLmData;
+  v11 = [(_EARAppLmData *)&v21 init];
   if (v11)
   {
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -115,24 +115,24 @@
     if (v13)
     {
       defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-      v15 = [defaultManager2 fileExistsAtPath:pathCopy];
+      v16 = [defaultManager2 fileExistsAtPath:pathCopy];
 
-      if (v15)
+      if (v16)
       {
         if (rootCopy)
         {
-          [_EARQuasarTokenizer tokenizerWithNcsRoot:rootCopy];
+          objc_msgSend_tokenizerWithNcsRoot_(_EARQuasarTokenizer);
         }
 
         else
         {
-          [_EARQuasarTokenizer tokenizerWithRecognizerConfigPath:pathCopy];
+          objc_msgSend_tokenizerWithRecognizerConfigPath_(_EARQuasarTokenizer);
         }
 
         *&buf = 0;
         if (configurationCopy)
         {
-          [configurationCopy ear_toString];
+          objc_msgSend_ear_toString(configurationCopy);
           if (!pathCopy)
           {
             goto LABEL_17;
@@ -142,7 +142,7 @@
         else
         {
           buf = 0uLL;
-          v21 = 0;
+          v23 = 0;
           if (!pathCopy)
           {
 LABEL_17:
@@ -150,39 +150,39 @@ LABEL_17:
           }
         }
 
-        [pathCopy ear_toString];
+        objc_msgSend_ear_toString(pathCopy);
         goto LABEL_17;
       }
 
-      v16 = EarLmLogger();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = EarLmLogger(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf) = 138412290;
         *(&buf + 4) = pathCopy;
-        _os_log_impl(&dword_1B501D000, v16, OS_LOG_TYPE_DEFAULT, "File does not exist %@", &buf, 0xCu);
+        _os_log_impl(&dword_1B501D000, v18, OS_LOG_TYPE_DEFAULT, "File does not exist %@", &buf, 0xCu);
       }
     }
 
     else
     {
-      v16 = EarLmLogger();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = EarLmLogger(v14);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf) = 138412290;
         *(&buf + 4) = configurationCopy;
-        _os_log_impl(&dword_1B501D000, v16, OS_LOG_TYPE_DEFAULT, "File does not exist %@", &buf, 0xCu);
+        _os_log_impl(&dword_1B501D000, v18, OS_LOG_TYPE_DEFAULT, "File does not exist %@", &buf, 0xCu);
       }
     }
 
-    v17 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v17 = 0;
+    v19 = 0;
   }
 
-  return v17;
+  return v19;
 }
 
 - (void)addLineWithType:(unint64_t)type uuid:(id)uuid content:(id)content
@@ -196,11 +196,11 @@ LABEL_17:
   v14 = typeCopy;
   if (uuidCopy)
   {
-    [uuidCopy ear_toString];
+    objc_msgSend_ear_toString(uuidCopy);
     if (v10)
     {
 LABEL_3:
-      [v10 ear_toString];
+      objc_msgSend_ear_toString(v10);
       goto LABEL_6;
     }
   }
@@ -244,11 +244,11 @@ LABEL_6:
   v16 = typeCopy;
   if (uuidCopy)
   {
-    [uuidCopy ear_toString];
+    objc_msgSend_ear_toString(uuidCopy);
     if (v12)
     {
 LABEL_3:
-      [v12 ear_toString];
+      objc_msgSend_ear_toString(v12);
       goto LABEL_6;
     }
   }
@@ -288,7 +288,7 @@ LABEL_6:
   ptr = self->data.__ptr_;
   if (contentCopy)
   {
-    [contentCopy ear_toString];
+    objc_msgSend_ear_toString(contentCopy);
   }
 
   else
@@ -326,7 +326,7 @@ LABEL_6:
   ptr = self->data.__ptr_;
   if (sentenceCopy)
   {
-    [sentenceCopy ear_toString];
+    objc_msgSend_ear_toString(sentenceCopy);
   }
 
   else
@@ -359,7 +359,7 @@ LABEL_6:
   ptr = self->data.__ptr_;
   if (wordCopy)
   {
-    [wordCopy ear_toString];
+    objc_msgSend_ear_toString(wordCopy);
   }
 
   else
@@ -394,7 +394,7 @@ LABEL_6:
         v18 = v17;
         if (v17)
         {
-          [v17 ear_toString];
+          objc_msgSend_ear_toString(v17);
         }
 
         else
@@ -404,7 +404,7 @@ LABEL_6:
           v30 = 0;
         }
 
-        std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(&v21, __p);
+        std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(&v21, __p, __p);
         if (SHIBYTE(v30) < 0)
         {
           operator delete(__p[0]);
@@ -437,7 +437,7 @@ LABEL_6:
   ptr = self->data.__ptr_;
   if (wordCopy)
   {
-    [wordCopy ear_toString];
+    objc_msgSend_ear_toString(wordCopy);
   }
 
   else
@@ -472,7 +472,7 @@ LABEL_6:
         v18 = v17;
         if (v17)
         {
-          [v17 ear_toString];
+          objc_msgSend_ear_toString(v17);
         }
 
         else
@@ -482,7 +482,7 @@ LABEL_6:
           v29 = 0;
         }
 
-        std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(&v20, __p);
+        std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(&v20, __p, __p);
         if (SHIBYTE(v29) < 0)
         {
           operator delete(__p[0]);
@@ -522,7 +522,7 @@ LABEL_6:
   ptr = self->data.__ptr_;
   if (dataCopy)
   {
-    [dataCopy ear_toString];
+    objc_msgSend_ear_toString(dataCopy);
   }
 
   else
@@ -546,7 +546,7 @@ LABEL_6:
 - (id)metrics
 {
   v4[9] = *MEMORY[0x1E69E9840];
-  quasar::LmData::getMetrics(self->data.__ptr_, self->roundingEnabled, v4);
+  quasar::LmData::getMetrics(v4, self->data.__ptr_, self->roundingEnabled);
   v2 = EARHelpers::dictFromPTree(v4, 1);
   quasar::PTree::~PTree(v4);
 

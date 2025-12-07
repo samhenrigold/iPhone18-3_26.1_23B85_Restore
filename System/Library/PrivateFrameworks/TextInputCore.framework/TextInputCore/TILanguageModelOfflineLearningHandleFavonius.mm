@@ -70,7 +70,7 @@
 {
   if ([(TILanguageModelOfflineLearningHandle *)self isValid])
   {
-    [(TILanguageModelOfflineLearningHandleFavonius *)self currentModel];
+    objc_msgSend_currentModel(self);
     if (v4)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v4);
@@ -83,13 +83,13 @@
   }
 }
 
-void __65__TILanguageModelOfflineLearningHandleFavonius_didFinishLearning__block_invoke(uint64_t a1)
+void __65__TILanguageModelOfflineLearningHandleFavonius_didFinishLearning__block_invoke(uint64_t a1, const char *a2)
 {
-  [*(a1 + 32) currentModel];
-  (*(*v1 + 592))();
-  if (v2)
+  objc_msgSend_currentModel(*(a1 + 32), a2);
+  (*(*v2 + 592))();
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v3);
   }
 }
 
@@ -100,35 +100,35 @@ void __65__TILanguageModelOfflineLearningHandleFavonius_didFinishLearning__block
   TIDispatchSync();
 }
 
-void __90__TILanguageModelOfflineLearningHandleFavonius_adaptToParagraph_timeStamp_adaptationType___block_invoke(uint64_t a1)
+void __90__TILanguageModelOfflineLearningHandleFavonius_adaptToParagraph_timeStamp_adaptationType___block_invoke(uint64_t a1, const char *a2)
 {
   v11 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  if (!v2)
+  v3 = *(a1 + 32);
+  if (!v3)
   {
     v7 = 0;
     v8 = 0;
     goto LABEL_5;
   }
 
-  [v2 currentModel];
-  v3 = *(a1 + 32);
-  if (!v3)
+  objc_msgSend_currentModel(v3, a2);
+  v4 = *(a1 + 32);
+  if (!v4)
   {
 LABEL_5:
     v6 = 0;
     goto LABEL_6;
   }
 
-  [v3 dictionaries];
+  objc_msgSend_dictionaries(v4);
 LABEL_6:
   if ([*(a1 + 40) length] <= 0x3FFE)
   {
     if ((*(*v7 + 384))(v7, *(a1 + 40)))
     {
-      v4 = v7;
+      v5 = v7;
       KB::utf8_string(*(a1 + 40), v9);
-      (*(*v4 + 392))(v4, v9, &v6, 0, *(a1 + 56), *(a1 + 48));
+      (*(*v5 + 392))(v5, v9, &v6, 0, *(a1 + 56), *(a1 + 48));
       if (v10)
       {
         if (v9[6] == 1)
@@ -148,8 +148,6 @@ LABEL_6:
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v8);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)load
@@ -401,8 +399,8 @@ LABEL_29:
 
 void __72__TILanguageModelOfflineLearningHandleFavonius_updateAdaptationContext___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v25 = +[TIKeyboardInputManager keyboardUserDirectory];
+  v26 = *MEMORY[0x277D85DE8];
+  v23 = +[TIKeyboardInputManager keyboardUserDirectory];
   v2 = +[TIAssetManager sharedAssetManager];
   v3 = [*(a1 + 32) inputMode];
   v4 = [v2 ddsAssetContentItemsWithContentType:@"LanguageModel" inputMode:v3 filteredWithRegion:0];
@@ -423,42 +421,39 @@ void __72__TILanguageModelOfflineLearningHandleFavonius_updateAdaptationContext_
   v11 = [*(a1 + 32) inputMode];
   v12 = [v11 isSiriMode];
   v13 = [*(a1 + 32) inputMode];
-  LOBYTE(v24) = [v13 doesSupportInlineCompletion];
-  BYTE2(v23) = v12;
-  LOWORD(v23) = 0;
-  v14 = [TILanguageModelLoaderManager sharedLanguageModelLoaderForModelLocaleIdentifier:"sharedLanguageModelLoaderForModelLocaleIdentifier:isMultilingualModel:customResourcePaths:dynamicResourcePath:mobileAssets:usesLinguisticContext:isMultiLingualModeEnabled:validEnglishTransformerMultilingualConfig:isSiriMode:trialParameters:isInlineCompletionEnabled:" isMultilingualModel:v8 customResourcePaths:v10 dynamicResourcePath:0 mobileAssets:v25 usesLinguisticContext:v4 isMultiLingualModeEnabled:1 validEnglishTransformerMultilingualConfig:v23 isSiriMode:0 trialParameters:v24 isInlineCompletionEnabled:?];
+  LOBYTE(v22) = [v13 doesSupportInlineCompletion];
+  BYTE2(v21) = v12;
+  LOWORD(v21) = 0;
+  v14 = [TILanguageModelLoaderManager sharedLanguageModelLoaderForModelLocaleIdentifier:"sharedLanguageModelLoaderForModelLocaleIdentifier:isMultilingualModel:customResourcePaths:dynamicResourcePath:mobileAssets:usesLinguisticContext:isMultiLingualModeEnabled:validEnglishTransformerMultilingualConfig:isSiriMode:trialParameters:isInlineCompletionEnabled:" isMultilingualModel:v8 customResourcePaths:v10 dynamicResourcePath:0 mobileAssets:v23 usesLinguisticContext:v4 isMultiLingualModeEnabled:1 validEnglishTransformerMultilingualConfig:v21 isSiriMode:0 trialParameters:v22 isInlineCompletionEnabled:?];
 
-  v15 = *(a1 + 40);
-  v16 = [*(a1 + 32) inputMode];
-  v17 = [v16 locale];
-  v26 = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+  v15 = [*(a1 + 32) inputMode];
+  v16 = [v15 locale];
+  v24 = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
   if (v14)
   {
-    [v14 languageModelForAdaptationContext:v15 languageLocales:v18];
-    v19 = *buf;
+    objc_msgSend_languageModelForAdaptationContext_languageLocales_(v14);
+    v18 = *buf;
   }
 
   else
   {
-    v19 = 0uLL;
+    v18 = 0uLL;
     *buf = 0u;
   }
 
-  v20 = *(*(a1 + 48) + 8);
+  v19 = *(*(a1 + 48) + 8);
   memset(buf, 0, sizeof(buf));
-  v21 = *(v20 + 56);
-  *(v20 + 48) = v19;
-  if (v21)
+  v20 = *(v19 + 56);
+  *(v19 + 48) = v18;
+  if (v20)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v21);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v20);
     if (*&buf[8])
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](*&buf[8]);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __72__TILanguageModelOfflineLearningHandleFavonius_updateAdaptationContext___block_invoke_57(uint64_t a1)
@@ -481,11 +476,11 @@ void __72__TILanguageModelOfflineLearningHandleFavonius_updateAdaptationContext_
 
 - (TILanguageModelOfflineLearningHandleFavonius)initWithInputMode:(id)mode
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   modeCopy = mode;
-  v11.receiver = self;
-  v11.super_class = TILanguageModelOfflineLearningHandleFavonius;
-  if ([(TILanguageModelOfflineLearningHandle *)&v11 initWithInputMode:modeCopy])
+  v10.receiver = self;
+  v10.super_class = TILanguageModelOfflineLearningHandleFavonius;
+  if ([(TILanguageModelOfflineLearningHandle *)&v10 initWithInputMode:modeCopy])
   {
     locale = [modeCopy locale];
     localeIdentifier = [locale localeIdentifier];
@@ -501,41 +496,40 @@ void __72__TILanguageModelOfflineLearningHandleFavonius_updateAdaptationContext_
       wantsMultilingualUnionOVS = 0;
     }
 
-    KB::utf8_string(localeIdentifier, v19);
-    v20 = 0x100000;
+    KB::utf8_string(localeIdentifier, v18);
+    v19 = 0x100000;
+    v20 = 0;
     v21 = 0;
     v22 = 0;
     v23 = 0;
-    v24 = 0;
-    v25 = 0x100000;
+    v24 = 0x100000;
+    v25 = 0;
     v26 = 0;
     v27 = 0;
     v28 = 0;
-    v29 = 0;
-    v30 = 0x100000;
+    v29 = 0x100000;
+    v30 = 0;
     v31 = 0;
     v32 = 0;
     v33 = 0;
-    v34 = 0;
-    v35 = 0x100000;
+    v34 = 0x100000;
+    v35 = 0;
     v36 = 0;
     v37 = 0;
     v38 = 0;
-    v39 = 0;
-    LODWORD(v40) = v7;
-    BYTE4(v40) = wantsMultilingualUnionOVS;
-    v41 = 1065353216;
-    KB::String::String(&v12, v19);
-    KB::String::String(&v13, &v20);
-    KB::String::String(&v14, &v25);
-    KB::String::String(&v15, &v30);
-    KB::String::String(&v16, &v35);
+    LODWORD(v39) = v7;
+    BYTE4(v39) = wantsMultilingualUnionOVS;
+    v40 = 1065353216;
+    KB::String::String(&v11, v18);
+    KB::String::String(&v12, &v19);
+    KB::String::String(&v13, &v24);
+    KB::String::String(&v14, &v29);
+    KB::String::String(&v15, &v34);
+    v16 = v39;
     v17 = v40;
-    v18 = v41;
     operator new();
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

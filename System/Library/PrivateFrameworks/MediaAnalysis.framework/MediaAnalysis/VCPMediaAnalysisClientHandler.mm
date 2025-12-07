@@ -91,7 +91,7 @@
 {
   if (MediaAnalysisLogLevel() >= 6)
   {
-    v3 = *(&VCPLogToOSLogType + 6);
+    v3 = VCPLogToOSLogType[6];
     if (os_log_type_enabled(&_os_log_default, v3))
     {
       *buf = 0;
@@ -145,7 +145,7 @@
   cancelAllTasks = [(MADServiceClientTaskQueuingScheduler *)self->_queuingTaskScheduler cancelAllTasks];
   if (MediaAnalysisLogLevel() >= 6)
   {
-    v12 = *(&VCPLogToOSLogType + 6);
+    v12 = VCPLogToOSLogType[6];
     if (os_log_type_enabled(&_os_log_default, v12))
     {
       v13 = [*(v20 + 5) count];
@@ -218,7 +218,7 @@
     v23 = v7->_connection;
     if (v23)
     {
-      [(NSXPCConnection *)v23 auditToken];
+      objc_msgSend_auditToken(v23);
     }
 
     else
@@ -524,7 +524,7 @@ LABEL_22:
   connection = self->_connection;
   if (connection)
   {
-    [(NSXPCConnection *)connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else
@@ -2304,7 +2304,7 @@ LABEL_19:
       }
     }
 
-    [(VCPMediaAnalysisClientHandler *)self secTask];
+    objc_msgSend_secTask(self);
     v20 = [MADUserSafetySettings policyTypeForTask:*buf scanningPolicy:scanningPolicy];
     sub_100002CBC(buf);
     if (MediaAnalysisLogLevel() >= 5)

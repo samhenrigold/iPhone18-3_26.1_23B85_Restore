@@ -51,30 +51,30 @@
 
   if (isKindOfClass)
   {
-    v6 = [dictionaryCopy objectForKeyedSubscript:@"sections"];
-    v7 = [v6 _pas_mappedArrayWithTransform:&__block_literal_global_70];
+    v7 = [dictionaryCopy objectForKeyedSubscript:@"sections"];
+    v8 = [v7 _pas_mappedArrayWithTransform:&__block_literal_global_70];
 
-    v8 = [dictionaryCopy objectForKeyedSubscript:@"source"];
-    integerValue = [v8 integerValue];
+    v9 = [dictionaryCopy objectForKeyedSubscript:@"source"];
+    integerValue = [v9 integerValue];
 
-    v10 = [dictionaryCopy objectForKeyedSubscript:@"dayZero"];
-    bOOLValue = [v10 BOOLValue];
+    v11 = [dictionaryCopy objectForKeyedSubscript:@"dayZero"];
+    bOOLValue = [v11 BOOLValue];
 
-    v12 = [[ATXFaceGalleryConfiguration alloc] initWithSections:v7 source:integerValue locale:0 dayZero:bOOLValue];
+    v13 = [[ATXFaceGalleryConfiguration alloc] initWithSections:v8 source:integerValue locale:0 dayZero:bOOLValue];
   }
 
   else
   {
-    v13 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_lock_screen(v6);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [ATXFaceGalleryConfiguration configurationFromJSONDictionary:v13];
+      [ATXFaceGalleryConfiguration configurationFromJSONDictionary:v14];
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 id __63__ATXFaceGalleryConfiguration_configurationFromJSONDictionary___block_invoke(uint64_t a1, void *a2)
@@ -217,31 +217,31 @@ id __63__ATXFaceGalleryConfiguration_configurationFromJSONDictionary___block_inv
 
 - (ATXFaceGalleryConfiguration)initWithCoder:(id)coder
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = MEMORY[0x1E695DFD8];
-  v14[0] = objc_opt_class();
-  v14[1] = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
+  v15[0] = objc_opt_class();
+  v15[1] = objc_opt_class();
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
   v7 = [v5 setWithArray:v6];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"sections"];
 
   if (v8)
   {
-    v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"source"];
-    integerValue = [v9 integerValue];
+    v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"source"];
+    integerValue = [v10 integerValue];
 
-    v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"locale"];
-    self = -[ATXFaceGalleryConfiguration initWithSections:source:locale:dayZero:](self, "initWithSections:source:locale:dayZero:", v8, integerValue, v11, [coderCopy decodeBoolForKey:@"dayZero"]);
+    v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"locale"];
+    self = -[ATXFaceGalleryConfiguration initWithSections:source:locale:dayZero:](self, "initWithSections:source:locale:dayZero:", v8, integerValue, v12, [coderCopy decodeBoolForKey:@"dayZero"]);
     selfCopy = self;
   }
 
   else
   {
-    v11 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_lock_screen(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [ATXFaceGalleryConfiguration initWithCoder:v11];
+      [ATXFaceGalleryConfiguration initWithCoder:v12];
     }
 
     selfCopy = 0;
@@ -444,33 +444,34 @@ LABEL_9:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v14 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v15 = __atxlog_handle_lock_screen(isKindOfClass);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      [(ATXDigestTimeline *)self initWithProto:v14];
+      [(ATXDigestTimeline *)self initWithProto:v15];
     }
 
     goto LABEL_9;
   }
 
-  v5 = protoCopy;
-  sections = [(ATXPBFaceGalleryConfiguration *)v5 sections];
-  v7 = [sections _pas_mappedArrayWithTransform:&__block_literal_global_54_0];
-  v8 = v7;
-  v9 = MEMORY[0x1E695E0F0];
-  if (v7)
+  v6 = protoCopy;
+  sections = [(ATXPBFaceGalleryConfiguration *)v6 sections];
+  v8 = [sections _pas_mappedArrayWithTransform:&__block_literal_global_54_0];
+  v9 = v8;
+  v10 = MEMORY[0x1E695E0F0];
+  if (v8)
   {
-    v9 = v7;
+    v10 = v8;
   }
 
-  v10 = v9;
+  v11 = v10;
 
-  source = [(ATXPBFaceGalleryConfiguration *)v5 source];
-  v12 = [(ATXFaceGalleryConfiguration *)self initWithSections:v10 source:source locale:0 dayZero:0];
+  source = [(ATXPBFaceGalleryConfiguration *)v6 source];
+  v13 = [(ATXFaceGalleryConfiguration *)self initWithSections:v11 source:source locale:0 dayZero:0];
 
-  self = v12;
+  self = v13;
   selfCopy = self;
 LABEL_10:
 

@@ -22,6 +22,8 @@
 - (int)_hourInUTC;
 - (int64_t)_accountTypeForAccount:(id)account;
 - (int64_t)_accountTypeForMessage:(id)message;
+- (int64_t)_loggingCategoryTypeFromType:(unint64_t)type isHighImpact:(BOOL)impact;
+- (int64_t)_loggingPredecitedCategoryTypeFromType:(unint64_t)type isHighImpact:(BOOL)impact;
 - (void)_logAccountPersonalPreferenceForBucketBar;
 - (void)_logAccountPersonalPreferenceForScheduledHour;
 - (void)_logAccountPersonalPreferenceWithEventName:(id)name scheduledHour:(id)hour includeReceivingAccountDomain:(BOOL)domain;
@@ -129,45 +131,44 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
 
 - (id)_defaultModelMetadata
 {
-  v6[11] = *MEMORY[0x1E69E9840];
-  v5[0] = @"trialExperimentIdentifier";
-  v5[1] = @"trialExperimentDeploymentIdentifier";
-  v6[0] = @"NA";
-  v6[1] = @"-1";
-  v5[2] = @"trialExperimentTreatmentIdentifier";
-  v5[3] = @"trialRolloutIdentifier";
-  v6[2] = @"NA";
-  v6[3] = @"NA";
-  v5[4] = @"trialRolloutDeploymentIdentifier";
-  v5[5] = @"trialRolloutFactorPackIdentifier";
-  v6[4] = @"-1";
-  v6[5] = @"NA";
-  v5[6] = @"blackPearlModelVersion";
-  v5[7] = @"blackPearlSenderModelVersion";
-  v6[6] = @"NA";
-  v6[7] = @"NA";
-  v5[8] = @"blackPearlBreakthroughVersion";
-  v5[9] = @"blackPearlFinalRuleVersion";
-  v6[8] = @"NA";
-  v6[9] = @"NA";
-  v5[10] = @"reasonCodes";
-  v6[10] = @"NA";
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:11];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[11] = *MEMORY[0x1E69E9840];
+  v4[0] = @"trialExperimentIdentifier";
+  v4[1] = @"trialExperimentDeploymentIdentifier";
+  v5[0] = @"NA";
+  v5[1] = @"-1";
+  v4[2] = @"trialExperimentTreatmentIdentifier";
+  v4[3] = @"trialRolloutIdentifier";
+  v5[2] = @"NA";
+  v5[3] = @"NA";
+  v4[4] = @"trialRolloutDeploymentIdentifier";
+  v4[5] = @"trialRolloutFactorPackIdentifier";
+  v5[4] = @"-1";
+  v5[5] = @"NA";
+  v4[6] = @"blackPearlModelVersion";
+  v4[7] = @"blackPearlSenderModelVersion";
+  v5[6] = @"NA";
+  v5[7] = @"NA";
+  v4[8] = @"blackPearlBreakthroughVersion";
+  v4[9] = @"blackPearlFinalRuleVersion";
+  v5[8] = @"NA";
+  v5[9] = @"NA";
+  v4[10] = @"reasonCodes";
+  v5[10] = @"NA";
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:11];
 
   return v2;
 }
 
 - (id)_modelMetadata:(id)metadata
 {
-  v44[11] = *MEMORY[0x1E69E9840];
+  v43[11] = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   v6 = metadataCopy;
   if (metadataCopy)
   {
-    v43[0] = @"trialExperimentIdentifier";
+    v42[0] = @"trialExperimentIdentifier";
     experimentID = [metadataCopy experimentID];
-    v42 = experimentID;
+    v41 = experimentID;
     if (experimentID)
     {
       v8 = experimentID;
@@ -178,10 +179,10 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
       v8 = @"NA";
     }
 
-    v44[0] = v8;
-    v43[1] = @"trialExperimentDeploymentIdentifier";
+    v43[0] = v8;
+    v42[1] = @"trialExperimentDeploymentIdentifier";
     experimentDeploymentID = [v6 experimentDeploymentID];
-    v41 = experimentDeploymentID;
+    v40 = experimentDeploymentID;
     if (experimentDeploymentID)
     {
       v10 = experimentDeploymentID;
@@ -192,10 +193,10 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
       v10 = @"-1";
     }
 
-    v44[1] = v10;
-    v43[2] = @"trialExperimentTreatmentIdentifier";
+    v43[1] = v10;
+    v42[2] = @"trialExperimentTreatmentIdentifier";
     experimentTreatmentID = [v6 experimentTreatmentID];
-    v40 = experimentTreatmentID;
+    v39 = experimentTreatmentID;
     if (experimentTreatmentID)
     {
       v12 = experimentTreatmentID;
@@ -206,10 +207,10 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
       v12 = @"NA";
     }
 
-    v44[2] = v12;
-    v43[3] = @"trialRolloutIdentifier";
+    v43[2] = v12;
+    v42[3] = @"trialRolloutIdentifier";
     rolloutID = [v6 rolloutID];
-    v39 = rolloutID;
+    v38 = rolloutID;
     if (rolloutID)
     {
       v14 = rolloutID;
@@ -220,10 +221,10 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
       v14 = @"NA";
     }
 
-    v44[3] = v14;
-    v43[4] = @"trialRolloutDeploymentIdentifier";
+    v43[3] = v14;
+    v42[4] = @"trialRolloutDeploymentIdentifier";
     rolloutDeploymentID = [v6 rolloutDeploymentID];
-    v38 = rolloutDeploymentID;
+    v37 = rolloutDeploymentID;
     if (rolloutDeploymentID)
     {
       v16 = rolloutDeploymentID;
@@ -234,8 +235,8 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
       v16 = @"-1";
     }
 
-    v44[4] = v16;
-    v43[5] = @"trialRolloutFactorPackIdentifier";
+    v43[4] = v16;
+    v42[5] = @"trialRolloutFactorPackIdentifier";
     rolloutFactorPackID = [v6 rolloutFactorPackID];
     v18 = rolloutFactorPackID;
     if (rolloutFactorPackID)
@@ -248,8 +249,8 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
       v19 = @"NA";
     }
 
-    v44[5] = v19;
-    v43[6] = @"blackPearlModelVersion";
+    v43[5] = v19;
+    v42[6] = @"blackPearlModelVersion";
     modelVersion = [v6 modelVersion];
     v21 = modelVersion;
     if (modelVersion)
@@ -262,8 +263,8 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
       v22 = @"NA";
     }
 
-    v44[6] = v22;
-    v43[7] = @"blackPearlSenderModelVersion";
+    v43[6] = v22;
+    v42[7] = @"blackPearlSenderModelVersion";
     senderModelVersion = [v6 senderModelVersion];
     v24 = senderModelVersion;
     if (senderModelVersion)
@@ -276,8 +277,8 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
       v25 = @"NA";
     }
 
-    v44[7] = v25;
-    v43[8] = @"blackPearlBreakthroughVersion";
+    v43[7] = v25;
+    v42[8] = @"blackPearlBreakthroughVersion";
     tsModelVersion = [v6 tsModelVersion];
     v27 = tsModelVersion;
     if (tsModelVersion)
@@ -290,8 +291,8 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
       v28 = @"NA";
     }
 
-    v44[8] = v28;
-    v43[9] = @"blackPearlFinalRuleVersion";
+    v43[8] = v28;
+    v42[9] = @"blackPearlFinalRuleVersion";
     finalRuleVersion = [v6 finalRuleVersion];
     v30 = finalRuleVersion;
     if (finalRuleVersion)
@@ -304,8 +305,8 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
       v31 = @"NA";
     }
 
-    v44[9] = v31;
-    v43[10] = @"reasonCodes";
+    v43[9] = v31;
+    v42[10] = @"reasonCodes";
     reasonCodes = [v6 reasonCodes];
     if (reasonCodes)
     {
@@ -318,8 +319,8 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
       v33 = &stru_1F45B4608;
     }
 
-    v44[10] = v33;
-    _defaultModelMetadata = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:v43 count:11];
+    v43[10] = v33;
+    _defaultModelMetadata = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:11];
     if (reasonCodes)
     {
     }
@@ -336,21 +337,19 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
     _defaultModelMetadata = [(EDCategoryCoreAnalyticsLogger *)self _defaultModelMetadata];
   }
 
-  v36 = *MEMORY[0x1E69E9840];
-
   return _defaultModelMetadata;
 }
 
 - (id)_convertModelMetadata:(id)metadata
 {
-  v44[11] = *MEMORY[0x1E69E9840];
+  v43[11] = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   v5 = metadataCopy;
   if (metadataCopy)
   {
-    v43[0] = @"trialExperimentIdentifier";
+    v42[0] = @"trialExperimentIdentifier";
     v6 = [metadataCopy objectForKey:@"experimentID"];
-    v42 = v6;
+    v41 = v6;
     if (v6)
     {
       v7 = v6;
@@ -361,10 +360,10 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
       v7 = @"NA";
     }
 
-    v44[0] = v7;
-    v43[1] = @"trialExperimentDeploymentIdentifier";
+    v43[0] = v7;
+    v42[1] = @"trialExperimentDeploymentIdentifier";
     v8 = [v5 objectForKey:@"experimentDeploymentID"];
-    v41 = v8;
+    v40 = v8;
     if (v8)
     {
       v9 = v8;
@@ -375,10 +374,10 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
       v9 = @"-1";
     }
 
-    v44[1] = v9;
-    v43[2] = @"trialExperimentTreatmentIdentifier";
+    v43[1] = v9;
+    v42[2] = @"trialExperimentTreatmentIdentifier";
     v10 = [v5 objectForKey:@"experimentTreatmentID"];
-    v40 = v10;
+    v39 = v10;
     if (v10)
     {
       v11 = v10;
@@ -389,10 +388,10 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
       v11 = @"NA";
     }
 
-    v44[2] = v11;
-    v43[3] = @"trialRolloutIdentifier";
+    v43[2] = v11;
+    v42[3] = @"trialRolloutIdentifier";
     v12 = [v5 objectForKey:@"rolloutID"];
-    v39 = v12;
+    v38 = v12;
     if (v12)
     {
       v13 = v12;
@@ -403,10 +402,10 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
       v13 = @"NA";
     }
 
-    v44[3] = v13;
-    v43[4] = @"trialRolloutDeploymentIdentifier";
+    v43[3] = v13;
+    v42[4] = @"trialRolloutDeploymentIdentifier";
     v14 = [v5 objectForKey:@"rolloutDeploymentID"];
-    v38 = v14;
+    v37 = v14;
     if (v14)
     {
       v15 = v14;
@@ -417,8 +416,8 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
       v15 = @"-1";
     }
 
-    v44[4] = v15;
-    v43[5] = @"trialRolloutFactorPackIdentifier";
+    v43[4] = v15;
+    v42[5] = @"trialRolloutFactorPackIdentifier";
     v16 = [v5 objectForKey:@"rolloutFactorPackID"];
     v17 = v16;
     if (v16)
@@ -431,8 +430,8 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
       v18 = @"NA";
     }
 
-    v44[5] = v18;
-    v43[6] = @"blackPearlModelVersion";
+    v43[5] = v18;
+    v42[6] = @"blackPearlModelVersion";
     v19 = [v5 objectForKey:@"modelVersion"];
     v20 = v19;
     if (v19)
@@ -445,8 +444,8 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
       v21 = @"NA";
     }
 
-    v44[6] = v21;
-    v43[7] = @"blackPearlSenderModelVersion";
+    v43[6] = v21;
+    v42[7] = @"blackPearlSenderModelVersion";
     v22 = [v5 objectForKey:@"senderModelVersion"];
     v23 = v22;
     if (v22)
@@ -459,8 +458,8 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
       v24 = @"NA";
     }
 
-    v44[7] = v24;
-    v43[8] = @"blackPearlBreakthroughVersion";
+    v43[7] = v24;
+    v42[8] = @"blackPearlBreakthroughVersion";
     v25 = [v5 objectForKey:@"tsModelVersion"];
     v26 = v25;
     if (v25)
@@ -473,8 +472,8 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
       v27 = @"NA";
     }
 
-    v44[8] = v27;
-    v43[9] = @"blackPearlFinalRuleVersion";
+    v43[8] = v27;
+    v42[9] = @"blackPearlFinalRuleVersion";
     v28 = [v5 objectForKey:@"finalRuleVersion"];
     v29 = v28;
     if (v28)
@@ -487,8 +486,8 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
       v30 = @"NA";
     }
 
-    v44[9] = v30;
-    v43[10] = @"reasonCodes";
+    v43[9] = v30;
+    v42[10] = @"reasonCodes";
     v31 = @"reasonCodes";
     v32 = [v5 objectForKey:@"reasonCodes"];
     if (v32)
@@ -502,8 +501,8 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
       v33 = @"NA";
     }
 
-    v44[10] = v33;
-    _defaultModelMetadata = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:v43 count:11];
+    v43[10] = v33;
+    _defaultModelMetadata = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:11];
     if (v32)
     {
     }
@@ -519,8 +518,6 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
 
     _defaultModelMetadata = [(EDCategoryCoreAnalyticsLogger *)self _defaultModelMetadata];
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return _defaultModelMetadata;
 }
@@ -540,14 +537,14 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
 - (id)_emSharedModelMetadataWithScheduledHour:(BOOL)hour
 {
   hourCopy = hour;
-  v28[10] = *MEMORY[0x1E69E9840];
+  v27[10] = *MEMORY[0x1E69E9840];
   em_userDefaults = [MEMORY[0x1E695E000] em_userDefaults];
   v5 = [(EDCategoryCoreAnalyticsLogger *)self _createMetadataPKWithUserDefaults:em_userDefaults];
-  v25 = [v5 objectForKeyedSubscript:@"trialExperimentID"];
-  v24 = [v5 objectForKeyedSubscript:@"trialExperimentDeploymentID"];
-  v22 = [v5 objectForKeyedSubscript:@"trialExperimentTreatmentID"];
-  v21 = [v5 objectForKeyedSubscript:@"trialRolloutID"];
-  v23 = [v5 objectForKeyedSubscript:@"trialRolloutDeploymentID"];
+  v24 = [v5 objectForKeyedSubscript:@"trialExperimentID"];
+  v23 = [v5 objectForKeyedSubscript:@"trialExperimentDeploymentID"];
+  v21 = [v5 objectForKeyedSubscript:@"trialExperimentTreatmentID"];
+  v20 = [v5 objectForKeyedSubscript:@"trialRolloutID"];
+  v22 = [v5 objectForKeyedSubscript:@"trialRolloutDeploymentID"];
   v6 = [v5 objectForKeyedSubscript:@"trialRolloutFactorpackID"];
   v7 = [v5 objectForKeyedSubscript:@"categorizationVersion"];
   _hourInUTC = [(EDCategoryCoreAnalyticsLogger *)self _hourInUTC];
@@ -570,29 +567,29 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
   }
 
   v13 = v12;
-  v28[0] = v25;
-  v27[0] = @"trialExperimentIdentifier";
-  v27[1] = @"trialExperimentDeploymentIdentifier";
-  stringValue = [v24 stringValue];
-  v28[1] = stringValue;
-  v28[2] = v22;
-  v27[2] = @"trialExperimentTreatmentIdentifier";
-  v27[3] = @"trialRolloutIdentifier";
-  v28[3] = v21;
-  v27[4] = @"trialRolloutDeploymentIdentifier";
-  stringValue2 = [v23 stringValue];
-  v27[5] = @"trialRolloutFactorPackIdentifier";
-  v27[6] = @"blackPearlCategorizationVersion";
-  v28[4] = stringValue2;
-  v28[5] = v6;
-  v27[7] = @"scheduledHour";
-  v27[8] = @"metadataPrimaryKey";
-  v28[6] = v7;
-  v28[7] = v9;
-  v27[9] = @"isDeviceBlackPearlEligible";
-  v28[8] = v10;
-  v28[9] = v13;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:10];
+  v27[0] = v24;
+  v26[0] = @"trialExperimentIdentifier";
+  v26[1] = @"trialExperimentDeploymentIdentifier";
+  stringValue = [v23 stringValue];
+  v27[1] = stringValue;
+  v27[2] = v21;
+  v26[2] = @"trialExperimentTreatmentIdentifier";
+  v26[3] = @"trialRolloutIdentifier";
+  v27[3] = v20;
+  v26[4] = @"trialRolloutDeploymentIdentifier";
+  stringValue2 = [v22 stringValue];
+  v26[5] = @"trialRolloutFactorPackIdentifier";
+  v26[6] = @"blackPearlCategorizationVersion";
+  v27[4] = stringValue2;
+  v27[5] = v6;
+  v26[7] = @"scheduledHour";
+  v26[8] = @"metadataPrimaryKey";
+  v27[6] = v7;
+  v27[7] = v9;
+  v26[9] = @"isDeviceBlackPearlEligible";
+  v27[8] = v10;
+  v27[9] = v13;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:10];
 
   v17 = [v16 mutableCopy];
   v18 = [(EDCategoryCoreAnalyticsLogger *)self _isAllInboxesCategoriesEnabled:em_userDefaults];
@@ -601,14 +598,12 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
     [v17 setObject:v18 forKeyedSubscript:@"isAllInboxesBlackPearlEnabled"];
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
 - (id)_isAllInboxesCategoriesEnabled:(id)enabled
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   enabledCopy = enabled;
   accountsProvider = [(EDCategoryCoreAnalyticsLogger *)self accountsProvider];
   numberOfActiveAccounts = [accountsProvider numberOfActiveAccounts];
@@ -626,8 +621,8 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
     {
       v10 = [MEMORY[0x1E699AED0] unifiedMailboxOfType:7 name:@"All Inboxes"];
       bucketBarController = [(EDCategoryCoreAnalyticsLogger *)self bucketBarController];
-      v16[0] = v10;
-      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+      v15[0] = v10;
+      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
       v13 = [bucketBarController isBucketBarHiddenForMailboxes:v12];
 
       if (v13)
@@ -647,21 +642,20 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
     v7 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (BOOL)_isMailAccountBucketBarHidden:(id)hidden
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   hiddenCopy = hidden;
   v5 = [hiddenCopy mailboxForType:7];
   if ([v5 conformsToProtocol:&unk_1F4628E00])
   {
     v6 = v5;
     bucketBarController = [(EDCategoryCoreAnalyticsLogger *)self bucketBarController];
-    v12[0] = v6;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+    v11[0] = v6;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
     v9 = [bucketBarController isBucketBarHiddenForMailboxes:v8];
   }
 
@@ -670,7 +664,6 @@ void __36__EDCategoryCoreAnalyticsLogger_log__block_invoke(uint64_t a1)
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1001,7 +994,7 @@ void __125__EDCategoryCoreAnalyticsLogger_logRecategorizationEventForMessages_ca
 
 void __125__EDCategoryCoreAnalyticsLogger_logRecategorizationEventForMessages_categoryType_categoryPersistence_isHighImpactFlagChange___block_invoke_2(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 dateReceived];
   v5 = [v4 ef_isLaterThanOrEqualDate:*(a1 + 32)];
@@ -1059,13 +1052,11 @@ void __125__EDCategoryCoreAnalyticsLogger_logRecategorizationEventForMessages_ca
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       v29 = *(a1 + 40);
-      v31 = 138412290;
-      v32 = v29;
-      _os_log_impl(&dword_1C61EF000, v28, OS_LOG_TYPE_DEFAULT, "Recategorization event: %@", &v31, 0xCu);
+      v30 = 138412290;
+      v31 = v29;
+      _os_log_impl(&dword_1C61EF000, v28, OS_LOG_TYPE_DEFAULT, "Recategorization event: %@", &v30, 0xCu);
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logReceiveEventForMessagesWithResult:(id)result
@@ -1349,6 +1340,168 @@ LABEL_5:
   return v6;
 }
 
+- (int64_t)_loggingPredecitedCategoryTypeFromType:(unint64_t)type isHighImpact:(BOOL)impact
+{
+  v11 = *MEMORY[0x1E69E9840];
+  if (type > 3)
+  {
+    if (type <= 5)
+    {
+      v6 = !impact;
+      if (type == 4)
+      {
+        v7 = 5;
+      }
+
+      else
+      {
+        v7 = 7;
+      }
+    }
+
+    else
+    {
+      if (type != 6)
+      {
+        if (type == 7)
+        {
+          return 12;
+        }
+
+        if (type == 8)
+        {
+          if (impact)
+          {
+            return 14;
+          }
+
+          else
+          {
+            return 11;
+          }
+        }
+
+        goto LABEL_25;
+      }
+
+      v6 = !impact;
+      v7 = 9;
+    }
+
+LABEL_21:
+    if (v6)
+    {
+      return v7;
+    }
+
+    else
+    {
+      return v7 + 1;
+    }
+  }
+
+  if (type > 1)
+  {
+    v6 = !impact;
+    if (type == 2)
+    {
+      v7 = 1;
+    }
+
+    else
+    {
+      v7 = 3;
+    }
+
+    goto LABEL_21;
+  }
+
+  if (!type)
+  {
+    return 13;
+  }
+
+  if (type == 1)
+  {
+    return 0;
+  }
+
+LABEL_25:
+  v8 = [EDCategoryCoreAnalyticsLogger log:type];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = 134217984;
+    typeCopy = type;
+    _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "Error: No correct category type to log for %lu", &v9, 0xCu);
+  }
+
+  return result;
+}
+
+- (int64_t)_loggingCategoryTypeFromType:(unint64_t)type isHighImpact:(BOOL)impact
+{
+  typeCopy = type;
+  v12 = *MEMORY[0x1E69E9840];
+  if (type > 1)
+  {
+    if (type == 2)
+    {
+      v5 = !impact;
+      v6 = 2;
+      v7 = 5;
+LABEL_14:
+      if (v5)
+      {
+        return v6;
+      }
+
+      else
+      {
+        return v7;
+      }
+    }
+
+    if (type == 3)
+    {
+      if (impact)
+      {
+        return 4;
+      }
+
+      else
+      {
+        return 1;
+      }
+    }
+  }
+
+  else
+  {
+    if (!type)
+    {
+      return typeCopy;
+    }
+
+    if (type == 1)
+    {
+      v5 = !impact;
+      v6 = 3;
+      v7 = 6;
+      goto LABEL_14;
+    }
+  }
+
+  v8 = [EDCategoryCoreAnalyticsLogger log:type];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = 134217984;
+    v11 = typeCopy;
+    _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "Error: No correct category type to log for %lu", &v10, 0xCu);
+  }
+
+  return typeCopy;
+}
+
 - (void)logModelMetadataForMessages:(id)messages categoryPersistence:(id)persistence
 {
   messagesCopy = messages;
@@ -1368,7 +1521,7 @@ LABEL_5:
 
 void __81__EDCategoryCoreAnalyticsLogger_logModelMetadataForMessages_categoryPersistence___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
@@ -1383,17 +1536,15 @@ void __81__EDCategoryCoreAnalyticsLogger_logModelMetadataForMessages_categoryPer
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = *(a1 + 32);
-    v12 = 138412290;
-    v13 = v10;
-    _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "Feedback event: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v10;
+    _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "Feedback event: %@", &v11, 0xCu);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (double)_calculateScheduleDeltaFrom:(id)from
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   v4 = [MEMORY[0x1E695DFE8] timeZoneWithName:@"UTC"];
   currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
@@ -1442,24 +1593,23 @@ void __81__EDCategoryCoreAnalyticsLogger_logModelMetadataForMessages_categoryPer
   v13 = v10 + -3600 * hour - 60 * minute - second + v11;
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 134218752;
+    v15 = 134218752;
     hour2 = [v6 hour];
-    v18 = 2048;
+    v17 = 2048;
     minute2 = [v6 minute];
-    v20 = 2048;
+    v19 = 2048;
     second2 = [v6 second];
-    v22 = 2048;
-    v23 = v13;
-    _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "Scheduling analytics task: datetimeNow = {%ld:%ld:%ld}, scheduleAfter = %ld", &v16, 0x2Au);
+    v21 = 2048;
+    v22 = v13;
+    _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "Scheduling analytics task: datetimeNow = {%ld:%ld:%ld}, scheduleAfter = %ld", &v15, 0x2Au);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (double)_calculateBiomeETLToCAScheduleDeltaFrom:(id)from
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   v4 = objc_alloc(MEMORY[0x1E695DEE8]);
   v5 = [v4 initWithCalendarIdentifier:*MEMORY[0x1E695D850]];
@@ -1484,55 +1634,49 @@ void __81__EDCategoryCoreAnalyticsLogger_logModelMetadataForMessages_categoryPer
   v13 = v11 - second - (3600 * hour + 60 * minute);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 134218752;
+    v15 = 134218752;
     hour2 = [v7 hour];
-    v18 = 2048;
+    v17 = 2048;
     minute2 = [v7 minute];
-    v20 = 2048;
+    v19 = 2048;
     second2 = [v7 second];
-    v22 = 2048;
-    v23 = v13;
-    _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "Scheduling Biome ETL-To-CA analytics task: datetimeNow = {%ld:%ld:%ld}, scheduleAfter = %ld", &v16, 0x2Au);
+    v21 = 2048;
+    v22 = v13;
+    _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "Scheduling Biome ETL-To-CA analytics task: datetimeNow = {%ld:%ld:%ld}, scheduleAfter = %ld", &v15, 0x2Au);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (void)scheduleNextBiomeETLToCAScheduleBackgroundTask
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)scheduleNextAnalyticsBackgroundTask
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processCoreAnalyticsEvents
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"EDClientStateForegroundStateDidChangeKeyIsScheduled";
-  v7[0] = MEMORY[0x1E695E118];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"EDClientStateForegroundStateDidChangeKeyIsScheduled";
+  v6[0] = MEMORY[0x1E695E118];
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter postNotificationName:@"EDClientStateForegroundStateDidChange" object:self userInfo:v3];
 
   [(EDCategoryCoreAnalyticsLogger *)self _logAccountPersonalPreferenceForScheduledHour];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)etlFromBiomeToCA
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AD98];
   date = [MEMORY[0x1E695DF00] date];
   [date timeIntervalSince1970];
@@ -1544,11 +1688,11 @@ void __81__EDCategoryCoreAnalyticsLogger_logModelMetadataForMessages_categoryPer
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v32 = v8;
-    v33 = 2112;
-    v34 = v7;
-    v35 = 2112;
-    v36 = v6;
+    v31 = v8;
+    v32 = 2112;
+    v33 = v7;
+    v34 = 2112;
+    v35 = v6;
     _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "Biome ETL-To-CA Before Query: startTSL1: %@, startTS: %@, endTS: %@", buf, 0x20u);
   }
 
@@ -1568,7 +1712,7 @@ void __81__EDCategoryCoreAnalyticsLogger_logModelMetadataForMessages_categoryPer
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v32 = v15;
+        v31 = v15;
         v17 = "Biome ETL-To-CA Before Query: replaced endTS from user defaults lastForegroundedTimestamps: %@";
         v18 = v16;
         v19 = 12;
@@ -1608,7 +1752,7 @@ LABEL_9:
       {
         v25 = [v23 count];
         *buf = 134217984;
-        v32 = v25;
+        v31 = v25;
         v26 = "Biome ETL-To-CA After Query: rowCount %lu";
         v27 = v24;
         v28 = 12;
@@ -1630,15 +1774,13 @@ LABEL_17:
       }
     }
 
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __49__EDCategoryCoreAnalyticsLogger_etlFromBiomeToCA__block_invoke;
-    v30[3] = &unk_1E82516A0;
-    v30[4] = self;
-    [v23 enumerateObjectsUsingBlock:v30];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __49__EDCategoryCoreAnalyticsLogger_etlFromBiomeToCA__block_invoke;
+    v29[3] = &unk_1E82516A0;
+    v29[4] = self;
+    [v23 enumerateObjectsUsingBlock:v29];
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __49__EDCategoryCoreAnalyticsLogger_etlFromBiomeToCA__block_invoke(uint64_t a1, void *a2)
@@ -1731,34 +1873,34 @@ LABEL_11:
 - (void)_logAccountPersonalPreferenceWithEventName:(id)name scheduledHour:(id)hour includeReceivingAccountDomain:(BOOL)domain
 {
   domainCopy = domain;
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   hourCopy = hour;
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   selfCopy = self;
   accountsProvider = [(EDCategoryCoreAnalyticsLogger *)self accountsProvider];
   mailAccounts = [accountsProvider mailAccounts];
 
   obj = mailAccounts;
-  v9 = [mailAccounts countByEnumeratingWithState:&v40 objects:v44 count:16];
+  v9 = [mailAccounts countByEnumeratingWithState:&v39 objects:v43 count:16];
   if (v9)
   {
-    v10 = *v41;
-    v33 = @"kMCCCategoryIsNonPersonalAccountKey";
+    v10 = *v40;
+    v32 = @"kMCCCategoryIsNonPersonalAccountKey";
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v41 != v10)
+        if (*v40 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v40 + 1) + 8 * i);
-        if ([v12 conformsToProtocol:{&unk_1F4628C10, v33}])
+        v12 = *(*(&v39 + 1) + 8 * i);
+        if ([v12 conformsToProtocol:{&unk_1F4628C10, v32}])
         {
           v13 = v12;
           if (([v13 isLocalAccount] & 1) == 0 && objc_msgSend(v13, "isActive"))
@@ -1781,7 +1923,7 @@ LABEL_11:
               }
 
               systemAccount = [v13 systemAccount];
-              v22 = [systemAccount accountPropertyForKey:v33];
+              v22 = [systemAccount accountPropertyForKey:v32];
               v23 = v22;
               if (v22)
               {
@@ -1832,13 +1974,11 @@ LABEL_11:
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v9 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
     }
 
     while (v9);
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_blackPearlEnabledAccounts
@@ -1918,13 +2058,12 @@ id __71__EDCategoryCoreAnalyticsLogger_setOfBlackPearlEnabledAccoutIdentifier__b
 
 void __86__EDCategoryCoreAnalyticsLogger__sendCategorizationAnalyticsForAppLaunchNotification___block_invoke_cold_1(char a1, char a2, os_log_t log)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 67109376;
-  v4[1] = a1 & 1;
-  v5 = 1024;
-  v6 = a2 & 1;
-  _os_log_debug_impl(&dword_1C61EF000, log, OS_LOG_TYPE_DEBUG, "Core Analytics processing [foreground=%d] [scheduled=%d]", v4, 0xEu);
-  v3 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109376;
+  v3[1] = a1 & 1;
+  v4 = 1024;
+  v5 = a2 & 1;
+  _os_log_debug_impl(&dword_1C61EF000, log, OS_LOG_TYPE_DEBUG, "Core Analytics processing [foreground=%d] [scheduled=%d]", v3, 0xEu);
 }
 
 @end

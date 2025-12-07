@@ -2,6 +2,7 @@
 - (BOOL)getHasUnarchivedMultipleItems:(BOOL *)items firstUnarchivedItemURL:(id *)l forArchiveFolderURL:(id)rL error:(id *)error;
 - (FPUnarchiveOperation)initWithItem:(id)item destinationFolder:(id)folder;
 - (id)_newParentProgressWithCompletedUnitCount:(int64_t)count;
+- (id)findUniqueUnarchivedName:(id)name isFolder:(BOOL)folder parent:(id)parent;
 - (void)_importUnarchivedContentAtURL:(id)l archiveName:(id)name completionHandler:(id)handler;
 - (void)_unarchiveAndHandleIncorrectPassphraseURL:(id)l archiveName:(id)name service:(id)service passphrase:(id)passphrase completionHandler:(id)handler;
 - (void)_unarchiveURL:(id)l archiveName:(id)name service:(id)service passphrase:(id)passphrase completionHandler:(id)handler;
@@ -64,39 +65,39 @@ LABEL_3:
 
 - (BOOL)getHasUnarchivedMultipleItems:(BOOL *)items firstUnarchivedItemURL:(id *)l forArchiveFolderURL:(id)rL error:(id *)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   rLCopy = rL;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__5;
-  v32 = __Block_byref_object_dispose__5;
-  v33 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__5;
+  v31 = __Block_byref_object_dispose__5;
+  v32 = 0;
   if (rLCopy)
   {
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __103__FPUnarchiveOperation_getHasUnarchivedMultipleItems_firstUnarchivedItemURL_forArchiveFolderURL_error___block_invoke;
-    v27[3] = &unk_1E793B018;
-    v27[4] = &v28;
-    v11 = [defaultManager enumeratorAtURL:rLCopy includingPropertiesForKeys:0 options:1 errorHandler:v27];
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __103__FPUnarchiveOperation_getHasUnarchivedMultipleItems_firstUnarchivedItemURL_forArchiveFolderURL_error___block_invoke;
+    v26[3] = &unk_1E793B018;
+    v26[4] = &v27;
+    v11 = [defaultManager enumeratorAtURL:rLCopy includingPropertiesForKeys:0 options:1 errorHandler:v26];
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v12 = v11;
-    v13 = [v12 countByEnumeratingWithState:&v23 objects:v34 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v22 objects:v33 count:16];
     if (v13)
     {
       v14 = 0;
-      v15 = *v24;
+      v15 = *v23;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v24 != v15)
+          if (*v23 != v15)
           {
             objc_enumerationMutation(v12);
           }
@@ -107,10 +108,10 @@ LABEL_3:
             goto LABEL_19;
           }
 
-          v14 = *(*(&v23 + 1) + 8 * i);
+          v14 = *(*(&v22 + 1) + 8 * i);
         }
 
-        v13 = [v12 countByEnumeratingWithState:&v23 objects:v34 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v22 objects:v33 count:16];
         if (v13)
         {
           continue;
@@ -130,7 +131,7 @@ LABEL_3:
 
 LABEL_19:
 
-    v19 = v29[5];
+    v19 = v28[5];
     v18 = v19 == 0;
     if (v19)
     {
@@ -158,7 +159,7 @@ LABEL_19:
         goto LABEL_29;
       }
 
-      v19 = v29[5];
+      v19 = v28[5];
     }
 
     *error = v19;
@@ -189,48 +190,47 @@ LABEL_29:
   }
 
 LABEL_30:
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v27, 8);
 
-  v21 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (void)_importUnarchivedContentAtURL:(id)l archiveName:(id)name completionHandler:(id)handler
 {
-  v60[1] = *MEMORY[0x1E69E9840];
+  v59[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   nameCopy = name;
   handlerCopy = handler;
-  v37 = +[FPItemManager defaultManager];
+  v36 = +[FPItemManager defaultManager];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   startAccessingSecurityScopedResource = [lCopy startAccessingSecurityScopedResource];
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __84__FPUnarchiveOperation__importUnarchivedContentAtURL_archiveName_completionHandler___block_invoke;
   aBlock[3] = &unk_1E793AE88;
-  v59 = startAccessingSecurityScopedResource;
+  v58 = startAccessingSecurityScopedResource;
   v11 = lCopy;
-  v58 = v11;
+  v57 = v11;
   v12 = _Block_copy(aBlock);
-  v56 = 0;
-  v54 = 0;
   v55 = 0;
-  v13 = [(FPUnarchiveOperation *)self getHasUnarchivedMultipleItems:&v56 firstUnarchivedItemURL:&v55 forArchiveFolderURL:v11 error:&v54];
-  v36 = v55;
-  v14 = v54;
+  v53 = 0;
+  v54 = 0;
+  v13 = [(FPUnarchiveOperation *)self getHasUnarchivedMultipleItems:&v55 firstUnarchivedItemURL:&v54 forArchiveFolderURL:v11 error:&v53];
+  v35 = v54;
+  v14 = v53;
   if (v13)
   {
-    if (v56 == 1)
+    if (v55 == 1)
     {
-      v34 = v11;
+      v33 = v11;
       goto LABEL_6;
     }
 
-    v34 = v36;
-    if (v34)
+    v33 = v35;
+    if (v33)
     {
 LABEL_6:
-      if (v56 == 1)
+      if (v55 == 1)
       {
         v15 = fp_current_or_default_log();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
@@ -238,10 +238,10 @@ LABEL_6:
           [FPUnarchiveOperation _importUnarchivedContentAtURL:archiveName:completionHandler:];
         }
 
-        v16 = [[FPArchiveTemporaryFolder alloc] initWithURL:v34];
-        v53 = v14;
-        v17 = [(FPArchiveTemporaryFolder *)v16 temporaryFolderURLGetError:&v53];
-        v18 = v53;
+        v16 = [[FPArchiveTemporaryFolder alloc] initWithURL:v33];
+        v52 = v14;
+        v17 = [(FPArchiveTemporaryFolder *)v16 temporaryFolderURLGetError:&v52];
+        v18 = v52;
 
         if (!v17)
         {
@@ -257,15 +257,15 @@ LABEL_25:
         stringByDeletingPathExtension = [nameCopy stringByDeletingPathExtension];
         v20 = [v17 URLByAppendingPathComponent:stringByDeletingPathExtension isDirectory:1];
 
-        v52 = v18;
-        v21 = [defaultManager moveItemAtURL:v11 toURL:v20 error:&v52];
-        v14 = v52;
+        v51 = v18;
+        v21 = [defaultManager moveItemAtURL:v11 toURL:v20 error:&v51];
+        v14 = v51;
 
         if ((v21 & 1) == 0)
         {
-          v51 = 0;
-          v29 = [defaultManager removeItemAtURL:v17 error:&v51];
-          v30 = v51;
+          v50 = 0;
+          v29 = [defaultManager removeItemAtURL:v17 error:&v50];
+          v30 = v50;
           if ((v29 & 1) == 0)
           {
             v31 = fp_current_or_default_log();
@@ -284,7 +284,7 @@ LABEL_25:
 
         v12[2](v12);
 
-        v34 = v20;
+        v33 = v20;
       }
 
       else
@@ -296,42 +296,42 @@ LABEL_25:
       v22 = fp_current_or_default_log();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
-        [FPUnarchiveOperation _importUnarchivedContentAtURL:v34 archiveName:? completionHandler:?];
+        [FPUnarchiveOperation _importUnarchivedContentAtURL:v33 archiveName:? completionHandler:?];
       }
 
       v23 = [FPMoveOperation alloc];
-      v60[0] = v34;
-      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:1];
+      v59[0] = v33;
+      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v59 count:1];
       v25 = [(FPMoveOperation *)v23 initWithURLs:v24 destinationFolder:self->_destinationFolder];
 
       objc_initWeak(&location, v25);
-      v39[0] = MEMORY[0x1E69E9820];
-      v39[1] = 3221225472;
-      v39[2] = __84__FPUnarchiveOperation__importUnarchivedContentAtURL_archiveName_completionHandler___block_invoke_168;
-      v39[3] = &unk_1E793B040;
-      v49 = v56;
-      v40 = defaultManager;
-      v41 = v11;
-      v46 = v12;
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = __84__FPUnarchiveOperation__importUnarchivedContentAtURL_archiveName_completionHandler___block_invoke_168;
+      v38[3] = &unk_1E793B040;
+      v48 = v55;
+      v39 = defaultManager;
+      v40 = v11;
+      v45 = v12;
       selfCopy = self;
       v17 = v17;
-      v43 = v17;
-      v48[1] = a2;
+      v42 = v17;
+      v47[1] = a2;
       v16 = v16;
-      v44 = v16;
-      v47 = handlerCopy;
-      objc_copyWeak(v48, &location);
+      v43 = v16;
+      v46 = handlerCopy;
+      objc_copyWeak(v47, &location);
       v18 = v14;
-      v45 = v18;
-      [(FPActionOperation *)v25 setActionCompletionBlock:v39];
+      v44 = v18;
+      [(FPActionOperation *)v25 setActionCompletionBlock:v38];
       [(FPMoveOperation *)v25 setShouldBounceOnCollision:1];
       [(FPActionOperation *)v25 setHaveStitching:0];
       progress = [(FPActionOperation *)self progress];
       progress2 = [(FPActionOperation *)v25 progress];
       [progress addChild:progress2 withPendingUnitCount:10];
 
-      [v37 scheduleAction:v25];
-      objc_destroyWeak(v48);
+      [v36 scheduleAction:v25];
+      objc_destroyWeak(v47);
 
       objc_destroyWeak(&location);
       goto LABEL_25;
@@ -354,15 +354,13 @@ LABEL_25:
   }
 
 LABEL_26:
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __84__FPUnarchiveOperation__importUnarchivedContentAtURL_archiveName_completionHandler___block_invoke(uint64_t result)
+id *__84__FPUnarchiveOperation__importUnarchivedContentAtURL_archiveName_completionHandler___block_invoke(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) stopAccessingSecurityScopedResource];
+    return [result[4] stopAccessingSecurityScopedResource];
   }
 
   return result;
@@ -498,7 +496,7 @@ void __107__FPUnarchiveOperation__unarchiveURLInFPEnumeratedDomain_archiveName_s
 
 - (void)_unarchiveURLInDSEnumeratedDomain:(id)domain service:(id)service passphrase:(id)passphrase completionHandler:(id)handler
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   serviceCopy = service;
   passphraseCopy = passphrase;
@@ -506,8 +504,8 @@ void __107__FPUnarchiveOperation__unarchiveURLInFPEnumeratedDomain_archiveName_s
   uRLByDeletingLastPathComponent = [domainCopy URLByDeletingLastPathComponent];
   if (passphraseCopy)
   {
-    v22[0] = passphraseCopy;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+    v21[0] = passphraseCopy;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
   }
 
   else
@@ -515,13 +513,13 @@ void __107__FPUnarchiveOperation__unarchiveURLInFPEnumeratedDomain_archiveName_s
     v15 = 0;
   }
 
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __95__FPUnarchiveOperation__unarchiveURLInDSEnumeratedDomain_service_passphrase_completionHandler___block_invoke;
-  v20[3] = &unk_1E793A3D0;
-  v21 = handlerCopy;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __95__FPUnarchiveOperation__unarchiveURLInDSEnumeratedDomain_service_passphrase_completionHandler___block_invoke;
+  v19[3] = &unk_1E793A3D0;
+  v20 = handlerCopy;
   v16 = handlerCopy;
-  v17 = [serviceCopy unarchiveItemAtURL:domainCopy toURL:uRLByDeletingLastPathComponent options:0 acceptedFormats:1 passphrases:v15 completionHandler:v20];
+  v17 = [serviceCopy unarchiveItemAtURL:domainCopy toURL:uRLByDeletingLastPathComponent options:0 acceptedFormats:1 passphrases:v15 completionHandler:v19];
   if (passphraseCopy)
   {
   }
@@ -531,8 +529,6 @@ void __107__FPUnarchiveOperation__unarchiveURLInFPEnumeratedDomain_archiveName_s
     progress = [(FPActionOperation *)self progress];
     [progress addChild:v17 withPendingUnitCount:80];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __95__FPUnarchiveOperation__unarchiveURLInDSEnumeratedDomain_service_passphrase_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -749,7 +745,7 @@ LABEL_6:
 
 void __34__FPUnarchiveOperation_actionMain__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = v6;
   if (a3)
@@ -769,23 +765,21 @@ void __34__FPUnarchiveOperation_actionMain__block_invoke(uint64_t a1, void *a2, 
     [v9 setMaxConcurrentOperationCount:1];
     v10 = objc_opt_new();
     objc_storeStrong((*(a1 + 32) + 488), v10);
-    v20[0] = v8;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __34__FPUnarchiveOperation_actionMain__block_invoke_2;
-    v16[3] = &unk_1E793B108;
+    v19[0] = v8;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __34__FPUnarchiveOperation_actionMain__block_invoke_2;
+    v15[3] = &unk_1E793B108;
     v12 = *(a1 + 40);
-    v16[4] = *(a1 + 32);
-    v17 = v10;
-    v18 = v8;
-    v19 = v12;
+    v15[4] = *(a1 + 32);
+    v16 = v10;
+    v17 = v8;
+    v18 = v12;
     v13 = v8;
     v14 = v10;
-    [v14 coordinateAccessWithIntents:v11 queue:v9 byAccessor:v16];
+    [v14 coordinateAccessWithIntents:v11 queue:v9 byAccessor:v15];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __34__FPUnarchiveOperation_actionMain__block_invoke_2(uint64_t a1, uint64_t a2)
@@ -838,11 +832,10 @@ void __34__FPUnarchiveOperation_actionMain__block_invoke_2(uint64_t a1, uint64_t
       [currentHandler handleFailureInMethod:a2 object:self file:@"FPArchiveOperation.m" lineNumber:1044 description:@"nil coordinator with a non-nil coordination access token"];
 
       coordinator = self->_coordinator;
-      coordinationAccessToken = self->_coordinationAccessToken;
     }
 
     [(NSFileCoordinator *)coordinator releaseAccess:?];
-    v11 = self->_coordinationAccessToken;
+    coordinationAccessToken = self->_coordinationAccessToken;
     self->_coordinationAccessToken = 0;
   }
 
@@ -873,14 +866,40 @@ void __34__FPUnarchiveOperation_actionMain__block_invoke_2(uint64_t a1, uint64_t
     [(FPUnarchiveOperation *)self setUnarchiveCompletionBlock:0];
   }
 
-  v20.receiver = self;
-  v20.super_class = FPUnarchiveOperation;
-  [(FPActionOperation *)&v20 finishWithResult:v13 error:v14];
+  v19.receiver = self;
+  v19.super_class = FPUnarchiveOperation;
+  [(FPActionOperation *)&v19 finishWithResult:v13 error:v14];
+}
+
+- (id)findUniqueUnarchivedName:(id)name isFolder:(BOOL)folder parent:(id)parent
+{
+  folderCopy = folder;
+  nameCopy = name;
+  v13 = 0;
+  v8 = [parent fp_existingURLOfChildWithName:nameCopy isFolder:folderCopy notMatchingFileID:0 nextAvailableBounceNumber:&v13 forceFetchingBounceNumber:1];
+  v9 = v13;
+  v10 = v9;
+  if (v8)
+  {
+    if (!v9)
+    {
+      v10 = &unk_1F1FC9A58;
+    }
+
+    v11 = [nameCopy fp_bouncedNameWithIndex:objc_msgSend(v10 isDir:{"longValue") + 1, folderCopy}];
+  }
+
+  else
+  {
+    v11 = nameCopy;
+  }
+
+  return v11;
 }
 
 - (void)service:(id)service didReceiveArchivedItemsDescriptors:(id)descriptors placeholderName:(id)name placeholderTypeIdentifier:(id)identifier
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   descriptorsCopy = descriptors;
   nameCopy = name;
@@ -893,7 +912,7 @@ void __34__FPUnarchiveOperation_actionMain__block_invoke_2(uint64_t a1, uint64_t
   stitcher = [(FPActionOperation *)self stitcher];
   [stitcher start];
 
-  v62 = serviceCopy;
+  v61 = serviceCopy;
   if (nameCopy && identifierCopy)
   {
     v15 = [MEMORY[0x1E6982C40] fp_cachedTypeWithIdentifier:identifierCopy];
@@ -904,39 +923,39 @@ void __34__FPUnarchiveOperation_actionMain__block_invoke_2(uint64_t a1, uint64_t
     placeholderID = self->_placeholderID;
     self->_placeholderID = v19;
 
-    v21 = v62;
+    v21 = v61;
   }
 
   else
   {
-    v57 = identifierCopy;
-    v58 = nameCopy;
-    v68 = 0u;
-    v69 = 0u;
-    v66 = 0u;
+    v56 = identifierCopy;
+    v57 = nameCopy;
     v67 = 0u;
-    v59 = descriptorsCopy;
+    v68 = 0u;
+    v65 = 0u;
+    v66 = 0u;
+    v58 = descriptorsCopy;
     obj = descriptorsCopy;
-    v22 = [obj countByEnumeratingWithState:&v66 objects:v70 count:16];
+    v22 = [obj countByEnumeratingWithState:&v65 objects:v69 count:16];
     selfCopy = self;
     if (v22)
     {
       v23 = v22;
       v24 = 0;
       v25 = 0;
-      v26 = *v67;
+      v26 = *v66;
       while (2)
       {
         v27 = 0;
-        v63 = v23;
+        v62 = v23;
         do
         {
-          if (*v67 != v26)
+          if (*v66 != v26)
           {
             objc_enumerationMutation(obj);
           }
 
-          v28 = *(*(&v66 + 1) + 8 * v27);
+          v28 = *(*(&v65 + 1) + 8 * v27);
           filePath = [v28 filePath];
           pathComponents = [filePath pathComponents];
           v31 = [pathComponents count];
@@ -951,7 +970,7 @@ void __34__FPUnarchiveOperation_actionMain__block_invoke_2(uint64_t a1, uint64_t
             v25 = v34;
             v26 = v33;
             v24 = v32;
-            v23 = v63;
+            v23 = v62;
           }
 
           else
@@ -981,7 +1000,7 @@ void __34__FPUnarchiveOperation_actionMain__block_invoke_2(uint64_t a1, uint64_t
         }
 
         while (v23 != v27);
-        v23 = [obj countByEnumeratingWithState:&v66 objects:v70 count:16];
+        v23 = [obj countByEnumeratingWithState:&v65 objects:v69 count:16];
         if (v23)
         {
           continue;
@@ -1042,10 +1061,10 @@ LABEL_24:
     }
 
     self = selfCopy;
-    v21 = v62;
-    nameCopy = v58;
-    descriptorsCopy = v59;
-    identifierCopy = v57;
+    v21 = v61;
+    nameCopy = v57;
+    descriptorsCopy = v58;
+    identifierCopy = v56;
   }
 
   v53 = +[FPProgressManager defaultManager];
@@ -1054,8 +1073,6 @@ LABEL_24:
 
   stitcher4 = [(FPActionOperation *)self stitcher];
   [stitcher4 flush];
-
-  v56 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithItem:destinationFolder:.cold.1()
@@ -1074,82 +1091,59 @@ LABEL_24:
   [v0 handleFailureInMethod:@"destinationFolder" object:? file:? lineNumber:? description:?];
 }
 
-- (void)_importUnarchivedContentAtURL:archiveName:completionHandler:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, v0, v1, "[DEBUG] %@: Archive contains multiple top-level item, wrapping them in a folder named after the archive", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)_importUnarchivedContentAtURL:archiveName:completionHandler:.cold.2()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_3();
-  v4 = v0;
-  _os_log_error_impl(&dword_1AAAE1000, v1, OS_LOG_TYPE_ERROR, "[ERROR] failed to remove temporary folder at URL %@: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  _os_log_error_impl(&dword_1AAAE1000, v1, OS_LOG_TYPE_ERROR, "[ERROR] failed to remove temporary folder at URL %@: %@", v2, 0x16u);
 }
 
 - (void)_importUnarchivedContentAtURL:(uint64_t)a1 archiveName:(void *)a2 completionHandler:.cold.3(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [a2 fp_shortDescription];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unarchiveURLInFPEnumeratedDomain:(uint64_t)a1 archiveName:(void *)a2 service:passphrase:completionHandler:.cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [a2 fp_shortDescription];
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __107__FPUnarchiveOperation__unarchiveURLInFPEnumeratedDomain_archiveName_service_passphrase_completionHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_5_3(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_5_3(a1 a2)];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_20();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __107__FPUnarchiveOperation__unarchiveURLInFPEnumeratedDomain_archiveName_service_passphrase_completionHandler___block_invoke_cold_2(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_5_3(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_5_3(a1 a2)];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_20();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __115__FPUnarchiveOperation__unarchiveAndHandleIncorrectPassphraseURL_archiveName_service_passphrase_completionHandler___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, a2, a3, "[DEBUG] %@: incorrect passphrase, asking for one", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, a2, a3, "[DEBUG] %@: incorrect passphrase, asking for one", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __115__FPUnarchiveOperation__unarchiveAndHandleIncorrectPassphraseURL_archiveName_service_passphrase_completionHandler___block_invoke_cold_2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, a2, a3, "[DEBUG] %@: archive requires a passphrase, asking for one", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, a2, a3, "[DEBUG] %@: archive requires a passphrase, asking for one", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __115__FPUnarchiveOperation__unarchiveAndHandleIncorrectPassphraseURL_archiveName_service_passphrase_completionHandler___block_invoke_cold_3()

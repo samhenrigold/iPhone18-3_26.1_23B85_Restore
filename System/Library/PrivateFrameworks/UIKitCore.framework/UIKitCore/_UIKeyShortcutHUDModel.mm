@@ -590,9 +590,9 @@ LABEL_24:
   firstObject = [array2 firstObject];
   uiMenu = [firstObject uiMenu];
   identifier = [uiMenu identifier];
-  v57 = [identifier isEqualToString:@"com.apple.menu.application"];
+  isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-  if ((v57 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     uiMenu2 = [firstObject uiMenu];

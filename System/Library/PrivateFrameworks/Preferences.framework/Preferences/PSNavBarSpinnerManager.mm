@@ -74,7 +74,7 @@
 
 - (void)stopAnimatingForIdentifier:(id)identifier
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = [(NSMutableDictionary *)self->_savedRecords objectForKeyedSubscript:identifierCopy];
   v6 = v5;
@@ -84,7 +84,8 @@
     rightBarButtonItems = [navigationItem rightBarButtonItems];
     lastObject = [rightBarButtonItems lastObject];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       [lastObject stopAnimating];
       leftItems = [v6 leftItems];
@@ -98,12 +99,12 @@
 
     else
     {
-      v12 = _PSLoggingFacility();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = _PSLoggingFacility(isKindOfClass);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 138412290;
-        v14 = identifierCopy;
-        _os_log_impl(&dword_18B008000, v12, OS_LOG_TYPE_DEFAULT, "Error: Tried to remove a spinner for identifier %@but it wasn't there.", &v13, 0xCu);
+        v14 = 138412290;
+        v15 = identifierCopy;
+        _os_log_impl(&dword_18B008000, v13, OS_LOG_TYPE_DEFAULT, "Error: Tried to remove a spinner for identifier %@but it wasn't there.", &v14, 0xCu);
       }
     }
 

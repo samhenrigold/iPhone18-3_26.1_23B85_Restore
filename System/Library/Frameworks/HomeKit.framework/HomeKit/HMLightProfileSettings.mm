@@ -12,19 +12,17 @@
 
 - (NSArray)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMLightProfileSettings *)self isNaturalLightingEnabled];
   v4 = HMFBooleanToString();
   v5 = [v3 initWithName:@"Natural Lighting Enabled" value:v4];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   v7 = HMLightProfileSupportedFeaturesAsString([(HMLightProfileSettings *)self supportedFeatures]);
   v8 = [v6 initWithName:@"Supported Features" value:v7];
-  v12[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
 
   return v9;
 }

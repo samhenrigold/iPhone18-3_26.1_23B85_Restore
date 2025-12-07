@@ -25,7 +25,7 @@
     v8 = 0;
   }
 
-  return sub_1A3DCECE4(v8, frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
+  return sub_1A3DCECE4(v8, a2, frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
 }
 
 - (_TtC12PhotosUICore22GenerativeStoryVFXView)initWithFrame:(CGRect)frame

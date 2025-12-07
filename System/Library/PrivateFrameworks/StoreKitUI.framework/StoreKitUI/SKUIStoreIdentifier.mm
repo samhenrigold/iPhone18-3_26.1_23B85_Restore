@@ -133,9 +133,9 @@ LABEL_7:
     {
       if (v6)
       {
-        v7 = [(NSNumber *)itemIdentifier isEqualToNumber:?];
+        isEqualToString = [(NSNumber *)itemIdentifier isEqualToNumber:?];
 LABEL_11:
-        LOBYTE(bundleIdentifier) = v7;
+        LOBYTE(bundleIdentifier) = isEqualToString;
         goto LABEL_13;
       }
 
@@ -152,7 +152,7 @@ LABEL_12:
   {
     if (podcastFeedURLIdentifier != equalCopy->_podcastFeedURLIdentifier)
     {
-      v7 = [(NSString *)podcastFeedURLIdentifier isEqualToString:?];
+      isEqualToString = objc_msgSend_isEqualToString_(podcastFeedURLIdentifier);
       goto LABEL_11;
     }
 
@@ -163,7 +163,7 @@ LABEL_12:
   if (bundleIdentifier)
   {
     bundleIdentifier = [(SKUIStoreIdentifier *)equalCopy bundleIdentifier];
-    LOBYTE(bundleIdentifier) = [(NSString *)bundleIdentifier isEqualToString:bundleIdentifier];
+    LOBYTE(bundleIdentifier) = objc_msgSend_isEqualToString_(bundleIdentifier);
   }
 
 LABEL_13:

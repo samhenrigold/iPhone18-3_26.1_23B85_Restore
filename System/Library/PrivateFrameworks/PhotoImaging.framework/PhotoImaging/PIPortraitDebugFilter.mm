@@ -11,7 +11,7 @@
   depthInfo = [(PIPortraitDebugFilter *)self depthInfo];
   if (depthInfo)
   {
-    [inputImage extent];
+    objc_msgSend_extent(inputImage);
     v6 = v5;
     v8 = v7;
     cyanColor = [MEMORY[0x1E695F610] cyanColor];

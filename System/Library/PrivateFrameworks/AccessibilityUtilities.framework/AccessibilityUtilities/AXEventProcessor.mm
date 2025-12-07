@@ -264,17 +264,14 @@ void __55__AXEventProcessor_restoreHIDEventTapPriorityToDefault__block_invoke(ui
   }
 }
 
-uint64_t __55__AXEventProcessor_beginHandlingSystemEventsForReason___block_invoke(uint64_t a1)
+void *__55__AXEventProcessor_beginHandlingSystemEventsForReason___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) systemActualEventTapEnabledReasons];
   v3 = [v2 containsObject:*(a1 + 40)];
 
   if (v3)
   {
-    v8 = @"This reason already exists among reasons for tapping system events. Unbalanced. Could be trouble, but might be ok. %@";
-    v9 = *(a1 + 40);
-    LOBYTE(v7) = 1;
-    _AXLogWithFacility();
+    _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"This reason already exists among reasons for tapping system events. Unbalanced. Could be trouble, but might be ok. %@");
   }
 
   else
@@ -321,14 +318,11 @@ void __53__AXEventProcessor_endHandlingSystemEventsForReason___block_invoke(uint
 
   else
   {
-    v8 = @"This reason does not exist among reasons for tapping system events. Unbalanced. %@";
-    v9 = *(a1 + 40);
-    LOBYTE(v7) = 1;
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"This reason does not exist among reasons for tapping system events. Unbalanced. %@");
   }
 
-  v10 = [*(a1 + 32) systemActualEventTapEnabledReasons];
-  if ([v10 count])
+  v7 = [*(a1 + 32) systemActualEventTapEnabledReasons];
+  if ([v7 count])
   {
   }
 

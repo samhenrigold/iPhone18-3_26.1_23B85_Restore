@@ -143,8 +143,8 @@ uint64_t __62__HFMediaPlaybackActionBuilder_initWithExistingObject_inHome___bloc
 
     v11 = v10 ^ 1;
     accessories4 = [(HFMediaPlaybackActionBuilder *)self accessories];
-    home = [(HFItemBuilder *)self home];
-    v14 = [(HFMediaPlaybackActionBuilder *)self mediaProfileContainersForAccessories:accessories4 home:home];
+    v13 = objc_msgSend_home(self);
+    v14 = [(HFMediaPlaybackActionBuilder *)self mediaProfileContainersForAccessories:accessories4 home:v13];
 
     mediaProfiles = [(HFMediaPlaybackActionBuilder *)self mediaProfiles];
     v16 = mediaProfiles;
@@ -258,8 +258,8 @@ LABEL_22:
     [(HFMediaPlaybackActionBuilder *)self setAccessories:v4];
 
     accessories = [(HFMediaPlaybackActionBuilder *)self accessories];
-    home = [(HFItemBuilder *)self home];
-    v6 = [(HFMediaPlaybackActionBuilder *)self mediaProfileContainersForAccessories:accessories home:home];
+    v5 = objc_msgSend_home(self);
+    v6 = [(HFMediaPlaybackActionBuilder *)self mediaProfileContainersForAccessories:accessories home:v5];
     mediaProfiles = self->_mediaProfiles;
     self->_mediaProfiles = v6;
   }
@@ -370,8 +370,8 @@ uint64_t __74__HFMediaPlaybackActionBuilder_mediaProfileContainersForAccessories
 - (id)copyForCreatingNewAction
 {
   v3 = objc_alloc(objc_opt_class());
-  home = [(HFItemBuilder *)self home];
-  v5 = [v3 initWithHome:home];
+  v4 = objc_msgSend_home(self);
+  v5 = [v3 initWithHome:v4];
 
   [v5 setTargetPlayState:{-[HFMediaPlaybackActionBuilder targetPlayState](self, "targetPlayState")}];
   targetVolume = [(HFMediaPlaybackActionBuilder *)self targetVolume];
@@ -390,8 +390,8 @@ uint64_t __74__HFMediaPlaybackActionBuilder_mediaProfileContainersForAccessories
   [v5 setAccessories:v14];
 
   accessories2 = [v5 accessories];
-  home2 = [v5 home];
-  v17 = [v5 mediaProfileContainersForAccessories:accessories2 home:home2];
+  v16 = objc_msgSend_home(v5);
+  v17 = [v5 mediaProfileContainersForAccessories:accessories2 home:v16];
   [v5 setMediaProfiles:v17];
 
   return v5;

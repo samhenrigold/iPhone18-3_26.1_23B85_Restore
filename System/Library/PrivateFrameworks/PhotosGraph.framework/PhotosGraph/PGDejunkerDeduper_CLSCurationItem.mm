@@ -17,15 +17,15 @@
 
 - (id)personLocalIdentifiersFromFaceInfos:(id)infos faceQualityScore:(double *)score
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   infosCopy = infos;
-  v27 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v26 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v5 = infosCopy;
-  v6 = [v5 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (!v6)
   {
     v8 = 0;
@@ -35,18 +35,18 @@
 
   v7 = v6;
   v8 = 0;
-  v9 = *v29;
+  v9 = *v28;
   v10 = 0.0;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v29 != v9)
+      if (*v28 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v12 = *(*(&v28 + 1) + 8 * i);
+      v12 = *(*(&v27 + 1) + 8 * i);
       v13 = [v12 objectForKeyedSubscript:@"personLocalIdentifier"];
       if (v13)
       {
@@ -66,7 +66,7 @@
           }
         }
 
-        [v27 addObject:v13];
+        [v26 addObject:v13];
         v17 = [v12 objectForKeyedSubscript:@"quality"];
         [v17 doubleValue];
         v19 = v18;
@@ -81,7 +81,7 @@
 LABEL_13:
     }
 
-    v7 = [v5 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
   }
 
   while (v7);
@@ -89,7 +89,7 @@ LABEL_17:
 
   if (score)
   {
-    v20 = [v27 count];
+    v20 = [v26 count];
     v21 = 0.0;
     if (v20)
     {
@@ -109,50 +109,48 @@ LABEL_17:
     *score = v21;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v27;
+  return v26;
 }
 
 - (id)requiredItemsInItems:(id)items options:(id)options containStronglyRequiredItems:(BOOL *)requiredItems
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   optionsCopy = options;
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
   identifiersOfRequiredItems = [optionsCopy identifiersOfRequiredItems];
   identifiersOfEligibleItems = [optionsCopy identifiersOfEligibleItems];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v11 = itemsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (!v12)
   {
-    v22 = 0;
+    v21 = 0;
     goto LABEL_17;
   }
 
   v13 = v12;
-  v22 = 0;
-  v14 = *v24;
+  v21 = 0;
+  v14 = *v23;
   do
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v24 != v14)
+      if (*v23 != v14)
       {
         objc_enumerationMutation(v11);
       }
 
-      v16 = *(*(&v23 + 1) + 8 * i);
+      v16 = *(*(&v22 + 1) + 8 * i);
       clsIdentifier = [v16 clsIdentifier];
       if (!identifiersOfEligibleItems || ([identifiersOfEligibleItems containsObject:clsIdentifier] & 1) != 0 || objc_msgSend(identifiersOfRequiredItems, "containsObject:", clsIdentifier))
       {
         if ([(PGDejunkerDeduper_CLSCurationItem *)self item:v16 isStrongRequiredWithOptions:optionsCopy])
         {
-          v22 = 1;
+          v21 = 1;
         }
 
         else if (![(PGDejunkerDeduper_CLSCurationItem *)self item:v16 isWeaklyRequiredWithOptions:optionsCopy])
@@ -166,7 +164,7 @@ LABEL_17:
 LABEL_13:
     }
 
-    v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
   }
 
   while (v13);
@@ -174,10 +172,8 @@ LABEL_17:
 
   if (requiredItems)
   {
-    *requiredItems = v22 & 1;
+    *requiredItems = v21 & 1;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -243,30 +239,30 @@ LABEL_17:
 
 - (id)faceprintByPersonLocalIdentifierByItemIdentifierWithItems:(id)items
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
-  v25 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v24 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = itemsCopy;
-  v26 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
-  if (v26)
+  v25 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+  if (v25)
   {
-    v24 = *v35;
+    v23 = *v34;
     do
     {
       v4 = 0;
       do
       {
-        if (*v35 != v24)
+        if (*v34 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v28 = v4;
-        v5 = *(*(&v34 + 1) + 8 * v4);
+        v27 = v4;
+        v5 = *(*(&v33 + 1) + 8 * v4);
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
         faceInfos = MEMORY[0x277CBEBF8];
@@ -275,35 +271,35 @@ LABEL_17:
           faceInfos = [v5 faceInfos];
         }
 
-        v27 = v5;
+        v26 = v5;
         v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+        v29 = 0u;
         v30 = 0u;
         v31 = 0u;
         v32 = 0u;
-        v33 = 0u;
         v9 = faceInfos;
-        v10 = [v9 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v29 objects:v37 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v31;
+          v12 = *v30;
           do
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v31 != v12)
+              if (*v30 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v14 = *(*(&v30 + 1) + 8 * i);
+              v14 = *(*(&v29 + 1) + 8 * i);
               v15 = [v14 objectForKeyedSubscript:@"faceprint"];
               if (v15)
               {
                 v16 = objc_alloc(MEMORY[0x277CE2CD8]);
-                v29 = 0;
-                v17 = [v16 initWithState:v15 error:&v29];
-                v18 = v29;
+                v28 = 0;
+                v17 = [v16 initWithState:v15 error:&v28];
+                v18 = v28;
                 if (v17)
                 {
                   v19 = [v14 objectForKeyedSubscript:@"personLocalIdentifier"];
@@ -312,63 +308,61 @@ LABEL_17:
               }
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v30 objects:v38 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v29 objects:v37 count:16];
           }
 
           while (v11);
         }
 
-        clsIdentifier = [v27 clsIdentifier];
-        [v25 setObject:v8 forKeyedSubscript:clsIdentifier];
+        clsIdentifier = [v26 clsIdentifier];
+        [v24 setObject:v8 forKeyedSubscript:clsIdentifier];
 
-        v4 = v28 + 1;
+        v4 = v27 + 1;
       }
 
-      while (v28 + 1 != v26);
-      v26 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+      while (v27 + 1 != v25);
+      v25 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v25;
+  return v24;
 }
 
 - (id)debugPersonStringForItem:(id)item
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = [(PGDejunkerDeduper_CLSCurationItem *)self featureWithItem:item];
   personLocalIdentifiers = [v3 personLocalIdentifiers];
   peopleScenes = [v3 peopleScenes];
   if ([personLocalIdentifiers count])
   {
     allObjects = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v7 = personLocalIdentifiers;
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [*(*(&v17 + 1) + 8 * i) substringToIndex:{8, v17}];
+          v12 = [*(*(&v16 + 1) + 8 * i) substringToIndex:{8, v16}];
           [allObjects addObject:v12];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v9);
@@ -392,32 +386,30 @@ LABEL_12:
   v13 = @"nobody";
 LABEL_13:
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)bestItemsInItems:(id)items options:(id)options
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   optionsCopy = options;
-  v46 = 0;
-  v8 = [(PGDejunkerDeduper_CLSCurationItem *)self requiredItemsInItems:itemsCopy options:optionsCopy containStronglyRequiredItems:&v46];
+  v45 = 0;
+  v8 = [(PGDejunkerDeduper_CLSCurationItem *)self requiredItemsInItems:itemsCopy options:optionsCopy containStronglyRequiredItems:&v45];
   v9 = v8;
-  if (v46 == 1)
+  if (v45 == 1)
   {
     v10 = v8;
     goto LABEL_30;
   }
 
   v11 = [objc_opt_class() useFaceprintsForIdenticalDedupingWithOptions:optionsCopy];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   v12 = itemsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v42 objects:v47 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v41 objects:v46 count:16];
   if (!v13)
   {
 
@@ -426,13 +418,13 @@ LABEL_13:
   }
 
   v14 = v13;
-  v39 = itemsCopy;
+  v38 = itemsCopy;
   selfCopy = self;
-  v37 = v9;
-  v38 = optionsCopy;
+  v36 = v9;
+  v37 = optionsCopy;
   v15 = 0;
   v16 = 0;
-  v17 = *v43;
+  v17 = *v42;
   v18 = -1.79769313e308;
   v19 = -1.79769313e308;
   obj = v12;
@@ -440,12 +432,12 @@ LABEL_13:
   {
     for (i = 0; i != v14; ++i)
     {
-      if (*v43 != v17)
+      if (*v42 != v17)
       {
         objc_enumerationMutation(obj);
       }
 
-      v21 = *(*(&v42 + 1) + 8 * i);
+      v21 = *(*(&v41 + 1) + 8 * i);
       isFavorite = [v21 isFavorite];
       [v21 clsContentScore];
       v24 = v23;
@@ -502,28 +494,28 @@ LABEL_20:
 LABEL_21:
     }
 
-    v14 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+    v14 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
   }
 
   while (v14);
 
   if (v16)
   {
-    v9 = v37;
-    optionsCopy = v38;
-    itemsCopy = v39;
-    if (![v37 containsObject:v16])
+    v9 = v36;
+    optionsCopy = v37;
+    itemsCopy = v38;
+    if (![v36 containsObject:v16])
     {
-      v34 = [v37 arrayByAddingObject:v16];
+      v34 = [v36 arrayByAddingObject:v16];
       goto LABEL_29;
     }
   }
 
   else
   {
-    optionsCopy = v38;
-    itemsCopy = v39;
-    v9 = v37;
+    optionsCopy = v37;
+    itemsCopy = v38;
+    v9 = v36;
   }
 
 LABEL_28:
@@ -532,23 +524,22 @@ LABEL_29:
   v10 = v34;
 
 LABEL_30:
-  v35 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (id)bestItemInItems:(id)items options:(id)options
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   optionsCopy = options;
   v7 = [objc_opt_class() useFaceprintsForIdenticalDedupingWithOptions:optionsCopy];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v8 = itemsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (!v9)
   {
     v11 = 0;
@@ -557,7 +548,7 @@ LABEL_30:
 
   v10 = v9;
   v11 = 0;
-  v12 = *v31;
+  v12 = *v30;
   v13 = -1.79769313e308;
   v14 = -1.79769313e308;
   do
@@ -566,12 +557,12 @@ LABEL_30:
     v16 = v13;
     do
     {
-      if (*v31 != v12)
+      if (*v30 != v12)
       {
         objc_enumerationMutation(v8);
       }
 
-      v17 = *(*(&v30 + 1) + 8 * v15);
+      v17 = *(*(&v29 + 1) + 8 * v15);
       [v17 clsContentScore];
       v19 = v18;
       if (v7 && (faceQualityScoreByItemIdentifier = self->_faceQualityScoreByItemIdentifier, [v17 clsIdentifier], v21 = objc_claimAutoreleasedReturnValue(), -[NSDictionary objectForKeyedSubscript:](faceQualityScoreByItemIdentifier, "objectForKeyedSubscript:", v21), v22 = objc_claimAutoreleasedReturnValue(), v21, v22))
@@ -613,50 +604,48 @@ LABEL_19:
     }
 
     while (v10 != v15);
-    v10 = [v8 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v10 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
   }
 
   while (v10);
 LABEL_23:
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (void)_buildCachesWithItems:(id)items options:(id)options
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   optionsCopy = options;
   v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v35 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v34 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v8 = v7;
-  v32 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v31 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v9 = [MEMORY[0x277CBEB98] setWithObject:@"#people#"];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v10 = itemsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v38 objects:v42 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v37 objects:v41 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v39;
-    v36 = *v39;
-    v31 = v10;
-    v34 = v8;
+    v13 = *v38;
+    v35 = *v38;
+    v30 = v10;
+    v33 = v8;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v39 != v13)
+        if (*v38 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v38 + 1) + 8 * i);
+        v15 = *(*(&v37 + 1) + 8 * i);
         clsIdentifier = [v15 clsIdentifier];
         personDedupingType = [optionsCopy personDedupingType];
         if (personDedupingType == 2)
@@ -685,16 +674,16 @@ LABEL_23:
           faceInfos = [clsPersonLocalIdentifiers faceInfos];
           if ([faceInfos count])
           {
-            v37 = 0.0;
-            v20 = [(PGDejunkerDeduper_CLSCurationItem *)self personLocalIdentifiersFromFaceInfos:faceInfos faceQualityScore:&v37];
+            v36 = 0.0;
+            v20 = [(PGDejunkerDeduper_CLSCurationItem *)self personLocalIdentifiersFromFaceInfos:faceInfos faceQualityScore:&v36];
             if ([v20 count])
             {
-              [MEMORY[0x277CCABB0] numberWithDouble:v37];
+              [MEMORY[0x277CCABB0] numberWithDouble:v36];
               v22 = v21 = v9;
-              [(NSDictionary *)v32 setObject:v22 forKeyedSubscript:clsIdentifier];
+              [(NSDictionary *)v31 setObject:v22 forKeyedSubscript:clsIdentifier];
 
               v9 = v21;
-              v10 = v31;
+              v10 = v30;
             }
           }
 
@@ -703,10 +692,10 @@ LABEL_23:
             v20 = 0;
           }
 
-          v8 = v34;
+          v8 = v33;
         }
 
-        v13 = v36;
+        v13 = v35;
 LABEL_19:
         if ([v20 count])
         {
@@ -715,11 +704,11 @@ LABEL_19:
 
         if ([optionsCopy personDedupingType] && objc_msgSend(v15, "clsIsInhabited"))
         {
-          [(NSDictionary *)v35 setObject:v9 forKeyedSubscript:clsIdentifier];
+          [(NSDictionary *)v34 setObject:v9 forKeyedSubscript:clsIdentifier];
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v37 objects:v41 count:16];
     }
 
     while (v12);
@@ -732,62 +721,60 @@ LABEL_19:
 
   v26 = v10;
   peopleScenesByItemIdentifier = self->_peopleScenesByItemIdentifier;
-  self->_peopleScenesByItemIdentifier = v35;
-  v28 = v35;
+  self->_peopleScenesByItemIdentifier = v34;
+  v28 = v34;
 
   faceQualityScoreByItemIdentifier = self->_faceQualityScoreByItemIdentifier;
-  self->_faceQualityScoreByItemIdentifier = v32;
-
-  v30 = *MEMORY[0x277D85DE8];
+  self->_faceQualityScoreByItemIdentifier = v31;
 }
 
 - (id)dejunkedDedupedItemIdentifiersWithItems:(id)items options:(id)options debugInfo:(id *)info
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   optionsCopy = options;
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v10 = objc_alloc_init(MEMORY[0x277D3C7A0]);
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __95__PGDejunkerDeduper_CLSCurationItem_dejunkedDedupedItemIdentifiersWithItems_options_debugInfo___block_invoke;
-  v32[3] = &unk_278886108;
-  v25 = v10;
-  v33 = v25;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __95__PGDejunkerDeduper_CLSCurationItem_dejunkedDedupedItemIdentifiersWithItems_options_debugInfo___block_invoke;
+  v31[3] = &unk_278886108;
+  v24 = v10;
+  v32 = v24;
   v11 = optionsCopy;
-  v34 = v11;
+  v33 = v11;
   v12 = v9;
-  v35 = v12;
-  v27 = itemsCopy;
-  [itemsCopy enumerateKeysAndObjectsUsingBlock:v32];
+  v34 = v12;
+  v26 = itemsCopy;
+  [itemsCopy enumerateKeysAndObjectsUsingBlock:v31];
   v13 = [[PGDejunkerDeduperOptions alloc] initWithDictionaryRepresentation:v11];
   v14 = [objc_alloc(MEMORY[0x277D276A0]) initWithItems:v12];
   v15 = [(PGDejunkerDeduper_CLSCurationItem *)self dejunkedDedupedItemsInItems:v12 options:v13 debugInfo:v14 progressBlock:0];
   v16 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v15, "count")}];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v17 = v15;
-  v18 = [v17 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v29;
+    v20 = *v28;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v29 != v20)
+        if (*v28 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        clsIdentifier = [*(*(&v28 + 1) + 8 * i) clsIdentifier];
+        clsIdentifier = [*(*(&v27 + 1) + 8 * i) clsIdentifier];
         [v16 addObject:clsIdentifier];
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
     while (v19);
@@ -797,8 +784,6 @@ LABEL_19:
   {
     *info = [v14 dictionaryRepresentationWithAppendExtraItemInfoBlock:0];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

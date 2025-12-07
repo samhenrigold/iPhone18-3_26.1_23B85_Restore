@@ -9,6 +9,7 @@
 - (void)completeTransaction;
 - (void)dealloc;
 - (void)propertyStatesForProperties:(id)availableProperties reply:(id)reply;
+- (void)setDeviceControlPID:(int)d reply:(id)reply;
 - (void)setPropertyValues:(id)values reply:(id)reply;
 - (void)unregister;
 - (void)updatePropertyStates:(id)states;
@@ -26,33 +27,31 @@
 
 - (CMIOExtensionSessionDevice)initWithPropertyStates:(id)states streamsStates:(id)streamsStates provider:(id)provider
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   if (!states || !streamsStates || !provider)
   {
 
     goto LABEL_9;
   }
 
-  v54.receiver = self;
-  v54.super_class = CMIOExtensionSessionDevice;
-  v8 = [(CMIOExtensionSessionDevice *)&v54 init];
+  v58.receiver = self;
+  v58.super_class = CMIOExtensionSessionDevice;
+  v8 = [(CMIOExtensionSessionDevice *)&v58 init];
   if (!v8)
   {
-LABEL_10:
-    v14 = 0;
-    goto LABEL_11;
+    return 0;
   }
 
   v9 = v8;
   v8->_lock._os_unfair_lock_opaque = 0;
   lock = &v8->_lock;
   v10 = +[CMIOExtensionDevice internalProperties];
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __76__CMIOExtensionSessionDevice_initWithPropertyStates_streamsStates_provider___block_invoke;
-  v53[3] = &unk_27885C010;
-  v53[4] = v10;
-  v9->_availableProperties = [states keysOfEntriesPassingTest:v53];
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = __76__CMIOExtensionSessionDevice_initWithPropertyStates_streamsStates_provider___block_invoke;
+  v57[3] = &unk_27885C010;
+  v57[4] = v10;
+  v9->_availableProperties = [states keysOfEntriesPassingTest:v57];
   v9->_localizedName = [objc_msgSend(states objectForKeyedSubscript:{0x284358D98), "value"}];
   v11 = [states objectForKeyedSubscript:0x284358DB8];
   v9->_deviceID = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:{objc_msgSend(v11, "value")}];
@@ -104,10 +103,11 @@ LABEL_18:
   v9->_description = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"<CMIOExtensionSessionDevice: ID %@, legacy: %@>", v9->_deviceID, v9->_legacyDeviceID];
   if (v13)
   {
-    if ([*p_streamIDs count] != 2)
+    v16 = [*p_streamIDs count];
+    if (v16 != 2)
     {
-      v45 = CMIOLog();
-      if (v45 && os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v49 = CMIOLog(v16, v17);
+      if (v49 && os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
       {
         [CMIOExtensionSessionDevice initWithPropertyStates:streamsStates:provider:];
       }
@@ -115,48 +115,50 @@ LABEL_18:
       goto LABEL_69;
     }
 
-    v17 = 0;
     v18 = 0;
     v19 = 0;
-    v20 = 1;
+    v20 = 0;
+    v21 = 1;
     while (1)
     {
-      v21 = v20;
-      v22 = [streamsStates objectForKeyedSubscript:{objc_msgSend(*p_streamIDs, "objectAtIndexedSubscript:", v17)}];
-      if (!v22)
+      v22 = v21;
+      v23 = [streamsStates objectForKeyedSubscript:{objc_msgSend(*p_streamIDs, "objectAtIndexedSubscript:", v18)}];
+      if (!v23)
       {
-        v26 = CMIOLog();
-        if (v26)
+        isKindOfClass = CMIOLog(0, v24);
+        if (isKindOfClass)
         {
-          v27 = v26;
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+          v29 = isKindOfClass;
+          isKindOfClass = os_log_type_enabled(isKindOfClass, OS_LOG_TYPE_ERROR);
+          if (isKindOfClass)
           {
-            v47 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
-            v28 = [*p_streamIDs objectAtIndexedSubscript:v17];
+            v51 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
+            v30 = [*p_streamIDs objectAtIndexedSubscript:v18];
             *buf = 136315906;
-            v57 = v47;
-            v58 = 1024;
-            v59 = 832;
-            v60 = 2080;
-            v61 = "[CMIOExtensionSessionDevice initWithPropertyStates:streamsStates:provider:]";
-            v62 = 2114;
-            v63 = v28;
-            _os_log_error_impl(&dword_22EA08000, v27, OS_LOG_TYPE_ERROR, "%s:%d:%s missing stream properties for %{public}@", buf, 0x26u);
+            v61 = v51;
+            v62 = 1024;
+            v63 = 832;
+            v64 = 2080;
+            v65 = "[CMIOExtensionSessionDevice initWithPropertyStates:streamsStates:provider:]";
+            v66 = 2114;
+            v67 = v30;
+            _os_log_error_impl(&dword_22EA08000, v29, OS_LOG_TYPE_ERROR, "%s:%d:%s missing stream properties for %{public}@", buf, 0x26u);
           }
         }
 
         goto LABEL_38;
       }
 
-      v23 = v22;
-      v24 = [objc_msgSend(v22 objectForKeyedSubscript:{@"4cc_cfac_glob_0000", "value"}];
-      if (v24)
+      v25 = v23;
+      isKindOfClass = [objc_msgSend(v23 objectForKeyedSubscript:{@"4cc_cfac_glob_0000", "value"}];
+      if (isKindOfClass)
       {
-        v25 = v24;
+        v28 = isKindOfClass;
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          if (([v25 BOOLValue] & 1) == 0)
+          isKindOfClass = [v28 BOOLValue];
+          if ((isKindOfClass & 1) == 0)
           {
             goto LABEL_36;
           }
@@ -165,61 +167,73 @@ LABEL_18:
         else
         {
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 0)
+          isKindOfClass = objc_opt_isKindOfClass();
+          if ((isKindOfClass & 1) == 0)
           {
             goto LABEL_36;
           }
 
-          if ([v25 length] == 1)
+          if ([v28 length] == 1)
           {
             buf[0] = 0;
-            [v25 getBytes:buf length:1];
+            isKindOfClass = [v28 getBytes:buf length:1];
             if ((buf[0] & 1) == 0)
             {
               goto LABEL_36;
             }
           }
 
-          else if ([v25 length] != 4 || (*buf = 0, objc_msgSend(v25, "getBytes:length:", buf, 4), !*buf))
+          else
           {
-LABEL_36:
-            if (!v19)
+            isKindOfClass = [v28 length];
+            if (isKindOfClass != 4 || (*buf = 0, isKindOfClass = [v28 getBytes:buf length:4], !*buf))
             {
-              v19 = [CMIOExtensionSessionStream sessionStreamWithPropertyStates:v23 provider:provider];
-            }
+LABEL_36:
+              if (!v20)
+              {
+                isKindOfClass = [CMIOExtensionSessionStream sessionStreamWithPropertyStates:v25 provider:provider];
+                v20 = isKindOfClass;
+              }
 
-            goto LABEL_38;
+              goto LABEL_38;
+            }
           }
         }
 
-        if (!v18)
+        if (!v19)
         {
-          v18 = [CMIOExtensionSessionStream sessionStreamWithPropertyStates:v23 provider:provider];
+          isKindOfClass = [CMIOExtensionSessionStream sessionStreamWithPropertyStates:v25 provider:provider];
+          v19 = isKindOfClass;
         }
       }
 
 LABEL_38:
-      v20 = 0;
-      v17 = 1;
-      if ((v21 & 1) == 0)
+      v21 = 0;
+      v18 = 1;
+      if ((v22 & 1) == 0)
       {
-        if (v18 && v19)
+        if (v19 && v20)
         {
-          v29 = v18;
+          v31 = v19;
           v14 = v9;
-          v30 = [CMIOExtensionSessionDualStream sessionDualStreamWithPrimaryStream:v19 secondaryStream:v29];
-          if ([provider registerStream:v30 streamID:{-[NSUUID UUIDString](-[CMIOExtensionSessionStream streamID](v19, "streamID"), "UUIDString")}] && objc_msgSend(provider, "registerStream:streamID:", v30, -[NSUUID UUIDString](-[CMIOExtensionSessionStream streamID](v29, "streamID"), "UUIDString")))
+          v32 = [CMIOExtensionSessionDualStream sessionDualStreamWithPrimaryStream:v20 secondaryStream:v31];
+          v33 = [provider registerStream:v32 streamID:{objc_msgSend(objc_msgSend(v20, "streamID"), "UUIDString")}];
+          if (v33)
           {
-            os_unfair_lock_lock(lock);
-            [(NSMutableArray *)v9->_streams addObject:v30];
-            os_unfair_lock_unlock(lock);
+            v33 = [provider registerStream:v32 streamID:{objc_msgSend(objc_msgSend(v31, "streamID"), "UUIDString")}];
+            if (v33)
+            {
+              os_unfair_lock_lock(lock);
+              [(NSMutableArray *)v9->_streams addObject:v32];
+              os_unfair_lock_unlock(lock);
+            }
           }
 
           goto LABEL_57;
         }
 
-        v46 = CMIOLog();
-        if (v46 && os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+        v50 = CMIOLog(isKindOfClass, v27);
+        if (v50 && os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
         {
           [CMIOExtensionSessionDevice initWithPropertyStates:streamsStates:provider:];
         }
@@ -228,68 +242,73 @@ LABEL_69:
 
 LABEL_9:
         [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"Invalid argument"];
-        goto LABEL_10;
+        return 0;
       }
     }
   }
 
   v14 = v9;
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v31 = *p_streamIDs;
-  v32 = [v31 countByEnumeratingWithState:&v49 objects:v55 count:16];
-  if (v32)
+  v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v35 = *p_streamIDs;
+  v33 = [v35 countByEnumeratingWithState:&v53 objects:v59 count:16];
+  if (v33)
   {
-    v33 = v32;
-    v34 = *v50;
+    v36 = v33;
+    v37 = *v54;
     do
     {
-      for (i = 0; i != v33; ++i)
+      v38 = 0;
+      do
       {
-        if (*v50 != v34)
+        if (*v54 != v37)
         {
-          objc_enumerationMutation(v31);
+          objc_enumerationMutation(v35);
         }
 
-        v36 = *(*(&v49 + 1) + 8 * i);
-        v37 = [streamsStates objectForKeyedSubscript:v36];
-        if (v37)
+        v39 = *(*(&v53 + 1) + 8 * v38);
+        v40 = [streamsStates objectForKeyedSubscript:v39];
+        if (v40)
         {
-          v38 = [CMIOExtensionSessionStream sessionStreamWithPropertyStates:v37 provider:provider];
-          if ([provider registerStream:v38 streamID:v36])
+          v42 = [CMIOExtensionSessionStream sessionStreamWithPropertyStates:v40 provider:provider];
+          if ([provider registerStream:v42 streamID:v39])
           {
             os_unfair_lock_lock(lock);
-            [(NSMutableArray *)v14->_streams addObject:v38];
+            [(NSMutableArray *)v14->_streams addObject:v42];
             os_unfair_lock_unlock(lock);
           }
         }
 
         else
         {
-          v39 = CMIOLog();
-          if (v39)
+          v43 = CMIOLog(0, v41);
+          if (v43)
           {
-            v40 = v39;
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+            v44 = v43;
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
             {
-              v41 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
+              v45 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
               *buf = 136315906;
-              v57 = v41;
-              v58 = 1024;
-              v59 = 894;
-              v60 = 2080;
-              v61 = "[CMIOExtensionSessionDevice initWithPropertyStates:streamsStates:provider:]";
-              v62 = 2114;
-              v63 = v36;
-              _os_log_error_impl(&dword_22EA08000, v40, OS_LOG_TYPE_ERROR, "%s:%d:%s missing stream properties for %{public}@", buf, 0x26u);
+              v61 = v45;
+              v62 = 1024;
+              v63 = 894;
+              v64 = 2080;
+              v65 = "[CMIOExtensionSessionDevice initWithPropertyStates:streamsStates:provider:]";
+              v66 = 2114;
+              v67 = v39;
+              _os_log_error_impl(&dword_22EA08000, v44, OS_LOG_TYPE_ERROR, "%s:%d:%s missing stream properties for %{public}@", buf, 0x26u);
             }
           }
         }
+
+        ++v38;
       }
 
-      v33 = [v31 countByEnumeratingWithState:&v49 objects:v55 count:16];
+      while (v36 != v38);
+      v33 = [v35 countByEnumeratingWithState:&v53 objects:v59 count:16];
+      v36 = v33;
     }
 
     while (v33);
@@ -303,34 +322,32 @@ LABEL_57:
 
   if (CMIOModuleLogLevel_cmioLevel >= 1)
   {
-    v42 = CMIOLog();
-    if (v42)
+    v46 = CMIOLog(v33, v34);
+    if (v46)
     {
-      v43 = v42;
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      v47 = v46;
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
       {
-        v44 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
+        v48 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
         *buf = 136315906;
-        v57 = v44;
-        v58 = 1024;
-        v59 = 910;
-        v60 = 2080;
-        v61 = "[CMIOExtensionSessionDevice initWithPropertyStates:streamsStates:provider:]";
-        v62 = 2112;
-        v63 = v14;
-        _os_log_impl(&dword_22EA08000, v43, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", buf, 0x26u);
+        v61 = v48;
+        v62 = 1024;
+        v63 = 910;
+        v64 = 2080;
+        v65 = "[CMIOExtensionSessionDevice initWithPropertyStates:streamsStates:provider:]";
+        v66 = 2112;
+        v67 = v14;
+        _os_log_impl(&dword_22EA08000, v47, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", buf, 0x26u);
       }
     }
   }
 
-LABEL_11:
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (CMIOModuleLogLevel_once != -1)
   {
     [CMIOExtensionSessionStream dealloc];
@@ -338,29 +355,28 @@ LABEL_11:
 
   if (CMIOModuleLogLevel_cmioLevel >= 1)
   {
-    v3 = CMIOLog();
+    v3 = CMIOLog(self, a2);
     if (v3)
     {
       v4 = v3;
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315906;
-        v8 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
-        v9 = 1024;
-        v10 = 917;
-        v11 = 2080;
-        v12 = "[CMIOExtensionSessionDevice dealloc]";
-        v13 = 2112;
+        v7 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
+        v8 = 1024;
+        v9 = 917;
+        v10 = 2080;
+        v11 = "[CMIOExtensionSessionDevice dealloc]";
+        v12 = 2112;
         selfCopy = self;
         _os_log_impl(&dword_22EA08000, v4, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", buf, 0x26u);
       }
     }
   }
 
-  v6.receiver = self;
-  v6.super_class = CMIOExtensionSessionDevice;
-  [(CMIOExtensionSessionDevice *)&v6 dealloc];
-  v5 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = CMIOExtensionSessionDevice;
+  [(CMIOExtensionSessionDevice *)&v5 dealloc];
 }
 
 - (id)description
@@ -372,7 +388,7 @@ LABEL_11:
 
 - (void)updatePropertyStates:(id)states
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (CMIOModuleLogLevel_once != -1)
   {
     [CMIOExtensionSessionStream dealloc];
@@ -380,21 +396,21 @@ LABEL_11:
 
   if (CMIOModuleLogLevel_cmioLevel >= 1)
   {
-    v5 = CMIOLog();
+    v5 = CMIOLog(self, a2);
     if (v5)
     {
       v6 = v5;
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 136315906;
-        v13 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
-        v14 = 1024;
-        v15 = 940;
-        v16 = 2080;
-        v17 = "[CMIOExtensionSessionDevice updatePropertyStates:]";
-        v18 = 2112;
+        v11 = 136315906;
+        v12 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
+        v13 = 1024;
+        v14 = 940;
+        v15 = 2080;
+        v16 = "[CMIOExtensionSessionDevice updatePropertyStates:]";
+        v17 = 2112;
         selfCopy = self;
-        _os_log_impl(&dword_22EA08000, v6, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", &v12, 0x26u);
+        _os_log_impl(&dword_22EA08000, v6, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", &v11, 0x26u);
       }
     }
   }
@@ -422,13 +438,12 @@ LABEL_11:
 
     [objc_loadWeak(&self->_delegate) device:self propertiesChanged:states];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateStreamIDs:(id)ds
 {
-  v53 = *MEMORY[0x277D85DE8];
+  selfCopy = self;
+  v51 = *MEMORY[0x277D85DE8];
   if (CMIOModuleLogLevel_once != -1)
   {
     [CMIOExtensionSessionStream dealloc];
@@ -436,140 +451,139 @@ LABEL_11:
 
   if (CMIOModuleLogLevel_cmioLevel >= 1)
   {
-    v5 = CMIOLog();
-    if (v5)
+    self = CMIOLog(self, a2);
+    if (self)
     {
-      v6 = v5;
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      selfCopy2 = self;
+      self = os_log_type_enabled(&self->super, OS_LOG_TYPE_DEFAULT);
+      if (self)
       {
         *buf = 136316162;
-        v44 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
-        v45 = 1024;
-        v46 = 973;
-        v47 = 2080;
-        v48 = "[CMIOExtensionSessionDevice updateStreamIDs:]";
+        v42 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
+        v43 = 1024;
+        v44 = 973;
+        v45 = 2080;
+        v46 = "[CMIOExtensionSessionDevice updateStreamIDs:]";
+        v47 = 2112;
+        v48 = selfCopy;
         v49 = 2112;
-        selfCopy = self;
-        v51 = 2112;
         dsCopy = ds;
-        _os_log_impl(&dword_22EA08000, v6, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@, streamIDs %@", buf, 0x30u);
+        _os_log_impl(&dword_22EA08000, &selfCopy2->super, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@, streamIDs %@", buf, 0x30u);
       }
     }
   }
 
   if (ds)
   {
-    v7 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:ds];
-    v8 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:self->_streamIDs];
-    streamIDs = self->_streamIDs;
-    self->_streamIDs = ds;
+    v6 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:ds];
+    v7 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:selfCopy->_streamIDs];
+    streamIDs = selfCopy->_streamIDs;
+    selfCopy->_streamIDs = ds;
 
-    v31 = v8;
-    v10 = [v8 mutableCopy];
-    [v10 minusSet:v7];
-    v39 = 0u;
-    v40 = 0u;
-    v38 = 0u;
+    v29 = v7;
+    v9 = [v7 mutableCopy];
+    [v9 minusSet:v6];
     v37 = 0u;
-    v11 = [v10 countByEnumeratingWithState:&v37 objects:v42 count:16];
-    if (v11)
+    v38 = 0u;
+    v36 = 0u;
+    v35 = 0u;
+    v10 = [v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    if (v10)
     {
-      v12 = v11;
-      v13 = 0;
-      v14 = *v38;
+      v11 = v10;
+      v12 = 0;
+      v13 = *v36;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v38 != v14)
+          if (*v36 != v13)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v9);
           }
 
-          v16 = [objc_loadWeak(&self->_provider) unregisterStreamID:*(*(&v37 + 1) + 8 * i)];
-          if (v16)
+          v15 = [objc_loadWeak(&selfCopy->_provider) unregisterStreamID:*(*(&v35 + 1) + 8 * i)];
+          if (v15)
           {
-            v17 = v16;
-            os_unfair_lock_lock(&self->_lock);
-            [(NSMutableArray *)self->_streams removeObject:v17];
-            os_unfair_lock_unlock(&self->_lock);
-            delegate = [v17 delegate];
-            v13 = 1;
-            [v17 setInvalidated:1];
-            [delegate streamHasBeenInvalidated:v17];
+            v16 = v15;
+            os_unfair_lock_lock(&selfCopy->_lock);
+            [(NSMutableArray *)selfCopy->_streams removeObject:v16];
+            os_unfair_lock_unlock(&selfCopy->_lock);
+            delegate = [v16 delegate];
+            v12 = 1;
+            [v16 setInvalidated:1];
+            [delegate streamHasBeenInvalidated:v16];
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v37 objects:v42 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
       }
 
-      while (v12);
-      if (v13)
+      while (v11);
+      if (v12)
       {
-        os_unfair_lock_lock(&self->_lock);
-        v19 = [(NSMutableArray *)self->_streams copy];
-        os_unfair_lock_unlock(&self->_lock);
-        [objc_loadWeak(&self->_delegate) device:self availableStreamsChanged:v19];
+        os_unfair_lock_lock(&selfCopy->_lock);
+        v18 = [(NSMutableArray *)selfCopy->_streams copy];
+        os_unfair_lock_unlock(&selfCopy->_lock);
+        [objc_loadWeak(&selfCopy->_delegate) device:selfCopy availableStreamsChanged:v18];
       }
     }
 
-    v20 = [v7 mutableCopy];
-    [v20 minusSet:v31];
-    Weak = objc_loadWeak(&self->_provider);
+    v19 = [v6 mutableCopy];
+    [v19 minusSet:v29];
+    Weak = objc_loadWeak(&selfCopy->_provider);
+    v31 = 0u;
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    v22 = [v20 countByEnumeratingWithState:&v33 objects:v41 count:16];
-    if (v22)
+    v21 = [v19 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    if (v21)
     {
-      v23 = v22;
-      v24 = *v34;
+      v22 = v21;
+      v23 = *v32;
       do
       {
-        for (j = 0; j != v23; ++j)
+        for (j = 0; j != v22; ++j)
         {
-          if (*v34 != v24)
+          if (*v32 != v23)
           {
-            objc_enumerationMutation(v20);
+            objc_enumerationMutation(v19);
           }
 
-          v26 = *(*(&v33 + 1) + 8 * j);
+          v25 = *(*(&v31 + 1) + 8 * j);
           hostContext = [Weak hostContext];
-          v32[0] = MEMORY[0x277D85DD0];
-          v32[1] = 3221225472;
-          v32[2] = __46__CMIOExtensionSessionDevice_updateStreamIDs___block_invoke;
-          v32[3] = &unk_27885C120;
-          v32[4] = Weak;
-          v32[5] = v26;
-          v32[6] = self;
-          [hostContext streamPropertyStatesWithStreamID:v26 properties:0 reply:v32];
+          v30[0] = MEMORY[0x277D85DD0];
+          v30[1] = 3221225472;
+          v30[2] = __46__CMIOExtensionSessionDevice_updateStreamIDs___block_invoke;
+          v30[3] = &unk_27885C120;
+          v30[4] = Weak;
+          v30[5] = v25;
+          v30[6] = selfCopy;
+          [hostContext streamPropertyStatesWithStreamID:v25 properties:0 reply:v30];
         }
 
-        v23 = [v20 countByEnumeratingWithState:&v33 objects:v41 count:16];
+        v22 = [v19 countByEnumeratingWithState:&v31 objects:v39 count:16];
       }
 
-      while (v23);
+      while (v22);
     }
   }
 
   else
   {
-    v28 = CMIOLog();
-    if (v28 && os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v27 = CMIOLog(self, a2);
+    if (v27 && os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       [CMIOExtensionSessionDevice updateStreamIDs:];
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __46__CMIOExtensionSessionDevice_updateStreamIDs___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    v3 = CMIOLog();
+    v3 = CMIOLog(a1, a2);
     if (v3)
     {
       if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
@@ -598,38 +612,36 @@ void __46__CMIOExtensionSessionDevice_updateStreamIDs___block_invoke(uint64_t a1
 
 - (void)unregister
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   streams = [(CMIOExtensionSessionDevice *)self streams];
-  v4 = [(NSArray *)streams countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSArray *)streams countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(streams);
         }
 
-        [objc_loadWeak(&self->_provider) unregisterStreamID:{objc_msgSend(objc_msgSend(*(*(&v9 + 1) + 8 * v7++), "streamID"), "UUIDString")}];
+        [objc_loadWeak(&self->_provider) unregisterStreamID:{objc_msgSend(objc_msgSend(*(*(&v8 + 1) + 8 * v7++), "streamID"), "UUIDString")}];
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)streams countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSArray *)streams countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)streams
@@ -658,7 +670,7 @@ void __46__CMIOExtensionSessionDevice_updateStreamIDs___block_invoke(uint64_t a1
 
 - (id)cachedPropertyStatesForProperties:(id)properties
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (CMIOModuleLogLevel_once != -1)
   {
     [CMIOExtensionSessionStream dealloc];
@@ -666,19 +678,19 @@ void __46__CMIOExtensionSessionDevice_updateStreamIDs___block_invoke(uint64_t a1
 
   if (CMIOModuleLogLevel_cmioLevel >= 1)
   {
-    v5 = CMIOLog();
+    v5 = CMIOLog(self, a2);
     if (v5)
     {
       v6 = v5;
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315906;
-        v23 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
-        v24 = 1024;
-        v25 = 1111;
-        v26 = 2080;
-        v27 = "[CMIOExtensionSessionDevice cachedPropertyStatesForProperties:]";
-        v28 = 2112;
+        v22 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
+        v23 = 1024;
+        v24 = 1111;
+        v25 = 2080;
+        v26 = "[CMIOExtensionSessionDevice cachedPropertyStatesForProperties:]";
+        v27 = 2112;
         selfCopy = self;
         _os_log_impl(&dword_22EA08000, v6, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", buf, 0x26u);
       }
@@ -688,25 +700,25 @@ void __46__CMIOExtensionSessionDevice_updateStreamIDs___block_invoke(uint64_t a1
   if (properties)
   {
     v7 = objc_opt_new();
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v8 = [properties countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [properties countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(properties);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           os_unfair_lock_lock(&self->_lock);
           v13 = [(NSMutableDictionary *)self->_propertyStates objectForKey:v12];
           os_unfair_lock_unlock(&self->_lock);
@@ -716,7 +728,7 @@ void __46__CMIOExtensionSessionDevice_updateStreamIDs___block_invoke(uint64_t a1
           }
         }
 
-        v9 = [properties countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [properties countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v9);
@@ -732,13 +744,12 @@ void __46__CMIOExtensionSessionDevice_updateStreamIDs___block_invoke(uint64_t a1
     os_unfair_lock_unlock(&self->_lock);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (void)propertyStatesForProperties:(id)availableProperties reply:(id)reply
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (CMIOModuleLogLevel_once != -1)
   {
     [CMIOExtensionSessionStream dealloc];
@@ -746,19 +757,19 @@ void __46__CMIOExtensionSessionDevice_updateStreamIDs___block_invoke(uint64_t a1
 
   if (CMIOModuleLogLevel_cmioLevel >= 1)
   {
-    v7 = CMIOLog();
+    v7 = CMIOLog(self, a2);
     if (v7)
     {
       v8 = v7;
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315906;
-        v18 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
-        v19 = 1024;
-        v20 = 1143;
-        v21 = 2080;
-        v22 = "[CMIOExtensionSessionDevice propertyStatesForProperties:reply:]";
-        v23 = 2112;
+        v17 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
+        v18 = 1024;
+        v19 = 1143;
+        v20 = 2080;
+        v21 = "[CMIOExtensionSessionDevice propertyStatesForProperties:reply:]";
+        v22 = 2112;
         selfCopy = self;
         _os_log_impl(&dword_22EA08000, v8, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@", buf, 0x26u);
       }
@@ -775,24 +786,22 @@ void __46__CMIOExtensionSessionDevice_updateStreamIDs___block_invoke(uint64_t a1
     }
 
     uUIDString = [(NSUUID *)self->_deviceID UUIDString];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __64__CMIOExtensionSessionDevice_propertyStatesForProperties_reply___block_invoke;
-    v14[3] = &unk_27885C038;
-    v14[4] = self;
-    v14[5] = reply;
-    [v10 devicePropertyStatesWithDeviceID:uUIDString properties:availableProperties reply:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __64__CMIOExtensionSessionDevice_propertyStatesForProperties_reply___block_invoke;
+    v13[3] = &unk_27885C038;
+    v13[4] = self;
+    v13[5] = reply;
+    [v10 devicePropertyStatesWithDeviceID:uUIDString properties:availableProperties reply:v13];
   }
 
   else
   {
     v12 = *MEMORY[0x277CCA590];
-    v15 = *MEMORY[0x277CCA450];
-    v16 = @"Invalid session";
-    (*(reply + 2))(reply, 0, [MEMORY[0x277CCA9B8] errorWithDomain:v12 code:-50 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v16, &v15, 1)}]);
+    v14 = *MEMORY[0x277CCA450];
+    v15 = @"Invalid session";
+    (*(reply + 2))(reply, 0, [MEMORY[0x277CCA9B8] errorWithDomain:v12 code:-50 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v15, &v14, 1)}]);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __64__CMIOExtensionSessionDevice_propertyStatesForProperties_reply___block_invoke(uint64_t a1, uint64_t a2)
@@ -811,7 +820,7 @@ uint64_t __64__CMIOExtensionSessionDevice_propertyStatesForProperties_reply___bl
 
 - (void)setPropertyValues:(id)values reply:(id)reply
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (CMIOModuleLogLevel_once != -1)
   {
     [CMIOExtensionSessionStream dealloc];
@@ -819,21 +828,21 @@ uint64_t __64__CMIOExtensionSessionDevice_propertyStatesForProperties_reply___bl
 
   if (CMIOModuleLogLevel_cmioLevel >= 1)
   {
-    v7 = CMIOLog();
+    v7 = CMIOLog(self, a2);
     if (v7)
     {
       v8 = v7;
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136316162;
-        v18 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
-        v19 = 1024;
-        v20 = 1165;
-        v21 = 2080;
-        v22 = "[CMIOExtensionSessionDevice setPropertyValues:reply:]";
-        v23 = 2112;
+        v17 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
+        v18 = 1024;
+        v19 = 1165;
+        v20 = 2080;
+        v21 = "[CMIOExtensionSessionDevice setPropertyValues:reply:]";
+        v22 = 2112;
         selfCopy = self;
-        v25 = 2112;
+        v24 = 2112;
         valuesCopy = values;
         _os_log_impl(&dword_22EA08000, v8, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@, propertyValues %@", buf, 0x30u);
       }
@@ -845,30 +854,83 @@ uint64_t __64__CMIOExtensionSessionDevice_propertyStatesForProperties_reply___bl
   {
     v10 = hostContext;
     uUIDString = [(NSUUID *)self->_deviceID UUIDString];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __54__CMIOExtensionSessionDevice_setPropertyValues_reply___block_invoke;
-    v14[3] = &unk_27885C060;
-    v14[4] = reply;
-    [v10 setDevicePropertyValuesWithDeviceID:uUIDString propertyValues:values reply:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __54__CMIOExtensionSessionDevice_setPropertyValues_reply___block_invoke;
+    v13[3] = &unk_27885C060;
+    v13[4] = reply;
+    [v10 setDevicePropertyValuesWithDeviceID:uUIDString propertyValues:values reply:v13];
   }
 
   else
   {
     v12 = *MEMORY[0x277CCA590];
-    v15 = *MEMORY[0x277CCA450];
-    v16 = @"Invalid session";
-    (*(reply + 2))(reply, [MEMORY[0x277CCA9B8] errorWithDomain:v12 code:-50 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v16, &v15, 1)}]);
+    v14 = *MEMORY[0x277CCA450];
+    v15 = @"Invalid session";
+    (*(reply + 2))(reply, [MEMORY[0x277CCA9B8] errorWithDomain:v12 code:-50 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v15, &v14, 1)}]);
+  }
+}
+
+- (void)setDeviceControlPID:(int)d reply:(id)reply
+{
+  v5 = *&d;
+  v27 = *MEMORY[0x277D85DE8];
+  if (CMIOModuleLogLevel_once != -1)
+  {
+    [CMIOExtensionSessionStream dealloc];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
+  if (CMIOModuleLogLevel_cmioLevel >= 1)
+  {
+    v7 = CMIOLog(self, a2);
+    if (v7)
+    {
+      v8 = v7;
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136316163;
+        v18 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
+        v19 = 1024;
+        v20 = 1179;
+        v21 = 2080;
+        v22 = "[CMIOExtensionSessionDevice setDeviceControlPID:reply:]";
+        v23 = 2112;
+        selfCopy = self;
+        v25 = 1025;
+        v26 = v5;
+        _os_log_impl(&dword_22EA08000, v8, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %@, %{private}d", buf, 0x2Cu);
+      }
+    }
+  }
+
+  hostContext = [objc_loadWeak(&self->_provider) hostContext];
+  if (hostContext)
+  {
+    v10 = hostContext;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithInt:", v5), 0x284358E58}];
+    uUIDString = [(NSUUID *)self->_deviceID UUIDString];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __56__CMIOExtensionSessionDevice_setDeviceControlPID_reply___block_invoke;
+    v14[3] = &unk_27885C060;
+    v14[4] = reply;
+    [v10 setDevicePropertyValuesWithDeviceID:uUIDString propertyValues:v11 reply:v14];
+  }
+
+  else
+  {
+    v13 = *MEMORY[0x277CCA590];
+    v15 = *MEMORY[0x277CCA450];
+    v16 = @"Invalid session";
+    (*(reply + 2))(reply, [MEMORY[0x277CCA9B8] errorWithDomain:v13 code:-50 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v16, &v15, 1)}]);
+  }
 }
 
 uint64_t __56__CMIOExtensionSessionDevice_setDeviceControlPID_reply___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = CMIOLog();
+    v3 = CMIOLog(a1, a2);
     if (v3)
     {
       if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
@@ -883,72 +945,59 @@ uint64_t __56__CMIOExtensionSessionDevice_setDeviceControlPID_reply___block_invo
 
 - (void)completeTransaction
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithPropertyStates:streamsStates:provider:.cold.1()
 {
   OUTLINED_FUNCTION_13();
-  v8 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
-  v7 = *v0;
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x26u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
 }
 
 - (void)initWithPropertyStates:streamsStates:provider:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateStreamIDs:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __46__CMIOExtensionSessionDevice_updateStreamIDs___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __56__CMIOExtensionSessionDevice_setDeviceControlPID_reply___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionSession.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

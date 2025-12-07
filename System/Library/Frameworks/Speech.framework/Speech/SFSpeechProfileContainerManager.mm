@@ -12,22 +12,20 @@
 
 - (void)resourceAvailableForPersona:(id)persona
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   personaCopy = persona;
   v5 = SFLogFramework;
   if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_INFO))
   {
-    v8 = 136315394;
-    v9 = "[SFSpeechProfileContainerManager resourceAvailableForPersona:]";
-    v10 = 2112;
-    v11 = personaCopy;
-    _os_log_impl(&dword_1AC5BC000, v5, OS_LOG_TYPE_INFO, "%s Refreshing container for persona: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SFSpeechProfileContainerManager resourceAvailableForPersona:]";
+    v9 = 2112;
+    v10 = personaCopy;
+    _os_log_impl(&dword_1AC5BC000, v5, OS_LOG_TYPE_INFO, "%s Refreshing container for persona: %@", &v7, 0x16u);
   }
 
   [(SFSpeechProfileContainerManager *)self releaseContainerForPersona:personaCopy];
   v6 = [(SFSpeechProfileContainerManager *)self containerForPersona:personaCopy];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)releaseContainerForPersona:(id)persona
@@ -46,7 +44,7 @@
 
 - (id)personaForContainerRelativeURL:(id)l
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   absoluteString = [l absoluteString];
   v5 = absoluteString;
   if (absoluteString && [absoluteString length])
@@ -54,17 +52,17 @@
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v16 = __Block_byref_object_copy__1570;
-    v17 = __Block_byref_object_dispose__1571;
-    v18 = 0;
+    v15 = __Block_byref_object_copy__1570;
+    v16 = __Block_byref_object_dispose__1571;
+    v17 = 0;
     queue = self->_queue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __66__SFSpeechProfileContainerManager_personaForContainerRelativeURL___block_invoke;
     block[3] = &unk_1E797C5A0;
     block[4] = self;
-    v13 = v5;
-    v14 = buf;
+    v12 = v5;
+    v13 = buf;
     dispatch_sync(queue, block);
     v7 = *(*&buf[8] + 40);
 
@@ -76,23 +74,21 @@
     v8 = SFLogFramework;
     if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_ERROR))
     {
-      v11 = @"empty";
+      v10 = @"empty";
       if (!v5)
       {
-        v11 = @"nil";
+        v10 = @"nil";
       }
 
       *buf = 136315394;
       *&buf[4] = "[SFSpeechProfileContainerManager personaForContainerRelativeURL:]";
       *&buf[12] = 2112;
-      *&buf[14] = v11;
+      *&buf[14] = v10;
       _os_log_error_impl(&dword_1AC5BC000, v8, OS_LOG_TYPE_ERROR, "%s containerRelativeURL cannot be %@.", buf, 0x16u);
     }
 
     v7 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -113,7 +109,7 @@ void __66__SFSpeechProfileContainerManager_personaForContainerRelativeURL___bloc
 
 void __66__SFSpeechProfileContainerManager_personaForContainerRelativeURL___block_invoke_2(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v8 = a2;
   v9 = a3;
   v10 = [v9 url];
@@ -133,15 +129,13 @@ void __66__SFSpeechProfileContainerManager_personaForContainerRelativeURL___bloc
     v12 = SFLogFramework;
     if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_INFO))
     {
-      v14 = 136315394;
-      v15 = "[SFSpeechProfileContainerManager personaForContainerRelativeURL:]_block_invoke_2";
-      v16 = 2112;
-      v17 = v9;
-      _os_log_impl(&dword_1AC5BC000, v12, OS_LOG_TYPE_INFO, "%s No valid URL for speech profile container: %@", &v14, 0x16u);
+      v13 = 136315394;
+      v14 = "[SFSpeechProfileContainerManager personaForContainerRelativeURL:]_block_invoke_2";
+      v15 = 2112;
+      v16 = v9;
+      _os_log_impl(&dword_1AC5BC000, v12, OS_LOG_TYPE_INFO, "%s No valid URL for speech profile container: %@", &v13, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)containerForPersona:(id)persona
@@ -172,7 +166,7 @@ void __66__SFSpeechProfileContainerManager_personaForContainerRelativeURL___bloc
 
 void __55__SFSpeechProfileContainerManager_containerForPersona___block_invoke(void *a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = [*(a1[4] + 16) objectForKey:a1[5]];
   v3 = *(a1[6] + 8);
   v4 = *(v3 + 40);
@@ -188,13 +182,13 @@ void __55__SFSpeechProfileContainerManager_containerForPersona___block_invoke(vo
       v7 = @"Found";
     }
 
-    v16 = 136315650;
-    v17 = "[SFSpeechProfileContainerManager containerForPersona:]_block_invoke";
-    v18 = 2112;
-    v19 = v7;
-    v20 = 2112;
-    v21 = v6;
-    _os_log_impl(&dword_1AC5BC000, v5, OS_LOG_TYPE_INFO, "%s %@ cached container for persona: %@", &v16, 0x20u);
+    v15 = 136315650;
+    v16 = "[SFSpeechProfileContainerManager containerForPersona:]_block_invoke";
+    v17 = 2112;
+    v18 = v7;
+    v19 = 2112;
+    v20 = v6;
+    _os_log_impl(&dword_1AC5BC000, v5, OS_LOG_TYPE_INFO, "%s %@ cached container for persona: %@", &v15, 0x20u);
   }
 
   if (!*(*(a1[6] + 8) + 40))
@@ -214,13 +208,13 @@ void __55__SFSpeechProfileContainerManager_containerForPersona___block_invoke(vo
         v13 = @"Initialized";
       }
 
-      v16 = 136315650;
-      v17 = "[SFSpeechProfileContainerManager containerForPersona:]_block_invoke";
-      v18 = 2112;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v12;
-      _os_log_impl(&dword_1AC5BC000, v11, OS_LOG_TYPE_INFO, "%s %@ container for persona: %@", &v16, 0x20u);
+      v15 = 136315650;
+      v16 = "[SFSpeechProfileContainerManager containerForPersona:]_block_invoke";
+      v17 = 2112;
+      v18 = v13;
+      v19 = 2112;
+      v20 = v12;
+      _os_log_impl(&dword_1AC5BC000, v11, OS_LOG_TYPE_INFO, "%s %@ container for persona: %@", &v15, 0x20u);
     }
 
     v14 = *(*(a1[6] + 8) + 40);
@@ -229,8 +223,6 @@ void __55__SFSpeechProfileContainerManager_containerForPersona___block_invoke(vo
       [*(a1[4] + 16) setObject:v14 forKey:a1[5]];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)containerForCurrentPersona
@@ -292,9 +284,11 @@ void __55__SFSpeechProfileContainerManager_containerForPersona___block_invoke(vo
 
 uint64_t __49__SFSpeechProfileContainerManager_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedManager = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedInstance_sharedManager;
+  sharedInstance_sharedManager = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

@@ -70,9 +70,9 @@
           v15 = v8;
           v16 = selfCopy;
           telemetryCommandBuffer = selfCopy->_telemetryCommandBuffer;
-          v42[0] = [texture pixelFormat];
-          v42[2] = v42;
-          v18 = std::__hash_table<std::__hash_value_type<MTLPixelFormat,MTLTelemetryRenderTargetDistribution>,std::__unordered_map_hasher<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryRenderTargetDistribution>,std::hash<unsigned long long>,std::equal_to<MTLPixelFormat>,true>,std::__unordered_map_equal<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryRenderTargetDistribution>,std::equal_to<MTLPixelFormat>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<MTLPixelFormat,MTLTelemetryRenderTargetDistribution>>>::__emplace_unique_key_args<MTLPixelFormat,std::piecewise_construct_t const&,std::tuple<MTLPixelFormat&&>,std::tuple<>>(&telemetryCommandBuffer->renderTargetMap.__table_.__bucket_list_.__ptr_, v42);
+          pixelFormat = [texture pixelFormat];
+          v43 = &pixelFormat;
+          v18 = std::__hash_table<std::__hash_value_type<MTLPixelFormat,MTLTelemetryRenderTargetDistribution>,std::__unordered_map_hasher<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryRenderTargetDistribution>,std::hash<unsigned long long>,std::equal_to<MTLPixelFormat>,true>,std::__unordered_map_equal<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryRenderTargetDistribution>,std::equal_to<MTLPixelFormat>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<MTLPixelFormat,MTLTelemetryRenderTargetDistribution>>>::__emplace_unique_key_args<MTLPixelFormat,std::piecewise_construct_t const&,std::tuple<MTLPixelFormat&&>,std::tuple<>>(&telemetryCommandBuffer->renderTargetMap.__table_.__bucket_list_.__ptr_, &pixelFormat, &std::piecewise_construct, &v43);
           textureType = [v14 textureType];
           loadAction = [v12 loadAction];
           storeAction = [v12 storeAction];
@@ -445,7 +445,7 @@ LABEL_95:
 
 - (void)accumDrawWithType:(unint64_t)type indexType:(unint64_t)indexType primitiveType:(unint64_t)primitiveType vertexCount:(unint64_t)count instanceCount:(unint64_t)instanceCount
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   telemetryCommandBuffer = self->_telemetryCommandBuffer;
   drawDistribution = telemetryCommandBuffer->drawDistribution;
   ++telemetryCommandBuffer->cbDraws;
@@ -516,87 +516,86 @@ LABEL_19:
 LABEL_20:
   ++drawDistribution->var0[primitiveType][indexType][type].var0;
   telemetryPipeline = self->_telemetryPipeline;
-  if (telemetryPipeline)
+  if (!telemetryPipeline)
   {
-    if ((telemetryPipeline->device & 1) == 0)
+    return;
+  }
+
+  if ((telemetryPipeline->device & 1) == 0)
+  {
+    v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    anisoFragmentSamplers = self->_anisoFragmentSamplers;
+    v24 = [(NSMutableSet *)anisoFragmentSamplers countByEnumeratingWithState:&v32 objects:v37 count:16];
+    if (!v24)
     {
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
-      v34 = 0u;
-      anisoFragmentSamplers = self->_anisoFragmentSamplers;
-      v24 = [(NSMutableSet *)anisoFragmentSamplers countByEnumeratingWithState:&v33 objects:v38 count:16];
-      if (!v24)
-      {
-        goto LABEL_40;
-      }
-
-      v25 = v24;
-      v26 = *v34;
-LABEL_34:
-      v27 = 0;
-      while (1)
-      {
-        if (*v34 != v26)
-        {
-          objc_enumerationMutation(anisoFragmentSamplers);
-        }
-
-        if ([*&self->_telemetryPipeline->hasAnisoConstantSampler containsObject:*(*(&v33 + 1) + 8 * v27)])
-        {
-          break;
-        }
-
-        if (v25 == ++v27)
-        {
-          v25 = [(NSMutableSet *)anisoFragmentSamplers countByEnumeratingWithState:&v33 objects:v38 count:16];
-          if (v25)
-          {
-            goto LABEL_34;
-          }
-
-          goto LABEL_40;
-        }
-      }
+      return;
     }
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
-    v30 = 0u;
-    clippedMip2DFragmentTextures = self->_clippedMip2DFragmentTextures;
-    v16 = [(NSMutableDictionary *)clippedMip2DFragmentTextures countByEnumeratingWithState:&v29 objects:v37 count:16];
-    if (v16)
+    v25 = v24;
+    v26 = *v33;
+LABEL_34:
+    v27 = 0;
+    while (1)
     {
-      v17 = v16;
-      v18 = *v30;
-      do
+      if (*v33 != v26)
       {
-        for (i = 0; i != v17; ++i)
-        {
-          if (*v30 != v18)
-          {
-            objc_enumerationMutation(clippedMip2DFragmentTextures);
-          }
-
-          v20 = *(*(&v29 + 1) + 8 * i);
-          if ([(NSSet *)self->_telemetryPipeline->activeFragmentSamplers containsObject:v20])
-          {
-            anisoClippedCounts = self->_telemetryCommandBuffer->anisoClippedCounts;
-            v22 = [-[NSMutableDictionary objectForKeyedSubscript:](self->_clippedMip2DFragmentTextures objectForKeyedSubscript:{v20), "unsignedIntegerValue"}];
-            ++anisoClippedCounts->var0[v22];
-          }
-        }
-
-        v17 = [(NSMutableDictionary *)clippedMip2DFragmentTextures countByEnumeratingWithState:&v29 objects:v37 count:16];
+        objc_enumerationMutation(anisoFragmentSamplers);
       }
 
-      while (v17);
+      if ([*&self->_telemetryPipeline->hasAnisoConstantSampler containsObject:*(*(&v32 + 1) + 8 * v27)])
+      {
+        break;
+      }
+
+      if (v25 == ++v27)
+      {
+        v25 = [(NSMutableSet *)anisoFragmentSamplers countByEnumeratingWithState:&v32 objects:v37 count:16];
+        if (v25)
+        {
+          goto LABEL_34;
+        }
+
+        return;
+      }
     }
   }
 
-LABEL_40:
-  v28 = *MEMORY[0x277D85DE8];
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  clippedMip2DFragmentTextures = self->_clippedMip2DFragmentTextures;
+  v16 = [(NSMutableDictionary *)clippedMip2DFragmentTextures countByEnumeratingWithState:&v28 objects:v36 count:16];
+  if (v16)
+  {
+    v17 = v16;
+    v18 = *v29;
+    do
+    {
+      for (i = 0; i != v17; ++i)
+      {
+        if (*v29 != v18)
+        {
+          objc_enumerationMutation(clippedMip2DFragmentTextures);
+        }
+
+        v20 = *(*(&v28 + 1) + 8 * i);
+        if ([(NSSet *)self->_telemetryPipeline->activeFragmentSamplers containsObject:v20])
+        {
+          anisoClippedCounts = self->_telemetryCommandBuffer->anisoClippedCounts;
+          v22 = [-[NSMutableDictionary objectForKeyedSubscript:](self->_clippedMip2DFragmentTextures objectForKeyedSubscript:{v20), "unsignedIntegerValue"}];
+          ++anisoClippedCounts->var0[v22];
+        }
+      }
+
+      v17 = [(NSMutableDictionary *)clippedMip2DFragmentTextures countByEnumeratingWithState:&v28 objects:v36 count:16];
+    }
+
+    while (v17);
+  }
 }
 
 - (void)drawIndexedPrimitives:(unint64_t)primitives indexCount:(unint64_t)count indexType:(unint64_t)type indexBuffer:(id)buffer indexBufferOffset:(unint64_t)offset instanceCount:(unint64_t)instanceCount

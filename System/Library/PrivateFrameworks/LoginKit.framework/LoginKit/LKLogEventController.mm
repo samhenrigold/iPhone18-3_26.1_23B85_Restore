@@ -30,49 +30,48 @@
 
 void __45__LKLogEventController_loginDetailsPredicate__block_invoke()
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CCA920];
-  v1 = [MEMORY[0x277CCAC30] predicateWithFormat:@"((senderImagePath contains \"UserManagement\""];
-  v9[0] = v1;
-  v2 = [MEMORY[0x277CCAC30] predicateWithFormat:@"((senderImagePath contains \"Security\""];
-  v9[1] = v2;
-  v3 = [MEMORY[0x277CCAC30] predicateWithFormat:@"((subsystem contains \"com.apple.purplebuddy\""];
-  v9[2] = v3;
-  v4 = [MEMORY[0x277CCAC30] predicateWithFormat:@"((subsystem contains \"com.apple.FrontBoard\""];
-  v9[3] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
+  v1 = [MEMORY[0x277CCAC30] predicateWithFormat:@"((senderImagePath contains UserManagement"];
+  v8[0] = v1;
+  v2 = [MEMORY[0x277CCAC30] predicateWithFormat:@"((senderImagePath contains Security"];
+  v8[1] = v2;
+  v3 = [MEMORY[0x277CCAC30] predicateWithFormat:@"((subsystem contains com.apple.purplebuddy"];
+  v8[2] = v3;
+  v4 = [MEMORY[0x277CCAC30] predicateWithFormat:@"((subsystem contains com.apple.FrontBoard"];
+  v8[3] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:4];
   v6 = [v0 orPredicateWithSubpredicates:v5];
   v7 = loginDetailsPredicate_predicate;
   loginDetailsPredicate_predicate = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (LKLogEventController)init
 {
-  v11.receiver = self;
-  v11.super_class = LKLogEventController;
-  v2 = [(LKLogEventController *)&v11 init];
+  v13.receiver = self;
+  v13.super_class = LKLogEventController;
+  v2 = [(LKLogEventController *)&v13 init];
+  v4 = v2;
   if (v2)
   {
-    LKRegisterLoginKitLogging();
-    v3 = objc_opt_new();
-    switchOperationsMutableArray = v2->_switchOperationsMutableArray;
-    v2->_switchOperationsMutableArray = v3;
-
+    LKRegisterLoginKitLogging(v2, v3);
     v5 = objc_opt_new();
-    switchOperation = v2->_switchOperation;
-    v2->_switchOperation = v5;
+    switchOperationsMutableArray = v4->_switchOperationsMutableArray;
+    v4->_switchOperationsMutableArray = v5;
 
     v7 = objc_opt_new();
-    mutableKeychainItemsAddedByActivityID = v2->_mutableKeychainItemsAddedByActivityID;
-    v2->_mutableKeychainItemsAddedByActivityID = v7;
+    switchOperation = v4->_switchOperation;
+    v4->_switchOperation = v7;
 
-    logEventHandler = v2->_logEventHandler;
-    v2->_logEventHandler = 0;
+    v9 = objc_opt_new();
+    mutableKeychainItemsAddedByActivityID = v4->_mutableKeychainItemsAddedByActivityID;
+    v4->_mutableKeychainItemsAddedByActivityID = v9;
+
+    logEventHandler = v4->_logEventHandler;
+    v4->_logEventHandler = 0;
   }
 
-  return v2;
+  return v4;
 }
 
 - (id)logEventHandler
@@ -526,7 +525,7 @@ void __90__LKLogEventController_enumurateLogEventsSynchronouslyFromDate_predicat
 
 - (void)enumuratePersistentLogsSynchronouslyFromDate:(id)date logArchivePath:(id)path predicate:(id)predicate logEventHandler:(id)handler
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   predicateCopy = predicate;
   pathCopy = path;
@@ -535,21 +534,19 @@ void __90__LKLogEventController_enumurateLogEventsSynchronouslyFromDate_predicat
   [v13 setLogArchive:pathCopy];
 
   v14 = objc_alloc(MEMORY[0x277CCA920]);
-  v21[0] = predicateCopy;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = predicateCopy;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   v16 = [v14 initWithType:1 subpredicates:v15];
   [v13 setPredicate:v16];
 
   [v13 setOptions:3];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __110__LKLogEventController_enumuratePersistentLogsSynchronouslyFromDate_logArchivePath_predicate_logEventHandler___block_invoke;
-  v19[3] = &unk_279826290;
-  v20 = handlerCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __110__LKLogEventController_enumuratePersistentLogsSynchronouslyFromDate_logArchivePath_predicate_logEventHandler___block_invoke;
+  v18[3] = &unk_279826290;
+  v19 = handlerCopy;
   v17 = handlerCopy;
-  [v13 enumerateFromStartDate:dateCopy toEndDate:0 withBlock:v19];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [v13 enumerateFromStartDate:dateCopy toEndDate:0 withBlock:v18];
 }
 
 uint64_t __110__LKLogEventController_enumuratePersistentLogsSynchronouslyFromDate_logArchivePath_predicate_logEventHandler___block_invoke(uint64_t a1, void *a2)

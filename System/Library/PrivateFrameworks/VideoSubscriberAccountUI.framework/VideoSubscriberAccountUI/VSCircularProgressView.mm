@@ -14,6 +14,7 @@
 - (void)dealloc;
 - (void)didMoveToWindow;
 - (void)layoutSubviews;
+- (void)setIndeterminate:(BOOL)indeterminate;
 - (void)setProgress:(double)progress;
 - (void)setProgressBgColor:(id)color;
 - (void)setProgressFillColor:(id)color;
@@ -24,10 +25,10 @@
 
 - (VSCircularProgressView)initWithFrame:(CGRect)frame
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = VSCircularProgressView;
-  v3 = [(VSCircularProgressView *)&v14 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v14[1] = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = VSCircularProgressView;
+  v3 = [(VSCircularProgressView *)&v13 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   v4 = v3;
   if (v3)
   {
@@ -46,12 +47,11 @@
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter addObserver:v4 selector:sel__applicationWillEnterForeground_ name:*MEMORY[0x277D76758] object:0];
 
-    v15[0] = objc_opt_class();
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14[0] = objc_opt_class();
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
     v11 = [(VSCircularProgressView *)v4 registerForTraitChanges:v10 withHandler:&__block_literal_global_21];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -239,6 +239,21 @@ void __40__VSCircularProgressView_initWithFrame___block_invoke_2(uint64_t a1)
   result.height = v7;
   result.width = v4;
   return result;
+}
+
+- (void)setIndeterminate:(BOOL)indeterminate
+{
+  if (self->_indeterminate != indeterminate)
+  {
+    indeterminateCopy = indeterminate;
+    self->_indeterminate = indeterminate;
+    if ([(VSCircularProgressView *)self _isInAWindow])
+    {
+      [(VSCircularProgressView *)self _configureProgress:indeterminateCopy];
+    }
+
+    [(VSCircularProgressView *)self setNeedsLayout];
+  }
 }
 
 - (void)setProgress:(double)progress

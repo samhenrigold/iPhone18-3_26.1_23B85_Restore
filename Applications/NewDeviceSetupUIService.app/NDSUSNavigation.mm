@@ -8,28 +8,27 @@
 - (void)proxCardFlowDidDismiss
 {
   v3 = sub_100003320(&qword_100026E08, &qword_100015630);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8, v5);
-  v7 = &v17 - v6;
-  v8 = objc_opt_self();
+  __chkstk_darwin(v3 - 8, v4);
+  v6 = &v16 - v5;
+  v7 = objc_opt_self();
   selfCopy = self;
-  sharedManager = [v8 sharedManager];
+  sharedManager = [v7 sharedManager];
   if (sharedManager)
   {
-    v11 = sharedManager;
-    v12 = String._bridgeToObjectiveC()();
-    [v11 logType:1 inFunction:"MBLog(_:)" atLine:11 withString:v12];
+    v10 = sharedManager;
+    v11 = String._bridgeToObjectiveC()();
+    [v10 logType:1 inFunction:"MBLog(_:)" atLine:11 withString:v11];
 
-    v13 = type metadata accessor for TaskPriority();
-    (*(*(v13 - 8) + 56))(v7, 1, 1, v13);
+    v12 = type metadata accessor for TaskPriority();
+    (*(*(v12 - 8) + 56))(v6, 1, 1, v12);
     type metadata accessor for MainActor();
-    v14 = selfCopy;
-    v15 = static MainActor.shared.getter();
-    v16 = swift_allocObject();
-    v16[2] = v15;
-    v16[3] = &protocol witness table for MainActor;
-    v16[4] = v14;
-    sub_10000BEAC(0, 0, v7, &unk_100015698, v16);
+    v13 = selfCopy;
+    v14 = static MainActor.shared.getter();
+    v15 = swift_allocObject();
+    v15[2] = v14;
+    v15[3] = &protocol witness table for MainActor;
+    v15[4] = v13;
+    sub_10000BEAC(0, 0, v6, &unk_100015698, v15);
   }
 
   else

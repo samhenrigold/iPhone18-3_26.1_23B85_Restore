@@ -2,6 +2,7 @@
 - (SPIPowerLoggerSnapshot)initWithPowerLogger:(id)logger usage:(SPIResourceUsage *)usage captureTimestamp:(unint64_t)timestamp;
 - (void)buildAndEmitWithMessageBuilder:(id)builder eventContext:(id)context;
 - (void)logWithEventContext:(id)context;
+- (void)logWithEventContext:(id)context componentName:(int)name identifier:(id)identifier;
 @end
 
 @implementation SPIPowerLoggerSnapshot
@@ -32,6 +33,21 @@
   [(SPIPowerLoggerSnapshot *)self buildAndEmitWithMessageBuilder:v5 eventContext:contextCopy];
 }
 
+- (void)logWithEventContext:(id)context componentName:(int)name identifier:(id)identifier
+{
+  v6 = *&name;
+  contextCopy = context;
+  identifierCopy = identifier;
+  v9 = objc_alloc_init(SPISELFMessageBuilder);
+  v10 = v9;
+  if (identifierCopy)
+  {
+    [(SPISELFMessageBuilder *)v9 addRequestLinkInfoForComponent:v6 identifier:identifierCopy];
+  }
+
+  [(SPIPowerLoggerSnapshot *)self buildAndEmitWithMessageBuilder:v10 eventContext:contextCopy];
+}
+
 - (void)buildAndEmitWithMessageBuilder:(id)builder eventContext:(id)context
 {
   contextCopy = context;
@@ -39,7 +55,7 @@
   powerLogger = [(SPIPowerLoggerSnapshot *)self powerLogger];
   [builderCopy addProcess:{objc_msgSend(powerLogger, "process")}];
 
-  [(SPIPowerLoggerSnapshot *)self usage];
+  objc_msgSend_usage(self);
   [builderCopy addProcessUsage:v11];
   [builderCopy addContext:contextCopy];
 

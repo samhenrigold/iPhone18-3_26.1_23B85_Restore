@@ -1,6 +1,6 @@
 @interface CRLineOutputRegion
-+ (CRLineOutputRegion)_lineWithChildren:(void *)children confidence:(uint64_t)confidence quad:(void *)quad baselineAngle:;
-+ (CRLineOutputRegion)lineWithTextFeature:(uint64_t)feature candidateIdx:(void *)idx subfeatureType:(uint64_t)type imageSize:(uint64_t)size confidenceThresholdProvider:(void *)provider injectSpaceCharacter:(int)character;
++ (CRLineOutputRegion)_lineWithChildren:(uint64_t)children confidence:(void *)confidence quad:(double)quad baselineAngle:;
++ (CRLineOutputRegion)lineWithTextFeature:(uint64_t)feature candidateIdx:(uint64_t)idx subfeatureType:(void *)type imageSize:(int)size confidenceThresholdProvider:(double)provider injectSpaceCharacter:(double)character;
 + (CRNormalizedQuad)_spaceCharacterQuadBetweenQuad1:(void *)quad1 quad2:;
 + (id)lineWithDetectedRegion:(id)region;
 + (id)lineWithText:(id)text confidence:(unint64_t)confidence quad:(id)quad baselineAngle:(double)angle;
@@ -101,7 +101,7 @@
   width = size.width;
   featureCopy = feature;
   providerCopy = provider;
-  v15 = [(CRLineOutputRegion *)width lineWithTextFeature:self candidateIdx:featureCopy subfeatureType:0 imageSize:type confidenceThresholdProvider:providerCopy injectSpaceCharacter:characterCopy];
+  height = [(CRLineOutputRegion *)self lineWithTextFeature:featureCopy candidateIdx:0 subfeatureType:type imageSize:providerCopy confidenceThresholdProvider:characterCopy injectSpaceCharacter:width, height];
   v16 = MEMORY[0x1E695DF70];
   stringValueCandidates = [featureCopy stringValueCandidates];
   v18 = [v16 arrayWithCapacity:{objc_msgSend(stringValueCandidates, "count")}];
@@ -114,8 +114,8 @@
     v21 = 0;
     do
     {
-      v22 = [(CRLineOutputRegion *)width lineWithTextFeature:self candidateIdx:featureCopy subfeatureType:v21 imageSize:type confidenceThresholdProvider:providerCopy injectSpaceCharacter:characterCopy];
-      [v18 addObject:v22];
+      height2 = [(CRLineOutputRegion *)self lineWithTextFeature:featureCopy candidateIdx:v21 subfeatureType:type imageSize:providerCopy confidenceThresholdProvider:characterCopy injectSpaceCharacter:width, height];
+      [v18 addObject:height2];
 
       ++v21;
       stringValueCandidates3 = [featureCopy stringValueCandidates];
@@ -126,69 +126,69 @@
   }
 
   v25 = [MEMORY[0x1E695DEC8] arrayWithArray:v18];
-  [v15 setCandidates:v25];
+  [height setCandidates:v25];
 
-  return v15;
+  return height;
 }
 
-+ (CRLineOutputRegion)lineWithTextFeature:(uint64_t)feature candidateIdx:(void *)idx subfeatureType:(uint64_t)type imageSize:(uint64_t)size confidenceThresholdProvider:(void *)provider injectSpaceCharacter:(int)character
++ (CRLineOutputRegion)lineWithTextFeature:(uint64_t)feature candidateIdx:(uint64_t)idx subfeatureType:(void *)type imageSize:(int)size confidenceThresholdProvider:(double)provider injectSpaceCharacter:(double)character
 {
   v96 = *MEMORY[0x1E69E9840];
-  idxCopy = idx;
-  providerCopy = provider;
+  v14 = a2;
+  typeCopy = type;
   objc_opt_self();
-  v70 = idxCopy;
-  selectedLocale = [idxCopy selectedLocale];
-  v67 = [providerCopy thresholdsForTextRegion:idxCopy withLocale:selectedLocale];
+  v70 = v14;
+  selectedLocale = [v14 selectedLocale];
+  v67 = [typeCopy thresholdsForTextRegion:v14 withLocale:selectedLocale];
 
-  candidateProbs = [idxCopy candidateProbs];
-  v18 = [candidateProbs objectAtIndexedSubscript:type];
+  candidateProbs = [v14 candidateProbs];
+  v18 = [candidateProbs objectAtIndexedSubscript:feature];
   [v18 doubleValue];
   v19 = [CRImageReaderOutput confidenceLevelForConfidenceScore:v67 confidenceThresholds:?];
 
   v20 = [CRLineOutputRegion alloc];
-  [idxCopy baselineAngle];
+  [v14 baselineAngle];
   v69 = [(CRLineOutputRegion *)v20 initWithConfidence:v19 baselineAngle:v21];
-  subFeatureCandidates = [idxCopy subFeatureCandidates];
+  subFeatureCandidates = [v14 subFeatureCandidates];
   firstObject = [subFeatureCandidates firstObject];
   v24 = [firstObject count];
 
-  stringValueCandidates = [idxCopy stringValueCandidates];
-  v66 = [stringValueCandidates objectAtIndexedSubscript:type];
+  stringValueCandidates = [v14 stringValueCandidates];
+  v66 = [stringValueCandidates objectAtIndexedSubscript:feature];
 
   whitespaceCharacterSet = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
   v26 = [v66 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
   [(CROutputRegion *)v69 setText:v26];
 
   v27 = [CRNormalizedQuad alloc];
-  [idxCopy topLeft];
+  [v14 topLeft];
   v29 = v28;
   v31 = v30;
-  [idxCopy topRight];
+  [v14 topRight];
   v33 = v32;
   v35 = v34;
-  [idxCopy bottomRight];
+  [v14 bottomRight];
   v37 = v36;
   v39 = v38;
-  [idxCopy bottomLeft];
-  v42 = [(CRNormalizedQuad *)v27 initWithNormalizedTopLeft:v29 topRight:v31 bottomRight:v33 bottomLeft:v35 size:v37, v39, v40, v41, *&self, *&a2];
+  [v14 bottomLeft];
+  v42 = [(CRNormalizedQuad *)v27 initWithNormalizedTopLeft:v29 topRight:v31 bottomRight:v33 bottomLeft:v35 size:v37, v39, v40, v41, *&provider, *&character];
   [(CROutputRegion *)v69 setBoundingQuad:v42];
 
-  polygon = [idxCopy polygon];
+  polygon = [v14 polygon];
   [(CROutputRegion *)v69 setPolygon:polygon];
 
   [(CRCompositeOutputRegion *)v69 setShouldComputeBoundsFromChildren:0];
   if (v24)
   {
-    if (size == 16)
+    if (idx == 16)
     {
       v44 = 1;
       goto LABEL_7;
     }
 
-    whitespaceInjected = [idxCopy whitespaceInjected];
+    whitespaceInjected = [v14 whitespaceInjected];
     v44 = 1;
-    if (whitespaceInjected & 1) != 0 || (character)
+    if (whitespaceInjected & 1) != 0 || (size)
     {
       goto LABEL_7;
     }
@@ -198,23 +198,23 @@
 LABEL_7:
   v46 = v24 == 0;
   [(CROutputRegion *)v69 setShouldComputeTranscriptFromChildren:v44];
-  candidateProbs2 = [idxCopy candidateProbs];
-  v48 = [candidateProbs2 objectAtIndexedSubscript:type];
+  candidateProbs2 = [v14 candidateProbs];
+  v48 = [candidateProbs2 objectAtIndexedSubscript:feature];
   [v48 floatValue];
   [(CROutputRegion *)v69 setRawConfidence:?];
 
-  candidateActivationProbs = [idxCopy candidateActivationProbs];
-  v50 = [candidateActivationProbs objectAtIndexedSubscript:type];
+  candidateActivationProbs = [v14 candidateActivationProbs];
+  v50 = [candidateActivationProbs objectAtIndexedSubscript:feature];
   [v50 doubleValue];
   [(CROutputRegion *)v69 setActivationProbability:?];
 
-  selectedLocale2 = [idxCopy selectedLocale];
+  selectedLocale2 = [v14 selectedLocale];
   [(CROutputRegion *)v69 setRecognizedLocale:selectedLocale2];
 
-  uuid = [idxCopy uuid];
+  uuid = [v14 uuid];
   [(CROutputRegion *)v69 setUuid:uuid];
 
-  -[CRLineOutputRegion setLineWrappingType:](v69, "setLineWrappingType:", [idxCopy lineWrappingType]);
+  -[CRLineOutputRegion setLineWrappingType:](v69, "setLineWrappingType:", [v14 lineWrappingType]);
   if (v46)
   {
     v53 = 0;
@@ -225,7 +225,7 @@ LABEL_7:
     v53 = objc_opt_new();
   }
 
-  if (size == 32 && character)
+  if (idx == 32 && size)
   {
     v89[0] = 0;
     v89[1] = v89;
@@ -250,17 +250,17 @@ LABEL_7:
     v75[1] = 3221225472;
     v75[2] = __129__CRLineOutputRegion_lineWithTextFeature_candidateIdx_subfeatureType_imageSize_confidenceThresholdProvider_injectSpaceCharacter___block_invoke;
     v75[3] = &unk_1E7BC2288;
-    typeCopy = type;
-    v76 = idxCopy;
+    featureCopy = feature;
+    v76 = v14;
     v81 = v89;
     v77 = whitespaceCharacterSet;
     v78 = @" ";
     v82 = v87;
     p_buf = &buf;
-    selfCopy = self;
-    v86 = a2;
+    providerCopy = provider;
+    characterCopy = character;
     v79 = v53;
-    v80 = providerCopy;
+    v80 = typeCopy;
     [text enumerateSubstringsInRange:0 options:v56 usingBlock:{2, v75}];
 
     _Block_object_dispose(v87, 8);
@@ -269,14 +269,14 @@ LABEL_7:
     _Block_object_dispose(v89, 8);
   }
 
-  else if (size == 32 || size == 16)
+  else if (idx == 32 || idx == 16)
   {
     v73 = 0u;
     v74 = 0u;
     v71 = 0u;
     v72 = 0u;
-    subFeatureCandidates2 = [idxCopy subFeatureCandidates];
-    v58 = [subFeatureCandidates2 objectAtIndexedSubscript:type];
+    subFeatureCandidates2 = [v14 subFeatureCandidates];
+    v58 = [subFeatureCandidates2 objectAtIndexedSubscript:feature];
 
     v59 = [v58 countByEnumeratingWithState:&v71 objects:v90 count:16];
     if (v59)
@@ -292,14 +292,14 @@ LABEL_7:
           }
 
           v62 = *(*(&v71 + 1) + 8 * i);
-          if (size == 32)
+          if (idx == 32)
           {
-            [CRCharacterOutputRegion characterWithTextFeature:v62 imageSize:providerCopy confidenceThresholdProvider:self, a2];
+            [CRCharacterOutputRegion characterWithTextFeature:v62 imageSize:typeCopy confidenceThresholdProvider:provider, character];
           }
 
           else
           {
-            [CRWordOutputRegion wordWithTextFeature:v62 imageSize:providerCopy confidenceThresholdProvider:self, a2];
+            [CRWordOutputRegion wordWithTextFeature:v62 imageSize:typeCopy confidenceThresholdProvider:provider, character];
           }
           v63 = ;
           [v53 addObject:v63];
@@ -318,7 +318,7 @@ LABEL_7:
     if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
     {
       LODWORD(buf) = 134217984;
-      *(&buf + 4) = size;
+      *(&buf + 4) = idx;
       _os_log_impl(&dword_1B40D2000, v64, OS_LOG_TYPE_ERROR, "Unsupported subfeature type %ld", &buf, 0xCu);
     }
   }
@@ -728,17 +728,17 @@ void __129__CRLineOutputRegion_lineWithTextFeature_candidateIdx_subfeatureType_i
   return v11;
 }
 
-+ (CRLineOutputRegion)_lineWithChildren:(void *)children confidence:(uint64_t)confidence quad:(void *)quad baselineAngle:
++ (CRLineOutputRegion)_lineWithChildren:(uint64_t)children confidence:(void *)confidence quad:(double)quad baselineAngle:
 {
-  quadCopy = quad;
-  childrenCopy = children;
+  confidenceCopy = confidence;
+  v9 = a2;
   objc_opt_self();
-  v10 = [[CRLineOutputRegion alloc] initWithConfidence:confidence baselineAngle:self];
+  v10 = [[CRLineOutputRegion alloc] initWithConfidence:children baselineAngle:quad];
   [(CROutputRegion *)v10 setShouldComputeTranscriptFromChildren:1];
-  if (quadCopy)
+  if (confidenceCopy)
   {
     [(CRCompositeOutputRegion *)v10 setShouldComputeBoundsFromChildren:0];
-    [(CROutputRegion *)v10 setBoundingQuad:quadCopy];
+    [(CROutputRegion *)v10 setBoundingQuad:confidenceCopy];
   }
 
   else
@@ -746,7 +746,7 @@ void __129__CRLineOutputRegion_lineWithTextFeature_candidateIdx_subfeatureType_i
     [(CRCompositeOutputRegion *)v10 setShouldComputeBoundsFromChildren:1];
   }
 
-  [(CROutputRegion *)v10 setChildren:childrenCopy];
+  [(CROutputRegion *)v10 setChildren:v9];
 
   return v10;
 }

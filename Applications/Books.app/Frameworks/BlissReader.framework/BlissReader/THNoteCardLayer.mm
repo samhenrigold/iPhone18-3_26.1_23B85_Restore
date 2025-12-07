@@ -330,7 +330,7 @@
     v5 = *&self->_transformParams.shuffleAnimationState;
     *&v6[32] = self->_transformParams.dragOffset;
     *&v6[48] = v5;
-    [(THNoteCardLayer *)self p_noteTransformForParameters:v6];
+    objc_msgSend_p_noteTransformForParameters_(self, a2, v6);
     memcpy(v6, __src, sizeof(v6));
     [(THNoteCardLayer *)self p_applyNoteTransform:v6];
   }
@@ -839,7 +839,7 @@ LABEL_59:
   *&v28[11] = *(&self->_transformParams.forceHidden + 1);
   *&v28[27] = *(&self->_transformParams.dragAnchor.y + 3);
   *&v28[43] = *(&self->_transformParams.dragOffset.y + 3);
-  [(THNoteCardLayer *)self p_noteTransformForParameters:v28];
+  objc_msgSend_p_noteTransformForParameters_(self);
   if (!animatedCopy)
   {
     duration = 0.0;
@@ -944,7 +944,7 @@ LABEL_59:
 
     v29 = [CAKeyframeAnimation animationWithKeyPath:@"sublayerTransform"];
     memset(&v39, 0, sizeof(v39));
-    [(THNoteCardLayer *)self sublayerTransform];
+    objc_msgSend_sublayerTransform(self);
     v38 = v39;
     a = v39;
     CATransform3DMakeRotation(&b, v28 * -90.0 * 0.0174532925, 0.0, 1.0, 0.0);
@@ -1062,7 +1062,7 @@ LABEL_59:
   *(&v22 + 1) = v7;
   v23 = dragAnchor;
   v24 = v11;
-  [(THNoteCardLayer *)self p_noteTransformForParameters:&v22];
+  objc_msgSend_p_noteTransformForParameters_(self);
   if (!animatedCopy)
   {
     duration = 0.0;
@@ -1171,7 +1171,7 @@ LABEL_59:
   *&v89[28] = *(&self->_transformParams.flownOutDirection.y + 4);
   *&v89[44] = *(&self->_transformParams.filteredOutDirection + 4);
   *&v89[56] = *&self->_transformParams.scaleFactor;
-  [(THNoteCardLayer *)self p_noteTransformForParameters:&v87];
+  objc_msgSend_p_noteTransformForParameters_(self);
   *&v82[8] = dragAnchor;
   *&v83[12] = v104;
   v81 = *&cardIndex;
@@ -1183,7 +1183,7 @@ LABEL_59:
   *&v83[28] = v105;
   *&v83[44] = v106[0];
   *&v83[56] = *(v106 + 12);
-  [(THNoteCardLayer *)self p_noteTransformForParameters:&v81];
+  objc_msgSend_p_noteTransformForParameters_(self);
   indexCopy = index;
   v75 = *&index;
   *v76 = v23;
@@ -1197,7 +1197,7 @@ LABEL_59:
   *&v77[28] = v105;
   *&v77[44] = v106[0];
   *&v77[56] = *(v106 + 12);
-  [(THNoteCardLayer *)self p_noteTransformForParameters:&v75];
+  objc_msgSend_p_noteTransformForParameters_(self);
   v71 = dragAnchor;
   *&v73[4] = v104;
   *&v70 = index;
@@ -1208,7 +1208,7 @@ LABEL_59:
   *&v73[20] = v105;
   *&v73[36] = v106[0];
   *&v73[48] = *(v106 + 12);
-  [(THNoteCardLayer *)self p_noteTransformForParameters:&v70];
+  objc_msgSend_p_noteTransformForParameters_(self);
   if (animatedCopy)
   {
     v25 = delay + duration;
@@ -1357,7 +1357,7 @@ LABEL_59:
   *(&v31 + 9) = v16;
   *&v32 = x;
   *(&v32 + 1) = y;
-  [(THNoteCardLayer *)self p_noteTransformForParameters:&v27];
+  objc_msgSend_p_noteTransformForParameters_(self);
   if (!animatedCopy)
   {
     duration = 0.0;
@@ -1432,7 +1432,7 @@ LABEL_59:
   BYTE7(v33) = *(&self->_transformParams.flownOut + 3);
   *(&v33 + 1) = x;
   *v34 = y;
-  [(THNoteCardLayer *)self p_noteTransformForParameters:&v30];
+  objc_msgSend_p_noteTransformForParameters_(self);
   v12 = [CABasicAnimation animationWithKeyPath:@"zPosition"];
   zPosition = self->_transform.zPosition;
   *&zPosition = zPosition;
@@ -1519,7 +1519,7 @@ LABEL_59:
   v9 = *&self->_transformParams.shuffleAnimationState;
   *&__dst[32] = self->_transformParams.dragOffset;
   *&__dst[48] = v9;
-  [(THNoteCardLayer *)self p_noteTransformForParameters:__dst];
+  objc_msgSend_p_noteTransformForParameters_(self);
   if (animatedCopy)
   {
     v10 = [CABasicAnimation animationWithKeyPath:@"transform"];
@@ -1579,59 +1579,49 @@ LABEL_59:
   [(THNoteCardLayer *)self p_willUnsettle];
   self->_transformParams.useDarkerBackground = background;
   self->_transformParams.scaleFactor = factor;
-  filteredOutDirection = self->_transformParams.filteredOutDirection;
-  *&v22[64] = *&self->_transformParams.flownOutDirection.y;
-  *&v22[80] = filteredOutDirection;
-  *&v22[96] = *&self->_transformParams.scaleFactor;
-  dragAnchor = self->_transformParams.dragAnchor;
-  *v22 = *&self->_transformParams.cardIndex;
-  *&v22[16] = dragAnchor;
-  v13 = *&self->_transformParams.shuffleAnimationState;
-  *&v22[32] = self->_transformParams.dragOffset;
-  *&v22[48] = v13;
-  [(THNoteCardLayer *)self p_noteTransformForParameters:v22];
+  objc_msgSend_p_noteTransformForParameters_(self, self->_transformParams.cardIndex, *&self->_transformParams.flipped, *&self->_transformParams.dragAnchor.x, *&self->_transformParams.dragAnchor.y, *&self->_transformParams.dragOffset.x, *&self->_transformParams.dragOffset.y, *&self->_transformParams.shuffleAnimationState, *&self->_transformParams.flownOutDirection.x, *&self->_transformParams.flownOutDirection.y, *&self->_transformParams.filteredOut, *&self->_transformParams.filteredOutDirection.x, *&self->_transformParams.filteredOutDirection.y, *&self->_transformParams.scaleFactor, *&self->_transformParams.useDarkerBackground);
   if (animatedCopy)
   {
-    v14 = [CABasicAnimation animationWithKeyPath:@"transform"];
-    v15 = *&self->_transform.xform.m33;
-    *&v22[64] = *&self->_transform.xform.m31;
-    *&v22[80] = v15;
-    v16 = *&self->_transform.xform.m43;
-    *&v22[96] = *&self->_transform.xform.m41;
-    *&v22[112] = v16;
-    v17 = *&self->_transform.xform.m13;
-    *v22 = *&self->_transform.xform.m11;
-    *&v22[16] = v17;
-    v18 = *&self->_transform.xform.m23;
-    *&v22[32] = *&self->_transform.xform.m21;
-    *&v22[48] = v18;
-    [(CABasicAnimation *)v14 setFromValue:[NSValue valueWithCATransform3D:v22]];
-    *&v22[64] = *&__src[9];
-    *&v22[80] = *&__src[11];
-    *&v22[96] = *&__src[13];
-    *&v22[112] = *&__src[15];
-    *v22 = *&__src[1];
-    *&v22[16] = *&__src[3];
-    *&v22[32] = *&__src[5];
-    *&v22[48] = *&__src[7];
-    [(CABasicAnimation *)v14 setToValue:[NSValue valueWithCATransform3D:v22]];
-    [(CABasicAnimation *)v14 setDelegate:self];
-    [(THNoteCardLayer *)self addAnimation:v14 forKey:@"scaleAnimation"];
+    v11 = [CABasicAnimation animationWithKeyPath:@"transform"];
+    v12 = *&self->_transform.xform.m33;
+    *&v19[64] = *&self->_transform.xform.m31;
+    *&v19[80] = v12;
+    v13 = *&self->_transform.xform.m43;
+    *&v19[96] = *&self->_transform.xform.m41;
+    *&v19[112] = v13;
+    v14 = *&self->_transform.xform.m13;
+    *v19 = *&self->_transform.xform.m11;
+    *&v19[16] = v14;
+    v15 = *&self->_transform.xform.m23;
+    *&v19[32] = *&self->_transform.xform.m21;
+    *&v19[48] = v15;
+    [(CABasicAnimation *)v11 setFromValue:[NSValue valueWithCATransform3D:v19]];
+    *&v19[64] = *&__src[9];
+    *&v19[80] = *&__src[11];
+    *&v19[96] = *&__src[13];
+    *&v19[112] = *&__src[15];
+    *v19 = *&__src[1];
+    *&v19[16] = *&__src[3];
+    *&v19[32] = *&__src[5];
+    *&v19[48] = *&__src[7];
+    [(CABasicAnimation *)v11 setToValue:[NSValue valueWithCATransform3D:v19]];
+    [(CABasicAnimation *)v11 setDelegate:self];
+    [(THNoteCardLayer *)self addAnimation:v11 forKey:@"scaleAnimation"];
   }
 
-  memcpy(v22, __src, sizeof(v22));
-  [(THNoteCardLayer *)self p_applyNoteTransform:v22];
-  v19 = self->_transformParams.filteredOutDirection;
-  *&v22[64] = *&self->_transformParams.flownOutDirection.y;
-  *&v22[80] = v19;
-  *&v22[96] = *&self->_transformParams.scaleFactor;
-  v20 = self->_transformParams.dragAnchor;
-  *v22 = *&self->_transformParams.cardIndex;
-  *&v22[16] = v20;
-  v21 = *&self->_transformParams.shuffleAnimationState;
-  *&v22[32] = self->_transformParams.dragOffset;
-  *&v22[48] = v21;
-  [(THNoteCardContentLayer *)self->_frontLayer setDisplayAttributes:[(THNoteCardLayer *)self p_displayAttributesForParameters:v22]& 0xFFFFFFFFFFLL animated:1 duration:duration];
+  memcpy(v19, __src, sizeof(v19));
+  [(THNoteCardLayer *)self p_applyNoteTransform:v19];
+  filteredOutDirection = self->_transformParams.filteredOutDirection;
+  *&v19[64] = *&self->_transformParams.flownOutDirection.y;
+  *&v19[80] = filteredOutDirection;
+  *&v19[96] = *&self->_transformParams.scaleFactor;
+  dragAnchor = self->_transformParams.dragAnchor;
+  *v19 = *&self->_transformParams.cardIndex;
+  *&v19[16] = dragAnchor;
+  v18 = *&self->_transformParams.shuffleAnimationState;
+  *&v19[32] = self->_transformParams.dragOffset;
+  *&v19[48] = v18;
+  [(THNoteCardContentLayer *)self->_frontLayer setDisplayAttributes:[(THNoteCardLayer *)self p_displayAttributesForParameters:v19]& 0xFFFFFFFFFFLL animated:1 duration:duration];
 }
 
 - (void)layoutSublayers
@@ -1796,7 +1786,7 @@ LABEL_11:
   *&v78[8] = CGPointZero;
   *&v78[24] = x;
   *v79 = y;
-  [(THNoteCardLayer *)self p_noteTransformForParameters:&v77];
+  objc_msgSend_p_noteTransformForParameters_(self);
   v65 = v16;
   if (v16)
   {
@@ -1826,7 +1816,7 @@ LABEL_11:
   HIDWORD(v69) = 0;
   v72 = v82;
   v73 = v36;
-  [(THNoteCardLayer *)self p_noteTransformForParameters:&v69];
+  objc_msgSend_p_noteTransformForParameters_(self);
   v39 = [CAKeyframeAnimation animationWithKeyPath:@"zPosition"];
   [(CAKeyframeAnimation *)v39 setKeyTimes:v25];
   *&v40 = zPosition;
@@ -2023,7 +2013,7 @@ LABEL_11:
   v48 = *&p_transformParams->scaleFactor;
   *(&v104[2] + 8) = filteredOutDirection;
   *(&v104[3] + 8) = v48;
-  [(THNoteCardLayer *)self p_noteTransformForParameters:&v102];
+  objc_msgSend_p_noteTransformForParameters_(self);
   v134 = v124;
   v135 = v125;
   v136 = v126;
@@ -2047,7 +2037,7 @@ LABEL_11:
   *(&v104[1] + 8) = v114;
   *(&v104[2] + 8) = v115;
   *(&v104[3] + 8) = v116;
-  [(THNoteCardLayer *)self p_noteTransformForParameters:&v102];
+  objc_msgSend_p_noteTransformForParameters_(self);
   v52 = *&p_transformParams->flownOutDirection.y;
   v107 = *&p_transformParams->shuffleAnimationState;
   v108 = v52;
@@ -2076,7 +2066,7 @@ LABEL_11:
   v58 = *&p_transformParams->scaleFactor;
   v99 = v109;
   v100 = v58;
-  [(THNoteCardLayer *)self p_noteTransformForParameters:&v94];
+  objc_msgSend_p_noteTransformForParameters_(self);
   v59 = [CAKeyframeAnimation animationWithKeyPath:@"zPosition"];
   [(CAKeyframeAnimation *)v59 setKeyTimes:v29];
   [(CAKeyframeAnimation *)v59 setCalculationMode:?];
@@ -2150,9 +2140,9 @@ LABEL_11:
   [(CAKeyframeAnimation *)v79 setValues:[NSArray arrayWithObjects:v80, v81, v129, [NSValue valueWithCGPoint:v105, v106], 0]];
   [(CAKeyframeAnimation *)v79 setTimingFunctions:[NSArray arrayWithObjects:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear], [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear], [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear], 0]];
   v83 = [CABasicAnimation animationWithKeyPath:@"sublayerTransform"];
-  [(THNoteCardLayer *)self sublayerTransform];
+  objc_msgSend_sublayerTransform(self);
   [(CABasicAnimation *)v83 setFromValue:[NSValue valueWithCATransform3D:&v94]];
-  [(THNoteCardLayer *)self sublayerTransform];
+  objc_msgSend_sublayerTransform(self);
   [(CABasicAnimation *)v83 setToValue:[NSValue valueWithCATransform3D:&v94]];
   completionAnimationCompletionBlock = self->_completionAnimationCompletionBlock;
   if (completionAnimationCompletionBlock)

@@ -1,5 +1,6 @@
 @interface ASDTIOA2HeadsetInfoProperty
 - (ASDTIOA2HeadsetInfoProperty)initWithIOA2Device:(id)device;
+- (BOOL)getPropertyWithQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int *)dataSize andData:(void *)andData forClient:(int)client;
 - (id)value;
 @end
 
@@ -16,6 +17,25 @@
   if (v6)
   {
     objc_storeWeak(&v6->_device, deviceCopy);
+  }
+
+  return v7;
+}
+
+- (BOOL)getPropertyWithQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int *)dataSize andData:(void *)andData forClient:(int)client
+{
+  if (*dataSize < 8)
+  {
+    return 0;
+  }
+
+  v10 = [(ASDTIOA2HeadsetInfoProperty *)self value:*&size];
+  v11 = v10;
+  v7 = v10 != 0;
+  if (v10)
+  {
+    *andData = v10;
+    *dataSize = 8;
   }
 
   return v7;

@@ -122,47 +122,31 @@
 id __51__HFWallpaperEditCollectionBuilder_commitWallpaper__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if ([*(a1 + 32) hkObjectNewlyCreated])
+  if (([*(a1 + 32) hkObjectNewlyCreated] & 1) != 0 || (objc_msgSend(*(a1 + 32), "updatedEditCollection"), (v4 = objc_claimAutoreleasedReturnValue()) != 0) && (v5 = v4, objc_msgSend(v3, "wallpaper"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "updatedEditCollection"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "wallpaper"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v6, "isEqual:", v8), v8, v7, v6, v5, (v9 & 1) == 0))
   {
-    goto LABEL_4;
-  }
-
-  v4 = [*(a1 + 32) updatedEditCollection];
-  if (v4)
-  {
-    v5 = v4;
-    v6 = [v3 wallpaper];
-    v7 = [*(a1 + 32) updatedEditCollection];
-    v8 = [v7 wallpaper];
-    v9 = [v6 isEqual:v8];
-
-    if ((v9 & 1) == 0)
+    v10 = [*(a1 + 32) updatedEditCollection];
+    v11 = v10;
+    if (v10)
     {
-LABEL_4:
-      v10 = [*(a1 + 32) updatedEditCollection];
-      v11 = v10;
-      if (v10)
-      {
-        v12 = v10;
-      }
-
-      else
-      {
-        v12 = v3;
-      }
-
-      v13 = v12;
-
-      v14 = +[HFWallpaperManager sharedInstance];
-      v15 = [v13 wallpaper];
-      v16 = [v13 originalImage];
-
-      v17 = [*(a1 + 32) hkObject];
-      [v14 setWallpaper:v15 image:v16 forHomeKitObject:v17];
-
-      [*(a1 + 32) setInitialEditCollectionFuture:0];
-      [*(a1 + 32) setHkObjectNewlyCreated:0];
+      v12 = v10;
     }
+
+    else
+    {
+      v12 = v3;
+    }
+
+    v13 = v12;
+
+    v14 = +[HFWallpaperManager sharedInstance];
+    v15 = [v13 wallpaper];
+    v16 = [v13 originalImage];
+
+    v17 = [*(a1 + 32) hkObject];
+    [v14 setWallpaper:v15 image:v16 forHomeKitObject:v17];
+
+    [*(a1 + 32) setInitialEditCollectionFuture:0];
+    [*(a1 + 32) setHkObjectNewlyCreated:0];
   }
 
   v18 = [MEMORY[0x277D2C900] futureWithResult:MEMORY[0x277CBEC38]];

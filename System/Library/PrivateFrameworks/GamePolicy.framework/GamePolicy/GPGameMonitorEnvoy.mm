@@ -21,7 +21,7 @@
   return v3;
 }
 
-uint64_t __36__GPGameMonitorEnvoy_sharedInstance__block_invoke()
+uint64_t __36__GPGameMonitorEnvoy_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
   sharedInstance__sharedMonitor = objc_opt_new();
 
@@ -42,42 +42,40 @@ uint64_t __36__GPGameMonitorEnvoy_sharedInstance__block_invoke()
 
 void __36__GPGameMonitorEnvoy_gameCategories__block_invoke()
 {
-  v13[20] = *MEMORY[0x277D85DE8];
+  v12[20] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CC1F70];
-  v13[0] = *MEMORY[0x277CC1FB8];
-  v13[1] = v0;
+  v12[0] = *MEMORY[0x277CC1FB8];
+  v12[1] = v0;
   v1 = *MEMORY[0x277CC1F80];
-  v13[2] = *MEMORY[0x277CC1F78];
-  v13[3] = v1;
+  v12[2] = *MEMORY[0x277CC1F78];
+  v12[3] = v1;
   v2 = *MEMORY[0x277CC1F90];
-  v13[4] = *MEMORY[0x277CC1F88];
-  v13[5] = v2;
+  v12[4] = *MEMORY[0x277CC1F88];
+  v12[5] = v2;
   v3 = *MEMORY[0x277CC1FA0];
-  v13[6] = *MEMORY[0x277CC1F98];
-  v13[7] = v3;
+  v12[6] = *MEMORY[0x277CC1F98];
+  v12[7] = v3;
   v4 = *MEMORY[0x277CC1FB0];
-  v13[8] = *MEMORY[0x277CC1FA8];
-  v13[9] = v4;
+  v12[8] = *MEMORY[0x277CC1FA8];
+  v12[9] = v4;
   v5 = *MEMORY[0x277CC1FC8];
-  v13[10] = *MEMORY[0x277CC1FC0];
-  v13[11] = v5;
+  v12[10] = *MEMORY[0x277CC1FC0];
+  v12[11] = v5;
   v6 = *MEMORY[0x277CC1FD8];
-  v13[12] = *MEMORY[0x277CC1FD0];
-  v13[13] = v6;
+  v12[12] = *MEMORY[0x277CC1FD0];
+  v12[13] = v6;
   v7 = *MEMORY[0x277CC1FE8];
-  v13[14] = *MEMORY[0x277CC1FE0];
-  v13[15] = v7;
+  v12[14] = *MEMORY[0x277CC1FE0];
+  v12[15] = v7;
   v8 = *MEMORY[0x277CC1FF8];
-  v13[16] = *MEMORY[0x277CC1FF0];
-  v13[17] = v8;
+  v12[16] = *MEMORY[0x277CC1FF0];
+  v12[17] = v8;
   v9 = *MEMORY[0x277CC2008];
-  v13[18] = *MEMORY[0x277CC2000];
-  v13[19] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:20];
+  v12[18] = *MEMORY[0x277CC2000];
+  v12[19] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:20];
   v11 = gameCategories__gameCategories;
   gameCategories__gameCategories = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)gameModeBundleIdentifierAllowList
@@ -100,7 +98,7 @@ void __55__GPGameMonitorEnvoy_gameModeBundleIdentifierAllowList__block_invoke()
 
 + (BOOL)applicationIsIdentifiedGame:(id)game info:(id)info entitlements:(id)entitlements
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   gameCopy = game;
   entitlementsCopy = entitlements;
   genreID = [gameCopy genreID];
@@ -110,26 +108,26 @@ void __55__GPGameMonitorEnvoy_gameModeBundleIdentifierAllowList__block_invoke()
   if (unsignedIntValue != 6014 && (unsignedIntValue - 7001) >= 0x11)
   {
     correspondingApplicationRecord = [gameCopy correspondingApplicationRecord];
+    v53 = 0u;
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v57 = 0u;
     gameModeBundleIdentifierAllowList = [self gameModeBundleIdentifierAllowList];
-    v14 = [gameModeBundleIdentifierAllowList countByEnumeratingWithState:&v54 objects:v60 count:16];
+    v14 = [gameModeBundleIdentifierAllowList countByEnumeratingWithState:&v53 objects:v59 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v55;
+      v16 = *v54;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v55 != v16)
+          if (*v54 != v16)
           {
             objc_enumerationMutation(gameModeBundleIdentifierAllowList);
           }
 
-          v18 = *(*(&v54 + 1) + 8 * i);
+          v18 = *(*(&v53 + 1) + 8 * i);
           bundleIdentifier = [correspondingApplicationRecord bundleIdentifier];
           LOBYTE(v18) = [bundleIdentifier isEqual:v18];
 
@@ -140,7 +138,7 @@ void __55__GPGameMonitorEnvoy_gameModeBundleIdentifierAllowList__block_invoke()
           }
         }
 
-        v15 = [gameModeBundleIdentifierAllowList countByEnumeratingWithState:&v54 objects:v60 count:16];
+        v15 = [gameModeBundleIdentifierAllowList countByEnumeratingWithState:&v53 objects:v59 count:16];
         if (v15)
         {
           continue;
@@ -152,65 +150,65 @@ void __55__GPGameMonitorEnvoy_gameModeBundleIdentifierAllowList__block_invoke()
 
     if (!unsignedIntValue)
     {
-      v53 = 0;
-      v27 = [correspondingApplicationRecord categoryTypesWithError:&v53];
-      v44 = v53;
+      v52 = 0;
+      v26 = [correspondingApplicationRecord categoryTypesWithError:&v52];
+      v43 = v52;
+      v48 = 0u;
       v49 = 0u;
       v50 = 0u;
       v51 = 0u;
-      v52 = 0u;
-      v28 = v27;
-      v41 = [v28 countByEnumeratingWithState:&v49 objects:v59 count:16];
-      if (v41)
+      v27 = v26;
+      v40 = [v27 countByEnumeratingWithState:&v48 objects:v58 count:16];
+      if (v40)
       {
-        v29 = *v50;
-        v30 = 0x279685000uLL;
-        v43 = v28;
-        v40 = *v50;
+        v28 = *v49;
+        v29 = 0x279685000uLL;
+        v42 = v27;
+        v39 = *v49;
         do
         {
-          v31 = 0;
+          v30 = 0;
           do
           {
-            if (*v50 != v29)
+            if (*v49 != v28)
             {
-              objc_enumerationMutation(v28);
+              objc_enumerationMutation(v27);
             }
 
-            v42 = v31;
-            v32 = *(*(&v49 + 1) + 8 * v31);
+            v41 = v30;
+            v31 = *(*(&v48 + 1) + 8 * v30);
+            v44 = 0u;
             v45 = 0u;
             v46 = 0u;
             v47 = 0u;
-            v48 = 0u;
-            gameCategories = [*(v30 + 1400) gameCategories];
-            v34 = [gameCategories countByEnumeratingWithState:&v45 objects:v58 count:16];
-            if (v34)
+            gameCategories = [*(v29 + 1400) gameCategories];
+            v33 = [gameCategories countByEnumeratingWithState:&v44 objects:v57 count:16];
+            if (v33)
             {
-              v35 = v34;
-              v36 = *v46;
+              v34 = v33;
+              v35 = *v45;
               while (2)
               {
-                for (j = 0; j != v35; ++j)
+                for (j = 0; j != v34; ++j)
                 {
-                  if (*v46 != v36)
+                  if (*v45 != v35)
                   {
                     objc_enumerationMutation(gameCategories);
                   }
 
-                  v38 = *(*(&v45 + 1) + 8 * j);
-                  identifier = [v32 identifier];
-                  LOBYTE(v38) = [identifier isEqual:v38];
+                  v37 = *(*(&v44 + 1) + 8 * j);
+                  identifier = [v31 identifier];
+                  LOBYTE(v37) = [identifier isEqual:v37];
 
-                  if (v38)
+                  if (v37)
                   {
 
                     goto LABEL_19;
                   }
                 }
 
-                v35 = [gameCategories countByEnumeratingWithState:&v45 objects:v58 count:16];
-                if (v35)
+                v34 = [gameCategories countByEnumeratingWithState:&v44 objects:v57 count:16];
+                if (v34)
                 {
                   continue;
                 }
@@ -219,17 +217,17 @@ void __55__GPGameMonitorEnvoy_gameModeBundleIdentifierAllowList__block_invoke()
               }
             }
 
-            v31 = v42 + 1;
-            v28 = v43;
-            v29 = v40;
-            v30 = 0x279685000;
+            v30 = v41 + 1;
+            v27 = v42;
+            v28 = v39;
+            v29 = 0x279685000;
           }
 
-          while (v42 + 1 != v41);
-          v41 = [v43 countByEnumeratingWithState:&v49 objects:v59 count:16];
+          while (v41 + 1 != v40);
+          v40 = [v42 countByEnumeratingWithState:&v48 objects:v58 count:16];
         }
 
-        while (v41);
+        while (v40);
       }
     }
 
@@ -248,7 +246,6 @@ LABEL_19:
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -262,9 +259,10 @@ LABEL_19:
 - (void)gameDidLaunch:(id)launch
 {
   launchCopy = launch;
-  if (+[GPGameMonitorEnvoy deviceSupportsGamePolicy])
+  v4 = +[GPGameMonitorEnvoy deviceSupportsGamePolicy];
+  if (v4)
   {
-    if (gp_isInternalBuild())
+    if (gp_isInternalBuild(v4, v5))
     {
       [GPGameMonitorEnvoy gameDidLaunch:launchCopy];
     }
@@ -275,16 +273,14 @@ LABEL_19:
 
 - (void)gameDidLaunch:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = getGPLogger();
+  v5 = *MEMORY[0x277D85DE8];
+  v2 = getGPLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v4 = 138412290;
-    v5 = a1;
-    _os_log_impl(&dword_24E5B8000, v2, OS_LOG_TYPE_INFO, "[GPGameMonitorEnvoy] gameDidLaunch: %@", &v4, 0xCu);
+    v3 = 138412290;
+    v4 = a1;
+    _os_log_impl(&dword_24E5B8000, v2, OS_LOG_TYPE_INFO, "[GPGameMonitorEnvoy] gameDidLaunch: %@", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

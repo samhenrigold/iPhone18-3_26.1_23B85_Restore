@@ -8,11 +8,15 @@
 
 - (CHTransliterateConfusableCharactersArabicStep)init
 {
-  v3.receiver = self;
-  v3.super_class = CHTransliterateConfusableCharactersArabicStep;
-  if ([(CHTransliterateConfusableCharactersArabicStep *)&v3 init])
+  v7.receiver = self;
+  v7.super_class = CHTransliterateConfusableCharactersArabicStep;
+  v2 = [(CHTransliterateConfusableCharactersArabicStep *)&v7 init];
+  if (v2)
   {
-    sub_1839B5580();
+    v5 = 2;
+    strcpy(__p, "و");
+    v6 = 0x3FF0000000000000;
+    sub_1839B5580(v2 + 1, "9", __p);
   }
 
   return 0;

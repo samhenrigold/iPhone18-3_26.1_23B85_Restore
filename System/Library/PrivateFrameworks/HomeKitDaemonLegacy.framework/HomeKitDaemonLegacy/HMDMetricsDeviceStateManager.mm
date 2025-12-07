@@ -31,21 +31,20 @@
 
 - (void)runDailyTask
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@runDailyTask", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@runDailyTask", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   [(HMDMetricsDeviceStateManager *)selfCopy updateCachedPairingKeyStates];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)populateAggregationAnalysisLogEvent:(id)event forDate:(id)date
@@ -62,21 +61,20 @@
 
 - (void)handleHomeDataLoaded
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@handleHomeDataLoaded", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@handleHomeDataLoaded", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   [(HMDMetricsDeviceStateManager *)selfCopy updateCachedPairingKeyStates];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)deviceDaysSinceSoftwareUpdate
@@ -136,28 +134,28 @@
 
 - (unint64_t)duplicateKeysBitMapFromKeyCounts:(id)counts
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   countsCopy = counts;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v5 = [countsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [countsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(countsCopy);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = [countsCopy objectForKeyedSubscript:v10];
         integerValue = [v11 integerValue];
 
@@ -167,7 +165,7 @@
         }
       }
 
-      v6 = [countsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [countsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -178,34 +176,33 @@
     v7 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (unint64_t)missingKeysBitMapFromKeyCounts:(id)counts
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   countsCopy = counts;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v5 = [countsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [countsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(countsCopy);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = [countsCopy objectForKeyedSubscript:v10];
         integerValue = [v11 integerValue];
 
@@ -215,7 +212,7 @@
         }
       }
 
-      v6 = [countsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [countsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -226,20 +223,19 @@
     v7 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (int64_t)fetchSizeInBytesForFilepath:(id)filepath
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   filepathCopy = filepath;
   if (filepathCopy && (-[HMDMetricsDeviceStateManager fileManager](self, "fileManager"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 fileExistsAtPath:filepathCopy], v5, (v6 & 1) != 0))
   {
     fileManager = [(HMDMetricsDeviceStateManager *)self fileManager];
-    v24 = 0;
-    v8 = [fileManager attributesOfItemAtPath:filepathCopy error:&v24];
-    v9 = v24;
+    v23 = 0;
+    v8 = [fileManager attributesOfItemAtPath:filepathCopy error:&v23];
+    v9 = v23;
 
     if (v8)
     {
@@ -269,9 +265,9 @@
       {
         v21 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v26 = v21;
-        v27 = 2112;
-        v28 = v9;
+        v25 = v21;
+        v26 = 2112;
+        v27 = v9;
         _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@File attributes fetch error: %@", buf, 0x16u);
       }
 
@@ -289,9 +285,9 @@
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v26 = v17;
-      v27 = 2112;
-      v28 = filepathCopy;
+      v25 = v17;
+      v26 = 2112;
+      v27 = filepathCopy;
       _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Root path or database file path not found: %@", buf, 0x16u);
     }
 
@@ -299,7 +295,6 @@
     integerValue = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return integerValue;
 }
 
@@ -315,7 +310,7 @@
 
 - (void)updateCachedPairingKeyStates
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   keyCountProvider = [(HMDMetricsDeviceStateManager *)self keyCountProvider];
   countAccessoryPairingKeysForMetrics = [keyCountProvider countAccessoryPairingKeysForMetrics];
@@ -330,20 +325,19 @@
     v8 = HMFGetLogIdentifier();
     bitMappedMissingKeys = self->_bitMappedMissingKeys;
     bitMappedDuplicateKeys = self->_bitMappedDuplicateKeys;
-    v12 = 138544130;
-    v13 = v8;
-    v14 = 2112;
-    v15 = countAccessoryPairingKeysForMetrics;
-    v16 = 2048;
-    v17 = bitMappedMissingKeys;
-    v18 = 2048;
-    v19 = bitMappedDuplicateKeys;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Fetched key counts: %@ \n Cached bitMappedMissingKeys: %lu Cached bitMappedDuplicateKeys: %lu", &v12, 0x2Au);
+    v11 = 138544130;
+    v12 = v8;
+    v13 = 2112;
+    v14 = countAccessoryPairingKeysForMetrics;
+    v15 = 2048;
+    v16 = bitMappedMissingKeys;
+    v17 = 2048;
+    v18 = bitMappedDuplicateKeys;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Fetched key counts: %@ \n Cached bitMappedMissingKeys: %lu Cached bitMappedDuplicateKeys: %lu", &v11, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v5);
   os_unfair_lock_unlock(&self->_lock);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithHomeManagerStatus:(unint64_t)status
@@ -373,23 +367,21 @@
 
 - (void)configure
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@registerForEvents", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@registerForEvents", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter addObserver:selfCopy selector:sel_handleHomeDataLoaded name:@"HMDHomeManagerHomeDataLoadedNotification" object:0];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMetricsDeviceStateManager)initWithCurrentSoftwareVersion:(id)version logEventSubmitter:(id)submitter dailyScheduler:(id)scheduler dateProvider:(id)provider keyCountProvider:(id)countProvider userDefaults:(id)defaults fileManager:(id)manager

@@ -67,7 +67,7 @@
 - (void)cancel
 {
   selfCopy = self;
-  sub_10000EF90();
+  sub_10000EF90(selfCopy, v2, v3);
 }
 
 - (void)start
@@ -79,21 +79,22 @@
 - (void)handleSessionReachedTimeLimit
 {
   selfCopy = self;
-  sub_100012DB0();
+  sub_100012DB0(selfCopy, v2, v3);
 }
 
 - (void)readerSession:(id)session didReceiveThermalIndication:(BOOL)indication
 {
+  indicationCopy = indication;
   sessionCopy = session;
   selfCopy = self;
-  sub_1000130D4(sessionCopy, indication);
+  sub_1000130D4(sessionCopy, indicationCopy, selfCopy);
 }
 
 - (void)secureElementReaderSessionDidEndUnexpectedly:(id)unexpectedly
 {
   unexpectedlyCopy = unexpectedly;
   selfCopy = self;
-  sub_1000136D4();
+  sub_1000136D4(unexpectedlyCopy, selfCopy, v5);
 }
 
 - (void)readerSession:(id)session receivedData:(id)data fromApplet:(id)applet

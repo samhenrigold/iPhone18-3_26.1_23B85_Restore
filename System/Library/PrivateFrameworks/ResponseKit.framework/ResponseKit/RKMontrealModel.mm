@@ -45,7 +45,7 @@
 
 - (RKMontrealModel)initWithPath:(id)path
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   if (!pathCopy)
   {
@@ -57,17 +57,17 @@
     [RKMontrealModel initWithPath:];
   }
 
-  v9.receiver = self;
-  v9.super_class = RKMontrealModel;
-  self = [(RKMontrealModel *)&v9 init];
+  v8.receiver = self;
+  v8.super_class = RKMontrealModel;
+  self = [(RKMontrealModel *)&v8 init];
   if (!self || [RKMontrealModel initWithPath:]::montrealIsLoaded != 1)
   {
     goto LABEL_9;
   }
 
-  v10 = @"fileLocation";
-  v11[0] = pathCopy;
-  v5 = (weak_MRLModelCreate)([MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1]);
+  v9 = @"fileLocation";
+  v10[0] = pathCopy;
+  v5 = (weak_MRLModelCreate)([MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1]);
   self->_model = v5;
   if (!v5)
   {
@@ -87,7 +87,6 @@ LABEL_9:
   selfCopy = self;
 LABEL_11:
 
-  v7 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

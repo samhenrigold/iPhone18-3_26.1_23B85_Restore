@@ -19,9 +19,9 @@
   idCopy = id;
   typeCopy = type;
   attributesCopy = attributes;
-  v33.receiver = self;
-  v33.super_class = MAAbsoluteAssetId;
-  v12 = [(MAAbsoluteAssetId *)&v33 init];
+  v37.receiver = self;
+  v37.super_class = MAAbsoluteAssetId;
+  v12 = [(MAAbsoluteAssetId *)&v37 init];
   v13 = v12;
   if (v12)
   {
@@ -39,25 +39,25 @@
     nonAssetIdHash = v13->_nonAssetIdHash;
     v13->_nonAssetIdHash = v18;
 
-    v20 = attributesInDownloadContent();
-    v21 = getHashFromAttributesInSet(typeCopy, attributesCopy, v20);
+    v21 = attributesInDownloadContent(v20);
+    v22 = getHashFromAttributesInSet(typeCopy, attributesCopy, v21);
     downloadContentHash = v13->_downloadContentHash;
-    v13->_downloadContentHash = v21;
+    v13->_downloadContentHash = v22;
 
-    v23 = attributesInDownloadUrl();
-    v24 = getHashFromAttributesInSet(typeCopy, attributesCopy, v23);
+    v25 = attributesInDownloadUrl(v24);
+    v26 = getHashFromAttributesInSet(typeCopy, attributesCopy, v25);
     downloadUrlHash = v13->_downloadUrlHash;
-    v13->_downloadUrlHash = v24;
+    v13->_downloadUrlHash = v26;
 
-    v26 = attributesInDownloadPolicy();
-    v27 = getHashFromAttributesInSet(typeCopy, attributesCopy, v26);
-    downloadPolicyHash = v13->_downloadPolicyHash;
-    v13->_downloadPolicyHash = v27;
-
-    v29 = attributesInPallasDynamicAssetId();
+    v29 = attributesInDownloadPolicy(v28);
     v30 = getHashFromAttributesInSet(typeCopy, attributesCopy, v29);
+    downloadPolicyHash = v13->_downloadPolicyHash;
+    v13->_downloadPolicyHash = v30;
+
+    v33 = attributesInPallasDynamicAssetId(v32);
+    v34 = getHashFromAttributesInSet(typeCopy, attributesCopy, v33);
     pallasAssetIdHash = v13->_pallasAssetIdHash;
-    v13->_pallasAssetIdHash = v30;
+    v13->_pallasAssetIdHash = v34;
   }
 
   return v13;

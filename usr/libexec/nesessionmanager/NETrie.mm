@@ -10,27 +10,20 @@
 - (BOOL)searchWithString:(id)string
 {
   stringCopy = string;
-  v5 = stringCopy;
+  v4 = stringCopy;
   if (stringCopy && [stringCopy length])
   {
-    [v5 UTF8String];
-    [v5 length];
-    if (self)
-    {
-      reverse = self->_reverse;
-      partialSearchAllowed = self->_partialSearchAllowed;
-      partialSearchTerminator = self->_partialSearchTerminator;
-    }
-
-    v9 = ne_trie_search() != 0xFFFF;
+    [v4 UTF8String];
+    [v4 length];
+    v5 = ne_trie_search() != 0xFFFF;
   }
 
   else
   {
-    v9 = 0;
+    v5 = 0;
   }
 
-  return v9;
+  return v5;
 }
 
 - (BOOL)search:(const char *)search length:(int)length
@@ -38,13 +31,6 @@
   v4 = 0;
   if (search && length)
   {
-    if (self)
-    {
-      reverse = self->_reverse;
-      partialSearchAllowed = self->_partialSearchAllowed;
-      partialSearchTerminator = self->_partialSearchTerminator;
-    }
-
     return ne_trie_search() != 0xFFFF;
   }
 
@@ -87,9 +73,9 @@
 - (NETrie)initWithDomains:(id)domains prefixCount:(int)count reverse:(BOOL)reverse partialSearchAllowed:(BOOL)allowed partialSearchTerminator:(char)terminator extra_bytes:(unint64_t)extra_bytes
 {
   domainsCopy = domains;
-  v48.receiver = self;
-  v48.super_class = NETrie;
-  v14 = [(NETrie *)&v48 init];
+  v47.receiver = self;
+  v47.super_class = NETrie;
+  v14 = [(NETrie *)&v47 init];
   if (!v14)
   {
 LABEL_33:
@@ -99,31 +85,31 @@ LABEL_33:
 
   if (domainsCopy && [domainsCopy count])
   {
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
-    v38 = domainsCopy;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    v37 = domainsCopy;
     v15 = domainsCopy;
-    v16 = [v15 countByEnumeratingWithState:&v44 objects:v58 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v43 objects:v57 count:16];
     if (v16)
     {
       terminatorCopy = terminator;
       v17 = 0;
-      v18 = *v45;
+      v18 = *v44;
       do
       {
         for (i = 0; i != v16; i = i + 1)
         {
-          if (*v45 != v18)
+          if (*v44 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v17 += [*(*(&v44 + 1) + 8 * i) length];
+          v17 += [*(*(&v43 + 1) + 8 * i) length];
         }
 
-        v16 = [v15 countByEnumeratingWithState:&v44 objects:v58 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v43 objects:v57 count:16];
       }
 
       while (v16);
@@ -141,81 +127,80 @@ LABEL_33:
       v14->_reverse = reverse;
       v14->_partialSearchAllowed = allowed;
       v14->_partialSearchTerminator = terminator;
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
       v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
       v22 = v15;
-      v23 = [v22 countByEnumeratingWithState:&v40 objects:v57 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v39 objects:v56 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v41;
+        v25 = *v40;
         do
         {
           for (j = 0; j != v24; j = j + 1)
           {
-            if (*v41 != v25)
+            if (*v40 != v25)
             {
               objc_enumerationMutation(v22);
             }
 
-            v27 = *(*(&v40 + 1) + 8 * j);
+            v27 = *(*(&v39 + 1) + 8 * j);
             [v27 UTF8String];
             [v27 length];
-            reverse = v14->_reverse;
             if (ne_trie_insert() == 0xFFFF)
             {
-              v29 = ne_log_obj();
-              if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+              v28 = ne_log_obj();
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                *v50 = v27;
-                _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "NETrie - failed insert for %@", buf, 0xCu);
+                *v49 = v27;
+                _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "NETrie - failed insert for %@", buf, 0xCu);
               }
             }
           }
 
-          v24 = [v22 countByEnumeratingWithState:&v40 objects:v57 count:16];
+          v24 = [v22 countByEnumeratingWithState:&v39 objects:v56 count:16];
         }
 
         while (v24);
       }
 
-      v30 = ne_log_obj();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+      v29 = ne_log_obj();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
       {
-        v33 = [v22 count];
+        v32 = [v22 count];
         nodes_free_next = v14->_trie.nodes_free_next;
         child_maps_free_next = v14->_trie.child_maps_free_next;
         bytes_free_next = v14->_trie.bytes_free_next;
         root = v14->_trie.root;
         *buf = 67110144;
-        *v50 = v33;
-        *&v50[4] = 1024;
-        *&v50[6] = nodes_free_next;
-        v51 = 1024;
-        v52 = child_maps_free_next;
-        v53 = 1024;
-        v54 = bytes_free_next;
-        v55 = 1024;
-        v56 = root;
-        _os_log_debug_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "NETrie - initialized with %d domains (Nodes used = %d, child maps used = %d, bytes used = %d, root = %d)", buf, 0x20u);
+        *v49 = v32;
+        *&v49[4] = 1024;
+        *&v49[6] = nodes_free_next;
+        v50 = 1024;
+        v51 = child_maps_free_next;
+        v52 = 1024;
+        v53 = bytes_free_next;
+        v54 = 1024;
+        v55 = root;
+        _os_log_debug_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEBUG, "NETrie - initialized with %d domains (Nodes used = %d, child maps used = %d, bytes used = %d, root = %d)", buf, 0x20u);
       }
 
-      domainsCopy = v38;
+      domainsCopy = v37;
       goto LABEL_33;
     }
 
-    v32 = ne_log_obj();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v31 = ne_log_obj();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "NETrie - failed init", buf, 2u);
+      _os_log_error_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "NETrie - failed init", buf, 2u);
     }
 
     v21 = 0;
-    domainsCopy = v38;
+    domainsCopy = v37;
   }
 
   else

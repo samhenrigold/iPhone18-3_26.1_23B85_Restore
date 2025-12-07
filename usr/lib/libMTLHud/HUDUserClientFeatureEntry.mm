@@ -72,10 +72,9 @@
 
 void __56__HUDUserClientFeatureEntry_initToggle_state_didChange___block_invoke_2(uint64_t a1, void *a2)
 {
-  v4 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [a2 checked]);
-  v3 = *(*(a1 + 32) + 24);
+  v3 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [a2 checked]);
   (*(*(a1 + 40) + 16))();
-  HUDPersistancyAddKeyAndValue(*(*(a1 + 32) + 24), v4);
+  HUDPersistancyAddKeyAndValue(*(*(a1 + 32) + 24), v3);
 }
 
 - (id)initPopover:(HUDUserFeatureDescriptor *)popover items:(id)items selectedIndex:(unint64_t)index didChange:(id)change
@@ -210,18 +209,16 @@ void __71__HUDUserClientFeatureEntry_initPopover_items_selectedIndex_didChange__
 
 - (void)setToDefault
 {
-  configEntry = self->_configEntry;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     [(MTLHUDConfigViewControllerEntry *)self->_configEntry setChecked:[(NSNumber *)self->_descriptor.defaultValue BOOLValue]];
     envVar = self->_descriptor.envVar;
-    v5 = [NSNumber numberWithBool:[(NSNumber *)self->_descriptor.defaultValue BOOLValue]];
+    v4 = [NSNumber numberWithBool:[(NSNumber *)self->_descriptor.defaultValue BOOLValue]];
   }
 
   else
   {
-    v6 = self->_configEntry;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -230,11 +227,11 @@ void __71__HUDUserClientFeatureEntry_initPopover_items_selectedIndex_didChange__
 
     [(MTLHUDConfigViewControllerEntry *)self->_configEntry setSelectedIndex:[(NSNumber *)self->_descriptor.defaultValue intValue]];
     envVar = self->_descriptor.envVar;
-    v5 = [NSNumber numberWithInt:[(NSNumber *)self->_descriptor.defaultValue intValue]];
+    v4 = [NSNumber numberWithInt:[(NSNumber *)self->_descriptor.defaultValue intValue]];
   }
 
-  v7 = v5;
-  HUDPersistancyAddKeyAndValue(envVar, v5);
+  v5 = v4;
+  HUDPersistancyAddKeyAndValue(envVar, v4);
 }
 
 @end

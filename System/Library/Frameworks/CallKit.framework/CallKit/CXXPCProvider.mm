@@ -101,48 +101,46 @@ void __39__CXXPCProvider_initWithConfiguration___block_invoke(uint64_t a1)
 
 void __39__CXXPCProvider_initWithConfiguration___block_invoke_2(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = CXDefaultLog();
+  v2 = CXDefaultLog(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "com.apple.callkit.callsourcehost.started";
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Handling %s by setting up XPC connection", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "com.apple.callkit.callsourcehost.started";
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Handling %s by setting up XPC connection", &v3, 0xCu);
   }
 
   [WeakRetained registerCurrentConfiguration];
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __27__CXXPCProvider_connection__block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = CXDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = CXDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = WeakRetained[7];
+      v4 = v2[7];
       *buf = 138412546;
-      v9 = v3;
+      v9 = v4;
       v10 = 2112;
-      v11 = WeakRetained;
-      _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection %@ interrupted for XPC provider %@", buf, 0x16u);
+      v11 = v2;
+      _os_log_impl(&dword_1B47F3000, v3, OS_LOG_TYPE_DEFAULT, "Connection %@ interrupted for XPC provider %@", buf, 0x16u);
     }
 
-    v4 = [WeakRetained abstractProvider];
-    v5 = [v4 queue];
+    v5 = [v2 abstractProvider];
+    v6 = [v5 queue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __27__CXXPCProvider_connection__block_invoke_3;
     block[3] = &unk_1E7C06CA8;
-    block[4] = WeakRetained;
-    dispatch_async(v5, block);
+    block[4] = v2;
+    dispatch_async(v6, block);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __27__CXXPCProvider_connection__block_invoke_3(uint64_t a1)
@@ -155,30 +153,29 @@ void __27__CXXPCProvider_connection__block_invoke_2(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = CXDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = CXDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = WeakRetained[7];
+      v4 = v2[7];
       *buf = 138412546;
-      v9 = v3;
+      v9 = v4;
       v10 = 2112;
-      v11 = WeakRetained;
-      _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection %@ invalidated for XPC provider %@", buf, 0x16u);
+      v11 = v2;
+      _os_log_impl(&dword_1B47F3000, v3, OS_LOG_TYPE_DEFAULT, "Connection %@ invalidated for XPC provider %@", buf, 0x16u);
     }
 
-    v4 = [WeakRetained abstractProvider];
-    v5 = [v4 queue];
+    v5 = [v2 abstractProvider];
+    v6 = [v5 queue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __27__CXXPCProvider_connection__block_invoke_4;
     block[3] = &unk_1E7C06CA8;
-    block[4] = WeakRetained;
-    dispatch_async(v5, block);
+    block[4] = v2;
+    dispatch_async(v6, block);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __27__CXXPCProvider_connection__block_invoke_4(uint64_t a1)
@@ -214,20 +211,18 @@ void __27__CXXPCProvider_connection__block_invoke_4(uint64_t a1)
 
 void __27__CXXPCProvider_invalidate__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "self: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "self: %@", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 32) connection];
   [v4 invalidate];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

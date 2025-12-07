@@ -18,16 +18,16 @@
   return v3;
 }
 
-void __67__VNPersonSegmentationGeneratorFast_outputMaskBlobNameToRequestKey__block_invoke()
+void __67__VNPersonSegmentationGeneratorFast_outputMaskBlobNameToRequestKey__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v4 = VNPersonSegmentationGeneratorFastOutputBlobNameMask;
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  v5[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-  v3 = +[VNPersonSegmentationGeneratorFast outputMaskBlobNameToRequestKey]::outputMaskBlobNameToRequestKey;
-  +[VNPersonSegmentationGeneratorFast outputMaskBlobNameToRequestKey]::outputMaskBlobNameToRequestKey = v2;
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = VNPersonSegmentationGeneratorFastOutputBlobNameMask;
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = +[VNPersonSegmentationGeneratorFast outputMaskBlobNameToRequestKey]::outputMaskBlobNameToRequestKey;
+  +[VNPersonSegmentationGeneratorFast outputMaskBlobNameToRequestKey]::outputMaskBlobNameToRequestKey = v4;
 }
 
 + (id)outputMaskBlobNames

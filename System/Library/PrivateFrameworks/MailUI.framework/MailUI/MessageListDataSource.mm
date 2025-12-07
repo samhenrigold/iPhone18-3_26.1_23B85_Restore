@@ -382,11 +382,12 @@ id __48__MessageListDataSource_initWithCollectionView___block_invoke_2(uint64_t 
   v15 = *MEMORY[0x277D85DE8];
   if (force)
   {
+    v2 = a2;
     os_unfair_lock_lock(force + 3);
     updateQueueSuspensionCount = [(os_unfair_lock_s *)force updateQueueSuspensionCount];
     if (updateQueueSuspensionCount)
     {
-      if (a2)
+      if (v2)
       {
         v5 = 0;
       }
@@ -406,7 +407,7 @@ id __48__MessageListDataSource_initWithCollectionView___block_invoke_2(uint64_t 
           v11 = 2048;
           v12 = v5;
           v13 = 1024;
-          v14 = a2;
+          v14 = v2;
           _os_log_impl(&dword_214A5E000, updateQueue, OS_LOG_TYPE_DEFAULT, "%p: Skip resume queue (count=%ld, force=%{BOOL}d)", &v9, 0x1Cu);
         }
       }
@@ -421,7 +422,7 @@ id __48__MessageListDataSource_initWithCollectionView___block_invoke_2(uint64_t 
           v11 = 2048;
           v12 = 0;
           v13 = 1024;
-          v14 = a2;
+          v14 = v2;
           _os_log_impl(&dword_214A5E000, v8, OS_LOG_TYPE_DEFAULT, "%p: Resume update queue (count=%ld, force=%{BOOL}d)", &v9, 0x1Cu);
         }
 
@@ -1904,7 +1905,7 @@ LABEL_8:
   return visibleSections;
 }
 
-uint64_t __53__MessageListDataSource_messageListSectionIsVisible___block_invoke(uint64_t a1, void *a2)
+void *__53__MessageListDataSource_messageListSectionIsVisible___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 containsObject:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1931,7 +1932,7 @@ uint64_t __40__MessageListDataSource__allDataSources__block_invoke(uint64_t a1, 
   return MEMORY[0x2821F96F8](v3, v5);
 }
 
-uint64_t __43__MessageListDataSource__isSectionVisible___block_invoke(uint64_t a1, void *a2)
+void *__43__MessageListDataSource__isSectionVisible___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 containsObject:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;

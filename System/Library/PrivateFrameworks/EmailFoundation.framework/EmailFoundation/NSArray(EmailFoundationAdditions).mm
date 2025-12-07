@@ -49,27 +49,27 @@
 
 - (id)ef_flatten
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   selfCopy = self;
-  v4 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [selfCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -79,17 +79,15 @@
 
         else
         {
-          [array addObject:{v7, v11}];
+          [array addObject:{v7, v10}];
         }
       }
 
-      v4 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [selfCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -157,37 +155,35 @@
 
 - (id)ef_arrayByAddingAbsentObjectsFromArray:()EmailFoundationAdditions
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [self mutableCopy];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        [v5 ef_addObjectIfAbsentAccordingToEquals:{*(*(&v12 + 1) + 8 * i), v12}];
+        [v5 ef_addObjectIfAbsentAccordingToEquals:{*(*(&v11 + 1) + 8 * i), v11}];
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -214,13 +210,13 @@
 
 - (void)ef_enumerateObjectsInBatchesOfSize:()EmailFoundationAdditions objectArrayBlock:
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v6 = a4;
   v7 = [self count];
   if (v7)
   {
-    v8 = v15;
-    bzero(v15, 0x400uLL);
+    v8 = v14;
+    bzero(v14, 0x400uLL);
     if (v7 >= 0x81)
     {
       if (a3 >= 0x400)
@@ -244,8 +240,8 @@
     }
 
     v11 = 0;
-    v14 = 0;
-    while ((v14 & 1) == 0 && v7)
+    v13 = 0;
+    while ((v13 & 1) == 0 && v7)
     {
       if (v10 >= v7)
       {
@@ -259,7 +255,7 @@
 
       [self getObjects:v8 range:{v11, v12}];
       v7 -= v12;
-      v6[2](v6, v8, v11, v12, &v14);
+      v6[2](v6, v8, v11, v12, &v13);
       v11 += v12;
     }
 
@@ -268,8 +264,6 @@
       free(v9);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ef_enumerateObjectsInBatchesOfSize:()EmailFoundationAdditions overlapBy:block:
@@ -435,27 +429,27 @@
 
 - (id)ef_firstObjectPassingTest:()EmailFoundationAdditions
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   selfCopy = self;
-  v6 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if (v4[2](v4, v9))
         {
           v6 = v9;
@@ -463,7 +457,7 @@
         }
       }
 
-      v6 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -474,8 +468,6 @@
   }
 
 LABEL_11:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -506,91 +498,90 @@ LABEL_11:
 
 - (uint64_t)ef_countObjectsPassingTest:()EmailFoundationAdditions
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   selfCopy = self;
   v6 = 0;
-  v7 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v6 += v4[2](v4, *(*(&v12 + 1) + 8 * v9++));
+        v6 += v4[2](v4, *(*(&v11 + 1) + 8 * v9++));
       }
 
       while (v7 != v9);
-      v7 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (id)ef_uniquifyWithComparator:()EmailFoundationAdditions
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = a3;
   array = [MEMORY[0x1E695DF70] array];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   obj = self;
-  v6 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v6 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v6)
   {
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
+        v9 = *(*(&v20 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v19 = 0u;
-          v20 = 0u;
-          v17 = 0u;
           v18 = 0u;
+          v19 = 0u;
+          v16 = 0u;
+          v17 = 0u;
           ef_flatten = [v9 ef_flatten];
-          v11 = [ef_flatten countByEnumeratingWithState:&v17 objects:v25 count:16];
+          v11 = [ef_flatten countByEnumeratingWithState:&v16 objects:v24 count:16];
           if (v11)
           {
-            v12 = *v18;
+            v12 = *v17;
             do
             {
               for (j = 0; j != v11; ++j)
               {
-                if (*v18 != v12)
+                if (*v17 != v12)
                 {
                   objc_enumerationMutation(ef_flatten);
                 }
 
-                [array ef_insertObject:*(*(&v17 + 1) + 8 * j) usingComparator:v4 allowDuplicates:0];
+                [array ef_insertObject:*(*(&v16 + 1) + 8 * j) usingComparator:v4 allowDuplicates:0];
               }
 
-              v11 = [ef_flatten countByEnumeratingWithState:&v17 objects:v25 count:16];
+              v11 = [ef_flatten countByEnumeratingWithState:&v16 objects:v24 count:16];
             }
 
             while (v11);
@@ -603,41 +594,39 @@ LABEL_11:
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v6 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (id)ef_map:()EmailFoundationAdditions
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a3;
   array = [MEMORY[0x1E695DF70] array];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   selfCopy = self;
-  v8 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         v13 = v5[2](v5, v11);
         v14 = v13;
@@ -647,7 +636,7 @@ LABEL_11:
           v14 = null;
         }
 
-        [array addObject:{v14, v17}];
+        [array addObject:{v14, v16}];
         if (!v13)
         {
         }
@@ -655,13 +644,11 @@ LABEL_11:
         objc_autoreleasePoolPop(v12);
       }
 
-      v8 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -680,45 +667,43 @@ LABEL_11:
 
 - (id)ef_compactMap:()EmailFoundationAdditions
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a3;
   array = [MEMORY[0x1E695DF70] array];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   selfCopy = self;
-  v7 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = objc_autoreleasePoolPush();
         v12 = v4[2](v4, v10);
         if (v12)
         {
-          [array addObject:{v12, v15}];
+          [array addObject:{v12, v14}];
         }
 
         objc_autoreleasePoolPop(v11);
       }
 
-      v7 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -754,28 +739,28 @@ LABEL_11:
 
 - (id)ef_flatMap:()EmailFoundationAdditions
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a3;
   array = [MEMORY[0x1E695DF70] array];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   selfCopy = self;
-  v7 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = objc_autoreleasePoolPush();
         v12 = v4[2](v4, v10);
         if (v12)
@@ -783,92 +768,88 @@ LABEL_11:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [array addObjectsFromArray:{v12, v15}];
+            [array addObjectsFromArray:{v12, v14}];
           }
         }
 
         objc_autoreleasePoolPop(v11);
       }
 
-      v7 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (id)ef_reduce:()EmailFoundationAdditions
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = a3;
   firstObject = [self firstObject];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   ef_tail = [self ef_tail];
-  v7 = [ef_tail countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [ef_tail countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       v10 = firstObject;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(ef_tail);
         }
 
-        firstObject = v4[2](v4, v10, *(*(&v13 + 1) + 8 * v9));
+        firstObject = v4[2](v4, v10, *(*(&v12 + 1) + 8 * v9));
 
         ++v9;
         v10 = firstObject;
       }
 
       while (v7 != v9);
-      v7 = [ef_tail countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [ef_tail countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
 
 - (id)ef_partition:()EmailFoundationAdditions
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = a3;
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   selfCopy = self;
-  v8 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         if (v4[2](v4, v11))
         {
           v12 = array;
@@ -879,10 +860,10 @@ LABEL_11:
           v12 = array2;
         }
 
-        [v12 addObject:{v11, v16}];
+        [v12 addObject:{v11, v15}];
       }
 
-      v8 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -890,35 +871,33 @@ LABEL_11:
 
   v13 = [EFPair pairWithFirst:array second:array2];
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (id)ef_groupBy:()EmailFoundationAdditions
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = a3;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   obj = self;
-  v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = objc_autoreleasePoolPush();
         v11 = v4[2](v4, v9);
         if (v11)
@@ -936,13 +915,11 @@ LABEL_11:
         objc_autoreleasePoolPop(v10);
       }
 
-      v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -956,28 +933,28 @@ LABEL_11:
 
 - (id)ef_groupByObject:()EmailFoundationAdditions keyOptions:valueOptions:
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:a4 valueOptions:a5];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   obj = self;
-  v10 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         v14 = objc_autoreleasePoolPush();
         v15 = v8[2](v8, v13);
         if (v15)
@@ -995,13 +972,11 @@ LABEL_11:
         objc_autoreleasePoolPop(v14);
       }
 
-      v10 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -1047,7 +1022,7 @@ LABEL_11:
 
 - (id)ef_permutations
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   v2 = [self count];
   v3 = v2 - 1;
   if (v2 > 1)
@@ -1055,42 +1030,42 @@ LABEL_11:
     v4 = v2;
     if (v2 == 2)
     {
-      v29[0] = self;
-      v18 = [self objectAtIndexedSubscript:{1, v3}];
-      v28[0] = v18;
+      v28[0] = self;
+      v17 = [self objectAtIndexedSubscript:{1, v3}];
+      v27[0] = v17;
       v5 = [self objectAtIndexedSubscript:0];
-      v28[1] = v5;
-      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
-      v29[1] = v6;
-      v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+      v27[1] = v5;
+      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
+      v28[1] = v6;
+      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
     }
 
     else
     {
-      v19 = [self subarrayWithRange:{1, v3}];
-      ef_permutations = [v19 ef_permutations];
-      v22 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v18 = [self subarrayWithRange:{1, v3}];
+      ef_permutations = [v18 ef_permutations];
+      v21 = objc_alloc_init(MEMORY[0x1E695DF70]);
       for (i = 0; i != v4; ++i)
       {
-        v25 = 0u;
-        v26 = 0u;
-        v23 = 0u;
         v24 = 0u;
+        v25 = 0u;
+        v22 = 0u;
+        v23 = 0u;
         obj = ef_permutations;
-        v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v8)
         {
-          v9 = *v24;
+          v9 = *v23;
           do
           {
             for (j = 0; j != v8; ++j)
             {
-              if (*v24 != v9)
+              if (*v23 != v9)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v11 = *(*(&v23 + 1) + 8 * j);
+              v11 = *(*(&v22 + 1) + 8 * j);
               v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
               v13 = [v11 subarrayWithRange:{0, i}];
               [v12 addObjectsFromArray:v13];
@@ -1101,10 +1076,10 @@ LABEL_11:
               v15 = [v11 subarrayWithRange:{i, v4 + ~i}];
               [v12 addObjectsFromArray:v15];
 
-              [v22 addObject:v12];
+              [v21 addObject:v12];
             }
 
-            v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+            v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
           }
 
           while (v8);
@@ -1115,13 +1090,11 @@ LABEL_11:
 
   else
   {
-    v30[0] = self;
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
+    v29[0] = self;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v22;
+  return v21;
 }
 
 - (id)ef_reverse
@@ -1180,105 +1153,91 @@ LABEL_11:
 
 - (id)ef_sum
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E696ABC8];
   v2 = [MEMORY[0x1E696ABC8] expressionForConstantValue:self];
-  v8[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v4 = [v1 expressionForFunction:@"sum:" arguments:v3];
   v5 = [v4 expressionValueWithObject:0 context:0];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)ef_min
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E696ABC8];
   v2 = [MEMORY[0x1E696ABC8] expressionForConstantValue:self];
-  v8[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v4 = [v1 expressionForFunction:@"min:" arguments:v3];
   v5 = [v4 expressionValueWithObject:0 context:0];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)ef_max
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E696ABC8];
   v2 = [MEMORY[0x1E696ABC8] expressionForConstantValue:self];
-  v8[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v4 = [v1 expressionForFunction:@"max:" arguments:v3];
   v5 = [v4 expressionValueWithObject:0 context:0];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)ef_mean
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E696ABC8];
   v2 = [MEMORY[0x1E696ABC8] expressionForConstantValue:self];
-  v8[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v4 = [v1 expressionForFunction:@"average:" arguments:v3];
   v5 = [v4 expressionValueWithObject:0 context:0];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)ef_median
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E696ABC8];
   v2 = [MEMORY[0x1E696ABC8] expressionForConstantValue:self];
-  v8[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v4 = [v1 expressionForFunction:@"median:" arguments:v3];
   v5 = [v4 expressionValueWithObject:0 context:0];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)ef_mode
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E696ABC8];
   v2 = [MEMORY[0x1E696ABC8] expressionForConstantValue:self];
-  v8[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v4 = [v1 expressionForFunction:@"mode:" arguments:v3];
   v5 = [v4 expressionValueWithObject:0 context:0];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)ef_standardDeviation
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E696ABC8];
   v2 = [MEMORY[0x1E696ABC8] expressionForConstantValue:self];
-  v8[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v4 = [v1 expressionForFunction:@"stddev:" arguments:v3];
   v5 = [v4 expressionValueWithObject:0 context:0];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

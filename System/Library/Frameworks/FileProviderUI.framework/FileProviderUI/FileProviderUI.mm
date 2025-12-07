@@ -1,13 +1,13 @@
-id FPUILogHandle()
+id FPUILogHandle(uint64_t a1, uint64_t a2)
 {
-  v0 = fpuiLogHandle;
+  v2 = fpuiLogHandle;
   if (!fpuiLogHandle)
   {
-    FPUIInitLogging();
-    v0 = fpuiLogHandle;
+    FPUIInitLogging(0, a2);
+    v2 = fpuiLogHandle;
   }
 
-  return v0;
+  return v2;
 }
 
 id FPProviderDomainIDToDomainIdentifier(void *a1)
@@ -27,10 +27,11 @@ id FPProviderDomainIDToDomainIdentifier(void *a1)
   return v4;
 }
 
-void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 id FPNavBarButton(void *a1, int a2, void *a3, uint64_t a4)
@@ -76,44 +77,45 @@ void sub_23835BBCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 __CFString *FPUILoc(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v9 = a1;
-  v10 = FPUILocalizationBundle();
+  v10 = FPUILocalizationBundle(v9);
   v11 = [v10 localizedStringForKey:v9 value:@"FILEPROVIDER_UI_LOCALIZED_STRING_UNAVAILABLE" table:@"FileProviderUI"];
 
-  if ([v11 isEqualToString:@"FILEPROVIDER_UI_LOCALIZED_STRING_UNAVAILABLE"])
+  v12 = [v11 isEqualToString:@"FILEPROVIDER_UI_LOCALIZED_STRING_UNAVAILABLE"];
+  if (v12)
   {
-    v12 = fpuiLogHandle;
+    v14 = fpuiLogHandle;
     if (!fpuiLogHandle)
     {
-      FPUIInitLogging();
-      v12 = fpuiLogHandle;
+      FPUIInitLogging(v12, v13);
+      v14 = fpuiLogHandle;
     }
 
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      FPUILoc_cold_1(v9, v12);
+      FPUILoc_cold_1(v9, v14);
     }
 
-    v13 = @"FILEPROVIDER_UI_LOCALIZED_STRING_UNAVAILABLE";
+    v15 = @"FILEPROVIDER_UI_LOCALIZED_STRING_UNAVAILABLE";
   }
 
   else
   {
-    v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:v11 arguments:&a9];
+    v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:v11 arguments:&a9];
   }
 
-  return v13;
+  return v15;
 }
 
-id FPUILocalizationBundle()
+id FPUILocalizationBundle(uint64_t a1)
 {
   if (FPUILocalizationBundle_onceToken != -1)
   {
     FPUILocalizationBundle_cold_1();
   }
 
-  v1 = FPUILocalizationBundle_bundle;
+  v2 = FPUILocalizationBundle_bundle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __FPUILocalizationBundle_block_invoke()
@@ -123,7 +125,7 @@ uint64_t __FPUILocalizationBundle_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void FPUIInitLogging()
+void FPUIInitLogging(uint64_t result, uint64_t a2)
 {
   if (FPUIInitLogging_once != -1)
   {
@@ -161,15 +163,13 @@ void sub_23835E5F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void FPUILoc_cold_1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = FPUILocalizationBundle();
+  v4 = FPUILocalizationBundle(v3);
   v5 = [v4 bundlePath];
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_238356000, v3, OS_LOG_TYPE_ERROR, "Localized key '%@' missing from table 'FileProviderUI' (bundlePath:%@)", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_238356000, v3, OS_LOG_TYPE_ERROR, "Localized key '%@' missing from table 'FileProviderUI' (bundlePath:%@)", &v6, 0x16u);
 }

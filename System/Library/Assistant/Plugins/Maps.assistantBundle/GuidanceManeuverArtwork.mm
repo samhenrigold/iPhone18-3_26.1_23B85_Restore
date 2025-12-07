@@ -1,4 +1,5 @@
 @interface GuidanceManeuverArtwork
++ (id)artworkWithManeuver:(int)maneuver;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isStartRouteManeuver;
 - (BOOL)isValue:(id)value equalTo:(id)to;
@@ -43,6 +44,13 @@ LABEL_2:
 LABEL_3:
 
   return v8;
+}
+
++ (id)artworkWithManeuver:(int)maneuver
+{
+  v3 = [[self alloc] initWithManeuver:*&maneuver junction:0 drivingSide:0 artworkDataSource:0];
+
+  return v3;
 }
 
 - (GuidanceManeuverArtwork)initWithManeuver:(int)maneuver junction:(id)junction drivingSide:(int)side artworkDataSource:(id)source

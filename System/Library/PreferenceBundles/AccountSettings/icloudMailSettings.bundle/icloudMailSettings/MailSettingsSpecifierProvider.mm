@@ -11,6 +11,7 @@
 - (void)_navigateToExistingFlow:(id)flow;
 - (void)_navigateToMailPreferences:(id)preferences;
 - (void)_navigateToSwiftUIFlow:(id)flow;
+- (void)_onMailAccountCreated:(BOOL)created;
 - (void)_presentAccountCreationPage;
 - (void)onMailTapWithDeeplink:(id)deeplink;
 - (void)pushViewController:(id)controller;
@@ -40,60 +41,61 @@
   v3 = +[NSMutableArray array];
   account = [(MailSettingsSpecifierProvider *)self account];
   v5 = account;
-  if (account && (v6 = ACAccountDataclassMail, [account isProvisionedForDataclass:ACAccountDataclassMail]))
+  if (account && (v6 = ACAccountDataclassMail, account = [account isProvisionedForDataclass:ACAccountDataclassMail], account))
   {
     v7 = [v5 aa_isAccountClass:AAAccountClassPrimary];
-    v8 = _MSLogSystem();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
-    if (v7)
+    v8 = v7;
+    v9 = _MSLogSystem(v7);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
+    if (v8)
     {
-      if (v9)
+      if (v10)
       {
         sub_D43B4(v5);
       }
 
-      v10 = [PSSpecifier acui_linkListCellSpecifierForDataclass:v6 account:v5 target:self set:0 get:"_dataclassState:" detail:0];
+      v11 = [PSSpecifier acui_linkListCellSpecifierForDataclass:v6 account:v5 target:self set:0 get:"_dataclassState:" detail:0];
       mailSpecifier = self->_mailSpecifier;
-      self->_mailSpecifier = v10;
+      self->_mailSpecifier = v11;
 
-      v12 = self->_mailSpecifier;
-      v13 = [NSBundle bundleForClass:objc_opt_class()];
-      v14 = [v13 localizedStringForKey:@"ICLOUD_MAIL_LABEL" value:&stru_11B690 table:0];
-      [(PSSpecifier *)v12 setName:v14];
+      v13 = self->_mailSpecifier;
+      v14 = [NSBundle bundleForClass:objc_opt_class()];
+      v15 = [v14 localizedStringForKey:@"ICLOUD_MAIL_LABEL" value:&stru_11B690 table:0];
+      [(PSSpecifier *)v13 setName:v15];
 
       [(PSSpecifier *)self->_mailSpecifier setControllerLoadAction:"_mailSpecifierWasTapped:"];
-      v26[0] = &__kCFBooleanTrue;
-      v15 = ACUIAccountKey;
-      v25[0] = ACUIAlreadyShowedEnableAndDeleteKey;
-      v25[1] = ACUIAccountKey;
+      v27[0] = &__kCFBooleanTrue;
+      v16 = ACUIAccountKey;
+      v26[0] = ACUIAlreadyShowedEnableAndDeleteKey;
+      v26[1] = ACUIAccountKey;
       accounts = [(AIDAAccountManager *)self->_accountManager accounts];
-      v17 = [accounts objectForKeyedSubscript:AIDAServiceTypeCloud];
-      v26[1] = v17;
-      v18 = [NSDictionary dictionaryWithObjects:v26 forKeys:v25 count:2];
-      v19 = [NSMutableDictionary dictionaryWithDictionary:v18];
+      v18 = [accounts objectForKeyedSubscript:AIDAServiceTypeCloud];
+      v27[1] = v18;
+      v19 = [NSDictionary dictionaryWithObjects:v27 forKeys:v26 count:2];
+      v20 = [NSMutableDictionary dictionaryWithDictionary:v19];
 
-      [v19 setObject:&__kCFBooleanTrue forKey:@"MailDetailViewWithBackKey"];
+      [v20 setObject:&__kCFBooleanTrue forKey:@"MailDetailViewWithBackKey"];
       aa_childMailAccount = [v5 aa_childMailAccount];
       if (aa_childMailAccount)
       {
-        [v19 setObject:aa_childMailAccount forKey:v15];
+        [v20 setObject:aa_childMailAccount forKey:v16];
       }
 
-      [(PSSpecifier *)self->_mailSpecifier setUserInfo:v19];
+      [(PSSpecifier *)self->_mailSpecifier setUserInfo:v20];
       [(PSSpecifier *)self->_mailSpecifier setObject:self->_accountManager forKeyedSubscript:@"icloudAccountManager"];
       [v3 addObject:self->_mailSpecifier];
     }
 
     else
     {
-      if (v9)
+      if (v10)
       {
         sub_D4330(v5);
       }
 
-      v23 = [PSSpecifier acui_specifierForDataclass:v6 account:v5 target:self set:"_mailStateChanged:withSpecifier:" get:"_isMailEnabled:"];
-      v24 = self->_mailSpecifier;
-      self->_mailSpecifier = v23;
+      v24 = [PSSpecifier acui_specifierForDataclass:v6 account:v5 target:self set:"_mailStateChanged:withSpecifier:" get:"_isMailEnabled:"];
+      v25 = self->_mailSpecifier;
+      self->_mailSpecifier = v24;
 
       [v3 addObject:self->_mailSpecifier];
     }
@@ -101,8 +103,8 @@
 
   else
   {
-    v21 = _MSLogSystem();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v22 = _MSLogSystem(account);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       sub_D4438();
     }
@@ -149,7 +151,7 @@
 - (void)_mailSpecifierWasTapped:(id)tapped
 {
   tappedCopy = tapped;
-  v5 = _MSLogSystem();
+  v5 = _MSLogSystem(tappedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_D4474();
@@ -194,7 +196,7 @@
 - (void)_navigateToMailPreferences:(id)preferences
 {
   preferencesCopy = preferences;
-  v5 = _MSLogSystem();
+  v5 = _MSLogSystem(preferencesCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_D44B0();
@@ -227,7 +229,7 @@
 
 - (void)_presentAccountCreationPage
 {
-  v3 = _MSLogSystem();
+  v3 = _MSLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_D44EC();
@@ -261,10 +263,11 @@
 
   v6 = [v5 stringByAppendingPathComponent:neededCopy];
   v7 = [NSBundle bundleWithPath:v6];
-  if (([v7 isLoaded] & 1) == 0)
+  isLoaded = [v7 isLoaded];
+  if ((isLoaded & 1) == 0)
   {
-    v8 = _MSLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = _MSLogSystem(isLoaded);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       sub_D4528();
     }
@@ -277,7 +280,7 @@
 {
   changedCopy = changed;
   specifierCopy = specifier;
-  v8 = _MSLogSystem();
+  v8 = _MSLogSystem(specifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_D4598();
@@ -308,39 +311,78 @@
   return v5;
 }
 
+- (void)_onMailAccountCreated:(BOOL)created
+{
+  createdCopy = created;
+  v5 = _MSLogSystem(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    sub_D4608();
+  }
+
+  account = [(MailSettingsSpecifierProvider *)self account];
+  aa_childMailAccount = [account aa_childMailAccount];
+
+  specifiers = [(MailSettingsSpecifierProvider *)self specifiers];
+  if (aa_childMailAccount)
+  {
+    userInfo = [(PSSpecifier *)self->_mailSpecifier userInfo];
+    [userInfo setObject:aa_childMailAccount forKeyedSubscript:ACUIAccountKey];
+  }
+
+  v10 = _MSLogSystem(specifiers);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  {
+    sub_D4644();
+  }
+
+  v11 = [NSNumber numberWithBool:createdCopy];
+  userInfo2 = [(PSSpecifier *)self->_mailSpecifier userInfo];
+  [userInfo2 setObject:v11 forKeyedSubscript:@"START_MAIL_IMPORT"];
+
+  v13 = objc_alloc_init(PreferencesViewController);
+  accountManager = self->_accountManager;
+  userInfo3 = [(PSSpecifier *)self->_mailSpecifier userInfo];
+  [userInfo3 setObject:accountManager forKeyedSubscript:@"ACUIAccountManagerKey"];
+
+  [(PreferencesViewController *)v13 setSpecifier:self->_mailSpecifier];
+  [(MailSettingsSpecifierProvider *)self pushViewController:v13];
+}
+
 - (void)onMailTapWithDeeplink:(id)deeplink
 {
   deeplinkCopy = deeplink;
-  v5 = _MSLogSystem();
+  v5 = _MSLogSystem(deeplinkCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_D4680();
   }
 
   account = [(MailSettingsSpecifierProvider *)self account];
-  v7 = _MSLogSystem();
+  v7 = _MSLogSystem(account);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     accountManager = self->_accountManager;
     WeakRetained = objc_loadWeakRetained(&self->_presenter);
-    v18 = 138412546;
-    v19 = accountManager;
-    v20 = 2112;
-    v21 = WeakRetained;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "onMailTapWithDeeplink accountManager: %@, presenter: %@", &v18, 0x16u);
+    v20 = 138412546;
+    v21 = accountManager;
+    v22 = 2112;
+    v23 = WeakRetained;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "onMailTapWithDeeplink accountManager: %@, presenter: %@", &v20, 0x16u);
   }
 
-  if (account && [account isProvisionedForDataclass:ACAccountDataclassMail])
+  if (account && (v10 = [account isProvisionedForDataclass:ACAccountDataclassMail], v10))
   {
     aa_needsEmailConfiguration = [account aa_needsEmailConfiguration];
-    v11 = _MSLogSystem();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-    if (aa_needsEmailConfiguration)
+    v12 = aa_needsEmailConfiguration;
+    v13 = _MSLogSystem(aa_needsEmailConfiguration);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    if (v12)
     {
-      if (v12)
+      if (v14)
       {
-        LOWORD(v18) = 0;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "User has no iCloud Mail account created, navigating to Account Creation flow", &v18, 2u);
+        LOWORD(v20) = 0;
+        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "User has no iCloud Mail account created, navigating to Account Creation flow", &v20, 2u);
       }
 
       [(MailSettingsSpecifierProvider *)self _presentAccountCreationPage];
@@ -348,32 +390,32 @@
 
     else
     {
-      if (v12)
+      if (v14)
       {
-        LOWORD(v18) = 0;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "User has iCloud Mail configured, navigating to Unified Settings", &v18, 2u);
+        LOWORD(v20) = 0;
+        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "User has iCloud Mail configured, navigating to Unified Settings", &v20, 2u);
       }
 
       specifiers = [(MailSettingsSpecifierProvider *)self specifiers];
-      v15 = objc_alloc_init(PreferencesViewController);
-      v16 = self->_accountManager;
+      v17 = objc_alloc_init(PreferencesViewController);
+      v18 = self->_accountManager;
       userInfo = [(PSSpecifier *)self->_mailSpecifier userInfo];
-      [userInfo setObject:v16 forKeyedSubscript:@"ACUIAccountManagerKey"];
+      [userInfo setObject:v18 forKeyedSubscript:@"ACUIAccountManagerKey"];
 
-      [(PreferencesViewController *)v15 setSpecifier:self->_mailSpecifier];
+      [(PreferencesViewController *)v17 setSpecifier:self->_mailSpecifier];
       if (deeplinkCopy)
       {
-        [(PreferencesViewController *)v15 setDeeplink:deeplinkCopy];
+        [(PreferencesViewController *)v17 setDeeplink:deeplinkCopy];
       }
 
-      [(MailSettingsSpecifierProvider *)self pushViewController:v15];
+      [(MailSettingsSpecifierProvider *)self pushViewController:v17];
     }
   }
 
   else
   {
-    v13 = _MSLogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = _MSLogSystem(v10);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_D46F0();
     }
@@ -383,13 +425,13 @@
 - (void)pushViewController:(id)controller
 {
   controllerCopy = controller;
-  v5 = _MSLogSystem();
+  v5 = _MSLogSystem(controllerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained(&self->_presenter);
-    v10 = 138412290;
-    v11 = WeakRetained;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "pushViewController: %@", &v10, 0xCu);
+    v11 = 138412290;
+    v12 = WeakRetained;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "pushViewController: %@", &v11, 0xCu);
   }
 
   v7 = objc_loadWeakRetained(&self->_presenter);
@@ -398,14 +440,14 @@
 
   if (isKindOfClass)
   {
-    v9 = objc_loadWeakRetained(&self->_presenter);
-    [v9 showController:controllerCopy animate:1];
+    v10 = objc_loadWeakRetained(&self->_presenter);
+    [v10 showController:controllerCopy animate:1];
   }
 
   else
   {
-    v9 = _MSLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _MSLogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_D4730();
     }

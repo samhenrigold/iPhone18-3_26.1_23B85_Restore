@@ -7,9 +7,9 @@
 - (id)localizedFooter
 {
   mEMORY[0x277D7C4F0] = [MEMORY[0x277D7C4F0] sharedManager];
-  v1 = WFFooterTextForHomeAction();
+  v2 = WFFooterTextForHomeAction();
 
-  return v1;
+  return v2;
 }
 
 @end

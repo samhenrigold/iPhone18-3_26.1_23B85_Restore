@@ -17,13 +17,14 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1D11B5DDC();
+  sub_1D11B5DDC(selfCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1D11B5EF0(appear);
+  sub_1D11B5EF0(appearCopy);
 }
 
 - (_TtC15HealthRecordsUI24PDFPreviewViewController)initWithNibName:(id)name bundle:(id)bundle

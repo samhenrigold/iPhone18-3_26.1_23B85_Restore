@@ -28,34 +28,34 @@
 
 + (id)redactedCopyForObject:(id)object forKeys:(id)keys
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   keysCopy = keys;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v8 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(objectCopy, "count")}];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
-    v26 = objectCopy;
+    v25 = objectCopy;
     v9 = objectCopy;
-    v10 = [v9 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v32;
+      v12 = *v31;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v32 != v12)
+          if (*v31 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v31 + 1) + 8 * i);
+          v14 = *(*(&v30 + 1) + 8 * i);
           v15 = [v9 objectForKeyedSubscript:v14];
           if ([keysCopy containsObject:v14])
           {
@@ -69,13 +69,13 @@
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v11);
     }
 
-    objectCopy = v26;
+    objectCopy = v25;
   }
 
   else
@@ -84,31 +84,31 @@
     if (objc_opt_isKindOfClass())
     {
       v8 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(objectCopy, "count")}];
+      v26 = 0u;
       v27 = 0u;
       v28 = 0u;
       v29 = 0u;
-      v30 = 0u;
       v17 = objectCopy;
       v18 = objectCopy;
-      v19 = [v18 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v26 objects:v34 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v28;
+        v21 = *v27;
         do
         {
           for (j = 0; j != v20; ++j)
           {
-            if (*v28 != v21)
+            if (*v27 != v21)
             {
               objc_enumerationMutation(v18);
             }
 
-            v23 = [self redactedCopyForObject:*(*(&v27 + 1) + 8 * j) forKeys:keysCopy];
+            v23 = [self redactedCopyForObject:*(*(&v26 + 1) + 8 * j) forKeys:keysCopy];
             [v8 addObject:v23];
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v27 objects:v35 count:16];
+          v20 = [v18 countByEnumeratingWithState:&v26 objects:v34 count:16];
         }
 
         while (v20);
@@ -122,8 +122,6 @@
       v8 = objectCopy;
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

@@ -160,58 +160,62 @@ void __85__WBSPerSitePreferenceManager_getValueOfPreference_forDomain_withTimeou
   dispatch_async(v6, v11);
 }
 
-void __85__WBSPerSitePreferenceManager_getValueOfPreference_forDomain_withTimeout_usingBlock___block_invoke_2(uint64_t a1)
+void __85__WBSPerSitePreferenceManager_getValueOfPreference_forDomain_withTimeout_usingBlock___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 88);
-  switch(v2)
+  v3 = *(a1 + 88);
+  switch(v3)
   {
     case 0:
-      v9 = [*(a1 + 48) validateValue:*(a1 + 56) forPreference:*(a1 + 32)];
-      v4 = v9;
-      v5 = v9 == 0;
-      if (v9)
+      v10 = [*(a1 + 48) validateValue:*(a1 + 56) forPreference:*(a1 + 32)];
+      v5 = v10;
+      v6 = v10 == 0;
+      if (v10)
       {
-        v10 = v9;
+        v11 = v10;
       }
 
-      else if (*(a1 + 56) && [*(a1 + 48) shouldDeleteUnrecognizedPreference])
+      else if (*(a1 + 56))
       {
-        v11 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v12 = [*(a1 + 48) shouldDeleteUnrecognizedPreference];
+        if (v12)
         {
-          __85__WBSPerSitePreferenceManager_getValueOfPreference_forDomain_withTimeout_usingBlock___block_invoke_2_cold_1(v11);
-        }
+          v14 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v12, v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          {
+            __85__WBSPerSitePreferenceManager_getValueOfPreference_forDomain_withTimeout_usingBlock___block_invoke_2_cold_1(v14);
+          }
 
-        v12 = [*(a1 + 64) perSitePreferencesStore];
-        v13 = [MEMORY[0x1E695DFD8] setWithObject:*(a1 + 72)];
-        v14 = [*(a1 + 64) preferenceNameForPreference:*(a1 + 32)];
-        [v12 removePreferenceValuesForDomains:v13 fromPreference:v14 completionHandler:0];
+          v15 = [*(a1 + 64) perSitePreferencesStore];
+          v16 = [MEMORY[0x1E695DFD8] setWithObject:*(a1 + 72)];
+          v17 = [*(a1 + 64) preferenceNameForPreference:*(a1 + 32)];
+          [v15 removePreferenceValuesForDomains:v16 fromPreference:v17 completionHandler:0];
+        }
       }
 
-      if (!v4)
+      if (!v5)
       {
         goto LABEL_11;
       }
 
       goto LABEL_15;
     case 1:
-      v6 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(a1, a2);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        __85__WBSPerSitePreferenceManager_getValueOfPreference_forDomain_withTimeout_usingBlock___block_invoke_2_cold_2(a1, v6);
+        __85__WBSPerSitePreferenceManager_getValueOfPreference_forDomain_withTimeout_usingBlock___block_invoke_2_cold_2(a1, v7);
       }
 
       break;
     case 2:
-      v3 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v4 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(a1, a2);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        __85__WBSPerSitePreferenceManager_getValueOfPreference_forDomain_withTimeout_usingBlock___block_invoke_2_cold_3(a1, v3);
+        __85__WBSPerSitePreferenceManager_getValueOfPreference_forDomain_withTimeout_usingBlock___block_invoke_2_cold_3(a1, v4);
       }
 
-      v4 = [*(a1 + 40) fallbackValue];
-      v5 = 1;
-      if (!v4)
+      v5 = [*(a1 + 40) fallbackValue];
+      v6 = 1;
+      if (!v5)
       {
         goto LABEL_11;
       }
@@ -221,18 +225,18 @@ LABEL_15:
       goto LABEL_16;
   }
 
-  v5 = 1;
+  v6 = 1;
 LABEL_11:
-  v7 = *(a1 + 48);
-  v8 = *(a1 + 32);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __85__WBSPerSitePreferenceManager_getValueOfPreference_forDomain_withTimeout_usingBlock___block_invoke_23;
-  v15[3] = &unk_1E7FC9360;
-  v16 = *(a1 + 80);
-  v17 = v5;
-  [v7 getDefaultPreferenceValueForPreference:v8 completionHandler:v15];
-  v4 = v16;
+  v8 = *(a1 + 48);
+  v9 = *(a1 + 32);
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __85__WBSPerSitePreferenceManager_getValueOfPreference_forDomain_withTimeout_usingBlock___block_invoke_23;
+  v18[3] = &unk_1E7FC9360;
+  v19 = *(a1 + 80);
+  v20 = v6;
+  [v8 getDefaultPreferenceValueForPreference:v9 completionHandler:v18];
+  v5 = v19;
 LABEL_16:
 }
 
@@ -647,7 +651,9 @@ void __85__WBSPerSitePreferenceManager_getValueOfPreference_forDomain_withTimeou
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 identifier];
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to fetch per site preference with identifier '%{public}@' from SQLiteStore", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to fetch per site preference with identifier '%{public}@' from SQLiteStore", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __85__WBSPerSitePreferenceManager_getValueOfPreference_forDomain_withTimeout_usingBlock___block_invoke_2_cold_3(uint64_t a1, void *a2)
@@ -655,7 +661,9 @@ void __85__WBSPerSitePreferenceManager_getValueOfPreference_forDomain_withTimeou
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 identifier];
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Timed out fetching per site preference with identifier '%{public}@' from SQLiteStore", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Timed out fetching per site preference with identifier '%{public}@' from SQLiteStore", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

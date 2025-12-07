@@ -1,6 +1,6 @@
 @interface A:
 - (Swift::Int)B;
-- (atomic_ullong)B;
+- (__objc2_class)B;
 - (uint64_t)B;
 - (unint64_t)B;
 - (void)B;
@@ -10,15 +10,15 @@
 
 - (uint64_t)B
 {
-  v6 = *self;
-  v7 = self[1];
-  *self;
-  v8 = a5(v12);
-  v10 = *v9;
-  *v9 = v6;
-  v9[1] = v7;
-  v10;
-  return v8(v12, 0);
+  a5(*a2, a2[1], a2[2], a2[3], a2[4]);
+  v7 = *(self + 4);
+  v8 = *self;
+  v9 = self[1];
+  *a2 = *self;
+  *(a2 + 1) = v9;
+  a2[4] = v7;
+
+  return v8;
 }
 
 - (void)B
@@ -32,17 +32,11 @@
   free(v3);
 }
 
-- (atomic_ullong)B
+- (__objc2_class)B
 {
-  a5(*a2, a2[1], a2[2], a2[3], a2[4]);
-  v7 = *(self + 4);
-  v8 = *self;
-  v9 = self[1];
-  *a2 = *self;
-  *(a2 + 1) = v9;
-  a2[4] = v7;
-
-  return v8;
+  result = Dictionary.init(dictionaryLiteral:)(self, a2[2], a2[3], a2[4]);
+  *a3 = result;
+  return result;
 }
 
 - (unint64_t)B

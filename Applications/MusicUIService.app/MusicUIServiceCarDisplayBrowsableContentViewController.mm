@@ -4,6 +4,7 @@
 - (void)saveCurrentStack;
 - (void)switchToState:(id)state;
 - (void)traitCollectionDidChange:(id)change;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation MusicUIServiceCarDisplayBrowsableContentViewController
@@ -149,6 +150,20 @@
       [(NSMutableDictionary *)v7 removeObjectForKey:displayedViewControllerKey];
     }
   }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = MusicUIServiceCarDisplayBrowsableContentViewController;
+  [(MusicUIServiceCarDisplayBrowsableContentViewController *)&v6 viewWillDisappear:disappear];
+  [(MCDPlayableContentViewController *)self->_nowPlayingViewController willMoveToParentViewController:0];
+  view = [(MCDPlayableContentViewController *)self->_nowPlayingViewController view];
+  [view removeFromSuperview];
+
+  [(MCDPlayableContentViewController *)self->_nowPlayingViewController removeFromParentViewController];
+  nowPlayingViewController = self->_nowPlayingViewController;
+  self->_nowPlayingViewController = 0;
 }
 
 - (id)preferredFocusEnvironments

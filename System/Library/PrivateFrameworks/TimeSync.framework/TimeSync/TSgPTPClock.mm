@@ -6,6 +6,7 @@
 - (TSgPTPClock)initWithImplDC:(id)c;
 - (id)getMetrics;
 - (id)getMetricsWithDelta:(id)delta;
+- (id)portWithPortNumber:(unsigned __int16)number;
 - (void)dealloc;
 @end
 
@@ -39,7 +40,7 @@ LABEL_4:
 
 - ($7DEDF3842AEFB7F1E6DF5AF62E424A02)convertFromMachAbsoluteTo128BitgPTPTime:(unint64_t)time grandmasterUsed:(unint64_t *)used portNumber:(unsigned __int16 *)number
 {
-  v5 = [(TSDCgPTPClock *)self->_impl convertFromMachAbsoluteTo128BitgPTPTime:time grandmasterUsed:used portNumber:number];
+  v5 = [TSDCgPTPClock convertFromMachAbsoluteTo128BitgPTPTime:"convertFromMachAbsoluteTo128BitgPTPTime:grandmasterUsed:portNumber:" grandmasterUsed:? portNumber:?];
   result.var1 = v6;
   result.var0 = v5;
   return result;
@@ -47,7 +48,7 @@ LABEL_4:
 
 - ($7DEDF3842AEFB7F1E6DF5AF62E424A02)convertFromTimeSyncTimeTo128BitgPTPTime:(unint64_t)time grandmasterUsed:(unint64_t *)used portNumber:(unsigned __int16 *)number
 {
-  v5 = [(TSDCgPTPClock *)self->_impl convertFromTimeSyncTimeTo128BitgPTPTime:time grandmasterUsed:used portNumber:number];
+  v5 = [TSDCgPTPClock convertFromTimeSyncTimeTo128BitgPTPTime:"convertFromTimeSyncTimeTo128BitgPTPTime:grandmasterUsed:portNumber:" grandmasterUsed:? portNumber:?];
   result.var1 = v6;
   result.var0 = v5;
   return result;
@@ -58,7 +59,7 @@ LABEL_4:
   getMetrics = [(TSDCgPTPClock *)self->_impl getMetrics];
   if (getMetrics)
   {
-    v3 = [[TSClockMetrics alloc] initWithDaemonMetrics:getMetrics];
+    v3 = [[TSClockMetrics alloc] initWithDaemonMetrics:?];
   }
 
   else
@@ -73,11 +74,11 @@ LABEL_4:
 {
   impl = self->_impl;
   toDaemonMetrics = [delta toDaemonMetrics];
-  v5 = [(TSDCgPTPClock *)impl getMetricsWithDelta:toDaemonMetrics];
+  v5 = [(TSDCgPTPClock *)impl getMetricsWithDelta:?];
 
   if (v5)
   {
-    v6 = [[TSClockMetrics alloc] initWithDaemonMetrics:v5];
+    v6 = [[TSClockMetrics alloc] initWithDaemonMetrics:?];
   }
 
   else
@@ -90,43 +91,44 @@ LABEL_4:
 
 - (NSArray)ports
 {
-  v17 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   ports = [(TSDCgPTPClock *)self->_impl ports];
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v5 = [ports countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [ports countByEnumeratingWithState:0 objects:? count:?];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = MEMORY[0];
     do
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v6; i = (i + 1))
       {
-        if (*v13 != v7)
+        if (MEMORY[0] != v7)
         {
           objc_enumerationMutation(ports);
         }
 
-        v9 = [TSgPTPPort gPTPPortWithImplDC:*(*(&v12 + 1) + 8 * i)];
+        v9 = [TSgPTPPort gPTPPortWithImplDC:?];
         if (v9)
         {
-          [array addObject:v9];
+          [array addObject:?];
         }
       }
 
-      v6 = [ports countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [ports countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v6);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return array;
+}
+
+- (id)portWithPortNumber:(unsigned __int16)number
+{
+  v3 = [(TSDCgPTPClock *)self->_impl portWithPortNumber:?];
+  v4 = [TSgPTPPort gPTPPortWithImplDC:?];
+
+  return v4;
 }
 
 - (void)dealloc
@@ -138,55 +140,51 @@ LABEL_4:
 
 + (id)diagnosticDescriptionForInfo:(id)info withIndent:(id)indent
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   indentCopy = indent;
-  v49.receiver = self;
-  v49.super_class = &OBJC_METACLASS___TSgPTPClock;
-  v8 = objc_msgSendSuper2(&v49, sel_diagnosticDescriptionForInfo_withIndent_, infoCopy, indentCopy);
-  [v8 appendFormat:@"%@    Grandmaster Clock Identity: ", indentCopy];
-  v9 = [infoCopy objectForKeyedSubscript:@"GrandmasterID"];
-  v38 = v9;
+  v42.receiver = self;
+  v42.super_class = &OBJC_METACLASS___TSgPTPClock;
+  v8 = objc_msgSendSuper2(&v42, sel_diagnosticDescriptionForInfo_withIndent_, infoCopy, indentCopy);
+  [v8 appendFormat:indentCopy];
+  v9 = [infoCopy objectForKeyedSubscript:?];
+  v39 = v9;
   if (v9)
   {
-    [v8 appendFormat:@"0x%016llx\n", objc_msgSend(v9, "unsignedLongLongValue")];
+    [v8 appendFormat:objc_msgSend(v9, "unsignedLongLongValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    gPTP Path: ", indentCopy];
-  v10 = [infoCopy objectForKeyedSubscript:@"ASPath"];
-  v37 = v10;
+  [v8 appendFormat:indentCopy];
+  v10 = [infoCopy objectForKeyedSubscript:?];
+  v38 = v10;
   if (v10)
   {
     v11 = v10;
-    [v8 appendString:@"\n"];
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
-    v46 = 0u;
+    [v8 appendString:?];
     v12 = v11;
-    v13 = [v12 countByEnumeratingWithState:&v45 objects:v51 count:16];
+    v13 = [v12 countByEnumeratingWithState:? objects:? count:?];
     if (v13)
     {
       v14 = v13;
-      v15 = *v46;
+      v15 = MEMORY[0];
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v14; i = (i + 1))
         {
-          if (*v46 != v15)
+          if (MEMORY[0] != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          [v8 appendFormat:@"%@        0x%016llx\n", indentCopy, objc_msgSend(*(*(&v45 + 1) + 8 * i), "unsignedLongLongValue"), v37, v38];
+          [v8 appendFormat:indentCopy, objc_msgSend(*(8 * i), "unsignedLongLongValue"), v38, v39];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v45 objects:v51 count:16];
+        v14 = [v12 countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (v14);
@@ -195,72 +193,67 @@ LABEL_4:
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Ports:\n", indentCopy];
-  v39 = indentCopy;
-  v17 = [indentCopy stringByAppendingString:@"        |"];
-  v41 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v40 = infoCopy;
-  v18 = [infoCopy objectForKeyedSubscript:@"Ports"];
-  v19 = [v18 countByEnumeratingWithState:&v41 objects:v50 count:16];
+  [v8 appendFormat:indentCopy];
+  v40 = indentCopy;
+  v17 = [indentCopy stringByAppendingString:?];
+  v41 = infoCopy;
+  v18 = [infoCopy objectForKeyedSubscript:?];
+  v19 = [v18 countByEnumeratingWithState:? objects:? count:?];
   if (v19)
   {
     v20 = v19;
-    v21 = *v42;
+    v21 = MEMORY[0];
     do
     {
-      for (j = 0; j != v20; ++j)
+      for (j = 0; j != v20; j = (j + 1))
       {
-        if (*v42 != v21)
+        if (MEMORY[0] != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v41 + 1) + 8 * j);
-        v24 = [v23 objectForKeyedSubscript:@"ClassName"];
-        v25 = [v24 isEqualToString:@"IOTimeSyncEthernetPort"];
+        v23 = [*(8 * j) objectForKeyedSubscript:?];
+        v25 = [v24 isEqualToString:?];
         v26 = off_279DBD2E0;
         if ((v25 & 1) == 0)
         {
-          v27 = [v24 isEqualToString:@"IOTimeSyncUnicastLinkLayerPtPPort"];
+          v27 = [off_279DBD2E0 isEqualToString:?];
           v26 = off_279DBD320;
           if ((v27 & 1) == 0)
           {
-            v28 = [v24 isEqualToString:@"IOTimeSyncUnicastLinkLayerEtEPort"];
+            v28 = [off_279DBD320 isEqualToString:?];
             v26 = off_279DBD318;
             if ((v28 & 1) == 0)
             {
-              v29 = [v24 isEqualToString:@"IOTimeSyncUnicastUDPv4PtPPort"];
+              v29 = [off_279DBD318 isEqualToString:?];
               v26 = off_279DBD330;
               if ((v29 & 1) == 0)
               {
-                v30 = [v24 isEqualToString:@"IOTimeSyncUnicastUDPv6PtPPort"];
+                v30 = [off_279DBD330 isEqualToString:?];
                 v26 = off_279DBD340;
                 if ((v30 & 1) == 0)
                 {
-                  v31 = [v24 isEqualToString:@"IOTimeSyncUnicastUDPv4EtEPort"];
+                  v31 = [off_279DBD340 isEqualToString:?];
                   v26 = off_279DBD328;
                   if ((v31 & 1) == 0)
                   {
-                    v32 = [v24 isEqualToString:@"IOTimeSyncUnicastUDPv6EtEPort"];
+                    v32 = [off_279DBD328 isEqualToString:?];
                     v26 = off_279DBD338;
                     if ((v32 & 1) == 0)
                     {
-                      if ([v24 isEqualToString:@"IOTimeSyncTimeSyncTimePort"] & 1) != 0 || (objc_msgSend(v24, "isEqualToString:", @"IOTimeSyncTimeOfDayPort"))
+                      if ([off_279DBD338 isEqualToString:?] & 1) != 0 || (objc_msgSend(v33, "isEqualToString:"))
                       {
                         v26 = off_279DBD2E8;
                       }
 
                       else
                       {
-                        v33 = [v24 isEqualToString:@"IOTimeSyncTimeOfDayAnchorPort"];
+                        v35 = [v34 isEqualToString:?];
                         v26 = off_279DBD2E8;
-                        if (!v33)
+                        if (!v35)
                         {
                           v26 = off_279DBD300;
                         }
@@ -273,44 +266,41 @@ LABEL_4:
           }
         }
 
-        v34 = [(__objc2_class *)*v26 diagnosticDescriptionForInfo:v23 withIndent:v17];
-        [v8 appendString:v34];
+        v36 = [__objc2_class diagnosticDescriptionForInfo:"diagnosticDescriptionForInfo:withIndent:" withIndent:?];
+        [v8 appendString:?];
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v41 objects:v50 count:16];
+      v20 = [v18 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v20);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (void)initWithImplDC:(void *)a3 .cold.1(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136316418;
-    v8 = "[kernelClock isKindOfClass:[TSDCgPTPClock class]]";
-    v9 = 2048;
-    v10 = 0;
-    v11 = 2048;
-    v12 = 0;
-    v13 = 2080;
-    v14 = "";
-    v15 = 2080;
-    v16 = "/Library/Caches/com.apple.xbs/Sources/TimeSync/TimeSync/API/TSgPTPClock.m";
-    v17 = 1024;
-    v18 = 77;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", &v7, 0x3Au);
+    v6 = 136316418;
+    v7 = "[kernelClock isKindOfClass:[TSDCgPTPClock class]]";
+    v8 = 2048;
+    v9 = 0;
+    v10 = 2048;
+    v11 = 0;
+    v12 = 2080;
+    v13 = "";
+    v14 = 2080;
+    v15 = "/Library/Caches/com.apple.xbs/Sources/TimeSync/TimeSync/API/TSgPTPClock.m";
+    v16 = 1024;
+    v17 = 77;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", &v6, 0x3Au);
   }
 
   *a3 = 0;
   *a2 = a1;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -177,25 +177,22 @@ void __54__REMCRReminderIDList_addUndoCommandsForObject_block___block_invoke(uin
 
 + (void)listFromSerializedData:(uint64_t)a1 replica:.cold.1(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = +[REMLog crdt];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
-    v4 = 138412290;
-    v5 = a1;
-    _os_log_fault_impl(&dword_19A0DB000, v2, OS_LOG_TYPE_FAULT, "rem_log_fault_if (![document isKindOfClass:[CRTTCompatibleDocument class]]) -- Unexpected class for deserialized document for REMCRReminderIDList {document: %@}", &v4, 0xCu);
+    v3 = 138412290;
+    v4 = a1;
+    _os_log_fault_impl(&dword_19A0DB000, v2, OS_LOG_TYPE_FAULT, "rem_log_fault_if (![document isKindOfClass:[CRTTCompatibleDocument class]]) -- Unexpected class for deserialized document for REMCRReminderIDList {document: %@}", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __54__REMCRReminderIDList_addUndoCommandsForObject_block___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "An unexpected list is passed to the undo block which does not match the originating list. Passed in: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "An unexpected list is passed to the undo block which does not match the originating list. Passed in: %@", &v2, 0xCu);
 }
 
 @end

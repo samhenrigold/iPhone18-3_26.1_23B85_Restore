@@ -6,6 +6,8 @@
 - (void)loadView;
 - (void)pinEntered:(id)entered;
 - (void)viewDidLayoutSubviews;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation PinViewController
@@ -79,6 +81,22 @@
   {
     return 2010;
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PinViewController;
+  [(TransitionViewController *)&v4 viewWillAppear:appear];
+  [(PinView *)self->_pinView becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = PinViewController;
+  [(PinViewController *)&v4 viewWillDisappear:disappear];
+  [(PinView *)self->_pinView resignFirstResponder];
 }
 
 - (void)viewDidLayoutSubviews

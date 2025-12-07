@@ -36,10 +36,11 @@
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
 
-    BNRegisterBannerKitLogging();
+    BNRegisterBannerKitLogging(v3, v4);
   }
 }
 
@@ -183,9 +184,11 @@ LABEL_3:
 
 uint64_t __68__BNBannerSource_bannerSourceForDestination_forRequesterIdentifier___block_invoke()
 {
-  __requesterIDsToMachNamesToSources = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v0 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v1 = __requesterIDsToMachNamesToSources;
+  __requesterIDsToMachNamesToSources = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)layoutDescriptionWithError:(id *)error

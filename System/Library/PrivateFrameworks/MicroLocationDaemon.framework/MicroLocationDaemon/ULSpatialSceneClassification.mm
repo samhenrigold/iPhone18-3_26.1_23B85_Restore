@@ -26,7 +26,7 @@
 
 void __74__ULSpatialSceneClassification_spatialSceneClassificationFutureWithPhoto___block_invoke(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (*(a1 + 32))
   {
@@ -36,15 +36,13 @@ void __74__ULSpatialSceneClassification_spatialSceneClassificationFutureWithPhot
   else
   {
     v4 = MEMORY[0x277CCA9B8];
-    v8 = *MEMORY[0x277CCA450];
-    v9[0] = @"spatialSceneClassificationFutureWithPhoto failed internally";
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v7 = *MEMORY[0x277CCA450];
+    v8[0] = @"spatialSceneClassificationFutureWithPhoto failed internally";
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
     v6 = [v4 errorWithDomain:@"ULSpatialSceneClassification" code:-1 userInfo:v5];
 
     [*(a1 + 40) finishWithError:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (id)spatialSceneClassification

@@ -402,7 +402,7 @@
   configuration3 = [(BCCardSetViewController *)self configuration];
   [configuration3 cardUnexpandedTopOffset];
   v10 = v9;
-  [(BCCardSetViewController *)self contractedTransform];
+  objc_msgSend_contractedTransform(self);
   [(BCCardSetViewController *)self scaleOffset:&v25 withTransform:v10];
   v12 = v11;
 
@@ -1227,16 +1227,16 @@
 {
   interactiveCopy = interactive;
   traitCollection = [(BCCardSetViewController *)self traitCollection];
-  v43[0] = _NSConcreteStackBlock;
-  v43[1] = 3221225472;
-  v43[2] = sub_5440C;
-  v43[3] = &unk_2C9BB8;
-  v43[4] = 0;
-  v6 = [traitCollection traitCollectionByModifyingTraits:v43];
+  v45[0] = _NSConcreteStackBlock;
+  v45[1] = 3221225472;
+  v45[2] = sub_5440C;
+  v45[3] = &unk_2C9BB8;
+  v45[4] = 0;
+  v6 = [traitCollection traitCollectionByModifyingTraits:v45];
 
-  v7 = isPad();
+  v9 = isPad(v7, v8);
   viewIfLoaded = 0;
-  if ((v7 & 1) == 0)
+  if ((v9 & 1) == 0)
   {
     currentCardViewController = [(BCCardSetViewController *)self currentCardViewController];
     topContentViewController = [currentCardViewController topContentViewController];
@@ -1244,83 +1244,83 @@
   }
 
   backgroundColor = [viewIfLoaded backgroundColor];
-  v12 = backgroundColor;
-  v41[0] = 0;
-  v41[1] = v41;
-  v41[2] = 0x3032000000;
-  v41[3] = sub_54418;
-  v41[4] = sub_54428;
-  v42 = 0;
+  v14 = backgroundColor;
+  v43[0] = 0;
+  v43[1] = v43;
+  v43[2] = 0x3032000000;
+  v43[3] = sub_54418;
+  v43[4] = sub_54428;
+  v44 = 0;
   if (backgroundColor)
   {
-    v38[0] = _NSConcreteStackBlock;
-    v38[1] = 3221225472;
-    v38[2] = sub_54430;
-    v38[3] = &unk_2C7AE0;
-    v40 = v41;
-    v39 = backgroundColor;
-    [v6 performAsCurrentTraitCollection:v38];
+    v40[0] = _NSConcreteStackBlock;
+    v40[1] = 3221225472;
+    v40[2] = sub_54430;
+    v40[3] = &unk_2C7AE0;
+    v42 = v43;
+    v41 = backgroundColor;
+    [v6 performAsCurrentTraitCollection:v40];
   }
 
-  if (v12)
+  if (v14)
   {
-    v13 = v7 ^ 1;
+    v15 = v9 ^ 1;
   }
 
   else
   {
-    v13 = 0;
+    v15 = 0;
   }
 
-  v14 = _os_feature_enabled_impl();
+  v16 = _os_feature_enabled_impl();
   cardStackViewController = [(BCCardSetViewController *)self cardStackViewController];
   statusBarBackgroundController = [cardStackViewController statusBarBackgroundController];
-  [statusBarBackgroundController setOpacity:(v14 ^ 1u)];
+  [statusBarBackgroundController setOpacity:(v16 ^ 1u)];
 
   scrollView = [(BCCardSetViewController *)self scrollView];
-  v18 = [(BCCardSetViewController *)self animatorForExpandingTransformingView:scrollView duration:0.2];
+  v20 = [(BCCardSetViewController *)self animatorForExpandingTransformingView:scrollView duration:0.2];
 
-  v33[0] = _NSConcreteStackBlock;
-  v33[1] = 3221225472;
-  v33[2] = sub_54494;
-  v33[3] = &unk_2C9C08;
-  v33[4] = self;
-  v36 = v13;
-  v19 = viewIfLoaded;
-  v34 = v19;
-  v35 = v41;
-  v37 = v14;
-  [v18 addAnimations:v33];
-  v24 = _NSConcreteStackBlock;
-  v25 = 3221225472;
-  v26 = sub_546E4;
-  v27 = &unk_2C9C30;
-  v32 = v13;
+  v35[0] = _NSConcreteStackBlock;
+  v35[1] = 3221225472;
+  v35[2] = sub_54494;
+  v35[3] = &unk_2C9C08;
+  v35[4] = self;
+  v38 = v15;
+  v21 = viewIfLoaded;
+  v36 = v21;
+  v37 = v43;
+  v39 = v16;
+  [v20 addAnimations:v35];
+  v26 = _NSConcreteStackBlock;
+  v27 = 3221225472;
+  v28 = sub_546E4;
+  v29 = &unk_2C9C30;
+  v34 = v15;
   selfCopy = self;
-  v31 = 0;
-  v20 = v19;
-  v29 = v20;
-  v21 = v12;
-  v30 = v21;
-  [v18 addCompletion:&v24];
-  [v18 setInterruptible:{1, v24, v25, v26, v27, selfCopy}];
+  v33 = 0;
+  v22 = v21;
+  v31 = v22;
+  v23 = v14;
+  v32 = v23;
+  [v20 addCompletion:&v26];
+  [v20 setInterruptible:{1, v26, v27, v28, v29, selfCopy}];
   delegate = [(BCCardSetViewController *)self delegate];
-  [delegate cardSetViewController:self animatorForExpanding:v18];
+  [delegate cardSetViewController:self animatorForExpanding:v20];
 
   if (interactiveCopy)
   {
-    [v18 pauseAnimation];
+    [v20 pauseAnimation];
   }
 
   currentCardViewController2 = [(BCCardSetViewController *)self currentCardViewController];
-  [currentCardViewController2 setAnimator:v18];
+  [currentCardViewController2 setAnimator:v20];
 
   if (!interactiveCopy)
   {
-    [v18 startAnimation];
+    [v20 startAnimation];
   }
 
-  _Block_object_dispose(v41, 8);
+  _Block_object_dispose(v43, 8);
 }
 
 - (void)goContractedInteractive:(BOOL)interactive
@@ -1373,7 +1373,7 @@
   v23 = 0u;
   if (viewCopy)
   {
-    [viewCopy transform];
+    objc_msgSend_transform(viewCopy);
   }
 
   v21[0] = _NSConcreteStackBlock;
@@ -1403,15 +1403,15 @@
   interactiveCopy = interactive;
   timingCopy = timing;
   traitCollection = [(BCCardSetViewController *)self traitCollection];
-  v41[0] = _NSConcreteStackBlock;
-  v41[1] = 3221225472;
-  v41[2] = sub_54EEC;
-  v41[3] = &unk_2C9BB8;
-  v41[4] = 1;
-  v8 = [traitCollection traitCollectionByModifyingTraits:v41];
+  v43[0] = _NSConcreteStackBlock;
+  v43[1] = 3221225472;
+  v43[2] = sub_54EEC;
+  v43[3] = &unk_2C9BB8;
+  v43[4] = 1;
+  v8 = [traitCollection traitCollectionByModifyingTraits:v43];
 
-  v9 = isPad();
-  if (v9)
+  v11 = isPad(v9, v10);
+  if (v11)
   {
     viewIfLoaded = 0;
   }
@@ -1424,77 +1424,77 @@
   }
 
   backgroundColor = [viewIfLoaded backgroundColor];
-  v14 = backgroundColor;
-  v39[0] = 0;
-  v39[1] = v39;
-  v39[2] = 0x3032000000;
-  v39[3] = sub_54418;
-  v39[4] = sub_54428;
-  v40 = 0;
+  v16 = backgroundColor;
+  v41[0] = 0;
+  v41[1] = v41;
+  v41[2] = 0x3032000000;
+  v41[3] = sub_54418;
+  v41[4] = sub_54428;
+  v42 = 0;
   if (backgroundColor)
   {
-    v36[0] = _NSConcreteStackBlock;
-    v36[1] = 3221225472;
-    v36[2] = sub_54EF8;
-    v36[3] = &unk_2C7AE0;
-    v38 = v39;
-    v37 = backgroundColor;
-    [v8 performAsCurrentTraitCollection:v36];
+    v38[0] = _NSConcreteStackBlock;
+    v38[1] = 3221225472;
+    v38[2] = sub_54EF8;
+    v38[3] = &unk_2C7AE0;
+    v40 = v41;
+    v39 = backgroundColor;
+    [v8 performAsCurrentTraitCollection:v38];
   }
 
-  if (v14)
+  if (v16)
   {
-    v15 = v9 ^ 1;
+    v17 = v11 ^ 1;
   }
 
   else
   {
-    v15 = 0;
+    v17 = 0;
   }
 
   scrollView = [(BCCardSetViewController *)self scrollView];
-  v17 = [(BCCardSetViewController *)self animatorForUnexpandingTransformingView:scrollView timingParameter:timingCopy duration:0.2];
+  v19 = [(BCCardSetViewController *)self animatorForUnexpandingTransformingView:scrollView timingParameter:timingCopy duration:0.2];
 
-  v32[0] = _NSConcreteStackBlock;
-  v32[1] = 3221225472;
-  v32[2] = sub_54F5C;
-  v32[3] = &unk_2C9CA8;
-  v32[4] = self;
-  v35 = v15;
-  v18 = viewIfLoaded;
-  v33 = v18;
-  v34 = v39;
-  [v17 addAnimations:v32];
-  v23 = _NSConcreteStackBlock;
-  v24 = 3221225472;
-  v25 = sub_551B4;
-  v26 = &unk_2C9C30;
-  v31 = v15;
+  v34[0] = _NSConcreteStackBlock;
+  v34[1] = 3221225472;
+  v34[2] = sub_54F5C;
+  v34[3] = &unk_2C9CA8;
+  v34[4] = self;
+  v37 = v17;
+  v20 = viewIfLoaded;
+  v35 = v20;
+  v36 = v41;
+  [v19 addAnimations:v34];
+  v25 = _NSConcreteStackBlock;
+  v26 = 3221225472;
+  v27 = sub_551B4;
+  v28 = &unk_2C9C30;
+  v33 = v17;
   selfCopy = self;
-  v30 = 1;
-  v19 = v18;
-  v28 = v19;
-  v20 = v14;
-  v29 = v20;
-  [v17 addCompletion:&v23];
-  [v17 setInterruptible:{1, v23, v24, v25, v26, selfCopy}];
+  v32 = 1;
+  v21 = v20;
+  v30 = v21;
+  v22 = v16;
+  v31 = v22;
+  [v19 addCompletion:&v25];
+  [v19 setInterruptible:{1, v25, v26, v27, v28, selfCopy}];
   delegate = [(BCCardSetViewController *)self delegate];
-  [delegate cardSetViewController:self animatorForUnexpanding:v17];
+  [delegate cardSetViewController:self animatorForUnexpanding:v19];
 
   if (interactiveCopy)
   {
-    [v17 pauseAnimation];
+    [v19 pauseAnimation];
   }
 
   currentCardViewController2 = [(BCCardSetViewController *)self currentCardViewController];
-  [currentCardViewController2 setAnimator:v17];
+  [currentCardViewController2 setAnimator:v19];
 
   if (!interactiveCopy)
   {
-    [v17 startAnimation];
+    [v19 startAnimation];
   }
 
-  _Block_object_dispose(v39, 8);
+  _Block_object_dispose(v41, 8);
 }
 
 - (void)_goContractedCommon
@@ -1506,7 +1506,7 @@
 - (void)_goContractedCommonTransformingView:(id)view
 {
   viewCopy = view;
-  [(BCCardSetViewController *)self contractedTransform];
+  objc_msgSend_contractedTransform(self);
   v5[0] = v5[3];
   v5[1] = v5[4];
   v5[2] = v5[5];
@@ -1578,7 +1578,7 @@
 
   currentIndex = [(BCCardSetViewController *)self currentIndex];
   cardCount = [(BCCardSetViewController *)self cardCount];
-  v10 = IMCommonCoreBundle();
+  v10 = IMCommonCoreBundle(cardCount);
   v11 = [v10 localizedStringForKey:@"%1$lu of %2$lu" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
   v12 = [NSString localizedStringWithFormat:v11, currentIndex + 1, cardCount];

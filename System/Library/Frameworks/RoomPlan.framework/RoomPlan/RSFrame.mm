@@ -1,6 +1,5 @@
 @interface RSFrame
 - (RSCamera)sceneCamera;
-- (__n128)referenceOriginTransform;
 - (__n128)setReferenceOriginTransform:(__n128)transform;
 - (id)camera;
 - (id)rawFeaturePoints;
@@ -50,15 +49,6 @@
   bufferCopy = buffer;
 }
 
-- (__n128)referenceOriginTransform
-{
-  result = *(self + 96);
-  v2 = *(self + 112);
-  v3 = *(self + 128);
-  v4 = *(self + 144);
-  return result;
-}
-
 - (__n128)setReferenceOriginTransform:(__n128)transform
 {
   result[6] = a2;
@@ -70,15 +60,13 @@
 
 - (RSCamera)sceneCamera
 {
-  sceneCamera = self->sceneCamera;
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (void)setSceneCamera:(id)camera
 {
-  sceneCamera = self->sceneCamera;
   self->sceneCamera = camera;
   swift_unknownObjectRetain();
 
@@ -94,18 +82,16 @@
 
 - (id)rawFeaturePoints
 {
-  v1 = *(self + 16);
-  v2 = swift_unknownObjectRetain();
+  v1 = swift_unknownObjectRetain();
 
-  return v2;
+  return v1;
 }
 
 - (id)camera
 {
-  v1 = *(self + 24);
-  v2 = swift_unknownObjectRetain();
+  v1 = swift_unknownObjectRetain();
 
-  return v2;
+  return v1;
 }
 
 @end

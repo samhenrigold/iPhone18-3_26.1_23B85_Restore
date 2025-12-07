@@ -29,7 +29,7 @@
   {
     if (a3 == 0x8000000000000000)
     {
-      return self;
+      return result;
     }
 
     if (a3 != 1)
@@ -38,7 +38,7 @@
     }
   }
 
-  return [self setContentMode:a3];
+  return [result setContentMode:a3];
 }
 
 - (unint64_t)_mapkit_imageContentMode

@@ -5,12 +5,12 @@
 
 __CFString *__68__NSObject_MusicKit_SoftLinking_MPIdentifierSet__musicKit_formerIDs__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   quot = [a2 longLongValue];
   if (quot)
   {
     v3 = quot;
-    v4 = &v10;
+    v4 = &v9;
     do
     {
       v5 = lldiv(quot, 10);
@@ -39,15 +39,13 @@ __CFString *__68__NSObject_MusicKit_SoftLinking_MPIdentifierSet__musicKit_former
       ++v4;
     }
 
-    v7 = CFStringCreateWithBytes(0, v4, &v11 - v4, 0x8000100u, 0);
+    v7 = CFStringCreateWithBytes(0, v4, &v10 - v4, 0x8000100u, 0);
   }
 
   else
   {
     v7 = @"0";
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

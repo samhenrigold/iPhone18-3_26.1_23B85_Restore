@@ -24,11 +24,4 @@ void __FigDataQueueServer_EnsureServerAndCopyXPCEndpoint_block_invoke()
   _MergedGlobals_98 = v2;
 }
 
-uint64_t __FigDataQueueServer_EnsureServerAndCopyXPCEndpoint_block_invoke_cold_1(_DWORD *a1)
-{
-  result = FigSignalErrorAtGM();
-  *a1 = result;
-  return result;
-}
-
 @end

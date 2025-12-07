@@ -20,7 +20,7 @@
 
 - (void)ingestBackingAccountInfoProperties
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   [(LDAPAccount *)self setMutableSearchSettings:v3];
 
@@ -29,26 +29,26 @@
 
   if (v5)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
-      v8 = *v18;
+      v8 = *v17;
       do
       {
         v9 = 0;
         do
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = [[LDAPSearchSettings alloc] initWithSettingsDict:*(*(&v17 + 1) + 8 * v9)];
+          v10 = [[LDAPSearchSettings alloc] initWithSettingsDict:*(*(&v16 + 1) + 8 * v9)];
           mutableSearchSettings = [(LDAPAccount *)self mutableSearchSettings];
           [mutableSearchSettings addObject:v10];
 
@@ -56,7 +56,7 @@
         }
 
         while (v7 != v9);
-        v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v7);
@@ -64,55 +64,52 @@
   }
 
   objc_initWeak(&location, self);
-  v14 = MEMORY[0x277D85DD0];
-  objc_copyWeak(&v15, &location);
-  v12 = [(LDAPAccount *)self backingAccountInfo:v14];
-  [v12 setAccountPropertiesTransformer:&v14];
+  v13 = MEMORY[0x277D85DD0];
+  objc_copyWeak(&v14, &location);
+  v12 = [(LDAPAccount *)self backingAccountInfo:v13];
+  [v12 setAccountPropertiesTransformer:&v13];
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v14);
   objc_destroyWeak(&location);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 id __49__LDAPAccount_ingestBackingAccountInfoProperties__block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = [a2 mutableCopy];
   v4 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v6 = [WeakRetained searchSettings];
 
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v14 + 1) + 8 * i) settingsDict];
+        v11 = [*(*(&v13 + 1) + 8 * i) settingsDict];
         [v4 addObject:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
   [v3 setObject:v4 forKeyedSubscript:@"LDAPAccountSearchSettings"];
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -140,37 +137,37 @@ id __49__LDAPAccount_ingestBackingAccountInfoProperties__block_invoke(uint64_t a
 
 - (void)_reallyCancelSearchQuery:(id)query
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v5, v6))
   {
     *buf = 138412290;
-    v24 = queryCopy;
+    v23 = queryCopy;
     _os_log_impl(&dword_24857C000, v5, v6, "cancelling search query %@", buf, 0xCu);
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   searchTaskSet = [(LDAPAccount *)self searchTaskSet];
-  v8 = [searchTaskSet countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [searchTaskSet countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
 LABEL_5:
     v11 = 0;
     while (1)
     {
-      if (*v19 != v10)
+      if (*v18 != v10)
       {
         objc_enumerationMutation(searchTaskSet);
       }
 
-      v12 = *(*(&v18 + 1) + 8 * v11);
+      v12 = *(*(&v17 + 1) + 8 * v11);
       query = [v12 query];
       v14 = [query isEqual:queryCopy];
 
@@ -181,7 +178,7 @@ LABEL_5:
 
       if (v9 == ++v11)
       {
-        v9 = [searchTaskSet countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v9 = [searchTaskSet countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v9)
         {
           goto LABEL_5;
@@ -207,35 +204,34 @@ LABEL_5:
 LABEL_14:
 
 LABEL_15:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reallyCancelAllSearchQueries
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   searchTaskSet = [(LDAPAccount *)self searchTaskSet];
   v4 = [searchTaskSet copy];
 
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * v8);
+        v9 = *(*(&v11 + 1) + 8 * v8);
         taskManager = [(LDAPAccount *)self taskManager];
         [taskManager cancelTask:v9];
 
@@ -243,18 +239,16 @@ LABEL_15:
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reallyPerformSearchQuery:(id)query
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   searchBase = [queryCopy searchBase];
   if (searchBase)
@@ -303,9 +297,9 @@ LABEL_15:
         v19 = *(MEMORY[0x277D03988] + 3);
         if (os_log_type_enabled(v18, v19))
         {
-          v25 = 138412290;
+          v24 = 138412290;
           selfCopy = self;
-          _os_log_impl(&dword_24857C000, v18, v19, "Asked to search for this account, but I have no search settings.  Account is %@", &v25, 0xCu);
+          _os_log_impl(&dword_24857C000, v18, v19, "Asked to search for this account, but I have no search settings.  Account is %@", &v24, 0xCu);
         }
       }
     }
@@ -326,13 +320,11 @@ LABEL_15:
 
   taskManager = [(LDAPAccount *)self taskManager];
   [taskManager submitQueuedTask:v20];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ldapSearchTask:(id)task finishedWithError:(id)error foundItems:(id)items
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   errorCopy = error;
   itemsCopy = items;
@@ -345,9 +337,9 @@ LABEL_15:
     v17 = *(MEMORY[0x277D03988] + 6);
     if (os_log_type_enabled(v13, v17))
     {
-      v21 = 134217984;
-      v22 = taskCopy;
-      _os_log_impl(&dword_24857C000, query2, v17, "LDAP search task %p was cancelled", &v21, 0xCu);
+      v20 = 134217984;
+      v21 = taskCopy;
+      _os_log_impl(&dword_24857C000, query2, v17, "LDAP search task %p was cancelled", &v20, 0xCu);
     }
   }
 
@@ -359,13 +351,13 @@ LABEL_15:
       if (os_log_type_enabled(v13, v15))
       {
         query = [taskCopy query];
-        v21 = 138412802;
-        v22 = v11;
-        v23 = 2112;
-        v24 = query;
-        v25 = 2112;
-        v26 = itemsCopy;
-        _os_log_impl(&dword_24857C000, query2, v15, "Sending LDAP search results back to consumer %@.\nQuery: %@\nResults: %@", &v21, 0x20u);
+        v20 = 138412802;
+        v21 = v11;
+        v22 = 2112;
+        v23 = query;
+        v24 = 2112;
+        v25 = itemsCopy;
+        _os_log_impl(&dword_24857C000, query2, v15, "Sending LDAP search results back to consumer %@.\nQuery: %@\nResults: %@", &v20, 0x20u);
       }
 
       query2 = [taskCopy query];
@@ -377,11 +369,11 @@ LABEL_15:
       v18 = *(MEMORY[0x277D03988] + 3);
       if (os_log_type_enabled(v13, v18))
       {
-        v21 = 134218242;
-        v22 = v12;
-        v23 = 2112;
-        v24 = errorCopy;
-        _os_log_impl(&dword_24857C000, query2, v18, "The LDAP search returned an error: %ld (%@)", &v21, 0x16u);
+        v20 = 134218242;
+        v21 = v12;
+        v22 = 2112;
+        v23 = errorCopy;
+        _os_log_impl(&dword_24857C000, query2, v18, "The LDAP search returned an error: %ld (%@)", &v20, 0x16u);
       }
     }
 
@@ -393,7 +385,6 @@ LABEL_15:
   [searchTaskSet removeObject:taskCopy];
 
   [(LDAPAccount *)self removeConsumerForTask:taskCopy];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)discoverInitialPropertiesWithConsumer:(id)consumer
@@ -409,7 +400,7 @@ LABEL_15:
 
 - (void)ldapGetDefaultSearchBaseTask:(id)task completedWithStatus:(int64_t)status error:(id)error defaultSearchBase:(id)base
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   errorCopy = error;
   baseCopy = base;
@@ -418,34 +409,34 @@ LABEL_15:
   {
     if ([baseCopy length])
     {
-      v22 = errorCopy;
+      v21 = errorCopy;
       v14 = objc_opt_new();
       [v14 setScope:2];
       [v14 setSearchBase:baseCopy];
       ldapHumanReadableStringFromSearchBase = [baseCopy ldapHumanReadableStringFromSearchBase];
       [v14 setSearchDescription:ldapHumanReadableStringFromSearchBase];
 
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
       v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       searchSettings = [(LDAPAccount *)self searchSettings];
-      v17 = [searchSettings countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v17 = [searchSettings countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v24;
+        v19 = *v23;
         while (2)
         {
           v20 = 0;
           do
           {
-            if (*v24 != v19)
+            if (*v23 != v19)
             {
               objc_enumerationMutation(searchSettings);
             }
 
-            if ([*(*(&v23 + 1) + 8 * v20) hasSameScopeAndBaseAsOther:v14])
+            if ([*(*(&v22 + 1) + 8 * v20) hasSameScopeAndBaseAsOther:v14])
             {
 
               goto LABEL_13;
@@ -455,7 +446,7 @@ LABEL_15:
           }
 
           while (v18 != v20);
-          v18 = [searchSettings countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v18 = [searchSettings countByEnumeratingWithState:&v22 objects:v26 count:16];
           if (v18)
           {
             continue;
@@ -468,7 +459,7 @@ LABEL_15:
       [(LDAPAccount *)self addSearchSettings:v14];
 LABEL_13:
 
-      errorCopy = v22;
+      errorCopy = v21;
     }
 
     [(LDAPAccount *)self setShouldDoInitialAutodiscovery:0];
@@ -476,8 +467,6 @@ LABEL_13:
 
   [v13 account:self isValid:status == 2 validationError:errorCopy];
   [(LDAPAccount *)self removeConsumerForTask:taskCopy];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addSearchSettings:(id)settings

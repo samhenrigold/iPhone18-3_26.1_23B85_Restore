@@ -1,14 +1,14 @@
 __CFArray *DHCPSDHCPLeaseListCreate()
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   *buffer = 0;
+  v27 = 0;
   v28 = 0;
-  v29 = 0;
   sub_297750AA4(buffer);
   sub_297750AB8(buffer, 104857600);
   if (!sub_297750BBC(buffer, "/var/db/dhcpd_leases"))
   {
-    goto LABEL_33;
+    return 0;
   }
 
   Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x29EDB9000]);
@@ -105,23 +105,21 @@ LABEL_24:
   {
     CFRelease(Mutable);
     sub_297750B5C(buffer);
-LABEL_33:
-    Mutable = 0;
-    goto LABEL_34;
+    return 0;
   }
 
   sub_297750B5C(buffer);
   if (Mutable)
   {
-    v25.tv_sec = 0;
-    *&v25.tv_usec = 0;
-    gettimeofday(&v25, 0);
+    v24.tv_sec = 0;
+    *&v24.tv_usec = 0;
+    gettimeofday(&v24, 0);
     Current = CFAbsoluteTimeGetCurrent();
     Count = CFArrayGetCount(Mutable);
     if (Count >= 1)
     {
       v15 = 0;
-      tv_sec = v25.tv_sec;
+      tv_sec = v24.tv_sec;
       v17 = Count & 0x7FFFFFFF;
       do
       {
@@ -131,9 +129,9 @@ LABEL_33:
         {
           v20 = Value;
           usedBufLen = 0;
-          v31.length = CFStringGetLength(Value);
-          v31.location = 0;
-          CFStringGetBytes(v20, v31, 0, 0, 0, buffer, 128, &usedBufLen);
+          v30.length = CFStringGetLength(Value);
+          v30.location = 0;
+          CFStringGetBytes(v20, v30, 0, 0, 0, buffer, 128, &usedBufLen);
           buffer[usedBufLen] = 0;
           v21 = strtol(buffer, 0, 0);
           v22 = CFDateCreate(0, Current + (v21 - tv_sec));
@@ -148,8 +146,6 @@ LABEL_33:
     }
   }
 
-LABEL_34:
-  v23 = *MEMORY[0x29EDCA608];
   return Mutable;
 }
 
@@ -185,12 +181,13 @@ CFStringRef sub_2977509E4(char *cStr)
   return result;
 }
 
-void *sub_297750A40(unsigned int a1, uint64_t a2)
+void *sub_297750A40(uint64_t a1, uint64_t a2)
 {
+  v3 = a1;
   v4 = malloc_type_malloc(0x30uLL, 0x10A0040A76AC297uLL);
   if (v4)
   {
-    *v4 = sub_297751114(a1, a2);
+    *v4 = sub_297751114(v3, a2);
     v4[1] = v5;
     v4[4] = 0;
     v4[5] = 0;
@@ -286,9 +283,9 @@ void sub_297750B5C(uint64_t *a1)
 
 uint64_t sub_297750BBC(uint64_t a1, char *__filename)
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
+  v23 = 0;
   v24 = 0;
-  v25 = 0;
   v3 = fopen(__filename, "r");
   if (v3)
   {
@@ -324,7 +321,7 @@ LABEL_3:
 
       *v9 = 0;
       ++v6;
-      if (!(*__s ^ 0xA7B | v33))
+      if (!(*__s ^ 0xA7B | v32))
       {
         v5 = 1;
         if (v7 && v7 != 3)
@@ -336,7 +333,7 @@ LABEL_3:
         goto LABEL_3;
       }
 
-      if (!(*__s ^ 0xA7D | v33))
+      if (!(*__s ^ 0xA7D | v32))
       {
         if ((v7 - 3) <= 0xFFFFFFFD)
         {
@@ -345,9 +342,9 @@ LABEL_3:
         }
 
         v5 = 3;
-        if (v24)
+        if (v23)
         {
-          v17 = sub_297750A40(v24, v25);
+          v17 = sub_297750A40(v23, v24);
           if (v17)
           {
             v17[4] = 0;
@@ -364,14 +361,14 @@ LABEL_3:
             ++*(a1 + 20);
           }
 
-          sub_2977510A8(&v24);
+          sub_2977510A8(&v23);
           v5 = 3;
         }
 
         goto LABEL_3;
       }
 
-      bzero(v30, 0x300uLL);
+      bzero(v29, 0x300uLL);
       v11 = strlen(__s);
       v12 = strchr(__s, 61);
       v13 = strspn(__s, " \t\n");
@@ -396,12 +393,12 @@ LABEL_3:
           }
 
           __strncpy_chk();
-          v31[v15] = 0;
+          v30[v15] = 0;
           __strncpy_chk();
-          v30[v16] = 0;
-          v29 = 0;
-          v28 = v31;
-          sub_297751290(&v28 + 2, v30, 0);
+          v29[v16] = 0;
+          v28 = 0;
+          v27 = v30;
+          sub_297751290(&v27 + 2, v29, 0);
         }
 
         else
@@ -414,16 +411,16 @@ LABEL_3:
           }
 
           __strncpy_chk();
-          v31[v20] = 0;
-          *(&v28 + 1) = 0;
-          v29 = 0;
-          *&v28 = v31;
+          v30[v20] = 0;
+          *(&v27 + 1) = 0;
+          v28 = 0;
+          *&v27 = v30;
         }
 
+        v25 = v27;
         v26 = v28;
-        v27 = v29;
-        sub_297750F6C(&v24, &v26, 0xFFFFFFFFFFFFFFFFLL);
-        sub_297751224(&v28 + 1);
+        sub_297750F6C(&v23, &v25, 0xFFFFFFFFFFFFFFFFLL);
+        sub_297751224(&v27 + 1);
         v5 = 2;
         goto LABEL_3;
       }
@@ -443,12 +440,11 @@ LABEL_35:
     perror(__filename);
   }
 
-  sub_2977510A8(&v24);
-  v21 = *MEMORY[0x29EDCA608];
+  sub_2977510A8(&v23);
   return 1;
 }
 
-uint64_t sub_297750F6C(unsigned int *a1, uint64_t a2, unint64_t a3)
+char *sub_297750F6C(unsigned int *a1, uint64_t a2, unint64_t a3)
 {
   v6 = *(a1 + 1);
   v7 = *a1 + 1;
@@ -498,7 +494,7 @@ uint64_t sub_297750F6C(unsigned int *a1, uint64_t a2, unint64_t a3)
   return result;
 }
 
-void sub_297751064(uint64_t a1)
+void sub_297751064(void **a1)
 {
   v2 = *a1;
   if (v2)
@@ -507,7 +503,7 @@ void sub_297751064(uint64_t a1)
     *a1 = 0;
   }
 
-  sub_297751224((a1 + 8));
+  sub_297751224(a1 + 1);
 }
 
 void sub_2977510A8(unsigned int *a1)
@@ -521,7 +517,7 @@ void sub_2977510A8(unsigned int *a1)
       v4 = 0;
       do
       {
-        sub_297751064(*(a1 + 1) + v3);
+        sub_297751064((*(a1 + 1) + v3));
         ++v4;
         v3 += 24;
       }

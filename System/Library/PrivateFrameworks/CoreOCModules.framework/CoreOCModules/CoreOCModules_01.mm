@@ -714,7 +714,7 @@ LABEL_8:
   v61.columns[0] = v44;
   v61.columns[1] = v45;
   v61.columns[2].f32[0] = v43;
-  sub_2461030E4(v66);
+  sub_2461030E4(v66, &v61);
   *v75 = v66[0];
   *&v75[16] = v66[1];
   *&v75[32] = v66[2];
@@ -786,7 +786,7 @@ float *sub_2460E50CC(float *result, float **a2)
   {
     v6 = 0;
     v5 = 0;
-    result = sub_2460E50CC(&v5);
+    result = sub_2460E50CC(&v5, a2);
     *v2 = v5;
     *(v2 + 2) = v6;
   }
@@ -1442,12 +1442,12 @@ uint64_t OCProxySurfaceStop(uint64_t a1)
 
 uint64_t OCProxySurfaceExecutePipeline(uint64_t a1, void *a2, __int16 a3, int a4, __n128 a5, __n128 a6, __n128 a7, int8x16_t a8, int8x16_t a9, int8x16_t a10, int8x16_t a11, double a12, double a13, double a14, double a15)
 {
-  v90 = *MEMORY[0x277D85DE8];
-  v88[0] = a9;
-  v88[1] = a10;
-  v88[2] = a11;
-  *v87 = a13;
-  *&v87[1] = a14;
+  v87 = *MEMORY[0x277D85DE8];
+  v85[0] = a9;
+  v85[1] = a10;
+  v85[2] = a11;
+  *v84 = a13;
+  *&v84[1] = a14;
   if (!a1)
   {
     if (qword_27EE3F308 != -1)
@@ -1455,7 +1455,7 @@ uint64_t OCProxySurfaceExecutePipeline(uint64_t a1, void *a2, __int16 a3, int a4
       dispatch_once(&qword_27EE3F308, &unk_2858EBA68);
     }
 
-    v34 = qword_27EE3F300;
+    v31 = qword_27EE3F300;
     if (!os_log_type_enabled(qword_27EE3F300, OS_LOG_TYPE_ERROR))
     {
       return 4294967294;
@@ -1465,7 +1465,7 @@ uint64_t OCProxySurfaceExecutePipeline(uint64_t a1, void *a2, __int16 a3, int a4
     *(buf.columns[0].i64 + 4) = "isValidInputForExecutePipeline";
     buf.columns[0].i16[6] = 1026;
     *(&buf.columns[0].i32[3] + 2) = 198;
-    v35 = "%s:%{public}d Failed to run OCProxySurface pipeline - invalid handle.";
+    v32 = "%s:%{public}d Failed to run OCProxySurface pipeline - invalid handle.";
     goto LABEL_19;
   }
 
@@ -1476,7 +1476,7 @@ uint64_t OCProxySurfaceExecutePipeline(uint64_t a1, void *a2, __int16 a3, int a4
       dispatch_once(&qword_27EE3F308, &unk_2858EBA68);
     }
 
-    v34 = qword_27EE3F300;
+    v31 = qword_27EE3F300;
     if (!os_log_type_enabled(qword_27EE3F300, OS_LOG_TYPE_ERROR))
     {
       return 4294967294;
@@ -1486,26 +1486,26 @@ uint64_t OCProxySurfaceExecutePipeline(uint64_t a1, void *a2, __int16 a3, int a4
     *(buf.columns[0].i64 + 4) = "isValidInputForExecutePipeline";
     buf.columns[0].i16[6] = 1026;
     *(&buf.columns[0].i32[3] + 2) = 203;
-    v35 = "%s:%{public}d Failed to run OCProxySurface pipeline - invalid pointcloud.";
+    v32 = "%s:%{public}d Failed to run OCProxySurface pipeline - invalid pointcloud.";
     goto LABEL_19;
   }
 
-  v20 = vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(a5, a5.n128_f32[0]), a6, a6.n128_f32[0]), a7, a7.n128_f32[0]);
-  v21 = vmlaq_lane_f32(vmlaq_lane_f32(vmulq_lane_f32(a5, a5.n128_u64[0], 1), a6, a6.n128_u64[0], 1), a7, a7.n128_u64[0], 1);
-  v22 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(a5, a5, 2), a6, a6, 2), a7, a7, 2);
-  v23 = *(MEMORY[0x277D860B0] + 16);
-  v24 = *(MEMORY[0x277D860B0] + 32);
-  v25 = vdupq_n_s32(0x38D1B717u);
-  v26 = vandq_s8(vandq_s8(vcgeq_f32(v25, vabdq_f32(v21, v23)), vcgeq_f32(v25, vabdq_f32(v20, *MEMORY[0x277D860B0]))), vcgeq_f32(v25, vabdq_f32(v22, v24)));
-  v26.i32[3] = v26.i32[2];
-  if ((vminvq_u32(v26) & 0x80000000) == 0 || (v27 = vzip1q_s32(vzip2q_s32(a5, a7), vdupq_laneq_s32(a6, 2)), v28 = vtrn2q_s32(a5, a6), v28.i32[2] = a7.n128_i32[1], v29 = vzip1q_s32(vzip1q_s32(a5, a7), a6), v30 = vandq_s8(vandq_s8(vcgeq_f32(v25, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v29, a6.n128_f32[0]), v28, a6.n128_u64[0], 1), v27, a6, 2), v23)), vcgeq_f32(v25, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v29, a5.n128_f32[0]), v28, a5.n128_u64[0], 1), v27, a5, 2), *MEMORY[0x277D860B0]))), vcgeq_f32(v25, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v29, a7.n128_f32[0]), v28, a7.n128_u64[0], 1), v27, a7, 2), v24))), v30.i32[3] = v30.i32[2], (vminvq_u32(v30) & 0x80000000) == 0) || (v31 = vmulq_f32(a5, vmlaq_f32(vmulq_f32(vextq_s8(vextq_s8(a7, a7, 0xCuLL), a7, 8uLL), vnegq_f32(vextq_s8(vuzp1q_s32(a6, a6), a6, 0xCuLL))), vextq_s8(vuzp1q_s32(a7, a7), a7, 0xCuLL), vextq_s8(vextq_s8(a6, a6, 0xCuLL), a6, 8uLL))), fabsf((v31.f32[2] + vaddv_f32(*v31.f32)) + -1.0) > 0.000011) || (v32 = vdup_n_s32(0x38D1B717u), v33 = vand_s8(vcge_f32(v32, vabs_f32(vadd_f32(vzip2_s32(*&vextq_s8(a7, a7, 8uLL), *&vextq_s8(a8, a8, 8uLL)), 0xBF80000080000000))), vcge_f32(v32, vabs_f32(vzip2_s32(*&vextq_s8(a5, a5, 8uLL), *&vextq_s8(a6, a6, 8uLL))))), (vpmin_u32(v33, v33).u32[0] & 0x80000000) == 0))
+  v17 = vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(a5, a5.n128_f32[0]), a6, a6.n128_f32[0]), a7, a7.n128_f32[0]);
+  v18 = vmlaq_lane_f32(vmlaq_lane_f32(vmulq_lane_f32(a5, a5.n128_u64[0], 1), a6, a6.n128_u64[0], 1), a7, a7.n128_u64[0], 1);
+  v19 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(a5, a5, 2), a6, a6, 2), a7, a7, 2);
+  v20 = *(MEMORY[0x277D860B0] + 16);
+  v21 = *(MEMORY[0x277D860B0] + 32);
+  v22 = vdupq_n_s32(0x38D1B717u);
+  v23 = vandq_s8(vandq_s8(vcgeq_f32(v22, vabdq_f32(v18, v20)), vcgeq_f32(v22, vabdq_f32(v17, *MEMORY[0x277D860B0]))), vcgeq_f32(v22, vabdq_f32(v19, v21)));
+  v23.i32[3] = v23.i32[2];
+  if ((vminvq_u32(v23) & 0x80000000) == 0 || (v24 = vzip1q_s32(vzip2q_s32(a5, a7), vdupq_laneq_s32(a6, 2)), v25 = vtrn2q_s32(a5, a6), v25.i32[2] = a7.n128_i32[1], v26 = vzip1q_s32(vzip1q_s32(a5, a7), a6), v27 = vandq_s8(vandq_s8(vcgeq_f32(v22, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v26, a6.n128_f32[0]), v25, a6.n128_u64[0], 1), v24, a6, 2), v20)), vcgeq_f32(v22, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v26, a5.n128_f32[0]), v25, a5.n128_u64[0], 1), v24, a5, 2), *MEMORY[0x277D860B0]))), vcgeq_f32(v22, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v26, a7.n128_f32[0]), v25, a7.n128_u64[0], 1), v24, a7, 2), v21))), v27.i32[3] = v27.i32[2], (vminvq_u32(v27) & 0x80000000) == 0) || (v28 = vmulq_f32(a5, vmlaq_f32(vmulq_f32(vextq_s8(vextq_s8(a7, a7, 0xCuLL), a7, 8uLL), vnegq_f32(vextq_s8(vuzp1q_s32(a6, a6), a6, 0xCuLL))), vextq_s8(vuzp1q_s32(a7, a7), a7, 0xCuLL), vextq_s8(vextq_s8(a6, a6, 0xCuLL), a6, 8uLL))), fabsf((v28.f32[2] + vaddv_f32(*v28.f32)) + -1.0) > 0.000011) || (v29 = vdup_n_s32(0x38D1B717u), v30 = vand_s8(vcge_f32(v29, vabs_f32(vadd_f32(vzip2_s32(*&vextq_s8(a7, a7, 8uLL), *&vextq_s8(a8, a8, 8uLL)), 0xBF80000080000000))), vcge_f32(v29, vabs_f32(vzip2_s32(*&vextq_s8(a5, a5, 8uLL), *&vextq_s8(a6, a6, 8uLL))))), (vpmin_u32(v30, v30).u32[0] & 0x80000000) == 0))
   {
     if (qword_27EE3F308 != -1)
     {
       dispatch_once(&qword_27EE3F308, &unk_2858EBA68);
     }
 
-    v34 = qword_27EE3F300;
+    v31 = qword_27EE3F300;
     if (!os_log_type_enabled(qword_27EE3F300, OS_LOG_TYPE_ERROR))
     {
       return 4294967294;
@@ -1515,21 +1515,21 @@ uint64_t OCProxySurfaceExecutePipeline(uint64_t a1, void *a2, __int16 a3, int a4
     *(buf.columns[0].i64 + 4) = "isValidInputForExecutePipeline";
     buf.columns[0].i16[6] = 1026;
     *(&buf.columns[0].i32[3] + 2) = 209;
-    v35 = "%s:%{public}d Failed to run OCProxySurface pipeline - invalid camera to world transform.";
+    v32 = "%s:%{public}d Failed to run OCProxySurface pipeline - invalid camera to world transform.";
 LABEL_19:
-    _os_log_error_impl(&dword_2460CF000, v34, OS_LOG_TYPE_ERROR, v35, &buf, 0x12u);
+    _os_log_error_impl(&dword_2460CF000, v31, OS_LOG_TYPE_ERROR, v32, &buf, 0x12u);
     return 4294967294;
   }
 
-  v37 = vand_s8(vcge_f32(v32, vabs_f32(vadd_f32(vzip1_s32(*&vextq_s8(a10, a10, 8uLL), *&vextq_s8(a11, a11, 8uLL)), 0xBF80000080000000))), vcge_f32(v32, vabs_f32(*&vextq_s8(a9, a9, 4uLL))));
-  if ((vpmin_u32(v37, v37).u32[0] & 0x80000000) == 0)
+  v34 = vand_s8(vcge_f32(v29, vabs_f32(vadd_f32(vzip1_s32(*&vextq_s8(a10, a10, 8uLL), *&vextq_s8(a11, a11, 8uLL)), 0xBF80000080000000))), vcge_f32(v29, vabs_f32(*&vextq_s8(a9, a9, 4uLL))));
+  if ((vpmin_u32(v34, v34).u32[0] & 0x80000000) == 0)
   {
     if (qword_27EE3F308 != -1)
     {
       dispatch_once(&qword_27EE3F308, &unk_2858EBA68);
     }
 
-    v34 = qword_27EE3F300;
+    v31 = qword_27EE3F300;
     if (!os_log_type_enabled(qword_27EE3F300, OS_LOG_TYPE_ERROR))
     {
       return 4294967294;
@@ -1539,7 +1539,7 @@ LABEL_19:
     *(buf.columns[0].i64 + 4) = "isValidInputForExecutePipeline";
     buf.columns[0].i16[6] = 1026;
     *(&buf.columns[0].i32[3] + 2) = 215;
-    v35 = "%s:%{public}d Failed to run OCProxySurface pipeline - invalid camera intrinsics.";
+    v32 = "%s:%{public}d Failed to run OCProxySurface pipeline - invalid camera intrinsics.";
     goto LABEL_19;
   }
 
@@ -1550,7 +1550,7 @@ LABEL_19:
       dispatch_once(&qword_27EE3F308, &unk_2858EBA68);
     }
 
-    v34 = qword_27EE3F300;
+    v31 = qword_27EE3F300;
     if (!os_log_type_enabled(qword_27EE3F300, OS_LOG_TYPE_ERROR))
     {
       return 4294967294;
@@ -1560,18 +1560,18 @@ LABEL_19:
     *(buf.columns[0].i64 + 4) = "isValidInputForExecutePipeline";
     buf.columns[0].i16[6] = 1026;
     *(&buf.columns[0].i32[3] + 2) = 222;
-    v35 = "%s:%{public}d Failed to run OCProxySurface pipeline - invalid color image dimensions.";
+    v32 = "%s:%{public}d Failed to run OCProxySurface pipeline - invalid color image dimensions.";
     goto LABEL_19;
   }
 
-  if (a15 < 0.0 || (v39 = COERCE_DOUBLE(atomic_load((a1 + 72))), v39 > a15))
+  if (a15 < 0.0 || (v36 = COERCE_DOUBLE(atomic_load((a1 + 72))), v36 > a15))
   {
     if (qword_27EE3F308 != -1)
     {
       dispatch_once(&qword_27EE3F308, &unk_2858EBA68);
     }
 
-    v34 = qword_27EE3F300;
+    v31 = qword_27EE3F300;
     if (!os_log_type_enabled(qword_27EE3F300, OS_LOG_TYPE_ERROR))
     {
       return 4294967294;
@@ -1581,14 +1581,14 @@ LABEL_19:
     *(buf.columns[0].i64 + 4) = "isValidInputForExecutePipeline";
     buf.columns[0].i16[6] = 1026;
     *(&buf.columns[0].i32[3] + 2) = 227;
-    v35 = "%s:%{public}d Failed to run OCProxySurface pipeline - invalid timestamp.";
+    v32 = "%s:%{public}d Failed to run OCProxySurface pipeline - invalid timestamp.";
     goto LABEL_19;
   }
 
-  *v56 = a5;
-  *&v56[16] = a6;
-  *&v56[32] = a7;
-  *&v56[48] = a8;
+  *v53 = a5;
+  *&v53[16] = a6;
+  *&v53[32] = a7;
+  *&v53[48] = a8;
   if (dispatch_group_wait(*(a1 + 64), 0))
   {
     if (qword_27EE3F308 != -1)
@@ -1596,65 +1596,65 @@ LABEL_19:
       dispatch_once(&qword_27EE3F308, &unk_2858EBA68);
     }
 
-    v43 = qword_27EE3F300;
+    v40 = qword_27EE3F300;
     if (os_log_type_enabled(qword_27EE3F300, OS_LOG_TYPE_DEBUG))
     {
       buf.columns[0].i32[0] = 136315394;
       *(buf.columns[0].i64 + 4) = "OCProxySurfaceExecutePipeline";
       buf.columns[0].i16[6] = 1026;
       *(&buf.columns[0].i32[3] + 2) = 247;
-      _os_log_debug_impl(&dword_2460CF000, v43, OS_LOG_TYPE_DEBUG, "%s:%{public}d Active pipeline task in queue, dropping input frame.", &buf, 0x12u);
+      _os_log_debug_impl(&dword_2460CF000, v40, OS_LOG_TYPE_DEBUG, "%s:%{public}d Active pipeline task in queue, dropping input frame.", &buf, 0x12u);
     }
 
     return 0xFFFFFFFFLL;
   }
 
-  v44 = -1431655765 * ((a2[13] - a2[12]) >> 4);
-  v45 = OCPointCloudPoints(a2);
-  v46 = OCPointCloudPointSupplements(a2);
-  if (v44 && v45 && v46)
+  v41 = -1431655765 * ((a2[13] - a2[12]) >> 4);
+  v42 = OCPointCloudPoints(a2);
+  v43 = OCPointCloudPointSupplements(a2);
+  if (v41 && v42 && v43)
   {
-    v55 = v46;
+    v52 = v43;
+    v80 = 0;
+    v81 = &v80;
+    v82 = 0x2020000000;
     v83 = 0;
-    v84 = &v83;
-    v85 = 0x2020000000;
-    v86 = 0;
     if ((a3 & 0x100) != 0)
     {
-      v47 = *(a1 + 24);
-      buf = __invert_f4(*v56);
-      v48 = (*(*v47 + 48))(v47, &buf, v88, v87);
-      if (v48)
+      v44 = *(a1 + 24);
+      buf = __invert_f4(*v53);
+      v45 = (*(*v44 + 48))(v44, &buf, v85, v84);
+      if (v45)
       {
-        if (v48 == 2)
+        if (v45 == 2)
         {
-          v49 = -4;
+          v46 = -4;
         }
 
-        else if (v48 == 4)
+        else if (v45 == 4)
         {
-          v49 = -2;
+          v46 = -2;
         }
 
         else
         {
-          v49 = -1;
+          v46 = -1;
         }
 
-        *(v84 + 6) = v49;
+        *(v81 + 6) = v46;
         if (qword_27EE3F308 != -1)
         {
           dispatch_once(&qword_27EE3F308, &unk_2858EBA68);
         }
 
-        v51 = qword_27EE3F300;
+        v48 = qword_27EE3F300;
         if (os_log_type_enabled(qword_27EE3F300, OS_LOG_TYPE_ERROR))
         {
           buf.columns[0].i32[0] = 136315394;
           *(buf.columns[0].i64 + 4) = "OCProxySurfaceExecutePipeline";
           buf.columns[0].i16[6] = 1026;
           *(&buf.columns[0].i32[3] + 2) = 268;
-          _os_log_error_impl(&dword_2460CF000, v51, OS_LOG_TYPE_ERROR, "%s:%{public}d Failed to render depth image.", &buf, 0x12u);
+          _os_log_error_impl(&dword_2460CF000, v48, OS_LOG_TYPE_ERROR, "%s:%{public}d Failed to render depth image.", &buf, 0x12u);
         }
       }
     }
@@ -1663,51 +1663,51 @@ LABEL_19:
     {
       CFRetain(a2);
       dispatch_group_enter(*(a1 + 64));
-      v52 = *(a1 + 16);
+      v49 = *(a1 + 16);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = sub_2460E70C8;
       block[3] = &unk_278E9B220;
-      v71 = *v56;
-      v72 = *&v56[16];
-      v73 = *&v56[32];
-      v74 = *&v56[48];
-      v75 = a1;
-      v76 = v45;
-      v77 = v55;
-      v78 = a2;
-      v82 = a3;
-      v80 = v44;
-      v81 = a4;
-      v79 = a15;
-      dispatch_async(v52, block);
+      v68 = *v53;
+      v69 = *&v53[16];
+      v70 = *&v53[32];
+      v71 = *&v53[48];
+      v72 = a1;
+      v73 = v42;
+      v74 = v52;
+      v75 = a2;
+      v79 = a3;
+      v77 = v41;
+      v78 = a4;
+      v76 = a15;
+      dispatch_async(v49, block);
     }
 
     else
     {
-      v53 = *(a1 + 16);
-      v57[0] = MEMORY[0x277D85DD0];
-      v57[1] = 3221225472;
-      v57[2] = sub_2460E71D4;
-      v57[3] = &unk_278E9B248;
-      v58 = *v56;
-      v59 = *&v56[16];
-      v60 = *&v56[32];
-      v61 = *&v56[48];
-      v64 = v45;
-      v65 = v55;
-      v62 = &v83;
-      v63 = a1;
-      v69 = a3;
-      v67 = v44;
-      v68 = a4;
-      v66 = a15;
-      dispatch_sync(v53, v57);
+      v50 = *(a1 + 16);
+      v54[0] = MEMORY[0x277D85DD0];
+      v54[1] = 3221225472;
+      v54[2] = sub_2460E71D4;
+      v54[3] = &unk_278E9B248;
+      v55 = *v53;
+      v56 = *&v53[16];
+      v57 = *&v53[32];
+      v58 = *&v53[48];
+      v61 = v42;
+      v62 = v52;
+      v59 = &v80;
+      v60 = a1;
+      v66 = a3;
+      v64 = v41;
+      v65 = a4;
+      v63 = a15;
+      dispatch_sync(v50, v54);
     }
 
-    v54 = *(v84 + 6);
-    _Block_object_dispose(&v83, 8);
-    return v54;
+    v51 = *(v81 + 6);
+    _Block_object_dispose(&v80, 8);
+    return v51;
   }
 
   else
@@ -1717,7 +1717,7 @@ LABEL_19:
       dispatch_once(&qword_27EE3F308, &unk_2858EBA68);
     }
 
-    v50 = qword_27EE3F300;
+    v47 = qword_27EE3F300;
     if (!os_log_type_enabled(qword_27EE3F300, OS_LOG_TYPE_ERROR))
     {
       return 0xFFFFFFFFLL;
@@ -1727,7 +1727,7 @@ LABEL_19:
     *(buf.columns[0].i64 + 4) = "OCProxySurfaceExecutePipeline";
     buf.columns[0].i16[6] = 1026;
     *(&buf.columns[0].i32[3] + 2) = 256;
-    _os_log_error_impl(&dword_2460CF000, v50, OS_LOG_TYPE_ERROR, "%s:%{public}d Failed to run OCProxySurface pipeline - invalid pointcloud.", &buf, 0x12u);
+    _os_log_error_impl(&dword_2460CF000, v47, OS_LOG_TYPE_ERROR, "%s:%{public}d Failed to run OCProxySurface pipeline - invalid pointcloud.", &buf, 0x12u);
     return 0xFFFFFFFFLL;
   }
 }
@@ -2409,7 +2409,7 @@ uint64_t isAppleGPU()
   return v0 & 1;
 }
 
-uint64_t OCImageScalerCreate(uint64_t a1, uint64_t a2)
+uint64_t OCImageScalerCreate(int *a1, uint64_t **a2)
 {
   result = 4294967294;
   if (a1)
@@ -2922,7 +2922,7 @@ uint64_t sub_2460E9AE8(float **a1, const void *a2, uint64_t *a3)
   }
 
   v14 = operator new[](v13, MEMORY[0x277D826F0]);
-  *(v9 + 1) = v14;
+  *(v9 + 8) = v14;
   if (!v14)
   {
     *v9 = 0;
@@ -2930,7 +2930,7 @@ uint64_t sub_2460E9AE8(float **a1, const void *a2, uint64_t *a3)
     return 4294967293;
   }
 
-  *(v9 + 2) = v12;
+  *(v9 + 16) = v12;
   if (v11 != v10)
   {
     v15 = 0;
@@ -3058,17 +3058,17 @@ LABEL_40:
   v30 = 0.0;
 LABEL_41:
   result = 0;
-  *(v9 + 6) = v30;
+  *(v9 + 24) = v30;
   *a3 = v9;
   return result;
 }
 
-uint64_t sub_2460E9D9C(float32x4_t **a1, CFTypeRef *a2)
+void sub_2460E9D9C(float *a1, CFTypeRef *a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   if (*a1)
   {
-    v2 = a1[1] == 0;
+    v2 = *(a1 + 1) == 0;
   }
 
   else
@@ -3076,164 +3076,147 @@ uint64_t sub_2460E9D9C(float32x4_t **a1, CFTypeRef *a2)
     v2 = 1;
   }
 
-  if (v2)
+  if (v2 || *(a1 + 2) != -1431655765 * ((*(*a1 + 104) - *(*a1 + 96)) >> 4) || !a2 || a1[6] < 0.0)
   {
-    return 4294967294;
+    return;
   }
 
-  v5 = a1[2];
-  v6 = (-1431655765 * (((*a1)[6].i64[1] - (*a1)[6].i64[0]) >> 4));
-  result = 4294967294;
-  if (v5 == v6 && a2 && *(a1 + 6) >= 0.0)
+  if (*a2)
   {
-    if (*a2)
+    CFRelease(*a2);
+    *a2 = 0;
+  }
+
+  if (qword_27EE3F320 != -1)
+  {
+    dispatch_once(&qword_27EE3F320, &unk_2858EBAA8);
+  }
+
+  Instance = _CFRuntimeCreateInstance();
+  if (!Instance)
+  {
+    return;
+  }
+
+  v6 = Instance;
+  v7 = operator new(0x60uLL, MEMORY[0x277D826F0]);
+  v6[2] = v7;
+  if (!v7 || ((v8 = *(a1 + 2), v8 >> 60) ? (v9 = -1) : (v9 = 16 * v8), v10 = operator new[](v9, MEMORY[0x277D826F0]), (*v6[2] = v10) == 0))
+  {
+    CFRelease(v6);
+    return;
+  }
+
+  v11 = *a1;
+  if (*a1)
+  {
+    v12 = v11[1].f32[0];
+    v13 = v11[2];
+    v14 = v11[3];
+    v15 = v11[4];
+    v16 = v11[5];
+    v36 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_n_f32(v13, v12), 0, v14), 0, v15), 0, v16);
+    v17 = vmulq_f32(v13, 0);
+    v18 = vmlaq_f32(vmlaq_f32(vmlaq_n_f32(v17, v14, v12), 0, v15), 0, v16);
+    v19 = vmlaq_f32(v17, 0, v14);
+    v34 = vmlaq_f32(vmlaq_n_f32(v19, v15, v12), 0, v16);
+    v35 = v18;
+    v20 = vaddq_f32(v16, vmlaq_f32(v19, 0, v15));
+  }
+
+  else
+  {
+    if (qword_27EE3F218 != -1)
     {
-      CFRelease(*a2);
-      *a2 = 0;
+      dispatch_once(&qword_27EE3F218, &unk_2858EB9E8);
     }
 
-    if (qword_27EE3F320 != -1)
+    v21 = qword_27EE3F210;
+    if (os_log_type_enabled(qword_27EE3F210, OS_LOG_TYPE_ERROR))
     {
-      dispatch_once(&qword_27EE3F320, &unk_2858EBAA8);
+      buf[0] = 136315394;
+      *&buf[1] = "OCVoxelCloudTransformMatrix";
+      v38 = 1026;
+      v39 = 371;
+      _os_log_error_impl(&dword_2460CF000, v21, OS_LOG_TYPE_ERROR, "%s:%{public}d Invalid voxelcloud.", buf, 0x12u);
     }
 
-    Instance = _CFRuntimeCreateInstance();
-    if (Instance)
+    v20 = 0uLL;
+    v35 = 0u;
+    v36 = 0u;
+    v34 = 0u;
+  }
+
+  v33 = v20;
+  if (!*(a1 + 2))
+  {
+    v32 = v6[2];
+    *(v32 + 8) = 0;
+    *(v32 + 16) = a1[6];
+    goto LABEL_45;
+  }
+
+  v22 = 0;
+  v23 = 0;
+  do
+  {
+    v26 = *a1;
+    if (*a1 && (v28 = v26 + 96, v27 = *(v26 + 96), 0xAAAAAAAAAAAAAAABLL * ((*(v28 + 8) - v27) >> 4) > v23))
     {
-      v9 = Instance;
-      v10 = operator new(0x60uLL, MEMORY[0x277D826F0]);
-      v9[2] = v10;
-      if (v10)
+      if (!v27)
       {
-        v11 = a1[2];
-        v12 = v11 >> 60 ? -1 : 16 * v11;
-        v13 = operator new[](v12, MEMORY[0x277D826F0]);
-        *v9[2] = v13;
-        if (v13)
-        {
-          v14 = *a1;
-          if (*a1)
-          {
-            v15 = v14[1].f32[0];
-            v16 = v14[2];
-            v17 = v14[3];
-            v18 = v14[4];
-            v19 = v14[5];
-            v39 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_n_f32(v16, v15), 0, v17), 0, v18), 0, v19);
-            v20 = vmulq_f32(v16, 0);
-            v21 = vmlaq_f32(vmlaq_f32(vmlaq_n_f32(v20, v17, v15), 0, v18), 0, v19);
-            v22 = vmlaq_f32(v20, 0, v17);
-            v37 = vmlaq_f32(vmlaq_n_f32(v22, v18, v15), 0, v19);
-            v38 = v21;
-            v23 = vaddq_f32(v19, vmlaq_f32(v22, 0, v18));
-          }
-
-          else
-          {
-            if (qword_27EE3F218 != -1)
-            {
-              dispatch_once(&qword_27EE3F218, &unk_2858EB9E8);
-            }
-
-            v24 = qword_27EE3F210;
-            if (os_log_type_enabled(qword_27EE3F210, OS_LOG_TYPE_ERROR))
-            {
-              buf[0] = 136315394;
-              *&buf[1] = "OCVoxelCloudTransformMatrix";
-              v41 = 1026;
-              v42 = 371;
-              _os_log_error_impl(&dword_2460CF000, v24, OS_LOG_TYPE_ERROR, "%s:%{public}d Invalid voxelcloud.", buf, 0x12u);
-            }
-
-            v23 = 0uLL;
-            v38 = 0u;
-            v39 = 0u;
-            v37 = 0u;
-          }
-
-          v36 = v23;
-          if (!a1[2])
-          {
-            v35 = v9[2];
-            *(v35 + 8) = 0;
-            *(v35 + 16) = *(a1 + 6);
-            goto LABEL_46;
-          }
-
-          v25 = 0;
-          v26 = 0;
-          while (1)
-          {
-            v29 = *a1;
-            if (*a1 && (v31 = v29 + 6, v30 = v29[6].i64[0], 0xAAAAAAAAAAAAAAABLL * ((v31->i64[1] - v30) >> 4) > v26))
-            {
-              if (v30)
-              {
-                v27 = vaddq_f32(v36, vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(v39, *(v30 + v25)), v38, HIDWORD(*(v30 + v25))), v37, *(v30 + v25 + 8)));
-                goto LABEL_33;
-              }
-            }
-
-            else
-            {
-              if (qword_27EE3F218 != -1)
-              {
-                dispatch_once(&qword_27EE3F218, &unk_2858EB9E8);
-              }
-
-              v32 = qword_27EE3F210;
-              v33 = os_log_type_enabled(qword_27EE3F210, OS_LOG_TYPE_ERROR);
-              v27.i64[0] = 0;
-              v27.i32[2] = 0;
-              if (!v33)
-              {
-                goto LABEL_33;
-              }
-
-              buf[0] = 136315394;
-              *&buf[1] = "OCVoxelCloudVoxelAt";
-              v41 = 1026;
-              v42 = 301;
-              _os_log_error_impl(&dword_2460CF000, v32, OS_LOG_TYPE_ERROR, "%s:%{public}d Invalid voxelcloud.", buf, 0x12u);
-            }
-
-            v27.i64[0] = 0;
-            v27.i32[2] = 0;
-LABEL_33:
-            v27.i32[3] = a1[1]->i32[v26];
-            *(*v9[2] + 16 * v26++) = v27;
-            v28 = a1[2];
-            v25 += 48;
-            if (v26 >= v28)
-            {
-              v34 = v9[2];
-              *(v34 + 8) = v28;
-              *(v34 + 16) = *(a1 + 6);
-              if (v28)
-              {
-                if (v28 < 0x555555555555556)
-                {
-                  operator new();
-                }
-
-                sub_2460D368C();
-              }
-
-LABEL_46:
-              CFRelease(v9);
-              return 0xFFFFFFFFLL;
-            }
-          }
-        }
+        goto LABEL_31;
       }
 
-      CFRelease(v9);
+      v24 = vaddq_f32(v33, vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(v36, *(v27 + v22)), v35, HIDWORD(*(v27 + v22))), v34, *(v27 + v22 + 8)));
     }
 
-    return 4294967293;
+    else
+    {
+      if (qword_27EE3F218 != -1)
+      {
+        dispatch_once(&qword_27EE3F218, &unk_2858EB9E8);
+      }
+
+      v29 = qword_27EE3F210;
+      v30 = os_log_type_enabled(qword_27EE3F210, OS_LOG_TYPE_ERROR);
+      v24.i64[0] = 0;
+      v24.i32[2] = 0;
+      if (v30)
+      {
+        buf[0] = 136315394;
+        *&buf[1] = "OCVoxelCloudVoxelAt";
+        v38 = 1026;
+        v39 = 301;
+        _os_log_error_impl(&dword_2460CF000, v29, OS_LOG_TYPE_ERROR, "%s:%{public}d Invalid voxelcloud.", buf, 0x12u);
+LABEL_31:
+        v24.i64[0] = 0;
+        v24.i32[2] = 0;
+      }
+    }
+
+    v24.i32[3] = *(*(a1 + 1) + 4 * v23);
+    *(*v6[2] + 16 * v23++) = v24;
+    v25 = *(a1 + 2);
+    v22 += 48;
   }
 
-  return result;
+  while (v23 < v25);
+  v31 = v6[2];
+  *(v31 + 8) = v25;
+  *(v31 + 16) = a1[6];
+  if (v25)
+  {
+    if (v25 < 0x555555555555556)
+    {
+      operator new();
+    }
+
+    sub_2460D368C();
+  }
+
+LABEL_45:
+  CFRelease(v6);
 }
 
 id OCNonModularSPI_AVCameraCalibrationData_CreateDictionaryFrom(void *a1, const char *a2, uint64_t a3)
@@ -3980,8 +3963,8 @@ LABEL_106:
 
         v16[7] = v60;
         v61 = ((v60 - *&v16[6]) >> 6) - 1;
-        v178 = &v176.i8[4];
-        *(sub_246105D0C(v18, v176.u32[1]) + 5) = v61;
+        v178[0] = &v176.i32[1];
+        *(sub_246105D0C(v18, v176.u32[1], v178) + 20) = v61;
         ++v46;
       }
 
@@ -4125,8 +4108,8 @@ LABEL_107:
 
           v16[7] = v96;
           v97 = ((v96 - *&v16[6]) >> 6) - 1;
-          v178 = &v176.i8[4];
-          *(sub_246105D0C(v18, v176.u32[1]) + 5) = v97;
+          v178[0] = &v176.i32[1];
+          *(sub_246105D0C(v18, v176.u32[1], v178) + 20) = v97;
           ++v94;
         }
 
@@ -4258,10 +4241,10 @@ uint64_t OCFramingGuideSignalNewFrame(uint64_t a1)
                     if (*(v15 + 16) == v11)
                     {
 LABEL_32:
-                      sub_246106008(&__p, (v4 + 80), v15);
-                      if (__p)
+                      sub_246106008(__p, (v4 + 80), v15);
+                      if (__p[0])
                       {
-                        operator delete(__p);
+                        operator delete(__p[0]);
                       }
 
                       v5 = *(v4 + 48);
@@ -4310,8 +4293,8 @@ LABEL_35:
           v20[3] = v21;
           v28 = *(v4 + 48) + (v8 << 6);
           v29 = *(v28 + 36);
-          __p = (v28 + 36);
-          *(sub_246105D0C((v4 + 80), v29) + 5) = v8;
+          __p[0] = (v28 + 36);
+          *(sub_246105D0C((v4 + 80), v29, __p) + 20) = v8;
         }
       }
 
@@ -5590,6 +5573,13 @@ LABEL_62:
   return Instance;
 }
 
+void sub_2460EDC7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  sub_2460EDC90(va);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_2460EDC90(uint64_t a1)
 {
   v2 = *(a1 + 48);
@@ -5801,17 +5791,17 @@ LABEL_16:
 
   HIBYTE(v36) = v10 & 1;
   v11 = *(a1 + 3);
-  v12 = 0.0;
+  v12 = 0;
   if (v11 >= 0.0)
   {
     v12 = 1.0;
     if (v11 <= 1.0)
     {
-      v12 = *(a1 + 3);
+      v12 = a1[3];
     }
   }
 
-  v37 = LODWORD(v12);
+  v37 = v12;
   v13 = operator new(0x320uLL, MEMORY[0x277D826F0]);
   if (!v13)
   {
@@ -6024,136 +6014,137 @@ uint64_t OCCoverageGuideStart(uint64_t a1)
   return 0;
 }
 
-uint64_t OCCoverageGuideAddCameraShot(uint64_t a1, __n128 a2, __n128 a3, __n128 a4, simd_float4 a5, simd_float4 a6, simd_float4 a7, simd_float4 a8)
+uint64_t OCCoverageGuideAddCameraShot(uint64_t a1, float32x4_t a2, float32x4_t a3, float32x4_t a4, float32x4_t a5, float32x4_t a6, float32x4_t a7, float32x4_t a8)
 {
   if (!a1 || !*(a1 + 40))
   {
     return 4294967294;
   }
 
-  *v10 = *(a1 + 4);
-  v11 = a2;
-  v12 = a3;
-  v13 = a4;
-  v14 = a5;
-  v15 = a6;
-  v16 = a7;
-  v17 = a8;
-  v19.columns[0] = a5;
-  v19.columns[1] = a6;
-  v19.columns[2] = a7;
-  v19.columns[3] = a8;
-  v18 = __invert_f4(v19);
+  v10[0].i64[0] = *(a1 + 4);
+  v10[1] = a2;
+  v10[2] = a3;
+  v10[3] = a4;
+  v10[4] = a5;
+  v10[5] = a6;
+  v10[6] = a7;
+  v10[7] = a8;
+  v11.columns[0] = a5;
+  v11.columns[1] = a6;
+  v11.columns[2] = a7;
+  v11.columns[3] = a8;
+  v12 = __invert_f4(v11);
+  v10[8] = v12.columns[0];
+  v10[9] = v12.columns[1];
+  v10[10] = v12.columns[2];
+  v10[11] = v12.columns[3];
   sub_24612A904(*(a1 + 40), v10);
   return 0;
 }
 
-uint64_t OCCoverageGuideCompute(uint64_t a1, uint64_t a2)
+void OCCoverageGuideCompute(uint64_t a1, uint64_t a2)
 {
-  result = 4294967294;
   if (a1)
   {
     if (a2)
     {
-      v4 = *(a1 + 40);
-      if (v4)
+      v2 = *(a1 + 40);
+      if (v2)
       {
         if (*(a2 + 16) > 0.0)
         {
-          v5 = *(a2 + 32);
-          v6 = *(a2 + 48);
-          v7 = *(a2 + 64);
-          v8 = *(MEMORY[0x277D860B0] + 16);
-          v9 = *(MEMORY[0x277D860B0] + 32);
-          v10 = vdupq_n_s32(0x38D1B717u);
-          v11 = vandq_s8(vandq_s8(vcgeq_f32(v10, vabdq_f32(vmlaq_lane_f32(vmlaq_lane_f32(vmulq_lane_f32(v5, *v5.f32, 1), v6, *v6.f32, 1), v7, *v7.f32, 1), v8)), vcgeq_f32(v10, vabdq_f32(vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(v5, v5.f32[0]), v6, v6.f32[0]), v7, v7.f32[0]), *MEMORY[0x277D860B0]))), vcgeq_f32(v10, vabdq_f32(vmlaq_laneq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v5, v5, 2), v6, v6, 2), v7, v7, 2), v9)));
-          v11.i32[3] = v11.i32[2];
-          if ((vminvq_u32(v11) & 0x80000000) != 0)
+          v3 = *(a2 + 32);
+          v4 = *(a2 + 48);
+          v5 = *(a2 + 64);
+          v6 = *(MEMORY[0x277D860B0] + 16);
+          v7 = *(MEMORY[0x277D860B0] + 32);
+          v8 = vdupq_n_s32(0x38D1B717u);
+          v9 = vandq_s8(vandq_s8(vcgeq_f32(v8, vabdq_f32(vmlaq_lane_f32(vmlaq_lane_f32(vmulq_lane_f32(v3, *v3.i8, 1), v4, *v4.i8, 1), v5, *v5.i8, 1), v6)), vcgeq_f32(v8, vabdq_f32(vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(v3, *v3.i32), v4, *v4.i32), v5, *v5.i32), *MEMORY[0x277D860B0]))), vcgeq_f32(v8, vabdq_f32(vmlaq_laneq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v3, v3, 2), v4, v4, 2), v5, v5, 2), v7)));
+          v9.i32[3] = v9.i32[2];
+          if ((vminvq_u32(v9) & 0x80000000) != 0)
           {
-            v12 = vzip1q_s32(vzip2q_s32(v5, v7), vdupq_laneq_s32(v6, 2));
-            v13 = vtrn2q_s32(v5, v6);
-            v13.i32[2] = HIDWORD(*(a2 + 64));
-            v14 = vzip1q_s32(vzip1q_s32(v5, v7), v6);
-            v15 = vandq_s8(vandq_s8(vcgeq_f32(v10, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v14, v6.f32[0]), v13, *v6.f32, 1), v12, v6, 2), v8)), vcgeq_f32(v10, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v14, v5.f32[0]), v13, *v5.f32, 1), v12, v5, 2), *MEMORY[0x277D860B0]))), vcgeq_f32(v10, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v14, v7.f32[0]), v13, *v7.f32, 1), v12, v7, 2), v9)));
-            v15.i32[3] = v15.i32[2];
-            if ((vminvq_u32(v15) & 0x80000000) != 0)
+            v10 = vzip1q_s32(vzip2q_s32(v3, v5), vdupq_laneq_s32(v4, 2));
+            v11 = vtrn2q_s32(v3, v4);
+            v11.i32[2] = HIDWORD(*(a2 + 64));
+            v12 = vzip1q_s32(vzip1q_s32(v3, v5), v4);
+            v13 = vandq_s8(vandq_s8(vcgeq_f32(v8, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v12, *v4.i32), v11, *v4.i8, 1), v10, v4, 2), v6)), vcgeq_f32(v8, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v12, *v3.i32), v11, *v3.i8, 1), v10, v3, 2), *MEMORY[0x277D860B0]))), vcgeq_f32(v8, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v12, *v5.i32), v11, *v5.i8, 1), v10, v5, 2), v7)));
+            v13.i32[3] = v13.i32[2];
+            if ((vminvq_u32(v13) & 0x80000000) != 0)
             {
-              v16 = vmulq_f32(v5, vmlaq_f32(vmulq_f32(vextq_s8(vextq_s8(v7, v7, 0xCuLL), v7, 8uLL), vnegq_f32(vextq_s8(vuzp1q_s32(v6, v6), v6, 0xCuLL))), vextq_s8(vuzp1q_s32(v7, v7), v7, 0xCuLL), vextq_s8(vextq_s8(v6, v6, 0xCuLL), v6, 8uLL)));
-              if (fabsf((v16.f32[2] + vaddv_f32(*v16.f32)) + -1.0) <= 0.000011)
+              v14 = vmulq_f32(v3, vmlaq_f32(vmulq_f32(vextq_s8(vextq_s8(v5, v5, 0xCuLL), v5, 8uLL), vnegq_f32(vextq_s8(vuzp1q_s32(v4, v4), v4, 0xCuLL))), vextq_s8(vuzp1q_s32(v5, v5), v5, 0xCuLL), vextq_s8(vextq_s8(v4, v4, 0xCuLL), v4, 8uLL)));
+              if (fabsf((v14.f32[2] + vaddv_f32(*v14.f32)) + -1.0) <= 0.000011)
               {
-                v17 = vdup_n_s32(0x38D1B717u);
-                v18 = vand_s8(vcge_f32(v17, vabs_f32(vadd_f32(vzip2_s32(*&vextq_s8(v7, v7, 8uLL), *&vextq_s8(*(a2 + 80), *(a2 + 80), 8uLL)), 0xBF80000080000000))), vcge_f32(v17, vabs_f32(vzip2_s32(*&vextq_s8(v5, v5, 8uLL), *&vextq_s8(v6, v6, 8uLL)))));
-                if ((vpmin_u32(v18, v18).u32[0] & 0x80000000) != 0)
+                v15 = vdup_n_s32(0x38D1B717u);
+                v16 = vand_s8(vcge_f32(v15, vabs_f32(vadd_f32(vzip2_s32(*&vextq_s8(v5, v5, 8uLL), *&vextq_s8(*(a2 + 80), *(a2 + 80), 8uLL)), 0xBF80000080000000))), vcge_f32(v15, vabs_f32(vzip2_s32(*&vextq_s8(v3, v3, 8uLL), *&vextq_s8(v4, v4, 8uLL)))));
+                if ((vpmin_u32(v16, v16).u32[0] & 0x80000000) != 0)
                 {
-                  v19 = *(a2 + 96);
-                  v20 = 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 104) - v19) >> 4);
-                  v21 = v20;
-                  if (v20)
+                  v17 = *(a2 + 96);
+                  v18 = 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 104) - v17) >> 4);
+                  v19 = v18;
+                  if (v18)
                   {
-                    if (v19)
+                    if (v17)
                     {
-                      v31 = 0uLL;
+                      v29 = 0uLL;
                       __asm { FMOV            V5.4S, #-1.0 }
 
-                      v32 = _Q5;
-                      v20 = v20;
+                      v30 = _Q5;
+                      v18 = v18;
                       do
                       {
-                        v27 = *v19;
-                        v29 = v31;
-                        v28 = v32;
-                        v30 = vcgtq_f32(v31, v32);
-                        v30.i32[3] = v30.i32[2];
-                        if ((vmaxvq_u32(v30) & 0x80000000) != 0)
+                        v25 = *v17;
+                        v27 = v29;
+                        v26 = v30;
+                        v28 = vcgtq_f32(v29, v30);
+                        v28.i32[3] = v28.i32[2];
+                        if ((vmaxvq_u32(v28) & 0x80000000) != 0)
                         {
-                          v31 = vcvtq_f32_s32(v27);
-                          v32 = v31;
+                          v29 = vcvtq_f32_s32(v25);
+                          v30 = v29;
                         }
 
                         else
                         {
-                          if (v31.f32[0] > v27.i32[0])
+                          if (v29.f32[0] > v25.i32[0])
                           {
-                            v31.f32[0] = v27.i32[0];
+                            v29.f32[0] = v25.i32[0];
                           }
 
-                          if (v32.f32[0] < v27.i32[0])
+                          if (v30.f32[0] < v25.i32[0])
                           {
-                            v32.f32[0] = v27.i32[0];
+                            v30.f32[0] = v25.i32[0];
                           }
 
-                          if (v29.f32[1] > v27.i32[1])
+                          if (v27.f32[1] > v25.i32[1])
                           {
-                            v31.f32[1] = v27.i32[1];
+                            v29.f32[1] = v25.i32[1];
                           }
 
-                          if (v28.f32[1] < v27.i32[1])
+                          if (v26.f32[1] < v25.i32[1])
                           {
-                            v32.f32[1] = v27.i32[1];
+                            v30.f32[1] = v25.i32[1];
                           }
 
-                          if (v29.f32[2] > v27.i32[2])
+                          if (v27.f32[2] > v25.i32[2])
                           {
-                            v31.f32[2] = v27.i32[2];
+                            v29.f32[2] = v25.i32[2];
                           }
 
-                          if (v28.f32[2] < v27.i32[2])
+                          if (v26.f32[2] < v25.i32[2])
                           {
-                            v32.f32[2] = v27.i32[2];
+                            v30.f32[2] = v25.i32[2];
                           }
                         }
 
-                        v19 += 3;
-                        --v20;
+                        v17 += 3;
+                        --v18;
                       }
 
-                      while (v20);
-                      if (*(v4 + 4) == 1 && v21 >= *(v4 + 16))
+                      while (v18);
+                      if (*(v2 + 4) == 1 && v19 >= *(v2 + 16))
                       {
                         operator new();
                       }
-
-                      return 0xFFFFFFFFLL;
                     }
                   }
                 }
@@ -6164,8 +6155,6 @@ uint64_t OCCoverageGuideCompute(uint64_t a1, uint64_t a2)
       }
     }
   }
-
-  return result;
 }
 
 void sub_2460EFB78(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, void *a47, uint64_t a48, uint64_t a49, void *__p, uint64_t a51, uint64_t a52, void *a53, uint64_t a54)
@@ -6193,122 +6182,122 @@ uint64_t OCCoverageGuideGetResults(uint64_t result)
   return result;
 }
 
-CVPixelBufferRef OCCoverageGuideCreateHeatmap(uint64_t a1, int32x4_t *a2, unsigned int a3, const void *a4, float32x4_t a5, float32x4_t a6, float32x4_t a7, int8x16_t a8, float a9, double a10, double a11, double a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, __int128 a17, __int128 a18, __int128 a19, __int128 a20, float a21)
+CVPixelBufferRef OCCoverageGuideCreateHeatmap(uint64_t a1, int32x4_t *a2, unsigned int a3, const void *a4, float32x4_t a5, float32x4_t a6, float32x4_t a7, int8x16_t a8, float a9, double a10, double a11, double a12, uint64_t x4_0, uint64_t a14, uint64_t x6_0, uint64_t a16, float32x4_t a13, float32x4_t a15, float32x4_t a17, float32x4_t a19, float a21)
 {
-  v52[0] = a17;
-  v52[1] = a18;
-  v52[2] = a19;
-  v52[3] = a20;
-  v18 = 0;
+  v55[0] = a13;
+  v55[1] = a15;
+  v55[2] = a17;
+  v55[3] = a19;
+  v21 = 0;
   if (a1)
   {
     if (a4)
     {
       if (a2)
       {
-        v20 = *(a1 + 48);
-        if (v20)
+        v23 = *(a1 + 48);
+        if (v23)
         {
           if (a9 <= 0.0)
           {
             return 0;
           }
 
-          v21 = *(MEMORY[0x277D860B0] + 16);
-          v22 = *(MEMORY[0x277D860B0] + 32);
-          v23 = vdupq_n_s32(0x38D1B717u);
-          v24 = vandq_s8(vandq_s8(vcgeq_f32(v23, vabdq_f32(vmlaq_lane_f32(vmlaq_lane_f32(vmulq_lane_f32(a5, *a5.f32, 1), a6, *a6.f32, 1), a7, *a7.f32, 1), v21)), vcgeq_f32(v23, vabdq_f32(vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(a5, a5.f32[0]), a6, a6.f32[0]), a7, a7.f32[0]), *MEMORY[0x277D860B0]))), vcgeq_f32(v23, vabdq_f32(vmlaq_laneq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(a5, a5, 2), a6, a6, 2), a7, a7, 2), v22)));
-          v24.i32[3] = v24.i32[2];
-          if ((vminvq_u32(v24) & 0x80000000) == 0)
+          v24 = *(MEMORY[0x277D860B0] + 16);
+          v25 = *(MEMORY[0x277D860B0] + 32);
+          v26 = vdupq_n_s32(0x38D1B717u);
+          v27 = vandq_s8(vandq_s8(vcgeq_f32(v26, vabdq_f32(vmlaq_lane_f32(vmlaq_lane_f32(vmulq_lane_f32(a5, *a5.f32, 1), a6, *a6.f32, 1), a7, *a7.f32, 1), v24)), vcgeq_f32(v26, vabdq_f32(vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(a5, a5.f32[0]), a6, a6.f32[0]), a7, a7.f32[0]), *MEMORY[0x277D860B0]))), vcgeq_f32(v26, vabdq_f32(vmlaq_laneq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(a5, a5, 2), a6, a6, 2), a7, a7, 2), v25)));
+          v27.i32[3] = v27.i32[2];
+          if ((vminvq_u32(v27) & 0x80000000) == 0)
           {
             return 0;
           }
 
-          v25 = vzip1q_s32(vzip2q_s32(a5, a7), vdupq_laneq_s32(a6, 2));
-          v26 = vtrn2q_s32(a5, a6);
-          v26.i32[2] = a7.i32[1];
-          v27 = vzip1q_s32(vzip1q_s32(a5, a7), a6);
-          v28 = vandq_s8(vandq_s8(vcgeq_f32(v23, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v27, a6.f32[0]), v26, *a6.f32, 1), v25, a6, 2), v21)), vcgeq_f32(v23, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v27, a5.f32[0]), v26, *a5.f32, 1), v25, a5, 2), *MEMORY[0x277D860B0]))), vcgeq_f32(v23, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v27, a7.f32[0]), v26, *a7.f32, 1), v25, a7, 2), v22)));
-          v28.i32[3] = v28.i32[2];
-          if ((vminvq_u32(v28) & 0x80000000) == 0)
+          v28 = vzip1q_s32(vzip2q_s32(a5, a7), vdupq_laneq_s32(a6, 2));
+          v29 = vtrn2q_s32(a5, a6);
+          v29.i32[2] = a7.i32[1];
+          v30 = vzip1q_s32(vzip1q_s32(a5, a7), a6);
+          v31 = vandq_s8(vandq_s8(vcgeq_f32(v26, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30, a6.f32[0]), v29, *a6.f32, 1), v28, a6, 2), v24)), vcgeq_f32(v26, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30, a5.f32[0]), v29, *a5.f32, 1), v28, a5, 2), *MEMORY[0x277D860B0]))), vcgeq_f32(v26, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30, a7.f32[0]), v29, *a7.f32, 1), v28, a7, 2), v25)));
+          v31.i32[3] = v31.i32[2];
+          if ((vminvq_u32(v31) & 0x80000000) == 0)
           {
             return 0;
           }
 
-          v30 = vmulq_f32(a5, vmlaq_f32(vmulq_f32(vextq_s8(vextq_s8(a7, a7, 0xCuLL), a7, 8uLL), vnegq_f32(vextq_s8(vuzp1q_s32(a6, a6), a6, 0xCuLL))), vextq_s8(vuzp1q_s32(a7, a7), a7, 0xCuLL), vextq_s8(vextq_s8(a6, a6, 0xCuLL), a6, 8uLL)));
-          v18 = 0;
-          if (fabsf((v30.f32[2] + vaddv_f32(*v30.f32)) + -1.0) <= 0.000011)
+          v33 = vmulq_f32(a5, vmlaq_f32(vmulq_f32(vextq_s8(vextq_s8(a7, a7, 0xCuLL), a7, 8uLL), vnegq_f32(vextq_s8(vuzp1q_s32(a6, a6), a6, 0xCuLL))), vextq_s8(vuzp1q_s32(a7, a7), a7, 0xCuLL), vextq_s8(vextq_s8(a6, a6, 0xCuLL), a6, 8uLL)));
+          v21 = 0;
+          if (fabsf((v33.f32[2] + vaddv_f32(*v33.f32)) + -1.0) <= 0.000011)
           {
-            v31 = vdup_n_s32(0x38D1B717u);
-            v32 = vand_s8(vcge_f32(v31, vabs_f32(vadd_f32(vzip2_s32(*&vextq_s8(a7, a7, 8uLL), *&vextq_s8(a8, a8, 8uLL)), 0xBF80000080000000))), vcge_f32(v31, vabs_f32(vzip2_s32(*&vextq_s8(a5, a5, 8uLL), *&vextq_s8(a6, a6, 8uLL)))));
-            if ((vpmin_u32(v32, v32).u32[0] & 0x80000000) != 0)
+            v34 = vdup_n_s32(0x38D1B717u);
+            v35 = vand_s8(vcge_f32(v34, vabs_f32(vadd_f32(vzip2_s32(*&vextq_s8(a7, a7, 8uLL), *&vextq_s8(a8, a8, 8uLL)), 0xBF80000080000000))), vcge_f32(v34, vabs_f32(vzip2_s32(*&vextq_s8(a5, a5, 8uLL), *&vextq_s8(a6, a6, 8uLL)))));
+            if ((vpmin_u32(v35, v35).u32[0] & 0x80000000) != 0)
             {
               if (a3)
               {
-                v50 = 0uLL;
+                v53 = 0uLL;
                 __asm { FMOV            V6.4S, #-1.0 }
 
-                v51 = _Q6;
-                v43[0] = a9;
-                v44 = a5;
-                v45 = a6;
-                v46 = a7;
-                v47 = a8;
-                v38 = a3;
-                v48 = a3;
-                v49 = a2;
+                v54 = _Q6;
+                v46[0] = a9;
+                v47 = a5;
+                v48 = a6;
+                v49 = a7;
+                v50 = a8;
+                v41 = a3;
+                v51 = a3;
+                v52 = a2;
                 do
                 {
-                  v39 = *a2;
-                  v41 = v50;
-                  v40 = v51;
-                  v42 = vcgtq_f32(v50, v51);
-                  v42.i32[3] = v42.i32[2];
-                  if ((vmaxvq_u32(v42) & 0x80000000) != 0)
+                  v42 = *a2;
+                  v44 = v53;
+                  v43 = v54;
+                  v45 = vcgtq_f32(v53, v54);
+                  v45.i32[3] = v45.i32[2];
+                  if ((vmaxvq_u32(v45) & 0x80000000) != 0)
                   {
-                    v50 = vcvtq_f32_s32(v39);
-                    v51 = v50;
+                    v53 = vcvtq_f32_s32(v42);
+                    v54 = v53;
                   }
 
                   else
                   {
-                    if (v50.f32[0] > v39.i32[0])
+                    if (v53.f32[0] > v42.i32[0])
                     {
-                      v50.f32[0] = v39.i32[0];
+                      v53.f32[0] = v42.i32[0];
                     }
 
-                    if (v51.f32[0] < v39.i32[0])
+                    if (v54.f32[0] < v42.i32[0])
                     {
-                      v51.f32[0] = v39.i32[0];
+                      v54.f32[0] = v42.i32[0];
                     }
 
-                    if (v41.f32[1] > v39.i32[1])
+                    if (v44.f32[1] > v42.i32[1])
                     {
-                      v50.f32[1] = v39.i32[1];
+                      v53.f32[1] = v42.i32[1];
                     }
 
-                    if (v40.f32[1] < v39.i32[1])
+                    if (v43.f32[1] < v42.i32[1])
                     {
-                      v51.f32[1] = v39.i32[1];
+                      v54.f32[1] = v42.i32[1];
                     }
 
-                    if (v41.f32[2] > v39.i32[2])
+                    if (v44.f32[2] > v42.i32[2])
                     {
-                      v50.f32[2] = v39.i32[2];
+                      v53.f32[2] = v42.i32[2];
                     }
 
-                    if (v40.f32[2] < v39.i32[2])
+                    if (v43.f32[2] < v42.i32[2])
                     {
-                      v51.f32[2] = v39.i32[2];
+                      v54.f32[2] = v42.i32[2];
                     }
                   }
 
                   a2 += 3;
-                  --v38;
+                  --v41;
                 }
 
-                while (v38);
-                if (sub_24613DEE0(v20, v43, a4, v52, 1, a21))
+                while (v41);
+                if (sub_24613DEE0(v23, v46, a4, v55, 1, a21))
                 {
                   return sub_2460EFF1C(a1, 1);
                 }
@@ -6322,7 +6311,7 @@ CVPixelBufferRef OCCoverageGuideCreateHeatmap(uint64_t a1, int32x4_t *a2, unsign
     }
   }
 
-  return v18;
+  return v21;
 }
 
 CVPixelBufferRef sub_2460EFF1C(uint64_t a1, int a2)
@@ -6388,122 +6377,122 @@ LABEL_10:
   return 0;
 }
 
-CVPixelBufferRef OCCoverageGuideCreateScoreMap(uint64_t a1, int32x4_t *a2, unsigned int a3, const void *a4, float32x4_t a5, float32x4_t a6, float32x4_t a7, int8x16_t a8, float a9, double a10, double a11, double a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, __int128 a17, __int128 a18, __int128 a19, __int128 a20, float a21)
+CVPixelBufferRef OCCoverageGuideCreateScoreMap(uint64_t a1, int32x4_t *a2, unsigned int a3, const void *a4, float32x4_t a5, float32x4_t a6, float32x4_t a7, int8x16_t a8, float a9, double a10, double a11, double a12, uint64_t x4_0, uint64_t a14, uint64_t x6_0, uint64_t a16, float32x4_t a13, float32x4_t a15, float32x4_t a17, float32x4_t a19, float a21)
 {
-  v52[0] = a17;
-  v52[1] = a18;
-  v52[2] = a19;
-  v52[3] = a20;
-  v18 = 0;
+  v55[0] = a13;
+  v55[1] = a15;
+  v55[2] = a17;
+  v55[3] = a19;
+  v21 = 0;
   if (a1)
   {
     if (a4)
     {
       if (a2)
       {
-        v20 = *(a1 + 48);
-        if (v20)
+        v23 = *(a1 + 48);
+        if (v23)
         {
           if (a9 <= 0.0)
           {
             return 0;
           }
 
-          v21 = *(MEMORY[0x277D860B0] + 16);
-          v22 = *(MEMORY[0x277D860B0] + 32);
-          v23 = vdupq_n_s32(0x38D1B717u);
-          v24 = vandq_s8(vandq_s8(vcgeq_f32(v23, vabdq_f32(vmlaq_lane_f32(vmlaq_lane_f32(vmulq_lane_f32(a5, *a5.f32, 1), a6, *a6.f32, 1), a7, *a7.f32, 1), v21)), vcgeq_f32(v23, vabdq_f32(vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(a5, a5.f32[0]), a6, a6.f32[0]), a7, a7.f32[0]), *MEMORY[0x277D860B0]))), vcgeq_f32(v23, vabdq_f32(vmlaq_laneq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(a5, a5, 2), a6, a6, 2), a7, a7, 2), v22)));
-          v24.i32[3] = v24.i32[2];
-          if ((vminvq_u32(v24) & 0x80000000) == 0)
+          v24 = *(MEMORY[0x277D860B0] + 16);
+          v25 = *(MEMORY[0x277D860B0] + 32);
+          v26 = vdupq_n_s32(0x38D1B717u);
+          v27 = vandq_s8(vandq_s8(vcgeq_f32(v26, vabdq_f32(vmlaq_lane_f32(vmlaq_lane_f32(vmulq_lane_f32(a5, *a5.f32, 1), a6, *a6.f32, 1), a7, *a7.f32, 1), v24)), vcgeq_f32(v26, vabdq_f32(vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(a5, a5.f32[0]), a6, a6.f32[0]), a7, a7.f32[0]), *MEMORY[0x277D860B0]))), vcgeq_f32(v26, vabdq_f32(vmlaq_laneq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(a5, a5, 2), a6, a6, 2), a7, a7, 2), v25)));
+          v27.i32[3] = v27.i32[2];
+          if ((vminvq_u32(v27) & 0x80000000) == 0)
           {
             return 0;
           }
 
-          v25 = vzip1q_s32(vzip2q_s32(a5, a7), vdupq_laneq_s32(a6, 2));
-          v26 = vtrn2q_s32(a5, a6);
-          v26.i32[2] = a7.i32[1];
-          v27 = vzip1q_s32(vzip1q_s32(a5, a7), a6);
-          v28 = vandq_s8(vandq_s8(vcgeq_f32(v23, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v27, a6.f32[0]), v26, *a6.f32, 1), v25, a6, 2), v21)), vcgeq_f32(v23, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v27, a5.f32[0]), v26, *a5.f32, 1), v25, a5, 2), *MEMORY[0x277D860B0]))), vcgeq_f32(v23, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v27, a7.f32[0]), v26, *a7.f32, 1), v25, a7, 2), v22)));
-          v28.i32[3] = v28.i32[2];
-          if ((vminvq_u32(v28) & 0x80000000) == 0)
+          v28 = vzip1q_s32(vzip2q_s32(a5, a7), vdupq_laneq_s32(a6, 2));
+          v29 = vtrn2q_s32(a5, a6);
+          v29.i32[2] = a7.i32[1];
+          v30 = vzip1q_s32(vzip1q_s32(a5, a7), a6);
+          v31 = vandq_s8(vandq_s8(vcgeq_f32(v26, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30, a6.f32[0]), v29, *a6.f32, 1), v28, a6, 2), v24)), vcgeq_f32(v26, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30, a5.f32[0]), v29, *a5.f32, 1), v28, a5, 2), *MEMORY[0x277D860B0]))), vcgeq_f32(v26, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30, a7.f32[0]), v29, *a7.f32, 1), v28, a7, 2), v25)));
+          v31.i32[3] = v31.i32[2];
+          if ((vminvq_u32(v31) & 0x80000000) == 0)
           {
             return 0;
           }
 
-          v30 = vmulq_f32(a5, vmlaq_f32(vmulq_f32(vextq_s8(vextq_s8(a7, a7, 0xCuLL), a7, 8uLL), vnegq_f32(vextq_s8(vuzp1q_s32(a6, a6), a6, 0xCuLL))), vextq_s8(vuzp1q_s32(a7, a7), a7, 0xCuLL), vextq_s8(vextq_s8(a6, a6, 0xCuLL), a6, 8uLL)));
-          v18 = 0;
-          if (fabsf((v30.f32[2] + vaddv_f32(*v30.f32)) + -1.0) <= 0.000011)
+          v33 = vmulq_f32(a5, vmlaq_f32(vmulq_f32(vextq_s8(vextq_s8(a7, a7, 0xCuLL), a7, 8uLL), vnegq_f32(vextq_s8(vuzp1q_s32(a6, a6), a6, 0xCuLL))), vextq_s8(vuzp1q_s32(a7, a7), a7, 0xCuLL), vextq_s8(vextq_s8(a6, a6, 0xCuLL), a6, 8uLL)));
+          v21 = 0;
+          if (fabsf((v33.f32[2] + vaddv_f32(*v33.f32)) + -1.0) <= 0.000011)
           {
-            v31 = vdup_n_s32(0x38D1B717u);
-            v32 = vand_s8(vcge_f32(v31, vabs_f32(vadd_f32(vzip2_s32(*&vextq_s8(a7, a7, 8uLL), *&vextq_s8(a8, a8, 8uLL)), 0xBF80000080000000))), vcge_f32(v31, vabs_f32(vzip2_s32(*&vextq_s8(a5, a5, 8uLL), *&vextq_s8(a6, a6, 8uLL)))));
-            if ((vpmin_u32(v32, v32).u32[0] & 0x80000000) != 0)
+            v34 = vdup_n_s32(0x38D1B717u);
+            v35 = vand_s8(vcge_f32(v34, vabs_f32(vadd_f32(vzip2_s32(*&vextq_s8(a7, a7, 8uLL), *&vextq_s8(a8, a8, 8uLL)), 0xBF80000080000000))), vcge_f32(v34, vabs_f32(vzip2_s32(*&vextq_s8(a5, a5, 8uLL), *&vextq_s8(a6, a6, 8uLL)))));
+            if ((vpmin_u32(v35, v35).u32[0] & 0x80000000) != 0)
             {
               if (a3)
               {
-                v50 = 0uLL;
+                v53 = 0uLL;
                 __asm { FMOV            V6.4S, #-1.0 }
 
-                v51 = _Q6;
-                v43[0] = a9;
-                v44 = a5;
-                v45 = a6;
-                v46 = a7;
-                v47 = a8;
-                v38 = a3;
-                v48 = a3;
-                v49 = a2;
+                v54 = _Q6;
+                v46[0] = a9;
+                v47 = a5;
+                v48 = a6;
+                v49 = a7;
+                v50 = a8;
+                v41 = a3;
+                v51 = a3;
+                v52 = a2;
                 do
                 {
-                  v39 = *a2;
-                  v41 = v50;
-                  v40 = v51;
-                  v42 = vcgtq_f32(v50, v51);
-                  v42.i32[3] = v42.i32[2];
-                  if ((vmaxvq_u32(v42) & 0x80000000) != 0)
+                  v42 = *a2;
+                  v44 = v53;
+                  v43 = v54;
+                  v45 = vcgtq_f32(v53, v54);
+                  v45.i32[3] = v45.i32[2];
+                  if ((vmaxvq_u32(v45) & 0x80000000) != 0)
                   {
-                    v50 = vcvtq_f32_s32(v39);
-                    v51 = v50;
+                    v53 = vcvtq_f32_s32(v42);
+                    v54 = v53;
                   }
 
                   else
                   {
-                    if (v50.f32[0] > v39.i32[0])
+                    if (v53.f32[0] > v42.i32[0])
                     {
-                      v50.f32[0] = v39.i32[0];
+                      v53.f32[0] = v42.i32[0];
                     }
 
-                    if (v51.f32[0] < v39.i32[0])
+                    if (v54.f32[0] < v42.i32[0])
                     {
-                      v51.f32[0] = v39.i32[0];
+                      v54.f32[0] = v42.i32[0];
                     }
 
-                    if (v41.f32[1] > v39.i32[1])
+                    if (v44.f32[1] > v42.i32[1])
                     {
-                      v50.f32[1] = v39.i32[1];
+                      v53.f32[1] = v42.i32[1];
                     }
 
-                    if (v40.f32[1] < v39.i32[1])
+                    if (v43.f32[1] < v42.i32[1])
                     {
-                      v51.f32[1] = v39.i32[1];
+                      v54.f32[1] = v42.i32[1];
                     }
 
-                    if (v41.f32[2] > v39.i32[2])
+                    if (v44.f32[2] > v42.i32[2])
                     {
-                      v50.f32[2] = v39.i32[2];
+                      v53.f32[2] = v42.i32[2];
                     }
 
-                    if (v40.f32[2] < v39.i32[2])
+                    if (v43.f32[2] < v42.i32[2])
                     {
-                      v51.f32[2] = v39.i32[2];
+                      v54.f32[2] = v42.i32[2];
                     }
                   }
 
                   a2 += 3;
-                  --v38;
+                  --v41;
                 }
 
-                while (v38);
-                if (sub_24613DEE0(v20, v43, a4, v52, 0, a21))
+                while (v41);
+                if (sub_24613DEE0(v23, v46, a4, v55, 0, a21))
                 {
                   return sub_2460EFF1C(a1, 0);
                 }
@@ -6517,7 +6506,7 @@ CVPixelBufferRef OCCoverageGuideCreateScoreMap(uint64_t a1, int32x4_t *a2, unsig
     }
   }
 
-  return v18;
+  return v21;
 }
 
 uint64_t OCCoverageGuideStop(uint64_t a1)
@@ -6692,7 +6681,7 @@ int8x8_t scalarToBGRA(float a1)
   return vbic_s8(vbsl_s8(vcgt_f32(*&v7.f64[0], *&_Q4.f64[0]), *&_Q4.f64[0], *&v7.f64[0]), vcltz_f32(*&v7.f64[0]));
 }
 
-uint64_t OCMultiviewGeometryCreate(uint64_t a1, uint64_t a2)
+uint64_t OCMultiviewGeometryCreate(uint64_t a1, uint64_t **a2)
 {
   result = 4294967294;
   if (a1)
@@ -7399,7 +7388,7 @@ uint64_t sub_2460F2658(uint64_t result)
   return result;
 }
 
-float sub_2460F2694(uint64_t a1, CVPixelBufferRef pixelBuffer, unint64_t a3, unint64_t a4, unint64_t a5, unint64_t a6)
+float sub_2460F2694(uint64_t a1, CVPixelBufferRef pixelBuffer, size_t a3, size_t a4, unint64_t a5, unint64_t a6)
 {
   WidthOfPlane = CVPixelBufferGetWidthOfPlane(pixelBuffer, 0);
   HeightOfPlane = CVPixelBufferGetHeightOfPlane(pixelBuffer, 0);
@@ -7660,7 +7649,7 @@ uint64_t OCRegistrationCreate(_DWORD *a1, void *a2)
   return result;
 }
 
-uint64_t OCRegistrationStart(uint64_t a1)
+uint64_t OCRegistrationStart(uint64_t a1, int8x16_t *a2, unsigned int a3)
 {
   if (a1)
   {
@@ -7766,7 +7755,7 @@ uint64_t OCRegistrationDestroy(uint64_t a1)
   return 0;
 }
 
-uint64_t OCRegistrationProcess(uint64_t a1, __n128 a2, __n128 a3, __n128 a4, __n128 a5, uint64_t a6, unint64_t a7, uint64_t *a8, uint64_t a9)
+uint64_t OCRegistrationProcess(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t *a4, _OWORD *a5, __n128 a6, __n128 a7, __n128 a8, __n128 a9)
 {
   if (!a1)
   {
@@ -7780,13 +7769,13 @@ uint64_t OCRegistrationProcess(uint64_t a1, __n128 a2, __n128 a3, __n128 a4, __n
   }
 
   result = 4294967294;
-  if (a8)
+  if (a4)
   {
-    if (a9)
+    if (a5)
     {
-      v12 = *a8;
-      v13 = a8[1];
-      *(v9 + 112) = *a8;
+      v12 = *a4;
+      v13 = a4[1];
+      *(v9 + 112) = *a4;
       *(v9 + 120) = v13;
       if ((v13 & 0x7FFFFFFF) <= 0x7F7FFFFF)
       {
@@ -7796,17 +7785,17 @@ uint64_t OCRegistrationProcess(uint64_t a1, __n128 a2, __n128 a3, __n128 a4, __n
           *(v9 + 112) = v12;
           *(v9 + 120) = v13;
           v15 = *(a1 + 8);
-          v15[3] = a2;
-          v15[4] = a3;
-          v15[5] = a4;
-          v15[6] = a5;
+          v15[3] = a6;
+          v15[4] = a7;
+          v15[5] = a8;
+          v15[6] = a9;
           v25 = 0u;
           v26 = 0u;
           v23 = 0u;
           v24 = 0u;
-          if (a7)
+          if (a3)
           {
-            if (a7 < 0x555555555555556)
+            if (a3 < 0x555555555555556)
             {
               operator new();
             }
@@ -8379,27 +8368,27 @@ void OCPointCloudRelease(CFTypeRef cf)
 
 uint64_t OCPointCloudCreateWithRGBAndPlaneClassification(unsigned int a1, float32x4_t *a2, uint64_t a3, __CVBuffer *a4, uint64_t a5, float32x4_t **a6, float a7, float32x4_t a8, float32x4_t a9, float32x4_t a10, int8x16_t a11, uint64_t a12, uint64_t a13, double a14, double a15, double a16, float32x4_t a17, float32x4_t a18, float32x4_t a19, float32x4_t a20, float a21)
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   if (a1
     && a2
     && a3
     && a4
     && a7 > 0.0
-    && (v21 = vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(a8, a8.f32[0]), a9, a9.f32[0]), a10, a10.f32[0]), v22 = vmlaq_lane_f32(vmlaq_lane_f32(vmulq_lane_f32(a8, *a8.f32, 1), a9, *a9.f32, 1), a10, *a10.f32, 1), v23 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(a8, a8, 2), a9, a9, 2), a10, a10, 2), v25 = *MEMORY[0x277D860B0], v24 = *(MEMORY[0x277D860B0] + 16), v26 = *(MEMORY[0x277D860B0] + 32), v27 = vdupq_n_s32(0x38D1B717u), v28 = vandq_s8(vandq_s8(vcgeq_f32(v27, vabdq_f32(v22, v24)), vcgeq_f32(v27, vabdq_f32(v21, *MEMORY[0x277D860B0]))), vcgeq_f32(v27, vabdq_f32(v23, v26))), v28.i32[3] = v28.i32[2], (vminvq_u32(v28) & 0x80000000) != 0)
-    && (v29 = vzip1q_s32(vzip2q_s32(a8, a10), vdupq_laneq_s32(a9, 2)), v30 = vtrn2q_s32(a8, a9), v30.i32[2] = a10.i32[1], v31 = vzip1q_s32(vzip1q_s32(a8, a10), a9), v32 = vandq_s8(vandq_s8(vcgeq_f32(v27, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v31, a9.f32[0]), v30, *a9.f32, 1), v29, a9, 2), v24)), vcgeq_f32(v27, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v31, a8.f32[0]), v30, *a8.f32, 1), v29, a8, 2), v25))), vcgeq_f32(v27, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v31, a10.f32[0]), v30, *a10.f32, 1), v29, a10, 2), v26))), v32.i32[3] = v32.i32[2], (vminvq_u32(v32) & 0x80000000) != 0)
-    && (v33 = vmulq_f32(a8, vmlaq_f32(vmulq_f32(vextq_s8(vextq_s8(a10, a10, 0xCuLL), a10, 8uLL), vnegq_f32(vextq_s8(vuzp1q_s32(a9, a9), a9, 0xCuLL))), vextq_s8(vuzp1q_s32(a10, a10), a10, 0xCuLL), vextq_s8(vextq_s8(a9, a9, 0xCuLL), a9, 8uLL))), fabsf((v33.f32[2] + vaddv_f32(*v33.f32)) + -1.0) <= 0.000011)
+    && (v24 = vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(a8, a8.f32[0]), a9, a9.f32[0]), a10, a10.f32[0]), v25 = vmlaq_lane_f32(vmlaq_lane_f32(vmulq_lane_f32(a8, *a8.f32, 1), a9, *a9.f32, 1), a10, *a10.f32, 1), v26 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(a8, a8, 2), a9, a9, 2), a10, a10, 2), v28 = *MEMORY[0x277D860B0], v27 = *(MEMORY[0x277D860B0] + 16), v29 = *(MEMORY[0x277D860B0] + 32), v30 = vdupq_n_s32(0x38D1B717u), v31 = vandq_s8(vandq_s8(vcgeq_f32(v30, vabdq_f32(v25, v27)), vcgeq_f32(v30, vabdq_f32(v24, *MEMORY[0x277D860B0]))), vcgeq_f32(v30, vabdq_f32(v26, v29))), v31.i32[3] = v31.i32[2], (vminvq_u32(v31) & 0x80000000) != 0)
+    && (v32 = vzip1q_s32(vzip2q_s32(a8, a10), vdupq_laneq_s32(a9, 2)), v33 = vtrn2q_s32(a8, a9), v33.i32[2] = a10.i32[1], v34 = vzip1q_s32(vzip1q_s32(a8, a10), a9), v35 = vandq_s8(vandq_s8(vcgeq_f32(v30, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v34, a9.f32[0]), v33, *a9.f32, 1), v32, a9, 2), v27)), vcgeq_f32(v30, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v34, a8.f32[0]), v33, *a8.f32, 1), v32, a8, 2), v28))), vcgeq_f32(v30, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v34, a10.f32[0]), v33, *a10.f32, 1), v32, a10, 2), v29))), v35.i32[3] = v35.i32[2], (vminvq_u32(v35) & 0x80000000) != 0)
+    && (v36 = vmulq_f32(a8, vmlaq_f32(vmulq_f32(vextq_s8(vextq_s8(a10, a10, 0xCuLL), a10, 8uLL), vnegq_f32(vextq_s8(vuzp1q_s32(a9, a9), a9, 0xCuLL))), vextq_s8(vuzp1q_s32(a10, a10), a10, 0xCuLL), vextq_s8(vextq_s8(a9, a9, 0xCuLL), a9, 8uLL))), fabsf((v36.f32[2] + vaddv_f32(*v36.f32)) + -1.0) <= 0.000011)
     && a5
-    && (v34 = vdup_n_s32(0x38D1B717u), v35 = vand_s8(vcge_f32(v34, vabs_f32(vadd_f32(vzip2_s32(*&vextq_s8(a10, a10, 8uLL), *&vextq_s8(a11, a11, 8uLL)), 0xBF80000080000000))), vcge_f32(v34, vabs_f32(vzip2_s32(*&vextq_s8(a8, a8, 8uLL), *&vextq_s8(a9, a9, 8uLL))))), (vpmin_u32(v35, v35).u32[0] & 0x80000000) != 0)
-    && (v36 = vdupq_n_s32(0x38D1B717u), v37 = vandq_s8(vandq_s8(vcgeq_f32(v36, vabdq_f32(vmlaq_lane_f32(vmlaq_lane_f32(vmulq_lane_f32(a17, *a17.f32, 1), a18, *a18.f32, 1), a19, *a19.f32, 1), v24)), vcgeq_f32(v36, vabdq_f32(vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(a17, a17.f32[0]), a18, a18.f32[0]), a19, a19.f32[0]), v25))), vcgeq_f32(v36, vabdq_f32(vmlaq_laneq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(a17, a17, 2), a18, a18, 2), a19, a19, 2), v26))), v37.i32[3] = v37.i32[2], (vminvq_u32(v37) & 0x80000000) != 0)
-    && (v38 = vzip1q_s32(vzip2q_s32(a17, a19), vdupq_laneq_s32(a18, 2)), v39 = vtrn2q_s32(a17, a18), v39.i32[2] = a19.i32[1], v40 = vzip1q_s32(vzip1q_s32(a17, a19), a18), v41 = vandq_s8(vandq_s8(vcgeq_f32(v36, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v40, a18.f32[0]), v39, *a18.f32, 1), v38, a18, 2), v24)), vcgeq_f32(v36, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v40, a17.f32[0]), v39, *a17.f32, 1), v38, a17, 2), v25))), vcgeq_f32(v36, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v40, a19.f32[0]), v39, *a19.f32, 1), v38, a19, 2), v26))), v41.i32[3] = v41.i32[2], (vminvq_u32(v41) & 0x80000000) != 0)
-    && (v42 = vmulq_f32(a17, vmlaq_f32(vmulq_f32(vextq_s8(vextq_s8(a19, a19, 0xCuLL), a19, 8uLL), vnegq_f32(vextq_s8(vuzp1q_s32(a18, a18), a18, 0xCuLL))), vextq_s8(vuzp1q_s32(a19, a19), a19, 0xCuLL), vextq_s8(vextq_s8(a18, a18, 0xCuLL), a18, 8uLL))), fabsf((v42.f32[2] + vaddv_f32(*v42.f32)) + -1.0) <= 0.000011)
+    && (v37 = vdup_n_s32(0x38D1B717u), v38 = vand_s8(vcge_f32(v37, vabs_f32(vadd_f32(vzip2_s32(*&vextq_s8(a10, a10, 8uLL), *&vextq_s8(a11, a11, 8uLL)), 0xBF80000080000000))), vcge_f32(v37, vabs_f32(vzip2_s32(*&vextq_s8(a8, a8, 8uLL), *&vextq_s8(a9, a9, 8uLL))))), (vpmin_u32(v38, v38).u32[0] & 0x80000000) != 0)
+    && (v39 = vdupq_n_s32(0x38D1B717u), v40 = vandq_s8(vandq_s8(vcgeq_f32(v39, vabdq_f32(vmlaq_lane_f32(vmlaq_lane_f32(vmulq_lane_f32(a17, *a17.f32, 1), a18, *a18.f32, 1), a19, *a19.f32, 1), v27)), vcgeq_f32(v39, vabdq_f32(vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(a17, a17.f32[0]), a18, a18.f32[0]), a19, a19.f32[0]), v28))), vcgeq_f32(v39, vabdq_f32(vmlaq_laneq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(a17, a17, 2), a18, a18, 2), a19, a19, 2), v29))), v40.i32[3] = v40.i32[2], (vminvq_u32(v40) & 0x80000000) != 0)
+    && (v41 = vzip1q_s32(vzip2q_s32(a17, a19), vdupq_laneq_s32(a18, 2)), v42 = vtrn2q_s32(a17, a18), v42.i32[2] = a19.i32[1], v43 = vzip1q_s32(vzip1q_s32(a17, a19), a18), v44 = vandq_s8(vandq_s8(vcgeq_f32(v39, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v43, a18.f32[0]), v42, *a18.f32, 1), v41, a18, 2), v27)), vcgeq_f32(v39, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v43, a17.f32[0]), v42, *a17.f32, 1), v41, a17, 2), v28))), vcgeq_f32(v39, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v43, a19.f32[0]), v42, *a19.f32, 1), v41, a19, 2), v29))), v44.i32[3] = v44.i32[2], (vminvq_u32(v44) & 0x80000000) != 0)
+    && (v45 = vmulq_f32(a17, vmlaq_f32(vmulq_f32(vextq_s8(vextq_s8(a19, a19, 0xCuLL), a19, 8uLL), vnegq_f32(vextq_s8(vuzp1q_s32(a18, a18), a18, 0xCuLL))), vextq_s8(vuzp1q_s32(a19, a19), a19, 0xCuLL), vextq_s8(vextq_s8(a18, a18, 0xCuLL), a18, 8uLL))), fabsf((v45.f32[2] + vaddv_f32(*v45.f32)) + -1.0) <= 0.000011)
     && a6
     && a21 >= 0.0
-    && (v45 = vdup_n_s32(0x38D1B717u), v46 = vand_s8(vcge_f32(v45, vabs_f32(vadd_f32(vzip2_s32(*&vextq_s8(a19, a19, 8uLL), *&vextq_s8(a20, a20, 8uLL)), 0xBF80000080000000))), vcge_f32(v45, vabs_f32(vzip2_s32(*&vextq_s8(a17, a17, 8uLL), *&vextq_s8(a18, a18, 8uLL))))), (vpmin_u32(v46, v46).u32[0] & 0x80000000) != 0))
+    && (v48 = vdup_n_s32(0x38D1B717u), v49 = vand_s8(vcge_f32(v48, vabs_f32(vadd_f32(vzip2_s32(*&vextq_s8(a19, a19, 8uLL), *&vextq_s8(a20, a20, 8uLL)), 0xBF80000080000000))), vcge_f32(v48, vabs_f32(vzip2_s32(*&vextq_s8(a17, a17, 8uLL), *&vextq_s8(a18, a18, 8uLL))))), (vpmin_u32(v49, v49).u32[0] & 0x80000000) != 0))
   {
-    v76 = a8;
-    v77 = a9;
-    v79 = a11;
+    v79 = a8;
+    v80 = a9;
+    v82 = a11;
     kdebug_trace();
     if (qword_27EE3F4C8 != -1)
     {
@@ -8409,15 +8398,15 @@ uint64_t OCPointCloudCreateWithRGBAndPlaneClassification(unsigned int a1, float3
     Instance = _CFRuntimeCreateInstance();
     if (Instance)
     {
-      v54 = a1;
-      v82 = &Instance[6];
+      v57 = a1;
+      v85 = &Instance[6];
       if (0xAAAAAAAAAAAAAAABLL * ((Instance[7].i64[0] - Instance[6].i64[0]) >> 4) < a1)
       {
         operator new();
       }
 
-      v80 = Instance;
-      v81 = &Instance[7].i64[1];
+      v83 = Instance;
+      v84 = &Instance[7].i64[1];
       if (0xCCCCCCCCCCCCCCCDLL * ((Instance[8].i64[1] - Instance[7].i64[1]) >> 2) < a1)
       {
         operator new();
@@ -8428,99 +8417,99 @@ uint64_t OCPointCloudCreateWithRGBAndPlaneClassification(unsigned int a1, float3
         operator new();
       }
 
-      v56 = a6;
-      v57 = a7;
-      v58 = a4;
-      v59 = a2;
-      v60 = a3;
-      v61 = *(a5 + 48);
-      v62 = *(a5 + 16);
-      v63 = *(a5 + 32);
-      v64 = vmlaq_f32(vmlaq_f32(vaddq_f32(v62, vmulq_f32(*a5, 0)), 0, v63), 0, v61);
-      v65 = vmulq_f32(v64, vaddq_f32(v61, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(*a5, COERCE_FLOAT(*(a5 + 64))), v62, *(a5 + 64), 1), v63, *(a5 + 64), 2)));
-      v64.f32[3] = v65.f32[2] + vaddv_f32(*v65.f32);
-      v85 = v64;
-      v66 = (v60 + 8);
+      v59 = a6;
+      v60 = a7;
+      v61 = a4;
+      v62 = a2;
+      v63 = a3;
+      v64 = *(a5 + 48);
+      v65 = *(a5 + 16);
+      v66 = *(a5 + 32);
+      v67 = vmlaq_f32(vmlaq_f32(vaddq_f32(v65, vmulq_f32(*a5, 0)), 0, v66), 0, v64);
+      v68 = vmulq_f32(v67, vaddq_f32(v64, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(*a5, COERCE_FLOAT(*(a5 + 64))), v65, *(a5 + 64), 1), v66, *(a5 + 64), 2)));
+      v67.f32[3] = v68.f32[2] + vaddv_f32(*v68.f32);
+      v88 = v67;
+      v69 = (v63 + 8);
       do
       {
-        LODWORD(v52) = llround(*(v66 - 1));
-        if ((v52 & 0x80000000) == 0)
+        LODWORD(v55) = llround(*(v69 - 1));
+        if ((v55 & 0x80000000) == 0)
         {
-          LODWORD(v53) = llround(*v66);
-          if ((v53 & 0x80000000) == 0)
+          LODWORD(v56) = llround(*v69);
+          if ((v56 & 0x80000000) == 0)
           {
-            v67 = v59;
-            v87 = *v59;
-            sub_24610D3B0(&v91, v58, v52, v53);
-            if (v92)
+            v70 = v62;
+            v90 = *v62;
+            sub_24610D3B0(&v94, v61, v55, v56);
+            if (v95)
             {
-              v68 = v87;
-              v68.i32[3] = 1.0;
-              v69 = vmulq_f32(v87, v87);
-              *&v70 = v69.f32[2] + vaddv_f32(*v69.f32);
-              *v69.f32 = vrsqrte_f32(v70);
-              *v69.f32 = vmul_f32(*v69.f32, vrsqrts_f32(v70, vmul_f32(*v69.f32, *v69.f32)));
-              v71 = vmulq_n_f32(vnegq_f32(v87), vmul_f32(*v69.f32, vrsqrts_f32(v70, vmul_f32(*v69.f32, *v69.f32))).f32[0]);
-              v71.i32[3] = 0;
-              v72 = v91;
-              HIDWORD(v72) = 1.0;
-              *buf = v68;
-              *&buf[16] = v71;
-              v89 = v72;
-              v90 = 1;
-              sub_2460F52EC(v82, buf);
-              v73 = vaddq_f32(a20, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a17, v87.f32[0]), a18, *v87.f32, 1), a19, v87, 2));
-              v73.i32[3] = -1.0;
-              v74 = vmulq_f32(v85, v73);
-              v91 = xmmword_246140048;
-              v92 = 0;
-              BYTE8(v91) = vaddv_f32(vadd_f32(*v74.i8, *&vextq_s8(v74, v74, 8uLL))) >= a21;
-              sub_2460F48CC(v81, &v91);
+              v71 = v90;
+              v71.i32[3] = 1.0;
+              v72 = vmulq_f32(v90, v90);
+              *&v73 = v72.f32[2] + vaddv_f32(*v72.f32);
+              *v72.f32 = vrsqrte_f32(v73);
+              *v72.f32 = vmul_f32(*v72.f32, vrsqrts_f32(v73, vmul_f32(*v72.f32, *v72.f32)));
+              v74 = vmulq_n_f32(vnegq_f32(v90), vmul_f32(*v72.f32, vrsqrts_f32(v73, vmul_f32(*v72.f32, *v72.f32))).f32[0]);
+              v74.i32[3] = 0;
+              v75 = v94;
+              HIDWORD(v75) = 1.0;
+              *buf = v71;
+              *&buf[16] = v74;
+              v92 = v75;
+              v93 = 1;
+              sub_2460F52EC(v85, buf);
+              v76 = vaddq_f32(a20, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a17, v90.f32[0]), a18, *v90.f32, 1), a19, v90, 2));
+              v76.i32[3] = -1.0;
+              v77 = vmulq_f32(v88, v76);
+              v94 = xmmword_246140048;
+              v95 = 0;
+              BYTE8(v94) = vaddv_f32(vadd_f32(*v77.i8, *&vextq_s8(v77, v77, 8uLL))) >= a21;
+              sub_2460F48CC(v84, &v94);
             }
 
-            v56 = a6;
-            v57 = a7;
-            v58 = a4;
-            v59 = v67;
+            v59 = a6;
+            v60 = a7;
+            v61 = a4;
+            v62 = v70;
           }
         }
 
-        v66 += 2;
-        ++v59;
-        --v54;
+        v69 += 2;
+        ++v62;
+        --v57;
       }
 
-      while (v54);
-      if (v80[6].i64[0] == v80[6].i64[1])
+      while (v57);
+      if (v83[6].i64[0] == v83[6].i64[1])
       {
         if (qword_27EE3F4B8 != -1)
         {
           dispatch_once(&qword_27EE3F4B8, &unk_2858EBBB8);
         }
 
-        v75 = qword_27EE3F4B0;
+        v78 = qword_27EE3F4B0;
         if (os_log_type_enabled(qword_27EE3F4B0, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
           *&buf[4] = "OCPointCloudCreateWithRGBAndPlaneClassification";
           *&buf[12] = 1026;
           *&buf[14] = 534;
-          _os_log_error_impl(&dword_2460CF000, v75, OS_LOG_TYPE_ERROR, "%s:%{public}d Failed to create pointcloud - no points above plane with valid pixel coords.", buf, 0x12u);
+          _os_log_error_impl(&dword_2460CF000, v78, OS_LOG_TYPE_ERROR, "%s:%{public}d Failed to create pointcloud - no points above plane with valid pixel coords.", buf, 0x12u);
         }
 
-        CFRelease(v80);
+        CFRelease(v83);
         kdebug_trace();
         return 0xFFFFFFFFLL;
       }
 
       else
       {
-        v80[1].f32[0] = v57;
-        v80[2] = v76;
-        v80[3] = v77;
-        v80[4] = a10;
-        v80[5] = v79;
-        *v56 = v80;
+        v83[1].f32[0] = v60;
+        v83[2] = v79;
+        v83[3] = v80;
+        v83[4] = a10;
+        v83[5] = v82;
+        *v59 = v83;
         kdebug_trace();
         return 0;
       }
@@ -8533,14 +8522,14 @@ uint64_t OCPointCloudCreateWithRGBAndPlaneClassification(unsigned int a1, float3
         dispatch_once(&qword_27EE3F4B8, &unk_2858EBBB8);
       }
 
-      v55 = qword_27EE3F4B0;
+      v58 = qword_27EE3F4B0;
       if (os_log_type_enabled(qword_27EE3F4B0, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
         *&buf[4] = "OCPointCloudCreateWithRGBAndPlaneClassification";
         *&buf[12] = 1026;
         *&buf[14] = 513;
-        _os_log_error_impl(&dword_2460CF000, v55, OS_LOG_TYPE_ERROR, "%s:%{public}d Failed to create pointcloud - insufficient memory.", buf, 0x12u);
+        _os_log_error_impl(&dword_2460CF000, v58, OS_LOG_TYPE_ERROR, "%s:%{public}d Failed to create pointcloud - insufficient memory.", buf, 0x12u);
       }
 
       kdebug_trace();
@@ -8555,14 +8544,14 @@ uint64_t OCPointCloudCreateWithRGBAndPlaneClassification(unsigned int a1, float3
       dispatch_once(&qword_27EE3F4B8, &unk_2858EBBB8);
     }
 
-    v43 = qword_27EE3F4B0;
+    v46 = qword_27EE3F4B0;
     if (os_log_type_enabled(qword_27EE3F4B0, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "OCPointCloudCreateWithRGBAndPlaneClassification";
       *&buf[12] = 1026;
       *&buf[14] = 503;
-      _os_log_error_impl(&dword_2460CF000, v43, OS_LOG_TYPE_ERROR, "%s:%{public}d Failed to create pointcloud - invalid arguments.", buf, 0x12u);
+      _os_log_error_impl(&dword_2460CF000, v46, OS_LOG_TYPE_ERROR, "%s:%{public}d Failed to create pointcloud - invalid arguments.", buf, 0x12u);
     }
 
     return 4294967294;

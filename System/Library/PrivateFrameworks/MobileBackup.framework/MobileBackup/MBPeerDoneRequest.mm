@@ -38,7 +38,7 @@
         _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to archive error %@: %@", buf, 0x16u);
 
         error4 = [(MBPeerDoneRequest *)self error];
-        _MBLog();
+        _MBLog(@"E ", "Failed to archive error %@: %@", error4, v6);
       }
 
       v7 = &__NSDictionary0__struct;
@@ -99,7 +99,7 @@
           v20 = 2112;
           v21 = v10;
           _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to unarchive error data %@: %@", buf, 0x16u);
-          _MBLog();
+          _MBLog(@"E ", "Failed to unarchive error data %@: %@", v8, v10);
         }
 
         if (error)

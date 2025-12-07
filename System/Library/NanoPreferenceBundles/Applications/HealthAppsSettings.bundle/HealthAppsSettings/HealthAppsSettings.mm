@@ -77,9 +77,9 @@ LABEL_16:
 LABEL_18:
 }
 
-void sub_3208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_3208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -111,29 +111,25 @@ void sub_3970(uint64_t a1, char a2, void *a3)
     {
       v7 = *(a1 + 64);
       *buf = 134217984;
-      v23 = v7;
+      v19 = v7;
       _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "HPRFHealthAppsSettingsController saved new move mode: %ld", buf, 0xCu);
     }
 
     *(*(a1 + 32) + 168) = [*(a1 + 40) integerValue];
     *(*(a1 + 32) + 161) = 1;
     v8 = [*(a1 + 48) objectAtIndexedSubscript:0];
-    v9 = *(a1 + 64);
-    v10 = FIDefaultExerciseGoalQuantityForActivityMoveMode();
-    v11 = *(a1 + 64);
-    v12 = FIDefaultStandGoalQuantityForActivityMoveMode();
-    v13 = *(a1 + 32);
-    v14 = *(v13 + 144);
-    v15 = *(a1 + 56);
-    v16 = *(a1 + 64);
-    v18[5] = _NSConcreteStackBlock;
-    v18[6] = 3221225472;
-    v18[7] = sub_3BC4;
-    v18[8] = &unk_84C0;
-    v20 = v13;
-    v21 = v16;
-    v19 = v8;
-    v17 = v8;
+    v9 = FIDefaultExerciseGoalQuantityForActivityMoveMode();
+    v10 = FIDefaultStandGoalQuantityForActivityMoveMode();
+    v11 = *(a1 + 32);
+    v12 = *(a1 + 64);
+    v14[5] = _NSConcreteStackBlock;
+    v14[6] = 3221225472;
+    v14[7] = sub_3BC4;
+    v14[8] = &unk_84C0;
+    v16 = v11;
+    v17 = v12;
+    v15 = v8;
+    v13 = v8;
     FISaveGoalsForNewActivityMoveMode();
   }
 
@@ -142,12 +138,12 @@ void sub_3970(uint64_t a1, char a2, void *a3)
     sub_4534();
   }
 
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_3CDC;
-  v18[3] = &unk_84E8;
-  v18[4] = *(a1 + 32);
-  dispatch_async(&_dispatch_main_q, v18);
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_3CDC;
+  v14[3] = &unk_84E8;
+  v14[4] = *(a1 + 32);
+  dispatch_async(&_dispatch_main_q, v14);
 }
 
 void sub_3BC4(void *a1, char a2, void *a3)
@@ -161,11 +157,11 @@ void sub_3BC4(void *a1, char a2, void *a3)
     {
       v7 = a1[4];
       v8 = a1[6];
-      v12 = 138412546;
-      v13 = v7;
-      v14 = 2048;
-      v15 = v8;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "HPRFHealthAppsSettingsController saved new move goal: %@ with move mode: %ld default exercise/stand goals.", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = v7;
+      v13 = 2048;
+      v14 = v8;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "HPRFHealthAppsSettingsController saved new move goal: %@ with move mode: %ld default exercise/stand goals.", &v11, 0x16u);
     }
 
     active = FIIsActivePairedDeviceSatellitePaired();
@@ -180,7 +176,6 @@ void sub_3BC4(void *a1, char a2, void *a3)
       [v10 _triggerNanoSync];
     }
 
-    v11 = a1[6];
     FIActivityMoveModeAnalyticsSendActivityMoveModeSwitchedInSettings();
   }
 
@@ -237,8 +232,9 @@ void sub_42D0(id a1)
   _objc_release_x1();
 }
 
-void sub_4374(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_4374(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }

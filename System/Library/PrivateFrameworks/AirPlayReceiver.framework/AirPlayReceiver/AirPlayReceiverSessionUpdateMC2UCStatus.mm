@@ -14,7 +14,7 @@ void ___AirPlayReceiverSessionUpdateMC2UCStatus_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = AirPlayReceiverSessionSendCommandForObject(*(a1 + 40), 0, Mutable, 0, 0);
   if (*(*(*(a1 + 32) + 8) + 24) && gLogCategory_AirPlayReceiverCore <= 50 && (gLogCategory_AirPlayReceiverCore != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverCore, "OSStatus _AirPlayReceiverSessionUpdateMC2UCStatus(CFTypeRef, uint32_t, MC2UCFeatureStatus, int, sa_family_t)_block_invoke", 33554482, "Failed to send MC2UC detection status feedback");
   }
 
   if (!*(*(*(a1 + 32) + 8) + 24))

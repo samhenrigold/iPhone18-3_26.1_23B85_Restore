@@ -290,7 +290,7 @@ LABEL_25:
       if (v38)
       {
         v28 = v38;
-        v39 = VUIDefaultLogObject();
+        v39 = VUIDefaultLogObject(v38);
         if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;

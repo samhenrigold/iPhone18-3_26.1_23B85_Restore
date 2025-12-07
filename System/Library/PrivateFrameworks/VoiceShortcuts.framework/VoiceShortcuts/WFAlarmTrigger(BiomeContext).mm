@@ -32,15 +32,15 @@
 
 - (void)shouldFireInResponseToEvent:()BiomeContext triggerIdentifier:completion:
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v7 = a5;
   v8 = a3;
   v9 = getWFTriggersLogObject();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 136315138;
-    v25 = "[WFAlarmTrigger(BiomeContext) shouldFireInResponseToEvent:triggerIdentifier:completion:]";
-    _os_log_impl(&dword_23103C000, v9, OS_LOG_TYPE_DEFAULT, "%s Recieved alarm event", &v24, 0xCu);
+    v23 = 136315138;
+    v24 = "[WFAlarmTrigger(BiomeContext) shouldFireInResponseToEvent:triggerIdentifier:completion:]";
+    _os_log_impl(&dword_23103C000, v9, OS_LOG_TYPE_DEFAULT, "%s Recieved alarm event", &v23, 0xCu);
   }
 
   eventBody = [v8 eventBody];
@@ -50,11 +50,11 @@
     v11 = getWFTriggersLogObject();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 136315394;
-      v25 = "[WFAlarmTrigger(BiomeContext) shouldFireInResponseToEvent:triggerIdentifier:completion:]";
-      v26 = 2112;
-      v27 = eventBody;
-      _os_log_impl(&dword_23103C000, v11, OS_LOG_TYPE_DEFAULT, "%s Received alarm event %@ for trigger", &v24, 0x16u);
+      v23 = 136315394;
+      v24 = "[WFAlarmTrigger(BiomeContext) shouldFireInResponseToEvent:triggerIdentifier:completion:]";
+      v25 = 2112;
+      v26 = eventBody;
+      _os_log_impl(&dword_23103C000, v11, OS_LOG_TYPE_DEFAULT, "%s Received alarm event %@ for trigger", &v23, 0x16u);
     }
 
     alarmType = [self alarmType];
@@ -64,46 +64,46 @@
         if ([eventBody isSleepAlarm])
         {
           eventType = [eventBody eventType];
-          v22 = eventType == [self alarmEventForCurrentAlarmState];
+          v21 = eventType == [self alarmEventForCurrentAlarmState];
         }
 
         else
         {
-          v22 = 0;
+          v21 = 0;
         }
 
-        v7[2](v7, v22);
+        v7[2](v7, v21);
         break;
       case 1:
-        v15 = objc_alloc(MEMORY[0x277CCAD78]);
+        v14 = objc_alloc(MEMORY[0x277CCAD78]);
         alarmID = [eventBody alarmID];
-        v17 = [v15 initWithUUIDString:alarmID];
+        v16 = [v14 initWithUUIDString:alarmID];
 
-        if (v17)
+        if (v16)
         {
           alarmIDs = [self alarmIDs];
-          if ([alarmIDs containsObject:v17])
+          if ([alarmIDs containsObject:v16])
           {
             eventType2 = [eventBody eventType];
-            v20 = eventType2 == [self alarmEventForCurrentAlarmState];
+            v19 = eventType2 == [self alarmEventForCurrentAlarmState];
           }
 
           else
           {
-            v20 = 0;
+            v19 = 0;
           }
 
-          v7[2](v7, v20);
+          v7[2](v7, v19);
         }
 
         else
         {
-          v23 = getWFTriggersLogObject();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v22 = getWFTriggersLogObject();
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
-            v24 = 136315138;
-            v25 = "[WFAlarmTrigger(BiomeContext) shouldFireInResponseToEvent:triggerIdentifier:completion:]";
-            _os_log_impl(&dword_23103C000, v23, OS_LOG_TYPE_ERROR, "%s Alarm event alarmID string was not valid UUID", &v24, 0xCu);
+            v23 = 136315138;
+            v24 = "[WFAlarmTrigger(BiomeContext) shouldFireInResponseToEvent:triggerIdentifier:completion:]";
+            _os_log_impl(&dword_23103C000, v22, OS_LOG_TYPE_ERROR, "%s Alarm event alarmID string was not valid UUID", &v23, 0xCu);
           }
 
           v7[2](v7, 0);
@@ -122,16 +122,14 @@
     v13 = getWFTriggersLogObject();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 136315138;
-      v25 = "[WFAlarmTrigger(BiomeContext) shouldFireInResponseToEvent:triggerIdentifier:completion:]";
-      _os_log_impl(&dword_23103C000, v13, OS_LOG_TYPE_DEFAULT, "%s No Alarm event received for trigger; not firing.", &v24, 0xCu);
+      v23 = 136315138;
+      v24 = "[WFAlarmTrigger(BiomeContext) shouldFireInResponseToEvent:triggerIdentifier:completion:]";
+      _os_log_impl(&dword_23103C000, v13, OS_LOG_TYPE_DEFAULT, "%s No Alarm event received for trigger; not firing.", &v23, 0xCu);
     }
 
     v7[2](v7, 0);
     eventBody = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)publisherWithScheduler:()BiomeContext

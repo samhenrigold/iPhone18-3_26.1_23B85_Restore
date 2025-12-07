@@ -1,7968 +1,3 @@
-uint64_t pkey_size_gost01(uint64_t a1)
-{
-  if (GOST_KEY_get_digest(*(a1 + 32)) == 942)
-  {
-    return 128;
-  }
-
-  else
-  {
-    return 64;
-  }
-}
-
-uint64_t pkey_bits_gost01(uint64_t a1)
-{
-  if (GOST_KEY_get_digest(*(a1 + 32)) == 942)
-  {
-    return 512;
-  }
-
-  else
-  {
-    return 256;
-  }
-}
-
-uint64_t param_decode_gost01(EVP_PKEY *a1, const unsigned __int8 **a2, int a3)
-{
-  a = 0;
-  if (**a2 != 48)
-  {
-    if (d2i_ASN1_OBJECT(&a, a2, a3))
-    {
-      v5 = OBJ_obj2nid(a);
-      ASN1_OBJECT_free(a);
-      v6 = GOST_KEY_new();
-      if (v6)
-      {
-        v7 = v6;
-        v8 = EC_GROUP_new_by_curve_name(v5);
-        if (v8)
-        {
-          v9 = v8;
-          EC_GROUP_set_asn1_flag(v8, 1);
-          if (!GOST_KEY_set_group(v7, v9))
-          {
-            ERR_put_error(50, 4095, 16, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/gost/gostr341001_ameth.c", 558);
-            EC_GROUP_free(v9);
-LABEL_19:
-            GOST_KEY_free(v7);
-            return 0;
-          }
-
-          EC_GROUP_free(v9);
-          if (GOST_KEY_set_digest(v7, 822))
-          {
-            result = EVP_PKEY_assign(a1, 811, v7);
-            if (result)
-            {
-              return result;
-            }
-
-            goto LABEL_19;
-          }
-
-          v11 = 100;
-          v12 = 566;
-        }
-
-        else
-        {
-          v11 = 119;
-          v12 = 551;
-        }
-
-        ERR_put_error(50, 4095, v11, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/gost/gostr341001_ameth.c", v12);
-        goto LABEL_19;
-      }
-
-      v10 = 546;
-    }
-
-    else
-    {
-      v10 = 538;
-    }
-
-    ERR_put_error(50, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/gost/gostr341001_ameth.c", v10);
-    return 0;
-  }
-
-  return decode_gost01_algor_params(a1, a2, a3);
-}
-
-uint64_t param_encode_gost01(uint64_t a1, void **a2)
-{
-  v3 = encode_gost01_algor_params(a1);
-  if (!v3)
-  {
-    return 0;
-  }
-
-  v4 = v3;
-  length = v3->length;
-  if (a2)
-  {
-    memcpy(*a2, v3->data, length);
-  }
-
-  ASN1_STRING_free(v4);
-  return length;
-}
-
-uint64_t param_copy_gost01(EVP_PKEY *a1, uint64_t a2)
-{
-  attributes = a1->attributes;
-  v5 = *(a2 + 32);
-  v6 = EVP_PKEY_base_id(a2);
-  if (v6 != EVP_PKEY_base_id(&a1->type))
-  {
-    v10 = 110;
-    v11 = 598;
-LABEL_10:
-    ERR_put_error(50, 4095, v10, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/gost/gostr341001_ameth.c", v11);
-    return 0;
-  }
-
-  if (!v5)
-  {
-    v10 = 113;
-    v11 = 602;
-    goto LABEL_10;
-  }
-
-  if (attributes)
-  {
-    goto LABEL_4;
-  }
-
-  v12 = GOST_KEY_new();
-  if (!v12)
-  {
-    v10 = 65;
-    v11 = 608;
-    goto LABEL_10;
-  }
-
-  attributes = v12;
-  v13 = EVP_PKEY_base_id(a2);
-  if (!EVP_PKEY_assign(a1, v13, attributes))
-  {
-    GOST_KEY_free(attributes);
-    return 0;
-  }
-
-LABEL_4:
-  v7 = GOST_KEY_get0_group(v5);
-  GOST_KEY_set_group(attributes, v7);
-  digest = GOST_KEY_get_digest(v5);
-  GOST_KEY_set_digest(attributes, digest);
-  if (!GOST_KEY_get0_private_key(attributes))
-  {
-    return 1;
-  }
-
-  return gost2001_compute_public(attributes);
-}
-
-BOOL param_cmp_gost01(uint64_t a1, uint64_t a2)
-{
-  v4 = GOST_KEY_get0_group(*(a1 + 32));
-  curve_name = EC_GROUP_get_curve_name(v4);
-  v6 = GOST_KEY_get0_group(*(a2 + 32));
-  if (curve_name != EC_GROUP_get_curve_name(v6))
-  {
-    return 0;
-  }
-
-  digest = GOST_KEY_get_digest(*(a1 + 32));
-  return digest == GOST_KEY_get_digest(*(a2 + 32));
-}
-
-uint64_t param_print_gost01(BIO *a1, uint64_t a2, int a3)
-{
-  v6 = GOST_KEY_get0_group(*(a2 + 32));
-  curve_name = EC_GROUP_get_curve_name(v6);
-  result = BIO_indent(a1, a3, 128);
-  if (result)
-  {
-    v9 = OBJ_nid2ln(curve_name);
-    BIO_printf(a1, "Parameter set: %s\n", v9);
-    result = BIO_indent(a1, a3, 128);
-    if (result)
-    {
-      digest = GOST_KEY_get_digest(*(a2 + 32));
-      v11 = OBJ_nid2ln(digest);
-      BIO_printf(a1, "Digest Algorithm: %s\n", v11);
-      return 1;
-    }
-  }
-
-  return result;
-}
-
-uint64_t pkey_ctrl_gost01(uint64_t a1, int a2, uint64_t a3, void *a4)
-{
-  v23 = 0;
-  v24 = 0;
-  v22 = 0;
-  digest = GOST_KEY_get_digest(*(a1 + 32));
-  v9 = digest;
-  switch(a2)
-  {
-    case 3:
-      *a4 = GostR3410_get_md_digest(digest);
-      return 2;
-    case 2:
-      if (!a3)
-      {
-        PKCS7_RECIP_INFO_get0_alg(a4, &v22);
-      }
-
-      break;
-    case 1:
-      if (!a3)
-      {
-        PKCS7_SIGNER_INFO_get0_algs(a4, 0, &v24, &v23);
-        v10 = v24;
-        if (v24)
-        {
-          md_digest = GostR3410_get_md_digest(v9);
-          v12 = OBJ_nid2obj(md_digest);
-          X509_ALGOR_set0(v10, v12, 5, 0);
-        }
-      }
-
-      break;
-    default:
-      return 4294967294;
-  }
-
-  v13 = v23;
-  if (v23)
-  {
-    pk_digest = GostR3410_get_pk_digest(v9);
-    v15 = OBJ_nid2obj(pk_digest);
-    X509_ALGOR_set0(v13, v15, 5, 0);
-  }
-
-  if (!v22)
-  {
-    return 1;
-  }
-
-  v16 = encode_gost01_algor_params(a1);
-  if (v16)
-  {
-    v17 = v16;
-    v18 = v22;
-    v19 = GostR3410_get_pk_digest(v9);
-    v20 = OBJ_nid2obj(v19);
-    X509_ALGOR_set0(v18, v20, 16, v17);
-    return 1;
-  }
-
-  return 0xFFFFFFFFLL;
-}
-
-uint64_t decode_gost01_algor_params(EVP_PKEY *a1, const unsigned __int8 **a2, int a3)
-{
-  v4 = d2i_GOST_KEY_PARAMS(0, a2, a3);
-  if (!v4)
-  {
-    v13 = 105;
-    v14 = 90;
-    goto LABEL_12;
-  }
-
-  v5 = v4;
-  v6 = OBJ_obj2nid(*v4);
-  v7 = OBJ_obj2nid(v5[1]);
-  GOST_KEY_PARAMS_free(v5);
-  attributes = a1->attributes;
-  if (attributes)
-  {
-    goto LABEL_3;
-  }
-
-  v15 = GOST_KEY_new();
-  if (!v15)
-  {
-    v13 = 65;
-    v14 = 101;
-    goto LABEL_12;
-  }
-
-  attributes = v15;
-  result = EVP_PKEY_assign(a1, 811, v15);
-  if (result)
-  {
-LABEL_3:
-    v9 = EC_GROUP_new_by_curve_name(v6);
-    if (v9)
-    {
-      v10 = v9;
-      EC_GROUP_set_asn1_flag(v9, 1);
-      v11 = GOST_KEY_set_group(attributes, v10);
-      EC_GROUP_free(v10);
-      if (v11)
-      {
-        return GOST_KEY_set_digest(attributes, v7) != 0;
-      }
-
-      return 0;
-    }
-
-    v13 = 119;
-    v14 = 110;
-LABEL_12:
-    ERR_put_error(50, 4095, v13, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/gost/gostr341001_ameth.c", v14);
-    return 0;
-  }
-
-  return result;
-}
-
-ASN1_STRING *encode_gost01_algor_params(uint64_t a1)
-{
-  v2 = ASN1_STRING_new();
-  v3 = GOST_KEY_PARAMS_new();
-  v4 = v3;
-  if (!v2 || !v3)
-  {
-    v9 = 132;
-LABEL_7:
-    ERR_put_error(50, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/gost/gostr341001_ameth.c", v9);
-    ASN1_STRING_free(v2);
-    v2 = 0;
-    goto LABEL_8;
-  }
-
-  v5 = GOST_KEY_get0_group(*(a1 + 32));
-  curve_name = EC_GROUP_get_curve_name(v5);
-  *v4 = OBJ_nid2obj(curve_name);
-  digest = GOST_KEY_get_digest(*(a1 + 32));
-  *(v4 + 1) = OBJ_nid2obj(digest);
-  v8 = i2d_GOST_KEY_PARAMS(v4, &v2->data);
-  v2->length = v8;
-  if (v8 <= 0)
-  {
-    v9 = 145;
-    goto LABEL_7;
-  }
-
-  v2->type = 16;
-LABEL_8:
-  GOST_KEY_PARAMS_free(v4);
-  return v2;
-}
-
-int PEM_def_callback(char *buf, int num, int w, void *key)
-{
-  if (num < 0)
-  {
-    goto LABEL_15;
-  }
-
-  LODWORD(v5) = num;
-  if (key)
-  {
-    v7 = strlen(key);
-    if (v7 >= v5)
-    {
-      v5 = v5;
-    }
-
-    else
-    {
-      v5 = v7;
-    }
-
-    memcpy(buf, key, v5);
-    return v5;
-  }
-
-  pw_prompt = EVP_get_pw_prompt();
-  if (pw_prompt)
-  {
-    v10 = pw_prompt;
-  }
-
-  else
-  {
-    v10 = "Enter PEM pass phrase:";
-  }
-
-  if (EVP_read_pw_string_min(buf, 4, v5, v10, w))
-  {
-LABEL_14:
-    ERR_put_error(9, 4095, 109, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/pem/pem_lib.c", 116);
-    bzero(buf, v5);
-LABEL_15:
-    LODWORD(v5) = -1;
-    return v5;
-  }
-
-  v11 = MEMORY[0x277D85DF8];
-  while (1)
-  {
-    v12 = strlen(buf);
-    if (v12 > 3)
-    {
-      break;
-    }
-
-    fprintf(*v11, "phrase is too short, needs to be at least %zu chars\n", 4uLL);
-    if (EVP_read_pw_string_min(buf, 4, v5, v10, w))
-    {
-      goto LABEL_14;
-    }
-  }
-
-  LODWORD(v5) = v12;
-  return v5;
-}
-
-void PEM_proc_type(char *buf, int type)
-{
-  v3 = "MIC-ONLY";
-  v4 = "BAD-TYPE";
-  if (type == 30)
-  {
-    v4 = "MIC-CLEAR";
-  }
-
-  if (type != 20)
-  {
-    v3 = v4;
-  }
-
-  if (type == 10)
-  {
-    v5 = "ENCRYPTED";
-  }
-
-  else
-  {
-    v5 = v3;
-  }
-
-  strlcat(buf, "Proc-Type: 4,", 0x400uLL);
-  strlcat(buf, v5, 0x400uLL);
-
-  strlcat(buf, "\n", 0x400uLL);
-}
-
-void PEM_dek_info(char *buf, const char *type, int len, char *str)
-{
-  strlcat(buf, "DEK-Info: ", 0x400uLL);
-  strlcat(buf, type, 0x400uLL);
-  strlcat(buf, ",", 0x400uLL);
-  v8 = strlen(buf);
-  if (v8 + 2 * len <= 1023)
-  {
-    if (len < 1)
-    {
-      v12 = 0;
-    }
-
-    else
-    {
-      v9 = &buf[v8 + 1];
-      v10 = len;
-      do
-      {
-        *(v9 - 1) = PEM_dek_info_map[*str >> 4];
-        v11 = *str++;
-        *v9 = PEM_dek_info_map[v11 & 0xF];
-        v9 += 2;
-        --v10;
-      }
-
-      while (v10);
-      v12 = 2 * len;
-    }
-
-    *&buf[v8 + v12] = 10;
-  }
-}
-
-void *__cdecl PEM_ASN1_read(d2i_of_void *d2i, const char *name, FILE *fp, void **x, pem_password_cb *cb, void *u)
-{
-  v12 = BIO_s_file();
-  v13 = BIO_new(v12);
-  if (v13)
-  {
-    v14 = v13;
-    BIO_ctrl(v13, 106, 0, fp);
-    bio = PEM_ASN1_read_bio(d2i, name, v14, x, cb, u);
-    BIO_free(v14);
-    return bio;
-  }
-
-  else
-  {
-    ERR_put_error(9, 4095, 7, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/pem/pem_lib.c", 179);
-    return 0;
-  }
-}
-
-int PEM_bytes_read_bio(unsigned __int8 **pdata, uint64_t *plen, char **pnm, const char *name, BIO *bp, pem_password_cb *cb, void *u)
-{
-  v34 = *MEMORY[0x277D85DE8];
-  memset(&cipher, 0, sizeof(cipher));
-  header = 0;
-  namea = 0;
-  len = 0;
-  data = 0;
-  if (PEM_read_bio(bp, &namea, &header, &data, &len))
-  {
-    while (1)
-    {
-      v9 = namea;
-      if (!strcmp(namea, name))
-      {
-        break;
-      }
-
-      if (!strcmp(name, "ANY PRIVATE KEY"))
-      {
-        if (!strcmp(v9, "ENCRYPTED PRIVATE KEY"))
-        {
-          break;
-        }
-
-        if (!strcmp(v9, "PRIVATE KEY"))
-        {
-          break;
-        }
-
-        v12 = pem_check_suffix(v9, "PRIVATE KEY");
-        if (v12 >= 1)
-        {
-          str = EVP_PKEY_asn1_find_str(0, v9, v12);
-          if (str)
-          {
-            if (*(str + 23))
-            {
-              break;
-            }
-          }
-        }
-      }
-
-      else if (!strcmp(name, "PARAMETERS"))
-      {
-        v14 = pem_check_suffix(v9, "PARAMETERS");
-        if (v14 >= 1)
-        {
-          e = 0;
-          v15 = EVP_PKEY_asn1_find_str(&e, v9, v14);
-          if (v15)
-          {
-            v16 = *(v15 + 14);
-            ENGINE_finish(e);
-            if (v16)
-            {
-              break;
-            }
-          }
-        }
-      }
-
-      else
-      {
-        v10 = strcmp(v9, "X509 CERTIFICATE");
-        if (!v10 && !strcmp(name, "CERTIFICATE"))
-        {
-          break;
-        }
-
-        if (!strcmp(v9, "NEW CERTIFICATE REQUEST") && !strcmp(name, "CERTIFICATE REQUEST"))
-        {
-          break;
-        }
-
-        v11 = strcmp(v9, "CERTIFICATE");
-        if (!v11 && !strcmp(name, "TRUSTED CERTIFICATE"))
-        {
-          break;
-        }
-
-        if (!v10 && !strcmp(name, "TRUSTED CERTIFICATE") || !v11 && !strcmp(name, "PKCS7") || !strcmp(v9, "PKCS #7 SIGNED DATA") && !strcmp(name, "PKCS7") || !v11 && !strcmp(name, "CMS") || !strcmp(v9, "PKCS7") && !strcmp(name, "CMS"))
-        {
-          break;
-        }
-      }
-
-      free(v9);
-      free(header);
-      free(data);
-      if (!PEM_read_bio(bp, &namea, &header, &data, &len))
-      {
-        goto LABEL_32;
-      }
-    }
-
-    v18 = header;
-    if (PEM_get_EVP_CIPHER_INFO(header, &cipher) && (v19 = data, PEM_do_header(&cipher, data, &len, cb, u)))
-    {
-      *pdata = v19;
-      *plen = len;
-      if (pnm)
-      {
-        *pnm = v9;
-        free(v18);
-        v17 = 1;
-        goto LABEL_42;
-      }
-
-      v17 = 1;
-      v20 = 1;
-    }
-
-    else
-    {
-      v17 = 0;
-      v20 = 0;
-    }
-
-    free(v9);
-    free(v18);
-    if ((v20 & 1) == 0)
-    {
-      free(data);
-    }
-  }
-
-  else
-  {
-LABEL_32:
-    if ((ERR_peek_error() & 0xFFF) == 0x6C)
-    {
-      ERR_asprintf_error_data("Expecting: %s", name);
-    }
-
-    v17 = 0;
-  }
-
-LABEL_42:
-  v21 = *MEMORY[0x277D85DE8];
-  return v17;
-}
-
-int PEM_read_bio(BIO *bp, char **name, char **header, unsigned __int8 **data, uint64_t *len)
-{
-  v52 = *MEMORY[0x277D85DE8];
-  outl = 0;
-  v10 = BUF_MEM_new();
-  v11 = BUF_MEM_new();
-  v12 = BUF_MEM_new();
-  v13 = v12;
-  if (!v10 || !v11 || !v12)
-  {
-    BUF_MEM_free(v10);
-    BUF_MEM_free(v11);
-    BUF_MEM_free(v13);
-    ERR_put_error(9, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/pem/pem_lib.c", 685);
-    goto LABEL_19;
-  }
-
-  v45 = len;
-  str = v11;
-  v43 = header;
-  v44 = data;
-  v14 = v12;
-  memset(&ctx, 0, sizeof(ctx));
-  v48 = 0;
-  v50[243] = 0;
-  v15 = BIO_gets(bp, buf, 254);
-  if (v15 < 1)
-  {
-LABEL_16:
-    ERR_put_error(9, 4095, 108, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/pem/pem_lib.c", 694);
-    v19 = str;
-    v20 = v14;
-    v21 = v10;
-    goto LABEL_17;
-  }
-
-  while (1)
-  {
-    do
-    {
-      if (buf[v15] > 32)
-      {
-        goto LABEL_9;
-      }
-
-      v16 = v15-- <= 0;
-    }
-
-    while (!v16);
-    v15 = -1;
-LABEL_9:
-    buf[v15 + 1] = 10;
-    buf[v15 + 2] = 0;
-    if (*buf == 0x4745422D2D2D2D2DLL && *&buf[3] == 0x204E494745422D2DLL)
-    {
-      v18 = strlen(v50);
-      if (!strncmp(&buf[((v18 << 32) + 0x500000000) >> 32], "-----\n", 6uLL))
-      {
-        break;
-      }
-    }
-
-    v15 = BIO_gets(bp, buf, 254);
-    if (v15 < 1)
-    {
-      goto LABEL_16;
-    }
-  }
-
-  v24 = v18 << 32;
-  v21 = v10;
-  v20 = v14;
-  if (!BUF_MEM_grow(v10, ((v18 << 32) + 0x900000000) >> 32))
-  {
-    ERR_put_error(9, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/pem/pem_lib.c", 709);
-    v19 = str;
-    goto LABEL_17;
-  }
-
-  memcpy(v10->data, v50, (v24 - 0x600000000) >> 32);
-  v10->data[(v24 - 0x600000000) >> 32] = 0;
-  if (!BUF_MEM_grow(str, 256))
-  {
-    v31 = 719;
-    goto LABEL_69;
-  }
-
-  *str->data = 0;
-  v25 = BIO_gets(bp, buf, 254);
-  if (v25 >= 1)
-  {
-    LODWORD(v26) = 0;
-    while (1)
-    {
-      if (buf[v25] > 32)
-      {
-        goto LABEL_29;
-      }
-
-      v16 = v25-- <= 0;
-      if (v16)
-      {
-        v25 = -1;
-LABEL_29:
-        buf[v25 + 1] = 10;
-        v27 = (v25 + 2);
-        buf[v27] = 0;
-        if (buf[0] == 10)
-        {
-          goto LABEL_40;
-        }
-
-        v28 = v27 + v26;
-        if (!BUF_MEM_grow(str, v28 + 9))
-        {
-          v31 = 736;
-          goto LABEL_69;
-        }
-
-        if (*buf == 0x444E452D2D2D2D2DLL && buf[8] == 32)
-        {
-          v30 = 0;
-          goto LABEL_43;
-        }
-
-        memcpy(&str->data[v26], buf, v27);
-        str->data[v28] = 0;
-        v25 = BIO_gets(bp, buf, 254);
-        LODWORD(v26) = v27 + v26;
-        if (v25 <= 0)
-        {
-          v30 = 1;
-          LODWORD(v26) = v28;
-          goto LABEL_43;
-        }
-      }
-    }
-  }
-
-  LODWORD(v26) = 0;
-LABEL_40:
-  v30 = 1;
-LABEL_43:
-  outl = 0;
-  if (!BUF_MEM_grow(v14, 1024))
-  {
-    v31 = 750;
-    goto LABEL_69;
-  }
-
-  *v14->data = 0;
-  if (!v30)
-  {
-    outl = v26;
-    v19 = v14;
-    v20 = str;
-LABEL_71:
-    v38 = *buf == 0x444E452D2D2D2D2DLL && buf[8] == 32;
-    if (v38 && (v39 = strlen(v10->data), !strncmp(v10->data, &buf[9], v39)) && !strncmp(&buf[((v39 << 32) + 0x900000000) >> 32], "-----\n", 6uLL))
-    {
-      EVP_DecodeInit(&ctx);
-      if (EVP_DecodeUpdate(&ctx, v20->data, &outl, v20->data, v26) < 0)
-      {
-        v40 = 100;
-        v41 = 811;
-      }
-
-      else
-      {
-        if ((EVP_DecodeFinal(&ctx, &v20->data[outl], &v48) & 0x80000000) == 0)
-        {
-          v42 = outl + v48;
-          outl = v42;
-          if (!v42)
-          {
-            goto LABEL_17;
-          }
-
-          *name = v10->data;
-          *v43 = v19->data;
-          *v44 = v20->data;
-          *v45 = v42;
-          free(v10);
-          free(v19);
-          free(v20);
-          result = 1;
-          goto LABEL_20;
-        }
-
-        v40 = 100;
-        v41 = 816;
-      }
-    }
-
-    else
-    {
-      v40 = 102;
-      v41 = 802;
-    }
-
-    ERR_put_error(9, 4095, v40, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/pem/pem_lib.c", v41);
-    goto LABEL_17;
-  }
-
-  LODWORD(v26) = 0;
-  while (1)
-  {
-    v32 = BIO_gets(bp, buf, 254);
-    if (v32 < 1)
-    {
-      goto LABEL_67;
-    }
-
-    while (buf[v32] <= 32)
-    {
-      v16 = v32-- <= 0;
-      if (v16)
-      {
-        v32 = -1;
-        break;
-      }
-    }
-
-    buf[v32 + 1] = 10;
-    v33 = (v32 + 2);
-    buf[v33] = 0;
-    v34 = *buf == 0x444E452D2D2D2D2DLL && buf[8] == 32;
-    v35 = !v34;
-    if (v32 > 63 || !v35)
-    {
-      goto LABEL_67;
-    }
-
-    if (!BUF_MEM_grow_clean(v14, v32 + v26 + 11))
-    {
-      break;
-    }
-
-    v36 = v26;
-    memcpy(&v14->data[v26], buf, v33);
-    v26 = v26 + v33;
-    v14->data[v26] = 0;
-    outl = v36 + v33;
-    if (v33 != 65)
-    {
-      buf[0] = 0;
-      v37 = BIO_gets(bp, buf, 254);
-      if (v37 >= 1)
-      {
-        while (buf[v37] <= 32)
-        {
-          v16 = v37-- <= 0;
-          if (v16)
-          {
-            v37 = -1;
-            break;
-          }
-        }
-
-        buf[v37 + 1] = 10;
-        buf[v37 + 2] = 0;
-      }
-
-LABEL_67:
-      v19 = str;
-      goto LABEL_71;
-    }
-  }
-
-  v31 = 772;
-LABEL_69:
-  ERR_put_error(9, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/pem/pem_lib.c", v31);
-  v19 = str;
-LABEL_17:
-  BUF_MEM_free(v21);
-  BUF_MEM_free(v19);
-  BUF_MEM_free(v20);
-LABEL_19:
-  result = 0;
-LABEL_20:
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-int PEM_get_EVP_CIPHER_INFO(char *header, EVP_CIPHER_INFO *cipher)
-{
-  cipher->cipher = 0;
-  if (!header)
-  {
-    return 1;
-  }
-
-  if (*header)
-  {
-    v3 = *header == 10;
-  }
-
-  else
-  {
-    v3 = 1;
-  }
-
-  if (v3)
-  {
-    return 1;
-  }
-
-  if (!strncmp(header, "Proc-Type: ", 0xBuLL))
-  {
-    if (header[11] != 52 || header[12] != 44)
-    {
-      return 0;
-    }
-
-    if (!strncmp(header + 13, "ENCRYPTED", 9uLL))
-    {
-      for (i = header + 24; ; ++i)
-      {
-        if (!*(i - 11))
-        {
-          v6 = 112;
-          v7 = 515;
-          goto LABEL_11;
-        }
-
-        if (*(i - 11) == 10)
-        {
-          break;
-        }
-      }
-
-      if (strncmp(i - 10, "DEK-Info: ", 0xAuLL))
-      {
-        v6 = 105;
-        v7 = 520;
-        goto LABEL_11;
-      }
-
-      v9 = i;
-      do
-      {
-        do
-        {
-          v14 = v9;
-          v11 = *v9++;
-          v10 = v11;
-        }
-
-        while ((v11 - 48) < 0xA);
-      }
-
-      while (v10 == 45 || (v10 - 65) < 0x1A);
-      *(v9 - 1) = 0;
-      cipherbyname = EVP_get_cipherbyname(i);
-      cipher->cipher = cipherbyname;
-      *(v9 - 1) = v10;
-      v14 = v9;
-      if (cipherbyname)
-      {
-        return load_iv(&v14, cipher->iv, cipherbyname->iv_len);
-      }
-
-      v6 = 114;
-      v7 = 539;
-    }
-
-    else
-    {
-      v6 = 106;
-      v7 = 509;
-    }
-  }
-
-  else
-  {
-    v6 = 107;
-    v7 = 498;
-  }
-
-LABEL_11:
-  ERR_put_error(9, 4095, v6, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/pem/pem_lib.c", v7);
-  return 0;
-}
-
-int PEM_do_header(EVP_CIPHER_INFO *cipher, unsigned __int8 *data, uint64_t *len, pem_password_cb *callback, void *u)
-{
-  v19 = *MEMORY[0x277D85DE8];
-  if (cipher->cipher)
-  {
-    v7 = *len;
-    outl = 0;
-    memset(&a, 0, sizeof(a));
-    if (callback)
-    {
-      v8 = (callback)(buf, 1024, 0, u);
-    }
-
-    else
-    {
-      v8 = PEM_def_callback(buf, 1024, 0, u);
-    }
-
-    v9 = v8;
-    if (v8 <= 0)
-    {
-      ERR_put_error(9, 4095, 104, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/pem/pem_lib.c", 461);
-      result = 0;
-    }
-
-    else
-    {
-      v10 = cipher->cipher;
-      v11 = EVP_md5();
-      result = EVP_BytesToKey(v10, v11, cipher->iv, buf, v9, 1, key, 0);
-      if (result)
-      {
-        v14 = v7;
-        EVP_CIPHER_CTX_init(&a);
-        if (EVP_DecryptInit_ex(&a, cipher->cipher, 0, key, cipher->iv))
-        {
-          if (EVP_DecryptUpdate(&a, data, &outl, data, v7))
-          {
-            EVP_DecryptFinal_ex(&a, &data[outl], &v14);
-            EVP_CIPHER_CTX_cleanup(&a);
-            explicit_bzero(buf, 0x400uLL);
-          }
-        }
-
-        EVP_CIPHER_CTX_cleanup(&a);
-        explicit_bzero(buf, 0x400uLL);
-      }
-    }
-  }
-
-  else
-  {
-    result = 1;
-  }
-
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-int PEM_ASN1_write(i2d_of_void *i2d, const char *name, FILE *fp, char *x, const EVP_CIPHER *enc, unsigned __int8 *kstr, int klen, pem_password_cb *callback, void *u)
-{
-  v17 = BIO_s_file();
-  v18 = BIO_new(v17);
-  if (v18)
-  {
-    v19 = v18;
-    BIO_ctrl(v18, 106, 0, fp);
-    v20 = PEM_ASN1_write_bio(i2d, name, v19, x, enc, kstr, klen, callback, u);
-    BIO_free(v19);
-    return v20;
-  }
-
-  else
-  {
-    ERR_put_error(9, 4095, 7, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/pem/pem_lib.c", 335);
-    return 0;
-  }
-}
-
-int PEM_ASN1_write_bio(i2d_of_void *i2d, const char *name, BIO *bp, char *x, const EVP_CIPHER *enc, unsigned __int8 *kstr, int klen, pem_password_cb *cb, void *u)
-{
-  v38 = *MEMORY[0x277D85DE8];
-  memset(&a, 0, sizeof(a));
-  v32 = 0;
-  *outl = 0;
-  if (enc)
-  {
-    v17 = EVP_CIPHER_nid(enc);
-    v18 = OBJ_nid2sn(v17);
-    if (!v18)
-    {
-      v19 = 113;
-      v20 = 360;
-LABEL_12:
-      ERR_put_error(9, 4095, v19, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/pem/pem_lib.c", v20);
-      goto LABEL_28;
-    }
-  }
-
-  else
-  {
-    v18 = 0;
-  }
-
-  v21 = (i2d)(x, 0);
-  if (v21 < 0)
-  {
-    v19 = 13;
-    v20 = 366;
-    goto LABEL_12;
-  }
-
-  namea = name;
-  v22 = malloc_type_malloc((v21 + 20), 0xC2BFAC05uLL);
-  v23 = v22;
-  if (v22)
-  {
-    v32 = v22;
-    v24 = (i2d)(x, &v32);
-    outl[1] = v24;
-    if (enc)
-    {
-      if (!kstr)
-      {
-        if (cb)
-        {
-          v25 = (cb)(hdr, 1024, 1, u);
-        }
-
-        else
-        {
-          v25 = PEM_def_callback(hdr, 1024, 1, u);
-        }
-
-        klen = v25;
-        if (v25 <= 0)
-        {
-          v26 = 111;
-          v27 = 387;
-          goto LABEL_27;
-        }
-
-        kstr = hdr;
-      }
-
-      iv_len = enc->iv_len;
-      if (iv_len >= 0x11)
-      {
-        v26 = 102;
-        v27 = 393;
-        goto LABEL_27;
-      }
-
-      arc4random_buf(__buf, iv_len);
-      v29 = EVP_md5();
-      if (!EVP_BytesToKey(enc, v29, __buf, kstr, klen, 1, key, 0))
-      {
-        goto LABEL_28;
-      }
-
-      if (kstr == hdr)
-      {
-        explicit_bzero(hdr, 0x400uLL);
-      }
-
-      if (strlen(v18) + 2 * enc->iv_len - 989 <= 0xFFFFFFFFFFFFFBFELL)
-      {
-        v26 = 107;
-        v27 = 407;
-        goto LABEL_27;
-      }
-
-      hdr[0] = 0;
-      PEM_proc_type(hdr, 10);
-      PEM_dek_info(hdr, v18, enc->iv_len, __buf);
-      EVP_CIPHER_CTX_init(&a);
-      if (!EVP_EncryptInit_ex(&a, enc, 0, key, __buf) || !EVP_EncryptUpdate(&a, v23, outl, v23, v24) || !EVP_EncryptFinal_ex(&a, &v23[outl[0]], &outl[1]))
-      {
-        EVP_CIPHER_CTX_cleanup(&a);
-LABEL_28:
-        explicit_bzero(key, 0x40uLL);
-      }
-
-      EVP_CIPHER_CTX_cleanup(&a);
-      v24 = outl[1] + outl[0];
-      outl[1] += outl[0];
-    }
-
-    else
-    {
-      hdr[0] = 0;
-    }
-
-    outl[1] = PEM_write_bio(bp, namea, hdr, v23, v24);
-    goto LABEL_28;
-  }
-
-  v26 = 65;
-  v27 = 374;
-LABEL_27:
-  ERR_put_error(9, 4095, v26, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/pem/pem_lib.c", v27);
-  goto LABEL_28;
-}
-
-int PEM_write_bio(BIO *bp, const char *name, char *hdr, unsigned __int8 *data, uint64_t len)
-{
-  v25 = *MEMORY[0x277D85DE8];
-  outl = 0;
-  memset(&ctx, 0, sizeof(ctx));
-  EVP_EncodeInit(&ctx);
-  v10 = strlen(name);
-  if (BIO_write(bp, "-----BEGIN ", 11) != 11)
-  {
-    goto LABEL_30;
-  }
-
-  if (BIO_write(bp, name, v10) != v10)
-  {
-    goto LABEL_30;
-  }
-
-  if (BIO_write(bp, "-----\n", 6) != 6)
-  {
-    goto LABEL_30;
-  }
-
-  if (hdr)
-  {
-    v11 = strlen(hdr);
-    if (v11 >= 1 && (BIO_write(bp, hdr, v11) != v11 || BIO_write(bp, "\n", 1) != 1))
-    {
-      goto LABEL_30;
-    }
-  }
-
-  v12 = reallocarray(0, 0x400uLL, 8uLL);
-  if (!v12)
-  {
-    v19 = 65;
-LABEL_32:
-    freezero(v12, 0x2000uLL);
-    ERR_put_error(9, 4095, v19, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/pem/pem_lib.c", 647);
-    result = 0;
-    goto LABEL_33;
-  }
-
-  if (len >= 1)
-  {
-    v13 = 0;
-    v14 = 0;
-    while (1)
-    {
-      v15 = len >= 0x1400 ? 5120 : len;
-      EVP_EncodeUpdate(&ctx, v12, &outl, &data[v13], v15);
-      if (!v16)
-      {
-        goto LABEL_31;
-      }
-
-      if (outl)
-      {
-        v17 = BIO_write(bp, v12, outl);
-        if (v17 != outl)
-        {
-          goto LABEL_31;
-        }
-      }
-
-      else
-      {
-        v17 = 0;
-      }
-
-      v14 += v17;
-      v13 += v15;
-      v18 = len <= v15;
-      len -= v15;
-      if (v18)
-      {
-        goto LABEL_24;
-      }
-    }
-  }
-
-  v14 = 0;
-LABEL_24:
-  EVP_EncodeFinal(&ctx, v12, &outl);
-  if (outl >= 1)
-  {
-    v20 = BIO_write(bp, v12, outl);
-    if (v20 != outl)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  freezero(v12, 0x2000uLL);
-  if (BIO_write(bp, "-----END ", 9) != 9 || BIO_write(bp, name, v10) != v10 || BIO_write(bp, "-----\n", 6) != 6)
-  {
-LABEL_30:
-    v12 = 0;
-LABEL_31:
-    v19 = 7;
-    goto LABEL_32;
-  }
-
-  result = outl + v14;
-LABEL_33:
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t load_iv(unsigned __int8 **a1, void *a2, int a3)
-{
-  v4 = *a1;
-  if (a3 < 1)
-  {
-LABEL_11:
-    *a1 = v4;
-    return 1;
-  }
-
-  bzero(a2, a3);
-  v7 = 0;
-  v8 = 0;
-  v9 = 2 * a3;
-  if (2 * a3 <= 1)
-  {
-    v9 = 1;
-  }
-
-  while (1)
-  {
-    v10 = *v4;
-    if ((v10 - 48) > 9)
-    {
-      break;
-    }
-
-    v11 = v10 - 48;
-LABEL_10:
-    ++v4;
-    *(a2 + (v8++ >> 1)) |= v11 << (~v7 & 4);
-    v7 += 4;
-    if (v9 == v8)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  if ((v10 - 65) <= 5)
-  {
-    v11 = v10 - 55;
-    goto LABEL_10;
-  }
-
-  if ((v10 - 97) <= 5)
-  {
-    v11 = v10 - 87;
-    goto LABEL_10;
-  }
-
-  ERR_put_error(9, 4095, 103, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/pem/pem_lib.c", 566);
-  return 0;
-}
-
-int PEM_write(FILE *fp, char *name, char *hdr, unsigned __int8 *data, uint64_t len)
-{
-  v10 = BIO_s_file();
-  v11 = BIO_new(v10);
-  if (v11)
-  {
-    v12 = v11;
-    BIO_ctrl(v11, 106, 0, fp);
-    v13 = PEM_write_bio(v12, name, hdr, data, len);
-    BIO_free(v12);
-    return v13;
-  }
-
-  else
-  {
-    ERR_put_error(9, 4095, 7, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/pem/pem_lib.c", 585);
-    return 0;
-  }
-}
-
-int PEM_read(FILE *fp, char **name, char **header, unsigned __int8 **data, uint64_t *len)
-{
-  v10 = BIO_s_file();
-  v11 = BIO_new(v10);
-  if (v11)
-  {
-    v12 = v11;
-    BIO_ctrl(v11, 106, 0, fp);
-    bio = PEM_read_bio(v12, name, header, data, len);
-    BIO_free(v12);
-    return bio;
-  }
-
-  else
-  {
-    ERR_put_error(9, 4095, 7, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/pem/pem_lib.c", 658);
-    return 0;
-  }
-}
-
-uint64_t pem_check_suffix(const char *a1, const char *a2)
-{
-  v4 = strlen(a1);
-  v5 = strlen(a2);
-  if (v5 + 1 < v4 && (v6 = &a1[v4 - v5], !strcmp(v6, a2)) && (v8 = *(v6 - 1), v7 = v6 - 1, v8 == 32))
-  {
-    return (v7 - a1);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t asn1_get_identifier_cbs(void *a1, int a2, _BYTE *a3, int *a4, int *a5)
-{
-  v17 = 0;
-  *a3 = 0;
-  *a4 = 0;
-  *a5 = 0;
-  result = CBS_get_u8(a1, &v17);
-  if (result)
-  {
-    v11 = v17;
-    v12 = v17 & 0x1F;
-    if (v12 == 31)
-    {
-      v13 = 0;
-      while (1)
-      {
-        result = CBS_get_u8(a1, &v17);
-        if (!result)
-        {
-          break;
-        }
-
-        if (a2)
-        {
-          v14 = v17 == 128;
-        }
-
-        else
-        {
-          v14 = 0;
-        }
-
-        if (v14 && v13 == 0 || v13 >> 25 != 0)
-        {
-          return 0;
-        }
-
-        v12 = v17 & 0x7F | (v13 << 7);
-        v13 = v12;
-        if ((v17 & 0x80) == 0)
-        {
-          goto LABEL_17;
-        }
-      }
-    }
-
-    else
-    {
-LABEL_17:
-      *a3 = v11 >> 6;
-      *a4 = (v11 >> 5) & 1;
-      *a5 = v12;
-      return 1;
-    }
-  }
-
-  return result;
-}
-
-uint64_t asn1_get_length_cbs(void *a1, int a2, _DWORD *a3, unint64_t *a4)
-{
-  v14 = 0;
-  *a4 = 0;
-  *a3 = 0;
-  result = CBS_get_u8(a1, &v14);
-  if (result)
-  {
-    if ((v14 & 0x8000000000000000) == 0)
-    {
-      *a4 = v14;
-      return 1;
-    }
-
-    if (v14 == -128)
-    {
-      result = 1;
-      *a3 = 1;
-    }
-
-    else
-    {
-      v9 = v14 & 0x7F;
-      if ((v14 & 0x7F) == 0)
-      {
-        v10 = v14 & 0x7F;
-LABEL_26:
-        *a4 = v10;
-        return 1;
-      }
-
-      if (v9 == 127)
-      {
-        return 0;
-      }
-
-      else
-      {
-        v10 = 0;
-        while (1)
-        {
-          result = CBS_get_u8(a1, &v14);
-          if (!result)
-          {
-            break;
-          }
-
-          if (a2)
-          {
-            v11 = v14 == 0;
-          }
-
-          else
-          {
-            v11 = 0;
-          }
-
-          if (v11 && v10 == 0 || HIBYTE(v10) != 0)
-          {
-            return 0;
-          }
-
-          --v9;
-          v10 = v14 | (v10 << 8);
-          if (!v9)
-          {
-            goto LABEL_26;
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t asn1_get_object_cbs(void *a1, int a2, _BYTE *a3, int *a4, _DWORD *a5, _DWORD *a6, void *a7)
-{
-  v21 = 0;
-  v19 = 0;
-  v18 = 0;
-  *a3 = 0;
-  *a4 = 0;
-  *a5 = 0;
-  *a6 = 0;
-  *a7 = 0;
-  result = asn1_get_identifier_cbs(a1, a2, &v18, &v21, &v19);
-  if (result)
-  {
-    v20 = 0;
-    v17 = 0;
-    result = asn1_get_length_cbs(a1, a2, &v20, &v17);
-    if (result)
-    {
-      v15 = v20;
-      v16 = v21;
-      if (!v20 || v21)
-      {
-        *a3 = v18;
-        *a4 = v16;
-        *a5 = v19;
-        *a6 = v15;
-        *a7 = v17;
-        return 1;
-      }
-
-      else
-      {
-        return 0;
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t asn1_get_primitive(uint64_t *a1, int a2, _DWORD *a3, void *a4)
-{
-  HIDWORD(v12) = 0;
-  v11 = 0;
-  *a3 = 0;
-  CBS_init(a4, 0, 0);
-  result = asn1_get_identifier_cbs(a1, a2, &v10, &v12 + 1, &v11);
-  if (result)
-  {
-    LODWORD(v12) = 0;
-    v9 = 0;
-    result = asn1_get_length_cbs(a1, a2, &v12, &v9);
-    if (result)
-    {
-      if (v12)
-      {
-        return 0;
-      }
-
-      else
-      {
-        result = CBS_get_bytes(a1, a4, v9);
-        if (result)
-        {
-          *a3 = v11;
-          return 1;
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-int DSA_generate_key(DSA *a)
-{
-  comp = a->ex_data.sk[2].comp;
-  if (!comp)
-  {
-    v4 = BN_new();
-    if (v4)
-    {
-      v5 = BN_new();
-      if (v5)
-      {
-        v6 = BN_CTX_new();
-        if (v6)
-        {
-          v7 = BN_value_one();
-          if (bn_rand_interval(v4, v7, a->p))
-          {
-            if (BN_mod_exp_ct(v5, a->q, v4, *&a->write_params, v6))
-            {
-              BN_free(a->pub_key);
-              a->pub_key = v4;
-              BN_free(a->g);
-              v4 = 0;
-              a->g = v5;
-              v8 = 1;
-              v5 = 0;
-LABEL_14:
-              BN_free(v5);
-              BN_free(v4);
-              BN_CTX_free(v6);
-              return v8;
-            }
-          }
-        }
-
-LABEL_13:
-        v8 = 0;
-        goto LABEL_14;
-      }
-    }
-
-    else
-    {
-      v5 = 0;
-    }
-
-    v6 = 0;
-    goto LABEL_13;
-  }
-
-  return comp();
-}
-
-uint64_t des_cbc_cipher(uint64_t a1, unsigned __int8 *output, unsigned __int8 *input, unint64_t length)
-{
-  for (i = length; i > 0x7FFFFFFFFFFFFEFFLL; output += 0x7FFFFFFFFFFFFF00)
-  {
-    DES_ncbc_encrypt(input, output, 0x7FFFFFFFFFFFFF00, *(a1 + 120), (a1 + 40), *(a1 + 16));
-    i -= 0x7FFFFFFFFFFFFF00;
-    input += 0x7FFFFFFFFFFFFF00;
-  }
-
-  if (i)
-  {
-    DES_ncbc_encrypt(input, output, i, *(a1 + 120), (a1 + 40), *(a1 + 16));
-  }
-
-  return 1;
-}
-
-uint64_t des_ctrl(int a1, int a2, int a3, DES_cblock *ret)
-{
-  if (a2 == 6)
-  {
-    return DES_random_key(ret) != 0;
-  }
-
-  else
-  {
-    return 0xFFFFFFFFLL;
-  }
-}
-
-uint64_t des_cfb64_cipher(uint64_t a1, unsigned __int8 *out, unsigned __int8 *in, unint64_t length)
-{
-  for (i = length; i > 0x7FFFFFFFFFFFFEFFLL; out += 0x7FFFFFFFFFFFFF00)
-  {
-    DES_cfb64_encrypt(in, out, 0x7FFFFFFFFFFFFF00, *(a1 + 120), (a1 + 40), (a1 + 88), *(a1 + 16));
-    i -= 0x7FFFFFFFFFFFFF00;
-    in += 0x7FFFFFFFFFFFFF00;
-  }
-
-  if (i)
-  {
-    DES_cfb64_encrypt(in, out, i, *(a1 + 120), (a1 + 40), (a1 + 88), *(a1 + 16));
-  }
-
-  return 1;
-}
-
-uint64_t des_ofb_cipher(uint64_t a1, unsigned __int8 *out, unsigned __int8 *in, unint64_t length)
-{
-  for (i = length; i > 0x7FFFFFFFFFFFFEFFLL; out += 0x7FFFFFFFFFFFFF00)
-  {
-    DES_ofb64_encrypt(in, out, 0x7FFFFFFFFFFFFF00, *(a1 + 120), (a1 + 40), (a1 + 88));
-    i -= 0x7FFFFFFFFFFFFF00;
-    in += 0x7FFFFFFFFFFFFF00;
-  }
-
-  if (i)
-  {
-    DES_ofb64_encrypt(in, out, i, *(a1 + 120), (a1 + 40), (a1 + 88));
-  }
-
-  return 1;
-}
-
-uint64_t des_ecb_cipher(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  v4 = *(*a1 + 4);
-  v5 = a4 - v4;
-  if (a4 >= v4)
-  {
-    v9 = 0;
-    do
-    {
-      DES_ecb_encrypt((a3 + v9), (a2 + v9), *(a1 + 120), *(a1 + 16));
-      v9 += v4;
-    }
-
-    while (v9 <= v5);
-  }
-
-  return 1;
-}
-
-uint64_t des_cfb1_cipher(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  if (a4)
-  {
-    v4 = a4;
-    if (a4 >= 0xFFFFFFFFFFFFFFFLL)
-    {
-      v8 = 0xFFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v8 = a4;
-    }
-
-    do
-    {
-      if (v8)
-      {
-        v9 = 0;
-        do
-        {
-          in = *(a3 + (v9 >> 3)) >> (v9 & 7 ^ 7) << 7;
-          DES_cfb_encrypt(&in, &out, 1, 1, *(a1 + 120), (a1 + 40), *(a1 + 16));
-          *(a2 + (v9 >> 3)) = ((out & 0x80) >> (v9 & 7)) | (-129 >> (v9 & 7)) & *(a2 + (v9 >> 3));
-          ++v9;
-        }
-
-        while (8 * v8 != v9);
-      }
-
-      a3 += v8;
-      a2 += v8;
-      v4 -= v8;
-      if (v4 < v8)
-      {
-        v8 = v4;
-      }
-    }
-
-    while (v4);
-  }
-
-  return 1;
-}
-
-uint64_t des_cfb8_cipher(uint64_t a1, unsigned __int8 *out, unsigned __int8 *in, unint64_t length)
-{
-  for (i = length; i > 0x7FFFFFFFFFFFFEFFLL; out += 0x7FFFFFFFFFFFFF00)
-  {
-    DES_cfb_encrypt(in, out, 8, 0x7FFFFFFFFFFFFF00, *(a1 + 120), (a1 + 40), *(a1 + 16));
-    i -= 0x7FFFFFFFFFFFFF00;
-    in += 0x7FFFFFFFFFFFFF00;
-  }
-
-  if (i)
-  {
-    DES_cfb_encrypt(in, out, 8, i, *(a1 + 120), (a1 + 40), *(a1 + 16));
-  }
-
-  return 1;
-}
-
-uint64_t PKCS5_PBKDF2_HMAC(const char *a1, int a2, const unsigned __int8 *a3, int a4, int a5, EVP_MD *md, int a7, char *a8)
-{
-  v49 = *MEMORY[0x277D85DE8];
-  v16 = EVP_MD_size(md);
-  if ((v16 & 0x80000000) == 0)
-  {
-    v17 = v16;
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
-    memset(&ctx, 0, sizeof(ctx));
-    v40 = 0u;
-    v41 = 0u;
-    v39 = 0u;
-    memset(&v38, 0, sizeof(v38));
-    HMAC_CTX_init(&ctx);
-    if (a1)
-    {
-      if (a2 == -1)
-      {
-        a2 = strlen(a1);
-      }
-    }
-
-    else
-    {
-      a2 = 0;
-    }
-
-    p_ctx = &ctx;
-    HMAC_Init_ex(&ctx, a1, a2, md, 0);
-    if (v20)
-    {
-      if (!a7)
-      {
-        v18 = 1;
-        p_ctx = &ctx;
-        goto LABEL_31;
-      }
-
-      v21 = 1;
-      len = a4;
-      while (1)
-      {
-        v22 = a7 >= v17 ? v17 : a7;
-        *data = bswap32(v21);
-        p_ctx = &ctx;
-        if (!HMAC_CTX_copy(&v38, &ctx))
-        {
-          break;
-        }
-
-        v23 = a3;
-        HMAC_Update(&v38, a3, len);
-        if (!v24 || (HMAC_Update(&v38, data, 4uLL), !v25) || (HMAC_Final(&v38, mda, 0), !v26))
-        {
-LABEL_29:
-          HMAC_CTX_cleanup(&ctx);
-          v18 = 0;
-          p_ctx = &v38;
-          goto LABEL_31;
-        }
-
-        HMAC_CTX_cleanup(&v38);
-        memcpy(a8, mda, v22);
-        if (a5 >= 2)
-        {
-          v27 = 1;
-          do
-          {
-            p_ctx = &ctx;
-            if (!HMAC_CTX_copy(&v38, &ctx))
-            {
-              goto LABEL_28;
-            }
-
-            HMAC_Update(&v38, mda, v17);
-            if (!v28)
-            {
-              goto LABEL_29;
-            }
-
-            HMAC_Final(&v38, mda, 0);
-            if (!v29)
-            {
-              goto LABEL_29;
-            }
-
-            HMAC_CTX_cleanup(&v38);
-            if (v22 >= 1)
-            {
-              v30 = mda;
-              v31 = v22;
-              v32 = a8;
-              do
-              {
-                v33 = *v30++;
-                *v32++ ^= v33;
-                --v31;
-              }
-
-              while (v31);
-            }
-          }
-
-          while (++v27 != a5);
-        }
-
-        ++v21;
-        a8 += v22;
-        v18 = 1;
-        p_ctx = &ctx;
-        a7 -= v22;
-        a3 = v23;
-        if (!a7)
-        {
-          goto LABEL_31;
-        }
-      }
-    }
-
-LABEL_28:
-    v18 = 0;
-LABEL_31:
-    HMAC_CTX_cleanup(p_ctx);
-    goto LABEL_32;
-  }
-
-  v18 = 0;
-LABEL_32:
-  v34 = *MEMORY[0x277D85DE8];
-  return v18;
-}
-
-int PKCS5_PBKDF2_HMAC_SHA1(const char *pass, int passlen, const unsigned __int8 *salt, int saltlen, int iter, int keylen, unsigned __int8 *out)
-{
-  v14 = EVP_sha1();
-
-  return PKCS5_PBKDF2_HMAC(pass, passlen, salt, saltlen, iter, v14, keylen, out);
-}
-
-int PKCS5_v2_PBE_keyivgen(EVP_CIPHER_CTX *ctx, const char *pass, int passlen, ASN1_TYPE *param, const EVP_CIPHER *cipher, const EVP_MD *md, int en_de)
-{
-  in = 0;
-  if (!param || param->type != 16 || (ptr = param->value.ptr) == 0)
-  {
-    ERR_put_error(6, 4095, 114, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/p5_crpt2.c", 179);
-    v13 = 0;
-    goto LABEL_11;
-  }
-
-  in = *(ptr + 1);
-  v12 = d2i_PBE2PARAM(0, &in, *ptr);
-  v13 = v12;
-  if (!v12)
-  {
-    v21 = 114;
-    v22 = 186;
-LABEL_17:
-    ERR_put_error(6, 4095, v21, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/p5_crpt2.c", v22);
-    goto LABEL_11;
-  }
-
-  if (OBJ_obj2nid(v12->keyfunc->algorithm) != 69)
-  {
-    v21 = 124;
-    v22 = 193;
-    goto LABEL_17;
-  }
-
-  v14 = OBJ_obj2nid(v13->encryption->algorithm);
-  v15 = OBJ_nid2sn(v14);
-  cipherbyname = EVP_get_cipherbyname(v15);
-  if (!cipherbyname)
-  {
-    v21 = 107;
-    v22 = 203;
-    goto LABEL_17;
-  }
-
-  if (!EVP_CipherInit_ex(ctx, cipherbyname, 0, 0, 0, en_de))
-  {
-LABEL_11:
-    v19 = 0;
-    goto LABEL_12;
-  }
-
-  if (EVP_CIPHER_asn1_to_param(ctx, v13->encryption->parameter) < 0)
-  {
-    v21 = 122;
-    v22 = 211;
-    goto LABEL_17;
-  }
-
-  v19 = PKCS5_v2_PBKDF2_keyivgen(ctx, pass, passlen, v13->keyfunc->parameter, v17, v18, en_de);
-LABEL_12:
-  PBE2PARAM_free(v13);
-  return v19;
-}
-
-uint64_t PKCS5_v2_PBKDF2_keyivgen(EVP_CIPHER_CTX *a1, const char *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7)
-{
-  v36 = *MEMORY[0x277D85DE8];
-  if (!EVP_CIPHER_CTX_cipher(a1))
-  {
-    v13 = 131;
-    v14 = 236;
-    goto LABEL_13;
-  }
-
-  v12 = EVP_CIPHER_CTX_key_length(a1);
-  if (v12 < 0x41)
-  {
-    if (!a4 || *a4 != 16)
-    {
-      v13 = 114;
-      v14 = 248;
-      goto LABEL_13;
-    }
-
-    v15 = v12;
-    n = 0;
-    v16 = *(a4 + 8);
-    in = *(v16 + 1);
-    v17 = d2i_PBKDF2PARAM(0, &in, *v16);
-    if (!v17)
-    {
-      v13 = 114;
-      v14 = 256;
-      goto LABEL_13;
-    }
-
-    v18 = v17;
-    keylength = v17->keylength;
-    if (keylength && ASN1_INTEGER_get(keylength) != v15)
-    {
-      v24 = 123;
-      v25 = 264;
-    }
-
-    else
-    {
-      p_algorithm = &v18->prf->algorithm;
-      if (p_algorithm)
-      {
-        v21 = OBJ_obj2nid(*p_algorithm);
-      }
-
-      else
-      {
-        v21 = 163;
-      }
-
-      if (EVP_PBE_find(1, v21, 0, &n, 0))
-      {
-        v26 = OBJ_nid2sn(n);
-        digestbyname = EVP_get_digestbyname(v26);
-        if (digestbyname)
-        {
-          if (v18->salt->type == 4)
-          {
-            v28 = digestbyname;
-            ptr = v18->salt->value.ptr;
-            v30 = *(ptr + 1);
-            v31 = *ptr;
-            v32 = ASN1_INTEGER_get(v18->iter);
-            if (v32 > 0)
-            {
-              if (PKCS5_PBKDF2_HMAC(a2, a3, v30, v31, v32, v28, v15, key))
-              {
-                EVP_CipherInit_ex(a1, 0, 0, key, 0, a7);
-              }
-
-LABEL_28:
-              explicit_bzero(key, v15);
-            }
-
-            v24 = 135;
-            v25 = 293;
-          }
-
-          else
-          {
-            v24 = 126;
-            v25 = 285;
-          }
-        }
-
-        else
-        {
-          v24 = 125;
-          v25 = 280;
-        }
-      }
-
-      else
-      {
-        v24 = 125;
-        v25 = 274;
-      }
-    }
-
-    ERR_put_error(6, 4095, v24, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/p5_crpt2.c", v25);
-    goto LABEL_28;
-  }
-
-  v13 = 137;
-  v14 = 241;
-LABEL_13:
-  ERR_put_error(6, 4095, v13, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/p5_crpt2.c", v14);
-  v22 = *MEMORY[0x277D85DE8];
-  return 0;
-}
-
-STACK *i2v_POLICY_MAPPINGS(int a1, STACK *a2, STACK *a3)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  v11 = a3;
-  if (a3)
-  {
-    v4 = a3;
-    v5 = 0;
-  }
-
-  else
-  {
-    v4 = sk_new_null();
-    v11 = v4;
-    v5 = v4;
-    if (!v4)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  if (sk_num(a2) >= 1)
-  {
-    v6 = 0;
-    while (1)
-    {
-      v7 = sk_value(a2, v6);
-      if (!v7)
-      {
-        break;
-      }
-
-      v8 = v7;
-      if (!i2t_ASN1_OBJECT(buf, 80, *v7) || !i2t_ASN1_OBJECT(value, 80, *(v8 + 1)) || !X509V3_add_value(buf, value, &v11))
-      {
-        break;
-      }
-
-      if (++v6 >= sk_num(a2))
-      {
-        v4 = v11;
-        goto LABEL_13;
-      }
-    }
-
-    sk_pop_free(v5, X509V3_conf_free);
-    v4 = 0;
-  }
-
-LABEL_13:
-  v9 = *MEMORY[0x277D85DE8];
-  return v4;
-}
-
-STACK *v2i_POLICY_MAPPINGS(uint64_t a1, uint64_t a2, const STACK *a3)
-{
-  v4 = sk_new_null();
-  if (!v4)
-  {
-    ERR_put_error(34, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/x509/x509_pmaps.c", 196);
-    return v4;
-  }
-
-  if (sk_num(a3) >= 1)
-  {
-    v5 = 0;
-    while (1)
-    {
-      v6 = sk_value(a3, v5);
-      v7 = v6;
-      if (!*(v6 + 2))
-      {
-        break;
-      }
-
-      v8 = *(v6 + 1);
-      if (!v8)
-      {
-        break;
-      }
-
-      v9 = OBJ_txt2obj(v8, 0);
-      v10 = OBJ_txt2obj(v7[2], 0);
-      v11 = v10;
-      if (v9)
-      {
-        v12 = v10 == 0;
-      }
-
-      else
-      {
-        v12 = 1;
-      }
-
-      if (v12)
-      {
-        v14 = 0;
-        goto LABEL_17;
-      }
-
-      v13 = ASN1_item_new(&POLICY_MAPPING_it);
-      v14 = v13;
-      if (!v13)
-      {
-        goto LABEL_19;
-      }
-
-      *v13 = v9;
-      *(v13 + 1) = v11;
-      if (!sk_push(v4, v13))
-      {
-        v9 = 0;
-        v11 = 0;
-LABEL_19:
-        v16 = 0;
-        v15 = 65;
-LABEL_20:
-        sk_pop_free(v4, POLICY_MAPPING_free);
-        ERR_put_error(34, 4095, v15, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/x509/x509_pmaps.c", 230);
-        if (v16)
-        {
-          ERR_asprintf_error_data("section:%s,name:%s,value:%s", *v7, v7[1], v7[2]);
-        }
-
-        ASN1_OBJECT_free(v9);
-        ASN1_OBJECT_free(v11);
-        ASN1_item_free(v14, &POLICY_MAPPING_it);
-        return 0;
-      }
-
-      if (++v5 >= sk_num(a3))
-      {
-        return v4;
-      }
-    }
-
-    v14 = 0;
-    v9 = 0;
-    v11 = 0;
-LABEL_17:
-    v15 = 110;
-    v16 = 1;
-    goto LABEL_20;
-  }
-
-  return v4;
-}
-
-int SHA384_Init(SHA512_CTX *c)
-{
-  *&c->num = 0;
-  *&c->u.p[96] = 0u;
-  *&c->u.p[112] = 0u;
-  *&c->u.p[64] = 0u;
-  *&c->u.p[80] = 0u;
-  *&c->u.p[32] = 0u;
-  *&c->u.p[48] = 0u;
-  *c->u.d = 0u;
-  *&c->u.p[16] = 0u;
-  *c->h = xmmword_23E23D630;
-  *&c->h[2] = xmmword_23E23D640;
-  *&c->h[4] = xmmword_23E23D650;
-  *&c->h[6] = xmmword_23E23D660;
-  *&c->Nl = 0u;
-  c->md_len = 48;
-  return 1;
-}
-
-int SHA512_Update(SHA512_CTX *c, const void *data, size_t len)
-{
-  if (len)
-  {
-    v3 = len;
-    v4 = data;
-    p_u = &c->u;
-    *&c->Nl += __PAIR128__(len >> 61, 8 * len);
-    num = c->num;
-    if (num)
-    {
-      v8 = 128 - num;
-      v9 = len - (128 - num);
-      if (len < 128 - num)
-      {
-        memcpy(p_u + num, data, len);
-        LODWORD(v3) = c->num + v3;
-LABEL_10:
-        c->num = v3;
-        return 1;
-      }
-
-      memcpy(p_u + num, data, 128 - num);
-      c->num = 0;
-      v4 = (v4 + v8);
-      sha512_block_data_order(c, p_u->d, 1);
-      v3 = v9;
-    }
-
-    if (v3 >= 0x80)
-    {
-      sha512_block_data_order(c, v4, v3 >> 7);
-      v10 = v4 + v3;
-      v3 &= 0x7Fu;
-      v4 = &v10[-v3];
-    }
-
-    if (v3)
-    {
-      memcpy(p_u, v4, v3);
-      goto LABEL_10;
-    }
-  }
-
-  return 1;
-}
-
-int SHA512_Final(unsigned __int8 *md, SHA512_CTX *c)
-{
-  p_u = &c->u;
-  num = c->num;
-  c->u.p[num] = 0x80;
-  v6 = num + 1;
-  if (num >= 0x70)
-  {
-    bzero(p_u + v6, 127 - num);
-    sha512_block_data_order(c, p_u->d, 1);
-    v6 = 0;
-  }
-
-  bzero(p_u + v6, 112 - v6);
-  v7 = vrev64q_s8(*&c->Nl);
-  *&c->u.p[112] = vextq_s8(v7, v7, 8uLL);
-  sha512_block_data_order(c, p_u->d, 1);
-  result = 0;
-  if (md)
-  {
-    HIDWORD(v10) = c->md_len - 28;
-    LODWORD(v10) = HIDWORD(v10);
-    v9 = v10 >> 2;
-    if (v9 > 4)
-    {
-      if (v9 == 5)
-      {
-        for (i = 0; i != 6; ++i)
-        {
-          *&md[i * 8] = bswap64(c->h[i]);
-        }
-      }
-
-      else
-      {
-        if (v9 != 9)
-        {
-          return result;
-        }
-
-        for (j = 0; j != 8; ++j)
-        {
-          *&md[j * 8] = bswap64(c->h[j]);
-        }
-      }
-    }
-
-    else if (v9)
-    {
-      if (v9 != 1)
-      {
-        return result;
-      }
-
-      for (k = 0; k != 4; ++k)
-      {
-        *&md[k * 8] = bswap64(c->h[k]);
-      }
-    }
-
-    else
-    {
-      for (m = 0; m != 3; ++m)
-      {
-        *&md[m * 8] = bswap64(c->h[m]);
-      }
-
-      *(md + 6) = bswap32(HIDWORD(c->h[3]));
-    }
-
-    return 1;
-  }
-
-  return result;
-}
-
-unsigned __int8 *__cdecl SHA384(const unsigned __int8 *d, size_t n, unsigned __int8 *md)
-{
-  memset(&v5.u.p[64], 0, 72);
-  if (md)
-  {
-    v3 = md;
-  }
-
-  else
-  {
-    v3 = &SHA384_m;
-  }
-
-  *v5.h = xmmword_23E23D630;
-  *&v5.h[2] = xmmword_23E23D640;
-  *&v5.h[4] = xmmword_23E23D650;
-  *&v5.h[6] = xmmword_23E23D660;
-  memset(&v5.Nl, 0, 80);
-  v5.md_len = 48;
-  SHA512_Update(&v5, d, n);
-  SHA512_Final(v3, &v5);
-  explicit_bzero(&v5, 0xD8uLL);
-}
-
-int SHA512_Init(SHA512_CTX *c)
-{
-  *&c->num = 0;
-  *&c->u.p[96] = 0u;
-  *&c->u.p[112] = 0u;
-  *&c->u.p[64] = 0u;
-  *&c->u.p[80] = 0u;
-  *&c->u.p[32] = 0u;
-  *&c->u.p[48] = 0u;
-  *c->u.d = 0u;
-  *&c->u.p[16] = 0u;
-  *c->h = xmmword_23E23D670;
-  *&c->h[2] = xmmword_23E23D680;
-  *&c->h[4] = xmmword_23E23D690;
-  *&c->h[6] = xmmword_23E23D6A0;
-  *&c->Nl = 0u;
-  c->md_len = 64;
-  return 1;
-}
-
-unint64_t sha512_block_data_order(unint64_t result, unint64_t *a2, uint64_t a3)
-{
-  v122 = result;
-  if (a3)
-  {
-    v4 = *result;
-    v3 = *(result + 8);
-    v6 = *(result + 16);
-    v5 = *(result + 24);
-    v8 = *(result + 32);
-    v7 = *(result + 40);
-    v10 = *(result + 48);
-    v9 = *(result + 56);
-    do
-    {
-      v132 = a3;
-      v11 = 0;
-      v123 = v9;
-      v138 = bswap64(*a2);
-      v12 = (__ROR8__(v8, 14) ^ __ROR8__(v8, 18) ^ __ROR8__(v8, 41)) + v9 + (v10 & ~v8 | v7 & v8) + v138 + 0x428A2F98D728AE22;
-      v127 = v5;
-      v13 = v12 + v5;
-      v14 = ((v6 ^ v3) & v4 ^ v6 & v3) + (__ROR8__(v4, 28) ^ __ROR8__(v4, 34) ^ __ROR8__(v4, 39)) + v12;
-      v15 = bswap64(a2[1]);
-      v124 = v10;
-      v16 = v10 + (v13 & v8 | v7 & ~v13) + v15 + 0x7137449123EF65CDLL + (__ROR8__(v13, 14) ^ __ROR8__(v13, 18) ^ __ROR8__(v13, 41));
-      v128 = v6;
-      v17 = v16 + v6;
-      v18 = (__ROR8__(v14, 28) ^ __ROR8__(v14, 34) ^ __ROR8__(v14, 39)) + (v14 & (v3 ^ v4) ^ v3 & v4) + v16;
-      v19 = bswap64(a2[2]);
-      v125 = v7;
-      v20 = v7 + (v17 & v13 | v8 & ~v17) + v19 - 0x4A3F043013B2C4D1 + (__ROR8__(v17, 14) ^ __ROR8__(v17, 18) ^ __ROR8__(v17, 41));
-      v129 = v3;
-      v21 = v20 + v3;
-      v22 = (__ROR8__(v18, 28) ^ __ROR8__(v18, 34) ^ __ROR8__(v18, 39)) + (v18 & (v14 ^ v4) ^ v14 & v4) + v20;
-      v23 = bswap64(a2[3]);
-      v126 = v8;
-      v24 = v8 + (v21 & v17 | v13 & ~v21) + v23 - 0x164A245A7E762444 + (__ROR8__(v21, 14) ^ __ROR8__(v21, 18) ^ __ROR8__(v21, 41));
-      v130 = v4;
-      v25 = v24 + v4;
-      v26 = (__ROR8__(v22, 28) ^ __ROR8__(v22, 34) ^ __ROR8__(v22, 39)) + (v22 & (v18 ^ v14) ^ v18 & v14) + v24;
-      v27 = bswap64(a2[4]);
-      v28 = v13 + (v25 & v21 | v17 & ~v25) + v27 + 0x3956C25BF348B538 + (__ROR8__(v25, 14) ^ __ROR8__(v25, 18) ^ __ROR8__(v25, 41));
-      v29 = v28 + v14;
-      v30 = (__ROR8__(v26, 28) ^ __ROR8__(v26, 34) ^ __ROR8__(v26, 39)) + (v26 & (v22 ^ v18) ^ v22 & v18) + v28;
-      v31 = bswap64(a2[5]);
-      v32 = v17 + (v29 & v25 | v21 & ~v29) + v31 + 0x59F111F1B605D019 + (__ROR8__(v29, 14) ^ __ROR8__(v29, 18) ^ __ROR8__(v29, 41));
-      v33 = v32 + v18;
-      v34 = (__ROR8__(v30, 28) ^ __ROR8__(v30, 34) ^ __ROR8__(v30, 39)) + (v30 & (v26 ^ v22) ^ v26 & v22) + v32;
-      v35 = bswap64(a2[6]);
-      v36 = v21 + (v33 & v29 | v25 & ~v33) + v35 - 0x6DC07D5B50E6B065 + (__ROR8__(v33, 14) ^ __ROR8__(v33, 18) ^ __ROR8__(v33, 41));
-      v37 = v36 + v22;
-      v38 = (__ROR8__(v34, 28) ^ __ROR8__(v34, 34) ^ __ROR8__(v34, 39)) + (v34 & (v30 ^ v26) ^ v30 & v26) + v36;
-      v137 = bswap64(a2[7]);
-      v39 = v25 + (v37 & v33 | v29 & ~v37) + v137 - 0x54E3A12A25927EE8 + (__ROR8__(v37, 14) ^ __ROR8__(v37, 18) ^ __ROR8__(v37, 41));
-      v40 = v39 + v26;
-      v41 = (__ROR8__(v38, 28) ^ __ROR8__(v38, 34) ^ __ROR8__(v38, 39)) + (v38 & (v34 ^ v30) ^ v34 & v30) + v39;
-      v136 = bswap64(a2[8]);
-      v42 = v29 + (v40 & v37 | v33 & ~v40) + v136 - 0x27F855675CFCFDBELL + (__ROR8__(v40, 14) ^ __ROR8__(v40, 18) ^ __ROR8__(v40, 41));
-      v43 = v42 + v30;
-      v44 = (__ROR8__(v41, 28) ^ __ROR8__(v41, 34) ^ __ROR8__(v41, 39)) + (v41 & (v38 ^ v34) ^ v38 & v34) + v42;
-      v135 = bswap64(a2[9]);
-      v45 = v33 + (v43 & v40 | v37 & ~v43) + v135 + 0x12835B0145706FBELL + (__ROR8__(v43, 14) ^ __ROR8__(v43, 18) ^ __ROR8__(v43, 41));
-      v46 = v45 + v34;
-      v47 = (__ROR8__(v44, 28) ^ __ROR8__(v44, 34) ^ __ROR8__(v44, 39)) + (v44 & (v41 ^ v38) ^ v41 & v38) + v45;
-      v48 = bswap64(a2[10]);
-      v49 = v37 + (v46 & v43 | v40 & ~v46) + v48 + 0x243185BE4EE4B28CLL + (__ROR8__(v45 + v34, 14) ^ __ROR8__(v45 + v34, 18) ^ __ROR8__(v46, 41));
-      v50 = v49 + v38;
-      v51 = (__ROR8__(v47, 28) ^ __ROR8__(v47, 34) ^ __ROR8__(v47, 39)) + (v47 & (v44 ^ v41) ^ v44 & v41) + v49;
-      v52 = bswap64(a2[11]);
-      v53 = v40 + (v50 & v46 | v43 & ~v50) + v52 + 0x550C7DC3D5FFB4E2 + (__ROR8__(v49 + v38, 14) ^ __ROR8__(v49 + v38, 18) ^ __ROR8__(v50, 41));
-      v54 = v53 + v41;
-      v55 = (__ROR8__(v51, 28) ^ __ROR8__(v51, 34) ^ __ROR8__(v51, 39)) + (v51 & (v47 ^ v44) ^ v47 & v44) + v53;
-      v56 = bswap64(a2[12]);
-      v57 = v43 + (v54 & v50 | v46 & ~v54) + v56 + 0x72BE5D74F27B896FLL + (__ROR8__(v54, 14) ^ __ROR8__(v54, 18) ^ __ROR8__(v54, 41));
-      v58 = v57 + v44;
-      v59 = (__ROR8__(v55, 28) ^ __ROR8__(v55, 34) ^ __ROR8__(v55, 39)) + (v55 & (v51 ^ v47) ^ v51 & v47) + v57;
-      v60 = bswap64(a2[13]);
-      v61 = v46 + (v58 & v54 | v50 & ~v58) + v60 - 0x7F214E01C4E9694FLL + (__ROR8__(v57 + v44, 14) ^ __ROR8__(v57 + v44, 18) ^ __ROR8__(v58, 41));
-      v62 = v61 + v47;
-      v63 = (__ROR8__(v59, 28) ^ __ROR8__(v59, 34) ^ __ROR8__(v59, 39)) + (v59 & (v55 ^ v51) ^ v55 & v51) + v61;
-      v131 = a2;
-      v64 = bswap64(a2[14]);
-      v65 = v50 + (v62 & v58 | v54 & ~v62) + v64 - 0x6423F958DA38EDCBLL + (__ROR8__(v61 + v47, 14) ^ __ROR8__(v61 + v47, 18) ^ __ROR8__(v62, 41));
-      result = v65 + v51;
-      v66 = (__ROR8__(v63, 28) ^ __ROR8__(v63, 34) ^ __ROR8__(v63, 39)) + (v63 & (v59 ^ v55) ^ v59 & v55) + v65;
-      v67 = bswap64(a2[15]);
-      v68 = v54 + (result & v62 | v58 & ~result) + v67 - 0x3E640E8B3096D96CLL + (__ROR8__(result, 14) ^ __ROR8__(result, 18) ^ __ROR8__(result, 41));
-      v69 = v68 + v55;
-      v70 = (__ROR8__(v66, 28) ^ __ROR8__(v66, 34) ^ __ROR8__(v66, 39)) + (v66 & (v63 ^ v59) ^ v63 & v59) + v68;
-      v71 = &unk_23E23D828;
-      do
-      {
-        v134 = v11;
-        v72 = v135 + v138 + (__ROR8__(v64, 19) ^ __ROR8__(v64, 61) ^ (v64 >> 6)) + (__ROR8__(v15, 1) ^ __ROR8__(v15, 8) ^ (v15 >> 7));
-        v73 = v58 + (v62 & ~v69 | result & v69) + (__ROR8__(v69, 14) ^ __ROR8__(v69, 18) ^ __ROR8__(v69, 41)) + *(v71 - 15) + v72;
-        v74 = v73 + v59;
-        v75 = ((v63 ^ v66) & v70 ^ v63 & v66) + (__ROR8__(v70, 28) ^ __ROR8__(v70, 34) ^ __ROR8__(v70, 39)) + v73;
-        v76 = v48 + v15 + (__ROR8__(v67, 19) ^ __ROR8__(v67, 61) ^ (v67 >> 6)) + (__ROR8__(v19, 1) ^ __ROR8__(v19, 8) ^ (v19 >> 7));
-        v77 = v76 + v62 + *(v71 - 14) + (v74 & v69 | result & ~v74) + (__ROR8__(v74, 14) ^ __ROR8__(v74, 18) ^ __ROR8__(v74, 41));
-        v78 = v77 + v63;
-        v79 = (__ROR8__(v75, 28) ^ __ROR8__(v75, 34) ^ __ROR8__(v75, 39)) + (v75 & (v66 ^ v70) ^ v66 & v70) + v77;
-        v80 = v19 + v52 + (__ROR8__(v23, 1) ^ __ROR8__(v23, 8) ^ (v23 >> 7)) + (__ROR8__(v72, 19) ^ __ROR8__(v72, 61) ^ (v72 >> 6));
-        v81 = (v80 + result + *(v71 - 13) + (v78 & v74 | v69 & ~v78) + (__ROR8__(v77 + v63, 14) ^ __ROR8__(v77 + v63, 18) ^ __ROR8__(v78, 41)));
-        v82 = &v81[v66];
-        v83 = &v81[(__ROR8__(v79, 28) ^ __ROR8__(v79, 34) ^ __ROR8__(v79, 39)) + (v79 & (v75 ^ v70) ^ v75 & v70)];
-        v84 = v76;
-        v133 = v76;
-        v85 = v23 + v56 + (__ROR8__(v27, 1) ^ __ROR8__(v27, 8) ^ (v27 >> 7)) + (__ROR8__(v76, 19) ^ __ROR8__(v76, 61) ^ (v76 >> 6));
-        v86 = v85 + v69 + *(v71 - 12) + (v82 & (v77 + v63) | v74 & ~v82) + (__ROR8__(v82, 14) ^ __ROR8__(v82, 18) ^ __ROR8__(v82, 41));
-        v87 = v86 + v70;
-        v88 = (__ROR8__(v83, 28) ^ __ROR8__(v83, 34) ^ __ROR8__(v83, 39)) + (v83 & (v79 ^ v75) ^ v79 & v75) + v86;
-        v27 += v60 + (__ROR8__(v31, 1) ^ __ROR8__(v31, 8) ^ (v31 >> 7)) + (__ROR8__(v80, 19) ^ __ROR8__(v80, 61) ^ (v80 >> 6));
-        v89 = v74 + *(v71 - 11) + v27 + (v87 & v82 | (v77 + v63) & ~v87) + (__ROR8__(v86 + v70, 14) ^ __ROR8__(v86 + v70, 18) ^ __ROR8__(v86 + v70, 41));
-        v90 = v89 + v75;
-        v91 = (__ROR8__(v88, 28) ^ __ROR8__(v88, 34) ^ __ROR8__(v88, 39)) + (v88 & (v83 ^ v79) ^ v83 & v79) + v89;
-        v139 = v85;
-        v31 += v64 + (__ROR8__(v35, 1) ^ __ROR8__(v35, 8) ^ (v35 >> 7)) + (__ROR8__(v85, 19) ^ __ROR8__(v85, 61) ^ (v85 >> 6));
-        v92 = *(v71 - 10) + v78 + v31 + (v90 & v87 | v82 & ~v90) + (__ROR8__(v89 + v75, 14) ^ __ROR8__(v89 + v75, 18) ^ __ROR8__(v90, 41));
-        v93 = v92 + v79;
-        v94 = (__ROR8__(v91, 28) ^ __ROR8__(v91, 34) ^ __ROR8__(v91, 39)) + (v91 & (v88 ^ v83) ^ v88 & v83) + v92;
-        v35 += v67 + (__ROR8__(v137, 1) ^ __ROR8__(v137, 8) ^ (v137 >> 7)) + (__ROR8__(v27, 19) ^ __ROR8__(v27, 61) ^ (v27 >> 6));
-        v95 = &v82[*(v71 - 9) + v35 + (v93 & v90 | v87 & ~v93) + (__ROR8__(v93, 14) ^ __ROR8__(v93, 18) ^ __ROR8__(v93, 41))];
-        v96 = &v83[v95];
-        v97 = (__ROR8__(v94, 28) ^ __ROR8__(v94, 34) ^ __ROR8__(v94, 39)) + (v94 & (v91 ^ v88) ^ v91 & v88) + v95;
-        v98 = (__ROR8__(v136, 1) ^ __ROR8__(v136, 8) ^ (v136 >> 7)) + v137 + v72 + (__ROR8__(v31, 19) ^ __ROR8__(v31, 61) ^ (v31 >> 6));
-        v99 = *(v71 - 8) + v98 + v87 + (v96 & v93 | v90 & ~v96) + (__ROR8__(v96, 14) ^ __ROR8__(v96, 18) ^ __ROR8__(v96, 41));
-        v100 = v99 + v88;
-        v101 = (__ROR8__(v97, 28) ^ __ROR8__(v97, 34) ^ __ROR8__(v97, 39)) + (v97 & (v94 ^ v91) ^ v94 & v91) + v99;
-        v102 = (__ROR8__(v135, 1) ^ __ROR8__(v135, 8) ^ (v135 >> 7)) + v136 + v84 + (__ROR8__(v35, 19) ^ __ROR8__(v35, 61) ^ (v35 >> 6));
-        v103 = *(v71 - 7) + v102 + v90 + (v100 & v96 | v93 & ~v100) + (__ROR8__(v100, 14) ^ __ROR8__(v100, 18) ^ __ROR8__(v100, 41));
-        v104 = v103 + v91;
-        v105 = (__ROR8__(v101, 28) ^ __ROR8__(v101, 34) ^ __ROR8__(v101, 39)) + (v101 & (v97 ^ v94) ^ v97 & v94) + v103;
-        v106 = (__ROR8__(v48, 1) ^ __ROR8__(v48, 8) ^ (v48 >> 7)) + v135 + v80 + (__ROR8__(v98, 19) ^ __ROR8__(v98, 61) ^ (v98 >> 6));
-        v107 = *(v71 - 6) + v106 + v93 + (v104 & v100 | v96 & ~v104) + (__ROR8__(v103 + v91, 14) ^ __ROR8__(v103 + v91, 18) ^ __ROR8__(v103 + v91, 41));
-        v108 = v107 + v94;
-        v109 = (__ROR8__(v105, 28) ^ __ROR8__(v105, 34) ^ __ROR8__(v105, 39)) + (v105 & (v101 ^ v97) ^ v101 & v97) + v107;
-        v48 += (__ROR8__(v52, 1) ^ __ROR8__(v52, 8) ^ (v52 >> 7)) + v139 + (__ROR8__(v102, 19) ^ __ROR8__(v102, 61) ^ (v102 >> 6));
-        v110 = &v96[*(v71 - 5) + v48 + (v108 & v104 | v100 & ~v108) + (__ROR8__(v108, 14) ^ __ROR8__(v108, 18) ^ __ROR8__(v108, 41))];
-        v111 = v110 + v97;
-        v112 = (__ROR8__(v109, 28) ^ __ROR8__(v109, 34) ^ __ROR8__(v109, 39)) + (v109 & (v105 ^ v101) ^ v105 & v101) + v110;
-        v135 = v106;
-        v52 += (__ROR8__(v56, 1) ^ __ROR8__(v56, 8) ^ (v56 >> 7)) + v27 + (__ROR8__(v106, 19) ^ __ROR8__(v106, 61) ^ (v106 >> 6));
-        v113 = *(v71 - 4) + v52 + v100 + (v111 & v108 | v104 & ~v111) + (__ROR8__(v111, 14) ^ __ROR8__(v111, 18) ^ __ROR8__(v111, 41));
-        v114 = v113 + v101;
-        v115 = (__ROR8__(v112, 28) ^ __ROR8__(v112, 34) ^ __ROR8__(v112, 39)) + (v112 & (v109 ^ v105) ^ v109 & v105) + v113;
-        v56 += (__ROR8__(v60, 1) ^ __ROR8__(v60, 8) ^ (v60 >> 7)) + v31 + (__ROR8__(v48, 19) ^ __ROR8__(v48, 61) ^ (v48 >> 6));
-        v116 = *(v71 - 3) + v56 + v104 + (v114 & v111 | v108 & ~v114) + (__ROR8__(v113 + v101, 14) ^ __ROR8__(v113 + v101, 18) ^ __ROR8__(v114, 41));
-        v58 = v116 + v105;
-        v59 = (__ROR8__(v115, 28) ^ __ROR8__(v115, 34) ^ __ROR8__(v115, 39)) + (v115 & (v112 ^ v109) ^ v112 & v109) + v116;
-        v60 += (__ROR8__(v64, 1) ^ __ROR8__(v64, 8) ^ (v64 >> 7)) + v35 + (__ROR8__(v52, 19) ^ __ROR8__(v52, 61) ^ (v52 >> 6));
-        v117 = *(v71 - 2) + v60 + v108 + (v58 & v114 | v111 & ~v58) + (__ROR8__(v116 + v105, 14) ^ __ROR8__(v116 + v105, 18) ^ __ROR8__(v116 + v105, 41));
-        v62 = v117 + v109;
-        v63 = (__ROR8__(v59, 28) ^ __ROR8__(v59, 34) ^ __ROR8__(v59, 39)) + (v59 & (v115 ^ v112) ^ v115 & v112) + v117;
-        v137 = v98;
-        v118 = (__ROR8__(v67, 1) ^ __ROR8__(v67, 8) ^ (v67 >> 7)) + v64 + v98;
-        v19 = v80;
-        v64 = v118 + (__ROR8__(v56, 19) ^ __ROR8__(v56, 61) ^ (v56 >> 6));
-        v119 = *(v71 - 1) + v64 + v111 + (v62 & v58 | v114 & ~v62) + (__ROR8__(v62, 14) ^ __ROR8__(v62, 18) ^ __ROR8__(v62, 41));
-        result = v119 + v112;
-        v66 = (__ROR8__(v63, 28) ^ __ROR8__(v63, 34) ^ __ROR8__(v63, 39)) + (v63 & (v59 ^ v115) ^ v59 & v115) + v119;
-        v138 = v72;
-        v136 = v102;
-        v120 = (__ROR8__(v72, 1) ^ __ROR8__(v72, 8) ^ (v72 >> 7)) + v67 + v102;
-        v23 = v139;
-        v67 = v120 + (__ROR8__(v60, 19) ^ __ROR8__(v60, 61) ^ (v60 >> 6));
-        v121 = *v71 + v67 + v114 + (result & v62 | v58 & ~result) + (__ROR8__(result, 14) ^ __ROR8__(result, 18) ^ __ROR8__(result, 41));
-        v69 = v121 + v115;
-        v70 = (__ROR8__(v66, 28) ^ __ROR8__(v66, 34) ^ __ROR8__(v66, 39)) + (v66 & (v63 ^ v59) ^ v63 & v59) + v121;
-        v15 = v133;
-        v11 = v134 + 16;
-        v71 += 16;
-      }
-
-      while ((v134 + 16) < 0x40);
-      v4 = v70 + v130;
-      v3 = v66 + v129;
-      *v122 = v70 + v130;
-      v122[1] = v66 + v129;
-      v6 = v63 + v128;
-      v5 = v59 + v127;
-      v122[2] = v63 + v128;
-      v122[3] = v59 + v127;
-      v8 = v69 + v126;
-      v7 = result + v125;
-      v122[4] = v69 + v126;
-      v122[5] = result + v125;
-      v10 = v62 + v124;
-      v9 = v58 + v123;
-      a2 = v131 + 16;
-      v122[6] = v62 + v124;
-      v122[7] = v58 + v123;
-      a3 = v132 - 1;
-    }
-
-    while (v132 != 1);
-  }
-
-  return result;
-}
-
-unsigned __int8 *__cdecl SHA512(const unsigned __int8 *d, size_t n, unsigned __int8 *md)
-{
-  memset(&v5.u.p[64], 0, 72);
-  if (md)
-  {
-    v3 = md;
-  }
-
-  else
-  {
-    v3 = &SHA512_m;
-  }
-
-  *v5.h = xmmword_23E23D670;
-  *&v5.h[2] = xmmword_23E23D680;
-  *&v5.h[4] = xmmword_23E23D690;
-  *&v5.h[6] = xmmword_23E23D6A0;
-  memset(&v5.Nl, 0, 80);
-  v5.md_len = 64;
-  SHA512_Update(&v5, d, n);
-  SHA512_Final(v3, &v5);
-  explicit_bzero(&v5, 0xD8uLL);
-}
-
-uint64_t SHA512_224_Init(uint64_t a1)
-{
-  *(a1 + 208) = 0;
-  *(a1 + 176) = 0u;
-  *(a1 + 192) = 0u;
-  *(a1 + 144) = 0u;
-  *(a1 + 160) = 0u;
-  *(a1 + 112) = 0u;
-  *(a1 + 128) = 0u;
-  *(a1 + 80) = 0u;
-  *(a1 + 96) = 0u;
-  *a1 = xmmword_23E23D6B0;
-  *(a1 + 16) = xmmword_23E23D6C0;
-  *(a1 + 32) = xmmword_23E23D6D0;
-  *(a1 + 48) = xmmword_23E23D6E0;
-  *(a1 + 64) = 0u;
-  *(a1 + 212) = 28;
-  return 1;
-}
-
-uint64_t SHA512_256_Init(uint64_t a1)
-{
-  *(a1 + 208) = 0;
-  *(a1 + 176) = 0u;
-  *(a1 + 192) = 0u;
-  *(a1 + 144) = 0u;
-  *(a1 + 160) = 0u;
-  *(a1 + 112) = 0u;
-  *(a1 + 128) = 0u;
-  *(a1 + 80) = 0u;
-  *(a1 + 96) = 0u;
-  *a1 = xmmword_23E23D6F0;
-  *(a1 + 16) = xmmword_23E23D700;
-  *(a1 + 32) = xmmword_23E23D710;
-  *(a1 + 48) = xmmword_23E23D720;
-  *(a1 + 64) = 0u;
-  *(a1 + 212) = 32;
-  return 1;
-}
-
-void BF_encrypt(unsigned int *data, const BF_KEY *key)
-{
-  v2 = key->P[0] ^ *data;
-  v3 = key->P[1] ^ data[1] ^ (((key->S[BYTE2(v2) | 0x100] + key->S[HIBYTE(v2)]) ^ key->S[BYTE1(v2) | 0x200]) + key->S[(LOBYTE(key->P[0]) ^ *data) | 0x300]);
-  v4 = key->P[2] ^ v2 ^ (((key->S[BYTE2(v3) | 0x100] + key->S[HIBYTE(v3)]) ^ key->S[BYTE1(v3) | 0x200]) + key->S[(LOBYTE(key->P[1]) ^ *(data + 4) ^ (((LOBYTE(key->S[BYTE2(v2) | 0x100]) + LOBYTE(key->S[HIBYTE(v2)])) ^ LOBYTE(key->S[BYTE1(v2) | 0x200])) + LOBYTE(key->S[(LOBYTE(key->P[0]) ^ *data) | 0x300]))) | 0x300]);
-  v5 = key->P[3] ^ v3 ^ (((key->S[BYTE2(v4) | 0x100] + key->S[HIBYTE(v4)]) ^ key->S[BYTE1(v4) | 0x200]) + key->S[v4 | 0x300]);
-  v6 = key->P[4] ^ v4 ^ (((key->S[BYTE2(v5) | 0x100] + key->S[HIBYTE(v5)]) ^ key->S[BYTE1(v5) | 0x200]) + key->S[v5 | 0x300]);
-  v7 = key->P[5] ^ v5 ^ (((key->S[BYTE2(v6) | 0x100] + key->S[HIBYTE(v6)]) ^ key->S[BYTE1(v6) | 0x200]) + key->S[v6 | 0x300]);
-  v8 = key->P[6] ^ v6 ^ (((key->S[BYTE2(v7) | 0x100] + key->S[HIBYTE(v7)]) ^ key->S[BYTE1(v7) | 0x200]) + key->S[v7 | 0x300]);
-  v9 = key->P[7] ^ v7 ^ (((key->S[BYTE2(v8) | 0x100] + key->S[HIBYTE(v8)]) ^ key->S[BYTE1(v8) | 0x200]) + key->S[v8 | 0x300]);
-  v10 = key->P[8] ^ v8 ^ (((key->S[BYTE2(v9) | 0x100] + key->S[HIBYTE(v9)]) ^ key->S[BYTE1(v9) | 0x200]) + key->S[v9 | 0x300]);
-  v11 = key->P[9] ^ v9 ^ (((key->S[BYTE2(v10) | 0x100] + key->S[HIBYTE(v10)]) ^ key->S[BYTE1(v10) | 0x200]) + key->S[v10 | 0x300]);
-  v12 = key->P[10] ^ v10 ^ (((key->S[BYTE2(v11) | 0x100] + key->S[HIBYTE(v11)]) ^ key->S[BYTE1(v11) | 0x200]) + key->S[v11 | 0x300]);
-  v13 = key->P[11] ^ v11 ^ (((key->S[BYTE2(v12) | 0x100] + key->S[HIBYTE(v12)]) ^ key->S[BYTE1(v12) | 0x200]) + key->S[v12 | 0x300]);
-  v14 = key->P[12] ^ v12 ^ (((key->S[BYTE2(v13) | 0x100] + key->S[HIBYTE(v13)]) ^ key->S[BYTE1(v13) | 0x200]) + key->S[v13 | 0x300]);
-  v15 = key->P[13] ^ v13 ^ (((key->S[BYTE2(v14) | 0x100] + key->S[HIBYTE(v14)]) ^ key->S[BYTE1(v14) | 0x200]) + key->S[v14 | 0x300]);
-  v16 = key->P[14] ^ v14 ^ (((key->S[BYTE2(v15) | 0x100] + key->S[HIBYTE(v15)]) ^ key->S[BYTE1(v15) | 0x200]) + key->S[v15 | 0x300]);
-  v17 = key->P[15] ^ v15 ^ (((key->S[BYTE2(v16) | 0x100] + key->S[HIBYTE(v16)]) ^ key->S[BYTE1(v16) | 0x200]) + key->S[v16 | 0x300]);
-  v18 = key->P[16] ^ v16 ^ (((key->S[BYTE2(v17) | 0x100] + key->S[HIBYTE(v17)]) ^ key->S[BYTE1(v17) | 0x200]) + key->S[v17 | 0x300]);
-  *data = key->P[17] ^ v17;
-  data[1] = v18;
-}
-
-void BF_decrypt(unsigned int *data, const BF_KEY *key)
-{
-  v2 = key->P[17] ^ *data;
-  v3 = key->P[16] ^ data[1] ^ (((key->S[BYTE2(v2) | 0x100] + key->S[HIBYTE(v2)]) ^ key->S[BYTE1(v2) | 0x200]) + key->S[(LOBYTE(key->P[17]) ^ *data) | 0x300]);
-  v4 = key->P[15] ^ v2 ^ (((key->S[BYTE2(v3) | 0x100] + key->S[HIBYTE(v3)]) ^ key->S[BYTE1(v3) | 0x200]) + key->S[(LOBYTE(key->P[16]) ^ *(data + 4) ^ (((LOBYTE(key->S[BYTE2(v2) | 0x100]) + LOBYTE(key->S[HIBYTE(v2)])) ^ LOBYTE(key->S[BYTE1(v2) | 0x200])) + LOBYTE(key->S[(LOBYTE(key->P[17]) ^ *data) | 0x300]))) | 0x300]);
-  v5 = key->P[14] ^ v3 ^ (((key->S[BYTE2(v4) | 0x100] + key->S[HIBYTE(v4)]) ^ key->S[BYTE1(v4) | 0x200]) + key->S[v4 | 0x300]);
-  v6 = key->P[13] ^ v4 ^ (((key->S[BYTE2(v5) | 0x100] + key->S[HIBYTE(v5)]) ^ key->S[BYTE1(v5) | 0x200]) + key->S[v5 | 0x300]);
-  v7 = key->P[12] ^ v5 ^ (((key->S[BYTE2(v6) | 0x100] + key->S[HIBYTE(v6)]) ^ key->S[BYTE1(v6) | 0x200]) + key->S[v6 | 0x300]);
-  v8 = key->P[11] ^ v6 ^ (((key->S[BYTE2(v7) | 0x100] + key->S[HIBYTE(v7)]) ^ key->S[BYTE1(v7) | 0x200]) + key->S[v7 | 0x300]);
-  v9 = key->P[10] ^ v7 ^ (((key->S[BYTE2(v8) | 0x100] + key->S[HIBYTE(v8)]) ^ key->S[BYTE1(v8) | 0x200]) + key->S[v8 | 0x300]);
-  v10 = key->P[9] ^ v8 ^ (((key->S[BYTE2(v9) | 0x100] + key->S[HIBYTE(v9)]) ^ key->S[BYTE1(v9) | 0x200]) + key->S[v9 | 0x300]);
-  v11 = key->P[8] ^ v9 ^ (((key->S[BYTE2(v10) | 0x100] + key->S[HIBYTE(v10)]) ^ key->S[BYTE1(v10) | 0x200]) + key->S[v10 | 0x300]);
-  v12 = key->P[7] ^ v10 ^ (((key->S[BYTE2(v11) | 0x100] + key->S[HIBYTE(v11)]) ^ key->S[BYTE1(v11) | 0x200]) + key->S[v11 | 0x300]);
-  v13 = key->P[6] ^ v11 ^ (((key->S[BYTE2(v12) | 0x100] + key->S[HIBYTE(v12)]) ^ key->S[BYTE1(v12) | 0x200]) + key->S[v12 | 0x300]);
-  v14 = key->P[5] ^ v12 ^ (((key->S[BYTE2(v13) | 0x100] + key->S[HIBYTE(v13)]) ^ key->S[BYTE1(v13) | 0x200]) + key->S[v13 | 0x300]);
-  v15 = key->P[4] ^ v13 ^ (((key->S[BYTE2(v14) | 0x100] + key->S[HIBYTE(v14)]) ^ key->S[BYTE1(v14) | 0x200]) + key->S[v14 | 0x300]);
-  v16 = key->P[3] ^ v14 ^ (((key->S[BYTE2(v15) | 0x100] + key->S[HIBYTE(v15)]) ^ key->S[BYTE1(v15) | 0x200]) + key->S[v15 | 0x300]);
-  v17 = key->P[2] ^ v15 ^ (((key->S[BYTE2(v16) | 0x100] + key->S[HIBYTE(v16)]) ^ key->S[BYTE1(v16) | 0x200]) + key->S[v16 | 0x300]);
-  v18 = key->P[1] ^ v16 ^ (((key->S[BYTE2(v17) | 0x100] + key->S[HIBYTE(v17)]) ^ key->S[BYTE1(v17) | 0x200]) + key->S[v17 | 0x300]);
-  *data = key->P[0] ^ v17;
-  data[1] = v18;
-}
-
-void BF_cbc_encrypt(const unsigned __int8 *in, unsigned __int8 *out, uint64_t length, const BF_KEY *schedule, unsigned __int8 *ivec, int enc)
-{
-  v8 = length;
-  v46 = *MEMORY[0x277D85DE8];
-  v10 = bswap32(*ivec);
-  v11 = bswap32(*(ivec + 1));
-  if (!enc)
-  {
-    if (length >= 8)
-    {
-      do
-      {
-        v18 = out;
-        v19 = v10;
-        v20 = v11;
-        v21 = v8;
-        v8 -= 8;
-        v10 = bswap32(*in);
-        v22 = in + 8;
-        v11 = bswap32(*(in + 1));
-        v44 = v10;
-        v45 = v11;
-        BF_decrypt(&v44, schedule);
-        v23 = v44 ^ v19;
-        v24 = v45 ^ v20;
-        *v18 = (v44 ^ v19) >> 24;
-        v18[1] = BYTE2(v23);
-        v18[2] = BYTE1(v23);
-        v18[3] = v23;
-        v18[4] = HIBYTE(v24);
-        v18[5] = BYTE2(v24);
-        v18[6] = BYTE1(v24);
-        out = v18 + 8;
-        v18[7] = v24;
-        in = v22;
-      }
-
-      while (v21 > 0xF);
-      in = v22;
-    }
-
-    if (v8)
-    {
-      v25 = bswap32(*in);
-      v26 = bswap32(*(in + 1));
-      v44 = v25;
-      v45 = v26;
-      BF_decrypt(&v44, schedule);
-      v27 = v44 ^ v10;
-      v28 = &out[v8];
-      if (v8 <= 3)
-      {
-        if (v8 == 1)
-        {
-LABEL_47:
-          *(v28 - 1) = HIBYTE(v27);
-          goto LABEL_48;
-        }
-
-        if (v8 == 2)
-        {
-LABEL_46:
-          *--v28 = BYTE2(v27);
-          goto LABEL_47;
-        }
-
-        if (v8 != 3)
-        {
-          goto LABEL_48;
-        }
-
-LABEL_45:
-        *--v28 = BYTE1(v27);
-        goto LABEL_46;
-      }
-
-      v29 = v45 ^ v11;
-      if (v8 <= 5)
-      {
-        if (v8 == 4)
-        {
-LABEL_44:
-          *--v28 = v27;
-          goto LABEL_45;
-        }
-
-LABEL_43:
-        *--v28 = HIBYTE(v29);
-        goto LABEL_44;
-      }
-
-      if (v8 == 6)
-      {
-LABEL_42:
-        *--v28 = BYTE2(v29);
-        goto LABEL_43;
-      }
-
-      if (v8 == 7)
-      {
-        *--v28 = BYTE1(v29);
-        goto LABEL_42;
-      }
-    }
-
-    else
-    {
-      v25 = v10;
-      v26 = v11;
-    }
-
-LABEL_48:
-    *ivec = HIBYTE(v25);
-    ivec[1] = BYTE2(v25);
-    ivec[2] = BYTE1(v25);
-    ivec[3] = v25;
-    ivec[4] = HIBYTE(v26);
-    ivec[5] = BYTE2(v26);
-    ivec[6] = BYTE1(v26);
-    goto LABEL_49;
-  }
-
-  if (length >= 8)
-  {
-    do
-    {
-      v12 = out;
-      v13 = v8;
-      v8 -= 8;
-      v14 = in + 8;
-      v15 = bswap32(*(in + 1));
-      v44 = bswap32(*in) ^ v10;
-      v45 = v15 ^ v11;
-      BF_encrypt(&v44, schedule);
-      v10 = v44;
-      v11 = v45;
-      *out = HIBYTE(v44);
-      out[1] = BYTE2(v10);
-      out[2] = BYTE1(v10);
-      out[3] = v10;
-      out[4] = HIBYTE(v11);
-      out[5] = BYTE2(v11);
-      out[6] = BYTE1(v11);
-      out += 8;
-      v12[7] = v11;
-      in = v14;
-    }
-
-    while (v13 > 0xF);
-    in = v14;
-  }
-
-  if (v8)
-  {
-    v16 = 0;
-    v17 = &in[v8];
-    if (v8 <= 3)
-    {
-      v36 = 0;
-      if (v8 == 1)
-      {
-LABEL_32:
-        v16 |= *(v17 - 1) << 24;
-        goto LABEL_33;
-      }
-
-      if (v8 == 2)
-      {
-LABEL_31:
-        v42 = *--v17;
-        v16 |= v42 << 16;
-        goto LABEL_32;
-      }
-
-      if (v8 != 3)
-      {
-        goto LABEL_33;
-      }
-
-LABEL_30:
-      v41 = *--v17;
-      v16 |= v41 << 8;
-      goto LABEL_31;
-    }
-
-    if (v8 > 5)
-    {
-      if (v8 != 6)
-      {
-        v36 = 0;
-        if (v8 != 7)
-        {
-LABEL_33:
-          v44 = v16 ^ v10;
-          v45 = v36 ^ v11;
-          BF_encrypt(&v44, schedule);
-          v10 = v44;
-          v26 = v45;
-          v30 = HIBYTE(v44);
-          *out = HIBYTE(v44);
-          v31 = HIWORD(v10);
-          out[1] = BYTE2(v10);
-          v32 = v10 >> 8;
-          out[2] = BYTE1(v10);
-          out[3] = v10;
-          v33 = HIBYTE(v26);
-          out[4] = HIBYTE(v26);
-          v34 = HIWORD(v26);
-          out[5] = BYTE2(v26);
-          v35 = v26 >> 8;
-          out[6] = BYTE1(v26);
-          out[7] = v26;
-          goto LABEL_34;
-        }
-
-        v37 = *--v17;
-        v16 = v37 << 8;
-      }
-
-      v38 = *--v17;
-      v16 |= v38 << 16;
-    }
-
-    else if (v8 == 4)
-    {
-LABEL_29:
-      v36 = v16;
-      v40 = *--v17;
-      v16 = v40;
-      goto LABEL_30;
-    }
-
-    v39 = *--v17;
-    v16 |= v39 << 24;
-    goto LABEL_29;
-  }
-
-  v30 = HIBYTE(v10);
-  v31 = HIWORD(v10);
-  v32 = v10 >> 8;
-  v33 = HIBYTE(v11);
-  v34 = HIWORD(v11);
-  LOBYTE(v26) = v11;
-  v35 = v11 >> 8;
-LABEL_34:
-  *ivec = v30;
-  ivec[1] = v31;
-  ivec[2] = v32;
-  ivec[3] = v10;
-  ivec[4] = v33;
-  ivec[5] = v34;
-  ivec[6] = v35;
-LABEL_49:
-  ivec[7] = v26;
-  v43 = *MEMORY[0x277D85DE8];
-}
-
-BOOL ossl_ecdsa_sign(int a1, unsigned __int8 *dgst, int dgstlen, unsigned __int8 *a4, int *a5, BIGNUM *kinv, BIGNUM *rp, EC_KEY *eckey)
-{
-  pp = a4;
-  v9 = ECDSA_do_sign_ex(dgst, dgstlen, kinv, rp, eckey);
-  v10 = v9;
-  if (v9)
-  {
-    v11 = i2d_ECDSA_SIG(v9, &pp);
-    v12 = v11 & ~(v11 >> 31);
-    v13 = v11 >= 0;
-  }
-
-  else
-  {
-    v12 = 0;
-    v13 = 0;
-  }
-
-  *a5 = v12;
-  ECDSA_SIG_free(v10);
-  return v13;
-}
-
-void *ossl_ecdsa_sign_setup(EC_KEY *a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  result = ecdsa_check(a1);
-  if (result)
-  {
-    v9 = *(result[3] + 16);
-
-    return v9(a1, a2, a3, a4);
-  }
-
-  return result;
-}
-
-void *ossl_ecdsa_sign_sig(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, EC_KEY *a5)
-{
-  result = ecdsa_check(a5);
-  if (result)
-  {
-    v11 = *(result[3] + 8);
-
-    return v11(a1, a2, a3, a4, a5);
-  }
-
-  return result;
-}
-
-uint64_t ossl_ecdsa_verify(uint64_t a1, const unsigned __int8 *a2, int a3, unsigned __int8 *a4, int a5, EC_KEY *a6)
-{
-  pp = a4;
-  v16 = 0;
-  v = ECDSA_SIG_new();
-  if (v)
-  {
-    if (d2i_ECDSA_SIG(&v, &pp, a5))
-    {
-      v11 = i2d_ECDSA_SIG(v, &v16);
-      v12 = v16;
-      if (v11 != a5)
-      {
-        v13 = 0xFFFFFFFFLL;
-        a5 = v11;
-        goto LABEL_10;
-      }
-
-      if (!memcmp(a4, v16, a5))
-      {
-        v13 = ECDSA_do_verify(a2, a3, v, a6);
-        v12 = v16;
-LABEL_10:
-        freezero(v12, a5);
-        ECDSA_SIG_free(v);
-        return v13;
-      }
-    }
-
-    else
-    {
-      v12 = 0;
-      a5 = -1;
-    }
-
-    v13 = 0xFFFFFFFFLL;
-    goto LABEL_10;
-  }
-
-  return 0xFFFFFFFFLL;
-}
-
-void *ossl_ecdsa_verify_sig(uint64_t a1, uint64_t a2, uint64_t a3, EC_KEY *a4)
-{
-  result = ecdsa_check(a4);
-  if (result)
-  {
-    v9 = *(result[3] + 24);
-
-    return v9(a1, a2, a3, a4);
-  }
-
-  return result;
-}
-
-int ECDSA_sign_setup(EC_KEY *eckey, BN_CTX *ctx, BIGNUM **kinv, BIGNUM **rp)
-{
-  v5 = *(*eckey + 88);
-  if (v5)
-  {
-
-    return v5();
-  }
-
-  else
-  {
-    ERR_put_error(42, 4095, 144, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ecdsa/ecs_ossl.c", 616);
-    return 0;
-  }
-}
-
-ECDSA_SIG *ecdsa_do_sign(const unsigned __int8 *a1, int a2, BIGNUM *a3, const BIGNUM *a4, EC_KEY *a5)
-{
-  kinv = 0;
-  v10 = ecdsa_check(a5);
-  v11 = EC_KEY_get0_group(a5);
-  v12 = EC_KEY_get0_private_key(a5);
-  if (!v11 || (v13 = v12) == 0 || !v10)
-  {
-    ERR_put_error(42, 4095, 67, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ecdsa/ecs_ossl.c", 301);
-    return 0;
-  }
-
-  v14 = ECDSA_SIG_new();
-  v15 = v14;
-  if (!v14)
-  {
-    ERR_put_error(42, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ecdsa/ecs_ossl.c", 306);
-    return v15;
-  }
-
-  s = v14->s;
-  v17 = BN_CTX_new();
-  if (!v17)
-  {
-    v27 = 0;
-    v31 = 0;
-    v32 = 0;
-    v22 = 0;
-    v18 = 0;
-    goto LABEL_44;
-  }
-
-  v45 = s;
-  v18 = BN_new();
-  if (!v18 || (r = BN_new()) == 0)
-  {
-    v27 = 0;
-    v31 = 0;
-    v32 = 0;
-    v22 = 0;
-LABEL_44:
-    v26 = 0;
-LABEL_45:
-    ERR_put_error(42, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ecdsa/ecs_ossl.c", 315);
-    v33 = 0;
-    goto LABEL_46;
-  }
-
-  rnd = BN_new();
-  if (!rnd)
-  {
-    v27 = 0;
-    v31 = 0;
-    v32 = 0;
-    v22 = 0;
-    v26 = r;
-    goto LABEL_45;
-  }
-
-  v43 = BN_new();
-  if (!v43)
-  {
-    v31 = 0;
-    v32 = 0;
-    v22 = 0;
-    v26 = r;
-    v27 = rnd;
-    goto LABEL_45;
-  }
-
-  v42 = BN_new();
-  if (!v42)
-  {
-    v32 = 0;
-    v22 = 0;
-    v26 = r;
-    v31 = v43;
-    v27 = rnd;
-    goto LABEL_45;
-  }
-
-  v41 = BN_new();
-  if (!v41)
-  {
-    v22 = 0;
-    v26 = r;
-    v31 = v43;
-    v27 = rnd;
-    v32 = v42;
-    goto LABEL_45;
-  }
-
-  b = BN_new();
-  if (!b)
-  {
-    v26 = r;
-    v31 = v43;
-    v27 = rnd;
-    v22 = v41;
-    v32 = v42;
-    goto LABEL_45;
-  }
-
-  if (!EC_GROUP_get_order(v11, v18, v17))
-  {
-    ERR_put_error(42, 4095, 16, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ecdsa/ecs_ossl.c", 320);
-LABEL_55:
-    v26 = r;
-    v31 = v43;
-    v27 = rnd;
-    v32 = v42;
-LABEL_56:
-    v22 = v41;
-    goto LABEL_75;
-  }
-
-  if (!ecdsa_prepare_digest(a1, a2, v18, b))
-  {
-    goto LABEL_55;
-  }
-
-  if (a4)
-  {
-    v19 = a3 == 0;
-  }
-
-  else
-  {
-    v19 = 1;
-  }
-
-  if (a4)
-  {
-    v20 = a3 != 0;
-  }
-
-  else
-  {
-    v20 = 0;
-  }
-
-  v36 = v19;
-  v37 = v20;
-  v21 = 33;
-  v22 = v41;
-  while (!v19)
-  {
-    v24 = bn_copy(v15->r, a4);
-    v23 = a3;
-    if (!v24)
-    {
-      v29 = 65;
-      v30 = 337;
-      goto LABEL_72;
-    }
-
-LABEL_26:
-    v39 = v23;
-    v38 = v21;
-    v25 = BN_value_one();
-    v26 = r;
-    if (!BN_sub(r, v18, v25))
-    {
-      ERR_put_error(42, 4095, 3, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ecdsa/ecs_ossl.c", 357);
-      goto LABEL_73;
-    }
-
-    v27 = rnd;
-    if (!BN_rand_range(rnd, r))
-    {
-      v35 = 361;
-LABEL_61:
-      ERR_put_error(42, 4095, 3, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ecdsa/ecs_ossl.c", v35);
-      v26 = r;
-      goto LABEL_74;
-    }
-
-    v28 = BN_value_one();
-    if (!BN_add(rnd, rnd, v28))
-    {
-      v35 = 365;
-      goto LABEL_61;
-    }
-
-    if (!BN_mod_inverse_ct(v43, rnd, v18, v17))
-    {
-      v35 = 370;
-      goto LABEL_61;
-    }
-
-    if (!BN_mod_mul(v22, rnd, v13, v18, v17))
-    {
-      v29 = 3;
-      v30 = 375;
-      goto LABEL_72;
-    }
-
-    if (!BN_mod_mul(v22, v22, v15->r, v18, v17))
-    {
-      v29 = 3;
-      v30 = 379;
-      goto LABEL_72;
-    }
-
-    if (!BN_mod_mul(v42, rnd, b, v18, v17))
-    {
-      ERR_put_error(42, 4095, 3, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ecdsa/ecs_ossl.c", 383);
-      v26 = r;
-      v31 = v43;
-      v27 = rnd;
-      v32 = v42;
-      goto LABEL_56;
-    }
-
-    v22 = v41;
-    if (!BN_mod_add(v45, v42, v41, v18, v17))
-    {
-      v29 = 3;
-      v30 = 387;
-      goto LABEL_72;
-    }
-
-    if (!BN_mod_mul(v45, v45, v39, v18, v17))
-    {
-      v29 = 3;
-      v30 = 391;
-      goto LABEL_72;
-    }
-
-    if (!BN_mod_mul(v45, v45, v43, v18, v17))
-    {
-      v29 = 3;
-      v30 = 395;
-      goto LABEL_72;
-    }
-
-    if (!BN_is_zero(v45))
-    {
-      v26 = r;
-      v31 = v43;
-      v27 = rnd;
-      v32 = v42;
-      v33 = b;
-      goto LABEL_47;
-    }
-
-    if (v37)
-    {
-      v29 = 106;
-      v30 = 405;
-      goto LABEL_72;
-    }
-
-    v21 = v38 - 1;
-    v19 = v36;
-    if (v38 == 1)
-    {
-      v29 = 145;
-      v30 = 410;
-      goto LABEL_72;
-    }
-  }
-
-  if (ECDSA_sign_setup(a5, v17, &kinv, &v15->r))
-  {
-    v23 = kinv;
-    goto LABEL_26;
-  }
-
-  v29 = 42;
-  v30 = 330;
-LABEL_72:
-  ERR_put_error(42, 4095, v29, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ecdsa/ecs_ossl.c", v30);
-  v26 = r;
-LABEL_73:
-  v27 = rnd;
-LABEL_74:
-  v32 = v42;
-  v31 = v43;
-LABEL_75:
-  v33 = b;
-LABEL_46:
-  ECDSA_SIG_free(v15);
-  v15 = 0;
-LABEL_47:
-  BN_CTX_free(v17);
-  BN_free(v27);
-  BN_free(v31);
-  BN_free(v32);
-  BN_free(v22);
-  BN_free(kinv);
-  BN_free(v33);
-  BN_free(v18);
-  BN_free(v26);
-  return v15;
-}
-
-uint64_t ecdsa_sign_setup(const EC_KEY *a1, BN_CTX *a2, BIGNUM **a3, BIGNUM **a4)
-{
-  if (a1 && (v7 = EC_KEY_get0_group(a1)) != 0)
-  {
-    v8 = v7;
-    v9 = a2;
-    if (a2 || (v9 = BN_CTX_new()) != 0)
-    {
-      v10 = BN_new();
-      if (v10)
-      {
-        v11 = BN_new();
-        if (v11)
-        {
-          v12 = BN_new();
-          if (v12)
-          {
-            v13 = BN_new();
-            if (v13)
-            {
-              v14 = v13;
-              v15 = EC_POINT_new(v8);
-              if (v15)
-              {
-                if (EC_GROUP_get_order(v8, v12, v9))
-                {
-                  v16 = BN_value_one();
-                  if (BN_cmp(v12, v16) <= 0)
-                  {
-                    v18 = 122;
-                    v19 = 178;
-                  }
-
-                  else
-                  {
-                    v17 = BN_num_bits(v12);
-                    if (v17 > 79)
-                    {
-                      n = v17;
-                      if (!BN_set_bit(v10, v17) || !BN_set_bit(v11, n) || !BN_set_bit(v14, n))
-                      {
-LABEL_19:
-                        BN_free(v10);
-                        BN_free(v11);
-                        v22 = 0;
-                        if (a2)
-                        {
-LABEL_21:
-                          BN_free(v12);
-                          EC_POINT_free(v15);
-                          BN_free(v14);
-                          return v22;
-                        }
-
-LABEL_20:
-                        BN_CTX_free(v9);
-                        goto LABEL_21;
-                      }
-
-                      do
-                      {
-                        do
-                        {
-                          if (!BN_rand_range(v10, v12))
-                          {
-                            v18 = 104;
-                            v19 = 198;
-                            goto LABEL_27;
-                          }
-                        }
-
-                        while (BN_is_zero(v10));
-                        if (!BN_add(v11, v10, v12) || !BN_add(v14, v11, v12))
-                        {
-                          goto LABEL_19;
-                        }
-
-                        v24 = BN_num_bits(v11) <= n ? v14 : v11;
-                        if (!bn_copy(v10, v24))
-                        {
-                          goto LABEL_19;
-                        }
-
-                        BN_set_flags(v10, 4);
-                        if (!EC_POINT_mul(v8, v15, v10, 0, 0, v9))
-                        {
-                          v18 = 16;
-                          v19 = 226;
-                          goto LABEL_27;
-                        }
-
-                        if (!EC_POINT_get_affine_coordinates(v8, v15, v14, 0, v9))
-                        {
-                          v18 = 16;
-                          v19 = 231;
-                          goto LABEL_27;
-                        }
-
-                        if (!BN_nnmod(v11, v14, v12, v9))
-                        {
-                          v18 = 3;
-                          v19 = 235;
-                          goto LABEL_27;
-                        }
-                      }
-
-                      while (BN_is_zero(v11));
-                      if (BN_mod_inverse_ct(v10, v10, v12, v9))
-                      {
-                        BN_free(*a4);
-                        BN_free(*a3);
-                        *a4 = v11;
-                        *a3 = v10;
-                        v22 = 1;
-                        if (a2)
-                        {
-                          goto LABEL_21;
-                        }
-
-                        goto LABEL_20;
-                      }
-
-                      v18 = 3;
-                      v19 = 241;
-                    }
-
-                    else
-                    {
-                      v18 = 122;
-                      v19 = 184;
-                    }
-                  }
-                }
-
-                else
-                {
-                  v18 = 16;
-                  v19 = 173;
-                }
-              }
-
-              else
-              {
-                v18 = 16;
-                v19 = 169;
-              }
-
-LABEL_27:
-              ERR_put_error(42, 4095, v18, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ecdsa/ecs_ossl.c", v19);
-              goto LABEL_19;
-            }
-          }
-
-LABEL_18:
-          ERR_put_error(42, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ecdsa/ecs_ossl.c", 165);
-          v14 = 0;
-          v15 = 0;
-          goto LABEL_19;
-        }
-      }
-
-      else
-      {
-        v11 = 0;
-      }
-
-      v12 = 0;
-      goto LABEL_18;
-    }
-
-    v20 = 65;
-    v21 = 158;
-  }
-
-  else
-  {
-    v20 = 67;
-    v21 = 152;
-  }
-
-  ERR_put_error(42, 4095, v20, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ecdsa/ecs_ossl.c", v21);
-  return 0;
-}
-
-uint64_t ecdsa_do_verify(const unsigned __int8 *a1, int a2, uint64_t *a3, EC_KEY *a4)
-{
-  if (a4 && (v8 = EC_KEY_get0_group(a4)) != 0 && (v9 = v8, v10 = EC_KEY_get0_public_key(a4), a3) && (v11 = v10) != 0)
-  {
-    v12 = BN_CTX_new();
-    if (v12)
-    {
-      v13 = v12;
-      BN_CTX_start(v12);
-      v14 = BN_CTX_get(v13);
-      r = BN_CTX_get(v13);
-      v15 = BN_CTX_get(v13);
-      v16 = BN_CTX_get(v13);
-      v17 = BN_CTX_get(v13);
-      if (v17)
-      {
-        v18 = v17;
-        if (EC_GROUP_get_order(v9, v14, v13))
-        {
-          if (BN_is_zero(*a3) || BN_is_negative(*a3) || (BN_ucmp(*a3, v14) & 0x80000000) == 0 || BN_is_zero(a3[1]) || BN_is_negative(a3[1]) || (BN_ucmp(a3[1], v14) & 0x80000000) == 0)
-          {
-            ERR_put_error(42, 4095, 100, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ecdsa/ecs_ossl.c", 517);
-            v19 = 0;
-            v20 = 0;
-LABEL_24:
-            BN_CTX_end(v13);
-            BN_CTX_free(v13);
-            EC_POINT_free(v19);
-            return v20;
-          }
-
-          if (!ecdsa_prepare_digest(a1, a2, v14, v16))
-          {
-            goto LABEL_22;
-          }
-
-          if (BN_mod_inverse_ct(v15, a3[1], v14, v13))
-          {
-            if (BN_mod_mul(r, v16, v15, v14, v13))
-            {
-              if (BN_mod_mul(v15, *a3, v15, v14, v13))
-              {
-                v19 = EC_POINT_new(v9);
-                if (v19)
-                {
-                  if (EC_POINT_mul(v9, v19, r, v11, v15, v13))
-                  {
-                    if (EC_POINT_get_affine_coordinates(v9, v19, v18, 0, v13))
-                    {
-                      if (BN_nnmod(r, v18, v14, v13))
-                      {
-                        v20 = BN_ucmp(r, *a3) == 0;
-                        goto LABEL_24;
-                      }
-
-                      v26 = 3;
-                      v27 = 552;
-                    }
-
-                    else
-                    {
-                      v26 = 16;
-                      v27 = 548;
-                    }
-                  }
-
-                  else
-                  {
-                    v26 = 16;
-                    v27 = 544;
-                  }
-                }
-
-                else
-                {
-                  v26 = 65;
-                  v27 = 540;
-                }
-
-                ERR_put_error(42, 4095, v26, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ecdsa/ecs_ossl.c", v27);
-                goto LABEL_23;
-              }
-
-              v24 = 3;
-              v25 = 534;
-            }
-
-            else
-            {
-              v24 = 3;
-              v25 = 530;
-            }
-          }
-
-          else
-          {
-            v24 = 3;
-            v25 = 526;
-          }
-        }
-
-        else
-        {
-          v24 = 16;
-          v25 = 508;
-        }
-      }
-
-      else
-      {
-        v24 = 3;
-        v25 = 503;
-      }
-
-      ERR_put_error(42, 4095, v24, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ecdsa/ecs_ossl.c", v25);
-LABEL_22:
-      v19 = 0;
-LABEL_23:
-      v20 = 0xFFFFFFFFLL;
-      goto LABEL_24;
-    }
-
-    v21 = 65;
-    v22 = 493;
-  }
-
-  else
-  {
-    v21 = 103;
-    v22 = 488;
-  }
-
-  ERR_put_error(42, 4095, v21, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ecdsa/ecs_ossl.c", v22);
-  return 0xFFFFFFFFLL;
-}
-
-uint64_t ecdsa_prepare_digest(const unsigned __int8 *a1, int a2, const BIGNUM *a3, BIGNUM *ret)
-{
-  if (BN_bin2bn(a1, a2, ret))
-  {
-    v7 = 8 * a2;
-    v8 = BN_num_bits(a3);
-    if (v7 <= v8 || BN_rshift(ret, ret, v7 - v8))
-    {
-      return 1;
-    }
-
-    v10 = 110;
-  }
-
-  else
-  {
-    v10 = 101;
-  }
-
-  ERR_put_error(42, 4095, 3, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ecdsa/ecs_ossl.c", v10);
-  return 0;
-}
-
-BOOL ecx_pub_decode(uint64_t a1, uint64_t a2)
-{
-  algor = 0;
-  pptype = 0;
-  v11 = 0;
-  v10 = 0;
-  if (!X509_PUBKEY_get0_param(0, &v11, &v10, &algor, a2))
-  {
-    goto LABEL_14;
-  }
-
-  if (algor)
-  {
-    X509_ALGOR_get0(0, &pptype, 0, algor);
-    if (pptype != -1)
-    {
-      v3 = 215;
-LABEL_13:
-      ERR_put_error(16, 4095, 102, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ecx_methods.c", v3);
-LABEL_14:
-      v6 = 0;
-LABEL_15:
-      v8 = 0;
-      goto LABEL_16;
-    }
-  }
-
-  if (!v11 || (v4 = **(a1 + 16), v10 != 32 * (((v4 - 950) & 0xFFFFFFFD) == 0)))
-  {
-    v3 = 221;
-    goto LABEL_13;
-  }
-
-  v5 = ecx_key_new(v4);
-  v6 = v5;
-  if (!v5 || !ecx_key_set_pub(v5, v11, v10))
-  {
-    goto LABEL_15;
-  }
-
-  v7 = EVP_PKEY_assign(a1, **(a1 + 16), v6);
-  v8 = v7 != 0;
-  if (v7)
-  {
-    v6 = 0;
-  }
-
-LABEL_16:
-  ecx_key_free(v6);
-  return v8;
-}
-
-uint64_t ecx_pub_encode(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 32);
-  v11 = 0;
-  v12 = 0;
-  memset(v10, 0, sizeof(v10));
-  if (!v2)
-  {
-    ERR_put_error(16, 4095, 165, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ecx_methods.c", 252);
-LABEL_8:
-    v7 = 0;
-    goto LABEL_9;
-  }
-
-  if (*(v2 + 32) != *(v2 + 4))
-  {
-    goto LABEL_8;
-  }
-
-  v4 = OBJ_nid2obj(**(a2 + 16));
-  if (!v4)
-  {
-    goto LABEL_8;
-  }
-
-  v5 = v4;
-  CBS_init(v10, *(v2 + 24), *(v2 + 32));
-  v6 = CBS_stow(v10, &v12, &v11);
-  v7 = v12;
-  if (!v6)
-  {
-LABEL_9:
-    v8 = 0;
-    goto LABEL_10;
-  }
-
-  if (X509_PUBKEY_set0_param(a1, v5, -1, 0, v12, v11))
-  {
-    v7 = 0;
-    v11 = 0;
-    v12 = 0;
-    v8 = 1;
-  }
-
-  else
-  {
-    v8 = 0;
-    v7 = v12;
-  }
-
-LABEL_10:
-  free(v7);
-  return v8;
-}
-
-uint64_t ecx_pub_cmp(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 32);
-  if (v2 && (v3 = *(v2 + 24)) != 0 && (v4 = *(a2 + 32)) != 0 && (v5 = *(v4 + 24)) != 0 && (v6 = *(v2 + 32), v6 == *(v4 + 32)))
-  {
-    return timingsafe_memcmp(v3, v5, v6) == 0;
-  }
-
-  else
-  {
-    return 4294967294;
-  }
-}
-
-const char *ecx_pub_print(BIO *a1, uint64_t a2, int a3)
-{
-  v5 = *(a2 + 32);
-  result = OBJ_nid2ln(**(a2 + 16));
-  if (result)
-  {
-    if (v5 && *(v5 + 24))
-    {
-      if (BIO_printf(a1, "%*s%s Public-Key:\n", a3, "", result) < 1 || BIO_printf(a1, "%*spub:\n", a3, "") < 1)
-      {
-        return 0;
-      }
-
-      else
-      {
-        return (ASN1_buf_print(a1, *(v5 + 24), *(v5 + 32), a3 + 4) != 0);
-      }
-    }
-
-    else
-    {
-      return (BIO_printf(a1, "%*s<INVALID PUBLIC KEY>\n", a3, "") > 0);
-    }
-  }
-
-  return result;
-}
-
-BOOL ecx_priv_decode(uint64_t a1, uint64_t a2)
-{
-  algor = 0;
-  pptype = 0;
-  len_4 = 0;
-  len = 0;
-  if (!PKCS8_pkey_get0(0, &len_4, &len, &algor, a2))
-  {
-    v5 = 0;
-    v3 = 0;
-LABEL_16:
-    v13 = 0;
-    goto LABEL_17;
-  }
-
-  v3 = d2i_ASN1_OCTET_STRING(0, &len_4, len);
-  if (!v3)
-  {
-    goto LABEL_15;
-  }
-
-  if (algor)
-  {
-    X509_ALGOR_get0(0, &pptype, 0, algor);
-    if (pptype != -1)
-    {
-      v4 = 339;
-LABEL_14:
-      ERR_put_error(16, 4095, 102, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ecx_methods.c", v4);
-      goto LABEL_15;
-    }
-  }
-
-  if (!ASN1_STRING_get0_data(v3) || (v6 = ASN1_STRING_length(v3), v7 = **(a1 + 16), v6 != 32 * (((v7 - 950) & 0xFFFFFFFD) == 0)))
-  {
-    v4 = 346;
-    goto LABEL_14;
-  }
-
-  v8 = ecx_key_new(v7);
-  if (!v8)
-  {
-LABEL_15:
-    v5 = 0;
-    goto LABEL_16;
-  }
-
-  v9 = v8;
-  v10 = ASN1_STRING_get0_data(v3);
-  v11 = ASN1_STRING_length(v3);
-  ecx_key_set_priv(v9, v10, v11);
-  v12 = EVP_PKEY_assign(a1, **(a1 + 16), v9);
-  v13 = v12 != 0;
-  if (v12)
-  {
-    v5 = 0;
-  }
-
-  else
-  {
-    v5 = v9;
-  }
-
-LABEL_17:
-  ASN1_OCTET_STRING_free(v3);
-  ecx_key_free(v5);
-  return v13;
-}
-
-uint64_t ecx_priv_encode(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 32);
-  out = 0;
-  if (!v2 || !*(v2 + 8))
-  {
-    ERR_put_error(16, 4095, 123, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ecx_methods.c", 379);
-    goto LABEL_10;
-  }
-
-  v4 = OBJ_nid2obj(**(a2 + 16));
-  if (!v4)
-  {
-LABEL_10:
-    v9 = 0;
-    v7 = 0;
-LABEL_11:
-    v8 = 0;
-    goto LABEL_12;
-  }
-
-  v5 = v4;
-  v6 = ASN1_OCTET_STRING_new();
-  v7 = v6;
-  if (!v6 || !ASN1_OCTET_STRING_set(v6, *(v2 + 8), *(v2 + 16)))
-  {
-    v9 = 0;
-    goto LABEL_11;
-  }
-
-  v8 = i2d_ASN1_OCTET_STRING(v7, &out);
-  v9 = out;
-  if (v8 < 0)
-  {
-LABEL_12:
-    v10 = 0;
-    goto LABEL_13;
-  }
-
-  if (PKCS8_pkey_set0(a1, v5, 0, -1, 0, out, v8))
-  {
-    v9 = 0;
-    v8 = 0;
-    out = 0;
-    v10 = 1;
-  }
-
-  else
-  {
-    v10 = 0;
-    v9 = out;
-  }
-
-LABEL_13:
-  freezero(v9, v8);
-  ASN1_OCTET_STRING_free(v7);
-  return v10;
-}
-
-const char *ecx_priv_print(BIO *a1, uint64_t a2, int a3)
-{
-  v5 = *(a2 + 32);
-  result = OBJ_nid2ln(**(a2 + 16));
-  if (result)
-  {
-    if (v5 && v5[1])
-    {
-      if (BIO_printf(a1, "%*s%s Private-Key:\n", a3, "", result) < 1 || BIO_printf(a1, "%*spriv:\n", a3, "") < 1)
-      {
-        return 0;
-      }
-
-      result = ASN1_buf_print(a1, v5[1], v5[2], a3 + 4);
-      if (!result)
-      {
-        return result;
-      }
-
-      if (BIO_printf(a1, "%*spub:\n", a3, "") < 1)
-      {
-        return 0;
-      }
-
-      else
-      {
-        return (ASN1_buf_print(a1, v5[3], v5[4], a3 + 4) != 0);
-      }
-    }
-
-    else
-    {
-      return (BIO_printf(a1, "%*s<INVALID PRIVATE KEY>\n", a3, "") > 0);
-    }
-  }
-
-  return result;
-}
-
-uint64_t ecx_bits(uint64_t a1)
-{
-  if (((**(a1 + 16) - 950) & 0xFFFFFFFD) != 0)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return 253;
-  }
-}
-
-BOOL ecx_set_priv_key(uint64_t a1, unsigned __int8 *a2, size_t a3)
-{
-  if (!a2 || (v5 = **(a1 + 16), a3 != 32 * (((v5 - 950) & 0xFFFFFFFD) == 0)))
-  {
-    ERR_put_error(16, 4095, 102, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ecx_methods.c", 518);
-    v7 = 0;
-    goto LABEL_8;
-  }
-
-  v7 = ecx_key_new(v5);
-  if (!v7)
-  {
-LABEL_8:
-    v10 = 0;
-    goto LABEL_9;
-  }
-
-  v8 = v7;
-  ecx_key_set_priv(v7, a2, a3);
-  v9 = EVP_PKEY_assign(a1, **(a1 + 16), v8);
-  v10 = v9 != 0;
-  if (v9)
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    v7 = v8;
-  }
-
-LABEL_9:
-  ecx_key_free(v7);
-  return v10;
-}
-
-BOOL ecx_set_pub_key(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  if (!a2 || (v5 = **(a1 + 16), a3 != 32 * (((v5 - 950) & 0xFFFFFFFD) == 0)))
-  {
-    ERR_put_error(16, 4095, 102, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ecx_methods.c", 545);
-    v8 = 0;
-LABEL_9:
-    v10 = 0;
-    goto LABEL_10;
-  }
-
-  v7 = ecx_key_new(v5);
-  v8 = v7;
-  if (!v7 || !ecx_key_set_pub(v7, a2, a3))
-  {
-    goto LABEL_9;
-  }
-
-  v9 = EVP_PKEY_assign(a1, **(a1 + 16), v8);
-  v10 = v9 != 0;
-  if (v9)
-  {
-    v8 = 0;
-  }
-
-LABEL_10:
-  ecx_key_free(v8);
-  return v10;
-}
-
-BOOL ecx_get_priv_key(uint64_t a1, void *a2, size_t *a3)
-{
-  v4 = *(a1 + 32);
-  memset(v8, 0, sizeof(v8));
-  if (a2)
-  {
-    if (v4 && (v6 = *(v4 + 8)) != 0)
-    {
-      CBS_init(v8, v6, *(v4 + 16));
-      return CBS_write_bytes(v8, a2, *a3, a3) != 0;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    *a3 = 32 * (((**(a1 + 16) - 950) & 0xFFFFFFFD) == 0);
-    return 1;
-  }
-}
-
-BOOL ecx_get_pub_key(uint64_t a1, void *a2, size_t *a3)
-{
-  v4 = *(a1 + 32);
-  memset(v8, 0, sizeof(v8));
-  if (a2)
-  {
-    if (v4 && (v6 = *(v4 + 24)) != 0)
-    {
-      CBS_init(v8, v6, *(v4 + 32));
-      return CBS_write_bytes(v8, a2, *a3, a3) != 0;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    *a3 = 32 * (((**(a1 + 16) - 950) & 0xFFFFFFFD) == 0);
-    return 1;
-  }
-}
-
-BOOL pkey_ecx_keygen(int **a1, EVP_PKEY *a2)
-{
-  v4 = ecx_key_new(**a1);
-  v5 = v4;
-  if (!v4)
-  {
-    goto LABEL_9;
-  }
-
-  ecx_key_clear(v4);
-  v6 = malloc_type_calloc(1uLL, v5[1], 0xE929D5DFuLL);
-  if (!v6)
-  {
-    v7 = 0;
-    goto LABEL_8;
-  }
-
-  v7 = malloc_type_calloc(1uLL, v5[1], 0x4736CA9EuLL);
-  if (!v7)
-  {
-LABEL_8:
-    freezero(v6, v5[1]);
-    freezero(v7, v5[1]);
-LABEL_9:
-    v8 = 0;
-    goto LABEL_10;
-  }
-
-  if (*v5 != 950)
-  {
-    if (*v5 == 952)
-    {
-      ED25519_keypair(v6, v7);
-      goto LABEL_12;
-    }
-
-    goto LABEL_8;
-  }
-
-  X25519_keypair(v6, v7);
-LABEL_12:
-  v10 = v5[1];
-  *(v5 + 1) = v7;
-  *(v5 + 2) = v10;
-  *(v5 + 3) = v6;
-  *(v5 + 4) = v10;
-  freezero(0, v10);
-  freezero(0, v5[1]);
-  v11 = EVP_PKEY_assign(a2, **a1, v5);
-  v8 = v11 != 0;
-  if (v11)
-  {
-    v5 = 0;
-  }
-
-LABEL_10:
-  ecx_key_free(v5);
-  return v8;
-}
-
-BOOL pkey_ecx_derive(uint64_t a1, unsigned __int8 *a2, void *a3)
-{
-  v3 = *(a1 + 16);
-  if (!v3 || (v4 = *(a1 + 24)) == 0)
-  {
-    v10 = 140;
-    v11 = 636;
-LABEL_10:
-    ERR_put_error(16, 4095, v10, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ecx_methods.c", v11);
-    return 0;
-  }
-
-  v5 = *(v3 + 32);
-  if (!v5)
-  {
-    v10 = 123;
-    v11 = 641;
-    goto LABEL_10;
-  }
-
-  v6 = *(v5 + 8);
-  if (!v6)
-  {
-    v10 = 123;
-    v11 = 645;
-    goto LABEL_10;
-  }
-
-  v7 = *(v4 + 32);
-  if (!v7)
-  {
-    v10 = 152;
-    v11 = 650;
-    goto LABEL_10;
-  }
-
-  if (!a2 || (result = X25519(a2, v6, *(v7 + 24))))
-  {
-    *a3 = 32;
-    return 1;
-  }
-
-  return result;
-}
-
-uint64_t pkey_ecx_ctrl(uint64_t a1, int a2)
-{
-  if (a2 == 2)
-  {
-    return 1;
-  }
-
-  else
-  {
-    return 4294967294;
-  }
-}
-
-uint64_t ecx_sign_ctrl(uint64_t a1, int a2, uint64_t a3, _DWORD *a4)
-{
-  if (a2 != 3)
-  {
-    return 4294967294;
-  }
-
-  *a4 = 0;
-  return 2;
-}
-
-uint64_t ecx_item_verify(uint64_t a1, uint64_t a2, uint64_t a3, X509_ALGOR *a4, uint64_t a5, uint64_t a6)
-{
-  paobj = 0;
-  pptype = 0;
-  X509_ALGOR_get0(&paobj, &pptype, 0, a4);
-  if (OBJ_obj2nid(paobj) == 952 && pptype == -1)
-  {
-    return 2 * (EVP_DigestVerifyInit(a1, 0, 0, 0, a6) != 0);
-  }
-
-  ERR_put_error(16, 4095, 102, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ecx_methods.c", 685);
-  return 0;
-}
-
-ASN1_OBJECT *ecx_item_sign(uint64_t a1, uint64_t a2, uint64_t a3, X509_ALGOR *a4, X509_ALGOR *a5)
-{
-  result = OBJ_nid2obj(952);
-  if (result)
-  {
-    v8 = result;
-    result = X509_ALGOR_set0(a4, result, -1, 0);
-    if (result)
-    {
-      if (!a5)
-      {
-        return 3;
-      }
-
-      result = X509_ALGOR_set0(a5, v8, -1, 0);
-      if (result)
-      {
-        return 3;
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t pkey_ecx_ed_ctrl(uint64_t a1, int a2, uint64_t a3, const EVP_MD *a4)
-{
-  if (a2 == 7)
-  {
-    return 1;
-  }
-
-  if (a2 != 1)
-  {
-    return 4294967294;
-  }
-
-  if (!a4 || EVP_md_null() == a4)
-  {
-    return 1;
-  }
-
-  ERR_put_error(16, 4095, 138, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ecx_methods.c", 774);
-  return 0;
-}
-
-uint64_t pkey_ecx_digestsign(uint64_t a1, _BYTE *a2, void *a3, const void *a4, size_t a5)
-{
-  v9 = EVP_MD_CTX_pkey_ctx(a1);
-  v10 = *(v9 + 16);
-  if (!a2)
-  {
-    v13 = *(v10 + 16);
-    goto LABEL_6;
-  }
-
-  v11 = v9;
-  v12 = *(v10 + 32);
-  if (**(v10 + 16) != 952 || *a3 > 0x3FuLL)
-  {
-    if (!v12)
-    {
-      return 0;
-    }
-
-    v15 = *(v12 + 8);
-    if (!v15)
-    {
-      return 0;
-    }
-
-    v16 = *(v12 + 24);
-    if (!v16)
-    {
-      return 0;
-    }
-
-    result = ED25519_sign(a2, a4, a5, v16, v15);
-    if (!result)
-    {
-      return result;
-    }
-
-    v13 = *(*(v11 + 16) + 16);
-LABEL_6:
-    *a3 = (*v13 == 952) << 6;
-    return 1;
-  }
-
-  ERR_put_error(16, 4095, 100, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ecx_methods.c", 731);
-  return 0;
-}
-
-BOOL pkey_ecx_digestverify(uint64_t a1, unsigned __int8 *a2, uint64_t a3, const void *a4, size_t a5)
-{
-  v9 = *(EVP_MD_CTX_pkey_ctx(a1) + 16);
-  v10 = *(v9 + 32);
-  if (!v10)
-  {
-    return 0;
-  }
-
-  v11 = *(v10 + 24);
-  if (!v11 || a3 != (**(v9 + 16) == 952) << 6)
-  {
-    return 0;
-  }
-
-  return ED25519_verify(a4, a5, a2, v11);
-}
-
-_DWORD *ecx_key_new(int a1)
-{
-  if (((a1 - 950) & 0xFFFFFFFD) != 0)
-  {
-    return 0;
-  }
-
-  result = malloc_type_calloc(1uLL, 0x28uLL, 0x101004019361378uLL);
-  if (result)
-  {
-    *result = a1;
-    result[1] = 32;
-  }
-
-  return result;
-}
-
-BOOL ecx_key_set_pub(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  ecx_key_clear(a1);
-  if (*(a1 + 4) != a3)
-  {
-    return 0;
-  }
-
-  memset(v7, 0, sizeof(v7));
-  CBS_init(v7, a2, a3);
-  return CBS_stow(v7, (a1 + 24), (a1 + 32)) != 0;
-}
-
-void *ecx_key_free(void *result)
-{
-  if (result)
-  {
-    v1 = result;
-    ecx_key_clear(result);
-
-    return freezero(v1, 0x28uLL);
-  }
-
-  return result;
-}
-
-void *ecx_key_clear(uint64_t a1)
-{
-  freezero(*(a1 + 8), *(a1 + 16));
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
-  result = freezero(*(a1 + 24), *(a1 + 32));
-  *(a1 + 24) = 0;
-  *(a1 + 32) = 0;
-  return result;
-}
-
-void *ecx_key_set_priv(uint64_t a1, unsigned __int8 *a2, size_t a3)
-{
-  memset(v10, 0, sizeof(v10));
-  ecx_key_clear(a1);
-  if (*(a1 + 4) != a3)
-  {
-    goto LABEL_9;
-  }
-
-  v6 = malloc_type_calloc(1uLL, a3, 0x50A36253uLL);
-  v7 = v6;
-  if (v6)
-  {
-    if (*a1 == 950)
-    {
-      X25519_public_from_private(v6, a2);
-    }
-
-    else
-    {
-      if (*a1 != 952)
-      {
-        return freezero(v7, *(a1 + 4));
-      }
-
-      ED25519_public_from_private(v6, a2);
-    }
-
-    CBS_init(v10, a2, a3);
-    if (CBS_stow(v10, (a1 + 8), (a1 + 16)))
-    {
-      v8 = *(a1 + 4);
-      *(a1 + 24) = v7;
-      *(a1 + 32) = v8;
-LABEL_9:
-      v7 = 0;
-    }
-  }
-
-  return freezero(v7, *(a1 + 4));
-}
-
-int X509V3_add_value(const char *name, const char *value, STACK **extlist)
-{
-  v6 = malloc_type_calloc(1uLL, 0x18uLL, 0x100402FEFCB83uLL);
-  if (!v6 || name && (v7 = strdup(name), (v6->name = v7) == 0) || value && (v8 = strdup(value), (v6->value = v8) == 0))
-  {
-    v10 = 0;
-    goto LABEL_9;
-  }
-
-  v9 = *extlist;
-  if (*extlist)
-  {
-    v10 = 0;
-  }
-
-  else
-  {
-    v9 = sk_new_null();
-    *extlist = v9;
-    v10 = v9;
-    if (!v9)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  if (sk_push(v9, v6))
-  {
-    return 1;
-  }
-
-LABEL_9:
-  ERR_put_error(34, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/x509/x509_utl.c", 115);
-  X509V3_conf_free(v6);
-  if (!v10)
-  {
-    return 0;
-  }
-
-  sk_free(*extlist);
-  result = 0;
-  *extlist = 0;
-  return result;
-}
-
-void X509V3_conf_free(CONF_VALUE *val)
-{
-  if (val)
-  {
-    free(val->name);
-    free(val->value);
-    free(val->section);
-
-    free(val);
-  }
-}
-
-int X509V3_add_value_BOOL(const char *name, int asn1_BOOL, STACK **extlist)
-{
-  if (asn1_BOOL)
-  {
-    v3 = "TRUE";
-  }
-
-  else
-  {
-    v3 = "FALSE";
-  }
-
-  return X509V3_add_value(name, v3, extlist);
-}
-
-int X509V3_add_value_BOOL_nf(char *name, int asn1_BOOL, STACK **extlist)
-{
-  if (asn1_BOOL)
-  {
-    return X509V3_add_value(name, "TRUE", extlist);
-  }
-
-  else
-  {
-    return 1;
-  }
-}
-
-char *__cdecl i2s_ASN1_ENUMERATED(X509V3_EXT_METHOD *meth, ASN1_ENUMERATED *aint)
-{
-  if (!aint)
-  {
-    return 0;
-  }
-
-  v2 = ASN1_ENUMERATED_to_BN(aint, 0);
-  v3 = v2;
-  if (!v2 || (v4 = bn_to_string(v2)) == 0)
-  {
-    ERR_put_error(34, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/x509/x509_utl.c", 204);
-    v4 = 0;
-  }
-
-  BN_free(v3);
-  return v4;
-}
-
-char *bn_to_string(const BIGNUM *a1)
-{
-  v8 = 0;
-  if (BN_num_bits(a1) > 127)
-  {
-    v3 = BN_bn2hex(a1);
-    if (v3)
-    {
-      is_negative = BN_is_negative(a1);
-      v5 = "";
-      if (is_negative)
-      {
-        v5 = "-";
-        v6 = v3 + 1;
-      }
-
-      else
-      {
-        v6 = v3;
-      }
-
-      if (asprintf(&v8, "%s0x%s", v5, v6) == -1)
-      {
-        v7 = 0;
-      }
-
-      else
-      {
-        v7 = v8;
-      }
-    }
-
-    else
-    {
-      v7 = 0;
-    }
-
-    free(v3);
-    return v7;
-  }
-
-  else
-  {
-
-    return BN_bn2dec(a1);
-  }
-}
-
-char *__cdecl i2s_ASN1_ENUMERATED_TABLE(X509V3_EXT_METHOD *meth, ASN1_ENUMERATED *aint)
-{
-  v4 = ASN1_ENUMERATED_get(aint);
-  usr_data = meth->usr_data;
-  v6 = *(usr_data + 1);
-  if (v6)
-  {
-    if (v4 == *usr_data)
-    {
-LABEL_6:
-
-      return strdup(v6);
-    }
-
-    v7 = (usr_data + 32);
-    while (1)
-    {
-      v6 = *v7;
-      if (!*v7)
-      {
-        break;
-      }
-
-      v8 = *(v7 - 2);
-      v7 += 3;
-      if (v4 == v8)
-      {
-        goto LABEL_6;
-      }
-    }
-  }
-
-  return i2s_ASN1_ENUMERATED(v4, aint);
-}
-
-char *__cdecl i2s_ASN1_INTEGER(X509V3_EXT_METHOD *meth, ASN1_INTEGER *aint)
-{
-  if (!aint)
-  {
-    return 0;
-  }
-
-  v2 = ASN1_INTEGER_to_BN(aint, 0);
-  v3 = v2;
-  if (!v2 || (v4 = bn_to_string(v2)) == 0)
-  {
-    ERR_put_error(34, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/x509/x509_utl.c", 235);
-    v4 = 0;
-  }
-
-  BN_free(v3);
-  return v4;
-}
-
-ASN1_INTEGER *__cdecl s2i_ASN1_INTEGER(X509V3_EXT_METHOD *meth, char *value)
-{
-  v2 = value;
-  if (!value)
-  {
-    v5 = 109;
-    v6 = 250;
-LABEL_10:
-    ERR_put_error(34, 4095, v5, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/x509/x509_utl.c", v6);
-    return v2;
-  }
-
-  a = BN_new();
-  if (!a)
-  {
-    v7 = 65;
-    v8 = 254;
-    goto LABEL_15;
-  }
-
-  length_low = LOBYTE(v2->length);
-  if (length_low == 45)
-  {
-    v2 = (v2 + 1);
-  }
-
-  if (LOBYTE(v2->length) == 48 && (BYTE1(v2->length) | 0x20) == 0x78)
-  {
-    v2 = (v2 + 2);
-    v4 = BN_hex2bn(&a, v2);
-    if (!v4)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  else
-  {
-    v4 = BN_dec2bn(&a, v2);
-    if (!v4)
-    {
-LABEL_13:
-      BN_free(a);
-      v7 = 100;
-      v8 = 274;
-LABEL_15:
-      ERR_put_error(34, 4095, v7, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/x509/x509_utl.c", v8);
-      return 0;
-    }
-  }
-
-  if (*(&v2->length + v4))
-  {
-    goto LABEL_13;
-  }
-
-  is_zero = BN_is_zero(a);
-  v2 = BN_to_ASN1_INTEGER(a, 0);
-  BN_free(a);
-  if (!v2)
-  {
-    v5 = 101;
-    v6 = 284;
-    goto LABEL_10;
-  }
-
-  if (length_low == 45 && !is_zero)
-  {
-    v2->type |= 0x100u;
-  }
-
-  return v2;
-}
-
-int X509V3_add_value_int(const char *name, ASN1_INTEGER *aint, STACK **extlist)
-{
-  if (aint)
-  {
-    v5 = i2s_ASN1_INTEGER(name, aint);
-    if (v5)
-    {
-      v6 = v5;
-      v7 = X509V3_add_value(name, v5, extlist);
-      free(v6);
-      LODWORD(v5) = v7;
-    }
-  }
-
-  else
-  {
-    LODWORD(v5) = 1;
-  }
-
-  return v5;
-}
-
-int X509V3_get_value_BOOL(CONF_VALUE *value, int *asn1_BOOL)
-{
-  v3 = value->value;
-  if (!v3)
-  {
-    goto LABEL_21;
-  }
-
-  if (!strcmp(value->value, "TRUE") || !strcmp(v3, "true") || ((v5 = *v3, v5 == 121) || v5 == 89) && !v3[1] || !strcmp(v3, "YES") || !strcmp(v3, "yes"))
-  {
-    *asn1_BOOL = 255;
-    return 1;
-  }
-
-  if (!strcmp(v3, "FALSE") || !strcmp(v3, "false"))
-  {
-    goto LABEL_22;
-  }
-
-  if (v5 == 110)
-  {
-    if (!v3[1])
-    {
-      goto LABEL_22;
-    }
-
-    if (v3[1] == 111)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  else if (v5 == 78)
-  {
-    if (v3[1])
-    {
-      if (v3[1] != 79)
-      {
-        goto LABEL_21;
-      }
-
-LABEL_20:
-      if (v3[2])
-      {
-        goto LABEL_21;
-      }
-    }
-
-LABEL_22:
-    *asn1_BOOL = 0;
-    return 1;
-  }
-
-LABEL_21:
-  ERR_put_error(34, 4095, 104, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/x509/x509_utl.c", 330);
-  ERR_asprintf_error_data("section:%s,name:%s,value:%s", value->section, value->name, value->value);
-  return 0;
-}
-
-int X509V3_get_value_int(CONF_VALUE *value, ASN1_INTEGER **aint)
-{
-  v4 = s2i_ASN1_INTEGER(value, value->value);
-  if (v4)
-  {
-    *aint = v4;
-    return 1;
-  }
-
-  else
-  {
-    ERR_asprintf_error_data("section:%s,name:%s,value:%s", value->section, value->name, value->value);
-    return 0;
-  }
-}
-
-STACK *__cdecl X509V3_parse_list(const char *line)
-{
-  extlist = 0;
-  v1 = strdup(line);
-  v2 = v1;
-  if (!v1)
-  {
-    v14 = 65;
-    v15 = 366;
-    goto LABEL_33;
-  }
-
-  v3 = 0;
-  v4 = v1 + 1;
-  v5 = v1;
-  v6 = 1;
-  while (1)
-  {
-    v7 = *(v4 - 1);
-    if (v7 <= 0xD && ((1 << v7) & 0x2401) != 0)
-    {
-      break;
-    }
-
-    if (v6 != 1)
-    {
-      if (v7 == 44)
-      {
-        *(v4 - 1) = 0;
-        v10 = strip_spaces(v1);
-        if (!v10)
-        {
-          v14 = 109;
-          v15 = 405;
-          goto LABEL_33;
-        }
-
-        X509V3_add_value(v3, v10, &extlist);
-        v3 = 0;
-        v1 = v5 + 1;
-LABEL_16:
-        v6 = 1;
-        goto LABEL_20;
-      }
-
-      goto LABEL_17;
-    }
-
-    if (v7 != 44)
-    {
-      if (v7 != 58)
-      {
-        goto LABEL_16;
-      }
-
-      *(v4 - 1) = 0;
-      v9 = strip_spaces(v1);
-      if (!v9)
-      {
-        v14 = 108;
-        v15 = 383;
-        goto LABEL_33;
-      }
-
-      v3 = v9;
-      v1 = v5 + 1;
-LABEL_17:
-      v6 = 2;
-      goto LABEL_20;
-    }
-
-    *(v4 - 1) = 0;
-    v11 = strip_spaces(v1);
-    if (!v11)
-    {
-      v14 = 108;
-      v15 = 392;
-      goto LABEL_33;
-    }
-
-    v3 = v11;
-    X509V3_add_value(v11, 0, &extlist);
-    v6 = 1;
-    v1 = v4;
-LABEL_20:
-    ++v5;
-    ++v4;
-  }
-
-  v12 = strip_spaces(v1);
-  v13 = v12;
-  if (v6 == 2)
-  {
-    if (v12)
-    {
-      v12 = v3;
-LABEL_27:
-      X509V3_add_value(v12, v13, &extlist);
-      free(v2);
-      return extlist;
-    }
-
-    v14 = 109;
-    v15 = 419;
-  }
-
-  else
-  {
-    if (v12)
-    {
-      v13 = 0;
-      goto LABEL_27;
-    }
-
-    v14 = 108;
-    v15 = 426;
-  }
-
-LABEL_33:
-  ERR_put_error(34, 4095, v14, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/x509/x509_utl.c", v15);
-  free(v2);
-  sk_pop_free(extlist, X509V3_conf_free);
-  return 0;
-}
-
-char *strip_spaces(char *__s)
-{
-  v1 = __s;
-  v2 = *__s;
-  if (!v2)
-  {
-    return 0;
-  }
-
-  v3 = MEMORY[0x277D85DE0];
-  while ((v2 & 0x80) == 0)
-  {
-    if ((*(v3 + 4 * v2 + 60) & 0x4000) == 0)
-    {
-      goto LABEL_9;
-    }
-
-LABEL_7:
-    v4 = *++v1;
-    v2 = v4;
-    if (!v4)
-    {
-      return 0;
-    }
-  }
-
-  if (__maskrune(v2, 0x4000uLL))
-  {
-    goto LABEL_7;
-  }
-
-LABEL_9:
-  if (!*v1)
-  {
-    return 0;
-  }
-
-  v5 = strlen(v1);
-  while (1)
-  {
-    v6 = v5 - 1;
-    if (v5 == 1)
-    {
-      break;
-    }
-
-    v7 = v1[v5 - 1];
-    if (v7 < 0)
-    {
-      v8 = __maskrune(v1[v5 - 1], 0x4000uLL);
-    }
-
-    else
-    {
-      v8 = *(v3 + 4 * v7 + 60) & 0x4000;
-    }
-
-    v5 = v6;
-    if (!v8)
-    {
-      v1[v6 + 1] = 0;
-      break;
-    }
-  }
-
-  if (*v1)
-  {
-    return v1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-char *__cdecl hex_to_string(unsigned __int8 *buffer, uint64_t len)
-{
-  memset(v10, 0, sizeof(v10));
-  memset(v9, 0, sizeof(v9));
-  v8 = 0;
-  v7 = 0;
-  v6 = 0;
-  v4 = CBB_init(v10, 0);
-  if ((len & 0x8000000000000000) == 0 && v4)
-  {
-    CBS_init(v9, buffer, len);
-    if (CBS_len(v9))
-    {
-      while (CBS_get_u8(v9, &v7) && CBB_add_u8(v10, hex_digits_0[v7 >> 4]) && CBB_add_u8(v10, hex_digits_0[v7 & 0xF]) && (!CBS_len(v9) || CBB_add_u8(v10, 0x3AuLL)))
-      {
-        if (!CBS_len(v9))
-        {
-          goto LABEL_10;
-        }
-      }
-    }
-
-    else
-    {
-LABEL_10:
-      if (CBB_add_u8(v10, 0))
-      {
-        CBB_finish(v10, &v8, &v6);
-      }
-    }
-  }
-
-  CBB_cleanup(v10);
-  return v8;
-}
-
-unsigned __int8 *__cdecl string_to_hex(char *str, uint64_t *len)
-{
-  memset(v12, 0, sizeof(v12));
-  memset(v11, 0, sizeof(v11));
-  v9 = 0;
-  v10 = 0;
-  v8 = 0;
-  *len = 0;
-  if (CBB_init(v12, 0))
-  {
-    if (str)
-    {
-      v4 = strlen(str);
-      CBS_init(v11, str, v4);
-      while (CBS_len(v11))
-      {
-        v13 = 0;
-        while (CBS_len(v11))
-        {
-          if (!CBS_peek_u8(v11, &v13))
-          {
-            goto LABEL_19;
-          }
-
-          if (v13 != 58)
-          {
-            break;
-          }
-
-          if (!CBS_get_u8(v11, &v13))
-          {
-            goto LABEL_19;
-          }
-        }
-
-        if (!CBS_len(v11))
-        {
-          break;
-        }
-
-        if (!x509_get_xdigit_nibble_cbs(v11, &v8 + 1))
-        {
-          goto LABEL_19;
-        }
-
-        if (!CBS_len(v11))
-        {
-          v5 = 112;
-          v6 = 583;
-          goto LABEL_18;
-        }
-
-        if (!x509_get_xdigit_nibble_cbs(v11, &v8) || !CBB_add_u8(v12, v8 | (16 * HIBYTE(v8))))
-        {
-          goto LABEL_19;
-        }
-      }
-
-      if (CBB_finish(v12, &v10, &v9))
-      {
-        if ((v9 & 0x8000000000000000) != 0)
-        {
-          freezero(v10, v9);
-          v10 = 0;
-        }
-
-        else
-        {
-          *len = v9;
-        }
-      }
-    }
-
-    else
-    {
-      v5 = 107;
-      v6 = 565;
-LABEL_18:
-      ERR_put_error(34, 4095, v5, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/x509/x509_utl.c", v6);
-    }
-  }
-
-LABEL_19:
-  CBB_cleanup(v12);
-  return v10;
-}
-
-uint64_t x509_get_xdigit_nibble_cbs(void *a1, _BYTE *a2)
-{
-  v6 = 0;
-  result = CBS_get_u8(a1, &v6);
-  if (result)
-  {
-    v4 = v6 - 48;
-    if (v4 > 9)
-    {
-      if (v6 - 97 > 5)
-      {
-        if (v6 - 65 > 5)
-        {
-          ERR_put_error(34, 4095, 113, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/x509/x509_utl.c", 546);
-          return 0;
-        }
-
-        v5 = v6 - 55;
-      }
-
-      else
-      {
-        v5 = v6 - 87;
-      }
-
-      *a2 = v5;
-    }
-
-    else
-    {
-      *a2 = v4;
-    }
-
-    return 1;
-  }
-
-  return result;
-}
-
-int name_cmp(const char *name, const char *cmp)
-{
-  v4 = strlen(cmp);
-  result = strncmp(name, cmp, v4);
-  if (!result)
-  {
-    v6 = name[v4];
-    return v6 != 46 && v6 != 0;
-  }
-
-  return result;
-}
-
-STACK *__cdecl X509_get1_email(X509 *x)
-{
-  ext_d2i = X509_get_ext_d2i(x, 85, 0, 0);
-  subject_name = X509_get_subject_name(x);
-  email = get_email(subject_name, ext_d2i);
-  sk_pop_free(ext_d2i, GENERAL_NAME_free);
-  return email;
-}
-
-STACK *get_email(X509_NAME *name, const STACK *a2)
-{
-  v11 = 0;
-  v4 = -1;
-  while (1)
-  {
-    index_by_NID = X509_NAME_get_index_by_NID(name, 48, v4);
-    if (index_by_NID < 0)
-    {
-      break;
-    }
-
-    v4 = index_by_NID;
-    entry = X509_NAME_get_entry(name, index_by_NID);
-    data = X509_NAME_ENTRY_get_data(entry);
-    if (!append_ia5(&v11, data))
-    {
-      return 0;
-    }
-  }
-
-  if (sk_num(a2) >= 1)
-  {
-    v9 = 0;
-    while (1)
-    {
-      v10 = sk_value(a2, v9);
-      if (*v10 == 1 && !append_ia5(&v11, *(v10 + 1)))
-      {
-        break;
-      }
-
-      if (++v9 >= sk_num(a2))
-      {
-        return v11;
-      }
-    }
-
-    return 0;
-  }
-
-  return v11;
-}
-
-STACK *__cdecl X509_get1_ocsp(X509 *x)
-{
-  v8 = 0;
-  ext_d2i = X509_get_ext_d2i(x, 177, 0, 0);
-  if (!ext_d2i)
-  {
-    return 0;
-  }
-
-  v2 = ext_d2i;
-  if (sk_num(ext_d2i) < 1)
-  {
-    v6 = 0;
-  }
-
-  else
-  {
-    v3 = 0;
-    do
-    {
-      v4 = sk_value(v2, v3);
-      if (OBJ_obj2nid(*v4) == 178)
-      {
-        v5 = *(v4 + 1);
-        if (*v5 == 6 && !append_ia5(&v8, *(v5 + 8)))
-        {
-          break;
-        }
-      }
-
-      ++v3;
-    }
-
-    while (v3 < sk_num(v2));
-    v6 = v8;
-  }
-
-  AUTHORITY_INFO_ACCESS_free(v2);
-  return v6;
-}
-
-STACK *append_ia5(STACK **a1, uint64_t a2)
-{
-  if (*(a2 + 4) != 22)
-  {
-    return 1;
-  }
-
-  v3 = *(a2 + 8);
-  if (v3 && *a2)
-  {
-    result = *a1;
-    if (!result)
-    {
-      result = sk_new(sk_strcmp);
-      *a1 = result;
-      if (!result)
-      {
-        return result;
-      }
-
-      v3 = *(a2 + 8);
-    }
-
-    if (sk_find(result, v3) == -1)
-    {
-      v6 = strdup(*(a2 + 8));
-      if (!v6 || !sk_push(*a1, v6))
-      {
-        sk_pop_free(*a1, str_free_0);
-        result = 0;
-        *a1 = 0;
-        return result;
-      }
-    }
-  }
-
-  return 1;
-}
-
-STACK *__cdecl X509_REQ_get1_email(X509_REQ *x)
-{
-  extensions = X509_REQ_get_extensions(x);
-  d2i = X509V3_get_d2i(extensions, 85, 0, 0);
-  subject_name = X509_REQ_get_subject_name(x);
-  email = get_email(subject_name, d2i);
-  sk_pop_free(d2i, GENERAL_NAME_free);
-  sk_pop_free(extensions, X509_EXTENSION_free);
-  return email;
-}
-
-uint64_t X509_check_host(X509 *a1, char *__s, size_t __n, int a4, char **a5)
-{
-  if (!__s)
-  {
-    return 4294967294;
-  }
-
-  v7 = __n;
-  if (__n)
-  {
-    if (memchr(__s, 0, __n))
-    {
-      return 4294967294;
-    }
-  }
-
-  else
-  {
-    v7 = strlen(__s);
-  }
-
-  return do_x509_check(a1, __s, v7, a4, 2, a5);
-}
-
-uint64_t do_x509_check(X509 *x, _BYTE *a2, size_t a3, int a4, int a5, char **a6)
-{
-  v10 = x;
-  v11 = a4 & 0xFFFF7FFF;
-  if (a5 == 1)
-  {
-    ext_d2i = X509_get_ext_d2i(x, 85, 0, 0);
-    v34 = 48;
-    v14 = equal_email;
-    if (!ext_d2i)
-    {
-      v16 = 48;
-      goto LABEL_34;
-    }
-
-LABEL_15:
-    v17 = ext_d2i;
-    v18 = 22;
-    goto LABEL_18;
-  }
-
-  if (a5 == 2)
-  {
-    v12 = a4;
-    if ((a4 & 0x20) != 0)
-    {
-      v13 = 0;
-    }
-
-    else
-    {
-      v13 = 13;
-    }
-
-    v34 = v13;
-    if (a3 >= 2)
-    {
-      v11 = v11 | ((*a2 == 46) << 15);
-    }
-
-    if ((v11 & 2) != 0)
-    {
-      v14 = equal_nocase;
-    }
-
-    else
-    {
-      v14 = equal_wildcard;
-    }
-
-    ext_d2i = X509_get_ext_d2i(x, 85, 0, 0);
-    if (!ext_d2i)
-    {
-      v16 = v34;
-      if ((v12 & 0x20) == 0)
-      {
-LABEL_34:
-        subject_name = X509_get_subject_name(v10);
-        v29 = -1;
-        while (1)
-        {
-          index_by_NID = X509_NAME_get_index_by_NID(subject_name, v16, v29);
-          if (index_by_NID < 0)
-          {
-            break;
-          }
-
-          v29 = index_by_NID;
-          entry = X509_NAME_get_entry(subject_name, index_by_NID);
-          if (!entry)
-          {
-            return 0xFFFFFFFFLL;
-          }
-
-          data = X509_NAME_ENTRY_get_data(entry);
-          if (!data)
-          {
-            return 0xFFFFFFFFLL;
-          }
-
-          result = do_check_string(data, -1, v14, v11, a2, a3, a6);
-          if (result)
-          {
-            return result;
-          }
-        }
-      }
-
-      return 0;
-    }
-
-    goto LABEL_15;
-  }
-
-  v19 = X509_get_ext_d2i(x, 85, 0, 0);
-  v34 = 0;
-  if (v19)
-  {
-    v17 = v19;
-    v14 = equal_case;
-    v18 = 4;
-LABEL_18:
-    if (sk_num(v17))
-    {
-      v33 = v10;
-      v20 = 0;
-      v21 = 0;
-      while (1)
-      {
-        v22 = sk_value(v17, v21);
-        if (*v22 == a5)
-        {
-          v23 = do_check_string(*(v22 + 1), v18, v14, v11, a2, a3, a6);
-          if (v23)
-          {
-            v27 = v23;
-            GENERAL_NAMES_free(v17);
-            return v27;
-          }
-
-          v20 = 1;
-        }
-
-        if (++v21 >= sk_num(v17))
-        {
-          v24 = v20 != 0;
-          v10 = v33;
-          goto LABEL_26;
-        }
-      }
-    }
-
-    v24 = 0;
-LABEL_26:
-    GENERAL_NAMES_free(v17);
-    v16 = v34;
-    if (v34)
-    {
-      if ((v11 & 1) != 0 || !v24)
-      {
-        goto LABEL_34;
-      }
-    }
-
-    return 0;
-  }
-
-  return 0;
-}
-
-uint64_t X509_check_email(X509 *a1, char *__s, size_t __n, int a4)
-{
-  if (!__s)
-  {
-    return 4294967294;
-  }
-
-  v5 = __n;
-  if (__n)
-  {
-    if (memchr(__s, 0, __n))
-    {
-      return 4294967294;
-    }
-  }
-
-  else
-  {
-    v5 = strlen(__s);
-  }
-
-  return do_x509_check(a1, __s, v5, a4, 1, 0);
-}
-
-uint64_t X509_check_ip(X509 *a1, _BYTE *a2, size_t a3, int a4)
-{
-  if (a2)
-  {
-    return do_x509_check(a1, a2, a3, a4, 7, 0);
-  }
-
-  else
-  {
-    return 4294967294;
-  }
-}
-
-uint64_t X509_check_ip_asc(X509 *a1, const char *a2, int a3)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  if (a2 && (v5 = a2i_ipadd(ipout, a2)) != 0)
-  {
-    result = do_x509_check(a1, ipout, v5, a3, 7, 0);
-  }
-
-  else
-  {
-    result = 4294967294;
-  }
-
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-int a2i_ipadd(unsigned __int8 *ipout, const char *ipasc)
-{
-  v12 = *MEMORY[0x277D85DE8];
-  if (strchr(ipasc, 58))
-  {
-    v10 = 0;
-    arg = 0u;
-    v11 = 0xFFFFFFFFLL;
-    if (!CONF_parse_list(ipasc, 58, 0, ipv6_cb, &arg))
-    {
-      goto LABEL_22;
-    }
-
-    v4 = v11;
-    v5 = v10;
-    if (v11 != -1)
-    {
-      if (v10 == 16 || SHIDWORD(v11) > 3)
-      {
-        goto LABEL_22;
-      }
-
-      if (HIDWORD(v11) == 2)
-      {
-        if (v11 && v10 != v11)
-        {
-          goto LABEL_22;
-        }
-      }
-
-      else
-      {
-        if (HIDWORD(v11) == 3)
-        {
-          if (v10 <= 0)
-          {
-            goto LABEL_19;
-          }
-
-LABEL_22:
-          result = 0;
-          goto LABEL_23;
-        }
-
-        if (!v11 || v10 == v11)
-        {
-          goto LABEL_22;
-        }
-      }
-
-LABEL_19:
-      if ((v11 & 0x80000000) == 0)
-      {
-        memcpy(ipout, &arg, v11);
-        v7 = &ipout[v4];
-        bzero(v7, 16 - v5);
-        if (v5 != v4)
-        {
-          memcpy(&v7[-v5 + 16], &arg + v4, v5 - v4);
-        }
-
-        goto LABEL_13;
-      }
-
-LABEL_12:
-      *ipout = arg;
-LABEL_13:
-      result = 16;
-      goto LABEL_23;
-    }
-
-    if (v10 == 16)
-    {
-      goto LABEL_12;
-    }
-
-    goto LABEL_22;
-  }
-
-  result = 4 * (ipv4_from_asc(ipout, ipasc) != 0);
-LABEL_23:
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-ASN1_OCTET_STRING *__cdecl a2i_IPADDRESS(const char *ipasc)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = a2i_ipadd(ipout, ipasc);
-  if (!v1)
-  {
-    goto LABEL_5;
-  }
-
-  v2 = v1;
-  v3 = ASN1_OCTET_STRING_new();
-  v4 = v3;
-  if (v3 && !ASN1_OCTET_STRING_set(v3, ipout, v2))
-  {
-    ASN1_OCTET_STRING_free(v4);
-LABEL_5:
-    v4 = 0;
-  }
-
-  v5 = *MEMORY[0x277D85DE8];
-  return v4;
-}
-
-ASN1_OCTET_STRING *__cdecl a2i_IPADDRESS_NC(const char *ipasc)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = strchr(ipasc, 47);
-  if (!v2)
-  {
-    goto LABEL_10;
-  }
-
-  v3 = v2;
-  v4 = strdup(ipasc);
-  v5 = v4;
-  if (!v4)
-  {
-    goto LABEL_11;
-  }
-
-  v6 = &v4[v3 - ipasc];
-  *v6 = 0;
-  v7 = a2i_ipadd(ipout, v4);
-  if (!v7)
-  {
-    goto LABEL_9;
-  }
-
-  v8 = v7;
-  v9 = a2i_ipadd(&ipout[v7], v6 + 1);
-  free(v5);
-  if (v8 != v9)
-  {
-    v5 = 0;
-    goto LABEL_9;
-  }
-
-  v10 = ASN1_OCTET_STRING_new();
-  v5 = v10;
-  if (!v10)
-  {
-LABEL_9:
-    free(v5);
-    goto LABEL_10;
-  }
-
-  if (!ASN1_OCTET_STRING_set(v10, ipout, 2 * v8))
-  {
-    ASN1_OCTET_STRING_free(v5);
-LABEL_10:
-    v5 = 0;
-  }
-
-LABEL_11:
-  v11 = *MEMORY[0x277D85DE8];
-  return v5;
-}
-
-uint64_t ipv4_from_asc(_BYTE *a1, char *a2)
-{
-  v10 = 0;
-  v9 = 0;
-  v8 = 0;
-  v3 = sscanf(a2, "%d.%d.%d.%d", &v10 + 4, &v10, &v9, &v8);
-  result = 0;
-  if (v3 == 4)
-  {
-    result = 0;
-    if (HIDWORD(v10) <= 0xFF)
-    {
-      v5 = v10;
-      if (v10 <= 0xFF)
-      {
-        v6 = v9;
-        if (v9 <= 0xFF)
-        {
-          v7 = v8;
-          if (v8 <= 0xFF)
-          {
-            *a1 = BYTE4(v10);
-            a1[1] = v5;
-            a1[2] = v6;
-            result = 1;
-            a1[3] = v7;
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-int X509V3_NAME_from_section(X509_NAME *nm, STACK *dn_sk, unint64_t chtype)
-{
-  if (!nm)
-  {
-    return nm;
-  }
-
-  v3 = chtype;
-  v5 = nm;
-  if (sk_num(dn_sk) < 1)
-  {
-    goto LABEL_22;
-  }
-
-  v6 = 0;
-  while (2)
-  {
-    v7 = sk_value(dn_sk, v6);
-    v8 = *(v7 + 1);
-    for (i = v8 + 1; ; ++i)
-    {
-      v10 = *(i - 1);
-      if (v10 <= 0x2D)
-      {
-        break;
-      }
-
-      if (v10 == 58 || v10 == 46)
-      {
-        goto LABEL_12;
-      }
-
-LABEL_11:
-      ;
-    }
-
-    if (!*(i - 1))
-    {
-      goto LABEL_14;
-    }
-
-    if (v10 != 44)
-    {
-      goto LABEL_11;
-    }
-
-LABEL_12:
-    if (*i)
-    {
-      v8 = i;
-    }
-
-LABEL_14:
-    v11 = *v8;
-    if (v11 == 43)
-    {
-      v12 = -1;
-    }
-
-    else
-    {
-      v12 = 0;
-    }
-
-    if (v11 == 43)
-    {
-      v13 = (v8 + 1);
-    }
-
-    else
-    {
-      v13 = v8;
-    }
-
-    LODWORD(nm) = X509_NAME_add_entry_by_txt(v5, v13, v3, *(v7 + 2), -1, -1, v12);
-    if (nm)
-    {
-      if (++v6 >= sk_num(dn_sk))
-      {
-LABEL_22:
-        LODWORD(nm) = 1;
-        return nm;
-      }
-
-      continue;
-    }
-
-    return nm;
-  }
-}
-
-BOOL equal_email(char *a1, size_t __n, char *a3, uint64_t a4)
-{
-  if (__n != a4)
-  {
-    return 0;
-  }
-
-  v5 = __n;
-  v7 = 0;
-  v8 = a3 - 1;
-  v9 = a1 - 1;
-  while (__n != v7)
-  {
-    v10 = v7;
-    v11 = v8;
-    v12 = v9;
-    if (v9[__n] != 64)
-    {
-      v13 = v8[__n];
-      ++v7;
-      --v8;
-      --v9;
-      if (v13 != 64)
-      {
-        continue;
-      }
-    }
-
-    if (!equal_nocase(&v12[__n], v10 + 1, &v11[__n], v10 + 1, 0))
-    {
-      return 0;
-    }
-
-    if (v5 - 1 != v10)
-    {
-      v5 += ~v10;
-    }
-
-    break;
-  }
-
-  return equal_case(a1, v5, a3, v5, 0);
-}
-
-BOOL equal_nocase(char *a1, size_t __n, void *a3, size_t a4, unsigned int a5)
-{
-  v8 = __n;
-  v9 = a1;
-  if (memchr(a1, 0, __n) || memchr(a3, 0, a4))
-  {
-    return 0;
-  }
-
-  if ((a5 & 0x8000) == 0)
-  {
-    goto LABEL_13;
-  }
-
-  i = v9;
-  v12 = v8;
-  if (v8 > a4)
-  {
-    v13 = &v9[v8 - a4];
-    v12 = v8;
-    for (i = v9; *i && ((*i == 46) & (a5 >> 4)) == 0; ++i)
-    {
-      if (--v12 <= a4)
-      {
-        v8 = a4;
-        v9 = v13;
-        return strncasecmp(v9, a3, v8) == 0;
-      }
-    }
-  }
-
-  if (v12 == a4)
-  {
-    v8 = a4;
-    v9 = i;
-  }
-
-  else
-  {
-LABEL_13:
-    if (v8 != a4)
-    {
-      return 0;
-    }
-  }
-
-  return strncasecmp(v9, a3, v8) == 0;
-}
-
-uint64_t equal_wildcard(char *a1, size_t __n, char *a3, size_t a4, unsigned int a5)
-{
-  if (a4 < 2)
-  {
-    if (!__n)
-    {
-      goto LABEL_42;
-    }
-
-LABEL_6:
-    v8 = 0;
-    v9 = 0;
-    v10 = 0;
-    v11 = __n - 1;
-    v12 = 1;
-    v32 = a3;
-    v33 = a4;
-    do
-    {
-      v13 = &a1[v10];
-      v14 = a1[v10];
-      if (v14 == 42)
-      {
-        if (v10 == v11)
-        {
-          v15 = 1;
-          if (v8)
-          {
-            goto LABEL_42;
-          }
-        }
-
-        else
-        {
-          v15 = v13[1] == 46;
-          if (v8)
-          {
-            goto LABEL_42;
-          }
-        }
-
-        if (v12 & 8 | v9 || !(((a5 & 4) == 0) | v12 & v15 & 1) || ((v12 | v15) & 1) == 0)
-        {
-          goto LABEL_42;
-        }
-
-        v9 = 0;
-        v12 &= 0xFFFFFFF6;
-        v8 = &a1[v10];
-      }
-
-      else if (v12)
-      {
-        if ((v12 & 8) != 0 || __n - v10 < 4 || (v17 = strncasecmp(v13, "xn--", 4uLL), a3 = v32, a4 = v33, v17))
-        {
-          if ((v14 - 48) >= 0xA && (v14 & 0xFFFFFFDF) - 65 >= 0x1A)
-          {
-            goto LABEL_42;
-          }
-
-          v12 &= ~1u;
-        }
-
-        else
-        {
-          v10 += 3;
-          v12 |= 8u;
-        }
-      }
-
-      else if ((v14 - 48) >= 0xA && (v14 & 0xFFFFFFDF) - 65 > 0x19)
-      {
-        if (v14 == 45)
-        {
-          v12 |= 4u;
-        }
-
-        else
-        {
-          if (v14 != 46 || (v12 & 4) != 0)
-          {
-            goto LABEL_42;
-          }
-
-          ++v9;
-          v12 = 1;
-        }
-      }
-
-      else
-      {
-        v12 &= 8u;
-      }
-
-      ++v10;
-    }
-
-    while (v10 < __n);
-    if ((v12 & 5) != 0 || v9 < 2 || !v8)
-    {
-      goto LABEL_42;
-    }
-
-    v19 = v8 - a1;
-    v20 = &a1[__n + ~v8];
-    if (~v8 + __n + v8 <= a4)
-    {
-      v22 = a3;
-      result = equal_nocase(a1, v8 - a1, a3, v8 - a1, a5);
-      if (!result)
-      {
-        return result;
-      }
-
-      v23 = v33 - v20;
-      result = equal_nocase(&v22[v33 - v20], &a1[__n + ~v8], (v8 + 1), &a1[__n + ~v8], a5);
-      if (!result)
-      {
-        return result;
-      }
-
-      if (v8 == a1 && *(v8 + 1) == 46)
-      {
-        v24 = v33;
-        if (v33 == v20)
-        {
-          return 0;
-        }
-
-        v25 = (a5 >> 3) & 1;
-      }
-
-      else
-      {
-        v24 = v33;
-        if (v33 < 4)
-        {
-          LOBYTE(v25) = 0;
-        }
-
-        else
-        {
-          result = strncasecmp(v32, "xn--", 4uLL);
-          if (!result)
-          {
-            return result;
-          }
-
-          LOBYTE(v25) = 0;
-          v24 = v33;
-        }
-      }
-
-      v26 = &v32[v19];
-      if (&v22[v33 - v20] == &v32[v19 + 1])
-      {
-        result = 1;
-        if (v23 == v19 || *v26 == 42)
-        {
-          return result;
-        }
-      }
-
-      else if (v23 == v19)
-      {
-        return 1;
-      }
-
-      v27 = v24 - __n + 1;
-      while (1)
-      {
-        v28 = *v26;
-        if ((v28 - 48) >= 0xA && (v28 - 65) >= 0x1A)
-        {
-          v30 = v28 == 46 ? v25 : 0;
-          if ((v30 & 1) == 0 && v28 != 45 && (v28 - 97) > 0x19)
-          {
-            break;
-          }
-        }
-
-        ++v26;
-        if (!--v27)
-        {
-          return 1;
-        }
-      }
-    }
-
-    return 0;
-  }
-
-  if (__n && *a3 != 46)
-  {
-    goto LABEL_6;
-  }
-
-LABEL_42:
-
-  return equal_nocase(a1, __n, a3, a4, a5);
-}
-
-BOOL equal_case(char *a1, size_t __n, void *a3, size_t a4, unsigned int a5)
-{
-  v8 = __n;
-  v9 = a1;
-  if (memchr(a1, 0, __n) || memchr(a3, 0, a4))
-  {
-    return 0;
-  }
-
-  if ((a5 & 0x8000) == 0)
-  {
-    goto LABEL_13;
-  }
-
-  i = v9;
-  v12 = v8;
-  if (v8 > a4)
-  {
-    v13 = &v9[v8 - a4];
-    v12 = v8;
-    for (i = v9; *i && ((*i == 46) & (a5 >> 4)) == 0; ++i)
-    {
-      if (--v12 <= a4)
-      {
-        v8 = a4;
-        v9 = v13;
-        return strncmp(v9, a3, v8) == 0;
-      }
-    }
-  }
-
-  if (v12 == a4)
-  {
-    v8 = a4;
-    v9 = i;
-  }
-
-  else
-  {
-LABEL_13:
-    if (v8 != a4)
-    {
-      return 0;
-    }
-  }
-
-  return strncmp(v9, a3, v8) == 0;
-}
-
-uint64_t do_check_string(ASN1_STRING *in, int a2, uint64_t (*a3)(void), uint64_t a4, void *__s2, size_t __n, char **a7)
-{
-  data = in->data;
-  if (!data || !in->length)
-  {
-    return 0;
-  }
-
-  if (a2 >= 1)
-  {
-    if (in->type == a2)
-    {
-      if (a2 == 22)
-      {
-        v14 = a3();
-        if (!a7)
-        {
-          return v14;
-        }
-
-LABEL_17:
-        if (v14 >= 1)
-        {
-          v20 = strndup(in->data, in->length);
-          *a7 = v20;
-          if (v20)
-          {
-            return v14;
-          }
-
-          else
-          {
-            return 0xFFFFFFFFLL;
-          }
-        }
-
-        return v14;
-      }
-
-      if (in->length == __n)
-      {
-        v14 = memcmp(data, __s2, __n) == 0;
-        if (!a7)
-        {
-          return v14;
-        }
-
-        goto LABEL_17;
-      }
-    }
-
-    return 0;
-  }
-
-  out = 0;
-  v15 = ASN1_STRING_to_UTF8(&out, in);
-  if ((v15 & 0x80000000) != 0)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  v16 = v15;
-  v17 = (a3)(out, v15, __s2, __n, a4);
-  v14 = v17;
-  v18 = out;
-  if (a7 && v17 >= 1)
-  {
-    v19 = strndup(out, v16);
-    *a7 = v19;
-    if (v19)
-    {
-      v14 = v14;
-    }
-
-    else
-    {
-      v14 = 0xFFFFFFFFLL;
-    }
-  }
-
-  free(v18);
-  return v14;
-}
-
-uint64_t ipv6_cb(char *a1, int a2, _DWORD *a3)
-{
-  v4 = a3 + 4;
-  v3 = a3[4];
-  if (v3 == 16)
-  {
-    return 0;
-  }
-
-  if (!a2)
-  {
-    v9 = a3[5];
-    if (v9 == -1)
-    {
-      a3[5] = v3;
-    }
-
-    else if (v9 != v3)
-    {
-      return 0;
-    }
-
-    v4 = a3 + 6;
-    v8 = 1;
-    goto LABEL_23;
-  }
-
-  v6 = a1;
-  v7 = v3;
-  if (a2 < 5)
-  {
-    v10 = 0;
-    do
-    {
-      v12 = *v6++;
-      v11 = v12;
-      if ((v12 - 48) >= 0xA)
-      {
-        if ((v11 - 65) >= 6)
-        {
-          if ((v11 - 97) > 5)
-          {
-            return 0;
-          }
-
-          v13 = -87;
-        }
-
-        else
-        {
-          v13 = -55;
-        }
-      }
-
-      else
-      {
-        v13 = -48;
-      }
-
-      v10 = (v13 + v11) | (16 * v10);
-      --a2;
-    }
-
-    while (a2);
-    *(a3 + v7) = bswap32(v10) >> 16;
-    v8 = 2;
-    goto LABEL_23;
-  }
-
-  if (v3 > 12 || a1[a2])
-  {
-    return 0;
-  }
-
-  result = ipv4_from_asc(a3 + v3, a1);
-  if (!result)
-  {
-    return result;
-  }
-
-  v8 = 4;
-LABEL_23:
-  *v4 += v8;
-  return 1;
-}
-
-uint64_t Gost2814789_encrypt(_DWORD *a1, int *a2, int *a3)
-{
-  v3 = *a3;
-  v4 = a3[1];
-  v5 = *a1 + *a3;
-  v6 = a3 + 8;
-  v7 = a3 + 264;
-  v8 = a3 + 520;
-  v9 = a3 + 776;
-  v10 = (a3[BYTE2(v5) + 264] | a3[HIBYTE(v5) + 8] | a3[BYTE1(v5) + 520] | a3[v5 + 776]) ^ a1[1];
-  v11 = (a3[((v10 + v4) >> 16) + 264] | a3[((v10 + v4) >> 24) + 8] | a3[((v10 + v4) >> 8) + 520] | a3[(v10 + v4) + 776]) ^ *a1;
-  v12 = a3[2];
-  v13 = a3[3];
-  v14 = (a3[((v11 + v12) >> 16) + 264] | a3[((v11 + v12) >> 24) + 8] | a3[((v11 + v12) >> 8) + 520] | a3[(v11 + v12) + 776]) ^ v10;
-  v15 = (a3[((v14 + v13) >> 16) + 264] | a3[((v14 + v13) >> 24) + 8] | a3[((v14 + v13) >> 8) + 520] | a3[(v14 + v13) + 776]) ^ v11;
-  v16 = a3[4];
-  v17 = a3[5];
-  v18 = (a3[((v15 + v16) >> 16) + 264] | a3[((v15 + v16) >> 24) + 8] | a3[((v15 + v16) >> 8) + 520] | a3[(v15 + v16) + 776]) ^ v14;
-  v19 = (a3[((v18 + v17) >> 16) + 264] | a3[((v18 + v17) >> 24) + 8] | a3[((v18 + v17) >> 8) + 520] | a3[(v18 + v17) + 776]) ^ v15;
-  v20 = a3[6];
-  v21 = a3[7];
-  v22 = (v7[((v19 + v20) >> 16)] | v6[(v19 + v20) >> 24] | v8[((v19 + v20) >> 8)] | v9[(v19 + v20)]) ^ v18;
-  v23 = (v7[((v22 + v21) >> 16)] | v6[(v22 + v21) >> 24] | v8[((v22 + v21) >> 8)] | v9[(v22 + v21)]) ^ v19;
-  v24 = (v7[((v23 + v3) >> 16)] | v6[(v23 + v3) >> 24] | v8[((v23 + v3) >> 8)] | v9[(v23 + v3)]) ^ v22;
-  v25 = (v7[((v24 + v4) >> 16)] | v6[(v24 + v4) >> 24] | v8[((v24 + v4) >> 8)] | v9[(v24 + v4)]) ^ v23;
-  v26 = (v7[((v25 + v12) >> 16)] | v6[(v25 + v12) >> 24] | v8[((v25 + v12) >> 8)] | v9[(v25 + v12)]) ^ v24;
-  v27 = (v7[((v26 + v13) >> 16)] | v6[(v26 + v13) >> 24] | v8[((v26 + v13) >> 8)] | v9[(v26 + v13)]) ^ v25;
-  v28 = (v7[((v27 + v16) >> 16)] | v6[(v27 + v16) >> 24] | v8[((v27 + v16) >> 8)] | v9[(v27 + v16)]) ^ v26;
-  v29 = (v7[((v28 + v17) >> 16)] | v6[(v28 + v17) >> 24] | v8[((v28 + v17) >> 8)] | v9[(v28 + v17)]) ^ v27;
-  v30 = (v7[((v29 + v20) >> 16)] | v6[(v29 + v20) >> 24] | v8[((v29 + v20) >> 8)] | v9[(v29 + v20)]) ^ v28;
-  v31 = (v7[((v30 + v21) >> 16)] | v6[(v30 + v21) >> 24] | v8[((v30 + v21) >> 8)] | v9[(v30 + v21)]) ^ v29;
-  v32 = (v7[((v31 + v3) >> 16)] | v6[(v31 + v3) >> 24] | v8[((v31 + v3) >> 8)] | v9[(v31 + v3)]) ^ v30;
-  v33 = (v7[((v32 + v4) >> 16)] | v6[(v32 + v4) >> 24] | v8[((v32 + v4) >> 8)] | v9[(v32 + v4)]) ^ v31;
-  v34 = (v7[((v33 + v12) >> 16)] | v6[(v33 + v12) >> 24] | v8[((v33 + v12) >> 8)] | v9[(v33 + v12)]) ^ v32;
-  v35 = (v7[((v34 + v13) >> 16)] | v6[(v34 + v13) >> 24] | v8[((v34 + v13) >> 8)] | v9[(v34 + v13)]) ^ v33;
-  v36 = (v7[((v35 + v16) >> 16)] | v6[(v35 + v16) >> 24] | v8[((v35 + v16) >> 8)] | v9[(v35 + v16)]) ^ v34;
-  v37 = (v7[((v36 + v17) >> 16)] | v6[(v36 + v17) >> 24] | v8[((v36 + v17) >> 8)] | v9[(v36 + v17)]) ^ v35;
-  v38 = (v7[((v37 + v20) >> 16)] | v6[(v37 + v20) >> 24] | v8[((v37 + v20) >> 8)] | v9[(v37 + v20)]) ^ v36;
-  v39 = (v7[((v38 + v21) >> 16)] | v6[(v38 + v21) >> 24] | v8[((v38 + v21) >> 8)] | v9[(v38 + v21)]) ^ v37;
-  v40 = (v7[((v39 + v21) >> 16)] | v6[(v39 + v21) >> 24] | v8[((v39 + v21) >> 8)] | v9[(v39 + v21)]) ^ v38;
-  v41 = (v7[((v40 + v20) >> 16)] | v6[(v40 + v20) >> 24] | v8[((v40 + v20) >> 8)] | v9[(v40 + v20)]) ^ v39;
-  v42 = (v7[((v41 + v17) >> 16)] | v6[(v41 + v17) >> 24] | v8[((v41 + v17) >> 8)] | v9[(v41 + v17)]) ^ v40;
-  v43 = (v7[((v42 + v16) >> 16)] | v6[(v42 + v16) >> 24] | v8[((v42 + v16) >> 8)] | v9[(v42 + v16)]) ^ v41;
-  v44 = (v7[((v43 + v13) >> 16)] | v6[(v43 + v13) >> 24] | v8[((v43 + v13) >> 8)] | v9[(v43 + v13)]) ^ v42;
-  v45 = v44 + v12;
-  result = v8[BYTE1(v45)];
-  v47 = (v7[BYTE2(v45)] | v6[HIBYTE(v45)] | result | v9[v45]) ^ v43;
-  v48 = (v7[((v47 + v4) >> 16)] | v6[(v47 + v4) >> 24] | v8[((v47 + v4) >> 8)] | v9[(v47 + v4)]) ^ v44;
-  v49 = v48 + v3;
-  LODWORD(v6) = v7[BYTE2(v49)] | v6[HIBYTE(v49)];
-  v50 = v8[BYTE1(v49)] | v9[v49];
-  *a2 = v48;
-  a2[1] = (v6 | v50) ^ v47;
-  return result;
-}
-
-uint64_t Gost2814789_decrypt(_DWORD *a1, int *a2, int *a3)
-{
-  v3 = *a3;
-  v4 = a3[1];
-  v5 = *a1 + *a3;
-  v6 = a3 + 8;
-  v7 = a3 + 264;
-  v8 = a3 + 520;
-  v9 = a3 + 776;
-  v10 = (a3[BYTE2(v5) + 264] | a3[HIBYTE(v5) + 8] | a3[BYTE1(v5) + 520] | a3[v5 + 776]) ^ a1[1];
-  v11 = (a3[((v10 + v4) >> 16) + 264] | a3[((v10 + v4) >> 24) + 8] | a3[((v10 + v4) >> 8) + 520] | a3[(v10 + v4) + 776]) ^ *a1;
-  v12 = a3[2];
-  v13 = a3[3];
-  v14 = (a3[((v11 + v12) >> 16) + 264] | a3[((v11 + v12) >> 24) + 8] | a3[((v11 + v12) >> 8) + 520] | a3[(v11 + v12) + 776]) ^ v10;
-  v15 = (a3[((v14 + v13) >> 16) + 264] | a3[((v14 + v13) >> 24) + 8] | a3[((v14 + v13) >> 8) + 520] | a3[(v14 + v13) + 776]) ^ v11;
-  v16 = a3[4];
-  v17 = a3[5];
-  v18 = (a3[((v15 + v16) >> 16) + 264] | a3[((v15 + v16) >> 24) + 8] | a3[((v15 + v16) >> 8) + 520] | a3[(v15 + v16) + 776]) ^ v14;
-  v19 = (a3[((v18 + v17) >> 16) + 264] | a3[((v18 + v17) >> 24) + 8] | a3[((v18 + v17) >> 8) + 520] | a3[(v18 + v17) + 776]) ^ v15;
-  v20 = a3[6];
-  v21 = a3[7];
-  v22 = (v7[((v19 + v20) >> 16)] | v6[(v19 + v20) >> 24] | v8[((v19 + v20) >> 8)] | v9[(v19 + v20)]) ^ v18;
-  v23 = (v7[((v22 + v21) >> 16)] | v6[(v22 + v21) >> 24] | v8[((v22 + v21) >> 8)] | v9[(v22 + v21)]) ^ v19;
-  v24 = (v7[((v23 + v21) >> 16)] | v6[(v23 + v21) >> 24] | v8[((v23 + v21) >> 8)] | v9[(v23 + v21)]) ^ v22;
-  v25 = (v7[((v24 + v20) >> 16)] | v6[(v24 + v20) >> 24] | v8[((v24 + v20) >> 8)] | v9[(v24 + v20)]) ^ v23;
-  v26 = (v7[((v25 + v17) >> 16)] | v6[(v25 + v17) >> 24] | v8[((v25 + v17) >> 8)] | v9[(v25 + v17)]) ^ v24;
-  v27 = (v7[((v26 + v16) >> 16)] | v6[(v26 + v16) >> 24] | v8[((v26 + v16) >> 8)] | v9[(v26 + v16)]) ^ v25;
-  v28 = (v7[((v27 + v13) >> 16)] | v6[(v27 + v13) >> 24] | v8[((v27 + v13) >> 8)] | v9[(v27 + v13)]) ^ v26;
-  v29 = (v7[((v28 + v12) >> 16)] | v6[(v28 + v12) >> 24] | v8[((v28 + v12) >> 8)] | v9[(v28 + v12)]) ^ v27;
-  v30 = (v7[((v29 + v4) >> 16)] | v6[(v29 + v4) >> 24] | v8[((v29 + v4) >> 8)] | v9[(v29 + v4)]) ^ v28;
-  v31 = (v7[((v30 + v3) >> 16)] | v6[(v30 + v3) >> 24] | v8[((v30 + v3) >> 8)] | v9[(v30 + v3)]) ^ v29;
-  v32 = (v7[((v31 + v21) >> 16)] | v6[(v31 + v21) >> 24] | v8[((v31 + v21) >> 8)] | v9[(v31 + v21)]) ^ v30;
-  v33 = (v7[((v32 + v20) >> 16)] | v6[(v32 + v20) >> 24] | v8[((v32 + v20) >> 8)] | v9[(v32 + v20)]) ^ v31;
-  v34 = (v7[((v33 + v17) >> 16)] | v6[(v33 + v17) >> 24] | v8[((v33 + v17) >> 8)] | v9[(v33 + v17)]) ^ v32;
-  v35 = (v7[((v34 + v16) >> 16)] | v6[(v34 + v16) >> 24] | v8[((v34 + v16) >> 8)] | v9[(v34 + v16)]) ^ v33;
-  v36 = (v7[((v35 + v13) >> 16)] | v6[(v35 + v13) >> 24] | v8[((v35 + v13) >> 8)] | v9[(v35 + v13)]) ^ v34;
-  v37 = (v7[((v36 + v12) >> 16)] | v6[(v36 + v12) >> 24] | v8[((v36 + v12) >> 8)] | v9[(v36 + v12)]) ^ v35;
-  v38 = (v7[((v37 + v4) >> 16)] | v6[(v37 + v4) >> 24] | v8[((v37 + v4) >> 8)] | v9[(v37 + v4)]) ^ v36;
-  v39 = (v7[((v38 + v3) >> 16)] | v6[(v38 + v3) >> 24] | v8[((v38 + v3) >> 8)] | v9[(v38 + v3)]) ^ v37;
-  v40 = (v7[((v39 + v21) >> 16)] | v6[(v39 + v21) >> 24] | v8[((v39 + v21) >> 8)] | v9[(v39 + v21)]) ^ v38;
-  v41 = (v7[((v40 + v20) >> 16)] | v6[(v40 + v20) >> 24] | v8[((v40 + v20) >> 8)] | v9[(v40 + v20)]) ^ v39;
-  v42 = (v7[((v41 + v17) >> 16)] | v6[(v41 + v17) >> 24] | v8[((v41 + v17) >> 8)] | v9[(v41 + v17)]) ^ v40;
-  v43 = (v7[((v42 + v16) >> 16)] | v6[(v42 + v16) >> 24] | v8[((v42 + v16) >> 8)] | v9[(v42 + v16)]) ^ v41;
-  v44 = (v7[((v43 + v13) >> 16)] | v6[(v43 + v13) >> 24] | v8[((v43 + v13) >> 8)] | v9[(v43 + v13)]) ^ v42;
-  v45 = v44 + v12;
-  result = v8[BYTE1(v45)];
-  v47 = (v7[BYTE2(v45)] | v6[HIBYTE(v45)] | result | v9[v45]) ^ v43;
-  v48 = (v7[((v47 + v4) >> 16)] | v6[(v47 + v4) >> 24] | v8[((v47 + v4) >> 8)] | v9[(v47 + v4)]) ^ v44;
-  v49 = v48 + v3;
-  LODWORD(v6) = v7[BYTE2(v49)] | v6[HIBYTE(v49)];
-  v50 = v8[BYTE1(v49)] | v9[v49];
-  *a2 = v48;
-  a2[1] = (v6 | v50) ^ v47;
-  return result;
-}
-
-uint64_t Gost2814789_ecb_encrypt(_DWORD *a1, int *a2, uint64_t a3, int a4)
-{
-  if ((*(a3 + 4132) & 1) != 0 && *(a3 + 4128) == 1024)
-  {
-    Gost2814789_cryptopro_key_mesh(a3);
-    *(a3 + 4128) = 0;
-  }
-
-  if (a4)
-  {
-
-    return Gost2814789_encrypt(a1, a2, a3);
-  }
-
-  else
-  {
-
-    return Gost2814789_decrypt(a1, a2, a3);
-  }
-}
-
-uint64_t Gost2814789_cfb64_encrypt(uint64_t result, _BYTE *a2, unint64_t a3, uint64_t a4, _DWORD *a5, unsigned int *a6, int a7)
-{
-  v11 = result;
-  v12 = *a6;
-  if (*a6)
-  {
-    v13 = a3 == 0;
-  }
-
-  else
-  {
-    v13 = 1;
-  }
-
-  v14 = !v13;
-  if (a7)
-  {
-    if (v14)
-    {
-      do
-      {
-        v15 = *v11++;
-        v16 = *(a5 + v12);
-        *(a5 + v12) = v16 ^ v15;
-        *a2++ = v16 ^ v15;
-        v17 = a3 - 1;
-        v18 = v12 + 1;
-        v12 = (v12 + 1) & 7;
-        if ((v18 & 7) == 0)
-        {
-          break;
-        }
-
-        --a3;
-      }
-
-      while (a3);
-    }
-
-    else
-    {
-      v17 = a3;
-    }
-
-    if (v17 < 8)
-    {
-      v23 = v12;
-      if (!v17)
-      {
-        goto LABEL_49;
-      }
-    }
-
-    else
-    {
-      do
-      {
-        if ((*(a4 + 4132) & 1) != 0 && *(a4 + 4128) == 1024)
-        {
-          Gost2814789_cryptopro_key_mesh(a4);
-          Gost2814789_encrypt(a5, a5, a4);
-          *(a4 + 4128) = 0;
-        }
-
-        result = Gost2814789_encrypt(a5, a5, a4);
-        *(a4 + 4128) += 8;
-        if (v12 <= 7)
-        {
-          v22 = *(a5 + v12) ^ *&v11[v12];
-          *(a5 + v12) = v22;
-          *&a2[v12] = v22;
-        }
-
-        v12 = 0;
-        v23 = 0;
-        v17 -= 8;
-        a2 += 8;
-        v11 += 8;
-      }
-
-      while (v17 > 7);
-      if (!v17)
-      {
-        goto LABEL_49;
-      }
-    }
-
-    if ((*(a4 + 4132) & 1) != 0 && *(a4 + 4128) == 1024)
-    {
-      Gost2814789_cryptopro_key_mesh(a4);
-      Gost2814789_encrypt(a5, a5, a4);
-      *(a4 + 4128) = 0;
-    }
-
-    result = Gost2814789_encrypt(a5, a5, a4);
-    *(a4 + 4128) += 8;
-    do
-    {
-      v24 = *(a5 + v23) ^ v11[v23];
-      *(a5 + v23) = v24;
-      a2[v23++] = v24;
-      --v17;
-    }
-
-    while (v17);
-    goto LABEL_49;
-  }
-
-  if (v14)
-  {
-    do
-    {
-      v19 = *v11++;
-      *a2++ = v19 ^ *(a5 + v12);
-      *(a5 + v12) = v19;
-      v20 = a3 - 1;
-      v21 = v12 + 1;
-      v12 = (v12 + 1) & 7;
-      if ((v21 & 7) == 0)
-      {
-        break;
-      }
-
-      --a3;
-    }
-
-    while (a3);
-  }
-
-  else
-  {
-    v20 = a3;
-  }
-
-  if (v20 < 8)
-  {
-    v23 = v12;
-    if (!v20)
-    {
-      goto LABEL_49;
-    }
-
-    goto LABEL_44;
-  }
-
-  do
-  {
-    if ((*(a4 + 4132) & 1) != 0 && *(a4 + 4128) == 1024)
-    {
-      Gost2814789_cryptopro_key_mesh(a4);
-      Gost2814789_encrypt(a5, a5, a4);
-      *(a4 + 4128) = 0;
-    }
-
-    result = Gost2814789_encrypt(a5, a5, a4);
-    *(a4 + 4128) += 8;
-    if (v12 <= 7)
-    {
-      v25 = *&v11[v12];
-      *&a2[v12] = *(a5 + v12) ^ v25;
-      *(a5 + v12) = v25;
-    }
-
-    v12 = 0;
-    v23 = 0;
-    v20 -= 8;
-    a2 += 8;
-    v11 += 8;
-  }
-
-  while (v20 > 7);
-  if (v20)
-  {
-LABEL_44:
-    if ((*(a4 + 4132) & 1) != 0 && *(a4 + 4128) == 1024)
-    {
-      Gost2814789_cryptopro_key_mesh(a4);
-      Gost2814789_encrypt(a5, a5, a4);
-      *(a4 + 4128) = 0;
-    }
-
-    result = Gost2814789_encrypt(a5, a5, a4);
-    *(a4 + 4128) += 8;
-    do
-    {
-      v26 = v11[v23];
-      a2[v23] = v26 ^ *(a5 + v23);
-      *(a5 + v23++) = v26;
-      --v20;
-    }
-
-    while (v20);
-  }
-
-LABEL_49:
-  *a6 = v23;
-  return result;
-}
-
-uint64_t Gost2814789_cnt_encrypt(uint64_t result, _BYTE *a2, unint64_t a3, uint64_t a4, int *a5, int *a6, unsigned int *a7)
-{
-  v12 = result;
-  v13 = *a7;
-  if (*a7)
-  {
-    v14 = a3 == 0;
-  }
-
-  else
-  {
-    v14 = 1;
-  }
-
-  if (v14)
-  {
-    v15 = a3;
-  }
-
-  else
-  {
-    do
-    {
-      v16 = *v12++;
-      *a2++ = *(a6 + v13) ^ v16;
-      v15 = a3 - 1;
-      v17 = v13 + 1;
-      v13 = (v13 + 1) & 7;
-      if ((v17 & 7) == 0)
-      {
-        break;
-      }
-
-      --a3;
-    }
-
-    while (a3);
-  }
-
-  if (v15 < 8)
-  {
-    v18 = v13;
-    if (!v15)
-    {
-      goto LABEL_18;
-    }
-
-    goto LABEL_16;
-  }
-
-  do
-  {
-    result = Gost2814789_cnt_next(a5, a6, a4);
-    if (v13 <= 7)
-    {
-      *&a2[v13] = *(a6 + v13) ^ *&v12[v13];
-    }
-
-    v13 = 0;
-    v18 = 0;
-    v15 -= 8;
-    a2 += 8;
-    v12 += 8;
-  }
-
-  while (v15 > 7);
-  if (v15)
-  {
-LABEL_16:
-    result = Gost2814789_cnt_next(a5, a6, a4);
-    do
-    {
-      a2[v18] = *(a6 + v18) ^ v12[v18];
-      ++v18;
-      --v15;
-    }
-
-    while (v15);
-  }
-
-LABEL_18:
-  *a7 = v18;
-  return result;
-}
-
-uint64_t Gost2814789_cnt_next(int *a1, int *a2, uint64_t a3)
-{
-  if (!*(a3 + 4128))
-  {
-    Gost2814789_encrypt(a1, a1, a3);
-  }
-
-  if ((*(a3 + 4132) & 1) != 0 && *(a3 + 4128) == 1024)
-  {
-    Gost2814789_cryptopro_key_mesh(a3);
-    Gost2814789_encrypt(a1, a1, a3);
-    *(a3 + 4128) = 0;
-  }
-
-  v6 = a1[1];
-  if (v6 <= 0xFEFEFEFB)
-  {
-    v7 = 16843012;
-  }
-
-  else
-  {
-    v7 = 16843013;
-  }
-
-  *a1 += 16843009;
-  a1[1] = v7 + v6;
-  result = Gost2814789_encrypt(a1, a2, a3);
-  *(a3 + 4128) += 8;
-  return result;
-}
-
-uint64_t GOST2814789IMIT_Init(uint64_t a1, int a2)
-{
-  *(a1 + 16) = 0;
-  *a1 = 0;
-  *(a1 + 4156) = 0;
-  return Gost2814789_set_sbox(a1 + 20, a2);
-}
-
-uint64_t GOST2814789IMIT_Update(uint64_t a1, char *__src, size_t __n)
-{
-  if (__n)
-  {
-    v3 = __n;
-    v4 = __src;
-    *a1 += 8 * __n;
-    v6 = *(a1 + 16);
-    if (v6)
-    {
-      v7 = a1 + 8;
-      if (__n <= 7 && v6 + __n < 8)
-      {
-        memcpy((v7 + v6), __src, __n);
-        *(a1 + 16) += v3;
-        return 1;
-      }
-
-      v8 = 8 - v6;
-      memcpy((v7 + v6), __src, 8 - v6);
-      Gost2814789_mac_mesh(a1 + 8, (a1 + 4156), a1 + 20);
-      v4 += v8;
-      v3 -= v8;
-      *(a1 + 16) = 0;
-      *(a1 + 8) = 0;
-    }
-
-    if (v3 >= 8)
-    {
-      v9 = v3 >> 3;
-      v10 = v4;
-      do
-      {
-        Gost2814789_mac_mesh(v10, (a1 + 4156), a1 + 20);
-        v10 += 8;
-        --v9;
-      }
-
-      while (v9);
-      v4 += v3 & 0xFFFFFFFFFFFFFFF8;
-      v3 &= 7u;
-    }
-
-    if (v3)
-    {
-      *(a1 + 16) = v3;
-      memcpy((a1 + 8), v4, v3);
-    }
-  }
-
-  return 1;
-}
-
-uint64_t GOST2814789IMIT_Final(_DWORD *a1, uint64_t a2)
-{
-  v4 = *(a2 + 16);
-  if (v4)
-  {
-    bzero((a2 + 8 + v4), (8 - v4));
-    Gost2814789_mac_mesh(a2 + 8, (a2 + 4156), a2 + 20);
-  }
-
-  if ((*a2 - 65) >= 0xFFFFFFC0 && !*(a2 + 4))
-  {
-    *(a2 + 8) = 0;
-    Gost2814789_mac_mesh(a2 + 8, (a2 + 4156), a2 + 20);
-  }
-
-  *a1 = *(a2 + 4156);
-  return 1;
-}
-
-uint64_t Gost2814789_mac_mesh(uint64_t a1, int *a2, uint64_t a3)
-{
-  if ((*(a3 + 4132) & 1) != 0 && *(a3 + 4128) == 1024)
-  {
-    Gost2814789_cryptopro_key_mesh(a3);
-    *(a3 + 4128) = 0;
-  }
-
-  for (i = 0; i != 8; ++i)
-  {
-    *(a2 + i) ^= *(a1 + i);
-  }
-
-  v7 = *(a3 + 4);
-  v8 = (*(a3 + 1056 + 4 * ((*a2 + *a3) >> 16)) | *(a3 + 32 + 4 * ((*a2 + *a3) >> 24)) | *(a3 + 2080 + 4 * ((*a2 + *a3) >> 8)) | *(a3 + 3104 + 4 * (*a2 + *a3))) ^ a2[1];
-  v9 = (*(a3 + 1056 + 4 * ((v8 + v7) >> 16)) | *(a3 + 32 + 4 * ((v8 + v7) >> 24)) | *(a3 + 2080 + 4 * ((v8 + v7) >> 8)) | *(a3 + 3104 + 4 * (v8 + v7))) ^ *a2;
-  v10 = *(a3 + 8);
-  v11 = *(a3 + 12);
-  v12 = (*(a3 + 1056 + 4 * ((v9 + v10) >> 16)) | *(a3 + 32 + 4 * ((v9 + v10) >> 24)) | *(a3 + 2080 + 4 * ((v9 + v10) >> 8)) | *(a3 + 3104 + 4 * (v9 + v10))) ^ v8;
-  v13 = (*(a3 + 1056 + 4 * ((v12 + v11) >> 16)) | *(a3 + 32 + 4 * ((v12 + v11) >> 24)) | *(a3 + 2080 + 4 * ((v12 + v11) >> 8)) | *(a3 + 3104 + 4 * (v12 + v11))) ^ v9;
-  v14 = *(a3 + 16);
-  v15 = *(a3 + 20);
-  v16 = (*(a3 + 1056 + 4 * ((v13 + v14) >> 16)) | *(a3 + 32 + 4 * ((v13 + v14) >> 24)) | *(a3 + 2080 + 4 * ((v13 + v14) >> 8)) | *(a3 + 3104 + 4 * (v13 + v14))) ^ v12;
-  v17 = (*(a3 + 1056 + 4 * ((v16 + v15) >> 16)) | *(a3 + 32 + 4 * ((v16 + v15) >> 24)) | *(a3 + 2080 + 4 * ((v16 + v15) >> 8)) | *(a3 + 3104 + 4 * (v16 + v15))) ^ v13;
-  result = *(a3 + 24);
-  v19 = *(a3 + 28);
-  v20 = (*(a3 + 1056 + 4 * ((v17 + result) >> 16)) | *(a3 + 32 + 4 * ((v17 + result) >> 24)) | *(a3 + 2080 + 4 * ((v17 + result) >> 8)) | *(a3 + 3104 + 4 * (v17 + result))) ^ v16;
-  v21 = (*(a3 + 1056 + 4 * ((v20 + v19) >> 16)) | *(a3 + 32 + 4 * ((v20 + v19) >> 24)) | *(a3 + 2080 + 4 * ((v20 + v19) >> 8)) | *(a3 + 3104 + 4 * (v20 + v19))) ^ v17;
-  v22 = (*(a3 + 1056 + 4 * ((v21 + *a3) >> 16)) | *(a3 + 32 + 4 * ((v21 + *a3) >> 24)) | *(a3 + 2080 + 4 * ((v21 + *a3) >> 8)) | *(a3 + 3104 + 4 * (v21 + *a3))) ^ v20;
-  v23 = (*(a3 + 1056 + 4 * ((v22 + v7) >> 16)) | *(a3 + 32 + 4 * ((v22 + v7) >> 24)) | *(a3 + 2080 + 4 * ((v22 + v7) >> 8)) | *(a3 + 3104 + 4 * (v22 + v7))) ^ v21;
-  v24 = (*(a3 + 1056 + 4 * ((v23 + v10) >> 16)) | *(a3 + 32 + 4 * ((v23 + v10) >> 24)) | *(a3 + 2080 + 4 * ((v23 + v10) >> 8)) | *(a3 + 3104 + 4 * (v23 + v10))) ^ v22;
-  v25 = (*(a3 + 1056 + 4 * ((v24 + v11) >> 16)) | *(a3 + 32 + 4 * ((v24 + v11) >> 24)) | *(a3 + 2080 + 4 * ((v24 + v11) >> 8)) | *(a3 + 3104 + 4 * (v24 + v11))) ^ v23;
-  v26 = (*(a3 + 1056 + 4 * ((v25 + v14) >> 16)) | *(a3 + 32 + 4 * ((v25 + v14) >> 24)) | *(a3 + 2080 + 4 * ((v25 + v14) >> 8)) | *(a3 + 3104 + 4 * (v25 + v14))) ^ v24;
-  v27 = (*(a3 + 1056 + 4 * ((v26 + v15) >> 16)) | *(a3 + 32 + 4 * ((v26 + v15) >> 24)) | *(a3 + 2080 + 4 * ((v26 + v15) >> 8)) | *(a3 + 3104 + 4 * (v26 + v15))) ^ v25;
-  v28 = (*(a3 + 1056 + 4 * ((v27 + result) >> 16)) | *(a3 + 32 + 4 * ((v27 + result) >> 24)) | *(a3 + 2080 + 4 * ((v27 + result) >> 8)) | *(a3 + 3104 + 4 * (v27 + result))) ^ v26;
-  *a2 = (*(a3 + 1056 + 4 * ((v28 + v19) >> 16)) | *(a3 + 32 + 4 * ((v28 + v19) >> 24)) | *(a3 + 2080 + 4 * ((v28 + v19) >> 8)) | *(a3 + 3104 + 4 * (v28 + v19))) ^ v27;
-  a2[1] = v28;
-  *(a3 + 4128) += 8;
-  return result;
-}
-
-void GOST2814789IMIT(uint64_t a1)
-{
-  v1 = MEMORY[0x28223BE20](a1);
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
-  v10 = v1;
-  v14 = *MEMORY[0x277D85DE8];
-  if (v2)
-  {
-    v11 = v2;
-  }
-
-  else
-  {
-    v11 = &GOST2814789IMIT_m;
-  }
-
-  v13 = 0;
-  memset(v12, 0, 512);
-  Gost2814789_set_sbox(&v12[1] + 4, v3);
-  v13 = *v5;
-  Gost2814789_set_key(&v12[1] + 4, v7, 256);
-  GOST2814789IMIT_Update(v12, v10, v9);
-  GOST2814789IMIT_Final(v11, v12);
-  explicit_bzero(v12, 0x1044uLL);
-}
-
-void *ECDSA_SIG_get0(void *result, void *a2, void *a3)
-{
-  if (a2)
-  {
-    *a2 = *result;
-  }
-
-  if (a3)
-  {
-    *a3 = result[1];
-  }
-
-  return result;
-}
-
-uint64_t ECDSA_SIG_set0(BIGNUM **a1, BIGNUM *a2, BIGNUM *a3)
-{
-  result = 0;
-  if (a2)
-  {
-    if (a3)
-    {
-      BN_free(*a1);
-      BN_free(a1[1]);
-      *a1 = a2;
-      a1[1] = a3;
-      return 1;
-    }
-  }
-
-  return result;
-}
-
-uint64_t EC_POINT_set_compressed_coordinates(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, BN_CTX *a5)
-{
-  v10 = a5;
-  if (!a5)
-  {
-    v10 = BN_CTX_new();
-    if (!v10)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  v11 = *(*a1 + 136);
-  if (!v11)
-  {
-    v12 = 66;
-    v13 = 86;
-    goto LABEL_7;
-  }
-
-  if (*a1 != *a2)
-  {
-    v12 = 101;
-    v13 = 90;
-LABEL_7:
-    ERR_put_error(16, 4095, v12, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ec_oct.c", v13);
-LABEL_8:
-    v14 = 0;
-    goto LABEL_10;
-  }
-
-  v14 = v11(a1, a2, a3, a4, v10);
-LABEL_10:
-  if (v10 != a5)
-  {
-    BN_CTX_free(v10);
-  }
-
-  return v14;
-}
-
-int EC_POINT_oct2point(const EC_GROUP *a1, EC_POINT *a2, const unsigned __int8 *buf, size_t len, BN_CTX *a5)
-{
-  v10 = a5;
-  if (!a5)
-  {
-    v10 = BN_CTX_new();
-    if (!v10)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  v11 = *(*a1 + 152);
-  if (!v11)
-  {
-    v12 = 66;
-    v13 = 153;
-    goto LABEL_7;
-  }
-
-  if (*a1 != *a2)
-  {
-    v12 = 101;
-    v13 = 157;
-LABEL_7:
-    ERR_put_error(16, 4095, v12, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ec_oct.c", v13);
-LABEL_8:
-    v14 = 0;
-    goto LABEL_10;
-  }
-
-  v14 = v11(a1, a2, buf, len, v10);
-LABEL_10:
-  if (v10 != a5)
-  {
-    BN_CTX_free(v10);
-  }
-
-  return v14;
-}
-
-int X509_ALGOR_set0(X509_ALGOR *alg, ASN1_OBJECT *aobj, int ptype, void *pval)
-{
-  if (alg)
-  {
-    v7 = alg;
-    if (ptype == -1 || alg->parameter || (alg = ASN1_TYPE_new(), (v7->parameter = alg) != 0))
-    {
-      if (v7->algorithm)
-      {
-        ASN1_OBJECT_free(v7->algorithm);
-      }
-
-      v7->algorithm = aobj;
-      if (ptype)
-      {
-        if (ptype == -1)
-        {
-          parameter = v7->parameter;
-          if (parameter)
-          {
-            ASN1_TYPE_free(parameter);
-            v7->parameter = 0;
-          }
-        }
-
-        else
-        {
-          ASN1_TYPE_set(v7->parameter, ptype, pval);
-        }
-      }
-
-      LODWORD(alg) = 1;
-    }
-  }
-
-  return alg;
-}
-
-void X509_ALGOR_get0(ASN1_OBJECT **paobj, int *pptype, void **ppval, X509_ALGOR *algor)
-{
-  if (paobj)
-  {
-    *paobj = algor->algorithm;
-  }
-
-  if (pptype)
-  {
-    parameter = algor->parameter;
-    if (parameter)
-    {
-      *pptype = parameter->type;
-      if (ppval)
-      {
-        *ppval = parameter->value.ptr;
-      }
-    }
-
-    else
-    {
-      *pptype = -1;
-    }
-  }
-}
-
-uint64_t X509_ALGOR_set_md(X509_ALGOR *a1, const EVP_MD *a2)
-{
-  if ((EVP_MD_flags(a2) & 8) != 0)
-  {
-    v4 = -1;
-  }
-
-  else
-  {
-    v4 = 5;
-  }
-
-  v5 = EVP_MD_type(a2);
-  v6 = OBJ_nid2obj(v5);
-
-  return X509_ALGOR_set0(a1, v6, v4, 0);
-}
-
-uint64_t X509_ALGOR_cmp(uint64_t a1, uint64_t a2)
-{
-  result = OBJ_cmp(*a1, *a2);
-  if (!result)
-  {
-    v5 = *(a1 + 8);
-    v6 = *(a2 + 8);
-    if (v5 | v6)
-    {
-
-      return ASN1_TYPE_cmp(v5, v6);
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-void CAST_ecb_encrypt(const unsigned __int8 *in, unsigned __int8 *out, const CAST_KEY *key, int enc)
-{
-  v7[1] = *MEMORY[0x277D85DE8];
-  v7[0] = __PAIR64__(bswap32(*(in + 1)), bswap32(*in));
-  if (enc)
-  {
-    CAST_encrypt(v7, key);
-  }
-
-  else
-  {
-    CAST_decrypt(v7, key);
-  }
-
-  v5 = bswap32(HIDWORD(v7[0]));
-  *out = bswap32(v7[0]);
-  *(out + 1) = v5;
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t GostR3410_get_md_digest(uint64_t result)
-{
-  if (result == 822)
-  {
-    return 809;
-  }
-
-  else
-  {
-    return result;
-  }
-}
-
-uint64_t GostR3410_get_pk_digest(int a1)
-{
-  if (a1 == 941)
-  {
-    v1 = 946;
-  }
-
-  else
-  {
-    v1 = 0;
-  }
-
-  if (a1 == 942)
-  {
-    v2 = 947;
-  }
-
-  else
-  {
-    v2 = v1;
-  }
-
-  if (a1 == 822)
-  {
-    return 811;
-  }
-
-  else
-  {
-    return v2;
-  }
-}
-
-uint64_t GostR3410_256_param_id(char *a1)
-{
-  if (!strcasecmp("A", a1))
-  {
-    return 840;
-  }
-
-  v2 = &dword_278C13908;
-  v3 = 6;
-  do
-  {
-    v4 = v2;
-    if (!--v3)
-    {
-      break;
-    }
-
-    v2 += 4;
-  }
-
-  while (strcasecmp(*(v4 - 1), a1));
-  return *v4;
-}
-
-uint64_t GostR3410_512_param_id(char *a1)
-{
-  if (!strcasecmp("A", a1))
-  {
-    return 943;
-  }
-
-  v2 = &dword_278C13978;
-  v3 = 2;
-  do
-  {
-    v4 = v2;
-    if (!--v3)
-    {
-      break;
-    }
-
-    v2 += 4;
-  }
-
-  while (strcasecmp(*(v4 - 1), a1));
-  return *v4;
-}
-
-unint64_t *idea_cfb64_encrypt(unint64_t *result, _BYTE *a2, uint64_t a3, unsigned int *a4, unsigned int *a5, int *a6, int a7)
-{
-  v10 = a3;
-  v12 = result;
-  v25 = *MEMORY[0x277D85DE8];
-  v13 = *a6;
-  if (a7)
-  {
-    if (a3)
-    {
-      do
-      {
-        if (!v13)
-        {
-          v14 = bswap32(a5[1]);
-          v23 = bswap32(*a5);
-          v24 = v14;
-          result = idea_encrypt(&v23, a4);
-          v15 = bswap32(v24);
-          *a5 = bswap32(v23);
-          a5[1] = v15;
-        }
-
-        v16 = *v12;
-        v12 = (v12 + 1);
-        v17 = *(a5 + v13);
-        *a2++ = v17 ^ v16;
-        *(a5 + v13) = v17 ^ v16;
-        v13 = (v13 + 1) & 7;
-        --v10;
-      }
-
-      while (v10);
-    }
-  }
-
-  else if (a3)
-  {
-    do
-    {
-      if (!v13)
-      {
-        v18 = bswap32(a5[1]);
-        v23 = bswap32(*a5);
-        v24 = v18;
-        result = idea_encrypt(&v23, a4);
-        v19 = bswap32(v24);
-        *a5 = bswap32(v23);
-        a5[1] = v19;
-      }
-
-      v20 = *v12;
-      v12 = (v12 + 1);
-      v21 = *(a5 + v13);
-      *(a5 + v13) = v20;
-      *a2++ = v21 ^ v20;
-      v13 = (v13 + 1) & 7;
-      --v10;
-    }
-
-    while (v10);
-  }
-
-  *a6 = v13;
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-const DH_METHOD *DH_get_default_method(void)
-{
-  result = default_DH_method;
-  if (!default_DH_method)
-  {
-    result = DH_OpenSSL();
-    default_DH_method = result;
-  }
-
-  return result;
-}
-
-int DH_set_method(DH *dh, const DH_METHOD *meth)
-{
-  v4 = *(*&dh->ex_data.dummy + 40);
-  if (v4)
-  {
-    v4(dh);
-  }
-
-  ENGINE_finish(dh->meth);
-  *&dh->ex_data.dummy = meth;
-  dh->meth = 0;
-  init = meth->init;
-  if (init)
-  {
-    (init)(dh);
-  }
-
-  return 1;
-}
-
-DH *__cdecl DH_new_method(ENGINE *engine)
-{
-  v2 = malloc_type_malloc(0x88uLL, 0x1070040C1BEA720uLL);
-  if (!v2)
-  {
-    ERR_put_error(5, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/dh/dh_lib.c", 125);
-    return v2;
-  }
-
-  v3 = default_DH_method;
-  if (!default_DH_method)
-  {
-    v3 = DH_OpenSSL();
-    default_DH_method = v3;
-  }
-
-  *(v2 + 15) = v3;
-  if (engine)
-  {
-    if (!ENGINE_init(engine))
-    {
-      ERR_put_error(5, 4095, 38, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/dh/dh_lib.c", 133);
-      goto LABEL_16;
-    }
-
-    *(v2 + 16) = engine;
-    goto LABEL_9;
-  }
-
-  engine = ENGINE_get_default_DH();
-  *(v2 + 16) = engine;
-  if (engine)
-  {
-LABEL_9:
-    DH = ENGINE_get_DH(engine);
-    *(v2 + 15) = DH;
-    if (!DH)
-    {
-      ERR_put_error(5, 4095, 38, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/dh/dh_lib.c", 143);
-      ENGINE_finish(*(v2 + 16));
-LABEL_16:
-      free(v2);
-      return 0;
-    }
-
-    goto LABEL_13;
-  }
-
-  DH = *(v2 + 15);
-LABEL_13:
-  *(v2 + 12) = 0;
-  *v2 = 0u;
-  *(v2 + 1) = 0u;
-  *(v2 + 2) = 0u;
-  *(v2 + 56) = 0u;
-  *(v2 + 72) = 0u;
-  *(v2 + 22) = 0;
-  *(v2 + 26) = 1;
-  *(v2 + 12) = DH->flags & 0xFFFFFBFF;
-  CRYPTO_new_ex_data(8, v2, v2 + 7);
-  v5 = *(*(v2 + 15) + 32);
-  if (v5 && !v5(v2))
-  {
-    ENGINE_finish(*(v2 + 16));
-    CRYPTO_free_ex_data(8, v2, v2 + 7);
-    goto LABEL_16;
-  }
-
-  return v2;
-}
-
-void DH_free(DH *dh)
-{
-  if (dh && CRYPTO_add_lock(&dh->references, -1, 26, 0, 0) <= 0)
-  {
-    v2 = *(*&dh->ex_data.dummy + 40);
-    if (v2)
-    {
-      v2(dh);
-    }
-
-    ENGINE_finish(dh->meth);
-    CRYPTO_free_ex_data(8, dh, &dh->ex_data);
-    BN_free(dh->p);
-    BN_free(dh->g);
-    BN_free(dh->q);
-    BN_free(dh->j);
-    free(dh->seed);
-    BN_free(dh->counter);
-    BN_free(dh->pub_key);
-    BN_free(dh->priv_key);
-
-    free(dh);
-  }
-}
-
-int DH_size(const DH *dh)
-{
-  v1 = BN_num_bits(dh->p);
-  v2 = v1 + 7;
-  if (v1 < -7)
-  {
-    v2 = v1 + 14;
-  }
-
-  return v2 >> 3;
-}
-
-uint64_t DH_security_bits(uint64_t a1)
-{
-  v2 = *(a1 + 64);
-  if (v2)
-  {
-    v3 = BN_num_bits(v2);
-  }
-
-  else if (*(a1 + 24) <= 0)
-  {
-    v3 = -1;
-  }
-
-  else
-  {
-    v3 = *(a1 + 24);
-  }
-
-  v4 = BN_num_bits(*(a1 + 8));
-
-  return BN_security_bits(v4, v3);
-}
-
-void *DH_get0_pqg(void *result, void *a2, void *a3, void *a4)
-{
-  if (a2)
-  {
-    *a2 = result[1];
-  }
-
-  if (a3)
-  {
-    *a3 = result[8];
-  }
-
-  if (a4)
-  {
-    *a4 = result[2];
-  }
-
-  return result;
-}
-
-uint64_t DH_set0_pqg(uint64_t a1, uint64_t a2, const BIGNUM *a3, uint64_t a4)
-{
-  v5 = *(a1 + 8);
-  if (!(a2 | v5) || !(a4 | *(a1 + 16)))
-  {
-    return 0;
-  }
-
-  if (a2)
-  {
-    BN_free(v5);
-    *(a1 + 8) = a2;
-  }
-
-  if (a3)
-  {
-    BN_free(*(a1 + 64));
-    *(a1 + 64) = a3;
-    *(a1 + 24) = BN_num_bits(a3);
-  }
-
-  if (a4)
-  {
-    BN_free(*(a1 + 16));
-    *(a1 + 16) = a4;
-  }
-
-  return 1;
-}
-
-uint64_t DH_get0_key(uint64_t result, void *a2, void *a3)
-{
-  if (a2)
-  {
-    *a2 = *(result + 32);
-  }
-
-  if (a3)
-  {
-    *a3 = *(result + 40);
-  }
-
-  return result;
-}
-
-uint64_t DH_set0_key(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  if (a2)
-  {
-    BN_free(*(a1 + 32));
-    *(a1 + 32) = a2;
-  }
-
-  if (a3)
-  {
-    BN_free(*(a1 + 40));
-    *(a1 + 40) = a3;
-  }
-
-  return 1;
-}
-
-uint64_t DH_set_length(uint64_t a1, unint64_t a2)
-{
-  if (a2 >> 31)
-  {
-    return 0;
-  }
-
-  *(a1 + 24) = a2;
-  return 1;
-}
-
-int EVP_add_cipher(const EVP_CIPHER *cipher)
-{
-  if (!cipher)
-  {
-    return 0;
-  }
-
-  v2 = OBJ_nid2sn(cipher->nid);
-  if (!OBJ_NAME_add(v2, 2, cipher))
-  {
-    return 0;
-  }
-
-  check_defer(cipher->nid);
-  v3 = OBJ_nid2ln(cipher->nid);
-
-  return OBJ_NAME_add(v3, 2, cipher);
-}
-
-int EVP_add_digest(const EVP_MD *digest)
-{
-  v2 = OBJ_nid2sn(digest->type);
-  result = OBJ_NAME_add(v2, 1, digest);
-  if (result)
-  {
-    check_defer(digest->type);
-    v4 = OBJ_nid2ln(digest->type);
-    result = OBJ_NAME_add(v4, 1, digest);
-    if (result)
-    {
-      pkey_type = digest->pkey_type;
-      if (pkey_type)
-      {
-        if (digest->type != pkey_type)
-        {
-          v6 = OBJ_nid2sn(digest->pkey_type);
-          result = OBJ_NAME_add(v6, 32769, v2);
-          if (result)
-          {
-            check_defer(digest->pkey_type);
-            v7 = OBJ_nid2ln(digest->pkey_type);
-
-            return OBJ_NAME_add(v7, 32769, v2);
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-const EVP_CIPHER *__cdecl EVP_get_cipherbyname(const char *name)
-{
-  if (!OPENSSL_init_crypto(0))
-  {
-    return 0;
-  }
-
-  return OBJ_NAME_get(name, 2);
-}
-
-const EVP_MD *__cdecl EVP_get_digestbyname(const char *name)
-{
-  if (!OPENSSL_init_crypto(0))
-  {
-    return 0;
-  }
-
-  return OBJ_NAME_get(name, 1);
-}
-
-void EVP_cleanup(void)
-{
-  OBJ_NAME_cleanup(2);
-  OBJ_NAME_cleanup(1);
-  OBJ_NAME_cleanup(-1);
-  EVP_PBE_cleanup();
-  if (obj_cleanup_defer == 2)
-  {
-    obj_cleanup_defer = 0;
-    OBJ_cleanup();
-  }
-
-  OBJ_sigid_free();
-}
-
-void EVP_CIPHER_do_all(uint64_t a1, uint64_t a2)
-{
-  OPENSSL_init_crypto(0);
-  v4[0] = a2;
-  v4[1] = a1;
-  OBJ_NAME_do_all(2, do_all_cipher_fn, v4);
-}
-
-uint64_t do_all_cipher_fn(uint64_t a1, uint64_t *a2)
-{
-  v2 = *a2;
-  v3 = a2[1];
-  if (*(a1 + 4))
-  {
-    return v3(0, *(a1 + 8), *(a1 + 16), v2);
-  }
-
-  else
-  {
-    return v3(*(a1 + 16), *(a1 + 8), 0, v2);
-  }
-}
-
-void EVP_CIPHER_do_all_sorted(uint64_t a1, uint64_t a2)
-{
-  OPENSSL_init_crypto(0);
-  v4[0] = a2;
-  v4[1] = a1;
-  OBJ_NAME_do_all_sorted(2, do_all_cipher_fn, v4);
-}
-
-void EVP_MD_do_all(uint64_t a1, uint64_t a2)
-{
-  OPENSSL_init_crypto(0);
-  v4[0] = a2;
-  v4[1] = a1;
-  OBJ_NAME_do_all(1, do_all_md_fn, v4);
-}
-
-uint64_t do_all_md_fn(uint64_t a1, uint64_t *a2)
-{
-  v2 = *a2;
-  v3 = a2[1];
-  if (*(a1 + 4))
-  {
-    return v3(0, *(a1 + 8), *(a1 + 16), v2);
-  }
-
-  else
-  {
-    return v3(*(a1 + 16), *(a1 + 8), 0, v2);
-  }
-}
-
 void EVP_MD_do_all_sorted(uint64_t a1, uint64_t a2)
 {
   OPENSSL_init_crypto(0);
@@ -8223,14 +258,12 @@ EVP_CIPHER_CTX *CMAC_CTX_new()
   return v1;
 }
 
-EVP_CIPHER_CTX *CMAC_CTX_free(EVP_CIPHER_CTX *result)
+void CMAC_CTX_free(EVP_CIPHER_CTX *a1)
 {
-  if (result)
+  if (a1)
   {
-    CMAC_CTX_cleanup(result);
+    CMAC_CTX_cleanup(a1);
   }
-
-  return result;
 }
 
 uint64_t CMAC_CTX_copy(EVP_CIPHER_CTX *a1, EVP_CIPHER_CTX *a2)
@@ -8401,7 +434,7 @@ LABEL_12:
   return 1;
 }
 
-uint64_t CMAC_Final(EVP_CIPHER_CTX *a1, _BYTE *a2, void *a3)
+uint64_t CMAC_Final(EVP_CIPHER_CTX *a1, unsigned __int8 *a2, void *a3)
 {
   if (a1[1].final_used == -1)
   {
@@ -8509,20 +542,18 @@ void ASN1_STRING_free(ASN1_STRING *a)
   }
 }
 
-int *ASN1_STRING_clear(int *result)
+void ASN1_STRING_clear(int *result)
 {
-  v1 = result;
   v2 = *(result + 2);
   if ((v2 & 0x10) == 0)
   {
-    result = freezero(*(result + 1), *result);
-    v2 = *(v1 + 2);
+    freezero(*(result + 1), *result);
+    v2 = *(result + 2);
   }
 
-  *(v1 + 1) = 0;
-  *(v1 + 2) = v2 & 0xFFFFFFFFFFFFFFEFLL;
-  *v1 = 0;
-  return result;
+  *(result + 1) = 0;
+  *(result + 2) = v2 & 0xFFFFFFFFFFFFFFEFLL;
+  *result = 0;
 }
 
 int ASN1_STRING_cmp(ASN1_STRING *a, ASN1_STRING *b)
@@ -8636,16 +667,16 @@ void ASN1_STRING_set0(ASN1_STRING *str, void *data, int len)
 
 int ASN1_STRING_print(BIO *bp, ASN1_STRING *v)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (!v)
   {
-    goto LABEL_21;
+    return 0;
   }
 
   length = v->length;
   if (v->length < 1)
   {
-    goto LABEL_20;
+    return 1;
   }
 
   v5 = 0;
@@ -8692,7 +723,7 @@ int ASN1_STRING_print(BIO *bp, ASN1_STRING *v)
     {
       if (BIO_write(bp, data, v6 + 1) < 1)
       {
-        goto LABEL_21;
+        return 0;
       }
 
       v6 = 0;
@@ -8703,20 +734,7 @@ int ASN1_STRING_print(BIO *bp, ASN1_STRING *v)
   }
 
   while (v5 < length);
-  if (v6 < 1 || BIO_write(bp, data, v6) >= 1)
-  {
-LABEL_20:
-    result = 1;
-  }
-
-  else
-  {
-LABEL_21:
-    result = 0;
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return v6 < 1 || BIO_write(bp, data, v6) >= 1;
 }
 
 int ASN1_STRING_to_UTF8(unsigned __int8 **out, ASN1_STRING *in)
@@ -9244,7 +1262,7 @@ void ERR_load_ERR_strings(void)
   v0 = pthread_self();
   if (!pthread_equal(v0, err_init_thread))
   {
-    OPENSSL_init_crypto(0, 0);
+    OPENSSL_init_crypto(0);
 
     pthread_once(&ERR_load_ERR_strings_once, ERR_load_ERR_strings_internal);
   }
@@ -9427,7 +1445,7 @@ void ERR_clear_error(void)
   state[1].pid = 0;
 }
 
-uint64_t get_error_values(int a1, int a2, unint64_t *a3, _DWORD *a4, unint64_t *a5, _DWORD *a6)
+unint64_t get_error_values(int a1, int a2, unint64_t *a3, _DWORD *a4, unint64_t *a5, _DWORD *a6)
 {
   state = ERR_get_state();
   v13 = state;
@@ -9583,7 +1601,7 @@ unint64_t ERR_peek_last_error(void)
 
 void ERR_error_string_n(unint64_t e, char *buf, size_t len)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = ERR_lib_error_string(e);
   v7 = ERR_func_error_string(e);
   v8 = ERR_reason_error_string(e);
@@ -9595,16 +1613,16 @@ void ERR_error_string_n(unint64_t e, char *buf, size_t len)
     }
 
 LABEL_14:
-    v7 = v15;
-    snprintf(v15, 0x1EuLL, "func(%d)", (e >> 12) & 0xFFF);
+    v7 = v14;
+    snprintf(v14, 0x1EuLL, "func(%d)", (e >> 12) & 0xFFF);
     if (v8)
     {
       goto LABEL_4;
     }
 
 LABEL_15:
-    v8 = v14;
-    snprintf(v14, 0x1EuLL, "reason(%d)", e & 0xFFF);
+    v8 = v13;
+    snprintf(v13, 0x1EuLL, "reason(%d)", e & 0xFFF);
     goto LABEL_4;
   }
 
@@ -9643,14 +1661,12 @@ LABEL_4:
 
     while (v11);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 const char *__cdecl ERR_lib_error_string(unint64_t e)
 {
   v1 = e;
-  if (!OPENSSL_init_crypto(0, 0))
+  if (!OPENSSL_init_crypto(0))
   {
     return 0;
   }
@@ -9759,4 +1775,8007 @@ uint64_t ERR_remove_thread_state(__n128 *a1)
 
   err_fns_check();
   return (*(err_fns + 72))(v2);
+}
+
+void ERR_remove_state(unint64_t pid)
+{
+  memset(v1, 0, 512);
+  CRYPTO_THREADID_current(v1);
+  err_fns_check();
+  (*(err_fns + 72))(v1);
+}
+
+void ERR_STATE_free(char *a1)
+{
+  for (i = 0; i != 16; ++i)
+  {
+    v3 = &a1[8 * i];
+    v4 = *(v3 + 26);
+    v5 = &a1[4 * i];
+    if (v4 && (v5[336] & 1) != 0)
+    {
+      free(v4);
+      *(v3 + 26) = 0;
+    }
+
+    *(v5 + 84) = 0;
+  }
+
+  free(a1);
+}
+
+int ERR_get_next_error_library(void)
+{
+  err_fns_check();
+  v0 = *(err_fns + 80);
+
+  return v0();
+}
+
+void ERR_set_error_data(char *data, int flags)
+{
+  state = ERR_get_state();
+  v5 = state;
+  pid = state[1].pid;
+  if (!pid)
+  {
+    pid = 15;
+  }
+
+  v7 = &state->err_data[1];
+  v8 = pid;
+  v9 = state->err_data[pid + 1];
+  v10 = v5 + 4 * pid;
+  if (v9 && (*(v10 + 84) & 1) != 0)
+  {
+    free(v9);
+  }
+
+  v7[v8] = data;
+  *(v10 + 84) = flags;
+}
+
+void ERR_asprintf_error_data(char *a1, ...)
+{
+  va_start(va, a1);
+  v3 = 0;
+  if (vasprintf(&v3, a1, va) == -1)
+  {
+    v1 = "malloc failed";
+    v2 = 2;
+  }
+
+  else
+  {
+    v1 = v3;
+    v2 = 3;
+  }
+
+  ERR_set_error_data(v1, v2);
+}
+
+void ERR_add_error_vdata(int a1, va_list a2)
+{
+  v9 = *MEMORY[0x277D85DE8];
+  v7 = 0;
+  v8[0] = 0;
+  if (a1 >= 1)
+  {
+    v3 = a1;
+    while (__strlcat_chk(v8, "%s", v6) < 0x81)
+    {
+      if (!--v3)
+      {
+        goto LABEL_5;
+      }
+    }
+
+    v4 = "too many errors";
+    goto LABEL_9;
+  }
+
+LABEL_5:
+  if (vasprintf(&v7, v8, a2) == -1)
+  {
+    v4 = "malloc failed";
+LABEL_9:
+    v5 = 2;
+    goto LABEL_10;
+  }
+
+  v4 = v7;
+  v5 = 3;
+LABEL_10:
+  ERR_set_error_data(v4, v5);
+}
+
+int ERR_set_mark(void)
+{
+  state = ERR_get_state();
+  pid_low = SLODWORD(state[1].pid);
+  if (HIDWORD(state[1].pid) == pid_low)
+  {
+    return 0;
+  }
+
+  state->err_flags[pid_low + 2] |= 1u;
+  return 1;
+}
+
+int ERR_pop_to_mark(void)
+{
+  state = ERR_get_state();
+  pid = state[1].pid;
+  if (HIDWORD(state[1].pid) == pid)
+  {
+    return 0;
+  }
+
+  v2 = state;
+  v3 = &state->err_flags[2];
+  v4 = &state->err_buffer[1];
+  v5 = &state->err_data[1];
+  v6 = &state->err_data_flags[2];
+  v7 = &state->err_file[1];
+  v8 = &state->err_line[2];
+  while (1)
+  {
+    v9 = v3[pid];
+    if (v9)
+    {
+      break;
+    }
+
+    v3[pid] = 0;
+    pid_low = SLODWORD(v2[1].pid);
+    v4[pid_low] = 0;
+    v11 = v5[pid_low];
+    if (v11 && (v6[pid_low] & 1) != 0)
+    {
+      free(v11);
+      pid_low = SLODWORD(v2[1].pid);
+      v5[pid_low] = 0;
+    }
+
+    v6[pid_low] = 0;
+    v12 = SLODWORD(v2[1].pid);
+    v7[v12] = 0;
+    v8[v12] = -1;
+    v13 = v2[1].pid;
+    if (v13)
+    {
+      pid = v13 - 1;
+    }
+
+    else
+    {
+      pid = 15;
+    }
+
+    LODWORD(v2[1].pid) = pid;
+    if (HIDWORD(v2[1].pid) == pid)
+    {
+      return 0;
+    }
+  }
+
+  v3[pid] = v9 & 0xFFFFFFFE;
+  return 1;
+}
+
+ERR_STATE *err_clear_last_constant_time(int a1)
+{
+  result = ERR_get_state();
+  if (result)
+  {
+    pid_low = SLODWORD(result[1].pid);
+    v4 = result + 4 * pid_low;
+    *(v4 + 4) &= a1 - 1;
+    v5 = a1 - 1;
+    v6 = &result->pid + pid_low;
+    v6[10] &= v5;
+    v6[50] &= v5;
+    *(v4 + 132) |= -a1;
+    v7 = pid_low - a1 + 16;
+    v8 = v7 & 0xF;
+    v10 = -v7;
+    v9 = v10 < 0;
+    v11 = v10 & 0xF;
+    if (v9)
+    {
+      v12 = v8;
+    }
+
+    else
+    {
+      v12 = -v11;
+    }
+
+    LODWORD(result[1].pid) = v12;
+  }
+
+  return result;
+}
+
+uint64_t int_err_get(int a1)
+{
+  CRYPTO_lock(9, 1, 0, 0);
+  v2 = int_error_hash;
+  if (a1 && !int_error_hash)
+  {
+    CRYPTO_push_info_("int_err_get (err.c)", 0, 0);
+    int_error_hash = lh_new(err_string_data_LHASH_HASH, err_string_data_LHASH_COMP);
+    CRYPTO_pop_info();
+    v2 = int_error_hash;
+  }
+
+  CRYPTO_lock(10, 1, 0, 0);
+  return v2;
+}
+
+void int_err_del()
+{
+  CRYPTO_lock(9, 1, 0, 0);
+  if (int_error_hash)
+  {
+    lh_free(int_error_hash);
+    int_error_hash = 0;
+  }
+
+  CRYPTO_lock(10, 1, 0, 0);
+}
+
+LHASH *int_err_get_item(const void *a1)
+{
+  err_fns_check();
+  result = (*err_fns)(0);
+  if (result)
+  {
+    v3 = result;
+    CRYPTO_lock(5, 1, 0, 0);
+    v4 = lh_retrieve(v3, a1);
+    CRYPTO_lock(6, 1, 0, 0);
+    return v4;
+  }
+
+  return result;
+}
+
+LHASH *int_err_set_item(void *a1)
+{
+  err_fns_check();
+  result = (*err_fns)(1);
+  if (result)
+  {
+    v3 = result;
+    CRYPTO_lock(9, 1, 0, 0);
+    v4 = lh_insert(v3, a1);
+    CRYPTO_lock(10, 1, 0, 0);
+    return v4;
+  }
+
+  return result;
+}
+
+LHASH *int_err_del_item(const void *a1)
+{
+  err_fns_check();
+  result = (*err_fns)(0);
+  if (result)
+  {
+    v3 = result;
+    CRYPTO_lock(9, 1, 0, 0);
+    v4 = lh_delete(v3, a1);
+    CRYPTO_lock(10, 1, 0, 0);
+    return v4;
+  }
+
+  return result;
+}
+
+uint64_t int_thread_get(int a1)
+{
+  CRYPTO_lock(9, 1, 0, 0);
+  v2 = int_thread_hash;
+  if (a1 && !int_thread_hash)
+  {
+    CRYPTO_push_info_("int_thread_get (err.c)", 0, 0);
+    int_thread_hash = lh_new(err_state_LHASH_HASH, err_state_LHASH_COMP);
+    CRYPTO_pop_info();
+    v2 = int_thread_hash;
+  }
+
+  if (v2)
+  {
+    ++int_thread_hash_references;
+  }
+
+  CRYPTO_lock(10, 1, 0, 0);
+  return v2;
+}
+
+void *int_thread_release(void *result)
+{
+  if (result)
+  {
+    v1 = result;
+    if (*result)
+    {
+      result = CRYPTO_add_lock(&int_thread_hash_references, -1, 1, 0, 0);
+      if (result <= 0)
+      {
+        *v1 = 0;
+      }
+    }
+  }
+
+  return result;
+}
+
+LHASH *int_thread_get_item(const void *a1)
+{
+  err_fns_check();
+  result = (*(err_fns + 40))(0);
+  v5 = result;
+  if (result)
+  {
+    v3 = result;
+    CRYPTO_lock(5, 1, 0, 0);
+    v4 = lh_retrieve(v3, a1);
+    CRYPTO_lock(6, 1, 0, 0);
+    (*(err_fns + 48))(&v5);
+    return v4;
+  }
+
+  return result;
+}
+
+LHASH *int_thread_set_item(void *a1)
+{
+  err_fns_check();
+  result = (*(err_fns + 40))(1);
+  v5 = result;
+  if (result)
+  {
+    v3 = result;
+    CRYPTO_lock(9, 1, 0, 0);
+    v4 = lh_insert(v3, a1);
+    CRYPTO_lock(10, 1, 0, 0);
+    (*(err_fns + 48))(&v5);
+    return v4;
+  }
+
+  return result;
+}
+
+void int_thread_del_item(const void *a1)
+{
+  err_fns_check();
+  v2 = (*(err_fns + 40))(0);
+  v6 = v2;
+  if (v2)
+  {
+    v3 = v2;
+    CRYPTO_lock(9, 1, 0, 0);
+    v4 = lh_delete(v3, a1);
+    v5 = int_thread_hash_references != 1 || int_thread_hash == 0;
+    if (!v5 && !lh_num_items(int_thread_hash))
+    {
+      lh_free(int_thread_hash);
+      int_thread_hash = 0;
+    }
+
+    CRYPTO_lock(10, 1, 0, 0);
+    (*(err_fns + 48))(&v6);
+    if (v4)
+    {
+      ERR_STATE_free(v4);
+    }
+  }
+}
+
+uint64_t int_err_get_next_lib()
+{
+  CRYPTO_lock(9, 1, 0, 0);
+  v0 = int_err_library_number++;
+  CRYPTO_lock(10, 1, 0, 0);
+  return v0;
+}
+
+int BN_GENCB_call(BN_GENCB *cb, int a, int b)
+{
+  if (!cb)
+  {
+    return 1;
+  }
+
+  if (cb->ver == 2)
+  {
+    cb_1 = cb->cb.cb_1;
+
+    return (cb_1)(*&a, *&b, cb);
+  }
+
+  else
+  {
+    if (cb->ver == 1)
+    {
+      v4 = cb->cb.cb_1;
+      if (v4)
+      {
+        (v4)(*&a, *&b, cb->arg);
+        return 1;
+      }
+
+      return 1;
+    }
+
+    return 0;
+  }
+}
+
+int BN_generate_prime_ex(BIGNUM *ret, int bits, int safe, const BIGNUM *add, const BIGNUM *rem, BN_GENCB *cb)
+{
+  v6 = MEMORY[0x28223BE20](ret);
+  v51 = *MEMORY[0x277D85DE8];
+  if (v7 < 2 || (v12 = v11, v13 = v10, v14 = v9, v15 = v8, v16 = v7, v17 = v6, v7 == 2) && v8)
+  {
+    ERR_put_error(3, 4095, 117, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/bn/bn_prime.c", 169);
+    return 0;
+  }
+
+  v50[0] = 0;
+  v19 = BN_CTX_new();
+  v20 = v19;
+  if (v19)
+  {
+    BN_CTX_start(v19);
+    v21 = BN_CTX_get(v20);
+    if (v21)
+    {
+      v22 = v21;
+      a = v13;
+      v23 = 0;
+      v47 = v12;
+      v46 = v15;
+      v45 = v21;
+LABEL_8:
+      b = v23;
+      if (!v14)
+      {
+        if (BN_rand(v17, v16, 1, 1))
+        {
+          v30 = 1;
+LABEL_23:
+          while (1)
+          {
+            v31 = BN_mod_word(v17, primes[v30]);
+            if (v31 == -1)
+            {
+              break;
+            }
+
+            *&v50[2 * v30++ + 1] = v31;
+            if (v30 == 2048)
+            {
+              v32 = 0;
+              v33 = b;
+LABEL_26:
+              for (i = 1; i != 2048; ++i)
+              {
+                if ((*&v50[2 * i + 1] + v32) % primes[i] <= 1)
+                {
+                  v32 += 2;
+                  if (v32 <= 0xFFFFFFFFFFFFBA38)
+                  {
+                    goto LABEL_26;
+                  }
+
+                  v30 = 1;
+                  if (BN_rand(v17, v16, 1, 1))
+                  {
+                    goto LABEL_23;
+                  }
+
+                  goto LABEL_80;
+                }
+              }
+
+              if (!BN_add_word(v17, v32))
+              {
+                goto LABEL_80;
+              }
+
+LABEL_68:
+              if (!BN_GENCB_call(v12, 0, v33))
+              {
+                goto LABEL_80;
+              }
+
+              v23 = v33 + 1;
+              is_prime_bpsw = bn_is_prime_bpsw(v50, v17, v20, 1);
+              if (!v15)
+              {
+                if (!is_prime_bpsw)
+                {
+                  goto LABEL_80;
+                }
+
+                if (v50[0])
+                {
+                  goto LABEL_84;
+                }
+
+                goto LABEL_8;
+              }
+
+              if (!is_prime_bpsw)
+              {
+                goto LABEL_80;
+              }
+
+              if (!v50[0])
+              {
+                goto LABEL_8;
+              }
+
+              if (BN_rshift1(v22, v17) && bn_is_prime_bpsw(v50, v22, v20, 1))
+              {
+                if (!v50[0])
+                {
+                  goto LABEL_8;
+                }
+
+                if (BN_GENCB_call(v12, 2, b))
+                {
+LABEL_84:
+                  v18 = 1;
+                  goto LABEL_81;
+                }
+              }
+
+              goto LABEL_80;
+            }
+          }
+        }
+
+        goto LABEL_80;
+      }
+
+      BN_CTX_start(v20);
+      v24 = BN_CTX_get(v20);
+      v25 = v24;
+      if (v15)
+      {
+        if (!v24)
+        {
+          goto LABEL_79;
+        }
+
+        v26 = BN_CTX_get(v20);
+        if (!v26)
+        {
+          goto LABEL_79;
+        }
+
+        v27 = v26;
+        v28 = BN_CTX_get(v20);
+        if (!v28)
+        {
+          goto LABEL_79;
+        }
+
+        v29 = v28;
+        if (!BN_rshift1(v28, v14) || !BN_rand(v27, v16 - 1, 0, 1) || !BN_mod_ct(v25, v27, v29, v20) || !BN_sub(v27, v27, v25))
+        {
+          goto LABEL_79;
+        }
+
+        if (a)
+        {
+          if (!BN_rshift1(v25, a) || !BN_add(v27, v27, v25))
+          {
+            goto LABEL_79;
+          }
+
+LABEL_43:
+          if (BN_lshift1(v17, v27) && BN_add_word(v17, 1uLL))
+          {
+            v35 = 1;
+            while (1)
+            {
+              v36 = primes[v35];
+              v37 = BN_mod_word(v17, v36);
+              v38 = BN_mod_word(v27, v36);
+              if (v37 == -1 || v38 == -1)
+              {
+                break;
+              }
+
+              if (v37)
+              {
+                v40 = v38 == 0;
+              }
+
+              else
+              {
+                v40 = 1;
+              }
+
+              if (v40)
+              {
+                if (!BN_add(v17, v17, v14))
+                {
+                  goto LABEL_79;
+                }
+
+                v35 = 1;
+                if (!BN_add(v27, v27, v29))
+                {
+                  goto LABEL_79;
+                }
+              }
+
+              else if (++v35 == 2048)
+              {
+                goto LABEL_67;
+              }
+            }
+          }
+
+          goto LABEL_79;
+        }
+
+        if (BN_add_word(v27, 1uLL))
+        {
+          goto LABEL_43;
+        }
+
+LABEL_79:
+        BN_CTX_end(v20);
+        goto LABEL_80;
+      }
+
+      if (!v24 || !BN_rand(v17, v16, 0, 1) || !BN_mod_ct(v25, v17, v14, v20) || !BN_sub(v17, v17, v25))
+      {
+        goto LABEL_79;
+      }
+
+      if (a)
+      {
+        if (!BN_add(v17, v17, a))
+        {
+          goto LABEL_79;
+        }
+      }
+
+      else if (!BN_add_word(v17, 1uLL))
+      {
+        goto LABEL_79;
+      }
+
+      v41 = 1;
+      while (1)
+      {
+        v42 = BN_mod_word(v17, primes[v41]);
+        if (v42 == -1)
+        {
+          goto LABEL_79;
+        }
+
+        if (v42 > 1)
+        {
+          if (++v41 == 2048)
+          {
+LABEL_67:
+            BN_CTX_end(v20);
+            v12 = v47;
+            v15 = v46;
+            v22 = v45;
+            v33 = b;
+            goto LABEL_68;
+          }
+        }
+
+        else
+        {
+          v41 = 1;
+          if (!BN_add(v17, v17, v14))
+          {
+            goto LABEL_79;
+          }
+        }
+      }
+    }
+  }
+
+LABEL_80:
+  v18 = 0;
+LABEL_81:
+  BN_CTX_end(v20);
+  BN_CTX_free(v20);
+  return v18;
+}
+
+int BN_is_prime_fasttest_ex(const BIGNUM *p, int nchecks, BN_CTX *ctx, int do_trial_division, BN_GENCB *cb)
+{
+  if (nchecks < 0)
+  {
+    return -1;
+  }
+
+  if (!nchecks)
+  {
+    if (BN_num_bits(p) <= 3746)
+    {
+      if (BN_num_bits(p) <= 1344)
+      {
+        if (BN_num_bits(p) <= 475)
+        {
+          if (BN_num_bits(p) <= 399)
+          {
+            if (BN_num_bits(p) <= 346)
+            {
+              if (BN_num_bits(p) <= 307)
+              {
+                if (BN_num_bits(p) <= 54)
+                {
+                  nchecks = 34;
+                }
+
+                else
+                {
+                  nchecks = 27;
+                }
+              }
+
+              else
+              {
+                nchecks = 8;
+              }
+            }
+
+            else
+            {
+              nchecks = 7;
+            }
+          }
+
+          else
+          {
+            nchecks = 6;
+          }
+        }
+
+        else
+        {
+          nchecks = 5;
+        }
+      }
+
+      else
+      {
+        nchecks = 4;
+      }
+    }
+
+    else
+    {
+      nchecks = 3;
+    }
+  }
+
+  v8 = 0;
+  if (bn_is_prime_bpsw(&v8, p, ctx, nchecks))
+  {
+    return v8;
+  }
+
+  else
+  {
+    return -1;
+  }
+}
+
+int OBJ_NAME_init(void)
+{
+  if (names_lh)
+  {
+    return 1;
+  }
+
+  names_lh = lh_new(obj_name_LHASH_HASH, obj_name_LHASH_COMP);
+  return names_lh != 0;
+}
+
+unint64_t obj_name_LHASH_HASH(int *a1)
+{
+  if (name_funcs_stack && sk_num(name_funcs_stack) > *a1)
+  {
+    v2 = sk_value(name_funcs_stack, *a1);
+    v3 = (*v2)(*(a1 + 1));
+  }
+
+  else
+  {
+    v3 = lh_strhash(*(a1 + 1));
+  }
+
+  return v3 ^ *a1;
+}
+
+uint64_t obj_name_LHASH_COMP(uint64_t a1, uint64_t a2)
+{
+  v3 = *a1;
+  result = (*a1 - *a2);
+  if (v3 == *a2)
+  {
+    if (name_funcs_stack && sk_num(name_funcs_stack) > *a1)
+    {
+      v6 = *(sk_value(name_funcs_stack, *a1) + 1);
+      v7 = *(a1 + 8);
+      v8 = *(a2 + 8);
+
+      return v6(v7, v8);
+    }
+
+    else
+    {
+      v9 = *(a1 + 8);
+      v10 = *(a2 + 8);
+
+      return strcmp(v9, v10);
+    }
+  }
+
+  return result;
+}
+
+int OBJ_NAME_new_index(unint64_t (__cdecl *hash_func)(const char *), int (__cdecl *cmp_func)(const char *, const char *), void (__cdecl *free_func)(const char *, int, const char *))
+{
+  v6 = name_funcs_stack;
+  if (!name_funcs_stack)
+  {
+    v6 = sk_new_null();
+    name_funcs_stack = v6;
+    if (!v6)
+    {
+      return 0;
+    }
+  }
+
+  v7 = names_type_num++;
+  v8 = sk_num(v6);
+  if (v8 < names_type_num)
+  {
+    v9 = v8;
+    while (1)
+    {
+      v10 = malloc_type_malloc(0x18uLL, 0x80040D6874129uLL);
+      if (!v10)
+      {
+        v13 = 70;
+        goto LABEL_16;
+      }
+
+      v11 = v10;
+      *v10 = lh_strhash;
+      v10[1] = MEMORY[0x277D85E98];
+      v10[2] = 0;
+      if (!sk_push(name_funcs_stack, v10))
+      {
+        break;
+      }
+
+      if (++v9 >= names_type_num)
+      {
+        goto LABEL_8;
+      }
+    }
+
+    free(v11);
+    v13 = 78;
+LABEL_16:
+    ERR_put_error(8, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/objects/o_names.c", v13);
+    return 0;
+  }
+
+LABEL_8:
+  v12 = sk_value(name_funcs_stack, v7);
+  if (hash_func)
+  {
+    *v12 = hash_func;
+  }
+
+  if (cmp_func)
+  {
+    *(v12 + 1) = cmp_func;
+  }
+
+  if (free_func)
+  {
+    *(v12 + 2) = free_func;
+  }
+
+  return v7;
+}
+
+const char *__cdecl OBJ_NAME_get(const char *name, int type)
+{
+  if (name)
+  {
+    v3 = name;
+    name = names_lh;
+    if (names_lh || (name = lh_new(obj_name_LHASH_HASH, obj_name_LHASH_COMP), (names_lh = name) != 0))
+    {
+      v6 = v3;
+      v7 = 0;
+      data = type & 0xFFFF7FFF;
+      name = lh_retrieve(name, &data);
+      if (name)
+      {
+        v4 = 11;
+        while (1)
+        {
+          if ((type & 0x8000) != 0 || !*(name + 1))
+          {
+            return *(name + 2);
+          }
+
+          if (!--v4)
+          {
+            break;
+          }
+
+          v6 = *(name + 2);
+          name = lh_retrieve(names_lh, &data);
+          if (!name)
+          {
+            return name;
+          }
+        }
+
+        return 0;
+      }
+    }
+  }
+
+  return name;
+}
+
+int OBJ_NAME_add(const char *name, int type, const char *data)
+{
+  if (!names_lh)
+  {
+    names_lh = lh_new(obj_name_LHASH_HASH, obj_name_LHASH_COMP);
+    if (!names_lh)
+    {
+      return 0;
+    }
+  }
+
+  v6 = malloc_type_malloc(0x18uLL, 0x105004015D6E50FuLL);
+  if (!v6)
+  {
+    return 0;
+  }
+
+  v7 = v6;
+  *v6 = vand_s8(vdup_n_s32(type), 0x8000FFFF7FFFLL);
+  v6[1] = name;
+  v6[2] = data;
+  v8 = lh_insert(names_lh, v6);
+  if (v8)
+  {
+    v9 = v8;
+    if (name_funcs_stack && sk_num(name_funcs_stack) > *v8)
+    {
+      v10 = sk_value(name_funcs_stack, *v9);
+      (*(v10 + 2))(*(v9 + 1), *v9, *(v9 + 2));
+    }
+
+    v11 = 1;
+  }
+
+  else
+  {
+    if (!*(names_lh + 168))
+    {
+      return 1;
+    }
+
+    v11 = 0;
+    v9 = v7;
+  }
+
+  free(v9);
+  return v11;
+}
+
+int OBJ_NAME_remove(const char *name, int type)
+{
+  v2 = name;
+  LODWORD(name) = names_lh;
+  if (names_lh)
+  {
+    data[1] = v2;
+    data[2] = 0;
+    data[0] = type & 0xFFFF7FFF;
+    name = lh_delete(names_lh, data);
+    if (name)
+    {
+      v3 = name;
+      if (name_funcs_stack && sk_num(name_funcs_stack) > *name)
+      {
+        v4 = sk_value(name_funcs_stack, *v3);
+        (*(v4 + 2))(*(v3 + 1), *v3, *(v3 + 2));
+      }
+
+      free(v3);
+      LODWORD(name) = 1;
+    }
+  }
+
+  return name;
+}
+
+void OBJ_NAME_do_all(int type, void (__cdecl *fn)(const OBJ_NAME *, void *), void *arg)
+{
+  arga[1] = fn;
+  arga[0] = type;
+  arga[2] = arg;
+  lh_doall_arg(names_lh, do_all_fn_LHASH_DOALL_ARG, arga);
+}
+
+_DWORD *do_all_fn_LHASH_DOALL_ARG(_DWORD *result, uint64_t a2)
+{
+  if (*result == *a2)
+  {
+    return (*(a2 + 8))();
+  }
+
+  return result;
+}
+
+void OBJ_NAME_do_all_sorted(int type, void (__cdecl *fn)(const OBJ_NAME *, void *), void *arg)
+{
+  v8 = type;
+  v6 = lh_num_items(names_lh);
+  *&__nel[1] = reallocarray(0, v6, 8uLL);
+  __nel[0] = 0;
+  if (*&__nel[1])
+  {
+    arga[0] = type;
+    arga[1] = do_all_sorted_fn;
+    arga[2] = &v8;
+    lh_doall_arg(names_lh, do_all_fn_LHASH_DOALL_ARG, arga);
+    qsort(*&__nel[1], __nel[0], 8uLL, do_all_sorted_cmp);
+    if (__nel[0] >= 1)
+    {
+      v7 = 0;
+      do
+      {
+        (fn)(*(*&__nel[1] + 8 * v7++), arg);
+      }
+
+      while (v7 < __nel[0]);
+    }
+
+    free(*&__nel[1]);
+  }
+}
+
+_DWORD *do_all_sorted_fn(_DWORD *result, uint64_t a2)
+{
+  if (*result == *a2)
+  {
+    v2 = *(a2 + 8);
+    v3 = *(a2 + 4);
+    *(a2 + 4) = v3 + 1;
+    *(v2 + 8 * v3) = result;
+  }
+
+  return result;
+}
+
+void OBJ_NAME_cleanup(int type)
+{
+  v2 = names_lh;
+  if (names_lh)
+  {
+    free_type = type;
+    v3 = *(names_lh + 48);
+    *(names_lh + 48) = 0;
+    lh_doall(v2, names_lh_free_LHASH_DOALL);
+    if (type < 0)
+    {
+      lh_free(names_lh);
+      sk_pop_free(name_funcs_stack, name_funcs_free);
+      names_lh = 0;
+      name_funcs_stack = 0;
+    }
+
+    else
+    {
+      *(names_lh + 48) = v3;
+    }
+  }
+}
+
+uint64_t names_lh_free_LHASH_DOALL(uint64_t result)
+{
+  if (result)
+  {
+    v1 = *result;
+    if (free_type < 0 || free_type == v1)
+    {
+      return OBJ_NAME_remove(*(result + 8), v1);
+    }
+  }
+
+  return result;
+}
+
+const char *__cdecl X509_verify_cert_error_string(uint64_t n)
+{
+  if (n > 0x45)
+  {
+    return "Unknown certificate verification error";
+  }
+
+  else
+  {
+    return off_278C13CC8[n & 0x7F];
+  }
+}
+
+uint64_t aes_init_key(uint64_t a1, unsigned __int8 *userKey, uint64_t a3, int a4)
+{
+  v5 = *(a1 + 120);
+  v6 = *(*a1 + 16) & 0xF0007;
+  v7 = 8 * *(a1 + 104);
+  if (v6 == 2)
+  {
+    v8 = AES_cbc_encrypt;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  if (a4 || (v6 - 3) < 0xFFFFFFFE)
+  {
+    v9 = AES_set_encrypt_key(userKey, v7, v5);
+    v10 = AES_encrypt;
+  }
+
+  else
+  {
+    v9 = AES_set_decrypt_key(userKey, v7, v5);
+    v10 = AES_decrypt;
+  }
+
+  *(v5 + 248) = v10;
+  *(v5 + 256) = v8;
+  if ((v9 & 0x80000000) == 0)
+  {
+    return 1;
+  }
+
+  ERR_put_error(6, 4095, 143, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/e_aes.c", 422);
+  return 0;
+}
+
+uint64_t aes_cbc_cipher(uint64_t a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
+{
+  v5 = *(a1 + 120);
+  v6 = *(v5 + 256);
+  if (v6)
+  {
+    v6(a3, a2, a4);
+  }
+
+  else
+  {
+    v7 = *(v5 + 248);
+    v8 = (a1 + 40);
+    if (*(a1 + 16))
+    {
+      CRYPTO_cbc128_encrypt(a3, a2, a4, v5, v8, v7);
+    }
+
+    else
+    {
+      CRYPTO_cbc128_decrypt(a3, a2, a4, v5, v8, v7);
+    }
+  }
+
+  return 1;
+}
+
+uint64_t aes_ecb_cipher(void *a1, uint64_t a2, uint64_t a3, unint64_t a4)
+{
+  v4 = *(*a1 + 4);
+  v5 = a4 - v4;
+  if (a4 >= v4)
+  {
+    v8 = 0;
+    v9 = a1[15];
+    do
+    {
+      (*(v9 + 248))(a3 + v8, a2 + v8, v9);
+      v8 += v4;
+    }
+
+    while (v8 <= v5);
+  }
+
+  return 1;
+}
+
+uint64_t aes_cfb1_cipher(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+{
+  v4 = a4;
+  v5 = a3;
+  v6 = a2;
+  v8 = *(a1 + 120);
+  if ((*(a1 + 113) & 0x20) != 0)
+  {
+    v10 = *(a1 + 16);
+    v11 = *(v8 + 248);
+    v12 = a1 + 40;
+    v13 = a1 + 88;
+    v14 = a3;
+    v9 = a4;
+    goto LABEL_7;
+  }
+
+  if (a4 >> 60)
+  {
+    do
+    {
+      CRYPTO_cfb128_1_encrypt(v5, v6, 0x8000000000000000, v8, a1 + 40, a1 + 88, *(a1 + 16), *(v8 + 248));
+      v4 -= 0x1000000000000000;
+      v5 += 0x1000000000000000;
+      v6 += 0x1000000000000000;
+    }
+
+    while (v4 >> 60);
+  }
+
+  if (v4)
+  {
+    v9 = 8 * v4;
+    v10 = *(a1 + 16);
+    v11 = *(v8 + 248);
+    v12 = a1 + 40;
+    v13 = a1 + 88;
+    v14 = v5;
+    a2 = v6;
+LABEL_7:
+    CRYPTO_cfb128_1_encrypt(v14, a2, v9, v8, v12, v13, v10, v11);
+  }
+
+  return 1;
+}
+
+uint64_t aes_ctr_cipher(uint64_t a1, _BYTE *a2, char *a3, unint64_t a4)
+{
+  v9 = *(a1 + 88);
+  v6 = *(a1 + 120);
+  v7 = *(v6 + 256);
+  if (v7)
+  {
+    CRYPTO_ctr128_encrypt_ctr32(a3, a2, a4, v6, a1 + 40, (a1 + 56), &v9, v7);
+  }
+
+  else
+  {
+    CRYPTO_ctr128_encrypt(a3, a2, a4, v6, a1 + 40, a1 + 56, &v9, *(v6 + 248));
+  }
+
+  *(a1 + 88) = v9;
+  return 1;
+}
+
+uint64_t aes_gcm_init_key(uint64_t a1, unsigned __int8 *userKey, void *__src)
+{
+  if (userKey | __src)
+  {
+    v3 = __src;
+    v4 = *(a1 + 120);
+    if (userKey)
+    {
+      AES_set_encrypt_key(userKey, 8 * *(a1 + 104), v4);
+      CRYPTO_gcm128_init(v4 + 256, v4, AES_encrypt);
+      *(v4 + 672) = 0;
+      if (v3 || *(v4 + 248) && (v3 = *(v4 + 648)) != 0)
+      {
+        CRYPTO_gcm128_setiv(v4 + 256, v3, *(v4 + 656));
+        *(v4 + 248) = 1;
+      }
+
+      *(v4 + 244) = 1;
+    }
+
+    else
+    {
+      if (*(v4 + 244))
+      {
+        CRYPTO_gcm128_setiv(v4 + 256, __src, *(v4 + 656));
+      }
+
+      else
+      {
+        memcpy(*(v4 + 648), __src, *(v4 + 656));
+      }
+
+      *(v4 + 248) = 1;
+      *(v4 + 664) = 0;
+    }
+  }
+
+  return 1;
+}
+
+uint64_t aes_gcm_cipher(EVP_CIPHER_CTX *ctx, char *ptr, char *a3, unint64_t a4)
+{
+  cipher_data = ctx->cipher_data;
+  if (!cipher_data[61])
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  if ((cipher_data[167] & 0x80000000) != 0)
+  {
+    if (!cipher_data[62])
+    {
+      return 0xFFFFFFFFLL;
+    }
+
+    if (!a3)
+    {
+      if (ctx->encrypt)
+      {
+        CRYPTO_gcm128_tag((cipher_data + 64), ctx->buf, 0x10uLL);
+        result = 0;
+        cipher_data[165] = 16;
+      }
+
+      else
+      {
+        v20 = cipher_data[165];
+        if ((v20 & 0x80000000) != 0)
+        {
+          return 0xFFFFFFFFLL;
+        }
+
+        result = CRYPTO_gcm128_finish((cipher_data + 64), ctx->buf, v20);
+        if (result)
+        {
+          return 0xFFFFFFFFLL;
+        }
+      }
+
+      cipher_data[62] = 0;
+      return result;
+    }
+
+    if (ptr)
+    {
+      encrypt = ctx->encrypt;
+      v13 = *(cipher_data + 84);
+      v14 = (cipher_data + 64);
+      if (encrypt)
+      {
+        if (v13)
+        {
+          if (!CRYPTO_gcm128_encrypt_ctr32(v14, a3, ptr, a4, v13))
+          {
+            return a4;
+          }
+
+          return 0xFFFFFFFFLL;
+        }
+
+        if (CRYPTO_gcm128_encrypt(v14, a3, ptr, a4))
+        {
+          return 0xFFFFFFFFLL;
+        }
+      }
+
+      else
+      {
+        if (v13)
+        {
+          if (!CRYPTO_gcm128_decrypt_ctr32(v14, a3, ptr, a4, v13))
+          {
+            return a4;
+          }
+
+          return 0xFFFFFFFFLL;
+        }
+
+        if (CRYPTO_gcm128_decrypt(v14, a3, ptr, a4))
+        {
+          return 0xFFFFFFFFLL;
+        }
+      }
+
+      return a4;
+    }
+
+    if (!CRYPTO_gcm128_aad((cipher_data + 64), a3, a4))
+    {
+      return a4;
+    }
+
+    return 0xFFFFFFFFLL;
+  }
+
+  result = 0xFFFFFFFFLL;
+  if (ptr == a3)
+  {
+    v10 = a4 - 24;
+    if (a4 >= 0x18)
+    {
+      if (ctx->encrypt)
+      {
+        v11 = 19;
+      }
+
+      else
+      {
+        v11 = 24;
+      }
+
+      if (EVP_CIPHER_CTX_ctrl(ctx, v11, 8, ptr) < 1 || CRYPTO_gcm128_aad((cipher_data + 64), ctx->buf, cipher_data[167]))
+      {
+        goto LABEL_10;
+      }
+
+      v15 = a3 + 8;
+      v16 = ptr + 8;
+      v17 = *(cipher_data + 84);
+      v18 = (cipher_data + 64);
+      if (ctx->encrypt)
+      {
+        v19 = a4 - 24;
+        if (v17)
+        {
+          if (!CRYPTO_gcm128_encrypt_ctr32(v18, v15, v16, v19, v17))
+          {
+            goto LABEL_41;
+          }
+        }
+
+        else if (!CRYPTO_gcm128_encrypt(v18, v15, v16, v19))
+        {
+LABEL_41:
+          CRYPTO_gcm128_tag((cipher_data + 64), &v16[v10], 0x10uLL);
+          result = a4;
+          goto LABEL_11;
+        }
+
+LABEL_10:
+        result = 0xFFFFFFFFLL;
+LABEL_11:
+        cipher_data[62] = 0;
+        cipher_data[167] = -1;
+        return result;
+      }
+
+      v21 = a4 - 24;
+      if (v17)
+      {
+        if (CRYPTO_gcm128_decrypt_ctr32(v18, v15, v16, v21, v17))
+        {
+          goto LABEL_10;
+        }
+      }
+
+      else if (CRYPTO_gcm128_decrypt(v18, v15, v16, v21))
+      {
+        goto LABEL_10;
+      }
+
+      CRYPTO_gcm128_tag((cipher_data + 64), ctx->buf, 0x10uLL);
+      if (*ctx->buf != *&v15[v10] || *&ctx->buf[8] != *&v15[v10 + 8])
+      {
+        explicit_bzero(v16, a4 - 24);
+      }
+
+      result = a4 - 24;
+      goto LABEL_11;
+    }
+  }
+
+  return result;
+}
+
+void aes_gcm_cleanup(uint64_t a1)
+{
+  v2 = *(a1 + 120);
+  v3 = v2[81];
+  if (v3 != (a1 + 40))
+  {
+    free(v3);
+  }
+
+  explicit_bzero(v2, 0x2A8uLL);
+}
+
+uint64_t aes_gcm_ctrl(uint64_t a1, int a2, size_t __n, char *__src)
+{
+  v5 = __n;
+  v7 = *(a1 + 120);
+  result = 0xFFFFFFFFLL;
+  if (a2 > 16)
+  {
+    if (a2 > 18)
+    {
+      if (a2 == 19)
+      {
+        if (*(v7 + 664) && *(v7 + 244))
+        {
+          CRYPTO_gcm128_setiv(v7 + 256, *(v7 + 648), *(v7 + 656));
+          v14 = *(v7 + 656);
+          if (v14 >= v5)
+          {
+            v15 = v5;
+          }
+
+          else
+          {
+            v15 = *(v7 + 656);
+          }
+
+          if (v5 < 1)
+          {
+            v15 = *(v7 + 656);
+          }
+
+          memcpy(__src, (*(v7 + 648) + v14 - v15), v15);
+          v16 = 0;
+          v17 = *(v7 + 656) + *(v7 + 648) - 1;
+          do
+          {
+            v18 = *(v17 + v16) + 1;
+            *(v17 + v16) = v18;
+            if (v16 == -7)
+            {
+              break;
+            }
+
+            --v16;
+          }
+
+          while (!v18);
+          goto LABEL_51;
+        }
+
+        return 0;
+      }
+
+      if (a2 != 22)
+      {
+        if (a2 != 24)
+        {
+          return result;
+        }
+
+        if (*(v7 + 664) && *(v7 + 244) && !*(a1 + 16))
+        {
+          memcpy((*(v7 + 648) + *(v7 + 656) - __n), __src, __n);
+          CRYPTO_gcm128_setiv(v7 + 256, *(v7 + 648), *(v7 + 656));
+LABEL_51:
+          result = 1;
+          *(v7 + 248) = 1;
+          return result;
+        }
+
+        return 0;
+      }
+
+      if (__n == 13)
+      {
+        v19 = *__src;
+        *(a1 + 61) = *(__src + 5);
+        *(a1 + 56) = v19;
+        *(v7 + 668) = 13;
+        v20 = __rev16(*(a1 + 67));
+        v21 = v20 - 8;
+        if (v20 >= 8)
+        {
+          if (*(a1 + 16))
+          {
+LABEL_60:
+            *(a1 + 67) = bswap32(v21) >> 16;
+            return 16;
+          }
+
+          if (v21 >= 0x10)
+          {
+            v21 = v20 - 24;
+            goto LABEL_60;
+          }
+        }
+      }
+
+      return 0;
+    }
+
+    if (a2 != 17)
+    {
+      if (__n == -1)
+      {
+        memcpy(*(v7 + 648), __src, *(v7 + 656));
+      }
+
+      else
+      {
+        if (__n < 4 || *(v7 + 656) - __n < 8)
+        {
+          return 0;
+        }
+
+        memcpy(*(v7 + 648), __src, __n);
+        if (*(a1 + 16))
+        {
+          arc4random_buf((*(v7 + 648) + v5), *(v7 + 656) - v5);
+        }
+      }
+
+      result = 1;
+      *(v7 + 664) = 1;
+      return result;
+    }
+
+    if ((__n - 17) < 0xFFFFFFF0 || *(a1 + 16))
+    {
+      return 0;
+    }
+
+    memcpy((a1 + 56), __src, __n);
+    *(v7 + 660) = v5;
+    return 1;
+  }
+
+  if (a2 <= 8)
+  {
+    if (!a2)
+    {
+      *(v7 + 244) = 0;
+      *(v7 + 248) = 0;
+      v12 = *(*a1 + 12);
+      if (!v12)
+      {
+        ERR_put_error(6, 4095, 194, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/e_aes.c", 1298);
+        return 0;
+      }
+
+      *(v7 + 656) = v12;
+      *(v7 + 648) = a1 + 40;
+      *(v7 + 660) = -1;
+      *(v7 + 664) = 0xFFFFFFFF00000000;
+      return 1;
+    }
+
+    if (a2 != 8)
+    {
+      return result;
+    }
+
+    v9 = *(__src + 15);
+    v10 = *(v7 + 640);
+    if (v10)
+    {
+      if (v10 != v7)
+      {
+        return 0;
+      }
+
+      *(v9 + 640) = v9;
+    }
+
+    if (*(v7 + 648) == a1 + 40)
+    {
+      *(v9 + 648) = __src + 40;
+      return 1;
+    }
+
+    result = malloc_type_calloc(1uLL, *(v7 + 656), 0xC55E7E7uLL);
+    *(v9 + 648) = result;
+    if (!result)
+    {
+      return result;
+    }
+
+    v11 = *(v7 + 648);
+    __n = *(v7 + 656);
+    goto LABEL_25;
+  }
+
+  if (a2 != 9)
+  {
+    if (a2 != 16)
+    {
+      return result;
+    }
+
+    if ((__n - 17) < 0xFFFFFFF0 || !*(a1 + 16) || (*(v7 + 660) & 0x80000000) != 0)
+    {
+      return 0;
+    }
+
+    __n = __n;
+    v11 = (a1 + 56);
+    result = __src;
+LABEL_25:
+    memcpy(result, v11, __n);
+    return 1;
+  }
+
+  if (__n < 1)
+  {
+    return 0;
+  }
+
+  if (__n < 0x11 || *(v7 + 656) >= __n)
+  {
+    goto LABEL_40;
+  }
+
+  v13 = *(v7 + 648);
+  if (v13 != (a1 + 40))
+  {
+    free(v13);
+  }
+
+  result = malloc_type_malloc(v5, 0xDCBD4349uLL);
+  *(v7 + 648) = result;
+  if (result)
+  {
+LABEL_40:
+    *(v7 + 656) = v5;
+    return 1;
+  }
+
+  return result;
+}
+
+uint64_t aes_xts_init_key(uint64_t a1, unsigned __int8 *userKey, unint64_t a3, int a4)
+{
+  if (userKey | a3)
+  {
+    v7 = *(a1 + 120);
+    if (userKey)
+    {
+      *(v7 + 520) = 0;
+      v8 = 4 * *(a1 + 104);
+      if (a4)
+      {
+        AES_set_encrypt_key(userKey, v8, v7);
+        v9 = AES_encrypt;
+      }
+
+      else
+      {
+        AES_set_decrypt_key(userKey, v8, v7);
+        v9 = AES_decrypt;
+      }
+
+      *(v7 + 504) = v9;
+      AES_set_encrypt_key(&userKey[*(a1 + 104) / 2], 4 * *(a1 + 104), (v7 + 244));
+      *(v7 + 512) = AES_encrypt;
+      *(v7 + 488) = v7;
+    }
+
+    if (a3)
+    {
+      *(v7 + 496) = v7 + 244;
+      *(a1 + 40) = *a3;
+    }
+  }
+
+  return 1;
+}
+
+BOOL aes_xts_cipher(uint64_t a1, int8x16_t *a2, void *a3, unint64_t a4)
+{
+  v4 = *(a1 + 120);
+  if (!v4[61] || !v4[62])
+  {
+    return 0;
+  }
+
+  result = 0;
+  if (a2 && a3 && a4 >= 0x10)
+  {
+    v7 = v4[65];
+    if (v7)
+    {
+      v7(a3, a2, a4);
+      return 1;
+    }
+
+    return !CRYPTO_xts128_encrypt(v4 + 61, (a1 + 40), a3, a2, a4, *(a1 + 16));
+  }
+
+  return result;
+}
+
+uint64_t aes_xts_ctrl(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
+{
+  v4 = *(a1 + 120);
+  if (a2 == 8)
+  {
+    v6 = *(a4 + 120);
+    v7 = *(v4 + 488);
+    if (v7)
+    {
+      if (v7 != v4)
+      {
+        return 0;
+      }
+
+      *(v6 + 488) = v6;
+    }
+
+    v8 = *(v4 + 496);
+    if (!v8)
+    {
+      return 1;
+    }
+
+    if (v8 == v4 + 244)
+    {
+      *(v6 + 496) = v6 + 244;
+      return 1;
+    }
+
+    return 0;
+  }
+
+  if (!a2)
+  {
+    *(v4 + 488) = 0;
+    *(v4 + 496) = 0;
+    return 1;
+  }
+
+  return 0xFFFFFFFFLL;
+}
+
+uint64_t aes_ccm_init_key(uint64_t a1, unsigned __int8 *userKey, unint64_t __src)
+{
+  if (userKey | __src)
+  {
+    v5 = *(a1 + 120);
+    if (userKey)
+    {
+      AES_set_encrypt_key(userKey, 8 * *(a1 + 104), v5);
+      CRYPTO_ccm128_init((v5 + 272), *(v5 + 264), *(v5 + 260), v5, AES_encrypt);
+      *(v5 + 328) = 0;
+      *(v5 + 244) = 1;
+    }
+
+    if (__src)
+    {
+      memcpy((a1 + 40), __src, 15 - *(v5 + 260));
+      *(v5 + 248) = 1;
+    }
+  }
+
+  return 1;
+}
+
+unint64_t aes_ccm_cipher(uint64_t a1, uint64_t *a2, char *a3, unint64_t a4)
+{
+  v4 = a4;
+  v16 = *MEMORY[0x277D85DE8];
+  v8 = *(a1 + 120);
+  if (!*(v8 + 244))
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v9 = *(a1 + 16);
+  if (!v9 && !*(v8 + 252))
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  if (a2)
+  {
+    if (a3)
+    {
+      if (*(v8 + 256))
+      {
+        goto LABEL_7;
+      }
+
+      if (!CRYPTO_ccm128_setiv((v8 + 272), (a1 + 40), 15 - *(v8 + 260), a4))
+      {
+        *(v8 + 256) = 1;
+        v9 = *(a1 + 16);
+LABEL_7:
+        v10 = *(v8 + 328);
+        v11 = (v8 + 272);
+        if (v9)
+        {
+          if (v10)
+          {
+            CRYPTO_ccm128_encrypt_ccm64(v11, a3, a2, v4, v10);
+            if (!v12)
+            {
+              goto LABEL_26;
+            }
+          }
+
+          else
+          {
+            CRYPTO_ccm128_encrypt(v11, a3, a2, v4);
+            if (!v13)
+            {
+LABEL_26:
+              *(v8 + 252) = 1;
+              return v4;
+            }
+          }
+
+          return 0xFFFFFFFFLL;
+        }
+
+        if (v10)
+        {
+          if (CRYPTO_ccm128_decrypt_ccm64(v11, a3, a2, v4, v10))
+          {
+            goto LABEL_30;
+          }
+        }
+
+        else if (CRYPTO_ccm128_decrypt(v11, a3, a2, v4))
+        {
+          goto LABEL_30;
+        }
+
+        if (CRYPTO_ccm128_tag((v8 + 272), __s1, *(v8 + 264)) && !memcmp(__s1, (a1 + 56), *(v8 + 264)) && v4 != -1)
+        {
+          *(v8 + 248) = 0;
+          *(v8 + 256) = 0;
+          return v4;
+        }
+
+LABEL_30:
+        explicit_bzero(a2, v4);
+      }
+
+      return 0xFFFFFFFFLL;
+    }
+
+    return 0;
+  }
+
+  else if (a3)
+  {
+    if (a4 && !*(v8 + 256))
+    {
+      return 0xFFFFFFFFLL;
+    }
+
+    CRYPTO_ccm128_aad(v8 + 272, a3, a4);
+  }
+
+  else
+  {
+    if (CRYPTO_ccm128_setiv((v8 + 272), (a1 + 40), 15 - *(v8 + 260), a4))
+    {
+      return 0xFFFFFFFFLL;
+    }
+
+    *(v8 + 256) = 1;
+  }
+
+  return v4;
+}
+
+size_t aes_ccm_ctrl(uint64_t a1, int a2, size_t __n, void *__dst)
+{
+  v4 = __n;
+  v6 = *(a1 + 120);
+  result = 0xFFFFFFFFLL;
+  if (a2 <= 15)
+  {
+    if (!a2)
+    {
+      *(v6 + 260) = 0xC00000008;
+      *(v6 + 256) = 0;
+      *(v6 + 248) = 0;
+      result = 1;
+      *(v6 + 244) = 0;
+      return result;
+    }
+
+    if (a2 != 8)
+    {
+      if (a2 != 9)
+      {
+        return result;
+      }
+
+      v4 = 15 - __n;
+      goto LABEL_9;
+    }
+
+    v8 = *(v6 + 320);
+    if (!v8)
+    {
+      return 1;
+    }
+
+    if (v8 == v6)
+    {
+      *(__dst[15] + 320) = __dst[15];
+      return 1;
+    }
+
+    return 0;
+  }
+
+  switch(a2)
+  {
+    case 16:
+      if (!*(a1 + 16) || !*(v6 + 252))
+      {
+        return 0;
+      }
+
+      result = CRYPTO_ccm128_tag((v6 + 272), __dst, __n);
+      if (result)
+      {
+        *(v6 + 248) = 0;
+        result = 1;
+        *(v6 + 256) = 0;
+      }
+
+      break;
+    case 17:
+      result = 0;
+      if ((__n & 1) == 0 && (__n - 17) >= 0xFFFFFFF3)
+      {
+        if ((__dst != 0) != (*(a1 + 16) != 0))
+        {
+          if (__dst)
+          {
+            *(v6 + 252) = 1;
+            memcpy((a1 + 56), __dst, __n);
+          }
+
+          *(v6 + 264) = v4;
+          return 1;
+        }
+
+        return 0;
+      }
+
+      break;
+    case 20:
+LABEL_9:
+      if ((v4 - 9) >= 0xFFFFFFF9)
+      {
+        *(v6 + 260) = v4;
+        return 1;
+      }
+
+      return 0;
+    default:
+      return result;
+  }
+
+  return result;
+}
+
+uint64_t aead_aes_gcm_init(uint64_t a1, const unsigned __int8 *a2, uint64_t a3, unint64_t a4)
+{
+  v4 = a3;
+  if ((a3 & 0x1FFFFFFFFFFFFFFFLL) != 0x10 && (a3 & 0x1FFFFFFFFFFFFFFFLL) != 0x20)
+  {
+    v8 = 137;
+    v9 = 2249;
+    goto LABEL_11;
+  }
+
+  if (a4)
+  {
+    v7 = a4;
+  }
+
+  else
+  {
+    v7 = 16;
+  }
+
+  if (v7 >= 0x11)
+  {
+    v8 = 171;
+    v9 = 2257;
+LABEL_11:
+    ERR_put_error(6, 4095, v8, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/e_aes.c", v9);
+    return 0;
+  }
+
+  result = malloc_type_calloc(1uLL, 0x290uLL, 0x1080040FF578D95uLL);
+  if (result)
+  {
+    v11 = result;
+    AES_set_encrypt_key(a2, 8 * v4, result);
+    CRYPTO_gcm128_init(v11 + 248, v11, AES_encrypt);
+    *(v11 + 640) = 0;
+    *(v11 + 648) = v7;
+    result = 1;
+    *(a1 + 8) = v11;
+  }
+
+  return result;
+}
+
+uint64_t aead_aes_gcm_seal(uint64_t a1, _BYTE *a2, void *a3, unint64_t a4, uint64_t *a5, unint64_t a6, char *a7, unint64_t a8, char *a9, uint64_t a10)
+{
+  v10 = *(a1 + 8);
+  if (*(v10 + 648) + a8 > a4)
+  {
+    v11 = 155;
+    v12 = 2301;
+LABEL_10:
+    ERR_put_error(6, 4095, v11, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/e_aes.c", v12);
+    return 0;
+  }
+
+  memcpy(__dst, (v10 + 248), sizeof(__dst));
+  if (!a6)
+  {
+    v11 = 194;
+    v12 = 2308;
+    goto LABEL_10;
+  }
+
+  CRYPTO_gcm128_setiv(__dst, a5, a6);
+  if (a10 && CRYPTO_gcm128_aad(__dst, a9, a10))
+  {
+    return 0;
+  }
+
+  v19 = *(v10 + 640);
+  if (v19)
+  {
+    if (CRYPTO_gcm128_encrypt_ctr32(__dst, a7, a2, a8, v19))
+    {
+      return 0;
+    }
+  }
+
+  else if (CRYPTO_gcm128_encrypt(__dst, a7, a2, a8))
+  {
+    return 0;
+  }
+
+  CRYPTO_gcm128_tag(__dst, &a2[a8], *(v10 + 648));
+  *a3 = *(v10 + 648) + a8;
+  return 1;
+}
+
+uint64_t aead_aes_gcm_open(uint64_t a1, _BYTE *a2, unint64_t *a3, unint64_t a4, uint64_t *a5, unint64_t a6, char *a7, unint64_t a8, char *a9, uint64_t a10)
+{
+  v26 = *MEMORY[0x277D85DE8];
+  v10 = *(a1 + 8);
+  v11 = *(v10 + 648);
+  v12 = a8 - v11;
+  if (a8 < v11)
+  {
+    v13 = 100;
+    v14 = 2345;
+LABEL_11:
+    ERR_put_error(6, 4095, v13, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/e_aes.c", v14);
+    return 0;
+  }
+
+  if (v12 > a4)
+  {
+    v13 = 155;
+    v14 = 2352;
+    goto LABEL_11;
+  }
+
+  memcpy(__dst, (v10 + 248), sizeof(__dst));
+  if (!a6)
+  {
+    v13 = 194;
+    v14 = 2359;
+    goto LABEL_11;
+  }
+
+  CRYPTO_gcm128_setiv(__dst, a5, a6);
+  if (CRYPTO_gcm128_aad(__dst, a9, a10))
+  {
+    return 0;
+  }
+
+  v21 = *(v10 + 640);
+  v22 = a8 - *(v10 + 648);
+  if (v21)
+  {
+    if (!CRYPTO_gcm128_decrypt_ctr32(__dst, a7, a2, v22, v21))
+    {
+      goto LABEL_14;
+    }
+
+    return 0;
+  }
+
+  if (CRYPTO_gcm128_decrypt(__dst, a7, a2, v22))
+  {
+    return 0;
+  }
+
+LABEL_14:
+  CRYPTO_gcm128_tag(__dst, v25, *(v10 + 648));
+  if (timingsafe_memcmp(v25, &a7[v12], *(v10 + 648)))
+  {
+    v13 = 100;
+    v14 = 2379;
+    goto LABEL_11;
+  }
+
+  *a3 = v12;
+  return 1;
+}
+
+uint64_t aes_wrap_init_key(const EVP_CIPHER_CTX *a1, unsigned __int8 *userKey, unint64_t a3)
+{
+  if (userKey | a3)
+  {
+    cipher_data = a1->cipher_data;
+    if (userKey)
+    {
+      encrypt = a1->encrypt;
+      v8 = 8 * a1->key_len;
+      if (encrypt)
+      {
+        AES_set_encrypt_key(userKey, v8, cipher_data);
+        if (!a3)
+        {
+          goto LABEL_10;
+        }
+      }
+
+      else
+      {
+        AES_set_decrypt_key(userKey, v8, cipher_data);
+        if (!a3)
+        {
+LABEL_10:
+          iv = 0;
+          goto LABEL_11;
+        }
+      }
+    }
+
+    else if (!a3)
+    {
+      return 1;
+    }
+
+    iv = a1->iv;
+    v10 = EVP_CIPHER_CTX_iv_length(a1);
+    memcpy(a1->iv, a3, v10);
+LABEL_11:
+    *&cipher_data[1].rd_key[1] = iv;
+  }
+
+  return 1;
+}
+
+uint64_t aes_wrap_cipher(uint64_t a1, unsigned __int8 *out, unsigned __int8 *in, unint64_t inlen)
+{
+  if (!in)
+  {
+    return 0;
+  }
+
+  if ((inlen & 7) != 0)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v8 = *(a1 + 120);
+  v9 = *(a1 + 16);
+  if (inlen <= 7)
+  {
+    if (v9)
+    {
+      return 0xFFFFFFFFLL;
+    }
+  }
+
+  v13 = inlen < 0x10 && v9 == 0;
+  v10 = 0xFFFFFFFFLL;
+  if (!(inlen >> 31) && !v13)
+  {
+    if (out)
+    {
+      v14 = *(v8 + 248);
+      if (v9)
+      {
+        v15 = AES_wrap_key(v8, v14, out, in, inlen);
+      }
+
+      else
+      {
+        v15 = AES_unwrap_key(v8, v14, out, in, inlen);
+      }
+
+      if (v15)
+      {
+        return v15;
+      }
+
+      else
+      {
+        return 0xFFFFFFFFLL;
+      }
+    }
+
+    else
+    {
+      LODWORD(v10) = inlen - 8;
+      if (v9)
+      {
+        return (inlen + 8);
+      }
+
+      else
+      {
+        return v10;
+      }
+    }
+  }
+
+  return v10;
+}
+
+uint64_t aes_wrap_ctrl(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
+{
+  if (a2 != 8)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v4 = *(*(a1 + 120) + 248);
+  if (v4)
+  {
+    if (a1 + 40 != v4)
+    {
+      return 0;
+    }
+
+    *(*(a4 + 120) + 248) = a4 + 40;
+  }
+
+  return 1;
+}
+
+void ENGINE_load_builtin_engines(void)
+{
+  OPENSSL_init_crypto(0);
+
+  pthread_once(&ENGINE_load_builtin_engines_once, ENGINE_load_builtin_engines_internal);
+}
+
+uint64_t ec_GFp_mont_group_init(uint64_t a1)
+{
+  result = ec_GFp_simple_group_init(a1);
+  *(a1 + 208) = 0;
+  *(a1 + 216) = 0;
+  return result;
+}
+
+void ec_GFp_mont_group_finish(uint64_t a1)
+{
+  BN_MONT_CTX_free(*(a1 + 208));
+  *(a1 + 208) = 0;
+  BN_free(*(a1 + 216));
+  *(a1 + 216) = 0;
+
+  ec_GFp_simple_group_finish(a1);
+}
+
+uint64_t ec_GFp_mont_group_copy(uint64_t a1, uint64_t a2)
+{
+  BN_MONT_CTX_free(*(a1 + 208));
+  *(a1 + 208) = 0;
+  BN_free(*(a1 + 216));
+  *(a1 + 216) = 0;
+  result = ec_GFp_simple_group_copy(a1, a2);
+  if (result)
+  {
+    if (*(a2 + 208))
+    {
+      result = BN_MONT_CTX_new();
+      *(a1 + 208) = result;
+      if (!result)
+      {
+        return result;
+      }
+
+      if (!BN_MONT_CTX_copy(result, *(a2 + 208)))
+      {
+        goto LABEL_8;
+      }
+    }
+
+    v5 = *(a2 + 216);
+    if (v5 && (v6 = BN_dup(v5), (*(a1 + 216) = v6) == 0))
+    {
+LABEL_8:
+      result = *(a1 + 208);
+      if (result)
+      {
+        BN_MONT_CTX_free(result);
+        result = 0;
+        *(a1 + 208) = 0;
+      }
+    }
+
+    else
+    {
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+uint64_t ec_GFp_mont_group_set_curve(uint64_t a1, BIGNUM *a2, const BIGNUM *a3, const BIGNUM *a4, BN_CTX *a5)
+{
+  BN_MONT_CTX_free(*(a1 + 208));
+  *(a1 + 208) = 0;
+  BN_free(*(a1 + 216));
+  *(a1 + 216) = 0;
+  v10 = BN_MONT_CTX_new();
+  v11 = v10;
+  if (!v10)
+  {
+    goto LABEL_8;
+  }
+
+  if (!BN_MONT_CTX_set(v10, a2, a5))
+  {
+    ERR_put_error(16, 4095, 3, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ecp_mont.c", 140);
+LABEL_8:
+    v12 = 0;
+LABEL_9:
+    v14 = 0;
+    goto LABEL_10;
+  }
+
+  v12 = BN_new();
+  if (!v12)
+  {
+    goto LABEL_9;
+  }
+
+  v13 = BN_value_one();
+  if (!BN_to_montgomery(v12, v13, v11, a5))
+  {
+    goto LABEL_9;
+  }
+
+  *(a1 + 208) = v11;
+  *(a1 + 216) = v12;
+  v14 = ec_GFp_simple_group_set_curve(a1, a2, a3, a4, a5);
+  if (v14)
+  {
+    v11 = 0;
+    v12 = 0;
+  }
+
+  else
+  {
+    BN_MONT_CTX_free(*(a1 + 208));
+    *(a1 + 208) = 0;
+    BN_free(*(a1 + 216));
+    v11 = 0;
+    v12 = 0;
+    *(a1 + 216) = 0;
+  }
+
+LABEL_10:
+  BN_MONT_CTX_free(v11);
+  BN_free(v12);
+  return v14;
+}
+
+uint64_t ec_GFp_mont_field_mul(uint64_t a1, BIGNUM *r, BIGNUM *a, BIGNUM *b, BN_CTX *a5)
+{
+  v6 = *(a1 + 208);
+  if (v6)
+  {
+
+    return BN_mod_mul_montgomery(r, a, b, v6, a5);
+  }
+
+  else
+  {
+    ERR_put_error(16, 4095, 111, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ecp_mont.c", 170);
+    return 0;
+  }
+}
+
+uint64_t ec_GFp_mont_field_sqr(uint64_t a1, BIGNUM *r, BIGNUM *a, BN_CTX *ctx)
+{
+  v6 = *(a1 + 208);
+  if (v6)
+  {
+
+    return BN_mod_mul_montgomery(r, a, a, v6, ctx);
+  }
+
+  else
+  {
+    ERR_put_error(16, 4095, 111, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ecp_mont.c", 181);
+    return 0;
+  }
+}
+
+uint64_t ec_GFp_mont_field_encode(uint64_t a1, BIGNUM *a2, const BIGNUM *a3, BN_CTX *a4)
+{
+  v5 = *(a1 + 208);
+  if (v5)
+  {
+
+    return BN_to_montgomery(a2, a3, v5, a4);
+  }
+
+  else
+  {
+    ERR_put_error(16, 4095, 111, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ecp_mont.c", 192);
+    return 0;
+  }
+}
+
+uint64_t ec_GFp_mont_field_decode(uint64_t a1, BIGNUM *r, BIGNUM *a, BN_CTX *a4)
+{
+  v5 = *(a1 + 208);
+  if (v5)
+  {
+
+    return BN_from_montgomery(r, a, v5, a4);
+  }
+
+  else
+  {
+    ERR_put_error(16, 4095, 111, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ecp_mont.c", 203);
+    return 0;
+  }
+}
+
+BOOL ec_GFp_mont_field_set_to_one(uint64_t a1, BIGNUM *a2)
+{
+  v2 = *(a1 + 216);
+  if (v2)
+  {
+    return bn_copy(a2, v2);
+  }
+
+  ERR_put_error(16, 4095, 111, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ecp_mont.c", 213);
+  return 0;
+}
+
+uint64_t asn1_item_flags_i2d(ASN1_VALUE *a1, unsigned __int8 **out, ASN1_ITEM *it, int aclass)
+{
+  pval = a1;
+  if (!out || *out)
+  {
+    return ASN1_item_ex_i2d(&pval, out, it, -1, aclass);
+  }
+
+  v7 = ASN1_item_ex_i2d(&pval, 0, it, -1, aclass);
+  if (v7 >= 1)
+  {
+    v9 = malloc_type_calloc(1uLL, v7, 0xB8289751uLL);
+    if (v9)
+    {
+      v10 = v9;
+      v11 = v9;
+      if (ASN1_item_ex_i2d(&pval, &v11, it, -1, aclass) == v7)
+      {
+        *out = v10;
+        return v7;
+      }
+
+      freezero(v10, v7);
+      ERR_put_error(13, 4095, 136, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/asn1/tasn_enc.c", 124);
+    }
+
+    return 0xFFFFFFFFLL;
+  }
+
+  return v7;
+}
+
+int ASN1_item_ex_i2d(ASN1_VALUE **pval, unsigned __int8 **out, const ASN1_ITEM *it, int tag, int aclass)
+{
+  v5 = aclass;
+  v6 = tag;
+  v7 = it;
+  v8 = out;
+  v9 = pval;
+  funcs = it->funcs;
+  itype = it->itype;
+  if (it->itype && !*pval)
+  {
+    return 0;
+  }
+
+  if (funcs)
+  {
+    v12 = *(funcs + 3);
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  if (it->itype <= 3u)
+  {
+    if (it->itype)
+    {
+      if (itype != 1)
+      {
+        v13 = 0;
+        if (itype == 2)
+        {
+          if (tag != -1)
+          {
+            v14 = 182;
+LABEL_31:
+            ERR_put_error(13, 4095, 230, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/asn1/tasn_enc.c", v14);
+            return 0;
+          }
+
+          if (v12 && !v12(6, pval, it, 0))
+          {
+            return 0;
+          }
+
+          choice_selector = asn1_get_choice_selector(v9, v7);
+          if ((choice_selector & 0x80000000) != 0 || v7->tcount <= choice_selector)
+          {
+            if (v12)
+            {
+              v12(7, v9, v7, 0);
+            }
+
+            return 0;
+          }
+
+          v28 = &v7->templates[choice_selector];
+          pval = asn1_get_field_ptr(v9, v28);
+          out = v8;
+          v16 = v28;
+          tag = -1;
+          goto LABEL_19;
+        }
+
+        return v13;
+      }
+
+      LOBYTE(v15) = 0;
+LABEL_26:
+      len = 0;
+      v19 = asn1_enc_restore(&len, out, pval, it);
+      if (v19 < 0)
+      {
+        return 0;
+      }
+
+      if (!v19)
+      {
+        len = 0;
+        if (v6 == -1)
+        {
+          v5 &= 0xFFFFFF3F;
+          v6 = 16;
+        }
+
+        if (!v12 || v12(6, v9, v7, 0))
+        {
+          if (v7->tcount <= 0)
+          {
+            v26 = len;
+LABEL_56:
+            v13 = ASN1_object_size(itype, v26, v6);
+            if (!v8)
+            {
+              return v13;
+            }
+
+            ASN1_put_object(v8, itype, len, v6, v5);
+            if (v7->tcount < 1)
+            {
+LABEL_61:
+              if (v15)
+              {
+                ASN1_put_eoc(v8);
+              }
+
+              if (!v12 || v12(7, v9, v7, 0))
+              {
+                return v13;
+              }
+            }
+
+            else
+            {
+              v29 = 0;
+              templates = v7->templates;
+              while (1)
+              {
+                v31 = asn1_do_adb(v9, templates, 1);
+                if (!v31)
+                {
+                  break;
+                }
+
+                v32 = v31;
+                field_ptr = asn1_get_field_ptr(v9, v31);
+                asn1_template_ex_i2d(field_ptr, v8, v32, -1, v5);
+                ++templates;
+                if (v7->tcount <= ++v29)
+                {
+                  goto LABEL_61;
+                }
+              }
+            }
+          }
+
+          else
+          {
+            taga = v6;
+            v20 = 0;
+            v21 = v7->templates;
+            while (1)
+            {
+              v22 = asn1_do_adb(v9, v21, 1);
+              if (!v22)
+              {
+                break;
+              }
+
+              v23 = v22;
+              v24 = asn1_get_field_ptr(v9, v22);
+              v25 = asn1_template_ex_i2d(v24, 0, v23, -1, v5);
+              v26 = len + v25;
+              len += v25;
+              ++v21;
+              if (v7->tcount <= ++v20)
+              {
+                v6 = taga;
+                goto LABEL_56;
+              }
+            }
+          }
+        }
+
+        return 0;
+      }
+
+      return len;
+    }
+
+    v16 = it->templates;
+    if (v16)
+    {
+LABEL_19:
+
+      return asn1_template_ex_i2d(pval, out, v16, tag, v5);
+    }
+
+    it = v7;
+LABEL_50:
+
+    return asn1_i2d_ex_primitive(pval, out, it, tag, aclass);
+  }
+
+  if (itype != 4)
+  {
+    if (itype != 5)
+    {
+      v13 = 0;
+      if (itype != 6)
+      {
+        return v13;
+      }
+
+      v15 = (aclass & 0x800) >> 11;
+      if ((aclass & 0x800) != 0)
+      {
+        itype = 2;
+      }
+
+      else
+      {
+        itype = 1;
+      }
+
+      goto LABEL_26;
+    }
+
+    if (tag != -1)
+    {
+      v14 = 170;
+      goto LABEL_31;
+    }
+
+    tag = -1;
+    goto LABEL_50;
+  }
+
+  v18 = *(funcs + 5);
+
+  return v18();
+}
+
+uint64_t asn1_template_ex_i2d(STACK **pval, unsigned __int8 **out, int *a3, int tag, int a5)
+{
+  v5 = tag;
+  v9 = *a3;
+  if ((*a3 & 0x18) != 0)
+  {
+    if (tag != -1)
+    {
+      return 0xFFFFFFFFLL;
+    }
+
+    v5 = a3[2];
+    v11 = *a3 & 0xC0;
+  }
+
+  else if (tag == -1)
+  {
+    v11 = 0;
+  }
+
+  else
+  {
+    v11 = a5 & 0xC0;
+  }
+
+  v12 = a5 & 0xFFFFFF3F;
+  v13 = a5 & v9 & 0x800;
+  if ((a5 & v9 & 0x800) != 0)
+  {
+    v14 = 2;
+  }
+
+  else
+  {
+    v14 = 1;
+  }
+
+  if ((v9 & 6) != 0)
+  {
+    v15 = *pval;
+    pvala = 0;
+    if (v15)
+    {
+      v16 = v5 != -1;
+      v17 = (v9 & 0x10) == 0;
+      if ((v9 & 2) != 0)
+      {
+        v18 = 17;
+      }
+
+      else
+      {
+        v18 = 16;
+      }
+
+      v19 = !v17 || !v16;
+      if (v17 && v16)
+      {
+        v20 = v5;
+      }
+
+      else
+      {
+        v20 = v18;
+      }
+
+      v46 = a5 & v9 & 0x800;
+      taga = v20;
+      if (v19)
+      {
+        v21 = 0;
+      }
+
+      else
+      {
+        v21 = v11;
+      }
+
+      xclass = v21;
+      if (sk_num(v15) < 1)
+      {
+        v22 = 0;
+      }
+
+      else
+      {
+        v22 = 0;
+        v23 = 0;
+        do
+        {
+          pvala = sk_value(v15, v23);
+          v22 += ASN1_item_ex_i2d(&pvala, 0, *(a3 + 4), -1, v12);
+          ++v23;
+        }
+
+        while (v23 < sk_num(v15));
+      }
+
+      v10 = ASN1_object_size(v14, v22, taga);
+      if ((v9 & 0x10) != 0)
+      {
+        v29 = ASN1_object_size(v14, v10, v5);
+        v30 = v10;
+        v10 = v29;
+        if (!out)
+        {
+          return v10;
+        }
+
+        ASN1_put_object(out, v14, v30, v5, v11);
+      }
+
+      else if (!out)
+      {
+        return v10;
+      }
+
+      ASN1_put_object(out, v14, v22, taga, xclass);
+      v31 = *(a3 + 4);
+      v51 = 0;
+      if ((v9 & 2) != 0 && sk_num(v15) > 1)
+      {
+        tagb = v10;
+        v33 = sk_num(v15);
+        v34 = reallocarray(0, v33, 0x18uLL);
+        v35 = malloc_type_malloc(v22, 0xB8D535D8uLL);
+        v36 = v35;
+        if (v34 && v35)
+        {
+          outa = v35;
+          if (sk_num(v15) >= 1)
+          {
+            v37 = 0;
+            v38 = v34;
+            do
+            {
+              v51 = sk_value(v15, v37);
+              *v38 = outa;
+              *(v38 + 2) = ASN1_item_ex_i2d(&v51, &outa, v31, -1, v12);
+              v38[2] = v51;
+              ++v37;
+              v38 += 3;
+            }
+
+            while (v37 < sk_num(v15));
+          }
+
+          v39 = sk_num(v15);
+          qsort(v34, v39, 0x18uLL, der_cmp);
+          outa = *out;
+          if (sk_num(v15) >= 1)
+          {
+            v40 = 0;
+            v41 = v34;
+            do
+            {
+              memcpy(outa, *v41, *(v41 + 2));
+              outa += *(v41 + 2);
+              ++v40;
+              v41 += 3;
+            }
+
+            while (v40 < sk_num(v15));
+          }
+
+          *out = outa;
+          if ((v9 & 4) != 0 && sk_num(v15) >= 1)
+          {
+            v42 = 0;
+            v43 = v34 + 2;
+            do
+            {
+              v44 = *v43;
+              v43 += 3;
+              sk_set(v15, v42++, v44);
+            }
+
+            while (v42 < sk_num(v15));
+          }
+        }
+
+        free(v34);
+        free(v36);
+        v10 = tagb;
+      }
+
+      else if (sk_num(v15) >= 1)
+      {
+        v32 = 0;
+        do
+        {
+          v51 = sk_value(v15, v32);
+          ASN1_item_ex_i2d(&v51, out, v31, -1, v12);
+          ++v32;
+        }
+
+        while (v32 < sk_num(v15));
+      }
+
+      if (v46)
+      {
+        ASN1_put_eoc(out);
+        if ((v9 & 0x10) != 0)
+        {
+          ASN1_put_eoc(out);
+        }
+      }
+
+      return v10;
+    }
+
+    return 0;
+  }
+
+  v24 = *(a3 + 4);
+  if ((v9 & 0x10) != 0)
+  {
+    v26 = ASN1_item_ex_i2d(pval, 0, v24, -1, a5 & 0xFFFFFF3F);
+    if (v26)
+    {
+      v27 = v26;
+      v28 = ASN1_object_size(v14, v26, v5);
+      if (out)
+      {
+        ASN1_put_object(out, v14, v27, v5, v11);
+        ASN1_item_ex_i2d(pval, out, *(a3 + 4), -1, v12);
+        if (v13)
+        {
+          ASN1_put_eoc(out);
+        }
+      }
+
+      return v28;
+    }
+
+    return 0;
+  }
+
+  return ASN1_item_ex_i2d(pval, out, v24, v5, v11 | v12);
+}
+
+uint64_t asn1_i2d_ex_primitive(ASN1_VALUE **a1, unsigned __int8 **a2, ASN1_ITEM *it, int a4, int a5)
+{
+  putype = it->utype;
+  v10 = asn1_ex_i2c(a1, 0, &putype, it);
+  if (v10 == -1)
+  {
+    return 0;
+  }
+
+  v11 = v10;
+  if (v10 == -2)
+  {
+    v12 = 0;
+  }
+
+  else
+  {
+    v12 = v10;
+  }
+
+  if ((v12 & 0x80000000) != 0)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v13 = putype;
+  v14 = 2 * (v10 == -2);
+  if (a4 == -1)
+  {
+    a4 = putype;
+  }
+
+  if (!a2)
+  {
+    goto LABEL_21;
+  }
+
+  if ((putype + 3) > 0x14 || ((1 << (putype + 3)) & 0x180001) == 0)
+  {
+    ASN1_put_object(a2, v14, v12, a4, a5);
+  }
+
+  if (asn1_ex_i2c(a1, *a2, &putype, it) != v11)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  if (v11 == -2)
+  {
+    ASN1_put_eoc(a2);
+  }
+
+  else
+  {
+    *a2 += v11;
+  }
+
+LABEL_21:
+  if ((v13 + 3) > 0x14 || ((1 << (v13 + 3)) & 0x180001) == 0)
+  {
+    return ASN1_object_size(v14, v12, a4);
+  }
+
+  return v12;
+}
+
+uint64_t der_cmp(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  v3 = *(a2 + 8);
+  v4 = v2 - v3;
+  if (v2 >= v3)
+  {
+    v2 = *(a2 + 8);
+  }
+
+  LODWORD(result) = memcmp(*a1, *a2, v2);
+  if (result)
+  {
+    return result;
+  }
+
+  else
+  {
+    return v4;
+  }
+}
+
+int asn1_ex_i2c(ASN1_VALUE **pval, unsigned __int8 *cont, int *putype, const ASN1_ITEM *it)
+{
+  v21 = cont;
+  funcs = it->funcs;
+  if (!funcs)
+  {
+    if (it->itype)
+    {
+      if (!*pval)
+      {
+        return -1;
+      }
+
+      if (it->itype == 5)
+      {
+        v7 = *(*pval + 1);
+LABEL_16:
+        *putype = v7;
+        goto LABEL_18;
+      }
+
+      utype = it->utype;
+    }
+
+    else
+    {
+      utype = it->utype;
+      if (utype == 1)
+      {
+        goto LABEL_17;
+      }
+
+      if (!*pval)
+      {
+        return -1;
+      }
+    }
+
+    if (utype == -4)
+    {
+      v9 = *pval;
+      v10 = *v9;
+      pval = (v9 + 8);
+      v7 = v10;
+      goto LABEL_16;
+    }
+
+LABEL_17:
+    v7 = *putype;
+LABEL_18:
+    v20 = 0;
+    if (v7 > 4)
+    {
+      if (v7 == 5)
+      {
+        return 0;
+      }
+
+      if (v7 == 10)
+      {
+        goto LABEL_30;
+      }
+
+      if (v7 != 6)
+      {
+LABEL_39:
+        v18 = *pval;
+        if (it->size == 2048 && (*(v18 + 16) & 0x10) != 0)
+        {
+          if (cont)
+          {
+            *(v18 + 1) = cont;
+            *v18 = 0;
+          }
+
+          return -2;
+        }
+
+        v14 = *(v18 + 1);
+        v15 = *v18;
+        goto LABEL_42;
+      }
+
+      v14 = *(*pval + 3);
+      v15 = *(*pval + 5);
+    }
+
+    else
+    {
+      if (v7 != 1)
+      {
+        if (v7 != 2)
+        {
+          if (v7 == 3)
+          {
+            v11 = *pval;
+            if (cont)
+            {
+              v12 = &v21;
+            }
+
+            else
+            {
+              v12 = 0;
+            }
+
+            return i2c_ASN1_BIT_STRING(v11, v12);
+          }
+
+          goto LABEL_39;
+        }
+
+LABEL_30:
+        v16 = *pval;
+        if (cont)
+        {
+          v17 = &v21;
+        }
+
+        else
+        {
+          v17 = 0;
+        }
+
+        return i2c_ASN1_INTEGER(v16, v17);
+      }
+
+      if (*pval == -1)
+      {
+        return -1;
+      }
+
+      if (it->utype != -4)
+      {
+        size = it->size;
+        if (*pval)
+        {
+          if (size > 0)
+          {
+            return -1;
+          }
+        }
+
+        else if (!size)
+        {
+          return -1;
+        }
+      }
+
+      v20 = *pval;
+      v15 = 1;
+      v14 = &v20;
+    }
+
+LABEL_42:
+    if (cont && v15)
+    {
+      memcpy(cont, v14, v15);
+    }
+
+    return v15;
+  }
+
+  v5 = funcs[6];
+  if (!v5)
+  {
+    return -1;
+  }
+
+  return v5(pval, cont, putype);
+}
+
+void Camellia_cbc_encrypt(uint64_t *a1, uint64_t *a2, unint64_t a3, uint64_t a4, uint64_t *a5, int a6)
+{
+  if (a6)
+  {
+    CRYPTO_cbc128_encrypt(a1, a2, a3, a4, a5, Camellia_encrypt);
+  }
+
+  else
+  {
+    CRYPTO_cbc128_decrypt(a1, a2, a3, a4, a5, Camellia_decrypt);
+  }
+}
+
+BUF_MEM *BUF_MEM_new(void)
+{
+  v0 = malloc_type_calloc(1uLL, 0x18uLL, 0x1010040A500212DuLL);
+  if (!v0)
+  {
+    ERR_put_error(7, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/buffer/buffer.c", 79);
+  }
+
+  return v0;
+}
+
+void BUF_MEM_free(BUF_MEM *a)
+{
+  if (a)
+  {
+    freezero(a->data, *&a->max);
+
+    free(a);
+  }
+}
+
+int BUF_MEM_grow_clean(BUF_MEM *str, int len)
+{
+  v2 = *&len;
+  v4 = *&str->max;
+  if (v4 >= v2)
+  {
+    if (*&str->length >= v2)
+    {
+      bzero(&str->data[v2], *&str->length - v2);
+    }
+  }
+
+  else
+  {
+    if (v2 >= 0x5FFFFFFD)
+    {
+      v5 = 116;
+LABEL_10:
+      ERR_put_error(7, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/buffer/buffer.c", v5);
+      LODWORD(v2) = 0;
+      return v2;
+    }
+
+    v6 = recallocarray(str->data, v4, (2 * ((2863311531u * (v2 + 3)) >> 32)) & 0xFFFFFFFC, 1uLL);
+    if (!v6)
+    {
+      v5 = 122;
+      goto LABEL_10;
+    }
+
+    str->data = v6;
+    *&str->max = (2 * ((2863311531u * (v2 + 3)) >> 32)) & 0xFFFFFFFC;
+  }
+
+  *&str->length = v2;
+  return v2;
+}
+
+char *BUF_reverse(char *result, char *a2, unint64_t a3)
+{
+  if (a2)
+  {
+    for (; a3; --a3)
+    {
+      v3 = *a2++;
+      result[a3 - 1] = v3;
+    }
+  }
+
+  else if (a3 >= 2)
+  {
+    v4 = a3 >> 1;
+    v5 = &result[a3 - 1];
+    do
+    {
+      v6 = *v5;
+      *v5-- = *result;
+      *result++ = v6;
+      --v4;
+    }
+
+    while (v4);
+  }
+
+  return result;
+}
+
+uint64_t engine_table_register(LHASH **a1, uint64_t a2, char *a3, _DWORD *a4, int a5, int a6)
+{
+  memset(v19, 0, sizeof(v19));
+  CRYPTO_lock(9, 30, 0, 0);
+  if (!*a1)
+  {
+    v12 = lh_new(engine_pile_LHASH_HASH, engine_pile_LHASH_COMP);
+    if (!v12)
+    {
+      goto LABEL_19;
+    }
+
+    *a1 = v12;
+    engine_cleanup_add_first(a2);
+  }
+
+  v13 = 1;
+  if (a5)
+  {
+    while (1)
+    {
+      LODWORD(v19[0]) = *a4;
+      v14 = lh_retrieve(*a1, v19);
+      if (!v14)
+      {
+        v15 = malloc_type_malloc(0x20uLL, 0x10200406A377A34uLL);
+        if (!v15)
+        {
+          goto LABEL_19;
+        }
+
+        v14 = v15;
+        v15[6] = 1;
+        *v15 = *a4;
+        v16 = sk_new_null();
+        *(v14 + 1) = v16;
+        if (!v16)
+        {
+          free(v14);
+LABEL_19:
+          v13 = 0;
+          break;
+        }
+
+        *(v14 + 2) = 0;
+        lh_insert(*a1, v14);
+      }
+
+      sk_delete_ptr(*(v14 + 1), a3);
+      if (!sk_push(*(v14 + 1), a3))
+      {
+        goto LABEL_19;
+      }
+
+      *(v14 + 6) = 0;
+      if (a6)
+      {
+        if (!engine_unlocked_init(a3))
+        {
+          ERR_put_error(38, 4095, 109, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/engine/eng_table.c", 175);
+          goto LABEL_19;
+        }
+
+        v17 = *(v14 + 2);
+        if (v17)
+        {
+          engine_unlocked_finish(v17, 0);
+        }
+
+        *(v14 + 2) = a3;
+        *(v14 + 6) = 1;
+      }
+
+      ++a4;
+      if (!--a5)
+      {
+        v13 = 1;
+        break;
+      }
+    }
+  }
+
+  CRYPTO_lock(10, 30, 0, 0);
+  return v13;
+}
+
+void engine_table_unregister(LHASH **a1, void *a2)
+{
+  CRYPTO_lock(9, 30, 0, 0);
+  if (*a1)
+  {
+    lh_doall_arg(*a1, int_unregister_cb_LHASH_DOALL_ARG, a2);
+  }
+
+  CRYPTO_lock(10, 30, 0, 0);
+}
+
+uint64_t int_unregister_cb_LHASH_DOALL_ARG(uint64_t a1, char *a2)
+{
+  result = sk_find(*(a1 + 8), a2);
+  if ((result & 0x80000000) == 0)
+  {
+    v5 = result;
+    do
+    {
+      sk_delete(*(a1 + 8), v5);
+      *(a1 + 24) = 0;
+      result = sk_find(*(a1 + 8), a2);
+      v5 = result;
+    }
+
+    while ((result & 0x80000000) == 0);
+  }
+
+  if (*(a1 + 16) == a2)
+  {
+    result = engine_unlocked_finish(a2, 0);
+    *(a1 + 16) = 0;
+  }
+
+  return result;
+}
+
+void engine_table_cleanup(LHASH **a1)
+{
+  CRYPTO_lock(9, 30, 0, 0);
+  if (*a1)
+  {
+    lh_doall(*a1, int_cleanup_cb_LHASH_DOALL);
+    lh_free(*a1);
+    *a1 = 0;
+  }
+
+  CRYPTO_lock(10, 30, 0, 0);
+}
+
+void int_cleanup_cb_LHASH_DOALL(uint64_t a1)
+{
+  sk_free(*(a1 + 8));
+  v2 = *(a1 + 16);
+  if (v2)
+  {
+    engine_unlocked_finish(v2, 0);
+  }
+
+  free(a1);
+}
+
+char *engine_table_select(LHASH **a1, int a2)
+{
+  if (!*a1)
+  {
+    return 0;
+  }
+
+  memset(v12, 0, sizeof(v12));
+  ERR_set_mark();
+  CRYPTO_lock(9, 30, 0, 0);
+  v4 = *a1;
+  if (*a1 && (LODWORD(v12[0]) = a2, (v5 = lh_retrieve(v4, v12)) != 0))
+  {
+    v6 = v5;
+    v7 = v5[2];
+    if (v7 && engine_unlocked_init(v7) || *(v6 + 6))
+    {
+      v8 = v6[2];
+    }
+
+    else
+    {
+      v8 = sk_value(v6[1], 0);
+      if (v8)
+      {
+        v10 = 1;
+        while (*(v8 + 46) <= 0 && (table_flags & 1) != 0 || !engine_unlocked_init(v8))
+        {
+          v8 = sk_value(v6[1], v10++);
+          if (!v8)
+          {
+            goto LABEL_8;
+          }
+        }
+
+        if (v6[2] != v8 && engine_unlocked_init(v8))
+        {
+          v11 = v6[2];
+          if (v11)
+          {
+            engine_unlocked_finish(v11, 0);
+          }
+
+          v6[2] = v8;
+        }
+      }
+    }
+
+LABEL_8:
+    *(v6 + 6) = 1;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  CRYPTO_lock(10, 30, 0, 0);
+  ERR_pop_to_mark();
+  return v8;
+}
+
+void engine_table_doall(LHASH *a1, uint64_t a2, uint64_t a3)
+{
+  v3[0] = a2;
+  v3[1] = a3;
+  lh_doall_arg(a1, int_cb_LHASH_DOALL_ARG, v3);
+}
+
+void RSA_padding_add_PKCS1_OAEP_mgf1(_BYTE *a1, int a2, const void *a3, int a4, const void *a5, int a6, EVP_MD *md, EVP_MD *a8)
+{
+  v9 = md;
+  v36 = *MEMORY[0x277D85DE8];
+  if (!md)
+  {
+    v9 = EVP_sha1();
+  }
+
+  if (!a8)
+  {
+    a8 = v9;
+  }
+
+  v16 = EVP_MD_size(v9);
+  if (v16 >= 1)
+  {
+    v17 = v16;
+    dgst = a8;
+    v18 = a2 - 1;
+    v19 = ~(2 * v16);
+    if (a2 - 1 + v19 < a4)
+    {
+      v20 = 110;
+      v21 = 115;
+LABEL_20:
+      ERR_put_error(4, 4095, v20, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/rsa/rsa_oaep.c", v21);
+      goto LABEL_21;
+    }
+
+    if (((2 * v16) | 1) >= a2)
+    {
+      v20 = 120;
+      v21 = 120;
+      goto LABEL_20;
+    }
+
+    *a1 = 0;
+    v22 = a1 + 1;
+    v23 = &v22[v16];
+    if (EVP_Digest(a5, a6, v23, 0, v9, 0))
+    {
+      v24 = v17;
+      bzero(&v23[v17], v18 - a4 + v19);
+      v23[v18 - a4 + ~v17] = 1;
+      memcpy(&v23[v18 - a4 - v17], a3, a4);
+      arc4random_buf(v22, v17);
+      v25 = v18 - v17;
+      v26 = malloc_type_malloc(v25, 0x865C3C3CuLL);
+      v27 = v26;
+      if (v26)
+      {
+        if ((PKCS1_MGF1(v26, v25, v22, v24, dgst) & 0x80000000) == 0)
+        {
+          if (v25 >= 1)
+          {
+            v28 = v25;
+            v29 = v27;
+            v30 = v23;
+            do
+            {
+              v31 = *v29++;
+              *v30++ ^= v31;
+              --v28;
+            }
+
+            while (v28);
+          }
+
+          if ((PKCS1_MGF1(mask, v24, v23, v25, dgst) & 0x80000000) == 0)
+          {
+            v32 = mask;
+            do
+            {
+              v33 = *v32++;
+              *v22++ ^= v33;
+              --v24;
+            }
+
+            while (v24);
+          }
+        }
+      }
+
+      else
+      {
+        ERR_put_error(4, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/rsa/rsa_oaep.c", 138);
+      }
+    }
+  }
+
+LABEL_21:
+  explicit_bzero(mask, 0x40uLL);
+}
+
+int PKCS1_MGF1(unsigned __int8 *mask, uint64_t len, const unsigned __int8 *seed, uint64_t seedlen, const EVP_MD *dgst)
+{
+  v21 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
+  memset(&v17, 0, sizeof(v17));
+  EVP_MD_CTX_init(&v17);
+  v10 = EVP_MD_size(dgst);
+  if ((v10 & 0x80000000) != 0)
+  {
+LABEL_14:
+    v15 = -1;
+    goto LABEL_15;
+  }
+
+  if (len >= 1)
+  {
+    v11 = 0;
+    v12 = 0;
+    v13 = v10;
+    do
+    {
+      d = bswap32(v12);
+      if (!EVP_DigestInit_ex(&v17, dgst, 0) || !EVP_DigestUpdate(&v17, seed, seedlen) || !EVP_DigestUpdate(&v17, &d, 4uLL))
+      {
+        goto LABEL_14;
+      }
+
+      v14 = v11 + v13;
+      if (v11 + v13 > len)
+      {
+        if (!EVP_DigestFinal_ex(&v17, md, 0))
+        {
+          goto LABEL_14;
+        }
+
+        memcpy(&mask[v11], md, len - v11);
+        break;
+      }
+
+      if (!EVP_DigestFinal_ex(&v17, &mask[v11], 0))
+      {
+        goto LABEL_14;
+      }
+
+      ++v12;
+      v11 += v13;
+    }
+
+    while (v14 < len);
+  }
+
+  v15 = 0;
+LABEL_15:
+  EVP_MD_CTX_cleanup(&v17);
+  return v15;
+}
+
+uint64_t RSA_padding_check_PKCS1_OAEP_mgf1(_BYTE *a1, unsigned int a2, uint64_t a3, int a4, int a5, const void *a6, int a7, EVP_MD *md, const EVP_MD *a9)
+{
+  v9 = md;
+  v17 = a9;
+  v56 = *MEMORY[0x277D85DE8];
+  if (!md)
+  {
+    v9 = EVP_sha1();
+  }
+
+  if (!a9)
+  {
+    v17 = v9;
+  }
+
+  v18 = EVP_MD_size(v9);
+  if (v18 < 1)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v19 = v18;
+  result = 0xFFFFFFFFLL;
+  if (a2 >= 1 && a4 >= 1)
+  {
+    if (a5 >= a4 && (2 * v19 + 2) <= a5)
+    {
+      v51 = ~v19;
+      seedlen = (~v19 + a5);
+      v52 = malloc_type_malloc(seedlen, 0x4F258BD2uLL);
+      if (v52)
+      {
+        v50 = a1;
+        v21 = malloc_type_malloc(a5, 0xF8E54389uLL);
+        if (v21)
+        {
+          v22 = 0;
+          v23 = &v21[a5];
+          v24 = (a3 + a4);
+          do
+          {
+            v25 = v23;
+            v26 = a4 != 0;
+            v24 -= v26;
+            v27 = *v24;
+            if (!a4)
+            {
+              v27 = 0;
+            }
+
+            a4 -= v26;
+            *--v23 = v27;
+            ++v22;
+          }
+
+          while (v22 != a5);
+          v28 = v27 - 1;
+          if (!PKCS1_MGF1(mask, v19, &v25[v19], seedlen, v17))
+          {
+            for (i = 0; i != v19; ++i)
+            {
+              mask[i] ^= v23[i + 1];
+            }
+
+            if (!PKCS1_MGF1(v52, seedlen, mask, v19, v17))
+            {
+              if (seedlen >= 1)
+              {
+                v30 = v19 + 1;
+                v31 = (~v19 + a5);
+                v32 = v52;
+                do
+                {
+                  *v32++ ^= v23[v30++];
+                  --v31;
+                }
+
+                while (v31);
+              }
+
+              if (EVP_Digest(a6, a7, mda, 0, v9, 0))
+              {
+                v33 = timingsafe_memcmp(v52, mda, v19);
+                v34 = ((v33 - 1) & ~v33 & v28) >> 31;
+                if (v19 >= seedlen)
+                {
+                  v35 = 0;
+                  v41 = 1;
+                }
+
+                else
+                {
+                  v35 = 0;
+                  v36 = 0;
+                  v37 = &v52[v19];
+                  v38 = v19;
+                  do
+                  {
+                    v39 = *v37++;
+                    v40 = (v39 ^ 1) - 1;
+                    v36 = v36 & ~((v40 >> 31) & ~v35) | (v40 >> 31) & ~v35 & v38;
+                    v35 |= v40 >> 31;
+                    v34 &= v35 | ((v39 - 1) >> 31);
+                    ++v38;
+                  }
+
+                  while (seedlen > v38);
+                  v41 = v36 + 1;
+                }
+
+                if ((((a2 - (seedlen - v41)) ^ (seedlen - v41) | (seedlen - v41) ^ a2) ^ a2) < 0)
+                {
+                  v35 = 0;
+                }
+
+                v42 = v35 & v34;
+                LODWORD(v43) = seedlen + v51;
+                if (((seedlen + v51 - a2) & (v19 - seedlen)) >= 0)
+                {
+                  v43 = a2;
+                }
+
+                else
+                {
+                  v43 = v43;
+                }
+
+                v44 = (seedlen - v43) & ~v42 | v42 & v41;
+                v45 = v50;
+                if (v43 >= 1)
+                {
+                  v46 = v43;
+                  v47 = v42;
+                  do
+                  {
+                    if (seedlen == v44)
+                    {
+                      v48 = v43;
+                    }
+
+                    else
+                    {
+                      v48 = 0;
+                    }
+
+                    if (seedlen == v44)
+                    {
+                      v47 = 0;
+                    }
+
+                    v49 = v44 - v48;
+                    v44 = v49 + 1;
+                    *v45 = *v45 & ~v47 | v52[v49] & v47;
+                    ++v45;
+                    --v46;
+                  }
+
+                  while (v46);
+                }
+
+                ERR_put_error(4, 4095, 121, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/rsa/rsa_oaep.c", 308);
+                err_clear_last_constant_time(v42 & 1);
+              }
+            }
+          }
+        }
+
+        else
+        {
+          ERR_put_error(4, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/rsa/rsa_oaep.c", 211);
+        }
+      }
+
+      else
+      {
+        ERR_put_error(4, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/rsa/rsa_oaep.c", 207);
+      }
+
+      explicit_bzero(mask, 0x40uLL);
+    }
+
+    ERR_put_error(4, 4095, 121, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/rsa/rsa_oaep.c", 201);
+    return 0xFFFFFFFFLL;
+  }
+
+  return result;
+}
+
+int DSA_generate_parameters_ex(DSA *dsa, int bits, unsigned __int8 *seed, int seed_len, int *counter_ret, unint64_t *h_ret, BN_GENCB *cb)
+{
+  v14 = *&dsa->ex_data.sk[2].sorted;
+  if (v14)
+  {
+
+    return v14();
+  }
+
+  else
+  {
+    if (bits < 2048)
+    {
+      v16 = 160;
+      v17 = EVP_sha1();
+    }
+
+    else
+    {
+      v16 = 256;
+      v17 = EVP_sha256();
+    }
+
+    return dsa_builtin_paramgen(dsa, bits, v16, v17, seed, seed_len, 0, counter_ret, h_ret, cb);
+  }
+}
+
+BOOL dsa_builtin_paramgen(BIGNUM **a1, unint64_t a2, unint64_t a3, const EVP_MD *a4, uint64_t a5, size_t a6, void *a7, int *a8, void *a9, BN_GENCB *a10)
+{
+  v10 = 0;
+  v80 = *MEMORY[0x277D85DE8];
+  v11 = a3 >> 3;
+  if ((a3 >> 3) > 0x20)
+  {
+    return v10;
+  }
+
+  v13 = (a3 >> 3);
+  if (((1 << (a3 >> 3)) & 0x110100000) == 0)
+  {
+    return v10;
+  }
+
+  v17 = a4;
+  if (!a4)
+  {
+    v17 = EVP_sha1();
+  }
+
+  if (a2 <= 0x200)
+  {
+    a2 = 512;
+  }
+
+  if (v13 <= a6)
+  {
+    v20 = a6;
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  if (v20 >= v11)
+  {
+    v21 = v13;
+  }
+
+  else
+  {
+    v21 = v20;
+  }
+
+  if (a5 && v13 <= a6)
+  {
+    __memcpy_chk();
+    goto LABEL_18;
+  }
+
+  if (!v21)
+  {
+LABEL_18:
+    v23 = BN_MONT_CTX_new();
+    if (v23)
+    {
+      v24 = BN_CTX_new();
+      v22 = v24;
+      if (v24)
+      {
+        BN_CTX_start(v24);
+        v25 = BN_CTX_get(v22);
+        if (v25)
+        {
+          r = v25;
+          v26 = BN_CTX_get(v22);
+          if (v26)
+          {
+            v73 = v26;
+            v27 = BN_CTX_get(v22);
+            if (v27)
+            {
+              a = v27;
+              v28 = BN_CTX_get(v22);
+              if (v28)
+              {
+                ret = v28;
+                v29 = BN_CTX_get(v22);
+                if (v29)
+                {
+                  v70 = v29;
+                  v30 = BN_CTX_get(v22);
+                  if (v30)
+                  {
+                    v67 = v30;
+                    v31 = BN_CTX_get(v22);
+                    if (v31)
+                    {
+                      p = v31;
+                      v32 = BN_CTX_get(v22);
+                      if (v32)
+                      {
+                        v68 = (a2 + 63) & 0xFFFFFFFFFFFFFFC0;
+                        v33 = v32;
+                        v34 = BN_value_one();
+                        b = v33;
+                        if (BN_lshift(v33, v34, v68 - 1))
+                        {
+                          v35 = 0;
+                          n = v68 - 1;
+                          v36 = a10;
+                          v69 = (v68 - 1) / 0xA0;
+                          v64 = (a3 >> 3) & 0x7FFFFFFF;
+                          v37 = v21 == 0;
+LABEL_30:
+                          while (1)
+                          {
+                            v38 = v35;
+                            if (!BN_GENCB_call(v36, 0, v35))
+                            {
+                              break;
+                            }
+
+                            if (v37)
+                            {
+                              arc4random_buf(__buf, v13);
+                              v39 = 1;
+                            }
+
+                            else
+                            {
+                              v39 = 0;
+                            }
+
+                            __memcpy_chk();
+                            __memcpy_chk();
+                            v40 = v11 - 1;
+                            do
+                            {
+                              v41 = ++data[v40];
+                              if ((v41 & 0x100) == 0)
+                              {
+                                break;
+                              }
+                            }
+
+                            while (v40-- > 0);
+                            if (!EVP_Digest(__buf, v13, md, 0, v17, 0))
+                            {
+                              break;
+                            }
+
+                            if (!EVP_Digest(data, v13, v76, 0, v17, 0))
+                            {
+                              break;
+                            }
+
+                            v43 = 0;
+                            do
+                            {
+                              md[v43] ^= v76[v43];
+                              ++v43;
+                            }
+
+                            while (v64 != v43);
+                            md[0] |= 0x80u;
+                            md[(v11 - 1)] |= 1u;
+                            if (!BN_bin2bn(md, v11, ret))
+                            {
+                              break;
+                            }
+
+                            is_prime_fasttest = BN_is_prime_fasttest_ex(ret, 64, v22, v39, a10);
+                            if (is_prime_fasttest > 0)
+                            {
+                              if (BN_GENCB_call(a10, 2, 0) && BN_GENCB_call(a10, 3, 0))
+                              {
+                                v45 = 0;
+                                v46 = a;
+                                while (1)
+                                {
+                                  v47 = v45;
+                                  if (v45)
+                                  {
+                                    v48 = BN_GENCB_call(a10, 0, v45);
+                                    v46 = a;
+                                    if (!v48)
+                                    {
+                                      break;
+                                    }
+                                  }
+
+                                  v63 = v47;
+                                  BN_zero(v46);
+                                  if ((v69 & 0x80000000) == 0)
+                                  {
+                                    v49 = 0;
+                                    do
+                                    {
+                                      v50 = v13;
+                                      do
+                                      {
+                                        if (v50 < 1)
+                                        {
+                                          break;
+                                        }
+
+                                        v51 = &data[v50--];
+                                        v52 = ++*(v51 - 1);
+                                      }
+
+                                      while ((v52 & 0x100) != 0);
+                                      if (!EVP_Digest(data, v13, md, 0, v17, 0) || !BN_bin2bn(md, v11, r) || !BN_lshift(r, r, 8 * v11 * v49) || !BN_add(a, a, r))
+                                      {
+                                        goto LABEL_75;
+                                      }
+                                    }
+
+                                    while (v49++ != v69);
+                                  }
+
+                                  if (!BN_mask_bits(a, n))
+                                  {
+                                    goto LABEL_75;
+                                  }
+
+                                  if (!bn_copy(v70, a))
+                                  {
+                                    goto LABEL_75;
+                                  }
+
+                                  if (!BN_add(v70, v70, b))
+                                  {
+                                    goto LABEL_75;
+                                  }
+
+                                  if (!BN_lshift1(r, ret))
+                                  {
+                                    goto LABEL_75;
+                                  }
+
+                                  if (!BN_mod_ct(v67, v70, r, v22))
+                                  {
+                                    goto LABEL_75;
+                                  }
+
+                                  v54 = BN_value_one();
+                                  if (!BN_sub(r, v67, v54) || !BN_sub(p, v70, r))
+                                  {
+                                    goto LABEL_75;
+                                  }
+
+                                  if ((BN_cmp(p, b) & 0x80000000) == 0)
+                                  {
+                                    v55 = BN_is_prime_fasttest_ex(p, 64, v22, 1, a10);
+                                    if (v55 > 0)
+                                    {
+                                      if (!BN_GENCB_call(a10, 2, 1))
+                                      {
+                                        goto LABEL_75;
+                                      }
+
+                                      v57 = BN_value_one();
+                                      if (!BN_sub(b, p, v57) || !BN_div_ct(r, 0, b, ret, v22) || !BN_set_word(b, 2uLL) || !BN_MONT_CTX_set(v23, p, v22) || !BN_mod_exp_mont_ct(v73, b, r, p, v22, v23))
+                                      {
+                                        goto LABEL_75;
+                                      }
+
+                                      v58 = 2;
+                                      while (BN_is_one(v73))
+                                      {
+                                        v59 = BN_value_one();
+                                        if (BN_add(b, b, v59))
+                                        {
+                                          ++v58;
+                                          if (BN_mod_exp_mont_ct(v73, b, r, p, v22, v23))
+                                          {
+                                            continue;
+                                          }
+                                        }
+
+                                        goto LABEL_75;
+                                      }
+
+                                      v60 = BN_GENCB_call(a10, 3, 1);
+                                      v10 = v60 != 0;
+                                      if (v60)
+                                      {
+                                        BN_free(a1[2]);
+                                        BN_free(a1[3]);
+                                        BN_free(a1[4]);
+                                        a1[2] = BN_dup(p);
+                                        a1[3] = BN_dup(ret);
+                                        v61 = BN_dup(v73);
+                                        a1[4] = v61;
+                                        if (!a1[2])
+                                        {
+                                          goto LABEL_75;
+                                        }
+
+                                        v10 = 0;
+                                        if (a1[3] && v61)
+                                        {
+                                          if (a8)
+                                          {
+                                            *a8 = v63;
+                                          }
+
+                                          if (a9)
+                                          {
+                                            *a9 = v58;
+                                          }
+
+                                          if (a7)
+                                          {
+                                            memcpy(a7, __buf, v13);
+                                          }
+
+                                          v10 = 1;
+                                        }
+                                      }
+
+                                      goto LABEL_76;
+                                    }
+
+                                    if (v55)
+                                    {
+                                      goto LABEL_75;
+                                    }
+                                  }
+
+                                  v45 = v63 + 1;
+                                  v37 = 1;
+                                  v46 = a;
+                                  if (v63 == 4095)
+                                  {
+                                    v36 = a10;
+                                    v35 = v38 + 1;
+                                    goto LABEL_30;
+                                  }
+                                }
+                              }
+
+                              goto LABEL_75;
+                            }
+
+                            v36 = a10;
+                            v37 = 1;
+                            v35 = v38 + 1;
+                            if (is_prime_fasttest)
+                            {
+                              goto LABEL_75;
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    else
+    {
+      v22 = 0;
+    }
+
+    goto LABEL_75;
+  }
+
+  v22 = 0;
+  v23 = 0;
+LABEL_75:
+  v10 = 0;
+LABEL_76:
+  BN_CTX_end(v22);
+  BN_CTX_free(v22);
+  BN_MONT_CTX_free(v23);
+  return v10;
+}
+
+DSA *__cdecl DSA_generate_parameters(int bits, unsigned __int8 *seed, int seed_len, int *counter_ret, unint64_t *h_ret, void (__cdecl *callback)(int, int, void *), void *cb_arg)
+{
+  v14 = DSA_new();
+  if (v14)
+  {
+    memset(&cb, 0, sizeof(cb));
+    BN_GENCB_set_old(&cb, callback, cb_arg);
+    if (!DSA_generate_parameters_ex(v14, bits, seed, seed_len, counter_ret, h_ret, &cb))
+    {
+      DSA_free(v14);
+      return 0;
+    }
+  }
+
+  return v14;
+}
+
+int EVP_PKEY_bits(EVP_PKEY *pkey)
+{
+  if (pkey && (ptr = pkey->pkey.ptr) != 0 && (v2 = *(ptr + 12)) != 0)
+  {
+    return v2();
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t EVP_PKEY_security_bits(uint64_t result)
+{
+  if (result)
+  {
+    v1 = *(result + 16);
+    if (v1 && (v2 = *(v1 + 104)) != 0)
+    {
+      return v2();
+    }
+
+    else
+    {
+      return 4294967294;
+    }
+  }
+
+  return result;
+}
+
+int EVP_PKEY_size(EVP_PKEY *pkey)
+{
+  if (pkey && (ptr = pkey->pkey.ptr) != 0 && (v2 = *(ptr + 11)) != 0)
+  {
+    return v2();
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+int EVP_PKEY_save_parameters(EVP_PKEY *pkey, int mode)
+{
+  if (pkey->type != 408 && pkey->type != 116)
+  {
+    return 0;
+  }
+
+  type = pkey[1].type;
+  v2 = pkey + 1;
+  v3 = type;
+  if ((mode & 0x80000000) == 0)
+  {
+    v2->type = mode;
+  }
+
+  return v3;
+}
+
+int EVP_PKEY_copy_parameters(EVP_PKEY *to, const EVP_PKEY *from)
+{
+  if (to->type != from->type)
+  {
+    v6 = 101;
+    v7 = 144;
+    goto LABEL_7;
+  }
+
+  ptr = from->pkey.ptr;
+  if (!ptr)
+  {
+    return 0;
+  }
+
+  v5 = *(ptr + 16);
+  if (v5)
+  {
+    if (v5(from))
+    {
+      v6 = 103;
+      v7 = 149;
+LABEL_7:
+      ERR_put_error(6, 4095, v6, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/p_lib.c", v7);
+      return 0;
+    }
+
+    ptr = from->pkey.ptr;
+    if (!ptr)
+    {
+      return 0;
+    }
+  }
+
+  v9 = *(ptr + 17);
+  if (!v9)
+  {
+    return 0;
+  }
+
+  return v9(to, from);
+}
+
+int EVP_PKEY_missing_parameters(const EVP_PKEY *pkey)
+{
+  ptr = pkey->pkey.ptr;
+  if (ptr && (v2 = *(ptr + 16)) != 0)
+  {
+    return v2();
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+int EVP_PKEY_cmp_parameters(const EVP_PKEY *a, const EVP_PKEY *b)
+{
+  if (a->type != b->type)
+  {
+    return -1;
+  }
+
+  ptr = a->pkey.ptr;
+  if (ptr && (v3 = *(ptr + 18)) != 0)
+  {
+    return v3();
+  }
+
+  else
+  {
+    return -2;
+  }
+}
+
+int EVP_PKEY_cmp(const EVP_PKEY *a, const EVP_PKEY *b)
+{
+  if (a->type != b->type)
+  {
+    return -1;
+  }
+
+  ptr = a->pkey.ptr;
+  if (!ptr)
+  {
+    return -2;
+  }
+
+  v5 = *(ptr + 18);
+  if (v5)
+  {
+    result = v5(a, b);
+    if (result < 1)
+    {
+      return result;
+    }
+
+    ptr = a->pkey.ptr;
+  }
+
+  v7 = *(ptr + 6);
+  if (!v7)
+  {
+    return -2;
+  }
+
+  return v7(a, b);
+}
+
+EVP_PKEY *EVP_PKEY_new(void)
+{
+  v0 = malloc_type_malloc(0x38uLL, 0x10E20405E855B9FuLL);
+  v1 = v0;
+  if (v0)
+  {
+    *&v0->type = 0;
+    v0->references = 1;
+    *&v0[1].references = 0;
+    *&v0->save_parameters = 0;
+    v0->attributes = 0;
+    v0->pkey.ptr = 0;
+    v0[1].type = 1;
+  }
+
+  else
+  {
+    ERR_put_error(6, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/p_lib.c", 206);
+  }
+
+  return v1;
+}
+
+uint64_t pkey_set_type(uint64_t a1, ENGINE *a2, uint64_t a3, char *__s, size_t a5)
+{
+  e = a2;
+  if (a2)
+  {
+    p_e = 0;
+  }
+
+  else
+  {
+    p_e = &e;
+  }
+
+  if (a1)
+  {
+    if (*(a1 + 32))
+    {
+      EVP_PKEY_free_it(a1);
+    }
+
+    if (*(a1 + 4) == a3 && *(a1 + 16))
+    {
+      return 1;
+    }
+
+    ENGINE_finish(*(a1 + 24));
+    *(a1 + 24) = 0;
+  }
+
+  if (__s)
+  {
+    str = EVP_PKEY_asn1_find_str(p_e, __s, a5);
+  }
+
+  else
+  {
+    str = EVP_PKEY_asn1_find(p_e, a3);
+  }
+
+  v12 = str;
+  if (!(a1 | a2))
+  {
+    ENGINE_finish(e);
+  }
+
+  if (v12)
+  {
+    if (a1)
+    {
+      v13 = e;
+      *(a1 + 16) = v12;
+      *(a1 + 24) = v13;
+      *a1 = *v12;
+      *(a1 + 4) = a3;
+    }
+
+    return 1;
+  }
+
+  ERR_put_error(6, 4095, 156, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/p_lib.c", 262);
+  return 0;
+}
+
+EVP_PKEY *EVP_PKEY_new_raw_private_key(uint64_t a1, ENGINE *a2, uint64_t a3, uint64_t a4)
+{
+  v8 = EVP_PKEY_new();
+  v9 = v8;
+  if (!v8 || !pkey_set_type(v8, a2, a1, 0, 0xFFFFFFFFuLL))
+  {
+    goto LABEL_8;
+  }
+
+  v10 = *(v9->pkey.ptr + 30);
+  if (!v10)
+  {
+    v11 = 150;
+    v12 = 294;
+    goto LABEL_7;
+  }
+
+  if (!v10(v9, a3, a4))
+  {
+    v11 = 180;
+    v12 = 298;
+LABEL_7:
+    ERR_put_error(6, 4095, v11, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/p_lib.c", v12);
+LABEL_8:
+    EVP_PKEY_free(v9);
+    return 0;
+  }
+
+  return v9;
+}
+
+void EVP_PKEY_free(EVP_PKEY *pkey)
+{
+  if (pkey && CRYPTO_add_lock(&pkey->references, -1, 10, 0, 0) <= 0)
+  {
+    EVP_PKEY_free_it(pkey);
+    v2 = *&pkey[1].references;
+    if (v2)
+    {
+      sk_pop_free(v2, X509_ATTRIBUTE_free);
+    }
+
+    free(pkey);
+  }
+}
+
+EVP_PKEY *EVP_PKEY_new_raw_public_key(uint64_t a1, ENGINE *a2, uint64_t a3, uint64_t a4)
+{
+  v8 = EVP_PKEY_new();
+  v9 = v8;
+  if (!v8 || !pkey_set_type(v8, a2, a1, 0, 0xFFFFFFFFuLL))
+  {
+    goto LABEL_8;
+  }
+
+  v10 = *(v9->pkey.ptr + 31);
+  if (!v10)
+  {
+    v11 = 150;
+    v12 = 323;
+    goto LABEL_7;
+  }
+
+  if (!v10(v9, a3, a4))
+  {
+    v11 = 180;
+    v12 = 327;
+LABEL_7:
+    ERR_put_error(6, 4095, v11, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/p_lib.c", v12);
+LABEL_8:
+    EVP_PKEY_free(v9);
+    return 0;
+  }
+
+  return v9;
+}
+
+uint64_t EVP_PKEY_get_raw_private_key(uint64_t a1)
+{
+  v1 = *(*(a1 + 16) + 256);
+  if (v1)
+  {
+    if (v1())
+    {
+      return 1;
+    }
+
+    v3 = 182;
+    v4 = 348;
+  }
+
+  else
+  {
+    v3 = 150;
+    v4 = 344;
+  }
+
+  ERR_put_error(6, 4095, v3, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/p_lib.c", v4);
+  return 0;
+}
+
+uint64_t EVP_PKEY_get_raw_public_key(uint64_t a1)
+{
+  v1 = *(*(a1 + 16) + 264);
+  if (v1)
+  {
+    if (v1())
+    {
+      return 1;
+    }
+
+    v3 = 182;
+    v4 = 364;
+  }
+
+  else
+  {
+    v3 = 150;
+    v4 = 360;
+  }
+
+  ERR_put_error(6, 4095, v3, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/p_lib.c", v4);
+  return 0;
+}
+
+EVP_PKEY *EVP_PKEY_new_CMAC_key(ENGINE *a1, const unsigned __int8 *a2, uint64_t a3, EVP_CIPHER *a4)
+{
+  v8 = EVP_PKEY_new();
+  if (!v8)
+  {
+    v9 = 0;
+LABEL_7:
+    EVP_PKEY_free(v8);
+    CMAC_CTX_free(v9);
+    return 0;
+  }
+
+  v9 = CMAC_CTX_new();
+  if (!v9 || !pkey_set_type(v8, a1, 894, 0, 0xFFFFFFFFuLL))
+  {
+    goto LABEL_7;
+  }
+
+  if (!CMAC_Init(v9, a2, a3, a4, a1))
+  {
+    ERR_put_error(6, 4095, 180, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/p_lib.c", 387);
+    goto LABEL_7;
+  }
+
+  v8->attributes = v9;
+  return v8;
+}
+
+int EVP_PKEY_assign(EVP_PKEY *pkey, int type, char *key)
+{
+  result = pkey_set_type(pkey, 0, *&type, 0, 0xFFFFFFFFuLL);
+  if (result)
+  {
+    pkey->attributes = key;
+    return key != 0;
+  }
+
+  return result;
+}
+
+uint64_t EVP_PKEY_get0_hmac(uint64_t a1, void *a2)
+{
+  if (*a1 == 855)
+  {
+    v2 = *(a1 + 32);
+    *a2 = *v2;
+    return *(v2 + 1);
+  }
+
+  else
+  {
+    ERR_put_error(6, 4095, 174, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/p_lib.c", 428);
+    return 0;
+  }
+}
+
+uint64_t EVP_PKEY_get0_RSA(uint64_t a1)
+{
+  if (*a1 == 6)
+  {
+    return *(a1 + 32);
+  }
+
+  ERR_put_error(6, 4095, 127, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/p_lib.c", 443);
+  return 0;
+}
+
+rsa_st *__cdecl EVP_PKEY_get1_RSA(EVP_PKEY *pkey)
+{
+  if (pkey->type == 6)
+  {
+    RSA_up_ref(pkey->attributes);
+    return pkey->attributes;
+  }
+
+  else
+  {
+    ERR_put_error(6, 4095, 127, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/p_lib.c", 453);
+    return 0;
+  }
+}
+
+int EVP_PKEY_set1_RSA(EVP_PKEY *pkey, rsa_st *key)
+{
+  result = pkey_set_type(pkey, 0, 6, 0, 0xFFFFFFFFuLL);
+  if (result)
+  {
+    pkey->attributes = key;
+    if (key)
+    {
+      RSA_up_ref(key);
+      return 1;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t EVP_PKEY_get0_DSA(uint64_t a1)
+{
+  if (*a1 == 116)
+  {
+    return *(a1 + 32);
+  }
+
+  ERR_put_error(6, 4095, 129, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/p_lib.c", 475);
+  return 0;
+}
+
+dsa_st *__cdecl EVP_PKEY_get1_DSA(EVP_PKEY *pkey)
+{
+  if (pkey->type == 116)
+  {
+    DSA_up_ref(pkey->attributes);
+    return pkey->attributes;
+  }
+
+  else
+  {
+    ERR_put_error(6, 4095, 129, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/p_lib.c", 485);
+    return 0;
+  }
+}
+
+int EVP_PKEY_set1_DSA(EVP_PKEY *pkey, dsa_st *key)
+{
+  result = pkey_set_type(pkey, 0, 116, 0, 0xFFFFFFFFuLL);
+  if (result)
+  {
+    pkey->attributes = key;
+    if (key)
+    {
+      DSA_up_ref(key);
+      return 1;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t EVP_PKEY_get0_EC_KEY(uint64_t a1)
+{
+  if (*a1 == 408)
+  {
+    return *(a1 + 32);
+  }
+
+  ERR_put_error(6, 4095, 142, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/p_lib.c", 507);
+  return 0;
+}
+
+ec_key_st *__cdecl EVP_PKEY_get1_EC_KEY(EVP_PKEY *pkey)
+{
+  if (pkey->type == 408)
+  {
+    EC_KEY_up_ref(pkey->attributes);
+    return pkey->attributes;
+  }
+
+  else
+  {
+    ERR_put_error(6, 4095, 142, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/p_lib.c", 517);
+    return 0;
+  }
+}
+
+int EVP_PKEY_set1_EC_KEY(EVP_PKEY *pkey, ec_key_st *key)
+{
+  result = pkey_set_type(pkey, 0, 408, 0, 0xFFFFFFFFuLL);
+  if (result)
+  {
+    pkey->attributes = key;
+    if (key)
+    {
+      EC_KEY_up_ref(key);
+      return 1;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t EVP_PKEY_get0_DH(uint64_t a1)
+{
+  if (*a1 == 28)
+  {
+    return *(a1 + 32);
+  }
+
+  ERR_put_error(6, 4095, 128, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/p_lib.c", 540);
+  return 0;
+}
+
+dh_st *__cdecl EVP_PKEY_get1_DH(EVP_PKEY *pkey)
+{
+  if (pkey->type == 28)
+  {
+    DH_up_ref(pkey->attributes);
+    return pkey->attributes;
+  }
+
+  else
+  {
+    ERR_put_error(6, 4095, 128, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/evp/p_lib.c", 550);
+    return 0;
+  }
+}
+
+int EVP_PKEY_set1_DH(EVP_PKEY *pkey, dh_st *key)
+{
+  result = pkey_set_type(pkey, 0, 28, 0, 0xFFFFFFFFuLL);
+  if (result)
+  {
+    pkey->attributes = key;
+    if (key)
+    {
+      DH_up_ref(key);
+      return 1;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+int EVP_PKEY_type(int type)
+{
+  e = 0;
+  v1 = EVP_PKEY_asn1_find(&e, *&type);
+  if (v1)
+  {
+    v2 = *v1;
+  }
+
+  else
+  {
+    v2 = 0;
+  }
+
+  ENGINE_finish(e);
+  return v2;
+}
+
+uint64_t EVP_PKEY_free_it(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  if (v2)
+  {
+    v3 = *(v2 + 168);
+    if (v3)
+    {
+      v3(a1);
+      *(a1 + 32) = 0;
+    }
+  }
+
+  result = ENGINE_finish(*(a1 + 24));
+  *(a1 + 24) = 0;
+  return result;
+}
+
+uint64_t EVP_PKEY_print_public(BIO *a1, uint64_t a2, int a3)
+{
+  v3 = *(a2 + 16);
+  if (v3 && (v4 = *(v3 + 56)) != 0)
+  {
+    return v4(a1);
+  }
+
+  else
+  {
+    return unsup_alg(a1, a2, a3, "Public Key");
+  }
+}
+
+uint64_t unsup_alg(BIO *a1, int *a2, int indent, const char *a4)
+{
+  result = BIO_indent(a1, indent, 128);
+  if (result)
+  {
+    v8 = OBJ_nid2ln(*a2);
+    BIO_printf(a1, "%s algorithm %s unsupported\n", a4, v8);
+    return 1;
+  }
+
+  return result;
+}
+
+uint64_t EVP_PKEY_print_private(BIO *a1, uint64_t a2, int a3)
+{
+  v3 = *(a2 + 16);
+  if (v3 && (v4 = *(v3 + 80)) != 0)
+  {
+    return v4(a1);
+  }
+
+  else
+  {
+    return unsup_alg(a1, a2, a3, "Private Key");
+  }
+}
+
+uint64_t EVP_PKEY_print_params(BIO *a1, uint64_t a2, int a3)
+{
+  v3 = *(a2 + 16);
+  if (v3 && (v4 = *(v3 + 152)) != 0)
+  {
+    return v4(a1);
+  }
+
+  else
+  {
+    return unsup_alg(a1, a2, a3, "Parameters");
+  }
+}
+
+uint64_t EVP_PKEY_get_default_digest_nid(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1 && (v2 = *(v1 + 176)) != 0)
+  {
+    return v2();
+  }
+
+  else
+  {
+    return 4294967294;
+  }
+}
+
+uint64_t buffer_write(BIO *b, char *a2, int a3)
+{
+  v3 = 0;
+  if (!a2)
+  {
+    return v3;
+  }
+
+  v4 = a3;
+  if (a3 < 1)
+  {
+    return v3;
+  }
+
+  next_bio = b->next_bio;
+  if (!next_bio || !b->prev_bio)
+  {
+    return 0;
+  }
+
+  v7 = a2;
+  BIO_clear_flags(b, 15);
+  flags = next_bio->flags;
+  retry_reason = next_bio->retry_reason;
+  v10 = retry_reason + flags;
+  v11 = HIDWORD(next_bio->method) - (retry_reason + flags);
+  if (v11 >= v4)
+  {
+    LODWORD(v3) = 0;
+LABEL_21:
+    memcpy((*&next_bio->init + v10), v7, v4);
+    next_bio->flags += v4;
+    return (v3 + v4);
+  }
+
+  v3 = 0;
+  while (2)
+  {
+    if (!flags)
+    {
+LABEL_12:
+      next_bio->retry_reason = 0;
+      while (1)
+      {
+        method_high = HIDWORD(next_bio->method);
+        if (v4 < method_high)
+        {
+          break;
+        }
+
+        v16 = BIO_write(b->prev_bio, v7, v4);
+        v17 = v16;
+        if (v16 <= 0)
+        {
+          BIO_copy_next_retry(b);
+          if (v3 <= 0)
+          {
+            v18 = v17;
+          }
+
+          else
+          {
+            v18 = v3;
+          }
+
+          if (v17 < 0)
+          {
+            return v18;
+          }
+
+          else
+          {
+            return v3;
+          }
+        }
+
+        v3 = (v16 + v3);
+        v7 += v16;
+        v4 -= v16;
+        if (!v4)
+        {
+          return v3;
+        }
+      }
+
+      flags = next_bio->flags;
+      retry_reason = next_bio->retry_reason;
+      v10 = retry_reason + flags;
+      v11 = method_high - (retry_reason + flags);
+      if (v11 < v4)
+      {
+        continue;
+      }
+
+      goto LABEL_21;
+    }
+
+    break;
+  }
+
+  if (v11 >= 1)
+  {
+    memcpy((*&next_bio->init + v10), v7, v11);
+    v7 += v11;
+    v4 -= v11;
+    v3 = (v11 + v3);
+    retry_reason = next_bio->retry_reason;
+    flags = next_bio->flags + v11;
+    next_bio->flags = flags;
+  }
+
+  while (1)
+  {
+    v12 = BIO_write(b->prev_bio, (*&next_bio->init + retry_reason), flags);
+    v13 = v12;
+    if (v12 <= 0)
+    {
+      break;
+    }
+
+    v14 = next_bio->flags;
+    retry_reason = next_bio->retry_reason + v12;
+    flags = v14 - v12;
+    next_bio->flags = v14 - v12;
+    next_bio->retry_reason = retry_reason;
+    if (v14 == v12)
+    {
+      goto LABEL_12;
+    }
+  }
+
+  BIO_copy_next_retry(b);
+  if ((v13 & 0x80000000) != 0)
+  {
+    if (v3 <= 0)
+    {
+      return v13;
+    }
+
+    else
+    {
+      return v3;
+    }
+  }
+
+  return v3;
+}
+
+uint64_t buffer_read(BIO *b, char *a2, int a3)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  next_bio = b->next_bio;
+  if (!next_bio || !b->prev_bio)
+  {
+    return 0;
+  }
+
+  v6 = a2;
+  BIO_clear_flags(b, 15);
+  LODWORD(v7) = 0;
+  cb_arg = next_bio->cb_arg;
+  if (!cb_arg)
+  {
+    goto LABEL_10;
+  }
+
+  while (1)
+  {
+    v9 = cb_arg >= a3 ? a3 : cb_arg;
+    memcpy(v6, next_bio->callback + SHIDWORD(next_bio->cb_arg), v9);
+    v10 = HIDWORD(next_bio->cb_arg) + v9;
+    LODWORD(next_bio->cb_arg) -= v9;
+    HIDWORD(next_bio->cb_arg) = v10;
+    v7 = (v9 + v7);
+    if (a3 <= cb_arg)
+    {
+      return v7;
+    }
+
+    a3 -= v9;
+    v6 += v9;
+LABEL_10:
+    prev_bio = b->prev_bio;
+    if (a3 > SLODWORD(next_bio->method))
+    {
+      while (1)
+      {
+        v12 = BIO_read(prev_bio, v6, a3);
+        cb_arg = v12;
+        if (v12 < 1)
+        {
+          break;
+        }
+
+        v7 = (v12 + v7);
+        a3 -= v12;
+        if (!a3)
+        {
+          return v7;
+        }
+
+        v6 += v12;
+        prev_bio = b->prev_bio;
+      }
+
+LABEL_16:
+      BIO_copy_next_retry(b);
+      if (v7 <= 0)
+      {
+        v13 = cb_arg;
+      }
+
+      else
+      {
+        v13 = v7;
+      }
+
+      if (cb_arg < 0)
+      {
+        return v13;
+      }
+
+      else
+      {
+        return v7;
+      }
+    }
+
+    cb_arg = BIO_read(prev_bio, next_bio->callback, next_bio->method);
+    if (cb_arg <= 0)
+    {
+      goto LABEL_16;
+    }
+
+    next_bio->cb_arg = cb_arg;
+  }
+}
+
+uint64_t buffer_puts(BIO *a1, char *__s)
+{
+  v4 = strlen(__s);
+
+  return buffer_write(a1, __s, v4);
+}
+
+uint64_t buffer_gets(BIO *a1, _BYTE *a2, int a3)
+{
+  next_bio = a1->next_bio;
+  v6 = a3 - 1;
+  BIO_clear_flags(a1, 15);
+  LODWORD(v7) = 0;
+  LODWORD(cb_arg_low) = next_bio->cb_arg;
+  while (1)
+  {
+    while (cb_arg_low >= 1)
+    {
+      if (v6 < 1)
+      {
+        v14 = 0;
+        LODWORD(v9) = 0;
+      }
+
+      else
+      {
+        v9 = 0;
+        v10 = next_bio->callback + SHIDWORD(next_bio->cb_arg);
+        while (1)
+        {
+          v11 = v9;
+          v12 = v10[v9];
+          a2[v11] = v12;
+          if (v12 == 10)
+          {
+            break;
+          }
+
+          v9 = v11 + 1;
+          cb_arg_low = SLODWORD(next_bio->cb_arg);
+          if ((v11 + 1) >= cb_arg_low || v9 >= v6)
+          {
+            v14 = 0;
+            a2 += v11 + 1;
+            goto LABEL_16;
+          }
+        }
+
+        LODWORD(v9) = v11 + 1;
+        LODWORD(cb_arg_low) = next_bio->cb_arg;
+        a2 += v11 + 1;
+        v14 = 1;
+      }
+
+LABEL_16:
+      v7 = (v9 + v7);
+      LODWORD(cb_arg_low) = cb_arg_low - v9;
+      v15 = HIDWORD(next_bio->cb_arg) + v9;
+      LODWORD(next_bio->cb_arg) = cb_arg_low;
+      HIDWORD(next_bio->cb_arg) = v15;
+      if ((v14 & 1) == 0)
+      {
+        v6 -= v9;
+        if (v6)
+        {
+          continue;
+        }
+      }
+
+      *a2 = 0;
+      return v7;
+    }
+
+    LODWORD(cb_arg_low) = BIO_read(a1->prev_bio, next_bio->callback, next_bio->method);
+    if (cb_arg_low <= 0)
+    {
+      break;
+    }
+
+    next_bio->cb_arg = cb_arg_low;
+  }
+
+  BIO_copy_next_retry(a1);
+  *a2 = 0;
+  if (v7 <= 0)
+  {
+    v16 = cb_arg_low;
+  }
+
+  else
+  {
+    v16 = v7;
+  }
+
+  if (cb_arg_low < 0)
+  {
+    return v16;
+  }
+
+  else
+  {
+    return v7;
+  }
+}
+
+uint64_t buffer_ctrl(BIO *b, int a2, uint64_t size, BIO *parg)
+{
+  next_bio = b->next_bio;
+  if (a2 > 12)
+  {
+    if (a2 <= 115)
+    {
+      if (a2 != 13)
+      {
+        if (a2 == 101)
+        {
+          if (b->prev_bio)
+          {
+            BIO_clear_flags(b, 15);
+            v11 = BIO_ctrl(b->prev_bio, 101, size, parg);
+            BIO_copy_next_retry(b);
+            return v11;
+          }
+
+          return 0;
+        }
+
+        goto LABEL_46;
+      }
+
+      flags = next_bio->flags;
+      if (flags)
+      {
+        return flags;
+      }
+
+      prev_bio = b->prev_bio;
+      if (prev_bio)
+      {
+        a2 = 13;
+        goto LABEL_47;
+      }
+
+      return 0;
+    }
+
+    if (a2 == 116)
+    {
+      cb_arg_low = LODWORD(next_bio->cb_arg);
+      if (cb_arg_low >= 1)
+      {
+        flags = 0;
+        v15 = next_bio->callback + SHIDWORD(next_bio->cb_arg);
+        do
+        {
+          v16 = *v15++;
+          if (v16 == 10)
+          {
+            ++flags;
+          }
+
+          --cb_arg_low;
+        }
+
+        while (cb_arg_low);
+        return flags;
+      }
+
+      return 0;
+    }
+
+    if (a2 != 117)
+    {
+      if (a2 != 122)
+      {
+        goto LABEL_46;
+      }
+
+      if (SLODWORD(next_bio->method) >= size)
+      {
+        callback = next_bio->callback;
+        goto LABEL_51;
+      }
+
+      v9 = malloc_type_malloc(size, 0x742EEE35uLL);
+      if (v9)
+      {
+        callback = v9;
+        free(next_bio->callback);
+        next_bio->callback = callback;
+LABEL_51:
+        LODWORD(next_bio->cb_arg) = size;
+        HIDWORD(next_bio->cb_arg) = 0;
+        memcpy(callback, parg, size);
+        return 1;
+      }
+
+LABEL_69:
+      ERR_put_error(32, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/bio/bf_buff.c", 450);
+      return 0;
+    }
+
+    if (parg)
+    {
+      if (!LODWORD(parg->method))
+      {
+        method_high = HIDWORD(next_bio->method);
+        method = size;
+        goto LABEL_55;
+      }
+
+      method = next_bio->method;
+    }
+
+    else
+    {
+      method = size;
+    }
+
+    method_high = size;
+LABEL_55:
+    v21 = next_bio->callback;
+    v22 = *&next_bio->init;
+    if (method <= 4096 || method == LODWORD(next_bio->method) || (v21 = malloc_type_malloc(size, 0xF1F3AC06uLL)) != 0)
+    {
+      if (method_high <= 4096 || method_high == HIDWORD(next_bio->method) || (v22 = malloc_type_malloc(size, 0x62F3DFA9uLL)) != 0)
+      {
+        v23 = next_bio->callback;
+        if (v23 != v21)
+        {
+          free(v23);
+          next_bio->callback = v21;
+          next_bio->cb_arg = 0;
+          LODWORD(next_bio->method) = method;
+        }
+
+        v24 = *&next_bio->init;
+        if (v24 != v22)
+        {
+          free(v24);
+          *&next_bio->init = v22;
+          *&next_bio->flags = 0;
+          flags = 1;
+          HIDWORD(next_bio->method) = method_high;
+          return flags;
+        }
+
+        return 1;
+      }
+
+      if (v21 != next_bio->callback)
+      {
+        free(v21);
+      }
+    }
+
+    goto LABEL_69;
+  }
+
+  if (a2 <= 9)
+  {
+    if (a2 != 1)
+    {
+      if (a2 == 3)
+      {
+        return next_bio->flags;
+      }
+
+LABEL_46:
+      prev_bio = b->prev_bio;
+      if (prev_bio)
+      {
+        goto LABEL_47;
+      }
+
+      return 0;
+    }
+
+    next_bio->cb_arg = 0;
+    *&next_bio->flags = 0;
+    prev_bio = b->prev_bio;
+    if (prev_bio)
+    {
+      a2 = 1;
+      goto LABEL_47;
+    }
+
+    return 0;
+  }
+
+  if (a2 == 10)
+  {
+    flags = SLODWORD(next_bio->cb_arg);
+    if (!flags)
+    {
+      prev_bio = b->prev_bio;
+      if (prev_bio)
+      {
+        a2 = 10;
+        goto LABEL_47;
+      }
+
+      return 0;
+    }
+
+    return flags;
+  }
+
+  if (a2 != 11)
+  {
+    if (BIO_int_ctrl(parg, 117, SLODWORD(next_bio->method), 0))
+    {
+      flags = 1;
+      if (BIO_int_ctrl(parg, 117, SHIDWORD(next_bio->method), 1))
+      {
+        return flags;
+      }
+    }
+
+    return 0;
+  }
+
+  prev_bio = b->prev_bio;
+  if (!prev_bio)
+  {
+    return 0;
+  }
+
+  if (next_bio->flags >= 1)
+  {
+    BIO_clear_flags(b, 15);
+    v17 = next_bio->flags;
+    if (v17 >= 1)
+    {
+      do
+      {
+        LODWORD(flags) = BIO_write(b->prev_bio, (*&next_bio->init + next_bio->retry_reason), v17);
+        BIO_copy_next_retry(b);
+        if (flags <= 0)
+        {
+          return flags;
+        }
+
+        v18 = next_bio->retry_reason + flags;
+        next_bio->flags -= flags;
+        next_bio->retry_reason = v18;
+        BIO_clear_flags(b, 15);
+        v17 = next_bio->flags;
+      }
+
+      while (v17 > 0);
+    }
+
+    *&next_bio->flags = 0;
+    prev_bio = b->prev_bio;
+  }
+
+  a2 = 11;
+LABEL_47:
+
+  return BIO_ctrl(prev_bio, a2, size, parg);
+}
+
+uint64_t buffer_new(uint64_t a1)
+{
+  result = malloc_type_malloc(0x28uLL, 0x101004019361378uLL);
+  if (result)
+  {
+    v3 = result;
+    v4 = malloc_type_malloc(0x1000uLL, 0x841D5F0BuLL);
+    *(v3 + 1) = v4;
+    if (v4)
+    {
+      v5 = malloc_type_malloc(0x1000uLL, 0xE07586AEuLL);
+      *(v3 + 3) = v5;
+      if (v5)
+      {
+        *v3 = 0x100000001000;
+        *(v3 + 2) = 0;
+        *(v3 + 4) = 0;
+        result = 1;
+        *(a1 + 32) = 1;
+        *(a1 + 56) = v3;
+        *(a1 + 40) = 0;
+        return result;
+      }
+
+      free(*(v3 + 1));
+    }
+
+    free(v3);
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t buffer_free(uint64_t result)
+{
+  if (result)
+  {
+    v1 = result;
+    v2 = *(result + 56);
+    free(*(v2 + 8));
+    free(*(v2 + 24));
+    free(*(v1 + 56));
+    *(v1 + 56) = 0;
+    *(v1 + 32) = 0;
+    result = 1;
+    *(v1 + 40) = 0;
+  }
+
+  return result;
+}
+
+BIO *buffer_callback_ctrl(uint64_t a1, int a2, void (__cdecl *a3)(bio_st *, int, const char *, int, uint64_t, uint64_t))
+{
+  result = *(a1 + 64);
+  if (result)
+  {
+    return BIO_callback_ctrl(result, a2, a3);
+  }
+
+  return result;
+}
+
+void ERR_load_ECDH_strings(void)
+{
+  if (!ERR_func_error_string(ECDH_str_functs))
+  {
+    ERR_load_strings(0, &ECDH_str_functs);
+
+    ERR_load_strings(0, &ECDH_str_reasons);
+  }
+}
+
+void X509V3_EXT_val_prn(BIO *out, STACK *val, int indent, int ml)
+{
+  if (val)
+  {
+    if (!ml || !sk_num(val))
+    {
+      BIO_printf(out, "%*s", indent, "");
+      if (!sk_num(val))
+      {
+        BIO_puts(out, "<EMPTY>\n");
+      }
+    }
+
+    if (sk_num(val) >= 1)
+    {
+      for (i = 0; i < sk_num(val); ++i)
+      {
+        if (ml)
+        {
+          BIO_printf(out, "%*s");
+        }
+
+        else if (i)
+        {
+          BIO_printf(out, ", ");
+        }
+
+        v9 = sk_value(val, i);
+        v10 = *(v9 + 1);
+        v11 = *(v9 + 2);
+        if (v10)
+        {
+          if (v11)
+          {
+            BIO_printf(out, "%s:%s", *(v9 + 1), v11);
+            if (!ml)
+            {
+              continue;
+            }
+
+LABEL_19:
+            BIO_puts(out, "\n");
+            continue;
+          }
+
+          v12 = out;
+        }
+
+        else
+        {
+          v12 = out;
+          v10 = v11;
+        }
+
+        BIO_puts(v12, v10);
+        if (ml)
+        {
+          goto LABEL_19;
+        }
+      }
+    }
+  }
+}
+
+int X509V3_EXT_print(BIO *out, X509_EXTENSION *ext, unint64_t flag, int indent)
+{
+  v4 = *&indent;
+  v8 = X509V3_EXT_get(ext);
+  if (v8)
+  {
+    v9 = v8;
+    value = ext->value;
+    in = value->data;
+    it = v8->it;
+    if (it)
+    {
+      v12 = ASN1_item_d2i(0, &in, value->length, it);
+    }
+
+    else
+    {
+      v12 = (v8->d2i)(0, &in, value->length);
+    }
+
+    v14 = v12;
+    if (!v12)
+    {
+      return unknown_ext_print(out, ext, flag, v4, 1);
+    }
+
+    i2s = v9->i2s;
+    if (i2s)
+    {
+      v16 = i2s(v9, v12);
+      v17 = v16;
+      if (v16)
+      {
+        BIO_printf(out, "%*s%s", v4, "", v16);
+        v18 = 0;
+LABEL_16:
+        v19 = 1;
+        goto LABEL_23;
+      }
+    }
+
+    else
+    {
+      i2v = v9->i2v;
+      if (i2v)
+      {
+        v18 = i2v(v9, v12, 0);
+        if (v18)
+        {
+          X509V3_EXT_val_prn(out, v18, v4, v9->ext_flags & 4);
+          v17 = 0;
+          goto LABEL_16;
+        }
+
+        v17 = 0;
+        goto LABEL_22;
+      }
+
+      i2r = v9->i2r;
+      if (i2r)
+      {
+        v17 = 0;
+        v18 = 0;
+        v19 = i2r(v9, v12, out, v4) != 0;
+        goto LABEL_23;
+      }
+
+      v17 = 0;
+    }
+
+    v18 = 0;
+LABEL_22:
+    v19 = 0;
+LABEL_23:
+    sk_pop_free(v18, X509V3_conf_free);
+    free(v17);
+    v22 = v9->it;
+    if (v22)
+    {
+      ASN1_item_free(v14, v22);
+    }
+
+    else
+    {
+      (v9->ext_free)(v14);
+    }
+
+    return v19;
+  }
+
+  return unknown_ext_print(out, ext, flag, v4, 0);
+}
+
+uint64_t unknown_ext_print(BIO *a1, uint64_t a2, unint64_t a3, int a4, int a5)
+{
+  v5 = (a3 >> 16) & 0xF;
+  if (v5 <= 1)
+  {
+    if (!v5)
+    {
+      return 0;
+    }
+
+    if (v5 == 1)
+    {
+      if (a5)
+      {
+        BIO_printf(a1, "%*s<Parse Error>");
+      }
+
+      else
+      {
+        BIO_printf(a1, "%*s<Not Supported>");
+      }
+    }
+
+    return 1;
+  }
+
+  if (v5 == 2)
+  {
+    v10 = *(a2 + 16);
+    v11 = *(v10 + 1);
+    v12 = *v10;
+
+    return ASN1_parse_dump(a1, v11, v12, a4, -1);
+  }
+
+  else
+  {
+    if (v5 != 3)
+    {
+      return 1;
+    }
+
+    v6 = *(a2 + 16);
+    v7 = *(v6 + 8);
+    v8 = *v6;
+
+    return BIO_dump_indent(a1, v7, v8, a4);
+  }
+}
+
+int X509V3_extensions_print(BIO *out, char *title, STACK *exts, unint64_t flag, int indent)
+{
+  if (sk_num(exts) < 1)
+  {
+    return 1;
+  }
+
+  if (title)
+  {
+    BIO_printf(out, "%*s%s:\n", indent, "", title);
+    indent += 4;
+  }
+
+  if (sk_num(exts) < 1)
+  {
+    return 1;
+  }
+
+  v10 = 0;
+  while (1)
+  {
+    v11 = sk_value(exts, v10);
+    if (indent)
+    {
+      if (BIO_printf(out, "%*s", indent, "") < 1)
+      {
+        break;
+      }
+    }
+
+    object = X509_EXTENSION_get_object(v11);
+    i2a_ASN1_OBJECT(out, object);
+    critical = X509_EXTENSION_get_critical(v11);
+    v14 = " critical";
+    if (!critical)
+    {
+      v14 = "";
+    }
+
+    if (BIO_printf(out, ":%s\n", v14) < 1)
+    {
+      break;
+    }
+
+    if (!X509V3_EXT_print(out, v11, flag, indent + 4))
+    {
+      BIO_printf(out, "%*s", indent + 4, "");
+      ASN1_STRING_print(out, v11->value);
+    }
+
+    if (BIO_write(out, "\n", 1) <= 0)
+    {
+      break;
+    }
+
+    if (++v10 >= sk_num(exts))
+    {
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
+int X509V3_EXT_print_fp(FILE *out, X509_EXTENSION *ext, int flag, int indent)
+{
+  v7 = BIO_new_fp(out, 0);
+  if (v7)
+  {
+    v8 = v7;
+    v9 = X509V3_EXT_print(v7, ext, flag, indent);
+    BIO_free(v8);
+    LODWORD(v7) = v9;
+  }
+
+  return v7;
+}
+
+void CAST_set_key(CAST_KEY *key, int len, const unsigned __int8 *data)
+{
+  v93 = *MEMORY[0x277D85DE8];
+  v89 = 0u;
+  v90 = 0u;
+  v91 = 0u;
+  v92 = 0u;
+  if (len < 1)
+  {
+    v6 = 1;
+  }
+
+  else
+  {
+    if (len >= 0x10)
+    {
+      v3 = 16;
+    }
+
+    else
+    {
+      v3 = len;
+    }
+
+    v4 = &v89;
+    do
+    {
+      v5 = *data++;
+      *v4 = v5;
+      v4 = (v4 + 4);
+      --v3;
+    }
+
+    while (v3);
+    v6 = len < 11;
+  }
+
+  v7 = v89;
+  v8 = DWORD1(v89) << 16;
+  LODWORD(key->data[16]) = v6;
+  v9 = v8 | (v7 << 24) | (DWORD2(v89) << 8) | HIDWORD(v89);
+  v10 = (DWORD1(v90) << 16) | (v90 << 24) | (DWORD2(v90) << 8) | HIDWORD(v90);
+  v11 = DWORD1(v91);
+  v12 = DWORD2(v91);
+  v13 = HIDWORD(v91);
+  v14 = (DWORD1(v91) << 16) | (v91 << 24) | (DWORD2(v91) << 8) | HIDWORD(v91);
+  v15 = v92;
+  v16 = DWORD1(v92);
+  v17 = DWORD2(v92);
+  v18 = (DWORD1(v92) << 16) | (v92 << 24) | (DWORD2(v92) << 8) | HIDWORD(v92);
+  v19 = CAST_S_table5[HIDWORD(v92)];
+  v20 = v88;
+  v21 = CAST_S_table6[v91];
+  do
+  {
+    v22 = CAST_S_table4[v16] ^ v9 ^ v19 ^ CAST_S_table6[v15] ^ CAST_S_table7[v17] ^ v21;
+    v23 = CAST_S_table6[BYTE2(v22)];
+    v24 = CAST_S_table4[HIBYTE(v22)] ^ v14 ^ CAST_S_table5[BYTE1(v22)] ^ CAST_S_table7[v22] ^ CAST_S_table7[v12] ^ v23;
+    v25 = CAST_S_table7[HIBYTE(v24)];
+    v26 = CAST_S_table5[BYTE1(v24)] ^ CAST_S_table6[BYTE2(v24)];
+    v27 = v18 ^ CAST_S_table4[v11] ^ CAST_S_table4[v24] ^ v26 ^ v25;
+    v28 = CAST_S_table4[BYTE1(v27)];
+    v29 = CAST_S_table5[BYTE2(v27)];
+    v30 = v10 ^ CAST_S_table6[v27] ^ CAST_S_table7[HIBYTE(v27)] ^ CAST_S_table5[v13] ^ v28 ^ v29;
+    v31 = CAST_S_table7[BYTE1(v24)];
+    v32 = v26 ^ v25 ^ CAST_S_table5[v27] ^ v28;
+    v33 = CAST_S_table6[v22];
+    v34 = CAST_S_table7[BYTE1(v22)];
+    v35 = CAST_S_table6[BYTE2(v27)];
+    *v20 = CAST_S_table4[HIBYTE(v27)] ^ CAST_S_table6[v24] ^ CAST_S_table4[BYTE1(v22)] ^ v29 ^ v31;
+    v20[1] = v32;
+    v36 = CAST_S_table4[BYTE2(v24)] ^ CAST_S_table5[v24] ^ CAST_S_table6[HIBYTE(v24)] ^ CAST_S_table6[HIBYTE(v22)] ^ v31 ^ v27;
+    v37 = (LOBYTE(CAST_S_table4[BYTE2(v24)]) ^ LOBYTE(CAST_S_table5[v24]) ^ LOBYTE(CAST_S_table6[HIBYTE(v24)]) ^ LOBYTE(CAST_S_table6[HIBYTE(v22)]) ^ v31 ^ v27);
+    v38 = CAST_S_table5[BYTE1(v36)];
+    v39 = CAST_S_table4[HIBYTE(v36)] ^ CAST_S_table6[BYTE2(v36)] ^ CAST_S_table7[(LOBYTE(CAST_S_table4[BYTE2(v24)]) ^ LOBYTE(CAST_S_table5[v24]) ^ LOBYTE(CAST_S_table6[HIBYTE(v24)]) ^ LOBYTE(CAST_S_table6[HIBYTE(v22)]) ^ v31 ^ v27)] ^ v22 ^ v34 ^ v38;
+    v40 = CAST_S_table5[BYTE1(v39)] ^ CAST_S_table4[v39];
+    v41 = CAST_S_table4[BYTE1(v30)] ^ CAST_S_table5[v30] ^ CAST_S_table7[HIBYTE(v22)] ^ CAST_S_table7[HIBYTE(v30)] ^ v23;
+    v42 = CAST_S_table6[BYTE2(v39)] ^ CAST_S_table7[HIBYTE(v39)] ^ CAST_S_table4[BYTE2(v22)] ^ v24 ^ v40;
+    v43 = (LOBYTE(CAST_S_table6[BYTE2(v39)]) ^ LOBYTE(CAST_S_table7[HIBYTE(v39)]) ^ LOBYTE(CAST_S_table4[BYTE2(v22)]) ^ v24 ^ v40);
+    v44 = CAST_S_table7[HIBYTE(v42)];
+    v45 = CAST_S_table4[BYTE1(v42)] ^ CAST_S_table5[BYTE2(v42)] ^ CAST_S_table6[(LOBYTE(CAST_S_table6[BYTE2(v39)]) ^ LOBYTE(CAST_S_table7[HIBYTE(v39)]) ^ LOBYTE(CAST_S_table4[BYTE2(v22)]) ^ v24 ^ v40)] ^ v44 ^ CAST_S_table5[v22] ^ v30;
+    v46 = (LOBYTE(CAST_S_table4[BYTE1(v42)]) ^ LOBYTE(CAST_S_table5[BYTE2(v42)]) ^ LOBYTE(CAST_S_table6[(LOBYTE(CAST_S_table6[BYTE2(v39)]) ^ LOBYTE(CAST_S_table7[HIBYTE(v39)]) ^ LOBYTE(CAST_S_table4[BYTE2(v22)]) ^ v24 ^ v40)]) ^ v44 ^ LOBYTE(CAST_S_table5[v22]) ^ v30);
+    v47 = CAST_S_table4[(LOBYTE(CAST_S_table4[BYTE2(v24)]) ^ LOBYTE(CAST_S_table5[v24]) ^ LOBYTE(CAST_S_table6[HIBYTE(v24)]) ^ LOBYTE(CAST_S_table6[HIBYTE(v22)]) ^ v31 ^ v27)];
+    v20[2] = CAST_S_table5[BYTE2(v30)] ^ CAST_S_table4[HIBYTE(v30)] ^ v33 ^ v35 ^ v34;
+    v20[3] = v41;
+    v48 = CAST_S_table6[HIBYTE(v45)];
+    v49 = CAST_S_table6[HIBYTE(v42)];
+    v50 = v47 ^ CAST_S_table4[HIBYTE(v42)] ^ v38 ^ CAST_S_table7[BYTE2(v45)];
+    v51 = CAST_S_table5[HIBYTE(v36)] ^ CAST_S_table4[BYTE2(v36)] ^ CAST_S_table6[BYTE1(v45)];
+    v52 = CAST_S_table7[v46] ^ CAST_S_table5[BYTE2(v45)];
+    v53 = CAST_S_table5[HIBYTE(v39)] ^ CAST_S_table4[BYTE2(v39)] ^ CAST_S_table6[BYTE1(v42)] ^ CAST_S_table7[v43] ^ CAST_S_table7[v39];
+    v20[6] = CAST_S_table7[BYTE2(v42)] ^ CAST_S_table6[v37] ^ v40 ^ v49;
+    v20[7] = v53;
+    v54 = CAST_S_table4[BYTE2(v45)] ^ CAST_S_table5[v46];
+    v55 = CAST_S_table7[BYTE1(v45)] ^ v36;
+    v20[4] = v50 ^ v48;
+    v20[5] = v51 ^ v52;
+    v56 = v54 ^ v55 ^ v48 ^ v49;
+    v57 = CAST_S_table5[BYTE1(v56)];
+    v58 = v56;
+    v59 = CAST_S_table4[HIBYTE(v56)] ^ CAST_S_table6[BYTE2(v56)] ^ CAST_S_table7[v56] ^ CAST_S_table7[BYTE1(v42)] ^ v42 ^ v57;
+    v60 = (LOBYTE(CAST_S_table4[HIBYTE(v56)]) ^ LOBYTE(CAST_S_table6[BYTE2(v56)]) ^ LOBYTE(CAST_S_table7[v56]) ^ LOBYTE(CAST_S_table7[BYTE1(v42)]) ^ v42 ^ v57);
+    v61 = CAST_S_table5[BYTE1(v59)] ^ CAST_S_table4[(LOBYTE(CAST_S_table4[HIBYTE(v56)]) ^ LOBYTE(CAST_S_table6[BYTE2(v56)]) ^ LOBYTE(CAST_S_table7[v56]) ^ LOBYTE(CAST_S_table7[BYTE1(v42)]) ^ v42 ^ v57)];
+    v62 = CAST_S_table6[BYTE2(v59)] ^ CAST_S_table7[HIBYTE(v59)] ^ CAST_S_table4[BYTE2(v42)] ^ v45 ^ v61;
+    v63 = CAST_S_table4[BYTE1(v62)] ^ CAST_S_table5[BYTE2(v62)] ^ CAST_S_table6[v62] ^ CAST_S_table7[HIBYTE(v62)] ^ CAST_S_table5[v43] ^ v39;
+    v64 = CAST_S_table6[HIBYTE(v62)] ^ CAST_S_table7[BYTE2(v62)] ^ CAST_S_table6[BYTE1(v56)] ^ v61;
+    v65 = CAST_S_table4[BYTE2(v59)];
+    v66 = CAST_S_table7[BYTE2(v63)] ^ CAST_S_table4[BYTE2(v62)];
+    v67 = CAST_S_table4[BYTE2(v56)];
+    v68 = CAST_S_table7[BYTE1(v59)];
+    v69 = CAST_S_table5[HIBYTE(v59)] ^ CAST_S_table6[BYTE1(v62)] ^ CAST_S_table7[v62] ^ v65 ^ v68;
+    v9 = CAST_S_table5[v60] ^ CAST_S_table6[HIBYTE(v59)] ^ CAST_S_table6[HIBYTE(v56)] ^ v65 ^ v68 ^ v62;
+    v70 = CAST_S_table6[BYTE2(v9)];
+    v71 = CAST_S_table4[v56] ^ CAST_S_table6[HIBYTE(v63)] ^ v66;
+    v10 = CAST_S_table4[HIBYTE(v9)] ^ CAST_S_table5[BYTE1(v9)] ^ CAST_S_table7[v9] ^ CAST_S_table7[BYTE1(v56)] ^ v56 ^ v70;
+    v72 = (LOBYTE(CAST_S_table4[HIBYTE(v9)]) ^ LOBYTE(CAST_S_table5[BYTE1(v9)]) ^ LOBYTE(CAST_S_table7[v9]) ^ LOBYTE(CAST_S_table7[BYTE1(v56)]) ^ v56 ^ v70);
+    v73 = CAST_S_table5[HIBYTE(v56)] ^ CAST_S_table6[BYTE1(v63)] ^ CAST_S_table7[v63] ^ CAST_S_table5[HIBYTE(v63)];
+    v74 = CAST_S_table4[(LOBYTE(CAST_S_table4[HIBYTE(v9)]) ^ LOBYTE(CAST_S_table5[BYTE1(v9)]) ^ LOBYTE(CAST_S_table7[v9]) ^ LOBYTE(CAST_S_table7[BYTE1(v56)]) ^ v56 ^ v70)];
+    v20[10] = v64;
+    v20[11] = v69;
+    v75 = CAST_S_table6[BYTE2(v10)];
+    v76 = CAST_S_table7[HIBYTE(v10)];
+    v77 = v74 ^ CAST_S_table5[BYTE1(v10)] ^ v75 ^ v76;
+    v20[8] = v71 ^ v57;
+    v20[9] = v73 ^ v67;
+    v14 = v77 ^ v59 ^ v67;
+    v13 = (v77 ^ v59 ^ v67);
+    v12 = BYTE1(v14);
+    v78 = CAST_S_table4[BYTE1(v14)];
+    v11 = BYTE2(v14);
+    v79 = CAST_S_table5[v58] ^ v63;
+    v80 = CAST_S_table5[BYTE2(v14)];
+    v18 = CAST_S_table6[v13] ^ CAST_S_table7[HIBYTE(v14)] ^ v79 ^ v78 ^ v80;
+    v81 = CAST_S_table4[HIBYTE(v14)] ^ CAST_S_table6[v72] ^ CAST_S_table7[BYTE1(v10)] ^ CAST_S_table4[v9] ^ v80;
+    v17 = BYTE1(v18);
+    v16 = BYTE2(v18);
+    v82 = CAST_S_table5[v13] ^ CAST_S_table5[v72] ^ v75 ^ v76 ^ v78;
+    v15 = HIBYTE(v18);
+    v20[12] = v81;
+    v20[13] = v82;
+    v19 = CAST_S_table5[v18];
+    v21 = CAST_S_table6[HIBYTE(v14)];
+    v83 = CAST_S_table4[BYTE1(v18)] ^ CAST_S_table7[HIBYTE(v9)] ^ CAST_S_table7[BYTE2(v18)] ^ v19 ^ v70;
+    v20[14] = CAST_S_table5[BYTE2(v18)] ^ CAST_S_table4[HIBYTE(v18)] ^ CAST_S_table6[v9] ^ CAST_S_table7[BYTE1(v9)] ^ v21;
+    v20[15] = v83;
+    v84 = v20 == v88;
+    v20 += 16;
+  }
+
+  while (v84);
+  v85 = 0;
+  v86.i64[0] = 0x1F0000001FLL;
+  v86.i64[1] = 0x1F0000001FLL;
+  v87.i64[0] = 0x1000000010;
+  v87.i64[1] = 0x1000000010;
+  do
+  {
+    v94.val[0] = *&v88[v85];
+    v94.val[1] = veorq_s8(vandq_s8(*&v88[v85 + 64], v86), v87);
+    vst2q_f32(key, v94);
+    key = (key + 32);
+    v85 += 16;
+  }
+
+  while (v85 != 64);
+}
+
+void ERR_load_CONF_strings(void)
+{
+  if (!ERR_func_error_string(CONF_str_functs))
+  {
+    ERR_load_strings(0, &CONF_str_functs);
+
+    ERR_load_strings(0, &CONF_str_reasons);
+  }
+}
+
+uint64_t pkey_ec_init(uint64_t a1)
+{
+  v2 = malloc_type_calloc(1uLL, 0x40uLL, 0x1070040E3D958DBuLL);
+  if (v2)
+  {
+    v2[12] = 511;
+    *(a1 + 40) = v2;
+    return 1;
+  }
+
+  else
+  {
+    ERR_put_error(16, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ec_pmeth.c", 102);
+    return 0;
+  }
+}
+
+uint64_t pkey_ec_copy(uint64_t a1, uint64_t a2)
+{
+  result = pkey_ec_init(a1);
+  if (result)
+  {
+    v5 = *(a2 + 40);
+    v6 = *(a1 + 40);
+    if (!*v5 || (result = EC_GROUP_dup(*v5), (*v6 = result) != 0))
+    {
+      v7 = *(v5 + 16);
+      *(v6 + 8) = *(v5 + 8);
+      if (!v7 || (result = EC_KEY_dup(v7), (*(v6 + 16) = result) != 0))
+      {
+        *(v6 + 25) = *(v5 + 25);
+        v8 = *(v5 + 40);
+        *(v6 + 32) = *(v5 + 32);
+        *(v6 + 56) = *(v5 + 56);
+        if (v8)
+        {
+          result = malloc_type_calloc(1uLL, *(v5 + 48), 0xBA2AF3DuLL);
+          *(v6 + 40) = result;
+          if (!result)
+          {
+            return result;
+          }
+
+          memcpy(result, *(v5 + 40), *(v5 + 48));
+        }
+
+        else
+        {
+          *(v6 + 40) = 0;
+        }
+
+        *(v6 + 48) = *(v5 + 48);
+        return 1;
+      }
+    }
+  }
+
+  return result;
+}
+
+void pkey_ec_cleanup(uint64_t a1)
+{
+  v1 = *(a1 + 40);
+  if (v1)
+  {
+    EC_GROUP_free(*v1);
+    EC_KEY_free(*(v1 + 16));
+    free(*(v1 + 40));
+    free(v1);
+    *(a1 + 40) = 0;
+  }
+}
+
+uint64_t pkey_ec_paramgen(uint64_t a1, EVP_PKEY *a2)
+{
+  v2 = *(a1 + 40);
+  if (!*v2)
+  {
+    ERR_put_error(16, 4095, 139, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ec_pmeth.c", 464);
+    return 0;
+  }
+
+  v4 = EC_KEY_new();
+  if (!v4)
+  {
+    return 0;
+  }
+
+  v5 = v4;
+  v6 = EC_KEY_set_group(v4, *v2);
+  if (v6)
+  {
+    EVP_PKEY_assign(a2, 408, v5);
+  }
+
+  else
+  {
+    EC_KEY_free(v5);
+  }
+
+  return v6;
+}
+
+uint64_t pkey_ec_keygen(uint64_t a1, EVP_PKEY *a2)
+{
+  v4 = *(a1 + 40);
+  if (!*(a1 + 16) && !*v4)
+  {
+    ERR_put_error(16, 4095, 139, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ec_pmeth.c", 485);
+    return 0;
+  }
+
+  v5 = EC_KEY_new();
+  if (!v5)
+  {
+    return 0;
+  }
+
+  v6 = v5;
+  if (!EVP_PKEY_assign(a2, 408, v5))
+  {
+    EC_KEY_free(v6);
+    return 0;
+  }
+
+  v7 = *(a1 + 16);
+  if (!v7)
+  {
+    if (EC_KEY_set_group(v6, *v4))
+    {
+      goto LABEL_11;
+    }
+
+    return 0;
+  }
+
+  if (!EVP_PKEY_copy_parameters(a2, v7))
+  {
+    return 0;
+  }
+
+LABEL_11:
+
+  return EC_KEY_generate_key(v6);
+}
+
+uint64_t pkey_ec_sign(uint64_t a1, unsigned __int8 *a2, unint64_t *a3, const unsigned __int8 *a4, int a5)
+{
+  v6 = *(a1 + 16);
+  v7 = *(v6 + 32);
+  if (!a2)
+  {
+    v14 = ECDSA_size(*(v6 + 32));
+LABEL_10:
+    *a3 = v14;
+    return 1;
+  }
+
+  v11 = *(a1 + 40);
+  v12 = *a3;
+  if (v12 < ECDSA_size(*(v6 + 32)))
+  {
+    ERR_put_error(16, 4095, 100, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ec_pmeth.c", 176);
+    return 0;
+  }
+
+  v15 = *(v11 + 8);
+  if (v15)
+  {
+    v16 = EVP_MD_type(v15);
+  }
+
+  else
+  {
+    v16 = 64;
+  }
+
+  siglen = 0;
+  result = ECDSA_sign(v16, a4, a5, a2, &siglen, v7);
+  if (result >= 1)
+  {
+    v14 = siglen;
+    goto LABEL_10;
+  }
+
+  return result;
+}
+
+uint64_t pkey_ec_verify(uint64_t a1, const unsigned __int8 *a2, int a3, const unsigned __int8 *a4, int a5)
+{
+  v9 = *(*(a1 + 16) + 32);
+  v10 = *(*(a1 + 40) + 8);
+  if (v10)
+  {
+    v11 = EVP_MD_type(v10);
+  }
+
+  else
+  {
+    v11 = 64;
+  }
+
+  return ECDSA_verify(v11, a4, a5, a2, a3, v9);
+}
+
+uint64_t pkey_ec_kdf_derive(void *a1, char *a2, size_t *a3)
+{
+  v6 = a1[5];
+  if (*(v6 + 25) != 1)
+  {
+    if (a2)
+    {
+      if (*a3 == *(v6 + 56))
+      {
+        size = 0;
+        if (pkey_ec_derive(a1, 0, &size))
+        {
+          v8 = malloc_type_calloc(1uLL, size, 0x30813402uLL);
+          if (v8)
+          {
+            v9 = v8;
+            v10 = pkey_ec_derive(a1, v8, &size);
+            v11 = size;
+            if (v10)
+            {
+              v12 = ecdh_KDF_X9_63(a2, *a3, v9, size, *(v6 + 40), *(v6 + 48), *(v6 + 32)) != 0;
+            }
+
+            else
+            {
+              v12 = 0;
+            }
+
+            freezero(v9, v11);
+            return v12;
+          }
+
+          ERR_put_error(16, 4095, 65, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ec_pmeth.c", 269);
+        }
+      }
+
+      return 0;
+    }
+
+    else
+    {
+      *a3 = *(v6 + 56);
+      return 1;
+    }
+  }
+
+  return pkey_ec_derive(a1, a2, a3);
+}
+
+uint64_t pkey_ec_ctrl(uint64_t a1, int a2, int nid, EVP_MD *md)
+{
+  v6 = *(a1 + 40);
+  if (a2 <= 4098)
+  {
+    if (a2 > 0xD)
+    {
+LABEL_15:
+      if (a2 == 4097)
+      {
+        v9 = EC_GROUP_new_by_curve_name(nid);
+        if (v9)
+        {
+          v10 = v9;
+          EC_GROUP_free(*v6);
+          *v6 = v10;
+          return 1;
+        }
+
+        v12 = 141;
+        v13 = 296;
+        goto LABEL_52;
+      }
+
+      if (a2 == 4098)
+      {
+        if (*v6)
+        {
+          EC_GROUP_set_asn1_flag(*v6, nid);
+          return 1;
+        }
+
+        v12 = 139;
+        v13 = 305;
+LABEL_52:
+        ERR_put_error(16, 4095, v12, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ec_pmeth.c", v13);
+        return 0;
+      }
+
+      return 4294967294;
+    }
+
+    if (((1 << a2) & 0x8A4) == 0)
+    {
+      if (a2 == 1)
+      {
+        if (EVP_MD_type(md) == 64 || EVP_MD_type(md) == 416 || EVP_MD_type(md) == 675 || EVP_MD_type(md) == 672 || EVP_MD_type(md) == 673 || EVP_MD_type(md) == 674 || EVP_MD_type(md) == 1031 || EVP_MD_type(md) == 1032 || EVP_MD_type(md) == 1033 || EVP_MD_type(md) == 1034)
+        {
+          *(v6 + 8) = md;
+          return 1;
+        }
+
+        v12 = 138;
+        v13 = 395;
+        goto LABEL_52;
+      }
+
+      if (a2 == 13)
+      {
+        v7 = *(v6 + 8);
+LABEL_21:
+        *&md->type = v7;
+        return 1;
+      }
+
+      goto LABEL_15;
+    }
+
+    return 1;
+  }
+
+  if (a2 > 4102)
+  {
+    if (a2 > 4104)
+    {
+      if (a2 == 4105)
+      {
+        free(*(v6 + 40));
+        *(v6 + 40) = md;
+        if (md)
+        {
+          *(v6 + 48) = nid;
+        }
+
+        else
+        {
+          *(v6 + 48) = 0;
+        }
+
+        return 1;
+      }
+
+      if (a2 == 4106)
+      {
+        *&md->type = *(v6 + 40);
+        return *(v6 + 48);
+      }
+
+      return 4294967294;
+    }
+
+    if (a2 == 4103)
+    {
+      if (nid >= 1)
+      {
+        *(v6 + 56) = nid;
+        return 1;
+      }
+
+      return 4294967294;
+    }
+
+    md->type = *(v6 + 56);
+    return 1;
+  }
+
+  if (a2 > 4100)
+  {
+    if (a2 == 4101)
+    {
+      *(v6 + 32) = md;
+      return 1;
+    }
+
+    v7 = *(v6 + 32);
+    goto LABEL_21;
+  }
+
+  if (a2 != 4099)
+  {
+    if (nid == -2)
+    {
+      return *(v6 + 25);
+    }
+
+    if ((nid - 3) >= 0xFFFFFFFE)
+    {
+      *(v6 + 25) = nid;
+      return 1;
+    }
+
+    return 4294967294;
+  }
+
+  if (nid == -2)
+  {
+    result = *(v6 + 24);
+    if (result == -1)
+    {
+      return (EC_KEY_get_flags(*(*(a1 + 16) + 32)) >> 12) & 1;
+    }
+  }
+
+  else
+  {
+    if ((nid - 2) < 0xFFFFFFFD)
+    {
+      return 4294967294;
+    }
+
+    *(v6 + 24) = nid;
+    if (nid == -1)
+    {
+      EC_KEY_free(*(v6 + 16));
+      *(v6 + 16) = 0;
+      return 1;
+    }
+
+    v14 = *(*(a1 + 16) + 32);
+    v15 = *(v14 + 24);
+    if (!v15)
+    {
+      return 4294967294;
+    }
+
+    if (BN_is_one(v15 + 40))
+    {
+      return 1;
+    }
+
+    result = *(v6 + 16);
+    if (result || (result = EC_KEY_dup(v14), (*(v6 + 16) = result) != 0))
+    {
+      if (nid)
+      {
+        EC_KEY_set_flags(result, 4096);
+      }
+
+      else
+      {
+        EC_KEY_clear_flags(result, 4096);
+      }
+
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+uint64_t pkey_ec_ctrl_str(uint64_t *a1, char *__s1, char *a3)
+{
+  if (!strcmp(__s1, "ec_paramgen_curve"))
+  {
+    if (EC_curve_nist2nid(a3) || OBJ_sn2nid(a3) || OBJ_ln2nid(a3))
+    {
+      v6 = a1;
+      v7 = 6;
+      goto LABEL_16;
+    }
+
+    v9 = 141;
+    v10 = 429;
+LABEL_21:
+    ERR_put_error(16, 4095, v9, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ec_pmeth.c", v10);
+    return 0;
+  }
+
+  if (!strcmp(__s1, "ec_param_enc"))
+  {
+    if (!strcmp(a3, "explicit") || !strcmp(a3, "named_curve"))
+    {
+      v6 = a1;
+      v7 = 6;
+      goto LABEL_16;
+    }
+
+    return 4294967294;
+  }
+
+  if (!strcmp(__s1, "ecdh_kdf_md"))
+  {
+    if (EVP_get_digestbyname(a3))
+    {
+      v6 = a1;
+      v7 = 1024;
+      goto LABEL_16;
+    }
+
+    v9 = 151;
+    v10 = 445;
+    goto LABEL_21;
+  }
+
+  if (strcmp(__s1, "ecdh_cofactor_mode"))
+  {
+    return 4294967294;
+  }
+
+  atoi(a3);
+  v6 = a1;
+  v7 = 1024;
+LABEL_16:
+
+  return EVP_PKEY_CTX_ctrl(v6, 408, v7);
+}
+
+uint64_t pkey_ec_derive(void *a1, void *a2, size_t *a3)
+{
+  v3 = a1[2];
+  if (!v3 || (v4 = a1[3]) == 0)
+  {
+    ERR_put_error(16, 4095, 140, "/Library/Caches/com.apple.xbs/Sources/Shortcuts/ShortcutsActions/ActionKit/External/libressl/libressl/crypto/ec/ec_pmeth.c", 220);
+    return 0;
+  }
+
+  v7 = *(a1[5] + 16);
+  if (v7)
+  {
+    if (a2)
+    {
+      goto LABEL_5;
+    }
+
+LABEL_10:
+    v12 = EC_KEY_get0_group(v7);
+    degree = EC_GROUP_get_degree(v12);
+    v14 = degree + 7;
+    if (degree < -7)
+    {
+      v14 = degree + 14;
+    }
+
+    v10 = v14 >> 3;
+    goto LABEL_13;
+  }
+
+  v7 = *(v3 + 32);
+  if (!a2)
+  {
+    goto LABEL_10;
+  }
+
+LABEL_5:
+  v8 = EC_KEY_get0_public_key(*(v4 + 32));
+  v9 = ECDH_compute_key(a2, *a3, v8, v7, 0);
+  if (v9 < 1)
+  {
+    return 0;
+  }
+
+  v10 = v9;
+LABEL_13:
+  *a3 = v10;
+  return 1;
+}
+
+int X509_NAME_print_ex(BIO *out, X509_NAME *nm, int indent, unint64_t flags)
+{
+  if (flags)
+  {
+    return do_name_ex(send_bio_chars, out, nm, indent, flags);
+  }
+
+  else
+  {
+    return X509_NAME_print(out, nm, indent);
+  }
+}
+
+uint64_t do_name_ex(unsigned int (*a1)(uint64_t, const char *, size_t), uint64_t a2, X509_NAME *name, int a4, uint64_t a5)
+{
+  v5 = a5;
+  v53 = *MEMORY[0x277D85DE8];
+  if (a4 >= 1)
+  {
+    v10 = a4;
+    do
+    {
+      if (!a1(a2, " ", 1))
+      {
+        return 0xFFFFFFFFLL;
+      }
+
+      --v10;
+    }
+
+    while (v10);
+  }
+
+  v11 = a4 & ~(a4 >> 31);
+  v12 = ((*&v5 & 0xF0000uLL) - 0x10000) >> 16;
+  v13 = 0xFFFFFFFFLL;
+  if (v12 > 1)
+  {
+    if (v12 == 2)
+    {
+      v14 = 0;
+      v47 = 3;
+      v15 = 2;
+      v46 = " + ";
+      v16 = "; ";
+    }
+
+    else
+    {
+      if (v12 != 3)
+      {
+        return v13;
+      }
+
+      v47 = 3;
+      v15 = 1;
+      v46 = " + ";
+      v14 = v11;
+      v16 = "\n";
+    }
+  }
+
+  else
+  {
+    v14 = 0;
+    if (v12)
+    {
+      v47 = 3;
+      v15 = 2;
+      v46 = " + ";
+      v16 = ", ";
+    }
+
+    else
+    {
+      v15 = 1;
+      v46 = "+";
+      v47 = 1;
+      v16 = ",";
+    }
+  }
+
+  v45 = v16;
+  v17 = " = ";
+  if ((*&v5 & 0x800000) == 0)
+  {
+    v17 = "=";
+  }
+
+  v48 = v17;
+  if ((*&v5 & 0x800000) != 0)
+  {
+    v18 = 3;
+  }
+
+  else
+  {
+    v18 = 1;
+  }
+
+  v19 = X509_NAME_entry_count(name);
+  if (v19 < 1)
+  {
+    return v11;
+  }
+
+  v42 = v14;
+  v43 = v18;
+  v20 = 0;
+  v50 = v19;
+  v51 = v5 & 0x600000;
+  v40 = v15 + v14;
+  v41 = v15;
+  v21 = -1;
+  LODWORD(v13) = v11;
+  v44 = name;
+  while (1)
+  {
+    if ((*&v5 & 0x100000) != 0)
+    {
+      v22 = v19 + ~v20;
+    }
+
+    else
+    {
+      v22 = v20;
+    }
+
+    entry = X509_NAME_get_entry(name, v22);
+    v24 = entry;
+    if (v21 == -1)
+    {
+      goto LABEL_32;
+    }
+
+    if (v21 != X509_NAME_ENTRY_set(entry))
+    {
+      break;
+    }
+
+    if (!a1(a2, v46, v47))
+    {
+      return 0xFFFFFFFFLL;
+    }
+
+    LODWORD(v13) = v13 + v47;
+LABEL_32:
+    v21 = X509_NAME_ENTRY_set(v24);
+    object = X509_NAME_ENTRY_get_object(v24);
+    data = X509_NAME_ENTRY_get_data(v24);
+    v28 = OBJ_obj2nid(object);
+    v29 = v28;
+    if (v51 != 6291456)
+    {
+      v49 = data;
+      if (v51 == 0x400000 || !v28)
+      {
+        v30 = buf;
+        OBJ_obj2txt(buf, 80, object, 1);
+        v31 = 0;
+      }
+
+      else if (v51 == 0x200000)
+      {
+        v30 = OBJ_nid2ln(v28);
+        v31 = 25;
+      }
+
+      else if (v51)
+      {
+        v31 = 0;
+        v30 = "";
+      }
+
+      else
+      {
+        v30 = OBJ_nid2sn(v28);
+        v31 = 10;
+      }
+
+      v32 = strlen(v30);
+      if (!a1(a2, v30, v32))
+      {
+        return 0xFFFFFFFFLL;
+      }
+
+      if ((v5 & 0x2000000) != 0)
+      {
+        v33 = __OFSUB__(v31, v32);
+        v34 = v31 - v32;
+        if (!((v34 < 0) ^ v33 | (v34 == 0)))
+        {
+          v35 = v34;
+          if (v34 >= 1)
+          {
+            while (a1(a2, " ", 1))
+            {
+              if (!--v35)
+              {
+                goto LABEL_47;
+              }
+            }
+
+            return 0xFFFFFFFFLL;
+          }
+
+LABEL_47:
+          LODWORD(v13) = v34 + v13;
+        }
+      }
+
+      name = v44;
+      if (!a1(a2, v48, v43))
+      {
+        return 0xFFFFFFFFLL;
+      }
+
+      LODWORD(v13) = v43 + v32 + v13;
+      data = v49;
+    }
+
+    if (v29)
+    {
+      v36 = 1;
+    }
+
+    else
+    {
+      v36 = (v5 & 0x1000000) == 0;
+    }
+
+    v37 = 128;
+    if (v36)
+    {
+      v37 = 0;
+    }
+
+    v38 = do_print_ex(a1, a2, v37 | v5, data);
+    if (v38 < 0)
+    {
+      return 0xFFFFFFFFLL;
+    }
+
+    v13 = (v38 + v13);
+    ++v20;
+    v19 = v50;
+    if (v20 == v50)
+    {
+      return v13;
+    }
+  }
+
+  if (!a1(a2, v45, v41))
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v25 = v42;
+  if (!v42)
+  {
+LABEL_31:
+    LODWORD(v13) = v40 + v13;
+    goto LABEL_32;
+  }
+
+  while (a1(a2, " ", 1))
+  {
+    if (!--v25)
+    {
+      goto LABEL_31;
+    }
+  }
+
+  return 0xFFFFFFFFLL;
+}
+
+int X509_NAME_print_ex_fp(FILE *fp, X509_NAME *nm, int indent, unint64_t flags)
+{
+  if (flags)
+  {
+
+    return do_name_ex(send_fp_chars, fp, nm, indent, flags);
+  }
+
+  else
+  {
+    v7 = BIO_new_fp(fp, 0);
+    if (v7)
+    {
+      v8 = v7;
+      v9 = X509_NAME_print(v7, nm, indent);
+      BIO_free(v8);
+      return v9;
+    }
+
+    else
+    {
+      return -1;
+    }
+  }
+}
+
+uint64_t do_print_ex(unsigned int (*a1)(uint64_t, const char *, size_t), uint64_t a2, __int16 a3, unsigned int *a4)
+{
+  v8 = 0;
+  v25 = 0;
+  v9 = a4[1];
+  if ((a3 & 0x40) != 0)
+  {
+    v10 = ASN1_tag2str(a4[1]);
+    v11 = strlen(v10);
+    if (!a1(a2, v10, v11))
+    {
+      return 0xFFFFFFFFLL;
+    }
+
+    v12 = a1(a2, ":", 1);
+    v8 = v12 ? v11 + 1 : v11;
+    if (!v12)
+    {
+      return 0xFFFFFFFFLL;
+    }
+  }
+
+  if ((a3 & 0x80) != 0)
+  {
+    goto LABEL_28;
+  }
+
+  if ((a3 & 0x20) != 0)
+  {
+LABEL_13:
+    v14 = 9;
+    v13 = 1;
+    goto LABEL_14;
+  }
+
+  v13 = asn1_tag2charwidth(v9);
+  if (v13 == -1)
+  {
+    if ((a3 & 0x100) == 0)
+    {
+      goto LABEL_13;
+    }
+
+LABEL_28:
+    if (a1(a2, "#", 1))
+    {
+      if ((a3 & 0x200) != 0)
+      {
+        v20 = a4[1];
+        *(&a.type + 1) = 0;
+        a.value.ptr = a4;
+        a.type = v20;
+        v21 = i2d_ASN1_TYPE(&a, 0);
+        v22 = malloc_type_malloc(v21, 0x716207F2uLL);
+        if (v22)
+        {
+          v23 = v22;
+          out = v22;
+          i2d_ASN1_TYPE(&a, &out);
+          v19 = do_hex_dump(a1, a2, v23, v21);
+          free(v23);
+          if ((v19 & 0x80000000) == 0)
+          {
+            return (v8 + v19 + 1);
+          }
+        }
+      }
+
+      else
+      {
+        v18 = do_hex_dump(a1, a2, *(a4 + 1), *a4);
+        if ((v18 & 0x80000000) == 0)
+        {
+          v19 = v18;
+          return (v8 + v19 + 1);
+        }
+      }
+    }
+
+    return 0xFFFFFFFFLL;
+  }
+
+  v14 = v13 | 8;
+  if (!v13)
+  {
+    v14 = 1;
+  }
+
+LABEL_14:
+  if ((a3 & 0x10) != 0)
+  {
+    v15 = v14;
+  }
+
+  else
+  {
+    v15 = v13;
+  }
+
+  v16 = do_buf(*(a4 + 1), *a4, v15, a3 & 0xF, &v25, a1, 0);
+  if (v16 < 0)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v17 = v25 ? (v16 + v8 + 2) : (v16 + v8);
+  if (a2 && (v25 && !a1(a2, "", 1) || (do_buf(*(a4 + 1), *a4, v15, a3 & 0xF, 0, a1, a2) & 0x80000000) != 0 || v25 && !a1(a2, "", 1)))
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  return v17;
+}
+
+uint64_t do_buf(unsigned __int8 *str, int a2, uint64_t a3, char a4, _BYTE *a5, unsigned int (*a6)(uint64_t, char *, uint64_t), uint64_t a7)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v7 = a3;
+  v8 = a3 & 7;
+  v9 = 0xFFFFFFFFLL;
+  if (v8 <= 4 && v8 != 3)
+  {
+    v14 = str;
+    v9 = 0;
+    val = 0;
+    v15 = str;
+    v36 = &str[a2];
+    v34 = a3 & 7;
+    do
+    {
+      if (v15 != v14 || (a4 & 1) == 0)
+      {
+        v17 = 0;
+      }
+
+      else
+      {
+        v17 = 32;
+      }
+
+      switch(v8)
+      {
+        case 1u:
+          v23 = *v15++;
+          val = v23;
+          break;
+        case 2u:
+          v22 = *v15;
+          val = *v15 << 8;
+          val = v15[1] | (v22 << 8);
+          if ((v22 & 0xF8) == 0xD8)
+          {
+            return 0xFFFFFFFFLL;
+          }
+
+          v15 += 2;
+          break;
+        case 4u:
+          val = *v15 << 24;
+          v18 = val | (v15[1] << 16);
+          val = v18;
+          v19 = v18 | (v15[2] << 8);
+          val = v19;
+          val = v19 | v15[3];
+          v20 = v19 & 0x1FF800;
+          if (v18 >> 16 > 0x10 || v20 == 55296)
+          {
+            return 0xFFFFFFFFLL;
+          }
+
+          v15 += 4;
+          break;
+        default:
+          v24 = UTF8_getc(v15, v36 - v15, &val);
+          if ((v24 & 0x80000000) != 0)
+          {
+            return 0xFFFFFFFFLL;
+          }
+
+          v15 += v24;
+          break;
+      }
+
+      if (v15 == v36 && (a4 & 1) != 0)
+      {
+        v17 = 64;
+      }
+
+      if ((v7 & 8) != 0)
+      {
+        v27 = v7;
+        v28 = UTF8_putc(stra, 6, val);
+        if ((v28 & 0x80000000) != 0)
+        {
+          return 0xFFFFFFFFLL;
+        }
+
+        if (v28)
+        {
+          v29 = v28;
+          v30 = stra;
+          do
+          {
+            v31 = *v30++;
+            v32 = do_esc_char(v31, v17 | a4, a5, a6, a7);
+            if (v32 < 0)
+            {
+              return 0xFFFFFFFFLL;
+            }
+
+            v9 = (v32 + v9);
+          }
+
+          while (--v29);
+        }
+
+        v7 = v27;
+        v14 = str;
+        v8 = v34;
+      }
+
+      else
+      {
+        v26 = do_esc_char(val, v17 | a4, a5, a6, a7);
+        if (v26 < 0)
+        {
+          return 0xFFFFFFFFLL;
+        }
+
+        v9 = (v26 + v9);
+      }
+    }
+
+    while (v15 != v36);
+  }
+
+  return v9;
+}
+
+uint64_t do_hex_dump(unsigned int (*a1)(uint64_t, _BYTE *, uint64_t), uint64_t a2, unsigned __int8 *a3, int a4)
+{
+  if (!a2 || !a4)
+  {
+    return (2 * a4);
+  }
+
+  v8 = a4;
+  while (1)
+  {
+    v9 = *a3;
+    v11[0] = do_hex_dump_hexdig[v9 >> 4];
+    v11[1] = do_hex_dump_hexdig[v9 & 0xF];
+    if (!a1(a2, v11, 2))
+    {
+      break;
+    }
+
+    ++a3;
+    if (!--v8)
+    {
+      return (2 * a4);
+    }
+  }
+
+  return 0xFFFFFFFFLL;
+}
+
+uint64_t do_esc_char(unint64_t a1, char a2, _BYTE *a3, unsigned int (*a4)(uint64_t, char *, uint64_t), uint64_t a5)
+{
+  v15 = *MEMORY[0x277D85DE8];
+  if (HIDWORD(a1))
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  if (a1 >= 0x10000)
+  {
+    snprintf(__str, 0x13uLL, "\\W%08lX", a1);
+    v8 = 10;
+    v9 = __str;
+    v10 = a5;
+    v11 = 10;
+    goto LABEL_7;
+  }
+
+  if (a1 >= 0x100)
+  {
+    snprintf(__str, 0x13uLL, "\\U%04lX", a1);
+    v8 = 6;
+    v9 = __str;
+    v10 = a5;
+    v11 = 6;
+    goto LABEL_7;
+  }
+
+  v13 = a1;
+  if (a1 < 0x80)
+  {
+    v12 = char_type[a1] & a2;
+  }
+
+  else
+  {
+    v12 = a2 & 4;
+  }
+
+  if ((v12 & 0x61) == 0)
+  {
+    if ((v12 & 6) != 0)
+    {
+      snprintf(__str, 0x13uLL, "\\%02X", a1);
+      v8 = 3;
+      v9 = __str;
+      v10 = a5;
+      v11 = 3;
+    }
+
+    else
+    {
+      if (a1 != 92 || (a2 & 0xF) == 0)
+      {
+LABEL_24:
+        if (a4(a5, &v13, 1))
+        {
+          return 1;
+        }
+
+        else
+        {
+          return 0xFFFFFFFFLL;
+        }
+      }
+
+      v9 = "\\\"";
+      v8 = 2;
+      v10 = a5;
+      v11 = 2;
+    }
+
+LABEL_7:
+    if (a4(v10, v9, v11))
+    {
+      return v8;
+    }
+
+    else
+    {
+      return 0xFFFFFFFFLL;
+    }
+  }
+
+  if ((v12 & 8) != 0)
+  {
+    if (a3)
+    {
+      *a3 = 1;
+    }
+
+    goto LABEL_24;
+  }
+
+  if (!a4(a5, "\"", 1))
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  if (a4(a5, &v13, 1))
+  {
+    return 2;
+  }
+
+  else
+  {
+    return 0xFFFFFFFFLL;
+  }
+}
+
+char *CRYPTO_ctr128_encrypt(char *result, _BYTE *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int *a7, uint64_t (*a8)(uint64_t, uint64_t, uint64_t))
+{
+  v14 = result;
+  v15 = *a7;
+  if (*a7)
+  {
+    v16 = a3 == 0;
+  }
+
+  else
+  {
+    v16 = 1;
+  }
+
+  if (v16)
+  {
+    v17 = a3;
+  }
+
+  else
+  {
+    do
+    {
+      v18 = *v14++;
+      *a2++ = *(a6 + v15) ^ v18;
+      v17 = a3 - 1;
+      v15 = (v15 + 1) & 0xF;
+      if (!v15)
+      {
+        break;
+      }
+
+      --a3;
+    }
+
+    while (a3);
+  }
+
+  if (v17 < 0x10)
+  {
+    v23 = v15;
+    if (!v17)
+    {
+      goto LABEL_25;
+    }
+
+    goto LABEL_21;
+  }
+
+  do
+  {
+    result = a8(a5, a6, a4);
+    v19 = 15;
+    do
+    {
+      v20 = *(a5 + v19) + 1;
+      *(a5 + v19) = v20;
+      if (!v19)
+      {
+        break;
+      }
+
+      --v19;
+    }
+
+    while (!v20);
+    if (v15 <= 0xF)
+    {
+      v21 = v15;
+      do
+      {
+        *&a2[v21] = *(a6 + v21) ^ *&v14[v21];
+        v22 = v21 >= 8;
+        v21 += 8;
+      }
+
+      while (!v22);
+    }
+
+    v15 = 0;
+    v23 = 0;
+    v17 -= 16;
+    a2 += 16;
+    v14 += 16;
+  }
+
+  while (v17 > 0xF);
+  if (v17)
+  {
+LABEL_21:
+    result = a8(a5, a6, a4);
+    v24 = 15;
+    do
+    {
+      v25 = *(a5 + v24) + 1;
+      *(a5 + v24) = v25;
+      if (!v24)
+      {
+        break;
+      }
+
+      --v24;
+    }
+
+    while (!v25);
+    do
+    {
+      a2[v23] = *(a6 + v23) ^ v14[v23];
+      ++v23;
+      --v17;
+    }
+
+    while (v17);
+  }
+
+LABEL_25:
+  *a7 = v23;
+  return result;
+}
+
+char *CRYPTO_ctr128_encrypt_ctr32(char *result, _BYTE *a2, unint64_t a3, uint64_t a4, uint64_t a5, void *a6, unsigned int *a7, uint64_t (*a8)(char *, _BYTE *, unint64_t, uint64_t, uint64_t))
+{
+  v12 = result;
+  v13 = *a7;
+  if (*a7)
+  {
+    v14 = a3 == 0;
+  }
+
+  else
+  {
+    v14 = 1;
+  }
+
+  if (v14)
+  {
+    v15 = a3;
+  }
+
+  else
+  {
+    do
+    {
+      v16 = *v12++;
+      *a2++ = *(a6 + v13) ^ v16;
+      v15 = a3 - 1;
+      v13 = (v13 + 1) & 0xF;
+      if (!v13)
+      {
+        break;
+      }
+
+      --a3;
+    }
+
+    while (a3);
+  }
+
+  v17 = bswap32(*(a5 + 12));
+  if (v15 >= 0x10)
+  {
+    do
+    {
+      v18 = v15 >> 4;
+      if (v15 >> 4 >= 0x10000000)
+      {
+        v18 = 0x10000000;
+      }
+
+      v19 = v17 + v18;
+      if (v18 <= v19)
+      {
+        v17 += v18;
+      }
+
+      else
+      {
+        v17 = 0;
+      }
+
+      if (v18 <= v19)
+      {
+        v19 = 0;
+      }
+
+      v20 = v18 - v19;
+      result = a8(v12, a2, v18 - v19, a4, a5);
+      *(a5 + 12) = bswap32(v17);
+      if (!v17)
+      {
+        v21 = 11;
+        do
+        {
+          v22 = *(a5 + v21) + 1;
+          *(a5 + v21) = v22;
+          if (!v21)
+          {
+            break;
+          }
+
+          --v21;
+        }
+
+        while (!v22);
+      }
+
+      v15 -= 16 * v20;
+      a2 += 16 * v20;
+      v12 += 16 * v20;
+    }
+
+    while (v15 > 0xF);
+  }
+
+  if (v15)
+  {
+    *a6 = 0;
+    a6[1] = 0;
+    result = a8(a6, a6, 1uLL, a4, a5);
+    *(a5 + 12) = bswap32(v17 + 1);
+    if (v17 == -1)
+    {
+      v23 = 11;
+      do
+      {
+        v24 = *(a5 + v23) + 1;
+        *(a5 + v23) = v24;
+        if (!v23)
+        {
+          break;
+        }
+
+        --v23;
+      }
+
+      while (!v24);
+    }
+
+    do
+    {
+      a2[v13] = *(a6 + v13) ^ v12[v13];
+      ++v13;
+      --v15;
+    }
+
+    while (v15);
+  }
+
+  *a7 = v13;
+  return result;
+}
+
+void ERR_load_GOST_strings()
+{
+  if (!ERR_func_error_string(GOST_str_functs))
+  {
+    ERR_load_strings(0, &GOST_str_functs);
+
+    ERR_load_strings(0, &GOST_str_reasons);
+  }
+}
+
+double x509_constraints_name_clear(uint64_t a1)
+{
+  free(*(a1 + 8));
+  free(*(a1 + 16));
+  free(*(a1 + 24));
+  result = 0.0;
+  *(a1 + 48) = 0u;
+  *(a1 + 64) = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *a1 = 0u;
+  return result;
+}
+
+void x509_constraints_name_free(void *a1)
+{
+  if (a1)
+  {
+    x509_constraints_name_clear(a1);
+
+    free(a1);
+  }
+}
+
+uint64_t x509_constraints_name_dup(uint64_t a1)
+{
+  v2 = malloc_type_calloc(1uLL, 0x50uLL, 0x1010040B88FB30EuLL);
+  v3 = v2;
+  if (v2)
+  {
+    *v2 = *a1;
+    v2[10] = *(a1 + 40);
+    v4 = *(a1 + 32);
+    *(v3 + 32) = v4;
+    if (v4)
+    {
+      v5 = malloc_type_malloc(v4, 0x8AB3AE71uLL);
+      *(v3 + 24) = v5;
+      if (!v5)
+      {
+        goto LABEL_10;
+      }
+
+      memcpy(v5, *(a1 + 24), *(a1 + 32));
+    }
+
+    v6 = *(a1 + 8);
+    if (!v6 || (v7 = strdup(v6), (*(v3 + 8) = v7) != 0))
+    {
+      v8 = *(a1 + 16);
+      if (!v8 || (v9 = strdup(v8), (*(v3 + 16) = v9) != 0))
+      {
+        v10 = *(a1 + 44);
+        *(v3 + 60) = *(a1 + 60);
+        *(v3 + 44) = v10;
+        return v3;
+      }
+    }
+
+LABEL_10:
+    x509_constraints_name_clear(v3);
+    free(v3);
+    return 0;
+  }
+
+  return v3;
+}
+
+void *x509_constraints_names_new(uint64_t a1)
+{
+  result = malloc_type_calloc(1uLL, 0x20uLL, 0x1080040ABB4582EuLL);
+  if (result)
+  {
+    result[3] = a1;
+  }
+
+  return result;
+}
+
+double x509_constraints_names_clear(uint64_t a1)
+{
+  v2 = *(a1 + 8);
+  if (v2)
+  {
+    for (i = 0; i < v2; ++i)
+    {
+      v4 = *(*a1 + 8 * i);
+      if (v4)
+      {
+        x509_constraints_name_clear(*(*a1 + 8 * i));
+        free(v4);
+        v2 = *(a1 + 8);
+      }
+    }
+  }
+
+  free(*a1);
+  result = 0.0;
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  return result;
+}
+
+void x509_constraints_names_free(void *a1)
+{
+  if (a1)
+  {
+    x509_constraints_names_clear(a1);
+
+    free(a1);
+  }
+}
+
+char *x509_constraints_names_add(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 8);
+  if (v3 >= *(a1 + 24))
+  {
+    return 0;
+  }
+
+  v5 = *(a1 + 16);
+  result = *a1;
+  if (v3 == v5)
+  {
+    result = recallocarray(result, v3, v3 + 32, 8uLL);
+    if (!result)
+    {
+      return result;
+    }
+
+    v3 = *(a1 + 8);
+    *(a1 + 16) += 32;
+    *a1 = result;
+  }
+
+  *&result[8 * v3] = a2;
+  *(a1 + 8) = v3 + 1;
+  return 1;
+}
+
+void *x509_constraints_names_dup(void *a1)
+{
+  if (!a1)
+  {
+    return 0;
+  }
+
+  v2 = a1[3];
+  v3 = malloc_type_calloc(1uLL, 0x20uLL, 0x1080040ABB4582EuLL);
+  v4 = v3;
+  if (v3)
+  {
+    *(v3 + 3) = v2;
+    if (a1[1])
+    {
+      v5 = 0;
+      while (1)
+      {
+        v6 = x509_constraints_name_dup(*(*a1 + 8 * v5));
+        if (!v6)
+        {
+          x509_constraints_names_clear(v4);
+          v7 = v4;
+          goto LABEL_12;
+        }
+
+        v7 = v6;
+        if (!x509_constraints_names_add(v4, v6))
+        {
+          break;
+        }
+
+        if (++v5 >= a1[1])
+        {
+          return v4;
+        }
+      }
+
+      x509_constraints_names_clear(v4);
+      free(v4);
+      x509_constraints_name_clear(v7);
+LABEL_12:
+      free(v7);
+      return 0;
+    }
+  }
+
+  return v4;
 }

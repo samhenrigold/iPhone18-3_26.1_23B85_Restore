@@ -432,61 +432,61 @@ void __94__PLCameraCaptureTaskConstraintCoordinator__deactivateCameraSessionTask
   dispatch_sync(activationQueue, block);
 }
 
-uint64_t __82__PLCameraCaptureTaskConstraintCoordinator_deactivateCameraSessionTaskConstraints__block_invoke(uint64_t a1)
+uint64_t __82__PLCameraCaptureTaskConstraintCoordinator_deactivateCameraSessionTaskConstraints__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  if (!*(v2 + 32))
+  v20 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 32);
+  if (!*(v3 + 32))
   {
-    v3 = PLCameraTaskConstraintsGetLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = PLCameraTaskConstraintsGetLog();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      v4 = *(a1 + 32);
-      v15 = 138543362;
-      v16 = v4;
-      _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_FAULT, "%{public}@: deactivate camera session with no active transaction", &v15, 0xCu);
+      v5 = *(a1 + 32);
+      v16 = 138543362;
+      v17 = v5;
+      _os_log_impl(&dword_19BF1F000, v4, OS_LOG_TYPE_FAULT, "%{public}@: deactivate camera session with no active transaction", &v16, 0xCu);
     }
 
-    v2 = *(a1 + 32);
+    v3 = *(a1 + 32);
   }
 
-  v5 = *(v2 + 80);
-  v6 = PLCameraTaskConstraintsGetLog();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (v5 == 2)
+  v6 = *(v3 + 80);
+  v7 = PLCameraTaskConstraintsGetLog();
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if (v6 == 2)
   {
-    v8 = 2.0;
-    if (v7)
+    v9 = 2.0;
+    if (v8)
     {
-      v9 = *(a1 + 32);
-      v15 = 138543618;
-      v16 = v9;
-      v17 = 2048;
-      v18 = 0x4000000000000000;
-      v10 = "%{public}@: deactivating camera session task constraints after %1.1f delay";
-      v11 = v6;
-      v12 = 22;
+      v10 = *(a1 + 32);
+      v16 = 138543618;
+      v17 = v10;
+      v18 = 2048;
+      v19 = 0x4000000000000000;
+      v11 = "%{public}@: deactivating camera session task constraints after %1.1f delay";
+      v12 = v7;
+      v13 = 22;
 LABEL_10:
-      _os_log_impl(&dword_19BF1F000, v11, OS_LOG_TYPE_DEFAULT, v10, &v15, v12);
+      _os_log_impl(&dword_19BF1F000, v12, OS_LOG_TYPE_DEFAULT, v11, &v16, v13);
     }
   }
 
   else
   {
-    v8 = 0.0;
-    if (v7)
+    v9 = 0.0;
+    if (v8)
     {
-      v13 = *(a1 + 32);
-      v15 = 138543362;
-      v16 = v13;
-      v10 = "%{public}@: deactivating camera session task constraints";
-      v11 = v6;
-      v12 = 12;
+      v14 = *(a1 + 32);
+      v16 = 138543362;
+      v17 = v14;
+      v11 = "%{public}@: deactivating camera session task constraints";
+      v12 = v7;
+      v13 = 12;
       goto LABEL_10;
     }
   }
 
-  return [*(a1 + 32) _deactivateCameraSessionTaskConstraintsAfterDelay:v8];
+  return [*(a1 + 32) _deactivateCameraSessionTaskConstraintsAfterDelay:v9];
 }
 
 - (id)sessionStatusDescription

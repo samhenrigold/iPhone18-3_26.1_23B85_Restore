@@ -78,7 +78,7 @@
 
 id __64__CADDefaultPermissionValidator_hasCalendarTCCBypassEntitlement__block_invoke_2(int a1, void *cf)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (cf && (v3 = CFGetTypeID(cf), v3 == CFArrayGetTypeID()))
   {
     v4 = cf;
@@ -89,28 +89,28 @@ id __64__CADDefaultPermissionValidator_hasCalendarTCCBypassEntitlement__block_in
     v4 = MEMORY[0x277CBEBF8];
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v18;
+    v9 = *v17;
     v10 = MEMORY[0x277D6C118];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         v13 = CFGetTypeID(v12);
         if (v13 == CFStringGetTypeID())
         {
@@ -118,7 +118,7 @@ id __64__CADDefaultPermissionValidator_hasCalendarTCCBypassEntitlement__block_in
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
@@ -129,16 +129,14 @@ id __64__CADDefaultPermissionValidator_hasCalendarTCCBypassEntitlement__block_in
     v8 = 0;
   }
 
-  v14 = [MEMORY[0x277CCABB0] numberWithBool:{v8 & 1, v17}];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = [MEMORY[0x277CCABB0] numberWithBool:{v8 & 1, v16}];
 
   return v14;
 }
 
 id __64__CADDefaultPermissionValidator_hasCalendarTCCBypassEntitlement__block_invoke(int a1, void *cf)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (cf && (v3 = CFGetTypeID(cf), v3 == CFArrayGetTypeID()))
   {
     v4 = cf;
@@ -149,28 +147,28 @@ id __64__CADDefaultPermissionValidator_hasCalendarTCCBypassEntitlement__block_in
     v4 = MEMORY[0x277CBEBF8];
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v18;
+    v9 = *v17;
     v10 = MEMORY[0x277D6C118];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         v13 = CFGetTypeID(v12);
         if (v13 == CFStringGetTypeID())
         {
@@ -178,7 +176,7 @@ id __64__CADDefaultPermissionValidator_hasCalendarTCCBypassEntitlement__block_in
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
@@ -189,9 +187,7 @@ id __64__CADDefaultPermissionValidator_hasCalendarTCCBypassEntitlement__block_in
     v8 = 0;
   }
 
-  v14 = [MEMORY[0x277CCABB0] numberWithBool:{v8 & 1, v17}];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = [MEMORY[0x277CCABB0] numberWithBool:{v8 & 1, v16}];
 
   return v14;
 }
@@ -231,7 +227,7 @@ id __64__CADDefaultPermissionValidator_hasCalendarTCCBypassEntitlement__block_in
   v5 = [CADAuditTokenTCCPermissionChecker alloc];
   if (identityCopy)
   {
-    [identityCopy auditToken];
+    objc_msgSend_auditToken(identityCopy);
   }
 
   else
@@ -319,7 +315,7 @@ uint64_t __84__CADDefaultPermissionValidator_shouldTrustClientEnforcedManagedCon
 
 - (id)_valueForEntitlement:(id)entitlement loadBlock:(id)block
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   entitlementCopy = entitlement;
   blockCopy = block;
   os_unfair_lock_lock(&self->_lock);
@@ -331,7 +327,7 @@ uint64_t __84__CADDefaultPermissionValidator_shouldTrustClientEnforcedManagedCon
     v11 = WeakRetained;
     if (WeakRetained)
     {
-      [WeakRetained auditToken];
+      objc_msgSend_auditToken(WeakRetained);
     }
 
     else
@@ -373,8 +369,6 @@ uint64_t __84__CADDefaultPermissionValidator_shouldTrustClientEnforcedManagedCon
   {
     CFRelease(v12);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

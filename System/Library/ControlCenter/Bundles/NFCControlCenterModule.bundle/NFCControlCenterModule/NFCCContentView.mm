@@ -2,9 +2,11 @@
 - (NFCCContentView)initWithFrame:(CGRect)frame;
 - (NFCCContentViewDelegate)delegate;
 - (double)preferredExpandedContentHeightForWidth:(double)width;
+- (void)_moduleStateDidChangeAnimated:(BOOL)animated;
 - (void)_setUp;
 - (void)_setUpSettingsViewIfNeeded;
 - (void)_turnOnNFCButtonTapped;
+- (void)setModuleState:(int64_t)state animated:(BOOL)animated;
 - (void)updateOrientationIfNeeded;
 @end
 
@@ -143,6 +145,41 @@
 {
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained turnOnNFCButtonTapped];
+}
+
+- (void)setModuleState:(int64_t)state animated:(BOOL)animated
+{
+  if (self->_moduleState != state)
+  {
+    self->_moduleState = state;
+    [(NFCCContentView *)self _moduleStateDidChangeAnimated:animated];
+  }
+}
+
+- (void)_moduleStateDidChangeAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  [(NFCCStatusView *)self->_statusView setModuleState:self->_moduleState animated:animated];
+  if (self->_moduleState == 5)
+  {
+    [(NFCCContentView *)self _setUpSettingsViewIfNeeded];
+  }
+
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_443C;
+  v6[3] = &unk_C380;
+  v6[4] = self;
+  v5 = objc_retainBlock(v6);
+  if (animatedCopy)
+  {
+    [UIView _animateUsingSpringInteractive:0 animations:v5 completion:0];
+  }
+
+  else
+  {
+    [UIView _performWithoutRetargetingAnimations:v5];
+  }
 }
 
 - (NFCCContentViewDelegate)delegate

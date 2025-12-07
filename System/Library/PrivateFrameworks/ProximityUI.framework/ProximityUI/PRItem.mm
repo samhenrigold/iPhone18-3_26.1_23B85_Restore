@@ -1,9 +1,21 @@
 @interface PRItem
++ (id)itemWithUUID:(id)d productUUID:(id)iD isOwned:(BOOL)owned;
++ (id)itemWithUUID:(id)d productUUID:(id)iD isOwned:(BOOL)owned requiresLowerRangingFrequency:(BOOL)frequency;
 - (PRItem)initWithUUID:(id)d productUUID:(id)iD isOwned:(BOOL)owned;
 - (PRItem)initWithUUID:(id)d productUUID:(id)iD isOwned:(BOOL)owned requiresLowerRangingFrequency:(BOOL)frequency;
 @end
 
 @implementation PRItem
+
++ (id)itemWithUUID:(id)d productUUID:(id)iD isOwned:(BOOL)owned
+{
+  ownedCopy = owned;
+  iDCopy = iD;
+  dCopy = d;
+  v9 = [[PRItem alloc] initWithUUID:dCopy productUUID:iDCopy isOwned:ownedCopy requiresLowerRangingFrequency:0];
+
+  return v9;
+}
 
 - (PRItem)initWithUUID:(id)d productUUID:(id)iD isOwned:(BOOL)owned
 {
@@ -22,6 +34,17 @@
   }
 
   return v12;
+}
+
++ (id)itemWithUUID:(id)d productUUID:(id)iD isOwned:(BOOL)owned requiresLowerRangingFrequency:(BOOL)frequency
+{
+  frequencyCopy = frequency;
+  ownedCopy = owned;
+  iDCopy = iD;
+  dCopy = d;
+  v11 = [[PRItem alloc] initWithUUID:dCopy productUUID:iDCopy isOwned:ownedCopy requiresLowerRangingFrequency:frequencyCopy];
+
+  return v11;
 }
 
 - (PRItem)initWithUUID:(id)d productUUID:(id)iD isOwned:(BOOL)owned requiresLowerRangingFrequency:(BOOL)frequency

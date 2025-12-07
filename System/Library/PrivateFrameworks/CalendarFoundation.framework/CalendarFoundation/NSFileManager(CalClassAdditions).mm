@@ -41,11 +41,11 @@
 
 - (char)makeUniqueDirectoryWithPath:()CalClassAdditions
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (([self fileExistsAtPath:v4] & 1) != 0 || !objc_msgSend(self, "makeCompletePath:mode:", v4, 448) || (v5 = v4) == 0)
   {
-    strcpy(v19, ".tmp.XXXXXX");
+    strcpy(v18, ".tmp.XXXXXX");
     currentThread = [MEMORY[0x1E696AF00] currentThread];
     v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"-T%p", currentThread];
     uTF8String = [v7 UTF8String];
@@ -100,8 +100,6 @@
       v5 = 0;
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -198,7 +196,7 @@ LABEL_15:
     goto LABEL_25;
   }
 
-  v35 = selfCopy;
+  v34 = selfCopy;
   filename = [v10 filename];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v14 = [defaultManager CalTemporaryDirectoryAppropriateForURL:v8];
@@ -284,8 +282,8 @@ LABEL_15:
 
         else
         {
-          v34 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSData *_archiveForURL(__strong id, NSURL *__strong, BOOL, NSError *__autoreleasing *)"}];
-          NSLog(&cfstr_UnableToOpenWr.isa, v34, v24);
+          v33 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSData *_archiveForURL(__strong id, NSURL *__strong, BOOL, NSError *__autoreleasing *)"}];
+          NSLog(&cfstr_UnableToOpenWr.isa, v33, v24);
 
           v29 = 0;
         }
@@ -314,10 +312,8 @@ LABEL_23:
 
 LABEL_24:
 
-  selfCopy = v35;
+  selfCopy = v34;
 LABEL_25:
-
-  v32 = *MEMORY[0x1E69E9840];
 
   return v29;
 }
@@ -379,13 +375,12 @@ LABEL_25:
 
 - (void)CalTemporaryDirectoryAppropriateForURL:()CalClassAdditions .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1B990D000, log, OS_LOG_TYPE_ERROR, "Error finding temporary directory appropriate for %@: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1B990D000, log, OS_LOG_TYPE_ERROR, "Error finding temporary directory appropriate for %@: %@", &v3, 0x16u);
 }
 
 @end

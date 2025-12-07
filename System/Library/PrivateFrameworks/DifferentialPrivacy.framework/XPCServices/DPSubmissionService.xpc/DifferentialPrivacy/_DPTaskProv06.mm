@@ -1,6 +1,7 @@
 @interface _DPTaskProv06
 - (BOOL)validatePINEParametersWithError:(id *)error;
 - (_DPTaskProv06)initWithDonation:(id)donation leaderURL:(id)l helperURL:(id)rL error:(id *)error;
+- (id)derivedMaxBatchSizeFromDonationMetadata:(id)metadata minBatchSize:(unsigned int)size error:(id *)error;
 - (id)encodedDPConfigWithError:(id *)error;
 - (id)encodedTaskConfigWithError:(id *)error;
 - (id)encodedVDAFConfigWithEncodedDPConfig:(id)config error:(id *)error;
@@ -46,6 +47,28 @@
   }
 
   return encodedTaskConfig;
+}
+
+- (id)derivedMaxBatchSizeFromDonationMetadata:(id)metadata minBatchSize:(unsigned int)size error:(id *)error
+{
+  v6 = *&size;
+  metadataCopy = metadata;
+  v9 = [metadataCopy objectForKeyedSubscript:kDPMetadataDediscoTaskConfig];
+  v10 = [v9 objectForKeyedSubscript:kDPMetadataDediscoTaskConfigMaxBatchSize];
+
+  if (v10)
+  {
+    v13.receiver = self;
+    v13.super_class = _DPTaskProv06;
+    v11 = [(_DPTaskProv *)&v13 derivedMaxBatchSizeFromDonationMetadata:metadataCopy minBatchSize:v6 error:error];
+  }
+
+  else
+  {
+    v11 = &off_100075990;
+  }
+
+  return v11;
 }
 
 - (id)encodedDPConfigWithError:(id *)error

@@ -104,7 +104,7 @@
     [v8 getFloatValue:&v22 fromParm:3 atFxTime:info->var0.var1];
     [v8 getFloatValue:&v21 fromParm:4 atFxTime:info->var0.var1];
     [v8 mixAmountAtTime:info->var0.var1];
-    [(PAESharedDefaultBase *)self getInversePixelTransformForImage:input];
+    objc_msgSend_getInversePixelTransformForImage_(self);
     [(PAEHalftone *)self compute_2x2_matrix:v26 fromAngle:v23 andScale:v22];
     [objc_msgSend(v14 colorMatrixFromDesiredRGBToYCbCrAtTime:{info->var0.var1), "matrix"}];
     if ([(PAESharedDefaultBase *)self getRenderMode:info->var0.var1])
@@ -113,7 +113,7 @@
       {
         if (input)
         {
-          [input heliumRef];
+          objc_msgSend_heliumRef(input);
         }
 
         else

@@ -12,7 +12,7 @@
 
 - (void)eventSavedWithCreatedToSavedTimeInterval:(double)interval
 {
-  v4 = type metadata accessor for ObservabilitySignal();
+  v4 = type metadata accessor for ObservabilitySignal(0);
   __chkstk_darwin(v4);
   v6 = (&v7 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
   *v6 = interval;
@@ -25,7 +25,7 @@
 
 - (void)batchClosedWithBatchLifetime:(double)lifetime eventsCount:(int64_t)count
 {
-  v6 = type metadata accessor for ObservabilitySignal();
+  v6 = type metadata accessor for ObservabilitySignal(0);
   __chkstk_darwin(v6);
   v8 = &v9 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   *v8 = lifetime;
@@ -55,7 +55,7 @@
 
 - (void)eventCreatedWithCreationDate:(id)date
 {
-  v3 = type metadata accessor for ObservabilitySignal();
+  v3 = type metadata accessor for ObservabilitySignal(0);
   __chkstk_darwin(v3);
   v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = sub_100397748();
@@ -81,7 +81,7 @@
 
 - (void)uploadSuccess
 {
-  v2 = type metadata accessor for ObservabilitySignal();
+  v2 = type metadata accessor for ObservabilitySignal(0);
   __chkstk_darwin(v2);
   v4 = &v5 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_storeEnumTagMultiPayload();

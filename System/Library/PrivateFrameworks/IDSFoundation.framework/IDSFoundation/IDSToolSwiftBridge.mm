@@ -41,37 +41,37 @@
 
 + (NSDictionary)commandAbstractsByName
 {
-  sub_1A7D582C4();
-  v2 = sub_1A7E22160();
+  sub_1A7D582C4(v2);
+  v3 = sub_1A7E22160();
 
-  return v2;
+  return v3;
 }
 
 - (void)run:(NSArray *)run completionHandler:(id)handler
 {
-  v7 = sub_1A7CC7FFC(&unk_1EB2B61C0);
-  MEMORY[0x1EEE9AC00](v7 - 8, v8);
-  v10 = &v18 - v9;
-  v11 = _Block_copy(handler);
-  v12 = swift_allocObject();
-  v12[2] = run;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = sub_1A7E226D0();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v7 = sub_1A7CC7FFC(&unk_1EB2B61C0, &qword_1A7E451A0);
+  MEMORY[0x1EEE9AC00](v7 - 8);
+  v9 = &v17 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  v11[2] = run;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_1A7E226D0();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_1A7E4A870;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_1A7E4A870;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_1A7E48E60;
-  v15[5] = v14;
+  v14[4] = &unk_1A7E48E60;
+  v14[5] = v13;
   runCopy = run;
   selfCopy = self;
-  sub_1A7DE5274(0, 0, v10, &unk_1A7E45700, v15);
+  sub_1A7DE5274(0, 0, v9, &unk_1A7E45700, v14);
 }
 
 - (id)help:(id)help
@@ -79,20 +79,20 @@
   v4 = sub_1A7E22290();
   v6 = v5;
   selfCopy = self;
-  sub_1A7D58B30(v4, v6);
-  v9 = v8;
+  sub_1A7D58B30(v4, v6, v8);
+  v10 = v9;
 
-  if (v9)
+  if (v10)
   {
-    v10 = sub_1A7E22260();
+    v11 = sub_1A7E22260();
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (IDSToolSwiftBridge)init

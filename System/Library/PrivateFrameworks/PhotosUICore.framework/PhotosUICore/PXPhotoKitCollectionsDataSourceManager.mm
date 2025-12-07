@@ -618,7 +618,7 @@ uint64_t __97__PXPhotoKitCollectionsDataSourceManager_waitUntilBackgroundFetchin
   return v4;
 }
 
-uint64_t __75__PXPhotoKitCollectionsDataSourceManager_indexOfFirstReorderableCollection__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__75__PXPhotoKitCollectionsDataSourceManager_indexOfFirstReorderableCollection__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) canReorderCollection:a2];
   if (result)
@@ -2263,7 +2263,7 @@ uint64_t __99__PXPhotoKitCollectionsDataSourceManager__recursivelyEnumerateAsset
   return self;
 }
 
-uint64_t __71__PXPhotoKitCollectionsDataSourceManager__containsAnyAlbumsWithAssets___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__71__PXPhotoKitCollectionsDataSourceManager__containsAnyAlbumsWithAssets___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) _containsAnyAssets:a2];
   if (result)

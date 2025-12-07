@@ -107,9 +107,9 @@
   if (os_log_type_enabled(v3, v4))
   {
     attachmentUUID = self->_attachmentUUID;
-    v53 = 138412290;
-    v54 = attachmentUUID;
-    _os_log_impl(&dword_0, v3, v4, "The gatekeeper lock has been granted. Beginning save of attachment %@", &v53, 0xCu);
+    v47 = 138412290;
+    v48 = attachmentUUID;
+    _os_log_impl(&dword_0, v3, v4, "The gatekeeper lock has been granted. Beginning save of attachment %@", &v47, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_account);
@@ -126,11 +126,10 @@
   accountID2 = [v14 accountID];
   [dbHelper2 calDatabaseForAccountID:accountID2];
 
-  v16 = self->_attachmentUUID;
-  v17 = CalDatabaseCopyAttachmentFileWithUUID();
-  if (v17)
+  v16 = CalDatabaseCopyAttachmentFileWithUUID();
+  if (v16)
   {
-    v18 = v17;
+    v17 = v16;
     stringByRemovingPercentEncoding = CalAttachmentFileCopyFilename();
     if (!stringByRemovingPercentEncoding)
     {
@@ -143,14 +142,14 @@
     lowercaseString = [pathExtension lowercaseString];
 
     [(NSString *)self->_attachmentType rangeOfString:@"x-mac-auto-archive" options:1];
-    v25 = v24 != 0;
+    v24 = v23 != 0;
     IsAutoArchived = CalAttachmentFileIsAutoArchived();
     lowercaseString2 = [kCALSTR_XAPPLE_autoarchived_param lowercaseString];
-    v28 = [lowercaseString isEqualToString:lowercaseString2];
+    v27 = [lowercaseString isEqualToString:lowercaseString2];
 
-    v29 = v25 | IsAutoArchived | v28;
+    v28 = v24 | IsAutoArchived | v27;
     CalAttachmentFileSetAutoArchived();
-    if (stringByRemovingPercentEncoding && (v29 & 1) != 0 && ((v28 & 1) != 0 || [lowercaseString isEqualToString:@"zip"]))
+    if (stringByRemovingPercentEncoding && (v28 & 1) != 0 && ((v27 & 1) != 0 || [lowercaseString isEqualToString:@"zip"]))
     {
       stringByDeletingPathExtension = [stringByRemovingPercentEncoding stringByDeletingPathExtension];
 
@@ -158,12 +157,9 @@
     }
 
     CalAttachmentFileSetFilename();
-    localFilename = self->_localFilename;
     if (CalAttachmentFileSetFileData())
     {
-      attachmentType = self->_attachmentType;
       CalAttachmentFileSetFormat();
-      etag = self->_etag;
       CalAttachmentFileSetExternalModTag();
       CalAttachmentFileSetDownloadTries();
       CalDatabaseSaveWithOptions();
@@ -171,40 +167,38 @@
 
     else
     {
-      v41 = DALoggingwithCategory();
-      v42 = _CPLog_to_os_log_type[3];
-      if (os_log_type_enabled(v41, v42))
+      v37 = DALoggingwithCategory();
+      v38 = _CPLog_to_os_log_type[3];
+      if (os_log_type_enabled(v37, v38))
       {
-        v43 = self->_attachmentUUID;
-        v53 = 138412290;
-        v54 = v43;
-        _os_log_impl(&dword_0, v41, v42, "Couldn't save attachment file in the database for attachment %@", &v53, 0xCu);
+        v39 = self->_attachmentUUID;
+        v47 = 138412290;
+        v48 = v39;
+        _os_log_impl(&dword_0, v37, v38, "Couldn't save attachment file in the database for attachment %@", &v47, 0xCu);
       }
 
-      v44 = self->_attachmentType;
       CalAttachmentFileSetFormat();
-      v45 = self->_etag;
       CalAttachmentFileSetExternalModTag();
     }
 
-    CFRelease(v18);
-    v46 = objc_loadWeakRetained(&self->_account);
-    dbHelper3 = [v46 dbHelper];
-    v48 = objc_loadWeakRetained(&self->_account);
-    accountID3 = [v48 accountID];
+    CFRelease(v17);
+    v40 = objc_loadWeakRetained(&self->_account);
+    dbHelper3 = [v40 dbHelper];
+    v42 = objc_loadWeakRetained(&self->_account);
+    accountID3 = [v42 accountID];
     [dbHelper3 calCloseDatabaseForAccountID:accountID3 save:0];
 
-    v50 = DALoggingwithCategory();
-    v51 = _CPLog_to_os_log_type[7];
-    if (os_log_type_enabled(v50, v51))
+    v44 = DALoggingwithCategory();
+    v45 = _CPLog_to_os_log_type[7];
+    if (os_log_type_enabled(v44, v45))
     {
-      LOWORD(v53) = 0;
-      _os_log_impl(&dword_0, v50, v51, "Attachment has been saved. Releasing gatekeeper lock", &v53, 2u);
+      LOWORD(v47) = 0;
+      _os_log_impl(&dword_0, v44, v45, "Attachment has been saved. Releasing gatekeeper lock", &v47, 2u);
     }
 
     self->_holdingGatekeeperLock = 0;
-    v52 = +[DALocalDBGateKeeper sharedGateKeeper];
-    [v52 relinquishLocksForWaiter:self dataclasses:20 moreComing:0];
+    v46 = +[DALocalDBGateKeeper sharedGateKeeper];
+    [v46 relinquishLocksForWaiter:self dataclasses:20 moreComing:0];
 
     [(MobileCalDAVAttachmentDownloader *)self _didShowProgressDownloadedByteCount:self->_attachmentSize];
     [(MobileCalDAVAttachmentDownloader *)self _didFinishDownloadingWithError:0];
@@ -212,21 +206,21 @@
 
   else
   {
-    v34 = DALoggingwithCategory();
-    v35 = _CPLog_to_os_log_type[3];
-    if (os_log_type_enabled(v34, v35))
+    v30 = DALoggingwithCategory();
+    v31 = _CPLog_to_os_log_type[3];
+    if (os_log_type_enabled(v30, v31))
     {
-      LOWORD(v53) = 0;
-      _os_log_impl(&dword_0, v34, v35, "Couldn't get an attachment to set our downloaded file on", &v53, 2u);
+      LOWORD(v47) = 0;
+      _os_log_impl(&dword_0, v30, v31, "Couldn't get an attachment to set our downloaded file on", &v47, 2u);
     }
 
-    v36 = [NSError errorWithDomain:DAErrorDomain code:71 userInfo:0];
-    [(MobileCalDAVAttachmentDownloader *)self _didFinishDownloadingWithError:v36];
+    v32 = [NSError errorWithDomain:DAErrorDomain code:71 userInfo:0];
+    [(MobileCalDAVAttachmentDownloader *)self _didFinishDownloadingWithError:v32];
 
-    v37 = objc_loadWeakRetained(&self->_account);
-    dbHelper4 = [v37 dbHelper];
-    v39 = objc_loadWeakRetained(&self->_account);
-    accountID4 = [v39 accountID];
+    v33 = objc_loadWeakRetained(&self->_account);
+    dbHelper4 = [v33 dbHelper];
+    v35 = objc_loadWeakRetained(&self->_account);
+    accountID4 = [v35 accountID];
     [dbHelper4 calCloseDatabaseForAccountID:accountID4 save:0];
 
     self->_holdingGatekeeperLock = 0;
@@ -425,202 +419,200 @@ LABEL_22:
   accountID2 = [v11 accountID];
   [dbHelper2 calDatabaseForAccountID:accountID2];
 
-  attachmentUUID = self->_attachmentUUID;
-  v14 = CalDatabaseCopyAttachmentFileWithUUID();
-  if (!v14)
+  v13 = CalDatabaseCopyAttachmentFileWithUUID();
+  if (!v13)
   {
-    v16 = [NSError errorWithDomain:DAErrorDomain code:71 userInfo:0];
-    [(MobileCalDAVAttachmentDownloader *)self _didFinishDownloadingWithError:v16];
+    v15 = [NSError errorWithDomain:DAErrorDomain code:71 userInfo:0];
+    [(MobileCalDAVAttachmentDownloader *)self _didFinishDownloadingWithError:v15];
 
     goto LABEL_5;
   }
 
-  v15 = v14;
+  v14 = v13;
   if (CalAttachmentFileIsBinary())
   {
     [(MobileCalDAVAttachmentDownloader *)self _didFinishDownloadingWithError:0];
-    CFRelease(v15);
+    CFRelease(v14);
 LABEL_5:
-    v77 = objc_loadWeakRetained(&self->_account);
-    dbHelper3 = [v77 dbHelper];
-    v18 = objc_loadWeakRetained(&self->_account);
-    accountID3 = [v18 accountID];
+    v75 = objc_loadWeakRetained(&self->_account);
+    dbHelper3 = [v75 dbHelper];
+    v17 = objc_loadWeakRetained(&self->_account);
+    accountID3 = [v17 accountID];
     [dbHelper3 calCloseDatabaseForAccountID:accountID3 save:0];
 
     return;
   }
 
-  v20 = CalAttachmentFileCopyURL();
+  v19 = CalAttachmentFileCopyURL();
   attachmentURL = self->_attachmentURL;
-  self->_attachmentURL = v20;
+  self->_attachmentURL = v19;
 
-  v22 = self->_attachmentURL;
-  if (!v22)
+  v21 = self->_attachmentURL;
+  if (!v21)
   {
-    v31 = DALoggingwithCategory();
-    v32 = _CPLog_to_os_log_type[4];
-    if (os_log_type_enabled(v31, v32))
+    v30 = DALoggingwithCategory();
+    v31 = _CPLog_to_os_log_type[4];
+    if (os_log_type_enabled(v30, v31))
     {
-      v33 = self->_attachmentUUID;
+      attachmentUUID = self->_attachmentUUID;
       *buf = 138412290;
-      v83 = v33;
-      _os_log_impl(&dword_0, v31, v32, "We were told to download the attachment with UUID %@ but that attachment doesn't have a URL. We can't do anything", buf, 0xCu);
+      v81 = attachmentUUID;
+      _os_log_impl(&dword_0, v30, v31, "We were told to download the attachment with UUID %@ but that attachment doesn't have a URL. We can't do anything", buf, 0xCu);
     }
 
-    v34 = [NSError errorWithDomain:DAErrorDomain code:72 userInfo:0];
-    [(MobileCalDAVAttachmentDownloader *)self _didFinishDownloadingWithError:v34];
+    v33 = [NSError errorWithDomain:DAErrorDomain code:72 userInfo:0];
+    [(MobileCalDAVAttachmentDownloader *)self _didFinishDownloadingWithError:v33];
 
-    CFRelease(v15);
-    v27 = objc_loadWeakRetained(&self->_account);
-    dbHelper4 = [v27 dbHelper];
-    v36 = objc_loadWeakRetained(&self->_account);
-    accountID4 = [v36 accountID];
+    CFRelease(v14);
+    v26 = objc_loadWeakRetained(&self->_account);
+    dbHelper4 = [v26 dbHelper];
+    v35 = objc_loadWeakRetained(&self->_account);
+    accountID4 = [v35 accountID];
     [dbHelper4 calCloseDatabaseForAccountID:accountID4 save:0];
 
     goto LABEL_33;
   }
 
-  scheme = [(NSURL *)v22 scheme];
+  scheme = [(NSURL *)v21 scheme];
   lowercaseString = [scheme lowercaseString];
-  v25 = [lowercaseString hasPrefix:@"http"];
+  v24 = [lowercaseString hasPrefix:@"http"];
 
-  if (v25)
+  if (v24)
   {
-    v26 = CalAttachmentFileCopyLocalURL();
-    v27 = v26;
-    if (v26 && [v26 isFileURL])
+    v25 = CalAttachmentFileCopyLocalURL();
+    v26 = v25;
+    if (v25 && [v25 isFileURL])
     {
-      v28 = +[NSFileManager defaultManager];
-      path = [v27 path];
-      v30 = [v28 fileExistsAtPath:path];
+      v27 = +[NSFileManager defaultManager];
+      path = [v26 path];
+      v29 = [v27 fileExistsAtPath:path];
     }
 
     else
     {
-      v30 = 0;
+      v29 = 0;
     }
 
-    v46 = CalAttachmentFileCopyExternalModTag();
+    v45 = CalAttachmentFileCopyExternalModTag();
     etag = self->_etag;
-    self->_etag = v46;
+    self->_etag = v45;
 
     +[NSDate date];
     CalAttachmentFileSetDownloadStart();
     CalAttachmentFileGetDownloadTries();
     CalAttachmentFileSetDownloadTries();
-    if ((v30 & 1) == 0)
+    if ((v29 & 1) == 0)
     {
-      v48 = self->_etag;
+      v47 = self->_etag;
       self->_etag = 0;
     }
 
     bzero(buf, 0x401uLL);
     dbHelper4 = CalAttachmentFileCopyURLAppropriateForFile();
-    CFRelease(v15);
-    v49 = objc_loadWeakRetained(&self->_account);
-    dbHelper5 = [v49 dbHelper];
-    v51 = objc_loadWeakRetained(&self->_account);
-    accountID5 = [v51 accountID];
+    CFRelease(v14);
+    v48 = objc_loadWeakRetained(&self->_account);
+    dbHelper5 = [v48 dbHelper];
+    v50 = objc_loadWeakRetained(&self->_account);
+    accountID5 = [v50 accountID];
     [dbHelper5 calCloseDatabaseForAccountID:accountID5 save:1];
 
-    v53 = +[NSFileManager defaultManager];
-    v54 = [v53 CalTemporaryDirectoryAppropriateForURL:dbHelper4];
-    path2 = [v54 path];
+    v52 = +[NSFileManager defaultManager];
+    v53 = [v52 CalTemporaryDirectoryAppropriateForURL:dbHelper4];
+    path2 = [v53 path];
 
-    v56 = [path2 stringByAppendingPathComponent:@"DAAttachmentXXXXXX"];
-    [v56 UTF8String];
+    v55 = [path2 stringByAppendingPathComponent:@"DAAttachmentXXXXXX"];
+    [v55 UTF8String];
     __strlcpy_chk();
-    v57 = mkstemp(buf);
-    if ((v57 & 0x80000000) != 0)
+    v56 = mkstemp(buf);
+    if ((v56 & 0x80000000) != 0)
     {
-      v73 = DALoggingwithCategory();
-      v74 = _CPLog_to_os_log_type[3];
-      if (os_log_type_enabled(v73, v74))
+      v71 = DALoggingwithCategory();
+      v72 = _CPLog_to_os_log_type[3];
+      if (os_log_type_enabled(v71, v72))
       {
-        *v78 = 136315138;
-        v79 = buf;
-        _os_log_impl(&dword_0, v73, v74, "Couldn't create a temporary file with the format %s", v78, 0xCu);
+        *v76 = 136315138;
+        v77 = buf;
+        _os_log_impl(&dword_0, v71, v72, "Couldn't create a temporary file with the format %s", v76, 0xCu);
       }
 
-      v67 = [NSError errorWithDomain:DAErrorDomain code:73 userInfo:0];
-      [(MobileCalDAVAttachmentDownloader *)self _didFinishDownloadingWithError:v67];
+      v65 = [NSError errorWithDomain:DAErrorDomain code:73 userInfo:0];
+      [(MobileCalDAVAttachmentDownloader *)self _didFinishDownloadingWithError:v65];
     }
 
     else
     {
-      v58 = v57;
-      v59 = [NSString stringWithUTF8String:buf];
+      v57 = v56;
+      v58 = [NSString stringWithUTF8String:buf];
       localFilename = self->_localFilename;
-      self->_localFilename = v59;
+      self->_localFilename = v58;
 
-      v61 = DALoggingwithCategory();
-      v62 = _CPLog_to_os_log_type[6];
-      if (os_log_type_enabled(v61, v62))
+      v60 = DALoggingwithCategory();
+      v61 = _CPLog_to_os_log_type[6];
+      if (os_log_type_enabled(v60, v61))
       {
-        v63 = self->_attachmentURL;
-        v64 = self->_localFilename;
-        *v78 = 138412546;
+        v62 = self->_attachmentURL;
+        v63 = self->_localFilename;
+        *v76 = 138412546;
+        v77 = v62;
+        v78 = 2112;
         v79 = v63;
-        v80 = 2112;
-        v81 = v64;
-        _os_log_impl(&dword_0, v61, v62, "Downloading attachment at %@ to %@", v78, 0x16u);
+        _os_log_impl(&dword_0, v60, v61, "Downloading attachment at %@ to %@", v76, 0x16u);
       }
 
-      v65 = [NSURL fileURLWithPath:self->_localFilename];
-      v66 = self->_attachmentURL;
+      v64 = [NSURL fileURLWithPath:self->_localFilename];
       CalAttachmentPrepareFileForDownload();
 
-      v67 = [[NSFileHandle alloc] initWithFileDescriptor:v58 closeOnDealloc:1];
-      v68 = [[CalDAVGetToFileWithProgressTask alloc] initWithURL:self->_attachmentURL destinationFile:v67];
-      v69 = objc_loadWeakRetained(&self->_account);
-      principalURL = [v69 principalURL];
+      v65 = [[NSFileHandle alloc] initWithFileDescriptor:v57 closeOnDealloc:1];
+      v66 = [[CalDAVGetToFileWithProgressTask alloc] initWithURL:self->_attachmentURL destinationFile:v65];
+      v67 = objc_loadWeakRetained(&self->_account);
+      principalURL = [v67 principalURL];
 
       if ([CalAttachmentUtils attachmentURL:self->_attachmentURL matchesServerURL:principalURL])
       {
-        v71 = objc_loadWeakRetained(&self->_account);
-        mainPrincipal = [v71 mainPrincipal];
-        [(CalDAVGetToFileWithProgressTask *)v68 setAccountInfoProvider:mainPrincipal];
+        v69 = objc_loadWeakRetained(&self->_account);
+        mainPrincipal = [v69 mainPrincipal];
+        [(CalDAVGetToFileWithProgressTask *)v66 setAccountInfoProvider:mainPrincipal];
       }
 
       else
       {
-        v75 = objc_alloc_init(MobileCalDAVGenericAccountInfoProvider);
+        v73 = objc_alloc_init(MobileCalDAVGenericAccountInfoProvider);
         placeholderAccountInfoProvider = self->_placeholderAccountInfoProvider;
-        self->_placeholderAccountInfoProvider = v75;
+        self->_placeholderAccountInfoProvider = v73;
 
-        [(CalDAVGetToFileWithProgressTask *)v68 setAccountInfoProvider:self->_placeholderAccountInfoProvider];
+        [(CalDAVGetToFileWithProgressTask *)v66 setAccountInfoProvider:self->_placeholderAccountInfoProvider];
       }
 
-      [(CalDAVGetToFileWithProgressTask *)v68 setDelegate:self];
-      [(CalDAVGetToFileWithProgressTask *)v68 setDownloader:self];
-      [(CalDAVGetToFileWithProgressTask *)v68 setPreviousETag:self->_etag];
-      [(DACoreDAVTaskManager *)self->_taskManager submitIndependentTask:v68];
+      [(CalDAVGetToFileWithProgressTask *)v66 setDelegate:self];
+      [(CalDAVGetToFileWithProgressTask *)v66 setDownloader:self];
+      [(CalDAVGetToFileWithProgressTask *)v66 setPreviousETag:self->_etag];
+      [(DACoreDAVTaskManager *)self->_taskManager submitIndependentTask:v66];
     }
 
 LABEL_33:
     return;
   }
 
-  v38 = DALoggingwithCategory();
-  v39 = _CPLog_to_os_log_type[4];
-  if (os_log_type_enabled(v38, v39))
+  v37 = DALoggingwithCategory();
+  v38 = _CPLog_to_os_log_type[4];
+  if (os_log_type_enabled(v37, v38))
   {
-    v40 = self->_attachmentURL;
+    v39 = self->_attachmentURL;
     *buf = 138412290;
-    v83 = v40;
-    _os_log_impl(&dword_0, v38, v39, "Refusing to download the attachment with URL %@ because it isn't http or https", buf, 0xCu);
+    v81 = v39;
+    _os_log_impl(&dword_0, v37, v38, "Refusing to download the attachment with URL %@ because it isn't http or https", buf, 0xCu);
   }
 
-  v41 = [NSError errorWithDomain:DAErrorDomain code:72 userInfo:0];
-  [(MobileCalDAVAttachmentDownloader *)self _didFinishDownloadingWithError:v41];
+  v40 = [NSError errorWithDomain:DAErrorDomain code:72 userInfo:0];
+  [(MobileCalDAVAttachmentDownloader *)self _didFinishDownloadingWithError:v40];
 
-  v42 = objc_loadWeakRetained(&self->_account);
-  dbHelper6 = [v42 dbHelper];
-  v44 = objc_loadWeakRetained(&self->_account);
-  accountID6 = [v44 accountID];
+  v41 = objc_loadWeakRetained(&self->_account);
+  dbHelper6 = [v41 dbHelper];
+  v43 = objc_loadWeakRetained(&self->_account);
+  accountID6 = [v43 accountID];
   [dbHelper6 calCloseDatabaseForAccountID:accountID6 save:0];
 
-  CFRelease(v15);
+  CFRelease(v14);
 }
 
 - (void)cancelDownload

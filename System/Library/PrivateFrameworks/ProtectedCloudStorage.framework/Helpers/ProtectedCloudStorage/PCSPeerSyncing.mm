@@ -8,12 +8,17 @@
 - (void)handleIncomingMessage:(id)message;
 - (void)haveKeys:(id)keys;
 - (void)keyFailure:(id)failure;
+- (void)sendCommand:(unsigned int)command data:(id)data dsid:(id)dsid handleReply:(id)reply;
 - (void)sendCurrentKeys:(id)keys;
 - (void)sendCurrents:(id)currents dsid:(id)dsid handleReply:(id)reply;
 - (void)sendKeys;
 - (void)sendKeys:(id)keys dsid:(id)dsid handleReply:(id)reply;
 - (void)sendKeysOld;
+- (void)sendReply:(int)reply error:(id)error toMessage:(id)message;
 - (void)sendSomeKeys:(id)keys dsid:(id)dsid;
+- (void)sendiCDPStatus:(BOOL)status circleStatus:(BOOL)circleStatus handleReply:(id)reply;
+- (void)setPeerCircleStatus:(BOOL)status;
+- (void)setPeeriCDPStatus:(BOOL)status;
 - (void)updateLastSeen;
 @end
 
@@ -61,6 +66,40 @@
   v6 = +[PCSKeySyncing defaultSyncingManager];
   client2 = [(PCSPeerSyncing *)self client];
   [v6 saveClient:client2];
+}
+
+- (void)sendCommand:(unsigned int)command data:(id)data dsid:(id)dsid handleReply:(id)reply
+{
+  v8 = *&command;
+  dataCopy = data;
+  dsidCopy = dsid;
+  replyCopy = reply;
+  v13 = qword_1000407B8;
+  if (os_log_type_enabled(qword_1000407B8, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = v13;
+    device = [(PCSPeerSyncing *)self device];
+    idsDeviceIdentifier = [device idsDeviceIdentifier];
+    *buf = 67109378;
+    v24 = v8;
+    v25 = 2112;
+    v26 = idsDeviceIdentifier;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "sending message: %d to peer: %@", buf, 0x12u);
+  }
+
+  v17 = [NSNumber numberWithUnsignedInt:v8, @"c"];
+  v22[0] = v17;
+  v22[1] = dataCopy;
+  v21[1] = @"d";
+  v21[2] = @"i";
+  v21[3] = @"P";
+  v22[2] = dsidCopy;
+  v22[3] = &__kCFBooleanTrue;
+  v18 = [NSDictionary dictionaryWithObjects:v22 forKeys:v21 count:4];
+
+  transport = [(PCSPeerSyncing *)self transport];
+  device2 = [(PCSPeerSyncing *)self device];
+  [transport sendMessage:v18 toDevice:device2 withPriority:200 timeout:@"inital sync" logDescription:replyCopy handleReply:300.0];
 }
 
 - (void)sendCurrents:(id)currents dsid:(id)dsid handleReply:(id)reply
@@ -115,6 +154,25 @@
   v15 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:3];
   transport = [(PCSPeerSyncing *)self transport];
   [transport sendMessage:v15 toDevice:self->_device withPriority:200 timeout:@"Keys" logDescription:replyCopy handleReply:300.0];
+}
+
+- (void)sendiCDPStatus:(BOOL)status circleStatus:(BOOL)circleStatus handleReply:(id)reply
+{
+  circleStatusCopy = circleStatus;
+  statusCopy = status;
+  v14[0] = &off_10003B318;
+  v13[0] = @"c";
+  v13[1] = @"I";
+  replyCopy = reply;
+  v9 = [NSNumber numberWithBool:statusCopy];
+  v14[1] = v9;
+  v13[2] = @"O";
+  v10 = [NSNumber numberWithBool:circleStatusCopy];
+  v14[2] = v10;
+  v11 = [NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:3];
+
+  transport = [(PCSPeerSyncing *)self transport];
+  [transport sendMessage:v11 toDevice:self->_device withPriority:200 timeout:@"iCDPFlag" logDescription:replyCopy handleReply:300.0];
 }
 
 - (double)checkRatelimit:(double)ratelimit
@@ -747,6 +805,36 @@ LABEL_22:
   [v16 saveClient:client7];
 }
 
+- (void)setPeeriCDPStatus:(BOOL)status
+{
+  statusCopy = status;
+  v5 = +[PCSKeySyncing defaultSyncingManager];
+  client = [(PCSPeerSyncing *)self client];
+  [v5 updateClient:client];
+
+  client2 = [(PCSPeerSyncing *)self client];
+  [client2 setICDP:statusCopy];
+
+  v9 = +[PCSKeySyncing defaultSyncingManager];
+  client3 = [(PCSPeerSyncing *)self client];
+  [v9 saveClient:client3];
+}
+
+- (void)setPeerCircleStatus:(BOOL)status
+{
+  statusCopy = status;
+  v5 = +[PCSKeySyncing defaultSyncingManager];
+  client = [(PCSPeerSyncing *)self client];
+  [v5 updateClient:client];
+
+  client2 = [(PCSPeerSyncing *)self client];
+  [client2 setCircle:statusCopy];
+
+  v9 = +[PCSKeySyncing defaultSyncingManager];
+  client3 = [(PCSPeerSyncing *)self client];
+  [v9 saveClient:client3];
+}
+
 - (void)keyFailure:(id)failure
 {
   failureCopy = failure;
@@ -768,6 +856,30 @@ LABEL_22:
   v8 = +[PCSKeySyncing defaultSyncingManager];
   client4 = [(PCSPeerSyncing *)self client];
   [v8 saveClient:client4];
+}
+
+- (void)sendReply:(int)reply error:(id)error toMessage:(id)message
+{
+  v6 = *&reply;
+  errorCopy = error;
+  messageCopy = message;
+  v9 = +[NSMutableDictionary dictionary];
+  v10 = [NSNumber numberWithInt:v6];
+  [v9 setObject:v10 forKeyedSubscript:@"r"];
+
+  if (errorCopy)
+  {
+    domain = [errorCopy domain];
+    [v9 setObject:domain forKeyedSubscript:@"D"];
+
+    v12 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [errorCopy code]);
+    [v9 setObject:v12 forKeyedSubscript:@"C"];
+
+    [v9 setObject:@"foo" forKeyedSubscript:@"S"];
+  }
+
+  transport = [(PCSPeerSyncing *)self transport];
+  [transport sendResponse:v9 toMessage:messageCopy withPriority:200 timeout:@"reply" logDescription:120.0];
 }
 
 - (void)handleIncomingMessage:(id)message

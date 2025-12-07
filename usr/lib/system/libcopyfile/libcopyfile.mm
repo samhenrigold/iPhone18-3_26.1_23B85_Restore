@@ -122,29 +122,27 @@ LABEL_5:
 
 int copyfile(const char *from, const char *to, copyfile_state_t state, copyfile_flags_t flags)
 {
-  v121 = *MEMORY[0x29EDCA608];
-  v114 = state;
+  v119 = *MEMORY[0x29EDCA608];
+  v112 = state;
   if (!(from | to))
   {
     *__error() = 22;
-LABEL_41:
-    v23 = -1;
-    goto LABEL_42;
+    return -1;
   }
 
   v4 = flags;
-  if ((copyfile_preamble(&v114, flags) & 0x80000000) != 0)
+  if ((copyfile_preamble(&v112, flags) & 0x80000000) != 0)
   {
-    goto LABEL_41;
+    return -1;
   }
 
-  v8 = v114;
+  v8 = v112;
   if (from)
   {
-    v9 = *v114;
-    if (*v114)
+    v9 = *v112;
+    if (*v112)
     {
-      if (!strncmp(from, *v114, 0x400uLL))
+      if (!strncmp(from, *v112, 0x400uLL))
       {
         goto LABEL_14;
       }
@@ -184,16 +182,16 @@ LABEL_14:
     *v8 = v13;
     if (!v13)
     {
-      goto LABEL_41;
+      return -1;
     }
   }
 
   if (to)
   {
-    v14 = v8[1];
+    v14 = *(v8 + 1);
     if (v14)
     {
-      if (!strncmp(to, v8[1], 0x400uLL))
+      if (!strncmp(to, *(v8 + 1), 0x400uLL))
       {
         goto LABEL_26;
       }
@@ -201,7 +199,7 @@ LABEL_14:
       if (*(v8 + 69) >= 2u)
       {
         v15 = *__error();
-        syslog(7, "%s:%d:%s() replacing string %s (%s) -> (%s)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 1314, "copyfile", "dst", to, v8[1]);
+        syslog(7, "%s:%d:%s() replacing string %s (%s) -> (%s)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 1314, "copyfile", "dst", to, *(v8 + 1));
         *__error() = v15;
       }
 
@@ -220,32 +218,32 @@ LABEL_14:
         *(v8 + 6) = -2;
       }
 
-      v14 = v8[1];
+      v14 = *(v8 + 1);
       if (v14)
       {
 LABEL_26:
         free(v14);
-        v8[1] = 0;
+        *(v8 + 1) = 0;
       }
     }
 
     v18 = strdup(to);
-    v8[1] = v18;
+    *(v8 + 1) = v18;
     if (!v18)
     {
-      goto LABEL_41;
+      return -1;
     }
   }
 
-  if ((*(v8 + 194) & 1) == 0 && stat(to, &v116) != -1 && stat(from, &v119) != -1 && statfs(from, &v120) != -1)
+  if ((*(v8 + 194) & 1) == 0 && stat(to, &v114) != -1 && stat(from, &v117) != -1 && statfs(from, &v118) != -1)
   {
     __strlcpy_chk();
-    v117[2] = 0;
-    v117[0] = 5;
-    v117[1] = 0x20000;
-    if (getattrlist(&v118, v117, v115, 0x24uLL, 0) != -1 && v119.st_dev == v116.st_dev)
+    v115[2] = 0;
+    v115[0] = 5;
+    v115[1] = 0x20000;
+    if (getattrlist(&v116, v115, v113, 0x24uLL, 0) != -1 && v117.st_dev == v114.st_dev)
     {
-      if ((v115[4] & 1) == 0 || (v115[20] & 1) == 0)
+      if ((v113[4] & 1) == 0 || (v113[20] & 1) == 0)
       {
         v19 = realpath_DARWIN_EXTSN(from, 0);
         if (!v19)
@@ -278,12 +276,12 @@ LABEL_125:
           goto LABEL_74;
         }
 
-        v26 = 0;
-        v27 = 17;
+        v25 = 0;
+        v26 = 17;
         goto LABEL_102;
       }
 
-      if (v119.st_ino == v116.st_ino)
+      if (v117.st_ino == v114.st_ino)
       {
         goto LABEL_44;
       }
@@ -291,66 +289,66 @@ LABEL_125:
   }
 
 LABEL_46:
-  v28 = *(v8 + 48);
-  if ((v28 & 0x8000) == 0)
+  v27 = *(v8 + 48);
+  if ((v27 & 0x8000) == 0)
   {
-    if ((v28 & 0x3000000) == 0)
+    if ((v27 & 0x3000000) == 0)
     {
       goto LABEL_59;
     }
 
     if (!*(v8 + 70))
     {
-      if (v28)
+      if (v27)
       {
-        v29 = 5;
+        v28 = 5;
       }
 
       else
       {
-        v29 = 1;
+        v28 = 1;
       }
 
-      if (lstat(*v8, &v120) || (v120.f_iosize & 0xD000 | 0x2000) != 0xA000)
+      if (lstat(*v8, &v118) || (v118.f_iosize & 0xD000 | 0x2000) != 0xA000)
       {
         *__error() = 22;
       }
 
-      else if (((*(v8 + 194) & 0x20) == 0 || (remove(v8[1], v30) & 0x80000000) == 0 || *__error() == 2) && !clonefileat(-2, *v8, -2, v8[1], v29))
+      else if (((*(v8 + 194) & 0x20) == 0 || (remove(*(v8 + 1), v29) & 0x80000000) == 0 || *__error() == 2) && !clonefileat(-2, *v8, -2, *(v8 + 1), v28))
       {
         *(v8 + 49) |= 0x800u;
         if ((*(v8 + 194) & 0x10) != 0)
         {
-          remove(*v8, v53);
+          remove(*v8, v52);
         }
 
         goto LABEL_125;
       }
 
-      v28 = *(v8 + 48);
+      v27 = *(v8 + 48);
     }
 
-    if ((v28 & 0x2000000) == 0)
+    if ((v27 & 0x2000000) == 0)
     {
-      v28 = v28 & 0xFCF9FFF1 | 0x6000E;
-      *(v8 + 48) = v28;
-      v31 = *(v8 + 49);
-      if ((v31 & 0x4000) == 0)
+      v27 = v27 & 0xFCF9FFF1 | 0x6000E;
+      *(v8 + 48) = v27;
+      v30 = *(v8 + 49);
+      if ((v30 & 0x4000) == 0)
       {
-        *(v8 + 49) = v31 | 0x8000;
+        *(v8 + 49) = v30 | 0x8000;
       }
 
-      v4 = v28;
+      v4 = v27;
 LABEL_59:
       if ((v4 & 0x10000) != 0)
       {
-        *&v120.f_bsize = 0;
+        *&v118.f_bsize = 0;
         if (*v8)
         {
-          if ((v28 & 4) != 0)
+          if ((v27 & 4) != 0)
           {
-            v23 = 4 * (listxattr(*v8, 0, 0, (v28 >> 18) & 1) > 0);
-            v28 = *(v8 + 48);
+            v23 = 4 * (listxattr(*v8, 0, 0, (v27 >> 18) & 1) > 0);
+            v27 = *(v8 + 48);
           }
 
           else
@@ -358,16 +356,16 @@ LABEL_59:
             v23 = 0;
           }
 
-          if (v28)
+          if (v27)
           {
-            v50 = MEMORY[0x29EDCA648];
-            if ((v28 & 0x40000) == 0)
+            v49 = MEMORY[0x29EDCA648];
+            if ((v27 & 0x40000) == 0)
             {
-              v50 = MEMORY[0x29EDCA668];
+              v49 = MEMORY[0x29EDCA668];
             }
 
-            v50(*v8, v8 + 4, v8[23]);
-            if (!filesec_get_property(v8[23], FILESEC_ACL, &v120))
+            v49(*v8, v8 + 32, *(v8 + 23));
+            if (!filesec_get_property(*(v8 + 23), FILESEC_ACL, &v118))
             {
               ++v23;
             }
@@ -375,29 +373,29 @@ LABEL_59:
 
           if (*(v8 + 69) >= 2u)
           {
-            v51 = *__error();
+            v50 = *__error();
             syslog(7, "%s:%d:%s() check result: %d (%s)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 2426, "copyfile_check", v23, *v8);
-            *__error() = v51;
+            *__error() = v50;
           }
 
-          if (*&v120.f_bsize)
+          if (*&v118.f_bsize)
           {
-            acl_free(*&v120.f_bsize);
+            acl_free(*&v118.f_bsize);
           }
 
-          if (v8[28])
+          if (*(v8 + 28))
           {
-            if ((v8[24] & 4) != 0)
+            if ((*(v8 + 192) & 4) != 0)
             {
-              v52 = 4;
+              v51 = 4;
             }
 
             else
             {
-              v52 = 1;
+              v51 = 1;
             }
 
-            v23 |= v52;
+            v23 |= v51;
           }
         }
 
@@ -410,53 +408,53 @@ LABEL_59:
         goto LABEL_73;
       }
 
-      v33 = (v8 + 29);
-      v32 = v8[29];
-      if (v32)
+      v32 = (v8 + 232);
+      v31 = *(v8 + 29);
+      if (v31)
       {
-        filesec_free(v32);
-        *v33 = 0;
+        filesec_free(v31);
+        *v32 = 0;
       }
 
-      v34 = filesec_init();
-      *v33 = v34;
-      if (v34)
+      v33 = filesec_init();
+      *v32 = v33;
+      if (v33)
       {
-        if ((*(v8 + 194) & 8) != 0 && !lstat(v8[1], &v120) && (v120.f_iosize & 0xF000) == 0xA000)
+        if ((*(v8 + 194) & 8) != 0 && !lstat(*(v8 + 1), &v118) && (v118.f_iosize & 0xF000) == 0xA000)
         {
-          v36 = v8[30];
-          if (v36)
+          v35 = *(v8 + 30);
+          if (v35)
           {
-            free(v36);
+            free(v35);
           }
 
           goto LABEL_210;
         }
 
-        if (statx_np(v8[1], &v120, v8[29]))
+        if (statx_np(*(v8 + 1), &v118, *(v8 + 29)))
         {
-          v49 = *__error() == 2;
-          v26 = v49;
+          v48 = *__error() == 2;
+          v25 = v48;
 LABEL_211:
-          if ((copyfile_open(v8, v35) & 0x80000000) == 0)
+          if ((copyfile_open(v8, v34) & 0x80000000) == 0)
           {
             fcntl(*(v8 + 4), 48, 1);
             fcntl(*(v8 + 6), 48, 1);
             fcntl(*(v8 + 6), 76, 1);
-            v93 = copyfile_internal(v8, v4);
-            if (v93 != -1)
+            v91 = copyfile_internal(v8, v4);
+            if (v91 != -1)
             {
-              v23 = v93;
-              if (((v49 | ((v4 & 2) >> 1)) & 1) == 0)
+              v23 = v91;
+              if (((v48 | ((v4 & 2) >> 1)) & 1) == 0)
               {
-                fchown(*(v8 + 6), v120.f_bfree, HIDWORD(v120.f_bfree));
-                fchmod(*(v8 + 6), v120.f_iosize);
+                fchown(*(v8 + 6), v118.f_bfree, HIDWORD(v118.f_bfree));
+                fchmod(*(v8 + 6), v118.f_iosize);
               }
 
               reset_security(v8);
               if ((v4 & 0x100000) != 0 && *v8)
               {
-                remove(*v8, v94);
+                remove(*v8, v92);
               }
 
               goto LABEL_73;
@@ -467,33 +465,33 @@ LABEL_211:
         }
 
         fixed = copyfile_fix_perms(v8 + 29);
-        v8[30] = fixed;
+        *(v8 + 30) = fixed;
         if (fixed)
         {
-          if ((chmodx_np(v8[1], fixed) & 0x80000000) == 0)
+          if ((chmodx_np(*(v8 + 1), fixed) & 0x80000000) == 0)
           {
-            v49 = 0;
-            v26 = 0;
+            v48 = 0;
+            v25 = 0;
             *(v8 + 49) |= 0x1000u;
             goto LABEL_211;
           }
 
           if (*__error() != 45)
           {
-            v92 = *__error();
+            v90 = *__error();
             syslog(4, "setting security information: %m");
-            *__error() = v92;
-            filesec_free(v8[30]);
+            *__error() = v90;
+            filesec_free(*(v8 + 30));
 LABEL_210:
-            v49 = 0;
-            v26 = 0;
-            v8[30] = 0;
+            v48 = 0;
+            v25 = 0;
+            *(v8 + 30) = 0;
             goto LABEL_211;
           }
         }
 
-        v49 = 0;
-        v26 = 0;
+        v48 = 0;
+        v25 = 0;
         goto LABEL_211;
       }
 
@@ -503,27 +501,27 @@ LABEL_210:
     if (*(v8 + 68))
     {
 LABEL_97:
-      v26 = 0;
+      v25 = 0;
       goto LABEL_218;
     }
 
-    v26 = 0;
-    v27 = 45;
+    v25 = 0;
+    v26 = 45;
 LABEL_102:
-    *(v8 + 68) = v27;
+    *(v8 + 68) = v26;
 LABEL_218:
-    if (!v26 && (*(v8 + 49) & 0x1000) != 0)
+    if (!v25 && (*(v8 + 49) & 0x1000) != 0)
     {
-      v95 = *__error();
-      chown(v8[1], v120.f_bfree, HIDWORD(v120.f_bfree));
-      chmod(v8[1], v120.f_iosize);
-      *__error() = v95;
+      v93 = *__error();
+      chown(*(v8 + 1), v118.f_bfree, HIDWORD(v118.f_bfree));
+      chmod(*(v8 + 1), v118.f_iosize);
+      *__error() = v93;
     }
 
-    v96 = *(v8 + 68);
-    if (v96)
+    v94 = *(v8 + 68);
+    if (v94)
     {
-      *__error() = v96;
+      *__error() = v94;
       *(v8 + 68) = 0;
     }
 
@@ -531,52 +529,52 @@ LABEL_218:
     goto LABEL_224;
   }
 
-  v119.st_ino = 0;
-  *&v119.st_dev = 0;
-  if ((v28 & 0x2F10000) != 0 || (v39 = *(v8 + 8), v40 = *v8, (*&v119.st_dev = v40) == 0) || (v41 = v8[1]) == 0)
+  v117.st_ino = 0;
+  *&v117.st_dev = 0;
+  if ((v27 & 0x2F10000) != 0 || (v38 = *(v8 + 8), v39 = *v8, (*&v117.st_dev = v39) == 0) || (v40 = *(v8 + 1)) == 0)
   {
     *__error() = 22;
     goto LABEL_70;
   }
 
-  if ((v28 & 0x40000) != 0)
+  if ((v27 & 0x40000) != 0)
   {
-    v42 = MEMORY[0x29EDCA6A8];
-    v43 = MEMORY[0x29EDCA6A8](v40, &v120);
+    v41 = MEMORY[0x29EDCA6A8];
+    v42 = MEMORY[0x29EDCA6A8](v39, &v118);
   }
 
   else
   {
-    v42 = MEMORY[0x29EDCA6B8];
-    v43 = MEMORY[0x29EDCA6B8](v40, &v120);
+    v41 = MEMORY[0x29EDCA6B8];
+    v42 = MEMORY[0x29EDCA6B8](v39, &v118);
   }
 
-  if (v43 == -1)
+  if (v42 == -1)
   {
     goto LABEL_70;
   }
 
-  v104 = 0;
-  v44 = v120.f_iosize & 0xF000;
-  if (v42 == MEMORY[0x29EDCA6B8] && v44 == 0x4000)
+  v102 = 0;
+  v43 = v118.f_iosize & 0xF000;
+  if (v41 == MEMORY[0x29EDCA6B8] && v43 == 0x4000)
   {
-    if (lstat(v40, &v118) == -1)
+    if (lstat(v39, &v116) == -1)
     {
       goto LABEL_70;
     }
 
-    v104 = (v118.st_mode & 0xF000) == 40960;
+    v102 = (v116.st_mode & 0xF000) == 40960;
   }
 
-  v45 = MEMORY[0x29EDCA6A8];
-  if ((v28 & 0x80000) == 0)
+  v44 = MEMORY[0x29EDCA6A8];
+  if ((v27 & 0x80000) == 0)
   {
-    v45 = MEMORY[0x29EDCA6B8];
+    v44 = MEMORY[0x29EDCA6B8];
   }
 
-  if (v45(v41, &v120) == -1)
+  if (v44(v40, &v118) == -1)
   {
-    if (*__error() == 2 && basename(v40))
+    if (*__error() == 2 && basename(v39))
     {
       goto LABEL_131;
     }
@@ -586,85 +584,85 @@ LABEL_70:
     goto LABEL_71;
   }
 
-  f_iosize = v120.f_iosize;
-  if (!basename(v40))
+  f_iosize = v118.f_iosize;
+  if (!basename(v39))
   {
     goto LABEL_70;
   }
 
   if ((f_iosize & 0xF000) == 0x4000)
   {
-    v47 = strrchr(v40, 47);
-    if (v47)
+    v46 = strrchr(v39, 47);
+    if (v46)
     {
-      v47 = v47 - v40 + 1;
+      v46 = v46 - v39 + 1;
     }
 
-    v48 = "/";
+    v47 = "/";
     goto LABEL_134;
   }
 
 LABEL_131:
-  v47 = strlen(v40);
-  v109 = &unk_299C6D8B9;
-  if (v44 != 0x4000 || v47 < 1)
+  v46 = strlen(v39);
+  v107 = &unk_299C6D8B9;
+  if (v43 != 0x4000 || v46 < 1)
   {
     goto LABEL_135;
   }
 
-  v47 -= v40->__pn_.__r_.__value_.__s.__data_[v47 - 1] == 47;
-  v48 = &unk_299C6D8B9;
+  v46 -= v39->__pn_.__r_.__value_.__s.__data_[v46 - 1] == 47;
+  v47 = &unk_299C6D8B9;
 LABEL_134:
-  v109 = v48;
+  v107 = v47;
 LABEL_135:
-  v107 = v41;
-  v108 = v47;
-  __s1 = v40;
+  v105 = v40;
+  v106 = v46;
+  __s1 = v39;
+  v54 = 0;
   v55 = 0;
-  v56 = 0;
   if ((*(v8 + 97) & 0x104) != 0)
   {
-    v57 = 20;
+    v56 = 20;
   }
 
   else
   {
-    v57 = 21;
+    v56 = 21;
   }
 
-  v110 = (*(v8 + 49) >> 7) & 0x40;
-  v111 = v57;
-  v112 = v8[26];
-  v102 = v28 & 0xC0000;
-  v58 = 1;
+  v108 = (*(v8 + 49) >> 7) & 0x40;
+  v109 = v56;
+  v110 = *(v8 + 26);
+  v100 = v27 & 0xC0000;
+  v57 = 1;
 LABEL_139:
-  v59 = v58;
-  if ((v58 & 1) == 0 && (v55 & 1) == 0)
+  v58 = v57;
+  if ((v57 & 1) == 0 && (v54 & 1) == 0)
   {
 LABEL_204:
     v23 = 0;
     goto LABEL_232;
   }
 
-  if (v56)
+  if (v55)
   {
-    fts_close(v56);
+    fts_close(v55);
   }
 
-  v56 = fts_open(&v119, v111 | v110, 0);
+  v55 = fts_open(&v117, v109 | v108, 0);
   while (2)
   {
-    v60 = v55;
+    v59 = v54;
     do
     {
       while (1)
       {
-        v61 = fts_read(v56);
-        if (!v61)
+        v60 = fts_read(v55);
+        if (!v60)
         {
-          v58 = 0;
-          v55 = v60;
-          if ((v59 & 1) == 0)
+          v57 = 0;
+          v54 = v59;
+          if ((v58 & 1) == 0)
           {
             goto LABEL_204;
           }
@@ -672,66 +670,66 @@ LABEL_204:
           goto LABEL_139;
         }
 
-        v62 = v61;
-        if ((v61->fts_info & 0xFFFE) != 0xC)
+        v61 = v60;
+        if ((v60->fts_info & 0xFFFE) != 0xC)
         {
           break;
         }
 
-        v60 = 1;
-        if ((v59 & 1) == 0)
+        v59 = 1;
+        if ((v58 & 1) == 0)
         {
           goto LABEL_150;
         }
       }
     }
 
-    while ((v59 & 1) == 0);
-    v55 = v60;
+    while ((v58 & 1) == 0);
+    v54 = v59;
 LABEL_150:
-    *&v118.st_dev = 0;
-    v63 = copyfile_state_alloc();
-    if (!v63)
+    *&v116.st_dev = 0;
+    v62 = copyfile_state_alloc();
+    if (!v62)
     {
 LABEL_208:
       *__error() = 12;
       goto LABEL_231;
     }
 
-    v64 = v63;
-    *(v63 + 13) = *(v8 + 13);
-    *(v63 + 70) = *(v8 + 70);
+    v63 = v62;
+    *(v62 + 13) = *(v8 + 13);
+    *(v62 + 70) = *(v8 + 70);
     if (*(v8 + 198))
     {
-      *(v63 + 49) |= 0x10000u;
+      *(v62 + 49) |= 0x10000u;
     }
 
-    fts_dev = v62->fts_dev;
-    if (v39 == fts_dev)
+    fts_dev = v61->fts_dev;
+    if (v38 == fts_dev)
     {
-      *(v63 + 49) |= *(v8 + 49) & 0x78;
-      fts_dev = v39;
+      *(v62 + 49) |= *(v8 + 49) & 0x78;
+      fts_dev = v38;
     }
 
-    v113 = fts_dev;
-    asprintf(&v118, "%s%s%s", v41, v109, &v62->fts_path[v108]);
-    v66 = *&v118.st_dev;
-    if (!*&v118.st_dev)
+    v111 = fts_dev;
+    asprintf(&v116, "%s%s%s", v40, v107, &v61->fts_path[v106]);
+    v65 = *&v116.st_dev;
+    if (!*&v116.st_dev)
     {
-      copyfile_state_free(v64);
+      copyfile_state_free(v63);
       goto LABEL_208;
     }
 
-    *(v64 + 32) = v62;
-    v67 = *(v64 + 49);
-    *(v64 + 49) = v67 | 0x20000;
-    fts_info = v62->fts_info;
+    *(v63 + 32) = v61;
+    v66 = *(v63 + 49);
+    *(v63 + 49) = v66 | 0x20000;
+    fts_info = v61->fts_info;
     if (fts_info <= 0xD)
     {
       if (((1 << fts_info) & 0x3108) != 0)
       {
-        v69 = 0;
-        v70 = 1;
+        v68 = 0;
+        v69 = 1;
         goto LABEL_159;
       }
 
@@ -742,21 +740,21 @@ LABEL_208:
 
       if (fts_info == 6)
       {
-        fts_path = v62->fts_path;
-        if (v104)
+        fts_path = v61->fts_path;
+        if (v102)
         {
-          v106 = v62->fts_path;
-          v80 = strcmp(__s1, v106);
-          fts_path = v106;
-          if (!v80)
+          v104 = v61->fts_path;
+          v78 = strcmp(__s1, v104);
+          fts_path = v104;
+          if (!v78)
           {
-            *(v64 + 49) = v67 | 0x60000;
+            *(v63 + 49) = v66 | 0x60000;
           }
         }
 
-        if (!v112)
+        if (!v110)
         {
-          if (copyfile(fts_path, v66, v64, v102 | 2) < 0)
+          if (copyfile(fts_path, v65, v63, v100 | 2) < 0)
           {
             goto LABEL_230;
           }
@@ -764,26 +762,26 @@ LABEL_208:
           goto LABEL_198;
         }
 
-        v81 = (v112)(3, 1, v64, fts_path, v66, v8[27]);
-        if (v81 == 1)
+        v79 = (v110)(3, 1, v63, fts_path, v65, *(v8 + 27));
+        if (v79 == 1)
         {
           goto LABEL_198;
         }
 
-        if (v81 == 2)
+        if (v79 == 2)
         {
           goto LABEL_229;
         }
 
-        v82 = copyfile(v62->fts_path, *&v118.st_dev, v64, v102 | 2);
-        v75 = v62->fts_path;
-        v76 = *&v118.st_dev;
-        v77 = v8[27];
-        if ((v82 & 0x80000000) == 0)
+        v80 = copyfile(v61->fts_path, *&v116.st_dev, v63, v100 | 2);
+        v73 = v61->fts_path;
+        v74 = *&v116.st_dev;
+        v75 = *(v8 + 27);
+        if ((v80 & 0x80000000) == 0)
         {
-          v78 = 3;
+          v76 = 3;
 LABEL_169:
-          if ((v112)(v78, 2, v64, v75, v76, v77) == 2)
+          if ((v110)(v76, 2, v63, v73, v74, v75) == 2)
           {
 LABEL_229:
             *__error() = 0;
@@ -791,31 +789,31 @@ LABEL_229:
           }
 
 LABEL_198:
-          v90 = *(v8 + 49) & 0xFFFFFF87;
-          *(v8 + 49) = v90;
-          *(v8 + 49) = *(v64 + 49) & 0x78 | v90;
-          copyfile_state_free(v64);
-          free(*&v118.st_dev);
+          v88 = *(v8 + 49) & 0xFFFFFF87;
+          *(v8 + 49) = v88;
+          *(v8 + 49) = *(v63 + 49) & 0x78 | v88;
+          copyfile_state_free(v63);
+          free(*&v116.st_dev);
 LABEL_199:
-          v39 = v113;
-          v41 = v107;
+          v38 = v111;
+          v40 = v105;
           continue;
         }
 
-        v91 = (v112)(3, 3, v64, v75, *&v118.st_dev, v77);
-        if (v91)
+        v89 = (v110)(3, 3, v63, v73, *&v116.st_dev, v75);
+        if (v89)
         {
-          if (v91 != 2)
+          if (v89 != 2)
           {
             goto LABEL_198;
           }
 
 LABEL_230:
-          v101 = *(v8 + 49) & 0xFFFFFF87;
-          *(v8 + 49) = v101;
-          *(v8 + 49) = *(v64 + 49) & 0x78 | v101;
-          copyfile_state_free(v64);
-          free(*&v118.st_dev);
+          v99 = *(v8 + 49) & 0xFFFFFF87;
+          *(v8 + 49) = v99;
+          *(v8 + 49) = *(v63 + 49) & 0x78 | v99;
+          copyfile_state_free(v63);
+          free(*&v116.st_dev);
           goto LABEL_231;
         }
 
@@ -830,107 +828,106 @@ LABEL_194:
 
   if (fts_info == 1)
   {
-    *(v64 + 49) = v67 | 0x20001;
-    if (v104 && !strcmp(__s1, v62->fts_path))
+    *(v63 + 49) = v66 | 0x20001;
+    if (v102 && !strcmp(__s1, v61->fts_path))
     {
-      *(v64 + 49) = v67 | 0x60001;
+      *(v63 + 49) = v66 | 0x60001;
     }
 
-    v69 = 1;
-    v70 = 2;
+    v68 = 1;
+    v69 = 2;
 LABEL_159:
-    v71 = v62->fts_path;
-    v105 = v70;
-    if (!v112)
+    v70 = v61->fts_path;
+    v103 = v69;
+    if (!v110)
     {
       goto LABEL_163;
     }
 
-    v72 = v8[27];
-    v73 = v112();
-    if (v73 == 1)
+    v71 = v110();
+    if (v71 == 1)
     {
-      if (!v69 || fts_set(v56, v62, 4) != -1)
+      if (!v68 || fts_set(v55, v61, 4) != -1)
       {
         goto LABEL_198;
       }
 
-      v83 = v62->fts_path;
-      v84 = *&v118.st_dev;
-      v85 = v8[27];
-      v86 = 0;
+      v81 = v61->fts_path;
+      v82 = *&v116.st_dev;
+      v83 = *(v8 + 27);
+      v84 = 0;
     }
 
     else
     {
-      if (v73 == 2)
+      if (v71 == 2)
       {
         goto LABEL_229;
       }
 
-      v71 = v62->fts_path;
-      v66 = *&v118.st_dev;
+      v70 = v61->fts_path;
+      v65 = *&v116.st_dev;
 LABEL_163:
-      if (v69)
+      if (v68)
       {
-        v74 = 1225654285;
+        v72 = 1225654285;
       }
 
       else
       {
-        v74 = 1225654287;
+        v72 = 1225654287;
       }
 
-      if ((copyfile(v71, v66, v64, v74 & v28) & 0x80000000) == 0)
+      if ((copyfile(v70, v65, v63, v72 & v27) & 0x80000000) == 0)
       {
-        if (v112)
+        if (v110)
         {
-          v75 = v62->fts_path;
-          v76 = *&v118.st_dev;
-          v77 = v8[27];
-          v78 = v105;
+          v73 = v61->fts_path;
+          v74 = *&v116.st_dev;
+          v75 = *(v8 + 27);
+          v76 = v103;
           goto LABEL_169;
         }
 
         goto LABEL_198;
       }
 
-      if (!v112)
+      if (!v110)
       {
         goto LABEL_230;
       }
 
-      v83 = v62->fts_path;
-      v84 = *&v118.st_dev;
-      v85 = v8[27];
-      v86 = v105;
+      v81 = v61->fts_path;
+      v82 = *&v116.st_dev;
+      v83 = *(v8 + 27);
+      v84 = v103;
     }
 
-    v87 = (v112)(v86, 3, v64, v83, v84, v85);
+    v85 = (v110)(v84, 3, v63, v81, v82, v83);
   }
 
   else
   {
-    fts_errno = v62->fts_errno;
+    fts_errno = v61->fts_errno;
     *__error() = fts_errno;
-    if (!v112)
+    if (!v110)
     {
       goto LABEL_230;
     }
 
-    v87 = (v112)(0, 3, v64, v62->fts_path, *&v118.st_dev, v8[27]);
-    if (v87 < 2)
+    v85 = (v110)(0, 3, v63, v61->fts_path, *&v116.st_dev, *(v8 + 27));
+    if (v85 < 2)
     {
       goto LABEL_194;
     }
   }
 
-  v89 = *(v8 + 49) & 0xFFFFFF87;
-  *(v8 + 49) = v89;
-  *(v8 + 49) = *(v64 + 49) & 0x78 | v89;
-  copyfile_state_free(v64);
-  free(*&v118.st_dev);
-  if (v87 != 2)
+  v87 = *(v8 + 49) & 0xFFFFFF87;
+  *(v8 + 49) = v87;
+  *(v8 + 49) = *(v63 + 49) & 0x78 | v87;
+  copyfile_state_free(v63);
+  free(*&v116.st_dev);
+  if (v85 != 2)
   {
     goto LABEL_199;
   }
@@ -938,18 +935,18 @@ LABEL_163:
 LABEL_231:
   v23 = -1;
 LABEL_232:
-  if (v56)
+  if (v55)
   {
-    fts_close(v56);
+    fts_close(v55);
   }
 
 LABEL_71:
   if (*(v8 + 69))
   {
-    v37 = *__error();
-    v38 = __error();
-    syslog(7, "%s:%d:%s() returning: %d errno %d\n\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 1016, "copytree", v23, *v38);
-    *__error() = v37;
+    v36 = *__error();
+    v37 = __error();
+    syslog(7, "%s:%d:%s() returning: %d errno %d\n\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 1016, "copytree", v23, *v37);
+    *__error() = v36;
   }
 
 LABEL_73:
@@ -960,24 +957,22 @@ LABEL_74:
   }
 
 LABEL_224:
-  v97 = v114;
-  if (v114 && *(v114 + 69) >= 5u)
+  v95 = v112;
+  if (v112 && *(v112 + 69) >= 5u)
   {
-    v98 = *__error();
-    v99 = __error();
-    syslog(7, "%s:%d:%s() returning %d errno %d\n\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 1459, "copyfile", v23, *v99);
-    *__error() = v98;
+    v96 = *__error();
+    v97 = __error();
+    syslog(7, "%s:%d:%s() returning %d errno %d\n\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 1459, "copyfile", v23, *v97);
+    *__error() = v96;
   }
 
   if (!state)
   {
-    v100 = *__error();
-    copyfile_state_free(v97);
-    *__error() = v100;
+    v98 = *__error();
+    copyfile_state_free(v95);
+    *__error() = v98;
   }
 
-LABEL_42:
-  v24 = *MEMORY[0x29EDCA608];
   return v23;
 }
 
@@ -1061,11 +1056,10 @@ copyfile_state_t copyfile_state_alloc(void)
 
 uint64_t copyfile_data(void *a1, int a2)
 {
-  v111 = *MEMORY[0x29EDCA608];
+  v108 = *MEMORY[0x29EDCA608];
   if ((*(a1 + 18) & 0xF000) != 0x8000)
   {
-    v8 = 0;
-    goto LABEL_172;
+    return 0;
   }
 
   v4 = a1[26];
@@ -1102,7 +1096,7 @@ LABEL_8:
 
     v11 = lseek(*(a1 + 6), 0, 1) != 0;
 LABEL_11:
-    if (!v10 && !v11 && !copyfile_set_bsdflags(a1, 32, -1) && !fstat(*(a1 + 6), &v110) && (v110.f_mntonname[28] & 0x20) != 0)
+    if (!v10 && !v11 && !copyfile_set_bsdflags(a1, 32, -1) && !fstat(*(a1 + 6), &v107) && (v107.f_mntonname[28] & 0x20) != 0)
     {
       goto LABEL_160;
     }
@@ -1116,7 +1110,7 @@ LABEL_11:
   v7 = a1 + 4;
 LABEL_17:
   v12 = *v6;
-  if (fstatfs(*v5, &v110) == -1)
+  if (fstatfs(*v5, &v107) == -1)
   {
     f_bsize = 0;
     f_iosize = *(v7 + 28);
@@ -1124,12 +1118,12 @@ LABEL_17:
 
   else
   {
-    f_bsize = v110.f_bsize;
-    f_iosize = v110.f_iosize;
+    f_bsize = v107.f_bsize;
+    f_iosize = v107.f_iosize;
   }
 
   v15 = f_iosize;
-  if (fstatfs(v12, &v110) == -1)
+  if (fstatfs(v12, &v107) == -1)
   {
     v16 = 0;
     v17 = v15;
@@ -1137,19 +1131,19 @@ LABEL_17:
 
   else
   {
-    v16 = v110.f_bsize;
-    if (v110.f_iosize >= v15)
+    v16 = v107.f_bsize;
+    if (v107.f_iosize >= v15)
     {
       LODWORD(v17) = v15;
     }
 
     else
     {
-      LODWORD(v17) = v110.f_iosize;
+      LODWORD(v17) = v107.f_iosize;
     }
 
     v17 = v17;
-    if (!v110.f_iosize)
+    if (!v107.f_iosize)
     {
       v17 = v15;
     }
@@ -1259,7 +1253,7 @@ LABEL_73:
     }
 
     v35 = fpathconf(a1[v34], 27);
-    if (!f_bsize || !v16 || v35 < f_bsize || v35 < v16 || ((v106 = *(a1 + 4), __fd = *(a1 + 6), v36 = a1[16], f_bsize >= v16) ? (v37 = v16) : (v37 = f_bsize), v38 = a1[26], *__error() = 0, (*(a1 + 195) & 8) == 0))
+    if (!f_bsize || !v16 || v35 < f_bsize || v35 < v16 || ((v103 = *(a1 + 4), __fd = *(a1 + 6), v36 = a1[16], f_bsize >= v16) ? (v37 = v16) : (v37 = f_bsize), v38 = a1[26], *__error() = 0, (*(a1 + 195) & 8) == 0))
     {
 LABEL_71:
       if ((a1[24] & 8) == 0)
@@ -1276,13 +1270,13 @@ LABEL_71:
     if ((v36 & 0x8000000000000000) != 0)
     {
       v71 = 0;
-      v84 = 22;
+      v83 = 22;
       goto LABEL_166;
     }
 
     if (v36)
     {
-      v66 = lseek(v106, 0, 1);
+      v66 = lseek(v103, 0, 1);
       v67 = lseek(__fd, 0, 1);
       if ((v66 & 0x8000000000000000) != 0 || v36 <= v66 || (v67 & 0x8000000000000000) != 0)
       {
@@ -1291,7 +1285,7 @@ LABEL_71:
           *__error() = 22;
         }
 
-        v84 = *__error();
+        v83 = *__error();
         syslog(4, "Invalid file descriptor offset, cannot perform a sparse copy: %m");
         goto LABEL_165;
       }
@@ -1301,12 +1295,12 @@ LABEL_71:
         goto LABEL_71;
       }
 
-      *v97 = v36 - v66;
-      v99 = v67;
-      v68 = lseek(v106, v66, 3);
+      *v94 = v36 - v66;
+      v96 = v67;
+      v68 = lseek(v103, v66, 3);
       if (v68 == -1 || v68 == v36)
       {
-        if (lseek(v106, v66, 0) != -1)
+        if (lseek(v103, v66, 0) != -1)
         {
           goto LABEL_71;
         }
@@ -1317,36 +1311,36 @@ LABEL_71:
       else
       {
         v69 = v68;
-        if (ftruncate(__fd, v99) == -1)
+        if (ftruncate(__fd, v96) == -1)
         {
-          v84 = *__error();
+          v83 = *__error();
           syslog(4, "Could not zero destination file before copy: %m");
           goto LABEL_165;
         }
 
-        if (ftruncate(__fd, *v97 + v99) == -1)
+        if (ftruncate(__fd, *v94 + v96) == -1)
         {
-          v84 = *__error();
+          v83 = *__error();
           syslog(4, "Could not set destination file size before copy: %m");
           goto LABEL_165;
         }
 
-        v70 = lseek(v106, v66, 4);
+        v70 = lseek(v103, v66, 4);
         if (v70 != -1)
         {
-          v95 = v70;
-          if (lseek(__fd, v70 + v99 - v66, 0) != -1)
+          v92 = v70;
+          if (lseek(__fd, v70 + v96 - v66, 0) != -1)
           {
             v71 = malloc_type_malloc(sizea, 0x460B32B8uLL);
             if (v71)
             {
-              v94 = read(v106, v71, sizea);
-              if (v94 >= 1)
+              v91 = read(v103, v71, sizea);
+              if (v91 >= 1)
               {
                 while (2)
                 {
-                  v93 = 0;
-                  __nbytea = v94;
+                  v90 = 0;
+                  __nbytea = v91;
                   __buf = v71;
                   do
                   {
@@ -1384,21 +1378,21 @@ LABEL_71:
 
                     if (v72)
                     {
-                      v93 = 0;
+                      v90 = 0;
                       __nbytea -= v72;
                       __buf += v72;
                     }
 
                     else
                     {
-                      v75 = v93 + 1;
-                      v20 = v93++ < 5;
+                      v75 = v90 + 1;
+                      v20 = v90++ < 5;
                       if (!v20)
                       {
-                        v83 = *__error();
+                        v82 = *__error();
                         syslog(4, "writing to output %d times resulted in 0 bytes written: %m", v75);
-                        *__error() = v83;
-                        v84 = 35;
+                        *__error() = v82;
+                        v83 = 35;
                         goto LABEL_166;
                       }
                     }
@@ -1406,14 +1400,14 @@ LABEL_71:
                     a1[33] += v72;
                     if (v38 && v38(4, 4, a1, *a1, a1[1], a1[27]) == 2)
                     {
-                      v84 = 89;
+                      v83 = 89;
                       goto LABEL_166;
                     }
                   }
 
                   while (__nbytea);
-                  v95 += v94;
-                  v76 = lseek(v106, v95, 3);
+                  v92 += v91;
+                  v76 = lseek(v103, v92, 3);
                   if (v76 == -1)
                   {
                     if (*__error() == 6)
@@ -1421,22 +1415,22 @@ LABEL_71:
                       break;
                     }
 
-                    v84 = *__error();
-                    syslog(4, "unable to find next hole in file during copy: %m", v90, v92);
+                    v83 = *__error();
+                    syslog(4, "unable to find next hole in file during copy: %m", v88, v89);
                   }
 
                   else
                   {
-                    if (v76 != v95)
+                    if (v76 != v92)
                     {
-                      if (lseek(v106, v95, 0) == -1)
+                      if (lseek(v103, v92, 0) == -1)
                       {
                         goto LABEL_167;
                       }
 
 LABEL_158:
-                      v94 = read(v106, v71, sizea);
-                      if (v94 > 0)
+                      v91 = read(v103, v71, sizea);
+                      if (v91 > 0)
                       {
                         continue;
                       }
@@ -1444,13 +1438,13 @@ LABEL_158:
                       break;
                     }
 
-                    v95 = lseek(v106, v95, 4);
-                    if (v95 != -1)
+                    v92 = lseek(v103, v92, 4);
+                    if (v92 != -1)
                     {
-                      if (lseek(__fd, v95 + v99 - v66, 0) == -1)
+                      if (lseek(__fd, v92 + v96 - v66, 0) == -1)
                       {
-                        v84 = *__error();
-                        syslog(4, "unable to advance dst to next data section: %m", v90, v92);
+                        v83 = *__error();
+                        syslog(4, "unable to advance dst to next data section: %m", v88, v89);
                         goto LABEL_166;
                       }
 
@@ -1462,50 +1456,50 @@ LABEL_158:
                       break;
                     }
 
-                    v84 = *__error();
-                    syslog(4, "unable to advance src to next data section: %m", v90, v92);
+                    v83 = *__error();
+                    syslog(4, "unable to advance src to next data section: %m", v88, v89);
                   }
 
                   goto LABEL_166;
                 }
               }
 
-              if ((v94 & 0x8000000000000000) == 0)
+              if ((v91 & 0x8000000000000000) == 0)
               {
                 if (!(f_bsize % v16))
                 {
-                  if (lseek(v106, v66, 0) == -1 || lseek(__fd, v99, 0) == -1)
+                  if (lseek(v103, v66, 0) == -1 || lseek(__fd, v96, 0) == -1)
                   {
-                    v89 = *__error();
-                    syslog(4, "unable to reset file descriptors to punch holes: %m", v90, v92);
+                    v87 = *__error();
+                    syslog(4, "unable to reset file descriptors to punch holes: %m", v88, v89);
                   }
 
                   else
                   {
                     while (1)
                     {
-                      v85 = lseek(v106, v69 + sizea, 4);
-                      if (v85 == -1)
+                      v84 = lseek(v103, v69 + sizea, 4);
+                      if (v84 == -1)
                       {
                         break;
                       }
 
-                      v86 = v85;
-                      *&v110.f_bsize = 0;
-                      v110.f_blocks = v69 - v66 + v99;
-                      v110.f_bfree = v85 - v69;
-                      if (fcntl(__fd, 99, &v110) == -1)
+                      v85 = v84;
+                      *&v107.f_bsize = 0;
+                      v107.f_blocks = v69 - v66 + v96;
+                      v107.f_bfree = v84 - v69;
+                      if (fcntl(__fd, 99, &v107) == -1)
                       {
-                        v89 = *__error();
+                        v87 = *__error();
                         syslog(4, "unable to punch hole in destination file, offset %lld length %lld: %m");
                         goto LABEL_204;
                       }
 
-                      v87 = lseek(v106, v86, 3);
-                      v69 = v87;
-                      if (v87 == -1 || v87 == v36)
+                      v86 = lseek(v103, v85, 3);
+                      v69 = v86;
+                      if (v86 == -1 || v86 == v36)
                       {
-                        if (v87 == -1 && *__error() != 6)
+                        if (v86 == -1 && *__error() != 6)
                         {
                           goto LABEL_209;
                         }
@@ -1517,49 +1511,47 @@ LABEL_158:
                     if (*__error() != 6)
                     {
 LABEL_209:
-                      v89 = *__error();
-                      syslog(4, "lseek during hole punching failed: %m", v90, v92);
+                      v87 = *__error();
+                      syslog(4, "lseek during hole punching failed: %m", v88, v89);
                       goto LABEL_204;
                     }
 
-                    *&v110.f_bsize = 0;
-                    v110.f_blocks = v69 - v66 + v99;
-                    v110.f_bfree = v36 - v69 - v36 % sizea;
-                    if (fcntl(__fd, 99, &v110) != -1)
+                    *&v107.f_bsize = 0;
+                    v107.f_blocks = v69 - v66 + v96;
+                    v107.f_bfree = v36 - v69 - v36 % sizea;
+                    if (fcntl(__fd, 99, &v107) != -1)
                     {
                       goto LABEL_180;
                     }
 
-                    v89 = *__error();
+                    v87 = *__error();
                     syslog(4, "unable to punch trailing hole in destination file, offset %lld: %m");
                   }
 
 LABEL_204:
-                  *__error() = v89;
+                  *__error() = v87;
                 }
 
                 goto LABEL_180;
               }
 
-              v84 = *__error();
-              v88 = __error();
-              *a1;
-              v91 = *v88;
+              v83 = *__error();
+              __error();
               syslog(4, "error %d reading from %s: %m");
             }
 
             else
             {
-              v84 = *__error();
-              syslog(4, "No memory for copy buffer: %m", v90, v92);
+              v83 = *__error();
+              syslog(4, "No memory for copy buffer: %m", v88, v89);
             }
 
 LABEL_166:
-            *__error() = v84;
+            *__error() = v83;
             goto LABEL_167;
           }
 
-          v84 = *__error();
+          v83 = *__error();
           syslog(4, "failed to set dst to first data section: %m");
 LABEL_165:
           v71 = 0;
@@ -1571,7 +1563,7 @@ LABEL_165:
         {
 LABEL_180:
           v61 = 0;
-          a1[33] = *v97;
+          a1[33] = *v94;
 LABEL_181:
           v77 = 1;
           if (!v71)
@@ -1591,7 +1583,7 @@ LABEL_170:
             v8 = 0;
 LABEL_171:
             free(v39);
-            goto LABEL_172;
+            return v8;
           }
 
 LABEL_168:
@@ -1637,8 +1629,8 @@ LABEL_74:
     }
 
     v45 = *v44;
-    v46 = fstat(v41, &v110);
-    v47 = *&v110.f_mntonname[16] << 9;
+    v46 = fstat(v41, &v107);
+    v47 = *&v107.f_mntonname[16] << 9;
     if (v46)
     {
       v47 = 0;
@@ -1648,25 +1640,25 @@ LABEL_74:
     v49 = v45 - v47;
     if (!((v49 < 0) ^ v48 | (v49 == 0)))
     {
-      v108[0] = 0x300000000;
-      v108[1] = 0;
-      v109 = v49;
+      v105[0] = 0x300000000;
+      v105[1] = 0;
+      v106 = v49;
       if (*(a1 + 69) >= 3u)
       {
         v50 = *__error();
-        syslog(7, "%s:%d:%s() preallocating %lld bytes on destination\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 3020, "copyfile_data", v109);
+        syslog(7, "%s:%d:%s() preallocating %lld bytes on destination\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 3020, "copyfile_data", v106);
         *__error() = v50;
       }
 
-      fcntl(v41, 42, v108);
+      fcntl(v41, 42, v105);
     }
 
     v51 = read(v40, v43, v28);
-    v107 = v43;
+    v104 = v43;
     if (v51 >= 1)
     {
       v52 = v43;
-      v98 = v28;
+      v95 = v28;
       __nbyte = v27;
       v53 = 0;
       size = 0;
@@ -1713,14 +1705,14 @@ LABEL_74:
           if (v58 == 1)
           {
             v8 = 0;
-            v39 = v107;
+            v39 = v104;
             goto LABEL_171;
           }
 
           v8 = v58;
           if (a2)
           {
-            v39 = v107;
+            v39 = v104;
             if (!v58)
             {
               goto LABEL_171;
@@ -1756,12 +1748,12 @@ LABEL_74:
           v60 = size + 1;
           if (size >= 5)
           {
-            v80 = *__error();
+            v79 = *__error();
             syslog(4, "writing to output %d times resulted in 0 bytes written: %m", size + 1);
-            *__error() = v80;
-            v81 = 35;
+            *__error() = v79;
+            v80 = 35;
 LABEL_174:
-            *(a1 + 68) = v81;
+            *(a1 + 68) = v80;
             goto LABEL_122;
           }
         }
@@ -1774,9 +1766,9 @@ LABEL_174:
           {
             if (v4(4, 4, a1, *a1, a1[1], a1[27]) == 2)
             {
-              v82 = __error();
-              v81 = 89;
-              *v82 = 89;
+              v81 = __error();
+              v80 = 89;
+              *v81 = 89;
               goto LABEL_174;
             }
           }
@@ -1786,8 +1778,8 @@ LABEL_174:
         v27 = __nbyte;
         if (!v51)
         {
-          v52 = v107;
-          v51 = read(v40, v107, v98);
+          v52 = v104;
+          v51 = read(v40, v104, v95);
           size = 0;
           if (v51 < 1)
           {
@@ -1817,7 +1809,7 @@ LABEL_109:
       syslog(4, "reading from %s %s: %m", v64, v65);
       *__error() = v63;
 LABEL_122:
-      v39 = v107;
+      v39 = v104;
 LABEL_123:
       v62 = *__error();
 LABEL_124:
@@ -1827,19 +1819,16 @@ LABEL_124:
     }
 
     v61 = ftruncate(v41, v53) >> 31;
-    v39 = v107;
+    v39 = v104;
     goto LABEL_111;
   }
 
-  v8 = 0xFFFFFFFFLL;
-LABEL_172:
-  v78 = *MEMORY[0x29EDCA608];
-  return v8;
+  return 0xFFFFFFFFLL;
 }
 
 uint64_t copyfile_internal(void *a1, int a2)
 {
-  v186 = *MEMORY[0x29EDCA608];
+  v181 = *MEMORY[0x29EDCA608];
   v3 = *(a1 + 6);
   if (v3 < 0 || (a1[2] & 0x80000000) != 0)
   {
@@ -1851,7 +1840,7 @@ uint64_t copyfile_internal(void *a1, int a2)
     }
 
     *(a1 + 68) = 22;
-    goto LABEL_26;
+    return 0xFFFFFFFFLL;
   }
 
   if ((a2 & 0x400000) != 0)
@@ -1859,77 +1848,77 @@ uint64_t copyfile_internal(void *a1, int a2)
     v5 = copyfile_pack(a1);
     if ((v5 & 0x80000000) != 0)
     {
-      v16 = a1[1];
-      if (v16)
+      v15 = a1[1];
+      if (v15)
       {
-        unlink(v16);
+        unlink(v15);
       }
     }
 
-    goto LABEL_27;
+    return v5;
   }
 
   if ((a2 & 0x800000) != 0)
   {
     if (a1[16] >= 65554)
     {
-      v17 = 65554;
+      v16 = 65554;
     }
 
     else
     {
-      v17 = a1[16];
+      v16 = a1[16];
     }
 
-    v18 = malloc_type_calloc(1uLL, v17, 0x936D7ACCuLL);
-    if (!v18)
+    v17 = malloc_type_calloc(1uLL, v16, 0x936D7ACCuLL);
+    if (!v17)
+    {
+      if (*(a1 + 69))
+      {
+        v32 = *__error();
+        syslog(7, "%s:%d:%s() copyfile_unpack: calloc(1, %zu) returned NULL\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 4688, "copyfile_unpack", v16);
+        *__error() = v32;
+      }
+
+      return 0xFFFFFFFFLL;
+    }
+
+    v18 = v17;
+    v19 = pread(*(a1 + 4), v17, v16, 0);
+    v20 = v19;
+    if (v19 < 0)
     {
       if (*(a1 + 69))
       {
         v33 = *__error();
-        syslog(7, "%s:%d:%s() copyfile_unpack: calloc(1, %zu) returned NULL\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 4688, "copyfile_unpack", v17);
-        *__error() = v33;
-      }
-
-      goto LABEL_26;
-    }
-
-    v19 = v18;
-    v20 = pread(*(a1 + 4), v18, v17, 0);
-    v21 = v20;
-    if (v20 < 0)
-    {
-      if (*(a1 + 69))
-      {
-        v34 = *__error();
         syslog(7, "%s:%d:%s() pread returned: %zd\n");
 LABEL_78:
-        *__error() = v34;
+        *__error() = v33;
       }
     }
 
     else
     {
-      if (v20 < v17)
+      if (v19 < v16)
       {
         if (*(a1 + 69))
         {
-          v22 = *__error();
-          syslog(7, "%s:%d:%s() pread couldn't read entire header: %d of %d\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 4706, "copyfile_unpack", v21, a1[16]);
-          *__error() = v22;
+          v21 = *__error();
+          syslog(7, "%s:%d:%s() pread couldn't read entire header: %d of %d\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 4706, "copyfile_unpack", v20, a1[16]);
+          *__error() = v21;
         }
 
         goto LABEL_79;
       }
 
-      if (v20 >= 0x52 && *v19 == 118883584 && *(v19 + 4) == 512 && *(v19 + 24) == 512 && *(v19 + 26) == 150994944)
+      if (v19 >= 0x52 && *v18 == 118883584 && *(v18 + 4) == 512 && *(v18 + 24) == 512 && *(v18 + 26) == 150994944)
       {
-        swap_adhdr(v19);
-        v35 = flistxattr(*(a1 + 6), 0, 0, 0);
-        v36 = v35;
-        if (v35 < 1)
+        swap_adhdr(v18);
+        v34 = flistxattr(*(a1 + 6), 0, 0, 0);
+        v35 = v34;
+        if (v34 < 1)
         {
-          if (v35 < 0 && *__error() != 45 && *__error() != 1)
+          if (v34 < 0 && *__error() != 45 && *__error() != 1)
           {
             v5 = 0;
             goto LABEL_80;
@@ -1938,431 +1927,427 @@ LABEL_78:
 
         else
         {
-          v5 = malloc_type_malloc(v35, 0x100004077774924uLL);
+          v5 = malloc_type_malloc(v34, 0x100004077774924uLL);
           if (!v5)
           {
             *(a1 + 68) = 12;
             goto LABEL_80;
           }
 
-          v37 = flistxattr(*(a1 + 6), v5, v36, 0);
-          if (v37 >= 1)
+          v36 = flistxattr(*(a1 + 6), v5, v35, 0);
+          if (v36 >= 1)
           {
-            v38 = v5 + v37;
-            v39 = v5;
+            v37 = v5 + v36;
+            v38 = v5;
             do
             {
-              fremovexattr(*(a1 + 6), v39, 0);
-              v39 += strlen(v39) + 1;
+              fremovexattr(*(a1 + 6), v38, 0);
+              v38 += strlen(v38) + 1;
             }
 
-            while (v39 < v38);
+            while (v38 < v37);
           }
 
           free(v5);
         }
 
-        if (*(v19 + 34) >= 0x21u)
+        if (*(v18 + 34) >= 0x21u)
         {
-          if (v17 <= 0x77)
+          if (v16 <= 0x77)
           {
-            v34 = *__error();
+            v33 = *__error();
             syslog(4, "bad attribute header:  %zu < %zu: %m");
             goto LABEL_78;
           }
 
-          swap_attrhdr(v19);
-          if (*(v19 + 84) != 1096045650)
+          swap_attrhdr(v18);
+          if (*(v18 + 84) != 1096045650)
           {
             if ((*(a1 + 195) & 0x40) == 0)
             {
               goto LABEL_79;
             }
 
-            v34 = *__error();
+            v33 = *__error();
             syslog(4, "bad attribute header: %m");
             goto LABEL_78;
           }
 
-          v121 = *(v19 + 118);
-          if (*(v19 + 118))
+          v119 = *(v18 + 118);
+          if (*(v18 + 118))
           {
-            v122 = 0;
+            v120 = 0;
             sizea = 0;
-            v123 = v19 + v17;
-            v124 = (v19 + 120);
+            v121 = v18 + v16;
+            v122 = (v18 + 120);
             while (1)
             {
-              if (v124 >= v123 || v124 < v19 || &v124[1] + 4 > v123)
+              if (v122 >= v121 || v122 < v18 || &v122[1] + 4 > v121)
               {
                 if ((*(a1 + 195) & 0x40) != 0)
                 {
-                  v144 = *__error();
+                  v142 = *__error();
                   syslog(4, "Incomplete or corrupt attribute entry: %m");
-                  goto LABEL_403;
+                  goto LABEL_401;
                 }
 
-LABEL_404:
+LABEL_402:
                 *(a1 + 68) = 22;
-LABEL_353:
+LABEL_351:
                 v5 = 0xFFFFFFFFLL;
-                v130 = v19;
-                goto LABEL_433;
+                v128 = v18;
+                goto LABEL_431;
               }
 
-              v125 = vrev32_s8(*v124);
-              *v124 = v125;
-              v124[1].i16[0] = bswap32(v124[1].u16[0]) >> 16;
-              v126 = v124[1].u8[2];
-              if (v126 <= 1)
+              v123 = vrev32_s8(*v122);
+              *v122 = v123;
+              v122[1].i16[0] = bswap32(v122[1].u16[0]) >> 16;
+              v124 = v122[1].u8[2];
+              if (v124 <= 1)
               {
                 if ((*(a1 + 195) & 0x40) != 0)
                 {
-                  v144 = *__error();
-                  v158 = v124[1].u8[2];
+                  v142 = *__error();
                   syslog(4, "Corrupt attribute entry (only %d bytes): %m");
-LABEL_403:
-                  *__error() = v144;
+LABEL_401:
+                  *__error() = v142;
                 }
 
-                goto LABEL_404;
+                goto LABEL_402;
               }
 
-              __dsta = v122;
-              if (v126 >= 0x81)
+              __dsta = v120;
+              if (v124 >= 0x81)
               {
                 if ((*(a1 + 195) & 0x40) != 0)
                 {
-                  v159 = *__error();
-                  v160 = v124[1].u8[2];
+                  v156 = *__error();
                   syslog(4, "Corrupt attribute entry (name length is %d bytes): %m");
-                  goto LABEL_411;
+                  goto LABEL_409;
                 }
 
-                goto LABEL_412;
+                goto LABEL_410;
               }
 
-              if (&v124[1] + v126 + 3 > v123)
+              if (&v122[1] + v124 + 3 > v121)
               {
                 if ((*(a1 + 195) & 0x40) != 0)
                 {
-                  v159 = *__error();
-                  syslog(4, "Incomplete or corrupt attribute entry: %m", v169);
-                  goto LABEL_411;
+                  v156 = *__error();
+                  syslog(4, "Incomplete or corrupt attribute entry: %m", v165);
+                  goto LABEL_409;
                 }
 
-LABEL_412:
-                v161 = 22;
-                goto LABEL_416;
+LABEL_410:
+                v157 = 22;
+                goto LABEL_414;
               }
 
-              if (v124[1].i8[(v126 - 1) + 3])
+              if (v122[1].i8[(v124 - 1) + 3])
               {
                 if ((*(a1 + 195) & 0x40) != 0)
                 {
-                  v159 = *__error();
-                  syslog(4, "Corrupt attribute entry (name is not NUL-terminated): %m", v169);
-LABEL_411:
-                  *__error() = v159;
+                  v156 = *__error();
+                  syslog(4, "Corrupt attribute entry (name is not NUL-terminated): %m", v165);
+LABEL_409:
+                  *__error() = v156;
                 }
 
-                goto LABEL_412;
+                goto LABEL_410;
               }
 
               if (*(a1 + 69) < 3u)
               {
-                v128 = v125.u32[1];
+                v126 = v123.u32[1];
               }
 
               else
               {
-                v127 = *__error();
-                syslog(7, "%s:%d:%s() extracting %s (%d bytes) at offset %u\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 4878, "copyfile_unpack", &v124[1] + 3, v124->i32[1], v124->i32[0]);
-                *__error() = v127;
-                v128 = v124->u32[1];
+                v125 = *__error();
+                syslog(7, "%s:%d:%s() extracting %s (%d bytes) at offset %u\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 4878, "copyfile_unpack", &v122[1] + 3, v122->i32[1], v122->i32[0]);
+                *__error() = v125;
+                v126 = v122->u32[1];
               }
 
-              v129 = malloc_type_malloc(v128, 0xFB7792E5uLL);
-              if (!v129)
+              v127 = malloc_type_malloc(v126, 0xFB7792E5uLL);
+              if (!v127)
               {
                 if (*(a1 + 69))
                 {
-                  v162 = *__error();
-                  syslog(7, "%s:%d:%s() no memory for %u bytes\n\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 4882, "copyfile_unpack", v124->i32[1]);
-                  *__error() = v162;
+                  v158 = *__error();
+                  syslog(7, "%s:%d:%s() no memory for %u bytes\n\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 4882, "copyfile_unpack", v122->i32[1]);
+                  *__error() = v158;
                 }
 
-                v161 = 12;
-LABEL_416:
-                *(a1 + 68) = v161;
+                v157 = 12;
+LABEL_414:
+                *(a1 + 68) = v157;
                 v5 = 0xFFFFFFFFLL;
-                v130 = v19;
-LABEL_421:
-                v122 = __dsta;
-LABEL_433:
-                free(v130);
-                if (v122)
+                v128 = v18;
+LABEL_419:
+                v120 = __dsta;
+LABEL_431:
+                free(v128);
+                if (v120)
                 {
-LABEL_434:
-                  v44 = v122;
+LABEL_432:
+                  v43 = v120;
 LABEL_81:
-                  free(v44);
+                  free(v43);
                 }
 
                 if ((v5 & 0x80000000) == 0)
                 {
-                  goto LABEL_27;
+                  return v5;
                 }
 
-LABEL_26:
-                v5 = 0xFFFFFFFFLL;
-                goto LABEL_27;
+                return 0xFFFFFFFFLL;
               }
 
-              v130 = v129;
-              v131 = pread(*(a1 + 4), v129, v124->u32[1], v124->u32[0]);
-              v132 = v124->u32[1];
-              if (v131 != v132)
+              v128 = v127;
+              v129 = pread(*(a1 + 4), v127, v122->u32[1], v122->u32[0]);
+              v130 = v122->u32[1];
+              if (v129 != v130)
               {
                 if (*(a1 + 69))
                 {
-                  v163 = *__error();
-                  syslog(7, "%s:%d:%s() failed to read %u bytes at offset %u\n\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 4888, "copyfile_unpack", v124->i32[1], v124->i32[0]);
-                  *__error() = v163;
+                  v159 = *__error();
+                  syslog(7, "%s:%d:%s() failed to read %u bytes at offset %u\n\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 4888, "copyfile_unpack", v122->i32[1], v122->i32[0]);
+                  *__error() = v159;
                 }
 
                 *(a1 + 68) = 22;
-                goto LABEL_420;
+                goto LABEL_418;
               }
 
-              v133 = v131;
-              if (!strcmp(&v124[1] + 3, "figgledidiggledy"))
+              v131 = v129;
+              if (!strcmp(&v122[1] + 3, "figgledidiggledy"))
               {
-                goto LABEL_348;
+                goto LABEL_346;
               }
 
-              if (strcmp(&v124[1] + 3, "com.apple.acl.text"))
+              if (strcmp(&v122[1] + 3, "com.apple.acl.text"))
               {
-                v5 = copyfile_unpack_xattr(a1, v124, v130);
+                v5 = copyfile_unpack_xattr(a1, v122, v128);
                 if (v5 == -1)
                 {
-                  goto LABEL_420;
+                  goto LABEL_418;
                 }
 
-                goto LABEL_349;
+                goto LABEL_347;
               }
 
-              if (!v132)
+              if (!v130)
               {
-LABEL_348:
+LABEL_346:
                 v5 = 0;
               }
 
               else
               {
-                __dsta = malloc_type_malloc(v133, 0x716E830CuLL);
+                __dsta = malloc_type_malloc(v131, 0x716E830CuLL);
                 if (!__dsta)
                 {
                   __dsta = 0;
-LABEL_420:
-                  free(v19);
+LABEL_418:
+                  free(v18);
                   v5 = 0xFFFFFFFFLL;
-                  goto LABEL_421;
+                  goto LABEL_419;
                 }
 
-                memcpy(__dsta, v130, v124->u32[1]);
+                memcpy(__dsta, v128, v122->u32[1]);
                 v5 = 0;
-                sizea = v124->u32[1];
+                sizea = v122->u32[1];
               }
 
-LABEL_349:
-              free(v130);
-              v124 = (v124 + ((v124[1].u8[2] + 14) & 0x1FC));
-              --v121;
-              v122 = __dsta;
-              if (!v121)
+LABEL_347:
+              free(v128);
+              v122 = (v122 + ((v122[1].u8[2] + 14) & 0x1FC));
+              --v119;
+              v120 = __dsta;
+              if (!v119)
               {
-                goto LABEL_352;
+                goto LABEL_350;
               }
             }
           }
         }
 
         sizea = 0;
-        v122 = 0;
+        v120 = 0;
         v5 = 0;
-LABEL_352:
-        v134 = *(v19 + 30);
-        if (v17 - 32 < v134)
+LABEL_350:
+        v132 = *(v18 + 30);
+        if (v16 - 32 < v132)
         {
-          goto LABEL_353;
+          goto LABEL_351;
         }
 
-        v135 = v122;
-        if (*(v19 + v134) | *(v19 + v134 + 8) | *(v19 + v134 + 16) | *(v19 + v134 + 24))
+        v133 = v120;
+        if (*(v18 + v132) | *(v18 + v132 + 8) | *(v18 + v132 + 16) | *(v18 + v132 + 24))
         {
-          v136 = *(v19 + 30);
+          v134 = *(v18 + 30);
           if (*(a1 + 69) >= 3u)
           {
-            v137 = *__error();
+            v135 = *__error();
             syslog(7, "%s:%d:%s()  extracting %s (32 bytes)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 4961, "copyfile_unpack", "com.apple.FinderInfo");
-            *__error() = v137;
+            *__error() = v135;
           }
 
-          v138 = a1[26];
+          v136 = a1[26];
+          if (v136)
+          {
+            a1[31] = "com.apple.FinderInfo";
+            v137 = v136(5, 1, a1, *a1, a1[1], a1[27]);
+            a1[31] = 0;
+            if (v137 == 1)
+            {
+              goto LABEL_375;
+            }
+
+            if (v137 == 2)
+            {
+              goto LABEL_367;
+            }
+          }
+
+          v138 = fsetxattr(*(a1 + 6), "com.apple.FinderInfo", (v18 + *(v18 + 30)), 0x20uLL, 0, 0);
+          v139 = a1[26];
           if (v138)
           {
-            a1[31] = "com.apple.FinderInfo";
-            v139 = v138(5, 1, a1, *a1, a1[1], a1[27]);
-            a1[31] = 0;
-            if (v139 == 1)
+            v5 = v138;
+            if (!v139)
             {
-              goto LABEL_377;
+              goto LABEL_430;
             }
 
-            if (v139 == 2)
+            a1[31] = "com.apple.FinderInfo";
+            v140 = v139(5, 3, a1, *a1, a1[1], a1[27]);
+            a1[31] = 0;
+            if (v140 != 2)
             {
-              goto LABEL_369;
+              goto LABEL_430;
             }
+
+            goto LABEL_367;
           }
 
-          v140 = fsetxattr(*(a1 + 6), "com.apple.FinderInfo", (v19 + *(v19 + 30)), 0x20uLL, 0, 0);
-          v141 = a1[26];
-          if (v140)
-          {
-            v5 = v140;
-            if (!v141)
-            {
-              goto LABEL_432;
-            }
-
-            a1[31] = "com.apple.FinderInfo";
-            v142 = v141(5, 3, a1, *a1, a1[1], a1[27]);
-            a1[31] = 0;
-            if (v142 != 2)
-            {
-              goto LABEL_432;
-            }
-
-            goto LABEL_369;
-          }
-
-          if (v141)
+          if (v139)
           {
             a1[31] = "com.apple.FinderInfo";
-            v143 = v141(5, 2, a1, *a1, a1[1], a1[27]);
+            v141 = v139(5, 2, a1, *a1, a1[1], a1[27]);
             a1[31] = 0;
-            if (v143 == 2)
+            if (v141 == 2)
             {
-LABEL_369:
+LABEL_367:
               *(a1 + 68) = 89;
-LABEL_370:
+LABEL_368:
               v5 = 0xFFFFFFFFLL;
-              goto LABEL_432;
+              goto LABEL_430;
             }
           }
 
           v5 = 0;
-          if ((*(v19 + v136 + 8) & 0x40) != 0)
+          if ((*(v18 + v134 + 8) & 0x40) != 0)
           {
             *(a1 + 49) |= 2u;
           }
         }
 
-LABEL_377:
-        if (*(v19 + 38) != 2)
+LABEL_375:
+        if (*(v18 + 38) != 2)
         {
-          goto LABEL_428;
-        }
-
-        v145 = *(v19 + 46);
-        if (!v145)
-        {
-          goto LABEL_428;
-        }
-
-        v146 = *(v19 + 42);
-        v147 = malloc_type_malloc(*(v19 + 46), 0x8DA8306AuLL);
-        if (!v147)
-        {
-          if (*(a1 + 69))
-          {
-            v153 = *__error();
-            syslog(7, "%s:%d:%s() could not allocate %zu bytes for rsrcforkdata\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 5029, "copyfile_unpack", v145);
-            *__error() = v153;
-          }
-
-          v5 = 0xFFFFFFFFLL;
-          goto LABEL_428;
-        }
-
-        v148 = v147;
-        if (fstat(*(a1 + 6), &v185) < 0)
-        {
-          if (*(a1 + 69))
-          {
-            v152 = *__error();
-            syslog(7, "%s:%d:%s() couldn't stat destination file\n");
-            goto LABEL_424;
-          }
-
-LABEL_426:
-          v5 = 0xFFFFFFFFLL;
-          goto LABEL_427;
-        }
-
-        v149 = pread(*(a1 + 4), v148, v145, v146);
-        v150 = v149;
-        if (v149 < v145)
-        {
-          v151 = *(a1 + 69);
-          if (v149 == -1)
-          {
-            if (v151)
-            {
-              v152 = *__error();
-              syslog(7, "%s:%d:%s() couldn't read resource fork\n");
-              goto LABEL_424;
-            }
-          }
-
-          else if (v151)
-          {
-            v152 = *__error();
-            syslog(7, "%s:%d:%s() couldn't read resource fork (only read %d bytes of %d)\n");
-LABEL_424:
-            v5 = 0xFFFFFFFFLL;
-LABEL_425:
-            *__error() = v152;
-            goto LABEL_427;
-          }
-
           goto LABEL_426;
         }
 
-        v154 = a1[26];
-        if (!v154)
+        v143 = *(v18 + 46);
+        if (!v143)
         {
-          goto LABEL_454;
+          goto LABEL_426;
+        }
+
+        v144 = *(v18 + 42);
+        v145 = malloc_type_malloc(*(v18 + 46), 0x8DA8306AuLL);
+        if (!v145)
+        {
+          if (*(a1 + 69))
+          {
+            v151 = *__error();
+            syslog(7, "%s:%d:%s() could not allocate %zu bytes for rsrcforkdata\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 5029, "copyfile_unpack", v143);
+            *__error() = v151;
+          }
+
+          v5 = 0xFFFFFFFFLL;
+          goto LABEL_426;
+        }
+
+        v146 = v145;
+        if (fstat(*(a1 + 6), &v180) < 0)
+        {
+          if (*(a1 + 69))
+          {
+            v150 = *__error();
+            syslog(7, "%s:%d:%s() couldn't stat destination file\n");
+            goto LABEL_422;
+          }
+
+LABEL_424:
+          v5 = 0xFFFFFFFFLL;
+          goto LABEL_425;
+        }
+
+        v147 = pread(*(a1 + 4), v146, v143, v144);
+        v148 = v147;
+        if (v147 < v143)
+        {
+          v149 = *(a1 + 69);
+          if (v147 == -1)
+          {
+            if (v149)
+            {
+              v150 = *__error();
+              syslog(7, "%s:%d:%s() couldn't read resource fork\n");
+              goto LABEL_422;
+            }
+          }
+
+          else if (v149)
+          {
+            v150 = *__error();
+            syslog(7, "%s:%d:%s() couldn't read resource fork (only read %d bytes of %d)\n");
+LABEL_422:
+            v5 = 0xFFFFFFFFLL;
+LABEL_423:
+            *__error() = v150;
+            goto LABEL_425;
+          }
+
+          goto LABEL_424;
+        }
+
+        v152 = a1[26];
+        if (!v152)
+        {
+          goto LABEL_452;
         }
 
         a1[31] = "com.apple.ResourceFork";
-        v155 = v154(5, 1, a1, *a1, a1[1], a1[27]);
+        v153 = v152(5, 1, a1, *a1, a1[1], a1[27]);
         a1[31] = 0;
-        if (v155 == 1)
+        if (v153 == 1)
         {
-LABEL_427:
-          free(v148);
-LABEL_428:
-          if (v135)
+LABEL_425:
+          free(v146);
+LABEL_426:
+          if (v133)
           {
-            v122 = v135;
-            v5 = copyfile_unpack_acl(a1, sizea, v135);
+            v120 = v133;
+            v5 = copyfile_unpack_acl(a1, sizea, v133);
             if (v5 == -1)
             {
-              free(v19);
+              free(v18);
               v5 = 0xFFFFFFFFLL;
-              goto LABEL_434;
+              goto LABEL_432;
             }
           }
 
@@ -2372,88 +2357,88 @@ LABEL_428:
             v5 = 0;
           }
 
-LABEL_432:
-          v130 = v19;
-          v122 = v135;
-          goto LABEL_433;
+LABEL_430:
+          v128 = v18;
+          v120 = v133;
+          goto LABEL_431;
         }
 
-        if (v155 != 2)
+        if (v153 != 2)
         {
-LABEL_454:
-          if (fsetxattr(*(a1 + 6), "com.apple.ResourceFork", v148, v150, 0, 0))
+LABEL_452:
+          if (fsetxattr(*(a1 + 6), "com.apple.ResourceFork", v146, v148, 0, 0))
           {
-            if (v150 == 286 && (v185.f_iosize & 0xF000) == 0x4000 && !memcmp(v148, &empty_rsrcfork_header, 0x11EuLL))
+            if (v148 == 286 && (v180.f_iosize & 0xF000) == 0x4000 && !memcmp(v146, &empty_rsrcfork_header, 0x11EuLL))
             {
               if (*(a1 + 69) >= 2u)
               {
-                v168 = *__error();
+                v164 = *__error();
                 syslog(7, "%s:%d:%s() not setting empty resource fork on directory\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 5086, "copyfile_unpack");
-                v152 = 0;
+                v150 = 0;
                 v5 = 0;
-                *__error() = v168;
-                goto LABEL_425;
+                *__error() = v164;
+                goto LABEL_423;
               }
             }
 
             else
             {
-              v156 = a1[26];
-              if (!v156 || (a1[31] = "com.apple.ResourceFork", v157 = v156(5, 3, a1, *a1, a1[1], a1[27]), a1[31] = 0, v157))
+              v154 = a1[26];
+              if (!v154 || (a1[31] = "com.apple.ResourceFork", v155 = v154(5, 3, a1, *a1, a1[1], a1[27]), a1[31] = 0, v155))
               {
                 if (*(a1 + 69))
                 {
-                  v152 = *__error();
+                  v150 = *__error();
                   syslog(7, "%s:%d:%s() error %d setting resource fork attribute\n");
-                  goto LABEL_424;
+                  goto LABEL_422;
                 }
 
-                goto LABEL_426;
+                goto LABEL_424;
               }
             }
 
-            v152 = 0;
-LABEL_451:
+            v150 = 0;
+LABEL_449:
             v5 = 0;
-            goto LABEL_425;
+            goto LABEL_423;
           }
 
-          v164 = a1[26];
-          if (!v164 || (a1[31] = "com.apple.ResourceFork", v165 = v164(5, 2, a1, *a1, a1[1], a1[27]), a1[31] = 0, v165 != 2))
+          v160 = a1[26];
+          if (!v160 || (a1[31] = "com.apple.ResourceFork", v161 = v160(5, 2, a1, *a1, a1[1], a1[27]), a1[31] = 0, v161 != 2))
           {
             if (*(a1 + 69) >= 3u)
             {
-              v166 = *__error();
-              syslog(7, "%s:%d:%s() extracting %s (%d bytes)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 5117, "copyfile_unpack", "com.apple.ResourceFork", v145);
-              *__error() = v166;
+              v162 = *__error();
+              syslog(7, "%s:%d:%s() extracting %s (%d bytes)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 5117, "copyfile_unpack", "com.apple.ResourceFork", v143);
+              *__error() = v162;
             }
 
-            if ((a1[24] & 2) != 0 || (acl[1] = 0, acl[2] = 0, acl[0] = 0x140000000005, *&v184.st_dev = *v185.f_fsid.val, *&v184.st_uid = *&v185.f_files, !fsetattrlist(*(a1 + 6), acl, &v184, 0x20uLL, 0)))
+            if ((a1[24] & 2) != 0 || (acl[1] = 0, acl[2] = 0, acl[0] = 0x140000000005, *&v179.st_dev = *v180.f_fsid.val, *&v179.st_uid = *&v180.f_files, !fsetattrlist(*(a1 + 6), acl, &v179, 0x20uLL, 0)))
             {
               v5 = 0;
-              goto LABEL_427;
+              goto LABEL_425;
             }
 
-            v152 = *__error();
-            v167 = a1[1];
-            if (!v167)
+            v150 = *__error();
+            v163 = a1[1];
+            if (!v163)
             {
-              v167 = "(null dst)";
+              v163 = "(null dst)";
             }
 
-            syslog(4, "%s: set times: %m", v167);
-            goto LABEL_451;
+            syslog(4, "%s: set times: %m", v163);
+            goto LABEL_449;
           }
         }
 
         *(a1 + 68) = 89;
-        free(v148);
-        goto LABEL_370;
+        free(v146);
+        goto LABEL_368;
       }
 
       if ((*(a1 + 195) & 0x40) != 0)
       {
-        v34 = *__error();
+        v33 = *__error();
         syslog(4, "Not a valid Apple Double header: %m");
         goto LABEL_78;
       }
@@ -2462,7 +2447,7 @@ LABEL_451:
 LABEL_79:
     v5 = 0xFFFFFFFFLL;
 LABEL_80:
-    v44 = v19;
+    v43 = v18;
     goto LABEL_81;
   }
 
@@ -2471,11 +2456,11 @@ LABEL_80:
     goto LABEL_6;
   }
 
-  v23 = flistxattr(v3, 0, 0, 0);
-  v24 = v23;
-  if (v23 < 1)
+  v22 = flistxattr(v3, 0, 0, 0);
+  v23 = v22;
+  if (v22 < 1)
   {
-    if (v23 < 0)
+    if (v22 < 0)
     {
       goto LABEL_123;
     }
@@ -2483,169 +2468,169 @@ LABEL_80:
     goto LABEL_101;
   }
 
+  v24 = 0;
   v25 = 0;
-  v26 = 0;
-  v27 = -3;
+  v26 = -3;
   do
   {
-    if (v24 <= v26)
+    if (v23 <= v25)
     {
-      v24 = v26;
-      v29 = v25;
+      v23 = v25;
+      v28 = v24;
     }
 
     else
     {
-      if (v24 >= 0x2000001)
+      if (v23 >= 0x2000001)
       {
-        v28 = *__error();
-        syslog(4, "destination's xattr list size (%zu) exceeds the threshold (%d); trying to allocate: %m", v24, 0x2000000);
-        *__error() = v28;
+        v27 = *__error();
+        syslog(4, "destination's xattr list size (%zu) exceeds the threshold (%d); trying to allocate: %m", v23, 0x2000000);
+        *__error() = v27;
       }
 
-      v29 = malloc_type_realloc(v25, v24, 0x6CB93339uLL);
-      if (!v29)
+      v28 = malloc_type_realloc(v24, v23, 0x6CB93339uLL);
+      if (!v28)
       {
 LABEL_127:
-        if (!v25)
+        if (!v24)
         {
-          goto LABEL_228;
+          goto LABEL_226;
         }
 
-        goto LABEL_227;
+        goto LABEL_225;
       }
     }
 
-    v26 = v24;
-    v30 = flistxattr(*(a1 + 6), v29, v24, 0);
-    if ((v30 & 0x8000000000000000) == 0)
+    v25 = v23;
+    v29 = flistxattr(*(a1 + 6), v28, v23, 0);
+    if ((v29 & 0x8000000000000000) == 0)
     {
-      if (v30)
+      if (v29)
       {
-        v45 = &v29[v30 - 1];
-        if (*v45)
+        v44 = &v28[v29 - 1];
+        if (*v44)
         {
-          *v45 = 0;
+          *v44 = 0;
         }
 
-        v46 = v29;
+        v45 = v28;
         do
         {
-          if (strncmp(v46, "figgledidiggledy", v45 - v46))
+          if (strncmp(v45, "figgledidiggledy", v44 - v45))
           {
-            fremovexattr(*(a1 + 6), v46, 0);
+            fremovexattr(*(a1 + 6), v45, 0);
           }
 
-          v46 += strlen(v46) + 1;
+          v45 += strlen(v45) + 1;
         }
 
-        while (v46 <= v45);
+        while (v45 <= v44);
       }
 
       goto LABEL_99;
     }
 
-    if (*__error() != 34 || v27 == 0)
+    if (*__error() != 34 || v26 == 0)
     {
       goto LABEL_99;
     }
 
-    v32 = flistxattr(*(a1 + 6), 0, 0, 0);
-    v24 = v32;
-    ++v27;
-    v25 = v29;
+    v31 = flistxattr(*(a1 + 6), 0, 0, 0);
+    v23 = v31;
+    ++v26;
+    v24 = v28;
   }
 
-  while (v32 >= 1);
-  if (v32 < 0)
+  while (v31 >= 1);
+  if (v31 < 0)
   {
-    if (v29)
+    if (v28)
     {
-      free(v29);
+      free(v28);
     }
 
     goto LABEL_123;
   }
 
 LABEL_99:
-  if (v29)
+  if (v28)
   {
-    free(v29);
+    free(v28);
   }
 
 LABEL_101:
   if ((a1[24] & 8) != 0 && (*(a1 + 148) & 0x20) != 0 && doesdecmpfs(*(a1 + 4)))
   {
-    v47 = doesdecmpfs(*(a1 + 6));
-    v48 = !v47;
-    v49 = 32 * v47;
+    v46 = doesdecmpfs(*(a1 + 6));
+    v47 = !v46;
+    v48 = 32 * v46;
   }
 
   else
   {
-    v49 = 0;
-    v48 = 1;
+    v48 = 0;
+    v47 = 1;
   }
 
-  v50 = flistxattr(*(a1 + 4), 0, 0, v49);
-  if (v50 < 1)
+  v49 = flistxattr(*(a1 + 4), 0, 0, v48);
+  if (v49 < 1)
   {
     goto LABEL_122;
   }
 
-  v173 = v48;
-  v25 = 0;
-  v51 = 0;
-  v52 = -3;
+  v168 = v47;
+  v24 = 0;
+  v50 = 0;
+  v51 = -3;
   while (1)
   {
-    if (v50 <= v51)
+    if (v49 <= v50)
     {
-      v50 = v51;
-      v54 = v25;
+      v49 = v50;
+      v53 = v24;
     }
 
     else
     {
-      if (v50 >= 0x2000001)
+      if (v49 >= 0x2000001)
       {
-        v53 = *__error();
-        syslog(4, "source's xattr list size (%zu) exceeds the threshold (%d); trying to allocate: %m", v50, 0x2000000);
-        *__error() = v53;
+        v52 = *__error();
+        syslog(4, "source's xattr list size (%zu) exceeds the threshold (%d); trying to allocate: %m", v49, 0x2000000);
+        *__error() = v52;
       }
 
-      v54 = malloc_type_realloc(v25, v50, 0x181ABAFuLL);
-      if (!v54)
+      v53 = malloc_type_realloc(v24, v49, 0x181ABAFuLL);
+      if (!v53)
       {
         goto LABEL_127;
       }
     }
 
-    v51 = v50;
-    v55 = flistxattr(*(a1 + 4), v54, v50, v49);
-    v5 = v55;
-    if ((v55 & 0x8000000000000000) == 0)
+    v50 = v49;
+    v54 = flistxattr(*(a1 + 4), v53, v49, v48);
+    v5 = v54;
+    if ((v54 & 0x8000000000000000) == 0)
     {
       break;
     }
 
-    if (*__error() != 34 || v52 == 0)
+    if (*__error() != 34 || v51 == 0)
     {
-      goto LABEL_221;
+      goto LABEL_219;
     }
 
-    v50 = flistxattr(*(a1 + 4), 0, 0, v49);
-    ++v52;
-    v25 = v54;
-    if (v50 <= 0)
+    v49 = flistxattr(*(a1 + 4), 0, 0, v48);
+    ++v51;
+    v24 = v53;
+    if (v49 <= 0)
     {
-      if (v54)
+      if (v53)
       {
-        free(v54);
+        free(v53);
       }
 
 LABEL_122:
-      if (v50)
+      if (v49)
       {
 LABEL_123:
         if (*__error() != 45)
@@ -2660,7 +2645,7 @@ LABEL_123:
             v5 = 0xFFFFFFFFLL;
           }
 
-          goto LABEL_321;
+          goto LABEL_319;
         }
       }
 
@@ -2672,30 +2657,30 @@ LABEL_7:
         v5 = copyfile_data(a1, 0);
         if ((v5 & 0x80000000) != 0)
         {
-          v40 = *__error();
+          v39 = *__error();
           syslog(4, "error processing data: %m");
-          *__error() = v40;
-          v41 = a1[1];
-          if (v41 && unlink(v41))
+          *__error() = v39;
+          v40 = a1[1];
+          if (v40 && unlink(v40))
           {
-            v42 = *__error();
-            v43 = *a1;
+            v41 = *__error();
+            v42 = *a1;
             if (!*a1)
             {
-              v43 = "(null src)";
+              v42 = "(null src)";
             }
 
-            syslog(4, "%s: remove: %m", v43);
-            *__error() = v42;
+            syslog(4, "%s: remove: %m", v42);
+            *__error() = v41;
           }
 
-          goto LABEL_27;
+          return v5;
         }
       }
 
       if ((a2 & 3) == 0)
       {
-        goto LABEL_283;
+        goto LABEL_281;
       }
 
       acl[0] = 0;
@@ -2705,7 +2690,7 @@ LABEL_7:
       if (!v6)
       {
         v5 = 0xFFFFFFFFLL;
-        goto LABEL_285;
+        goto LABEL_283;
       }
 
       v7 = v6;
@@ -2724,7 +2709,7 @@ LABEL_7:
 
 LABEL_91:
         v5 = 0xFFFFFFFFLL;
-LABEL_276:
+LABEL_274:
         filesec_free(v7);
         if (acl[0])
         {
@@ -2743,24 +2728,24 @@ LABEL_276:
 
         if ((v5 & 0x80000000) == 0)
         {
-LABEL_283:
+LABEL_281:
           if ((a2 & 2) != 0)
           {
             copyfile_stat(a1);
-            v5 = 0;
+            return 0;
           }
 
-          goto LABEL_27;
+          return v5;
         }
 
-LABEL_285:
-        v112 = *__error();
+LABEL_283:
+        v110 = *__error();
         syslog(4, "error processing security information: %m");
-        goto LABEL_286;
+        goto LABEL_284;
       }
 
 LABEL_90:
-      if (fstatx_np(*(a1 + 6), &v184, v7))
+      if (fstatx_np(*(a1 + 6), &v179, v7))
       {
         goto LABEL_91;
       }
@@ -2773,15 +2758,15 @@ LABEL_90:
         }
 
         obj_p = 0;
-        v99 = 1;
+        v97 = 1;
       }
 
       else
       {
-        v99 = obj_p == 0;
+        v97 = obj_p == 0;
       }
 
-      if (!acl[0] && v99)
+      if (!acl[0] && v97)
       {
 LABEL_12:
         v5 = 0;
@@ -2797,16 +2782,16 @@ LABEL_12:
 
         if (acl[0])
         {
-          *&v185.f_bsize = 0;
+          *&v180.f_bsize = 0;
           entry_p = 0;
           v5 = 0;
-          if (!acl_get_entry(acl[0], 0, &v185))
+          if (!acl_get_entry(acl[0], 0, &v180))
           {
             v5 = 0;
             do
             {
               flagset_p = 0;
-              acl_get_flagset_np(*&v185.f_bsize, &flagset_p);
+              acl_get_flagset_np(*&v180.f_bsize, &flagset_p);
               if (!acl_get_flag_np(flagset_p, ACL_ENTRY_INHERITED))
               {
                 if (acl_create_entry(&acl_p, &entry_p) == -1)
@@ -2814,45 +2799,45 @@ LABEL_12:
                   goto LABEL_91;
                 }
 
-                v100 = acl_copy_entry(entry_p, *&v185.f_bsize);
-                if (v100 == -1)
+                v98 = acl_copy_entry(entry_p, *&v180.f_bsize);
+                if (v98 == -1)
                 {
                   goto LABEL_91;
                 }
 
-                v5 = v100;
+                v5 = v98;
                 if (*(a1 + 69) >= 2u)
                 {
-                  v101 = *__error();
-                  v102 = *a1;
-                  v103 = a1[1];
+                  v99 = *__error();
+                  v100 = *a1;
+                  v101 = a1[1];
                   if (!*a1)
                   {
-                    v102 = "(null src)";
+                    v100 = "(null src)";
                   }
 
-                  if (!v103)
+                  if (!v101)
                   {
-                    v103 = "(null tmp)";
+                    v101 = "(null tmp)";
                   }
 
-                  syslog(7, "%s:%d:%s() copied acl entry from %s to %s\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 3193, "copyfile_security", v102, v103);
-                  *__error() = v101;
+                  syslog(7, "%s:%d:%s() copied acl entry from %s to %s\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 3193, "copyfile_security", v100, v101);
+                  *__error() = v99;
                 }
               }
 
-              if (*&v185.f_bsize)
+              if (*&v180.f_bsize)
               {
-                v104 = -1;
+                v102 = -1;
               }
 
               else
               {
-                v104 = 0;
+                v102 = 0;
               }
             }
 
-            while (!acl_get_entry(acl[0], v104, &v185));
+            while (!acl_get_entry(acl[0], v102, &v180));
           }
         }
 
@@ -2863,14 +2848,14 @@ LABEL_12:
 
         if (obj_p)
         {
-          *&v185.f_bsize = 0;
+          *&v180.f_bsize = 0;
           flagset_p = 0;
           entry_p = 0;
-          if (!acl_get_entry(obj_p, 0, &v185))
+          if (!acl_get_entry(obj_p, 0, &v180))
           {
             do
             {
-              acl_get_flagset_np(*&v185.f_bsize, &flagset_p);
+              acl_get_flagset_np(*&v180.f_bsize, &flagset_p);
               if (acl_get_flag_np(flagset_p, ACL_ENTRY_INHERITED))
               {
                 if (acl_create_entry(&acl_p, &entry_p) == -1)
@@ -2878,54 +2863,54 @@ LABEL_12:
                   goto LABEL_91;
                 }
 
-                v113 = acl_copy_entry(entry_p, *&v185.f_bsize);
-                if (v113 == -1)
+                v111 = acl_copy_entry(entry_p, *&v180.f_bsize);
+                if (v111 == -1)
                 {
                   goto LABEL_91;
                 }
 
-                v5 = v113;
+                v5 = v111;
                 if (a1 && *(a1 + 69) >= 2u)
                 {
-                  v114 = *__error();
-                  v115 = *a1;
-                  v116 = a1[1];
+                  v112 = *__error();
+                  v113 = *a1;
+                  v114 = a1[1];
                   if (!*a1)
                   {
-                    v115 = "(null dst)";
+                    v113 = "(null dst)";
                   }
 
-                  if (!v116)
+                  if (!v114)
                   {
-                    v116 = "(null tmp)";
+                    v114 = "(null tmp)";
                   }
 
-                  syslog(7, "%s:%d:%s() copied acl entry from %s to %s\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 3217, "copyfile_security", v115, v116);
-                  *__error() = v114;
+                  syslog(7, "%s:%d:%s() copied acl entry from %s to %s\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 3217, "copyfile_security", v113, v114);
+                  *__error() = v112;
                 }
               }
 
-              if (*&v185.f_bsize)
+              if (*&v180.f_bsize)
               {
-                v117 = -1;
+                v115 = -1;
               }
 
               else
               {
-                v117 = 0;
+                v115 = 0;
               }
             }
 
-            while (!acl_get_entry(obj_p, v117, &v185));
+            while (!acl_get_entry(obj_p, v115, &v180));
           }
         }
 
-        v118 = filesec_set_property(a1[23], FILESEC_ACL, &acl_p);
-        if (a1 && !v118 && *(a1 + 69) >= 3u)
+        v116 = filesec_set_property(a1[23], FILESEC_ACL, &acl_p);
+        if (a1 && !v116 && *(a1 + 69) >= 3u)
         {
-          v119 = *__error();
+          v117 = *__error();
           syslog(7, "%s:%d:%s() altered acl\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 3224, "copyfile_security");
-          *__error() = v119;
+          *__error() = v117;
         }
       }
 
@@ -2942,154 +2927,154 @@ LABEL_12:
         v12 = 1;
       }
 
-      else if ((v11 & 0x8000) != 0 || fstatfs(*(a1 + 4), &v185) != -1 && (v185.f_flags & 8) != 0 || (v12 = 1, fstatfs(*(a1 + 6), &v185) != -1) && (v185.f_flags & 8) != 0)
+      else if ((v11 & 0x8000) != 0 || fstatfs(*(a1 + 4), &v180) != -1 && (v180.f_flags & 8) != 0 || (v12 = 1, fstatfs(*(a1 + 6), &v180) != -1) && (v180.f_flags & 8) != 0)
       {
-        LOWORD(v185.f_bsize) = 0;
-        if (filesec_get_property(v9, FILESEC_MODE, &v185) || (v185.f_bsize & 0xC00) == 0)
+        LOWORD(v180.f_bsize) = 0;
+        if (filesec_get_property(v9, FILESEC_MODE, &v180) || (v180.f_bsize & 0xC00) == 0)
         {
           v12 = 1;
         }
 
         else
         {
-          LOWORD(v185.f_bsize) &= 0xF3FFu;
-          v12 = filesec_set_property(v9, FILESEC_MODE, &v185) == 0;
+          LOWORD(v180.f_bsize) &= 0xF3FFu;
+          v12 = filesec_set_property(v9, FILESEC_MODE, &v180) == 0;
         }
 
         v10 &= 0xF3FFu;
       }
 
-      v105 = a1[24] & 3;
-      if (v105 > 1)
+      v103 = a1[24] & 3;
+      if (v103 > 1)
       {
-        if (v105 == 2)
+        if (v103 == 2)
         {
           fchmod(*(a1 + 6), v10);
         }
 
         else
         {
-LABEL_258:
+LABEL_256:
           if (!v12 || fchmodx_np(*(a1 + 6), v9) < 0)
           {
-            *&v185.f_bsize = 0;
+            *&v180.f_bsize = 0;
             if ((a1[24] & 2) != 0 && fchmod(*(a1 + 6), v10) == -1)
             {
-              v106 = *__error();
-              v107 = "(null string)";
-              v108 = a1[1];
-              if (!v108)
+              v104 = *__error();
+              v105 = "(null string)";
+              v106 = a1[1];
+              if (!v106)
               {
-                v108 = "(null string)";
+                v106 = "(null string)";
               }
 
               if (*a1)
               {
-                v107 = *a1;
+                v105 = *a1;
               }
 
-              syslog(4, "could not change mode of destination file %s to match source file %s: %m", v108, v107);
-              *__error() = v106;
+              syslog(4, "could not change mode of destination file %s to match source file %s: %m", v106, v105);
+              *__error() = v104;
             }
 
             fchown(*(a1 + 6), *(a1 + 12), *(a1 + 13));
-            if (!filesec_get_property(v9, FILESEC_ACL, &v185))
+            if (!filesec_get_property(v9, FILESEC_ACL, &v180))
             {
-              if (MEMORY[0x29C2B03F0](*(a1 + 6), *&v185.f_bsize) == -1)
+              if (MEMORY[0x29C2B03F0](*(a1 + 6), *&v180.f_bsize) == -1)
               {
-                v109 = *__error();
-                v110 = "(null string)";
-                v111 = a1[1];
-                if (!v111)
+                v107 = *__error();
+                v108 = "(null string)";
+                v109 = a1[1];
+                if (!v109)
                 {
-                  v111 = "(null string)";
+                  v109 = "(null string)";
                 }
 
                 if (*a1)
                 {
-                  v110 = *a1;
+                  v108 = *a1;
                 }
 
-                syslog(4, "could not apply acl to destination file %s from source file %s: %m", v111, v110);
-                *__error() = v109;
+                syslog(4, "could not apply acl to destination file %s from source file %s: %m", v109, v108);
+                *__error() = v107;
               }
 
-              acl_free(*&v185.f_bsize);
+              acl_free(*&v180.f_bsize);
             }
           }
         }
       }
 
-      else if (v105)
+      else if (v103)
       {
         filesec_set_property(v9, FILESEC_OWNER, 0);
         filesec_set_property(v9, FILESEC_GROUP, 0);
         filesec_set_property(v9, FILESEC_MODE, 0);
-        goto LABEL_258;
+        goto LABEL_256;
       }
 
       filesec_free(v9);
-      goto LABEL_276;
+      goto LABEL_274;
     }
   }
 
-  if (!v55)
+  if (!v54)
   {
-LABEL_221:
-    if (v54)
+LABEL_219:
+    if (v53)
     {
-      free(v54);
+      free(v53);
     }
 
-    goto LABEL_321;
+    goto LABEL_319;
   }
 
-  v57 = &v54[v55 - 1];
-  if (*v57)
+  v56 = &v53[v54 - 1];
+  if (*v56)
   {
-    *v57 = 0;
+    *v56 = 0;
   }
 
-  v58 = malloc_type_malloc(0x1000uLL, 0x89F80090uLL);
-  if (!v58)
+  v57 = malloc_type_malloc(0x1000uLL, 0x89F80090uLL);
+  if (!v57)
   {
-    v25 = v54;
-LABEL_227:
-    free(v25);
-LABEL_228:
+    v24 = v53;
+LABEL_225:
+    free(v24);
+LABEL_226:
     v5 = 0xFFFFFFFFLL;
-    goto LABEL_322;
+    goto LABEL_320;
   }
 
-  v59 = v58;
-  v60 = 0;
+  v58 = v57;
+  v59 = 0;
   size = 4096;
-  v61 = v54;
-  v172 = &v54[v5 - 1];
+  v60 = v53;
+  v167 = &v53[v5 - 1];
   while (1)
   {
-    v62 = a1[31];
-    if (v62)
+    v61 = a1[31];
+    if (v61)
     {
-      free(v62);
+      free(v61);
       a1[31] = 0;
     }
 
-    v63 = v57 - v61;
-    if (strncmp(v61, "figgledidiggledy", v57 - v61))
+    v62 = v56 - v60;
+    if (strncmp(v60, "figgledidiggledy", v56 - v60))
     {
-      v64 = *(a1 + 70);
-      if (!v64 || xattr_preserve_for_intent(v61, v64))
+      v63 = *(a1 + 70);
+      if (!v63 || xattr_preserve_for_intent(v60, v63))
       {
-        a1[31] = strdup(v61);
-        v65 = a1[26];
-        if (!v65)
+        a1[31] = strdup(v60);
+        v64 = a1[26];
+        if (!v64)
         {
           goto LABEL_143;
         }
 
-        v66 = v65(5, 1, a1, *a1, a1[1], a1[27]);
-        if (v66 != 1)
+        v65 = v64(5, 1, a1, *a1, a1[1], a1[27]);
+        if (v65 != 1)
         {
           break;
         }
@@ -3097,77 +3082,77 @@ LABEL_228:
     }
 
 LABEL_209:
-    v71 = v59;
+    v70 = v58;
 LABEL_210:
-    v61 += strlen(v61) + 1;
-    v59 = v71;
-    v5 = v60;
-    if (v61 > v57)
+    v60 += strlen(v60) + 1;
+    v58 = v70;
+    v5 = v59;
+    if (v60 > v56)
     {
-      goto LABEL_317;
+      goto LABEL_315;
     }
   }
 
-  if (v66 == 2)
+  if (v65 == 2)
   {
-    goto LABEL_315;
+    goto LABEL_313;
   }
 
 LABEL_143:
-  if (strncmp(v61, "com.apple.ResourceFork", v57 - v61))
+  if (strncmp(v60, "com.apple.ResourceFork", v56 - v60))
   {
-    __dst = v60;
-    v67 = fgetxattr(*(a1 + 4), v61, 0, 0, 0, v49);
-    if (v67 < 0)
+    __dst = v59;
+    v66 = fgetxattr(*(a1 + 4), v60, 0, 0, 0, v48);
+    if (v66 < 0)
     {
-      v71 = v59;
+      v70 = v58;
 LABEL_174:
-      v60 = __dst;
+      v59 = __dst;
       goto LABEL_210;
     }
 
-    v68 = v67;
-    v69 = -3;
+    v67 = v66;
+    v68 = -3;
     while (1)
     {
-      if (v68 <= size)
+      if (v67 <= size)
       {
-        v71 = v59;
-        v68 = size;
+        v70 = v58;
+        v67 = size;
       }
 
       else
       {
-        if (v68 >= 0x2000001)
+        if (v67 >= 0x2000001)
         {
-          v70 = *__error();
-          syslog(4, "xattr named %s has size (%zu), which exceeds the threshold (%d); trying to allocate: %m", v61, v68, 0x2000000);
-          *__error() = v70;
+          v69 = *__error();
+          syslog(4, "xattr named %s has size (%zu), which exceeds the threshold (%d); trying to allocate: %m", v60, v67, 0x2000000);
+          *__error() = v69;
         }
 
-        v71 = malloc_type_realloc(v59, v68, 0x84D193BuLL);
-        if (!v71)
+        v70 = malloc_type_realloc(v58, v67, 0x84D193BuLL);
+        if (!v70)
         {
-          free(v59);
+          free(v58);
           size = 0;
-          v57 = v172;
+          v56 = v167;
           goto LABEL_187;
         }
       }
 
-      size = v68;
-      v72 = fgetxattr(*(a1 + 4), v61, v71, v68, 0, v49);
-      if ((v72 & 0x8000000000000000) == 0)
+      size = v67;
+      v71 = fgetxattr(*(a1 + 4), v60, v70, v67, 0, v48);
+      if ((v71 & 0x8000000000000000) == 0)
       {
         break;
       }
 
-      if (*__error() == 34 && v69 != 0)
+      if (*__error() == 34 && v68 != 0)
       {
-        v68 = fgetxattr(*(a1 + 4), v61, 0, 0, 0, v49);
-        ++v69;
-        v59 = v71;
-        if ((v68 & 0x8000000000000000) == 0)
+        v67 = fgetxattr(*(a1 + 4), v60, 0, 0, 0, v48);
+        ++v68;
+        v58 = v70;
+        if ((v67 & 0x8000000000000000) == 0)
         {
           continue;
         }
@@ -3176,159 +3161,155 @@ LABEL_174:
       goto LABEL_158;
     }
 
-    v85 = v72;
-    v57 = v172;
-    v60 = __dst;
-    if (!strncmp(v61, "com.apple.decmpfs", v63))
+    v84 = v71;
+    v56 = v167;
+    v59 = __dst;
+    if (!strncmp(v60, "com.apple.decmpfs", v62))
     {
-      if (v85 < 0x10 || *v71 != 1668116582)
+      if (v84 < 0x10 || *v70 != 1668116582)
       {
         goto LABEL_210;
       }
 
-      v87 = v71[1];
-      if ((v87 - 7) >= 8 && (v87 - 3) >= 2)
+      v86 = v70[1];
+      if ((v86 - 7) >= 8 && (v86 - 3) >= 2)
       {
-        if (v87 == 5)
+        if (v86 == 5)
         {
           if (*(a1 + 69) >= 3u)
           {
-            v97 = *__error();
-            if (*a1)
-            {
-              v98 = *a1;
-            }
-
+            v96 = *__error();
             syslog(7, "%s:%d:%s() compression_type <5> on attribute com.apple.decmpfs for src file %s is not copied.\n");
-LABEL_220:
-            *__error() = v97;
+            goto LABEL_218;
           }
-
-LABEL_158:
-          v57 = v172;
-          goto LABEL_174;
         }
 
-        v97 = *__error();
-        *a1;
-        v170 = v71[1];
-        syslog(4, "Invalid compression_type <%d> on attribute %s for src file %s: %m");
-        goto LABEL_220;
+        else
+        {
+          v96 = *__error();
+          syslog(4, "Invalid compression_type <%d> on attribute %s for src file %s: %m");
+LABEL_218:
+          *__error() = v96;
+        }
+
+LABEL_158:
+        v56 = v167;
+        goto LABEL_174;
       }
 
-      if (!v173)
+      if (!v168)
       {
         *(a1 + 49) |= 4u;
       }
     }
 
-    if (fsetxattr(*(a1 + 6), v61, v71, v85, 0, v49) < 0)
+    if (fsetxattr(*(a1 + 6), v60, v70, v84, 0, v48) < 0)
     {
-      if (*__error() == 1 && !strcmp(v61, "com.apple.root.installed"))
+      if (*__error() == 1 && !strcmp(v60, "com.apple.root.installed"))
       {
         goto LABEL_210;
       }
 
-      v86 = a1[26];
-      if (!v86)
+      v85 = a1[26];
+      if (!v85)
       {
-        v96 = *__error();
-        syslog(4, "could not set attributes %s on destination file descriptor: %m", v61);
-        *__error() = v96;
+        v95 = *__error();
+        syslog(4, "could not set attributes %s on destination file descriptor: %m", v60);
+        *__error() = v95;
 LABEL_187:
-        v60 = 0xFFFFFFFFLL;
+        v59 = 0xFFFFFFFFLL;
         goto LABEL_210;
       }
 
-      if (v86(5, 3, a1, *a1, a1[1], a1[27]) == 2)
+      if (v85(5, 3, a1, *a1, a1[1], a1[27]) == 2)
       {
-        v60 = 0xFFFFFFFFLL;
-LABEL_316:
+        v59 = 0xFFFFFFFFLL;
+LABEL_314:
         *(a1 + 68) = 89;
-        v59 = v71;
-        v5 = v60;
-        goto LABEL_317;
+        v58 = v70;
+        v5 = v59;
+        goto LABEL_315;
       }
     }
 
-    v59 = v71;
+    v58 = v70;
     goto LABEL_207;
   }
 
   if ((*(a1 + 197) & 4) == 0)
   {
-    v74 = fgetxattr(*(a1 + 4), "com.apple.ResourceFork", 0, 0, 0, v49);
-    if (v74 < 0)
+    v73 = fgetxattr(*(a1 + 4), "com.apple.ResourceFork", 0, 0, 0, v48);
+    if (v73 < 0)
     {
-      v60 = 0;
+      v59 = 0;
       v5 = 45;
 LABEL_203:
       if (*(a1 + 69) >= 2u)
       {
         __dstb = *__error();
-        v92 = v60;
-        v93 = *(a1 + 68);
-        v94 = __error();
-        v171 = v93;
-        v60 = v92;
-        syslog(7, "%s:%d:%s() Resource fork copy (fsetxattr) failed (%d - state %d - errno %d)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 3731, "copyfile_xattr", v5, v171, *v94);
+        v91 = v59;
+        v92 = *(a1 + 68);
+        v93 = __error();
+        v166 = v92;
+        v59 = v91;
+        syslog(7, "%s:%d:%s() Resource fork copy (fsetxattr) failed (%d - state %d - errno %d)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 3731, "copyfile_xattr", v5, v166, *v93);
         *__error() = __dstb;
       }
 
-      v84 = *(a1 + 68);
+      v83 = *(a1 + 68);
       goto LABEL_206;
     }
 
-    v75 = size;
-    if (size < 0x100000 && v74 > size)
+    v74 = size;
+    if (size < 0x100000 && v73 > size)
     {
-      if (v74 >= 0x100000)
+      if (v73 >= 0x100000)
       {
-        v76 = 0x100000;
+        v75 = 0x100000;
       }
 
       else
       {
-        v76 = v74;
+        v75 = v73;
       }
 
-      v77 = v76;
-      v59 = reallocf(v59, v76);
-      if (!v59)
+      v76 = v75;
+      v58 = reallocf(v58, v75);
+      if (!v58)
       {
-        v91 = *__error();
+        v90 = *__error();
         syslog(4, "realloc for resource fork failed: %m");
         size = 0;
-        *__error() = v91;
+        *__error() = v90;
 LABEL_202:
-        v60 = 0xFFFFFFFFLL;
+        v59 = 0xFFFFFFFFLL;
         v5 = 0xFFFFFFFFLL;
         goto LABEL_203;
       }
 
-      v75 = v77;
+      v74 = v76;
     }
 
-    size = v75;
-    v78 = fgetxattr(*(a1 + 4), "com.apple.ResourceFork", v59, v75, 0, v49);
-    if (v78 < 1)
+    size = v74;
+    v77 = fgetxattr(*(a1 + 4), "com.apple.ResourceFork", v58, v74, 0, v48);
+    if (v77 < 1)
     {
-      v80 = 1;
+      v79 = 1;
       goto LABEL_194;
     }
 
-    v79 = 0;
+    v78 = 0;
     do
     {
-      if (fsetxattr(*(a1 + 6), "com.apple.ResourceFork", v59, v78, v79, v49) < 0)
+      if (fsetxattr(*(a1 + 6), "com.apple.ResourceFork", v58, v77, v78, v48) < 0)
       {
-        v89 = *__error();
+        v88 = *__error();
         syslog(4, "writing to resource fork got error: %m");
-        *__error() = v89;
-        v90 = a1[26];
-        if (v90)
+        *__error() = v88;
+        v89 = a1[26];
+        if (v89)
         {
-          if (v90(5, 3, a1, *a1, a1[1], a1[27]) != 2)
+          if (v89(5, 3, a1, *a1, a1[1], a1[27]) != 2)
           {
             goto LABEL_200;
           }
@@ -3339,34 +3320,34 @@ LABEL_202:
         goto LABEL_202;
       }
 
-      v79 += v78;
-      v78 = fgetxattr(*(a1 + 4), "com.apple.ResourceFork", v59, size, v79, v49);
+      v78 += v77;
+      v77 = fgetxattr(*(a1 + 4), "com.apple.ResourceFork", v58, size, v78, v48);
     }
 
-    while (v78 >= 1);
-    v80 = v79 == 0;
+    while (v77 >= 1);
+    v79 = v78 == 0;
 LABEL_194:
-    if ((v78 & 0x8000000000000000) == 0 || (v88 = *__error(), syslog(4, "resource fork getxattr failed: %m"), *__error() = v88, v80))
+    if ((v77 & 0x8000000000000000) == 0 || (v87 = *__error(), syslog(4, "resource fork getxattr failed: %m"), *__error() = v87, v79))
     {
 LABEL_200:
-      v60 = 0;
+      v59 = 0;
       goto LABEL_207;
     }
 
     goto LABEL_202;
   }
 
-  v60 = copyfile_data(a1, 1);
-  if (!v60)
+  v59 = copyfile_data(a1, 1);
+  if (!v59)
   {
 LABEL_207:
-    v95 = a1[26];
-    if (v95 && v95(5, 2, a1, *a1, a1[1], a1[27]) == 2)
+    v94 = a1[26];
+    if (v94 && v94(5, 2, a1, *a1, a1[1], a1[27]) == 2)
     {
-      v60 = 0xFFFFFFFFLL;
-LABEL_315:
-      v71 = v59;
-      goto LABEL_316;
+      v59 = 0xFFFFFFFFLL;
+LABEL_313:
+      v70 = v58;
+      goto LABEL_314;
     }
 
     goto LABEL_209;
@@ -3374,76 +3355,74 @@ LABEL_315:
 
   if (*(a1 + 69) >= 2u)
   {
-    v81 = *__error();
-    v82 = *(a1 + 68);
-    v83 = __error();
-    syslog(7, "%s:%d:%s() Resource fork copy (fd) failed (%d - state %d - errno %d)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 3713, "copyfile_xattr", v60, v82, *v83);
-    *__error() = v81;
+    v80 = *__error();
+    v81 = *(a1 + 68);
+    v82 = __error();
+    syslog(7, "%s:%d:%s() Resource fork copy (fd) failed (%d - state %d - errno %d)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 3713, "copyfile_xattr", v59, v81, *v82);
+    *__error() = v80;
   }
 
-  v84 = *(a1 + 68);
-  v5 = v60;
+  v83 = *(a1 + 68);
+  v5 = v59;
 LABEL_206:
-  if (v84 != 89)
+  if (v83 != 89)
   {
     goto LABEL_207;
   }
 
-LABEL_317:
-  if (v54)
+LABEL_315:
+  if (v53)
   {
-    free(v54);
+    free(v53);
   }
 
-  free(v59);
-  v120 = a1[31];
-  if (v120)
+  free(v58);
+  v118 = a1[31];
+  if (v118)
   {
-    free(v120);
+    free(v118);
     a1[31] = 0;
   }
 
-LABEL_321:
+LABEL_319:
   if ((v5 & 0x80000000) == 0)
   {
     goto LABEL_7;
   }
 
-LABEL_322:
+LABEL_320:
   if (*__error() != 45 && *__error() != 1)
   {
-    v112 = *__error();
+    v110 = *__error();
     syslog(4, "error processing extended attributes: %m");
-LABEL_286:
-    *__error() = v112;
+LABEL_284:
+    *__error() = v110;
   }
 
-LABEL_27:
-  v14 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
 uint64_t copyfile_stat(uint64_t a1)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 36);
   v3 = v2 & 0xFFF;
   v4 = *(a1 + 196);
   if ((v4 & 0x4000) == 0)
   {
-    if ((v4 & 0x8000) != 0 || (fstatfs(*(a1 + 16), &v13) != -1 ? (v5 = (v13.f_flags & 8) == 0) : (v5 = 1), !v5 || (fstatfs(*(a1 + 24), &v13) != -1 ? (v6 = (v13.f_flags & 8) == 0) : (v6 = 1), !v6)))
+    if ((v4 & 0x8000) != 0 || (fstatfs(*(a1 + 16), &v12) != -1 ? (v5 = (v12.f_flags & 8) == 0) : (v5 = 1), !v5 || (fstatfs(*(a1 + 24), &v12) != -1 ? (v6 = (v12.f_flags & 8) == 0) : (v6 = 1), !v6)))
     {
       v3 = v2 & 0x3FF;
     }
   }
 
-  v12[1] = 0;
-  v12[2] = 0;
-  v12[0] = 0x140000000005;
+  v11[1] = 0;
+  v11[2] = 0;
+  v11[0] = 0x140000000005;
   v7 = *(a1 + 64);
-  *&v13.f_bsize = *(a1 + 80);
-  *&v13.f_bfree = v7;
-  fsetattrlist(*(a1 + 24), v12, &v13, 0x20uLL, 0);
+  *&v12.f_bsize = *(a1 + 80);
+  *&v12.f_bfree = v7;
+  fsetattrlist(*(a1 + 24), v11, &v12, 0x20uLL, 0);
   fchown(*(a1 + 24), *(a1 + 48), *(a1 + 52));
   fchmod(*(a1 + 24), v3);
   v8 = *(a1 + 148);
@@ -3460,16 +3439,15 @@ uint64_t copyfile_stat(uint64_t a1)
   result = copyfile_set_bsdflags(a1, (*(a1 + 196) << 14) & 0x8000 | v8 & 0xFFE7FF3F, v9);
   if ((v8 & 0x60026) == 0x20)
   {
-    result = fsetattrlist(*(a1 + 24), v12, &v13, 0x20uLL, 0);
+    return fsetattrlist(*(a1 + 24), v11, &v12, 0x20uLL, 0);
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t copyfile_open(const char **a1, std::error_code *a2)
 {
-  v102 = *MEMORY[0x29EDCA608];
+  v81 = *MEMORY[0x29EDCA608];
   if (*a1 && *(a1 + 4) == -2)
   {
     v3 = MEMORY[0x29EDCA648];
@@ -3478,86 +3456,82 @@ uint64_t copyfile_open(const char **a1, std::error_code *a2)
       v3 = MEMORY[0x29EDCA668];
     }
 
-    v4 = a1[23];
     if (v3())
     {
-      v5 = *__error();
-      v6 = *a1;
+      v4 = *__error();
       syslog(4, "stat on %s: %m");
-LABEL_148:
-      *__error() = v5;
-      goto LABEL_161;
+LABEL_147:
+      *__error() = v4;
+      return 0xFFFFFFFFLL;
     }
 
-    v16 = *(a1 + 18) & 0xF000;
-    switch(v16)
+    v14 = *(a1 + 18) & 0xF000;
+    switch(v14)
     {
       case 16384:
-        v7 = 0;
-        v17 = 1;
-        v18 = 1;
+        v5 = 0;
+        v15 = 1;
+        v16 = 1;
         break;
       case 40960:
-        v40 = 0;
-        v18 = 0;
-        v7 = 0;
-        v41 = *(a1 + 48);
-        v42 = 0x200000;
-        v17 = 1;
-        v43 = 0x200000;
+        v36 = 0;
+        v16 = 0;
+        v5 = 0;
+        v37 = *(a1 + 48);
+        v38 = 0x200000;
+        v15 = 1;
+        v39 = 0x200000;
 LABEL_68:
-        if ((v41 & 0x400000) != 0)
+        if ((v37 & 0x400000) != 0)
         {
-          v44 = v43;
+          v40 = v39;
         }
 
         else
         {
-          v44 = v42;
+          v40 = v38;
         }
 
-        if ((v41 & 0x400000) != 0)
+        if ((v37 & 0x400000) != 0)
         {
-          v8 = 0;
+          v6 = 0;
         }
 
         else
         {
-          v8 = v18;
+          v6 = v16;
         }
 
-        v45 = open(*a1, v44, 0);
-        *(a1 + 4) = v45;
-        if (v45 < 0)
+        v41 = open(*a1, v40, 0);
+        *(a1 + 4) = v41;
+        if (v41 < 0)
         {
-          v5 = *__error();
-          v48 = *a1;
-LABEL_147:
+          v4 = *__error();
+LABEL_146:
           syslog(4, "open on %s: %m");
-          goto LABEL_148;
+          goto LABEL_147;
         }
 
         if (*(a1 + 69) >= 2u)
         {
-          v46 = *__error();
+          v42 = *__error();
           syslog(7, "%s:%d:%s() open successful on source (%s)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 1959, "copyfile_open", *a1);
-          *__error() = v46;
-          v45 = *(a1 + 4);
+          *__error() = v42;
+          v41 = *(a1 + 4);
         }
 
         *(a1 + 49) |= 0x80u;
-        if (fstat(v45, &v100))
+        if (fstat(v41, &v79))
         {
-          v5 = *__error();
-          v47 = *a1;
+          v4 = *__error();
           syslog(4, "fstat on open fd failed for %s\n: %m");
-          goto LABEL_148;
+          goto LABEL_147;
         }
 
-        if (*(a1 + 8) == v100.st_dev && a1[5] == v100.st_ino)
+        if (*(a1 + 8) == v79.st_dev && a1[5] == v79.st_ino)
         {
-          v61 = *(a1 + 18) & 0xF000;
-          if (v61 == (v100.st_mode & 0xF000))
+          v55 = *(a1 + 18) & 0xF000;
+          if (v55 == (v79.st_mode & 0xF000))
           {
             if ((*(a1 + 198) & 2) != 0)
             {
@@ -3565,658 +3539,643 @@ LABEL_147:
               {
                 *__error() = 2;
                 *(a1 + 68) = 2;
-                v60 = *__error();
+                v54 = *__error();
                 syslog(4, "missing FTS entry during recursive copy\n: %m");
                 goto LABEL_112;
               }
 
-              if (!lstat(*a1, &v100))
+              if (!lstat(*a1, &v79))
               {
-                v87 = 0;
-                v88 = *(a1[32] + 44);
-                if (v88 > 0xB)
+                v67 = 0;
+                v68 = *(a1[32] + 44);
+                if (v68 > 0xB)
                 {
-                  if (v88 - 12 <= 1)
+                  if (v68 - 12 <= 1)
                   {
-                    v87 = -24576;
+                    v67 = -24576;
                   }
                 }
 
-                else if (v88 == 1 || v88 == 6)
+                else if (v68 == 1 || v68 == 6)
                 {
-                  v87 = 0x4000;
+                  v67 = 0x4000;
                 }
 
-                else if (v88 == 8)
+                else if (v68 == 8)
                 {
-                  v87 = 0x8000;
+                  v67 = 0x8000;
                 }
 
                 if ((*(a1 + 198) & 4) != 0)
                 {
-                  LOWORD(v61) = -24576;
+                  LOWORD(v55) = -24576;
                 }
 
                 else
                 {
-                  LOWORD(v61) = v87;
+                  LOWORD(v55) = v67;
                 }
 
-LABEL_189:
-                if ((v100.st_mode & 0xF000) != v61)
+LABEL_187:
+                if ((v79.st_mode & 0xF000) != v55)
                 {
                   *__error() = 9;
                   *(a1 + 68) = 9;
-                  v5 = *__error();
-                  v99 = *a1;
+                  v4 = *__error();
                   syslog(4, "file type (%u) does not match expected %u on %s\n: %m");
-                  goto LABEL_148;
+                  goto LABEL_147;
                 }
 
-                if (v17)
+                if (v15)
                 {
-                  goto LABEL_206;
+                  goto LABEL_204;
                 }
 
-                v89 = *(a1 + 48);
-                if ((v89 & 4) == 0)
+                v69 = *(a1 + 48);
+                if ((v69 & 4) == 0)
                 {
-                  goto LABEL_206;
+                  goto LABEL_204;
                 }
 
-                if ((v89 & 8) != 0 && (*(a1 + 148) & 0x20) != 0)
+                if ((v69 & 8) != 0 && (*(a1 + 148) & 0x20) != 0)
                 {
-                  v90 = 32 * doesdecmpfs(*(a1 + 4));
-                  v89 = *(a1 + 48);
+                  v70 = 32 * doesdecmpfs(*(a1 + 4));
+                  v69 = *(a1 + 48);
                 }
 
                 else
                 {
-                  v90 = 0;
+                  v70 = 0;
                 }
 
-                v91 = fgetxattr(*(a1 + 4), "com.apple.ResourceFork", 0, 0, 0, (v89 >> 18) & 1 | v90);
+                v71 = fgetxattr(*(a1 + 4), "com.apple.ResourceFork", 0, 0, 0, (v69 >> 18) & 1 | v70);
                 *__error() = 0;
-                if (v91 <= 0x100000)
+                if (v71 <= 0x100000)
                 {
-                  goto LABEL_206;
+                  goto LABEL_204;
                 }
 
                 if (*(a1 + 69) >= 2u)
                 {
-                  v92 = *__error();
+                  v72 = *__error();
                   syslog(7, "%s:%d:%s() %s has large resource fork, will use namedfork to copy\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 2083, "copyfile_open", *a1);
-                  *__error() = v92;
+                  *__error() = v72;
                 }
 
-                snprintf(&v101, 0x400uLL, "%s%s", *a1, "/..namedfork/rsrc");
-                v93 = malloc_type_malloc(0x90uLL, 0x1000040B72DA15FuLL);
-                a1[22] = v93;
-                if (v93)
+                snprintf(&v80, 0x400uLL, "%s%s", *a1, "/..namedfork/rsrc");
+                v73 = malloc_type_malloc(0x90uLL, 0x1000040B72DA15FuLL);
+                a1[22] = v73;
+                if (v73)
                 {
-                  v94 = MEMORY[0x29EDCA6A8];
+                  v74 = MEMORY[0x29EDCA6A8];
                   if ((a1[24] & 0x40000) == 0)
                   {
-                    v94 = MEMORY[0x29EDCA6B8];
+                    v74 = MEMORY[0x29EDCA6B8];
                   }
 
-                  if (v94(&v101, v93))
+                  if (v74(&v80, v73))
                   {
-                    v95 = *__error();
-                    syslog(4, "stat on %s: %m", &v101);
-                    *__error() = v95;
+                    v75 = *__error();
+                    syslog(4, "stat on %s: %m", &v80);
+                    *__error() = v75;
                     free(a1[22]);
                     a1[22] = 0;
                   }
 
                   else if (a1[22])
                   {
-                    v97 = open(&v101, v44, 0);
-                    *(a1 + 5) = v97;
-                    if ((v97 & 0x80000000) == 0)
+                    v77 = open(&v80, v40, 0);
+                    *(a1 + 5) = v77;
+                    if ((v77 & 0x80000000) == 0)
                     {
                       if (*(a1 + 69) >= 2u)
                       {
-                        v98 = *__error();
-                        syslog(7, "%s:%d:%s() open successful on source rsrc (%s)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 2111, "copyfile_open", &v101);
-                        *__error() = v98;
+                        v78 = *__error();
+                        syslog(7, "%s:%d:%s() open successful on source rsrc (%s)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 2111, "copyfile_open", &v80);
+                        *__error() = v78;
                       }
 
                       *(a1 + 49) |= 0x400u;
-                      goto LABEL_206;
+                      goto LABEL_204;
                     }
                   }
                 }
 
-                v96 = *__error();
-                syslog(4, "malloc/stat/open on %s: %m", &v101);
-                *__error() = v96;
+                v76 = *__error();
+                syslog(4, "malloc/stat/open on %s: %m", &v80);
+                *__error() = v76;
                 *__error() = 0;
-LABEL_206:
-                v9 = v40 | ((v41 & 0x400000) >> 22);
+LABEL_204:
+                v7 = v36 | ((v37 & 0x400000) >> 22);
                 goto LABEL_8;
               }
             }
 
             else
             {
-              v62 = MEMORY[0x29EDCA6A8];
+              v56 = MEMORY[0x29EDCA6A8];
               if ((a1[24] & 0x40000) == 0)
               {
-                v62 = MEMORY[0x29EDCA6B8];
+                v56 = MEMORY[0x29EDCA6B8];
               }
 
-              if (!v62(*a1, &v100))
+              if (!v56(*a1, &v79))
               {
-                goto LABEL_189;
+                goto LABEL_187;
               }
             }
 
-            v5 = *__error();
-            v85 = *a1;
+            v4 = *__error();
             syslog(4, "repeat stat on %s\n: %m");
-            goto LABEL_148;
+            goto LABEL_147;
           }
         }
 
-        v66 = *__error();
+        v59 = *__error();
         syslog(4, "file %s changed behind our feet: %m", *a1);
-        *__error() = v66;
-        v49 = 9;
-LABEL_160:
-        *(a1 + 68) = v49;
-        goto LABEL_161;
+        *__error() = v59;
+        v43 = 9;
+LABEL_159:
+        *(a1 + 68) = v43;
+        return 0xFFFFFFFFLL;
       case 32768:
-        v17 = 0;
-        v18 = 0;
-        v7 = 1;
+        v15 = 0;
+        v16 = 0;
+        v5 = 1;
         break;
       default:
         if (strcmp(*a1, "/dev/null") || (a1[24] & 7) == 0)
         {
-          v49 = 45;
-          goto LABEL_160;
+          v43 = 45;
+          goto LABEL_159;
         }
 
-        v7 = 0;
-        v18 = 0;
-        v17 = 1;
+        v5 = 0;
+        v16 = 0;
+        v15 = 1;
         break;
     }
 
-    v42 = 0;
-    v41 = *(a1 + 48);
-    v43 = (v41 >> 10) & 0x100;
-    v40 = 1;
+    v38 = 0;
+    v37 = *(a1 + 48);
+    v39 = (v37 >> 10) & 0x100;
+    v36 = 1;
     goto LABEL_68;
   }
 
-  v7 = 0;
-  v8 = 0;
-  LOBYTE(v9) = 1;
+  v5 = 0;
+  v6 = 0;
+  LOBYTE(v7) = 1;
 LABEL_8:
-  v10 = a1[1];
-  if (!v10 || *(a1 + 6) != -2)
+  v8 = a1[1];
+  if (!v8 || *(a1 + 6) != -2)
   {
-    goto LABEL_154;
+    goto LABEL_153;
   }
 
-  v11 = *(a1 + 48);
-  if ((v11 & 0x8000008) != 0)
+  v9 = *(a1 + 48);
+  if ((v9 & 0x8000008) != 0)
+  {
+    v10 = 2561;
+  }
+
+  else
+  {
+    v10 = 2560;
+  }
+
+  if ((v9 & 0x800000) != 0)
+  {
+    v11 = 2560;
+  }
+
+  else
+  {
+    v11 = v10;
+  }
+
+  if ((v9 & 0x400000) != 0)
   {
     v12 = 2561;
   }
 
   else
   {
-    v12 = 2560;
+    v12 = v11;
   }
 
-  if ((v11 & 0x800000) != 0)
+  if ((v9 & 0x200000) != 0 && remove(v8, a2) < 0 && *__error() != 2)
   {
-    v13 = 2560;
-  }
-
-  else
-  {
-    v13 = v12;
-  }
-
-  if ((v11 & 0x400000) != 0)
-  {
-    v14 = 2561;
-  }
-
-  else
-  {
-    v14 = v13;
-  }
-
-  if ((v11 & 0x200000) != 0 && remove(v10, a2) < 0 && *__error() != 2)
-  {
-    v5 = *__error();
-    v65 = a1[1];
+    v4 = *__error();
     syslog(4, "%s: remove: %m");
-    goto LABEL_148;
+    goto LABEL_147;
   }
 
   if ((*(a1 + 194) & 8) != 0)
   {
-    v19 = lstat(a1[1], &v101);
-    if ((v101.f_iosize & 0xF000) == 0xA000)
+    v17 = lstat(a1[1], &v80);
+    if ((v80.f_iosize & 0xF000) == 0xA000)
     {
-      v20 = 0x200000;
+      v18 = 0x200000;
     }
 
     else
     {
-      v20 = 256;
+      v18 = 256;
     }
 
-    if (v19 == -1)
+    if (v17 == -1)
     {
-      v15 = 256;
+      v13 = 256;
     }
 
     else
     {
-      v15 = v20;
+      v13 = v18;
     }
   }
 
   else
   {
-    v15 = 0;
+    v13 = 0;
   }
 
-  v21 = *(a1 + 49);
-  if ((v21 & 8) == 0)
+  v19 = *(a1 + 49);
+  if ((v19 & 8) == 0)
   {
-    v22 = fstatfs(*(a1 + 4), &v101);
-    if (v22 == -1 || (v101.f_flags & 0x80) == 0)
+    v20 = fstatfs(*(a1 + 4), &v80);
+    if (v20 == -1 || (v80.f_flags & 0x80) == 0)
     {
-      if (v22 == -1)
+      if (v20 == -1)
       {
-        v5 = *__error();
-        v67 = *a1;
-        goto LABEL_128;
+        goto LABEL_127;
       }
 
-      v23 = *(a1 + 49);
+      v21 = *(a1 + 49);
     }
 
     else
     {
-      v23 = *(a1 + 49) | 0x10;
+      v21 = *(a1 + 49) | 0x10;
     }
 
-    v21 = v23 | 8;
-    *(a1 + 49) = v21;
+    v19 = v21 | 8;
+    *(a1 + 49) = v19;
   }
 
-  v24 = 0xFFFFFFFFLL;
-  v25 = v8 | v7;
-  if (v8 | v7)
+  v22 = 0xFFFFFFFFLL;
+  v23 = v6 | v5;
+  if (v6 | v5)
   {
-    if ((v21 & 0x210) == 0x10)
+    if ((v19 & 0x210) == 0x10)
     {
-      v24 = fcntl(*(a1 + 4), 63);
-      if ((v24 & 0x80000000) != 0)
+      v22 = fcntl(*(a1 + 4), 63);
+      if ((v22 & 0x80000000) != 0)
       {
-        v5 = *__error();
-        v38 = *a1;
-        v39 = *__error();
+        v4 = *__error();
+        __error();
         syslog(4, "GET_PROT_CLASS failed on (%s) with error <%d>: %m");
-        goto LABEL_148;
+        goto LABEL_147;
       }
     }
   }
 
-  if ((v9 & 1) == 0)
+  if (v7)
   {
-    v28 = a1[16];
-    if (v28)
+    if (!v6)
     {
-      v29 = (v28 + 1);
-    }
-
-    else
-    {
-      v29 = 1025;
-    }
-
-    v30 = malloc_type_calloc(1uLL, v29, 0x71385709uLL);
-    if (v30)
-    {
-      v31 = v30;
-      if (readlink(*a1, v30, v29 - 1) == -1)
+      for (i = 0; ; i = 1)
       {
-        v70 = *__error();
-        v71 = *a1;
-        syslog(4, "cannot readlink %s: %m");
-      }
-
-      else
-      {
-        if (symlink(v31, a1[1]) != -1 || *__error() == 17 && (*(a1 + 194) & 2) == 0)
-        {
-          free(v31);
-          v32 = open(a1[1], 0x200000);
-          *(a1 + 6) = v32;
-          if (v32 == -1)
-          {
-            v5 = *__error();
-            v76 = a1[1];
-            syslog(4, "Cannot open symlink %s for reading: %m");
-            goto LABEL_148;
-          }
-
-          i = 0;
-          goto LABEL_57;
-        }
-
-        v70 = *__error();
-        v74 = a1[1];
-        syslog(4, "Cannot make symlink %s: %m");
-      }
-
-      *__error() = v70;
-      free(v31);
-LABEL_161:
-      result = 0xFFFFFFFFLL;
-      goto LABEL_162;
-    }
-
-    v60 = *__error();
-    syslog(4, "cannot allocate %zd bytes: %m");
-LABEL_112:
-    *__error() = v60;
-    goto LABEL_161;
-  }
-
-  if (!v8)
-  {
-    for (i = 0; ; i = 1)
-    {
-      v50 = v14 & 0xFFFFF9FE;
-      while (1)
-      {
+        v44 = v12 & 0xFFFFF9FE;
         while (1)
         {
-          v51 = a1[1];
-          v52 = *(a1 + 18) | 0x80u;
-          if ((statfs(v51, &v101) != -1 || *__error() == 2 && dirname_r(v51, &v100) && statfs(&v100, &v101) != -1) && (v101.f_flags & 0x80) != 0)
+          while (1)
           {
-            v53 = open_dprotected_np(v51, v14 | v15, v24, 0, v52);
+            v45 = a1[1];
+            v46 = *(a1 + 18) | 0x80u;
+            if ((statfs(v45, &v80) != -1 || *__error() == 2 && dirname_r(v45, &v79) && statfs(&v79, &v80) != -1) && (v80.f_flags & 0x80) != 0)
+            {
+              v47 = open_dprotected_np(v45, v12 | v13, v22, 0, v46);
+            }
+
+            else
+            {
+              v47 = open(v45, v12 | v13, v46);
+            }
+
+            *(a1 + 6) = v47;
+            if ((v47 & 0x80000000) == 0)
+            {
+              goto LABEL_57;
+            }
+
+            v48 = *__error();
+            if (v48 != 13)
+            {
+              break;
+            }
+
+            if (chmod(a1[1], *(a1 + 18) & 0xF7F | 0x80))
+            {
+              if (*__error() == 2)
+              {
+                *__error() = 13;
+              }
+
+LABEL_145:
+              v4 = *__error();
+              goto LABEL_146;
+            }
+
+            *(a1 + 49) |= 0x1000u;
           }
 
-          else
-          {
-            v53 = open(v51, v14 | v15, v52);
-          }
-
-          *(a1 + 6) = v53;
-          if ((v53 & 0x80000000) == 0)
-          {
-            goto LABEL_57;
-          }
-
-          v54 = *__error();
-          if (v54 != 13)
+          if (v48 != 21)
           {
             break;
           }
 
-          if (chmod(a1[1], *(a1 + 18) & 0xF7F | 0x80))
+          if (*(a1 + 69) >= 3u)
           {
-            if (*__error() == 2)
-            {
-              *__error() = 13;
-            }
-
-LABEL_146:
-            v5 = *__error();
-            v75 = a1[1];
-            goto LABEL_147;
+            v49 = *__error();
+            syslog(7, "%s:%d:%s() open failed because it is a directory (%s)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 2301, "copyfile_open", a1[1]);
+            *__error() = v49;
           }
 
-          *(a1 + 49) |= 0x1000u;
+          v50 = *(a1 + 48);
+          if ((v50 & 0x20000) != 0)
+          {
+            v12 = v44;
+            if ((v50 & 0x800000) == 0)
+            {
+              goto LABEL_145;
+            }
+          }
+
+          else
+          {
+            v12 = v44;
+            if ((v50 & 0x800008) == 8)
+            {
+              goto LABEL_145;
+            }
+          }
         }
 
-        if (v54 != 21)
+        if (v48 != 17)
         {
-          break;
+          goto LABEL_145;
         }
 
         if (*(a1 + 69) >= 3u)
         {
-          v55 = *__error();
-          syslog(7, "%s:%d:%s() open failed because it is a directory (%s)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 2301, "copyfile_open", a1[1]);
-          *__error() = v55;
+          v51 = *__error();
+          syslog(7, "%s:%d:%s() open failed, retrying (%s)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 2268, "copyfile_open", a1[1]);
+          *__error() = v51;
         }
 
-        v56 = *(a1 + 48);
-        if ((v56 & 0x20000) != 0)
+        v52 = *(a1 + 48);
+        if ((v52 & 0x20000) != 0)
         {
-          v14 = v50;
-          if ((v56 & 0x800000) == 0)
+          goto LABEL_145;
+        }
+
+        v12 &= ~0x200u;
+        if ((v52 & 0x400008) != 0)
+        {
+          if (*(a1 + 69) >= 4u)
           {
-            goto LABEL_146;
+            v53 = *__error();
+            syslog(7, "%s:%d:%s() truncating existing file (%s)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 2278, "copyfile_open", a1[1]);
+            *__error() = v53;
           }
+
+          v12 |= 0x400u;
+        }
+      }
+    }
+
+    if (mkdir(a1[1], *(a1 + 18) & 0xE3F | 0x1C0) == -1)
+    {
+      if (*__error() != 17 || (*(a1 + 194) & 2) != 0)
+      {
+        v4 = *__error();
+        syslog(4, "Cannot make directory %s: %m");
+        goto LABEL_147;
+      }
+
+      if (*(a1 + 198))
+      {
+        if (lstat(a1[1], &v80) == -1)
+        {
+          v60 = "Cannot lstat destination %s: %m";
+          goto LABEL_174;
+        }
+
+        if ((v80.f_iosize & 0xF000) == 0xA000)
+        {
+          *__error() = 9;
+          *(a1 + 68) = 9;
+          v60 = "Destination %s already exists as a symlink, refusing to copy: %m";
+LABEL_174:
+          v66 = *__error();
+          syslog(4, v60, a1[1]);
+          *__error() = v66;
+          return 0xFFFFFFFFLL;
+        }
+      }
+    }
+
+    v24 = open(a1[1], v13);
+    *(a1 + 6) = v24;
+    if (v24 == -1)
+    {
+      v4 = *__error();
+      syslog(4, "Cannot open directory %s for reading: %m");
+      goto LABEL_147;
+    }
+
+    i = 1;
+    goto LABEL_57;
+  }
+
+  v26 = a1[16];
+  if (v26)
+  {
+    v27 = (v26 + 1);
+  }
+
+  else
+  {
+    v27 = 1025;
+  }
+
+  v28 = malloc_type_calloc(1uLL, v27, 0x71385709uLL);
+  if (!v28)
+  {
+    v54 = *__error();
+    syslog(4, "cannot allocate %zd bytes: %m");
+LABEL_112:
+    *__error() = v54;
+    return 0xFFFFFFFFLL;
+  }
+
+  v29 = v28;
+  if (readlink(*a1, v28, v27 - 1) == -1)
+  {
+    v61 = *__error();
+    syslog(4, "cannot readlink %s: %m");
+  }
+
+  else
+  {
+    if (symlink(v29, a1[1]) != -1 || *__error() == 17 && (*(a1 + 194) & 2) == 0)
+    {
+      free(v29);
+      v30 = open(a1[1], 0x200000);
+      *(a1 + 6) = v30;
+      if (v30 == -1)
+      {
+        v4 = *__error();
+        syslog(4, "Cannot open symlink %s for reading: %m");
+        goto LABEL_147;
+      }
+
+      i = 0;
+LABEL_57:
+      if (*(a1 + 69) >= 2u)
+      {
+        v31 = *__error();
+        syslog(7, "%s:%d:%s() open successful on destination (%s)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 2312, "copyfile_open", a1[1]);
+        *__error() = v31;
+      }
+
+      v32 = *(a1 + 49);
+      LOWORD(v33) = v32 | 0x100;
+      *(a1 + 49) = v32 | 0x100;
+      if ((v32 & 0x10) == 0)
+      {
+        goto LABEL_60;
+      }
+
+      if ((v32 & 0x20) != 0)
+      {
+LABEL_164:
+        if (v23 != 0 && (i & 1) != 0 && (v33 & 0x240) == 0x40)
+        {
+          if (fcntl(*(a1 + 6), 64, v22))
+          {
+            v4 = *__error();
+            __error();
+            syslog(4, "SET_PROT_CLASS failed on (%s) with error <%d>: %m");
+            goto LABEL_147;
+          }
+
+          v33 = *(a1 + 49);
+        }
+
+LABEL_60:
+        if ((v33 & 0x400) == 0)
+        {
+          goto LABEL_153;
+        }
+
+        snprintf(&v80, 0x400uLL, "%s%s", a1[1], "/..namedfork/rsrc");
+        v34 = open(&v80, 1537, *(a1 + 18) | 0x80u);
+        *(a1 + 7) = v34;
+        if (v34 == -1)
+        {
+          v62 = *__error();
+          syslog(4, "open on %s: %m", &v80);
+          *__error() = v62;
+          free(a1[22]);
+          a1[22] = 0;
+          if (close(*(a1 + 5)))
+          {
+            v63 = *__error();
+            syslog(4, "error closing source rsrc file descriptor: %m");
+            *__error() = v63;
+          }
+
+          v35 = 0;
+          *(a1 + 5) = -1;
+          *(a1 + 49) &= ~0x400u;
         }
 
         else
         {
-          v14 = v50;
-          if ((v56 & 0x800008) == 8)
+          if (*(a1 + 69) < 2u)
           {
-            goto LABEL_146;
+            goto LABEL_153;
           }
-        }
-      }
 
-      if (v54 != 17)
-      {
-        goto LABEL_146;
-      }
-
-      if (*(a1 + 69) >= 3u)
-      {
-        v57 = *__error();
-        syslog(7, "%s:%d:%s() open failed, retrying (%s)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 2268, "copyfile_open", a1[1]);
-        *__error() = v57;
-      }
-
-      v58 = *(a1 + 48);
-      if ((v58 & 0x20000) != 0)
-      {
-        goto LABEL_146;
-      }
-
-      v14 &= ~0x200u;
-      if ((v58 & 0x400008) != 0)
-      {
-        if (*(a1 + 69) >= 4u)
-        {
-          v59 = *__error();
-          syslog(7, "%s:%d:%s() truncating existing file (%s)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 2278, "copyfile_open", a1[1]);
-          *__error() = v59;
+          v35 = *__error();
+          syslog(7, "%s:%d:%s() open successful on destination rsrc (%s)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 2373, "copyfile_open", &v80);
         }
 
-        v14 |= 0x400u;
-      }
-    }
-  }
-
-  if (mkdir(a1[1], *(a1 + 18) & 0xE3F | 0x1C0) == -1)
-  {
-    if (*__error() != 17 || (*(a1 + 194) & 2) != 0)
-    {
-      v5 = *__error();
-      v72 = a1[1];
-      syslog(4, "Cannot make directory %s: %m");
-      goto LABEL_148;
-    }
-
-    if (*(a1 + 198))
-    {
-      if (lstat(a1[1], &v101) == -1)
-      {
-        v69 = "Cannot lstat destination %s: %m";
-        goto LABEL_176;
-      }
-
-      if ((v101.f_iosize & 0xF000) == 0xA000)
-      {
-        *__error() = 9;
-        *(a1 + 68) = 9;
-        v69 = "Destination %s already exists as a symlink, refusing to copy: %m";
-LABEL_176:
-        v86 = *__error();
-        syslog(4, v69, a1[1]);
-        *__error() = v86;
-        goto LABEL_161;
-      }
-    }
-  }
-
-  v26 = open(a1[1], v15);
-  *(a1 + 6) = v26;
-  if (v26 == -1)
-  {
-    v5 = *__error();
-    v73 = a1[1];
-    syslog(4, "Cannot open directory %s for reading: %m");
-    goto LABEL_148;
-  }
-
-  i = 1;
-LABEL_57:
-  if (*(a1 + 69) >= 2u)
-  {
-    v33 = *__error();
-    syslog(7, "%s:%d:%s() open successful on destination (%s)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 2312, "copyfile_open", a1[1]);
-    *__error() = v33;
-  }
-
-  v34 = *(a1 + 49);
-  LOWORD(v35) = v34 | 0x100;
-  *(a1 + 49) = v34 | 0x100;
-  if ((v34 & 0x10) == 0)
-  {
-    goto LABEL_60;
-  }
-
-  if ((v34 & 0x20) == 0)
-  {
-    v63 = fstatfs(*(a1 + 6), &v101);
-    if (v63 != -1 && (v101.f_flags & 0x80) != 0)
-    {
-      v64 = *(a1 + 49) | 0x40;
-LABEL_165:
-      v35 = v64 | 0x20;
-      *(a1 + 49) = v35;
-      goto LABEL_166;
-    }
-
-    if (v63 != -1)
-    {
-      v64 = *(a1 + 49);
-      goto LABEL_165;
-    }
-
-    v5 = *__error();
-    v84 = a1[1];
-LABEL_128:
-    v68 = *__error();
-    syslog(4, "failed to determine copy protection on (%s) with error <%d>: %m");
-    goto LABEL_148;
-  }
-
-LABEL_166:
-  if (v25 != 0 && (i & 1) != 0 && (v35 & 0x240) == 0x40)
-  {
-    if (fcntl(*(a1 + 6), 64, v24))
-    {
-      v5 = *__error();
-      v82 = a1[1];
-      v83 = *__error();
-      syslog(4, "SET_PROT_CLASS failed on (%s) with error <%d>: %m");
-      goto LABEL_148;
-    }
-
-    v35 = *(a1 + 49);
-  }
-
-LABEL_60:
-  if ((v35 & 0x400) != 0)
-  {
-    snprintf(&v101, 0x400uLL, "%s%s", a1[1], "/..namedfork/rsrc");
-    v36 = open(&v101, 1537, *(a1 + 18) | 0x80u);
-    *(a1 + 7) = v36;
-    if (v36 == -1)
-    {
-      v77 = *__error();
-      syslog(4, "open on %s: %m", &v101);
-      *__error() = v77;
-      free(a1[22]);
-      a1[22] = 0;
-      if (close(*(a1 + 5)))
-      {
-        v78 = *__error();
-        syslog(4, "error closing source rsrc file descriptor: %m");
-        *__error() = v78;
-      }
-
-      v37 = 0;
-      *(a1 + 5) = -1;
-      *(a1 + 49) &= ~0x400u;
-      goto LABEL_153;
-    }
-
-    if (*(a1 + 69) >= 2u)
-    {
-      v37 = *__error();
-      syslog(7, "%s:%d:%s() open successful on destination rsrc (%s)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 2373, "copyfile_open", &v101);
+        *__error() = v35;
 LABEL_153:
-      *__error() = v37;
+        if ((a1[3] & 0x80000000) == 0 && (a1[2] & 0x80000000) == 0)
+        {
+          return 0;
+        }
+
+        if (*(a1 + 69))
+        {
+          v65 = *__error();
+          syslog(7, "%s:%d:%s() file descriptors not open (src: %d, dst: %d)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 2381, "copyfile_open", *(a1 + 4), *(a1 + 6));
+          *__error() = v65;
+        }
+
+        v43 = 22;
+        goto LABEL_159;
+      }
+
+      v57 = fstatfs(*(a1 + 6), &v80);
+      if (v57 != -1 && (v80.f_flags & 0x80) != 0)
+      {
+        v58 = *(a1 + 49) | 0x40;
+LABEL_163:
+        v33 = v58 | 0x20;
+        *(a1 + 49) = v33;
+        goto LABEL_164;
+      }
+
+      if (v57 != -1)
+      {
+        v58 = *(a1 + 49);
+        goto LABEL_163;
+      }
+
+LABEL_127:
+      v4 = *__error();
+      __error();
+      syslog(4, "failed to determine copy protection on (%s) with error <%d>: %m");
+      goto LABEL_147;
     }
+
+    v61 = *__error();
+    syslog(4, "Cannot make symlink %s: %m");
   }
 
-LABEL_154:
-  if ((a1[3] & 0x80000000) != 0 || (a1[2] & 0x80000000) != 0)
-  {
-    if (*(a1 + 69))
-    {
-      v80 = *__error();
-      syslog(7, "%s:%d:%s() file descriptors not open (src: %d, dst: %d)\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 2381, "copyfile_open", *(a1 + 4), *(a1 + 6));
-      *__error() = v80;
-    }
-
-    v49 = 22;
-    goto LABEL_160;
-  }
-
-  result = 0;
-LABEL_162:
-  v81 = *MEMORY[0x29EDCA608];
-  return result;
+  *__error() = v61;
+  free(v29);
+  return 0xFFFFFFFFLL;
 }
 
 uint64_t copyfile_set_bsdflags(uint64_t a1, int a2, int a3)
 {
-  if (fstat(*(a1 + 24), &v14))
+  if (fstat(*(a1 + 24), &v11))
   {
     if (a3)
     {
       if (*(a1 + 276))
       {
         v6 = *__error();
-        v12 = *__error();
+        __error();
         syslog(7, "%s:%d:%s() couldn't stat destination file for st_flags (%d)\n");
-LABEL_20:
+LABEL_18:
         *__error() = v6;
-        return *__error();
       }
 
       return *__error();
@@ -4227,18 +4186,18 @@ LABEL_20:
 
   else
   {
-    v7 = v14.st_flags & a3;
+    v7 = v11.st_flags & a3;
   }
 
   v8 = 4;
   do
   {
     v9 = v7 | a2;
-    v15[0] = v14.st_flags;
-    v15[1] = v7 | a2;
-    v16 = -1;
+    v12[0] = v11.st_flags;
+    v12[1] = v7 | a2;
+    v13 = -1;
     *__error() = 0;
-    if (ffsctl(*(a1 + 24), 0xC00C4114uLL, v15, 0))
+    if (ffsctl(*(a1 + 24), 0xC00C4114uLL, v12, 0))
     {
       if (*__error() != 35)
       {
@@ -4248,13 +4207,13 @@ LABEL_20:
 
     else
     {
-      if (v14.st_flags == v16)
+      if (v11.st_flags == v13)
       {
         return 0;
       }
 
-      v14.st_flags = v16;
-      v7 = v16 & a3;
+      v11.st_flags = v13;
+      v7 = v13 & a3;
     }
 
     --v8;
@@ -4272,14 +4231,9 @@ LABEL_15:
   if (*(a1 + 276))
   {
     v6 = *__error();
-    if (*(a1 + 8))
-    {
-      v11 = *(a1 + 8);
-    }
-
-    v13 = *__error();
+    __error();
     syslog(7, "%s:%d:%s() fchflags failed on %s (%d)\n");
-    goto LABEL_20;
+    goto LABEL_18;
   }
 
   return *__error();
@@ -4287,7 +4241,7 @@ LABEL_15:
 
 void reset_security(uint64_t a1)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   v1 = *(a1 + 24);
   if ((v1 & 0x80000000) == 0)
   {
@@ -4297,22 +4251,22 @@ void reset_security(uint64_t a1)
       v3 = v1;
     }
 
-    fstat(v3, &v12);
+    fstat(v3, &v11);
     if ((*(a1 + 196) & 1) == 0)
     {
       v4 = *(a1 + 24);
-      v15 = 0;
+      v14 = 0;
       v5 = filesec_init();
       if (v5)
       {
-        if (fstatx_np(v4, &v13, v5))
+        if (fstatx_np(v4, &v12, v5))
         {
           if (*__error() != 45)
           {
 LABEL_10:
-            if (v15)
+            if (v14)
             {
-              acl_free(v15);
+              acl_free(v14);
             }
 
             if (v5)
@@ -4320,34 +4274,34 @@ LABEL_10:
               filesec_free(v5);
             }
 
-            goto LABEL_14;
+            return;
           }
         }
 
         else
         {
-          if (filesec_get_property(v5, FILESEC_ACL, &v15) || acl_get_entry(v15, 0, &entry_p))
+          if (filesec_get_property(v5, FILESEC_ACL, &v14) || acl_get_entry(v14, 0, &entry_p))
           {
             goto LABEL_10;
           }
 
-          v7 = entry_p;
-          v8 = geteuid();
-          mbr_uid_to_uuid(v8, uu);
-          qualifier = acl_get_qualifier(v7);
-          v10 = 1;
-          v18 = acl_init(1);
-          if (v18)
+          v6 = entry_p;
+          v7 = geteuid();
+          mbr_uid_to_uuid(v7, uu);
+          qualifier = acl_get_qualifier(v6);
+          v9 = 1;
+          v17 = acl_init(1);
+          if (v17)
           {
-            add_uberace(&v18);
-            if (!acl_get_entry(v18, 0, &v17))
+            add_uberace(&v17);
+            if (!acl_get_entry(v17, 0, &v16))
             {
-              acl_get_permset(v17, &permset_p);
-              acl_get_tag_type(v7, &tag_type_p);
-              acl_get_permset(v7, &v20);
+              acl_get_permset(v16, &permset_p);
+              acl_get_tag_type(v6, &tag_type_p);
+              acl_get_permset(v6, &v19);
               if (tag_type_p == ACL_EXTENDED_ALLOW && *qualifier == *uu && qualifier[1] == *&uu[8])
               {
-                v10 = *permset_p != *v20;
+                v9 = *permset_p != *v19;
               }
             }
           }
@@ -4357,31 +4311,28 @@ LABEL_10:
             acl_free(qualifier);
           }
 
-          if (v18)
+          if (v17)
           {
-            acl_free(v18);
+            acl_free(v17);
           }
 
-          if (v10)
+          if (v9)
           {
             goto LABEL_10;
           }
 
-          *uu = v12.st_mode & 0xFFF;
-          if (!acl_delete_entry(v15, entry_p) && !filesec_set_property(v5, FILESEC_ACL, &v15) && !filesec_set_property(v5, FILESEC_MODE, uu) && !fchmodx_np(v4, v5))
+          *uu = v11.st_mode & 0xFFF;
+          if (!acl_delete_entry(v14, entry_p) && !filesec_set_property(v5, FILESEC_ACL, &v14) && !filesec_set_property(v5, FILESEC_MODE, uu) && !fchmodx_np(v4, v5))
           {
             goto LABEL_10;
           }
         }
       }
 
-      fchmod(v4, v12.st_mode & 0xFFF);
+      fchmod(v4, v11.st_mode & 0xFFF);
       goto LABEL_10;
     }
   }
-
-LABEL_14:
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 int copyfile_state_free(copyfile_state_t a1)
@@ -4869,16 +4820,16 @@ LABEL_8:
 
 uint64_t add_uberace(acl_t *a1)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   v2 = getuid();
-  if (mbr_uid_to_uuid(v2, uu))
+  if (!mbr_uid_to_uuid(v2, uu))
   {
-    goto LABEL_27;
-  }
+    result = acl_create_entry_np(a1, &entry_p, 0);
+    if (result == -1)
+    {
+      return result;
+    }
 
-  result = acl_create_entry_np(a1, &entry_p, 0);
-  if (result != -1)
-  {
     if (acl_get_permset(entry_p, &permset_p) == -1)
     {
       v4 = "acl_get_permset: %m";
@@ -4933,8 +4884,7 @@ uint64_t add_uberace(acl_t *a1)
     {
       if (acl_set_qualifier(entry_p, uu) != -1)
       {
-        result = 0;
-        goto LABEL_28;
+        return 0;
       }
 
       v4 = "acl_set_qualifier: %m";
@@ -4943,22 +4893,18 @@ uint64_t add_uberace(acl_t *a1)
     v5 = *__error();
     syslog(4, v4);
     *__error() = v5;
-LABEL_27:
-    result = 0xFFFFFFFFLL;
   }
 
-LABEL_28:
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0xFFFFFFFFLL;
 }
 
 uint64_t copyfile_pack(void *a1)
 {
-  v132[1] = *MEMORY[0x29EDCA608];
+  v130[1] = *MEMORY[0x29EDCA608];
   v2 = malloc_type_calloc(1uLL, 0x10012uLL, 0x1000040A9FC9F90uLL);
   if (!v2)
   {
-    goto LABEL_15;
+    return 0xFFFFFFFFLL;
   }
 
   v3 = v2;
@@ -4966,13 +4912,11 @@ uint64_t copyfile_pack(void *a1)
   if (!v4)
   {
     free(v3);
-LABEL_15:
-    v15 = 0xFFFFFFFFLL;
-    goto LABEL_191;
+    return 0xFFFFFFFFLL;
   }
 
   v5 = v4;
-  v130 = v4 + 65554;
+  v128 = v4 + 65554;
   *v3 = 0x2000000051607;
   *(v3 + 12) = 2;
   *(v3 + 26) = xmmword_299C6D600;
@@ -4984,8 +4928,8 @@ LABEL_15:
   v7 = *(a1 + 48);
   if (v7)
   {
-    v132[0] = 0;
-    if (filesec_get_property(a1[23], FILESEC_ACL, v132) < 0)
+    v130[0] = 0;
+    if (filesec_get_property(a1[23], FILESEC_ACL, v130) < 0)
     {
       if (*(a1 + 69) < 2u)
       {
@@ -5005,13 +4949,13 @@ LABEL_15:
     else
     {
       strcpy(v5, "com.apple.acl.text");
-      v130 = v5 + 19;
+      v128 = v5 + 19;
       v8 = 19;
     }
 
-    if (v132[0])
+    if (v130[0])
     {
-      acl_free(v132[0]);
+      acl_free(v130[0]);
     }
 
     if ((a1[24] & 4) != 0)
@@ -5069,17 +5013,17 @@ LABEL_5:
     goto LABEL_183;
   }
 
-  v127 = v5;
-  v128 = v8;
-  v130 = &v5[v16];
-  if (v9 >= 1 && !*v130)
+  v125 = v5;
+  v126 = v8;
+  v128 = &v5[v16];
+  if (v9 >= 1 && !*v128)
   {
     v17 = malloc_type_calloc(0xAuLL, 8uLL, 0x10040436913F5uLL);
     if (v17)
     {
       v18 = v17;
-      v19 = v127;
-      *v18 = v127;
+      v19 = v125;
+      *v18 = v125;
       v20 = memchr(v19, 0, v16);
       if (v20)
       {
@@ -5102,7 +5046,7 @@ LABEL_5:
 
           v25 = v23 + 1;
           v18[v23] = v21 + 1;
-          v21 = memchr(v21 + 1, 0, v130 - (v21 + 1));
+          v21 = memchr(v21 + 1, 0, v128 - (v21 + 1));
           ++v23;
         }
 
@@ -5121,7 +5065,7 @@ LABEL_5:
       if (v31)
       {
         v32 = v31;
-        v129 = v3;
+        v127 = v3;
         if (v30)
         {
           v33 = v18;
@@ -5140,7 +5084,7 @@ LABEL_5:
 
         __memcpy_chk();
         free(v32);
-        v3 = v129;
+        v3 = v127;
       }
 
       free(v18);
@@ -5154,7 +5098,7 @@ LABEL_44:
     v38 = 0;
     v39 = 120;
     v40 = v6;
-    v41 = v127;
+    v41 = v125;
     while (1)
     {
       v42 = strlen(v41) + 1;
@@ -5176,9 +5120,9 @@ LABEL_44:
       v43 = *(a1 + 70);
       if (v43 && !xattr_preserve_for_intent(v41, v43))
       {
-        v49 = v130;
-        memmove(v41, &v41[v42], v130 - &v41[v42]);
-        v130 = &v49[-v42];
+        v49 = v128;
+        memmove(v41, &v41[v42], v128 - &v41[v42]);
+        v128 = &v49[-v42];
         v42 = 0;
 LABEL_64:
         v3 = v37;
@@ -5188,7 +5132,7 @@ LABEL_64:
       if (a1[26])
       {
         MEMORY[0x2A1C7C4A8]();
-        v44 = &v126 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v44 = &v124 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
         memmove(v44, v41, v42);
         v44[v42 - 1] = 0;
         a1[31] = v44;
@@ -5196,9 +5140,9 @@ LABEL_64:
         a1[31] = 0;
         if (v45 == 1)
         {
-          v48 = v130;
-          memmove(v41, &v41[v42], v130 - &v41[v42]);
-          v130 = &v48[-v42];
+          v48 = v128;
+          memmove(v41, &v41[v42], v128 - &v41[v42]);
+          v128 = &v48[-v42];
           v42 = 0;
           v3 = v37;
           goto LABEL_65;
@@ -5215,14 +5159,14 @@ LABEL_64:
 
       v40[1].i8[2] = v42;
       v40[1].i16[0] = 0;
-      if (&v41[v42] > v130)
+      if (&v41[v42] > v128)
       {
         v66 = 0;
         v15 = 0xFFFFFFFFLL;
 LABEL_210:
         v3 = v37;
 LABEL_211:
-        v5 = v127;
+        v5 = v125;
         goto LABEL_187;
       }
 
@@ -5251,7 +5195,7 @@ LABEL_203:
 LABEL_65:
       v41 += v42;
       v40 = (v3 + v39);
-      if (v41 >= v130)
+      if (v41 >= v128)
       {
         v29 = v38 != 0;
         v3 = v37;
@@ -5262,153 +5206,153 @@ LABEL_65:
 
   v29 = 0;
 LABEL_68:
-  v5 = v127;
-  v8 = v128;
+  v5 = v125;
+  v8 = v126;
 LABEL_69:
   if (a1[28] && !v29)
   {
     strlcpy(&v5[v8], "figgledidiggledy", 65554 - v8);
   }
 
-  if (v5 >= v130)
+  if (v5 >= v128)
   {
     v15 = 0;
-    v99 = 1;
+    v98 = 1;
 LABEL_152:
-    v100 = *(v3 + 24);
-    v101 = *(v3 + 25) + v100;
-    *(v3 + 42) = v101;
-    *(v3 + 34) = v101 - *(v3 + 30);
-    *(v3 + 23) = v101;
-    if (v99)
+    v99 = *(v3 + 24);
+    v100 = *(v3 + 25) + v99;
+    *(v3 + 42) = v100;
+    *(v3 + 34) = v100 - *(v3 + 30);
+    *(v3 + 23) = v100;
+    if (v98)
     {
       goto LABEL_176;
     }
 
-    v102 = a1[26];
-    if (v102)
+    v101 = a1[26];
+    if (v101)
     {
       a1[31] = "com.apple.ResourceFork";
-      v103 = 1;
-      v104 = v102(5, 1, a1, *a1, a1[1], a1[27]);
+      v102 = 1;
+      v103 = v101(5, 1, a1, *a1, a1[1], a1[27]);
       a1[31] = 0;
-      if (v104 == 1)
+      if (v103 == 1)
       {
-        v107 = 0;
+        v106 = 0;
         goto LABEL_170;
       }
 
-      if (v104 == 2)
+      if (v103 == 2)
       {
         goto LABEL_165;
       }
     }
 
-    v105 = fgetxattr(*(a1 + 4), "com.apple.ResourceFork", 0, 0, 0, 0);
-    if ((v105 & 0x8000000000000000) != 0)
+    v104 = fgetxattr(*(a1 + 4), "com.apple.ResourceFork", 0, 0, 0, 0);
+    if ((v104 & 0x8000000000000000) != 0)
     {
       if ((*(a1 + 195) & 0x40) != 0)
       {
-        v109 = *__error();
-        v110 = __error();
-        syslog(4, "skipping attr %s due to error %d: %m", "com.apple.ResourceFork", *v110);
+        v108 = *__error();
+        v109 = __error();
+        syslog(4, "skipping attr %s due to error %d: %m", "com.apple.ResourceFork", *v109);
         goto LABEL_185;
       }
 
       goto LABEL_183;
     }
 
-    v106 = v105;
-    if (v105 >> 31)
+    v105 = v104;
+    if (v104 >> 31)
     {
-      v107 = 0;
-      v108 = 22;
+      v106 = 0;
+      v107 = 22;
 LABEL_166:
-      *(a1 + 68) = v108;
+      *(a1 + 68) = v107;
       goto LABEL_167;
     }
 
-    v111 = a1[26];
-    if (v111)
+    v110 = a1[26];
+    if (v110)
     {
       a1[31] = "com.apple.ResourceFork";
       a1[33] = 0;
-      v112 = v111(5, 4, a1, *a1, a1[1], a1[27]);
+      v111 = v110(5, 4, a1, *a1, a1[1], a1[27]);
       a1[31] = 0;
-      if (v112 == 2)
+      if (v111 == 2)
       {
 LABEL_165:
-        v107 = 0;
-        v108 = 89;
+        v106 = 0;
+        v107 = 89;
         goto LABEL_166;
       }
     }
 
-    v107 = malloc_type_malloc(v106, 0x8E04C892uLL);
-    if (v107)
+    v106 = malloc_type_malloc(v105, 0x8E04C892uLL);
+    if (v106)
     {
-      if (fgetxattr(*(a1 + 4), "com.apple.ResourceFork", v107, v106, 0, 0) == v106)
+      if (fgetxattr(*(a1 + 4), "com.apple.ResourceFork", v106, v105, 0, 0) == v105)
       {
-        if (pwrite(*(a1 + 6), v107, v106, *(v3 + 42)) != v106 && (*(a1 + 195) & 0x40) != 0)
+        if (pwrite(*(a1 + 6), v106, v105, *(v3 + 42)) != v105 && (*(a1 + 195) & 0x40) != 0)
         {
-          v122 = *__error();
+          v120 = *__error();
           syslog(4, "couldn't write resource fork: %m");
-          *__error() = v122;
+          *__error() = v120;
         }
 
-        v123 = a1[26];
-        if (!v123 || v123(5, 2, a1, *a1, a1[1], a1[27]) != 2)
+        v121 = a1[26];
+        if (!v121 || v121(5, 2, a1, *a1, a1[1], a1[27]) != 2)
         {
           if (*(a1 + 69) >= 3u)
           {
-            v124 = *__error();
-            syslog(7, "%s:%d:%s() copied %zd bytes of %s data @ offset 0x%08x\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 5322, "copyfile_pack_rsrcfork", v106, "com.apple.ResourceFork", *(v3 + 42));
-            *__error() = v124;
+            v122 = *__error();
+            syslog(7, "%s:%d:%s() copied %zd bytes of %s data @ offset 0x%08x\n", "/Library/Caches/com.apple.xbs/Sources/copyfile/copyfile.c", 5322, "copyfile_pack_rsrcfork", v105, "com.apple.ResourceFork", *(v3 + 42));
+            *__error() = v122;
           }
 
-          *(v3 + 46) = v106;
-          v103 = 1;
+          *(v3 + 46) = v105;
+          v102 = 1;
 LABEL_170:
           if (a1[31])
           {
             a1[31] = 0;
           }
 
-          if (v107)
+          if (v106)
           {
-            free(v107);
+            free(v106);
           }
 
-          if (v103)
+          if (v102)
           {
             v15 = 0;
-            v100 = *(v3 + 24);
+            v99 = *(v3 + 24);
 LABEL_176:
-            v114 = v100;
-            len_p = v100;
+            v113 = v99;
+            len_p = v99;
             swap_adhdr(v3);
-            v115 = *(v3 + 84);
-            *(v3 + 84) = vrev32q_s8(v115);
+            v114 = *(v3 + 84);
+            *(v3 + 84) = vrev32q_s8(v114);
             *(v3 + 25) = bswap32(*(v3 + 25));
             *(v3 + 58) = bswap32(*(v3 + 58)) >> 16;
             i = *(v3 + 59);
-            v117 = bswap32(i) >> 16;
-            *(v3 + 59) = v117;
-            if (v115.i32[0] == 1381258305)
+            v116 = bswap32(i) >> 16;
+            *(v3 + 59) = v116;
+            if (v114.i32[0] == 1381258305)
             {
-              LOWORD(i) = v117;
+              LOWORD(i) = v116;
             }
 
             for (i = i; i; --i)
             {
-              v118 = (v6[1].u8[2] + 14) & 0x1FC;
+              v117 = (v6[1].u8[2] + 14) & 0x1FC;
               *v6 = vrev32_s8(*v6);
               v6[1].i16[0] = bswap32(v6[1].u16[0]) >> 16;
-              v6 = (v6 + v118);
+              v6 = (v6 + v117);
             }
 
-            v119 = pwrite(*(a1 + 6), v3, v114, 0);
-            if (v119 == len_p)
+            v118 = pwrite(*(a1 + 6), v3, v113, 0);
+            if (v118 == len_p)
             {
               v66 = 0;
               goto LABEL_187;
@@ -5419,11 +5363,11 @@ LABEL_176:
               goto LABEL_183;
             }
 
-            v109 = *__error();
+            v108 = *__error();
             syslog(4, "couldn't write file header: %m");
 LABEL_185:
             v66 = 0;
-            *__error() = v109;
+            *__error() = v108;
             goto LABEL_186;
           }
 
@@ -5435,15 +5379,15 @@ LABEL_186:
         }
 
 LABEL_167:
-        v113 = a1[26];
-        if (v113)
+        v112 = a1[26];
+        if (v112)
         {
-          v103 = v113(5, 3, a1, *a1, a1[1], a1[27]) == 0;
+          v102 = v112(5, 3, a1, *a1, a1[1], a1[27]) == 0;
         }
 
         else
         {
-          v103 = 0;
+          v102 = 0;
         }
 
         goto LABEL_170;
@@ -5454,35 +5398,35 @@ LABEL_167:
         goto LABEL_167;
       }
 
-      v125 = *__error();
+      v123 = *__error();
       syslog(4, "couldn't read entire resource fork: %m");
     }
 
     else
     {
-      v125 = *__error();
+      v123 = *__error();
       syslog(4, "malloc: %m");
     }
 
-    *__error() = v125;
+    *__error() = v123;
     goto LABEL_167;
   }
 
-  LODWORD(v128) = 0;
+  LODWORD(v126) = 0;
   v15 = 0;
   v50 = "com.apple.acl.text";
   v51 = v6;
-  v127 = v5;
+  v125 = v5;
   v52 = v5;
   v53 = "com.apple.FinderInfo";
-  v129 = v3;
+  v127 = v3;
   while (1)
   {
     v54 = strlen(v52);
     if (!strcmp(v52, v50))
     {
-      v132[0] = 0;
-      if (filesec_get_property(a1[23], FILESEC_ACL, v132) < 0)
+      v130[0] = 0;
+      if (filesec_get_property(a1[23], FILESEC_ACL, v130) < 0)
       {
         if (*__error() != 2 && (*(a1 + 195) & 0x40) != 0)
         {
@@ -5501,7 +5445,7 @@ LABEL_167:
         v61 = v15;
         v15 = v50;
         v62 = v53;
-        v63 = acl_to_text(v132[0], &len_p);
+        v63 = acl_to_text(v130[0], &len_p);
         if (v63)
         {
           v64 = v63;
@@ -5536,12 +5480,12 @@ LABEL_167:
         v50 = v15;
         LODWORD(v15) = v61;
         v54 = v60;
-        v3 = v129;
+        v3 = v127;
       }
 
-      if (v132[0])
+      if (v130[0])
       {
-        acl_free(v132[0]);
+        acl_free(v130[0]);
       }
 
 LABEL_119:
@@ -5640,7 +5584,7 @@ LABEL_125:
       }
 
       v85 = *__error();
-      v86 = *__error();
+      __error();
       syslog(4, "skipping attr %s due to error %d: %m");
       goto LABEL_143;
     }
@@ -5686,17 +5630,17 @@ LABEL_143:
 
 LABEL_126:
     v52 += v54 + 1;
-    if (v52 >= v130)
+    if (v52 >= v128)
     {
-      v99 = v128 == 0;
-      v5 = v127;
+      v98 = v126 == 0;
+      v5 = v125;
       goto LABEL_152;
     }
   }
 
   if (!strcmp(v52, "com.apple.ResourceFork"))
   {
-    LODWORD(v128) = 1;
+    LODWORD(v126) = 1;
     goto LABEL_126;
   }
 
@@ -5733,25 +5677,25 @@ LABEL_159:
   {
     if ((*(a1 + 195) & 0x40) != 0)
     {
-      v87 = *__error();
-      v88 = __error();
-      syslog(4, "skipping attr %s due to error %d: %m", v52, *v88);
-      *__error() = v87;
+      v86 = *__error();
+      v87 = __error();
+      syslog(4, "skipping attr %s due to error %d: %m", v52, *v87);
+      *__error() = v86;
     }
 
-    v89 = a1[26];
-    if (v89)
+    v88 = a1[26];
+    if (v88)
     {
       a1[31] = strdup(v52);
-      v90 = v89(5, 3, a1, *a1, a1[1], a1[27]);
-      v91 = a1[31];
-      if (v91)
+      v89 = v88(5, 3, a1, *a1, a1[1], a1[27]);
+      v90 = a1[31];
+      if (v90)
       {
-        free(v91);
+        free(v90);
         a1[31] = 0;
       }
 
-      if (v90 == 2)
+      if (v89 == 2)
       {
         goto LABEL_159;
       }
@@ -5772,49 +5716,49 @@ LABEL_159:
     goto LABEL_125;
   }
 
-  v92 = malloc_type_malloc(v58, 0x6505565EuLL);
-  if (!v92)
+  v91 = malloc_type_malloc(v58, 0x6505565EuLL);
+  if (!v91)
   {
     v15 = 0xFFFFFFFFLL;
     goto LABEL_126;
   }
 
-  v66 = v92;
-  v93 = v54;
-  v94 = v15;
+  v66 = v91;
+  v92 = v54;
+  v93 = v15;
   v15 = v50;
-  v95 = v53;
-  len_p = fgetxattr(*(a1 + 4), v52, v92, len_p, 0, 0);
-  v96 = a1[26];
-  if (!v96)
+  v94 = v53;
+  len_p = fgetxattr(*(a1 + 4), v52, v91, len_p, 0, 0);
+  v95 = a1[26];
+  if (!v95)
   {
     goto LABEL_149;
   }
 
   a1[31] = strdup(v52);
-  v97 = v96(5, 2, a1, *a1, a1[1], a1[27]);
-  v98 = a1[31];
-  if (v98)
+  v96 = v95(5, 2, a1, *a1, a1[1], a1[27]);
+  v97 = a1[31];
+  if (v97)
   {
-    free(v98);
+    free(v97);
     a1[31] = 0;
   }
 
-  if (v97 != 2)
+  if (v96 != 2)
   {
 LABEL_149:
-    v53 = v95;
+    v53 = v94;
     v50 = v15;
-    LODWORD(v15) = v94;
-    v54 = v93;
-    v3 = v129;
+    LODWORD(v15) = v93;
+    v54 = v92;
+    v3 = v127;
     goto LABEL_119;
   }
 
   *(a1 + 68) = 89;
   v15 = 0xFFFFFFFFLL;
-  v5 = v127;
-  v3 = v129;
+  v5 = v125;
+  v3 = v127;
 LABEL_187:
   free(v3);
   free(v5);
@@ -5828,8 +5772,6 @@ LABEL_187:
     copyfile_stat(a1);
   }
 
-LABEL_191:
-  v120 = *MEMORY[0x29EDCA608];
   return v15;
 }
 
@@ -6095,35 +6037,34 @@ LABEL_35:
 
 BOOL doesdecmpfs(int a1)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   result = 0;
-  if (!fstatfs(a1, &v5))
+  if (!fstatfs(a1, &v4))
   {
     __strlcpy_chk();
-    v4[2] = 0;
-    v4[0] = 5;
-    v4[1] = 0x20000;
-    if (getattrlist(v6, v4, v3, 0x24uLL, 0) != -1 && (v3[6] & 1) != 0 && (v3[22] & 1) != 0)
+    v3[2] = 0;
+    v3[0] = 5;
+    v3[1] = 0x20000;
+    if (getattrlist(v5, v3, v2, 0x24uLL, 0) != -1 && (v2[6] & 1) != 0 && (v2[22] & 1) != 0)
     {
-      result = 1;
+      return 1;
     }
   }
 
-  v2 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 char *__cdecl xattr_name_with_flags(const char *a1, xattr_flags_t a2)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   __s = 0;
-  v18 = 0;
-  memset(v17, 0, sizeof(v17));
-  v16 = 35;
+  v17 = 0;
+  memset(v16, 0, sizeof(v16));
+  v15 = 35;
   v3 = 67;
   v4 = &byte_299C6D738;
   v5 = 1;
-  v6 = v17;
+  v6 = v16;
   do
   {
     if ((*(v4 - 1) & a2) != 0)
@@ -6134,7 +6075,7 @@ char *__cdecl xattr_name_with_flags(const char *a1, xattr_flags_t a2)
         v8 = __error();
         result = 0;
         *v8 = 63;
-        goto LABEL_19;
+        return result;
       }
 
       ++v5;
@@ -6143,14 +6084,14 @@ char *__cdecl xattr_name_with_flags(const char *a1, xattr_flags_t a2)
     v7 = *v4;
     v4 += 8;
     v3 = v7;
-    v6 = &v16 + v5;
+    v6 = &v15 + v5;
   }
 
   while (v7);
   if (v5 != 1)
   {
     v10 = nameInDefaultList(a1);
-    if (v10 && !strcmp(v10, v17))
+    if (v10 && !strcmp(v10, v16))
     {
       v11 = strdup(a1);
       __s = v11;
@@ -6165,16 +6106,16 @@ LABEL_13:
           v13 = 63;
 LABEL_17:
           *v12 = v13;
-          goto LABEL_18;
+          return __s;
         }
 
-        goto LABEL_18;
+        return __s;
       }
     }
 
     else
     {
-      asprintf(&__s, "%s%s", a1, &v16);
+      asprintf(&__s, "%s%s", a1, &v15);
       v11 = __s;
       if (__s)
       {
@@ -6194,11 +6135,7 @@ LABEL_16:
     goto LABEL_16;
   }
 
-LABEL_18:
-  result = __s;
-LABEL_19:
-  v14 = *MEMORY[0x29EDCA608];
-  return result;
+  return __s;
 }
 
 int xattr_intent_with_flags(xattr_operation_intent_t a1, xattr_flags_t a2)

@@ -7,7 +7,7 @@
 
 - (void)trackEventWithScalar:(unint64_t)scalar app:(SGMBannerDisplayApp_)app category:(SGMEventCategory_)category extracted:(SGMEventExtractionType_)extracted state:(SGMEventState_)state titleAdj:(SGMEventStringAdj_)adj dateAdj:(SGMEventDateAdj_)dateAdj duraAdj:(SGMEventDurationAdj_)self0
 {
-  v45[7] = *MEMORY[0x1E69E9840];
+  v44[7] = *MEMORY[0x1E69E9840];
   if (app.var0 >= 3)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -22,7 +22,7 @@
     v15 = off_1E7EFBFB0[app.var0];
   }
 
-  v42 = v15;
+  v41 = v15;
   if (category.var0 >= 0xC)
   {
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
@@ -60,7 +60,7 @@
     v22 = @"iCal";
   }
 
-  v41 = v22;
+  v40 = v22;
   if (state.var0 >= 3)
   {
     currentHandler4 = [MEMORY[0x1E696AAA8] currentHandler];
@@ -119,25 +119,23 @@
   }
 
   tracker = self->_tracker;
-  v45[0] = v42;
-  v45[1] = v21;
-  v45[2] = v41;
-  v45[3] = v25;
-  v45[4] = v28;
-  v45[5] = v34;
-  v45[6] = v35;
-  v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:7];
+  v44[0] = v41;
+  v44[1] = v21;
+  v44[2] = v40;
+  v44[3] = v25;
+  v44[4] = v28;
+  v44[5] = v34;
+  v44[6] = v35;
+  v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:7];
   [(PETScalarEventTracker *)tracker trackEventWithPropertyValues:v39 value:scalar];
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 - (SGMEventBannerConfirmed)init
 {
-  v17[7] = *MEMORY[0x1E69E9840];
-  v16.receiver = self;
-  v16.super_class = SGMEventBannerConfirmed;
-  v2 = [(SGMEventBannerConfirmed *)&v16 init];
+  v16[7] = *MEMORY[0x1E69E9840];
+  v15.receiver = self;
+  v15.super_class = SGMEventBannerConfirmed;
+  v2 = [(SGMEventBannerConfirmed *)&v15 init];
   if (v2)
   {
     v3 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"App"];
@@ -148,20 +146,19 @@
     v8 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"DaA"];
     v9 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"DuA"];
     v10 = objc_alloc(MEMORY[0x1E69C5B58]);
-    v17[0] = v3;
-    v17[1] = v4;
-    v17[2] = v5;
-    v17[3] = v6;
-    v17[4] = v7;
-    v17[5] = v8;
-    v17[6] = v9;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:7];
+    v16[0] = v3;
+    v16[1] = v4;
+    v16[2] = v5;
+    v16[3] = v6;
+    v16[4] = v7;
+    v16[5] = v8;
+    v16[6] = v9;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:7];
     v12 = [v10 initWithFeatureId:@"Found" event:@"EventBannerConfirmed" registerProperties:v11 propertySubsets:MEMORY[0x1E695E0F0]];
     tracker = v2->_tracker;
     v2->_tracker = v12;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

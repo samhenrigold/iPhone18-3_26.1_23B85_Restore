@@ -4,25 +4,34 @@
 - (id)getLeastCongestedWifiParam;
 - (id)getWiFiServiceSingletone;
 - (int)getCarPlayScanRelaxReason;
+- (void)bspBandSwitchRequest:(int)request targetBand:(int)band;
 - (void)bspGetBandSwitchStatus;
 - (void)bspGetChannelQualityInfo;
 - (void)bspNanPhsStateRequest;
 - (void)bspRegulatoryInfoRequest;
+- (void)bspSetCoexMode:(BOOL)mode wifiSupportedBands:(int)bands btCurrentBand:(int)band btSupportedBands:(int)supportedBands setTimeToTSTOnly:(BOOL)only timeToTST:(int)t;
 - (void)bspStatusRequest;
+- (void)bspUpdateBTStatus_powerState:(BOOL)state frequencyBand:(int)band ullaMode:(int)mode;
 - (void)clearDownloadCoexProfilesState;
 - (void)dealloc;
 - (void)downloadWiFiBTCoexProfiles;
 - (void)downloadWiFiBTExtCoexProfiles;
 - (void)enableWifiLaaCoexMode;
+- (void)handlePowerState:(BOOL)state;
 - (void)setAntennaSelectionWiFiEnh:(id)enh;
 - (void)setCoexParams:(const char *)params withValue:(id)value;
+- (void)setCriticalWiFiTraffic:(BOOL)traffic duration:(unsigned int)duration criticalityPercentage:(unsigned __int16)percentage forProcessID:(int)d;
+- (void)setHPovrLEscanGrantDuration:(unsigned int)duration;
 - (void)setWifiAgcCoexMode:(id)mode;
+- (void)updateAccessoryCoexEnable:(BOOL)enable AccessoryType:(unsigned __int8)type CellRAT:(unsigned __int8)t CellBand:(unsigned __int16)band;
 - (void)updateAntennaPreference:(id)preference withCellPolicy:(id)policy;
 - (void)updateAntennaSelection:(id)selection;
 - (void)updateAntennaSelectionV2:(id)v2;
 - (void)updateAntennaSelectionWiFiEnh2G:(id)g;
 - (void)updateAntennaSelectionWiFiEnh5G:(id)g;
 - (void)updateAntennaSelectionWiFiEnh6G:(id)g;
+- (void)updateCarPlaySessionState:(BOOL)state reason:(int)reason;
+- (void)updateCellularFrequencyConfig:(id)config withWiFiRangingDesenseFlag:(BOOL)flag;
 - (void)updateChannelsForTimeSharingMode:(id)mode;
 - (void)updateChannelsToBlocklist:(id)blocklist;
 - (void)updateChannelsToDisableOCL:(id)l;
@@ -33,18 +42,29 @@
 - (void)updateChannelsToEnableWCI2:(id)i2;
 - (void)updateChannelsToEnableWCI2V2:(id)v2;
 - (void)updateChannelsToEnableWCI2WiFiEnh:(id)enh WiFiEnhChannels:(id)channels;
+- (void)updateContentionFreeWiFiInfoToRC2:(unsigned int)c2 count:(unsigned int)count;
 - (void)updateGen9rFemConfiguration;
 - (void)updateMWSFrameConfig:(id)config;
 - (void)updateMWSSignalingConfig;
+- (void)updateMedtronicState:(int)state;
 - (void)updatePowerOnGen9rFemConfiguration;
 - (void)updateRCU2CoexParams:(id)params;
 - (void)updateRxPriorityThreshold:(id)threshold;
+- (void)updateWiFiA2DPActiveStatus:(int)status;
+- (void)updateWiFiA2DPLLAActiveStatus:(int)status;
 - (void)updateWiFiBTCoexActiveProfileFor2G:(int64_t)g and5G:(int64_t)and5G;
 - (void)updateWiFiBTCoexProfile:(id)profile atIndex:(int64_t)index;
 - (void)updateWiFiBTConnectionReport:(id)report;
+- (void)updateWiFiBTLeConnEnable:(BOOL)enable andPeakOutageMs:(unsigned int)ms andDurationMs:(unsigned int)durationMs andDutyCycle:(unsigned int)cycle andReason:(unsigned int)reason;
+- (void)updateWiFiBTULOFDMAstate:(BOOL)astate;
+- (void)updateWiFiLimitedAggregationActiveStatus:(int)status andUseCase:(int)case;
+- (void)updateWiFiRCU1ModeChanged:(BOOL)changed andChannelChanged:(BOOL)channelChanged andMode:(id)mode andChannel:(id)channel;
+- (void)updateWiFiRCU1ULOFDMAstate:(BOOL)astate;
 - (void)updateWiFiRCU2CoexMode:(id)mode;
 - (void)updateWiFiRCU2PMProtectionMode:(id)mode;
 - (void)updateWiFiRCU2TimingArray:(id)array;
+- (void)updateWiFiRCU2ULOFDMAstate:(BOOL)astate;
+- (void)updateWiFieSCOActiveStatus:(int)status;
 - (void)updateWifiEnvelopeParams;
 @end
 
@@ -132,6 +152,153 @@
   v3.receiver = self;
   v3.super_class = WCM_WiFiControllerIOS;
   [(WCM_WiFiController *)&v3 dealloc];
+}
+
+- (void)handlePowerState:(BOOL)state
+{
+  stateCopy = state;
+  if (!state)
+  {
+    BYTE4(self->super._catsAppBitmap) = 0;
+    [(WCM_WiFiController *)self updateWiFiState:state channel:0 centerFreq:0 bandwidth:0 hostAp:0];
+    goto LABEL_38;
+  }
+
+  [(WCM_WiFiControllerIOS *)self updateWifiEnvelopeParams];
+  if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")])
+  {
+    [(WCM_WiFiService *)[(WCM_WiFiController *)self wifiService] setChannelsToEnableAssocProtectionModeWiFiEnh];
+  }
+
+  if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")])
+  {
+    [(WCM_WiFiService *)[(WCM_WiFiController *)self wifiService] setAggregatedConditionIdConfig:&off_100286150];
+  }
+
+  if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")])
+  {
+    v5 = [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
+    v6 = [objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
+    v7 = [objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
+    wifiService = [(WCM_WiFiController *)self wifiService];
+    wcmCellularScanProtectionWiFiChannels = [v5 wcmCellularScanProtectionWiFiChannels];
+    if (v6)
+    {
+      wcmCellularScanProtectionWiFiChannelsWiFiEnh = [v5 wcmCellularScanProtectionWiFiChannelsWiFiEnh];
+      if (v7)
+      {
+        wcmWiFiScanThrottlingChannelIndices = [v5 wcmWiFiScanThrottlingChannelIndices];
+        v12 = wifiService;
+        v13 = wcmCellularScanProtectionWiFiChannels;
+        v14 = wcmCellularScanProtectionWiFiChannelsWiFiEnh;
+      }
+
+      else
+      {
+        v12 = wifiService;
+        v13 = wcmCellularScanProtectionWiFiChannels;
+        v14 = wcmCellularScanProtectionWiFiChannelsWiFiEnh;
+        wcmWiFiScanThrottlingChannelIndices = 0;
+      }
+
+      [(WCM_WiFiService *)v12 setChannelsForCellularScanProtectionWiFiEnh:v13 wiFiEnhChannels:v14 indexArrayForScanThrottling:wcmWiFiScanThrottlingChannelIndices];
+    }
+
+    else
+    {
+      if (v7)
+      {
+        wcmWiFiScanThrottlingChannelIndices2 = [v5 wcmWiFiScanThrottlingChannelIndices];
+        v16 = wifiService;
+        v17 = wcmCellularScanProtectionWiFiChannels;
+      }
+
+      else
+      {
+        v16 = wifiService;
+        v17 = wcmCellularScanProtectionWiFiChannels;
+        wcmWiFiScanThrottlingChannelIndices2 = 0;
+      }
+
+      [(WCM_WiFiService *)v16 setChannelsForCellularScanProtectionWithMode:v17 indexArrayForScanThrottling:wcmWiFiScanThrottlingChannelIndices2];
+    }
+
+    -[WCM_WiFiService setMaxDurationForCellularScanProtection:](-[WCM_WiFiController wifiService](self, "wifiService"), "setMaxDurationForCellularScanProtection:", [v5 wcmCellularScanProtectionWiFiMaxDuration]);
+  }
+
+  if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")])
+  {
+    [(WCM_WiFiControllerIOS *)self enableWifiLaaCoexMode];
+  }
+
+  if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")])
+  {
+    v18 = [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
+    if (v18)
+    {
+      [v18 accessoryReconnect];
+    }
+  }
+
+  if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")])
+  {
+    [(WCM_WiFiControllerIOS *)self downloadWiFiBTCoexProfiles];
+    if ([(WCM_WiFiControllerIOS *)self wifiBTCoexProfilesDownloaded])
+    {
+      [WCM_Logging logLevel:2 message:@"All Coex Profiles Downloaded Successfully, Activating Default Profile"];
+      [(WCM_WiFiService *)[(WCM_WiFiController *)self wifiService] setWiFiBTCoexActiveProfileFor2G:0 and5G:0];
+      v19 = 0;
+      v20 = 0;
+LABEL_33:
+      [(WCM_WiFiControllerIOS *)self setActiveProfileFor2G:v19];
+      [(WCM_WiFiControllerIOS *)self setActiveProfileFor5G:v20];
+      goto LABEL_34;
+    }
+
+    goto LABEL_32;
+  }
+
+  if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")])
+  {
+    [(WCM_WiFiControllerIOS *)self downloadWiFiBTCoexProfiles];
+    goto LABEL_30;
+  }
+
+  if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")])
+  {
+    [(WCM_WiFiControllerIOS *)self downloadWiFiBTExtCoexProfiles];
+LABEL_30:
+    if ([(WCM_WiFiControllerIOS *)self wifiBTCoexProfilesDownloaded])
+    {
+      [WCM_Logging logLevel:2 message:@"All Coex Profiles Downloaded Successfully, Activating Default Profiles"];
+      v20 = 6;
+      [(WCM_WiFiService *)[(WCM_WiFiController *)self wifiService] setWiFiBTCoexActiveProfileFor2G:0 and5G:6];
+      v19 = 0;
+      goto LABEL_33;
+    }
+
+LABEL_32:
+    [WCM_Logging logLevel:2 message:@"All Coex Profiles Not Downloaded Successfully, Not Activating"];
+    v19 = -1;
+    v20 = -1;
+    goto LABEL_33;
+  }
+
+LABEL_34:
+  if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")])
+  {
+    [(WCM_WiFiControllerIOS *)self updatePowerOnGen9rFemConfiguration];
+  }
+
+  if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")])
+  {
+    [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
+  }
+
+LABEL_38:
+  v21.receiver = self;
+  v21.super_class = WCM_WiFiControllerIOS;
+  [(WCM_WiFiController *)&v21 handlePowerState:stateCopy];
 }
 
 - (void)clearDownloadCoexProfilesState
@@ -679,6 +846,31 @@ LABEL_10:
   return [(WCM_WiFiControllerIOS *)self mCarPlayBTScanRelaxReason];
 }
 
+- (void)updateCarPlaySessionState:(BOOL)state reason:(int)reason
+{
+  v4 = *&reason;
+  stateCopy = state;
+  [WCM_Logging logLevel:2 message:@"Update IOS Controller CarPlayState state:(%d), reason:(%d)", state, *&reason];
+  [(WCM_WiFiControllerIOS *)self setMCarPlaySessionInProgress:stateCopy];
+  [(WCM_WiFiControllerIOS *)self setMCarPlayBTScanRelaxReason:v4];
+  v7.receiver = self;
+  v7.super_class = WCM_WiFiControllerIOS;
+  [(WCM_WiFiController *)&v7 updateCarPlaySessionState:stateCopy reason:v4];
+  [+[WRM_HandoverManager WRM_HandoverManagerSingleton](WRM_HandoverManager "WRM_HandoverManagerSingleton")];
+}
+
+- (void)updateContentionFreeWiFiInfoToRC2:(unsigned int)c2 count:(unsigned int)count
+{
+  v4 = *&count;
+  v5 = *&c2;
+  [WCM_Logging logLevel:0 message:@"WiFi IOS Controller updateContentionFreeWiFiInfoToRC2 implementation"];
+  [(WCM_WiFiControllerIOS *)self setMLeastCongestedChannel:v5];
+  [(WCM_WiFiControllerIOS *)self setMLeastCongestedChannelCount:v4];
+  v7.receiver = self;
+  v7.super_class = WCM_WiFiControllerIOS;
+  [(WCM_WiFiController *)&v7 updateContentionFreeWiFiInfoToRC2:v5 count:v4];
+}
+
 - (id)getLeastCongestedWifiParam
 {
   [WCM_Logging logLevel:0 message:@"WiFi IOS Controller getLeastCongestedWifiParam implementation"];
@@ -815,6 +1007,106 @@ LABEL_25:
   }
 }
 
+- (void)updateCellularFrequencyConfig:(id)config withWiFiRangingDesenseFlag:(BOOL)flag
+{
+  if (config)
+  {
+    flagCopy = flag;
+    if (([config bandInfoType] & 0x21) != 0)
+    {
+      [config ulCenterFreq];
+      v8 = v7;
+      [(WCM_WiFiControllerIOS *)self cellularULCenterFreq];
+      if (v8 == v9 && ([config ulBandwidth], v11 = v10, -[WCM_WiFiControllerIOS cellularULBandwidth](self, "cellularULBandwidth"), v11 == v12) && (objc_msgSend(config, "ulCenterFreq2"), v14 = v13, -[WCM_WiFiControllerIOS cellularULCenterFreq2](self, "cellularULCenterFreq2"), v14 == v15) && (objc_msgSend(config, "ulBandwidth2"), v17 = v16, -[WCM_WiFiControllerIOS cellularULBandwidth2](self, "cellularULBandwidth2"), v17 == v18))
+      {
+
+        [WCM_Logging logLevel:3 message:@"Skip sending cellular frequency config as uplink carriers are the same as previous ones"];
+      }
+
+      else
+      {
+        [config ulCenterFreq];
+        [(WCM_WiFiControllerIOS *)self setCellularULCenterFreq:?];
+        [config ulBandwidth];
+        [(WCM_WiFiControllerIOS *)self setCellularULBandwidth:?];
+        [config ulCenterFreq2];
+        [(WCM_WiFiControllerIOS *)self setCellularULCenterFreq2:?];
+        [config ulBandwidth2];
+        [(WCM_WiFiControllerIOS *)self setCellularULBandwidth2:?];
+        v19 = [config bandInfoType] != 1;
+        v20 = +[NSMutableArray array];
+        [config ulCenterFreq];
+        if (v21 != 0.0)
+        {
+          [config ulBandwidth];
+          if (v22 != 0.0)
+          {
+            [config ulCenterFreq];
+            v24 = [NSNumber numberWithUnsignedInt:(v23 * 1000.0)];
+            [config ulBandwidth];
+            [v20 addObject:{+[NSDictionary dictionaryWithObjectsAndKeys:](NSDictionary, "dictionaryWithObjectsAndKeys:", v24, @"MWS_CELLULAR_FREQ_CONFIG_CENTER", +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", (v25 * 1000.0)), @"MWS_CELLULAR_FREQ_CONFIG_BW", 0)}];
+          }
+        }
+
+        [config ulCenterFreq2];
+        if (v26 != 0.0)
+        {
+          [config ulBandwidth2];
+          if (v27 != 0.0)
+          {
+            [config ulCenterFreq2];
+            v29 = [NSNumber numberWithUnsignedInt:(v28 * 1000.0)];
+            [config ulBandwidth2];
+            [v20 addObject:{+[NSDictionary dictionaryWithObjectsAndKeys:](NSDictionary, "dictionaryWithObjectsAndKeys:", v29, @"MWS_CELLULAR_FREQ_CONFIG_CENTER", +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", (v30 * 1000.0)), @"MWS_CELLULAR_FREQ_CONFIG_BW", 0)}];
+          }
+        }
+
+        v31 = +[NSMutableArray array];
+        [config dlCenterFreq];
+        if (v32 != 0.0)
+        {
+          [config dlBandwidth];
+          if (v33 != 0.0)
+          {
+            [config dlCenterFreq];
+            v35 = [NSNumber numberWithUnsignedInt:(v34 * 1000.0)];
+            [config dlBandwidth];
+            [v31 addObject:{+[NSDictionary dictionaryWithObjectsAndKeys:](NSDictionary, "dictionaryWithObjectsAndKeys:", v35, @"MWS_CELLULAR_FREQ_CONFIG_CENTER", +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", (v36 * 1000.0)), @"MWS_CELLULAR_FREQ_CONFIG_BW", 0)}];
+          }
+        }
+
+        [config dlCenterFreq2];
+        if (v37 != 0.0)
+        {
+          [config dlBandwidth2];
+          if (v38 != 0.0)
+          {
+            [config dlCenterFreq2];
+            v40 = [NSNumber numberWithUnsignedInt:(v39 * 1000.0)];
+            [config dlBandwidth2];
+            [v31 addObject:{+[NSDictionary dictionaryWithObjectsAndKeys:](NSDictionary, "dictionaryWithObjectsAndKeys:", v40, @"MWS_CELLULAR_FREQ_CONFIG_CENTER", +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", (v41 * 1000.0)), @"MWS_CELLULAR_FREQ_CONFIG_BW", 0)}];
+          }
+        }
+
+        v42[0] = @"MWS_CELLULAR_FREQ_CONFIG_TECH";
+        v43[0] = [NSNumber numberWithInt:v19];
+        v43[1] = v20;
+        v42[1] = @"MWS_CELLULAR_FREQ_CONFIG_UL";
+        v42[2] = @"MWS_CELLULAR_FREQ_CONFIG_DL";
+        v43[2] = v31;
+        v42[3] = @"MWS_CELLULAR_FREQ_CONFIG_DESENSE_TOF";
+        v43[3] = [NSNumber numberWithInt:flagCopy];
+        [(WCM_WiFiService *)[(WCM_WiFiController *)self wifiService] setCellularFrequencyConfig:[NSDictionary dictionaryWithObjects:v43 forKeys:v42 count:4]];
+      }
+    }
+
+    else
+    {
+      +[WCM_Logging logLevel:message:](WCM_Logging, "logLevel:message:", 3, @"Skip sending cellular frequency config on bandInfoType(%d)", [config bandInfoType]);
+    }
+  }
+}
+
 - (void)updateWifiEnvelopeParams
 {
   v3 = [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
@@ -859,6 +1151,14 @@ LABEL_25:
   [(WCM_WiFiService *)wifiService setLAACoexConfigWifiDwellTime:wcmWiFiActiveDwellTime];
 }
 
+- (void)updateMedtronicState:(int)state
+{
+  v3 = *&state;
+  wifiService = [(WCM_WiFiController *)self wifiService];
+
+  [(WCM_WiFiService *)wifiService setMedtronicState:v3];
+}
+
 - (void)updatePowerOnGen9rFemConfiguration
 {
   v3 = +[WCM_PolicyManager singleton];
@@ -869,6 +1169,71 @@ LABEL_25:
   wcmGen9rFemLpmMode5g2 = [v3 wcmGen9rFemLpmMode5g];
 
   [(WCM_WiFiService *)wifiService setChannelsToEnablerFemModeWiFiEnh:wcmGen9rFemLpmMode2g enable5G:wcmGen9rFemLpmMode5g enable6G:wcmGen9rFemLpmMode5g2];
+}
+
+- (void)updateAccessoryCoexEnable:(BOOL)enable AccessoryType:(unsigned __int8)type CellRAT:(unsigned __int8)t CellBand:(unsigned __int16)band
+{
+  bandCopy = band;
+  tCopy = t;
+  typeCopy = type;
+  enableCopy = enable;
+  [WCM_Logging logLevel:2 message:@"Wifi Controller: updateAccessoryCoexEnable, enable(%u), accType(%u), CellRAT(%u), CellBand(%u)", enable, type, t, band];
+  wifiService = [(WCM_WiFiController *)self wifiService];
+
+  [(WCM_WiFiService *)wifiService setAccessoryCoexConfigEnable:enableCopy AccessoryType:typeCopy CellRAT:tCopy CellBand:bandCopy];
+}
+
+- (void)updateWiFiBTULOFDMAstate:(BOOL)astate
+{
+  astateCopy = astate;
+  [WCM_Logging logLevel:2 message:@"Wifi Controller: WiFi / BT setting UL OFDMA disable state (%d)", astate];
+  wifiService = [(WCM_WiFiController *)self wifiService];
+
+  [(WCM_WiFiService *)wifiService setWiFiBTULOFDMAstate:astateCopy];
+}
+
+- (void)updateWiFiRCU1ULOFDMAstate:(BOOL)astate
+{
+  astateCopy = astate;
+  [WCM_Logging logLevel:2 message:@"Wifi Controller: WiFi / RCU1 setting UL OFDMA disable state (%d)", astate];
+  wifiService = [(WCM_WiFiController *)self wifiService];
+
+  [(WCM_WiFiService *)wifiService setWiFiRCU1ULOFDMAstate:astateCopy];
+}
+
+- (void)updateWiFiRCU2ULOFDMAstate:(BOOL)astate
+{
+  astateCopy = astate;
+  [WCM_Logging logLevel:2 message:@"Wifi Controller: WiFi / RCU2 setting UL OFDMA disable state (%d)", astate];
+  wifiService = [(WCM_WiFiController *)self wifiService];
+
+  [(WCM_WiFiService *)wifiService setWiFiRCU2ULOFDMAstate:astateCopy];
+}
+
+- (void)updateWiFiRCU1ModeChanged:(BOOL)changed andChannelChanged:(BOOL)channelChanged andMode:(id)mode andChannel:(id)channel
+{
+  channelChangedCopy = channelChanged;
+  changedCopy = changed;
+  if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")])
+  {
+    [WCM_Logging logLevel:2 message:@"Wifi Controller setting RCU1 ModeChanged(%d) ChanChanged(%d) Mode(%@) Chan(%@)", changedCopy, channelChangedCopy, mode, channel];
+    wifiService = [(WCM_WiFiController *)self wifiService];
+
+    [(WCM_WiFiService *)wifiService setWiFiRCU1ModeChanged:changedCopy andChannelChanged:channelChangedCopy andMode:mode andChannel:channel];
+  }
+}
+
+- (void)updateWiFiBTLeConnEnable:(BOOL)enable andPeakOutageMs:(unsigned int)ms andDurationMs:(unsigned int)durationMs andDutyCycle:(unsigned int)cycle andReason:(unsigned int)reason
+{
+  v7 = *&reason;
+  v8 = *&cycle;
+  v9 = *&durationMs;
+  v10 = *&ms;
+  enableCopy = enable;
+  [WCM_Logging logLevel:2 message:@"Wifi Controller sending LeConn enable(%d) peakOutageMs(%d) durationMs(%d) dutyCycle(%d) reason(%d)", enable, *&ms, *&durationMs, *&cycle, *&reason];
+  wifiService = [(WCM_WiFiController *)self wifiService];
+
+  [(WCM_WiFiService *)wifiService setWiFiBTLeConnEnable:enableCopy andPeakOutageMs:v10 andDurationMs:v9 andDutyCycle:v8 andReason:v7];
 }
 
 - (void)updateWiFiRCU2CoexMode:(id)mode
@@ -895,6 +1260,26 @@ LABEL_25:
   [(WCM_WiFiService *)wifiService setWiFiRCU2TimingArray:array];
 }
 
+- (void)setHPovrLEscanGrantDuration:(unsigned int)duration
+{
+  v3 = *&duration;
+  wifiService = [(WCM_WiFiController *)self wifiService];
+
+  [(WCM_WiFiService *)wifiService setHPovrLEscanGrantDuration:v3];
+}
+
+- (void)setCriticalWiFiTraffic:(BOOL)traffic duration:(unsigned int)duration criticalityPercentage:(unsigned __int16)percentage forProcessID:(int)d
+{
+  v6 = *&d;
+  percentageCopy = percentage;
+  v8 = *&duration;
+  trafficCopy = traffic;
+  [WCM_Logging logLevel:2 message:@"Wifi Controller setting Airplay critical wifi traffic (%d), duration (ms) (%d), criticality percentage (%d), processID (%d)", traffic, *&duration, percentage, *&d];
+  wifiService = [(WCM_WiFiController *)self wifiService];
+
+  [(WCM_WiFiService *)wifiService setCriticalWiFiTraffic:trafficCopy duration:v8 criticalityPercentage:percentageCopy forProcessID:v6];
+}
+
 - (void)updateRCU2CoexParams:(id)params
 {
   [WCM_Logging logLevel:2 message:@"Wifi Controller setting RCU2 coex param (%@)", params];
@@ -903,12 +1288,70 @@ LABEL_25:
   [(WCM_WiFiService *)wifiService setRCU2CoexParams:params];
 }
 
+- (void)updateWiFieSCOActiveStatus:(int)status
+{
+  v3 = *&status;
+  [WCM_Logging logLevel:2 message:@"Wifi Controller sending eSCO indication to Wifi (%d)", *&status];
+  wifiService = [(WCM_WiFiController *)self wifiService];
+
+  [(WCM_WiFiService *)wifiService setWifiBTeSCOStatus:v3];
+}
+
+- (void)updateWiFiLimitedAggregationActiveStatus:(int)status andUseCase:(int)case
+{
+  v4 = *&case;
+  v5 = *&status;
+  [WCM_Logging logLevel:2 message:@"Wifi Controller sending eSCOHid indication to Wifi (%d) useCase (%d)", *&status, *&case];
+  wifiService = [(WCM_WiFiController *)self wifiService];
+
+  [(WCM_WiFiService *)wifiService setWifiBTeSCOHidStatus:v5 andUseCase:v4];
+}
+
+- (void)updateWiFiA2DPActiveStatus:(int)status
+{
+  v3 = *&status;
+  [WCM_Logging logLevel:2 message:@"Wifi Controller sending A2DP indication to Wifi (%d)", *&status];
+  wifiService = [(WCM_WiFiController *)self wifiService];
+
+  [(WCM_WiFiService *)wifiService setWifiBTA2DPStatus:v3];
+}
+
+- (void)updateWiFiA2DPLLAActiveStatus:(int)status
+{
+  v3 = *&status;
+  [WCM_Logging logLevel:2 message:@"Wifi Controller sending A2DP LLA indication to Wifi (%d)", *&status];
+  wifiService = [(WCM_WiFiController *)self wifiService];
+
+  [(WCM_WiFiService *)wifiService setWifiBTA2DPLLAStatus:v3];
+}
+
 - (void)updateWiFiBTConnectionReport:(id)report
 {
   [WCM_Logging logLevel:2 message:@"Wifi Controller sending BT Connection Report to Wifi"];
   wifiService = [(WCM_WiFiController *)self wifiService];
 
   [(WCM_WiFiService *)wifiService setBTConnectionReport:report];
+}
+
+- (void)bspUpdateBTStatus_powerState:(BOOL)state frequencyBand:(int)band ullaMode:(int)mode
+{
+  v5 = *&mode;
+  v6 = *&band;
+  stateCopy = state;
+  [WCM_Logging logLevel:2 message:@"Wifi Controller sending bspUpdateBTStatus to Wifi (%d, 0x%x, %d)", state, *&band, *&mode];
+  wifiService = [(WCM_WiFiController *)self wifiService];
+
+  [(WCM_WiFiService *)wifiService bspUpdateBTStatus_powerState:stateCopy frequencyBand:v6 ullaMode:v5];
+}
+
+- (void)bspBandSwitchRequest:(int)request targetBand:(int)band
+{
+  v4 = *&band;
+  v5 = *&request;
+  [WCM_Logging logLevel:2 message:@"Wifi Controller sending bspBandSwitchRequest to Wifi (0x%x, 0x%x)", *&request, *&band];
+  wifiService = [(WCM_WiFiController *)self wifiService];
+
+  [(WCM_WiFiService *)wifiService bspBandSwitchRequest:v5 targetBand:v4];
 }
 
 - (void)bspStatusRequest
@@ -933,6 +1376,20 @@ LABEL_25:
   wifiService = [(WCM_WiFiController *)self wifiService];
 
   [(WCM_WiFiService *)wifiService bspNanPhsStateRequest];
+}
+
+- (void)bspSetCoexMode:(BOOL)mode wifiSupportedBands:(int)bands btCurrentBand:(int)band btSupportedBands:(int)supportedBands setTimeToTSTOnly:(BOOL)only timeToTST:(int)t
+{
+  v8 = *&t;
+  onlyCopy = only;
+  v10 = *&supportedBands;
+  v11 = *&band;
+  v12 = *&bands;
+  modeCopy = mode;
+  [WCM_Logging logLevel:2 message:@"Wifi Controller sending bspSetCoexMode to Wifi"];
+  wifiService = [(WCM_WiFiController *)self wifiService];
+
+  [(WCM_WiFiService *)wifiService bspSetCoexMode:modeCopy wifiSupportedBands:v12 btCurrentBand:v11 btSupportedBands:v10 setTimeToTSTOnly:onlyCopy timeToTST:v8];
 }
 
 - (void)bspGetBandSwitchStatus

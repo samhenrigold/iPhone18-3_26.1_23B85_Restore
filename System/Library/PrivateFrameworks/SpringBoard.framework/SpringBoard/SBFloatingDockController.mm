@@ -649,27 +649,28 @@ LABEL_9:
 
 - (void)_addFloatingDockWindowLevelAssertion:(id)assertion
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
   priority = [assertionCopy priority];
   floatingDockWindowLevelAssertionsByPriority = self->_floatingDockWindowLevelAssertionsByPriority;
   v7 = self->_floatingDockWindowLevelAssertionsByPriority[priority];
+  v8 = v7;
   if (!v7)
   {
-    v7 = [objc_alloc(MEMORY[0x277CCAC18]) initWithOptions:517];
-    v8 = floatingDockWindowLevelAssertionsByPriority[priority];
-    floatingDockWindowLevelAssertionsByPriority[priority] = v7;
+    v8 = [objc_alloc(MEMORY[0x277CCAC18]) initWithOptions:517];
+    v9 = floatingDockWindowLevelAssertionsByPriority[priority];
+    floatingDockWindowLevelAssertionsByPriority[priority] = v8;
   }
 
-  v9 = SBLogDock();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = SBLogDock(v7);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543362;
-    v11 = assertionCopy;
-    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "adding floating dock window level assertion: %{public}@", &v10, 0xCu);
+    v11 = 138543362;
+    v12 = assertionCopy;
+    _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "adding floating dock window level assertion: %{public}@", &v11, 0xCu);
   }
 
-  [(NSPointerArray *)v7 addPointer:assertionCopy];
+  [(NSPointerArray *)v8 addPointer:assertionCopy];
   [(SBFloatingDockController *)self _recalculateWindowLevelForWindowLevelAssertions];
 }
 
@@ -683,7 +684,7 @@ LABEL_9:
   if (v7)
   {
     v8 = [(SBFloatingDockController *)self _indexOfPointerArray:v7 ofObject:assertionCopy];
-    v9 = SBLogDock();
+    v9 = SBLogDock(v8);
     v10 = v9;
     if (v8 == 0x7FFFFFFFFFFFFFFFLL)
     {
@@ -715,7 +716,7 @@ LABEL_9:
 
   else
   {
-    v17 = SBLogDock();
+    v17 = SBLogDock(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [(SBFloatingDockController *)assertionCopy _removeFloatingDockWindowLevelAssertion:v17, v18, v19, v20, v21, v22, v23];
@@ -737,28 +738,29 @@ LABEL_9:
 
 - (void)_addFloatingDockBehaviorAssertion:(id)assertion withCompletion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
   completionCopy = completion;
   level = [assertionCopy level];
   floatingDockBehaviorAssertionsByLevel = self->_floatingDockBehaviorAssertionsByLevel;
   v10 = self->_floatingDockBehaviorAssertionsByLevel[level];
+  v11 = v10;
   if (!v10)
   {
-    v10 = [objc_alloc(MEMORY[0x277CCAC18]) initWithOptions:517];
-    v11 = floatingDockBehaviorAssertionsByLevel[level];
-    floatingDockBehaviorAssertionsByLevel[level] = v10;
+    v11 = [objc_alloc(MEMORY[0x277CCAC18]) initWithOptions:517];
+    v12 = floatingDockBehaviorAssertionsByLevel[level];
+    floatingDockBehaviorAssertionsByLevel[level] = v11;
   }
 
-  v12 = SBLogDock();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = SBLogDock(v10);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138543362;
-    v14 = assertionCopy;
-    _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "adding floating dock behavior assertion: %{public}@", &v13, 0xCu);
+    v14 = 138543362;
+    v15 = assertionCopy;
+    _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "adding floating dock behavior assertion: %{public}@", &v14, 0xCu);
   }
 
-  [(NSPointerArray *)v10 addPointer:assertionCopy];
+  [(NSPointerArray *)v11 addPointer:assertionCopy];
   [(SBFloatingDockController *)self _clearGestureAssertion];
   [(SBFloatingDockController *)self _evaluateAssertions:0 interactive:0 withCompletion:completionCopy];
 }
@@ -777,7 +779,7 @@ LABEL_9:
     if (v11 != 0x7FFFFFFFFFFFFFFFLL)
     {
       v12 = v11;
-      v13 = SBLogDock();
+      v13 = SBLogDock(v11);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         v22 = 138543362;
@@ -798,7 +800,7 @@ LABEL_9:
 
   else
   {
-    v15 = SBLogDock();
+    v15 = SBLogDock(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [(SBFloatingDockController *)assertionCopy _removeFloatingDockBehaviorAssertion:v15 withCompletion:v16, v17, v18, v19, v20, v21];
@@ -837,38 +839,38 @@ LABEL_5:
 - (void)_deriveActiveAssertion:(id *)assertion dockProgress:(double *)progress
 {
   v6 = 0;
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   floatingDockBehaviorAssertionsByLevel = self->_floatingDockBehaviorAssertionsByLevel;
   v7 = &stru_283094718;
   do
   {
-    v24 = v7;
+    v25 = v7;
     v8 = floatingDockBehaviorAssertionsByLevel[v6];
     v9 = v8;
-    v25 = v6;
+    v26 = v6;
     if (v8)
     {
-      v28 = 0u;
       v29 = 0u;
-      v26 = 0u;
+      v30 = 0u;
       v27 = 0u;
-      v10 = [(NSPointerArray *)v8 countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v28 = 0u;
+      v10 = [(NSPointerArray *)v8 countByEnumeratingWithState:&v27 objects:v33 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v27;
+        v12 = *v28;
         v13 = &stru_283094718;
         do
         {
           for (i = 0; i != v11; ++i)
           {
             v15 = v13;
-            if (*v27 != v12)
+            if (*v28 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v16 = *(*(&v26 + 1) + 8 * i);
+            v16 = *(*(&v27 + 1) + 8 * i);
             v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"assertion: %@", v16];
 
             if (v16)
@@ -887,7 +889,7 @@ LABEL_5:
             }
           }
 
-          v11 = [(NSPointerArray *)v9 countByEnumeratingWithState:&v26 objects:v32 count:16];
+          v11 = [(NSPointerArray *)v9 countByEnumeratingWithState:&v27 objects:v33 count:16];
         }
 
         while (v11);
@@ -905,20 +907,20 @@ LABEL_5:
     }
 
     v19 = MEMORY[0x277CCACA8];
-    v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v25];
-    v21 = SBFloatingDockBehaviorLevelDescription(v25);
-    v7 = [v19 stringWithFormat:@"level #%@ (%@) - %@\n%@", v20, v21, v13, v24];
+    v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v26];
+    v21 = SBFloatingDockBehaviorLevelDescription(v26);
+    v7 = [v19 stringWithFormat:@"level #%@ (%@) - %@\n%@", v20, v21, v13, v25];
 
-    v6 = v25 + 1;
+    v6 = v26 + 1;
   }
 
-  while (v25 != 13);
-  v22 = SBLogDock();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  while (v26 != 13);
+  v23 = SBLogDock(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v31 = v7;
-    _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_DEFAULT, "Floating dock behavior assertions...\n%{public}@", buf, 0xCu);
+    v32 = v7;
+    _os_log_impl(&dword_21ED4E000, v23, OS_LOG_TYPE_DEFAULT, "Floating dock behavior assertions...\n%{public}@", buf, 0xCu);
   }
 }
 
@@ -926,13 +928,13 @@ LABEL_5:
 {
   interactiveCopy = interactive;
   completionCopy = completion;
-  *&v31 = 1.0;
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __75__SBFloatingDockController__evaluateAssertions_interactive_withCompletion___block_invoke;
-  v29[3] = &unk_2783A9C98;
-  v29[4] = self;
-  v8 = MEMORY[0x223D6F7F0](v29);
+  *&v33 = 1.0;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __75__SBFloatingDockController__evaluateAssertions_interactive_withCompletion___block_invoke;
+  v31[3] = &unk_2783A9C98;
+  v31[4] = self;
+  v8 = MEMORY[0x223D6F7F0](v31);
   if (assertions == 2)
   {
     WeakRetained = objc_loadWeakRetained(&self->_activeAssertion);
@@ -941,33 +943,33 @@ LABEL_5:
     {
       [WeakRetained progress];
       v12 = *&v11;
-      v31 = v11;
+      v33 = v11;
       isAnimated = [v10 isAnimated];
     }
 
     else
     {
-      v15 = SBLogDock();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+      v16 = SBLogDock(0);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
-        [SBFloatingDockController _evaluateAssertions:v15 interactive:? withCompletion:?];
+        [SBFloatingDockController _evaluateAssertions:v16 interactive:? withCompletion:?];
       }
 
       [0 progress];
-      v12 = *&v16;
-      v31 = v16;
+      v12 = *&v17;
+      v33 = v17;
       isAnimated = 1;
     }
 
     viewController = self->_viewController;
-    v18 = v12;
+    v19 = v12;
     goto LABEL_35;
   }
 
-  v28 = 0;
-  [(SBFloatingDockController *)self _deriveActiveAssertion:&v28 dockProgress:&v31];
-  v10 = v28;
-  objc_storeWeak(&self->_activeAssertion, v10);
+  v30 = 0;
+  [(SBFloatingDockController *)self _deriveActiveAssertion:&v30 dockProgress:&v33];
+  v10 = v30;
+  v14 = objc_storeWeak(&self->_activeAssertion, v10);
   if (v10)
   {
     isAnimated2 = [v10 isAnimated];
@@ -975,17 +977,17 @@ LABEL_5:
 
   else
   {
-    v19 = SBLogDock();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+    v20 = SBLogDock(v14);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      [SBFloatingDockController _evaluateAssertions:v19 interactive:? withCompletion:?];
+      [SBFloatingDockController _evaluateAssertions:v20 interactive:? withCompletion:?];
     }
 
     isAnimated2 = 1;
   }
 
   [(SBFloatingDockRootViewController *)self->_viewController presentedProgress];
-  v21 = v20;
+  v22 = v21;
   if (assertions == 3)
   {
     goto LABEL_16;
@@ -994,7 +996,7 @@ LABEL_5:
   if (assertions == 1)
   {
 LABEL_24:
-    if ([(SBFloatingDockRootViewController *)self->_viewController isTransitioningPresentation]&& v21 < 1.0)
+    if ([(SBFloatingDockRootViewController *)self->_viewController isTransitioningPresentation]&& v22 < 1.0)
     {
       windowScene = [(SBFloatingDockController *)self windowScene];
       if ([windowScene isMainDisplayWindowScene])
@@ -1006,10 +1008,10 @@ LABEL_24:
 
         if (interfaceOrientation != activeInterfaceOrientation)
         {
-          v27 = SBLogDock();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+          v29 = SBLogDock(v28);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
           {
-            [SBFloatingDockController _evaluateAssertions:v27 interactive:? withCompletion:?];
+            [SBFloatingDockController _evaluateAssertions:v29 interactive:? withCompletion:?];
           }
 
           goto LABEL_31;
@@ -1022,10 +1024,10 @@ LABEL_24:
     }
 
     viewController = self->_viewController;
-    v18 = *&v31;
+    v19 = *&v33;
     isAnimated = isAnimated2;
 LABEL_35:
-    [(SBFloatingDockRootViewController *)viewController setPresentationProgress:isAnimated animated:interactiveCopy interactive:v8 withCompletion:v18];
+    [(SBFloatingDockRootViewController *)viewController setPresentationProgress:isAnimated animated:interactiveCopy interactive:v8 withCompletion:v19];
     goto LABEL_36;
   }
 
@@ -1042,13 +1044,13 @@ LABEL_35:
 LABEL_16:
   if (![(SBFloatingDockRootViewController *)self->_viewController isFloatingDockFullyPresented]&& BSFloatIsOne())
   {
-    *&v31 = 1.0;
+    *&v33 = 1.0;
     goto LABEL_24;
   }
 
   if ([(SBFloatingDockRootViewController *)self->_viewController isFloatingDockPresented]&& BSFloatIsZero())
   {
-    *&v31 = 0.0;
+    *&v33 = 0.0;
     goto LABEL_24;
   }
 
@@ -1168,7 +1170,7 @@ LABEL_10:
     view = [(SBFloatingDockRootViewController *)self->_viewController view];
     _UISystemGestureLocationInView();
     v14 = v13;
-    [view frame];
+    objc_msgSend_frame(view);
     v16 = v15;
     [(SBFloatingDockRootViewController *)self->_viewController maximumFloatingDockHeight];
     if (v14 < v16 + v17 * -1.5)
@@ -1894,9 +1896,11 @@ LABEL_11:
     switcherController = [WeakRetained switcherController];
     isFloatingSwitcherVisible = [switcherController isFloatingSwitcherVisible];
 
-    if (([(SBFZStackParticipant *)self->_zStackParticipant ownsHomeGesture]& 1) != 0)
+    ownsHomeGesture = [(SBFZStackParticipant *)self->_zStackParticipant ownsHomeGesture];
+    if (ownsHomeGesture)
     {
-      if (![(SBFloatingDockRootViewController *)self->_viewController isFloatingDockFullyPresented])
+      isFloatingDockFullyPresented = [(SBFloatingDockRootViewController *)self->_viewController isFloatingDockFullyPresented];
+      if (!isFloatingDockFullyPresented)
       {
         if (((isVisible | isVisible2 | isVisible3 | isInSetupMode | isFloatingSwitcherVisible) & 1) == 0)
         {
@@ -1904,66 +1908,66 @@ LABEL_11:
           goto LABEL_11;
         }
 
-        v16 = SBLogDock();
-        v20 = os_log_type_enabled(v16, OS_LOG_TYPE_INFO);
+        v18 = SBLogDock(isFloatingDockFullyPresented);
+        v22 = os_log_type_enabled(v18, OS_LOG_TYPE_INFO);
         if (isInSetupMode)
         {
-          if (!v20)
+          if (!v22)
+          {
+            goto LABEL_10;
+          }
+
+          v25 = 0;
+          v19 = "Preventing the indirect present dock gesture because the dock is not allowed in Buddy.";
+          v20 = &v25;
+        }
+
+        else if (isFloatingSwitcherVisible)
+        {
+          if (!v22)
+          {
+            goto LABEL_10;
+          }
+
+          v24 = 0;
+          v19 = "Preventing the indirect present dock gesture because the slide over switcher is visible.";
+          v20 = &v24;
+        }
+
+        else
+        {
+          if (!v22)
           {
             goto LABEL_10;
           }
 
           v23 = 0;
-          v17 = "Preventing the indirect present dock gesture because the dock is not allowed in Buddy.";
-          v18 = &v23;
-        }
-
-        else if (isFloatingSwitcherVisible)
-        {
-          if (!v20)
-          {
-            goto LABEL_10;
-          }
-
-          v22 = 0;
-          v17 = "Preventing the indirect present dock gesture because the slide over switcher is visible.";
-          v18 = &v22;
-        }
-
-        else
-        {
-          if (!v20)
-          {
-            goto LABEL_10;
-          }
-
-          v21 = 0;
-          v17 = "Preventing the indirect present dock gesture because although the dock owns the home gesture, Cover Sheet, Control Center, or Siri are still dismissing.";
-          v18 = &v21;
+          v19 = "Preventing the indirect present dock gesture because although the dock owns the home gesture, Cover Sheet, Control Center, or Siri are still dismissing.";
+          v20 = &v23;
         }
 
         goto LABEL_9;
       }
 
-      v16 = SBLogDock();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v18 = SBLogDock(isFloatingDockFullyPresented);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
-        v24 = 0;
-        v17 = "Preventing the indirect present dock gesture because the floating dock is already presented.";
-        v18 = &v24;
+        v26 = 0;
+        v19 = "Preventing the indirect present dock gesture because the floating dock is already presented.";
+        v20 = &v26;
 LABEL_9:
-        _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_INFO, v17, v18, 2u);
+        _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_INFO, v19, v20, 2u);
       }
     }
 
     else
     {
-      v16 = SBLogDock();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v18 = SBLogDock(ownsHomeGesture);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        v17 = "Preventing the indirect present dock gesture because the dock doesn't own the home gesture.";
-        v18 = buf;
+        v19 = "Preventing the indirect present dock gesture because the dock doesn't own the home gesture.";
+        v20 = buf;
         goto LABEL_9;
       }
     }
@@ -2852,6 +2856,20 @@ BOOL __45__SBFloatingDockController__setupStateDumper__block_invoke_5(uint64_t a
   WeakRetained = objc_loadWeakRetained(&self->_windowScene);
 
   return WeakRetained;
+}
+
+- (void)_removeFloatingDockWindowLevelAssertion:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, a2, a3, "tried to remove a window level assertion that was never added: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_removeFloatingDockBehaviorAssertion:(uint64_t)a3 withCompletion:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, a2, a3, "tried to remove a behavior assertion that was never added: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

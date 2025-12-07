@@ -272,16 +272,20 @@
 - (double)ringWidth
 {
   [(PKRingGradientView *)self _radius];
+  v2.n128_u64[0] = 0x3FCC28F5C28F5C29;
+  v3.n128_f64[0] = v3.n128_f64[0] * 0.22;
 
-  PKFloatRoundToPixel();
+  PKFloatRoundToPixel(v3, v2);
   return result;
 }
 
 - (double)strokeWidth
 {
   [(PKRingGradientView *)self _radius];
+  v2.n128_u64[0] = 0x3F8A9FBE76C8B439;
+  v3.n128_f64[0] = v3.n128_f64[0] * 0.013;
 
-  PKFloatRoundToPixel();
+  PKFloatRoundToPixel(v3, v2);
   return result;
 }
 

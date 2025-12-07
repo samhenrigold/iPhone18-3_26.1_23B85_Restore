@@ -47,7 +47,7 @@
 
 - (void)_updateWalkingRouteBackgroundLoader
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   navigationSessionState = [(MNLocationTracker *)self navigationSessionState];
   arrivalState = [navigationSessionState arrivalState];
   isInParkingDetectionRegion = 0;
@@ -93,9 +93,9 @@ LABEL_12:
   v6 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v11[0] = 67109120;
-    v11[1] = isInParkingDetectionRegion & 1;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "Should start walking route background loader: %d", v11, 8u);
+    v10[0] = 67109120;
+    v10[1] = isInParkingDetectionRegion & 1;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "Should start walking route background loader: %d", v10, 8u);
   }
 
   walkingRouteBackgroundLoader = self->_walkingRouteBackgroundLoader;
@@ -119,8 +119,6 @@ LABEL_12:
   {
     [(MNWalkingRouteBackgroundLoader *)walkingRouteBackgroundLoader stop];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)arrivalUpdater:(id)updater didUpdateArrivalInfo:(id)info previousState:(int64_t)state
@@ -219,21 +217,24 @@ LABEL_12:
 
 - (void)_updateForNewAlternateRoutes:(id)routes
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   routesCopy = routes;
   if ([(MNLocationTracker *)self state]!= 2)
   {
     lastMatchedLocation = [(MNLocationTracker *)self lastMatchedLocation];
     [lastMatchedLocation coordinate];
+    v7 = v6;
+    v9 = v8;
     navigationSession = [(MNLocationTracker *)self navigationSession];
     destination = [navigationSession destination];
 
     geoMapItem = [destination geoMapItem];
-    [geoMapItem centerCoordinate];
-    GEOCalculateDistance();
-    v10 = v9;
+    centerCoordinate = [geoMapItem centerCoordinate];
+    v34.var2 = v7;
+    v35.var0 = v9;
+    v15 = GEOCalculateDistance(centerCoordinate, v14, v34, v35);
 
-    if (v10 < 1600.0)
+    if (v15 < 1600.0)
     {
 
       routesCopy = 0;
@@ -251,41 +252,39 @@ LABEL_12:
     [delegate locationTracker:self didUpdateAlternateRoutes:alternateRoutes];
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   alternateRoutes2 = [(MNAlternateRoutesUpdater *)self->_alternateRoutesUpdater alternateRoutes];
-  v17 = [alternateRoutes2 countByEnumeratingWithState:&v24 objects:v28 count:16];
-  if (v17)
+  v22 = [alternateRoutes2 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  if (v22)
   {
-    v18 = v17;
-    v19 = *v25;
+    v23 = v22;
+    v24 = *v29;
     do
     {
-      v20 = 0;
+      v25 = 0;
       do
       {
-        if (*v25 != v19)
+        if (*v29 != v24)
         {
           objc_enumerationMutation(alternateRoutes2);
         }
 
-        v21 = *(*(&v24 + 1) + 8 * v20);
+        v26 = *(*(&v28 + 1) + 8 * v25);
         delegate2 = [(MNLocationTracker *)self delegate];
-        [delegate2 locationTracker:self didUpdateETAForRoute:v21];
+        [delegate2 locationTracker:self didUpdateETAForRoute:v26];
 
-        ++v20;
+        ++v25;
       }
 
-      while (v18 != v20);
-      v18 = [alternateRoutes2 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      while (v23 != v25);
+      v23 = [alternateRoutes2 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
-    while (v18);
+    while (v23);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateForSelectedNewRoute:(id)route alternateRoutes:(id)routes
@@ -464,14 +463,14 @@ LABEL_17:
 
 - (id)_matchedLocationForLocation:(id)location
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   v5 = MNGetPuckTrackingLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     uuid = [locationCopy uuid];
     *buf = 138412290;
-    v29 = uuid;
+    v28 = uuid;
     _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_INFO, "[MN] [%@] - Processing - in MNDrivingTurnByTurnLocationTracker::_matchedLocationForLocation:", buf, 0xCu);
   }
 
@@ -528,9 +527,9 @@ LABEL_12:
     }
   }
 
-  v27.receiver = self;
-  v27.super_class = MNDrivingTurnByTurnLocationTracker;
-  v16 = [(MNTurnByTurnLocationTracker *)&v27 _matchedLocationForLocation:locationCopy];
+  v26.receiver = self;
+  v26.super_class = MNDrivingTurnByTurnLocationTracker;
+  v16 = [(MNTurnByTurnLocationTracker *)&v26 _matchedLocationForLocation:locationCopy];
   v24 = v10;
   v14 = v24;
   if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
@@ -541,18 +540,16 @@ LABEL_12:
 
 LABEL_18:
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 - (void)updateForETAUResponse:(id)response
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   responseCopy = response;
-  v33.receiver = self;
-  v33.super_class = MNDrivingTurnByTurnLocationTracker;
-  [(MNTurnByTurnLocationTracker *)&v33 updateForETAUResponse:responseCopy];
+  v32.receiver = self;
+  v32.super_class = MNDrivingTurnByTurnLocationTracker;
+  [(MNTurnByTurnLocationTracker *)&v32 updateForETAUResponse:responseCopy];
   navigationSessionState = [(MNLocationTracker *)self navigationSessionState];
   currentRouteInfo = [navigationSessionState currentRouteInfo];
   route = [currentRouteInfo route];
@@ -573,37 +570,37 @@ LABEL_18:
   v20 = [MNTrafficIncidentAlert validTrafficIncidentAlertsForETAUpdate:currentRouteInfo2 alternateRouteInfo:firstObject];
 
   [(MNTurnByTurnLocationTracker *)self _updateForNewTrafficIncidentAlerts:v20];
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v21 = v20;
-  v22 = [v21 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (!v22)
   {
 
 LABEL_11:
-    [(MNDrivingTurnByTurnLocationTracker *)self _updateForNewAlternateRoutes:allETAUAlternateRouteInfos, v29];
+    [(MNDrivingTurnByTurnLocationTracker *)self _updateForNewAlternateRoutes:allETAUAlternateRouteInfos, v28];
     goto LABEL_12;
   }
 
   v23 = v22;
   v24 = 0;
-  v25 = *v30;
+  v25 = *v29;
   do
   {
     for (i = 0; i != v23; ++i)
     {
-      if (*v30 != v25)
+      if (*v29 != v25)
       {
         objc_enumerationMutation(v21);
       }
 
-      alternateRoute = [*(*(&v29 + 1) + 8 * i) alternateRoute];
+      alternateRoute = [*(*(&v28 + 1) + 8 * i) alternateRoute];
       v24 |= alternateRoute != 0;
     }
 
-    v23 = [v21 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v23 = [v21 countByEnumeratingWithState:&v28 objects:v33 count:16];
   }
 
   while (v23);
@@ -614,8 +611,6 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateRequestForETAUpdate:(id)update

@@ -49,11 +49,11 @@
 
 - (WFQuantityFieldParameter)initWithDefinition:(id)definition
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   definitionCopy = definition;
-  v17.receiver = self;
-  v17.super_class = WFQuantityFieldParameter;
-  v5 = [(WFNumberFieldParameter *)&v17 initWithDefinition:definitionCopy];
+  v16.receiver = self;
+  v16.super_class = WFQuantityFieldParameter;
+  v5 = [(WFNumberFieldParameter *)&v16 initWithDefinition:definitionCopy];
   if (v5)
   {
     v6 = [definitionCopy objectForKey:@"PossibleUnits"];
@@ -66,13 +66,13 @@
       {
         v11 = objc_opt_class();
         *buf = 136315906;
-        v19 = "WFEnforceClass";
-        v20 = 2114;
-        v21 = v8;
-        v22 = 2114;
-        v23 = v11;
-        v24 = 2114;
-        v25 = v7;
+        v18 = "WFEnforceClass";
+        v19 = 2114;
+        v20 = v8;
+        v21 = 2114;
+        v22 = v11;
+        v23 = 2114;
+        v24 = v7;
         v12 = v11;
         _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", buf, 0x2Au);
       }
@@ -100,7 +100,6 @@
     v14 = v5;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

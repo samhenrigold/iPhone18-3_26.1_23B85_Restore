@@ -566,7 +566,7 @@ LABEL_15:
   }
 
 LABEL_16:
-  v14 = [objc_msgSend(a2 objectForKeyedSubscript:{@"vcScreenCaptureDidStartSuccess", *v18, *&v18[16], v19, v20), "BOOLValue"}];
+  v14 = [objc_msgSend(a2 objectForKeyedSubscript:{@"vcScreenCaptureDidStartSuccess", *v18, *&v18[8], v19, v20), "BOOLValue"}];
   if (v14)
   {
     v15 = 0;
@@ -680,7 +680,7 @@ LABEL_15:
   }
 
 LABEL_16:
-  v14 = [objc_msgSend(a2 objectForKeyedSubscript:{@"vcScreenCaptureDidStopSuccess", *v17, *&v17[16], v18, v19), "BOOLValue"}];
+  v14 = [objc_msgSend(a2 objectForKeyedSubscript:{@"vcScreenCaptureDidStopSuccess", *v17, *&v17[8], v18, v19), "BOOLValue"}];
   v15 = [MEMORY[0x1E695DFB0] null];
   if (v15 == [a2 objectForKeyedSubscript:@"vcScreenCaptureDidStopError"])
   {
@@ -1220,7 +1220,7 @@ void __50__AVCScreenCapture_updateScreenCaptureWithConfig___block_invoke(uint64_
       }
     }
 
-    v10 = [MEMORY[0x1E696ABC0] errorWithDomain:@"AVCScreenCapture" code:-2146893808 userInfo:{0, *v37, *&v37[16]}];
+    v10 = [MEMORY[0x1E696ABC0] errorWithDomain:@"AVCScreenCapture" code:-2146893808 userInfo:{0, *v37, *&v37[8]}];
     goto LABEL_27;
   }
 

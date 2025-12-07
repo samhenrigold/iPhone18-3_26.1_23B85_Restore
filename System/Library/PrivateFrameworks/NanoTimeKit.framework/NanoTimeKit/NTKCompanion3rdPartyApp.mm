@@ -624,14 +624,14 @@ LABEL_12:
 {
   v1 = [a1 containerApplicationIdentifier];
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_10(&dword_22D9C5000, v2, v3, "App record missing for ID %@ - %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_10(&dword_22D9C5000, v2, v3, "App record missing for ID %@ - %@", v4, v5, v6, v7);
 }
 
 void __34__NTKCompanion3rdPartyApp_install__block_invoke_cold_1(uint64_t a1)
 {
   v1 = [*(a1 + 32) watchApplicationIdentifier];
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_10(&dword_22D9C5000, v2, v3, "Installation failed for %@. Error: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_10(&dword_22D9C5000, v2, v3, "Installation failed for %@. Error: %@", v4, v5, v6, v7);
 }
 
 @end

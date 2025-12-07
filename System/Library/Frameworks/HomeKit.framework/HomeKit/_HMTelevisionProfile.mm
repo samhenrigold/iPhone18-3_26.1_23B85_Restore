@@ -70,29 +70,29 @@
 
 - (void)updateMediaSourceDisplayOrder:(id)order completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   orderCopy = order;
   handlerCopy = handler;
   context = [(_HMAccessoryProfile *)self context];
   if (!handlerCopy)
   {
-    v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[_HMTelevisionProfile updateMediaSourceDisplayOrder:completionHandler:]", @"completionHandler"];
-    v23 = objc_autoreleasePoolPush();
+    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[_HMTelevisionProfile updateMediaSourceDisplayOrder:completionHandler:]", @"completionHandler"];
+    v22 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v25 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v24 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v26 = HMFGetLogIdentifier();
+      v25 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v26;
-      v34 = 2112;
-      v35 = v22;
-      _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v32 = v25;
+      v33 = 2112;
+      v34 = v21;
+      _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v23);
-    v27 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v22 userInfo:0];
-    objc_exception_throw(v27);
+    objc_autoreleasePoolPop(v22);
+    v26 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v21 userInfo:0];
+    objc_exception_throw(v26);
   }
 
   v9 = context;
@@ -105,9 +105,9 @@
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v14;
-      v34 = 2080;
-      v35 = "[_HMTelevisionProfile updateMediaSourceDisplayOrder:completionHandler:]";
+      v32 = v14;
+      v33 = 2080;
+      v34 = "[_HMTelevisionProfile updateMediaSourceDisplayOrder:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -125,7 +125,7 @@
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v33 = v19;
+      v32 = v19;
       _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, "%{public}@Zero entries in mediaSourceDisplayOrder", buf, 0xCu);
     }
 
@@ -145,13 +145,12 @@ LABEL_11:
   block[2] = __72___HMTelevisionProfile_updateMediaSourceDisplayOrder_completionHandler___block_invoke;
   block[3] = &unk_1E754D208;
   block[4] = self;
-  v31 = handlerCopy;
-  v29 = orderCopy;
-  v30 = v9;
+  v30 = handlerCopy;
+  v28 = orderCopy;
+  v29 = v9;
   dispatch_async(queue, block);
 
 LABEL_12:
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)messageDestination

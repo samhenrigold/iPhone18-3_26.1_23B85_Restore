@@ -41,7 +41,9 @@
 - (void)setTrimTimeRange:(id *)range;
 - (void)setVitalityFilter:(id)filter;
 - (void)startPlaybackWithStyle:(int64_t)style settleAutomatically:(BOOL)automatically;
+- (void)startPlaybackWithStyleWhenReady:(int64_t)ready settleAutomatically:(BOOL)automatically;
 - (void)statusDidChange;
+- (void)stopPlaybackAnimated:(BOOL)animated;
 - (void)vitalityBehaviorDidEndPlaying:(id)playing;
 @end
 
@@ -80,13 +82,13 @@
   [(ISBasePlayer *)&v9 observable:observableCopy didChange:change context:context];
 }
 
-uint64_t __50__ISLivePhotoPlayer_observable_didChange_context___block_invoke(uint64_t result)
+id *__50__ISLivePhotoPlayer_observable_didChange_context___block_invoke(id *result)
 {
-  if (*(result + 40) == ISLivePhotoPlaybackFilterObservationContext)
+  if (result[5] == ISLivePhotoPlaybackFilterObservationContext)
   {
     v2 = result;
-    [*(result + 32) _handlePlaybackFilterDidChange];
-    v3 = *(v2 + 32);
+    [result[4] _handlePlaybackFilterDidChange];
+    v3 = v2[4];
 
     return [v3 _updatePlayerItemLoadingTarget];
   }
@@ -250,7 +252,7 @@ uint64_t __46__ISLivePhotoPlayer__updateHintingAndVitality__block_invoke(uint64_
   return v3;
 }
 
-uint64_t __57__ISLivePhotoPlayer__coalescedPlaybackFilterHintProgress__block_invoke(uint64_t a1, void *a2)
+void *__57__ISLivePhotoPlayer__coalescedPlaybackFilterHintProgress__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 hintProgress];
   v5 = *(*(a1 + 32) + 8);
@@ -282,7 +284,7 @@ uint64_t __57__ISLivePhotoPlayer__coalescedPlaybackFilterHintProgress__block_inv
   return v3;
 }
 
-uint64_t __50__ISLivePhotoPlayer__coalescedPlaybackFilterState__block_invoke(uint64_t a1, void *a2)
+void *__50__ISLivePhotoPlayer__coalescedPlaybackFilterState__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 state];
   v4 = *(*(a1 + 32) + 8);
@@ -594,10 +596,10 @@ uint64_t __46__ISLivePhotoPlayer__setCurrentPlaybackStyle___block_invoke(uint64_
     goto LABEL_7;
   }
 
-  [playerContent photoTime];
+  objc_msgSend_photoTime(playerContent);
   if ((BYTE4(v8) & 0x1D) == 1)
   {
-    [playerContent photoTime];
+    objc_msgSend_photoTime(playerContent);
     v4 = CMTimeGetSeconds(&v6) >= 0.1;
   }
 
@@ -673,7 +675,7 @@ LABEL_7:
   v8 = playerContent2;
   if (playerContent2)
   {
-    [playerContent2 videoDuration];
+    objc_msgSend_videoDuration(playerContent2);
   }
 
   else
@@ -684,7 +686,7 @@ LABEL_7:
   memset(&v29, 0, sizeof(v29));
   if (playerContent)
   {
-    [playerContent photoTime];
+    objc_msgSend_photoTime(playerContent);
   }
 
   [v3 postDuration];
@@ -826,6 +828,34 @@ LABEL_14:
   }
 }
 
+- (void)stopPlaybackAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  activeBehavior = [(ISBasePlayer *)self activeBehavior];
+  behaviorType = [activeBehavior behaviorType];
+
+  if ((behaviorType - 1) < 2 || behaviorType == 3 && (-[ISBasePlayer activeBehavior](self, "activeBehavior"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v8 isPlayingBeyondPhoto], v8, v9))
+  {
+    v7 = objc_alloc_init(ISLivePhotoSettleBehavior);
+    [(ISBehavior *)v7 setDelegate:self];
+    [(ISBasePlayer *)self setActiveBehavior:v7];
+    [(ISLivePhotoSettleBehavior *)v7 settle:animatedCopy];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __42__ISLivePhotoPlayer_stopPlaybackAnimated___block_invoke;
+    v10[3] = &unk_279A2A488;
+    v10[4] = self;
+    [(ISObservable *)self performChanges:v10];
+  }
+
+  else
+  {
+    [(ISLivePhotoPlayer *)self _setCurrentPlaybackStyle:0];
+  }
+
+  [(ISLivePhotoPlayer *)self _setStyleToPlayWhenReady:0];
+}
+
 - (void)startPlaybackWithStyle:(int64_t)style settleAutomatically:(BOOL)automatically
 {
   [(ISLivePhotoPlayer *)self _setShouldPrepareForVitalityWhenReady:0];
@@ -837,7 +867,7 @@ LABEL_14:
   v9 = playerContent;
   if (playerContent)
   {
-    [playerContent photoTime];
+    objc_msgSend_photoTime(playerContent);
   }
 
   else
@@ -850,7 +880,7 @@ LABEL_14:
   {
     [(ISBasePlayer *)self setVideoVolume:0.0];
     memset(&v24, 0, sizeof(v24));
-    [(ISLivePhotoPlayer *)self trimTimeRange];
+    objc_msgSend_trimTimeRange(self);
     v11 = 0;
     v12 = 0;
     v13 = 0.5;
@@ -864,7 +894,7 @@ LABEL_14:
 
     [(ISBasePlayer *)self setVideoVolume:0.0];
     memset(&v24, 0, sizeof(v24));
-    [(ISLivePhotoPlayer *)self trimTimeRange];
+    objc_msgSend_trimTimeRange(self);
     v12 = style == 2;
     v11 = style == 4;
     if (style == 4 || style == 2)
@@ -920,6 +950,15 @@ LABEL_14:
   [(ISBasePlayer *)self setActiveBehavior:v18];
   [(ISLivePhotoPlaybackBehavior *)v18 startPlayback];
   [(ISLivePhotoPlayer *)self _setCurrentPlaybackStyle:style];
+}
+
+- (void)startPlaybackWithStyleWhenReady:(int64_t)ready settleAutomatically:(BOOL)automatically
+{
+  automaticallyCopy = automatically;
+  [(ISLivePhotoPlayer *)self _setStyleToPlayWhenReady:ready];
+  [(ISLivePhotoPlayer *)self _setSettleAutomaticallyWhenReady:automaticallyCopy];
+
+  [(ISLivePhotoPlayer *)self _playIfNeeded];
 }
 
 - (void)setPlaybackAllowed:(BOOL)allowed

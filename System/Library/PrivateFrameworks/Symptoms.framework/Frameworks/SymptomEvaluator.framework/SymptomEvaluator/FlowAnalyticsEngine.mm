@@ -10,8 +10,10 @@
 + (void)performAppEndpointTrackingPeriodicActivityWithReply:(id)reply;
 + (void)performAppExperiencePeriodicActivityWithReply:(id)reply;
 + (void)performAppPeriodicActivityWithReply:(id)reply;
++ (void)performAppTrackingActionWithOptions:(id)options userId:(unsigned int)id reply:(id)reply;
 + (void)performAppTrackingPeriodicActivityWithReply:(id)reply;
 + (void)recentUsageForApps:(id)apps replyQueue:(id)queue reply:(id)reply;
++ (void)summaryAppDomainUsageBy:(unsigned int)by reply:(id)reply;
 + (void)workspaceSaveWithCallback:(id)callback;
 - (BOOL)_appBundleIdentifierIsWebBrowser:(id)browser;
 - (BOOL)_bundleBackgroundAudioCapable:(id)capable;
@@ -34,6 +36,7 @@
 - (BOOL)isSnapshotFlowUUIDStored:(id)stored;
 - (FlowAnalyticsEngine)initWithWorkspace:(id)workspace params:(id)params queue:(id)queue;
 - (double)_usageFingerprintForBundleName:(id)name;
+- (id)_appDomainUsageBy:(unsigned int)by bundleName:(id)name forDomain:(id)domain domainOwner:(id)owner domainType:(unsigned __int16)type domainClassification:(signed __int16)classification context:(id)context contextVerificationType:(unsigned __int16)self0 initiatedType:(unsigned int)self1;
 - (id)_appEndpointsInProcess:(id)process;
 - (id)_appExperienceForApp:(id)app forTime:(id)time;
 - (id)_attemptConvertingPluginNameToContainingAppName:(id)name;
@@ -62,10 +65,13 @@
 - (void)_algosScoreFor:(id)for score:(double)score;
 - (void)_applyCountsTo:(id)to fromLiveUsage:(id)usage mustReset:(BOOL)reset;
 - (void)_appsWithFlowsPassingTest:(id)test replyQueue:(id)queue reply:(id)reply;
+- (void)_archiveAppEndpointsForUserId:(unsigned int)id bundleName:(id)name;
 - (void)_archiveRecord:(id)record;
 - (void)_calendarUsageForApp:(id)app givenLastRun:(id)run;
+- (void)_changedForegroundState:(BOOL)state forBundle:(id)bundle;
 - (void)_checkCellExcessUsageActions:(unint64_t)actions previous:(unint64_t)previous snapshot:(id)snapshot;
 - (void)_checkForegroundStateForProcessWithUUID:(id)d replyQueue:(id)queue reply:(id)reply;
+- (void)_clearAppDomainAndEndpointTrackingForUserWithID:(unsigned int)d;
 - (void)_compactUsageForApp:(id)app intervalType:(int)type givenLastRun:(id)run;
 - (void)_didReceiveSnapshot:(id)snapshot;
 - (void)_dumpState;
@@ -73,6 +79,8 @@
 - (void)_enableThresholdMonitoringForCellularInterface:(uint64_t)interface;
 - (void)_endRNFPeriod;
 - (void)_evalDomainTrackingDropOf:(id)of;
+- (void)_fetchAppEndpointsRecordForUserId:(unsigned int)id bundleName:(id)name;
+- (void)_generateFlowAnomalySymptom:(unsigned int)symptom currentUsage:(unint64_t)usage snapshot:(id)snapshot;
 - (void)_generateInfoForId:(unint64_t)id context:(const char *)context uuid:(id)uuid completionBlock:(id)block;
 - (void)_handleAppTrackingNotification:(id)notification;
 - (void)_handleApplicationNotificationCompactForBundleName:(id)name edgeMode:(BOOL)mode;
@@ -106,18 +114,26 @@
 - (void)_removeOldFlowRecords;
 - (void)_reportDomainTrackingDropFor:(id)for withCause:(unint64_t)cause detail:(id)detail;
 - (void)_reportThresholdedFlowCount:(unint64_t)count threshold:(unint64_t)threshold;
+- (void)_requestDetailedCellFlowMonitoring:(BOOL)monitoring;
+- (void)_resolveAppEndpointsForUserId:(unsigned int)id bundleName:(id)name;
 - (void)_saveAndUnloadSelectState;
 - (void)_sendStatisticsReport:(id)report;
 - (void)_setupDailyMaintenanceActivity;
 - (void)_setupNotificationCenterAndRelayObservers;
 - (void)_setupPrefsStoreObserving;
 - (void)_startFlowMonitoring;
+- (void)_startMonitoringNetworkInterface:(int)interface usingThreshold:(unint64_t)threshold;
 - (void)_summaryAppDomainUsageBy:(unsigned int)by reply:(id)reply;
+- (void)_updateAppEndpoints:(id)endpoints type:(unint64_t)type userId:(unsigned int)id bundleName:(id)name flowClosing:(BOOL)closing;
+- (void)_updateDeterminedTrackersFromAPICountForUserId:(unsigned int)id bundleName:(id)name increment:(unint64_t)increment;
 - (void)_updateKnownCellularInterfaceIndexList:(int)list force:;
 - (void)_updateLiveUsage:(id)usage wifiIn:(int64_t)in wifiOut:(int64_t)out cellIn:(int64_t)cellIn cellOut:(int64_t)cellOut wiredIn:(int64_t)wiredIn wiredOut:(int64_t)wiredOut btIn:(int64_t)self0 btOut:(int64_t)self1 xIn:(int64_t)self2 xOut:(int64_t)self3 isJumboFlow:(BOOL)self4 isExpensive:(BOOL)self5 closing:(BOOL)self6;
 - (void)_updateTetheringUsage:(BOOL)usage;
 - (void)clearAppDomainUsage:(id)usage;
+- (void)clearAppDomainUsageForUserWithID:(unsigned int)d;
 - (void)clearAppEndpoints:(id)endpoints;
+- (void)clearAppEndpointsForUserWithID:(unsigned int)d;
+- (void)createAppEndpointsStorageForUserId:(unsigned int)id;
 - (void)createSnapshotFor:(id)for pred:(id)pred actions:(id)actions reply:(id)reply;
 - (void)dealloc;
 - (void)endpointMaintenanceOnClose:(id)close;
@@ -138,6 +154,7 @@
 - (void)performQueryOnEntity:(id)entity fetchRequestProperties:(id)properties pred:(id)pred sort:(id)sort actions:(id)actions service:(id)service connection:(id)connection reply:(id)self0;
 - (void)performThresholdingOn:(id)on forKey:(id)key andValue:(id)value connection:(id)connection createdBlock:(id *)block hitBlock:(id)hitBlock errorBlock:(id)errorBlock;
 - (void)pollFlows;
+- (void)postAWDMetric:(id)metric withIdentifier:(unsigned int)identifier;
 - (void)postCAEvent:(id)event withName:(id)name;
 - (void)processSnapshotForConnectionEstablishment:(id)establishment;
 - (void)removeSnapshotFlowUUIDsForSourceKey:(id)key;
@@ -177,7 +194,7 @@ void __64__FlowAnalyticsEngine__setupNotificationCenterAndRelayObservers__block_
 
 - (void)pollFlows
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = attributionLogHandle;
   if (os_log_type_enabled(attributionLogHandle, OS_LOG_TYPE_INFO))
   {
@@ -186,17 +203,17 @@ void __64__FlowAnalyticsEngine__setupNotificationCenterAndRelayObservers__block_
   }
 
   nstatManager = self->nstatManager;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __32__FlowAnalyticsEngine_pollFlows__block_invoke;
-  v10[3] = &unk_27898C490;
-  v10[4] = self;
   v9[0] = MEMORY[0x277D85DD0];
   v9[1] = 3221225472;
-  v9[2] = __32__FlowAnalyticsEngine_pollFlows__block_invoke_2;
-  v9[3] = &unk_27898A0C8;
+  v9[2] = __32__FlowAnalyticsEngine_pollFlows__block_invoke;
+  v9[3] = &unk_27898C490;
   v9[4] = self;
-  v5 = [(NWStatsManager *)nstatManager refreshUsingBlock:v10 completionBlock:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __32__FlowAnalyticsEngine_pollFlows__block_invoke_2;
+  v8[3] = &unk_27898A0C8;
+  v8[4] = self;
+  v5 = [(NWStatsManager *)nstatManager refreshUsingBlock:v9 completionBlock:v8];
   if (v5)
   {
     v6 = v5;
@@ -204,12 +221,10 @@ void __64__FlowAnalyticsEngine__setupNotificationCenterAndRelayObservers__block_
     if (os_log_type_enabled(attributionLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v12 = v6;
+      v11 = v6;
       _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "pollFlows refreshUsingBlock:completionBlock: failed, errno %{darwin.errno}d", buf, 8u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __32__FlowAnalyticsEngine_pollFlows__block_invoke_2(uint64_t a1)
@@ -245,7 +260,7 @@ uint64_t __32__FlowAnalyticsEngine_pollFlows__block_invoke_2(uint64_t a1)
 
 - (void)_refreshFullDataUsage
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   lastFullRefreshTime = self->lastFullRefreshTime;
   if (lastFullRefreshTime && ([(NSDate *)lastFullRefreshTime timeIntervalSinceDate:date], fabs(v5) < 1.0))
@@ -255,9 +270,9 @@ uint64_t __32__FlowAnalyticsEngine_pollFlows__block_invoke_2(uint64_t a1)
     {
       v7 = self->lastFullRefreshTime;
       *buf = 138412546;
-      v21 = v7;
-      v22 = 2048;
-      v23 = 1;
+      v20 = v7;
+      v21 = 2048;
+      v22 = 1;
       _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "Full data usage not refreshing because last refresh %@ was within %llu-second limit", buf, 0x16u);
     }
 
@@ -301,22 +316,22 @@ LABEL_18:
   {
     v11 = self->lastFullRefreshTime;
     *buf = 138412290;
-    v21 = v11;
+    v20 = v11;
     _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_INFO, "Full data usage refreshing now at %@", buf, 0xCu);
   }
 
   nstatManager = self->nstatManager;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __44__FlowAnalyticsEngine__refreshFullDataUsage__block_invoke;
-  v19[3] = &unk_27898C490;
-  v19[4] = self;
   v18[0] = MEMORY[0x277D85DD0];
   v18[1] = 3221225472;
-  v18[2] = __44__FlowAnalyticsEngine__refreshFullDataUsage__block_invoke_2;
-  v18[3] = &unk_27898A0C8;
+  v18[2] = __44__FlowAnalyticsEngine__refreshFullDataUsage__block_invoke;
+  v18[3] = &unk_27898C490;
   v18[4] = self;
-  v13 = [(NWStatsManager *)nstatManager refreshUsingBlock:v19 completionBlock:v18];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __44__FlowAnalyticsEngine__refreshFullDataUsage__block_invoke_2;
+  v17[3] = &unk_27898A0C8;
+  v17[4] = self;
+  v13 = [(NWStatsManager *)nstatManager refreshUsingBlock:v18 completionBlock:v17];
   if (v13)
   {
     v14 = v13;
@@ -324,7 +339,7 @@ LABEL_18:
     if (os_log_type_enabled(attributionLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v21) = v14;
+      LODWORD(v20) = v14;
       _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "_refreshFullDataUsage refreshUsingBlock:completionBlock: failed, errno %{darwin.errno}d", buf, 8u);
     }
 
@@ -333,13 +348,11 @@ LABEL_18:
 
   [(FlowAnalyticsEngine *)self _updateTetheringUsage:1];
 LABEL_21:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_refreshFullDataUsageComplete
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = attributionLogHandle;
   if (os_log_type_enabled(attributionLogHandle, OS_LOG_TYPE_INFO))
   {
@@ -347,11 +360,11 @@ LABEL_21:
     dataUsageRefreshCompletionBlock = self->dataUsageRefreshCompletionBlock;
     v6 = v3;
     v7 = _Block_copy(dataUsageRefreshCompletionBlock);
-    v12[0] = 67109376;
-    v12[1] = dataUsageRefreshCompletionNumWaiting;
-    v13 = 2048;
-    v14 = v7;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "Data usage complete, queued %d, block %p", v12, 0x12u);
+    v11[0] = 67109376;
+    v11[1] = dataUsageRefreshCompletionNumWaiting;
+    v12 = 2048;
+    v13 = v7;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "Data usage complete, queued %d, block %p", v11, 0x12u);
   }
 
   v8 = self->dataUsageRefreshCompletionBlock;
@@ -364,8 +377,6 @@ LABEL_21:
     self->dataUsageRefreshCompletionNumWaiting = 0;
     v9[2](v9);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __44__FlowAnalyticsEngine__refreshFullDataUsage__block_invoke_2(uint64_t a1)
@@ -383,35 +394,35 @@ uint64_t __44__FlowAnalyticsEngine__refreshFullDataUsage__block_invoke_2(uint64_
 
 - (void)_saveAndUnloadSelectState
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if ([(AnalyticsWorkspace *)self->super.workspace persistent])
   {
     [(AnalyticsWorkspace *)self->super.workspace save];
     mainObjectContext = [(AnalyticsWorkspace *)self->super.workspace mainObjectContext];
     registeredObjects = [mainObjectContext registeredObjects];
     v5 = [registeredObjects count];
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2020000000;
-    v20 = 0;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __48__FlowAnalyticsEngine__saveAndUnloadSelectState__block_invoke;
-    v16[3] = &unk_27898C508;
-    v16[4] = &v17;
-    [registeredObjects enumerateObjectsUsingBlock:v16];
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2020000000;
+    v19 = 0;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __48__FlowAnalyticsEngine__saveAndUnloadSelectState__block_invoke;
+    v15[3] = &unk_27898C508;
+    v15[4] = &v16;
+    [registeredObjects enumerateObjectsUsingBlock:v15];
     v6 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v7 = v18[3];
+      v7 = v17[3];
       *buf = 134218240;
-      v22 = v5;
-      v23 = 2048;
-      v24 = v7;
+      v21 = v5;
+      v22 = 2048;
+      v23 = v7;
       _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "flowanalyticsengine: memory ratio all/fault: %lu/%lu", buf, 0x16u);
     }
 
-    if (v5 > 4 * v18[3])
+    if (v5 > 4 * v17[3])
     {
       v8 = analyticsLogHandle;
       if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
@@ -420,23 +431,21 @@ uint64_t __44__FlowAnalyticsEngine__refreshFullDataUsage__block_invoke_2(uint64_
         _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "flowanalyticsengine: memory threshold hit, expedited faulting process", buf, 2u);
       }
 
-      v11 = MEMORY[0x277D85DD0];
-      v12 = 3221225472;
-      v13 = __48__FlowAnalyticsEngine__saveAndUnloadSelectState__block_invoke_352;
-      v14 = &unk_27898C530;
+      v10 = MEMORY[0x277D85DD0];
+      v11 = 3221225472;
+      v12 = __48__FlowAnalyticsEngine__saveAndUnloadSelectState__block_invoke_352;
+      v13 = &unk_27898C530;
       v9 = mainObjectContext;
-      v15 = v9;
-      [registeredObjects enumerateObjectsUsingBlock:&v11];
+      v14 = v9;
+      [registeredObjects enumerateObjectsUsingBlock:&v10];
       [v9 processPendingChanges];
     }
 
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v16, 8);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __48__FlowAnalyticsEngine__saveAndUnloadSelectState__block_invoke(uint64_t a1, void *a2)
+void *__48__FlowAnalyticsEngine__saveAndUnloadSelectState__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isFault];
   if (result)
@@ -709,19 +718,20 @@ LABEL_19:
 
     else
     {
-      v45 = analyticsLogHandle;
-      if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
+      v46 = analyticsLogHandle;
+      v45 = os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT);
+      if (v45)
       {
         *buf = 0;
-        _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_DEFAULT, "FAE: system has taggedInfo feature flag disabled", buf, 2u);
+        _os_log_impl(&dword_23255B000, v46, OS_LOG_TYPE_DEFAULT, "FAE: system has taggedInfo feature flag disabled", buf, 2u);
       }
     }
 
-    v46 = measureLaunchXPCHandle();
-    if (os_signpost_enabled(v46))
+    v47 = measureLaunchXPCHandle(v45);
+    if (os_signpost_enabled(v47))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_23255B000, v46, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FlowAnalyticsEngineInitialized", "FlowAnalyticsEngine completed initialization", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_23255B000, v47, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FlowAnalyticsEngineInitialized", "FlowAnalyticsEngine completed initialization", buf, 2u);
     }
 
     markMeasurement(2, 9);
@@ -729,14 +739,12 @@ LABEL_19:
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     v57 = @"ObjectKey";
     selfCopy2 = self;
-    v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&selfCopy2 forKeys:&v57 count:1];
-    [defaultCenter postNotificationName:@"kNotificationOfCompletedInitialization" object:self userInfo:v48];
+    v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&selfCopy2 forKeys:&v57 count:1];
+    [defaultCenter postNotificationName:@"kNotificationOfCompletedInitialization" object:self userInfo:v49];
 
     objc_destroyWeak(&v54);
     objc_destroyWeak(&location);
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void __43__FlowAnalyticsEngine__initializeInternals__block_invoke_2(uint64_t a1)
@@ -859,28 +867,26 @@ void __43__FlowAnalyticsEngine__initializeInternals__block_invoke_2(uint64_t a1)
 
 void __54__FlowAnalyticsEngine_createFlushInactiveLedgerTimer___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = machAbsoluteTime_secs();
   v3 = flowLogHandle;
   if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(*(a1 + 32) + 408);
-    v7 = 134218240;
-    v8 = v2;
-    v9 = 2048;
-    v10 = v4;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "Begin periodic flushing of bitmaps and ledgers at mach time %lld, scrutinizer %p", &v7, 0x16u);
+    v6 = 134218240;
+    v7 = v2;
+    v8 = 2048;
+    v9 = v4;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "Begin periodic flushing of bitmaps and ledgers at mach time %lld, scrutinizer %p", &v6, 0x16u);
   }
 
   [*(*(a1 + 32) + 408) flushInactiveLedgersAtMachAbsTime:v2];
   v5 = flowLogHandle;
   if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v7) = 0;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "End periodic flushing of bitmaps and ledgers", &v7, 2u);
+    LOWORD(v6) = 0;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "End periodic flushing of bitmaps and ledgers", &v6, 2u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSIGUSR1
@@ -924,7 +930,7 @@ void __54__FlowAnalyticsEngine_createFlushInactiveLedgerTimer___block_invoke(uin
 
 void __37__FlowAnalyticsEngine__handleSIGUSR1__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = analyticsLogHandle;
@@ -932,32 +938,30 @@ void __37__FlowAnalyticsEngine__handleSIGUSR1__block_invoke(uint64_t a1, void *a
   {
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = v5;
+      v10 = 138412290;
+      v11 = v5;
       v7 = "Periodic app tasks failed with %@";
       v8 = v6;
       v9 = OS_LOG_TYPE_ERROR;
 LABEL_6:
-      _os_log_impl(&dword_23255B000, v8, v9, v7, &v11, 0xCu);
+      _os_log_impl(&dword_23255B000, v8, v9, v7, &v10, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v4;
+    v10 = 138412290;
+    v11 = v4;
     v7 = "Periodic app tasks finished with %@";
     v8 = v6;
     v9 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __37__FlowAnalyticsEngine__handleSIGUSR1__block_invoke_96(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = domainTrackingLogHandle;
@@ -965,32 +969,30 @@ void __37__FlowAnalyticsEngine__handleSIGUSR1__block_invoke_96(uint64_t a1, void
   {
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = v5;
+      v10 = 138412290;
+      v11 = v5;
       v7 = "Periodic app tracking tasks failed with %@";
       v8 = v6;
       v9 = OS_LOG_TYPE_ERROR;
 LABEL_6:
-      _os_log_impl(&dword_23255B000, v8, v9, v7, &v11, 0xCu);
+      _os_log_impl(&dword_23255B000, v8, v9, v7, &v10, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v4;
+    v10 = 138412290;
+    v11 = v4;
     v7 = "Periodic app tracking tasks finished with %@";
     v8 = v6;
     v9 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __37__FlowAnalyticsEngine__handleSIGUSR1__block_invoke_99(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = domainTrackingLogHandle;
@@ -998,32 +1000,30 @@ void __37__FlowAnalyticsEngine__handleSIGUSR1__block_invoke_99(uint64_t a1, void
   {
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = v5;
+      v10 = 138412290;
+      v11 = v5;
       v7 = "Periodic app endpoint tracking tasks failed with %@";
       v8 = v6;
       v9 = OS_LOG_TYPE_ERROR;
 LABEL_6:
-      _os_log_impl(&dword_23255B000, v8, v9, v7, &v11, 0xCu);
+      _os_log_impl(&dword_23255B000, v8, v9, v7, &v10, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v4;
+    v10 = 138412290;
+    v11 = v4;
     v7 = "Periodic app endpoint tracking tasks finished with %@";
     v8 = v6;
     v9 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __37__FlowAnalyticsEngine__handleSIGUSR1__block_invoke_102(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = appExperienceLogHandle;
@@ -1031,27 +1031,25 @@ void __37__FlowAnalyticsEngine__handleSIGUSR1__block_invoke_102(uint64_t a1, voi
   {
     if (os_log_type_enabled(appExperienceLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = v5;
+      v10 = 138412290;
+      v11 = v5;
       v7 = "Periodic app experience tasks failed with %@";
       v8 = v6;
       v9 = OS_LOG_TYPE_ERROR;
 LABEL_6:
-      _os_log_impl(&dword_23255B000, v8, v9, v7, &v11, 0xCu);
+      _os_log_impl(&dword_23255B000, v8, v9, v7, &v10, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(appExperienceLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v4;
+    v10 = 138412290;
+    v11 = v4;
     v7 = "Periodic app experience tasks finished with %@";
     v8 = v6;
     v9 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_setupSignalHandling
@@ -1266,7 +1264,7 @@ void __64__FlowAnalyticsEngine__setupNotificationCenterAndRelayObservers__block_
 
 uint64_t __64__FlowAnalyticsEngine__setupNotificationCenterAndRelayObservers__block_invoke_2_108(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (!*(*(a1 + 32) + 368))
   {
     v2 = analyticsLogHandle;
@@ -1294,7 +1292,7 @@ uint64_t __64__FlowAnalyticsEngine__setupNotificationCenterAndRelayObservers__bl
       {
         v11 = *(*(a1 + 32) + 376);
         *buf = 138543362;
-        v24 = v11;
+        v23 = v11;
         _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Override throughput advice parameters with %{public}@", buf, 0xCu);
       }
 
@@ -1316,12 +1314,12 @@ uint64_t __64__FlowAnalyticsEngine__setupNotificationCenterAndRelayObservers__bl
     [*(*(a1 + 32) + 368) setNrFrequencyBand:*(*(a1 + 32) + 537)];
     [*(*(a1 + 32) + 368) setDelegate:?];
     v15 = [*(a1 + 32) queue];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __64__FlowAnalyticsEngine__setupNotificationCenterAndRelayObservers__block_invoke_114;
-    v22[3] = &unk_27898A0C8;
-    v22[4] = *(a1 + 32);
-    [(PeriodicMaintenanceActivity *)SemiDailyMaintenanceActivity registerPeriodicActivityWithIdentifier:@"SymptomsCellularSDM.MetricReporting" queue:v15 activity:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __64__FlowAnalyticsEngine__setupNotificationCenterAndRelayObservers__block_invoke_114;
+    v21[3] = &unk_27898A0C8;
+    v21[4] = *(a1 + 32);
+    [(PeriodicMaintenanceActivity *)SemiDailyMaintenanceActivity registerPeriodicActivityWithIdentifier:@"SymptomsCellularSDM.MetricReporting" queue:v15 activity:v21];
   }
 
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
@@ -1348,9 +1346,7 @@ LABEL_14:
   }
 
   [*(*(a1 + 32) + 368) setEnabled:v16];
-  result = [*(a1 + 32) _requestDetailedCellFlowMonitoring:v16];
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _requestDetailedCellFlowMonitoring:v16];
 }
 
 void __64__FlowAnalyticsEngine__setupNotificationCenterAndRelayObservers__block_invoke_3(uint64_t a1, void *a2)
@@ -1505,7 +1501,7 @@ void __64__FlowAnalyticsEngine__setupNotificationCenterAndRelayObservers__block_
 
 void __64__FlowAnalyticsEngine__setupNotificationCenterAndRelayObservers__block_invoke_2_132(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"State"];
   v4 = [v3 BOOLValue];
@@ -1516,18 +1512,16 @@ void __64__FlowAnalyticsEngine__setupNotificationCenterAndRelayObservers__block_
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
     {
       v6 = *(*(a1 + 40) + 304);
-      v8[0] = 67109376;
-      v8[1] = v6;
-      v9 = 1024;
-      v10 = v4;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "tether state was %d, is now: %d", v8, 0xEu);
+      v7[0] = 67109376;
+      v7[1] = v6;
+      v8 = 1024;
+      v9 = v4;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "tether state was %d, is now: %d", v7, 0xEu);
     }
 
     [*(a1 + 40) _updateTetheringUsage:0];
     *(*(a1 + 40) + 304) = v4;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __64__FlowAnalyticsEngine__setupNotificationCenterAndRelayObservers__block_invoke_133(uint64_t a1, void *a2)
@@ -1652,7 +1646,7 @@ void __53__FlowAnalyticsEngine__setupDailyMaintenanceActivity__block_invoke(uint
 
 void __53__FlowAnalyticsEngine__setupDailyMaintenanceActivity__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = analyticsLogHandle;
@@ -1660,32 +1654,30 @@ void __53__FlowAnalyticsEngine__setupDailyMaintenanceActivity__block_invoke_2(ui
   {
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = v5;
+      v10 = 138412290;
+      v11 = v5;
       v7 = "Periodic app tasks failed with %@";
       v8 = v6;
       v9 = OS_LOG_TYPE_ERROR;
 LABEL_6:
-      _os_log_impl(&dword_23255B000, v8, v9, v7, &v11, 0xCu);
+      _os_log_impl(&dword_23255B000, v8, v9, v7, &v10, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v4;
+    v10 = 138412290;
+    v11 = v4;
     v7 = "Periodic app tasks finished with %@";
     v8 = v6;
     v9 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __53__FlowAnalyticsEngine__setupDailyMaintenanceActivity__block_invoke_154(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = domainTrackingLogHandle;
@@ -1693,32 +1685,30 @@ void __53__FlowAnalyticsEngine__setupDailyMaintenanceActivity__block_invoke_154(
   {
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = v5;
+      v10 = 138412290;
+      v11 = v5;
       v7 = "Periodic app tracking tasks failed with %@";
       v8 = v6;
       v9 = OS_LOG_TYPE_ERROR;
 LABEL_6:
-      _os_log_impl(&dword_23255B000, v8, v9, v7, &v11, 0xCu);
+      _os_log_impl(&dword_23255B000, v8, v9, v7, &v10, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v4;
+    v10 = 138412290;
+    v11 = v4;
     v7 = "Periodic app tracking tasks finished with %@";
     v8 = v6;
     v9 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __53__FlowAnalyticsEngine__setupDailyMaintenanceActivity__block_invoke_157(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = domainTrackingLogHandle;
@@ -1726,32 +1716,30 @@ void __53__FlowAnalyticsEngine__setupDailyMaintenanceActivity__block_invoke_157(
   {
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = v5;
+      v10 = 138412290;
+      v11 = v5;
       v7 = "Periodic app endpoint tracking tasks failed with %@";
       v8 = v6;
       v9 = OS_LOG_TYPE_ERROR;
 LABEL_6:
-      _os_log_impl(&dword_23255B000, v8, v9, v7, &v11, 0xCu);
+      _os_log_impl(&dword_23255B000, v8, v9, v7, &v10, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v4;
+    v10 = 138412290;
+    v11 = v4;
     v7 = "Periodic app endpoint tracking tasks finished with %@";
     v8 = v6;
     v9 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __53__FlowAnalyticsEngine__setupDailyMaintenanceActivity__block_invoke_160(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = appExperienceLogHandle;
@@ -1759,27 +1747,25 @@ void __53__FlowAnalyticsEngine__setupDailyMaintenanceActivity__block_invoke_160(
   {
     if (os_log_type_enabled(appExperienceLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = v5;
+      v10 = 138412290;
+      v11 = v5;
       v7 = "Periodic app experience tasks failed with %@";
       v8 = v6;
       v9 = OS_LOG_TYPE_ERROR;
 LABEL_6:
-      _os_log_impl(&dword_23255B000, v8, v9, v7, &v11, 0xCu);
+      _os_log_impl(&dword_23255B000, v8, v9, v7, &v10, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(appExperienceLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v4;
+    v10 = 138412290;
+    v11 = v4;
     v7 = "Periodic app experience tasks finished with %@";
     v8 = v6;
     v9 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupPrefsStoreObserving
@@ -1847,7 +1833,7 @@ LABEL_6:
 
 void __48__FlowAnalyticsEngine__setupPrefsStoreObserving__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4)
@@ -1859,57 +1845,55 @@ void __48__FlowAnalyticsEngine__setupPrefsStoreObserving__block_invoke(uint64_t 
       if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         v7 = *(*(a1 + 32) + 634);
-        v9[0] = 67109120;
-        v9[1] = v7;
-        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Setting verbose bitmap logging to %d", v9, 8u);
+        v8[0] = 67109120;
+        v8[1] = v7;
+        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Setting verbose bitmap logging to %d", v8, 8u);
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __48__FlowAnalyticsEngine__setupPrefsStoreObserving__block_invoke_166(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86498])
   {
     value = xpc_int64_get_value(v5);
-    v12 = value;
-    v13 = *(a1 + 32);
+    v11 = value;
+    v12 = *(a1 + 32);
     if (value < 1)
     {
-      *(v13 + 608) = 1209600;
-      v15 = analyticsLogHandle;
-      if (!os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
-      {
-        goto LABEL_6;
-      }
-
-      v16 = 134218240;
-      v17 = v12;
-      v18 = 1024;
-      v19 = 1209600;
-      v7 = "Setting new coalescing span (%lld) failed. Resetting to default value (%d)";
-      v8 = v15;
-      v9 = 18;
-    }
-
-    else
-    {
-      *(v13 + 608) = value;
+      *(v12 + 608) = 1209600;
       v14 = analyticsLogHandle;
       if (!os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_6;
       }
 
-      v16 = 134217984;
-      v17 = v12;
-      v7 = "Setting new coalescing span (%lld)";
+      v15 = 134218240;
+      v16 = v11;
+      v17 = 1024;
+      v18 = 1209600;
+      v7 = "Setting new coalescing span (%lld) failed. Resetting to default value (%d)";
       v8 = v14;
+      v9 = 18;
+    }
+
+    else
+    {
+      *(v12 + 608) = value;
+      v13 = analyticsLogHandle;
+      if (!os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
+      {
+        goto LABEL_6;
+      }
+
+      v15 = 134217984;
+      v16 = v11;
+      v7 = "Setting new coalescing span (%lld)";
+      v8 = v13;
       v9 = 12;
     }
 
@@ -1920,61 +1904,59 @@ void __48__FlowAnalyticsEngine__setupPrefsStoreObserving__block_invoke_166(uint6
   v6 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v16 = 67109120;
-    LODWORD(v17) = 1209600;
+    v15 = 67109120;
+    LODWORD(v16) = 1209600;
     v7 = "Setting new nil coalescing span. Setting to default value instead (%d)";
     v8 = v6;
     v9 = 8;
 LABEL_5:
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, v7, &v16, v9);
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, v7, &v15, v9);
   }
 
 LABEL_6:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __48__FlowAnalyticsEngine__setupPrefsStoreObserving__block_invoke_168(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86498])
   {
     value = xpc_int64_get_value(v5);
-    v12 = value;
-    v13 = *(a1 + 32);
+    v11 = value;
+    v12 = *(a1 + 32);
     if (value < 1)
     {
-      *(v13 + 616) = 3;
-      v15 = analyticsLogHandle;
-      if (!os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
-      {
-        goto LABEL_6;
-      }
-
-      v16 = 134218240;
-      v17 = v12;
-      v18 = 1024;
-      v19 = 3;
-      v7 = "Setting new usage window units (%lld) failed. Resetting to default value (%d)";
-      v8 = v15;
-      v9 = 18;
-    }
-
-    else
-    {
-      *(v13 + 616) = value;
+      *(v12 + 616) = 3;
       v14 = analyticsLogHandle;
       if (!os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_6;
       }
 
-      v16 = 134217984;
-      v17 = v12;
-      v7 = "Setting new usage window units (%lld)";
+      v15 = 134218240;
+      v16 = v11;
+      v17 = 1024;
+      v18 = 3;
+      v7 = "Setting new usage window units (%lld) failed. Resetting to default value (%d)";
       v8 = v14;
+      v9 = 18;
+    }
+
+    else
+    {
+      *(v12 + 616) = value;
+      v13 = analyticsLogHandle;
+      if (!os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
+      {
+        goto LABEL_6;
+      }
+
+      v15 = 134217984;
+      v16 = v11;
+      v7 = "Setting new usage window units (%lld)";
+      v8 = v13;
       v9 = 12;
     }
 
@@ -1985,23 +1967,21 @@ void __48__FlowAnalyticsEngine__setupPrefsStoreObserving__block_invoke_168(uint6
   v6 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v16 = 67109120;
-    LODWORD(v17) = 3;
+    v15 = 67109120;
+    LODWORD(v16) = 3;
     v7 = "Setting new nil usage window units. Setting to default value instead (%d)";
     v8 = v6;
     v9 = 8;
 LABEL_5:
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, v7, &v16, v9);
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, v7, &v15, v9);
   }
 
 LABEL_6:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __48__FlowAnalyticsEngine__setupPrefsStoreObserving__block_invoke_170(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   v6 = v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86448] && xpc_BOOL_get_value(v5);
@@ -2015,17 +1995,15 @@ void __48__FlowAnalyticsEngine__setupPrefsStoreObserving__block_invoke_170(uint6
       v8 = "TRUE";
     }
 
-    v10 = 136315138;
-    v11 = v8;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "Setting usage_foreground_background_mode to: %s", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = v8;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "Setting usage_foreground_background_mode to: %s", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __48__FlowAnalyticsEngine__setupPrefsStoreObserving__block_invoke_174(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   v6 = v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86448] && xpc_BOOL_get_value(v5);
@@ -2039,55 +2017,53 @@ void __48__FlowAnalyticsEngine__setupPrefsStoreObserving__block_invoke_174(uint6
       v8 = "TRUE";
     }
 
-    v10 = 136315138;
-    v11 = v8;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "Setting usage_calendar_mode to: %s", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = v8;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "Setting usage_calendar_mode to: %s", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __48__FlowAnalyticsEngine__setupPrefsStoreObserving__block_invoke_176(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86498])
   {
     value = xpc_int64_get_value(v5);
-    v12 = value;
-    v13 = *(a1 + 32);
+    v11 = value;
+    v12 = *(a1 + 32);
     if (value < 1)
     {
-      *(v13 + 624) = 10;
-      v15 = analyticsLogHandle;
-      if (!os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
-      {
-        goto LABEL_6;
-      }
-
-      v16 = 134218240;
-      v17 = v12;
-      v18 = 1024;
-      v19 = 10;
-      v7 = "Setting new outcome array log entry count (%lld) failed. Resetting to default value (%d)";
-      v8 = v15;
-      v9 = 18;
-    }
-
-    else
-    {
-      *(v13 + 624) = value;
+      *(v12 + 624) = 10;
       v14 = analyticsLogHandle;
       if (!os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_6;
       }
 
-      v16 = 134217984;
-      v17 = v12;
-      v7 = "Setting new outcome array log entry count (%lld)";
+      v15 = 134218240;
+      v16 = v11;
+      v17 = 1024;
+      v18 = 10;
+      v7 = "Setting new outcome array log entry count (%lld) failed. Resetting to default value (%d)";
       v8 = v14;
+      v9 = 18;
+    }
+
+    else
+    {
+      *(v12 + 624) = value;
+      v13 = analyticsLogHandle;
+      if (!os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
+      {
+        goto LABEL_6;
+      }
+
+      v15 = 134217984;
+      v16 = v11;
+      v7 = "Setting new outcome array log entry count (%lld)";
+      v8 = v13;
       v9 = 12;
     }
 
@@ -2098,44 +2074,42 @@ void __48__FlowAnalyticsEngine__setupPrefsStoreObserving__block_invoke_176(uint6
   v6 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v16 = 67109120;
-    LODWORD(v17) = 10;
+    v15 = 67109120;
+    LODWORD(v16) = 10;
     v7 = "Setting new nil outcome array log entry count. Setting to default value instead (%d)";
     v8 = v6;
     v9 = 8;
 LABEL_5:
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, v7, &v16, v9);
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, v7, &v15, v9);
   }
 
 LABEL_6:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __48__FlowAnalyticsEngine__setupPrefsStoreObserving__block_invoke_178(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86498])
   {
     value = xpc_int64_get_value(v5);
-    v13 = value;
+    v12 = value;
     if (value < 1)
     {
       *(*(a1 + 32) + 600) = 0x404E000000000000;
-      v15 = analyticsLogHandle;
+      v14 = analyticsLogHandle;
       if (!os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_6;
       }
 
-      v16 = 134218240;
-      v17 = v13;
-      v18 = 1024;
-      v19 = 60;
+      v15 = 134218240;
+      v16 = v12;
+      v17 = 1024;
+      v18 = 60;
       v7 = "Setting new domain_bucket_duration_secs (%lld) failed. Resetting to default value (%d)";
-      v8 = v15;
+      v8 = v14;
       v9 = OS_LOG_TYPE_DEFAULT;
       v10 = 18;
     }
@@ -2143,16 +2117,16 @@ void __48__FlowAnalyticsEngine__setupPrefsStoreObserving__block_invoke_178(uint6
     else
     {
       *(*(a1 + 32) + 600) = value;
-      v14 = analyticsLogHandle;
+      v13 = analyticsLogHandle;
       if (!os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_6;
       }
 
-      v16 = 134217984;
-      v17 = v13;
+      v15 = 134217984;
+      v16 = v12;
       v7 = "Setting new domain_bucket_duration_secs (%lld)";
-      v8 = v14;
+      v8 = v13;
       v9 = OS_LOG_TYPE_DEFAULT;
       v10 = 12;
     }
@@ -2164,24 +2138,22 @@ void __48__FlowAnalyticsEngine__setupPrefsStoreObserving__block_invoke_178(uint6
   v6 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v16 = 67109120;
-    LODWORD(v17) = 60;
+    v15 = 67109120;
+    LODWORD(v16) = 60;
     v7 = "Setting new nil domain_bucket_duration_secs. Setting to default value instead (%d)";
     v8 = v6;
     v9 = OS_LOG_TYPE_DEBUG;
     v10 = 8;
 LABEL_5:
-    _os_log_impl(&dword_23255B000, v8, v9, v7, &v16, v10);
+    _os_log_impl(&dword_23255B000, v8, v9, v7, &v15, v10);
   }
 
 LABEL_6:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __48__FlowAnalyticsEngine__setupPrefsStoreObserving__block_invoke_180(uint64_t a1, uint64_t a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (!v4 || MEMORY[0x238389170](v4) != MEMORY[0x277D864C0])
@@ -2190,12 +2162,12 @@ void __48__FlowAnalyticsEngine__setupPrefsStoreObserving__block_invoke_180(uint6
   }
 
   v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:xpc_string_get_string_ptr(v5)];
-  v13 = analyticsLogHandle;
+  v12 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v31 = v11;
-    _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "Processing netstats_trace_file base name %@", buf, 0xCu);
+    v30 = v11;
+    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "Processing netstats_trace_file base name %@", buf, 0xCu);
   }
 
   if (![v11 length])
@@ -2210,16 +2182,16 @@ LABEL_3:
       {
         v8 = *(*(a1 + 32) + 208);
         *buf = 138412290;
-        v31 = v8;
+        v30 = v8;
         _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "Processing close of netstats_trace_file, old basename was %@", buf, 0xCu);
       }
 
       v9 = *(a1 + 32);
       if (*(v9 + 192) == 1)
       {
-        v26 = *MEMORY[0x277D2CBC0];
-        v27 = &unk_2847EF6C8;
-        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+        v25 = *MEMORY[0x277D2CBC0];
+        v26 = &unk_2847EF6C8;
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
         [*(*(a1 + 32) + 184) configure:v10];
       }
 
@@ -2239,30 +2211,30 @@ LABEL_3:
 
   if ([v11 isAbsolutePath])
   {
-    v14 = *(*(a1 + 32) + 208);
-    if (!v14 || ([v14 isEqualToString:v11] & 1) == 0)
+    v13 = *(*(a1 + 32) + 208);
+    if (!v13 || ([v13 isEqualToString:v11] & 1) == 0)
     {
-      v15 = [MEMORY[0x277CBEAA8] date];
-      [v15 timeIntervalSince1970];
-      v17 = formattedDateStringForTimeInterval(v16);
-      v18 = [v11 stringByAppendingString:v17];
+      v14 = [MEMORY[0x277CBEAA8] date];
+      [v14 timeIntervalSince1970];
+      v16 = formattedDateStringForTimeInterval(v15);
+      v17 = [v11 stringByAppendingString:v16];
 
-      v19 = *(a1 + 32);
-      v20 = *(v19 + 216);
-      if (v20 >= 1 && (*(v19 + 192) & 1) == 0)
+      v18 = *(a1 + 32);
+      v19 = *(v18 + 216);
+      if (v19 >= 1 && (*(v18 + 192) & 1) == 0)
       {
-        close(v20);
+        close(v19);
       }
 
-      *(*(a1 + 32) + 216) = open([v18 UTF8String], 1538, 438);
-      v21 = analyticsLogHandle;
+      *(*(a1 + 32) + 216) = open([v17 UTF8String], 1538, 438);
+      v20 = analyticsLogHandle;
       if ((*(*(a1 + 32) + 216) & 0x80000000) != 0)
       {
         if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v31 = v18;
-          _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, "Unable to open netstats_trace_file, full name %@", buf, 0xCu);
+          v30 = v17;
+          _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_ERROR, "Unable to open netstats_trace_file, full name %@", buf, 0xCu);
         }
       }
 
@@ -2271,20 +2243,20 @@ LABEL_3:
         if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v31 = v18;
-          _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "Opened netstats_trace_file, full name %@", buf, 0xCu);
+          v30 = v17;
+          _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "Opened netstats_trace_file, full name %@", buf, 0xCu);
         }
 
         objc_storeStrong((*(a1 + 32) + 208), v11);
-        v22 = *(a1 + 32);
-        if (*(v22 + 192) == 1)
+        v21 = *(a1 + 32);
+        if (*(v21 + 192) == 1)
         {
-          v28 = *MEMORY[0x277D2CBC0];
-          v23 = [MEMORY[0x277CCABB0] numberWithInt:*(v22 + 216)];
-          v29 = v23;
-          v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+          v27 = *MEMORY[0x277D2CBC0];
+          v22 = [MEMORY[0x277CCABB0] numberWithInt:*(v21 + 216)];
+          v28 = v22;
+          v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
 
-          [*(*(a1 + 32) + 184) configure:v24];
+          [*(*(a1 + 32) + 184) configure:v23];
         }
       }
     }
@@ -2292,18 +2264,16 @@ LABEL_3:
 
   else
   {
-    v25 = analyticsLogHandle;
+    v24 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v31 = v11;
-      _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_ERROR, "netstats_trace_file path not absolute, %@", buf, 0xCu);
+      v30 = v11;
+      _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_ERROR, "netstats_trace_file path not absolute, %@", buf, 0xCu);
     }
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __48__FlowAnalyticsEngine__setupPrefsStoreObserving__block_invoke_184(uint64_t a1, uint64_t a2, void *a3)
@@ -2323,42 +2293,40 @@ void __48__FlowAnalyticsEngine__setupPrefsStoreObserving__block_invoke_184(uint6
 
 void __48__FlowAnalyticsEngine__setupPrefsStoreObserving__block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32) && MEMORY[0x238389170]() == MEMORY[0x277D86468])
   {
-    v6 = *(a1 + 32);
     v4 = _CFXPCCreateCFObjectFromXPCObject();
-    v7 = analyticsLogHandle;
+    v6 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v4;
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "Processing cell_sdm_advice_params %@", buf, 0xCu);
+      v11 = v4;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Processing cell_sdm_advice_params %@", buf, 0xCu);
     }
 
     v5 = *(*(a1 + 40) + 368);
     if (!v5)
     {
-      v9 = analyticsLogHandle;
+      v7 = analyticsLogHandle;
       if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "No cellThroughputAdviser to configure", buf, 2u);
+        _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "No cellThroughputAdviser to configure", buf, 2u);
       }
 
       objc_storeStrong((*(a1 + 40) + 376), v4);
       goto LABEL_11;
     }
-
-LABEL_10:
-    [v5 configureInstance:v4];
-LABEL_11:
-
-    goto LABEL_12;
   }
 
-  if (*(*(a1 + 40) + 368))
+  else
   {
+    if (!*(*(a1 + 40) + 368))
+    {
+      return;
+    }
+
     v2 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
@@ -2367,85 +2335,94 @@ LABEL_11:
     }
 
     v3 = *(*(a1 + 40) + 368);
-    v10 = @"restoreDefaults";
-    v11 = MEMORY[0x277CBEC38];
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+    v8 = @"restoreDefaults";
+    v9 = MEMORY[0x277CBEC38];
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
     v5 = v3;
-    goto LABEL_10;
   }
 
-LABEL_12:
-  v8 = *MEMORY[0x277D85DE8];
+  [v5 configureInstance:v4];
+LABEL_11:
+}
+
+- (void)_requestDetailedCellFlowMonitoring:(BOOL)monitoring
+{
+  monitoringCopy = monitoring;
+  [(FlowScrutinizer *)self->flowScrutinizer assetDownloadScrutinyOnBehalfOf:@"SDM" required:monitoring];
+  [(FlowScrutinizer *)self->flowScrutinizer expectedTransferScrutinyOnBehalfOf:@"SDM" required:monitoringCopy];
+  flowScrutinizer = self->flowScrutinizer;
+
+  [(FlowScrutinizer *)flowScrutinizer cellFlowScrutinyOnBehalfOf:@"SDM" required:monitoringCopy];
 }
 
 - (void)_startFlowMonitoring
 {
-  v30[23] = *MEMORY[0x277D85DE8];
+  v29[23] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:3072];
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:49152];
   v5 = MEMORY[0x277CBEC38];
   v6 = *MEMORY[0x277D2CC10];
-  v29[0] = *MEMORY[0x277D2CBE8];
-  v29[1] = v6;
-  v30[0] = MEMORY[0x277CBEC38];
-  v30[1] = MEMORY[0x277CBEC38];
+  v28[0] = *MEMORY[0x277D2CBE8];
+  v28[1] = v6;
+  v29[0] = MEMORY[0x277CBEC38];
+  v29[1] = MEMORY[0x277CBEC38];
   v7 = *MEMORY[0x277D2CBF0];
-  v29[2] = *MEMORY[0x277D2CC18];
-  v29[3] = v7;
-  v30[2] = MEMORY[0x277CBEC38];
-  v30[3] = MEMORY[0x277CBEC38];
+  v28[2] = *MEMORY[0x277D2CC18];
+  v28[3] = v7;
+  v29[2] = MEMORY[0x277CBEC38];
+  v29[3] = MEMORY[0x277CBEC38];
   v8 = *MEMORY[0x277D2CC08];
-  v29[4] = *MEMORY[0x277D2CBF8];
-  v29[5] = v8;
-  v30[4] = MEMORY[0x277CBEC38];
-  v30[5] = MEMORY[0x277CBEC38];
+  v28[4] = *MEMORY[0x277D2CBF8];
+  v28[5] = v8;
+  v29[4] = MEMORY[0x277CBEC38];
+  v29[5] = MEMORY[0x277CBEC38];
   v9 = *MEMORY[0x277D2CBE0];
-  v29[6] = *MEMORY[0x277D2CC00];
-  v29[7] = v9;
-  v30[6] = MEMORY[0x277CBEC38];
-  v30[7] = v3;
+  v28[6] = *MEMORY[0x277D2CC00];
+  v28[7] = v9;
+  v29[6] = MEMORY[0x277CBEC38];
+  v29[7] = v3;
   v10 = *MEMORY[0x277D2CC38];
-  v29[8] = *MEMORY[0x277D2CBD0];
-  v29[9] = v10;
-  v30[8] = MEMORY[0x277CBEC38];
-  v30[9] = MEMORY[0x277CBEC38];
+  v28[8] = *MEMORY[0x277D2CBD0];
+  v28[9] = v10;
+  v29[8] = MEMORY[0x277CBEC38];
+  v29[9] = MEMORY[0x277CBEC38];
   v11 = *MEMORY[0x277D2CC30];
-  v29[10] = *MEMORY[0x277D2CC20];
-  v29[11] = v11;
-  v30[10] = MEMORY[0x277CBEC38];
-  v30[11] = MEMORY[0x277CBEC38];
+  v28[10] = *MEMORY[0x277D2CC20];
+  v28[11] = v11;
+  v29[10] = MEMORY[0x277CBEC38];
+  v29[11] = MEMORY[0x277CBEC38];
   v12 = *MEMORY[0x277D2CBD8];
-  v29[12] = *MEMORY[0x277D2CC28];
-  v29[13] = v12;
-  v30[12] = MEMORY[0x277CBEC38];
-  v30[13] = v4;
+  v28[12] = *MEMORY[0x277D2CC28];
+  v28[13] = v12;
+  v29[12] = MEMORY[0x277CBEC38];
+  v29[13] = v4;
   v13 = *MEMORY[0x277D2CBB0];
-  v29[14] = *MEMORY[0x277D2CB80];
-  v29[15] = v13;
-  v30[14] = MEMORY[0x277CBEC38];
-  v30[15] = MEMORY[0x277CBEC38];
+  v28[14] = *MEMORY[0x277D2CB80];
+  v28[15] = v13;
+  v29[14] = MEMORY[0x277CBEC38];
+  v29[15] = MEMORY[0x277CBEC38];
   v14 = *MEMORY[0x277D2CB98];
-  v29[16] = *MEMORY[0x277D2CBA0];
-  v29[17] = v14;
-  v30[16] = MEMORY[0x277CBEC38];
-  v30[17] = MEMORY[0x277CBEC38];
-  v29[18] = *MEMORY[0x277D2CBA8];
+  v28[16] = *MEMORY[0x277D2CBA0];
+  v28[17] = v14;
+  v29[16] = MEMORY[0x277CBEC38];
+  v29[17] = MEMORY[0x277CBEC38];
+  v28[18] = *MEMORY[0x277D2CBA8];
   v15 = [MEMORY[0x277CBEB98] setWithObjects:{@"terminusd", 0}];
   v16 = *MEMORY[0x277D2CB88];
-  v30[18] = v15;
-  v30[19] = v5;
+  v29[18] = v15;
+  v29[19] = v5;
   v17 = *MEMORY[0x277D2CB90];
-  v29[19] = v16;
-  v29[20] = v17;
+  v28[19] = v16;
+  v28[20] = v17;
   v18 = *MEMORY[0x277D2CBC8];
-  v30[20] = v5;
-  v30[21] = &unk_2847EFE00;
+  v29[20] = v5;
+  v29[21] = &unk_2847EFE00;
   v19 = *MEMORY[0x277D2CBC0];
-  v29[21] = v18;
-  v29[22] = v19;
+  v28[21] = v18;
+  v28[22] = v19;
   v20 = [MEMORY[0x277CCABB0] numberWithInt:self->nstatTraceFileFD];
-  v30[22] = v20;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:23];
+  v29[22] = v20;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:23];
 
   v22 = [(NWStatsManager *)self->nstatManager configure:v21];
   if (v22)
@@ -2455,7 +2432,7 @@ LABEL_12:
     if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v28 = v23;
+      v27 = v23;
       _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_ERROR, "Can't configure netstats manager, error %d", buf, 8u);
     }
   }
@@ -2471,8 +2448,6 @@ LABEL_12:
     *buf = 0;
     _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_INFO, "Start flow monitoring", buf, 2u);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -2597,7 +2572,7 @@ LABEL_12:
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -2650,7 +2625,7 @@ LABEL_12:
       block[2] = __70__FlowAnalyticsEngine_observeValueForKeyPath_ofObject_change_context___block_invoke;
       block[3] = &unk_27898A3A0;
       block[4] = self;
-      v43 = v19;
+      v42 = v19;
       dispatch_async(queue, block);
     }
   }
@@ -2664,21 +2639,21 @@ LABEL_12:
       v23 = v22;
       bOOLValue = [v21 BOOLValue];
       *buf = 67109120;
-      v45 = bOOLValue;
+      v44 = bOOLValue;
       _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, "Observed value for autoBugCaptureEnabled is %d", buf, 8u);
     }
 
     queue2 = [(AnalyticsEngineCore *)self queue];
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __70__FlowAnalyticsEngine_observeValueForKeyPath_ofObject_change_context___block_invoke_195;
-    v39[3] = &unk_27898A7D0;
-    v40 = v21;
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __70__FlowAnalyticsEngine_observeValueForKeyPath_ofObject_change_context___block_invoke_195;
+    v38[3] = &unk_27898A7D0;
+    v39 = v21;
     selfCopy = self;
     v26 = v21;
-    dispatch_async(queue2, v39);
+    dispatch_async(queue2, v38);
 
-    v27 = v40;
+    v27 = v39;
     goto LABEL_27;
   }
 
@@ -2690,16 +2665,16 @@ LABEL_12:
     {
       v28 = v26;
       queue3 = [(AnalyticsEngineCore *)self queue];
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __70__FlowAnalyticsEngine_observeValueForKeyPath_ofObject_change_context___block_invoke_2;
-      v36[3] = &unk_27898A7D0;
-      v37 = v28;
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __70__FlowAnalyticsEngine_observeValueForKeyPath_ofObject_change_context___block_invoke_2;
+      v35[3] = &unk_27898A7D0;
+      v36 = v28;
       selfCopy2 = self;
       v27 = v28;
-      dispatch_async(queue3, v36);
+      dispatch_async(queue3, v35);
 
-      v30 = v37;
+      v30 = v36;
 LABEL_26:
 
       v26 = v27;
@@ -2719,42 +2694,40 @@ LABEL_27:
     {
       v31 = v26;
       queue4 = [(AnalyticsEngineCore *)self queue];
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __70__FlowAnalyticsEngine_observeValueForKeyPath_ofObject_change_context___block_invoke_199;
-      v34[3] = &unk_27898A7D0;
-      v34[4] = self;
-      v35 = v31;
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __70__FlowAnalyticsEngine_observeValueForKeyPath_ofObject_change_context___block_invoke_199;
+      v33[3] = &unk_27898A7D0;
+      v33[4] = self;
+      v34 = v31;
       v27 = v31;
-      dispatch_async(queue4, v34);
+      dispatch_async(queue4, v33);
 
-      v30 = v35;
+      v30 = v34;
       goto LABEL_26;
     }
 
 LABEL_28:
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __70__FlowAnalyticsEngine_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t result)
+void *__70__FlowAnalyticsEngine_observeValueForKeyPath_ofObject_change_context___block_invoke(void *result)
 {
   v1 = result;
-  v2 = *(result + 32);
+  v2 = result[4];
   v3 = *(result + 40);
   if (*(v2 + 537) != v3)
   {
     *(v2 + 537) = v3;
-    v2 = *(result + 32);
+    v2 = result[4];
   }
 
   if (*(v2 + 368))
   {
     [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-    [*(*(v1 + 32) + 368) setPropertyChangeTimestamp:?];
+    [*(v1[4] + 368) setPropertyChangeTimestamp:?];
     v4 = *(v1 + 40);
-    v5 = *(*(v1 + 32) + 368);
+    v5 = *(v1[4] + 368);
 
     return [v5 setNrFrequencyBand:v4];
   }
@@ -2796,7 +2769,7 @@ void *__70__FlowAnalyticsEngine_observeValueForKeyPath_ofObject_change_context__
 
 void __70__FlowAnalyticsEngine_observeValueForKeyPath_ofObject_change_context___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) BOOLValue];
   v3 = v2 ^ 1;
   v4 = *(a1 + 40);
@@ -2831,17 +2804,15 @@ void __70__FlowAnalyticsEngine_observeValueForKeyPath_ofObject_change_context___
       v9 = " not";
     }
 
-    v11 = 136315138;
-    v12 = v9;
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_INFO, "FAE screen is%s dark", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = v9;
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_INFO, "FAE screen is%s dark", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __70__FlowAnalyticsEngine_observeValueForKeyPath_ofObject_change_context___block_invoke_199(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 536) = [*(a1 + 40) BOOLValue] ^ 1;
   if (*(*(a1 + 32) + 368))
   {
@@ -2863,17 +2834,15 @@ void __70__FlowAnalyticsEngine_observeValueForKeyPath_ofObject_change_context___
       v3 = " not";
     }
 
-    v5 = 136315138;
-    v6 = v3;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_INFO, "FAE screen is%s locked", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = v3;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_INFO, "FAE screen is%s locked", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_refreshFullDataUsageWithCallback:(id)callback
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   ++_refreshFullDataUsageWithCallback__debugCount;
   v5 = attributionLogHandle;
@@ -2885,11 +2854,11 @@ void __70__FlowAnalyticsEngine_observeValueForKeyPath_ofObject_change_context___
     v9 = v5;
     v10 = _Block_copy(dataUsageRefreshCompletionBlock);
     *buf = 134218496;
-    v33 = v6;
-    v34 = 1024;
-    v35 = dataUsageRefreshCompletionNumWaiting;
-    v36 = 2048;
-    v37 = v10;
+    v32 = v6;
+    v33 = 1024;
+    v34 = dataUsageRefreshCompletionNumWaiting;
+    v35 = 2048;
+    v36 = v10;
     _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_INFO, "Entry for full refresh,  count %llu  queued %d  block %p", buf, 0x1Cu);
   }
 
@@ -2897,23 +2866,23 @@ void __70__FlowAnalyticsEngine_observeValueForKeyPath_ofObject_change_context___
   queue = [(AnalyticsEngineCore *)self queue];
   v13 = _Block_copy(self->dataUsageRefreshCompletionBlock);
   ++self->dataUsageRefreshCompletionNumWaiting;
-  v24 = MEMORY[0x277D85DD0];
-  v25 = 3221225472;
-  v26 = __57__FlowAnalyticsEngine__refreshFullDataUsageWithCallback___block_invoke;
-  v27 = &unk_27898C468;
+  v23 = MEMORY[0x277D85DD0];
+  v24 = 3221225472;
+  v25 = __57__FlowAnalyticsEngine__refreshFullDataUsageWithCallback___block_invoke;
+  v26 = &unk_27898C468;
   v14 = v13;
-  v29 = v14;
+  v28 = v14;
   v15 = queue;
-  v28 = v15;
-  v31 = v11;
+  v27 = v15;
+  v30 = v11;
   v16 = callbackCopy;
-  v30 = v16;
-  v17 = _Block_copy(&v24);
+  v29 = v16;
+  v17 = _Block_copy(&v23);
   v18 = self->dataUsageRefreshCompletionBlock;
   self->dataUsageRefreshCompletionBlock = v17;
 
   v19 = self->dataUsageRefreshCompletionNumWaiting;
-  if (v19 == 1 || !(v19 % 10) || (lastFullRefreshTime = self->lastFullRefreshTime) != 0 && ([(NSDate *)lastFullRefreshTime timeIntervalSinceNow:v24], fabs(v21) > 20.0))
+  if (v19 == 1 || !(v19 % 10) || (lastFullRefreshTime = self->lastFullRefreshTime) != 0 && ([(NSDate *)lastFullRefreshTime timeIntervalSinceNow:v23], fabs(v21) > 20.0))
   {
     v22 = attributionLogHandle;
     if (os_log_type_enabled(attributionLogHandle, OS_LOG_TYPE_INFO))
@@ -2922,10 +2891,8 @@ void __70__FlowAnalyticsEngine_observeValueForKeyPath_ofObject_change_context___
       _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_INFO, "Issue full refresh", buf, 2u);
     }
 
-    [(FlowAnalyticsEngine *)self _refreshFullDataUsage:v24];
+    [(FlowAnalyticsEngine *)self _refreshFullDataUsage:v23];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __57__FlowAnalyticsEngine__refreshFullDataUsageWithCallback___block_invoke(void *a1)
@@ -2949,7 +2916,7 @@ void __57__FlowAnalyticsEngine__refreshFullDataUsageWithCallback___block_invoke(
 
 uint64_t __57__FlowAnalyticsEngine__refreshFullDataUsageWithCallback___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = attributionLogHandle;
   if (os_log_type_enabled(attributionLogHandle, OS_LOG_TYPE_INFO))
   {
@@ -2957,41 +2924,39 @@ uint64_t __57__FlowAnalyticsEngine__refreshFullDataUsageWithCallback___block_inv
     v4 = *(a1 + 40);
     v5 = v2;
     v6 = _Block_copy(v3);
-    v9 = 134218240;
-    v10 = v4;
-    v11 = 2048;
-    v12 = v6;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "Refresh complete, invoking block #%llu (%p)", &v9, 0x16u);
+    v8 = 134218240;
+    v9 = v4;
+    v10 = 2048;
+    v11 = v6;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "Refresh complete, invoking block #%llu (%p)", &v8, 0x16u);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 - (void)_reportThresholdedFlowCount:(unint64_t)count threshold:(unint64_t)threshold
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v5 = objc_autoreleasePoolPush();
-  v6 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:50];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __61__FlowAnalyticsEngine__reportThresholdedFlowCount_threshold___block_invoke;
-  v25[3] = &unk_27898C4B8;
-  v7 = v6;
-  v26 = v7;
-  [TrackedFlow countFlowsPassingTest:v25];
-  v8 = [v7 keysSortedByValueUsingSelector:sel_compare_];
-  v9 = analyticsLogHandle;
+  v29 = *MEMORY[0x277D85DE8];
+  v4 = objc_autoreleasePoolPush();
+  v5 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:50];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __61__FlowAnalyticsEngine__reportThresholdedFlowCount_threshold___block_invoke;
+  v22[3] = &unk_27898C4B8;
+  v6 = v5;
+  v23 = v6;
+  [TrackedFlow countFlowsPassingTest:v22];
+  v7 = [v6 keysSortedByValueUsingSelector:sel_compare_];
+  v8 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v10 = v9;
-    v11 = [v8 count];
+    v9 = v8;
+    v10 = [v7 count];
     *buf = 134218242;
-    v29 = v11;
-    v30 = 2112;
-    v31 = v8;
-    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "Sending flow exceeded symptom for %lu procs, %@", buf, 0x16u);
+    v26 = v10;
+    v27 = 2112;
+    v28 = v7;
+    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "Sending flow exceeded symptom for %lu procs, %@", buf, 0x16u);
   }
 
   internal_symptom_new(405515);
@@ -2999,50 +2964,45 @@ uint64_t __57__FlowAnalyticsEngine__refreshFullDataUsageWithCallback___block_inv
   internal_symptom_set_qualifier();
   internal_symptom_set_qualifier();
   internal_symptom_set_qualifier();
-  [v8 count];
+  [v7 count];
   internal_symptom_set_qualifier();
-  if (self->thunderingHerdFlowCountExceededThreshold)
-  {
-    v12 = !self->flowCountExceededThreshold;
-  }
-
   internal_symptom_set_qualifier();
-  [v8 reverseObjectEnumerator];
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v13 = v24 = 0u;
-  v14 = [v13 countByEnumeratingWithState:&v21 objects:v27 count:16];
-  if (v14)
+  [v7 reverseObjectEnumerator];
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v11 = v21 = 0u;
+  v12 = [v11 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  if (v12)
   {
-    v15 = v14;
+    v13 = v12;
+    v14 = 0;
+    v15 = *v19;
+LABEL_5:
     v16 = 0;
-    v17 = *v22;
-LABEL_7:
-    v18 = 0;
     while (1)
     {
-      if (*v22 != v17)
+      if (*v19 != v15)
       {
-        objc_enumerationMutation(v13);
+        objc_enumerationMutation(v11);
       }
 
-      v19 = *(*(&v21 + 1) + 8 * v18);
-      strlen([v19 UTF8String]);
+      v17 = *(*(&v18 + 1) + 8 * v16);
+      strlen([v17 UTF8String]);
       internal_symptom_set_additional_qualifier();
-      if (v16 == 19)
+      if (v14 == 19)
       {
         break;
       }
 
-      ++v18;
       ++v16;
-      if (v15 == v18)
+      ++v14;
+      if (v13 == v16)
       {
-        v15 = [v13 countByEnumeratingWithState:&v21 objects:v27 count:16];
-        if (v15)
+        v13 = [v11 countByEnumeratingWithState:&v18 objects:v24 count:16];
+        if (v13)
         {
-          goto LABEL_7;
+          goto LABEL_5;
         }
 
         break;
@@ -3051,8 +3011,7 @@ LABEL_7:
   }
 
   internal_symptom_send();
-  objc_autoreleasePoolPop(v5);
-  v20 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v4);
 }
 
 BOOL __61__FlowAnalyticsEngine__reportThresholdedFlowCount_threshold___block_invoke(uint64_t a1, void *a2)
@@ -3087,7 +3046,7 @@ BOOL __61__FlowAnalyticsEngine__reportThresholdedFlowCount_threshold___block_inv
 
 - (void)_logExcessCellUsage:(int64_t)usage snapshot:(id)snapshot
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v6 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -3100,7 +3059,7 @@ BOOL __61__FlowAnalyticsEngine__reportThresholdedFlowCount_threshold___block_inv
       v9 = "closed";
     }
 
-    v27 = v9;
+    v26 = v9;
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
     v11 = "udp";
@@ -3109,7 +3068,7 @@ BOOL __61__FlowAnalyticsEngine__reportThresholdedFlowCount_threshold___block_inv
       v11 = "tcp";
     }
 
-    v26 = v11;
+    v25 = v11;
     flowUsesChannels = [snapshotCopy flowUsesChannels];
     v13 = "socket";
     if (flowUsesChannels)
@@ -3130,34 +3089,72 @@ BOOL __61__FlowAnalyticsEngine__reportThresholdedFlowCount_threshold___block_inv
 
     *buf = 134221058;
     usageCopy = usage;
-    v31 = 2080;
-    v32 = v27;
-    v33 = 2080;
-    v34 = v26;
-    v35 = 2080;
-    v36 = v25;
-    v37 = 2048;
-    v38 = sourceIdentifier;
-    v39 = 2048;
-    v40 = v16;
-    v41 = 1024;
-    v42 = processID;
-    v43 = 2112;
-    v44 = processName;
-    v45 = 2112;
-    v46 = uuid;
-    v47 = 2112;
-    v48 = euuid;
-    v49 = 2112;
-    v50 = vuuid;
-    v51 = 2112;
-    v52 = attributedEntity;
-    v53 = 2112;
-    v54 = attributionReasonString;
+    v30 = 2080;
+    v31 = v26;
+    v32 = 2080;
+    v33 = v25;
+    v34 = 2080;
+    v35 = v24;
+    v36 = 2048;
+    v37 = sourceIdentifier;
+    v38 = 2048;
+    v39 = v16;
+    v40 = 1024;
+    v41 = processID;
+    v42 = 2112;
+    v43 = processName;
+    v44 = 2112;
+    v45 = uuid;
+    v46 = 2112;
+    v47 = euuid;
+    v48 = 2112;
+    v49 = vuuid;
+    v50 = 2112;
+    v51 = attributedEntity;
+    v52 = 2112;
+    v53 = attributionReasonString;
     _os_log_impl(&dword_23255B000, log, OS_LOG_TYPE_DEFAULT, "Cell traffic threshold %lld on %s %s %s flow %lld duration %.2f with pid %d procname %@ UUID %@ EUUID %@ VUUID %@ (attributed %@ reason%@)", buf, 0x80u);
   }
+}
 
-  v24 = *MEMORY[0x277D85DE8];
+- (void)_generateFlowAnomalySymptom:(unsigned int)symptom currentUsage:(unint64_t)usage snapshot:(id)snapshot
+{
+  v5 = *&symptom;
+  v13 = *MEMORY[0x277D85DE8];
+  snapshotCopy = snapshot;
+  processName = [snapshotCopy processName];
+  internal_symptom_new(v5);
+  [snapshotCopy flowDuration];
+  internal_symptom_set_qualifier();
+  internal_symptom_set_qualifier();
+  strlen([processName UTF8String]);
+  internal_symptom_set_additional_qualifier();
+  if ([snapshotCopy attributedEntityIsBundleName])
+  {
+    attributedEntity = [snapshotCopy attributedEntity];
+    uTF8String = [attributedEntity UTF8String];
+
+    strlen(uTF8String);
+    internal_symptom_set_additional_qualifier();
+  }
+
+  internal_symptom_set_qualifier();
+  if (![snapshotCopy rxCellularBytes] && !objc_msgSend(snapshotCopy, "txCellularBytes") && !objc_msgSend(snapshotCopy, "rxWiFiBytes") && !objc_msgSend(snapshotCopy, "txWiFiBytes") && !objc_msgSend(snapshotCopy, "rxWiredBytes") && !objc_msgSend(snapshotCopy, "txWiredBytes"))
+  {
+    v10 = analyticsLogHandle;
+    if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      v11 = v10;
+      v12[0] = 67109120;
+      v12[1] = [snapshotCopy interfaceIndex];
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "Unknown type for interface index %u", v12, 8u);
+    }
+  }
+
+  [snapshotCopy interfaceIndex];
+  internal_symptom_set_qualifier();
+  internal_symptom_set_qualifier();
+  internal_symptom_send();
 }
 
 - (void)_checkCellExcessUsageActions:(unint64_t)actions previous:(unint64_t)previous snapshot:(id)snapshot
@@ -3198,7 +3195,7 @@ BOOL __61__FlowAnalyticsEngine__reportThresholdedFlowCount_threshold___block_inv
 
 - (BOOL)_shouldSendStatisticsReport:(id)report
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   reportCopy = report;
   v4 = reportCopy;
   if (!reportCopy)
@@ -3206,10 +3203,10 @@ BOOL __61__FlowAnalyticsEngine__reportThresholdedFlowCount_threshold___block_inv
     v10 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v14[0]) = 0;
+      LOWORD(v13[0]) = 0;
       v11 = "no flow data when checking to see if we should send statistics report";
 LABEL_14:
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, v11, v14, 2u);
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, v11, v13, 2u);
     }
 
 LABEL_15:
@@ -3222,7 +3219,7 @@ LABEL_15:
     v10 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v14[0]) = 0;
+      LOWORD(v13[0]) = 0;
       v11 = "flow is not closed, not sending statistics report";
       goto LABEL_14;
     }
@@ -3240,11 +3237,11 @@ LABEL_15:
   v7 = metricsLogHandle;
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v14[0] = 67109376;
-    v14[1] = flow_report_numerator;
-    v15 = 1024;
-    v16 = flow_report_denominator;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "Flow report sampled at %u / %u", v14, 0xEu);
+    v13[0] = 67109376;
+    v13[1] = flow_report_numerator;
+    v14 = 1024;
+    v15 = flow_report_denominator;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "Flow report sampled at %u / %u", v13, 0xEu);
   }
 
   if (arc4random_uniform(flow_report_denominator) >= flow_report_numerator)
@@ -3255,20 +3252,19 @@ LABEL_15:
   v8 = metricsLogHandle;
   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v14[0]) = 0;
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "Flow selected for reporting", v14, 2u);
+    LOWORD(v13[0]) = 0;
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "Flow selected for reporting", v13, 2u);
   }
 
   v9 = 1;
 LABEL_16:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)_sendStatisticsReport:(id)report
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   reportCopy = report;
   v4 = reportCopy;
   if (!reportCopy)
@@ -3279,10 +3275,10 @@ LABEL_16:
       goto LABEL_61;
     }
 
-    LOWORD(v69) = 0;
+    LOWORD(v68) = 0;
     v51 = "no flow data when sending statistics report";
 LABEL_38:
-    _os_log_impl(&dword_23255B000, v50, OS_LOG_TYPE_ERROR, v51, &v69, 2u);
+    _os_log_impl(&dword_23255B000, v50, OS_LOG_TYPE_ERROR, v51, &v68, 2u);
     goto LABEL_61;
   }
 
@@ -3294,7 +3290,7 @@ LABEL_38:
       goto LABEL_61;
     }
 
-    LOWORD(v69) = 0;
+    LOWORD(v68) = 0;
     v51 = "flow is not closed when sending statistics report";
     goto LABEL_38;
   }
@@ -3551,9 +3547,9 @@ LABEL_60:
     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
     {
       v65 = v64;
-      v69 = 136315138;
-      v70 = MEMORY[0x238389020](v5);
-      _os_log_impl(&dword_23255B000, v65, OS_LOG_TYPE_DEBUG, "Generated flow report: %s", &v69, 0xCu);
+      v68 = 136315138;
+      v69 = MEMORY[0x238389020](v5);
+      _os_log_impl(&dword_23255B000, v65, OS_LOG_TYPE_DEBUG, "Generated flow report: %s", &v68, 0xCu);
     }
 
     if (nw_activity_should_report_to_destination())
@@ -3561,8 +3557,8 @@ LABEL_60:
       v66 = metricsLogHandle;
       if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v69) = 0;
-        _os_log_impl(&dword_23255B000, v66, OS_LOG_TYPE_DEBUG, "Sending flow report to destination two", &v69, 2u);
+        LOWORD(v68) = 0;
+        _os_log_impl(&dword_23255B000, v66, OS_LOG_TYPE_DEBUG, "Sending flow report to destination two", &v68, 2u);
       }
 
       analytics_send_event();
@@ -3573,8 +3569,8 @@ LABEL_60:
       v67 = metricsLogHandle;
       if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v69) = 0;
-        _os_log_impl(&dword_23255B000, v67, OS_LOG_TYPE_DEBUG, "Sending flow report to destination three", &v69, 2u);
+        LOWORD(v68) = 0;
+        _os_log_impl(&dword_23255B000, v67, OS_LOG_TYPE_DEBUG, "Sending flow report to destination three", &v68, 2u);
       }
 
       SecTrustReportNetworkingAnalytics();
@@ -3584,13 +3580,11 @@ LABEL_60:
   }
 
 LABEL_61:
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSnapshot:(id)snapshot
 {
-  v220 = *MEMORY[0x277D85DE8];
+  v218 = *MEMORY[0x277D85DE8];
   snapshotCopy = snapshot;
   if (snapshotCopy)
   {
@@ -3605,7 +3599,7 @@ LABEL_61:
         {
           v7 = v6;
           *buf = 134217984;
-          *v191 = [v5 sourceIdentifier];
+          *v189 = [v5 sourceIdentifier];
           _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "skip typical flow processing for subflow %lld", buf, 0xCu);
         }
 
@@ -3619,7 +3613,7 @@ LABEL_61:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      *v191 = snapshotCopy;
+      *v189 = snapshotCopy;
       _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "Flow data on entry is %@", buf, 0xCu);
     }
 
@@ -3640,15 +3634,15 @@ LABEL_61:
       v15 = +[TrackedFlow allActiveFlowsCount];
       sourceIdentifier = [snapshotCopy sourceIdentifier];
       *buf = 136316162;
-      *v191 = v14;
-      *&v191[8] = 2048;
-      *&v191[10] = v15;
-      v192 = 2048;
-      v193 = *&sourceIdentifier;
+      *v189 = v14;
+      *&v189[8] = 2048;
+      *&v189[10] = v15;
+      v190 = 2048;
+      v191 = *&sourceIdentifier;
+      v192 = 2112;
+      v193 = snapshotCopy;
       v194 = 2112;
-      v195 = snapshotCopy;
-      v196 = 2112;
-      v197 = v12;
+      v195 = v12;
       _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "flow is %sclosed. cache count %lu\nsrc %lld snapshot: %@\nflow: %@", buf, 0x34u);
     }
 
@@ -3663,9 +3657,9 @@ LABEL_61:
           v34 = v33;
           attributedEntity = [snapshotCopy attributedEntity];
           *buf = 138478083;
-          *v191 = attributedEntity;
-          *&v191[8] = 2112;
-          *&v191[10] = v9;
+          *v189 = attributedEntity;
+          *&v189[8] = 2112;
+          *&v189[10] = v9;
           _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_ERROR, "Unable to create TrackedFlow for %{private}@ with flowKey %@", buf, 0x16u);
         }
 
@@ -3703,11 +3697,11 @@ LABEL_61:
           if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134218496;
-            *v191 = v25;
-            *&v191[8] = 2048;
-            *&v191[10] = 333;
-            v192 = 2048;
-            v193 = v27;
+            *v189 = v25;
+            *&v189[8] = 2048;
+            *&v189[10] = 333;
+            v190 = 2048;
+            v191 = v27;
             _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_DEFAULT, "%lu Exceeded lower TH system-wide flow count of %lu, %f seconds after the primary interface changed", buf, 0x20u);
           }
 
@@ -3730,13 +3724,13 @@ LABEL_61:
       {
         self->flowCountExceededThreshold = 1;
         queue2 = [(AnalyticsEngineCore *)self queue];
-        v188[0] = MEMORY[0x277D85DD0];
-        v188[1] = 3221225472;
-        v188[2] = __39__FlowAnalyticsEngine__handleSnapshot___block_invoke_2;
-        v188[3] = &unk_27898AFE0;
-        v188[4] = self;
-        v188[5] = v22;
-        dispatch_async(queue2, v188);
+        v186[0] = MEMORY[0x277D85DD0];
+        v186[1] = 3221225472;
+        v186[2] = __39__FlowAnalyticsEngine__handleSnapshot___block_invoke_2;
+        v186[3] = &unk_27898AFE0;
+        v186[4] = self;
+        v186[5] = v22;
+        dispatch_async(queue2, v186);
       }
     }
 
@@ -3748,7 +3742,7 @@ LABEL_222:
       goto LABEL_223;
     }
 
-    v183 = snapshotReason;
+    v181 = snapshotReason;
     ownerKey = [v12 ownerKey];
     if (!ownerKey)
     {
@@ -3761,7 +3755,7 @@ LABEL_222:
         [AppTracker noteFlow:v12 withDelegatee:delegateName2 snapshot:snapshotCopy];
       }
 
-      else if (v183 != 2)
+      else if (v181 != 2)
       {
         goto LABEL_50;
       }
@@ -3794,7 +3788,7 @@ LABEL_50:
       [(FlowScrutinizer *)flowScrutinizer scrutinizeFlow:snapshotCopy withClassification:classification];
     }
 
-    v182 = v9;
+    v180 = v9;
     if ([snapshotCopy failedConsistencyChecks])
     {
       if ([snapshotCopy failedNegativeDeltaCheck])
@@ -3823,7 +3817,7 @@ LABEL_77:
             v50 = v42;
             sourceIdentifier2 = [snapshotCopy sourceIdentifier];
             *buf = 134217984;
-            *v191 = sourceIdentifier2;
+            *v189 = sourceIdentifier2;
             _os_log_impl(&dword_23255B000, v50, OS_LOG_TYPE_ERROR, "snapshot.failedConsistencyChecks, suppress duplicate reports on flow %lld", buf, 0xCu);
           }
         }
@@ -3835,15 +3829,15 @@ LABEL_77:
             v44 = v42;
             sourceIdentifier3 = [snapshotCopy sourceIdentifier];
             *buf = 67109376;
-            *v191 = v40;
-            *&v191[4] = 2048;
-            *&v191[6] = sourceIdentifier3;
+            *v189 = v40;
+            *&v189[4] = 2048;
+            *&v189[6] = sourceIdentifier3;
             _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_ERROR, "snapshot.failedConsistencyChecks, report symptom %x to ABC for flow %lld", buf, 0x12u);
           }
 
           -[FlowAnalyticsEngine _generateFlowAnomalySymptom:currentUsage:snapshot:](self, "_generateFlowAnomalySymptom:currentUsage:snapshot:", v40, [snapshotCopy txWiredBytes] + objc_msgSend(snapshotCopy, "rxWiredBytes") + objc_msgSend(snapshotCopy, "rxCellularBytes") + objc_msgSend(snapshotCopy, "txCellularBytes") + objc_msgSend(snapshotCopy, "rxWiFiBytes") + objc_msgSend(snapshotCopy, "txWiFiBytes"), snapshotCopy);
           [v12 setFlags:{objc_msgSend(v12, "flags") | 0x2000}];
-          if (v183 != 2)
+          if (v181 != 2)
           {
             -[NWStatsManager ignoreSource:](self->nstatManager, "ignoreSource:", [snapshotCopy sourceIdentifier]);
           }
@@ -3860,7 +3854,7 @@ LABEL_77:
       [snapshotCopy hasCellTraffic];
     }
 
-    v181 = ownerKey;
+    v179 = ownerKey;
     objc_opt_class();
     if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
     {
@@ -3877,9 +3871,9 @@ LABEL_77:
       readProbeFailed = [v46 readProbeFailed];
       log = [v46 writeProbeFailed];
 
-      v148 = rxDuplicateBytes;
-      v151 = rxOutOfOrderBytes;
-      v154 = txRetransmittedBytes;
+      v146 = rxDuplicateBytes;
+      v149 = rxOutOfOrderBytes;
+      v152 = txRetransmittedBytes;
     }
 
     else
@@ -3889,9 +3883,9 @@ LABEL_77:
       readProbeFailed = 0;
       connProbeFailed = 0;
       probeActivated = 0;
-      v151 = 0;
-      v154 = 0;
-      v148 = 0;
+      v149 = 0;
+      v152 = 0;
+      v146 = 0;
     }
 
     deltaAccountingRxWiredBytes = [snapshotCopy deltaAccountingRxWiredBytes];
@@ -3902,33 +3896,33 @@ LABEL_77:
     deltaAccountingTxWiFiBytes = [snapshotCopy deltaAccountingTxWiFiBytes];
     deltaAccountingRxCompanionLinkBluetoothBytes = [snapshotCopy deltaAccountingRxCompanionLinkBluetoothBytes];
     deltaAccountingTxCompanionLinkBluetoothBytes = [snapshotCopy deltaAccountingTxCompanionLinkBluetoothBytes];
-    v179 = deltaAccountingRxWiFiBytes;
+    v177 = deltaAccountingRxWiFiBytes;
     v60 = deltaAccountingRxWiFiBytes | deltaAccountingTxWiFiBytes;
     v61 = deltaAccountingTxWiFiBytes;
     v62 = v60 != 0;
-    *&v144 = deltaAccountingTxCompanionLinkBluetoothBytes;
-    *(&v144 + 1) = deltaAccountingRxCompanionLinkBluetoothBytes;
-    v146 = (v60 | deltaAccountingRxCellularBytes | deltaAccountingTxCellularBytes | deltaAccountingRxWiredBytes | deltaAccountingTxWiredBytes | deltaAccountingRxCompanionLinkBluetoothBytes | deltaAccountingTxCompanionLinkBluetoothBytes) != 0;
+    *&v142 = deltaAccountingTxCompanionLinkBluetoothBytes;
+    *(&v142 + 1) = deltaAccountingRxCompanionLinkBluetoothBytes;
+    v144 = (v60 | deltaAccountingRxCellularBytes | deltaAccountingTxCellularBytes | deltaAccountingRxWiredBytes | deltaAccountingTxWiredBytes | deltaAccountingRxCompanionLinkBluetoothBytes | deltaAccountingTxCompanionLinkBluetoothBytes) != 0;
     interfaceExpensive = [snapshotCopy interfaceExpensive];
-    if ((([snapshotCopy snapshotAppStateIsForeground] & 1) != 0 || objc_msgSend(snapshotCopy, "startAppStateIsForeground")) && (objc_msgSend(snapshotCopy, "hasLocalDestination") & 1) == 0 && (deltaAccountingRxCellularBytes || v179 | deltaAccountingTxCellularBytes || v61))
+    if ((([snapshotCopy snapshotAppStateIsForeground] & 1) != 0 || objc_msgSend(snapshotCopy, "startAppStateIsForeground")) && (objc_msgSend(snapshotCopy, "hasLocalDestination") & 1) == 0 && (deltaAccountingRxCellularBytes || v177 | deltaAccountingTxCellularBytes || v61))
     {
-      [TrackedFlow foregroundNonLocalUsageGrandTallyAfterAdding:deltaAccountingTxCellularBytes + deltaAccountingRxCellularBytes + v179 + v61];
+      [TrackedFlow foregroundNonLocalUsageGrandTallyAfterAdding:deltaAccountingTxCellularBytes + deltaAccountingRxCellularBytes + v177 + v61];
       v64 = outrankLogHandle;
       if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
       {
         [snapshotCopy flowDuration];
         *buf = 138413570;
-        *v191 = v181;
-        *&v191[8] = 2048;
-        *&v191[10] = v65;
+        *v189 = v179;
+        *&v189[8] = 2048;
+        *&v189[10] = v65;
+        v190 = 2048;
+        v191 = *&deltaAccountingRxCellularBytes;
         v192 = 2048;
-        v193 = *&deltaAccountingRxCellularBytes;
+        v193 = deltaAccountingTxCellularBytes;
         v194 = 2048;
-        v195 = deltaAccountingTxCellularBytes;
+        v195 = v177;
         v196 = 2048;
-        v197 = v179;
-        v198 = 2048;
-        v199 = v61;
+        v197 = v61;
         _os_log_impl(&dword_23255B000, v64, OS_LOG_TYPE_DEBUG, "FAE foregroundNonLocalUsage note %@ flow duration %f for cell rx %lld tx %lld wifi rx %lld tx %lld", buf, 0x3Eu);
       }
     }
@@ -3940,7 +3934,7 @@ LABEL_77:
 
     if (v62 && ([snapshotCopy hasLocalDestination] & 1) == 0)
     {
-      [TrackedFlow wifiNonLocalUsageGrandTallyAfterAdding:v61 + v179];
+      [TrackedFlow wifiNonLocalUsageGrandTallyAfterAdding:v61 + v177];
     }
 
     if (deltaAccountingRxCellularBytes | deltaAccountingTxCellularBytes)
@@ -3952,10 +3946,10 @@ LABEL_77:
       }
     }
 
-    v142 = interfaceExpensive;
+    v140 = interfaceExpensive;
     if ([snapshotCopy interfaceCellularViaFallback] && (objc_msgSend(v12, "isForcedNonRNF") & 1) == 0)
     {
-      v145 = 1;
+      v143 = 1;
       [v12 setIsRNF:1];
       [TrackedFlow rnfUsageGrandTallyAfterAdding:deltaAccountingTxCellularBytes + deltaAccountingRxCellularBytes];
       v66 = deltaAccountingTxCellularBytes;
@@ -3963,7 +3957,7 @@ LABEL_77:
       if (interfaceExpensive)
       {
         [TrackedFlow rnfExpensiveUsageGrandTallyAfterAdding:deltaAccountingTxCellularBytes + deltaAccountingRxCellularBytes];
-        v145 = 1;
+        v143 = 1;
         v66 = deltaAccountingTxCellularBytes;
         v67 = deltaAccountingRxCellularBytes;
       }
@@ -3973,25 +3967,25 @@ LABEL_77:
     {
       v66 = 0;
       v67 = 0;
-      v145 = 0;
+      v143 = 0;
     }
 
-    v138 = v67;
-    v140 = v66;
+    v136 = v67;
+    v138 = v66;
     v68 = txBytes + rxBytes;
     rxCellularBytes = [snapshotCopy rxCellularBytes];
-    v178 = [snapshotCopy txCellularBytes] + rxCellularBytes;
-    if (v178 > 0x100000)
+    v176 = [snapshotCopy txCellularBytes] + rxCellularBytes;
+    if (v176 > 0x100000)
     {
-      -[FlowAnalyticsEngine _checkCellExcessUsageActions:previous:snapshot:](self, "_checkCellExcessUsageActions:previous:snapshot:", v178, v178 - ([snapshotCopy deltaAccountingRxCellularBytes] + objc_msgSend(snapshotCopy, "deltaAccountingTxCellularBytes")), snapshotCopy);
+      -[FlowAnalyticsEngine _checkCellExcessUsageActions:previous:snapshot:](self, "_checkCellExcessUsageActions:previous:snapshot:", v176, v176 - ([snapshotCopy deltaAccountingRxCellularBytes] + objc_msgSend(snapshotCopy, "deltaAccountingTxCellularBytes")), snapshotCopy);
     }
 
     v70 = v62;
     [v12 setRxWiFiBytes:{objc_msgSend(snapshotCopy, "rxWiFiBytes")}];
     [v12 setTxWiFiBytes:{objc_msgSend(snapshotCopy, "txWiFiBytes")}];
-    [v12 setRxDupeBytes:v148];
-    [v12 setRxOOOBytes:v151];
-    [v12 setTxReTxBytes:v154];
+    [v12 setRxDupeBytes:v146];
+    [v12 setRxOOOBytes:v149];
+    [v12 setTxReTxBytes:v152];
     [v12 setTxUnacked:txUnacked];
     [v12 setRxPkts:{objc_msgSend(snapshotCopy, "rxPackets")}];
     [v12 setTxPkts:{objc_msgSend(snapshotCopy, "txPackets")}];
@@ -3999,22 +3993,22 @@ LABEL_77:
     [v12 setProbed3WHSStuckFlow:connProbeFailed];
     [v12 setProbedReadStuckFlow:readProbeFailed];
     [v12 setProbedWriteStuckFlow:log];
-    if (v183 == 2)
+    if (v181 == 2)
     {
       [NetworkAnalyticsEngine didReceiveProtocolSnapshot:snapshotCopy];
       v71 = v68;
-      v175 = v68 > 0x3200000;
-      ownerKey = v181;
+      v173 = v68 > 0x3200000;
+      ownerKey = v179;
       if ([(FlowAnalyticsEngine *)self _shouldSendStatisticsReport:snapshotCopy])
       {
         queue3 = [(AnalyticsEngineCore *)self queue];
-        v186[0] = MEMORY[0x277D85DD0];
-        v186[1] = 3221225472;
-        v186[2] = __39__FlowAnalyticsEngine__handleSnapshot___block_invoke_306;
-        v186[3] = &unk_27898A7D0;
-        v186[4] = self;
-        v187 = snapshotCopy;
-        dispatch_async(queue3, v186);
+        v184[0] = MEMORY[0x277D85DD0];
+        v184[1] = 3221225472;
+        v184[2] = __39__FlowAnalyticsEngine__handleSnapshot___block_invoke_306;
+        v184[3] = &unk_27898A7D0;
+        v184[4] = self;
+        v185 = snapshotCopy;
+        dispatch_async(queue3, v184);
       }
 
       if (self->repeatedConnFailureDetector)
@@ -4029,7 +4023,7 @@ LABEL_77:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                [(RepeatedConnFailureDetector *)self->repeatedConnFailureDetector noteSuspectFlow:snapshotCopy withOwner:v181];
+                [(RepeatedConnFailureDetector *)self->repeatedConnFailureDetector noteSuspectFlow:snapshotCopy withOwner:v179];
               }
             }
           }
@@ -4042,7 +4036,7 @@ LABEL_77:
       }
 
       v68 = v71;
-      if (self->appTrackingEnabled && v181 && self->endpointTrackingEnabled && [snapshotCopy attributedEntityIsBundleName] && (objc_msgSend(snapshotCopy, "hasLocalDestination") & 1) == 0)
+      if (self->appTrackingEnabled && v179 && self->endpointTrackingEnabled && [snapshotCopy attributedEntityIsBundleName] && (objc_msgSend(snapshotCopy, "hasLocalDestination") & 1) == 0)
       {
         [(FlowAnalyticsEngine *)self endpointMaintenanceOnClose:snapshotCopy];
       }
@@ -4050,19 +4044,19 @@ LABEL_77:
 
     else
     {
-      v175 = 0;
-      ownerKey = v181;
+      v173 = 0;
+      ownerKey = v179;
     }
 
-    if (v146)
+    if (v144)
     {
-      v74 = v179;
+      v74 = v177;
       if (!v70)
       {
         v74 = 0;
       }
 
-      v166 = v61;
+      v164 = v61;
       if (deltaAccountingRxCellularBytes | deltaAccountingTxCellularBytes)
       {
         v75 = deltaAccountingTxCellularBytes;
@@ -4083,58 +4077,57 @@ LABEL_77:
         v76 = v74;
       }
 
-      v137 = v68;
+      v135 = v68;
       if (v76 | v75)
       {
-        greenTeaLogger = self->_greenTeaLogger;
-        v78 = getCTGreenTeaOsLogHandle();
-        v79 = v78;
-        if (v78)
+        v77 = getCTGreenTeaOsLogHandle();
+        v78 = v77;
+        if (v77)
         {
-          loga = v78;
+          loga = v77;
           if (os_log_type_enabled(loga, OS_LOG_TYPE_INFO))
           {
-            v80 = "WiFi";
+            v79 = "WiFi";
             if (deltaAccountingRxCellularBytes | deltaAccountingTxCellularBytes)
             {
-              v80 = "Cell";
+              v79 = "Cell";
             }
 
-            v162 = v80;
+            v160 = v79;
             objc_opt_class();
             isKindOfClass = objc_opt_isKindOfClass();
-            v82 = "UDP";
+            v81 = "UDP";
             if (isKindOfClass)
             {
-              v82 = "TCP";
+              v81 = "TCP";
             }
 
-            v152 = v82;
+            v150 = v81;
             processName = [snapshotCopy processName];
             attributedEntity3 = [snapshotCopy attributedEntity];
             localAddress = [snapshotCopy localAddress];
-            v83 = sockAddrToString(localAddress);
+            v82 = sockAddrToString(localAddress);
             remoteAddress = [snapshotCopy remoteAddress];
-            v84 = sockAddrToString(remoteAddress);
+            v83 = sockAddrToString(remoteAddress);
             *buf = 136316930;
-            *v191 = v162;
-            *&v191[8] = 2080;
-            *&v191[10] = v152;
+            *v189 = v160;
+            *&v189[8] = 2080;
+            *&v189[10] = v150;
+            v190 = 2048;
+            v191 = *&v75;
             v192 = 2048;
-            v193 = *&v75;
-            v194 = 2048;
-            v195 = v76;
+            v193 = v76;
+            v194 = 2114;
+            v195 = processName;
             v196 = 2114;
-            v197 = processName;
+            v197 = attributedEntity3;
             v198 = 2114;
-            v199 = attributedEntity3;
+            v199 = v82;
             v200 = 2114;
             v201 = v83;
-            v202 = 2114;
-            v203 = v84;
             _os_log_impl(&dword_23255B000, loga, OS_LOG_TYPE_INFO, "%s %s bytes transmitted: %llu, bytes received: %llu, process name: %{public}@, bundle id: %{public}@ local address: %{public}@ remote address: %{public}@", buf, 0x52u);
 
-            ownerKey = v181;
+            ownerKey = v179;
           }
         }
       }
@@ -4160,17 +4153,27 @@ LABEL_77:
       }
 
       attributedExtension = [snapshotCopy attributedExtension];
-      v88 = [(FlowAnalyticsEngine *)self _processFetchForName:attributedEntity4 bundle:attributedEntity5 extension:attributedExtension shouldFillMiss:1];
+      v87 = [(FlowAnalyticsEngine *)self _processFetchForName:attributedEntity4 bundle:attributedEntity5 extension:attributedExtension shouldFillMiss:1];
 
-      logb = v88;
-      if (v88)
+      logb = v87;
+      if (v87)
       {
-        v170 = [(FlowAnalyticsEngine *)self _liveUsageFetchForProcess:v88];
-        if (v170)
+        v168 = [(FlowAnalyticsEngine *)self _liveUsageFetchForProcess:v87];
+        if (v168)
         {
-          v159 = attributedEntity5;
-          v163 = attributedEntity4;
+          v157 = attributedEntity5;
+          v161 = attributedEntity4;
           interfaceAWDL = [snapshotCopy interfaceAWDL];
+          if (interfaceAWDL)
+          {
+            v89 = 0;
+          }
+
+          else
+          {
+            v89 = v164;
+          }
+
           if (interfaceAWDL)
           {
             v90 = 0;
@@ -4178,22 +4181,22 @@ LABEL_77:
 
           else
           {
-            v90 = v166;
+            v90 = v177;
           }
 
           if (interfaceAWDL)
           {
-            v91 = 0;
+            v91 = v164;
           }
 
           else
           {
-            v91 = v179;
+            v91 = 0;
           }
 
           if (interfaceAWDL)
           {
-            v92 = v166;
+            v92 = v177;
           }
 
           else
@@ -4201,22 +4204,12 @@ LABEL_77:
             v92 = 0;
           }
 
-          if (interfaceAWDL)
-          {
-            v93 = v179;
-          }
-
-          else
-          {
-            v93 = 0;
-          }
-
-          v94 = v175;
-          v95 = v183;
-          v167 = v93;
-          v153 = v91;
-          v156 = v90;
-          if ((v145 & v175) == 1 && v137 >= 0x1F400001)
+          v93 = v173;
+          v94 = v181;
+          v165 = v92;
+          v151 = v90;
+          v154 = v89;
+          if ((v143 & v173) == 1 && v135 >= 0x1F400001)
           {
             date = [MEMORY[0x277CBEAA8] date];
             startingTimestamp = [v12 startingTimestamp];
@@ -4227,37 +4220,69 @@ LABEL_77:
             internal_symptom_set_qualifier();
             internal_symptom_set_qualifier();
             attributedEntity6 = [snapshotCopy attributedEntity];
-            v99 = attributedEntity6;
+            v98 = attributedEntity6;
             if (attributedEntity6)
             {
               strlen([attributedEntity6 UTF8String]);
-              v95 = v183;
+              v94 = v181;
               internal_symptom_set_additional_qualifier();
             }
 
             internal_symptom_send();
 
-            v88 = logb;
-            v93 = v167;
-            v94 = v175;
-            v91 = v153;
-            v90 = v156;
+            v87 = logb;
+            v92 = v165;
+            v93 = v173;
+            v90 = v151;
+            v89 = v154;
           }
 
-          BYTE1(v136) = v142;
-          LOBYTE(v136) = v94;
-          v150 = v92;
-          BYTE2(v136) = v95 == 2;
-          [FlowAnalyticsEngine _updateLiveUsage:"_updateLiveUsage:wifiIn:wifiOut:cellIn:cellOut:wiredIn:wiredOut:btIn:btOut:xIn:xOut:isJumboFlow:isExpensive:closing:" wifiIn:v170 wifiOut:v91 cellIn:v90 cellOut:deltaAccountingRxCellularBytes wiredIn:deltaAccountingTxCellularBytes wiredOut:v93 btIn:v92 btOut:*(&v144 + 1) xIn:v144 xOut:v138 isJumboFlow:v140 isExpensive:v136 closing:?];
+          BYTE1(v134) = v140;
+          LOBYTE(v134) = v93;
+          v148 = v91;
+          BYTE2(v134) = v94 == 2;
+          [FlowAnalyticsEngine _updateLiveUsage:"_updateLiveUsage:wifiIn:wifiOut:cellIn:cellOut:wiredIn:wiredOut:btIn:btOut:xIn:xOut:isJumboFlow:isExpensive:closing:" wifiIn:v168 wifiOut:v90 cellIn:v89 cellOut:deltaAccountingRxCellularBytes wiredIn:deltaAccountingTxCellularBytes wiredOut:v92 btIn:v91 btOut:*(&v142 + 1) xIn:v142 xOut:v136 isJumboFlow:v138 isExpensive:v134 closing:?];
           date2 = [MEMORY[0x277CBEAA8] date];
-          [v88 setTimeStamp:date2];
+          [v87 setTimeStamp:date2];
 
           sourceIdentifier4 = [snapshotCopy sourceIdentifier];
           delegateName3 = [snapshotCopy delegateName];
           attributedExtension2 = [snapshotCopy attributedExtension];
           if (delegateName3)
           {
-            v101 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@" (delegation: %@)", delegateName3];
+            v100 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@" (delegation: %@)", delegateName3];
+          }
+
+          else
+          {
+            v100 = &stru_2847966D8;
+          }
+
+          if (attributedExtension2)
+          {
+            name = [v87 name];
+            if ([name isEqualToString:attributedExtension2])
+            {
+
+              v101 = &stru_2847966D8;
+            }
+
+            else
+            {
+              v109 = [v100 isEqualToString:attributedExtension2];
+
+              if (v109)
+              {
+                v101 = &stru_2847966D8;
+              }
+
+              else
+              {
+                v101 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@" (attrExtn: %@)", attributedExtension2];
+              }
+
+              v87 = logb;
+            }
           }
 
           else
@@ -4265,265 +4290,233 @@ LABEL_77:
             v101 = &stru_2847966D8;
           }
 
-          if (attributedExtension2)
+          v110 = analyticsLogHandle;
+          if (os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT))
           {
-            name = [v88 name];
-            if ([name isEqualToString:attributedExtension2])
-            {
-
-              v102 = &stru_2847966D8;
-            }
-
-            else
-            {
-              v110 = [v101 isEqualToString:attributedExtension2];
-
-              if (v110)
-              {
-                v102 = &stru_2847966D8;
-              }
-
-              else
-              {
-                v102 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@" (attrExtn: %@)", attributedExtension2];
-              }
-
-              v88 = logb;
-            }
-          }
-
-          else
-          {
-            v102 = &stru_2847966D8;
-          }
-
-          v111 = analyticsLogHandle;
-          if (os_log_type_enabled(v111, OS_LOG_TYPE_DEFAULT))
-          {
-            name2 = [v88 name];
+            name2 = [v87 name];
             if ([snapshotCopy attributionReason] == 4)
             {
-              v113 = @"(viaNEHelper)";
+              v112 = @"(viaNEHelper)";
             }
 
             else
             {
-              v113 = &stru_2847966D8;
+              v112 = &stru_2847966D8;
             }
 
-            wifiIN = [v170 wifiIN];
-            wifiOUT = [v170 wifiOUT];
-            wwanIN = [v170 wwanIN];
-            wwanOUT = [v170 wwanOUT];
-            v143 = [v170 tag];
+            wifiIN = [v168 wifiIN];
+            wifiOUT = [v168 wifiOUT];
+            wwanIN = [v168 wwanIN];
+            wwanOUT = [v168 wwanOUT];
+            v141 = [v168 tag];
             [snapshotCopy flowDuration];
             *buf = 138416130;
-            *v191 = name2;
-            *&v191[8] = 2112;
-            *&v191[10] = v113;
-            v88 = logb;
+            *v189 = name2;
+            *&v189[8] = 2112;
+            *&v189[10] = v112;
+            v87 = logb;
+            v190 = 2112;
+            v191 = *&v100;
             v192 = 2112;
-            v193 = *&v101;
-            v194 = 2112;
-            v195 = v102;
-            v196 = 2048;
-            v197 = sourceIdentifier4;
-            v198 = 2112;
-            v199 = wifiIN;
-            v200 = 2112;
-            v201 = wifiOUT;
-            v202 = 2048;
-            v203 = v153;
-            v204 = 2048;
-            v205 = v156;
-            v206 = 2112;
-            v207 = wwanIN;
-            v208 = 2112;
-            v209 = wwanOUT;
-            v210 = 2048;
-            v211 = deltaAccountingRxCellularBytes;
-            v212 = 2048;
-            v213 = deltaAccountingTxCellularBytes;
-            v214 = 1024;
-            v215 = v145;
-            v216 = 2112;
-            v217 = v143;
-            v218 = 2048;
-            v219 = v115;
-            _os_log_impl(&dword_23255B000, v111, OS_LOG_TYPE_DEFAULT, "Data Usage for %@%@%@%@ on flow %llu - WiFi in/out: %@/%@, WiFi delta_in/delta_out: %lld/%lld, Cell in/out: %@/%@, Cell delta_in/delta_out: %lld/%lld, RNF: %d, subscriber tag: %@, total duration: %.3f", buf, 0x9Eu);
-          }
-
-          v103 = v101;
-          if (v144 != 0)
-          {
-            v116 = analyticsLogHandle;
-            if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
-            {
-              name3 = [v88 name];
-              btIN = [v170 btIN];
-              btOUT = [v170 btOUT];
-              [snapshotCopy flowDuration];
-              *buf = 138414338;
-              *v191 = name3;
-              *&v191[8] = 2112;
-              *&v191[10] = v101;
-              v192 = 2112;
-              v193 = *&v102;
-              v194 = 2048;
-              v195 = sourceIdentifier4;
-              v196 = 2112;
-              v197 = btIN;
-              v198 = 2112;
-              v199 = btOUT;
-              v200 = 2048;
-              v201 = *(&v144 + 1);
-              v202 = 2048;
-              v203 = v144;
-              v204 = 2048;
-              v205 = v120;
-              _os_log_impl(&dword_23255B000, v116, OS_LOG_TYPE_DEFAULT, "Bluetooth Data Usage for %@%@%@ on flow %llu - in/out: %@/%@,  delta_in/delta_out: %lld/%lld, total duration: %.3f", buf, 0x5Cu);
-
-              v88 = logb;
-            }
-          }
-
-          v121 = analyticsLogHandle;
-          if (os_log_type_enabled(v121, OS_LOG_TYPE_DEBUG))
-          {
-            name4 = [v88 name];
-            wiredIN = [v170 wiredIN];
-            wiredOUT = [v170 wiredOUT];
-            v125 = [v170 tag];
-            [snapshotCopy flowDuration];
-            *buf = 138414594;
-            *v191 = name4;
-            *&v191[8] = 2112;
-            *&v191[10] = v101;
-            v192 = 2112;
-            v193 = *&v102;
+            v193 = v101;
             v194 = 2048;
             v195 = sourceIdentifier4;
             v196 = 2112;
-            v197 = wiredIN;
+            v197 = wifiIN;
             v198 = 2112;
-            v199 = wiredOUT;
+            v199 = wifiOUT;
             v200 = 2048;
-            v201 = v167;
+            v201 = v151;
             v202 = 2048;
-            v203 = v150;
+            v203 = v154;
             v204 = 2112;
-            v205 = v125;
-            v206 = 2048;
-            v207 = v126;
-            _os_log_impl(&dword_23255B000, v121, OS_LOG_TYPE_DEBUG, "Data Usage for %@%@%@ on flow %llu - Wired in/out: %@/%@, Wired delta_in/delta_out: %lld/%lld, subscriber tag: %@, total duration: %.3f", buf, 0x66u);
-
-            v88 = logb;
+            v205 = wwanIN;
+            v206 = 2112;
+            v207 = wwanOUT;
+            v208 = 2048;
+            v209 = deltaAccountingRxCellularBytes;
+            v210 = 2048;
+            v211 = deltaAccountingTxCellularBytes;
+            v212 = 1024;
+            v213 = v143;
+            v214 = 2112;
+            v215 = v141;
+            v216 = 2048;
+            v217 = v114;
+            _os_log_impl(&dword_23255B000, v110, OS_LOG_TYPE_DEFAULT, "Data Usage for %@%@%@%@ on flow %llu - WiFi in/out: %@/%@, WiFi delta_in/delta_out: %lld/%lld, Cell in/out: %@/%@, Cell delta_in/delta_out: %lld/%lld, RNF: %d, subscriber tag: %@, total duration: %.3f", buf, 0x9Eu);
           }
 
-          ownerKey = v181;
-          attributedEntity5 = v159;
-          attributedEntity4 = v163;
+          v102 = v100;
+          if (v142 != 0)
+          {
+            v115 = analyticsLogHandle;
+            if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
+            {
+              name3 = [v87 name];
+              btIN = [v168 btIN];
+              btOUT = [v168 btOUT];
+              [snapshotCopy flowDuration];
+              *buf = 138414338;
+              *v189 = name3;
+              *&v189[8] = 2112;
+              *&v189[10] = v100;
+              v190 = 2112;
+              v191 = *&v101;
+              v192 = 2048;
+              v193 = sourceIdentifier4;
+              v194 = 2112;
+              v195 = btIN;
+              v196 = 2112;
+              v197 = btOUT;
+              v198 = 2048;
+              v199 = *(&v142 + 1);
+              v200 = 2048;
+              v201 = v142;
+              v202 = 2048;
+              v203 = v119;
+              _os_log_impl(&dword_23255B000, v115, OS_LOG_TYPE_DEFAULT, "Bluetooth Data Usage for %@%@%@ on flow %llu - in/out: %@/%@,  delta_in/delta_out: %lld/%lld, total duration: %.3f", buf, 0x5Cu);
+
+              v87 = logb;
+            }
+          }
+
+          v120 = analyticsLogHandle;
+          if (os_log_type_enabled(v120, OS_LOG_TYPE_DEBUG))
+          {
+            name4 = [v87 name];
+            wiredIN = [v168 wiredIN];
+            wiredOUT = [v168 wiredOUT];
+            v124 = [v168 tag];
+            [snapshotCopy flowDuration];
+            *buf = 138414594;
+            *v189 = name4;
+            *&v189[8] = 2112;
+            *&v189[10] = v100;
+            v190 = 2112;
+            v191 = *&v101;
+            v192 = 2048;
+            v193 = sourceIdentifier4;
+            v194 = 2112;
+            v195 = wiredIN;
+            v196 = 2112;
+            v197 = wiredOUT;
+            v198 = 2048;
+            v199 = v165;
+            v200 = 2048;
+            v201 = v148;
+            v202 = 2112;
+            v203 = v124;
+            v204 = 2048;
+            v205 = v125;
+            _os_log_impl(&dword_23255B000, v120, OS_LOG_TYPE_DEBUG, "Data Usage for %@%@%@ on flow %llu - Wired in/out: %@/%@, Wired delta_in/delta_out: %lld/%lld, subscriber tag: %@, total duration: %.3f", buf, 0x66u);
+
+            v87 = logb;
+          }
+
+          ownerKey = v179;
+          attributedEntity5 = v157;
+          attributedEntity4 = v161;
         }
 
         else
         {
-          v103 = evaluationLogHandle;
-          if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
+          v102 = evaluationLogHandle;
+          if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
           {
-            v160 = attributedEntity5;
-            v104 = [v88 description];
-            uTF8String = [v104 UTF8String];
+            v158 = attributedEntity5;
+            v103 = [v87 description];
+            uTF8String = [v103 UTF8String];
             ctShim = self->ctShim;
-            v164 = attributedEntity4;
+            v162 = attributedEntity4;
             if (ctShim)
             {
               attributedExtension = [(CoreTelephonyShim *)ctShim currentSubscriberTag];
               if (attributedExtension)
               {
                 currentSubscriberTag = [(CoreTelephonyShim *)self->ctShim currentSubscriberTag];
-                v108 = 1;
+                v107 = 1;
               }
 
               else
               {
-                v108 = 0;
+                v107 = 0;
                 currentSubscriberTag = &unk_2847EF6C8;
               }
             }
 
             else
             {
-              v108 = 0;
+              v107 = 0;
               currentSubscriberTag = &unk_2847EF6C8;
             }
 
             *buf = 136315394;
-            *v191 = uTF8String;
-            *&v191[8] = 2112;
-            *&v191[10] = currentSubscriberTag;
-            _os_log_impl(&dword_23255B000, v103, OS_LOG_TYPE_DEFAULT, "Can't find liveusage for %s with subscriber tag: %@", buf, 0x16u);
-            if (v108)
+            *v189 = uTF8String;
+            *&v189[8] = 2112;
+            *&v189[10] = currentSubscriberTag;
+            _os_log_impl(&dword_23255B000, v102, OS_LOG_TYPE_DEFAULT, "Can't find liveusage for %s with subscriber tag: %@", buf, 0x16u);
+            if (v107)
             {
             }
 
-            ownerKey = v181;
+            ownerKey = v179;
             if (ctShim)
             {
             }
 
-            attributedEntity5 = v160;
-            attributedEntity4 = v164;
-            v88 = logb;
+            attributedEntity5 = v158;
+            attributedEntity4 = v162;
+            v87 = logb;
           }
         }
       }
 
-      if (v178)
+      if (v176)
       {
-        v127 = attributedEntity5;
+        v126 = attributedEntity5;
         interfaceIndex = [snapshotCopy interfaceIndex];
-        v185[0] = MEMORY[0x277D85DD0];
-        v185[1] = 3221225472;
-        v185[2] = __39__FlowAnalyticsEngine__handleSnapshot___block_invoke_323;
-        v185[3] = &unk_27898A0C8;
-        v185[4] = self;
-        v129 = v185;
+        v183[0] = MEMORY[0x277D85DD0];
+        v183[1] = 3221225472;
+        v183[2] = __39__FlowAnalyticsEngine__handleSnapshot___block_invoke_323;
+        v183[3] = &unk_27898A0C8;
+        v183[4] = self;
+        v128 = v183;
         if (_handleSnapshot__onceToken != -1)
         {
-          dispatch_once(&_handleSnapshot__onceToken, v129);
+          dispatch_once(&_handleSnapshot__onceToken, v128);
         }
 
         if (self->_pdpLastUsedInterfaceIndex != interfaceIndex)
         {
           pdpMonitoredInterfaces = self->_pdpMonitoredInterfaces;
-          v131 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:interfaceIndex];
-          LOBYTE(pdpMonitoredInterfaces) = [(NSMutableSet *)pdpMonitoredInterfaces containsObject:v131];
+          v130 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:interfaceIndex];
+          LOBYTE(pdpMonitoredInterfaces) = [(NSMutableSet *)pdpMonitoredInterfaces containsObject:v130];
 
           if (pdpMonitoredInterfaces)
           {
             self->_pdpLastUsedInterfaceIndex = interfaceIndex;
-            v132 = flowLogHandle;
-            if (os_log_type_enabled(v132, OS_LOG_TYPE_INFO))
+            v131 = flowLogHandle;
+            if (os_log_type_enabled(v131, OS_LOG_TYPE_INFO))
             {
               pdpLastUsedInterfaceIndex = self->_pdpLastUsedInterfaceIndex;
               *buf = 67109376;
-              *v191 = interfaceIndex;
-              *&v191[4] = 1024;
-              *&v191[6] = pdpLastUsedInterfaceIndex;
-              _os_log_impl(&dword_23255B000, v132, OS_LOG_TYPE_INFO, "Already monitoring %d; updated last used pdp interface to %d", buf, 0xEu);
+              *v189 = interfaceIndex;
+              *&v189[4] = 1024;
+              *&v189[6] = pdpLastUsedInterfaceIndex;
+              _os_log_impl(&dword_23255B000, v131, OS_LOG_TYPE_INFO, "Already monitoring %d; updated last used pdp interface to %d", buf, 0xEu);
             }
           }
 
           else
           {
-            v135 = flowLogHandle;
-            if (os_log_type_enabled(v135, OS_LOG_TYPE_DEBUG))
+            v133 = flowLogHandle;
+            if (os_log_type_enabled(v133, OS_LOG_TYPE_DEBUG))
             {
               *buf = 67109376;
-              *v191 = interfaceIndex;
-              *&v191[4] = 2048;
-              *&v191[6] = v178;
-              _os_log_impl(&dword_23255B000, v135, OS_LOG_TYPE_DEBUG, "Incoming (presumed) cellular interface index %d is not monitored (usage: %ld)", buf, 0x12u);
+              *v189 = interfaceIndex;
+              *&v189[4] = 2048;
+              *&v189[6] = v176;
+              _os_log_impl(&dword_23255B000, v133, OS_LOG_TYPE_DEBUG, "Incoming (presumed) cellular interface index %d is not monitored (usage: %ld)", buf, 0x12u);
             }
 
             [(FlowAnalyticsEngine *)self _updateKnownCellularInterfaceIndexList:0 force:?];
@@ -4531,15 +4524,15 @@ LABEL_77:
           }
         }
 
-        ownerKey = v181;
-        attributedEntity5 = v127;
-        v88 = logb;
+        ownerKey = v179;
+        attributedEntity5 = v126;
+        v87 = logb;
       }
     }
 
 LABEL_221:
 
-    v9 = v182;
+    v9 = v180;
     goto LABEL_222;
   }
 
@@ -4551,8 +4544,6 @@ LABEL_221:
   }
 
 LABEL_223:
-
-  v134 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __39__FlowAnalyticsEngine__handleSnapshot___block_invoke_323(uint64_t a1)
@@ -4572,7 +4563,7 @@ uint64_t __39__FlowAnalyticsEngine__handleSnapshot___block_invoke_323(uint64_t a
 
 - (BOOL)_shouldProcessDomainInfoForBundleID:(id)d implicit:(id *)implicit knownToLaunchServices:(BOOL *)services ignoredInLaunchServices:(BOOL *)launchServices isWebBrowser:(BOOL *)browser
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v12 = [LaunchServicesUtilities implicitlyAssumedIdentityEntitlementForBundleIdentifier:dCopy];
   v13 = v12;
@@ -4590,27 +4581,27 @@ uint64_t __39__FlowAnalyticsEngine__handleSnapshot___block_invoke_323(uint64_t a
       if (type == 2)
       {
         *implicit = [v13 impliedBundleID];
-        v20 = domainTrackingLogHandle;
+        v19 = domainTrackingLogHandle;
         if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_INFO))
         {
-          v21 = *implicit;
-          v24 = 138478083;
-          v25 = v21;
-          v26 = 2113;
+          v20 = *implicit;
+          v23 = 138478083;
+          v24 = v20;
+          v25 = 2113;
           type2 = dCopy;
-          _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_INFO, "Using implied identity %{private}@ for %{private}@, entitlement type is 'bundleID'", &v24, 0x16u);
+          _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_INFO, "Using implied identity %{private}@ for %{private}@, entitlement type is 'bundleID'", &v23, 0x16u);
         }
       }
     }
 
     else
     {
-      v23 = domainTrackingLogHandle;
+      v22 = domainTrackingLogHandle;
       if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v24 = 138477827;
-        v25 = dCopy;
-        _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_ERROR, "Found unexpected 'type' in entitlement for %{private}@", &v24, 0xCu);
+        v23 = 138477827;
+        v24 = dCopy;
+        _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_ERROR, "Found unexpected 'type' in entitlement for %{private}@", &v23, 0xCu);
       }
 
       v15 = 1;
@@ -4631,12 +4622,12 @@ uint64_t __39__FlowAnalyticsEngine__handleSnapshot___block_invoke_323(uint64_t a
         *services = 0;
       }
 
-      v22 = domainTrackingLogHandle;
+      v21 = domainTrackingLogHandle;
       if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
       {
-        v24 = 138477827;
-        v25 = dCopy;
-        _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEBUG, "Skipping privacy accounting for %{private}@, not known to LaunchServices", &v24, 0xCu);
+        v23 = 138477827;
+        v24 = dCopy;
+        _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEBUG, "Skipping privacy accounting for %{private}@, not known to LaunchServices", &v23, 0xCu);
       }
     }
 
@@ -4651,11 +4642,11 @@ uint64_t __39__FlowAnalyticsEngine__handleSnapshot___block_invoke_323(uint64_t a
       if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
       {
         v17 = v16;
-        v24 = 138478083;
-        v25 = dCopy;
-        v26 = 2048;
+        v23 = 138478083;
+        v24 = dCopy;
+        v25 = 2048;
         type2 = [v13 type];
-        _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEBUG, "Skipping privacy accounting for %{private}@, ignored in LaunchServices, type %lu", &v24, 0x16u);
+        _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEBUG, "Skipping privacy accounting for %{private}@, ignored in LaunchServices, type %lu", &v23, 0x16u);
       }
     }
 
@@ -4664,19 +4655,18 @@ uint64_t __39__FlowAnalyticsEngine__handleSnapshot___block_invoke_323(uint64_t a
 
 LABEL_10:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (void)_handleSnapshotForDomains:(id)domains
 {
-  v114 = *MEMORY[0x277D85DE8];
+  v113 = *MEMORY[0x277D85DE8];
   domainsCopy = domains;
   if (([domainsCopy isSilent] & 1) == 0 && self->appTrackingEnabled)
   {
-    v103 = 1;
-    v102 = 0;
+    v102 = 1;
     v101 = 0;
+    v100 = 0;
     domainAttributedBundleId = [domainsCopy domainAttributedBundleId];
 
     if (domainAttributedBundleId)
@@ -4693,9 +4683,9 @@ LABEL_22:
         goto LABEL_23;
       }
 
-      v100 = 0;
-      v10 = [(FlowAnalyticsEngine *)self _shouldProcessDomainInfoForBundleID:v7 implicit:&v100 knownToLaunchServices:&v103 ignoredInLaunchServices:&v102 isWebBrowser:&v101];
-      v11 = v100;
+      v99 = 0;
+      v10 = [(FlowAnalyticsEngine *)self _shouldProcessDomainInfoForBundleID:v7 implicit:&v99 knownToLaunchServices:&v102 ignoredInLaunchServices:&v101 isWebBrowser:&v100];
+      v11 = v99;
 
       if (!v10)
       {
@@ -4711,34 +4701,34 @@ LABEL_23:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v24 = domainsCopy;
-          v25 = [(NSMutableDictionary *)self->trackedSourceIDs objectForKeyedSubscript:v12];
-          if (v25 && (v26 = v25, -[NSMutableDictionary objectForKeyedSubscript:](self->trackedSourceIDs, "objectForKeyedSubscript:", v12), v27 = objc_claimAutoreleasedReturnValue(), v28 = [v27 BOOLValue], v27, v26, (v28 & 1) != 0))
+          v23 = domainsCopy;
+          v24 = [(NSMutableDictionary *)self->trackedSourceIDs objectForKeyedSubscript:v12];
+          if (v24 && (v25 = v24, -[NSMutableDictionary objectForKeyedSubscript:](self->trackedSourceIDs, "objectForKeyedSubscript:", v12), v26 = objc_claimAutoreleasedReturnValue(), v27 = [v26 BOOLValue], v26, v25, (v27 & 1) != 0))
           {
-            v18 = v24;
+            v18 = v23;
           }
 
           else
           {
-            v18 = v24;
-            remoteAddress = [(__CFString *)v24 remoteAddress];
+            v18 = v23;
+            remoteAddress = [(__CFString *)v23 remoteAddress];
             bytes = [remoteAddress bytes];
 
             if (!bytes || !*(bytes + 2) || is_directly_reachable_address(bytes))
             {
-              remoteAddress2 = [(__CFString *)v24 remoteAddress];
-              v97 = 0;
-              v57 = validateSockAddrToString(remoteAddress2, 0, &v97);
-              v49 = v97;
+              remoteAddress2 = [(__CFString *)v23 remoteAddress];
+              v96 = 0;
+              v56 = validateSockAddrToString(remoteAddress2, 0, &v96);
+              v48 = v96;
 
-              if (v57)
+              if (v56)
               {
-                v58 = domainTrackingLogHandle;
+                v57 = domainTrackingLogHandle;
                 if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138477827;
-                  v105 = v49;
-                  _os_log_impl(&dword_23255B000, v58, OS_LOG_TYPE_DEFAULT, "Local flow (conn) to %{private}@ via reachability, will drop", buf, 0xCu);
+                  v104 = v48;
+                  _os_log_impl(&dword_23255B000, v57, OS_LOG_TYPE_DEFAULT, "Local flow (conn) to %{private}@ via reachability, will drop", buf, 0xCu);
                 }
               }
 
@@ -4757,134 +4747,134 @@ LABEL_23:
 LABEL_31:
         if (v11)
         {
-          v29 = v11;
+          v28 = v11;
         }
 
         else
         {
-          v29 = v7;
+          v28 = v7;
         }
 
-        v30 = v29;
-        v31 = [(FlowAnalyticsEngine *)self _processFetchForName:0 bundle:v30 shouldFillMiss:1];
-        v32 = v31;
-        v96 = v12;
-        if (!v31)
+        v29 = v28;
+        v30 = [(FlowAnalyticsEngine *)self _processFetchForName:0 bundle:v29 shouldFillMiss:1];
+        v31 = v30;
+        v95 = v12;
+        if (!v30)
         {
-          v43 = domainTrackingLogHandle;
+          v42 = domainTrackingLogHandle;
           if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138477827;
-            v105 = v30;
-            _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_DEBUG, "Process is nil for %{private}@", buf, 0xCu);
+            v104 = v29;
+            _os_log_impl(&dword_23255B000, v42, OS_LOG_TYPE_DEBUG, "Process is nil for %{private}@", buf, 0xCu);
           }
 
           goto LABEL_105;
         }
 
-        if (![v31 isApp])
+        if (![v30 isApp])
         {
-          v44 = domainTrackingLogHandle;
+          v43 = domainTrackingLogHandle;
           if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
           {
             *buf = 138477827;
-            v105 = v30;
-            _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_ERROR, "Process is not SFApp for %{private}@, triggering an ABC case", buf, 0xCu);
+            v104 = v29;
+            _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_ERROR, "Process is not SFApp for %{private}@, triggering an ABC case", buf, 0xCu);
           }
 
-          v41 = +[NetDomainsHandler sharedInstance];
-          [v41 triggerAutoBugCaptureCaseForType:@"ProcessNotSFApp" subType:0 privateSubtypeContext:0 detectedProcess:v30 events:0 thresholdValuesString:0];
+          v40 = +[NetDomainsHandler sharedInstance];
+          [v40 triggerAutoBugCaptureCaseForType:@"ProcessNotSFApp" subType:0 privateSubtypeContext:0 detectedProcess:v29 events:0 thresholdValuesString:0];
           goto LABEL_49;
         }
 
-        v94 = v13;
-        v33 = [(NSMutableDictionary *)self->trackedSourceIDs objectForKeyedSubscript:v12];
+        v93 = v13;
+        v32 = [(NSMutableDictionary *)self->trackedSourceIDs objectForKeyedSubscript:v12];
 
-        if (!v33)
+        if (!v32)
         {
           [(NSMutableDictionary *)self->trackedSourceIDs setObject:MEMORY[0x277CBEC28] forKeyedSubscript:v12];
         }
 
-        v34 = domainTrackingLogHandle;
-        v95 = v18;
+        v33 = domainTrackingLogHandle;
+        v94 = v18;
         if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
         {
-          v35 = v34;
+          v34 = v33;
           domainAttributedBundleId3 = [domainsCopy domainAttributedBundleId];
           attributedEntity = [domainsCopy attributedEntity];
           *buf = 138478851;
-          v105 = v30;
-          v106 = 2113;
-          v107 = v11;
-          v108 = 2113;
-          v109 = v7;
-          v110 = 2113;
-          v111 = domainAttributedBundleId3;
-          v112 = 2113;
-          v113 = attributedEntity;
-          _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_DEBUG, "Proceed with privacy accounting by attributing to: %{private}@ (implicitIdentity: %{private}@, attributed: %{private}@, domainAttributedBundleId: %{private}@, attributedEntity: %{private}@)", buf, 0x34u);
+          v104 = v29;
+          v105 = 2113;
+          v106 = v11;
+          v107 = 2113;
+          v108 = v7;
+          v109 = 2113;
+          v110 = domainAttributedBundleId3;
+          v111 = 2113;
+          v112 = attributedEntity;
+          _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_DEBUG, "Proceed with privacy accounting by attributing to: %{private}@ (implicitIdentity: %{private}@, attributed: %{private}@, domainAttributedBundleId: %{private}@, attributedEntity: %{private}@)", buf, 0x34u);
 
-          v18 = v95;
+          v18 = v94;
         }
 
-        v13 = v94;
-        if (v94)
+        v13 = v93;
+        if (v93)
         {
-          v38 = [(NSMutableDictionary *)self->trackedSourceIDs objectForKeyedSubscript:v12];
-          bOOLValue = [v38 BOOLValue];
+          v37 = [(NSMutableDictionary *)self->trackedSourceIDs objectForKeyedSubscript:v12];
+          bOOLValue = [v37 BOOLValue];
 
           if (bOOLValue)
           {
-            v40 = domainTrackingLogHandle;
-            v18 = v95;
+            v39 = domainTrackingLogHandle;
+            v18 = v94;
             if (!os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
             {
 LABEL_105:
 
-              v49 = 0;
-              v12 = v96;
+              v48 = 0;
+              v12 = v95;
               goto LABEL_106;
             }
 
-            v41 = v40;
-            domainDescription = [v94 domainDescription];
+            v40 = v39;
+            domainDescription = [v93 domainDescription];
             *buf = 138477827;
-            v105 = domainDescription;
-            _os_log_impl(&dword_23255B000, v41, OS_LOG_TYPE_DEBUG, "FlowSnapshot: %{private}@, already processed domain info", buf, 0xCu);
+            v104 = domainDescription;
+            _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_DEBUG, "FlowSnapshot: %{private}@, already processed domain info", buf, 0xCu);
 
-            v18 = v95;
+            v18 = v94;
 LABEL_49:
 
             goto LABEL_105;
           }
 
-          flowuuid = [v94 flowuuid];
-          v93 = flowuuid;
+          flowuuid = [v93 flowuuid];
+          v92 = flowuuid;
           if (flowuuid)
           {
-            v18 = v95;
+            v18 = v94;
             if ([(FlowAnalyticsEngine *)self isSnapshotFlowUUIDStored:flowuuid])
             {
               [(NSMutableDictionary *)self->trackedSourceIDs setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v12];
-              v68 = domainTrackingLogHandle;
+              v67 = domainTrackingLogHandle;
               if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v105 = v93;
-                _os_log_impl(&dword_23255B000, v68, OS_LOG_TYPE_DEFAULT, "FlowSnapshot: fuuid %@ present in an earlier ConnSnapshot, ignoring", buf, 0xCu);
+                v104 = v92;
+                _os_log_impl(&dword_23255B000, v67, OS_LOG_TYPE_DEFAULT, "FlowSnapshot: fuuid %@ present in an earlier ConnSnapshot, ignoring", buf, 0xCu);
               }
 
               goto LABEL_104;
             }
 
-            domainName = [v94 domainName];
+            domainName = [v93 domainName];
             if (domainName)
             {
             }
 
             else
             {
-              remoteAddress3 = [v94 remoteAddress];
+              remoteAddress3 = [v93 remoteAddress];
 
               if (!remoteAddress3)
               {
@@ -4894,16 +4884,16 @@ LABEL_104:
               }
             }
 
-            v80 = domainTrackingLogHandle;
+            v79 = domainTrackingLogHandle;
             if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
             {
-              v81 = v80;
-              domainDescription2 = [v94 domainDescription];
+              v80 = v79;
+              domainDescription2 = [v93 domainDescription];
               *buf = 138477827;
-              v105 = domainDescription2;
-              v83 = "FlowSnapshot: %{private}@, will process domain info";
+              v104 = domainDescription2;
+              v82 = "FlowSnapshot: %{private}@, will process domain info";
 LABEL_102:
-              _os_log_impl(&dword_23255B000, v81, OS_LOG_TYPE_DEFAULT, v83, buf, 0xCu);
+              _os_log_impl(&dword_23255B000, v80, OS_LOG_TYPE_DEFAULT, v82, buf, 0xCu);
 
               goto LABEL_103;
             }
@@ -4911,54 +4901,54 @@ LABEL_102:
             goto LABEL_103;
           }
 
-          v18 = v95;
-          if ([v94 snapshotReason] == 2)
+          v18 = v94;
+          if ([v93 snapshotReason] == 2)
           {
-            domainName2 = [v94 domainName];
+            domainName2 = [v93 domainName];
             if (domainName2)
             {
 
               goto LABEL_100;
             }
 
-            remoteAddress4 = [v94 remoteAddress];
+            remoteAddress4 = [v93 remoteAddress];
 
             if (remoteAddress4)
             {
 LABEL_100:
-              v85 = domainTrackingLogHandle;
+              v84 = domainTrackingLogHandle;
               if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
               {
-                v81 = v85;
-                domainDescription2 = [v94 domainDescription];
+                v80 = v84;
+                domainDescription2 = [v93 domainDescription];
                 *buf = 138477827;
-                v105 = domainDescription2;
-                v83 = "FlowSnapshot: %{private}@, will process domain info for flow closing with nil fuuid";
+                v104 = domainDescription2;
+                v82 = "FlowSnapshot: %{private}@, will process domain info for flow closing with nil fuuid";
                 goto LABEL_102;
               }
 
 LABEL_103:
-              v86 = MEMORY[0x277CCABB0];
-              v13 = v94;
-              remoteAddress5 = [v94 remoteAddress];
-              v88 = [v86 numberWithBool:{-[FlowAnalyticsEngine domainInfoProcessingForSnapshot:process:attributedName:remoteAddress:isWebBrowser:](self, "domainInfoProcessingForSnapshot:process:attributedName:remoteAddress:isWebBrowser:", v94, v32, v30, remoteAddress5, v101)}];
-              [(NSMutableDictionary *)self->trackedSourceIDs setObject:v88 forKeyedSubscript:v12];
+              v85 = MEMORY[0x277CCABB0];
+              v13 = v93;
+              remoteAddress5 = [v93 remoteAddress];
+              v87 = [v85 numberWithBool:{-[FlowAnalyticsEngine domainInfoProcessingForSnapshot:process:attributedName:remoteAddress:isWebBrowser:](self, "domainInfoProcessingForSnapshot:process:attributedName:remoteAddress:isWebBrowser:", v93, v31, v29, remoteAddress5, v100)}];
+              [(NSMutableDictionary *)self->trackedSourceIDs setObject:v87 forKeyedSubscript:v12];
 
-              v18 = v95;
+              v18 = v94;
               goto LABEL_104;
             }
           }
 
-          v89 = domainTrackingLogHandle;
+          v88 = domainTrackingLogHandle;
           if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
           {
-            v90 = v89;
-            domainDescription3 = [v94 domainDescription];
+            v89 = v88;
+            domainDescription3 = [v93 domainDescription];
             *buf = 138477827;
-            v105 = domainDescription3;
-            _os_log_impl(&dword_23255B000, v90, OS_LOG_TYPE_DEFAULT, "FlowSnapshot: %{private}@, waiting to process domain info until flow closing with nil fuuid", buf, 0xCu);
+            v104 = domainDescription3;
+            _os_log_impl(&dword_23255B000, v89, OS_LOG_TYPE_DEFAULT, "FlowSnapshot: %{private}@, waiting to process domain info until flow closing with nil fuuid", buf, 0xCu);
 
-            v18 = v95;
+            v18 = v94;
           }
 
           goto LABEL_104;
@@ -4970,31 +4960,31 @@ LABEL_103:
         }
 
         flowuuid2 = [(__CFString *)v18 flowuuid];
-        v63 = [(NSMutableDictionary *)self->trackedSourceIDs objectForKeyedSubscript:v12];
-        if ([v63 BOOLValue])
+        v62 = [(NSMutableDictionary *)self->trackedSourceIDs objectForKeyedSubscript:v12];
+        if ([v62 BOOLValue])
         {
 
 LABEL_72:
-          if (-[__CFString snapshotReason](v18, "snapshotReason") == 2 && (-[NSMutableDictionary objectForKeyedSubscript:](self->trackedSourceIDs, "objectForKeyedSubscript:", v12), v64 = objc_claimAutoreleasedReturnValue(), v65 = [v64 BOOLValue], v64, v65))
+          if (-[__CFString snapshotReason](v18, "snapshotReason") == 2 && (-[NSMutableDictionary objectForKeyedSubscript:](self->trackedSourceIDs, "objectForKeyedSubscript:", v12), v63 = objc_claimAutoreleasedReturnValue(), v64 = [v63 BOOLValue], v63, v64))
           {
             [(FlowAnalyticsEngine *)self removeSnapshotFlowUUIDsForSourceKey:v12];
             v13 = 0;
-            v66 = flowuuid2;
+            v65 = flowuuid2;
           }
 
           else
           {
             v13 = 0;
-            v66 = flowuuid2;
+            v65 = flowuuid2;
             if (flowuuid2)
             {
-              [(FlowAnalyticsEngine *)self storeSnapshotFlowUUID:flowuuid2 forSourceKey:v96];
+              [(FlowAnalyticsEngine *)self storeSnapshotFlowUUID:flowuuid2 forSourceKey:v95];
             }
           }
 
 LABEL_95:
 
-          v18 = v95;
+          v18 = v94;
           goto LABEL_105;
         }
 
@@ -5013,26 +5003,26 @@ LABEL_95:
           }
         }
 
-        v73 = domainTrackingLogHandle;
+        v72 = domainTrackingLogHandle;
         if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138477827;
-          v105 = v18;
-          _os_log_impl(&dword_23255B000, v73, OS_LOG_TYPE_DEFAULT, "ConnSnapshot: %{private}@, will process domain info", buf, 0xCu);
+          v104 = v18;
+          _os_log_impl(&dword_23255B000, v72, OS_LOG_TYPE_DEFAULT, "ConnSnapshot: %{private}@, will process domain info", buf, 0xCu);
         }
 
-        v66 = flowuuid2;
+        v65 = flowuuid2;
         if (flowuuid2 && [(__CFString *)v18 snapshotReason]!= 2)
         {
-          [(FlowAnalyticsEngine *)self storeSnapshotFlowUUID:flowuuid2 forSourceKey:v96];
+          [(FlowAnalyticsEngine *)self storeSnapshotFlowUUID:flowuuid2 forSourceKey:v95];
         }
 
-        v74 = MEMORY[0x277CCABB0];
+        v73 = MEMORY[0x277CCABB0];
         remoteAddress7 = [(__CFString *)v18 remoteAddress];
-        v76 = v18;
-        v77 = remoteAddress7;
-        v78 = [v74 numberWithBool:{-[FlowAnalyticsEngine domainInfoProcessingForSnapshot:process:attributedName:remoteAddress:isWebBrowser:](self, "domainInfoProcessingForSnapshot:process:attributedName:remoteAddress:isWebBrowser:", v76, v32, v30, remoteAddress7, v101)}];
-        [(NSMutableDictionary *)self->trackedSourceIDs setObject:v78 forKeyedSubscript:v96];
+        v75 = v18;
+        v76 = remoteAddress7;
+        v77 = [v73 numberWithBool:{-[FlowAnalyticsEngine domainInfoProcessingForSnapshot:process:attributedName:remoteAddress:isWebBrowser:](self, "domainInfoProcessingForSnapshot:process:attributedName:remoteAddress:isWebBrowser:", v75, v31, v29, remoteAddress7, v100)}];
+        [(NSMutableDictionary *)self->trackedSourceIDs setObject:v77 forKeyedSubscript:v95];
 
         v13 = 0;
         goto LABEL_95;
@@ -5049,29 +5039,29 @@ LABEL_16:
 
       hasLocalDestination = [v13 hasLocalDestination];
       remoteAddress8 = [v13 remoteAddress];
-      v47 = remoteAddress8;
+      v46 = remoteAddress8;
       if (hasLocalDestination)
       {
-        v99 = 0;
-        v48 = validateSockAddrToString(remoteAddress8, 0, &v99);
-        v49 = v99;
+        v98 = 0;
+        v47 = validateSockAddrToString(remoteAddress8, 0, &v98);
+        v48 = v98;
 
-        if (!v48)
+        if (!v47)
         {
           goto LABEL_68;
         }
 
-        v50 = domainTrackingLogHandle;
+        v49 = domainTrackingLogHandle;
         if (!os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_68;
         }
 
         *buf = 138477827;
-        v105 = v49;
-        v51 = "Local flow to %{private}@ via hasLocalDestination, will drop";
-        v52 = v50;
-        v53 = OS_LOG_TYPE_DEFAULT;
+        v104 = v48;
+        v50 = "Local flow to %{private}@ via hasLocalDestination, will drop";
+        v51 = v49;
+        v52 = OS_LOG_TYPE_DEFAULT;
       }
 
       else
@@ -5084,11 +5074,11 @@ LABEL_16:
         }
 
         remoteAddress9 = [v13 remoteAddress];
-        v98 = 0;
-        v61 = validateSockAddrToString(remoteAddress9, 0, &v98);
-        v49 = v98;
+        v97 = 0;
+        v60 = validateSockAddrToString(remoteAddress9, 0, &v97);
+        v48 = v97;
 
-        if (!v61 || (v62 = domainTrackingLogHandle, !os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_INFO)))
+        if (!v60 || (v61 = domainTrackingLogHandle, !os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_INFO)))
         {
 LABEL_68:
           v18 = 0;
@@ -5098,13 +5088,13 @@ LABEL_106:
         }
 
         *buf = 138477827;
-        v105 = v49;
-        v51 = "Local flow to %{private}@ via reachability, will drop";
-        v52 = v62;
-        v53 = OS_LOG_TYPE_INFO;
+        v104 = v48;
+        v50 = "Local flow to %{private}@ via reachability, will drop";
+        v51 = v61;
+        v52 = OS_LOG_TYPE_INFO;
       }
 
-      _os_log_impl(&dword_23255B000, v52, v53, v51, buf, 0xCu);
+      _os_log_impl(&dword_23255B000, v51, v52, v50, buf, 0xCu);
       goto LABEL_68;
     }
 
@@ -5124,9 +5114,9 @@ LABEL_106:
         v21 = v20;
         attributedEntity3 = [domainsCopy attributedEntity];
         *buf = 138478083;
-        v105 = attributedEntity3;
-        v106 = 1024;
-        LODWORD(v107) = [domainsCopy attributionReason];
+        v104 = attributedEntity3;
+        v105 = 1024;
+        LODWORD(v106) = [domainsCopy attributionReason];
         _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEBUG, "Skipping privacy accounting for %{private}@, attributionReason %d", buf, 0x12u);
       }
     }
@@ -5146,13 +5136,11 @@ LABEL_106:
   }
 
 LABEL_24:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didReceiveSnapshot:(id)snapshot
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   snapshotCopy = snapshot;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -5202,25 +5190,23 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v11 = analyticsLogHandle;
+  v10 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v12 = v11;
-    v13 = objc_opt_class();
-    v14 = NSStringFromClass(v13);
-    v15 = 138412290;
-    v16 = v14;
-    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "Snapshot is of unexpected type %@", &v15, 0xCu);
+    v11 = v10;
+    v12 = objc_opt_class();
+    v13 = NSStringFromClass(v12);
+    v14 = 138412290;
+    v15 = v13;
+    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "Snapshot is of unexpected type %@", &v14, 0xCu);
   }
 
 LABEL_13:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)statsManager:(id)manager thresholdReachedOn:(unsigned int)on
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   lastCellularThresholdRefreshTime = self->lastCellularThresholdRefreshTime;
   v9 = 1;
@@ -5267,8 +5253,8 @@ LABEL_13:
 
     *buf = 67109378;
     onCopy = on;
-    v25 = 2112;
-    v26 = v16;
+    v24 = 2112;
+    v25 = v16;
     _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_INFO, "Threshold reached for interface %d, refresh %@ required", buf, 0x12u);
   }
 
@@ -5281,36 +5267,32 @@ LABEL_13:
     [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
     setApparentTime(v19);
     refreshScheduler = self->refreshScheduler;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __55__FlowAnalyticsEngine_statsManager_thresholdReachedOn___block_invoke;
-    v22[3] = &unk_27898BB90;
-    v22[4] = self;
-    [(FlowRefreshScheduler *)refreshScheduler refreshDataUsageMaxStale:v14 maxDelay:v22 logAs:v11 callback:v12];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __55__FlowAnalyticsEngine_statsManager_thresholdReachedOn___block_invoke;
+    v21[3] = &unk_27898BB90;
+    v21[4] = self;
+    [(FlowRefreshScheduler *)refreshScheduler refreshDataUsageMaxStale:v14 maxDelay:v21 logAs:v11 callback:v12];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __55__FlowAnalyticsEngine_statsManager_thresholdReachedOn___block_invoke(uint64_t a1, int a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = a2;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Cellular threshold polling complete, success %d", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = a2;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Cellular threshold polling complete, success %d", v6, 8u);
   }
 
-  result = [*(a1 + 32) _updateTetheringUsage:1];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _updateTetheringUsage:1];
 }
 
 - (double)_usageFingerprintForBundleName:(id)name
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v6 = [(FlowAnalyticsEngine *)self _processFetchForName:0 bundle:nameCopy shouldFillMiss:0];
   if (v6)
@@ -5367,11 +5349,11 @@ uint64_t __55__FlowAnalyticsEngine_statsManager_thresholdReachedOn___block_invok
           currentSubscriberTag2 = &unk_2847EF6C8;
         }
 
-        v34 = 138412546;
-        v35 = nameCopy;
-        v36 = 2112;
-        v37 = currentSubscriberTag2;
-        _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEFAULT, "Failed to find LiveUsage for %@ with subscriber tag: %@", &v34, 0x16u);
+        v33 = 138412546;
+        v34 = nameCopy;
+        v35 = 2112;
+        v36 = currentSubscriberTag2;
+        _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEFAULT, "Failed to find LiveUsage for %@ with subscriber tag: %@", &v33, 0x16u);
         if (v31)
         {
         }
@@ -5391,20 +5373,19 @@ uint64_t __55__FlowAnalyticsEngine_statsManager_thresholdReachedOn___block_invok
     v26 = 0.0;
     if (os_log_type_enabled(procStateLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = 138412290;
-      v35 = nameCopy;
-      _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_DEFAULT, "Failed to find process for %@", &v34, 0xCu);
+      v33 = 138412290;
+      v34 = nameCopy;
+      _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_DEFAULT, "Failed to find process for %@", &v33, 0xCu);
     }
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
 - (void)_handleApplicationNotificationCompactForBundleName:(id)name edgeMode:(BOOL)mode
 {
   modeCopy = mode;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v7 = procStateLogHandle;
   if (os_log_type_enabled(procStateLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -5415,11 +5396,11 @@ uint64_t __55__FlowAnalyticsEngine_statsManager_thresholdReachedOn___block_invok
       v8 = "true";
     }
 
-    v22 = 138412546;
-    v23 = nameCopy;
-    v24 = 2080;
-    v25 = v8;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "%@: Foreground: %s", &v22, 0x16u);
+    v21 = 138412546;
+    v22 = nameCopy;
+    v23 = 2080;
+    v24 = v8;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "%@: Foreground: %s", &v21, 0x16u);
   }
 
   v9 = [(NSMutableDictionary *)self->appCompactState objectForKey:nameCopy];
@@ -5429,9 +5410,9 @@ uint64_t __55__FlowAnalyticsEngine_statsManager_thresholdReachedOn___block_invok
     v11 = procStateLogHandle;
     if (os_log_type_enabled(procStateLogHandle, OS_LOG_TYPE_INFO))
     {
-      v22 = 138412290;
-      v23 = nameCopy;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_INFO, "Removal when already gone for app: %@", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = nameCopy;
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_INFO, "Removal when already gone for app: %@", &v21, 0xCu);
     }
 
     v10 = 0;
@@ -5446,11 +5427,11 @@ uint64_t __55__FlowAnalyticsEngine_statsManager_thresholdReachedOn___block_invok
       goto LABEL_33;
     }
 
-    v22 = 138412290;
-    v23 = nameCopy;
+    v21 = 138412290;
+    v22 = nameCopy;
     v13 = "Analytics Engine: double ON for app: %@";
 LABEL_32:
-    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_INFO, v13, &v22, 0xCu);
+    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_INFO, v13, &v21, 0xCu);
     goto LABEL_33;
   }
 
@@ -5464,11 +5445,11 @@ LABEL_32:
     v16 = procStateLogHandle;
     if (os_log_type_enabled(procStateLogHandle, OS_LOG_TYPE_INFO))
     {
-      v22 = 138412546;
-      v23 = v15;
-      v24 = 2112;
-      v25 = nameCopy;
-      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_INFO, "Set appCompactState object %@ for key %@", &v22, 0x16u);
+      v21 = 138412546;
+      v22 = v15;
+      v23 = 2112;
+      v24 = nameCopy;
+      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_INFO, "Set appCompactState object %@ for key %@", &v21, 0x16u);
     }
 
     if (self->appTrackingEnabled && nameCopy && self->endpointTrackingEnabled)
@@ -5497,9 +5478,9 @@ LABEL_32:
         v20 = procStateLogHandle;
         if (os_log_type_enabled(procStateLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = 138412290;
-          v23 = nameCopy;
-          _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "call _saveAndUnloadSelectState on %@ exiting foreground state", &v22, 0xCu);
+          v21 = 138412290;
+          v22 = nameCopy;
+          _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "call _saveAndUnloadSelectState on %@ exiting foreground state", &v21, 0xCu);
         }
 
         [(FlowAnalyticsEngine *)self _saveAndUnloadSelectState];
@@ -5510,22 +5491,20 @@ LABEL_32:
     v12 = procStateLogHandle;
     if (os_log_type_enabled(procStateLogHandle, OS_LOG_TYPE_INFO))
     {
-      v22 = 138412290;
-      v23 = nameCopy;
+      v21 = 138412290;
+      v22 = nameCopy;
       v13 = "Remove appCompactState key %@";
       goto LABEL_32;
     }
   }
 
 LABEL_33:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleApplicationNotificationStateChangedForBundleName:(id)name edgeMode:(BOOL)mode intervalType:(int)type
 {
   modeCopy = mode;
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v9 = procStateLogHandle;
   if (os_log_type_enabled(procStateLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -5546,9 +5525,9 @@ LABEL_33:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v66 = __Block_byref_object_copy__5;
-  v67 = __Block_byref_object_dispose__5;
-  v68 = [(NSMutableDictionary *)self->appState objectForKey:nameCopy];
+  v65 = __Block_byref_object_copy__5;
+  v66 = __Block_byref_object_dispose__5;
+  v67 = [(NSMutableDictionary *)self->appState objectForKey:nameCopy];
   v11 = *(*&buf[8] + 40);
   if (modeCopy)
   {
@@ -5557,11 +5536,11 @@ LABEL_33:
       v12 = procStateLogHandle;
       if (os_log_type_enabled(procStateLogHandle, OS_LOG_TYPE_INFO))
       {
-        *v61 = 138412290;
-        v62 = nameCopy;
+        *v60 = 138412290;
+        v61 = nameCopy;
         v13 = "Analytics Engine: double ON for app: %@";
 LABEL_17:
-        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_INFO, v13, v61, 0xCu);
+        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_INFO, v13, v60, 0xCu);
         goto LABEL_79;
       }
 
@@ -5570,7 +5549,7 @@ LABEL_17:
 
 LABEL_10:
     v14 = [(FlowAnalyticsEngine *)self _processFetchForName:0 bundle:nameCopy shouldFillMiss:0];
-    v56 = v14;
+    v55 = v14;
     if (v14)
     {
       v15 = [(FlowAnalyticsEngine *)self _liveUsageFetchForProcess:v14];
@@ -5587,7 +5566,7 @@ LABEL_10:
           {
             wwanIN = [v16 wwanIN];
             [wwanIN doubleValue];
-            v55 = wwanIN;
+            v54 = wwanIN;
             if (v29 == 0.0)
             {
               wwanOUT = [v16 wwanOUT];
@@ -5737,9 +5716,9 @@ LABEL_45:
             v44 = procStateLogHandle;
             if (os_log_type_enabled(procStateLogHandle, OS_LOG_TYPE_ERROR))
             {
-              *v61 = 138412290;
-              v62 = nameCopy;
-              _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_ERROR, "Failed to allocate SFAppRun entity for %@", v61, 0xCu);
+              *v60 = 138412290;
+              v61 = nameCopy;
+              _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_ERROR, "Failed to allocate SFAppRun entity for %@", v60, 0xCu);
             }
           }
         }
@@ -5753,24 +5732,24 @@ LABEL_45:
             *(*&buf[8] + 40) = 0;
 
             [(FlowAnalyticsEngine *)self _saveAndUnloadSelectState];
-            v43 = v56;
+            v43 = v55;
 LABEL_78:
 
             goto LABEL_79;
           }
 
-          v57[0] = MEMORY[0x277D85DD0];
-          v57[1] = 3221225472;
-          v57[2] = __101__FlowAnalyticsEngine__handleApplicationNotificationStateChangedForBundleName_edgeMode_intervalType___block_invoke;
-          v57[3] = &unk_27898C4E0;
-          v57[4] = self;
-          v58 = nameCopy;
-          v59 = buf;
+          v56[0] = MEMORY[0x277D85DD0];
+          v56[1] = 3221225472;
+          v56[2] = __101__FlowAnalyticsEngine__handleApplicationNotificationStateChangedForBundleName_edgeMode_intervalType___block_invoke;
+          v56[3] = &unk_27898C4E0;
+          v56[4] = self;
+          v57 = nameCopy;
+          v58 = buf;
           typeCopy = type;
-          [(FlowAnalyticsEngine *)self _refreshFullDataUsageWithCallback:v57];
+          [(FlowAnalyticsEngine *)self _refreshFullDataUsageWithCallback:v56];
         }
 
-        v43 = v56;
+        v43 = v55;
         goto LABEL_78;
       }
 
@@ -5783,14 +5762,14 @@ LABEL_78:
           currentSubscriberTag = [(CoreTelephonyShim *)self->ctShim currentSubscriberTag];
           if (currentSubscriberTag)
           {
-            v54 = currentSubscriberTag;
+            v53 = currentSubscriberTag;
             currentSubscriberTag2 = [(CoreTelephonyShim *)self->ctShim currentSubscriberTag];
             v27 = 1;
           }
 
           else
           {
-            v54 = 0;
+            v53 = 0;
             v27 = 0;
             currentSubscriberTag2 = &unk_2847EF6C8;
           }
@@ -5802,11 +5781,11 @@ LABEL_78:
           currentSubscriberTag2 = &unk_2847EF6C8;
         }
 
-        *v61 = 138412546;
-        v62 = nameCopy;
-        v63 = 2112;
-        v64 = currentSubscriberTag2;
-        _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, "Failed to find LiveUsage for %@ with subscriber tag: %@", v61, 0x16u);
+        *v60 = 138412546;
+        v61 = nameCopy;
+        v62 = 2112;
+        v63 = currentSubscriberTag2;
+        _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, "Failed to find LiveUsage for %@ with subscriber tag: %@", v60, 0x16u);
         if (v27)
         {
         }
@@ -5822,9 +5801,9 @@ LABEL_78:
       v22 = procStateLogHandle;
       if (os_log_type_enabled(procStateLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        *v61 = 138412290;
-        v62 = nameCopy;
-        _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEFAULT, "Failed to find process for %@", v61, 0xCu);
+        *v60 = 138412290;
+        v61 = nameCopy;
+        _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEFAULT, "Failed to find process for %@", v60, 0xCu);
       }
     }
 
@@ -5841,21 +5820,19 @@ LABEL_78:
   v12 = procStateLogHandle;
   if (os_log_type_enabled(procStateLogHandle, OS_LOG_TYPE_INFO))
   {
-    *v61 = 138412290;
-    v62 = nameCopy;
+    *v60 = 138412290;
+    v61 = nameCopy;
     v13 = "Removal when already gone for app: %@";
     goto LABEL_17;
   }
 
 LABEL_79:
   _Block_object_dispose(buf, 8);
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 void __101__FlowAnalyticsEngine__handleApplicationNotificationStateChangedForBundleName_edgeMode_intervalType___block_invoke(uint64_t a1)
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) _processFetchForName:0 bundle:*(a1 + 40) shouldFillMiss:0];
   v4 = v3;
   if (v3 && ([v3 isApp] & 1) != 0)
@@ -5888,32 +5865,32 @@ void __101__FlowAnalyticsEngine__handleApplicationNotificationStateChangedForBun
       v14 = analyticsLogHandle;
       if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
       {
-        v62 = *(a1 + 40);
+        v61 = *(a1 + 40);
         v15 = *(*(*(a1 + 48) + 8) + 40);
         log = v14;
-        v68 = [v15 wifiIN_end];
-        [v68 doubleValue];
-        v17 = v16;
-        v67 = [*(*(*(a1 + 48) + 8) + 40) wifiIN_start];
+        v67 = [v15 wifiIN_end];
         [v67 doubleValue];
-        v19 = v17 - v18;
-        v66 = [*(*(*(a1 + 48) + 8) + 40) wifiOUT_end];
+        v17 = v16;
+        v66 = [*(*(*(a1 + 48) + 8) + 40) wifiIN_start];
         [v66 doubleValue];
-        v21 = v20;
-        v65 = [*(*(*(a1 + 48) + 8) + 40) wifiOUT_start];
+        v19 = v17 - v18;
+        v65 = [*(*(*(a1 + 48) + 8) + 40) wifiOUT_end];
         [v65 doubleValue];
+        v21 = v20;
+        v64 = [*(*(*(a1 + 48) + 8) + 40) wifiOUT_start];
+        [v64 doubleValue];
         v23 = v21 - v22;
-        v63 = [*(*(*(a1 + 48) + 8) + 40) wwanIN_end];
-        [v63 doubleValue];
+        v62 = [*(*(*(a1 + 48) + 8) + 40) wwanIN_end];
+        [v62 doubleValue];
         v25 = v24;
-        v61 = [*(*(*(a1 + 48) + 8) + 40) wwanIN_start];
-        [v61 doubleValue];
-        v27 = v25 - v26;
-        v60 = [*(*(*(a1 + 48) + 8) + 40) wwanOUT_end];
+        v60 = [*(*(*(a1 + 48) + 8) + 40) wwanIN_start];
         [v60 doubleValue];
-        v29 = v28;
-        v59 = [*(*(*(a1 + 48) + 8) + 40) wwanOUT_start];
+        v27 = v25 - v26;
+        v59 = [*(*(*(a1 + 48) + 8) + 40) wwanOUT_end];
         [v59 doubleValue];
+        v29 = v28;
+        v58 = [*(*(*(a1 + 48) + 8) + 40) wwanOUT_start];
+        [v58 doubleValue];
         v31 = v29 - v30;
         v32 = [*(*(*(a1 + 48) + 8) + 40) wiredIN_end];
         [v32 doubleValue];
@@ -5931,21 +5908,21 @@ void __101__FlowAnalyticsEngine__handleApplicationNotificationStateChangedForBun
         v45 = [*(*(*(a1 + 48) + 8) + 40) timeStart];
         [v44 timeIntervalSinceDate:v45];
         *buf = 138414082;
-        v70 = v62;
-        v71 = 2048;
-        v72 = v19;
-        v73 = 2048;
-        v74 = v23;
-        v75 = 2048;
-        v76 = v27;
-        v77 = 2048;
-        v78 = v31;
-        v79 = 2048;
-        v80 = v37;
-        v81 = 2048;
-        v82 = v43;
-        v83 = 2048;
-        v84 = v46;
+        v69 = v61;
+        v70 = 2048;
+        v71 = v19;
+        v72 = 2048;
+        v73 = v23;
+        v74 = 2048;
+        v75 = v27;
+        v76 = 2048;
+        v77 = v31;
+        v78 = 2048;
+        v79 = v37;
+        v80 = 2048;
+        v81 = v43;
+        v82 = 2048;
+        v83 = v46;
         _os_log_impl(&dword_23255B000, log, OS_LOG_TYPE_DEBUG, "%@ usage: WiFi in/out: %.0f/%.0f, Cell in/out: %.0f/%.0f, Wired in/out %.0f/%.0fDuration: %.1f seconds", buf, 0x52u);
       }
 
@@ -6002,9 +5979,9 @@ void __101__FlowAnalyticsEngine__handleApplicationNotificationStateChangedForBun
         }
 
         *buf = 138412546;
-        v70 = v54;
-        v71 = 2112;
-        v72 = *&v56;
+        v69 = v54;
+        v70 = 2112;
+        v71 = *&v56;
         _os_log_impl(&dword_23255B000, v52, OS_LOG_TYPE_ERROR, "Upon exit: failed to find LiveUsage for %@ with subscriber tag: %@", buf, 0x16u);
         if (v57)
         {
@@ -6026,19 +6003,45 @@ void __101__FlowAnalyticsEngine__handleApplicationNotificationStateChangedForBun
     {
       v51 = *(a1 + 40);
       *buf = 138412290;
-      v70 = v51;
+      v69 = v51;
       _os_log_impl(&dword_23255B000, v50, OS_LOG_TYPE_ERROR, "Upon exit: %@: invalid App", buf, 0xCu);
     }
 
     [*(*(a1 + 32) + 120) removeObjectForKey:*(a1 + 40)];
   }
+}
 
-  v58 = *MEMORY[0x277D85DE8];
+- (void)_changedForegroundState:(BOOL)state forBundle:(id)bundle
+{
+  stateCopy = state;
+  v12 = *MEMORY[0x277D85DE8];
+  bundleCopy = bundle;
+  v7 = procStateLogHandle;
+  if (os_log_type_enabled(procStateLogHandle, OS_LOG_TYPE_INFO))
+  {
+    v9[0] = 67109378;
+    v9[1] = stateCopy;
+    v10 = 2112;
+    v11 = bundleCopy;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_INFO, "changedForegroundState to %d for %@", v9, 0x12u);
+  }
+
+  v8 = stateCopy || +[AppStateMonitor hasAnyForegroundApp];
+  [AppTracker noteForegroundState:stateCopy forApp:bundleCopy hasForegroundApps:v8];
+  if (self->_haveTypicalUsage)
+  {
+    [(FlowAnalyticsEngine *)self _handleApplicationNotificationStateChangedForBundleName:bundleCopy edgeMode:stateCopy intervalType:0];
+  }
+
+  else
+  {
+    [(FlowAnalyticsEngine *)self _handleApplicationNotificationCompactForBundleName:bundleCopy edgeMode:stateCopy];
+  }
 }
 
 - (void)processSnapshotForConnectionEstablishment:(id)establishment
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   establishmentCopy = establishment;
   snapshotReason = [establishmentCopy snapshotReason];
   [establishmentCopy flowDuration];
@@ -6096,106 +6099,101 @@ LABEL_12:
     }
 
     *buf = 138413058;
-    v32 = attributedEntity;
-    v35 = 2048;
-    v33 = 2112;
-    v34 = qUICState;
+    v31 = attributedEntity;
+    v34 = 2048;
+    v32 = 2112;
+    v33 = qUICState;
     if (interfaceWiFi)
     {
       v20 = @"Wi-Fi";
     }
 
-    v36 = v18;
-    v37 = 2112;
-    v38 = v20;
+    v35 = v18;
+    v36 = 2112;
+    v37 = v20;
     _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_INFO, "Found pre-connection establishment stuck flow for %@ [state=%@, duration=%.2fs, interface=%@]", buf, 0x2Au);
   }
 
   v21 = [MEMORY[0x277CCABB0] numberWithBool:{interfaceWiFi, @"kNotificationFlowScrutinizerIsWiFiFlow"}];
-  v30[0] = v21;
-  v29[1] = @"kNotificationFlowScrutinizerIsCellularFlow";
+  v29[0] = v21;
+  v28[1] = @"kNotificationFlowScrutinizerIsCellularFlow";
   v22 = [MEMORY[0x277CCABB0] numberWithBool:interfaceCellular];
-  v30[1] = v22;
-  v29[2] = @"kNotificationFlowScrutinizerFlowDuration";
+  v29[1] = v22;
+  v28[2] = @"kNotificationFlowScrutinizerFlowDuration";
   v23 = [MEMORY[0x277CCABB0] numberWithDouble:v18];
   v24 = v23;
-  v29[3] = @"kNotificationFlowScrutinizerAttributedEntity";
+  v28[3] = @"kNotificationFlowScrutinizerAttributedEntity";
   v25 = @"unknown";
   if (attributedEntity)
   {
     v25 = attributedEntity;
   }
 
-  v30[2] = v23;
-  v30[3] = v25;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:4];
+  v29[2] = v23;
+  v29[3] = v25;
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:4];
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"kNotificationFlowScrutinizerPreConnectionStuckFlow" object:self userInfo:v26];
 
 LABEL_21:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)networkDomainUserAppTrackingChanged:(id)changed
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   v5 = domainTrackingLogHandle;
   if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = changedCopy;
+    v11 = changedCopy;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "networkDomainUserAppTrackingChanged delegate: %@", buf, 0xCu);
   }
 
   queue = [(AnalyticsEngineCore *)self queue];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __59__FlowAnalyticsEngine_networkDomainUserAppTrackingChanged___block_invoke;
-  v9[3] = &unk_27898A7D0;
-  v9[4] = self;
-  v10 = changedCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __59__FlowAnalyticsEngine_networkDomainUserAppTrackingChanged___block_invoke;
+  v8[3] = &unk_27898A7D0;
+  v8[4] = self;
+  v9 = changedCopy;
   v7 = changedCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v8);
 }
 
 - (void)networkDomainUserEndpointTrackingChanged:(id)changed
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   v5 = domainTrackingLogHandle;
   if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = changedCopy;
+    v11 = changedCopy;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "networkDomainUserEndpointTrackingChanged delegate: %@", buf, 0xCu);
   }
 
   queue = [(AnalyticsEngineCore *)self queue];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __64__FlowAnalyticsEngine_networkDomainUserEndpointTrackingChanged___block_invoke;
-  v9[3] = &unk_27898A7D0;
-  v9[4] = self;
-  v10 = changedCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __64__FlowAnalyticsEngine_networkDomainUserEndpointTrackingChanged___block_invoke;
+  v8[3] = &unk_27898A7D0;
+  v8[4] = self;
+  v9 = changedCopy;
   v7 = changedCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v8);
 }
 
 - (void)networkDomainResolution:(id)resolution
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   resolutionCopy = resolution;
   v5 = domainTrackingLogHandle;
   if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v20 = resolutionCopy;
+    v19 = resolutionCopy;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "networkDomainResolution delegate: %@", buf, 0xCu);
   }
 
@@ -6206,19 +6204,17 @@ LABEL_21:
   v9 = [v6 objectForKeyedSubscript:@"ResolvingBundleName"];
   v10 = [v6 objectForKeyedSubscript:@"ResolvingEndpoints"];
   queue = [(AnalyticsEngineCore *)self queue];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __47__FlowAnalyticsEngine_networkDomainResolution___block_invoke;
-  v15[3] = &unk_27898A758;
-  v15[4] = self;
-  v16 = v9;
-  v17 = v10;
-  v18 = unsignedIntegerValue;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __47__FlowAnalyticsEngine_networkDomainResolution___block_invoke;
+  v14[3] = &unk_27898A758;
+  v14[4] = self;
+  v15 = v9;
+  v16 = v10;
+  v17 = unsignedIntegerValue;
   v12 = v10;
   v13 = v9;
-  dispatch_async(queue, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v14);
 }
 
 _BYTE *__47__FlowAnalyticsEngine_networkDomainResolution___block_invoke(uint64_t a1)
@@ -6238,19 +6234,40 @@ _BYTE *__47__FlowAnalyticsEngine_networkDomainResolution___block_invoke(uint64_t
 
 - (void)sendPowerLogReport:(id)report isStart:(BOOL)start
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   reportCopy = report;
   v5 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = reportCopy;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "SDM power log report %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = reportCopy;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "SDM power log report %@", &v6, 0xCu);
   }
 
   PLLogRegisteredEvent();
+}
 
-  v6 = *MEMORY[0x277D85DE8];
+- (void)postAWDMetric:(id)metric withIdentifier:(unsigned int)identifier
+{
+  v4 = *&identifier;
+  v12 = *MEMORY[0x277D85DE8];
+  metricCopy = metric;
+  v6 = analyticsLogHandle;
+  if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = 138412290;
+    v11 = metricCopy;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "SDM AWD report %@", &v10, 0xCu);
+  }
+
+  v7 = +[AWDAgent defaultInstance];
+  v8 = [v7 shouldSendMetric:v4];
+
+  if (v8)
+  {
+    v9 = +[AWDAgent defaultInstance];
+    [v9 postMetric:metricCopy withIdentifier:v4];
+  }
 }
 
 - (void)postCAEvent:(id)event withName:(id)name
@@ -6346,7 +6363,7 @@ LABEL_12:
 
 - (void)_newCoreMediaAssetDownloadEvent:(id)event
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   selfCopy = self;
   if (![(FlowScrutinizer *)self->flowScrutinizer assetDownloadsScrutinized])
@@ -6356,31 +6373,31 @@ LABEL_12:
 
   userInfo = [eventCopy userInfo];
   [userInfo keyEnumerator];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
-  obj = v49 = 0u;
-  v5 = [obj countByEnumeratingWithState:&v46 objects:v60 count:16];
+  obj = v48 = 0u;
+  v5 = [obj countByEnumeratingWithState:&v45 objects:v59 count:16];
   if (!v5)
   {
     goto LABEL_45;
   }
 
   v6 = v5;
-  v32 = 408;
-  v33 = eventCopy;
+  v31 = 408;
+  v32 = eventCopy;
   v7 = 0;
-  v35 = *v47;
+  v34 = *v46;
   while (2)
   {
     for (i = 0; i != v6; ++i)
     {
-      if (*v47 != v35)
+      if (*v46 != v34)
       {
         objc_enumerationMutation(obj);
       }
 
-      v9 = *(*(&v46 + 1) + 8 * i);
+      v9 = *(*(&v45 + 1) + 8 * i);
 
       v10 = [userInfo objectForKeyedSubscript:v9];
       eventKey = [v10 eventKey];
@@ -6396,14 +6413,14 @@ LABEL_12:
       }
 
       v7 = v9;
-      v14 = [SymptomStore keyFromSymptomName:@"SYMPTOM_TRANSPORT_DISCONNECT", v32];
+      v14 = [SymptomStore keyFromSymptomName:@"SYMPTOM_TRANSPORT_DISCONNECT", v31];
       v15 = [eventKey isEqualToString:v14];
 
       if (v15)
       {
         if (v13 && (([v13 isEqualToString:@"mediaserverd"] & 1) != 0 || objc_msgSend(v13, "isEqualToString:", @"mediaplaybackd")))
         {
-          v28 = *(&selfCopy->super.super.isa + v32);
+          v28 = *(&selfCopy->super.super.isa + v31);
           [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
           [v28 noteCoreMediaAssetDownloadEvent:2 downloadUUID:0 byProcess:v13 onBehalfOf:0 duration:0.0 at:v29];
         }
@@ -6423,7 +6440,7 @@ LABEL_12:
         if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v51 = v10;
+          v50 = v10;
           _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_DEFAULT, "FAE to CellThroughputAdviser, asset download prohibits cell, event ignored %@", buf, 0xCu);
         }
 
@@ -6438,15 +6455,15 @@ LABEL_43:
         if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_INFO))
         {
           *buf = 134218242;
-          v51 = v16;
-          v52 = 2112;
-          v53 = v10;
+          v50 = v16;
+          v51 = 2112;
+          v52 = v10;
           _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_INFO, "FAE to CellThroughputAdviser, asset download with (0x%llx) restrictions, continue %@", buf, 0x16u);
         }
       }
 
 LABEL_16:
-      v37 = eventKey;
+      v36 = eventKey;
       v18 = [v10 eventQualifierStringForKey:@"1"];
       processId = [v10 processId];
       if (selfCopy->assetDownloadProcessId != processId)
@@ -6499,41 +6516,41 @@ LABEL_16:
         if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134219010;
-          v51 = v24;
-          v52 = 2112;
-          v53 = v13;
-          v54 = 2112;
-          v55 = v18;
-          v56 = 2112;
-          v57 = v22;
-          v58 = 2048;
-          v59 = v25;
+          v50 = v24;
+          v51 = 2112;
+          v52 = v13;
+          v53 = 2112;
+          v54 = v18;
+          v55 = 2112;
+          v56 = v22;
+          v57 = 2048;
+          v58 = v25;
           _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEFAULT, "FAE to flowScrutinizer, Download event %lld %@ on behalf of %@ download UUID %@ duration %.3f", buf, 0x34u);
         }
 
         queue = [(AnalyticsEngineCore *)selfCopy queue];
-        v39[0] = MEMORY[0x277D85DD0];
-        v39[1] = 3221225472;
-        v39[2] = __55__FlowAnalyticsEngine__newCoreMediaAssetDownloadEvent___block_invoke_405;
-        v39[3] = &unk_27898C558;
-        v39[4] = selfCopy;
-        v43 = v24;
-        v40 = v22;
-        v41 = v13;
-        v42 = v18;
-        v44 = v25;
-        dispatch_async(queue, v39);
+        v38[0] = MEMORY[0x277D85DD0];
+        v38[1] = 3221225472;
+        v38[2] = __55__FlowAnalyticsEngine__newCoreMediaAssetDownloadEvent___block_invoke_405;
+        v38[3] = &unk_27898C558;
+        v38[4] = selfCopy;
+        v42 = v24;
+        v39 = v22;
+        v40 = v13;
+        v41 = v18;
+        v43 = v25;
+        dispatch_async(queue, v38);
       }
 
       else if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v51 = v10;
+        v50 = v10;
         _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_ERROR, "FAE to flowScrutinizer, incorrect asset download symptom format %@", buf, 0xCu);
       }
     }
 
-    v6 = [obj countByEnumeratingWithState:&v46 objects:v60 count:16];
+    v6 = [obj countByEnumeratingWithState:&v45 objects:v59 count:16];
     if (v6)
     {
       continue;
@@ -6544,14 +6561,13 @@ LABEL_16:
 
 LABEL_44:
 
-  eventCopy = v33;
+  eventCopy = v32;
 LABEL_45:
 
 LABEL_46:
-  v31 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __55__FlowAnalyticsEngine__newCoreMediaAssetDownloadEvent___block_invoke(uint64_t a1)
+void *__55__FlowAnalyticsEngine__newCoreMediaAssetDownloadEvent___block_invoke(uint64_t a1)
 {
   result = [TransportHandler requestExplicitDisconnectSymptom:*(a1 + 40)];
   *(*(a1 + 32) + 392) = *(a1 + 40);
@@ -6573,19 +6589,19 @@ uint64_t __55__FlowAnalyticsEngine__newCoreMediaAssetDownloadEvent___block_invok
 
 - (void)_noteSizeableBackgroundTransferEvent:(id)event
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   if (!self->cellThroughputAdviser)
   {
-    goto LABEL_19;
+    return;
   }
 
   userInfo = [event userInfo];
   [userInfo keyEnumerator];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  obj = v39 = 0u;
-  v4 = [obj countByEnumeratingWithState:&v36 objects:v48 count:16];
+  obj = v38 = 0u;
+  v4 = [obj countByEnumeratingWithState:&v35 objects:v47 count:16];
   if (!v4)
   {
     goto LABEL_18;
@@ -6593,24 +6609,24 @@ uint64_t __55__FlowAnalyticsEngine__newCoreMediaAssetDownloadEvent___block_invok
 
   v6 = v4;
   v7 = 0;
-  v8 = *v37;
-  v25 = v31;
+  v8 = *v36;
+  v24 = v30;
   *&v5 = 138413058;
-  v24 = v5;
-  v26 = *v37;
+  v23 = v5;
+  v25 = *v36;
   do
   {
     v9 = 0;
-    v28 = v6;
+    v27 = v6;
     do
     {
       v10 = v7;
-      if (*v37 != v8)
+      if (*v36 != v8)
       {
         objc_enumerationMutation(obj);
       }
 
-      v7 = *(*(&v36 + 1) + 8 * v9);
+      v7 = *(*(&v35 + 1) + 8 * v9);
 
       v11 = [userInfo objectForKeyedSubscript:v7];
       eventData = [v11 eventData];
@@ -6629,33 +6645,33 @@ uint64_t __55__FlowAnalyticsEngine__newCoreMediaAssetDownloadEvent___block_invok
         v19 = flowScrutinyLogHandle;
         if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v24;
-          v41 = v14;
-          v42 = 2048;
-          v43 = v16;
-          v44 = 2048;
-          v45 = v18;
-          v46 = 2048;
-          v47 = v17;
+          *buf = v23;
+          v40 = v14;
+          v41 = 2048;
+          v42 = v16;
+          v43 = 2048;
+          v44 = v18;
+          v45 = 2048;
+          v46 = v17;
           _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "FAE to CellThroughputAdviser, Sizeable Background Transfer event named %@, event %lld, download %llu, upload %llu", buf, 0x2Au);
         }
 
-        v20 = [(AnalyticsEngineCore *)self queue:v24];
+        v20 = [(AnalyticsEngineCore *)self queue:v23];
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
-        v31[0] = __60__FlowAnalyticsEngine__noteSizeableBackgroundTransferEvent___block_invoke;
-        v31[1] = &unk_27898C580;
-        v31[2] = self;
-        v32 = v14;
-        v33 = v16;
-        v34 = v18;
-        v35 = v17;
+        v30[0] = __60__FlowAnalyticsEngine__noteSizeableBackgroundTransferEvent___block_invoke;
+        v30[1] = &unk_27898C580;
+        v30[2] = self;
+        v31 = v14;
+        v32 = v16;
+        v33 = v18;
+        v34 = v17;
         v21 = v14;
         dispatch_async(v20, block);
 
         userInfo = v15;
-        v8 = v26;
-        v6 = v28;
+        v8 = v25;
+        v6 = v27;
         goto LABEL_15;
       }
 
@@ -6663,7 +6679,7 @@ uint64_t __55__FlowAnalyticsEngine__newCoreMediaAssetDownloadEvent___block_invok
       if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v41 = v11;
+        v40 = v11;
         _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_ERROR, "FAE to CellThroughputAdviser, incorrect sizeable background transfer symptom format %@", buf, 0xCu);
       }
 
@@ -6673,14 +6689,12 @@ LABEL_15:
     }
 
     while (v6 != v9);
-    v6 = [obj countByEnumeratingWithState:&v36 objects:v48 count:16];
+    v6 = [obj countByEnumeratingWithState:&v35 objects:v47 count:16];
   }
 
   while (v6);
 
 LABEL_18:
-LABEL_19:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __60__FlowAnalyticsEngine__noteSizeableBackgroundTransferEvent___block_invoke(void *a1)
@@ -6697,35 +6711,35 @@ uint64_t __60__FlowAnalyticsEngine__noteSizeableBackgroundTransferEvent___block_
 
 - (void)_newExpectedTransfer:(id)transfer
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   transferCopy = transfer;
   selfCopy = self;
   if ([(FlowScrutinizer *)self->flowScrutinizer expectedTransfersScrutinized])
   {
     userInfo = [transferCopy userInfo];
     [userInfo keyEnumerator];
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
-    obj = v44 = 0u;
-    v33 = [obj countByEnumeratingWithState:&v41 objects:v53 count:16];
-    if (v33)
+    obj = v43 = 0u;
+    v32 = [obj countByEnumeratingWithState:&v40 objects:v52 count:16];
+    if (v32)
     {
-      v26 = transferCopy;
+      v25 = transferCopy;
       v6 = 0;
-      v32 = *v42;
-      v27 = userInfo;
+      v31 = *v41;
+      v26 = userInfo;
       do
       {
-        for (i = 0; i != v33; ++i)
+        for (i = 0; i != v32; ++i)
         {
           v8 = v6;
-          if (*v42 != v32)
+          if (*v41 != v31)
           {
             objc_enumerationMutation(obj);
           }
 
-          v6 = *(*(&v41 + 1) + 8 * i);
+          v6 = *(*(&v40 + 1) + 8 * i);
 
           v9 = [userInfo objectForKeyedSubscript:v6];
           v10 = [v9 eventQualifierStringForKey:@"3"];
@@ -6750,43 +6764,43 @@ uint64_t __60__FlowAnalyticsEngine__noteSizeableBackgroundTransferEvent___block_
           v18 = v17 || v16 == 0;
           if (!v18 && [v14 length] == 4 && objc_msgSend(v16, "length") == 8)
           {
-            v40 = 0;
             v39 = 0;
-            [v14 getBytes:&v40 length:4];
-            [v16 getBytes:&v39 length:8];
-            v19 = v40 - 1;
-            if ((v40 - 1) >= 8)
+            v38 = 0;
+            [v14 getBytes:&v39 length:4];
+            [v16 getBytes:&v38 length:8];
+            v19 = v39 - 1;
+            if ((v39 - 1) >= 8)
             {
               v22 = flowScrutinyLogHandle;
               if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_ERROR))
               {
                 *buf = 67109120;
-                LODWORD(v46) = v40;
+                LODWORD(v45) = v39;
                 _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_ERROR, "_newExpectedTransfer, unexpected transfer type %d", buf, 8u);
               }
 
-              LOBYTE(v30) = 0;
+              LOBYTE(v29) = 0;
               LOBYTE(v20) = 1;
             }
 
             else
             {
-              v30 = 0xCCu >> v19;
+              v29 = 0xCCu >> v19;
               v20 = 0xFu >> v19;
             }
 
-            v29 = v20;
+            v28 = v20;
             v23 = flowScrutinyLogHandle;
             if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 134218754;
-              v46 = v39;
-              v47 = 1024;
-              v48 = v40;
-              v49 = 2112;
-              v50 = v12;
-              v51 = 2112;
-              v52 = v10;
+              v45 = v38;
+              v46 = 1024;
+              v47 = v39;
+              v48 = 2112;
+              v49 = v12;
+              v50 = 2112;
+              v51 = v10;
               _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, "FAE to FlowScrutinizer, Transfer size %lld type %d flow UUID %@ from %@", buf, 0x26u);
             }
 
@@ -6796,13 +6810,13 @@ uint64_t __60__FlowAnalyticsEngine__noteSizeableBackgroundTransferEvent___block_
             block[2] = __44__FlowAnalyticsEngine__newExpectedTransfer___block_invoke;
             block[3] = &unk_27898C5A8;
             block[4] = selfCopy;
-            v36 = v39;
+            v35 = v38;
+            v36 = v28 & 1;
             v37 = v29 & 1;
-            v38 = v30 & 1;
-            v35 = v12;
+            v34 = v12;
             dispatch_async(queue, block);
 
-            userInfo = v27;
+            userInfo = v26;
           }
 
           else
@@ -6811,22 +6825,20 @@ uint64_t __60__FlowAnalyticsEngine__noteSizeableBackgroundTransferEvent___block_
             if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v46 = v9;
+              v45 = v9;
               _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, "FAE to CellThroughputAdviser, incorrect symptom format %@", buf, 0xCu);
             }
           }
         }
 
-        v33 = [obj countByEnumeratingWithState:&v41 objects:v53 count:16];
+        v32 = [obj countByEnumeratingWithState:&v40 objects:v52 count:16];
       }
 
-      while (v33);
+      while (v32);
 
-      transferCopy = v26;
+      transferCopy = v25;
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __44__FlowAnalyticsEngine__newExpectedTransfer___block_invoke(uint64_t a1)
@@ -6841,45 +6853,70 @@ uint64_t __44__FlowAnalyticsEngine__newExpectedTransfer___block_invoke(uint64_t 
   return [v2 noteExpectedTransfer:v3 inbound:v4 upperThreshold:v5 flowUUID:v1 at:?];
 }
 
+- (void)_startMonitoringNetworkInterface:(int)interface usingThreshold:(unint64_t)threshold
+{
+  v5 = *&interface;
+  v21 = *MEMORY[0x277D85DE8];
+  v7 = analyticsLogHandle;
+  if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_INFO))
+  {
+    *buf = 67109376;
+    thresholdCopy = threshold;
+    v19 = 1024;
+    v20 = v5;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_INFO, "Configure threshold %d on interface %d", buf, 0xEu);
+  }
+
+  nstatManager = self->nstatManager;
+  v15 = *MEMORY[0x277D2CBB8];
+  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v5];
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{threshold, v9}];
+  v14 = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v16 = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  [(NWStatsManager *)nstatManager configure:v12];
+}
+
 - (void)_dumpSubFlowCounts
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v12 = 8;
-  v13 = 0;
-  v10 = 8;
-  v11 = 0;
-  if (sysctlbyname("net.soflow.count", &v13, &v12, 0, 0) < 0)
+  v17 = *MEMORY[0x277D85DE8];
+  v11 = 8;
+  v12 = 0;
+  v9 = 8;
+  v10 = 0;
+  if (sysctlbyname("net.soflow.count", &v12, &v11, 0, 0) < 0)
   {
     v4 = flowLogHandle;
     if (!os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_10;
+      return;
     }
 
     v5 = v4;
     v6 = *__error();
     *buf = 67109120;
-    LODWORD(v15) = v6;
+    LODWORD(v14) = v6;
     v7 = "Unable to retrieve current subflow counts, error %d";
 LABEL_9:
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, v7, buf, 8u);
 
-    goto LABEL_10;
+    return;
   }
 
-  v2 = sysctlbyname("net.soflow.high_water_mark", &v11, &v10, 0, 0);
+  v2 = sysctlbyname("net.soflow.high_water_mark", &v10, &v9, 0, 0);
   v3 = flowLogHandle;
   if (v2 < 0)
   {
     if (!os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_10;
+      return;
     }
 
     v5 = v3;
     v8 = *__error();
     *buf = 67109120;
-    LODWORD(v15) = v8;
+    LODWORD(v14) = v8;
     v7 = "Unable to retrieve current subflow high water mark, error %d";
     goto LABEL_9;
   }
@@ -6887,19 +6924,16 @@ LABEL_9:
   if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v15 = v13;
-    v16 = 2048;
-    v17 = v11;
+    v14 = v12;
+    v15 = 2048;
+    v16 = v10;
     _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "Kernel UDP subflows current count %ld high water mark %ld", buf, 0x16u);
   }
-
-LABEL_10:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dumpState
 {
-  v43[2] = *MEMORY[0x277D85DE8];
+  v42[2] = *MEMORY[0x277D85DE8];
   +[AppTracker dumpState];
   +[TrackedFlow dumpState];
   [(BitmapRetriever *)self->bitmapRetriever dumpActivityBitmap];
@@ -6914,11 +6948,11 @@ LABEL_10:
   [(NWStatsManager *)self->nstatManager dumpState];
   v4 = MEMORY[0x277D2CA90];
   v5 = *MEMORY[0x277D2CC40];
-  v42[0] = *MEMORY[0x277D2CC48];
-  v42[1] = v5;
-  v43[0] = MEMORY[0x277CBEC38];
-  v43[1] = MEMORY[0x277CBEC38];
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:2];
+  v41[0] = *MEMORY[0x277D2CC48];
+  v41[1] = v5;
+  v42[0] = MEMORY[0x277CBEC38];
+  v42[1] = MEMORY[0x277CBEC38];
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:2];
   [v4 dumpKernelMetrics:v6];
 
   [(FlowAnalyticsEngine *)self _dumpSubFlowCounts];
@@ -6932,32 +6966,32 @@ LABEL_10:
       _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Connection flow UUIDs stored in memory, keyed with sourceKey", buf, 2u);
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     obj = self->snapshotFlowUUIDs;
-    v9 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v31 objects:v41 count:16];
+    v9 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v30 objects:v40 count:16];
     if (v9)
     {
       v11 = v9;
       v12 = 0;
-      v13 = *v32;
+      v13 = *v31;
       *&v10 = 134218498;
-      v28 = v10;
+      v27 = v10;
       do
       {
         v14 = 0;
-        v29 = v11;
+        v28 = v11;
         do
         {
-          if (*v32 != v13)
+          if (*v31 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v31 + 1) + 8 * v14);
-          v16 = [*(&self->super.super.isa + v7) objectForKeyedSubscript:{v15, v28}];
+          v15 = *(*(&v30 + 1) + 8 * v14);
+          v16 = [*(&self->super.super.isa + v7) objectForKeyedSubscript:{v15, v27}];
           v12 += [v16 count];
 
           v17 = domainTrackingLogHandle;
@@ -6971,25 +7005,25 @@ LABEL_10:
             [v22 componentsJoinedByString:{@", "}];
             v23 = v13;
             v25 = v24 = self;
-            *buf = v28;
-            v36 = v12;
-            v37 = 2112;
-            v38 = v15;
-            v39 = 2112;
-            v40 = v25;
+            *buf = v27;
+            v35 = v12;
+            v36 = 2112;
+            v37 = v15;
+            v38 = 2112;
+            v39 = v25;
             _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "\tcumulative %lu: %@ -> [%@]", buf, 0x20u);
 
             v7 = v21;
             self = v24;
             v13 = v23;
-            v11 = v29;
+            v11 = v28;
           }
 
           ++v14;
         }
 
         while (v11 != v14);
-        v11 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v31 objects:v41 count:16];
+        v11 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v30 objects:v40 count:16];
       }
 
       while (v11);
@@ -7000,13 +7034,11 @@ LABEL_10:
   if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v36 = connSnapshotFlowUUIDHitsAndMisses_0;
-    v37 = 2048;
-    v38 = connSnapshotFlowUUIDHitsAndMisses_1;
+    v35 = connSnapshotFlowUUIDHitsAndMisses_0;
+    v36 = 2048;
+    v37 = connSnapshotFlowUUIDHitsAndMisses_1;
     _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEFAULT, "Connection flow UUIDs that were hit/missed by flows (since symptomsd's start): %llu/%llu", buf, 0x16u);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_setupLocalCache
@@ -7054,14 +7086,14 @@ LABEL_10:
 
 - (void)_removeAllInfoForProcess:(id)process
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   processCopy = process;
   v5 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 138477827;
-    v14 = processCopy;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "_removeAllInfoForProcess %{private}@", &v13, 0xCu);
+    v12 = 138477827;
+    v13 = processCopy;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "_removeAllInfoForProcess %{private}@", &v12, 0xCu);
   }
 
   if (processCopy)
@@ -7094,9 +7126,9 @@ LABEL_10:
     {
       if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
       {
-        v13 = 138412290;
-        v14 = name;
-        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "Removing local cache for %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = name;
+        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "Removing local cache for %@", &v12, 0xCu);
       }
 
       [(FlowAnalyticsEngine *)self _removeFromProcCache:name ofType:v8];
@@ -7106,24 +7138,22 @@ LABEL_10:
 
     else if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138412290;
-      v14 = processCopy;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "Trying to removing local cache for %@ with nil name", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = processCopy;
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "Trying to removing local cache for %@ with nil name", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeInfoFromWorkspaceForProcess:(id)process
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   processCopy = process;
   v5 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138477827;
-    v24 = processCopy;
+    v23 = processCopy;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Removing Process entity %{private}@ from workspace", buf, 0xCu);
   }
 
@@ -7158,9 +7188,9 @@ LABEL_10:
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218243;
-      v24 = v18;
-      v25 = 2113;
-      v26 = bundleName;
+      v23 = v18;
+      v24 = 2113;
+      v25 = bundleName;
       _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "Removed %ld ADU records for %{private}@ via reset data", buf, 0x16u);
     }
   }
@@ -7168,23 +7198,21 @@ LABEL_10:
   pspace = self->pspace;
   v21 = [MEMORY[0x277CBEA60] arrayWithObject:processCopy];
   [(ProcessAnalytics *)pspace removeEntities:v21];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_processFetchForName:(id)name bundle:(id)bundle extension:(id)extension shouldFillMiss:(BOOL)miss
 {
   missCopy = miss;
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   bundleCopy = bundle;
   extensionCopy = extension;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x3032000000;
-  v59 = __Block_byref_object_copy__5;
-  v60 = __Block_byref_object_dispose__5;
-  v61 = 0;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = __Block_byref_object_copy__5;
+  v59 = __Block_byref_object_dispose__5;
+  v60 = 0;
   if (extensionCopy)
   {
     objc_opt_class();
@@ -7205,9 +7233,9 @@ LABEL_10:
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138478083;
-      v63 = extensionCopy;
-      v64 = 2113;
-      v65 = bundleCopy;
+      v62 = extensionCopy;
+      v63 = 2113;
+      v64 = bundleCopy;
       v18 = "_processFetchForName: extensionName %{private}@ requested with bundleID %{private}@, validation error";
       v19 = v17;
       v20 = 22;
@@ -7238,7 +7266,7 @@ LABEL_35:
     }
 
     *buf = 138477827;
-    v63 = bundleCopy;
+    v62 = bundleCopy;
     v18 = "_processFetchForName: bundleID %{private}@, validation error";
 LABEL_34:
     v19 = v33;
@@ -7273,7 +7301,7 @@ LABEL_36:
     }
 
     *buf = 138477827;
-    v63 = nameCopy;
+    v62 = nameCopy;
     v18 = "_processFetchForName: processName %{private}@, validation error";
     goto LABEL_34;
   }
@@ -7286,127 +7314,125 @@ LABEL_13:
   v21 = v16;
   v22 = *v15;
   v23 = [(FlowAnalyticsEngine *)self _fetchFromProcCacheWithName:v21 ofType:v14];
-  v24 = v57[5];
-  v57[5] = v23;
+  v24 = v56[5];
+  v56[5] = v23;
 
-  if (v57[5])
+  if (v56[5])
   {
     v25 = analyticsLogHandle;
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       v26 = off_27898CA70[v14 - 2];
       *buf = 138478083;
-      v63 = v21;
-      v64 = 2112;
-      v65 = v26;
+      v62 = v21;
+      v63 = 2112;
+      v64 = v26;
       _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_DEBUG, "_processFetchForName: Return existing cached Process for processName %{private}@ type %@", buf, 0x16u);
     }
 
-    v27 = v57[5];
+    v27 = v56[5];
   }
 
   else
   {
-    v48 = v13;
+    v47 = v13;
     p_pspace = &self->pspace;
-    v49 = v22;
-    v50 = [(ProcessAnalytics *)self->pspace processesWithName:v21 nameKind:v22];
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __76__FlowAnalyticsEngine__processFetchForName_bundle_extension_shouldFillMiss___block_invoke;
-    v51[3] = &unk_27898C5D0;
-    v46 = extensionCopy;
-    v52 = v46;
+    v48 = v22;
+    v49 = [(ProcessAnalytics *)self->pspace processesWithName:v21 nameKind:v22];
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __76__FlowAnalyticsEngine__processFetchForName_bundle_extension_shouldFillMiss___block_invoke;
+    v50[3] = &unk_27898C5D0;
+    v45 = extensionCopy;
+    v51 = v45;
     v29 = bundleCopy;
-    v53 = v29;
-    v55 = &v56;
+    v52 = v29;
+    v54 = &v55;
     v30 = nameCopy;
-    v54 = v30;
-    [v50 enumerateObjectsUsingBlock:v51];
-    if (v57[5])
+    v53 = v30;
+    [v49 enumerateObjectsUsingBlock:v50];
+    if (v56[5])
     {
       v31 = analyticsLogHandle;
       if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
         v32 = off_27898CA70[v14 - 2];
         *buf = 138478083;
-        v63 = v21;
-        v64 = 2112;
-        v65 = v32;
+        v62 = v21;
+        v63 = 2112;
+        v64 = v32;
         _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_DEBUG, "_processFetchForName: insert under name %{private}@ type %@", buf, 0x16u);
       }
 
-      [(FlowAnalyticsEngine *)self _insertProcCache:v57[5] ofType:v14 underName:v21, v46];
+      [(FlowAnalyticsEngine *)self _insertProcCache:v56[5] ofType:v14 underName:v21, v45];
     }
 
     else if (missCopy)
     {
-      if (v48)
+      if (v47)
       {
         p_pspace = &self->aspace;
       }
 
       createEntity = [(ProcessAnalytics *)*p_pspace createEntity];
-      v36 = v57[5];
-      v57[5] = createEntity;
+      v36 = v56[5];
+      v56[5] = createEntity;
 
-      v37 = v57[5];
+      v37 = v56[5];
       if (v37)
       {
         [v37 setProcName:v21];
-        [v57[5] setBundleName:v29];
-        [v57[5] setExtensionName:v47];
+        [v56[5] setBundleName:v29];
+        [v56[5] setExtensionName:v46];
         date = [MEMORY[0x277CBEAA8] date];
-        [v57[5] setFirstTimeStamp:date];
+        [v56[5] setFirstTimeStamp:date];
 
         distantPast = [MEMORY[0x277CBEAA8] distantPast];
-        [v57[5] setTimeStamp:distantPast];
+        [v56[5] setTimeStamp:distantPast];
 
         [(AnalyticsWorkspace *)self->super.workspace save];
-        [(FlowAnalyticsEngine *)self _insertProcCache:v57[5] ofType:v14 underName:v21];
+        [(FlowAnalyticsEngine *)self _insertProcCache:v56[5] ofType:v14 underName:v21];
         v40 = analyticsLogHandle;
         if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
-          v41 = v57[5];
+          v41 = v56[5];
           v42 = off_27898CA70[v14 - 2];
           *buf = 138478083;
-          v63 = v41;
-          v64 = 2112;
-          v65 = v42;
+          v62 = v41;
+          v63 = 2112;
+          v64 = v42;
           _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_DEFAULT, "Created new Process entity %{private}@ and inserted to cache %@", buf, 0x16u);
         }
       }
 
       else
       {
-        v45 = analyticsLogHandle;
+        v44 = analyticsLogHandle;
         if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412803;
-          v63 = v30;
-          v64 = 2113;
-          v65 = v29;
-          v66 = 2113;
-          v67 = v47;
-          _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_ERROR, "Failed to allocate Process entity for (process:{private}%@, bundleID:%{private}@, extension:%{private}@)", buf, 0x20u);
+          v62 = v30;
+          v63 = 2113;
+          v64 = v29;
+          v65 = 2113;
+          v66 = v46;
+          _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_ERROR, "Failed to allocate Process entity for (process:{private}%@, bundleID:%{private}@, extension:%{private}@)", buf, 0x20u);
         }
       }
     }
 
-    v27 = v57[5];
+    v27 = v56[5];
   }
 
 LABEL_37:
-  _Block_object_dispose(&v56, 8);
-
-  v43 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v55, 8);
 
   return v27;
 }
 
 void __76__FlowAnalyticsEngine__processFetchForName_bundle_extension_shouldFillMiss___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = v7;
   v9 = a1[4];
@@ -7446,14 +7472,14 @@ void __76__FlowAnalyticsEngine__processFetchForName_bundle_extension_shouldFillM
       v21 = v28;
       v22 = [v8 procName];
       v31 = [v8 bundleName];
-      v62 = 138478595;
-      v63 = v29;
-      v64 = 2113;
-      v65 = v30;
-      v66 = 2113;
-      v67 = v22;
-      v68 = 2113;
-      v69 = v31;
+      v61 = 138478595;
+      v62 = v29;
+      v63 = 2113;
+      v64 = v30;
+      v65 = 2113;
+      v66 = v22;
+      v67 = 2113;
+      v68 = v31;
       v32 = "_processFetchForName: unexpected Process format for extensionName %{private}@ bundleID %{private}@: found procName %{private}@ bundleName %{private}@";
       v33 = v21;
       v34 = OS_LOG_TYPE_ERROR;
@@ -7470,10 +7496,10 @@ void __76__FlowAnalyticsEngine__processFetchForName_bundle_extension_shouldFillM
     v27 = a1[4];
     v21 = v26;
     v22 = [v8 extensionName];
-    v62 = 138478083;
-    v63 = v27;
-    v64 = 2113;
-    v65 = v22;
+    v61 = 138478083;
+    v62 = v27;
+    v63 = 2113;
+    v64 = v22;
     v23 = "_processFetchForName: unexpected Process values returned from processesWithName, requested extension %{private}@ but get %{private}@";
     goto LABEL_12;
   }
@@ -7495,10 +7521,10 @@ void __76__FlowAnalyticsEngine__processFetchForName_bundle_extension_shouldFillM
       v20 = a1[5];
       v21 = v19;
       v22 = [v8 extensionName];
-      v62 = 138478083;
-      v63 = v20;
-      v64 = 2113;
-      v65 = v22;
+      v61 = 138478083;
+      v62 = v20;
+      v63 = 2113;
+      v64 = v22;
       v23 = "_processFetchForName: skipping Process return from processesWithName, require bundleID %{private}@ but has extension %{private}@";
       v24 = v21;
       v25 = OS_LOG_TYPE_DEBUG;
@@ -7527,19 +7553,19 @@ void __76__FlowAnalyticsEngine__processFetchForName_bundle_extension_shouldFillM
         v21 = v40;
         v22 = [v8 procName];
         v31 = [v8 bundleName];
-        v62 = 138478339;
-        v63 = v41;
-        v64 = 2113;
-        v65 = v22;
-        v66 = 2113;
-        v67 = v31;
+        v61 = 138478339;
+        v62 = v41;
+        v63 = 2113;
+        v64 = v22;
+        v65 = 2113;
+        v66 = v31;
         v32 = "_processFetchForName: unexpected Process format for bundleID %{private}@: procName %{private}@ bundleName %{private}@";
         v33 = v21;
         v34 = OS_LOG_TYPE_FAULT;
 LABEL_26:
         v35 = 32;
 LABEL_27:
-        _os_log_impl(&dword_23255B000, v33, v34, v32, &v62, v35);
+        _os_log_impl(&dword_23255B000, v33, v34, v32, &v61, v35);
 
         goto LABEL_28;
       }
@@ -7550,25 +7576,25 @@ LABEL_39:
       goto LABEL_29;
     }
 
-    v56 = analyticsLogHandle;
+    v55 = analyticsLogHandle;
     if (!os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_29;
     }
 
-    v57 = a1[5];
-    v21 = v56;
+    v56 = a1[5];
+    v21 = v55;
     v22 = [v8 bundleName];
-    v62 = 138478083;
-    v63 = v57;
-    v64 = 2113;
-    v65 = v22;
+    v61 = 138478083;
+    v62 = v56;
+    v63 = 2113;
+    v64 = v22;
     v23 = "_processFetchForName: unexpected Process values returned from processesWithName, requested bundleID %{private}@ but get %{private}@";
 LABEL_12:
     v24 = v21;
     v25 = OS_LOG_TYPE_ERROR;
 LABEL_13:
-    _os_log_impl(&dword_23255B000, v24, v25, v23, &v62, 0x16u);
+    _os_log_impl(&dword_23255B000, v24, v25, v23, &v61, 0x16u);
 LABEL_28:
 
     goto LABEL_29;
@@ -7588,12 +7614,12 @@ LABEL_24:
     v21 = v43;
     v22 = [v8 bundleName];
     v31 = [v8 extensionName];
-    v62 = 138478339;
-    v63 = v44;
-    v64 = 2113;
-    v65 = v22;
-    v66 = 2113;
-    v67 = v31;
+    v61 = 138478339;
+    v62 = v44;
+    v63 = 2113;
+    v64 = v22;
+    v65 = 2113;
+    v66 = v31;
     v32 = "_processFetchForName: skipping Process return from processesWithName, require processName %{private}@ but has bundle %{private}@ extension %{private}@";
     v33 = v21;
     v34 = OS_LOG_TYPE_DEBUG;
@@ -7607,25 +7633,25 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v58 = a1[6];
-  v59 = [v8 procName];
-  LODWORD(v58) = [v58 isEqualToString:v59];
+  v57 = a1[6];
+  v58 = [v8 procName];
+  LODWORD(v57) = [v57 isEqualToString:v58];
 
-  if (v58)
+  if (v57)
   {
     goto LABEL_39;
   }
 
-  v60 = analyticsLogHandle;
+  v59 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v61 = a1[6];
-    v21 = v60;
+    v60 = a1[6];
+    v21 = v59;
     v22 = [v8 procName];
-    v62 = 138478083;
-    v63 = v61;
-    v64 = 2113;
-    v65 = v22;
+    v61 = 138478083;
+    v62 = v60;
+    v63 = 2113;
+    v64 = v22;
     v23 = "_processFetchForName: unexpected Process values returned from processesWithName, requested processName %{private}@ but get %{private}@";
     goto LABEL_12;
   }
@@ -7641,17 +7667,17 @@ LABEL_29:
       v49 = a1[5];
       v48 = a1[6];
       v50 = a1[4];
-      v62 = 138478595;
-      v63 = v48;
-      v64 = 2113;
-      v65 = v49;
-      v66 = 2113;
-      v67 = v50;
-      v68 = 2113;
-      v69 = v8;
+      v61 = 138478595;
+      v62 = v48;
+      v63 = 2113;
+      v64 = v49;
+      v65 = 2113;
+      v66 = v50;
+      v67 = 2113;
+      v68 = v8;
       v51 = "_processFetchForName: match for request for processName %{private}@ bundle %{private}@ extension %{private}@ match %{private}@";
 LABEL_34:
-      _os_log_impl(&dword_23255B000, v46, OS_LOG_TYPE_DEBUG, v51, &v62, 0x2Au);
+      _os_log_impl(&dword_23255B000, v46, OS_LOG_TYPE_DEBUG, v51, &v61, 0x2Au);
     }
   }
 
@@ -7660,19 +7686,17 @@ LABEL_34:
     v53 = a1[5];
     v52 = a1[6];
     v54 = a1[4];
-    v62 = 138478595;
-    v63 = v52;
-    v64 = 2113;
-    v65 = v53;
-    v66 = 2113;
-    v67 = v54;
-    v68 = 2113;
-    v69 = v8;
+    v61 = 138478595;
+    v62 = v52;
+    v63 = 2113;
+    v64 = v53;
+    v65 = 2113;
+    v66 = v54;
+    v67 = 2113;
+    v68 = v8;
     v51 = "_processFetchForName: no match for requested processName %{private}@ bundle %{private}@ extension %{private}@ non-match %{private}@";
     goto LABEL_34;
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_has1stPartyImpliedBundleNameBehavior:(id)behavior
@@ -7725,7 +7749,7 @@ void __61__FlowAnalyticsEngine__has1stPartyImpliedBundleNameBehavior___block_inv
 
 - (id)_fetchFromProcCacheWithName:(id)name ofType:(unsigned int)type
 {
-  v65[4] = *MEMORY[0x277D85DE8];
+  v64[4] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (!nameCopy || ![(AnalyticsWorkspace *)self->super.workspace persistent])
   {
@@ -7737,10 +7761,10 @@ void __61__FlowAnalyticsEngine__has1stPartyImpliedBundleNameBehavior___block_inv
   if (!self->processViaBundleNameCache || !self->processViaProcNameCache || !self->processViaExtensionNameCache)
   {
     typeCopy = type;
-    v53 = nameCopy;
+    v52 = nameCopy;
     v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
     v10 = *p_processViaBundleNameCache;
-    v54 = &self->processViaBundleNameCache;
+    v53 = &self->processViaBundleNameCache;
     *p_processViaBundleNameCache = v9;
 
     v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -7758,7 +7782,7 @@ void __61__FlowAnalyticsEngine__has1stPartyImpliedBundleNameBehavior___block_inv
     v18 = [v15 entityForName:entityName inManagedObjectContext:mainObjectContext];
 
     v19 = objc_alloc_init(MEMORY[0x277CBE428]);
-    v50 = v18;
+    v49 = v18;
     [v19 setEntity:v18];
     [v19 setResultType:2];
     [v19 setAllocationType:1];
@@ -7769,41 +7793,41 @@ void __61__FlowAnalyticsEngine__has1stPartyImpliedBundleNameBehavior___block_inv
 
     [v20 setExpressionResultType:2000];
     v22 = *MEMORY[0x277D6B5C0];
-    v65[0] = *MEMORY[0x277D6B5D0];
-    v65[1] = v22;
-    v65[2] = *MEMORY[0x277D6B5C8];
-    v65[3] = v20;
-    v48 = v20;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:4];
+    v64[0] = *MEMORY[0x277D6B5D0];
+    v64[1] = v22;
+    v64[2] = *MEMORY[0x277D6B5C8];
+    v64[3] = v20;
+    v47 = v20;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:4];
     [v19 setPropertiesToFetch:v23];
 
     selfCopy = self;
     mainObjectContext2 = [(AnalyticsWorkspace *)self->super.workspace mainObjectContext];
-    v59 = 0;
-    v49 = v19;
-    v26 = [mainObjectContext2 executeFetchRequest:v19 error:&v59];
-    v47 = v59;
+    v58 = 0;
+    v48 = v19;
+    v26 = [mainObjectContext2 executeFetchRequest:v19 error:&v58];
+    v46 = v58;
 
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
     v27 = v26;
-    v28 = [v27 countByEnumeratingWithState:&v55 objects:v64 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v54 objects:v63 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v56;
+      v30 = *v55;
       do
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v56 != v30)
+          if (*v55 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          v32 = *(*(&v55 + 1) + 8 * i);
+          v32 = *(*(&v54 + 1) + 8 * i);
           v33 = [v32 objectForKeyedSubscript:*MEMORY[0x277D6B5D0]];
           v34 = [v32 objectForKeyedSubscript:*MEMORY[0x277D6B5C0]];
           v35 = [v32 objectForKeyedSubscript:*MEMORY[0x277D6B5C8]];
@@ -7819,7 +7843,7 @@ void __61__FlowAnalyticsEngine__has1stPartyImpliedBundleNameBehavior___block_inv
 
             else if (v34)
             {
-              v37 = *v54;
+              v37 = *v53;
               v38 = v36;
               v39 = v34;
             }
@@ -7835,7 +7859,7 @@ void __61__FlowAnalyticsEngine__has1stPartyImpliedBundleNameBehavior___block_inv
           }
         }
 
-        v29 = [v27 countByEnumeratingWithState:&v55 objects:v64 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v54 objects:v63 count:16];
       }
 
       while (v29);
@@ -7845,9 +7869,9 @@ void __61__FlowAnalyticsEngine__has1stPartyImpliedBundleNameBehavior___block_inv
     [(AnalyticsWorkspace *)selfCopy->super.workspace reset];
 
     objc_autoreleasePoolPop(context);
-    nameCopy = v53;
+    nameCopy = v52;
     type = typeCopy;
-    p_processViaBundleNameCache = v54;
+    p_processViaBundleNameCache = v53;
   }
 
   if (type > 2)
@@ -7886,8 +7910,8 @@ LABEL_33:
     {
       *buf = 67109379;
       typeCopy2 = type;
-      v62 = 2113;
-      v63 = nameCopy;
+      v61 = 2113;
+      v62 = nameCopy;
       _os_log_impl(&dword_23255B000, v42, OS_LOG_TYPE_ERROR, "Attempting to retrieve using invalid cache type %u, for name %{private}@", buf, 0x12u);
     }
 
@@ -7915,14 +7939,13 @@ LABEL_36:
 LABEL_41:
 
 LABEL_42:
-  v45 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (void)_insertProcCache:(id)cache ofType:(unsigned int)type underName:(id)name
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   nameCopy = name;
   v10 = analyticsLogHandle;
@@ -7938,14 +7961,14 @@ LABEL_42:
       v11 = off_27898CA88[type];
     }
 
-    *v21 = 138412803;
-    *&v21[4] = v11;
-    *&v21[12] = 2113;
-    *&v21[14] = nameCopy;
-    *&v21[22] = 2112;
-    *&v21[24] = cacheCopy;
+    *v20 = 138412803;
+    *&v20[4] = v11;
+    *&v20[12] = 2113;
+    *&v20[14] = nameCopy;
+    *&v20[22] = 2112;
+    *&v20[24] = cacheCopy;
     v12 = v10;
-    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "_insertProcCache %@ %{private}@ with %@", v21, 0x20u);
+    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "_insertProcCache %@ %{private}@ with %@", v20, 0x20u);
   }
 
   if (cacheCopy && nameCopy)
@@ -7964,22 +7987,22 @@ LABEL_42:
         objectID = [cacheCopy objectID];
         v14 = 96;
 LABEL_16:
-        [*(&self->super.super.isa + v14) setObject:objectID forKeyedSubscript:{nameCopy, *v21, *&v21[16], *&v21[24]}];
+        [*(&self->super.super.isa + v14) setObject:objectID forKeyedSubscript:{nameCopy, *v20, *&v20[8], *&v20[24]}];
         goto LABEL_17;
     }
 
-    v18 = analyticsLogHandle;
+    v17 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v19 = v18;
+      v18 = v17;
       objectID2 = [cacheCopy objectID];
-      *v21 = 67109635;
-      *&v21[4] = type;
-      *&v21[8] = 2113;
-      *&v21[10] = nameCopy;
-      *&v21[18] = 2112;
-      *&v21[20] = objectID2;
-      _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "Attempting to insert into invalid cache type %u, name %{private}@ for process %@", v21, 0x1Cu);
+      *v20 = 67109635;
+      *&v20[4] = type;
+      *&v20[8] = 2113;
+      *&v20[10] = nameCopy;
+      *&v20[18] = 2112;
+      *&v20[20] = objectID2;
+      _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, "Attempting to insert into invalid cache type %u, name %{private}@ for process %@", v20, 0x1Cu);
     }
   }
 
@@ -7990,22 +8013,20 @@ LABEL_16:
     {
       objectID = v15;
       objectID3 = [cacheCopy objectID];
-      *v21 = 138412546;
-      *&v21[4] = nameCopy;
-      *&v21[12] = 2112;
-      *&v21[14] = objectID3;
-      _os_log_impl(&dword_23255B000, objectID, OS_LOG_TYPE_ERROR, "Attempting to insert either no-name or no-process in cache: %@, name: %@", v21, 0x16u);
+      *v20 = 138412546;
+      *&v20[4] = nameCopy;
+      *&v20[12] = 2112;
+      *&v20[14] = objectID3;
+      _os_log_impl(&dword_23255B000, objectID, OS_LOG_TYPE_ERROR, "Attempting to insert either no-name or no-process in cache: %@, name: %@", v20, 0x16u);
 
 LABEL_17:
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeFromProcCache:(id)cache ofType:(unsigned int)type
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   v7 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
@@ -8020,12 +8041,12 @@ LABEL_17:
       v8 = off_27898CA88[type];
     }
 
-    *v17 = 138412547;
-    *&v17[4] = v8;
-    *&v17[12] = 2113;
-    *&v17[14] = cacheCopy;
+    *v16 = 138412547;
+    *&v16[4] = v8;
+    *&v16[12] = 2113;
+    *&v16[14] = cacheCopy;
     v9 = v7;
-    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "_removeFromProcCache %@ %{private}@", v17, 0x16u);
+    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "_removeFromProcCache %@ %{private}@", v16, 0x16u);
   }
 
   if (cacheCopy)
@@ -8041,31 +8062,31 @@ LABEL_17:
       case 3u:
         v10 = 96;
 LABEL_15:
-        [*(&self->super.super.isa + v10) removeObjectForKey:{cacheCopy, *v17, *&v17[16], v18}];
+        [*(&self->super.super.isa + v10) removeObjectForKey:{cacheCopy, *v16, *&v16[8], v17}];
         goto LABEL_16;
     }
 
-    v13 = analyticsLogHandle;
+    v12 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v14 = @"CacheTypeUnknown";
+      v13 = @"CacheTypeUnknown";
       if (type == 1)
       {
-        v14 = @"CacheTypeBestMatch";
+        v13 = @"CacheTypeBestMatch";
       }
 
       if (!type)
       {
-        v14 = @"CacheTypeUndefined";
+        v13 = @"CacheTypeUndefined";
       }
 
-      v15 = v14;
-      *v17 = 138478083;
-      *&v17[4] = cacheCopy;
-      *&v17[12] = 2112;
-      *&v17[14] = v15;
-      v16 = v13;
-      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "Attempting to remove process with name %{private}@ but invalid cache type %@", v17, 0x16u);
+      v14 = v13;
+      *v16 = 138478083;
+      *&v16[4] = cacheCopy;
+      *&v16[12] = 2112;
+      *&v16[14] = v14;
+      v15 = v12;
+      _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "Attempting to remove process with name %{private}@ but invalid cache type %@", v16, 0x16u);
     }
   }
 
@@ -8074,14 +8095,12 @@ LABEL_15:
     v11 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      *v17 = 0;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "Attempting to remove no-name process from cache", v17, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "Attempting to remove no-name process from cache", v16, 2u);
     }
   }
 
 LABEL_16:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isLiveUsageinScope:(id)scope forTime:(id)time
@@ -8128,10 +8147,10 @@ LABEL_16:
 
 - (id)_liveUsageFetchForProcess:(id)process
 {
-  v113 = *MEMORY[0x277D85DE8];
+  v112 = *MEMORY[0x277D85DE8];
   processCopy = process;
   isApp = [processCopy isApp];
-  v81 = processCopy;
+  v80 = processCopy;
   hintLiveUsage = [processCopy hintLiveUsage];
   selfCopy = self;
   if (hintLiveUsage)
@@ -8174,7 +8193,7 @@ LABEL_16:
         if (currentSubscriberTag4)
         {
 LABEL_12:
-          hintLiveUsage2 = [v81 hintLiveUsage];
+          hintLiveUsage2 = [v80 hintLiveUsage];
           goto LABEL_33;
         }
       }
@@ -8190,25 +8209,25 @@ LABEL_12:
     }
   }
 
-  v100 = 0u;
-  v101 = 0u;
-  v98 = 0u;
   v99 = 0u;
-  obj = [v81 hasLiveUsage];
-  v13 = [obj countByEnumeratingWithState:&v98 objects:v112 count:16];
+  v100 = 0u;
+  v97 = 0u;
+  v98 = 0u;
+  obj = [v80 hasLiveUsage];
+  v13 = [obj countByEnumeratingWithState:&v97 objects:v111 count:16];
   if (v13)
   {
-    v14 = *v99;
+    v14 = *v98;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v99 != v14)
+        if (*v98 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        currentSubscriberTag4 = *(*(&v98 + 1) + 8 * i);
+        currentSubscriberTag4 = *(*(&v97 + 1) + 8 * i);
         v16 = [currentSubscriberTag4 tag];
         v17 = selfCopy->ctShim;
         if (v17 && ([(CoreTelephonyShim *)selfCopy->ctShim currentSubscriberTag], (currentSubscriberTag2 = objc_claimAutoreleasedReturnValue()) != 0))
@@ -8236,12 +8255,12 @@ LABEL_12:
         if (v20)
         {
           hintLiveUsage2 = currentSubscriberTag4;
-          [v81 setHintLiveUsage:hintLiveUsage2];
+          [v80 setHintLiveUsage:hintLiveUsage2];
           goto LABEL_32;
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v98 objects:v112 count:16];
+      v13 = [obj countByEnumeratingWithState:&v97 objects:v111 count:16];
       if (v13)
       {
         continue;
@@ -8261,7 +8280,7 @@ LABEL_33:
     v21 = analyticsLogHandle;
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
-      name = [v81 name];
+      name = [v80 name];
       v23 = selfCopy->ctShim;
       if (v23)
       {
@@ -8286,13 +8305,13 @@ LABEL_33:
       }
 
       *buf = 67109890;
-      v105 = isApp;
-      v106 = 2112;
-      v107 = name;
-      v108 = 2048;
-      v109 = hintLiveUsage2;
-      v110 = 2112;
-      v111 = currentSubscriberTag5;
+      v104 = isApp;
+      v105 = 2112;
+      v106 = name;
+      v107 = 2048;
+      v108 = hintLiveUsage2;
+      v109 = 2112;
+      v110 = currentSubscriberTag5;
       _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEBUG, "found LU hint (mode: %d) for %@: %p, subscriber tag: %@", buf, 0x26u);
       if (v25)
       {
@@ -8311,7 +8330,7 @@ LABEL_33:
     v43 = analyticsLogHandle;
     if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
     {
-      name2 = [v81 name];
+      name2 = [v80 name];
       v45 = selfCopy->ctShim;
       if (v45)
       {
@@ -8336,13 +8355,13 @@ LABEL_33:
       }
 
       *buf = 67109890;
-      v105 = 1;
-      v106 = 2112;
-      v107 = name2;
-      v108 = 2048;
-      v109 = hintLiveUsage2;
-      v110 = 2112;
-      v111 = currentSubscriberTag6;
+      v104 = 1;
+      v105 = 2112;
+      v106 = name2;
+      v107 = 2048;
+      v108 = hintLiveUsage2;
+      v109 = 2112;
+      v110 = currentSubscriberTag6;
       _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_DEBUG, "found LU hint but expired (mode: %d) for %@: %p, subscriber tag: %@", buf, 0x26u);
       if (v47)
       {
@@ -8358,28 +8377,28 @@ LABEL_33:
 
   if (!isApp)
   {
-    v92 = 0u;
-    v93 = 0u;
-    v90 = 0u;
     v91 = 0u;
-    obja = [v81 hasLiveUsage];
-    v26 = [obja countByEnumeratingWithState:&v90 objects:v102 count:16];
+    v92 = 0u;
+    v89 = 0u;
+    v90 = 0u;
+    obja = [v80 hasLiveUsage];
+    v26 = [obja countByEnumeratingWithState:&v89 objects:v101 count:16];
     if (!v26)
     {
       goto LABEL_97;
     }
 
-    v27 = *v91;
+    v27 = *v90;
     while (1)
     {
       for (j = 0; j != v26; ++j)
       {
-        if (*v91 != v27)
+        if (*v90 != v27)
         {
           objc_enumerationMutation(obja);
         }
 
-        v29 = *(*(&v90 + 1) + 8 * j);
+        v29 = *(*(&v89 + 1) + 8 * j);
         v30 = [v29 tag];
         v31 = selfCopy->ctShim;
         if (v31)
@@ -8418,11 +8437,11 @@ LABEL_33:
         if (v37)
         {
           hintLiveUsage2 = v29;
-          [v81 setHintLiveUsage:hintLiveUsage2];
+          [v80 setHintLiveUsage:hintLiveUsage2];
           v38 = analyticsLogHandle;
           if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
           {
-            name3 = [v81 name];
+            name3 = [v80 name];
             v40 = selfCopy->ctShim;
             if (v40)
             {
@@ -8447,13 +8466,13 @@ LABEL_33:
             }
 
             *buf = 67109890;
-            v105 = 0;
-            v106 = 2112;
-            v107 = name3;
-            v108 = 2048;
-            v109 = hintLiveUsage2;
-            v110 = 2112;
-            v111 = currentSubscriberTag9;
+            v104 = 0;
+            v105 = 2112;
+            v106 = name3;
+            v107 = 2048;
+            v108 = hintLiveUsage2;
+            v109 = 2112;
+            v110 = currentSubscriberTag9;
             _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_DEBUG, "established LU hint (mode: %d) for %@: %p, subscriber tag: %@", buf, 0x26u);
             if (v42)
             {
@@ -8468,7 +8487,7 @@ LABEL_33:
         }
       }
 
-      v26 = [obja countByEnumeratingWithState:&v90 objects:v102 count:16];
+      v26 = [obja countByEnumeratingWithState:&v89 objects:v101 count:16];
       if (!v26)
       {
         goto LABEL_97;
@@ -8477,28 +8496,28 @@ LABEL_33:
   }
 
 LABEL_81:
-  v96 = 0u;
-  v97 = 0u;
   v95 = 0u;
+  v96 = 0u;
   v94 = 0u;
-  obja = [v81 hasLiveUsage];
-  v48 = [obja countByEnumeratingWithState:&v94 objects:v103 count:16];
+  v93 = 0u;
+  obja = [v80 hasLiveUsage];
+  v48 = [obja countByEnumeratingWithState:&v93 objects:v102 count:16];
   if (!v48)
   {
     goto LABEL_97;
   }
 
-  v49 = *v95;
+  v49 = *v94;
   while (2)
   {
     for (k = 0; k != v48; ++k)
     {
-      if (*v95 != v49)
+      if (*v94 != v49)
       {
         objc_enumerationMutation(obja);
       }
 
-      v51 = *(*(&v94 + 1) + 8 * k);
+      v51 = *(*(&v93 + 1) + 8 * k);
       v52 = [v51 tag];
       v53 = selfCopy->ctShim;
       if (v53)
@@ -8539,7 +8558,7 @@ LABEL_81:
         v59 = analyticsLogHandle;
         if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
         {
-          name4 = [v81 name];
+          name4 = [v80 name];
           v61 = selfCopy->ctShim;
           if (v61)
           {
@@ -8564,13 +8583,13 @@ LABEL_81:
           }
 
           *buf = 67109890;
-          v105 = 1;
-          v106 = 2112;
-          v107 = name4;
-          v108 = 2048;
-          v109 = 0;
-          v110 = 2112;
-          v111 = currentSubscriberTag11;
+          v104 = 1;
+          v105 = 2112;
+          v106 = name4;
+          v107 = 2048;
+          v108 = 0;
+          v109 = 2112;
+          v110 = currentSubscriberTag11;
           _os_log_impl(&dword_23255B000, v59, OS_LOG_TYPE_DEBUG, "established LU hint (mode: %d) for %@: %p, subscriber tag: %@", buf, 0x26u);
           if (v63)
           {
@@ -8582,12 +8601,12 @@ LABEL_81:
         }
 
         hintLiveUsage2 = v51;
-        [v81 setHintLiveUsage:hintLiveUsage2];
+        [v80 setHintLiveUsage:hintLiveUsage2];
         goto LABEL_117;
       }
     }
 
-    v48 = [obja countByEnumeratingWithState:&v94 objects:v103 count:16];
+    v48 = [obja countByEnumeratingWithState:&v93 objects:v102 count:16];
     if (v48)
     {
       continue;
@@ -8629,34 +8648,34 @@ LABEL_117:
       [hintLiveUsage2 setTag:&unk_2847EF6C8];
     }
 
-    [v81 setHintLiveUsage:hintLiveUsage2];
+    [v80 setHintLiveUsage:hintLiveUsage2];
     v69 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
     {
       v70 = v69;
-      name5 = [v81 name];
+      name5 = [v80 name];
       v72 = [hintLiveUsage2 tag];
       *buf = 67109890;
-      v105 = isApp;
-      v106 = 2112;
-      v107 = name5;
-      v108 = 2048;
-      v109 = hintLiveUsage2;
-      v110 = 2112;
-      v111 = v72;
+      v104 = isApp;
+      v105 = 2112;
+      v106 = name5;
+      v107 = 2048;
+      v108 = hintLiveUsage2;
+      v109 = 2112;
+      v110 = v72;
       _os_log_impl(&dword_23255B000, v70, OS_LOG_TYPE_DEBUG, "creating LU record (mode: %d) for %@: %p, subscriber tag: %@", buf, 0x26u);
     }
 
-    [v81 addHasLiveUsageObject:hintLiveUsage2];
+    [v80 addHasLiveUsageObject:hintLiveUsage2];
     v73 = [hintLiveUsage2 tag];
-    v74 = [(FlowAnalyticsEngine *)selfCopy _liveUsageCountForProcess:v81 subscriberTag:v73];
+    v74 = [(FlowAnalyticsEngine *)selfCopy _liveUsageCountForProcess:v80 subscriberTag:v73];
 
-    hasLiveUsage = [v81 hasLiveUsage];
+    hasLiveUsage = [v80 hasLiveUsage];
     v76 = [hasLiveUsage count] == 1;
 
     if (v76)
     {
-      [v81 setFirstTimeStamp:date2];
+      [v80 setFirstTimeStamp:date2];
     }
 
     else if (v74 > selfCopy->usageWindowUnitsCount)
@@ -8667,15 +8686,13 @@ LABEL_117:
       block[2] = __49__FlowAnalyticsEngine__liveUsageFetchForProcess___block_invoke;
       block[3] = &unk_27898A328;
       block[4] = selfCopy;
-      v88 = v81;
-      v89 = hintLiveUsage2;
+      v87 = v80;
+      v88 = hintLiveUsage2;
       dispatch_async(queue, block);
     }
   }
 
 LABEL_131:
-
-  v78 = *MEMORY[0x277D85DE8];
 
   return hintLiveUsage2;
 }
@@ -8690,38 +8707,38 @@ void __49__FlowAnalyticsEngine__liveUsageFetchForProcess___block_invoke(uint64_t
 
 - (unint64_t)_liveUsageCountForProcess:(id)process subscriberTag:(id)tag
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   processCopy = process;
   tagCopy = tag;
   if (tagCopy)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     hasLiveUsage = [processCopy hasLiveUsage];
-    v8 = [hasLiveUsage countByEnumeratingWithState:&v19 objects:v25 count:16];
+    v8 = [hasLiveUsage countByEnumeratingWithState:&v18 objects:v24 count:16];
     if (v8)
     {
       v9 = v8;
       v10 = 0;
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(hasLiveUsage);
           }
 
-          v13 = [*(*(&v19 + 1) + 8 * i) tag];
+          v13 = [*(*(&v18 + 1) + 8 * i) tag];
           v14 = [v13 isEqualToNumber:tagCopy];
 
           v10 += v14;
         }
 
-        v9 = [hasLiveUsage countByEnumeratingWithState:&v19 objects:v25 count:16];
+        v9 = [hasLiveUsage countByEnumeratingWithState:&v18 objects:v24 count:16];
       }
 
       while (v9);
@@ -8742,7 +8759,7 @@ void __49__FlowAnalyticsEngine__liveUsageFetchForProcess___block_invoke(uint64_t
       if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        v24 = _liveUsageCountForProcess_subscriberTag__errCount;
+        v23 = _liveUsageCountForProcess_subscriberTag__errCount;
         _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "_liveUsageCountForProcess: encountered unexpected nil tag (%llu previous errors)", buf, 0xCu);
       }
 
@@ -8753,18 +8770,17 @@ void __49__FlowAnalyticsEngine__liveUsageFetchForProcess___block_invoke(uint64_t
     _liveUsageCountForProcess_subscriberTag__errCount = v15 + 1;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)_liveUsagePackForProcess:(id)process subscriberTag:(id)tag
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   processCopy = process;
   tagCopy = tag;
   if (tagCopy)
   {
-    v54 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:self->usageWindowUnitsCount];
+    v53 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:self->usageWindowUnitsCount];
     date = [MEMORY[0x277CBEAA8] date];
     v8 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
@@ -8772,36 +8788,36 @@ void __49__FlowAnalyticsEngine__liveUsageFetchForProcess___block_invoke(uint64_t
       v9 = v8;
       name = [processCopy name];
       *buf = 138412802;
-      v65 = name;
-      v66 = 2048;
-      v67 = [(FlowAnalyticsEngine *)self _liveUsageCountForProcess:processCopy subscriberTag:tagCopy];
-      v68 = 2112;
-      v69 = tagCopy;
+      v64 = name;
+      v65 = 2048;
+      v66 = [(FlowAnalyticsEngine *)self _liveUsageCountForProcess:processCopy subscriberTag:tagCopy];
+      v67 = 2112;
+      v68 = tagCopy;
       _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "packing LU records for %@, count: %lu, subscriber tag: %@", buf, 0x20u);
     }
 
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
     v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
     hasLiveUsage = [processCopy hasLiveUsage];
-    v12 = [hasLiveUsage countByEnumeratingWithState:&v60 objects:v73 count:16];
-    v53 = processCopy;
+    v12 = [hasLiveUsage countByEnumeratingWithState:&v59 objects:v72 count:16];
+    v52 = processCopy;
     if (v12)
     {
       v13 = v12;
       firstObject = 0;
-      v15 = *v61;
+      v15 = *v60;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v61 != v15)
+          if (*v60 != v15)
           {
             objc_enumerationMutation(hasLiveUsage);
           }
 
-          v17 = *(*(&v60 + 1) + 8 * i);
+          v17 = *(*(&v59 + 1) + 8 * i);
           v18 = [v17 tag];
           v19 = [v18 isEqualToNumber:tagCopy];
 
@@ -8814,7 +8830,7 @@ void __49__FlowAnalyticsEngine__liveUsageFetchForProcess___block_invoke(uint64_t
             {
               if (![(FlowAnalyticsEngine *)self _isLiveUsageInRollingWindow:v17 forTime:date])
               {
-                [v54 addObject:v17];
+                [v53 addObject:v17];
               }
             }
 
@@ -8827,13 +8843,13 @@ void __49__FlowAnalyticsEngine__liveUsageFetchForProcess___block_invoke(uint64_t
           }
         }
 
-        v13 = [hasLiveUsage countByEnumeratingWithState:&v60 objects:v73 count:16];
+        v13 = [hasLiveUsage countByEnumeratingWithState:&v59 objects:v72 count:16];
       }
 
       while (v13);
 
-      processCopy = v53;
-      v23 = v54;
+      processCopy = v52;
+      v23 = v53;
       if (firstObject)
       {
         goto LABEL_29;
@@ -8843,7 +8859,7 @@ void __49__FlowAnalyticsEngine__liveUsageFetchForProcess___block_invoke(uint64_t
     else
     {
 
-      v23 = v54;
+      v23 = v53;
     }
 
     if (![v23 count])
@@ -8864,11 +8880,11 @@ void __49__FlowAnalyticsEngine__liveUsageFetchForProcess___block_invoke(uint64_t
       name2 = [processCopy name];
       v30 = [(FlowAnalyticsEngine *)self _liveUsageCountForProcess:processCopy subscriberTag:tagCopy];
       *buf = 138412802;
-      v65 = name2;
-      v66 = 2048;
-      v67 = v30;
-      v68 = 2112;
-      v69 = tagCopy;
+      v64 = name2;
+      v65 = 2048;
+      v66 = v30;
+      v67 = 2112;
+      v68 = tagCopy;
       _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEBUG, "packing LU records, with promotion, for %@, count: %lu, subscriber tag: %@", buf, 0x20u);
     }
 
@@ -8880,26 +8896,26 @@ void __49__FlowAnalyticsEngine__liveUsageFetchForProcess___block_invoke(uint64_t
 LABEL_29:
     if ([v23 count])
     {
-      v58 = 0u;
-      v59 = 0u;
-      v56 = 0u;
       v57 = 0u;
+      v58 = 0u;
+      v55 = 0u;
+      v56 = 0u;
       v31 = v23;
-      v32 = [v31 countByEnumeratingWithState:&v56 objects:v72 count:16];
+      v32 = [v31 countByEnumeratingWithState:&v55 objects:v71 count:16];
       if (v32)
       {
         v33 = v32;
-        v34 = *v57;
+        v34 = *v56;
         do
         {
           for (j = 0; j != v33; ++j)
           {
-            if (*v57 != v34)
+            if (*v56 != v34)
             {
               objc_enumerationMutation(v31);
             }
 
-            v36 = *(*(&v56 + 1) + 8 * j);
+            v36 = *(*(&v55 + 1) + 8 * j);
             [(FlowAnalyticsEngine *)self _applyCountsTo:firstObject fromLiveUsage:v36 mustReset:0];
             timeStamp = [firstObject timeStamp];
             [timeStamp timeIntervalSinceReferenceDate];
@@ -8915,7 +8931,7 @@ LABEL_29:
             }
           }
 
-          v33 = [v31 countByEnumeratingWithState:&v56 objects:v72 count:16];
+          v33 = [v31 countByEnumeratingWithState:&v55 objects:v71 count:16];
         }
 
         while (v33);
@@ -8926,26 +8942,26 @@ LABEL_29:
       if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
       {
         v45 = v44;
-        processCopy = v53;
-        name3 = [v53 name];
-        v47 = [(FlowAnalyticsEngine *)self _liveUsageCountForProcess:v53 subscriberTag:tagCopy];
+        processCopy = v52;
+        name3 = [v52 name];
+        v47 = [(FlowAnalyticsEngine *)self _liveUsageCountForProcess:v52 subscriberTag:tagCopy];
         *buf = 138413058;
-        v65 = name3;
-        v66 = 2112;
-        v67 = tagCopy;
-        v68 = 2048;
-        v69 = v47;
-        v70 = 2112;
-        v71 = firstObject;
+        v64 = name3;
+        v65 = 2112;
+        v66 = tagCopy;
+        v67 = 2048;
+        v68 = v47;
+        v69 = 2112;
+        v70 = firstObject;
         _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_DEBUG, "packing LU records for %@, subscriber tag: %@, residual count: %lu, mono contents: %@", buf, 0x2Au);
       }
 
       else
       {
-        processCopy = v53;
+        processCopy = v52;
       }
 
-      v23 = v54;
+      v23 = v53;
 LABEL_46:
 
       goto LABEL_47;
@@ -8959,11 +8975,11 @@ LABEL_42:
       name4 = [processCopy name];
       v51 = [(FlowAnalyticsEngine *)self _liveUsageCountForProcess:processCopy subscriberTag:tagCopy];
       *buf = 138412802;
-      v65 = name4;
-      v66 = 2112;
-      v67 = tagCopy;
-      v68 = 2048;
-      v69 = v51;
+      v64 = name4;
+      v65 = 2112;
+      v66 = tagCopy;
+      v67 = 2048;
+      v68 = v51;
       _os_log_impl(&dword_23255B000, v49, OS_LOG_TYPE_DEBUG, "packing LU records for %@, nothing left to do, subscriber tag: %@, residual count: %lu", buf, 0x20u);
     }
 
@@ -8977,7 +8993,7 @@ LABEL_42:
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v65 = _liveUsagePackForProcess_subscriberTag__errCount;
+      v64 = _liveUsagePackForProcess_subscriberTag__errCount;
       _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_ERROR, "_liveUsagePackForProcess: encountered unexpected nil tag (%llu previous errors)", buf, 0xCu);
     }
 
@@ -8986,13 +9002,11 @@ LABEL_42:
 
   ++_liveUsagePackForProcess_subscriberTag__errCount;
 LABEL_47:
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_clearUninstalledAppEntries
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -9005,21 +9019,21 @@ LABEL_47:
   {
     v5 = [(AppAnalytics *)self->aspace fetchAllEntityDictionariesWithProperties:&unk_2847EEB50];
     *buf = 0;
-    v20 = buf;
-    v21 = 0x3032000000;
-    v22 = __Block_byref_object_copy__5;
-    v23 = __Block_byref_object_dispose__5;
-    v24 = 0;
+    v19 = buf;
+    v20 = 0x3032000000;
+    v21 = __Block_byref_object_copy__5;
+    v22 = __Block_byref_object_dispose__5;
+    v23 = 0;
     v6 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __50__FlowAnalyticsEngine__clearUninstalledAppEntries__block_invoke;
-    v15[3] = &unk_27898BEB0;
-    v18 = buf;
-    v16 = defaultWorkspace;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __50__FlowAnalyticsEngine__clearUninstalledAppEntries__block_invoke;
+    v14[3] = &unk_27898BEB0;
+    v17 = buf;
+    v15 = defaultWorkspace;
     v7 = v6;
-    v17 = v7;
-    [v5 enumerateObjectsUsingBlock:v15];
+    v16 = v7;
+    [v5 enumerateObjectsUsingBlock:v14];
     v8 = [v7 count];
     if (v8)
     {
@@ -9028,11 +9042,11 @@ LABEL_47:
       v11 = analyticsLogHandle;
       if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        *v25 = 134218240;
-        v26 = v8;
-        v27 = 2048;
-        v28 = v10;
-        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "Found %lu apps to be removed, removed %ld", v25, 0x16u);
+        *v24 = 134218240;
+        v25 = v8;
+        v26 = 2048;
+        v27 = v10;
+        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "Found %lu apps to be removed, removed %ld", v24, 0x16u);
       }
     }
 
@@ -9041,8 +9055,8 @@ LABEL_47:
       v12 = analyticsLogHandle;
       if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        *v25 = 0;
-        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "No Apps to be removed", v25, 2u);
+        *v24 = 0;
+        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "No Apps to be removed", v24, 2u);
       }
 
       v10 = 0;
@@ -9056,13 +9070,12 @@ LABEL_47:
     v10 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
-uint64_t __50__FlowAnalyticsEngine__clearUninstalledAppEntries__block_invoke(uint64_t a1, void *a2)
+void *__50__FlowAnalyticsEngine__clearUninstalledAppEntries__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = [a2 objectForKeyedSubscript:@"bundleName"];
   v4 = *(*(a1 + 48) + 8);
   v5 = *(v4 + 40);
@@ -9078,30 +9091,29 @@ uint64_t __50__FlowAnalyticsEngine__clearUninstalledAppEntries__block_invoke(uin
       if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         v8 = *(*(*(a1 + 48) + 8) + 40);
-        v10 = 138412290;
-        v11 = v8;
-        _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "%@ is not installed, marked for removal", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = v8;
+        _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "%@ is not installed, marked for removal", &v9, 0xCu);
       }
 
-      result = [*(a1 + 40) addObject:*(*(*(a1 + 48) + 8) + 40)];
+      return [*(a1 + 40) addObject:*(*(*(a1 + 48) + 8) + 40)];
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)_performAppDomainUsageAnalytics
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceNow:0.0];
   workspace = self->super.workspace;
   queue = [(AnalyticsEngineCore *)self queue];
   v6 = [ImpoExpoService impoExpoServiceInWorkspace:workspace andQueue:queue];
 
-  v35 = 0;
-  v7 = [v6 exportAndUnarchiveItemUnderName:@"LASTNETDOMAINSANALYTICSRUN" lastUpdated:&v35 verificationBlock:&__block_literal_global_495];
-  v8 = v35;
+  v34 = 0;
+  v7 = [v6 exportAndUnarchiveItemUnderName:@"LASTNETDOMAINSANALYTICSRUN" lastUpdated:&v34 verificationBlock:&__block_literal_global_495];
+  v8 = v34;
   v9 = domainTrackingLogHandle;
   if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -9111,9 +9123,9 @@ uint64_t __50__FlowAnalyticsEngine__clearUninstalledAppEntries__block_invoke(uin
     [v7 timeIntervalSince1970];
     v14 = formattedDateStringForTimeInterval(v13);
     *buf = 138412546;
-    v37 = v12;
-    v38 = 2112;
-    v39 = v14;
+    v36 = v12;
+    v37 = 2112;
+    v38 = v14;
     _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "Last DMA run at: %@ ADUs captured till: %@", buf, 0x16u);
   }
 
@@ -9151,9 +9163,9 @@ uint64_t __50__FlowAnalyticsEngine__clearUninstalledAppEntries__block_invoke(uin
       [v20 timeIntervalSince1970];
       v26 = formattedDateStringForTimeInterval(v25);
       *buf = 138412546;
-      v37 = v24;
-      v38 = 2112;
-      v39 = v26;
+      v36 = v24;
+      v37 = 2112;
+      v38 = v26;
       _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEBUG, "Posting APR DB metric, capturing ADUs from: %@ to:%@", buf, 0x16u);
     }
 
@@ -9211,8 +9223,6 @@ LABEL_24:
   v7 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSince1970:timeIntervalFrom1970ToMidnight(v3)];
   [v6 archiveAndImportItemUnderName:@"LASTNETDOMAINSANALYTICSRUN" item:v7];
 LABEL_26:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__FlowAnalyticsEngine__performAppDomainUsageAnalytics__block_invoke(uint64_t a1, void *a2)
@@ -9250,59 +9260,59 @@ uint64_t __54__FlowAnalyticsEngine__performAppDomainUsageAnalytics__block_invoke
 
 - (BOOL)_performSystemLevelAppDomainUsageAnalyticsFromDate:(id)date toDate:(id)toDate
 {
-  v83[2] = *MEMORY[0x277D85DE8];
+  v82[2] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CCAC30];
   v7 = gEffectiveUserId;
   toDateCopy = toDate;
   dateCopy = date;
-  v74 = [v6 predicateWithFormat:@"effectiveUserId == %u", v7];
-  v66 = [(ObjectAnalytics *)self->domspace countEntitiesMatching:?];
+  v73 = [v6 predicateWithFormat:@"effectiveUserId == %u", v7];
+  v65 = [(ObjectAnalytics *)self->domspace countEntitiesMatching:?];
   toDateCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"effectiveUserId == %u AND firstTimeStamp >= %@ AND firstTimeStamp < %@", gEffectiveUserId, dateCopy, toDateCopy];
 
   v11 = [MEMORY[0x277CCAC30] predicateWithFormat:@"domainType == %u", 1];
   v12 = [MEMORY[0x277CCAC30] predicateWithFormat:@"kind == %u", 1];
   v13 = [MEMORY[0x277CCAC30] predicateWithFormat:@"domainClassification == %u", 2];
   v14 = MEMORY[0x277CCA920];
-  v83[0] = toDateCopy;
-  v83[1] = v11;
-  v72 = v11;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:2];
+  v82[0] = toDateCopy;
+  v82[1] = v11;
+  v71 = v11;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:2];
   v16 = [v14 andPredicateWithSubpredicates:v15];
 
   v17 = MEMORY[0x277CCA920];
-  v82[0] = toDateCopy;
-  v82[1] = v12;
-  v71 = v12;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:2];
+  v81[0] = toDateCopy;
+  v81[1] = v12;
+  v70 = v12;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:2];
   v19 = [v17 andPredicateWithSubpredicates:v18];
 
   v20 = MEMORY[0x277CCA920];
-  v81[0] = toDateCopy;
-  v81[1] = v13;
-  v70 = v13;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:2];
+  v80[0] = toDateCopy;
+  v80[1] = v13;
+  v69 = v13;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:2];
   v22 = [v20 andPredicateWithSubpredicates:v21];
 
   v23 = [(ObjectAnalytics *)self->domspace countEntitiesMatching:v16];
-  v58 = [(ObjectAnalytics *)self->domspace countEntitiesMatching:v19];
-  v57 = [(ObjectAnalytics *)self->domspace countEntitiesMatching:v22];
+  v57 = [(ObjectAnalytics *)self->domspace countEntitiesMatching:v19];
+  v56 = [(ObjectAnalytics *)self->domspace countEntitiesMatching:v22];
   v24 = [(ObjectAnalytics *)self->domspace countEntitiesMatching:toDateCopy];
-  v69 = v16;
+  v68 = v16;
   v25 = [(FlowAnalyticsEngine *)self _aggregateSumDomainUsageAnalyticsOnField:@"hits" forPredicate:v16];
-  v67 = v22;
+  v66 = v22;
   v26 = [(FlowAnalyticsEngine *)self _aggregateSumDomainUsageAnalyticsOnField:@"hits" forPredicate:v22];
-  v68 = v19;
+  v67 = v19;
   v27 = [(FlowAnalyticsEngine *)self _aggregateSumDomainUsageAnalyticsOnField:@"hits" forPredicate:v19];
-  v73 = toDateCopy;
+  v72 = toDateCopy;
   v28 = [(FlowAnalyticsEngine *)self _aggregateSumDomainUsageAnalyticsOnField:@"hits" forPredicate:toDateCopy];
   v29 = v24;
-  v79[0] = @"trackerUniqueCount";
-  v65 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v23];
-  v80[0] = v65;
-  v79[1] = @"trackerTotalCount";
-  v64 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v25];
-  v80[1] = v64;
-  v79[2] = @"trackerUniqueRatio";
+  v78[0] = @"trackerUniqueCount";
+  v64 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v23];
+  v79[0] = v64;
+  v78[1] = @"trackerTotalCount";
+  v63 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v25];
+  v79[1] = v63;
+  v78[2] = @"trackerUniqueRatio";
   v30 = -1.0;
   v31 = -1.0;
   if (v24)
@@ -9311,78 +9321,78 @@ uint64_t __54__FlowAnalyticsEngine__performAppDomainUsageAnalytics__block_invoke
   }
 
   v32 = v28;
-  v63 = [MEMORY[0x277CCABB0] numberWithDouble:v31];
-  v80[2] = v63;
-  v79[3] = @"trackerTotalRatio";
+  v62 = [MEMORY[0x277CCABB0] numberWithDouble:v31];
+  v79[2] = v62;
+  v78[3] = @"trackerTotalRatio";
   if (v28)
   {
     v30 = (v25 / v32);
   }
 
-  v62 = [MEMORY[0x277CCABB0] numberWithDouble:v30];
-  v80[3] = v62;
-  v79[4] = @"appInitiatedUniqueCount";
-  v61 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v58];
-  v80[4] = v61;
-  v79[5] = @"appInitiatedTotalCount";
-  v60 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v27];
-  v80[5] = v60;
-  v79[6] = @"appInitiatedUniqueRatio";
+  v61 = [MEMORY[0x277CCABB0] numberWithDouble:v30];
+  v79[3] = v61;
+  v78[4] = @"appInitiatedUniqueCount";
+  v60 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v57];
+  v79[4] = v60;
+  v78[5] = @"appInitiatedTotalCount";
+  v59 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v27];
+  v79[5] = v59;
+  v78[6] = @"appInitiatedUniqueRatio";
   v33 = -1.0;
   v34 = -1.0;
   if (v24)
   {
-    v34 = (v58 / v29);
+    v34 = (v57 / v29);
   }
 
-  v59 = [MEMORY[0x277CCABB0] numberWithDouble:v34];
-  v80[6] = v59;
-  v79[7] = @"appInitiatedTotalRatio";
+  v58 = [MEMORY[0x277CCABB0] numberWithDouble:v34];
+  v79[6] = v58;
+  v78[7] = @"appInitiatedTotalRatio";
   if (v28)
   {
     v33 = (v27 / v32);
   }
 
-  v56 = [MEMORY[0x277CCABB0] numberWithDouble:v33];
-  v80[7] = v56;
-  v79[8] = @"ipAddressUniqueCount";
-  v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v57];
-  v80[8] = v35;
-  v79[9] = @"ipAddressTotalCount";
+  v55 = [MEMORY[0x277CCABB0] numberWithDouble:v33];
+  v79[7] = v55;
+  v78[8] = @"ipAddressUniqueCount";
+  v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v56];
+  v79[8] = v35;
+  v78[9] = @"ipAddressTotalCount";
   v36 = v26;
   v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v26];
-  v80[9] = v37;
-  v79[10] = @"ipAddressUniqueRatio";
+  v79[9] = v37;
+  v78[10] = @"ipAddressUniqueRatio";
   v38 = -1.0;
   v39 = -1.0;
   if (v24)
   {
-    v39 = (v57 / v29);
+    v39 = (v56 / v29);
   }
 
   v40 = [MEMORY[0x277CCABB0] numberWithDouble:v39];
-  v80[10] = v40;
-  v79[11] = @"ipAddressTotalRatio";
+  v79[10] = v40;
+  v78[11] = @"ipAddressTotalRatio";
   if (v28)
   {
     v38 = (v36 / v32);
   }
 
   v41 = [MEMORY[0x277CCABB0] numberWithDouble:v38];
-  v80[11] = v41;
-  v79[12] = @"uniqueCount";
+  v79[11] = v41;
+  v78[12] = @"uniqueCount";
   v42 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v24];
-  v80[12] = v42;
-  v79[13] = @"totalCount";
+  v79[12] = v42;
+  v78[13] = @"totalCount";
   v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v28];
-  v80[13] = v43;
-  v79[14] = @"totalADUCount";
-  v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v66];
-  v80[14] = v44;
-  v79[15] = @"appTrackingEnabled";
+  v79[13] = v43;
+  v78[14] = @"totalADUCount";
+  v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v65];
+  v79[14] = v44;
+  v78[15] = @"appTrackingEnabled";
   v45 = [MEMORY[0x277CCABB0] numberWithBool:self->appTrackingEnabled];
-  v80[15] = v45;
-  v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:v79 count:16];
+  v79[15] = v45;
+  v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v79 forKeys:v78 count:16];
 
   v47 = v46;
   v48 = AnalyticsSendEventLazy();
@@ -9392,9 +9402,9 @@ uint64_t __54__FlowAnalyticsEngine__performAppDomainUsageAnalytics__block_invoke
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109378;
-      v76 = gEffectiveUserId;
-      v77 = 2112;
-      v78 = v47;
+      v75 = gEffectiveUserId;
+      v76 = 2112;
+      v77 = v47;
       v50 = "Posted APR DB metrics for user %u: %@";
       v51 = v49;
       v52 = OS_LOG_TYPE_DEBUG;
@@ -9414,7 +9424,6 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  v54 = *MEMORY[0x277D85DE8];
   return v48;
 }
 
@@ -9468,7 +9477,7 @@ LABEL_18:
 
 void __78__FlowAnalyticsEngine__performAppLevelAppDomainUsageAnalyticsFromDate_toDate___block_invoke(uint64_t a1, void *a2)
 {
-  v40[3] = *MEMORY[0x277D85DE8];
+  v39[3] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:@"bundleName"];
   if (v4)
@@ -9476,25 +9485,25 @@ void __78__FlowAnalyticsEngine__performAppLevelAppDomainUsageAnalyticsFromDate_t
     v5 = [MEMORY[0x277CCAC30] predicateWithFormat:@"bundleName == %@", v4];
     v6 = MEMORY[0x277CCA920];
     v7 = *(a1 + 40);
-    v40[0] = *(a1 + 32);
-    v40[1] = v5;
-    v40[2] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:3];
+    v39[0] = *(a1 + 32);
+    v39[1] = v5;
+    v39[2] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:3];
     v9 = [v6 andPredicateWithSubpredicates:v8];
 
     v10 = MEMORY[0x277CCA920];
-    v39[0] = *(a1 + 32);
-    v39[1] = v5;
-    v39[2] = *(a1 + 48);
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:3];
+    v38[0] = *(a1 + 32);
+    v38[1] = v5;
+    v38[2] = *(a1 + 48);
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:3];
     v12 = [v10 andPredicateWithSubpredicates:v11];
 
-    v25 = v9;
+    v24 = v9;
     v13 = [*(*(a1 + 56) + 488) countEntitiesMatching:v9];
     v14 = [*(*(a1 + 56) + 488) countEntitiesMatching:v12];
     v15 = [*(a1 + 56) _appBundleIdentifierIsWebBrowser:v4];
     v16 = v3;
-    v26 = v16;
+    v25 = v16;
     v17 = v4;
     if (AnalyticsSendEventLazy())
     {
@@ -9502,21 +9511,21 @@ void __78__FlowAnalyticsEngine__performAppLevelAppDomainUsageAnalyticsFromDate_t
       v18 = domainTrackingLogHandle;
       if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = gEffectiveUserId;
+        v23 = gEffectiveUserId;
         v19 = v18;
         v20 = [v16 objectForKeyedSubscript:@"count"];
         *buf = 67110403;
-        v28 = v24;
-        v29 = 2113;
-        v30 = v17;
-        v31 = 2112;
-        v32 = v20;
-        v33 = 2048;
-        v34 = v13;
-        v35 = 2048;
-        v36 = v14;
-        v37 = 1024;
-        v38 = v15;
+        v27 = v23;
+        v28 = 2113;
+        v29 = v17;
+        v30 = 2112;
+        v31 = v20;
+        v32 = 2048;
+        v33 = v13;
+        v34 = 2048;
+        v35 = v14;
+        v36 = 1024;
+        v37 = v15;
         _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "Posted APR DB metric for user %u, Bundle Name = %{private}@, total ADU count = %@, tracker ADU count = %lu, app-initiated ADUs= %lu, isBrowser = %d", buf, 0x36u);
       }
     }
@@ -9541,31 +9550,27 @@ void __78__FlowAnalyticsEngine__performAppLevelAppDomainUsageAnalyticsFromDate_t
       _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, "Failed to post APR app telemetry; Bundle Name is nil.", buf, 2u);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 id __78__FlowAnalyticsEngine__performAppLevelAppDomainUsageAnalyticsFromDate_toDate___block_invoke_2(uint64_t a1)
 {
-  v11[5] = *MEMORY[0x277D85DE8];
-  v10[0] = @"appADUCount";
+  v10[5] = *MEMORY[0x277D85DE8];
+  v9[0] = @"appADUCount";
   v2 = [*(a1 + 32) objectForKeyedSubscript:@"count"];
-  v11[0] = v2;
-  v10[1] = @"appInitiatedADUCount";
+  v10[0] = v2;
+  v9[1] = @"appInitiatedADUCount";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 48)];
   v4 = *(a1 + 40);
-  v11[1] = v3;
-  v11[2] = v4;
-  v10[2] = @"appName";
-  v10[3] = @"appTrackerADUCount";
+  v10[1] = v3;
+  v10[2] = v4;
+  v9[2] = @"appName";
+  v9[3] = @"appTrackerADUCount";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 56)];
-  v11[3] = v5;
-  v10[4] = @"isBrowser";
+  v10[3] = v5;
+  v9[4] = @"isBrowser";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 64)];
-  v11[4] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:5];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[4] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:5];
 
   return v7;
 }
@@ -9586,7 +9591,7 @@ id __78__FlowAnalyticsEngine__performAppLevelAppDomainUsageAnalyticsFromDate_toD
 
 - (void)performAppPeriodicTasksComplete:(id)complete error:(id)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   errorCopy = error;
   v7 = analyticsLogHandle;
@@ -9594,27 +9599,25 @@ id __78__FlowAnalyticsEngine__performAppLevelAppDomainUsageAnalyticsFromDate_toD
   {
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = errorCopy;
+      v11 = 138412290;
+      v12 = errorCopy;
       v8 = "Periodic app tasks failed with %@";
       v9 = v7;
       v10 = OS_LOG_TYPE_ERROR;
 LABEL_6:
-      _os_log_impl(&dword_23255B000, v9, v10, v8, &v12, 0xCu);
+      _os_log_impl(&dword_23255B000, v9, v10, v8, &v11, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = completeCopy;
+    v11 = 138412290;
+    v12 = completeCopy;
     v8 = "Periodic app tasks finished with result %@";
     v9 = v7;
     v10 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (void)performAppPeriodicActivityWithReply:(id)reply
@@ -10018,7 +10021,7 @@ LABEL_6:
     }
   }
 
-  if (__PAIR128__(btOut, btIn) != 0)
+  if (*&btIn != 0)
   {
     v78 = MEMORY[0x277CCABB0];
     btIN = [v118 btIN];
@@ -10108,7 +10111,7 @@ LABEL_6:
 
 - (void)_compactUsageForApp:(id)app intervalType:(int)type givenLastRun:(id)run
 {
-  v210 = *MEMORY[0x277D85DE8];
+  v209 = *MEMORY[0x277D85DE8];
   appCopy = app;
   runCopy = run;
   bundleName = [appCopy bundleName];
@@ -10123,13 +10126,13 @@ LABEL_6:
 
     if (!v13)
     {
-      v181 = analyticsLogHandle;
+      v180 = analyticsLogHandle;
       v68 = runCopy;
       if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v209 = bundleName;
-        _os_log_impl(&dword_23255B000, v181, OS_LOG_TYPE_ERROR, "Can't create AppTypicalUsage for %@", buf, 0xCu);
+        v208 = bundleName;
+        _os_log_impl(&dword_23255B000, v180, OS_LOG_TYPE_ERROR, "Can't create AppTypicalUsage for %@", buf, 0xCu);
       }
 
       goto LABEL_41;
@@ -10155,15 +10158,15 @@ LABEL_6:
 
   wifiSampleCount = [v17 wifiSampleCount];
   [wifiSampleCount doubleValue];
-  v202 = v21;
+  v201 = v21;
 
   wwanSampleCount = [v17 wwanSampleCount];
   [wwanSampleCount doubleValue];
-  v199 = v23;
+  v198 = v23;
 
   wiredSampleCount = [v17 wiredSampleCount];
   [wiredSampleCount doubleValue];
-  v200 = v25;
+  v199 = v25;
 
   wifiIN_mean = [v17 wifiIN_mean];
   [wifiIN_mean doubleValue];
@@ -10171,11 +10174,11 @@ LABEL_6:
 
   wifiIN_M2 = [v17 wifiIN_M2];
   [wifiIN_M2 doubleValue];
-  v188 = v30;
+  v187 = v30;
 
   wifiIN = [v17 wifiIN];
   [wifiIN doubleValue];
-  v189 = v32;
+  v188 = v32;
 
   wifiOUT_mean = [v17 wifiOUT_mean];
   [wifiOUT_mean doubleValue];
@@ -10183,11 +10186,11 @@ LABEL_6:
 
   wifiOUT_M2 = [v17 wifiOUT_M2];
   [wifiOUT_M2 doubleValue];
-  v201 = v37;
+  v200 = v37;
 
   wifiOUT = [v17 wifiOUT];
   [wifiOUT doubleValue];
-  v190 = v39;
+  v189 = v39;
 
   wwanIN_mean = [v17 wwanIN_mean];
   [wwanIN_mean doubleValue];
@@ -10195,11 +10198,11 @@ LABEL_6:
 
   wwanIN_M2 = [v17 wwanIN_M2];
   [wwanIN_M2 doubleValue];
-  v191 = v44;
+  v190 = v44;
 
   wwanIN = [v17 wwanIN];
   [wwanIN doubleValue];
-  v192 = v46;
+  v191 = v46;
 
   wwanOUT_mean = [v17 wwanOUT_mean];
   [wwanOUT_mean doubleValue];
@@ -10207,11 +10210,11 @@ LABEL_6:
 
   wwanOUT_M2 = [v17 wwanOUT_M2];
   [wwanOUT_M2 doubleValue];
-  v193 = v51;
+  v192 = v51;
 
   wwanOUT = [v17 wwanOUT];
   [wwanOUT doubleValue];
-  v194 = v53;
+  v193 = v53;
 
   wiredIN_mean = [v17 wiredIN_mean];
   [wiredIN_mean doubleValue];
@@ -10219,11 +10222,11 @@ LABEL_6:
 
   wiredIN_M2 = [v17 wiredIN_M2];
   [wiredIN_M2 doubleValue];
-  v195 = v58;
+  v194 = v58;
 
   wiredIN = [v17 wiredIN];
   [wiredIN doubleValue];
-  v196 = v60;
+  v195 = v60;
 
   wiredOUT_mean = [v17 wiredOUT_mean];
   [wiredOUT_mean doubleValue];
@@ -10231,14 +10234,14 @@ LABEL_6:
 
   wiredOUT_M2 = [v17 wiredOUT_M2];
   [wiredOUT_M2 doubleValue];
-  v197 = v65;
+  v196 = v65;
 
   wiredOUT = [v17 wiredOUT];
   [wiredOUT doubleValue];
-  v198 = v67;
+  v197 = v67;
 
   v68 = runCopy;
-  v183 = appCopy;
+  v182 = appCopy;
   if (runCopy)
   {
     [MEMORY[0x277CBEB98] setWithObjects:{runCopy, 0}];
@@ -10249,11 +10252,11 @@ LABEL_6:
     [appCopy hasAppRun];
   }
 
+  v204 = 0u;
   v205 = 0u;
-  v206 = 0u;
-  v203 = 0u;
-  v69 = v204 = 0u;
-  v70 = [v69 countByEnumeratingWithState:&v203 objects:v207 count:16];
+  v202 = 0u;
+  v69 = v203 = 0u;
+  v70 = [v69 countByEnumeratingWithState:&v202 objects:v206 count:16];
   obj = v69;
   if (!v70)
   {
@@ -10263,20 +10266,20 @@ LABEL_39:
   }
 
   v71 = v70;
-  v182 = v17;
+  v181 = v17;
   v72 = 0;
-  v186 = 0;
-  v73 = *v204;
+  v185 = 0;
+  v73 = *v203;
   do
   {
     for (i = 0; i != v71; ++i)
     {
-      if (*v204 != v73)
+      if (*v203 != v73)
       {
         objc_enumerationMutation(obj);
       }
 
-      v75 = *(*(&v203 + 1) + 8 * i);
+      v75 = *(*(&v202 + 1) + 8 * i);
       kind = [v75 kind];
       unsignedIntegerValue = [kind unsignedIntegerValue];
 
@@ -10302,9 +10305,9 @@ LABEL_19:
         v94 = v91 - v93;
 
         v95 = v94 - v28;
-        v28 = v28 + (v94 - v28) / (v202 + 1.0);
-        v188 = v188 + v95 * (v94 - v28);
-        v189 = v189 + v94;
+        v28 = v28 + (v94 - v28) / (v201 + 1.0);
+        v187 = v187 + v95 * (v94 - v28);
+        v188 = v188 + v94;
         wifiOUT_end = [v75 wifiOUT_end];
         [wifiOUT_end doubleValue];
         v98 = v97;
@@ -10312,11 +10315,11 @@ LABEL_19:
         [wifiOUT_start doubleValue];
         v101 = v98 - v100;
 
-        v190 = v190 + v101;
+        v189 = v189 + v101;
         v102 = v101 - v35;
-        v35 = v35 + (v101 - v35) / (v202 + 1.0);
-        v201 = v201 + v102 * (v101 - v35);
-        v202 = v202 + 1.0;
+        v35 = v35 + (v101 - v35) / (v201 + 1.0);
+        v200 = v200 + v102 * (v101 - v35);
+        v201 = v201 + 1.0;
         v72 = 1;
         goto LABEL_20;
       }
@@ -10366,9 +10369,9 @@ LABEL_20:
       v119 = v116 - v118;
 
       v120 = v119 - v42;
-      v42 = v42 + (v119 - v42) / (v199 + 1.0);
-      v191 = v191 + v120 * (v119 - v42);
-      v192 = v192 + v119;
+      v42 = v42 + (v119 - v42) / (v198 + 1.0);
+      v190 = v190 + v120 * (v119 - v42);
+      v191 = v191 + v119;
       wwanOUT_end2 = [v75 wwanOUT_end];
       [wwanOUT_end2 doubleValue];
       v123 = v122;
@@ -10377,11 +10380,11 @@ LABEL_20:
       v126 = v123 - v125;
 
       v127 = v126 - v49;
-      v199 = v199 + 1.0;
-      v49 = v49 + (v126 - v49) / v199;
-      v193 = v193 + v127 * (v126 - v49);
-      v194 = v194 + v126;
-      LOBYTE(v186) = 1;
+      v198 = v198 + 1.0;
+      v49 = v49 + (v126 - v49) / v198;
+      v192 = v192 + v127 * (v126 - v49);
+      v193 = v193 + v126;
+      LOBYTE(v185) = 1;
 LABEL_25:
       wiredIN_end = [v75 wiredIN_end];
       [wiredIN_end doubleValue];
@@ -10400,9 +10403,9 @@ LABEL_29:
         v144 = v141 - v143;
 
         v145 = v144 - v56;
-        v56 = v56 + (v144 - v56) / (v200 + 1.0);
-        v195 = v195 + v145 * (v144 - v56);
-        v196 = v196 + v144;
+        v56 = v56 + (v144 - v56) / (v199 + 1.0);
+        v194 = v194 + v145 * (v144 - v56);
+        v195 = v195 + v144;
         wiredOUT_end = [v75 wiredOUT_end];
         [wiredOUT_end doubleValue];
         v148 = v147;
@@ -10411,11 +10414,11 @@ LABEL_29:
         v151 = v148 - v150;
 
         v152 = v151 - v63;
-        v200 = v200 + 1.0;
-        v63 = v63 + (v151 - v63) / v200;
-        v197 = v197 + v152 * (v151 - v63);
-        v198 = v198 + v151;
-        BYTE4(v186) = 1;
+        v199 = v199 + 1.0;
+        v63 = v63 + (v151 - v63) / v199;
+        v196 = v196 + v152 * (v151 - v63);
+        v197 = v197 + v151;
+        BYTE4(v185) = 1;
         continue;
       }
 
@@ -10432,7 +10435,7 @@ LABEL_29:
       }
     }
 
-    v71 = [obj countByEnumeratingWithState:&v203 objects:v207 count:16];
+    v71 = [obj countByEnumeratingWithState:&v202 objects:v206 count:16];
   }
 
   while (v71);
@@ -10440,97 +10443,97 @@ LABEL_29:
   if (v72)
   {
     v153 = [MEMORY[0x277CCABB0] numberWithDouble:v28];
-    v17 = v182;
-    [v182 setWifiIN_mean:v153];
+    v17 = v181;
+    [v181 setWifiIN_mean:v153];
 
-    v202 = [MEMORY[0x277CCABB0] numberWithDouble:v188 / v202];
-    [v182 setWifiIN_var:v202];
+    v201 = [MEMORY[0x277CCABB0] numberWithDouble:v187 / v201];
+    [v181 setWifiIN_var:v201];
 
-    v155 = [MEMORY[0x277CCABB0] numberWithDouble:v188];
-    [v182 setWifiIN_M2:v155];
+    v155 = [MEMORY[0x277CCABB0] numberWithDouble:v187];
+    [v181 setWifiIN_M2:v155];
 
-    v156 = [MEMORY[0x277CCABB0] numberWithDouble:v189];
-    [v182 setWifiIN:v156];
+    v156 = [MEMORY[0x277CCABB0] numberWithDouble:v188];
+    [v181 setWifiIN:v156];
 
     v157 = [MEMORY[0x277CCABB0] numberWithDouble:v35];
-    [v182 setWifiOUT_mean:v157];
+    [v181 setWifiOUT_mean:v157];
 
-    v2022 = [MEMORY[0x277CCABB0] numberWithDouble:v201 / v202];
-    [v182 setWifiOUT_var:v2022];
+    v2012 = [MEMORY[0x277CCABB0] numberWithDouble:v200 / v201];
+    [v181 setWifiOUT_var:v2012];
 
-    v159 = [MEMORY[0x277CCABB0] numberWithDouble:v201];
-    [v182 setWifiOUT_M2:v159];
+    v159 = [MEMORY[0x277CCABB0] numberWithDouble:v200];
+    [v181 setWifiOUT_M2:v159];
 
-    v160 = [MEMORY[0x277CCABB0] numberWithDouble:v190];
-    [v182 setWifiOUT:v160];
+    v160 = [MEMORY[0x277CCABB0] numberWithDouble:v189];
+    [v181 setWifiOUT:v160];
 
-    v161 = [MEMORY[0x277CCABB0] numberWithDouble:v202];
-    [v182 setWifiSampleCount:v161];
+    v161 = [MEMORY[0x277CCABB0] numberWithDouble:v201];
+    [v181 setWifiSampleCount:v161];
   }
 
   else
   {
-    v17 = v182;
+    v17 = v181;
   }
 
-  if (v186)
+  if (v185)
   {
     v162 = [MEMORY[0x277CCABB0] numberWithDouble:v42];
     [v17 setWwanIN_mean:v162];
 
-    v199 = [MEMORY[0x277CCABB0] numberWithDouble:v191 / v199];
-    [v17 setWwanIN_var:v199];
+    v198 = [MEMORY[0x277CCABB0] numberWithDouble:v190 / v198];
+    [v17 setWwanIN_var:v198];
 
-    v164 = [MEMORY[0x277CCABB0] numberWithDouble:v191];
+    v164 = [MEMORY[0x277CCABB0] numberWithDouble:v190];
     [v17 setWwanIN_M2:v164];
 
-    v165 = [MEMORY[0x277CCABB0] numberWithDouble:v192];
+    v165 = [MEMORY[0x277CCABB0] numberWithDouble:v191];
     [v17 setWwanIN:v165];
 
     v166 = [MEMORY[0x277CCABB0] numberWithDouble:v49];
     [v17 setWwanOUT_mean:v166];
 
-    v1992 = [MEMORY[0x277CCABB0] numberWithDouble:v193 / v199];
-    [v17 setWwanOUT_var:v1992];
+    v1982 = [MEMORY[0x277CCABB0] numberWithDouble:v192 / v198];
+    [v17 setWwanOUT_var:v1982];
 
-    v168 = [MEMORY[0x277CCABB0] numberWithDouble:v193];
+    v168 = [MEMORY[0x277CCABB0] numberWithDouble:v192];
     [v17 setWwanOUT_M2:v168];
 
-    v169 = [MEMORY[0x277CCABB0] numberWithDouble:v194];
+    v169 = [MEMORY[0x277CCABB0] numberWithDouble:v193];
     [v17 setWwanOUT:v169];
 
-    v170 = [MEMORY[0x277CCABB0] numberWithDouble:v199];
+    v170 = [MEMORY[0x277CCABB0] numberWithDouble:v198];
     [v17 setWwanSampleCount:v170];
   }
 
   v68 = runCopy;
-  if ((v186 & 0x100000000) != 0)
+  if ((v185 & 0x100000000) != 0)
   {
     v171 = [MEMORY[0x277CCABB0] numberWithDouble:v56];
     [v17 setWiredIN_mean:v171];
 
-    v200 = [MEMORY[0x277CCABB0] numberWithDouble:v195 / v200];
-    [v17 setWiredIN_var:v200];
+    v199 = [MEMORY[0x277CCABB0] numberWithDouble:v194 / v199];
+    [v17 setWiredIN_var:v199];
 
-    v173 = [MEMORY[0x277CCABB0] numberWithDouble:v195];
+    v173 = [MEMORY[0x277CCABB0] numberWithDouble:v194];
     [v17 setWiredIN_M2:v173];
 
-    v174 = [MEMORY[0x277CCABB0] numberWithDouble:v196];
+    v174 = [MEMORY[0x277CCABB0] numberWithDouble:v195];
     [v17 setWiredIN:v174];
 
     v175 = [MEMORY[0x277CCABB0] numberWithDouble:v63];
     [v17 setWiredOUT_mean:v175];
 
-    v2002 = [MEMORY[0x277CCABB0] numberWithDouble:v197 / v200];
-    [v17 setWiredOUT_var:v2002];
+    v1992 = [MEMORY[0x277CCABB0] numberWithDouble:v196 / v199];
+    [v17 setWiredOUT_var:v1992];
 
-    v177 = [MEMORY[0x277CCABB0] numberWithDouble:v197];
+    v177 = [MEMORY[0x277CCABB0] numberWithDouble:v196];
     [v17 setWiredOUT_M2:v177];
 
-    v178 = [MEMORY[0x277CCABB0] numberWithDouble:v198];
+    v178 = [MEMORY[0x277CCABB0] numberWithDouble:v197];
     [v17 setWiredOUT:v178];
 
-    v69 = [MEMORY[0x277CCABB0] numberWithDouble:v200];
+    v69 = [MEMORY[0x277CCABB0] numberWithDouble:v199];
     [v17 setWiredSampleCount:v69];
     goto LABEL_39;
   }
@@ -10539,10 +10542,8 @@ LABEL_40:
   date2 = [MEMORY[0x277CBEAA8] date];
   [v17 setTimeStamp:date2];
 
-  appCopy = v183;
+  appCopy = v182;
 LABEL_41:
-
-  v180 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workspaceSaveWithCallback:(id)callback
@@ -10602,18 +10603,16 @@ uint64_t __49__FlowAnalyticsEngine_workspaceSaveWithCallback___block_invoke(uint
 
 void __79__FlowAnalyticsEngine_checkForegroundStateForProcessWithUUID_replyQueue_reply___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:45 userInfo:0];
   (*(*(a1 + 32) + 16))();
   v3 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "returning error: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "returning error: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkForegroundStateForProcessWithUUID:(id)d replyQueue:(id)queue reply:(id)reply
@@ -10684,33 +10683,29 @@ LABEL_11:
 
 void __80__FlowAnalyticsEngine__checkForegroundStateForProcessWithUUID_replyQueue_reply___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 56);
-  v3 = *(a1 + 32);
+  v9 = *MEMORY[0x277D85DE8];
   (*(*(a1 + 48) + 16))();
-  v4 = analyticsLogHandle;
+  v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v5 = *(a1 + 40);
-    if (!v5)
+    v3 = *(a1 + 40);
+    if (!v3)
     {
-      v5 = @"not supplied";
+      v3 = @"not supplied";
     }
 
-    v6 = *(a1 + 56);
-    v8 = 138412546;
-    v9 = v5;
-    v10 = 1024;
-    v11 = v6;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "UUID %@, foreground state: %d", &v8, 0x12u);
+    v4 = *(a1 + 56);
+    v5 = 138412546;
+    v6 = v3;
+    v7 = 1024;
+    v8 = v4;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "UUID %@, foreground state: %d", &v5, 0x12u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_endRNFPeriod
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = attributionLogHandle;
   if (os_log_type_enabled(attributionLogHandle, OS_LOG_TYPE_INFO))
   {
@@ -10719,12 +10714,12 @@ void __80__FlowAnalyticsEngine__checkForegroundStateForProcessWithUUID_replyQueu
   }
 
   nstatManager = self->nstatManager;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __36__FlowAnalyticsEngine__endRNFPeriod__block_invoke;
-  v9[3] = &unk_27898C490;
-  v9[4] = self;
-  v5 = [(NWStatsManager *)nstatManager refreshUsingBlock:v9 completionBlock:&__block_literal_global_610];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __36__FlowAnalyticsEngine__endRNFPeriod__block_invoke;
+  v8[3] = &unk_27898C490;
+  v8[4] = self;
+  v5 = [(NWStatsManager *)nstatManager refreshUsingBlock:v8 completionBlock:&__block_literal_global_610];
   if (v5)
   {
     v6 = v5;
@@ -10732,12 +10727,10 @@ void __80__FlowAnalyticsEngine__checkForegroundStateForProcessWithUUID_replyQueu
     if (os_log_type_enabled(attributionLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v11 = v6;
+      v10 = v6;
       _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "_endRNFPeriod refreshUsingBlock:completionBlock: failed, errno %{darwin.errno}d", buf, 8u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __36__FlowAnalyticsEngine__endRNFPeriod__block_invoke(uint64_t a1, void *a2)
@@ -10810,18 +10803,16 @@ void __36__FlowAnalyticsEngine__endRNFPeriod__block_invoke_2()
 
 void __59__FlowAnalyticsEngine_recentUsageForApps_replyQueue_reply___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:45 userInfo:0];
   (*(*(a1 + 32) + 16))();
   v3 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "returning error: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "returning error: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_recentUsageForApps:(id)apps replyQueue:(id)queue reply:(id)reply
@@ -10846,65 +10837,65 @@ void __59__FlowAnalyticsEngine_recentUsageForApps_replyQueue_reply___block_invok
 
 void __60__FlowAnalyticsEngine__recentUsageForApps_replyQueue_reply___block_invoke(uint64_t a1)
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
-  v64 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:10];
   v63 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:10];
+  v62 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:10];
   v2 = [MEMORY[0x277D6B518] entityName];
-  v57 = [*(*(a1 + 32) + 64) getDescriptionForName:v2];
-  v56 = [*(*(a1 + 32) + 64) createTemporaryEntityForEntityName:v2];
-  v54 = v2;
-  v68 = [*(*(a1 + 32) + 64) createTemporaryEntityForEntityName:v2];
+  v56 = [*(*(a1 + 32) + 64) getDescriptionForName:v2];
+  v55 = [*(*(a1 + 32) + 64) createTemporaryEntityForEntityName:v2];
+  v53 = v2;
+  v67 = [*(*(a1 + 32) + 64) createTemporaryEntityForEntityName:v2];
   if ([*(a1 + 40) count])
   {
-    v53 = 0;
+    v52 = 0;
   }
 
   else
   {
-    v53 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:0];
+    v52 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:0];
   }
 
-  v69 = [MEMORY[0x277CBEAA8] date];
+  v68 = [MEMORY[0x277CBEAA8] date];
+  v80 = 0u;
   v81 = 0u;
   v82 = 0u;
   v83 = 0u;
-  v84 = 0u;
   obj = *(a1 + 40);
-  v3 = [obj countByEnumeratingWithState:&v81 objects:v90 count:16];
+  v3 = [obj countByEnumeratingWithState:&v80 objects:v89 count:16];
   if (v3)
   {
     v4 = v3;
-    v62 = *v82;
+    v61 = *v81;
     v5 = 0x277CBE000uLL;
     do
     {
       v6 = 0;
-      v58 = v4;
+      v57 = v4;
       do
       {
-        if (*v82 != v62)
+        if (*v81 != v61)
         {
           v7 = v6;
           objc_enumerationMutation(obj);
           v6 = v7;
         }
 
-        v66 = v6;
-        v8 = *(*(&v81 + 1) + 8 * v6);
+        v65 = v6;
+        v8 = *(*(&v80 + 1) + 8 * v6);
         v9 = [*(v5 + 2920) null];
-        v67 = v8;
+        v66 = v8;
         v10 = [*(a1 + 32) _processFetchForName:0 bundle:v8 shouldFillMiss:0];
         v11 = v10;
         if (v10 && ([v10 isApp] & 1) != 0)
         {
-          v65 = 0;
+          v64 = 0;
         }
 
         else
         {
           v12 = [*(a1 + 32) _attemptConvertingPluginNameToContainingAppName:v8];
-          v65 = v12;
+          v64 = v12;
           if (v12)
           {
             v13 = v12;
@@ -10914,9 +10905,9 @@ void __60__FlowAnalyticsEngine__recentUsageForApps_replyQueue_reply___block_invo
             if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412546;
-              v87 = v67;
-              v88 = 2112;
-              v89 = v13;
+              v86 = v66;
+              v87 = 2112;
+              v88 = v13;
               _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "remap from %@ to %@", buf, 0x16u);
             }
 
@@ -10932,7 +10923,7 @@ void __60__FlowAnalyticsEngine__recentUsageForApps_replyQueue_reply___block_invo
             if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v87 = v67;
+              v86 = v66;
               _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_DEBUG, "remap from %@ failed", buf, 0xCu);
             }
 
@@ -10946,7 +10937,7 @@ LABEL_42:
               if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v87 = v67;
+                v86 = v66;
                 _os_log_impl(&dword_23255B000, v37, OS_LOG_TYPE_DEBUG, "missing app: %@", buf, 0xCu);
               }
 
@@ -10962,12 +10953,12 @@ LABEL_42:
           goto LABEL_42;
         }
 
-        v79 = 0u;
-        v80 = 0u;
-        v77 = 0u;
         v78 = 0u;
+        v79 = 0u;
+        v76 = 0u;
+        v77 = 0u;
         v16 = [v11 hasLiveUsage];
-        v17 = [v16 countByEnumeratingWithState:&v77 objects:v85 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v76 objects:v84 count:16];
         if (!v17)
         {
 
@@ -10975,21 +10966,21 @@ LABEL_42:
         }
 
         v18 = v17;
-        v59 = v11;
-        v60 = v9;
-        v19 = *v78;
-        v70 = 1;
+        v58 = v11;
+        v59 = v9;
+        v19 = *v77;
+        v69 = 1;
         v20 = &OBJC_IVAR___AWDSymptomsCellularSDMTimeStatistics__has;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v78 != v19)
+            if (*v77 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v22 = *(*(&v77 + 1) + 8 * i);
+            v22 = *(*(&v76 + 1) + 8 * i);
             v23 = [v22 tag];
             v24 = v20[640];
             v25 = *(*(a1 + 32) + v24);
@@ -11033,12 +11024,12 @@ LABEL_42:
             v32 = [v22 kind];
             if ([v32 intValue])
             {
-              v33 = [*(a1 + 32) _isLiveUsageInRollingWindow:v22 forTime:v69];
+              v33 = [*(a1 + 32) _isLiveUsageInRollingWindow:v22 forTime:v68];
 
               if (v33)
               {
-                [*(a1 + 32) _applyCountsTo:v68 fromLiveUsage:v22 mustReset:v70 & 1];
-                v70 = 0;
+                [*(a1 + 32) _applyCountsTo:v67 fromLiveUsage:v22 mustReset:v69 & 1];
+                v69 = 0;
               }
             }
 
@@ -11047,56 +11038,56 @@ LABEL_42:
             }
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v77 objects:v85 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v76 objects:v84 count:16];
         }
 
         while (v18);
 
-        v11 = v59;
-        v9 = v60;
-        if ((v70 & 1) == 0)
+        v11 = v58;
+        v9 = v59;
+        if ((v69 & 1) == 0)
         {
-          v34 = [v59 firstTimeStamp];
-          v35 = v68;
+          v34 = [v58 firstTimeStamp];
+          v35 = v67;
           goto LABEL_46;
         }
 
 LABEL_45:
         v34 = [v11 firstTimeStamp];
-        v35 = v56;
+        v35 = v55;
 LABEL_46:
         [v35 setTimeStamp:v34];
 
-        v38 = [v57 attributesByName];
+        v38 = [v56 attributesByName];
         v39 = [v38 allKeys];
         v40 = [v35 dictionaryWithValuesForKeys:v39];
 
         v9 = v40;
-        v4 = v58;
+        v4 = v57;
         v5 = 0x277CBE000;
 LABEL_47:
-        [v64 setObject:v9 forKey:v67];
-        if (v65)
+        [v63 setObject:v9 forKey:v66];
+        if (v64)
         {
-          v41 = v65;
+          v41 = v64;
         }
 
         else
         {
-          v41 = v67;
+          v41 = v66;
         }
 
         v42 = *(a1 + 32);
         v43 = v41;
         v44 = [v42 _bundleBackgroundAudioCapable:v43];
         v45 = [MEMORY[0x277CCABB0] numberWithBool:v44];
-        [v63 setObject:v45 forKey:v67];
+        [v62 setObject:v45 forKey:v66];
 
-        v6 = v66 + 1;
+        v6 = v65 + 1;
       }
 
-      while (v66 + 1 != v4);
-      v4 = [obj countByEnumeratingWithState:&v81 objects:v90 count:16];
+      while (v65 + 1 != v4);
+      v4 = [obj countByEnumeratingWithState:&v80 objects:v89 count:16];
     }
 
     while (v4);
@@ -11108,77 +11099,71 @@ LABEL_47:
   block[3] = &unk_27898C6C0;
   v46 = *(a1 + 48);
   v47 = *(a1 + 56);
-  v72 = v64;
-  v73 = v63;
+  v71 = v63;
+  v72 = v62;
   v48 = *(a1 + 32);
-  v74 = v53;
-  v75 = v48;
-  v76 = v47;
-  v49 = v53;
-  v50 = v63;
-  v51 = v64;
+  v73 = v52;
+  v74 = v48;
+  v75 = v47;
+  v49 = v52;
+  v50 = v62;
+  v51 = v63;
   dispatch_async(v46, block);
 
   objc_autoreleasePoolPop(context);
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 void __60__FlowAnalyticsEngine__recentUsageForApps_replyQueue_reply___block_invoke_614(void *a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v3 = a1[4];
-  v4 = a1[5];
-  v5 = a1[6];
+  v19 = *MEMORY[0x277D85DE8];
   (*(a1[8] + 16))();
-  v6 = analyticsLogHandle;
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v3 = analyticsLogHandle;
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v8 = a1[4];
-    v7 = a1[5];
-    v10 = a1[6];
-    v9 = a1[7];
-    v11 = *(v9 + 648);
-    if (v11)
+    v5 = a1[4];
+    v4 = a1[5];
+    v7 = a1[6];
+    v6 = a1[7];
+    v8 = *(v6 + 648);
+    if (v8)
     {
-      v1 = [*(v9 + 648) currentSubscriberTag];
+      v1 = [*(v6 + 648) currentSubscriberTag];
       if (v1)
       {
-        v12 = [*(a1[7] + 648) currentSubscriberTag];
-        v13 = 1;
+        v9 = [*(a1[7] + 648) currentSubscriberTag];
+        v10 = 1;
       }
 
       else
       {
-        v13 = 0;
-        v12 = &unk_2847EF6C8;
+        v10 = 0;
+        v9 = &unk_2847EF6C8;
       }
     }
 
     else
     {
-      v13 = 0;
-      v12 = &unk_2847EF6C8;
+      v10 = 0;
+      v9 = &unk_2847EF6C8;
     }
 
-    v15 = 138413058;
-    v16 = v8;
+    v11 = 138413058;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v4;
+    v15 = 2112;
+    v16 = v7;
     v17 = 2112;
-    v18 = v7;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = v12;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "returning (usage/audio/error): %@/%@/%@ for subscriber tag: %@", &v15, 0x2Au);
-    if (v13)
+    v18 = v9;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "returning (usage/audio/error): %@/%@/%@ for subscriber tag: %@", &v11, 0x2Au);
+    if (v10)
     {
     }
 
-    if (v11)
+    if (v8)
     {
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (void)appsWithFlowsPassingTest:(id)test replyQueue:(id)queue reply:(id)reply
@@ -11224,7 +11209,7 @@ void __66__FlowAnalyticsEngine__appsWithFlowsPassingTest_replyQueue_reply___bloc
 
 + (void)identifierForUUID:(id)d replyQueue:(id)queue reply:(id)reply
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dCopy = d;
   queueCopy = queue;
   replyCopy = reply;
@@ -11235,12 +11220,12 @@ void __66__FlowAnalyticsEngine__appsWithFlowsPassingTest_replyQueue_reply___bloc
     block[1] = 3221225472;
     block[2] = __58__FlowAnalyticsEngine_identifierForUUID_replyQueue_reply___block_invoke;
     block[3] = &unk_27898C710;
-    v18 = dCopy;
-    v19 = queueCopy;
-    v20 = replyCopy;
+    v17 = dCopy;
+    v18 = queueCopy;
+    v19 = replyCopy;
     dispatch_async(queue, block);
 
-    v11 = v18;
+    v11 = v17;
   }
 
   else
@@ -11250,20 +11235,20 @@ void __66__FlowAnalyticsEngine__appsWithFlowsPassingTest_replyQueue_reply___bloc
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v22 = v11;
+      v21 = v11;
       _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "returning error: %@", buf, 0xCu);
     }
 
     if (queueCopy)
     {
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __58__FlowAnalyticsEngine_identifierForUUID_replyQueue_reply___block_invoke_615;
-      v14[3] = &unk_27898B678;
-      v16 = replyCopy;
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __58__FlowAnalyticsEngine_identifierForUUID_replyQueue_reply___block_invoke_615;
+      v13[3] = &unk_27898B678;
+      v15 = replyCopy;
       v11 = v11;
-      v15 = v11;
-      dispatch_async(queueCopy, v14);
+      v14 = v11;
+      dispatch_async(queueCopy, v13);
     }
 
     else
@@ -11271,8 +11256,6 @@ void __66__FlowAnalyticsEngine__appsWithFlowsPassingTest_replyQueue_reply___bloc
       (*(replyCopy + 2))(replyCopy, 0, 0, v11);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_trafficEnvelopeToTier:(double)tier
@@ -11303,15 +11286,15 @@ void __66__FlowAnalyticsEngine__appsWithFlowsPassingTest_replyQueue_reply___bloc
 
 - (void)_calendarUsageForApp:(id)app givenLastRun:(id)run
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   appCopy = app;
   runCopy = run;
   timeStart = [runCopy timeStart];
   [timeStart timeIntervalSince1970];
   v9 = v8;
 
-  v68 = v9;
-  v10 = gmtime(&v68);
+  v67 = v9;
+  v10 = gmtime(&v67);
   v11 = v10->tm_min / 15 + 4 * v10->tm_hour + 1;
   v12 = LOWORD(v10->tm_wday) + 1;
   hintCalendarUsage = [appCopy hintCalendarUsage];
@@ -11390,8 +11373,8 @@ LABEL_5:
   }
 
 LABEL_13:
-  v64 = v11;
-  v65 = v12;
+  v63 = v11;
+  v64 = v12;
   wifiIN_end = [runCopy wifiIN_end];
   [wifiIN_end doubleValue];
   v32 = v31;
@@ -11426,15 +11409,15 @@ LABEL_13:
     v57 = v56;
     bundleName2 = [appCopy bundleName];
     *buf = 138413314;
-    v70 = bundleName2;
-    v71 = 2048;
-    v72 = v54;
-    v73 = 2112;
-    v74 = v55;
-    v75 = 1024;
-    v76 = v64;
-    v77 = 1024;
-    v78 = v65;
+    v69 = bundleName2;
+    v70 = 2048;
+    v71 = v54;
+    v72 = 2112;
+    v73 = v55;
+    v74 = 1024;
+    v75 = v63;
+    v76 = 1024;
+    v77 = v64;
     _os_log_impl(&dword_23255B000, v57, OS_LOG_TYPE_DEBUG, "calendar: app: %@, traffic envelope: %f, tier: %@, at timeslot: %d, dayslot: %d", buf, 0x2Cu);
   }
 
@@ -11449,19 +11432,17 @@ LABEL_13:
 
   [appCopy setHintCalendarUsage:hintCalendarUsage4];
 LABEL_16:
-
-  v63 = *MEMORY[0x277D85DE8];
 }
 
 + (id)appBundleIdentifierFromAuditToken:(id *)token
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v12 = 0;
+  v14 = *MEMORY[0x277D85DE8];
+  v11 = 0;
   v3 = *&token->var0[4];
   *buf = *token->var0;
-  v14 = v3;
-  v4 = [MEMORY[0x277CC1E90] bundleRecordForAuditToken:buf error:&v12];
-  v5 = v12;
+  v13 = v3;
+  v4 = [MEMORY[0x277CC1E90] bundleRecordForAuditToken:buf error:&v11];
+  v5 = v11;
   v6 = v5;
   if (v4)
   {
@@ -11491,20 +11472,18 @@ LABEL_16:
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 + (id)appBundleIdentifierFromBundleIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (identifierCopy)
   {
-    v12 = 0;
-    v4 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v12];
-    v5 = v12;
+    v11 = 0;
+    v4 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v11];
+    v5 = v11;
     v6 = v5;
     if (v4)
     {
@@ -11527,9 +11506,9 @@ LABEL_16:
       if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138478083;
-        v14 = identifierCopy;
-        v15 = 2112;
-        v16 = v6;
+        v13 = identifierCopy;
+        v14 = 2112;
+        v15 = v6;
         _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "Error creating LSBundleRecord from bundle identifier (%{private}@), %@", buf, 0x16u);
       }
 
@@ -11541,8 +11520,6 @@ LABEL_16:
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -11560,9 +11537,9 @@ LABEL_16:
 
 - (BOOL)_appBundleIdentifierIsWebBrowser:(id)browser
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   browserCopy = browser;
-  v24 = 0;
+  v23 = 0;
   if (browserCopy)
   {
     v5 = [(NSMutableDictionary *)self->webBrowserBundleCache objectForKeyedSubscript:browserCopy];
@@ -11570,15 +11547,15 @@ LABEL_16:
     if (v5)
     {
       bOOLValue = [v5 BOOLValue];
-      v24 = bOOLValue;
+      v23 = bOOLValue;
 LABEL_19:
 
       goto LABEL_20;
     }
 
-    v23 = 0;
-    v9 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:browserCopy allowPlaceholder:0 error:&v23];
-    v10 = v23;
+    v22 = 0;
+    v9 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:browserCopy allowPlaceholder:0 error:&v22];
+    v10 = v22;
     v11 = v10;
     if (v9)
     {
@@ -11592,22 +11569,22 @@ LABEL_19:
 
     if (v12)
     {
-      v17 = [LaunchServicesUtilities appBundleIdentifierFromBundleRecord:v9 isWebBrowser:&v24];
+      v17 = [LaunchServicesUtilities appBundleIdentifierFromBundleRecord:v9 isWebBrowser:&v23];
       if (v17)
       {
         v18 = v17;
-        v19 = [MEMORY[0x277CCABB0] numberWithBool:v24];
+        v19 = [MEMORY[0x277CCABB0] numberWithBool:v23];
         [(NSMutableDictionary *)self->webBrowserBundleCache setObject:v19 forKeyedSubscript:browserCopy];
       }
 
       else
       {
-        v24 = 0;
+        v23 = 0;
         v20 = analyticsLogHandle;
         if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138477827;
-          v26 = browserCopy;
+          v25 = browserCopy;
           v14 = "Error creating appBundleIdentifier from bundle identifier (%{private}@)";
           v15 = v20;
           v16 = 12;
@@ -11622,9 +11599,9 @@ LABEL_19:
       if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138478083;
-        v26 = browserCopy;
-        v27 = 2112;
-        v28 = v11;
+        v25 = browserCopy;
+        v26 = 2112;
+        v27 = v11;
         v14 = "Error creating LSBundleRecord from bundle identifier (%{private}@), %@";
         v15 = v13;
         v16 = 22;
@@ -11633,7 +11610,7 @@ LABEL_17:
       }
     }
 
-    bOOLValue = v24;
+    bOOLValue = v23;
     goto LABEL_19;
   }
 
@@ -11647,7 +11624,6 @@ LABEL_17:
   bOOLValue = 0;
 LABEL_20:
 
-  v21 = *MEMORY[0x277D85DE8];
   return bOOLValue & 1;
 }
 
@@ -11667,58 +11643,56 @@ LABEL_20:
 
 - (void)handleLaunchServicesApplicationUnregistration:(id)unregistration
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   obj = unregistration;
-  v4 = [obj countByEnumeratingWithState:&v14 objects:v22 count:16];
+  v4 = [obj countByEnumeratingWithState:&v13 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         v9 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %u AND %K == %@", @"effectiveUserId", gEffectiveUserId, @"bundleName", v8];
         v10 = [(ObjectAnalytics *)self->domspace removeEntitiesMatching:v9];
         v11 = domainTrackingLogHandle;
         if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218243;
-          v19 = v10;
-          v20 = 2113;
-          v21 = v8;
+          v18 = v10;
+          v19 = 2113;
+          v20 = v8;
           _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "Removed %ld ADU records for %{private}@ via LaunchServices app unregistration", buf, 0x16u);
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v5 = [obj countByEnumeratingWithState:&v13 objects:v21 count:16];
     }
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endpointMaintenanceOnClose:(id)close
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   closeCopy = close;
   attributedEntity = [closeCopy attributedEntity];
   remoteAddress = [closeCopy remoteAddress];
-  v14 = 0;
-  v7 = validateSockAddrToString(remoteAddress, 0, &v14);
-  v8 = v14;
+  v13 = 0;
+  v7 = validateSockAddrToString(remoteAddress, 0, &v13);
+  v8 = v13;
   if (v7)
   {
     bytes = [remoteAddress bytes];
@@ -11737,41 +11711,832 @@ LABEL_20:
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v16 = remoteAddress;
-      v17 = 2112;
-      v18 = attributedEntity;
+      v15 = remoteAddress;
+      v16 = 2112;
+      v17 = attributedEntity;
       _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "No remote endpoint extracted from %@ for %@", buf, 0x16u);
     }
   }
+}
 
-  v13 = *MEMORY[0x277D85DE8];
+- (void)createAppEndpointsStorageForUserId:(unsigned int)id
+{
+  v3 = *&id;
+  v34 = *MEMORY[0x277D85DE8];
+  if (!self->allAppEndpoints)
+  {
+    v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    allAppEndpoints = self->allAppEndpoints;
+    self->allAppEndpoints = v5;
+  }
+
+  if (!self->resolvedAppEndpoints)
+  {
+    v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    resolvedAppEndpoints = self->resolvedAppEndpoints;
+    self->resolvedAppEndpoints = v7;
+  }
+
+  if (!self->determinedTrackersFromAPICount)
+  {
+    v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    determinedTrackersFromAPICount = self->determinedTrackersFromAPICount;
+    self->determinedTrackersFromAPICount = v9;
+  }
+
+  v11 = self->allAppEndpoints;
+  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+  v13 = [(NSMutableDictionary *)v11 objectForKeyedSubscript:v12];
+
+  if (!v13)
+  {
+    v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v15 = self->allAppEndpoints;
+    v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+    [(NSMutableDictionary *)v15 setObject:v14 forKeyedSubscript:v16];
+
+    v17 = domainTrackingLogHandle;
+    if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      v32 = 67109120;
+      v33 = v3;
+      _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "Creating an empty all endpoints storage for user %u", &v32, 8u);
+    }
+  }
+
+  v18 = self->resolvedAppEndpoints;
+  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+  v20 = [(NSMutableDictionary *)v18 objectForKeyedSubscript:v19];
+
+  if (!v20)
+  {
+    v21 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v22 = self->resolvedAppEndpoints;
+    v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+    [(NSMutableDictionary *)v22 setObject:v21 forKeyedSubscript:v23];
+
+    v24 = domainTrackingLogHandle;
+    if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      v32 = 67109120;
+      v33 = v3;
+      _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "Creating an empty resolved endpoints storage for user %u", &v32, 8u);
+    }
+  }
+
+  v25 = self->determinedTrackersFromAPICount;
+  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+  v27 = [(NSMutableDictionary *)v25 objectForKeyedSubscript:v26];
+
+  if (!v27)
+  {
+    v28 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v29 = self->determinedTrackersFromAPICount;
+    v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+    [(NSMutableDictionary *)v29 setObject:v28 forKeyedSubscript:v30];
+
+    v31 = domainTrackingLogHandle;
+    if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      v32 = 67109120;
+      v33 = v3;
+      _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_DEFAULT, "Creating an empty determined trackers from API count storage for user %u", &v32, 8u);
+    }
+  }
+}
+
+- (void)_fetchAppEndpointsRecordForUserId:(unsigned int)id bundleName:(id)name
+{
+  v4 = *&id;
+  v73 = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  allAppEndpoints = self->allAppEndpoints;
+  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v4];
+  v8 = [(NSMutableDictionary *)allAppEndpoints objectForKeyedSubscript:v7];
+
+  if (v8)
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      epspace = self->epspace;
+      nameCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %u AND %K == %@", @"effectiveUserId", v4, @"hasApp.bundleName", nameCopy];
+      v11 = [(ObjectAnalytics *)epspace fetchEntityDictionariesWithProperties:&unk_2847EEB80 predicate:nameCopy];
+
+      if (!v11 || ![v11 count])
+      {
+        v47 = domainTrackingLogHandle;
+        if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 138412290;
+          v66 = nameCopy;
+          _os_log_impl(&dword_23255B000, v47, OS_LOG_TYPE_DEBUG, "No endpoints record in DB for %@, encountering app for the first time", buf, 0xCu);
+        }
+
+        goto LABEL_43;
+      }
+
+      date = [MEMORY[0x277CBEAA8] date];
+      v61 = 0u;
+      v62 = 0u;
+      v63 = 0u;
+      v64 = 0u;
+      v13 = v11;
+      v14 = [v13 countByEnumeratingWithState:&v61 objects:v72 count:16];
+      if (v14)
+      {
+        v15 = v14;
+        v49 = v11;
+        v52 = v8;
+        v59 = 0;
+        v16 = @"firstTimeStamp";
+        v17 = *v62;
+        v55 = date;
+        v58 = *v62;
+        do
+        {
+          for (i = 0; i != v15; ++i)
+          {
+            if (*v62 != v17)
+            {
+              objc_enumerationMutation(v13);
+            }
+
+            v19 = *(*(&v61 + 1) + 8 * i);
+            v20 = [v19 objectForKeyedSubscript:v16];
+            if (isDateWithinScope(date, v20, 86400.0))
+            {
+              v21 = v15;
+              v22 = v16;
+              v23 = [v19 objectForKeyedSubscript:@"hasApp.bundleName"];
+              v24 = [v19 objectForKeyedSubscript:@"endpointSet"];
+              v25 = v24;
+              if (v23)
+              {
+                v26 = v24 == 0;
+              }
+
+              else
+              {
+                v26 = 1;
+              }
+
+              if (v26 || ![nameCopy isEqualToString:v23])
+              {
+                v33 = domainTrackingLogHandle;
+                if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
+                {
+                  *buf = 138412290;
+                  v66 = v19;
+                  _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_ERROR, "Invalid endpoints record fetched from DB %@", buf, 0xCu);
+                }
+              }
+
+              else
+              {
+                v27 = MEMORY[0x277CBEB98];
+                v71[0] = objc_opt_class();
+                v71[1] = objc_opt_class();
+                v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
+                v29 = [v27 setWithArray:v28];
+
+                v60 = 0;
+                v30 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v29 fromData:v25 error:&v60];
+                v56 = v60;
+                if (!v56 && v30 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+                {
+                  v53 = v30;
+                  [v52 setObject:? forKey:?];
+                  v31 = domainTrackingLogHandle;
+                  if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
+                  {
+                    v32 = v31;
+                    v50 = [v53 count];
+                    v51 = [v52 objectForKeyedSubscript:nameCopy];
+                    *buf = 134218499;
+                    v66 = v50;
+                    v67 = 2112;
+                    v68 = nameCopy;
+                    v69 = 2113;
+                    v70 = v51;
+                    _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_DEFAULT, "Updating all storage with %lu fetched endpoints record for %@, %{private}@", buf, 0x20u);
+                  }
+                }
+
+                else
+                {
+                  v34 = domainTrackingLogHandle;
+                  if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
+                  {
+                    v35 = v34;
+                    v36 = objc_opt_class();
+                    NSStringFromClass(v36);
+                    v37 = v54 = v29;
+                    *buf = 138412802;
+                    v66 = v37;
+                    v67 = 2112;
+                    v68 = nameCopy;
+                    v69 = 2112;
+                    v70 = v56;
+                    _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_ERROR, "Failed to unarchive, endpoints record is nil or unexpected class %@ for %@, error %@", buf, 0x20u);
+
+                    v29 = v54;
+                  }
+                }
+
+                date = v55;
+              }
+
+              ++v59;
+
+              v16 = v22;
+              v15 = v21;
+              v17 = v58;
+            }
+          }
+
+          v15 = [v13 countByEnumeratingWithState:&v61 objects:v72 count:16];
+        }
+
+        while (v15);
+
+        v8 = v52;
+        v11 = v49;
+        if (v59 == 1)
+        {
+          goto LABEL_42;
+        }
+
+        if (v59)
+        {
+          v38 = domainTrackingLogHandle;
+          if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138412546;
+            v66 = nameCopy;
+            v67 = 2112;
+            v68 = v13;
+            v39 = "Expected 0 or 1 fetched endpoints record for %@ but received multiple, %@";
+            v40 = v38;
+            v41 = OS_LOG_TYPE_ERROR;
+            v42 = 22;
+LABEL_41:
+            _os_log_impl(&dword_23255B000, v40, v41, v39, buf, v42);
+            goto LABEL_42;
+          }
+
+          goto LABEL_42;
+        }
+      }
+
+      else
+      {
+      }
+
+      [v8 setObject:0 forKeyedSubscript:nameCopy];
+      v48 = domainTrackingLogHandle;
+      if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412290;
+        v66 = nameCopy;
+        v39 = "No scoped endpoints record in DB for %@";
+        v40 = v48;
+        v41 = OS_LOG_TYPE_DEBUG;
+        v42 = 12;
+        goto LABEL_41;
+      }
+
+LABEL_42:
+
+LABEL_43:
+      goto LABEL_44;
+    }
+  }
+
+  v43 = domainTrackingLogHandle;
+  if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
+  {
+    v44 = v43;
+    v45 = objc_opt_class();
+    v46 = NSStringFromClass(v45);
+    *buf = 138412290;
+    v66 = v46;
+    _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_ERROR, "All endpoints storage is nil or unexpected class %@", buf, 0xCu);
+  }
+
+LABEL_44:
+}
+
+- (void)_updateAppEndpoints:(id)endpoints type:(unint64_t)type userId:(unsigned int)id bundleName:(id)name flowClosing:(BOOL)closing
+{
+  closingCopy = closing;
+  v8 = *&id;
+  v52 = *MEMORY[0x277D85DE8];
+  endpointsCopy = endpoints;
+  nameCopy = name;
+  if (type == 1)
+  {
+    v32 = @"resolved";
+    v11 = &OBJC_IVAR___FlowAnalyticsEngine_resolvedAppEndpoints;
+  }
+
+  else
+  {
+    if (type)
+    {
+      goto LABEL_22;
+    }
+
+    v32 = @"all";
+    v11 = &OBJC_IVAR___FlowAnalyticsEngine_allAppEndpoints;
+  }
+
+  v12 = *(&self->super.super.isa + *v11);
+  v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v8];
+  v14 = [v12 objectForKeyedSubscript:v13];
+
+  if (v14)
+  {
+    v15 = v14;
+    objc_sync_enter(v15);
+    obj = v15;
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+      v16 = domainTrackingLogHandle;
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        v27 = objc_opt_class();
+        v28 = NSStringFromClass(v27);
+        *buf = 138412546;
+        v42 = v32;
+        v43 = 2112;
+        v44 = v28;
+        _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "Endpoints in %@ storage is nil or unexpected class %@", buf, 0x16u);
+      }
+
+      goto LABEL_36;
+    }
+
+    v16 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v17 = endpointsCopy;
+    v18 = [v17 countByEnumeratingWithState:&v37 objects:v51 count:16];
+    if (v18)
+    {
+      v19 = *v38;
+      do
+      {
+        for (i = 0; i != v18; ++i)
+        {
+          if (*v38 != v19)
+          {
+            objc_enumerationMutation(v17);
+          }
+
+          v21 = [[TimedAppEndpoint alloc] initWithEndpointName:*(*(&v37 + 1) + 8 * i) type:0];
+          [v16 addObject:v21];
+        }
+
+        v18 = [v17 countByEnumeratingWithState:&v37 objects:v51 count:16];
+      }
+
+      while (v18);
+    }
+
+    v22 = [obj objectForKeyedSubscript:nameCopy];
+    if (v22)
+    {
+      objc_opt_class();
+      if ((objc_opt_isKindOfClass() & 1) == 0)
+      {
+        v23 = domainTrackingLogHandle;
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        {
+          v30 = objc_opt_class();
+          v31 = NSStringFromClass(v30);
+          *buf = 138412802;
+          v42 = v31;
+          v43 = 2112;
+          v44 = v32;
+          v45 = 2112;
+          v46 = nameCopy;
+          _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_ERROR, "App endpoints is unexpected class %@ in %@ storage for %@", buf, 0x20u);
+        }
+
+        goto LABEL_34;
+      }
+
+      [v16 minusSet:v22];
+      if (![v16 count])
+      {
+LABEL_35:
+
+LABEL_36:
+        objc_sync_exit(obj);
+
+        goto LABEL_37;
+      }
+
+      [v22 unionSet:v16];
+      if (type == 1 && closingCopy)
+      {
+        [(FlowAnalyticsEngine *)self _updateDeterminedTrackersFromAPICountForUserId:v8 bundleName:nameCopy increment:[v16 count]];
+      }
+
+      v23 = domainTrackingLogHandle;
+      if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      {
+LABEL_34:
+
+        goto LABEL_35;
+      }
+
+      v24 = [v16 count];
+      *buf = 134219011;
+      v42 = v24;
+      v43 = 2112;
+      v44 = v32;
+      v45 = 2112;
+      v46 = nameCopy;
+      v47 = 1024;
+      v48 = closingCopy;
+      v49 = 2113;
+      v50 = v16;
+      v25 = "Adding %lu endpoints in %@ storage for %@, flowClosing %d, %{private}@";
+    }
+
+    else
+    {
+      [obj setObject:v16 forKeyedSubscript:nameCopy];
+      if (type == 1 && closingCopy)
+      {
+        [(FlowAnalyticsEngine *)self _updateDeterminedTrackersFromAPICountForUserId:v8 bundleName:nameCopy increment:[v16 count]];
+      }
+
+      v23 = domainTrackingLogHandle;
+      if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_34;
+      }
+
+      v29 = [v16 count];
+      *buf = 134219011;
+      v42 = v29;
+      v43 = 2112;
+      v44 = v32;
+      v45 = 2112;
+      v46 = nameCopy;
+      v47 = 1024;
+      v48 = closingCopy;
+      v49 = 2113;
+      v50 = v16;
+      v25 = "Initializing set with %lu endpoints in %@ storage for %@, flowClosing %d, %{private}@";
+    }
+
+    _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, v25, buf, 0x30u);
+    goto LABEL_34;
+  }
+
+LABEL_22:
+  v26 = domainTrackingLogHandle;
+  if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 67109120;
+    LODWORD(v42) = v8;
+    _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_ERROR, "No endpoints storage created in memory yet for euid %u", buf, 8u);
+  }
+
+LABEL_37:
+}
+
+- (void)_updateDeterminedTrackersFromAPICountForUserId:(unsigned int)id bundleName:(id)name increment:(unint64_t)increment
+{
+  v6 = *&id;
+  v28 = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  determinedTrackersFromAPICount = self->determinedTrackersFromAPICount;
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v6];
+  v11 = [(NSMutableDictionary *)determinedTrackersFromAPICount objectForKeyedSubscript:v10];
+
+  if (v11)
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v12 = [v11 objectForKeyedSubscript:nameCopy];
+      if (!v12)
+      {
+        v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:increment];
+        [v11 setObject:v20 forKeyedSubscript:nameCopy];
+
+        v15 = domainTrackingLogHandle;
+        if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
+        {
+          v24 = 134218243;
+          incrementCopy = increment;
+          v26 = 2113;
+          v27 = nameCopy;
+          v16 = "Initializing determined trackers from API count to %lu for %{private}@";
+          goto LABEL_12;
+        }
+
+LABEL_15:
+
+        goto LABEL_16;
+      }
+
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v13 = [v12 unsignedIntegerValue]+ increment;
+        v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v13];
+        [v11 setObject:v14 forKeyedSubscript:nameCopy];
+
+        v15 = domainTrackingLogHandle;
+        if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
+        {
+          v24 = 134218243;
+          incrementCopy = v13;
+          v26 = 2113;
+          v27 = nameCopy;
+          v16 = "Incrementing determined trackers from API count to %lu for %{private}@";
+LABEL_12:
+          _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEFAULT, v16, &v24, 0x16u);
+          goto LABEL_15;
+        }
+
+        goto LABEL_15;
+      }
+
+      v21 = domainTrackingLogHandle;
+      if (!os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_15;
+      }
+
+      v19 = v21;
+      v22 = objc_opt_class();
+      v23 = NSStringFromClass(v22);
+      v24 = 138412546;
+      incrementCopy = v23;
+      v26 = 2112;
+      v27 = nameCopy;
+      _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "App determined trackers from API count is unexpected class %@ for %@", &v24, 0x16u);
+
+LABEL_9:
+      goto LABEL_15;
+    }
+  }
+
+  v17 = domainTrackingLogHandle;
+  if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
+  {
+    v12 = v17;
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    v24 = 138412290;
+    incrementCopy = v19;
+    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "Determined trackers from API storage is nil or unexpected class %@", &v24, 0xCu);
+    goto LABEL_9;
+  }
+
+LABEL_16:
+}
+
+- (void)_resolveAppEndpointsForUserId:(unsigned int)id bundleName:(id)name
+{
+  v4 = *&id;
+  v71 = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  allAppEndpoints = self->allAppEndpoints;
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v4];
+  v9 = [(NSMutableDictionary *)allAppEndpoints objectForKeyedSubscript:v8];
+
+  if (v9 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v10 = [v9 objectForKeyedSubscript:nameCopy];
+    if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    {
+      v53 = v9;
+      v54 = nameCopy;
+      v11 = objc_alloc_init(MEMORY[0x277CBEB58]);
+      v59 = 0u;
+      v60 = 0u;
+      v61 = 0u;
+      v62 = 0u;
+      v52 = v10;
+      v12 = v10;
+      v13 = [v12 countByEnumeratingWithState:&v59 objects:v70 count:16];
+      if (v13)
+      {
+        v14 = v13;
+        v15 = *v60;
+        do
+        {
+          for (i = 0; i != v14; ++i)
+          {
+            if (*v60 != v15)
+            {
+              objc_enumerationMutation(v12);
+            }
+
+            v17 = *(*(&v59 + 1) + 8 * i);
+            if (![v17 type])
+            {
+              [v11 addObject:v17];
+            }
+          }
+
+          v14 = [v12 countByEnumeratingWithState:&v59 objects:v70 count:16];
+        }
+
+        while (v14);
+      }
+
+      if ([v11 count])
+      {
+        resolvedAppEndpoints = self->resolvedAppEndpoints;
+        v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v4];
+        v20 = [(NSMutableDictionary *)resolvedAppEndpoints objectForKeyedSubscript:v19];
+
+        nameCopy = v54;
+        if (v20 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+        {
+          v21 = [v20 objectForKeyedSubscript:v54];
+          if (v21 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+          {
+            v51 = v20;
+            v22 = objc_alloc_init(MEMORY[0x277CBEB58]);
+            v55 = 0u;
+            v56 = 0u;
+            v57 = 0u;
+            v58 = 0u;
+            v23 = v11;
+            v24 = [v23 countByEnumeratingWithState:&v55 objects:v69 count:16];
+            if (v24)
+            {
+              v25 = v24;
+              v26 = *v56;
+              do
+              {
+                for (j = 0; j != v25; ++j)
+                {
+                  if (*v56 != v26)
+                  {
+                    objc_enumerationMutation(v23);
+                  }
+
+                  v28 = *(*(&v55 + 1) + 8 * j);
+                  v29 = [v21 member:{v28, v51}];
+
+                  if (v29)
+                  {
+                    v30 = [v12 member:v28];
+                    [v30 markResolved];
+                    [v22 addObject:v30];
+                  }
+                }
+
+                v25 = [v23 countByEnumeratingWithState:&v55 objects:v69 count:16];
+              }
+
+              while (v25);
+            }
+
+            nameCopy = v54;
+            v10 = v52;
+            if ([v22 count])
+            {
+              v31 = domainTrackingLogHandle;
+              if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
+              {
+                v32 = v31;
+                v33 = [v22 count];
+                *buf = 134218499;
+                v64 = v33;
+                v65 = 2112;
+                v66 = v54;
+                v67 = 2113;
+                v68 = v22;
+                _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_DEFAULT, "Resolved %lu endpoints for %@, %{private}@", buf, 0x20u);
+              }
+            }
+
+            v9 = v53;
+            v20 = v51;
+          }
+
+          else
+          {
+            v47 = domainTrackingLogHandle;
+            v10 = v52;
+            v9 = v53;
+            if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
+            {
+              v48 = v47;
+              v49 = objc_opt_class();
+              v50 = NSStringFromClass(v49);
+              *buf = 138412546;
+              v64 = v54;
+              v65 = 2112;
+              v66 = v50;
+              _os_log_impl(&dword_23255B000, v48, OS_LOG_TYPE_DEBUG, "No endpoints resolved so far for %@, or unexpected class %@", buf, 0x16u);
+            }
+          }
+        }
+
+        else
+        {
+          v42 = domainTrackingLogHandle;
+          v10 = v52;
+          v9 = v53;
+          if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
+          {
+            v43 = v42;
+            v44 = objc_opt_class();
+            v45 = NSStringFromClass(v44);
+            *buf = 138412290;
+            v64 = v45;
+            _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_ERROR, "Resolved endpoints storage is nil or unexpected class %@", buf, 0xCu);
+          }
+        }
+      }
+
+      else
+      {
+        v46 = domainTrackingLogHandle;
+        v9 = v53;
+        nameCopy = v54;
+        v10 = v52;
+        if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_23255B000, v46, OS_LOG_TYPE_DEBUG, "No unresolved endpoints at this time", buf, 2u);
+        }
+      }
+    }
+
+    else
+    {
+      v38 = domainTrackingLogHandle;
+      if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
+      {
+        v39 = v38;
+        v40 = objc_opt_class();
+        v41 = NSStringFromClass(v40);
+        *buf = 138412546;
+        v64 = nameCopy;
+        v65 = 2112;
+        v66 = v41;
+        _os_log_impl(&dword_23255B000, v39, OS_LOG_TYPE_DEBUG, "No endpoints were added in all storage so far for %@, or unexpected class %@", buf, 0x16u);
+      }
+    }
+  }
+
+  else
+  {
+    v34 = domainTrackingLogHandle;
+    if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      v35 = v34;
+      v36 = objc_opt_class();
+      v37 = NSStringFromClass(v36);
+      *buf = 138412290;
+      v64 = v37;
+      _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_ERROR, "All endpoints storage is nil or unexpected class %@", buf, 0xCu);
+    }
+  }
 }
 
 - (id)_appEndpointsInProcess:(id)process
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   processCopy = process;
   date = [MEMORY[0x277CBEAA8] date];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   hasAppEndpoint = [processCopy hasAppEndpoint];
-  v6 = [hasAppEndpoint countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [hasAppEndpoint countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v20 != v8)
+      if (*v19 != v8)
       {
         objc_enumerationMutation(hasAppEndpoint);
       }
 
-      v10 = *(*(&v19 + 1) + 8 * v9);
+      v10 = *(*(&v18 + 1) + 8 * v9);
       effectiveUserId = [v10 effectiveUserId];
       if (effectiveUserId == gEffectiveUserId)
       {
@@ -11786,7 +12551,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [hasAppEndpoint countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v7 = [hasAppEndpoint countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -11817,14 +12582,153 @@ LABEL_10:
   [processCopy addHasAppEndpointObject:createEntity];
 LABEL_13:
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return createEntity;
+}
+
+- (void)_archiveAppEndpointsForUserId:(unsigned int)id bundleName:(id)name
+{
+  v4 = *&id;
+  v40 = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  allAppEndpoints = self->allAppEndpoints;
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v4];
+  v9 = [(NSMutableDictionary *)allAppEndpoints objectForKeyedSubscript:v8];
+
+  if (v9)
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v10 = [v9 objectForKeyedSubscript:nameCopy];
+      if (!v10 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+      {
+        v20 = domainTrackingLogHandle;
+        if (!os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
+        {
+LABEL_26:
+
+          goto LABEL_27;
+        }
+
+        v12 = v20;
+        v21 = objc_opt_class();
+        v13 = NSStringFromClass(v21);
+        *buf = 138412546;
+        v35 = nameCopy;
+        v36 = 2112;
+        v37 = v13;
+        v22 = "No endpoints to archive for %@, or unexpected class %@";
+        v23 = v12;
+        v24 = OS_LOG_TYPE_DEBUG;
+        v25 = 22;
+        goto LABEL_15;
+      }
+
+      v11 = [(FlowAnalyticsEngine *)self _processFetchForName:0 bundle:nameCopy shouldFillMiss:1];
+      v12 = v11;
+      if (v11 && [v11 isApp])
+      {
+        v13 = [(FlowAnalyticsEngine *)self _appEndpointsInProcess:v12];
+        if (v13)
+        {
+          v14 = v10;
+          v33 = 0;
+          v15 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v14 requiringSecureCoding:1 error:&v33];
+          v16 = v33;
+          if (v16)
+          {
+            v17 = domainTrackingLogHandle;
+            if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
+            {
+              *buf = 138412290;
+              v35 = nameCopy;
+              _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "Failed to archive endpoints record for %@", buf, 0xCu);
+            }
+          }
+
+          else
+          {
+            [v13 setEndpointSet:v15];
+            date = [MEMORY[0x277CBEAA8] date];
+            [v13 setTimeStamp:date];
+
+            v30 = domainTrackingLogHandle;
+            if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
+            {
+              v31 = v30;
+              v32 = [v14 count];
+              *buf = 134218499;
+              v35 = v32;
+              v36 = 2112;
+              v37 = nameCopy;
+              v38 = 2113;
+              v39 = v14;
+              _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_DEBUG, "Archived %lu endpoints record for %@: %{private}@", buf, 0x20u);
+            }
+          }
+
+          goto LABEL_23;
+        }
+
+        v28 = domainTrackingLogHandle;
+        if (!os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
+        {
+LABEL_24:
+
+          goto LABEL_25;
+        }
+
+        *buf = 138412290;
+        v35 = nameCopy;
+        v22 = "Could not create or fetch endpoints record for %@";
+        v23 = v28;
+        v24 = OS_LOG_TYPE_ERROR;
+        v25 = 12;
+LABEL_15:
+        _os_log_impl(&dword_23255B000, v23, v24, v22, buf, v25);
+        goto LABEL_24;
+      }
+
+      v26 = domainTrackingLogHandle;
+      if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
+      {
+        v13 = v26;
+        v27 = objc_opt_class();
+        v14 = NSStringFromClass(v27);
+        *buf = 138412546;
+        v35 = v14;
+        v36 = 2112;
+        v37 = nameCopy;
+        _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "Process is nil or unexpected class %@ for %@", buf, 0x16u);
+LABEL_23:
+
+        goto LABEL_24;
+      }
+
+LABEL_25:
+
+      goto LABEL_26;
+    }
+  }
+
+  v18 = domainTrackingLogHandle;
+  if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
+  {
+    v10 = v18;
+    v19 = objc_opt_class();
+    v12 = NSStringFromClass(v19);
+    *buf = 138412290;
+    v35 = v12;
+    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "All endpoints storage is nil or unexpected class %@", buf, 0xCu);
+    goto LABEL_25;
+  }
+
+LABEL_27:
 }
 
 - (unint64_t)_clearStaleAppEndpointRecords
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = domainTrackingLogHandle;
   if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -11832,7 +12736,7 @@ LABEL_13:
     v5 = v3;
     v6 = [v4 dateWithTimeIntervalSinceNow:-604800.0];
     *buf = 138412290;
-    v15 = v6;
+    v14 = v6;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Clearing out AppEndpoint records with firstTimeStamp older than %@", buf, 0xCu);
   }
 
@@ -11845,11 +12749,10 @@ LABEL_13:
   if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v15 = v10;
+    v14 = v10;
     _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "Removed %lu AppEndpoint records", buf, 0xCu);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -11895,13 +12798,11 @@ void __60__FlowAnalyticsEngine__submitAppEndpointRecordInfoAnalytics__block_invo
 
 id __60__FlowAnalyticsEngine__submitAppEndpointRecordInfoAnalytics__block_invoke_2(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"intervalSeconds";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"intervalSeconds";
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 32) - *(a1 + 40)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -11924,7 +12825,7 @@ id __60__FlowAnalyticsEngine__submitAppEndpointRecordInfoAnalytics__block_invoke
 
 - (void)performAppEndpointTrackingPeriodicTasksComplete:(id)complete error:(id)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   errorCopy = error;
   v7 = domainTrackingLogHandle;
@@ -11932,27 +12833,25 @@ id __60__FlowAnalyticsEngine__submitAppEndpointRecordInfoAnalytics__block_invoke
   {
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = errorCopy;
+      v11 = 138412290;
+      v12 = errorCopy;
       v8 = "Periodic app endpoint tracking tasks failed with %@";
       v9 = v7;
       v10 = OS_LOG_TYPE_ERROR;
 LABEL_6:
-      _os_log_impl(&dword_23255B000, v9, v10, v8, &v12, 0xCu);
+      _os_log_impl(&dword_23255B000, v9, v10, v8, &v11, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = completeCopy;
+    v11 = 138412290;
+    v12 = completeCopy;
     v8 = "Periodic app endpoint tracking tasks finished with result %@";
     v9 = v7;
     v10 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (void)performAppEndpointTrackingPeriodicActivityWithReply:(id)reply
@@ -11960,6 +12859,78 @@ LABEL_6:
   if (sharedInstance_1)
   {
     [sharedInstance_1 _performAppEndpointTrackingPeriodicTasksWithReply:reply];
+  }
+}
+
+- (void)clearAppEndpointsForUserWithID:(unsigned int)d
+{
+  v3 = *&d;
+  v34 = *MEMORY[0x277D85DE8];
+  epspace = self->epspace;
+  v6 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %u", @"effectiveUserId", *&d];
+  v7 = [(ObjectAnalytics *)epspace removeEntitiesMatching:v6];
+
+  v8 = domainTrackingLogHandle;
+  if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134218240;
+    *v29 = v7;
+    *&v29[8] = 1024;
+    *&v29[10] = v3;
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Cleared out %ld app endpoint tracking data for user %u", buf, 0x12u);
+  }
+
+  if (!self->endpointTrackingEnabled)
+  {
+    allAppEndpoints = self->allAppEndpoints;
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+    v11 = [(NSMutableDictionary *)allAppEndpoints objectForKeyedSubscript:v10];
+
+    if (v11)
+    {
+      v12 = self->allAppEndpoints;
+      v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+      [(NSMutableDictionary *)v12 setObject:0 forKeyedSubscript:v13];
+    }
+
+    resolvedAppEndpoints = self->resolvedAppEndpoints;
+    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+    v16 = [(NSMutableDictionary *)resolvedAppEndpoints objectForKeyedSubscript:v15];
+
+    if (v16)
+    {
+      v17 = self->resolvedAppEndpoints;
+      v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+      [(NSMutableDictionary *)v17 setObject:0 forKeyedSubscript:v18];
+    }
+
+    determinedTrackersFromAPICount = self->determinedTrackersFromAPICount;
+    v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+    v21 = [(NSMutableDictionary *)determinedTrackersFromAPICount objectForKeyedSubscript:v20];
+
+    if (v21)
+    {
+      v22 = self->determinedTrackersFromAPICount;
+      v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+      [(NSMutableDictionary *)v22 setObject:0 forKeyedSubscript:v23];
+    }
+
+    v24 = domainTrackingLogHandle;
+    if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      v25 = self->allAppEndpoints;
+      v26 = self->resolvedAppEndpoints;
+      v27 = self->determinedTrackersFromAPICount;
+      *buf = 67109891;
+      *v29 = v3;
+      *&v29[4] = 2113;
+      *&v29[6] = v25;
+      v30 = 2113;
+      v31 = v26;
+      v32 = 2113;
+      v33 = v27;
+      _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "Cleared out in-memory app endpoints data for user %u, all: %{private}@, resolved: %{private}@, trackersFromAPI: %{private}@", buf, 0x26u);
+    }
   }
 }
 
@@ -11977,7 +12948,7 @@ LABEL_6:
 
 - (void)_reportDomainTrackingDropFor:(id)for withCause:(unint64_t)cause detail:(id)detail
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   forCopy = for;
   detailCopy = detail;
   if (cause <= 0xA && ((1 << cause) & 0x7AE) != 0)
@@ -11998,11 +12969,11 @@ LABEL_6:
         if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_INFO))
         {
           *buf = 138478339;
-          v17 = forCopy;
-          v18 = 2048;
+          v16 = forCopy;
+          v17 = 2048;
           causeCopy2 = cause;
-          v20 = 2113;
-          v21 = detailCopy;
+          v19 = 2113;
+          v20 = detailCopy;
           _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_INFO, "3rd Party obfuscated Drop reported to analytics for %{private}@ cause %lu detail %{private}@", buf, 0x20u);
         }
 
@@ -12019,59 +12990,57 @@ LABEL_6:
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_INFO))
     {
       *buf = 138478339;
-      v17 = forCopy;
-      v18 = 2048;
+      v16 = forCopy;
+      v17 = 2048;
       causeCopy2 = cause;
-      v20 = 2113;
-      v21 = detailCopy;
+      v19 = 2113;
+      v20 = detailCopy;
       _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_INFO, "Drop reported to analytics for %{private}@ cause %lu detail %{private}@", buf, 0x20u);
     }
 
     v14 = v11;
     AnalyticsSendEventLazy();
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 id __69__FlowAnalyticsEngine__reportDomainTrackingDropFor_withCause_detail___block_invoke(uint64_t a1)
 {
-  v12[3] = *MEMORY[0x277D85DE8];
-  v2 = daemonFunctionalGroupingForProcName([*(a1 + 32) UTF8String]);
-  if (v2)
+  v19[3] = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) UTF8String];
+  v6 = daemonFunctionalGroupingForProcName(v2, v3, v4, v5);
+  if (v6)
   {
-    v3 = v2;
+    v7 = v6;
 LABEL_3:
-    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:v3];
+    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:v7];
     goto LABEL_7;
   }
 
   if ([*(a1 + 32) hasPrefix:@"com.apple."])
   {
-    v5 = [*(a1 + 32) substringFromIndex:{objc_msgSend(@"com.apple.", "length")}];
-    v3 = daemonFunctionalGroupingForProcName([v5 UTF8String]);
+    v9 = [*(a1 + 32) substringFromIndex:{objc_msgSend(@"com.apple.", "length")}];
+    v10 = [v9 UTF8String];
+    v7 = daemonFunctionalGroupingForProcName(v10, v11, v12, v13);
 
-    if (v3)
+    if (v7)
     {
       goto LABEL_3;
     }
   }
 
-  v4 = @"unknown";
+  v8 = @"unknown";
 LABEL_7:
-  v11[0] = @"Entity";
-  v11[1] = @"EntityGroup";
-  v6 = *(a1 + 40);
-  v12[0] = *(a1 + 32);
-  v12[1] = v4;
-  v11[2] = @"Cause";
-  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v6];
-  v12[2] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v18[0] = @"Entity";
+  v18[1] = @"EntityGroup";
+  v14 = *(a1 + 40);
+  v19[0] = *(a1 + 32);
+  v19[1] = v8;
+  v18[2] = @"Cause";
+  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v14];
+  v19[2] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
 
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v16;
 }
 
 - (void)_evalDomainTrackingDropOf:(id)of
@@ -12270,7 +13239,7 @@ LABEL_13:
 
 - (void)storeSnapshotFlowUUID:(id)d forSourceKey:(id)key
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dCopy = d;
   keyCopy = key;
   v8 = keyCopy;
@@ -12291,11 +13260,11 @@ LABEL_13:
         v15 = v14;
         v16 = objc_opt_class();
         v17 = NSStringFromClass(v16);
-        *v25 = 138412546;
-        *&v25[4] = v17;
-        *&v25[12] = 2112;
-        *&v25[14] = v8;
-        _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "ConnSnapshot: fuuids of unexpected class %@ for conn id %@", v25, 0x16u);
+        *v24 = 138412546;
+        *&v24[4] = v17;
+        *&v24[12] = 2112;
+        *&v24[14] = v8;
+        _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "ConnSnapshot: fuuids of unexpected class %@ for conn id %@", v24, 0x16u);
       }
 
       goto LABEL_12;
@@ -12305,13 +13274,13 @@ LABEL_13:
     v10 = domainTrackingLogHandle;
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_INFO))
     {
-      *v25 = 138412546;
-      *&v25[4] = dCopy;
-      *&v25[12] = 2112;
-      *&v25[14] = v8;
+      *v24 = 138412546;
+      *&v24[4] = dCopy;
+      *&v24[12] = 2112;
+      *&v24[14] = v8;
       v11 = "ConnSnapshot: stored fuuid %@ for conn id %@";
 LABEL_9:
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_INFO, v11, v25, 0x16u);
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_INFO, v11, v24, 0x16u);
     }
   }
 
@@ -12326,17 +13295,17 @@ LABEL_9:
     v10 = domainTrackingLogHandle;
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_INFO))
     {
-      *v25 = 138412546;
-      *&v25[4] = dCopy;
-      *&v25[12] = 2112;
-      *&v25[14] = v8;
+      *v24 = 138412546;
+      *&v24[4] = dCopy;
+      *&v24[12] = 2112;
+      *&v24[14] = v8;
       v11 = "ConnSnapshot: stored fuuid %@ for conn id %@ (first time)";
       goto LABEL_9;
     }
   }
 
 LABEL_12:
-  if ([(NSMutableDictionary *)self->snapshotFlowUUIDs count:*v25]>= 0xBB9)
+  if ([(NSMutableDictionary *)self->snapshotFlowUUIDs count:*v24]>= 0xBB9)
   {
     v18 = domainTrackingLogHandle;
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -12344,11 +13313,11 @@ LABEL_12:
       snapshotFlowUUIDs = self->snapshotFlowUUIDs;
       v20 = v18;
       v21 = [(NSMutableDictionary *)snapshotFlowUUIDs count];
-      *v25 = 134218240;
-      *&v25[4] = v21;
-      *&v25[12] = 1024;
-      *&v25[14] = 3000;
-      _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "Concurrent connections count %lu exceeds threshold %d, triggering an ABC case", v25, 0x12u);
+      *v24 = 134218240;
+      *&v24[4] = v21;
+      *&v24[12] = 1024;
+      *&v24[14] = 3000;
+      _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "Concurrent connections count %lu exceeds threshold %d, triggering an ABC case", v24, 0x12u);
     }
 
     v22 = +[NetDomainsHandler sharedInstance];
@@ -12357,12 +13326,11 @@ LABEL_12:
   }
 
 LABEL_17:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeSnapshotFlowUUIDsForSourceKey:(id)key
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if (keyCopy)
   {
@@ -12378,52 +13346,50 @@ LABEL_17:
         v9 = [(NSMutableDictionary *)snapshotFlowUUIDs count];
         allKeys = [(NSMutableDictionary *)self->snapshotFlowUUIDs allKeys];
         v11 = [allKeys componentsJoinedByString:{@", "}];
-        v13 = 138413058;
-        v14 = v5;
-        v15 = 2112;
-        v16 = keyCopy;
-        v17 = 2048;
-        v18 = v9;
-        v19 = 2112;
-        v20 = v11;
-        _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "ConnSnapshot: removed fuuids %@ for conn id %@, remaining (>= %lu) for conn ids [%@]", &v13, 0x2Au);
+        v12 = 138413058;
+        v13 = v5;
+        v14 = 2112;
+        v15 = keyCopy;
+        v16 = 2048;
+        v17 = v9;
+        v18 = 2112;
+        v19 = v11;
+        _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "ConnSnapshot: removed fuuids %@ for conn id %@, remaining (>= %lu) for conn ids [%@]", &v12, 0x2Au);
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isSnapshotFlowUUIDStored:(id)stored
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   storedCopy = stored;
   if (storedCopy)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     allKeys = [(NSMutableDictionary *)self->snapshotFlowUUIDs allKeys];
-    v6 = [allKeys countByEnumeratingWithState:&v19 objects:v25 count:16];
+    v6 = [allKeys countByEnumeratingWithState:&v18 objects:v24 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = 0;
-      v9 = *v20;
+      v9 = *v19;
       while (2)
       {
         v10 = 0;
         v11 = v8 + 1;
-        v18 = v8 + v7;
+        v17 = v8 + v7;
         do
         {
-          if (*v20 != v9)
+          if (*v19 != v9)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v12 = [(NSMutableDictionary *)self->snapshotFlowUUIDs objectForKeyedSubscript:*(*(&v19 + 1) + 8 * v10)];
+          v12 = [(NSMutableDictionary *)self->snapshotFlowUUIDs objectForKeyedSubscript:*(*(&v18 + 1) + 8 * v10)];
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) != 0 && [v12 containsObject:storedCopy])
           {
@@ -12432,7 +13398,7 @@ LABEL_17:
             if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
             {
               *buf = 67109120;
-              v24 = v11;
+              v23 = v11;
               _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "isSnapshotFlowUUIDStored: YES after scanning %d entries", buf, 8u);
             }
 
@@ -12445,8 +13411,8 @@ LABEL_17:
         }
 
         while (v7 != v10);
-        v7 = [allKeys countByEnumeratingWithState:&v19 objects:v25 count:16];
-        v8 = v18;
+        v7 = [allKeys countByEnumeratingWithState:&v18 objects:v24 count:16];
+        v8 = v17;
         if (v7)
         {
           continue;
@@ -12466,7 +13432,7 @@ LABEL_17:
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109120;
-      v24 = v8;
+      v23 = v8;
       _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "isSnapshotFlowUUIDStored: NO after scanning %d entries", buf, 8u);
     }
   }
@@ -12474,21 +13440,20 @@ LABEL_17:
   v14 = 0;
 LABEL_19:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (BOOL)domainInfoProcessingForSnapshot:(id)snapshot process:(id)process attributedName:(id)name remoteAddress:(id)address isWebBrowser:(BOOL)browser
 {
   browserCopy = browser;
-  v122[1] = *MEMORY[0x277D85DE8];
+  v121[1] = *MEMORY[0x277D85DE8];
   snapshotCopy = snapshot;
   processCopy = process;
   nameCopy = name;
   addressCopy = address;
   domainOwner = [snapshotCopy domainOwner];
   domainOwner2 = &stru_2847966D8;
-  v94 = nameCopy;
+  v93 = nameCopy;
   if (domainOwner)
   {
     domainOwner2 = [snapshotCopy domainOwner];
@@ -12507,7 +13472,7 @@ LABEL_19:
     v18 = 1;
   }
 
-  v91 = v18;
+  v90 = v18;
   isTracker = [snapshotCopy isTracker];
   v20 = isTracker;
   if (isTracker)
@@ -12522,10 +13487,10 @@ LABEL_19:
 
   domainName = [snapshotCopy domainName];
 
-  v90 = addressCopy;
+  v89 = addressCopy;
   if (domainName)
   {
-    v84 = sourceIdentifier;
+    v83 = sourceIdentifier;
     domainName2 = [snapshotCopy domainName];
     v24 = [domainName2 hasSuffix:@"."];
 
@@ -12541,7 +13506,7 @@ LABEL_19:
     if (v20)
     {
       v28 = 1;
-      v92 = 1;
+      v91 = 1;
       if (!domainName3)
       {
         goto LABEL_78;
@@ -12582,20 +13547,20 @@ LABEL_46:
           {
             if ([(__CFString *)processName isEqualToString:@"MobileSafari"])
             {
-              v78 = domainTrackingLogHandle;
+              v77 = domainTrackingLogHandle;
               if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412803;
-                v97 = processName;
-                v98 = 2113;
-                v99 = domainTrackerContext3;
-                v100 = 2113;
-                v101 = v94;
-                _os_log_impl(&dword_23255B000, v78, OS_LOG_TYPE_ERROR, "Process is %@ with context %{private}@ for %{private}@, triggering an ABC case", buf, 0x20u);
+                v96 = processName;
+                v97 = 2113;
+                v98 = domainTrackerContext3;
+                v99 = 2113;
+                v100 = v93;
+                _os_log_impl(&dword_23255B000, v77, OS_LOG_TYPE_ERROR, "Process is %@ with context %{private}@ for %{private}@, triggering an ABC case", buf, 0x20u);
               }
 
-              v79 = +[NetDomainsHandler sharedInstance];
-              [v79 triggerAutoBugCaptureCaseForType:@"ProcessMobileSafariWithContext" subType:0 privateSubtypeContext:domainTrackerContext3 detectedProcess:processName events:0 thresholdValuesString:0];
+              v78 = +[NetDomainsHandler sharedInstance];
+              [v78 triggerAutoBugCaptureCaseForType:@"ProcessMobileSafariWithContext" subType:0 privateSubtypeContext:domainTrackerContext3 detectedProcess:processName events:0 thresholdValuesString:0];
             }
 
             v50 = 1;
@@ -12603,22 +13568,22 @@ LABEL_46:
           }
 
 LABEL_57:
-          v83 = v51;
-          v85 = processName;
+          v82 = v51;
+          v84 = processName;
           v52 = gEffectiveUserId;
           bundleName = [processCopy bundleName];
-          HIDWORD(v80) = v91;
-          LOWORD(v80) = v50;
-          v54 = [(FlowAnalyticsEngine *)self _appDomainUsageBy:v52 bundleName:bundleName forDomain:domainName3 domainOwner:domainOwner2 domainType:v92 domainClassification:v28 context:domainTrackerContext3 contextVerificationType:v80 initiatedType:?];
+          HIDWORD(v79) = v90;
+          LOWORD(v79) = v50;
+          v54 = [(FlowAnalyticsEngine *)self _appDomainUsageBy:v52 bundleName:bundleName forDomain:domainName3 domainOwner:domainOwner2 domainType:v91 domainClassification:v28 context:domainTrackerContext3 contextVerificationType:v79 initiatedType:?];
 
           if (!v54)
           {
             v64 = domainTrackingLogHandle;
-            v62 = v92;
+            v62 = v91;
             if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
             {
               *buf = 138477827;
-              v97 = v94;
+              v96 = v93;
               _os_log_impl(&dword_23255B000, v64, OS_LOG_TYPE_ERROR, "Couldn't create AppDomainUsage record for %{private}@", buf, 0xCu);
             }
 
@@ -12627,14 +13592,14 @@ LABEL_77:
             if (v62 != 1)
             {
               v36 = 1;
-              v35 = v94;
+              v35 = v93;
               goto LABEL_81;
             }
 
             goto LABEL_78;
           }
 
-          v82 = processCopy;
+          v81 = processCopy;
           date = [MEMORY[0x277CBEAA8] date];
           snapshotReasonString = [snapshotCopy snapshotReasonString];
           v57 = @"AppInitiated";
@@ -12643,7 +13608,7 @@ LABEL_77:
             v57 = @"NonAppInitiated";
           }
 
-          v87 = v57;
+          v86 = v57;
           timeStamp = [v54 timeStamp];
 
           if (timeStamp)
@@ -12652,12 +13617,12 @@ LABEL_77:
             [date timeIntervalSinceDate:timeStamp2];
             v61 = v60;
 
-            v62 = v92;
+            v62 = v91;
             if (v61 >= 0.0)
             {
               if (v61 < self->domainUsageBucketDuration)
               {
-                v89 = @"bucketed";
+                v88 = @"bucketed";
 LABEL_71:
                 v69 = domainTrackingLogHandle;
                 if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -12679,41 +13644,41 @@ LABEL_71:
                   log = v69;
                   hits = [v54 hits];
                   *buf = 138415619;
-                  v97 = v70;
-                  v98 = 2112;
-                  v99 = snapshotType;
-                  v100 = 2048;
-                  v101 = v84;
-                  v102 = 2112;
-                  v103 = snapshotReasonString;
-                  v104 = 1024;
-                  *v105 = v74;
+                  v96 = v70;
+                  v97 = 2112;
+                  v98 = snapshotType;
+                  v99 = 2048;
+                  v100 = v83;
+                  v101 = 2112;
+                  v102 = snapshotReasonString;
+                  v103 = 1024;
+                  *v104 = v74;
                   domainOwner2 = v73;
                   date = v72;
                   domainTrackerContext3 = v71;
-                  v62 = v92;
-                  *&v105[4] = 2113;
-                  *&v105[6] = v94;
-                  v106 = 2113;
-                  v107 = domainName3;
-                  v108 = 2113;
-                  v109 = domainOwner2;
-                  v110 = 2113;
-                  v111 = v71;
-                  v112 = 2112;
-                  v113 = v87;
-                  v114 = 2112;
-                  v115 = v83;
-                  v116 = 2112;
-                  v117 = hits;
-                  v118 = 2113;
-                  v119 = v85;
-                  v120 = 2112;
-                  v121 = v89;
+                  v62 = v91;
+                  *&v104[4] = 2113;
+                  *&v104[6] = v93;
+                  v105 = 2113;
+                  v106 = domainName3;
+                  v107 = 2113;
+                  v108 = domainOwner2;
+                  v109 = 2113;
+                  v110 = v71;
+                  v111 = 2112;
+                  v112 = v86;
+                  v113 = 2112;
+                  v114 = v82;
+                  v115 = 2112;
+                  v116 = hits;
+                  v117 = 2113;
+                  v118 = v84;
+                  v119 = 2112;
+                  v120 = v88;
                   _os_log_impl(&dword_23255B000, log, OS_LOG_TYPE_DEFAULT, "Hit %@tracker domain for %@ id %llu %@, euid: %u, bundle: %{private}@, domain: %{private}@, owner: %{private}@, context: %{private}@, initiatedType: %@, contextVerificationType: %@, hits: %@, process: %{private}@, disposition: %@", buf, 0x8Au);
                 }
 
-                processCopy = v82;
+                processCopy = v81;
                 goto LABEL_77;
               }
 
@@ -12725,13 +13690,13 @@ LABEL_71:
               v63 = @"clock-change";
             }
 
-            v89 = v63;
+            v88 = v63;
           }
 
           else
           {
-            v89 = @"new";
-            v62 = v92;
+            v88 = @"new";
+            v62 = v91;
           }
 
           v65 = MEMORY[0x277CCABB0];
@@ -12765,15 +13730,15 @@ LABEL_71:
       if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v97) = browserCopy;
+        LODWORD(v96) = browserCopy;
         _os_log_impl(&dword_23255B000, v37, OS_LOG_TYPE_ERROR, "NEHelperTrackerGetAppInfo() failed to create appInfoRef, isWebBrowser: %d, will match DDG app list", buf, 8u);
       }
     }
 
-    v122[0] = domainName3;
-    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v122 count:1];
-    v95[1] = 0;
-    v95[2] = 0;
+    v121[0] = domainName3;
+    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v121 count:1];
+    v94[1] = 0;
+    v94[2] = 0;
     Disposition = NEHelperTrackerGetDisposition();
     NEHelperTrackerFreeAppInfo();
     if (Disposition == 1)
@@ -12797,30 +13762,30 @@ LABEL_71:
       }
 
       v43 = domainTrackingLogHandle;
-      v92 = 1;
+      v91 = 1;
       if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         v44 = @"app";
         *buf = 138413827;
-        v97 = snapshotType;
-        v98 = 2048;
+        v96 = snapshotType;
+        v97 = 2048;
         if (browserCopy)
         {
           v44 = @"web";
         }
 
-        v99 = v84;
-        v100 = 2112;
-        v101 = v44;
-        v102 = 2113;
+        v98 = v83;
+        v99 = 2112;
+        v100 = v44;
+        v101 = 2113;
         v29 = v41;
-        v103 = v41;
-        v104 = 1024;
-        *v105 = 1;
-        *&v105[4] = 2113;
-        *&v105[6] = domainName3;
-        v106 = 2113;
-        v107 = v94;
+        v102 = v41;
+        v103 = 1024;
+        *v104 = 1;
+        *&v104[4] = 2113;
+        *&v104[6] = domainName3;
+        v105 = 2113;
+        v106 = v93;
         _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_DEFAULT, "%@ %llu fetched from DDG %@ list, owner: %{private}@, domainType: %d, domain: %{private}@, bundle: %{private}@", buf, 0x44u);
       }
 
@@ -12832,7 +13797,7 @@ LABEL_71:
 
     else
     {
-      v92 = 2;
+      v91 = 2;
     }
 
     v28 = 1;
@@ -12840,11 +13805,11 @@ LABEL_71:
 
   else
   {
-    v92 = v21;
+    v91 = v21;
     v29 = domainOwner2;
-    v95[0] = 0;
-    v30 = validateSockAddrToString(addressCopy, 0, v95);
-    v31 = v95[0];
+    v94[0] = 0;
+    v30 = validateSockAddrToString(addressCopy, 0, v94);
+    v31 = v94[0];
     v32 = v31;
     if (!v30)
     {
@@ -12852,14 +13817,14 @@ LABEL_71:
       if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138413059;
-        v35 = v94;
-        v97 = snapshotType;
-        v98 = 2048;
-        v99 = sourceIdentifier;
-        v100 = 2113;
-        v101 = v94;
-        v102 = 2113;
-        v103 = addressCopy;
+        v35 = v93;
+        v96 = snapshotType;
+        v97 = 2048;
+        v98 = sourceIdentifier;
+        v99 = 2113;
+        v100 = v93;
+        v101 = 2113;
+        v102 = addressCopy;
         _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_DEFAULT, "%@ %llu uses null dest IP address, bundle: %{private}@, remoteAddress: %{private}@", buf, 0x2Au);
         domainName3 = 0;
         v36 = 0;
@@ -12869,13 +13834,13 @@ LABEL_71:
       {
         domainName3 = 0;
         v36 = 0;
-        v35 = v94;
+        v35 = v93;
       }
 
       goto LABEL_79;
     }
 
-    v84 = sourceIdentifier;
+    v83 = sourceIdentifier;
     if (v31)
     {
       v32 = v31;
@@ -12883,15 +13848,15 @@ LABEL_71:
       if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138413315;
-        v97 = snapshotType;
-        v98 = 2048;
-        v99 = sourceIdentifier;
-        v100 = 2113;
-        v101 = v32;
-        v102 = 2113;
-        v103 = v94;
-        v104 = 2113;
-        *v105 = addressCopy;
+        v96 = snapshotType;
+        v97 = 2048;
+        v98 = sourceIdentifier;
+        v99 = 2113;
+        v100 = v32;
+        v101 = 2113;
+        v102 = v93;
+        v103 = 2113;
+        *v104 = addressCopy;
         _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_DEFAULT, "%@ %llu uses dest IP address (treating as domainName): %{private}@, bundle: %{private}@, remoteAddress: %{private}@", buf, 0x34u);
       }
 
@@ -12904,13 +13869,13 @@ LABEL_71:
       if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138413059;
-        v97 = snapshotType;
-        v98 = 2048;
-        v99 = sourceIdentifier;
-        v100 = 2113;
-        v101 = v94;
-        v102 = 2113;
-        v103 = addressCopy;
+        v96 = snapshotType;
+        v97 = 2048;
+        v98 = sourceIdentifier;
+        v99 = 2113;
+        v100 = v93;
+        v101 = 2113;
+        v102 = addressCopy;
         _os_log_impl(&dword_23255B000, v42, OS_LOG_TYPE_ERROR, "%@ %llu failed to extract dest IP address, bundle: %{private}@, remoteAddress: %{private}@", buf, 0x2Au);
       }
 
@@ -12929,16 +13894,138 @@ LABEL_71:
 LABEL_78:
   v29 = domainOwner2;
   v32 = +[NetDomainsHandler sharedInstance];
-  v35 = v94;
-  [(__CFString *)v32 checkForAutoBugCaptureWorthyCase:v94 domainName:domainName3 initiatedType:v91];
+  v35 = v93;
+  [(__CFString *)v32 checkForAutoBugCaptureWorthyCase:v93 domainName:domainName3 initiatedType:v90];
   v36 = 1;
 LABEL_79:
 
   domainOwner2 = v29;
 LABEL_81:
 
-  v76 = *MEMORY[0x277D85DE8];
   return v36;
+}
+
+- (id)_appDomainUsageBy:(unsigned int)by bundleName:(id)name forDomain:(id)domain domainOwner:(id)owner domainType:(unsigned __int16)type domainClassification:(signed __int16)classification context:(id)context contextVerificationType:(unsigned __int16)self0 initiatedType:(unsigned int)self1
+{
+  classificationCopy = classification;
+  typeCopy = type;
+  v38 = *&by;
+  v58 = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  domainCopy = domain;
+  ownerCopy = owner;
+  contextCopy = context;
+  v19 = MEMORY[0x277CCAC30];
+  v20 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceNow:-86400.0];
+  v36 = typeCopy;
+  v21 = nameCopy;
+  v22 = [v19 predicateWithFormat:@"bundleName = %@ AND effectiveUserId = %d AND domainType = %d AND kind = %d AND domain = %@ AND context = %@ AND contextVerificationType = %d AND domainClassification = %d AND firstTimeStamp > %@", nameCopy, v38, typeCopy, initiatedType, domainCopy, contextCopy, verificationType, classificationCopy, v20];
+
+  v23 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"firstTimeStamp" ascending:0];
+  v37 = v22;
+  v24 = [(ObjectAnalytics *)self->domspace fetchEntitiesFreeForm:v22 sortDesc:v23 limit:2 batchSize:0];
+  firstObject = [v24 firstObject];
+  v26 = domainTrackingLogHandle;
+  if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    v27 = v26;
+    *buf = 134220547;
+    v41 = [v24 count];
+    v42 = 2048;
+    v43 = v38;
+    v44 = 2112;
+    v45 = nameCopy;
+    v46 = 2113;
+    v47 = domainCopy;
+    v48 = 2113;
+    *v49 = ownerCopy;
+    *&v49[8] = 1024;
+    *v50 = v36;
+    *&v50[4] = 1024;
+    *&v50[6] = classificationCopy;
+    v51 = 2113;
+    *v52 = contextCopy;
+    *&v52[8] = 1024;
+    verificationTypeCopy = verificationType;
+    v54 = 1024;
+    initiatedTypeCopy = initiatedType;
+    v56 = 2113;
+    v57 = v24;
+    _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_DEBUG, "Found %ld matching entities with euid %lld bundle %@ domain %{private}@ owner %{private}@ type %d class %d context %{private}@ verification %d initiated type %d results %{private}@", buf, 0x60u);
+  }
+
+  if (!firstObject)
+  {
+    domspace = self->domspace;
+    entityName = [MEMORY[0x277D6B568] entityName];
+    firstObject = [(ObjectAnalytics *)domspace createEntityForEntityName:entityName];
+
+    if (firstObject)
+    {
+      [firstObject setBundleName:v21];
+      [firstObject setEffectiveUserId:v38];
+      [firstObject setDomain:domainCopy];
+      [firstObject setDomainOwner:ownerCopy];
+      [firstObject setDomainType:v36];
+      [firstObject setDomainClassification:classificationCopy];
+      if (contextCopy)
+      {
+        v31 = contextCopy;
+      }
+
+      else
+      {
+        v31 = &stru_2847966D8;
+      }
+
+      [firstObject setContext:v31];
+      [firstObject setContextVerificationType:verificationType];
+      v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:initiatedType];
+      [firstObject setKind:v32];
+
+      date = [MEMORY[0x277CBEAA8] date];
+      [firstObject setFirstTimeStamp:date];
+
+      v34 = domainTrackingLogHandle;
+      if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 134220035;
+        v41 = v38;
+        v42 = 2112;
+        v43 = v21;
+        v44 = 2113;
+        v45 = domainCopy;
+        v46 = 2113;
+        v47 = ownerCopy;
+        v48 = 1024;
+        *v49 = v36;
+        *&v49[4] = 1024;
+        *&v49[6] = classificationCopy;
+        *v50 = 2113;
+        *&v50[2] = contextCopy;
+        v51 = 1024;
+        *v52 = verificationType;
+        *&v52[4] = 1024;
+        *&v52[6] = initiatedType;
+        _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_DEBUG, "Created new AppDomainUsage entity with euid %lld bundle %@ domain %{private}@ owner %{private}@ type %d class %d context %{private}@ verification %d initiated type %d", buf, 0x4Cu);
+      }
+    }
+
+    else
+    {
+      v35 = domainTrackingLogHandle;
+      if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        v41 = v21;
+        _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_ERROR, "Failed to create AppDomainUsage entity for %@", buf, 0xCu);
+      }
+
+      firstObject = 0;
+    }
+  }
+
+  return firstObject;
 }
 
 - (void)_summaryAppDomainUsageBy:(unsigned int)by reply:(id)reply
@@ -12960,13 +14047,13 @@ LABEL_81:
 
 void __54__FlowAnalyticsEngine__summaryAppDomainUsageBy_reply___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = domainTrackingLogHandle;
   if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 48);
     *buf = 67109120;
-    v16 = v3;
+    v15 = v3;
     _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "NetDomains: summarizing data for euid: %u", buf, 8u);
   }
 
@@ -12976,18 +14063,16 @@ void __54__FlowAnalyticsEngine__summaryAppDomainUsageBy_reply___block_invoke(uin
 
   v7 = [MEMORY[0x277CBEB58] set];
   v8 = [MEMORY[0x277CBEB58] set];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __54__FlowAnalyticsEngine__summaryAppDomainUsageBy_reply___block_invoke_782;
-  v12[3] = &unk_27898C7A8;
-  v13 = v7;
-  v14 = v8;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __54__FlowAnalyticsEngine__summaryAppDomainUsageBy_reply___block_invoke_782;
+  v11[3] = &unk_27898C7A8;
+  v12 = v7;
+  v13 = v8;
   v9 = v8;
   v10 = v7;
-  [v6 enumerateObjectsUsingBlock:v12];
+  [v6 enumerateObjectsUsingBlock:v11];
   (*(*(a1 + 40) + 16))(*(a1 + 40), [v9 count], objc_msgSend(v10, "count"), 0);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __54__FlowAnalyticsEngine__summaryAppDomainUsageBy_reply___block_invoke_782(uint64_t a1, void *a2)
@@ -13003,9 +14088,32 @@ void __54__FlowAnalyticsEngine__summaryAppDomainUsageBy_reply___block_invoke_782
   [v6 addObject:v7];
 }
 
++ (void)summaryAppDomainUsageBy:(unsigned int)by reply:(id)reply
+{
+  v4 = *&by;
+  replyCopy = reply;
+  if (sharedInstance_1)
+  {
+    [sharedInstance_1 _summaryAppDomainUsageBy:v4 reply:replyCopy];
+  }
+
+  else if (replyCopy)
+  {
+    v6 = domainTrackingLogHandle;
+    if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      *v8 = 0;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "FlowAnalyticsEngine is not configured, unable to call summary of AppDomainUsage.", v8, 2u);
+    }
+
+    v7 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:14 userInfo:0];
+    (*(replyCopy + 2))(replyCopy, 0, 0, v7);
+  }
+}
+
 - (unint64_t)_clearStaleNetDomainsRecords
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = domainTrackingLogHandle;
   if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -13013,7 +14121,7 @@ void __54__FlowAnalyticsEngine__summaryAppDomainUsageBy_reply___block_invoke_782
     v5 = v3;
     v6 = [v4 dateWithTimeIntervalSinceNow:-604800.0];
     *buf = 138412290;
-    v15 = v6;
+    v14 = v6;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Clearing out AppDomainsUsage with firstTimeStamp older than %@", buf, 0xCu);
   }
 
@@ -13026,11 +14134,10 @@ void __54__FlowAnalyticsEngine__summaryAppDomainUsageBy_reply___block_invoke_782
   if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v15 = v10;
+    v14 = v10;
     _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "Removed %lu AppDomainsUsage records", buf, 0xCu);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -13076,13 +14183,11 @@ void __63__FlowAnalyticsEngine__submitAppDomainUsageRecordInfoAnalytics__block_i
 
 id __63__FlowAnalyticsEngine__submitAppDomainUsageRecordInfoAnalytics__block_invoke_2(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"intervalSeconds";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"intervalSeconds";
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 32) - *(a1 + 40)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -13105,7 +14210,7 @@ id __63__FlowAnalyticsEngine__submitAppDomainUsageRecordInfoAnalytics__block_inv
 
 - (void)performAppTrackingPeriodicTasksComplete:(id)complete error:(id)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   errorCopy = error;
   v7 = domainTrackingLogHandle;
@@ -13113,27 +14218,25 @@ id __63__FlowAnalyticsEngine__submitAppDomainUsageRecordInfoAnalytics__block_inv
   {
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = errorCopy;
+      v11 = 138412290;
+      v12 = errorCopy;
       v8 = "Periodic app tracking tasks failed with %@";
       v9 = v7;
       v10 = OS_LOG_TYPE_ERROR;
 LABEL_6:
-      _os_log_impl(&dword_23255B000, v9, v10, v8, &v12, 0xCu);
+      _os_log_impl(&dword_23255B000, v9, v10, v8, &v11, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = completeCopy;
+    v11 = 138412290;
+    v12 = completeCopy;
     v8 = "Periodic app tracking tasks finished with result %@";
     v9 = v7;
     v10 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (void)performAppTrackingPeriodicActivityWithReply:(id)reply
@@ -13146,7 +14249,7 @@ LABEL_6:
 
 - (void)performAppTrackingActionWithOptions:(id)options userId:(unsigned int)id reply:(id)reply
 {
-  v111 = *MEMORY[0x277D85DE8];
+  v110 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   replyCopy = reply;
   v9 = [optionsCopy objectForKeyedSubscript:@"clearHistory"];
@@ -13159,7 +14262,7 @@ LABEL_6:
       v12 = objc_opt_class();
       v13 = NSStringFromClass(v12);
       *buf = 138412290;
-      v102 = v13;
+      v101 = v13;
       _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "Clear history action has nil option or unexpected class %@", buf, 0xCu);
     }
 
@@ -13191,9 +14294,9 @@ LABEL_6:
       v21 = objc_opt_class();
       v22 = NSStringFromClass(v21);
       *buf = 134218242;
-      v102 = v18;
-      v103 = 2112;
-      v104 = v22;
+      v101 = v18;
+      v102 = 2112;
+      v103 = v22;
       _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_ERROR, "Clear history action has nil or invalid start date class: %p (%@)", buf, 0x16u);
     }
 
@@ -13202,7 +14305,7 @@ LABEL_6:
   }
 
   v24 = [v9 objectForKeyedSubscript:@"clearHistoryEndDate"];
-  v85 = v24;
+  v84 = v24;
   if (!v24 || (v25 = v24, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     v26 = domainTrackingLogHandle;
@@ -13212,19 +14315,19 @@ LABEL_6:
       v28 = objc_opt_class();
       v29 = NSStringFromClass(v28);
       *buf = 134218242;
-      v102 = v85;
-      v103 = 2112;
-      v104 = v29;
+      v101 = v84;
+      v102 = 2112;
+      v103 = v29;
       _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_ERROR, "Clear history action has nil or invalid end date class: %p (%@)", buf, 0x16u);
     }
 
     v30 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:0];
     replyCopy[2](replyCopy, 0, v30);
 
-    v25 = v85;
+    v25 = v84;
   }
 
-  v84 = v15;
+  v83 = v15;
   v31 = v25;
   if ([v18 compare:v25] == 1)
   {
@@ -13237,49 +14340,49 @@ LABEL_6:
       [v31 timeIntervalSince1970];
       v37 = formattedDateStringForTimeInterval(v36);
       *buf = 138412546;
-      v102 = v35;
-      v103 = 2112;
-      v104 = v37;
+      v101 = v35;
+      v102 = 2112;
+      v103 = v37;
       _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_ERROR, "Clear history action dates misordered: start:%@ end:%@", buf, 0x16u);
 
-      v15 = v84;
+      v15 = v83;
     }
 
     v38 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:0];
     replyCopy[2](replyCopy, 0, v38);
   }
 
-  v82 = v18;
+  v81 = v18;
   v39 = 0x277CBE000uLL;
   v40 = objc_alloc_init(MEMORY[0x277CBEB38]);
   objc_opt_class();
-  v83 = replyCopy;
+  v82 = replyCopy;
   selfCopy = self;
-  v81 = v9;
+  v80 = v9;
   if (objc_opt_isKindOfClass())
   {
-    v99 = 0u;
-    v100 = 0u;
-    v97 = 0u;
     v98 = 0u;
+    v99 = 0u;
+    v96 = 0u;
+    v97 = 0u;
     v41 = v15;
-    v42 = [v41 countByEnumeratingWithState:&v97 objects:v110 count:16];
+    v42 = [v41 countByEnumeratingWithState:&v96 objects:v109 count:16];
     if (v42)
     {
       v43 = v42;
-      v78 = optionsCopy;
-      v44 = *v98;
+      v77 = optionsCopy;
+      v44 = *v97;
       do
       {
         for (i = 0; i != v43; ++i)
         {
-          if (*v98 != v44)
+          if (*v97 != v44)
           {
             objc_enumerationMutation(v41);
           }
 
-          v46 = *(*(&v97 + 1) + 8 * i);
-          v47 = [v41 objectForKeyedSubscript:{v46, v78}];
+          v46 = *(*(&v96 + 1) + 8 * i);
+          v47 = [v41 objectForKeyedSubscript:{v46, v77}];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -13295,20 +14398,20 @@ LABEL_6:
               v50 = objc_opt_class();
               v51 = NSStringFromClass(v50);
               *buf = 138412547;
-              v102 = v51;
-              v103 = 2113;
-              v104 = v46;
+              v101 = v51;
+              v102 = 2113;
+              v103 = v46;
               _os_log_impl(&dword_23255B000, v49, OS_LOG_TYPE_ERROR, "Clear history action has context of type (%@) for bundleID %{private}@", buf, 0x16u);
             }
           }
         }
 
-        v43 = [v41 countByEnumeratingWithState:&v97 objects:v110 count:16];
+        v43 = [v41 countByEnumeratingWithState:&v96 objects:v109 count:16];
       }
 
       while (v43);
-      optionsCopy = v78;
-      v31 = v85;
+      optionsCopy = v77;
+      v31 = v84;
       v39 = 0x277CBE000;
     }
   }
@@ -13318,34 +14421,34 @@ LABEL_6:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v95 = 0u;
-      v96 = 0u;
-      v93 = 0u;
       v94 = 0u;
+      v95 = 0u;
+      v92 = 0u;
+      v93 = 0u;
       v41 = v15;
-      v52 = [v41 countByEnumeratingWithState:&v93 objects:v109 count:16];
+      v52 = [v41 countByEnumeratingWithState:&v92 objects:v108 count:16];
       if (v52)
       {
         v53 = v52;
-        v54 = *v94;
+        v54 = *v93;
         v55 = MEMORY[0x277CBEBF8];
         do
         {
           for (j = 0; j != v53; ++j)
           {
-            if (*v94 != v54)
+            if (*v93 != v54)
             {
               objc_enumerationMutation(v41);
             }
 
-            [v40 setObject:v55 forKey:*(*(&v93 + 1) + 8 * j)];
+            [v40 setObject:v55 forKey:*(*(&v92 + 1) + 8 * j)];
           }
 
-          v53 = [v41 countByEnumeratingWithState:&v93 objects:v109 count:16];
+          v53 = [v41 countByEnumeratingWithState:&v92 objects:v108 count:16];
         }
 
         while (v53);
-        v31 = v85;
+        v31 = v84;
       }
 
       v39 = 0x277CBE000uLL;
@@ -13360,7 +14463,7 @@ LABEL_6:
         v59 = objc_opt_class();
         v60 = NSStringFromClass(v59);
         *buf = 138412290;
-        v102 = v60;
+        v101 = v60;
         _os_log_impl(&dword_23255B000, v58, OS_LOG_TYPE_ERROR, "Clear history action has bundleIDs of type (%@)", buf, 0xCu);
 
         v39 = 0x277CBE000uLL;
@@ -13381,7 +14484,7 @@ LABEL_6:
     }
 
     v62 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:0];
-    (v83)[2](v83, 0, v62);
+    (v82)[2](v82, 0, v62);
   }
 
   v63 = [optionsCopy objectForKeyedSubscript:@"showDetails"];
@@ -13400,39 +14503,39 @@ LABEL_6:
   if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v67 = v66;
-    [v82 timeIntervalSince1970];
+    [v81 timeIntervalSince1970];
     v69 = formattedDateStringForTimeInterval(v68);
     [v31 timeIntervalSince1970];
     formattedDateStringForTimeInterval(v70);
     v72 = v71 = optionsCopy;
     *buf = 138478595;
-    v102 = v84;
-    v103 = 2112;
-    v104 = v69;
-    v105 = 2112;
-    v106 = v72;
-    v107 = 1024;
-    v108 = bOOLValue;
+    v101 = v83;
+    v102 = 2112;
+    v103 = v69;
+    v104 = 2112;
+    v105 = v72;
+    v106 = 1024;
+    v107 = bOOLValue;
     _os_log_impl(&dword_23255B000, v67, OS_LOG_TYPE_DEFAULT, "Clear history action received options: %{private}@, start %@, end %@, details %d", buf, 0x26u);
 
     optionsCopy = v71;
-    v31 = v85;
+    v31 = v84;
   }
 
-  v86[0] = MEMORY[0x277D85DD0];
-  v86[1] = 3221225472;
-  v86[2] = __72__FlowAnalyticsEngine_performAppTrackingActionWithOptions_userId_reply___block_invoke;
-  v86[3] = &unk_27898C7F8;
+  v85[0] = MEMORY[0x277D85DD0];
+  v85[1] = 3221225472;
+  v85[2] = __72__FlowAnalyticsEngine_performAppTrackingActionWithOptions_userId_reply___block_invoke;
+  v85[3] = &unk_27898C7F8;
   idCopy = id;
   v73 = v31;
-  v87 = v73;
-  v74 = v82;
-  v88 = v74;
-  v89 = selfCopy;
-  v92 = bOOLValue;
+  v86 = v73;
+  v74 = v81;
+  v87 = v74;
+  v88 = selfCopy;
+  v91 = bOOLValue;
   v75 = v65;
-  v90 = v75;
-  [v40 enumerateKeysAndObjectsUsingBlock:v86];
+  v89 = v75;
+  [v40 enumerateKeysAndObjectsUsingBlock:v85];
   v76 = domainTrackingLogHandle;
   if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -13440,25 +14543,23 @@ LABEL_6:
     _os_log_impl(&dword_23255B000, v76, OS_LOG_TYPE_DEFAULT, "Clear history action successful", buf, 2u);
   }
 
-  (v83)[2](v83, v75, 0);
-
-  v77 = *MEMORY[0x277D85DE8];
+  (v82)[2](v82, v75, 0);
 }
 
 void __72__FlowAnalyticsEngine_performAppTrackingActionWithOptions_userId_reply___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v78[2] = *MEMORY[0x277D85DE8];
+  v77[2] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v50 = v5;
+  v49 = v5;
   v7 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %u AND %K == %@ AND %K <= %@ AND %K >= %@", @"effectiveUserId", *(a1 + 64), @"bundleName", v5, @"firstTimeStamp", *(a1 + 32), @"timeStamp", *(a1 + 40)];
   if ([v6 count])
   {
     v8 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"context", v6];
     v9 = MEMORY[0x277CCA920];
-    v78[0] = v7;
-    v78[1] = v8;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:2];
+    v77[0] = v7;
+    v77[1] = v8;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:2];
     v11 = [v9 andPredicateWithSubpredicates:v10];
   }
 
@@ -13471,7 +14572,7 @@ void __72__FlowAnalyticsEngine_performAppTrackingActionWithOptions_userId_reply_
   if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v62 = v11;
+    v61 = v11;
     _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "Clear history action predicate: %@", buf, 0xCu);
   }
 
@@ -13479,10 +14580,10 @@ void __72__FlowAnalyticsEngine_performAppTrackingActionWithOptions_userId_reply_
   v14 = v13;
   if (v13 && [v13 count])
   {
-    v48 = v7;
-    v49 = v6;
-    v46 = v11;
-    v47 = a1;
+    v47 = v7;
+    v48 = v6;
+    v45 = v11;
+    v46 = a1;
     if (*(a1 + 68) == 1)
     {
       v15 = objc_alloc_init(MEMORY[0x277CBEB58]);
@@ -13493,30 +14594,30 @@ void __72__FlowAnalyticsEngine_performAppTrackingActionWithOptions_userId_reply_
       v15 = 0;
     }
 
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
     v58 = 0u;
-    v45 = v14;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
+    v44 = v14;
     obj = v14;
-    v55 = [obj countByEnumeratingWithState:&v57 objects:v77 count:16];
-    if (v55)
+    v54 = [obj countByEnumeratingWithState:&v56 objects:v76 count:16];
+    if (v54)
     {
-      v54 = *v58;
-      v56 = v15;
+      v53 = *v57;
+      v55 = v15;
       do
       {
-        for (i = 0; i != v55; ++i)
+        for (i = 0; i != v54; ++i)
         {
-          if (*v58 != v54)
+          if (*v57 != v53)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v57 + 1) + 8 * i);
+          v17 = *(*(&v56 + 1) + 8 * i);
           if (v15)
           {
-            v18 = [*(*(&v57 + 1) + 8 * i) objectForKeyedSubscript:@"kind"];
+            v18 = [*(*(&v56 + 1) + 8 * i) objectForKeyedSubscript:@"kind"];
             v19 = [v18 integerValue];
             v20 = @"NonAppInitiated";
             if (v19 == 1)
@@ -13535,15 +14636,15 @@ void __72__FlowAnalyticsEngine_performAppTrackingActionWithOptions_userId_reply_
             v28 = [v17 objectForKeyedSubscript:@"hits"];
             v29 = [v22 initWithFormat:@"%@, %@, %@, %@, %@, %@, %ld", v23, v24, v25, v21, v26, v27, objc_msgSend(v28, "integerValue")];
 
-            v15 = v56;
-            [v56 addObject:v29];
+            v15 = v55;
+            [v55 addObject:v29];
           }
 
           v30 = domainTrackingLogHandle;
           if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
           {
             log = v30;
-            v52 = [v17 objectForKeyedSubscript:@"domain"];
+            v51 = [v17 objectForKeyedSubscript:@"domain"];
             v31 = [v17 objectForKeyedSubscript:@"domainOwner"];
             v32 = [v17 objectForKeyedSubscript:@"context"];
             v33 = [v17 objectForKeyedSubscript:@"kind"];
@@ -13555,44 +14656,44 @@ void __72__FlowAnalyticsEngine_performAppTrackingActionWithOptions_userId_reply_
             [v38 timeIntervalSince1970];
             v40 = formattedDateStringForTimeInterval(v39);
             *buf = 138479619;
-            v62 = v50;
-            v63 = 2113;
-            v64 = v52;
-            v65 = 2113;
-            v66 = v31;
-            v67 = 2113;
-            v68 = v32;
-            v69 = 2112;
-            v70 = v33;
-            v71 = 2112;
-            v72 = v34;
-            v73 = 2112;
-            v74 = v37;
-            v75 = 2112;
-            v76 = v40;
+            v61 = v49;
+            v62 = 2113;
+            v63 = v51;
+            v64 = 2113;
+            v65 = v31;
+            v66 = 2113;
+            v67 = v32;
+            v68 = 2112;
+            v69 = v33;
+            v70 = 2112;
+            v71 = v34;
+            v72 = 2112;
+            v73 = v37;
+            v74 = 2112;
+            v75 = v40;
             _os_log_impl(&dword_23255B000, log, OS_LOG_TYPE_DEFAULT, "Clear history action for %{private}@ matched ADU record with domain: %{private}@, owner: %{private}@, context: %{private}@, initiatedType: %@, hits: %@, start: %@, end: %@", buf, 0x52u);
 
-            v15 = v56;
+            v15 = v55;
           }
         }
 
-        v55 = [obj countByEnumeratingWithState:&v57 objects:v77 count:16];
+        v54 = [obj countByEnumeratingWithState:&v56 objects:v76 count:16];
       }
 
-      while (v55);
+      while (v54);
     }
 
     if (v15)
     {
-      [*(v47 + 56) setObject:v15 forKeyedSubscript:v50];
+      [*(v46 + 56) setObject:v15 forKeyedSubscript:v49];
     }
 
-    v11 = v46;
-    [*(*(v47 + 48) + 488) removeEntitiesMatching:v46];
+    v11 = v45;
+    [*(*(v46 + 48) + 488) removeEntitiesMatching:v45];
 
-    v7 = v48;
-    v6 = v49;
-    v14 = v45;
+    v7 = v47;
+    v6 = v48;
+    v14 = v44;
   }
 
   v41 = domainTrackingLogHandle;
@@ -13601,13 +14702,58 @@ void __72__FlowAnalyticsEngine_performAppTrackingActionWithOptions_userId_reply_
     v42 = v41;
     v43 = [v14 count];
     *buf = 134218243;
-    v62 = v43;
-    v63 = 2113;
-    v64 = v50;
+    v61 = v43;
+    v62 = 2113;
+    v63 = v49;
     _os_log_impl(&dword_23255B000, v42, OS_LOG_TYPE_DEFAULT, "Clear history action removed %lu ADU records for %{private}@", buf, 0x16u);
   }
+}
 
-  v44 = *MEMORY[0x277D85DE8];
++ (void)performAppTrackingActionWithOptions:(id)options userId:(unsigned int)id reply:(id)reply
+{
+  v15 = *MEMORY[0x277D85DE8];
+  v5 = sharedInstance_1;
+  if (sharedInstance_1)
+  {
+    v6 = *&id;
+    replyCopy = reply;
+    [v5 performAppTrackingActionWithOptions:options userId:v6 reply:replyCopy];
+  }
+
+  else
+  {
+    v9 = MEMORY[0x277CCA9B8];
+    v10 = *MEMORY[0x277CCA5B8];
+    replyCopy2 = reply;
+    replyCopy = [v9 errorWithDomain:v10 code:45 userInfo:0];
+    replyCopy2[2](replyCopy2, 0, replyCopy);
+
+    v12 = analyticsLogHandle;
+    if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
+    {
+      v13 = 138412290;
+      v14 = replyCopy;
+      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "performAppTrackingActionWithOptions returning error: %@", &v13, 0xCu);
+    }
+  }
+}
+
+- (void)clearAppDomainUsageForUserWithID:(unsigned int)d
+{
+  v12 = *MEMORY[0x277D85DE8];
+  domspace = self->domspace;
+  v5 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %u", @"effectiveUserId", *&d];
+  v6 = [(ObjectAnalytics *)domspace removeEntitiesMatching:v5];
+
+  v7 = domainTrackingLogHandle;
+  if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134218240;
+    v9 = v6;
+    v10 = 1024;
+    dCopy = d;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "Cleared out %ld app domain tracking data for user %u", buf, 0x12u);
+  }
 }
 
 - (void)submitNetworkDomainUsageToDateSPICallMetric
@@ -13624,7 +14770,7 @@ void __72__FlowAnalyticsEngine_performAppTrackingActionWithOptions_userId_reply_
 
 - (void)_handleEndpointTrackingNotification:(id)notification
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = [notificationCopy objectForKeyedSubscript:@"userEndpointTrackingUserID"];
   v6 = [notificationCopy objectForKeyedSubscript:@"userEndpointTrackingState"];
@@ -13647,9 +14793,9 @@ void __72__FlowAnalyticsEngine_performAppTrackingActionWithOptions_userId_reply_
             v9 = domainTrackingLogHandle;
             if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
             {
-              v14 = 67109120;
-              v15 = unsignedIntValue;
-              _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Endpoint tracking enabled for user %u", &v14, 8u);
+              v13 = 67109120;
+              v14 = unsignedIntValue;
+              _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Endpoint tracking enabled for user %u", &v13, 8u);
             }
 
             if (self->appTrackingEnabled)
@@ -13667,9 +14813,9 @@ void __72__FlowAnalyticsEngine_performAppTrackingActionWithOptions_userId_reply_
               v12 = domainTrackingLogHandle;
               if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
               {
-                v14 = 67109120;
-                v15 = unsignedIntValue;
-                _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "Endpoint tracking disabled for user %u, clearing out the account's EndpointTracking data", &v14, 8u);
+                v13 = 67109120;
+                v14 = unsignedIntValue;
+                _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "Endpoint tracking disabled for user %u, clearing out the account's EndpointTracking data", &v13, 8u);
               }
 
               [(FlowAnalyticsEngine *)self clearAppEndpointsForUserWithID:unsignedIntValue];
@@ -13679,13 +14825,11 @@ void __72__FlowAnalyticsEngine_performAppTrackingActionWithOptions_userId_reply_
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleAppTrackingNotification:(id)notification
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v4 = [notificationCopy objectForKeyedSubscript:@"userAppTrackingUserID"];
   v5 = [notificationCopy objectForKeyedSubscript:@"userAppTrackingState"];
@@ -13699,46 +14843,46 @@ void __72__FlowAnalyticsEngine_performAppTrackingActionWithOptions_userId_reply_
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v50 = v4;
-          v51 = notificationCopy;
+          v49 = v4;
+          v50 = notificationCopy;
           unsignedIntValue = [v4 unsignedIntValue];
-          v49 = v5;
+          v48 = v5;
           self->appTrackingEnabled = [v5 BOOLValue];
           context = objc_autoreleasePoolPush();
-          v48 = unsignedIntValue;
-          v46 = [MEMORY[0x277CCAC30] predicateWithFormat:@"effectiveUserId = %d AND bundleName = %@", unsignedIntValue, &stru_2847966D8];
+          v47 = unsignedIntValue;
+          v45 = [MEMORY[0x277CCAC30] predicateWithFormat:@"effectiveUserId = %d AND bundleName = %@", unsignedIntValue, &stru_2847966D8];
           v7 = [ObjectAnalytics fetchEntitiesFreeForm:"fetchEntitiesFreeForm:sortDesc:limit:batchSize:" sortDesc:? limit:? batchSize:?];
           v8 = domainTrackingLogHandle;
           if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
           {
             v9 = v8;
             *buf = 134217984;
-            v60 = [v7 count];
+            v59 = [v7 count];
             _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Will migrate %lu AppDomainUsage objects to new schema", buf, 0xCu);
           }
 
-          v57 = 0u;
-          v58 = 0u;
-          v55 = 0u;
           v56 = 0u;
+          v57 = 0u;
+          v54 = 0u;
+          v55 = 0u;
           v10 = v7;
-          v11 = [v10 countByEnumeratingWithState:&v55 objects:v65 count:16];
-          v53 = v10;
+          v11 = [v10 countByEnumeratingWithState:&v54 objects:v64 count:16];
+          v52 = v10;
           if (v11)
           {
             v12 = v11;
             v13 = 0;
-            v14 = *v56;
+            v14 = *v55;
             do
             {
               for (i = 0; i != v12; ++i)
               {
-                if (*v56 != v14)
+                if (*v55 != v14)
                 {
                   objc_enumerationMutation(v10);
                 }
 
-                v16 = *(*(&v55 + 1) + 8 * i);
+                v16 = *(*(&v54 + 1) + 8 * i);
                 v17 = objc_autoreleasePoolPush();
                 v18 = v16;
                 bundleName = [v18 bundleName];
@@ -13763,19 +14907,19 @@ void __72__FlowAnalyticsEngine_performAppTrackingActionWithOptions_userId_reply_
                       domain = [v18 domain];
                       bundleName4 = [v18 bundleName];
                       *buf = 134218499;
-                      v60 = v13;
-                      v61 = 2113;
-                      v62 = domain;
-                      v63 = 2113;
-                      v64 = bundleName4;
+                      v59 = v13;
+                      v60 = 2113;
+                      v61 = domain;
+                      v62 = 2113;
+                      v63 = bundleName4;
                       _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEFAULT, "%lu: Updated old ADU's (domain: %{private}@) bundleName to %{private}@", buf, 0x20u);
 
-                      v10 = v53;
+                      v10 = v52;
                     }
 
                     if (__ROR8__(0x1CAC083126E978D5 * v13, 3) <= 0x4189374BC6A7EFuLL)
                     {
-                      v54 = v13;
+                      v53 = v13;
                       [(AnalyticsWorkspace *)self->super.workspace save];
                       mainObjectContext = [(AnalyticsWorkspace *)self->super.workspace mainObjectContext];
                       [mainObjectContext refreshAllObjects];
@@ -13786,17 +14930,17 @@ void __72__FlowAnalyticsEngine_performAppTrackingActionWithOptions_userId_reply_
                         domain2 = [v18 domain];
                         bundleName5 = [v18 bundleName];
                         *buf = 134218499;
-                        v60 = v54;
-                        v61 = 2113;
-                        v62 = domain2;
-                        v63 = 2113;
-                        v64 = bundleName5;
+                        v59 = v53;
+                        v60 = 2113;
+                        v61 = domain2;
+                        v62 = 2113;
+                        v63 = bundleName5;
                         _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_DEFAULT, "%lu: Intermediate save and refresh up to domain: %{private}@, bundleName: %{private}@", buf, 0x20u);
 
-                        v10 = v53;
+                        v10 = v52;
                       }
 
-                      v13 = v54;
+                      v13 = v53;
                     }
                   }
                 }
@@ -13804,13 +14948,13 @@ void __72__FlowAnalyticsEngine_performAppTrackingActionWithOptions_userId_reply_
                 objc_autoreleasePoolPop(v17);
               }
 
-              v12 = [v10 countByEnumeratingWithState:&v55 objects:v65 count:16];
+              v12 = [v10 countByEnumeratingWithState:&v54 objects:v64 count:16];
             }
 
             while (v12);
           }
 
-          notificationCopy = v51;
+          notificationCopy = v50;
           if ([v10 count])
           {
             [(AnalyticsWorkspace *)self->super.workspace save];
@@ -13833,12 +14977,12 @@ void __72__FlowAnalyticsEngine_performAppTrackingActionWithOptions_userId_reply_
             if (v38)
             {
               *buf = 67109120;
-              LODWORD(v60) = v48;
+              LODWORD(v59) = v47;
               _os_log_impl(&dword_23255B000, v37, OS_LOG_TYPE_DEFAULT, "App tracking enabled for user %u", buf, 8u);
             }
 
-            v5 = v49;
-            v4 = v50;
+            v5 = v48;
+            v4 = v49;
             if (!self->snapshotFlowUUIDs)
             {
               v39 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -13869,7 +15013,7 @@ void __72__FlowAnalyticsEngine_performAppTrackingActionWithOptions_userId_reply_
 
             if (self->endpointTrackingEnabled)
             {
-              [(FlowAnalyticsEngine *)self createAppEndpointsStorageForUserId:v48];
+              [(FlowAnalyticsEngine *)self createAppEndpointsStorageForUserId:v47];
             }
           }
 
@@ -13878,186 +15022,197 @@ void __72__FlowAnalyticsEngine_performAppTrackingActionWithOptions_userId_reply_
             if (v38)
             {
               *buf = 67109120;
-              LODWORD(v60) = v48;
+              LODWORD(v59) = v47;
               _os_log_impl(&dword_23255B000, v37, OS_LOG_TYPE_DEFAULT, "App tracking disabled for user %u", buf, 8u);
             }
 
             [(NSMutableDictionary *)self->snapshotFlowUUIDs removeAllObjects];
             [(NSMutableDictionary *)self->trackedSourceIDs removeAllObjects];
-            [(FlowAnalyticsEngine *)self _clearAppDomainAndEndpointTrackingForUserWithID:v48];
-            v5 = v49;
-            v4 = v50;
+            [(FlowAnalyticsEngine *)self _clearAppDomainAndEndpointTrackingForUserWithID:v47];
+            v5 = v48;
+            v4 = v49;
           }
         }
       }
     }
   }
+}
 
-  v45 = *MEMORY[0x277D85DE8];
+- (void)_clearAppDomainAndEndpointTrackingForUserWithID:(unsigned int)d
+{
+  v3 = *&d;
+  v5 = os_transaction_create();
+  if (v5)
+  {
+    v6 = v5;
+    v7 = domainTrackingLogHandle;
+    if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      *v8 = 0;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "Clearing out both AppTracking and EndpointTracking data", v8, 2u);
+    }
+
+    [(FlowAnalyticsEngine *)self clearAppDomainUsageForUserWithID:v3];
+    [(FlowAnalyticsEngine *)self clearAppEndpointsForUserWithID:v3];
+  }
 }
 
 - (id)_repurposeAppEndpointRecords:(id)records
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
-  v44 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v41 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v51 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
-  v56 = 0u;
-  v57 = 0u;
   v4 = recordsCopy;
-  v5 = [v4 countByEnumeratingWithState:&v54 objects:v64 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v51 objects:v61 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v55;
-    v8 = 0x277CBE000uLL;
-    v9 = @"endpointSet";
-    v10 = 0x277CBE000uLL;
-    v42 = *v55;
-    v43 = v4;
+    v7 = *v52;
+    v8 = @"endpointSet";
+    v9 = 0x277CBE000uLL;
+    v39 = *v52;
+    v40 = v4;
     do
     {
-      v11 = 0;
-      v45 = v6;
+      v10 = 0;
+      v42 = v6;
       do
       {
-        if (*v55 != v7)
+        if (*v52 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v12 = *(*(&v54 + 1) + 8 * v11);
-        if (v12)
+        v11 = *(*(&v51 + 1) + 8 * v10);
+        if (v11)
         {
-          v13 = *(v8 + 2752);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v14 = [v12 mutableCopy];
-            v15 = [v14 objectForKeyedSubscript:v9];
-            if (v15)
+            v12 = [v11 mutableCopy];
+            v13 = [v12 objectForKeyedSubscript:v8];
+            if (v13)
             {
-              v47 = v14;
-              v16 = *(v10 + 2968);
-              v63[0] = objc_opt_class();
-              v63[1] = objc_opt_class();
-              v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:2];
-              v18 = [v16 setWithArray:v17];
+              v44 = v12;
+              v14 = *(v9 + 2968);
+              v60[0] = objc_opt_class();
+              v60[1] = objc_opt_class();
+              v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
+              v16 = [v14 setWithArray:v15];
 
-              v53 = 0;
-              v46 = v18;
-              v19 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v18 fromData:v15 error:&v53];
-              v20 = v53;
-              v48 = v19;
-              if (!v20 && v19 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+              v50 = 0;
+              v43 = v16;
+              v17 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v16 fromData:v13 error:&v50];
+              v18 = v50;
+              v45 = v17;
+              if (!v18 && v17 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
               {
-                v21 = v19;
-                v22 = objc_alloc_init(MEMORY[0x277CBEB58]);
-                v23 = objc_alloc_init(MEMORY[0x277CBEB58]);
+                v19 = v17;
+                v20 = objc_alloc_init(MEMORY[0x277CBEB58]);
+                v21 = objc_alloc_init(MEMORY[0x277CBEB58]);
+                v46 = 0u;
+                v47 = 0u;
+                v48 = 0u;
                 v49 = 0u;
-                v50 = 0u;
-                v51 = 0u;
-                v52 = 0u;
-                v24 = v21;
-                v25 = [v24 countByEnumeratingWithState:&v49 objects:v62 count:16];
-                if (v25)
+                v22 = v19;
+                v23 = [v22 countByEnumeratingWithState:&v46 objects:v59 count:16];
+                if (v23)
                 {
-                  v26 = v25;
-                  v27 = *v50;
+                  v24 = v23;
+                  v25 = *v47;
                   do
                   {
-                    for (i = 0; i != v26; ++i)
+                    for (i = 0; i != v24; ++i)
                     {
-                      if (*v50 != v27)
+                      if (*v47 != v25)
                       {
-                        objc_enumerationMutation(v24);
+                        objc_enumerationMutation(v22);
                       }
 
-                      v29 = *(*(&v49 + 1) + 8 * i);
-                      v30 = v22;
-                      if ([v29 type])
+                      v27 = *(*(&v46 + 1) + 8 * i);
+                      v28 = v20;
+                      if ([v27 type])
                       {
-                        v30 = v23;
-                        if ([v29 type] != 1)
+                        v28 = v21;
+                        if ([v27 type] != 1)
                         {
                           continue;
                         }
                       }
 
-                      name = [v29 name];
-                      [v30 addObject:name];
+                      name = [v27 name];
+                      [v28 addObject:name];
                     }
 
-                    v26 = [v24 countByEnumeratingWithState:&v49 objects:v62 count:16];
+                    v24 = [v22 countByEnumeratingWithState:&v46 objects:v59 count:16];
                   }
 
-                  while (v26);
+                  while (v24);
                 }
 
-                v9 = @"endpointSet";
-                [v47 removeObjectForKey:@"endpointSet"];
-                [v47 setObject:v22 forKeyedSubscript:@"UnresolvedEndpoints"];
-                [v47 setObject:v23 forKeyedSubscript:@"ResolvedEndpoints"];
-                [v44 addObject:v47];
+                v8 = @"endpointSet";
+                [v44 removeObjectForKey:@"endpointSet"];
+                [v44 setObject:v20 forKeyedSubscript:@"UnresolvedEndpoints"];
+                [v44 setObject:v21 forKeyedSubscript:@"ResolvedEndpoints"];
+                [v41 addObject:v44];
 
-                v7 = v42;
-                v4 = v43;
-                v6 = v45;
-                v20 = 0;
-                v8 = 0x277CBE000;
-                v10 = 0x277CBE000;
+                v7 = v39;
+                v4 = v40;
+                v6 = v42;
+                v18 = 0;
+                v9 = 0x277CBE000;
               }
 
               else
               {
-                v32 = domainTrackingLogHandle;
+                v30 = domainTrackingLogHandle;
                 if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
                 {
-                  v33 = v32;
-                  v34 = objc_opt_class();
-                  NSStringFromClass(v34);
-                  v35 = v4;
-                  v36 = v9;
-                  v37 = v10;
-                  v39 = v38 = v20;
+                  v31 = v30;
+                  v32 = objc_opt_class();
+                  NSStringFromClass(v32);
+                  v33 = v4;
+                  v34 = v8;
+                  v35 = v9;
+                  v37 = v36 = v18;
                   *buf = 138412546;
-                  v59 = v39;
-                  v60 = 2112;
-                  v61 = v38;
-                  _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_ERROR, "Failed to unarchive, endpoints record is nil or unexpected class %@, error %@", buf, 0x16u);
+                  v56 = v37;
+                  v57 = 2112;
+                  v58 = v36;
+                  _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_ERROR, "Failed to unarchive, endpoints record is nil or unexpected class %@, error %@", buf, 0x16u);
 
-                  v20 = v38;
-                  v10 = v37;
-                  v9 = v36;
-                  v4 = v35;
-                  v8 = 0x277CBE000;
+                  v18 = v36;
+                  v9 = v35;
+                  v8 = v34;
+                  v4 = v33;
                 }
               }
 
-              v14 = v47;
+              v12 = v44;
             }
           }
         }
 
-        ++v11;
+        ++v10;
       }
 
-      while (v11 != v6);
-      v6 = [v4 countByEnumeratingWithState:&v54 objects:v64 count:16];
+      while (v10 != v6);
+      v6 = [v4 countByEnumeratingWithState:&v51 objects:v61 count:16];
     }
 
     while (v6);
   }
 
-  v40 = *MEMORY[0x277D85DE8];
-
-  return v44;
+  return v41;
 }
 
 - (void)updateEffectiveUserId:(id)id
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [id objectForKeyedSubscript:@"UMSwitchToUserID"];
   if (v3)
   {
@@ -14068,19 +15223,17 @@ void __72__FlowAnalyticsEngine_performAppTrackingActionWithOptions_userId_reply_
       v4 = domainTrackingLogHandle;
       if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v6[0] = 67109120;
-        v6[1] = gEffectiveUserId;
-        _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "gEffectiveUserId changed to %u", v6, 8u);
+        v5[0] = 67109120;
+        v5[1] = gEffectiveUserId;
+        _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "gEffectiveUserId changed to %u", v5, 8u);
       }
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearAppEndpoints:(id)endpoints
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = [(ObjectAnalytics *)self->epspace removeEntitiesMatching:0];
   allAppEndpoints = self->allAppEndpoints;
   if (allAppEndpoints)
@@ -14106,60 +15259,56 @@ void __72__FlowAnalyticsEngine_performAppTrackingActionWithOptions_userId_reply_
     v9 = self->allAppEndpoints;
     v10 = self->resolvedAppEndpoints;
     v11 = self->determinedTrackersFromAPICount;
-    v13 = 134218755;
-    v14 = v4;
-    v15 = 2113;
-    v16 = v9;
-    v17 = 2113;
-    v18 = v10;
-    v19 = 2113;
-    v20 = v11;
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "UserManagement: Cleared out all %ld endpoint tracking data, all: %{private}@, resolved: %{private}@, trackersFromAPI: %{private}@", &v13, 0x2Au);
+    v12 = 134218755;
+    v13 = v4;
+    v14 = 2113;
+    v15 = v9;
+    v16 = 2113;
+    v17 = v10;
+    v18 = 2113;
+    v19 = v11;
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "UserManagement: Cleared out all %ld endpoint tracking data, all: %{private}@, resolved: %{private}@, trackersFromAPI: %{private}@", &v12, 0x2Au);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearAppDomainUsage:(id)usage
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = [(ObjectAnalytics *)self->domspace removeEntitiesMatching:0];
   v4 = domainTrackingLogHandle;
   if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
-    v7 = v3;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "UserManagement: Cleared out all %ld domain tracking data.", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v3;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "UserManagement: Cleared out all %ld domain tracking data.", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_appExperienceForApp:(id)app forTime:(id)time
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   appCopy = app;
   timeCopy = time;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   hasAppExperience = [appCopy hasAppExperience];
-  v9 = [hasAppExperience countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [hasAppExperience countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
 LABEL_3:
     v12 = 0;
     while (1)
     {
-      if (*v22 != v11)
+      if (*v21 != v11)
       {
         objc_enumerationMutation(hasAppExperience);
       }
 
-      v13 = *(*(&v21 + 1) + 8 * v12);
+      v13 = *(*(&v20 + 1) + 8 * v12);
       firstTimeStamp = [v13 firstTimeStamp];
       [firstTimeStamp timeIntervalSinceDate:timeCopy];
       v16 = v15;
@@ -14177,7 +15326,7 @@ LABEL_3:
 
       if (v10 == ++v12)
       {
-        v10 = [hasAppExperience countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v10 = [hasAppExperience countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v10)
         {
           goto LABEL_3;
@@ -14205,8 +15354,6 @@ LABEL_11:
   [appCopy addHasAppExperienceObject:createEntity];
 LABEL_14:
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return createEntity;
 }
 
@@ -14226,7 +15373,7 @@ LABEL_14:
 
 - (void)performAppExperiencePeriodicTasksComplete:(id)complete error:(id)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   errorCopy = error;
   v7 = appExperienceLogHandle;
@@ -14234,27 +15381,25 @@ LABEL_14:
   {
     if (os_log_type_enabled(appExperienceLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = errorCopy;
+      v11 = 138412290;
+      v12 = errorCopy;
       v8 = "Periodic app experience tasks failed with %@";
       v9 = v7;
       v10 = OS_LOG_TYPE_ERROR;
 LABEL_6:
-      _os_log_impl(&dword_23255B000, v9, v10, v8, &v12, 0xCu);
+      _os_log_impl(&dword_23255B000, v9, v10, v8, &v11, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(appExperienceLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = completeCopy;
+    v11 = 138412290;
+    v12 = completeCopy;
     v8 = "Periodic app experience tasks finished with result %@";
     v9 = v7;
     v10 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (void)performAppExperiencePeriodicActivityWithReply:(id)reply
@@ -14267,7 +15412,7 @@ LABEL_6:
 
 - (unint64_t)_pruneAppExperienceRecords
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-604800.0];
   v4 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K < %@", @"firstTimeStamp", v3];
   v5 = [(ObjectAnalytics *)self->expspace removeEntitiesMatching:v4];
@@ -14275,26 +15420,25 @@ LABEL_6:
   if (os_log_type_enabled(appExperienceLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v10 = v5;
+    v9 = v5;
     _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Removed %ld AppExperience entries", buf, 0xCu);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)_algosScoreFor:(id)for score:(double)score
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v6 = COERCE_DOUBLE(for);
   v7 = appExperienceLogHandle;
   if (os_log_type_enabled(appExperienceLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v22 = 138412546;
-    v23 = v6;
-    v24 = 2048;
+    v21 = 138412546;
+    v22 = v6;
+    v23 = 2048;
     scoreCopy = score;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "Bundle: %@ score: %f", &v22, 0x16u);
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "Bundle: %@ score: %f", &v21, 0x16u);
   }
 
   date = [MEMORY[0x277CBEAA8] date];
@@ -14318,15 +15462,15 @@ LABEL_6:
         {
           v17 = v16;
           [v13 algosScore];
-          v22 = 138413058;
-          v23 = v6;
-          v24 = 2048;
+          v21 = 138413058;
+          v22 = v6;
+          v23 = 2048;
           scoreCopy = v15;
-          v26 = 2048;
+          v25 = 2048;
           scoreCopy2 = score;
-          v28 = 2048;
-          v29 = v18;
-          _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "Bundle %@ agg-value: %f, new value: %f, new agg-value: %f", &v22, 0x2Au);
+          v27 = 2048;
+          v28 = v18;
+          _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "Bundle %@ agg-value: %f, new value: %f, new agg-value: %f", &v21, 0x2Au);
         }
 
         [v13 setTimeStamp:date];
@@ -14337,9 +15481,9 @@ LABEL_6:
         v20 = appExperienceLogHandle;
         if (os_log_type_enabled(appExperienceLogHandle, OS_LOG_TYPE_ERROR))
         {
-          v22 = 138412290;
-          v23 = v6;
-          _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_ERROR, "Couldn't create AppExperience record for bundle %@", &v22, 0xCu);
+          v21 = 138412290;
+          v22 = v6;
+          _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_ERROR, "Couldn't create AppExperience record for bundle %@", &v21, 0xCu);
         }
       }
     }
@@ -14349,16 +15493,14 @@ LABEL_6:
       v19 = appExperienceLogHandle;
       if (os_log_type_enabled(appExperienceLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v22 = 138412546;
-        v23 = *&v10;
-        v24 = 2112;
+        v21 = 138412546;
+        v22 = *&v10;
+        v23 = 2112;
         scoreCopy = v6;
-        _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "Either no entry (%@) or non-App entry for bundle %@", &v22, 0x16u);
+        _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "Either no entry (%@) or non-App entry for bundle %@", &v21, 0x16u);
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isLiveFlowPerfinScope:(id)scope forTime:(id)time andTag:(id)tag
@@ -14392,7 +15534,7 @@ LABEL_6:
 
 - (void)_removeOldFlowRecords
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:1.84467441e19];
   v4 = MEMORY[0x277CCAC30];
   distantPast = [MEMORY[0x277CBEAA8] distantPast];
@@ -14404,19 +15546,17 @@ LABEL_6:
   {
     v9 = v8;
     *buf = 134217984;
-    v12 = [v7 count];
+    v11 = [v7 count];
     _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: removing %lu flow entries", buf, 0xCu);
   }
 
   [(ObjectAnalytics *)self->lfpspace removeEntities:v7];
   [(AnalyticsWorkspace *)self->super.workspace save];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_flowFetchForName:(id)name
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (!nameCopy)
   {
@@ -14428,12 +15568,12 @@ LABEL_6:
   if (![(NSMutableDictionary *)self->flowCache count])
   {
     v6 = [(ObjectAnalytics *)self->fspace fetchEntitiesFreeForm:0 sortDesc:0];
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __41__FlowAnalyticsEngine__flowFetchForName___block_invoke;
-    v37[3] = &unk_27898C820;
-    v37[4] = self;
-    [v6 enumerateObjectsUsingBlock:v37];
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __41__FlowAnalyticsEngine__flowFetchForName___block_invoke;
+    v36[3] = &unk_27898C820;
+    v36[4] = self;
+    [v6 enumerateObjectsUsingBlock:v36];
     v7 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
     {
@@ -14449,10 +15589,10 @@ LABEL_6:
   objc_autoreleasePoolPop(v5);
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__5;
-  v43 = __Block_byref_object_dispose__5;
-  v44 = 0;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__5;
+  v42 = __Block_byref_object_dispose__5;
+  v43 = 0;
   v11 = [(NSMutableDictionary *)self->flowCache objectForKey:nameCopy];
   v12 = *(*(&buf + 1) + 40);
   *(*(&buf + 1) + 40) = v11;
@@ -14462,14 +15602,14 @@ LABEL_6:
   {
     nameCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", @"remoteID", nameCopy];
     v16 = [(ObjectAnalytics *)self->fspace fetchEntitiesFreeForm:nameCopy sortDesc:0];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __41__FlowAnalyticsEngine__flowFetchForName___block_invoke_843;
-    v34[3] = &unk_27898C848;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __41__FlowAnalyticsEngine__flowFetchForName___block_invoke_843;
+    v33[3] = &unk_27898C848;
     v17 = nameCopy;
-    v35 = v17;
+    v34 = v17;
     p_buf = &buf;
-    [v16 enumerateObjectsUsingBlock:v34];
+    [v16 enumerateObjectsUsingBlock:v33];
     v18 = *(*(&buf + 1) + 40);
     if (v18)
     {
@@ -14506,8 +15646,8 @@ LABEL_17:
         goto LABEL_17;
       }
 
-      *v38 = 138412290;
-      v39 = v17;
+      *v37 = 138412290;
+      v38 = v17;
       v28 = "flowCache miss for %@";
       v29 = v27;
       v30 = OS_LOG_TYPE_DEBUG;
@@ -14521,14 +15661,14 @@ LABEL_17:
         goto LABEL_17;
       }
 
-      *v38 = 138412290;
-      v39 = v17;
+      *v37 = 138412290;
+      v38 = v17;
       v28 = "Failed to allocate Flow entity for %@";
       v29 = v31;
       v30 = OS_LOG_TYPE_ERROR;
     }
 
-    _os_log_impl(&dword_23255B000, v29, v30, v28, v38, 0xCu);
+    _os_log_impl(&dword_23255B000, v29, v30, v28, v37, 0xCu);
     goto LABEL_17;
   }
 
@@ -14537,7 +15677,6 @@ LABEL_18:
   _Block_object_dispose(&buf, 8);
 
 LABEL_19:
-  v32 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -14567,28 +15706,28 @@ void __41__FlowAnalyticsEngine__flowFetchForName___block_invoke_843(uint64_t a1,
 
 - (id)_parseEvent:(id)event withGeneration:(id *)generation
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   fspace = self->fspace;
   entityName = [MEMORY[0x277D6B598] entityName];
   v9 = [(ObjectAnalytics *)fspace createTemporaryEntityForEntityName:entityName];
 
-  v72 = eventCopy;
+  v71 = eventCopy;
   [eventCopy keyEnumerator];
+  v72 = 0u;
   v73 = 0u;
   v74 = 0u;
-  v75 = 0u;
-  obj = v76 = 0u;
-  v10 = [obj countByEnumeratingWithState:&v73 objects:v85 count:16];
+  obj = v75 = 0u;
+  v10 = [obj countByEnumeratingWithState:&v72 objects:v84 count:16];
   if (v10)
   {
     v11 = v10;
     generationCopy = generation;
-    v68 = v9;
+    v67 = v9;
     v12 = 0;
     v13 = 0;
     v14 = 0;
-    log = *v74;
+    log = *v73;
 LABEL_3:
     v15 = 0;
     v16 = v12;
@@ -14596,20 +15735,20 @@ LABEL_3:
     v18 = v14;
     while (1)
     {
-      if (*v74 != log)
+      if (*v73 != log)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v73 + 1) + 8 * v15);
+      v12 = *(*(&v72 + 1) + 8 * v15);
 
-      v19 = [v72 objectForKeyedSubscript:v12];
+      v19 = [v71 objectForKeyedSubscript:v12];
       eventData = [v19 eventData];
       v21 = analyticsLogHandle;
       if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v78 = v12;
+        v77 = v12;
         _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: received IKE notification for %@", buf, 0xCu);
       }
 
@@ -14654,17 +15793,17 @@ LABEL_3:
             v36 = "";
           }
 
-          v78 = v12;
-          v79 = 2080;
-          v80 = v33;
-          v81 = 2080;
-          v82 = v36;
+          v77 = v12;
+          v78 = 2080;
+          v79 = v33;
+          v80 = 2080;
+          v81 = v36;
           _os_log_impl(&dword_23255B000, loga, OS_LOG_TYPE_ERROR, "%@ with incorrect qualifiers: 1 is%s nil, 2 is%s nil", buf, 0x20u);
         }
 
 LABEL_27:
         v29 = 0;
-        v9 = v68;
+        v9 = v67;
         goto LABEL_44;
       }
 
@@ -14683,28 +15822,28 @@ LABEL_27:
       {
         v47 = eventData;
         v48 = *(eventData + 4) & 0xF;
-        v9 = v68;
+        v9 = v67;
         if (v48 == 15)
         {
-          [v68 setTmpID:v14];
+          [v67 setTmpID:v14];
           v49 = v13;
           *generationCopy = v13;
           v50 = [MEMORY[0x277CCABB0] numberWithDouble:v47[3]];
-          [v68 setTxPackets:v50];
+          [v67 setTxPackets:v50];
 
           v51 = [MEMORY[0x277CCABB0] numberWithDouble:v47[4]];
-          [v68 setTxReTxPackets:v51];
+          [v67 setTxReTxPackets:v51];
 
           v52 = [MEMORY[0x277CCABB0] numberWithDouble:v47[5]];
-          [v68 setTxFailPackets:v52];
+          [v67 setTxFailPackets:v52];
 
           v53 = [MEMORY[0x277CCABB0] numberWithDouble:v47[6]];
-          [v68 setTxReTxInterval:v53];
+          [v67 setTxReTxInterval:v53];
 
           v54 = [MEMORY[0x277CCABB0] numberWithShort:1];
-          [v68 setKind:v54];
+          [v67 setKind:v54];
 
-          [v68 setTag:@"IKE"];
+          [v67 setTag:@"IKE"];
         }
 
         v55 = analyticsLogHandle;
@@ -14712,11 +15851,11 @@ LABEL_27:
         {
 LABEL_41:
           *buf = 138412802;
-          v78 = v12;
-          v79 = 2112;
-          v80 = v14;
-          v81 = 2112;
-          v82 = v13;
+          v77 = v12;
+          v78 = 2112;
+          v79 = v14;
+          v80 = 2112;
+          v81 = v13;
           _os_log_impl(&dword_23255B000, v55, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: parsed %@, %@, %@", buf, 0x20u);
         }
 
@@ -14741,31 +15880,31 @@ LABEL_33:
       {
         v56 = eventData;
         v48 = *(eventData + 4) & 0xF;
-        v9 = v68;
+        v9 = v67;
         if (v48 == 15)
         {
-          [v68 setTmpID:v14];
+          [v67 setTmpID:v14];
           v57 = v13;
           *generationCopy = v13;
           v58 = [MEMORY[0x277CCABB0] numberWithDouble:1.0];
-          [v68 setConnAttempts:v58];
+          [v67 setConnAttempts:v58];
 
           v59 = [MEMORY[0x277CCABB0] numberWithDouble:v56[3]];
-          [v68 setTxPackets:v59];
+          [v67 setTxPackets:v59];
 
           v60 = [MEMORY[0x277CCABB0] numberWithDouble:v56[4]];
-          [v68 setTxReTxPackets:v60];
+          [v67 setTxReTxPackets:v60];
 
           v61 = [MEMORY[0x277CCABB0] numberWithDouble:v56[5]];
-          [v68 setTxFailPackets:v61];
+          [v67 setTxFailPackets:v61];
 
           v62 = [MEMORY[0x277CCABB0] numberWithDouble:v56[6]];
-          [v68 setOverallTime:v62];
+          [v67 setOverallTime:v62];
 
           v63 = [MEMORY[0x277CCABB0] numberWithShort:2];
-          [v68 setKind:v63];
+          [v67 setKind:v63];
 
-          [v68 setTag:@"IKE"];
+          [v67 setTag:@"IKE"];
         }
 
         v55 = analyticsLogHandle;
@@ -14783,7 +15922,7 @@ LABEL_33:
       v18 = v14;
       if (v11 == v15)
       {
-        v11 = [obj countByEnumeratingWithState:&v73 objects:v85 count:16];
+        v11 = [obj countByEnumeratingWithState:&v72 objects:v84 count:16];
         if (v11)
         {
           goto LABEL_3;
@@ -14796,40 +15935,40 @@ LABEL_33:
 
     v37 = eventData;
     v38 = *(eventData + 4) & 3;
-    v9 = v68;
+    v9 = v67;
     if (v38 == 3)
     {
-      [v68 setTmpID:v14];
+      [v67 setTmpID:v14];
       v39 = v13;
       *generationCopy = v13;
       v40 = [MEMORY[0x277CCABB0] numberWithDouble:1.0];
-      [v68 setConnSuccesses:v40];
+      [v67 setConnSuccesses:v40];
 
-      connSuccesses = [v68 connSuccesses];
-      [v68 setConnAttempts:connSuccesses];
+      connSuccesses = [v67 connSuccesses];
+      [v67 setConnAttempts:connSuccesses];
 
       v42 = [MEMORY[0x277CCABB0] numberWithDouble:(*(v37 + 32) + (*(v37 + 24) * 1000000.0))];
-      [v68 setUsecsEstabTime:v42];
+      [v67 setUsecsEstabTime:v42];
 
       v43 = [MEMORY[0x277CCABB0] numberWithShort:0];
-      [v68 setKind:v43];
+      [v67 setKind:v43];
 
-      [v68 setTag:@"IKE"];
+      [v67 setTag:@"IKE"];
     }
 
     v44 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
     {
       v45 = v44;
-      usecsEstabTime = [v68 usecsEstabTime];
+      usecsEstabTime = [v67 usecsEstabTime];
       *buf = 138413058;
-      v78 = v12;
-      v79 = 2112;
-      v80 = v14;
-      v81 = 2112;
-      v82 = v13;
-      v83 = 2112;
-      v84 = usecsEstabTime;
+      v77 = v12;
+      v78 = 2112;
+      v79 = v14;
+      v80 = 2112;
+      v81 = v13;
+      v82 = 2112;
+      v83 = usecsEstabTime;
       _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: parsed %@, %@, %@, %@", buf, 0x2Au);
     }
 
@@ -14848,13 +15987,12 @@ LABEL_33:
 LABEL_44:
 
   v64 = v29;
-  v65 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
 - (void)_archiveRecord:(id)record
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   date = [MEMORY[0x277CBEAA8] date];
   v6 = analyticsLogHandle;
@@ -14863,9 +16001,9 @@ LABEL_44:
     v7 = v6;
     tmpID = [recordCopy tmpID];
     *buf = 134218242;
-    v92 = recordCopy;
-    v93 = 2112;
-    v94 = tmpID;
+    v91 = recordCopy;
+    v92 = 2112;
+    v93 = tmpID;
     _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: archiving flow record %p for %@", buf, 0x16u);
   }
 
@@ -14874,27 +16012,27 @@ LABEL_44:
 
   if (v10)
   {
-    v88 = 0u;
-    v89 = 0u;
-    v86 = 0u;
     v87 = 0u;
-    v85 = v10;
+    v88 = 0u;
+    v85 = 0u;
+    v86 = 0u;
+    v84 = v10;
     hasLivePerformance = [v10 hasLivePerformance];
-    v12 = [hasLivePerformance countByEnumeratingWithState:&v86 objects:v90 count:16];
+    v12 = [hasLivePerformance countByEnumeratingWithState:&v85 objects:v89 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v87;
+      v14 = *v86;
 LABEL_6:
       v15 = 0;
       while (1)
       {
-        if (*v87 != v14)
+        if (*v86 != v14)
         {
           objc_enumerationMutation(hasLivePerformance);
         }
 
-        v16 = *(*(&v86 + 1) + 8 * v15);
+        v16 = *(*(&v85 + 1) + 8 * v15);
         v17 = [recordCopy tag];
         v18 = [(FlowAnalyticsEngine *)self _isLiveFlowPerfinScope:v16 forTime:date andTag:v17];
 
@@ -14905,7 +16043,7 @@ LABEL_6:
 
         if (v13 == ++v15)
         {
-          v13 = [hasLivePerformance countByEnumeratingWithState:&v86 objects:v90 count:16];
+          v13 = [hasLivePerformance countByEnumeratingWithState:&v85 objects:v89 count:16];
           if (v13)
           {
             goto LABEL_6;
@@ -14917,7 +16055,7 @@ LABEL_6:
 
       createEntity = v16;
 
-      v10 = v85;
+      v10 = v84;
       if (createEntity)
       {
         goto LABEL_16;
@@ -14928,7 +16066,7 @@ LABEL_6:
     {
 LABEL_12:
 
-      v10 = v85;
+      v10 = v84;
     }
 
     createEntity = [(ObjectAnalytics *)self->lfpspace createEntity];
@@ -15040,12 +16178,10 @@ LABEL_16:
       v82 = v81;
       tmpID3 = [recordCopy tmpID];
       *buf = 138412290;
-      v92 = tmpID3;
+      v91 = tmpID3;
       _os_log_impl(&dword_23255B000, v82, OS_LOG_TYPE_ERROR, "Failing to track usage for flow %@", buf, 0xCu);
     }
   }
-
-  v84 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_pruneFlowHistory
@@ -15063,31 +16199,31 @@ LABEL_16:
 
 void __40__FlowAnalyticsEngine__pruneFlowHistory__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v27 = v5;
+    v26 = v5;
     _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: now pruning for key %@", buf, 0xCu);
   }
 
   if ([v6 count] >= 2)
   {
-    v20 = v5;
+    v19 = v5;
     v8 = [v6 objectAtIndex:0];
     v9 = MEMORY[0x277D85DD0];
-    v21 = MEMORY[0x277D85DD0];
-    v22 = 3221225472;
-    v23 = __40__FlowAnalyticsEngine__pruneFlowHistory__block_invoke_854;
-    v24 = &unk_27898C4B8;
-    v25 = *(a1 + 32);
-    v10 = [v6 indexOfObjectPassingTest:&v21];
+    v20 = MEMORY[0x277D85DD0];
+    v21 = 3221225472;
+    v22 = __40__FlowAnalyticsEngine__pruneFlowHistory__block_invoke_854;
+    v23 = &unk_27898C4B8;
+    v24 = *(a1 + 32);
+    v10 = [v6 indexOfObjectPassingTest:&v20];
     if (v10 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      for (i = v10; i != 0x7FFFFFFFFFFFFFFFLL; i = [v6 indexOfObjectPassingTest:&v21])
+      for (i = v10; i != 0x7FFFFFFFFFFFFFFFLL; i = [v6 indexOfObjectPassingTest:&v20])
       {
         v12 = analyticsLogHandle;
         if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
@@ -15095,7 +16231,7 @@ void __40__FlowAnalyticsEngine__pruneFlowHistory__block_invoke(uint64_t a1, void
           v13 = v12;
           v14 = [v6 count];
           *buf = 134217984;
-          v27 = v14;
+          v26 = v14;
           _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: pruning one record, records left = %lu", buf, 0xCu);
         }
 
@@ -15110,18 +16246,16 @@ void __40__FlowAnalyticsEngine__pruneFlowHistory__block_invoke(uint64_t a1, void
         [v8 setTxFailPackets:v18];
 
         [v6 removeObjectAtIndex:i];
-        v21 = v9;
-        v22 = 3221225472;
-        v23 = __40__FlowAnalyticsEngine__pruneFlowHistory__block_invoke_854;
-        v24 = &unk_27898C4B8;
-        objc_storeStrong(&v25, *(a1 + 32));
+        v20 = v9;
+        v21 = 3221225472;
+        v22 = __40__FlowAnalyticsEngine__pruneFlowHistory__block_invoke_854;
+        v23 = &unk_27898C4B8;
+        objc_storeStrong(&v24, *(a1 + 32));
       }
     }
 
-    v5 = v20;
+    v5 = v19;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __40__FlowAnalyticsEngine__pruneFlowHistory__block_invoke_854(uint64_t a1, void *a2)
@@ -15146,7 +16280,7 @@ BOOL __40__FlowAnalyticsEngine__pruneFlowHistory__block_invoke_854(uint64_t a1, 
 
 - (void)_newFlowData:(id)data
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v4 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
@@ -15156,19 +16290,19 @@ BOOL __40__FlowAnalyticsEngine__pruneFlowHistory__block_invoke_854(uint64_t a1, 
   }
 
   userInfo = [dataCopy userInfo];
-  v75 = 0;
-  v5 = [(FlowAnalyticsEngine *)self _parseEvent:userInfo withGeneration:&v75];
-  v60 = v75;
+  v74 = 0;
+  v5 = [(FlowAnalyticsEngine *)self _parseEvent:userInfo withGeneration:&v74];
+  v59 = v74;
   if (v5)
   {
     date = [MEMORY[0x277CBEAA8] date];
     [v5 setTimeStamp:date];
-    v59 = [(NSMutableDictionary *)self->flowInstant objectForKeyedSubscript:v60];
-    if (v59)
+    v58 = [(NSMutableDictionary *)self->flowInstant objectForKeyedSubscript:v59];
+    if (v58)
     {
       [(FlowAnalyticsEngine *)self _pruneFlowHistory];
-      v61 = [v59 objectAtIndex:0];
-      kind = [v61 kind];
+      v60 = [v58 objectAtIndex:0];
+      kind = [v60 kind];
       v7 = [kind shortValue] == 0;
 
       if (!v7)
@@ -15204,7 +16338,7 @@ BOOL __40__FlowAnalyticsEngine__pruneFlowHistory__block_invoke_854(uint64_t a1, 
           _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "netanalyticsdebug: (2) no head-end for flow %@, discarding all its records", buf, 0xCu);
         }
 
-        v61 = 0;
+        v60 = 0;
 
         goto LABEL_51;
       }
@@ -15212,16 +16346,16 @@ BOOL __40__FlowAnalyticsEngine__pruneFlowHistory__block_invoke_854(uint64_t a1, 
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v81 = 0;
+      v80 = 0;
       flowInstant = self->flowInstant;
-      v72[0] = MEMORY[0x277D85DD0];
-      v72[1] = 3221225472;
-      v72[2] = __36__FlowAnalyticsEngine__newFlowData___block_invoke;
-      v72[3] = &unk_27898C870;
+      v71[0] = MEMORY[0x277D85DD0];
+      v71[1] = 3221225472;
+      v71[2] = __36__FlowAnalyticsEngine__newFlowData___block_invoke;
+      v71[3] = &unk_27898C870;
       v17 = v5;
-      v73 = v17;
-      v74 = buf;
-      [(NSMutableDictionary *)flowInstant enumerateKeysAndObjectsUsingBlock:v72];
+      v72 = v17;
+      v73 = buf;
+      [(NSMutableDictionary *)flowInstant enumerateKeysAndObjectsUsingBlock:v71];
       v18 = *(*&buf[8] + 24);
       if (v18 == 1)
       {
@@ -15229,22 +16363,22 @@ BOOL __40__FlowAnalyticsEngine__pruneFlowHistory__block_invoke_854(uint64_t a1, 
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           tmpID3 = [v17 tmpID];
-          *v78 = 138412290;
-          v79 = tmpID3;
-          _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "netanalyticsdebug: (3) avoiding multiple instantiations for flow %@, discarding all its new records", v78, 0xCu);
+          *v77 = 138412290;
+          v78 = tmpID3;
+          _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "netanalyticsdebug: (3) avoiding multiple instantiations for flow %@, discarding all its new records", v77, 0xCu);
         }
 
-        v59 = 0;
+        v58 = 0;
       }
 
       else
       {
-        v59 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:5];
-        [(NSMutableDictionary *)self->flowInstant setObject:v59 forKeyedSubscript:v60];
+        v58 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:5];
+        [(NSMutableDictionary *)self->flowInstant setObject:v58 forKeyedSubscript:v59];
       }
 
       _Block_object_dispose(buf, 8);
-      v61 = 0;
+      v60 = 0;
       if (v18)
       {
 LABEL_50:
@@ -15271,26 +16405,26 @@ LABEL_51:
 
     if (shortValue == 2)
     {
-      if (v61)
+      if (v60)
       {
         overallTime = [v5 overallTime];
-        [v61 setOverallTime:overallTime];
+        [v60 setOverallTime:overallTime];
 
         txPackets = [v5 txPackets];
-        [v61 setTxPackets:txPackets];
+        [v60 setTxPackets:txPackets];
 
         txReTxPackets = [v5 txReTxPackets];
-        [v61 setTxReTxPackets:txReTxPackets];
+        [v60 setTxReTxPackets:txReTxPackets];
 
         txFailPackets = [v5 txFailPackets];
-        [v61 setTxFailPackets:txFailPackets];
+        [v60 setTxFailPackets:txFailPackets];
       }
 
       else
       {
-        v61 = v5;
+        v60 = v5;
         internal_symptom_create();
-        v47 = [v61 tag];
+        v47 = [v60 tag];
         v48 = v47;
         uTF8String = [v47 UTF8String];
 
@@ -15299,30 +16433,30 @@ LABEL_51:
         internal_symptom_send();
       }
 
-      [(FlowAnalyticsEngine *)self _archiveRecord:v61];
-      [v59 removeAllObjects];
-      [(NSMutableDictionary *)self->flowInstant removeObjectForKey:v60];
-      v66 = 0u;
-      v67 = 0u;
-      v64 = 0u;
+      [(FlowAnalyticsEngine *)self _archiveRecord:v60];
+      [v58 removeAllObjects];
+      [(NSMutableDictionary *)self->flowInstant removeObjectForKey:v59];
       v65 = 0u;
+      v66 = 0u;
+      v63 = 0u;
+      v64 = 0u;
       flowWatchers = [(FlowAnalyticsEngine *)self flowWatchers];
       allValues = [flowWatchers allValues];
 
-      v52 = [allValues countByEnumeratingWithState:&v64 objects:v76 count:16];
+      v52 = [allValues countByEnumeratingWithState:&v63 objects:v75 count:16];
       if (v52)
       {
-        v53 = *v65;
+        v53 = *v64;
         do
         {
           for (i = 0; i != v52; ++i)
           {
-            if (*v65 != v53)
+            if (*v64 != v53)
             {
               objc_enumerationMutation(allValues);
             }
 
-            v55 = *(*(&v64 + 1) + 8 * i);
+            v55 = *(*(&v63 + 1) + 8 * i);
             v56 = analyticsLogHandle;
             if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
             {
@@ -15333,7 +16467,7 @@ LABEL_51:
             (*(v55 + 16))(v55);
           }
 
-          v52 = [allValues countByEnumeratingWithState:&v64 objects:v76 count:16];
+          v52 = [allValues countByEnumeratingWithState:&v63 objects:v75 count:16];
         }
 
         while (v52);
@@ -15342,35 +16476,35 @@ LABEL_51:
 
     else if (shortValue == 1)
     {
-      [v59 addObject:v5];
-      timesThresholded = [v61 timesThresholded];
+      [v58 addObject:v5];
+      timesThresholded = [v60 timesThresholded];
       [timesThresholded doubleValue];
       v31 = v30;
 
       v32 = [MEMORY[0x277CCABB0] numberWithDouble:v31 + 1.0];
-      [v61 setTimesThresholded:v32];
+      [v60 setTimesThresholded:v32];
 
-      v70 = 0u;
-      v71 = 0u;
-      v68 = 0u;
       v69 = 0u;
+      v70 = 0u;
+      v67 = 0u;
+      v68 = 0u;
       flowWatchers2 = [(FlowAnalyticsEngine *)self flowWatchers];
       allValues2 = [flowWatchers2 allValues];
 
-      v35 = [allValues2 countByEnumeratingWithState:&v68 objects:v77 count:16];
+      v35 = [allValues2 countByEnumeratingWithState:&v67 objects:v76 count:16];
       if (v35)
       {
-        v36 = *v69;
+        v36 = *v68;
         do
         {
           for (j = 0; j != v35; ++j)
           {
-            if (*v69 != v36)
+            if (*v68 != v36)
             {
               objc_enumerationMutation(allValues2);
             }
 
-            v38 = *(*(&v68 + 1) + 8 * j);
+            v38 = *(*(&v67 + 1) + 8 * j);
             v39 = analyticsLogHandle;
             if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
             {
@@ -15381,7 +16515,7 @@ LABEL_51:
             (*(v38 + 16))(v38);
           }
 
-          v35 = [allValues2 countByEnumeratingWithState:&v68 objects:v77 count:16];
+          v35 = [allValues2 countByEnumeratingWithState:&v67 objects:v76 count:16];
         }
 
         while (v35);
@@ -15405,7 +16539,7 @@ LABEL_51:
 
     else
     {
-      [v59 addObject:v5];
+      [v58 addObject:v5];
       internal_symptom_create();
       v26 = [v5 tag];
       v27 = v26;
@@ -15419,10 +16553,8 @@ LABEL_51:
     goto LABEL_50;
   }
 
-  v61 = 0;
+  v60 = 0;
 LABEL_52:
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 void __36__FlowAnalyticsEngine__newFlowData___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -15451,28 +16583,28 @@ void __36__FlowAnalyticsEngine__newFlowData___block_invoke(uint64_t a1, uint64_t
 
   if (self->isTetherActive)
   {
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
     v60 = 0u;
-    v57 = 0u;
+    v61 = 0u;
     v58 = 0u;
-    v55 = 0u;
+    v59 = 0u;
     v56 = 0u;
-    v53 = 0u;
+    v57 = 0u;
     v54 = 0u;
-    v51 = 0u;
+    v55 = 0u;
     v52 = 0u;
-    v49 = 0u;
+    v53 = 0u;
     v50 = 0u;
-    v47 = 0u;
+    v51 = 0u;
     v48 = 0u;
-    v45 = 0u;
+    v49 = 0u;
     v46 = 0u;
-    v43 = 0u;
+    v47 = 0u;
     v44 = 0u;
+    v45 = 0u;
     v42 = 0u;
-    memset(v41, 0, sizeof(v41));
+    v43 = 0u;
+    v41 = 0u;
+    memset(v40, 0, sizeof(v40));
     v6 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
@@ -15493,13 +16625,13 @@ void __36__FlowAnalyticsEngine__newFlowData___block_invoke(uint64_t a1, uint64_t
       }
 
       *buf = 136315394;
-      *v64 = v8;
-      *&v64[8] = 2080;
-      *&v64[10] = v7;
+      *v63 = v8;
+      *&v63[8] = 2080;
+      *&v63[10] = v7;
       _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "tether: updating usage, is %s from refresh trigger, state is %s active", buf, 0x16u);
     }
 
-    v39 = usageCopy;
+    v38 = usageCopy;
     selfCopy = self;
     v9 = 0;
     v10 = 0;
@@ -15508,18 +16640,18 @@ void __36__FlowAnalyticsEngine__newFlowData___block_invoke(uint64_t a1, uint64_t
     {
       if ((_updateTetheringUsage__bitmap & (1 << v9)) != 0)
       {
-        *v65 = xmmword_232816BF0;
-        v65[4] = v9;
-        v65[5] = 5;
-        v40 = 712;
-        bzero(v41, 0x2C8uLL);
-        if (sysctl(v65, 6u, v41, &v40, 0, 0))
+        *v64 = xmmword_232816BF0;
+        v64[4] = v9;
+        v64[5] = 5;
+        v39 = 712;
+        bzero(v40, 0x2C8uLL);
+        if (sysctl(v64, 6u, v40, &v39, 0, 0))
         {
           v12 = analyticsLogHandle;
           if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
           {
             *buf = 67109120;
-            *v64 = v9;
+            *v63 = v9;
             v13 = v12;
             v14 = "tether: cell interface %d cannot be read";
 LABEL_16:
@@ -15529,8 +16661,8 @@ LABEL_16:
 
         else
         {
-          v15 = *(&v42 + 1);
-          __src[v9] = *(&v42 + 1);
+          v15 = *(&v41 + 1);
+          __src[v9] = *(&v41 + 1);
           currentSubscriberTag3 = v15 - _updateTetheringUsage__carryIfindex[v9];
           if (currentSubscriberTag3 >= 1)
           {
@@ -15538,9 +16670,9 @@ LABEL_16:
             if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 67109376;
-              *v64 = v9;
-              *&v64[4] = 2048;
-              *&v64[6] = currentSubscriberTag3;
+              *v63 = v9;
+              *&v63[4] = 2048;
+              *&v63[6] = currentSubscriberTag3;
               _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "tether: cell interface %d contributes %lld bytes", buf, 0x12u);
             }
 
@@ -15555,11 +16687,11 @@ LABEL_16:
             {
               v18 = _updateTetheringUsage__carryIfindex[v9];
               *buf = 67109632;
-              *v64 = v9;
-              *&v64[4] = 2048;
-              *&v64[6] = v18;
-              *&v64[14] = 2048;
-              *&v64[16] = v15;
+              *v63 = v9;
+              *&v63[4] = 2048;
+              *&v63[6] = v18;
+              *&v63[14] = 2048;
+              *&v63[16] = v15;
               _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "tether usage readout no longer monotonically increasing on ifindex %d, was %llu, is %llu", buf, 0x1Cu);
             }
 
@@ -15570,7 +16702,7 @@ LABEL_16:
           if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
           {
             *buf = 67109120;
-            *v64 = v9;
+            *v63 = v9;
             v13 = v17;
             v14 = "tether: cell interface %d contributes 0 bytes";
             goto LABEL_16;
@@ -15581,14 +16713,14 @@ LABEL_16:
 LABEL_21:
       if (++v9 == 64)
       {
-        v19 = v39;
+        v19 = v38;
         if (v10 > 0)
         {
           v20 = analyticsLogHandle;
           if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
           {
             *buf = 134217984;
-            *v64 = v10;
+            *v63 = v10;
             _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEBUG, "tether: new data activity amounts to %llu bytes, must persist", buf, 0xCu);
           }
 
@@ -15599,10 +16731,10 @@ LABEL_21:
             if (v22)
             {
               cellRelay = [(FlowAnalyticsEngine *)self cellRelay];
-              BYTE2(v37) = 0;
-              BYTE1(v37) = [cellRelay expensive];
-              LOBYTE(v37) = 0;
-              [FlowAnalyticsEngine _updateLiveUsage:"_updateLiveUsage:wifiIn:wifiOut:cellIn:cellOut:wiredIn:wiredOut:btIn:btOut:xIn:xOut:isJumboFlow:isExpensive:closing:" wifiIn:v22 wifiOut:0 cellIn:0 cellOut:v10 wiredIn:0 wiredOut:0 btIn:0 btOut:0 xIn:0 xOut:0 isJumboFlow:0 isExpensive:v37 closing:?];
+              BYTE2(v36) = 0;
+              BYTE1(v36) = [cellRelay expensive];
+              LOBYTE(v36) = 0;
+              [FlowAnalyticsEngine _updateLiveUsage:"_updateLiveUsage:wifiIn:wifiOut:cellIn:cellOut:wiredIn:wiredOut:btIn:btOut:xIn:xOut:isJumboFlow:isExpensive:closing:" wifiIn:v22 wifiOut:0 cellIn:0 cellOut:v10 wiredIn:0 wiredOut:0 btIn:0 btOut:0 xIn:0 xOut:0 isJumboFlow:0 isExpensive:v36 closing:?];
 
               v24 = analyticsLogHandle;
               if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
@@ -15634,9 +16766,9 @@ LABEL_21:
                 }
 
                 *buf = 134218242;
-                *v64 = v27;
-                *&v64[8] = 2112;
-                *&v64[10] = currentSubscriberTag2;
+                *v63 = v27;
+                *&v63[8] = 2112;
+                *&v63[10] = currentSubscriberTag2;
                 _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "tether: data activity, updated new tally (fwd): %f, subscriber tag: %@", buf, 0x16u);
                 if (v30)
                 {
@@ -15646,7 +16778,7 @@ LABEL_21:
                 {
                 }
 
-                v19 = v39;
+                v19 = v38;
               }
 
               memcpy(_updateTetheringUsage__carryIfindex, __src, sizeof(_updateTetheringUsage__carryIfindex));
@@ -15685,9 +16817,9 @@ LABEL_21:
                 }
 
                 *buf = 138412546;
-                *v64 = @"misd";
-                *&v64[8] = 2112;
-                *&v64[10] = currentSubscriberTag4;
+                *v63 = @"misd";
+                *&v63[8] = 2112;
+                *&v63[10] = currentSubscriberTag4;
                 _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_ERROR, "tether: failed to find LiveUsage for %@ with subscriber tag: %@", buf, 0x16u);
                 if (v35)
                 {
@@ -15706,29 +16838,27 @@ LABEL_21:
             if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *v64 = @"misd";
+              *v63 = @"misd";
               _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_ERROR, "tether: failed to find process for %@", buf, 0xCu);
             }
           }
         }
 
-        break;
+        return;
       }
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __45__FlowAnalyticsEngine__updateTetheringUsage___block_invoke()
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   _updateTetheringUsage__bitmap = if_nametobitmask("pdp");
   v0 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
-    v18 = _updateTetheringUsage__bitmap;
+    v17 = _updateTetheringUsage__bitmap;
     _os_log_impl(&dword_23255B000, v0, OS_LOG_TYPE_DEBUG, "tether: eligible cell interfaces %llx", buf, 0xCu);
   }
 
@@ -15739,12 +16869,12 @@ void __45__FlowAnalyticsEngine__updateTetheringUsage___block_invoke()
       continue;
     }
 
-    *v14 = xmmword_232816BF0;
-    v15 = i;
-    v16 = 5;
-    v9 = 712;
+    *v13 = xmmword_232816BF0;
+    v14 = i;
+    v15 = 5;
+    v8 = 712;
     bzero(buf, 0x2C8uLL);
-    if (sysctl(v14, 6u, buf, &v9, 0, 0))
+    if (sysctl(v13, 6u, buf, &v8, 0, 0))
     {
       v2 = analyticsLogHandle;
       if (!os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
@@ -15752,8 +16882,8 @@ void __45__FlowAnalyticsEngine__updateTetheringUsage___block_invoke()
         continue;
       }
 
-      *v10 = 67109120;
-      v11 = i;
+      *v9 = 67109120;
+      v10 = i;
       v3 = v2;
       v4 = "tether: baseline, cell interface %d cannot be read";
       v5 = 8;
@@ -15761,7 +16891,7 @@ void __45__FlowAnalyticsEngine__updateTetheringUsage___block_invoke()
 
     else
     {
-      _updateTetheringUsage__carryIfindex[i] = v19;
+      _updateTetheringUsage__carryIfindex[i] = v18;
       v6 = analyticsLogHandle;
       if (!os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
       {
@@ -15769,19 +16899,17 @@ void __45__FlowAnalyticsEngine__updateTetheringUsage___block_invoke()
       }
 
       v7 = _updateTetheringUsage__carryIfindex[i];
-      *v10 = 67109376;
-      v11 = i;
-      v12 = 2048;
-      v13 = v7;
+      *v9 = 67109376;
+      v10 = i;
+      v11 = 2048;
+      v12 = v7;
       v3 = v6;
       v4 = "tether: baseline for interface %d set to %llu bytes";
       v5 = 18;
     }
 
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, v4, v10, v5);
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, v4, v9, v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_handlesProcEntity:(id)entity
@@ -15902,7 +17030,7 @@ void __45__FlowAnalyticsEngine__updateTetheringUsage___block_invoke()
 
 - (void)_logBitmapOutcome:(id)outcome
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   outcomeCopy = outcome;
   if (outcomeCopy)
   {
@@ -15913,127 +17041,122 @@ void __45__FlowAnalyticsEngine__updateTetheringUsage___block_invoke()
       _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "[Bitmap] Start of reply message to client", buf, 2u);
     }
 
-    v39 = 0u;
-    v40 = 0u;
+    v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v5 = outcomeCopy;
-    v30 = [v5 countByEnumeratingWithState:&v37 objects:v46 count:16];
-    if (v30)
+    v27 = [v5 countByEnumeratingWithState:&v34 objects:v43 count:16];
+    if (v27)
     {
-      v6 = *v38;
-      v7 = 0x277CBE000uLL;
-      v28 = *v38;
-      v29 = v5;
+      v6 = *v35;
+      v25 = *v35;
+      v26 = v5;
       do
       {
-        v8 = 0;
+        v7 = 0;
         do
         {
-          if (*v38 != v6)
+          if (*v35 != v6)
           {
             objc_enumerationMutation(v5);
           }
 
-          v31 = v8;
-          v9 = *(*(&v37 + 1) + 8 * v8);
-          v10 = [v5 objectForKeyedSubscript:v9];
-          v11 = *(v7 + 2752);
+          v28 = v7;
+          v8 = *(*(&v34 + 1) + 8 * v7);
+          v9 = [v5 objectForKeyedSubscript:v8];
           objc_opt_class();
-          v32 = v10;
-          LOBYTE(v10) = objc_opt_isKindOfClass();
-          v12 = analyticsLogHandle;
-          v13 = os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT);
-          if (v10)
+          v29 = v9;
+          LOBYTE(v9) = objc_opt_isKindOfClass();
+          v10 = analyticsLogHandle;
+          v11 = os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT);
+          if (v9)
           {
-            if (v13)
+            if (v11)
             {
               *buf = 138412290;
-              v42 = v9;
-              _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "[Bitmap] %@-> {", buf, 0xCu);
+              v39 = v8;
+              _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "[Bitmap] %@-> {", buf, 0xCu);
             }
 
-            v14 = v32;
+            v12 = v29;
+            v30 = 0u;
+            v31 = 0u;
+            v32 = 0u;
             v33 = 0u;
-            v34 = 0u;
-            v35 = 0u;
-            v36 = 0u;
-            v15 = [v14 countByEnumeratingWithState:&v33 objects:v45 count:16];
-            if (v15)
+            v13 = [v12 countByEnumeratingWithState:&v30 objects:v42 count:16];
+            if (v13)
             {
-              v16 = v15;
-              v17 = *v34;
+              v14 = v13;
+              v15 = *v31;
               do
               {
-                for (i = 0; i != v16; ++i)
+                for (i = 0; i != v14; ++i)
                 {
-                  if (*v34 != v17)
+                  if (*v31 != v15)
                   {
-                    objc_enumerationMutation(v14);
+                    objc_enumerationMutation(v12);
                   }
 
-                  v19 = analyticsLogHandle;
+                  v17 = analyticsLogHandle;
                   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
                   {
-                    v20 = *(*(&v33 + 1) + 8 * i);
-                    v21 = v19;
-                    v22 = [v14 objectForKeyedSubscript:v20];
+                    v18 = *(*(&v30 + 1) + 8 * i);
+                    v19 = v17;
+                    v20 = [v12 objectForKeyedSubscript:v18];
                     *buf = 138412546;
-                    v42 = v20;
-                    v43 = 2112;
-                    v44 = v22;
-                    _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "[Bitmap]     %@-> %@", buf, 0x16u);
+                    v39 = v18;
+                    v40 = 2112;
+                    v41 = v20;
+                    _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "[Bitmap]     %@-> %@", buf, 0x16u);
                   }
                 }
 
-                v16 = [v14 countByEnumeratingWithState:&v33 objects:v45 count:16];
+                v14 = [v12 countByEnumeratingWithState:&v30 objects:v42 count:16];
               }
 
-              while (v16);
+              while (v14);
             }
 
-            v23 = analyticsLogHandle;
+            v21 = analyticsLogHandle;
             if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, "[Bitmap]  }", buf, 2u);
+              _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "[Bitmap]  }", buf, 2u);
             }
 
-            v6 = v28;
-            v5 = v29;
-            v7 = 0x277CBE000;
+            v6 = v25;
+            v5 = v26;
           }
 
-          else if (v13)
+          else if (v11)
           {
-            v24 = v12;
-            v25 = [v5 objectForKeyedSubscript:v9];
+            v22 = v10;
+            v23 = [v5 objectForKeyedSubscript:v8];
             *buf = 138412546;
-            v42 = v9;
-            v43 = 2112;
-            v44 = v25;
-            _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "[Bitmap] %@-> %@", buf, 0x16u);
+            v39 = v8;
+            v40 = 2112;
+            v41 = v23;
+            _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEFAULT, "[Bitmap] %@-> %@", buf, 0x16u);
           }
 
-          v8 = v31 + 1;
+          v7 = v28 + 1;
         }
 
-        while (v31 + 1 != v30);
-        v30 = [v5 countByEnumeratingWithState:&v37 objects:v46 count:16];
+        while (v28 + 1 != v27);
+        v27 = [v5 countByEnumeratingWithState:&v34 objects:v43 count:16];
       }
 
-      while (v30);
+      while (v27);
     }
 
-    v26 = analyticsLogHandle;
+    v24 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEFAULT, "[Bitmap] End of reply message to client", buf, 2u);
+      _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "[Bitmap] End of reply message to client", buf, 2u);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getNetworkBitmapsWithNames:(id)names startTime:(unint64_t)time endTime:(unint64_t)endTime options:(id)options reply:(id)reply
@@ -16120,7 +17243,7 @@ void __82__FlowAnalyticsEngine_getNetworkBitmapsWithNames_startTime_endTime_opti
 
 - (void)logOutcomeArray:(id)array
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   v5 = +[SystemProperties sharedInstance];
   internalBuild = [v5 internalBuild];
@@ -16146,149 +17269,143 @@ void __82__FlowAnalyticsEngine_getNetworkBitmapsWithNames_startTime_endTime_opti
 
       v12 = -outcomeArrayLogEntryCount;
       v13 = 1;
-      v14 = 0x277CBE000uLL;
-      v48 = v7;
-      v45 = arrayCopy;
+      v45 = v7;
+      v42 = arrayCopy;
       do
       {
-        v15 = v11;
-        v16 = objc_autoreleasePoolPush();
+        v14 = v11;
+        v15 = objc_autoreleasePoolPush();
         v11 = [arrayCopy objectAtIndexedSubscript:v10 + v12];
 
-        v17 = *(v14 + 2752);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v18 = v11;
-          v19 = [v18 objectForKeyedSubscript:@"allFlows"];
+          v16 = v11;
+          v17 = [v16 objectForKeyedSubscript:@"allFlows"];
 
-          if (v19)
+          if (v17)
           {
             if (v13)
             {
-              v20 = analyticsLogHandle;
+              v18 = analyticsLogHandle;
               if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "entry:                                                                       Name        WiFiIn      WiFiOut       CellIn      CellOut Tag Kind", buf, 2u);
+                _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEFAULT, "entry:                                                                       Name        WiFiIn      WiFiOut       CellIn      CellOut Tag Kind", buf, 2u);
               }
 
               if (v10 + v12)
               {
-                v21 = analyticsLogHandle;
+                v19 = analyticsLogHandle;
                 if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 134218240;
-                  v52 = v10 + v12;
-                  v53 = 2048;
-                  v54 = v10;
-                  _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "[Skipping first %lu of %lu entries]", buf, 0x16u);
+                  v49 = v10 + v12;
+                  v50 = 2048;
+                  v51 = v10;
+                  _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "[Skipping first %lu of %lu entries]", buf, 0x16u);
                 }
               }
             }
 
-            v50 = v16;
-            v22 = objc_alloc(MEMORY[0x277CCACA8]);
-            v23 = [v18 objectForKeyedSubscript:@"hasProcess.procName"];
-            v24 = [v18 objectForKeyedSubscript:@"hasProcess.bundleName"];
-            v25 = [v18 objectForKeyedSubscript:@"hasProcess.extensionName"];
-            v26 = [v22 initWithFormat:@"%@:%@:%@", v23, v24, v25];
+            v47 = v15;
+            v20 = objc_alloc(MEMORY[0x277CCACA8]);
+            v21 = [v16 objectForKeyedSubscript:@"hasProcess.procName"];
+            v22 = [v16 objectForKeyedSubscript:@"hasProcess.bundleName"];
+            v23 = [v16 objectForKeyedSubscript:@"hasProcess.extensionName"];
+            v24 = [v20 initWithFormat:@"%@:%@:%@", v21, v22, v23];
 
-            v27 = analyticsLogHandle;
+            v25 = analyticsLogHandle;
             if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
             {
-              log = v27;
-              v46 = [v18 objectForKeyedSubscript:@"timeStamp"];
-              v28 = [v18 objectForKeyedSubscript:@"wifiIN"];
-              v29 = [v18 objectForKeyedSubscript:@"wifiOUT"];
-              v30 = [v18 objectForKeyedSubscript:@"wwanIN"];
-              v31 = [v18 objectForKeyedSubscript:@"wwanOUT"];
-              [v18 objectForKeyedSubscript:@"tag"];
-              v32 = v49 = v26;
-              v33 = [v18 objectForKeyedSubscript:@"kind"];
+              log = v25;
+              v43 = [v16 objectForKeyedSubscript:@"timeStamp"];
+              v26 = [v16 objectForKeyedSubscript:@"wifiIN"];
+              v27 = [v16 objectForKeyedSubscript:@"wifiOUT"];
+              v28 = [v16 objectForKeyedSubscript:@"wwanIN"];
+              v29 = [v16 objectForKeyedSubscript:@"wwanOUT"];
+              [v16 objectForKeyedSubscript:@"tag"];
+              v30 = v46 = v24;
+              v31 = [v16 objectForKeyedSubscript:@"kind"];
               *buf = 138414082;
-              v52 = v46;
-              v53 = 2112;
-              v54 = v49;
-              v55 = 2112;
-              v56 = v28;
-              v57 = 2112;
-              v58 = v29;
-              v59 = 2112;
-              v60 = v30;
-              v61 = 2112;
-              v62 = v31;
-              v63 = 2112;
-              v64 = v32;
-              v65 = 2112;
-              v66 = v33;
+              v49 = v43;
+              v50 = 2112;
+              v51 = v46;
+              v52 = 2112;
+              v53 = v26;
+              v54 = 2112;
+              v55 = v27;
+              v56 = 2112;
+              v57 = v28;
+              v58 = 2112;
+              v59 = v29;
+              v60 = 2112;
+              v61 = v30;
+              v62 = 2112;
+              v63 = v31;
               _os_log_impl(&dword_23255B000, log, OS_LOG_TYPE_DEFAULT, "entry: %@ %50@ %12@ %12@ %12@ %12@ %3@ %3@", buf, 0x52u);
 
-              arrayCopy = v45;
-              v26 = v49;
+              arrayCopy = v42;
+              v24 = v46;
             }
 
             v13 = 0;
-            v10 = v48;
-            v16 = v50;
+            v10 = v45;
+            v15 = v47;
           }
 
           else
           {
-            v39 = analyticsLogHandle;
+            v37 = analyticsLogHandle;
             if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v52 = v18;
-              _os_log_impl(&dword_23255B000, v39, OS_LOG_TYPE_DEFAULT, "entry: unknown dictionary %@", buf, 0xCu);
+              v49 = v16;
+              _os_log_impl(&dword_23255B000, v37, OS_LOG_TYPE_DEFAULT, "entry: unknown dictionary %@", buf, 0xCu);
             }
           }
-
-          v14 = 0x277CBE000;
         }
 
         else
         {
-          v34 = analyticsLogHandle;
+          v32 = analyticsLogHandle;
           if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
           {
-            v35 = v34;
-            v36 = objc_opt_class();
-            NSStringFromClass(v36);
-            v38 = v37 = v16;
+            v33 = v32;
+            v34 = objc_opt_class();
+            NSStringFromClass(v34);
+            v36 = v35 = v15;
             *buf = 138412546;
-            v52 = v38;
-            v53 = 2112;
-            v54 = v11;
-            _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_DEFAULT, "entry: not a dictionary, %@   %@", buf, 0x16u);
+            v49 = v36;
+            v50 = 2112;
+            v51 = v11;
+            _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_DEFAULT, "entry: not a dictionary, %@   %@", buf, 0x16u);
 
-            v16 = v37;
+            v15 = v35;
           }
         }
 
-        objc_autoreleasePoolPop(v16);
+        objc_autoreleasePoolPop(v15);
       }
 
       while (!__CFADD__(v12++, 1));
     }
   }
 
-  v41 = analyticsLogHandle;
+  v39 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v42 = v41;
-    v43 = [arrayCopy count];
+    v40 = v39;
+    v41 = [arrayCopy count];
     *buf = 134217984;
-    v52 = v43;
-    _os_log_impl(&dword_23255B000, v42, OS_LOG_TYPE_DEFAULT, "SymptomAnalytics ServiceImpl: FAE end of outcome array (%lu entries)", buf, 0xCu);
+    v49 = v41;
+    _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_DEFAULT, "SymptomAnalytics ServiceImpl: FAE end of outcome array (%lu entries)", buf, 0xCu);
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performQueryOnEntity:(id)entity fetchRequestProperties:(id)properties pred:(id)pred sort:(id)sort actions:(id)actions service:(id)service connection:(id)connection reply:(id)self0
 {
-  v102 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   propertiesCopy = properties;
   predCopy = pred;
@@ -16315,15 +17432,15 @@ void __82__FlowAnalyticsEngine_getNetworkBitmapsWithNames_startTime_endTime_opti
     *&buf[12] = 2048;
     *&buf[14] = processIdentifier;
     *&buf[22] = 2112;
-    v96 = entityCopy;
-    *v97 = 2112;
-    *&v97[2] = predCopy;
-    *&v97[10] = 2112;
-    *&v97[12] = sortCopy;
-    v98 = 2112;
-    v99 = actionsCopy;
-    v100 = 2112;
-    v101 = propertiesCopy;
+    v95 = entityCopy;
+    *v96 = 2112;
+    *&v96[2] = predCopy;
+    *&v96[10] = 2112;
+    *&v96[12] = sortCopy;
+    v97 = 2112;
+    v98 = actionsCopy;
+    v99 = 2112;
+    v100 = propertiesCopy;
     _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "SymptomAnalytics ServiceImpl: FAE perform query for %@ (pid %lld) on %@ predicate %@ sort %@ actions %@ properties %@", buf, 0x48u);
   }
 
@@ -16432,9 +17549,9 @@ LABEL_23:
     if (v36)
     {
       v40 = MEMORY[0x277CCA920];
-      v94[0] = v38;
-      v94[1] = v36;
-      v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:2];
+      v93[0] = v38;
+      v93[1] = v36;
+      v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:2];
       v42 = [v40 andPredicateWithSubpredicates:v41];
 
       v36 = v42;
@@ -16464,74 +17581,74 @@ LABEL_34:
   {
     if (!v35)
     {
-      v66[0] = MEMORY[0x277D85DD0];
-      v66[1] = 3221225472;
-      v66[2] = __110__FlowAnalyticsEngine_performQueryOnEntity_fetchRequestProperties_pred_sort_actions_service_connection_reply___block_invoke_3;
-      v66[3] = &unk_27898C9B0;
-      v67 = entityCopy;
+      v65[0] = MEMORY[0x277D85DD0];
+      v65[1] = 3221225472;
+      v65[2] = __110__FlowAnalyticsEngine_performQueryOnEntity_fetchRequestProperties_pred_sort_actions_service_connection_reply___block_invoke_3;
+      v65[3] = &unk_27898C9B0;
+      v66 = entityCopy;
       selfCopy = self;
-      v69 = replyCopy;
-      [(AnalyticsEngineCore *)self performQueryOnEntityCore:v67 fetchRequestProperties:propertiesCopy pred:v36 sort:sortCopy actions:actionsCopy service:serviceCopy reply:v66];
+      v68 = replyCopy;
+      [(AnalyticsEngineCore *)self performQueryOnEntityCore:v66 fetchRequestProperties:propertiesCopy pred:v36 sort:sortCopy actions:actionsCopy service:serviceCopy reply:v65];
 
       goto LABEL_38;
     }
 
-    v52 = [actionsCopy objectForKey:@"watchpointTarget"];
-    v53 = [actionsCopy objectForKey:@"watchpointKey"];
-    v54 = [actionsCopy objectForKey:@"watchpointValue"];
-    v55 = v54;
-    if (connectionCopy && v52 && v53 && v54)
+    v51 = [actionsCopy objectForKey:@"watchpointTarget"];
+    v52 = [actionsCopy objectForKey:@"watchpointKey"];
+    v53 = [actionsCopy objectForKey:@"watchpointValue"];
+    v54 = v53;
+    if (connectionCopy && v51 && v52 && v53)
     {
-      v60 = [(ObjectAnalytics *)self->lfpspace getDescriptionForName:entityCopy];
-      attributesByName = [v60 attributesByName];
-      v57 = [attributesByName objectForKeyedSubscript:v53];
-      v58 = v57 == 0;
+      v59 = [(ObjectAnalytics *)self->lfpspace getDescriptionForName:entityCopy];
+      attributesByName = [v59 attributesByName];
+      v56 = [attributesByName objectForKeyedSubscript:v52];
+      v57 = v56 == 0;
 
-      if (!v58)
+      if (!v57)
       {
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
-        v96 = __Block_byref_object_copy__901;
-        *v97 = __Block_byref_object_dispose__902;
-        *&v97[8] = 0;
+        v95 = __Block_byref_object_copy__901;
+        *v96 = __Block_byref_object_dispose__902;
+        *&v96[8] = 0;
         obj = 0;
-        v75[0] = MEMORY[0x277D85DD0];
-        v75[1] = 3221225472;
-        v75[2] = __110__FlowAnalyticsEngine_performQueryOnEntity_fetchRequestProperties_pred_sort_actions_service_connection_reply___block_invoke_903;
-        v75[3] = &unk_27898C960;
-        v75[4] = self;
-        v76 = entityCopy;
-        v77 = propertiesCopy;
+        v74[0] = MEMORY[0x277D85DD0];
+        v74[1] = 3221225472;
+        v74[2] = __110__FlowAnalyticsEngine_performQueryOnEntity_fetchRequestProperties_pred_sort_actions_service_connection_reply___block_invoke_903;
+        v74[3] = &unk_27898C960;
+        v74[4] = self;
+        v75 = entityCopy;
+        v76 = propertiesCopy;
         v36 = v36;
-        v78 = v36;
-        v79 = sortCopy;
-        v80 = actionsCopy;
-        v81 = serviceCopy;
-        v83 = replyCopy;
-        v82 = connectionCopy;
-        v84 = buf;
-        v70[0] = MEMORY[0x277D85DD0];
-        v70[1] = 3221225472;
-        v70[2] = __110__FlowAnalyticsEngine_performQueryOnEntity_fetchRequestProperties_pred_sort_actions_service_connection_reply___block_invoke_2_905;
-        v70[3] = &unk_27898C988;
-        v73 = v83;
-        v71 = v82;
+        v77 = v36;
+        v78 = sortCopy;
+        v79 = actionsCopy;
+        v80 = serviceCopy;
+        v82 = replyCopy;
+        v81 = connectionCopy;
+        v83 = buf;
+        v69[0] = MEMORY[0x277D85DD0];
+        v69[1] = 3221225472;
+        v69[2] = __110__FlowAnalyticsEngine_performQueryOnEntity_fetchRequestProperties_pred_sort_actions_service_connection_reply___block_invoke_2_905;
+        v69[3] = &unk_27898C988;
+        v72 = v82;
+        v70 = v81;
         selfCopy2 = self;
-        v74 = buf;
-        [(FlowAnalyticsEngine *)self performThresholdingOn:v52 forKey:v53 andValue:v55 connection:v71 createdBlock:&obj hitBlock:v75 errorBlock:v70];
-        objc_storeStrong(&v97[8], obj);
+        v73 = buf;
+        [(FlowAnalyticsEngine *)self performThresholdingOn:v51 forKey:v52 andValue:v54 connection:v70 createdBlock:&obj hitBlock:v74 errorBlock:v69];
+        objc_storeStrong(&v96[8], obj);
 
         _Block_object_dispose(buf, 8);
         goto LABEL_38;
       }
 
-      v59 = analyticsLogHandle;
+      v58 = analyticsLogHandle;
       if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        *&buf[4] = v53;
-        _os_log_impl(&dword_23255B000, v59, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: watchpoint requested on non-existent key: %@", buf, 0xCu);
+        *&buf[4] = v52;
+        _os_log_impl(&dword_23255B000, v58, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: watchpoint requested on non-existent key: %@", buf, 0xCu);
       }
     }
 
@@ -16542,33 +17659,32 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  v49 = analyticsLogHandle;
+  v48 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v50 = v49;
+    v49 = v48;
     processIdentifier2 = [connectionCopy processIdentifier];
     *buf = 134217984;
     *&buf[4] = processIdentifier2;
-    _os_log_impl(&dword_23255B000, v50, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: in refresh codepath on behalf of pid %lld", buf, 0xCu);
+    _os_log_impl(&dword_23255B000, v49, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: in refresh codepath on behalf of pid %lld", buf, 0xCu);
   }
 
-  v86[0] = MEMORY[0x277D85DD0];
-  v86[1] = 3221225472;
-  v86[2] = __110__FlowAnalyticsEngine_performQueryOnEntity_fetchRequestProperties_pred_sort_actions_service_connection_reply___block_invoke;
-  v86[3] = &unk_27898C938;
-  v86[4] = self;
-  v87 = entityCopy;
-  v88 = propertiesCopy;
+  v85[0] = MEMORY[0x277D85DD0];
+  v85[1] = 3221225472;
+  v85[2] = __110__FlowAnalyticsEngine_performQueryOnEntity_fetchRequestProperties_pred_sort_actions_service_connection_reply___block_invoke;
+  v85[3] = &unk_27898C938;
+  v85[4] = self;
+  v86 = entityCopy;
+  v87 = propertiesCopy;
   v36 = v36;
-  v89 = v36;
-  v90 = sortCopy;
-  v91 = actionsCopy;
-  v92 = serviceCopy;
-  v93 = replyCopy;
-  [(FlowAnalyticsEngine *)self _refreshFullDataUsageWithCallback:v86];
+  v88 = v36;
+  v89 = sortCopy;
+  v90 = actionsCopy;
+  v91 = serviceCopy;
+  v92 = replyCopy;
+  [(FlowAnalyticsEngine *)self _refreshFullDataUsageWithCallback:v85];
 
 LABEL_38:
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 void __110__FlowAnalyticsEngine_performQueryOnEntity_fetchRequestProperties_pred_sort_actions_service_connection_reply___block_invoke(uint64_t a1)
@@ -16684,7 +17800,7 @@ void __110__FlowAnalyticsEngine_performQueryOnEntity_fetchRequestProperties_pred
 
 - (void)performThresholdingOn:(id)on forKey:(id)key andValue:(id)value connection:(id)connection createdBlock:(id *)block hitBlock:(id)hitBlock errorBlock:(id)errorBlock
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   onCopy = on;
   keyCopy = key;
   valueCopy = value;
@@ -16695,11 +17811,11 @@ void __110__FlowAnalyticsEngine_performQueryOnEntity_fetchRequestProperties_pred
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v47 = onCopy;
-    v48 = 2112;
-    v49 = keyCopy;
-    v50 = 2112;
-    v51 = valueCopy;
+    v46 = onCopy;
+    v47 = 2112;
+    v48 = keyCopy;
+    v49 = 2112;
+    v50 = valueCopy;
     _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: entering watchpoint codepath with (target,key,value: %@/%@/%@", buf, 0x20u);
   }
 
@@ -16708,16 +17824,16 @@ void __110__FlowAnalyticsEngine_performQueryOnEntity_fetchRequestProperties_pred
   aBlock[2] = __105__FlowAnalyticsEngine_performThresholdingOn_forKey_andValue_connection_createdBlock_hitBlock_errorBlock___block_invoke;
   aBlock[3] = &unk_27898CA00;
   aBlock[4] = self;
-  v34 = onCopy;
-  v41 = v34;
+  v33 = onCopy;
+  v40 = v33;
   v22 = keyCopy;
-  v42 = v22;
+  v41 = v22;
   v23 = valueCopy;
-  v43 = v23;
+  v42 = v23;
   v24 = hitBlockCopy;
-  v44 = v24;
+  v43 = v24;
   v25 = errorBlockCopy;
-  v45 = v25;
+  v44 = v25;
   *block = _Block_copy(aBlock);
   v26 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:connectionCopy];
   flowWatchers = [(FlowAnalyticsEngine *)self flowWatchers];
@@ -16726,13 +17842,13 @@ void __110__FlowAnalyticsEngine_performQueryOnEntity_fetchRequestProperties_pred
 
   objc_initWeak(&location, connectionCopy);
   objc_initWeak(&from, self);
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __105__FlowAnalyticsEngine_performThresholdingOn_forKey_andValue_connection_createdBlock_hitBlock_errorBlock___block_invoke_906;
-  v35[3] = &unk_27898CA28;
-  objc_copyWeak(&v36, &from);
-  objc_copyWeak(&v37, &location);
-  [connectionCopy setInvalidationHandler:v35];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __105__FlowAnalyticsEngine_performThresholdingOn_forKey_andValue_connection_createdBlock_hitBlock_errorBlock___block_invoke_906;
+  v34[3] = &unk_27898CA28;
+  objc_copyWeak(&v35, &from);
+  objc_copyWeak(&v36, &location);
+  [connectionCopy setInvalidationHandler:v34];
   v29 = analyticsLogHandle;
   if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
   {
@@ -16740,18 +17856,16 @@ void __110__FlowAnalyticsEngine_performQueryOnEntity_fetchRequestProperties_pred
     flowWatchers2 = [(FlowAnalyticsEngine *)self flowWatchers];
     v32 = [flowWatchers2 count];
     *buf = 138412546;
-    v47 = v30;
-    v48 = 2048;
-    v49 = v32;
+    v46 = v30;
+    v47 = 2048;
+    v48 = v32;
     _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: connection watchpoint set for conn %@, %lu left", buf, 0x16u);
   }
 
-  objc_destroyWeak(&v37);
   objc_destroyWeak(&v36);
+  objc_destroyWeak(&v35);
   objc_destroyWeak(&from);
   objc_destroyWeak(&location);
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __105__FlowAnalyticsEngine_performThresholdingOn_forKey_andValue_connection_createdBlock_hitBlock_errorBlock___block_invoke(uint64_t a1)
@@ -16794,7 +17908,7 @@ void __105__FlowAnalyticsEngine_performThresholdingOn_forKey_andValue_connection
 
 void __105__FlowAnalyticsEngine_performThresholdingOn_forKey_andValue_connection_createdBlock_hitBlock_errorBlock___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [v4 firstObject];
   v6 = [v5 tmpID];
@@ -16808,11 +17922,11 @@ void __105__FlowAnalyticsEngine_performThresholdingOn_forKey_andValue_connection
     {
       v10 = *(a1 + 32);
       v11 = *(a1 + 40);
-      v25 = 138412546;
-      v26 = v10;
-      v27 = 2112;
-      v28 = v11;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: watchpoint now evaluating for %@ ikey %@", &v25, 0x16u);
+      v24 = 138412546;
+      v25 = v10;
+      v26 = 2112;
+      v27 = v11;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: watchpoint now evaluating for %@ ikey %@", &v24, 0x16u);
     }
 
     *(*(*(a1 + 64) + 8) + 24) = 1;
@@ -16832,13 +17946,13 @@ void __105__FlowAnalyticsEngine_performThresholdingOn_forKey_andValue_connection
       if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
       {
         v21 = *(a1 + 40);
-        v25 = 138412802;
-        v26 = v21;
-        v27 = 2048;
-        v28 = v16;
-        v29 = 2048;
-        v30 = v19;
-        _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: watchpoint: %@ new %f old %f", &v25, 0x20u);
+        v24 = 138412802;
+        v25 = v21;
+        v26 = 2048;
+        v27 = v16;
+        v28 = 2048;
+        v29 = v19;
+        _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: watchpoint: %@ new %f old %f", &v24, 0x20u);
       }
 
       [*(a1 + 48) doubleValue];
@@ -16856,20 +17970,18 @@ void __105__FlowAnalyticsEngine_performThresholdingOn_forKey_andValue_connection
     v12 = v8;
     v13 = [v5 tmpID];
     v23 = *(a1 + 40);
-    v25 = 138412546;
-    v26 = v13;
-    v27 = 2112;
-    v28 = v23;
-    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: watchpoint skipping %@ key %@", &v25, 0x16u);
+    v24 = 138412546;
+    v25 = v13;
+    v26 = 2112;
+    v27 = v23;
+    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: watchpoint skipping %@ key %@", &v24, 0x16u);
 LABEL_11:
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __105__FlowAnalyticsEngine_performThresholdingOn_forKey_andValue_connection_createdBlock_hitBlock_errorBlock___block_invoke_906(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -16885,25 +17997,23 @@ void __105__FlowAnalyticsEngine_performThresholdingOn_forKey_andValue_connection
     {
       v8 = v7;
       v9 = [WeakRetained flowWatchers];
-      v11 = 134217984;
-      v12 = [v9 count];
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: invalidation handler called, %lu left", &v11, 0xCu);
+      v10 = 134217984;
+      v11 = [v9 count];
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: invalidation handler called, %lu left", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (int)performQueryOnEntityFromCache:(id)cache pred:(id)pred altpred:(id *)altpred actions:(id)actions found:(id *)found
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   predCopy = pred;
   actionsCopy = actions;
   name = [cacheCopy name];
   v16 = [actionsCopy objectForKeyedSubscript:@"sweepUsage"];
 
-  v56 = 0;
+  v55 = 0;
   if (v16)
   {
     goto LABEL_2;
@@ -16912,28 +18022,28 @@ void __105__FlowAnalyticsEngine_performThresholdingOn_forKey_andValue_connection
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     subpredicates = [predCopy subpredicates];
-    v19 = [subpredicates countByEnumeratingWithState:&v52 objects:v65 count:16];
+    v19 = [subpredicates countByEnumeratingWithState:&v51 objects:v64 count:16];
     if (v19)
     {
       v20 = v19;
       foundCopy = found;
       altpredCopy = altpred;
-      v21 = *v53;
+      v21 = *v52;
       while (2)
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v53 != v21)
+          if (*v52 != v21)
           {
             objc_enumerationMutation(subpredicates);
           }
 
-          v23 = [(AnalyticsEngineCore *)self extractQueryStringFrom:*(*(&v52 + 1) + 8 * i) isGeneric:&v56];
+          v23 = [(AnalyticsEngineCore *)self extractQueryStringFrom:*(*(&v51 + 1) + 8 * i) isGeneric:&v55];
           if (v23)
           {
             v17 = v23;
@@ -16941,7 +18051,7 @@ void __105__FlowAnalyticsEngine_performThresholdingOn_forKey_andValue_connection
           }
         }
 
-        v20 = [subpredicates countByEnumeratingWithState:&v52 objects:v65 count:16];
+        v20 = [subpredicates countByEnumeratingWithState:&v51 objects:v64 count:16];
         if (v20)
         {
           continue;
@@ -16972,18 +18082,18 @@ LABEL_2:
       goto LABEL_19;
     }
 
-    v17 = [(AnalyticsEngineCore *)self extractQueryStringFrom:predCopy isGeneric:&v56];
+    v17 = [(AnalyticsEngineCore *)self extractQueryStringFrom:predCopy isGeneric:&v55];
   }
 
 LABEL_19:
   if ([(FlowAnalyticsEngine *)self _handlesProcEntity:name])
   {
-    if (v17 || (v56 & 1) != 0)
+    if (v17 || (v55 & 1) != 0)
     {
       v24 = [(AnalyticsEngineCore *)self safePredFrom:predCopy forEntity:cacheCopy];
       if (v24)
       {
-        if (v56)
+        if (v55)
         {
           v25 = analyticsLogHandle;
           if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
@@ -17013,84 +18123,84 @@ LABEL_19:
 
             else
             {
-              v63 = @"targetname";
-              v64 = v26;
-              v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
-              v37 = [v24 predicateWithSubstitutionVariables:?];
-              *altpredCopy2 = v37;
-              if ([(FlowAnalyticsEngine *)self _performQueryOnEntityFromProcCache:cacheCopy target:v26 pred:v37 found:found])
+              v62 = @"targetname";
+              v63 = v26;
+              v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+              v36 = [v24 predicateWithSubstitutionVariables:?];
+              *altpredCopy2 = v36;
+              if ([(FlowAnalyticsEngine *)self _performQueryOnEntityFromProcCache:cacheCopy target:v26 pred:v36 found:found])
               {
-                v38 = [(FlowAnalyticsEngine *)self _attemptConvertingPluginNameToContainingAppName:v26];
-                if (v38)
+                v37 = [(FlowAnalyticsEngine *)self _attemptConvertingPluginNameToContainingAppName:v26];
+                if (v37)
                 {
-                  v61 = @"targetname";
-                  v62 = v38;
-                  v47 = v38;
-                  v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+                  v60 = @"targetname";
+                  v61 = v37;
+                  v46 = v37;
+                  v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
 
-                  v49 = v39;
-                  v40 = [v24 predicateWithSubstitutionVariables:v39];
+                  v48 = v38;
+                  v39 = [v24 predicateWithSubstitutionVariables:v38];
 
-                  v41 = v40;
-                  v37 = v40;
-                  *altpredCopy2 = v40;
-                  v30 = [(FlowAnalyticsEngine *)self _performQueryOnEntityFromProcCache:cacheCopy target:v47 pred:v40 found:found];
-                  v42 = analyticsLogHandle;
+                  v40 = v39;
+                  v36 = v39;
+                  *altpredCopy2 = v39;
+                  v30 = [(FlowAnalyticsEngine *)self _performQueryOnEntityFromProcCache:cacheCopy target:v46 pred:v39 found:found];
+                  v41 = analyticsLogHandle;
                   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138412546;
-                    v43 = v47;
-                    v58 = v47;
-                    v59 = 1024;
-                    v60 = v30;
-                    _os_log_impl(&dword_23255B000, v42, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: remap: performed 2nd attempt with alt target %@, got %d", buf, 0x12u);
+                    v42 = v46;
+                    v57 = v46;
+                    v58 = 1024;
+                    v59 = v30;
+                    _os_log_impl(&dword_23255B000, v41, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: remap: performed 2nd attempt with alt target %@, got %d", buf, 0x12u);
                   }
 
                   else
                   {
-                    v43 = v47;
+                    v42 = v46;
                   }
                 }
 
                 else
                 {
-                  v43 = 0;
-                  v46 = analyticsLogHandle;
+                  v42 = 0;
+                  v45 = analyticsLogHandle;
                   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 0;
-                    _os_log_impl(&dword_23255B000, v46, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: remap: failed 1st attempt but no alt target, will query all", buf, 2u);
+                    _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: remap: failed 1st attempt but no alt target, will query all", buf, 2u);
                   }
 
                   v30 = 1;
                 }
 
-                v45 = v49;
+                v44 = v48;
               }
 
               else
               {
-                v44 = analyticsLogHandle;
+                v43 = analyticsLogHandle;
                 if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  v58 = v26;
-                  _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: remap: cache hit on 1st attempt for target: %@", buf, 0xCu);
+                  v57 = v26;
+                  _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: remap: cache hit on 1st attempt for target: %@", buf, 0xCu);
                 }
 
                 v30 = 0;
-                v45 = v49;
+                v44 = v48;
               }
             }
           }
 
           else
           {
-            v36 = analyticsLogHandle;
+            v35 = analyticsLogHandle;
             if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
             {
               *buf = 0;
-              _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: remap: missing target for 1st attempt", buf, 2u);
+              _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: remap: missing target for 1st attempt", buf, 2u);
             }
 
             v26 = 0;
@@ -17150,13 +18260,12 @@ LABEL_42:
   v30 = [(FlowAnalyticsEngine *)self _performQueryOnEntityFromInstantFlowCache:cacheCopy target:v17 pred:predCopy found:found];
 LABEL_43:
 
-  v34 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
 - (int)_performQueryOnEntityFromProcCache:(id)cache target:(id)target pred:(id)pred found:(id *)found
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   targetCopy = target;
   predCopy = pred;
@@ -17173,8 +18282,8 @@ LABEL_43:
   v13 = [(FlowAnalyticsEngine *)self _fetchFromProcCacheWithName:targetCopy ofType:1];
   if (v13)
   {
-    v38 = predCopy;
-    v39 = targetCopy;
+    v37 = predCopy;
+    v38 = targetCopy;
     v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
     isApp = [v13 isApp];
@@ -17184,27 +18293,27 @@ LABEL_43:
       v17 = &_performQueryOnEntityFromProcCache_target_pred_found__procDesc;
     }
 
-    v40 = cacheCopy;
+    v39 = cacheCopy;
     [*v17 relationshipsWithDestinationEntity:{cacheCopy, found}];
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
-    v18 = v48 = 0u;
-    v19 = [v18 countByEnumeratingWithState:&v45 objects:v51 count:16];
+    v18 = v47 = 0u;
+    v19 = [v18 countByEnumeratingWithState:&v44 objects:v50 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v46;
+      v21 = *v45;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v46 != v21)
+          if (*v45 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v45 + 1) + 8 * i);
+          v23 = *(*(&v44 + 1) + 8 * i);
           if (([v23 isTransient] & 1) == 0)
           {
             name = [v23 name];
@@ -17212,32 +18321,32 @@ LABEL_43:
           }
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v45 objects:v51 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v44 objects:v50 count:16];
       }
 
       while (v20);
     }
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     v25 = v14;
-    v26 = [v25 countByEnumeratingWithState:&v41 objects:v50 count:16];
+    v26 = [v25 countByEnumeratingWithState:&v40 objects:v49 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v42;
+      v28 = *v41;
       do
       {
         for (j = 0; j != v27; ++j)
         {
-          if (*v42 != v28)
+          if (*v41 != v28)
           {
             objc_enumerationMutation(v25);
           }
 
-          v30 = [v13 valueForKey:*(*(&v41 + 1) + 8 * j)];
+          v30 = [v13 valueForKey:*(*(&v40 + 1) + 8 * j)];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -17260,18 +18369,18 @@ LABEL_24:
 LABEL_26:
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v41 objects:v50 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v40 objects:v49 count:16];
       }
 
       while (v27);
     }
 
-    predCopy = v38;
-    *v37 = [v15 filteredArrayUsingPredicate:v38];
+    predCopy = v37;
+    *v36 = [v15 filteredArrayUsingPredicate:v37];
 
     v33 = 0;
-    targetCopy = v39;
-    cacheCopy = v40;
+    targetCopy = v38;
+    cacheCopy = v39;
   }
 
   else
@@ -17280,14 +18389,13 @@ LABEL_26:
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v53 = targetCopy;
+      v52 = targetCopy;
       _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: cache miss for %@", buf, 0xCu);
     }
 
     v33 = 1;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v33;
 }
 
@@ -17311,7 +18419,7 @@ void __76__FlowAnalyticsEngine__performQueryOnEntityFromProcCache_target_pred_fo
 
 - (id)_attemptConvertingPluginNameToContainingAppName:(id)name
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v5 = [(NSMutableDictionary *)self->pluginToBundleCache objectForKeyedSubscript:nameCopy];
   if (v5)
@@ -17320,11 +18428,11 @@ void __76__FlowAnalyticsEngine__performQueryOnEntityFromProcCache_target_pred_fo
     v7 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v18 = 138412546;
-      v19 = nameCopy;
-      v20 = 2112;
-      v21 = applicationIdentifier2;
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: remap: hotpath hit, converted %@ to %@", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = nameCopy;
+      v19 = 2112;
+      v20 = applicationIdentifier2;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: remap: hotpath hit, converted %@ to %@", &v17, 0x16u);
     }
   }
 
@@ -17334,11 +18442,11 @@ void __76__FlowAnalyticsEngine__performQueryOnEntityFromProcCache_target_pred_fo
     v9 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v18 = 138412546;
-      v19 = nameCopy;
-      v20 = 2048;
-      v21 = v8;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: remap: slowpath, converting %@ to plugin: %p", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = nameCopy;
+      v19 = 2048;
+      v20 = v8;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: remap: slowpath, converting %@ to plugin: %p", &v17, 0x16u);
     }
 
     if (v8)
@@ -17347,9 +18455,9 @@ void __76__FlowAnalyticsEngine__performQueryOnEntityFromProcCache_target_pred_fo
       v11 = analyticsLogHandle;
       if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
       {
-        v18 = 134217984;
-        v19 = containingBundle;
-        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: remap: containing bundle: %p", &v18, 0xCu);
+        v17 = 134217984;
+        v18 = containingBundle;
+        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: remap: containing bundle: %p", &v17, 0xCu);
       }
 
       if (containingBundle && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -17360,9 +18468,9 @@ void __76__FlowAnalyticsEngine__performQueryOnEntityFromProcCache_target_pred_fo
         {
           v14 = v13;
           applicationIdentifier = [v12 applicationIdentifier];
-          v18 = 138412290;
-          v19 = applicationIdentifier;
-          _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: remap: plugin's containing appname: %@", &v18, 0xCu);
+          v17 = 138412290;
+          v18 = applicationIdentifier;
+          _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: remap: plugin's containing appname: %@", &v17, 0xCu);
         }
 
         applicationIdentifier2 = [v12 applicationIdentifier];
@@ -17384,14 +18492,12 @@ void __76__FlowAnalyticsEngine__performQueryOnEntityFromProcCache_target_pred_fo
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return applicationIdentifier2;
 }
 
 - (BOOL)_bundleBackgroundAudioCapable:(id)capable
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   capableCopy = capable;
   v5 = [(NSMutableDictionary *)self->audioBundleCache objectForKeyedSubscript:capableCopy];
   v6 = v5;
@@ -17401,11 +18507,11 @@ void __76__FlowAnalyticsEngine__performQueryOnEntityFromProcCache_target_pred_fo
     v8 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v17 = 138412546;
-      v18 = capableCopy;
-      v19 = 1024;
-      v20 = v7;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "audio background capability for %@: %d (source: cache)", &v17, 0x12u);
+      v16 = 138412546;
+      v17 = capableCopy;
+      v18 = 1024;
+      v19 = v7;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "audio background capability for %@: %d (source: cache)", &v16, 0x12u);
     }
   }
 
@@ -17423,11 +18529,11 @@ void __76__FlowAnalyticsEngine__performQueryOnEntityFromProcCache_target_pred_fo
       v13 = analyticsLogHandle;
       if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
       {
-        v17 = 138412546;
-        v18 = capableCopy;
-        v19 = 1024;
-        v20 = v7;
-        _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "audio background capability for %@: %d (source: LS)", &v17, 0x12u);
+        v16 = 138412546;
+        v17 = capableCopy;
+        v18 = 1024;
+        v19 = v7;
+        _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "audio background capability for %@: %d (source: LS)", &v16, 0x12u);
       }
     }
 
@@ -17436,22 +18542,21 @@ void __76__FlowAnalyticsEngine__performQueryOnEntityFromProcCache_target_pred_fo
       v14 = analyticsLogHandle;
       if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v17 = 138412290;
-        v18 = capableCopy;
-        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "applicationProxyForIdentifier failed for %@", &v17, 0xCu);
+        v16 = 138412290;
+        v17 = capableCopy;
+        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "applicationProxyForIdentifier failed for %@", &v16, 0xCu);
       }
 
       LOBYTE(v7) = 0;
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (int)_performQueryOnEntityFromInstantFlowCache:(id)cache target:(id)target pred:(id)pred found:(id *)found
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   targetCopy = target;
   [(FlowAnalyticsEngine *)self _pruneFlowHistory];
   v9 = analyticsLogHandle;
@@ -17459,11 +18564,11 @@ void __76__FlowAnalyticsEngine__performQueryOnEntityFromProcCache_target_pred_fo
   {
     flowInstant = self->flowInstant;
     v11 = v9;
-    v24 = 138412546;
-    v25 = targetCopy;
-    v26 = 2048;
-    v27 = [(NSMutableDictionary *)flowInstant count];
-    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: looking for instant flow: %@, %lu on record", &v24, 0x16u);
+    v23 = 138412546;
+    v24 = targetCopy;
+    v25 = 2048;
+    v26 = [(NSMutableDictionary *)flowInstant count];
+    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: looking for instant flow: %@, %lu on record", &v23, 0x16u);
   }
 
   v12 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:5];
@@ -17491,7 +18596,6 @@ void __76__FlowAnalyticsEngine__performQueryOnEntityFromProcCache_target_pred_fo
   v21 = v12;
   *found = v12;
 
-  v22 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -17591,7 +18695,7 @@ LABEL_9:
 
 - (void)resetDataFor:(id)for nameKind:(id)kind
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   forCopy = for;
   kindCopy = kind;
   if (forCopy && [forCopy count])
@@ -17609,41 +18713,39 @@ LABEL_9:
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v23 = v9;
+    v22 = v9;
     _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "Resetting entries for processes %@", buf, 0xCu);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v11 = v9;
-  v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       v15 = 0;
       do
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(FlowAnalyticsEngine *)self _removeAllInfoForProcess:*(*(&v17 + 1) + 8 * v15++), v17];
+        [(FlowAnalyticsEngine *)self _removeAllInfoForProcess:*(*(&v16 + 1) + 8 * v15++), v16];
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)identifierForUUID:(id)d queue:(id)queue reply:(id)reply
@@ -17716,7 +18818,7 @@ LABEL_15:
 
 - (void)_updateKnownCellularInterfaceIndexList:(int)list force:
 {
-  *&v18[5] = *MEMORY[0x277D85DE8];
+  *&v17[5] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (self && (![v5 count] || list))
@@ -17731,7 +18833,7 @@ LABEL_15:
       }
 
       *buf = 136315138;
-      *v18 = v8;
+      *v17 = v8;
       _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "Ready to list pdp interfaces%s...", buf, 0xCu);
     }
 
@@ -17749,9 +18851,9 @@ LABEL_15:
           v13 = v12;
           v14 = [v6 count];
           *buf = 67109376;
-          v18[0] = i;
-          LOWORD(v18[1]) = 2048;
-          *(&v18[1] + 2) = v14;
+          v17[0] = i;
+          LOWORD(v17[1]) = 2048;
+          *(&v17[1] + 2) = v14;
           _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "Found pdp interface at index %d; total found: %ld", buf, 0x12u);
         }
       }
@@ -17761,17 +18863,15 @@ LABEL_15:
     if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *v18 = v6;
+      *v17 = v6;
       _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEFAULT, "Total pdp interface index list: %@", buf, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enableThresholdMonitoringForCellularInterface:(uint64_t)interface
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (interface)
   {
     v4 = *(interface + 256);
@@ -17789,11 +18889,11 @@ LABEL_15:
       if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         v9 = *(interface + 264);
-        v13 = 67109378;
-        v14 = a2;
-        v15 = 2112;
-        v16 = v9;
-        _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Set threshold monitoring on interface index %d (total monitored interfaces: %@)", &v13, 0x12u);
+        v12 = 67109378;
+        v13 = a2;
+        v14 = 2112;
+        v15 = v9;
+        _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Set threshold monitoring on interface index %d (total monitored interfaces: %@)", &v12, 0x12u);
       }
 
       *(interface + 248) = a2;
@@ -17801,30 +18901,27 @@ LABEL_15:
       if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_INFO))
       {
         v11 = *(interface + 248);
-        v13 = 67109120;
-        v14 = v11;
-        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_INFO, "Updated last used pdp interface to %d", &v13, 8u);
+        v12 = 67109120;
+        v13 = v11;
+        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_INFO, "Updated last used pdp interface to %d", &v12, 8u);
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeInfoFromWorkspaceForProcess:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   objc_begin_catch(a1);
   v4 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = a3;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "exception caught while setting process hintLiveUsage: process = %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = a3;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "exception caught while setting process hintLiveUsage: process = %@", &v5, 0xCu);
   }
 
   objc_end_catch();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

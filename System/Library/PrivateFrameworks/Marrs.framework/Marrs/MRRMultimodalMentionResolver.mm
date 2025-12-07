@@ -532,10 +532,7 @@ void __112__MRRMultimodalMentionResolver_resolveCandidatesForUtterance_entities_
 
 uint64_t __134__MRRMultimodalMentionResolver_resolveMentionsInUtterance_utteranceTokens_tokenEmbeddings_mentions_entities_maximumCandidates_status___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) resolveReferencesInUtteranceImpl:*(*(*(a1 + 48) + 8) + 40) status:*(a1 + 56)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) resolveReferencesInUtteranceImpl:*(*(*(a1 + 48) + 8) + 40) status:*(a1 + 56)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -600,10 +597,7 @@ uint64_t __134__MRRMultimodalMentionResolver_resolveMentionsInUtterance_utteranc
 
 uint64_t __102__MRRMultimodalMentionResolver_resolveMentionsInUtterance_mentions_entities_maximumCandidates_status___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) resolveReferencesInUtteranceImpl:*(*(*(a1 + 48) + 8) + 40) status:*(a1 + 56)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) resolveReferencesInUtteranceImpl:*(*(*(a1 + 48) + 8) + 40) status:*(a1 + 56)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -680,10 +674,7 @@ uint64_t __102__MRRMultimodalMentionResolver_resolveMentionsInUtterance_mentions
 
 uint64_t __128__MRRMultimodalMentionResolver_resolveCandidatesForUtterance_utteranceTokens_tokenEmbeddings_entities_maximumCandidates_status___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) resolveReferencesInUtteranceImpl:*(*(*(a1 + 48) + 8) + 40) status:*(a1 + 56)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) resolveReferencesInUtteranceImpl:*(*(*(a1 + 48) + 8) + 40) status:*(a1 + 56)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -745,10 +736,7 @@ uint64_t __128__MRRMultimodalMentionResolver_resolveCandidatesForUtterance_utter
 
 uint64_t __96__MRRMultimodalMentionResolver_resolveCandidatesForUtterance_entities_maximumCandidates_status___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) resolveReferencesInUtteranceImpl:*(*(*(a1 + 48) + 8) + 40) status:*(a1 + 56)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) resolveReferencesInUtteranceImpl:*(*(*(a1 + 48) + 8) + 40) status:*(a1 + 56)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -818,7 +806,6 @@ uint64_t __85__MRRMultimodalMentionResolver_resolveCandidatesForUtterance_status
     *(*(a1[9] + 8) + 24) = 1;
   }
 
-  v8 = *(*(a1[7] + 8) + 40);
   return (*(a1[6] + 16))();
 }
 
@@ -851,17 +838,14 @@ uint64_t __85__MRRMultimodalMentionResolver_resolveCandidatesForUtterance_status
 
 uint64_t __66__MRRMultimodalMentionResolver_resolveMentionsInUtterance_status___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) resolveReferencesInUtteranceImpl:*(a1 + 40) status:*(a1 + 56)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) resolveReferencesInUtteranceImpl:*(a1 + 40) status:*(a1 + 56)];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (id)resolveReferencesInUtteranceImpl:(id)impl status:(id *)status
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   implCopy = impl;
   v6 = MRRLoggerForCategory(3);
   v7 = os_signpost_id_generate(v6);
@@ -869,7 +853,7 @@ uint64_t __66__MRRMultimodalMentionResolver_resolveMentionsInUtterance_status___
   v8 = MRRLoggerForCategory(3);
   v9 = v8;
   spid = v7;
-  v58 = v7 - 1;
+  v57 = v7 - 1;
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     *buf = 0;
@@ -975,7 +959,7 @@ LABEL_21:
         _os_log_impl(&dword_2227A9000, v33, OS_LOG_TYPE_INFO, "BEGIN MRObjCToCPPRequest", buf, 2u);
       }
 
-      [ConverterUtils convertMentionResolverRequestFromObjCToCpp:implCopy];
+      objc_msgSend_convertMentionResolverRequestFromObjCToCpp_(ConverterUtils);
       v34 = MRRLoggerForCategory(3);
       v35 = v34;
       if (v30 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
@@ -1002,7 +986,7 @@ LABEL_21:
 
       v39 = MRRLoggerForCategory(3);
       v40 = v39;
-      if (v58 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
+      if (v57 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
       {
         *buf = 0;
         _os_signpost_emit_with_name_impl(&dword_2227A9000, v40, OS_SIGNPOST_INTERVAL_END, spid, "MRExecuteRequest", " enableTelemetry=YES ", buf, 2u);
@@ -1018,9 +1002,9 @@ LABEL_21:
       objc_sync_exit(selfCopy);
       v42 = 0;
 
-      if (v60)
+      if (v59)
       {
-        (*(*v60 + 8))();
+        (*(*v59 + 8))();
       }
 
       goto LABEL_65;
@@ -1052,7 +1036,7 @@ LABEL_21:
 
     v53 = MRRLoggerForCategory(3);
     v54 = v53;
-    if (v58 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v53))
+    if (v57 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v53))
     {
       *buf = 0;
       _os_signpost_emit_with_name_impl(&dword_2227A9000, v54, OS_SIGNPOST_INTERVAL_END, spid, "MRExecuteRequest", " enableTelemetry=YES ", buf, 2u);
@@ -1086,7 +1070,7 @@ LABEL_21:
 
   v48 = MRRLoggerForCategory(3);
   v49 = v48;
-  if (v58 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v48))
+  if (v57 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v48))
   {
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_2227A9000, v49, OS_SIGNPOST_INTERVAL_END, spid, "MRExecuteRequest", " enableTelemetry=YES ", buf, 2u);
@@ -1102,14 +1086,12 @@ LABEL_62:
 
 LABEL_65:
 
-  v55 = *MEMORY[0x277D85DE8];
-
   return 0;
 }
 
 - (MRRMultimodalMentionResolver)initWithAssets:(id)assets forLocale:(id)locale status:(id *)status
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   localeCopy = locale;
   v6 = MRRLoggerForCategory(3);
@@ -1118,7 +1100,7 @@ LABEL_65:
   v8 = MRRLoggerForCategory(3);
   v9 = v8;
   spid = v7;
-  v32 = v7 - 1;
+  v31 = v7 - 1;
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     *buf = 0;
@@ -1132,27 +1114,27 @@ LABEL_65:
     _os_log_impl(&dword_2227A9000, v10, OS_LOG_TYPE_INFO, "BEGIN MRInitialization", buf, 2u);
   }
 
-  v39.receiver = self;
-  v39.super_class = MRRMultimodalMentionResolver;
-  v38 = [(MRRMultimodalMentionResolver *)&v39 init];
+  v38.receiver = self;
+  v38.super_class = MRRMultimodalMentionResolver;
+  v37 = [(MRRMultimodalMentionResolver *)&v38 init];
   v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithString:localeCopy];
-  locale = v38->_locale;
-  v38->_locale = v11;
+  locale = v37->_locale;
+  v37->_locale = v11;
 
   v13 = dispatch_queue_create("com.apple.sirinl.marrs", 0);
-  dispatchQueue = v38->_dispatchQueue;
-  v38->_dispatchQueue = v13;
+  dispatchQueue = v37->_dispatchQueue;
+  v37->_dispatchQueue = v13;
 
-  v15 = v38->_dispatchQueue;
+  v15 = v37->_dispatchQueue;
   v16 = dispatch_get_global_queue(25, 0);
   dispatch_set_target_queue(v15, v16);
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   LODWORD(v16) = [defaultManager fileExistsAtPath:assetsCopy];
 
-  v18 = v38;
+  v18 = v37;
   objc_sync_enter(v18);
-  v33 = v18;
+  v32 = v18;
   if (v16)
   {
     v19 = assetsCopy;
@@ -1179,7 +1161,7 @@ LABEL_65:
     _os_log_impl(&dword_2227A9000, v22, OS_LOG_TYPE_INFO, "Failed initializing MR with asset path - %@, locale - %@", buf, 0x16u);
   }
 
-  objc_sync_exit(v33);
+  objc_sync_exit(v32);
   v23 = +[MRRMultimodalMentionResolver name];
   [PredictorUtils reportInitStatusWithPredictorName:v23 domain:@"com.apple.siri.marrs.rr" code:0 locale:localeCopy];
 
@@ -1192,27 +1174,26 @@ LABEL_65:
   v25 = MRRLoggerForCategory(2);
   if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
-    *v40 = 0;
-    _os_log_impl(&dword_2227A9000, v25, OS_LOG_TYPE_INFO, "successfully initialized Marrs MR", v40, 2u);
+    *v39 = 0;
+    _os_log_impl(&dword_2227A9000, v25, OS_LOG_TYPE_INFO, "successfully initialized Marrs MR", v39, 2u);
   }
 
   v26 = MRRLoggerForCategory(3);
   v27 = v26;
-  if (v32 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+  if (v31 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
   {
-    *v40 = 0;
-    _os_signpost_emit_with_name_impl(&dword_2227A9000, v27, OS_SIGNPOST_INTERVAL_END, spid, "MRInitialization", " enableTelemetry=YES ", v40, 2u);
+    *v39 = 0;
+    _os_signpost_emit_with_name_impl(&dword_2227A9000, v27, OS_SIGNPOST_INTERVAL_END, spid, "MRInitialization", " enableTelemetry=YES ", v39, 2u);
   }
 
   v28 = MRRLoggerForCategory(0);
   if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
   {
-    *v40 = 0;
-    _os_log_impl(&dword_2227A9000, v28, OS_LOG_TYPE_INFO, "END MRInitialization", v40, 2u);
+    *v39 = 0;
+    _os_log_impl(&dword_2227A9000, v28, OS_LOG_TYPE_INFO, "END MRInitialization", v39, 2u);
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-  return v38;
+  return v37;
 }
 
 + (id)sharedManager
@@ -1227,7 +1208,7 @@ LABEL_65:
   return v3;
 }
 
-uint64_t __45__MRRMultimodalMentionResolver_sharedManager__block_invoke()
+uint64_t __45__MRRMultimodalMentionResolver_sharedManager__block_invoke(uint64_t a1, uint64_t a2)
 {
   +[MRRMultimodalMentionResolver sharedManager]::singletonMentionResolver = objc_opt_new();
 

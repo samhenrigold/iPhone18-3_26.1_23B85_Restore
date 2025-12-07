@@ -307,53 +307,49 @@ void __58__ASDClipSession_installPlaceholderWithCompletionHandler___block_invoke
 
 - (void)channelNotifyDidComplete
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     uniqueID = [(ASDClipRequest *)self->_request uniqueID];
-    v7 = 138543362;
-    v8 = uniqueID;
-    _os_log_impl(&dword_1B8220000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Session completed successfully", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = uniqueID;
+    _os_log_impl(&dword_1B8220000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Session completed successfully", &v6, 0xCu);
   }
 
   delegate = [(ASDClipSession *)self delegate];
   [delegate clipSessionDidCompleteSuccessfully:self];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)channelNotifyDidFailWithError:(id)error
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     uniqueID = [(ASDClipRequest *)self->_request uniqueID];
-    v9 = 138543618;
-    v10 = uniqueID;
-    v11 = 2114;
-    v12 = errorCopy;
-    _os_log_error_impl(&dword_1B8220000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] Session failed with error: %{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = uniqueID;
+    v10 = 2114;
+    v11 = errorCopy;
+    _os_log_error_impl(&dword_1B8220000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] Session failed with error: %{public}@", &v8, 0x16u);
   }
 
   delegate = [(ASDClipSession *)self delegate];
   [delegate clipSession:self didFailWithError:errorCopy];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)channelNotifyDidInstallPlaceholder
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     uniqueID = [(ASDClipRequest *)self->_request uniqueID];
-    v9 = 138543362;
-    v10 = uniqueID;
-    _os_log_impl(&dword_1B8220000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Session did install placeholder", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = uniqueID;
+    _os_log_impl(&dword_1B8220000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Session did install placeholder", &v8, 0xCu);
   }
 
   delegate = [(ASDClipSession *)self delegate];
@@ -364,28 +360,24 @@ void __58__ASDClipSession_installPlaceholderWithCompletionHandler___block_invoke
     delegate2 = [(ASDClipSession *)self delegate];
     [delegate2 clipSessionDidInstallPlaceholder:self];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)channelNotifyDidProgress:(double)progress
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     uniqueID = [(ASDClipRequest *)self->_request uniqueID];
-    v9 = 138543618;
-    v10 = uniqueID;
-    v11 = 2048;
+    v8 = 138543618;
+    v9 = uniqueID;
+    v10 = 2048;
     progressCopy = progress;
-    _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_INFO, "[%{public}@] Session received progress: %.2f", &v9, 0x16u);
+    _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_INFO, "[%{public}@] Session received progress: %.2f", &v8, 0x16u);
   }
 
   delegate = [(ASDClipSession *)self delegate];
   [delegate clipSession:self didUpdateProgress:progress];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_dispatchFailWithError:(uint64_t)error
@@ -443,22 +435,20 @@ void __46__ASDClipSession__establishBoostingConnection__block_invoke_3(uint64_t 
 
 void __46__ASDClipSession__establishBoostingConnection__block_invoke_4(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(*(a1 + 32) + 24) uniqueID];
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_1B8220000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Session boosting dropped", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_impl(&dword_1B8220000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Session boosting dropped", &v4, 0xCu);
   }
 
   if ((*(a1 + 48) & 1) == 0)
   {
     [(ASDClipSession *)*(a1 + 32) _dispatchFailWithError:?];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (ASDClipSessionDelegate)delegate

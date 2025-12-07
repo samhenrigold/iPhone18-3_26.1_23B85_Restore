@@ -420,8 +420,8 @@ LABEL_87:
     goto LABEL_12;
   }
 
-  v12 = _bufferTable + qword_1E30A1F80[buffer];
-  v13 = *(v12 + 40);
+  v12 = &_bufferTable[qword_1E30A1F80[buffer]];
+  v13 = v12[5];
   if (!v13)
   {
     goto LABEL_12;
@@ -466,7 +466,7 @@ LABEL_12:
 
   else
   {
-    re::BufferTableReference::getBuffer(v12, *(v13[1] + 16 * v19 + 8), v23);
+    re::BufferTableReference::getBuffer(v23, v12, *(v13[1] + 16 * v19 + 8));
     v20 = v23[0];
     v21 = v25;
     *a5 = v24;
@@ -744,21 +744,21 @@ LABEL_41:
 
 - (VFXStencilInfo)stencilInfo
 {
-  [(VFXREDrawCallContextImpl *)self _stencilInfo];
-  if (v8[0] & 1) != 0 || ([(VFXREDrawCallContextImpl *)self _stencilInfo], (v7))
+  objc_msgSend__stencilInfo(self, a2);
+  if (v8[0] & 1) != 0 || (objc_msgSend__stencilInfo(self), (v7))
   {
     v3 = objc_alloc_init(VFXREStencilInfoImpl);
-    [(VFXREDrawCallContextImpl *)self _stencilInfo];
+    objc_msgSend__stencilInfo(self);
     v4 = __39__VFXREDrawCallContextImpl_stencilInfo__block_invoke(v8);
     [(VFXREStencilInfoImpl *)v3 set_frontFaceTest:v4];
 
-    [(VFXREDrawCallContextImpl *)self _stencilInfo];
+    objc_msgSend__stencilInfo(self);
     v5 = __39__VFXREDrawCallContextImpl_stencilInfo__block_invoke(v9);
     [(VFXREStencilInfoImpl *)v3 set_backFaceTest:v5];
 
-    [(VFXREDrawCallContextImpl *)self _stencilInfo];
+    objc_msgSend__stencilInfo(self);
     [(VFXREStencilInfoImpl *)v3 set_frontReferenceValue:v10];
-    [(VFXREDrawCallContextImpl *)self _stencilInfo];
+    objc_msgSend__stencilInfo(self);
     [(VFXREStencilInfoImpl *)v3 set_backReferenceValue:v10];
   }
 

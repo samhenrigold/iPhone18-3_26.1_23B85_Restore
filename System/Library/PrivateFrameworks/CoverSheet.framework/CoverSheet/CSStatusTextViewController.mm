@@ -100,8 +100,7 @@
   [(CSCoverSheetViewControllerBase *)&v15 viewWillAppear:appear];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter addObserver:self selector:sel__profileStateChangedNotification_ name:*MEMORY[0x277D26148] object:0];
-  [defaultCenter addObserver:self selector:sel__profileStateChangedNotification_ name:*MEMORY[0x277D25C90] object:0];
-  v5 = tribeca_supported_text();
+  v5 = tribeca_supported_text([defaultCenter addObserver:self selector:sel__profileStateChangedNotification_ name:*MEMORY[0x277D25C90] object:0]);
 
   if (v5)
   {
@@ -193,7 +192,7 @@ void __48__CSStatusTextViewController__updateTribecaText__block_invoke(uint64_t 
   {
     if (a2 >= 3)
     {
-      v6 = tribeca_supported_text();
+      v6 = tribeca_supported_text(0);
     }
 
     else

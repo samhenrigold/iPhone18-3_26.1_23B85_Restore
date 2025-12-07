@@ -81,7 +81,7 @@
 
 - (void)resumeConnection
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   self->mConnectionHasResumed = 1;
@@ -93,7 +93,7 @@
 
 - (void)suspendConnection
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   [(NSXPCConnection *)self->mConnection suspend];
@@ -103,7 +103,7 @@
 
 - (void)invalidateConnection
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   self->mConnectionShouldInvalidate = 1;
@@ -143,7 +143,7 @@
   messageCopy = message;
   completionCopy = completion;
   v7 = objc_autoreleasePoolPush();
-  v8 = CATGetCatalystQueue();
+  v8 = CATGetCatalystQueue(v7);
   CATAssertIsQueue(v8);
 
   v9 = objc_opt_new();
@@ -158,7 +158,7 @@
 {
   messageCopy = message;
   operationCopy = operation;
-  v7 = CATGetCatalystQueue();
+  v7 = CATGetCatalystQueue(operationCopy);
   CATAssertIsQueue(v7);
 
   remoteObjectProxy = [(NSXPCConnection *)self->mConnection remoteObjectProxy];
@@ -180,37 +180,37 @@
 
 - (void)setUpConnection
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   mConnection = self->mConnection;
-  v5 = CATGetCatalystQueue();
-  [(NSXPCConnection *)mConnection _setQueue:v5];
+  v6 = CATGetCatalystQueue(v5);
+  [(NSXPCConnection *)mConnection _setQueue:v6];
 
-  v6 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_285617770];
-  [(NSXPCConnection *)self->mConnection setRemoteObjectInterface:v6];
+  v7 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_285617770];
+  [(NSXPCConnection *)self->mConnection setRemoteObjectInterface:v7];
 
   [(NSXPCConnection *)self->mConnection setExportedObject:self];
-  v7 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_285617770];
-  [(NSXPCConnection *)self->mConnection setExportedInterface:v7];
+  v8 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_285617770];
+  [(NSXPCConnection *)self->mConnection setExportedInterface:v8];
 
   objc_initWeak(&location, self);
-  v8 = self->mConnection;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __34__CATXPCTransport_setUpConnection__block_invoke;
-  v12[3] = &unk_278DA7120;
-  objc_copyWeak(&v13, &location);
-  [(NSXPCConnection *)v8 setInterruptionHandler:v12];
   v9 = self->mConnection;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __34__CATXPCTransport_setUpConnection__block_invoke_2;
-  v10[3] = &unk_278DA7120;
-  objc_copyWeak(&v11, &location);
-  [(NSXPCConnection *)v9 setInvalidationHandler:v10];
-  objc_destroyWeak(&v11);
-  objc_destroyWeak(&v13);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __34__CATXPCTransport_setUpConnection__block_invoke;
+  v13[3] = &unk_278DA7120;
+  objc_copyWeak(&v14, &location);
+  [(NSXPCConnection *)v9 setInterruptionHandler:v13];
+  v10 = self->mConnection;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __34__CATXPCTransport_setUpConnection__block_invoke_2;
+  v11[3] = &unk_278DA7120;
+  objc_copyWeak(&v12, &location);
+  [(NSXPCConnection *)v10 setInvalidationHandler:v11];
+  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v14);
   objc_destroyWeak(&location);
 }
 
@@ -245,7 +245,7 @@ void __34__CATXPCTransport_setUpConnection__block_invoke_2(uint64_t a1)
 
 - (void)tearDownConnection
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   [(NSXPCConnection *)self->mConnection setRemoteObjectInterface:0];

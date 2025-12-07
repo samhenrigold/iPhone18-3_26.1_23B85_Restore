@@ -23,21 +23,21 @@
 
 - (void)server:(id)server didReceiveRequest:(id)request response:(id)response
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   responseCopy = response;
   srp = self->_srp;
+  v13 = 0;
   v14 = 0;
-  v15 = 0;
-  [(MKSRPServer *)srp generateSalt:&v15 pubkey:&v14];
-  v8 = v15;
-  v9 = v14;
+  [(MKSRPServer *)srp generateSalt:&v14 pubkey:&v13];
+  v8 = v14;
+  v9 = v13;
   if ([v8 length] && objc_msgSend(v9, "length"))
   {
-    v16[0] = @"salt";
-    v16[1] = @"pubkey";
-    v17[0] = v8;
-    v17[1] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v15[0] = @"salt";
+    v15[1] = @"pubkey";
+    v16[0] = v8;
+    v16[1] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
     v11 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v10 options:0 error:0];
     [responseCopy setBody:v11];
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -52,8 +52,6 @@
       [MKGETSRPPrecheckRouter server:v10 didReceiveRequest:? response:?];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (MKGETSRPRouterDelegate)delegate

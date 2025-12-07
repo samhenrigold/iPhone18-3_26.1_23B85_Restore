@@ -30,7 +30,7 @@
 {
   connectCopy = connect;
   selfCopy = self;
-  CPCarPlayObserver.sessionDidConnect(_:)(connectCopy);
+  CPCarPlayObserver.sessionDidConnect(_:)(connectCopy, selfCopy, v5, v6, v7, v8, v9, v10, v11);
 }
 
 - (void)sessionDidDisconnect:(id)disconnect
@@ -43,7 +43,7 @@
 - (void)startedConnectionAttemptOnTransport:(unint64_t)transport
 {
   selfCopy = self;
-  CPCarPlayObserver.startedConnectionAttempt(on:)(transport);
+  CPCarPlayObserver.startedConnectionAttempt(on:)(transport, selfCopy, v4, v5, v6, v7, v8, v9, v10);
 }
 
 - (void)cancelledConnectionAttemptOnTransport:(unint64_t)transport

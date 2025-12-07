@@ -15,7 +15,7 @@
 
 - (id)decryptPayloadData:(id)data authenticatedHeaders:(id)headers
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   headersCopy = headers;
   v8 = headersCopy;
@@ -28,10 +28,10 @@
     }
 
     *buf = 136315138;
-    *v36 = "[NEIKEv2SecurityContextCBCPlusHMAC decryptPayloadData:authenticatedHeaders:]";
-    v29 = "%s called with null payloadData";
+    *v35 = "[NEIKEv2SecurityContextCBCPlusHMAC decryptPayloadData:authenticatedHeaders:]";
+    v28 = "%s called with null payloadData";
 LABEL_29:
-    _os_log_fault_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_FAULT, v29, buf, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_FAULT, v28, buf, 0xCu);
     goto LABEL_11;
   }
 
@@ -44,8 +44,8 @@ LABEL_29:
     }
 
     *buf = 136315138;
-    *v36 = "[NEIKEv2SecurityContextCBCPlusHMAC decryptPayloadData:authenticatedHeaders:]";
-    v29 = "%s called with null authenticatedHeaders";
+    *v35 = "[NEIKEv2SecurityContextCBCPlusHMAC decryptPayloadData:authenticatedHeaders:]";
+    v28 = "%s called with null authenticatedHeaders";
     goto LABEL_29;
   }
 
@@ -75,10 +75,10 @@ LABEL_29:
       }
 
       *buf = 67109120;
-      *v36 = v13;
-      v26 = "Cannot decrypt, encrypted data length %u too short";
-      v27 = v16;
-      v28 = 8;
+      *v35 = v13;
+      v25 = "Cannot decrypt, encrypted data length %u too short";
+      v26 = v16;
+      v27 = 8;
       goto LABEL_24;
     }
 
@@ -96,15 +96,15 @@ LABEL_40:
     }
 
     *buf = 0;
-    v26 = "Integrity check failure";
-    v27 = v16;
-    v28 = 2;
+    v25 = "Integrity check failure";
+    v26 = v16;
+    v27 = 2;
     goto LABEL_24;
   }
 
-  v32 = [(NEIKEv2SecurityContextCBCPlusHMAC *)0 checkIncomingHMACForPayloadData:dataCopy authenticatedHeaders:v8];
+  v31 = [(NEIKEv2SecurityContextCBCPlusHMAC *)0 checkIncomingHMACForPayloadData:dataCopy authenticatedHeaders:v8];
   encryptionProtocol = 0;
-  if (!v32)
+  if (!v31)
   {
     goto LABEL_40;
   }
@@ -121,23 +121,23 @@ LABEL_9:
 
     if (self)
     {
-      v25 = self->_encryptionProtocol;
+      v24 = self->_encryptionProtocol;
     }
 
     else
     {
-      v25 = 0;
+      v24 = 0;
     }
 
     *buf = 67109376;
-    *v36 = v15;
-    *&v36[4] = 1024;
-    *&v36[6] = [(NEIKEv2EncryptionProtocol *)v25 blockLength];
-    v26 = "Ciphertext length %u is not a multiple of the cipher block length %u";
-    v27 = v16;
-    v28 = 14;
+    *v35 = v15;
+    *&v35[4] = 1024;
+    *&v35[6] = [(NEIKEv2EncryptionProtocol *)v24 blockLength];
+    v25 = "Ciphertext length %u is not a multiple of the cipher block length %u";
+    v26 = v16;
+    v27 = 14;
 LABEL_24:
-    _os_log_error_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_ERROR, v26, buf, v28);
+    _os_log_error_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_ERROR, v25, buf, v27);
     goto LABEL_11;
   }
 
@@ -156,13 +156,13 @@ LABEL_24:
   v20 = CCCryptorReset(incomingEncryptionContext, bytes);
   if (v20)
   {
-    v33 = v20;
-    v30 = ne_log_obj();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+    v32 = v20;
+    v29 = ne_log_obj();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
     {
       *buf = 67109120;
-      *v36 = v33;
-      _os_log_fault_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_FAULT, "CCCryptorReset failed: %d)", buf, 8u);
+      *v35 = v32;
+      _os_log_fault_impl(&dword_1BA83C000, v29, OS_LOG_TYPE_FAULT, "CCCryptorReset failed: %d)", buf, 8u);
     }
   }
 
@@ -180,29 +180,28 @@ LABEL_24:
     goto LABEL_20;
   }
 
-  v31 = ne_log_obj();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
+  v30 = ne_log_obj();
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
   {
     *buf = 67109632;
-    *v36 = v22;
-    *&v36[4] = 1024;
-    *&v36[6] = v15;
-    v37 = 2048;
-    v38 = dataOutMoved;
-    _os_log_fault_impl(&dword_1BA83C000, v31, OS_LOG_TYPE_FAULT, "CC decrypt failed: status %d, original %u, decrypted %zu)", buf, 0x18u);
+    *v35 = v22;
+    *&v35[4] = 1024;
+    *&v35[6] = v15;
+    v36 = 2048;
+    v37 = dataOutMoved;
+    _os_log_fault_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_FAULT, "CC decrypt failed: status %d, original %u, decrypted %zu)", buf, 0x18u);
   }
 
 LABEL_11:
   v17 = 0;
 LABEL_20:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (BOOL)checkIncomingHMACForPayloadData:(void *)data authenticatedHeaders:
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   dataCopy = data;
   if (self)
@@ -210,11 +209,11 @@ LABEL_20:
     macLength = [(NEIKEv2IntegrityProtocol *)*(self + 792) macLength];
     v8 = [v5 length] - macLength;
     memset(macOut, 0, sizeof(macOut));
-    memcpy(&v13, (self + 396), sizeof(v13));
-    CCHmacUpdate(&v13, [dataCopy bytes], objc_msgSend(dataCopy, "length"));
-    CCHmacUpdate(&v13, [v5 bytes], v8);
-    CCHmacFinal(&v13, macOut);
-    memset_s(&v13, 0x180uLL, 0, 0x180uLL);
+    memcpy(&v12, (self + 396), sizeof(v12));
+    CCHmacUpdate(&v12, [dataCopy bytes], objc_msgSend(dataCopy, "length"));
+    CCHmacUpdate(&v12, [v5 bytes], v8);
+    CCHmacFinal(&v12, macOut);
+    memset_s(&v12, 0x180uLL, 0, 0x180uLL);
     [v5 bytes];
     v9 = cc_cmp_safe();
     memset_s(macOut, 0x40uLL, 0, 0x40uLL);
@@ -226,20 +225,19 @@ LABEL_20:
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (id)constructEncryptedPacketFromConstructor:(id)constructor plaintextLength:(unsigned int)length authenticatedHeaders:(id)headers
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   constructorCopy = constructor;
   headersCopy = headers;
   v10 = headersCopy;
   if (!constructorCopy)
   {
-    v27 = ne_log_obj();
-    if (!os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+    v26 = ne_log_obj();
+    if (!os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
     {
 LABEL_25:
 
@@ -249,23 +247,23 @@ LABEL_25:
 
     __dst.ctx[0] = 136315138;
     *&__dst.ctx[1] = "[NEIKEv2SecurityContextCBCPlusHMAC constructEncryptedPacketFromConstructor:plaintextLength:authenticatedHeaders:]";
-    v28 = "%s called with null packetConstructor";
+    v27 = "%s called with null packetConstructor";
 LABEL_34:
-    _os_log_fault_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_FAULT, v28, &__dst, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_FAULT, v27, &__dst, 0xCu);
     goto LABEL_25;
   }
 
   if (!headersCopy)
   {
-    v27 = ne_log_obj();
-    if (!os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+    v26 = ne_log_obj();
+    if (!os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_25;
     }
 
     __dst.ctx[0] = 136315138;
     *&__dst.ctx[1] = "[NEIKEv2SecurityContextCBCPlusHMAC constructEncryptedPacketFromConstructor:plaintextLength:authenticatedHeaders:]";
-    v28 = "%s called with null authenticatedHeaders";
+    v27 = "%s called with null authenticatedHeaders";
     goto LABEL_34;
   }
 
@@ -280,7 +278,7 @@ LABEL_34:
     v12 = 0;
   }
 
-  v33 = v12;
+  v32 = v12;
   v13 = length + v12 + 1;
   v14 = [objc_alloc(MEMORY[0x1E695DF88]) initWithCapacity:-[NEIKEv2SecurityContextCBCPlusHMAC fixedOverheadLength](self) + v11 + v13];
   [v14 appendData:v10];
@@ -303,7 +301,7 @@ LABEL_34:
       [NEIKEv2Crypto appendRandomBytesToData:v14 withSize:v12];
     }
 
-    [v14 appendBytes:&v33 length:1];
+    [v14 appendBytes:&v32 length:1];
     v17 = ([v14 mutableBytes] + v11);
     if (self)
     {
@@ -319,17 +317,17 @@ LABEL_34:
     v20 = CCCryptorReset(outgoingEncryptionContext, v17);
     if (v20)
     {
-      v29 = v20;
-      v30 = ne_log_obj();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+      v28 = v20;
+      v29 = ne_log_obj();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
       {
         __dst.ctx[0] = 67109120;
-        __dst.ctx[1] = v29;
-        _os_log_fault_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_FAULT, "CCCryptorReset failed: %d)", &__dst, 8u);
+        __dst.ctx[1] = v28;
+        _os_log_fault_impl(&dword_1BA83C000, v29, OS_LOG_TYPE_FAULT, "CCCryptorReset failed: %d)", &__dst, 8u);
       }
     }
 
-    v32 = 0;
+    v31 = 0;
     if (self)
     {
       v21 = self->_outgoingEncryptionContext;
@@ -340,8 +338,8 @@ LABEL_34:
       v21 = 0;
     }
 
-    v22 = CCCryptorUpdate(v21, v19, v13, v19, v13, &v32);
-    if (!v22 && v32 == v13)
+    v22 = CCCryptorUpdate(v21, v19, v13, v19, v13, &v31);
+    if (!v22 && v31 == v13)
     {
       v23 = v14;
       if (self)
@@ -359,16 +357,16 @@ LABEL_34:
       goto LABEL_20;
     }
 
-    v31 = ne_log_obj();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
+    v30 = ne_log_obj();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
     {
       __dst.ctx[0] = 67109632;
       __dst.ctx[1] = v22;
       LOWORD(__dst.ctx[2]) = 1024;
       *(&__dst.ctx[2] + 2) = v13;
       HIWORD(__dst.ctx[3]) = 2048;
-      *&__dst.ctx[4] = v32;
-      _os_log_fault_impl(&dword_1BA83C000, v31, OS_LOG_TYPE_FAULT, "CCCryptorUpdate failed: status %d, original %u, decrypted %zu)", &__dst, 0x18u);
+      *&__dst.ctx[4] = v31;
+      _os_log_fault_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_FAULT, "CCCryptorUpdate failed: status %d, original %u, decrypted %zu)", &__dst, 0x18u);
     }
   }
 
@@ -376,7 +374,6 @@ LABEL_34:
 LABEL_20:
 
 LABEL_21:
-  v25 = *MEMORY[0x1E69E9840];
   return v24;
 }
 

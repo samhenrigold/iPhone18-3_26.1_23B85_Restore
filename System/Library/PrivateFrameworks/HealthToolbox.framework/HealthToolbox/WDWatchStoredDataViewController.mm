@@ -10,9 +10,18 @@
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)traitCollectionDidChange:(id)change;
 - (void)updateTableHeaderViewForUnpairedWatch;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WDWatchStoredDataViewController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = WDWatchStoredDataViewController;
+  [(WDStoredDataByCategoryViewController *)&v4 viewWillAppear:appear];
+  [(WDWatchStoredDataViewController *)self updateTableHeaderViewForUnpairedWatch];
+}
 
 - (void)addUnpairedWatchHeaderView
 {

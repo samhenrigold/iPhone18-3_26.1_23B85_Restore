@@ -16,15 +16,15 @@
 
 - (id)_initWithMessage:(id)message controlConnection:(id)connection
 {
-  v7.receiver = self;
-  v7.super_class = SSDownloadHandlerSession;
-  v5 = [(SSDownloadSession *)&v7 _initWithMessage:message controlConnection:connection];
+  v9.receiver = self;
+  v9.super_class = SSDownloadHandlerSession;
+  v5 = [(SSDownloadSession *)&v9 _initWithMessage:message controlConnection:connection];
   if (v5)
   {
-    objc_opt_class();
-    v5[6] = SSXPCDictionaryCopyCFObjectWithClass(message, "4");
-    objc_opt_class();
-    v5[7] = SSXPCDictionaryCopyCFObjectWithClass(message, "5");
+    v6 = objc_opt_class();
+    v5[6] = SSXPCDictionaryCopyCFObjectWithClass(message, "4", v6);
+    v7 = objc_opt_class();
+    v5[7] = SSXPCDictionaryCopyCFObjectWithClass(message, "5", v7);
   }
 
   return v5;
@@ -133,7 +133,7 @@
 - (void)setPercentComplete:(float)complete
 {
   v22 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v5 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v5)
@@ -152,44 +152,43 @@
       v7 = shouldLog;
     }
 
-    if (os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v5 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v8 = v7;
+      v9 = v7;
     }
 
     else
     {
-      v8 = v7 & 2;
+      v9 = v7 & 2;
     }
 
-    if (v8)
+    if (v9)
     {
       v20 = 136446210;
       v21 = "[SSDownloadHandlerSession setPercentComplete:]";
-      LODWORD(v19) = 12;
-      v9 = _os_log_send_and_compose_impl();
-      if (v9)
+      if (v10)
       {
-        v10 = v9;
-        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v20, v19}];
-        free(v10);
-        SSFileLog(v5, @"%@", v12, v13, v14, v15, v16, v17, v11);
+        v11 = v10;
+        v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+        free(v11);
+        SSFileLog(v5, @"%@", v13, v14, v15, v16, v17, v18, v12);
       }
     }
   }
 
-  v18 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v18, "0", 4);
-  xpc_dictionary_set_int64(v18, "1", self->super._sessionID);
-  xpc_dictionary_set_double(v18, "2", complete);
-  [(SSXPCConnection *)self->super._controlConnection sendMessage:v18];
-  xpc_release(v18);
+  v19 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v19, "0", 4);
+  xpc_dictionary_set_int64(v19, "1", self->super._sessionID);
+  xpc_dictionary_set_double(v19, "2", complete);
+  [(SSXPCConnection *)self->super._controlConnection sendMessage:v19];
+  xpc_release(v19);
 }
 
 - (void)setStatusDescription:(id)description
 {
   v22 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v5 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v5)
@@ -208,44 +207,43 @@
       v7 = shouldLog;
     }
 
-    if (os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v5 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v8 = v7;
+      v9 = v7;
     }
 
     else
     {
-      v8 = v7 & 2;
+      v9 = v7 & 2;
     }
 
-    if (v8)
+    if (v9)
     {
       v20 = 136446210;
       v21 = "[SSDownloadHandlerSession setStatusDescription:]";
-      LODWORD(v19) = 12;
-      v9 = _os_log_send_and_compose_impl();
-      if (v9)
+      if (v10)
       {
-        v10 = v9;
-        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v20, v19}];
-        free(v10);
-        SSFileLog(v5, @"%@", v12, v13, v14, v15, v16, v17, v11);
+        v11 = v10;
+        v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+        free(v11);
+        SSFileLog(v5, @"%@", v13, v14, v15, v16, v17, v18, v12);
       }
     }
   }
 
-  v18 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v18, "0", 51);
-  xpc_dictionary_set_int64(v18, "1", self->super._sessionID);
-  SSXPCDictionarySetCFObject(v18, "2", description);
-  [(SSXPCConnection *)self->super._controlConnection sendMessage:v18];
-  xpc_release(v18);
+  v19 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v19, "0", 51);
+  xpc_dictionary_set_int64(v19, "1", self->super._sessionID);
+  SSXPCDictionarySetCFObject(v19, "2", description);
+  [(SSXPCConnection *)self->super._controlConnection sendMessage:v19];
+  xpc_release(v19);
 }
 
 - (void)_finishWithType:(int)type error:(id)error
 {
   v24 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v7 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v7)
@@ -264,45 +262,44 @@
       v9 = shouldLog;
     }
 
-    if (os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v7 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v10 = v9;
+      v11 = v9;
     }
 
     else
     {
-      v10 = v9 & 2;
+      v11 = v9 & 2;
     }
 
-    if (v10)
+    if (v11)
     {
       v22 = 136446210;
       v23 = "[SSDownloadHandlerSession _finishWithType:error:]";
-      LODWORD(v21) = 12;
-      v11 = _os_log_send_and_compose_impl();
-      if (v11)
+      if (v12)
       {
-        v12 = v11;
-        v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v22, v21}];
-        free(v12);
-        SSFileLog(v7, @"%@", v14, v15, v16, v17, v18, v19, v13);
+        v13 = v12;
+        v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
+        free(v13);
+        SSFileLog(v7, @"%@", v15, v16, v17, v18, v19, v20, v14);
       }
     }
   }
 
-  v20 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v20, "0", 2);
-  xpc_dictionary_set_int64(v20, "1", self->super._sessionID);
-  xpc_dictionary_set_int64(v20, "2", type);
-  SSXPCDictionarySetCFObject(v20, "3", error);
-  [(SSXPCConnection *)self->super._controlConnection sendMessage:v20];
-  xpc_release(v20);
+  v21 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v21, "0", 2);
+  xpc_dictionary_set_int64(v21, "1", self->super._sessionID);
+  xpc_dictionary_set_int64(v21, "2", type);
+  SSXPCDictionarySetCFObject(v21, "3", error);
+  [(SSXPCConnection *)self->super._controlConnection sendMessage:v21];
+  xpc_release(v21);
 }
 
 - (void)_setBool:(BOOL)bool forSessionProperty:(const char *)property
 {
   v25 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v7 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v7)
@@ -321,41 +318,40 @@
       v9 = shouldLog;
     }
 
-    if (os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v7 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v10 = v9;
+      v11 = v9;
     }
 
     else
     {
-      v10 = v9 & 2;
+      v11 = v9 & 2;
     }
 
-    if (v10)
+    if (v11)
     {
       v23 = 136446210;
       v24 = "[SSDownloadHandlerSession _setBool:forSessionProperty:]";
-      LODWORD(v22) = 12;
-      v11 = _os_log_send_and_compose_impl();
-      if (v11)
+      if (v12)
       {
-        v12 = v11;
-        v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v23, v22}];
-        free(v12);
-        SSFileLog(v7, @"%@", v14, v15, v16, v17, v18, v19, v13);
+        v13 = v12;
+        v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
+        free(v13);
+        SSFileLog(v7, @"%@", v15, v16, v17, v18, v19, v20, v14);
       }
     }
   }
 
-  v20 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v20, "0", 30);
-  xpc_dictionary_set_int64(v20, "1", self->super._sessionID);
   v21 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_BOOL(v21, property, bool);
-  xpc_dictionary_set_value(v20, "2", v21);
+  xpc_dictionary_set_int64(v21, "0", 30);
+  xpc_dictionary_set_int64(v21, "1", self->super._sessionID);
+  v22 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_BOOL(v22, property, bool);
+  xpc_dictionary_set_value(v21, "2", v22);
+  xpc_release(v22);
+  [(SSXPCConnection *)self->super._controlConnection sendMessage:v21];
   xpc_release(v21);
-  [(SSXPCConnection *)self->super._controlConnection sendMessage:v20];
-  xpc_release(v20);
 }
 
 @end

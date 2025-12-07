@@ -4,6 +4,7 @@
 - (void)carPlayAppLinksStateForCertSerial:(id)serial withReply:(id)reply;
 - (void)carPlayIconStateForCertSerial:(id)serial andAppCategories:(unint64_t)categories withReply:(id)reply;
 - (void)carPlaySendConnectionTimeEvent:(int64_t)event connectionType:(int64_t)type eventTime:(id)time;
+- (void)carPlayStartSessionForConnectionID:(unsigned int)d properties:(id)properties;
 - (void)filterMatchingDigitalCarKeys:(id)keys forAccessory:(id)accessory withCompletionHandler:(id)handler;
 - (void)isCarPlayPairedWithCertSerial:(id)serial withReply:(id)reply;
 - (void)isWirelessCarPlayAllowedForCertSerial:(id)serial withReply:(id)reply;
@@ -467,6 +468,15 @@ void __71__ACCCarPlay_carPlayIconStateForCertSerial_andAppCategories_withReply__
   }
 }
 
+- (void)carPlayStartSessionForConnectionID:(unsigned int)d properties:(id)properties
+{
+  v4 = *&d;
+  propertiesCopy = properties;
+  xpcConnection = [(ACCCarPlay *)self xpcConnection];
+  v7 = [xpcConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_4];
+  [v7 carPlayStartSessionForConnectionID:v4 properties:propertiesCopy withReply:&__block_literal_global_32];
+}
+
 void __60__ACCCarPlay_carPlayStartSessionForConnectionID_properties___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
@@ -638,7 +648,7 @@ void __78__ACCCarPlay_filterMatchingDigitalCarKeys_forAccessory_withCompletionHa
 
 - (void)carPlaySendConnectionTimeEvent:(int64_t)event connectionType:(int64_t)type eventTime:(id)time
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   timeCopy = time;
   if (gLogObjects)
   {
@@ -669,22 +679,21 @@ void __78__ACCCarPlay_filterMatchingDigitalCarKeys_forAccessory_withCompletionHa
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     [timeCopy timeIntervalSinceReferenceDate];
-    v16 = 134218754;
+    v15 = 134218754;
     eventCopy = event;
-    v18 = 2048;
+    v17 = 2048;
     typeCopy = type;
-    v20 = 2048;
-    v21 = v12;
-    v22 = 2112;
-    v23 = timeCopy;
-    _os_log_impl(&dword_221CB0000, v11, OS_LOG_TYPE_DEFAULT, "CarPlay Connection Event: %ld, %ld, %f, %@", &v16, 0x2Au);
+    v19 = 2048;
+    v20 = v12;
+    v21 = 2112;
+    v22 = timeCopy;
+    _os_log_impl(&dword_221CB0000, v11, OS_LOG_TYPE_DEFAULT, "CarPlay Connection Event: %ld, %ld, %f, %@", &v15, 0x2Au);
   }
 
   xpcConnection = [(ACCCarPlay *)self xpcConnection];
   v14 = [xpcConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_38];
 
   [v14 carPlaySendConnectionTimeEvent:event connectionType:type eventTime:timeCopy withReply:&__block_literal_global_41];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __70__ACCCarPlay_carPlaySendConnectionTimeEvent_connectionType_eventTime___block_invoke(uint64_t a1, void *a2)
@@ -760,71 +769,25 @@ void __70__ACCCarPlay_carPlaySendConnectionTimeEvent_connectionType_eventTime___
   }
 }
 
-void __54__ACCCarPlay_isCarPlayPairedWithCertSerial_withReply___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4_2(&dword_221CB0000, v0, v1, "can't invoke remote object %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __54__ACCCarPlay_isCarPlayPairedWithCertSerial_withReply___block_invoke_22_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __62__ACCCarPlay_isWirelessCarPlayAllowedForCertSerial_withReply___block_invoke_24_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __58__ACCCarPlay_carPlayAppLinksStateForCertSerial_withReply___block_invoke_25_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __71__ACCCarPlay_carPlayIconStateForCertSerial_andAppCategories_withReply___block_invoke_27_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __60__ACCCarPlay_carPlayStartSessionForConnectionID_properties___block_invoke_29_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __78__ACCCarPlay_filterMatchingDigitalCarKeys_forAccessory_withCompletionHandler___block_invoke_35_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __70__ACCCarPlay_carPlaySendConnectionTimeEvent_connectionType_eventTime___block_invoke_39_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

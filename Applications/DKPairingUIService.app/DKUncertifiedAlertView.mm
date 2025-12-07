@@ -1,6 +1,8 @@
 @interface DKUncertifiedAlertView
 - (_TtC18DKPairingUIService22DKUncertifiedAlertView)initWithCoder:(id)coder;
 - (_TtC18DKPairingUIService22DKUncertifiedAlertView)initWithNibName:(id)name bundle:(id)bundle;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -15,9 +17,7 @@
   v6 = type metadata accessor for Logger();
   (*(*(v6 - 8) + 8))(self + v4, v6);
 
-  type metadata accessor for DKUncertifiedAlertView();
-  v7 = *((swift_isaMask & self->super.super.super.isa) + 0x30);
-  v8 = *((swift_isaMask & self->super.super.super.isa) + 0x34);
+  type metadata accessor for DKUncertifiedAlertView(0);
   swift_deallocPartialClassInstance();
   return 0;
 }
@@ -25,8 +25,26 @@
 - (void)viewDidLoad
 {
   v2.receiver = self;
-  v2.super_class = type metadata accessor for DKUncertifiedAlertView();
+  v2.super_class = type metadata accessor for DKUncertifiedAlertView(0);
   [(DKUncertifiedAlertView *)&v2 viewDidLoad];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for DKUncertifiedAlertView(0);
+  v4 = v5.receiver;
+  [(DKUncertifiedAlertView *)&v5 viewDidAppear:appearCopy];
+  sub_100001B3C();
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v4.receiver = self;
+  v4.super_class = type metadata accessor for DKUncertifiedAlertView(0);
+  [(DKUncertifiedAlertView *)&v4 viewDidDisappear:disappearCopy];
 }
 
 - (_TtC18DKPairingUIService22DKUncertifiedAlertView)initWithNibName:(id)name bundle:(id)bundle

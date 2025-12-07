@@ -160,7 +160,7 @@ LABEL_12:
   memset(&v8[1], 0, sizeof($3CC8671D27C23BF42ADDB32F2B5E48AE));
   if (videoPlayer)
   {
-    [videoPlayer duration];
+    objc_msgSend_duration(videoPlayer);
   }
 
   _label = [(PUPlaybackTimeIndicatorTileViewController *)self _label];
@@ -330,7 +330,7 @@ void __75__PUPlaybackTimeIndicatorTileViewController__setIndicatorVisible_animat
     [(PUBrowsingVideoPlayer *)self->_videoPlayer registerChangeObserver:self];
     if (playerCopy)
     {
-      [(PUBrowsingVideoPlayer *)playerCopy currentTime];
+      objc_msgSend_currentTime(playerCopy);
     }
 
     else

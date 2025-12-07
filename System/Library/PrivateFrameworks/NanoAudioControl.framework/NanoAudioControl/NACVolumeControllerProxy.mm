@@ -41,6 +41,7 @@
 - (void)setHapticState:(int64_t)state;
 - (void)setProminentHapticEnabled:(BOOL)enabled;
 - (void)setVolumeValue:(float)value;
+- (void)setVolumeValue:(float)value muted:(BOOL)muted overrideEULimit:(BOOL)limit;
 @end
 
 @implementation NACVolumeControllerProxy
@@ -172,7 +173,7 @@ void __56__NACVolumeControllerProxy_initWithVolumeControlTarget___block_invoke_2
 
 - (void)beginObservingVolume
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (!self->_observingVolume)
   {
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
@@ -184,9 +185,9 @@ void __56__NACVolumeControllerProxy_initWithVolumeControlTarget___block_invoke_2
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         target = self->_target;
-        v8 = 138412290;
-        v9 = target;
-        _os_log_impl(&dword_25AEBF000, v5, OS_LOG_TYPE_DEFAULT, "VolumeControllerProxy begin observing volume for target: %@", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = target;
+        _os_log_impl(&dword_25AEBF000, v5, OS_LOG_TYPE_DEFAULT, "VolumeControllerProxy begin observing volume for target: %@", &v7, 0xCu);
       }
 
       [(NACXPCClient *)self->_xpcClient beginObservingVolumeForTarget:self->_target];
@@ -194,13 +195,11 @@ void __56__NACVolumeControllerProxy_initWithVolumeControlTarget___block_invoke_2
 
     self->_observingVolume = 1;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endObservingVolume
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (self->_observingVolume)
   {
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
@@ -212,9 +211,9 @@ void __56__NACVolumeControllerProxy_initWithVolumeControlTarget___block_invoke_2
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         target = self->_target;
-        v8 = 138412290;
-        v9 = target;
-        _os_log_impl(&dword_25AEBF000, v5, OS_LOG_TYPE_DEFAULT, "VolumeControllerProxy end observing volume for target: %@", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = target;
+        _os_log_impl(&dword_25AEBF000, v5, OS_LOG_TYPE_DEFAULT, "VolumeControllerProxy end observing volume for target: %@", &v7, 0xCu);
       }
 
       [(NACXPCClient *)self->_xpcClient endObservingVolumeForTarget:self->_target];
@@ -222,13 +221,11 @@ void __56__NACVolumeControllerProxy_initWithVolumeControlTarget___block_invoke_2
 
     self->_observingVolume = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginObservingListeningModes
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (!self->_observingListeningModes)
   {
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
@@ -240,9 +237,9 @@ void __56__NACVolumeControllerProxy_initWithVolumeControlTarget___block_invoke_2
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         target = self->_target;
-        v8 = 138412290;
-        v9 = target;
-        _os_log_impl(&dword_25AEBF000, v5, OS_LOG_TYPE_DEFAULT, "VolumeControllerProxy begin observing listening modes for target: %@", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = target;
+        _os_log_impl(&dword_25AEBF000, v5, OS_LOG_TYPE_DEFAULT, "VolumeControllerProxy begin observing listening modes for target: %@", &v7, 0xCu);
       }
 
       [(NACXPCClient *)self->_xpcClient beginObservingListeningModesForTarget:self->_target];
@@ -250,13 +247,11 @@ void __56__NACVolumeControllerProxy_initWithVolumeControlTarget___block_invoke_2
 
     self->_observingListeningModes = 1;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endObservingListeningModes
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (self->_observingListeningModes)
   {
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
@@ -268,9 +263,9 @@ void __56__NACVolumeControllerProxy_initWithVolumeControlTarget___block_invoke_2
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         target = self->_target;
-        v8 = 138412290;
-        v9 = target;
-        _os_log_impl(&dword_25AEBF000, v5, OS_LOG_TYPE_DEFAULT, "VolumeControllerProxy end observing listening modes for target: %@", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = target;
+        _os_log_impl(&dword_25AEBF000, v5, OS_LOG_TYPE_DEFAULT, "VolumeControllerProxy end observing listening modes for target: %@", &v7, 0xCu);
       }
 
       [(NACXPCClient *)self->_xpcClient endObservingListeningModesForTarget:self->_target];
@@ -278,8 +273,14 @@ void __56__NACVolumeControllerProxy_initWithVolumeControlTarget___block_invoke_2
 
     self->_observingListeningModes = 0;
   }
+}
 
-  v7 = *MEMORY[0x277D85DE8];
+- (void)setVolumeValue:(float)value muted:(BOOL)muted overrideEULimit:(BOOL)limit
+{
+  mutedCopy = muted;
+  [(NACVolumeControllerProxy *)self setVolumeValue:muted, limit];
+
+  [(NACVolumeControllerProxy *)self setMuted:mutedCopy];
 }
 
 - (void)setVolumeValue:(float)value
@@ -296,7 +297,7 @@ void __56__NACVolumeControllerProxy_initWithVolumeControlTarget___block_invoke_2
 
 - (void)_setVolumeValue:(id)value
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   [valueCopy floatValue];
   v6 = v5;
@@ -305,9 +306,9 @@ void __56__NACVolumeControllerProxy_initWithVolumeControlTarget___block_invoke_2
   {
     target = self->_target;
     *buf = 134218242;
-    v16 = v6;
-    v17 = 2112;
-    v18 = target;
+    v15 = v6;
+    v16 = 2112;
+    v17 = target;
     _os_log_impl(&dword_25AEBF000, v7, OS_LOG_TYPE_DEFAULT, "Setting volume: %f for target: %@", buf, 0x16u);
   }
 
@@ -315,19 +316,17 @@ void __56__NACVolumeControllerProxy_initWithVolumeControlTarget___block_invoke_2
   [(NACXPCClient *)self->_xpcClient setVolumeValue:self->_target forTarget:v9];
   [(NACVolumeControllerProxy *)self _cancelSetVolumeTimer];
   objc_initWeak(buf, self);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __44__NACVolumeControllerProxy__setVolumeValue___block_invoke;
-  v13[3] = &unk_27992B678;
-  objc_copyWeak(&v14, buf);
-  v10 = [(NACVolumeControllerProxy *)self _scheduleTimeoutWithBlock:v13];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __44__NACVolumeControllerProxy__setVolumeValue___block_invoke;
+  v12[3] = &unk_27992B678;
+  objc_copyWeak(&v13, buf);
+  v10 = [(NACVolumeControllerProxy *)self _scheduleTimeoutWithBlock:v12];
   setVolumeTimer = self->_setVolumeTimer;
   self->_setVolumeTimer = v10;
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(buf);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __44__NACVolumeControllerProxy__setVolumeValue___block_invoke(uint64_t a1)
@@ -503,17 +502,17 @@ void __49__NACVolumeControllerProxy__volumeValueDidChange__block_invoke(uint64_t
 
 void *__49__NACVolumeControllerProxy__volumeValueDidChange__block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = NMLogForCategory(4);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
     v4 = *(*(a1 + 32) + 8);
-    v13 = 134218242;
-    v14 = v3;
-    v15 = 2112;
-    v16 = v4;
-    _os_log_impl(&dword_25AEBF000, v2, OS_LOG_TYPE_DEFAULT, "Received volume value update: %f for target: %@", &v13, 0x16u);
+    v12 = 134218242;
+    v13 = v3;
+    v14 = 2112;
+    v15 = v4;
+    _os_log_impl(&dword_25AEBF000, v2, OS_LOG_TYPE_DEFAULT, "Received volume value update: %f for target: %@", &v12, 0x16u);
   }
 
   v6 = *(a1 + 32);
@@ -524,7 +523,7 @@ void *__49__NACVolumeControllerProxy__volumeValueDidChange__block_invoke_2(uint6
     result = [result floatValue];
     if (vabds_f32(v8, *&v5) < 0.00000011921)
     {
-      goto LABEL_8;
+      return result;
     }
 
     v6 = *(a1 + 32);
@@ -538,11 +537,9 @@ void *__49__NACVolumeControllerProxy__volumeValueDidChange__block_invoke_2(uint6
     v11 = *(v10 + 96);
     *(v10 + 96) = v9;
 
-    result = [*(a1 + 32) _notifyDelegateVolumeChanged];
+    return [*(a1 + 32) _notifyDelegateVolumeChanged];
   }
 
-LABEL_8:
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -705,15 +702,15 @@ void __58__NACVolumeControllerProxy__prominentHapticStateDidChange__block_invoke
   dispatch_async(MEMORY[0x277D85CD0], v2);
 }
 
-uint64_t __58__NACVolumeControllerProxy__prominentHapticStateDidChange__block_invoke_2(uint64_t result)
+void *__58__NACVolumeControllerProxy__prominentHapticStateDidChange__block_invoke_2(void *result)
 {
   v1 = *(result + 40);
-  *(*(result + 32) + 80) = v1;
-  v2 = *(result + 32);
+  *(*(result + 4) + 80) = v1;
+  v2 = *(result + 4);
   if (!*(v2 + 48))
   {
     *(v2 + 133) = v1;
-    return [*(result + 32) _notifyDelegateProminentHapticStateChanged];
+    return [*(result + 4) _notifyDelegateProminentHapticStateChanged];
   }
 
   return result;
@@ -741,15 +738,15 @@ void __49__NACVolumeControllerProxy__hapticStateDidChange__block_invoke(uint64_t
   dispatch_async(MEMORY[0x277D85CD0], v2);
 }
 
-uint64_t __49__NACVolumeControllerProxy__hapticStateDidChange__block_invoke_2(uint64_t result)
+void *__49__NACVolumeControllerProxy__hapticStateDidChange__block_invoke_2(void *result)
 {
-  v1 = *(result + 40);
-  *(*(result + 32) + 88) = v1;
-  v2 = *(result + 32);
+  v1 = *(result + 5);
+  *(*(result + 4) + 88) = v1;
+  v2 = *(result + 4);
   if (!*(v2 + 56))
   {
     *(v2 + 160) = v1;
-    return [*(result + 32) _notifyDelegateHapticStateChanged];
+    return [*(result + 4) _notifyDelegateHapticStateChanged];
   }
 
   return result;
@@ -777,14 +774,14 @@ void __54__NACVolumeControllerProxy__systemMutedStateDidChange__block_invoke(uin
   dispatch_async(MEMORY[0x277D85CD0], v2);
 }
 
-uint64_t __54__NACVolumeControllerProxy__systemMutedStateDidChange__block_invoke_2(uint64_t result)
+unsigned __int8 *__54__NACVolumeControllerProxy__systemMutedStateDidChange__block_invoke_2(unsigned __int8 *result)
 {
-  v1 = *(result + 40);
-  v2 = *(result + 32);
+  v1 = result[40];
+  v2 = *(result + 4);
   if (v1 != *(v2 + 132))
   {
     *(v2 + 132) = v1;
-    return [*(result + 32) _notifyDelegateSystemMutedStateChanged];
+    return [*(result + 4) _notifyDelegateSystemMutedStateChanged];
   }
 
   return result;
@@ -918,17 +915,16 @@ void __61__NACVolumeControllerProxy__availableListeningModesDidChange__block_inv
 
 void __61__NACVolumeControllerProxy__availableListeningModesDidChange__block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 40) + 112);
   v3 = *(a1 + 32);
   if (v3 == v2)
   {
-    v12 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v13 = v3;
+    v11 = v3;
     v4 = [v3 isEqual:v2];
 
     if ((v4 & 1) == 0)
@@ -939,9 +935,9 @@ void __61__NACVolumeControllerProxy__availableListeningModesDidChange__block_inv
         v6 = *(a1 + 32);
         v7 = *(*(a1 + 40) + 8);
         *buf = 138412546;
-        v15 = v6;
-        v16 = 2112;
-        v17 = v7;
+        v13 = v6;
+        v14 = 2112;
+        v15 = v7;
         _os_log_impl(&dword_25AEBF000, v5, OS_LOG_TYPE_DEFAULT, "[ListeningMode] Received available listening modes update: %@ for target: %@", buf, 0x16u);
       }
 
@@ -955,8 +951,6 @@ void __61__NACVolumeControllerProxy__availableListeningModesDidChange__block_inv
         [v10 volumeControllerDidUpdateAvailableListeningModes:*(a1 + 40)];
       }
     }
-
-    v11 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -988,17 +982,16 @@ void __58__NACVolumeControllerProxy__currentListeningModeDidChange__block_invoke
 
 void __58__NACVolumeControllerProxy__currentListeningModeDidChange__block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 40) + 120);
   v3 = *(a1 + 32);
   if (v3 == v2)
   {
-    v12 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v13 = v3;
+    v11 = v3;
     v4 = [v3 isEqual:v2];
 
     if ((v4 & 1) == 0)
@@ -1009,9 +1002,9 @@ void __58__NACVolumeControllerProxy__currentListeningModeDidChange__block_invoke
         v6 = *(a1 + 32);
         v7 = *(*(a1 + 40) + 8);
         *buf = 138412546;
-        v15 = v6;
-        v16 = 2112;
-        v17 = v7;
+        v13 = v6;
+        v14 = 2112;
+        v15 = v7;
         _os_log_impl(&dword_25AEBF000, v5, OS_LOG_TYPE_DEFAULT, "Received current listening mode update: %@ for target: %@", buf, 0x16u);
       }
 
@@ -1025,8 +1018,6 @@ void __58__NACVolumeControllerProxy__currentListeningModeDidChange__block_invoke
         [v10 volumeControllerDidUpdateCurrentListeningMode:*(a1 + 40)];
       }
     }
-
-    v11 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -1220,7 +1211,7 @@ void __61__NACVolumeControllerProxy__notifyDelegateHapticStateChanged__block_inv
 
 - (void)_applicationDidBecomeActiveNotification:(id)notification
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   if (self->_observingVolume)
   {
@@ -1228,9 +1219,9 @@ void __61__NACVolumeControllerProxy__notifyDelegateHapticStateChanged__block_inv
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       target = self->_target;
-      v10 = 138412290;
-      v11 = target;
-      _os_log_impl(&dword_25AEBF000, v5, OS_LOG_TYPE_DEFAULT, "VolumeControllerProxy begin observing volume for target (%@) due to re-entering foreground", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = target;
+      _os_log_impl(&dword_25AEBF000, v5, OS_LOG_TYPE_DEFAULT, "VolumeControllerProxy begin observing volume for target (%@) due to re-entering foreground", &v9, 0xCu);
     }
 
     [(NACXPCClient *)self->_xpcClient beginObservingVolumeForTarget:self->_target];
@@ -1242,20 +1233,18 @@ void __61__NACVolumeControllerProxy__notifyDelegateHapticStateChanged__block_inv
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = self->_target;
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_25AEBF000, v7, OS_LOG_TYPE_DEFAULT, "VolumeControllerProxy begin observing listening modes for target (%@) due to re-entering foreground", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_25AEBF000, v7, OS_LOG_TYPE_DEFAULT, "VolumeControllerProxy begin observing listening modes for target (%@) due to re-entering foreground", &v9, 0xCu);
     }
 
     [(NACXPCClient *)self->_xpcClient beginObservingListeningModesForTarget:self->_target];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_applicationWillResignActiveNotification:(id)notification
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   if (self->_observingVolume)
   {
@@ -1263,9 +1252,9 @@ void __61__NACVolumeControllerProxy__notifyDelegateHapticStateChanged__block_inv
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       target = self->_target;
-      v10 = 138412290;
-      v11 = target;
-      _os_log_impl(&dword_25AEBF000, v5, OS_LOG_TYPE_DEFAULT, "VolumeControllerProxy end observing volume for target (%@) due to entering background", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = target;
+      _os_log_impl(&dword_25AEBF000, v5, OS_LOG_TYPE_DEFAULT, "VolumeControllerProxy end observing volume for target (%@) due to entering background", &v9, 0xCu);
     }
 
     [(NACXPCClient *)self->_xpcClient endObservingVolumeForTarget:self->_target];
@@ -1277,15 +1266,13 @@ void __61__NACVolumeControllerProxy__notifyDelegateHapticStateChanged__block_inv
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = self->_target;
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_25AEBF000, v7, OS_LOG_TYPE_DEFAULT, "VolumeControllerProxy end observing listeningmodes for target (%@) due to entering background", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_25AEBF000, v7, OS_LOG_TYPE_DEFAULT, "VolumeControllerProxy end observing listeningmodes for target (%@) due to entering background", &v9, 0xCu);
     }
 
     [(NACXPCClient *)self->_xpcClient endObservingListeningModesForTarget:self->_target];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (NACVolumeControllerDelegate)delegate

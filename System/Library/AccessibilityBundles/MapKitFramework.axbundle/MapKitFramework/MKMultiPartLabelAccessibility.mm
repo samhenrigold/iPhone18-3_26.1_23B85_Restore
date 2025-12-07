@@ -16,99 +16,95 @@
 
 - (id)accessibilityLabel
 {
-  v33 = *MEMORY[0x29EDCA608];
-  v20 = [(MKMultiPartLabelAccessibility *)self safeValueForKey:@"multiPartString"];
-  if (!v20)
+  v31 = *MEMORY[0x29EDCA608];
+  v18 = [(MKMultiPartLabelAccessibility *)self safeValueForKey:@"multiPartString"];
+  if (!v18)
   {
     goto LABEL_14;
   }
 
   objc_opt_class();
-  v2 = [v20 safeValueForKey:@"components"];
+  v2 = [v18 safeValueForKey:@"components"];
   v3 = __UIAccessibilityCastAsClass();
 
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy_;
-  v30 = __Block_byref_object_dispose_;
-  v31 = &stru_2A21DAE00;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy_;
+  v28 = __Block_byref_object_dispose_;
+  v29 = &stru_2A21DAE00;
+  v20 = 0u;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v22 objects:v32 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v20 objects:v30 count:16];
   if (v5)
   {
-    v6 = *v23;
+    v6 = *v21;
     v7 = *MEMORY[0x29EDC7628];
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v23 != v6)
+        if (*v21 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v22 + 1) + 8 * i);
+        v9 = *(*(&v20 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           v10 = [v9 length];
-          v21[0] = MEMORY[0x29EDCA5F8];
-          v21[1] = 3221225472;
-          v21[2] = __51__MKMultiPartLabelAccessibility_accessibilityLabel__block_invoke;
-          v21[3] = &unk_29F2CB190;
-          v21[4] = &v26;
-          [v9 enumerateAttribute:v7 inRange:0 options:v10 usingBlock:{0, v21}];
-          v11 = v27[5];
+          v19[0] = MEMORY[0x29EDCA5F8];
+          v19[1] = 3221225472;
+          v19[2] = __51__MKMultiPartLabelAccessibility_accessibilityLabel__block_invoke;
+          v19[3] = &unk_29F2CB190;
+          v19[4] = &v24;
+          [v9 enumerateAttribute:v7 inRange:0 options:v10 usingBlock:{0, v19}];
           string = [v9 string];
-          v18 = @"__AXStringForVariablesSentinel";
-          v12 = __UIAXStringForVariables();
-          v13 = v27[5];
-          v27[5] = v12;
+          v16 = @"__AXStringForVariablesSentinel";
+          v11 = __UIAXStringForVariables();
+          v12 = v25[5];
+          v25[5] = v11;
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v22 objects:v32 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v20 objects:v30 count:16];
     }
 
     while (v5);
   }
 
-  v14 = [v27[5] length];
-  if (v14)
+  v13 = [v25[5] length];
+  if (v13)
   {
-    v5 = v27[5];
+    v5 = v25[5];
   }
 
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v24, 8);
 
-  if (!v14)
+  if (!v13)
   {
 LABEL_14:
-    v5 = [(MKMultiPartLabelAccessibility *)self safeStringForKey:@"text", string, v18];
+    v5 = [(MKMultiPartLabelAccessibility *)self safeStringForKey:@"text", string, v16];
   }
-
-  v15 = *MEMORY[0x29EDCA608];
 
   return v5;
 }
 
 void __51__MKMultiPartLabelAccessibility_accessibilityLabel__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = a2;
+  v7 = a2;
   NSClassFromString(&cfstr_Nstextattachme.isa);
   if (objc_opt_isKindOfClass())
   {
-    v3 = *(*(*(a1 + 32) + 8) + 40);
-    v7 = [v8 accessibilityLabel];
-    v4 = __UIAXStringForVariables();
-    v5 = *(*(a1 + 32) + 8);
-    v6 = *(v5 + 40);
-    *(v5 + 40) = v4;
+    v6 = [v7 accessibilityLabel];
+    v3 = __UIAXStringForVariables();
+    v4 = *(*(a1 + 32) + 8);
+    v5 = *(v4 + 40);
+    *(v4 + 40) = v3;
   }
 }
 

@@ -61,35 +61,34 @@
 
 - (FCRecipeAccessChecker)initWithPrivateChannelMembershipController:(id)controller
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   if (!controllerCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateChannelMembershipController != nil"];
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateChannelMembershipController != nil"];
     *buf = 136315906;
-    v16 = "[FCRecipeAccessChecker initWithPrivateChannelMembershipController:]";
-    v17 = 2080;
-    v18 = "FCRecipeAccessChecker.m";
-    v19 = 1024;
-    v20 = 30;
-    v21 = 2114;
-    v22 = v11;
+    v15 = "[FCRecipeAccessChecker initWithPrivateChannelMembershipController:]";
+    v16 = 2080;
+    v17 = "FCRecipeAccessChecker.m";
+    v18 = 1024;
+    v19 = 30;
+    v20 = 2114;
+    v21 = v10;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v5 = MEMORY[0x1E695DEC8];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __68__FCRecipeAccessChecker_initWithPrivateChannelMembershipController___block_invoke;
-  v13[3] = &unk_1E7C36D40;
-  v14 = controllerCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __68__FCRecipeAccessChecker_initWithPrivateChannelMembershipController___block_invoke;
+  v12[3] = &unk_1E7C36D40;
+  v13 = controllerCopy;
   v6 = controllerCopy;
-  v7 = [v5 fc_array:v13];
-  v12.receiver = self;
-  v12.super_class = FCRecipeAccessChecker;
-  v8 = [(FCMultiAccessChecker *)&v12 initWithAccessCheckers:v7];
+  v7 = [v5 fc_array:v12];
+  v11.receiver = self;
+  v11.super_class = FCRecipeAccessChecker;
+  v8 = [(FCMultiAccessChecker *)&v11 initWithAccessCheckers:v7];
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

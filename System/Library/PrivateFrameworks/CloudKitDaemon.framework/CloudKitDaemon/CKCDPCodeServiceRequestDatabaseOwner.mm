@@ -112,7 +112,6 @@
   self->_identifier = 0;
   *&self->_has &= ~1u;
   self->_numericValue = 0;
-  stringValue = self->_stringValue;
   self->_stringValue = 0;
   MEMORY[0x2821F96F8]();
 }
@@ -166,18 +165,17 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    numericValue = self->_numericValue;
     PBDataWriterWriteUint64Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_stringValue)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -243,7 +241,6 @@
     goto LABEL_14;
   }
 
-  v8 = *(equalCopy + 32);
   if ((*&self->_has & 2) != 0)
   {
     if ((equalCopy[4] & 2) == 0 || self->_identifier != *(equalCopy + 4))
@@ -273,10 +270,10 @@ LABEL_14:
   }
 
   stringValue = self->_stringValue;
-  v10 = equalCopy[3];
-  if (stringValue | v10)
+  v9 = equalCopy[3];
+  if (stringValue | v9)
   {
-    isEqual = objc_msgSend_isEqual_(stringValue, v7, v10);
+    isEqual = objc_msgSend_isEqual_(stringValue, v7, v9);
   }
 
   else

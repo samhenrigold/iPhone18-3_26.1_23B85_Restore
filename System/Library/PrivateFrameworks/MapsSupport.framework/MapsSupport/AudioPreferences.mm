@@ -67,12 +67,9 @@
 
 - (void)_commonInit
 {
-  v2 = NavigationConfig_SpokenGuidanceLevel_Driving[1];
   _GEOConfigAddDelegateListenerForKey();
-  v3 = NavigationConfig_SpokenGuidanceLevel_Walking[1];
   _GEOConfigAddDelegateListenerForKey();
 
-  v4 = NavigationConfig_SpokenGuidanceLevel_Cycling[1];
   _GEOConfigAddDelegateListenerForKey();
 }
 
@@ -123,41 +120,42 @@
 - (void)_migrateVolumeSettings
 {
   _migratedMutedValue = [(AudioPreferences *)self _migratedMutedValue];
-  v4 = sub_10005329C();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
-  if (_migratedMutedValue)
+  v4 = _migratedMutedValue;
+  v5 = sub_10005329C(_migratedMutedValue);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
+  if (v4)
   {
-    if (v5)
+    if (v6)
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Migrating old volume setting to mute", &v12, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Migrating old volume setting to mute", &v13, 2u);
     }
 
-    v6 = &off_10008BF40;
+    v7 = &off_10008BF40;
   }
 
   else
   {
-    if (v5)
+    if (v6)
     {
       defaults = [(WatchSyncedPreferences *)self defaults];
-      v8 = [defaults objectForKey:@"VoiceIsMute"];
-      v12 = 138412290;
-      v13 = v8;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Migrating old volume setting to full, isMute: %@", &v12, 0xCu);
+      v9 = [defaults objectForKey:@"VoiceIsMute"];
+      v13 = 138412290;
+      v14 = v9;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Migrating old volume setting to full, isMute: %@", &v13, 0xCu);
     }
 
-    v6 = &off_10008BF58;
+    v7 = &off_10008BF58;
   }
 
   drivingModernPreference = self->_drivingModernPreference;
-  self->_drivingModernPreference = v6;
+  self->_drivingModernPreference = v7;
 
   walkingModernPreference = self->_walkingModernPreference;
-  self->_walkingModernPreference = v6;
+  self->_walkingModernPreference = v7;
 
   cyclingModernPreference = self->_cyclingModernPreference;
-  self->_cyclingModernPreference = v6;
+  self->_cyclingModernPreference = v7;
 
   [(AudioPreferences *)self synchronize];
 }
@@ -233,7 +231,6 @@
   self->_cyclingModernPreference = v10;
 
   [(AudioPreferences *)self synchronize];
-  v12 = NavigationConfig_SpokenGuidanceLevel_Driving[1];
   if (_GEOConfigHasValue())
   {
     self->_drivingVoiceGuidance = GEOConfigGetInteger();
@@ -241,8 +238,9 @@
 
   else
   {
-    self->_drivingVoiceGuidance = [(NSNumber *)self->_drivingModernPreference integerValue];
-    v13 = sub_10005329C();
+    integerValue = [(NSNumber *)self->_drivingModernPreference integerValue];
+    self->_drivingVoiceGuidance = integerValue;
+    v13 = sub_10005329C(integerValue);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = self->_drivingVoiceGuidance + 1;
@@ -257,7 +255,7 @@
       }
 
       *buf = 138412290;
-      v34 = v15;
+      v35 = v15;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Updating _drivingVoiceGuidance from old default to: %@", buf, 0xCu);
     }
 
@@ -265,7 +263,6 @@
     GEOConfigSetInteger();
   }
 
-  v16 = NavigationConfig_SpokenGuidanceLevel_Walking[1];
   if (_GEOConfigHasValue())
   {
     self->_walkingVoiceGuidance = GEOConfigGetInteger();
@@ -273,8 +270,9 @@
 
   else
   {
-    self->_walkingVoiceGuidance = [(NSNumber *)self->_walkingModernPreference integerValue];
-    v17 = sub_10005329C();
+    integerValue2 = [(NSNumber *)self->_walkingModernPreference integerValue];
+    self->_walkingVoiceGuidance = integerValue2;
+    v17 = sub_10005329C(integerValue2);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       v18 = self->_walkingVoiceGuidance + 1;
@@ -289,7 +287,7 @@
       }
 
       *buf = 138412290;
-      v34 = v19;
+      v35 = v19;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Updating _walkingVoiceGuidance from old default to: %@", buf, 0xCu);
     }
 
@@ -297,83 +295,84 @@
     GEOConfigSetInteger();
   }
 
-  v20 = NavigationConfig_SpokenGuidanceLevel_Cycling[1];
   if (_GEOConfigHasValue())
   {
-    self->_cyclingVoiceGuidance = GEOConfigGetInteger();
+    Integer = GEOConfigGetInteger();
+    self->_cyclingVoiceGuidance = Integer;
   }
 
   else
   {
-    self->_cyclingVoiceGuidance = [(NSNumber *)self->_cyclingModernPreference integerValue];
-    v21 = sub_10005329C();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    integerValue3 = [(NSNumber *)self->_cyclingModernPreference integerValue];
+    self->_cyclingVoiceGuidance = integerValue3;
+    v22 = sub_10005329C(integerValue3);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = self->_cyclingVoiceGuidance + 1;
-      if (v22 >= 4)
+      v23 = self->_cyclingVoiceGuidance + 1;
+      if (v23 >= 4)
       {
-        v23 = [NSString stringWithFormat:@"UNKNOWN: %lu", self->_cyclingVoiceGuidance];
+        v24 = [NSString stringWithFormat:@"UNKNOWN: %lu", self->_cyclingVoiceGuidance];
       }
 
       else
       {
-        v23 = off_100085770[v22];
+        v24 = off_100085770[v23];
       }
 
       *buf = 138412290;
-      v34 = v23;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Updating _cyclingVoiceGuidance from old default to: %@", buf, 0xCu);
+      v35 = v24;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Updating _cyclingVoiceGuidance from old default to: %@", buf, 0xCu);
     }
 
     [(NSNumber *)self->_cyclingModernPreference integerValue];
-    GEOConfigSetInteger();
+    Integer = GEOConfigSetInteger();
   }
 
-  v24 = sub_10005329C();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v25 = sub_10005329C(Integer);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = self->_drivingVoiceGuidance + 1;
-    if (v25 >= 4)
+    v26 = self->_drivingVoiceGuidance + 1;
+    if (v26 >= 4)
     {
-      v26 = [NSString stringWithFormat:@"UNKNOWN: %lu", self->_drivingVoiceGuidance];
+      v27 = [NSString stringWithFormat:@"UNKNOWN: %lu", self->_drivingVoiceGuidance];
     }
 
     else
     {
-      v26 = off_100085770[v25];
+      v27 = off_100085770[v26];
     }
 
-    v27 = v26;
-    v28 = self->_walkingVoiceGuidance + 1;
-    if (v28 >= 4)
+    v28 = v27;
+    v29 = self->_walkingVoiceGuidance + 1;
+    if (v29 >= 4)
     {
-      v29 = [NSString stringWithFormat:@"UNKNOWN: %lu", self->_walkingVoiceGuidance];
-    }
-
-    else
-    {
-      v29 = off_100085770[v28];
-    }
-
-    v30 = v29;
-    v31 = self->_cyclingVoiceGuidance + 1;
-    if (v31 >= 4)
-    {
-      v32 = [NSString stringWithFormat:@"UNKNOWN: %lu", self->_cyclingVoiceGuidance];
+      v30 = [NSString stringWithFormat:@"UNKNOWN: %lu", self->_walkingVoiceGuidance];
     }
 
     else
     {
-      v32 = off_100085770[v31];
+      v30 = off_100085770[v29];
+    }
+
+    v31 = v30;
+    v32 = self->_cyclingVoiceGuidance + 1;
+    if (v32 >= 4)
+    {
+      v33 = [NSString stringWithFormat:@"UNKNOWN: %lu", self->_cyclingVoiceGuidance];
+    }
+
+    else
+    {
+      v33 = off_100085770[v32];
     }
 
     *buf = 138412802;
-    v34 = v27;
-    v35 = 2112;
-    v36 = v30;
-    v37 = 2112;
-    v38 = v32;
-    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Loaded values from defaults:\n\tDriving voice guidance: %@\n\tWalking voice guidance: %@\n\tCycling voice guidance: %@", buf, 0x20u);
+    v35 = v28;
+    v36 = 2112;
+    v37 = v31;
+    v38 = 2112;
+    v39 = v33;
+    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Loaded values from defaults:\n\tDriving voice guidance: %@\n\tWalking voice guidance: %@\n\tCycling voice guidance: %@", buf, 0x20u);
   }
 }
 
@@ -391,17 +390,14 @@
 
 - (void)synchronize
 {
-  v6.receiver = self;
-  v6.super_class = AudioPreferences;
-  [(WatchSyncedPreferences *)&v6 synchronize];
+  v3.receiver = self;
+  v3.super_class = AudioPreferences;
+  [(WatchSyncedPreferences *)&v3 synchronize];
   [(AudioPreferences *)self drivingVoiceGuidance];
-  v3 = NavigationConfig_SpokenGuidanceLevel_Driving[1];
   GEOConfigSetInteger();
   [(AudioPreferences *)self walkingVoiceGuidance];
-  v4 = NavigationConfig_SpokenGuidanceLevel_Walking[1];
   GEOConfigSetInteger();
   [(AudioPreferences *)self cyclingVoiceGuidance];
-  v5 = NavigationConfig_SpokenGuidanceLevel_Cycling[1];
   GEOConfigSetInteger();
 }
 
@@ -438,7 +434,6 @@
   if (self->_drivingVoiceGuidance != guidance)
   {
     self->_drivingVoiceGuidance = guidance;
-    v7 = NavigationConfig_SpokenGuidanceLevel_Driving[1];
 
     GEOConfigSetInteger();
   }
@@ -453,7 +448,6 @@
   if (self->_walkingVoiceGuidance != guidance)
   {
     self->_walkingVoiceGuidance = guidance;
-    v7 = NavigationConfig_SpokenGuidanceLevel_Walking[1];
 
     GEOConfigSetInteger();
   }
@@ -468,7 +462,6 @@
   if (self->_cyclingVoiceGuidance != guidance)
   {
     self->_cyclingVoiceGuidance = guidance;
-    v7 = NavigationConfig_SpokenGuidanceLevel_Cycling[1];
 
     GEOConfigSetInteger();
   }

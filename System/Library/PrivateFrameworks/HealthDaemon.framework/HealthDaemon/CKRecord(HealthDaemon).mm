@@ -21,29 +21,17 @@
   recordID2 = [v4 recordID];
   v7 = [recordID isEqual:recordID2];
 
-  if (!v7)
-  {
-    goto LABEL_4;
-  }
-
-  valueStore = [self valueStore];
-  values = [valueStore values];
-  valueStore2 = [v4 valueStore];
-  values2 = [valueStore2 values];
-  v12 = [values isEqual:values2];
-
-  if (v12)
+  if (v7 && ([self valueStore], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "values"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "valueStore"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "values"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v9, "isEqual:", v11), v11, v10, v9, v8, v12))
   {
     encryptedValueStore = [self encryptedValueStore];
-    values3 = [encryptedValueStore values];
+    values = [encryptedValueStore values];
     encryptedValueStore2 = [v4 encryptedValueStore];
-    values4 = [encryptedValueStore2 values];
-    v17 = [values3 isEqual:values4];
+    values2 = [encryptedValueStore2 values];
+    v17 = [values isEqual:values2];
   }
 
   else
   {
-LABEL_4:
     v17 = 0;
   }
 
@@ -213,43 +201,43 @@ LABEL_9:
 
 - (id)hd_optionalValueForKey:()HealthDaemon type:error:
 {
-  v4 = a3;
-  v5 = [self objectForKeyedSubscript:v4];
-  if (v5)
+  v6 = a3;
+  v7 = [self objectForKeyedSubscript:v6];
+  if (v7)
   {
-    v6 = HKSafeObject();
+    v8 = HKSafeObject();
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
   }
 
-  return v6;
+  return v8;
 }
 
 - (id)hd_optionalEncryptedValueForKey:()HealthDaemon type:error:
 {
-  v4 = a3;
+  v6 = a3;
   encryptedValues = [self encryptedValues];
-  v6 = [encryptedValues objectForKeyedSubscript:v4];
+  v8 = [encryptedValues objectForKeyedSubscript:v6];
 
-  if (v6)
+  if (v8)
   {
-    v7 = HKSafeObject();
+    v9 = HKSafeObject();
   }
 
   else
   {
-    v7 = 0;
+    v9 = 0;
   }
 
-  return v7;
+  return v9;
 }
 
 + (id)hd_recordWithSystemData:()HealthDaemon error:
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = _recordClasses;
   if (!_recordClasses)
@@ -260,34 +248,34 @@ LABEL_9:
   v7 = v6;
   v8 = [v7 arrayByAddingObject:objc_opt_class()];
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v10)
   {
     v11 = v10;
     v12 = 0;
-    v13 = *v31;
-    v28 = a4;
+    v13 = *v30;
+    v27 = a4;
     while (2)
     {
       v14 = 0;
       v15 = v12;
       do
       {
-        if (*v31 != v13)
+        if (*v30 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v16 = *(*(&v30 + 1) + 8 * v14);
+        v16 = *(*(&v29 + 1) + 8 * v14);
         v17 = objc_alloc(MEMORY[0x277CCAAC8]);
-        v29 = v15;
-        v18 = [v17 initForReadingFromData:v5 error:&v29];
-        v12 = v29;
+        v28 = v15;
+        v18 = [v17 initForReadingFromData:v5 error:&v28];
+        v12 = v28;
 
         if (!v18)
         {
@@ -295,7 +283,7 @@ LABEL_9:
           v24 = MEMORY[0x277CCACA8];
           v22 = NSStringFromClass(v16);
           v25 = [v24 stringWithFormat:@"Failed to initialize unarchiver for class %@", v22];
-          [v23 hk_assignError:v28 code:100 description:v25 underlyingError:v12];
+          [v23 hk_assignError:v27 code:100 description:v25 underlyingError:v12];
 
           v20 = v9;
           goto LABEL_16;
@@ -315,8 +303,8 @@ LABEL_9:
       }
 
       while (v11 != v14);
-      v11 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
-      a4 = v28;
+      v11 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      a4 = v27;
       if (v11)
       {
         continue;
@@ -339,8 +327,6 @@ LABEL_16:
 
   v19 = 0;
 LABEL_18:
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

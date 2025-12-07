@@ -323,7 +323,6 @@ LABEL_17:
       goto LABEL_56;
     }
 
-    v8 = *(equalCopy + 60);
     if (self->_addSpaceAfter)
     {
       if ((*(equalCopy + 60) & 1) == 0)
@@ -350,7 +349,6 @@ LABEL_17:
       goto LABEL_56;
     }
 
-    v9 = *(equalCopy + 61);
     if (self->_removeSpaceAfter)
     {
       if ((*(equalCopy + 61) & 1) == 0)
@@ -378,7 +376,7 @@ LABEL_17:
     }
 
 LABEL_56:
-    v11 = 0;
+    v8 = 0;
     goto LABEL_57;
   }
 
@@ -387,7 +385,6 @@ LABEL_56:
     goto LABEL_56;
   }
 
-  v10 = *(equalCopy + 62);
   if (self->_removeSpaceBefore)
   {
     if ((*(equalCopy + 62) & 1) == 0)
@@ -454,7 +451,7 @@ LABEL_14:
     goto LABEL_56;
   }
 
-  v11 = (*(equalCopy + 64) & 8) == 0;
+  v8 = (*(equalCopy + 64) & 8) == 0;
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 64) & 8) == 0 || self->_endMilliSeconds != *(equalCopy + 6))
@@ -462,12 +459,12 @@ LABEL_14:
       goto LABEL_56;
     }
 
-    v11 = 1;
+    v8 = 1;
   }
 
 LABEL_57:
 
-  return v11;
+  return v8;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -730,31 +727,30 @@ LABEL_16:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v14 = toCopy;
+  v6 = toCopy;
   if (self->_postItnText)
   {
     PBDataWriterWriteStringField();
-    toCopy = v14;
+    toCopy = v6;
   }
 
   if (self->_phoneSequence)
   {
     PBDataWriterWriteStringField();
-    toCopy = v14;
+    toCopy = v6;
   }
 
   if (self->_ipaPhoneSequence)
   {
     PBDataWriterWriteStringField();
-    toCopy = v14;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 0x20) != 0)
   {
-    addSpaceAfter = self->_addSpaceAfter;
     PBDataWriterWriteBOOLField();
-    toCopy = v14;
+    toCopy = v6;
     has = self->_has;
     if ((has & 0x40) == 0)
     {
@@ -773,9 +769,8 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  removeSpaceAfter = self->_removeSpaceAfter;
   PBDataWriterWriteBOOLField();
-  toCopy = v14;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x80) == 0)
   {
@@ -789,9 +784,8 @@ LABEL_10:
   }
 
 LABEL_21:
-  removeSpaceBefore = self->_removeSpaceBefore;
   PBDataWriterWriteBOOLField();
-  toCopy = v14;
+  toCopy = v6;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -805,9 +799,8 @@ LABEL_11:
   }
 
 LABEL_22:
-  confidenceScore = self->_confidenceScore;
   PBDataWriterWriteDoubleField();
-  toCopy = v14;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -821,9 +814,8 @@ LABEL_12:
   }
 
 LABEL_23:
-  beginIndex = self->_beginIndex;
   PBDataWriterWriteUint32Field();
-  toCopy = v14;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -837,9 +829,8 @@ LABEL_13:
   }
 
 LABEL_24:
-  endIndex = self->_endIndex;
   PBDataWriterWriteUint32Field();
-  toCopy = v14;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -853,15 +844,13 @@ LABEL_14:
   }
 
 LABEL_25:
-  startMilliSeconds = self->_startMilliSeconds;
   PBDataWriterWriteInt32Field();
-  toCopy = v14;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_15:
-    endMilliSeconds = self->_endMilliSeconds;
     PBDataWriterWriteInt32Field();
-    toCopy = v14;
+    toCopy = v6;
   }
 
 LABEL_16:

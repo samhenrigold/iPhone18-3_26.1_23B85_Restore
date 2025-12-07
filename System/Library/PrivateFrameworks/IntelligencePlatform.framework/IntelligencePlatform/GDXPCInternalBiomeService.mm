@@ -1,10 +1,13 @@
 @interface GDXPCInternalBiomeService
 - (BOOL)viewDumpStateWithError:(id *)error;
+- (BOOL)viewSetEnabledWithName:(id)name enabled:(BOOL)enabled error:(id *)error;
 - (BOOL)viewStopWithError:(id *)error;
 - (BOOL)viewValidateWithError:(id *)error;
 - (GDXPCInternalBiomeService)init;
 - (id)synchronousRemoteObjectProxyWithErrorHandler:(id)handler;
 - (id)viewClearAllDataWithViewQuery:(id)query error:(id *)error;
+- (id)viewRunUpdateWithViewQuery:(id)query forceRebuild:(BOOL)rebuild priorityOverride:(id)override error:(id *)error;
+- (id)viewValidateWithViewQuery:(id)query applyFixes:(BOOL)fixes verbose:(int64_t)verbose error:(id *)error;
 - (void)dealloc;
 - (void)locked_establishConnection;
 @end
@@ -102,6 +105,112 @@
 
   _Block_object_dispose(&v18, 8);
   return v7 & 1;
+}
+
+- (id)viewValidateWithViewQuery:(id)query applyFixes:(BOOL)fixes verbose:(int64_t)verbose error:(id *)error
+{
+  fixesCopy = fixes;
+  queryCopy = query;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = sub_1ABF127C0;
+  v29 = sub_1ABF127D0;
+  v30 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = sub_1ABF127C0;
+  v23 = sub_1ABF127D0;
+  v24 = 0;
+  v11 = GDXPCLog();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_1ABA78000, v11, OS_LOG_TYPE_DEFAULT, "GDXPCInternalService: viewRunUpdate called", buf, 2u);
+  }
+
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = sub_1ABF12E2C;
+  v17[3] = &unk_1E7962878;
+  v17[4] = &v19;
+  v17[5] = &v25;
+  v12 = [(GDXPCInternalBiomeService *)self synchronousRemoteObjectProxyWithErrorHandler:v17];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = sub_1ABF12F18;
+  v16[3] = &unk_1E79627E8;
+  v16[4] = &v25;
+  v16[5] = &v19;
+  [v12 viewValidateWithViewQuery:queryCopy applyFixes:fixesCopy verbose:verbose completion:v16];
+
+  v13 = v26[5];
+  if (error && !v13)
+  {
+    *error = v20[5];
+    v13 = v26[5];
+  }
+
+  v14 = v13;
+  _Block_object_dispose(&v19, 8);
+
+  _Block_object_dispose(&v25, 8);
+
+  return v14;
+}
+
+- (BOOL)viewSetEnabledWithName:(id)name enabled:(BOOL)enabled error:(id *)error
+{
+  enabledCopy = enabled;
+  v31 = *MEMORY[0x1E69E9840];
+  nameCopy = name;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = sub_1ABF127C0;
+  v23 = sub_1ABF127D0;
+  v24 = 0;
+  v9 = GDXPCLog();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v30 = nameCopy;
+    _os_log_impl(&dword_1ABA78000, v9, OS_LOG_TYPE_DEFAULT, "GDXPCInternalService: viewSetEnabled called [name=%@].", buf, 0xCu);
+  }
+
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = sub_1ABF13210;
+  v15[3] = &unk_1E79625C8;
+  v10 = nameCopy;
+  v16 = v10;
+  v17 = &v19;
+  v18 = &v25;
+  v11 = [(GDXPCInternalBiomeService *)self synchronousRemoteObjectProxyWithErrorHandler:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1ABF13304;
+  v14[3] = &unk_1E79628A0;
+  v14[4] = &v25;
+  v14[5] = &v19;
+  [v11 viewSetEnabledWithName:v10 enabled:enabledCopy completion:v14];
+
+  v12 = *(v26 + 24);
+  if (error && (v26[3] & 1) == 0)
+  {
+    *error = v20[5];
+    v12 = *(v26 + 24);
+  }
+
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v25, 8);
+
+  return v12 & 1;
 }
 
 - (id)viewClearAllDataWithViewQuery:(id)query error:(id *)error
@@ -207,6 +316,60 @@
 
   _Block_object_dispose(&v18, 8);
   return v7 & 1;
+}
+
+- (id)viewRunUpdateWithViewQuery:(id)query forceRebuild:(BOOL)rebuild priorityOverride:(id)override error:(id *)error
+{
+  rebuildCopy = rebuild;
+  queryCopy = query;
+  overrideCopy = override;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = sub_1ABF127C0;
+  v30 = sub_1ABF127D0;
+  v31 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_1ABF127C0;
+  v24 = sub_1ABF127D0;
+  v25 = 0;
+  v12 = GDXPCLog();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_1ABA78000, v12, OS_LOG_TYPE_DEFAULT, "GDXPCInternalService: viewRunUpdate called", buf, 2u);
+  }
+
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = sub_1ABF13C90;
+  v18[3] = &unk_1E7962878;
+  v18[4] = &v20;
+  v18[5] = &v26;
+  v13 = [(GDXPCInternalBiomeService *)self synchronousRemoteObjectProxyWithErrorHandler:v18];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = sub_1ABF13D7C;
+  v17[3] = &unk_1E79625F0;
+  v17[4] = &v26;
+  v17[5] = &v20;
+  [v13 viewRunUpdateWithViewQuery:queryCopy forceRebuild:rebuildCopy priorityOverride:overrideCopy completion:v17];
+
+  v14 = v27[5];
+  if (error && !v14)
+  {
+    *error = v21[5];
+    v14 = v27[5];
+  }
+
+  v15 = v14;
+  _Block_object_dispose(&v20, 8);
+
+  _Block_object_dispose(&v26, 8);
+
+  return v15;
 }
 
 - (id)synchronousRemoteObjectProxyWithErrorHandler:(id)handler

@@ -2,6 +2,7 @@
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (CDXManager)init;
 - (id)_loadExtensionDataOperationWithStore:(id)store extension:(id)extension;
+- (id)identificationEntryFrom:(id)from withName:(id)name withIconURL:(id)l withType:(int64_t)type fromCache:(BOOL)cache;
 - (void)_setUpTemporaryDirectory;
 - (void)callDirectoryHost:(id)host requestedEnabledForLiveLookupExtension:(id)extension completionHandler:(id)handler;
 - (void)callDirectoryHost:(id)host requestedEnabledStatusForExtension:(id)extension completionHandler:(id)handler;
@@ -14,9 +15,11 @@
 - (void)callDirectoryHost:(id)host requestedRefreshPIRParametersForLiveLookupExtension:(id)extension completionHandler:(id)handler;
 - (void)callDirectoryHost:(id)host requestedReloadForExtension:(id)extension completionHandler:(id)handler;
 - (void)callDirectoryHost:(id)host requestedResetForLiveLookupExtension:(id)extension completionHandler:(id)handler;
+- (void)callDirectoryHost:(id)host requestedSetEnabled:(BOOL)enabled forLiveLookupExtension:(id)extension completionHandler:(id)handler;
 - (void)callDirectoryHost:(id)host requestedToCompactStoreWithCompletionHandler:(id)handler;
 - (void)callDirectoryHost:(id)host requestedToLaunchCallDirectorySettingsWithCompletionHandler:(id)handler;
 - (void)callDirectoryHost:(id)host requestedToPrepareStoreWithCompletionHandler:(id)handler;
+- (void)callDirectoryHost:(id)host requestedToSetEnabled:(BOOL)enabled forExtension:(id)extension completionHandler:(id)handler;
 - (void)callDirectoryHost:(id)host requestedToSetPrioritizedExtensionIdentifiers:(id)identifiers completionHandler:(id)handler;
 - (void)callDirectoryHost:(id)host requestedToSynchronizeExtensionsWithCompletionHandler:(id)handler;
 - (void)callDirectoryHostRequestedToCleanupLiveLookupData:(id)data;
@@ -218,6 +221,55 @@ LABEL_10:
   }
 }
 
+- (void)callDirectoryHost:(id)host requestedToSetEnabled:(BOOL)enabled forExtension:(id)extension completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  extensionCopy = extension;
+  handlerCopy = handler;
+  v11 = sub_100001C1C();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v26 = extensionCopy;
+    v27 = 1024;
+    v28 = enabledCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "extension %@ enabled %d", buf, 0x12u);
+  }
+
+  v24 = 0;
+  v12 = [[CXCallDirectoryStore alloc] initForReadingAndWritingWithError:&v24];
+  v13 = v24;
+  if (v12)
+  {
+    v14 = [(CDXManager *)self _loadExtensionDataOperationWithStore:v12 extension:extensionCopy];
+    v15 = [CDXSetExtensionEnabledOperation alloc];
+    identifier = [extensionCopy identifier];
+    v17 = [(CDXSetExtensionEnabledOperation *)v15 initWithExtensionIdentifier:identifier enabled:enabledCopy loadExtensionDataOperation:v14 store:v12];
+
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_10000A5E8;
+    v19[3] = &unk_100034E18;
+    v23 = enabledCopy;
+    v20 = extensionCopy;
+    v21 = v12;
+    v22 = handlerCopy;
+    [(CDXSetExtensionEnabledOperation *)v17 performWithCompletionHandler:v19];
+  }
+
+  else
+  {
+    v18 = sub_100001C1C();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      sub_100021BC8();
+    }
+
+    v14 = [NSError cx_callDirectoryManagerErrorWithCode:0];
+    (*(handlerCopy + 2))(handlerCopy, v14);
+  }
+}
+
 - (void)callDirectoryHost:(id)host requestedFirstIdentificationEntriesForEnabledExtensionsWithPhoneNumbers:(id)numbers cacheOnly:(BOOL)only completionHandler:(id)handler
 {
   numbersCopy = numbers;
@@ -386,6 +438,31 @@ LABEL_7:
   v37 = v21;
   v38 = v31;
   [v29 requestDataByStringKeyword:v34 completionHandler:v41];
+}
+
+- (id)identificationEntryFrom:(id)from withName:(id)name withIconURL:(id)l withType:(int64_t)type fromCache:(BOOL)cache
+{
+  cacheCopy = cache;
+  lCopy = l;
+  nameCopy = name;
+  v13 = [NSExtension extensionWithIdentifier:from error:0];
+  v14 = objc_alloc_init(CXCallDirectoryIdentificationEntry);
+  identifier = [v13 identifier];
+  [v14 setExtensionIdentifier:identifier];
+
+  localizedName = [v13 localizedName];
+  [v14 setLocalizedExtensionName:localizedName];
+
+  localizedContainingAppName = [v13 localizedContainingAppName];
+  [v14 setLocalizedExtensionContainingAppName:localizedContainingAppName];
+
+  [v14 setLocalizedLabel:nameCopy];
+  [v14 setIconURL:lCopy];
+
+  [v14 setType:type];
+  [v14 setFromCache:cacheCopy];
+
+  return v14;
 }
 
 - (void)fetchLiveIdentityInfoFor:(id)for cacheOnly:(BOOL)only completionHandler:(id)handler
@@ -1165,6 +1242,17 @@ LABEL_50:
   identifier = [extensionCopy identifier];
 
   (*(handler + 2))(handlerCopy, [liveLookupStore enabledForExtensionWith:identifier], 0);
+}
+
+- (void)callDirectoryHost:(id)host requestedSetEnabled:(BOOL)enabled forLiveLookupExtension:(id)extension completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  handlerCopy = handler;
+  extensionCopy = extension;
+  liveLookupStore = [(CDXManager *)self liveLookupStore];
+  identifier = [extensionCopy identifier];
+
+  [liveLookupStore setEnabled:enabledCopy forExtensionWith:identifier completionHandler:handlerCopy];
 }
 
 - (void)callDirectoryHost:(id)host requestedResetForLiveLookupExtension:(id)extension completionHandler:(id)handler

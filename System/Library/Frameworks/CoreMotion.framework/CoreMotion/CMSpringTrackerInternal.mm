@@ -89,7 +89,7 @@
 
 - (void)_handleStartStopResponse:(shared_ptr<CLConnectionMessage>)response handler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (response.var1)
   {
     var0 = response.var0;
@@ -103,14 +103,14 @@
       v13 = objc_msgSend_objectForKeyedSubscript_(DictionaryOfClasses, v12, @"CMErrorMessage");
       if (v13)
       {
-        v24[0] = MEMORY[0x1E69E9820];
-        v24[1] = 3221225472;
-        v24[2] = sub_19B65843C;
-        v24[3] = &unk_1E7532B68;
-        v24[4] = v13;
-        v24[5] = v5;
+        v26[0] = MEMORY[0x1E69E9820];
+        v26[1] = 3221225472;
+        v26[2] = sub_19B65843C;
+        v26[3] = &unk_1E7532B68;
+        v26[4] = v13;
+        v26[5] = v5;
         v14 = MEMORY[0x1E69E96A0];
-        v15 = v24;
+        v15 = v26;
       }
 
       else
@@ -136,22 +136,24 @@
             dispatch_once(&qword_1EAFE2B08, &unk_1F0E3A928);
           }
 
-          v26 = 0;
-          v22 = _os_log_send_and_compose_impl();
+          v28[0] = 0;
+          LODWORD(v24) = 2;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2B10, 17, "Error parsing start / stop response.", v28, v24);
+          v23 = v22;
           sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSpringTrackerInternal _handleStartStopResponse:handler:]", "CoreLocation: %s\n", v22);
-          if (v22 != buf)
+          if (v23 != buf)
           {
-            free(v22);
+            free(v23);
           }
         }
 
-        v23[0] = MEMORY[0x1E69E9820];
-        v23[1] = 3221225472;
-        v23[2] = sub_19B6584D0;
-        v23[3] = &unk_1E7532B40;
-        v23[4] = v5;
+        v25[0] = MEMORY[0x1E69E9820];
+        v25[1] = 3221225472;
+        v25[2] = sub_19B6584D0;
+        v25[3] = &unk_1E7532B40;
+        v25[4] = v5;
         v14 = MEMORY[0x1E69E96A0];
-        v15 = v23;
+        v15 = v25;
       }
     }
 
@@ -192,17 +194,16 @@
         dispatch_once(&qword_1EAFE2B08, &unk_1F0E3A928);
       }
 
-      v26 = 0;
-      v18 = _os_log_send_and_compose_impl();
+      v28[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2B10, 17, "Error responding to start / stop tracking request, handler unavailable.", v28, 2);
+      v19 = v18;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSpringTrackerInternal _handleStartStopResponse:handler:]", "CoreLocation: %s\n", v18);
-      if (v18 != buf)
+      if (v19 != buf)
       {
-        free(v18);
+        free(v19);
       }
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_querySpringDataFromRecord:(id)record handler:(id)handler

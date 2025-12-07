@@ -105,13 +105,13 @@ LABEL_15:
       ++*(v11 + 16);
     }
 
-    [(WKHTTPCookieStore *)self _protectedCookieStore];
+    objc_msgSend__protectedCookieStore(self);
     API::HTTPCookieStore::unregisterObserver(v14, v11);
     v12 = v14;
     v14 = 0;
     if (v12)
     {
-      CFRelease(*(v12 + 8));
+      CFRelease(v12[1]);
     }
 
     if (*(v11 + 16) == 1)
@@ -142,72 +142,72 @@ LABEL_15:
 {
   if (self)
   {
-    [(WKHTTPCookieStore *)self _protectedCookieStore];
-    v4 = v10;
+    objc_msgSend__protectedCookieStore(self, a2);
+    v4 = v11;
   }
 
   else
   {
     v4 = 0;
-    v10 = 0;
+    v11 = 0;
   }
 
   v5 = [completionHandler copy];
-  v6 = WTF::fastMalloc(0x10);
-  *v6 = &unk_1F10F6668;
-  v6[1] = v5;
-  v9 = v6;
-  API::HTTPCookieStore::cookies(v4, &v9);
-  v7 = v9;
-  v9 = 0;
-  if (v7)
-  {
-    (*(*v7 + 8))(v7);
-  }
-
+  v7 = WTF::fastMalloc(v6, 0x10);
+  *v7 = &unk_1F10F6668;
+  v7[1] = v5;
+  v10 = v7;
+  API::HTTPCookieStore::cookies(v4, &v10);
   v8 = v10;
   v10 = 0;
   if (v8)
   {
-    CFRelease(*(v8 + 8));
+    (*(*v8 + 8))(v8);
+  }
+
+  v9 = v11;
+  v11 = 0;
+  if (v9)
+  {
+    CFRelease(*(v9 + 8));
   }
 }
 
 - (void)setCookie:(NSHTTPCookie *)cookie completionHandler:(void *)completionHandler
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    [(WKHTTPCookieStore *)self _protectedCookieStore];
-    v6 = v14;
+    objc_msgSend__protectedCookieStore(self, a2);
+    v6 = v15;
   }
 
   else
   {
     v6 = 0;
-    v14 = 0;
+    v15 = 0;
   }
 
-  MEMORY[0x19EB0E900](v15, cookie);
-  WTF::Vector<WebCore::Cookie,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(&v13, v15, 1uLL);
+  MEMORY[0x19EB0E900](v16, cookie);
+  WTF::Vector<WebCore::Cookie,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v14, v16, 1uLL);
   v7 = [completionHandler copy];
-  v8 = WTF::fastMalloc(0x10);
-  *v8 = &unk_1F10F6690;
-  v8[1] = v7;
-  v12 = v8;
-  API::HTTPCookieStore::setCookies(v6, &v13, &v12);
+  v9 = WTF::fastMalloc(v8, 0x10);
+  *v9 = &unk_1F10F6690;
+  v9[1] = v7;
+  v13 = v9;
+  API::HTTPCookieStore::setCookies(v6, v14, &v13);
+  if (v13)
+  {
+    (*(*v13 + 8))(v13);
+  }
+
+  WTF::Vector<WebCore::Cookie,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v14, v10);
+  WebCore::Cookie::~Cookie(v16, v11);
+  v12 = v15;
+  v15 = 0;
   if (v12)
   {
-    (*(*v12 + 8))(v12);
-  }
-
-  WTF::Vector<WebCore::Cookie,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v13, v9);
-  WebCore::Cookie::~Cookie(v15, v10);
-  v11 = v14;
-  v14 = 0;
-  if (v11)
-  {
-    CFRelease(*(v11 + 8));
+    CFRelease(*(v12 + 8));
   }
 }
 
@@ -215,19 +215,20 @@ LABEL_15:
 {
   if (self)
   {
-    [(WKHTTPCookieStore *)self _protectedCookieStore];
-    v6 = v23;
+    objc_msgSend__protectedCookieStore(self, a2);
+    v6 = v25;
   }
 
   else
   {
     v6 = 0;
-    v23 = 0;
+    v25 = 0;
   }
 
   v7 = [cookies count];
   v8 = v7;
-  v22 = 0uLL;
+  v23 = 0;
+  v24 = 0;
   if (v7)
   {
     if (v7 >= 0x1C71C72)
@@ -237,31 +238,31 @@ LABEL_15:
     }
 
     v9 = 144 * v7;
-    v10 = WTF::fastMalloc((144 * v7));
-    v21 = v6;
-    v22.n128_u64[0] = v10;
+    v10 = WTF::fastMalloc((9 * v7), (144 * v7));
+    v22 = v6;
+    v23 = v10;
     v11 = 0;
     v12 = 0;
-    v22.n128_u32[2] = v9 / 0x90;
+    LODWORD(v24) = v9 / 0x90;
     do
     {
-      v13 = [cookies objectAtIndexedSubscript:{v12, v21, v22.n128_u64[0], v22.n128_u64[1]}];
+      v13 = [cookies objectAtIndexedSubscript:{v12, v22, v23, v24}];
       if (v13)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          MEMORY[0x19EB0E900](v26, v13);
-          WebCore::Cookie::Cookie(v24, v26);
-          v25 = 1;
-          WebCore::Cookie::~Cookie(v26, v14);
-          if (v25)
+          MEMORY[0x19EB0E900](v28, v13);
+          WebCore::Cookie::Cookie(v26, v28);
+          v27 = 1;
+          WebCore::Cookie::~Cookie(v28, v14);
+          if (v27)
           {
-            WebCore::Cookie::Cookie(v10 + 144 * v11++, v24);
-            v22.n128_u32[3] = v11;
-            if (v25)
+            WebCore::Cookie::Cookie(&v10[18 * v11++], v26);
+            HIDWORD(v24) = v11;
+            if (v27)
             {
-              WebCore::Cookie::~Cookie(v24, v15);
+              WebCore::Cookie::~Cookie(v26, v15);
             }
           }
         }
@@ -272,7 +273,7 @@ LABEL_15:
 
     while (v8 != v12);
     v16 = v11;
-    v6 = v21;
+    v6 = v22;
   }
 
   else
@@ -280,25 +281,25 @@ LABEL_15:
     v16 = 0;
   }
 
-  WTF::Vector<WebCore::Cookie,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(&v22, v16);
+  WTF::Vector<WebCore::Cookie,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(&v23, v16);
   v17 = _Block_copy(handler);
-  v18 = WTF::fastMalloc(0x10);
-  *v18 = &unk_1F10F66B8;
-  v18[1] = v17;
-  v24[0] = v18;
-  API::HTTPCookieStore::setCookies(v6, &v22, v24);
-  if (v24[0])
+  v19 = WTF::fastMalloc(v18, 0x10);
+  *v19 = &unk_1F10F66B8;
+  v19[1] = v17;
+  v26[0] = v19;
+  API::HTTPCookieStore::setCookies(v6, &v23, v26);
+  if (v26[0])
   {
-    (*(*v24[0] + 8))(v24[0]);
+    (*(*v26[0] + 8))(v26[0]);
   }
 
   _Block_release(0);
-  WTF::Vector<WebCore::Cookie,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v22, v19);
-  v20 = v23;
-  v23 = 0;
-  if (v20)
+  WTF::Vector<WebCore::Cookie,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v23, v20);
+  v21 = v25;
+  v25 = 0;
+  if (v21)
   {
-    CFRelease(*(v20 + 8));
+    CFRelease(*(v21 + 8));
   }
 }
 
@@ -306,36 +307,36 @@ LABEL_15:
 {
   if (self)
   {
-    [(WKHTTPCookieStore *)self _protectedCookieStore];
-    v6 = v14;
+    objc_msgSend__protectedCookieStore(self, a2);
+    v6 = v15;
   }
 
   else
   {
     v6 = 0;
-    v14 = 0;
+    v15 = 0;
   }
 
-  MEMORY[0x19EB0E900](v13, cookie);
+  MEMORY[0x19EB0E900](v14, cookie);
   v7 = [completionHandler copy];
-  v8 = WTF::fastMalloc(0x10);
-  *v8 = &unk_1F10F66E0;
-  v8[1] = v7;
-  v12 = v8;
-  API::HTTPCookieStore::deleteCookie(v6, v13, &v12);
-  v10 = v12;
-  v12 = 0;
-  if (v10)
-  {
-    (*(*v10 + 8))(v10);
-  }
-
-  WebCore::Cookie::~Cookie(v13, v9);
-  v11 = v14;
-  v14 = 0;
+  v9 = WTF::fastMalloc(v8, 0x10);
+  *v9 = &unk_1F10F66E0;
+  v9[1] = v7;
+  v13 = v9;
+  API::HTTPCookieStore::deleteCookie(v6, v14, &v13);
+  v11 = v13;
+  v13 = 0;
   if (v11)
   {
-    CFRelease(*(v11 + 1));
+    (*(*v11 + 8))(v11);
+  }
+
+  WebCore::Cookie::~Cookie(v14, v10);
+  v12 = v15;
+  v15 = 0;
+  if (v12)
+  {
+    CFRelease(*(v12 + 1));
   }
 }
 
@@ -436,7 +437,7 @@ LABEL_22:
         }
       }
 
-      [(WKHTTPCookieStore *)self _protectedCookieStore];
+      objc_msgSend__protectedCookieStore(self);
       v23 = v11[1];
       ++*(v23 + 16);
       API::HTTPCookieStore::registerObserver(v24, v23);
@@ -552,7 +553,7 @@ LABEL_10:
 
       if (v15)
       {
-        [(WKHTTPCookieStore *)self _protectedCookieStore];
+        objc_msgSend__protectedCookieStore(self, a2);
         API::HTTPCookieStore::unregisterObserver(v21, v15);
         if (v21)
         {
@@ -577,14 +578,14 @@ LABEL_10:
 {
   if (self)
   {
-    [(WKHTTPCookieStore *)self _protectedCookieStore];
-    v6 = v13;
+    objc_msgSend__protectedCookieStore(self, a2);
+    v6 = v14;
   }
 
   else
   {
     v6 = 0;
-    v13 = 0;
+    v14 = 0;
   }
 
   if (policy)
@@ -598,11 +599,132 @@ LABEL_10:
   }
 
   v8 = _Block_copy(completionHandler);
-  v9 = WTF::fastMalloc(0x10);
-  *v9 = &unk_1F10F6708;
-  v9[1] = v8;
+  v10 = WTF::fastMalloc(v9, 0x10);
+  *v10 = &unk_1F10F6708;
+  v10[1] = v8;
+  v13 = v10;
+  API::HTTPCookieStore::setHTTPCookieAcceptPolicy(v6, v7, &v13);
+  v11 = v13;
+  v13 = 0;
+  if (v11)
+  {
+    (*(*v11 + 8))(v11);
+  }
+
+  _Block_release(0);
+  v12 = v14;
+  v14 = 0;
+  if (v12)
+  {
+    CFRelease(*(v12 + 1));
+  }
+}
+
+- (void)getCookiePolicy:(void *)completionHandler
+{
+  if (self)
+  {
+    objc_msgSend__protectedCookieStore(self, a2);
+    v4 = v11;
+  }
+
+  else
+  {
+    v4 = 0;
+    v11 = 0;
+  }
+
+  v5 = _Block_copy(completionHandler);
+  v7 = WTF::fastMalloc(v6, 0x10);
+  *v7 = &unk_1F10F6730;
+  v7[1] = v5;
+  v10 = v7;
+  API::HTTPCookieStore::getHTTPCookieAcceptPolicy(v4, &v10);
+  v8 = v10;
+  v10 = 0;
+  if (v8)
+  {
+    (*(*v8 + 8))(v8);
+  }
+
+  _Block_release(0);
+  v9 = v11;
+  v11 = 0;
+  if (v9)
+  {
+    CFRelease(*(v9 + 1));
+  }
+}
+
+- (void)_getCookiesForURL:(id)l completionHandler:(id)handler
+{
+  if (self)
+  {
+    objc_msgSend__protectedCookieStore(self, a2);
+    v6 = v16;
+  }
+
+  else
+  {
+    v6 = 0;
+    v16 = 0;
+  }
+
+  MEMORY[0x19EB01DE0](v15, l);
+  v7 = _Block_copy(handler);
+  v9 = WTF::fastMalloc(v8, 0x10);
+  *v9 = &unk_1F10F6758;
+  v9[1] = v7;
+  v14 = v9;
+  API::HTTPCookieStore::cookiesForURL(v6, v15, &v14);
+  v10 = v14;
+  v14 = 0;
+  if (v10)
+  {
+    (*(*v10 + 8))(v10);
+  }
+
+  _Block_release(0);
+  v12 = v15[0];
+  v15[0] = 0;
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v12, v11);
+  }
+
+  v13 = v16;
+  v16 = 0;
+  if (v13)
+  {
+    CFRelease(*(v13 + 8));
+  }
+}
+
+- (void)_setCookieAcceptPolicy:(unint64_t)policy completionHandler:(id)handler
+{
+  if (self)
+  {
+    objc_msgSend__protectedCookieStore(self, a2);
+    v6 = v13;
+  }
+
+  else
+  {
+    v6 = 0;
+    v13 = 0;
+  }
+
+  if (policy >= 4)
+  {
+    LOBYTE(policy) = 1;
+  }
+
+  v7 = _Block_copy(handler);
+  v9 = WTF::fastMalloc(v8, 0x10);
+  *v9 = &unk_1F10F6780;
+  v9[1] = v7;
   v12 = v9;
-  API::HTTPCookieStore::setHTTPCookieAcceptPolicy(v6, v7, &v12);
+  API::HTTPCookieStore::setHTTPCookieAcceptPolicy(v6, policy, &v12);
   v10 = v12;
   v12 = 0;
   if (v10)
@@ -619,160 +741,39 @@ LABEL_10:
   }
 }
 
-- (void)getCookiePolicy:(void *)completionHandler
-{
-  if (self)
-  {
-    [(WKHTTPCookieStore *)self _protectedCookieStore];
-    v4 = v10;
-  }
-
-  else
-  {
-    v4 = 0;
-    v10 = 0;
-  }
-
-  v5 = _Block_copy(completionHandler);
-  v6 = WTF::fastMalloc(0x10);
-  *v6 = &unk_1F10F6730;
-  v6[1] = v5;
-  v9 = v6;
-  API::HTTPCookieStore::getHTTPCookieAcceptPolicy(v4, &v9);
-  v7 = v9;
-  v9 = 0;
-  if (v7)
-  {
-    (*(*v7 + 8))(v7);
-  }
-
-  _Block_release(0);
-  v8 = v10;
-  v10 = 0;
-  if (v8)
-  {
-    CFRelease(v8[1]);
-  }
-}
-
-- (void)_getCookiesForURL:(id)l completionHandler:(id)handler
-{
-  if (self)
-  {
-    [(WKHTTPCookieStore *)self _protectedCookieStore];
-    v6 = v15;
-  }
-
-  else
-  {
-    v6 = 0;
-    v15 = 0;
-  }
-
-  MEMORY[0x19EB01DE0](v14, l);
-  v7 = _Block_copy(handler);
-  v8 = WTF::fastMalloc(0x10);
-  *v8 = &unk_1F10F6758;
-  v8[1] = v7;
-  v13 = v8;
-  API::HTTPCookieStore::cookiesForURL(v6, v14, &v13);
-  v9 = v13;
-  v13 = 0;
-  if (v9)
-  {
-    (*(*v9 + 8))(v9);
-  }
-
-  _Block_release(0);
-  v11 = v14[0];
-  v14[0] = 0;
-  if (v11 && atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v11, v10);
-  }
-
-  v12 = v15;
-  v15 = 0;
-  if (v12)
-  {
-    CFRelease(*(v12 + 8));
-  }
-}
-
-- (void)_setCookieAcceptPolicy:(unint64_t)policy completionHandler:(id)handler
-{
-  if (self)
-  {
-    [(WKHTTPCookieStore *)self _protectedCookieStore];
-    v6 = v12;
-  }
-
-  else
-  {
-    v6 = 0;
-    v12 = 0;
-  }
-
-  if (policy >= 4)
-  {
-    LOBYTE(policy) = 1;
-  }
-
-  v7 = _Block_copy(handler);
-  v8 = WTF::fastMalloc(0x10);
-  *v8 = &unk_1F10F6780;
-  v8[1] = v7;
-  v11 = v8;
-  API::HTTPCookieStore::setHTTPCookieAcceptPolicy(v6, policy, &v11);
-  v9 = v11;
-  v11 = 0;
-  if (v9)
-  {
-    (*(*v9 + 8))(v9);
-  }
-
-  _Block_release(0);
-  v10 = v12;
-  v12 = 0;
-  if (v10)
-  {
-    CFRelease(*(v10 + 1));
-  }
-}
-
 - (void)_flushCookiesToDiskWithCompletionHandler:(id)handler
 {
   if (self)
   {
-    [(WKHTTPCookieStore *)self _protectedCookieStore];
-    v4 = v10;
+    objc_msgSend__protectedCookieStore(self, a2);
+    v4 = v11;
   }
 
   else
   {
     v4 = 0;
-    v10 = 0;
+    v11 = 0;
   }
 
   v5 = _Block_copy(handler);
-  v6 = WTF::fastMalloc(0x10);
-  *v6 = &unk_1F10F67A8;
-  v6[1] = v5;
-  v9 = v6;
-  API::HTTPCookieStore::flushCookies(v4, &v9);
-  v7 = v9;
-  v9 = 0;
-  if (v7)
-  {
-    (*(*v7 + 8))(v7);
-  }
-
-  _Block_release(0);
+  v7 = WTF::fastMalloc(v6, 0x10);
+  *v7 = &unk_1F10F67A8;
+  v7[1] = v5;
+  v10 = v7;
+  API::HTTPCookieStore::flushCookies(v4, &v10);
   v8 = v10;
   v10 = 0;
   if (v8)
   {
-    CFRelease(v8[1]);
+    (*(*v8 + 8))(v8);
+  }
+
+  _Block_release(0);
+  v9 = v11;
+  v11 = 0;
+  if (v9)
+  {
+    CFRelease(*(v9 + 1));
   }
 }
 

@@ -32,25 +32,25 @@
   return v9;
 }
 
-uint64_t __54__PUBadgeInfoPromise_badgeInfoPromiseWithAdjustments___block_invoke@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, _OWORD *a4@<X8>)
+uint64_t __54__PUBadgeInfoPromise_badgeInfoPromiseWithAdjustments___block_invoke@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, _OWORD *a5@<X8>)
 {
-  v6 = 0uLL;
-  v12 = 0u;
+  v7 = 0uLL;
   v13 = 0u;
-  v7 = *(a1 + 32);
-  if (v7)
+  v14 = 0u;
+  v8 = *(a1 + 32);
+  if (v8)
   {
-    [v7 badgeInfo];
-    v6 = 0uLL;
+    objc_msgSend_badgeInfo(v8, a2, a3, a4);
+    v7 = 0uLL;
   }
 
-  *a4 = v6;
-  a4[1] = v6;
-  v8 = *(a1 + 40);
-  v9 = *(v8 + 16);
-  v11[0] = v12;
-  v11[1] = v13;
-  return v9(v8, v11, a2, a3);
+  *a5 = v7;
+  a5[1] = v7;
+  v9 = *(a1 + 40);
+  v10 = *(v9 + 16);
+  v12[0] = v13;
+  v12[1] = v14;
+  return v10(v9, v12, a3, a4);
 }
 
 - (PXAssetBadgeInfo)badgeInfo
@@ -104,8 +104,8 @@ uint64_t __54__PUBadgeInfoPromise_badgeInfoPromiseWithAdjustments___block_invoke
       {
         if (PXAssetBadgeInfoRequiresCountForBadges())
         {
-          [(PUBadgeInfoPromise *)self badgeInfo];
-          [(PUBadgeInfoPromise *)v5 badgeInfo];
+          objc_msgSend_badgeInfo(self);
+          objc_msgSend_badgeInfo(v5);
         }
 
         v6 = PXAssetBadgeInfoEqualToBadgeInfo();

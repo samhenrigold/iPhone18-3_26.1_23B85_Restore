@@ -171,4 +171,25 @@
   return v5;
 }
 
+- (void)writeToFile:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1A3640000, a2, a3, "Error: failed to archive secondary state: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)writeToFile:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1A3640000, a2, a3, "Error: failed to save secondary state to file %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)secondaryStateWithContentsOfFile:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1A3640000, a2, a3, "Error: failed to unarchive secondary state: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 @end

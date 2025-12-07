@@ -207,13 +207,12 @@ void __27__DYTransportSource_cancel__block_invoke(uint64_t a1)
   if ((atomic_fetch_or(&self->_state, 1u) & 1) == 0)
   {
     dispatch_suspend(self->_mqueue);
-    queue = self->_queue;
     OUTLINED_FUNCTION_0_0();
-    v6 = 3221225472;
-    v7 = __27__DYTransportSource_cancel__block_invoke;
-    v8 = &unk_27930C1E8;
+    v5 = 3221225472;
+    v6 = __27__DYTransportSource_cancel__block_invoke;
+    v7 = &unk_27930C1E8;
     selfCopy = self;
-    dispatch_async(v4, block);
+    dispatch_async(v3, block);
   }
 }
 
@@ -279,13 +278,12 @@ void __44__DYTransportSource_setRegistrationHandler___block_invoke(uint64_t a1)
     if ([(DYTransport *)self->_transport _activateSource:self])
     {
       atomic_fetch_or(&self->_state, 2u);
-      mqueue = self->_mqueue;
       OUTLINED_FUNCTION_0_0();
-      v7 = 3221225472;
-      v8 = __30__DYTransportSource__register__block_invoke;
-      v9 = &unk_27930C1E8;
+      v6 = 3221225472;
+      v7 = __30__DYTransportSource__register__block_invoke;
+      v8 = &unk_27930C1E8;
       selfCopy = self;
-      dispatch_async(v5, block);
+      dispatch_async(v4, block);
     }
 
     else

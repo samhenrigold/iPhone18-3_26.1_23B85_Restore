@@ -975,7 +975,7 @@
 
   else
   {
-    v23 = _TVRUINowPlayingLog();
+    v23 = _TVRUINowPlayingLog(0);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       identifier = [mediaInfo identifier];
@@ -1126,12 +1126,15 @@ LABEL_20:
 - (void)openProductPageForKind:(int64_t)kind
 {
   v4 = [(_TVRUIUpNextCell *)self urlForProductPageKind:kind];
+  v5 = v4;
   if (v4)
   {
-    [(_TVRUIUpNextCell *)self openURL:v4];
+    v6 = v4;
+    v4 = [(_TVRUIUpNextCell *)self openURL:v4];
+    v5 = v6;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, v5);
 }
 
 - (id)urlForProductPageKind:(int64_t)kind

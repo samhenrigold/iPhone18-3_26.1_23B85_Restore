@@ -14,7 +14,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_100394290();
+  v3 = sub_100394290(DevicePairingMonitor);
   sub_100394B18(v3, self);
 
   v4.receiver = self;
@@ -127,7 +127,7 @@
             }
 
             v20 = *(*(&v25 + 1) + 8 * v19);
-            v21 = sub_1003649C8();
+            v21 = sub_1003649C8(ProgressCache);
             bundleID = [v20 bundleID];
             sub_10036689C(v21, bundleID);
 

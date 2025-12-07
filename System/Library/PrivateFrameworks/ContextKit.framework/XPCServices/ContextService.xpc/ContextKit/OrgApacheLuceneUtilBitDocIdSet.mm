@@ -1,7 +1,6 @@
 @interface OrgApacheLuceneUtilBitDocIdSet
 + (void)initialize;
 - (OrgApacheLuceneUtilBitDocIdSet)initWithOrgApacheLuceneUtilBitSet:(id)set withLong:(int64_t)long;
-- (id)description;
 - (id)iterator;
 - (int64_t)ramBytesUsed;
 - (void)dealloc;
@@ -11,7 +10,7 @@
 
 - (OrgApacheLuceneUtilBitDocIdSet)initWithOrgApacheLuceneUtilBitSet:(id)set withLong:(int64_t)long
 {
-  OrgApacheLuceneSearchDocIdSet_init(self, a2);
+  OrgApacheLuceneSearchDocIdSet_init();
   JreStrongAssign(&self->set_, set);
   self->cost_ = long;
   return self;
@@ -34,14 +33,6 @@
 
   v3 = qword_100554078;
   return [(OrgApacheLuceneUtilBitSet *)set ramBytesUsed]+ v3;
-}
-
-- (id)description
-{
-  v3 = [-[OrgApacheLuceneUtilBitDocIdSet getClass](self "getClass")];
-  cost = self->cost_;
-  set = self->set_;
-  return JreStrcat("$$@$JC", v4, v5, v6, v7, v8, v9, v10, v3);
 }
 
 - (void)dealloc

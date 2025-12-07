@@ -180,18 +180,18 @@
         }
 
         v76 = v26;
-        [(CVAMotionTrackingExpressionConfiguration_Exclave *)self previousExpressions];
-        [(CVAMotionTrackingExpressionConfiguration_Exclave *)self previousExpressions];
-        [(CVAMotionTrackingExpressionConfiguration_Exclave *)self previousExpressions];
-        [(CVAMotionTrackingExpressionConfiguration_Exclave *)self previousExpressions];
-        v75 = v100 >= unsignedIntegerValue;
-        [(CVAMotionTrackingExpressionConfiguration_Exclave *)self previousExpressions];
+        objc_msgSend_previousExpressions(self);
+        objc_msgSend_previousExpressions(self);
+        objc_msgSend_previousExpressions(self);
+        objc_msgSend_previousExpressions(self);
+        v75 = v100[0] >= unsignedIntegerValue;
+        objc_msgSend_previousExpressions(self);
         v39 = v99 >= unsignedIntegerValue;
-        [(CVAMotionTrackingExpressionConfiguration_Exclave *)self previousExpressions];
+        objc_msgSend_previousExpressions(self);
         v40 = v98 >= unsignedIntegerValue;
-        [(CVAMotionTrackingExpressionConfiguration_Exclave *)self previousExpressions];
-        [(CVAMotionTrackingExpressionConfiguration_Exclave *)self previousExpressions];
-        [(CVAMotionTrackingExpressionConfiguration_Exclave *)self previousExpressions];
+        objc_msgSend_previousExpressions(self);
+        objc_msgSend_previousExpressions(self);
+        objc_msgSend_previousExpressions(self);
         v41 = v19 * 0.375;
         v42 = v21 * 0.95;
         v43 = v23 * 0.65;

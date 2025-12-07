@@ -31,7 +31,7 @@
   itemLayoutDesiredPlayStateSetter = [(_PXFeedInlinePlaybackController *)self itemLayoutDesiredPlayStateSetter];
   if (recordCopy)
   {
-    [recordCopy bestVideoTimeRange];
+    objc_msgSend_bestVideoTimeRange(recordCopy);
   }
 
   else
@@ -73,7 +73,7 @@
   v5 = selectionSnapshot;
   if (selectionSnapshot)
   {
-    [selectionSnapshot pendingIndexPath];
+    objc_msgSend_pendingIndexPath(selectionSnapshot);
   }
 
   else

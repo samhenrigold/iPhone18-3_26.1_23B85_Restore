@@ -83,7 +83,7 @@
   barBackgroundView = self->_barBackgroundView;
   self->_barBackgroundView = v3;
 
-  v5 = +[UIColor blackColor];
+  v5 = objc_msgSend_blackColor(UIColor);
   [(UIView *)self->_barBackgroundView setBackgroundColor:v5];
 
   layer = [(UIView *)self->_barBackgroundView layer];
@@ -319,9 +319,9 @@
 
             v11 = *(*(&v28 + 1) + 8 * i);
             categoryMenuIdentifier = [v11 categoryMenuIdentifier];
-            v13 = [categoryMenuIdentifier isEqual:v5];
+            isEqual = objc_msgSend_isEqual_(categoryMenuIdentifier);
 
-            if (v13)
+            if (isEqual)
             {
               [v11 setHighlighted:1];
               v14 = dispatch_time(0, 80000000);

@@ -411,10 +411,10 @@ void __43__EKUIFocusBannerViewLegacy_initWithFrame___block_invoke_2(uint64_t a1)
 
 - (void)_updateView
 {
-  v30[2] = *MEMORY[0x1E69E9840];
+  v31[2] = *MEMORY[0x1E69E9840];
   v3 = [(EKUIFocusBannerViewLegacy *)self on];
   v4 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v28 = v4;
+  v29 = v4;
   if (v3)
   {
     v5 = [v4 localizedStringForKey:@"Filtered by Focus" value:&stru_1F4EF6790 table:0];
@@ -429,42 +429,42 @@ void __43__EKUIFocusBannerViewLegacy_initWithFrame___block_invoke_2(uint64_t a1)
   v6 = ;
   v7 = MEMORY[0x1E69DB7F0];
   v8 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"moon.circle.fill"];
-  v27 = [v7 textAttachmentWithImage:v8];
+  v28 = [v7 textAttachmentWithImage:v8];
 
-  v9 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v27];
-  v26 = v9;
+  v9 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v28];
+  v27 = v9;
   disallowAccessibilityTextSizes = [(EKUIFocusBannerViewLegacy *)self disallowAccessibilityTextSizes];
   v11 = [MEMORY[0x1E69DB880] preferredFontDescriptorWithTextStyle:*MEMORY[0x1E69DDD80] addingSymbolicTraits:0x8000 options:disallowAccessibilityTextSizes];
   v12 = [MEMORY[0x1E69DB878] fontWithDescriptor:v11 size:0.0];
   v13 = *MEMORY[0x1E69DB650];
-  v29[0] = *MEMORY[0x1E69DB648];
-  v29[1] = v13;
-  v30[0] = v12;
-  v30[1] = v6;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:2];
+  v30[0] = *MEMORY[0x1E69DB648];
+  v30[1] = v13;
+  v31[0] = v12;
+  v31[1] = v6;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:2];
   v15 = objc_alloc(MEMORY[0x1E696AAB0]);
-  if (CalInterfaceIsLeftToRight())
+  if (CalInterfaceIsLeftToRight(v15, v16))
   {
-    v16 = @"%1$@ %2$@";
+    v17 = @"%1$@ %2$@";
   }
 
   else
   {
-    v16 = @"%2$@ %1$@";
+    v17 = @"%2$@ %1$@";
   }
 
-  v17 = [v15 initWithString:v16];
-  v18 = [MEMORY[0x1E696AAB0] localizedAttributedStringWithFormat:v17, v9, v5];
-  v19 = [v18 mutableCopy];
+  v18 = [v15 initWithString:v17];
+  v19 = [MEMORY[0x1E696AAB0] localizedAttributedStringWithFormat:v18, v9, v5];
+  v20 = [v19 mutableCopy];
 
-  [v19 addAttributes:v14 range:{0, objc_msgSend(v19, "length")}];
+  [v20 addAttributes:v14 range:{0, objc_msgSend(v20, "length")}];
   focusFilterStateDescriptionLabel = [(EKUIFocusBannerViewLegacy *)self focusFilterStateDescriptionLabel];
-  [focusFilterStateDescriptionLabel setAttributedText:v19];
+  [focusFilterStateDescriptionLabel setAttributedText:v20];
 
-  v21 = [(EKUIFocusBannerViewLegacy *)self layout]== 1;
+  v22 = [(EKUIFocusBannerViewLegacy *)self layout]== 1;
   [(EKUIFocusBannerViewLegacy *)self focusFilterStateDescriptionLabel];
-  v23 = v22 = v5;
-  [v23 setNumberOfLines:v21];
+  v24 = v23 = v5;
+  [v24 setNumberOfLines:v22];
 
   focusFilterToggleButton = [(EKUIFocusBannerViewLegacy *)self focusFilterToggleButton];
   [focusFilterToggleButton setNeedsUpdateConfiguration];

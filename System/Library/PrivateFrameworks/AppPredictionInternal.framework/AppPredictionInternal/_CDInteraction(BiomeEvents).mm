@@ -10,26 +10,26 @@
 {
   v3 = a3;
   v4 = objc_autoreleasePoolPush();
-  v10 = 0;
-  v5 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v10];
-  v6 = v10;
+  v11 = 0;
+  v5 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v11];
+  v6 = v11;
   objc_autoreleasePoolPop(v4);
   if (v5)
   {
-    v7 = v6 == 0;
+    v8 = v6 == 0;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  if (!v7)
+  if (!v8)
   {
-    v8 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = __atxlog_handle_notification_management(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      [_CDInteraction(BiomeEvents) eventWithData:v6 dataVersion:v8];
+      [_CDInteraction(BiomeEvents) eventWithData:v6 dataVersion:v9];
     }
   }
 
@@ -39,24 +39,24 @@
 - (id)serialize
 {
   v2 = objc_autoreleasePoolPush();
-  v8 = 0;
-  v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v8];
-  v4 = v8;
+  v9 = 0;
+  v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v9];
+  v4 = v9;
   objc_autoreleasePoolPop(v2);
   if (v3)
   {
-    v5 = v4 == 0;
+    v6 = v4 == 0;
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  if (!v5)
+  if (!v6)
   {
-    v6 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = __atxlog_handle_notification_management(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       [(_CDInteraction(BiomeEvents) *)v4 serialize];
     }
@@ -67,20 +67,18 @@
 
 + (void)eventWithData:()BiomeEvents dataVersion:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Failed to initialize CDInteraction from NSData in ATXInteractionEventProvider with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Failed to initialize CDInteraction from NSData in ATXInteractionEventProvider with error: %@", &v2, 0xCu);
 }
 
 - (void)serialize
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Failed to serialize CDInteraction data in ATXInteractionEventProvider with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Failed to serialize CDInteraction data in ATXInteractionEventProvider with error: %@", &v2, 0xCu);
 }
 
 @end

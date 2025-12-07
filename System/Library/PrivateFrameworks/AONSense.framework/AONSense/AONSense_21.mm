@@ -1,6722 +1,25 @@
-uint64_t specialized static Proto_Gnss_Emergency_GanssNavModelAddData.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData(0);
-  v5 = v4[6];
-  v6 = (a1 + v5);
-  v7 = *(a1 + v5 + 4);
-  v8 = (a2 + v5);
-  v9 = *(a2 + v5 + 4);
-  if (v7)
-  {
-    if (!v9)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v6 != *v8)
-    {
-      LOBYTE(v9) = 1;
-    }
-
-    if (v9)
-    {
-      return 0;
-    }
-  }
-
-  v10 = v4[7];
-  v11 = (a1 + v10);
-  v12 = *(a1 + v10 + 4);
-  v13 = (a2 + v10);
-  v14 = *(a2 + v10 + 4);
-  if (v12)
-  {
-    if (!v14)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v11 != *v13)
-    {
-      LOBYTE(v14) = 1;
-    }
-
-    if (v14)
-    {
-      return 0;
-    }
-  }
-
-  v15 = v4[8];
-  v16 = (a1 + v15);
-  v17 = *(a1 + v15 + 4);
-  v18 = (a2 + v15);
-  v19 = *(a2 + v15 + 4);
-  if (v17)
-  {
-    if (!v19)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v16 != *v18)
-    {
-      LOBYTE(v19) = 1;
-    }
-
-    if (v19)
-    {
-      return 0;
-    }
-  }
-
-  v20 = v4[9];
-  v21 = (a1 + v20);
-  v22 = *(a1 + v20 + 4);
-  v23 = (a2 + v20);
-  v24 = *(a2 + v20 + 4);
-  if (v22)
-  {
-    if (!v24)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v21 != *v23)
-    {
-      LOBYTE(v24) = 1;
-    }
-
-    if (v24)
-    {
-      return 0;
-    }
-  }
-
-  v25 = v4;
-  if (_sSasSQRzlE2eeoiySbSayxG_ABtFZ10ALProtobuf43Proto_Gnss_Emergency_GanssStoredSatDataElemV_Tt1g5Tm(*a1, *a2, type metadata accessor for Proto_Gnss_Emergency_GanssStoredSatDataElem, type metadata accessor for Proto_Gnss_Emergency_GanssStoredSatDataElem))
-  {
-    v26 = v25[5];
-    type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-  }
-
-  return 0;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_WlanMeasurementElement.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementElement(0);
-  v5 = v4[5];
-  v7 = *(a1 + v5);
-  v6 = *(a1 + v5 + 8);
-  v8 = (a2 + v5);
-  v10 = *v8;
-  v9 = v8[1];
-  if (v6 >> 60 == 15)
-  {
-    if (v9 >> 60 == 15)
-    {
-      outlined copy of Data?(v7, v6);
-      outlined copy of Data?(v10, v9);
-      outlined consume of Data?(v7, v6);
-      goto LABEL_8;
-    }
-
-LABEL_5:
-    outlined copy of Data?(v7, v6);
-    outlined copy of Data?(v10, v9);
-    outlined consume of Data?(v7, v6);
-    outlined consume of Data?(v10, v9);
-    return 0;
-  }
-
-  if (v9 >> 60 == 15)
-  {
-    goto LABEL_5;
-  }
-
-  outlined copy of Data?(v7, v6);
-  outlined copy of Data?(v10, v9);
-  v12 = specialized static Data.== infix(_:_:)(v7, v6, v10, v9);
-  outlined consume of Data?(v10, v9);
-  outlined consume of Data?(v7, v6);
-  if ((v12 & 1) == 0)
-  {
-    return 0;
-  }
-
-LABEL_8:
-  v13 = v4[6];
-  v14 = *(a1 + v13);
-  v15 = *(a2 + v13);
-  if (v14 == 2)
-  {
-    if (v15 != 2)
-    {
-      return 0;
-    }
-  }
-
-  else if (v15 == 2 || ((v14 ^ v15) & 1) != 0)
-  {
-    return 0;
-  }
-
-  v16 = v4[7];
-  v17 = *(a1 + v16);
-  v18 = *(a2 + v16);
-  if (v17 == 2)
-  {
-    if (v18 != 2)
-    {
-      return 0;
-    }
-  }
-
-  else if (v18 == 2 || ((v17 ^ v18) & 1) != 0)
-  {
-    return 0;
-  }
-
-  v19 = v4[8];
-  v20 = (a1 + v19);
-  v21 = *(a1 + v19 + 4);
-  v22 = (a2 + v19);
-  v23 = *(a2 + v19 + 4);
-  if (v21)
-  {
-    if (!v23)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v20 != *v22)
-    {
-      LOBYTE(v23) = 1;
-    }
-
-    if (v23)
-    {
-      return 0;
-    }
-  }
-
-  v24 = v4[9];
-  v25 = (a1 + v24);
-  v26 = *(a1 + v24 + 4);
-  v27 = (a2 + v24);
-  v28 = *(a2 + v24 + 4);
-  if ((v26 & 1) == 0)
-  {
-    if (*v25 != *v27)
-    {
-      LOBYTE(v28) = 1;
-    }
-
-    if ((v28 & 1) == 0)
-    {
-      goto LABEL_30;
-    }
-
-    return 0;
-  }
-
-  if (!v28)
-  {
-    return 0;
-  }
-
-LABEL_30:
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_WlanMeasurementList.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementList(0);
-  v5 = *(v4 + 24);
-  v6 = *(a1 + v5);
-  v7 = *(a2 + v5);
-  if (v6 == 6)
-  {
-    if (v7 != 6)
-    {
-      return 0;
-    }
-  }
-
-  else if (v6 != v7)
-  {
-    return 0;
-  }
-
-  if (_sSasSQRzlE2eeoiySbSayxG_ABtFZ10ALProtobuf43Proto_Gnss_Emergency_WlanMeasurementElementV_Tt1g5Tm(*a1, *a2, type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementElement, type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementElement, specialized static Proto_Gnss_Emergency_WlanMeasurementElement.== infix(_:_:)))
-  {
-    v8 = *(v4 + 20);
-    type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-  }
-
-  return 0;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_GpsNavigationModel.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_GpsNavigationModel(0);
-  v5 = v4[6];
-  v6 = (a1 + v5);
-  v7 = *(a1 + v5 + 4);
-  v8 = (a2 + v5);
-  v9 = *(a2 + v5 + 4);
-  if (v7)
-  {
-    if (!v9)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v6 != *v8)
-    {
-      LOBYTE(v9) = 1;
-    }
-
-    if (v9)
-    {
-      return 0;
-    }
-  }
-
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ10ALProtobuf33Proto_Gnss_Emergency_GpsEphemerisV_Tt1g5(*a1, *a2) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v10 = v4[7];
-  v11 = *(a1 + v10);
-  v12 = *(a2 + v10);
-  if (v11 == 6)
-  {
-    if (v12 != 6)
-    {
-      return 0;
-    }
-  }
-
-  else if (v11 != v12)
-  {
-    return 0;
-  }
-
-  v13 = v4[8];
-  v14 = *(a1 + v13);
-  v15 = *(a2 + v13);
-  if (v14 != 7)
-  {
-    if (v14 == v15)
-    {
-      goto LABEL_16;
-    }
-
-    return 0;
-  }
-
-  if (v15 != 7)
-  {
-    return 0;
-  }
-
-LABEL_16:
-  v16 = v4[9];
-  v17 = (a1 + v16);
-  v18 = *(a1 + v16 + 4);
-  v19 = (a2 + v16);
-  v20 = *(a2 + v16 + 4);
-  if (v18)
-  {
-    if (!v20)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v17 != *v19)
-    {
-      LOBYTE(v20) = 1;
-    }
-
-    if (v20)
-    {
-      return 0;
-    }
-  }
-
-  v22 = v4[5];
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_GanssDataBitAssist.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist(0);
-  v5 = v4[6];
-  v6 = (a1 + v5);
-  v7 = *(a1 + v5 + 4);
-  v8 = (a2 + v5);
-  v9 = *(a2 + v5 + 4);
-  if (v7)
-  {
-    if (!v9)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v6 != *v8)
-    {
-      LOBYTE(v9) = 1;
-    }
-
-    if (v9)
-    {
-      return 0;
-    }
-  }
-
-  v10 = v4[7];
-  v11 = (a1 + v10);
-  v12 = *(a1 + v10 + 4);
-  v13 = (a2 + v10);
-  v14 = *(a2 + v10 + 4);
-  if (v12)
-  {
-    if (!v14)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v11 != *v13)
-    {
-      LOBYTE(v14) = 1;
-    }
-
-    if (v14)
-    {
-      return 0;
-    }
-  }
-
-  v15 = v4[8];
-  v16 = (a1 + v15);
-  v17 = *(a1 + v15 + 4);
-  v18 = (a2 + v15);
-  v19 = *(a2 + v15 + 4);
-  if (v17)
-  {
-    if (!v19)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v16 != *v18)
-    {
-      LOBYTE(v19) = 1;
-    }
-
-    if (v19)
-    {
-      return 0;
-    }
-  }
-
-  v20 = v4[9];
-  v21 = (a1 + v20);
-  v22 = *(a1 + v20 + 4);
-  v23 = (a2 + v20);
-  v24 = *(a2 + v20 + 4);
-  if (v22)
-  {
-    if (!v24)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v21 != *v23)
-    {
-      LOBYTE(v24) = 1;
-    }
-
-    if (v24)
-    {
-      return 0;
-    }
-  }
-
-  v25 = v4[10];
-  v26 = (a1 + v25);
-  v27 = *(a1 + v25 + 4);
-  v28 = (a2 + v25);
-  v29 = *(a2 + v25 + 4);
-  if (v27)
-  {
-    if (!v29)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v26 != *v28)
-    {
-      LOBYTE(v29) = 1;
-    }
-
-    if (v29)
-    {
-      return 0;
-    }
-  }
-
-  v30 = v4;
-  if (_sSasSQRzlE2eeoiySbSayxG_ABtFZs5Int32V_Tt1g5(*a1, *a2))
-  {
-    v31 = v30[5];
-    type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-  }
-
-  return 0;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_ReferenceLocation.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation(0);
-  v5 = v4[5];
-  v6 = (a1 + v5);
-  v7 = *(a1 + v5 + 4);
-  v8 = (a2 + v5);
-  v9 = *(a2 + v5 + 4);
-  if (v7)
-  {
-    if (!v9)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v6 != *v8)
-    {
-      LOBYTE(v9) = 1;
-    }
-
-    if (v9)
-    {
-      return 0;
-    }
-  }
-
-  v10 = v4[6];
-  v11 = (a1 + v10);
-  v12 = *(a1 + v10 + 4);
-  v13 = (a2 + v10);
-  v14 = *(a2 + v10 + 4);
-  if (v12)
-  {
-    if (!v14)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v11 != *v13)
-    {
-      LOBYTE(v14) = 1;
-    }
-
-    if (v14)
-    {
-      return 0;
-    }
-  }
-
-  v15 = v4[7];
-  v16 = (a1 + v15);
-  v17 = *(a1 + v15 + 4);
-  v18 = (a2 + v15);
-  v19 = *(a2 + v15 + 4);
-  if (v17)
-  {
-    if (!v19)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v16 != *v18)
-    {
-      LOBYTE(v19) = 1;
-    }
-
-    if (v19)
-    {
-      return 0;
-    }
-  }
-
-  v20 = v4[8];
-  v21 = (a1 + v20);
-  v22 = *(a1 + v20 + 4);
-  v23 = (a2 + v20);
-  v24 = *(a2 + v20 + 4);
-  if (v22)
-  {
-    if (!v24)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v21 != *v23)
-    {
-      LOBYTE(v24) = 1;
-    }
-
-    if (v24)
-    {
-      return 0;
-    }
-  }
-
-  v25 = v4[9];
-  v26 = (a1 + v25);
-  v27 = *(a1 + v25 + 4);
-  v28 = (a2 + v25);
-  v29 = *(a2 + v25 + 4);
-  if (v27)
-  {
-    if (!v29)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v26 != *v28)
-    {
-      LOBYTE(v29) = 1;
-    }
-
-    if (v29)
-    {
-      return 0;
-    }
-  }
-
-  v30 = v4[10];
-  v31 = (a1 + v30);
-  v32 = *(a1 + v30 + 4);
-  v33 = (a2 + v30);
-  v34 = *(a2 + v30 + 4);
-  if (v32)
-  {
-    if (!v34)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v31 != *v33)
-    {
-      LOBYTE(v34) = 1;
-    }
-
-    if (v34)
-    {
-      return 0;
-    }
-  }
-
-  v35 = v4[11];
-  v36 = (a1 + v35);
-  v37 = *(a1 + v35 + 4);
-  v38 = (a2 + v35);
-  v39 = *(a2 + v35 + 4);
-  if (v37)
-  {
-    if (!v39)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v36 != *v38)
-    {
-      LOBYTE(v39) = 1;
-    }
-
-    if (v39)
-    {
-      return 0;
-    }
-  }
-
-  v40 = v4[12];
-  v41 = (a1 + v40);
-  v42 = *(a1 + v40 + 4);
-  v43 = (a2 + v40);
-  v44 = *(a2 + v40 + 4);
-  if (v42)
-  {
-    if (!v44)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v41 != *v43)
-    {
-      LOBYTE(v44) = 1;
-    }
-
-    if (v44)
-    {
-      return 0;
-    }
-  }
-
-  v45 = v4[13];
-  v46 = (a1 + v45);
-  v47 = *(a1 + v45 + 4);
-  v48 = (a2 + v45);
-  v49 = *(a2 + v45 + 4);
-  if (v47)
-  {
-    if (!v49)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v46 != *v48)
-    {
-      LOBYTE(v49) = 1;
-    }
-
-    if (v49)
-    {
-      return 0;
-    }
-  }
-
-  v50 = v4[14];
-  v51 = (a1 + v50);
-  v52 = *(a1 + v50 + 4);
-  v53 = (a2 + v50);
-  v54 = *(a2 + v50 + 4);
-  if (v52)
-  {
-    if (!v54)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v51 != *v53)
-    {
-      LOBYTE(v54) = 1;
-    }
-
-    if (v54)
-    {
-      return 0;
-    }
-  }
-
-  v55 = v4[15];
-  v56 = (a1 + v55);
-  v57 = *(a1 + v55 + 4);
-  v58 = (a2 + v55);
-  v59 = *(a2 + v55 + 4);
-  if (v57)
-  {
-    if (!v59)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v56 != *v58)
-    {
-      LOBYTE(v59) = 1;
-    }
-
-    if (v59)
-    {
-      return 0;
-    }
-  }
-
-  v60 = v4[16];
-  v61 = *(a1 + v60);
-  v62 = *(a2 + v60);
-  if (v61 == 6)
-  {
-    if (v62 != 6)
-    {
-      return 0;
-    }
-  }
-
-  else if (v61 != v62)
-  {
-    return 0;
-  }
-
-  v63 = v4[17];
-  v64 = *(a1 + v63);
-  v65 = *(a2 + v63);
-  if (v64 != 7)
-  {
-    if (v64 == v65)
-    {
-      goto LABEL_75;
-    }
-
-    return 0;
-  }
-
-  if (v65 != 7)
-  {
-    return 0;
-  }
-
-LABEL_75:
-  v66 = v4[18];
-  v67 = (a1 + v66);
-  v68 = *(a1 + v66 + 4);
-  v69 = (a2 + v66);
-  v70 = *(a2 + v66 + 4);
-  if (v68)
-  {
-    if (!v70)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v67 != *v69)
-    {
-      LOBYTE(v70) = 1;
-    }
-
-    if (v70)
-    {
-      return 0;
-    }
-  }
-
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_UtranGanssTimeMeasured.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_CellInfo(0);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v8 = &v41 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf29Proto_Gnss_Emergency_CellInfoVSgMd, &_s10ALProtobuf29Proto_Gnss_Emergency_CellInfoVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v41 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf29Proto_Gnss_Emergency_CellInfoVSg_ADtMd, &_s10ALProtobuf29Proto_Gnss_Emergency_CellInfoVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v41 - v15;
-  v17 = type metadata accessor for Proto_Gnss_Emergency_UtranGanssTimeMeasured(0);
-  v18 = v17[5];
-  v19 = (a1 + v18);
-  v20 = *(a1 + v18 + 8);
-  v21 = (a2 + v18);
-  v22 = *(a2 + v18 + 8);
-  if (v20)
-  {
-    if (!v22)
-    {
-      goto LABEL_25;
-    }
-  }
-
-  else
-  {
-    if (*v19 != *v21)
-    {
-      LOBYTE(v22) = 1;
-    }
-
-    if (v22)
-    {
-      goto LABEL_25;
-    }
-  }
-
-  v23 = v17[6];
-  v24 = (a1 + v23);
-  v25 = *(a1 + v23 + 4);
-  v26 = (a2 + v23);
-  v27 = *(a2 + v23 + 4);
-  if (v25)
-  {
-    if (!v27)
-    {
-      goto LABEL_25;
-    }
-  }
-
-  else
-  {
-    if (*v24 != *v26)
-    {
-      LOBYTE(v27) = 1;
-    }
-
-    if (v27)
-    {
-      goto LABEL_25;
-    }
-  }
-
-  v28 = v17[7];
-  v29 = (a1 + v28);
-  v30 = *(a1 + v28 + 4);
-  v31 = (a2 + v28);
-  v32 = *(a2 + v28 + 4);
-  if (v30)
-  {
-    if (!v32)
-    {
-      goto LABEL_25;
-    }
-  }
-
-  else
-  {
-    if (*v29 != *v31)
-    {
-      LOBYTE(v32) = 1;
-    }
-
-    if (v32)
-    {
-      goto LABEL_25;
-    }
-  }
-
-  v33 = v17[8];
-  v34 = *(v13 + 48);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v33, v16, &_s10ALProtobuf29Proto_Gnss_Emergency_CellInfoVSgMd, &_s10ALProtobuf29Proto_Gnss_Emergency_CellInfoVSgMR);
-  v35 = a2 + v33;
-  v36 = v34;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v35, &v16[v34], &_s10ALProtobuf29Proto_Gnss_Emergency_CellInfoVSgMd, &_s10ALProtobuf29Proto_Gnss_Emergency_CellInfoVSgMR);
-  v37 = *(v5 + 48);
-  if (v37(v16, 1, v4) == 1)
-  {
-    if (v37(&v16[v36], 1, v4) == 1)
-    {
-      outlined destroy of Any?(v16, &_s10ALProtobuf29Proto_Gnss_Emergency_CellInfoVSgMd, &_s10ALProtobuf29Proto_Gnss_Emergency_CellInfoVSgMR);
-LABEL_28:
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v38 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v38 & 1;
-    }
-
-    goto LABEL_24;
-  }
-
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16, v12, &_s10ALProtobuf29Proto_Gnss_Emergency_CellInfoVSgMd, &_s10ALProtobuf29Proto_Gnss_Emergency_CellInfoVSgMR);
-  if (v37(&v16[v36], 1, v4) == 1)
-  {
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_CellInfo);
-LABEL_24:
-    outlined destroy of Any?(v16, &_s10ALProtobuf29Proto_Gnss_Emergency_CellInfoVSg_ADtMd, &_s10ALProtobuf29Proto_Gnss_Emergency_CellInfoVSg_ADtMR);
-    goto LABEL_25;
-  }
-
-  outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v16[v36], v8, type metadata accessor for Proto_Gnss_Emergency_CellInfo);
-  v40 = specialized static Proto_Gnss_Emergency_CellInfo.== infix(_:_:)(v12, v8);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v8, type metadata accessor for Proto_Gnss_Emergency_CellInfo);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_CellInfo);
-  outlined destroy of Any?(v16, &_s10ALProtobuf29Proto_Gnss_Emergency_CellInfoVSgMd, &_s10ALProtobuf29Proto_Gnss_Emergency_CellInfoVSgMR);
-  if (v40)
-  {
-    goto LABEL_28;
-  }
-
-LABEL_25:
-  v38 = 0;
-  return v38 & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_GanssTimeMeasuredParams.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasured(0);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v8 = &v35 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredVSgMd, &_s10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v35 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredVSg_ADtMd, &_s10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v35 - v15;
-  v17 = type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasuredParams(0);
-  v18 = *(v17 + 20);
-  v36 = a1;
-  v19 = *(a1 + v18);
-  v20 = *(a2 + v18);
-  if (v19 == 6)
-  {
-    if (v20 != 6)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  else if (v19 != v20)
-  {
-    goto LABEL_12;
-  }
-
-  v21 = a2;
-  v22 = *(v17 + 24);
-  v23 = *(v13 + 48);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v36 + v22, v16, &_s10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredVSgMd, &_s10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredVSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v21 + v22, &v16[v23], &_s10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredVSgMd, &_s10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredVSgMR);
-  v24 = *(v5 + 48);
-  if (v24(v16, 1, v4) == 1)
-  {
-    if (v24(&v16[v23], 1, v4) == 1)
-    {
-      outlined destroy of Any?(v16, &_s10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredVSgMd, &_s10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredVSgMR);
-LABEL_17:
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v27 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v27 & 1;
-    }
-
-    goto LABEL_10;
-  }
-
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16, v12, &_s10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredVSgMd, &_s10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredVSgMR);
-  if (v24(&v16[v23], 1, v4) == 1)
-  {
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasured);
-LABEL_10:
-    v25 = &_s10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredVSg_ADtMd;
-    v26 = &_s10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredVSg_ADtMR;
-LABEL_11:
-    outlined destroy of Any?(v16, v25, v26);
-    goto LABEL_12;
-  }
-
-  outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v16[v23], v8, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasured);
-  v29 = *(v4 + 20);
-  v30 = *&v12[v29];
-  v31 = *&v8[v29];
-  if (v30 != v31)
-  {
-    v32 = *&v12[v29];
-
-    v33 = closure #1 in static Proto_Gnss_Emergency_GanssTimeMeasured.== infix(_:_:)(v30, v31);
-
-    if (!v33)
-    {
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v8, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasured);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasured);
-      v25 = &_s10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredVSgMd;
-      v26 = &_s10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredVSgMR;
-      goto LABEL_11;
-    }
-  }
-
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v34 = dispatch thunk of static Equatable.== infix(_:_:)();
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v8, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasured);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasured);
-  outlined destroy of Any?(v16, &_s10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredVSgMd, &_s10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredVSgMR);
-  if (v34)
-  {
-    goto LABEL_17;
-  }
-
-LABEL_12:
-  v27 = 0;
-  return v27 & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_GanssMeasurements.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss(0);
-  v77 = *(v4 - 8);
-  v78 = v4;
-  v5 = *(v77 + 64);
-  MEMORY[0x28223BE20](v4);
-  v76 = &v74 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf047Proto_Gnss_Emergency_GanssMeasurementsForSingleE0VSgMd, &_s10ALProtobuf047Proto_Gnss_Emergency_GanssMeasurementsForSingleE0VSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v74 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf047Proto_Gnss_Emergency_GanssMeasurementsForSingleE0VSg_ADtMd, &_s10ALProtobuf047Proto_Gnss_Emergency_GanssMeasurementsForSingleE0VSg_ADtMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11);
-  v79 = &v74 - v13;
-  v14 = type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasuredParams(0);
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  MEMORY[0x28223BE20](v14);
-  v18 = &v74 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44Proto_Gnss_Emergency_GanssTimeMeasuredParamsVSgMd, &_s10ALProtobuf44Proto_Gnss_Emergency_GanssTimeMeasuredParamsVSgMR);
-  v20 = *(*(v19 - 8) + 64);
-  MEMORY[0x28223BE20](v19 - 8);
-  v22 = &v74 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf44Proto_Gnss_Emergency_GanssTimeMeasuredParamsVSg_ADtMd, &_s10ALProtobuf44Proto_Gnss_Emergency_GanssTimeMeasuredParamsVSg_ADtMR);
-  v24 = *(*(v23 - 8) + 64);
-  MEMORY[0x28223BE20](v23);
-  v26 = &v74 - v25;
-  v27 = type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements(0);
-  v28 = v27[5];
-  v29 = *(a1 + v28);
-  v30 = *(a2 + v28);
-  if (v29 == 6)
-  {
-    if (v30 != 6)
-    {
-      goto LABEL_36;
-    }
-  }
-
-  else if (v29 != v30)
-  {
-    goto LABEL_36;
-  }
-
-  v31 = v27[6];
-  v32 = (a1 + v31);
-  v33 = *(a1 + v31 + 4);
-  v34 = (a2 + v31);
-  v35 = *(a2 + v31 + 4);
-  if (v33)
-  {
-    if (!v35)
-    {
-      goto LABEL_36;
-    }
-  }
-
-  else
-  {
-    if (*v32 != *v34)
-    {
-      LOBYTE(v35) = 1;
-    }
-
-    if (v35)
-    {
-      goto LABEL_36;
-    }
-  }
-
-  v36 = v27[7];
-  v37 = (a1 + v36);
-  v38 = *(a1 + v36 + 4);
-  v39 = (a2 + v36);
-  v40 = *(a2 + v36 + 4);
-  if (v38)
-  {
-    if (!v40)
-    {
-      goto LABEL_36;
-    }
-  }
-
-  else
-  {
-    if (*v37 != *v39)
-    {
-      LOBYTE(v40) = 1;
-    }
-
-    if (v40)
-    {
-      goto LABEL_36;
-    }
-  }
-
-  v41 = v27[8];
-  v42 = (a1 + v41);
-  v43 = *(a1 + v41 + 4);
-  v44 = (a2 + v41);
-  v45 = *(a2 + v41 + 4);
-  if (v43)
-  {
-    if (!v45)
-    {
-      goto LABEL_36;
-    }
-  }
-
-  else
-  {
-    if (*v42 != *v44)
-    {
-      LOBYTE(v45) = 1;
-    }
-
-    if (v45)
-    {
-      goto LABEL_36;
-    }
-  }
-
-  v46 = v27[9];
-  v47 = (a1 + v46);
-  v48 = *(a1 + v46 + 4);
-  v49 = (a2 + v46);
-  v50 = *(a2 + v46 + 4);
-  if (v48)
-  {
-    if (!v50)
-    {
-      goto LABEL_36;
-    }
-  }
-
-  else
-  {
-    if (*v47 != *v49)
-    {
-      LOBYTE(v50) = 1;
-    }
-
-    if (v50)
-    {
-      goto LABEL_36;
-    }
-  }
-
-  v51 = v27[10];
-  v74 = v27;
-  v75 = v51;
-  v52 = *(v23 + 48);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v51, v26, &_s10ALProtobuf44Proto_Gnss_Emergency_GanssTimeMeasuredParamsVSgMd, &_s10ALProtobuf44Proto_Gnss_Emergency_GanssTimeMeasuredParamsVSgMR);
-  v53 = a2 + v75;
-  v75 = v52;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v53, &v26[v52], &_s10ALProtobuf44Proto_Gnss_Emergency_GanssTimeMeasuredParamsVSgMd, &_s10ALProtobuf44Proto_Gnss_Emergency_GanssTimeMeasuredParamsVSgMR);
-  v54 = *(v15 + 48);
-  if (v54(v26, 1, v14) != 1)
-  {
-    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v26, v22, &_s10ALProtobuf44Proto_Gnss_Emergency_GanssTimeMeasuredParamsVSgMd, &_s10ALProtobuf44Proto_Gnss_Emergency_GanssTimeMeasuredParamsVSgMR);
-    if (v54(&v26[v75], 1, v14) != 1)
-    {
-      outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v26[v75], v18, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasuredParams);
-      v60 = specialized static Proto_Gnss_Emergency_GanssTimeMeasuredParams.== infix(_:_:)(v22, v18);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v18, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasuredParams);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v22, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasuredParams);
-      outlined destroy of Any?(v26, &_s10ALProtobuf44Proto_Gnss_Emergency_GanssTimeMeasuredParamsVSgMd, &_s10ALProtobuf44Proto_Gnss_Emergency_GanssTimeMeasuredParamsVSgMR);
-      if ((v60 & 1) == 0)
-      {
-        goto LABEL_36;
-      }
-
-      goto LABEL_39;
-    }
-
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v22, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasuredParams);
-LABEL_34:
-    v55 = &_s10ALProtobuf44Proto_Gnss_Emergency_GanssTimeMeasuredParamsVSg_ADtMd;
-    v56 = &_s10ALProtobuf44Proto_Gnss_Emergency_GanssTimeMeasuredParamsVSg_ADtMR;
-    v57 = v26;
-LABEL_35:
-    outlined destroy of Any?(v57, v55, v56);
-    goto LABEL_36;
-  }
-
-  if (v54(&v26[v75], 1, v14) != 1)
-  {
-    goto LABEL_34;
-  }
-
-  outlined destroy of Any?(v26, &_s10ALProtobuf44Proto_Gnss_Emergency_GanssTimeMeasuredParamsVSgMd, &_s10ALProtobuf44Proto_Gnss_Emergency_GanssTimeMeasuredParamsVSgMR);
-LABEL_39:
-  v61 = v74[11];
-  v62 = (a1 + v61);
-  v63 = *(a1 + v61 + 4);
-  v64 = (a2 + v61);
-  v65 = *(a2 + v61 + 4);
-  if (v63)
-  {
-    if (!v65)
-    {
-      goto LABEL_36;
-    }
-  }
-
-  else
-  {
-    if (*v62 != *v64)
-    {
-      LOBYTE(v65) = 1;
-    }
-
-    if (v65)
-    {
-      goto LABEL_36;
-    }
-  }
-
-  v66 = v74[12];
-  v67 = *(v11 + 48);
-  v68 = v79;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v66, v79, &_s10ALProtobuf047Proto_Gnss_Emergency_GanssMeasurementsForSingleE0VSgMd, &_s10ALProtobuf047Proto_Gnss_Emergency_GanssMeasurementsForSingleE0VSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v66, v68 + v67, &_s10ALProtobuf047Proto_Gnss_Emergency_GanssMeasurementsForSingleE0VSgMd, &_s10ALProtobuf047Proto_Gnss_Emergency_GanssMeasurementsForSingleE0VSgMR);
-  v69 = v78;
-  v70 = *(v77 + 48);
-  if (v70(v68, 1, v78) == 1)
-  {
-    if (v70(v68 + v67, 1, v69) == 1)
-    {
-      outlined destroy of Any?(v68, &_s10ALProtobuf047Proto_Gnss_Emergency_GanssMeasurementsForSingleE0VSgMd, &_s10ALProtobuf047Proto_Gnss_Emergency_GanssMeasurementsForSingleE0VSgMR);
-LABEL_52:
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v58 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v58 & 1;
-    }
-
-    goto LABEL_50;
-  }
-
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v68, v10, &_s10ALProtobuf047Proto_Gnss_Emergency_GanssMeasurementsForSingleE0VSgMd, &_s10ALProtobuf047Proto_Gnss_Emergency_GanssMeasurementsForSingleE0VSgMR);
-  if (v70(v68 + v67, 1, v69) == 1)
-  {
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v10, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss);
-LABEL_50:
-    v55 = &_s10ALProtobuf047Proto_Gnss_Emergency_GanssMeasurementsForSingleE0VSg_ADtMd;
-    v56 = &_s10ALProtobuf047Proto_Gnss_Emergency_GanssMeasurementsForSingleE0VSg_ADtMR;
-    v57 = v68;
-    goto LABEL_35;
-  }
-
-  v71 = v68 + v67;
-  v72 = v76;
-  outlined init with take of Proto_Gnss_Emergency_SLPAddress(v71, v76, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss);
-  v73 = specialized static Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss.== infix(_:_:)(v10, v72);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v72, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v10, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss);
-  outlined destroy of Any?(v68, &_s10ALProtobuf047Proto_Gnss_Emergency_GanssMeasurementsForSingleE0VSgMd, &_s10ALProtobuf047Proto_Gnss_Emergency_GanssMeasurementsForSingleE0VSgMR);
-  if (v73)
-  {
-    goto LABEL_52;
-  }
-
-LABEL_36:
-  v58 = 0;
-  return v58 & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_VelocityEstimate.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_VelocityInfo(0);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v8 = &v28 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf33Proto_Gnss_Emergency_VelocityInfoVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_VelocityInfoVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v28 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf33Proto_Gnss_Emergency_VelocityInfoVSg_ADtMd, &_s10ALProtobuf33Proto_Gnss_Emergency_VelocityInfoVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v28 - v15;
-  v17 = type metadata accessor for Proto_Gnss_Emergency_VelocityEstimate(0);
-  v18 = *(v17 + 20);
-  v29 = a1;
-  v19 = *(a1 + v18);
-  v20 = *(a2 + v18);
-  if (v19 == 6)
-  {
-    if (v20 != 6)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  else if (v19 != v20)
-  {
-    goto LABEL_11;
-  }
-
-  v21 = a2;
-  v22 = *(v17 + 24);
-  v23 = *(v13 + 48);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v29 + v22, v16, &_s10ALProtobuf33Proto_Gnss_Emergency_VelocityInfoVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_VelocityInfoVSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v21 + v22, &v16[v23], &_s10ALProtobuf33Proto_Gnss_Emergency_VelocityInfoVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_VelocityInfoVSgMR);
-  v24 = *(v5 + 48);
-  if (v24(v16, 1, v4) == 1)
-  {
-    if (v24(&v16[v23], 1, v4) == 1)
-    {
-      outlined destroy of Any?(v16, &_s10ALProtobuf33Proto_Gnss_Emergency_VelocityInfoVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_VelocityInfoVSgMR);
-LABEL_14:
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v25 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v25 & 1;
-    }
-
-    goto LABEL_10;
-  }
-
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16, v12, &_s10ALProtobuf33Proto_Gnss_Emergency_VelocityInfoVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_VelocityInfoVSgMR);
-  if (v24(&v16[v23], 1, v4) == 1)
-  {
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_VelocityInfo);
-LABEL_10:
-    outlined destroy of Any?(v16, &_s10ALProtobuf33Proto_Gnss_Emergency_VelocityInfoVSg_ADtMd, &_s10ALProtobuf33Proto_Gnss_Emergency_VelocityInfoVSg_ADtMR);
-    goto LABEL_11;
-  }
-
-  outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v16[v23], v8, type metadata accessor for Proto_Gnss_Emergency_VelocityInfo);
-  v27 = specialized static Proto_Gnss_Emergency_VelocityInfo.== infix(_:_:)(v12, v8);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v8, type metadata accessor for Proto_Gnss_Emergency_VelocityInfo);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_VelocityInfo);
-  outlined destroy of Any?(v16, &_s10ALProtobuf33Proto_Gnss_Emergency_VelocityInfoVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_VelocityInfoVSgMR);
-  if (v27)
-  {
-    goto LABEL_14;
-  }
-
-LABEL_11:
-  v25 = 0;
-  return v25 & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_Is801LocationInd.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_Is801HeightInfo(0);
-  v110 = *(v4 - 8);
-  v111 = v4;
-  v5 = *(v110 + 64);
-  MEMORY[0x28223BE20](v4);
-  v108 = &v104 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf36Proto_Gnss_Emergency_Is801HeightInfoVSgMd, &_s10ALProtobuf36Proto_Gnss_Emergency_Is801HeightInfoVSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v112 = &v104 - v9;
-  v109 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf36Proto_Gnss_Emergency_Is801HeightInfoVSg_ADtMd, &_s10ALProtobuf36Proto_Gnss_Emergency_Is801HeightInfoVSg_ADtMR);
-  v10 = *(*(v109 - 8) + 64);
-  MEMORY[0x28223BE20](v109);
-  v113 = &v104 - v11;
-  v12 = type metadata accessor for Proto_Gnss_Emergency_Is801ClockInfo(0);
-  v116 = *(v12 - 8);
-  v13 = *(v116 + 64);
-  MEMORY[0x28223BE20](v12);
-  v114 = &v104 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf35Proto_Gnss_Emergency_Is801ClockInfoVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_Is801ClockInfoVSgMR);
-  v16 = *(*(v15 - 8) + 64);
-  MEMORY[0x28223BE20](v15 - 8);
-  v115 = &v104 - v17;
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf35Proto_Gnss_Emergency_Is801ClockInfoVSg_ADtMd, &_s10ALProtobuf35Proto_Gnss_Emergency_Is801ClockInfoVSg_ADtMR);
-  v19 = *(*(v18 - 8) + 64);
-  MEMORY[0x28223BE20](v18);
-  v117 = &v104 - v20;
-  v21 = type metadata accessor for Proto_Gnss_Emergency_Is801VelocityInfo(0);
-  v22 = *(v21 - 8);
-  v23 = *(v22 + 64);
-  MEMORY[0x28223BE20](v21);
-  v25 = &v104 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf38Proto_Gnss_Emergency_Is801VelocityInfoVSgMd, &_s10ALProtobuf38Proto_Gnss_Emergency_Is801VelocityInfoVSgMR);
-  v27 = *(*(v26 - 8) + 64);
-  MEMORY[0x28223BE20](v26 - 8);
-  v29 = &v104 - v28;
-  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf38Proto_Gnss_Emergency_Is801VelocityInfoVSg_ADtMd, &_s10ALProtobuf38Proto_Gnss_Emergency_Is801VelocityInfoVSg_ADtMR);
-  v31 = *(*(v30 - 8) + 64);
-  MEMORY[0x28223BE20](v30);
-  v33 = &v104 - v32;
-  v34 = type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd(0);
-  v35 = a2;
-  v36 = v34;
-  v37 = v34[5];
-  v38 = (a1 + v37);
-  v39 = *(a1 + v37 + 4);
-  v40 = (v35 + v37);
-  v41 = *(v35 + v37 + 4);
-  if (v39)
-  {
-    if (!v41)
-    {
-      goto LABEL_47;
-    }
-  }
-
-  else
-  {
-    if (*v38 != *v40)
-    {
-      LOBYTE(v41) = 1;
-    }
-
-    if (v41)
-    {
-      goto LABEL_47;
-    }
-  }
-
-  v42 = v34[6];
-  v43 = (a1 + v42);
-  v44 = *(a1 + v42 + 4);
-  v45 = (v35 + v42);
-  v46 = *(v35 + v42 + 4);
-  if (v44)
-  {
-    if (!v46)
-    {
-      goto LABEL_47;
-    }
-  }
-
-  else
-  {
-    if (*v43 != *v45)
-    {
-      LOBYTE(v46) = 1;
-    }
-
-    if (v46)
-    {
-      goto LABEL_47;
-    }
-  }
-
-  v47 = v34[7];
-  v48 = (a1 + v47);
-  v49 = *(a1 + v47 + 4);
-  v50 = (v35 + v47);
-  v51 = *(v35 + v47 + 4);
-  if (v49)
-  {
-    if (!v51)
-    {
-      goto LABEL_47;
-    }
-  }
-
-  else
-  {
-    if (*v48 != *v50)
-    {
-      LOBYTE(v51) = 1;
-    }
-
-    if (v51)
-    {
-      goto LABEL_47;
-    }
-  }
-
-  v52 = v34[8];
-  v53 = (a1 + v52);
-  v54 = *(a1 + v52 + 4);
-  v55 = (v35 + v52);
-  v56 = *(v35 + v52 + 4);
-  if (v54)
-  {
-    if (!v56)
-    {
-      goto LABEL_47;
-    }
-  }
-
-  else
-  {
-    if (*v53 != *v55)
-    {
-      LOBYTE(v56) = 1;
-    }
-
-    if (v56)
-    {
-      goto LABEL_47;
-    }
-  }
-
-  v57 = v34[9];
-  v58 = (a1 + v57);
-  v59 = *(a1 + v57 + 4);
-  v60 = (v35 + v57);
-  v61 = *(v35 + v57 + 4);
-  if (v59)
-  {
-    if (!v61)
-    {
-      goto LABEL_47;
-    }
-  }
-
-  else
-  {
-    if (*v58 != *v60)
-    {
-      LOBYTE(v61) = 1;
-    }
-
-    if (v61)
-    {
-      goto LABEL_47;
-    }
-  }
-
-  v62 = v34[10];
-  v63 = *(a1 + v62);
-  v64 = *(v35 + v62);
-  if (v63 == 4)
-  {
-    if (v64 != 4)
-    {
-      goto LABEL_47;
-    }
-  }
-
-  else if (v63 != v64)
-  {
-    goto LABEL_47;
-  }
-
-  v65 = v34[11];
-  v66 = *(a1 + v65);
-  v67 = *(v35 + v65);
-  if (v66 == 2)
-  {
-    if (v67 != 2)
-    {
-      goto LABEL_47;
-    }
-  }
-
-  else if (v67 == 2 || ((v66 ^ v67) & 1) != 0)
-  {
-    goto LABEL_47;
-  }
-
-  v107 = v34[12];
-  v68 = *(v30 + 48);
-  v105 = a1;
-  v69 = a1 + v107;
-  v70 = v68;
-  v71 = v35;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v69, v33, &_s10ALProtobuf38Proto_Gnss_Emergency_Is801VelocityInfoVSgMd, &_s10ALProtobuf38Proto_Gnss_Emergency_Is801VelocityInfoVSgMR);
-  v72 = v71 + v107;
-  v106 = v71;
-  v107 = v70;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v72, &v33[v70], &_s10ALProtobuf38Proto_Gnss_Emergency_Is801VelocityInfoVSgMd, &_s10ALProtobuf38Proto_Gnss_Emergency_Is801VelocityInfoVSgMR);
-  v73 = *(v22 + 48);
-  if (v73(v33, 1, v21) == 1)
-  {
-    if (v73(&v33[v107], 1, v21) == 1)
-    {
-      outlined destroy of Any?(v33, &_s10ALProtobuf38Proto_Gnss_Emergency_Is801VelocityInfoVSgMd, &_s10ALProtobuf38Proto_Gnss_Emergency_Is801VelocityInfoVSgMR);
-      goto LABEL_50;
-    }
-
-LABEL_45:
-    v74 = &_s10ALProtobuf38Proto_Gnss_Emergency_Is801VelocityInfoVSg_ADtMd;
-    v75 = &_s10ALProtobuf38Proto_Gnss_Emergency_Is801VelocityInfoVSg_ADtMR;
-    v76 = v33;
-LABEL_46:
-    outlined destroy of Any?(v76, v74, v75);
-    goto LABEL_47;
-  }
-
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v33, v29, &_s10ALProtobuf38Proto_Gnss_Emergency_Is801VelocityInfoVSgMd, &_s10ALProtobuf38Proto_Gnss_Emergency_Is801VelocityInfoVSgMR);
-  if (v73(&v33[v107], 1, v21) == 1)
-  {
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v29, type metadata accessor for Proto_Gnss_Emergency_Is801VelocityInfo);
-    goto LABEL_45;
-  }
-
-  outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v33[v107], v25, type metadata accessor for Proto_Gnss_Emergency_Is801VelocityInfo);
-  v79 = specialized static Proto_Gnss_Emergency_HorizWithUncertaintyVelocity.== infix(_:_:)(v29, v25, type metadata accessor for Proto_Gnss_Emergency_Is801VelocityInfo);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v25, type metadata accessor for Proto_Gnss_Emergency_Is801VelocityInfo);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v29, type metadata accessor for Proto_Gnss_Emergency_Is801VelocityInfo);
-  outlined destroy of Any?(v33, &_s10ALProtobuf38Proto_Gnss_Emergency_Is801VelocityInfoVSgMd, &_s10ALProtobuf38Proto_Gnss_Emergency_Is801VelocityInfoVSgMR);
-  if ((v79 & 1) == 0)
-  {
-    goto LABEL_47;
-  }
-
-LABEL_50:
-  v80 = v36[13];
-  v81 = *(v105 + v80);
-  v82 = *(v106 + v80);
-  if (v81 == 2)
-  {
-    if (v82 != 2)
-    {
-      goto LABEL_47;
-    }
-  }
-
-  else if (v82 == 2 || ((v81 ^ v82) & 1) != 0)
-  {
-    goto LABEL_47;
-  }
-
-  v83 = v36[14];
-  v84 = *(v18 + 48);
-  v85 = v106;
-  v86 = v117;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v105 + v83, v117, &_s10ALProtobuf35Proto_Gnss_Emergency_Is801ClockInfoVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_Is801ClockInfoVSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v85 + v83, v86 + v84, &_s10ALProtobuf35Proto_Gnss_Emergency_Is801ClockInfoVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_Is801ClockInfoVSgMR);
-  v87 = *(v116 + 48);
-  if (v87(v86, 1, v12) != 1)
-  {
-    v88 = v115;
-    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v86, v115, &_s10ALProtobuf35Proto_Gnss_Emergency_Is801ClockInfoVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_Is801ClockInfoVSgMR);
-    if (v87(v86 + v84, 1, v12) != 1)
-    {
-      v89 = v114;
-      outlined init with take of Proto_Gnss_Emergency_SLPAddress(v86 + v84, v114, type metadata accessor for Proto_Gnss_Emergency_Is801ClockInfo);
-      v90 = specialized static Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssisted.== infix(_:_:)(v88, v89, type metadata accessor for Proto_Gnss_Emergency_Is801ClockInfo);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v89, type metadata accessor for Proto_Gnss_Emergency_Is801ClockInfo);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v88, type metadata accessor for Proto_Gnss_Emergency_Is801ClockInfo);
-      outlined destroy of Any?(v86, &_s10ALProtobuf35Proto_Gnss_Emergency_Is801ClockInfoVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_Is801ClockInfoVSgMR);
-      if ((v90 & 1) == 0)
-      {
-        goto LABEL_47;
-      }
-
-      goto LABEL_62;
-    }
-
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v88, type metadata accessor for Proto_Gnss_Emergency_Is801ClockInfo);
-    goto LABEL_60;
-  }
-
-  if (v87(v86 + v84, 1, v12) != 1)
-  {
-LABEL_60:
-    v74 = &_s10ALProtobuf35Proto_Gnss_Emergency_Is801ClockInfoVSg_ADtMd;
-    v75 = &_s10ALProtobuf35Proto_Gnss_Emergency_Is801ClockInfoVSg_ADtMR;
-    v76 = v86;
-    goto LABEL_46;
-  }
-
-  outlined destroy of Any?(v86, &_s10ALProtobuf35Proto_Gnss_Emergency_Is801ClockInfoVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_Is801ClockInfoVSgMR);
-LABEL_62:
-  v91 = v36[15];
-  v92 = *(v105 + v91);
-  v93 = *(v106 + v91);
-  if (v92 == 2)
-  {
-    if (v93 != 2)
-    {
-      goto LABEL_47;
-    }
-  }
-
-  else if (v93 == 2 || ((v92 ^ v93) & 1) != 0)
-  {
-    goto LABEL_47;
-  }
-
-  v94 = v36[16];
-  v95 = *(v109 + 48);
-  v96 = v113;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v105 + v94, v113, &_s10ALProtobuf36Proto_Gnss_Emergency_Is801HeightInfoVSgMd, &_s10ALProtobuf36Proto_Gnss_Emergency_Is801HeightInfoVSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v106 + v94, v96 + v95, &_s10ALProtobuf36Proto_Gnss_Emergency_Is801HeightInfoVSgMd, &_s10ALProtobuf36Proto_Gnss_Emergency_Is801HeightInfoVSgMR);
-  v97 = v111;
-  v98 = *(v110 + 48);
-  if (v98(v96, 1, v111) == 1)
-  {
-    if (v98(v96 + v95, 1, v97) == 1)
-    {
-      outlined destroy of Any?(v96, &_s10ALProtobuf36Proto_Gnss_Emergency_Is801HeightInfoVSgMd, &_s10ALProtobuf36Proto_Gnss_Emergency_Is801HeightInfoVSgMR);
-LABEL_74:
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v77 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v77 & 1;
-    }
-
-    goto LABEL_72;
-  }
-
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v96, v112, &_s10ALProtobuf36Proto_Gnss_Emergency_Is801HeightInfoVSgMd, &_s10ALProtobuf36Proto_Gnss_Emergency_Is801HeightInfoVSgMR);
-  if (v98(v96 + v95, 1, v97) == 1)
-  {
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v112, type metadata accessor for Proto_Gnss_Emergency_Is801HeightInfo);
-    v96 = v113;
-LABEL_72:
-    v74 = &_s10ALProtobuf36Proto_Gnss_Emergency_Is801HeightInfoVSg_ADtMd;
-    v75 = &_s10ALProtobuf36Proto_Gnss_Emergency_Is801HeightInfoVSg_ADtMR;
-    v76 = v96;
-    goto LABEL_46;
-  }
-
-  v99 = v113;
-  v100 = v113 + v95;
-  v101 = v108;
-  outlined init with take of Proto_Gnss_Emergency_SLPAddress(v100, v108, type metadata accessor for Proto_Gnss_Emergency_Is801HeightInfo);
-  v102 = v112;
-  v103 = specialized static Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssisted.== infix(_:_:)(v112, v101, type metadata accessor for Proto_Gnss_Emergency_Is801HeightInfo);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v101, type metadata accessor for Proto_Gnss_Emergency_Is801HeightInfo);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v102, type metadata accessor for Proto_Gnss_Emergency_Is801HeightInfo);
-  outlined destroy of Any?(v99, &_s10ALProtobuf36Proto_Gnss_Emergency_Is801HeightInfoVSgMd, &_s10ALProtobuf36Proto_Gnss_Emergency_Is801HeightInfoVSgMR);
-  if (v103)
-  {
-    goto LABEL_74;
-  }
-
-LABEL_47:
-  v77 = 0;
-  return v77 & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_GpsReferenceTime.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime(0);
-  v5 = v4[6];
-  v6 = (a1 + v5);
-  v7 = *(a1 + v5 + 4);
-  v8 = (a2 + v5);
-  v9 = *(a2 + v5 + 4);
-  if (v7)
-  {
-    if (!v9)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v6 != *v8)
-    {
-      LOBYTE(v9) = 1;
-    }
-
-    if (v9)
-    {
-      return 0;
-    }
-  }
-
-  v10 = v4[7];
-  v11 = (a1 + v10);
-  v12 = *(a1 + v10 + 4);
-  v13 = (a2 + v10);
-  v14 = *(a2 + v10 + 4);
-  if (v12)
-  {
-    if (!v14)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v11 != *v13)
-    {
-      LOBYTE(v14) = 1;
-    }
-
-    if (v14)
-    {
-      return 0;
-    }
-  }
-
-  v15 = v4[8];
-  v16 = (a1 + v15);
-  v17 = *(a1 + v15 + 4);
-  v18 = (a2 + v15);
-  v19 = *(a2 + v15 + 4);
-  if (v17)
-  {
-    if (!v19)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v16 != *v18)
-    {
-      LOBYTE(v19) = 1;
-    }
-
-    if (v19)
-    {
-      return 0;
-    }
-  }
-
-  v20 = v4[9];
-  v21 = (a1 + v20);
-  v22 = *(a1 + v20 + 4);
-  v23 = (a2 + v20);
-  v24 = *(a2 + v20 + 4);
-  if (v22)
-  {
-    if (!v24)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v21 != *v23)
-    {
-      LOBYTE(v24) = 1;
-    }
-
-    if (v24)
-    {
-      return 0;
-    }
-  }
-
-  v25 = v4;
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ10ALProtobuf30Proto_Gnss_Emergency_TowAssistV_Tt1g5(*a1, *a2) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v26 = v25[10];
-  v27 = (a1 + v26);
-  v28 = *(a1 + v26 + 4);
-  v29 = (a2 + v26);
-  v30 = *(a2 + v26 + 4);
-  if (v28)
-  {
-    if (!v30)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v27 != *v29)
-    {
-      LOBYTE(v30) = 1;
-    }
-
-    if (v30)
-    {
-      return 0;
-    }
-  }
-
-  v31 = v25[11];
-  v32 = *(a1 + v31);
-  v33 = *(a2 + v31);
-  if (v32 == 6)
-  {
-    if (v33 != 6)
-    {
-      return 0;
-    }
-  }
-
-  else if (v32 != v33)
-  {
-    return 0;
-  }
-
-  v34 = v25[12];
-  v35 = *(a1 + v34);
-  v36 = *(a2 + v34);
-  if (v35 != 7)
-  {
-    if (v35 == v36)
-    {
-      goto LABEL_40;
-    }
-
-    return 0;
-  }
-
-  if (v36 != 7)
-  {
-    return 0;
-  }
-
-LABEL_40:
-  v37 = v25[13];
-  v38 = (a1 + v37);
-  v39 = *(a1 + v37 + 4);
-  v40 = (a2 + v37);
-  v41 = *(a2 + v37 + 4);
-  if (v39)
-  {
-    if (!v41)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v38 != *v40)
-    {
-      LOBYTE(v41) = 1;
-    }
-
-    if (v41)
-    {
-      return 0;
-    }
-  }
-
-  v43 = v25[5];
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_CellTimeAssistance.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_CellTimeData(0);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v8 = &v28 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v28 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSg_ADtMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v28 - v15;
-  v17 = type metadata accessor for Proto_Gnss_Emergency_CellTimeAssistance(0);
-  v18 = *(v17 + 20);
-  v29 = a1;
-  v19 = *(a1 + v18);
-  v20 = *(a2 + v18);
-  if (v19 == 6)
-  {
-    if (v20 != 6)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  else if (v19 != v20)
-  {
-    goto LABEL_11;
-  }
-
-  v21 = a2;
-  v22 = *(v17 + 24);
-  v23 = *(v13 + 48);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v29 + v22, v16, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v21 + v22, &v16[v23], &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMR);
-  v24 = *(v5 + 48);
-  if (v24(v16, 1, v4) == 1)
-  {
-    if (v24(&v16[v23], 1, v4) == 1)
-    {
-      outlined destroy of Any?(v16, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMR);
-LABEL_14:
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v25 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v25 & 1;
-    }
-
-    goto LABEL_10;
-  }
-
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16, v12, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMR);
-  if (v24(&v16[v23], 1, v4) == 1)
-  {
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_CellTimeData);
-LABEL_10:
-    outlined destroy of Any?(v16, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSg_ADtMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSg_ADtMR);
-    goto LABEL_11;
-  }
-
-  outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v16[v23], v8, type metadata accessor for Proto_Gnss_Emergency_CellTimeData);
-  v27 = specialized static Proto_Gnss_Emergency_CellTimeData.== infix(_:_:)(v12, v8);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v8, type metadata accessor for Proto_Gnss_Emergency_CellTimeData);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_CellTimeData);
-  outlined destroy of Any?(v16, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMR);
-  if (v27)
-  {
-    goto LABEL_14;
-  }
-
-LABEL_11:
-  v25 = 0;
-  return v25 & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_GpsAcqAssistance.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_CellTimeAssistance(0);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v8 = &v52 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39Proto_Gnss_Emergency_CellTimeAssistanceVSgMd, &_s10ALProtobuf39Proto_Gnss_Emergency_CellTimeAssistanceVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v52 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39Proto_Gnss_Emergency_CellTimeAssistanceVSg_ADtMd, &_s10ALProtobuf39Proto_Gnss_Emergency_CellTimeAssistanceVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v52 - v15;
-  v17 = type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance(0);
-  v18 = v17[6];
-  v19 = (a1 + v18);
-  v20 = *(a1 + v18 + 4);
-  v21 = (a2 + v18);
-  v22 = *(a2 + v18 + 4);
-  if (v20)
-  {
-    if (!v22)
-    {
-      goto LABEL_37;
-    }
-  }
-
-  else
-  {
-    if (*v19 != *v21)
-    {
-      LOBYTE(v22) = 1;
-    }
-
-    if (v22)
-    {
-      goto LABEL_37;
-    }
-  }
-
-  v23 = v17[7];
-  v24 = (a1 + v23);
-  v25 = *(a1 + v23 + 4);
-  v26 = (a2 + v23);
-  v27 = *(a2 + v23 + 4);
-  if (v25)
-  {
-    if (!v27)
-    {
-      goto LABEL_37;
-    }
-  }
-
-  else
-  {
-    if (*v24 != *v26)
-    {
-      LOBYTE(v27) = 1;
-    }
-
-    if (v27)
-    {
-      goto LABEL_37;
-    }
-  }
-
-  v28 = v17[8];
-  v29 = *(v13 + 48);
-  v52 = v17;
-  v53 = a1;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v28, v16, &_s10ALProtobuf39Proto_Gnss_Emergency_CellTimeAssistanceVSgMd, &_s10ALProtobuf39Proto_Gnss_Emergency_CellTimeAssistanceVSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v28, &v16[v29], &_s10ALProtobuf39Proto_Gnss_Emergency_CellTimeAssistanceVSgMd, &_s10ALProtobuf39Proto_Gnss_Emergency_CellTimeAssistanceVSgMR);
-  v30 = *(v5 + 48);
-  if (v30(v16, 1, v4) == 1)
-  {
-    if (v30(&v16[v29], 1, v4) == 1)
-    {
-      outlined destroy of Any?(v16, &_s10ALProtobuf39Proto_Gnss_Emergency_CellTimeAssistanceVSgMd, &_s10ALProtobuf39Proto_Gnss_Emergency_CellTimeAssistanceVSgMR);
-LABEL_20:
-      v33 = v53;
-      if (_sSasSQRzlE2eeoiySbSayxG_ABtFZ10ALProtobuf34Proto_Gnss_Emergency_GpsAcqElementV_Tt1g5Tm(*v53, *a2, type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement, type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement, specialized static Proto_Gnss_Emergency_GpsAcqElement.== infix(_:_:)))
-      {
-        v34 = v52[9];
-        v35 = (v33 + v34);
-        v36 = *(v33 + v34 + 4);
-        v37 = (a2 + v34);
-        v38 = *(a2 + v34 + 4);
-        if (v36)
-        {
-          if (!v38)
-          {
-            goto LABEL_37;
-          }
-        }
-
-        else
-        {
-          if (*v35 != *v37)
-          {
-            LOBYTE(v38) = 1;
-          }
-
-          if (v38)
-          {
-            goto LABEL_37;
-          }
-        }
-
-        v39 = v52[10];
-        v40 = *(v33 + v39);
-        v41 = *(a2 + v39);
-        if (v40 == 6)
-        {
-          if (v41 != 6)
-          {
-            goto LABEL_37;
-          }
-        }
-
-        else if (v40 != v41)
-        {
-          goto LABEL_37;
-        }
-
-        v42 = v52[11];
-        v43 = *(v33 + v42);
-        v44 = *(a2 + v42);
-        if (v43 == 7)
-        {
-          if (v44 == 7)
-          {
-LABEL_35:
-            v45 = v52[12];
-            v46 = (v33 + v45);
-            v47 = *(v33 + v45 + 4);
-            v48 = (a2 + v45);
-            v49 = *(a2 + v45 + 4);
-            if (v47)
-            {
-              if (!v49)
-              {
-                goto LABEL_37;
-              }
-            }
-
-            else
-            {
-              if (*v46 != *v48)
-              {
-                LOBYTE(v49) = 1;
-              }
-
-              if (v49)
-              {
-                goto LABEL_37;
-              }
-            }
-
-            v51 = v52[5];
-            type metadata accessor for UnknownStorage();
-            lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-            v31 = dispatch thunk of static Equatable.== infix(_:_:)();
-            return v31 & 1;
-          }
-        }
-
-        else if (v43 == v44)
-        {
-          goto LABEL_35;
-        }
-      }
-
-LABEL_37:
-      v31 = 0;
-      return v31 & 1;
-    }
-  }
-
-  else
-  {
-    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16, v12, &_s10ALProtobuf39Proto_Gnss_Emergency_CellTimeAssistanceVSgMd, &_s10ALProtobuf39Proto_Gnss_Emergency_CellTimeAssistanceVSgMR);
-    if (v30(&v16[v29], 1, v4) != 1)
-    {
-      outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v16[v29], v8, type metadata accessor for Proto_Gnss_Emergency_CellTimeAssistance);
-      v32 = specialized static Proto_Gnss_Emergency_CellTimeAssistance.== infix(_:_:)(v12, v8);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v8, type metadata accessor for Proto_Gnss_Emergency_CellTimeAssistance);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_CellTimeAssistance);
-      outlined destroy of Any?(v16, &_s10ALProtobuf39Proto_Gnss_Emergency_CellTimeAssistanceVSgMd, &_s10ALProtobuf39Proto_Gnss_Emergency_CellTimeAssistanceVSgMR);
-      if ((v32 & 1) == 0)
-      {
-        goto LABEL_37;
-      }
-
-      goto LABEL_20;
-    }
-
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_CellTimeAssistance);
-  }
-
-  outlined destroy of Any?(v16, &_s10ALProtobuf39Proto_Gnss_Emergency_CellTimeAssistanceVSg_ADtMd, &_s10ALProtobuf39Proto_Gnss_Emergency_CellTimeAssistanceVSg_ADtMR);
-  v31 = 0;
-  return v31 & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_ClsGeranCellTime.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_ClsGeranCellTime(0);
-  v5 = v4[5];
-  v6 = (a1 + v5);
-  v7 = *(a1 + v5 + 4);
-  v8 = (a2 + v5);
-  v9 = *(a2 + v5 + 4);
-  if (v7)
-  {
-    if (!v9)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v6 != *v8)
-    {
-      LOBYTE(v9) = 1;
-    }
-
-    if (v9)
-    {
-      return 0;
-    }
-  }
-
-  v10 = v4[6];
-  v11 = (a1 + v10);
-  v12 = *(a1 + v10 + 4);
-  v13 = (a2 + v10);
-  v14 = *(a2 + v10 + 4);
-  if (v12)
-  {
-    if (!v14)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v11 != *v13)
-    {
-      LOBYTE(v14) = 1;
-    }
-
-    if (v14)
-    {
-      return 0;
-    }
-  }
-
-  v15 = v4[7];
-  v16 = (a1 + v15);
-  v17 = *(a1 + v15 + 4);
-  v18 = (a2 + v15);
-  v19 = *(a2 + v15 + 4);
-  if (v17)
-  {
-    if (!v19)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v16 != *v18)
-    {
-      LOBYTE(v19) = 1;
-    }
-
-    if (v19)
-    {
-      return 0;
-    }
-  }
-
-  v20 = v4[8];
-  v21 = (a1 + v20);
-  v22 = *(a1 + v20 + 4);
-  v23 = (a2 + v20);
-  v24 = *(a2 + v20 + 4);
-  if (v22)
-  {
-    if (!v24)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v21 != *v23)
-    {
-      LOBYTE(v24) = 1;
-    }
-
-    if (v24)
-    {
-      return 0;
-    }
-  }
-
-  v25 = v4[9];
-  v26 = (a1 + v25);
-  v27 = *(a1 + v25 + 4);
-  v28 = (a2 + v25);
-  v29 = *(a2 + v25 + 4);
-  if (v27)
-  {
-    if (!v29)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v26 != *v28)
-    {
-      LOBYTE(v29) = 1;
-    }
-
-    if (v29)
-    {
-      return 0;
-    }
-  }
-
-  v30 = v4[10];
-  v31 = (a1 + v30);
-  v32 = *(a1 + v30 + 4);
-  v33 = (a2 + v30);
-  v34 = *(a2 + v30 + 4);
-  if (v32)
-  {
-    if (!v34)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v31 != *v33)
-    {
-      LOBYTE(v34) = 1;
-    }
-
-    if (v34)
-    {
-      return 0;
-    }
-  }
-
-  v35 = v4[11];
-  v36 = (a1 + v35);
-  v37 = *(a1 + v35 + 4);
-  v38 = (a2 + v35);
-  v39 = *(a2 + v35 + 4);
-  if (v37)
-  {
-    if (!v39)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v36 != *v38)
-    {
-      LOBYTE(v39) = 1;
-    }
-
-    if (v39)
-    {
-      return 0;
-    }
-  }
-
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_CellFTAssistance.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_CellTimeData(0);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v8 = &v34[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v34[-v11];
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSg_ADtMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v34[-v15];
-  v17 = type metadata accessor for Proto_Gnss_Emergency_CellFTAssistance(0);
-  v18 = v17[5];
-  v19 = *(a1 + v18);
-  v20 = *(a2 + v18);
-  if (v19 == 10)
-  {
-    if (v20 != 10)
-    {
-      goto LABEL_16;
-    }
-  }
-
-  else
-  {
-    v34[15] = v19;
-    if (v20 == 10)
-    {
-      goto LABEL_16;
-    }
-
-    v34[14] = v20;
-    v21 = v17;
-    lazy protocol witness table accessor for type Proto_Gnss_Result and conformance Proto_Gnss_Result();
-    v22 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v17 = v21;
-    if ((v22 & 1) == 0)
-    {
-      goto LABEL_16;
-    }
-  }
-
-  v23 = v17[6];
-  v24 = *(a1 + v23);
-  v25 = *(a2 + v23);
-  if (v24 == 6)
-  {
-    if (v25 != 6)
-    {
-      goto LABEL_16;
-    }
-  }
-
-  else if (v24 != v25)
-  {
-    goto LABEL_16;
-  }
-
-  v26 = v17[7];
-  v27 = *(v13 + 48);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v26, v16, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMR);
-  v28 = a2 + v26;
-  v29 = v27;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v28, &v16[v27], &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMR);
-  v30 = *(v5 + 48);
-  if (v30(v16, 1, v4) == 1)
-  {
-    if (v30(&v16[v29], 1, v4) == 1)
-    {
-      outlined destroy of Any?(v16, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMR);
-LABEL_19:
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v31 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v31 & 1;
-    }
-
-    goto LABEL_15;
-  }
-
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16, v12, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMR);
-  if (v30(&v16[v29], 1, v4) == 1)
-  {
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_CellTimeData);
-LABEL_15:
-    outlined destroy of Any?(v16, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSg_ADtMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSg_ADtMR);
-    goto LABEL_16;
-  }
-
-  outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v16[v29], v8, type metadata accessor for Proto_Gnss_Emergency_CellTimeData);
-  v33 = specialized static Proto_Gnss_Emergency_CellTimeData.== infix(_:_:)(v12, v8);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v8, type metadata accessor for Proto_Gnss_Emergency_CellTimeData);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_CellTimeData);
-  outlined destroy of Any?(v16, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CellTimeDataVSgMR);
-  if (v33)
-  {
-    goto LABEL_19;
-  }
-
-LABEL_16:
-  v31 = 0;
-  return v31 & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_ClsUtranCellTime.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_ClsGpsCellTime(0);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v43 = &v42 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v42 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSg_ADtMd, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSg_ADtMR);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v42 - v15;
-  v44 = type metadata accessor for Proto_Gnss_Emergency_ClsUtranCellTime(0);
-  v45 = a1;
-  v17 = v44[5];
-  v18 = *(v13 + 56);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v17, v16, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v17, &v16[v18], &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, v4) != 1)
-  {
-    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16, v11, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMR);
-    if (v19(&v16[v18], 1, v4) != 1)
-    {
-      v22 = v43;
-      outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v16[v18], v43, type metadata accessor for Proto_Gnss_Emergency_ClsGpsCellTime);
-      v23 = specialized static Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssisted.== infix(_:_:)(v11, v22, type metadata accessor for Proto_Gnss_Emergency_ClsGpsCellTime);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v22, type metadata accessor for Proto_Gnss_Emergency_ClsGpsCellTime);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v11, type metadata accessor for Proto_Gnss_Emergency_ClsGpsCellTime);
-      outlined destroy of Any?(v16, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMR);
-      if ((v23 & 1) == 0)
-      {
-        goto LABEL_7;
-      }
-
-      goto LABEL_10;
-    }
-
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v11, type metadata accessor for Proto_Gnss_Emergency_ClsGpsCellTime);
-LABEL_6:
-    outlined destroy of Any?(v16, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSg_ADtMd, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSg_ADtMR);
-    goto LABEL_7;
-  }
-
-  if (v19(&v16[v18], 1, v4) != 1)
-  {
-    goto LABEL_6;
-  }
-
-  outlined destroy of Any?(v16, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMR);
-LABEL_10:
-  v24 = v44[6];
-  v25 = (v45 + v24);
-  v26 = *(v45 + v24 + 4);
-  v27 = (a2 + v24);
-  v28 = *(a2 + v24 + 4);
-  if (v26)
-  {
-    if (!v28)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  else
-  {
-    if (*v25 != *v27)
-    {
-      LOBYTE(v28) = 1;
-    }
-
-    if (v28)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  v29 = v44[7];
-  v30 = (v45 + v29);
-  v31 = *(v45 + v29 + 4);
-  v32 = (a2 + v29);
-  v33 = *(a2 + v29 + 4);
-  if (v31)
-  {
-    if (!v33)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  else
-  {
-    if (*v30 != *v32)
-    {
-      LOBYTE(v33) = 1;
-    }
-
-    if (v33)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  v34 = v44[8];
-  v35 = (v45 + v34);
-  v36 = *(v45 + v34 + 4);
-  v37 = (a2 + v34);
-  v38 = *(a2 + v34 + 4);
-  if (v36)
-  {
-    if (!v38)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  else
-  {
-    if (*v35 != *v37)
-    {
-      LOBYTE(v38) = 1;
-    }
-
-    if (v38)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  v39 = v44[9];
-  v40 = *(v45 + v39);
-  v41 = *(a2 + v39);
-  if (v40 == 5)
-  {
-    if (v41 == 5)
-    {
-      goto LABEL_32;
-    }
-  }
-
-  else if (v40 == v41)
-  {
-LABEL_32:
-    type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    v20 = dispatch thunk of static Equatable.== infix(_:_:)();
-    return v20 & 1;
-  }
-
-LABEL_7:
-  v20 = 0;
-  return v20 & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_UtranGpsTimeMeasured.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v52 = a2;
-  v3 = type metadata accessor for Proto_Gnss_Emergency_ClsGpsCellTime(0);
-  v48 = *(v3 - 8);
-  v49 = v3;
-  v4 = *(v48 + 64);
-  MEMORY[0x28223BE20](v3);
-  v44 = &v43 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8);
-  v45 = &v43 - v8;
-  v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSg_ADtMd, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSg_ADtMR);
-  v9 = *(*(v47 - 8) + 64);
-  MEMORY[0x28223BE20](v47);
-  v50 = &v43 - v10;
-  v11 = type metadata accessor for Proto_Gnss_Emergency_ClsUtranCellTime(0);
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v11);
-  v15 = &v43 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf37Proto_Gnss_Emergency_ClsUtranCellTimeVSgMd, &_s10ALProtobuf37Proto_Gnss_Emergency_ClsUtranCellTimeVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x28223BE20](v16 - 8);
-  v19 = &v43 - v18;
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf37Proto_Gnss_Emergency_ClsUtranCellTimeVSg_ADtMd, &_s10ALProtobuf37Proto_Gnss_Emergency_ClsUtranCellTimeVSg_ADtMR);
-  v21 = v20 - 8;
-  v22 = *(*(v20 - 8) + 64);
-  MEMORY[0x28223BE20](v20);
-  v24 = &v43 - v23;
-  v46 = type metadata accessor for Proto_Gnss_Emergency_UtranGpsTimeMeasured(0);
-  v25 = *(v46 + 20);
-  v26 = *(v21 + 56);
-  v51 = a1;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v25, v24, &_s10ALProtobuf37Proto_Gnss_Emergency_ClsUtranCellTimeVSgMd, &_s10ALProtobuf37Proto_Gnss_Emergency_ClsUtranCellTimeVSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v52 + v25, &v24[v26], &_s10ALProtobuf37Proto_Gnss_Emergency_ClsUtranCellTimeVSgMd, &_s10ALProtobuf37Proto_Gnss_Emergency_ClsUtranCellTimeVSgMR);
-  v27 = *(v12 + 48);
-  if (v27(v24, 1, v11) != 1)
-  {
-    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v24, v19, &_s10ALProtobuf37Proto_Gnss_Emergency_ClsUtranCellTimeVSgMd, &_s10ALProtobuf37Proto_Gnss_Emergency_ClsUtranCellTimeVSgMR);
-    if (v27(&v24[v26], 1, v11) != 1)
-    {
-      outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v24[v26], v15, type metadata accessor for Proto_Gnss_Emergency_ClsUtranCellTime);
-      v31 = specialized static Proto_Gnss_Emergency_ClsUtranCellTime.== infix(_:_:)(v19, v15);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v15, type metadata accessor for Proto_Gnss_Emergency_ClsUtranCellTime);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v19, type metadata accessor for Proto_Gnss_Emergency_ClsUtranCellTime);
-      outlined destroy of Any?(v24, &_s10ALProtobuf37Proto_Gnss_Emergency_ClsUtranCellTimeVSgMd, &_s10ALProtobuf37Proto_Gnss_Emergency_ClsUtranCellTimeVSgMR);
-      if ((v31 & 1) == 0)
-      {
-        goto LABEL_15;
-      }
-
-      goto LABEL_8;
-    }
-
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v19, type metadata accessor for Proto_Gnss_Emergency_ClsUtranCellTime);
-LABEL_6:
-    v28 = &_s10ALProtobuf37Proto_Gnss_Emergency_ClsUtranCellTimeVSg_ADtMd;
-    v29 = &_s10ALProtobuf37Proto_Gnss_Emergency_ClsUtranCellTimeVSg_ADtMR;
-    v30 = v24;
-LABEL_14:
-    outlined destroy of Any?(v30, v28, v29);
-    goto LABEL_15;
-  }
-
-  if (v27(&v24[v26], 1, v11) != 1)
-  {
-    goto LABEL_6;
-  }
-
-  outlined destroy of Any?(v24, &_s10ALProtobuf37Proto_Gnss_Emergency_ClsUtranCellTimeVSgMd, &_s10ALProtobuf37Proto_Gnss_Emergency_ClsUtranCellTimeVSgMR);
-LABEL_8:
-  v32 = *(v46 + 24);
-  v33 = *(v47 + 48);
-  v34 = v50;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v51 + v32, v50, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v52 + v32, v34 + v33, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMR);
-  v35 = v49;
-  v36 = *(v48 + 48);
-  if (v36(v34, 1, v49) == 1)
-  {
-    if (v36(v34 + v33, 1, v35) == 1)
-    {
-      outlined destroy of Any?(v34, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMR);
-LABEL_18:
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v38 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v38 & 1;
-    }
-
-    goto LABEL_13;
-  }
-
-  v37 = v45;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v34, v45, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMR);
-  if (v36(v34 + v33, 1, v35) == 1)
-  {
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v37, type metadata accessor for Proto_Gnss_Emergency_ClsGpsCellTime);
-LABEL_13:
-    v28 = &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSg_ADtMd;
-    v29 = &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSg_ADtMR;
-    v30 = v34;
-    goto LABEL_14;
-  }
-
-  v40 = v34 + v33;
-  v41 = v44;
-  outlined init with take of Proto_Gnss_Emergency_SLPAddress(v40, v44, type metadata accessor for Proto_Gnss_Emergency_ClsGpsCellTime);
-  v42 = specialized static Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssisted.== infix(_:_:)(v37, v41, type metadata accessor for Proto_Gnss_Emergency_ClsGpsCellTime);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v41, type metadata accessor for Proto_Gnss_Emergency_ClsGpsCellTime);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v37, type metadata accessor for Proto_Gnss_Emergency_ClsGpsCellTime);
-  outlined destroy of Any?(v34, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_ClsGpsCellTimeVSgMR);
-  if (v42)
-  {
-    goto LABEL_18;
-  }
-
-LABEL_15:
-  v38 = 0;
-  return v38 & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_GpsTimeMeasured.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v80 = a2;
-  v3 = type metadata accessor for Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssisted(0);
-  v70 = *(v3 - 8);
-  v71 = v3;
-  v4 = *(v70 + 64);
-  MEMORY[0x28223BE20](v3);
-  v66 = &v65 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssistedVSgMd, &_s10ALProtobuf49Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssistedVSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8);
-  v67 = &v65 - v8;
-  v69 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssistedVSg_ADtMd, &_s10ALProtobuf49Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssistedVSg_ADtMR);
-  v9 = *(*(v69 - 8) + 64);
-  MEMORY[0x28223BE20](v69);
-  v72 = &v65 - v10;
-  v11 = type metadata accessor for Proto_Gnss_Emergency_GeranGpsTimeMeasuredBased(0);
-  v76 = *(v11 - 8);
-  v77 = v11;
-  v12 = *(v76 + 64);
-  MEMORY[0x28223BE20](v11);
-  v68 = &v65 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf46Proto_Gnss_Emergency_GeranGpsTimeMeasuredBasedVSgMd, &_s10ALProtobuf46Proto_Gnss_Emergency_GeranGpsTimeMeasuredBasedVSgMR);
-  v15 = *(*(v14 - 8) + 64);
-  MEMORY[0x28223BE20](v14 - 8);
-  v73 = &v65 - v16;
-  v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf46Proto_Gnss_Emergency_GeranGpsTimeMeasuredBasedVSg_ADtMd, &_s10ALProtobuf46Proto_Gnss_Emergency_GeranGpsTimeMeasuredBasedVSg_ADtMR);
-  v17 = *(*(v74 - 8) + 64);
-  MEMORY[0x28223BE20](v74);
-  v78 = &v65 - v18;
-  v19 = type metadata accessor for Proto_Gnss_Emergency_UtranGpsTimeMeasured(0);
-  v20 = *(v19 - 8);
-  v21 = *(v20 + 64);
-  MEMORY[0x28223BE20](v19);
-  v23 = &v65 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf41Proto_Gnss_Emergency_UtranGpsTimeMeasuredVSgMd, &_s10ALProtobuf41Proto_Gnss_Emergency_UtranGpsTimeMeasuredVSgMR);
-  v25 = *(*(v24 - 8) + 64);
-  MEMORY[0x28223BE20](v24 - 8);
-  v27 = &v65 - v26;
-  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf41Proto_Gnss_Emergency_UtranGpsTimeMeasuredVSg_ADtMd, &_s10ALProtobuf41Proto_Gnss_Emergency_UtranGpsTimeMeasuredVSg_ADtMR);
-  v29 = v28 - 8;
-  v30 = *(*(v28 - 8) + 64);
-  MEMORY[0x28223BE20](v28);
-  v32 = &v65 - v31;
-  v75 = type metadata accessor for Proto_Gnss_Emergency_GpsTimeMeasured(0);
-  v33 = *(v75 + 20);
-  v34 = *(v29 + 56);
-  v79 = a1;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v33, v32, &_s10ALProtobuf41Proto_Gnss_Emergency_UtranGpsTimeMeasuredVSgMd, &_s10ALProtobuf41Proto_Gnss_Emergency_UtranGpsTimeMeasuredVSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v80 + v33, &v32[v34], &_s10ALProtobuf41Proto_Gnss_Emergency_UtranGpsTimeMeasuredVSgMd, &_s10ALProtobuf41Proto_Gnss_Emergency_UtranGpsTimeMeasuredVSgMR);
-  v35 = *(v20 + 48);
-  if (v35(v32, 1, v19) == 1)
-  {
-    if (v35(&v32[v34], 1, v19) == 1)
-    {
-      outlined destroy of Any?(v32, &_s10ALProtobuf41Proto_Gnss_Emergency_UtranGpsTimeMeasuredVSgMd, &_s10ALProtobuf41Proto_Gnss_Emergency_UtranGpsTimeMeasuredVSgMR);
-      goto LABEL_8;
-    }
-
-LABEL_6:
-    v36 = &_s10ALProtobuf41Proto_Gnss_Emergency_UtranGpsTimeMeasuredVSg_ADtMd;
-    v37 = &_s10ALProtobuf41Proto_Gnss_Emergency_UtranGpsTimeMeasuredVSg_ADtMR;
-    v38 = v32;
-LABEL_21:
-    outlined destroy of Any?(v38, v36, v37);
-    goto LABEL_22;
-  }
-
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v32, v27, &_s10ALProtobuf41Proto_Gnss_Emergency_UtranGpsTimeMeasuredVSgMd, &_s10ALProtobuf41Proto_Gnss_Emergency_UtranGpsTimeMeasuredVSgMR);
-  if (v35(&v32[v34], 1, v19) == 1)
-  {
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v27, type metadata accessor for Proto_Gnss_Emergency_UtranGpsTimeMeasured);
-    goto LABEL_6;
-  }
-
-  outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v32[v34], v23, type metadata accessor for Proto_Gnss_Emergency_UtranGpsTimeMeasured);
-  v39 = specialized static Proto_Gnss_Emergency_UtranGpsTimeMeasured.== infix(_:_:)(v27, v23);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v23, type metadata accessor for Proto_Gnss_Emergency_UtranGpsTimeMeasured);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v27, type metadata accessor for Proto_Gnss_Emergency_UtranGpsTimeMeasured);
-  outlined destroy of Any?(v32, &_s10ALProtobuf41Proto_Gnss_Emergency_UtranGpsTimeMeasuredVSgMd, &_s10ALProtobuf41Proto_Gnss_Emergency_UtranGpsTimeMeasuredVSgMR);
-  if ((v39 & 1) == 0)
-  {
-    goto LABEL_22;
-  }
-
-LABEL_8:
-  v40 = v75;
-  v41 = *(v75 + 24);
-  v42 = *(v74 + 48);
-  v44 = v78;
-  v43 = v79;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v79 + v41, v78, &_s10ALProtobuf46Proto_Gnss_Emergency_GeranGpsTimeMeasuredBasedVSgMd, &_s10ALProtobuf46Proto_Gnss_Emergency_GeranGpsTimeMeasuredBasedVSgMR);
-  v45 = v80;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v80 + v41, v44 + v42, &_s10ALProtobuf46Proto_Gnss_Emergency_GeranGpsTimeMeasuredBasedVSgMd, &_s10ALProtobuf46Proto_Gnss_Emergency_GeranGpsTimeMeasuredBasedVSgMR);
-  v46 = v77;
-  v47 = *(v76 + 48);
-  if (v47(v44, 1, v77) != 1)
-  {
-    v48 = v73;
-    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v44, v73, &_s10ALProtobuf46Proto_Gnss_Emergency_GeranGpsTimeMeasuredBasedVSgMd, &_s10ALProtobuf46Proto_Gnss_Emergency_GeranGpsTimeMeasuredBasedVSgMR);
-    if (v47(v44 + v42, 1, v46) != 1)
-    {
-      v49 = v44 + v42;
-      v50 = v68;
-      outlined init with take of Proto_Gnss_Emergency_SLPAddress(v49, v68, type metadata accessor for Proto_Gnss_Emergency_GeranGpsTimeMeasuredBased);
-      v51 = specialized static Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssisted.== infix(_:_:)(v48, v50, type metadata accessor for Proto_Gnss_Emergency_GeranGpsTimeMeasuredBased);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v50, type metadata accessor for Proto_Gnss_Emergency_GeranGpsTimeMeasuredBased);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v48, type metadata accessor for Proto_Gnss_Emergency_GeranGpsTimeMeasuredBased);
-      outlined destroy of Any?(v44, &_s10ALProtobuf46Proto_Gnss_Emergency_GeranGpsTimeMeasuredBasedVSgMd, &_s10ALProtobuf46Proto_Gnss_Emergency_GeranGpsTimeMeasuredBasedVSgMR);
-      if ((v51 & 1) == 0)
-      {
-        goto LABEL_22;
-      }
-
-      goto LABEL_15;
-    }
-
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v48, type metadata accessor for Proto_Gnss_Emergency_GeranGpsTimeMeasuredBased);
-    goto LABEL_13;
-  }
-
-  if (v47(v44 + v42, 1, v46) != 1)
-  {
-LABEL_13:
-    v36 = &_s10ALProtobuf46Proto_Gnss_Emergency_GeranGpsTimeMeasuredBasedVSg_ADtMd;
-    v37 = &_s10ALProtobuf46Proto_Gnss_Emergency_GeranGpsTimeMeasuredBasedVSg_ADtMR;
-    v38 = v44;
-    goto LABEL_21;
-  }
-
-  outlined destroy of Any?(v44, &_s10ALProtobuf46Proto_Gnss_Emergency_GeranGpsTimeMeasuredBasedVSgMd, &_s10ALProtobuf46Proto_Gnss_Emergency_GeranGpsTimeMeasuredBasedVSgMR);
-LABEL_15:
-  v52 = *(v40 + 28);
-  v53 = *(v69 + 48);
-  v54 = v72;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v43 + v52, v72, &_s10ALProtobuf49Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssistedVSgMd, &_s10ALProtobuf49Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssistedVSgMR);
-  v55 = v45 + v52;
-  v56 = v54;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v55, v54 + v53, &_s10ALProtobuf49Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssistedVSgMd, &_s10ALProtobuf49Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssistedVSgMR);
-  v57 = v71;
-  v58 = *(v70 + 48);
-  if (v58(v54, 1, v71) == 1)
-  {
-    if (v58(v54 + v53, 1, v57) == 1)
-    {
-      outlined destroy of Any?(v54, &_s10ALProtobuf49Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssistedVSgMd, &_s10ALProtobuf49Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssistedVSgMR);
-LABEL_25:
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v60 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v60 & 1;
-    }
-
-    goto LABEL_20;
-  }
-
-  v59 = v67;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v56, v67, &_s10ALProtobuf49Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssistedVSgMd, &_s10ALProtobuf49Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssistedVSgMR);
-  if (v58(v56 + v53, 1, v57) == 1)
-  {
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v59, type metadata accessor for Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssisted);
-LABEL_20:
-    v36 = &_s10ALProtobuf49Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssistedVSg_ADtMd;
-    v37 = &_s10ALProtobuf49Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssistedVSg_ADtMR;
-    v38 = v56;
-    goto LABEL_21;
-  }
-
-  v62 = v56 + v53;
-  v63 = v66;
-  outlined init with take of Proto_Gnss_Emergency_SLPAddress(v62, v66, type metadata accessor for Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssisted);
-  v64 = specialized static Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssisted.== infix(_:_:)(v59, v63, type metadata accessor for Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssisted);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v63, type metadata accessor for Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssisted);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v59, type metadata accessor for Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssisted);
-  outlined destroy of Any?(v56, &_s10ALProtobuf49Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssistedVSgMd, &_s10ALProtobuf49Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssistedVSgMR);
-  if (v64)
-  {
-    goto LABEL_25;
-  }
-
-LABEL_22:
-  v60 = 0;
-  return v60 & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_GpsMeasurementElement.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement(0);
-  v5 = v4[5];
-  v6 = (a1 + v5);
-  v7 = *(a1 + v5 + 4);
-  v8 = (a2 + v5);
-  v9 = *(a2 + v5 + 4);
-  if (v7)
-  {
-    if (!v9)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v6 != *v8)
-    {
-      LOBYTE(v9) = 1;
-    }
-
-    if (v9)
-    {
-      return 0;
-    }
-  }
-
-  v10 = v4[6];
-  v11 = (a1 + v10);
-  v12 = *(a1 + v10 + 4);
-  v13 = (a2 + v10);
-  v14 = *(a2 + v10 + 4);
-  if (v12)
-  {
-    if (!v14)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v11 != *v13)
-    {
-      LOBYTE(v14) = 1;
-    }
-
-    if (v14)
-    {
-      return 0;
-    }
-  }
-
-  v15 = v4[7];
-  v16 = (a1 + v15);
-  v17 = *(a1 + v15 + 4);
-  v18 = (a2 + v15);
-  v19 = *(a2 + v15 + 4);
-  if (v17)
-  {
-    if (!v19)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v16 != *v18)
-    {
-      LOBYTE(v19) = 1;
-    }
-
-    if (v19)
-    {
-      return 0;
-    }
-  }
-
-  v20 = v4[8];
-  v21 = (a1 + v20);
-  v22 = *(a1 + v20 + 4);
-  v23 = (a2 + v20);
-  v24 = *(a2 + v20 + 4);
-  if (v22)
-  {
-    if (!v24)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v21 != *v23)
-    {
-      LOBYTE(v24) = 1;
-    }
-
-    if (v24)
-    {
-      return 0;
-    }
-  }
-
-  v25 = v4[9];
-  v26 = (a1 + v25);
-  v27 = *(a1 + v25 + 4);
-  v28 = (a2 + v25);
-  v29 = *(a2 + v25 + 4);
-  if (v27)
-  {
-    if (!v29)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v26 != *v28)
-    {
-      LOBYTE(v29) = 1;
-    }
-
-    if (v29)
-    {
-      return 0;
-    }
-  }
-
-  v30 = v4[10];
-  v31 = (a1 + v30);
-  v32 = *(a1 + v30 + 4);
-  v33 = (a2 + v30);
-  v34 = *(a2 + v30 + 4);
-  if (v32)
-  {
-    if (!v34)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v31 != *v33)
-    {
-      LOBYTE(v34) = 1;
-    }
-
-    if (v34)
-    {
-      return 0;
-    }
-  }
-
-  v35 = v4[11];
-  v36 = *(a1 + v35);
-  v37 = *(a2 + v35);
-  if (v36 == 6)
-  {
-    if (v37 != 6)
-    {
-      return 0;
-    }
-  }
-
-  else if (v36 != v37)
-  {
-    return 0;
-  }
-
-  v38 = v4[12];
-  v39 = (a1 + v38);
-  v40 = *(a1 + v38 + 4);
-  v41 = (a2 + v38);
-  v42 = *(a2 + v38 + 4);
-  if (v40)
-  {
-    if (!v42)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v39 != *v41)
-    {
-      LOBYTE(v42) = 1;
-    }
-
-    if (v42)
-    {
-      return 0;
-    }
-  }
-
-  v43 = v4[13];
-  v44 = (a1 + v43);
-  v45 = *(a1 + v43 + 4);
-  v46 = (a2 + v43);
-  v47 = *(a2 + v43 + 4);
-  if (v45)
-  {
-    if (!v47)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v44 != *v46)
-    {
-      LOBYTE(v47) = 1;
-    }
-
-    if (v47)
-    {
-      return 0;
-    }
-  }
-
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_CtsCdmaCellTime.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_GpsTowCdmaCellTime(0);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v35 = &v34 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39Proto_Gnss_Emergency_GpsTowCdmaCellTimeVSgMd, &_s10ALProtobuf39Proto_Gnss_Emergency_GpsTowCdmaCellTimeVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v34 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39Proto_Gnss_Emergency_GpsTowCdmaCellTimeVSg_ADtMd, &_s10ALProtobuf39Proto_Gnss_Emergency_GpsTowCdmaCellTimeVSg_ADtMR);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v34 - v15;
-  v36 = type metadata accessor for Proto_Gnss_Emergency_CtsCdmaCellTime(0);
-  v37 = a1;
-  v17 = v36[5];
-  v18 = *(v13 + 56);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v17, v16, &_s10ALProtobuf39Proto_Gnss_Emergency_GpsTowCdmaCellTimeVSgMd, &_s10ALProtobuf39Proto_Gnss_Emergency_GpsTowCdmaCellTimeVSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v17, &v16[v18], &_s10ALProtobuf39Proto_Gnss_Emergency_GpsTowCdmaCellTimeVSgMd, &_s10ALProtobuf39Proto_Gnss_Emergency_GpsTowCdmaCellTimeVSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, v4) != 1)
-  {
-    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16, v11, &_s10ALProtobuf39Proto_Gnss_Emergency_GpsTowCdmaCellTimeVSgMd, &_s10ALProtobuf39Proto_Gnss_Emergency_GpsTowCdmaCellTimeVSgMR);
-    if (v19(&v16[v18], 1, v4) != 1)
-    {
-      v22 = v35;
-      outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v16[v18], v35, type metadata accessor for Proto_Gnss_Emergency_GpsTowCdmaCellTime);
-      v23 = specialized static Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssisted.== infix(_:_:)(v11, v22, type metadata accessor for Proto_Gnss_Emergency_GpsTowCdmaCellTime);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v22, type metadata accessor for Proto_Gnss_Emergency_GpsTowCdmaCellTime);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v11, type metadata accessor for Proto_Gnss_Emergency_GpsTowCdmaCellTime);
-      outlined destroy of Any?(v16, &_s10ALProtobuf39Proto_Gnss_Emergency_GpsTowCdmaCellTimeVSgMd, &_s10ALProtobuf39Proto_Gnss_Emergency_GpsTowCdmaCellTimeVSgMR);
-      if ((v23 & 1) == 0)
-      {
-        goto LABEL_7;
-      }
-
-      goto LABEL_10;
-    }
-
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v11, type metadata accessor for Proto_Gnss_Emergency_GpsTowCdmaCellTime);
-LABEL_6:
-    outlined destroy of Any?(v16, &_s10ALProtobuf39Proto_Gnss_Emergency_GpsTowCdmaCellTimeVSg_ADtMd, &_s10ALProtobuf39Proto_Gnss_Emergency_GpsTowCdmaCellTimeVSg_ADtMR);
-    goto LABEL_7;
-  }
-
-  if (v19(&v16[v18], 1, v4) != 1)
-  {
-    goto LABEL_6;
-  }
-
-  outlined destroy of Any?(v16, &_s10ALProtobuf39Proto_Gnss_Emergency_GpsTowCdmaCellTimeVSgMd, &_s10ALProtobuf39Proto_Gnss_Emergency_GpsTowCdmaCellTimeVSgMR);
-LABEL_10:
-  v24 = v36[6];
-  v25 = (v37 + v24);
-  v26 = *(v37 + v24 + 4);
-  v27 = (a2 + v24);
-  v28 = *(a2 + v24 + 4);
-  if (v26)
-  {
-    if (!v28)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  else
-  {
-    if (*v25 != *v27)
-    {
-      LOBYTE(v28) = 1;
-    }
-
-    if (v28)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  v29 = v36[7];
-  v30 = (v37 + v29);
-  v31 = *(v37 + v29 + 4);
-  v32 = (a2 + v29);
-  v33 = *(a2 + v29 + 4);
-  if (v31)
-  {
-    if (v33)
-    {
-LABEL_22:
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v20 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v20 & 1;
-    }
-  }
-
-  else
-  {
-    if (*v30 != *v32)
-    {
-      LOBYTE(v33) = 1;
-    }
-
-    if ((v33 & 1) == 0)
-    {
-      goto LABEL_22;
-    }
-  }
-
-LABEL_7:
-  v20 = 0;
-  return v20 & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_GanssLocationInfo.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo(0);
-  v5 = v4[5];
-  v6 = *(a1 + v5);
-  v7 = *(a2 + v5);
-  if (v6 == 6)
-  {
-    if (v7 != 6)
-    {
-      return 0;
-    }
-  }
-
-  else if (v6 != v7)
-  {
-    return 0;
-  }
-
-  v8 = v4[6];
-  v9 = (a1 + v8);
-  v10 = *(a1 + v8 + 4);
-  v11 = (a2 + v8);
-  v12 = *(a2 + v8 + 4);
-  if (v10)
-  {
-    if (!v12)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v9 != *v11)
-    {
-      LOBYTE(v12) = 1;
-    }
-
-    if (v12)
-    {
-      return 0;
-    }
-  }
-
-  v13 = v4[7];
-  v14 = (a1 + v13);
-  v15 = *(a1 + v13 + 4);
-  v16 = (a2 + v13);
-  v17 = *(a2 + v13 + 4);
-  if (v15)
-  {
-    if (!v17)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v14 != *v16)
-    {
-      LOBYTE(v17) = 1;
-    }
-
-    if (v17)
-    {
-      return 0;
-    }
-  }
-
-  v18 = v4[8];
-  v19 = (a1 + v18);
-  v20 = *(a1 + v18 + 4);
-  v21 = (a2 + v18);
-  v22 = *(a2 + v18 + 4);
-  if (v20)
-  {
-    if (!v22)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v19 != *v21)
-    {
-      LOBYTE(v22) = 1;
-    }
-
-    if (v22)
-    {
-      return 0;
-    }
-  }
-
-  v23 = v4[9];
-  v24 = *(a1 + v23);
-  v25 = *(a2 + v23);
-  if (v24 != 4)
-  {
-    if (v24 == v25)
-    {
-      goto LABEL_27;
-    }
-
-    return 0;
-  }
-
-  if (v25 != 4)
-  {
-    return 0;
-  }
-
-LABEL_27:
-  v26 = v4[10];
-  v27 = (a1 + v26);
-  v28 = *(a1 + v26 + 4);
-  v29 = (a2 + v26);
-  v30 = *(a2 + v26 + 4);
-  if (v28)
-  {
-    if (!v30)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v27 != *v29)
-    {
-      LOBYTE(v30) = 1;
-    }
-
-    if (v30)
-    {
-      return 0;
-    }
-  }
-
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_EutranCellTime.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_EutranCellTime(0);
-  v5 = *(v4 + 24);
-  v6 = (a1 + v5);
-  v7 = *(a1 + v5 + 4);
-  v8 = (a2 + v5);
-  v9 = *(a2 + v5 + 4);
-  if (v7)
-  {
-    if (!v9)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v6 != *v8)
-    {
-      LOBYTE(v9) = 1;
-    }
-
-    if (v9)
-    {
-      return 0;
-    }
-  }
-
-  if (_sSasSQRzlE2eeoiySbSayxG_ABtFZ10ALProtobuf34Proto_Gnss_Emergency_GpsAcqElementV_Tt1g5Tm(*a1, *a2, type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell, type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell, specialized static Proto_Gnss_Emergency_ClsEutranCell.== infix(_:_:)))
-  {
-    v10 = *(v4 + 20);
-    type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-  }
-
-  return 0;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_WcdmaCellInfo.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_WcdmaCellInfo(0);
-  v5 = v4[5];
-  v6 = *(a1 + v5);
-  v7 = *(a2 + v5);
-  if (v6 == 2)
-  {
-    if (v7 != 2)
-    {
-      return 0;
-    }
-  }
-
-  else if (v7 == 2 || ((v6 ^ v7) & 1) != 0)
-  {
-    return 0;
-  }
-
-  v8 = v4[6];
-  v9 = (a1 + v8);
-  v10 = *(a1 + v8 + 4);
-  v11 = (a2 + v8);
-  v12 = *(a2 + v8 + 4);
-  if (v10)
-  {
-    if (!v12)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v9 != *v11)
-    {
-      LOBYTE(v12) = 1;
-    }
-
-    if (v12)
-    {
-      return 0;
-    }
-  }
-
-  v13 = v4[7];
-  v14 = (a1 + v13);
-  v15 = *(a1 + v13 + 4);
-  v16 = (a2 + v13);
-  v17 = *(a2 + v13 + 4);
-  if (v15)
-  {
-    if (!v17)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v14 != *v16)
-    {
-      LOBYTE(v17) = 1;
-    }
-
-    if (v17)
-    {
-      return 0;
-    }
-  }
-
-  v18 = v4[8];
-  v19 = (a1 + v18);
-  v20 = *(a1 + v18 + 4);
-  v21 = (a2 + v18);
-  v22 = *(a2 + v18 + 4);
-  if (v20)
-  {
-    if (!v22)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v19 != *v21)
-    {
-      LOBYTE(v22) = 1;
-    }
-
-    if (v22)
-    {
-      return 0;
-    }
-  }
-
-  v23 = v4[9];
-  v24 = (a1 + v23);
-  v25 = *(a1 + v23 + 4);
-  v26 = (a2 + v23);
-  v27 = *(a2 + v23 + 4);
-  if (v25)
-  {
-    if (!v27)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v24 != *v26)
-    {
-      LOBYTE(v27) = 1;
-    }
-
-    if (v27)
-    {
-      return 0;
-    }
-  }
-
-  v28 = v4[10];
-  v29 = (a1 + v28);
-  v30 = *(a1 + v28 + 4);
-  v31 = (a2 + v28);
-  v32 = *(a2 + v28 + 4);
-  if (v30)
-  {
-    if (!v32)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v29 != *v31)
-    {
-      LOBYTE(v32) = 1;
-    }
-
-    if (v32)
-    {
-      return 0;
-    }
-  }
-
-  v33 = v4[11];
-  v34 = *(a1 + v33);
-  v35 = *(a2 + v33);
-  if (v34 == 4)
-  {
-    if (v35 != 4)
-    {
-      return 0;
-    }
-  }
-
-  else if (v34 != v35)
-  {
-    return 0;
-  }
-
-  v36 = v4[12];
-  v37 = (a1 + v36);
-  v38 = *(a1 + v36 + 4);
-  v39 = (a2 + v36);
-  v40 = *(a2 + v36 + 4);
-  if (v38)
-  {
-    if (!v40)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v37 != *v39)
-    {
-      LOBYTE(v40) = 1;
-    }
-
-    if (v40)
-    {
-      return 0;
-    }
-  }
-
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_NetworkReferenceLocation.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_NetworkReferenceLocation(0);
-  v5 = v4[5];
-  v6 = (a1 + v5);
-  v7 = *(a1 + v5 + 8);
-  v8 = (a2 + v5);
-  v9 = *(a2 + v5 + 8);
-  if (v7)
-  {
-    if (!v9)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v6 != *v8)
-    {
-      LOBYTE(v9) = 1;
-    }
-
-    if (v9)
-    {
-      return 0;
-    }
-  }
-
-  v10 = v4[6];
-  v11 = (a1 + v10);
-  v12 = *(a1 + v10 + 8);
-  v13 = (a2 + v10);
-  v14 = *(a2 + v10 + 8);
-  if (v12)
-  {
-    if (!v14)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v11 != *v13)
-    {
-      LOBYTE(v14) = 1;
-    }
-
-    if (v14)
-    {
-      return 0;
-    }
-  }
-
-  v15 = v4[7];
-  v16 = (a1 + v15);
-  v17 = *(a1 + v15 + 8);
-  v18 = (a2 + v15);
-  v19 = *(a2 + v15 + 8);
-  if (v17)
-  {
-    if (!v19)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v16 != *v18)
-    {
-      LOBYTE(v19) = 1;
-    }
-
-    if (v19)
-    {
-      return 0;
-    }
-  }
-
-  v20 = v4[8];
-  v21 = (a1 + v20);
-  v22 = *(a1 + v20 + 8);
-  v23 = (a2 + v20);
-  v24 = *(a2 + v20 + 8);
-  if (v22)
-  {
-    if (!v24)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v21 != *v23)
-    {
-      LOBYTE(v24) = 1;
-    }
-
-    if (v24)
-    {
-      return 0;
-    }
-  }
-
-  v25 = v4[9];
-  v26 = (a1 + v25);
-  v27 = *(a1 + v25 + 8);
-  v28 = (a2 + v25);
-  v29 = *(a2 + v25 + 8);
-  if (v27)
-  {
-    if (!v29)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v26 != *v28)
-    {
-      LOBYTE(v29) = 1;
-    }
-
-    if (v29)
-    {
-      return 0;
-    }
-  }
-
-  v30 = v4[10];
-  v31 = (a1 + v30);
-  v32 = *(a1 + v30 + 4);
-  v33 = (a2 + v30);
-  v34 = *(a2 + v30 + 4);
-  if (v32)
-  {
-    if (!v34)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v31 != *v33)
-    {
-      LOBYTE(v34) = 1;
-    }
-
-    if (v34)
-    {
-      return 0;
-    }
-  }
-
-  v35 = v4[11];
-  v36 = (a1 + v35);
-  v37 = *(a1 + v35 + 4);
-  v38 = (a2 + v35);
-  v39 = *(a2 + v35 + 4);
-  if (v37)
-  {
-    if (!v39)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v36 != *v38)
-    {
-      LOBYTE(v39) = 1;
-    }
-
-    if (v39)
-    {
-      return 0;
-    }
-  }
-
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_GpsAcqElement.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement(0);
-  v5 = v4[5];
-  v6 = (a1 + v5);
-  v7 = *(a1 + v5 + 4);
-  v8 = (a2 + v5);
-  v9 = *(a2 + v5 + 4);
-  if (v7)
-  {
-    if (!v9)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v6 != *v8)
-    {
-      LOBYTE(v9) = 1;
-    }
-
-    if (v9)
-    {
-      return 0;
-    }
-  }
-
-  v10 = v4[6];
-  v11 = (a1 + v10);
-  v12 = *(a1 + v10 + 4);
-  v13 = (a2 + v10);
-  v14 = *(a2 + v10 + 4);
-  if (v12)
-  {
-    if (!v14)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v11 != *v13)
-    {
-      LOBYTE(v14) = 1;
-    }
-
-    if (v14)
-    {
-      return 0;
-    }
-  }
-
-  v15 = v4[7];
-  v16 = (a1 + v15);
-  v17 = *(a1 + v15 + 4);
-  v18 = (a2 + v15);
-  v19 = *(a2 + v15 + 4);
-  if (v17)
-  {
-    if (!v19)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v16 != *v18)
-    {
-      LOBYTE(v19) = 1;
-    }
-
-    if (v19)
-    {
-      return 0;
-    }
-  }
-
-  v20 = v4[8];
-  v21 = (a1 + v20);
-  v22 = *(a1 + v20 + 4);
-  v23 = (a2 + v20);
-  v24 = *(a2 + v20 + 4);
-  if (v22)
-  {
-    if (!v24)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v21 != *v23)
-    {
-      LOBYTE(v24) = 1;
-    }
-
-    if (v24)
-    {
-      return 0;
-    }
-  }
-
-  v25 = v4[9];
-  v26 = (a1 + v25);
-  v27 = *(a1 + v25 + 4);
-  v28 = (a2 + v25);
-  v29 = *(a2 + v25 + 4);
-  if (v27)
-  {
-    if (!v29)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v26 != *v28)
-    {
-      LOBYTE(v29) = 1;
-    }
-
-    if (v29)
-    {
-      return 0;
-    }
-  }
-
-  v30 = v4[10];
-  v31 = (a1 + v30);
-  v32 = *(a1 + v30 + 4);
-  v33 = (a2 + v30);
-  v34 = *(a2 + v30 + 4);
-  if (v32)
-  {
-    if (!v34)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v31 != *v33)
-    {
-      LOBYTE(v34) = 1;
-    }
-
-    if (v34)
-    {
-      return 0;
-    }
-  }
-
-  v35 = v4[11];
-  v36 = (a1 + v35);
-  v37 = *(a1 + v35 + 4);
-  v38 = (a2 + v35);
-  v39 = *(a2 + v35 + 4);
-  if (v37)
-  {
-    if (!v39)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v36 != *v38)
-    {
-      LOBYTE(v39) = 1;
-    }
-
-    if (v39)
-    {
-      return 0;
-    }
-  }
-
-  v40 = v4[12];
-  v41 = (a1 + v40);
-  v42 = *(a1 + v40 + 4);
-  v43 = (a2 + v40);
-  v44 = *(a2 + v40 + 4);
-  if (v42)
-  {
-    if (!v44)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v41 != *v43)
-    {
-      LOBYTE(v44) = 1;
-    }
-
-    if (v44)
-    {
-      return 0;
-    }
-  }
-
-  v45 = v4[13];
-  v46 = (a1 + v45);
-  v47 = *(a1 + v45 + 4);
-  v48 = (a2 + v45);
-  v49 = *(a2 + v45 + 4);
-  if (v47)
-  {
-    if (!v49)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v46 != *v48)
-    {
-      LOBYTE(v49) = 1;
-    }
-
-    if (v49)
-    {
-      return 0;
-    }
-  }
-
-  v50 = v4[14];
-  v51 = (a1 + v50);
-  v52 = *(a1 + v50 + 4);
-  v53 = (a2 + v50);
-  v54 = *(a2 + v50 + 4);
-  if (v52)
-  {
-    if (!v54)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v51 != *v53)
-    {
-      LOBYTE(v54) = 1;
-    }
-
-    if (v54)
-    {
-      return 0;
-    }
-  }
-
-  v55 = v4[15];
-  v56 = (a1 + v55);
-  v57 = *(a1 + v55 + 4);
-  v58 = (a2 + v55);
-  v59 = *(a2 + v55 + 4);
-  if (v57)
-  {
-    if (!v59)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v56 != *v58)
-    {
-      LOBYTE(v59) = 1;
-    }
-
-    if (v59)
-    {
-      return 0;
-    }
-  }
-
-  v60 = v4[16];
-  v61 = (a1 + v60);
-  v62 = *(a1 + v60 + 4);
-  v63 = (a2 + v60);
-  v64 = *(a2 + v60 + 4);
-  if (v62)
-  {
-    if (!v64)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v61 != *v63)
-    {
-      LOBYTE(v64) = 1;
-    }
-
-    if (v64)
-    {
-      return 0;
-    }
-  }
-
-  v65 = v4[17];
-  v66 = *(a1 + v65);
-  v67 = *(a2 + v65);
-  if (v66 == 7)
-  {
-    if (v67 != 7)
-    {
-      return 0;
-    }
-  }
-
-  else if (v66 != v67)
-  {
-    return 0;
-  }
-
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_CplaneContext.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v52 = a2;
-  v3 = type metadata accessor for Proto_Gnss_Emergency_Cdma1xContext(0);
-  v48 = *(v3 - 8);
-  v49 = v3;
-  v4 = *(v48 + 64);
-  MEMORY[0x28223BE20](v3);
-  v44 = &v43 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34Proto_Gnss_Emergency_Cdma1xContextVSgMd, &_s10ALProtobuf34Proto_Gnss_Emergency_Cdma1xContextVSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8);
-  v45 = &v43 - v8;
-  v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34Proto_Gnss_Emergency_Cdma1xContextVSg_ADtMd, &_s10ALProtobuf34Proto_Gnss_Emergency_Cdma1xContextVSg_ADtMR);
-  v9 = *(*(v47 - 8) + 64);
-  MEMORY[0x28223BE20](v47);
-  v50 = &v43 - v10;
-  v11 = type metadata accessor for Proto_Gnss_Emergency_Configuration(0);
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v11);
-  v15 = &v43 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMd, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x28223BE20](v16 - 8);
-  v19 = &v43 - v18;
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSg_ADtMd, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSg_ADtMR);
-  v21 = v20 - 8;
-  v22 = *(*(v20 - 8) + 64);
-  MEMORY[0x28223BE20](v20);
-  v24 = &v43 - v23;
-  v46 = type metadata accessor for Proto_Gnss_Emergency_CplaneContext(0);
-  v25 = *(v46 + 20);
-  v26 = *(v21 + 56);
-  v51 = a1;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v25, v24, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMd, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v52 + v25, &v24[v26], &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMd, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMR);
-  v27 = *(v12 + 48);
-  if (v27(v24, 1, v11) != 1)
-  {
-    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v24, v19, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMd, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMR);
-    if (v27(&v24[v26], 1, v11) != 1)
-    {
-      outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v24[v26], v15, type metadata accessor for Proto_Gnss_Emergency_Configuration);
-      v31 = specialized static Proto_Gnss_Emergency_Configuration.== infix(_:_:)(v19, v15);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v15, type metadata accessor for Proto_Gnss_Emergency_Configuration);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v19, type metadata accessor for Proto_Gnss_Emergency_Configuration);
-      outlined destroy of Any?(v24, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMd, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMR);
-      if ((v31 & 1) == 0)
-      {
-        goto LABEL_15;
-      }
-
-      goto LABEL_8;
-    }
-
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v19, type metadata accessor for Proto_Gnss_Emergency_Configuration);
-LABEL_6:
-    v28 = &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSg_ADtMd;
-    v29 = &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSg_ADtMR;
-    v30 = v24;
-LABEL_14:
-    outlined destroy of Any?(v30, v28, v29);
-    goto LABEL_15;
-  }
-
-  if (v27(&v24[v26], 1, v11) != 1)
-  {
-    goto LABEL_6;
-  }
-
-  outlined destroy of Any?(v24, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMd, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMR);
-LABEL_8:
-  v32 = *(v46 + 24);
-  v33 = *(v47 + 48);
-  v34 = v50;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v51 + v32, v50, &_s10ALProtobuf34Proto_Gnss_Emergency_Cdma1xContextVSgMd, &_s10ALProtobuf34Proto_Gnss_Emergency_Cdma1xContextVSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v52 + v32, v34 + v33, &_s10ALProtobuf34Proto_Gnss_Emergency_Cdma1xContextVSgMd, &_s10ALProtobuf34Proto_Gnss_Emergency_Cdma1xContextVSgMR);
-  v35 = v49;
-  v36 = *(v48 + 48);
-  if (v36(v34, 1, v49) == 1)
-  {
-    if (v36(v34 + v33, 1, v35) == 1)
-    {
-      outlined destroy of Any?(v34, &_s10ALProtobuf34Proto_Gnss_Emergency_Cdma1xContextVSgMd, &_s10ALProtobuf34Proto_Gnss_Emergency_Cdma1xContextVSgMR);
-LABEL_18:
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v38 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v38 & 1;
-    }
-
-    goto LABEL_13;
-  }
-
-  v37 = v45;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v34, v45, &_s10ALProtobuf34Proto_Gnss_Emergency_Cdma1xContextVSgMd, &_s10ALProtobuf34Proto_Gnss_Emergency_Cdma1xContextVSgMR);
-  if (v36(v34 + v33, 1, v35) == 1)
-  {
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v37, type metadata accessor for Proto_Gnss_Emergency_Cdma1xContext);
-LABEL_13:
-    v28 = &_s10ALProtobuf34Proto_Gnss_Emergency_Cdma1xContextVSg_ADtMd;
-    v29 = &_s10ALProtobuf34Proto_Gnss_Emergency_Cdma1xContextVSg_ADtMR;
-    v30 = v34;
-    goto LABEL_14;
-  }
-
-  v40 = v34 + v33;
-  v41 = v44;
-  outlined init with take of Proto_Gnss_Emergency_SLPAddress(v40, v44, type metadata accessor for Proto_Gnss_Emergency_Cdma1xContext);
-  v42 = specialized static Proto_Gnss_Emergency_Cdma1xContext.== infix(_:_:)(v37, v41);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v41, type metadata accessor for Proto_Gnss_Emergency_Cdma1xContext);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v37, type metadata accessor for Proto_Gnss_Emergency_Cdma1xContext);
-  outlined destroy of Any?(v34, &_s10ALProtobuf34Proto_Gnss_Emergency_Cdma1xContextVSgMd, &_s10ALProtobuf34Proto_Gnss_Emergency_Cdma1xContextVSgMR);
-  if (v42)
-  {
-    goto LABEL_18;
-  }
-
-LABEL_15:
-  v38 = 0;
-  return v38 & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_ClsEutranCell.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_Plmn(0);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v8 = &v76 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v76 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSg_ADtMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v76 - v15;
-  v17 = type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell(0);
-  v18 = v17[5];
-  v19 = (a1 + v18);
-  v20 = *(a1 + v18 + 4);
-  v21 = (a2 + v18);
-  v22 = *(a2 + v18 + 4);
-  if (v20)
-  {
-    if (!v22)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  else
-  {
-    if (*v19 != *v21)
-    {
-      LOBYTE(v22) = 1;
-    }
-
-    if (v22)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  v23 = v17[6];
-  v24 = (a1 + v23);
-  v25 = *(a1 + v23 + 4);
-  v26 = (a2 + v23);
-  v27 = *(a2 + v23 + 4);
-  if (v25)
-  {
-    if (!v27)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  else
-  {
-    if (*v24 != *v26)
-    {
-      LOBYTE(v27) = 1;
-    }
-
-    if (v27)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  v28 = v17[7];
-  v29 = (a1 + v28);
-  v30 = *(a1 + v28 + 4);
-  v31 = (a2 + v28);
-  v32 = *(a2 + v28 + 4);
-  if (v30)
-  {
-    if (!v32)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  else
-  {
-    if (*v29 != *v31)
-    {
-      LOBYTE(v32) = 1;
-    }
-
-    if (v32)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  v33 = v17[8];
-  v34 = (a1 + v33);
-  v35 = *(a1 + v33 + 4);
-  v36 = (a2 + v33);
-  v37 = *(a2 + v33 + 4);
-  if (v35)
-  {
-    if (!v37)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  else
-  {
-    if (*v34 != *v36)
-    {
-      LOBYTE(v37) = 1;
-    }
-
-    if (v37)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  v77 = v17;
-  v38 = v17[9];
-  v39 = *(v13 + 48);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v38, v16, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMR);
-  v40 = a2 + v38;
-  v41 = v39;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v40, &v16[v39], &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMR);
-  v42 = *(v5 + 48);
-  if (v42(v16, 1, v4) != 1)
-  {
-    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16, v12, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMR);
-    if (v42(&v16[v41], 1, v4) != 1)
-    {
-      outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v16[v41], v8, type metadata accessor for Proto_Gnss_Emergency_Plmn);
-      v45 = specialized static Proto_Gnss_Emergency_HorizWithUncertaintyVelocity.== infix(_:_:)(v12, v8, type metadata accessor for Proto_Gnss_Emergency_Plmn);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v8, type metadata accessor for Proto_Gnss_Emergency_Plmn);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_Plmn);
-      outlined destroy of Any?(v16, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMR);
-      if ((v45 & 1) == 0)
-      {
-        goto LABEL_31;
-      }
-
-      goto LABEL_34;
-    }
-
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_Plmn);
-LABEL_30:
-    outlined destroy of Any?(v16, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSg_ADtMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSg_ADtMR);
-    goto LABEL_31;
-  }
-
-  if (v42(&v16[v41], 1, v4) != 1)
-  {
-    goto LABEL_30;
-  }
-
-  outlined destroy of Any?(v16, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMR);
-LABEL_34:
-  v46 = v77[10];
-  v47 = (a1 + v46);
-  v48 = *(a1 + v46 + 4);
-  v49 = (a2 + v46);
-  v50 = *(a2 + v46 + 4);
-  if (v48)
-  {
-    if (!v50)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  else
-  {
-    if (*v47 != *v49)
-    {
-      LOBYTE(v50) = 1;
-    }
-
-    if (v50)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  v51 = v77[11];
-  v52 = (a1 + v51);
-  v53 = *(a1 + v51 + 4);
-  v54 = (a2 + v51);
-  v55 = *(a2 + v51 + 4);
-  if (v53)
-  {
-    if (!v55)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  else
-  {
-    if (*v52 != *v54)
-    {
-      LOBYTE(v55) = 1;
-    }
-
-    if (v55)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  v56 = v77[12];
-  v57 = (a1 + v56);
-  v58 = *(a1 + v56 + 4);
-  v59 = (a2 + v56);
-  v60 = *(a2 + v56 + 4);
-  if (v58)
-  {
-    if (!v60)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  else
-  {
-    if (*v57 != *v59)
-    {
-      LOBYTE(v60) = 1;
-    }
-
-    if (v60)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  v61 = v77[13];
-  v62 = (a1 + v61);
-  v63 = *(a1 + v61 + 4);
-  v64 = (a2 + v61);
-  v65 = *(a2 + v61 + 4);
-  if (v63)
-  {
-    if (!v65)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  else
-  {
-    if (*v62 != *v64)
-    {
-      LOBYTE(v65) = 1;
-    }
-
-    if (v65)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  v66 = v77[14];
-  v67 = (a1 + v66);
-  v68 = *(a1 + v66 + 4);
-  v69 = (a2 + v66);
-  v70 = *(a2 + v66 + 4);
-  if (v68)
-  {
-    if (!v70)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  else
-  {
-    if (*v67 != *v69)
-    {
-      LOBYTE(v70) = 1;
-    }
-
-    if (v70)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  v71 = v77[15];
-  v72 = (a1 + v71);
-  v73 = *(a1 + v71 + 4);
-  v74 = (a2 + v71);
-  v75 = *(a2 + v71 + 4);
-  if ((v73 & 1) == 0)
-  {
-    if (*v72 != *v74)
-    {
-      LOBYTE(v75) = 1;
-    }
-
-    if (v75)
-    {
-      goto LABEL_31;
-    }
-
-LABEL_70:
-    type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    v43 = dispatch thunk of static Equatable.== infix(_:_:)();
-    return v43 & 1;
-  }
-
-  if (v75)
-  {
-    goto LABEL_70;
-  }
-
-LABEL_31:
-  v43 = 0;
-  return v43 & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_Cdma1xContext.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_Cdma1xContext(0);
-  v5 = v4[5];
-  v6 = *(a1 + v5);
-  v7 = *(a2 + v5);
-  if (v6 == 2)
-  {
-    if (v7 != 2)
-    {
-      return 0;
-    }
-  }
-
-  else if (v7 == 2 || ((v6 ^ v7) & 1) != 0)
-  {
-    return 0;
-  }
-
-  v8 = v4[6];
-  v9 = *(a1 + v8);
-  v10 = *(a2 + v8);
-  if (v9 == 2)
-  {
-    if (v10 != 2)
-    {
-      return 0;
-    }
-  }
-
-  else if (v10 == 2 || ((v9 ^ v10) & 1) != 0)
-  {
-    return 0;
-  }
-
-  v11 = v4[7];
-  v12 = *(a1 + v11);
-  v13 = *(a2 + v11);
-  if (v12 == 2)
-  {
-    if (v13 != 2)
-    {
-      return 0;
-    }
-  }
-
-  else if (v13 == 2 || ((v12 ^ v13) & 1) != 0)
-  {
-    return 0;
-  }
-
-  v14 = v4[8];
-  v15 = *(a1 + v14);
-  v16 = *(a2 + v14);
-  if (v15 == 2)
-  {
-    if (v16 != 2)
-    {
-      return 0;
-    }
-  }
-
-  else if (v16 == 2 || ((v15 ^ v16) & 1) != 0)
-  {
-    return 0;
-  }
-
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_VelocityInfo.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v102 = a2;
-  v103 = a1;
-  v2 = type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity(0);
-  v88 = *(v2 - 8);
-  v89 = v2;
-  v3 = *(v88 + 64);
-  MEMORY[0x28223BE20](v2);
-  v84 = &v83 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf53Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocityVSgMd, &_s10ALProtobuf53Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocityVSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
-  v85 = &v83 - v7;
-  v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf53Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocityVSg_ADtMd, &_s10ALProtobuf53Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocityVSg_ADtMR);
-  v8 = *(*(v87 - 8) + 64);
-  MEMORY[0x28223BE20](v87);
-  v90 = &v83 - v9;
-  v10 = type metadata accessor for Proto_Gnss_Emergency_HorizWithUncertaintyVelocity(0);
-  v94 = *(v10 - 8);
-  v95 = v10;
-  v11 = *(v94 + 64);
-  MEMORY[0x28223BE20](v10);
-  v86 = &v83 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49Proto_Gnss_Emergency_HorizWithUncertaintyVelocityVSgMd, &_s10ALProtobuf49Proto_Gnss_Emergency_HorizWithUncertaintyVelocityVSgMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13 - 8);
-  v91 = &v83 - v15;
-  v93 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49Proto_Gnss_Emergency_HorizWithUncertaintyVelocityVSg_ADtMd, &_s10ALProtobuf49Proto_Gnss_Emergency_HorizWithUncertaintyVelocityVSg_ADtMR);
-  v16 = *(*(v93 - 8) + 64);
-  MEMORY[0x28223BE20](v93);
-  v96 = &v83 - v17;
-  v18 = type metadata accessor for Proto_Gnss_Emergency_HorizWithVertVelocity(0);
-  v99 = *(v18 - 8);
-  v100 = v18;
-  v19 = *(v99 + 64);
-  MEMORY[0x28223BE20](v18);
-  v92 = &v83 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42Proto_Gnss_Emergency_HorizWithVertVelocityVSgMd, &_s10ALProtobuf42Proto_Gnss_Emergency_HorizWithVertVelocityVSgMR);
-  v22 = *(*(v21 - 8) + 64);
-  MEMORY[0x28223BE20](v21 - 8);
-  v97 = &v83 - v23;
-  v98 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42Proto_Gnss_Emergency_HorizWithVertVelocityVSg_ADtMd, &_s10ALProtobuf42Proto_Gnss_Emergency_HorizWithVertVelocityVSg_ADtMR);
-  v24 = *(*(v98 - 8) + 64);
-  MEMORY[0x28223BE20](v98);
-  v26 = &v83 - v25;
-  v27 = type metadata accessor for Proto_Gnss_Emergency_HorizontalVelocity(0);
-  v28 = *(v27 - 8);
-  v29 = *(v28 + 64);
-  MEMORY[0x28223BE20](v27);
-  v31 = &v83 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39Proto_Gnss_Emergency_HorizontalVelocityVSgMd, &_s10ALProtobuf39Proto_Gnss_Emergency_HorizontalVelocityVSgMR);
-  v33 = *(*(v32 - 8) + 64);
-  MEMORY[0x28223BE20](v32 - 8);
-  v35 = &v83 - v34;
-  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39Proto_Gnss_Emergency_HorizontalVelocityVSg_ADtMd, &_s10ALProtobuf39Proto_Gnss_Emergency_HorizontalVelocityVSg_ADtMR);
-  v37 = v36 - 8;
-  v38 = *(*(v36 - 8) + 64);
-  MEMORY[0x28223BE20](v36);
-  v40 = &v83 - v39;
-  v101 = type metadata accessor for Proto_Gnss_Emergency_VelocityInfo(0);
-  v41 = *(v101 + 20);
-  v42 = *(v37 + 56);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v103 + v41, v40, &_s10ALProtobuf39Proto_Gnss_Emergency_HorizontalVelocityVSgMd, &_s10ALProtobuf39Proto_Gnss_Emergency_HorizontalVelocityVSgMR);
-  v43 = v102 + v41;
-  v44 = v102;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v43, &v40[v42], &_s10ALProtobuf39Proto_Gnss_Emergency_HorizontalVelocityVSgMd, &_s10ALProtobuf39Proto_Gnss_Emergency_HorizontalVelocityVSgMR);
-  v45 = *(v28 + 48);
-  if (v45(v40, 1, v27) == 1)
-  {
-    if (v45(&v40[v42], 1, v27) == 1)
-    {
-      outlined destroy of Any?(v40, &_s10ALProtobuf39Proto_Gnss_Emergency_HorizontalVelocityVSgMd, &_s10ALProtobuf39Proto_Gnss_Emergency_HorizontalVelocityVSgMR);
-      goto LABEL_8;
-    }
-
-LABEL_6:
-    v46 = &_s10ALProtobuf39Proto_Gnss_Emergency_HorizontalVelocityVSg_ADtMd;
-    v47 = &_s10ALProtobuf39Proto_Gnss_Emergency_HorizontalVelocityVSg_ADtMR;
-    v48 = v40;
-LABEL_29:
-    outlined destroy of Any?(v48, v46, v47);
-    goto LABEL_30;
-  }
-
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v40, v35, &_s10ALProtobuf39Proto_Gnss_Emergency_HorizontalVelocityVSgMd, &_s10ALProtobuf39Proto_Gnss_Emergency_HorizontalVelocityVSgMR);
-  if (v45(&v40[v42], 1, v27) == 1)
-  {
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v35, type metadata accessor for Proto_Gnss_Emergency_HorizontalVelocity);
-    goto LABEL_6;
-  }
-
-  outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v40[v42], v31, type metadata accessor for Proto_Gnss_Emergency_HorizontalVelocity);
-  v49 = specialized static Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssisted.== infix(_:_:)(v35, v31, type metadata accessor for Proto_Gnss_Emergency_HorizontalVelocity);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v31, type metadata accessor for Proto_Gnss_Emergency_HorizontalVelocity);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v35, type metadata accessor for Proto_Gnss_Emergency_HorizontalVelocity);
-  outlined destroy of Any?(v40, &_s10ALProtobuf39Proto_Gnss_Emergency_HorizontalVelocityVSgMd, &_s10ALProtobuf39Proto_Gnss_Emergency_HorizontalVelocityVSgMR);
-  if ((v49 & 1) == 0)
-  {
-    goto LABEL_30;
-  }
-
-LABEL_8:
-  v50 = v101;
-  v51 = *(v101 + 24);
-  v52 = *(v98 + 48);
-  v53 = v103;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v103 + v51, v26, &_s10ALProtobuf42Proto_Gnss_Emergency_HorizWithVertVelocityVSgMd, &_s10ALProtobuf42Proto_Gnss_Emergency_HorizWithVertVelocityVSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v44 + v51, &v26[v52], &_s10ALProtobuf42Proto_Gnss_Emergency_HorizWithVertVelocityVSgMd, &_s10ALProtobuf42Proto_Gnss_Emergency_HorizWithVertVelocityVSgMR);
-  v54 = v100;
-  v55 = *(v99 + 48);
-  if (v55(v26, 1, v100) == 1)
-  {
-    if (v55(&v26[v52], 1, v54) == 1)
-    {
-      outlined destroy of Any?(v26, &_s10ALProtobuf42Proto_Gnss_Emergency_HorizWithVertVelocityVSgMd, &_s10ALProtobuf42Proto_Gnss_Emergency_HorizWithVertVelocityVSgMR);
-      goto LABEL_15;
-    }
-
-    goto LABEL_13;
-  }
-
-  v56 = v97;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v26, v97, &_s10ALProtobuf42Proto_Gnss_Emergency_HorizWithVertVelocityVSgMd, &_s10ALProtobuf42Proto_Gnss_Emergency_HorizWithVertVelocityVSgMR);
-  if (v55(&v26[v52], 1, v54) == 1)
-  {
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v56, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertVelocity);
-LABEL_13:
-    v46 = &_s10ALProtobuf42Proto_Gnss_Emergency_HorizWithVertVelocityVSg_ADtMd;
-    v47 = &_s10ALProtobuf42Proto_Gnss_Emergency_HorizWithVertVelocityVSg_ADtMR;
-    v48 = v26;
-    goto LABEL_29;
-  }
-
-  v57 = &v26[v52];
-  v58 = v92;
-  outlined init with take of Proto_Gnss_Emergency_SLPAddress(v57, v92, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertVelocity);
-  v59 = specialized static Proto_Gnss_Emergency_GanssAddAssistDataChoices.== infix(_:_:)(v56, v58, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertVelocity);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v58, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertVelocity);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v56, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertVelocity);
-  outlined destroy of Any?(v26, &_s10ALProtobuf42Proto_Gnss_Emergency_HorizWithVertVelocityVSgMd, &_s10ALProtobuf42Proto_Gnss_Emergency_HorizWithVertVelocityVSgMR);
-  if ((v59 & 1) == 0)
-  {
-    goto LABEL_30;
-  }
-
-LABEL_15:
-  v60 = *(v50 + 28);
-  v61 = *(v93 + 48);
-  v62 = v96;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v53 + v60, v96, &_s10ALProtobuf49Proto_Gnss_Emergency_HorizWithUncertaintyVelocityVSgMd, &_s10ALProtobuf49Proto_Gnss_Emergency_HorizWithUncertaintyVelocityVSgMR);
-  v63 = v44 + v60;
-  v64 = v62;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v63, v62 + v61, &_s10ALProtobuf49Proto_Gnss_Emergency_HorizWithUncertaintyVelocityVSgMd, &_s10ALProtobuf49Proto_Gnss_Emergency_HorizWithUncertaintyVelocityVSgMR);
-  v65 = v95;
-  v66 = *(v94 + 48);
-  if (v66(v62, 1, v95) != 1)
-  {
-    v67 = v91;
-    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v64, v91, &_s10ALProtobuf49Proto_Gnss_Emergency_HorizWithUncertaintyVelocityVSgMd, &_s10ALProtobuf49Proto_Gnss_Emergency_HorizWithUncertaintyVelocityVSgMR);
-    if (v66(v64 + v61, 1, v65) != 1)
-    {
-      v68 = v64 + v61;
-      v69 = v86;
-      outlined init with take of Proto_Gnss_Emergency_SLPAddress(v68, v86, type metadata accessor for Proto_Gnss_Emergency_HorizWithUncertaintyVelocity);
-      v70 = specialized static Proto_Gnss_Emergency_HorizWithUncertaintyVelocity.== infix(_:_:)(v67, v69, type metadata accessor for Proto_Gnss_Emergency_HorizWithUncertaintyVelocity);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v69, type metadata accessor for Proto_Gnss_Emergency_HorizWithUncertaintyVelocity);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v67, type metadata accessor for Proto_Gnss_Emergency_HorizWithUncertaintyVelocity);
-      outlined destroy of Any?(v64, &_s10ALProtobuf49Proto_Gnss_Emergency_HorizWithUncertaintyVelocityVSgMd, &_s10ALProtobuf49Proto_Gnss_Emergency_HorizWithUncertaintyVelocityVSgMR);
-      if ((v70 & 1) == 0)
-      {
-        goto LABEL_30;
-      }
-
-      goto LABEL_22;
-    }
-
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v67, type metadata accessor for Proto_Gnss_Emergency_HorizWithUncertaintyVelocity);
-LABEL_20:
-    v46 = &_s10ALProtobuf49Proto_Gnss_Emergency_HorizWithUncertaintyVelocityVSg_ADtMd;
-    v47 = &_s10ALProtobuf49Proto_Gnss_Emergency_HorizWithUncertaintyVelocityVSg_ADtMR;
-LABEL_28:
-    v48 = v64;
-    goto LABEL_29;
-  }
-
-  if (v66(v62 + v61, 1, v65) != 1)
-  {
-    goto LABEL_20;
-  }
-
-  outlined destroy of Any?(v62, &_s10ALProtobuf49Proto_Gnss_Emergency_HorizWithUncertaintyVelocityVSgMd, &_s10ALProtobuf49Proto_Gnss_Emergency_HorizWithUncertaintyVelocityVSgMR);
-LABEL_22:
-  v71 = *(v50 + 32);
-  v72 = *(v87 + 48);
-  v73 = v90;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v53 + v71, v90, &_s10ALProtobuf53Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocityVSgMd, &_s10ALProtobuf53Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocityVSgMR);
-  v74 = v44 + v71;
-  v64 = v73;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v74, v73 + v72, &_s10ALProtobuf53Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocityVSgMd, &_s10ALProtobuf53Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocityVSgMR);
-  v75 = v89;
-  v76 = *(v88 + 48);
-  if (v76(v73, 1, v89) == 1)
-  {
-    if (v76(v73 + v72, 1, v75) == 1)
-    {
-      outlined destroy of Any?(v73, &_s10ALProtobuf53Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocityVSgMd, &_s10ALProtobuf53Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocityVSgMR);
-LABEL_33:
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v78 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v78 & 1;
-    }
-
-    goto LABEL_27;
-  }
-
-  v77 = v85;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v64, v85, &_s10ALProtobuf53Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocityVSgMd, &_s10ALProtobuf53Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocityVSgMR);
-  if (v76(v64 + v72, 1, v75) == 1)
-  {
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v77, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity);
-LABEL_27:
-    v46 = &_s10ALProtobuf53Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocityVSg_ADtMd;
-    v47 = &_s10ALProtobuf53Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocityVSg_ADtMR;
-    goto LABEL_28;
-  }
-
-  v80 = v64 + v72;
-  v81 = v84;
-  outlined init with take of Proto_Gnss_Emergency_SLPAddress(v80, v84, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity);
-  v82 = specialized static Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity.== infix(_:_:)(v77, v81);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v81, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v77, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity);
-  outlined destroy of Any?(v64, &_s10ALProtobuf53Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocityVSgMd, &_s10ALProtobuf53Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocityVSgMR);
-  if (v82)
-  {
-    goto LABEL_33;
-  }
-
-LABEL_30:
-  v78 = 0;
-  return v78 & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_Notification.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_Notification(0);
-  v5 = *(v4 + 20);
-  v6 = *(a1 + v5);
-  v7 = *(a2 + v5);
-  if (v6 == 2)
-  {
-    if (v7 != 2)
-    {
-      return 0;
-    }
-  }
-
-  else if (v7 == 2 || ((v6 ^ v7) & 1) != 0)
-  {
-    return 0;
-  }
-
-  v8 = *(v4 + 24);
-  v9 = *(a1 + v8);
-  v10 = *(a2 + v8);
-  if (v9 == 2)
-  {
-    if (v10 != 2)
-    {
-      return 0;
-    }
-  }
-
-  else if (v10 == 2 || ((v9 ^ v10) & 1) != 0)
-  {
-    return 0;
-  }
-
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_LocationInfo.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_GpsTOD(0);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v8 = &v49 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf27Proto_Gnss_Emergency_GpsTODVSgMd, &_s10ALProtobuf27Proto_Gnss_Emergency_GpsTODVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v49 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf27Proto_Gnss_Emergency_GpsTODVSg_ADtMd, &_s10ALProtobuf27Proto_Gnss_Emergency_GpsTODVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v49 - v15;
-  v17 = type metadata accessor for Proto_Gnss_Emergency_LocationInfo(0);
-  v18 = v17[5];
-  v19 = (a1 + v18);
-  v20 = *(a1 + v18 + 4);
-  v21 = (a2 + v18);
-  v22 = *(a2 + v18 + 4);
-  if (v20)
-  {
-    if (!v22)
-    {
-      goto LABEL_35;
-    }
-  }
-
-  else
-  {
-    if (*v19 != *v21)
-    {
-      LOBYTE(v22) = 1;
-    }
-
-    if (v22)
-    {
-      goto LABEL_35;
-    }
-  }
-
-  v23 = v17[6];
-  v24 = (a1 + v23);
-  v25 = *(a1 + v23 + 4);
-  v26 = (a2 + v23);
-  v27 = *(a2 + v23 + 4);
-  if (v25)
-  {
-    if (!v27)
-    {
-      goto LABEL_35;
-    }
-  }
-
-  else
-  {
-    if (*v24 != *v26)
-    {
-      LOBYTE(v27) = 1;
-    }
-
-    if (v27)
-    {
-      goto LABEL_35;
-    }
-  }
-
-  v28 = v17[7];
-  v29 = (a1 + v28);
-  v30 = *(a1 + v28 + 4);
-  v31 = (a2 + v28);
-  v32 = *(a2 + v28 + 4);
-  if (v30)
-  {
-    if (!v32)
-    {
-      goto LABEL_35;
-    }
-  }
-
-  else
-  {
-    if (*v29 != *v31)
-    {
-      LOBYTE(v32) = 1;
-    }
-
-    if (v32)
-    {
-      goto LABEL_35;
-    }
-  }
-
-  v33 = v17[8];
-  v34 = *(a1 + v33);
-  v35 = *(a2 + v33);
-  if (v34 == 4)
-  {
-    if (v35 != 4)
-    {
-      goto LABEL_35;
-    }
-  }
-
-  else if (v34 != v35)
-  {
-    goto LABEL_35;
-  }
-
-  v36 = v17[9];
-  v37 = (a1 + v36);
-  v38 = *(a1 + v36 + 4);
-  v39 = (a2 + v36);
-  v40 = *(a2 + v36 + 4);
-  if (v38)
-  {
-    if (!v40)
-    {
-      goto LABEL_35;
-    }
-  }
-
-  else
-  {
-    if (*v37 != *v39)
-    {
-      LOBYTE(v40) = 1;
-    }
-
-    if (v40)
-    {
-      goto LABEL_35;
-    }
-  }
-
-  v41 = v17[10];
-  v42 = *(v13 + 48);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v41, v16, &_s10ALProtobuf27Proto_Gnss_Emergency_GpsTODVSgMd, &_s10ALProtobuf27Proto_Gnss_Emergency_GpsTODVSgMR);
-  v43 = a2 + v41;
-  v44 = v42;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v43, &v16[v42], &_s10ALProtobuf27Proto_Gnss_Emergency_GpsTODVSgMd, &_s10ALProtobuf27Proto_Gnss_Emergency_GpsTODVSgMR);
-  v45 = *(v5 + 48);
-  if (v45(v16, 1, v4) == 1)
-  {
-    if (v45(&v16[v44], 1, v4) == 1)
-    {
-      outlined destroy of Any?(v16, &_s10ALProtobuf27Proto_Gnss_Emergency_GpsTODVSgMd, &_s10ALProtobuf27Proto_Gnss_Emergency_GpsTODVSgMR);
-LABEL_38:
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v46 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v46 & 1;
-    }
-
-    goto LABEL_34;
-  }
-
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16, v12, &_s10ALProtobuf27Proto_Gnss_Emergency_GpsTODVSgMd, &_s10ALProtobuf27Proto_Gnss_Emergency_GpsTODVSgMR);
-  if (v45(&v16[v44], 1, v4) == 1)
-  {
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_GpsTOD);
-LABEL_34:
-    outlined destroy of Any?(v16, &_s10ALProtobuf27Proto_Gnss_Emergency_GpsTODVSg_ADtMd, &_s10ALProtobuf27Proto_Gnss_Emergency_GpsTODVSg_ADtMR);
-    goto LABEL_35;
-  }
-
-  outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v16[v44], v8, type metadata accessor for Proto_Gnss_Emergency_GpsTOD);
-  v48 = specialized static Proto_Gnss_Emergency_HorizWithUncertaintyVelocity.== infix(_:_:)(v12, v8, type metadata accessor for Proto_Gnss_Emergency_GpsTOD);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v8, type metadata accessor for Proto_Gnss_Emergency_GpsTOD);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_GpsTOD);
-  outlined destroy of Any?(v16, &_s10ALProtobuf27Proto_Gnss_Emergency_GpsTODVSgMd, &_s10ALProtobuf27Proto_Gnss_Emergency_GpsTODVSgMR);
-  if (v48)
-  {
-    goto LABEL_38;
-  }
-
-LABEL_35:
-  v46 = 0;
-  return v46 & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_EllipsoidArc.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint(0);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v50 = &v49 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v49 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSg_ADtMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSg_ADtMR);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v49 - v15;
-  v51 = type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc(0);
-  v52 = a1;
-  v17 = v51[5];
-  v18 = *(v13 + 56);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v17, v16, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v17, &v16[v18], &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, v4) != 1)
-  {
-    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16, v11, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMR);
-    if (v19(&v16[v18], 1, v4) != 1)
-    {
-      v22 = v50;
-      outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v16[v18], v50, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-      v23 = specialized static Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssisted.== infix(_:_:)(v11, v22, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v22, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v11, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-      outlined destroy of Any?(v16, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMR);
-      if ((v23 & 1) == 0)
-      {
-        goto LABEL_7;
-      }
-
-      goto LABEL_10;
-    }
-
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v11, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-LABEL_6:
-    outlined destroy of Any?(v16, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSg_ADtMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSg_ADtMR);
-    goto LABEL_7;
-  }
-
-  if (v19(&v16[v18], 1, v4) != 1)
-  {
-    goto LABEL_6;
-  }
-
-  outlined destroy of Any?(v16, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMR);
-LABEL_10:
-  v24 = v51[6];
-  v25 = (v52 + v24);
-  v26 = *(v52 + v24 + 4);
-  v27 = (a2 + v24);
-  v28 = *(a2 + v24 + 4);
-  if (v26)
-  {
-    if (!v28)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  else
-  {
-    if (*v25 != *v27)
-    {
-      LOBYTE(v28) = 1;
-    }
-
-    if (v28)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  v29 = v51[7];
-  v30 = (v52 + v29);
-  v31 = *(v52 + v29 + 4);
-  v32 = (a2 + v29);
-  v33 = *(a2 + v29 + 4);
-  if (v31)
-  {
-    if (!v33)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  else
-  {
-    if (*v30 != *v32)
-    {
-      LOBYTE(v33) = 1;
-    }
-
-    if (v33)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  v34 = v51[8];
-  v35 = (v52 + v34);
-  v36 = *(v52 + v34 + 4);
-  v37 = (a2 + v34);
-  v38 = *(a2 + v34 + 4);
-  if (v36)
-  {
-    if (!v38)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  else
-  {
-    if (*v35 != *v37)
-    {
-      LOBYTE(v38) = 1;
-    }
-
-    if (v38)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  v39 = v51[9];
-  v40 = (v52 + v39);
-  v41 = *(v52 + v39 + 4);
-  v42 = (a2 + v39);
-  v43 = *(a2 + v39 + 4);
-  if (v41)
-  {
-    if (!v43)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  else
-  {
-    if (*v40 != *v42)
-    {
-      LOBYTE(v43) = 1;
-    }
-
-    if (v43)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  v44 = v51[10];
-  v45 = (v52 + v44);
-  v46 = *(v52 + v44 + 4);
-  v47 = (a2 + v44);
-  v48 = *(a2 + v44 + 4);
-  if (v46)
-  {
-    if (v48)
-    {
-LABEL_40:
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v20 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v20 & 1;
-    }
-  }
-
-  else
-  {
-    if (*v45 != *v47)
-    {
-      LOBYTE(v48) = 1;
-    }
-
-    if ((v48 & 1) == 0)
-    {
-      goto LABEL_40;
-    }
-  }
-
-LABEL_7:
-  v20 = 0;
-  return v20 & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_CplaneConfig.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = *(type metadata accessor for Proto_Gnss_Emergency_CplaneConfig(0) + 20);
-  v5 = *(a1 + v4);
-  v6 = *(a2 + v4);
-  if (v5 != 2)
-  {
-    if (v6 != 2 && ((v5 ^ v6) & 1) == 0)
-    {
-      goto LABEL_7;
-    }
-
-    return 0;
-  }
-
-  if (v6 != 2)
-  {
-    return 0;
-  }
-
-LABEL_7:
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_CellTimeData.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v52 = a2;
-  v3 = type metadata accessor for Proto_Gnss_Emergency_CtsCdmaCellTime(0);
-  v48 = *(v3 - 8);
-  v49 = v3;
-  v4 = *(v48 + 64);
-  MEMORY[0x28223BE20](v3);
-  v44 = &v43 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf36Proto_Gnss_Emergency_CtsCdmaCellTimeVSgMd, &_s10ALProtobuf36Proto_Gnss_Emergency_CtsCdmaCellTimeVSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8);
-  v45 = &v43 - v8;
-  v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf36Proto_Gnss_Emergency_CtsCdmaCellTimeVSg_ADtMd, &_s10ALProtobuf36Proto_Gnss_Emergency_CtsCdmaCellTimeVSg_ADtMR);
-  v9 = *(*(v47 - 8) + 64);
-  MEMORY[0x28223BE20](v47);
-  v50 = &v43 - v10;
-  v11 = type metadata accessor for Proto_Gnss_Emergency_CtsEutranCellTime(0);
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v11);
-  v15 = &v43 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf38Proto_Gnss_Emergency_CtsEutranCellTimeVSgMd, &_s10ALProtobuf38Proto_Gnss_Emergency_CtsEutranCellTimeVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x28223BE20](v16 - 8);
-  v19 = &v43 - v18;
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf38Proto_Gnss_Emergency_CtsEutranCellTimeVSg_ADtMd, &_s10ALProtobuf38Proto_Gnss_Emergency_CtsEutranCellTimeVSg_ADtMR);
-  v21 = v20 - 8;
-  v22 = *(*(v20 - 8) + 64);
-  MEMORY[0x28223BE20](v20);
-  v24 = &v43 - v23;
-  v46 = type metadata accessor for Proto_Gnss_Emergency_CellTimeData(0);
-  v25 = *(v46 + 20);
-  v26 = *(v21 + 56);
-  v51 = a1;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v25, v24, &_s10ALProtobuf38Proto_Gnss_Emergency_CtsEutranCellTimeVSgMd, &_s10ALProtobuf38Proto_Gnss_Emergency_CtsEutranCellTimeVSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v52 + v25, &v24[v26], &_s10ALProtobuf38Proto_Gnss_Emergency_CtsEutranCellTimeVSgMd, &_s10ALProtobuf38Proto_Gnss_Emergency_CtsEutranCellTimeVSgMR);
-  v27 = *(v12 + 48);
-  if (v27(v24, 1, v11) != 1)
-  {
-    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v24, v19, &_s10ALProtobuf38Proto_Gnss_Emergency_CtsEutranCellTimeVSgMd, &_s10ALProtobuf38Proto_Gnss_Emergency_CtsEutranCellTimeVSgMR);
-    if (v27(&v24[v26], 1, v11) != 1)
-    {
-      outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v24[v26], v15, type metadata accessor for Proto_Gnss_Emergency_CtsEutranCellTime);
-      v31 = specialized static Proto_Gnss_Emergency_HorizWithUncertaintyVelocity.== infix(_:_:)(v19, v15, type metadata accessor for Proto_Gnss_Emergency_CtsEutranCellTime);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v15, type metadata accessor for Proto_Gnss_Emergency_CtsEutranCellTime);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v19, type metadata accessor for Proto_Gnss_Emergency_CtsEutranCellTime);
-      outlined destroy of Any?(v24, &_s10ALProtobuf38Proto_Gnss_Emergency_CtsEutranCellTimeVSgMd, &_s10ALProtobuf38Proto_Gnss_Emergency_CtsEutranCellTimeVSgMR);
-      if ((v31 & 1) == 0)
-      {
-        goto LABEL_15;
-      }
-
-      goto LABEL_8;
-    }
-
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v19, type metadata accessor for Proto_Gnss_Emergency_CtsEutranCellTime);
-LABEL_6:
-    v28 = &_s10ALProtobuf38Proto_Gnss_Emergency_CtsEutranCellTimeVSg_ADtMd;
-    v29 = &_s10ALProtobuf38Proto_Gnss_Emergency_CtsEutranCellTimeVSg_ADtMR;
-    v30 = v24;
-LABEL_14:
-    outlined destroy of Any?(v30, v28, v29);
-    goto LABEL_15;
-  }
-
-  if (v27(&v24[v26], 1, v11) != 1)
-  {
-    goto LABEL_6;
-  }
-
-  outlined destroy of Any?(v24, &_s10ALProtobuf38Proto_Gnss_Emergency_CtsEutranCellTimeVSgMd, &_s10ALProtobuf38Proto_Gnss_Emergency_CtsEutranCellTimeVSgMR);
-LABEL_8:
-  v32 = *(v46 + 24);
-  v33 = *(v47 + 48);
-  v34 = v50;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v51 + v32, v50, &_s10ALProtobuf36Proto_Gnss_Emergency_CtsCdmaCellTimeVSgMd, &_s10ALProtobuf36Proto_Gnss_Emergency_CtsCdmaCellTimeVSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v52 + v32, v34 + v33, &_s10ALProtobuf36Proto_Gnss_Emergency_CtsCdmaCellTimeVSgMd, &_s10ALProtobuf36Proto_Gnss_Emergency_CtsCdmaCellTimeVSgMR);
-  v35 = v49;
-  v36 = *(v48 + 48);
-  if (v36(v34, 1, v49) == 1)
-  {
-    if (v36(v34 + v33, 1, v35) == 1)
-    {
-      outlined destroy of Any?(v34, &_s10ALProtobuf36Proto_Gnss_Emergency_CtsCdmaCellTimeVSgMd, &_s10ALProtobuf36Proto_Gnss_Emergency_CtsCdmaCellTimeVSgMR);
-LABEL_18:
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v38 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v38 & 1;
-    }
-
-    goto LABEL_13;
-  }
-
-  v37 = v45;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v34, v45, &_s10ALProtobuf36Proto_Gnss_Emergency_CtsCdmaCellTimeVSgMd, &_s10ALProtobuf36Proto_Gnss_Emergency_CtsCdmaCellTimeVSgMR);
-  if (v36(v34 + v33, 1, v35) == 1)
-  {
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v37, type metadata accessor for Proto_Gnss_Emergency_CtsCdmaCellTime);
-LABEL_13:
-    v28 = &_s10ALProtobuf36Proto_Gnss_Emergency_CtsCdmaCellTimeVSg_ADtMd;
-    v29 = &_s10ALProtobuf36Proto_Gnss_Emergency_CtsCdmaCellTimeVSg_ADtMR;
-    v30 = v34;
-    goto LABEL_14;
-  }
-
-  v40 = v34 + v33;
-  v41 = v44;
-  outlined init with take of Proto_Gnss_Emergency_SLPAddress(v40, v44, type metadata accessor for Proto_Gnss_Emergency_CtsCdmaCellTime);
-  v42 = specialized static Proto_Gnss_Emergency_CtsCdmaCellTime.== infix(_:_:)(v37, v41);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v41, type metadata accessor for Proto_Gnss_Emergency_CtsCdmaCellTime);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v37, type metadata accessor for Proto_Gnss_Emergency_CtsCdmaCellTime);
-  outlined destroy of Any?(v34, &_s10ALProtobuf36Proto_Gnss_Emergency_CtsCdmaCellTimeVSgMd, &_s10ALProtobuf36Proto_Gnss_Emergency_CtsCdmaCellTimeVSgMR);
-  if (v42)
-  {
-    goto LABEL_18;
-  }
-
-LABEL_15:
-  v38 = 0;
-  return v38 & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_SuplContext.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_Configuration(0);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v8 = &v64 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMd, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v64 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSg_ADtMd, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v64 - v15;
-  v17 = type metadata accessor for Proto_Gnss_Emergency_SuplContext(0);
-  v18 = v17[5];
-  v19 = (a1 + v18);
-  v20 = *(a1 + v18 + 4);
-  v21 = (a2 + v18);
-  v22 = *(a2 + v18 + 4);
-  if (v20)
-  {
-    if (!v22)
-    {
-      goto LABEL_32;
-    }
-  }
-
-  else
-  {
-    if (*v19 != *v21)
-    {
-      LOBYTE(v22) = 1;
-    }
-
-    if (v22)
-    {
-      goto LABEL_32;
-    }
-  }
-
-  v23 = v17[6];
-  v24 = (a1 + v23);
-  v25 = *(a1 + v23 + 8);
-  v26 = (a2 + v23);
-  v27 = v26[1];
-  if (v25)
-  {
-    if (!v27)
-    {
-      goto LABEL_32;
-    }
-
-    if (*v24 != *v26 || v25 != v27)
-    {
-      v28 = v17;
-      v29 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v17 = v28;
-      if ((v29 & 1) == 0)
-      {
-        goto LABEL_32;
-      }
-    }
-  }
-
-  else if (v27)
-  {
-    goto LABEL_32;
-  }
-
-  v30 = v17[7];
-  v31 = *(a1 + v30);
-  v32 = *(a2 + v30);
-  if (v31 == 2)
-  {
-    if (v32 != 2)
-    {
-      goto LABEL_32;
-    }
-  }
-
-  else if (v32 == 2 || ((v31 ^ v32) & 1) != 0)
-  {
-    goto LABEL_32;
-  }
-
-  v33 = v17[8];
-  v34 = (a1 + v33);
-  v35 = *(a1 + v33 + 8);
-  v36 = (a2 + v33);
-  v37 = v36[1];
-  if (v35)
-  {
-    if (!v37)
-    {
-      goto LABEL_32;
-    }
-
-    if (*v34 != *v36 || v35 != v37)
-    {
-      v38 = v17;
-      v39 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v17 = v38;
-      if ((v39 & 1) == 0)
-      {
-        goto LABEL_32;
-      }
-    }
-  }
-
-  else if (v37)
-  {
-    goto LABEL_32;
-  }
-
-  v65 = v17;
-  v40 = v17[9];
-  v41 = *(v13 + 48);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v40, v16, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMd, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMR);
-  v42 = a2 + v40;
-  v43 = v41;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v42, &v16[v41], &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMd, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMR);
-  v44 = *(v5 + 48);
-  if (v44(v16, 1, v4) != 1)
-  {
-    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16, v12, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMd, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMR);
-    if (v44(&v16[v43], 1, v4) != 1)
-    {
-      outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v16[v43], v8, type metadata accessor for Proto_Gnss_Emergency_Configuration);
-      v47 = specialized static Proto_Gnss_Emergency_Configuration.== infix(_:_:)(v12, v8);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v8, type metadata accessor for Proto_Gnss_Emergency_Configuration);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_Configuration);
-      outlined destroy of Any?(v16, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMd, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMR);
-      if ((v47 & 1) == 0)
-      {
-        goto LABEL_32;
-      }
-
-      goto LABEL_35;
-    }
-
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_Configuration);
-LABEL_31:
-    outlined destroy of Any?(v16, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSg_ADtMd, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSg_ADtMR);
-    goto LABEL_32;
-  }
-
-  if (v44(&v16[v43], 1, v4) != 1)
-  {
-    goto LABEL_31;
-  }
-
-  outlined destroy of Any?(v16, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMd, &_s10ALProtobuf34Proto_Gnss_Emergency_ConfigurationVSgMR);
-LABEL_35:
-  v48 = v65;
-  v49 = v65[10];
-  v50 = (a1 + v49);
-  v51 = *(a1 + v49 + 8);
-  v52 = (a2 + v49);
-  v53 = v52[1];
-  if (v51)
-  {
-    if (!v53)
-    {
-      goto LABEL_32;
-    }
-
-    if (*v50 != *v52 || v51 != v53)
-    {
-      v54 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v48 = v65;
-      if ((v54 & 1) == 0)
-      {
-        goto LABEL_32;
-      }
-    }
-  }
-
-  else if (v53)
-  {
-    goto LABEL_32;
-  }
-
-  v55 = v48[11];
-  v56 = *(a1 + v55);
-  v57 = *(a2 + v55);
-  if (v56 == 2)
-  {
-    if (v57 != 2)
-    {
-      goto LABEL_32;
-    }
-  }
-
-  else if (v57 == 2 || ((v56 ^ v57) & 1) != 0)
-  {
-    goto LABEL_32;
-  }
-
-  v58 = v48[12];
-  v59 = *(a1 + v58);
-  v60 = *(a2 + v58);
-  if (v59 == 2)
-  {
-    if (v60 != 2)
-    {
-      goto LABEL_32;
-    }
-  }
-
-  else if (v60 == 2 || ((v59 ^ v60) & 1) != 0)
-  {
-    goto LABEL_32;
-  }
-
-  v61 = v48[13];
-  v62 = *(a1 + v61);
-  v63 = *(a2 + v61);
-  if (v62 != 2)
-  {
-    if (v63 == 2 || ((v62 ^ v63) & 1) != 0)
-    {
-      goto LABEL_32;
-    }
-
-LABEL_57:
-    type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    v45 = dispatch thunk of static Equatable.== infix(_:_:)();
-    return v45 & 1;
-  }
-
-  if (v63 == 2)
-  {
-    goto LABEL_57;
-  }
-
-LABEL_32:
-  v45 = 0;
-  return v45 & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_SessionInfo.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_SessionInfo(0);
-  v5 = v4[5];
-  v6 = *(a1 + v5);
-  v7 = *(a2 + v5);
-  if (v6 == 6)
-  {
-    if (v7 != 6)
-    {
-      return 0;
-    }
-  }
-
-  else if (v6 != v7)
-  {
-    return 0;
-  }
-
-  v8 = v4[6];
-  v9 = *(a1 + v8);
-  v10 = *(a2 + v8);
-  if (v9 != 7)
-  {
-    if (v9 == v10)
-    {
-      goto LABEL_9;
-    }
-
-    return 0;
-  }
-
-  if (v10 != 7)
-  {
-    return 0;
-  }
-
-LABEL_9:
-  v11 = v4[7];
-  v12 = (a1 + v11);
-  v13 = *(a1 + v11 + 4);
-  v14 = (a2 + v11);
-  v15 = *(a2 + v11 + 4);
-  if (v13)
-  {
-    if (!v15)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v12 != *v14)
-    {
-      LOBYTE(v15) = 1;
-    }
-
-    if (v15)
-    {
-      return 0;
-    }
-  }
-
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_LocEstimate.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_ShapeInfo(0);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v8 = &v35 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoVSgMd, &_s10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v35 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoVSg_ADtMd, &_s10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v35 - v15;
-  v17 = type metadata accessor for Proto_Gnss_Emergency_LocEstimate(0);
-  v18 = *(v17 + 20);
-  v36 = a1;
-  v19 = *(a1 + v18);
-  v20 = *(a2 + v18);
-  if (v19 == 9)
-  {
-    if (v20 != 9)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  else if (v19 != v20)
-  {
-    goto LABEL_12;
-  }
-
-  v21 = a2;
-  v22 = *(v17 + 24);
-  v23 = *(v13 + 48);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v36 + v22, v16, &_s10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoVSgMd, &_s10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoVSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v21 + v22, &v16[v23], &_s10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoVSgMd, &_s10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoVSgMR);
-  v24 = *(v5 + 48);
-  if (v24(v16, 1, v4) == 1)
-  {
-    if (v24(&v16[v23], 1, v4) == 1)
-    {
-      outlined destroy of Any?(v16, &_s10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoVSgMd, &_s10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoVSgMR);
-LABEL_17:
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v27 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v27 & 1;
-    }
-
-    goto LABEL_10;
-  }
-
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16, v12, &_s10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoVSgMd, &_s10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoVSgMR);
-  if (v24(&v16[v23], 1, v4) == 1)
-  {
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_ShapeInfo);
-LABEL_10:
-    v25 = &_s10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoVSg_ADtMd;
-    v26 = &_s10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoVSg_ADtMR;
-LABEL_11:
-    outlined destroy of Any?(v16, v25, v26);
-    goto LABEL_12;
-  }
-
-  outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v16[v23], v8, type metadata accessor for Proto_Gnss_Emergency_ShapeInfo);
-  v29 = *(v4 + 20);
-  v30 = *&v12[v29];
-  v31 = *&v8[v29];
-  if (v30 != v31)
-  {
-    v32 = *&v12[v29];
-
-    v33 = closure #1 in static Proto_Gnss_Emergency_ShapeInfo.== infix(_:_:)(v30, v31);
-
-    if ((v33 & 1) == 0)
-    {
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v8, type metadata accessor for Proto_Gnss_Emergency_ShapeInfo);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_ShapeInfo);
-      v25 = &_s10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoVSgMd;
-      v26 = &_s10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoVSgMR;
-      goto LABEL_11;
-    }
-  }
-
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v34 = dispatch thunk of static Equatable.== infix(_:_:)();
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v8, type metadata accessor for Proto_Gnss_Emergency_ShapeInfo);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_ShapeInfo);
-  outlined destroy of Any?(v16, &_s10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoVSgMd, &_s10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoVSgMR);
-  if (v34)
-  {
-    goto LABEL_17;
-  }
-
-LABEL_12:
-  v27 = 0;
-  return v27 & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_EmergConfig.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_SuplConfig(0);
-  v72 = *(v4 - 8);
-  v73 = v4;
-  v5 = *(v72 + 64);
-  MEMORY[0x28223BE20](v4);
-  v7 = &v65 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf31Proto_Gnss_Emergency_SuplConfigVSgMd, &_s10ALProtobuf31Proto_Gnss_Emergency_SuplConfigVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v70 = &v65 - v10;
-  v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf31Proto_Gnss_Emergency_SuplConfigVSg_ADtMd, &_s10ALProtobuf31Proto_Gnss_Emergency_SuplConfigVSg_ADtMR);
-  v11 = *(*(v71 - 8) + 64);
-  MEMORY[0x28223BE20](v71);
-  v74 = &v65 - v12;
-  v13 = type metadata accessor for Proto_Gnss_Emergency_CplaneConfig(0);
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  MEMORY[0x28223BE20](v13);
-  v17 = &v65 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf33Proto_Gnss_Emergency_CplaneConfigVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CplaneConfigVSgMR);
-  v19 = *(*(v18 - 8) + 64);
-  MEMORY[0x28223BE20](v18 - 8);
-  v21 = &v65 - v20;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf33Proto_Gnss_Emergency_CplaneConfigVSg_ADtMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CplaneConfigVSg_ADtMR);
-  v23 = *(*(v22 - 8) + 64);
-  MEMORY[0x28223BE20](v22);
-  v25 = &v65 - v24;
-  v26 = type metadata accessor for Proto_Gnss_Emergency_EmergConfig(0);
-  v27 = v26;
-  v28 = *(v26 + 20);
-  v29 = *(a1 + v28);
-  v30 = *(a2 + v28);
-  if (v29 == 2)
-  {
-    if (v30 != 2)
-    {
-      goto LABEL_33;
-    }
-  }
-
-  else if (v30 == 2 || ((v29 ^ v30) & 1) != 0)
-  {
-    goto LABEL_33;
-  }
-
-  v31 = *(v26 + 24);
-  v32 = (a1 + v31);
-  v33 = *(a1 + v31 + 8);
-  v34 = (a2 + v31);
-  v35 = v34[1];
-  if (v33)
-  {
-    if (!v35 || (*v32 != *v34 || v33 != v35) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-    {
-      goto LABEL_33;
-    }
-  }
-
-  else if (v35)
-  {
-    goto LABEL_33;
-  }
-
-  v66 = v7;
-  v67 = v17;
-  v36 = v14;
-  v37 = *(v27 + 28);
-  v38 = *(v22 + 48);
-  v68 = a1;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v37, v25, &_s10ALProtobuf33Proto_Gnss_Emergency_CplaneConfigVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CplaneConfigVSgMR);
-  v39 = a2 + v37;
-  v40 = a2;
-  v69 = v38;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v39, &v25[v38], &_s10ALProtobuf33Proto_Gnss_Emergency_CplaneConfigVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CplaneConfigVSgMR);
-  v41 = *(v36 + 48);
-  if (v41(v25, 1, v13) != 1)
-  {
-    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v25, v21, &_s10ALProtobuf33Proto_Gnss_Emergency_CplaneConfigVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CplaneConfigVSgMR);
-    v49 = v69;
-    if (v41(&v25[v69], 1, v13) == 1)
-    {
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v21, type metadata accessor for Proto_Gnss_Emergency_CplaneConfig);
-      goto LABEL_21;
-    }
-
-    v52 = &v25[v49];
-    v53 = v67;
-    outlined init with take of Proto_Gnss_Emergency_SLPAddress(v52, v67, type metadata accessor for Proto_Gnss_Emergency_CplaneConfig);
-    v54 = *(v13 + 20);
-    v55 = v21[v54];
-    v56 = *(v53 + v54);
-    if (v55 == 2)
-    {
-      v42 = v68;
-      if (v56 == 2)
-      {
-        goto LABEL_35;
-      }
-    }
-
-    else
-    {
-      v42 = v68;
-      if (v56 != 2 && ((v55 ^ v56) & 1) == 0)
-      {
-LABEL_35:
-        type metadata accessor for UnknownStorage();
-        lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-        v61 = dispatch thunk of static Equatable.== infix(_:_:)();
-        outlined destroy of Proto_Gnss_Emergency_SLPAddress(v53, type metadata accessor for Proto_Gnss_Emergency_CplaneConfig);
-        outlined destroy of Proto_Gnss_Emergency_SLPAddress(v21, type metadata accessor for Proto_Gnss_Emergency_CplaneConfig);
-        outlined destroy of Any?(v25, &_s10ALProtobuf33Proto_Gnss_Emergency_CplaneConfigVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CplaneConfigVSgMR);
-        if ((v61 & 1) == 0)
-        {
-          goto LABEL_33;
-        }
-
-        goto LABEL_16;
-      }
-    }
-
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v53, type metadata accessor for Proto_Gnss_Emergency_CplaneConfig);
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v21, type metadata accessor for Proto_Gnss_Emergency_CplaneConfig);
-    v50 = &_s10ALProtobuf33Proto_Gnss_Emergency_CplaneConfigVSgMd;
-    v51 = &_s10ALProtobuf33Proto_Gnss_Emergency_CplaneConfigVSgMR;
-    goto LABEL_31;
-  }
-
-  if (v41(&v25[v69], 1, v13) != 1)
-  {
-LABEL_21:
-    v50 = &_s10ALProtobuf33Proto_Gnss_Emergency_CplaneConfigVSg_ADtMd;
-    v51 = &_s10ALProtobuf33Proto_Gnss_Emergency_CplaneConfigVSg_ADtMR;
-LABEL_31:
-    v58 = v25;
-    goto LABEL_32;
-  }
-
-  outlined destroy of Any?(v25, &_s10ALProtobuf33Proto_Gnss_Emergency_CplaneConfigVSgMd, &_s10ALProtobuf33Proto_Gnss_Emergency_CplaneConfigVSgMR);
-  v42 = v68;
-LABEL_16:
-  v43 = *(v27 + 32);
-  v44 = v40;
-  v45 = *(v71 + 48);
-  v46 = v74;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v42 + v43, v74, &_s10ALProtobuf31Proto_Gnss_Emergency_SuplConfigVSgMd, &_s10ALProtobuf31Proto_Gnss_Emergency_SuplConfigVSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v44 + v43, v46 + v45, &_s10ALProtobuf31Proto_Gnss_Emergency_SuplConfigVSgMd, &_s10ALProtobuf31Proto_Gnss_Emergency_SuplConfigVSgMR);
-  v47 = v73;
-  v48 = *(v72 + 48);
-  if (v48(v46, 1, v73) == 1)
-  {
-    if (v48(v46 + v45, 1, v47) == 1)
-    {
-      outlined destroy of Any?(v46, &_s10ALProtobuf31Proto_Gnss_Emergency_SuplConfigVSgMd, &_s10ALProtobuf31Proto_Gnss_Emergency_SuplConfigVSgMR);
-LABEL_38:
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v59 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v59 & 1;
-    }
-
-    goto LABEL_27;
-  }
-
-  v57 = v70;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v46, v70, &_s10ALProtobuf31Proto_Gnss_Emergency_SuplConfigVSgMd, &_s10ALProtobuf31Proto_Gnss_Emergency_SuplConfigVSgMR);
-  if (v48(v46 + v45, 1, v47) == 1)
-  {
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v57, type metadata accessor for Proto_Gnss_Emergency_SuplConfig);
-LABEL_27:
-    v50 = &_s10ALProtobuf31Proto_Gnss_Emergency_SuplConfigVSg_ADtMd;
-    v51 = &_s10ALProtobuf31Proto_Gnss_Emergency_SuplConfigVSg_ADtMR;
-    v58 = v46;
-LABEL_32:
-    outlined destroy of Any?(v58, v50, v51);
-    goto LABEL_33;
-  }
-
-  v62 = v46 + v45;
-  v63 = v66;
-  outlined init with take of Proto_Gnss_Emergency_SLPAddress(v62, v66, type metadata accessor for Proto_Gnss_Emergency_SuplConfig);
-  v64 = specialized static Proto_Gnss_Emergency_SuplConfig.== infix(_:_:)(v57, v63);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v63, type metadata accessor for Proto_Gnss_Emergency_SuplConfig);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v57, type metadata accessor for Proto_Gnss_Emergency_SuplConfig);
-  outlined destroy of Any?(v46, &_s10ALProtobuf31Proto_Gnss_Emergency_SuplConfigVSgMd, &_s10ALProtobuf31Proto_Gnss_Emergency_SuplConfigVSgMR);
-  if (v64)
-  {
-    goto LABEL_38;
-  }
-
-LABEL_33:
-  v59 = 0;
-  return v59 & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_SuplConfig.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_SuplConfig(0);
-  v5 = v4[5];
-  v6 = (a1 + v5);
-  v7 = *(a1 + v5 + 4);
-  v8 = (a2 + v5);
-  v9 = *(a2 + v5 + 4);
-  if (v7)
-  {
-    if (!v9)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v6 != *v8)
-    {
-      LOBYTE(v9) = 1;
-    }
-
-    if (v9)
-    {
-      return 0;
-    }
-  }
-
-  v10 = v4[6];
-  v11 = (a1 + v10);
-  v12 = *(a1 + v10 + 8);
-  v13 = (a2 + v10);
-  v14 = v13[1];
-  if (v12)
-  {
-    if (!v14)
-    {
-      return 0;
-    }
-
-    if (*v11 != *v13 || v12 != v14)
-    {
-      v16 = v4;
-      v17 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v4 = v16;
-      if ((v17 & 1) == 0)
-      {
-        return 0;
-      }
-    }
-  }
-
-  else if (v14)
-  {
-    return 0;
-  }
-
-  v18 = v4[7];
-  v19 = *(a1 + v18);
-  v20 = *(a2 + v18);
-  if (v19 == 2)
-  {
-    if (v20 != 2)
-    {
-      return 0;
-    }
-  }
-
-  else if (v20 == 2 || ((v19 ^ v20) & 1) != 0)
-  {
-    return 0;
-  }
-
-  v21 = v4[8];
-  v22 = *(a1 + v21);
-  v23 = *(a2 + v21);
-  if (v22 == 2)
-  {
-    if (v23 != 2)
-    {
-      return 0;
-    }
-  }
-
-  else if (v23 == 2 || ((v22 ^ v23) & 1) != 0)
-  {
-    return 0;
-  }
-
-  v24 = v4[9];
-  v25 = *(a1 + v24);
-  v26 = *(a2 + v24);
-  if (v25 == 2)
-  {
-    if (v26 != 2)
-    {
-      return 0;
-    }
-  }
-
-  else if (v26 == 2 || ((v25 ^ v26) & 1) != 0)
-  {
-    return 0;
-  }
-
-  v27 = v4[10];
-  v28 = *(a1 + v27);
-  v29 = *(a2 + v27);
-  if (v28 == 2)
-  {
-    if (v29 == 2)
-    {
-      goto LABEL_37;
-    }
-
-    return 0;
-  }
-
-  if (v29 == 2 || ((v28 ^ v29) & 1) != 0)
-  {
-    return 0;
-  }
-
-LABEL_37:
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_LteCellInfo.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_LteCellInfo(0);
-  v5 = v4[5];
-  v6 = *(a1 + v5);
-  v7 = *(a2 + v5);
-  if (v6 == 2)
-  {
-    if (v7 != 2)
-    {
-      return 0;
-    }
-  }
-
-  else if (v7 == 2 || ((v6 ^ v7) & 1) != 0)
-  {
-    return 0;
-  }
-
-  v8 = v4[6];
-  v9 = (a1 + v8);
-  v10 = *(a1 + v8 + 4);
-  v11 = (a2 + v8);
-  v12 = *(a2 + v8 + 4);
-  if (v10)
-  {
-    if (!v12)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v9 != *v11)
-    {
-      LOBYTE(v12) = 1;
-    }
-
-    if (v12)
-    {
-      return 0;
-    }
-  }
-
-  v13 = v4[7];
-  v14 = (a1 + v13);
-  v15 = *(a1 + v13 + 4);
-  v16 = (a2 + v13);
-  v17 = *(a2 + v13 + 4);
-  if (v15)
-  {
-    if (!v17)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v14 != *v16)
-    {
-      LOBYTE(v17) = 1;
-    }
-
-    if (v17)
-    {
-      return 0;
-    }
-  }
-
-  v18 = v4[8];
-  v19 = (a1 + v18);
-  v20 = *(a1 + v18 + 4);
-  v21 = (a2 + v18);
-  v22 = *(a2 + v18 + 4);
-  if (v20)
-  {
-    if (!v22)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v19 != *v21)
-    {
-      LOBYTE(v22) = 1;
-    }
-
-    if (v22)
-    {
-      return 0;
-    }
-  }
-
-  v23 = v4[9];
-  v24 = (a1 + v23);
-  v25 = *(a1 + v23 + 4);
-  v26 = (a2 + v23);
-  v27 = *(a2 + v23 + 4);
-  if (v25)
-  {
-    if (!v27)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v24 != *v26)
-    {
-      LOBYTE(v27) = 1;
-    }
-
-    if (v27)
-    {
-      return 0;
-    }
-  }
-
-  v28 = v4[10];
-  v29 = (a1 + v28);
-  v30 = *(a1 + v28 + 4);
-  v31 = (a2 + v28);
-  v32 = *(a2 + v28 + 4);
-  if (v30)
-  {
-    if (!v32)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v29 != *v31)
-    {
-      LOBYTE(v32) = 1;
-    }
-
-    if (v32)
-    {
-      return 0;
-    }
-  }
-
-  v33 = v4[11];
-  v34 = (a1 + v33);
-  v35 = *(a1 + v33 + 4);
-  v36 = (a2 + v33);
-  v37 = *(a2 + v33 + 4);
-  if (v35)
-  {
-    if (!v37)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v34 != *v36)
-    {
-      LOBYTE(v37) = 1;
-    }
-
-    if (v37)
-    {
-      return 0;
-    }
-  }
-
-  v38 = v4[12];
-  v39 = (a1 + v38);
-  v40 = *(a1 + v38 + 4);
-  v41 = (a2 + v38);
-  v42 = *(a2 + v38 + 4);
-  if (v40)
-  {
-    if (!v42)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v39 != *v41)
-    {
-      LOBYTE(v42) = 1;
-    }
-
-    if (v42)
-    {
-      return 0;
-    }
-  }
-
-  v43 = v4[13];
-  v44 = (a1 + v43);
-  v45 = *(a1 + v43 + 4);
-  v46 = (a2 + v43);
-  v47 = *(a2 + v43 + 4);
-  if (v45)
-  {
-    if (!v47)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v44 != *v46)
-    {
-      LOBYTE(v47) = 1;
-    }
-
-    if (v47)
-    {
-      return 0;
-    }
-  }
-
-  v48 = v4[14];
-  v49 = (a1 + v48);
-  v50 = *(a1 + v48 + 4);
-  v51 = (a2 + v48);
-  v52 = *(a2 + v48 + 4);
-  if (v50)
-  {
-    if (!v52)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (*v49 != *v51)
-    {
-      LOBYTE(v52) = 1;
-    }
-
-    if (v52)
-    {
-      return 0;
-    }
-  }
-
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
 uint64_t specialized static Proto_Gnss_Emergency_LocationId.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
 {
-  v4 = type metadata accessor for Proto_Gnss_Emergency_LocationId(0);
-  v5 = *(v4 + 32);
-  v6 = *(a1 + v5);
-  v7 = *(a2 + v5);
-  if (v6 == 7)
+  v4 = *(type metadata accessor for Proto_Gnss_Emergency_LocationId(0) + 32);
+  v5 = *(a1 + v4);
+  v6 = *(a2 + v4);
+  if (v5 == 7)
   {
-    if (v7 != 7)
+    if (v6 != 7)
     {
       return 0;
     }
   }
 
-  else if (v6 != v7)
+  else if (v5 != v6)
   {
     return 0;
   }
 
   if (_sSasSQRzlE2eeoiySbSayxG_ABtFZ10ALProtobuf43Proto_Gnss_Emergency_WlanMeasurementElementV_Tt1g5Tm(*a1, *a2, type metadata accessor for Proto_Gnss_Emergency_LteCellInfo, type metadata accessor for Proto_Gnss_Emergency_LteCellInfo, specialized static Proto_Gnss_Emergency_LteCellInfo.== infix(_:_:)) & 1) != 0 && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ10ALProtobuf32Proto_Gnss_Emergency_GsmCellInfoV_Tt1g5(a1[1], a2[1]) & 1) != 0 && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ10ALProtobuf34Proto_Gnss_Emergency_GpsAcqElementV_Tt1g5Tm(a1[2], a2[2], type metadata accessor for Proto_Gnss_Emergency_WcdmaCellInfo, type metadata accessor for Proto_Gnss_Emergency_WcdmaCellInfo, specialized static Proto_Gnss_Emergency_WcdmaCellInfo.== infix(_:_:)))
   {
-    v8 = *(v4 + 28);
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+    lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
     return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
   }
 
@@ -6857,7 +160,7 @@ uint64_t specialized static Proto_Gnss_Emergency_TowAssist.== infix(_:_:)(uint64
   }
 
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -6917,7 +220,7 @@ uint64_t specialized static Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssisted.==
   }
 
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -6925,37 +228,34 @@ uint64_t specialized static Proto_Gnss_Emergency_PointAltitude.== infix(_:_:)(ui
 {
   v6 = type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint(0);
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v32 = &v31 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMR);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v10 - 8);
-  v13 = &v31 - v12;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSg_ADtMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSg_ADtMR);
-  v15 = v14 - 8;
-  v16 = *(*(v14 - 8) + 64);
-  MEMORY[0x28223BE20](v14);
-  v18 = &v31 - v17;
-  v33 = a3(0);
-  v34 = a1;
-  v19 = *(v33 + 20);
-  v20 = *(v15 + 56);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v19, v18, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v19, &v18[v20], &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMR);
-  v21 = *(v7 + 48);
-  if (v21(v18, 1, v6) != 1)
+  v29 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMR);
+  MEMORY[0x28223BE20](v9 - 8);
+  v11 = &v28 - v10;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSg_ADtMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSg_ADtMR);
+  v13 = v12 - 8;
+  MEMORY[0x28223BE20](v12);
+  v15 = &v28 - v14;
+  v30 = a3(0);
+  v31 = a1;
+  v16 = *(v30 + 20);
+  v17 = *(v13 + 56);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v16, v15, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMR);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a2 + v16, &v15[v17], &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMR);
+  v18 = *(v7 + 48);
+  if (v18(v15, 1, v6) != 1)
   {
-    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v18, v13, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMR);
-    if (v21(&v18[v20], 1, v6) != 1)
+    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v15, v11, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMR);
+    if (v18(&v15[v17], 1, v6) != 1)
     {
-      v24 = v32;
-      outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v18[v20], v32, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-      v25 = specialized static Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssisted.== infix(_:_:)(v13, v24, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v24, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v13, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-      outlined destroy of Any?(v18, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMR);
-      if ((v25 & 1) == 0)
+      v21 = v29;
+      outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v15[v17], v29, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
+      v22 = specialized static Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssisted.== infix(_:_:)(v11, v21, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
+      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v21, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
+      outlined destroy of Proto_Gnss_Emergency_SLPAddress(v11, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
+      outlined destroy of Any?(v15, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMR);
+      if ((v22 & 1) == 0)
       {
         goto LABEL_7;
       }
@@ -6963,106 +263,33 @@ uint64_t specialized static Proto_Gnss_Emergency_PointAltitude.== infix(_:_:)(ui
       goto LABEL_10;
     }
 
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v13, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
+    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v11, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
 LABEL_6:
-    outlined destroy of Any?(v18, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSg_ADtMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSg_ADtMR);
+    outlined destroy of Any?(v15, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSg_ADtMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSg_ADtMR);
     goto LABEL_7;
   }
 
-  if (v21(&v18[v20], 1, v6) != 1)
+  if (v18(&v15[v17], 1, v6) != 1)
   {
     goto LABEL_6;
   }
 
-  outlined destroy of Any?(v18, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMR);
+  outlined destroy of Any?(v15, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMd, &_s10ALProtobuf35Proto_Gnss_Emergency_EllipsoidPointVSgMR);
 LABEL_10:
-  v26 = *(v33 + 24);
-  v27 = (v34 + v26);
-  v28 = *(v34 + v26 + 4);
-  v29 = (a2 + v26);
-  v30 = *(a2 + v26 + 4);
-  if (v28)
-  {
-    if (v30)
-    {
-LABEL_16:
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v22 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v22 & 1;
-    }
-  }
-
-  else
-  {
-    if (*v27 != *v29)
-    {
-      LOBYTE(v30) = 1;
-    }
-
-    if ((v30 & 1) == 0)
-    {
-      goto LABEL_16;
-    }
-  }
-
-LABEL_7:
-  v22 = 0;
-  return v22 & 1;
-}
-
-uint64_t specialized static Proto_Gnss_Emergency_CellInfo.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_Plmn(0);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v8 = &v41 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v41 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSg_ADtMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v41 - v15;
-  v17 = type metadata accessor for Proto_Gnss_Emergency_CellInfo(0);
-  v18 = v17[5];
-  v19 = (a1 + v18);
-  v20 = *(a1 + v18 + 4);
-  v21 = (a2 + v18);
-  v22 = *(a2 + v18 + 4);
-  if (v20)
-  {
-    if (!v22)
-    {
-      goto LABEL_25;
-    }
-  }
-
-  else
-  {
-    if (*v19 != *v21)
-    {
-      LOBYTE(v22) = 1;
-    }
-
-    if (v22)
-    {
-      goto LABEL_25;
-    }
-  }
-
-  v23 = v17[6];
-  v24 = (a1 + v23);
-  v25 = *(a1 + v23 + 4);
+  v23 = *(v30 + 24);
+  v24 = (v31 + v23);
+  v25 = *(v31 + v23 + 4);
   v26 = (a2 + v23);
   v27 = *(a2 + v23 + 4);
   if (v25)
   {
-    if (!v27)
+    if (v27)
     {
-      goto LABEL_25;
+LABEL_16:
+      type metadata accessor for UnknownStorage();
+      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+      v19 = dispatch thunk of static Equatable.== infix(_:_:)();
+      return v19 & 1;
     }
   }
 
@@ -7073,20 +300,38 @@ uint64_t specialized static Proto_Gnss_Emergency_CellInfo.== infix(_:_:)(uint64_
       LOBYTE(v27) = 1;
     }
 
-    if (v27)
+    if ((v27 & 1) == 0)
     {
-      goto LABEL_25;
+      goto LABEL_16;
     }
   }
 
-  v28 = v17[7];
-  v29 = (a1 + v28);
-  v30 = *(a1 + v28 + 4);
-  v31 = (a2 + v28);
-  v32 = *(a2 + v28 + 4);
-  if (v30)
+LABEL_7:
+  v19 = 0;
+  return v19 & 1;
+}
+
+uint64_t specialized static Proto_Gnss_Emergency_CellInfo.== infix(_:_:)(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for Proto_Gnss_Emergency_Plmn(0);
+  v5 = *(v4 - 8);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v38 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMR);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &v38 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSg_ADtMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSg_ADtMR);
+  MEMORY[0x28223BE20](v11);
+  v13 = &v38 - v12;
+  v14 = type metadata accessor for Proto_Gnss_Emergency_CellInfo(0);
+  v15 = v14[5];
+  v16 = (a1 + v15);
+  v17 = *(a1 + v15 + 4);
+  v18 = (a2 + v15);
+  v19 = *(a2 + v15 + 4);
+  if (v17)
   {
-    if (!v32)
+    if (!v19)
     {
       goto LABEL_25;
     }
@@ -7094,74 +339,125 @@ uint64_t specialized static Proto_Gnss_Emergency_CellInfo.== infix(_:_:)(uint64_
 
   else
   {
-    if (*v29 != *v31)
+    if (*v16 != *v18)
     {
-      LOBYTE(v32) = 1;
+      LOBYTE(v19) = 1;
     }
 
-    if (v32)
+    if (v19)
     {
       goto LABEL_25;
     }
   }
 
-  v33 = v17[8];
-  v34 = *(v13 + 48);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v33, v16, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMR);
-  v35 = a2 + v33;
-  v36 = v34;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v35, &v16[v34], &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMR);
-  v37 = *(v5 + 48);
-  if (v37(v16, 1, v4) == 1)
+  v20 = v14[6];
+  v21 = (a1 + v20);
+  v22 = *(a1 + v20 + 4);
+  v23 = (a2 + v20);
+  v24 = *(a2 + v20 + 4);
+  if (v22)
   {
-    if (v37(&v16[v36], 1, v4) == 1)
+    if (!v24)
     {
-      outlined destroy of Any?(v16, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMR);
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+    if (*v21 != *v23)
+    {
+      LOBYTE(v24) = 1;
+    }
+
+    if (v24)
+    {
+      goto LABEL_25;
+    }
+  }
+
+  v25 = v14[7];
+  v26 = (a1 + v25);
+  v27 = *(a1 + v25 + 4);
+  v28 = (a2 + v25);
+  v29 = *(a2 + v25 + 4);
+  if (v27)
+  {
+    if (!v29)
+    {
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+    if (*v26 != *v28)
+    {
+      LOBYTE(v29) = 1;
+    }
+
+    if (v29)
+    {
+      goto LABEL_25;
+    }
+  }
+
+  v30 = v14[8];
+  v31 = *(v11 + 48);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v30, v13, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMR);
+  v32 = a2 + v30;
+  v33 = v31;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v32, &v13[v31], &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMR);
+  v34 = *(v5 + 48);
+  if (v34(v13, 1, v4) == 1)
+  {
+    if (v34(&v13[v33], 1, v4) == 1)
+    {
+      outlined destroy of Any?(v13, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMR);
 LABEL_28:
       type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v38 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v38 & 1;
+      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+      v35 = dispatch thunk of static Equatable.== infix(_:_:)();
+      return v35 & 1;
     }
 
     goto LABEL_24;
   }
 
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16, v12, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMR);
-  if (v37(&v16[v36], 1, v4) == 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v13, v10, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMR);
+  if (v34(&v13[v33], 1, v4) == 1)
   {
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_Plmn);
+    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v10, type metadata accessor for Proto_Gnss_Emergency_Plmn);
 LABEL_24:
-    outlined destroy of Any?(v16, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSg_ADtMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSg_ADtMR);
+    outlined destroy of Any?(v13, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSg_ADtMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSg_ADtMR);
     goto LABEL_25;
   }
 
-  outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v16[v36], v8, type metadata accessor for Proto_Gnss_Emergency_Plmn);
-  v40 = specialized static Proto_Gnss_Emergency_HorizWithUncertaintyVelocity.== infix(_:_:)(v12, v8, type metadata accessor for Proto_Gnss_Emergency_Plmn);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v8, type metadata accessor for Proto_Gnss_Emergency_Plmn);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_Plmn);
-  outlined destroy of Any?(v16, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMR);
-  if (v40)
+  outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v13[v33], v7, type metadata accessor for Proto_Gnss_Emergency_Plmn);
+  v37 = specialized static Proto_Gnss_Emergency_HorizWithUncertaintyVelocity.== infix(_:_:)(v10, v7, type metadata accessor for Proto_Gnss_Emergency_Plmn);
+  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v7, type metadata accessor for Proto_Gnss_Emergency_Plmn);
+  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v10, type metadata accessor for Proto_Gnss_Emergency_Plmn);
+  outlined destroy of Any?(v13, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMd, &_s10ALProtobuf25Proto_Gnss_Emergency_PlmnVSgMR);
+  if (v37)
   {
     goto LABEL_28;
   }
 
 LABEL_25:
-  v38 = 0;
-  return v38 & 1;
+  v35 = 0;
+  return v35 & 1;
 }
 
 uint64_t specialized static Proto_Gnss_Emergency_Polygon.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
 {
-  v4 = type metadata accessor for Proto_Gnss_Emergency_Polygon(0);
-  v5 = *(v4 + 24);
-  v6 = (a1 + v5);
-  v7 = *(a1 + v5 + 4);
-  v8 = (a2 + v5);
-  v9 = *(a2 + v5 + 4);
-  if (v7)
+  v4 = *(type metadata accessor for Proto_Gnss_Emergency_Polygon(0) + 24);
+  v5 = (a1 + v4);
+  v6 = *(a1 + v4 + 4);
+  v7 = (a2 + v4);
+  v8 = *(a2 + v4 + 4);
+  if (v6)
   {
-    if (!v9)
+    if (!v8)
     {
       return 0;
     }
@@ -7169,12 +465,12 @@ uint64_t specialized static Proto_Gnss_Emergency_Polygon.== infix(_:_:)(uint64_t
 
   else
   {
-    if (*v6 != *v8)
+    if (*v5 != *v7)
     {
-      LOBYTE(v9) = 1;
+      LOBYTE(v8) = 1;
     }
 
-    if (v9)
+    if (v8)
     {
       return 0;
     }
@@ -7182,9 +478,8 @@ uint64_t specialized static Proto_Gnss_Emergency_Polygon.== infix(_:_:)(uint64_t
 
   if (_sSasSQRzlE2eeoiySbSayxG_ABtFZ10ALProtobuf43Proto_Gnss_Emergency_GanssStoredSatDataElemV_Tt1g5Tm(*a1, *a2, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint))
   {
-    v10 = *(v4 + 20);
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+    lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
     return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
   }
 
@@ -7273,7 +568,7 @@ uint64_t specialized static Proto_Gnss_Emergency_HorizWithUncertaintyVelocity.==
   }
 
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -7324,15 +619,10 @@ uint64_t specialized static Proto_Gnss_Emergency_SLPAddress.== infix(_:_:)(uint6
       return 0;
     }
 
-    if (*v12 != *v14 || v13 != v15)
+    v16 = *v12 == *v14 && v13 == v15;
+    if (!v16 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
     {
-      v17 = v4;
-      v18 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v4 = v17;
-      if ((v18 & 1) == 0)
-      {
-        return 0;
-      }
+      return 0;
     }
   }
 
@@ -7341,12 +631,10 @@ uint64_t specialized static Proto_Gnss_Emergency_SLPAddress.== infix(_:_:)(uint6
     return 0;
   }
 
-  v19 = v4;
   if (_sSasSQRzlE2eeoiySbSayxG_ABtFZs5Int32V_Tt1g5(*a1, *a2))
   {
-    v20 = v19[5];
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+    lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
     return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
   }
 
@@ -7477,7 +765,7 @@ uint64_t specialized static Proto_Gnss_Emergency_GsmCellInfo.== infix(_:_:)(uint
   }
 
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -7709,7 +997,7 @@ uint64_t specialized static Proto_Gnss_Emergency_GanssMeasurementElement.== infi
   }
 
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -7794,12 +1082,10 @@ uint64_t specialized static Proto_Gnss_Emergency_GanssSignalMeasurementInfo.== i
     }
   }
 
-  v20 = v4;
   if (_sSasSQRzlE2eeoiySbSayxG_ABtFZ10ALProtobuf43Proto_Gnss_Emergency_WlanMeasurementElementV_Tt1g5Tm(*a1, *a2, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement, specialized static Proto_Gnss_Emergency_GanssMeasurementElement.== infix(_:_:)))
   {
-    v21 = v20[5];
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+    lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
     return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
   }
 
@@ -7810,78 +1096,75 @@ uint64_t specialized static Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss
 {
   v4 = type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = (&v28 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMd, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = (&v28 - v11);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSg_ADtMd, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v28 - v15;
-  v17 = type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss(0);
-  v18 = *(v17 + 20);
-  v29 = a1;
-  v19 = *(a1 + v18);
-  v20 = *(a2 + v18);
-  if (v19 == 7)
+  v7 = (&v25 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMd, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMR);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = (&v25 - v9);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSg_ADtMd, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSg_ADtMR);
+  MEMORY[0x28223BE20](v11);
+  v13 = &v25 - v12;
+  v14 = type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss(0);
+  v15 = *(v14 + 20);
+  v26 = a1;
+  v16 = *(a1 + v15);
+  v17 = *(a2 + v15);
+  if (v16 == 7)
   {
-    if (v20 != 7)
+    if (v17 != 7)
     {
       goto LABEL_11;
     }
   }
 
-  else if (v19 != v20)
+  else if (v16 != v17)
   {
     goto LABEL_11;
   }
 
-  v21 = a2;
-  v22 = *(v17 + 24);
-  v23 = *(v13 + 48);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v29 + v22, v16, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMd, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v21 + v22, &v16[v23], &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMd, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMR);
-  v24 = *(v5 + 48);
-  if (v24(v16, 1, v4) == 1)
+  v18 = a2;
+  v19 = *(v14 + 24);
+  v20 = *(v11 + 48);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v26 + v19, v13, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMd, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMR);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v18 + v19, &v13[v20], &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMd, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMR);
+  v21 = *(v5 + 48);
+  if (v21(v13, 1, v4) == 1)
   {
-    if (v24(&v16[v23], 1, v4) == 1)
+    if (v21(&v13[v20], 1, v4) == 1)
     {
-      outlined destroy of Any?(v16, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMd, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMR);
+      outlined destroy of Any?(v13, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMd, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMR);
 LABEL_14:
       type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v25 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v25 & 1;
+      lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+      v22 = dispatch thunk of static Equatable.== infix(_:_:)();
+      return v22 & 1;
     }
 
     goto LABEL_10;
   }
 
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16, v12, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMd, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMR);
-  if (v24(&v16[v23], 1, v4) == 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v13, v10, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMd, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMR);
+  if (v21(&v13[v20], 1, v4) == 1)
   {
-    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo);
+    outlined destroy of Proto_Gnss_Emergency_SLPAddress(v10, type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo);
 LABEL_10:
-    outlined destroy of Any?(v16, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSg_ADtMd, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSg_ADtMR);
+    outlined destroy of Any?(v13, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSg_ADtMd, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSg_ADtMR);
     goto LABEL_11;
   }
 
-  outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v16[v23], v8, type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo);
-  v27 = specialized static Proto_Gnss_Emergency_GanssSignalMeasurementInfo.== infix(_:_:)(v12, v8);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v8, type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo);
-  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v12, type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo);
-  outlined destroy of Any?(v16, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMd, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMR);
-  if (v27)
+  outlined init with take of Proto_Gnss_Emergency_SLPAddress(&v13[v20], v7, type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo);
+  v24 = specialized static Proto_Gnss_Emergency_GanssSignalMeasurementInfo.== infix(_:_:)(v10, v7);
+  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v7, type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo);
+  outlined destroy of Proto_Gnss_Emergency_SLPAddress(v10, type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo);
+  outlined destroy of Any?(v13, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMd, &_s10ALProtobuf47Proto_Gnss_Emergency_GanssSignalMeasurementInfoVSgMR);
+  if (v24)
   {
     goto LABEL_14;
   }
 
 LABEL_11:
-  v25 = 0;
-  return v25 & 1;
+  v22 = 0;
+  return v22 & 1;
 }
 
 uint64_t specialized static Proto_Gnss_Emergency_MeasurementReportWithEstimate.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), uint64_t (*a4)(uint64_t, uint64_t))
@@ -7891,18 +1174,17 @@ uint64_t specialized static Proto_Gnss_Emergency_MeasurementReportWithEstimate.=
   v9 = *(a2 + v7);
   if (v8 != v9)
   {
-    v10 = *(a1 + v7);
 
-    v11 = a4(v8, v9);
+    v10 = a4(v8, v9);
 
-    if ((v11 & 1) == 0)
+    if ((v10 & 1) == 0)
     {
       return 0;
     }
   }
 
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -7968,11 +1250,11 @@ uint64_t specialized static Proto_Gnss_Emergency_Configuration.== infix(_:_:)(ui
   }
 
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
-uint64_t lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type Proto_Gnss_Emergency_Configuration and conformance Proto_Gnss_Emergency_Configuration(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -9648,4 +2930,6698 @@ unint64_t lazy protocol witness table accessor for type Proto_Gnss_Emergency_Gps
   }
 
   return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Proto_Gnss_Emergency_MeasurementAndEstimateResponseType and conformance Proto_Gnss_Emergency_MeasurementAndEstimateResponseType()
+{
+  result = lazy protocol witness table cache variable for type Proto_Gnss_Emergency_MeasurementAndEstimateResponseType and conformance Proto_Gnss_Emergency_MeasurementAndEstimateResponseType;
+  if (!lazy protocol witness table cache variable for type Proto_Gnss_Emergency_MeasurementAndEstimateResponseType and conformance Proto_Gnss_Emergency_MeasurementAndEstimateResponseType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Proto_Gnss_Emergency_MeasurementAndEstimateResponseType and conformance Proto_Gnss_Emergency_MeasurementAndEstimateResponseType);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type Proto_Gnss_Emergency_MeasurementAndEstimateResponseType and conformance Proto_Gnss_Emergency_MeasurementAndEstimateResponseType;
+  if (!lazy protocol witness table cache variable for type Proto_Gnss_Emergency_MeasurementAndEstimateResponseType and conformance Proto_Gnss_Emergency_MeasurementAndEstimateResponseType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Proto_Gnss_Emergency_MeasurementAndEstimateResponseType and conformance Proto_Gnss_Emergency_MeasurementAndEstimateResponseType);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type Proto_Gnss_Emergency_MeasurementAndEstimateResponseType and conformance Proto_Gnss_Emergency_MeasurementAndEstimateResponseType;
+  if (!lazy protocol witness table cache variable for type Proto_Gnss_Emergency_MeasurementAndEstimateResponseType and conformance Proto_Gnss_Emergency_MeasurementAndEstimateResponseType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Proto_Gnss_Emergency_MeasurementAndEstimateResponseType and conformance Proto_Gnss_Emergency_MeasurementAndEstimateResponseType);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type Proto_Gnss_Emergency_MeasurementAndEstimateResponseType and conformance Proto_Gnss_Emergency_MeasurementAndEstimateResponseType;
+  if (!lazy protocol witness table cache variable for type Proto_Gnss_Emergency_MeasurementAndEstimateResponseType and conformance Proto_Gnss_Emergency_MeasurementAndEstimateResponseType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Proto_Gnss_Emergency_MeasurementAndEstimateResponseType and conformance Proto_Gnss_Emergency_MeasurementAndEstimateResponseType);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Proto_Gnss_Emergency_AfltAction and conformance Proto_Gnss_Emergency_AfltAction()
+{
+  result = lazy protocol witness table cache variable for type Proto_Gnss_Emergency_AfltAction and conformance Proto_Gnss_Emergency_AfltAction;
+  if (!lazy protocol witness table cache variable for type Proto_Gnss_Emergency_AfltAction and conformance Proto_Gnss_Emergency_AfltAction)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Proto_Gnss_Emergency_AfltAction and conformance Proto_Gnss_Emergency_AfltAction);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type Proto_Gnss_Emergency_AfltAction and conformance Proto_Gnss_Emergency_AfltAction;
+  if (!lazy protocol witness table cache variable for type Proto_Gnss_Emergency_AfltAction and conformance Proto_Gnss_Emergency_AfltAction)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Proto_Gnss_Emergency_AfltAction and conformance Proto_Gnss_Emergency_AfltAction);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type Proto_Gnss_Emergency_AfltAction and conformance Proto_Gnss_Emergency_AfltAction;
+  if (!lazy protocol witness table cache variable for type Proto_Gnss_Emergency_AfltAction and conformance Proto_Gnss_Emergency_AfltAction)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Proto_Gnss_Emergency_AfltAction and conformance Proto_Gnss_Emergency_AfltAction);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type Proto_Gnss_Emergency_AfltAction and conformance Proto_Gnss_Emergency_AfltAction;
+  if (!lazy protocol witness table cache variable for type Proto_Gnss_Emergency_AfltAction and conformance Proto_Gnss_Emergency_AfltAction)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Proto_Gnss_Emergency_AfltAction and conformance Proto_Gnss_Emergency_AfltAction);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Proto_Gnss_Emergency_WlanMeasurementResult and conformance Proto_Gnss_Emergency_WlanMeasurementResult()
+{
+  result = lazy protocol witness table cache variable for type Proto_Gnss_Emergency_WlanMeasurementResult and conformance Proto_Gnss_Emergency_WlanMeasurementResult;
+  if (!lazy protocol witness table cache variable for type Proto_Gnss_Emergency_WlanMeasurementResult and conformance Proto_Gnss_Emergency_WlanMeasurementResult)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Proto_Gnss_Emergency_WlanMeasurementResult and conformance Proto_Gnss_Emergency_WlanMeasurementResult);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type Proto_Gnss_Emergency_WlanMeasurementResult and conformance Proto_Gnss_Emergency_WlanMeasurementResult;
+  if (!lazy protocol witness table cache variable for type Proto_Gnss_Emergency_WlanMeasurementResult and conformance Proto_Gnss_Emergency_WlanMeasurementResult)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Proto_Gnss_Emergency_WlanMeasurementResult and conformance Proto_Gnss_Emergency_WlanMeasurementResult);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type Proto_Gnss_Emergency_WlanMeasurementResult and conformance Proto_Gnss_Emergency_WlanMeasurementResult;
+  if (!lazy protocol witness table cache variable for type Proto_Gnss_Emergency_WlanMeasurementResult and conformance Proto_Gnss_Emergency_WlanMeasurementResult)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Proto_Gnss_Emergency_WlanMeasurementResult and conformance Proto_Gnss_Emergency_WlanMeasurementResult);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type Proto_Gnss_Emergency_WlanMeasurementResult and conformance Proto_Gnss_Emergency_WlanMeasurementResult;
+  if (!lazy protocol witness table cache variable for type Proto_Gnss_Emergency_WlanMeasurementResult and conformance Proto_Gnss_Emergency_WlanMeasurementResult)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Proto_Gnss_Emergency_WlanMeasurementResult and conformance Proto_Gnss_Emergency_WlanMeasurementResult);
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for Proto_Gnss_Emergency_PositionMethod(unsigned __int8 *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0xEF)
+  {
+    goto LABEL_17;
+  }
+
+  if (a2 + 17 >= 0xFFFF00)
+  {
+    v2 = 4;
+  }
+
+  else
+  {
+    v2 = 2;
+  }
+
+  if ((a2 + 17) >> 8 < 0xFF)
+  {
+    v3 = 1;
+  }
+
+  else
+  {
+    v3 = v2;
+  }
+
+  if (v3 == 4)
+  {
+    v4 = *(a1 + 1);
+    if (v4)
+    {
+      return (*a1 | (v4 << 8)) - 17;
+    }
+  }
+
+  else
+  {
+    if (v3 == 2)
+    {
+      v4 = *(a1 + 1);
+      if (!*(a1 + 1))
+      {
+        goto LABEL_17;
+      }
+
+      return (*a1 | (v4 << 8)) - 17;
+    }
+
+    v4 = a1[1];
+    if (a1[1])
+    {
+      return (*a1 | (v4 << 8)) - 17;
+    }
+  }
+
+LABEL_17:
+  v6 = *a1;
+  v7 = v6 >= 0x12;
+  v8 = v6 - 18;
+  if (!v7)
+  {
+    v8 = -1;
+  }
+
+  return (v8 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for Proto_Gnss_Emergency_PositionMethod(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 17 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 17) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 < 0xEF)
+  {
+    v4 = 0;
+  }
+
+  if (a2 > 0xEE)
+  {
+    v5 = ((a2 - 239) >> 8) + 1;
+    *result = a2 + 17;
+    if (v4 > 1)
+    {
+      if (v4 == 2)
+      {
+        *(result + 1) = v5;
+      }
+
+      else
+      {
+        *(result + 1) = v5;
+      }
+    }
+
+    else if (v4)
+    {
+      *(result + 1) = v5;
+    }
+
+    return result;
+  }
+
+  if (v4 > 1)
+  {
+    if (v4 != 2)
+    {
+      *(result + 1) = 0;
+      if (a2)
+      {
+        goto LABEL_20;
+      }
+
+      return result;
+    }
+
+    *(result + 1) = 0;
+  }
+
+  else if (v4)
+  {
+    *(result + 1) = 0;
+    if (!a2)
+    {
+      return result;
+    }
+
+LABEL_20:
+    *result = a2 + 17;
+    return result;
+  }
+
+  if (a2)
+  {
+    goto LABEL_20;
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for Proto_Gnss_Emergency_SessionErrorCode(unsigned __int8 *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0xF0)
+  {
+    goto LABEL_17;
+  }
+
+  if (a2 + 16 >= 0xFFFF00)
+  {
+    v2 = 4;
+  }
+
+  else
+  {
+    v2 = 2;
+  }
+
+  if ((a2 + 16) >> 8 < 0xFF)
+  {
+    v3 = 1;
+  }
+
+  else
+  {
+    v3 = v2;
+  }
+
+  if (v3 == 4)
+  {
+    v4 = *(a1 + 1);
+    if (v4)
+    {
+      return (*a1 | (v4 << 8)) - 16;
+    }
+  }
+
+  else
+  {
+    if (v3 == 2)
+    {
+      v4 = *(a1 + 1);
+      if (!*(a1 + 1))
+      {
+        goto LABEL_17;
+      }
+
+      return (*a1 | (v4 << 8)) - 16;
+    }
+
+    v4 = a1[1];
+    if (a1[1])
+    {
+      return (*a1 | (v4 << 8)) - 16;
+    }
+  }
+
+LABEL_17:
+  v6 = *a1;
+  v7 = v6 >= 0x11;
+  v8 = v6 - 17;
+  if (!v7)
+  {
+    v8 = -1;
+  }
+
+  return (v8 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for Proto_Gnss_Emergency_SessionErrorCode(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 16 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 16) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 < 0xF0)
+  {
+    v4 = 0;
+  }
+
+  if (a2 > 0xEF)
+  {
+    v5 = ((a2 - 240) >> 8) + 1;
+    *result = a2 + 16;
+    if (v4 > 1)
+    {
+      if (v4 == 2)
+      {
+        *(result + 1) = v5;
+      }
+
+      else
+      {
+        *(result + 1) = v5;
+      }
+    }
+
+    else if (v4)
+    {
+      *(result + 1) = v5;
+    }
+
+    return result;
+  }
+
+  if (v4 > 1)
+  {
+    if (v4 != 2)
+    {
+      *(result + 1) = 0;
+      if (a2)
+      {
+        goto LABEL_20;
+      }
+
+      return result;
+    }
+
+    *(result + 1) = 0;
+  }
+
+  else if (v4)
+  {
+    *(result + 1) = 0;
+    if (!a2)
+    {
+      return result;
+    }
+
+LABEL_20:
+    *result = a2 + 16;
+    return result;
+  }
+
+  if (a2)
+  {
+    goto LABEL_20;
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for Proto_Gnss_Emergency_Status(unsigned __int8 *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0xE0)
+  {
+    goto LABEL_17;
+  }
+
+  if (a2 + 32 >= 0xFFFF00)
+  {
+    v2 = 4;
+  }
+
+  else
+  {
+    v2 = 2;
+  }
+
+  if ((a2 + 32) >> 8 < 0xFF)
+  {
+    v3 = 1;
+  }
+
+  else
+  {
+    v3 = v2;
+  }
+
+  if (v3 == 4)
+  {
+    v4 = *(a1 + 1);
+    if (v4)
+    {
+      return (*a1 | (v4 << 8)) - 32;
+    }
+  }
+
+  else
+  {
+    if (v3 == 2)
+    {
+      v4 = *(a1 + 1);
+      if (!*(a1 + 1))
+      {
+        goto LABEL_17;
+      }
+
+      return (*a1 | (v4 << 8)) - 32;
+    }
+
+    v4 = a1[1];
+    if (a1[1])
+    {
+      return (*a1 | (v4 << 8)) - 32;
+    }
+  }
+
+LABEL_17:
+  v6 = *a1;
+  v7 = v6 >= 0x21;
+  v8 = v6 - 33;
+  if (!v7)
+  {
+    v8 = -1;
+  }
+
+  return (v8 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for Proto_Gnss_Emergency_Status(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 32 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 32) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 < 0xE0)
+  {
+    v4 = 0;
+  }
+
+  if (a2 > 0xDF)
+  {
+    v5 = ((a2 - 224) >> 8) + 1;
+    *result = a2 + 32;
+    if (v4 > 1)
+    {
+      if (v4 == 2)
+      {
+        *(result + 1) = v5;
+      }
+
+      else
+      {
+        *(result + 1) = v5;
+      }
+    }
+
+    else if (v4)
+    {
+      *(result + 1) = v5;
+    }
+
+    return result;
+  }
+
+  if (v4 > 1)
+  {
+    if (v4 != 2)
+    {
+      *(result + 1) = 0;
+      if (a2)
+      {
+        goto LABEL_20;
+      }
+
+      return result;
+    }
+
+    *(result + 1) = 0;
+  }
+
+  else if (v4)
+  {
+    *(result + 1) = 0;
+    if (!a2)
+    {
+      return result;
+    }
+
+LABEL_20:
+    *result = a2 + 32;
+    return result;
+  }
+
+  if (a2)
+  {
+    goto LABEL_20;
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for Proto_Gnss_Emergency_EndCause(unsigned __int8 *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0xE9)
+  {
+    goto LABEL_17;
+  }
+
+  if (a2 + 23 >= 0xFFFF00)
+  {
+    v2 = 4;
+  }
+
+  else
+  {
+    v2 = 2;
+  }
+
+  if ((a2 + 23) >> 8 < 0xFF)
+  {
+    v3 = 1;
+  }
+
+  else
+  {
+    v3 = v2;
+  }
+
+  if (v3 == 4)
+  {
+    v4 = *(a1 + 1);
+    if (v4)
+    {
+      return (*a1 | (v4 << 8)) - 23;
+    }
+  }
+
+  else
+  {
+    if (v3 == 2)
+    {
+      v4 = *(a1 + 1);
+      if (!*(a1 + 1))
+      {
+        goto LABEL_17;
+      }
+
+      return (*a1 | (v4 << 8)) - 23;
+    }
+
+    v4 = a1[1];
+    if (a1[1])
+    {
+      return (*a1 | (v4 << 8)) - 23;
+    }
+  }
+
+LABEL_17:
+  v6 = *a1;
+  v7 = v6 >= 0x18;
+  v8 = v6 - 24;
+  if (!v7)
+  {
+    v8 = -1;
+  }
+
+  return (v8 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for Proto_Gnss_Emergency_EndCause(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 23 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 23) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 < 0xE9)
+  {
+    v4 = 0;
+  }
+
+  if (a2 > 0xE8)
+  {
+    v5 = ((a2 - 233) >> 8) + 1;
+    *result = a2 + 23;
+    if (v4 > 1)
+    {
+      if (v4 == 2)
+      {
+        *(result + 1) = v5;
+      }
+
+      else
+      {
+        *(result + 1) = v5;
+      }
+    }
+
+    else if (v4)
+    {
+      *(result + 1) = v5;
+    }
+
+    return result;
+  }
+
+  if (v4 > 1)
+  {
+    if (v4 != 2)
+    {
+      *(result + 1) = 0;
+      if (a2)
+      {
+        goto LABEL_20;
+      }
+
+      return result;
+    }
+
+    *(result + 1) = 0;
+  }
+
+  else if (v4)
+  {
+    *(result + 1) = 0;
+    if (!a2)
+    {
+      return result;
+    }
+
+LABEL_20:
+    *result = a2 + 23;
+    return result;
+  }
+
+  if (a2)
+  {
+    goto LABEL_20;
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for Proto_Gnss_Emergency_ErrorCodes(unsigned __int8 *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0xF8)
+  {
+    goto LABEL_17;
+  }
+
+  if (a2 + 8 >= 0xFFFF00)
+  {
+    v2 = 4;
+  }
+
+  else
+  {
+    v2 = 2;
+  }
+
+  if ((a2 + 8) >> 8 < 0xFF)
+  {
+    v3 = 1;
+  }
+
+  else
+  {
+    v3 = v2;
+  }
+
+  if (v3 == 4)
+  {
+    v4 = *(a1 + 1);
+    if (v4)
+    {
+      return (*a1 | (v4 << 8)) - 8;
+    }
+  }
+
+  else
+  {
+    if (v3 == 2)
+    {
+      v4 = *(a1 + 1);
+      if (!*(a1 + 1))
+      {
+        goto LABEL_17;
+      }
+
+      return (*a1 | (v4 << 8)) - 8;
+    }
+
+    v4 = a1[1];
+    if (a1[1])
+    {
+      return (*a1 | (v4 << 8)) - 8;
+    }
+  }
+
+LABEL_17:
+  v6 = *a1;
+  v7 = v6 >= 9;
+  v8 = v6 - 9;
+  if (!v7)
+  {
+    v8 = -1;
+  }
+
+  return (v8 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for Proto_Gnss_Emergency_ErrorCodes(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 8 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 8) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 < 0xF8)
+  {
+    v4 = 0;
+  }
+
+  if (a2 > 0xF7)
+  {
+    v5 = ((a2 - 248) >> 8) + 1;
+    *result = a2 + 8;
+    if (v4 > 1)
+    {
+      if (v4 == 2)
+      {
+        *(result + 1) = v5;
+      }
+
+      else
+      {
+        *(result + 1) = v5;
+      }
+    }
+
+    else if (v4)
+    {
+      *(result + 1) = v5;
+    }
+
+    return result;
+  }
+
+  if (v4 > 1)
+  {
+    if (v4 != 2)
+    {
+      *(result + 1) = 0;
+      if (a2)
+      {
+        goto LABEL_20;
+      }
+
+      return result;
+    }
+
+    *(result + 1) = 0;
+  }
+
+  else if (v4)
+  {
+    *(result + 1) = 0;
+    if (!a2)
+    {
+      return result;
+    }
+
+LABEL_20:
+    *result = a2 + 8;
+    return result;
+  }
+
+  if (a2)
+  {
+    goto LABEL_20;
+  }
+
+  return result;
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_SuplConfig(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_LteCellInfo(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Int32?, MEMORY[0x277D849A8], MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_WcdmaCellInfo(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_FreqMode?, &type metadata for Proto_Gnss_Emergency_FreqMode, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_LocationId(uint64_t a1)
+{
+  type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for [Proto_Gnss_Emergency_LteCellInfo], type metadata accessor for Proto_Gnss_Emergency_LteCellInfo, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for [Proto_Gnss_Emergency_GsmCellInfo], type metadata accessor for Proto_Gnss_Emergency_GsmCellInfo, MEMORY[0x277D83940]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for [Proto_Gnss_Emergency_WcdmaCellInfo], type metadata accessor for Proto_Gnss_Emergency_WcdmaCellInfo, MEMORY[0x277D83940]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for UnknownStorage();
+        if (v4 <= 0x3F)
+        {
+          type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_CellType?, &type metadata for Proto_Gnss_Emergency_CellType, MEMORY[0x277D83D88]);
+          if (v5 <= 0x3F)
+          {
+            swift_cvw_initStructMetadataWithLayoutString();
+          }
+        }
+      }
+    }
+  }
+}
+
+void type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t (*a4)(uint64_t, uint64_t))
+{
+  if (!*a2)
+  {
+    v7 = a3(255);
+    v8 = a4(a1, v7);
+    if (!v9)
+    {
+      atomic_store(v8, a2);
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_WlanMeasurementRequest(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_WlanMeasurementElement(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Data?, MEMORY[0x277CC9318], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Int32?, MEMORY[0x277D849A8], MEMORY[0x277D83D88]);
+          if (v5 <= 0x3F)
+          {
+            swift_cvw_initStructMetadataWithLayoutString();
+          }
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_GsmCellInfo(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_SLPAddress(uint64_t a1)
+{
+  type metadata accessor for Bool?(319, &lazy cache variable for type metadata for [UInt32], MEMORY[0x277D84CC0], MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for UnknownStorage();
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_SLPAddressType?, &type metadata for Proto_Gnss_Emergency_SLPAddressType, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          type metadata accessor for Bool?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
+          if (v5 <= 0x3F)
+          {
+            swift_cvw_initStructMetadataWithLayoutString();
+          }
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_SuplInitVer2Extension(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_SLPAddress?, type metadata accessor for Proto_Gnss_Emergency_SLPAddress, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_TriggerType?, &type metadata for Proto_Gnss_Emergency_TriggerType, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_SuplContext(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_Configuration?, type metadata accessor for Proto_Gnss_Emergency_Configuration, MEMORY[0x277D83D88]);
+          if (v5 <= 0x3F)
+          {
+            swift_cvw_initStructMetadataWithLayoutString();
+          }
+        }
+      }
+    }
+  }
+}
+
+uint64_t type metadata completion function for Proto_Gnss_Emergency_Init(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t))
+{
+  result = type metadata accessor for UnknownStorage();
+  if (v6 <= 0x3F)
+  {
+    result = a4(319);
+    if (v7 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_Notification(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t a5)
+{
+  type metadata accessor for UnknownStorage();
+  if (v7 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, a4, a5, MEMORY[0x277D83D88]);
+    if (v8 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_ClsUtranCellTime(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_ClsGpsCellTime?, type metadata accessor for Proto_Gnss_Emergency_ClsGpsCellTime, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_ClsModemState?, &type metadata for Proto_Gnss_Emergency_ClsModemState, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_SessionInfo(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_SessionProtocol?, &type metadata for Proto_Gnss_Emergency_SessionProtocol, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_PosProtocol?, &type metadata for Proto_Gnss_Emergency_PosProtocol, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_UtranGpsTimeMeasured(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_ClsUtranCellTime?, type metadata accessor for Proto_Gnss_Emergency_ClsUtranCellTime, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_ClsGpsCellTime?, type metadata accessor for Proto_Gnss_Emergency_ClsGpsCellTime, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_GpsTimeMeasured(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_UtranGpsTimeMeasured?, type metadata accessor for Proto_Gnss_Emergency_UtranGpsTimeMeasured, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GeranGpsTimeMeasuredBased?, type metadata accessor for Proto_Gnss_Emergency_GeranGpsTimeMeasuredBased, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssisted?, type metadata accessor for Proto_Gnss_Emergency_GeranGpsTimeMeasuredAssisted, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_GpsTimeMeasuredParams(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_ClsNetworkType?, &type metadata for Proto_Gnss_Emergency_ClsNetworkType, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GpsTimeMeasured?, type metadata accessor for Proto_Gnss_Emergency_GpsTimeMeasured, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_Plmn(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_LocationInfo(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_FixType?, &type metadata for Proto_Gnss_Emergency_FixType, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GpsTOD?, type metadata accessor for Proto_Gnss_Emergency_GpsTOD, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_CellInfo(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_Plmn?, type metadata accessor for Proto_Gnss_Emergency_Plmn, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_806Tm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
+{
+  v10 = type metadata accessor for UnknownStorage();
+  v11 = *(v10 - 8);
+  if (*(v11 + 84) == a2)
+  {
+    v12 = *(v11 + 48);
+
+    return v12(a1, a2, v10);
+  }
+
+  else
+  {
+    v14 = __swift_instantiateConcreteTypeFromMangledNameV2(a4, a5);
+    v15 = *(*(v14 - 8) + 48);
+    v16 = a1 + *(a3 + 32);
+
+    return v15(v16, a2, v14);
+  }
+}
+
+uint64_t __swift_store_extra_inhabitant_index_807Tm(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
+{
+  v12 = type metadata accessor for UnknownStorage();
+  v13 = *(v12 - 8);
+  if (*(v13 + 84) == a3)
+  {
+    v14 = *(v13 + 56);
+
+    return v14(a1, a2, a2, v12);
+  }
+
+  else
+  {
+    v16 = __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+    v17 = *(*(v16 - 8) + 56);
+    v18 = a1 + *(a4 + 32);
+
+    return v17(v18, a2, a2, v16);
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_UtranGanssTimeMeasured(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt64?, MEMORY[0x277D84D38], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_CellInfo?, type metadata accessor for Proto_Gnss_Emergency_CellInfo, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_GeranGanssTimeMeasured(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_CellInfo?, type metadata accessor for Proto_Gnss_Emergency_CellInfo, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_ClsEutranCell(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_Plmn?, type metadata accessor for Proto_Gnss_Emergency_Plmn, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Int32?, MEMORY[0x277D849A8], MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_GanssTimeMeasuredParams(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_ClsNetworkType?, &type metadata for Proto_Gnss_Emergency_ClsNetworkType, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GanssTimeMeasured?, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasured, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_GanssLocationInfo(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GnssTimeId?, &type metadata for Proto_Gnss_Emergency_GnssTimeId, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_FixType?, &type metadata for Proto_Gnss_Emergency_FixType, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_PointUncertainEllipse(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_EllipsoidPoint?, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_EllipsoidPoint?, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_EllipsoidArc(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_EllipsoidPoint?, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_PointAltitude(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_EllipsoidPoint?, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_EutranCellTime(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t (*a5)(uint64_t), unint64_t *a6, uint64_t a7)
+{
+  type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, a4, a5, MEMORY[0x277D83940]);
+  if (v9 <= 0x3F)
+  {
+    type metadata accessor for UnknownStorage();
+    if (v10 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, a6, a7, MEMORY[0x277D83D88]);
+      if (v11 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_LocEstimate(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_ShapeType?, &type metadata for Proto_Gnss_Emergency_ShapeType, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_ShapeInfo?, type metadata accessor for Proto_Gnss_Emergency_ShapeInfo, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_VelocityInfo(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_HorizontalVelocity?, type metadata accessor for Proto_Gnss_Emergency_HorizontalVelocity, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_HorizWithVertVelocity?, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertVelocity, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_HorizWithUncertaintyVelocity?, type metadata accessor for Proto_Gnss_Emergency_HorizWithUncertaintyVelocity, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity?, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity, MEMORY[0x277D83D88]);
+          if (v5 <= 0x3F)
+          {
+            swift_cvw_initStructMetadataWithLayoutString();
+          }
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_VelocityEstimate(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_VelocityType?, &type metadata for Proto_Gnss_Emergency_VelocityType, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_VelocityInfo?, type metadata accessor for Proto_Gnss_Emergency_VelocityInfo, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_GanssMeasurementElement(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Int32?, MEMORY[0x277D849A8], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_MultipathIndicator?, &type metadata for Proto_Gnss_Emergency_MultipathIndicator, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_GanssSignalMeasurementInfo(uint64_t a1)
+{
+  type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for [Proto_Gnss_Emergency_GanssMeasurementElement], type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for UnknownStorage();
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GanssId?, &type metadata for Proto_Gnss_Emergency_GanssId, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GanssSignalMeasurementInfo?, type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_GanssMeasurements(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GnssTimeId?, &type metadata for Proto_Gnss_Emergency_GnssTimeId, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GanssTimeMeasuredParams?, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasuredParams, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss?, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss, MEMORY[0x277D83D88]);
+          if (v5 <= 0x3F)
+          {
+            swift_cvw_initStructMetadataWithLayoutString();
+          }
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_GpsMeasurementElement(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Int32?, MEMORY[0x277D849A8], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_MultipathIndicator?, &type metadata for Proto_Gnss_Emergency_MultipathIndicator, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_GpsAssistanceRequest(uint64_t a1)
+{
+  type metadata accessor for Bool?(319, &lazy cache variable for type metadata for [UInt32], MEMORY[0x277D84CC0], MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for UnknownStorage();
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_GanssDataBitAssist(uint64_t a1)
+{
+  type metadata accessor for Bool?(319, &lazy cache variable for type metadata for [UInt32], MEMORY[0x277D84CC0], MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for UnknownStorage();
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_GanssNavModelAddData(uint64_t a1)
+{
+  type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for [Proto_Gnss_Emergency_GanssStoredSatDataElem], type metadata accessor for Proto_Gnss_Emergency_GanssStoredSatDataElem, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for UnknownStorage();
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_HorizWithVertVelocity(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t a5)
+{
+  type metadata accessor for UnknownStorage();
+  if (v7 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, a4, a5, MEMORY[0x277D83D88]);
+    if (v8 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_1076Tm(unint64_t *a1, uint64_t a2, uint64_t a3)
+{
+  if (a2 == 0x7FFFFFFF)
+  {
+    v4 = *a1;
+    if (*a1 >= 0xFFFFFFFF)
+    {
+      LODWORD(v4) = -1;
+    }
+
+    return (v4 + 1);
+  }
+
+  else
+  {
+    v8 = type metadata accessor for UnknownStorage();
+    v9 = *(*(v8 - 8) + 48);
+    v10 = a1 + *(a3 + 24);
+
+    return v9(v10, a2, v8);
+  }
+}
+
+void *__swift_store_extra_inhabitant_index_1077Tm(void *result, uint64_t a2, int a3, uint64_t a4)
+{
+  v5 = result;
+  if (a3 == 0x7FFFFFFF)
+  {
+    *result = (a2 - 1);
+  }
+
+  else
+  {
+    v7 = type metadata accessor for UnknownStorage();
+    v8 = *(*(v7 - 8) + 56);
+    v9 = v5 + *(a4 + 24);
+
+    return v8(v9, a2, a2, v7);
+  }
+
+  return result;
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_GanssAssistanceRequest(uint64_t a1)
+{
+  type metadata accessor for Bool?(319, &lazy cache variable for type metadata for [Proto_Gnss_Emergency_LcsGanssId], &type metadata for Proto_Gnss_Emergency_LcsGanssId, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for [Proto_Gnss_Emergency_GanssAidRequestPerGanss], type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss, MEMORY[0x277D83940]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for UnknownStorage();
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_ClsGeranCellTime(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_CtsCdmaCellTime(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GpsTowCdmaCellTime?, type metadata accessor for Proto_Gnss_Emergency_GpsTowCdmaCellTime, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_CellTimeData(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_CtsEutranCellTime?, type metadata accessor for Proto_Gnss_Emergency_CtsEutranCellTime, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_CtsCdmaCellTime?, type metadata accessor for Proto_Gnss_Emergency_CtsCdmaCellTime, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_779Tm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
+{
+  v10 = type metadata accessor for UnknownStorage();
+  v11 = *(v10 - 8);
+  if (*(v11 + 84) == a2)
+  {
+    v12 = *(v11 + 48);
+
+    return v12(a1, a2, v10);
+  }
+
+  else if (a2 == 249)
+  {
+    v14 = *(a1 + *(a3 + 20));
+    if (v14 <= 6)
+    {
+      v15 = 6;
+    }
+
+    else
+    {
+      v15 = *(a1 + *(a3 + 20));
+    }
+
+    v16 = v15 - 6;
+    if (v14 >= 6)
+    {
+      return v16;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    v17 = __swift_instantiateConcreteTypeFromMangledNameV2(a4, a5);
+    v18 = *(*(v17 - 8) + 48);
+    v19 = a1 + *(a3 + 24);
+
+    return v18(v19, a2, v17);
+  }
+}
+
+uint64_t __swift_store_extra_inhabitant_index_780Tm(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
+{
+  result = type metadata accessor for UnknownStorage();
+  v13 = *(result - 8);
+  if (*(v13 + 84) == a3)
+  {
+    v14 = *(v13 + 56);
+
+    return v14(a1, a2, a2, result);
+  }
+
+  else if (a3 == 249)
+  {
+    *(a1 + *(a4 + 20)) = a2 + 6;
+  }
+
+  else
+  {
+    v15 = __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+    v16 = *(*(v15 - 8) + 56);
+    v17 = a1 + *(a4 + 24);
+
+    return v16(v17, a2, a2, v15);
+  }
+
+  return result;
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_CellTimeAssistance(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_ClsNetworkType?, &type metadata for Proto_Gnss_Emergency_ClsNetworkType, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_CellTimeData?, type metadata accessor for Proto_Gnss_Emergency_CellTimeData, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_TowAssist(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_GpsReferenceTime(uint64_t a1)
+{
+  type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for [Proto_Gnss_Emergency_TowAssist], type metadata accessor for Proto_Gnss_Emergency_TowAssist, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for UnknownStorage();
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_SessionProtocol?, &type metadata for Proto_Gnss_Emergency_SessionProtocol, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_PosProtocol?, &type metadata for Proto_Gnss_Emergency_PosProtocol, MEMORY[0x277D83D88]);
+          if (v5 <= 0x3F)
+          {
+            swift_cvw_initStructMetadataWithLayoutString();
+          }
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_ReferenceLocation(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Int32?, MEMORY[0x277D849A8], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_SessionProtocol?, &type metadata for Proto_Gnss_Emergency_SessionProtocol, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_PosProtocol?, &type metadata for Proto_Gnss_Emergency_PosProtocol, MEMORY[0x277D83D88]);
+          if (v5 <= 0x3F)
+          {
+            swift_cvw_initStructMetadataWithLayoutString();
+          }
+        }
+      }
+    }
+  }
+}
+
+uint64_t type metadata completion function for Proto_Gnss_Emergency_SummaryReport(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
+{
+  result = type metadata accessor for UnknownStorage();
+  if (v6 <= 0x3F)
+  {
+    a4();
+    swift_cvw_initStructMetadataWithLayoutString();
+    return 0;
+  }
+
+  return result;
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_GpsNavigationModel(uint64_t a1)
+{
+  type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for [Proto_Gnss_Emergency_GpsEphemeris], type metadata accessor for Proto_Gnss_Emergency_GpsEphemeris, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for UnknownStorage();
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_SessionProtocol?, &type metadata for Proto_Gnss_Emergency_SessionProtocol, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_PosProtocol?, &type metadata for Proto_Gnss_Emergency_PosProtocol, MEMORY[0x277D83D88]);
+          if (v5 <= 0x3F)
+          {
+            swift_cvw_initStructMetadataWithLayoutString();
+          }
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_CellFTAssistanceRequest(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t a5)
+{
+  type metadata accessor for UnknownStorage();
+  if (v7 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, a4, a5, MEMORY[0x277D83D88]);
+    if (v8 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_743Tm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7)
+{
+  v14 = type metadata accessor for UnknownStorage();
+  v15 = *(v14 - 8);
+  if (*(v15 + 84) == a2)
+  {
+    v16 = v14;
+    v17 = *(v15 + 48);
+    v18 = a1;
+LABEL_5:
+
+    return v17(v18, a2, v16);
+  }
+
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(a4, a5);
+  v20 = *(v19 - 8);
+  if (*(v20 + 84) == a2)
+  {
+    v16 = v19;
+    v17 = *(v20 + 48);
+    v18 = a1 + *(a3 + 20);
+    goto LABEL_5;
+  }
+
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(a6, a7);
+  v23 = *(*(v22 - 8) + 48);
+  v24 = a1 + *(a3 + 24);
+
+  return v23(v24, a2, v22);
+}
+
+uint64_t __swift_store_extra_inhabitant_index_744Tm(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8)
+{
+  v16 = type metadata accessor for UnknownStorage();
+  v17 = *(v16 - 8);
+  if (*(v17 + 84) == a3)
+  {
+    v18 = v16;
+    v19 = *(v17 + 56);
+    v20 = a1;
+LABEL_5:
+
+    return v19(v20, a2, a2, v18);
+  }
+
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+  v22 = *(v21 - 8);
+  if (*(v22 + 84) == a3)
+  {
+    v18 = v21;
+    v19 = *(v22 + 56);
+    v20 = a1 + *(a4 + 20);
+    goto LABEL_5;
+  }
+
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(a7, a8);
+  v25 = *(*(v24 - 8) + 56);
+  v26 = a1 + *(a4 + 24);
+
+  return v25(v26, a2, a2, v24);
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_CplaneContext(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_Configuration?, type metadata accessor for Proto_Gnss_Emergency_Configuration, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_Cdma1xContext?, type metadata accessor for Proto_Gnss_Emergency_Cdma1xContext, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_EmergConfig(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_CplaneConfig?, type metadata accessor for Proto_Gnss_Emergency_CplaneConfig, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_SuplConfig?, type metadata accessor for Proto_Gnss_Emergency_SuplConfig, MEMORY[0x277D83D88]);
+          if (v5 <= 0x3F)
+          {
+            swift_cvw_initStructMetadataWithLayoutString();
+          }
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_GpsAcqElement(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GpsDopplerUncMpsExt?, &type metadata for Proto_Gnss_Emergency_GpsDopplerUncMpsExt, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_GpsAcqAssistance(uint64_t a1)
+{
+  type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for [Proto_Gnss_Emergency_GpsAcqElement], type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for UnknownStorage();
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_CellTimeAssistance?, type metadata accessor for Proto_Gnss_Emergency_CellTimeAssistance, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_SessionProtocol?, &type metadata for Proto_Gnss_Emergency_SessionProtocol, MEMORY[0x277D83D88]);
+          if (v5 <= 0x3F)
+          {
+            type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_PosProtocol?, &type metadata for Proto_Gnss_Emergency_PosProtocol, MEMORY[0x277D83D88]);
+            if (v6 <= 0x3F)
+            {
+              swift_cvw_initStructMetadataWithLayoutString();
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_725Tm(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = type metadata accessor for UnknownStorage();
+  v7 = *(v6 - 8);
+  if (*(v7 + 84) == a2)
+  {
+    v8 = *(v7 + 48);
+
+    return v8(a1, a2, v6);
+  }
+
+  else
+  {
+    v10 = *(a1 + *(a3 + 20));
+    if (v10 <= 6)
+    {
+      v11 = 6;
+    }
+
+    else
+    {
+      v11 = *(a1 + *(a3 + 20));
+    }
+
+    v12 = v11 - 6;
+    if (v10 >= 6)
+    {
+      return v12;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+}
+
+uint64_t __swift_store_extra_inhabitant_index_726Tm(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+{
+  result = type metadata accessor for UnknownStorage();
+  v9 = *(result - 8);
+  if (*(v9 + 84) == a3)
+  {
+    v10 = *(v9 + 56);
+
+    return v10(a1, a2, a2, result);
+  }
+
+  else
+  {
+    *(a1 + *(a4 + 20)) = a2 + 6;
+  }
+
+  return result;
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_CellFTAssistance(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Result?, &type metadata for Proto_Gnss_Result, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_ClsNetworkType?, &type metadata for Proto_Gnss_Emergency_ClsNetworkType, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_CellTimeData?, type metadata accessor for Proto_Gnss_Emergency_CellTimeData, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+void type metadata accessor for Bool?(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t (*a4)(void, uint64_t))
+{
+  if (!*a2)
+  {
+    v5 = a4(0, a3);
+    if (!v6)
+    {
+      atomic_store(v5, a2);
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_NetworkReferenceLocation(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Double?, MEMORY[0x277D839F8], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_Configuration(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t a5)
+{
+  type metadata accessor for UnknownStorage();
+  if (v7 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, a4, a5, MEMORY[0x277D83D88]);
+    if (v8 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Double?, MEMORY[0x277D839F8], MEMORY[0x277D83D88]);
+      if (v9 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_Is801LocationInd(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Bool?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_FixType?, &type metadata for Proto_Gnss_Emergency_FixType, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_Is801VelocityInfo?, type metadata accessor for Proto_Gnss_Emergency_Is801VelocityInfo, MEMORY[0x277D83D88]);
+          if (v5 <= 0x3F)
+          {
+            type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_Is801ClockInfo?, type metadata accessor for Proto_Gnss_Emergency_Is801ClockInfo, MEMORY[0x277D83D88]);
+            if (v6 <= 0x3F)
+            {
+              type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_Is801HeightInfo?, type metadata accessor for Proto_Gnss_Emergency_Is801HeightInfo, MEMORY[0x277D83D88]);
+              if (v7 <= 0x3F)
+              {
+                swift_cvw_initStructMetadataWithLayoutString();
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_Init._StorageClass(uint64_t a1)
+{
+  type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_QoP?, type metadata accessor for Proto_Gnss_Emergency_QoP, MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_SLPAddress?, type metadata accessor for Proto_Gnss_Emergency_SLPAddress, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_Notification?, type metadata accessor for Proto_Gnss_Emergency_Notification, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_SuplInitVer2Extension?, type metadata accessor for Proto_Gnss_Emergency_SuplInitVer2Extension, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          swift_updateClassMetadata2();
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_SessionStatus._StorageClass(uint64_t a1)
+{
+  type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_NetworkReferenceLocation?, type metadata accessor for Proto_Gnss_Emergency_NetworkReferenceLocation, MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_NetworkReferenceTime?, type metadata accessor for Proto_Gnss_Emergency_NetworkReferenceTime, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      swift_updateClassMetadata2();
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_GanssTimeMeasured._StorageClass(uint64_t a1)
+{
+  type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_UtranGanssTimeMeasured?, type metadata accessor for Proto_Gnss_Emergency_UtranGanssTimeMeasured, MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GeranGanssTimeMeasured?, type metadata accessor for Proto_Gnss_Emergency_GeranGanssTimeMeasured, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_ClsEutranCell?, type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_updateClassMetadata2();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_ShapeInfo._StorageClass(uint64_t a1)
+{
+  type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_PointUncertainCircle?, type metadata accessor for Proto_Gnss_Emergency_PointUncertainCircle, MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_PointUncertainEllipse?, type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid?, type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_EllipsoidArc?, type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_EllipsoidPoint?, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint, MEMORY[0x277D83D88]);
+          if (v5 <= 0x3F)
+          {
+            type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_PointAltitude?, type metadata accessor for Proto_Gnss_Emergency_PointAltitude, MEMORY[0x277D83D88]);
+            if (v6 <= 0x3F)
+            {
+              type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_Polygon?, type metadata accessor for Proto_Gnss_Emergency_Polygon, MEMORY[0x277D83D88]);
+              if (v7 <= 0x3F)
+              {
+                swift_updateClassMetadata2();
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_PositionReport._StorageClass(uint64_t a1)
+{
+  type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_SessionInfo?, type metadata accessor for Proto_Gnss_Emergency_SessionInfo, MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_LocationInfo?, type metadata accessor for Proto_Gnss_Emergency_LocationInfo, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GanssLocationInfo?, type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_LocEstimate?, type metadata accessor for Proto_Gnss_Emergency_LocEstimate, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_VelocityEstimate?, type metadata accessor for Proto_Gnss_Emergency_VelocityEstimate, MEMORY[0x277D83D88]);
+          if (v5 <= 0x3F)
+          {
+            swift_updateClassMetadata2();
+          }
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_GpsMeasurements._StorageClass(uint64_t a1)
+{
+  type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GpsTimeMeasuredParams?, type metadata accessor for Proto_Gnss_Emergency_GpsTimeMeasuredParams, MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GpsTOD?, type metadata accessor for Proto_Gnss_Emergency_GpsTOD, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      swift_updateClassMetadata2();
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_GanssAidRequestPerGanss._StorageClass(uint64_t a1)
+{
+  type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GanssDataBitAssist?, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist, MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GanssNavModelAddData?, type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GanssAddAssistDataChoices?, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_updateClassMetadata2();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_AssistanceNeededReport._StorageClass(uint64_t a1)
+{
+  type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_SessionInfo?, type metadata accessor for Proto_Gnss_Emergency_SessionInfo, MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GpsAssistanceRequest?, type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GanssAssistanceRequest?, type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_updateClassMetadata2();
+      }
+    }
+  }
+}
+
+void type metadata completion function for Proto_Gnss_Emergency_MeasurementReport._StorageClass(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t (*a5)(uint64_t), uint64_t a6)
+{
+  type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_SessionInfo?, type metadata accessor for Proto_Gnss_Emergency_SessionInfo, MEMORY[0x277D83D88]);
+  if (v8 <= 0x3F)
+  {
+    type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, &lazy cache variable for type metadata for Proto_Gnss_Emergency_GpsMeasurements?, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements, MEMORY[0x277D83D88]);
+    if (v9 <= 0x3F)
+    {
+      type metadata accessor for [Proto_Gnss_Emergency_LteCellInfo](319, a4, a5, MEMORY[0x277D83D88]);
+      if (v10 <= 0x3F)
+      {
+        swift_updateClassMetadata2();
+      }
+    }
+  }
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance Proto_Gnss_Result(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type Proto_Gnss_Result and conformance Proto_Gnss_Result();
+
+  return MEMORY[0x28217E238](a1, a2, v4);
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance Proto_Gnss_GnssContent(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type Proto_Gnss_GnssContent and conformance Proto_Gnss_GnssContent();
+
+  return MEMORY[0x28217E238](a1, a2, v4);
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance Proto_Gnss_EstimationTechnology(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type Proto_Gnss_EstimationTechnology and conformance Proto_Gnss_EstimationTechnology();
+
+  return MEMORY[0x28217E238](a1, a2, v4);
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance Proto_Gnss_TimeQuality(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type Proto_Gnss_TimeQuality and conformance Proto_Gnss_TimeQuality();
+
+  return MEMORY[0x28217E238](a1, a2, v4);
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance Proto_Gnss_PositionAssistType(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type Proto_Gnss_PositionAssistType and conformance Proto_Gnss_PositionAssistType();
+
+  return MEMORY[0x28217E238](a1, a2, v4);
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance Proto_Gnss_MotionActivityContext(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type Proto_Gnss_MotionActivityContext and conformance Proto_Gnss_MotionActivityContext();
+
+  return MEMORY[0x28217E238](a1, a2, v4);
+}
+
+uint64_t protocol witness for Enum.init(rawValue:) in conformance Proto_Gnss_MotionActivityContext@<X0>(unint64_t a1@<X0>, ALProtobuf::Proto_Gnss_MotionActivityContext_optional *a2@<X8>)
+{
+  result = specialized Proto_Gnss_MotionActivityContext.init(rawValue:)(a1);
+  a2->value = result;
+  return result;
+}
+
+uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance Proto_Gnss_MotionActivityContext@<X0>(Swift::Int *a1@<X0>, ALProtobuf::Proto_Gnss_MotionActivityContext_optional *a2@<X8>)
+{
+  result = specialized Proto_Gnss_MotionActivityContext.init(rawValue:)(*a1);
+  a2->value = result;
+  return result;
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance Proto_Gnss_MovingState(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type Proto_Gnss_MovingState and conformance Proto_Gnss_MovingState();
+
+  return MEMORY[0x28217E238](a1, a2, v4);
+}
+
+unint64_t protocol witness for Enum.init(rawValue:) in conformance Proto_Gnss_MovingState@<X0>(unint64_t a1@<X0>, ALProtobuf::Proto_Gnss_MovingState_optional *a2@<X8>)
+{
+  result = specialized Proto_Gnss_MovingState.init(rawValue:)(a1);
+  a2->value = result;
+  return result;
+}
+
+unint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance Proto_Gnss_MovingState@<X0>(Swift::Int *a1@<X0>, ALProtobuf::Proto_Gnss_MovingState_optional *a2@<X8>)
+{
+  result = specialized Proto_Gnss_MovingState.init(rawValue:)(*a1);
+  a2->value = result;
+  return result;
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance Proto_Gnss_Reliability(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type Proto_Gnss_Reliability and conformance Proto_Gnss_Reliability();
+
+  return MEMORY[0x28217E238](a1, a2, v4);
+}
+
+unint64_t protocol witness for Enum.init(rawValue:) in conformance Proto_Gnss_Reliability@<X0>(unint64_t a1@<X0>, ALProtobuf::Proto_Gnss_Reliability_optional *a2@<X8>)
+{
+  result = specialized Proto_Gnss_Reliability.init(rawValue:)(a1);
+  a2->value = result;
+  return result;
+}
+
+unint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance Proto_Gnss_Reliability@<X0>(Swift::Int *a1@<X0>, ALProtobuf::Proto_Gnss_Reliability_optional *a2@<X8>)
+{
+  result = specialized Proto_Gnss_Reliability.init(rawValue:)(*a1);
+  a2->value = result;
+  return result;
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance Proto_Gnss_DeviceMountState(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type Proto_Gnss_DeviceMountState and conformance Proto_Gnss_DeviceMountState();
+
+  return MEMORY[0x28217E238](a1, a2, v4);
+}
+
+unint64_t protocol witness for Enum.init(rawValue:) in conformance Proto_Gnss_DeviceMountState@<X0>(unint64_t a1@<X0>, ALProtobuf::Proto_Gnss_DeviceMountState_optional *a2@<X8>)
+{
+  result = specialized Proto_Gnss_DeviceMountState.init(rawValue:)(a1);
+  a2->value = result;
+  return result;
+}
+
+unint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance Proto_Gnss_DeviceMountState@<X0>(Swift::Int *a1@<X0>, ALProtobuf::Proto_Gnss_DeviceMountState_optional *a2@<X8>)
+{
+  result = specialized Proto_Gnss_DeviceMountState.init(rawValue:)(*a1);
+  a2->value = result;
+  return result;
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance Proto_Gnss_SignalEnvironmentType(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type Proto_Gnss_SignalEnvironmentType and conformance Proto_Gnss_SignalEnvironmentType();
+
+  return MEMORY[0x28217E238](a1, a2, v4);
+}
+
+uint64_t protocol witness for Enum.init(rawValue:) in conformance Proto_Gnss_SignalEnvironmentType@<X0>(unint64_t a1@<X0>, ALProtobuf::Proto_Gnss_SignalEnvironmentType_optional *a2@<X8>)
+{
+  result = specialized Proto_Gnss_SignalEnvironmentType.init(rawValue:)(a1);
+  a2->value = result;
+  return result;
+}
+
+uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance Proto_Gnss_SignalEnvironmentType@<X0>(Swift::Int *a1@<X0>, ALProtobuf::Proto_Gnss_SignalEnvironmentType_optional *a2@<X8>)
+{
+  result = specialized Proto_Gnss_SignalEnvironmentType.init(rawValue:)(*a1);
+  a2->value = result;
+  return result;
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance Proto_Gnss_DeleteGnssDataBitMask(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type Proto_Gnss_DeleteGnssDataBitMask and conformance Proto_Gnss_DeleteGnssDataBitMask();
+
+  return MEMORY[0x28217E238](a1, a2, v4);
+}
+
+uint64_t Proto_Gnss_Position.latitude.setter(double a1)
+{
+  result = type metadata accessor for Proto_Gnss_Position(0);
+  v4 = v1 + *(result + 20);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Position.latitude.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Position(0) + 20);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Position.clearLatitude()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Position(0) + 20);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+uint64_t Proto_Gnss_Position.longitude.setter(double a1)
+{
+  result = type metadata accessor for Proto_Gnss_Position(0);
+  v4 = v1 + *(result + 24);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Position.longitude.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Position(0) + 24);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Position.clearLongitude()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Position(0) + 24);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+uint64_t Proto_Gnss_Position.altWgs84.setter(double a1)
+{
+  result = type metadata accessor for Proto_Gnss_Position(0);
+  v4 = v1 + *(result + 28);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Position.altWgs84.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Position(0) + 28);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Position.clearAltWgs84()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Position(0) + 28);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+uint64_t Proto_Gnss_Position.undulation.setter(double a1)
+{
+  result = type metadata accessor for Proto_Gnss_Position(0);
+  v4 = v1 + *(result + 32);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Position.undulation.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Position(0) + 32);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Position.clearUndulation()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Position(0) + 32);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+uint64_t Proto_Gnss_Position.verticalUncertainty.setter(double a1)
+{
+  result = type metadata accessor for Proto_Gnss_Position(0);
+  v4 = v1 + *(result + 36);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Position.verticalUncertainty.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Position(0) + 36);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Position.clearVerticalUncertainty()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Position(0) + 36);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+uint64_t Proto_Gnss_Position.semiMajorHorizontalUncertainty.setter(double a1)
+{
+  result = type metadata accessor for Proto_Gnss_Position(0);
+  v4 = v1 + *(result + 40);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Position.semiMajorHorizontalUncertainty.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Position(0) + 40);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Position.clearSemiMajorHorizontalUncertainty()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Position(0) + 40);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+uint64_t Proto_Gnss_Position.semiMinorHorizontalUncertainty.setter(double a1)
+{
+  result = type metadata accessor for Proto_Gnss_Position(0);
+  v4 = v1 + *(result + 44);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Position.semiMinorHorizontalUncertainty.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Position(0) + 44);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Position.clearSemiMinorHorizontalUncertainty()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Position(0) + 44);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+double Proto_Gnss_Position.semiMajorAzimuthHorizontalUncertainty.getter()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Position(0) + 48);
+  result = *v1;
+  if (*(v1 + 8))
+  {
+    return 0.0;
+  }
+
+  return result;
+}
+
+uint64_t Proto_Gnss_Position.semiMajorAzimuthHorizontalUncertainty.setter(double a1)
+{
+  result = type metadata accessor for Proto_Gnss_Position(0);
+  v4 = v1 + *(result + 48);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Position.semiMajorAzimuthHorizontalUncertainty.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Position(0) + 48);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Position.clearSemiMajorAzimuthHorizontalUncertainty()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Position(0) + 48);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+uint64_t Proto_Gnss_Position.source.getter()
+{
+  v1 = (v0 + *(type metadata accessor for Proto_Gnss_Position(0) + 52));
+  if (v1[4])
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *v1;
+  }
+}
+
+uint64_t Proto_Gnss_Position.source.setter(int a1)
+{
+  result = type metadata accessor for Proto_Gnss_Position(0);
+  v4 = v1 + *(result + 52);
+  *v4 = a1;
+  *(v4 + 4) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Position.source.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Position(0) + 52);
+  *(a1 + 12) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 4))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *(a1 + 8) = v5;
+  return CLP_LogEntry_AONLoc_Request.processID.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Position.clearSource()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Position(0) + 52);
+  *v1 = 0;
+  *(v1 + 4) = 1;
+}
+
+uint64_t Proto_Gnss_Position.reliability.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gnss_Position(0) + 56));
+  if (v1 == 6)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+uint64_t Proto_Gnss_Position.reliability.setter(char a1)
+{
+  result = type metadata accessor for Proto_Gnss_Position(0);
+  *(v1 + *(result + 56)) = a1;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Position.reliability.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Position(0) + 56);
+  *(a1 + 8) = v3;
+  v4 = *(v1 + v3);
+  if (v4 == 6)
+  {
+    LOBYTE(v4) = 0;
+  }
+
+  *(a1 + 12) = v4;
+  return CLP_LogEntry_AONLoc_Request.type.modify;
+}
+
+uint64_t Proto_Gnss_Position.assistanceUsed.getter()
+{
+  v1 = (v0 + *(type metadata accessor for Proto_Gnss_Position(0) + 60));
+  if (v1[8])
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *v1;
+  }
+}
+
+uint64_t Proto_Gnss_Position.assistanceUsed.setter(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gnss_Position(0);
+  v4 = v1 + *(result + 60);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Position.assistanceUsed.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Position(0) + 60);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Position.clearAssistanceUsed()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Position(0) + 60);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+uint64_t Proto_Gnss_Position.gnssContentInFix.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gnss_Position(0) + 64));
+  if (v1 == 6)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+uint64_t Proto_Gnss_Position.gnssContentInFix.setter(char a1)
+{
+  result = type metadata accessor for Proto_Gnss_Position(0);
+  *(v1 + *(result + 64)) = a1;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Position.gnssContentInFix.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Position(0) + 64);
+  *(a1 + 8) = v3;
+  v4 = *(v1 + v3);
+  if (v4 == 6)
+  {
+    LOBYTE(v4) = 0;
+  }
+
+  *(a1 + 12) = v4;
+  return CLP_LogEntry_AONLoc_Response.requestType.modify;
+}
+
+int *Proto_Gnss_Position.init()@<X0>(uint64_t a1@<X8>)
+{
+  UnknownStorage.init()();
+  result = type metadata accessor for Proto_Gnss_Position(0);
+  v3 = a1 + result[5];
+  *v3 = 0;
+  *(v3 + 8) = 1;
+  v4 = a1 + result[6];
+  *v4 = 0;
+  *(v4 + 8) = 1;
+  v5 = a1 + result[7];
+  *v5 = 0;
+  *(v5 + 8) = 1;
+  v6 = a1 + result[8];
+  *v6 = 0;
+  *(v6 + 8) = 1;
+  v7 = a1 + result[9];
+  *v7 = 0;
+  *(v7 + 8) = 1;
+  v8 = a1 + result[10];
+  *v8 = 0;
+  *(v8 + 8) = 1;
+  v9 = a1 + result[11];
+  *v9 = 0;
+  *(v9 + 8) = 1;
+  v10 = a1 + result[12];
+  *v10 = 0;
+  *(v10 + 8) = 1;
+  v11 = a1 + result[13];
+  *v11 = 0;
+  *(v11 + 4) = 1;
+  *(a1 + result[14]) = 6;
+  v12 = a1 + result[15];
+  *v12 = 0;
+  *(v12 + 8) = 1;
+  *(a1 + result[16]) = 6;
+  return result;
+}
+
+double Proto_Gnss_Position.latitude.getter(uint64_t (*a1)(void))
+{
+  v2 = v1 + *(a1(0) + 20);
+  result = *v2;
+  if (*(v2 + 8))
+  {
+    return 0.0;
+  }
+
+  return result;
+}
+
+uint64_t Proto_Gnss_Velocity.horizSpeed.setter(double a1)
+{
+  result = type metadata accessor for Proto_Gnss_Velocity(0);
+  v4 = v1 + *(result + 20);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Velocity.horizSpeed.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Velocity(0) + 20);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Velocity.clearHorizSpeed()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Velocity(0) + 20);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+double Proto_Gnss_Position.longitude.getter(uint64_t (*a1)(void))
+{
+  v2 = v1 + *(a1(0) + 24);
+  result = *v2;
+  if (*(v2 + 8))
+  {
+    return 0.0;
+  }
+
+  return result;
+}
+
+uint64_t Proto_Gnss_Velocity.horizSpeedUnc.setter(double a1)
+{
+  result = type metadata accessor for Proto_Gnss_Velocity(0);
+  v4 = v1 + *(result + 24);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Velocity.horizSpeedUnc.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Velocity(0) + 24);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Velocity.clearHorizSpeedUnc()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Velocity(0) + 24);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+double Proto_Gnss_Position.altWgs84.getter(uint64_t (*a1)(void))
+{
+  v2 = v1 + *(a1(0) + 28);
+  result = *v2;
+  if (*(v2 + 8))
+  {
+    return 0.0;
+  }
+
+  return result;
+}
+
+uint64_t Proto_Gnss_Velocity.vertVelocity.setter(double a1)
+{
+  result = type metadata accessor for Proto_Gnss_Velocity(0);
+  v4 = v1 + *(result + 28);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Velocity.vertVelocity.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Velocity(0) + 28);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Velocity.clearVertVelocity()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Velocity(0) + 28);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+double Proto_Gnss_Position.undulation.getter(uint64_t (*a1)(void))
+{
+  v2 = v1 + *(a1(0) + 32);
+  result = *v2;
+  if (*(v2 + 8))
+  {
+    return 0.0;
+  }
+
+  return result;
+}
+
+uint64_t Proto_Gnss_Velocity.vertVelocityUnc.setter(double a1)
+{
+  result = type metadata accessor for Proto_Gnss_Velocity(0);
+  v4 = v1 + *(result + 32);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Velocity.vertVelocityUnc.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Velocity(0) + 32);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Velocity.clearVertVelocityUnc()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Velocity(0) + 32);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+double Proto_Gnss_Position.verticalUncertainty.getter(uint64_t (*a1)(void))
+{
+  v2 = v1 + *(a1(0) + 36);
+  result = *v2;
+  if (*(v2 + 8))
+  {
+    return 0.0;
+  }
+
+  return result;
+}
+
+uint64_t Proto_Gnss_Velocity.course.setter(double a1)
+{
+  result = type metadata accessor for Proto_Gnss_Velocity(0);
+  v4 = v1 + *(result + 36);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Velocity.course.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Velocity(0) + 36);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Velocity.clearCourse()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Velocity(0) + 36);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+double Proto_Gnss_Position.semiMajorHorizontalUncertainty.getter(uint64_t (*a1)(void))
+{
+  v2 = v1 + *(a1(0) + 40);
+  result = *v2;
+  if (*(v2 + 8))
+  {
+    return 0.0;
+  }
+
+  return result;
+}
+
+uint64_t Proto_Gnss_Velocity.courseUnc.setter(double a1)
+{
+  result = type metadata accessor for Proto_Gnss_Velocity(0);
+  v4 = v1 + *(result + 40);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Velocity.courseUnc.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Velocity(0) + 40);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Velocity.clearCourseUnc()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Velocity(0) + 40);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+int *Proto_Gnss_Velocity.init()@<X0>(uint64_t a1@<X8>)
+{
+  UnknownStorage.init()();
+  result = type metadata accessor for Proto_Gnss_Velocity(0);
+  v3 = a1 + result[5];
+  *v3 = 0;
+  *(v3 + 8) = 1;
+  v4 = a1 + result[6];
+  *v4 = 0;
+  *(v4 + 8) = 1;
+  v5 = a1 + result[7];
+  *v5 = 0;
+  *(v5 + 8) = 1;
+  v6 = a1 + result[8];
+  *v6 = 0;
+  *(v6 + 8) = 1;
+  v7 = a1 + result[9];
+  *v7 = 0;
+  *(v7 + 8) = 1;
+  v8 = a1 + result[10];
+  *v8 = 0;
+  *(v8 + 8) = 1;
+  return result;
+}
+
+uint64_t Proto_Gnss_Time.gpsNanoSeconds.setter(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gnss_Time(0);
+  v4 = v1 + *(result + 20);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Time.gpsNanoSeconds.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Time(0) + 20);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Time.clearGpsNanoSeconds()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Time(0) + 20);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+uint64_t Proto_Gnss_Time.gpsTimeUncertaintyNanoSeconds.setter(float a1)
+{
+  result = type metadata accessor for Proto_Gnss_Time(0);
+  v4 = v1 + *(result + 24);
+  *v4 = a1;
+  *(v4 + 4) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Time.gpsTimeUncertaintyNanoSeconds.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Time(0) + 24);
+  *(a1 + 12) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 4))
+  {
+    v5 = 0.0;
+  }
+
+  *(a1 + 8) = v5;
+  return CLP_LogEntry_AONLoc_Request.processID.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Time.clearGpsTimeUncertaintyNanoSeconds()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Time(0) + 24);
+  *v1 = 0;
+  *(v1 + 4) = 1;
+}
+
+uint64_t Proto_Gnss_Time.leapSecondsFromGpsStartValid.setter(char a1)
+{
+  result = type metadata accessor for Proto_Gnss_Time(0);
+  *(v1 + *(result + 28)) = a1;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Time.leapSecondsFromGpsStartValid.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Time(0) + 28);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return CLP_LogEntry_AONLoc_Request.type.modify;
+}
+
+uint64_t Proto_Gnss_Time.leapSecondsFromGpsStart.setter(int a1)
+{
+  result = type metadata accessor for Proto_Gnss_Time(0);
+  v4 = v1 + *(result + 32);
+  *v4 = a1;
+  *(v4 + 4) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Time.leapSecondsFromGpsStart.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Time(0) + 32);
+  *(a1 + 12) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 4))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *(a1 + 8) = v5;
+  return CLP_LogEntry_AONLoc_Request.processID.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Time.clearLeapSecondsFromGpsStart()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Time(0) + 32);
+  *v1 = 0;
+  *(v1 + 4) = 1;
+}
+
+uint64_t Proto_Gnss_Time.clockNanoSeconds.setter(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gnss_Time(0);
+  v4 = v1 + *(result + 36);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Time.clockNanoSeconds.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Time(0) + 36);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Time.clearClockNanoSeconds()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Time(0) + 36);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+uint64_t Proto_Gnss_Time.machContinuousSeconds.setter(double a1)
+{
+  result = type metadata accessor for Proto_Gnss_Time(0);
+  v4 = v1 + *(result + 40);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Time.machContinuousSeconds.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Time(0) + 40);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Time.clearMachContinuousSeconds()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Time(0) + 40);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+double Proto_Gnss_Position.semiMinorHorizontalUncertainty.getter(uint64_t (*a1)(void))
+{
+  v2 = v1 + *(a1(0) + 44);
+  result = *v2;
+  if (*(v2 + 8))
+  {
+    return 0.0;
+  }
+
+  return result;
+}
+
+uint64_t Proto_Gnss_Time.machContinuousUncertaintySeconds.setter(double a1)
+{
+  result = type metadata accessor for Proto_Gnss_Time(0);
+  v4 = v1 + *(result + 44);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Time.machContinuousUncertaintySeconds.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Time(0) + 44);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Time.clearMachContinuousUncertaintySeconds()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Time(0) + 44);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+uint64_t Proto_Gnss_Time.basebandSystemTimeNs.getter()
+{
+  v1 = (v0 + *(type metadata accessor for Proto_Gnss_Time(0) + 48));
+  if (v1[8])
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *v1;
+  }
+}
+
+uint64_t Proto_Gnss_Time.basebandSystemTimeNs.setter(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gnss_Time(0);
+  v4 = v1 + *(result + 48);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Time.basebandSystemTimeNs.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Time(0) + 48);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.ResultOptions.endCfaTimeSec.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Time.clearBasebandSystemTimeNs()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Time(0) + 48);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+uint64_t Proto_Gnss_Time.basebandSystemTimeUncNs.getter()
+{
+  v1 = (v0 + *(type metadata accessor for Proto_Gnss_Time(0) + 52));
+  if (v1[8])
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *v1;
+  }
+}
+
+uint64_t Proto_Gnss_Time.basebandSystemTimeUncNs.setter(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gnss_Time(0);
+  v4 = v1 + *(result + 52);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_Time.basebandSystemTimeUncNs.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_Time(0) + 52);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Time.clearBasebandSystemTimeUncNs()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_Time(0) + 52);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+int *Proto_Gnss_Time.init()@<X0>(uint64_t a1@<X8>)
+{
+  UnknownStorage.init()();
+  result = type metadata accessor for Proto_Gnss_Time(0);
+  v3 = a1 + result[5];
+  *v3 = 0;
+  *(v3 + 8) = 1;
+  v4 = a1 + result[6];
+  *v4 = 0;
+  *(v4 + 4) = 1;
+  *(a1 + result[7]) = 2;
+  v5 = a1 + result[8];
+  *v5 = 0;
+  *(v5 + 4) = 1;
+  v6 = a1 + result[9];
+  *v6 = 0;
+  *(v6 + 8) = 1;
+  v7 = a1 + result[10];
+  *v7 = 0;
+  *(v7 + 8) = 1;
+  v8 = a1 + result[11];
+  *v8 = 0;
+  *(v8 + 8) = 1;
+  v9 = a1 + result[12];
+  *v9 = 0;
+  *(v9 + 8) = 1;
+  v10 = a1 + result[13];
+  *v10 = 0;
+  *(v10 + 8) = 1;
+  return result;
+}
+
+uint64_t Proto_Gnss_Fix.time.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf15Proto_Gnss_TimeVSgMd, &_s10ALProtobuf15Proto_Gnss_TimeVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v19 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gnss_Fix(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf14Proto_Gnss_FixP33_CE77F83568258924918786B79242136A13_StorageClass__time;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf15Proto_Gnss_TimeVSgMd, &_s10ALProtobuf15Proto_Gnss_TimeVSgMR);
+  v8 = type metadata accessor for Proto_Gnss_Time(0);
+  v9 = *(*(v8 - 1) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return outlined init with take of Proto_Gnss_Time(v5, a1, type metadata accessor for Proto_Gnss_Time);
+  }
+
+  UnknownStorage.init()();
+  v10 = a1 + v8[5];
+  *v10 = 0;
+  *(v10 + 8) = 1;
+  v11 = a1 + v8[6];
+  *v11 = 0;
+  *(v11 + 4) = 1;
+  *(a1 + v8[7]) = 2;
+  v12 = a1 + v8[8];
+  *v12 = 0;
+  *(v12 + 4) = 1;
+  v13 = a1 + v8[9];
+  *v13 = 0;
+  *(v13 + 8) = 1;
+  v14 = a1 + v8[10];
+  *v14 = 0;
+  *(v14 + 8) = 1;
+  v15 = a1 + v8[11];
+  *v15 = 0;
+  *(v15 + 8) = 1;
+  v16 = a1 + v8[12];
+  *v16 = 0;
+  *(v16 + 8) = 1;
+  v17 = a1 + v8[13];
+  *v17 = 0;
+  *(v17 + 8) = 1;
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return outlined destroy of Any?(v5, &_s10ALProtobuf15Proto_Gnss_TimeVSgMd, &_s10ALProtobuf15Proto_Gnss_TimeVSgMR);
+  }
+
+  return result;
+}
+
+uint64_t Proto_Gnss_Fix.time.setter(uint64_t a1)
+{
+  v2 = v1;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf15Proto_Gnss_TimeVSgMd, &_s10ALProtobuf15Proto_Gnss_TimeVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v14 - v5;
+  v7 = *(type metadata accessor for Proto_Gnss_Fix(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gnss_Fix._StorageClass(0);
+    v10 = swift_allocObject();
+    specialized Proto_Gnss_Fix._StorageClass.init(copying:)(v9);
+
+    *(v2 + v7) = v10;
+    v9 = v10;
+  }
+
+  outlined init with take of Proto_Gnss_Time(a1, v6, type metadata accessor for Proto_Gnss_Time);
+  v11 = type metadata accessor for Proto_Gnss_Time(0);
+  (*(*(v11 - 8) + 56))(v6, 0, 1, v11);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf14Proto_Gnss_FixP33_CE77F83568258924918786B79242136A13_StorageClass__time;
+  swift_beginAccess();
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v12, &_s10ALProtobuf15Proto_Gnss_TimeVSgMd, &_s10ALProtobuf15Proto_Gnss_TimeVSgMR);
+  return swift_endAccess();
+}
+
+void (*Proto_Gnss_Fix.time.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+{
+  v3 = MEMORY[0x277D84FD8];
+  if (MEMORY[0x277D84FD8])
+  {
+    v4 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v4 = malloc(0x88uLL);
+  }
+
+  v5 = v4;
+  *a1 = v4;
+  *(v4 + 72) = v1;
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf15Proto_Gnss_TimeVSgMd, &_s10ALProtobuf15Proto_Gnss_TimeVSgMR) - 8) + 64);
+  if (v3)
+  {
+    *(v5 + 80) = swift_coroFrameAlloc();
+    v7 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v5 + 80) = malloc(v6);
+    v7 = malloc(v6);
+  }
+
+  v8 = v7;
+  *(v5 + 88) = v7;
+  v9 = type metadata accessor for Proto_Gnss_Time(0);
+  *(v5 + 96) = v9;
+  v10 = *(v9 - 1);
+  v11 = v10;
+  *(v5 + 104) = v10;
+  v12 = *(v10 + 64);
+  if (v3)
+  {
+    *(v5 + 112) = swift_coroFrameAlloc();
+    v13 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v5 + 112) = malloc(*(v10 + 64));
+    v13 = malloc(v12);
+  }
+
+  v14 = v13;
+  *(v5 + 120) = v13;
+  v15 = *(type metadata accessor for Proto_Gnss_Fix(0) + 20);
+  *(v5 + 128) = v15;
+  v16 = *(v1 + v15);
+  v17 = OBJC_IVAR____TtCV10ALProtobuf14Proto_Gnss_FixP33_CE77F83568258924918786B79242136A13_StorageClass__time;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16 + v17, v8, &_s10ALProtobuf15Proto_Gnss_TimeVSgMd, &_s10ALProtobuf15Proto_Gnss_TimeVSgMR);
+  v18 = *(v11 + 48);
+  if (v18(v8, 1, v9) == 1)
+  {
+    UnknownStorage.init()();
+    v19 = v14 + v9[5];
+    *v19 = 0;
+    *(v19 + 8) = 1;
+    v20 = v14 + v9[6];
+    *v20 = 0;
+    *(v20 + 4) = 1;
+    *(v14 + v9[7]) = 2;
+    v21 = v14 + v9[8];
+    *v21 = 0;
+    *(v21 + 4) = 1;
+    v22 = v14 + v9[9];
+    *v22 = 0;
+    *(v22 + 8) = 1;
+    v23 = v14 + v9[10];
+    *v23 = 0;
+    *(v23 + 8) = 1;
+    v24 = v14 + v9[11];
+    *v24 = 0;
+    *(v24 + 8) = 1;
+    v25 = v14 + v9[12];
+    *v25 = 0;
+    *(v25 + 8) = 1;
+    v26 = v14 + v9[13];
+    *v26 = 0;
+    *(v26 + 8) = 1;
+    if (v18(v8, 1, v9) != 1)
+    {
+      outlined destroy of Any?(v8, &_s10ALProtobuf15Proto_Gnss_TimeVSgMd, &_s10ALProtobuf15Proto_Gnss_TimeVSgMR);
+    }
+  }
+
+  else
+  {
+    outlined init with take of Proto_Gnss_Time(v8, v14, type metadata accessor for Proto_Gnss_Time);
+  }
+
+  return Proto_Gnss_Fix.time.modify;
+}
+
+uint64_t Proto_Gnss_Fix.position.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf19Proto_Gnss_PositionVSgMd, &_s10ALProtobuf19Proto_Gnss_PositionVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v21 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gnss_Fix(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf14Proto_Gnss_FixP33_CE77F83568258924918786B79242136A13_StorageClass__position;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf19Proto_Gnss_PositionVSgMd, &_s10ALProtobuf19Proto_Gnss_PositionVSgMR);
+  v8 = type metadata accessor for Proto_Gnss_Position(0);
+  v9 = *(*(v8 - 1) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return outlined init with take of Proto_Gnss_Time(v5, a1, type metadata accessor for Proto_Gnss_Position);
+  }
+
+  UnknownStorage.init()();
+  v10 = a1 + v8[5];
+  *v10 = 0;
+  *(v10 + 8) = 1;
+  v11 = a1 + v8[6];
+  *v11 = 0;
+  *(v11 + 8) = 1;
+  v12 = a1 + v8[7];
+  *v12 = 0;
+  *(v12 + 8) = 1;
+  v13 = a1 + v8[8];
+  *v13 = 0;
+  *(v13 + 8) = 1;
+  v14 = a1 + v8[9];
+  *v14 = 0;
+  *(v14 + 8) = 1;
+  v15 = a1 + v8[10];
+  *v15 = 0;
+  *(v15 + 8) = 1;
+  v16 = a1 + v8[11];
+  *v16 = 0;
+  *(v16 + 8) = 1;
+  v17 = a1 + v8[12];
+  *v17 = 0;
+  *(v17 + 8) = 1;
+  v18 = a1 + v8[13];
+  *v18 = 0;
+  *(v18 + 4) = 1;
+  *(a1 + v8[14]) = 6;
+  v19 = a1 + v8[15];
+  *v19 = 0;
+  *(v19 + 8) = 1;
+  *(a1 + v8[16]) = 6;
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return outlined destroy of Any?(v5, &_s10ALProtobuf19Proto_Gnss_PositionVSgMd, &_s10ALProtobuf19Proto_Gnss_PositionVSgMR);
+  }
+
+  return result;
+}
+
+uint64_t Proto_Gnss_Fix.position.setter(uint64_t a1)
+{
+  v2 = v1;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf19Proto_Gnss_PositionVSgMd, &_s10ALProtobuf19Proto_Gnss_PositionVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v14 - v5;
+  v7 = *(type metadata accessor for Proto_Gnss_Fix(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gnss_Fix._StorageClass(0);
+    v10 = swift_allocObject();
+    specialized Proto_Gnss_Fix._StorageClass.init(copying:)(v9);
+
+    *(v2 + v7) = v10;
+    v9 = v10;
+  }
+
+  outlined init with take of Proto_Gnss_Time(a1, v6, type metadata accessor for Proto_Gnss_Position);
+  v11 = type metadata accessor for Proto_Gnss_Position(0);
+  (*(*(v11 - 8) + 56))(v6, 0, 1, v11);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf14Proto_Gnss_FixP33_CE77F83568258924918786B79242136A13_StorageClass__position;
+  swift_beginAccess();
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v12, &_s10ALProtobuf19Proto_Gnss_PositionVSgMd, &_s10ALProtobuf19Proto_Gnss_PositionVSgMR);
+  return swift_endAccess();
+}
+
+uint64_t (*Proto_Gnss_Fix.position.modify(uint64_t *a1))()
+{
+  v3 = MEMORY[0x277D84FD8];
+  if (MEMORY[0x277D84FD8])
+  {
+    v4 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v4 = malloc(0x60uLL);
+  }
+
+  v5 = v4;
+  *a1 = v4;
+  *(v4 + 48) = v1;
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf19Proto_Gnss_PositionVSgMd, &_s10ALProtobuf19Proto_Gnss_PositionVSgMR) - 8) + 64);
+  if (v3)
+  {
+    v7 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v7 = malloc(v6);
+  }
+
+  v5[7] = v7;
+  v8 = type metadata accessor for Proto_Gnss_Position(0);
+  v5[8] = v8;
+  v9 = *(v8 - 8);
+  v5[9] = v9;
+  v10 = *(v9 + 64);
+  if (v3)
+  {
+    v5[10] = swift_coroFrameAlloc();
+    v11 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v5[10] = malloc(*(v9 + 64));
+    v11 = malloc(v10);
+  }
+
+  v5[11] = v11;
+  Proto_Gnss_Fix.position.getter(v11);
+  return Proto_Gnss_Fix.position.modify;
+}
+
+void Proto_Gnss_Fix.position.modify(void **a1, char a2)
+{
+  v2 = *a1;
+  if (a2)
+  {
+    v3 = v2[6];
+    outlined init with copy of Proto_Gnss_Time(v2[11], v2[10], type metadata accessor for Proto_Gnss_Position);
+    v4 = *(type metadata accessor for Proto_Gnss_Fix(0) + 20);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v3 + v4);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      type metadata accessor for Proto_Gnss_Fix._StorageClass(0);
+      v7 = swift_allocObject();
+      specialized Proto_Gnss_Fix._StorageClass.init(copying:)(v6);
+
+      *(v3 + v4) = v7;
+      v6 = v7;
+    }
+
+    v9 = v2[10];
+    v8 = v2[11];
+    v10 = v2[8];
+    v11 = v2[9];
+    v12 = v2[7];
+    outlined init with take of Proto_Gnss_Time(v9, v12, type metadata accessor for Proto_Gnss_Position);
+    (*(v11 + 56))(v12, 0, 1, v10);
+    v13 = OBJC_IVAR____TtCV10ALProtobuf14Proto_Gnss_FixP33_CE77F83568258924918786B79242136A13_StorageClass__position;
+    swift_beginAccess();
+    outlined assign with take of Proto_Gpsd_Response?(v12, v6 + v13, &_s10ALProtobuf19Proto_Gnss_PositionVSgMd, &_s10ALProtobuf19Proto_Gnss_PositionVSgMR);
+    swift_endAccess();
+    outlined destroy of Proto_Gnss_Time(v8, type metadata accessor for Proto_Gnss_Position);
+  }
+
+  else
+  {
+    v14 = v2[6];
+    v15 = *(type metadata accessor for Proto_Gnss_Fix(0) + 20);
+    v16 = swift_isUniquelyReferenced_nonNull_native();
+    v17 = *(v14 + v15);
+    if ((v16 & 1) == 0)
+    {
+      type metadata accessor for Proto_Gnss_Fix._StorageClass(0);
+      v18 = swift_allocObject();
+      specialized Proto_Gnss_Fix._StorageClass.init(copying:)(v17);
+
+      *(v14 + v15) = v18;
+      v17 = v18;
+    }
+
+    v9 = v2[10];
+    v8 = v2[11];
+    v19 = v2[8];
+    v20 = v2[9];
+    v12 = v2[7];
+    outlined init with take of Proto_Gnss_Time(v8, v12, type metadata accessor for Proto_Gnss_Position);
+    (*(v20 + 56))(v12, 0, 1, v19);
+    v21 = OBJC_IVAR____TtCV10ALProtobuf14Proto_Gnss_FixP33_CE77F83568258924918786B79242136A13_StorageClass__position;
+    swift_beginAccess();
+    outlined assign with take of Proto_Gpsd_Response?(v12, v17 + v21, &_s10ALProtobuf19Proto_Gnss_PositionVSgMd, &_s10ALProtobuf19Proto_Gnss_PositionVSgMR);
+    swift_endAccess();
+  }
+
+  free(v8);
+  free(v9);
+  free(v12);
+
+  free(v2);
+}
+
+BOOL Proto_Gnss_Fix.hasTime.getter(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t (*a4)(void))
+{
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
+  MEMORY[0x28223BE20](v9 - 8);
+  v11 = &v17 - v10;
+  v12 = *(v4 + *(type metadata accessor for Proto_Gnss_Fix(0) + 20));
+  v13 = *a3;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v12 + v13, v11, a1, a2);
+  v14 = a4(0);
+  v15 = (*(*(v14 - 8) + 48))(v11, 1, v14) != 1;
+  outlined destroy of Any?(v11, a1, a2);
+  return v15;
+}
+
+uint64_t Proto_Gnss_Fix.clearTime()(uint64_t *a1, uint64_t *a2, uint64_t (*a3)(void), uint64_t *a4)
+{
+  v9 = v4;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v20 - v11;
+  v13 = *(type metadata accessor for Proto_Gnss_Fix(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v15 = *(v4 + v13);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gnss_Fix._StorageClass(0);
+    v16 = swift_allocObject();
+    specialized Proto_Gnss_Fix._StorageClass.init(copying:)(v15);
+
+    *(v9 + v13) = v16;
+    v15 = v16;
+  }
+
+  v17 = a3(0);
+  (*(*(v17 - 8) + 56))(v12, 1, 1, v17);
+  v18 = *a4;
+  swift_beginAccess();
+  outlined assign with take of Proto_Gpsd_Response?(v12, v15 + v18, a1, a2);
+  return swift_endAccess();
+}
+
+uint64_t Proto_Gnss_Fix.velocity.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf19Proto_Gnss_VelocityVSgMd, &_s10ALProtobuf19Proto_Gnss_VelocityVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v17 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gnss_Fix(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf14Proto_Gnss_FixP33_CE77F83568258924918786B79242136A13_StorageClass__velocity;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf19Proto_Gnss_VelocityVSgMd, &_s10ALProtobuf19Proto_Gnss_VelocityVSgMR);
+  v8 = type metadata accessor for Proto_Gnss_Velocity(0);
+  v9 = *(*(v8 - 1) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return outlined init with take of Proto_Gnss_Time(v5, a1, type metadata accessor for Proto_Gnss_Velocity);
+  }
+
+  UnknownStorage.init()();
+  v10 = a1 + v8[5];
+  *v10 = 0;
+  *(v10 + 8) = 1;
+  v11 = a1 + v8[6];
+  *v11 = 0;
+  *(v11 + 8) = 1;
+  v12 = a1 + v8[7];
+  *v12 = 0;
+  *(v12 + 8) = 1;
+  v13 = a1 + v8[8];
+  *v13 = 0;
+  *(v13 + 8) = 1;
+  v14 = a1 + v8[9];
+  *v14 = 0;
+  *(v14 + 8) = 1;
+  v15 = a1 + v8[10];
+  *v15 = 0;
+  *(v15 + 8) = 1;
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return outlined destroy of Any?(v5, &_s10ALProtobuf19Proto_Gnss_VelocityVSgMd, &_s10ALProtobuf19Proto_Gnss_VelocityVSgMR);
+  }
+
+  return result;
+}
+
+uint64_t Proto_Gnss_Fix.velocity.setter(uint64_t a1)
+{
+  v2 = v1;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf19Proto_Gnss_VelocityVSgMd, &_s10ALProtobuf19Proto_Gnss_VelocityVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v14 - v5;
+  v7 = *(type metadata accessor for Proto_Gnss_Fix(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gnss_Fix._StorageClass(0);
+    v10 = swift_allocObject();
+    specialized Proto_Gnss_Fix._StorageClass.init(copying:)(v9);
+
+    *(v2 + v7) = v10;
+    v9 = v10;
+  }
+
+  outlined init with take of Proto_Gnss_Time(a1, v6, type metadata accessor for Proto_Gnss_Velocity);
+  v11 = type metadata accessor for Proto_Gnss_Velocity(0);
+  (*(*(v11 - 8) + 56))(v6, 0, 1, v11);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf14Proto_Gnss_FixP33_CE77F83568258924918786B79242136A13_StorageClass__velocity;
+  swift_beginAccess();
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v12, &_s10ALProtobuf19Proto_Gnss_VelocityVSgMd, &_s10ALProtobuf19Proto_Gnss_VelocityVSgMR);
+  return swift_endAccess();
+}
+
+void (*Proto_Gnss_Fix.velocity.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+{
+  v3 = MEMORY[0x277D84FD8];
+  if (MEMORY[0x277D84FD8])
+  {
+    v4 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v4 = malloc(0x88uLL);
+  }
+
+  v5 = v4;
+  *a1 = v4;
+  *(v4 + 72) = v1;
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf19Proto_Gnss_VelocityVSgMd, &_s10ALProtobuf19Proto_Gnss_VelocityVSgMR) - 8) + 64);
+  if (v3)
+  {
+    *(v5 + 80) = swift_coroFrameAlloc();
+    v7 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v5 + 80) = malloc(v6);
+    v7 = malloc(v6);
+  }
+
+  v8 = v7;
+  *(v5 + 88) = v7;
+  v9 = type metadata accessor for Proto_Gnss_Velocity(0);
+  *(v5 + 96) = v9;
+  v10 = *(v9 - 1);
+  v11 = v10;
+  *(v5 + 104) = v10;
+  v12 = *(v10 + 64);
+  if (v3)
+  {
+    *(v5 + 112) = swift_coroFrameAlloc();
+    v13 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v5 + 112) = malloc(*(v10 + 64));
+    v13 = malloc(v12);
+  }
+
+  v14 = v13;
+  *(v5 + 120) = v13;
+  v15 = *(type metadata accessor for Proto_Gnss_Fix(0) + 20);
+  *(v5 + 128) = v15;
+  v16 = *(v1 + v15);
+  v17 = OBJC_IVAR____TtCV10ALProtobuf14Proto_Gnss_FixP33_CE77F83568258924918786B79242136A13_StorageClass__velocity;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16 + v17, v8, &_s10ALProtobuf19Proto_Gnss_VelocityVSgMd, &_s10ALProtobuf19Proto_Gnss_VelocityVSgMR);
+  v18 = *(v11 + 48);
+  if (v18(v8, 1, v9) == 1)
+  {
+    UnknownStorage.init()();
+    v19 = v14 + v9[5];
+    *v19 = 0;
+    *(v19 + 8) = 1;
+    v20 = v14 + v9[6];
+    *v20 = 0;
+    *(v20 + 8) = 1;
+    v21 = v14 + v9[7];
+    *v21 = 0;
+    *(v21 + 8) = 1;
+    v22 = v14 + v9[8];
+    *v22 = 0;
+    *(v22 + 8) = 1;
+    v23 = v14 + v9[9];
+    *v23 = 0;
+    *(v23 + 8) = 1;
+    v24 = v14 + v9[10];
+    *v24 = 0;
+    *(v24 + 8) = 1;
+    if (v18(v8, 1, v9) != 1)
+    {
+      outlined destroy of Any?(v8, &_s10ALProtobuf19Proto_Gnss_VelocityVSgMd, &_s10ALProtobuf19Proto_Gnss_VelocityVSgMR);
+    }
+  }
+
+  else
+  {
+    outlined init with take of Proto_Gnss_Time(v8, v14, type metadata accessor for Proto_Gnss_Velocity);
+  }
+
+  return Proto_Gnss_Fix.velocity.modify;
+}
+
+void Proto_Gnss_Fix.time.modify(uint64_t *a1, char a2, uint64_t (*a3)(void), uint64_t *a4, uint64_t *a5, uint64_t *a6)
+{
+  v8 = *a1;
+  v9 = *(*a1 + 128);
+  if (a2)
+  {
+    v10 = *(v8 + 72);
+    outlined init with copy of Proto_Gnss_Time(*(v8 + 120), *(v8 + 112), a3);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v12 = *(v10 + v9);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v13 = *(v8 + 128);
+      v14 = *(v8 + 72);
+      type metadata accessor for Proto_Gnss_Fix._StorageClass(0);
+      v15 = swift_allocObject();
+      specialized Proto_Gnss_Fix._StorageClass.init(copying:)(v12);
+
+      *(v14 + v13) = v15;
+      v12 = v15;
+    }
+
+    v17 = *(v8 + 112);
+    v16 = *(v8 + 120);
+    v18 = *(v8 + 96);
+    v19 = *(v8 + 104);
+    v21 = *(v8 + 80);
+    v20 = *(v8 + 88);
+    outlined init with take of Proto_Gnss_Time(v17, v21, a3);
+    (*(v19 + 56))(v21, 0, 1, v18);
+    v22 = *a4;
+    swift_beginAccess();
+    outlined assign with take of Proto_Gpsd_Response?(v21, v12 + v22, a5, a6);
+    swift_endAccess();
+    outlined destroy of Proto_Gnss_Time(v16, a3);
+  }
+
+  else
+  {
+    v23 = *(v8 + 72);
+    v24 = swift_isUniquelyReferenced_nonNull_native();
+    v25 = *(v23 + v9);
+    if ((v24 & 1) == 0)
+    {
+      v26 = *(v8 + 128);
+      v27 = *(v8 + 72);
+      type metadata accessor for Proto_Gnss_Fix._StorageClass(0);
+      v28 = swift_allocObject();
+      specialized Proto_Gnss_Fix._StorageClass.init(copying:)(v25);
+
+      *(v27 + v26) = v28;
+      v25 = v28;
+    }
+
+    v17 = *(v8 + 112);
+    v16 = *(v8 + 120);
+    v29 = *(v8 + 96);
+    v30 = *(v8 + 104);
+    v21 = *(v8 + 80);
+    v20 = *(v8 + 88);
+    outlined init with take of Proto_Gnss_Time(v16, v21, a3);
+    (*(v30 + 56))(v21, 0, 1, v29);
+    v31 = *a4;
+    swift_beginAccess();
+    outlined assign with take of Proto_Gpsd_Response?(v21, v25 + v31, a5, a6);
+    swift_endAccess();
+  }
+
+  free(v16);
+  free(v17);
+  free(v20);
+  free(v21);
+
+  free(v8);
+}
+
+void (*Proto_Gnss_Fix.spoofingFlags.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x60uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 80) = v1;
+  v5 = *(type metadata accessor for Proto_Gnss_Fix(0) + 20);
+  *(v4 + 88) = v5;
+  v6 = *(v1 + v5) + OBJC_IVAR____TtCV10ALProtobuf14Proto_Gnss_FixP33_CE77F83568258924918786B79242136A13_StorageClass__spoofingFlags;
+  swift_beginAccess();
+  v7 = *v6;
+  if (*(v6 + 8))
+  {
+    v7 = 0;
+  }
+
+  *(v4 + 72) = v7;
+  return Proto_Gnss_Fix.spoofingFlags.modify;
+}
+
+uint64_t Proto_Gnss_Fix.estimationTechnology.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gnss_Fix(0) + 20));
+  v2 = OBJC_IVAR____TtCV10ALProtobuf14Proto_Gnss_FixP33_CE77F83568258924918786B79242136A13_StorageClass__estimationTechnology;
+  swift_beginAccess();
+  if (*(v1 + v2) == 5)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(v1 + v2);
+  }
+}
+
+uint64_t Proto_Gnss_Fix.estimationTechnology.setter(char a1)
+{
+  v2 = v1;
+  v4 = *(type metadata accessor for Proto_Gnss_Fix(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v6 = *(v1 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gnss_Fix._StorageClass(0);
+    v7 = swift_allocObject();
+    specialized Proto_Gnss_Fix._StorageClass.init(copying:)(v6);
+
+    *(v2 + v4) = v7;
+    v6 = v7;
+  }
+
+  v8 = OBJC_IVAR____TtCV10ALProtobuf14Proto_Gnss_FixP33_CE77F83568258924918786B79242136A13_StorageClass__estimationTechnology;
+  result = swift_beginAccess();
+  *(v6 + v8) = a1;
+  return result;
+}
+
+void (*Proto_Gnss_Fix.estimationTechnology.modify(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for Proto_Gnss_Fix(0) + 20);
+  *(v4 + 80) = v5;
+  v6 = *(v1 + v5);
+  v7 = OBJC_IVAR____TtCV10ALProtobuf14Proto_Gnss_FixP33_CE77F83568258924918786B79242136A13_StorageClass__estimationTechnology;
+  swift_beginAccess();
+  v8 = *(v6 + v7);
+  if (v8 == 5)
+  {
+    LOBYTE(v8) = 0;
+  }
+
+  *(v4 + 84) = v8;
+  return Proto_Gnss_Fix.estimationTechnology.modify;
+}
+
+void Proto_Gnss_Fix.estimationTechnology.modify(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 84);
+  v4 = *(*a1 + 80);
+  v5 = *(*a1 + 72);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v5 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v8 = *(v2 + 80);
+    v9 = *(v2 + 72);
+    type metadata accessor for Proto_Gnss_Fix._StorageClass(0);
+    v10 = swift_allocObject();
+    specialized Proto_Gnss_Fix._StorageClass.init(copying:)(v7);
+
+    *(v9 + v8) = v10;
+    v7 = v10;
+  }
+
+  v11 = OBJC_IVAR____TtCV10ALProtobuf14Proto_Gnss_FixP33_CE77F83568258924918786B79242136A13_StorageClass__estimationTechnology;
+  swift_beginAccess();
+  *(v7 + v11) = v3;
+
+  free(v2);
+}
+
+BOOL Proto_Gnss_Fix.hasEstimationTechnology.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gnss_Fix(0) + 20));
+  v2 = OBJC_IVAR____TtCV10ALProtobuf14Proto_Gnss_FixP33_CE77F83568258924918786B79242136A13_StorageClass__estimationTechnology;
+  swift_beginAccess();
+  return *(v1 + v2) != 5;
+}
+
+Swift::Void __swiftcall Proto_Gnss_Fix.clearEstimationTechnology()()
+{
+  v1 = v0;
+  v2 = *(type metadata accessor for Proto_Gnss_Fix(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v4 = *(v0 + v2);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gnss_Fix._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized Proto_Gnss_Fix._StorageClass.init(copying:)(v4);
+
+    *(v1 + v2) = v5;
+    v4 = v5;
+  }
+
+  v6 = OBJC_IVAR____TtCV10ALProtobuf14Proto_Gnss_FixP33_CE77F83568258924918786B79242136A13_StorageClass__estimationTechnology;
+  swift_beginAccess();
+  *(v4 + v6) = 5;
+}
+
+uint64_t Proto_Gnss_TimeTransferData.isGpsWeekValid.setter(char a1)
+{
+  result = type metadata accessor for Proto_Gnss_TimeTransferData(0);
+  *(v1 + *(result + 20)) = a1;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_TimeTransferData.isGpsWeekValid.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_TimeTransferData(0) + 20);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return CLP_LogEntry_AONLoc_Response.requestType.modify;
+}
+
+uint64_t Proto_Gnss_TimeTransferData.time.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf15Proto_Gnss_TimeVSgMd, &_s10ALProtobuf15Proto_Gnss_TimeVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v18 - v4;
+  v6 = type metadata accessor for Proto_Gnss_TimeTransferData(0);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + *(v6 + 24), v5, &_s10ALProtobuf15Proto_Gnss_TimeVSgMd, &_s10ALProtobuf15Proto_Gnss_TimeVSgMR);
+  v7 = type metadata accessor for Proto_Gnss_Time(0);
+  v8 = *(*(v7 - 1) + 48);
+  if (v8(v5, 1, v7) != 1)
+  {
+    return outlined init with take of Proto_Gnss_Time(v5, a1, type metadata accessor for Proto_Gnss_Time);
+  }
+
+  UnknownStorage.init()();
+  v9 = a1 + v7[5];
+  *v9 = 0;
+  *(v9 + 8) = 1;
+  v10 = a1 + v7[6];
+  *v10 = 0;
+  *(v10 + 4) = 1;
+  *(a1 + v7[7]) = 2;
+  v11 = a1 + v7[8];
+  *v11 = 0;
+  *(v11 + 4) = 1;
+  v12 = a1 + v7[9];
+  *v12 = 0;
+  *(v12 + 8) = 1;
+  v13 = a1 + v7[10];
+  *v13 = 0;
+  *(v13 + 8) = 1;
+  v14 = a1 + v7[11];
+  *v14 = 0;
+  *(v14 + 8) = 1;
+  v15 = a1 + v7[12];
+  *v15 = 0;
+  *(v15 + 8) = 1;
+  v16 = a1 + v7[13];
+  *v16 = 0;
+  *(v16 + 8) = 1;
+  result = (v8)(v5, 1, v7);
+  if (result != 1)
+  {
+    return outlined destroy of Any?(v5, &_s10ALProtobuf15Proto_Gnss_TimeVSgMd, &_s10ALProtobuf15Proto_Gnss_TimeVSgMR);
+  }
+
+  return result;
+}
+
+uint64_t Proto_Gnss_TimeTransferData.time.setter(uint64_t a1)
+{
+  v3 = *(type metadata accessor for Proto_Gnss_TimeTransferData(0) + 24);
+  outlined destroy of Any?(v1 + v3, &_s10ALProtobuf15Proto_Gnss_TimeVSgMd, &_s10ALProtobuf15Proto_Gnss_TimeVSgMR);
+  outlined init with take of Proto_Gnss_Time(a1, v1 + v3, type metadata accessor for Proto_Gnss_Time);
+  v4 = type metadata accessor for Proto_Gnss_Time(0);
+  v5 = *(*(v4 - 8) + 56);
+
+  return v5(v1 + v3, 0, 1, v4);
+}
+
+void (*Proto_Gnss_TimeTransferData.time.modify(void *a1))(uint64_t **a1, char a2)
+{
+  v3 = MEMORY[0x277D84FD8];
+  if (MEMORY[0x277D84FD8])
+  {
+    v4 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v4 = malloc(0x38uLL);
+  }
+
+  v5 = v4;
+  *a1 = v4;
+  *v4 = v1;
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf15Proto_Gnss_TimeVSgMd, &_s10ALProtobuf15Proto_Gnss_TimeVSgMR) - 8) + 64);
+  if (v3)
+  {
+    v7 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v7 = malloc(v6);
+  }
+
+  v8 = v7;
+  v5[1] = v7;
+  v9 = type metadata accessor for Proto_Gnss_Time(0);
+  v5[2] = v9;
+  v10 = *(v9 - 1);
+  v11 = v10;
+  v5[3] = v10;
+  v12 = *(v10 + 64);
+  if (v3)
+  {
+    v5[4] = swift_coroFrameAlloc();
+    v13 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v5[4] = malloc(*(v10 + 64));
+    v13 = malloc(v12);
+  }
+
+  v14 = v13;
+  v5[5] = v13;
+  v15 = *(type metadata accessor for Proto_Gnss_TimeTransferData(0) + 24);
+  *(v5 + 12) = v15;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + v15, v8, &_s10ALProtobuf15Proto_Gnss_TimeVSgMd, &_s10ALProtobuf15Proto_Gnss_TimeVSgMR);
+  v16 = *(v11 + 48);
+  if (v16(v8, 1, v9) == 1)
+  {
+    UnknownStorage.init()();
+    v17 = v14 + v9[5];
+    *v17 = 0;
+    *(v17 + 8) = 1;
+    v18 = v14 + v9[6];
+    *v18 = 0;
+    *(v18 + 4) = 1;
+    *(v14 + v9[7]) = 2;
+    v19 = v14 + v9[8];
+    *v19 = 0;
+    *(v19 + 4) = 1;
+    v20 = v14 + v9[9];
+    *v20 = 0;
+    *(v20 + 8) = 1;
+    v21 = v14 + v9[10];
+    *v21 = 0;
+    *(v21 + 8) = 1;
+    v22 = v14 + v9[11];
+    *v22 = 0;
+    *(v22 + 8) = 1;
+    v23 = v14 + v9[12];
+    *v23 = 0;
+    *(v23 + 8) = 1;
+    v24 = v14 + v9[13];
+    *v24 = 0;
+    *(v24 + 8) = 1;
+    if (v16(v8, 1, v9) != 1)
+    {
+      outlined destroy of Any?(v8, &_s10ALProtobuf15Proto_Gnss_TimeVSgMd, &_s10ALProtobuf15Proto_Gnss_TimeVSgMR);
+    }
+  }
+
+  else
+  {
+    outlined init with take of Proto_Gnss_Time(v8, v14, type metadata accessor for Proto_Gnss_Time);
+  }
+
+  return Proto_Gnss_TimeTransferData.time.modify;
+}
+
+void Proto_Gnss_TimeTransferData.time.modify(uint64_t **a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 12);
+  v4 = (*a1)[4];
+  v5 = (*a1)[5];
+  v6 = (*a1)[2];
+  v7 = (*a1)[3];
+  v9 = **a1;
+  v8 = (*a1)[1];
+  if (a2)
+  {
+    outlined init with copy of Proto_Gnss_Time((*a1)[5], v4, type metadata accessor for Proto_Gnss_Time);
+    outlined destroy of Any?(v9 + v3, &_s10ALProtobuf15Proto_Gnss_TimeVSgMd, &_s10ALProtobuf15Proto_Gnss_TimeVSgMR);
+    outlined init with take of Proto_Gnss_Time(v4, v9 + v3, type metadata accessor for Proto_Gnss_Time);
+    (*(v7 + 56))(v9 + v3, 0, 1, v6);
+    outlined destroy of Proto_Gnss_Time(v5, type metadata accessor for Proto_Gnss_Time);
+  }
+
+  else
+  {
+    outlined destroy of Any?(v9 + v3, &_s10ALProtobuf15Proto_Gnss_TimeVSgMd, &_s10ALProtobuf15Proto_Gnss_TimeVSgMR);
+    outlined init with take of Proto_Gnss_Time(v5, v9 + v3, type metadata accessor for Proto_Gnss_Time);
+    (*(v7 + 56))(v9 + v3, 0, 1, v6);
+  }
+
+  free(v5);
+  free(v4);
+  free(v8);
+
+  free(v2);
+}
+
+BOOL Proto_Gnss_TimeTransferData.hasTime.getter()
+{
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf15Proto_Gnss_TimeVSgMd, &_s10ALProtobuf15Proto_Gnss_TimeVSgMR);
+  MEMORY[0x28223BE20](v1 - 8);
+  v3 = &v8 - v2;
+  v4 = type metadata accessor for Proto_Gnss_TimeTransferData(0);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v0 + *(v4 + 24), v3, &_s10ALProtobuf15Proto_Gnss_TimeVSgMd, &_s10ALProtobuf15Proto_Gnss_TimeVSgMR);
+  v5 = type metadata accessor for Proto_Gnss_Time(0);
+  v6 = (*(*(v5 - 8) + 48))(v3, 1, v5) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf15Proto_Gnss_TimeVSgMd, &_s10ALProtobuf15Proto_Gnss_TimeVSgMR);
+  return v6;
+}
+
+Swift::Void __swiftcall Proto_Gnss_TimeTransferData.clearTime()()
+{
+  v1 = *(type metadata accessor for Proto_Gnss_TimeTransferData(0) + 24);
+  outlined destroy of Any?(v0 + v1, &_s10ALProtobuf15Proto_Gnss_TimeVSgMd, &_s10ALProtobuf15Proto_Gnss_TimeVSgMR);
+  v2 = type metadata accessor for Proto_Gnss_Time(0);
+  v3 = *(*(v2 - 8) + 56);
+
+  v3(v0 + v1, 1, 1, v2);
+}
+
+uint64_t Proto_Gnss_TimeTransferData.quality.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gnss_TimeTransferData(0) + 28));
+  if (v1 == 7)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+uint64_t Proto_Gnss_TimeTransferData.quality.setter(char a1)
+{
+  result = type metadata accessor for Proto_Gnss_TimeTransferData(0);
+  *(v1 + *(result + 28)) = a1;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_TimeTransferData.quality.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_TimeTransferData(0) + 28);
+  *(a1 + 8) = v3;
+  v4 = *(v1 + v3);
+  if (v4 == 7)
+  {
+    LOBYTE(v4) = 0;
+  }
+
+  *(a1 + 12) = v4;
+  return CLP_LogEntry_AONLoc_Response.requestType.modify;
+}
+
+uint64_t Proto_Gnss_Time.leapSecondsFromGpsStart.getter(uint64_t (*a1)(void))
+{
+  v2 = (v1 + *(a1(0) + 32));
+  if (v2[4])
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *v2;
+  }
+}
+
+uint64_t Proto_Gnss_TimeTransferData.constellationsUsed.setter(int a1)
+{
+  result = type metadata accessor for Proto_Gnss_TimeTransferData(0);
+  v4 = v1 + *(result + 32);
+  *v4 = a1;
+  *(v4 + 4) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_TimeTransferData.constellationsUsed.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_TimeTransferData(0) + 32);
+  *(a1 + 12) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 4))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *(a1 + 8) = v5;
+  return CLP_LogEntry_AONLoc_Request.processID.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_TimeTransferData.clearConstellationsUsed()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_TimeTransferData(0) + 32);
+  *v1 = 0;
+  *(v1 + 4) = 1;
+}
+
+uint64_t Proto_Gnss_Time.clockNanoSeconds.getter(uint64_t (*a1)(void))
+{
+  v2 = (v1 + *(a1(0) + 36));
+  if (v2[8])
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *v2;
+  }
+}
+
+uint64_t Proto_Gnss_TimeTransferData.basebandSystemTimeNs.setter(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gnss_TimeTransferData(0);
+  v4 = v1 + *(result + 36);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_TimeTransferData.basebandSystemTimeNs.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_TimeTransferData(0) + 36);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_TimeTransferData.clearBasebandSystemTimeNs()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_TimeTransferData(0) + 36);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+uint64_t Proto_Gnss_TimeTransferData.basebandSystemTimeUncNs.getter()
+{
+  v1 = (v0 + *(type metadata accessor for Proto_Gnss_TimeTransferData(0) + 40));
+  if (v1[8])
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *v1;
+  }
+}
+
+uint64_t Proto_Gnss_TimeTransferData.basebandSystemTimeUncNs.setter(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gnss_TimeTransferData(0);
+  v4 = v1 + *(result + 40);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_TimeTransferData.basebandSystemTimeUncNs.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_TimeTransferData(0) + 40);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_TimeTransferData.clearBasebandSystemTimeUncNs()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_TimeTransferData(0) + 40);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+uint64_t Proto_Gnss_TimeTransferData.init()@<X0>(uint64_t a1@<X8>)
+{
+  UnknownStorage.init()();
+  v2 = type metadata accessor for Proto_Gnss_TimeTransferData(0);
+  *(a1 + v2[5]) = 2;
+  v3 = v2[6];
+  v4 = type metadata accessor for Proto_Gnss_Time(0);
+  result = (*(*(v4 - 8) + 56))(a1 + v3, 1, 1, v4);
+  *(a1 + v2[7]) = 7;
+  v6 = a1 + v2[8];
+  *v6 = 0;
+  *(v6 + 4) = 1;
+  v7 = a1 + v2[9];
+  *v7 = 0;
+  *(v7 + 8) = 1;
+  v8 = a1 + v2[10];
+  *v8 = 0;
+  *(v8 + 8) = 1;
+  return result;
+}
+
+uint64_t variable initialization expression of Proto_Gnss_TimeTransferData._time@<X0>(uint64_t a1@<X8>)
+{
+  v2 = type metadata accessor for Proto_Gnss_Time(0);
+  v3 = *(*(v2 - 8) + 56);
+
+  return v3(a1, 1, 1, v2);
+}
+
+uint64_t Proto_Gnss_TimeTransferDataExtend.data.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMd, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v16 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gnss_TimeTransferDataExtend(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf33Proto_Gnss_TimeTransferDataExtendP33_CE77F83568258924918786B79242136A13_StorageClass__data;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMd, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMR);
+  v8 = type metadata accessor for Proto_Gnss_TimeTransferData(0);
+  v9 = *(*(v8 - 1) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return outlined init with take of Proto_Gnss_Time(v5, a1, type metadata accessor for Proto_Gnss_TimeTransferData);
+  }
+
+  UnknownStorage.init()();
+  *(a1 + v8[5]) = 2;
+  v10 = v8[6];
+  v11 = type metadata accessor for Proto_Gnss_Time(0);
+  (*(*(v11 - 8) + 56))(a1 + v10, 1, 1, v11);
+  *(a1 + v8[7]) = 7;
+  v12 = a1 + v8[8];
+  *v12 = 0;
+  *(v12 + 4) = 1;
+  v13 = a1 + v8[9];
+  *v13 = 0;
+  *(v13 + 8) = 1;
+  v14 = a1 + v8[10];
+  *v14 = 0;
+  *(v14 + 8) = 1;
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return outlined destroy of Any?(v5, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMd, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMR);
+  }
+
+  return result;
+}
+
+uint64_t Proto_Gnss_TimeTransferDataExtend.data.setter(uint64_t a1)
+{
+  v2 = v1;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMd, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v14 - v5;
+  v7 = *(type metadata accessor for Proto_Gnss_TimeTransferDataExtend(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gnss_TimeTransferDataExtend._StorageClass(0);
+    v10 = swift_allocObject();
+    specialized Proto_Gnss_TimeTransferDataExtend._StorageClass.init(copying:)(v9);
+
+    *(v2 + v7) = v10;
+    v9 = v10;
+  }
+
+  outlined init with take of Proto_Gnss_Time(a1, v6, type metadata accessor for Proto_Gnss_TimeTransferData);
+  v11 = type metadata accessor for Proto_Gnss_TimeTransferData(0);
+  (*(*(v11 - 8) + 56))(v6, 0, 1, v11);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf33Proto_Gnss_TimeTransferDataExtendP33_CE77F83568258924918786B79242136A13_StorageClass__data;
+  swift_beginAccess();
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v12, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMd, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMR);
+  return swift_endAccess();
+}
+
+void (*Proto_Gnss_TimeTransferDataExtend.data.modify(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  v3 = MEMORY[0x277D84FD8];
+  if (MEMORY[0x277D84FD8])
+  {
+    v4 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v4 = malloc(0x88uLL);
+  }
+
+  v5 = v4;
+  *a1 = v4;
+  *(v4 + 72) = v1;
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMd, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMR) - 8) + 64);
+  if (v3)
+  {
+    *(v5 + 80) = swift_coroFrameAlloc();
+    v7 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v5 + 80) = malloc(v6);
+    v7 = malloc(v6);
+  }
+
+  v8 = v7;
+  *(v5 + 88) = v7;
+  v9 = type metadata accessor for Proto_Gnss_TimeTransferData(0);
+  *(v5 + 96) = v9;
+  v10 = *(v9 - 1);
+  v11 = v10;
+  *(v5 + 104) = v10;
+  v12 = *(v10 + 64);
+  if (v3)
+  {
+    *(v5 + 112) = swift_coroFrameAlloc();
+    v13 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v5 + 112) = malloc(*(v10 + 64));
+    v13 = malloc(v12);
+  }
+
+  v14 = v13;
+  *(v5 + 120) = v13;
+  v15 = *(type metadata accessor for Proto_Gnss_TimeTransferDataExtend(0) + 20);
+  *(v5 + 128) = v15;
+  v16 = *(v1 + v15);
+  v17 = OBJC_IVAR____TtCV10ALProtobuf33Proto_Gnss_TimeTransferDataExtendP33_CE77F83568258924918786B79242136A13_StorageClass__data;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16 + v17, v8, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMd, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMR);
+  v18 = *(v11 + 48);
+  if (v18(v8, 1, v9) == 1)
+  {
+    UnknownStorage.init()();
+    *(v14 + v9[5]) = 2;
+    v19 = v9[6];
+    v20 = type metadata accessor for Proto_Gnss_Time(0);
+    (*(*(v20 - 8) + 56))(v14 + v19, 1, 1, v20);
+    *(v14 + v9[7]) = 7;
+    v21 = v14 + v9[8];
+    *v21 = 0;
+    *(v21 + 4) = 1;
+    v22 = v14 + v9[9];
+    *v22 = 0;
+    *(v22 + 8) = 1;
+    v23 = v14 + v9[10];
+    *v23 = 0;
+    *(v23 + 8) = 1;
+    if (v18(v8, 1, v9) != 1)
+    {
+      outlined destroy of Any?(v8, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMd, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMR);
+    }
+  }
+
+  else
+  {
+    outlined init with take of Proto_Gnss_Time(v8, v14, type metadata accessor for Proto_Gnss_TimeTransferData);
+  }
+
+  return Proto_Gnss_TimeTransferDataExtend.data.modify;
+}
+
+void Proto_Gnss_TimeTransferDataExtend.data.modify(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    outlined init with copy of Proto_Gnss_Time(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_TimeTransferData);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gnss_TimeTransferDataExtend._StorageClass(0);
+      v9 = swift_allocObject();
+      specialized Proto_Gnss_TimeTransferDataExtend._StorageClass.init(copying:)(v6);
+
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of Proto_Gnss_Time(v11, v15, type metadata accessor for Proto_Gnss_TimeTransferData);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf33Proto_Gnss_TimeTransferDataExtendP33_CE77F83568258924918786B79242136A13_StorageClass__data;
+    swift_beginAccess();
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMd, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMR);
+    swift_endAccess();
+    outlined destroy of Proto_Gnss_Time(v10, type metadata accessor for Proto_Gnss_TimeTransferData);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gnss_TimeTransferDataExtend._StorageClass(0);
+      v22 = swift_allocObject();
+      specialized Proto_Gnss_TimeTransferDataExtend._StorageClass.init(copying:)(v19);
+
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of Proto_Gnss_Time(v10, v15, type metadata accessor for Proto_Gnss_TimeTransferData);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf33Proto_Gnss_TimeTransferDataExtendP33_CE77F83568258924918786B79242136A13_StorageClass__data;
+    swift_beginAccess();
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMd, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMR);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL Proto_Gnss_TimeTransferDataExtend.hasData.getter()
+{
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMd, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMR);
+  MEMORY[0x28223BE20](v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gnss_TimeTransferDataExtend(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf33Proto_Gnss_TimeTransferDataExtendP33_CE77F83568258924918786B79242136A13_StorageClass__data;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMd, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMR);
+  v6 = type metadata accessor for Proto_Gnss_TimeTransferData(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMd, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMR);
+  return v7;
+}
+
+Swift::Void __swiftcall Proto_Gnss_TimeTransferDataExtend.clearData()()
+{
+  v1 = v0;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMd, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMR);
+  MEMORY[0x28223BE20](v2 - 8);
+  v4 = &v11 - v3;
+  v5 = *(type metadata accessor for Proto_Gnss_TimeTransferDataExtend(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gnss_TimeTransferDataExtend._StorageClass(0);
+    v8 = swift_allocObject();
+    specialized Proto_Gnss_TimeTransferDataExtend._StorageClass.init(copying:)(v7);
+
+    *(v1 + v5) = v8;
+    v7 = v8;
+  }
+
+  v9 = type metadata accessor for Proto_Gnss_TimeTransferData(0);
+  (*(*(v9 - 8) + 56))(v4, 1, 1, v9);
+  v10 = OBJC_IVAR____TtCV10ALProtobuf33Proto_Gnss_TimeTransferDataExtendP33_CE77F83568258924918786B79242136A13_StorageClass__data;
+  swift_beginAccess();
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v10, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMd, &_s10ALProtobuf27Proto_Gnss_TimeTransferDataVSgMR);
+  swift_endAccess();
+}
+
+uint64_t Proto_Gnss_Fix.spoofingFlags.getter(uint64_t (*a1)(void), void *a2)
+{
+  v3 = (*(v2 + *(a1(0) + 20)) + *a2);
+  swift_beginAccess();
+  if (v3[8])
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *v3;
+  }
+}
+
+uint64_t Proto_Gnss_Fix.spoofingFlags.setter(uint64_t a1, uint64_t (*a2)(void), uint64_t (*a3)(void), void (*a4)(uint64_t), void *a5)
+{
+  v9 = v5;
+  v11 = *(a2(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v13 = *(v5 + v11);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    a3(0);
+    v14 = swift_allocObject();
+    a4(v13);
+
+    *(v9 + v11) = v14;
+    v13 = v14;
+  }
+
+  v15 = v13 + *a5;
+  result = swift_beginAccess();
+  *v15 = a1;
+  *(v15 + 8) = 0;
+  return result;
+}
+
+void (*Proto_Gnss_TimeTransferDataExtend.timeMarkBeforeMachAbsTick.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x60uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 80) = v1;
+  v5 = *(type metadata accessor for Proto_Gnss_TimeTransferDataExtend(0) + 20);
+  *(v4 + 88) = v5;
+  v6 = *(v1 + v5) + OBJC_IVAR____TtCV10ALProtobuf33Proto_Gnss_TimeTransferDataExtendP33_CE77F83568258924918786B79242136A13_StorageClass__timeMarkBeforeMachAbsTick;
+  swift_beginAccess();
+  v7 = *v6;
+  if (*(v6 + 8))
+  {
+    v7 = 0;
+  }
+
+  *(v4 + 72) = v7;
+  return Proto_Gnss_TimeTransferDataExtend.timeMarkBeforeMachAbsTick.modify;
+}
+
+void Proto_Gnss_Fix.spoofingFlags.modify(uint64_t *a1, char a2, uint64_t (*a3)(void), void (*a4)(uint64_t), void *a5)
+{
+  v8 = *a1;
+  v9 = *(*a1 + 72);
+  v10 = *(*a1 + 88);
+  v11 = *(*a1 + 80);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v13 = *(v11 + v10);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v14 = *(v8 + 88);
+    v15 = *(v8 + 80);
+    a3(0);
+    v16 = swift_allocObject();
+    a4(v13);
+
+    *(v15 + v14) = v16;
+    v13 = v16;
+  }
+
+  v17 = v13 + *a5;
+  swift_beginAccess();
+  *v17 = v9;
+  *(v17 + 8) = 0;
+
+  free(v8);
+}
+
+BOOL Proto_Gnss_Fix.hasSpoofingFlags.getter(uint64_t (*a1)(void), void *a2)
+{
+  v3 = *(v2 + *(a1(0) + 20)) + *a2;
+  swift_beginAccess();
+  return (*(v3 + 8) & 1) == 0;
+}
+
+uint64_t Proto_Gnss_Fix.clearSpoofingFlags()(uint64_t (*a1)(void), uint64_t (*a2)(void), void (*a3)(uint64_t), void *a4)
+{
+  v8 = v4;
+  v9 = *(a1(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v11 = *(v4 + v9);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    a2(0);
+    v12 = swift_allocObject();
+    a3(v11);
+
+    *(v8 + v9) = v12;
+    v11 = v12;
+  }
+
+  v13 = v11 + *a4;
+  result = swift_beginAccess();
+  *v13 = 0;
+  *(v13 + 8) = 1;
+  return result;
+}
+
+void (*Proto_Gnss_TimeTransferDataExtend.timeMarkAfterMachAbsTick.modify(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x60uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 80) = v1;
+  v5 = *(type metadata accessor for Proto_Gnss_TimeTransferDataExtend(0) + 20);
+  *(v4 + 88) = v5;
+  v6 = *(v1 + v5) + OBJC_IVAR____TtCV10ALProtobuf33Proto_Gnss_TimeTransferDataExtendP33_CE77F83568258924918786B79242136A13_StorageClass__timeMarkAfterMachAbsTick;
+  swift_beginAccess();
+  v7 = *v6;
+  if (*(v6 + 8))
+  {
+    v7 = 0;
+  }
+
+  *(v4 + 72) = v7;
+  return Proto_Gnss_TimeTransferDataExtend.timeMarkAfterMachAbsTick.modify;
+}
+
+void (*Proto_Gnss_TimeTransferDataExtend.currentMachContMinusMachAbsNs.modify(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x60uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 80) = v1;
+  v5 = *(type metadata accessor for Proto_Gnss_TimeTransferDataExtend(0) + 20);
+  *(v4 + 88) = v5;
+  v6 = *(v1 + v5) + OBJC_IVAR____TtCV10ALProtobuf33Proto_Gnss_TimeTransferDataExtendP33_CE77F83568258924918786B79242136A13_StorageClass__currentMachContMinusMachAbsNs;
+  swift_beginAccess();
+  v7 = *v6;
+  if (*(v6 + 8))
+  {
+    v7 = 0;
+  }
+
+  *(v4 + 72) = v7;
+  return Proto_Gnss_TimeTransferDataExtend.currentMachContMinusMachAbsNs.modify;
+}
+
+void (*Proto_Gnss_TimeTransferDataExtend.timeMarkCenterMachAbsTimeNs.modify(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x60uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 80) = v1;
+  v5 = *(type metadata accessor for Proto_Gnss_TimeTransferDataExtend(0) + 20);
+  *(v4 + 88) = v5;
+  v6 = *(v1 + v5) + OBJC_IVAR____TtCV10ALProtobuf33Proto_Gnss_TimeTransferDataExtendP33_CE77F83568258924918786B79242136A13_StorageClass__timeMarkCenterMachAbsTimeNs;
+  swift_beginAccess();
+  v7 = *v6;
+  if (*(v6 + 8))
+  {
+    v7 = 0;
+  }
+
+  *(v4 + 72) = v7;
+  return Proto_Gnss_TimeTransferDataExtend.timeMarkCenterMachAbsTimeNs.modify;
+}
+
+uint64_t Proto_Gnss_Fix.init()@<X0>(uint64_t (*a1)(void)@<X0>, void *a2@<X1>, uint64_t *a3@<X2>, uint64_t a5@<X8>)
+{
+  UnknownStorage.init()();
+  v9 = *(a1(0) + 20);
+  if (*a2 != -1)
+  {
+    swift_once();
+  }
+
+  *(a5 + v9) = *a3;
+}
+
+uint64_t Proto_Gnss_Time.gpsNanoSeconds.getter(uint64_t (*a1)(void))
+{
+  v2 = (v1 + *(a1(0) + 20));
+  if (v2[8])
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *v2;
+  }
+}
+
+uint64_t Proto_Gnss_RawPressureSample.machContinuousTimeNs.setter(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gnss_RawPressureSample(0);
+  v4 = v1 + *(result + 20);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_RawPressureSample.machContinuousTimeNs.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_RawPressureSample(0) + 20);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_RawPressureSample.clearMachContinuousTimeNs()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_RawPressureSample(0) + 20);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+float Proto_Gnss_Time.gpsTimeUncertaintyNanoSeconds.getter(uint64_t (*a1)(void))
+{
+  v2 = v1 + *(a1(0) + 24);
+  result = *v2;
+  if (*(v2 + 4))
+  {
+    return 0.0;
+  }
+
+  return result;
+}
+
+uint64_t Proto_Gnss_RawPressureSample.pressure.setter(float a1)
+{
+  result = type metadata accessor for Proto_Gnss_RawPressureSample(0);
+  v4 = v1 + *(result + 24);
+  *v4 = a1;
+  *(v4 + 4) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_RawPressureSample.pressure.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_RawPressureSample(0) + 24);
+  *(a1 + 12) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 4))
+  {
+    v5 = 0.0;
+  }
+
+  *(a1 + 8) = v5;
+  return CLP_LogEntry_AONLoc_Request.processID.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_RawPressureSample.clearPressure()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_RawPressureSample(0) + 24);
+  *v1 = 0;
+  *(v1 + 4) = 1;
+}
+
+uint64_t Proto_Gnss_RawPressureSample.init()@<X0>(uint64_t a1@<X8>)
+{
+  UnknownStorage.init()();
+  result = type metadata accessor for Proto_Gnss_RawPressureSample(0);
+  v3 = a1 + *(result + 20);
+  *v3 = 0;
+  *(v3 + 8) = 1;
+  v4 = a1 + *(result + 24);
+  *v4 = 0;
+  *(v4 + 4) = 1;
+  return result;
+}
+
+uint64_t Proto_Gnss_SensorSample3Axis.machContinuousTimeNs.setter(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gnss_SensorSample3Axis(0);
+  v4 = v1 + *(result + 20);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_SensorSample3Axis.machContinuousTimeNs.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_SensorSample3Axis(0) + 20);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_SensorSample3Axis.clearMachContinuousTimeNs()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_SensorSample3Axis(0) + 20);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+uint64_t Proto_Gnss_SensorSample3Axis.x.setter(float a1)
+{
+  result = type metadata accessor for Proto_Gnss_SensorSample3Axis(0);
+  v4 = v1 + *(result + 24);
+  *v4 = a1;
+  *(v4 + 4) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_SensorSample3Axis.x.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_SensorSample3Axis(0) + 24);
+  *(a1 + 12) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 4))
+  {
+    v5 = 0.0;
+  }
+
+  *(a1 + 8) = v5;
+  return CLP_LogEntry_AONLoc_Request.processID.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_SensorSample3Axis.clearX()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_SensorSample3Axis(0) + 24);
+  *v1 = 0;
+  *(v1 + 4) = 1;
+}
+
+float Proto_Gnss_SensorSample3Axis.y.getter()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_SensorSample3Axis(0) + 28);
+  result = *v1;
+  if (*(v1 + 4))
+  {
+    return 0.0;
+  }
+
+  return result;
+}
+
+uint64_t Proto_Gnss_SensorSample3Axis.y.setter(float a1)
+{
+  result = type metadata accessor for Proto_Gnss_SensorSample3Axis(0);
+  v4 = v1 + *(result + 28);
+  *v4 = a1;
+  *(v4 + 4) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_SensorSample3Axis.y.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_SensorSample3Axis(0) + 28);
+  *(a1 + 12) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 4))
+  {
+    v5 = 0.0;
+  }
+
+  *(a1 + 8) = v5;
+  return CLP_LogEntry_AONLoc_Request.processID.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_SensorSample3Axis.clearY()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_SensorSample3Axis(0) + 28);
+  *v1 = 0;
+  *(v1 + 4) = 1;
+}
+
+float Proto_Gnss_SensorSample3Axis.z.getter()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_SensorSample3Axis(0) + 32);
+  result = *v1;
+  if (*(v1 + 4))
+  {
+    return 0.0;
+  }
+
+  return result;
+}
+
+uint64_t Proto_Gnss_SensorSample3Axis.z.setter(float a1)
+{
+  result = type metadata accessor for Proto_Gnss_SensorSample3Axis(0);
+  v4 = v1 + *(result + 32);
+  *v4 = a1;
+  *(v4 + 4) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_SensorSample3Axis.z.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_SensorSample3Axis(0) + 32);
+  *(a1 + 12) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 4))
+  {
+    v5 = 0.0;
+  }
+
+  *(a1 + 8) = v5;
+  return CLP_LogEntry_AONLoc_Request.processID.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_SensorSample3Axis.clearZ()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_SensorSample3Axis(0) + 32);
+  *v1 = 0;
+  *(v1 + 4) = 1;
+}
+
+int *Proto_Gnss_SensorSample3Axis.init()@<X0>(uint64_t a1@<X8>)
+{
+  UnknownStorage.init()();
+  result = type metadata accessor for Proto_Gnss_SensorSample3Axis(0);
+  v3 = a1 + result[5];
+  *v3 = 0;
+  *(v3 + 8) = 1;
+  v4 = a1 + result[6];
+  *v4 = 0;
+  *(v4 + 4) = 1;
+  v5 = a1 + result[7];
+  *v5 = 0;
+  *(v5 + 4) = 1;
+  v6 = a1 + result[8];
+  *v6 = 0;
+  *(v6 + 4) = 1;
+  return result;
+}
+
+uint64_t Proto_Gnss_SvId.satelliteSystem.getter()
+{
+  v1 = (v0 + *(type metadata accessor for Proto_Gnss_SvId(0) + 20));
+  if (v1[4])
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *v1;
+  }
+}
+
+uint64_t Proto_Gnss_SvId.satelliteSystem.setter(int a1)
+{
+  result = type metadata accessor for Proto_Gnss_SvId(0);
+  v4 = v1 + *(result + 20);
+  *v4 = a1;
+  *(v4 + 4) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_SvId.satelliteSystem.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_SvId(0) + 20);
+  *(a1 + 12) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 4))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *(a1 + 8) = v5;
+  return CLP_LogEntry_AONLoc_Request.processID.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_SvId.clearSatelliteSystem()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_SvId(0) + 20);
+  *v1 = 0;
+  *(v1 + 4) = 1;
+}
+
+uint64_t Proto_Gnss_SvId.prn.getter()
+{
+  v1 = (v0 + *(type metadata accessor for Proto_Gnss_SvId(0) + 24));
+  if (v1[4])
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *v1;
+  }
+}
+
+uint64_t Proto_Gnss_SvId.prn.setter(int a1)
+{
+  result = type metadata accessor for Proto_Gnss_SvId(0);
+  v4 = v1 + *(result + 24);
+  *v4 = a1;
+  *(v4 + 4) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_SvId.prn.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_SvId(0) + 24);
+  *(a1 + 12) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 4))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *(a1 + 8) = v5;
+  return CLP_LogEntry_AONLoc_Request.processID.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_SvId.clearPrn()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_SvId(0) + 24);
+  *v1 = 0;
+  *(v1 + 4) = 1;
+}
+
+uint64_t Proto_Gnss_SvId.gloSlotNumber.getter()
+{
+  v1 = (v0 + *(type metadata accessor for Proto_Gnss_SvId(0) + 28));
+  if (v1[4])
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *v1;
+  }
+}
+
+uint64_t Proto_Gnss_SvId.gloSlotNumber.setter(int a1)
+{
+  result = type metadata accessor for Proto_Gnss_SvId(0);
+  v4 = v1 + *(result + 28);
+  *v4 = a1;
+  *(v4 + 4) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_SvId.gloSlotNumber.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_SvId(0) + 28);
+  *(a1 + 12) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 4))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *(a1 + 8) = v5;
+  return CLP_LogEntry_AONLoc_Request.ResultOptions.minimalRssiDb.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_SvId.clearGloSlotNumber()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_SvId(0) + 28);
+  *v1 = 0;
+  *(v1 + 4) = 1;
+}
+
+uint64_t Proto_Gnss_SvId.gloSlotSource.setter(int a1)
+{
+  result = type metadata accessor for Proto_Gnss_SvId(0);
+  v4 = v1 + *(result + 32);
+  *v4 = a1;
+  *(v4 + 4) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_SvId.gloSlotSource.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_SvId(0) + 32);
+  *(a1 + 12) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 4))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *(a1 + 8) = v5;
+  return CLP_LogEntry_AONLoc_Request.processID.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_SvId.clearGloSlotSource()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_SvId(0) + 32);
+  *v1 = 0;
+  *(v1 + 4) = 1;
+}
+
+uint64_t Proto_Gnss_SvId.gloFrequencyNumber.getter()
+{
+  v1 = (v0 + *(type metadata accessor for Proto_Gnss_SvId(0) + 36));
+  if (v1[4])
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *v1;
+  }
+}
+
+uint64_t Proto_Gnss_SvId.gloFrequencyNumber.setter(int a1)
+{
+  result = type metadata accessor for Proto_Gnss_SvId(0);
+  v4 = v1 + *(result + 36);
+  *v4 = a1;
+  *(v4 + 4) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_SvId.gloFrequencyNumber.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_SvId(0) + 36);
+  *(a1 + 12) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 4))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *(a1 + 8) = v5;
+  return CLP_LogEntry_AONLoc_Request.processID.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_SvId.clearGloFrequencyNumber()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_SvId(0) + 36);
+  *v1 = 0;
+  *(v1 + 4) = 1;
+}
+
+int *Proto_Gnss_SvId.init()@<X0>(uint64_t a1@<X8>)
+{
+  UnknownStorage.init()();
+  result = type metadata accessor for Proto_Gnss_SvId(0);
+  v3 = a1 + result[5];
+  *v3 = 0;
+  *(v3 + 4) = 1;
+  v4 = a1 + result[6];
+  *v4 = 0;
+  *(v4 + 4) = 1;
+  v5 = a1 + result[7];
+  *v5 = 0;
+  *(v5 + 4) = 1;
+  v6 = a1 + result[8];
+  *v6 = 0;
+  *(v6 + 4) = 1;
+  v7 = a1 + result[9];
+  *v7 = 0;
+  *(v7 + 4) = 1;
+  return result;
+}
+
+uint64_t Proto_Gnss_PwrMeasurement.localTime.setter(double a1)
+{
+  result = type metadata accessor for Proto_Gnss_PwrMeasurement(0);
+  v4 = v1 + *(result + 20);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_PwrMeasurement.localTime.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_PwrMeasurement(0) + 20);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_PwrMeasurement.clearLocalTime()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_PwrMeasurement(0) + 20);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+uint64_t Proto_Gnss_PwrMeasurement.measIntervalSec.setter(double a1)
+{
+  result = type metadata accessor for Proto_Gnss_PwrMeasurement(0);
+  v4 = v1 + *(result + 24);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_PwrMeasurement.measIntervalSec.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_PwrMeasurement(0) + 24);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_PwrMeasurement.clearMeasIntervalSec()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_PwrMeasurement(0) + 24);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+uint64_t Proto_Gnss_PwrMeasurement.activeIntervalSec.setter(double a1)
+{
+  result = type metadata accessor for Proto_Gnss_PwrMeasurement(0);
+  v4 = v1 + *(result + 28);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_PwrMeasurement.activeIntervalSec.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_PwrMeasurement(0) + 28);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_PwrMeasurement.clearActiveIntervalSec()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_PwrMeasurement(0) + 28);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+uint64_t Proto_Gnss_PwrMeasurement.avgPwrMw.setter(double a1)
+{
+  result = type metadata accessor for Proto_Gnss_PwrMeasurement(0);
+  v4 = v1 + *(result + 32);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_PwrMeasurement.avgPwrMw.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_PwrMeasurement(0) + 32);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_PwrMeasurement.clearAvgPwrMw()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_PwrMeasurement(0) + 32);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+uint64_t Proto_Gnss_PwrMeasurement.status.setter(char a1)
+{
+  v2 = a1 & 1;
+  result = type metadata accessor for Proto_Gnss_PwrMeasurement(0);
+  *(v1 + *(result + 36)) = v2;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_PwrMeasurement.status.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_PwrMeasurement(0) + 36);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return CLP_LogEntry_AONLoc_Response.requestType.modify;
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance Proto_Gnss_PwrMeasurement.PowerLoggingStatus(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type Proto_Gnss_PwrMeasurement.PowerLoggingStatus and conformance Proto_Gnss_PwrMeasurement.PowerLoggingStatus();
+
+  return MEMORY[0x28217E238](a1, a2, v4);
+}
+
+int *Proto_Gnss_PwrMeasurement.init()@<X0>(uint64_t a1@<X8>)
+{
+  UnknownStorage.init()();
+  result = type metadata accessor for Proto_Gnss_PwrMeasurement(0);
+  v3 = a1 + result[5];
+  *v3 = 0;
+  *(v3 + 8) = 1;
+  v4 = a1 + result[6];
+  *v4 = 0;
+  *(v4 + 8) = 1;
+  v5 = a1 + result[7];
+  *v5 = 0;
+  *(v5 + 8) = 1;
+  v6 = a1 + result[8];
+  *v6 = 0;
+  *(v6 + 8) = 1;
+  *(a1 + result[9]) = 2;
+  return result;
+}
+
+uint64_t Proto_Gnss_DecodedRti.mTimeOfFileGenerationInSecondsSinceGpsEpoch.setter(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gnss_DecodedRti(0);
+  v4 = v1 + *(result + 20);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_DecodedRti.mTimeOfFileGenerationInSecondsSinceGpsEpoch.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_DecodedRti(0) + 20);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_DecodedRti.clearMTimeOfFileGenerationInSecondsSinceGpsEpoch()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_DecodedRti(0) + 20);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+uint64_t Proto_Gnss_DecodedRti.mIsDataIntegrityValid.setter(char a1)
+{
+  result = type metadata accessor for Proto_Gnss_DecodedRti(0);
+  *(v1 + *(result + 24)) = a1;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_DecodedRti.mIsDataIntegrityValid.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_DecodedRti(0) + 24);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return CLP_LogEntry_AONLoc_Response.requestType.modify;
+}
+
+uint64_t Proto_Gnss_DecodedRti.init()@<X0>(uint64_t a1@<X8>)
+{
+  UnknownStorage.init()();
+  result = type metadata accessor for Proto_Gnss_DecodedRti(0);
+  v3 = a1 + *(result + 20);
+  *v3 = 0;
+  *(v3 + 8) = 1;
+  *(a1 + *(result + 24)) = 2;
+  return result;
+}
+
+uint64_t Proto_Gnss_DecodedExtendedEphemeris.mTimeOfGpsDataStartInSecondsSinceGpsEpoch.setter(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris(0);
+  v4 = v1 + *(result + 20);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_DecodedExtendedEphemeris.mTimeOfGpsDataStartInSecondsSinceGpsEpoch.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris(0) + 20);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_DecodedExtendedEphemeris.clearMTimeOfGpsDataStartInSecondsSinceGpsEpoch()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris(0) + 20);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+uint64_t Proto_Gnss_DecodedExtendedEphemeris.mIsDataIntegrityValid.setter(char a1)
+{
+  result = type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris(0);
+  *(v1 + *(result + 24)) = a1;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_DecodedExtendedEphemeris.mIsDataIntegrityValid.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris(0) + 24);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return CLP_LogEntry_AONLoc_Response.requestType.modify;
+}
+
+uint64_t Proto_Gnss_DecodedExtendedEphemeris.mTimeOfGpsDataEndInSecondsSinceGpsEpoch.getter()
+{
+  v1 = (v0 + *(type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris(0) + 28));
+  if (v1[8])
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *v1;
+  }
+}
+
+uint64_t Proto_Gnss_DecodedExtendedEphemeris.mTimeOfGpsDataEndInSecondsSinceGpsEpoch.setter(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris(0);
+  v4 = v1 + *(result + 28);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_DecodedExtendedEphemeris.mTimeOfGpsDataEndInSecondsSinceGpsEpoch.modify(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris(0) + 28);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
+}
+
+Swift::Void __swiftcall Proto_Gnss_DecodedExtendedEphemeris.clearMTimeOfGpsDataEndInSecondsSinceGpsEpoch()()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris(0) + 28);
+  *v1 = 0;
+  *(v1 + 8) = 1;
+}
+
+uint64_t Proto_Gnss_DecodedExtendedEphemeris.assistanceFileType.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris(0) + 32));
+  if (v1 == 7)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+uint64_t Proto_Gnss_DecodedExtendedEphemeris.assistanceFileType.setter(char a1)
+{
+  result = type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris(0);
+  *(v1 + *(result + 32)) = a1;
+  return result;
+}
+
+uint64_t (*Proto_Gnss_DecodedExtendedEphemeris.assistanceFileType.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris(0) + 32);
+  *(a1 + 8) = v3;
+  v4 = *(v1 + v3);
+  if (v4 == 7)
+  {
+    LOBYTE(v4) = 0;
+  }
+
+  *(a1 + 12) = v4;
+  return CLP_LogEntry_AONLoc_Response.requestType.modify;
+}
+
+int *Proto_Gnss_DecodedExtendedEphemeris.init()@<X0>(uint64_t a1@<X8>)
+{
+  UnknownStorage.init()();
+  result = type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris(0);
+  v3 = a1 + result[5];
+  *v3 = 0;
+  *(v3 + 8) = 1;
+  *(a1 + result[6]) = 2;
+  v4 = a1 + result[7];
+  *v4 = 0;
+  *(v4 + 8) = 1;
+  *(a1 + result[8]) = 7;
+  return result;
+}
+
+uint64_t Proto_Gnss_Position.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v3)
+  {
+    while (1)
+    {
+      if (v5)
+      {
+        return result;
+      }
+
+      if (result > 6)
+      {
+        if (result > 9)
+        {
+          if (result == 10)
+          {
+            v6 = v3;
+            type metadata accessor for Proto_Gnss_Position(0);
+            lazy protocol witness table accessor for type Proto_Gnss_Reliability and conformance Proto_Gnss_Reliability();
+LABEL_24:
+            v3 = v6;
+            dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
+            goto LABEL_5;
+          }
+
+          if (result != 11)
+          {
+            if (result != 12)
+            {
+              goto LABEL_5;
+            }
+
+            v6 = v3;
+            type metadata accessor for Proto_Gnss_Position(0);
+            lazy protocol witness table accessor for type Proto_Gnss_GnssContent and conformance Proto_Gnss_GnssContent();
+            goto LABEL_24;
+          }
+
+          type metadata accessor for Proto_Gnss_Position(0);
+          dispatch thunk of Decoder.decodeSingularUInt64Field(value:)();
+        }
+
+        else
+        {
+          if (result == 7 || result == 8)
+          {
+LABEL_4:
+            type metadata accessor for Proto_Gnss_Position(0);
+            dispatch thunk of Decoder.decodeSingularDoubleField(value:)();
+            goto LABEL_5;
+          }
+
+          type metadata accessor for Proto_Gnss_Position(0);
+          dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
+        }
+      }
+
+      else if (result > 3 || result == 1 || result == 2 || result == 3)
+      {
+        goto LABEL_4;
+      }
+
+LABEL_5:
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+  }
+
+  return result;
+}
+
+int *Proto_Gnss_Position.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  result = type metadata accessor for Proto_Gnss_Position(0);
+  v10 = result;
+  if (*(v5 + result[5] + 8))
+  {
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    result = dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)();
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  if ((*(v5 + v10[6] + 8) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)();
+  }
+
+  if ((*(v5 + v10[7] + 8) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)();
+  }
+
+  if ((*(v5 + v10[8] + 8) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)();
+  }
+
+  closure #5 in Proto_Gnss_Position.traverse<A>(visitor:)(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Position);
+  closure #6 in Proto_Gnss_Position.traverse<A>(visitor:)(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Position);
+  closure #7 in Proto_Gnss_Position.traverse<A>(visitor:)(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Position);
+  closure #8 in Proto_Gnss_Position.traverse<A>(visitor:)(v5, a1, a2, a3);
+  closure #9 in Proto_Gnss_Position.traverse<A>(visitor:)(v5, a1, a2, a3);
+  closure #10 in Proto_Gnss_Position.traverse<A>(visitor:)(v5, a1, a2, a3);
+  closure #11 in Proto_Gnss_Position.traverse<A>(visitor:)(v5, a1, a2, a3);
+  closure #12 in Proto_Gnss_Position.traverse<A>(visitor:)(v5, a1, a2, a3);
+  return UnknownStorage.traverse<A>(visitor:)();
 }

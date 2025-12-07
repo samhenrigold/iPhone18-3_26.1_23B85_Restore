@@ -124,32 +124,32 @@ void __32__HDXPCListener_serviceListener__block_invoke()
 
 - (NSArray)allClients
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   os_unfair_lock_lock(&self->_lock);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   keyEnumerator = [(NSMapTable *)self->_exportedObjectsByClient keyEnumerator];
-  v5 = [keyEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [keyEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        [v3 addObject:*(*(&v12 + 1) + 8 * i)];
+        [v3 addObject:*(*(&v11 + 1) + 8 * i)];
       }
 
-      v6 = [keyEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [keyEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
@@ -158,14 +158,12 @@ void __32__HDXPCListener_serviceListener__block_invoke()
   os_unfair_lock_unlock(&self->_lock);
   v9 = [v3 copy];
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   processIdentifier = [connectionCopy processIdentifier];
   _HKInitializeLogging();
@@ -183,31 +181,31 @@ void __32__HDXPCListener_serviceListener__block_invoke()
     v11 = clientProvider;
     if (clientProvider)
     {
-      v51 = 0;
-      v12 = &v51;
-      v13 = [clientProvider clientForListener:self connection:connectionCopy error:&v51];
+      v50 = 0;
+      v12 = &v50;
+      v13 = [clientProvider clientForListener:self connection:connectionCopy error:&v50];
     }
 
     else
     {
-      v50 = 0;
-      v12 = &v50;
-      v13 = [HDXPCClient clientWithConnection:connectionCopy error:&v50];
+      v49 = 0;
+      v12 = &v49;
+      v13 = [HDXPCClient clientWithConnection:connectionCopy error:&v49];
     }
 
     v16 = v13;
     v17 = *v12;
     if (v16)
     {
-      v41 = v11;
+      v40 = v11;
       v18 = MEMORY[0x277CCACA8];
       process = [v16 process];
       bundleIdentifier = [process bundleIdentifier];
-      v40 = [v18 stringWithFormat:@"%@ (%d)", bundleIdentifier, processIdentifier];
+      v39 = [v18 stringWithFormat:@"%@ (%d)", bundleIdentifier, processIdentifier];
 
-      v49 = v17;
-      v21 = [delegate exportObjectForListener:self client:v16 error:&v49];
-      v39 = v49;
+      v48 = v17;
+      v21 = [delegate exportObjectForListener:self client:v16 error:&v48];
+      v38 = v48;
 
       v15 = v21 != 0;
       if (v21)
@@ -234,26 +232,26 @@ void __32__HDXPCListener_serviceListener__block_invoke()
           dispatch_once(&listener_shouldAcceptNewConnection__onceToken, block);
         }
 
-        v45[0] = MEMORY[0x277D85DD0];
-        v45[1] = 3221225472;
-        v45[2] = __52__HDXPCListener_listener_shouldAcceptNewConnection___block_invoke_2;
-        v45[3] = &unk_2796BDAC0;
-        v45[4] = self;
+        v44[0] = MEMORY[0x277D85DD0];
+        v44[1] = 3221225472;
+        v44[2] = __52__HDXPCListener_listener_shouldAcceptNewConnection___block_invoke_2;
+        v44[3] = &unk_2796BDAC0;
+        v44[4] = self;
         v24 = v16;
-        v46 = v24;
+        v45 = v24;
         v25 = v21;
-        v47 = v25;
-        [connectionCopy setInvalidationHandler:v45];
-        v42[0] = MEMORY[0x277D85DD0];
-        v42[1] = 3221225472;
-        v42[2] = __52__HDXPCListener_listener_shouldAcceptNewConnection___block_invoke_4;
-        v42[3] = &unk_2796BDAC0;
-        v42[4] = self;
+        v46 = v25;
+        [connectionCopy setInvalidationHandler:v44];
+        v41[0] = MEMORY[0x277D85DD0];
+        v41[1] = 3221225472;
+        v41[2] = __52__HDXPCListener_listener_shouldAcceptNewConnection___block_invoke_4;
+        v41[3] = &unk_2796BDAC0;
+        v41[4] = self;
         v26 = v24;
-        v43 = v26;
+        v42 = v26;
         v27 = v25;
-        v44 = v27;
-        [connectionCopy setInterruptionHandler:v42];
+        v43 = v27;
+        [connectionCopy setInterruptionHandler:v41];
         os_unfair_lock_lock(&self->_lock);
         exportedObjectsByClient = self->_exportedObjectsByClient;
         if (!exportedObjectsByClient)
@@ -267,8 +265,8 @@ void __32__HDXPCListener_serviceListener__block_invoke()
 
         [(NSMapTable *)exportedObjectsByClient setObject:v27 forKey:v26];
         os_unfair_lock_unlock(&self->_lock);
-        v31 = v40;
-        v11 = v41;
+        v31 = v39;
+        v11 = v40;
         if (objc_opt_respondsToSelector())
         {
           [v27 connectionConfigured];
@@ -281,7 +279,7 @@ void __32__HDXPCListener_serviceListener__block_invoke()
 
         [connectionCopy resume];
 
-        v17 = v39;
+        v17 = v38;
       }
 
       else
@@ -289,18 +287,18 @@ void __32__HDXPCListener_serviceListener__block_invoke()
         _HKInitializeLogging();
         v34 = *v7;
         v35 = os_log_type_enabled(*v7, OS_LOG_TYPE_ERROR);
-        v31 = v40;
-        v11 = v41;
-        v17 = v39;
+        v31 = v39;
+        v11 = v40;
+        v17 = v38;
         if (v35)
         {
           label = self->_label;
           *buf = 138543874;
-          v53 = label;
-          v54 = 2114;
-          v55 = v40;
-          v56 = 2114;
-          v57 = v39;
+          v52 = label;
+          v53 = 2114;
+          v54 = v39;
+          v55 = 2114;
+          v56 = v38;
           _os_log_error_impl(&dword_25156C000, v34, OS_LOG_TYPE_ERROR, "%{public}@: Rejecting connection from %{public}@: %{public}@", buf, 0x20u);
         }
       }
@@ -314,11 +312,11 @@ void __32__HDXPCListener_serviceListener__block_invoke()
       {
         v33 = self->_label;
         *buf = 138543874;
-        v53 = v33;
-        v54 = 2114;
-        v55 = connectionCopy;
-        v56 = 2114;
-        v57 = v17;
+        v52 = v33;
+        v53 = 2114;
+        v54 = connectionCopy;
+        v55 = 2114;
+        v56 = v17;
         _os_log_impl(&dword_25156C000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@: Failed to create client for connection %{public}@: %{public}@", buf, 0x20u);
       }
 
@@ -338,13 +336,11 @@ void __32__HDXPCListener_serviceListener__block_invoke()
     v15 = 0;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 uint64_t __52__HDXPCListener_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   objc_opt_class();
   listener_shouldAcceptNewConnection__sharedQueue = HKCreateSerialDispatchQueue();
 
@@ -381,7 +377,7 @@ void __52__HDXPCListener_listener_shouldAcceptNewConnection___block_invoke_4(uin
 
 - (void)_handleInvalidationWithClient:(id)client exportedObject:(id)object
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   objectCopy = object;
   _HKInitializeLogging();
@@ -393,13 +389,13 @@ void __52__HDXPCListener_listener_shouldAcceptNewConnection___block_invoke_4(uin
     process = [clientCopy process];
     bundleIdentifier = [process bundleIdentifier];
     process2 = [clientCopy process];
-    v15 = 138543874;
-    v16 = label;
-    v17 = 2114;
-    v18 = bundleIdentifier;
-    v19 = 1024;
+    v14 = 138543874;
+    v15 = label;
+    v16 = 2114;
+    v17 = bundleIdentifier;
+    v18 = 1024;
     processIdentifier = [process2 processIdentifier];
-    _os_log_impl(&dword_25156C000, v10, OS_LOG_TYPE_INFO, "%{public}@: Connection to %{public}@ (%d) invalidated", &v15, 0x1Cu);
+    _os_log_impl(&dword_25156C000, v10, OS_LOG_TYPE_INFO, "%{public}@: Connection to %{public}@ (%d) invalidated", &v14, 0x1Cu);
   }
 
   [objectCopy connectionInvalidated];
@@ -408,8 +404,6 @@ void __52__HDXPCListener_listener_shouldAcceptNewConnection___block_invoke_4(uin
   os_unfair_lock_lock(&self->_lock);
   [(NSMapTable *)self->_exportedObjectsByClient removeObjectForKey:clientCopy];
   os_unfair_lock_unlock(&self->_lock);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleInterruptionWithClient:(id)client exportedObject:(id)object
@@ -458,45 +452,41 @@ void __52__HDXPCListener_listener_shouldAcceptNewConnection___block_invoke_4(uin
 
 - (void)listener:(os_log_t)log shouldAcceptNewConnection:.cold.1(uint64_t a1, int a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 56);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 1024;
-  v8 = a2;
-  _os_log_debug_impl(&dword_25156C000, log, OS_LOG_TYPE_DEBUG, "%{public}@: New connection from pid %d", &v5, 0x12u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 1024;
+  v7 = a2;
+  _os_log_debug_impl(&dword_25156C000, log, OS_LOG_TYPE_DEBUG, "%{public}@: New connection from pid %d", &v4, 0x12u);
 }
 
 - (void)listener:(os_log_t)log shouldAcceptNewConnection:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 56);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_25156C000, log, OS_LOG_TYPE_ERROR, "%{public}@: Rejecting connection %{public}@: delegate is nil", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_25156C000, log, OS_LOG_TYPE_ERROR, "%{public}@: Rejecting connection %{public}@: delegate is nil", &v4, 0x16u);
 }
 
 - (void)_handleInterruptionWithClient:(void *)a3 exportedObject:.cold.1(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 56);
   v5 = a2;
   v6 = [a3 process];
   v7 = [v6 bundleIdentifier];
   v8 = [a3 process];
-  v10 = 138543874;
-  v11 = v4;
-  v12 = 2114;
-  v13 = v7;
-  v14 = 1024;
-  v15 = [v8 processIdentifier];
-  _os_log_error_impl(&dword_25156C000, v5, OS_LOG_TYPE_ERROR, "%{public}@: Unexpected interruption on connection to %{public}@ (%d)", &v10, 0x1Cu);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138543874;
+  v10 = v4;
+  v11 = 2114;
+  v12 = v7;
+  v13 = 1024;
+  v14 = [v8 processIdentifier];
+  _os_log_error_impl(&dword_25156C000, v5, OS_LOG_TYPE_ERROR, "%{public}@: Unexpected interruption on connection to %{public}@ (%d)", &v9, 0x1Cu);
 }
 
 @end

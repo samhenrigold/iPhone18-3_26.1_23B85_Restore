@@ -20,15 +20,14 @@
   selfCopy = self;
   sub_1B6AB9CA0();
 
-  v3 = *(&selfCopy->super.isa + OBJC_IVAR___AAAccessQueue_queue);
-  v4 = sub_1B6AB99E0();
-  MEMORY[0x1B8C97BE0](v4);
+  v3 = sub_1B6AB99E0();
+  MEMORY[0x1B8C97BE0](v3);
 
   MEMORY[0x1B8C97BE0](41, 0xE100000000000000);
 
-  v5 = sub_1B6AB92B0();
+  v4 = sub_1B6AB92B0();
 
-  return v5;
+  return v4;
 }
 
 - (BOOL)isEqual:(id)equal

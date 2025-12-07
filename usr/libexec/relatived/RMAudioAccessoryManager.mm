@@ -1,5 +1,6 @@
 @interface RMAudioAccessoryManager
 + (BOOL)isTempestActive;
++ (void)setTempestActive:(BOOL)active;
 - (RMAudioAccessoryManager)init;
 - (void)dealloc;
 - (void)startActivityUpdatesWithHandler:(id)handler;
@@ -170,6 +171,13 @@
   isTempestActive = [internal isTempestActive];
 
   return isTempestActive;
+}
+
++ (void)setTempestActive:(BOOL)active
+{
+  activeCopy = active;
+  internal = [self internal];
+  [internal setTempestActive:activeCopy];
 }
 
 @end

@@ -895,7 +895,7 @@ void __81__SBHomeScreenViewController_viewWillTransitionToSize_withTransitionCoo
   [v3 setOrientation:*(a1 + 56)];
 }
 
-uint64_t __81__SBHomeScreenViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__81__SBHomeScreenViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) _cleanupAfterTransitionToSize:*(a1 + 56) fromInterfaceOrientation:a2 withTransitionContext:{*(a1 + 40), *(a1 + 48)}];
   *(*(a1 + 32) + 1035) = 0;
@@ -936,7 +936,7 @@ uint64_t __81__SBHomeScreenViewController_viewWillTransitionToSize_withTransitio
     iconRotationPreventionReasons = self->_iconRotationPreventionReasons;
     if (rotationCopy)
     {
-      if (![(NSMutableSet *)iconRotationPreventionReasons containsObject:reasonCopy])
+      if (!objc_msgSend_containsObject_(iconRotationPreventionReasons))
       {
         goto LABEL_15;
       }
@@ -948,7 +948,7 @@ uint64_t __81__SBHomeScreenViewController_viewWillTransitionToSize_withTransitio
 LABEL_14:
 
 LABEL_15:
-        v13 = [(NSMutableSet *)self->_iconRotationPreventionReasons count];
+        v13 = [(NSMutableSet *)self->_iconRotationPreventionReasons count:*v32];
         if (v7)
         {
           v14 = v13 == 0;
@@ -1055,7 +1055,7 @@ LABEL_15:
         iconRotationPreventionReasons = self->_iconRotationPreventionReasons;
       }
 
-      if (([(NSMutableSet *)iconRotationPreventionReasons containsObject:reasonCopy]& 1) != 0)
+      if (objc_msgSend_containsObject_(iconRotationPreventionReasons))
       {
         goto LABEL_15;
       }
@@ -1202,7 +1202,7 @@ LABEL_45:
 
 - (void)_dismissAllIconForceTouchControllersDidFire:(id)fire
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = [(NSMapTable *)self->_appIconForceTouchControllerOrientationUpdateDeferralAssertions copy];
   v5 = [(NSMapTable *)self->_appIconForceTouchControllerWindowLevelAssertions copy];
   v6 = [MEMORY[0x277CBEB58] set];
@@ -1218,42 +1218,43 @@ LABEL_45:
   v14 = [v11 setWithArray:allObjects2];
   [v6 unionSet:v14];
 
-  if ([v6 count])
+  v15 = [v6 count];
+  if (v15)
   {
-    v15 = SBLogIcon();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = SBLogIcon(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [(SBHomeScreenViewController *)v6 _dismissAllIconForceTouchControllersDidFire:v15];
+      [(SBHomeScreenViewController *)v6 _dismissAllIconForceTouchControllersDidFire:v16];
     }
 
-    v24 = 0u;
     v25 = 0u;
-    v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
-    v16 = v6;
-    v17 = [v16 countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v17)
+    v24 = 0u;
+    v17 = v6;
+    v18 = [v17 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v18)
     {
-      v18 = v17;
-      v19 = *v23;
+      v19 = v18;
+      v20 = *v24;
       do
       {
-        for (i = 0; i != v18; ++i)
+        for (i = 0; i != v19; ++i)
         {
-          if (*v23 != v19)
+          if (*v24 != v20)
           {
-            objc_enumerationMutation(v16);
+            objc_enumerationMutation(v17);
           }
 
-          v21 = *(*(&v22 + 1) + 8 * i);
-          [(SBHomeScreenViewController *)self _relinquishForceTouchWindowLevelAssertionForIconView:v21];
-          [(SBHomeScreenViewController *)self _relinquishForceTouchOrientationUpdateDeferralAssertionForIconView:v21];
+          v22 = *(*(&v23 + 1) + 8 * i);
+          [(SBHomeScreenViewController *)self _relinquishForceTouchWindowLevelAssertionForIconView:v22];
+          [(SBHomeScreenViewController *)self _relinquishForceTouchOrientationUpdateDeferralAssertionForIconView:v22];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
-      while (v18);
+      while (v19);
     }
 
     [(NSMapTable *)self->_appIconForceTouchControllerWindowLevelAssertions removeAllObjects];
@@ -1510,7 +1511,7 @@ uint64_t __57__SBHomeScreenViewController_zStackParticipantDidChange___block_inv
   v12 = *MEMORY[0x277D85DE8];
   performedInitialLayout = self->_performedInitialLayout;
   self->_performedInitialLayout = 1;
-  v6 = SBLogIcon();
+  v6 = SBLogIcon(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v10 = 134217984;

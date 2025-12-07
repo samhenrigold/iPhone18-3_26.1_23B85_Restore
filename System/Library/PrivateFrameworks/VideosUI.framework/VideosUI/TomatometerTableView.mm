@@ -38,7 +38,7 @@
 
   if (v3)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECF2FB50);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECF2FB50, &qword_1E42DC5C0);
     sub_1E42062A4();
     OUTLINED_FUNCTION_50();
   }

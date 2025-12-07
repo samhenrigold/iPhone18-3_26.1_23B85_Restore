@@ -72,9 +72,10 @@ uint64_t __39__CUIKSemiConstantCache_sharedInstance__block_invoke()
   *&self->_dayOccurrenceMinimumCachedLineHeightSmallCompact = _Q0;
   *&self->_dayReminderIntegrationCachedLineHeightCompact = _Q0;
   *&self->_dayReminderIntegrationCachedLineHeightSmallCompact = _Q0;
+  dayOccurrenceUncompressedSecondaryTextFont = self->_dayOccurrenceUncompressedSecondaryTextFont;
   self->_dayOccurrenceMinimumCachedLineHeightPill = -1.0;
   self->_dayOccurrenceUncompressedSecondaryTextFont = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, dayOccurrenceUncompressedSecondaryTextFont);
 }
 
 - (id)_dayOccurrenceFontWithStyle:(id)style size:(double)size regularSize:(double)regularSize

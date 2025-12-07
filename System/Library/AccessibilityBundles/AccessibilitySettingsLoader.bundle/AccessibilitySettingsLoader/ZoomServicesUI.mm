@@ -85,23 +85,24 @@
     mainScreen = [MEMORY[0x29EDC7C40] mainScreen];
     displayIdentity = [mainScreen displayIdentity];
     v5 = [sharedInstance activeZoomModeOnDisplay:{objc_msgSend(displayIdentity, "displayID")}];
-    if ([v5 isEqualToString:*MEMORY[0x29EDBD620]] && (!soft_AXDeviceHasHomeButton() || soft_AXDeviceIsPad()))
+    v6 = [v5 isEqualToString:*MEMORY[0x29EDBD620]];
+    if (v6 && ((HasHomeButton = soft_AXDeviceHasHomeButton(v6, v7), !HasHomeButton) || soft_AXDeviceIsPad(HasHomeButton, v9)))
     {
-      v6 = !UIAccessibilityIsReduceMotionEnabled();
+      v10 = !UIAccessibilityIsReduceMotionEnabled();
     }
 
     else
     {
-      LOBYTE(v6) = 0;
+      LOBYTE(v10) = 0;
     }
   }
 
   else
   {
-    LOBYTE(v6) = 0;
+    LOBYTE(v10) = 0;
   }
 
-  return v6;
+  return v10;
 }
 
 - (ZoomServicesUI)init
@@ -171,22 +172,22 @@
     [defaultCenter addObserver:self selector:sel__handleKeyboardWillShowNotification_ name:*MEMORY[0x29EDC81D8] object:0];
     [defaultCenter addObserver:self selector:sel__handleKeyboardWillHideNotification_ name:*MEMORY[0x29EDC81D0] object:0];
     [defaultCenter addObserver:self selector:sel__handleKeyboardDidHideNotification_ name:*MEMORY[0x29EDC8198] object:0];
-    [defaultCenter addObserver:self selector:sel__handleAlertWillAppearNotification_ name:@"ZoomUIAleartWillAppearNotification" object:0];
-    if (soft_AXProcessIsSpringBoard())
+    v4 = [defaultCenter addObserver:self selector:sel__handleAlertWillAppearNotification_ name:@"ZoomUIAleartWillAppearNotification" object:0];
+    if (soft_AXProcessIsSpringBoard(v4, v5))
     {
       [defaultCenter addObserver:self selector:sel__handleLockButtonWasPressedNotification_ name:@"SBLockButtonPressedNotification" object:0];
-      v4 = sel__handleAppSwitcherWillBeginRevealNotification_;
-      v5 = @"SBUIAppSwitcherRevealedNotification";
+      v6 = sel__handleAppSwitcherWillBeginRevealNotification_;
+      v7 = @"SBUIAppSwitcherRevealedNotification";
     }
 
     else
     {
       [defaultCenter addObserver:self selector:sel__handleAppDidBecomeActiveNotification_ name:*MEMORY[0x29EDC8010] object:0];
-      v4 = sel__handleAppDidEnterBackgroundNotification_;
-      v5 = *MEMORY[0x29EDC8018];
+      v6 = sel__handleAppDidEnterBackgroundNotification_;
+      v7 = *MEMORY[0x29EDC8018];
     }
 
-    [defaultCenter addObserver:self selector:v4 name:v5 object:0];
+    [defaultCenter addObserver:self selector:v6 name:v7 object:0];
   }
 
   [(ZoomServicesUI *)self setRegisteredForAppNotifications:1];
@@ -202,20 +203,20 @@
     [defaultCenter removeObserver:self name:@"UIWindowFirstResponderDidChangeNotification" object:0];
     [defaultCenter removeObserver:self name:*MEMORY[0x29EDC81D8] object:0];
     [defaultCenter removeObserver:self name:*MEMORY[0x29EDC81D0] object:0];
-    [defaultCenter removeObserver:self name:@"ZoomUIAleartWillAppearNotification" object:0];
-    if (soft_AXProcessIsSpringBoard())
+    v4 = [defaultCenter removeObserver:self name:@"ZoomUIAleartWillAppearNotification" object:0];
+    if (soft_AXProcessIsSpringBoard(v4, v5))
     {
       [defaultCenter removeObserver:self name:@"SBLockButtonPressedNotification" object:0];
-      v4 = @"SBUIAppSwitcherRevealedNotification";
+      v6 = @"SBUIAppSwitcherRevealedNotification";
     }
 
     else
     {
       [defaultCenter removeObserver:self name:*MEMORY[0x29EDC8010] object:0];
-      v4 = *MEMORY[0x29EDC8018];
+      v6 = *MEMORY[0x29EDC8018];
     }
 
-    [defaultCenter removeObserver:self name:v4 object:0];
+    [defaultCenter removeObserver:self name:v6 object:0];
   }
 
   [(ZoomServicesUI *)self setRegisteredForAppNotifications:0];
@@ -262,8 +263,9 @@ uint64_t __54__ZoomServicesUI__installZoomUISafeCategoriesIfNeeded__block_invoke
   [v2 validateClass:@"UIKeyShortcutHUDService" hasInstanceMethod:@"dismissOrCancelHUDPresentationIfNeeded" withFullSignature:{"v", 0}];
   [v2 validateClass:@"UIKeyShortcutHUDService" hasInstanceMethod:@"_requestHUDPresentationIfAllowedWithUnpreparedConfiguration:" withFullSignature:{"v", "@", 0}];
   [v2 validateClass:@"UIDragInteraction" hasInstanceMethod:@"_sessionHandedOffDragImage:" withFullSignature:{"v", "@", 0}];
-  [v2 validateClass:@"UIDragInteraction" hasInstanceMethod:@"_sessionWillEnd:withOperation:" withFullSignature:{"v", "@", "Q", 0}];
-  if (soft_AXProcessIsSpringBoard())
+  v3 = [v2 validateClass:@"UIDragInteraction" hasInstanceMethod:@"_sessionWillEnd:withOperation:" withFullSignature:{"v", "@", "Q", 0}];
+  IsSpringBoard = soft_AXProcessIsSpringBoard(v3, v4);
+  if (IsSpringBoard)
   {
     [v2 validateClass:@"SBDashBoardLockScreenEnvironment" hasInstanceMethod:@"finishUIUnlockFromSource:" withFullSignature:{"v", "i", 0}];
     [v2 validateClass:@"SpringBoard" hasInstanceMethod:@"_accessibilityActivationAnimationStartDelay" withFullSignature:{"d", 0}];
@@ -276,10 +278,10 @@ uint64_t __54__ZoomServicesUI__installZoomUISafeCategoriesIfNeeded__block_invoke
     [v2 validateClass:@"UIPanGestureRecognizer" hasInstanceMethod:@"translationInView:" withFullSignature:{"{CGPoint=dd}", "@", 0}];
     [v2 validateClass:@"UIPanGestureRecognizer" hasInstanceMethod:@"locationInView:" withFullSignature:{"{CGPoint=dd}", "@", 0}];
     [v2 validateClass:@"UIPanGestureRecognizer" hasInstanceMethod:@"setTranslation:inView:" withFullSignature:{"v", "{CGPoint=dd}", "@", 0}];
-    v3 = objc_opt_class();
-    [v2 validateClass:@"UIPanGestureRecognizer" hasInstanceVariable:@"_lastSceneReferenceLocation" withType:soft___ax_verbose_encode_with_type_encoding_group_class(v3)];
-    v4 = objc_opt_class();
-    [v2 validateClass:@"UIPanGestureRecognizer" hasInstanceVariable:@"_firstSceneReferenceLocation" withType:soft___ax_verbose_encode_with_type_encoding_group_class(v4)];
+    v7 = objc_opt_class();
+    [v2 validateClass:@"UIPanGestureRecognizer" hasInstanceVariable:@"_lastSceneReferenceLocation" withType:{soft___ax_verbose_encode_with_type_encoding_group_class(v7, v8)}];
+    v9 = objc_opt_class();
+    [v2 validateClass:@"UIPanGestureRecognizer" hasInstanceVariable:@"_firstSceneReferenceLocation" withType:{soft___ax_verbose_encode_with_type_encoding_group_class(v9, v10)}];
     [v2 validateClass:@"SBFluidSwitcherScreenEdgePanGestureRecognizer" isKindOfClass:@"UIPanGestureRecognizer"];
     [v2 validateClass:@"SBFluidSwitcherGestureManager" hasInstanceMethod:@"gestureRecognizer:shouldReceiveTouch:" withFullSignature:{"B", "@", "@", 0}];
     [v2 validateClass:@"SBFluidSwitcherGestureManager" hasInstanceMethod:@"activateReachabilityGestureRecognizer" withFullSignature:{"@", 0}];
@@ -304,7 +306,7 @@ uint64_t __54__ZoomServicesUI__installZoomUISafeCategoriesIfNeeded__block_invoke
     [v2 validateClass:@"SBReachabilityGestureRecognizer" isKindOfClass:@"UIGestureRecognizer"];
   }
 
-  else if (soft_AXProcessIsInCallService())
+  else if (soft_AXProcessIsInCallService(IsSpringBoard, v6))
   {
     [v2 validateClass:@"PHSOSViewController" hasInstanceMethod:@"presentMedicalID" withFullSignature:{"v", 0}];
   }
@@ -344,38 +346,39 @@ uint64_t __54__ZoomServicesUI__installZoomUISafeCategoriesIfNeeded__block_invoke
 
 void __54__ZoomServicesUI__installZoomUISafeCategoriesIfNeeded__block_invoke_5(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  [v4 installSafeCategory:@"ZoomUI_UIAlertControllerOverride" canInteractWithTargetClass:1];
-  [v4 installSafeCategory:@"ZoomUI_UIKeyShortcutHUDServiceOverride" canInteractWithTargetClass:1];
-  [v4 installSafeCategory:@"ZoomUI_UIDragInteraction" canInteractWithTargetClass:1];
-  if (soft_AXProcessIsSpringBoard())
+  v8 = a2;
+  [v8 installSafeCategory:@"ZoomUI_UIAlertControllerOverride" canInteractWithTargetClass:1];
+  [v8 installSafeCategory:@"ZoomUI_UIKeyShortcutHUDServiceOverride" canInteractWithTargetClass:1];
+  v2 = [v8 installSafeCategory:@"ZoomUI_UIDragInteraction" canInteractWithTargetClass:1];
+  IsSpringBoard = soft_AXProcessIsSpringBoard(v2, v3);
+  if (IsSpringBoard)
   {
-    v2 = [getZoomServicesClass() sharedInstance];
-    [v2 registerInterestInZoomAttributes];
+    v6 = [getZoomServicesClass() sharedInstance];
+    [v6 registerInterestInZoomAttributes];
 
-    [v4 installSafeCategory:@"ZoomUI_SpringBoardOverride" canInteractWithTargetClass:1];
-    [v4 installSafeCategory:@"ZoomUI_SBDashBoardLockScreenEnvironmentOverride" canInteractWithTargetClass:1];
-    [v4 installSafeCategory:@"ZoomUI_SBReachabilitySettingsOverride" canInteractWithTargetClass:1];
-    [v4 installSafeCategory:@"ZoomUI_SBBacklightController" canInteractWithTargetClass:1];
-    [v4 installSafeCategory:@"ZoomUI_SBFluidSwitcherScreenEdgePanGestureRecognizer" canInteractWithTargetClass:1];
-    [v4 installSafeCategory:@"ZoomUI_SBFluidSwitcherViewController" canInteractWithTargetClass:1];
-    [v4 installSafeCategory:@"ZoomUI_SBFluidSwitcherGestureManager" canInteractWithTargetClass:1];
-    [v4 installSafeCategory:@"ZoomUI_SBHomeGesturePanGestureRecognizer" canInteractWithTargetClass:1];
-    [v4 installSafeCategory:@"ZoomUI_SBReachabilityGestureRecognizer" canInteractWithTargetClass:1];
-    v3 = @"ZoomUI_UITouchReachabilityOverride";
+    [v8 installSafeCategory:@"ZoomUI_SpringBoardOverride" canInteractWithTargetClass:1];
+    [v8 installSafeCategory:@"ZoomUI_SBDashBoardLockScreenEnvironmentOverride" canInteractWithTargetClass:1];
+    [v8 installSafeCategory:@"ZoomUI_SBReachabilitySettingsOverride" canInteractWithTargetClass:1];
+    [v8 installSafeCategory:@"ZoomUI_SBBacklightController" canInteractWithTargetClass:1];
+    [v8 installSafeCategory:@"ZoomUI_SBFluidSwitcherScreenEdgePanGestureRecognizer" canInteractWithTargetClass:1];
+    [v8 installSafeCategory:@"ZoomUI_SBFluidSwitcherViewController" canInteractWithTargetClass:1];
+    [v8 installSafeCategory:@"ZoomUI_SBFluidSwitcherGestureManager" canInteractWithTargetClass:1];
+    [v8 installSafeCategory:@"ZoomUI_SBHomeGesturePanGestureRecognizer" canInteractWithTargetClass:1];
+    [v8 installSafeCategory:@"ZoomUI_SBReachabilityGestureRecognizer" canInteractWithTargetClass:1];
+    v7 = @"ZoomUI_UITouchReachabilityOverride";
   }
 
   else
   {
-    if (!soft_AXProcessIsInCallService())
+    if (!soft_AXProcessIsInCallService(IsSpringBoard, v5))
     {
       goto LABEL_6;
     }
 
-    v3 = @"ZoomUI_PHSOSViewController";
+    v7 = @"ZoomUI_PHSOSViewController";
   }
 
-  [v4 installSafeCategory:v3 canInteractWithTargetClass:1];
+  [v8 installSafeCategory:v7 canInteractWithTargetClass:1];
 LABEL_6:
 }
 

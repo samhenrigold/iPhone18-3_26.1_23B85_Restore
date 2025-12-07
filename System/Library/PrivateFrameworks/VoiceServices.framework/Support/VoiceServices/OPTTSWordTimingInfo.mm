@@ -23,8 +23,8 @@
   v11 = 1;
   v12 = 256;
   v13 = 0;
-  v2.var0 = [(OPTTSWordTimingInfo *)self addObjectToBuffer:&v5];
-  flatbuffers::FlatBufferBuilder::Finish(&v5, v2.var0, v3);
+  v2 = [(OPTTSWordTimingInfo *)self addObjectToBuffer:?];
+  flatbuffers::FlatBufferBuilder::Finish(&v5, v2, v3);
   operator new();
 }
 
@@ -136,25 +136,9 @@ flatbuffers::DetachedBuffer *__35__OPTTSWordTimingInfo_flatbuffData__block_invok
 
 - (NSString)word
 {
-  root = self->_root;
-  v3 = *root->var0;
-  v4 = *root[-v3 + 4].var0;
-  if (*root[-v3 + 4].var0)
-  {
-    v3 = *root[v4].var0;
-    v5 = &root[v4 + v3];
-  }
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:? length:? encoding:?];
 
-  else
-  {
-    v4 = 0;
-    v5 = 0;
-    v3 = v3;
-  }
-
-  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:&v5[4] length:*root[v4 + v3].var0 encoding:4];
-
-  return v6;
+  return v2;
 }
 
 - (OPTTSWordTimingInfo)initWithFlatbuffData:(id)data root:(const WordTimingInfo *)root verify:(BOOL)verify
@@ -185,7 +169,7 @@ flatbuffers::DetachedBuffer *__35__OPTTSWordTimingInfo_flatbuffData__block_invok
       bytes2 = [(NSData *)v10->_data bytes];
       v14 = [(NSData *)v10->_data length];
       root = v10->_root;
-      if (root < bytes2 || root > bytes2 + v14)
+      if (root < bytes2 || root > v14 + bytes2)
       {
         goto LABEL_16;
       }
@@ -227,77 +211,73 @@ LABEL_17:
 
 + (id)vs_wordTimingInfos:(id)infos withText:(id)text
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   infosCopy = infos;
   textCopy = text;
   array = [MEMORY[0x277CBEB18] array];
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
   v7 = infosCopy;
-  v8 = [v7 countByEnumeratingWithState:&v27 objects:v41 count:16];
+  v8 = [v7 countByEnumeratingWithState:? objects:? count:?];
   v9 = 0x277D79000uLL;
   if (v8)
   {
     v10 = v8;
-    v11 = *v28;
+    v11 = MEMORY[0];
     do
     {
       v12 = 0;
       do
       {
-        if (*v28 != v11)
+        if (MEMORY[0] != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v27 + 1) + 8 * v12);
+        v13 = *(8 * v12);
         v14 = VSGetLogDefault();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           offset = [v13 offset];
-          v17 = v7;
-          v18 = [v13 length];
+          v16 = v7;
+          v17 = [v13 length];
           word = [v13 word];
           sample_idx = [v13 sample_idx];
           [v13 timestamp];
           *buf = 134219010;
-          v32 = offset;
-          v33 = 2048;
-          v34 = v18;
-          v7 = v17;
+          v26 = offset;
+          v27 = 2048;
+          v28 = v17;
+          v7 = v16;
           v9 = 0x277D79000;
-          v35 = 2112;
-          v36 = word;
-          v37 = 1024;
-          v38 = sample_idx;
-          v39 = 2048;
-          v40 = (v21 / 1000.0);
+          v29 = 2112;
+          v30 = word;
+          v31 = 1024;
+          v32 = sample_idx;
+          v33 = 2048;
+          v34 = (v20 / 1000.0);
           _os_log_debug_impl(&dword_2727E4000, v14, OS_LOG_TYPE_DEBUG, "OPTTSTextToSpeechResponse word timing info, offset: %ld, length: %ld, word: %@, sampleIndex: %d, timestamp: %.2f", buf, 0x30u);
         }
 
         v15 = objc_alloc_init(*(v9 + 2488));
-        [v15 setTextRange:{objc_msgSend(v13, "offset"), objc_msgSend(v13, "length")}];
+        [v13 offset];
+        [v13 length];
+        [v15 setTextRange:?];
         [v13 timestamp];
-        [v15 setStartTime:(v16 / 1000.0)];
-        [array addObject:v15];
+        [v15 setStartTime:?];
+        [array addObject:?];
 
-        ++v12;
+        v12 = (v12 + 1);
       }
 
       while (v10 != v12);
-      v10 = [v7 countByEnumeratingWithState:&v27 objects:v41 count:16];
+      v10 = [v7 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v10);
   }
 
-  v22 = [*(v9 + 2488) utf16TimingInfoWithUTF8Range:array withText:textCopy];
+  v21 = [*(v9 + 2488) utf16TimingInfoWithUTF8Range:? withText:?];
 
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v21;
 }
 
 @end

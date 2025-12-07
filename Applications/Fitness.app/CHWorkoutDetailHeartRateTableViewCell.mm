@@ -32,7 +32,7 @@
 
 - (void)configureWithWorkout:(id)workout workoutActivity:(id)activity dataCalculator:(id)calculator formattingManager:(id)manager heartRateReadings:(id)readings averageHeartRate:(id)rate parent:(id)parent
 {
-  sub_1000059F8(0, &qword_1008E9D88);
+  sub_1000059F8(0, &qword_1008E9D88, HKHeartRateSummaryReading_ptr);
   v15 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   workoutCopy = workout;
   activityCopy = activity;

@@ -43,6 +43,7 @@
 - (void)generateInfoForId:(unint64_t)id context:(const char *)context uuid:(id)uuid completionBlock:(id)block;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)populateCellFallbackPropertiesForInterfaceRelay:(id)relay onCAMetric:(id)metric;
+- (void)postAdminChangeUpwards:(BOOL)upwards;
 - (void)postHasAdviceNotification:(BOOL)notification;
 - (void)postMotionDetector:(unsigned int)detector;
 - (void)postSpeculativeTelemetryForKey:(id)key oldValue:(id)value newValue:(id)newValue;
@@ -110,7 +111,7 @@ void __27__CellFallbackHandler_init__block_invoke_216(uint64_t a1, void *a2)
 
 - (void)_bringStateToIdle
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = [(NSArray *)self->states objectAtIndexedSubscript:0];
   currentState = self->currentState;
   if (currentState)
@@ -128,17 +129,17 @@ void __27__CellFallbackHandler_init__block_invoke_216(uint64_t a1, void *a2)
         v10 = v8;
         label3 = [(State *)v9 label];
         *buf = 138412290;
-        v19 = label3;
+        v18 = label3;
         _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "CFSM Idling from %@ state", buf, 0xCu);
       }
 
       states = self->states;
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __40__CellFallbackHandler__bringStateToIdle__block_invoke;
-      v17[3] = &unk_27898D248;
-      v17[4] = self;
-      [(NSArray *)states enumerateObjectsWithOptions:2 usingBlock:v17];
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __40__CellFallbackHandler__bringStateToIdle__block_invoke;
+      v16[3] = &unk_27898D248;
+      v16[4] = self;
+      [(NSArray *)states enumerateObjectsWithOptions:2 usingBlock:v16];
     }
   }
 
@@ -153,8 +154,6 @@ void __27__CellFallbackHandler_init__block_invoke_216(uint64_t a1, void *a2)
   }
 
   [self->currentState setPreviousState:0];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)turboRNF
@@ -365,16 +364,16 @@ void __27__CellFallbackHandler_init__block_invoke(uint64_t a1)
 
 void __27__CellFallbackHandler_init__block_invoke_3(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEBUG))
   {
     v5 = v4;
     v6 = [v3 userInfo];
-    v17 = 138477827;
-    v18 = v6;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "Received ICCID change notification with userInfo: %{private}@", &v17, 0xCu);
+    v16 = 138477827;
+    v17 = v6;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "Received ICCID change notification with userInfo: %{private}@", &v16, 0xCu);
   }
 
   v7 = [v3 userInfo];
@@ -404,15 +403,13 @@ void __27__CellFallbackHandler_init__block_invoke_3(uint64_t a1, void *a2)
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v15 = *(*(a1 + 32) + 328);
-      v17 = 138477827;
-      v18 = v15;
-      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "Current ICCID changed to: %{private}@", &v17, 0xCu);
+      v16 = 138477827;
+      v17 = v15;
+      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "Current ICCID changed to: %{private}@", &v16, 0xCu);
     }
 
     [*(a1 + 32) applyDataUsagePolicyForICCID:*(*(a1 + 32) + 328) givenPolicies:*(*(a1 + 32) + 352)];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __27__CellFallbackHandler_init__block_invoke_2_218(uint64_t a1, void *a2)
@@ -447,7 +444,7 @@ void __27__CellFallbackHandler_init__block_invoke_3_219(uint64_t a1)
 
 void __27__CellFallbackHandler_init__block_invoke_4(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = [a2 userInfo];
   v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerTCPExtraState];
   v5 = [v3 objectForKeyedSubscript:v4];
@@ -471,7 +468,7 @@ void __27__CellFallbackHandler_init__block_invoke_4(uint64_t a1, void *a2)
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v25 = v3;
+      v24 = v3;
       _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "CFSM polled info incomplete report: %@", buf, 0xCu);
     }
   }
@@ -511,62 +508,57 @@ void __27__CellFallbackHandler_init__block_invoke_4(uint64_t a1, void *a2)
         v17 = "Positive";
       }
 
-      v25 = v17;
-      v26 = 1024;
-      v27 = v12;
-      v28 = 1024;
-      v29 = v15;
+      v24 = v17;
+      v25 = 1024;
+      v26 = v12;
+      v27 = 1024;
+      v28 = v15;
       _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "CFSM polled info succinct report: %s, score: %d, net: %d", buf, 0x18u);
     }
 
     v18 = +[NetworkAnalyticsEngine queue];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __27__CellFallbackHandler_init__block_invoke_223;
-    v21[3] = &unk_27898A3A0;
-    v22 = *(a1 + 32);
-    v23 = v15;
-    dispatch_async(v18, v21);
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __27__CellFallbackHandler_init__block_invoke_223;
+    v20[3] = &unk_27898A3A0;
+    v21 = *(a1 + 32);
+    v22 = v15;
+    dispatch_async(v18, v20);
 
     v19 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v25 = v3;
+      v24 = v3;
       _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "CFSM polled info complete report: %@", buf, 0xCu);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __27__CellFallbackHandler_init__block_invoke_225(uint64_t a1, int a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v4 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v10[0] = 67109120;
-      v10[1] = a2;
-      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "CFSM: Unable to use mptcp observer, error: %d", v10, 8u);
+      v8[0] = 67109120;
+      v8[1] = a2;
+      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "CFSM: Unable to use mptcp observer, error: %d", v8, 8u);
     }
 
     dispatch_source_cancel(*(*(a1 + 32) + 184));
     v5 = *(a1 + 32);
     v6 = *(v5 + 184);
     *(v5 + 184) = 0;
-
-    v7 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v8 = *(a1 + 32);
-    v9 = *MEMORY[0x277D85DE8];
+    v7 = *(a1 + 32);
 
-    [v8 _updateMptcpState];
+    [v7 _updateMptcpState];
   }
 }
 
@@ -655,7 +647,7 @@ void __27__CellFallbackHandler_init__block_invoke_225(uint64_t a1, int a2)
 
 - (void)applyDataUsagePolicyForICCID:(id)d givenPolicies:(id)policies
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dCopy = d;
   policiesCopy = policies;
   if (self->hasMDMProfile)
@@ -664,11 +656,11 @@ void __27__CellFallbackHandler_init__block_invoke_225(uint64_t a1, int a2)
     v9 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138478083;
-      v13 = dCopy;
-      v14 = 2048;
-      v15 = v8;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Policy for ICCID %{private}@ = %lu", &v12, 0x16u);
+      v11 = 138478083;
+      v12 = dCopy;
+      v13 = 2048;
+      v14 = v8;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Policy for ICCID %{private}@ = %lu", &v11, 0x16u);
     }
 
     [(CellFallbackHandler *)self _setDataUsagePolicy:v8];
@@ -679,38 +671,36 @@ void __27__CellFallbackHandler_init__block_invoke_225(uint64_t a1, int a2)
     v10 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "No MDM profile installed, no action needed", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "No MDM profile installed, no action needed", &v11, 2u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)lookUpDataUsagePolicyForICCID:(id)d fromPolicies:(id)policies
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dCopy = d;
   policiesCopy = policies;
   v8 = policiesCopy;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
   v9 = 2;
-  v21 = 2;
+  v20 = 2;
   if (policiesCopy)
   {
     v10 = [policiesCopy objectForKeyedSubscript:@"Profiles"];
     if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __66__CellFallbackHandler_lookUpDataUsagePolicyForICCID_fromPolicies___block_invoke;
-      v14[3] = &unk_27898BF28;
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __66__CellFallbackHandler_lookUpDataUsagePolicyForICCID_fromPolicies___block_invoke;
+      v13[3] = &unk_27898BF28;
       selfCopy = self;
-      v17 = &v18;
-      v15 = dCopy;
-      [v10 enumerateObjectsUsingBlock:v14];
+      v16 = &v17;
+      v14 = dCopy;
+      [v10 enumerateObjectsUsingBlock:v13];
     }
 
     else
@@ -719,23 +709,22 @@ void __27__CellFallbackHandler_init__block_invoke_225(uint64_t a1, int a2)
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v23 = v10;
+        v22 = v10;
         _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "Policies dictionary contains invalid value for Profiles key: %@", buf, 0xCu);
       }
     }
 
-    v9 = v19[3];
+    v9 = v18[3];
   }
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v17, 8);
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 void __66__CellFallbackHandler_lookUpDataUsagePolicyForICCID_fromPolicies___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -755,8 +744,8 @@ void __66__CellFallbackHandler_lookUpDataUsagePolicyForICCID_fromPolicies___bloc
         v9 = rnfLogHandle;
         if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v12) = 0;
-          _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Internal build with wildcard ICCID, using unlimited data policy", &v12, 2u);
+          LOWORD(v11) = 0;
+          _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Internal build with wildcard ICCID, using unlimited data policy", &v11, 2u);
         }
 
         *(*(*(a1 + 48) + 8) + 24) = 3;
@@ -769,20 +758,18 @@ void __66__CellFallbackHandler_lookUpDataUsagePolicyForICCID_fromPolicies___bloc
       v10 = rnfLogHandle;
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v12 = 136315906;
-        v13 = "Wi-Fi Assist Policy";
-        v14 = 2112;
-        v15 = v7;
-        v16 = 2080;
-        v17 = "ICCIDs";
-        v18 = 2112;
-        v19 = v8;
-        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Unexpected class, %s = %@, %s = %@", &v12, 0x2Au);
+        v11 = 136315906;
+        v12 = "Wi-Fi Assist Policy";
+        v13 = 2112;
+        v14 = v7;
+        v15 = 2080;
+        v16 = "ICCIDs";
+        v17 = 2112;
+        v18 = v8;
+        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Unexpected class, %s = %@, %s = %@", &v11, 0x2Au);
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (id)mdmProfilePath
@@ -799,38 +786,16 @@ void __66__CellFallbackHandler_lookUpDataUsagePolicyForICCID_fromPolicies___bloc
 
 void __37__CellFallbackHandler_mdmProfilePath__block_invoke()
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   mdmProfilePath_basePath = container_system_group_path_for_identifier();
   v0 = rnfLogHandle;
-  if (mdmProfilePath_basePath)
+  if (!mdmProfilePath_basePath)
   {
-    if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
     {
-      *buf = 136315138;
-      v10 = mdmProfilePath_basePath;
-      _os_log_impl(&dword_23255B000, v0, OS_LOG_TYPE_INFO, "Base path from systemgroup.com.apple.WiFiAssist = %s", buf, 0xCu);
+      return;
     }
 
-    v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s/Library/Preferences/com.apple.WiFiAssist.configuration.plist", mdmProfilePath_basePath, 1];
-    v2 = mdmProfilePath_mdmPath;
-    mdmProfilePath_mdmPath = v1;
-
-    v3 = rnfLogHandle;
-    if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_INFO))
-    {
-      *buf = 138412290;
-      v10 = mdmProfilePath_mdmPath;
-      v4 = "mdmPath = %@";
-      v5 = v3;
-      v6 = OS_LOG_TYPE_INFO;
-      v7 = 12;
-LABEL_8:
-      _os_log_impl(&dword_23255B000, v5, v6, v4, buf, v7);
-    }
-  }
-
-  else if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
-  {
     *buf = 0;
     v4 = "Failed to retrieve base path from systemgroup.com.apple.WiFiAssist";
     v5 = v0;
@@ -839,7 +804,29 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
+  if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315138;
+    v9 = mdmProfilePath_basePath;
+    _os_log_impl(&dword_23255B000, v0, OS_LOG_TYPE_INFO, "Base path from systemgroup.com.apple.WiFiAssist = %s", buf, 0xCu);
+  }
+
+  v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s/Library/Preferences/com.apple.WiFiAssist.configuration.plist", mdmProfilePath_basePath, 1];
+  v2 = mdmProfilePath_mdmPath;
+  mdmProfilePath_mdmPath = v1;
+
+  v3 = rnfLogHandle;
+  if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412290;
+    v9 = mdmProfilePath_mdmPath;
+    v4 = "mdmPath = %@";
+    v5 = v3;
+    v6 = OS_LOG_TYPE_INFO;
+    v7 = 12;
+LABEL_8:
+    _os_log_impl(&dword_23255B000, v5, v6, v4, buf, v7);
+  }
 }
 
 - (void)_completeInitialization
@@ -933,7 +920,7 @@ LABEL_8:
 
 uint64_t __46__CellFallbackHandler__completeInitialization__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:*(a1 + 40)];
   v3 = *(a1 + 32);
   v4 = *(v3 + 352);
@@ -946,57 +933,55 @@ uint64_t __46__CellFallbackHandler__completeInitialization__block_invoke(uint64_
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEBUG))
   {
     v7 = *(*(a1 + 32) + 352);
-    v10 = 138477827;
-    v11 = v7;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "MDM Profile changed to: %{private}@", &v10, 0xCu);
+    v9 = 138477827;
+    v10 = v7;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "MDM Profile changed to: %{private}@", &v9, 0xCu);
   }
 
-  result = [*(a1 + 32) applyDataUsagePolicyForICCID:*(*(a1 + 32) + 328) givenPolicies:*(*(a1 + 32) + 352)];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) applyDataUsagePolicyForICCID:*(*(a1 + 32) + 328) givenPolicies:*(*(a1 + 32) + 352)];
 }
 
 void __46__CellFallbackHandler__completeInitialization__block_invoke_254(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86498])
   {
     value = xpc_int64_get_value(v5);
-    v12 = value;
-    v13 = *(a1 + 32);
+    v11 = value;
+    v12 = *(a1 + 32);
     if (value < 1)
     {
-      *(v13 + 128) = 7200;
-      v15 = rnfLogHandle;
-      if (!os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_6;
-      }
-
-      v16 = 134218240;
-      v17 = v12;
-      v18 = 1024;
-      v19 = 7200;
-      v7 = "CFSM got a 0 or negative settle period (%lld). Resetting to default value (%d)";
-      v8 = v15;
-      v9 = 18;
-    }
-
-    else
-    {
-      *(v13 + 128) = value;
+      *(v12 + 128) = 7200;
       v14 = rnfLogHandle;
       if (!os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_6;
       }
 
-      v16 = 134217984;
-      v17 = v12;
-      v7 = "CFSM set to new settle period (%lld)";
+      v15 = 134218240;
+      v16 = v11;
+      v17 = 1024;
+      v18 = 7200;
+      v7 = "CFSM got a 0 or negative settle period (%lld). Resetting to default value (%d)";
       v8 = v14;
+      v9 = 18;
+    }
+
+    else
+    {
+      *(v12 + 128) = value;
+      v13 = rnfLogHandle;
+      if (!os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_6;
+      }
+
+      v15 = 134217984;
+      v16 = v11;
+      v7 = "CFSM set to new settle period (%lld)";
+      v8 = v13;
       v9 = 12;
     }
 
@@ -1007,61 +992,59 @@ void __46__CellFallbackHandler__completeInitialization__block_invoke_254(uint64_
   v6 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 67109120;
-    LODWORD(v17) = 7200;
+    v15 = 67109120;
+    LODWORD(v16) = 7200;
     v7 = "CFSM got a nil settle period. Setting to default value (%d)";
     v8 = v6;
     v9 = 8;
 LABEL_5:
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, v7, &v16, v9);
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, v7, &v15, v9);
   }
 
 LABEL_6:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __46__CellFallbackHandler__completeInitialization__block_invoke_257(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86498])
   {
     value = xpc_int64_get_value(v5);
-    v12 = value;
-    v13 = *(a1 + 32);
+    v11 = value;
+    v12 = *(a1 + 32);
     if (value < 1)
     {
-      *(v13 + 136) = 52428800;
-      v15 = rnfLogHandle;
-      if (!os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_6;
-      }
-
-      v16 = 134218240;
-      v17 = v12;
-      v18 = 1024;
-      v19 = 52428800;
-      v7 = "CFSM got a 0 or negative max cell value for freepass status (%lld). Resetting to default value (%d)";
-      v8 = v15;
-      v9 = 18;
-    }
-
-    else
-    {
-      *(v13 + 136) = value;
+      *(v12 + 136) = 52428800;
       v14 = rnfLogHandle;
       if (!os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_6;
       }
 
-      v16 = 134217984;
-      v17 = v12;
-      v7 = "CFSM set to a new max cell value for freepass status (%lld)";
+      v15 = 134218240;
+      v16 = v11;
+      v17 = 1024;
+      v18 = 52428800;
+      v7 = "CFSM got a 0 or negative max cell value for freepass status (%lld). Resetting to default value (%d)";
       v8 = v14;
+      v9 = 18;
+    }
+
+    else
+    {
+      *(v12 + 136) = value;
+      v13 = rnfLogHandle;
+      if (!os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_6;
+      }
+
+      v15 = 134217984;
+      v16 = v11;
+      v7 = "CFSM set to a new max cell value for freepass status (%lld)";
+      v8 = v13;
       v9 = 12;
     }
 
@@ -1072,61 +1055,59 @@ void __46__CellFallbackHandler__completeInitialization__block_invoke_257(uint64_
   v6 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 67109120;
-    LODWORD(v17) = 52428800;
+    v15 = 67109120;
+    LODWORD(v16) = 52428800;
     v7 = "CFSM got a nil max cell value for freepass status. Setting to default value (%d)";
     v8 = v6;
     v9 = 8;
 LABEL_5:
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, v7, &v16, v9);
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, v7, &v15, v9);
   }
 
 LABEL_6:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __46__CellFallbackHandler__completeInitialization__block_invoke_259(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86498])
   {
     value = xpc_int64_get_value(v5);
-    v12 = value;
-    v13 = *(a1 + 32);
+    v11 = value;
+    v12 = *(a1 + 32);
     if (value < 1)
     {
-      *(v13 + 144) = 0x100000;
-      v15 = rnfLogHandle;
-      if (!os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_6;
-      }
-
-      v16 = 134218240;
-      v17 = v12;
-      v18 = 1024;
-      v19 = 0x100000;
-      v7 = "CFSM got a 0 or negative max one-flow cell value for freepass status (%lld). Resetting to default value (%d)";
-      v8 = v15;
-      v9 = 18;
-    }
-
-    else
-    {
-      *(v13 + 144) = value;
+      *(v12 + 144) = 0x100000;
       v14 = rnfLogHandle;
       if (!os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_6;
       }
 
-      v16 = 134217984;
-      v17 = v12;
-      v7 = "CFSM set to a new max one-flow cell value for freepass status (%lld)";
+      v15 = 134218240;
+      v16 = v11;
+      v17 = 1024;
+      v18 = 0x100000;
+      v7 = "CFSM got a 0 or negative max one-flow cell value for freepass status (%lld). Resetting to default value (%d)";
       v8 = v14;
+      v9 = 18;
+    }
+
+    else
+    {
+      *(v12 + 144) = value;
+      v13 = rnfLogHandle;
+      if (!os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_6;
+      }
+
+      v15 = 134217984;
+      v16 = v11;
+      v7 = "CFSM set to a new max one-flow cell value for freepass status (%lld)";
+      v8 = v13;
       v9 = 12;
     }
 
@@ -1137,23 +1118,21 @@ void __46__CellFallbackHandler__completeInitialization__block_invoke_259(uint64_
   v6 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 67109120;
-    LODWORD(v17) = 0x100000;
+    v15 = 67109120;
+    LODWORD(v16) = 0x100000;
     v7 = "CFSM got a nil max one-flow cell value for freepass status. Setting to default value (%d)";
     v8 = v6;
     v9 = 8;
 LABEL_5:
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, v7, &v16, v9);
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, v7, &v15, v9);
   }
 
 LABEL_6:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __46__CellFallbackHandler__completeInitialization__block_invoke_261(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4)
@@ -1166,18 +1145,18 @@ void __46__CellFallbackHandler__completeInitialization__block_invoke_261(uint64_
       {
         *(*(a1 + 32) + 152) = 0x3FD3333340000000;
         *(*(a1 + 32) + 160) = 0;
-        v15 = rnfLogHandle;
+        v14 = rnfLogHandle;
         if (!os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_12;
         }
 
         *buf = 134218240;
-        v18 = v10;
-        v19 = 2048;
-        v20 = 0x3FD3333340000000;
+        v17 = v10;
+        v18 = 2048;
+        v19 = 0x3FD3333340000000;
         v7 = "CFSM got an out of range max ratio (%lld). Resetting to default value (%.2f)";
-        v8 = v15;
+        v8 = v14;
         v13 = 22;
         goto LABEL_11;
       }
@@ -1189,7 +1168,7 @@ void __46__CellFallbackHandler__completeInitialization__block_invoke_261(uint64_
       {
         v12 = *(*(a1 + 32) + 152);
         *buf = 134217984;
-        v18 = v12;
+        v17 = v12;
         v7 = "CFSM set to a new max ratio (%.2f)";
         v8 = v11;
         goto LABEL_10;
@@ -1204,7 +1183,7 @@ void __46__CellFallbackHandler__completeInitialization__block_invoke_261(uint64_
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v18 = 0x3FD3333340000000;
+        v17 = 0x3FD3333340000000;
         v7 = "CFSM got a wrong type for max ratio. Setting to default value (%.2f)";
         v8 = v6;
 LABEL_10:
@@ -1231,8 +1210,6 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__CellFallbackHandler__completeInitialization__block_invoke_262(uint64_t a1)
@@ -1249,7 +1226,7 @@ uint64_t __46__CellFallbackHandler__completeInitialization__block_invoke_262(uin
 
 void __46__CellFallbackHandler__completeInitialization__block_invoke_264(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4)
@@ -1263,8 +1240,8 @@ void __46__CellFallbackHandler__completeInitialization__block_invoke_264(uint64_
         v12 = *(*(a1 + 32) + 161);
         LODWORD(buf) = 67109376;
         HIDWORD(buf) = v12;
-        v17 = 1024;
-        v18 = value;
+        v16 = 1024;
+        v17 = value;
         _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "CFSM set to a new value for rnf_high_capacity_plan behavior (was/is): %d/%d", &buf, 0xEu);
       }
 
@@ -1298,22 +1275,20 @@ void __46__CellFallbackHandler__completeInitialization__block_invoke_264(uint64_
     v7 = a1 + 32;
     *(v8 + 161) = 0;
     *(*v7 + 162) = 0;
-    v9 = v14;
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __46__CellFallbackHandler__completeInitialization__block_invoke_2;
-    v14[3] = &unk_27898A0C8;
+    v9 = v13;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __46__CellFallbackHandler__completeInitialization__block_invoke_2;
+    v13[3] = &unk_27898A0C8;
   }
 
   v9[4] = *v7;
   dispatch_async(MEMORY[0x277D85CD0], v9);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __46__CellFallbackHandler__completeInitialization__block_invoke_2(uint64_t result)
+void *__46__CellFallbackHandler__completeInitialization__block_invoke_2(void *result)
 {
-  if (*(*(result + 32) + 240))
+  if (*(result[4] + 240))
   {
     v1 = result;
     v2 = rnfLogHandle;
@@ -1323,7 +1298,7 @@ uint64_t __46__CellFallbackHandler__completeInitialization__block_invoke_2(uint6
       _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "CFSM got a nil type for rnf_high_capacity_plan. Refreshing value from cell plan", v3, 2u);
     }
 
-    return [*(v1 + 32) _peekIntoCellPlan];
+    return [v1[4] _peekIntoCellPlan];
   }
 
   return result;
@@ -1331,7 +1306,7 @@ uint64_t __46__CellFallbackHandler__completeInitialization__block_invoke_2(uint6
 
 void __46__CellFallbackHandler__completeInitialization__block_invoke_267(uint64_t a1, uint64_t a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (!v4 || MEMORY[0x238389170](v4) != MEMORY[0x277D86448])
@@ -1341,66 +1316,64 @@ void __46__CellFallbackHandler__completeInitialization__block_invoke_267(uint64_
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v20 = 1;
+      v19 = 1;
       _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "CFSM got a nil value or wrong type for rnf_rxsignal_exempt behavior. Setting to default value (%d)", buf, 8u);
     }
 
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __46__CellFallbackHandler__completeInitialization__block_invoke_269;
-    v17[3] = &unk_27898A0C8;
-    v17[4] = *(a1 + 32);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __46__CellFallbackHandler__completeInitialization__block_invoke_269;
+    v16[3] = &unk_27898A0C8;
+    v16[4] = *(a1 + 32);
     v7 = MEMORY[0x277D85CD0];
-    v8 = v17;
+    v8 = v16;
 LABEL_6:
     dispatch_async(v7, v8);
     goto LABEL_7;
   }
 
   value = xpc_BOOL_get_value(v5);
-  v11 = *(*(a1 + 32) + 193);
-  v12 = rnfLogHandle;
-  v13 = os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT);
-  if (v11 != value)
+  v10 = *(*(a1 + 32) + 193);
+  v11 = rnfLogHandle;
+  v12 = os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT);
+  if (v10 != value)
   {
-    if (v13)
+    if (v12)
     {
-      v16 = *(*(a1 + 32) + 193);
+      v15 = *(*(a1 + 32) + 193);
       *buf = 67109376;
-      v20 = v16;
-      v21 = 1024;
-      v22 = value;
-      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "CFSM set to a new value for rnf_rxsignal_exempt behavior (was/is): %d/%d", buf, 0xEu);
+      v19 = v15;
+      v20 = 1024;
+      v21 = value;
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "CFSM set to a new value for rnf_rxsignal_exempt behavior (was/is): %d/%d", buf, 0xEu);
     }
 
     *(*(a1 + 32) + 193) = value;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __46__CellFallbackHandler__completeInitialization__block_invoke_268;
-    v18[3] = &unk_27898A0C8;
-    v18[4] = *(a1 + 32);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __46__CellFallbackHandler__completeInitialization__block_invoke_268;
+    v17[3] = &unk_27898A0C8;
+    v17[4] = *(a1 + 32);
     v7 = MEMORY[0x277D85CD0];
-    v8 = v18;
+    v8 = v17;
     goto LABEL_6;
   }
 
-  if (v13)
+  if (v12)
   {
-    v14 = *(a1 + 32);
-    v15 = *(v14 + 193);
-    LODWORD(v14) = *(v14 + 120);
+    v13 = *(a1 + 32);
+    v14 = *(v13 + 193);
+    LODWORD(v13) = *(v13 + 120);
     *buf = 67109632;
-    v20 = v15;
-    v21 = 1024;
-    v22 = value;
-    v23 = 1024;
-    v24 = v14;
-    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "CFSM set to no-op for rnf_rxsignal_exempt behavior (was/is): %d/%d, RNF state %d", buf, 0x14u);
+    v19 = v14;
+    v20 = 1024;
+    v21 = value;
+    v22 = 1024;
+    v23 = v13;
+    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "CFSM set to no-op for rnf_rxsignal_exempt behavior (was/is): %d/%d, RNF state %d", buf, 0x14u);
   }
 
 LABEL_7:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 _DWORD *__46__CellFallbackHandler__completeInitialization__block_invoke_268(uint64_t a1)
@@ -1433,7 +1406,7 @@ _DWORD *__46__CellFallbackHandler__completeInitialization__block_invoke_269(uint
 
 void __46__CellFallbackHandler__completeInitialization__block_invoke_2_271(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86448])
@@ -1450,10 +1423,10 @@ void __46__CellFallbackHandler__completeInitialization__block_invoke_2_271(uint6
       }
 
       v14 = *(*(a1 + 32) + 194);
-      v17 = 67109376;
-      v18 = v14;
-      v19 = 1024;
-      v20 = value;
+      v16 = 67109376;
+      v17 = v14;
+      v18 = 1024;
+      v19 = value;
       v7 = "CFSM set to no-op for rnf_all_tcpstats (was/is): %d/%d";
       v8 = v12;
       v9 = 14;
@@ -1463,11 +1436,11 @@ void __46__CellFallbackHandler__completeInitialization__block_invoke_2_271(uint6
     if (v13)
     {
       v15 = *(*(a1 + 32) + 194);
-      v17 = 67109376;
-      v18 = v15;
-      v19 = 1024;
-      v20 = value;
-      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "CFSM set to a new value for rnf_all_tcpstats (was/is): %d/%d", &v17, 0xEu);
+      v16 = 67109376;
+      v17 = v15;
+      v18 = 1024;
+      v19 = value;
+      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "CFSM set to a new value for rnf_all_tcpstats (was/is): %d/%d", &v16, 0xEu);
     }
 
     *(*(a1 + 32) + 194) = value;
@@ -1479,19 +1452,17 @@ void __46__CellFallbackHandler__completeInitialization__block_invoke_2_271(uint6
     v6 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 67109120;
-      v18 = 1;
+      v16 = 67109120;
+      v17 = 1;
       v7 = "CFSM got a nil value or wrong type for rnf_all_tcpstats. Setting to default value (%d)";
       v8 = v6;
       v9 = 8;
 LABEL_5:
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, v7, &v17, v9);
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, v7, &v16, v9);
     }
   }
 
 LABEL_12:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_idempotentInitializationFromIdle
@@ -1506,7 +1477,7 @@ LABEL_12:
 
 - (BOOL)_idempotentInitializationFromIdleWithCellRelay:(id)relay wifiRelay:(id)wifiRelay motionRelay:(id)motionRelay
 {
-  v101[1] = *MEMORY[0x277D85DE8];
+  v100[1] = *MEMORY[0x277D85DE8];
   relayCopy = relay;
   wifiRelayCopy = wifiRelay;
   motionRelayCopy = motionRelay;
@@ -1527,7 +1498,7 @@ LABEL_12:
       v9 = @"(active == YES) AND (primary == YES) AND (rxSignalThresholded == YES)";
     }
 
-    v49 = v9;
+    v48 = v9;
     if (self->needExtendedSignatures)
     {
       v10 = @"(active == YES) AND (primary == YES) AND ((rxSignalThresholded == YES) OR ((rxSignalExemptions & 4) == 4) OR ((rxSignalExemptions & 8) == 8)) AND ((txThresholded == YES) OR (dnsOut == YES) OR (tcpExtraStatsPositive == YES) OR (noCostAdvantage == YES))";
@@ -1538,7 +1509,7 @@ LABEL_12:
       v10 = @"(active == YES) AND (primary == YES) AND (rxSignalThresholded == YES) AND ((txThresholded == YES) OR (dnsOut == YES) OR (tcpExtraStatsPositive == YES))";
     }
 
-    v47 = v10;
+    v46 = v10;
     if (self->needExtendedSignatures)
     {
       v11 = @"(active == YES) AND (primary == YES) AND ((rxSignalThresholded == YES) OR ((rxSignalExemptions & 4) == 4) OR ((rxSignalExemptions & 8) == 8)) AND ((txThresholded == YES) OR (dnsOut == YES) OR (tcpExtraStatsPositive == YES) OR (noCostAdvantage == YES))";
@@ -1549,7 +1520,7 @@ LABEL_12:
       v11 = @"(active == YES) AND (primary == YES) AND (rxSignalThresholded == YES) AND ((txThresholded == YES) OR (dnsOut == YES) OR (tcpExtraStatsPositive == YES))";
     }
 
-    v46 = v11;
+    v45 = v11;
     if (self->needExtendedSignatures)
     {
       v12 = @"(active == NO) OR (primary == NO) OR ((rxSignalThresholded == NO) AND ((rxSignalExemptions & 4) == 0) AND ((rxSignalExemptions & 8) == 0)) OR ((txThresholded == NO) AND (dnsOut == NO) AND (tcpExtraStatsPositive == NO) AND (noCostAdvantage == NO))";
@@ -1560,7 +1531,7 @@ LABEL_12:
       v12 = @"(active == NO) OR (primary == NO) OR (rxSignalThresholded == NO) OR ((txThresholded == NO) AND (dnsOut == NO) AND (tcpExtraStatsPositive == NO))";
     }
 
-    v48 = v12;
+    v47 = v12;
     if (self->needExtendedSignatures)
     {
       v13 = @"(active == NO) OR (primary == NO) OR ((rxSignalThresholded == NO) AND ((rxSignalExemptions & 4) == 0) AND ((rxSignalExemptions & 8) == 0)) OR ((txThresholded == NO) AND (dnsOut == NO) AND (tcpExtraStatsPositive == NO) AND (noCostAdvantage == NO))";
@@ -1571,7 +1542,7 @@ LABEL_12:
       v13 = @"(active == NO) OR (primary == NO) OR (rxSignalThresholded == NO) OR ((txThresholded == NO) AND (dnsOut == NO) AND (tcpExtraStatsPositive == NO))";
     }
 
-    v50 = v13;
+    v49 = v13;
     if (self->needExtendedSignatures)
     {
       v14 = @"(active == NO) OR (primary == NO) OR ((rxSignalThresholded == NO) AND ((rxSignalExemptions & 4) == 0) AND ((rxSignalExemptions & 8) == 0))";
@@ -1582,158 +1553,158 @@ LABEL_12:
       v14 = @"(active == NO) OR (primary == NO) OR (rxSignalThresholded == NO)";
     }
 
-    v51 = v14;
-    v100 = @"alerted";
+    v50 = v14;
+    v99 = @"alerted";
     v15 = [MEMORY[0x277CCAC30] predicateWithFormat:@"active == NO"];
-    v101[0] = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v101 forKeys:&v100 count:1];
-    v98 = @"alerted";
-    v17 = [MEMORY[0x277CCAC30] predicateWithFormat:v51];
-    v99 = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v99 forKeys:&v98 count:1];
+    v100[0] = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v100 forKeys:&v99 count:1];
+    v97 = @"alerted";
+    v17 = [MEMORY[0x277CCAC30] predicateWithFormat:v50];
+    v98 = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v98 forKeys:&v97 count:1];
     val = [State createStateWithLabel:@"idle" rank:0 entryCellPreds:v16 entryWiFiPreds:v18];
 
     objc_initWeak(location, val);
-    v78[0] = MEMORY[0x277D85DD0];
-    v78[1] = 3221225472;
-    v78[2] = __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke;
-    v78[3] = &unk_27898BA88;
-    objc_copyWeak(&v79, location);
-    v78[4] = self;
-    [val setEntryAction:v78];
-    v76[0] = MEMORY[0x277D85DD0];
-    v76[1] = 3221225472;
-    v76[2] = __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_297;
-    v76[3] = &unk_27898BA88;
-    objc_copyWeak(&v77, location);
-    v76[4] = self;
-    [val setExitAction:v76];
-    v96[0] = @"idle";
+    v77[0] = MEMORY[0x277D85DD0];
+    v77[1] = 3221225472;
+    v77[2] = __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke;
+    v77[3] = &unk_27898BA88;
+    objc_copyWeak(&v78, location);
+    v77[4] = self;
+    [val setEntryAction:v77];
+    v75[0] = MEMORY[0x277D85DD0];
+    v75[1] = 3221225472;
+    v75[2] = __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_297;
+    v75[3] = &unk_27898BA88;
+    objc_copyWeak(&v76, location);
+    v75[4] = self;
+    [val setExitAction:v75];
+    v95[0] = @"idle";
     v19 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == YES)"];
-    v96[1] = @"committed";
-    v97[0] = v19;
+    v95[1] = @"committed";
+    v96[0] = v19;
     v20 = [MEMORY[0x277CCAC30] predicateWithFormat:@"active == NO"];
-    v97[1] = v20;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v97 forKeys:v96 count:2];
-    v94[0] = @"idle";
-    v22 = [MEMORY[0x277CCAC30] predicateWithFormat:v49];
-    v94[1] = @"committed";
-    v95[0] = v22;
-    v23 = [MEMORY[0x277CCAC30] predicateWithFormat:v50];
-    v95[1] = v23;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v95 forKeys:v94 count:2];
-    v53 = [State createStateWithLabel:@"alerted" rank:10 entryCellPreds:v21 entryWiFiPreds:v24];
+    v96[1] = v20;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v96 forKeys:v95 count:2];
+    v93[0] = @"idle";
+    v22 = [MEMORY[0x277CCAC30] predicateWithFormat:v48];
+    v93[1] = @"committed";
+    v94[0] = v22;
+    v23 = [MEMORY[0x277CCAC30] predicateWithFormat:v49];
+    v94[1] = v23;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v94 forKeys:v93 count:2];
+    v52 = [State createStateWithLabel:@"alerted" rank:10 entryCellPreds:v21 entryWiFiPreds:v24];
 
-    objc_initWeak(&from, v53);
-    v73[0] = MEMORY[0x277D85DD0];
-    v73[1] = 3221225472;
-    v73[2] = __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_298;
-    v73[3] = &unk_27898BA88;
-    objc_copyWeak(&v74, &from);
-    v73[4] = self;
-    [v53 setEntryAction:v73];
-    v71[0] = MEMORY[0x277D85DD0];
-    v71[1] = 3221225472;
-    v71[2] = __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_300;
-    v71[3] = &unk_27898D200;
-    objc_copyWeak(&v72, &from);
-    v71[4] = self;
-    [v53 setLoopEvaluation:v71];
-    v69[0] = MEMORY[0x277D85DD0];
-    v69[1] = 3221225472;
-    v69[2] = __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_302;
-    v69[3] = &unk_27898C3B0;
-    objc_copyWeak(&v70, &from);
-    [v53 setExitAction:v69];
-    v92[0] = @"alerted";
+    objc_initWeak(&from, v52);
+    v72[0] = MEMORY[0x277D85DD0];
+    v72[1] = 3221225472;
+    v72[2] = __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_298;
+    v72[3] = &unk_27898BA88;
+    objc_copyWeak(&v73, &from);
+    v72[4] = self;
+    [v52 setEntryAction:v72];
+    v70[0] = MEMORY[0x277D85DD0];
+    v70[1] = 3221225472;
+    v70[2] = __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_300;
+    v70[3] = &unk_27898D200;
+    objc_copyWeak(&v71, &from);
+    v70[4] = self;
+    [v52 setLoopEvaluation:v70];
+    v68[0] = MEMORY[0x277D85DD0];
+    v68[1] = 3221225472;
+    v68[2] = __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_302;
+    v68[3] = &unk_27898C3B0;
+    objc_copyWeak(&v69, &from);
+    [v52 setExitAction:v68];
+    v91[0] = @"alerted";
     v25 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == YES)"];
-    v92[1] = @"preferred";
-    v93[0] = v25;
+    v91[1] = @"preferred";
+    v92[0] = v25;
     v26 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == NO) OR (cellRrcConnected == NO) OR (linkQuality < 50) OR (expensive == YES)"];
-    v93[1] = v26;
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v93 forKeys:v92 count:2];
-    v90[0] = @"alerted";
-    v28 = [MEMORY[0x277CCAC30] predicateWithFormat:v47];
-    v91[0] = v28;
-    v90[1] = @"preferred";
-    v29 = [MEMORY[0x277CCAC30] predicateWithFormat:v48];
-    v91[1] = v29;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v91 forKeys:v90 count:2];
+    v92[1] = v26;
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v92 forKeys:v91 count:2];
+    v89[0] = @"alerted";
+    v28 = [MEMORY[0x277CCAC30] predicateWithFormat:v46];
+    v90[0] = v28;
+    v89[1] = @"preferred";
+    v29 = [MEMORY[0x277CCAC30] predicateWithFormat:v47];
+    v90[1] = v29;
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v90 forKeys:v89 count:2];
     v31 = [State createStateWithLabel:@"committed" rank:50 entryCellPreds:v27 entryWiFiPreds:v30];
 
-    objc_initWeak(&v68, v31);
-    v66[0] = MEMORY[0x277D85DD0];
-    v66[1] = 3221225472;
-    v66[2] = __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_303;
-    v66[3] = &unk_27898BA88;
-    objc_copyWeak(&v67, &v68);
-    v66[4] = self;
-    [v31 setEntryAction:v66];
-    v64[0] = MEMORY[0x277D85DD0];
-    v64[1] = 3221225472;
-    v64[2] = __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_304;
-    v64[3] = &unk_27898D200;
-    objc_copyWeak(&v65, &v68);
-    v64[4] = self;
-    [v31 setLoopEvaluation:v64];
-    v62[0] = MEMORY[0x277D85DD0];
-    v62[1] = 3221225472;
-    v62[2] = __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_305;
-    v62[3] = &unk_27898C3B0;
-    objc_copyWeak(&v63, &v68);
-    [v31 setExitAction:v62];
-    v88 = @"committed";
+    objc_initWeak(&v67, v31);
+    v65[0] = MEMORY[0x277D85DD0];
+    v65[1] = 3221225472;
+    v65[2] = __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_303;
+    v65[3] = &unk_27898BA88;
+    objc_copyWeak(&v66, &v67);
+    v65[4] = self;
+    [v31 setEntryAction:v65];
+    v63[0] = MEMORY[0x277D85DD0];
+    v63[1] = 3221225472;
+    v63[2] = __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_304;
+    v63[3] = &unk_27898D200;
+    objc_copyWeak(&v64, &v67);
+    v63[4] = self;
+    [v31 setLoopEvaluation:v63];
+    v61[0] = MEMORY[0x277D85DD0];
+    v61[1] = 3221225472;
+    v61[2] = __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_305;
+    v61[3] = &unk_27898C3B0;
+    objc_copyWeak(&v62, &v67);
+    [v31 setExitAction:v61];
+    v87 = @"committed";
     v32 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == YES) AND (cellRrcConnected == YES) AND (linkQuality >= 50) AND (expensive == NO)"];
-    v89 = v32;
-    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
-    v86 = @"committed";
-    v34 = [MEMORY[0x277CCAC30] predicateWithFormat:v46];
-    v87 = v34;
-    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
+    v88 = v32;
+    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
+    v85 = @"committed";
+    v34 = [MEMORY[0x277CCAC30] predicateWithFormat:v45];
+    v86 = v34;
+    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
     v36 = [State createStateWithLabel:@"preferred" rank:70 entryCellPreds:v33 entryWiFiPreds:v35];
 
-    objc_initWeak(&v61, v36);
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_306;
-    v59[3] = &unk_27898BA88;
-    objc_copyWeak(&v60, &v61);
-    v59[4] = self;
-    [v36 setEntryAction:v59];
+    objc_initWeak(&v60, v36);
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_306;
+    v58[3] = &unk_27898BA88;
+    objc_copyWeak(&v59, &v60);
+    v58[4] = self;
+    [v36 setEntryAction:v58];
     [v36 setLoopEvaluation:&__block_literal_global_309];
-    v57[0] = MEMORY[0x277D85DD0];
-    v57[1] = 3221225472;
-    v57[2] = __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_2;
-    v57[3] = &unk_27898BA88;
-    objc_copyWeak(&v58, &v61);
-    v57[4] = self;
-    [v36 setExitAction:v57];
-    v85[0] = val;
-    v85[1] = v53;
-    v85[2] = v31;
-    v85[3] = v36;
-    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v85 count:4];
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_2;
+    v56[3] = &unk_27898BA88;
+    objc_copyWeak(&v57, &v60);
+    v56[4] = self;
+    [v36 setExitAction:v56];
+    v84[0] = val;
+    v84[1] = v52;
+    v84[2] = v31;
+    v84[3] = v36;
+    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v84 count:4];
     states = self->states;
     self->states = v37;
 
     [(CellFallbackHandler *)self _bringStateToIdle];
     [(CellFallbackHandler *)self _updateCellFallbackState];
-    objc_destroyWeak(&v58);
+    objc_destroyWeak(&v57);
+    objc_destroyWeak(&v59);
     objc_destroyWeak(&v60);
-    objc_destroyWeak(&v61);
 
-    objc_destroyWeak(&v63);
-    objc_destroyWeak(&v65);
+    objc_destroyWeak(&v62);
+    objc_destroyWeak(&v64);
+    objc_destroyWeak(&v66);
     objc_destroyWeak(&v67);
-    objc_destroyWeak(&v68);
 
-    objc_destroyWeak(&v70);
-    objc_destroyWeak(&v72);
-    objc_destroyWeak(&v74);
+    objc_destroyWeak(&v69);
+    objc_destroyWeak(&v71);
+    objc_destroyWeak(&v73);
     objc_destroyWeak(&from);
 
-    objc_destroyWeak(&v77);
-    objc_destroyWeak(&v79);
+    objc_destroyWeak(&v76);
+    objc_destroyWeak(&v78);
     objc_destroyWeak(location);
 
     v39 = 1;
@@ -1749,9 +1720,9 @@ LABEL_12:
       motionRelay = self->motionRelay;
       *location = 134218496;
       *&location[4] = cellRelay;
-      v81 = 2048;
+      v80 = 2048;
       wifiRelayCopy2 = wifiRelay;
-      v83 = 2048;
+      v82 = 2048;
       motionRelayCopy2 = motionRelay;
       _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_ERROR, "CFSM init failed, at least one of the relays missing (cell/wifi/motion): %p,%p,%p", location, 0x20u);
     }
@@ -1759,13 +1730,12 @@ LABEL_12:
     v39 = 0;
   }
 
-  v44 = *MEMORY[0x277D85DE8];
   return v39;
 }
 
 void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -1774,11 +1744,11 @@ void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wi
     v5 = [WeakRetained label];
     v6 = [WeakRetained previousState];
     v7 = [v6 label];
-    v13 = 138412546;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v7;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "\tCFSM entry action for: %@, coming from: %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v7;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "\tCFSM entry action for: %@, coming from: %@", &v12, 0x16u);
   }
 
   v8 = [*(*(a1 + 32) + 32) interfaceName];
@@ -1810,13 +1780,11 @@ void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wi
       [v11 rnfTestAbortCFSMWentIdleReply:1];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_297(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   ++*(*(a1 + 32) + 384);
   v3 = rnfLogHandle;
@@ -1825,11 +1793,11 @@ void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wi
     v4 = v3;
     v5 = [WeakRetained label];
     v6 = *(*(a1 + 32) + 384);
-    v10 = 138412546;
-    v11 = v5;
-    v12 = 1024;
-    v13 = v6;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "\tCFSM exit action for: %@, activation ID: %d", &v10, 0x12u);
+    v9 = 138412546;
+    v10 = v5;
+    v11 = 1024;
+    v12 = v6;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "\tCFSM exit action for: %@, activation ID: %d", &v9, 0x12u);
   }
 
   v7 = [*(*(a1 + 32) + 32) interfaceName];
@@ -1842,13 +1810,11 @@ void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wi
   [TrackedFlow startPollingWifiFlows:0xFFFFFFFFLL];
   [*(a1 + 32) startElevatedStateWatchdogWithPeriod:60000000000];
   [*(*(a1 + 32) + 280) enable];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_298(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -1857,11 +1823,11 @@ void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wi
     v5 = [WeakRetained label];
     v6 = [WeakRetained previousState];
     v7 = [v6 label];
-    v13 = 138412546;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v7;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "\t\tCFSM entry action for: %@, coming from: %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v7;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "\t\tCFSM entry action for: %@, coming from: %@", &v12, 0x16u);
   }
 
   [WeakRetained setLoopTokens:6];
@@ -1871,22 +1837,20 @@ void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wi
   v10 = [WeakRetained label];
   v11 = [(CellFallbackMetric *)v8 initCellFallbackMetricWithLevel:1 policy:v9 state:v10];
   [WeakRetained setCaMetric:v11];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_300(uint64_t a1, int a2)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = *(a1 + 32);
   if (v5[193] == 1)
   {
     if ((a2 & 1) == 0 && ([v5 wifiCallUnderway] & 1) == 0 && (objc_msgSend(*(*(a1 + 32) + 104), "isStationary") & 1) == 0 && objc_msgSend(*(*(a1 + 32) + 24), "active") && objc_msgSend(*(*(a1 + 32) + 32), "active") && objc_msgSend(*(*(a1 + 32) + 32), "primary") && objc_msgSend(*(*(a1 + 32) + 32), "rxSignalThresholded") && ((objc_msgSend(*(*(a1 + 32) + 32), "rxSignalThresholded") & 1) != 0 || (objc_msgSend(*(*(a1 + 32) + 32), "rxSignalExemptions") & 4) != 0 || (objc_msgSend(*(*(a1 + 32) + 32), "rxSignalExemptions") & 8) != 0))
     {
-      v31 = [WeakRetained loopTokens];
-      v6 = v31 > 1;
-      [WeakRetained setLoopTokens:(v31 - 1)];
+      v30 = [WeakRetained loopTokens];
+      v6 = v30 > 1;
+      [WeakRetained setLoopTokens:(v30 - 1)];
     }
 
     else
@@ -1903,10 +1867,10 @@ BOOL __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wi
         v8 = "yes";
       }
 
-      v33 = v8;
+      v32 = v8;
       log = v7;
       v9 = [WeakRetained label];
-      v32 = [*(a1 + 32) wifiCallUnderway];
+      v31 = [*(a1 + 32) wifiCallUnderway];
       v10 = [*(*(a1 + 32) + 104) isStationary];
       v11 = [*(*(a1 + 32) + 24) active];
       v12 = [*(*(a1 + 32) + 32) active];
@@ -1914,27 +1878,27 @@ BOOL __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wi
       v14 = [*(*(a1 + 32) + 32) rxSignalThresholded];
       v15 = [*(*(a1 + 32) + 32) rxSignalExemptions];
       *buf = 136317698;
-      v38 = v33;
-      v39 = 2112;
-      v40 = v9;
-      v41 = 1024;
-      v42 = a2;
-      v43 = 1024;
-      v44 = v32;
-      v45 = 1024;
-      v46 = v10;
-      v47 = 1024;
-      v48 = v11;
-      v49 = 1024;
-      v50 = v12;
-      v51 = 1024;
-      v52 = v13;
-      v53 = 1024;
-      v54 = v14;
-      v55 = 1024;
-      v56 = v15;
-      v57 = 1024;
-      v58 = [WeakRetained loopTokens];
+      v37 = v32;
+      v38 = 2112;
+      v39 = v9;
+      v40 = 1024;
+      v41 = a2;
+      v42 = 1024;
+      v43 = v31;
+      v44 = 1024;
+      v45 = v10;
+      v46 = 1024;
+      v47 = v11;
+      v48 = 1024;
+      v49 = v12;
+      v50 = 1024;
+      v51 = v13;
+      v52 = 1024;
+      v53 = v14;
+      v54 = 1024;
+      v55 = v15;
+      v56 = 1024;
+      v57 = [WeakRetained loopTokens];
       v16 = "\t\tCFSM loop eval: %s for: %@, escal: %d, wificalling: %d, stationary: %d, cell-active: %d, wifi-active: %d, wifi-primary: %d, wifi-rssi: %d, wifi-signal-exmp: %u, tokens: %d";
       v17 = log;
       v18 = log;
@@ -1967,7 +1931,7 @@ LABEL_30:
         v22 = "yes";
       }
 
-      v34 = v22;
+      v33 = v22;
       loga = v21;
       v9 = [WeakRetained label];
       v23 = [*(a1 + 32) wifiCallUnderway];
@@ -1977,25 +1941,25 @@ LABEL_30:
       v27 = [*(*(a1 + 32) + 32) primary];
       v28 = [*(*(a1 + 32) + 32) rxSignalThresholded];
       *buf = 136317442;
-      v38 = v34;
-      v39 = 2112;
-      v40 = v9;
-      v41 = 1024;
-      v42 = a2;
-      v43 = 1024;
-      v44 = v23;
-      v45 = 1024;
-      v46 = v24;
-      v47 = 1024;
-      v48 = v25;
-      v49 = 1024;
-      v50 = v26;
-      v51 = 1024;
-      v52 = v27;
-      v53 = 1024;
-      v54 = v28;
-      v55 = 1024;
-      v56 = [WeakRetained loopTokens];
+      v37 = v33;
+      v38 = 2112;
+      v39 = v9;
+      v40 = 1024;
+      v41 = a2;
+      v42 = 1024;
+      v43 = v23;
+      v44 = 1024;
+      v45 = v24;
+      v46 = 1024;
+      v47 = v25;
+      v48 = 1024;
+      v49 = v26;
+      v50 = 1024;
+      v51 = v27;
+      v52 = 1024;
+      v53 = v28;
+      v54 = 1024;
+      v55 = [WeakRetained loopTokens];
       v16 = "\t\tCFSM loop eval: %s for: %@, escal: %d, wificalling: %d, stationary: %d, cell-active: %d, wifi-active: %d, wifi-primary: %d, wifi-rssi: %d, tokens: %d";
       v17 = loga;
       v18 = loga;
@@ -2004,22 +1968,21 @@ LABEL_30:
     }
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_302(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v3 = v2;
     v4 = [WeakRetained label];
-    v18 = 138412290;
-    v19 = v4;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "\t\tCFSM exit action for: %@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v4;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "\t\tCFSM exit action for: %@", &v17, 0xCu);
   }
 
   v5 = [WeakRetained caMetric];
@@ -2042,9 +2005,9 @@ void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wi
       {
         v12 = v11;
         v13 = [WeakRetained label];
-        v18 = 138412290;
-        v19 = v13;
-        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "\t\tCFSM error while posting metrics to CA after exiting %@", &v18, 0xCu);
+        v17 = 138412290;
+        v18 = v13;
+        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "\t\tCFSM error while posting metrics to CA after exiting %@", &v17, 0xCu);
       }
     }
 
@@ -2058,18 +2021,16 @@ void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wi
     {
       v15 = v14;
       v16 = [WeakRetained label];
-      v18 = 138412290;
-      v19 = v16;
-      _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "\t\tCFSM error while exiting %@, metric instance can not be nil", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = v16;
+      _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "\t\tCFSM error while exiting %@, metric instance can not be nil", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_303(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -2078,11 +2039,11 @@ void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wi
     v5 = [WeakRetained label];
     v6 = [WeakRetained previousState];
     v7 = [v6 label];
-    v17 = 138412546;
-    v18 = v5;
-    v19 = 2112;
-    v20 = v7;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "\t\t\tCFSM entry action for: %@, coming from: %@", &v17, 0x16u);
+    v16 = 138412546;
+    v17 = v5;
+    v18 = 2112;
+    v19 = v7;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "\t\t\tCFSM entry action for: %@, coming from: %@", &v16, 0x16u);
   }
 
   v8 = [*(*(a1 + 32) + 8) rank];
@@ -2107,13 +2068,11 @@ void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wi
   v14 = [WeakRetained label];
   v15 = [(CellFallbackMetric *)v12 initCellFallbackMetricWithLevel:2 policy:v13 state:v14];
   [WeakRetained setCaMetric:v15];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_304(uint64_t a1, int a2)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = *(a1 + 32);
   if (v5[193] == 1)
@@ -2153,11 +2112,11 @@ LABEL_14:
         v9 = "yes";
       }
 
-      v35 = v9;
+      v34 = v9;
       log = v8;
-      v33 = [WeakRetained label];
-      v32 = [*(a1 + 32) wifiCallUnderway];
-      v31 = [*(*(a1 + 32) + 104) isStationary];
+      v32 = [WeakRetained label];
+      v31 = [*(a1 + 32) wifiCallUnderway];
+      v30 = [*(*(a1 + 32) + 104) isStationary];
       v10 = [*(*(a1 + 32) + 24) active];
       v11 = [*(*(a1 + 32) + 32) active];
       v12 = WeakRetained;
@@ -2167,30 +2126,30 @@ LABEL_14:
       v16 = [*(*(a1 + 32) + 32) rxSignalExemptions];
       v17 = [*(a1 + 32) boosted];
       *buf = 136317954;
-      v40 = v35;
-      v41 = 2112;
-      v42 = v33;
-      v43 = 1024;
-      v44 = a2;
-      v45 = 1024;
-      v46 = v32;
-      v47 = 1024;
-      v48 = v31;
-      v49 = 1024;
-      v50 = v10;
-      v51 = 1024;
-      v52 = v11;
-      v53 = 1024;
-      v54 = v13;
+      v39 = v34;
+      v40 = 2112;
+      v41 = v32;
+      v42 = 1024;
+      v43 = a2;
+      v44 = 1024;
+      v45 = v31;
+      v46 = 1024;
+      v47 = v30;
+      v48 = 1024;
+      v49 = v10;
+      v50 = 1024;
+      v51 = v11;
+      v52 = 1024;
+      v53 = v13;
       WeakRetained = v12;
-      v55 = 1024;
-      v56 = v14;
-      v57 = 1024;
-      v58 = v15;
-      v59 = 1024;
-      v60 = v16;
-      v61 = 1024;
-      v62 = v17;
+      v54 = 1024;
+      v55 = v14;
+      v56 = 1024;
+      v57 = v15;
+      v58 = 1024;
+      v59 = v16;
+      v60 = 1024;
+      v61 = v17;
       v18 = log;
       _os_log_impl(&dword_23255B000, log, OS_LOG_TYPE_DEFAULT, "\t\tCFSM loop eval: %s for: %@, escal: %d, wificalling: %d, stationary: %d, cell-active: %d, wifi-active: %d, wifi-primary: %d, no-cost-adv: %d, wifi-rssi: %d, wifi-signal-exmp: %u, boosted %d", buf, 0x52u);
 
@@ -2220,8 +2179,8 @@ LABEL_30:
       v20 = "yes";
     }
 
-    v34 = v20;
-    v36 = v19;
+    v33 = v20;
+    v35 = v19;
     v21 = [WeakRetained label];
     loga = WeakRetained;
     v22 = [*(a1 + 32) wifiCallUnderway];
@@ -2232,50 +2191,49 @@ LABEL_30:
     v27 = [*(*(a1 + 32) + 32) rxSignalThresholded];
     v28 = [*(a1 + 32) boosted];
     *buf = 136317442;
-    v40 = v34;
-    v41 = 2112;
-    v42 = v21;
-    v43 = 1024;
-    v44 = a2;
-    v45 = 1024;
-    v46 = v22;
-    v18 = v36;
+    v39 = v33;
+    v40 = 2112;
+    v41 = v21;
+    v42 = 1024;
+    v43 = a2;
+    v44 = 1024;
+    v45 = v22;
+    v18 = v35;
     WeakRetained = loga;
-    v47 = 1024;
-    v48 = v23;
-    v49 = 1024;
-    v50 = v24;
-    v51 = 1024;
-    v52 = v25;
-    v53 = 1024;
-    v54 = v26;
-    v55 = 1024;
-    v56 = v27;
-    v57 = 1024;
-    v58 = v28;
-    _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_DEFAULT, "\t\tCFSM loop eval: %s for: %@, escal: %d, wificalling: %d, stationary: %d, cell-active: %d, wifi-active: %d, wifi-primary: %d, wifi-rssi: %d, boosted %d", buf, 0x46u);
+    v46 = 1024;
+    v47 = v23;
+    v48 = 1024;
+    v49 = v24;
+    v50 = 1024;
+    v51 = v25;
+    v52 = 1024;
+    v53 = v26;
+    v54 = 1024;
+    v55 = v27;
+    v56 = 1024;
+    v57 = v28;
+    _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_DEFAULT, "\t\tCFSM loop eval: %s for: %@, escal: %d, wificalling: %d, stationary: %d, cell-active: %d, wifi-active: %d, wifi-primary: %d, wifi-rssi: %d, boosted %d", buf, 0x46u);
 
     goto LABEL_30;
   }
 
 LABEL_31:
 
-  v29 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_305(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v3 = v2;
     v4 = [WeakRetained label];
-    v18 = 138412290;
-    v19 = v4;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "\t\t\tCFSM exit action for: %@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v4;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "\t\t\tCFSM exit action for: %@", &v17, 0xCu);
   }
 
   v5 = [WeakRetained caMetric];
@@ -2298,9 +2256,9 @@ void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wi
       {
         v12 = v11;
         v13 = [WeakRetained label];
-        v18 = 138412290;
-        v19 = v13;
-        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "\t\t\tCFSM error while posting metrics to CA after exiting %@", &v18, 0xCu);
+        v17 = 138412290;
+        v18 = v13;
+        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "\t\t\tCFSM error while posting metrics to CA after exiting %@", &v17, 0xCu);
       }
     }
 
@@ -2314,18 +2272,16 @@ void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wi
     {
       v15 = v14;
       v16 = [WeakRetained label];
-      v18 = 138412290;
-      v19 = v16;
-      _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "\t\t\tCFSM error while exiting %@, metric instance can not be nil", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = v16;
+      _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "\t\t\tCFSM error while exiting %@, metric instance can not be nil", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_306(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -2336,7 +2292,7 @@ void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wi
     v7 = [v6 label];
     v8 = v7;
     v9 = *(*(a1 + 32) + 382);
-    v16 = 138412802;
+    v15 = 138412802;
     if (v9)
     {
       v10 = "yes";
@@ -2347,12 +2303,12 @@ void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wi
       v10 = "no";
     }
 
-    v17 = v5;
-    v18 = 2112;
-    v19 = v7;
-    v20 = 2080;
-    v21 = v10;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "\t\t\t\tCFSM entry action for: %@, coming from: %@, %s turboRNF", &v16, 0x20u);
+    v16 = v5;
+    v17 = 2112;
+    v18 = v7;
+    v19 = 2080;
+    v20 = v10;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "\t\t\t\tCFSM entry action for: %@, coming from: %@, %s turboRNF", &v15, 0x20u);
   }
 
   v11 = [CellFallbackMetric alloc];
@@ -2365,22 +2321,20 @@ void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wi
   {
     [*(a1 + 32) setRnfAskedOutrank:1];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wifiRelay_motionRelay___block_invoke_2(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     v5 = [WeakRetained label];
-    v19 = 138412290;
-    v20 = v5;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "\t\t\t\tCFSM exit action for: %@", &v19, 0xCu);
+    v18 = 138412290;
+    v19 = v5;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "\t\t\t\tCFSM exit action for: %@", &v18, 0xCu);
   }
 
   v6 = [WeakRetained caMetric];
@@ -2403,9 +2357,9 @@ void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wi
       {
         v13 = v12;
         v14 = [WeakRetained label];
-        v19 = 138412290;
-        v20 = v14;
-        _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "\t\t\t\tCFSM error while posting metrics to CA after exiting %@", &v19, 0xCu);
+        v18 = 138412290;
+        v19 = v14;
+        _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "\t\t\t\tCFSM error while posting metrics to CA after exiting %@", &v18, 0xCu);
       }
     }
 
@@ -2419,15 +2373,13 @@ void __92__CellFallbackHandler__idempotentInitializationFromIdleWithCellRelay_wi
     {
       v16 = v15;
       v17 = [WeakRetained label];
-      v19 = 138412290;
-      v20 = v17;
-      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "\t\t\t\tCFSM error while exiting %@, metric instance can not be nil", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = v17;
+      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "\t\t\t\tCFSM error while exiting %@, metric instance can not be nil", &v18, 0xCu);
     }
   }
 
   [*(a1 + 32) setRnfAskedOutrank:0];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFallbackAdvice:(int64_t)advice
@@ -2473,14 +2425,14 @@ void __40__CellFallbackHandler__bringStateToIdle__block_invoke(uint64_t a1, void
 
 - (void)_toggleElevatedState
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (self->_runningRNFTest)
   {
     v2 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v28) = 0;
-      _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "CFSM2 ignoring _toggleElevatedState as part of RNF Test", &v28, 2u);
+      LOWORD(v27) = 0;
+      _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "CFSM2 ignoring _toggleElevatedState as part of RNF Test", &v27, 2u);
     }
   }
 
@@ -2496,8 +2448,8 @@ void __40__CellFallbackHandler__bringStateToIdle__block_invoke(uint64_t a1, void
       v8 = rnfLogHandle;
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v28) = 0;
-        _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "CFSM forced state toggle, but found it idle: no-op", &v28, 2u);
+        LOWORD(v27) = 0;
+        _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "CFSM forced state toggle, but found it idle: no-op", &v27, 2u);
       }
     }
 
@@ -2559,21 +2511,19 @@ void __40__CellFallbackHandler__bringStateToIdle__block_invoke(uint64_t a1, void
         v24 = v23;
         label3 = [(State *)v9 label];
         label4 = [self->currentState label];
-        v28 = 138412546;
-        v29 = label3;
-        v30 = 2112;
-        v31 = label4;
-        _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "CFSM forced state toggle, from: %@ to: %@", &v28, 0x16u);
+        v27 = 138412546;
+        v28 = label3;
+        v29 = 2112;
+        v30 = label4;
+        _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "CFSM forced state toggle, from: %@ to: %@", &v27, 0x16u);
       }
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_administrativeEnable
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   administrativeState = self->administrativeState;
   v4 = rnfLogHandle;
   v5 = os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT);
@@ -2590,9 +2540,9 @@ void __40__CellFallbackHandler__bringStateToIdle__block_invoke(uint64_t a1, void
         v9 = "Enabled";
       }
 
-      v15 = 136315138;
-      v16 = v9;
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "CFSM admin enable. Orig state: %s", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = v9;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "CFSM admin enable. Orig state: %s", &v14, 0xCu);
     }
 
     [(CellularStateRelay *)self->cellRelay addObserver:self forKeyPath:@"active" options:7 context:2];
@@ -2624,17 +2574,15 @@ void __40__CellFallbackHandler__bringStateToIdle__block_invoke(uint64_t a1, void
       v13 = "Enabled";
     }
 
-    v15 = 136315138;
-    v16 = v13;
-    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "CFSM ignoring double issue. Orig state: %s", &v15, 0xCu);
+    v14 = 136315138;
+    v15 = v13;
+    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "CFSM ignoring double issue. Orig state: %s", &v14, 0xCu);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_administrativeDisable
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   administrativeState = self->administrativeState;
   v4 = rnfLogHandle;
   v5 = os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT);
@@ -2651,9 +2599,9 @@ void __40__CellFallbackHandler__bringStateToIdle__block_invoke(uint64_t a1, void
         v9 = "Enabled";
       }
 
-      v17 = 136315138;
-      v18 = v9;
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "CFSM admin disable. Orig state: %s", &v17, 0xCu);
+      v16 = 136315138;
+      v17 = v9;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "CFSM admin disable. Orig state: %s", &v16, 0xCu);
     }
 
     [(CellFallbackHandler *)self _bringStateToIdle];
@@ -2695,12 +2643,10 @@ void __40__CellFallbackHandler__bringStateToIdle__block_invoke(uint64_t a1, void
       v15 = "Enabled";
     }
 
-    v17 = 136315138;
-    v18 = v15;
-    _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "CFSM ignoring double issue. Orig state: %s", &v17, 0xCu);
+    v16 = 136315138;
+    v17 = v15;
+    _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "CFSM ignoring double issue. Orig state: %s", &v16, 0xCu);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -2786,7 +2732,7 @@ void __40__CellFallbackHandler__bringStateToIdle__block_invoke(uint64_t a1, void
 
 - (void)_dumpState
 {
-  v107 = *MEMORY[0x277D85DE8];
+  v106 = *MEMORY[0x277D85DE8];
   v3 = +[SystemProperties sharedInstance];
   v4 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -2796,7 +2742,7 @@ void __40__CellFallbackHandler__bringStateToIdle__block_invoke(uint64_t a1, void
     _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "CFSM System properties: %@", buf, 0xCu);
   }
 
-  v89 = v3;
+  v88 = v3;
   v5 = +[SystemSettingsRelay defaultRelay];
   v6 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -2838,7 +2784,7 @@ void __40__CellFallbackHandler__bringStateToIdle__block_invoke(uint64_t a1, void
     _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "CFSM Current Policy: %lu", buf, 0xCu);
   }
 
-  v87 = v5;
+  v86 = v5;
   v12 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -2885,27 +2831,27 @@ void __40__CellFallbackHandler__bringStateToIdle__block_invoke(uint64_t a1, void
     _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, "CFSM Current state: %@", buf, 0xCu);
   }
 
-  v93 = 0u;
-  v94 = 0u;
-  v91 = 0u;
   v92 = 0u;
+  v93 = 0u;
+  v90 = 0u;
+  v91 = 0u;
   v25 = self->states;
-  v26 = [(NSArray *)v25 countByEnumeratingWithState:&v91 objects:v106 count:16];
+  v26 = [(NSArray *)v25 countByEnumeratingWithState:&v90 objects:v105 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v92;
+    v28 = *v91;
     do
     {
       for (i = 0; i != v27; ++i)
       {
-        if (*v92 != v28)
+        if (*v91 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        v30 = *(*(&v91 + 1) + 8 * i);
-        v31 = [(NSArray *)self->states objectAtIndexedSubscript:0, v87];
+        v30 = *(*(&v90 + 1) + 8 * i);
+        v31 = [(NSArray *)self->states objectAtIndexedSubscript:0, v86];
 
         if (v30 != v31)
         {
@@ -2928,7 +2874,7 @@ void __40__CellFallbackHandler__bringStateToIdle__block_invoke(uint64_t a1, void
         }
       }
 
-      v27 = [(NSArray *)v25 countByEnumeratingWithState:&v91 objects:v106 count:16];
+      v27 = [(NSArray *)v25 countByEnumeratingWithState:&v90 objects:v105 count:16];
     }
 
     while (v27);
@@ -2972,32 +2918,32 @@ void __40__CellFallbackHandler__bringStateToIdle__block_invoke(uint64_t a1, void
     _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_DEFAULT, "CFSM Cell state: %@", buf, 0xCu);
   }
 
-  v90 = 0;
+  v89 = 0;
   interfaceName = [(NetworkStateRelay *)self->wifiRelay interfaceName];
   v47 = [TCPProgressProbe probeForInterface:interfaceName];
 
-  [v47 manage:2 outValue:&v90];
+  [v47 manage:2 outValue:&v89];
   v48 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    *&buf[4] = v90;
+    *&buf[4] = v89;
     _os_log_impl(&dword_23255B000, v48, OS_LOG_TYPE_DEFAULT, "CFSM Kernel probing state: %d", buf, 8u);
   }
 
-  v104 = 0u;
-  v105 = 0u;
-  v102 = 0u;
   v103 = 0u;
+  v104 = 0u;
+  v101 = 0u;
+  v102 = 0u;
   memset(buf, 0, sizeof(buf));
   [v47 fetchMetricsForFlowsAged:buf metrics:0 includeQUICFlows:&__block_literal_global_360 resultBlock:2.0];
   v49 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     motionDetectorState = self->motionDetectorState;
-    *v95 = 67109120;
-    *v96 = motionDetectorState;
-    _os_log_impl(&dword_23255B000, v49, OS_LOG_TYPE_DEFAULT, "CFSM Motion detector state: %d", v95, 8u);
+    *v94 = 67109120;
+    *v95 = motionDetectorState;
+    _os_log_impl(&dword_23255B000, v49, OS_LOG_TYPE_DEFAULT, "CFSM Motion detector state: %d", v94, 8u);
   }
 
   v51 = rnfLogHandle;
@@ -3012,9 +2958,9 @@ void __40__CellFallbackHandler__bringStateToIdle__block_invoke(uint64_t a1, void
       v55 = "";
     }
 
-    *v95 = 136315138;
-    *v96 = v55;
-    _os_log_impl(&dword_23255B000, v52, OS_LOG_TYPE_DEFAULT, "CFSM Mobility: %sstationary", v95, 0xCu);
+    *v94 = 136315138;
+    *v95 = v55;
+    _os_log_impl(&dword_23255B000, v52, OS_LOG_TYPE_DEFAULT, "CFSM Mobility: %sstationary", v94, 0xCu);
   }
 
   v56 = rnfLogHandle;
@@ -3022,11 +2968,11 @@ void __40__CellFallbackHandler__bringStateToIdle__block_invoke(uint64_t a1, void
   {
     boosted = self->_boosted;
     boostedTimer = self->boostedTimer;
-    *v95 = 67109376;
-    *v96 = boosted;
-    *&v96[4] = 2048;
-    *&v96[6] = boostedTimer;
-    _os_log_impl(&dword_23255B000, v56, OS_LOG_TYPE_DEFAULT, "CFSM boosted (current/timer) out = (%d/%p)", v95, 0x12u);
+    *v94 = 67109376;
+    *v95 = boosted;
+    *&v95[4] = 2048;
+    *&v95[6] = boostedTimer;
+    _os_log_impl(&dword_23255B000, v56, OS_LOG_TYPE_DEFAULT, "CFSM boosted (current/timer) out = (%d/%p)", v94, 0x12u);
   }
 
   v59 = rnfLogHandle;
@@ -3036,15 +2982,15 @@ void __40__CellFallbackHandler__bringStateToIdle__block_invoke(uint64_t a1, void
     appBlacklistsFreePassCellMax = self->appBlacklistsFreePassCellMax;
     appBlacklistsFreePassFlowMax = self->appBlacklistsFreePassFlowMax;
     appBlacklistsRNFToCellRatio = self->appBlacklistsRNFToCellRatio;
-    *v95 = 134218752;
-    *v96 = appBlacklistsSettleTime;
-    *&v96[8] = 2048;
-    *&v96[10] = appBlacklistsFreePassCellMax;
-    v97 = 2048;
-    v98 = appBlacklistsFreePassFlowMax;
-    v99 = 2048;
-    v100 = appBlacklistsRNFToCellRatio;
-    _os_log_impl(&dword_23255B000, v59, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist (settle/freePassMax/freePassOne/rnfRatio): %llu/%llu/%llu/%.2f", v95, 0x2Au);
+    *v94 = 134218752;
+    *v95 = appBlacklistsSettleTime;
+    *&v95[8] = 2048;
+    *&v95[10] = appBlacklistsFreePassCellMax;
+    v96 = 2048;
+    v97 = appBlacklistsFreePassFlowMax;
+    v98 = 2048;
+    v99 = appBlacklistsRNFToCellRatio;
+    _os_log_impl(&dword_23255B000, v59, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist (settle/freePassMax/freePassOne/rnfRatio): %llu/%llu/%llu/%.2f", v94, 0x2Au);
   }
 
   v64 = [TrackedFlow cellUsageGrandTallyAfterAdding:0];
@@ -3054,33 +3000,33 @@ void __40__CellFallbackHandler__bringStateToIdle__block_invoke(uint64_t a1, void
   v68 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    *v95 = 134218752;
-    *v96 = v64;
-    *&v96[8] = 2048;
-    *&v96[10] = v65;
-    v97 = 2048;
-    v98 = v66;
-    v99 = 2048;
-    v100 = *&v67;
-    _os_log_impl(&dword_23255B000, v68, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist (overall-cell/overall-rnf/expensive-cell/expensive-rnf): %llu/%llu/%llu/%llu", v95, 0x2Au);
+    *v94 = 134218752;
+    *v95 = v64;
+    *&v95[8] = 2048;
+    *&v95[10] = v65;
+    v96 = 2048;
+    v97 = v66;
+    v98 = 2048;
+    v99 = *&v67;
+    _os_log_impl(&dword_23255B000, v68, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist (overall-cell/overall-rnf/expensive-cell/expensive-rnf): %llu/%llu/%llu/%llu", v94, 0x2Au);
   }
 
   v69 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     overdraftLedger = self->overdraftLedger;
-    *v95 = 138412290;
-    *v96 = overdraftLedger;
-    _os_log_impl(&dword_23255B000, v69, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist, overdraft ledger: %@", v95, 0xCu);
+    *v94 = 138412290;
+    *v95 = overdraftLedger;
+    _os_log_impl(&dword_23255B000, v69, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist, overdraft ledger: %@", v94, 0xCu);
   }
 
   v71 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     blockedRenewalLedger = self->blockedRenewalLedger;
-    *v95 = 138412290;
-    *v96 = blockedRenewalLedger;
-    _os_log_impl(&dword_23255B000, v71, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist, blocked renewals ledger: %@", v95, 0xCu);
+    *v94 = 138412290;
+    *v95 = blockedRenewalLedger;
+    _os_log_impl(&dword_23255B000, v71, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist, blocked renewals ledger: %@", v94, 0xCu);
   }
 
   v73 = rnfLogHandle;
@@ -3102,11 +3048,11 @@ void __40__CellFallbackHandler__bringStateToIdle__block_invoke(uint64_t a1, void
       v75 = "default plist";
     }
 
-    *v95 = 136315394;
-    *v96 = v74;
-    *&v96[8] = 2080;
-    *&v96[10] = v75;
-    _os_log_impl(&dword_23255B000, v73, OS_LOG_TYPE_DEFAULT, "CFSM is %shigh capacity cell plan (%s supplied)", v95, 0x16u);
+    *v94 = 136315394;
+    *v95 = v74;
+    *&v95[8] = 2080;
+    *&v95[10] = v75;
+    _os_log_impl(&dword_23255B000, v73, OS_LOG_TYPE_DEFAULT, "CFSM is %shigh capacity cell plan (%s supplied)", v94, 0x16u);
   }
 
   cellPlanObserver = self->cellPlanObserver;
@@ -3120,8 +3066,8 @@ void __40__CellFallbackHandler__bringStateToIdle__block_invoke(uint64_t a1, void
     v77 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      *v95 = 0;
-      _os_log_impl(&dword_23255B000, v77, OS_LOG_TYPE_DEFAULT, "CFSM data plan, no observer", v95, 2u);
+      *v94 = 0;
+      _os_log_impl(&dword_23255B000, v77, OS_LOG_TYPE_DEFAULT, "CFSM data plan, no observer", v94, 2u);
     }
   }
 
@@ -3138,9 +3084,9 @@ void __40__CellFallbackHandler__bringStateToIdle__block_invoke(uint64_t a1, void
       v79 = "NO ";
     }
 
-    *v95 = 136315138;
-    *v96 = v79;
-    _os_log_impl(&dword_23255B000, v78, OS_LOG_TYPE_DEFAULT, "CFSM needs %sextended signatures", v95, 0xCu);
+    *v94 = 136315138;
+    *v95 = v79;
+    _os_log_impl(&dword_23255B000, v78, OS_LOG_TYPE_DEFAULT, "CFSM needs %sextended signatures", v94, 0xCu);
   }
 
   v80 = rnfLogHandle;
@@ -3156,35 +3102,33 @@ void __40__CellFallbackHandler__bringStateToIdle__block_invoke(uint64_t a1, void
       v81 = "NO";
     }
 
-    *v95 = 136315138;
-    *v96 = v81;
-    _os_log_impl(&dword_23255B000, v80, OS_LOG_TYPE_DEFAULT, "CFSM use all TCP stats: %s", v95, 0xCu);
+    *v94 = 136315138;
+    *v95 = v81;
+    _os_log_impl(&dword_23255B000, v80, OS_LOG_TYPE_DEFAULT, "CFSM use all TCP stats: %s", v94, 0xCu);
   }
 
   v82 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     appsCache = self->appsCache;
-    *v95 = 138412290;
-    *v96 = appsCache;
-    _os_log_impl(&dword_23255B000, v82, OS_LOG_TYPE_DEFAULT, "CFSM canUse cache: %@", v95, 0xCu);
+    *v94 = 138412290;
+    *v95 = appsCache;
+    _os_log_impl(&dword_23255B000, v82, OS_LOG_TYPE_DEFAULT, "CFSM canUse cache: %@", v94, 0xCu);
   }
 
   v84 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     mdmProfile = self->mdmProfile;
-    *v95 = 138412290;
-    *v96 = mdmProfile;
-    _os_log_impl(&dword_23255B000, v84, OS_LOG_TYPE_DEFAULT, "CFSM MDM profiles: %@", v95, 0xCu);
+    *v94 = 138412290;
+    *v95 = mdmProfile;
+    _os_log_impl(&dword_23255B000, v84, OS_LOG_TYPE_DEFAULT, "CFSM MDM profiles: %@", v94, 0xCu);
   }
-
-  v86 = *MEMORY[0x277D85DE8];
 }
 
 void __33__CellFallbackHandler__dumpState__block_invoke(uint64_t a1, int a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = rnfLogHandle;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
@@ -3198,40 +3142,36 @@ void __33__CellFallbackHandler__dumpState__block_invoke(uint64_t a1, int a2, uin
       v6 = @"(invalid parameter)";
     }
 
-    v8[0] = 67109378;
-    v8[1] = a2;
-    v9 = 2112;
-    v10 = v6;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "CFSM: TCP progress metrics ret=%d, %@", v8, 0x12u);
+    v7[0] = 67109378;
+    v7[1] = a2;
+    v8 = 2112;
+    v9 = v6;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "CFSM: TCP progress metrics ret=%d, %@", v7, 0x12u);
     if (a2)
     {
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __33__CellFallbackHandler__dumpState__block_invoke_369(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412546;
-    v9 = v4;
-    v10 = 2112;
-    v11 = v5;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "CFSM data plan, metrics: %@, error: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v4;
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "CFSM data plan, metrics: %@, error: %@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)evalTurboRNF
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = [(SystemSettingsRelay *)self->settingsRelay turboRNFFeatureFlagEnabled]|| [(CellFallbackTrialExperimentHandler *)self->_trialExperimentHandler trialTurboRNF]!= 0;
   v4 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -3259,16 +3199,15 @@ void __33__CellFallbackHandler__dumpState__block_invoke_369(uint64_t a1, void *a
     }
 
     trialTurboRNF = [(CellFallbackTrialExperimentHandler *)self->_trialExperimentHandler trialTurboRNF];
-    v12 = 136315650;
-    v13 = v5;
-    v14 = 2080;
-    v15 = v8;
-    v16 = 1024;
-    v17 = trialTurboRNF;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "CFSM: turbo_rnf %sabled; fflag: %s, trial type: %d", &v12, 0x1Cu);
+    v11 = 136315650;
+    v12 = v5;
+    v13 = 2080;
+    v14 = v8;
+    v15 = 1024;
+    v16 = trialTurboRNF;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "CFSM: turbo_rnf %sabled; fflag: %s, trial type: %d", &v11, 0x1Cu);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -3308,7 +3247,7 @@ void __33__CellFallbackHandler__dumpState__block_invoke_369(uint64_t a1, void *a
 - (void)setBoosted:(BOOL)boosted
 {
   boostedCopy = boosted;
-  *&v23[7] = *MEMORY[0x277D85DE8];
+  *&v22[7] = *MEMORY[0x277D85DE8];
   v5 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -3316,10 +3255,10 @@ void __33__CellFallbackHandler__dumpState__block_invoke_369(uint64_t a1, void *a
     boostedTimer = self->boostedTimer;
     *buf = 67109632;
     boostedCopy2 = boosted;
-    v22 = 1024;
-    *v23 = boostedCopy;
-    v23[2] = 2048;
-    *&v23[3] = boostedTimer;
+    v21 = 1024;
+    *v22 = boostedCopy;
+    v22[2] = 2048;
+    *&v22[3] = boostedTimer;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "CFSM2 boosted (current/proposed/timer) in = (%d/%d/%p)", buf, 0x18u);
   }
 
@@ -3351,8 +3290,8 @@ LABEL_11:
         v17 = self->boostedTimer;
         *buf = 67109376;
         boostedCopy2 = v16;
-        v22 = 2048;
-        *v23 = v17;
+        v21 = 2048;
+        *v22 = v17;
         _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "CFSM2 boosted (current/timer) out = (%d/%p)", buf, 0x12u);
       }
     }
@@ -3375,8 +3314,6 @@ LABEL_11:
       goto LABEL_11;
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startElevatedStateWatchdogWithPeriod:(unint64_t)period
@@ -3431,7 +3368,7 @@ uint64_t __60__CellFallbackHandler_startElevatedStateWatchdogWithPeriod___block_
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -3442,9 +3379,9 @@ uint64_t __60__CellFallbackHandler_startElevatedStateWatchdogWithPeriod___block_
     block[2] = __70__CellFallbackHandler_observeValueForKeyPath_ofObject_change_context___block_invoke;
     block[3] = &unk_27898D090;
     contextCopy = context;
-    v27 = objectCopy;
-    v28 = pathCopy;
-    v29 = changeCopy;
+    v26 = objectCopy;
+    v27 = pathCopy;
+    v28 = changeCopy;
     selfCopy = self;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
@@ -3476,76 +3413,76 @@ uint64_t __60__CellFallbackHandler_startElevatedStateWatchdogWithPeriod___block_
   {
     if ([(SystemSettingsRelay *)self->settingsRelay rnfEnabled]&& ![(NetworkStateRelay *)self->wifiRelay lqmAsystole])
     {
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __70__CellFallbackHandler_observeValueForKeyPath_ofObject_change_context___block_invoke_386;
-      v25[3] = &unk_27898A0C8;
-      v25[4] = self;
-      v14 = MEMORY[0x277D85CD0];
-      v15 = v25;
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __70__CellFallbackHandler_observeValueForKeyPath_ofObject_change_context___block_invoke_386;
+      v24[3] = &unk_27898A0C8;
+      v24[4] = self;
+      v13 = MEMORY[0x277D85CD0];
+      v14 = v24;
     }
 
     else
     {
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __70__CellFallbackHandler_observeValueForKeyPath_ofObject_change_context___block_invoke_2;
-      v24[3] = &unk_27898A0C8;
-      v24[4] = self;
-      v14 = MEMORY[0x277D85CD0];
-      v15 = v24;
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __70__CellFallbackHandler_observeValueForKeyPath_ofObject_change_context___block_invoke_2;
+      v23[3] = &unk_27898A0C8;
+      v23[4] = self;
+      v13 = MEMORY[0x277D85CD0];
+      v14 = v23;
     }
 
 LABEL_20:
-    dispatch_async(v14, v15);
+    dispatch_async(v13, v14);
     goto LABEL_3;
   }
 
   if ([pathCopy isEqualToString:@"mostRecentAPWakeMachTime"])
   {
-    v16 = rnfLogHandle;
+    v15 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "CFSM: AP just woke up. Idle if not already idle", buf, 2u);
+      _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEFAULT, "CFSM: AP just woke up. Idle if not already idle", buf, 2u);
     }
 
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __70__CellFallbackHandler_observeValueForKeyPath_ofObject_change_context___block_invoke_387;
-    v23[3] = &unk_27898A0C8;
-    v23[4] = self;
-    v14 = MEMORY[0x277D85CD0];
-    v15 = v23;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __70__CellFallbackHandler_observeValueForKeyPath_ofObject_change_context___block_invoke_387;
+    v22[3] = &unk_27898A0C8;
+    v22[4] = self;
+    v13 = MEMORY[0x277D85CD0];
+    v14 = v22;
     goto LABEL_20;
   }
 
   if ([pathCopy isEqualToString:@"cellOutranksWiFi"])
   {
-    v17 = [changeCopy objectForKeyedSubscript:*MEMORY[0x277CCA300]];
-    bOOLValue = [v17 BOOLValue];
+    v16 = [changeCopy objectForKeyedSubscript:*MEMORY[0x277CCA300]];
+    bOOLValue = [v16 BOOLValue];
 
-    v19 = [changeCopy objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
-    bOOLValue2 = [v19 BOOLValue];
+    v18 = [changeCopy objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
+    bOOLValue2 = [v18 BOOLValue];
 
-    v21 = rnfLogHandle;
+    v20 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      v33 = bOOLValue;
-      v34 = 1024;
-      v35 = bOOLValue2;
-      _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "CFSM: SIS state %{BOOL}d->%{BOOL}d", buf, 0xEu);
+      v32 = bOOLValue;
+      v33 = 1024;
+      v34 = bOOLValue2;
+      _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "CFSM: SIS state %{BOOL}d->%{BOOL}d", buf, 0xEu);
     }
 
     self->hasSISRunning = bOOLValue2;
     if (bOOLValue && (bOOLValue2 & 1) == 0 && ![self->currentState rank])
     {
-      v22 = rnfLogHandle;
+      v21 = rnfLogHandle;
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEFAULT, "CFSM: SIS state quiesced, now quiescing CFSM too (deferred)", buf, 2u);
+        _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "CFSM: SIS state quiesced, now quiescing CFSM too (deferred)", buf, 2u);
       }
 
       [(CellFallbackHandler *)self setRnfActivated:0];
@@ -3553,35 +3490,42 @@ LABEL_20:
   }
 
 LABEL_3:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __70__CellFallbackHandler_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v172 = *MEMORY[0x277D85DE8];
+  v170 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 64);
-  v3 = *(a1 + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = v1[4];
-    if ([v4 functionalInterfaceType] != 5 && objc_msgSend(v4, "functionalInterfaceType") != 3)
+    v3 = v1[4];
+    if ([v3 functionalInterfaceType] != 5 && objc_msgSend(v3, "functionalInterfaceType") != 3)
     {
-      v110 = rnfLogHandle;
+      v109 = rnfLogHandle;
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v111 = v110;
+        v110 = v109;
         *buf = 67109120;
-        LODWORD(v162) = [v4 functionalInterfaceType];
-        _os_log_impl(&dword_23255B000, v111, OS_LOG_TYPE_ERROR, "Unexpected interface type %u", buf, 8u);
+        LODWORD(v160) = [v3 functionalInterfaceType];
+        _os_log_impl(&dword_23255B000, v110, OS_LOG_TYPE_ERROR, "Unexpected interface type %u", buf, 8u);
       }
 
       goto LABEL_96;
     }
 
-    v5 = [v4 functionalInterfaceType];
+    v4 = [v3 functionalInterfaceType];
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  if ([v1[5] isEqualToString:@"rxSignalExemptions"])
+  {
+    v5 = v2 == 13;
   }
 
   else
@@ -3589,163 +3533,153 @@ void __70__CellFallbackHandler_observeValueForKeyPath_ofObject_change_context___
     v5 = 0;
   }
 
-  if ([v1[5] isEqualToString:@"rxSignalExemptions"])
+  if (v5)
   {
-    v6 = v2 == 13;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  if (v6)
-  {
-    v7 = v1[6];
-    if (v7)
+    v6 = v1[6];
+    if (v6)
     {
-      v8 = [v7 objectForKeyedSubscript:*MEMORY[0x277CCA300]];
-      v9 = [v1[6] objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
-      [v1[7] postSpeculativeTelemetryForKey:v1[5] oldValue:v8 newValue:v9];
+      v7 = [v6 objectForKeyedSubscript:*MEMORY[0x277CCA300]];
+      v8 = [v1[6] objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
+      [v1[7] postSpeculativeTelemetryForKey:v1[5] oldValue:v7 newValue:v8];
     }
   }
 
-  v10 = rnfLogHandle;
-  v146 = v5;
-  v142 = v2;
+  v9 = rnfLogHandle;
+  v144 = v4;
+  v140 = v2;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = *(v1[7] + 1);
-    v12 = v10;
-    v13 = [v11 label];
-    v14 = v1[5];
-    v145 = *MEMORY[0x277CCA2F0];
-    v15 = [v1[6] objectForKeyedSubscript:?];
+    v10 = *(v1[7] + 1);
+    v11 = v9;
+    v12 = [v10 label];
+    v13 = v1[5];
+    v143 = *MEMORY[0x277CCA2F0];
+    v14 = [v1[6] objectForKeyedSubscript:?];
     *buf = 138413058;
+    v160 = v12;
+    v161 = 2112;
     v162 = v13;
     v163 = 2112;
     v164 = v14;
-    v165 = 2112;
-    v166 = v15;
-    v167 = 1024;
-    *v168 = v5;
-    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "CFSM Current state: %@, changed: %@ to %@ for net type %d", buf, 0x26u);
+    v165 = 1024;
+    *v166 = v4;
+    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "CFSM Current state: %@, changed: %@ to %@ for net type %d", buf, 0x26u);
   }
 
   else
   {
-    v145 = *MEMORY[0x277CCA2F0];
+    v143 = *MEMORY[0x277CCA2F0];
   }
 
-  v159 = 0u;
-  v160 = 0u;
   v157 = 0u;
   v158 = 0u;
+  v155 = 0u;
+  v156 = 0u;
   obj = *(v1[7] + 2);
-  v16 = [obj countByEnumeratingWithState:&v157 objects:v171 count:16];
-  if (!v16)
+  v15 = [obj countByEnumeratingWithState:&v155 objects:v169 count:16];
+  if (!v15)
   {
-    v4 = 0;
+    v3 = 0;
     goto LABEL_80;
   }
 
-  v17 = v16;
-  v18 = 0;
-  v4 = 0;
-  v152 = v1;
+  v16 = v15;
+  v17 = 0;
+  v3 = 0;
+  v150 = v1;
   while (2)
   {
-    v143 = v18;
-    v144 = v4;
-    v149 = *v158;
-    v19 = v17;
+    v141 = v17;
+    v142 = v3;
+    v147 = *v156;
+    v18 = v16;
 LABEL_19:
-    v20 = 0;
-    v147 = v19;
+    v19 = 0;
+    v145 = v18;
     while (1)
     {
-      if (*v158 != v149)
+      if (*v156 != v147)
       {
         objc_enumerationMutation(obj);
       }
 
-      v21 = *(*(&v157 + 1) + 8 * v20);
-      if (v21 == *(v1[7] + 1))
+      v20 = *(*(&v155 + 1) + 8 * v19);
+      if (v20 == *(v1[7] + 1))
       {
         goto LABEL_43;
       }
 
-      v22 = [*(*(&v157 + 1) + 8 * v20) entryWiFiPreds];
-      v23 = [*(v1[7] + 1) label];
-      v24 = [v22 objectForKeyedSubscript:v23];
+      v21 = [*(*(&v155 + 1) + 8 * v19) entryWiFiPreds];
+      v22 = [*(v1[7] + 1) label];
+      v23 = [v21 objectForKeyedSubscript:v22];
 
-      v25 = v24;
-      v26 = [v21 entryCellPreds];
-      v27 = [*(v1[7] + 1) label];
-      v28 = [v26 objectForKeyedSubscript:v27];
+      v24 = v23;
+      v25 = [v20 entryCellPreds];
+      v26 = [*(v1[7] + 1) label];
+      v27 = [v25 objectForKeyedSubscript:v26];
 
-      v29 = rnfLogHandle;
-      v30 = os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT);
-      if (v25)
+      v28 = rnfLogHandle;
+      v29 = os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT);
+      if (v24)
       {
-        v31 = v28 == 0;
+        v30 = v27 == 0;
       }
 
       else
       {
-        v31 = 1;
+        v30 = 1;
       }
 
-      if (v31)
+      if (v30)
       {
-        if (v30)
+        if (v29)
         {
-          v32 = v1[7];
-          v33 = v28;
-          v34 = v32[1];
-          v35 = v29;
-          v36 = [v34 label];
-          v37 = v152[5];
-          v38 = [v152[6] objectForKeyedSubscript:v145];
-          v39 = [v21 label];
+          v31 = v1[7];
+          v32 = v27;
+          v33 = v31[1];
+          v34 = v28;
+          v35 = [v33 label];
+          v36 = v150[5];
+          v37 = [v150[6] objectForKeyedSubscript:v143];
+          v38 = [v20 label];
           *buf = 138413826;
+          v160 = v35;
+          v161 = 2112;
           v162 = v36;
           v163 = 2112;
           v164 = v37;
-          v165 = 2112;
-          v166 = v38;
-          v167 = 1024;
-          *v168 = v146;
-          *&v168[4] = 2112;
-          *&v168[6] = v39;
-          *&v168[14] = 2048;
-          *&v168[16] = v25;
-          *&v168[24] = 2048;
-          v169 = v33;
-          _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_DEFAULT, "CFSM Current state: %@, changed: %@ to %@ for net type %d, ineligible for %@ as nil pred, wifi (%p) cell (%p)", buf, 0x44u);
+          v165 = 1024;
+          *v166 = v144;
+          *&v166[4] = 2112;
+          *&v166[6] = v38;
+          *&v166[14] = 2048;
+          *&v166[16] = v24;
+          *&v166[24] = 2048;
+          v167 = v32;
+          _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_DEFAULT, "CFSM Current state: %@, changed: %@ to %@ for net type %d, ineligible for %@ as nil pred, wifi (%p) cell (%p)", buf, 0x44u);
 
-          v28 = v33;
-          v1 = v152;
+          v27 = v32;
+          v1 = v150;
         }
 
         goto LABEL_42;
       }
 
-      if (v30)
+      if (v29)
       {
-        v40 = v29;
-        v41 = [v21 label];
+        v39 = v28;
+        v40 = [v20 label];
         *buf = 138412290;
-        v162 = v41;
-        _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_DEFAULT, "CFSM Eligible to go to %@", buf, 0xCu);
+        v160 = v40;
+        _os_log_impl(&dword_23255B000, v39, OS_LOG_TYPE_DEFAULT, "CFSM Eligible to go to %@", buf, 0xCu);
       }
 
-      v42 = [v21 rank];
-      v43 = [*(v1[7] + 1) rank];
-      v44 = [v1[7] wifiCallUnderway];
-      if (v42 > v43)
+      v41 = [v20 rank];
+      v42 = [*(v1[7] + 1) rank];
+      v43 = [v1[7] wifiCallUnderway];
+      if (v41 > v42)
       {
-        if (v44 & 1) == 0 && [v28 evaluateWithObject:*(v1[7] + 3)] && (objc_msgSend(v25, "evaluateWithObject:", *(v1[7] + 4)))
+        if (v43 & 1) == 0 && [v27 evaluateWithObject:*(v1[7] + 3)] && (objc_msgSend(v24, "evaluateWithObject:", *(v1[7] + 4)))
         {
           break;
         }
@@ -3753,59 +3687,59 @@ LABEL_19:
         goto LABEL_40;
       }
 
-      if ((v44 & 1) != 0 || ([v28 evaluateWithObject:*(v1[7] + 3)] & 1) != 0 || objc_msgSend(v25, "evaluateWithObject:", *(v1[7] + 4)))
+      if ((v43 & 1) != 0 || ([v27 evaluateWithObject:*(v1[7] + 3)] & 1) != 0 || objc_msgSend(v24, "evaluateWithObject:", *(v1[7] + 4)))
       {
         break;
       }
 
 LABEL_40:
-      v45 = rnfLogHandle;
-      v19 = v147;
+      v44 = rnfLogHandle;
+      v18 = v145;
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v46 = v1[7];
-        v47 = v28;
-        v48 = v46[1];
-        v49 = v45;
-        v50 = [v48 label];
-        v51 = v152[5];
-        v52 = [v152[6] objectForKeyedSubscript:v145];
-        v53 = [v21 label];
-        LODWORD(v48) = [v152[7] wifiCallUnderway];
-        v54 = [v47 evaluateWithObject:*(v152[7] + 3)];
-        v55 = [v25 evaluateWithObject:*(v152[7] + 4)];
+        v45 = v1[7];
+        v46 = v27;
+        v47 = v45[1];
+        v48 = v44;
+        v49 = [v47 label];
+        v50 = v150[5];
+        v51 = [v150[6] objectForKeyedSubscript:v143];
+        v52 = [v20 label];
+        LODWORD(v47) = [v150[7] wifiCallUnderway];
+        v53 = [v46 evaluateWithObject:*(v150[7] + 3)];
+        v54 = [v24 evaluateWithObject:*(v150[7] + 4)];
         *buf = 138414338;
+        v160 = v49;
+        v161 = 2112;
         v162 = v50;
         v163 = 2112;
         v164 = v51;
-        v165 = 2112;
-        v166 = v52;
-        v167 = 1024;
-        *v168 = v146;
-        *&v168[4] = 2112;
-        *&v168[6] = v53;
-        *&v168[14] = 1024;
-        *&v168[16] = -1;
-        *&v168[20] = 1024;
-        *&v168[22] = v48;
-        v28 = v47;
-        v1 = v152;
-        LOWORD(v169) = 1024;
-        *(&v169 + 2) = v54;
-        HIWORD(v169) = 1024;
-        v170 = v55;
-        _os_log_impl(&dword_23255B000, v49, OS_LOG_TYPE_DEFAULT, "CFSM Current state: %@, changed: %@ to %@ for net type %d, eligible for %@ but constraints unsatisfied (%d,%d,%d,%d)", buf, 0x48u);
+        v165 = 1024;
+        *v166 = v144;
+        *&v166[4] = 2112;
+        *&v166[6] = v52;
+        *&v166[14] = 1024;
+        *&v166[16] = -1;
+        *&v166[20] = 1024;
+        *&v166[22] = v47;
+        v27 = v46;
+        v1 = v150;
+        LOWORD(v167) = 1024;
+        *(&v167 + 2) = v53;
+        HIWORD(v167) = 1024;
+        v168 = v54;
+        _os_log_impl(&dword_23255B000, v48, OS_LOG_TYPE_DEFAULT, "CFSM Current state: %@, changed: %@ to %@ for net type %d, eligible for %@ but constraints unsatisfied (%d,%d,%d,%d)", buf, 0x48u);
 
-        v19 = v147;
+        v18 = v145;
       }
 
 LABEL_42:
 
 LABEL_43:
-      if (v19 == ++v20)
+      if (v18 == ++v19)
       {
-        v19 = [obj countByEnumeratingWithState:&v157 objects:v171 count:16];
-        if (v19)
+        v18 = [obj countByEnumeratingWithState:&v155 objects:v169 count:16];
+        if (v18)
         {
           goto LABEL_19;
         }
@@ -3814,291 +3748,291 @@ LABEL_43:
       }
     }
 
-    v56 = [*(v1[7] + 1) loopEvaluation];
-    if (v56)
+    v55 = [*(v1[7] + 1) loopEvaluation];
+    if (v55)
     {
-      v57 = v56;
+      v56 = v55;
       [*(v1[7] + 1) loopEvaluation];
-      v59 = v58 = v28;
-      v60 = (v59)[2](v59, v42 > v43);
+      v58 = v57 = v27;
+      v59 = (v58)[2](v58, v41 > v42);
 
-      v28 = v58;
-      if (v60)
+      v27 = v57;
+      if (v59)
       {
-        v123 = rnfLogHandle;
+        v122 = rnfLogHandle;
         if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          v124 = *(v152[7] + 1);
-          v125 = v123;
-          v126 = [v124 label];
-          v127 = v152[5];
-          v128 = [v152[6] objectForKeyedSubscript:v145];
-          v129 = [v21 label];
+          v123 = *(v150[7] + 1);
+          v124 = v122;
+          v125 = [v123 label];
+          v126 = v150[5];
+          v127 = [v150[6] objectForKeyedSubscript:v143];
+          v128 = [v20 label];
           *buf = 138413314;
+          v160 = v125;
+          v161 = 2112;
           v162 = v126;
           v163 = 2112;
           v164 = v127;
-          v165 = 2112;
-          v166 = v128;
-          v167 = 1024;
-          *v168 = v146;
-          *&v168[4] = 2112;
-          *&v168[6] = v129;
-          _os_log_impl(&dword_23255B000, v125, OS_LOG_TYPE_DEFAULT, "CFSM Current state: %@, changed: %@ to %@ for net type %d, eligible for %@ but stay put and delay moving", buf, 0x30u);
+          v165 = 1024;
+          *v166 = v144;
+          *&v166[4] = 2112;
+          *&v166[6] = v128;
+          _os_log_impl(&dword_23255B000, v124, OS_LOG_TYPE_DEFAULT, "CFSM Current state: %@, changed: %@ to %@ for net type %d, eligible for %@ but stay put and delay moving", buf, 0x30u);
         }
 
-        v130 = dispatch_time(0, 2000000000);
+        v129 = dispatch_time(0, 2000000000);
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __70__CellFallbackHandler_observeValueForKeyPath_ofObject_change_context___block_invoke_384;
         block[3] = &unk_27898D090;
-        v151 = v152[7];
-        v131 = v152[5];
-        v132 = v152[4];
-        v133 = v152[6];
-        *&v134 = v132;
-        *(&v134 + 1) = v133;
-        *&v135 = v151;
-        *(&v135 + 1) = v131;
-        v154 = v135;
-        v155 = v134;
-        v156 = v152[8];
-        dispatch_after(v130, MEMORY[0x277D85CD0], block);
+        v149 = v150[7];
+        v130 = v150[5];
+        v131 = v150[4];
+        v132 = v150[6];
+        *&v133 = v131;
+        *(&v133 + 1) = v132;
+        *&v134 = v149;
+        *(&v134 + 1) = v130;
+        v152 = v134;
+        v153 = v133;
+        v154 = v150[8];
+        dispatch_after(v129, MEMORY[0x277D85CD0], block);
 
-        v1 = v152;
+        v1 = v150;
 LABEL_93:
-        v4 = v144;
+        v3 = v142;
         break;
       }
     }
 
-    v61 = rnfLogHandle;
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+    v60 = rnfLogHandle;
+    if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
     {
-      v150 = v28;
-      v62 = [*(v152[7] + 1) loopEvaluation];
-      v63 = _Block_copy(v62);
-      v64 = [*(v152[7] + 1) loopEvaluation];
-      if (v64)
+      v148 = v27;
+      v61 = [*(v150[7] + 1) loopEvaluation];
+      v62 = _Block_copy(v61);
+      v63 = [*(v150[7] + 1) loopEvaluation];
+      if (v63)
       {
-        v65 = v42 > v43;
-        v66 = v62;
-        v67 = v65;
-        v68 = [*(v152[7] + 1) loopEvaluation];
-        v69 = v67;
-        v62 = v66;
-        v70 = v68[2](v68, v69);
-        v71 = "NO";
-        if (v70)
+        v64 = v41 > v42;
+        v65 = v61;
+        v66 = v64;
+        v67 = [*(v150[7] + 1) loopEvaluation];
+        v68 = v66;
+        v61 = v65;
+        v69 = v67[2](v67, v68);
+        v70 = "NO";
+        if (v69)
         {
-          v71 = "YES";
+          v70 = "YES";
         }
       }
 
       else
       {
-        v71 = "NIL";
-        v68 = v141;
+        v70 = "NIL";
+        v67 = v139;
       }
 
       *buf = 134218242;
-      v162 = v63;
-      v163 = 2080;
-      v164 = v71;
-      _os_log_impl(&dword_23255B000, v61, OS_LOG_TYPE_DEFAULT, "loopEvaluation: %p isEscalation %s", buf, 0x16u);
-      if (v64)
+      v160 = v62;
+      v161 = 2080;
+      v162 = v70;
+      _os_log_impl(&dword_23255B000, v60, OS_LOG_TYPE_DEFAULT, "loopEvaluation: %p isEscalation %s", buf, 0x16u);
+      if (v63)
       {
       }
 
-      v141 = v68;
+      v139 = v67;
 
-      v28 = v150;
-      v72 = v152;
+      v27 = v148;
+      v71 = v150;
     }
 
     else
     {
-      v72 = v152;
+      v71 = v150;
     }
 
-    v73 = rnfLogHandle;
+    v72 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v74 = v28;
-      v75 = *(v72[7] + 1);
-      v76 = v73;
-      v77 = [v75 label];
-      v78 = v152[5];
-      v79 = [v152[6] objectForKeyedSubscript:v145];
-      v80 = [v21 label];
+      v73 = v27;
+      v74 = *(v71[7] + 1);
+      v75 = v72;
+      v76 = [v74 label];
+      v77 = v150[5];
+      v78 = [v150[6] objectForKeyedSubscript:v143];
+      v79 = [v20 label];
       *buf = 138413314;
+      v160 = v76;
+      v161 = 2112;
       v162 = v77;
       v163 = 2112;
       v164 = v78;
-      v165 = 2112;
-      v166 = v79;
-      v167 = 1024;
-      *v168 = v146;
-      *&v168[4] = 2112;
-      *&v168[6] = v80;
-      _os_log_impl(&dword_23255B000, v76, OS_LOG_TYPE_DEFAULT, "CFSM Current state: %@, changed: %@ to %@ for net type %d, eligible for %@ and constraints satisfied", buf, 0x30u);
+      v165 = 1024;
+      *v166 = v144;
+      *&v166[4] = 2112;
+      *&v166[6] = v79;
+      _os_log_impl(&dword_23255B000, v75, OS_LOG_TYPE_DEFAULT, "CFSM Current state: %@, changed: %@ to %@ for net type %d, eligible for %@ and constraints satisfied", buf, 0x30u);
 
-      v28 = v74;
-      v72 = v152;
+      v27 = v73;
+      v71 = v150;
     }
 
-    if (v142)
+    if (v140)
     {
-      [*(v72[7] + 1) caMetric];
-      v82 = v81 = v28;
-      [v82 setEgressTrigger:v142];
+      [*(v71[7] + 1) caMetric];
+      v81 = v80 = v27;
+      [v81 setEgressTrigger:v140];
 
-      v28 = v81;
-      v72 = v152;
+      v27 = v80;
+      v71 = v150;
     }
 
-    if (v146)
+    if (v144)
     {
-      [*(v72[7] + 1) caMetric];
-      v84 = v83 = v28;
-      [v84 setEgressTriggerInterfaceType:v146];
+      [*(v71[7] + 1) caMetric];
+      v83 = v82 = v27;
+      [v83 setEgressTriggerInterfaceType:v144];
 
-      v28 = v83;
-      v72 = v152;
+      v27 = v82;
+      v71 = v150;
     }
 
-    v85 = v72[7];
-    v86 = v28;
-    if (*(v85 + 24) == 2)
+    v84 = v71[7];
+    v85 = v27;
+    if (*(v84 + 24) == 2)
     {
-      v87 = 0;
+      v86 = 0;
     }
 
     else
     {
-      v87 = [v85[13] currentMotion];
-      v85 = v72[7];
+      v86 = [v84[13] currentMotion];
+      v84 = v71[7];
     }
 
-    v88 = [v85[1] caMetric];
-    [v88 setEgressMotionState:v87];
+    v87 = [v84[1] caMetric];
+    [v87 setEgressMotionState:v86];
 
-    v89 = [*(v72[7] + 1) exitAction];
-    v89[2]();
+    v88 = [*(v71[7] + 1) exitAction];
+    v88[2]();
 
-    [*(v72[7] + 1) setPreviousState:0];
-    v90 = v72[7];
-    v91 = *(v90 + 1);
-    v92 = [*(v90 + 2) objectAtIndexedSubscript:0];
+    [*(v71[7] + 1) setPreviousState:0];
+    v89 = v71[7];
+    v90 = *(v89 + 1);
+    v91 = [*(v89 + 2) objectAtIndexedSubscript:0];
 
-    if (v91 != v92)
+    if (v90 != v91)
     {
-      v93 = [*(v72[7] + 1) sojournTime];
-      [v93 stop];
+      v92 = [*(v71[7] + 1) sojournTime];
+      [v92 stop];
     }
 
-    v4 = *(v72[7] + 1);
+    v3 = *(v71[7] + 1);
 
-    objc_storeStrong(v72[7] + 1, v21);
-    [*(v72[7] + 1) setPreviousState:v4];
-    v94 = v72[7];
-    v95 = *(v94 + 1);
-    v96 = [*(v94 + 2) objectAtIndexedSubscript:0];
+    objc_storeStrong(v71[7] + 1, v20);
+    [*(v71[7] + 1) setPreviousState:v3];
+    v93 = v71[7];
+    v94 = *(v93 + 1);
+    v95 = [*(v93 + 2) objectAtIndexedSubscript:0];
 
-    if (v95 != v96)
+    if (v94 != v95)
     {
-      v97 = [*(v72[7] + 1) sojournTime];
-      [v97 start];
+      v96 = [*(v71[7] + 1) sojournTime];
+      [v96 start];
     }
 
-    v98 = [*(v72[7] + 1) entryAction];
-    v98[2]();
+    v97 = [*(v71[7] + 1) entryAction];
+    v97[2]();
 
-    v99 = [*(v72[7] + 2) indexOfObject:v4];
-    v100 = [*(v72[7] + 1) caMetric];
-    [v100 setComingFromState:v99];
+    v98 = [*(v71[7] + 2) indexOfObject:v3];
+    v99 = [*(v71[7] + 1) caMetric];
+    [v99 setComingFromState:v98];
 
-    v101 = [*(v72[7] + 1) caMetric];
-    [v101 setIngressTrigger:v142];
+    v100 = [*(v71[7] + 1) caMetric];
+    [v100 setIngressTrigger:v140];
 
-    v102 = v72[7];
-    v103 = *(v102 + 4);
-    v104 = [*(v102 + 1) caMetric];
-    [v102 populateCellFallbackPropertiesForInterfaceRelay:v103 onCAMetric:v104];
+    v101 = v71[7];
+    v102 = *(v101 + 4);
+    v103 = [*(v101 + 1) caMetric];
+    [v101 populateCellFallbackPropertiesForInterfaceRelay:v102 onCAMetric:v103];
 
-    v105 = v72[7];
-    v106 = *(v105 + 3);
-    v107 = [*(v105 + 1) caMetric];
-    [v105 populateCellFallbackPropertiesForInterfaceRelay:v106 onCAMetric:v107];
+    v104 = v71[7];
+    v105 = *(v104 + 3);
+    v106 = [*(v104 + 1) caMetric];
+    [v104 populateCellFallbackPropertiesForInterfaceRelay:v105 onCAMetric:v106];
 
-    if (v146)
+    if (v144)
     {
-      v108 = [*(v72[7] + 1) caMetric];
-      [v108 setIngressTriggerInterfaceType:v146];
+      v107 = [*(v71[7] + 1) caMetric];
+      [v107 setIngressTriggerInterfaceType:v144];
     }
 
-    v109 = [*(v72[7] + 1) caMetric];
-    [v109 setIngressMotionState:v87];
+    v108 = [*(v71[7] + 1) caMetric];
+    [v108 setIngressMotionState:v86];
 
-    if (v143 == 10)
+    if (v141 == 10)
     {
-      v112 = rnfLogHandle;
-      v1 = v72;
+      v111 = rnfLogHandle;
+      v1 = v71;
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v113 = v112;
-        v114 = [v4 label];
-        v115 = [*(v72[7] + 1) label];
-        v116 = v72[5];
-        v117 = [v72[6] objectForKeyedSubscript:*MEMORY[0x277CCA300]];
-        v118 = [v72[6] objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
+        v112 = v111;
+        v113 = [v3 label];
+        v114 = [*(v71[7] + 1) label];
+        v115 = v71[5];
+        v116 = [v71[6] objectForKeyedSubscript:*MEMORY[0x277CCA300]];
+        v117 = [v71[6] objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
         *buf = 138413570;
+        v160 = v113;
+        v161 = 2112;
         v162 = v114;
         v163 = 2112;
         v164 = v115;
         v165 = 2112;
-        v166 = v116;
-        v167 = 2112;
-        *v168 = v117;
-        *&v168[8] = 2112;
-        *&v168[10] = v118;
-        *&v168[18] = 1024;
-        *&v168[20] = v146;
-        _os_log_impl(&dword_23255B000, v113, OS_LOG_TYPE_ERROR, "CFSM Pingponging from %@ to %@ upon change %@ from %@ to %@ for net type %d", buf, 0x3Au);
+        *v166 = v116;
+        *&v166[8] = 2112;
+        *&v166[10] = v117;
+        *&v166[18] = 1024;
+        *&v166[20] = v144;
+        _os_log_impl(&dword_23255B000, v112, OS_LOG_TYPE_ERROR, "CFSM Pingponging from %@ to %@ upon change %@ from %@ to %@ for net type %d", buf, 0x3Au);
       }
 
-      v119 = rnfLogHandle;
+      v118 = rnfLogHandle;
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v120 = *(v72[7] + 4);
+        v119 = *(v71[7] + 4);
         *buf = 138412290;
-        v162 = v120;
-        _os_log_impl(&dword_23255B000, v119, OS_LOG_TYPE_ERROR, "CFSM WiFi state: %@", buf, 0xCu);
+        v160 = v119;
+        _os_log_impl(&dword_23255B000, v118, OS_LOG_TYPE_ERROR, "CFSM WiFi state: %@", buf, 0xCu);
       }
 
-      v121 = rnfLogHandle;
+      v120 = rnfLogHandle;
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v122 = *(v72[7] + 3);
+        v121 = *(v71[7] + 3);
         *buf = 138412290;
-        v162 = v122;
-        _os_log_impl(&dword_23255B000, v121, OS_LOG_TYPE_ERROR, "CFSM Cell state: %@", buf, 0xCu);
+        v160 = v121;
+        _os_log_impl(&dword_23255B000, v120, OS_LOG_TYPE_ERROR, "CFSM Cell state: %@", buf, 0xCu);
       }
 
-      [v72[7] _bringStateToIdle];
+      [v71[7] _bringStateToIdle];
     }
 
     else
     {
-      v18 = v143 + 1;
-      v159 = 0u;
-      v160 = 0u;
+      v17 = v141 + 1;
       v157 = 0u;
       v158 = 0u;
-      obj = *(v72[7] + 2);
-      v1 = v72;
-      v17 = [obj countByEnumeratingWithState:&v157 objects:v171 count:16];
-      if (v17)
+      v155 = 0u;
+      v156 = 0u;
+      obj = *(v71[7] + 2);
+      v1 = v71;
+      v16 = [obj countByEnumeratingWithState:&v155 objects:v169 count:16];
+      if (v16)
       {
         continue;
       }
@@ -4109,33 +4043,29 @@ LABEL_80:
     break;
   }
 
-  v136 = rnfLogHandle;
+  v135 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v137 = v1[7];
-    v139 = v137[3];
-    v138 = v137[4];
+    v136 = v1[7];
+    v138 = v136[3];
+    v137 = v136[4];
     *buf = 138412546;
-    v162 = v139;
-    v163 = 2112;
-    v164 = v138;
-    _os_log_impl(&dword_23255B000, v136, OS_LOG_TYPE_DEFAULT, "CFSM Relays: %@ %@", buf, 0x16u);
+    v160 = v138;
+    v161 = 2112;
+    v162 = v137;
+    _os_log_impl(&dword_23255B000, v135, OS_LOG_TYPE_DEFAULT, "CFSM Relays: %@ %@", buf, 0x16u);
   }
 
 LABEL_96:
-
-  v140 = *MEMORY[0x277D85DE8];
 }
 
 id __56__CellFallbackHandler_sendWiFiAssistSpeculativeTrigger___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"speculativeTrigger";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"speculativeTrigger";
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -4176,7 +4106,7 @@ id __56__CellFallbackHandler_sendWiFiAssistSpeculativeTrigger___block_invoke(uin
 
 - (void)populateCellFallbackPropertiesForInterfaceRelay:(id)relay onCAMetric:(id)metric
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   relayCopy = relay;
   metricCopy = metric;
   functionalInterfaceType = [relayCopy functionalInterfaceType];
@@ -4280,18 +4210,36 @@ id __56__CellFallbackHandler_sendWiFiAssistSpeculativeTrigger___block_invoke(uin
     v9 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = relayCopy;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "CFSM populateCellFallbackPropertiesForInterfaceRelay called for unsupported interface relay: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = relayCopy;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "CFSM populateCellFallbackPropertiesForInterfaceRelay called for unsupported interface relay: %@", &v10, 0xCu);
     }
   }
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (void)postAdminChangeUpwards:(BOOL)upwards
+{
+  upwardsCopy = upwards;
+  v13 = *MEMORY[0x277D85DE8];
+  v5 = rnfLogHandle;
+  if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v12 = upwardsCopy;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "CFSM updating higher layers with admin enabled: %d", buf, 8u);
+  }
+
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:{upwardsCopy, @"adminEnabled"}];
+  v10 = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter postNotificationName:@"adminEnablementChange" object:self userInfo:v7];
 }
 
 - (void)postUpwards:(int64_t)upwards
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -4307,18 +4255,16 @@ id __56__CellFallbackHandler_sendWiFiAssistSpeculativeTrigger___block_invoke(uin
     }
 
     *buf = 136315138;
-    v14 = v6;
+    v13 = v6;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "CFSM updating higher layers with command: %s", buf, 0xCu);
   }
 
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:{upwards, @"detail"}];
-  v12 = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+  v11 = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"fallbackRecommendation" object:self userInfo:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postUpwards:(int64_t)upwards appsWithStates:(id)states always:(BOOL)always
@@ -4352,52 +4298,52 @@ id __56__CellFallbackHandler_sendWiFiAssistSpeculativeTrigger___block_invoke(uin
 
 void __57__CellFallbackHandler_postUpwards_appsWithStates_always___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6)
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   v11 = a2;
   v12 = a3;
   v13 = a4;
   v14 = a5;
-  v60 = a6;
-  if (!v60)
+  v59 = a6;
+  if (!v59)
   {
-    v57 = v14;
-    v58 = v13;
+    v56 = v14;
+    v57 = v13;
     v16 = [v11 mutableCopy];
-    v63 = [v12 mutableCopy];
-    v62 = [*(a1 + 32) mutableCopy];
+    v62 = [v12 mutableCopy];
+    v61 = [*(a1 + 32) mutableCopy];
+    v70 = 0u;
     v71 = 0u;
     v72 = 0u;
     v73 = 0u;
-    v74 = 0u;
-    v59 = v11;
+    v58 = v11;
     v17 = v11;
-    v18 = [v17 countByEnumeratingWithState:&v71 objects:v84 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v70 objects:v83 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v72;
+      v20 = *v71;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v72 != v20)
+          if (*v71 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v71 + 1) + 8 * i);
+          v22 = *(*(&v70 + 1) + 8 * i);
           v23 = [v17 objectForKeyedSubscript:v22];
           v24 = [v23 BOOLValue];
 
           if ((v24 & 1) == 0)
           {
             [v16 removeObjectForKey:v22];
+            [v61 removeObjectForKey:v22];
             [v62 removeObjectForKey:v22];
-            [v63 removeObjectForKey:v22];
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v71 objects:v84 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v70 objects:v83 count:16];
       }
 
       while (v19);
@@ -4407,26 +4353,26 @@ void __57__CellFallbackHandler_postUpwards_appsWithStates_always___block_invoke(
     {
       if (*(a1 + 56) != 1)
       {
-        v55 = rnfLogHandle;
-        v13 = v58;
-        v11 = v59;
-        v14 = v57;
+        v54 = rnfLogHandle;
+        v13 = v57;
+        v11 = v58;
+        v14 = v56;
         if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_23255B000, v55, OS_LOG_TYPE_INFO, "CFSM advice level or app state did not change from last posting, suppressing consider alternate update", buf, 2u);
+          _os_log_impl(&dword_23255B000, v54, OS_LOG_TYPE_INFO, "CFSM advice level or app state did not change from last posting, suppressing consider alternate update", buf, 2u);
         }
 
         goto LABEL_44;
       }
 
-      v56 = (a1 + 56);
+      v55 = (a1 + 56);
     }
 
     else
     {
       objc_storeStrong((*(a1 + 40) + 304), v16);
-      v56 = (a1 + 56);
+      v55 = (a1 + 56);
     }
 
     v25 = *(a1 + 48);
@@ -4441,36 +4387,36 @@ void __57__CellFallbackHandler_postUpwards_appsWithStates_always___block_invoke(
         v30 = *(a1 + 48);
         v31 = *(a1 + 56);
         *buf = 134218496;
-        v81 = v29;
-        v82 = 2048;
-        *v83 = v30;
-        *&v83[8] = 1024;
-        *&v83[10] = v31;
+        v80 = v29;
+        v81 = 2048;
+        *v82 = v30;
+        *&v82[8] = 1024;
+        *&v82[10] = v31;
         _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_INFO, "CFSM Split advice for consider alternate update, will choose fresh %ld over stale %ld, always %d", buf, 0x1Cu);
       }
     }
 
-    v69 = 0u;
-    v70 = 0u;
-    v67 = 0u;
     v68 = 0u;
+    v69 = 0u;
+    v66 = 0u;
+    v67 = 0u;
     obj = v17;
-    v65 = [obj countByEnumeratingWithState:&v67 objects:v79 count:16];
-    if (v65)
+    v64 = [obj countByEnumeratingWithState:&v66 objects:v78 count:16];
+    if (v64)
     {
-      v64 = *v68;
-      v32 = &unk_27DDA1000;
-      v61 = a1;
+      v63 = *v67;
+      v32 = &create_pcap_on_interface_ebuf[184];
+      v60 = a1;
       do
       {
-        for (j = 0; j != v65; ++j)
+        for (j = 0; j != v64; ++j)
         {
-          if (*v68 != v64)
+          if (*v67 != v63)
           {
             objc_enumerationMutation(obj);
           }
 
-          v34 = *(*(&v67 + 1) + 8 * j);
+          v34 = *(*(&v66 + 1) + 8 * j);
           v35 = [v12 objectForKeyedSubscript:v34];
           if (v35)
           {
@@ -4492,20 +4438,20 @@ void __57__CellFallbackHandler_postUpwards_appsWithStates_always___block_invoke(
             if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412802;
-              v81 = v34;
-              v82 = 1024;
-              *v83 = v38;
-              *&v83[4] = 2112;
-              *&v83[6] = v35;
+              v80 = v34;
+              v81 = 1024;
+              *v82 = v38;
+              *&v82[4] = 2112;
+              *&v82[6] = v35;
               _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_DEBUG, "CFSM Sending telemetry [app: %@, allowed: %{BOOL}d, reason: %@]", buf, 0x1Cu);
             }
 
             v41 = *(a1 + 40);
             v42 = v35;
-            v43 = v32[323];
+            v43 = *(v32 + 323);
             if (!v43)
             {
-              v32[323] = &unk_2847EF548;
+              *(v32 + 323) = &unk_2847EF548;
 
               v43 = &unk_2847EF548;
             }
@@ -4526,51 +4472,51 @@ void __57__CellFallbackHandler_postUpwards_appsWithStates_always___block_invoke(
             [v41 sendAppCanUseAlternateNetworkMetric:v34 deliberation:v39 rationale:v47];
             v12 = v44;
             v16 = v36;
-            a1 = v61;
-            v32 = &unk_27DDA1000;
+            a1 = v60;
+            v32 = create_pcap_on_interface_ebuf + 184;
           }
         }
 
-        v65 = [obj countByEnumeratingWithState:&v67 objects:v79 count:16];
+        v64 = [obj countByEnumeratingWithState:&v66 objects:v78 count:16];
       }
 
-      while (v65);
+      while (v64);
     }
 
-    v77[0] = @"detail";
+    v76[0] = @"detail";
     v48 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 40), "fallbackAdvice")}];
-    v78[0] = v48;
-    v78[1] = v62;
-    v77[1] = @"states";
-    v77[2] = @"reasons";
-    v78[2] = v63;
-    v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v78 forKeys:v77 count:3];
+    v77[0] = v48;
+    v77[1] = v61;
+    v76[1] = @"states";
+    v76[2] = @"reasons";
+    v77[2] = v62;
+    v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:v76 count:3];
 
-    v75 = @"updateDetail";
-    v76 = v49;
-    v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+    v74 = @"updateDetail";
+    v75 = v49;
+    v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
     v51 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v52 = @"app state";
-      if (*v56)
+      if (*v55)
       {
         v52 = @"advice level";
       }
 
       *buf = 138412546;
-      v81 = v52;
-      v82 = 2112;
-      *v83 = v50;
+      v80 = v52;
+      v81 = 2112;
+      *v82 = v50;
       _os_log_impl(&dword_23255B000, v51, OS_LOG_TYPE_DEFAULT, "CFSM updating higher layers with consider alternate update, triggered by %@ change: %@", buf, 0x16u);
     }
 
     v53 = [MEMORY[0x277CCAB98] defaultCenter];
     [v53 postNotificationName:@"considerAlternateUpdate" object:*(a1 + 40) userInfo:v50];
 
-    v13 = v58;
-    v11 = v59;
-    v14 = v57;
+    v13 = v57;
+    v11 = v58;
+    v14 = v56;
 LABEL_44:
 
     goto LABEL_45;
@@ -4580,13 +4526,11 @@ LABEL_44:
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v81 = v60;
+    v80 = v59;
     _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "CFSM dynamic blacklist returning error %@ in consider alternate update", buf, 0xCu);
   }
 
 LABEL_45:
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postHasAdviceNotification:(BOOL)notification
@@ -4608,63 +4552,20 @@ LABEL_45:
 
 - (void)postMotionDetector:(unsigned int)detector
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     motionDetectorState = self->motionDetectorState;
     *buf = 67109376;
     detectorCopy2 = detector;
-    v24 = 1024;
-    v25 = motionDetectorState;
+    v23 = 1024;
+    v24 = motionDetectorState;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "CFSM2 motion, in (command/state) = (%d/%d)", buf, 0xEu);
   }
 
   v7 = self->motionDetectorState;
-  if (v7 == 1)
-  {
-    if (detector == 2)
-    {
-      motionTimer = self->motionTimer;
-      if (motionTimer)
-      {
-        dispatch_source_cancel(motionTimer);
-      }
-
-      v12 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, MEMORY[0x277D85CD0]);
-      v13 = self->motionTimer;
-      self->motionTimer = v12;
-
-      v14 = self->motionTimer;
-      if (!v14)
-      {
-        v20 = rnfLogHandle;
-        if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_ERROR, "Failed to create motion grace period timeout", buf, 2u);
-        }
-
-        [(MotionStateRelay *)self->motionRelay unsubscribe];
-        v10 = 2;
-        goto LABEL_12;
-      }
-
-      self->motionDetectorState = 3;
-      v15 = dispatch_time(0, 120000000000);
-      dispatch_source_set_timer(v14, v15, 0xFFFFFFFFFFFFFFFFLL, 0);
-      v16 = self->motionTimer;
-      handler[0] = MEMORY[0x277D85DD0];
-      handler[1] = 3221225472;
-      handler[2] = __42__CellFallbackHandler_postMotionDetector___block_invoke;
-      handler[3] = &unk_27898A0C8;
-      handler[4] = self;
-      dispatch_source_set_event_handler(v16, handler);
-      dispatch_resume(self->motionTimer);
-    }
-  }
-
-  else
+  if (v7 != 1)
   {
     if (v7 == 3)
     {
@@ -4673,25 +4574,69 @@ LABEL_45:
         goto LABEL_18;
       }
 
-      v8 = self->motionTimer;
-      if (v8)
+      motionTimer = self->motionTimer;
+      if (motionTimer)
       {
-        dispatch_source_cancel(v8);
+        dispatch_source_cancel(motionTimer);
         v9 = self->motionTimer;
         self->motionTimer = 0;
       }
-
-      goto LABEL_11;
     }
 
-    if (v7 == 2 && detector == 1)
+    else
     {
+      if (v7 != 2 || detector != 1)
+      {
+        goto LABEL_18;
+      }
+
       [(MotionStateRelay *)self->motionRelay subscribe];
-LABEL_11:
-      v10 = 1;
+    }
+
+    v10 = 1;
+    goto LABEL_12;
+  }
+
+  if (detector == 2)
+  {
+    v11 = self->motionTimer;
+    if (v11)
+    {
+      dispatch_source_cancel(v11);
+    }
+
+    v12 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, MEMORY[0x277D85CD0]);
+    v13 = self->motionTimer;
+    self->motionTimer = v12;
+
+    v14 = self->motionTimer;
+    if (!v14)
+    {
+      v19 = rnfLogHandle;
+      if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "Failed to create motion grace period timeout", buf, 2u);
+      }
+
+      [(MotionStateRelay *)self->motionRelay unsubscribe];
+      v10 = 2;
 LABEL_12:
       self->motionDetectorState = v10;
+      goto LABEL_18;
     }
+
+    self->motionDetectorState = 3;
+    v15 = dispatch_time(0, 120000000000);
+    dispatch_source_set_timer(v14, v15, 0xFFFFFFFFFFFFFFFFLL, 0);
+    v16 = self->motionTimer;
+    handler[0] = MEMORY[0x277D85DD0];
+    handler[1] = 3221225472;
+    handler[2] = __42__CellFallbackHandler_postMotionDetector___block_invoke;
+    handler[3] = &unk_27898A0C8;
+    handler[4] = self;
+    dispatch_source_set_event_handler(v16, handler);
+    dispatch_resume(self->motionTimer);
   }
 
 LABEL_18:
@@ -4701,34 +4646,30 @@ LABEL_18:
     v18 = self->motionDetectorState;
     *buf = 67109376;
     detectorCopy2 = detector;
-    v24 = 1024;
-    v25 = v18;
+    v23 = 1024;
+    v24 = v18;
     _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "CFSM2 motion, out (command/state) = (%d/%d)", buf, 0xEu);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __42__CellFallbackHandler_postMotionDetector___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   [*(*(a1 + 32) + 104) unsubscribe];
   *(*(a1 + 32) + 96) = 2;
   v2 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(*(a1 + 32) + 96);
-    v5[0] = 67109120;
-    v5[1] = v3;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "CFSM2 motion, timeout (state) = (%d)", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = v3;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "CFSM2 motion, timeout (state) = (%d)", v4, 8u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_peekIntoCellPlan
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (self->nonDefaultHighCapacityCellPlan)
   {
     v3 = rnfLogHandle;
@@ -4736,7 +4677,7 @@ void __42__CellFallbackHandler_postMotionDetector___block_invoke(uint64_t a1)
     {
       highCapacityCellPlan = self->highCapacityCellPlan;
       *buf = 67109120;
-      v9 = highCapacityCellPlan;
+      v8 = highCapacityCellPlan;
       _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "CFSM data plan, ignoring carrier info due to non-default highCapacityCellPlan (%d)", buf, 8u);
     }
   }
@@ -4744,40 +4685,38 @@ void __42__CellFallbackHandler_postMotionDetector___block_invoke(uint64_t a1)
   else
   {
     cellPlanObserver = self->cellPlanObserver;
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __40__CellFallbackHandler__peekIntoCellPlan__block_invoke;
-    v7[3] = &unk_27898D2F8;
-    v7[4] = self;
-    [(CTCarrierSpaceClient *)cellPlanObserver fetchDataPlanMetrics:v7];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __40__CellFallbackHandler__peekIntoCellPlan__block_invoke;
+    v6[3] = &unk_27898D2F8;
+    v6[4] = self;
+    [(CTCarrierSpaceClient *)cellPlanObserver fetchDataPlanMetrics:v6];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __40__CellFallbackHandler__peekIntoCellPlan__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v18 = v5;
-    v19 = 2112;
-    v20 = v6;
+    v17 = v5;
+    v18 = 2112;
+    v19 = v6;
     _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "CFSM data plan, metrics: %@, error: %@", buf, 0x16u);
   }
 
   if (!v5 || v6)
   {
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __40__CellFallbackHandler__peekIntoCellPlan__block_invoke_405;
-    v16[3] = &unk_27898A0C8;
-    v16[4] = *(a1 + 32);
-    dispatch_async(MEMORY[0x277D85CD0], v16);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __40__CellFallbackHandler__peekIntoCellPlan__block_invoke_405;
+    v15[3] = &unk_27898A0C8;
+    v15[4] = *(a1 + 32);
+    dispatch_async(MEMORY[0x277D85CD0], v15);
   }
 
   else
@@ -4794,7 +4733,7 @@ void __40__CellFallbackHandler__peekIntoCellPlan__block_invoke(uint64_t a1, void
       block[2] = __40__CellFallbackHandler__peekIntoCellPlan__block_invoke_406;
       block[3] = &unk_27898A3A0;
       block[4] = *(a1 + 32);
-      v15 = v11;
+      v14 = v11;
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
 
@@ -4808,51 +4747,45 @@ void __40__CellFallbackHandler__peekIntoCellPlan__block_invoke(uint64_t a1, void
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __40__CellFallbackHandler__peekIntoCellPlan__block_invoke_405(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 161) = 0;
   [*(*(a1 + 32) + 280) disable];
   v2 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(*(a1 + 32) + 161);
-    v5[0] = 67109120;
-    v5[1] = v3;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "CFSM data plan, restoring default highCapacityCellPlan (%d)", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = v3;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "CFSM data plan, restoring default highCapacityCellPlan (%d)", v4, 8u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __40__CellFallbackHandler__peekIntoCellPlan__block_invoke_406(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(*(a1 + 32) + 161);
     v4 = *(a1 + 40);
-    v7[0] = 67109376;
-    v7[1] = v3;
-    v8 = 1024;
-    v9 = v4;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "CFSM data plan, high capacity cell plan marker (was/is): %d/%d", v7, 0xEu);
+    v6[0] = 67109376;
+    v6[1] = v3;
+    v7 = 1024;
+    v8 = v4;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "CFSM data plan, high capacity cell plan marker (was/is): %d/%d", v6, 0xEu);
   }
 
   *(*(a1 + 32) + 161) = *(a1 + 40);
-  result = [*(*(a1 + 32) + 280) disable];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 32) + 280) disable];
 }
 
 - (BOOL)_isAppName:(id)name withState:(int64_t)state inListType:(int64_t)type
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v8 = nameCopy;
   if (type > 1)
@@ -4895,11 +4828,11 @@ LABEL_19:
             goto LABEL_39;
           }
 
-          v23 = 138412802;
-          v24 = v8;
-          v25 = 2048;
+          v22 = 138412802;
+          v23 = v8;
+          v24 = 2048;
           typeCopy = 2;
-          v27 = 2048;
+          v26 = 2048;
           stateCopy4 = state;
           v11 = "CFSM dynamic blacklist: bundleName %@ type %ld unexpected state: %ld";
           goto LABEL_37;
@@ -4921,11 +4854,11 @@ LABEL_19:
             goto LABEL_39;
           }
 
-          v23 = 138412802;
-          v24 = v8;
-          v25 = 2048;
+          v22 = 138412802;
+          v23 = v8;
+          v24 = 2048;
           typeCopy = 3;
-          v27 = 2048;
+          v26 = 2048;
           stateCopy4 = state;
           v11 = "CFSM dynamic blacklist: bundleName %@ type %ld unexpected state: %ld";
 LABEL_37:
@@ -4945,15 +4878,15 @@ LABEL_27:
         v17 = rnfLogHandle;
         if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
         {
-          v23 = 138412546;
-          v24 = v8;
-          v25 = 2048;
+          v22 = 138412546;
+          v23 = v8;
+          v24 = 2048;
           typeCopy = type;
           v11 = "CFSM dynamic blacklist: bundleName %@ unexpected type %ld";
           v18 = v17;
           v19 = 22;
 LABEL_38:
-          _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, v11, &v23, v19);
+          _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, v11, &v22, v19);
         }
 
 LABEL_39:
@@ -4986,11 +4919,11 @@ LABEL_39:
         goto LABEL_39;
       }
 
-      v23 = 138412802;
-      v24 = v8;
-      v25 = 2048;
+      v22 = 138412802;
+      v23 = v8;
+      v24 = 2048;
       typeCopy = 1;
-      v27 = 2048;
+      v26 = 2048;
       stateCopy4 = state;
       v11 = "CFSM dynamic blacklist: bundleName %@ type %ld unexpected state: %ld";
       goto LABEL_37;
@@ -5009,20 +4942,19 @@ LABEL_26:
   v20 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v23 = 138412802;
-    v24 = v8;
-    v25 = 2048;
+    v22 = 138412802;
+    v23 = v8;
+    v24 = 2048;
     typeCopy = 0;
-    v27 = 2048;
+    v26 = 2048;
     stateCopy4 = state;
-    _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_ERROR, "CFSM dynamic blacklist: bundleName %@ type %ld unexpected state: %ld", &v23, 0x20u);
+    _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_ERROR, "CFSM dynamic blacklist: bundleName %@ type %ld unexpected state: %ld", &v22, 0x20u);
   }
 
 LABEL_31:
   LOBYTE(state) = 1;
 LABEL_40:
 
-  v21 = *MEMORY[0x277D85DE8];
   return state;
 }
 
@@ -5037,7 +4969,7 @@ LABEL_40:
 
 + (void)stopRunningRNFTestWithReply:(id)reply
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   v4 = +[CellFallbackHandler sharedInstance];
   if ([v4 internalBuild])
@@ -5080,17 +5012,17 @@ LABEL_9:
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v20 = v10;
+        v19 = v10;
         _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
       }
 
       if (replyCopy)
       {
-        v17[0] = @"rnfTestResult";
-        v17[1] = @"SymptomAnalyticsServiceReason";
-        v18[0] = MEMORY[0x277CBEC28];
-        v18[1] = v10;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+        v16[0] = @"rnfTestResult";
+        v16[1] = @"SymptomAnalyticsServiceReason";
+        v17[0] = MEMORY[0x277CBEC28];
+        v17[1] = v10;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
         v13 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:v9 userInfo:0];
         replyCopy[2](replyCopy, v12, v13);
       }
@@ -5103,25 +5035,23 @@ LABEL_9:
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v20 = @"RNFTest: RNF Test Abort Not Suported";
+      v19 = @"RNFTest: RNF Test Abort Not Suported";
       _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
 
     if (replyCopy)
     {
-      v15[0] = @"rnfTestResult";
-      v15[1] = @"SymptomAnalyticsServiceReason";
-      v16[0] = MEMORY[0x277CBEC28];
-      v16[1] = @"RNFTest: RNF Test Abort Not Suported";
-      date = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+      v14[0] = @"rnfTestResult";
+      v14[1] = @"SymptomAnalyticsServiceReason";
+      v15[0] = MEMORY[0x277CBEC28];
+      v15[1] = @"RNFTest: RNF Test Abort Not Suported";
+      date = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
       v8 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:45 userInfo:0];
       replyCopy[2](replyCopy, date, v8);
 
       goto LABEL_9;
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)RNFTestAbortWaitForIdleUntil:(double)until reply:(id)reply
@@ -5173,7 +5103,7 @@ LABEL_9:
 
 - (void)rnfTestAbortCFSMWentIdleReply:(BOOL)reply
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   if (self->rnfTestAbortReply)
   {
     replyCopy = reply;
@@ -5187,9 +5117,9 @@ LABEL_9:
         _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "RNFTest: CFSM in idle state after RNF Test Abort", buf, 2u);
       }
 
-      v14 = @"rnfTestResult";
-      v15[0] = MEMORY[0x277CBEC38];
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      v13 = @"rnfTestResult";
+      v14[0] = MEMORY[0x277CBEC38];
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
       v7 = 0;
     }
 
@@ -5198,15 +5128,15 @@ LABEL_9:
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v13 = @"RNFTest: CFSM failed to get to idle state after RNF Test Abort";
+        v12 = @"RNFTest: CFSM failed to get to idle state after RNF Test Abort";
         _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
       }
 
-      v10[0] = @"rnfTestResult";
-      v10[1] = @"SymptomAnalyticsServiceReason";
-      v11[0] = MEMORY[0x277CBEC28];
-      v11[1] = @"RNFTest: CFSM failed to get to idle state after RNF Test Abort";
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+      v9[0] = @"rnfTestResult";
+      v9[1] = @"SymptomAnalyticsServiceReason";
+      v10[0] = MEMORY[0x277CBEC28];
+      v10[1] = @"RNFTest: CFSM failed to get to idle state after RNF Test Abort";
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
       v7 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:60 userInfo:0];
     }
 
@@ -5215,8 +5145,6 @@ LABEL_9:
     rnfTestAbortReply = self->rnfTestAbortReply;
     self->rnfTestAbortReply = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopRNFTestIdleTimer
@@ -5248,22 +5176,22 @@ LABEL_9:
 
 - (void)requestBoost:(unsigned int)boost
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
     rnfActivated = [(CellFallbackHandler *)self rnfActivated];
     tcpExtraStatsPositive = [(NetworkStateRelay *)self->wifiRelay tcpExtraStatsPositive];
-    v10[0] = 67109888;
-    v10[1] = rnfActivated;
-    v11 = 1024;
-    v12 = tcpExtraStatsPositive;
-    v13 = 1024;
+    v9[0] = 67109888;
+    v9[1] = rnfActivated;
+    v10 = 1024;
+    v11 = tcpExtraStatsPositive;
+    v12 = 1024;
     boosted = [(CellFallbackHandler *)self boosted];
-    v15 = 1024;
+    v14 = 1024;
     boostCopy = boost;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "CFSM boost request (activated/tcpExtras/boosted/reason): %d/%d/%d/%d", v10, 0x1Au);
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "CFSM boost request (activated/tcpExtras/boosted/reason): %d/%d/%d/%d", v9, 0x1Au);
   }
 
   if ([(CellFallbackHandler *)self rnfActivated])
@@ -5271,8 +5199,6 @@ LABEL_9:
     [(NetworkStateRelay *)self->wifiRelay setTcpExtraStatsPositive:1];
     [(CellFallbackHandler *)self setBoosted:1];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)canUseApps:(id)apps replyQueue:(id)queue reply:(id)reply
@@ -5312,18 +5238,16 @@ LABEL_9:
 
 void __51__CellFallbackHandler_canUseApps_replyQueue_reply___block_invoke_2(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:45 userInfo:0];
   (*(*(a1 + 32) + 16))();
   v3 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist returning error %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist returning error %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendAppCanUseAlternateNetworkMetric:(id)metric deliberation:(int)deliberation rationale:(int)rationale
@@ -5335,86 +5259,84 @@ void __51__CellFallbackHandler_canUseApps_replyQueue_reply___block_invoke_2(uint
 
 id __82__CellFallbackHandler_sendAppCanUseAlternateNetworkMetric_deliberation_rationale___block_invoke(uint64_t a1)
 {
-  v8[3] = *MEMORY[0x277D85DE8];
-  v8[0] = *(a1 + 32);
-  v7[0] = @"bundleID";
-  v7[1] = @"deliberation";
+  v7[3] = *MEMORY[0x277D85DE8];
+  v7[0] = *(a1 + 32);
+  v6[0] = @"bundleID";
+  v6[1] = @"deliberation";
   v2 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 40)];
-  v8[1] = v2;
-  v7[2] = @"rationale";
+  v7[1] = v2;
+  v6[2] = @"rationale";
   v3 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 44)];
-  v8[2] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[2] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
 
   return v4;
 }
 
 - (void)_canUseApps:(id)apps replyQueue:(id)queue reply:(id)reply
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   appsCopy = apps;
   queue = queue;
   replyCopy = reply;
   context = objc_autoreleasePoolPush();
   v9 = [appsCopy count];
   v10 = [appsCopy mutableCopy];
-  v69 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:v9];
+  v68 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:v9];
   v11 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:v9];
-  v62 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v60 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v61 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v68 = v10;
-  v66 = appsCopy;
+  v61 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v59 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v60 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v67 = v10;
+  v65 = appsCopy;
   if (self->administrativeState == 1)
   {
-    v89 = 0uLL;
-    v90 = 0uLL;
-    v87 = 0uLL;
     v88 = 0uLL;
+    v89 = 0uLL;
+    v86 = 0uLL;
+    v87 = 0uLL;
     v12 = appsCopy;
-    v13 = [v12 countByEnumeratingWithState:&v87 objects:v99 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v86 objects:v98 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v88;
+      v15 = *v87;
       do
       {
         v16 = 0;
         do
         {
-          if (*v88 != v15)
+          if (*v87 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v87 + 1) + 8 * v16);
+          v17 = *(*(&v86 + 1) + 8 * v16);
           if (self->_turboRNF)
           {
-            [(CellFallbackHandler *)v69 _canUseApps:v11 replyQueue:v10 reply:?];
+            [(CellFallbackHandler *)v68 _canUseApps:v11 replyQueue:v10 reply:?];
           }
 
           else
           {
-            v18 = [v12 objectForKeyedSubscript:*(*(&v87 + 1) + 8 * v16)];
+            v18 = [v12 objectForKeyedSubscript:*(*(&v86 + 1) + 8 * v16)];
             integerValue = [v18 integerValue];
 
-            v86 = 0;
-            if ([(CanUseAppsCache *)self->appsCache hasEntryFor:v17 state:integerValue rationaleCode:&v86])
+            v85 = 0;
+            if ([(CanUseAppsCache *)self->appsCache hasEntryFor:v17 state:integerValue rationaleCode:&v85])
             {
-              v20 = [CanUseAppsCache makeVerdictFromRationaleCode:v86];
+              v20 = [CanUseAppsCache makeVerdictFromRationaleCode:v85];
               v21 = [MEMORY[0x277CCABB0] numberWithBool:v20];
-              [v69 setObject:v21 forKeyedSubscript:v17];
+              [v68 setObject:v21 forKeyedSubscript:v17];
 
-              if (v86 - 1 >= 7)
+              if (v85 - 1 >= 7)
               {
-                v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"(unknown: %i)", v86];
+                v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"(unknown: %i)", v85];
               }
 
               else
               {
-                v22 = off_27898D430[v86 - 1];
+                v22 = off_27898D430[v85 - 1];
               }
 
               [v11 setObject:v22 forKeyedSubscript:v17];
@@ -5427,16 +5349,16 @@ id __82__CellFallbackHandler_sendAppCanUseAlternateNetworkMetric_deliberation_ra
 
             if (bOOLValue)
             {
-              [v69 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:v17];
+              [v68 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:v17];
               [v11 setObject:@"AppBlacklisted" forKeyedSubscript:v17];
               v25 = rnfLogHandle;
-              v10 = v68;
+              v10 = v67;
               if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                v96 = v17;
-                v97 = 2048;
-                v98 = integerValue;
+                v95 = v17;
+                v96 = 2048;
+                v97 = integerValue;
                 _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist: blacklisting due to blocked renewal (app: %@, state: %ld)", buf, 0x16u);
               }
 
@@ -5452,17 +5374,17 @@ LABEL_24:
               goto LABEL_25;
             }
 
-            v10 = v68;
+            v10 = v67;
             if ([(CellFallbackHandler *)self _isAppName:v17 withState:integerValue inListType:0]&& ![(CellFallbackHandler *)self _isAppName:v17 withState:integerValue inListType:2])
             {
-              [v69 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:v17];
+              [v68 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:v17];
               [v11 setObject:@"AppBlacklisted" forKeyedSubscript:v17];
               goto LABEL_22;
             }
 
             if ([(CellFallbackHandler *)self _isAppName:v17 withState:integerValue inListType:1]&& ![(CellFallbackHandler *)self _isAppName:v17 withState:integerValue inListType:2])
             {
-              [v69 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v17];
+              [v68 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v17];
               [v11 setObject:@"AppWhitelisted" forKeyedSubscript:v17];
               appsCache = self->appsCache;
               v27 = v17;
@@ -5477,7 +5399,7 @@ LABEL_25:
         }
 
         while (v14 != v16);
-        v30 = [v12 countByEnumeratingWithState:&v87 objects:v99 count:16];
+        v30 = [v12 countByEnumeratingWithState:&v86 objects:v98 count:16];
         v14 = v30;
       }
 
@@ -5487,33 +5409,33 @@ LABEL_25:
 
   else
   {
-    v93 = 0uLL;
-    v94 = 0uLL;
-    v91 = 0uLL;
     v92 = 0uLL;
+    v93 = 0uLL;
+    v90 = 0uLL;
+    v91 = 0uLL;
     v31 = appsCopy;
-    v32 = [v31 countByEnumeratingWithState:&v91 objects:v100 count:16];
+    v32 = [v31 countByEnumeratingWithState:&v90 objects:v99 count:16];
     if (v32)
     {
       v33 = v32;
-      v34 = *v92;
+      v34 = *v91;
       v35 = MEMORY[0x277CBEC28];
       do
       {
         for (i = 0; i != v33; ++i)
         {
-          if (*v92 != v34)
+          if (*v91 != v34)
           {
             objc_enumerationMutation(v31);
           }
 
-          v37 = *(*(&v91 + 1) + 8 * i);
-          [v69 setObject:v35 forKeyedSubscript:v37];
+          v37 = *(*(&v90 + 1) + 8 * i);
+          [v68 setObject:v35 forKeyedSubscript:v37];
           [v11 setObject:@"wifi assist disabled" forKeyedSubscript:v37];
           [v10 removeObjectForKey:v37];
         }
 
-        v33 = [v31 countByEnumeratingWithState:&v91 objects:v100 count:16];
+        v33 = [v31 countByEnumeratingWithState:&v90 objects:v99 count:16];
       }
 
       while (v33);
@@ -5522,115 +5444,114 @@ LABEL_25:
 
   if ([v10 count])
   {
-    v76[0] = MEMORY[0x277D85DD0];
-    v76[1] = 3221225472;
-    v76[2] = __52__CellFallbackHandler__canUseApps_replyQueue_reply___block_invoke;
-    v76[3] = &unk_27898D350;
-    v67 = &queueCopy2;
+    v75[0] = MEMORY[0x277D85DD0];
+    v75[1] = 3221225472;
+    v75[2] = __52__CellFallbackHandler__canUseApps_replyQueue_reply___block_invoke;
+    v75[3] = &unk_27898D350;
+    v66 = &queueCopy2;
     queueCopy3 = queue;
     queueCopy2 = queue;
-    v59 = &v85;
-    v85 = replyCopy;
-    v58 = &v78;
-    v39 = v68;
-    v40 = &v79;
-    v78 = v39;
-    v79 = v69;
-    v41 = v80;
-    v80[0] = v11;
-    v80[1] = self;
-    v42 = v69;
-    v43 = v61;
-    v81 = v61;
-    v44 = v62;
-    v82 = v66;
-    v83 = v62;
-    v45 = v60;
-    v84 = v60;
-    v46 = v60;
-    v47 = v62;
+    v58 = &v84;
+    v84 = replyCopy;
+    v57 = &v77;
+    v39 = v67;
+    v40 = &v78;
+    v77 = v39;
+    v78 = v68;
+    v41 = v79;
+    v79[0] = v11;
+    v79[1] = self;
+    v42 = v68;
+    v43 = v60;
+    v80 = v60;
+    v44 = v61;
+    v81 = v65;
+    v82 = v61;
+    v45 = v59;
+    v83 = v59;
+    v46 = v59;
+    v47 = v61;
     v48 = v11;
-    v49 = v69;
+    v49 = v68;
     v50 = v39;
     v51 = replyCopy;
-    v10 = v68;
-    [FlowAnalyticsEngine recentUsageForApps:v50 replyQueue:MEMORY[0x277D85CD0] reply:v76];
+    v10 = v67;
+    [FlowAnalyticsEngine recentUsageForApps:v50 replyQueue:MEMORY[0x277D85CD0] reply:v75];
   }
 
   else
   {
     selfCopy = self;
-    v43 = v61;
-    v42 = v69;
-    [(CellFallbackHandler *)selfCopy _setPolicyVerdictLedgerGivenAsk:v66 exceptions:v61 verdict:v69 explain:v11];
+    v43 = v60;
+    v42 = v68;
+    [(CellFallbackHandler *)selfCopy _setPolicyVerdictLedgerGivenAsk:v65 exceptions:v60 verdict:v68 explain:v11];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __52__CellFallbackHandler__canUseApps_replyQueue_reply___block_invoke_491;
     block[3] = &unk_27898C6C0;
-    v67 = &v75;
+    v66 = &v74;
     v51 = replyCopy;
-    v58 = &v72;
-    v59 = &v71;
-    v71 = v69;
-    v72 = v11;
-    v40 = &v73;
-    v41 = &v74;
-    v44 = v62;
-    v73 = v62;
-    v45 = v60;
-    v74 = v60;
-    v75 = replyCopy;
-    v53 = v60;
-    v54 = v62;
+    v57 = &v71;
+    v58 = &v70;
+    v70 = v68;
+    v71 = v11;
+    v40 = &v72;
+    v41 = &v73;
+    v44 = v61;
+    v72 = v61;
+    v45 = v59;
+    v73 = v59;
+    v74 = replyCopy;
+    v53 = v59;
+    v54 = v61;
     v55 = v11;
-    v56 = v69;
+    v56 = v68;
     queueCopy3 = queue;
     dispatch_async(queue, block);
   }
 
   objc_autoreleasePoolPop(context);
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 void __52__CellFallbackHandler__canUseApps_replyQueue_reply___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v159 = *MEMORY[0x277D85DE8];
+  v158 = *MEMORY[0x277D85DE8];
   v7 = a2;
-  v117 = a3;
+  v116 = a3;
   v8 = a4;
-  v116 = v7;
+  v115 = v7;
   if (!v8)
   {
-    v128 = 0u;
-    v129 = 0u;
-    v126 = 0u;
     v127 = 0u;
-    v120 = [v7 countByEnumeratingWithState:&v126 objects:v158 count:16];
-    if (!v120)
+    v128 = 0u;
+    v125 = 0u;
+    v126 = 0u;
+    v119 = [v7 countByEnumeratingWithState:&v125 objects:v157 count:16];
+    if (!v119)
     {
       goto LABEL_81;
     }
 
     v12 = 0x277CBE000uLL;
-    v119 = *v127;
+    v118 = *v126;
     while (1)
     {
       v13 = 0;
       do
       {
-        if (*v127 != v119)
+        if (*v126 != v118)
         {
           objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v126 + 1) + 8 * v13);
+        v14 = *(*(&v125 + 1) + 8 * v13);
         v15 = [v7 objectForKeyedSubscript:v14];
         v16 = [*(a1 + 40) objectForKeyedSubscript:v14];
         v17 = [v16 integerValue];
         v18 = [*(v12 + 2920) null];
         v19 = [v15 isEqual:v18];
 
-        v121 = v16;
+        v120 = v16;
         if (v16)
         {
           v20 = v19 == 0;
@@ -5648,7 +5569,7 @@ void __52__CellFallbackHandler__canUseApps_replyQueue_reply___block_invoke(uint6
             goto LABEL_21;
           }
 
-          v22 = [v117 objectForKeyedSubscript:v14];
+          v22 = [v116 objectForKeyedSubscript:v14];
           v23 = [v22 BOOLValue];
           v24 = *(a1 + 64);
           if (v23 && (v24[161] & 1) != 0)
@@ -5660,17 +5581,17 @@ LABEL_19:
             if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
             {
               v27 = v26;
-              v28 = [v117 objectForKeyedSubscript:v14];
+              v28 = [v116 objectForKeyedSubscript:v14];
               v29 = [v28 BOOLValue];
               v30 = *(*(a1 + 64) + 161);
               *buf = 138413058;
-              v134 = v14;
-              v135 = 1024;
-              *v136 = 1;
-              *&v136[4] = 1024;
-              *&v136[6] = v29;
-              LOWORD(v137) = 1024;
-              *(&v137 + 2) = v30;
+              v133 = v14;
+              v134 = 1024;
+              *v135 = 1;
+              *&v135[4] = 1024;
+              *&v135[6] = v29;
+              LOWORD(v136) = 1024;
+              *(&v136 + 2) = v30;
               _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist: app %@ exception, will eval usage (background/audio/plan): %d/%d/%d", buf, 0x1Eu);
             }
 
@@ -5786,7 +5707,7 @@ LABEL_21:
               [*(a1 + 56) setObject:@"AppFreePassed" forKeyedSubscript:v14];
               [*(*(a1 + 64) + 280) insertEntryFor:v14 state:v17 rationaleCode:7];
               v81 = 0;
-              v118 = 0;
+              v117 = 0;
               goto LABEL_58;
             }
 
@@ -5820,7 +5741,7 @@ LABEL_53:
             }
 
             v92 = [*(v79 + 288) objectForKeyedSubscript:v14];
-            v118 = v82;
+            v117 = v82;
             if (v92)
             {
 
@@ -5833,8 +5754,8 @@ LABEL_53:
               v94 = v93;
               v95 = [TrackedFlow rnfExpensiveUsageGrandTallyAfterAdding:0];
               v96 = *(a1 + 64);
-              v114 = v95;
-              v115 = v93;
+              v113 = v95;
+              v114 = v93;
               if (v93)
               {
                 v97 = *(v96 + 152);
@@ -5859,31 +5780,31 @@ LABEL_75:
               v100 = rnfLogHandle;
               if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
               {
-                v113 = *(a1 + 80);
+                v112 = *(a1 + 80);
                 v101 = v100;
-                v102 = [v113 objectForKeyedSubscript:v14];
+                v102 = [v112 objectForKeyedSubscript:v14];
                 v103 = [v102 integerValue];
                 *buf = 138413314;
-                v134 = v14;
-                v135 = 2048;
-                *v136 = v103;
-                *&v136[8] = 2048;
-                v137 = v115;
-                v138 = 2048;
-                v139 = v114;
-                v140 = 2048;
-                v141 = *&v81;
+                v133 = v14;
+                v134 = 2048;
+                *v135 = v103;
+                *&v135[8] = 2048;
+                v136 = v114;
+                v137 = 2048;
+                v138 = v113;
+                v139 = 2048;
+                v140 = *&v81;
                 _os_log_impl(&dword_23255B000, v101, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist overdrafting: %@, state: %ld, exp-cell/exp-rnf/overdraft = %f/%f/%lld", buf, 0x34u);
               }
 
               if (v98)
               {
                 v12 = 0x277CBE000;
-                v82 = v118;
+                v82 = v117;
 LABEL_55:
                 [*(a1 + 48) setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v14];
                 [*(a1 + 56) setObject:@"WithinAllowance" forKeyedSubscript:v14];
-                v118 = v82;
+                v117 = v82;
                 v84 = [MEMORY[0x277CCABB0] numberWithLongLong:v82];
                 [*(a1 + 88) setObject:v84 forKeyedSubscript:v14];
 
@@ -5909,32 +5830,32 @@ LABEL_59:
                 v90 = [v37 integerValue];
                 v91 = [*(a1 + 56) objectForKeyedSubscript:v14];
                 *buf = 138415362;
-                v134 = v14;
-                v135 = 2048;
-                *v136 = v90;
-                v7 = v116;
-                *&v136[8] = 2048;
-                v137 = v59;
-                v138 = 2048;
-                v139 = v47;
-                v140 = 2048;
-                v141 = v53;
-                v142 = 2048;
-                v143 = v65;
-                v144 = 2048;
-                v145 = v78;
-                v146 = 2048;
-                v147 = v77;
-                v148 = 2048;
-                v149 = v74;
-                v150 = 2048;
-                v151 = v118;
-                v152 = 2048;
-                v153 = v81;
-                v154 = 2080;
-                v155 = v86;
-                v156 = 2112;
-                v157 = v91;
+                v133 = v14;
+                v134 = 2048;
+                *v135 = v90;
+                v7 = v115;
+                *&v135[8] = 2048;
+                v136 = v59;
+                v137 = 2048;
+                v138 = v47;
+                v139 = 2048;
+                v140 = v53;
+                v141 = 2048;
+                v142 = v65;
+                v143 = 2048;
+                v144 = v78;
+                v145 = 2048;
+                v146 = v77;
+                v147 = 2048;
+                v148 = v74;
+                v149 = 2048;
+                v150 = v117;
+                v151 = 2048;
+                v152 = v81;
+                v153 = 2080;
+                v154 = v86;
+                v155 = 2112;
+                v156 = v91;
                 _os_log_impl(&dword_23255B000, v89, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist for app: %@, state: %ld, (wifi/cell/exp-cell/rnf/exp-rnf/jumbo/allflows/headroom/overdraft) %.0f/%.0f/%.0f/%.0f/%.0f/%.0f/%.0f/%lld/%lld, %sallow, code: %@", buf, 0x84u);
 
                 v12 = 0x277CBE000;
@@ -5975,17 +5896,17 @@ LABEL_71:
           }
 
           v36 = v35;
-          v37 = [v117 objectForKeyedSubscript:v14];
+          v37 = [v116 objectForKeyedSubscript:v14];
           v38 = [v37 BOOLValue];
           v39 = *(*(a1 + 64) + 161);
           *buf = 138413058;
-          v134 = v14;
-          v135 = 1024;
-          *v136 = 1;
-          *&v136[4] = 1024;
-          *&v136[6] = v38;
-          LOWORD(v137) = 1024;
-          *(&v137 + 2) = v39;
+          v133 = v14;
+          v134 = 1024;
+          *v135 = 1;
+          *&v135[4] = 1024;
+          *&v135[6] = v38;
+          LOWORD(v136) = 1024;
+          *(&v136 + 2) = v39;
           _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist: app %@ denied (background/audio/plan): %d/%d/%d", buf, 0x1Eu);
 
           goto LABEL_61;
@@ -5998,11 +5919,11 @@ LABEL_71:
         if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412802;
-          v134 = v14;
-          v135 = 2112;
-          *v136 = v15;
-          *&v136[8] = 2048;
-          v137 = *&v17;
+          v133 = v14;
+          v134 = 2112;
+          *v135 = v15;
+          *&v135[8] = 2048;
+          v136 = *&v17;
           _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist unrecognized %@ (app: %@, state: %ld)", buf, 0x20u);
         }
 
@@ -6011,21 +5932,21 @@ LABEL_62:
         ++v13;
       }
 
-      while (v120 != v13);
-      v104 = [v7 countByEnumeratingWithState:&v126 objects:v158 count:16];
-      v120 = v104;
+      while (v119 != v13);
+      v104 = [v7 countByEnumeratingWithState:&v125 objects:v157 count:16];
+      v119 = v104;
       if (!v104)
       {
 LABEL_81:
         [*(a1 + 64) _setPolicyVerdictLedgerGivenAsk:*(a1 + 80) exceptions:*(a1 + 72) verdict:*(a1 + 48) explain:*(a1 + 56)];
         v105 = *(a1 + 32);
-        v122[0] = MEMORY[0x277D85DD0];
-        v122[1] = 3221225472;
-        v122[2] = __52__CellFallbackHandler__canUseApps_replyQueue_reply___block_invoke_489;
-        v122[3] = &unk_27898C6C0;
-        v10 = &v125;
-        v125 = *(a1 + 104);
-        v11 = &v123;
+        v121[0] = MEMORY[0x277D85DD0];
+        v121[1] = 3221225472;
+        v121[2] = __52__CellFallbackHandler__canUseApps_replyQueue_reply___block_invoke_489;
+        v121[3] = &unk_27898C6C0;
+        v10 = &v124;
+        v124 = *(a1 + 104);
+        v11 = &v122;
         v106 = *(a1 + 48);
         v107 = *(a1 + 56);
         v108 = *(a1 + 88);
@@ -6034,9 +5955,9 @@ LABEL_81:
         *(&v110 + 1) = v109;
         *&v111 = v106;
         *(&v111 + 1) = v107;
-        v123 = v111;
-        v124 = v110;
-        dispatch_async(v105, v122);
+        v122 = v111;
+        v123 = v110;
+        dispatch_async(v105, v121);
 
         v8 = 0;
         goto LABEL_82;
@@ -6049,88 +5970,71 @@ LABEL_81:
   block[1] = 3221225472;
   block[2] = __52__CellFallbackHandler__canUseApps_replyQueue_reply___block_invoke_2;
   block[3] = &unk_27898B678;
-  v10 = &v132;
-  v132 = *(a1 + 104);
-  v11 = &v131;
-  v131 = v8;
+  v10 = &v131;
+  v131 = *(a1 + 104);
+  v11 = &v130;
+  v130 = v8;
   dispatch_async(v9, block);
 LABEL_82:
-
-  v112 = *MEMORY[0x277D85DE8];
 }
 
 void __52__CellFallbackHandler__canUseApps_replyQueue_reply___block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
+  v6 = *MEMORY[0x277D85DE8];
   (*(*(a1 + 40) + 16))();
-  v3 = rnfLogHandle;
+  v2 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist passing error %@", &v6, 0xCu);
+    v3 = *(a1 + 32);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist passing error %@", &v4, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __52__CellFallbackHandler__canUseApps_replyQueue_reply___block_invoke_489(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = a1[6];
-  v5 = a1[7];
+  v15 = *MEMORY[0x277D85DE8];
   (*(a1[8] + 16))();
-  v6 = rnfLogHandle;
+  v2 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = a1[4];
-    v8 = a1[5];
-    v9 = a1[6];
-    v10 = a1[7];
-    v12 = 138413058;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v8;
-    v16 = 2112;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v10;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist returning (value/reason/headroom/overdraft): %@/%@/%@/%@", &v12, 0x2Au);
+    v3 = a1[4];
+    v4 = a1[5];
+    v5 = a1[6];
+    v6 = a1[7];
+    v7 = 138413058;
+    v8 = v3;
+    v9 = 2112;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist returning (value/reason/headroom/overdraft): %@/%@/%@/%@", &v7, 0x2Au);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __52__CellFallbackHandler__canUseApps_replyQueue_reply___block_invoke_491(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = a1[6];
-  v5 = a1[7];
+  v9 = *MEMORY[0x277D85DE8];
   (*(a1[8] + 16))();
-  v6 = rnfLogHandle;
+  v2 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = a1[4];
-    v8 = a1[5];
-    v10 = 138412546;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist short returning (value/reason): %@/%@", &v10, 0x16u);
+    v3 = a1[4];
+    v4 = a1[5];
+    v5 = 138412546;
+    v6 = v3;
+    v7 = 2112;
+    v8 = v4;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist short returning (value/reason): %@/%@", &v5, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setPolicyVerdictLedgerGivenAsk:(id)ask exceptions:(id)exceptions verdict:(id)verdict explain:(id)explain
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   askCopy = ask;
   exceptionsCopy = exceptions;
   verdictCopy = verdict;
@@ -6139,25 +6043,25 @@ void __52__CellFallbackHandler__canUseApps_replyQueue_reply___block_invoke_491(v
   self->appPolicyCheckedCount = 0;
   self->appPolicyDeniedCount = 0;
   p_appPolicyCheckedCount = &self->appPolicyCheckedCount;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v14 = [askCopy countByEnumeratingWithState:&v32 objects:v38 count:16];
+  v14 = [askCopy countByEnumeratingWithState:&v31 objects:v37 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v33;
+    v16 = *v32;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v33 != v16)
+        if (*v32 != v16)
         {
           objc_enumerationMutation(askCopy);
         }
 
-        v18 = *(*(&v32 + 1) + 8 * i);
+        v18 = *(*(&v31 + 1) + 8 * i);
         v19 = [askCopy objectForKeyedSubscript:*&v18];
         integerValue = [v19 integerValue];
 
@@ -6186,13 +6090,13 @@ void __52__CellFallbackHandler__canUseApps_replyQueue_reply___block_invoke_491(v
           if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v37 = v18;
+            v36 = v18;
             _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist no verdict for requested app: %@", buf, 0xCu);
           }
         }
       }
 
-      v15 = [askCopy countByEnumeratingWithState:&v32 objects:v38 count:16];
+      v15 = [askCopy countByEnumeratingWithState:&v31 objects:v37 count:16];
     }
 
     while (v15);
@@ -6204,11 +6108,9 @@ void __52__CellFallbackHandler__canUseApps_replyQueue_reply___block_invoke_491(v
     v27 = v26;
     [(CellFallbackHandler *)selfCopy _appPolicyDenialsScore];
     *buf = 134217984;
-    v37 = v28;
+    v36 = v28;
     _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_INFO, "CFSM dynamic blacklist policy score: %f", buf, 0xCu);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 + (float)appPolicyDenialsScore
@@ -6251,7 +6153,7 @@ void __52__CellFallbackHandler__canUseApps_replyQueue_reply___block_invoke_491(v
 
 - (void)_updateCellFallbackState
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (self->cellFallbackObserver)
   {
     v3 = tcp_fallback_watcher_fallback_inuse();
@@ -6260,9 +6162,9 @@ void __52__CellFallbackHandler__canUseApps_replyQueue_reply___block_invoke_491(v
     {
       cellFallbackInUse = self->cellFallbackInUse;
       *buf = 67109376;
-      v28 = cellFallbackInUse;
-      v29 = 1024;
-      v30 = v3;
+      v27 = cellFallbackInUse;
+      v28 = 1024;
+      v29 = v3;
       _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "CFSM current fallback state update, was: %d, is: %d", buf, 0xEu);
     }
 
@@ -6284,13 +6186,13 @@ void __52__CellFallbackHandler__canUseApps_replyQueue_reply___block_invoke_491(v
       if (v3)
       {
         date = [MEMORY[0x277CBEAA8] date];
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __47__CellFallbackHandler__updateCellFallbackState__block_invoke;
-        v25[3] = &unk_27898C4B8;
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __47__CellFallbackHandler__updateCellFallbackState__block_invoke;
+        v24[3] = &unk_27898C4B8;
         v9 = date;
-        v26 = v9;
-        [FlowAnalyticsEngine appsWithFlowsPassingTest:v25 replyQueue:MEMORY[0x277D85CD0] reply:&__block_literal_global_498];
+        v25 = v9;
+        [FlowAnalyticsEngine appsWithFlowsPassingTest:v24 replyQueue:MEMORY[0x277D85CD0] reply:&__block_literal_global_498];
         if (self->administrativeState != 1)
         {
           v10 = rnfLogHandle;
@@ -6353,18 +6255,16 @@ void __52__CellFallbackHandler__canUseApps_replyQueue_reply___block_invoke_491(v
       {
         [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
         setApparentTime(v19);
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __47__CellFallbackHandler__updateCellFallbackState__block_invoke_507;
-        v23[3] = &unk_27898BB90;
-        v23[4] = self;
-        [FlowRefreshScheduler refreshDataUsageMaxStale:@"RNF edge down" maxDelay:v23 logAs:0.0 callback:1.0];
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __47__CellFallbackHandler__updateCellFallbackState__block_invoke_507;
+        v22[3] = &unk_27898BB90;
+        v22[4] = self;
+        [FlowRefreshScheduler refreshDataUsageMaxStale:@"RNF edge down" maxDelay:v22 logAs:0.0 callback:1.0];
         self->cellFallbackInUse = 0;
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __47__CellFallbackHandler__updateCellFallbackState__block_invoke(uint64_t a1, void *a2)
@@ -6388,15 +6288,15 @@ BOOL __47__CellFallbackHandler__updateCellFallbackState__block_invoke(uint64_t a
 
 void __47__CellFallbackHandler__updateCellFallbackState__block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
-    v11 = 134217984;
-    v12 = [v2 count];
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "CFSM current fallback non-conforming flows %lu", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = [v2 count];
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "CFSM current fallback non-conforming flows %lu", &v10, 0xCu);
   }
 
   if ([v2 count])
@@ -6418,13 +6318,10 @@ void __47__CellFallbackHandler__updateCellFallbackState__block_invoke_2(uint64_t
 
     internal_symptom_send();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __47__CellFallbackHandler__updateCellFallbackState__block_invoke_502(uint64_t a1)
+uint64_t __47__CellFallbackHandler__updateCellFallbackState__block_invoke_502(uint64_t a1, uint64_t a2)
 {
-  v2 = *(*(a1 + 32) + 168);
   result = tcp_fallback_watcher_fallback_inuse();
   if (result)
   {
@@ -6445,7 +6342,7 @@ uint64_t __47__CellFallbackHandler__updateCellFallbackState__block_invoke_502(ui
 
 - (void)processRefreshedRNFDataUsageWithGrace:(BOOL)grace
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = [TrackedFlow rnfUsageGrandTallyAfterAdding:0];
   if (v5 == self->lastCellFallbackUsageMarker && [(CellFallbackHandler *)self internalBuild])
   {
@@ -6468,35 +6365,35 @@ uint64_t __47__CellFallbackHandler__updateCellFallbackState__block_invoke_502(ui
       if (v7)
       {
         *buf = 134217984;
-        v18 = 5;
+        v17 = 5;
         _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "CFSM rnfUsage hasn't moved. Let's give it a grace period of %llu seconds.", buf, 0xCu);
       }
 
       wrongUsageGracePeriodTimer = self->wrongUsageGracePeriodTimer;
       if (wrongUsageGracePeriodTimer)
       {
-        v10 = dispatch_time(0, 5000000000);
-        dispatch_source_set_timer(wrongUsageGracePeriodTimer, v10, 0xFFFFFFFFFFFFFFFFLL, 0x5F5E100uLL);
+        v9 = dispatch_time(0, 5000000000);
+        dispatch_source_set_timer(wrongUsageGracePeriodTimer, v9, 0xFFFFFFFFFFFFFFFFLL, 0x5F5E100uLL);
       }
 
       else
       {
-        v11 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, MEMORY[0x277D85CD0]);
-        v12 = self->wrongUsageGracePeriodTimer;
-        self->wrongUsageGracePeriodTimer = v11;
+        v10 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, MEMORY[0x277D85CD0]);
+        v11 = self->wrongUsageGracePeriodTimer;
+        self->wrongUsageGracePeriodTimer = v10;
 
-        v13 = self->wrongUsageGracePeriodTimer;
-        if (v13)
+        v12 = self->wrongUsageGracePeriodTimer;
+        if (v12)
         {
-          v14 = dispatch_time(0, 5000000000);
-          dispatch_source_set_timer(v13, v14, 0xFFFFFFFFFFFFFFFFLL, 0x5F5E100uLL);
-          v15 = self->wrongUsageGracePeriodTimer;
+          v13 = dispatch_time(0, 5000000000);
+          dispatch_source_set_timer(v12, v13, 0xFFFFFFFFFFFFFFFFLL, 0x5F5E100uLL);
+          v14 = self->wrongUsageGracePeriodTimer;
           handler[0] = MEMORY[0x277D85DD0];
           handler[1] = 3221225472;
           handler[2] = __61__CellFallbackHandler_processRefreshedRNFDataUsageWithGrace___block_invoke;
           handler[3] = &unk_27898A0C8;
           handler[4] = self;
-          dispatch_source_set_event_handler(v15, handler);
+          dispatch_source_set_event_handler(v14, handler);
           dispatch_resume(self->wrongUsageGracePeriodTimer);
         }
       }
@@ -6507,8 +6404,6 @@ uint64_t __47__CellFallbackHandler__updateCellFallbackState__block_invoke_502(ui
   {
     self->lastCellFallbackUsageMarker = v5;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __61__CellFallbackHandler_processRefreshedRNFDataUsageWithGrace___block_invoke(uint64_t a1)
@@ -6524,7 +6419,7 @@ uint64_t __61__CellFallbackHandler_processRefreshedRNFDataUsageWithGrace___block
 
 - (void)_updateMptcpState
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (self->mptcpObserver)
   {
     v3 = network_config_mptcp_cell_in_use();
@@ -6532,11 +6427,11 @@ uint64_t __61__CellFallbackHandler_processRefreshedRNFDataUsageWithGrace___block
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       mptcpInUse = self->mptcpInUse;
-      v9[0] = 67109376;
-      v9[1] = mptcpInUse;
-      v10 = 1024;
-      v11 = v3;
-      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "CFSM current mptcp state update, was: %d, is: %d", v9, 0xEu);
+      v8[0] = 67109376;
+      v8[1] = mptcpInUse;
+      v9 = 1024;
+      v10 = v3;
+      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "CFSM current mptcp state update, was: %d, is: %d", v8, 0xEu);
     }
 
     if (self->mptcpInUse != v3)
@@ -6547,8 +6442,8 @@ uint64_t __61__CellFallbackHandler_processRefreshedRNFDataUsageWithGrace___block
         v6 = rnfLogHandle;
         if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v9[0]) = 0;
-          _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "CFSM canUse cache: disabling given there's actual MPTCP activity", v9, 2u);
+          LOWORD(v8[0]) = 0;
+          _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "CFSM canUse cache: disabling given there's actual MPTCP activity", v8, 2u);
         }
 
         [(CanUseAppsCache *)self->appsCache disable];
@@ -6561,12 +6456,10 @@ uint64_t __61__CellFallbackHandler_processRefreshedRNFDataUsageWithGrace___block
     v7 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v9[0]) = 0;
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "CFSM no mptcp observer?!", v9, 2u);
+      LOWORD(v8[0]) = 0;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "CFSM no mptcp observer?!", v8, 2u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_trackCellUsageAfterTriggerDisconnectWithNewSeries:(BOOL)series
@@ -6599,7 +6492,7 @@ void __74__CellFallbackHandler__trackCellUsageAfterTriggerDisconnectWithNewSerie
 
 void __74__CellFallbackHandler__trackCellUsageAfterTriggerDisconnectWithNewSeries___block_invoke_2(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [TrackedFlow activeFlowsCountForType:1];
   v3 = [TrackedFlow cellUsageGrandTallyAfterAdding:0];
   v4 = v3 - [TrackedFlow rnfUsageGrandTallyAfterAdding:0];
@@ -6614,7 +6507,7 @@ void __74__CellFallbackHandler__trackCellUsageAfterTriggerDisconnectWithNewSerie
       {
         v8 = *(*(a1 + 32) + 272);
         *buf = 134217984;
-        v28 = v8;
+        v26 = v8;
         _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "CFSM TriggerDisconnect logs, preexisting record: %p, will be archived", buf, 0xCu);
       }
 
@@ -6656,9 +6549,9 @@ void __74__CellFallbackHandler__trackCellUsageAfterTriggerDisconnectWithNewSerie
       {
         v21 = *(a1 + 40);
         *buf = 134218240;
-        v28 = v21;
-        v29 = 2048;
-        v30 = v2;
+        v26 = v21;
+        v27 = 2048;
+        v28 = v2;
         _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_INFO, "CFSM TriggerDisconnect logs, flow counts read are: %llu, %llu", buf, 0x16u);
       }
 
@@ -6674,27 +6567,23 @@ void __74__CellFallbackHandler__trackCellUsageAfterTriggerDisconnectWithNewSerie
 
       [*(*(a1 + 32) + 272) recordFlowCount:v22];
     }
-
-LABEL_21:
-    v25 = *MEMORY[0x277D85DE8];
-    return;
   }
 
-  if (!v6)
+  else if (v6)
   {
-    v24 = rnfLogHandle;
+
+    [v6 recordUsageValue:v4];
+  }
+
+  else
+  {
+    v23 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEBUG, "CFSM TriggerDisconnect logs, no record, will drop usage", buf, 2u);
+      _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEBUG, "CFSM TriggerDisconnect logs, no record, will drop usage", buf, 2u);
     }
-
-    goto LABEL_21;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
-
-  [v6 recordUsageValue:v4];
 }
 
 void __74__CellFallbackHandler__trackCellUsageAfterTriggerDisconnectWithNewSeries___block_invoke_515(uint64_t a1)
@@ -6834,7 +6723,7 @@ BOOL __37__CellFallbackHandler_sharedInstance__block_invoke(uint64_t a1)
 
 void __70__CellFallbackHandler_generateInfoForId_context_uuid_completionBlock___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
   if (a2)
@@ -6858,18 +6747,18 @@ void __70__CellFallbackHandler_generateInfoForId_context_uuid_completionBlock___
   if (v7)
   {
     v8 = *(a1 + 40);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __70__CellFallbackHandler_generateInfoForId_context_uuid_completionBlock___block_invoke_2;
-    v17[3] = &unk_27898D3E8;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __70__CellFallbackHandler_generateInfoForId_context_uuid_completionBlock___block_invoke_2;
+    v16[3] = &unk_27898D3E8;
     v9 = v8;
     v10 = *(a1 + 32);
-    v18 = v9;
-    v19 = v10;
-    v20 = *(a1 + 48);
-    [FlowAnalyticsEngine identifierForUUID:v8 replyQueue:MEMORY[0x277D85CD0] reply:v17];
+    v17 = v9;
+    v18 = v10;
+    v19 = *(a1 + 48);
+    [FlowAnalyticsEngine identifierForUUID:v8 replyQueue:MEMORY[0x277D85CD0] reply:v16];
 
-    v11 = v18;
+    v11 = v17;
     goto LABEL_12;
   }
 
@@ -6879,11 +6768,11 @@ LABEL_7:
   {
     v13 = *(a1 + 40);
     *buf = 138412802;
-    v22 = v13;
-    v23 = 1024;
-    v24 = v7 & 1;
-    v25 = 2112;
-    v26 = v6;
+    v21 = v13;
+    v22 = 1024;
+    v23 = v7 & 1;
+    v24 = 2112;
+    v25 = v6;
     _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "CFSM dynamic blacklist express, denying entry (uuid/foreground/error): %@/%d/%@", buf, 0x1Cu);
   }
 
@@ -6902,13 +6791,11 @@ LABEL_7:
   }
 
 LABEL_12:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __70__CellFallbackHandler_generateInfoForId_context_uuid_completionBlock___block_invoke_2(void *a1, void *a2, void *a3, void *a4)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -6919,31 +6806,31 @@ void __70__CellFallbackHandler_generateInfoForId_context_uuid_completionBlock___
     {
       v12 = a1[4];
       *buf = 138413058;
-      v29 = v12;
-      v30 = 2112;
-      v31 = v7;
-      v32 = 2112;
-      v33 = v8;
-      v34 = 2112;
-      v35 = 0;
+      v28 = v12;
+      v29 = 2112;
+      v30 = v7;
+      v31 = 2112;
+      v32 = v8;
+      v33 = 2112;
+      v34 = 0;
       _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist express (uuid/name/kind/error): %@/%@/%@/%@", buf, 0x2Au);
     }
 
-    v26 = v7;
-    v27 = &unk_2847EF8D8;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v25 = v7;
+    v26 = &unk_2847EF8D8;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
     v14 = a1[5];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __70__CellFallbackHandler_generateInfoForId_context_uuid_completionBlock___block_invoke_566;
-    v22[3] = &unk_27898D3C0;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __70__CellFallbackHandler_generateInfoForId_context_uuid_completionBlock___block_invoke_566;
+    v21[3] = &unk_27898D3C0;
     v15 = v7;
     v16 = a1[5];
     v17 = a1[6];
-    v23 = v15;
-    v24 = v16;
-    v25 = v17;
-    [v14 _canUseApps:v13 replyQueue:MEMORY[0x277D85CD0] reply:v22];
+    v22 = v15;
+    v23 = v16;
+    v24 = v17;
+    [v14 _canUseApps:v13 replyQueue:MEMORY[0x277D85CD0] reply:v21];
   }
 
   else
@@ -6953,13 +6840,13 @@ void __70__CellFallbackHandler_generateInfoForId_context_uuid_completionBlock___
     {
       v19 = a1[4];
       *buf = 138413058;
-      v29 = v19;
-      v30 = 2112;
-      v31 = v7;
-      v32 = 2112;
-      v33 = v8;
-      v34 = 2112;
-      v35 = v9;
+      v28 = v19;
+      v29 = 2112;
+      v30 = v7;
+      v31 = 2112;
+      v32 = v8;
+      v33 = 2112;
+      v34 = v9;
       _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEBUG, "CFSM dynamic blacklist express, failed to resolve (uuid/name/kind/error): %@/%@/%@/%@", buf, 0x2Au);
     }
 
@@ -6967,13 +6854,11 @@ void __70__CellFallbackHandler_generateInfoForId_context_uuid_completionBlock___
     v13 = [MEMORY[0x277CBEAA8] date];
     (*(v20 + 16))(v20, 2, 0, v13, 0, 0, 0);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __70__CellFallbackHandler_generateInfoForId_context_uuid_completionBlock___block_invoke_566(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v11 = a2;
   v12 = a3;
   v13 = a4;
@@ -6985,7 +6870,7 @@ void __70__CellFallbackHandler_generateInfoForId_context_uuid_completionBlock___
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v37 = v15;
+      v36 = v15;
       _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "CFSM dynamic blacklist express: returned error: %@", buf, 0xCu);
     }
 
@@ -7001,20 +6886,20 @@ void __70__CellFallbackHandler_generateInfoForId_context_uuid_completionBlock___
     {
       v20 = a1[4];
       log = v16;
-      v34 = [v11 objectForKeyedSubscript:v20];
+      v33 = [v11 objectForKeyedSubscript:v20];
       v21 = [v12 objectForKeyedSubscript:a1[4]];
       v22 = [v13 objectForKeyedSubscript:a1[4]];
       v23 = [v14 objectForKeyedSubscript:a1[4]];
       *buf = 138413314;
-      v37 = v34;
-      v38 = 2112;
-      v39 = v21;
-      v40 = 2112;
-      v41 = v22;
-      v42 = 2112;
-      v43 = v23;
-      v44 = 2112;
-      v45 = 0;
+      v36 = v33;
+      v37 = 2112;
+      v38 = v21;
+      v39 = 2112;
+      v40 = v22;
+      v41 = 2112;
+      v42 = v23;
+      v43 = 2112;
+      v44 = 0;
       _os_log_impl(&dword_23255B000, log, OS_LOG_TYPE_DEFAULT, "CFSM dynamic blacklist express response (verdict/reason/headroomBytes/overdraftBytes/error): %@/%@/%@/%@/%@", buf, 0x34u);
     }
 
@@ -7056,8 +6941,6 @@ void __70__CellFallbackHandler_generateInfoForId_context_uuid_completionBlock___
     v19 = [MEMORY[0x277CBEAA8] date];
     (*(v32 + 16))(v32, 0, 0, v19, 0, v31, 0);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)noteSymptom:(id)symptom
@@ -7077,14 +6960,14 @@ void __70__CellFallbackHandler_generateInfoForId_context_uuid_completionBlock___
 
 void __35__CellFallbackHandler_noteSymptom___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) eventKey];
   v3 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 138412290;
-    v27 = v2;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "CFSM: receiving symptom with key: %@", &v26, 0xCu);
+    v25 = 138412290;
+    v26 = v2;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "CFSM: receiving symptom with key: %@", &v25, 0xCu);
   }
 
   v4 = [SymptomStore keyFromSymptomName:@"com.apple.wrm.CallOn"];
@@ -7109,61 +6992,59 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v11 = [SymptomStore keyFromSymptomName:@"com.apple.wifimanager.trigger-disconnect"];
-  v12 = [v2 isEqualToString:v11];
+  v10 = [SymptomStore keyFromSymptomName:@"com.apple.wifimanager.trigger-disconnect"];
+  v11 = [v2 isEqualToString:v10];
 
-  if (v12)
+  if (v11)
   {
-    v13 = *(a1 + 40);
-    v14 = 1;
+    v12 = *(a1 + 40);
+    v13 = 1;
 LABEL_13:
-    [v13 _trackCellUsageAfterTriggerDisconnectWithNewSeries:v14];
+    [v12 _trackCellUsageAfterTriggerDisconnectWithNewSeries:v13];
     goto LABEL_8;
   }
 
-  v15 = [SymptomStore keyFromSymptomName:@"com.apple.wifimanager.auto-join-scan"];
-  v16 = [v2 isEqualToString:v15];
+  v14 = [SymptomStore keyFromSymptomName:@"com.apple.wifimanager.auto-join-scan"];
+  v15 = [v2 isEqualToString:v14];
 
-  if (v16)
+  if (v15)
   {
-    v13 = *(a1 + 40);
-    v14 = 0;
+    v12 = *(a1 + 40);
+    v13 = 0;
     goto LABEL_13;
   }
 
-  v17 = [SymptomStore keyFromSymptomName:@"com.apple.wifimanager.link-quality"];
-  v18 = [v2 isEqualToString:v17];
+  v16 = [SymptomStore keyFromSymptomName:@"com.apple.wifimanager.link-quality"];
+  v17 = [v2 isEqualToString:v16];
 
-  if (v18)
+  if (v17)
   {
-    v19 = *(a1 + 40);
-    v20 = *(v19 + 272);
-    *(v19 + 272) = 0;
+    v18 = *(a1 + 40);
+    v19 = *(v18 + 272);
+    *(v18 + 272) = 0;
 
-    v21 = *(*(a1 + 40) + 264);
-    if (v21)
+    v20 = *(*(a1 + 40) + 264);
+    if (v20)
     {
-      dispatch_source_cancel(v21);
+      dispatch_source_cancel(v20);
     }
   }
 
   else
   {
-    v22 = rnfLogHandle;
+    v21 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v23 = v2;
-      v24 = v22;
-      v25 = [v2 UTF8String];
-      v26 = 136315138;
-      v27 = v25;
-      _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_ERROR, "CFSM: Unable to process symptom: %s", &v26, 0xCu);
+      v22 = v2;
+      v23 = v21;
+      v24 = [v2 UTF8String];
+      v25 = 136315138;
+      v26 = v24;
+      _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_ERROR, "CFSM: Unable to process symptom: %s", &v25, 0xCu);
     }
   }
 
 LABEL_8:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_canUseApps:(void *)a3 replyQueue:(void *)a4 reply:.cold.1(void *a1, uint64_t a2, void *a3, void *a4)

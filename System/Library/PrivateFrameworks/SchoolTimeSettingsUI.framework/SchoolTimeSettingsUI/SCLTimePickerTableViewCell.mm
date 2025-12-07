@@ -12,10 +12,10 @@
 
 - (SCLTimePickerTableViewCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
 {
-  v32[3] = *MEMORY[0x277D85DE8];
-  v31.receiver = self;
-  v31.super_class = SCLTimePickerTableViewCell;
-  v4 = [(SCLTimePickerTableViewCell *)&v31 initWithStyle:style reuseIdentifier:identifier];
+  v31[3] = *MEMORY[0x277D85DE8];
+  v30.receiver = self;
+  v30.super_class = SCLTimePickerTableViewCell;
+  v4 = [(SCLTimePickerTableViewCell *)&v30 initWithStyle:style reuseIdentifier:identifier];
   v5 = v4;
   if (v4)
   {
@@ -63,14 +63,13 @@
     v26 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
 
     v27 = MEMORY[0x277CCAAD0];
-    v32[0] = v18;
-    v32[1] = v22;
-    v32[2] = v26;
-    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:3];
+    v31[0] = v18;
+    v31[1] = v22;
+    v31[2] = v26;
+    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:3];
     [v27 activateConstraints:v28];
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -100,7 +99,7 @@
 
 - (void)setSelectedDate:(id)date
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   datePicker = [(SCLTimePickerTableViewCell *)self datePicker];
   date = [datePicker date];
@@ -110,24 +109,22 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = [(NSDateFormatter *)self->_dateFormatter stringFromDate:dateCopy];
-    v11 = 138412546;
-    v12 = v9;
-    v13 = 1024;
-    v14 = v7 ^ 1;
-    _os_log_impl(&dword_26486D000, v8, OS_LOG_TYPE_INFO, "Set Selected Date: %@; shouldSet=%{BOOL}d", &v11, 0x12u);
+    v10 = 138412546;
+    v11 = v9;
+    v12 = 1024;
+    v13 = v7 ^ 1;
+    _os_log_impl(&dword_26486D000, v8, OS_LOG_TYPE_INFO, "Set Selected Date: %@; shouldSet=%{BOOL}d", &v10, 0x12u);
   }
 
   if ((v7 & 1) == 0)
   {
     [(UIDatePicker *)self->_datePicker setDate:dateCopy];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)datePickerDidChangeDate:(id)date
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   date = [dateCopy date];
   v6 = scl_framework_log();
@@ -136,9 +133,9 @@
     v7 = [(NSDateFormatter *)self->_dateFormatter stringFromDate:date];
     v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_constraintMode];
     *buf = 138412546;
-    v35 = v7;
-    v36 = 2112;
-    v37 = v8;
+    v34 = v7;
+    v35 = 2112;
+    v36 = v8;
     _os_log_impl(&dword_26486D000, v6, OS_LOG_TYPE_INFO, "Did pick date: %@; constraintMode = %@", buf, 0x16u);
   }
 
@@ -161,14 +158,14 @@
         v15 = scl_framework_log();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
-          v33 = [(NSDateFormatter *)self->_dateFormatter stringFromDate:v14];
+          v32 = [(NSDateFormatter *)self->_dateFormatter stringFromDate:v14];
           dateFormatter = self->_dateFormatter;
           date2 = [dateCopy date];
           v17 = [(NSDateFormatter *)dateFormatter stringFromDate:date2];
           *buf = 138412546;
-          v35 = v33;
-          v36 = 2112;
-          v37 = v17;
+          v34 = v32;
+          v35 = 2112;
+          v36 = v17;
           _os_log_impl(&dword_26486D000, v15, OS_LOG_TYPE_INFO, "Normalizing back to date %@ from %@", buf, 0x16u);
         }
 
@@ -177,7 +174,7 @@
 
       else
       {
-        v32 = calendar;
+        v31 = calendar;
         hour = [v10 hour];
         v19 = [v10 minute] + 60 * hour;
         hour2 = [v12 hour];
@@ -200,17 +197,17 @@
         v23 = ;
 
         v24 = scl_framework_log();
-        calendar = v32;
+        calendar = v31;
         if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
-          v29 = [(NSDateFormatter *)self->_dateFormatter stringFromDate:v23];
+          v28 = [(NSDateFormatter *)self->_dateFormatter stringFromDate:v23];
           v25 = self->_dateFormatter;
           date3 = [dateCopy date];
           v26 = [(NSDateFormatter *)v25 stringFromDate:date3];
           *buf = 138412546;
-          v35 = v29;
-          v36 = 2112;
-          v37 = v26;
+          v34 = v28;
+          v35 = 2112;
+          v36 = v26;
           _os_log_impl(&dword_26486D000, v24, OS_LOG_TYPE_INFO, "Date %@ falls outside of constraint interval. Setting to %@", buf, 0x16u);
         }
 
@@ -235,13 +232,11 @@
   [(SCLTimePickerTableViewCell *)self _updateConstraintModeWithInterval:self->_constraintInterval selectedDate:date];
   delegate = [(SCLTimePickerTableViewCell *)self delegate];
   [delegate timePickerCell:self didUpdateDate:date];
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateConstraintModeWithInterval:(id)interval selectedDate:(id)date
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   dateCopy = date;
   if (intervalCopy)
@@ -252,11 +247,11 @@
     {
       v10 = [(NSDateIntervalFormatter *)self->_intervalFormatter stringFromDateInterval:intervalCopy];
       v11 = [(NSDateFormatter *)self->_dateFormatter stringFromDate:dateCopy];
-      v21 = 138412546;
-      v22 = v10;
-      v23 = 2112;
-      v24 = v11;
-      _os_log_impl(&dword_26486D000, v9, OS_LOG_TYPE_INFO, "Update constraint with interval %@; selected date %@", &v21, 0x16u);
+      v20 = 138412546;
+      v21 = v10;
+      v22 = 2112;
+      v23 = v11;
+      _os_log_impl(&dword_26486D000, v9, OS_LOG_TYPE_INFO, "Update constraint with interval %@; selected date %@", &v20, 0x16u);
     }
 
     endDate = [intervalCopy endDate];
@@ -277,9 +272,9 @@
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         v19 = [(NSDateIntervalFormatter *)self->_intervalFormatter stringFromDateInterval:intervalCopy];
-        v21 = 138412290;
-        v22 = v19;
-        _os_log_impl(&dword_26486D000, v18, OS_LOG_TYPE_INFO, "Setting constraint mode to picker: %@", &v21, 0xCu);
+        v20 = 138412290;
+        v21 = v19;
+        _os_log_impl(&dword_26486D000, v18, OS_LOG_TYPE_INFO, "Setting constraint mode to picker: %@", &v20, 0xCu);
       }
     }
 
@@ -291,8 +286,8 @@
       v18 = scl_framework_log();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v21) = 0;
-        _os_log_impl(&dword_26486D000, v18, OS_LOG_TYPE_INFO, "Setting constraint mode to manual workaround", &v21, 2u);
+        LOWORD(v20) = 0;
+        _os_log_impl(&dword_26486D000, v18, OS_LOG_TYPE_INFO, "Setting constraint mode to manual workaround", &v20, 2u);
       }
     }
   }
@@ -305,12 +300,10 @@
     calendar = scl_framework_log();
     if (os_log_type_enabled(calendar, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&dword_26486D000, calendar, OS_LOG_TYPE_INFO, "Setting constraint mode to  none", &v21, 2u);
+      LOWORD(v20) = 0;
+      _os_log_impl(&dword_26486D000, calendar, OS_LOG_TYPE_INFO, "Setting constraint mode to  none", &v20, 2u);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (SCLTimePickerTableViewCellDelegate)delegate

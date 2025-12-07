@@ -16,7 +16,7 @@
 
 - (void)_auditControllerWrappersWithAllFabricUUIDs:(id)ds
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -25,20 +25,20 @@
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v43 = v8;
-    v44 = 2112;
-    v45 = dsCopy;
+    v42 = v8;
+    v43 = 2112;
+    v44 = dsCopy;
     _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_ERROR, "%{public}@Hitting maximum number of wrappers. Removing unused and restarting factory. Currently used: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   array = [MEMORY[0x277CBEB18] array];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   controllerWrappers = [(HMMTRFabricControllerStore *)selfCopy controllerWrappers];
-  v11 = [controllerWrappers countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v11 = [controllerWrappers countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (!v11)
   {
 
@@ -49,23 +49,23 @@
 
   v13 = v11;
   usesCommonStorageDelegate = 0;
-  v14 = *v38;
+  v14 = *v37;
   *&v12 = 138543618;
-  v33 = v12;
-  v34 = *v38;
+  v32 = v12;
+  v33 = *v37;
   do
   {
     v15 = 0;
-    v35 = v13;
+    v34 = v13;
     do
     {
-      if (*v38 != v14)
+      if (*v37 != v14)
       {
         objc_enumerationMutation(controllerWrappers);
       }
 
-      v16 = *(*(&v37 + 1) + 8 * v15);
-      if (([dsCopy containsObject:{v16, v33}] & 1) == 0)
+      v16 = *(*(&v36 + 1) + 8 * v15);
+      if (([dsCopy containsObject:{v16, v32}] & 1) == 0)
       {
         v17 = controllerWrappers;
         v18 = array;
@@ -77,10 +77,10 @@
         if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
           v24 = HMFGetLogIdentifier();
-          *buf = v33;
-          v43 = v24;
-          v44 = 2112;
-          v45 = v16;
+          *buf = v32;
+          v42 = v24;
+          v43 = 2112;
+          v44 = v16;
           _os_log_impl(&dword_22AEAE000, v23, OS_LOG_TYPE_INFO, "%{public}@Removing %@ from factory", buf, 0x16u);
         }
 
@@ -107,15 +107,15 @@
         [v18 addObject:v16];
         dsCopy = v19;
         controllerWrappers = v17;
-        v14 = v34;
-        v13 = v35;
+        v14 = v33;
+        v13 = v34;
       }
 
       ++v15;
     }
 
     while (v13 != v15);
-    v13 = [controllerWrappers countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v13 = [controllerWrappers countByEnumeratingWithState:&v36 objects:v40 count:16];
   }
 
   while (v13);
@@ -129,13 +129,11 @@
     [controllerWrappers2 restartNormalOperation];
 LABEL_20:
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllGetters
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -143,7 +141,7 @@ LABEL_20:
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v11 = v6;
+    v10 = v6;
     _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Removing all controller wrappers", buf, 0xCu);
   }
 
@@ -155,34 +153,32 @@ LABEL_20:
   block[3] = &unk_2786F0CA8;
   block[4] = selfCopy;
   dispatch_async(workQueue, block);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __46__HMMTRFabricControllerStore_removeAllGetters__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = [*(a1 + 32) controllerWrappers];
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       v6 = 0;
       do
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * v6);
+        v7 = *(*(&v11 + 1) + 8 * v6);
         v8 = [*(a1 + 32) controllerWrappers];
         v9 = [v8 objectForKeyedSubscript:v7];
         [v9 remove];
@@ -191,7 +187,7 @@ void __46__HMMTRFabricControllerStore_removeAllGetters__block_invoke(uint64_t a1
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
@@ -199,8 +195,6 @@ void __46__HMMTRFabricControllerStore_removeAllGetters__block_invoke(uint64_t a1
 
   v10 = [*(a1 + 32) controllerWrappers];
   [v10 removeAllObjects];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cachedWrapperWithTargetFabricUUID:(id)d
@@ -240,7 +234,7 @@ void __64__HMMTRFabricControllerStore_cachedWrapperWithTargetFabricUUID___block_
 
 - (void)removeTargetFabricUUID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -249,24 +243,22 @@ void __64__HMMTRFabricControllerStore_cachedWrapperWithTargetFabricUUID___block_
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v15 = v8;
-    v16 = 2112;
-    v17 = dCopy;
+    v14 = v8;
+    v15 = 2112;
+    v16 = dCopy;
     _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Removing %@ from factory", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   workQueue = [(HMMTRFabricControllerStore *)selfCopy workQueue];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __53__HMMTRFabricControllerStore_removeTargetFabricUUID___block_invoke;
-  v12[3] = &unk_2786EF328;
-  v12[4] = selfCopy;
-  v13 = dCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __53__HMMTRFabricControllerStore_removeTargetFabricUUID___block_invoke;
+  v11[3] = &unk_2786EF328;
+  v11[4] = selfCopy;
+  v12 = dCopy;
   v10 = dCopy;
-  dispatch_sync(workQueue, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  dispatch_sync(workQueue, v11);
 }
 
 void __53__HMMTRFabricControllerStore_removeTargetFabricUUID___block_invoke(uint64_t a1)
@@ -295,31 +287,31 @@ void __53__HMMTRFabricControllerStore_removeTargetFabricUUID___block_invoke(uint
 
 void __57__HMMTRFabricControllerStore_updateAllTargetFabricUUIDs___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v18 = [MEMORY[0x277CBEB18] array];
+  v27 = *MEMORY[0x277D85DE8];
+  v17 = [MEMORY[0x277CBEB18] array];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v2 = [*(a1 + 32) controllerWrappers];
-  v3 = [v2 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v20;
+    v6 = *v19;
     *&v4 = 138543618;
-    v17 = v4;
+    v16 = v4;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v19 + 1) + 8 * i);
-        if (([*(a1 + 40) containsObject:{v8, v17}] & 1) == 0)
+        v8 = *(*(&v18 + 1) + 8 * i);
+        if (([*(a1 + 40) containsObject:{v8, v16}] & 1) == 0)
         {
           v9 = objc_autoreleasePoolPush();
           v10 = *(a1 + 32);
@@ -327,10 +319,10 @@ void __57__HMMTRFabricControllerStore_updateAllTargetFabricUUIDs___block_invoke(
           if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
           {
             v12 = HMFGetLogIdentifier();
-            *buf = v17;
-            v24 = v12;
-            v25 = 2112;
-            v26 = v8;
+            *buf = v16;
+            v23 = v12;
+            v24 = 2112;
+            v25 = v8;
             _os_log_impl(&dword_22AEAE000, v11, OS_LOG_TYPE_INFO, "%{public}@Removing %@ from factory", buf, 0x16u);
           }
 
@@ -339,20 +331,18 @@ void __57__HMMTRFabricControllerStore_updateAllTargetFabricUUIDs___block_invoke(
           v14 = [v13 objectForKeyedSubscript:v8];
           [v14 remove];
 
-          [v18 addObject:v8];
+          [v17 addObject:v8];
         }
       }
 
-      v5 = [v2 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v5);
   }
 
   v15 = [*(a1 + 32) controllerWrappers];
-  [v15 removeObjectsForKeys:v18];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [v15 removeObjectsForKeys:v17];
 }
 
 - (id)wrapperWithTargetFabricUUID:(id)d startupParams:(id)params allTargetFabricUUIDs:(id)ds entityIdentifier:(id)identifier
@@ -392,7 +382,7 @@ void __57__HMMTRFabricControllerStore_updateAllTargetFabricUUIDs___block_invoke(
 
 void __110__HMMTRFabricControllerStore_wrapperWithTargetFabricUUID_startupParams_allTargetFabricUUIDs_entityIdentifier___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) controllerWrappers];
   v3 = [v2 objectForKeyedSubscript:*(a1 + 40)];
 
@@ -426,7 +416,7 @@ void __110__HMMTRFabricControllerStore_wrapperWithTargetFabricUUID_startupParams
             {
               v13 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v37 = v13;
+              v36 = v13;
               _os_log_impl(&dword_22AEAE000, v12, OS_LOG_TYPE_ERROR, "%{public}@Controller parameters are not stored correctly (rdar://122026373) - Matter Native operation will work erroneously", buf, 0xCu);
             }
 
@@ -446,9 +436,9 @@ void __110__HMMTRFabricControllerStore_wrapperWithTargetFabricUUID_startupParams
       v31 = HMFGetLogIdentifier();
       v34 = *(a1 + 40);
       *buf = 138543618;
-      v37 = v31;
-      v38 = 2112;
-      v39 = v34;
+      v36 = v31;
+      v37 = 2112;
+      v38 = v34;
       v33 = "%{public}@Startup parameter remains the same for %@. Returning the previous controller wrapper.";
     }
 
@@ -469,9 +459,9 @@ LABEL_20:
       v31 = HMFGetLogIdentifier();
       v32 = *(a1 + 40);
       *buf = 138543618;
-      v37 = v31;
-      v38 = 2112;
-      v39 = v32;
+      v36 = v31;
+      v37 = 2112;
+      v38 = v32;
       v33 = "%{public}@Startup parameter changed for %@. Replaced controller wrapper params.";
     }
 
@@ -496,9 +486,9 @@ LABEL_20:
     v19 = HMFGetLogIdentifier();
     v20 = *(a1 + 40);
     *buf = 138543618;
-    v37 = v19;
-    v38 = 2112;
-    v39 = v20;
+    v36 = v19;
+    v37 = 2112;
+    v38 = v20;
     _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_INFO, "%{public}@Retrieving controller wrapper for the first time for %@", buf, 0x16u);
   }
 
@@ -515,7 +505,6 @@ LABEL_20:
   [v27 setObject:v26 forKeyedSubscript:*(a1 + 40)];
 
 LABEL_21:
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (HMMTRFabricControllerStore)initWithQueue:(id)queue controllerFactory:(id)factory
@@ -552,10 +541,11 @@ LABEL_21:
 
 uint64_t __41__HMMTRFabricControllerStore_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v14_3196 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v14_3196;
+  logCategory__hmf_once_v14_3196 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (BOOL)startupParams2:(id)params2 isEquivalentTo:(id)to

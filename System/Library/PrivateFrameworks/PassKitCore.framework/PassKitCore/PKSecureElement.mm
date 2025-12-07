@@ -4382,7 +4382,7 @@ LABEL_17:
     {
       v16 = [v13 domain];
       v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"nfcd"];
-      if ([v16 isEqualToString:v17])
+      if (objc_msgSend_isEqualToString_(v16))
       {
         v25 = v6;
         v18 = v12;

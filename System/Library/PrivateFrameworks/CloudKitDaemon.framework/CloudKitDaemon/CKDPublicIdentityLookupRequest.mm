@@ -32,7 +32,7 @@
 
 - (void)_saveUserIdentity:(id)identity forLookupInfo:(id)info
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   infoCopy = info;
   v10 = objc_msgSend_publicSharingKey(identityCopy, v8, v9);
@@ -53,13 +53,13 @@
       v18 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
       {
-        v23 = v18;
-        v26 = objc_msgSend_ckShortDescription(infoCopy, v24, v25);
-        v27 = 138412546;
-        v28 = v26;
-        v29 = 2112;
-        v30 = v17;
-        _os_log_debug_impl(&dword_22506F000, v23, OS_LOG_TYPE_DEBUG, "Caching PILS entry for %@ in %@", &v27, 0x16u);
+        v22 = v18;
+        v25 = objc_msgSend_ckShortDescription(infoCopy, v23, v24);
+        v26 = 138412546;
+        v27 = v25;
+        v28 = 2112;
+        v29 = v17;
+        _os_log_debug_impl(&dword_22506F000, v22, OS_LOG_TYPE_DEBUG, "Caching PILS entry for %@ in %@", &v26, 0x16u);
       }
 
       objc_msgSend_cacheUserIdentity_forLookupInfo_container_(v17, v19, identityCopy, infoCopy, v14);
@@ -76,15 +76,13 @@
     v21 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
-      v27 = 138412290;
-      v28 = identityCopy;
-      _os_log_debug_impl(&dword_22506F000, v21, OS_LOG_TYPE_DEBUG, "Not caching user identity without a public sharing key: %@", &v27, 0xCu);
+      v26 = 138412290;
+      v27 = identityCopy;
+      _os_log_debug_impl(&dword_22506F000, v21, OS_LOG_TYPE_DEBUG, "Not caching user identity without a public sharing key: %@", &v26, 0xCu);
     }
   }
 
   objc_msgSend__receivedUserIdentity_forLookupInfo_error_(self, v20, identityCopy, infoCopy, 0);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_receivedUserIdentity:(id)identity forLookupInfo:(id)info error:(id)error
@@ -98,13 +96,13 @@
 
 - (void)performRequest
 {
-  v102 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   if (objc_msgSend_hasPerformed(self, a2, v2))
   {
-    v71 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v5, v6);
-    v72 = objc_opt_class();
-    v73 = NSStringFromClass(v72);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v71, v74, a2, self, @"CKDPublicIdentityLookupRequest.m", 71, @"A %@ may only be performed once", v73);
+    v70 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v5, v6);
+    v71 = objc_opt_class();
+    v72 = NSStringFromClass(v71);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v70, v73, a2, self, @"CKDPublicIdentityLookupRequest.m", 71, @"A %@ may only be performed once", v72);
   }
 
   objc_msgSend_setHasPerformed_(self, v5, 1);
@@ -112,27 +110,27 @@
   v10 = objc_msgSend_container(WeakRetained, v8, v9);
 
   v13 = objc_msgSend_publicIdentitiesDiskCache(v10, v11, v12);
-  v94 = 0u;
-  v95 = 0u;
-  v92 = 0u;
   v93 = 0u;
+  v94 = 0u;
+  v91 = 0u;
+  v92 = 0u;
   obj = self->_lookupInfosToFetch;
-  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v14, &v92, v101, 16);
+  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v14, &v91, v100, 16);
   if (v16)
   {
-    v17 = *v93;
-    v75 = *MEMORY[0x277CBC120];
+    v17 = *v92;
+    v74 = *MEMORY[0x277CBC120];
     do
     {
       v18 = 0;
       do
       {
-        if (*v93 != v17)
+        if (*v92 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v92 + 1) + 8 * v18);
+        v19 = *(*(&v91 + 1) + 8 * v18);
         v22 = objc_msgSend_cachedIdentityForLookupInfo_container_(v13, v15, v19, v10);
         if (*MEMORY[0x277CBC810] == 1 && (objc_msgSend_phoneNumber(v19, v20, v21), v23 = objc_claimAutoreleasedReturnValue(), hasPrefix = objc_msgSend_hasPrefix_(v23, v24, @"UNIT_TEST_FAILED_LOOKUP_"), v23, hasPrefix))
         {
@@ -151,7 +149,7 @@
             _os_log_debug_impl(&dword_22506F000, v48, OS_LOG_TYPE_DEBUG, "Returning a fake empty response for participant %@. You asked for it!", buf, 0xCu);
           }
 
-          v28 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v27, v75, 1000, @"Unit-test-requested error fetching share participant");
+          v28 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v27, v74, 1000, @"Unit-test-requested error fetching share participant");
           objc_msgSend__receivedUserIdentity_forLookupInfo_error_(self, v29, 0, v19, v28);
         }
 
@@ -174,9 +172,9 @@
             *&buf[12] = 2112;
             *&buf[14] = v22;
             *&buf[22] = 2114;
-            v99 = v40;
-            LOWORD(v100) = 2048;
-            *(&v100 + 2) = v43;
+            v98 = v40;
+            LOWORD(v99) = 2048;
+            *(&v99 + 2) = v43;
             _os_log_debug_impl(&dword_22506F000, v37, OS_LOG_TYPE_DEBUG, "Found lookup info key %@ in cache, injected it into cached identity %@. Public key is %{public}@/%lu", buf, 0x2Au);
           }
 
@@ -219,7 +217,7 @@
       }
 
       while (v16 != v18);
-      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v15, &v92, v101, 16);
+      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v15, &v91, v100, 16);
     }
 
     while (v16);
@@ -231,43 +229,43 @@
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v99 = sub_225074170;
-    *&v100 = sub_225073644;
-    *(&v100 + 1) = 0;
-    v86 = 0;
-    v87 = &v86;
-    v88 = 0x3032000000;
-    v89 = sub_225074170;
-    v90 = sub_225073644;
-    v91 = 0;
-    v84[0] = 0;
-    v84[1] = v84;
-    v84[2] = 0x3032000000;
-    v84[3] = sub_2253AC71C;
-    v84[4] = sub_2253AC72C;
+    v98 = sub_225074170;
+    *&v99 = sub_225073644;
+    *(&v99 + 1) = 0;
     v85 = 0;
+    v86 = &v85;
+    v87 = 0x3032000000;
+    v88 = sub_225074170;
+    v89 = sub_225073644;
+    v90 = 0;
+    v83[0] = 0;
+    v83[1] = v83;
+    v83[2] = 0x3032000000;
+    v83[3] = sub_2253AC71C;
+    v83[4] = sub_2253AC72C;
+    v84 = 0;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = sub_2253AC734;
     aBlock[3] = &unk_27854D068;
     v57 = v56;
-    v78 = v57;
-    v81 = v84;
-    v82 = buf;
-    v83 = &v86;
+    v77 = v57;
+    v80 = v83;
+    v81 = buf;
+    v82 = &v85;
     v58 = v10;
-    v79 = v58;
+    v78 = v58;
     selfCopy = self;
     v59 = _Block_copy(aBlock);
-    v60 = v87[5];
-    v87[5] = v59;
+    v60 = v86[5];
+    v86[5] = v59;
 
     v62 = objc_msgSend_objectAtIndex_(v57, v61, 0);
     v65 = objc_msgSend_completionBlock(v62, v63, v64);
     v66 = *(*&buf[8] + 40);
     *(*&buf[8] + 40) = v65;
 
-    objc_msgSend_setCompletionBlock_(v62, v67, v87[5]);
+    objc_msgSend_setCompletionBlock_(v62, v67, v86[5]);
     if (*MEMORY[0x277CBC880] != -1)
     {
       dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -276,25 +274,23 @@
     v68 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
-      *v96 = 138412290;
-      v97 = v62;
-      _os_log_debug_impl(&dword_22506F000, v68, OS_LOG_TYPE_DEBUG, "Starting execution of batched requests, triggering %@", v96, 0xCu);
+      *v95 = 138412290;
+      v96 = v62;
+      _os_log_debug_impl(&dword_22506F000, v68, OS_LOG_TYPE_DEBUG, "Starting execution of batched requests, triggering %@", v95, 0xCu);
     }
 
     objc_msgSend_performRequest_(v58, v69, v62);
 
-    _Block_object_dispose(v84, 8);
-    _Block_object_dispose(&v86, 8);
+    _Block_object_dispose(v83, 8);
+    _Block_object_dispose(&v85, 8);
 
     _Block_object_dispose(buf, 8);
   }
-
-  v70 = *MEMORY[0x277D85DE8];
 }
 
 - (id)spawnURLRequests
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, v2);
   v5 = self->_missingLookupInfos;
   v8 = objc_msgSend_count(v5, v6, v7);
@@ -302,7 +298,7 @@
   if (v8)
   {
     *&v11 = 134218240;
-    v37 = v11;
+    v36 = v11;
     do
     {
       fetchBatchSize = self->_fetchBatchSize;
@@ -319,7 +315,7 @@
         objc_msgSend_removeObjectsInRange_(v5, v14, 0, fetchBatchSize);
       }
 
-      v18 = objc_msgSend_count(v13, v15, v16, v37);
+      v18 = objc_msgSend_count(v13, v15, v16, v36);
       if (*MEMORY[0x277CBC880] != -1)
       {
         dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -331,10 +327,10 @@
         v28 = v19;
         v31 = objc_msgSend_count(v13, v29, v30);
         BatchSize = objc_msgSend_fetchBatchSize(self, v32, v33);
-        *from = v37;
+        *from = v36;
         *&from[4] = v31;
-        v43 = 2048;
-        v44 = BatchSize;
+        v42 = 2048;
+        v43 = BatchSize;
         _os_log_debug_impl(&dword_22506F000, v28, OS_LOG_TYPE_DEBUG, "Creating request to fetch public identity for %lu infos (batch size is %lu)", from, 0x16u);
       }
 
@@ -342,18 +338,18 @@
       v22 = objc_msgSend_initWithOperation_lookupInfos_adopterProvidedLookupInfos_(v20, v21, WeakRetained, v13, 1);
       objc_msgSend_setWantsProtectionInfo_(v22, v23, 1);
       *from = 0;
-      v38[0] = MEMORY[0x277D85DD0];
-      v38[1] = 3221225472;
-      v38[2] = sub_2253ACCFC;
-      v38[3] = &unk_27854D090;
+      v37[0] = MEMORY[0x277D85DD0];
+      v37[1] = 3221225472;
+      v37[2] = sub_2253ACCFC;
+      v37[3] = &unk_27854D090;
       v24 = WeakRetained;
-      v39 = v24;
+      v38 = v24;
       selfCopy = self;
-      objc_copyWeak(&v41, from);
-      objc_msgSend_setProgressBlock_(v22, v25, v38);
+      objc_copyWeak(&v40, from);
+      objc_msgSend_setProgressBlock_(v22, v25, v37);
       objc_msgSend_configureRequest_(v24, v26, v22);
       objc_msgSend_addObject_(v4, v27, v22);
-      objc_destroyWeak(&v41);
+      objc_destroyWeak(&v40);
 
       objc_destroyWeak(from);
       v8 -= v18;
@@ -361,8 +357,6 @@
 
     while (v8);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -400,34 +394,33 @@
 
 - (void)finishWithError:(id)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (self->_perLookupInfoProgressBlock)
   {
-    v20 = 0u;
-    v21 = 0u;
     v18 = 0u;
     v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v5 = self->_missingLookupInfos;
-    v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v18, v24, 16);
+    v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v16, v22, 16);
     if (v7)
     {
       v8 = v7;
-      v9 = *v19;
+      v9 = *v17;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v19 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = *(*(&v18 + 1) + 8 * i);
           (*(self->_perLookupInfoProgressBlock + 2))(self->_perLookupInfoProgressBlock);
         }
 
-        v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v12, &v18, v24, 16);
+        v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v11, &v16, v22, 16);
       }
 
       while (v8);
@@ -438,12 +431,12 @@
   if (lookupCompletionBlock)
   {
     lookupCompletionBlock[2](lookupCompletionBlock, errorCopy);
-    v14 = self->_lookupCompletionBlock;
+    v13 = self->_lookupCompletionBlock;
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
   self->_lookupCompletionBlock = 0;
@@ -456,15 +449,13 @@
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
   }
 
-  v16 = *MEMORY[0x277CBC830];
+  v15 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
     selfCopy = self;
-    _os_log_debug_impl(&dword_22506F000, v16, OS_LOG_TYPE_DEBUG, "Completed request: %@", buf, 0xCu);
+    _os_log_debug_impl(&dword_22506F000, v15, OS_LOG_TYPE_DEBUG, "Completed request: %@", buf, 0xCu);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)ckShortDescription

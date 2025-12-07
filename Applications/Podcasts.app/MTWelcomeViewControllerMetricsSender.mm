@@ -12,12 +12,12 @@
   v3 = type metadata accessor for PageMetrics.InvocationPoint();
   v4 = *(v3 - 8);
   __chkstk_darwin();
-  v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
 
   MetricsController.observe(lifecycleEvent:)();
 
-  sub_10035D81C();
+  sub_10035D81C(v8);
 
   static PageMetrics.InvocationPoint.pageEnter.getter();
   MetricsController.sendEvents(for:)();
@@ -34,7 +34,7 @@
 
 - (void)welcomeControllerDidDisappear
 {
-  sub_100168088(&unk_1005815C0);
+  sub_100168088(&unk_1005815C0, "&m\b");
   __chkstk_darwin();
   v4 = &v7 - v3;
   selfCopy = self;

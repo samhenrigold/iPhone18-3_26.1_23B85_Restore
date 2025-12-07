@@ -80,7 +80,7 @@
   }
 
   v5 = v4;
-  v6 = _CRKLogSettings_0();
+  v6 = _CRKLogSettings_0(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136446466;
@@ -95,7 +95,7 @@
 
 - (void)updateVisibilityState
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   settingsUIVisible = [(CRKCourseEnrollmentController *)self->mEnrollmentController settingsUIVisible];
   if ([settingsUIVisible BOOLValue])
   {
@@ -108,21 +108,21 @@
     bOOLValue = [value BOOLValue];
   }
 
-  v6 = _CRKLogSettings_0();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _CRKLogSettings_0(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = @"NO";
+    v8 = @"NO";
     if (bOOLValue)
     {
-      v7 = @"YES";
+      v8 = @"YES";
     }
 
-    v8 = v7;
-    v9 = 136446466;
-    v10 = "[CRKDefaultSettingsUIVisibilityProvider updateVisibilityState]";
-    v11 = 2114;
-    v12 = v8;
-    _os_log_impl(&dword_243550000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}s] %{public}@", &v9, 0x16u);
+    v9 = v8;
+    v10 = 136446466;
+    v11 = "[CRKDefaultSettingsUIVisibilityProvider updateVisibilityState]";
+    v12 = 2114;
+    v13 = v9;
+    _os_log_impl(&dword_243550000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}s] %{public}@", &v10, 0x16u);
   }
 
   if (bOOLValue != [(CRKDefaultSettingsUIVisibilityProvider *)self settingsUIVisible])
@@ -228,7 +228,7 @@ uint64_t __57__CRKDefaultSettingsUIVisibilityProvider_connectToDaemon__block_inv
 {
   v15 = *MEMORY[0x277D85DE8];
   visibilityCopy = visibility;
-  v5 = _CRKLogSettings_0();
+  v5 = _CRKLogSettings_0(visibilityCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     settingsUIVisible = [visibilityCopy settingsUIVisible];

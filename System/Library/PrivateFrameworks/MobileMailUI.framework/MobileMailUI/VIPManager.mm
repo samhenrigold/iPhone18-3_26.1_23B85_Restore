@@ -170,40 +170,38 @@
 
 uint64_t __29__VIPManager__vipsDidChange___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [*(*(a1 + 32) + 8) lock];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v2 = *(a1 + 40);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
-    v4 = *v11;
+    v4 = *v10;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
         v6 = *(*(a1 + 32) + 16);
-        v7 = [*(*(&v10 + 1) + 8 * i) identifier];
+        v7 = [*(*(&v9 + 1) + 8 * i) identifier];
         CFDictionaryRemoveValue(v6, v7);
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v3);
   }
 
-  result = [*(*(a1 + 32) + 8) unlock];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 32) + 8) unlock];
 }
 
 void __29__VIPManager__vipsDidChange___block_invoke_2(uint64_t a1)
@@ -216,38 +214,34 @@ void __29__VIPManager__vipsDidChange___block_invoke_2(uint64_t a1)
 
 - (void)saveVIP:(id)p
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   pCopy = p;
   v5 = MFLogGeneral();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v9 = pCopy;
+    v8 = pCopy;
     _os_log_impl(&dword_2149C9000, v5, OS_LOG_TYPE_INFO, "#MailServices saveVIP: %@", buf, 0xCu);
   }
 
   v6 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{pCopy, 0}];
   [(VIPManager *)self saveVIPs:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteVIPWithIdentifier:(id)identifier
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = MFLogGeneral();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v9 = identifierCopy;
+    v8 = identifierCopy;
     _os_log_impl(&dword_2149C9000, v5, OS_LOG_TYPE_INFO, "#MailServices deleteVIPWithIdentifier: %@", buf, 0xCu);
   }
 
   v6 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{identifierCopy, 0}];
   [(VIPManager *)self removeVIPsWithIdentifiers:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)sortedVIPs
@@ -273,35 +267,35 @@ uint64_t __24__VIPManager_sortedVIPs__block_invoke(uint64_t a1, void *a2, void *
 
 - (id)vipForEmailAddresses:(id)addresses andDisplayNames:(id)names
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   addressesCopy = addresses;
   namesCopy = names;
   [(VIPManager *)self allVIPs];
+  v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  obj = v34 = 0u;
-  v6 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v32 = 0u;
+  obj = v33 = 0u;
+  v6 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (!v6)
   {
-    v28 = 0;
+    v27 = 0;
     goto LABEL_25;
   }
 
   v7 = 0;
-  v28 = 0;
-  v25 = *v34;
+  v27 = 0;
+  v24 = *v33;
   do
   {
-    v27 = v6;
-    for (i = 0; i != v27; ++i)
+    v26 = v6;
+    for (i = 0; i != v26; ++i)
     {
-      if (*v34 != v25)
+      if (*v33 != v24)
       {
         objc_enumerationMutation(obj);
       }
 
-      v9 = *(*(&v33 + 1) + 8 * i);
+      v9 = *(*(&v32 + 1) + 8 * i);
       v10 = [addressesCopy mutableCopy];
       emailAddresses = [v9 emailAddresses];
       [v10 intersectSet:emailAddresses];
@@ -310,8 +304,8 @@ uint64_t __24__VIPManager_sortedVIPs__block_invoke(uint64_t a1, void *a2, void *
       v13 = v12;
       if (v7 < v12)
       {
-        v14 = v28;
-        v28 = v9;
+        v14 = v27;
+        v27 = v9;
 LABEL_20:
 
         v7 = v13;
@@ -320,25 +314,25 @@ LABEL_20:
 
       if (v7 == v12 && v12)
       {
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
         v30 = 0u;
+        v31 = 0u;
+        v28 = 0u;
+        v29 = 0u;
         v14 = namesCopy;
-        v15 = [v14 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
         if (v15)
         {
-          v16 = *v30;
+          v16 = *v29;
           while (2)
           {
             for (j = 0; j != v15; ++j)
             {
-              if (*v30 != v16)
+              if (*v29 != v16)
               {
                 objc_enumerationMutation(v14);
               }
 
-              v18 = *(*(&v29 + 1) + 8 * j);
+              v18 = *(*(&v28 + 1) + 8 * j);
               name = [v9 name];
               LODWORD(v18) = [v18 isEqualToString:name];
 
@@ -347,12 +341,12 @@ LABEL_20:
                 v20 = v9;
 
                 v13 = v7;
-                v28 = v20;
+                v27 = v20;
                 goto LABEL_20;
               }
             }
 
-            v15 = [v14 countByEnumeratingWithState:&v29 objects:v37 count:16];
+            v15 = [v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
             if (v15)
             {
               continue;
@@ -369,15 +363,13 @@ LABEL_20:
 LABEL_21:
     }
 
-    v6 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+    v6 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
   }
 
   while (v6);
 LABEL_25:
 
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return v27;
 }
 
 - (void)existingPersonForVIP:(id)p usingAddressBook:(void *)book
@@ -391,16 +383,15 @@ LABEL_25:
   {
     emailAddresses = [pCopy emailAddresses];
     name = [pCopy name];
-    v12 = *MEMORY[0x277CE9888];
-    v13 = MFCopyClosestMatchingExistingPersonUsingAddressesAndDisplayName();
+    v12 = MFCopyClosestMatchingExistingPersonUsingAddressesAndDisplayName();
 
-    if (v13)
+    if (v12)
     {
       abPersonByVIPIdentifier = self->_abPersonByVIPIdentifier;
       identifier2 = [pCopy identifier];
-      CFDictionarySetValue(abPersonByVIPIdentifier, identifier2, v13);
+      CFDictionarySetValue(abPersonByVIPIdentifier, identifier2, v12);
 
-      v9 = v13;
+      v9 = v12;
     }
 
     else
@@ -415,31 +406,31 @@ LABEL_25:
 
 - (id)criterionForEmailAddresses:(id)addresses
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   addressesCopy = addresses;
   v3 = [addressesCopy count];
   if (v3)
   {
     v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v3];
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v5 = addressesCopy;
-    v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v6)
     {
-      v7 = *v22;
+      v7 = *v21;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v22 != v7)
+          if (*v21 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v21 + 1) + 8 * i);
+          v9 = *(*(&v20 + 1) + 8 * i);
           emailAddressValue = [v9 emailAddressValue];
           simpleAddress = [emailAddressValue simpleAddress];
           v12 = simpleAddress;
@@ -460,7 +451,7 @@ LABEL_25:
           [v4 addObject:v16];
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v6);
@@ -474,36 +465,34 @@ LABEL_25:
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (id)vipCriteria
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   sortedVIPs = [(VIPManager *)self sortedVIPs];
-  v5 = [sortedVIPs countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v5 = [sortedVIPs countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v5)
   {
-    v7 = *v18;
+    v7 = *v17;
     *&v6 = 138412290;
-    v16 = v6;
+    v15 = v6;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(sortedVIPs);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         name = [v9 name];
 
         if (name)
@@ -522,20 +511,18 @@ LABEL_25:
           v12 = MFLogGeneral();
           if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
           {
-            *buf = v16;
-            v22 = v9;
+            *buf = v15;
+            v21 = v9;
             _os_log_impl(&dword_2149C9000, v12, OS_LOG_TYPE_INFO, "#MailServices vip Sender name is nil: %@", buf, 0xCu);
           }
         }
       }
 
-      v5 = [sortedVIPs countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v5 = [sortedVIPs countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v5);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

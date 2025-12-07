@@ -36,7 +36,7 @@
 {
   if (dword_1001BEEA8 <= 50 && (dword_1001BEEA8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEEA8, "[SVSSubCredentialActivationStartViewController _handleOpenApp]", 50, "Open app button pressed.");
   }
 
   mainController = [(SVSSubCredentialActivationStartViewController *)self mainController];
@@ -52,7 +52,7 @@
 {
   if (dword_1001BEEA8 <= 50 && (dword_1001BEEA8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEEA8, "[SVSSubCredentialActivationStartViewController _handleEnterCode]", 50, "Enter code button pressed.");
   }
 
   [(SVSSubCredentialActivationStartViewController *)self mainController];
@@ -70,7 +70,7 @@
   imageCopy = image;
   if (dword_1001BEEA8 <= 50 && (dword_1001BEEA8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEEA8, "[SVSSubCredentialActivationStartViewController updateAppName:image:]", 50, "Updating app icon.");
   }
 
   activityIndicator = [(SVSSubCredentialActivationStartViewController *)self activityIndicator];

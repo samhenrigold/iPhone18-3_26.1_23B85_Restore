@@ -43,7 +43,7 @@
   coderCopy = coder;
   v5 = MEMORY[0x277D42620];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_blending();
+  v7 = __atxlog_handle_blending(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"codingKeyForStackCreationEvent" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.StackRotationStatus" errorCode:-1 logHandle:v7];
 
   error = [coderCopy error];
@@ -57,7 +57,7 @@
   {
     v11 = MEMORY[0x277D42620];
     v12 = objc_opt_class();
-    v13 = __atxlog_handle_blending();
+    v13 = __atxlog_handle_blending(v12);
     v14 = [v11 robustDecodeObjectOfClass:v12 forKey:@"codingKeyForLastStackRotationEvent" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.StackRotationStatus" errorCode:-1 logHandle:v13];
 
     error2 = [coderCopy error];
@@ -71,7 +71,7 @@
     {
       v16 = MEMORY[0x277D42620];
       v17 = objc_opt_class();
-      v18 = __atxlog_handle_blending();
+      v18 = __atxlog_handle_blending(v17);
       v19 = [v16 robustDecodeObjectOfClass:v17 forKey:@"codingKeyForLastStackShownEvent" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.StackRotationStatus" errorCode:-1 logHandle:v18];
 
       error3 = [coderCopy error];
@@ -85,7 +85,7 @@
       {
         v21 = MEMORY[0x277D42620];
         v22 = objc_opt_class();
-        v23 = __atxlog_handle_blending();
+        v23 = __atxlog_handle_blending(v22);
         v24 = [v21 robustDecodeObjectOfClass:v22 forKey:@"codingKeyForLastUserScrollStackRotationEvent" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.StackRotationStatus" errorCode:-1 logHandle:v23];
 
         error4 = [coderCopy error];
@@ -99,7 +99,7 @@
         {
           v26 = MEMORY[0x277D42620];
           v27 = objc_opt_class();
-          v28 = __atxlog_handle_blending();
+          v28 = __atxlog_handle_blending(v27);
           v29 = [v26 robustDecodeObjectOfClass:v27 forKey:@"codingKeyForLayoutForLastStalenessRotation" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.StackRotationStatus" errorCode:-1 logHandle:v28];
 
           error5 = [coderCopy error];
@@ -113,7 +113,7 @@
           {
             v31 = MEMORY[0x277D42620];
             v32 = objc_opt_class();
-            v33 = __atxlog_handle_blending();
+            v33 = __atxlog_handle_blending(v32);
             v34 = [v31 robustDecodeObjectOfClass:v32 forKey:@"codingKeyFordateOfLastStalenessRotation" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.StackRotationStatus" errorCode:-1 logHandle:v33];
 
             error6 = [coderCopy error];

@@ -15,10 +15,9 @@
 {
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
   v4 = [objc_opt_class() description];
-  name = self->_name;
-  v6 = [v3 initWithFormat:@"<%@| domain:%@ name:%@ sourceEnvironment:%@>", v4, self->_domain, name, self->_sourceEnvironment];
+  v5 = [v3 initWithFormat:@"<%@| domain:%@ name:%@ sourceEnvironment:%@>", v4, self->_domain, self->_name, self->_sourceEnvironment];
 
-  return v6;
+  return v5;
 }
 
 - (unint64_t)hash

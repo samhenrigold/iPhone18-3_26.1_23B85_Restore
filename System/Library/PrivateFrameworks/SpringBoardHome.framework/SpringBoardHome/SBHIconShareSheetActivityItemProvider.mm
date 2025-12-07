@@ -101,11 +101,11 @@ LABEL_15:
     v9->_itemName = itemName;
 
 LABEL_16:
-    iconImageCache = [managerCopy iconImageCache];
+    v35 = objc_msgSend_iconImageCache(managerCopy);
     rootViewController = [managerCopy rootViewController];
     traitCollection = [rootViewController traitCollection];
     v38 = [MEMORY[0x1E69DD1B8] sbh_iconImageAppearanceFromTraitCollection:traitCollection];
-    v39 = [iconImageCache imageForIcon:iconCopy imageAppearance:v38 options:0];
+    v39 = [v35 imageForIcon:iconCopy imageAppearance:v38 options:0];
     itemImage = v9->_itemImage;
     v9->_itemImage = v39;
   }

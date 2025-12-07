@@ -18,9 +18,9 @@
   {
     *(result + 56) = kDefaultEffectPreviewRenderTime;
     *(result + 9) = 0;
-    *(result + 7) = kDefaultEffectPreviewAnimationRange;
-    *(result + 8) = *algn_242B5CE28;
-    *(result + 9) = xmmword_242B5CE38;
+    *(result + 7) = *kDefaultEffectPreviewAnimationRange;
+    *(result + 8) = *&kDefaultEffectPreviewAnimationRange[16];
+    *(result + 9) = *&kDefaultEffectPreviewAnimationRange[32];
     v3 = *(MEMORY[0x277CBF3A0] + 16);
     *(result + 5) = *MEMORY[0x277CBF3A0];
     *(result + 6) = v3;

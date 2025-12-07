@@ -25,8 +25,10 @@
 - (void)traitCollectionDidChange:(id)change;
 - (void)updateButtonTray;
 - (void)updateTableView;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HMHearingAidAudiogramViewController
@@ -77,6 +79,28 @@
   [(HMHearingAidAudiogramViewController *)self set_shouldInlineButtontray:0];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = HMHearingAidAudiogramViewController;
+  [(HMHearingAidAudiogramViewController *)&v7 viewWillAppear:appear];
+  [(HMHearingAidAudiogramViewController *)self _updateTableFooter];
+  [(UITableView *)self->_tableView reloadData];
+  [(UITableView *)self->_tableView contentSize];
+  v5 = v4;
+  contentHeightConstraint = [(HMHearingAidAudiogramViewController *)self contentHeightConstraint];
+  [contentHeightConstraint setConstant:v5];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = HMHearingAidAudiogramViewController;
+  [(OBBaseWelcomeController *)&v4 viewDidAppear:appear];
+  [(HMHearingAidAudiogramViewController *)self setAGListResult];
+  [(HMHearingAidAudiogramViewController *)self refreshAudiogramList];
+}
+
 - (void)viewDidLayoutSubviews
 {
   v6.receiver = self;
@@ -92,7 +116,7 @@
 
 - (void)retrieveAndShowAudiograms
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   validAudiograms = [(HMHearingAidAudiogramViewController *)self validAudiograms];
   v4 = [validAudiograms mutableCopy];
   validAudiograms = self->_validAudiograms;
@@ -104,30 +128,30 @@
   self->_invalidAudiograms = v7;
 
   NSLog(&cfstr_HearingAidList.isa);
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v9 = self->_validAudiograms;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v10)
   {
     v11 = v10;
     v12 = 0;
-    v13 = *v34;
+    v13 = *v33;
     do
     {
       v14 = 0;
       v15 = v12;
       do
       {
-        if (*v34 != v13)
+        if (*v33 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
         v12 = v15 + 1;
-        v16 = [*(*(&v33 + 1) + 8 * v14) description];
+        v16 = [*(*(&v32 + 1) + 8 * v14) description];
         NSLog(&cfstr_HearingAidVali.isa, v15, v16);
 
         ++v14;
@@ -135,36 +159,36 @@
       }
 
       while (v11 != v14);
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v11);
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v17 = self->_invalidAudiograms;
-  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v18)
   {
     v19 = v18;
     v20 = 0;
-    v21 = *v30;
+    v21 = *v29;
     do
     {
       v22 = 0;
       v23 = v20;
       do
       {
-        if (*v30 != v21)
+        if (*v29 != v21)
         {
           objc_enumerationMutation(v17);
         }
 
         v20 = v23 + 1;
-        v24 = [*(*(&v29 + 1) + 8 * v22) description];
+        v24 = [*(*(&v28 + 1) + 8 * v22) description];
         NSLog(&cfstr_HearingAidInva.isa, v23, v24);
 
         ++v22;
@@ -172,7 +196,7 @@
       }
 
       while (v19 != v22);
-      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
     while (v19);
@@ -185,8 +209,6 @@
     v27 = self->_validAudiograms;
     self->_validAudiograms = v26;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __64__HMHearingAidAudiogramViewController_retrieveAndShowAudiograms__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -215,7 +237,7 @@ uint64_t __64__HMHearingAidAudiogramViewController_retrieveAndShowAudiograms__bl
 
 - (void)updateTableView
 {
-  v28[5] = *MEMORY[0x277D85DE8];
+  v27[5] = *MEMORY[0x277D85DE8];
   contentView = [(HMHearingAidAudiogramViewController *)self contentView];
   [contentView addSubview:self->_tableView];
 
@@ -230,33 +252,31 @@ uint64_t __64__HMHearingAidAudiogramViewController_retrieveAndShowAudiograms__bl
   v7 = [heightAnchor constraintEqualToConstant:400.0];
   [(HMHearingAidAudiogramViewController *)self setContentHeightConstraint:v7];
 
-  v20 = MEMORY[0x277CCAAD0];
+  v19 = MEMORY[0x277CCAAD0];
   contentHeightConstraint = [(HMHearingAidAudiogramViewController *)self contentHeightConstraint];
-  v28[0] = contentHeightConstraint;
+  v27[0] = contentHeightConstraint;
   topAnchor = [(UITableView *)self->_tableView topAnchor];
   contentView3 = [(HMHearingAidAudiogramViewController *)self contentView];
   topAnchor2 = [contentView3 topAnchor];
-  v23 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v28[1] = v23;
+  v22 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v27[1] = v22;
   bottomAnchor = [(UITableView *)self->_tableView bottomAnchor];
   contentView4 = [(HMHearingAidAudiogramViewController *)self contentView];
   bottomAnchor2 = [contentView4 bottomAnchor];
   v8 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v28[2] = v8;
+  v27[2] = v8;
   leadingAnchor = [(UITableView *)self->_tableView leadingAnchor];
   contentView5 = [(HMHearingAidAudiogramViewController *)self contentView];
   leadingAnchor2 = [contentView5 leadingAnchor];
   v12 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v28[3] = v12;
+  v27[3] = v12;
   trailingAnchor = [(UITableView *)self->_tableView trailingAnchor];
   contentView6 = [(HMHearingAidAudiogramViewController *)self contentView];
   trailingAnchor2 = [contentView6 trailingAnchor];
   v16 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v28[4] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:5];
-  [v20 activateConstraints:v17];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v27[4] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:5];
+  [v19 activateConstraints:v17];
 }
 
 - (void)updateButtonTray
@@ -384,7 +404,7 @@ uint64_t __64__HMHearingAidAudiogramViewController_retrieveAndShowAudiograms__bl
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   viewCopy = view;
   pathCopy = path;
   NSLog(&cfstr_HearingAidCell.isa, [(NSIndexPath *)pathCopy section], [(NSIndexPath *)pathCopy row]);
@@ -401,14 +421,13 @@ uint64_t __64__HMHearingAidAudiogramViewController_retrieveAndShowAudiograms__bl
   v10 = pathCopy;
 
   v11 = [viewCopy cellForRowAtIndexPath:v10];
-  v15[0] = v10;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = v10;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   [viewCopy reloadRowsAtIndexPaths:v12 withRowAnimation:100];
 
   v13 = [(NSMutableArray *)self->_validAudiograms objectAtIndexedSubscript:self->_selectedIndex];
 
   [(HMHearingAidAudiogramViewController *)self setSelectedSample:v13];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getAudiogramSummary:(id)summary
@@ -638,8 +657,8 @@ uint64_t __64__HMHearingAidAudiogramViewController_retrieveAndShowAudiograms__bl
 - (void)setAGListResult
 {
   selfCopy = self;
-  sub_252003D50();
-  sub_251FD9100();
+  v2 = sub_252003D50();
+  sub_251FD9100(v2);
 }
 
 @end

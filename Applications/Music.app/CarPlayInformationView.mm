@@ -11,18 +11,18 @@
 + (_TtC5Music22CarPlayInformationView)loading
 {
   ObjCClassMetadata = swift_getObjCClassMetadata();
-  v3 = type metadata accessor for Locale();
-  __chkstk_darwin(v3 - 8);
-  v4 = type metadata accessor for String.LocalizationValue();
-  __chkstk_darwin(v4 - 8);
+  type metadata accessor for Locale();
+  __chkstk_darwin();
+  type metadata accessor for String.LocalizationValue();
+  __chkstk_darwin();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v5 = String.init(localized:table:bundle:locale:comment:)();
-  v7 = v6;
-  v8 = objc_allocWithZone(ObjCClassMetadata);
-  v9 = sub_100268B8C(v5, v7, 0, 0, 1, 0, 0, 0, 0, 0);
+  v3 = String.init(localized:table:bundle:locale:comment:)();
+  v5 = v4;
+  v6 = objc_allocWithZone(ObjCClassMetadata);
+  v7 = sub_100268B8C(v3, v5, 0, 0, 1, 0, 0, 0, 0, 0);
 
-  return v9;
+  return v7;
 }
 
 + (id)errorWithTitle:(id)title buttonText:(id)text buttonAction:(id)action
@@ -100,7 +100,7 @@ LABEL_9:
   v18 = 0;
 LABEL_10:
   v19 = sub_10026A004(v12, title, v14, subtitle, v16, text, v11, v18, centered);
-  sub_100020438(v11);
+  sub_100020438(v11, v18);
 
   return v19;
 }

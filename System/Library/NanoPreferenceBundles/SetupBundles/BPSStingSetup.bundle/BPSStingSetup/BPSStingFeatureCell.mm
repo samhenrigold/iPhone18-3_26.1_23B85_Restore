@@ -203,55 +203,56 @@
 
 - (id)_subtitleLabelFont
 {
-  v3 = bps_setup_log();
+  v3 = bps_setup_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = +[UIApplication sharedApplication];
     preferredContentSizeCategory = [v4 preferredContentSizeCategory];
     *buf = 136315394;
-    v21 = "[BPSStingFeatureCell _subtitleLabelFont]";
-    v22 = 2112;
-    v23 = preferredContentSizeCategory;
+    v22 = "[BPSStingFeatureCell _subtitleLabelFont]";
+    v23 = 2112;
+    v24 = preferredContentSizeCategory;
     _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "%s: preferredContentSizeCategory is %@", buf, 0x16u);
   }
 
-  if ([(BPSStingFeatureCell *)self _largerThanMaxCategory])
+  _largerThanMaxCategory = [(BPSStingFeatureCell *)self _largerThanMaxCategory];
+  if (_largerThanMaxCategory)
   {
-    v6 = bps_setup_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = bps_setup_log(_largerThanMaxCategory);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v21 = "[BPSStingFeatureCell _subtitleLabelFont]";
-      v22 = 2112;
-      v23 = UIContentSizeCategoryAccessibilityExtraExtraLarge;
-      v24 = 2112;
-      v25 = UIContentSizeCategoryAccessibilityExtraExtraLarge;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "%s: preferredContentSizeCategory is larger than %@ forcing %@", buf, 0x20u);
+      v22 = "[BPSStingFeatureCell _subtitleLabelFont]";
+      v23 = 2112;
+      v24 = UIContentSizeCategoryAccessibilityExtraExtraLarge;
+      v25 = 2112;
+      v26 = UIContentSizeCategoryAccessibilityExtraExtraLarge;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "%s: preferredContentSizeCategory is larger than %@ forcing %@", buf, 0x20u);
     }
 
-    v7 = [UITraitCollection traitCollectionWithPreferredContentSizeCategory:UIContentSizeCategoryAccessibilityExtraExtraLarge];
-    v8 = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2 compatibleWithTraitCollection:v7];
+    v8 = [UITraitCollection traitCollectionWithPreferredContentSizeCategory:UIContentSizeCategoryAccessibilityExtraExtraLarge];
+    v9 = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2 compatibleWithTraitCollection:v8];
   }
 
   else
   {
-    v8 = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
+    v9 = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
   }
 
-  fontDescriptor = [v8 fontDescriptor];
-  v18 = UIFontWeightTrait;
-  v10 = [NSNumber numberWithDouble:UIFontWeightMedium];
-  v19 = v10;
-  v11 = [NSDictionary dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+  fontDescriptor = [v9 fontDescriptor];
+  v19 = UIFontWeightTrait;
+  v11 = [NSNumber numberWithDouble:UIFontWeightMedium];
+  v20 = v11;
+  v12 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
 
-  v16 = UIFontDescriptorTraitsAttribute;
-  v17 = v11;
-  v12 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v13 = [fontDescriptor fontDescriptorByAddingAttributes:v12];
+  v17 = UIFontDescriptorTraitsAttribute;
+  v18 = v12;
+  v13 = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v14 = [fontDescriptor fontDescriptorByAddingAttributes:v13];
 
-  v14 = [UIFont fontWithDescriptor:v13 size:0.0];
+  v15 = [UIFont fontWithDescriptor:v14 size:0.0];
 
-  return v14;
+  return v15;
 }
 
 - (BOOL)_largerThanMaxCategory
@@ -374,26 +375,26 @@
   {
     v12 = self->_titleLabel;
     [(UILabel *)v12 sizeThatFits:1.79769313e308, 1.79769313e308];
-    [UILabel systemLayoutSizeFittingSize:v12 withHorizontalFittingPriority:"systemLayoutSizeFittingSize:withHorizontalFittingPriority:verticalFittingPriority:" verticalFittingPriority:?];
-    v14 = v13;
-    if (v13 >= 127.0)
+    v13 = [UILabel systemLayoutSizeFittingSize:v12 withHorizontalFittingPriority:"systemLayoutSizeFittingSize:withHorizontalFittingPriority:verticalFittingPriority:" verticalFittingPriority:?];
+    v15 = v14;
+    if (v14 >= 127.0)
     {
       v4 = 127.0;
       do
       {
-        v15 = floor((v14 + v4) * 0.5);
-        v16 = self->_titleLabel;
-        [(UILabel *)v16 sizeThatFits:v15, 1.79769313e308];
-        [UILabel systemLayoutSizeFittingSize:v16 withHorizontalFittingPriority:"systemLayoutSizeFittingSize:withHorizontalFittingPriority:verticalFittingPriority:" verticalFittingPriority:?];
-        v9 = v17;
-        v11 = v18;
-        if (v18 <= v6)
+        v16 = floor((v15 + v4) * 0.5);
+        v17 = self->_titleLabel;
+        [(UILabel *)v17 sizeThatFits:v16, 1.79769313e308];
+        v13 = [UILabel systemLayoutSizeFittingSize:v17 withHorizontalFittingPriority:"systemLayoutSizeFittingSize:withHorizontalFittingPriority:verticalFittingPriority:" verticalFittingPriority:?];
+        v9 = v18;
+        v11 = v19;
+        if (v19 <= v6)
         {
-          v20 = self->_titleLabel;
-          v19 = v15 + -1.0;
-          [(UILabel *)v20 sizeThatFits:v19, 1.79769313e308];
-          [UILabel systemLayoutSizeFittingSize:v20 withHorizontalFittingPriority:"systemLayoutSizeFittingSize:withHorizontalFittingPriority:verticalFittingPriority:" verticalFittingPriority:?];
-          if (v21 > v6)
+          v21 = self->_titleLabel;
+          v20 = v16 + -1.0;
+          [(UILabel *)v21 sizeThatFits:v20, 1.79769313e308];
+          v13 = [UILabel systemLayoutSizeFittingSize:v21 withHorizontalFittingPriority:"systemLayoutSizeFittingSize:withHorizontalFittingPriority:verticalFittingPriority:" verticalFittingPriority:?];
+          if (v22 > v6)
           {
             break;
           }
@@ -401,33 +402,33 @@
 
         else
         {
-          v4 = v15 + 1.0;
-          v19 = v14;
+          v4 = v16 + 1.0;
+          v20 = v15;
         }
 
-        v14 = v19;
+        v15 = v20;
       }
 
-      while (v4 <= v19);
+      while (v4 <= v20);
     }
 
-    if (v4 <= v14)
+    if (v4 <= v15)
     {
-      v22 = bps_setup_log();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR) && os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v23 = bps_setup_log(v13);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR) && os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         text = [(UILabel *)self->_titleLabel text];
-        v26 = 138412290;
-        v27 = text;
-        _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "Failed to find a width that meets criteria.  Layout of sting tile could be weird. Word: %@", &v26, 0xCu);
+        v27 = 138412290;
+        v28 = text;
+        _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "Failed to find a width that meets criteria.  Layout of sting tile could be weird. Word: %@", &v27, 0xCu);
       }
     }
   }
 
-  v24 = v9;
-  v25 = v11;
-  result.height = v25;
-  result.width = v24;
+  v25 = v9;
+  v26 = v11;
+  result.height = v26;
+  result.width = v25;
   return result;
 }
 
@@ -437,8 +438,7 @@
   v8.super_class = BPSStingFeatureCell;
   v4 = [(BPSStingFeatureCell *)&v8 preferredLayoutAttributesFittingAttributes:attributes];
   [(BPSStingFeatureCell *)self getPreferredCellSize];
-  [v4 setSize:?];
-  v5 = bps_setup_log();
+  v5 = bps_setup_log([v4 setSize:?]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     [v4 size];

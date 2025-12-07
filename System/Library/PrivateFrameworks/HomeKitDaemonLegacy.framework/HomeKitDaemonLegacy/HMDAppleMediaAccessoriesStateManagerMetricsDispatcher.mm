@@ -18,7 +18,7 @@
 
 - (void)submitMatchingIdentifierRemovalEventWithRemovalCount:(int64_t)count
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -26,24 +26,22 @@
   {
     v8 = HMFGetLogIdentifier();
     v9 = [MEMORY[0x277CCABB0] numberWithInteger:count];
-    v13 = 138543618;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v9;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Submitting matching identifier removal event with count: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v9;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Submitting matching identifier removal event with count: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   v10 = [[HMDAppleMediaAccessoryMatchingIdentifierRemovalEvent alloc] initWithRemovalCount:count];
   logEventSubmitter = [(HMDAppleMediaAccessoriesStateManagerMetricsDispatcher *)selfCopy logEventSubmitter];
   [logEventSubmitter submitLogEvent:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitMatchingIdentifierEventWithMatchingCount:(int64_t)count
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -51,19 +49,17 @@
   {
     v8 = HMFGetLogIdentifier();
     v9 = [MEMORY[0x277CCABB0] numberWithInteger:count];
-    v13 = 138543618;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v9;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Submitting matching identifiers event with matching count: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v9;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Submitting matching identifiers event with matching count: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   v10 = [[HMDAppleMediaAccessoryMatchingIdentifierEvent alloc] initWithMatchingIdentifiersCount:count];
   logEventSubmitter = [(HMDAppleMediaAccessoriesStateManagerMetricsDispatcher *)selfCopy logEventSubmitter];
   [logEventSubmitter submitLogEvent:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDAppleMediaAccessoriesStateManagerMetricsDispatcher)initWithIdentifier:(id)identifier logEventSubmitter:(id)submitter
@@ -89,7 +85,7 @@ LABEL_7:
   v9 = [(HMDAppleMediaAccessoriesStateManagerMetricsDispatcher *)&v15 init];
   if (v9)
   {
-    v10 = [identifierCopy copy];
+    v10 = objc_msgSend_copy(identifierCopy);
     identifier = v9->_identifier;
     v9->_identifier = v10;
 
@@ -113,12 +109,11 @@ LABEL_7:
 
 uint64_t __68__HMDAppleMediaAccessoriesStateManagerMetricsDispatcher_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_148863;
-  logCategory__hmf_once_v3_148863 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_148863;
+  logCategory__hmf_once_v3_148863 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

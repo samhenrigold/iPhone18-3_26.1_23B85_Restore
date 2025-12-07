@@ -17,54 +17,47 @@
 {
   if (self->super._state == 255)
   {
-    nrUUID = self->super._nrUUID;
-    v5 = _NRCopyLogObjectForNRUUID();
-    v6 = 1;
+    v4 = _NRCopyLogObjectForNRUUID();
+    v5 = 1;
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v8 = self->super._nrUUID;
-      v9 = _NRCopyLogObjectForNRUUID();
+      v7 = _NRCopyLogObjectForNRUUID();
       copyDescription = [(NRLink *)self copyDescription];
-      _NRLogWithArgs();
+      _NRLogWithArgs(v7, 1, "%s%.30s:%-4d %@: Already cancelled. Ignoring 'resume'", ", "[NRLinkFixedInterface resume]"", 672, copyDescription);
     }
   }
 
   else
   {
-    v22.receiver = self;
-    v22.super_class = NRLinkFixedInterface;
-    if ([(NRLink *)&v22 resume])
+    v15.receiver = self;
+    v15.super_class = NRLinkFixedInterface;
+    if ([(NRLink *)&v15 resume])
     {
       companionProxyAgent = self->super._companionProxyAgent;
       if (companionProxyAgent)
       {
-        if (sub_100070DD8(companionProxyAgent, self))
+        if (sub_100070DD8(&companionProxyAgent->super.isa, self))
         {
           [(NRLink *)self reportEvent:12002];
         }
 
         else
         {
-          v10 = self->super._nrUUID;
-          v11 = _NRCopyLogObjectForNRUUID();
-          v12 = _NRLogIsLevelEnabled();
+          v9 = _NRCopyLogObjectForNRUUID();
+          v10 = _NRLogIsLevelEnabled();
 
-          if (v12)
+          if (v10)
           {
-            v13 = self->super._nrUUID;
-            v14 = _NRCopyLogObjectForNRUUID();
-            v19 = 683;
+            v11 = _NRCopyLogObjectForNRUUID();
             copyDescription2 = [(NRLink *)self copyDescription];
-            v17 = "";
-            v18 = "[NRLinkFixedInterface resume]";
-            _NRLogWithArgs();
+            _NRLogWithArgs(v11, 16, "%s%.30s:%-4d %@: failed to register companion agent", ", "[NRLinkFixedInterface resume]"", 683, copyDescription2);
           }
         }
       }
 
-      [(NRLink *)self changeStateTo:8 details:@"(resume)", v17, v18, v19, copyDescription2];
+      [(NRLink *)self changeStateTo:8 details:@"(resume)"];
       linkDelegate = [(NRLink *)self linkDelegate];
       [linkDelegate linkIsReady:self];
 
@@ -77,14 +70,14 @@
     }
   }
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)suspend
 {
-  v20.receiver = self;
-  v20.super_class = NRLinkFixedInterface;
-  [(NRLink *)&v20 suspend];
+  v13.receiver = self;
+  v13.super_class = NRLinkFixedInterface;
+  [(NRLink *)&v13 suspend];
   if (self->super._state != 255)
   {
     companionProxyAgent = self->super._companionProxyAgent;
@@ -97,39 +90,32 @@
 
       else
       {
-        nrUUID = self->super._nrUUID;
-        v10 = _NRCopyLogObjectForNRUUID();
+        v8 = _NRCopyLogObjectForNRUUID();
         IsLevelEnabled = _NRLogIsLevelEnabled();
 
         if (IsLevelEnabled)
         {
-          v12 = self->super._nrUUID;
-          v13 = _NRCopyLogObjectForNRUUID();
-          v17 = 656;
+          v10 = _NRCopyLogObjectForNRUUID();
           copyDescription = [(NRLink *)self copyDescription];
-          v15 = "";
-          v16 = "[NRLinkFixedInterface suspend]";
-          _NRLogWithArgs();
+          _NRLogWithArgs(v10, 16, "%s%.30s:%-4d %@: failed to unregister companion agent", ", "[NRLinkFixedInterface suspend]"", 656, copyDescription);
         }
       }
     }
 
-    [(NRLink *)self changeStateTo:9 details:@"(suspend)", v15, v16, v17, copyDescription];
+    [(NRLink *)self changeStateTo:9 details:@"(suspend)"];
     linkDelegate = [(NRLink *)self linkDelegate];
     [linkDelegate linkIsSuspended:self];
     goto LABEL_10;
   }
 
-  v4 = self->super._nrUUID;
-  v5 = _NRCopyLogObjectForNRUUID();
-  v6 = _NRLogIsLevelEnabled();
+  v4 = _NRCopyLogObjectForNRUUID();
+  v5 = _NRLogIsLevelEnabled();
 
-  if (v6)
+  if (v5)
   {
-    v7 = self->super._nrUUID;
     linkDelegate = _NRCopyLogObjectForNRUUID();
     copyDescription2 = [(NRLink *)self copyDescription];
-    _NRLogWithArgs();
+    _NRLogWithArgs(linkDelegate, 1, "%s%.30s:%-4d %@: Already cancelled. Ignoring 'suspend'", ", "[NRLinkFixedInterface suspend]"", 650, copyDescription2);
 
 LABEL_10:
   }
@@ -170,7 +156,7 @@ LABEL_10:
       if (IsLevelEnabled)
       {
         v16 = sub_10007478C();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v16, 17, "NEIKEv2PrivateNotify init %u %@ failed", 50702, dataCopy);
       }
     }
   }
@@ -183,7 +169,7 @@ LABEL_10:
     if (v12)
     {
       v13 = sub_10007478C();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v13, 17, "%s called with null data", "[NRLinkFixedInterface sendControlData:]");
     }
 
     v6 = 0;
@@ -208,74 +194,78 @@ LABEL_10:
 
     if (!IsLevelEnabled)
     {
-      goto LABEL_44;
+      goto LABEL_45;
     }
 
-LABEL_36:
-    v56 = sub_10007478C();
-    _NRLogWithArgs();
+    v48 = sub_10007478C();
+    _NRLogWithArgs(v48, 17, "%s called with null listener");
+LABEL_37:
 
-    goto LABEL_44;
+    goto LABEL_45;
   }
 
   if (!sessionCopy)
   {
-    v48 = sub_10007478C();
-    v49 = _NRLogIsLevelEnabled();
+    v49 = sub_10007478C();
+    v50 = _NRLogIsLevelEnabled();
 
-    if (!v49)
+    if (!v50)
     {
-      goto LABEL_44;
+      goto LABEL_45;
     }
 
-    goto LABEL_36;
+    v48 = sub_10007478C();
+    _NRLogWithArgs(v48, 17, "%s called with null session");
+    goto LABEL_37;
   }
 
   if (!configCopy)
   {
-    v50 = sub_10007478C();
-    v51 = _NRLogIsLevelEnabled();
+    v51 = sub_10007478C();
+    v52 = _NRLogIsLevelEnabled();
 
-    if (!v51)
+    if (!v52)
     {
-      goto LABEL_44;
+      goto LABEL_45;
     }
 
-    goto LABEL_36;
+    v48 = sub_10007478C();
+    _NRLogWithArgs(v48, 17, "%s called with null sessionConfig");
+    goto LABEL_37;
   }
 
   if (!blockCopy)
   {
-    v52 = sub_10007478C();
-    v53 = _NRLogIsLevelEnabled();
+    v53 = sub_10007478C();
+    v54 = _NRLogIsLevelEnabled();
 
-    if (!v53)
+    if (!v54)
     {
-      goto LABEL_44;
+      goto LABEL_45;
     }
 
-    goto LABEL_36;
+    v48 = sub_10007478C();
+    _NRLogWithArgs(v48, 17, "%s called with null validateAuthBlock");
+    goto LABEL_37;
   }
 
   if (responseBlockCopy)
   {
-    nrUUID = self->super._nrUUID;
-    v22 = _NRCopyLogObjectForNRUUID();
-    v23 = _NRLogIsLevelEnabled();
+    v21 = _NRCopyLogObjectForNRUUID();
+    v22 = _NRLogIsLevelEnabled();
 
-    if (v23)
+    if (v22)
     {
-      v24 = self->super._nrUUID;
-      v25 = _NRCopyLogObjectForNRUUID();
+      v23 = _NRCopyLogObjectForNRUUID();
       copyDescription = [(NRLink *)self copyDescription];
-      _NRLogWithArgs();
+      _NRLogWithArgs(v23, 0, "%s%.30s:%-4d %@: Got config request for listener %@ session %@ sessionConfig %@ childConfig %@", ", "[NRLinkFixedInterface requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]"", 540, copyDescription, listenerCopy, sessionCopy, configCopy, childConfigCopy);
     }
 
     state = self->super._state;
-    v68 = sessionCopy;
+    v67 = sessionCopy;
     if (state == 255)
     {
-      goto LABEL_41;
+      goto LABEL_42;
     }
 
     localIdentifier = [configCopy localIdentifier];
@@ -285,51 +275,54 @@ LABEL_36:
       dispatch_once(&qword_1002292E8, &stru_1001FC558);
     }
 
-    v28 = qword_1002292E0;
-    v29 = [localIdentifier isEqual:v28];
+    v27 = qword_1002292E0;
+    v28 = [localIdentifier isEqual:v27];
 
-    if (!v29)
+    if (!v28)
     {
-      v31 = listenerCopy;
-      v32 = self->super._nrUUID;
-      v33 = _NRCopyLogObjectForNRUUID();
-      v34 = _NRLogIsLevelEnabled();
+      v30 = listenerCopy;
+      v31 = _NRCopyLogObjectForNRUUID();
+      v32 = _NRLogIsLevelEnabled();
 
-      if (v34)
+      if (v32)
       {
-        v35 = self->super._nrUUID;
-        v36 = _NRCopyLogObjectForNRUUID();
+        v33 = _NRCopyLogObjectForNRUUID();
         copyDescription2 = [(NRLink *)self copyDescription];
-        localIdentifier2 = [configCopy localIdentifier];
-        _NRLogWithArgs();
+        [configCopy localIdentifier];
+        v35 = childConfigCopy;
+        v37 = v36 = configCopy;
+        _NRLogWithArgs(v33, 16, "%s%.30s:%-4d %@: Unrecognized identifier %@", ", "[NRLinkFixedInterface requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]"", 585, copyDescription2, v37);
+
+        configCopy = v36;
+        childConfigCopy = v35;
       }
 
       v38 = 0;
-      v30 = 0;
-      listenerCopy = v31;
-      goto LABEL_42;
+      v29 = 0;
+      listenerCopy = v30;
+      goto LABEL_43;
     }
 
     if (childConfigCopy)
     {
-      v30 = sub_100146D34(1, 0);
-      [v30 setMode:2];
-      [v30 setReplayWindowSize:4];
+      v29 = sub_100146D34(1, 0);
+      [v29 setMode:2];
+      [v29 setReplayWindowSize:4];
     }
 
     else
     {
       if ([(NRLink *)self hasCompanionDatapath])
       {
-LABEL_40:
-        [(NRLink *)self reportEvent:3024 detailsFormat:@"ClassD %@", sessionCopy];
 LABEL_41:
+        [(NRLink *)self reportEvent:3024 detailsFormat:@"ClassD %@", sessionCopy];
+LABEL_42:
         v38 = 0;
-        v30 = 0;
-        goto LABEL_42;
+        v29 = 0;
+        goto LABEL_43;
       }
 
-      v30 = 0;
+      v29 = 0;
     }
 
     sessionCopy = [(NRLink *)self nrUUID];
@@ -337,13 +330,13 @@ LABEL_41:
 
     if (v39)
     {
-      v64 = childConfigCopy;
+      v63 = childConfigCopy;
       v38 = sub_100147400(0, v39, 4);
       v40 = v39[18];
       hasCompanionDatapath = [v40 hasCompanionDatapath];
 
-      v65 = configCopy;
-      v66 = listenerCopy;
+      v64 = configCopy;
+      v65 = listenerCopy;
       if (hasCompanionDatapath)
       {
         localOuterEndpoint = 0;
@@ -355,10 +348,10 @@ LABEL_41:
       }
 
       v43 = sub_100147C1C(v39, localOuterEndpoint);
-      v69[0] = v43;
+      v68[0] = v43;
       v44 = sub_100147A80();
-      v69[1] = v44;
-      v45 = [NSArray arrayWithObjects:v69 count:2];
+      v68[1] = v44;
+      v45 = [NSArray arrayWithObjects:v68 count:2];
       [v38 setCustomIKEAuthPrivateNotifies:v45];
 
       if (blockCopy[2](blockCopy, v38))
@@ -366,33 +359,33 @@ LABEL_41:
         [(NRLinkFixedInterface *)self invalidateIKESessionForClass:4];
         objc_storeStrong((&self->_ikeListener + 7), sessionCopy2);
         sub_10007501C(self);
-        [(NRLink *)self reportEvent:3016 detailsFormat:@"ClassD %@", v68];
+        [(NRLink *)self reportEvent:3016 detailsFormat:@"ClassD %@", v67];
 
-        configCopy = v65;
-        listenerCopy = v66;
-        childConfigCopy = v64;
+        configCopy = v64;
+        listenerCopy = v65;
+        childConfigCopy = v63;
         if ([(NRLink *)self setupVirtualInterface])
         {
-          (v20)[2](v20, v38, v30, [(NRLink *)self virtualInterface]);
-LABEL_43:
+          (v20)[2](v20, v38, v29, [(NRLink *)self virtualInterface]);
+LABEL_44:
 
-          sessionCopy = v68;
-          goto LABEL_44;
+          sessionCopy = v67;
+          goto LABEL_45;
         }
       }
 
       else
       {
-        [(NRLink *)self reportEvent:3021 detailsFormat:@"ClassD %@", v68];
+        [(NRLink *)self reportEvent:3021 detailsFormat:@"ClassD %@", v67];
 
-        configCopy = v65;
-        listenerCopy = v66;
-        childConfigCopy = v64;
+        configCopy = v64;
+        listenerCopy = v65;
+        childConfigCopy = v63;
       }
 
-LABEL_42:
+LABEL_43:
       v20[2](v20, 0, 0, 0);
-      goto LABEL_43;
+      goto LABEL_44;
     }
 
     v57 = sub_10007478C();
@@ -401,29 +394,31 @@ LABEL_42:
     if (v58)
     {
       v59 = sub_10007478C();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v59, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (localDevice) != ((void*)0)", ", "[NRLinkFixedInterface requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]"", 561);
     }
 
-    _os_log_pack_size();
-    listenerCopy = &v64 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
-    v60 = *__error();
-    v61 = _os_log_pack_fill();
-    *v61 = 136446210;
-    *(v61 + 4) = "[NRLinkFixedInterface requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]";
+    v60 = _os_log_pack_size();
+    listenerCopy = &v63 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+    v61 = __error();
+    v62 = _os_log_pack_fill(listenerCopy, v60, *v61, &_mh_execute_header, "%{public}s Assertion Failed: (localDevice) != ((void*)0)");
+    *v62 = 136446210;
+    *(v62 + 4) = "[NRLinkFixedInterface requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]";
     sub_10007478C();
     _NRLogAbortWithPack();
-    goto LABEL_40;
+    goto LABEL_41;
   }
 
-  v54 = sub_10007478C();
-  v55 = _NRLogIsLevelEnabled();
+  v55 = sub_10007478C();
+  v56 = _NRLogIsLevelEnabled();
 
-  if (v55)
+  if (v56)
   {
-    goto LABEL_36;
+    v48 = sub_10007478C();
+    _NRLogWithArgs(v48, 17, "%s called with null responseBlock");
+    goto LABEL_37;
   }
 
-LABEL_44:
+LABEL_45:
 }
 
 - (void)invalidateIKESessionForClass:(unsigned __int8)class
@@ -464,7 +459,7 @@ LABEL_44:
           dispatch_once(&qword_100229000, &stru_1001FAE30);
         }
 
-        _NRLogWithArgs();
+        _NRLogWithArgs(qword_100228FF8, 1, "%s%.30s:%-4d link already cancelled: %@", ", "[NRLinkFixedInterface cancelWithReason:]"", 207, self);
       }
     }
   }
@@ -477,7 +472,7 @@ LABEL_44:
     if (IsLevelEnabled)
     {
       v10 = sub_10007478C();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v10, 17, "%s called with null reasonFormat", "[NRLinkFixedInterface cancelWithReason:]");
     }
   }
 
@@ -516,7 +511,7 @@ LABEL_44:
       }
 
       v19 = sub_10007478C();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v19, 17, "Cannot start Wi-Fi link without wifiInterfaceName");
 LABEL_24:
 
       return 0;
@@ -551,7 +546,11 @@ LABEL_24:
 
             objc_initWeak(&location, selfCopy);
             queue = [selfCopy queue];
-            objc_copyWeak(&v28, &location);
+            v29[1] = _NSConcreteStackBlock;
+            v29[2] = 3221225472;
+            v29[3] = sub_100077488;
+            v29[4] = &unk_1001FBEB8;
+            objc_copyWeak(&v30, &location);
             nw_path_evaluator_set_update_handler();
 
             nw_path_evaluator_start();
@@ -561,7 +560,7 @@ LABEL_24:
             }
 
             sub_1000766CC(selfCopy);
-            objc_destroyWeak(&v28);
+            objc_destroyWeak(&v30);
             objc_destroyWeak(&location);
 
             v5 = 1;
@@ -585,15 +584,15 @@ LABEL_29:
       if (v24)
       {
         v25 = sub_10007478C();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v25, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (localDevice) != ((void*)0)", ", "[NRLinkFixedInterface start]"", 153);
       }
 
       selfCopy = _os_log_pack_size();
-      __chkstk_darwin();
-      v26 = *__error();
-      v27 = _os_log_pack_fill();
-      *v27 = 136446210;
-      *(v27 + 4) = "[NRLinkFixedInterface start]";
+      v26 = v29 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+      v27 = __error();
+      v28 = _os_log_pack_fill(v26, selfCopy, *v27, &_mh_execute_header, "%{public}s Assertion Failed: (localDevice) != ((void*)0)");
+      *v28 = 136446210;
+      *(v28 + 4) = "[NRLinkFixedInterface start]";
       sub_10007478C();
       _NRLogAbortWithPack();
       __break(1u);
@@ -622,7 +621,7 @@ LABEL_29:
 LABEL_23:
     v18 = p_vtable[511];
     v19 = sub_1001415A0([selfCopy state]);
-    _NRLogWithArgs();
+    _NRLogWithArgs(v18, 17, "Cannot start link in state %@", v19);
 
     goto LABEL_24;
   }

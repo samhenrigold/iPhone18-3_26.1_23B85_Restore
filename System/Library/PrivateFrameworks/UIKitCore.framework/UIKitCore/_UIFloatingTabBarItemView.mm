@@ -833,18 +833,18 @@ LABEL_7:
 
   imageView3 = [(_UIFloatingTabBarItemView *)self imageView];
   tintColor = [imageView3 tintColor];
-  if ([tintColor isEqual:v7])
+  if (objc_msgSend_isEqual_(tintColor))
   {
     titleLabel3 = [(_UIFloatingTabBarItemView *)self titleLabel];
     [titleLabel3 font];
     v25 = v11;
     v27 = v26 = v6;
-    v30 = [v27 isEqual:v9];
+    isEqual = objc_msgSend_isEqual_(v27);
 
     v6 = v26;
     v11 = v25;
 
-    if (v30)
+    if (isEqual)
     {
       goto LABEL_17;
     }

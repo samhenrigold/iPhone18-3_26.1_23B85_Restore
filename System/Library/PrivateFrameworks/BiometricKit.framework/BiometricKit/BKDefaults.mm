@@ -10,23 +10,23 @@
 
 + (id)device
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = +[BKDeviceManager availableDevices];
   firstObject = [v2 firstObject];
   if (firstObject)
   {
-    v10 = 0;
-    v4 = [BKDevice deviceWithDescriptor:firstObject error:&v10];
-    v5 = v10;
+    v9 = 0;
+    v4 = [BKDevice deviceWithDescriptor:firstObject error:&v9];
+    v5 = v9;
     if (!v4)
     {
       v6 = (__osLog ? __osLog : MEMORY[0x1E69E9C10]);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v12 = firstObject;
-        v13 = 2112;
-        v14 = v5;
+        v11 = firstObject;
+        v12 = 2112;
+        v13 = v5;
         _os_log_impl(&dword_1C82AD000, v6, OS_LOG_TYPE_ERROR, "Cannot instantiate device with descriptor %@, error %@\n", buf, 0x16u);
       }
     }
@@ -53,14 +53,12 @@
     v4 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 + (id)numberForKey:(id)key withError:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v7 = MEMORY[0x1E69E9C10];
   if (__osLogTrace)
@@ -85,9 +83,9 @@
   if (device)
   {
     v11 = *(device + 8);
-    v22 = 0;
-    v12 = [v11 getPreferencesValue:&v22 forKey:keyCopy];
-    v13 = v22;
+    v21 = 0;
+    v12 = [v11 getPreferencesValue:&v21 forKey:keyCopy];
+    v13 = v21;
     v14 = v13;
     if (!v12)
     {
@@ -121,10 +119,10 @@
 
         *buf = 138412802;
         *&buf[4] = keyCopy;
-        v25 = 2112;
-        v26 = v15;
-        v27 = 2112;
-        v28 = v16;
+        v24 = 2112;
+        v25 = v15;
+        v26 = 2112;
+        v27 = v16;
         _os_log_impl(&dword_1C82AD000, v7, OS_LOG_TYPE_DEFAULT, "BKDefaults::numberForKey: -> (%@: %@), error:%@\n", buf, 0x20u);
       }
 
@@ -140,49 +138,48 @@
   }
 
   v14 = *buf;
-  setErrorWithOSStatus(v23, error);
+  setErrorWithOSStatus(v22, error);
   if (__osLogTrace)
   {
-    v20 = __osLogTrace;
+    v19 = __osLogTrace;
   }
 
   else
   {
-    v20 = v7;
+    v19 = v7;
   }
 
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     if (error)
     {
-      v21 = *error;
+      v20 = *error;
     }
 
     else
     {
-      v21 = 0;
+      v20 = 0;
     }
 
     *buf = 138412802;
     *&buf[4] = keyCopy;
-    v25 = 2112;
-    v26 = 0;
-    v27 = 2112;
-    v28 = v21;
-    _os_log_impl(&dword_1C82AD000, v20, OS_LOG_TYPE_ERROR, "BKDefaults::numberForKey: -> (%@: %@), error:%@\n", buf, 0x20u);
+    v24 = 2112;
+    v25 = 0;
+    v26 = 2112;
+    v27 = v20;
+    _os_log_impl(&dword_1C82AD000, v19, OS_LOG_TYPE_ERROR, "BKDefaults::numberForKey: -> (%@: %@), error:%@\n", buf, 0x20u);
   }
 
   v15 = 0;
 LABEL_18:
   v17 = v15;
 
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 + (id)stringForKey:(id)key withError:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v7 = MEMORY[0x1E69E9C10];
   if (__osLogTrace)
@@ -207,9 +204,9 @@ LABEL_18:
   if (device)
   {
     v11 = *(device + 8);
-    v22 = 0;
-    v12 = [v11 getPreferencesValue:&v22 forKey:keyCopy];
-    v13 = v22;
+    v21 = 0;
+    v12 = [v11 getPreferencesValue:&v21 forKey:keyCopy];
+    v13 = v21;
     v14 = v13;
     if (!v12)
     {
@@ -243,10 +240,10 @@ LABEL_18:
 
         *buf = 138412802;
         *&buf[4] = keyCopy;
-        v25 = 2112;
-        v26 = v15;
-        v27 = 2112;
-        v28 = v16;
+        v24 = 2112;
+        v25 = v15;
+        v26 = 2112;
+        v27 = v16;
         _os_log_impl(&dword_1C82AD000, v7, OS_LOG_TYPE_DEFAULT, "BKDefaults::stringForKey: -> (%@: %@), error:%@\n", buf, 0x20u);
       }
 
@@ -262,49 +259,48 @@ LABEL_18:
   }
 
   v14 = *buf;
-  setErrorWithOSStatus(v23, error);
+  setErrorWithOSStatus(v22, error);
   if (__osLogTrace)
   {
-    v20 = __osLogTrace;
+    v19 = __osLogTrace;
   }
 
   else
   {
-    v20 = v7;
+    v19 = v7;
   }
 
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     if (error)
     {
-      v21 = *error;
+      v20 = *error;
     }
 
     else
     {
-      v21 = 0;
+      v20 = 0;
     }
 
     *buf = 138412802;
     *&buf[4] = keyCopy;
-    v25 = 2112;
-    v26 = 0;
-    v27 = 2112;
-    v28 = v21;
-    _os_log_impl(&dword_1C82AD000, v20, OS_LOG_TYPE_ERROR, "BKDefaults::stringForKey: -> (%@: %@), error:%@\n", buf, 0x20u);
+    v24 = 2112;
+    v25 = 0;
+    v26 = 2112;
+    v27 = v20;
+    _os_log_impl(&dword_1C82AD000, v19, OS_LOG_TYPE_ERROR, "BKDefaults::stringForKey: -> (%@: %@), error:%@\n", buf, 0x20u);
   }
 
   v15 = 0;
 LABEL_18:
   v17 = v15;
 
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 + (BOOL)setNumber:(id)number forKey:(id)key withError:(id *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   numberCopy = number;
   keyCopy = key;
   v10 = MEMORY[0x1E69E9C10];
@@ -320,11 +316,11 @@ LABEL_18:
 
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 138412546;
-    v23 = keyCopy;
-    v24 = 2112;
-    v25 = numberCopy;
-    _os_log_impl(&dword_1C82AD000, v11, OS_LOG_TYPE_DEFAULT, "BKDefaults::setNumber:forKey: (%@: %@)\n", &v22, 0x16u);
+    v21 = 138412546;
+    v22 = keyCopy;
+    v23 = 2112;
+    v24 = numberCopy;
+    _os_log_impl(&dword_1C82AD000, v11, OS_LOG_TYPE_DEFAULT, "BKDefaults::setNumber:forKey: (%@: %@)\n", &v21, 0x16u);
   }
 
   device = [self device];
@@ -356,16 +352,16 @@ LABEL_18:
           v16 = 0;
         }
 
-        v22 = 138413058;
-        v23 = keyCopy;
-        v24 = 2112;
-        v25 = numberCopy;
-        v26 = 1024;
+        v21 = 138413058;
+        v22 = keyCopy;
+        v23 = 2112;
+        v24 = numberCopy;
+        v25 = 1024;
         v17 = 1;
-        v27 = 1;
-        v28 = 2112;
-        v29 = v16;
-        _os_log_impl(&dword_1C82AD000, v15, OS_LOG_TYPE_DEFAULT, "BKDefaults::setNumber:forKey: (%@: %@) -> %d, error:%@\n", &v22, 0x26u);
+        v26 = 1;
+        v27 = 2112;
+        v28 = v16;
+        _os_log_impl(&dword_1C82AD000, v15, OS_LOG_TYPE_DEFAULT, "BKDefaults::setNumber:forKey: (%@: %@) -> %d, error:%@\n", &v21, 0x26u);
       }
 
       else
@@ -376,7 +372,7 @@ LABEL_18:
       goto LABEL_17;
     }
 
-    [BKDefaults setNumber:v14 forKey:v14 withError:&v22];
+    [BKDefaults setNumber:v14 forKey:v14 withError:&v21];
   }
 
   else
@@ -384,50 +380,49 @@ LABEL_18:
     +[BKDefaults setNumber:forKey:withError:];
   }
 
-  setErrorWithOSStatus(v22, error);
+  setErrorWithOSStatus(v21, error);
   if (__osLogTrace)
   {
-    v20 = __osLogTrace;
+    v19 = __osLogTrace;
   }
 
   else
   {
-    v20 = v10;
+    v19 = v10;
   }
 
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     if (error)
     {
-      v21 = *error;
+      v20 = *error;
     }
 
     else
     {
-      v21 = 0;
+      v20 = 0;
     }
 
-    v22 = 138413058;
-    v23 = keyCopy;
-    v24 = 2112;
-    v25 = numberCopy;
-    v26 = 1024;
-    v27 = 0;
-    v28 = 2112;
-    v29 = v21;
-    _os_log_impl(&dword_1C82AD000, v20, OS_LOG_TYPE_ERROR, "BKDefaults::setNumber:forKey: (%@: %@) -> %d, error:%@\n", &v22, 0x26u);
+    v21 = 138413058;
+    v22 = keyCopy;
+    v23 = 2112;
+    v24 = numberCopy;
+    v25 = 1024;
+    v26 = 0;
+    v27 = 2112;
+    v28 = v20;
+    _os_log_impl(&dword_1C82AD000, v19, OS_LOG_TYPE_ERROR, "BKDefaults::setNumber:forKey: (%@: %@) -> %d, error:%@\n", &v21, 0x26u);
   }
 
   v17 = 0;
 LABEL_17:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 + (BOOL)setString:(id)string forKey:(id)key withError:(id *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   keyCopy = key;
   v10 = MEMORY[0x1E69E9C10];
@@ -443,11 +438,11 @@ LABEL_17:
 
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 138412546;
-    v23 = keyCopy;
-    v24 = 2112;
-    v25 = stringCopy;
-    _os_log_impl(&dword_1C82AD000, v11, OS_LOG_TYPE_DEFAULT, "BKDevice::setString:forKey: (%@: %@)\n", &v22, 0x16u);
+    v21 = 138412546;
+    v22 = keyCopy;
+    v23 = 2112;
+    v24 = stringCopy;
+    _os_log_impl(&dword_1C82AD000, v11, OS_LOG_TYPE_DEFAULT, "BKDevice::setString:forKey: (%@: %@)\n", &v21, 0x16u);
   }
 
   device = [self device];
@@ -479,16 +474,16 @@ LABEL_17:
           v16 = 0;
         }
 
-        v22 = 138413058;
-        v23 = keyCopy;
-        v24 = 2112;
-        v25 = stringCopy;
-        v26 = 1024;
+        v21 = 138413058;
+        v22 = keyCopy;
+        v23 = 2112;
+        v24 = stringCopy;
+        v25 = 1024;
         v17 = 1;
-        v27 = 1;
-        v28 = 2112;
-        v29 = v16;
-        _os_log_impl(&dword_1C82AD000, v15, OS_LOG_TYPE_DEFAULT, "BKDevice::setString:forKey: (%@: %@) -> %d, error:%@\n", &v22, 0x26u);
+        v26 = 1;
+        v27 = 2112;
+        v28 = v16;
+        _os_log_impl(&dword_1C82AD000, v15, OS_LOG_TYPE_DEFAULT, "BKDevice::setString:forKey: (%@: %@) -> %d, error:%@\n", &v21, 0x26u);
       }
 
       else
@@ -499,7 +494,7 @@ LABEL_17:
       goto LABEL_17;
     }
 
-    [BKDefaults setString:v14 forKey:v14 withError:&v22];
+    [BKDefaults setString:v14 forKey:v14 withError:&v21];
   }
 
   else
@@ -507,197 +502,174 @@ LABEL_17:
     +[BKDefaults setString:forKey:withError:];
   }
 
-  setErrorWithOSStatus(v22, error);
+  setErrorWithOSStatus(v21, error);
   if (__osLogTrace)
   {
-    v20 = __osLogTrace;
+    v19 = __osLogTrace;
   }
 
   else
   {
-    v20 = v10;
+    v19 = v10;
   }
 
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     if (error)
     {
-      v21 = *error;
+      v20 = *error;
     }
 
     else
     {
-      v21 = 0;
+      v20 = 0;
     }
 
-    v22 = 138413058;
-    v23 = keyCopy;
-    v24 = 2112;
-    v25 = stringCopy;
-    v26 = 1024;
-    v27 = 0;
-    v28 = 2112;
-    v29 = v21;
-    _os_log_impl(&dword_1C82AD000, v20, OS_LOG_TYPE_ERROR, "BKDevice::setString:forKey: (%@: %@) -> %d, error:%@\n", &v22, 0x26u);
+    v21 = 138413058;
+    v22 = keyCopy;
+    v23 = 2112;
+    v24 = stringCopy;
+    v25 = 1024;
+    v26 = 0;
+    v27 = 2112;
+    v28 = v20;
+    _os_log_impl(&dword_1C82AD000, v19, OS_LOG_TYPE_ERROR, "BKDevice::setString:forKey: (%@: %@) -> %d, error:%@\n", &v21, 0x26u);
   }
 
   v17 = 0;
 LABEL_17:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 + (void)numberForKey:withError:.cold.1()
 {
   OUTLINED_FUNCTION_8_0();
-  v12 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_9(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_7_1();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_10_2(&dword_1C82AD000, v4, v5, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v6, v7, v8, v9, v11);
+    OUTLINED_FUNCTION_10_2(&dword_1C82AD000, v4, v5, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v6, v7, v8, v9);
   }
 
   *v1 = v3;
   *v0 = v2;
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (id)numberForKey:(void *)a1 withError:.cold.2(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_1(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v10);
+    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
 
-  result = setErrorWithOSStatus(0x16, a1);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return setErrorWithOSStatus(0x16, a1);
 }
 
 + (void)numberForKey:(uint64_t)a1 withError:(void *)a2 .cold.3(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_0(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v3, v4, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v5, v6, v7, v8, v10);
+    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v3, v4, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v5, v6, v7, v8);
   }
 
   *a2 = 0;
   OUTLINED_FUNCTION_9_0();
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (void)stringForKey:withError:.cold.1()
 {
   OUTLINED_FUNCTION_8_0();
-  v12 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_9(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_7_1();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_10_2(&dword_1C82AD000, v4, v5, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v6, v7, v8, v9, v11);
+    OUTLINED_FUNCTION_10_2(&dword_1C82AD000, v4, v5, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v6, v7, v8, v9);
   }
 
   *v1 = v3;
   *v0 = v2;
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (id)stringForKey:(void *)a1 withError:.cold.2(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_1(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v10);
+    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
 
-  result = setErrorWithOSStatus(0x16, a1);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return setErrorWithOSStatus(0x16, a1);
 }
 
 + (void)stringForKey:(uint64_t)a1 withError:(void *)a2 .cold.3(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_0(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v3, v4, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v5, v6, v7, v8, v10);
+    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v3, v4, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v5, v6, v7, v8);
   }
 
   *a2 = 0;
   OUTLINED_FUNCTION_9_0();
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (void)setNumber:(uint64_t)a1 forKey:(int)a2 withError:(_DWORD *)a3 .cold.1(uint64_t a1, int a2, _DWORD *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_7_1();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v5, v6, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v7, v8, v9, v10, v12);
+    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v5, v6, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v7, v8, v9, v10);
   }
 
   *a3 = a2;
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (void)setNumber:forKey:withError:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_1(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_9_0();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)setString:(uint64_t)a1 forKey:(int)a2 withError:(_DWORD *)a3 .cold.1(uint64_t a1, int a2, _DWORD *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_7_1();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v5, v6, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v7, v8, v9, v10, v12);
+    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v5, v6, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v7, v8, v9, v10);
   }
 
   *a3 = a2;
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (void)setString:forKey:withError:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_1(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_9_0();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

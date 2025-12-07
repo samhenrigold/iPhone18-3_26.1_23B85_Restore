@@ -22,13 +22,13 @@
 
 - (MOContextLocationMetaData)initWithPlace:(id)place city:(id)city visitTimeWindow:(id)window
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   placeCopy = place;
   cityCopy = city;
   windowCopy = window;
-  v17.receiver = self;
-  v17.super_class = MOContextLocationMetaData;
-  v12 = [(MOContextLocationMetaData *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = MOContextLocationMetaData;
+  v12 = [(MOContextLocationMetaData *)&v16 init];
   v13 = v12;
   if (v12)
   {
@@ -39,16 +39,15 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 138412802;
-      v19 = placeCopy;
-      v20 = 2112;
-      v21 = cityCopy;
-      v22 = 2112;
-      v23 = windowCopy;
+      v18 = placeCopy;
+      v19 = 2112;
+      v20 = cityCopy;
+      v21 = 2112;
+      v22 = windowCopy;
       _os_log_impl(&dword_25E48F000, v14, OS_LOG_TYPE_INFO, "LocationMetaData place,%@,city,%@,visitTimeWindow,%@", buf, 0x20u);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -101,47 +100,45 @@
 
 - (id)serializeCLLocationObject
 {
-  v27[6] = *MEMORY[0x277D85DE8];
-  v26[0] = @"latitude";
+  v26[6] = *MEMORY[0x277D85DE8];
+  v25[0] = @"latitude";
   v3 = MEMORY[0x277CCABB0];
   location = [(MOContextLocationMetaData *)self location];
   [location coordinate];
-  v24 = [v3 numberWithDouble:?];
-  v27[0] = v24;
-  v26[1] = @"longitude";
+  v23 = [v3 numberWithDouble:?];
+  v26[0] = v23;
+  v25[1] = @"longitude";
   v4 = MEMORY[0x277CCABB0];
   location2 = [(MOContextLocationMetaData *)self location];
   [location2 coordinate];
-  v22 = [v4 numberWithDouble:v5];
-  v27[1] = v22;
-  v26[2] = @"altitude";
+  v21 = [v4 numberWithDouble:v5];
+  v26[1] = v21;
+  v25[2] = @"altitude";
   v6 = MEMORY[0x277CCABB0];
   location3 = [(MOContextLocationMetaData *)self location];
   [location3 altitude];
   v8 = [v6 numberWithDouble:?];
-  v27[2] = v8;
-  v26[3] = @"horizontalAccuracy";
+  v26[2] = v8;
+  v25[3] = @"horizontalAccuracy";
   v9 = MEMORY[0x277CCABB0];
   location4 = [(MOContextLocationMetaData *)self location];
   [location4 horizontalAccuracy];
   v11 = [v9 numberWithDouble:?];
-  v27[3] = v11;
-  v26[4] = @"verticalAccuracy";
+  v26[3] = v11;
+  v25[4] = @"verticalAccuracy";
   v12 = MEMORY[0x277CCABB0];
   location5 = [(MOContextLocationMetaData *)self location];
   [location5 verticalAccuracy];
   v14 = [v12 numberWithDouble:?];
-  v27[4] = v14;
-  v26[5] = @"timestamp";
+  v26[4] = v14;
+  v25[5] = @"timestamp";
   v15 = MEMORY[0x277CCABB0];
   location6 = [(MOContextLocationMetaData *)self location];
   timestamp = [location6 timestamp];
   [timestamp timeIntervalSince1970];
   v18 = [v15 numberWithDouble:?];
-  v27[5] = v18;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:6];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v26[5] = v18;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:6];
 
   return v19;
 }

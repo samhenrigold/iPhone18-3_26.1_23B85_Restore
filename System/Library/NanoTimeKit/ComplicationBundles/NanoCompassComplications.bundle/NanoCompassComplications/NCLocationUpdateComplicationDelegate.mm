@@ -13,91 +13,91 @@
 
 - (id)startLocationUpdatesWithHandler:(id)handler
 {
-  v9.receiver = self;
-  v9.super_class = NCLocationUpdateComplicationDelegate;
-  v4 = [(NCLocationUpdateBaseDelegate *)&v9 startLocationUpdatesWithHandler:handler];
-  objc_msgSend_activateWaypointComplication(self, v5, v6, v7);
+  v8.receiver = self;
+  v8.super_class = NCLocationUpdateComplicationDelegate;
+  v4 = [(NCLocationUpdateBaseDelegate *)&v8 startLocationUpdatesWithHandler:handler];
+  objc_msgSend_activateWaypointComplication(self, v5, v6);
 
   return v4;
 }
 
 - (void)activateWaypointComplication
 {
-  v45 = *MEMORY[0x277D85DE8];
-  v8 = objc_msgSend__getActivationStartDate(self, a2, v2, v3);
-  if (v8)
+  v36 = *MEMORY[0x277D85DE8];
+  v6 = objc_msgSend__getActivationStartDate(self, a2, v2);
+  if (v6)
   {
-    v9 = objc_msgSend_now(MEMORY[0x277CBEAA8], v5, v6, v7);
-    IsSameDay = NanoCompassIsSameDay(v8, v9);
-    v14 = objc_msgSend_locationClientCount(self, v11, v12, v13);
-    v15 = NCLogForCategory(7uLL);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v7 = objc_msgSend_now(MEMORY[0x277CBEAA8], v4, v5);
+    IsSameDay = NanoCompassIsSameDay(v6, v7);
+    v11 = objc_msgSend_locationClientCount(self, v9, v10);
+    v12 = NCLogForCategory(7uLL);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       if (IsSameDay)
       {
-        v19 = @"YES";
+        v15 = @"YES";
       }
 
       else
       {
-        v19 = @"NO";
+        v15 = @"NO";
       }
 
-      v33 = 136316418;
-      v34 = "[NCLocationUpdateComplicationDelegate activateWaypointComplication]";
-      if (objc_msgSend_isWaypointComplicationActive(self, v16, v17, v18))
+      v24 = 136316418;
+      v25 = "[NCLocationUpdateComplicationDelegate activateWaypointComplication]";
+      if (objc_msgSend_isWaypointComplicationActive(self, v13, v14))
       {
-        v20 = @"YES";
+        v16 = @"YES";
       }
 
       else
       {
-        v20 = @"NO";
+        v16 = @"NO";
       }
 
-      v35 = 2112;
-      v36 = v8;
-      v37 = 2112;
-      v38 = v9;
-      v39 = 2112;
-      v40 = v19;
-      v41 = 2048;
-      v42 = v14;
-      v43 = 2112;
-      v44 = v20;
-      _os_log_impl(&dword_23BD26000, v15, OS_LOG_TYPE_DEFAULT, "%s activate date is %@, now is %@, on the same date? %@, client count is %lu, waypoint complication is active? %@", &v33, 0x3Eu);
+      v26 = 2112;
+      v27 = v6;
+      v28 = 2112;
+      v29 = v7;
+      v30 = 2112;
+      v31 = v15;
+      v32 = 2048;
+      v33 = v11;
+      v34 = 2112;
+      v35 = v16;
+      _os_log_impl(&dword_23BD26000, v12, OS_LOG_TYPE_DEFAULT, "%s activate date is %@, now is %@, on the same date? %@, client count is %lu, waypoint complication is active? %@", &v24, 0x3Eu);
     }
 
-    if (v14)
+    if (v11)
     {
-      v24 = IsSameDay;
+      v19 = IsSameDay;
     }
 
     else
     {
-      v24 = 0;
+      v19 = 0;
     }
 
-    if (v24 && objc_msgSend_isWaypointComplicationActive(self, v21, v22, v23))
+    if (v19 && objc_msgSend_isWaypointComplicationActive(self, v17, v18))
     {
-      objc_msgSend__setupDeactivationTimerWithStartDate_(self, v25, v8, v26);
+      objc_msgSend__setupDeactivationTimerWithStartDate_(self, v20, v6);
       if (!self->_waypointIsActivated)
       {
-        objc_msgSend_setStartLocationUpdate_(self, v27, 1, v28);
-        v29 = NCLogForCategory(7uLL);
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        objc_msgSend_setStartLocationUpdate_(self, v21, 1);
+        v22 = NCLogForCategory(7uLL);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v33) = 0;
-          _os_log_impl(&dword_23BD26000, v29, OS_LOG_TYPE_DEFAULT, "Waypoint complication is activated. Power log is started.", &v33, 2u);
+          LOWORD(v24) = 0;
+          _os_log_impl(&dword_23BD26000, v22, OS_LOG_TYPE_DEFAULT, "Waypoint complication is activated. Power log is started.", &v24, 2u);
         }
 
-        powerLogWaypointComplicationEventStarted(1);
+        powerLogWaypointComplicationEventStarted();
         self->_waypointIsActivated = 1;
       }
 
       if (ShouldSendComplicationDailyMetricsEvent())
       {
-        SendWaypointComplicationActivatedEvent(v14, v30, v31, v32);
+        SendWaypointComplicationActivatedEvent(v11, v23);
         UpdateComplicationDailyMetricsEventTimestamp();
       }
     }
@@ -105,98 +105,98 @@
 
   else
   {
-    v9 = NCLogForCategory(7uLL);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v7 = NCLogForCategory(7uLL);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_23BD65B58(v9);
+      sub_23BD65B58(v7);
     }
   }
 }
 
 - (void)deactivateWaypointComplication
 {
-  objc_msgSend__invalidateActivationTimer(self, a2, v2, v3);
+  objc_msgSend__invalidateActivationTimer(self, a2, v2);
   if (self->_waypointIsActivated)
   {
-    objc_msgSend_setStartLocationUpdate_(self, v5, 0, v6);
-    v7 = NCLogForCategory(7uLL);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    objc_msgSend_setStartLocationUpdate_(self, v4, 0);
+    v5 = NCLogForCategory(7uLL);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_23BD26000, v7, OS_LOG_TYPE_DEFAULT, "Waypoint complication is deactivated. Power log is stopped.", v8, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_23BD26000, v5, OS_LOG_TYPE_DEFAULT, "Waypoint complication is deactivated. Power log is stopped.", v6, 2u);
     }
 
     self->_waypointIsActivated = 0;
-    powerLogWaypointComplicationEventStarted(0);
+    powerLogWaypointComplicationEventStarted();
   }
 }
 
 - (void)_setupDeactivationTimerWithStartDate:(id)date
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v5 = NCLogForCategory(7uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 136315394;
-    v24 = "[NCLocationUpdateComplicationDelegate _setupDeactivationTimerWithStartDate:]";
-    v25 = 2112;
-    v26 = dateCopy;
-    _os_log_impl(&dword_23BD26000, v5, OS_LOG_TYPE_DEFAULT, "%s setting up deactivation timer with activation start date %@", &v23, 0x16u);
+    v18 = 136315394;
+    v19 = "[NCLocationUpdateComplicationDelegate _setupDeactivationTimerWithStartDate:]";
+    v20 = 2112;
+    v21 = dateCopy;
+    _os_log_impl(&dword_23BD26000, v5, OS_LOG_TYPE_DEFAULT, "%s setting up deactivation timer with activation start date %@", &v18, 0x16u);
   }
 
   if (self->_waypointComplicationDeactivationTimer)
   {
-    objc_msgSend__invalidateActivationTimer(self, v6, v7, v8);
+    objc_msgSend__invalidateActivationTimer(self, v6, v7);
   }
 
-  v9 = objc_alloc(MEMORY[0x277D3A180]);
-  v12 = objc_msgSend__endOfDayForDate_(self, v10, dateCopy, v11);
-  v14 = objc_msgSend_initWithFireDate_serviceIdentifier_target_selector_userInfo_(v9, v13, v12, @"com.apple.NanoCompass.waypoint.activationTimeout", self, sel__complicationDeactivationTimerFired_, 0);
+  v8 = objc_alloc(MEMORY[0x277D3A180]);
+  v10 = objc_msgSend__endOfDayForDate_(self, v9, dateCopy);
+  v12 = objc_msgSend_initWithFireDate_serviceIdentifier_target_selector_userInfo_(v8, v11, v10, @"com.apple.NanoCompass.waypoint.activationTimeout", self, sel__complicationDeactivationTimerFired_, 0);
   waypointComplicationDeactivationTimer = self->_waypointComplicationDeactivationTimer;
-  self->_waypointComplicationDeactivationTimer = v14;
+  self->_waypointComplicationDeactivationTimer = v12;
 
-  objc_msgSend_setUserVisible_(self->_waypointComplicationDeactivationTimer, v16, 1, v17);
-  objc_msgSend_setMinimumEarlyFireProportion_(self->_waypointComplicationDeactivationTimer, v18, v19, v20, 1.0);
-  objc_msgSend_scheduleInQueue_(self->_waypointComplicationDeactivationTimer, v21, MEMORY[0x277D85CD0], v22);
+  objc_msgSend_setUserVisible_(self->_waypointComplicationDeactivationTimer, v14, 1);
+  objc_msgSend_setMinimumEarlyFireProportion_(self->_waypointComplicationDeactivationTimer, v15, v16, 1.0);
+  objc_msgSend_scheduleInQueue_(self->_waypointComplicationDeactivationTimer, v17, MEMORY[0x277D85CD0]);
 }
 
 - (id)_endOfDayForDate:(id)date
 {
   v3 = MEMORY[0x277CBEA80];
   dateCopy = date;
-  v8 = objc_msgSend_currentCalendar(v3, v5, v6, v7);
-  v10 = objc_msgSend_components_fromDate_(v8, v9, 28, dateCopy);
+  v7 = objc_msgSend_currentCalendar(v3, v5, v6);
+  v9 = objc_msgSend_components_fromDate_(v7, v8, 28, dateCopy);
 
-  objc_msgSend_setHour_(v10, v11, 23, v12);
-  objc_msgSend_setMinute_(v10, v13, 59, v14);
-  objc_msgSend_setSecond_(v10, v15, 59, v16);
-  v19 = objc_msgSend_dateFromComponents_(v8, v17, v10, v18);
+  objc_msgSend_setHour_(v9, v10, 23);
+  objc_msgSend_setMinute_(v9, v11, 59);
+  objc_msgSend_setSecond_(v9, v12, 59);
+  v14 = objc_msgSend_dateFromComponents_(v7, v13, v9);
 
-  return v19;
+  return v14;
 }
 
 - (id)_getActivationStartDate
 {
   v2 = objc_alloc(MEMORY[0x277CBEBD0]);
-  v5 = objc_msgSend_initWithSuiteName_(v2, v3, @"com.apple.compass", v4);
-  v8 = objc_msgSend_objectForKey_(v5, v6, @"TargetedViewUsageTimestamp", v7);
+  v4 = objc_msgSend_initWithSuiteName_(v2, v3, @"com.apple.compass");
+  v6 = objc_msgSend_objectForKey_(v4, v5, @"TargetedViewUsageTimestamp");
 
-  return v8;
+  return v6;
 }
 
 - (void)_complicationDeactivationTimerFired:(id)fired
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = NCLogForCategory(7uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[NCLocationUpdateComplicationDelegate _complicationDeactivationTimerFired:]";
-    _os_log_impl(&dword_23BD26000, v4, OS_LOG_TYPE_DEFAULT, "%s deactivation timer fired and deactivate location update for waypoint complication", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[NCLocationUpdateComplicationDelegate _complicationDeactivationTimerFired:]";
+    _os_log_impl(&dword_23BD26000, v4, OS_LOG_TYPE_DEFAULT, "%s deactivation timer fired and deactivate location update for waypoint complication", &v7, 0xCu);
   }
 
-  objc_msgSend_deactivateWaypointComplication(self, v5, v6, v7);
+  objc_msgSend_deactivateWaypointComplication(self, v5, v6);
 }
 
 - (void)_invalidateActivationTimer
@@ -204,8 +204,8 @@
   waypointComplicationDeactivationTimer = self->_waypointComplicationDeactivationTimer;
   if (waypointComplicationDeactivationTimer)
   {
-    objc_msgSend_invalidate(waypointComplicationDeactivationTimer, a2, v2, v3);
-    v6 = self->_waypointComplicationDeactivationTimer;
+    objc_msgSend_invalidate(waypointComplicationDeactivationTimer, a2, v2);
+    v5 = self->_waypointComplicationDeactivationTimer;
     self->_waypointComplicationDeactivationTimer = 0;
   }
 }

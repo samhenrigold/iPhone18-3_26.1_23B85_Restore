@@ -521,8 +521,8 @@ uint64_t __90__CNGroupIdentityHeaderViewController_sharedProfileBannerView_didUp
   }
 
   group = [(CNGroupIdentityHeaderViewController *)self group];
-  contacts = [group contacts];
-  v9 = [contacts count];
+  v8 = objc_msgSend_contacts(group);
+  v9 = [v8 count];
 
   if (v9 != 1)
   {
@@ -690,12 +690,12 @@ uint64_t __90__CNGroupIdentityHeaderViewController_sharedProfileBannerView_didUp
 - (BOOL)groupContactIsSameAsCurrentContact:(id)contact
 {
   contactCopy = contact;
-  contacts = [contactCopy contacts];
-  if ([contacts count] == 1)
+  firstObject = objc_msgSend_contacts(contactCopy);
+  if ([firstObject count] == 1)
   {
     group = [(CNGroupIdentityHeaderViewController *)self group];
-    contacts2 = [group contacts];
-    v8 = [contacts2 count];
+    v7 = objc_msgSend_contacts(group);
+    v8 = [v7 count];
 
     if (v8 != 1)
     {
@@ -704,14 +704,14 @@ uint64_t __90__CNGroupIdentityHeaderViewController_sharedProfileBannerView_didUp
     }
 
     group2 = [(CNGroupIdentityHeaderViewController *)self group];
-    contacts3 = [group2 contacts];
-    contacts = [contacts3 firstObject];
+    v10 = objc_msgSend_contacts(group2);
+    firstObject = [v10 firstObject];
 
-    contacts4 = [contactCopy contacts];
-    firstObject = [contacts4 firstObject];
+    v11 = objc_msgSend_contacts(contactCopy);
+    firstObject2 = [v11 firstObject];
 
-    identifier = [contacts identifier];
-    identifier2 = [firstObject identifier];
+    identifier = [firstObject identifier];
+    identifier2 = [firstObject2 identifier];
     v15 = [identifier isEqualToString:identifier2];
   }
 

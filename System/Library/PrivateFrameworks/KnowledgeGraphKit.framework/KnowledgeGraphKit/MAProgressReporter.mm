@@ -62,50 +62,48 @@
 
 - (id)childProgressReporterForStep:(unint64_t)step outOf:(unint64_t)of
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (step >= of && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v10[0] = 67109376;
-    v10[1] = step;
-    v11 = 1024;
+    v9[0] = 67109376;
+    v9[1] = step;
+    v10 = 1024;
     ofCopy = of;
-    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MAProgressReporter: step (%d) >= count (%d)", v10, 0xEu);
+    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MAProgressReporter: step (%d) >= count (%d)", v9, 0xEu);
   }
 
   v7 = [(MAProgressReporter *)self childProgressWithOffset:step / of scale:1.0 / of];
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)childProgressReporterFromStart:(double)start toEnd:(double)end
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (start < 0.0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v10 = 134217984;
+    v9 = 134217984;
     endCopy2 = start;
-    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MAProgressReporter: start (%f) < 0.0", &v10, 0xCu);
+    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MAProgressReporter: start (%f) < 0.0", &v9, 0xCu);
   }
 
   if (start > end && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v10 = 134218240;
+    v9 = 134218240;
     endCopy2 = start;
-    v12 = 2048;
+    v11 = 2048;
     endCopy = end;
-    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MAProgressReporter: start (%f) > end (%f)", &v10, 0x16u);
+    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MAProgressReporter: start (%f) > end (%f)", &v9, 0x16u);
   }
 
   if (end > 1.0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v10 = 134217984;
+    v9 = 134217984;
     endCopy2 = end;
-    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MAProgressReporter: end (%f) > 1.0", &v10, 0xCu);
+    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MAProgressReporter: end (%f) > 1.0", &v9, 0xCu);
   }
 
   start = [(MAProgressReporter *)self childProgressWithOffset:start scale:end - start];
-  v8 = *MEMORY[0x277D85DE8];
 
   return start;
 }
@@ -118,14 +116,14 @@
 
 - (BOOL)isCancelledWithUnitsCompleted:(unint64_t)completed outOf:(unint64_t)of
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (completed > of && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v10[0] = 67109376;
-    v10[1] = completed;
-    v11 = 1024;
+    v9[0] = 67109376;
+    v9[1] = completed;
+    v10 = 1024;
     ofCopy = of;
-    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MAProgressReporter: unitsCompleted (%d) > total (%d)", v10, 0xEu);
+    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MAProgressReporter: unitsCompleted (%d) > total (%d)", v9, 0xEu);
     if (of)
     {
       goto LABEL_4;
@@ -136,20 +134,17 @@
   {
 LABEL_4:
     v7 = completed / of;
-    goto LABEL_8;
+    return [(MAProgressReporter *)self isCancelledWithProgress:v7];
   }
 
   v7 = 1.0;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v10[0]) = 0;
-    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MAProgressReporter: total = 0", v10, 2u);
+    LOWORD(v9[0]) = 0;
+    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MAProgressReporter: total = 0", v9, 2u);
   }
 
-LABEL_8:
-  result = [(MAProgressReporter *)self isCancelledWithProgress:v7];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(MAProgressReporter *)self isCancelledWithProgress:v7];
 }
 
 - (BOOL)isCancelledWithProgress:(double)progress currentTime:(double)time

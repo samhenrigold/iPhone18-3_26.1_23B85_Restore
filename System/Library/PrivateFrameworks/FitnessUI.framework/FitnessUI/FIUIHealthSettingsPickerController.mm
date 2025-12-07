@@ -31,7 +31,7 @@
 {
   v4 = objc_opt_class();
 
-  MEMORY[0x1EEDC70C8](self, a2, v4);
+  MEMORY[0x1EEDC70C8](self, a2, v4, v5);
 }
 
 @end

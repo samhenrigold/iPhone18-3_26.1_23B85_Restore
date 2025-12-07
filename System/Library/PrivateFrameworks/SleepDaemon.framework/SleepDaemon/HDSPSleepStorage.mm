@@ -39,9 +39,9 @@
 
 + (id)standardConfiguration
 {
-  v40[3] = *MEMORY[0x277D85DE8];
+  v39[3] = *MEMORY[0x277D85DE8];
   v2 = [HDSPSyncedDefaultsInfo alloc];
-  v39 = [(HDSPSyncedDefaultsInfo *)v2 initWithDataVersionKey:@"DataVersion" currentDataVersion:8 cloudDataVersionKey:@"CloudStorageDataVersion" currentCloudDataVersion:1 cloudSyncEnabledKey:*MEMORY[0x277D62170] localDataVersionKey:@"LocalDataVersion" currentLocalDataVersion:1];
+  v38 = [(HDSPSyncedDefaultsInfo *)v2 initWithDataVersionKey:@"DataVersion" currentDataVersion:8 cloudDataVersionKey:@"CloudStorageDataVersion" currentCloudDataVersion:1 cloudSyncEnabledKey:*MEMORY[0x277D62170] localDataVersionKey:@"LocalDataVersion" currentLocalDataVersion:1];
   v3 = [HDSPSyncedDefaultsKeySet alloc];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
@@ -50,9 +50,9 @@
   v8 = HKSPPropertyIdentifiersForProperties();
   v9 = HKSPSleepScheduleProperties();
   v10 = HKSPPropertyIdentifiersForProperties();
-  v38 = [(HDSPSyncedDefaultsKeySet *)v3 initWithIdentifier:v5 modficationDateKey:v6 keysToPersist:v8 keysToSync:v10];
+  v37 = [(HDSPSyncedDefaultsKeySet *)v3 initWithIdentifier:v5 modficationDateKey:v6 keysToPersist:v8 keysToSync:v10];
 
-  v37 = [HDSPSyncedDefaultsKeySet alloc];
+  v36 = [HDSPSyncedDefaultsKeySet alloc];
   v11 = objc_opt_class();
   v12 = NSStringFromClass(v11);
   v13 = *MEMORY[0x277D62160];
@@ -64,7 +64,7 @@
   v19 = HKSPPropertyIdentifiersForProperties();
   v20 = HKSPSleepSettingsDefaultValues();
   v21 = HKSPDefaultValuesByIdentifier();
-  v22 = [(HDSPSyncedDefaultsKeySet *)v37 initWithIdentifier:v12 modficationDateKey:v13 keysToPersist:v15 keysToSync:v17 perGizmoKeys:v19 defaultValues:v21];
+  v22 = [(HDSPSyncedDefaultsKeySet *)v36 initWithIdentifier:v12 modficationDateKey:v13 keysToPersist:v15 keysToSync:v17 perGizmoKeys:v19 defaultValues:v21];
 
   v23 = [HDSPSyncedDefaultsKeySet alloc];
   v24 = objc_opt_class();
@@ -77,13 +77,11 @@
   v31 = [(HDSPSyncedDefaultsKeySet *)v23 initWithIdentifier:v25 modficationDateKey:v26 keysToPersist:v28 keysToSync:v30];
 
   v32 = [HDSPSyncedDefaultsConfiguration alloc];
-  v40[0] = v38;
-  v40[1] = v22;
-  v40[2] = v31;
-  v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:3];
-  v34 = [(HDSPSyncedDefaultsConfiguration *)v32 initWithInfo:v39 keySets:v33];
-
-  v35 = *MEMORY[0x277D85DE8];
+  v39[0] = v37;
+  v39[1] = v22;
+  v39[2] = v31;
+  v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:3];
+  v34 = [(HDSPSyncedDefaultsConfiguration *)v32 initWithInfo:v38 keySets:v33];
 
   return v34;
 }
@@ -165,51 +163,47 @@
 
 - (void)performInitialSyncWithCompletion:(id)completion
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = objc_opt_class();
-    v6 = v10;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] performing initial sync", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = objc_opt_class();
+    v6 = v9;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] performing initial sync", &v8, 0xCu);
   }
 
   syncedDefaults = [(HDSPSleepStorage *)self syncedDefaults];
   [syncedDefaults hdsp_forceSynchronizeWithCompletion:completionCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveDataVersion
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = objc_opt_class();
-    v4 = v8;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] saving data version", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = objc_opt_class();
+    v4 = v7;
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] saving data version", &v6, 0xCu);
   }
 
   syncedDefaults = [(HDSPSleepStorage *)self syncedDefaults];
   [syncedDefaults saveDataVersion];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)loadSleepSchedule:(id *)schedule
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138543362;
-    v16 = objc_opt_class();
-    v6 = v16;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] loading schedule", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = objc_opt_class();
+    v6 = v15;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] loading schedule", &v14, 0xCu);
   }
 
   v7 = objc_opt_class();
@@ -219,80 +213,75 @@
   v11 = HKSPSleepScheduleProperties();
   v12 = [(HDSPSleepStorage *)self _loadObjectOfClass:v7 allowedClasses:v10 propertiesToLoad:v11 error:schedule];
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (BOOL)saveSleepSchedule:(id)schedule error:(id *)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   scheduleCopy = schedule;
   v7 = HKSPLogForCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543618;
-    v13 = objc_opt_class();
-    v14 = 2114;
-    v15 = scheduleCopy;
-    v8 = v13;
-    _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] persisting schedule %{public}@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = objc_opt_class();
+    v13 = 2114;
+    v14 = scheduleCopy;
+    v8 = v12;
+    _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] persisting schedule %{public}@", &v11, 0x16u);
   }
 
   v9 = [(HDSPSleepStorage *)self _saveObject:scheduleCopy error:error];
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)saveSleepScheduleChanges:(id)changes error:(id *)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
   v7 = HKSPLogForCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543618;
-    v13 = objc_opt_class();
-    v14 = 2114;
-    v15 = changesCopy;
-    v8 = v13;
-    _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] persisting schedule changes %{public}@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = objc_opt_class();
+    v13 = 2114;
+    v14 = changesCopy;
+    v8 = v12;
+    _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] persisting schedule changes %{public}@", &v11, 0x16u);
   }
 
   v9 = [(HDSPSleepStorage *)self _saveObjectChanges:changesCopy versionKey:*MEMORY[0x277D62150] currentVersion:1 error:error];
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)removeSleepScheduleWithError:(id *)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = objc_opt_class();
-    v6 = v12;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] removing sleep schedule", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = objc_opt_class();
+    v6 = v11;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] removing sleep schedule", &v10, 0xCu);
   }
 
   v7 = HKSPSleepScheduleProperties();
   v8 = [(HDSPSleepStorage *)self _removeObjectProperties:v7 error:error];
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)loadSleepSettings:(id *)settings
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138543362;
-    v14 = objc_opt_class();
-    v6 = v14;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] loading settings", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = objc_opt_class();
+    v6 = v13;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] loading settings", &v12, 0xCu);
   }
 
   v7 = objc_opt_class();
@@ -300,80 +289,75 @@
   v9 = HKSPSleepSettingsPropertiesForPersist();
   v10 = [(HDSPSleepStorage *)self _loadObjectOfClass:v7 allowedClasses:v8 propertiesToLoad:v9 error:settings];
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (BOOL)saveSleepSettings:(id)settings error:(id *)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   v7 = HKSPLogForCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543618;
-    v13 = objc_opt_class();
-    v14 = 2114;
-    v15 = settingsCopy;
-    v8 = v13;
-    _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] persisting settings %{public}@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = objc_opt_class();
+    v13 = 2114;
+    v14 = settingsCopy;
+    v8 = v12;
+    _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] persisting settings %{public}@", &v11, 0x16u);
   }
 
   v9 = [(HDSPSleepStorage *)self _saveObject:settingsCopy error:error];
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)saveSleepSettingsChanges:(id)changes error:(id *)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
   v7 = HKSPLogForCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543618;
-    v13 = objc_opt_class();
-    v14 = 2114;
-    v15 = changesCopy;
-    v8 = v13;
-    _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] persisting settings changes %{public}@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = objc_opt_class();
+    v13 = 2114;
+    v14 = changesCopy;
+    v8 = v12;
+    _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] persisting settings changes %{public}@", &v11, 0x16u);
   }
 
   v9 = [(HDSPSleepStorage *)self _saveObjectChanges:changesCopy versionKey:*MEMORY[0x277D62168] currentVersion:11 error:error];
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)removeSleepSettingsWithError:(id *)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = objc_opt_class();
-    v6 = v12;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] removing sleep settings", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = objc_opt_class();
+    v6 = v11;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] removing sleep settings", &v10, 0xCu);
   }
 
   v7 = HKSPSleepSettingsPropertiesForPersist();
   v8 = [(HDSPSleepStorage *)self _removeObjectProperties:v7 error:error];
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)loadSleepEventRecord:(id *)record
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138543362;
-    v17 = objc_opt_class();
-    v6 = v17;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] loading event record", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = objc_opt_class();
+    v6 = v16;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] loading event record", &v15, 0xCu);
   }
 
   v7 = objc_opt_class();
@@ -387,94 +371,89 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = objc_opt_class();
-      v16 = 138543362;
-      v17 = v12;
+      v15 = 138543362;
+      v16 = v12;
       v13 = v12;
-      _os_log_impl(&dword_269B11000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] creating default event record", &v16, 0xCu);
+      _os_log_impl(&dword_269B11000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] creating default event record", &v15, 0xCu);
     }
 
     v10 = objc_alloc_init(MEMORY[0x277D624D8]);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (BOOL)saveSleepEventRecord:(id)record error:(id *)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   v7 = HKSPLogForCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543618;
-    v13 = objc_opt_class();
-    v14 = 2114;
-    v15 = recordCopy;
-    v8 = v13;
-    _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] persisting event record %{public}@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = objc_opt_class();
+    v13 = 2114;
+    v14 = recordCopy;
+    v8 = v12;
+    _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] persisting event record %{public}@", &v11, 0x16u);
   }
 
   v9 = [(HDSPSleepStorage *)self _saveObject:recordCopy error:error];
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)saveSleepEventRecordChanges:(id)changes error:(id *)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
   v7 = HKSPLogForCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543618;
-    v13 = objc_opt_class();
-    v14 = 2114;
-    v15 = changesCopy;
-    v8 = v13;
-    _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] persisting event record changes %{public}@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = objc_opt_class();
+    v13 = 2114;
+    v14 = changesCopy;
+    v8 = v12;
+    _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] persisting event record changes %{public}@", &v11, 0x16u);
   }
 
   v9 = [(HDSPSleepStorage *)self _saveObjectChanges:changesCopy versionKey:*MEMORY[0x277D62078] currentVersion:1 error:error];
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)removeSleepEventRecordWithError:(id *)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = objc_opt_class();
-    v6 = v12;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] removing sleep event record", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = objc_opt_class();
+    v6 = v11;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] removing sleep event record", &v10, 0xCu);
   }
 
   v7 = HKSPSleepEventRecordProperties();
   v8 = [(HDSPSleepStorage *)self _removeObjectProperties:v7 error:error];
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)loadSleepScheduleModel:(id *)model
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v26 = objc_opt_class();
-    v6 = v26;
+    v25 = objc_opt_class();
+    v6 = v25;
     _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] loading model", buf, 0xCu);
   }
 
-  v24 = 0;
-  v7 = [(HDSPSleepStorage *)self loadSleepSchedule:&v24];
-  v8 = v24;
+  v23 = 0;
+  v7 = [(HDSPSleepStorage *)self loadSleepSchedule:&v23];
+  v8 = v23;
   v9 = v8;
   if (v8)
   {
@@ -493,9 +472,9 @@
 
   else
   {
-    v23 = 0;
-    v12 = [(HDSPSleepStorage *)self loadSleepSettings:&v23];
-    v13 = v23;
+    v22 = 0;
+    v12 = [(HDSPSleepStorage *)self loadSleepSettings:&v22];
+    v13 = v22;
     v14 = v13;
     if (v13)
     {
@@ -514,9 +493,9 @@
 
     else
     {
-      v22 = 0;
-      v16 = [(HDSPSleepStorage *)self loadSleepEventRecord:&v22];
-      v17 = v22;
+      v21 = 0;
+      v16 = [(HDSPSleepStorage *)self loadSleepEventRecord:&v21];
+      v17 = v21;
       v18 = v17;
       if (v17)
       {
@@ -540,39 +519,37 @@
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (BOOL)saveSleepScheduleModel:(id)model error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   v7 = HKSPLogForCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v26 = objc_opt_class();
-    v8 = v26;
+    v25 = objc_opt_class();
+    v8 = v25;
     _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] persisting model", buf, 0xCu);
   }
 
   sleepSchedule = [modelCopy sleepSchedule];
-  v24 = 0;
-  v10 = [(HDSPSleepStorage *)self saveSleepSchedule:sleepSchedule error:&v24];
-  v11 = v24;
+  v23 = 0;
+  v10 = [(HDSPSleepStorage *)self saveSleepSchedule:sleepSchedule error:&v23];
+  v11 = v23;
 
   sleepSettings = [modelCopy sleepSettings];
-  v23 = 0;
-  v13 = [(HDSPSleepStorage *)self saveSleepSettings:sleepSettings error:&v23];
-  v14 = v23;
+  v22 = 0;
+  v13 = [(HDSPSleepStorage *)self saveSleepSettings:sleepSettings error:&v22];
+  v14 = v22;
 
   sleepEventRecord = [modelCopy sleepEventRecord];
 
-  v22 = 0;
-  v16 = [(HDSPSleepStorage *)self saveSleepEventRecord:sleepEventRecord error:&v22];
-  v17 = v22;
+  v21 = 0;
+  v16 = [(HDSPSleepStorage *)self saveSleepEventRecord:sleepEventRecord error:&v21];
+  v17 = v21;
 
   if (error)
   {
@@ -599,13 +576,12 @@
     *error = v19;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v10 && v13 && v16;
 }
 
 - (id)_loadObjectOfClass:(Class)class allowedClasses:(id)classes propertiesToLoad:(id)load error:(id *)error
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   classesCopy = classes;
   loadCopy = load;
   syncedDefaults = [(HDSPSleepStorage *)self syncedDefaults];
@@ -616,27 +592,27 @@
   if ([v14 count])
   {
     v15 = HKSPSerializableKeyForClass();
-    v34 = v15;
-    v35[0] = v14;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+    v33 = v15;
+    v34[0] = v14;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
 
     v17 = [objc_alloc(MEMORY[0x277D62450]) initWithAllowedClasses:classesCopy serializedDictionary:v16];
-    v27 = 0;
-    v18 = [v17 deserializeObjectOfClass:class error:&v27];
-    v19 = v27;
+    v26 = 0;
+    v18 = [v17 deserializeObjectOfClass:class error:&v26];
+    v19 = v26;
     if (v19)
     {
       v20 = HKSPLogForCategory();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v25 = objc_opt_class();
+        v24 = objc_opt_class();
         *buf = 138543874;
-        v29 = v25;
-        v30 = 2114;
+        v28 = v24;
+        v29 = 2114;
         classCopy2 = class;
-        v32 = 2114;
-        v33 = v19;
-        v26 = v25;
+        v31 = 2114;
+        v32 = v19;
+        v25 = v24;
         _os_log_error_impl(&dword_269B11000, v20, OS_LOG_TYPE_ERROR, "[%{public}@] failed deserialization of class %{public}@ with error %{public}@", buf, 0x20u);
       }
 
@@ -654,24 +630,22 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v29 = objc_opt_class();
-      v30 = 2114;
+      v28 = objc_opt_class();
+      v29 = 2114;
       classCopy2 = class;
-      v22 = v29;
+      v22 = v28;
       _os_log_impl(&dword_269B11000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] nothing persisted for properties of class %{public}@", buf, 0x16u);
     }
 
     v18 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (BOOL)_saveObject:(id)object error:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v7 = objc_alloc_init(MEMORY[0x277D62458]);
   v8 = v7;
@@ -681,9 +655,9 @@
     goto LABEL_5;
   }
 
-  v34 = 0;
-  v9 = [v7 serialize:objectCopy error:&v34];
-  v10 = v34;
+  v33 = 0;
+  v9 = [v7 serialize:objectCopy error:&v33];
+  v10 = v33;
   v11 = v10;
   if (v9)
   {
@@ -712,19 +686,19 @@
     [syncedDefaults3 hksp_synchronize];
 
     v26 = 1;
-    v11 = v33;
+    v11 = v32;
     goto LABEL_11;
   }
 
   v27 = HKSPLogForCategory();
   if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
   {
-    v31 = objc_opt_class();
+    v30 = objc_opt_class();
     *buf = 138543618;
-    v36 = v31;
-    v37 = 2114;
-    v38 = v11;
-    v32 = v31;
+    v35 = v30;
+    v36 = 2114;
+    v37 = v11;
+    v31 = v30;
     _os_log_error_impl(&dword_269B11000, v27, OS_LOG_TYPE_ERROR, "[%{public}@] failed serialization with error %{public}@", buf, 0x16u);
   }
 
@@ -742,43 +716,42 @@
 
 LABEL_11:
 
-  v29 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
 - (BOOL)_saveObjectChanges:(id)changes versionKey:(id)key currentVersion:(unint64_t)version error:(id *)error
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
   keyCopy = key;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
-  v46 = 1;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = __Block_byref_object_copy_;
-  v41 = __Block_byref_object_dispose_;
   v42 = 0;
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 1;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = __Block_byref_object_copy_;
+  v40 = __Block_byref_object_dispose_;
+  v41 = 0;
   v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v13 = objc_alloc_init(MEMORY[0x277CBEB58]);
   changes = [changesCopy changes];
-  v29 = MEMORY[0x277D85DD0];
-  v30 = 3221225472;
-  v31 = __71__HDSPSleepStorage__saveObjectChanges_versionKey_currentVersion_error___block_invoke;
-  v32 = &unk_279C7B170;
-  v35 = &v37;
+  v28 = MEMORY[0x277D85DD0];
+  v29 = 3221225472;
+  v30 = __71__HDSPSleepStorage__saveObjectChanges_versionKey_currentVersion_error___block_invoke;
+  v31 = &unk_279C7B170;
+  v34 = &v36;
   v15 = v12;
-  v33 = v15;
-  v36 = &v43;
+  v32 = v15;
+  v35 = &v42;
   v16 = v13;
-  v34 = v16;
-  [changes na_each:&v29];
+  v33 = v16;
+  [changes na_each:&v28];
 
-  if (*(v44 + 24) == 1)
+  if (*(v43 + 24) == 1)
   {
-    v17 = [(HDSPSleepStorage *)self syncedDefaults:v29];
+    v17 = [(HDSPSleepStorage *)self syncedDefaults:v28];
     v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:version];
     [v17 hksp_setObject:v18 forKey:keyCopy];
 
@@ -797,28 +770,27 @@ LABEL_11:
     v22 = HKSPLogForCategory();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v26 = objc_opt_class();
-      v27 = v38[5];
+      v25 = objc_opt_class();
+      v26 = v37[5];
       *buf = 138543618;
-      v48 = v26;
-      v49 = 2114;
-      v50 = v27;
-      v28 = v26;
+      v47 = v25;
+      v48 = 2114;
+      v49 = v26;
+      v27 = v25;
       _os_log_error_impl(&dword_269B11000, v22, OS_LOG_TYPE_ERROR, "[%{public}@] failed serialization with error %{public}@", buf, 0x16u);
     }
 
     if (error)
     {
-      *error = v38[5];
+      *error = v37[5];
     }
   }
 
-  v23 = *(v44 + 24);
+  v23 = *(v43 + 24);
 
-  _Block_object_dispose(&v37, 8);
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v42, 8);
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23 & 1;
 }
 
@@ -903,15 +875,15 @@ LABEL_13:
 
 - (void)environmentWillBecomeReady:(id)ready
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   readyCopy = ready;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = objc_opt_class();
-    v6 = v12;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] environmentWillBecomeReady", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = objc_opt_class();
+    v6 = v11;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] environmentWillBecomeReady", &v10, 0xCu);
   }
 
   diagnostics = [readyCopy diagnostics];
@@ -922,48 +894,43 @@ LABEL_13:
   [notificationListener addObserver:self];
   syncedDefaults = [(HDSPSleepStorage *)self syncedDefaults];
   [syncedDefaults hdsp_setExternalChangeDelegate:self];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetCloudStorage
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = objc_opt_class();
-    v4 = v8;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] resetting Cloud storage", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = objc_opt_class();
+    v4 = v7;
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] resetting Cloud storage", &v6, 0xCu);
   }
 
   syncedDefaults = [(HDSPSleepStorage *)self syncedDefaults];
   [syncedDefaults resetCloudData];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncedUserDefaultsDidChangeExternally:(id)externally
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = HKSPLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v10 = objc_opt_class();
-    v5 = v10;
+    v9 = objc_opt_class();
+    v5 = v9;
     _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] syncedDefaultsDidChangeExternally", buf, 0xCu);
   }
 
   observers = self->_observers;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __58__HDSPSleepStorage_syncedUserDefaultsDidChangeExternally___block_invoke;
-  v8[3] = &unk_279C7B198;
-  v8[4] = self;
-  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v8];
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __58__HDSPSleepStorage_syncedUserDefaultsDidChangeExternally___block_invoke;
+  v7[3] = &unk_279C7B198;
+  v7[4] = self;
+  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v7];
 }
 
 - (NSString)sourceIdentifier
@@ -975,19 +942,19 @@ LABEL_13:
 
 - (id)notificationListener:(id)listener didReceiveNotificationWithName:(id)name
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if ([nameCopy isEqualToString:@"com.apple.sleepd.cloudkit.reset"])
   {
     v6 = HKSPLogForCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 138543618;
-      *&v11[4] = objc_opt_class();
-      *&v11[12] = 2114;
-      *&v11[14] = nameCopy;
-      v7 = *&v11[4];
-      _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] received %{public}@", v11, 0x16u);
+      *v10 = 138543618;
+      *&v10[4] = objc_opt_class();
+      *&v10[12] = 2114;
+      *&v10[14] = nameCopy;
+      v7 = *&v10[4];
+      _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] received %{public}@", v10, 0x16u);
     }
 
     if ([nameCopy isEqualToString:@"com.apple.sleepd.cloudkit.reset"])
@@ -997,8 +964,6 @@ LABEL_13:
   }
 
   futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return futureWithNoResult;
 }

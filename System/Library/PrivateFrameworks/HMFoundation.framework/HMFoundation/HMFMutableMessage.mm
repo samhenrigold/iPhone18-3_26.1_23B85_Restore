@@ -56,15 +56,15 @@
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       v5 = objc_autoreleasePoolPush();
-      v6 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+      v7 = HMFGetOSLogHandle(0, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
-        v7 = HMFGetLogIdentifier(0);
+        v8 = HMFGetLogIdentifier(0);
         v10 = 138543618;
-        v11 = v7;
+        v11 = v8;
         v12 = 2112;
         v13 = infoCopy;
-        _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_FAULT, "%{public}@Invalid userInfo class provided, %@, for message, see <rdar://problem/37677418>", &v10, 0x16u);
+        _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_FAULT, "%{public}@Invalid userInfo class provided, %@, for message, see <rdar://problem/37677418>", &v10, 0x16u);
       }
 
       objc_autoreleasePoolPop(v5);
@@ -73,8 +73,6 @@
 
   internal = [(HMFMessage *)self internal];
   [internal setUserInfo:infoCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUserInfoValue:(id)value forKey:(id)key

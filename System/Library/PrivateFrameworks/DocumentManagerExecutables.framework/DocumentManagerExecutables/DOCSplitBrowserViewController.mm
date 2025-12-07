@@ -288,7 +288,7 @@ LABEL_23:
 
       if (os_log_type_enabled(v67, OS_LOG_TYPE_FAULT))
       {
-        [DOCSplitBrowserViewController initWithConfiguration:v67 sourceObserver:?];
+        [DOCSplitBrowserViewController initWithConfiguration:v67 sourceObserver:v10];
       }
     }
 
@@ -1860,15 +1860,15 @@ void __98__DOCSplitBrowserViewController_splitViewController_displayModeForExpan
   _os_log_error_impl(&dword_2493AC000, log, OS_LOG_TYPE_ERROR, "Error getting item from URL: %@ error: %@", &v3, 0x16u);
 }
 
-- (void)initWithConfiguration:(void *)a1 sourceObserver:.cold.2(void *a1)
+- (void)initWithConfiguration:(void *)a1 sourceObserver:(uint64_t)a2 .cold.2(void *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v4 = 138412290;
-  v5 = v3;
-  _os_log_fault_impl(&dword_2493AC000, v1, OS_LOG_TYPE_FAULT, "ERROR(performance): %@'s view was loaded during init", &v4, 0xCu);
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_fault_impl(&dword_2493AC000, v2, OS_LOG_TYPE_FAULT, "ERROR(performance): %@'s view was loaded during init", &v5, 0xCu);
 }
 
 @end

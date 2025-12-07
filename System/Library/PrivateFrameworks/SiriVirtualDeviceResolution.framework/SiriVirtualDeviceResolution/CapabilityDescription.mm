@@ -23,38 +23,39 @@
 
 - (NSSet)valueSet
 {
-  if (CapabilityDescription.valueSet.getter())
+  CapabilityDescription.valueSet.getter();
+  if (v2)
   {
     sub_2698D23FC(0, &qword_28131C3F0, 0x277D82BB8);
     sub_2698E47B8();
-    v2 = sub_269903A9C();
+    v3 = sub_269903A9C();
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 - (NSString)capabilityKey
 {
   selfCopy = self;
-  CapabilityDescription.capabilityKey.getter();
-  v4 = v3;
+  CapabilityDescription.capabilityKey.getter(selfCopy, v3, v4, v5);
+  v7 = v6;
 
-  if (v4)
+  if (v7)
   {
-    v5 = sub_2699038FC();
+    v8 = sub_2699038FC();
   }
 
   else
   {
-    v5 = 0;
+    v8 = 0;
   }
 
-  return v5;
+  return v8;
 }
 
 - (NSNumber)valueRangeLowerBound

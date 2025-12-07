@@ -5190,7 +5190,7 @@ void __52__AVPlayerController__updatePhotosensitivityRegions__block_invoke(uint6
     [(AVPlayerController *)self maxTime];
     v6 = v5;
     v7 = *&v5 & 0x7FFFFFFFFFFFFFFFLL;
-    [(AVPlayerController *)self currentTime];
+    objc_msgSend_currentTime(self);
     v9 = vabdd_f64(v6, v8);
     v11 = v7 < 0x7FF0000000000000 && (*&v8 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000;
     v12 = v9 <= 10.0 && v11;
@@ -5258,7 +5258,7 @@ void __69__AVPlayerController__scheduleAtLiveEdgeStateUpdateWithTimeInterval___b
 {
   [(AVPlayerController *)self rate];
   v4 = v3;
-  [(AVPlayerController *)self currentTime];
+  objc_msgSend_currentTime(self);
   v6 = v5;
   [(AVPlayerController *)self maxTime];
   v8 = vabdd_f64(v7, v6);
@@ -5720,7 +5720,7 @@ LABEL_9:
   v7 = firstObject;
   if (firstObject)
   {
-    [firstObject CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(firstObject);
   }
 
   else
@@ -5922,7 +5922,7 @@ LABEL_10:
       v16 = currentItem;
       if (currentItem)
       {
-        [currentItem currentTime];
+        objc_msgSend_currentTime(currentItem);
       }
 
       else
@@ -6019,7 +6019,7 @@ LABEL_13:
     v5 = player;
     if (player)
     {
-      [player currentTime];
+      objc_msgSend_currentTime(player);
     }
 
     else
@@ -6055,12 +6055,12 @@ LABEL_7:
         memset(&v25, 0, sizeof(v25));
         [v12 startTime];
         v15 = v14;
-        [v12 duration];
+        objc_msgSend_duration(v12);
         CMTimeMakeWithSeconds(&v25, v15 + v16 * 0.333333333, preferredTimescale.timescale);
         memset(&v24, 0, sizeof(v24));
         [v12 startTime];
         v18 = v17;
-        [v12 duration];
+        objc_msgSend_duration(v12);
         CMTimeMakeWithSeconds(&v24, v18 + v19, preferredTimescale.timescale);
         time1 = preferredTimescale;
         v23 = v25;
@@ -6127,7 +6127,7 @@ LABEL_18:
     v4 = player;
     if (player)
     {
-      [player currentTime];
+      objc_msgSend_currentTime(player);
     }
 
     else
@@ -6160,7 +6160,7 @@ LABEL_18:
           v11 = *(*(&v16 + 1) + 8 * i);
           [v11 startTime];
           v13 = v12;
-          [v11 duration];
+          objc_msgSend_duration(v11);
           if (v9 > floor((v13 + v14 * 0.333333333) * 1000000.0))
           {
             LOBYTE(v5) = 1;
@@ -6199,7 +6199,7 @@ LABEL_16:
     v5 = player;
     if (player)
     {
-      [player currentTime];
+      objc_msgSend_currentTime(player);
     }
 
     else
@@ -6283,7 +6283,7 @@ LABEL_16:
     v4 = player;
     if (player)
     {
-      [player currentTime];
+      objc_msgSend_currentTime(player);
     }
 
     else
@@ -6444,7 +6444,7 @@ LABEL_7:
 
       else
       {
-        [(AVPlayerController *)self currentTime];
+        objc_msgSend_currentTime(self);
       }
 
       v10 = v9 + -30.0;
@@ -6477,13 +6477,13 @@ LABEL_7:
           goto LABEL_15;
         }
 
-        [currentItem reversePlaybackEndTime];
+        objc_msgSend_reversePlaybackEndTime(currentItem);
         if ((v24[12] & 1) == 0)
         {
           goto LABEL_16;
         }
 
-        [currentItem reversePlaybackEndTime];
+        objc_msgSend_reversePlaybackEndTime(currentItem);
         time2 = **&MEMORY[0x1E6960CC0];
         if (!CMTimeCompare(&time1, &time2))
         {
@@ -6496,16 +6496,16 @@ LABEL_7:
     {
       if (currentItem)
       {
-        [currentItem forwardPlaybackEndTime];
+        objc_msgSend_forwardPlaybackEndTime(currentItem);
         if (v25[12])
         {
-          [currentItem forwardPlaybackEndTime];
+          objc_msgSend_forwardPlaybackEndTime(currentItem);
           player2 = [(AVPlayerController *)self player];
           currentItem2 = [player2 currentItem];
           v9 = currentItem2;
           if (currentItem2)
           {
-            [currentItem2 duration];
+            objc_msgSend_duration(currentItem2);
           }
 
           else
@@ -6554,7 +6554,7 @@ LABEL_21:
     v34 = 0;
     if (currentItem)
     {
-      [currentItem currentTime];
+      objc_msgSend_currentTime(currentItem);
     }
 
     v23[0] = 0;
@@ -6612,38 +6612,38 @@ void __45__AVPlayerController_seekOrStepByFrameCount___block_invoke(uint64_t a1,
 
 void __45__AVPlayerController_seekOrStepByFrameCount___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
-    memset(&v11, 0, sizeof(v11));
+    memset(&v10, 0, sizeof(v10));
     v3 = *(a1 + 32);
-    if (!v3 || (v4 = *(a1 + 64), time = *(*(*(a1 + 40) + 8) + 32), [v3 avkit_timeForFrameSteppedByFrameCount:v4 fromFrameAtTime:&time], (v11.flags & 0x1D) != 1))
+    if (!v3 || (time = *(*(*(a1 + 40) + 8) + 32), objc_msgSend_avkit_timeForFrameSteppedByFrameCount_fromFrameAtTime_(v3), (v10.flags & 0x1D) != 1))
     {
-      v5 = *(a1 + 48);
-      v6 = *(*(a1 + 40) + 8);
-      CMTimeMake(&rhs, *(*(v5 + 8) + 24), 4);
-      v9 = *(v6 + 32);
-      CMTimeAdd(&time, &v9, &rhs);
-      v11 = time;
+      v4 = *(a1 + 48);
+      v5 = *(*(a1 + 40) + 8);
+      CMTimeMake(&rhs, *(*(v4 + 8) + 24), 4);
+      v8 = *(v5 + 32);
+      CMTimeAdd(&time, &v8, &rhs);
+      v10 = time;
     }
 
-    v7 = _AVLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = _AVLog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      time = v11;
+      time = v10;
       Seconds = CMTimeGetSeconds(&time);
       LODWORD(time.value) = 136315394;
       *(&time.value + 4) = "[AVPlayerController seekOrStepByFrameCount:]_block_invoke_2";
       LOWORD(time.flags) = 2048;
       *(&time.flags + 2) = Seconds;
-      _os_log_impl(&dword_18B49C000, v7, OS_LOG_TYPE_DEFAULT, "%s sampleBasedSeekTarget: %f", &time, 0x16u);
+      _os_log_impl(&dword_18B49C000, v6, OS_LOG_TYPE_DEFAULT, "%s sampleBasedSeekTarget: %f", &time, 0x16u);
     }
 
-    time = v11;
+    time = v10;
     rhs = **&MEMORY[0x1E6960CC0];
-    v9 = rhs;
-    [WeakRetained seekToCMTime:&time toleranceBefore:&rhs toleranceAfter:&v9];
+    v8 = rhs;
+    [WeakRetained seekToCMTime:&time toleranceBefore:&rhs toleranceAfter:&v8];
   }
 }
 
@@ -7147,7 +7147,7 @@ LABEL_10:
     v3 = _AVLog();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      [(AVPlayerController *)self seekToTimeInternal];
+      objc_msgSend_seekToTimeInternal(self);
       Seconds = CMTimeGetSeconds(&time);
       time = *(&self->_pendingSeek + 4);
       v5 = CMTimeGetSeconds(&time);
@@ -7173,7 +7173,7 @@ LABEL_10:
     v7 = _Block_copy(aBlock);
     if (self->_photosensitivityRegions)
     {
-      [(AVPlayerController *)self seekToTimeInternal];
+      objc_msgSend_seekToTimeInternal(self);
       v8 = CMTimeGetSeconds(&time);
       photosensitivityRegions = self->_photosensitivityRegions;
       time = *(&self->_pendingSeek + 4);
@@ -7185,7 +7185,7 @@ LABEL_10:
     else
     {
       player = [(AVPlayerController *)self player];
-      [(AVPlayerController *)self seekToTimeInternal];
+      objc_msgSend_seekToTimeInternal(self);
       v13 = *(&self->_pendingSeek + 4);
       v14 = *&self->_toleranceBefore.flags;
       v11 = *(&self->_toleranceBefore.epoch + 4);
@@ -7320,7 +7320,7 @@ void __40__AVPlayerController_actuallySeekToTime__block_invoke_2(uint64_t a1)
     v13 = firstObject;
     if (firstObject)
     {
-      [firstObject CMTimeRangeValue];
+      objc_msgSend_CMTimeRangeValue(firstObject);
     }
 
     else
@@ -7475,14 +7475,14 @@ void __73__AVPlayerController_throttledSeekToTime_toleranceBefore_toleranceAfter
     }
 
     memset(&buf, 0, sizeof(buf));
-    [(AVPlayerController *)self seekToTimeInternal];
+    objc_msgSend_seekToTimeInternal(self);
     if ((buf.flags & 1) == 0)
     {
       player = [(AVPlayerController *)self player];
       v6 = player;
       if (player)
       {
-        [player currentTime];
+        objc_msgSend_currentTime(player);
       }
 
       else
@@ -7555,11 +7555,11 @@ void __73__AVPlayerController_throttledSeekToTime_toleranceBefore_toleranceAfter
   {
     [(AVPlayerController *)self initialScrubbingTime];
     v7 = v6;
-    [(AVPlayerController *)self currentTime];
+    objc_msgSend_currentTime(self);
     v9 = v8;
     if ([(AVPlayerController *)self isSeekingInternal])
     {
-      [(AVPlayerController *)self seekToTimeInternal];
+      objc_msgSend_seekToTimeInternal(self);
       Seconds = CMTimeGetSeconds(&v12);
       if (fabs(Seconds) != INFINITY)
       {
@@ -7594,7 +7594,7 @@ void __73__AVPlayerController_throttledSeekToTime_toleranceBefore_toleranceAfter
   [(AVPlayerController *)self suspendPlaybackCoordinatorWhileActivelySeekingIfNecessary];
   [(AVPlayerController *)self _updateRateForScrubbingAndSeeking];
   [(AVPlayerController *)self _cancelPendingSeeksIfNeeded];
-  [(AVPlayerController *)self currentTime];
+  objc_msgSend_currentTime(self);
   [(AVPlayerController *)self setInitialScrubbingTime:?];
 }
 
@@ -7625,7 +7625,7 @@ void __73__AVPlayerController_throttledSeekToTime_toleranceBefore_toleranceAfter
   v6 = firstObject;
   if (firstObject)
   {
-    [firstObject CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(firstObject);
   }
 
   else
@@ -8493,7 +8493,7 @@ LABEL_7:
       v7 = asset;
       if (asset)
       {
-        [asset duration];
+        objc_msgSend_duration(asset);
         if (v14)
         {
           player2 = [(AVPlayerController *)self player];
@@ -8502,7 +8502,7 @@ LABEL_7:
           if (asset2)
           {
             v11 = asset2;
-            [asset2 duration];
+            objc_msgSend_duration(asset2);
 
             if ((v13 & 0x10) != 0)
             {
@@ -8631,7 +8631,7 @@ LABEL_14:
               v20 = 0u;
               if (v15)
               {
-                [v15 CMTimeRangeValue];
+                objc_msgSend_CMTimeRangeValue(v15);
               }
 
               *&v19.value = v20;
@@ -8689,7 +8689,7 @@ LABEL_14:
 
 - (double)currentTimeWithinEndTimes
 {
-  [(AVPlayerController *)self currentTime];
+  objc_msgSend_currentTime(self, a2);
   v4 = v3;
   [(AVPlayerController *)self minTime];
   return v4 - v5;
@@ -8780,7 +8780,7 @@ LABEL_14:
   v5 = currentItem;
   if (currentItem)
   {
-    [currentItem forwardPlaybackEndTime];
+    objc_msgSend_forwardPlaybackEndTime(currentItem);
   }
 
   else
@@ -8808,7 +8808,7 @@ LABEL_14:
       v10 = currentItem2;
       if (currentItem2)
       {
-        [currentItem2 duration];
+        objc_msgSend_duration(currentItem2);
       }
 
       else
@@ -8830,7 +8830,7 @@ LABEL_14:
 - (double)maxTime
 {
   memset(&v10[1], 0, sizeof(CMTime));
-  [(AVPlayerController *)self forwardPlaybackEndTime];
+  objc_msgSend_forwardPlaybackEndTime(self, a2);
   if (0 >> 96 == 1)
   {
     v10[0] = v10[1];
@@ -8884,7 +8884,7 @@ LABEL_14:
   v5 = currentItem;
   if (currentItem)
   {
-    [currentItem reversePlaybackEndTime];
+    objc_msgSend_reversePlaybackEndTime(currentItem);
   }
 
   else
@@ -8912,7 +8912,7 @@ LABEL_14:
 - (double)minTime
 {
   memset(&v9[1], 0, sizeof(CMTime));
-  [(AVPlayerController *)self reversePlaybackEndTime];
+  objc_msgSend_reversePlaybackEndTime(self, a2);
   if (0 >> 96 == 1)
   {
     v9[0] = v9[1];
@@ -8968,7 +8968,7 @@ LABEL_14:
     v9 = currentItem;
     if (currentItem)
     {
-      [currentItem currentTime];
+      objc_msgSend_currentTime(currentItem);
     }
 
     else
@@ -9024,7 +9024,7 @@ LABEL_14:
   v7 = player;
   if (player)
   {
-    [player currentTime];
+    objc_msgSend_currentTime(player);
   }
 
   else
@@ -9054,7 +9054,7 @@ LABEL_14:
         v14 = *(*(&v19 + 1) + 8 * i);
         if (v14)
         {
-          [*(*(&v19 + 1) + 8 * i) timeRange];
+          objc_msgSend_timeRange(*(*(&v19 + 1) + 8 * i));
         }
 
         else
@@ -9093,7 +9093,7 @@ LABEL_19:
   {
     photosensitivityRegions = self->_photosensitivityRegions;
 
-    [(NSArray *)photosensitivityRegions duration];
+    objc_msgSend_duration(photosensitivityRegions, a2);
   }
 
   else
@@ -9107,7 +9107,7 @@ LABEL_19:
     v10 = currentItem;
     if (currentItem)
     {
-      [currentItem duration];
+      objc_msgSend_duration(currentItem);
     }
 
     else
@@ -9348,7 +9348,7 @@ LABEL_10:
   v4 = v3;
   if (v3)
   {
-    [v3 currentTime];
+    objc_msgSend_currentTime(v3);
   }
 
   else
@@ -9382,7 +9382,7 @@ LABEL_10:
   v13 = v12;
   if (v12)
   {
-    [v12 duration];
+    objc_msgSend_duration(v12);
   }
 
   else
@@ -9676,7 +9676,7 @@ void __33__AVPlayerController_setPlaying___block_invoke(uint64_t a1)
 
     if (v5)
     {
-      [v5 currentTime];
+      objc_msgSend_currentTime(v5);
     }
 
     else
@@ -9688,7 +9688,7 @@ void __33__AVPlayerController_setPlaying___block_invoke(uint64_t a1)
     v10 = v9;
     if (v9)
     {
-      [v9 duration];
+      objc_msgSend_duration(v9);
     }
 
     else
@@ -9706,7 +9706,7 @@ void __33__AVPlayerController_setPlaying___block_invoke(uint64_t a1)
 LABEL_13:
       if (v5)
       {
-        [v5 currentTime];
+        objc_msgSend_currentTime(v5);
         playbackMinTimeForPlayerItem(&time2, v5);
       }
 
@@ -9845,7 +9845,7 @@ void __33__AVPlayerController_setPlaying___block_invoke_3(uint64_t a1)
     v11 = player3;
     if (player3)
     {
-      [player3 currentTime];
+      objc_msgSend_currentTime(player3);
     }
 
     else
@@ -9875,7 +9875,7 @@ void __33__AVPlayerController_setPlaying___block_invoke_3(uint64_t a1)
           memset(&buf, 0, sizeof(buf));
           if (v15)
           {
-            [v15 CMTimeRangeValue];
+            objc_msgSend_CMTimeRangeValue(v15);
           }
 
           range = buf;
@@ -10581,7 +10581,7 @@ uint64_t __34__AVPlayerController__playAtRate___block_invoke(uint64_t a1)
       v24 = firstObject;
       if (firstObject)
       {
-        [firstObject CMTimeRangeValue];
+        objc_msgSend_CMTimeRangeValue(firstObject);
       }
 
       else
@@ -10605,7 +10605,7 @@ uint64_t __34__AVPlayerController__playAtRate___block_invoke(uint64_t a1)
       v71 = firstObject2;
       if (firstObject2)
       {
-        [firstObject2 CMTimeRangeValue];
+        objc_msgSend_CMTimeRangeValue(firstObject2);
       }
 
       else
@@ -10857,7 +10857,7 @@ LABEL_130:
 
   if ([pathCopy isEqualToString:@"seekToTimeInternal"])
   {
-    [(AVPlayerController *)self seekToTimeInternal];
+    objc_msgSend_seekToTimeInternal(self);
     v98 = CMTimeGetSeconds(&buf.start);
     objc_initWeak(&buf, self);
     v121[0] = MEMORY[0x1E69E9820];
@@ -11092,7 +11092,7 @@ void __64__AVPlayerController__observeValueForKeyPath_oldValue_newValue___block_
   objc_destroyWeak(&v23);
 }
 
-uint64_t __64__AVPlayerController__observeValueForKeyPath_oldValue_newValue___block_invoke_9(uint64_t a1)
+void *__64__AVPlayerController__observeValueForKeyPath_oldValue_newValue___block_invoke_9(uint64_t a1)
 {
   result = [*(a1 + 32) statusOfValueForKey:@"availableChapterLocales" error:0];
   if (result == 2)
@@ -11118,7 +11118,7 @@ void __64__AVPlayerController__observeValueForKeyPath_oldValue_newValue___block_
   objc_destroyWeak(&v4);
 }
 
-uint64_t __64__AVPlayerController__observeValueForKeyPath_oldValue_newValue___block_invoke_13(uint64_t a1)
+void *__64__AVPlayerController__observeValueForKeyPath_oldValue_newValue___block_invoke_13(uint64_t a1)
 {
   result = [*(a1 + 32) statusOfValueForKey:@"composable" error:0];
   if (result == 2)
@@ -11144,7 +11144,7 @@ void __64__AVPlayerController__observeValueForKeyPath_oldValue_newValue___block_
   objc_destroyWeak(&v4);
 }
 
-uint64_t __64__AVPlayerController__observeValueForKeyPath_oldValue_newValue___block_invoke_17(uint64_t a1)
+void *__64__AVPlayerController__observeValueForKeyPath_oldValue_newValue___block_invoke_17(uint64_t a1)
 {
   result = [*(a1 + 32) statusOfValueForKey:@"hasProtectedContent" error:0];
   if (result == 2)
@@ -11170,7 +11170,7 @@ void __64__AVPlayerController__observeValueForKeyPath_oldValue_newValue___block_
   objc_destroyWeak(&v4);
 }
 
-uint64_t __64__AVPlayerController__observeValueForKeyPath_oldValue_newValue___block_invoke_21(uint64_t a1)
+void *__64__AVPlayerController__observeValueForKeyPath_oldValue_newValue___block_invoke_21(uint64_t a1)
 {
   result = [*(a1 + 32) statusOfValueForKey:@"availableMetadataFormats" error:0];
   if (result == 2)
@@ -11196,7 +11196,7 @@ void __64__AVPlayerController__observeValueForKeyPath_oldValue_newValue___block_
   objc_destroyWeak(&v4);
 }
 
-uint64_t __64__AVPlayerController__observeValueForKeyPath_oldValue_newValue___block_invoke_25(uint64_t a1)
+void *__64__AVPlayerController__observeValueForKeyPath_oldValue_newValue___block_invoke_25(uint64_t a1)
 {
   result = [*(a1 + 32) statusOfValueForKey:@"compatibleWithAirPlayVideo" error:0];
   if (result == 2)
@@ -11274,11 +11274,11 @@ void __64__AVPlayerController__observeValueForKeyPath_oldValue_newValue___block_
 
         if (v7)
         {
-          [v7 timeRange];
+          objc_msgSend_timeRange(v7);
           *&time.value = v23;
           time.epoch = v24;
           Seconds = CMTimeGetSeconds(&time);
-          [v7 timeRange];
+          objc_msgSend_timeRange(v7);
         }
 
         else
@@ -11422,7 +11422,7 @@ void __85__AVPlayerController__ensureOnMainThreadAndObserveValueForKeyPath_oldVa
   v6 = currentItem;
   if (currentItem)
   {
-    [currentItem duration];
+    objc_msgSend_duration(currentItem);
   }
 
   else
@@ -11441,7 +11441,7 @@ void __85__AVPlayerController__ensureOnMainThreadAndObserveValueForKeyPath_oldVa
     v10 = v9;
     if (v9)
     {
-      [v9 CMTimeRangeValue];
+      objc_msgSend_CMTimeRangeValue(v9);
     }
 
     else
@@ -11572,7 +11572,7 @@ LABEL_10:
   result = self->_currentAudioTrack;
   if (result)
   {
-    return [(CGAffineTransform *)result preferredTransform];
+    return objc_msgSend_preferredTransform(result, a3);
   }
 
   *&retstr->c = 0u;
@@ -11869,7 +11869,7 @@ void __30__AVPlayerController_startKVO__block_invoke_7(uint64_t a1, void *a2)
     goto LABEL_12;
   }
 
-  [v9 duration];
+  objc_msgSend_duration(v9);
   if ((v23 & 0x100000000) == 0)
   {
 LABEL_12:
@@ -11887,7 +11887,7 @@ LABEL_12:
   }
 
   v12 = v11;
-  [v11 duration];
+  objc_msgSend_duration(v11);
 
   if ((v20 & 0x1000000000) != 0)
   {
@@ -12785,7 +12785,7 @@ uint64_t __51__AVPlayerController_assetInspectionKeysForPrimary__block_invoke()
   v7 = currentItem;
   if (currentItem)
   {
-    [currentItem currentTime];
+    objc_msgSend_currentTime(currentItem);
   }
 
   else
@@ -12861,7 +12861,7 @@ LABEL_15:
       v11 = player;
       if (player)
       {
-        [player currentTime];
+        objc_msgSend_currentTime(player);
       }
 
       else
@@ -12878,7 +12878,7 @@ LABEL_15:
       v14 = timecodeController;
       if (timecodeController)
       {
-        [timecodeController observationInterval];
+        objc_msgSend_observationInterval(timecodeController);
       }
 
       else
@@ -12939,7 +12939,7 @@ void __100__AVPlayerController_AVPlayerControllerTimecodeSupportInternal__startG
   v5 = timecodeController;
   if (timecodeController)
   {
-    [timecodeController observationInterval];
+    objc_msgSend_observationInterval(timecodeController);
   }
 
   else
@@ -12981,7 +12981,7 @@ void __100__AVPlayerController_AVPlayerControllerTimecodeSupportInternal__startG
     v6 = currentItem;
     if (currentItem)
     {
-      [currentItem reversePlaybackEndTime];
+      objc_msgSend_reversePlaybackEndTime(currentItem);
       if ((v27 & 0x100000000) != 0)
       {
         player2 = [(AVPlayerController *)self player];
@@ -12990,7 +12990,7 @@ void __100__AVPlayerController_AVPlayerControllerTimecodeSupportInternal__startG
         v22 = player2;
         if (currentItem2)
         {
-          [currentItem2 reversePlaybackEndTime];
+          objc_msgSend_reversePlaybackEndTime(currentItem2);
         }
 
         else
@@ -13024,14 +13024,14 @@ void __100__AVPlayerController_AVPlayerControllerTimecodeSupportInternal__startG
     player3 = [(AVPlayerController *)self player];
     currentItem3 = [player3 currentItem];
     v13 = currentItem3;
-    if (currentItem3 && ([currentItem3 forwardPlaybackEndTime], (v23 & 1) != 0))
+    if (currentItem3 && (objc_msgSend_forwardPlaybackEndTime(currentItem3), (v23 & 1) != 0))
     {
       player4 = [(AVPlayerController *)self player];
       currentItem4 = [player4 currentItem];
       v15 = currentItem4;
       if (currentItem4)
       {
-        [currentItem4 forwardPlaybackEndTime];
+        objc_msgSend_forwardPlaybackEndTime(currentItem4);
       }
 
       else
@@ -13044,7 +13044,7 @@ void __100__AVPlayerController_AVPlayerControllerTimecodeSupportInternal__startG
       v19 = currentItem5;
       if (currentItem5)
       {
-        [currentItem5 duration];
+        objc_msgSend_duration(currentItem5);
       }
 
       else

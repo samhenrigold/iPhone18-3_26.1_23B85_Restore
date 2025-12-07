@@ -40,11 +40,11 @@ Swift::Void __swiftcall FMPFRingView.updateWithDeltaTime(_:)(Swift::Double a1)
 {
   v3 = type metadata accessor for DispatchWorkItemFlags();
   v4 = *(v3 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v3);
   v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = type metadata accessor for DispatchQoS();
   v8 = *(v7 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v7);
   v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = swift_allocObject();
   *(v11 + 16) = v1;
@@ -58,7 +58,7 @@ Swift::Void __swiftcall FMPFRingView.updateWithDeltaTime(_:)(Swift::Double a1)
 
   else
   {
-    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
     v14 = static OS_dispatch_queue.main.getter();
     v15 = swift_allocObject();
     *(v15 + 16) = partial apply for closure #1 in FMPFRingView.updateWithDeltaTime(_:);
@@ -76,7 +76,7 @@ Swift::Void __swiftcall FMPFRingView.updateWithDeltaTime(_:)(Swift::Double a1)
     static DispatchQoS.unspecified.getter();
     aBlock[0] = MEMORY[0x277D84F90];
     lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
     lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
     dispatch thunk of SetAlgebra.init<A>(_:)();
     MEMORY[0x26D6B1500](0, v10, v6, v17);
@@ -224,11 +224,11 @@ uint64_t FMPFRingView.setOpacity(_:sprung:)(uint64_t a1, char a2, char a3)
 {
   v7 = type metadata accessor for DispatchWorkItemFlags();
   v22 = *(v7 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v7);
   v9 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v21 = type metadata accessor for DispatchQoS();
   v10 = *(v21 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v21);
   v12 = &v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = swift_allocObject();
   *(v13 + 16) = a1;
@@ -245,7 +245,7 @@ uint64_t FMPFRingView.setOpacity(_:sprung:)(uint64_t a1, char a2, char a3)
 
   else
   {
-    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
     v18 = static OS_dispatch_queue.main.getter();
     v19 = swift_allocObject();
     *(v19 + 16) = partial apply for closure #1 in FMPFRingView.setOpacity(_:sprung:);
@@ -261,7 +261,7 @@ uint64_t FMPFRingView.setOpacity(_:sprung:)(uint64_t a1, char a2, char a3)
     static DispatchQoS.unspecified.getter();
     aBlock[0] = MEMORY[0x277D84F90];
     lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
     lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
     dispatch thunk of SetAlgebra.init<A>(_:)();
     MEMORY[0x26D6B1500](0, v12, v9, v20);
@@ -477,7 +477,7 @@ LABEL_13:
   v3 = 0x3A65736963657270;
   v2 = 0xE900000000000020;
 LABEL_14:
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_26D0D2E90;
   *(v6 + 56) = MEMORY[0x277D837D0];
@@ -496,12 +496,14 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance FMFindi
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance FMFindingTrend()
+double protocol witness for Hashable.hash(into:) in conformance FMFindingTrend(uint64_t a1)
 {
   String.hash(into:)();
+
+  return result;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FMFindingTrend()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FMFindingTrend(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -621,12 +623,14 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance FMFindi
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance FMFindingMeasurement.CodingKeys()
+double protocol witness for Hashable.hash(into:) in conformance FMFindingMeasurement.CodingKeys(uint64_t a1)
 {
   String.hash(into:)();
+
+  return result;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FMFindingMeasurement.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FMFindingMeasurement.CodingKeys(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -634,27 +638,26 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FMF
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance FMFindingMeasurement.CodingKeys@<X0>(Swift::String *a1@<X0>, char *a2@<X8>)
+void protocol witness for RawRepresentable.init(rawValue:) in conformance FMFindingMeasurement.CodingKeys(Swift::String *a1@<X0>, char *a2@<X8>)
 {
   v3 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of FMFindingMeasurement.CodingKeys.init(rawValue:), *a1);
 
   if (v3 == 1)
   {
-    v5 = 1;
+    v4 = 1;
   }
 
   else
   {
-    v5 = 2;
+    v4 = 2;
   }
 
   if (!v3)
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  *a2 = v5;
-  return result;
+  *a2 = v4;
 }
 
 void protocol witness for RawRepresentable.rawValue.getter in conformance FMFindingMeasurement.CodingKeys(uint64_t *a1@<X8>)
@@ -688,7 +691,7 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance FMFind
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance FMFindingMeasurement.CodingKeys@<X0>(Swift::String string@<0:X0, 8:X1>, char *a2@<X8>)
+void protocol witness for CodingKey.init(stringValue:) in conformance FMFindingMeasurement.CodingKeys(Swift::String string@<0:X0, 8:X1>, char *a2@<X8>)
 {
   object = string._object;
   v3._countAndFlagsBits = string._countAndFlagsBits;
@@ -697,21 +700,20 @@ uint64_t protocol witness for CodingKey.init(stringValue:) in conformance FMFind
 
   if (v5 == 1)
   {
-    v7 = 1;
+    v6 = 1;
   }
 
   else
   {
-    v7 = 2;
+    v6 = 2;
   }
 
   if (!v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  *a2 = v7;
-  return result;
+  *a2 = v6;
 }
 
 uint64_t protocol witness for CustomStringConvertible.description.getter in conformance FMFindingMeasurement.CodingKeys(uint64_t a1)
@@ -731,9 +733,9 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 uint64_t FMFindingMeasurement.encode(to:)(void *a1)
 {
   v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10TVRemoteUI20FMFindingMeasurementO10CodingKeys33_D103FFDFE5EFB859C200F2C74AFC4691LLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10TVRemoteUI20FMFindingMeasurementO10CodingKeys33_D103FFDFE5EFB859C200F2C74AFC4691LLOGMd, &_ss22KeyedEncodingContainerVy10TVRemoteUI20FMFindingMeasurementO10CodingKeys33_D103FFDFE5EFB859C200F2C74AFC4691LLOGMR);
   v6 = *(v5 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v5);
   v8 = &v11[-v7];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type FMFindingMeasurement.CodingKeys and conformance FMFindingMeasurement.CodingKeys();
@@ -783,7 +785,7 @@ LABEL_12:
     *(v17 + 9) = *(v3 + 81);
     v14 = *(v3 + 24);
     v11[15] = 1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10TVRemoteUI17FMFindingDistanceVSgMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10TVRemoteUI17FMFindingDistanceVSgMd, &_s10TVRemoteUI17FMFindingDistanceVSgMR);
     lazy protocol witness table accessor for type FMFindingDistance? and conformance <A> A?();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
@@ -858,7 +860,7 @@ LABEL_11:
 Swift::Int FMFindingMeasurement.hashValue.getter()
 {
   Hasher.init(_seed:)();
-  v1 = *(v0 + 16);
+  v1 = *(v0 + 2);
   if (v1 > 3)
   {
     if (v1 == 4)
@@ -899,77 +901,85 @@ LABEL_12:
 
   else
   {
+    v5 = *v0;
+    v8 = *(v0 + 40);
+    v9 = *(v0 + 56);
+    v10[0] = *(v0 + 72);
+    *(v10 + 9) = *(v0 + 81);
+    v7 = *(v0 + 24);
+    v6 = v1;
     Hasher._combine(_:)(1u);
-    FMFindingDistance.hash(into:)();
+    FMFindingDistance.hash(into:)(v4);
   }
 
   return Hasher._finalize()();
 }
 
-BOOL protocol witness for static Equatable.== infix(_:_:) in conformance FMFindingMeasurement(uint64_t a1, uint64_t a2)
+BOOL protocol witness for static Equatable.== infix(_:_:) in conformance FMFindingMeasurement(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v2 = *(a1 + 80);
-  v11[4] = *(a1 + 64);
-  v11[5] = v2;
-  v12 = *(a1 + 96);
-  v3 = *(a1 + 16);
-  v11[0] = *a1;
-  v11[1] = v3;
-  v4 = *(a1 + 48);
-  v11[2] = *(a1 + 32);
-  v11[3] = v4;
-  v5 = *(a2 + 16);
-  v13[0] = *a2;
-  v13[1] = v5;
-  v6 = *(a2 + 32);
-  v7 = *(a2 + 48);
-  v8 = *(a2 + 64);
-  v9 = *(a2 + 80);
-  v14 = *(a2 + 96);
-  v13[4] = v8;
-  v13[5] = v9;
-  v13[2] = v6;
-  v13[3] = v7;
-  return specialized static FMFindingMeasurement.== infix(_:_:)(v11, v13);
+  v8 = *(a1 + 80);
+  v17[4] = *(a1 + 64);
+  v17[5] = v8;
+  v18 = *(a1 + 96);
+  v9 = *(a1 + 16);
+  v17[0] = *a1;
+  v17[1] = v9;
+  v10 = *(a1 + 48);
+  v17[2] = *(a1 + 32);
+  v17[3] = v10;
+  v11 = *(a2 + 16);
+  v19[0] = *a2;
+  v19[1] = v11;
+  v12 = *(a2 + 32);
+  v13 = *(a2 + 48);
+  v14 = *(a2 + 64);
+  v15 = *(a2 + 80);
+  v20 = *(a2 + 96);
+  v19[4] = v14;
+  v19[5] = v15;
+  v19[2] = v12;
+  v19[3] = v13;
+  return specialized static FMFindingMeasurement.== infix(_:_:)(v17, v19, a3, a4, a5, a6, a7, a8);
 }
 
-void protocol witness for Hashable.hash(into:) in conformance FMFindingMeasurement()
+void protocol witness for Hashable.hash(into:) in conformance FMFindingMeasurement(uint64_t a1)
 {
-  v1 = *(v0 + 16);
-  if (v1 > 3)
+  v2 = v1;
+  v4 = *(v2 + 16);
+  if (v4 > 3)
   {
-    if (v1 == 4)
+    if (v4 == 4)
     {
-      v2 = 3;
+      v5 = 3;
       goto LABEL_12;
     }
 
-    if (v1 == 5)
+    if (v4 == 5)
     {
-      v2 = 4;
+      v5 = 4;
       goto LABEL_12;
     }
   }
 
   else
   {
-    if (v1 == 2)
+    if (v4 == 2)
     {
-      v2 = 1;
+      v5 = 1;
       goto LABEL_12;
     }
 
-    if (v1 == 3)
+    if (v4 == 3)
     {
-      v2 = 2;
+      v5 = 2;
 LABEL_12:
-      MEMORY[0x26D6B18C0](v2);
+      MEMORY[0x26D6B18C0](v5);
       return;
     }
   }
 
   MEMORY[0x26D6B18C0](5);
-  if (v1 == 1)
+  if (v4 == 1)
   {
     Hasher._combine(_:)(0);
   }
@@ -977,90 +987,97 @@ LABEL_12:
   else
   {
     Hasher._combine(_:)(1u);
-    FMFindingDistance.hash(into:)();
+    FMFindingDistance.hash(into:)(a1);
   }
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FMFindingMeasurement()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FMFindingMeasurement(uint64_t a1)
 {
-  v1 = *(v0 + 16);
+  v2 = *(v1 + 2);
   Hasher.init(_seed:)();
-  if (v1 > 3)
+  if (v2 > 3)
   {
-    if (v1 == 4)
+    if (v2 == 4)
     {
-      v2 = 3;
+      v3 = 3;
       goto LABEL_12;
     }
 
-    if (v1 == 5)
+    if (v2 == 5)
     {
-      v2 = 4;
+      v3 = 4;
       goto LABEL_12;
     }
   }
 
   else
   {
-    if (v1 == 2)
+    if (v2 == 2)
     {
-      v2 = 1;
+      v3 = 1;
       goto LABEL_12;
     }
 
-    if (v1 == 3)
+    if (v2 == 3)
     {
-      v2 = 2;
+      v3 = 2;
 LABEL_12:
-      MEMORY[0x26D6B18C0](v2);
+      MEMORY[0x26D6B18C0](v3);
       return Hasher._finalize()();
     }
   }
 
   MEMORY[0x26D6B18C0](5);
-  if (v1 == 1)
+  if (v2 == 1)
   {
     Hasher._combine(_:)(0);
   }
 
   else
   {
+    v6 = *v1;
+    v9 = *(v1 + 40);
+    v10 = *(v1 + 56);
+    v11[0] = *(v1 + 72);
+    *(v11 + 9) = *(v1 + 81);
+    v8 = *(v1 + 24);
+    v7 = v2;
     Hasher._combine(_:)(1u);
-    FMFindingDistance.hash(into:)();
+    FMFindingDistance.hash(into:)(v5);
   }
 
   return Hasher._finalize()();
 }
 
-__n128 protocol witness for Decodable.init(from:) in conformance FMFindingMeasurement@<Q0>(void *a1@<X0>, uint64_t a2@<X8>)
+__n128 protocol witness for Decodable.init(from:) in conformance FMFindingMeasurement@<Q0>(uint64_t a1@<X8>, void *a2@<X0>)
 {
-  specialized FMFindingMeasurement.init(from:)(a1, v7);
+  specialized FMFindingMeasurement.init(from:)(a2, v7);
   if (!v2)
   {
     v5 = v7[5];
-    *(a2 + 64) = v7[4];
-    *(a2 + 80) = v5;
-    *(a2 + 96) = v8;
+    *(a1 + 64) = v7[4];
+    *(a1 + 80) = v5;
+    *(a1 + 96) = v8;
     v6 = v7[1];
-    *a2 = v7[0];
-    *(a2 + 16) = v6;
+    *a1 = v7[0];
+    *(a1 + 16) = v6;
     result = v7[3];
-    *(a2 + 32) = v7[2];
-    *(a2 + 48) = result;
+    *(a1 + 32) = v7[2];
+    *(a1 + 48) = result;
   }
 
   return result;
 }
 
-BOOL specialized static FMFindingMeasurement.== infix(_:_:)(uint64_t a1, uint64_t a2)
+BOOL specialized static FMFindingMeasurement.== infix(_:_:)(__int128 *a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v2 = *(a1 + 16);
-  v3 = *(a2 + 16);
-  if (v2 > 3)
+  v8 = *(a1 + 2);
+  v9 = *(a2 + 2);
+  if (v8 > 3)
   {
-    if (v2 == 4)
+    if (v8 == 4)
     {
-      if (v3 != 4)
+      if (v9 != 4)
       {
         return 0;
       }
@@ -1068,12 +1085,12 @@ BOOL specialized static FMFindingMeasurement.== infix(_:_:)(uint64_t a1, uint64_
 
     else
     {
-      if (v2 != 5)
+      if (v8 != 5)
       {
         goto LABEL_10;
       }
 
-      if (v3 != 5)
+      if (v9 != 5)
       {
         return 0;
       }
@@ -1082,116 +1099,116 @@ BOOL specialized static FMFindingMeasurement.== infix(_:_:)(uint64_t a1, uint64_
     return 1;
   }
 
-  if (v2 == 2)
+  if (v8 == 2)
   {
-    return v3 == 2;
+    return v9 == 2;
   }
 
-  if (v2 == 3)
+  if (v8 == 3)
   {
-    return v3 == 3;
+    return v9 == 3;
   }
 
 LABEL_10:
-  if ((v3 - 2) < 4)
+  if ((v9 - 2) < 4)
   {
     return 0;
   }
 
-  v38 = *a1;
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 72);
-  v36 = *(a1 + 56);
-  v37[0] = v5;
-  *(v37 + 9) = *(a1 + 81);
-  v34 = *(a1 + 24);
-  v35 = v4;
-  *&v33[7] = *a2;
-  if (v2 != 1)
+  v44 = *a1;
+  v10 = *(a1 + 40);
+  v11 = *(a1 + 72);
+  v42 = *(a1 + 56);
+  v43[0] = v11;
+  *(v43 + 9) = *(a1 + 81);
+  v40 = *(a1 + 24);
+  v41 = v10;
+  *&v39[7] = *a2;
+  if (v8 != 1)
   {
-    if (v3 != 1)
+    if (v9 != 1)
     {
-      v17 = *a2;
-      *v18 = v3;
-      *&v18[8] = *(a2 + 24);
-      *&v18[24] = *(a2 + 40);
-      *&v18[65] = *(a2 + 81);
-      *&v18[56] = *(a2 + 72);
-      *&v18[40] = *(a2 + 56);
-      v25 = v17;
-      *v26 = *v18;
-      v26[80] = v18[80];
-      *&v26[48] = *&v18[48];
-      *&v26[64] = *&v18[64];
-      *&v26[16] = *&v18[16];
-      *&v26[32] = *&v18[32];
-      v39 = *a1;
-      v41 = *(a1 + 24);
-      v13 = *(a1 + 40);
-      v14 = *(a1 + 56);
-      v15 = *(a1 + 72);
-      *(v44 + 9) = *(a1 + 81);
-      v44[0] = v15;
-      v43 = v14;
-      v42 = v13;
-      v40 = v2;
-      outlined init with copy of FMFindingMeasurement(a1, &v19);
-      outlined init with copy of FMFindingMeasurement(a2, &v19);
-      v6 = specialized static FMFindingDistance.== infix(_:_:)(&v39, &v25);
-      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v17, &_s10TVRemoteUI17FMFindingDistanceVSgMd);
-      v19 = v38;
-      v20 = v2;
-      v22 = v35;
-      v23 = v36;
-      v24[0] = v37[0];
-      *(v24 + 9) = *(v37 + 9);
-      v21 = v34;
-      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v19, &_s10TVRemoteUI17FMFindingDistanceVSgMd);
-      return v6;
+      v23 = *a2;
+      *v24 = v9;
+      *&v24[8] = *(a2 + 24);
+      *&v24[24] = *(a2 + 40);
+      *&v24[65] = *(a2 + 81);
+      *&v24[56] = *(a2 + 72);
+      *&v24[40] = *(a2 + 56);
+      v31 = v23;
+      *v32 = *v24;
+      v32[80] = v24[80];
+      *&v32[48] = *&v24[48];
+      *&v32[64] = *&v24[64];
+      *&v32[16] = *&v24[16];
+      *&v32[32] = *&v24[32];
+      v45 = *a1;
+      v47 = *(a1 + 24);
+      v19 = *(a1 + 40);
+      v20 = *(a1 + 56);
+      v21 = *(a1 + 72);
+      *(v50 + 9) = *(a1 + 81);
+      v50[0] = v21;
+      v49 = v20;
+      v48 = v19;
+      v46 = v8;
+      outlined init with copy of FMFindingMeasurement(a1, &v25);
+      outlined init with copy of FMFindingMeasurement(a2, &v25);
+      v12 = specialized static FMFindingDistance.== infix(_:_:)(&v45, &v31);
+      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v23, &_s10TVRemoteUI17FMFindingDistanceVSgMd, &_s10TVRemoteUI17FMFindingDistanceVSgMR);
+      v25 = v44;
+      v26 = v8;
+      v28 = v41;
+      v29 = v42;
+      v30[0] = v43[0];
+      *(v30 + 9) = *(v43 + 9);
+      v27 = v40;
+      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v25, &_s10TVRemoteUI17FMFindingDistanceVSgMd, &_s10TVRemoteUI17FMFindingDistanceVSgMR);
+      return v12;
     }
 
     goto LABEL_19;
   }
 
-  if (v3 != 1)
+  if (v9 != 1)
   {
 LABEL_19:
-    v25 = *a1;
-    *&v26[24] = *(a1 + 40);
-    *&v26[40] = *(a1 + 56);
-    *&v26[56] = *(a1 + 72);
-    *&v26[65] = *(a1 + 81);
-    *&v26[8] = *(a1 + 24);
-    *v27 = *v33;
-    *v26 = v2;
-    *&v27[15] = *&v33[15];
-    v28 = v3;
-    v8 = *(a2 + 24);
-    *&v32[9] = *(a2 + 81);
-    v9 = *(a2 + 72);
-    v31 = *(a2 + 56);
-    *v32 = v9;
-    v10 = *(a2 + 40);
-    v29 = v8;
-    v30 = v10;
-    outlined init with copy of FMFindingMeasurement(a1, &v39);
-    outlined init with copy of FMFindingMeasurement(a2, &v39);
-    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v25, &_s10TVRemoteUI17FMFindingDistanceVSg_ADtMd);
+    v31 = *a1;
+    *&v32[24] = *(a1 + 40);
+    *&v32[40] = *(a1 + 56);
+    *&v32[56] = *(a1 + 72);
+    *&v32[65] = *(a1 + 81);
+    *&v32[8] = *(a1 + 24);
+    *v33 = *v39;
+    *v32 = v8;
+    *&v33[15] = *&v39[15];
+    v34 = v9;
+    v14 = *(a2 + 24);
+    *&v38[9] = *(a2 + 81);
+    v15 = *(a2 + 72);
+    v37 = *(a2 + 56);
+    *v38 = v15;
+    v16 = *(a2 + 40);
+    v35 = v14;
+    v36 = v16;
+    outlined init with copy of FMFindingMeasurement(a1, &v45);
+    outlined init with copy of FMFindingMeasurement(a2, &v45);
+    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v31, &_s10TVRemoteUI17FMFindingDistanceVSg_ADtMd, &_s10TVRemoteUI17FMFindingDistanceVSg_ADtMR);
     return 0;
   }
 
-  v25 = *a1;
-  v6 = 1;
-  *v26 = 1;
-  *&v26[24] = *(a1 + 40);
-  *&v26[40] = *(a1 + 56);
-  *&v26[56] = *(a1 + 72);
-  *&v26[65] = *(a1 + 81);
-  *&v26[8] = *(a1 + 24);
-  outlined init with copy of FMFindingMeasurement(a1, &v39);
-  outlined init with copy of FMFindingMeasurement(a2, &v39);
-  outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v25, &_s10TVRemoteUI17FMFindingDistanceVSgMd);
-  return v6;
+  v31 = *a1;
+  v12 = 1;
+  *v32 = 1;
+  *&v32[24] = *(a1 + 40);
+  *&v32[40] = *(a1 + 56);
+  *&v32[56] = *(a1 + 72);
+  *&v32[65] = *(a1 + 81);
+  *&v32[8] = *(a1 + 24);
+  outlined init with copy of FMFindingMeasurement(a1, &v45);
+  outlined init with copy of FMFindingMeasurement(a2, &v45);
+  outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v31, &_s10TVRemoteUI17FMFindingDistanceVSgMd, &_s10TVRemoteUI17FMFindingDistanceVSgMR);
+  return v12;
 }
 
 uint64_t getEnumTagSinglePayload for FMFindingMeasurement(uint64_t a1, unsigned int a2)
@@ -1312,9 +1329,9 @@ unint64_t specialized FMFindingTrend.init(rawValue:)(Swift::String string)
 
 uint64_t specialized FMFindingMeasurement.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10TVRemoteUI20FMFindingMeasurementO10CodingKeys33_D103FFDFE5EFB859C200F2C74AFC4691LLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10TVRemoteUI20FMFindingMeasurementO10CodingKeys33_D103FFDFE5EFB859C200F2C74AFC4691LLOGMd, &_ss22KeyedDecodingContainerVy10TVRemoteUI20FMFindingMeasurementO10CodingKeys33_D103FFDFE5EFB859C200F2C74AFC4691LLOGMR);
   v6 = *(v5 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v5);
   v8 = &v16 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type FMFindingMeasurement.CodingKeys and conformance FMFindingMeasurement.CodingKeys();
@@ -1449,7 +1466,7 @@ unint64_t lazy protocol witness table accessor for type FMFindingDistance? and c
   result = lazy protocol witness table cache variable for type FMFindingDistance? and conformance <A> A?;
   if (!lazy protocol witness table cache variable for type FMFindingDistance? and conformance <A> A?)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10TVRemoteUI17FMFindingDistanceVSgMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10TVRemoteUI17FMFindingDistanceVSgMd, &_s10TVRemoteUI17FMFindingDistanceVSgMR);
     lazy protocol witness table accessor for type FMFindingDistance and conformance FMFindingDistance();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type FMFindingDistance? and conformance <A> A?);
@@ -1880,7 +1897,7 @@ Swift::Void __swiftcall FMPFSKBTRangeDotNode.update(delta:)(Swift::Double delta)
   [v2 setScale_];
 }
 
-void FMPFSKBTRangeDotNode.setDotNodeSizeFactor(_:sprung:)(char a1, Swift::Double a2)
+void FMPFSKBTRangeDotNode.setDotNodeSizeFactor(_:sprung:)(uint64_t a1, Swift::Double a2)
 {
   v3 = v2;
   v4 = *&v2[OBJC_IVAR____TtC10TVRemoteUI20FMPFSKBTRangeDotNode_sizeSpring];
@@ -1941,7 +1958,7 @@ Swift::Void __swiftcall FMPFSKBTRangeDotNode.pulse(duration:)(Swift::Double dura
       v4 = v3;
       type metadata accessor for FMPFSKSpriteNode();
       v5 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
       v6 = swift_allocObject();
       *(v6 + 16) = xmmword_26D0D2860;
       v7 = objc_opt_self();
@@ -1951,7 +1968,7 @@ Swift::Void __swiftcall FMPFSKBTRangeDotNode.pulse(duration:)(Swift::Double dura
       v11 = [v7 distance:v10 toNode:v1];
 
       *(v6 + 32) = v11;
-      type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for SKConstraint);
+      type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for SKConstraint, 0x277CDCF38);
       isa = Array._bridgeToObjectiveC()().super.isa;
 
       [v9 setConstraints_];
@@ -1971,7 +1988,7 @@ Swift::Void __swiftcall FMPFSKBTRangeDotNode.pulse(duration:)(Swift::Double dura
       *(v17 + 16) = xmmword_26D0D2880;
       *(v17 + 32) = v16;
       *(v17 + 40) = v15;
-      type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for SKAction);
+      type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for SKAction, 0x277CDCF30);
       v18 = v16;
       v19 = v15;
       v20 = Array._bridgeToObjectiveC()().super.isa;
@@ -1996,11 +2013,11 @@ Swift::Void __swiftcall FMPFSKBTRangeDotNode.pulse(duration:)(Swift::Double dura
   }
 }
 
-id FMPFSKBTRangeDotNode.__deallocating_deinit()
+id FMPFSKBTRangeDotNode.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for FMPFSKBTRangeDotNode();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for FMPFSKBTRangeDotNode();
+  return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
 uint64_t block_copy_helper_2(uint64_t a1, uint64_t a2)
@@ -2049,7 +2066,7 @@ uint64_t FMPFSKPatternFragmentNode.description.getter()
     MEMORY[0x26D6B12B0](v18, v3);
 
     MEMORY[0x26D6B12B0](0x3E4025202CLL, 0xE500000000000000);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
     v39 = swift_allocObject();
     *(v39 + 16) = xmmword_26D0D2E90;
     v40 = [v1 isHidden];
@@ -2113,7 +2130,7 @@ uint64_t FMPFSKPatternFragmentNode.description.getter()
     MEMORY[0x26D6B12B0](v37, v22);
 
     MEMORY[0x26D6B12B0](0xD000000000000024, 0x800000026D0DC2A0);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
     v44 = swift_allocObject();
     *(v44 + 16) = xmmword_26D0D3E20;
     v45 = MEMORY[0x277D85048];
@@ -2343,7 +2360,7 @@ Swift::Void __swiftcall FMPFSKPatternFragmentNode.setDotsFreeFromBearing()()
         v5 = *v1;
         v4 = *(v1 + 1);
         v6 = *v2;
-        v7 = specialized RandomNumberGenerator.next<A>(upperBound:)(11);
+        v7 = specialized RandomNumberGenerator.next<A>(upperBound:)();
         v8 = v0 + OBJC_IVAR____TtC10TVRemoteUI25FMPFSKPatternFragmentNode_style;
         v9 = *(v0 + OBJC_IVAR____TtC10TVRemoteUI25FMPFSKPatternFragmentNode_style + 32) * 100.0;
         if (v9 < 0.0)
@@ -2927,11 +2944,11 @@ uint64_t specialized FMPFSKPatternFragmentNode.arcLength(from:endPoint:)(uint64_
   return fabs((v11 + v11) * v14);
 }
 
-uint64_t partial apply for closure #1 in FMPFSKPatternFragmentNode.executePartPerimeterRotation(_:)()
+void partial apply for closure #1 in FMPFSKPatternFragmentNode.executePartPerimeterRotation(_:)()
 {
   v1 = *(v0 + 16);
   [v1 setSpeed_];
-  return FMPFSKPatternFragmentNode.executePartPerimeterRotation(_:)(v1);
+  FMPFSKPatternFragmentNode.executePartPerimeterRotation(_:)(v1);
 }
 
 uint64_t block_copy_helper_3(uint64_t a1, uint64_t a2)
@@ -2964,17 +2981,17 @@ uint64_t protocol witness for Tip.image.getter in conformance SiriTip()
 
 uint64_t protocol witness for Tip.options.getter in conformance SiriTip()
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO14OptionsBuilderV17buildPartialBlock5firstQrx_tAA0A6OptionRzlFZQOy__AE0F10ExpressionyQrxAaHRzlFZQOy__AC17UsesConstellationVQo_Qo_Md);
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO14OptionsBuilderV17buildPartialBlock5firstQrx_tAA0A6OptionRzlFZQOy__AE0F10ExpressionyQrxAaHRzlFZQOy__AC17UsesConstellationVQo_Qo_Md, &_s6TipKit4TipsO14OptionsBuilderV17buildPartialBlock5firstQrx_tAA0A6OptionRzlFZQOy__AE0F10ExpressionyQrxAaHRzlFZQOy__AC17UsesConstellationVQo_Qo_MR);
   v1 = *(v0 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v0);
   v3 = &v16 - v2;
   v4 = type metadata accessor for Tips.UsesConstellation();
   v5 = *(v4 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v4);
   v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO14OptionsBuilderV15buildExpressionyQrxAA0A6OptionRzlFZQOy__AC17UsesConstellationVQo_Md);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO14OptionsBuilderV15buildExpressionyQrxAA0A6OptionRzlFZQOy__AC17UsesConstellationVQo_Md, &_s6TipKit4TipsO14OptionsBuilderV15buildExpressionyQrxAA0A6OptionRzlFZQOy__AC17UsesConstellationVQo_MR);
   v9 = *(v8 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v8);
   v11 = &v16 - v10;
   MEMORY[0x26D6B0FE0](1);
   v12 = MEMORY[0x277CE1A00];
@@ -3739,7 +3756,7 @@ void specialized FMPFSKPatternNode.init(coder:)()
   __break(1u);
 }
 
-uint64_t @objc FMPFSKScene.touchesBegan(_:with:)(void *a1, uint64_t a2, uint64_t a3, void *a4, void (*a5)(uint64_t))
+double @objc FMPFSKScene.touchesBegan(_:with:)(void *a1, uint64_t a2, uint64_t a3, void *a4, void (*a5)(uint64_t))
 {
   type metadata accessor for UITouch();
   lazy protocol witness table accessor for type UITouch and conformance NSObject();
@@ -3747,6 +3764,8 @@ uint64_t @objc FMPFSKScene.touchesBegan(_:with:)(void *a1, uint64_t a2, uint64_t
   v9 = a4;
   v10 = a1;
   a5(v8);
+
+  return result;
 }
 
 unint64_t type metadata accessor for UITouch()
@@ -3831,7 +3850,7 @@ void specialized FMPFSKScene.touchesBegan(_:with:)(uint64_t a1)
     if (!v19 || (v31 = v19, type metadata accessor for UITouch(), swift_dynamicCast(), v18 = v32[0], v16 = v8, v17 = v9, !v32[0]))
     {
 LABEL_28:
-      outlined consume of Set<UITouch>.Iterator._Variant();
+      outlined consume of Set<UITouch>.Iterator._Variant(a1);
       return;
     }
 
@@ -3982,7 +4001,7 @@ void specialized FMPFSKScene.touchesMoved(_:with:)(uint64_t a1)
     if (!__CocoaSet.Iterator.next()() || (type metadata accessor for UITouch(), swift_dynamicCast(), (v15 = v37) == 0))
     {
 LABEL_28:
-      outlined consume of Set<UITouch>.Iterator._Variant();
+      outlined consume of Set<UITouch>.Iterator._Variant(a1);
       return;
     }
 
@@ -4121,7 +4140,7 @@ void specialized FMPFSKScene.touchesEnded(_:with:)(uint64_t a1)
     if (!__CocoaSet.Iterator.next()() || (type metadata accessor for UITouch(), swift_dynamicCast(), v15 = v26, v13 = v6, v14 = v7, !v26))
     {
 LABEL_27:
-      outlined consume of Set<UITouch>.Iterator._Variant();
+      outlined consume of Set<UITouch>.Iterator._Variant(v3);
       *(v2 + v25) = 0;
       *(v2 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_isInteractivelyDebugging) = 0;
       return;
@@ -4269,7 +4288,7 @@ LABEL_13:
       if (!v16)
       {
 LABEL_19:
-        outlined consume of Set<UITouch>.Iterator._Variant();
+        outlined consume of Set<UITouch>.Iterator._Variant(v3);
         *(v2 + v19) = 0;
         *(v2 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_isInteractivelyDebugging) = 0;
         return;
@@ -4391,7 +4410,7 @@ LABEL_24:
   [v8 copy];
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for TVRCSiriRemoteInfo);
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for TVRCSiriRemoteInfo, 0x277D6C530);
   if (!swift_dynamicCast())
   {
     if (one-time initialization token for findingExperience != -1)
@@ -4444,9 +4463,9 @@ id TVRUIFindingSession.findingViewController(for:dismissedHandler:)(void *a1, ui
   v11 = &v10[OBJC_IVAR____TtC10TVRemoteUI36FindingSessionPresentationController_didDismissHandler];
   *v11 = partial apply for closure #1 in TVRUIFindingSession.findingViewController(for:dismissedHandler:);
   v11[1] = v8;
-  v26.receiver = v10;
-  v26.super_class = v9;
-  v12 = objc_msgSendSuper2(&v26, sel_init);
+  v27.receiver = v10;
+  v27.super_class = v9;
+  v12 = objc_msgSendSuper2(&v27, sel_init);
   [v4 setFindingSessionPresentationController_];
 
   v13 = TVRCSiriRemoteInfo.discoveryToken()();
@@ -4459,12 +4478,13 @@ id TVRUIFindingSession.findingViewController(for:dismissedHandler:)(void *a1, ui
 
     v18 = &v17[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_dismissedHandler];
     v19 = *&v17[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_dismissedHandler];
+    v20 = *&v17[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_dismissedHandler + 8];
     *v18 = a2;
     *(v18 + 1) = a3;
 
-    outlined consume of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v19);
+    outlined consume of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v19, v20);
     [v4 setFindingVC_];
-    v20 = [v4 findingVC];
+    v21 = [v4 findingVC];
   }
 
   else
@@ -4474,38 +4494,38 @@ id TVRUIFindingSession.findingViewController(for:dismissedHandler:)(void *a1, ui
       swift_once();
     }
 
-    v21 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v21, static Logger.findingExperience);
-    v22 = Logger.logObject.getter();
-    v23 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v22, v23))
+    v22 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v22, static Logger.findingExperience);
+    v23 = Logger.logObject.getter();
+    v24 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v23, v24))
     {
-      v24 = swift_slowAlloc();
-      *v24 = 0;
-      _os_log_impl(&dword_26CFEB000, v22, v23, "Failed to create discovery token", v24, 2u);
-      MEMORY[0x26D6B2710](v24, -1, -1);
+      v25 = swift_slowAlloc();
+      *v25 = 0;
+      _os_log_impl(&dword_26CFEB000, v23, v24, "Failed to create discovery token", v25, 2u);
+      MEMORY[0x26D6B2710](v25, -1, -1);
     }
 
     return 0;
   }
 
-  return v20;
+  return v21;
 }
 
-void closure #1 in TVRUIFindingSession.findingViewController(for:dismissedHandler:)()
+void closure #1 in TVRUIFindingSession.findingViewController(for:dismissedHandler:)(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = [Strong device];
+    v2 = Strong;
+    v3 = [Strong device];
 
-    if (v2)
+    if (v3)
     {
-      if ([v2 respondsToSelector_])
+      if ([v3 respondsToSelector_])
       {
-        [v2 enableFindingSession_];
+        [v3 enableFindingSession_];
       }
 
       swift_unknownObjectRelease();
@@ -4620,11 +4640,11 @@ id TVRUIFindingSession.init()()
   return objc_msgSendSuper2(&v2, sel_init);
 }
 
-id FindingSessionPresentationController.__deallocating_deinit()
+id FindingSessionPresentationController.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for FindingSessionPresentationController();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for FindingSessionPresentationController();
+  return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
 uint64_t specialized FindingSessionPresentationController.presentationControllerDidDismiss(_:)()
@@ -5839,12 +5859,12 @@ Swift::Void __swiftcall FMPFSKScene.fragmentsStartedOrbiting()()
 {
   v1 = type metadata accessor for DispatchWorkItemFlags();
   v2 = *(v1 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v1);
   v4 = &v29 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v5 = type metadata accessor for DispatchQoS();
   v31 = *(v5 - 8);
   v32 = v5;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v5);
   v7 = &v29 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (one-time initialization token for default != -1)
   {
@@ -5934,7 +5954,7 @@ Swift::Void __swiftcall FMPFSKScene.fragmentsStartedOrbiting()()
     static DispatchQoS.unspecified.getter();
     aBlock[0] = MEMORY[0x277D84F90];
     lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
     lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
     dispatch thunk of SetAlgebra.init<A>(_:)();
     MEMORY[0x26D6B1500](0, v7, v4, v28);
@@ -5964,12 +5984,12 @@ Swift::Void __swiftcall FMPFSKScene.fragmentsStoppedOrbiting()()
 {
   v1 = type metadata accessor for DispatchWorkItemFlags();
   v2 = *(v1 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v1);
   v4 = &v29 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v5 = type metadata accessor for DispatchQoS();
   v31 = *(v5 - 8);
   v32 = v5;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v5);
   v7 = &v29 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (one-time initialization token for default != -1)
   {
@@ -6059,7 +6079,7 @@ Swift::Void __swiftcall FMPFSKScene.fragmentsStoppedOrbiting()()
     static DispatchQoS.unspecified.getter();
     aBlock[0] = MEMORY[0x277D84F90];
     lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
     lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
     dispatch thunk of SetAlgebra.init<A>(_:)();
     MEMORY[0x26D6B1500](0, v7, v4, v28);
@@ -6311,14 +6331,14 @@ LABEL_8:
   }
 }
 
-uint64_t _StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
+void *_StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
 {
   v3 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of _StringGuts._allocateForDeconstruct());
   return v3;
 }
 
-uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
+void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -6400,11 +6420,11 @@ LABEL_20:
   return result;
 }
 
-uint64_t specialized Array.append<A>(contentsOf:)(uint64_t result)
+void specialized Array.append<A>(contentsOf:)(uint64_t a1)
 {
-  v2 = *(result + 16);
+  v2 = *(a1 + 16);
   v3 = *v1;
-  v4 = *(*v1 + 16);
+  v4 = *(*v1 + 2);
   v5 = v4 + v2;
   if (__OFADD__(v4, v2))
   {
@@ -6414,11 +6434,10 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v6 = result;
-  result = swift_isUniquelyReferenced_nonNull_native();
-  if (result && v5 <= *(v3 + 24) >> 1)
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  if (isUniquelyReferenced_nonNull_native && v5 <= *(v3 + 3) >> 1)
   {
-    if (*(v6 + 16))
+    if (*(a1 + 16))
     {
       goto LABEL_5;
     }
@@ -6428,17 +6447,16 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v11 = v4 + v2;
+    v12 = v4 + v2;
   }
 
   else
   {
-    v11 = v4;
+    v12 = v4;
   }
 
-  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v3);
-  v3 = result;
-  if (!*(v6 + 16))
+  v3 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v12, 1, v3);
+  if (!*(a1 + 16))
   {
 LABEL_13:
 
@@ -6451,41 +6469,40 @@ LABEL_13:
   }
 
 LABEL_5:
-  v7 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v7 < v2)
+  v8 = *(v3 + 2);
+  if ((*(v3 + 3) >> 1) - v8 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v7 + 32), (v6 + 32), v2);
+  memcpy(&v3[v8 + 32], (a1 + 32), v2);
 
   if (!v2)
   {
 LABEL_14:
     *v1 = v3;
-    return result;
+    return;
   }
 
-  v8 = *(v3 + 16);
-  v9 = __OFADD__(v8, v2);
-  v10 = v8 + v2;
-  if (!v9)
+  v9 = *(v3 + 2);
+  v10 = __OFADD__(v9, v2);
+  v11 = v9 + v2;
+  if (!v10)
   {
-    *(v3 + 16) = v10;
+    *(v3 + 2) = v11;
     goto LABEL_14;
   }
 
 LABEL_18:
   __break(1u);
-  return result;
 }
 
 {
-  v2 = *(result + 16);
+  v2 = *(a1 + 16);
   v3 = *v1;
-  v4 = *(*v1 + 16);
+  v4 = *(*v1 + 2);
   v5 = v4 + v2;
   if (__OFADD__(v4, v2))
   {
@@ -6495,11 +6512,10 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v6 = result;
-  result = swift_isUniquelyReferenced_nonNull_native();
-  if (result && v5 <= *(v3 + 24) >> 1)
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  if (isUniquelyReferenced_nonNull_native && v5 <= *(v3 + 3) >> 1)
   {
-    if (*(v6 + 16))
+    if (*(a1 + 16))
     {
       goto LABEL_5;
     }
@@ -6509,17 +6525,16 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v11 = v4 + v2;
+    v12 = v4 + v2;
   }
 
   else
   {
-    v11 = v4;
+    v12 = v4;
   }
 
-  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v3);
-  v3 = result;
-  if (!*(v6 + 16))
+  v3 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v12, 1, v3);
+  if (!*(a1 + 16))
   {
 LABEL_13:
 
@@ -6532,35 +6547,34 @@ LABEL_13:
   }
 
 LABEL_5:
-  v7 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v7 < v2)
+  v8 = *(v3 + 2);
+  if ((*(v3 + 3) >> 1) - v8 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + 16 * v7 + 32), (v6 + 32), 16 * v2);
+  memcpy(&v3[16 * v8 + 32], (a1 + 32), 16 * v2);
 
   if (!v2)
   {
 LABEL_14:
     *v1 = v3;
-    return result;
+    return;
   }
 
-  v8 = *(v3 + 16);
-  v9 = __OFADD__(v8, v2);
-  v10 = v8 + v2;
-  if (!v9)
+  v9 = *(v3 + 2);
+  v10 = __OFADD__(v9, v2);
+  v11 = v9 + v2;
+  if (!v10)
   {
-    *(v3 + 16) = v10;
+    *(v3 + 2) = v11;
     goto LABEL_14;
   }
 
 LABEL_18:
   __break(1u);
-  return result;
 }
 
 void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(uint64_t a1, uint64_t a2)
@@ -6580,7 +6594,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
     return MEMORY[0x277D84F90];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd, &_ss23_ContiguousArrayStorageCys5UInt8VGMR);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -6630,7 +6644,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd, &_ss23_ContiguousArrayStorageCys5UInt8VGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -6702,7 +6716,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySnySiGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySnySiGGMd, &_ss23_ContiguousArrayStorageCySnySiGGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -6780,7 +6794,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo7CGPointVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo7CGPointVGMd, &_ss23_ContiguousArrayStorageCySo7CGPointVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -6822,11 +6836,11 @@ uint64_t specialized FMPFSKScene.dispatch(_:)(void *a1)
 {
   v2 = type metadata accessor for DispatchWorkItemFlags();
   v3 = *(v2 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v2);
   v5 = &v21 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = type metadata accessor for DispatchQoS();
   v7 = *(v6 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v6);
   v9 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = swift_allocObject();
   *(v10 + 16) = a1;
@@ -6869,7 +6883,7 @@ uint64_t specialized FMPFSKScene.dispatch(_:)(void *a1)
     static DispatchQoS.unspecified.getter();
     aBlock[0] = MEMORY[0x277D84F90];
     lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
     lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
     dispatch thunk of SetAlgebra.init<A>(_:)();
     MEMORY[0x26D6B1500](0, v9, v5, v20);
@@ -6883,11 +6897,11 @@ uint64_t specialized FMPFSKScene.dispatch(_:)(void *a1)
 {
   v2 = type metadata accessor for DispatchWorkItemFlags();
   v3 = *(v2 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v2);
   v5 = &v21 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = type metadata accessor for DispatchQoS();
   v7 = *(v6 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v6);
   v9 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = swift_allocObject();
   *(v10 + 16) = a1;
@@ -6930,7 +6944,7 @@ uint64_t specialized FMPFSKScene.dispatch(_:)(void *a1)
     static DispatchQoS.unspecified.getter();
     aBlock[0] = MEMORY[0x277D84F90];
     lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
     lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
     dispatch thunk of SetAlgebra.init<A>(_:)();
     MEMORY[0x26D6B1500](0, v9, v5, v20);
@@ -6944,11 +6958,11 @@ uint64_t specialized FMPFSKScene.dispatch(_:)(void *a1)
 {
   v2 = type metadata accessor for DispatchWorkItemFlags();
   v3 = *(v2 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v2);
   v5 = &v21 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = type metadata accessor for DispatchQoS();
   v7 = *(v6 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v6);
   v9 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = swift_allocObject();
   *(v10 + 16) = a1;
@@ -6991,7 +7005,7 @@ uint64_t specialized FMPFSKScene.dispatch(_:)(void *a1)
     static DispatchQoS.unspecified.getter();
     aBlock[0] = MEMORY[0x277D84F90];
     lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
     lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
     dispatch thunk of SetAlgebra.init<A>(_:)();
     MEMORY[0x26D6B1500](0, v9, v5, v20);
@@ -7005,11 +7019,11 @@ uint64_t specialized FMPFSKScene.dispatch(_:)(void *a1)
 {
   v2 = type metadata accessor for DispatchWorkItemFlags();
   v3 = *(v2 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v2);
   v5 = &v21 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = type metadata accessor for DispatchQoS();
   v7 = *(v6 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v6);
   v9 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = swift_allocObject();
   *(v10 + 16) = a1;
@@ -7052,7 +7066,7 @@ uint64_t specialized FMPFSKScene.dispatch(_:)(void *a1)
     static DispatchQoS.unspecified.getter();
     aBlock[0] = MEMORY[0x277D84F90];
     lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
     lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
     dispatch thunk of SetAlgebra.init<A>(_:)();
     MEMORY[0x26D6B1500](0, v9, v5, v20);
@@ -7066,11 +7080,11 @@ uint64_t specialized FMPFSKScene.dispatch(_:)(void *a1)
 {
   v2 = type metadata accessor for DispatchWorkItemFlags();
   v3 = *(v2 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v2);
   v5 = &v21 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = type metadata accessor for DispatchQoS();
   v7 = *(v6 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v6);
   v9 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = swift_allocObject();
   *(v10 + 16) = a1;
@@ -7113,7 +7127,7 @@ uint64_t specialized FMPFSKScene.dispatch(_:)(void *a1)
     static DispatchQoS.unspecified.getter();
     aBlock[0] = MEMORY[0x277D84F90];
     lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
     lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
     dispatch thunk of SetAlgebra.init<A>(_:)();
     MEMORY[0x26D6B1500](0, v9, v5, v20);
@@ -7127,11 +7141,11 @@ uint64_t specialized FMPFSKScene.dispatch(_:)(void *a1)
 {
   v2 = type metadata accessor for DispatchWorkItemFlags();
   v3 = *(v2 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v2);
   v5 = &v21 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = type metadata accessor for DispatchQoS();
   v7 = *(v6 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v6);
   v9 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = swift_allocObject();
   *(v10 + 16) = a1;
@@ -7174,7 +7188,7 @@ uint64_t specialized FMPFSKScene.dispatch(_:)(void *a1)
     static DispatchQoS.unspecified.getter();
     aBlock[0] = MEMORY[0x277D84F90];
     lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
     lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
     dispatch thunk of SetAlgebra.init<A>(_:)();
     MEMORY[0x26D6B1500](0, v9, v5, v20);
@@ -7248,31 +7262,31 @@ unint64_t lazy protocol witness table accessor for type InfoTip and conformance 
 
 uint64_t specialized InfoTip.options.getter()
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO14OptionsBuilderV17buildPartialBlock11accumulated4nextQrx_q_tAA0A6OptionRzAaIR_r0_lFZQOy__AeF5firstQrx_tAaIRzlFZQOy__AE0F10ExpressionyQrxAaIRzlFZQOy__AC17UsesConstellationVQo_Qo_AeKyQrxAaIRzlFZQOy__AC15MaxDisplayCountVQo_Qo_Md);
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO14OptionsBuilderV17buildPartialBlock11accumulated4nextQrx_q_tAA0A6OptionRzAaIR_r0_lFZQOy__AeF5firstQrx_tAaIRzlFZQOy__AE0F10ExpressionyQrxAaIRzlFZQOy__AC17UsesConstellationVQo_Qo_AeKyQrxAaIRzlFZQOy__AC15MaxDisplayCountVQo_Qo_Md, &_s6TipKit4TipsO14OptionsBuilderV17buildPartialBlock11accumulated4nextQrx_q_tAA0A6OptionRzAaIR_r0_lFZQOy__AeF5firstQrx_tAaIRzlFZQOy__AE0F10ExpressionyQrxAaIRzlFZQOy__AC17UsesConstellationVQo_Qo_AeKyQrxAaIRzlFZQOy__AC15MaxDisplayCountVQo_Qo_MR);
   v1 = *(v0 - 8);
   v38 = v0;
   v39 = v1;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v0);
   v36 = &v30 - v2;
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO14OptionsBuilderV17buildPartialBlock5firstQrx_tAA0A6OptionRzlFZQOy__AE0F10ExpressionyQrxAaHRzlFZQOy__AC17UsesConstellationVQo_Qo_Md);
+  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO14OptionsBuilderV17buildPartialBlock5firstQrx_tAA0A6OptionRzlFZQOy__AE0F10ExpressionyQrxAaHRzlFZQOy__AC17UsesConstellationVQo_Qo_Md, &_s6TipKit4TipsO14OptionsBuilderV17buildPartialBlock5firstQrx_tAA0A6OptionRzlFZQOy__AE0F10ExpressionyQrxAaHRzlFZQOy__AC17UsesConstellationVQo_Qo_MR);
   v37 = *(v35 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v35);
   v33 = &v30 - v3;
   v4 = type metadata accessor for Tips.MaxDisplayCount();
   v5 = *(v4 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v4);
   v7 = &v30 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO14OptionsBuilderV15buildExpressionyQrxAA0A6OptionRzlFZQOy__AC15MaxDisplayCountVQo_Md);
+  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO14OptionsBuilderV15buildExpressionyQrxAA0A6OptionRzlFZQOy__AC15MaxDisplayCountVQo_Md, &_s6TipKit4TipsO14OptionsBuilderV15buildExpressionyQrxAA0A6OptionRzlFZQOy__AC15MaxDisplayCountVQo_MR);
   v34 = *(v32 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v32);
   v9 = &v30 - v8;
   v10 = type metadata accessor for Tips.UsesConstellation();
   v11 = *(v10 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v10);
   v13 = &v30 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO14OptionsBuilderV15buildExpressionyQrxAA0A6OptionRzlFZQOy__AC17UsesConstellationVQo_Md);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO14OptionsBuilderV15buildExpressionyQrxAA0A6OptionRzlFZQOy__AC17UsesConstellationVQo_Md, &_s6TipKit4TipsO14OptionsBuilderV15buildExpressionyQrxAA0A6OptionRzlFZQOy__AC17UsesConstellationVQo_MR);
   v31 = *(v14 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v14);
   v16 = &v30 - v15;
   MEMORY[0x26D6B0FE0](0);
   v17 = MEMORY[0x277CE1A00];
@@ -7808,54 +7822,54 @@ LABEL_103:
 void FMPFSKPatternNode.apply(presentedEnergeticAngle:presentedLethargicAngle:presentedCenterFactor:presentedLookout:)(uint64_t a1, int a2, uint64_t a3, char a4, uint64_t a5, char a6, uint64_t a7, int a8)
 {
   v9 = v8;
-  v192 = a2;
+  v193 = a2;
   v17 = type metadata accessor for DispatchWorkItemFlags();
-  v189 = *(v17 - 8);
-  v190 = v17;
-  MEMORY[0x28223BE20]();
-  v188 = &v166 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for DispatchQoS();
-  v19 = MEMORY[0x28223BE20]();
-  v22 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_noonNode);
-  if (v22)
+  v190 = *(v17 - 8);
+  v191 = v17;
+  MEMORY[0x28223BE20](v17);
+  v189 = &v167 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = type metadata accessor for DispatchQoS();
+  v20 = MEMORY[0x28223BE20](v19);
+  v23 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_noonNode);
+  if (v23)
   {
-    v23 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_pointeeNode);
-    if (v23)
+    v24 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_pointeeNode);
+    if (v24)
     {
       if ((*(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_presentedConformationFactor + 8) & 1) == 0)
       {
-        v171 = &v166 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v172 = v21;
-        v184 = a8;
-        v173 = v19;
-        v24 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_presentedConformationFactor);
-        v25 = v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_presentedCenterFactor;
-        *v25 = *&a5;
-        *(v25 + 8) = a6 & 1;
+        v172 = &v167 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v173 = v22;
+        v185 = a8;
+        v174 = v20;
+        v25 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_presentedConformationFactor);
+        v26 = v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_presentedCenterFactor;
+        *v26 = *&a5;
+        *(v26 + 8) = a6 & 1;
         if (a6)
         {
-          v26 = 0.0;
+          v27 = 0.0;
         }
 
         else
         {
-          v26 = *&a5;
+          v27 = *&a5;
         }
 
-        v27 = objc_opt_self();
-        v187 = v22;
-        v191 = v23;
-        v28 = [v27 standardUserDefaults];
-        v29 = [v28 fmpfDebugMode];
+        v28 = objc_opt_self();
+        v188 = v23;
+        v192 = v24;
+        v29 = [v28 standardUserDefaults];
+        v30 = [v29 fmpfDebugMode];
 
-        v30 = 1.0;
-        if (!v29)
+        v31 = 1.0;
+        if (!v30)
         {
-          v30 = 0.0;
+          v31 = 0.0;
         }
 
         [*(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_canvasPatternSpinesNode) setAlpha_];
-        v31 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_gimbalNode);
+        v32 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_gimbalNode);
         if (a4)
         {
           [*(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_gimbalNode) zRotation];
@@ -7863,505 +7877,505 @@ void FMPFSKPatternNode.apply(presentedEnergeticAngle:presentedLethargicAngle:pre
 
         else
         {
-          v32 = *&a3;
+          v33 = *&a3;
         }
 
-        v33 = v192;
-        [v31 setZRotation_];
-        v34 = *&a1;
-        if ((v33 & 1) == 0)
+        v34 = v193;
+        [v32 setZRotation_];
+        v35 = *&a1;
+        if ((v34 & 1) == 0)
         {
-          v34 = *&a1 / 3.14159265 * 180.0;
+          v35 = *&a1 / 3.14159265 * 180.0;
         }
 
-        v35 = v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_presentedEnergeticBearing;
-        *v35 = v34;
-        *(v35 + 8) = v33 & 1;
+        v36 = v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_presentedEnergeticBearing;
+        *v36 = v35;
+        *(v36 + 8) = v34 & 1;
         if ((a4 & 1) == 0)
         {
           *&a3 = *&a3 / 3.14159265 * 180.0;
         }
 
-        v36 = v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_presentedLethargicBearing;
-        *v36 = *&a3;
-        *(v36 + 8) = a4 & 1;
-        [*&v191[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_gimbalNode] zRotation];
-        v37 = 6.28318531;
-        v39 = fmod(v38, 6.28318531);
-        v186 = 3.14159265;
-        if (v39 <= 3.14159265)
+        v37 = v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_presentedLethargicBearing;
+        *v37 = *&a3;
+        *(v37 + 8) = a4 & 1;
+        [*&v192[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_gimbalNode] zRotation];
+        v38 = 6.28318531;
+        v40 = fmod(v39, 6.28318531);
+        v187 = 3.14159265;
+        if (v40 <= 3.14159265)
         {
-          v40 = v184;
-          if (v39 < -3.14159265)
+          v41 = v185;
+          if (v40 < -3.14159265)
           {
-            v39 = v39 + 6.28318531;
+            v40 = v40 + 6.28318531;
           }
         }
 
         else
         {
-          v39 = v39 + -6.28318531;
-          v40 = v184;
+          v40 = v40 + -6.28318531;
+          v41 = v185;
         }
 
-        v41 = fmod(v39, 6.28318531);
-        if (v41 <= v186)
+        v42 = fmod(v40, 6.28318531);
+        if (v42 <= v187)
         {
-          if (v41 < -3.14159265)
+          if (v42 < -3.14159265)
           {
-            v41 = v41 + 6.28318531;
+            v42 = v42 + 6.28318531;
           }
         }
 
         else
         {
-          v41 = v41 + -6.28318531;
+          v42 = v42 + -6.28318531;
         }
 
-        if ((v33 & 1) == 0)
+        if ((v34 & 1) == 0)
         {
-          v41 = *&a1;
+          v42 = *&a1;
         }
 
-        v42 = (v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_style);
-        v43 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_style + 112);
-        v44 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_style + 120);
-        v46 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_style + 96);
-        v45 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_style + 104);
-        v47 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_style + 136);
-        v170 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_style + 144);
-        v169 = v47;
-        v183 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_style + 128);
-        v48 = v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_presentedLookout;
-        *v48 = *&a7;
-        *(v48 + 8) = v40 & 1;
-        v49 = remainder(v41, 6.28318531);
-        v50 = fmod(v49, 6.28318531);
-        v51 = v50;
-        if (v50 <= v186)
+        v43 = (v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_style);
+        v44 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_style + 112);
+        v45 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_style + 120);
+        v47 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_style + 96);
+        v46 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_style + 104);
+        v48 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_style + 136);
+        v171 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_style + 144);
+        v170 = v48;
+        v184 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_style + 128);
+        v49 = v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_presentedLookout;
+        *v49 = *&a7;
+        *(v49 + 8) = v41 & 1;
+        v50 = remainder(v42, 6.28318531);
+        v51 = fmod(v50, 6.28318531);
+        v52 = v51;
+        if (v51 <= v187)
         {
-          if (v50 < -3.14159265)
+          if (v51 < -3.14159265)
           {
-            v51 = v50 + 6.28318531;
+            v52 = v51 + 6.28318531;
           }
         }
 
         else
         {
-          v51 = v50 + -6.28318531;
+          v52 = v51 + -6.28318531;
         }
 
-        v52 = (v24 - v42[20]) / (1.0 - v42[20]);
-        if (v52 < 0.0)
-        {
-          v52 = 0.0;
-        }
-
-        v175 = *&a7;
-        if (v40)
+        v53 = (v25 - v43[20]) / (1.0 - v43[20]);
+        if (v53 < 0.0)
         {
           v53 = 0.0;
         }
 
-        else
+        v176 = *&a7;
+        if (v41)
         {
-          v53 = *&a7;
+          v54 = 0.0;
         }
 
-        v55 = (1.0 - v26) * v52;
-        v56 = (1.0 - v53) * v55;
-        v57 = v24;
+        else
+        {
+          v54 = *&a7;
+        }
+
+        v56 = (1.0 - v27) * v53;
+        v57 = (1.0 - v54) * v56;
+        v58 = v25;
         if (*(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_forceHideNoonNode))
         {
-          v58 = 0.0;
+          v59 = 0.0;
         }
 
         else
         {
-          v58 = v52;
+          v59 = v53;
         }
 
-        v59 = (v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_presentedConformedToExplodedFactor);
-        v60 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_presentedConformedToExplodedFactor + 8);
-        v181 = v57;
-        if (v60)
+        v60 = (v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_presentedConformedToExplodedFactor);
+        v61 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_presentedConformedToExplodedFactor + 8);
+        v182 = v58;
+        if (v61)
         {
-          v179 = (1.0 - v53) * v55;
-          v61 = 1.0;
+          v180 = (1.0 - v54) * v56;
+          v62 = 1.0;
         }
 
         else
         {
-          v61 = 1.0 - *v59;
-          v62 = v57 * *v59;
-          v52 = v62 + v52 * v61;
-          v53 = v62 + v53 * v61;
-          v179 = v56 * v61;
+          v62 = 1.0 - *v60;
+          v63 = v58 * *v60;
+          v53 = v63 + v53 * v62;
+          v54 = v63 + v54 * v62;
+          v180 = v57 * v62;
         }
 
-        v54 = 1.0 - v26;
-        v176 = v61 * -(*(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_sceneSize + 8) * (v26 * (v26 * v26) + v26 * v26 * (v54 * 0.0) + v54 * (v54 * v54) * 0.0 + v26 * (v54 * v54 * 0.0)));
-        v182 = v45 * v52 + v46 * (1.0 - v52);
-        v178 = v44 * v52 + v43 * (1.0 - v52);
-        v185 = v53;
-        v63 = v183 * v53;
-        v168 = v42[21];
-        v167 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_pixelsPerInch);
-        v64 = [objc_opt_self() mainScreen];
-        [v64 scale];
-        v66 = v65;
+        v55 = 1.0 - v27;
+        v177 = v62 * -(*(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_sceneSize + 8) * (v27 * (v27 * v27) + v27 * v27 * (v55 * 0.0) + v55 * (v55 * v55) * 0.0 + v27 * (v55 * v55 * 0.0)));
+        v183 = v46 * v53 + v47 * (1.0 - v53);
+        v179 = v45 * v53 + v44 * (1.0 - v53);
+        v186 = v54;
+        v64 = v184 * v54;
+        v169 = v43[21];
+        v168 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_pixelsPerInch);
+        v65 = [objc_opt_self() mainScreen];
+        [v65 scale];
+        v67 = v66;
 
-        v67 = v42[2];
-        v68 = v191;
-        v69 = &v191[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_opacity];
-        *v69 = 0x3FF0000000000000;
-        v69[8] = 0;
-        v70 = *&v68[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_opacitySpring];
+        v68 = v43[2];
+        v69 = v192;
+        v70 = &v192[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_opacity];
+        *v70 = 0x3FF0000000000000;
+        v70[8] = 0;
+        v71 = *&v69[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_opacitySpring];
         FLSpring.resetImmediately(toValue:)(1.0);
-        *(v70 + OBJC_IVAR____TtC10TVRemoteUI15FMPFFluidSpring_ready) = 0;
-        v71 = &v68[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedOpacity];
-        *v71 = 0x3FF0000000000000;
-        v71[8] = 0;
-        v174 = OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_dotNode;
-        [*&v68[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_dotNode] setAlpha_];
-        [*&v68[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_btRangingNode] setAlpha_];
-        v72 = v187;
-        v73 = &v187[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_opacity];
-        *v73 = v58;
-        *(v73 + 8) = 0;
-        v74 = *&v72[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_opacitySpring];
-        FLSpring.resetImmediately(toValue:)(v58);
-        *(v74 + OBJC_IVAR____TtC10TVRemoteUI15FMPFFluidSpring_ready) = 0;
-        v75 = &v72[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedOpacity];
-        *v75 = v58;
-        *(v75 + 8) = 0;
-        v76 = OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_dotNode;
-        [*&v72[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_dotNode] setAlpha_];
-        [*&v72[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_btRangingNode] setAlpha_];
-        v77 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_centerFactor + 8);
-        v180 = v63;
-        if ((v77 & 1) != 0 || (v78 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_inFOV), v78 == 2) || (v79 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_centerFactor), (v78 & 1) == 0) && v26 < 2.22044605e-16)
+        *(v71 + OBJC_IVAR____TtC10TVRemoteUI15FMPFFluidSpring_ready) = 0;
+        v72 = &v69[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedOpacity];
+        *v72 = 0x3FF0000000000000;
+        v72[8] = 0;
+        v175 = OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_dotNode;
+        [*&v69[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_dotNode] setAlpha_];
+        [*&v69[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_btRangingNode] setAlpha_];
+        v73 = v188;
+        v74 = &v188[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_opacity];
+        *v74 = v59;
+        *(v74 + 8) = 0;
+        v75 = *&v73[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_opacitySpring];
+        FLSpring.resetImmediately(toValue:)(v59);
+        *(v75 + OBJC_IVAR____TtC10TVRemoteUI15FMPFFluidSpring_ready) = 0;
+        v76 = &v73[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedOpacity];
+        *v76 = v59;
+        *(v76 + 8) = 0;
+        v77 = OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_dotNode;
+        [*&v73[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_dotNode] setAlpha_];
+        [*&v73[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_btRangingNode] setAlpha_];
+        v78 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_centerFactor + 8);
+        v181 = v64;
+        if ((v78 & 1) != 0 || (v79 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_inFOV), v79 == 2) || (v80 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_centerFactor), (v79 & 1) == 0) && v27 < 2.22044605e-16)
         {
-          v80 = OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_extraDiskRadiusWhenSnapping;
-          v81 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_extraDiskRadiusWhenSnapping);
-          v82 = OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_noonNodeSnappedUnderPointeeNode;
-          v83 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_noonNodeSnappedUnderPointeeNode) == 1;
-          *&v177 = 6.28318531;
-          if (v83)
+          v81 = OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_extraDiskRadiusWhenSnapping;
+          v82 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_extraDiskRadiusWhenSnapping);
+          v83 = OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_noonNodeSnappedUnderPointeeNode;
+          v84 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_noonNodeSnappedUnderPointeeNode) == 1;
+          *&v178 = 6.28318531;
+          if (v84)
           {
-            v84 = 0.0;
+            v85 = 0.0;
             FMPFSKPatternNode.setLookout(_:sprung:)(1, 0.0);
-            if (v81 <= 0.0)
+            if (v82 <= 0.0)
             {
-              *(v9 + v82) = 0;
-              v88 = v185;
+              *(v9 + v83) = 0;
+              v89 = v186;
             }
 
             else
             {
-              v85 = v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_delegate;
+              v86 = v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_delegate;
               if (swift_unknownObjectWeakLoadStrong())
               {
-                v86 = *(v85 + 8);
+                v87 = *(v86 + 8);
                 ObjectType = swift_getObjectType();
-                (*(v86 + 80))(ObjectType, v86);
+                (*(v87 + 80))(ObjectType, v87);
                 swift_unknownObjectRelease();
               }
 
-              *(v9 + v82) = 0;
-              v88 = v185;
-              v84 = v51 * v185;
+              *(v9 + v83) = 0;
+              v89 = v186;
+              v85 = v52 * v186;
             }
           }
 
           else
           {
             *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_noonNodeSnappedUnderPointeeNode) = 0;
-            v84 = 0.0;
-            v88 = v185;
-            if (v81 > 0.0)
+            v85 = 0.0;
+            v89 = v186;
+            if (v82 > 0.0)
             {
-              v84 = v51 * v185;
+              v85 = v52 * v186;
             }
           }
 
-          v89 = OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_peripheralDiskRadius;
-          v90 = v88 * *(v9 + v80);
-          v91 = -((v90 + *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_peripheralDiskRadius)) * v26);
-          v92 = -(v91 * cos(1.57079633 - v51));
-          v93 = sin(1.57079633 - fabs(v51)) * v91;
+          v90 = OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_peripheralDiskRadius;
+          v91 = v89 * *(v9 + v81);
+          v92 = -((v91 + *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_peripheralDiskRadius)) * v27);
+          v93 = -(v92 * cos(1.57079633 - v52));
+          v94 = sin(1.57079633 - fabs(v52)) * v92;
           if (*(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_experienceType) != 1)
           {
             [*(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_patternFragmentsNode) setPosition_];
           }
 
-          v94 = v191;
-          FMPFSKPeripheralDotNode.setOffset(_:sprung:)(__PAIR128__(*&v93, *&v92), 0);
-          v95 = v187;
-          FMPFSKPeripheralDotNode.setOffset(_:sprung:)(__PAIR128__(*&v93, *&v92), 0);
-          FMPFSKPeripheralDotNode.setDotScale(_:sprung:)(1, v178);
-          FMPFSKPeripheralDotNode.setAngle(_:sprung:)(0, v84);
-          v96 = v90 + *(v9 + v89);
-          v97 = &v95[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskRadius];
-          *v97 = v96;
-          *(v97 + 8) = 0;
-          v98 = *&v95[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskRadiusSpring];
-          FLSpring.resetImmediately(toValue:)(v96);
-          *(v98 + OBJC_IVAR____TtC10TVRemoteUI15FMPFFluidSpring_ready) = 0;
-          v99 = &v95[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedDiskRadius];
-          *v99 = v96;
-          *(v99 + 8) = 0;
+          v95 = v192;
+          FMPFSKPeripheralDotNode.setOffset(_:sprung:)(__PAIR128__(*&v94, *&v93), 0);
+          v96 = v188;
+          FMPFSKPeripheralDotNode.setOffset(_:sprung:)(__PAIR128__(*&v94, *&v93), 0);
+          FMPFSKPeripheralDotNode.setDotScale(_:sprung:)(1, v179);
+          FMPFSKPeripheralDotNode.setAngle(_:sprung:)(0, v85);
+          v97 = v91 + *(v9 + v90);
+          v98 = &v96[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskRadius];
+          *v98 = v97;
+          *(v98 + 8) = 0;
+          v99 = *&v96[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskRadiusSpring];
+          FLSpring.resetImmediately(toValue:)(v97);
+          *(v99 + OBJC_IVAR____TtC10TVRemoteUI15FMPFFluidSpring_ready) = 0;
+          v100 = &v96[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedDiskRadius];
+          *v100 = v97;
+          *(v100 + 8) = 0;
+          [*&v96[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskNode] setPosition_];
+          FMPFSKPeripheralDotNode.setDotScale(_:sprung:)(1, v183);
+          v101 = v91 + *(v9 + v90);
+          v102 = &v95[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskRadius];
+          *v102 = v101;
+          v102[8] = 0;
+          v103 = *&v95[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskRadiusSpring];
+          FLSpring.resetImmediately(toValue:)(v101);
+          *(v103 + OBJC_IVAR____TtC10TVRemoteUI15FMPFFluidSpring_ready) = 0;
+          v104 = &v95[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedDiskRadius];
+          *v104 = v101;
+          v104[8] = 0;
           [*&v95[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskNode] setPosition_];
-          FMPFSKPeripheralDotNode.setDotScale(_:sprung:)(1, v182);
-          v100 = v90 + *(v9 + v89);
-          v101 = &v94[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskRadius];
-          *v101 = v100;
-          v101[8] = 0;
-          v102 = *&v94[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskRadiusSpring];
-          FLSpring.resetImmediately(toValue:)(v100);
-          *(v102 + OBJC_IVAR____TtC10TVRemoteUI15FMPFFluidSpring_ready) = 0;
-          v103 = &v94[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedDiskRadius];
-          *v103 = v100;
-          v103[8] = 0;
-          [*&v94[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskNode] setPosition_];
-          v95[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_shouldApplyRadiusFactor] = 0;
+          v96[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_shouldApplyRadiusFactor] = 0;
           FMPFSKPeripheralDotNode.pulse(_:animated:)(0, 0);
-          v104 = v180;
-          if (v81 <= 0.0)
+          v105 = v181;
+          if (v82 <= 0.0)
           {
-            v104 = 0.0;
+            v105 = 0.0;
           }
 
-          v105 = v192;
-          v106 = v181;
-          v37 = *&v177;
+          v106 = v193;
+          v107 = v182;
+          v38 = *&v178;
           goto LABEL_59;
         }
 
-        v119 = OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_noonNodeSnappedUnderPointeeNode;
+        v120 = OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_noonNodeSnappedUnderPointeeNode;
         if (*(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_noonNodeSnappedUnderPointeeNode))
         {
           *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_noonNodeSnappedUnderPointeeNode) = 1;
-          v120 = v79 >= 0.5;
-          if (v78)
+          v121 = v80 >= 0.5;
+          if (v79)
           {
-            v105 = v192;
-            v121 = v185;
-            if (v79 >= 0.5)
+            v106 = v193;
+            v122 = v186;
+            if (v80 >= 0.5)
             {
-              v120 = 1;
-              v122 = v51;
+              v121 = 1;
+              v123 = v52;
 LABEL_100:
-              v166 = v122;
-              v135 = OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_experienceType;
-              v136 = 0.0;
-              v137 = 1.0;
-              v138 = 0.0;
+              v167 = v123;
+              v136 = OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_experienceType;
+              v137 = 0.0;
+              v138 = 1.0;
+              v139 = 0.0;
               if (*(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_experienceType) != 2)
               {
-                v139 = 1.0;
-                v140 = 0.0;
-                if (v120)
+                v140 = 1.0;
+                v141 = 0.0;
+                if (v121)
                 {
-                  v140 = v121;
-                  v139 = 1.0 - v121;
+                  v141 = v122;
+                  v140 = 1.0 - v122;
                 }
 
-                v138 = 1.0 - v121 + v169 * v140;
-                v137 = v26 * (v168 * v167 / v66 / v67 / v182 - v170) + v139 + v170 * v140;
+                v139 = 1.0 - v122 + v170 * v141;
+                v138 = v27 * (v169 * v168 / v67 / v68 / v183 - v171) + v140 + v171 * v141;
               }
 
-              v169 = v138;
-              v170 = v137;
-              v141 = OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_peripheralDiskRadius;
-              v142 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_peripheralDiskRadius);
-              if (v78)
+              v170 = v139;
+              v171 = v138;
+              v142 = OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_peripheralDiskRadius;
+              v143 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_peripheralDiskRadius);
+              if (v79)
               {
-                v136 = v121;
+                v137 = v122;
               }
 
-              v143 = v136 * (v183 * v142);
-              *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_extraDiskRadiusWhenSnapping) = v143;
-              v144 = -((v142 + v143) * v26);
-              v145 = -(v144 * cos(1.57079633 - v51));
-              v146 = sin(1.57079633 - fabs(v51)) * v144;
-              if (*(v9 + v135) != 1)
+              v144 = v137 * (v184 * v143);
+              *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_extraDiskRadiusWhenSnapping) = v144;
+              v145 = -((v143 + v144) * v27);
+              v146 = -(v145 * cos(1.57079633 - v52));
+              v147 = sin(1.57079633 - fabs(v52)) * v145;
+              if (*(v9 + v136) != 1)
               {
                 [*(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_patternFragmentsNode) setPosition_];
               }
 
-              v147 = v191;
-              FMPFSKPeripheralDotNode.setOffset(_:sprung:)(__PAIR128__(*&v146, *&v145), 0);
-              v148 = v187;
-              FMPFSKPeripheralDotNode.setOffset(_:sprung:)(__PAIR128__(*&v146, *&v145), 0);
-              v149 = v178 * v169;
-              v150 = &v148[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_dotScale];
-              *v150 = v178 * v169;
-              *(v150 + 8) = 0;
-              v151 = *&v148[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_dotScaleSpring];
-              FLSpring.resetImmediately(toValue:)(v149);
-              *(v151 + OBJC_IVAR____TtC10TVRemoteUI15FMPFFluidSpring_ready) = 0;
-              v152 = &v148[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedDotScale];
-              *v152 = v149;
-              *(v152 + 8) = 0;
-              [*&v148[v76] setScale_];
-              FMPFSKPeripheralDotNode.setAngle(_:sprung:)(0, v166);
-              v153 = v143 + *(v9 + v141);
-              v154 = &v148[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskRadius];
-              *v154 = v153;
-              *(v154 + 8) = 0;
-              v155 = *&v148[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskRadiusSpring];
-              FLSpring.resetImmediately(toValue:)(v153);
-              *(v155 + OBJC_IVAR____TtC10TVRemoteUI15FMPFFluidSpring_ready) = 0;
-              v156 = &v148[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedDiskRadius];
-              *v156 = v153;
-              *(v156 + 8) = 0;
+              v148 = v192;
+              FMPFSKPeripheralDotNode.setOffset(_:sprung:)(__PAIR128__(*&v147, *&v146), 0);
+              v149 = v188;
+              FMPFSKPeripheralDotNode.setOffset(_:sprung:)(__PAIR128__(*&v147, *&v146), 0);
+              v150 = v179 * v170;
+              v151 = &v149[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_dotScale];
+              *v151 = v179 * v170;
+              *(v151 + 8) = 0;
+              v152 = *&v149[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_dotScaleSpring];
+              FLSpring.resetImmediately(toValue:)(v150);
+              *(v152 + OBJC_IVAR____TtC10TVRemoteUI15FMPFFluidSpring_ready) = 0;
+              v153 = &v149[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedDotScale];
+              *v153 = v150;
+              *(v153 + 8) = 0;
+              [*&v149[v77] setScale_];
+              FMPFSKPeripheralDotNode.setAngle(_:sprung:)(0, v167);
+              v154 = v144 + *(v9 + v142);
+              v155 = &v149[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskRadius];
+              *v155 = v154;
+              *(v155 + 8) = 0;
+              v156 = *&v149[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskRadiusSpring];
+              FLSpring.resetImmediately(toValue:)(v154);
+              *(v156 + OBJC_IVAR____TtC10TVRemoteUI15FMPFFluidSpring_ready) = 0;
+              v157 = &v149[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedDiskRadius];
+              *v157 = v154;
+              *(v157 + 8) = 0;
+              [*&v149[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskNode] setPosition_];
+              v158 = v183 * v171;
+              v159 = &v148[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_dotScale];
+              *v159 = v183 * v171;
+              v159[8] = 0;
+              v160 = *&v148[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_dotScaleSpring];
+              FLSpring.resetImmediately(toValue:)(v158);
+              *(v160 + OBJC_IVAR____TtC10TVRemoteUI15FMPFFluidSpring_ready) = 0;
+              v161 = &v148[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedDotScale];
+              *v161 = v158;
+              v161[8] = 0;
+              [*&v148[v175] setScale_];
+              v162 = v144 + *(v9 + v142);
+              v163 = &v148[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskRadius];
+              *v163 = v162;
+              v163[8] = 0;
+              v164 = *&v148[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskRadiusSpring];
+              FLSpring.resetImmediately(toValue:)(v162);
+              *(v164 + OBJC_IVAR____TtC10TVRemoteUI15FMPFFluidSpring_ready) = 0;
+              v165 = &v148[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedDiskRadius];
+              *v165 = v162;
+              v165[8] = 0;
               [*&v148[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskNode] setPosition_];
-              v157 = v182 * v170;
-              v158 = &v147[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_dotScale];
-              *v158 = v182 * v170;
-              v158[8] = 0;
-              v159 = *&v147[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_dotScaleSpring];
-              FLSpring.resetImmediately(toValue:)(v157);
-              *(v159 + OBJC_IVAR____TtC10TVRemoteUI15FMPFFluidSpring_ready) = 0;
-              v160 = &v147[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedDotScale];
-              *v160 = v157;
-              v160[8] = 0;
-              [*&v147[v174] setScale_];
-              v161 = v143 + *(v9 + v141);
-              v162 = &v147[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskRadius];
-              *v162 = v161;
-              v162[8] = 0;
-              v163 = *&v147[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskRadiusSpring];
-              FLSpring.resetImmediately(toValue:)(v161);
-              *(v163 + OBJC_IVAR____TtC10TVRemoteUI15FMPFFluidSpring_ready) = 0;
-              v164 = &v147[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedDiskRadius];
-              *v164 = v161;
-              v164[8] = 0;
-              [*&v147[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskNode] setPosition_];
-              v165 = 0;
-              if (v26 >= 1.0)
+              v166 = 0;
+              if (v27 >= 1.0)
               {
-                v165 = FMPFSKPeripheralDotNode.presentedRingCount.getter() == 0;
+                v166 = FMPFSKPeripheralDotNode.presentedRingCount.getter() == 0;
               }
 
-              v187[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_shouldApplyRadiusFactor] = v165;
-              v106 = v181;
-              v104 = v180;
+              v188[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_shouldApplyRadiusFactor] = v166;
+              v107 = v182;
+              v105 = v181;
 LABEL_59:
-              v107 = OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_ringView;
-              v108 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_ringView);
-              if (v108)
+              v108 = OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_ringView;
+              v109 = *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_ringView);
+              if (v109)
               {
-                v109 = *&v179;
-                v110 = v108;
-                FMPFRingView.setOpacity(_:sprung:)(v109, 0, 1);
+                v110 = *&v180;
+                v111 = v109;
+                FMPFRingView.setOpacity(_:sprung:)(v110, 0, 1);
               }
 
-              if ((v187[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedAngle + 8] & 1) == 0)
+              if ((v188[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedAngle + 8] & 1) == 0)
               {
-                v111 = fmod(*&v187[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedAngle], v37);
-                if (v111 <= v186)
+                v112 = fmod(*&v188[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedAngle], v38);
+                if (v112 <= v187)
                 {
-                  if (v111 < -3.14159265)
+                  if (v112 < -3.14159265)
                   {
-                    v111 = v111 + v37;
+                    v112 = v112 + v38;
                   }
                 }
 
                 else
                 {
-                  v111 = v111 + -6.28318531;
+                  v112 = v112 + -6.28318531;
                 }
 
-                v112 = *(v9 + v107);
-                if (v112 && v111 <= fabs(v51))
+                v113 = *(v9 + v108);
+                if (v113 && v112 <= fabs(v52))
                 {
-                  v113 = swift_allocObject();
-                  *(v113 + 16) = v104;
-                  *(v113 + 24) = 0;
-                  *(v113 + 32) = v112;
-                  *(v113 + 40) = v111;
-                  *(v113 + 48) = v51;
-                  v114 = objc_opt_self();
-                  v115 = v112;
-                  if ([v114 isMainThread])
+                  v114 = swift_allocObject();
+                  *(v114 + 16) = v105;
+                  *(v114 + 24) = 0;
+                  *(v114 + 32) = v113;
+                  *(v114 + 40) = v112;
+                  *(v114 + 48) = v52;
+                  v115 = objc_opt_self();
+                  v116 = v113;
+                  if ([v115 isMainThread])
                   {
-                    v116 = *&v115[OBJC_IVAR____TtC10TVRemoteUI12FMPFRingView_startAngleSpring];
-                    FLSpring.resetImmediately(toValue:)(v111);
-                    *(v116 + OBJC_IVAR____TtC10TVRemoteUI15FMPFFluidSpring_ready) = 0;
-                    v117 = *&v115[OBJC_IVAR____TtC10TVRemoteUI12FMPFRingView_endAngleSpring];
-                    FLSpring.resetImmediately(toValue:)(v51);
+                    v117 = *&v116[OBJC_IVAR____TtC10TVRemoteUI12FMPFRingView_startAngleSpring];
+                    FLSpring.resetImmediately(toValue:)(v112);
                     *(v117 + OBJC_IVAR____TtC10TVRemoteUI15FMPFFluidSpring_ready) = 0;
-                    v118 = *&v115[OBJC_IVAR____TtC10TVRemoteUI12FMPFRingView_additionalRadiusScaleSpring];
-                    FLSpring.resetImmediately(toValue:)(v104);
+                    v118 = *&v116[OBJC_IVAR____TtC10TVRemoteUI12FMPFRingView_endAngleSpring];
+                    FLSpring.resetImmediately(toValue:)(v52);
                     *(v118 + OBJC_IVAR____TtC10TVRemoteUI15FMPFFluidSpring_ready) = 0;
-                    *&v115[OBJC_IVAR____TtC10TVRemoteUI12FMPFRingView_startAngle] = v111;
-                    *&v115[OBJC_IVAR____TtC10TVRemoteUI12FMPFRingView_endAngle] = v51;
-                    *&v115[OBJC_IVAR____TtC10TVRemoteUI12FMPFRingView_additionalRadiusScale] = v104;
-                    [v115 bounds];
-                    [v115 drawRect_];
+                    v119 = *&v116[OBJC_IVAR____TtC10TVRemoteUI12FMPFRingView_additionalRadiusScaleSpring];
+                    FLSpring.resetImmediately(toValue:)(v105);
+                    *(v119 + OBJC_IVAR____TtC10TVRemoteUI15FMPFFluidSpring_ready) = 0;
+                    *&v116[OBJC_IVAR____TtC10TVRemoteUI12FMPFRingView_startAngle] = v112;
+                    *&v116[OBJC_IVAR____TtC10TVRemoteUI12FMPFRingView_endAngle] = v52;
+                    *&v116[OBJC_IVAR____TtC10TVRemoteUI12FMPFRingView_additionalRadiusScale] = v105;
+                    [v116 bounds];
+                    [v116 drawRect_];
                   }
 
                   else
                   {
-                    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for OS_dispatch_queue);
-                    v123 = static OS_dispatch_queue.main.getter();
-                    v124 = swift_allocObject();
-                    *(v124 + 16) = partial apply for closure #1 in FMPFRingView.drawFromStartAngle(_:to:additionalRadiusScale:sprung:);
-                    *(v124 + 24) = v113;
+                    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
+                    v124 = static OS_dispatch_queue.main.getter();
+                    v125 = swift_allocObject();
+                    *(v125 + 16) = partial apply for closure #1 in FMPFRingView.drawFromStartAngle(_:to:additionalRadiusScale:sprung:);
+                    *(v125 + 24) = v114;
                     aBlock[4] = partial apply for closure #2 in FMPFRingView.drawFromStartAngle(_:to:additionalRadiusScale:sprung:);
-                    aBlock[5] = v124;
+                    aBlock[5] = v125;
                     aBlock[0] = MEMORY[0x277D85DD0];
                     aBlock[1] = 1107296256;
                     aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
                     aBlock[3] = &block_descriptor_5;
-                    v125 = _Block_copy(aBlock);
+                    v126 = _Block_copy(aBlock);
 
-                    v126 = v171;
+                    v127 = v172;
                     static DispatchQoS.unspecified.getter();
                     aBlock[0] = MEMORY[0x277D84F90];
                     lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags();
-                    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+                    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
                     lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
-                    v127 = v188;
-                    v128 = v190;
+                    v128 = v189;
+                    v129 = v191;
                     dispatch thunk of SetAlgebra.init<A>(_:)();
-                    MEMORY[0x26D6B1500](0, v126, v127, v125);
-                    _Block_release(v125);
+                    MEMORY[0x26D6B1500](0, v127, v128, v126);
+                    _Block_release(v126);
 
-                    (*(v189 + 8))(v127, v128);
-                    (*(v172 + 8))(v126, v173);
+                    (*(v190 + 8))(v128, v129);
+                    (*(v173 + 8))(v127, v174);
                   }
 
-                  v105 = v192;
+                  v106 = v193;
                 }
               }
 
-              if (v185 <= 0.0)
+              if (v186 <= 0.0)
               {
-                v129 = v105 ^ 1;
-                if ((v184 & 1) == 0 && v175 > 0.0)
+                v130 = v106 ^ 1;
+                if ((v185 & 1) == 0 && v176 > 0.0)
                 {
 LABEL_81:
                   if (*(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_experienceType) == 1)
                   {
-                    if (v106 > 0.0)
+                    if (v107 > 0.0)
                     {
                       goto LABEL_88;
                     }
                   }
 
-                  else if (v106 > 0.75)
+                  else if (v107 > 0.75)
                   {
                     goto LABEL_88;
                   }
 
                   if ((*(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_conformationFactor + 8) & 1) == 0 && *(v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_conformationFactor) == 0.0)
                   {
-                    v130 = &v191[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_interactiveAngleFactor];
-                    *v130 = 0;
-                    v130[8] = 1;
+                    v131 = &v192[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_interactiveAngleFactor];
+                    *v131 = 0;
+                    v131[8] = 1;
                     FMPFSKPeripheralDotNode.setFreeFromBearing()();
 LABEL_89:
 
@@ -8370,51 +8384,51 @@ LABEL_89:
 
 LABEL_88:
                   FMPFSKPeripheralDotNode.setBoundToBearing()();
-                  FMPFSKPeripheralDotNode.setUnsprungInteractiveAngleFactor(_:)(COERCE_ID(v106 * (v106 * v106) + v106 * v106 * ((1.0 - v106) * 3.0) + (1.0 - v106) * ((1.0 - v106) * (1.0 - v106)) * 0.0 + v106 * ((1.0 - v106) * (1.0 - v106) * 3.0)), 0);
+                  FMPFSKPeripheralDotNode.setUnsprungInteractiveAngleFactor(_:)(COERCE_ID(v107 * (v107 * v107) + v107 * v107 * ((1.0 - v107) * 3.0) + (1.0 - v107) * ((1.0 - v107) * (1.0 - v107)) * 0.0 + v107 * ((1.0 - v107) * (1.0 - v107) * 3.0)), 0);
                   goto LABEL_89;
                 }
               }
 
               else
               {
-                v129 = 0;
+                v130 = 0;
               }
 
-              FMPFSKPeripheralDotNode.setAngle(_:sprung:)(v129 & 1, v51);
+              FMPFSKPeripheralDotNode.setAngle(_:sprung:)(v130 & 1, v52);
               goto LABEL_81;
             }
 
 LABEL_95:
-            v122 = v51 * v121;
-            v120 = 1;
+            v123 = v52 * v122;
+            v121 = 1;
             goto LABEL_100;
           }
 
-          v105 = v192;
-          v121 = v185;
+          v106 = v193;
+          v122 = v186;
         }
 
         else
         {
           FMPFSKPatternNode.setLookout(_:sprung:)(1, 1.0);
-          if (v78)
+          if (v79)
           {
-            v131 = v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_delegate;
+            v132 = v9 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_delegate;
             Strong = swift_unknownObjectWeakLoadStrong();
-            v105 = v192;
+            v106 = v193;
             if (Strong)
             {
-              v133 = *(v131 + 8);
-              v134 = swift_getObjectType();
-              (*(v133 + 72))(v134, v133);
+              v134 = *(v132 + 8);
+              v135 = swift_getObjectType();
+              (*(v134 + 72))(v135, v134);
               swift_unknownObjectRelease();
             }
 
-            v120 = 1;
-            *(v9 + v119) = 1;
-            v122 = v51;
-            v121 = v185;
-            if (v79 >= 0.5)
+            v121 = 1;
+            *(v9 + v120) = 1;
+            v123 = v52;
+            v122 = v186;
+            if (v80 >= 0.5)
             {
               goto LABEL_100;
             }
@@ -8422,16 +8436,16 @@ LABEL_95:
             goto LABEL_95;
           }
 
-          *(v9 + v119) = 1;
-          v120 = v79 >= 0.5;
-          v105 = v192;
-          v121 = v185;
+          *(v9 + v120) = 1;
+          v121 = v80 >= 0.5;
+          v106 = v193;
+          v122 = v186;
         }
 
-        v122 = 0.0;
-        if (v120)
+        v123 = 0.0;
+        if (v121)
         {
-          v122 = v51;
+          v123 = v52;
         }
 
         goto LABEL_100;
@@ -8440,7 +8454,7 @@ LABEL_95:
   }
 }
 
-uint64_t FMPFSKPatternNode.applyTrack(_:)(double a1)
+void FMPFSKPatternNode.applyTrack(_:)(double a1)
 {
   v3 = v1 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_config;
   v4 = 0.0;
@@ -8454,14 +8468,14 @@ uint64_t FMPFSKPatternNode.applyTrack(_:)(double a1)
   [v5 setPosition_];
   v6 = OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_patternFragmentNodes;
   swift_beginAccess();
-  v25 = v1;
-  j = *(v1 + v6);
-  if (j >> 62)
+  v24 = v1;
+  v7 = *(v1 + v6);
+  if (v7 >> 62)
   {
     goto LABEL_33;
   }
 
-  for (i = *((j & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = MEMORY[0x26D6B1780](v23))
+  for (i = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = MEMORY[0x26D6B1780](v22))
   {
 
     if (i)
@@ -8469,19 +8483,19 @@ uint64_t FMPFSKPatternNode.applyTrack(_:)(double a1)
       v9 = 0;
       while (1)
       {
-        if ((j & 0xC000000000000001) != 0)
+        if ((v7 & 0xC000000000000001) != 0)
         {
-          v10 = MEMORY[0x26D6B1680](v9, j);
+          v10 = MEMORY[0x26D6B1680](v9, v7);
         }
 
         else
         {
-          if (v9 >= *((j & 0xFFFFFFFFFFFFFF8) + 0x10))
+          if (v9 >= *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10))
           {
             goto LABEL_30;
           }
 
-          v10 = *(j + 8 * v9 + 32);
+          v10 = *(v7 + 8 * v9 + 32);
         }
 
         v11 = v10;
@@ -8516,73 +8530,77 @@ LABEL_15:
 
     if (*(v3 + 112))
     {
-      return result;
+      return;
     }
 
     v4 = *(v3 + 104);
-    v15 = [*(v25 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_labelsNode) children];
-    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for SKNode);
-    v16 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+    v14 = [*(v24 + OBJC_IVAR____TtC10TVRemoteUI17FMPFSKPatternNode_labelsNode) children];
+    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for SKNode, 0x277CDCF58);
+    v15 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-    v17 = specialized _arrayConditionalCast<A, B>(_:)(v16);
+    v16 = specialized _arrayConditionalCast<A, B>(_:)(v15);
 
-    if (!v17)
+    if (!v16)
     {
-      return result;
+      return;
     }
 
-    if (!(v17 >> 62))
+    if (!(v16 >> 62))
     {
-      v18 = *((v17 & 0xFFFFFFFFFFFFFF8) + 0x10);
-      if (!v18)
+      v17 = *((v16 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      if (!v17)
       {
+        break;
       }
 
       goto LABEL_19;
     }
 
-    v24 = v17 >= 0 ? v17 & 0xFFFFFFFFFFFFFF8 : v17;
-    v18 = MEMORY[0x26D6B1780](v24);
-    if (!v18)
+    v23 = v16 >= 0 ? v16 & 0xFFFFFFFFFFFFFF8 : v16;
+    v17 = MEMORY[0x26D6B1780](v23);
+    if (!v17)
     {
       break;
     }
 
 LABEL_19:
-    for (j = 0; ; ++j)
+    v7 = 0;
+    while (1)
     {
-      if ((v17 & 0xC000000000000001) != 0)
+      if ((v16 & 0xC000000000000001) != 0)
       {
-        v19 = MEMORY[0x26D6B1680](j, v17);
+        v18 = MEMORY[0x26D6B1680](v7, v16);
       }
 
       else
       {
-        if (j >= *((v17 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        if (v7 >= *((v16 & 0xFFFFFFFFFFFFFF8) + 0x10))
         {
           goto LABEL_32;
         }
 
-        v19 = *(v17 + 8 * j + 32);
+        v18 = *(v16 + 8 * v7 + 32);
       }
 
-      v20 = v19;
-      v21 = j + 1;
-      if (__OFADD__(j, 1))
+      v19 = v18;
+      v20 = v7 + 1;
+      if (__OFADD__(v7, 1))
       {
         break;
       }
 
-      v22 = v4 * ((*&v19[OBJC_IVAR____TtC10TVRemoteUI15FMPFSKLabelNode_normalizedIndex] - a1) * *v3);
-      if (v22 < 0.0)
+      v21 = v4 * ((*&v18[OBJC_IVAR____TtC10TVRemoteUI15FMPFSKLabelNode_normalizedIndex] - a1) * *v3);
+      if (v21 < 0.0)
       {
-        v22 = 0.0;
+        v21 = 0.0;
       }
 
-      [v19 setAlpha_];
+      [v18 setAlpha_];
 
-      if (v21 == v18)
+      ++v7;
+      if (v20 == v17)
       {
+        goto LABEL_41;
       }
     }
 
@@ -8591,19 +8609,21 @@ LABEL_31:
 LABEL_32:
     __break(1u);
 LABEL_33:
-    if (j < 0)
+    if (v7 < 0)
     {
-      v23 = j;
+      v22 = v7;
     }
 
     else
     {
-      v23 = j & 0xFFFFFFFFFFFFFF8;
+      v22 = v7 & 0xFFFFFFFFFFFFFF8;
     }
   }
+
+LABEL_41:
 }
 
-uint64_t specialized _arrayConditionalCast<A, B>(_:)(uint64_t a1)
+uint64_t specialized _arrayConditionalCast<A, B>(_:)(unint64_t a1)
 {
   v9 = MEMORY[0x277D84F90];
   if (a1 >> 62)
@@ -8659,7 +8679,7 @@ uint64_t specialized _arrayConditionalCast<A, B>(_:)(uint64_t a1)
 LABEL_14:
     __break(1u);
 LABEL_15:
-    if (a1 < 0)
+    if ((a1 & 0x8000000000000000) != 0)
     {
       v8 = a1;
     }
@@ -9232,7 +9252,7 @@ Swift::Void __swiftcall FMR1GlyphButton.setupConstraints()()
   v1 = OBJC_IVAR____TtC10TVRemoteUI15FMR1GlyphButton_button;
   [*&v0[OBJC_IVAR____TtC10TVRemoteUI15FMR1GlyphButton_button] setTranslatesAutoresizingMaskIntoConstraints_];
   v30 = objc_opt_self();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_26D0D4100;
   v3 = [*&v0[v1] topAnchor];
@@ -9260,7 +9280,7 @@ Swift::Void __swiftcall FMR1GlyphButton.setupConstraints()()
   v17 = [v16 constraintEqualToConstant_];
 
   *(v2 + 64) = v17;
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for NSLayoutConstraint, 0x277CCAAD0);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v30 activateConstraints_];
@@ -9291,7 +9311,7 @@ Swift::Void __swiftcall FMR1GlyphButton.setupConstraints()()
 
 void FMR1GlyphButton.touchesBegan(_:with:)(uint64_t a1, uint64_t a2)
 {
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for UITouch);
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for UITouch, 0x277D75C68);
   lazy protocol witness table accessor for type UITouch and conformance NSObject();
   isa = Set._bridgeToObjectiveC()().super.isa;
   v9.receiver = v2;
@@ -9308,7 +9328,7 @@ void FMR1GlyphButton.touchesBegan(_:with:)(uint64_t a1, uint64_t a2)
 
 void FMR1GlyphButton.touchesEnded(_:with:)(uint64_t a1, uint64_t a2)
 {
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for UITouch);
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for UITouch, 0x277D75C68);
   lazy protocol witness table accessor for type UITouch and conformance NSObject();
   isa = Set._bridgeToObjectiveC()().super.isa;
   v17.receiver = v2;
@@ -9383,19 +9403,21 @@ LABEL_3:
   return v12;
 }
 
-uint64_t @objc FMR1GlyphButton.touchesBegan(_:with:)(void *a1, uint64_t a2, uint64_t a3, void *a4, void (*a5)(uint64_t, void *))
+double @objc FMR1GlyphButton.touchesBegan(_:with:)(void *a1, uint64_t a2, uint64_t a3, void *a4, void (*a5)(uint64_t, void *))
 {
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for UITouch);
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for UITouch, 0x277D75C68);
   lazy protocol witness table accessor for type UITouch and conformance NSObject();
   v8 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   v9 = a4;
   v10 = a1;
   a5(v8, a4);
+
+  return result;
 }
 
 void FMR1GlyphButton.touchesCancelled(_:with:)(uint64_t a1, uint64_t a2)
 {
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for UITouch);
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for UITouch, 0x277D75C68);
   lazy protocol witness table accessor for type UITouch and conformance NSObject();
   isa = Set._bridgeToObjectiveC()().super.isa;
   v8.receiver = v2;
@@ -9419,7 +9441,7 @@ void FMR1GlyphButton.touchesCancelled(_:with:)(uint64_t a1, uint64_t a2)
 
 void FMR1GlyphButton.touchesMoved(_:with:)(uint64_t a1, uint64_t a2)
 {
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for UITouch);
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for UITouch, 0x277D75C68);
   lazy protocol witness table accessor for type UITouch and conformance NSObject();
   isa = Set._bridgeToObjectiveC()().super.isa;
   v18.receiver = v2;
@@ -9498,28 +9520,29 @@ id FMR1GlyphButton.ringDisplayLinkUpdate(displaylink:)(void *a1)
   return result;
 }
 
-void FMR1GlyphButton.isUserInteractionEnabled.setter(char a1)
+void FMR1GlyphButton.isUserInteractionEnabled.setter(uint64_t a1, uint64_t a2)
 {
-  v10.receiver = v1;
-  v10.super_class = type metadata accessor for FMR1GlyphButton();
-  objc_msgSendSuper2(&v10, sel_setUserInteractionEnabled_, a1 & 1);
-  v3 = objc_opt_self();
-  v4 = *&v1[OBJC_IVAR____TtC10TVRemoteUI15FMR1GlyphButton_button];
-  v5 = swift_allocObject();
-  *(v5 + 16) = v1;
-  *(v5 + 24) = a1;
-  v9[4] = partial apply for closure #1 in FMR1GlyphButton.isUserInteractionEnabled.setter;
-  v9[5] = v5;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 1107296256;
-  v9[2] = thunk for @escaping @callee_guaranteed () -> ();
-  v9[3] = &block_descriptor_6;
-  v6 = _Block_copy(v9);
-  v7 = v4;
-  v8 = v1;
+  v3 = a1;
+  v11.receiver = v2;
+  v11.super_class = type metadata accessor for FMR1GlyphButton();
+  objc_msgSendSuper2(&v11, sel_setUserInteractionEnabled_, v3 & 1);
+  v4 = objc_opt_self();
+  v5 = *&v2[OBJC_IVAR____TtC10TVRemoteUI15FMR1GlyphButton_button];
+  v6 = swift_allocObject();
+  *(v6 + 16) = v2;
+  *(v6 + 24) = v3;
+  v10[4] = partial apply for closure #1 in FMR1GlyphButton.isUserInteractionEnabled.setter;
+  v10[5] = v6;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 1107296256;
+  v10[2] = thunk for @escaping @callee_guaranteed () -> ();
+  v10[3] = &block_descriptor_6;
+  v7 = _Block_copy(v10);
+  v8 = v5;
+  v9 = v2;
 
-  [v3 transitionWithView:v7 duration:5242880 options:v6 animations:0 completion:0.25];
-  _Block_release(v6);
+  [v4 transitionWithView:v8 duration:5242880 options:v7 animations:0 completion:0.25];
+  _Block_release(v7);
 }
 
 Swift::Void __swiftcall FMR1GlyphButton.set(named:tintColor:backgroundColor:usesGlassBackground:)(Swift::String named, UIColor_optional tintColor, UIColor_optional backgroundColor, Swift::Bool usesGlassBackground)
@@ -9529,80 +9552,80 @@ Swift::Void __swiftcall FMR1GlyphButton.set(named:tintColor:backgroundColor:uses
   v7 = tintColor.value.super.isa;
   object = named._object;
   countAndFlagsBits = named._countAndFlagsBits;
-  type metadata accessor for _Glass._GlassVariant();
-  MEMORY[0x28223BE20]();
-  v10 = &v4[OBJC_IVAR____TtC10TVRemoteUI15FMR1GlyphButton_named];
-  *v10 = countAndFlagsBits;
-  v10[1] = object;
+  v10 = type metadata accessor for _Glass._GlassVariant();
+  MEMORY[0x28223BE20](v10 - 8);
+  v11 = &v4[OBJC_IVAR____TtC10TVRemoteUI15FMR1GlyphButton_named];
+  *v11 = countAndFlagsBits;
+  v11[1] = object;
 
-  v11 = *&v4[OBJC_IVAR____TtC10TVRemoteUI15FMR1GlyphButton_style];
-  v12 = [objc_opt_self() configurationWithPointSize:7 weight:v11 / 3.0];
-  v13 = MEMORY[0x26D6B1210](countAndFlagsBits, object);
-  v14 = [objc_opt_self() systemImageNamed_];
+  v12 = *&v4[OBJC_IVAR____TtC10TVRemoteUI15FMR1GlyphButton_style];
+  v13 = [objc_opt_self() configurationWithPointSize:7 weight:v12 / 3.0];
+  v14 = MEMORY[0x26D6B1210](countAndFlagsBits, object);
+  v15 = [objc_opt_self() systemImageNamed_];
 
-  v15 = [v14 imageByApplyingSymbolConfiguration_];
-  if (v15)
+  v16 = [v15 imageByApplyingSymbolConfiguration_];
+  if (v16)
   {
-    [*&v4[OBJC_IVAR____TtC10TVRemoteUI15FMR1GlyphButton_button] setImage:v15 forState:0];
+    [*&v4[OBJC_IVAR____TtC10TVRemoteUI15FMR1GlyphButton_button] setImage:v16 forState:0];
   }
 
-  v16 = OBJC_IVAR____TtC10TVRemoteUI15FMR1GlyphButton_button;
-  v17 = *&v4[OBJC_IVAR____TtC10TVRemoteUI15FMR1GlyphButton_button];
+  v17 = OBJC_IVAR____TtC10TVRemoteUI15FMR1GlyphButton_button;
+  v18 = *&v4[OBJC_IVAR____TtC10TVRemoteUI15FMR1GlyphButton_button];
   if (v7)
   {
-    v18 = v17;
-    v19 = v7;
+    v19 = v18;
+    v20 = v7;
   }
 
   else
   {
-    v20 = objc_opt_self();
-    v21 = v17;
-    v19 = [v20 whiteColor];
+    v21 = objc_opt_self();
+    v22 = v18;
+    v20 = [v21 whiteColor];
   }
 
-  v22 = v7;
-  [v17 setTintColor_];
+  v23 = v7;
+  [v18 setTintColor_];
 
-  v23 = [*&v4[v16] layer];
-  [v23 setCornerRadius_];
+  v24 = [*&v4[v17] layer];
+  [v24 setCornerRadius_];
 
   if (isa)
   {
-    v24 = 0;
+    v25 = 0;
   }
 
-  else if (!v6 || (v24 = [v6 CGColor]) == 0)
+  else if (!v6 || (v25 = [v6 CGColor]) == 0)
   {
-    v25 = [objc_opt_self() whiteColor];
-    v26 = [v25 colorWithAlphaComponent_];
+    v26 = [objc_opt_self() whiteColor];
+    v27 = [v26 colorWithAlphaComponent_];
 
-    v24 = [v26 CGColor];
+    v25 = [v27 CGColor];
   }
 
-  v27 = [*&v4[v16] layer];
-  [v27 setBackgroundColor_];
+  v28 = [*&v4[v17] layer];
+  [v28 setBackgroundColor_];
 
-  if (v24)
+  if (v25)
   {
-    v28 = [objc_allocWithZone(MEMORY[0x277D75348]) initWithCGColor_];
+    v29 = [objc_allocWithZone(MEMORY[0x277D75348]) initWithCGColor_];
   }
 
   else
   {
-    v28 = 0;
+    v29 = 0;
   }
 
-  v29 = *&v4[OBJC_IVAR____TtC10TVRemoteUI15FMR1GlyphButton_normalBackgroundColor];
-  *&v4[OBJC_IVAR____TtC10TVRemoteUI15FMR1GlyphButton_normalBackgroundColor] = v28;
+  v30 = *&v4[OBJC_IVAR____TtC10TVRemoteUI15FMR1GlyphButton_normalBackgroundColor];
+  *&v4[OBJC_IVAR____TtC10TVRemoteUI15FMR1GlyphButton_normalBackgroundColor] = v29;
 
   if (isa)
   {
-    v30 = *&v4[v16];
+    v31 = *&v4[v17];
     static _Glass._GlassVariant.regular.getter();
-    v31[3] = type metadata accessor for _Glass();
-    v31[4] = MEMORY[0x277D74E20];
-    __swift_allocate_boxed_opaque_existential_1(v31);
+    v32[3] = type metadata accessor for _Glass();
+    v32[4] = MEMORY[0x277D74E20];
+    __swift_allocate_boxed_opaque_existential_1(v32);
     _Glass.init(_:smoothness:)();
     UIView._background.setter();
 
@@ -9717,7 +9740,7 @@ void specialized Set.subscript.getter(unint64_t a1, uint64_t a2, char a3, uint64
       }
 
       MEMORY[0x26D6B1620](a1, a2, v7);
-      type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for UITouch);
+      type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for UITouch, 0x277D75C68);
       swift_dynamicCast();
       return;
     }
@@ -9729,7 +9752,7 @@ LABEL_26:
 
   if (a3)
   {
-    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for UITouch);
+    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for UITouch, 0x277D75C68);
     if (__CocoaSet.Index.age.getter() != *(a4 + 36))
     {
       __break(1u);

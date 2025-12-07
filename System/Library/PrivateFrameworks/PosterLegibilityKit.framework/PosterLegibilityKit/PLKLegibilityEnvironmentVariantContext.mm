@@ -22,7 +22,7 @@
 {
   if (!self->_legibilityDescriptor)
   {
-    v3 = [PLKLegibilityDescriptor legibilityDescriptorForEnvironmentContext:self];
+    v3 = [PLKLegibilityDescriptor legibilityDescriptorForEnvironmentContext:?];
     legibilityDescriptor = self->_legibilityDescriptor;
     self->_legibilityDescriptor = v3;
   }
@@ -31,7 +31,7 @@
   {
     if (self->_primaryColor)
     {
-      v5 = [(PLKLegibilityDescriptor *)self->_legibilityDescriptor effectiveUILegibilitySettings:0];
+      v5 = [(PLKLegibilityDescriptor *)self->_legibilityDescriptor effectiveUILegibilitySettings:?];
     }
 
     else
@@ -39,7 +39,7 @@
       if (self->_averageColor)
       {
         v6 = objc_alloc_init(MEMORY[0x277D760B0]);
-        [(_UILegibilitySettings *)v6 accumulateChangesToContentColor:self->_averageColor contrast:self->_contrast];
+        [_UILegibilitySettings accumulateChangesToContentColor:v6 contrast:"accumulateChangesToContentColor:contrast:"];
         settings = [(_UILegibilitySettings *)v6 settings];
         legibilitySettings = self->_legibilitySettings;
         self->_legibilitySettings = settings;
@@ -55,9 +55,7 @@ LABEL_9:
           secondaryColor = self->_secondaryColor;
           self->_secondaryColor = secondaryColor;
 
-          shadowColor = [(_UILegibilitySettings *)self->_legibilitySettings shadowColor];
-          backgroundColor = self->_backgroundColor;
-          self->_backgroundColor = shadowColor;
+          self->_backgroundColor = [(_UILegibilitySettings *)self->_legibilitySettings shadowColor];
 
           MEMORY[0x2821F96F8]();
         }
@@ -65,7 +63,9 @@ LABEL_9:
         return;
       }
 
-      v5 = [MEMORY[0x277D760A8] sharedInstanceForStyle:_UILegibilityStyleForPLKLegibilityStyle(self->_style)];
+      v13 = MEMORY[0x277D760A8];
+      _UILegibilityStyleForPLKLegibilityStyle(self->_style);
+      v5 = [v13 sharedInstanceForStyle:?];
     }
 
     v6 = self->_legibilitySettings;
@@ -102,7 +102,7 @@ LABEL_9:
     averageColor = v25->_averageColor;
     v25->_averageColor = magentaColor;
 
-    v28 = [PLKColorBoxes colorBoxesForAverageColor:colorCopy contrast:contrast];
+    v28 = [PLKColorBoxes colorBoxesForAverageColor:"colorBoxesForAverageColor:contrast:" contrast:?];
     colorBoxes = v25->_colorBoxes;
     v25->_colorBoxes = v28;
 
@@ -251,8 +251,8 @@ LABEL_9:
   if (v9)
   {
     objc_storeStrong(&v9->_variant, variant);
-    v11 = [PLKColorBoxes colorBoxesForImage:imageCopy];
-    [(PLKLegibilityEnvironmentVariantContext *)v10 _updateWithColorBoxes:v11];
+    v11 = [PLKColorBoxes colorBoxesForImage:?];
+    [(PLKLegibilityEnvironmentVariantContext *)v10 _updateWithColorBoxes:?];
 
     [(PLKLegibilityEnvironmentVariantContext *)v10 _generateLegibilityDescriptor];
     v10->_style = PLKLegibilityStyleForUILegibilityStyle([(_UILegibilitySettings *)v10->_legibilitySettings style]);
@@ -281,29 +281,19 @@ LABEL_9:
 
 - (PLKLegibilityEnvironmentVariantContext)initWithStyle:(unint64_t)style
 {
-  if (style)
-  {
-    v5 = 2;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  v6 = [MEMORY[0x277D760A8] sharedInstanceForStyle:v5];
+  v4 = [MEMORY[0x277D760A8] sharedInstanceForStyle:?];
   systemGrayColor = [MEMORY[0x277D75348] systemGrayColor];
-  primaryColor = [v6 primaryColor];
-  secondaryColor = [v6 secondaryColor];
-  shadowColor = [v6 shadowColor];
-  v11 = [(PLKLegibilityEnvironmentVariantContext *)self initWithVariant:@"PLKLegibilityEnvironmentVariantDefault" style:style averageColor:systemGrayColor contrast:primaryColor saturation:secondaryColor primaryColor:shadowColor secondaryColor:-1.0 backgroundColor:-1.0];
+  primaryColor = [v4 primaryColor];
+  secondaryColor = [v4 secondaryColor];
+  shadowColor = [v4 shadowColor];
+  v9 = [PLKLegibilityEnvironmentVariantContext initWithVariant:"initWithVariant:style:averageColor:contrast:saturation:primaryColor:secondaryColor:backgroundColor:" style:? averageColor:? contrast:? saturation:? primaryColor:? secondaryColor:? backgroundColor:?];
 
-  return v11;
+  return v9;
 }
 
 - (PLKLegibilityEnvironmentVariantContext)init
 {
-  [(PLKLegibilityEnvironmentVariantContext *)self doesNotRecognizeSelector:a2];
+  [(PLKLegibilityEnvironmentVariantContext *)self doesNotRecognizeSelector:?];
 
   return 0;
 }
@@ -313,7 +303,7 @@ LABEL_9:
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v23 = 1;
+    v25 = 1;
   }
 
   else
@@ -326,124 +316,68 @@ LABEL_9:
       variant2 = [(PLKLegibilityEnvironmentVariantContext *)self variant];
       v8 = BSEqualObjects();
 
-      if (!v8)
-      {
-        goto LABEL_14;
-      }
-
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[PLKLegibilityEnvironmentVariantContext style](v5, "style")}];
-      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[PLKLegibilityEnvironmentVariantContext style](self, "style")}];
-      v11 = BSEqualObjects();
-
-      if (!v11)
-      {
-        goto LABEL_14;
-      }
-
-      [(PLKLegibilityEnvironmentVariantContext *)v5 contrast];
-      [(PLKLegibilityEnvironmentVariantContext *)self contrast];
-      if (!BSFloatEqualToFloat())
-      {
-        goto LABEL_14;
-      }
-
-      [(PLKLegibilityEnvironmentVariantContext *)v5 saturation];
-      [(PLKLegibilityEnvironmentVariantContext *)self saturation];
-      if (!BSFloatEqualToFloat())
-      {
-        goto LABEL_14;
-      }
-
-      [(PLKLegibilityEnvironmentVariantContext *)v5 luma];
-      [(PLKLegibilityEnvironmentVariantContext *)self luma];
-      if (!BSFloatEqualToFloat())
-      {
-        goto LABEL_14;
-      }
-
-      averageColor = [(PLKLegibilityEnvironmentVariantContext *)v5 averageColor];
-      averageColor2 = [(PLKLegibilityEnvironmentVariantContext *)self averageColor];
-      v14 = BSEqualObjects();
-
-      if (!v14)
-      {
-        goto LABEL_14;
-      }
-
-      primaryColor = [(PLKLegibilityEnvironmentVariantContext *)v5 primaryColor];
-      primaryColor2 = [(PLKLegibilityEnvironmentVariantContext *)self primaryColor];
-      v17 = BSEqualObjects();
-
-      if (!v17)
-      {
-        goto LABEL_14;
-      }
-
-      secondaryColor = [(PLKLegibilityEnvironmentVariantContext *)v5 secondaryColor];
-      secondaryColor2 = [(PLKLegibilityEnvironmentVariantContext *)self secondaryColor];
-      v20 = BSEqualObjects();
-
-      if (v20)
+      if (v8 && (v9 = MEMORY[0x277CCABB0], -[PLKLegibilityEnvironmentVariantContext style](v5, "style"), [v9 numberWithUnsignedInteger:?], v10 = objc_claimAutoreleasedReturnValue(), v11 = MEMORY[0x277CCABB0], -[PLKLegibilityEnvironmentVariantContext style](self, "style"), objc_msgSend(v11, "numberWithUnsignedInteger:"), v12 = objc_claimAutoreleasedReturnValue(), v13 = BSEqualObjects(), v12, v10, v13) && (-[PLKLegibilityEnvironmentVariantContext contrast](v5, "contrast"), -[PLKLegibilityEnvironmentVariantContext contrast](self, "contrast"), BSFloatEqualToFloat()) && (-[PLKLegibilityEnvironmentVariantContext saturation](v5, "saturation"), -[PLKLegibilityEnvironmentVariantContext saturation](self, "saturation"), BSFloatEqualToFloat()) && (-[PLKLegibilityEnvironmentVariantContext luma](v5, "luma"), -[PLKLegibilityEnvironmentVariantContext luma](self, "luma"), BSFloatEqualToFloat()) && (-[PLKLegibilityEnvironmentVariantContext averageColor](v5, "averageColor"), v14 = objc_claimAutoreleasedReturnValue(), -[PLKLegibilityEnvironmentVariantContext averageColor](self, "averageColor"), v15 = objc_claimAutoreleasedReturnValue(), v16 = BSEqualObjects(), v15, v14, v16) && (-[PLKLegibilityEnvironmentVariantContext primaryColor](v5, "primaryColor"), v17 = objc_claimAutoreleasedReturnValue(), -[PLKLegibilityEnvironmentVariantContext primaryColor](self, "primaryColor"), v18 = objc_claimAutoreleasedReturnValue(), v19 = BSEqualObjects(), v18, v17, v19) && (-[PLKLegibilityEnvironmentVariantContext secondaryColor](v5, "secondaryColor"), v20 = objc_claimAutoreleasedReturnValue(), -[PLKLegibilityEnvironmentVariantContext secondaryColor](self, "secondaryColor"), v21 = objc_claimAutoreleasedReturnValue(), v22 = BSEqualObjects(), v21, v20, v22))
       {
         backgroundColor = [(PLKLegibilityEnvironmentVariantContext *)v5 backgroundColor];
         backgroundColor2 = [(PLKLegibilityEnvironmentVariantContext *)self backgroundColor];
-        v23 = BSEqualObjects();
+        v25 = BSEqualObjects();
       }
 
       else
       {
-LABEL_14:
-        v23 = 0;
+        v25 = 0;
       }
     }
 
     else
     {
-      v23 = 0;
+      v25 = 0;
     }
   }
 
-  return v23;
+  return v25;
 }
 
 - (unint64_t)hash
 {
   builder = [MEMORY[0x277CF0C40] builder];
   variant = [(PLKLegibilityEnvironmentVariantContext *)self variant];
-  v5 = [builder appendObject:variant];
+  v5 = [builder appendObject:?];
 
-  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[PLKLegibilityEnvironmentVariantContext style](self, "style")}];
-  v7 = [builder appendObject:v6];
+  v6 = MEMORY[0x277CCABB0];
+  [(PLKLegibilityEnvironmentVariantContext *)self style];
+  v7 = [v6 numberWithUnsignedInteger:?];
+  v8 = [builder appendObject:?];
 
-  v8 = MEMORY[0x277CCABB0];
+  v9 = MEMORY[0x277CCABB0];
   [(PLKLegibilityEnvironmentVariantContext *)self contrast];
-  v9 = [v8 numberWithDouble:?];
-  v10 = [builder appendObject:v9];
+  v10 = [v9 numberWithDouble:?];
+  v11 = [builder appendObject:?];
 
-  v11 = MEMORY[0x277CCABB0];
+  v12 = MEMORY[0x277CCABB0];
   [(PLKLegibilityEnvironmentVariantContext *)self saturation];
-  v12 = [v11 numberWithDouble:?];
-  v13 = [builder appendObject:v12];
+  v13 = [v12 numberWithDouble:?];
+  v14 = [builder appendObject:?];
 
-  v14 = MEMORY[0x277CCABB0];
+  v15 = MEMORY[0x277CCABB0];
   [(PLKLegibilityEnvironmentVariantContext *)self luma];
-  v15 = [v14 numberWithDouble:?];
-  v16 = [builder appendObject:v15];
+  v16 = [v15 numberWithDouble:?];
+  v17 = [builder appendObject:?];
 
   averageColor = [(PLKLegibilityEnvironmentVariantContext *)self averageColor];
-  v18 = [builder appendObject:averageColor];
+  v19 = [builder appendObject:?];
 
   primaryColor = [(PLKLegibilityEnvironmentVariantContext *)self primaryColor];
-  v20 = [builder appendObject:primaryColor];
+  v21 = [builder appendObject:?];
 
   secondaryColor = [(PLKLegibilityEnvironmentVariantContext *)self secondaryColor];
-  v22 = [builder appendObject:secondaryColor];
+  v23 = [builder appendObject:?];
 
   backgroundColor = [(PLKLegibilityEnvironmentVariantContext *)self backgroundColor];
-  v24 = [builder appendObject:backgroundColor];
+  v25 = [builder appendObject:?];
 
-  v25 = [builder hash];
-  return v25;
+  v26 = [builder hash];
+  return v26;
 }
 
 - (double)luma
@@ -463,7 +397,7 @@ LABEL_14:
     return -1.0;
   }
 
-  [(PLKColorBoxes *)colorBoxes contrastInRect:rect.origin.x, rect.origin.y, rect.size.width, rect.size.height];
+  [(PLKColorBoxes *)colorBoxes contrastInRect:?];
   return result;
 }
 
@@ -475,7 +409,7 @@ LABEL_14:
     return -1.0;
   }
 
-  [(PLKColorBoxes *)colorBoxes saturationInRect:rect.origin.x, rect.origin.y, rect.size.width, rect.size.height];
+  [(PLKColorBoxes *)colorBoxes saturationInRect:?];
   return result;
 }
 
@@ -484,12 +418,12 @@ LABEL_14:
   colorBoxes = self->_colorBoxes;
   if (colorBoxes)
   {
-    [(PLKColorBoxes *)colorBoxes averageColorInRect:rect.origin.x, rect.origin.y, rect.size.width, rect.size.height];
+    [(PLKColorBoxes *)colorBoxes averageColorInRect:?];
   }
 
   else
   {
-    [(PLKLegibilityEnvironmentVariantContext *)self averageColor:rect.origin.x];
+    [(PLKLegibilityEnvironmentVariantContext *)self averageColor];
   }
   v5 = ;
 
@@ -504,7 +438,7 @@ LABEL_14:
     return -1.0;
   }
 
-  [(PLKColorBoxes *)colorBoxes lumaInRect:rect.origin.x, rect.origin.y, rect.size.width, rect.size.height];
+  [(PLKColorBoxes *)colorBoxes lumaInRect:?];
   return result;
 }
 

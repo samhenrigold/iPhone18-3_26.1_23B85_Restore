@@ -16,7 +16,7 @@
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   objectCopy = object;
   if (PUPhotosFileProviderItemProviderContext == context)
@@ -24,32 +24,32 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) != 0 && (NSStringFromSelector(sel_fractionCompleted), v12 = objc_claimAutoreleasedReturnValue(), v13 = [pathCopy isEqualToString:v12], v12, v13))
     {
-      v31 = objectCopy;
-      v32 = pathCopy;
+      v30 = objectCopy;
+      v31 = pathCopy;
       v14 = objectCopy;
+      v33 = 0u;
       v34 = 0u;
       v35 = 0u;
       v36 = 0u;
-      v37 = 0u;
       _progressProxyByUUID = [(PUPhotosFileProviderItemProvider *)self _progressProxyByUUID];
       v16 = [_progressProxyByUUID allKeysForObject:v14];
 
-      v17 = [v16 countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v33 objects:v41 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v35;
+        v19 = *v34;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v35 != v19)
+            if (*v34 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v21 = *(*(&v34 + 1) + 8 * i);
-            v22 = [(PUPhotosFileProviderItemProvider *)self _progressByUUID:v31];
+            v21 = *(*(&v33 + 1) + 8 * i);
+            v22 = [(PUPhotosFileProviderItemProvider *)self _progressByUUID:v30];
             v23 = [v22 objectForKeyedSubscript:v21];
 
             if (v23)
@@ -61,7 +61,7 @@
                 {
                   localizedDescription = [v23 localizedDescription];
                   *buf = 138412290;
-                  v39 = localizedDescription;
+                  v38 = localizedDescription;
                   _os_log_impl(&dword_1D2128000, v24, OS_LOG_TYPE_DEBUG, "Ignored progress updates for local progress (%@) because it's already cancelled.", buf, 0xCu);
                 }
               }
@@ -80,22 +80,22 @@
               {
                 localizedDescription2 = [v14 localizedDescription];
                 *buf = 138412546;
-                v39 = localizedDescription2;
-                v40 = 2112;
-                v41 = v21;
+                v38 = localizedDescription2;
+                v39 = 2112;
+                v40 = v21;
                 _os_log_impl(&dword_1D2128000, v26, OS_LOG_TYPE_DEFAULT, "No matching local progress is found for remote progress (%@) with UUID (%@).", buf, 0x16u);
               }
             }
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v34 objects:v42 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v33 objects:v41 count:16];
         }
 
         while (v18);
       }
 
-      objectCopy = v31;
-      pathCopy = v32;
+      objectCopy = v30;
+      pathCopy = v31;
     }
 
     else
@@ -104,9 +104,9 @@
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v39 = objectCopy;
-        v40 = 2112;
-        v41 = pathCopy;
+        v38 = objectCopy;
+        v39 = 2112;
+        v40 = pathCopy;
         _os_log_impl(&dword_1D2128000, v29, OS_LOG_TYPE_DEFAULT, "Received invalid object (%@) or keypath (%@) for the progress context.", buf, 0x16u);
       }
     }
@@ -114,12 +114,10 @@
 
   else
   {
-    v33.receiver = self;
-    v33.super_class = PUPhotosFileProviderItemProvider;
-    [(PUPhotosFileProviderItemProvider *)&v33 observeValueForKeyPath:pathCopy ofObject:objectCopy change:change context:context];
+    v32.receiver = self;
+    v32.super_class = PUPhotosFileProviderItemProvider;
+    [(PUPhotosFileProviderItemProvider *)&v32 observeValueForKeyPath:pathCopy ofObject:objectCopy change:change context:context];
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_progressURLForTypeIdentifier:(id)identifier
@@ -306,14 +304,14 @@ uint64_t __82__PUPhotosFileProviderItemProvider__startProgressForURL_UUID_cancel
 
 - (id)loadInPlaceFileRepresentationForTypeIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
   v8 = PLUIGetLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v27 = identifierCopy;
+    v26 = identifierCopy;
     _os_log_impl(&dword_1D2128000, v8, OS_LOG_TYPE_DEFAULT, "PUPhotosFileProviderItemProvider: loadInPlaceFileRepresentationForTypeIdentifier: %@", buf, 0xCu);
   }
 
@@ -341,29 +339,27 @@ uint64_t __82__PUPhotosFileProviderItemProvider__startProgressForURL_UUID_cancel
     v13 = 0;
   }
 
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __101__PUPhotosFileProviderItemProvider_loadInPlaceFileRepresentationForTypeIdentifier_completionHandler___block_invoke;
-  v21[3] = &unk_1E83F7538;
-  v24 = v13;
-  v25 = handlerCopy;
-  v21[4] = self;
-  v22 = lastPathComponent;
-  v23 = _sanitizedSuggestedName;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __101__PUPhotosFileProviderItemProvider_loadInPlaceFileRepresentationForTypeIdentifier_completionHandler___block_invoke;
+  v20[3] = &unk_1E83F7538;
+  v23 = v13;
+  v24 = handlerCopy;
+  v20[4] = self;
+  v21 = lastPathComponent;
+  v22 = _sanitizedSuggestedName;
   v14 = v13;
   v15 = _sanitizedSuggestedName;
   v16 = lastPathComponent;
   v17 = handlerCopy;
-  v18 = [(PUPhotosFileProviderItemProvider *)self loadFileRepresentationForTypeIdentifier:identifierCopy completionHandler:v21];
-
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = [(PUPhotosFileProviderItemProvider *)self loadFileRepresentationForTypeIdentifier:identifierCopy completionHandler:v20];
 
   return v18;
 }
 
 void __101__PUPhotosFileProviderItemProvider_loadInPlaceFileRepresentationForTypeIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (*(a1 + 64))
@@ -382,10 +378,10 @@ LABEL_28:
       v9 = [*(a1 + 32) _copyToTemporaryDirectoryBeforeCallingOpenInPlaceCompletionHandler];
       *buf = 138412802;
       *&buf[4] = v5;
-      v47 = 2048;
-      v48 = v8;
-      v49 = 2048;
-      v50 = v9;
+      v46 = 2048;
+      v47 = v8;
+      v48 = 2048;
+      v49 = v9;
       _os_log_impl(&dword_1D2128000, v7, OS_LOG_TYPE_DEFAULT, "Copying URL (%@) because (old SDK: %ld, explicit: %ld) (loadInPlaceFileRepresentationForTypeIdentifier:)", buf, 0x20u);
     }
 
@@ -395,7 +391,7 @@ LABEL_28:
     v13 = v5;
     v14 = v10;
     v15 = v11;
-    v44 = v12;
+    v43 = v12;
     v16 = [MEMORY[0x1E696AC08] defaultManager];
     v17 = [v16 temporaryDirectory];
     v18 = [MEMORY[0x1E69C0708] protectedTemporaryItemsSubdirectoryName];
@@ -445,7 +441,7 @@ LABEL_28:
 
       else
       {
-        if (!v44)
+        if (!v43)
         {
           v21 = v27;
           goto LABEL_21;
@@ -482,9 +478,9 @@ LABEL_21:
     [v36 removeItemAtURL:v21 error:0];
 
     v37 = [MEMORY[0x1E696AC08] defaultManager];
-    v45 = 0;
-    v38 = [v37 copyItemAtURL:v13 toURL:v21 error:&v45];
-    v39 = v45;
+    v44 = 0;
+    v38 = [v37 copyItemAtURL:v13 toURL:v21 error:&v44];
+    v39 = v44;
 
     if (v38)
     {
@@ -515,13 +511,11 @@ LABEL_25:
   }
 
 LABEL_29:
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 - (id)loadFileRepresentationForTypeIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
   v8 = [(PUPhotosFileProviderItemProvider *)self _progressURLForTypeIdentifier:identifierCopy];
@@ -529,45 +523,43 @@ LABEL_29:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = identifierCopy;
+    v25 = identifierCopy;
     _os_log_impl(&dword_1D2128000, v9, OS_LOG_TYPE_DEFAULT, "PUPhotosFileProviderItemProvider: loadFileRepresentationForTypeIdentifier: %@", buf, 0xCu);
   }
 
   if (v8)
   {
     uUID = [MEMORY[0x1E696AFB0] UUID];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __94__PUPhotosFileProviderItemProvider_loadFileRepresentationForTypeIdentifier_completionHandler___block_invoke;
-    v23[3] = &unk_1E83F7498;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __94__PUPhotosFileProviderItemProvider_loadFileRepresentationForTypeIdentifier_completionHandler___block_invoke;
+    v22[3] = &unk_1E83F7498;
     v11 = handlerCopy;
-    v24 = v11;
-    v12 = [(PUPhotosFileProviderItemProvider *)self _startProgressForURL:v8 UUID:uUID cancellationHandler:v23];
+    v23 = v11;
+    v12 = [(PUPhotosFileProviderItemProvider *)self _startProgressForURL:v8 UUID:uUID cancellationHandler:v22];
     objc_initWeak(buf, self);
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __94__PUPhotosFileProviderItemProvider_loadFileRepresentationForTypeIdentifier_completionHandler___block_invoke_2;
-    v19[3] = &unk_1E83F7510;
-    objc_copyWeak(&v22, buf);
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __94__PUPhotosFileProviderItemProvider_loadFileRepresentationForTypeIdentifier_completionHandler___block_invoke_2;
+    v18[3] = &unk_1E83F7510;
+    objc_copyWeak(&v21, buf);
     v13 = uUID;
-    v20 = v13;
-    v21 = v11;
-    v18.receiver = self;
-    v18.super_class = PUPhotosFileProviderItemProvider;
-    v14 = [(PUPhotosFileProviderItemProvider *)&v18 loadFileRepresentationForTypeIdentifier:identifierCopy completionHandler:v19];
+    v19 = v13;
+    v20 = v11;
+    v17.receiver = self;
+    v17.super_class = PUPhotosFileProviderItemProvider;
+    v14 = [(PUPhotosFileProviderItemProvider *)&v17 loadFileRepresentationForTypeIdentifier:identifierCopy completionHandler:v18];
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v17.receiver = self;
-    v17.super_class = PUPhotosFileProviderItemProvider;
-    v12 = [(PUPhotosFileProviderItemProvider *)&v17 loadFileRepresentationForTypeIdentifier:identifierCopy completionHandler:handlerCopy];
+    v16.receiver = self;
+    v16.super_class = PUPhotosFileProviderItemProvider;
+    v12 = [(PUPhotosFileProviderItemProvider *)&v16 loadFileRepresentationForTypeIdentifier:identifierCopy completionHandler:handlerCopy];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -615,14 +607,14 @@ uint64_t __94__PUPhotosFileProviderItemProvider_loadFileRepresentationForTypeIde
 
 - (id)loadDataRepresentationForTypeIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
   v8 = PLUIGetLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = identifierCopy;
+    v25 = identifierCopy;
     _os_log_impl(&dword_1D2128000, v8, OS_LOG_TYPE_DEFAULT, "PUPhotosFileProviderItemProvider: loadDataRepresentationForTypeIdentifier: %@", buf, 0xCu);
   }
 
@@ -630,38 +622,36 @@ uint64_t __94__PUPhotosFileProviderItemProvider_loadFileRepresentationForTypeIde
   if (v9)
   {
     uUID = [MEMORY[0x1E696AFB0] UUID];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __94__PUPhotosFileProviderItemProvider_loadDataRepresentationForTypeIdentifier_completionHandler___block_invoke;
-    v23[3] = &unk_1E83F7498;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __94__PUPhotosFileProviderItemProvider_loadDataRepresentationForTypeIdentifier_completionHandler___block_invoke;
+    v22[3] = &unk_1E83F7498;
     v11 = handlerCopy;
-    v24 = v11;
-    v12 = [(PUPhotosFileProviderItemProvider *)self _startProgressForURL:v9 UUID:uUID cancellationHandler:v23];
+    v23 = v11;
+    v12 = [(PUPhotosFileProviderItemProvider *)self _startProgressForURL:v9 UUID:uUID cancellationHandler:v22];
     objc_initWeak(buf, self);
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __94__PUPhotosFileProviderItemProvider_loadDataRepresentationForTypeIdentifier_completionHandler___block_invoke_2;
-    v19[3] = &unk_1E83F74E8;
-    objc_copyWeak(&v22, buf);
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __94__PUPhotosFileProviderItemProvider_loadDataRepresentationForTypeIdentifier_completionHandler___block_invoke_2;
+    v18[3] = &unk_1E83F74E8;
+    objc_copyWeak(&v21, buf);
     v13 = uUID;
-    v20 = v13;
-    v21 = v11;
-    v18.receiver = self;
-    v18.super_class = PUPhotosFileProviderItemProvider;
-    v14 = [(PUPhotosFileProviderItemProvider *)&v18 loadDataRepresentationForTypeIdentifier:identifierCopy completionHandler:v19];
+    v19 = v13;
+    v20 = v11;
+    v17.receiver = self;
+    v17.super_class = PUPhotosFileProviderItemProvider;
+    v14 = [(PUPhotosFileProviderItemProvider *)&v17 loadDataRepresentationForTypeIdentifier:identifierCopy completionHandler:v18];
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v17.receiver = self;
-    v17.super_class = PUPhotosFileProviderItemProvider;
-    v12 = [(PUPhotosFileProviderItemProvider *)&v17 loadDataRepresentationForTypeIdentifier:identifierCopy completionHandler:handlerCopy];
+    v16.receiver = self;
+    v16.super_class = PUPhotosFileProviderItemProvider;
+    v12 = [(PUPhotosFileProviderItemProvider *)&v16 loadDataRepresentationForTypeIdentifier:identifierCopy completionHandler:handlerCopy];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -709,14 +699,14 @@ uint64_t __94__PUPhotosFileProviderItemProvider_loadDataRepresentationForTypeIde
 
 - (id)loadObjectOfClass:(Class)class completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = PLUIGetLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = NSStringFromClass(class);
     *buf = 138412290;
-    v29 = v8;
+    v28 = v8;
     _os_log_impl(&dword_1D2128000, v7, OS_LOG_TYPE_DEFAULT, "PUPhotosFileProviderItemProvider: loadObjectOfClass: %@", buf, 0xCu);
   }
 
@@ -742,46 +732,44 @@ LABEL_6:
       {
         uUID = [MEMORY[0x1E696AFB0] UUID];
         objc_initWeak(buf, self);
-        v26[0] = MEMORY[0x1E69E9820];
-        v26[1] = 3221225472;
-        v26[2] = __72__PUPhotosFileProviderItemProvider_loadObjectOfClass_completionHandler___block_invoke;
-        v26[3] = &unk_1E83F7498;
+        v25[0] = MEMORY[0x1E69E9820];
+        v25[1] = 3221225472;
+        v25[2] = __72__PUPhotosFileProviderItemProvider_loadObjectOfClass_completionHandler___block_invoke;
+        v25[3] = &unk_1E83F7498;
         v13 = handlerCopy;
-        v27 = v13;
-        v14 = [(PUPhotosFileProviderItemProvider *)self _startProgressForURL:v11 UUID:uUID cancellationHandler:v26];
-        v22[0] = MEMORY[0x1E69E9820];
-        v22[1] = 3221225472;
-        v22[2] = __72__PUPhotosFileProviderItemProvider_loadObjectOfClass_completionHandler___block_invoke_2;
-        v22[3] = &unk_1E83F74C0;
-        objc_copyWeak(&v25, buf);
+        v26 = v13;
+        v14 = [(PUPhotosFileProviderItemProvider *)self _startProgressForURL:v11 UUID:uUID cancellationHandler:v25];
+        v21[0] = MEMORY[0x1E69E9820];
+        v21[1] = 3221225472;
+        v21[2] = __72__PUPhotosFileProviderItemProvider_loadObjectOfClass_completionHandler___block_invoke_2;
+        v21[3] = &unk_1E83F74C0;
+        objc_copyWeak(&v24, buf);
         v15 = uUID;
-        v23 = v15;
-        v24 = v13;
-        v21.receiver = self;
-        v21.super_class = PUPhotosFileProviderItemProvider;
-        v16 = [(PUPhotosFileProviderItemProvider *)&v21 loadObjectOfClass:class completionHandler:v22];
+        v22 = v15;
+        v23 = v13;
+        v20.receiver = self;
+        v20.super_class = PUPhotosFileProviderItemProvider;
+        v16 = [(PUPhotosFileProviderItemProvider *)&v20 loadObjectOfClass:class completionHandler:v21];
 
-        objc_destroyWeak(&v25);
+        objc_destroyWeak(&v24);
         objc_destroyWeak(buf);
       }
 
       else
       {
-        v20.receiver = self;
-        v20.super_class = PUPhotosFileProviderItemProvider;
-        v14 = [(PUPhotosFileProviderItemProvider *)&v20 loadObjectOfClass:class completionHandler:handlerCopy];
+        v19.receiver = self;
+        v19.super_class = PUPhotosFileProviderItemProvider;
+        v14 = [(PUPhotosFileProviderItemProvider *)&v19 loadObjectOfClass:class completionHandler:handlerCopy];
       }
 
       goto LABEL_12;
     }
   }
 
-  v19.receiver = self;
-  v19.super_class = PUPhotosFileProviderItemProvider;
-  v14 = [(PUPhotosFileProviderItemProvider *)&v19 loadObjectOfClass:class completionHandler:handlerCopy];
+  v18.receiver = self;
+  v18.super_class = PUPhotosFileProviderItemProvider;
+  v14 = [(PUPhotosFileProviderItemProvider *)&v18 loadObjectOfClass:class completionHandler:handlerCopy];
 LABEL_12:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -829,36 +817,36 @@ uint64_t __72__PUPhotosFileProviderItemProvider_loadObjectOfClass_completionHand
 
 - (void)dealloc
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   _progressSubscriberByUUID = [(PUPhotosFileProviderItemProvider *)self _progressSubscriberByUUID];
 
   if (_progressSubscriberByUUID)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     _progressSubscriberByUUID2 = [(PUPhotosFileProviderItemProvider *)self _progressSubscriberByUUID];
     allValues = [_progressSubscriberByUUID2 allValues];
 
-    v6 = [allValues countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v6 = [allValues countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v26;
+      v8 = *v25;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v26 != v8)
+          if (*v25 != v8)
           {
             objc_enumerationMutation(allValues);
           }
 
-          [MEMORY[0x1E696AE38] removeSubscriber:*(*(&v25 + 1) + 8 * i)];
+          [MEMORY[0x1E696AE38] removeSubscriber:*(*(&v24 + 1) + 8 * i)];
         }
 
-        v7 = [allValues countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v7 = [allValues countByEnumeratingWithState:&v24 objects:v29 count:16];
       }
 
       while (v7);
@@ -869,43 +857,42 @@ uint64_t __72__PUPhotosFileProviderItemProvider_loadObjectOfClass_completionHand
 
   if (_progressProxyByUUID)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     _progressProxyByUUID2 = [(PUPhotosFileProviderItemProvider *)self _progressProxyByUUID];
     allValues2 = [_progressProxyByUUID2 allValues];
 
-    v13 = [allValues2 countByEnumeratingWithState:&v21 objects:v29 count:16];
+    v13 = [allValues2 countByEnumeratingWithState:&v20 objects:v28 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v22;
+      v15 = *v21;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v22 != v15)
+          if (*v21 != v15)
           {
             objc_enumerationMutation(allValues2);
           }
 
-          v17 = *(*(&v21 + 1) + 8 * j);
+          v17 = *(*(&v20 + 1) + 8 * j);
           v18 = NSStringFromSelector(sel_fractionCompleted);
           [v17 removeObserver:self forKeyPath:v18 context:PUPhotosFileProviderItemProviderContext];
         }
 
-        v14 = [allValues2 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v14 = [allValues2 countByEnumeratingWithState:&v20 objects:v28 count:16];
       }
 
       while (v14);
     }
   }
 
-  v20.receiver = self;
-  v20.super_class = PUPhotosFileProviderItemProvider;
-  [(PUPhotosFileProviderItemProvider *)&v20 dealloc];
-  v19 = *MEMORY[0x1E69E9840];
+  v19.receiver = self;
+  v19.super_class = PUPhotosFileProviderItemProvider;
+  [(PUPhotosFileProviderItemProvider *)&v19 dealloc];
 }
 
 - (PUPhotosFileProviderItemProvider)initWithProgressURLs:(id)ls progressURLSandboxExtensionTokens:(id)tokens

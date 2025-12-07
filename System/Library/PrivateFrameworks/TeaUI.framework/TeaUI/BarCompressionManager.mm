@@ -38,7 +38,7 @@
   y = velocity.y;
   draggingCopy = dragging;
   selfCopy = self;
-  BarCompressionManager.scrollViewWillEndDragging(_:withVelocity:targetContentOffset:)(v8, y);
+  BarCompressionManager.scrollViewWillEndDragging(_:withVelocity:targetContentOffset:)(selfCopy, v8, y);
 }
 
 - (void)scrollViewDidScrollToTop:(id)top

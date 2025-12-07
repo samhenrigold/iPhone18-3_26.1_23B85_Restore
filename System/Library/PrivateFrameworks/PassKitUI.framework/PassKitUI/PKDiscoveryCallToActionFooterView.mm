@@ -286,6 +286,7 @@ void __85__PKDiscoveryCallToActionFooterView_initWithCallToAction_displayType_it
   memset(&slice, 0, sizeof(slice));
   v12 = v4 + 16.0;
   v13 = 0.0;
+  v14 = v6 + 0.0;
   remainder.origin.x = v4 + 16.0;
   remainder.origin.y = v6 + 0.0;
   remainder.size.width = v8 + -32.0;
@@ -295,25 +296,32 @@ void __85__PKDiscoveryCallToActionFooterView_initWithCallToAction_displayType_it
   {
     if (_shouldReverseLayoutDirection)
     {
-      v14 = CGRectMinXEdge;
+      v15 = CGRectMinXEdge;
     }
 
     else
     {
-      v14 = CGRectMaxXEdge;
+      v15 = CGRectMaxXEdge;
     }
 
     [(PKDiscoveryCallToActionFooterView *)self _buttonSizeForBounds:v4 + 16.0, v6 + 0.0, v8 + -32.0, v10];
-    v16 = v15;
-    v28.origin.x = v12;
-    v28.origin.y = v6 + 0.0;
-    v28.size.width = v8 + -32.0;
-    v28.size.height = v10;
-    CGRectDivide(v28, &slice, &remainder, v16, v14);
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v17 = v16;
+    v19 = v18;
+    v86.origin.x = v12;
+    v86.origin.y = v14;
+    v86.size.width = v8 + -32.0;
+    v86.size.height = v10;
+    CGRectDivide(v86, &slice, &remainder, v17, v15);
+    v20 = PKContentAlignmentMake();
+    v21.n128_u64[0] = *&slice.origin.x;
+    v22.n128_u64[0] = *&slice.origin.y;
+    v23.n128_u64[0] = *&slice.size.width;
+    v24.n128_u64[0] = *&slice.size.height;
+    v25.n128_f64[0] = v17;
+    v26.n128_u64[0] = v19;
+    PKSizeAlignedInRect(v20, v25, v26, v21, v22, v23, v24, v27);
     [(UIButton *)self->_button setFrame:?];
-    CGRectDivide(remainder, &slice, &remainder, 10.0, v14);
+    CGRectDivide(remainder, &slice, &remainder, 10.0, v15);
   }
 
   titleLabel = self->_titleLabel;
@@ -330,40 +338,71 @@ void __85__PKDiscoveryCallToActionFooterView_initWithCallToAction_displayType_it
     }
   }
 
+  width = remainder.size.width;
+  height = remainder.size.height;
   [(UILabel *)titleLabel sizeThatFits:remainder.size.width, remainder.size.height, *&remainder.origin.y, *&remainder.origin.x];
-  CGRectDivide(remainder, &slice, &remainder, v18, CGRectMinYEdge);
+  v32 = v31;
+  v34 = v33;
+  v35 = remainder.size.width;
+  CGRectDivide(remainder, &slice, &remainder, v33, CGRectMinYEdge);
   CGRectDivide(remainder, &slice, &remainder, v13, CGRectMinYEdge);
   if (+[PKDiscoveryCardView usesMediumCards])
   {
     font = [(UILabel *)self->_titleLabel font];
     [font lineHeight];
-    PKFloatRoundToPixel();
-    v21 = v20;
+    v38.n128_f64[0] = v34 / v37;
+    PKFloatRoundToPixel(v38, v39);
+    v41 = v40;
 
-    if (v21 > 1.0)
+    if (v41 > 1.0)
     {
-      v22 = 1;
+      v42 = 1;
     }
 
     else
     {
-      v22 = 2;
+      v42 = 2;
     }
 
-    [(UILabel *)self->_subtitleLabel setNumberOfLines:v22];
+    [(UILabel *)self->_subtitleLabel setNumberOfLines:v42];
   }
 
+  v43 = fmin(v35, v32);
   [(UILabel *)self->_subtitleLabel sizeThatFits:remainder.size.width, remainder.size.height];
-  CGRectDivide(remainder, &slice, &remainder, v23, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v24 = self->_titleLabel;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  [(UILabel *)v24 setFrame:?];
+  v45 = v44;
+  v47 = fmin(remainder.size.width, v46);
+  CGRectDivide(remainder, &slice, &remainder, v44, CGRectMinYEdge);
+  v48 = PKContentAlignmentMake();
+  v49.n128_u64[0] = fmax(v43, v47);
+  v50.n128_f64[0] = v13 + v34 + v45;
+  v52.n128_u64[0] = v82;
+  v51.n128_u64[0] = v83;
+  v53.n128_f64[0] = width;
+  v54.n128_f64[0] = height;
+  PKSizeAlignedInRect(v48, v49, v50, v51, v52, v53, v54, v55);
+  v57 = v56;
+  v59 = v58;
+  v61 = v60;
+  v63 = v62;
+  v64 = self->_titleLabel;
+  v65 = PKContentAlignmentMake();
+  v66.n128_f64[0] = v43;
+  v67.n128_f64[0] = v34;
+  v68.n128_u64[0] = v57;
+  v69.n128_u64[0] = v59;
+  v70.n128_u64[0] = v61;
+  v71.n128_u64[0] = v63;
+  PKSizeAlignedInRect(v65, v66, v67, v68, v69, v70, v71, v72);
+  [(UILabel *)v64 setFrame:?];
   subtitleLabel = self->_subtitleLabel;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  v74 = PKContentAlignmentMake();
+  v75.n128_f64[0] = v47;
+  v76.n128_f64[0] = v45;
+  v77.n128_u64[0] = v57;
+  v78.n128_u64[0] = v59;
+  v79.n128_u64[0] = v61;
+  v80.n128_u64[0] = v63;
+  PKSizeAlignedInRect(v74, v75, v76, v77, v78, v79, v80, v81);
   [(UILabel *)subtitleLabel setFrame:?];
 }
 
@@ -620,65 +659,67 @@ void __85__PKDiscoveryCallToActionFooterView_initWithCallToAction_displayType_it
   [(PKDiscoveryCallToActionFooterView *)self _buttonWidthForLabelWidth:36.0];
   v12 = v11;
   +[PKDiscoveryCardView compressedWidth];
-  PKFloatRoundToPixel();
-  v14 = v13;
+  v13.n128_u64[0] = 3.0;
+  v15.n128_f64[0] = v14 / 3.0;
+  PKFloatRoundToPixel(v15, v13);
+  v17 = v16;
   [(UIButton *)self->_button sizeThatFits:width, height];
-  if (v15 >= v12)
+  if (v18 >= v12)
   {
-    if (v15 > v14)
+    if (v18 > v17)
     {
       [(UIButton *)self->_button setContentEdgeInsets:0.0, 8.0, 0.0, 8.0];
       [(UIButton *)self->_button sizeThatFits:width, height];
     }
 
-    v12 = v15;
+    v12 = v18;
   }
 
-  if (v12 > v14)
+  if (v12 > v17)
   {
     if (self->_useAccessibilityLayout)
     {
-      v16 = 13.0;
+      v19 = 13.0;
     }
 
     else
     {
-      v16 = 9.0;
+      v19 = 9.0;
     }
 
-    v17 = PKFontForDefaultDesign(v8, v9, 2, 0);
-    v18 = [v17 fontWithSize:v16];
+    v20 = PKFontForDefaultDesign(v8, v9, 2, 0);
+    v21 = [v20 fontWithSize:v19];
 
-    [(UIButton *)self->_button pkui_updateTitleTextAttributesWithFont:v18];
+    [(UIButton *)self->_button pkui_updateTitleTextAttributesWithFont:v21];
     [(UIButton *)self->_button setContentEdgeInsets:4.0, 16.0, 4.0, 16.0];
     [v6 setNumberOfLines:2];
     [v6 setLineBreakMode:4];
-    [v6 sizeThatFits:{v14 + -32.0, height}];
+    [v6 sizeThatFits:{v17 + -32.0, height}];
     [(PKDiscoveryCallToActionFooterView *)self _buttonWidthForLabelWidth:?];
-    v12 = v19;
+    v12 = v22;
   }
 
-  v20 = +[PKDiscoveryCardView usesMediumCards];
-  v21 = 32.0;
-  if (!v20)
+  v23 = +[PKDiscoveryCardView usesMediumCards];
+  v24 = 32.0;
+  if (!v23)
   {
-    v21 = 28.0;
+    v24 = 28.0;
   }
 
   if (self->_useAccessibilityLayout)
   {
-    v22 = 34.0;
+    v25 = 34.0;
   }
 
   else
   {
-    v22 = v21;
+    v25 = v24;
   }
 
-  v23 = v12;
-  v24 = v22;
-  result.height = v24;
-  result.width = v23;
+  v26 = v12;
+  v27 = v25;
+  result.height = v27;
+  result.width = v26;
   return result;
 }
 

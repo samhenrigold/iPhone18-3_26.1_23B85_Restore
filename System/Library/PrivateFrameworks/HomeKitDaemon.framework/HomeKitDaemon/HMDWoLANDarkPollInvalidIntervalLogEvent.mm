@@ -24,7 +24,7 @@
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[HMDWoLANDarkPollInvalidIntervalLogEvent wolanVersion](self, "wolanVersion")}];
   [dictionary setObject:v8 forKeyedSubscript:@"wolanVersion"];
 
-  v9 = [dictionary copy];
+  v9 = objc_msgSend_copy(dictionary);
 
   return v9;
 }

@@ -19,7 +19,7 @@
   if (Strong)
   {
     v4 = Strong;
-    sub_1000040E8(&unk_100114770);
+    sub_1000040E8(&unk_100114770, qword_1000D58D0);
     v5 = swift_allocObject();
     *(v5 + 16) = xmmword_1000D5DA0;
     *(v5 + 32) = v4;
@@ -31,11 +31,11 @@
     v10.super_class = type metadata accessor for ClimateOverlayViewController(0);
     selfCopy = self;
     preferredFocusEnvironments = [(ClimateOverlayViewController *)&v10 preferredFocusEnvironments];
-    sub_1000040E8(&unk_1001150F0);
+    sub_1000040E8(&unk_1001150F0, &qword_1000D5F10);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
-  sub_1000040E8(&unk_1001150F0);
+  sub_1000040E8(&unk_1001150F0, &qword_1000D5F10);
   v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v8.super.isa;

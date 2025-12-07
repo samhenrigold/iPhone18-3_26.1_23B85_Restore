@@ -8,12 +8,18 @@
 - (id)callWithUniqueProxyIdentifier:(id)identifier;
 - (void)_postClientNotificationName:(id)name forCall:(id)call userInfo:(id)info;
 - (void)answerCall:(id)call withRequest:(id)request whileDisconnectingCalls:(id)calls andHoldingCalls:(id)holdingCalls;
+- (void)disconnectAllCalls:(id)calls withReason:(int)reason;
 - (void)disconnectCall:(id)call whileUngroupingCall:(id)ungroupingCall;
+- (void)disconnectCalls:(id)calls withReason:(int)reason whileHoldingCalls:(id)holdingCalls andUnholdingCalls:(id)unholdingCalls andUngroupingCalls:(id)ungroupingCalls;
 - (void)groupCalls:(id)calls withCalls:(id)withCalls;
 - (void)handleBytesOfDataUsedChanged:(int64_t)changed forCallWithUniqueProxyIdentifier:(id)identifier callHistoryIdentifier:(id)historyIdentifier;
 - (void)handleCallStatusChanged:(id)changed;
+- (void)handleFrequencyDataChanged:(id)changed inDirection:(int)direction forCalls:(id)calls;
+- (void)handleMeterLevelChanged:(float)changed inDirection:(int)direction forCalls:(id)calls;
 - (void)holdCalls:(id)calls whileUnholdingCalls:(id)unholdingCalls;
 - (void)registerCall:(id)call;
+- (void)setTTYType:(int)type forCalls:(id)calls;
+- (void)setUplinkMuted:(BOOL)muted forCalls:(id)calls userInitiated:(BOOL)initiated;
 - (void)startTrackingCall:(id)call;
 - (void)stopTrackingCall:(id)call;
 - (void)ungroupCall:(id)call fromOtherCallsInGroup:(id)group;
@@ -159,12 +165,12 @@
   uniqueProxyIdentifierToCallTableSemaphore2 = [(CSDCallDataSource *)self uniqueProxyIdentifierToCallTableSemaphore];
   dispatch_semaphore_signal(uniqueProxyIdentifierToCallTableSemaphore2);
 
-  v10 = sub_100004778();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100004778(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = callCopy;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Started tracking call: %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = callCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Started tracking call: %@", &v12, 0xCu);
   }
 }
 
@@ -184,12 +190,12 @@
   uniqueProxyIdentifierToCallTableSemaphore2 = [(CSDCallDataSource *)self uniqueProxyIdentifierToCallTableSemaphore];
   dispatch_semaphore_signal(uniqueProxyIdentifierToCallTableSemaphore2);
 
-  v10 = sub_100004778();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100004778(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = callCopy;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Stopped tracking call: %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = callCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Stopped tracking call: %@", &v12, 0xCu);
   }
 }
 
@@ -199,7 +205,7 @@
   requestCopy = request;
   callsCopy = calls;
   holdingCallsCopy = holdingCalls;
-  v13 = sub_100004778();
+  v13 = sub_100004778(holdingCallsCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
@@ -280,7 +286,7 @@
 {
   callsCopy = calls;
   unholdingCallsCopy = unholdingCalls;
-  v7 = sub_100004778();
+  v7 = sub_100004778(unholdingCallsCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -357,7 +363,7 @@
 {
   callsCopy = calls;
   withCallsCopy = withCalls;
-  v7 = sub_100004778();
+  v7 = sub_100004778(withCallsCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -439,7 +445,7 @@
 {
   callCopy = call;
   groupCopy = group;
-  v7 = sub_100004778();
+  v7 = sub_100004778(groupCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -498,7 +504,7 @@
 {
   callCopy = call;
   ungroupingCallCopy = ungroupingCall;
-  v8 = sub_100004778();
+  v8 = sub_100004778(ungroupingCallCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -515,10 +521,268 @@
   [(CSDCallDataSource *)self disconnectCalls:v9 withReason:0 whileHoldingCalls:&__NSArray0__struct andUnholdingCalls:&__NSArray0__struct andUngroupingCalls:v10];
 }
 
+- (void)disconnectAllCalls:(id)calls withReason:(int)reason
+{
+  v4 = *&reason;
+  callsCopy = calls;
+  v7 = sub_100004778(callsCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = 138412290;
+    v9 = callsCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Asked to disconnect all calls %@", &v8, 0xCu);
+  }
+
+  [(CSDCallDataSource *)self disconnectCalls:callsCopy withReason:v4 whileHoldingCalls:&__NSArray0__struct andUnholdingCalls:&__NSArray0__struct andUngroupingCalls:&__NSArray0__struct];
+}
+
+- (void)disconnectCalls:(id)calls withReason:(int)reason whileHoldingCalls:(id)holdingCalls andUnholdingCalls:(id)unholdingCalls andUngroupingCalls:(id)ungroupingCalls
+{
+  v10 = *&reason;
+  callsCopy = calls;
+  holdingCallsCopy = holdingCalls;
+  unholdingCallsCopy = unholdingCalls;
+  ungroupingCallsCopy = ungroupingCalls;
+  v15 = sub_100004778(ungroupingCallsCopy);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138413314;
+    v57 = callsCopy;
+    v58 = 2048;
+    v59 = v10;
+    v60 = 2112;
+    v61 = holdingCallsCopy;
+    v62 = 2112;
+    v63 = unholdingCallsCopy;
+    v64 = 2112;
+    v65 = ungroupingCallsCopy;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Asked to disconnect calls %@ reason: %lu, while holding calls %@ and unholding calls %@ and ungrouping calls %@", buf, 0x34u);
+  }
+
+  v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v16 = callsCopy;
+  v17 = [v16 countByEnumeratingWithState:&v48 objects:v55 count:16];
+  if (v17)
+  {
+    v18 = v17;
+    v19 = *v49;
+    do
+    {
+      v20 = 0;
+      do
+      {
+        if (*v49 != v19)
+        {
+          objc_enumerationMutation(v16);
+        }
+
+        [*(*(&v48 + 1) + 8 * v20) disconnectCallWithReason:v10];
+        v20 = v20 + 1;
+      }
+
+      while (v18 != v20);
+      v18 = [v16 countByEnumeratingWithState:&v48 objects:v55 count:16];
+    }
+
+    while (v18);
+  }
+
+  v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v21 = holdingCallsCopy;
+  v22 = [v21 countByEnumeratingWithState:&v44 objects:v54 count:16];
+  if (v22)
+  {
+    v23 = v22;
+    v24 = *v45;
+    do
+    {
+      v25 = 0;
+      do
+      {
+        if (*v45 != v24)
+        {
+          objc_enumerationMutation(v21);
+        }
+
+        [*(*(&v44 + 1) + 8 * v25) hold];
+        v25 = v25 + 1;
+      }
+
+      while (v23 != v25);
+      v23 = [v21 countByEnumeratingWithState:&v44 objects:v54 count:16];
+    }
+
+    while (v23);
+  }
+
+  v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v26 = unholdingCallsCopy;
+  v27 = [v26 countByEnumeratingWithState:&v40 objects:v53 count:16];
+  if (v27)
+  {
+    v28 = v27;
+    v29 = *v41;
+    do
+    {
+      v30 = 0;
+      do
+      {
+        if (*v41 != v29)
+        {
+          objc_enumerationMutation(v26);
+        }
+
+        [*(*(&v40 + 1) + 8 * v30) unhold];
+        v30 = v30 + 1;
+      }
+
+      while (v28 != v30);
+      v28 = [v26 countByEnumeratingWithState:&v40 objects:v53 count:16];
+    }
+
+    while (v28);
+  }
+
+  v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v31 = ungroupingCallsCopy;
+  v32 = [v31 countByEnumeratingWithState:&v36 objects:v52 count:16];
+  if (v32)
+  {
+    v33 = v32;
+    v34 = *v37;
+    do
+    {
+      v35 = 0;
+      do
+      {
+        if (*v37 != v34)
+        {
+          objc_enumerationMutation(v31);
+        }
+
+        [*(*(&v36 + 1) + 8 * v35) ungroup];
+        v35 = v35 + 1;
+      }
+
+      while (v33 != v35);
+      v33 = [v31 countByEnumeratingWithState:&v36 objects:v52 count:16];
+    }
+
+    while (v33);
+  }
+}
+
+- (void)setTTYType:(int)type forCalls:(id)calls
+{
+  v4 = *&type;
+  callsCopy = calls;
+  v6 = sub_100004778(callsCopy);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109378;
+    v18 = v4;
+    v19 = 2112;
+    v20 = callsCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Asked to set TTY type to %d for calls %@", buf, 0x12u);
+  }
+
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v7 = callsCopy;
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v13;
+    do
+    {
+      v11 = 0;
+      do
+      {
+        if (*v13 != v10)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        [*(*(&v12 + 1) + 8 * v11) setTtyType:{v4, v12}];
+        v11 = v11 + 1;
+      }
+
+      while (v9 != v11);
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v9);
+  }
+}
+
+- (void)setUplinkMuted:(BOOL)muted forCalls:(id)calls userInitiated:(BOOL)initiated
+{
+  initiatedCopy = initiated;
+  mutedCopy = muted;
+  callsCopy = calls;
+  v8 = sub_100004778(callsCopy);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109634;
+    v20 = mutedCopy;
+    v21 = 1024;
+    v22 = initiatedCopy;
+    v23 = 2112;
+    v24 = callsCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Asked to set uplink muted to %d userInitiated %d for calls %@", buf, 0x18u);
+  }
+
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v9 = callsCopy;
+  v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v15;
+    do
+    {
+      v13 = 0;
+      do
+      {
+        if (*v15 != v12)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        [*(*(&v14 + 1) + 8 * v13) setUplinkMuted:mutedCopy userInitiated:{initiatedCopy, v14}];
+        v13 = v13 + 1;
+      }
+
+      while (v11 != v13);
+      v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    }
+
+    while (v11);
+  }
+}
+
 - (void)handleCallStatusChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = sub_100004778();
+  v5 = sub_100004778(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -539,7 +803,7 @@
 {
   historyIdentifierCopy = historyIdentifier;
   identifierCopy = identifier;
-  v10 = sub_100004778();
+  v10 = sub_100004778(identifierCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 134218242;
@@ -553,6 +817,24 @@
   recentsController = [callStateController recentsController];
 
   [recentsController updateBytesOfDataUsed:changed forCallWithUniqueProxyIdentifier:identifierCopy callHistoryIdentifier:historyIdentifierCopy];
+}
+
+- (void)handleFrequencyDataChanged:(id)changed inDirection:(int)direction forCalls:(id)calls
+{
+  v5 = *&direction;
+  callsCopy = calls;
+  changedCopy = changed;
+  callStateController = [(CSDCallDataSource *)self callStateController];
+  [callStateController updateClientsWithFrequency:changedCopy inDirection:v5 forCalls:callsCopy];
+}
+
+- (void)handleMeterLevelChanged:(float)changed inDirection:(int)direction forCalls:(id)calls
+{
+  v5 = *&direction;
+  callsCopy = calls;
+  callStateController = [(CSDCallDataSource *)self callStateController];
+  *&v9 = changed;
+  [callStateController updateClientsWithMeterLevel:v5 inDirection:callsCopy forCalls:v9];
 }
 
 - (void)_postClientNotificationName:(id)name forCall:(id)call userInfo:(id)info

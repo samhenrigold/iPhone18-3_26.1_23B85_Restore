@@ -2,7 +2,7 @@
 - (BOOL)_logAccountEvent:(id)event subscription:(id)subscription cursor:(id)cursor;
 - (__CFString)_symbolForCommand:(__CFString *)result;
 - (id)_playbackBarWithElapsedTime:(double)time duration:(double)duration;
-- (void)_chartWithLevel:(void *)level type:;
+- (void)_chartWithLevel:(uint64_t)level type:;
 - (void)_updateChartWithEvent:(uint64_t)event;
 - (void)subscribeToEventStream:(id)stream;
 - (void)unsubscribeFromEventStream:(id)stream;
@@ -104,7 +104,7 @@ uint64_t __73__MPCPlaybackEngineLoggingConsumer__playbackBarWithElapsedTime_dura
 
   if (date)
   {
-    v20 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+    v20 = [(MPCPlaybackEngineLoggingConsumer *)self _chartWithLevel:2 type:?];
     v21 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
@@ -135,7 +135,7 @@ LABEL_7:
       goto LABEL_9;
     }
 
-    v20 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+    v20 = [(MPCPlaybackEngineLoggingConsumer *)self _chartWithLevel:2 type:?];
     v21 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
@@ -156,7 +156,7 @@ LABEL_7:
   }
 
 LABEL_9:
-  v26 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v26 = [(MPCPlaybackEngineLoggingConsumer *)self _chartWithLevel:3 type:?];
   v27 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
@@ -266,55 +266,55 @@ LABEL_9:
   return 1;
 }
 
-- (void)_chartWithLevel:(void *)level type:
+- (void)_chartWithLevel:(uint64_t)level type:
 {
-  levelCopy = level;
-  if (level)
+  selfCopy = self;
+  if (self)
   {
-    v2 = MSVTimelineChartPrefix();
-    v3 = levelCopy[8];
-    if (v3 == 2)
+    v4 = MSVTimelineChartPrefix();
+    v5 = selfCopy[8];
+    if (v5 == 2)
     {
-      v4 = @"🟧";
-      v5 = @"🟩";
+      v6 = @"🟧";
+      v7 = @"🟩";
     }
 
-    else if (v3 == 1)
+    else if (v5 == 1)
     {
-      v4 = @"⬜️";
-      v5 = @"🟧";
+      v6 = @"⬜️";
+      v7 = @"🟧";
     }
 
     else
     {
-      if (v3)
+      if (v5)
       {
-        v4 = @"⬛️";
+        v6 = @"⬛️";
       }
 
       else
       {
-        v4 = @"⬜️";
+        v6 = @"⬜️";
       }
 
-      v5 = @"🟥";
+      v7 = @"🟥";
     }
 
-    if (*(levelCopy + 56))
+    if (*(selfCopy + 56))
     {
-      v6 = v5;
+      v8 = v7;
     }
 
     else
     {
-      v6 = v4;
+      v8 = v6;
     }
 
-    v7 = v6;
-    levelCopy = [(__CFString *)v7 stringByAppendingString:v2];
+    v9 = v8;
+    selfCopy = [(__CFString *)v9 stringByAppendingString:v4];
   }
 
-  return levelCopy;
+  return selfCopy;
 }
 
 - (void)unsubscribeFromEventStream:(id)stream
@@ -1286,7 +1286,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v12 = [v3 date];
   v13 = [v11 stringFromDate:v12];
 
-  v14 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v14 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:1 type:?];
   v15 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
@@ -1312,7 +1312,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     a1 = v51;
   }
 
-  v21 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v21 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v22 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
@@ -1490,7 +1490,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v10 = [v3 date];
   v11 = [v9 stringFromDate:v10];
 
-  v12 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v12 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:1 type:?];
   v13 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
@@ -1516,7 +1516,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     v6 = v25;
   }
 
-  v19 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v19 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v20 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
@@ -1562,7 +1562,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v7 = [v3 date];
   v8 = [v6 stringFromDate:v7];
 
-  v9 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v9 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v10 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
@@ -1583,7 +1583,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v10, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􂅟 SESSION REUSE              %{public}@", &v20, 0x30u);
   }
 
-  v15 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v15 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v16 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
@@ -1614,7 +1614,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v5 = [v3 date];
   v6 = [v4 stringFromDate:v5];
 
-  v7 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v7 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:4 type:?];
   v8 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
@@ -1647,7 +1647,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v5 = [v3 date];
   v6 = [v4 stringFromDate:v5];
 
-  v7 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v7 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v8 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
@@ -1695,7 +1695,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v39 = [v15 stringFromDate:v16];
 
   v38 = a1;
-  v17 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v17 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v18 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
@@ -1719,7 +1719,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   {
     v36 = v8;
     v37 = v6;
-    v20 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+    v20 = [(MPCPlaybackEngineLoggingConsumer *)*(v38 + 32) _chartWithLevel:5 type:?];
     v35 = v14;
     v21 = [v14 treeDescription];
     v22 = [v21 componentsSeparatedByString:@"\n"];
@@ -1819,7 +1819,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v5 = [v3 date];
   v6 = [v4 stringFromDate:v5];
 
-  v7 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v7 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v8 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
@@ -1867,7 +1867,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v39 = [v15 stringFromDate:v16];
 
   v38 = a1;
-  v17 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v17 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v18 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
@@ -1891,7 +1891,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   {
     v36 = v8;
     v37 = v6;
-    v20 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+    v20 = [(MPCPlaybackEngineLoggingConsumer *)*(v38 + 32) _chartWithLevel:5 type:?];
     v35 = v14;
     v21 = [v14 treeDescription];
     v22 = [v21 componentsSeparatedByString:@"\n"];
@@ -1994,7 +1994,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v7 = [v3 date];
   v8 = [v6 stringFromDate:v7];
 
-  v9 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v9 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v10 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
@@ -2024,7 +2024,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v5 = [v3 date];
   v6 = [v4 stringFromDate:v5];
 
-  v7 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v7 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:4 type:?];
   v8 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
@@ -2052,7 +2052,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v5 = [v3 date];
   v6 = [v4 stringFromDate:v5];
 
-  v7 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v7 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v8 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
@@ -2080,7 +2080,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v5 = [v3 date];
   v6 = [v4 stringFromDate:v5];
 
-  v7 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v7 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v8 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
@@ -2132,7 +2132,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v14 = [v3 date];
   v76 = [v13 stringFromDate:v14];
 
-  v15 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v15 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v16 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
@@ -2148,7 +2148,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v16, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􁄩 DEVICE CHANGED", buf, 0x26u);
   }
 
-  v75 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v75 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v18 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
@@ -2409,7 +2409,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v10 = [v3 date];
   v11 = [v9 stringFromDate:v10];
 
-  v12 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v12 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v13 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
@@ -2552,7 +2552,7 @@ LABEL_24:
   v28 = [v3 date];
   v29 = [v27 stringFromDate:v28];
 
-  v30 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v30 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v31 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
@@ -2571,7 +2571,7 @@ LABEL_24:
     _os_log_impl(&dword_1C5C61000, v31, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀤆 NETWORK TYPE CHANGED       %{public}@", buf, 0x30u);
   }
 
-  v34 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v34 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v35 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
   {
@@ -2658,7 +2658,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v13 = [v3 date];
   v14 = [v12 stringFromDate:v13];
 
-  v15 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v15 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:1 type:?];
   v16 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
@@ -2676,7 +2676,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v16, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀣚 COMMAND DELIVERED          %{public}@", buf, 0x30u);
   }
 
-  v18 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v18 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v19 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
@@ -2755,7 +2755,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v21 = [v3 date];
   v95 = [v20 stringFromDate:v21];
 
-  v22 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v22 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:1 type:?];
   v23 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   v91 = v11;
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
@@ -2782,7 +2782,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     v11 = v91;
   }
 
-  v94 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v94 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v28 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
@@ -3077,184 +3077,184 @@ LABEL_20:
 
 uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_invoke_38(uint64_t a1, void *a2, void *a3)
 {
-  v129[1] = *MEMORY[0x1E69E9840];
+  v130[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _updateChartWithEvent:v5];
-  v128 = @"remote-control-id";
+  v129 = @"remote-control-id";
   v7 = [v5 payload];
   v8 = [v7 objectForKeyedSubscript:@"remote-control-id"];
-  v129[0] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v129 forKeys:&v128 count:1];
+  v130[0] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v130 forKeys:&v129 count:1];
   v10 = [v6 findPreviousEventWithType:@"remote-control-begin" matchingPayload:v9];
 
   v11 = [v10 payload];
   v12 = [v11 objectForKeyedSubscript:@"remote-control-type"];
-  LODWORD(v9) = [v12 unsignedIntValue];
+  v13 = [v12 unsignedIntValue];
 
-  v13 = MPCRemoteCommandDescriptionCopy(v9);
-  v14 = v9;
-  v15 = a1;
-  v16 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _symbolForCommand:v14];
-  v17 = [v5 payload];
-  v18 = [v17 objectForKeyedSubscript:@"remote-control-id"];
+  v14 = MPCRemoteCommandDescriptionCopy(v13);
+  v15 = v13;
+  v16 = a1;
+  v17 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _symbolForCommand:v15];
+  v18 = [v5 payload];
+  v19 = [v18 objectForKeyedSubscript:@"remote-control-id"];
 
-  v108 = v5;
-  v19 = [v5 payload];
-  v20 = [v19 objectForKeyedSubscript:@"remote-control-status"];
-  v21 = [v20 firstObject];
+  v109 = v5;
+  v20 = [v5 payload];
+  v21 = [v20 objectForKeyedSubscript:@"remote-control-status"];
+  v22 = [v21 firstObject];
 
-  [v21 statusCode];
-  v22 = MRMediaRemoteCommandHandlerStatusFromMPRemoteCommandHandlerStatus();
-  if (*(v15 + 32))
+  [v22 statusCode];
+  v23 = MRMediaRemoteCommandHandlerStatusFromMPRemoteCommandHandlerStatus();
+  if (*(v16 + 32))
   {
-    if (v22 > 9)
+    if (v23 > 9)
     {
-      if (v22 == 10)
+      if (v23 == 10)
       {
-        v23 = @"🚷";
+        v24 = @"🚷";
         goto LABEL_11;
       }
 
-      if (v22 == 20)
+      if (v23 == 20)
       {
 LABEL_5:
-        v23 = @"📵";
+        v24 = @"📵";
 LABEL_11:
-        v102 = v23;
+        v103 = v24;
         goto LABEL_12;
       }
     }
 
     else
     {
-      if (!v22)
+      if (!v23)
       {
-        v23 = @"✅";
+        v24 = @"✅";
         goto LABEL_11;
       }
 
-      if (v22 == 1)
+      if (v23 == 1)
       {
         goto LABEL_5;
       }
     }
 
-    v23 = @"🚫";
+    v24 = @"🚫";
     goto LABEL_11;
   }
 
-  v102 = 0;
+  v103 = 0;
 LABEL_12:
-  v103 = MRMediaRemoteCopyCommandHandlerStatusDescription();
+  v104 = MRMediaRemoteCopyCommandHandlerStatusDescription();
   [v5 durationSinceEvent:v10];
-  v25 = v24;
-  v26 = MSVLogDateFormatter();
-  v27 = [v5 date];
-  v107 = [v26 stringFromDate:v27];
+  v26 = v25;
+  v27 = MSVLogDateFormatter();
+  v28 = [v5 date];
+  v108 = [v27 stringFromDate:v28];
 
-  v28 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
-  v29 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  v29 = [(MPCPlaybackEngineLoggingConsumer *)*(v16 + 32) _chartWithLevel:2 type:?];
+  v30 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
-    [*(v15 + 40) streamID];
-    v31 = v30 = v21;
+    [*(v16 + 40) streamID];
+    v32 = v31 = v22;
     *buf = 138544642;
-    v114 = v107;
-    v115 = 2114;
-    v116 = v31;
-    v117 = 1024;
-    v118 = [v108 threadPriority];
-    v119 = 2114;
-    v120 = v28;
-    v121 = 2114;
-    v122 = v18;
-    v123 = 2048;
-    v124 = v25;
-    _os_log_impl(&dword_1C5C61000, v29, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀹷 COMMAND TIMEOUT            %{public}@ [%.3fs]", buf, 0x3Au);
+    v115 = v108;
+    v116 = 2114;
+    v117 = v32;
+    v118 = 1024;
+    v119 = [v109 threadPriority];
+    v120 = 2114;
+    v121 = v29;
+    v122 = 2114;
+    v123 = v19;
+    v124 = 2048;
+    v125 = v26;
+    _os_log_impl(&dword_1C5C61000, v30, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀹷 COMMAND TIMEOUT            %{public}@ [%.3fs]", buf, 0x3Au);
 
-    v21 = v30;
+    v22 = v31;
   }
 
-  v106 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
-  v32 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+  v107 = [(MPCPlaybackEngineLoggingConsumer *)*(v16 + 32) _chartWithLevel:3 type:?];
+  v33 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
   {
-    v33 = [*(v15 + 40) streamID];
-    v34 = [v108 threadPriority];
+    v34 = [*(v16 + 40) streamID];
+    v35 = [v109 threadPriority];
     *buf = 138544642;
-    v114 = v107;
-    v115 = 2114;
-    v116 = v33;
-    v117 = 1024;
-    v118 = v34;
-    v119 = 2114;
-    v120 = v106;
-    v121 = 2114;
-    v122 = v16;
-    v123 = 2114;
-    v124 = v13;
-    _os_log_impl(&dword_1C5C61000, v32, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@ ╲╭ command: %{public}@  %{public}@ 💢", buf, 0x3Au);
+    v115 = v108;
+    v116 = 2114;
+    v117 = v34;
+    v118 = 1024;
+    v119 = v35;
+    v120 = 2114;
+    v121 = v107;
+    v122 = 2114;
+    v123 = v17;
+    v124 = 2114;
+    v125 = v14;
+    _os_log_impl(&dword_1C5C61000, v33, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@ ╲╭ command: %{public}@  %{public}@ 💢", buf, 0x3Au);
   }
 
-  v35 = [v21 type];
-  v105 = v15;
-  if (v35 > 2)
+  v36 = [v22 type];
+  v106 = v16;
+  if (v36 > 2)
   {
-    if (v35 == 3)
+    if (v36 == 3)
     {
       goto LABEL_44;
     }
 
-    if (v35 == 999)
+    if (v36 == 999)
     {
-      v40 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      v41 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
-        v41 = [*(v15 + 40) streamID];
-        v42 = [v108 threadPriority];
-        v43 = [v21 customDataType];
-        [v21 customData];
-        v44 = v99 = v18;
-        v45 = [v44 length];
+        v42 = [*(v16 + 40) streamID];
+        v43 = [v109 threadPriority];
+        v44 = [v22 customDataType];
+        [v22 customData];
+        v45 = v100 = v19;
+        v46 = [v45 length];
         *buf = 138544642;
-        v114 = v107;
-        v115 = 2114;
-        v116 = v41;
-        v117 = 1024;
-        v118 = v42;
-        v119 = 2114;
-        v120 = v106;
-        v121 = 2114;
-        v122 = v43;
-        v123 = 2048;
-        v124 = v45;
-        _os_log_impl(&dword_1C5C61000, v40, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@  │ customDataType: %{public}@; customDataSize: %llu", buf, 0x3Au);
+        v115 = v108;
+        v116 = 2114;
+        v117 = v42;
+        v118 = 1024;
+        v119 = v43;
+        v120 = 2114;
+        v121 = v107;
+        v122 = 2114;
+        v123 = v44;
+        v124 = 2048;
+        v125 = v46;
+        _os_log_impl(&dword_1C5C61000, v41, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@  │ customDataType: %{public}@; customDataSize: %llu", buf, 0x3Au);
 
-        v18 = v99;
-        v15 = v105;
+        v19 = v100;
+        v16 = v106;
       }
 
-      v36 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+      v37 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
-        v37 = [*(v15 + 40) streamID];
-        v46 = [v108 threadPriority];
+        v38 = [*(v16 + 40) streamID];
+        v47 = [v109 threadPriority];
         *buf = 138544642;
-        v114 = v107;
-        v115 = 2114;
-        v116 = v37;
-        v117 = 1024;
-        v118 = v46;
-        v119 = 2114;
-        v120 = v106;
-        v121 = 2114;
-        v122 = v102;
-        v123 = 2114;
-        v124 = v103;
-        v39 = "|%{public}@ %{public}@ %2i %{public}@  ╰ status: %{public}@ %{public}@";
+        v115 = v108;
+        v116 = 2114;
+        v117 = v38;
+        v118 = 1024;
+        v119 = v47;
+        v120 = 2114;
+        v121 = v107;
+        v122 = 2114;
+        v123 = v103;
+        v124 = 2114;
+        v125 = v104;
+        v40 = "|%{public}@ %{public}@ %2i %{public}@  ╰ status: %{public}@ %{public}@";
 LABEL_26:
-        _os_log_impl(&dword_1C5C61000, v36, OS_LOG_TYPE_DEFAULT, v39, buf, 0x3Au);
+        _os_log_impl(&dword_1C5C61000, v37, OS_LOG_TYPE_DEFAULT, v40, buf, 0x3Au);
       }
 
 LABEL_59:
@@ -3263,260 +3263,260 @@ LABEL_59:
 
   else
   {
-    if (v35 < 2)
+    if (v36 < 2)
     {
-      v36 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
-      if (!os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+      v37 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
+      if (!os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_59;
       }
 
-      v37 = [*(v15 + 40) streamID];
-      v38 = [v108 threadPriority];
+      v38 = [*(v16 + 40) streamID];
+      v39 = [v109 threadPriority];
       *buf = 138544642;
-      v114 = v107;
-      v115 = 2114;
-      v116 = v37;
-      v117 = 1024;
-      v118 = v38;
-      v119 = 2114;
-      v120 = v106;
-      v121 = 2114;
-      v122 = v102;
-      v123 = 2114;
-      v124 = v103;
-      v39 = "|%{public}@ %{public}@ %2i %{public}@  ╰  status: %{public}@ %{public}@";
+      v115 = v108;
+      v116 = 2114;
+      v117 = v38;
+      v118 = 1024;
+      v119 = v39;
+      v120 = 2114;
+      v121 = v107;
+      v122 = 2114;
+      v123 = v103;
+      v124 = 2114;
+      v125 = v104;
+      v40 = "|%{public}@ %{public}@ %2i %{public}@  ╰  status: %{public}@ %{public}@";
       goto LABEL_26;
     }
 
-    if (v35 == 2)
+    if (v36 == 2)
     {
-      v98 = v10;
-      v100 = v18;
-      v95 = v16;
-      v96 = v13;
-      v92 = v6;
-      v47 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+      v99 = v10;
+      v101 = v19;
+      v96 = v17;
+      v97 = v14;
+      v93 = v6;
+      v48 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
-        v48 = [*(v15 + 40) streamID];
-        v49 = [v108 threadPriority];
-        [v21 dialog];
-        v51 = v50 = v21;
-        v52 = [v51 localizedTitle];
-        v53 = [v50 dialog];
-        v54 = [v53 localizedMessage];
+        v49 = [*(v16 + 40) streamID];
+        v50 = [v109 threadPriority];
+        [v22 dialog];
+        v52 = v51 = v22;
+        v53 = [v52 localizedTitle];
+        v54 = [v51 dialog];
+        v55 = [v54 localizedMessage];
         *buf = 138544642;
-        v114 = v107;
-        v115 = 2114;
-        v116 = v48;
-        v117 = 1024;
-        v118 = v49;
-        v119 = 2114;
-        v120 = v106;
-        v121 = 2114;
-        v122 = v52;
-        v123 = 2114;
-        v124 = v54;
-        _os_log_impl(&dword_1C5C61000, v47, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@  │ dialog.title: %{public}@; dialog.message: %{public}@", buf, 0x3Au);
+        v115 = v108;
+        v116 = 2114;
+        v117 = v49;
+        v118 = 1024;
+        v119 = v50;
+        v120 = 2114;
+        v121 = v107;
+        v122 = 2114;
+        v123 = v53;
+        v124 = 2114;
+        v125 = v55;
+        _os_log_impl(&dword_1C5C61000, v48, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@  │ dialog.title: %{public}@; dialog.message: %{public}@", buf, 0x3Au);
 
-        v21 = v50;
+        v22 = v51;
       }
 
-      v111 = 0u;
       v112 = 0u;
-      v109 = 0u;
+      v113 = 0u;
       v110 = 0u;
-      v93 = v21;
-      v55 = [v21 dialog];
-      v56 = [v55 actions];
+      v111 = 0u;
+      v94 = v22;
+      v56 = [v22 dialog];
+      v57 = [v56 actions];
 
-      obj = v56;
-      v57 = [v56 countByEnumeratingWithState:&v109 objects:v127 count:16];
-      if (v57)
+      obj = v57;
+      v58 = [v57 countByEnumeratingWithState:&v110 objects:v128 count:16];
+      if (v58)
       {
-        v58 = v57;
-        v59 = *v110;
-        v60 = "com.apple.amp.mediaplaybackcore";
+        v59 = v58;
+        v60 = *v111;
+        v61 = "com.apple.amp.mediaplaybackcore";
         do
         {
-          for (i = 0; i != v58; ++i)
+          for (i = 0; i != v59; ++i)
           {
-            if (*v110 != v59)
+            if (*v111 != v60)
             {
               objc_enumerationMutation(obj);
             }
 
-            v62 = *(*(&v109 + 1) + 8 * i);
-            v63 = [v62 type];
-            v64 = @"􀿨 ";
-            if (v63 <= 2)
+            v63 = *(*(&v110 + 1) + 8 * i);
+            v64 = [v63 type];
+            v65 = @"􀿨 ";
+            if (v64 <= 2)
             {
-              v64 = off_1E8231BE0[v63];
+              v65 = off_1E8231BE0[v64];
             }
 
-            v65 = os_log_create(v60, "PlaybackEvents");
-            if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
+            v66 = os_log_create(v61, "PlaybackEvents");
+            if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
             {
-              v66 = [*(v15 + 40) streamID];
-              v67 = [v108 threadPriority];
-              [v62 title];
-              v68 = v58;
-              v69 = v60;
-              v71 = v70 = v59;
-              v72 = [v62 event];
-              v73 = v72;
+              v67 = [*(v16 + 40) streamID];
+              v68 = [v109 threadPriority];
+              [v63 title];
+              v69 = v59;
+              v70 = v61;
+              v72 = v71 = v60;
+              v73 = [v63 event];
+              v74 = v73;
               *buf = 138544898;
-              v74 = &stru_1F454A698;
-              if (v72)
+              v75 = &stru_1F454A698;
+              if (v73)
               {
-                v74 = v72;
+                v75 = v73;
               }
 
-              v114 = v107;
-              v115 = 2114;
-              v116 = v66;
-              v117 = 1024;
-              v118 = v67;
-              v15 = v105;
-              v119 = 2114;
-              v120 = v106;
-              v121 = 2114;
-              v122 = v64;
-              v123 = 2114;
-              v124 = v71;
-              v125 = 2114;
-              v126 = v74;
-              _os_log_impl(&dword_1C5C61000, v65, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@  │ dialog.action[%{public}@]: %{public}@ %{public}@", buf, 0x44u);
+              v115 = v108;
+              v116 = 2114;
+              v117 = v67;
+              v118 = 1024;
+              v119 = v68;
+              v16 = v106;
+              v120 = 2114;
+              v121 = v107;
+              v122 = 2114;
+              v123 = v65;
+              v124 = 2114;
+              v125 = v72;
+              v126 = 2114;
+              v127 = v75;
+              _os_log_impl(&dword_1C5C61000, v66, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@  │ dialog.action[%{public}@]: %{public}@ %{public}@", buf, 0x44u);
 
-              v59 = v70;
-              v60 = v69;
-              v58 = v68;
+              v60 = v71;
+              v61 = v70;
+              v59 = v69;
             }
           }
 
-          v58 = [obj countByEnumeratingWithState:&v109 objects:v127 count:16];
+          v59 = [obj countByEnumeratingWithState:&v110 objects:v128 count:16];
         }
 
-        while (v58);
+        while (v59);
       }
 
-      v6 = v92;
-      v21 = v93;
-      v13 = v96;
-      v10 = v98;
-      v16 = v95;
-      v18 = v100;
+      v6 = v93;
+      v22 = v94;
+      v14 = v97;
+      v10 = v99;
+      v17 = v96;
+      v19 = v101;
 LABEL_44:
-      v75 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
-      if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+      v76 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
+      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
       {
-        v76 = [*(v15 + 40) streamID];
-        v77 = [v108 threadPriority];
+        v77 = [*(v16 + 40) streamID];
+        v78 = [v109 threadPriority];
         *buf = 138544642;
-        v114 = v107;
-        v115 = 2114;
-        v116 = v76;
-        v117 = 1024;
-        v118 = v77;
-        v119 = 2114;
-        v120 = v106;
-        v121 = 2114;
-        v122 = v102;
-        v123 = 2114;
-        v124 = v103;
-        _os_log_impl(&dword_1C5C61000, v75, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@  │  status: %{public}@ %{public}@", buf, 0x3Au);
+        v115 = v108;
+        v116 = 2114;
+        v117 = v77;
+        v118 = 1024;
+        v119 = v78;
+        v120 = 2114;
+        v121 = v107;
+        v122 = 2114;
+        v123 = v103;
+        v124 = 2114;
+        v125 = v104;
+        _os_log_impl(&dword_1C5C61000, v76, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@  │  status: %{public}@ %{public}@", buf, 0x3Au);
       }
 
-      v78 = [v21 error];
-      v79 = [v78 treeDescription];
-      v36 = [v79 componentsSeparatedByString:@"\n"];
+      v79 = [v22 error];
+      v80 = [v79 treeDescription];
+      v37 = [v80 componentsSeparatedByString:@"\n"];
 
-      if ([v36 count]>= 1)
+      if ([v37 count]>= 1)
       {
-        v94 = v21;
-        v101 = v18;
-        v97 = v13;
-        v80 = 0;
+        v95 = v22;
+        v102 = v19;
+        v98 = v14;
+        v81 = 0;
         while (1)
         {
-          v81 = [v36 objectAtIndexedSubscript:v80, v92];
-          if (v80)
+          v82 = [v37 objectAtIndexedSubscript:v81, v93];
+          if (v81)
           {
-            v82 = [v36 count]- 1;
-            v83 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents_Oversize");
-            v84 = os_log_type_enabled(v83, OS_LOG_TYPE_ERROR);
-            if (v80 == v82)
+            v83 = [v37 count]- 1;
+            v84 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents_Oversize");
+            v85 = os_log_type_enabled(v84, OS_LOG_TYPE_ERROR);
+            if (v81 == v83)
             {
-              if (v84)
+              if (v85)
               {
-                v85 = [*(v105 + 40) streamID];
-                v86 = [v108 threadPriority];
+                v86 = [*(v106 + 40) streamID];
+                v87 = [v109 threadPriority];
                 *buf = 138544386;
-                v114 = v107;
-                v115 = 2114;
-                v116 = v85;
-                v117 = 1024;
-                v118 = v86;
-                v119 = 2114;
-                v120 = v106;
-                v121 = 2114;
-                v122 = v81;
-                v87 = v83;
-                v88 = "|%{public}@ %{public}@ %2i %{public}@  ╰             %{public}@";
+                v115 = v108;
+                v116 = 2114;
+                v117 = v86;
+                v118 = 1024;
+                v119 = v87;
+                v120 = 2114;
+                v121 = v107;
+                v122 = 2114;
+                v123 = v82;
+                v88 = v84;
+                v89 = "|%{public}@ %{public}@ %2i %{public}@  ╰             %{public}@";
 LABEL_56:
-                _os_log_impl(&dword_1C5C61000, v87, OS_LOG_TYPE_ERROR, v88, buf, 0x30u);
+                _os_log_impl(&dword_1C5C61000, v88, OS_LOG_TYPE_ERROR, v89, buf, 0x30u);
               }
             }
 
-            else if (v84)
+            else if (v85)
             {
-              v85 = [*(v105 + 40) streamID];
-              v90 = [v108 threadPriority];
+              v86 = [*(v106 + 40) streamID];
+              v91 = [v109 threadPriority];
               *buf = 138544386;
-              v114 = v107;
-              v115 = 2114;
-              v116 = v85;
-              v117 = 1024;
-              v118 = v90;
-              v119 = 2114;
-              v120 = v106;
-              v121 = 2114;
-              v122 = v81;
-              v87 = v83;
-              v88 = "|%{public}@ %{public}@ %2i %{public}@  │             %{public}@";
+              v115 = v108;
+              v116 = 2114;
+              v117 = v86;
+              v118 = 1024;
+              v119 = v91;
+              v120 = 2114;
+              v121 = v107;
+              v122 = 2114;
+              v123 = v82;
+              v88 = v84;
+              v89 = "|%{public}@ %{public}@ %2i %{public}@  │             %{public}@";
               goto LABEL_56;
             }
           }
 
           else
           {
-            v83 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents_Oversize");
-            if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
+            v84 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents_Oversize");
+            if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
             {
-              v85 = [*(v105 + 40) streamID];
-              v89 = [v108 threadPriority];
+              v86 = [*(v106 + 40) streamID];
+              v90 = [v109 threadPriority];
               *buf = 138544386;
-              v114 = v107;
-              v115 = 2114;
-              v116 = v85;
-              v117 = 1024;
-              v118 = v89;
-              v119 = 2114;
-              v120 = v106;
-              v121 = 2114;
-              v122 = v81;
-              v87 = v83;
-              v88 = "|%{public}@ %{public}@ %2i %{public}@  │   error: ❌ %{public}@";
+              v115 = v108;
+              v116 = 2114;
+              v117 = v86;
+              v118 = 1024;
+              v119 = v90;
+              v120 = 2114;
+              v121 = v107;
+              v122 = 2114;
+              v123 = v82;
+              v88 = v84;
+              v89 = "|%{public}@ %{public}@ %2i %{public}@  │   error: ❌ %{public}@";
               goto LABEL_56;
             }
           }
 
-          if (++v80 >= [v36 count])
+          if (++v81 >= [v37 count])
           {
-            v13 = v97;
-            v21 = v94;
-            v18 = v101;
+            v14 = v98;
+            v22 = v95;
+            v19 = v102;
             goto LABEL_59;
           }
         }
@@ -3531,184 +3531,184 @@ LABEL_56:
 
 uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_invoke_54(uint64_t a1, void *a2, void *a3)
 {
-  v142[1] = *MEMORY[0x1E69E9840];
+  v143[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _updateChartWithEvent:v5];
-  v141 = @"remote-control-id";
+  v142 = @"remote-control-id";
   v7 = [v5 payload];
   v8 = [v7 objectForKeyedSubscript:@"remote-control-id"];
-  v142[0] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v142 forKeys:&v141 count:1];
+  v143[0] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v143 forKeys:&v142 count:1];
   v10 = [v6 findPreviousEventWithType:@"remote-control-begin" matchingPayload:v9];
 
   v11 = [v10 payload];
   v12 = [v11 objectForKeyedSubscript:@"remote-control-type"];
-  LODWORD(v9) = [v12 unsignedIntValue];
+  v13 = [v12 unsignedIntValue];
 
-  v13 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _symbolForCommand:v9];
-  v14 = MPCRemoteCommandDescriptionCopy(v9);
-  v15 = [v5 payload];
-  v16 = [v15 objectForKeyedSubscript:@"remote-control-id"];
+  v14 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _symbolForCommand:v13];
+  v15 = MPCRemoteCommandDescriptionCopy(v13);
+  v16 = [v5 payload];
+  v17 = [v16 objectForKeyedSubscript:@"remote-control-id"];
 
-  v121 = v5;
-  v17 = [v5 payload];
-  v18 = [v17 objectForKeyedSubscript:@"remote-control-status"];
-  v19 = [v18 firstObject];
+  v122 = v5;
+  v18 = [v5 payload];
+  v19 = [v18 objectForKeyedSubscript:@"remote-control-status"];
+  v20 = [v19 firstObject];
 
-  [v19 statusCode];
-  v20 = MRMediaRemoteCommandHandlerStatusFromMPRemoteCommandHandlerStatus();
+  [v20 statusCode];
+  v21 = MRMediaRemoteCommandHandlerStatusFromMPRemoteCommandHandlerStatus();
   if (*(a1 + 32))
   {
-    if (v20 > 9)
+    if (v21 > 9)
     {
-      if (v20 == 10)
+      if (v21 == 10)
       {
-        v21 = @"🚷";
+        v22 = @"🚷";
         goto LABEL_11;
       }
 
-      if (v20 == 20)
+      if (v21 == 20)
       {
 LABEL_5:
-        v21 = @"📵";
+        v22 = @"📵";
 LABEL_11:
-        v112 = v21;
+        v113 = v22;
         goto LABEL_12;
       }
     }
 
     else
     {
-      if (!v20)
+      if (!v21)
       {
-        v21 = @"✅";
+        v22 = @"✅";
         goto LABEL_11;
       }
 
-      if (v20 == 1)
+      if (v21 == 1)
       {
         goto LABEL_5;
       }
     }
 
-    v21 = @"🚫";
+    v22 = @"🚫";
     goto LABEL_11;
   }
 
-  v112 = 0;
+  v113 = 0;
 LABEL_12:
-  v114 = MRMediaRemoteCopyCommandHandlerStatusDescription();
-  v22 = [v121 payload];
-  v115 = [v22 objectForKeyedSubscript:@"remote-control-internal-status"];
+  v115 = MRMediaRemoteCopyCommandHandlerStatusDescription();
+  v23 = [v122 payload];
+  v116 = [v23 objectForKeyedSubscript:@"remote-control-internal-status"];
 
-  [v121 durationSinceEvent:v10];
-  v24 = v23;
-  v25 = MSVLogDateFormatter();
-  v26 = [v121 date];
-  v120 = [v25 stringFromDate:v26];
+  [v122 durationSinceEvent:v10];
+  v25 = v24;
+  v26 = MSVLogDateFormatter();
+  v27 = [v122 date];
+  v121 = [v26 stringFromDate:v27];
 
-  v27 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
-  v28 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v28 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:4 type:?];
+  v29 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
-    v29 = [*(a1 + 40) streamID];
+    v30 = [*(a1 + 40) streamID];
     *buf = 138544642;
-    v128 = v120;
-    v129 = 2114;
-    v130 = v29;
-    v131 = 1024;
-    v132 = [v121 threadPriority];
-    v133 = 2114;
-    v134 = v27;
-    v135 = 2114;
-    v136 = v16;
-    v137 = 2048;
-    v138 = v24;
-    _os_log_impl(&dword_1C5C61000, v28, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀪀 COMMAND END                %{public}@ [%.3fs]", buf, 0x3Au);
+    v129 = v121;
+    v130 = 2114;
+    v131 = v30;
+    v132 = 1024;
+    v133 = [v122 threadPriority];
+    v134 = 2114;
+    v135 = v28;
+    v136 = 2114;
+    v137 = v17;
+    v138 = 2048;
+    v139 = v25;
+    _os_log_impl(&dword_1C5C61000, v29, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀪀 COMMAND END                %{public}@ [%.3fs]", buf, 0x3Au);
   }
 
-  v119 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
-  v30 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  v120 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:5 type:?];
+  v31 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
-    v31 = [*(a1 + 40) streamID];
-    v32 = [v121 threadPriority];
+    v32 = [*(a1 + 40) streamID];
+    v33 = [v122 threadPriority];
     *buf = 138544642;
-    v128 = v120;
-    v129 = 2114;
-    v130 = v31;
-    v131 = 1024;
-    v132 = v32;
-    v133 = 2114;
-    v134 = v119;
-    v135 = 2114;
-    v136 = v13;
-    v137 = 2114;
-    v138 = v14;
-    _os_log_impl(&dword_1C5C61000, v30, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@ ╲╭ command: %{public}@  %{public}@", buf, 0x3Au);
+    v129 = v121;
+    v130 = 2114;
+    v131 = v32;
+    v132 = 1024;
+    v133 = v33;
+    v134 = 2114;
+    v135 = v120;
+    v136 = 2114;
+    v137 = v14;
+    v138 = 2114;
+    v139 = v15;
+    _os_log_impl(&dword_1C5C61000, v31, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@ ╲╭ command: %{public}@  %{public}@", buf, 0x3Au);
   }
 
-  v113 = v16;
+  v114 = v17;
 
-  v33 = [v19 type];
-  v118 = a1;
-  if (v33 > 2)
+  v34 = [v20 type];
+  v119 = a1;
+  if (v34 > 2)
   {
-    if (v33 == 3)
+    if (v34 == 3)
     {
       goto LABEL_45;
     }
 
-    if (v33 == 999)
+    if (v34 == 999)
     {
-      v41 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+      v42 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
-        v42 = [*(a1 + 40) streamID];
-        v43 = v19;
-        v44 = [v121 threadPriority];
-        [v43 customDataType];
-        v46 = v45 = v14;
-        v47 = [v43 customData];
-        v48 = [v47 length];
+        v43 = [*(a1 + 40) streamID];
+        v44 = v20;
+        v45 = [v122 threadPriority];
+        [v44 customDataType];
+        v47 = v46 = v15;
+        v48 = [v44 customData];
+        v49 = [v48 length];
         *buf = 138544642;
-        v128 = v120;
-        v129 = 2114;
-        v130 = v42;
-        v131 = 1024;
-        v132 = v44;
-        v19 = v43;
-        v133 = 2114;
-        v134 = v119;
-        v135 = 2114;
-        v136 = v46;
-        v137 = 2048;
-        v138 = v48;
-        _os_log_impl(&dword_1C5C61000, v41, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@  │ customDataType: %{public}@; customDataSize: %llu", buf, 0x3Au);
+        v129 = v121;
+        v130 = 2114;
+        v131 = v43;
+        v132 = 1024;
+        v133 = v45;
+        v20 = v44;
+        v134 = 2114;
+        v135 = v120;
+        v136 = 2114;
+        v137 = v47;
+        v138 = 2048;
+        v139 = v49;
+        _os_log_impl(&dword_1C5C61000, v42, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@  │ customDataType: %{public}@; customDataSize: %llu", buf, 0x3Au);
 
-        v14 = v45;
-        a1 = v118;
+        v15 = v46;
+        a1 = v119;
       }
 
-      v34 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v35 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
-        v36 = [*(a1 + 40) streamID];
-        v49 = [v121 threadPriority];
+        v37 = [*(a1 + 40) streamID];
+        v50 = [v122 threadPriority];
         *buf = 138544642;
-        v128 = v120;
-        v129 = 2114;
-        v130 = v36;
-        v131 = 1024;
-        v132 = v49;
-        v133 = 2114;
-        v134 = v119;
-        v135 = 2114;
-        v136 = v112;
-        v137 = 2114;
-        v138 = v114;
-        v38 = "|%{public}@ %{public}@ %2i %{public}@  ╰ status: %{public}@ %{public}@";
+        v129 = v121;
+        v130 = 2114;
+        v131 = v37;
+        v132 = 1024;
+        v133 = v50;
+        v134 = 2114;
+        v135 = v120;
+        v136 = 2114;
+        v137 = v113;
+        v138 = 2114;
+        v139 = v115;
+        v39 = "|%{public}@ %{public}@ %2i %{public}@  ╰ status: %{public}@ %{public}@";
         goto LABEL_50;
       }
 
@@ -3718,386 +3718,386 @@ LABEL_68:
 
   else
   {
-    if (v33 < 2)
+    if (v34 < 2)
     {
-      v34 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
-      v35 = os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
-      if (v115)
+      v35 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
+      v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
+      if (v116)
       {
-        if (!v35)
+        if (!v36)
         {
           goto LABEL_68;
         }
 
-        v36 = [*(a1 + 40) streamID];
-        v37 = [v121 threadPriority];
+        v37 = [*(a1 + 40) streamID];
+        v38 = [v122 threadPriority];
         *buf = 138544898;
-        v128 = v120;
-        v129 = 2114;
-        v130 = v36;
-        v131 = 1024;
-        v132 = v37;
-        v133 = 2114;
-        v134 = v119;
-        v135 = 2114;
-        v136 = v112;
-        v137 = 2114;
-        v138 = v114;
-        v139 = 2114;
-        v140 = v115;
-        v38 = "|%{public}@ %{public}@ %2i %{public}@  ╰  status: %{public}@ %{public}@; internalStatus: %{public}@";
+        v129 = v121;
+        v130 = 2114;
+        v131 = v37;
+        v132 = 1024;
+        v133 = v38;
+        v134 = 2114;
+        v135 = v120;
+        v136 = 2114;
+        v137 = v113;
+        v138 = 2114;
+        v139 = v115;
+        v140 = 2114;
+        v141 = v116;
+        v39 = "|%{public}@ %{public}@ %2i %{public}@  ╰  status: %{public}@ %{public}@; internalStatus: %{public}@";
         goto LABEL_21;
       }
 
-      if (!v35)
+      if (!v36)
       {
         goto LABEL_68;
       }
 
-      v36 = [*(a1 + 40) streamID];
-      v87 = [v121 threadPriority];
+      v37 = [*(a1 + 40) streamID];
+      v88 = [v122 threadPriority];
       *buf = 138544642;
-      v128 = v120;
-      v129 = 2114;
-      v130 = v36;
-      v131 = 1024;
-      v132 = v87;
-      v133 = 2114;
-      v134 = v119;
-      v135 = 2114;
-      v136 = v112;
-      v137 = 2114;
-      v138 = v114;
-      v38 = "|%{public}@ %{public}@ %2i %{public}@  ╰  status: %{public}@ %{public}@";
+      v129 = v121;
+      v130 = 2114;
+      v131 = v37;
+      v132 = 1024;
+      v133 = v88;
+      v134 = 2114;
+      v135 = v120;
+      v136 = 2114;
+      v137 = v113;
+      v138 = 2114;
+      v139 = v115;
+      v39 = "|%{public}@ %{public}@ %2i %{public}@  ╰  status: %{public}@ %{public}@";
 LABEL_50:
-      v39 = v34;
-      v40 = 58;
+      v40 = v35;
+      v41 = 58;
       goto LABEL_51;
     }
 
-    if (v33 == 2)
+    if (v34 == 2)
     {
-      v109 = v10;
-      v111 = v14;
-      v108 = v13;
-      v106 = v6;
-      v50 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+      v110 = v10;
+      v112 = v15;
+      v109 = v14;
+      v107 = v6;
+      v51 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
       {
-        v51 = [*(a1 + 40) streamID];
-        v52 = [v121 threadPriority];
-        v53 = [v19 dialog];
-        v54 = [v53 localizedTitle];
-        v55 = [v19 dialog];
-        v56 = [v55 localizedMessage];
+        v52 = [*(a1 + 40) streamID];
+        v53 = [v122 threadPriority];
+        v54 = [v20 dialog];
+        v55 = [v54 localizedTitle];
+        v56 = [v20 dialog];
+        v57 = [v56 localizedMessage];
         *buf = 138544642;
-        v128 = v120;
-        v129 = 2114;
-        v130 = v51;
-        v131 = 1024;
-        v132 = v52;
-        v133 = 2114;
-        v134 = v119;
-        v135 = 2114;
-        v136 = v54;
-        v137 = 2114;
-        v138 = v56;
-        _os_log_impl(&dword_1C5C61000, v50, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@  │ dialog.title: %{public}@; dialog.message: %{public}@", buf, 0x3Au);
+        v129 = v121;
+        v130 = 2114;
+        v131 = v52;
+        v132 = 1024;
+        v133 = v53;
+        v134 = 2114;
+        v135 = v120;
+        v136 = 2114;
+        v137 = v55;
+        v138 = 2114;
+        v139 = v57;
+        _os_log_impl(&dword_1C5C61000, v51, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@  │ dialog.title: %{public}@; dialog.message: %{public}@", buf, 0x3Au);
       }
 
-      v124 = 0u;
       v125 = 0u;
-      v122 = 0u;
+      v126 = 0u;
       v123 = 0u;
-      v107 = v19;
-      v57 = [v19 dialog];
-      v58 = [v57 actions];
+      v124 = 0u;
+      v108 = v20;
+      v58 = [v20 dialog];
+      v59 = [v58 actions];
 
-      obj = v58;
-      v59 = [v58 countByEnumeratingWithState:&v122 objects:v126 count:16];
-      if (v59)
+      obj = v59;
+      v60 = [v59 countByEnumeratingWithState:&v123 objects:v127 count:16];
+      if (v60)
       {
-        v60 = v59;
-        v61 = *v123;
-        v62 = @"􀿨 ";
-        v63 = "PlaybackEvents";
+        v61 = v60;
+        v62 = *v124;
+        v63 = @"􀿨 ";
+        v64 = "PlaybackEvents";
         do
         {
-          v64 = 0;
-          v116 = v60;
+          v65 = 0;
+          v117 = v61;
           do
           {
-            if (*v123 != v61)
+            if (*v124 != v62)
             {
               objc_enumerationMutation(obj);
             }
 
-            v65 = *(*(&v122 + 1) + 8 * v64);
-            v66 = [v65 type];
-            v67 = v62;
-            if (v66 <= 2)
+            v66 = *(*(&v123 + 1) + 8 * v65);
+            v67 = [v66 type];
+            v68 = v63;
+            if (v67 <= 2)
             {
-              v67 = off_1E8231BE0[v66];
+              v68 = off_1E8231BE0[v67];
             }
 
-            v68 = os_log_create("com.apple.amp.mediaplaybackcore", v63);
-            if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
+            v69 = os_log_create("com.apple.amp.mediaplaybackcore", v64);
+            if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
             {
-              v69 = [*(a1 + 40) streamID];
-              v70 = v63;
-              v71 = v62;
-              v72 = [v121 threadPriority];
-              [v65 title];
-              v74 = v73 = v61;
-              v75 = [v65 event];
-              v76 = v75;
+              v70 = [*(a1 + 40) streamID];
+              v71 = v64;
+              v72 = v63;
+              v73 = [v122 threadPriority];
+              [v66 title];
+              v75 = v74 = v62;
+              v76 = [v66 event];
+              v77 = v76;
               *buf = 138544898;
-              v77 = &stru_1F454A698;
-              if (v75)
+              v78 = &stru_1F454A698;
+              if (v76)
               {
-                v77 = v75;
+                v78 = v76;
               }
 
-              v128 = v120;
-              v129 = 2114;
-              v130 = v69;
-              v131 = 1024;
-              v132 = v72;
-              v62 = v71;
-              v63 = v70;
-              v133 = 2114;
-              v134 = v119;
-              v135 = 2114;
-              v136 = v67;
-              v137 = 2114;
-              v138 = v74;
-              v139 = 2114;
-              v140 = v77;
-              _os_log_impl(&dword_1C5C61000, v68, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@  │ dialog.action[%{public}@]: %{public}@ %{public}@", buf, 0x44u);
+              v129 = v121;
+              v130 = 2114;
+              v131 = v70;
+              v132 = 1024;
+              v133 = v73;
+              v63 = v72;
+              v64 = v71;
+              v134 = 2114;
+              v135 = v120;
+              v136 = 2114;
+              v137 = v68;
+              v138 = 2114;
+              v139 = v75;
+              v140 = 2114;
+              v141 = v78;
+              _os_log_impl(&dword_1C5C61000, v69, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@  │ dialog.action[%{public}@]: %{public}@ %{public}@", buf, 0x44u);
 
-              v61 = v73;
-              v60 = v116;
+              v62 = v74;
+              v61 = v117;
 
-              a1 = v118;
+              a1 = v119;
             }
 
-            ++v64;
+            ++v65;
           }
 
-          while (v60 != v64);
-          v60 = [obj countByEnumeratingWithState:&v122 objects:v126 count:16];
+          while (v61 != v65);
+          v61 = [obj countByEnumeratingWithState:&v123 objects:v127 count:16];
         }
 
-        while (v60);
+        while (v61);
       }
 
-      v19 = v107;
-      v78 = [v107 error];
+      v20 = v108;
+      v79 = [v108 error];
 
-      v6 = v106;
-      v13 = v108;
-      v10 = v109;
-      v14 = v111;
-      if (v78)
+      v6 = v107;
+      v14 = v109;
+      v10 = v110;
+      v15 = v112;
+      if (v79)
       {
 LABEL_45:
-        v79 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
-        v80 = os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT);
-        v81 = v6;
-        if (v115)
+        v80 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
+        v81 = os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT);
+        v82 = v6;
+        if (v116)
         {
-          if (v80)
+          if (v81)
           {
-            v82 = [*(v118 + 40) streamID];
-            v83 = [v121 threadPriority];
+            v83 = [*(v119 + 40) streamID];
+            v84 = [v122 threadPriority];
             *buf = 138544898;
-            v128 = v120;
-            v129 = 2114;
-            v130 = v82;
-            v131 = 1024;
-            v132 = v83;
-            v133 = 2114;
-            v134 = v119;
-            v135 = 2114;
-            v136 = v112;
-            v137 = 2114;
-            v138 = v114;
-            v139 = 2114;
-            v140 = v115;
-            v84 = "|%{public}@ %{public}@ %2i %{public}@  │  status: %{public}@ %{public}@; internalStatus: %{public}@";
-            v85 = v79;
-            v86 = 68;
+            v129 = v121;
+            v130 = 2114;
+            v131 = v83;
+            v132 = 1024;
+            v133 = v84;
+            v134 = 2114;
+            v135 = v120;
+            v136 = 2114;
+            v137 = v113;
+            v138 = 2114;
+            v139 = v115;
+            v140 = 2114;
+            v141 = v116;
+            v85 = "|%{public}@ %{public}@ %2i %{public}@  │  status: %{public}@ %{public}@; internalStatus: %{public}@";
+            v86 = v80;
+            v87 = 68;
 LABEL_54:
-            _os_log_impl(&dword_1C5C61000, v85, OS_LOG_TYPE_DEFAULT, v84, buf, v86);
+            _os_log_impl(&dword_1C5C61000, v86, OS_LOG_TYPE_DEFAULT, v85, buf, v87);
           }
         }
 
-        else if (v80)
+        else if (v81)
         {
-          v82 = [*(v118 + 40) streamID];
-          v88 = [v121 threadPriority];
+          v83 = [*(v119 + 40) streamID];
+          v89 = [v122 threadPriority];
           *buf = 138544642;
-          v128 = v120;
-          v129 = 2114;
-          v130 = v82;
-          v131 = 1024;
-          v132 = v88;
-          v133 = 2114;
-          v134 = v119;
-          v135 = 2114;
-          v136 = v112;
-          v137 = 2114;
-          v138 = v114;
-          v84 = "|%{public}@ %{public}@ %2i %{public}@  │  status: %{public}@ %{public}@";
-          v85 = v79;
-          v86 = 58;
+          v129 = v121;
+          v130 = 2114;
+          v131 = v83;
+          v132 = 1024;
+          v133 = v89;
+          v134 = 2114;
+          v135 = v120;
+          v136 = 2114;
+          v137 = v113;
+          v138 = 2114;
+          v139 = v115;
+          v85 = "|%{public}@ %{public}@ %2i %{public}@  │  status: %{public}@ %{public}@";
+          v86 = v80;
+          v87 = 58;
           goto LABEL_54;
         }
 
-        v89 = [v19 error];
-        v90 = [v89 treeDescription];
-        v34 = [v90 componentsSeparatedByString:@"\n"];
+        v90 = [v20 error];
+        v91 = [v90 treeDescription];
+        v35 = [v91 componentsSeparatedByString:@"\n"];
 
-        if ([v34 count]< 1)
+        if ([v35 count]< 1)
         {
           goto LABEL_68;
         }
 
-        v110 = v10;
-        v91 = 0;
+        v111 = v10;
+        v92 = 0;
         while (1)
         {
-          v92 = [v34 objectAtIndexedSubscript:v91];
-          if (v91)
+          v93 = [v35 objectAtIndexedSubscript:v92];
+          if (v92)
           {
-            v93 = [v34 count]- 1;
-            v94 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents_Oversize");
-            v95 = os_log_type_enabled(v94, OS_LOG_TYPE_ERROR);
-            if (v91 == v93)
+            v94 = [v35 count]- 1;
+            v95 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents_Oversize");
+            v96 = os_log_type_enabled(v95, OS_LOG_TYPE_ERROR);
+            if (v92 == v94)
             {
-              if (v95)
+              if (v96)
               {
-                v96 = [*(v118 + 40) streamID];
-                v97 = [v121 threadPriority];
+                v97 = [*(v119 + 40) streamID];
+                v98 = [v122 threadPriority];
                 *buf = 138544386;
-                v128 = v120;
-                v129 = 2114;
-                v130 = v96;
-                v131 = 1024;
-                v132 = v97;
-                v133 = 2114;
-                v134 = v119;
-                v135 = 2114;
-                v136 = v92;
-                v98 = v94;
-                v99 = "|%{public}@ %{public}@ %2i %{public}@  ╰             %{public}@";
+                v129 = v121;
+                v130 = 2114;
+                v131 = v97;
+                v132 = 1024;
+                v133 = v98;
+                v134 = 2114;
+                v135 = v120;
+                v136 = 2114;
+                v137 = v93;
+                v99 = v95;
+                v100 = "|%{public}@ %{public}@ %2i %{public}@  ╰             %{public}@";
 LABEL_65:
-                _os_log_impl(&dword_1C5C61000, v98, OS_LOG_TYPE_ERROR, v99, buf, 0x30u);
+                _os_log_impl(&dword_1C5C61000, v99, OS_LOG_TYPE_ERROR, v100, buf, 0x30u);
               }
             }
 
-            else if (v95)
+            else if (v96)
             {
-              v96 = [*(v118 + 40) streamID];
-              v101 = [v121 threadPriority];
+              v97 = [*(v119 + 40) streamID];
+              v102 = [v122 threadPriority];
               *buf = 138544386;
-              v128 = v120;
-              v129 = 2114;
-              v130 = v96;
-              v131 = 1024;
-              v132 = v101;
-              v133 = 2114;
-              v134 = v119;
-              v135 = 2114;
-              v136 = v92;
-              v98 = v94;
-              v99 = "|%{public}@ %{public}@ %2i %{public}@  │             %{public}@";
+              v129 = v121;
+              v130 = 2114;
+              v131 = v97;
+              v132 = 1024;
+              v133 = v102;
+              v134 = 2114;
+              v135 = v120;
+              v136 = 2114;
+              v137 = v93;
+              v99 = v95;
+              v100 = "|%{public}@ %{public}@ %2i %{public}@  │             %{public}@";
               goto LABEL_65;
             }
           }
 
           else
           {
-            v94 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents_Oversize");
-            if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
+            v95 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents_Oversize");
+            if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
             {
-              v96 = [*(v118 + 40) streamID];
-              v100 = [v121 threadPriority];
+              v97 = [*(v119 + 40) streamID];
+              v101 = [v122 threadPriority];
               *buf = 138544386;
-              v128 = v120;
-              v129 = 2114;
-              v130 = v96;
-              v131 = 1024;
-              v132 = v100;
-              v133 = 2114;
-              v134 = v119;
-              v135 = 2114;
-              v136 = v92;
-              v98 = v94;
-              v99 = "|%{public}@ %{public}@ %2i %{public}@  │   error: ❌ %{public}@";
+              v129 = v121;
+              v130 = 2114;
+              v131 = v97;
+              v132 = 1024;
+              v133 = v101;
+              v134 = 2114;
+              v135 = v120;
+              v136 = 2114;
+              v137 = v93;
+              v99 = v95;
+              v100 = "|%{public}@ %{public}@ %2i %{public}@  │   error: ❌ %{public}@";
               goto LABEL_65;
             }
           }
 
-          if (++v91 >= [v34 count])
+          if (++v92 >= [v35 count])
           {
-            v6 = v81;
-            v10 = v110;
+            v6 = v82;
+            v10 = v111;
             goto LABEL_68;
           }
         }
       }
 
-      v34 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
-      v103 = os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
-      if (v115)
+      v35 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
+      v104 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
+      if (v116)
       {
-        if (v103)
+        if (v104)
         {
-          v36 = [*(a1 + 40) streamID];
-          v104 = [v121 threadPriority];
+          v37 = [*(a1 + 40) streamID];
+          v105 = [v122 threadPriority];
           *buf = 138544898;
-          v128 = v120;
-          v129 = 2114;
-          v130 = v36;
-          v131 = 1024;
-          v132 = v104;
-          v133 = 2114;
-          v134 = v119;
-          v135 = 2114;
-          v136 = v112;
-          v137 = 2114;
-          v138 = v114;
-          v139 = 2114;
-          v140 = v115;
-          v38 = "|%{public}@ %{public}@ %2i %{public}@  ╰  status: %{public}@ %{public}@; internalStatus: %{public}@";
+          v129 = v121;
+          v130 = 2114;
+          v131 = v37;
+          v132 = 1024;
+          v133 = v105;
+          v134 = 2114;
+          v135 = v120;
+          v136 = 2114;
+          v137 = v113;
+          v138 = 2114;
+          v139 = v115;
+          v140 = 2114;
+          v141 = v116;
+          v39 = "|%{public}@ %{public}@ %2i %{public}@  ╰  status: %{public}@ %{public}@; internalStatus: %{public}@";
 LABEL_21:
-          v39 = v34;
-          v40 = 68;
+          v40 = v35;
+          v41 = 68;
 LABEL_51:
-          _os_log_impl(&dword_1C5C61000, v39, OS_LOG_TYPE_DEFAULT, v38, buf, v40);
+          _os_log_impl(&dword_1C5C61000, v40, OS_LOG_TYPE_DEFAULT, v39, buf, v41);
 
           goto LABEL_68;
         }
       }
 
-      else if (v103)
+      else if (v104)
       {
-        v36 = [*(a1 + 40) streamID];
-        v105 = [v121 threadPriority];
+        v37 = [*(a1 + 40) streamID];
+        v106 = [v122 threadPriority];
         *buf = 138544642;
-        v128 = v120;
-        v129 = 2114;
-        v130 = v36;
-        v131 = 1024;
-        v132 = v105;
-        v133 = 2114;
-        v134 = v119;
-        v135 = 2114;
-        v136 = v112;
-        v137 = 2114;
-        v138 = v114;
-        v38 = "|%{public}@ %{public}@ %2i %{public}@  ╰  status: %{public}@ %{public}@";
+        v129 = v121;
+        v130 = 2114;
+        v131 = v37;
+        v132 = 1024;
+        v133 = v106;
+        v134 = 2114;
+        v135 = v120;
+        v136 = 2114;
+        v137 = v113;
+        v138 = 2114;
+        v139 = v115;
+        v39 = "|%{public}@ %{public}@ %2i %{public}@  ╰  status: %{public}@ %{public}@";
         goto LABEL_50;
       }
 
@@ -4294,7 +4294,7 @@ LABEL_21:
     v52 = [v103 date];
     v53 = [v51 stringFromDate:v52];
 
-    v54 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+    v54 = [(MPCPlaybackEngineLoggingConsumer *)*(v102 + 32) _chartWithLevel:2 type:?];
     v55 = os_log_create("com.apple.amp.mediaplaybackcore", "CommandsChanged");
     if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
     {
@@ -4311,7 +4311,7 @@ LABEL_21:
       _os_log_impl(&dword_1C5C61000, v55, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀪂 COMMANDS CHANGED", buf, 0x26u);
     }
 
-    v58 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+    v58 = [(MPCPlaybackEngineLoggingConsumer *)*(v102 + 32) _chartWithLevel:3 type:?];
     v59 = os_log_create("com.apple.amp.mediaplaybackcore", "CommandsChanged");
     if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
     {
@@ -4424,7 +4424,7 @@ LABEL_21:
       while (v75);
     }
 
-    v78 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+    v78 = [(MPCPlaybackEngineLoggingConsumer *)*(v102 + 32) _chartWithLevel:3 type:?];
     v79 = os_log_create("com.apple.amp.mediaplaybackcore", "CommandsChanged");
     if (!os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
     {
@@ -4472,7 +4472,7 @@ LABEL_21:
     v93 = [v103 date];
     v85 = [v92 stringFromDate:v93];
 
-    v78 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+    v78 = [(MPCPlaybackEngineLoggingConsumer *)*(v102 + 32) _chartWithLevel:2 type:?];
     v79 = os_log_create("com.apple.amp.mediaplaybackcore", "CommandsChanged");
     v89 = v99;
     if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
@@ -4523,7 +4523,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v11 = [v3 date];
   v85 = [v10 stringFromDate:v11];
 
-  v12 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v12 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v13 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
@@ -4547,7 +4547,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     v8 = v17;
   }
 
-  v19 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v19 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v20 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents_Oversize");
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
@@ -4839,7 +4839,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v5 = [v3 date];
   v6 = [v4 stringFromDate:v5];
 
-  v7 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v7 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v8 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
@@ -4890,7 +4890,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v19 = [v5 date];
   v47 = [v18 stringFromDate:v19];
 
-  v20 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v20 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v21 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
@@ -4919,7 +4919,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v24 = *(a1 + 32);
   if (v8)
   {
-    v25 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:v24 type:?];
+    v25 = [(MPCPlaybackEngineLoggingConsumer *)v24 _chartWithLevel:5 type:?];
     v26 = [v8 treeDescription];
     v27 = [v26 componentsSeparatedByString:@"\n"];
 
@@ -5016,7 +5016,7 @@ LABEL_14:
 
   else
   {
-    v25 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:v24 type:?];
+    v25 = [(MPCPlaybackEngineLoggingConsumer *)v24 _chartWithLevel:3 type:?];
     v27 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
@@ -5058,7 +5058,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v9 = [v3 date];
   v93 = [v8 stringFromDate:v9];
 
-  v10 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v10 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:1 type:?];
   v11 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
@@ -5079,7 +5079,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v11, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀈯 CONTAINER BEGIN            %{public}@", buf, 0x30u);
   }
 
-  v16 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v16 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v17 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
@@ -5427,7 +5427,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v19 = [v5 date];
   v109 = [v18 stringFromDate:v19];
 
-  v20 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v20 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:4 type:?];
   v21 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
@@ -5459,7 +5459,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     v5 = v107;
   }
 
-  v30 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v30 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:5 type:?];
   v31 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
@@ -5820,7 +5820,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v32 = [v3 date];
   v75 = [v31 stringFromDate:v32];
 
-  v33 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v33 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:1 type:?];
   v34 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
@@ -5840,7 +5840,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v34, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀀀 ITEM BEGIN                 %{public}@ %{public}@", buf, 0x3Au);
   }
 
-  v74 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v74 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v36 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
   {
@@ -6017,7 +6017,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v12 = [v3 date];
   v13 = [v11 stringFromDate:v12];
 
-  v14 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v14 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v15 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
@@ -6037,7 +6037,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v15, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀍷 ITEM UPDATE                %{public}@ %{public}@", buf, 0x3Au);
   }
 
-  v17 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v17 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v18 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
@@ -6066,7 +6066,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
 
   if (v9)
   {
-    v24 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+    v24 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
     v25 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
@@ -6163,7 +6163,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v38 = [v5 date];
   v39 = [v37 stringFromDate:v38];
 
-  v40 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v40 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v41 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
   {
@@ -6185,7 +6185,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v41, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀘨 ITEM JUMP                  %{public}@ %{public}@                   ║ %{public}@", buf, 0x44u);
   }
 
-  v43 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v43 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v44 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
   {
@@ -6287,7 +6287,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v31 = [v5 date];
   v32 = [v30 stringFromDate:v31];
 
-  v33 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v33 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v34 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
@@ -6376,7 +6376,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v33 = [v5 date];
   v34 = [v32 stringFromDate:v33];
 
-  v35 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v35 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v36 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   v37 = v54;
   v38 = v55;
@@ -6400,7 +6400,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v36, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀊘 ITEM PAUSE                 %{public}@ %{public}@                   ║ %{public}@", buf, 0x44u);
   }
 
-  v40 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v40 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v41 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
   {
@@ -6503,7 +6503,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v21 = [v3 date];
   v22 = [v20 stringFromDate:v21];
 
-  v23 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v23 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v24 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
@@ -6523,7 +6523,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v24, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀊕 RATE CHANGED               %{public}@ %{public}@", &v41, 0x3Au);
   }
 
-  v26 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v26 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v27 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
@@ -6632,7 +6632,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v17 = MSVLogDateFormatter();
   v18 = [v17 stringFromDate:v13];
 
-  v19 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v19 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v20 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
@@ -6672,7 +6672,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v11 = [v3 date];
   v12 = [v10 stringFromDate:v11];
 
-  v13 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v13 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v14 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
@@ -6692,7 +6692,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v14, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀍾 ITEM READY FOR METRICS     %{public}@ %{public}@", &v21, 0x3Au);
   }
 
-  v16 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v16 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v17 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents_Oversize");
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
@@ -6803,7 +6803,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v52 = [v5 date];
   v53 = [v51 stringFromDate:v52];
 
-  v54 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v54 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v55 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
   {
@@ -6825,7 +6825,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v55, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀊕 ITEM RESUME                %{public}@ %{public}@                   ║ %{public}@", buf, 0x44u);
   }
 
-  v57 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v57 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v58 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
   {
@@ -6846,7 +6846,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
 
   if (vabdd_f64(v24, v16) > 0.01)
   {
-    v61 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+    v61 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
     v62 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
     if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
     {
@@ -6871,7 +6871,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     v65 = [v5 date];
     v66 = [v65 dateByAddingTimeInterval:v20];
 
-    v67 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+    v67 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
     v68 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
     if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
     {
@@ -6903,7 +6903,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     }
   }
 
-  v74 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v74 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v75 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
   {
@@ -6951,7 +6951,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v9 = [v3 date];
   v10 = [v8 stringFromDate:v9];
 
-  v11 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v11 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v12 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
@@ -6994,7 +6994,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v13 = [v3 date];
   v14 = [v12 stringFromDate:v13];
 
-  v15 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v15 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v16 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
@@ -7014,7 +7014,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v16, OS_LOG_TYPE_INFO, "|%{public}@ %{public}@ %2i %{public}@􀺸 ITEM BUFFER READY          %{public}@ %{public}@", &v23, 0x3Au);
   }
 
-  v18 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v18 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v19 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
@@ -7056,7 +7056,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v13 = [v3 date];
   v14 = [v12 stringFromDate:v13];
 
-  v15 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v15 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v16 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
@@ -7076,7 +7076,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v16, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀛪 ITEM BUFFER STALL          %{public}@ %{public}@", &v23, 0x3Au);
   }
 
-  v18 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v18 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v19 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
@@ -7113,7 +7113,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v9 = [v3 date];
   v10 = [v8 stringFromDate:v9];
 
-  v11 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v11 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v12 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
@@ -7155,7 +7155,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v12 = [v3 date];
   v13 = [v11 stringFromDate:v12];
 
-  v14 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v14 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v15 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
@@ -7175,7 +7175,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v15, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀢕 ITEM SECKEY BEGIN          %{public}@ %{public}@", buf, 0x3Au);
   }
 
-  v17 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v17 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v18 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
@@ -7267,7 +7267,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v23 = [v5 date];
   v60 = [v22 stringFromDate:v23];
 
-  v24 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v24 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v25 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
@@ -7292,7 +7292,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v54 = v10;
   v55 = v8;
 
-  v59 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v59 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v27 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
@@ -7478,7 +7478,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v11 = [v3 date];
   v12 = [v10 stringFromDate:v11];
 
-  v13 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v13 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v14 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
@@ -7498,7 +7498,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v14, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀢊 ITEM METADATA PING          %{public}@ %{public}@", &v21, 0x3Au);
   }
 
-  v16 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v16 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v17 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
@@ -7581,7 +7581,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v33 = [v5 date];
   v34 = [v32 stringFromDate:v33];
 
-  v35 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v35 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:4 type:?];
   v36 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
   {
@@ -7603,7 +7603,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v36, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀀁 ITEM END                   %{public}@ %{public}@                   ║ %{public}@", buf, 0x44u);
   }
 
-  v38 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v38 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:5 type:?];
   v39 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
@@ -7681,7 +7681,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     v22 = [v3 date];
     v67 = [v21 stringFromDate:v22];
 
-    v23 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+    v23 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
     v24 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
@@ -7704,7 +7704,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     v61 = v7;
     v62 = v5;
 
-    v66 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+    v66 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
     v26 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
@@ -7904,7 +7904,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v20 = [v3 date];
   v80 = [v19 stringFromDate:v20];
 
-  v21 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v21 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v22 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
@@ -7924,7 +7924,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v22, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀒿 AUDIO ASSET SELECTION      %{public}@ %{public}@", buf, 0x3Au);
   }
 
-  v79 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v79 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v24 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
@@ -8216,7 +8216,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v12 = [v3 date];
   v54 = [v11 stringFromDate:v12];
 
-  v13 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v13 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v14 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
@@ -8236,7 +8236,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v14, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀒿 AUDIO FORMAT SELECTION     %{public}@ %{public}@", buf, 0x3Au);
   }
 
-  v52 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v52 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v16 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
@@ -8403,7 +8403,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v9 = [v3 date];
   v10 = [v8 stringFromDate:v9];
 
-  v11 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v11 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:1 type:?];
   v12 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
@@ -8454,7 +8454,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v18 = [v5 date];
   v41 = [v17 stringFromDate:v18];
 
-  v19 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v19 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:4 type:?];
   v20 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
@@ -8481,7 +8481,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     v38 = v12;
     v39 = v8;
     v40 = v6;
-    v22 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+    v22 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:5 type:?];
     v37 = v16;
     v23 = [v16 treeDescription];
     v24 = [v23 componentsSeparatedByString:@"\n"];
@@ -8588,7 +8588,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v9 = [v3 date];
   v10 = [v8 stringFromDate:v9];
 
-  v11 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v11 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v12 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
@@ -8676,7 +8676,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v39 = [v5 date];
   v40 = [v38 stringFromDate:v39];
 
-  v41 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v41 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v42 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
   {
@@ -8698,7 +8698,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v42, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀪑 ITEM CONFIG END            %{public}@ %{public}@ [%.3fs]", buf, 0x44u);
   }
 
-  v44 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v44 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v45 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
   {
@@ -8849,7 +8849,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v11 = [v3 date];
   v33 = [v10 stringFromDate:v11];
 
-  v12 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v12 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:4 type:?];
   v13 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
@@ -8873,7 +8873,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   {
     v31 = v7;
     v32 = v5;
-    v15 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+    v15 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:5 type:?];
     v30 = v9;
     v16 = [v9 treeDescription];
     v17 = [v16 componentsSeparatedByString:@"\n"];
@@ -8983,7 +8983,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v12 = [v3 date];
   v13 = [v11 stringFromDate:v12];
 
-  v14 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v14 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:1 type:?];
   v15 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
@@ -9003,7 +9003,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v15, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀓞 PLACEHOLDER BEGIN          %{public}@ %{public}@", &v22, 0x3Au);
   }
 
-  v17 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v17 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v18 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
@@ -9040,7 +9040,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v9 = [v3 date];
   v10 = [v8 stringFromDate:v9];
 
-  v11 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v11 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:4 type:?];
   v12 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
@@ -9081,7 +9081,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v11 = [v3 date];
   v12 = [v10 stringFromDate:v11];
 
-  v13 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v13 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v14 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
@@ -9103,7 +9103,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v14, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀒙 HLS BEGIN                  %{public}@ %{public}@ %{public}@", buf, 0x44u);
   }
 
-  v16 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v16 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v17 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
@@ -9153,7 +9153,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v11 = [v3 date];
   v12 = [v10 stringFromDate:v11];
 
-  v13 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v13 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v14 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
@@ -9190,7 +9190,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v7 = [v3 date];
   v8 = [v6 stringFromDate:v7];
 
-  v9 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v9 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v10 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
@@ -9223,7 +9223,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v7 = [v3 date];
   v8 = [v6 stringFromDate:v7];
 
-  v9 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v9 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v10 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
@@ -9308,7 +9308,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v22 = [v107 date];
   v106 = [v21 stringFromDate:v22];
 
-  v23 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v23 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v24 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
@@ -9328,7 +9328,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v24, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀉘 ITEM TRANSITION SETUP      %{public}@ => %{public}@", buf, 0x3Au);
   }
 
-  v105 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v105 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v26 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
@@ -9832,7 +9832,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v14 = [v3 date];
   v15 = [v13 stringFromDate:v14];
 
-  v16 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v16 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v17 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
@@ -9852,7 +9852,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v17, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀉘 ITEM TRANSITION CANCELLED  %{public}@ => %{public}@", buf, 0x3Au);
   }
 
-  v19 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v19 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v20 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
@@ -9955,7 +9955,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v33 = [v3 date];
   v34 = [v32 stringFromDate:v33];
 
-  v35 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v35 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v36 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
   {
@@ -9975,7 +9975,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v36, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀉘 ITEM TRANSITION START      %{public}@ => %{public}@", &v49, 0x3Au);
   }
 
-  v38 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v38 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v39 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
@@ -10101,7 +10101,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v33 = [v3 date];
   v34 = [v32 stringFromDate:v33];
 
-  v35 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v35 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v36 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
   {
@@ -10121,7 +10121,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v36, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀉙 ITEM TRANSITION PIVOT      %{public}@ => %{public}@", &v49, 0x3Au);
   }
 
-  v38 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v38 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v39 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
@@ -10242,7 +10242,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v29 = [v3 date];
   v30 = [v28 stringFromDate:v29];
 
-  v31 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v31 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v32 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
@@ -10262,7 +10262,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v32, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀰧 ITEM TRANSITION END        %{public}@ => %{public}@", &v45, 0x3Au);
   }
 
-  v34 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v34 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v35 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
   {
@@ -10381,7 +10381,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v29 = [v3 date];
   v30 = [v28 stringFromDate:v29];
 
-  v31 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v31 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v32 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
   {
@@ -10401,7 +10401,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v32, OS_LOG_TYPE_INFO, "|%{public}@ %{public}@ %2i %{public}@􀯮 OVERLAP START              %{public}@ => %{public}@", &v45, 0x3Au);
   }
 
-  v34 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v34 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v35 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
   {
@@ -10520,7 +10520,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v29 = [v3 date];
   v30 = [v28 stringFromDate:v29];
 
-  v31 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v31 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v32 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
   {
@@ -10540,7 +10540,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v32, OS_LOG_TYPE_INFO, "|%{public}@ %{public}@ %2i %{public}@􀯯 OVERLAP END                %{public}@ => %{public}@", &v45, 0x3Au);
   }
 
-  v34 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v34 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v35 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
   {
@@ -10661,7 +10661,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v21 = [v3 date];
   v43 = [v20 stringFromDate:v21];
 
-  v22 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v22 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v23 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
@@ -10686,7 +10686,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v40 = v19;
   v41 = v14;
 
-  v25 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v25 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:5 type:?];
   v42 = v9;
   v26 = [v9 treeDescription];
   v27 = [v26 componentsSeparatedByString:@"\n"];
@@ -10784,7 +10784,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v7 = [v3 date];
   v8 = [v6 stringFromDate:v7];
 
-  v9 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v9 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v10 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
@@ -10821,7 +10821,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v10 = [v3 date];
   v11 = [v9 stringFromDate:v10];
 
-  v12 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v12 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v13 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
@@ -10839,7 +10839,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v13, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀘯 INTERRUPT END              %{public}@", &v20, 0x30u);
   }
 
-  v15 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v15 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v16 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
@@ -10870,7 +10870,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v5 = [v3 date];
   v6 = [v4 stringFromDate:v5];
 
-  v7 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v7 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v8 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
@@ -10898,7 +10898,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v5 = [v3 date];
   v6 = [v4 stringFromDate:v5];
 
-  v7 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v7 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v8 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
@@ -11156,7 +11156,7 @@ LABEL_51:
   v52 = [v3 date];
   v95 = [v51 stringFromDate:v52];
 
-  v53 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v53 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v54 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
   {
@@ -11189,7 +11189,7 @@ LABEL_51:
     a1 = v89;
   }
 
-  v61 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v61 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v62 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
   {
@@ -11346,7 +11346,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v5 = [v3 date];
   v6 = [v4 stringFromDate:v5];
 
-  v7 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v7 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v8 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
@@ -11379,7 +11379,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v5 = [v3 date];
   v6 = [v4 stringFromDate:v5];
 
-  v7 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v7 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v8 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
@@ -11412,7 +11412,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v5 = [v3 date];
   v6 = [v4 stringFromDate:v5];
 
-  v7 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v7 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v8 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
@@ -11458,7 +11458,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v11 = [v3 date];
   v41 = [v10 stringFromDate:v11];
 
-  v12 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v12 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v13 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
@@ -11480,7 +11480,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   }
 
   v18 = a1;
-  v19 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v19 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v20 = [v6 componentsSeparatedByString:@"\n"];
   if ([v20 count] >= 1)
   {
@@ -11609,7 +11609,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v10 = [v3 date];
   v11 = [v9 stringFromDate:v10];
 
-  v12 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v12 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v13 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
@@ -11691,7 +11691,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   if (v21)
   {
 LABEL_12:
-    v23 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+    v23 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
     v26 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
     if (!os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
@@ -11715,7 +11715,7 @@ LABEL_12:
 
   if (v9 != 2)
   {
-    v23 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+    v23 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
     v26 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
     if (!os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
@@ -11760,7 +11760,7 @@ LABEL_14:
     v25 = 0;
   }
 
-  v26 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v26 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v31 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
@@ -11783,7 +11783,7 @@ LABEL_14:
   }
 
 LABEL_21:
-  v33 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v33 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v34 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
@@ -11840,7 +11840,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v11 = [v3 date];
   v12 = [v10 stringFromDate:v11];
 
-  v13 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v13 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v14 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
@@ -11858,7 +11858,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v14, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀽍 PLAYER OPERATION BEGIN     %{public}@", &v24, 0x30u);
   }
 
-  v16 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v16 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v17 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
@@ -11923,7 +11923,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v18 = [v5 date];
   v47 = [v17 stringFromDate:v18];
 
-  v19 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v19 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v20 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
@@ -11943,7 +11943,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v20, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀽎 PLAYER OPERATION END       %{public}@ [%.3fs]", buf, 0x3Au);
   }
 
-  v46 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v46 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v22 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
@@ -12100,7 +12100,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v10 = [v3 date];
   v11 = [v9 stringFromDate:v10];
 
-  v12 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v12 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v13 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
@@ -12154,7 +12154,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     v18 = [v5 date];
     v40 = [v17 stringFromDate:v18];
 
-    v19 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+    v19 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
     v20 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
@@ -12179,7 +12179,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
       v37 = v16;
       v38 = v9;
       v39 = v6;
-      v22 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+      v22 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:5 type:?];
       v23 = [v8 treeDescription];
       v24 = [v23 componentsSeparatedByString:@"\n"];
 
@@ -12284,7 +12284,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v9 = [v3 date];
   v10 = [v8 stringFromDate:v9];
 
-  v11 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v11 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v12 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
@@ -12302,7 +12302,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v12, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀷃 SESSION ACTIVATION BEGIN   %{public}@", &v19, 0x30u);
   }
 
-  v14 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v14 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v15 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
@@ -12347,7 +12347,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v39 = [v15 stringFromDate:v16];
 
   v38 = a1;
-  v17 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v17 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v18 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
@@ -12372,7 +12372,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     v35 = v12;
     v36 = v10;
     v37 = v6;
-    v20 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+    v20 = [(MPCPlaybackEngineLoggingConsumer *)*(v38 + 32) _chartWithLevel:5 type:?];
     v21 = [v8 treeDescription];
     v22 = [v21 componentsSeparatedByString:@"\n"];
 
@@ -12535,7 +12535,7 @@ LABEL_13:
   v18 = [v3 date];
   v19 = [v17 stringFromDate:v18];
 
-  v20 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v20 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v21 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
@@ -12553,7 +12553,7 @@ LABEL_13:
     _os_log_impl(&dword_1C5C61000, v21, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􁃑 SHARED SESSION BEGIN       %{public}@", buf, 0x30u);
   }
 
-  v23 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v23 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v24 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
@@ -12652,7 +12652,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v9 = [v3 date];
   v10 = [v8 stringFromDate:v9];
 
-  v11 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v11 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v12 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
@@ -12670,7 +12670,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v12, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􁃑 SHARED SESSION END         %{public}@", &v19, 0x30u);
   }
 
-  v14 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v14 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v15 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
@@ -12711,7 +12711,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v11 = [v3 date];
   v37 = [v10 stringFromDate:v11];
 
-  v12 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v12 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v13 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
@@ -12731,7 +12731,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
 
   v35 = v5;
 
-  v36 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v36 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v15 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
@@ -12839,7 +12839,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v7 = [v3 date];
   v8 = [v6 stringFromDate:v7];
 
-  v9 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v9 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v10 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
@@ -12862,7 +12862,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
 
   if (v13)
   {
-    v14 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+    v14 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
     v15 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
@@ -12901,7 +12901,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v9 = [v3 date];
   v30 = [v8 stringFromDate:v9];
 
-  v10 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v10 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v11 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
@@ -12922,7 +12922,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   if (v7)
   {
     v29 = v5;
-    v13 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+    v13 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:5 type:?];
     v28 = v7;
     v14 = [v7 treeDescription];
     v15 = [v14 componentsSeparatedByString:@"\n"];
@@ -13052,7 +13052,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v27 = [v3 date];
   v28 = [v26 stringFromDate:v27];
 
-  v29 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v29 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v30 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
@@ -13072,7 +13072,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v30, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@𝄢 ITEM VOCAL CHANGED         %{public}@ %{public}@", buf, 0x3Au);
   }
 
-  v32 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v32 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v33 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
   {
@@ -13091,7 +13091,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v33, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@ ╲╭ start: %0.2f", buf, 0x30u);
   }
 
-  v36 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v36 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v37 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
@@ -13156,7 +13156,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v26 = [v3 date];
   v27 = [v25 stringFromDate:v26];
 
-  v28 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v28 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v29 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
@@ -13172,7 +13172,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v29, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀣉 VOCAL STATS", &v40, 0x26u);
   }
 
-  v31 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v31 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v32 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
@@ -13195,7 +13195,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v32, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@ ╲╭ samples: %ld; glitches: %ld; thermalLevel: %ld", &v40, 0x44u);
   }
 
-  v35 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v35 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v36 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
   {
@@ -13263,7 +13263,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v15 = [v3 date];
   v84 = [v14 stringFromDate:v15];
 
-  v16 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v16 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v17 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
@@ -13283,7 +13283,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v17, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀍾 PERFORMANCE REPORT         %{public}@ %{public}@", buf, 0x3Au);
   }
 
-  v83 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v83 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v97 = 0u;
   v98 = 0u;
   v99 = 0u;
@@ -13559,7 +13559,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v12 = [v3 date];
   v13 = [v11 stringFromDate:v12];
 
-  v14 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v14 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:1 type:?];
   v15 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
@@ -13577,7 +13577,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v15, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀤆 NETWORK TASK BEGIN         %{public}@", buf, 0x30u);
   }
 
-  v17 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v17 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v18 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
@@ -13677,7 +13677,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v16 = [v5 date];
   v17 = [v15 stringFromDate:v16];
 
-  v18 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v18 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v19 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
@@ -13697,7 +13697,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v19, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀤆 NETWORK TASK RESUME        %{public}@ [%.3fs]", &v26, 0x3Au);
   }
 
-  v21 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v21 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v22 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
@@ -13755,7 +13755,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v17 = [v5 date];
   v43 = [v16 stringFromDate:v17];
 
-  v18 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v18 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v19 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
@@ -13776,7 +13776,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   }
 
   v21 = a1;
-  v42 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v42 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v39 = v11;
   v22 = [v11 description];
   v23 = [v22 componentsSeparatedByString:@"\n"];
@@ -13905,7 +13905,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v19 = *(a1 + 32);
   if (v19[6])
   {
-    v20 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:v19 type:?];
+    v20 = [(MPCPlaybackEngineLoggingConsumer *)v19 _chartWithLevel:2 type:?];
     v21 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
     if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
@@ -13915,7 +13915,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
 
   else
   {
-    v20 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:v19 type:?];
+    v20 = [(MPCPlaybackEngineLoggingConsumer *)v19 _chartWithLevel:4 type:?];
     v21 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
     if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
@@ -13939,7 +13939,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   _os_log_impl(&dword_1C5C61000, v21, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀤆 NETWORK TASK END           %{public}@ [%.3fs]", buf, 0x3Au);
 
 LABEL_9:
-  v44 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v44 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:5 type:?];
   if (v10)
   {
     v42 = v14;
@@ -14092,7 +14092,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
   v15 = [v3 date];
   v41 = [v14 stringFromDate:v15];
 
-  v16 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v16 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:2 type:?];
   v17 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
@@ -14114,7 +14114,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
     _os_log_impl(&dword_1C5C61000, v17, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@􀼳 ITEM AV METRIC EVENT       %{public}@ %{public}@ %{public}@", buf, 0x44u);
   }
 
-  v40 = [MPCPlaybackEngineLoggingConsumer _chartWithLevel:? type:?];
+  v40 = [(MPCPlaybackEngineLoggingConsumer *)*(a1 + 32) _chartWithLevel:3 type:?];
   v19 = os_log_create("com.apple.amp.mediaplaybackcore", "PlaybackEvents");
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
@@ -14508,7 +14508,7 @@ LABEL_7:
 LABEL_44:
 }
 
-void __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_invoke_284(uint64_t a1, void *a2, unint64_t a3)
+void __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_invoke_284(uint64_t a1, void *a2, char *a3)
 {
   v45 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -14659,7 +14659,7 @@ uint64_t __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_i
 
 void __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_invoke_77(uint64_t a1, void *a2, void *a3)
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v6 objectForKeyedSubscript:@"commandType"];
@@ -14667,155 +14667,155 @@ void __59__MPCPlaybackEngineLoggingConsumer_subscribeToEventStream___block_invok
 
   v9 = MPCRemoteCommandDescriptionCopy(v8);
   v10 = [v6 objectForKeyedSubscript:@"supported"];
-  v11 = [v10 BOOLValue];
+  LODWORD(v8) = [v10 BOOLValue];
 
-  if (v11)
+  if (v8)
   {
-    v12 = @"enabled";
-    v13 = [v6 objectForKeyedSubscript:@"enabled"];
-    v14 = [v13 BOOLValue];
+    v11 = @"enabled";
+    v12 = [v6 objectForKeyedSubscript:@"enabled"];
+    v13 = [v12 BOOLValue];
 
-    if (v14)
+    if (v13)
     {
       goto LABEL_6;
     }
 
-    v15 = @"disabled: %@";
-    v16 = @"disabledReasons";
+    v14 = @"disabled: %@";
+    v15 = @"disabledReasons";
   }
 
   else
   {
-    v15 = @"unsupported: %@";
-    v16 = @"unsupportedReasons";
+    v14 = @"unsupported: %@";
+    v15 = @"unsupportedReasons";
   }
 
-  v17 = MEMORY[0x1E696AEC0];
-  v18 = [v6 objectForKeyedSubscript:v16];
-  v19 = [v18 msv_compactDescription];
-  v12 = [v17 stringWithFormat:v15, v19];
+  v16 = MEMORY[0x1E696AEC0];
+  v17 = [v6 objectForKeyedSubscript:v15];
+  v18 = [v17 msv_compactDescription];
+  v11 = [v16 stringWithFormat:v14, v18];
 
 LABEL_6:
-  v20 = os_log_create("com.apple.amp.mediaplaybackcore", "CommandsChanged");
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v19 = os_log_create("com.apple.amp.mediaplaybackcore", "CommandsChanged");
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = *(a1 + 32);
-    v22 = [*(a1 + 40) streamID];
-    v23 = [*(a1 + 48) threadPriority];
-    v24 = *(a1 + 56);
+    v20 = *(a1 + 32);
+    v21 = [*(a1 + 40) streamID];
+    v22 = [*(a1 + 48) threadPriority];
+    v23 = *(a1 + 56);
     *buf = 138544898;
-    v49 = v21;
-    v50 = 2114;
-    v51 = v22;
-    v52 = 1024;
-    v53 = v23;
-    v54 = 2114;
-    v55 = v24;
-    v56 = 2114;
-    v57 = v5;
-    v58 = 2114;
-    v59 = v9;
-    v60 = 2114;
-    v61 = v12;
-    _os_log_impl(&dword_1C5C61000, v20, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@  ├╴%{public}@ %{public}-40@ [%{public}@]", buf, 0x44u);
+    v48 = v20;
+    v49 = 2114;
+    v50 = v21;
+    v51 = 1024;
+    v52 = v22;
+    v53 = 2114;
+    v54 = v23;
+    v55 = 2114;
+    v56 = v5;
+    v57 = 2114;
+    v58 = v9;
+    v59 = 2114;
+    v60 = v11;
+    _os_log_impl(&dword_1C5C61000, v19, OS_LOG_TYPE_DEFAULT, "|%{public}@ %{public}@ %2i %{public}@  ├╴%{public}@ %{public}-40@ [%{public}@]", buf, 0x44u);
   }
 
-  v25 = [v6 objectForKeyedSubscript:@"options"];
-  if ([v25 count])
+  v24 = [v6 objectForKeyedSubscript:@"options"];
+  if ([v24 count])
   {
-    v46 = v6;
-    v47 = v5;
-    v45 = v25;
-    v26 = [v25 description];
-    v27 = [v26 componentsSeparatedByString:@"\n"];
+    v45 = v6;
+    v46 = v5;
+    v44 = v24;
+    v25 = [v24 description];
+    v26 = [v25 componentsSeparatedByString:@"\n"];
 
-    if ([v27 count] >= 1)
+    if ([v26 count] >= 1)
     {
-      for (i = 0; i < [v27 count]; ++i)
+      for (i = 0; i < [v26 count]; ++i)
       {
-        v29 = [v27 objectAtIndexedSubscript:i];
+        v28 = [v26 objectAtIndexedSubscript:i];
         if (i)
         {
-          v30 = [v27 count] - 1;
-          v31 = os_log_create("com.apple.amp.mediaplaybackcore", "CommandsChanged");
-          v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
-          if (i == v30)
+          v29 = [v26 count] - 1;
+          v30 = os_log_create("com.apple.amp.mediaplaybackcore", "CommandsChanged");
+          v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
+          if (i == v29)
           {
-            if (v32)
+            if (v31)
             {
-              v33 = *(a1 + 32);
-              v34 = [*(a1 + 40) streamID];
-              v35 = [*(a1 + 48) threadPriority];
-              v36 = *(a1 + 56);
+              v32 = *(a1 + 32);
+              v33 = [*(a1 + 40) streamID];
+              v34 = [*(a1 + 48) threadPriority];
+              v35 = *(a1 + 56);
               *buf = 138544386;
-              v49 = v33;
-              v50 = 2114;
-              v51 = v34;
-              v52 = 1024;
-              v53 = v35;
-              v54 = 2114;
-              v55 = v36;
-              v56 = 2114;
-              v57 = v29;
-              v37 = v31;
-              v38 = "|%{public}@ %{public}@ %2i %{public}@  │   ╰ %{public}@";
+              v48 = v32;
+              v49 = 2114;
+              v50 = v33;
+              v51 = 1024;
+              v52 = v34;
+              v53 = 2114;
+              v54 = v35;
+              v55 = 2114;
+              v56 = v28;
+              v36 = v30;
+              v37 = "|%{public}@ %{public}@ %2i %{public}@  │   ╰ %{public}@";
 LABEL_19:
-              _os_log_impl(&dword_1C5C61000, v37, OS_LOG_TYPE_DEFAULT, v38, buf, 0x30u);
+              _os_log_impl(&dword_1C5C61000, v36, OS_LOG_TYPE_DEFAULT, v37, buf, 0x30u);
             }
           }
 
-          else if (v32)
+          else if (v31)
           {
-            v42 = *(a1 + 32);
-            v34 = [*(a1 + 40) streamID];
-            v43 = [*(a1 + 48) threadPriority];
-            v44 = *(a1 + 56);
+            v41 = *(a1 + 32);
+            v33 = [*(a1 + 40) streamID];
+            v42 = [*(a1 + 48) threadPriority];
+            v43 = *(a1 + 56);
             *buf = 138544386;
-            v49 = v42;
-            v50 = 2114;
-            v51 = v34;
-            v52 = 1024;
-            v53 = v43;
-            v54 = 2114;
-            v55 = v44;
-            v56 = 2114;
-            v57 = v29;
-            v37 = v31;
-            v38 = "|%{public}@ %{public}@ %2i %{public}@  │   │ %{public}@";
+            v48 = v41;
+            v49 = 2114;
+            v50 = v33;
+            v51 = 1024;
+            v52 = v42;
+            v53 = 2114;
+            v54 = v43;
+            v55 = 2114;
+            v56 = v28;
+            v36 = v30;
+            v37 = "|%{public}@ %{public}@ %2i %{public}@  │   │ %{public}@";
             goto LABEL_19;
           }
         }
 
         else
         {
-          v31 = os_log_create("com.apple.amp.mediaplaybackcore", "CommandsChanged");
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+          v30 = os_log_create("com.apple.amp.mediaplaybackcore", "CommandsChanged");
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
-            v39 = *(a1 + 32);
-            v34 = [*(a1 + 40) streamID];
-            v40 = [*(a1 + 48) threadPriority];
-            v41 = *(a1 + 56);
+            v38 = *(a1 + 32);
+            v33 = [*(a1 + 40) streamID];
+            v39 = [*(a1 + 48) threadPriority];
+            v40 = *(a1 + 56);
             *buf = 138544386;
-            v49 = v39;
-            v50 = 2114;
-            v51 = v34;
-            v52 = 1024;
-            v53 = v40;
-            v54 = 2114;
-            v55 = v41;
-            v56 = 2114;
-            v57 = v29;
-            v37 = v31;
-            v38 = "|%{public}@ %{public}@ %2i %{public}@  │  ╲╭ options: %{public}@";
+            v48 = v38;
+            v49 = 2114;
+            v50 = v33;
+            v51 = 1024;
+            v52 = v39;
+            v53 = 2114;
+            v54 = v40;
+            v55 = 2114;
+            v56 = v28;
+            v36 = v30;
+            v37 = "|%{public}@ %{public}@ %2i %{public}@  │  ╲╭ options: %{public}@";
             goto LABEL_19;
           }
         }
       }
     }
 
-    v6 = v46;
-    v5 = v47;
-    v25 = v45;
+    v6 = v45;
+    v5 = v46;
+    v24 = v44;
   }
 }
 

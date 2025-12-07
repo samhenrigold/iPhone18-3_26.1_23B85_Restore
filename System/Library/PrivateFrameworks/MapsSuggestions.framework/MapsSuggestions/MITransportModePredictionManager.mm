@@ -16,16 +16,27 @@
 
 - (id)transportModeWithOrigin:(id)origin destination:(id)destination features:(id)features userHash4:(id)hash4
 {
+  var1 = destination.var1;
+  var0 = destination.var0;
+  v9 = origin.var1;
+  v10 = origin.var0;
   if (hash4)
   {
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v14 = v13;
+  }
+
+  else
+  {
+    v12 = 0;
+    v14 = 0;
   }
 
   featuresCopy = features;
   selfCopy = self;
-  v10 = MITransportModePredictionManagerWrapper.transportMode(origin:destination:features:userHash4:)();
+  v17 = MITransportModePredictionManagerWrapper.transportMode(origin:destination:features:userHash4:)(featuresCopy, v12, v14, v10, v9, var0, var1);
 
-  return v10;
+  return v17;
 }
 
 @end

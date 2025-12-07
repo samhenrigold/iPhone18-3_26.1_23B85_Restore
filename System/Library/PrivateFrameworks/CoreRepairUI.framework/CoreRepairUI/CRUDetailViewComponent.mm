@@ -209,7 +209,7 @@
 
 - (id)componentSpecifierForComponent:(id)component
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   componentCopy = component;
   v5 = objc_opt_new();
   footerText = [(CRUDetailViewComponent *)self footerText];
@@ -229,8 +229,8 @@
 
     footerText3 = [(CRUDetailViewComponent *)self footerText];
     footerText4 = [(CRUDetailViewComponent *)self footerText];
-    v33.location = [footerText3 rangeOfString:footerText4];
-    v14 = NSStringFromRange(v33);
+    v32.location = [footerText3 rangeOfString:footerText4];
+    v14 = NSStringFromRange(v32);
     [emptyGroupSpecifier setProperty:v14 forKey:*MEMORY[0x277D3FF58]];
 
     [v5 addObject:emptyGroupSpecifier];
@@ -263,15 +263,13 @@
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v30 = componentCopy;
+      v29 = componentCopy;
       _os_log_impl(&dword_247875000, v25, OS_LOG_TYPE_DEFAULT, "Has infomation collection specifier for component: %@", buf, 0xCu);
     }
 
     infoCollectionSpecifier2 = [(CRUDetailViewComponent *)self infoCollectionSpecifier];
     [v5 addObject:infoCollectionSpecifier2];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

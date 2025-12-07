@@ -110,25 +110,7 @@
     {
       v5 = equalCopy;
       deviceRingerSwitchState = self->_deviceRingerSwitchState;
-      if (deviceRingerSwitchState != [(AFClientConfiguration *)v5 deviceRingerSwitchState])
-      {
-        goto LABEL_25;
-      }
-
-      isDeviceInCarDNDMode = self->_isDeviceInCarDNDMode;
-      if (isDeviceInCarDNDMode != [(AFClientConfiguration *)v5 isDeviceInCarDNDMode])
-      {
-        goto LABEL_25;
-      }
-
-      isDeviceInStarkMode = self->_isDeviceInStarkMode;
-      if (isDeviceInStarkMode != [(AFClientConfiguration *)v5 isDeviceInStarkMode])
-      {
-        goto LABEL_25;
-      }
-
-      supportsCarPlayVehicleData = self->_supportsCarPlayVehicleData;
-      if (supportsCarPlayVehicleData == [(AFClientConfiguration *)v5 supportsCarPlayVehicleData]&& (isDeviceWatchAuthenticated = self->_isDeviceWatchAuthenticated, isDeviceWatchAuthenticated == [(AFClientConfiguration *)v5 isDeviceWatchAuthenticated]) && (areAnnouncementRequestsPermittedByPresentationWhileActive = self->_areAnnouncementRequestsPermittedByPresentationWhileActive, areAnnouncementRequestsPermittedByPresentationWhileActive == [(AFClientConfiguration *)v5 areAnnouncementRequestsPermittedByPresentationWhileActive]) && (outputVolume = self->_outputVolume, [(AFClientConfiguration *)v5 outputVolume], outputVolume == v13) && (carOwnsMainAudio = self->_carOwnsMainAudio, carOwnsMainAudio == [(AFClientConfiguration *)v5 carOwnsMainAudio]) && (isEyesFreeDevice = self->_isEyesFreeDevice, isEyesFreeDevice == [(AFClientConfiguration *)v5 isEyesFreeDevice]))
+      if (deviceRingerSwitchState == [(AFClientConfiguration *)v5 deviceRingerSwitchState]&& (isDeviceInCarDNDMode = self->_isDeviceInCarDNDMode, isDeviceInCarDNDMode == [(AFClientConfiguration *)v5 isDeviceInCarDNDMode]) && (isDeviceInStarkMode = self->_isDeviceInStarkMode, isDeviceInStarkMode == [(AFClientConfiguration *)v5 isDeviceInStarkMode]) && (supportsCarPlayVehicleData = self->_supportsCarPlayVehicleData, supportsCarPlayVehicleData == [(AFClientConfiguration *)v5 supportsCarPlayVehicleData]) && (isDeviceWatchAuthenticated = self->_isDeviceWatchAuthenticated, isDeviceWatchAuthenticated == [(AFClientConfiguration *)v5 isDeviceWatchAuthenticated]) && (areAnnouncementRequestsPermittedByPresentationWhileActive = self->_areAnnouncementRequestsPermittedByPresentationWhileActive, areAnnouncementRequestsPermittedByPresentationWhileActive == [(AFClientConfiguration *)v5 areAnnouncementRequestsPermittedByPresentationWhileActive]) && (outputVolume = self->_outputVolume, [(AFClientConfiguration *)v5 outputVolume], outputVolume == v13) && (carOwnsMainAudio = self->_carOwnsMainAudio, carOwnsMainAudio == [(AFClientConfiguration *)v5 carOwnsMainAudio]) && (isEyesFreeDevice = self->_isEyesFreeDevice, isEyesFreeDevice == [(AFClientConfiguration *)v5 isEyesFreeDevice]))
       {
         accessibilityState = [(AFClientConfiguration *)v5 accessibilityState];
         accessibilityState = self->_accessibilityState;
@@ -177,7 +159,6 @@
 
       else
       {
-LABEL_25:
         v26 = 0;
       }
     }

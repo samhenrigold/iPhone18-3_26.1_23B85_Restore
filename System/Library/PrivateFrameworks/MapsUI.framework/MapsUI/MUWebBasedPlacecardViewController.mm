@@ -11,6 +11,7 @@
 - (void)updateHeight;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation MUWebBasedPlacecardViewController
@@ -35,6 +36,24 @@
 {
   selfCopy = self;
   MUWebBasedPlacecardViewController.viewDidLoad()();
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v8.receiver = self;
+  v8.super_class = swift_getObjectType();
+  v4 = v8.receiver;
+  [(MUWebBasedPlacecardViewController *)&v8 viewWillAppear:appearCopy];
+  v5 = &v4[OBJC_IVAR____TtC6MapsUI33MUWebBasedPlacecardViewController_viewControllerDelegate];
+  swift_beginAccess();
+  if (swift_unknownObjectWeakLoadStrong())
+  {
+    v6 = *(v5 + 1);
+    ObjectType = swift_getObjectType();
+    (*(v6 + 32))(1, ObjectType, v6);
+    swift_unknownObjectRelease();
+  }
 }
 
 - (void)viewDidLayoutSubviews

@@ -10,7 +10,7 @@
 
 - (VTLowLatencySuperResolutionScalerConfiguration)initWithFrameWidth:(int64_t)width frameHeight:(int64_t)height scaleFactor:(float)factor
 {
-  if ((loadVCPFrameworkOnce() & 1) == 0)
+  if ((loadVCPFrameworkOnce(self, a2) & 1) == 0)
   {
     NSLog(&cfstr_ProcessorNotSu.isa);
     return 0;
@@ -52,7 +52,7 @@
 
 + (id)supportedScaleFactorsForFrameWidth:(int64_t)width frameHeight:(int64_t)height
 {
-  if (loadVCPFrameworkOnce())
+  if (loadVCPFrameworkOnce(self, a2))
   {
     result = [-[objc_class supportedScaleFactorsForFrameWidth:frameHeight:](NSClassFromString(&cfstr_Vcpframesuperr.isa) supportedScaleFactorsForFrameWidth:width frameHeight:{height), "copy"}];
     if (result)
@@ -73,7 +73,7 @@
 
 + ($2825F4736939C4A6D3AD43837233062D)maximumDimensions
 {
-  if (loadVCPFrameworkOnce())
+  if (loadVCPFrameworkOnce(self, a2))
   {
     v2 = NSClassFromString(&cfstr_Vcpframesuperr.isa);
     maximumSupportedWidth = [(objc_class *)v2 maximumSupportedWidth];
@@ -88,7 +88,7 @@
 
 + ($2825F4736939C4A6D3AD43837233062D)minimumDimensions
 {
-  if (loadVCPFrameworkOnce())
+  if (loadVCPFrameworkOnce(self, a2))
   {
     v2 = NSClassFromString(&cfstr_Vcpframesuperr.isa);
     minimumSupportedWidth = [(objc_class *)v2 minimumSupportedWidth];

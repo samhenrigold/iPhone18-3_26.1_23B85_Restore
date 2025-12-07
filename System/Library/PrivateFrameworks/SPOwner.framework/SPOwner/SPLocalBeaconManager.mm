@@ -36,10 +36,10 @@
 
 - (SPLocalBeaconManager)init
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v34.receiver = self;
-  v34.super_class = SPLocalBeaconManager;
-  v2 = [(SPLocalBeaconManager *)&v34 init];
+  v36 = *MEMORY[0x277D85DE8];
+  v33.receiver = self;
+  v33.super_class = SPLocalBeaconManager;
+  v2 = [(SPLocalBeaconManager *)&v33 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -56,7 +56,7 @@
 
       if (!v9)
       {
-        goto LABEL_18;
+        return v2;
       }
     }
 
@@ -86,7 +86,7 @@
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v36 = v2;
+      v35 = v2;
       _os_log_impl(&dword_2643D0000, v19, OS_LOG_TYPE_DEFAULT, "SPLocalBeaconManager: Created %{public}@", buf, 0xCu);
     }
   }
@@ -97,7 +97,7 @@
     block[1] = 3221225472;
     block[2] = __28__SPLocalBeaconManager_init__block_invoke;
     block[3] = &unk_279B58AE8;
-    v33 = v2;
+    v32 = v2;
     if (init_onceToken != -1)
     {
       dispatch_once(&init_onceToken, block);
@@ -112,43 +112,39 @@
 
     v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.icloud.searchpartyd.SPBeaconManager.%@", processName];
     v23 = objc_alloc(MEMORY[0x277D07B90]);
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __28__SPLocalBeaconManager_init__block_invoke_2;
-    v30[3] = &unk_279B58F40;
-    objc_copyWeak(&v31, buf);
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __28__SPLocalBeaconManager_init__block_invoke_3;
-    v28[3] = &unk_279B58F68;
-    objc_copyWeak(&v29, buf);
-    v24 = [v23 initWithName:v22 qos:17 criteriaBlock:v30 handler:v28];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __28__SPLocalBeaconManager_init__block_invoke_2;
+    v29[3] = &unk_279B58F40;
+    objc_copyWeak(&v30, buf);
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __28__SPLocalBeaconManager_init__block_invoke_3;
+    v27[3] = &unk_279B58F68;
+    objc_copyWeak(&v28, buf);
+    v24 = [v23 initWithName:v22 qos:17 criteriaBlock:v29 handler:v27];
     WeakRetained = objc_loadWeakRetained(buf);
     [WeakRetained setPeriodicActionXpcActivity:v24];
 
-    objc_destroyWeak(&v29);
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v30);
 
     objc_destroyWeak(buf);
   }
 
-LABEL_18:
-  v26 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (id)remoteInterface
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_287604E58];
   v3 = MEMORY[0x277CBEB98];
-  v8[0] = objc_opt_class();
-  v8[1] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+  v7[0] = objc_opt_class();
+  v7[1] = objc_opt_class();
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
   v5 = [v3 setWithArray:v4];
   [v2 setClasses:v5 forSelector:sel_beaconingKeysOfType_withCompletion_ argumentIndex:0 ofReply:1];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -189,7 +185,7 @@ void *__28__SPLocalBeaconManager_init__block_invoke(uint64_t a1)
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -199,15 +195,14 @@ void *__28__SPLocalBeaconManager_init__block_invoke(uint64_t a1)
   }
 
   [(SPLocalBeaconManager *)self _invalidate];
-  v5.receiver = self;
-  v5.super_class = SPLocalBeaconManager;
-  [(SPLocalBeaconManager *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = SPLocalBeaconManager;
+  [(SPLocalBeaconManager *)&v4 dealloc];
 }
 
 - (SPLocalBeaconManagerXPCProtocol)searchPartyDaemonProxy
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   queue = [(SPLocalBeaconManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -225,9 +220,9 @@ void *__28__SPLocalBeaconManager_init__block_invoke(uint64_t a1)
     {
       spdServiceDescription2 = [(SPLocalBeaconManager *)self spdServiceDescription];
       machService = [spdServiceDescription2 machService];
-      v16 = 138412290;
-      v17 = machService;
-      _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPLocalBeaconManager: Establishing XPC connection to %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = machService;
+      _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPLocalBeaconManager: Establishing XPC connection to %@", &v15, 0xCu);
     }
 
     spdSession2 = [(SPLocalBeaconManager *)self spdSession];
@@ -237,14 +232,12 @@ void *__28__SPLocalBeaconManager_init__block_invoke(uint64_t a1)
   spdSession3 = [(SPLocalBeaconManager *)self spdSession];
   proxy = [spdSession3 proxy];
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return proxy;
 }
 
 - (SPLocalBeaconManagerXPCProtocol)findMyBeaconDaemonProxy
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   queue = [(SPLocalBeaconManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -262,9 +255,9 @@ void *__28__SPLocalBeaconManager_init__block_invoke(uint64_t a1)
     {
       findMyBeaconingDaemonServiceDescription2 = [(SPLocalBeaconManager *)self findMyBeaconingDaemonServiceDescription];
       machService = [findMyBeaconingDaemonServiceDescription2 machService];
-      v16 = 138412290;
-      v17 = machService;
-      _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPLocalBeaconManager: Establishing XPC connection to %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = machService;
+      _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPLocalBeaconManager: Establishing XPC connection to %@", &v15, 0xCu);
     }
 
     findMyBeaconDaemonSession2 = [(SPLocalBeaconManager *)self findMyBeaconDaemonSession];
@@ -273,8 +266,6 @@ void *__28__SPLocalBeaconManager_init__block_invoke(uint64_t a1)
 
   findMyBeaconDaemonSession3 = [(SPLocalBeaconManager *)self findMyBeaconDaemonSession];
   proxy = [findMyBeaconDaemonSession3 proxy];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return proxy;
 }
@@ -318,10 +309,11 @@ void __44__SPLocalBeaconManager_updateStateFromNVRAM__block_invoke(uint64_t a1, 
   v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = LogCategory_OfflineAdvertising();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = LogCategory_OfflineAdvertising(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __44__SPLocalBeaconManager_updateStateFromNVRAM__block_invoke_cold_1();
     }
@@ -331,29 +323,28 @@ void __44__SPLocalBeaconManager_updateStateFromNVRAM__block_invoke(uint64_t a1, 
   {
     if (v5)
     {
-      v8 = LogCategory_OfflineAdvertising();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = LogCategory_OfflineAdvertising(0);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         v16 = v5;
-        _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "Read FMDActivationLockInfo: %@", buf, 0xCu);
+        _os_log_impl(&dword_2643D0000, v9, OS_LOG_TYPE_DEFAULT, "Read FMDActivationLockInfo: %@", buf, 0xCu);
       }
 
-      v9 = [v5 isOfflineFindingEnabled];
-      v10 = *(a1 + 32);
+      v10 = [v5 isOfflineFindingEnabled];
+      v11 = *(a1 + 32);
     }
 
     else
     {
-      v10 = *(a1 + 32);
-      v9 = 0;
+      v11 = *(a1 + 32);
+      v10 = 0;
     }
 
-    [v10 setIsOfflineFindingEnabled:v9];
-    v11 = LogCategory_OfflineAdvertising();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = LogCategory_OfflineAdvertising([v11 setIsOfflineFindingEnabled:v10]);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __44__SPLocalBeaconManager_updateStateFromNVRAM__block_invoke_cold_2(a1, v11);
+      __44__SPLocalBeaconManager_updateStateFromNVRAM__block_invoke_cold_2(a1, v12);
     }
 
     v13[0] = MEMORY[0x277D85DD0];
@@ -365,8 +356,6 @@ void __44__SPLocalBeaconManager_updateStateFromNVRAM__block_invoke(uint64_t a1, 
     _os_activity_initiate(&dword_2643D0000, "SPLocalBeaconManager: Calling beaconingStateChanged (post-erase)", OS_ACTIVITY_FLAG_DEFAULT, v13);
     objc_destroyWeak(&v14);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __44__SPLocalBeaconManager_updateStateFromNVRAM__block_invoke_130(uint64_t a1)
@@ -391,17 +380,15 @@ void __44__SPLocalBeaconManager_updateStateFromNVRAM__block_invoke_2(uint64_t a1
 
 void __44__SPLocalBeaconManager_updateStateFromNVRAM__block_invoke_3(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = LogCategory_OfflineAdvertising();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = LogCategory_OfflineAdvertising(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "poisonBeaconIdentifier %@ success.", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "poisonBeaconIdentifier %@ success.", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
@@ -513,12 +500,12 @@ void __29__SPLocalBeaconManager_start__block_invoke_3(uint64_t a1)
 
 void __58__SPLocalBeaconManager_beaconingStateChangedNotification___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "[SPLocalBeaconManager beaconingStateChangedNotification:]_block_invoke";
+    v6 = "[SPLocalBeaconManager beaconingStateChangedNotification:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPLocalBeaconManager: SPI: %s", buf, 0xCu);
   }
 
@@ -529,8 +516,6 @@ void __58__SPLocalBeaconManager_beaconingStateChangedNotification___block_invoke
   block[3] = &unk_279B58AE8;
   block[4] = *(a1 + 32);
   dispatch_async(v3, block);
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beaconsChanged:(id)changed
@@ -580,7 +565,7 @@ void __39__SPLocalBeaconManager_beaconsChanged___block_invoke(uint64_t a1)
   _os_activity_initiate(&dword_2643D0000, "SPLocalBeaconManager: beaconsChanged:", OS_ACTIVITY_FLAG_DEFAULT, v5);
 }
 
-uint64_t __46__SPLocalBeaconManager_beaconingStateChanged___block_invoke(uint64_t a1)
+void *__46__SPLocalBeaconManager_beaconingStateChanged___block_invoke(uint64_t a1)
 {
   v26 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
@@ -664,15 +649,16 @@ LABEL_15:
 
   if (((v9 | [*(a1 + 32) initialStateChangeSent] ^ 1) & 1) != 0 || (result = objc_msgSend(*(a1 + 32), "currentBeaconingState"), v8 != result))
   {
-    if (v8 != [*(a1 + 32) currentBeaconingState])
+    v16 = [*(a1 + 32) currentBeaconingState];
+    if (v8 != v16)
     {
-      v16 = LogCategory_SystemHealth();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = LogCategory_SystemHealth(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = [*(a1 + 32) currentBeaconingState];
+        v18 = [*(a1 + 32) currentBeaconingState];
         *buf = 67109120;
-        *v22 = v17;
-        _os_log_impl(&dword_2643D0000, v16, OS_LOG_TYPE_DEFAULT, "Beaconing state changed to %i", buf, 8u);
+        *v22 = v18;
+        _os_log_impl(&dword_2643D0000, v17, OS_LOG_TYPE_DEFAULT, "Beaconing state changed to %i", buf, 8u);
       }
     }
 
@@ -688,35 +674,32 @@ LABEL_15:
 
     else
     {
-      v18 = *(a1 + 32);
+      v19 = *(a1 + 32);
       v20[0] = MEMORY[0x277D85DD0];
       v20[1] = 3221225472;
       v20[2] = __46__SPLocalBeaconManager_beaconingStateChanged___block_invoke_144;
       v20[3] = &unk_279B58AE8;
-      v20[4] = v18;
-      [v18 periodicActionWithCompletion:v20];
+      v20[4] = v19;
+      [v19 periodicActionWithCompletion:v20];
     }
 
-    result = [*(a1 + 32) setInitialStateChangeSent:1];
+    return [*(a1 + 32) setInitialStateChangeSent:1];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __46__SPLocalBeaconManager_beaconingStateChanged___block_invoke_142(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_2643D0000, v3, OS_LOG_TYPE_DEFAULT, "SPLocalBeaconManager: notifyBeaconingKeysChangedBlockWithCompletion completion: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_2643D0000, v3, OS_LOG_TYPE_DEFAULT, "SPLocalBeaconManager: notifyBeaconingKeysChangedBlockWithCompletion completion: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__SPLocalBeaconManager_beaconingStateChanged___block_invoke_144(uint64_t a1)
@@ -735,7 +718,7 @@ uint64_t __46__SPLocalBeaconManager_beaconingStateChanged___block_invoke_144(uin
 - (void)notifyStateChange:(BOOL)change
 {
   changeCopy = change;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = [[SPPowerAssertion alloc] initWithReason:@"SPBeaconManager.stateChanged" type:1 timeout:5.0];
   [(SPPowerAssertion *)v5 hold];
   stateChangedBlockWithCompletion = [(SPLocalBeaconManager *)self stateChangedBlockWithCompletion];
@@ -743,7 +726,7 @@ uint64_t __46__SPLocalBeaconManager_beaconingStateChanged___block_invoke_144(uin
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v14 = changeCopy;
+    v13 = changeCopy;
     _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "SPLocalBeaconManager: notifyStateChange: %ld ", buf, 0xCu);
   }
 
@@ -753,13 +736,11 @@ uint64_t __46__SPLocalBeaconManager_beaconingStateChanged___block_invoke_144(uin
     activity_block[1] = 3221225472;
     activity_block[2] = __42__SPLocalBeaconManager_notifyStateChange___block_invoke;
     activity_block[3] = &unk_279B59050;
-    v11 = stateChangedBlockWithCompletion;
-    v12 = changeCopy;
-    v10 = v5;
+    v10 = stateChangedBlockWithCompletion;
+    v11 = changeCopy;
+    v9 = v5;
     _os_activity_initiate(&dword_2643D0000, "SPLocalBeaconManager: Calling stateChangedBlock", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __42__SPLocalBeaconManager_notifyStateChange___block_invoke(uint64_t a1)
@@ -776,24 +757,22 @@ void __42__SPLocalBeaconManager_notifyStateChange___block_invoke(uint64_t a1)
 
 uint64_t __42__SPLocalBeaconManager_notifyStateChange___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
-    v8 = a2;
-    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "stateChangedBlockWithCompletion completed with status - %li", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = a2;
+    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "stateChangedBlockWithCompletion completed with status - %li", &v6, 0xCu);
   }
 
-  result = [*(a1 + 32) drop];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) drop];
 }
 
 - (void)notifyStatusChange:(unsigned __int8)change
 {
   changeCopy = change;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = [[SPPowerAssertion alloc] initWithReason:@"SPBeaconManager.statusChanged" type:1 timeout:5.0];
   [(SPPowerAssertion *)v5 hold];
   statusChangedBlockWithCompletion = [(SPLocalBeaconManager *)self statusChangedBlockWithCompletion];
@@ -801,7 +780,7 @@ uint64_t __42__SPLocalBeaconManager_notifyStateChange___block_invoke_2(uint64_t 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v14 = changeCopy;
+    v13 = changeCopy;
     _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "SPLocalBeaconManager: notifyStatusChange: %ld ", buf, 0xCu);
   }
 
@@ -811,13 +790,11 @@ uint64_t __42__SPLocalBeaconManager_notifyStateChange___block_invoke_2(uint64_t 
     activity_block[1] = 3221225472;
     activity_block[2] = __43__SPLocalBeaconManager_notifyStatusChange___block_invoke;
     activity_block[3] = &unk_279B59050;
-    v11 = statusChangedBlockWithCompletion;
-    v12 = changeCopy;
-    v10 = v5;
+    v10 = statusChangedBlockWithCompletion;
+    v11 = changeCopy;
+    v9 = v5;
     _os_activity_initiate(&dword_2643D0000, "SPLocalBeaconManager: Calling statusChangedBlockWithCompletion", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __43__SPLocalBeaconManager_notifyStatusChange___block_invoke(uint64_t a1)
@@ -834,18 +811,16 @@ void __43__SPLocalBeaconManager_notifyStatusChange___block_invoke(uint64_t a1)
 
 uint64_t __43__SPLocalBeaconManager_notifyStatusChange___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
-    v8 = a2;
-    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "statusChangedBlockWithCompletion completed with status - %li", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = a2;
+    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "statusChangedBlockWithCompletion completed with status - %li", &v6, 0xCu);
   }
 
-  result = [*(a1 + 32) drop];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) drop];
 }
 
 - (void)_invalidate
@@ -1275,12 +1250,12 @@ LABEL_11:
 
 void __70__SPLocalBeaconManager_notifyBeaconingKeysChangedBlockWithCompletion___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v26 = "[SPLocalBeaconManager notifyBeaconingKeysChangedBlockWithCompletion:]_block_invoke";
+    v25 = "[SPLocalBeaconManager notifyBeaconingKeysChangedBlockWithCompletion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPLocalBeaconManager: SPI: %s", buf, 0xCu);
   }
 
@@ -1302,17 +1277,17 @@ void __70__SPLocalBeaconManager_notifyBeaconingKeysChangedBlockWithCompletion___
       v9 = 1;
     }
 
-    v15 = MEMORY[0x277D85DD0];
-    v16 = 3221225472;
-    v17 = __70__SPLocalBeaconManager_notifyBeaconingKeysChangedBlockWithCompletion___block_invoke_170;
-    v18 = &unk_279B59160;
-    v19 = v8;
-    v20 = v3;
-    v24 = 1907;
-    v22 = v5;
-    v21 = v4;
-    v23 = *(a1 + 40);
-    v10 = _Block_copy(&v15);
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = __70__SPLocalBeaconManager_notifyBeaconingKeysChangedBlockWithCompletion___block_invoke_170;
+    v17 = &unk_279B59160;
+    v18 = v8;
+    v19 = v3;
+    v23 = 1907;
+    v21 = v5;
+    v20 = v4;
+    v22 = *(a1 + 40);
+    v10 = _Block_copy(&v14);
     v11 = [*(a1 + 32) beaconFromNVRAM];
     v12 = *(a1 + 32);
     if (v11)
@@ -1332,13 +1307,11 @@ void __70__SPLocalBeaconManager_notifyBeaconingKeysChangedBlockWithCompletion___
   {
     (*(*(a1 + 40) + 16))();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __70__SPLocalBeaconManager_notifyBeaconingKeysChangedBlockWithCompletion___block_invoke_170(uint64_t a1, void *a2)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -1346,35 +1319,35 @@ void __70__SPLocalBeaconManager_notifyBeaconingKeysChangedBlockWithCompletion___
     v5 = [v3 count];
     v6 = *(a1 + 32);
     *buf = 134218242;
-    v41 = v5;
-    v42 = 2114;
-    v43 = v6;
+    v40 = v5;
+    v41 = 2114;
+    v42 = v6;
     _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "Calling beaconingKeyChangedBlock with %lu %{public}@ keys.", buf, 0x16u);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v7 = v3;
-  v8 = [v7 countByEnumeratingWithState:&v36 objects:v46 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v35 objects:v45 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v37;
+    v11 = *v36;
     *&v9 = 138412802;
-    v30 = v9;
+    v29 = v9;
     obj = v7;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v37 != v11)
+        if (*v36 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v36 + 1) + 8 * i);
+        v13 = *(*(&v35 + 1) + 8 * i);
         v14 = MEMORY[0x277CCAA68];
         v15 = [v13 dateInterval];
         v16 = [v15 startDate];
@@ -1390,18 +1363,18 @@ void __70__SPLocalBeaconManager_notifyBeaconingKeysChangedBlockWithCompletion___
         {
           v23 = [v13 key];
           v24 = [v23 fm_hexString];
-          *buf = v30;
-          v41 = v24;
-          v42 = 2114;
-          v43 = v17;
-          v44 = 2114;
-          v45 = v21;
+          *buf = v29;
+          v40 = v24;
+          v41 = 2114;
+          v42 = v17;
+          v43 = 2114;
+          v44 = v21;
           _os_log_impl(&dword_2643D0000, v22, OS_LOG_TYPE_DEFAULT, "  key: %@ (%{public}@ - %{public}@)", buf, 0x20u);
         }
       }
 
       v7 = obj;
-      v10 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
+      v10 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
     }
 
     while (v10);
@@ -1414,9 +1387,9 @@ void __70__SPLocalBeaconManager_notifyBeaconingKeysChangedBlockWithCompletion___
     activity_block[1] = 3221225472;
     activity_block[2] = __70__SPLocalBeaconManager_notifyBeaconingKeysChangedBlockWithCompletion___block_invoke_172;
     activity_block[3] = &unk_279B59118;
-    v35 = v25;
-    v33 = v7;
-    v34 = *(a1 + 48);
+    v34 = v25;
+    v32 = v7;
+    v33 = *(a1 + 48);
     _os_activity_initiate(&dword_2643D0000, "SPLocalBeaconManager: Calling beaconingKeyChangedBlockWithCompletion", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
   }
 
@@ -1441,8 +1414,6 @@ void __70__SPLocalBeaconManager_notifyBeaconingKeysChangedBlockWithCompletion___
   }
 
   (*(*(a1 + 64) + 16))();
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __70__SPLocalBeaconManager_notifyBeaconingKeysChangedBlockWithCompletion___block_invoke_172(uint64_t a1)
@@ -1459,18 +1430,16 @@ void __70__SPLocalBeaconManager_notifyBeaconingKeysChangedBlockWithCompletion___
 
 uint64_t __70__SPLocalBeaconManager_notifyBeaconingKeysChangedBlockWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
-    v8 = a2;
-    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "beaconingKeyChangedBlockWithCompletion completed with status - %li", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = a2;
+    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "beaconingKeyChangedBlockWithCompletion completed with status - %li", &v6, 0xCu);
   }
 
-  result = [*(a1 + 32) drop];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) drop];
 }
 
 + (id)scheduleDateInterval:(id)interval
@@ -1624,24 +1593,23 @@ void __45__SPLocalBeaconManager_refreshBeaconingState__block_invoke_4(uint64_t a
 - (void)stateDidChange:(BOOL)change powerState:(unint64_t)state
 {
   changeCopy = change;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v7 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9[0] = 67109376;
-    v9[1] = changeCopy;
-    v10 = 2048;
+    v8[0] = 67109376;
+    v8[1] = changeCopy;
+    v9 = 2048;
     stateCopy = state;
-    _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "SPLocalBeaconManager: Monitor Delegate: networkUp [%i], powerState [%lu]", v9, 0x12u);
+    _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "SPLocalBeaconManager: Monitor Delegate: networkUp [%i], powerState [%lu]", v8, 0x12u);
   }
 
   [(SPLocalBeaconManager *)self refreshBeaconingState];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)bleMonitor:(id)monitor didChangeState:(unint64_t)state
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   monitorCopy = monitor;
   v7 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -1657,13 +1625,11 @@ void __45__SPLocalBeaconManager_refreshBeaconingState__block_invoke_4(uint64_t a
   block[1] = 3221225472;
   block[2] = __50__SPLocalBeaconManager_bleMonitor_didChangeState___block_invoke;
   block[3] = &unk_279B58D88;
-  objc_copyWeak(&v11, buf);
+  objc_copyWeak(&v10, buf);
   dispatch_async(queue, block);
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(buf);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __50__SPLocalBeaconManager_bleMonitor_didChangeState___block_invoke(uint64_t a1)
@@ -1853,28 +1819,28 @@ void __86__SPLocalBeaconManager_KeyGeneration__generateBeaconingKeysOfType_now_w
 
 - (id)generateOfflineAdvertisingKeysForReason:(int64_t)reason now:(id)now
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   nowCopy = now;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x3032000000;
-  v51 = __Block_byref_object_copy__1;
-  v52 = __Block_byref_object_dispose__1;
-  v53 = 0;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x3032000000;
+  v50 = __Block_byref_object_copy__1;
+  v51 = __Block_byref_object_dispose__1;
+  v52 = 0;
   queue = [(SPLocalBeaconManager *)self queue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __83__SPLocalBeaconManager_KeyGeneration__generateOfflineAdvertisingKeysForReason_now___block_invoke;
   block[3] = &unk_279B59278;
   block[4] = self;
-  block[5] = &v48;
+  block[5] = &v47;
   block[6] = reason;
   dispatch_sync(queue, block);
 
   v9 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    if (v49[5])
+    if (v48[5])
     {
       v10 = @"(not-nil)";
     }
@@ -1889,7 +1855,7 @@ void __86__SPLocalBeaconManager_KeyGeneration__generateBeaconingKeysOfType_now_w
     _os_log_impl(&dword_2643D0000, v9, OS_LOG_TYPE_DEFAULT, "Done reading selfBeaconing config %@", &buf, 0xCu);
   }
 
-  if (!v49[5])
+  if (!v48[5])
   {
     selfBeaconingPairDate = LogCategory_BeaconManager();
     if (os_log_type_enabled(selfBeaconingPairDate, OS_LOG_TYPE_ERROR))
@@ -1946,8 +1912,8 @@ LABEL_28:
     goto LABEL_29;
   }
 
-  shortIntervalCount = [v49[5] shortIntervalCount];
-  longIntervalCount = [v49[5] longIntervalCount];
+  shortIntervalCount = [v48[5] shortIntervalCount];
+  longIntervalCount = [v48[5] longIntervalCount];
   selfBeaconingPairDate = [(SPLocalBeaconManager *)self selfBeaconingPairDate];
   v17 = MEMORY[0x277CBEAA8];
   [selfBeaconingPairDate timeIntervalSinceReferenceDate];
@@ -1968,57 +1934,57 @@ LABEL_28:
 
   if (selfBeaconingIndex <= v21)
   {
-    v46[0] = 0;
-    v46[1] = v46;
-    v46[2] = 0x2020000000;
-    v46[3] = 0;
+    v45[0] = 0;
+    v45[1] = v45;
+    v45[2] = 0x2020000000;
+    v45[3] = 0;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v60 = 0x3032000000;
-    v61 = __Block_byref_object_copy__1;
-    v62 = __Block_byref_object_dispose__1;
-    v35 = shortIntervalCount;
-    v27 = longIntervalCount + shortIntervalCount;
-    v63 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __83__SPLocalBeaconManager_KeyGeneration__generateOfflineAdvertisingKeysForReason_now___block_invoke_412;
-    v39[3] = &unk_279B592A0;
-    v44 = v21;
-    v42 = v46;
-    v39[4] = self;
-    v40 = v19;
-    v41 = selfBeaconingPairDate;
+    v59 = 0x3032000000;
+    v60 = __Block_byref_object_copy__1;
+    v61 = __Block_byref_object_dispose__1;
+    v34 = shortIntervalCount;
+    v26 = longIntervalCount + shortIntervalCount;
+    v62 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __83__SPLocalBeaconManager_KeyGeneration__generateOfflineAdvertisingKeysForReason_now___block_invoke_412;
+    v38[3] = &unk_279B592A0;
+    v43 = v21;
+    v41 = v45;
+    v38[4] = self;
+    v39 = v19;
+    v40 = selfBeaconingPairDate;
     p_buf = &buf;
-    v45 = v27;
-    [SPCrypto generateTokensWithPublicKey:selfBeaconingPublicKey sharedSecretKey:selfBeaconingDerivedSharedSecretKey initialRatchetsToSkip:v22 ratchetStep:v39];
-    if ([*(*(&buf + 1) + 40) count] != v27)
+    v44 = v26;
+    [SPCrypto generateTokensWithPublicKey:selfBeaconingPublicKey sharedSecretKey:selfBeaconingDerivedSharedSecretKey initialRatchetsToSkip:v22 ratchetStep:v38];
+    if ([*(*(&buf + 1) + 40) count] != v26)
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
-      [currentHandler handleFailureInMethod:a2 object:self file:@"SPLocalBeaconManager.m" lineNumber:1084 description:{@"Generated %lu keys -- expected %lu!", objc_msgSend(*(*(&buf + 1) + 40), "count"), v27}];
+      [currentHandler handleFailureInMethod:a2 object:self file:@"SPLocalBeaconManager.m" lineNumber:1084 description:{@"Generated %lu keys -- expected %lu!", objc_msgSend(*(*(&buf + 1) + 40), "count"), v26}];
     }
 
-    v28 = [*(*(&buf + 1) + 40) fm_map:&__block_literal_global_421];
-    v29 = [v28 subarrayWithRange:{0, v35}];
-    v30 = [v28 subarrayWithRange:{v35, longIntervalCount}];
-    v31 = [[SPOfflineAdvertisingKeys alloc] initWithInterval:15 keys:v29];
-    v32 = [[SPOfflineAdvertisingKeys alloc] initWithInterval:1440 keys:v30];
-    v33 = LogCategory_BeaconManager();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v27 = [*(*(&buf + 1) + 40) fm_map:&__block_literal_global_421];
+    v28 = [v27 subarrayWithRange:{0, v34}];
+    v29 = [v27 subarrayWithRange:{v34, longIntervalCount}];
+    v30 = [[SPOfflineAdvertisingKeys alloc] initWithInterval:15 keys:v28];
+    v31 = [[SPOfflineAdvertisingKeys alloc] initWithInterval:1440 keys:v29];
+    v32 = LogCategory_BeaconManager();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
-      *v55 = 134218240;
-      v56 = v35;
-      v57 = 2048;
-      v58 = longIntervalCount;
-      _os_log_impl(&dword_2643D0000, v33, OS_LOG_TYPE_DEFAULT, "Returning: %lu shortInterval keys and %lu longInterval keys", v55, 0x16u);
+      *v54 = 134218240;
+      v55 = v34;
+      v56 = 2048;
+      v57 = longIntervalCount;
+      _os_log_impl(&dword_2643D0000, v32, OS_LOG_TYPE_DEFAULT, "Returning: %lu shortInterval keys and %lu longInterval keys", v54, 0x16u);
     }
 
-    v54[0] = v31;
-    v54[1] = v32;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
+    v53[0] = v30;
+    v53[1] = v31;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
 
     _Block_object_dispose(&buf, 8);
-    _Block_object_dispose(v46, 8);
+    _Block_object_dispose(v45, 8);
   }
 
   else
@@ -2033,9 +1999,7 @@ LABEL_28:
   }
 
 LABEL_29:
-  _Block_object_dispose(&v48, 8);
-
-  v25 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v47, 8);
 
   return v24;
 }
@@ -2090,22 +2054,13 @@ void __83__SPLocalBeaconManager_KeyGeneration__generateOfflineAdvertisingKeysFor
   }
 }
 
-void __44__SPLocalBeaconManager_updateStateFromNVRAM__block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __44__SPLocalBeaconManager_updateStateFromNVRAM__block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) isOfflineFindingEnabled];
-  v5[0] = 67109120;
-  v5[1] = v3;
-  _os_log_error_impl(&dword_2643D0000, a2, OS_LOG_TYPE_ERROR, "Setting isOfflineFindingEnabled to %d", v5, 8u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = 67109120;
+  v4[1] = v3;
+  _os_log_error_impl(&dword_2643D0000, a2, OS_LOG_TYPE_ERROR, "Setting isOfflineFindingEnabled to %d", v4, 8u);
 }
 
 @end

@@ -905,7 +905,7 @@ LABEL_23:
   return v15;
 }
 
-uint64_t __72__MPModelStoreGroupingsMusicKitResponseParser__parsedEditorialElements___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+char *__72__MPModelStoreGroupingsMusicKitResponseParser__parsedEditorialElements___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 sectionType];
   if ((result - 13) >= 2)

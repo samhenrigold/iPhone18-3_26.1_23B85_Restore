@@ -8,6 +8,7 @@
 - (BOOL)isIdleDimmingSuspendedOnKeyboard:(unint64_t)keyboard;
 - (BOOL)isKeyboardBuiltIn:(unint64_t)in;
 - (BOOL)setBrightness:(float)brightness fadeSpeed:(int)speed commit:(BOOL)commit forKeyboard:(unint64_t)keyboard;
+- (BOOL)setBrightness:(float)brightness forKeyboard:(unint64_t)keyboard;
 - (BOOL)setIdleDimTime:(double)time forKeyboard:(unint64_t)keyboard;
 - (BOOL)suspendIdleDimming:(BOOL)dimming forKeyboard:(unint64_t)keyboard;
 - (KeyboardBrightnessClient)init;
@@ -121,7 +122,6 @@
     _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "keyboardIDs=%@", v7, 0xCu);
   }
 
-  *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -163,7 +163,6 @@
   }
 
   MEMORY[0x1E69E5920](v6);
-  *MEMORY[0x1E69E9840];
   return bOOLValue & 1;
 }
 
@@ -205,7 +204,6 @@
   }
 
   MEMORY[0x1E69E5920](v6);
-  *MEMORY[0x1E69E9840];
   return bOOLValue & 1;
 }
 
@@ -247,7 +245,6 @@
   }
 
   MEMORY[0x1E69E5920](v6);
-  *MEMORY[0x1E69E9840];
   return bOOLValue & 1;
 }
 
@@ -290,7 +287,6 @@
   }
 
   MEMORY[0x1E69E5920](v7);
-  *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -333,8 +329,22 @@
   }
 
   MEMORY[0x1E69E5920](v7);
-  *MEMORY[0x1E69E9840];
   return v8;
+}
+
+- (BOOL)setBrightness:(float)brightness forKeyboard:(unint64_t)keyboard
+{
+  if (brightness <= 0.0)
+  {
+    v4 = 350;
+  }
+
+  else
+  {
+    v4 = 500;
+  }
+
+  return [(KeyboardBrightnessClient *)self setBrightness:v4 fadeSpeed:1 commit:keyboard forKeyboard:*&brightness];
 }
 
 - (BOOL)setBrightness:(float)brightness fadeSpeed:(int)speed commit:(BOOL)commit forKeyboard:(unint64_t)keyboard
@@ -387,7 +397,6 @@
   }
 
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -433,7 +442,6 @@
   }
 
   MEMORY[0x1E69E5920](v9);
-  *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -492,7 +500,6 @@
 
 LABEL_11:
   MEMORY[0x1E69E5920](copyKeyboardBacklightIDs);
-  *MEMORY[0x1E69E9840];
   return v14 & 1;
 }
 
@@ -534,7 +541,6 @@ LABEL_11:
   }
 
   MEMORY[0x1E69E5920](v6);
-  *MEMORY[0x1E69E9840];
   return bOOLValue & 1;
 }
 
@@ -577,7 +583,6 @@ LABEL_11:
   }
 
   MEMORY[0x1E69E5920](v7);
-  *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -623,7 +628,6 @@ LABEL_11:
   }
 
   MEMORY[0x1E69E5920](v9);
-  *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -669,7 +673,6 @@ LABEL_11:
   }
 
   MEMORY[0x1E69E5920](v9);
-  *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -711,7 +714,6 @@ LABEL_11:
   }
 
   MEMORY[0x1E69E5920](v6);
-  *MEMORY[0x1E69E9840];
   return bOOLValue & 1;
 }
 
@@ -753,7 +755,6 @@ LABEL_11:
   }
 
   MEMORY[0x1E69E5920](v6);
-  *MEMORY[0x1E69E9840];
   return bOOLValue & 1;
 }
 

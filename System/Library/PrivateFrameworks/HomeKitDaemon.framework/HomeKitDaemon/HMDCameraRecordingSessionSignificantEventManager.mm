@@ -217,37 +217,17 @@ BOOL __130__HMDCameraRecordingSessionSignificantEventManager__supersedingSignifi
   return v6;
 }
 
-uint64_t __104__HMDCameraRecordingSessionSignificantEventManager__filteredFaceClassificationsFromFaceClassifications___block_invoke(uint64_t a1, void *a2)
+BOOL __104__HMDCameraRecordingSessionSignificantEventManager__filteredFaceClassificationsFromFaceClassifications___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [v3 familiarity];
-  if (v4 == 1)
+  v8 = 0;
+  if (v4 != 1)
   {
-    goto LABEL_4;
-  }
-
-  if (v4)
-  {
-    goto LABEL_5;
-  }
-
-  v5 = [*(a1 + 32) faceClassificationResolver];
-  v6 = [v3 sourceUUID];
-  v7 = [v5 personManagerWithUUID:v6];
-
-  objc_opt_class();
-  LOBYTE(v5) = objc_opt_isKindOfClass();
-
-  if (v5)
-  {
-LABEL_4:
-    v8 = 0;
-  }
-
-  else
-  {
-LABEL_5:
-    v8 = 1;
+    if (v4 || ([*(a1 + 32) faceClassificationResolver], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "sourceUUID"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "personManagerWithUUID:", v6), v7 = objc_claimAutoreleasedReturnValue(), v6, v5, objc_opt_class(), LOBYTE(v5) = objc_opt_isKindOfClass(), v7, (v5 & 1) == 0))
+    {
+      v8 = 1;
+    }
   }
 
   return v8;
@@ -255,60 +235,60 @@ LABEL_5:
 
 - (id)_filteredAndUpdatedSignificantEventsFromSignificantEvents:(id)events
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   workQueue = [(HMDCameraRecordingSessionSignificantEventManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v74 = [MEMORY[0x277CBEB58] set];
+  v73 = [MEMORY[0x277CBEB58] set];
   v6 = MEMORY[0x277CBEB58];
   significantEvents = [(HMDCameraRecordingSessionSignificantEventManager *)self significantEvents];
   v8 = [v6 setWithArray:significantEvents];
 
-  v70 = eventsCopy;
+  v69 = eventsCopy;
   allObjects = [eventsCopy allObjects];
   v10 = [allObjects sortedArrayUsingComparator:&__block_literal_global_15];
 
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
   v81 = 0u;
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
   obj = v10;
-  v11 = [obj countByEnumeratingWithState:&v80 objects:v90 count:16];
+  v11 = [obj countByEnumeratingWithState:&v79 objects:v89 count:16];
   if (v11)
   {
     v13 = v11;
-    v75 = *v81;
+    v74 = *v80;
     *&v12 = 138543618;
-    v68 = v12;
+    v67 = v12;
     selfCopy = self;
-    v73 = v8;
+    v72 = v8;
     do
     {
       v14 = 0;
-      v69 = v13;
+      v68 = v13;
       do
       {
-        if (*v81 != v75)
+        if (*v80 != v74)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v80 + 1) + 8 * v14);
-        v16 = [(HMDCameraRecordingSessionSignificantEventManager *)self _supersedingSignificantEventFromPreviousSignificantEvents:v8 forSignificantEvent:v15, v68];
-        if (v16 || ([(HMDCameraRecordingSessionSignificantEventManager *)self _supersedingSignificantEventFromCurrentSignificantEvents:v70 forSignificantEvent:v15], (v16 = objc_claimAutoreleasedReturnValue()) != 0))
+        v15 = *(*(&v79 + 1) + 8 * v14);
+        v16 = [(HMDCameraRecordingSessionSignificantEventManager *)self _supersedingSignificantEventFromPreviousSignificantEvents:v8 forSignificantEvent:v15, v67];
+        if (v16 || ([(HMDCameraRecordingSessionSignificantEventManager *)self _supersedingSignificantEventFromCurrentSignificantEvents:v69 forSignificantEvent:v15], (v16 = objc_claimAutoreleasedReturnValue()) != 0))
         {
           v17 = v16;
           sessionEntityUUID = [v15 sessionEntityUUID];
           v19 = sessionEntityUUID;
           if (sessionEntityUUID)
           {
-            v78[0] = MEMORY[0x277D85DD0];
-            v78[1] = 3221225472;
-            v78[2] = __110__HMDCameraRecordingSessionSignificantEventManager__filteredAndUpdatedSignificantEventsFromSignificantEvents___block_invoke_16;
-            v78[3] = &unk_278676D98;
-            v79 = sessionEntityUUID;
-            v20 = [v8 na_firstObjectPassingTest:v78];
+            v77[0] = MEMORY[0x277D85DD0];
+            v77[1] = 3221225472;
+            v77[2] = __110__HMDCameraRecordingSessionSignificantEventManager__filteredAndUpdatedSignificantEventsFromSignificantEvents___block_invoke_16;
+            v77[3] = &unk_278676D98;
+            v78 = sessionEntityUUID;
+            v20 = [v8 na_firstObjectPassingTest:v77];
             if (!v20)
             {
               sessionEntityUUID2 = [v17 sessionEntityUUID];
@@ -321,20 +301,20 @@ LABEL_5:
                 if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
                 {
                   v35 = HMFGetLogIdentifier();
-                  *buf = v68;
+                  *buf = v67;
                   *&buf[4] = v35;
                   *&buf[12] = 2112;
                   *&buf[14] = v15;
                   _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_INFO, "%{public}@Adding new significant event: %@", buf, 0x16u);
 
-                  v8 = v73;
+                  v8 = v72;
                 }
 
                 objc_autoreleasePoolPop(v32);
                 significantEvents2 = [(HMDCameraRecordingSessionSignificantEventManager *)selfCopy2 significantEvents];
                 [significantEvents2 addObject:v15];
 
-                [v74 addObject:v15];
+                [v73 addObject:v15];
               }
 
               else
@@ -361,19 +341,19 @@ LABEL_5:
                     *buf = *MEMORY[0x277D0F960];
                   }
 
-                  v85 = *buf;
+                  v84 = *buf;
                   *buf = 138544130;
                   *&buf[4] = v51;
                   *&buf[12] = 1040;
                   *&buf[14] = 16;
                   *&buf[18] = 2096;
-                  *&buf[20] = &v85;
-                  v88 = 2112;
-                  v89 = v15;
+                  *&buf[20] = &v84;
+                  v87 = 2112;
+                  v88 = v15;
                   _os_log_impl(&dword_229538000, v50, OS_LOG_TYPE_INFO, "%{public}@Updating previous significant event with UUID %{uuid_t}.16P using new significant event: %@", buf, 0x26u);
 
                   self = selfCopy;
-                  v8 = v73;
+                  v8 = v72;
                 }
 
                 objc_autoreleasePoolPop(v48);
@@ -395,8 +375,8 @@ LABEL_5:
 
                 [v15 timeOffsetWithinClip];
                 [v58 setTimeOffsetWithinClip:?];
-                v64 = [v58 copy];
-                [v74 addObject:v64];
+                v64 = objc_msgSend_copy(v58);
+                [v73 addObject:v64];
               }
 
               goto LABEL_38;
@@ -404,13 +384,13 @@ LABEL_5:
 
             v21 = v20;
             faceClassifications2 = [v15 faceClassifications];
-            v76[0] = MEMORY[0x277D85DD0];
-            v76[1] = 3221225472;
-            v76[2] = __110__HMDCameraRecordingSessionSignificantEventManager__filteredAndUpdatedSignificantEventsFromSignificantEvents___block_invoke_2;
-            v76[3] = &unk_278676DC0;
+            v75[0] = MEMORY[0x277D85DD0];
+            v75[1] = 3221225472;
+            v75[2] = __110__HMDCameraRecordingSessionSignificantEventManager__filteredAndUpdatedSignificantEventsFromSignificantEvents___block_invoke_2;
+            v75[3] = &unk_278676DC0;
             v23 = v21;
-            v77 = v23;
-            v24 = [faceClassifications2 na_filter:v76];
+            v76 = v23;
+            v24 = [faceClassifications2 na_filter:v75];
 
             if ([v24 count])
             {
@@ -436,15 +416,15 @@ LABEL_5:
                   *buf = *MEMORY[0x277D0F960];
                 }
 
-                v86 = *buf;
+                v85 = *buf;
                 *buf = 138544130;
                 *&buf[4] = v28;
                 *&buf[12] = 2112;
                 *&buf[14] = v24;
                 *&buf[22] = 1040;
                 *&buf[24] = 16;
-                v88 = 2096;
-                v89 = &v86;
+                v87 = 2096;
+                v88 = &v85;
                 _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_INFO, "%{public}@Adding new face classifications %@ to previous significant event with UUID: %{uuid_t}.16P", buf, 0x26u);
 
                 self = selfCopy;
@@ -456,17 +436,17 @@ LABEL_5:
               v56 = [faceClassifications3 setByAddingObjectsFromSet:v24];
               [v54 setFaceClassifications:v56];
 
-              v57 = [v54 copy];
-              [v74 addObject:v57];
+              v57 = objc_msgSend_copy(v54);
+              [v73 addObject:v57];
 
-              v8 = v73;
-              v13 = v69;
+              v8 = v72;
+              v13 = v68;
 LABEL_38:
 
               goto LABEL_39;
             }
 
-            v13 = v69;
+            v13 = v68;
           }
 
           v42 = objc_autoreleasePoolPush();
@@ -490,17 +470,17 @@ LABEL_38:
               *buf = *MEMORY[0x277D0F960];
             }
 
-            v84 = *buf;
+            v83 = *buf;
             *buf = 138543874;
             *&buf[4] = v45;
             *&buf[12] = 1040;
             *&buf[14] = 16;
             *&buf[18] = 2096;
-            *&buf[20] = &v84;
+            *&buf[20] = &v83;
             _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_INFO, "%{public}@Skipping already-represented significant event with UUID: %{uuid_t}.16P", buf, 0x1Cu);
 
             self = selfCopy;
-            v8 = v73;
+            v8 = v72;
           }
 
           objc_autoreleasePoolPop(v42);
@@ -513,7 +493,7 @@ LABEL_38:
         if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
         {
           v40 = HMFGetLogIdentifier();
-          *buf = v68;
+          *buf = v67;
           *&buf[4] = v40;
           *&buf[12] = 2112;
           *&buf[14] = v15;
@@ -526,20 +506,19 @@ LABEL_38:
         significantEvents3 = [(HMDCameraRecordingSessionSignificantEventManager *)selfCopy6 significantEvents];
         [significantEvents3 addObject:v15];
 
-        [v74 addObject:v15];
+        [v73 addObject:v15];
 LABEL_39:
         ++v14;
       }
 
       while (v13 != v14);
-      v13 = [obj countByEnumeratingWithState:&v80 objects:v90 count:16];
+      v13 = [obj countByEnumeratingWithState:&v79 objects:v89 count:16];
     }
 
     while (v13);
   }
 
-  v65 = [v74 copy];
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = objc_msgSend_copy(v73);
 
   return v65;
 }
@@ -655,7 +634,7 @@ uint64_t __110__HMDCameraRecordingSessionSignificantEventManager__filteredAndUpd
 
 - (id)_significantEventsForAnalyzerEvent:(id)event dateOfOccurrence:(id)occurrence heroFrameData:(id)data timeOffsetWithinClip:(double)clip recordingEventTriggers:(unint64_t)triggers
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   occurrenceCopy = occurrence;
   dataCopy = data;
@@ -675,9 +654,9 @@ uint64_t __110__HMDCameraRecordingSessionSignificantEventManager__filteredAndUpd
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v40 = v22;
-      v41 = 2048;
-      v42 = v18;
+      v39 = v22;
+      v40 = 2048;
+      v41 = v18;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Unknown analyzer event confidence level: %ld", buf, 0x16u);
     }
 
@@ -695,7 +674,7 @@ uint64_t __110__HMDCameraRecordingSessionSignificantEventManager__filteredAndUpd
   v25 = [v23 setWithObject:v24];
   v26 = HMCameraSignificantEventTypesFromReasons();
 
-  if ((v26 & v37) != 0)
+  if ((v26 & v36) != 0)
   {
     v27 = occurrenceCopy;
     v28 = dataCopy;
@@ -719,7 +698,7 @@ uint64_t __110__HMDCameraRecordingSessionSignificantEventManager__filteredAndUpd
       [v14 addObject:v33];
     }
 
-    v30 = [v14 copy];
+    v30 = objc_msgSend_copy(v14);
   }
 
   else
@@ -729,14 +708,12 @@ uint64_t __110__HMDCameraRecordingSessionSignificantEventManager__filteredAndUpd
     v28 = dataCopy;
   }
 
-  v34 = *MEMORY[0x277D85DE8];
-
   return v30;
 }
 
 - (id)_significantEventsForFrameResult:(id)result analyzerResult:(id)analyzerResult dateOfOccurrence:(id)occurrence timeOffsetWithinClip:(double)clip recordingEventTriggers:(unint64_t)triggers
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   analyzerResultCopy = analyzerResult;
   occurrenceCopy = occurrence;
@@ -756,16 +733,16 @@ uint64_t __110__HMDCameraRecordingSessionSignificantEventManager__filteredAndUpd
     LOWORD(buf.flags) = 2112;
     *(&buf.flags + 2) = frame;
     HIWORD(buf.epoch) = 2112;
-    v61 = events;
+    v60 = events;
     _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Finding significant events for frame result %@ with analyzer events: %@", &buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v13);
   v19 = [MEMORY[0x277CBEB58] set];
   frame2 = [resultCopy frame];
-  v58 = 0;
-  v21 = [frame2 compressedFrameWithScale:&v58 quality:1.0 error:1.0];
-  v46 = v58;
+  v57 = 0;
+  v21 = [frame2 compressedFrameWithScale:&v57 quality:1.0 error:1.0];
+  v45 = v57;
 
   if (!v21)
   {
@@ -781,7 +758,7 @@ uint64_t __110__HMDCameraRecordingSessionSignificantEventManager__filteredAndUpd
       LOWORD(buf.flags) = 2112;
       *(&buf.flags + 2) = frame3;
       HIWORD(buf.epoch) = 2112;
-      v61 = v46;
+      v60 = v45;
       _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to create hero frame from frame %@: %@", &buf, 0x20u);
     }
 
@@ -790,32 +767,32 @@ uint64_t __110__HMDCameraRecordingSessionSignificantEventManager__filteredAndUpd
 
   v27 = selfCopy;
   data = [v21 data];
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
   v29 = resultCopy;
   obj = [resultCopy events];
-  v30 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
+  v30 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v55;
+    v32 = *v54;
     do
     {
       for (i = 0; i != v31; ++i)
       {
-        if (*v55 != v32)
+        if (*v54 != v32)
         {
           objc_enumerationMutation(obj);
         }
 
-        v34 = *(*(&v54 + 1) + 8 * i);
+        v34 = *(*(&v53 + 1) + 8 * i);
         frame4 = [v29 frame];
         v36 = frame4;
         if (frame4)
         {
-          [frame4 presentationTimeStamp];
+          objc_msgSend_presentationTimeStamp(frame4);
         }
 
         else
@@ -827,15 +804,15 @@ uint64_t __110__HMDCameraRecordingSessionSignificantEventManager__filteredAndUpd
         v38 = fragment;
         if (fragment)
         {
-          [fragment timeRange];
+          objc_msgSend_timeRange(fragment);
         }
 
         else
         {
-          memset(&v51, 0, sizeof(v51));
+          memset(&v50, 0, sizeof(v50));
         }
 
-        rhs = v51;
+        rhs = v50;
         CMTimeSubtract(&buf, &lhs, &rhs);
         Seconds = CMTimeGetSeconds(&buf);
 
@@ -844,14 +821,13 @@ uint64_t __110__HMDCameraRecordingSessionSignificantEventManager__filteredAndUpd
         [v19 unionSet:clip];
       }
 
-      v31 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
+      v31 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
     }
 
     while (v31);
   }
 
-  v42 = [v19 copy];
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = objc_msgSend_copy(v19);
 
   return v42;
 }
@@ -875,7 +851,7 @@ uint64_t __110__HMDCameraRecordingSessionSignificantEventManager__filteredAndUpd
 
 BOOL __113__HMDCameraRecordingSessionSignificantEventManager__isAnyEventInAnalyzerEvents_includedInRecordingEventTriggers___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_opt_class();
   v5 = significantEventReasonFromVideoAnalyzerEventClass(v4);
@@ -893,17 +869,16 @@ BOOL __113__HMDCameraRecordingSessionSignificantEventManager__isAnyEventInAnalyz
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v14 = HMFGetLogIdentifier();
-      v17 = 138543618;
-      v18 = v14;
-      v19 = 2112;
-      v20 = v3;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Recording fragment due to recording trigger event: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v14;
+      v18 = 2112;
+      v19 = v3;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Recording fragment due to recording trigger event: %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10 != 0;
 }
 
@@ -935,7 +910,7 @@ uint64_t __119__HMDCameraRecordingSessionSignificantEventManager__isAnyEventInAn
 
 - (void)resetState
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraRecordingSessionSignificantEventManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -945,21 +920,19 @@ uint64_t __119__HMDCameraRecordingSessionSignificantEventManager__isAnyEventInAn
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Resetting state", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Resetting state", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   significantEvents = [(HMDCameraRecordingSessionSignificantEventManager *)selfCopy significantEvents];
   [significantEvents removeAllObjects];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)significantEventsForAnalyzerFragmentResult:(id)result dateOfOccurrence:(id)occurrence timeOffsetWithinClip:(double)clip recordingEventTriggers:(unint64_t)triggers
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   occurrenceCopy = occurrence;
   workQueue = [(HMDCameraRecordingSessionSignificantEventManager *)self workQueue];
@@ -971,129 +944,129 @@ uint64_t __119__HMDCameraRecordingSessionSignificantEventManager__isAnyEventInAn
   if (isSuccess)
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v62 = 0u;
     v63 = 0u;
     v64 = 0u;
     v65 = 0u;
-    v66 = 0u;
     obj = [resultCopy frameResults];
-    v48 = occurrenceCopy;
-    v49 = resultCopy;
-    v46 = [obj countByEnumeratingWithState:&v63 objects:v70 count:16];
-    if (v46)
+    v47 = occurrenceCopy;
+    v48 = resultCopy;
+    v45 = [obj countByEnumeratingWithState:&v62 objects:v69 count:16];
+    if (v45)
     {
-      v44 = *v64;
+      v43 = *v63;
       do
       {
-        for (i = 0; i != v46; ++i)
+        for (i = 0; i != v45; ++i)
         {
-          if (*v64 != v44)
+          if (*v63 != v43)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = [(HMDCameraRecordingSessionSignificantEventManager *)self _significantEventsForFrameResult:*(*(&v63 + 1) + 8 * i) analyzerResult:resultCopy dateOfOccurrence:occurrenceCopy timeOffsetWithinClip:triggers recordingEventTriggers:clip];
+          v16 = [(HMDCameraRecordingSessionSignificantEventManager *)self _significantEventsForFrameResult:*(*(&v62 + 1) + 8 * i) analyzerResult:resultCopy dateOfOccurrence:occurrenceCopy timeOffsetWithinClip:triggers recordingEventTriggers:clip];
           v17 = [(HMDCameraRecordingSessionSignificantEventManager *)self _filteredAndUpdatedSignificantEventsFromSignificantEvents:v16];
+          v58 = 0u;
           v59 = 0u;
           v60 = 0u;
           v61 = 0u;
-          v62 = 0u;
-          v18 = [v17 countByEnumeratingWithState:&v59 objects:v69 count:16];
+          v18 = [v17 countByEnumeratingWithState:&v58 objects:v68 count:16];
           if (v18)
           {
             v19 = v18;
-            v20 = *v60;
+            v20 = *v59;
             do
             {
               for (j = 0; j != v19; ++j)
               {
-                if (*v60 != v20)
+                if (*v59 != v20)
                 {
                   objc_enumerationMutation(v17);
                 }
 
-                v22 = *(*(&v59 + 1) + 8 * j);
+                v22 = *(*(&v58 + 1) + 8 * j);
                 uUID = [v22 UUID];
                 [dictionary setObject:v22 forKeyedSubscript:uUID];
               }
 
-              v19 = [v17 countByEnumeratingWithState:&v59 objects:v69 count:16];
+              v19 = [v17 countByEnumeratingWithState:&v58 objects:v68 count:16];
             }
 
             while (v19);
           }
 
-          occurrenceCopy = v48;
-          resultCopy = v49;
+          occurrenceCopy = v47;
+          resultCopy = v48;
         }
 
-        v46 = [obj countByEnumeratingWithState:&v63 objects:v70 count:16];
+        v45 = [obj countByEnumeratingWithState:&v62 objects:v69 count:16];
       }
 
-      while (v46);
+      while (v45);
     }
 
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
     obja = [resultCopy events];
-    v47 = [obja countByEnumeratingWithState:&v55 objects:v68 count:16];
-    if (v47)
+    v46 = [obja countByEnumeratingWithState:&v54 objects:v67 count:16];
+    if (v46)
     {
-      v45 = *v56;
+      v44 = *v55;
       do
       {
-        for (k = 0; k != v47; ++k)
+        for (k = 0; k != v46; ++k)
         {
-          if (*v56 != v45)
+          if (*v55 != v44)
           {
             objc_enumerationMutation(obja);
           }
 
-          v25 = *(*(&v55 + 1) + 8 * k);
+          v25 = *(*(&v54 + 1) + 8 * k);
           thumbnails = [resultCopy thumbnails];
           firstObject = [thumbnails firstObject];
           data = [firstObject data];
           v29 = [(HMDCameraRecordingSessionSignificantEventManager *)self _significantEventsForAnalyzerEvent:v25 dateOfOccurrence:occurrenceCopy heroFrameData:data timeOffsetWithinClip:triggers recordingEventTriggers:clip];
 
           v30 = [(HMDCameraRecordingSessionSignificantEventManager *)self _filteredAndUpdatedSignificantEventsFromSignificantEvents:v29];
+          v50 = 0u;
           v51 = 0u;
           v52 = 0u;
           v53 = 0u;
-          v54 = 0u;
-          v31 = [v30 countByEnumeratingWithState:&v51 objects:v67 count:16];
+          v31 = [v30 countByEnumeratingWithState:&v50 objects:v66 count:16];
           if (v31)
           {
             v32 = v31;
-            v33 = *v52;
+            v33 = *v51;
             do
             {
               for (m = 0; m != v32; ++m)
               {
-                if (*v52 != v33)
+                if (*v51 != v33)
                 {
                   objc_enumerationMutation(v30);
                 }
 
-                v35 = *(*(&v51 + 1) + 8 * m);
+                v35 = *(*(&v50 + 1) + 8 * m);
                 uUID2 = [v35 UUID];
                 [dictionary setObject:v35 forKeyedSubscript:uUID2];
               }
 
-              v32 = [v30 countByEnumeratingWithState:&v51 objects:v67 count:16];
+              v32 = [v30 countByEnumeratingWithState:&v50 objects:v66 count:16];
             }
 
             while (v32);
           }
 
-          occurrenceCopy = v48;
-          resultCopy = v49;
+          occurrenceCopy = v47;
+          resultCopy = v48;
         }
 
-        v47 = [obja countByEnumeratingWithState:&v55 objects:v68 count:16];
+        v46 = [obja countByEnumeratingWithState:&v54 objects:v67 count:16];
       }
 
-      while (v47);
+      while (v46);
     }
 
     if ([dictionary count])
@@ -1113,8 +1086,6 @@ uint64_t __119__HMDCameraRecordingSessionSignificantEventManager__isAnyEventInAn
   {
     v39 = [(HMDCameraRecordingSessionSignificantEventManager *)self _significantEventsForEmptyAnalyzerResult:resultCopy dateOfOccurrence:occurrenceCopy timeOffsetWithinClip:clip];
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v39;
 }
@@ -1148,9 +1119,9 @@ uint64_t __119__HMDCameraRecordingSessionSignificantEventManager__isAnyEventInAn
   if (queueCopy)
   {
     v12 = identifierCopy;
-    v21.receiver = self;
-    v21.super_class = HMDCameraRecordingSessionSignificantEventManager;
-    v13 = [(HMDCameraRecordingSessionSignificantEventManager *)&v21 init];
+    v20.receiver = self;
+    v20.super_class = HMDCameraRecordingSessionSignificantEventManager;
+    v13 = [(HMDCameraRecordingSessionSignificantEventManager *)&v20 init];
     v14 = v13;
     if (v13)
     {
@@ -1173,8 +1144,8 @@ uint64_t __119__HMDCameraRecordingSessionSignificantEventManager__isAnyEventInAn
 
   else
   {
-    v20 = _HMFPreconditionFailure();
-    return __111__HMDCameraRecordingSessionSignificantEventManager_initWithWorkQueue_faceClassificationResolver_logIdentifier___block_invoke_2(v20);
+    _HMFPreconditionFailure();
+    return __111__HMDCameraRecordingSessionSignificantEventManager_initWithWorkQueue_faceClassificationResolver_logIdentifier___block_invoke_2();
   }
 }
 
@@ -1192,10 +1163,9 @@ uint64_t __119__HMDCameraRecordingSessionSignificantEventManager__isAnyEventInAn
 
 void __63__HMDCameraRecordingSessionSignificantEventManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v14_86081;
-  logCategory__hmf_once_v14_86081 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v14_86081;
+  logCategory__hmf_once_v14_86081 = v0;
 }
 
 @end

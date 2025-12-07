@@ -7,6 +7,8 @@
 - (void)_setupArrowImageForCurrentStyle;
 - (void)_setupLearnMoreTextForCurrentStyle;
 - (void)drawRect:(CGRect)rect;
+- (void)setHighlighted:(BOOL)highlighted;
+- (void)setSelected:(BOOL)selected;
 @end
 
 @implementation CNFRegLearnMoreButton
@@ -211,7 +213,7 @@
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v42[2] = *MEMORY[0x277D85DE8];
+  v41[2] = *MEMORY[0x277D85DE8];
   state = [(CNFRegLearnMoreButton *)self state];
   v9 = [(CNFRegLearnMoreButton *)self titleForState:state];
   v10 = v9;
@@ -234,21 +236,21 @@
     v22 = width - (v17 + v21);
     v24 = height - (v19 + v23);
     _lineBreakMode = [(CNFRegLearnMoreButton *)self _lineBreakMode];
-    v43.origin.x = v18;
-    v43.origin.y = v20;
-    v43.size.width = v22;
-    v43.size.height = v24;
-    v26 = CGRectGetWidth(v43);
+    v42.origin.x = v18;
+    v42.origin.y = v20;
+    v42.size.width = v22;
+    v42.size.height = v24;
+    v26 = CGRectGetWidth(v42);
     defaultParagraphStyle = [MEMORY[0x277D74248] defaultParagraphStyle];
     v28 = [defaultParagraphStyle mutableCopy];
 
     [v28 setLineBreakMode:_lineBreakMode];
-    v41[0] = *MEMORY[0x277D740A8];
+    v40[0] = *MEMORY[0x277D740A8];
     _font = [(CNFRegLearnMoreButton *)self _font];
-    v41[1] = *MEMORY[0x277D74118];
-    v42[0] = _font;
-    v42[1] = v28;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:2];
+    v40[1] = *MEMORY[0x277D74118];
+    v41[0] = _font;
+    v41[1] = v28;
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:2];
 
     if ([v10 length])
     {
@@ -262,16 +264,16 @@
       v33 = *(v13 + 8);
     }
 
+    v43.origin.x = v18;
+    v43.origin.y = v20;
+    v43.size.width = v22;
+    v43.size.height = v24;
+    v34 = CGRectGetMaxX(v43) - v15 - v14;
     v44.origin.x = v18;
     v44.origin.y = v20;
     v44.size.width = v22;
     v44.size.height = v24;
-    v34 = CGRectGetMaxX(v44) - v15 - v14;
-    v45.origin.x = v18;
-    v45.origin.y = v20;
-    v45.size.width = v22;
-    v45.size.height = v24;
-    v35 = floor(CGRectGetMidY(v45) + v33 * -0.5);
+    v35 = floor(CGRectGetMidY(v44) + v33 * -0.5);
   }
 
   else
@@ -282,16 +284,31 @@
     v33 = *(MEMORY[0x277CBF3A0] + 24);
   }
 
-  v36 = *MEMORY[0x277D85DE8];
-  v37 = v34;
-  v38 = v35;
-  v39 = v14;
-  v40 = v33;
-  result.size.height = v40;
-  result.size.width = v39;
-  result.origin.y = v38;
-  result.origin.x = v37;
+  v36 = v34;
+  v37 = v35;
+  v38 = v14;
+  v39 = v33;
+  result.size.height = v39;
+  result.size.width = v38;
+  result.origin.y = v37;
+  result.origin.x = v36;
   return result;
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+  v4.receiver = self;
+  v4.super_class = CNFRegLearnMoreButton;
+  [(CNFRegLearnMoreButton *)&v4 setHighlighted:highlighted];
+  [(CNFRegLearnMoreButton *)self setNeedsDisplay];
+}
+
+- (void)setSelected:(BOOL)selected
+{
+  v4.receiver = self;
+  v4.super_class = CNFRegLearnMoreButton;
+  [(CNFRegLearnMoreButton *)&v4 setSelected:selected];
+  [(CNFRegLearnMoreButton *)self setNeedsDisplay];
 }
 
 - (void)drawRect:(CGRect)rect
@@ -300,7 +317,7 @@
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v34[2] = *MEMORY[0x277D85DE8];
+  v33[2] = *MEMORY[0x277D85DE8];
   v8 = +[CNFRegAppearanceController globalAppearanceController];
   if ([v8 learnMoreButtonDrawsUnderline] && ((-[CNFRegLearnMoreButton isHighlighted](self, "isHighlighted") & 1) != 0 || (-[CNFRegLearnMoreButton isSelected](self, "isSelected") & 1) != 0 || -[CNFRegLearnMoreButton alwaysUnderline](self, "alwaysUnderline")))
   {
@@ -312,12 +329,12 @@
     v14 = [defaultParagraphStyle mutableCopy];
 
     [v14 setLineBreakMode:4];
-    v33[0] = *MEMORY[0x277D740A8];
+    v32[0] = *MEMORY[0x277D740A8];
     font = [titleLabel font];
-    v33[1] = *MEMORY[0x277D74118];
-    v34[0] = font;
-    v34[1] = v14;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
+    v32[1] = *MEMORY[0x277D74118];
+    v33[0] = font;
+    v33[1] = v14;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
 
     text = [titleLabel text];
     if ([text length])
@@ -355,11 +372,9 @@
     CGContextStrokePath(CurrentContext);
   }
 
-  v32.receiver = self;
-  v32.super_class = CNFRegLearnMoreButton;
-  [(CNFRegLearnMoreButton *)&v32 drawRect:x, y, width, height];
-
-  v31 = *MEMORY[0x277D85DE8];
+  v31.receiver = self;
+  v31.super_class = CNFRegLearnMoreButton;
+  [(CNFRegLearnMoreButton *)&v31 drawRect:x, y, width, height];
 }
 
 @end

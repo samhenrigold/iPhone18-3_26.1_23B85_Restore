@@ -1,26 +1,7 @@
-uint64_t sub_22D33BAE8()
-{
-  v3 = (*(v1 + 8 * (v0 ^ 0xA4D)))();
-  LODWORD(STACK[0x5A0]) = v2;
-  return (*(v1 + 8 * ((1786 * (v2 == (((v0 - 338) | 0x224) ^ 0xB4D42AA9))) ^ v0)))(v3);
-}
-
-uint64_t sub_22D33BC68()
-{
-  v2 = STACK[0x340] - 769;
-  v3 = STACK[0x530];
-  STACK[0x458] = *(v1 + 8 * (STACK[0x340] - 877));
-  v4 = STACK[0x2D8];
-  STACK[0x5A8] = v3;
-  LODWORD(STACK[0x5B4]) = 431643076;
-  STACK[0x4C8] = v4;
-  return (*(v1 + 8 * ((11 * ((((v2 + 457) ^ ((((v2 + 98) | 0x280) ^ 0xE645A595) + 431643076 + (*(v3 + 68) & 0x3F) < 0xFFFFFFC0)) & 1) == 0)) ^ v2)))();
-}
-
 void sub_22D33BD20(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, int a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34)
 {
   *v37 = (v34 ^ v35) + 646901423 + (((a29 - v34) | (v34 - a29)) >> 31);
-  (*(v36 + 8 * (v34 + 2207)))(a34);
+  (*(v36 + 8 * (v34 + 2207)))(a34, a2, a3, a4, a5, a6, a7, a8);
   JUMPOUT(0x22D33BD6CLL);
 }
 
@@ -89,7 +70,7 @@ uint64_t sub_22D33CA9C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v24 - 128) = &a18;
   *(v24 - 120) = v23;
   *(v24 - 112) = v19 + 1082434553 * ((~((v24 - 144) | 0x284CBA82) + ((v24 - 144) & 0x284CBA82)) ^ 0x4CF4B3F7) + 941;
-  (*(v18 + 8 * (v19 ^ 0xB37)))(v24 - 144);
+  (*(v18 + 8 * (v19 ^ 0xB37)))(v24 - 144, a2, a3, a4, a5, a6, a7, a8);
   v25 = ((v24 - 144) ^ 0xAF278218) * v21;
   *(v24 - 136) = a13;
   *(v24 - 144) = v25 + v19 - 465;
@@ -105,7 +86,7 @@ uint64_t sub_22D33CFE0(unint64_t a1)
   return (*(v2 + 8 * (((((v1 ^ 0x19F) - 2033253309) & 0x7930FBFF ^ 0x23B) * (v3 <= a1)) ^ v1 ^ 0x19F)))();
 }
 
-uint64_t sub_22D33D0A8@<X0>(int a1@<W8>, uint64_t a2, int a3, uint64_t *a4, uint64_t a5, unsigned int a6, int a7)
+uint64_t sub_22D33D0A8@<X0>(int a1@<W8>, uint64_t a2, unsigned int a3, uint64_t *a4, uint64_t a5, unsigned int a6, unsigned int a7)
 {
   v12 = v7 ^ 0x603;
   v13 = (((&a3 ^ 0x7E01F7D5 | 0x63477B2D) - (&a3 ^ 0x7E01F7D5) + ((&a3 ^ 0x7E01F7D5) & 0x9CB884D0)) ^ 0xE9A60D8) * a1;
@@ -124,40 +105,41 @@ uint64_t sub_22D33D260(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
   v7 = ((2 * (((a4 ^ 0x56) - 105) ^ v5)) ^ 0xA6) & (((a4 ^ 0x56) - 105) ^ v5) ^ (2 * (((a4 ^ 0x56) - 105) ^ v5)) & 0xD2;
   v8 = (v5 ^ (2 * (v7 & (4 * v6) ^ v6 ^ 0xD3 ^ (((4 * (v7 ^ 0x51)) ^ 0x40) & (v7 ^ 0x51) ^ (4 * (v7 ^ 0x51)) & 0xD0 ^ 0x10) & (16 * (v7 & (4 * v6) ^ v6))))) & 0x7F;
   v10 = v8 != 82 && (v8 ^ 0x52u) < 5;
-  return (*(v4 + 8 * ((1664 * v10) ^ a4)))();
+  return (*(v4 + 8 * ((1664 * v10) ^ a4)))(a1);
 }
 
-uint64_t sub_22D33D350(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, _DWORD **a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57)
+uint64_t sub_22D33D350(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, _DWORD **a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
 {
-  v60 = 131 * (v57 ^ 0x774FCCCEu);
-  v61 = *a28;
-  if ((*a28 & 3) != ((((v57 - 1730071740) | 0x49401141u) - 1500581963) ^ v60) || (v62 = *(&off_28407CFD0 + v57 - 2001718304), v64 = *(v62 - 4), v63 = (v62 - 4), v64))
+  va_start(va, a56);
+  v59 = 131 * (v56 ^ 0x774FCCCEu);
+  v60 = *a28;
+  if ((*a28 & 3) != ((((v56 - 1730071740) | 0x49401141u) - 1500581963) ^ v59) || (v61 = *(&off_28407CFD0 + v56 - 2001718304), v63 = *(v61 - 4), v62 = (v61 - 4), v63))
   {
     JUMPOUT(0x22D314A28);
   }
 
-  *v63 = v61;
-  **(&off_28407CFD0 + (v60 ^ 0x14E)) = 255;
-  *v61 |= ~v61[*v61 & 0x3ELL] << 16;
-  v61[4] |= ~v61[v61[4] & 0x3ELL] << 16;
-  v61[8] |= ~v61[v61[8] & ((524 * (v57 ^ 0x774FCCCE)) ^ 0x426)] << 16;
-  v61[12] |= ~v61[v61[12] & 0x3ELL] << 16;
-  v61[16] |= ~v61[v61[16] & 0x3ELL] << 16;
-  v61[20] |= ~v61[v61[20] & 0x3ELL] << 16;
-  v61[24] |= ~v61[v61[24] & 0x3ELL] << 16;
-  v61[28] |= ~v61[v61[28] & 0x3ELL] << 16;
-  v61[32] |= ~v61[v61[32] & 0x3ELL] << 16;
-  v61[36] |= ~v61[v61[36] & 0x3ELL] << 16;
-  v61[40] |= ~v61[v61[40] & 0x3ELL] << 16;
-  v65 = (524 * (v57 ^ 0x774FCCCE)) ^ 0x7E4;
-  v61[44] |= ~v61[v61[44] & 0x3ELL] << 16;
-  v61[48] |= ~v61[v61[48] & 0x3ELL] << 16;
-  v61[52] |= ~v61[v61[52] & 0x3ELL] << 16;
-  v61[56] |= ~v61[v61[56] & 0x3ELL] << 16;
-  v61[60] |= ~v61[v61[60] & 0x3ELL] << 16;
-  v66 = (*(v58 + 8 * (v60 ^ 0x9B4)))(&a57, 0, 1024);
-  *(v59 - 176) = &a57;
-  return (*(v58 + 8 * (((((v65 - 1016) | 0x102) == 262) * ((v65 - 1016) ^ 0x7F7)) ^ v65)))(v66);
+  *v62 = v60;
+  **(&off_28407CFD0 + (v59 ^ 0x14E)) = 255;
+  *v60 |= ~v60[*v60 & 0x3ELL] << 16;
+  v60[4] |= ~v60[v60[4] & 0x3ELL] << 16;
+  v60[8] |= ~v60[v60[8] & ((524 * (v56 ^ 0x774FCCCE)) ^ 0x426)] << 16;
+  v60[12] |= ~v60[v60[12] & 0x3ELL] << 16;
+  v60[16] |= ~v60[v60[16] & 0x3ELL] << 16;
+  v60[20] |= ~v60[v60[20] & 0x3ELL] << 16;
+  v60[24] |= ~v60[v60[24] & 0x3ELL] << 16;
+  v60[28] |= ~v60[v60[28] & 0x3ELL] << 16;
+  v60[32] |= ~v60[v60[32] & 0x3ELL] << 16;
+  v60[36] |= ~v60[v60[36] & 0x3ELL] << 16;
+  v60[40] |= ~v60[v60[40] & 0x3ELL] << 16;
+  v64 = (524 * (v56 ^ 0x774FCCCE)) ^ 0x7E4;
+  v60[44] |= ~v60[v60[44] & 0x3ELL] << 16;
+  v60[48] |= ~v60[v60[48] & 0x3ELL] << 16;
+  v60[52] |= ~v60[v60[52] & 0x3ELL] << 16;
+  v60[56] |= ~v60[v60[56] & 0x3ELL] << 16;
+  v60[60] |= ~v60[v60[60] & 0x3ELL] << 16;
+  v65 = (*(v57 + 8 * (v59 ^ 0x9B4)))(va, 0, 1024, a4, a5, a6, a7, a8);
+  *(v58 - 176) = va;
+  return (*(v57 + 8 * (((((v64 - 1016) | 0x102) == 262) * ((v64 - 1016) ^ 0x7F7)) ^ v64)))(v65);
 }
 
 uint64_t sub_22D33D6FC()
@@ -187,7 +169,7 @@ void sub_22D33D9C4()
 uint64_t sub_22D33DB68(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, _DWORD *a38)
 {
   v43 = v38 ^ 0x59711216;
-  v44 = (*(v39 + 8 * (v38 + 1442)))(a38 + 4, 0);
+  v44 = (*(v39 + 8 * (v38 + 1442)))(a38 + 4, 0, a3, a4, a5, a6, a7, a8);
   v45 = a38[4];
   a38[1] = a38[6] - 137021560 - ((2 * a38[6]) & 0xEFAA6F10);
   a38[2] = v45 - 137021560 - ((v45 << (v40 + (v38 ^ 0x16) - 110)) & 0xEFAA6F10);
@@ -219,10 +201,10 @@ uint64_t sub_22D33DEA0(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a
     v9 = v7;
   }
 
-  return (*(v8 + 8 * ((35 * ((v9 + 1) > 0x23)) ^ a6)))();
+  return (*(v8 + 8 * ((35 * ((v9 + 1) > 0x23)) ^ a6)))(a1);
 }
 
-void sub_22D33E060(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, int a4, int a5)
+void sub_22D33E060(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5)
 {
   v9 = v8 - 1159;
   v10 = ((v6 & (v7 + 1)) << (v8 ^ 0xE1)) & (v6 ^ 0x9BF9154C) ^ v6 & (v7 + 1);
@@ -241,7 +223,7 @@ void sub_22D33E060(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, int a4, int a5)
   JUMPOUT(0x22D33E218);
 }
 
-void sub_22D33E2D0(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>, uint64_t a4, int a5, unsigned int a6, uint64_t a7, uint64_t a8, int a9)
+void sub_22D33E2D0(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>, uint64_t a4, int a5, unsigned int a6, uint64_t a7, uint64_t a8, unsigned int a9)
 {
   v10 = v9 - (**(a2 + 8) == 0);
   *(*(a1 + 96) + 800) = 64;
@@ -308,7 +290,7 @@ uint64_t sub_22D33E7D0@<X0>(unsigned int a1@<W0>, uint64_t a2@<X1>, unsigned int
   return (*(v11 + 8 * ((v13 * ((5 * (v8 ^ a5)) ^ a6)) ^ v8)))();
 }
 
-uint64_t sub_22D33E838(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, int a15, unsigned int a16, int a17, int a18, uint64_t a19, char *a20, int a21)
+uint64_t sub_22D33E838(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, int a15, unsigned int a16, int a17, unsigned int a18, uint64_t a19, char *a20, unsigned int a21)
 {
   v24 = 742307843 * ((((&a16 | 0x73D98D6A) ^ 0xFFFFFFFE) - (~&a16 | 0x8C267295)) ^ 0x9204FFC0);
   a19 = a13;
@@ -316,7 +298,7 @@ uint64_t sub_22D33E838(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   a21 = v24 ^ 0x20384770;
   a16 = v24 - 1023075469;
   a18 = v23 - v24 - 1197044029;
-  v25 = (*(v22 + 8 * (v23 ^ 0xE83)))(&a16);
+  v25 = (*(v22 + 8 * (v23 ^ 0xE83)))(&a16, a2, a3, a4, a5, a6, a7, a8);
   return (*(v22 + 8 * (((a17 == v21 + (v23 ^ 0x651) + 1187 - 1189) * ((233 * (v23 ^ 0x651)) ^ 0x102)) ^ v23)))(v25);
 }
 
@@ -364,7 +346,7 @@ uint64_t sub_22D33EC90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   a15 = 2066391179 * ((353659347 - (&a13 ^ 0x20FBA84F | 0x151469D3) + (&a13 ^ 0x20FBA84F | 0xEAEB962C)) ^ 0x6537BC7B) + 668;
   a14 = &a9;
-  v18 = (*(v15 + 18424))(&a13);
+  v18 = (*(v15 + 18424))(&a13, a2, a3, a4, a5, a6, a7, a8);
   return (*(v15 + 8 * ((1880 * (a13 == v17)) ^ v16)))(v18);
 }
 
@@ -393,7 +375,7 @@ uint64_t sub_22D33F434(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   STACK[0x5A8] = v52;
   LODWORD(STACK[0x5B4]) = 431643076;
   STACK[0x4C8] = v53;
-  return (*(v51 + 8 * ((11 * (((((a50 & 0x486D30AB) + 457) ^ (((((a50 & 0x486D30AB) + 98) | 0x280) ^ 0xE645A595) + 431643076 + (*(v52 + 68) & 0x3F) < 0xFFFFFFC0)) & 1) == 0)) ^ a50 & 0x486D30AB)))();
+  return (*(v51 + 8 * ((11 * (((((a50 & 0x486D30AB) + 457) ^ (((((a50 & 0x486D30AB) + 98) | 0x280) ^ 0xE645A595) + 431643076 + (*(v52 + 68) & 0x3F) < 0xFFFFFFC0)) & 1) == 0)) ^ a50 & 0x486D30AB)))(a1, a2, a3, a4, a5, a6, a7, a8);
 }
 
 uint64_t sub_22D33F4E0(uint64_t a1, int a2)
@@ -512,18 +494,18 @@ uint64_t sub_22D340B04(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   LODWORD(STACK[0x544]) = 313724725;
   LODWORD(STACK[0x4BC]) = 128;
-  v70 = 843532609 * ((((v69 - 216) ^ 0xD95DCC11) & 0xCFDB54D4 | ~((v69 - 216) ^ 0xD95DCC11 | 0xCFDB54D4)) ^ 0xB53433BF);
-  *(v69 - 152) = v70 + v67 + 612;
-  *(v69 - 168) = a67;
-  *(v69 - 160) = 0;
-  *(v69 - 144) = 0;
-  *(v69 - 192) = v70 ^ 0x485A30A8;
-  *(v69 - 184) = &STACK[0x4BC];
-  *(v69 - 176) = a64;
-  *(v69 - 216) = a67 + 928;
-  *(v69 - 200) = a67 + 656;
-  v71 = (*(v68 + 8 * (v67 + 2028)))(v69 - 216);
-  return (*(v68 + 8 * ((773 * (*(v69 - 208) == (v67 ^ 0x31B) - 1261165207)) ^ v67)))(v71);
+  v68 = 843532609 * ((((v67 - 216) ^ 0xD95DCC11) & 0xCFDB54D4 | ~((v67 - 216) ^ 0xD95DCC11 | 0xCFDB54D4)) ^ 0xB53433BF);
+  *(v67 - 152) = v68 + v65 + 612;
+  *(v67 - 168) = a65;
+  *(v67 - 160) = 0;
+  *(v67 - 144) = 0;
+  *(v67 - 192) = v68 ^ 0x485A30A8;
+  *(v67 - 184) = &STACK[0x4BC];
+  *(v67 - 176) = a64;
+  *(v67 - 216) = a65 + 928;
+  *(v67 - 200) = a65 + 656;
+  v69 = (*(v66 + 8 * (v65 + 2028)))(v67 - 216, a2, a3, a4, a5, a6, a7, a8);
+  return (*(v66 + 8 * ((773 * (*(v67 - 208) == (v65 ^ 0x31B) - 1261165207)) ^ v65)))(v69);
 }
 
 uint64_t sub_22D340C70@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
@@ -593,7 +575,7 @@ void sub_22D340E54(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v38 - 216) = v39;
   *(v38 - 208) = a36 + 527 + v41;
   *(v38 - 204) = v41 - 1033494679 + (((v37 ^ 0x4FFFA9EE) - 1342155246) ^ ((v37 ^ 0xD83043B3) + 667925581) ^ ((v37 ^ 0x231BC350) + ((a36 + 217) | 4) - 589022964));
-  (*(v36 + 8 * a29))(v38 - 216);
+  (*(v36 + 8 * a29))(v38 - 216, a2, a3, a4, a5, a6, a7, a8);
   v42 = v37 ^ 0xB4D4290D;
   v43 = v39 + v42;
   v44 = 1785193651 * ((((2 * v40) | 0x2D1A3352) - v40 + 1769137751) ^ 0x8551F589);
@@ -643,7 +625,7 @@ uint64_t sub_22D341434(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   STACK[0x4F8] = STACK[0x260] - 1712;
   LODWORD(STACK[0x52C]) = a6;
-  return (*(v7 + 8 * (v6 | (4 * (*(STACK[0x228] + 360) > ((v6 - 613) ^ 0x3A5u))))))();
+  return (*(v7 + 8 * (v6 | (4 * (*(STACK[0x228] + 360) > ((v6 - 613) ^ 0x3A5u))))))(a1);
 }
 
 void sub_22D3414D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
@@ -668,7 +650,7 @@ uint64_t sub_22D341548(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   STACK[0x2C0] = v9;
   STACK[0x2B8] = v9 + 16;
   STACK[0x280] = *(&off_28407CFD0 + (v6 ^ 0x39F) - 774);
-  return v10();
+  return v10(a1, a2, a3, a4, a5);
 }
 
 uint64_t sub_22D3415C4@<X0>(char a1@<W0>, int a2@<W1>, int a3@<W2>, unsigned int a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X5>, char a7@<W6>, uint64_t a8@<X8>)
@@ -718,7 +700,7 @@ uint64_t sub_22D341C6C(uint64_t a1, unint64_t a2, int a3)
   v14 = (v13 + 4 * v12);
   v15 = HIDWORD(a2) + v6 * (*(v11 + 4 * v12) ^ v3) + (*v14 ^ v3) + HIDWORD(v5) + v10 * ((v9 - 595) ^ (v3 + 237) ^ *(v4 + 4 * v12));
   *(v14 - 1) = v15 + v3 - (a3 & (2 * v15));
-  return (*(v7 + 8 * (v9 ^ (4 * (v12 + 1 == v8)))))();
+  return (*(v7 + 8 * (v9 ^ (4 * (v12 + 1 == v8)))))(a1);
 }
 
 uint64_t sub_22D341D24(int a1, uint64_t a2, int a3, int a4, int a5)
@@ -773,7 +755,7 @@ uint64_t sub_22D34226C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v25 = v18 - 789;
   v26 = v24 - 2015547688;
   v28 = v19 == 1065558180 || a18 - v22 != v26;
-  return (*(v21 + 8 * ((v28 * (v25 ^ 0x1A2)) ^ v23)))();
+  return (*(v21 + 8 * ((v28 * (v25 ^ 0x1A2)) ^ v23)))(a1, a2, a3, a4, a5, a6, a7, a8);
 }
 
 uint64_t sub_22D3423F8@<X0>(uint64_t a1@<X8>)
@@ -847,13 +829,13 @@ uint64_t sub_22D3429FC@<X0>(unsigned int a1@<W1>, unint64_t a2@<X8>)
   return (*(v4 + 8 * ((59 * v5) ^ a1)))();
 }
 
-uint64_t sub_22D3430B4(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, int8x16_t a43)
+uint64_t sub_22D3430B4(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int8x16_t a43, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, int8x16_t a44)
 {
-  *(&STACK[0x5E0] + v45) = veorq_s8(*v46, a43);
-  STACK[0x580] += v43 ^ 0x2B0;
+  *(&STACK[0x5E0] + v46) = veorq_s8(*v47, a44);
+  STACK[0x580] += v44 ^ 0x2B0;
   STACK[0x588] = a1;
   STACK[0x590] = a1;
-  return (*(v44 + 8 * (v43 ^ (2806 * ((&STACK[0x5E0] + v45) == a1)))))(a1, a2, a3, 114, a5, a6, a7);
+  return (*(v45 + 8 * (v44 ^ (2806 * ((&STACK[0x5E0] + v46) == a1)))))(a1, a2, a3, 114, a5, a6, a7);
 }
 
 void sub_22D343204()
@@ -899,7 +881,7 @@ uint64_t sub_22D3437BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   LODWORD(a19) = v24 - v25 + 1449;
   a17 = (((v24 - 35) ^ 0xD5CFBABE) + ((2 * v21) & 0xF57EEF7C) + ((5 * (v24 ^ 0x143) + 2059368192) ^ v21)) ^ v25;
   a18 = a12;
-  (*(v23 + 8 * (v24 ^ 0x9BC)))(&a17);
+  (*(v23 + 8 * (v24 ^ 0x9BC)))(&a17, a2, a3, a4, a5, a6, a7, a8);
   a20 = v24 - 2066391179 * ((&a17 - 444672830 - 2 * (&a17 & 0xE57ED4C2)) ^ 0x4A5956DA) + 261;
   a18 = v20;
   a19 = a12;
@@ -913,7 +895,7 @@ uint64_t sub_22D3439F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v14 - 104) = a12 - v15 + 501051275;
   *(v14 - 120) = (v13 + 1482) ^ v15;
   *(v14 - 112) = v14 - 220;
-  v16 = (*(v12 + 8 * (v13 + 2199)))(v14 - 120);
+  v16 = (*(v12 + 8 * (v13 + 2199)))(v14 - 120, a2, a3, a4, a5, a6, a7, a8);
   v17 = *(v14 - 152);
   *(v14 - 220 + (v17 & 0x3F)) = -78;
   return (*(v12 + 8 * ((888 * ((v17 & 0x3Fu) > ((v13 + 753923770) & 0xDFBCCF83 ^ (v13 + 212649585)))) ^ v13)))(v16);
@@ -927,7 +909,7 @@ uint64_t sub_22D343B04(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
   a12 = (v16 + 1372) ^ v18;
   a10 = 921043405 - v18;
   a11 = 947 * (v16 ^ 0x15B) - v18 + v17 - 977855196;
-  v19 = (*(v14 + 8 * (v16 ^ 0x852)))(&a9);
+  v19 = (*(v14 + 8 * (v16 ^ 0x852)))(&a9, a2, a3, a4, a5, a6, a7, a8);
   return (*(v14 + 8 * ((1855 * (*(v12 + 24) == v13)) ^ v16)))(v19);
 }
 
@@ -950,7 +932,7 @@ uint64_t sub_22D343BDC()
 
 uint64_t sub_22D343CF4(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, unsigned int a37)
 {
-  v41 = *(&a25 + v37 + 72);
+  v41 = *(&a34 + v37 + 4);
   v42 = (((a4 + v39 - 123) ^ 0xB34D553F) & (2 * v37)) + (v37 ^ 0x677EED7F) + v38;
   *(a1 + v42) = v41 ^ 0x4E;
   *(a1 + v42 + 1) = (BYTE1(v41) ^ 0x51) + ~(2 * ((BYTE1(v41) ^ 0x51) & 0x3A ^ BYTE1(v41) & 8)) + 51;
@@ -963,7 +945,7 @@ uint64_t sub_22D343DDC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   v9 = (v6 - 224);
   STACK[0x4F8] += v9 ^ 0xFFFFFFFFFFFFFD34;
-  return (*(v7 + 8 * (v9 ^ (1761 * (v8 == a6)))))();
+  return (*(v7 + 8 * (v9 ^ (1761 * (v8 == a6)))))(a1, a2, a3, a4, a5);
 }
 
 void sub_22D343E18(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, int a56, int a57)
@@ -1015,7 +997,7 @@ void sub_22D344434(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v29 - 140) = v25 + v30 + 654350088 + 245 * (v24 ^ 0x3A7);
   *(v29 - 136) = &a24;
   *(v29 - 128) = v28;
-  (*(v27 + 8 * (v24 + 1359)))(v29 - 144);
+  (*(v27 + 8 * (v24 + 1359)))(v29 - 144, a2, a3, a4, a5, a6, a7, a8);
   JUMPOUT(0x22D3444B4);
 }
 
@@ -1034,7 +1016,7 @@ uint64_t sub_22D3445D0(uint64_t a1, int a2)
     v10 = v8 - 1562275813 > v9;
   }
 
-  return (*(v2 + 8 * ((!v10 * ((2 * v7) ^ 0xFEC ^ ((v7 ^ 0x7C2) + 681))) ^ v7)))();
+  return (*(v2 + 8 * ((!v10 * ((2 * v7) ^ 0xFEC ^ ((v7 ^ 0x7C2) + 681))) ^ v7)))(a1);
 }
 
 uint64_t sub_22D344660(uint64_t a1)
@@ -1090,7 +1072,7 @@ void sub_22D344B24(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v19 - 128) = a12;
   *(v19 - 120) = &a17;
   *(v19 - 112) = (v18 + 1508) ^ (1564307779 * ((((v19 - 128) | 0x3C4FCB78) - ((v19 - 128) & 0x3C4FCB78)) ^ 0xAB42076B));
-  (*(v17 + 8 * (v18 + 1921)))(v19 - 128);
+  (*(v17 + 8 * (v18 + 1921)))(v19 - 128, a2, a3, a4, a5, a6, a7, a8);
   JUMPOUT(0x22D344B88);
 }
 
@@ -1099,7 +1081,7 @@ uint64_t sub_22D344BC4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v21 - 112) = &a17;
   *(v21 - 120) = v19 - 1162 - ((((v21 - 128) | 0x405E474B) - (v21 - 128) + ((v21 - 128) & 0xBFA1B8B0)) ^ 0x94F95B11) * v18 + 744;
   *(v21 - 128) = a14;
-  v22 = (*(v17 + 8 * ((v19 - 1162) ^ 0xA98)))(v21 - 128);
+  v22 = (*(v17 + 8 * ((v19 - 1162) ^ 0xA98)))(v21 - 128, a2, a3, a4, a5, a6, a7, a8);
   return (*(v17 + 8 * (((((v19 - 36) ^ ((*(v21 - 104) + v20) < 0xD878F5D1)) & 1) * (((v19 - 1316) ^ 0x9F) - 273)) ^ (v19 - 1162))))(v22);
 }
 
@@ -1115,7 +1097,7 @@ uint64_t sub_22D344C8C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v44 - 124) = a37 ^ v45;
   *(v44 - 120) = v45 + 1212455568;
   *(v44 - 128) = -143681137 * ((1684981888 - (v42 | 0x646EC880) + a36) ^ 0x4F362B25);
-  v47 = (*(v39 + 17824))(v44 - 152);
+  v47 = (*(v39 + 17824))(v44 - 152, a2, a3, a4, a5, a6, a7, a8);
   return (*(v39 + 8 * *(v44 - 136)))(v47);
 }
 
@@ -1168,7 +1150,7 @@ uint64_t sub_22D345224(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   v16 = ((v10 + 773) ^ (v13 + a7) & a8 ^ 0x46732821u) + v11;
   *(v14 + 4 * v15) = v16 + v10 - ((((v13 - 17) | a6) + v9) & (2 * v16));
-  return (*(v8 + 8 * (((HIDWORD(v16) == 0) * v12) ^ v13)))();
+  return (*(v8 + 8 * (((HIDWORD(v16) == 0) * v12) ^ v13)))(a1);
 }
 
 uint64_t sub_22D3452E0()
@@ -1275,7 +1257,7 @@ void sub_22D345788(uint64_t a1)
 
 uint64_t sub_22D345980(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, int a42, int a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  v70 = (*(v67 + 8 * (v65 ^ 0xB68)))(LODWORD(STACK[0x4EC]), a2, a65);
+  v70 = (*(v67 + 8 * (v65 ^ 0xB68)))(LODWORD(STACK[0x4EC]), a2, a65, a4, a5, a6, a7, a8);
   v71 = STACK[0x260];
   if (v70)
   {
@@ -1324,7 +1306,7 @@ void sub_22D345DEC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v23 - 128) = (v20 + 44) ^ v24;
   *(v23 - 136) = v22;
   *(v23 - 120) = a11;
-  (*(v21 + 8 * (v20 + 380)))(v23 - 144);
+  (*(v21 + 8 * (v20 + 380)))(v23 - 144, a2, a3, a4, a5, a6, a7, a8);
   JUMPOUT(0x22D3181E8);
 }
 
@@ -1418,21 +1400,21 @@ uint64_t sub_22D34653C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return (*(v16 + 8 * ((188 * !v18) ^ v17)))();
 }
 
-void sub_22D346AF4()
+void sub_22D346AF4(uint64_t a1)
 {
-  v0 = MEMORY[0x28223BE20]();
-  if (*(v0 + 8))
+  v1 = MEMORY[0x28223BE20](a1);
+  if (*(v1 + 8))
   {
-    v2 = *(v0 + 24) == 0;
+    v3 = *(v1 + 24) == 0;
   }
 
   else
   {
-    v2 = 1;
+    v3 = 1;
   }
 
-  v3 = v2;
-  v1 = 1564307779 * (((v0 | 0x5518A72C) - (v0 | 0xAAE758D3) - 1427679021) ^ 0xC2156B3F);
+  v4 = v3;
+  v2 = 1564307779 * (((v1 | 0x5518A72C) - (v1 | 0xAAE758D3) - 1427679021) ^ 0xC2156B3F);
   __asm { BRAA            X8, X17 }
 }
 
@@ -1479,7 +1461,7 @@ uint64_t sub_22D347080(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   a16 = &a13;
   a17 = v17 + 2066391179 * (((&a15 | 0x39B52E4F) + (~&a15 | 0xC64AD1B0)) ^ 0x9692AC56) - 521;
-  v20 = (*(v18 + 8 * (v17 + 1114)))(&a15);
+  v20 = (*(v18 + 8 * (v17 + 1114)))(&a15, a2, a3, a4, a5, a6, a7, a8);
   return (*(v18 + 8 * ((451 * (a15 == ((v19 + ((v17 - 594) | 0x400) - 1619) ^ 0xD186EB9A))) ^ v17)))(v20);
 }
 
@@ -1507,7 +1489,7 @@ uint64_t sub_22D3473D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a
     v18 = (v16 + 1839900685) < 0x6DAAA7CD;
   }
 
-  return (*(v17 + 8 * ((81 * !v18) ^ (v15 + a5 + 407))))();
+  return (*(v17 + 8 * ((81 * !v18) ^ (v15 + a5 + 407))))(a1, a2, a3, a4);
 }
 
 uint64_t sub_22D347580(uint64_t a1)
@@ -1518,13 +1500,13 @@ uint64_t sub_22D347580(uint64_t a1)
   return (*(v2 + 8 * (((16 * v7) | (32 * v7)) ^ v1)))();
 }
 
-uint64_t sub_22D3475EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, unsigned int a15, int a16, unsigned int a17)
+uint64_t sub_22D3475EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, unsigned int a15, unsigned int a16, unsigned int a17)
 {
   v24 = 143681137 * ((&a13 & 0x74C8F400 | ~(&a13 | 0x74C8F400)) ^ 0x5F9017A5);
   a14 = a9;
   LODWORD(a13) = v24 ^ ((v21 ^ 0xF1EF7FFA) + 1587524544 + ((2 * v21) & 0xE3DEFFF4));
   a15 = 1806 - v24;
-  (*(v22 + 18120))(&a13);
+  (*(v22 + 18120))(&a13, a2, a3, a4, a5, a6, a7, a8);
   v25 = ((&a13 & 0x38200E38 | ~(&a13 | 0x38200E38)) ^ 0x16DDDCB8) * v23;
   a16 = v25 ^ 0x84F;
   a17 = (v20 ^ 0xFFFEF7FE) - v25 + ((2 * v20) & 0xFFFDEFFC) + 2099087872;
@@ -1557,7 +1539,7 @@ uint64_t sub_22D347AEC(int a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6)
   return (*(v10 + 8 * (((v14 == 227) * a6) ^ v6)))();
 }
 
-uint64_t sub_22D347B54(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, __int16 a15, char a16, __int16 a17, char a18, int a19, int a20, int a21, char *a22, int a23, unsigned int a24, char *a25, int a26, char *a27, int *a28, uint64_t a29)
+uint64_t sub_22D347B54(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, __int16 a15, char a16, __int16 a17, char a18, int a19, int a20, int a21, char *a22, int a23, unsigned int a24, char *a25, unsigned int a26, char *a27, int *a28, uint64_t a29)
 {
   a21 = 313566482;
   v31 = *(a2 + 4);
@@ -1598,7 +1580,7 @@ uint64_t sub_22D347DFC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v36 - 144) = (a11 ^ 0x40) - ((((v36 - 144) | 0xF6C5A326) - ((v36 - 144) & 0xF6C5A326)) ^ 0x7B68C1CA) * v32 + 596;
   *(v36 - 136) = v34;
   *(v36 - 128) = v35;
-  (*(v33 + 8 * (a11 ^ 0xBDA)))(v36 - 144);
+  (*(v33 + 8 * (a11 ^ 0xBDA)))(v36 - 144, a2, a3, a4, a5, a6, a7, a8);
   v37 = a30;
   v38 = (a11 ^ 0x40) + 216;
   v39 = 2 * (v36 - 144);
@@ -1638,7 +1620,7 @@ uint64_t sub_22D3480B8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v17 - 136) = a13;
   *(v17 - 144) = v18 + v13 + 165;
   *(v17 - 128) = (v16 + 718823037) ^ v18;
-  v19 = (*(v14 + 8 * (v13 ^ 0x9A9)))(v17 - 144);
+  v19 = (*(v14 + 8 * (v13 ^ 0x9A9)))(v17 - 144, a2, a3, a4, a5, a6, a7, a8);
   return (*(v14 + 8 * ((181 * (*(v17 - 140) == (((v13 ^ 0x5D6) - 1006) ^ 0xFA8B669))) ^ v13)))(v19);
 }
 
@@ -1677,11 +1659,11 @@ uint64_t sub_22D3486FC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v19 - 104) = v13;
   *(v19 - 144) = &a11;
   *(v19 - 136) = &a11;
-  v20 = (*(v15 + 8 * (v18 + 525)))(v19 - 144);
+  v20 = (*(v15 + 8 * (v18 + 525)))(v19 - 144, a2, a3, a4, a5, a6, a7, a8);
   return (*(v15 + 8 * ((396 * ((v17 - 996129833) > 0x7FFFFFFE)) ^ (v18 - 502662833) & 0x1DF600F3)))(v20);
 }
 
-void sub_22D3487B4(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, int a4, int a5)
+void sub_22D3487B4(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5)
 {
   v8 = 143681137 * ((-1766088084 - (&a3 | 0x96BBA26C) + (&a3 | 0x69445D93)) ^ 0xBDE341C9);
   a3 = a1;
@@ -1704,7 +1686,7 @@ void sub_22D3488C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v18 - 120) = v17 - v19 - 521;
   *(v18 - 116) = (v16 ^ 0x6FDF5A33) - v19 + ((v16 << (v17 + 84)) & 0xDFBEB466) - 21123107;
   *(v18 - 128) = &a15;
-  (*(v15 + 8 * (v17 ^ 0xE62)))(v18 - 128);
+  (*(v15 + 8 * (v17 ^ 0xE62)))(v18 - 128, a2, a3, a4, a5, a6, a7, a8);
   JUMPOUT(0x22D348974);
 }
 
@@ -1715,7 +1697,7 @@ uint64_t sub_22D3493C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v21 - 120) = a11;
   *(v21 - 144) = a12;
   *(v21 - 136) = &a18;
-  (*(v18 + 8 * (v19 + 1945)))(v21 - 144);
+  (*(v18 + 8 * (v19 + 1945)))(v21 - 144, a2, a3, a4, a5, a6, a7, a8);
   *(v21 - 144) = a12;
   *(v21 - 136) = &a18;
   *(v21 - 128) = &a18;
@@ -1767,7 +1749,7 @@ uint64_t sub_22D349894(unsigned int a1, uint64_t a2, uint64_t a3, unint64_t a4, 
   return (*(v18 + 8 * (((a3 == 16) * a5) ^ a1)))();
 }
 
-uint64_t sub_22D3499FC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, int a13, int a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, unsigned int a26, unsigned int a27, int a28)
+uint64_t sub_22D3499FC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, int a13, int a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, unsigned int a26, unsigned int a27, unsigned int a28)
 {
   v32 = 843532609 * ((2 * (&a25 & 0x4FB69020) - &a25 - 1337364520) ^ 0xEC043B5D);
   a25 = v30;
@@ -1775,7 +1757,7 @@ uint64_t sub_22D3499FC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   a27 = (((v28 & 0xFFFFFFF0) + 16) ^ 0x3BEEEA5E) - v32 + ((2 * ((v28 & 0xFFFFFFF0) + 16)) & 0x77DDD4A0) - 42074128;
   a28 = (v29 + 802) ^ v32;
   v35 = v29;
-  v33 = (*(v31 + 8 * (v29 ^ 0xA98)))(&a25);
+  v33 = (*(v31 + 8 * (v29 ^ 0xA98)))(&a25, a2, a3, a4, a5, a6, a7, a8);
   return (*(v31 + 8 * ((1213 * (*(v30 + 24) == -1261164275)) ^ v35)))(v33);
 }
 
@@ -1786,14 +1768,14 @@ uint64_t sub_22D349B94@<X0>(uint64_t a1@<X0>, int a2@<W8>, uint64_t a3, _DWORD *
   return (*(v6 + 8 * (((((a2 + 763229254) & 0xD28209E5 ^ 0xFFFFFFCA) + ((a2 - 817) | 0x200)) * (a3 == 0)) ^ a2)))();
 }
 
-uint64_t sub_22D349CFC()
+uint64_t sub_22D349CFC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
-  v6 = 1785193651 * ((2 * (v2 & 0x7EFA8720) - v2 + 17135839) ^ 0x12D994FF);
-  *(v5 - 128) = v4 - v6 + 415;
-  *(v5 - 124) = (v0 ^ 0x7EFDDE35) - v6 + ((v4 - 33834651) & (2 * v0)) - 274781221;
-  *(v5 - 136) = v3;
-  v7 = (*(v1 + 8 * (v4 + 1482)))(v5 - 136);
-  return sub_22D349D90(v7);
+  v22 = 1785193651 * ((2 * (v18 & 0x7EFA8720) - v18 + 17135839) ^ 0x12D994FF);
+  *(v21 - 128) = v20 - v22 + 415;
+  *(v21 - 124) = (v16 ^ 0x7EFDDE35) - v22 + ((v20 - 33834651) & (2 * v16)) - 274781221;
+  *(v21 - 136) = v19;
+  v23 = (*(v17 + 8 * (v20 + 1482)))(v21 - 136);
+  return sub_22D349D90(v23, v24, v25, v26, v27, v28, v29, v30, a9, a10, a11, a12, a13, a14, a15, a16);
 }
 
 uint64_t sub_22D349D90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
@@ -1801,7 +1783,7 @@ uint64_t sub_22D349D90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v20 - 128) = v19 - 143681137 * ((2 * (v18 & 0x249BE728) - v18 - 614197039) ^ 0xFC3048B) + 1156;
   *(v20 - 136) = a16;
   *(v20 - 120) = v17;
-  v21 = (*(v16 + 8 * (v19 ^ 0x83C)))(v20 - 136);
+  v21 = (*(v16 + 8 * (v19 ^ 0x83C)))(v20 - 136, a2, a3, a4, a5, a6, a7, a8);
   return (*(v16 + 8 * (((*(v20 - 112) > ((v19 - 1133208219) & 0x438B677B ^ 0x43A7AD37u)) * (((v19 + 636387185) & 0xDA1180CF) + 1261)) ^ v19)))(v21);
 }
 
@@ -1836,7 +1818,7 @@ uint64_t sub_22D349EB0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v19 - 120) = v17 - ((2 * ((v19 - 128) & 0x1B030CF0) - (v19 - 128) + 1694298889) ^ 0xB05BEF53) * v16 - 418;
   *(v19 - 128) = a14;
   *(v19 - 112) = &a15;
-  v20 = (*(v15 + 8 * (v17 + 526)))(v19 - 128);
+  v20 = (*(v15 + 8 * (v17 + 526)))(v19 - 128, a2, a3, a4, a5, a6, a7, a8);
   return (*(v15 + 8 * ((25 * (v18 + *(v19 - 104) - 1 < (v17 - 226100443))) ^ v17)))(v20);
 }
 
@@ -1849,7 +1831,7 @@ uint64_t sub_22D34A050(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v15 - 112) = a11;
   *(v15 - 120) = (v18 ^ 0x7E7AC2F7) - v17 + ((2 * v18) & 0xFCF585EE) - 708837474;
   *(v15 - 128) = &a12;
-  v19 = (*(v14 + 8 * (v13 ^ 0xF3A)))(v15 - 136);
+  v19 = (*(v14 + 8 * (v13 ^ 0xF3A)))(v15 - 136, a2, a3, a4, a5, a6, a7, a8);
   return (*(v14 + 8 * ((166 * (a4 == 1)) ^ v13)))(v19);
 }
 
@@ -1869,7 +1851,7 @@ void sub_22D34A1FC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v14 - 128) = (v12 + 659) ^ v15;
   *(v14 - 136) = v13;
   *(v14 - 120) = a10;
-  (*(v11 + 8 * (v12 + 995)))(v14 - 144);
+  (*(v11 + 8 * (v12 + 995)))(v14 - 144, a2, a3, a4, a5, a6, a7, a8);
   JUMPOUT(0x22D3241B0);
 }
 
@@ -1898,7 +1880,7 @@ void sub_22D34A638(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v19 - 112) = (v18 + 1633) ^ (1564307779 * ((((v19 - 128) | 0xAF50F2B7) - (v19 - 128) + ((v19 - 128) & 0x50AF0D48)) ^ 0x385D3EA4));
   *(v19 - 128) = a12;
   *(v19 - 120) = &a17;
-  (*(v17 + 8 * (v18 + 2046)))(v19 - 128);
+  (*(v17 + 8 * (v18 + 2046)))(v19 - 128, a2, a3, a4, a5, a6, a7, a8);
   JUMPOUT(0x22D34A6A0);
 }
 
@@ -1908,25 +1890,6 @@ uint64_t sub_22D34A7F4@<X0>(char a1@<W0>, char a2@<W1>, uint64_t a3@<X2>, int a4
   v14 = ((2 * (*(v13 + ((a3 + ((v10 + a5) << 32)) >> 30)) ^ v5)) << ~v9) | ((*(v13 + 4 * (v10 + a5)) ^ v5) >> v9);
   *(v13 + 4 * v10) = v14 + v5 - ((v14 << ((a1 | a2) + 7)) & v6);
   return (*(v12 + 8 * (((v10 + 1 == v7) * a4) ^ v8)))();
-}
-
-uint64_t sub_22D34A8C8(__n128 a1, __n128 a2)
-{
-  a1.n128_u16[0] = 25700;
-  a1.n128_u8[2] = 100;
-  a1.n128_u8[3] = 100;
-  a1.n128_u8[4] = 100;
-  a1.n128_u8[5] = 100;
-  a1.n128_u8[6] = 100;
-  a1.n128_u8[7] = 100;
-  a2.n128_u16[0] = 12850;
-  a2.n128_u8[2] = 50;
-  a2.n128_u8[3] = 50;
-  a2.n128_u8[4] = 50;
-  a2.n128_u8[5] = 50;
-  a2.n128_u8[6] = 50;
-  a2.n128_u8[7] = 50;
-  return sub_22D34A914((((v2 - 1776250873) & 0x69DF6FF7) - 1003) & 0xFFFFFE3E, a1, a2);
 }
 
 uint64_t sub_22D34AA04@<X0>(unsigned int a1@<W2>, uint64_t a2@<X5>, unsigned int a3@<W8>)
@@ -1954,7 +1917,7 @@ void sub_22D34B9E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v27 - 112) = v24 + 1082434553 * ((-2022699873 - ((v27 - 144) | 0x87700C9F) + ((v27 - 144) | 0x788FF360)) ^ 0xE3C805EA) + 1166;
   *(v27 - 128) = &a18;
   *(v27 - 120) = a11;
-  (*(v25 + 8 * (v24 ^ 0xA54)))(v27 - 144);
+  (*(v25 + 8 * (v24 ^ 0xA54)))(v27 - 144, a2, a3, a4, a5, a6, a7, a8);
   *(v27 - 144) = &a18;
   *(v27 - 136) = &a18;
   *(v27 - 128) = v24 - (((((v27 - 144) | 0x5C50B2BC) ^ 0xFFFFFFFE) - (~(v27 - 144) | 0xA3AF4D43)) ^ 0xC88CF5B) * v26 + 343;
@@ -1983,7 +1946,7 @@ uint64_t sub_22D34BBFC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a
   STACK[0x2F0] = v30;
   STACK[0x2C0] = &a23;
   HIDWORD(a9) = a5;
-  v33 = (*(v27 + 8 * (v28 ^ 0x925)))(v31 - 160);
+  v33 = (*(v27 + 8 * (v28 ^ 0x925)))(v31 - 160, a2, a3, a4);
   return (*(v27 + 8 * ((1692 * (*(v31 - 152) == v29 + (v28 ^ 0x2D0) - 987)) ^ v28)))(v33, 2108723143, 1117814741, 1029668906, HIDWORD(a9), 2147484632, 3177152554, 3176691902, a9);
 }
 
@@ -2000,7 +1963,7 @@ uint64_t sub_22D34BFB0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v20 - 128) = &a15;
   *(v20 - 112) = &a17;
   *(v20 - 120) = v18 + 742307843 * ((((v20 - 128) | 0x6C496BFE) - ((v20 - 128) & 0x6C496BFE)) ^ 0x726BE6AB) + 236;
-  v21 = (*(v17 + 8 * (v18 + 722)))(v20 - 128);
+  v21 = (*(v17 + 8 * (v18 + 722)))(v20 - 128, a2, a3, a4, a5, a6, a7, a8);
   return (*(v17 + 8 * (((v18 ^ 0x5E7) * (v19 == 1)) ^ v18)))(v21);
 }
 
@@ -2012,7 +1975,7 @@ uint64_t sub_22D34C0E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     v15 = 1726767306 - a13;
   }
 
-  return (*(v14 + 8 * ((58 * (((v15 ^ 0xF6FFF2DB) + 25 * (v13 ^ 0x3AB) + ((2 * v15) & 0xEDFFE5B6) + 150997333) > ((25 * (v13 ^ 0x3AB) + 289) ^ 0xFFFFFB0F))) ^ (25 * (v13 ^ 0x3AB)))))(1181952033);
+  return (*(v14 + 8 * ((58 * (((v15 ^ 0xF6FFF2DB) + 25 * (v13 ^ 0x3AB) + ((2 * v15) & 0xEDFFE5B6) + 150997333) > ((25 * (v13 ^ 0x3AB) + 289) ^ 0xFFFFFB0F))) ^ (25 * (v13 ^ 0x3AB)))))(1181952033, a2, a3, a4, a5, a6, a7, a8);
 }
 
 uint64_t sub_22D34C188@<X0>(int a1@<W8>)
@@ -2059,25 +2022,6 @@ uint64_t sub_22D34C56C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return (*(v40 + 8 * ((816 * (v45 > 0x37)) | v41)))(v44);
 }
 
-uint64_t sub_22D34C6B8(__n128 a1, __n128 a2)
-{
-  a1.n128_u16[0] = 25700;
-  a1.n128_u8[2] = 100;
-  a1.n128_u8[3] = 100;
-  a1.n128_u8[4] = 100;
-  a1.n128_u8[5] = 100;
-  a1.n128_u8[6] = 100;
-  a1.n128_u8[7] = 100;
-  a2.n128_u16[0] = 12850;
-  a2.n128_u8[2] = 50;
-  a2.n128_u8[3] = 50;
-  a2.n128_u8[4] = 50;
-  a2.n128_u8[5] = 50;
-  a2.n128_u8[6] = 50;
-  a2.n128_u8[7] = 50;
-  return sub_22D34C6D8(a1, a2);
-}
-
 void sub_22D34C754(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6)
 {
   a4 = v6;
@@ -2109,7 +2053,7 @@ uint64_t sub_22D34CB1C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v21 - 112) = (v20 + 1239) ^ (1564307779 * (((v21 - 128) & 0x45C5A70B | ~((v21 - 128) | 0x45C5A70B)) ^ 0x2D3794E7));
   *(v21 - 128) = &a15;
   *(v21 - 120) = a14;
-  (*(v19 + 8 * (v20 ^ 0xAB4)))(v21 - 128);
+  (*(v19 + 8 * (v20 ^ 0xAB4)))(v21 - 128, a2, a3, a4, a5, a6, a7, a8);
   *(v21 - 120) = v20 - 143681137 * ((((v21 - 128) | 0x371D2359) + (~(v21 - 128) | 0xC8E2DCA6)) ^ 0xE3BA3F02) + 744;
   *(v21 - 112) = &a17;
   *(v21 - 128) = a14;
@@ -2120,7 +2064,7 @@ uint64_t sub_22D34CB1C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
 uint64_t sub_22D34CEC8@<X0>(uint64_t a1@<X0>, unsigned int a2@<W8>, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, int a35, unsigned int a36)
 {
-  v40 = *(&a24 + (a2 >> (v37 + 7)) + 18);
+  v40 = *(&a33 + (a2 >> (v37 + 7)));
   v41 = ((2 * a2) & 0xCBBFFEF0) + (a2 ^ 0x65DFFF7A) + v36;
   *(a1 + v41) = v40 ^ 0x4E;
   *(a1 + v41 + 2) = (BYTE2(v40) ^ 0x65) - ((2 * (BYTE2(v40) ^ 0x65)) & 0x64) + 50;
@@ -2166,11 +2110,11 @@ uint64_t sub_22D34D130@<X0>(int a1@<W2>, int a2@<W3>, unsigned int a3@<W8>)
   return (*(v4 + 8 * (((2 * v6) | (16 * v6)) ^ v5)))();
 }
 
-uint64_t sub_22D34D188(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, int32x4_t a12, int32x4_t a13)
+uint64_t sub_22D34D188(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int32x4_t a12, int32x4_t a13, uint64_t a9, uint64_t a10, uint64_t a11, int32x4_t a14, int32x4_t a15)
 {
-  a12 = vdupq_n_s32(0x46732821u);
-  a13 = a12;
-  return (*(v13 + 8 * ((16 * (((a1 - 1557) | 0x404u) - 1215 != ((a1 + 2147481888) & v14))) | ((((a1 - 1557) | 0x404u) - 1215 != ((a1 + 2147481888) & v14)) << 6) | (a1 - 80))))(&a12);
+  a14 = vdupq_n_s32(0x46732821u);
+  a15 = a14;
+  return (*(v15 + 8 * ((16 * (((a1 - 1557) | 0x404u) - 1215 != ((a1 + 2147481888) & v16))) | ((((a1 - 1557) | 0x404u) - 1215 != ((a1 + 2147481888) & v16)) << 6) | (a1 - 80))))(&a14);
 }
 
 uint64_t sub_22D34D1EC()
@@ -2217,7 +2161,7 @@ uint64_t sub_22D34D514(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
   *(v8 - 116) = v9 + v4 - 196592583 + 24;
   *(v8 - 152) = v4 - 196592583 - v9;
   *(v8 - 148) = ((v4 - 196592583) ^ 0x5E) + v9;
-  v11 = (*(v6 + 8 * (a4 + v4 + 1638)))(v8 - 152);
+  v11 = (*(v6 + 8 * (a4 + v4 + 1638)))(v8 - 152, a2, a3);
   return (*(v6 + 8 * *(v8 - 136)))(v11);
 }
 
@@ -2250,7 +2194,7 @@ uint64_t sub_22D34D954(uint64_t a1, int a2)
     v8 = v7;
   }
 
-  return (*(v2 + 8 * ((88 * ((((v5 ^ 0x4F) + 1) ^ v8) & 1)) ^ v5)))();
+  return (*(v2 + 8 * ((88 * ((((v5 ^ 0x4F) + 1) ^ v8) & 1)) ^ v5)))(a1);
 }
 
 uint64_t sub_22D34DA90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, char a24, uint64_t a25, char a26, uint64_t a27, char *a28, char *a29, uint64_t a30, char a31, uint64_t a32, char a33)
@@ -2261,7 +2205,7 @@ uint64_t sub_22D34DA90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v40 - 144) = v33;
   *(v40 - 136) = v42 + v34 - 23;
   *(v40 - 132) = v42 + v35 - 1707122824 + v34 - 1026;
-  (*(v37 + 8 * (v34 ^ 0xC32u)))(v40 - 144);
+  (*(v37 + 8 * (v34 ^ 0xC32u)))(v40 - 144, a2, a3, a4, a5, a6, a7, a8);
   a28 = &a26;
   a29 = &a24;
   *(v40 - 144) = (v41 + 1090) ^ (((((v40 - 144) | 0x5E115CB4) - (v40 - 144) + ((v40 - 144) & 0xA1EEA348)) ^ 0x967098E2) * v36);
@@ -2329,7 +2273,7 @@ uint64_t sub_22D34DF50(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v22 - 128) = v21 - (v19 ^ 0xD4A71C5A) * v16 + 518;
   *(v22 - 120) = v20;
   *(v22 - 136) = a16;
-  v23 = (*(v18 + 8 * (v21 ^ 0xBBE)))(v22 - 136);
+  v23 = (*(v18 + 8 * (v21 ^ 0xBBE)))(v22 - 136, a2, a3, a4, a5, a6, a7, a8);
   return (*(v18 + 8 * (((*(v22 - 112) > (v17 + 1)) * ((v21 ^ 0x382) + 1064)) ^ v21)))(v23);
 }
 
@@ -2356,7 +2300,7 @@ void sub_22D34E4BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v31 - 136) = v32 + v26 + 1775;
   *(v31 - 132) = v32 + 1068377366;
   *(v31 - 144) = &a26;
-  (*(v27 + 8 * (v26 ^ 0x882)))(v31 - 144);
+  (*(v27 + 8 * (v26 ^ 0x882)))(v31 - 144, a2, a3, a4, a5, a6, a7, a8);
   *(v31 - 128) = v26 - ((967630238 - ((v31 - 144) | 0x39ACDD9E) + ((v31 - 144) | 0xC6532261)) ^ 0x6974A079) * v29 + 943;
   *(v31 - 144) = &a18;
   *(v31 - 136) = &a18;
@@ -2385,7 +2329,7 @@ uint64_t sub_22D34E818(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v20 - 120) = a15;
   *(v20 - 136) = &a17;
   *(v20 - 128) = v19 + 742307843 * ((v20 - 136) ^ 0x1E228D55) + 1531;
-  v21 = (*(v17 + 8 * (v19 + 2017)))(v20 - 136);
+  v21 = (*(v17 + 8 * (v19 + 2017)))(v20 - 136, a2, a3, a4, a5, a6, a7, a8);
   return (*(v17 + 8 * (((v18 == ((2 * v19) ^ 0x35E) - 733) * ((367 * (v19 ^ 0xC2)) ^ 0x2D8)) | v19)))(v21);
 }
 
@@ -2417,19 +2361,7 @@ uint64_t sub_22D34E9F0(__n128 a1, uint64_t a2, int a3, uint64_t a4, int a5, uint
   v9 = (a6 + 4 * a8);
   *v9 = a1;
   v9[1] = a1;
-  return (*(v8 + 8 * (((a3 != a8) * a7) ^ a5)))();
-}
-
-uint64_t sub_22D34EABC(__n128 a1)
-{
-  a1.n128_u16[0] = 12850;
-  a1.n128_u8[2] = 50;
-  a1.n128_u8[3] = 50;
-  a1.n128_u8[4] = 50;
-  a1.n128_u8[5] = 50;
-  a1.n128_u8[6] = 50;
-  a1.n128_u8[7] = 50;
-  return sub_22D34EAF8(59, a1);
+  return (*(v8 + 8 * (((a3 != a8) * a7) ^ a5)))(a2);
 }
 
 uint64_t sub_22D34EAF8(int a1, double a2)
@@ -2470,13 +2402,13 @@ uint64_t sub_22D34EE2C()
   return (*(v3 + 8 * ((((v0 & 0xFFFFFFFFFFFFFFF0) == 16) * (((v1 ^ 0x61A) + 1546) ^ 0x289)) ^ v1 ^ 0x61A)))();
 }
 
-uint64_t sub_22D34EE78()
+uint64_t sub_22D34EE78(uint64_t a1, char a2)
 {
-  v0.n128_u64[0] = 0x6464646464646464;
-  v0.n128_u64[1] = 0x6464646464646464;
-  v1.n128_u64[0] = 0x3232323232323232;
-  v1.n128_u64[1] = 0x3232323232323232;
-  return sub_22D34EEBC(v0, v1);
+  v2.i64[0] = 0x6464646464646464;
+  v2.i64[1] = 0x6464646464646464;
+  v3.i64[0] = 0x3232323232323232;
+  v3.i64[1] = 0x3232323232323232;
+  return sub_22D34EEBC(a2 & 0x60, v2, v3);
 }
 
 uint64_t sub_22D34EEBC@<X0>(uint64_t a1@<X8>, int8x16_t a2@<Q0>, int8x16_t a3@<Q1>)
@@ -2493,8 +2425,31 @@ uint64_t sub_22D34EF18(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v20 - 136) = v18;
   *(v20 - 120) = v17;
   *(v20 - 128) = v15 - a15 * v19 - 93;
-  v21 = (*(v16 + 8 * (v15 ^ 0xDD3)))(v20 - 136);
+  v21 = (*(v16 + 8 * (v15 ^ 0xDD3)))(v20 - 136, a2, a3, a4, a5, a6, a7, a8);
   return (*(v16 + 8 * ((152 * (*(v20 - 112) > (v15 ^ 0x66Du) + 1135060314)) ^ v15)))(v21);
+}
+
+uint64_t sub_22D34EFDC(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int a7)
+{
+  v9 = a1 ^ 0xDB9u;
+  v10 = v7 ^ a4;
+  v11 = a4 ^ a3 ^ 0x1257888379B767A7;
+  v12 = v8 ^ a5 ^ 0xF5C6694A69CD527ELL;
+  v13 = a5 & 0x23CE78E223C22C44 ^ 0x224A206203000C40 ^ (v12 ^ 0x566BE5AA78AA63D2) & (a5 ^ 0xFE6AA6665B21CDF9);
+  v14 = v11 & 0x8000000;
+  v15 = (v10 ^ 0x47D10083A74AE411) + v13 - 2 * ((v10 ^ 0x47D10083A74AE411) & v13);
+  v16 = (__ROR8__((v9 - 0x1BD7CAB84F7B5258) ^ __ROR8__(v10 ^ 0x98E125258DED48BLL, 58), 6) ^ 0xAF432C7F55AEB804) & (a5 ^ 0x1955999A4DE3206) ^ a5 & 0x517361844B0765ACLL;
+  v17 = v11 & 0xFFFFFFFFF7FFFFFFLL;
+  if ((v16 & v14) != 0)
+  {
+    v14 = -v14;
+  }
+
+  v18 = (v14 + (v16 ^ 0x111418000062004)) ^ v17;
+  v19 = ((v18 ^ 0x479160D6C67C4980uLL) >> 7) + (v18 ^ 0x479160D6C67C4980) - 2 * (((v18 ^ 0x479160D6C67C4980uLL) >> 7) & (v18 ^ 0x479160D6C67C4980));
+  v20 = v12 & 0x3CDD7D5E2CD7D380 ^ a5 ^ 0xF5C6694A69CD527ELL ^ (v12 ^ 0x8A5A62B7A497B069) & (a3 ^ 0xA0D7566B3E418D0BLL) ^ v15;
+  v21 = __ROR8__(__ROR8__(a3 ^ (a4 ^ 0x64ECEE7C58633C8ELL) & (a3 ^ 0xD254D3B573056D15) ^ a4 & 0xB1A1077F9E6CCC61 ^ v12 ^ 0x47E01D82CBDA50E5 ^ v10 & 0xD8FEC055C1B73BCDLL ^ (v10 ^ 0x47D10083A74AE411) & (a4 ^ a3 ^ 0xDFE7FAE374BDA637) ^ 0xC167CE4E870011D1, 49) ^ 0x5BFFCF79ECD99135, 15);
+  return sub_22D34F424(v20 ^ 0x9CAF160C87A5A9C4, 250, v21 ^ 0xA411DCBA2CB11546 ^ ((v21 ^ 0xA411DCBA2CB11546) << 47) ^ 0x8449AD068830D2DCLL ^ ((v21 >> 17) ^ (v21 >> 10) | ((v21 ^ 0xA411DCBA2CB11546) << 54)), ((v18 ^ 0x479160D6C67C4980) << 23) ^ 0xB4A3F0758D989FABLL ^ (((v18 ^ 0x479160D6C67C4980uLL) >> 41) | (v18 << 57)) ^ v19, __ROR8__((((v20 >> 51) & 0x3FF ^ 0xEA32BAFF9E7A6272) & (((v20 ^ 0x9CAF160C87A5A9C4) << 13) ^ 0xD7D0DEF532FA7FFLL) | ((v20 ^ 0x9CAF160C87A5A9C4) << 13) & 0x15CD450061858000) ^ __ROR8__(v20 ^ 0x9CAF160C87A5A9C4 ^ (v20 >> 61) ^ __ROR8__(v20 ^ 0x9CAF160C87A5A9C4, 39) ^ 0x117CA8B04E5ECDA7, 54) ^ 0xE51466C766C19753, 10) ^ 0x853D08E6B8398F15, v19, a7);
 }
 
 _BYTE *sub_22D34F464(_BYTE *result, unsigned int a2, unint64_t a3)
@@ -2671,7 +2626,7 @@ LABEL_56:
   return result;
 }
 
-uint64_t sub_22D34F5F4(mach_port_t a1, int a2, int *a3, uint64_t a4, int a5, _OWORD *a6, void *a7, _DWORD *a8, _DWORD *a9, _DWORD *a10, _DWORD *a11, _DWORD *a12)
+uint64_t sub_22D34F5F4(mach_port_t a1, int a2, int *a3, uint64_t a4, int a5, _OWORD *a6, uint64_t *a7, int *a8, _DWORD *a9, _DWORD *a10, _DWORD *a11, _DWORD *a12)
 {
   v52 = *MEMORY[0x277D85DE8];
   v31 = 1;
@@ -2876,7 +2831,7 @@ LABEL_18:
   return v11;
 }
 
-uint64_t sub_22D34F9E8(mach_port_t a1, int a2, int a3, int a4, _OWORD *a5, uint64_t a6, int a7, _OWORD *a8, void *a9, _DWORD *a10)
+uint64_t sub_22D34F9E8(mach_port_t a1, int a2, int a3, int a4, _OWORD *a5, uint64_t a6, int a7, _OWORD *a8, uint64_t *a9, int *a10)
 {
   v26 = *MEMORY[0x277D85DE8];
   v19 = 1;
@@ -3161,7 +3116,7 @@ uint64_t sub_22D350A5C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v17 - 136) = &a14;
   *(v17 - 128) = v18 + ((32 * v15) ^ 0xEF6BFBFF) + ((v15 << ((v16 - 27) ^ 0x46)) & 0xDED7F7C0) + 1979187005;
   *(v17 - 124) = v16 - v18 + 528;
-  v19 = (*(v14 + 8 * (v16 ^ 0xB9A)))(v17 - 136);
+  v19 = (*(v14 + 8 * (v16 ^ 0xB9A)))(v17 - 136, a2, a3, a4, a5, a6, a7, a8);
   return (*(v14 + 8 * ((51 * ((*(a9 + 4) - 352135383) < 0x7FFFFFFF)) ^ v16)))(v19);
 }
 
@@ -3189,7 +3144,7 @@ uint64_t sub_22D350C18@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 uint64_t sub_22D350C8C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62)
 {
   v64 = v62;
-  (*(v63 + 8 * (v62 + 1487)))();
+  (*(v63 + 8 * (v62 + 1487)))(a1, a2, a3, a4, a5, a6, a7, a8);
   return (*(v63 + 8 * ((127 * (a62 != 0)) ^ (v64 + 176))))();
 }
 
@@ -3203,7 +3158,7 @@ uint64_t sub_22D350D50@<X0>(int a1@<W8>, uint64_t a2, uint64_t a3, uint64_t a4, 
   return (*(v50 + 8 * ((1614 * (*a49 == 0)) ^ a1)))();
 }
 
-uint64_t sub_22D350E3C@<X0>(int a1@<W3>, int a2@<W8>)
+uint64_t sub_22D350E3C@<X0>(unsigned int a1@<W3>, int a2@<W8>)
 {
   v7 = (v4 + 4 * v3);
   v8 = v3 + 1;
@@ -3211,7 +3166,7 @@ uint64_t sub_22D350E3C@<X0>(int a1@<W3>, int a2@<W8>)
   return (*(v5 + 8 * ((v8 != 227) ^ a2)))();
 }
 
-uint64_t sub_22D350E94(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, int a15, int a16, unsigned int a17, int a18, char *a19)
+uint64_t sub_22D350E94(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, unsigned int a15, unsigned int a16, unsigned int a17, int a18, char *a19)
 {
   v23 = 1037613739 * (&a14 ^ 0xD1022D7F);
   a19 = &a12;
@@ -3219,7 +3174,7 @@ uint64_t sub_22D350E94(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   a15 = v23 ^ 0x4838B1DD;
   a16 = (v21 - 2013067294) ^ v23;
   a17 = v23 - 43688278;
-  v24 = (*(v20 + 8 * (v21 ^ 0xB78u)))(&a14);
+  v24 = (*(v20 + 8 * (v21 ^ 0xB78u)))(&a14, a2, a3, a4, a5, a6, a7, a8);
   return (*(v20 + 8 * (((a18 == v19 + ((v21 - 826403837) & 0xBFE) - 756) * (((v21 + 664833335) | 0xC0034096) ^ v22)) ^ v21)))(v24);
 }
 
@@ -3545,15 +3500,6 @@ uint64_t sub_22D351A50@<X0>(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, uint64_t
   return (*(v39 + 8 * ((310 * (*(a1 + 92) > 4u)) ^ v41)))();
 }
 
-uint64_t sub_22D351B48(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61)
-{
-  v64 = 181 * (v62 ^ 0x130);
-  *(a56 + 52) = *(a56 + 52) + v64 - 904;
-  LODWORD(STACK[0x2CC]) = *(a56 + 360);
-  *v63 -= 2432;
-  return (*(v61 + 8 * ((1111 * (v64 == 905)) ^ (v64 - 788))))(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32, a33, a34, a35, a36, a37, a38, a39, a40, a41, a42, a43, a44, a45, a46, a47, a48, a49, a50, a51, a52, a53, a54, a55, a56, a57, a58, a59, a60, a61);
-}
-
 uint64_t sub_22D351BCC()
 {
   v5 = (v2 + v4 - 252 + 8);
@@ -3573,7 +3519,7 @@ uint64_t sub_22D351C20@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W4>, uns
 
 uint64_t sub_22D351DC0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40)
 {
-  (*(a1 + 8 * (v41 ^ (v41 + 1681))))(a15 + a16, 0x100004077774924);
+  (*(a1 + 8 * (v41 ^ (v41 + 1681))))(a15 + a16, 0x100004077774924, a3, a4, a5, a6, a7, a8);
   v43 = (*(a40 + 8 * (v40 + 1806)))();
   *v42 = v43;
   v42[1] = 1812433253 * ((v43 >> (((v41 ^ (v41 - 18)) - 103) ^ 0xB1)) ^ v43) + 1;
@@ -3609,7 +3555,7 @@ uint64_t sub_22D35221C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   a14 = v20 + ((700641896 - (&a14 | 0x29C2F268) + (&a14 | 0xD63D0D97)) ^ 0x8A705912) * v21 + 89;
   a17 = v17;
   a15 = a10;
-  v22 = (*(v18 + 8 * (v20 ^ 0xBE5)))(&a14);
+  v22 = (*(v18 + 8 * (v20 ^ 0xBE5)))(&a14, a2, a3, a4, a5, a6, a7, a8);
   return (*(v18 + 8 * ((2628 * (a16 == ((v20 + 50515265) | 0xE4A1008C) + v19)) ^ v20)))(v22);
 }
 
@@ -3641,7 +3587,7 @@ uint64_t sub_22D352484(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v21[5] = a18;
   *(v22 - 140) = a18 ^ (v18 - 955392539) ^ 0x36;
   *(v22 - 136) = a18;
-  v24 = (*(v20 + 8 * (v18 + 2089)))(v22 - 152);
+  v24 = (*(v20 + 8 * (v18 + 2089)))(v22 - 152, a2, a3, a4, a5, a6, a7, a8);
   return (*(v20 + 8 * *(v22 - 148)))(v24);
 }
 
@@ -3650,12 +3596,12 @@ uint64_t sub_22D352538(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v21 = *(v20 - 124);
   if (v21 == 2)
   {
-    return (*(v19 + 8 * (((*(v20 - 128) == 0) * (a7 ^ (a7 + 300) ^ 0x31B)) ^ (a8 + a7 + 679))))(1305713888, a9);
+    return (*(v19 + 8 * (((*(v20 - 128) == 0) * (a7 ^ (a7 + 300) ^ 0x31B)) ^ (a8 + a7 + 679))))(1305713888, a9, a3, a4, a5, a6);
   }
 
   if (v21 == 1)
   {
-    return (*(v19 + 8 * ((94 * (*(v20 - 128) != ((9 * (a7 ^ (a7 - 89))) ^ 0x39F))) ^ (a8 + a7 + 858))))(1305713888);
+    return (*(v19 + 8 * ((94 * (*(v20 - 128) != ((9 * (a7 ^ (a7 - 89))) ^ 0x39F))) ^ (a8 + a7 + 858))))(1305713888, a2, a3, a4, a5, a6);
   }
 
   *(v20 - 129) = (&a19 ^ 0xBA) * (&a19 + 17);
@@ -3730,13 +3676,13 @@ uint64_t sub_22D352964@<X0>(uint64_t a1@<X8>)
   return (*(v1 + 8 * (v3 + 2128)))(&v5);
 }
 
-uint64_t sub_22D352BA4(double a1, int8x16_t a2, double a3, int8x16_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8, int8x16_t *a9)
+uint64_t sub_22D352BA4(__n128 a1, int8x16_t a2, double a3, int8x16_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8, int8x16_t *a9)
 {
   v13 = (v12 + v9);
   v14 = vaddq_s8(vsubq_s8(v13[1], vandq_s8(vaddq_s8(v13[1], v13[1]), a4)), a2);
   *a9 = vaddq_s8(vsubq_s8(*v13, vandq_s8(vaddq_s8(*v13, *v13), a4)), a2);
   a9[1] = v14;
-  return (*(v11 + 8 * (a8 + v10 - 1906 + 1106)))();
+  return (*(v11 + 8 * (a8 + v10 - 1906 + 1106)))(a5, a6, a7, a1);
 }
 
 uint64_t sub_22D352C7C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, int a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28)
@@ -3753,7 +3699,7 @@ uint64_t sub_22D352C7C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   }
 
   *v29 = v33;
-  (*(v30 + 8 * (v28 + 2392)))(a28);
+  (*(v30 + 8 * (v28 + 2392)))(a28, a2, a3, a4, a5, a6, a7, a8);
   v34 = v29[1];
   v35 = v29[398] ^ ((v29[2] & 0x7FFFFFFE | v34 & 0x80000000) >> 1) ^ *(v31 + 4 * (v29[2] & 1));
   *v29 = v29[(v32 + 517231703) & 0xE12BAB50 ^ 0x9DLL] ^ ((v34 & 0x7FFFFFFE | *v29 & 0x80000000) >> 1) ^ *(v31 + 4 * (v34 & 1));
@@ -4042,7 +3988,7 @@ uint64_t sub_22D353DC4()
   return result;
 }
 
-uint64_t sub_22D353EA4@<X0>(int a1@<W8>, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t *a5, int a6, int a7)
+uint64_t sub_22D353EA4@<X0>(int a1@<W8>, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t *a5, unsigned int a6, unsigned int a7)
 {
   v12 = v7 - 1386;
   v13 = v7 - 320;
@@ -4068,29 +4014,29 @@ uint64_t sub_22D353F58(uint64_t a1, uint64_t a2, uint64_t a3)
     v13 = v12;
   }
 
-  return (*(v5 + 8 * (v8 ^ (32 * !v13))))();
+  return (*(v5 + 8 * (v8 ^ (32 * !v13))))(a1, a2);
 }
 
 uint64_t sub_22D354078(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  v71 = (v69 ^ 0x26B5E6B8) + v68;
-  v72 = a68 + 1311186855 < v71;
-  if (v71 < (v69 ^ 0x308u) + 1554011171 != (a68 + 1311186855) < 0x5CA05AFA)
+  v68 = (v66 ^ 0x26B5E6B8) + v65;
+  v69 = a65 + 1311186855 < v68;
+  if (v68 < (v66 ^ 0x308u) + 1554011171 != (a65 + 1311186855) < 0x5CA05AFA)
   {
-    v72 = v71 < (v69 ^ 0x308u) + 1554011171;
+    v69 = v68 < (v66 ^ 0x308u) + 1554011171;
   }
 
-  return (*(v70 + 8 * ((923 * !v72) ^ v69)))();
+  return (*(v67 + 8 * ((923 * !v69) ^ v66)))(a1, a2, a3, a4, a5, a6, a7, a8);
 }
 
-uint64_t sub_22D3540F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, uint64_t a16, uint64_t a17, int a18, unsigned int a19)
+uint64_t sub_22D3540F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, uint64_t a16, uint64_t a17, unsigned int a18, unsigned int a19)
 {
   v23 = 1037613739 * (&a15 ^ 0xD1022D7F);
   a16 = a11;
   a17 = v20;
   a18 = (v22 - 404) ^ v23;
   a19 = ((2 * v21) & 0xFB3D6F9E) + (v21 ^ 0xFD9EB3C2 ^ ((v22 - 1333) | 0x409)) + v23 + 1475567478;
-  v24 = (*(v19 + 8 * (v22 ^ 0xC05)))(&a15);
+  v24 = (*(v19 + 8 * (v22 ^ 0xC05)))(&a15, a2, a3, a4, a5, a6, a7, a8);
   return (*(v19 + 8 * ((3335 * (a15 == -1541908459)) ^ v22)))(v24);
 }
 
@@ -4107,29 +4053,23 @@ uint64_t sub_22D354240(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   *(v62 + 1424) = 0;
   memset((v62 + 1432), 176, 104);
-  *(v64 + 96) = v62;
-  v66[3] = v64 + 96;
+  *(v63 + 96) = v62;
+  v65[3] = v63 + 96;
   *(v62 + 476) = 1;
-  v67 = v66[47];
-  STACK[0x210] = *(v65 + 8 * v61);
-  v68 = *v66;
-  v69 = ((v61 - 155474242) & 0x9445F2Fu) - 1321;
-  v66[39] = &STACK[0x4F0] + *v66;
-  *v66 = (v69 ^ 0x156) + v68;
-  LODWORD(a48) = v63;
-  v66[63] = v67;
+  v66 = v65[47];
+  STACK[0x210] = *(v64 + 8 * v61);
+  v67 = *v65;
+  v68 = ((v61 - 155474242) & 0x9445F2Fu) - 1321;
+  v65[39] = &STACK[0x4F0] + *v65;
+  *v65 = (v68 ^ 0x156) + v67;
+  v65[63] = v66;
   LODWORD(STACK[0x324]) = -783656477;
   LODWORD(STACK[0x370]) = 904558483;
-  v66[54] = 0;
+  v65[54] = 0;
   LODWORD(STACK[0x204]) = a3 + 1;
-  *(&STACK[0x4F0] + v68) = 167694379;
-  LODWORD(a55) = 246970557;
-  LODWORD(a57) = -344662060;
-  LODWORD(a58) = -1440277241;
-  LODWORD(a52) = -516729231;
-  LODWORD(a53) = -254648218;
-  v71 = *(&STACK[0x4F0] + v68) != 167694379 || LODWORD(STACK[0x204]) != a3;
-  return (*(v65 + 8 * ((v71 * ((v69 + a7) & a8 ^ 0x730)) ^ v69)))(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32, a33, a34, a35, a36, a37, a38, a39, v62, a2, a42, a43, a44, v64, a46, a47, a48, a49, a50, v64, a52, a53, a54, a55, a56, a57, a58, a59, a60, a61);
+  *(&STACK[0x4F0] + v67) = 167694379;
+  v70 = *(&STACK[0x4F0] + v67) != 167694379 || LODWORD(STACK[0x204]) != a3;
+  return (*(v64 + 8 * ((v70 * ((v68 + a7) & a8 ^ 0x730)) ^ v68)))(a1);
 }
 
 uint64_t sub_22D354454(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
@@ -4137,7 +4077,7 @@ uint64_t sub_22D354454(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v17 - 136) = (v14 ^ 0x54) - 210068311 * ((((v17 - 136) | 0x38312034) - ((v17 - 136) & 0x38312034)) ^ 0xAAE71F90) + 858;
   *(v17 - 128) = v16;
   *(v17 - 120) = a14;
-  v18 = (*(v15 + 8 * (v14 ^ 0xD7F)))(v17 - 136);
+  v18 = (*(v15 + 8 * (v14 ^ 0xD7F)))(v17 - 136, a2, a3, a4, a5, a6, a7, a8);
   return (*(v15 + 8 * (((*(v17 - 112) > 0x32CF6B79u) * (((v14 ^ 0x62F) + 1122) ^ 0x725)) | v14 ^ 0x54)))(v18);
 }
 
@@ -4316,9 +4256,9 @@ uint64_t sub_22D3555C4()
 
 uint64_t sub_22D35561C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  v68 = STACK[0x428];
-  *(v67 + 32) = (LODWORD(STACK[0x428]) - 904558483);
-  return (*(v66 + 8 * ((a8 + 1289) | (32 * (v68 != 904558483)))))(a66);
+  v67 = STACK[0x428];
+  *(v66 + 32) = (LODWORD(STACK[0x428]) - 904558483);
+  return (*(v65 + 8 * ((a8 + 1289) | (32 * (v67 != 904558483)))))(a65, a2, a3, a4, a5, a6, a7);
 }
 
 void sub_22D355AC8(uint64_t a1@<X8>, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -4339,7 +4279,7 @@ uint64_t sub_22D35642C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     v16 = (a13 - 1805156274) < 0xB51B4FCD;
   }
 
-  return (*(v14 + 8 * ((28 * ((((v15 - 831) ^ v16) & 1) == 0)) ^ v15)))();
+  return (*(v14 + 8 * ((28 * ((((v15 - 831) ^ v16) & 1) == 0)) ^ v15)))(a1, a2, a3, a4, a5, a6, a7, a8);
 }
 
 uint64_t sub_22D35649C()
@@ -4374,12 +4314,21 @@ uint64_t sub_22D356938(unint64_t a1, uint64_t a2, int a3, int a4, unsigned int a
   return (*(v11 + 8 * (((a2 + 1 != v9) * v13) ^ a4)))();
 }
 
+uint64_t sub_22D356990@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, int a9@<W8>, int8x16_t q4_0@<Q4>, int8x16_t q5_0@<Q5>, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, arg29_22D356990 a29)
+{
+  v32 = (v31 + v29);
+  *&a29.arr[4] = vaddq_s8(vsubq_s8(*v32, vandq_s8(vaddq_s8(*v32, *v32), q4_0)), q5_0);
+  *&a29.arr[20] = vaddq_s8(vsubq_s8(v32[1], vandq_s8(vaddq_s8(v32[1], v32[1]), q4_0)), q5_0);
+  LODWORD(v32) = a9 != 153;
+  return (*(v30 + 8 * (v32 | (16 * v32) | (a9 - 17))))(a1, a2, a3, a4, a5, a6, a7, a8, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a25, a26, a27, a28, *a29.arr, *&a29.arr[8], *&a29.arr[16], *&a29.arr[24]);
+}
+
 uint64_t sub_22D356AA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
 {
   *(v21 - 128) = v18 - ((((v21 - 128) | 0xB289165E) - ((v21 - 128) & 0xB289165E)) ^ 0x205F29FA) * v19 + 1824;
   *(v21 - 120) = &a17;
   *(v21 - 112) = a14;
-  v22 = (*(v17 + 8 * (v18 ^ 0x961)))(v21 - 128);
+  v22 = (*(v17 + 8 * (v18 ^ 0x961)))(v21 - 128, a2, a3, a4, a5, a6, a7, a8);
   return (*(v17 + 8 * (((((-93 * (v18 ^ 0xE7)) ^ (*(v21 - 104) == v20 + 2)) & 1) * ((v18 - 194691875) & 0xB9AC358 ^ 0xE2)) ^ v18)))(v22);
 }
 
@@ -4521,7 +4470,7 @@ uint64_t sub_22D357448(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a
     v14 = v11 + v9 + 2 < v8;
   }
 
-  return (*(v13 + 8 * ((119 * v14) ^ v12)))();
+  return (*(v13 + 8 * ((119 * v14) ^ v12)))(a1, a2);
 }
 
 uint64_t sub_22D35759C()
@@ -4605,7 +4554,7 @@ uint64_t sub_22D357F54(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
 uint64_t sub_22D357F80(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32)
 {
-  v34 = (*(v33 + 8 * ((v32 - 690) ^ 0xB47)))(1576, 0x105004009637391);
+  v34 = (*(v33 + 8 * ((v32 - 690) ^ 0xB47)))(1576, 0x105004009637391, a3, a4, a5, a6, a7, a8);
   STACK[0x3E8] = v34;
   return (*(v33 + 8 * (((v34 == 0) * ((v32 - 1048) ^ 0x351 ^ (5 * ((v32 - 690) ^ 0x283)))) ^ (v32 - 690))))(v34, v35, v36, v37, v38, v39, v40, v41, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32);
 }
@@ -4618,7 +4567,7 @@ uint64_t sub_22D358040(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v27 - 128) = v23 - 256 - 1037613739 * ((((v27 - 144) | 0x34DE2A01) - (v27 - 144) + ((v27 - 144) & 0xCB21D5F8)) ^ 0xE5DC077E);
   *(v27 - 144) = &a22;
   *(v27 - 136) = v25;
-  (*(v24 + 8 * (v23 + 310)))(v27 - 144);
+  (*(v24 + 8 * (v23 + 310)))(v27 - 144, a2, a3, a4, a5, a6, a7, a8);
   *(v27 - 128) = v23 - 256 - 1037613739 * ((v27 - 1786878975 - 2 * ((v27 - 144) & 0x957E6491)) ^ 0x447C49EE);
   *(v27 - 144) = &a22;
   *(v27 - 136) = v25;
@@ -4663,7 +4612,7 @@ uint64_t sub_22D358378(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     v23 = v20 - 1938481177 < (a7 + 2039);
   }
 
-  return (*(v18 + 8 * ((!v23 | (2 * !v23)) ^ v22)))();
+  return (*(v18 + 8 * ((!v23 | (2 * !v23)) ^ v22)))(a1, a2, a3, a4, a5, a6);
 }
 
 uint64_t sub_22D358428(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, char a17)
@@ -4671,7 +4620,7 @@ uint64_t sub_22D358428(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v21 - 128) = v17 - ((((v21 - 128) ^ 0x24CC3100 | 0xD8038CF5) + ((v21 - 128) ^ 0x8020CF5 | 0x27FC730A)) ^ 0xBE180250) * v19 + 747;
   *(v21 - 120) = &a17;
   *(v21 - 112) = &a15;
-  v22 = (*(v18 + 8 * (v17 + 1132)))(v21 - 128);
+  v22 = (*(v18 + 8 * (v17 + 1132)))(v21 - 128, a2, a3, a4, a5, a6, a7, a8);
   return (*(v18 + 8 * (((*(v21 - 104) > v20) * (((v17 + 517433576) & 0xE12896EF) + 2298)) ^ v17)))(v22);
 }
 
@@ -4717,7 +4666,7 @@ uint64_t sub_22D358814(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a
     v10 = v9 < a6;
   }
 
-  return (*(v8 + 8 * ((43 * v10) ^ v6)))();
+  return (*(v8 + 8 * ((43 * v10) ^ v6)))(a1, a2, a3);
 }
 
 uint64_t sub_22D358884(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45)
@@ -4741,7 +4690,7 @@ uint64_t sub_22D3589B0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v38 - 120) = &a26;
   *(v38 - 136) = v33 + v40 + (v32 ^ 0x15D1B3B4);
   *(v38 - 144) = (v32 - 631) ^ v40;
-  (*(v34 + 8 * (v32 + 1524)))(v38 - 144);
+  (*(v34 + 8 * (v32 + 1524)))(v38 - 144, a2, a3, a4, a5, a6, a7, a8);
   a28 = &a31;
   a29 = &a24;
   v45 = 2 * (v38 - 144);
@@ -4832,14 +4781,11 @@ uint64_t sub_22D358BEC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return (*(v34 + 8 * (((v30 + ((v33 + 189635206) & 0xF4B26579) != 361) * (((v33 - 296) | 0x128) - 349)) ^ (v33 + 520))))();
 }
 
-uint64_t sub_22D358D44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, int32x4_t a19, int32x4_t a20)
+uint64_t sub_22D358D44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int32x4_t a19, int32x4_t a20, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, int32x4_t a21, int32x4_t a22)
 {
-  v23 = v20 & 0xFFFFFFF8;
-  v24 = (v21 - 795);
-  a19 = vdupq_n_s32(0xC597CFE4);
-  a20 = a19;
-  v25 = *(v22 + 8 * ((918 * ((v21 ^ (v23 == 8)) & 1)) ^ v24));
-  return v25(a1, a2, (v23 - 8), v23, v24, &a19, 8, v25, a9, a10, a11, a12, a13, a14);
+  a21 = vdupq_n_s32(0xC597CFE4);
+  a22 = a21;
+  return (*(v24 + 8 * ((918 * ((v23 ^ ((v22 & 0xFFFFFFF8) == 8)) & 1)) ^ (v23 - 795))))(a1, a2);
 }
 
 uint64_t sub_22D358E68()
@@ -4878,13 +4824,13 @@ uint64_t sub_22D358F90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return (*(v17 + 8 * ((15 * !v19) ^ v18)))(1012864409, a2, a3, a4, a5, a6, a7, a8, a9, a10);
 }
 
-uint64_t sub_22D359264(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, int a13, int a14, int a15)
+uint64_t sub_22D359264(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, int a13, unsigned int a14, unsigned int a15)
 {
   v20 = (((&a12 | 0x50EBAAB0) - &a12 + (&a12 & 0xAF145548)) ^ 0xCA6FE35) * v18;
   a14 = 893672457 * v15 - v20 + ((v19 + 30) ^ 0xA9D) + 160638796;
   a15 = (v19 - 1844) ^ v20;
   a12 = a10;
-  v21 = (*(v17 + 8 * (v19 + 353)))(&a12);
+  v21 = (*(v17 + 8 * (v19 + 353)))(&a12, a2, a3, a4, a5, a6, a7, a8);
   return (*(v17 + 8 * ((4078 * (a13 != v16)) ^ v19)))(v21);
 }
 
@@ -4892,21 +4838,21 @@ uint64_t sub_22D359318(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   LODWORD(STACK[0x404]) = 1533289307;
   LODWORD(STACK[0x274]) = 128;
-  v77 = STACK[0x208];
-  v78 = *(v76 + 392);
-  v79 = 143681137 * ((((v75 - 192) | 0x42CB841) - (v75 - 192) + ((v75 - 192) & 0xFBD347B8)) ^ 0x65743391);
-  v80 = (v75 - 192);
-  *v80 = 0;
-  *(v75 - 180) = v79 + 2035419218;
-  *(v75 - 160) = (v72 + 371) ^ v79;
-  v80[7] = v78;
-  v80[8] = a72 + 800;
-  v80[5] = &STACK[0x274];
-  v80[6] = a72 + 528;
-  v80[2] = v77;
-  v80[3] = 0;
-  v81 = (*(v74 + 8 * (v72 ^ 0x9FD)))(v75 - 192);
-  return (*(v74 + 8 * (((*(v75 - 184) == v73) * ((((v72 + 363) | 0x181) + 48) ^ 0xB95)) ^ v72)))(v81);
+  v70 = STACK[0x208];
+  v71 = *(v69 + 392);
+  v72 = 143681137 * ((((v68 - 192) | 0x42CB841) - (v68 - 192) + ((v68 - 192) & 0xFBD347B8)) ^ 0x65743391);
+  v73 = (v68 - 192);
+  *v73 = 0;
+  *(v68 - 180) = v72 + 2035419218;
+  *(v68 - 160) = (v65 + 371) ^ v72;
+  v73[7] = v71;
+  v73[8] = a65 + 800;
+  v73[5] = &STACK[0x274];
+  v73[6] = a65 + 528;
+  v73[2] = v70;
+  v73[3] = 0;
+  v74 = (*(v67 + 8 * (v65 ^ 0x9FD)))(v68 - 192, a2, a3, a4, a5, a6, a7, a8);
+  return (*(v67 + 8 * (((*(v68 - 184) == v66) * ((((v65 + 363) | 0x181) + 48) ^ 0xB95)) ^ v65)))(v74);
 }
 
 uint64_t sub_22D3597AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, unint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40)
@@ -4919,7 +4865,7 @@ uint64_t sub_22D3597AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v48 - 112) = -1281847784 - v41;
   *(v48 - 136) = v41 - 1281847746;
   *(v48 - 120) = v41 ^ 0x3560892;
-  v49 = (*(v40 + 19128))(v48 - 152);
+  v49 = (*(v40 + 19128))(v48 - 152, a2, a3, a4, a5, a6, a7, a8);
   return (*(a40 + 8 * *(v48 - 116)))(v49);
 }
 
@@ -4934,7 +4880,7 @@ uint64_t sub_22D35987C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   v41 = v40 + 781;
   v53 = v40 + 1748;
-  v42 = (*(a3 + 8 * ((v40 + 781) ^ 0xAF8)))(3);
+  v42 = (*(a3 + 8 * ((v40 + 781) ^ 0xAF8)))(3, a2);
   v43 = *(&off_284082B80 + (v41 ^ 0x3D9));
   *v43 = v42;
   (*(a40 + 8 * (v41 ^ 0xACF)))();
@@ -5029,7 +4975,7 @@ uint64_t sub_22D35B614(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   a10 = v11 - 1;
   *(a2 + a10) = (&a10 ^ 0xBA) * (&a10 + 17);
-  return (*(v12 + 8 * (((v11 == 1) * (v10 - 234)) ^ (v10 + 1504))))(a1, a2);
+  return (*(v12 + 8 * (((v11 == 1) * (v10 - 234)) ^ (v10 + 1504))))(a1);
 }
 
 uint64_t sub_22D35B6C4(uint64_t a1)
@@ -5110,7 +5056,7 @@ uint64_t sub_22D35BB98(uint64_t a1, uint64_t a2, int a3)
     v9 = v8;
   }
 
-  return (*(v3 + 8 * ((217 * !v9) ^ v6)))();
+  return (*(v3 + 8 * ((217 * !v9) ^ v6)))(a1);
 }
 
 uint64_t sub_22D35BC10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
@@ -5121,29 +5067,29 @@ uint64_t sub_22D35BC10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v32 - 136) = a14;
   *(v32 - 128) = a11;
   *(v32 - 120) = &a22;
-  v33 = (*(v29 + 8 * (v28 + 50)))(v32 - 144);
+  v33 = (*(v29 + 8 * (v28 + 50)))(v32 - 144, a2, a3, a4, a5, a6, a7, a8);
   return (*(v29 + 8 * ((57 * ((v28 ^ 0xD2BCDDCA ^ (11 * (v28 ^ 0x843))) + v31 < 0x7FFFFFFF)) ^ (v28 - 1890))))(v33);
 }
 
 uint64_t sub_22D35BCC8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, int a32, int a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  v78 = (v72 + 588) | 0x109;
-  *(v77 + 648) = 0x1BAD44A3D70861ACLL;
-  *(v77 + 640) = 0xF0136175BB9532D0;
-  v79 = STACK[0x3C8];
+  v72 = (v66 + 588) | 0x109;
+  *(v71 + 648) = 0x1BAD44A3D70861ACLL;
+  *(v71 + 640) = 0xF0136175BB9532D0;
+  v73 = STACK[0x3C8];
   LODWORD(STACK[0x2CC]) = STACK[0x3C8];
-  v80 = 742307843 * ((((v76 - 192) | 0x40EDDC4A) - ((v76 - 192) & 0x40EDDC4A)) ^ 0x5ECF511F);
-  v73[1] = &a67;
-  v73[3] = &STACK[0x258];
-  v73[4] = &STACK[0x4C0];
-  v73[7] = &STACK[0x4A0];
-  *(v76 - 144) = ((v79 ^ 0x1177FECD) - 2360392 + ((2 * v79) & 0x22EFFD9A)) ^ v80;
-  *(v76 - 176) = (a33 + 39165745) ^ v80;
-  *(v76 - 140) = (v78 - 487) ^ v80;
-  v73[5] = a34;
-  v81 = (*(v75 + 8 * (v78 + 1402)))(v76 - 192);
-  a72 = *(v76 - 192);
-  return (*(v75 + 8 * ((1119 * (a72 == v74)) ^ (v78 - 411))))(v81);
+  v74 = 742307843 * ((((v70 - 192) | 0x40EDDC4A) - ((v70 - 192) & 0x40EDDC4A)) ^ 0x5ECF511F);
+  v67[1] = &a65;
+  v67[3] = &STACK[0x258];
+  v67[4] = &STACK[0x4C0];
+  v67[7] = &STACK[0x4A0];
+  *(v70 - 144) = ((v73 ^ 0x1177FECD) - 2360392 + ((2 * v73) & 0x22EFFD9A)) ^ v74;
+  *(v70 - 176) = (a33 + 39165745) ^ v74;
+  *(v70 - 140) = (v72 - 487) ^ v74;
+  v67[5] = a34;
+  v75 = (*(v69 + 8 * (v72 + 1402)))(v70 - 192, a2, a3, a4, a5, a6, a7, a8);
+  a66 = *(v70 - 192);
+  return (*(v69 + 8 * ((1119 * (a66 == v68)) ^ (v72 - 411))))(v75);
 }
 
 uint64_t sub_22D35BDF4@<X0>(int a1@<W8>)
@@ -5181,7 +5127,7 @@ uint64_t sub_22D35BECC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v34 - 144) = (v31 - 158) ^ (((667604054 - ((v34 - 144) | 0x27CAD456) + ((v34 - 144) | 0xD8352BA9)) ^ 0x4372DD23) * v30);
   *(v34 - 136) = v32;
   *(v34 - 128) = v33;
-  (*(v29 + 8 * (v31 + 632)))(v34 - 144);
+  (*(v29 + 8 * (v31 + 632)))(v34 - 144, a2, a3, a4, a5, a6, a7, a8);
   v35 = a29;
   *(v34 - 144) = v31 - 642 - 1785193651 * ((-1937230823 - ((v34 - 144) | 0x8C883419) + ((v34 - 144) | 0x7377CBE6)) ^ 0x60AB27C6);
   *(v34 - 112) = &a20;
@@ -5216,7 +5162,7 @@ uint64_t sub_22D35C114(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   v40 = 5 * (v36 ^ (v36 - 285));
   *(v37 + 4 * v35) ^= a34 ^ (v39 - (v36 + 91348111) < ((v40 - 1456) ^ (v36 + 91348111)));
-  return (*(v34 + 8 * (((((v40 - 91349563) ^ 0xFFFFFFDD) + (v40 ^ 0xFA8E26DB)) * (v38 == 1)) ^ v40)))();
+  return (*(v34 + 8 * (((((v40 - 91349563) ^ 0xFFFFFFDD) + (v40 ^ 0xFA8E26DB)) * (v38 == 1)) ^ v40)))(a1, a2, a3, a4, a5, a6, a7, a8);
 }
 
 uint64_t sub_22D35C22C@<X0>(int a1@<W2>, int a2@<W3>, int a3@<W7>, int a4@<W8>, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, int a21)
@@ -5234,7 +5180,7 @@ uint64_t sub_22D35C22C@<X0>(int a1@<W2>, int a2@<W3>, int a3@<W7>, int a4@<W8>, 
 uint64_t sub_22D35C2E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
 {
   v50 = &a45 + v47;
-  v51 = (*(v45 + 8 * (v46 ^ 0xC2A)))(&a45 + v47 + 16, 0);
+  v51 = (*(v45 + 8 * (v46 ^ 0xC2A)))(&a45 + v47 + 16, 0, a3, a4, a5, a6, a7, a8);
   v52 = *(v50 + 4) + ((v46 - 91349563) ^ 0x5F5B66D0) - ((2 * *(v50 + 4)) & 0x4BAA8B48);
   *(v50 + 1) = *(v50 + 6) - 1512749660 - ((2 * *(v50 + 6)) & 0x4BAA8B48);
   *(v50 + 2) = v52;
@@ -5263,7 +5209,7 @@ uint64_t sub_22D35C534(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   a19 = v23 + 1219383131;
   LODWORD(a20) = v23 ^ 0x28B;
   HIDWORD(a20) = 1953011063 - v23;
-  (*(v22 + 19272))(&a18);
+  (*(v22 + 19272))(&a18, a2, a3, a4, a5, a6, a7, a8);
   a20 = &a16;
   a21 = 2066391179 * ((&a18 + 1535526123 - 2 * (&a18 & 0x5B8644EB)) ^ 0xF4A1C6F3) + 1020;
   v24 = (*(v22 + 19160))(&a18);
@@ -5378,17 +5324,17 @@ uint64_t sub_22D35C94C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v18 - 128) = a15;
   *(v18 - 144) = v19 + v17 - 1040;
   *(v18 - 140) = (1403818163 * (v15 - 4) + 2064040668 + ((90 * (v17 ^ 0x787) - 236) | 0x841) - 2147) ^ v19;
-  v20 = (*(v16 + 8 * (v17 ^ 0xE99)))(v18 - 144);
+  v20 = (*(v16 + 8 * (v17 ^ 0xE99)))(v18 - 144, a2, a3, a4, a5, a6, a7, a8);
   return (*(v16 + 8 * ((21 * (*(v18 - 136) != 1450726857)) ^ v17)))(v20);
 }
 
-uint64_t sub_22D35CAD4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, int a10, uint64_t a11, uint64_t a12, int a13, char a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, unsigned int a21, uint64_t a22, char *a23, char *a24)
+uint64_t sub_22D35CAD4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, int a10, uint64_t a11, uint64_t a12, int a13, char a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, unsigned int a21, uint64_t a22, char *a23, char *a24)
 {
   a21 = v25 - 243 - 143681137 * ((2 * (&a20 & 0x796C7A60) - &a20 - 2037152359) ^ 0xE7CB0E49) + 555;
   a22 = a19;
   a23 = &a14;
   a24 = &a16;
-  v27 = (*(v26 + 8 * ((v25 - 243) ^ 0x878)))(&a20);
+  v27 = (*(v26 + 8 * ((v25 - 243) ^ 0x878)))(&a20, a2, a3, a4, a5, a6, a7, a8);
   return (*(v26 + 8 * ((((v25 - 243) ^ 0x2B5) * (a10 == v24)) ^ (v25 - 243))))(v27);
 }
 
@@ -5481,7 +5427,7 @@ uint64_t sub_22D35CE88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   a16 = (v19 + 597) ^ (50899313 * (&a16 ^ 0x142F9D9B));
   a17 = a12;
   a19 = &a14;
-  v22 = (*(v20 + 8 * (v19 + 773)))(&a16);
+  v22 = (*(v20 + 8 * (v19 + 773)))(&a16, a2, a3, a4, a5, a6, a7, a8);
   return (*(v20 + 8 * (((a14 == -1541908459) * ((v19 - v21 - 1642) ^ (v19 - 1543639435) & 0xDD5F6FF7 ^ 0x1E3)) ^ v19)))(v22);
 }
 
@@ -5500,7 +5446,7 @@ uint64_t sub_22D35CF48(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v27 - 112) = &a22;
   *(v27 - 144) = &a22;
   *(v27 - 136) = v25;
-  (*(v23 + 8 * (v24 ^ 0x1AC)))(v27 - 144);
+  (*(v23 + 8 * (v24 ^ 0x1AC)))(v27 - 144, a2, a3, a4, a5, a6, a7, a8);
   v28 = 2066391179 * ((((v27 - 144) | 0xF829DF85) - ((v27 - 144) & 0xF829DF85)) ^ 0x570E5D9D);
   *(v27 - 128) = a15;
   *(v27 - 144) = v28 + v24 - 1217;
@@ -5531,7 +5477,7 @@ uint64_t sub_22D35D310()
   return (*(v4 + 8 * ((58 * (*(v7 - 136) != 1450726857)) ^ v0)))(v9);
 }
 
-uint64_t sub_22D35D590@<X0>(int a1@<W2>, int a2@<W8>, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, int a8, int a9, unsigned int a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, int a16, int a17, int a18, int a19, int a20, int a21, int a22, int a23, int a24, int a25, int a26, int a27, int a28, int a29, int a30, int a31, int a32, int a33, int a34, int a35, int a36, int a37, int a38, int a39, int a40, int a41, int a42, int a43)
+uint64_t sub_22D35D590@<X0>(int a1@<W2>, int a2@<W8>, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, int a8, int a9, unsigned int a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, int a16, int a17, int a18, int a19, int a20, int a21, int a22, int a23, int a24, int a25, int a26, int a27, int a28, int a29, int a30, int a31, int a32, int a33, int a34, int a35, int a36, int a37, int a38, int a39, int a40, unsigned int a41, int a42, int a43)
 {
   v47 = (*(v45 - 128) + 528) | 0x184;
   v48 = a1 + 16;
@@ -5932,7 +5878,7 @@ uint64_t sub_22D35E80C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a
     v23 = v20 - 2113273693 < (((a5 ^ (a5 - 128)) + 2027) ^ 0x820A0808);
   }
 
-  return (*(v21 + 8 * ((7 * !v23) ^ (v22 + a5 + 985))))();
+  return (*(v21 + 8 * ((7 * !v23) ^ (v22 + a5 + 985))))(a1, a2, a3, a4);
 }
 
 uint64_t sub_22D35E894(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61)
@@ -5947,7 +5893,7 @@ uint64_t sub_22D35E894(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v65 - 168) = v66 ^ v67;
   *(v65 - 148) = v62 - v67 - 1776823398;
   v68[6] = v63;
-  v69 = (*(v64 + 8 * (v62 ^ 0x9FD)))(v65 - 192);
+  v69 = (*(v64 + 8 * (v62 ^ 0x9FD)))(v65 - 192, a2, a3, a4, a5, a6, a7, a8);
   return (*(v64 + 8 * ((1319 * (*(v65 - 152) == -1541908459)) ^ v62)))(v69);
 }
 
@@ -5963,7 +5909,7 @@ uint64_t sub_22D35E9F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v62[3] = 0;
   *v62 = &STACK[0x218];
   v62[1] = a57;
-  v63 = (*(v59 + 8 * (v57 ^ 0x86F)))(v60 - 192);
+  v63 = (*(v59 + 8 * (v57 ^ 0x86F)))(v60 - 192, a2, a3, a4, a5, a6, a7, a8);
   v64 = *(v60 - 144);
   LODWORD(STACK[0x46C]) = v64;
   return (*(v59 + 8 * ((1773 * (v64 == v58 + v57 + 627 - 905)) ^ v57)))(v63);
@@ -6035,7 +5981,7 @@ uint64_t sub_22D35EFA8()
   return (*(v3 + 8 * ((((((v1 ^ 0x30u) - 736) & v0) != 16) * (((v1 ^ 0x30) + 287) ^ 0x3DF)) ^ v1 ^ 0x30)))();
 }
 
-uint64_t sub_22D35F660(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, int a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, int a59)
+uint64_t sub_22D35F660(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, int a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, int a59)
 {
   v77 = v64;
   v75 = v66;
@@ -6091,7 +6037,7 @@ LABEL_10:
   v71[8] = a45;
   *(v63 - 180) = v70 + (a50 ^ 0xFB5AA7DB) + ((2 * a50) & 0xF6B54FB6) + 2113363959;
   *(v63 - 160) = (v68 - 377) ^ v70;
-  (*(v62 + 8 * a40))(v63 - 192);
+  (*(v62 + 8 * a40))(v63 - 192, a2, a3, a4, a5, a6, a7, a8);
   return (*(v62 + 8 * (((*(v63 - 184) == -1541908459) * a39) ^ v61)))(980, a2, 1069, 3115098608, HIDWORD(a35), 13, 822579113, 1130178988, a9, a10, a11, a12, a13, v73, a15, a16, v74, *(&v74 + 1), v75, *(&v75 + 1), v76, *(&v76 + 1), a23, a24, v77, *(&v77 + 1), a27, a28, a29, a30, a31, a32, a33, a34, a35, a36, a37, a38, a39, a40, a2);
 }
 
@@ -6115,11 +6061,11 @@ uint64_t sub_22D35FBF0@<X0>(uint64_t a1@<X8>)
 uint64_t sub_22D35FC9C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, unsigned int a16, int a17)
 {
   a16 = (843532609 * ((-1477538731 - (&a16 | 0xA7EE8C55) + (&a16 | 0x581173AA)) ^ 0x45C272F)) ^ 0xDFABAF92;
-  v18 = (*(v17 + 18752))(&a16);
+  v18 = (*(v17 + 18752))(&a16, a2, a3, a4, a5, a6, a7);
   return (*(v17 + 8 * ((1157 * (a17 == -1541908459)) ^ 0x327u)))(v18);
 }
 
-uint64_t sub_22D35FD4C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, unsigned int a13, int a14, unsigned int a15, int a16, char *a17)
+uint64_t sub_22D35FD4C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, unsigned int a13, unsigned int a14, unsigned int a15, int a16, char *a17)
 {
   v20 = 1037613739 * (((&a12 | 0x8EBA7FFA) - (&a12 & 0x8EBA7FFA)) ^ 0x5FB85285);
   a14 = (v19 - 2013068611) ^ v20;
@@ -6127,7 +6073,7 @@ uint64_t sub_22D35FD4C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   a12 = a10;
   a17 = &a11;
   a13 = v20 ^ 0xA2D26430;
-  v21 = (*(v18 + 8 * (v19 + 371)))(&a12);
+  v21 = (*(v18 + 8 * (v19 + 371)))(&a12, a2, a3, a4, a5, a6, a7, a8);
   return (*(v18 + 8 * ((42 * (a16 == ((v19 - 1421) ^ (v17 + 650)))) ^ v19)))(v21);
 }
 
@@ -6163,7 +6109,7 @@ uint64_t sub_22D35FED0(uint64_t a1)
   return (*(*(&off_284082B80 + v2 - 825) + ((227 * ((v6 >> 5) < v9)) ^ v2) - 1))();
 }
 
-uint64_t sub_22D360014(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, int a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, unsigned int a20, int a21, unsigned int a22, int a23, char *a24)
+uint64_t sub_22D360014(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, int a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, unsigned int a20, unsigned int a21, unsigned int a22, int a23, char *a24)
 {
   if (a10 == (v26 ^ 0xDE76C97))
   {
@@ -6181,7 +6127,7 @@ uint64_t sub_22D360014(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   a24 = &a18;
   a20 = v29 ^ 0xD0D9EC91;
   a19 = a17;
-  v30 = (*(v27 + 8 * (v26 ^ 0xB8D)))(&a19);
+  v30 = (*(v27 + 8 * (v26 ^ 0xB8D)))(&a19, a2, a3, a4, a5, a6, a7, a8);
   return (*(v27 + 8 * (((a23 == v25 + ((v26 - 38) | 0x21C) - 1021) * (v26 + 675)) ^ v26)))(v30);
 }
 
@@ -6335,7 +6281,7 @@ uint64_t sub_22D360D0C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   LOBYTE(STACK[0x240]) = *(&a28 + v28);
   v31 = v28 + ((v29 + 352) ^ 0x306u) != 45;
-  return (*(v30 + 8 * (((8 * v31) | (16 * v31)) ^ (v29 + 216))))();
+  return (*(v30 + 8 * (((8 * v31) | (16 * v31)) ^ (v29 + 216))))(a1, a2, a3, a4, a5, a6, a7, a8);
 }
 
 uint64_t sub_22D360D54(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, char a14)
@@ -6343,7 +6289,7 @@ uint64_t sub_22D360D54(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v17 - 128) = &a14;
   *(v17 - 120) = &a12;
   *(v17 - 136) = v14 - ((((2 * (v17 - 136)) | 0xD277FF88) - (v17 - 136) - 1765539780) ^ 0xFBEDC060) * v16 + 1505;
-  v18 = (*(v15 + 8 * (v14 ^ 0xBA2)))(v17 - 136);
+  v18 = (*(v15 + 8 * (v14 ^ 0xBA2)))(v17 - 136, a2, a3, a4, a5, a6, a7, a8);
   return (*(v15 + 8 * (((*(v17 - 112) > 0x32CF6B79u) * ((v14 + 322) ^ 0x373)) ^ v14)))(v18);
 }
 
@@ -6632,19 +6578,10 @@ uint64_t sub_22D362614(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
   *(v55 - 184) = (v52 + 1986157213) ^ v56;
   *(v51 + 128) = v54;
   *(v55 - 192) = v56 ^ 0xC2B70DED;
-  (*(v53 + 8 * (v52 + 1439)))(v55 - 192);
+  (*(v53 + 8 * (v52 + 1439)))(v55 - 192, a2, a3, a4, a5, a6, a7, a8);
   v57 = (*(v53 + 8 * (v52 ^ 0xD56)))(336, 0x100004077774924);
   STACK[0x2E8] = v57;
   return (*(v53 + 8 * (((v57 != 0) * (((v52 ^ 0x7AE) - 437) ^ 0x1C2)) ^ v52)))(v57, v58, v59, v60, v61, v62, v63, v64, a9, a10, a11, a12, a13, a14, a1, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32, a33, a34, a35, a36, a37, a38, a39, a40, a41, a42, a43, a44, a45, a46, a47, a48, a49, a50, a51);
-}
-
-uint64_t sub_22D362734(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
-{
-  LODWORD(STACK[0x3C4]) = 904558483;
-  *(v66 + 448) = 0;
-  LODWORD(a60) = 904558483;
-  *(v66 + 104) = 0;
-  return (*(v65 + 8 * (((((HIDWORD(a37) - 1815595328) & 0x6C37C7F9) + ((HIDWORD(a37) + 1138421438) & 0xBC250FFB) - 1335) * (a65 == 0)) ^ HIDWORD(a37))))(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32, a33, a34, a35, a36, a37, a38, a39, a40, a41, a42, a43, a44, a45, a46, a47, a48, a49, a50, a51, a52, a53, a54, a55, a56, a57, a58, a59, a60);
 }
 
 uint64_t sub_22D3627B8()
@@ -6662,7 +6599,7 @@ uint64_t sub_22D362820(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   v60 = *(a56 + 56);
   *(a56 + 56) = v60 + 1;
-  return (*(v59 + 8 * ((((v60 - 1846535039) < 0xFFFFFFFA) * (a59 ^ 0x200)) | (a59 - 805))))();
+  return (*(v59 + 8 * ((((v60 - 1846535039) < 0xFFFFFFFA) * (a59 ^ 0x200)) | (a59 - 805))))(a1, a2, a3, a4, a5, a6, a7, a8);
 }
 
 uint64_t sub_22D3628C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
@@ -6670,7 +6607,7 @@ uint64_t sub_22D3628C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v20 - 136) = v15 - ((((2 * (v20 - 136)) | 0x8F947330) - (v20 - 136) + 943048296) ^ 0x551C063C) * v17 + 1327;
   *(v20 - 128) = v18;
   *(v20 - 120) = &a15;
-  v21 = (*(v16 + 8 * (v15 + 1712)))(v20 - 136);
+  v21 = (*(v16 + 8 * (v15 + 1712)))(v20 - 136, a2, a3, a4, a5, a6, a7, a8);
   return (*(v16 + 8 * (((*(v20 - 112) > v19) * ((((v15 - 1078646806) & 0x404AD7D7) + 615) ^ 0x1D2)) ^ v15)))(v21);
 }
 
@@ -6780,8 +6717,8 @@ uint64_t sub_22D363204(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v21 - 128) = ((v17 ^ 0x2EFE7FD6) - 34087696 + ((v18 + 1576861332) & (2 * v17))) ^ v22;
   *(v21 - 124) = (v18 + 892) ^ v22;
   *(v21 - 120) = &a17;
-  v23 = (*(v20 + 8 * (v18 + 2171)))(v21 - 128);
-  return sub_22D363278(v23);
+  v23 = (*(v20 + 8 * (v18 + 2171)))(v21 - 128, a2, a3, a4, a5, a6, a7, a8);
+  return sub_22D363278(v23, v24, v25, v26, v27, v28, v29, v30, a9, a10, a11, a12, a13, a14, a15);
 }
 
 uint64_t sub_22D363278(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
@@ -6789,7 +6726,7 @@ uint64_t sub_22D363278(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v20 - 128) = v16 - ((~((v20 - 128) | v17) + ((v20 - 128) & v17)) ^ 0x3245B57C) * v18 + 1235;
   *(v20 - 120) = &a15;
   *(v20 - 112) = a14;
-  v21 = (*(v15 + 8 * (v16 ^ 0xAAC)))(v20 - 128);
+  v21 = (*(v15 + 8 * (v16 ^ 0xAAC)))(v20 - 128, a2, a3, a4, a5, a6, a7, a8);
   return (*(v15 + 8 * (((*(v20 - 104) > v19) * ((v16 + 159525520) & 0xF67DD2C8 ^ 0x90)) ^ v16)))(v21);
 }
 
@@ -6812,26 +6749,26 @@ uint64_t sub_22D363968(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   v11 = ((v6 + v9 + 1925) ^ 0xFFFFFFFFFFFFFEB9) + v8;
   *(a6 + v11) = *(v7 + v11);
-  return (*(v10 + 8 * ((3395 * (v11 == 0)) ^ (v6 + v9 + 3071))))();
+  return (*(v10 + 8 * ((3395 * (v11 == 0)) ^ (v6 + v9 + 3071))))(a1, a2, a3, a4, a5);
 }
 
 uint64_t sub_22D3639CC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  v73 = v69 ^ 0x539;
-  v74 = ((v69 ^ 0x539) - 29707495) & 0x1C54DFD;
-  v75 = ((v69 ^ 0x539) - 101897563) & 0x612D7FD;
-  v76 = *(v72 + 504);
-  v77 = 1082434553 * ((v71 - 192) ^ 0x9B47F68A);
-  v78 = (v71 - 192);
-  *v78 = &STACK[0x3D0];
-  v78[2] = &STACK[0x324];
-  v78[4] = &STACK[0x370];
-  v78[5] = &a68;
-  v78[6] = v76;
-  *(v71 - 180) = v77 + v68 + 271006981;
-  *(v71 - 168) = v77 + (v69 ^ 0x539) + 944;
-  v79 = (*(v70 + 8 * (v69 ^ 0xC4F)))(v71 - 192);
-  return (*(v70 + 8 * (((*(v71 - 184) == (v74 ^ 0xA41859E8)) * (v75 ^ 0x278)) ^ v73)))(v79);
+  v70 = v66 ^ 0x539;
+  v71 = ((v66 ^ 0x539) - 29707495) & 0x1C54DFD;
+  v72 = ((v66 ^ 0x539) - 101897563) & 0x612D7FD;
+  v73 = *(v69 + 504);
+  v74 = 1082434553 * ((v68 - 192) ^ 0x9B47F68A);
+  v75 = (v68 - 192);
+  *v75 = &STACK[0x3D0];
+  v75[2] = &STACK[0x324];
+  v75[4] = &STACK[0x370];
+  v75[5] = &a65;
+  v75[6] = v73;
+  *(v68 - 180) = v74 + v65 + 271006981;
+  *(v68 - 168) = v74 + (v66 ^ 0x539) + 944;
+  v76 = (*(v67 + 8 * (v66 ^ 0xC4F)))(v68 - 192, a2, a3, a4, a5, a6, a7, a8);
+  return (*(v67 + 8 * (((*(v68 - 184) == (v71 ^ 0xA41859E8)) * (v72 ^ 0x278)) ^ v70)))(v76);
 }
 
 uint64_t sub_22D363B00(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
@@ -6839,7 +6776,7 @@ uint64_t sub_22D363B00(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v20 - 120) = v16 + 1037613739 * ((v20 - 136) ^ 0xD1022D7F) + 1696;
   *(v20 - 136) = &a15;
   *(v20 - 128) = v19;
-  v21 = (*(v17 + 8 * (v16 ^ 0xBF4u)))(v20 - 136);
+  v21 = (*(v17 + 8 * (v16 ^ 0xBF4u)))(v20 - 136, a2, a3, a4, a5, a6, a7, a8);
   return (*(v17 + 8 * (((v18 != (v15 ^ 0x4FD)) * (v15 ^ 0x4BA)) ^ v16)))(v21);
 }
 
@@ -6848,7 +6785,7 @@ uint64_t sub_22D363B90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   LODWORD(a16) = (v19 + 1483) ^ (50899313 * (&a16 ^ 0x142F9D9B));
   a19 = &a15;
   a17 = a13;
-  (*(v21 + 8 * (v19 ^ 0xB9Bu)))(&a16);
+  (*(v21 + 8 * (v19 ^ 0xB9Bu)))(&a16, a2, a3, a4, a5, a6, a7, a8);
   a19 = &a12;
   a17 = a13;
   LODWORD(a16) = (v19 + 1483) ^ (50899313 * ((&a16 - 124342558 - 2 * (&a16 & 0xF896AEE2)) ^ 0xECB93379));
@@ -6865,7 +6802,7 @@ uint64_t sub_22D363D20(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v21 - 112) = a14;
   *(v21 - 120) = v20 + 1388665877 * ((v21 - 1852261225 - 2 * ((v21 - 128) & 0x9198BD17)) ^ 0x1C35DFFB) - 401;
   *(v21 - 128) = &a18;
-  (*(v19 + 8 * (v20 + 1623)))(v21 - 128);
+  (*(v19 + 8 * (v20 + 1623)))(v21 - 128, a2, a3, a4, a5, a6, a7, a8);
   *(v21 - 120) = &a15;
   *(v21 - 112) = a14;
   *(v21 - 128) = v20 - 210068311 * ((((v21 - 128) | 0xB3E6CF4B) - ((v21 - 128) & 0xB3E6CF4B)) ^ 0x2130F0EF) + 1235;
@@ -6900,7 +6837,7 @@ uint64_t sub_22D363F98(uint64_t a1, int a2, int a3, uint64_t a4, int a5)
 {
   v11 = *(v9 + v10 * v8 + 36);
   v13 = v11 != a2 && a3 + v6 + (v5 ^ (a5 - 1379)) + 1627 + v11 - 1628 < 0x80000003;
-  return (*(v7 + 8 * ((1015 * v13) ^ v5)))();
+  return (*(v7 + 8 * ((1015 * v13) ^ v5)))(a1);
 }
 
 uint64_t sub_22D363FE4@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, char a3@<W3>, int a4@<W8>, int8x16_t a5@<Q0>, int8x8_t a6@<D1>)
@@ -6961,7 +6898,7 @@ uint64_t sub_22D3647E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a
   STACK[0x5B8] = v42 ^ v43;
   *(v41 - 148) = v43 + v40 + 1303803676;
   *(v41 - 144) = v40 - v43 + 4202977;
-  v44 = (*(a4 + 8 * (a5 + v40 + 1779)))(v41 - 152);
+  v44 = (*(a4 + 8 * (a5 + v40 + 1779)))(v41 - 152, a2, a3);
   return (*(a40 + 8 * *(v41 - 152)))(v44);
 }
 
@@ -7055,7 +6992,7 @@ uint64_t sub_22D366BE4(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a
     *(&a35 + 4) = vextq_s8(v86.val[3], v86.val[0], 4uLL);
     *(&a36 + 4) = vextq_s8(v86.val[0], v86.val[0], 4uLL).u64[0];
     HIDWORD(a36) = v86.val[0].i32[3];
-    *(&a33 + v38 + 1936004608) = __ROR4__(*(&a33 + ((v38 + 413) ^ 0x1A0) + 1936004608) ^ v37 ^ *(&a33 + v38 + 1936004600) ^ *(&a33 + v38 + 1936004594) ^ *(&a33 + v38 + 1936004592), 31) ^ 0xB497CC4E;
+    *(&a33 + v38 + 1936004608) = __ROR4__(*(&a33 + ((v38 + 413) ^ 0x1A0) + 1936004608) ^ v37 ^ *(&a29 + v38 + 1936004608) ^ *(&a26 + v38 + 1936004608) ^ *(&a25 + v38 + 1936004608), 31) ^ 0xB497CC4E;
     return (*(v36 + 8 * ((43 * (v39 == 1936004545)) ^ 0x18Bu)))(v45);
   }
 
@@ -7116,7 +7053,7 @@ void sub_22D366C5C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v18 - 128) = &a15;
   *(v18 - 136) = ((v16 ^ 0xAEF6DFE6) + 2113895648 + ((v16 << (v15 + 5)) & 0x5DEDBFCC)) ^ v19;
   *(v18 - 132) = (v15 - 104) ^ v19;
-  (*(v17 + 8 * (v15 + 1175)))(v18 - 136);
+  (*(v17 + 8 * (v15 + 1175)))(v18 - 136, a2, a3, a4, a5, a6, a7, a8);
   JUMPOUT(0x22D366CF8);
 }
 
@@ -7141,7 +7078,7 @@ uint64_t sub_22D367054@<X0>(unint64_t a1@<X0>, int a2@<W1>, uint64_t a3@<X8>)
 uint64_t sub_22D36705C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, _DWORD *a39, uint64_t a40)
 {
   v44 = v41 ^ 0xFA8E23C8;
-  v45 = (*(v40 + 8 * (v41 + 2249)))(a39 + 4, 0);
+  v45 = (*(v40 + 8 * (v41 + 2249)))(a39 + 4, 0, a3, a4, a5, a6, a7, a8);
   v46 = a39[4] - 1697245704 - ((v41 ^ 0x35AC2B4C) & (2 * a39[4]));
   a39[1] = a39[6] - 1697245704 - ((2 * a39[6]) & 0x35AC2BF0);
   a39[2] = v46;
@@ -7171,7 +7108,7 @@ uint64_t sub_22D367300(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v18 = ((v16 ^ 0x6A1) & v15) != 0 || v15 == 513152;
   v19 = *(v13 + 8 * ((((a7 ^ 0x33) + 1) ^ v18) & 1 | a7 ^ 0x33));
   *(v14 - 136) = -42899;
-  return v19();
+  return v19(a1, a2, a3, a4, a5, a6);
 }
 
 uint64_t sub_22D367420@<X0>(int a1@<W8>)
@@ -7204,7 +7141,7 @@ uint64_t sub_22D3674D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v9 - 184) = ((v5 - 1320839934) ^ 0x35) + ((v9 - 927281296 - 2 * ((v9 - 192) & 0xC8BAD030)) ^ 0x4517B2DC) * v7;
   *(v6 + 24) = v13;
   *(v6 + 32) = v12 ^ v13;
-  v14 = (*(v8 + 8 * (v5 ^ 0xA18)))(v9 - 192);
+  v14 = (*(v8 + 8 * (v5 ^ 0xA18)))(v9 - 192, a2, a3, a4);
   return (*(v8 + 8 * *(v9 - 188)))(v14);
 }
 
@@ -7242,11 +7179,11 @@ uint64_t sub_22D367924(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v18 - 128) = a15;
   *(v18 - 144) = v19 + v17 + 614;
   *(v18 - 140) = (((((v17 - 6) | 0xB2) + 387) ^ 0x53AC938E) * (v15 - 3) + 2064040668) ^ v19;
-  v20 = (*(v16 + 8 * (v17 + 2063)))(v18 - 144);
+  v20 = (*(v16 + 8 * (v17 + 2063)))(v18 - 144, a2, a3, a4, a5, a6, a7, a8);
   return (*(v16 + 8 * ((92 * (*(v18 - 136) == 1450726857)) ^ v17)))(v20);
 }
 
-void sub_22D367A84(int a1@<W8>, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, int a6, unsigned int a7)
+void sub_22D367A84(int a1@<W8>, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, unsigned int a6, unsigned int a7)
 {
   v9 = ((2 * (&a3 & 0x49FB68E0) - &a3 - 1241213155) ^ 0x6706BA62) * a1;
   a3 = v9 - 550235220;
@@ -7281,7 +7218,7 @@ uint64_t sub_22D367FA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v19 - 136) = v18 - ((v19 - 136) ^ 0x92D63FA4) * v15 + 1248;
   *(v19 - 128) = v16;
   *(v19 - 120) = &a15;
-  v20 = (*(v17 + 8 * (v18 ^ 0xAA1)))(v19 - 136);
+  v20 = (*(v17 + 8 * (v18 ^ 0xAA1)))(v19 - 136, a2, a3, a4, a5, a6, a7, a8);
   return (*(v17 + 8 * ((1388 * (*(v19 - 112) > (((v18 - 801) | 0x488) ^ 0x32CF6FF0u))) ^ v18)))(v20);
 }
 
@@ -7311,7 +7248,7 @@ uint64_t sub_22D3680E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v27 - 112) = &a22;
   *(v27 - 144) = &a22;
   *(v27 - 136) = a14;
-  (*(v23 + 8 * (v24 + 2244)))(v27 - 144);
+  (*(v23 + 8 * (v24 + 2244)))(v27 - 144, a2, a3, a4, a5, a6, a7, a8);
   *(v27 - 144) = v24 - ((2 * ((v27 - 144) & 0x13DA5AC0) - (v27 - 144) - 333077187) ^ 0xFFF9491D) * v26 + 984;
   *(v27 - 128) = v25;
   *(v27 - 120) = &a22;
@@ -7400,21 +7337,21 @@ uint64_t sub_22D36891C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return (*(v9 + 8 * ((3028 * (*(v10 + 32) == 0)) ^ (a8 - 27))))();
 }
 
-void sub_22D3689B8()
+void sub_22D3689B8(uint64_t a1)
 {
-  v0 = MEMORY[0x28223BE20]();
-  if (*(v0 + 24))
+  v1 = MEMORY[0x28223BE20](a1);
+  if (*(v1 + 24))
   {
-    v2 = *(v0 + 8) == 0;
+    v3 = *(v1 + 8) == 0;
   }
 
   else
   {
-    v2 = 1;
+    v3 = 1;
   }
 
-  v3 = !v2;
-  v1 = *(v0 + 20) + 50899313 * ((~v0 & 0xFC5179D5 | v0 & 0x3AE862A) ^ 0xE87EE44E);
+  v4 = !v3;
+  v2 = *(v1 + 20) + 50899313 * ((~v1 & 0xFC5179D5 | v1 & 0x3AE862A) ^ 0xE87EE44E);
   __asm { BRAA            X8, X17 }
 }
 
@@ -7449,7 +7386,7 @@ uint64_t sub_22D369170(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v33 - 144) = v29 - a27 - 1047704693;
   *(v31 + 24) = (v28 + 1) ^ a27;
   *(v33 - 128) = v29 - a27 - 1047704731;
-  v34 = (*(v30 + 8 * a26))(v33 - 152);
+  v34 = (*(v30 + 8 * a26))(v33 - 152, a2, a3, a4, a5, a6, a7, a8);
   return (*(v30 + 8 * *(v33 - 152)))(v34);
 }
 
@@ -7458,7 +7395,7 @@ uint64_t sub_22D369424(uint64_t a1, uint64_t a2, int a3, uint64_t a4, __int128 *
   v8 = *a5;
   *(a6 - 1) = *(a5 - 1);
   *a6 = v8;
-  return (*(v6 + 8 * (((a4 != 0) * a3) ^ v7)))();
+  return (*(v6 + 8 * (((a4 != 0) * a3) ^ v7)))(a1, a2);
 }
 
 uint64_t sub_22D36953C(double a1)
@@ -7488,7 +7425,7 @@ uint64_t sub_22D3697A4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
   return (*(a3 + 8 * ((103 * v5) ^ 0x333u)))();
 }
 
-uint64_t sub_22D369840(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, int a16, int a17, unsigned int a18, int a19, char *a20)
+uint64_t sub_22D369840(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, unsigned int a16, unsigned int a17, unsigned int a18, int a19, char *a20)
 {
   v23 = (((&a15 | 0xE2EE73D2) - (&a15 & 0xE2EE73D2)) ^ 0x33EC5EAD) * v21;
   a16 = v23 ^ 0x314BBEC7;
@@ -7496,7 +7433,7 @@ uint64_t sub_22D369840(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   a15 = a11;
   a18 = v23 - 43688278;
   a20 = &a12;
-  v24 = (*(v20 + 8 * (v22 + 1105)))(&a15);
+  v24 = (*(v20 + 8 * (v22 + 1105)))(&a15, a2, a3, a4, a5, a6, a7, a8);
   return (*(v20 + 8 * ((228 * (a19 == ((v22 - 1239) | 0x608) - 1541910101)) ^ v22)))(v24);
 }
 
@@ -7510,7 +7447,7 @@ uint64_t sub_22D36995C(unsigned int *a1)
 uint64_t sub_22D369970(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int a12, int a13)
 {
   a12 = (843532609 * (((&a12 | 0x6DFB78FA) - (&a12 & 0x6DFB78FA)) ^ 0x31B62C7F)) ^ 0xDFABAF92;
-  v15 = (*(v14 + 18752))(&a12);
+  v15 = (*(v14 + 18752))(&a12, a2, a3, a4, a5, a6, a7, a8);
   return (*(v14 + 8 * ((27 * (a13 == v13)) ^ 0x28Au)))(v15);
 }
 
@@ -7606,16 +7543,16 @@ uint64_t sub_22D36A1B8(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-uint64_t sub_22D36A1D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t sub_22D36A1D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (v5 <= 0x10 && ((1 << v5) & 0x14103) != 0)
   {
-    return (*(v7 + 8 * ((2035 * (((((v6 + 819540473) & 0x9ED607B6) - 1045) & *(v9 + v10 * v8 + 40)) == 0)) ^ (v6 - 810600047))))();
+    return (*(v7 + 8 * ((2035 * (((((v6 + 819540473) & 0x9ED607B6) - 1045) & *(v9 + v10 * v8 + 40)) == 0)) ^ (v6 - 810600047))))(a1, a2, a3, a4, a5);
   }
 
   else
   {
-    return (*(v7 + 8 * ((111 * ((((*(v9 + v10 * v8 + 40) & 8) == 0) ^ (37 * ((a5 + 33) ^ 0x9B))) & 1)) ^ (v6 - 810599619))))(4294925278);
+    return (*(v7 + 8 * ((111 * ((((*(v9 + v10 * v8 + 40) & 8) == 0) ^ (37 * ((a5 + 33) ^ 0x9B))) & 1)) ^ (v6 - 810599619))))(4294925278, a2, a3, a4);
   }
 }
 
@@ -7626,13 +7563,13 @@ uint64_t sub_22D36A2A8()
   return (*(v4 + 8 * ((1476 * ((v2 ^ v3) - 958 == v1)) ^ v2)))(0xFFFFFFFFLL);
 }
 
-uint64_t sub_22D36A3D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, int a19, unsigned int a20)
+uint64_t sub_22D36A3D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, unsigned int a19, unsigned int a20)
 {
   v28 = &a16;
   a16 = a15;
   HIDWORD(a17) = -843532609 * ((v28 & 0xD571959 | ~(v28 | 0xD571959)) ^ 0xAEE5B223) + 893672457 * v26 + 160639446;
   LODWORD(a18) = (843532609 * ((v28 & 0xD571959 | ~(v28 | 0xD571959)) ^ 0xAEE5B223)) ^ 0xC5;
-  (*(v27 + 19152))(&a16);
+  (*(v27 + 19152))(&a16, a2, a3, a4, a5, a6, a7, a8);
   a16 = a15;
   HIDWORD(a17) = -843532609 * (&a16 ^ 0x5C4D5485) + 893672457 * v25 + 160639446;
   LODWORD(a18) = (843532609 * (&a16 ^ 0x5C4D5485)) ^ 0xC5;
@@ -7662,7 +7599,7 @@ uint64_t sub_22D36A69C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v15 - 136) = v13 - ((2 * (((v15 - 136) ^ 0xCAE5535C) & 0x1389BD54) - ((v15 - 136) ^ 0xCAE5535C) + 1819689641) ^ 0x34452E51) * v14 + 1183;
   *(v15 - 128) = &a12;
   *(v15 - 120) = a11;
-  v16 = (*(v12 + 8 * (v13 + 1568)))(v15 - 136);
+  v16 = (*(v12 + 8 * (v13 + 1568)))(v15 - 136, a2, a3, a4, a5, a6, a7, a8);
   v17 = *(v15 - 112) == 3 * (v13 ^ 0x3AA) + 852453664;
   return (*(v12 + 8 * ((4 * v17) | (8 * v17) | v13)))(v16);
 }
@@ -7673,7 +7610,7 @@ uint64_t sub_22D36A7BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v17 - 136) = v18 - 210068311 * ((v17 - 136) ^ 0x92D63FA4) + 1619;
   *(v17 - 128) = v15;
   *(v17 - 120) = a14;
-  v19 = (*(v16 + 8 * (v18 + 2004)))(v17 - 136);
+  v19 = (*(v16 + 8 * (v18 + 2004)))(v17 - 136, a2, a3, a4, a5, a6, a7, a8);
   return (*(v16 + 8 * ((111 * ((((((v18 + 115) | 0x100) - 446) ^ ((*(v17 - 112) - 852454266) < 0xE191CF5E)) & 1) == 0)) ^ v18)))(v19);
 }
 
@@ -7692,7 +7629,7 @@ uint64_t sub_22D36AAF0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   a17 = v22 + 1219383131;
   LODWORD(a18) = v22 ^ 0x28B;
   HIDWORD(a18) = 1953011063 - v22;
-  (*(v19 + 19272))(&a16);
+  (*(v19 + 19272))(&a16, a2, a3, a4, a5, a6, a7, a8);
   a19 = 2066391179 * (((&a16 | 0x7B6F19D8) - (&a16 & 0x7B6F19D8)) ^ 0xD4489BC0) + 1020;
   a18 = &a12;
   v23 = (*(v19 + 19160))(&a16);
@@ -7726,7 +7663,7 @@ uint64_t sub_22D36ADAC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v28 + 32) = a24;
   *(v30 - 152) = 1 - v25;
   *(v30 - 148) = v32 - 48;
-  v33 = (*(v27 + 8 * (v24 + 2031)))(v30 - 152);
+  v33 = (*(v27 + 8 * (v24 + 2031)))(v30 - 152, a2, a3, a4, a5, a6, a7, a8);
   return (*(v27 + 8 * *(v30 - 116)))(v33);
 }
 
@@ -7735,7 +7672,7 @@ uint64_t sub_22D36B364(uint64_t a1, uint64_t a2)
   v7 = (a2 + v4);
   *v7 = v6;
   v7[1] = v6;
-  return (*(v5 + 8 * ((25 * (((v2 + 245) ^ 0x430) == (v3 & 0x30))) ^ v2)))();
+  return (*(v5 + 8 * ((25 * (((v2 + 245) ^ 0x430) == (v3 & 0x30))) ^ v2)))(a1);
 }
 
 uint64_t sub_22D36B3AC()
@@ -7763,7 +7700,7 @@ uint64_t sub_22D36B5AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   a16 = 2066391179 * ((2 * (&a14 & 0x4821548) - &a14 + 2071849651) ^ 0xD45A68AB) + 1020;
   a15 = &a10;
-  v18 = (*(v17 + 19160))(&a14);
+  v18 = (*(v17 + 19160))(&a14, a2, a3, a4, a5, a6, a7, a8);
   return (*(v17 + 8 * ((127 * (((a14 == v16) ^ 0xCF) & 1)) ^ 0x13Eu)))(v18);
 }
 
@@ -7831,7 +7768,7 @@ uint64_t sub_22D36B9F8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return (*(v12 + 8 * ((755 * ((v16 & 0x3Fu) > ((v11 - 1829513305) & 0x6D0C2CFBu) - 1156)) ^ v11)))(v15);
 }
 
-uint64_t sub_22D36BB94(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, char a11, __int16 a12, char a13, char *a14, int a15, unsigned int a16, char *a17, uint64_t a18)
+uint64_t sub_22D36BB94(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, char a11, __int16 a12, char a13, char *a14, unsigned int a15, unsigned int a16, char *a17, uint64_t a18)
 {
   v22 = 742307843 * ((&a14 & 0xB7D5C5FC | ~(&a14 | 0xB7D5C5FC)) ^ 0x5608B756);
   a15 = v22 + v21 - 393;
@@ -7839,7 +7776,7 @@ uint64_t sub_22D36BB94(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   a17 = &a11;
   a18 = v18;
   a14 = &a13;
-  v23 = (*(v19 + 8 * (v21 + 1558)))(&a14);
+  v23 = (*(v19 + 8 * (v21 + 1558)))(&a14, a2, a3, a4, a5, a6, a7, a8);
   return (*(v19 + 8 * ((1046 * (*(v18 + 24) == (((v21 - 703) | 0x130) ^ (v20 + 400)))) ^ v21)))(v23);
 }
 
@@ -7879,7 +7816,7 @@ uint64_t sub_22D36C474(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   a18 = &a15;
   a19 = 2066391179 * (((&a17 | 0xDCB6B808) - &a17 + (&a17 & 0x234947F0)) ^ 0x73913A10) + 1020;
-  v21 = (*(v20 + 19160))(&a17);
+  v21 = (*(v20 + 19160))(&a17, a2, a3, a4, a5, a6, a7, a8);
   return (*(v20 + 8 * (((2 * (a17 == -1541908459)) | (16 * (a17 == -1541908459))) ^ v19)))(v21);
 }
 
@@ -7908,7 +7845,7 @@ void sub_22D36C808(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v17 - 112) = &a15;
   *(v17 - 128) = a11;
   *(v17 - 120) = v16 + 1388665877 * ((((v17 - 128) | 0xEE1B0107) + (~(v17 - 128) | 0x11E4FEF8)) ^ 0x63B663EA) + 278;
-  (*(v15 + 8 * (v16 ^ 0x90E)))(v17 - 128);
+  (*(v15 + 8 * (v16 ^ 0x90E)))(v17 - 128, a2, a3, a4, a5, a6, a7, a8);
   JUMPOUT(0x22D36C870);
 }
 
@@ -7918,24 +7855,24 @@ uint64_t sub_22D36C97C(uint64_t a1, double a2, double a3, double a4, double a5, 
   v17 = vaddq_s8(vsubq_s8(v16[1], vandq_s8(vaddq_s8(v16[1], v16[1]), a6)), a7);
   *&STACK[0x240] = vaddq_s8(vsubq_s8(*v16, vandq_s8(vaddq_s8(*v16, *v16), a6)), a7);
   *&STACK[0x250] = v17;
-  return (*(v15 + 8 * (((((v12 - 573) ^ v13) == 64) * v14) ^ v12)))(a1, v11 + 64);
+  return (*(v15 + 8 * (((((v12 - 573) ^ v13) == 64) * v14) ^ v12)))(a1, v11 + 64, a9, a10);
 }
 
 uint64_t sub_22D36CA64(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, int a18, char *a19, unsigned int a20)
 {
   a19 = &a15;
   a20 = 2066391179 * ((((2 * &a18) | 0x9B1C5796) - &a18 - 1301162955) ^ 0xE2A9A9D3) + 1020;
-  v22 = (*(v21 + 19160))(&a18);
+  v22 = (*(v21 + 19160))(&a18, a2, a3, a4, a5, a6, a7, a8);
   return (*(v21 + 8 * ((494 * (a18 == ((v20 + 1051) ^ 0x425))) ^ 0x6B8u)))(v22);
 }
 
-uint64_t sub_22D36CB50()
+uint64_t sub_22D36CB50(uint64_t a1, uint64_t a2, char a3, int a4)
 {
-  v0.n128_u64[0] = 0x6060606060606060;
-  v0.n128_u64[1] = 0x6060606060606060;
-  v1.n128_u64[0] = 0xB0B0B0B0B0B0B0B0;
-  v1.n128_u64[1] = 0xB0B0B0B0B0B0B0B0;
-  return sub_22D36CB78(v0, v1);
+  v4.i64[0] = 0x6060606060606060;
+  v4.i64[1] = 0x6060606060606060;
+  v5.i64[0] = 0xB0B0B0B0B0B0B0B0;
+  v5.i64[1] = 0xB0B0B0B0B0B0B0B0;
+  return sub_22D36CB78(a4, a3 & 0x60, v4, v5);
 }
 
 uint64_t sub_22D36CB78@<X0>(int a1@<W3>, uint64_t a2@<X8>, int8x16_t a3@<Q0>, int8x16_t a4@<Q1>)
@@ -8019,7 +7956,7 @@ uint64_t sub_22D36CECC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v18 - 128) = a15;
   *(v18 - 144) = v19 + v17 + 442;
   *(v18 - 140) = (((3 * (v17 ^ 0x1FD)) ^ (v17 + 1403817644)) * v15 - 743595658) ^ v19;
-  v20 = (*(v16 + 8 * (v17 + 1891)))(v18 - 144);
+  v20 = (*(v16 + 8 * (v17 + 1891)))(v18 - 144, a2, a3, a4, a5, a6, a7, a8);
   return (*(v16 + 8 * ((7 * (*(v18 - 136) == 1450726857)) ^ v17)))(v20);
 }
 
@@ -8033,7 +7970,7 @@ uint64_t sub_22D36CFB8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 uint64_t sub_22D36CFEC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, unsigned int a15, int a16)
 {
   a15 = (843532609 * ((&a15 & 0x7F94A759 | ~(&a15 | 0x7F94A759)) ^ 0xDC260C23)) ^ 0xDFABAF92;
-  v19 = (*(v16 + 18752))(&a15);
+  v19 = (*(v16 + 18752))(&a15, a2, a3, a4, a5, a6, a7, a8);
   return (*(v16 + 8 * (((a16 == -1541908459) * (v18 - 2124582293)) ^ v17)))(v19);
 }
 
@@ -8044,13 +7981,13 @@ uint64_t sub_22D36D07C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>
   return (*(v9 + 8 * ((1013 * (v10 != 0)) ^ a8)))(a1, a2, a3, a4, a5, a6, a7);
 }
 
-uint64_t sub_22D36D0C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, int a19, unsigned int a20)
+uint64_t sub_22D36D0C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, unsigned int a19, unsigned int a20)
 {
   v26 = (((&a16 | 0x3A20BF6B) - &a16 + (&a16 & 0xC5DF4090)) ^ 0x666DEBEE) * v24;
   a16 = a11;
   HIDWORD(a17) = 893672457 * v22 - v26 + 160639446;
   LODWORD(a18) = (69 * v25 - 286) ^ v26;
-  (*(v23 + 8 * (69 * v25 + 1911)))(&a16);
+  (*(v23 + 8 * (69 * v25 + 1911)))(&a16, a2, a3, a4, a5, a6, a7, a8);
   v27 = 1037613739 * ((2 * (&a16 & 0xC411F80) - &a16 - 205594497) ^ 0x22BCCD00);
   a17 = a11;
   a18 = v20;
@@ -8071,7 +8008,7 @@ uint64_t sub_22D36D228@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return (*(v5 + 8 * ((436 * ((v3 & 0xFFFFFFE0) != 32)) ^ (v4 + v2))))();
 }
 
-uint64_t sub_22D36D6D4@<X0>(int a1@<W8>, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t *a5, int a6, unsigned int a7)
+uint64_t sub_22D36D6D4@<X0>(int a1@<W8>, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t *a5, unsigned int a6, unsigned int a7)
 {
   v11 = v7 | 0x280;
   v12 = (((&a3 | 0x4767EA4C) - (&a3 & 0x4767EA4C)) ^ 0x9665C733) * a1;
@@ -8102,7 +8039,7 @@ uint64_t sub_22D36DD50@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
   return (*(v4 + 8 * (((2 * ((v2 & 0xFFFFFFE0) != 32)) | (4 * ((v2 & 0xFFFFFFE0) != 32))) ^ (v3 + 9))))();
 }
 
-uint64_t sub_22D36DDF4(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, int a13, int a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, unsigned int a25, unsigned int a26, uint64_t a27, int a28)
+uint64_t sub_22D36DDF4(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, int a13, int a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, unsigned int a25, unsigned int a26, uint64_t a27, unsigned int a28)
 {
   v31 = 2066391179 * ((2 * (&a25 & 0xFF9C2B8) - &a25 + 1879457091) ^ 0xDF21BF5B);
   a28 = v28 - v31 + 217;
@@ -8110,19 +8047,8 @@ uint64_t sub_22D36DDF4(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a
   a25 = v31 + ((a3 - a14 + 488397856) ^ 0x2FF67DFF) + ((2 * (a3 - a14 + 488397856)) & 0x5FECFBFE) - 715153441;
   a26 = ((((a3 & 0xFFFFFFF0) + 16) ^ 0x7EAB5CE6) - 1678400514 + ((((a3 & 0xFFFFFFF0) + 16) << ((v28 + 96) ^ 6)) & 0xFD56B9C0)) ^ v31;
   v34 = v28;
-  v32 = (*(v30 + 8 * (v28 + 1976)))(&a25);
+  v32 = (*(v30 + 8 * (v28 + 1976)))(&a25, a2);
   return (*(v30 + 8 * ((1014 * (*(v29 + 24) == -1541908459)) ^ v34)))(v32);
-}
-
-uint64_t sub_22D36DF14(__n128 a1, __n128 a2)
-{
-  a1.n128_u32[0] = 6291552;
-  a1.n128_u16[2] = 96;
-  a1.n128_u16[3] = 96;
-  a2.n128_u32[0] = 11534512;
-  a2.n128_u16[2] = 176;
-  a2.n128_u16[3] = 176;
-  return sub_22D36DF34(a1, a2);
 }
 
 uint64_t sub_22D36DF34@<X0>(uint64_t a1@<X8>, int8x8_t a2@<D0>, int16x4_t a3@<D1>, uint8x8_t a4@<D2>)
@@ -8150,7 +8076,7 @@ uint64_t sub_22D36E010(uint64_t a1, char a2)
   *(v5 + v9 + 1) = (v10 ^ 0xCA) - ((2 * v10) & 0x60) - 80;
   *(v5 + v9 + 2) = (BYTE2(v8) ^ 0x47) - ((v8 >> 15) & 0x60) - 80;
   *(v5 + v9 + 3) = (HIBYTE(v8) ^ 0x88) - ((v8 >> 23) & 0x60) - 80;
-  return (*(v6 + 8 * ((138 * (v2 + 4 < *(v7 - 136))) ^ v4)))();
+  return (*(v6 + 8 * ((138 * (v2 + 4 < *(v7 - 136))) ^ v4)))(a1);
 }
 
 uint64_t sub_22D36E184(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13)
@@ -8161,7 +8087,7 @@ uint64_t sub_22D36E184(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v18 - 112) = &a13;
   *(v18 - 104) = &a11;
   *(v18 - 120) = &a11;
-  v19 = (*(v16 + 8 * (v13 + 2236)))(v18 - 144);
+  v19 = (*(v16 + 8 * (v13 + 2236)))(v18 - 144, a2, a3, a4, a5, a6, a7, a8);
   return (*(v16 + 8 * ((((2 * v13) ^ 0x36) * ((v17 - 759374590) > 0x7FFFFFFE)) ^ v13)))(v19);
 }
 
@@ -8262,7 +8188,7 @@ uint64_t sub_22D36E53C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a
   v14 = v13 && v7 - v11 - v9 + v12 + 6 >= ((a5 + 451) | 0x69u) - 2141;
   v15 = v8 - v11 - v9 + v12 + 3;
   v17 = v14 && v15 > 0xF;
-  return (*(v10 + 8 * ((214 * v17) ^ a5)))();
+  return (*(v10 + 8 * ((214 * v17) ^ a5)))(a1);
 }
 
 uint64_t sub_22D36E650(double a1)
@@ -8308,7 +8234,7 @@ uint64_t sub_22D36EE68(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     v27 = v26;
   }
 
-  return (*(v22 + 8 * (((2 * !v27) | (8 * !v27)) ^ (v24 + 665))))(a1, a2, a3, a4, a5, a6, 2753058837);
+  return (*(v22 + 8 * (((2 * !v27) | (8 * !v27)) ^ (v24 + 665))))(a1, a2, a3, a4, a5, a6, 2753058837, a8);
 }
 
 void sub_22D36F194(uint64_t a1)
@@ -8340,7 +8266,7 @@ uint64_t sub_22D36FB84(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v18 - 128) = &a15;
   *(v18 - 120) = a14;
   *(v18 - 136) = v17 - ((~((v18 - 136) | 0xC02C5234) + ((v18 - 136) & 0xC02C5234)) ^ 0xAD05926F) * v15 + 889;
-  v19 = (*(v16 + 8 * (v17 ^ 0xD0A)))(v18 - 136);
+  v19 = (*(v16 + 8 * (v17 ^ 0xD0A)))(v18 - 136, a2, a3, a4, a5, a6, a7, a8);
   return (*(v16 + 8 * (((((v17 + 54) ^ (*(v18 - 112) == 852454267)) & 1) * (v17 - 1156)) ^ v17)))(v19);
 }
 
@@ -8359,7 +8285,7 @@ uint64_t sub_22D36FCE0@<X0>(int a1@<W1>, uint64_t a2@<X8>, uint64_t a3, uint64_t
   return (*(v14 + 8 * (((v10 + 1 != a2) * v17) ^ (v12 - 29))))();
 }
 
-uint64_t sub_22D36FD50@<X0>(int a1@<W8>, uint64_t a2, uint64_t a3, int a4, int a5, uint64_t a6, uint64_t a7, int a8, unsigned int a9, int a10, unsigned int a11, uint64_t a12, uint64_t a13)
+uint64_t sub_22D36FD50@<X0>(int a1@<W8>, uint64_t a2, uint64_t a3, int a4, int a5, uint64_t a6, uint64_t a7, unsigned int a8, unsigned int a9, int a10, unsigned int a11, uint64_t a12, uint64_t a13)
 {
   v18 = *(v13 + 56);
   v19 = *(v13 + 32);
@@ -8377,7 +8303,7 @@ uint64_t sub_22D36FD50@<X0>(int a1@<W8>, uint64_t a2, uint64_t a3, int a4, int a
 
 void sub_22D36FF34(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40)
 {
-  (*(v42 + 8 * (v43 ^ 0xAD1)))(a40);
+  (*(v42 + 8 * (v43 ^ 0xAD1)))(a40, a2, a3, a4, a5, a6, a7, a8);
   STACK[0x220] = v41 - 1824;
   LODWORD(STACK[0x334]) = v40;
   JUMPOUT(0x22D394584);
@@ -8475,7 +8401,7 @@ uint64_t sub_22D370C1C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v18 - 136) = v15 - 210068311 * ((2095630211 - ((v18 - 136) | 0x7CE8C783) + ((v18 - 136) | 0x8317387C)) ^ 0x11C107D8) + 774;
   *(v18 - 128) = &a15;
   *(v18 - 120) = a14;
-  v19 = (*(v16 + 8 * (v15 ^ 0xD7F)))(v18 - 136);
+  v19 = (*(v16 + 8 * (v15 ^ 0xD7F)))(v18 - 136, a2, a3, a4, a5, a6, a7, a8);
   return (*(v16 + 8 * (((*(v18 - 112) == v17 + 2) * (v15 ^ 0x508)) ^ v15)))(v19);
 }
 
@@ -8487,7 +8413,7 @@ uint64_t sub_22D370CF8(uint64_t a1, int a2, int a3)
     v6 = a2 + v5 + ((2 * (a3 ^ 0x536) - 1040) | 0x721u) - 1911804025 > v3 + 1207599766;
   }
 
-  return (*(v4 + 8 * ((156 * v6) ^ a3)))();
+  return (*(v4 + 8 * ((156 * v6) ^ a3)))(a1);
 }
 
 uint64_t sub_22D370D80(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, int a14, char a15, __int16 a16, char a17, __int16 a18, char a19, uint64_t a20, uint64_t a21, char *a22, char *a23)
@@ -8495,7 +8421,7 @@ uint64_t sub_22D370D80(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   LODWORD(a20) = (v23 + 1867) ^ ((((&a20 ^ 0x5E228D6E | 0x7BAAEC2D) - (&a20 ^ 0x5E228D6E) + ((&a20 ^ 0x5E228D6E) & 0x845513D2)) ^ 0x31A7FCD8) * v24);
   a23 = &a19;
   a21 = a13;
-  (*(v25 + 8 * (v23 ^ 0x81B)))(&a20);
+  (*(v25 + 8 * (v23 ^ 0x81B)))(&a20, a2, a3, a4, a5, a6, a7, a8);
   HIDWORD(a20) = v23 + 379 - 143681137 * (((&a20 | 0xACDF6AD6) - &a20 + (&a20 & 0x53209528)) ^ 0xCD87E106) + 80;
   a21 = a13;
   a22 = &a15;
@@ -8546,7 +8472,7 @@ uint64_t sub_22D371034(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     v10 = 0;
   }
 
-  return (*(v9 + 8 * ((v10 * (v7 - 473)) ^ v7)))();
+  return (*(v9 + 8 * ((v10 * (v7 - 473)) ^ v7)))(a1, a2, a3, a4, a5, a6);
 }
 
 uint64_t sub_22D3710B4(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, _DWORD *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, unsigned int a16, int a17)
@@ -8568,7 +8494,7 @@ uint64_t sub_22D371194(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5, ui
     v64 = 1;
   }
 
-  return (*(v60 + 8 * ((39 * v64) | v57)))();
+  return (*(v60 + 8 * ((39 * v64) | v57)))(a1, a2);
 }
 
 uint64_t sub_22D371258(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, char a13, __int16 a14, char a15, __int16 a16, char a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, char *a22, char *a23)
@@ -8576,7 +8502,7 @@ uint64_t sub_22D371258(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   LODWORD(a20) = (v23 + 2080) ^ ((((&a20 | 0x8F2F36B0) - &a20 + (&a20 & 0x70D0C948)) ^ 0x9B00AB2B) * v25);
   a21 = a18;
   a23 = &a15;
-  (*(v26 + 8 * (v23 ^ 0x9F0)))(&a20);
+  (*(v26 + 8 * (v23 ^ 0x9F0)))(&a20, a2, a3, a4, a5, a6, a7, a8);
   a21 = a18;
   a22 = &a17;
   a23 = &a19;
@@ -8618,12 +8544,12 @@ uint64_t sub_22D3715D0@<X0>(void **a1@<X0>, int a2@<W1>, uint64_t a3@<X8>)
   return (*(v4 + 8 * ((1114 * (*(a3 + 24) == v3)) ^ v7)))();
 }
 
-uint64_t sub_22D371734(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, int a16, char a17)
+uint64_t sub_22D371734(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, unsigned int a16, char a17)
 {
   v20 = 50899313 * ((~&a16 & 0x5FCD07F3 | &a16 & 0xA032F80C) ^ 0x4BE29A68);
   a17 = v20 + 6;
   a16 = v18 - v20 + 317;
-  v21 = (*(v17 + 8 * (v18 ^ 0xB1B)))(&a16);
+  v21 = (*(v17 + 8 * (v18 ^ 0xB1B)))(&a16, a2, a3, a4, a5, a6, a7, a8);
   return (*(v17 + 8 * (((((**(v19 + 8 * (v18 - 695)) == 0) ^ (v18 + 2)) & 1) * ((v18 - 364) ^ 0x153)) ^ (v18 - 364))))(v21);
 }
 
@@ -8648,7 +8574,7 @@ uint64_t sub_22D3718F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v20 - 128) = v18;
   *(v20 - 120) = a14;
   *(v20 - 136) = v19 - ((~(v15 | 0x89C26498) + (v15 & 0x89C26498)) ^ 0xE4EBA4C3) * v16 + 933;
-  v21 = (*(v17 + 8 * (v19 ^ 0xDDE)))(v20 - 136);
+  v21 = (*(v17 + 8 * (v19 ^ 0xDDE)))(v20 - 136, a2, a3, a4, a5, a6, a7, a8);
   return (*(v17 + 8 * (((*(v20 - 112) != v14 + (v19 ^ 0x31D) - 1854) * (v19 ^ 0x49F)) ^ v19)))(v21);
 }
 
@@ -8788,12 +8714,12 @@ uint64_t sub_22D372BC0()
   return (*(v1 + 8 * ((493 * !v8) ^ v3)))();
 }
 
-uint64_t sub_22D372E0C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, int a57, uint64_t a58, int a59)
+uint64_t sub_22D372E0C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, int a57, uint64_t a58, int a59)
 {
   v64 = *(a52 + 1428);
   if (v64 <= 0x20 && ((1 << v64) & 0x100110000) != 0)
   {
-    return (*(v62 + 8 * ((175 * (*(a53 + 476) == (((a59 - 383) | 0x41) ^ 0x24A))) ^ (a59 - 318))))();
+    return (*(v62 + 8 * ((175 * (*(a53 + 476) == (((a59 - 383) | 0x41) ^ 0x24A))) ^ (a59 - 318))))(a1, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v66 = (v61 & 0xDC4AA7B3 ^ (v61 ^ 0x66B04EA8) & (v59 ^ 0x7F6308B4) ^ 0xE40120D9) & 0xA426 ^ 0x10248;
@@ -8810,7 +8736,7 @@ uint64_t sub_22D372E0C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a
 
   if (a57 == a7)
   {
-    return (*(v62 + 8 * (((v68 != a5 - 1541909249) * a6) ^ (a59 + 1372))))();
+    return (*(v62 + 8 * (((v68 != a5 - 1541909249) * a6) ^ (a59 + 1372))))(a1, a2, a3, a4);
   }
 
   if (a57 != a8)
@@ -8823,27 +8749,20 @@ uint64_t sub_22D372E0C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a
   return (*(v62 + 8 * (((v63[56] == 0) * ((v60 + 196) ^ (5 * (v60 ^ 0x270)) ^ 0x1C)) ^ v60)))();
 }
 
-uint64_t sub_22D3730EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50)
-{
-  v55 = *(v52 + 8 * v50);
-  *v53 = 64;
-  return (*(v52 + 8 * ((((v51 + 119) | 0x249) - 1497) ^ (v51 + 384))))(a1, a2, a3, &STACK[0x4A0], a5, 16, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32, a33, a34, a35, a36, a37, a38, v55, a40, 0, &STACK[0x268] % 0x25, a43, &STACK[0x4A0], a45, a46, a47, a48, a49, a50);
-}
-
 uint64_t sub_22D373118(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, int a32, int a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62, uint64_t a63)
 {
-  v75 = (LODWORD(STACK[0x2CC]) ^ 0xBE39F55C) + 2145861560 + ((LODWORD(STACK[0x2CC]) << ((v71 + 22) & 0xFD ^ 0x88)) & 0x7C73EAB8);
-  v76 = 1564307779 * ((((v74 - 192) | 0xCEB56BE4) - (v74 - 192) + ((v74 - 192) & 0x314A9418)) ^ 0x59B8A7F7);
-  v77 = (v74 - 192);
-  v77[4] = a34;
-  *v77 = &STACK[0x2C4];
-  v77[1] = &a62;
-  *(v74 - 164) = v75 ^ v76;
-  *(v74 - 176) = v76 + v71 + 306;
-  *(v74 - 172) = v76 + 833282747 * a33 - 901143449;
-  v78 = (*(v73 + 8 * (v71 + 2291)))(v74 - 192);
-  a71 = *(v74 - 168);
-  return (*(v73 + 8 * (((a71 == v72) * (((v71 + 2076) | 2) - 621)) ^ v71)))(v78);
+  v69 = (LODWORD(STACK[0x2CC]) ^ 0xBE39F55C) + 2145861560 + ((LODWORD(STACK[0x2CC]) << ((v65 + 22) & 0xFD ^ 0x88)) & 0x7C73EAB8);
+  v70 = 1564307779 * ((((v68 - 192) | 0xCEB56BE4) - (v68 - 192) + ((v68 - 192) & 0x314A9418)) ^ 0x59B8A7F7);
+  v71 = (v68 - 192);
+  v71[4] = a34;
+  *v71 = &STACK[0x2C4];
+  v71[1] = &a62;
+  *(v68 - 164) = v69 ^ v70;
+  *(v68 - 176) = v70 + v65 + 306;
+  *(v68 - 172) = v70 + 833282747 * a33 - 901143449;
+  v72 = (*(v67 + 8 * (v65 + 2291)))(v68 - 192, a2, a3, a4, a5, a6, a7, a8);
+  a65 = *(v68 - 168);
+  return (*(v67 + 8 * (((a65 == v66) * (((v65 + 2076) | 2) - 621)) ^ v65)))(v72);
 }
 
 void sub_22D373234(unsigned int *a1, uint64_t a2, int a3)
@@ -8863,7 +8782,7 @@ void sub_22D373234(unsigned int *a1, uint64_t a2, int a3)
 uint64_t sub_22D3732C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, _DWORD *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39)
 {
   v44 = 4 * (v39 ^ 0x321);
-  v45 = (*(v41 + 8 * (v39 ^ 0xAFE)))(&a39, 0);
+  v45 = (*(v41 + 8 * (v39 ^ 0xAFE)))(&a39, 0, a3, a4, a5, a6, a7, a8);
   (*(v41 + 8 * (v39 + 1538)))(v45);
   *a29 = (*(v41 + 8 * (v39 + 1538)))();
   v40[1] = *a29 + ((1664525 * (*v40 ^ (*v40 >> 30))) ^ v40[1]);
@@ -8942,13 +8861,13 @@ uint64_t sub_22D373678(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v17 - 128) = a13;
   *(v17 - 120) = a14;
   *(v17 - 136) = v16 - 210068311 * ((v14 - 1999622540 - 2 * (v14 & 0x88D02E74)) ^ 0x1A0611D0) + 194;
-  v18 = (*(v15 + 8 * (v16 + 579)))(v17 - 136);
+  v18 = (*(v15 + 8 * (v16 + 579)))(v17 - 136, a2, a3, a4, a5, a6, a7, a8);
   return (*(v15 + 8 * ((29 * (*(v17 - 112) <= ((v16 - 956) | 0x61u) + 852453268)) ^ v16)))(v18);
 }
 
 uint64_t sub_22D373684(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, unsigned int *a34)
 {
-  (*(v37 + 8 * (v34 + 1231)))(*a34, v36, 2048);
+  (*(v37 + 8 * (v34 + 1231)))(*a34, v36, 2048, a4, a5, a6, a7, a8);
   v38 = *(v37 + 8 * ((((*(v37 + 8 * (v34 + 1383)))(*a34, &STACK[0x388], (LODWORD(STACK[0x330]) + v35), 1) == 0) * (((v34 - 135) ^ 0xFFFFFC91) + v34 - 123)) | v34));
   return v38();
 }
@@ -8989,7 +8908,7 @@ void sub_22D373C78(uint64_t a1)
   __asm { BRAA            X12, X17 }
 }
 
-uint64_t sub_22D3741A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unsigned int a10, uint64_t a11, uint64_t *a12, int a13, unsigned int a14)
+uint64_t sub_22D3741A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unsigned int a10, uint64_t a11, uint64_t *a12, unsigned int a13, unsigned int a14)
 {
   v17 = v14 + 5;
   v18 = (v14 - 128) | 0x80;
@@ -9000,20 +8919,20 @@ uint64_t sub_22D3741A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   a14 = 1114312305 - v20;
   a11 = v15;
   a12 = &a9;
-  v21 = (*(v16 + 8 * (v17 + 2265)))(&a10);
+  v21 = (*(v16 + 8 * (v17 + 2265)))(&a10, a2, a3, a4, a5, a6, a7, a8);
   return (*(v16 + 8 * ((785 * (*(v15 + 24) == (v18 ^ 0xA41858D0))) | v17)))(v21);
 }
 
 uint64_t sub_22D3743FC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, int a17, unsigned int a18, uint64_t a19, uint64_t a20, uint64_t a21, int a22, int a23, int a24)
 {
-  v26 = (a22 ^ a6) + a23;
-  v27 = a18 < 0x4EE2BD2;
-  if (v27 == v26 > (((a17 ^ 0x672) + 418) ^ 0xFB11D58A))
+  v25 = (a22 ^ a6) + a23;
+  v26 = a18 < 0x4EE2BD2;
+  if (v26 == v25 > (((a17 ^ 0x672) + 418) ^ 0xFB11D58A))
   {
-    v27 = v26 + 82717650 < a18;
+    v26 = v25 + 82717650 < a18;
   }
 
-  return (*(v25 + 8 * ((!v27 * ((13 * (a17 ^ 0x672)) ^ 0xBD)) ^ a17)))(a1, a2, ((a6 + a17 - 1655) ^ v24) + a24, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14);
+  return (*(v24 + 8 * ((!v26 * ((13 * (a17 ^ 0x672)) ^ 0xBD)) ^ a17)))(a1, a2);
 }
 
 uint64_t sub_22D3744B4@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>, uint64_t a3)
@@ -9054,7 +8973,7 @@ uint64_t sub_22D374710()
   return (*(v0 + 8 * (((HIDWORD(v8) == 0) * v4) ^ v5)))();
 }
 
-void sub_22D374810(int a1@<W8>, uint64_t a2, unsigned int a3, int a4)
+void sub_22D374810(int a1@<W8>, uint64_t a2, unsigned int a3, unsigned int a4)
 {
   v8 = (a1 - 112625921) ^ v6;
   v9 = (2 * (v6 & (v7 + 1) ^ 0x2A40D4D4)) & 0x22004454 ^ v6 & (v7 + 1) ^ 0x2A40D4D4 ^ v8 & ((2 * (v6 & (v7 + 1) ^ 0x2A40D4D4)) ^ 0x5481A9A8);
@@ -9087,13 +9006,13 @@ uint64_t sub_22D374A1C@<X0>(int a1@<W2>, unint64_t a2@<X8>)
 
 uint64_t sub_22D374A90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  v75 = v74 - 192;
+  v69 = v68 - 192;
   STACK[0x17E0] = &STACK[0x2F4];
-  *(v74 - 168) = (v71 - 889) ^ (1785193651 * ((((2 * (v74 - 192)) | 0x25BDA108) - (v74 - 192) + 1830891388) ^ 0x81023CA4));
-  *(v75 + 28) = (-77 * ((((2 * (v74 + 64)) | 8) - (v74 + 64) + 124) ^ 0xA4)) ^ 0x25;
-  *(v75 + 16) = &a71;
-  v76 = (*(v73 + 8 * (v71 + 868)))(v74 - 192);
-  return (*(v73 + 8 * (((*(v74 - 184) == ((v71 - 975) ^ (v72 + 605))) * (181 * (v71 ^ 0x633) - 819)) ^ v71)))(v76);
+  *(v68 - 168) = (v65 - 889) ^ (1785193651 * ((((2 * (v68 - 192)) | 0x25BDA108) - (v68 - 192) + 1830891388) ^ 0x81023CA4));
+  *(v69 + 28) = (-77 * ((((2 * (v68 + 64)) | 8) - (v68 + 64) + 124) ^ 0xA4)) ^ 0x25;
+  *(v69 + 16) = &a65;
+  v70 = (*(v67 + 8 * (v65 + 868)))(v68 - 192, a2, a3, a4, a5, a6, a7, a8);
+  return (*(v67 + 8 * (((*(v68 - 184) == ((v65 - 975) ^ (v66 + 605))) * (181 * (v65 ^ 0x633) - 819)) ^ v65)))(v70);
 }
 
 uint64_t sub_22D374B58(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, int a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, int a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
@@ -9103,13 +9022,13 @@ uint64_t sub_22D374B58(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a
   *(v38 - 176) = a1;
   *(v38 - 184) = a3 - v40 + 695;
   *(v38 - 180) = a16 - v40;
-  (*(v37 + 8 * (a3 ^ 0x965)))(v38 - 184);
+  (*(v37 + 8 * (a3 ^ 0x965)))(v38 - 184, a2);
   v41 = a37 & 0x3F;
   *(&a28 + v41) = 48;
   return (*(v37 + 8 * ((1622 * (v41 > (v39 ^ 0x3Au))) ^ a3)))(&a28, v42, v43, v44, v45, v46, v47, 3931519142, a9, a10, a11, a12, a13, a14);
 }
 
-uint64_t sub_22D374C38@<X0>(int a1@<W8>, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t *a5, int a6, int a7)
+uint64_t sub_22D374C38@<X0>(int a1@<W8>, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t *a5, unsigned int a6, unsigned int a7)
 {
   v10 = a1 | 0x100;
   v11 = 1037613739 * (((&a3 | 0xD01D0F19) + (~&a3 | 0x2FE2F0E6)) ^ 0x11F2267);
@@ -9122,14 +9041,14 @@ uint64_t sub_22D374C38@<X0>(int a1@<W8>, uint64_t a2, unsigned int a3, uint64_t 
   return (*(v8 + 8 * ((7 * (*(v7 + 24) != -1541908459)) ^ v10)))(v12);
 }
 
-uint64_t sub_22D374D14(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+uint64_t sub_22D374D14(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
 {
-  v16 = 1037613739 * ((2 * ((v15 - 136) & 0x5AFB19C8) - (v15 - 136) + 621078070) ^ 0xF406CB49);
-  *(v15 - 128) = &a12;
-  *(v15 - 136) = ((v12 ^ 0x2DF65CF6) + ((v14 - 264) ^ 0xFEFFFD8B) + ((2 * v12) & 0x5BECB9EC)) ^ v16;
-  *(v15 - 132) = (v14 + 305) ^ v16;
-  v17 = (*(v13 + 8 * (v14 ^ 0xAF0)))(v15 - 136);
-  return sub_22D374DB4(v17);
+  v18 = 1037613739 * ((2 * ((v17 - 136) & 0x5AFB19C8) - (v17 - 136) + 621078070) ^ 0xF406CB49);
+  *(v17 - 128) = &a12;
+  *(v17 - 136) = ((v14 ^ 0x2DF65CF6) + ((v16 - 264) ^ 0xFEFFFD8B) + ((2 * v14) & 0x5BECB9EC)) ^ v18;
+  *(v17 - 132) = (v16 + 305) ^ v18;
+  v19 = (*(v15 + 8 * (v16 ^ 0xAF0)))(v17 - 136, a2, a3, a4, a5, a6, a7, a8);
+  return sub_22D374DB4(v19, v20, v21, v22, v23, v24, v25, v26, a9, a10, a11, a12, a13, a14);
 }
 
 uint64_t sub_22D374DB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
@@ -9137,7 +9056,7 @@ uint64_t sub_22D374DB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v18 - 128) = &a14;
   *(v18 - 120) = a11;
   *(v18 - 136) = v17 - ((~((v18 - 136) ^ 0x8B056318 | v15) + (((v18 - 136) ^ 0x8B056318) & v15)) ^ 0xDD913BA2) * v16 + 1447;
-  v19 = (*(v14 + 8 * (v17 ^ 0xBD8)))(v18 - 136);
+  v19 = (*(v14 + 8 * (v17 ^ 0xBD8)))(v18 - 136, a2, a3, a4, a5, a6, a7, a8);
   return (*(v14 + 8 * ((1617 * ((v17 - 852454869 + *(v18 - 112)) < 0xD002F9C6)) ^ v17)))(v19);
 }
 
@@ -9147,7 +9066,7 @@ void sub_22D374E58(uint64_t a1)
   __asm { BRAA            X10, X17 }
 }
 
-uint64_t sub_22D374F2C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, int a16, char a17, int a18, uint64_t *a19, int a20, unsigned int a21, char *a22, int a23, int *a24, int *a25, uint64_t a26)
+uint64_t sub_22D374F2C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, int a16, char a17, int a18, uint64_t *a19, int a20, unsigned int a21, char *a22, unsigned int a23, int *a24, int *a25, uint64_t a26)
 {
   a16 = 242826067;
   v29 = 1082434553 * ((&a19 & 0x4C4B2D84 | ~(&a19 | 0x4C4B2D84)) ^ 0x28F324F1);
@@ -9158,7 +9077,7 @@ uint64_t sub_22D374F2C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   a19 = &a14;
   a23 = v29 + v26 + 992;
   a24 = &a18;
-  v30 = (*(v27 + 8 * (v26 ^ 0x926)))(&a19);
+  v30 = (*(v27 + 8 * (v26 ^ 0x926)))(&a19, a2, a3, a4, a5, a6, a7, a8);
   return (*(v27 + 8 * (((a20 != -1541908459) * (((v26 - 1391023287) & 0x52E954B8 ^ 0xFFFFFEB4) + v26 + 332)) ^ v26)))(v30, v28);
 }
 
@@ -9196,7 +9115,7 @@ uint64_t sub_22D3750C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v33 - 112) = &a27;
   *(v33 - 104) = v29;
   *(v33 - 136) = v32;
-  v34 = (*(v28 + 8 * (v31 ^ 0x9FBu)))(v33 - 144);
+  v34 = (*(v28 + 8 * (v31 ^ 0x9FBu)))(v33 - 144, a2, a3, a4, a5, a6, a7, a8);
   return (*(v28 + 8 * ((57 * (((v31 + 2087) ^ 0xD2BCDDCA ^ (11 * ((v31 + 2087) ^ 0x843))) + a14 < 0x7FFFFFFF)) ^ (v31 + 197))))(v34);
 }
 
@@ -9306,7 +9225,7 @@ uint64_t sub_22D377AB4()
 
 uint64_t sub_22D377AF0@<X0>(unsigned int a1@<W8>, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, int a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, unsigned int a32)
 {
-  v36 = *(&a20 + a1 + 72);
+  v36 = *(&a29 + a1 + 4);
   v37 = ((a1 << (v33 + 3)) & 0xCE9FDFF8) + (a1 ^ 0x674FEFFF) + v32;
   *(v34 + v37) = (HIBYTE(v36) ^ 0x88) - ((v36 >> 23) & 0x60) - 80;
   *(v34 + v37 + 1) = (BYTE2(v36) ^ 0x47) - ((v36 >> 15) & 0x60) - 80;
@@ -9321,7 +9240,7 @@ uint64_t sub_22D377C2C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a
   *(v18 - 144) = v18 - 252;
   *(v18 - 152) = v17 - v19 + 625;
   *(v18 - 148) = a16 - v19 + (v17 ^ (a5 + 58) ^ 0x1F45381D);
-  v20 = (*(v16 + 8 * (v17 + 2335)))(v18 - 152);
+  v20 = (*(v16 + 8 * (v17 + 2335)))(v18 - 152, a2, a3, a4);
   v21 = *(v18 - 184);
   *(v18 - 252 + (v21 & 0x3F)) = 48;
   return (*(v16 + 8 * ((1272 * ((v21 & 0x3Fu) > (v17 ^ 0x3F4u) - 899)) ^ v17)))(v20);
@@ -9342,7 +9261,7 @@ uint64_t sub_22D377F90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
       *(v68 - 192) = &STACK[0x334];
       *(v68 - 184) = a59 - v78 - 36;
       *(v68 - 180) = v64 - v78 + a62 - ((2 * a62) & 0x4830B02A);
-      (*(v67 + 8 * (a59 ^ 0xAEE)))(v68 - 192);
+      (*(v67 + 8 * (a59 ^ 0xAEE)))(v68 - 192, a2, a3, a4, a5, a6, a7, a8);
     }
 
     JUMPOUT(0x22D394584);
@@ -9355,7 +9274,7 @@ uint64_t sub_22D377F90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   STACK[0x220] = v62 - 192;
   LODWORD(STACK[0x428]) = 904558483;
   *(v68 - 188) = a59 - 742307843 * ((v68 - 229520264 - 2 * ((v68 - 192) & 0xF251CD38)) ^ 0xEC73406D) + 68671028;
-  (*(v67 + 8 * (a59 + 1514)))(v68 - 192);
+  (*(v67 + 8 * (a59 + 1514)))(v68 - 192, a2, a3, a4, a5, a6, a7, a8);
   v69 = (*(v67 + 8 * (a59 + 1512)))(336, 0x100004077774924);
   return (*(v67 + 8 * (((v69 == 0) * (((a59 - 873) | 0x3CC) - 967)) ^ (a59 + 1086))))(v69, v70, v71, v72, v73, v74, v75, v76, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, v79, a26, a27, a28, a29, a30, a31, a32, a33, a34, a35, a36, a37, a38, a39, a40, a41, a42, a43, a44, a45, a46, a47, a48, a49, a50, a51, v80, a53, a54, a55, a56, a57, a58);
 }
@@ -9392,26 +9311,26 @@ uint64_t sub_22D3789DC@<X0>(uint64_t a1@<X0>, int a2@<W8>)
 
 uint64_t sub_22D378A44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, unsigned int *a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  v76 = (v70 - 245545598) & 0xEA2B6FB;
-  v77 = 5 * (v76 ^ 0x44F);
-  (*(v74 + 8 * (v76 ^ 0xC25)))(*a34, *(a1 + 192), LODWORD(STACK[0x270]));
-  v78 = ((~v71 & 0x556690B08C95F615 | v71 & 0xAA996F4F736A09EALL) ^ 0x601C00FF013894F9) * v73;
-  *(v75 - 192) = v77 - 1318459185 - v78;
-  *(v75 - 184) = v78 + v77 - 1318459185 + 22;
-  *(v72 + 24) = v78 + 1541866447;
-  *(v72 + 32) = a70 ^ v78;
-  *(v75 - 152) = v78 + v77 - 2030745577;
-  *(v75 - 180) = (v77 - 1318459263) ^ v78;
-  *(v75 - 176) = v78;
-  v79 = (*(v74 + 8 * (v77 ^ 0xA18)))(v75 - 192);
-  return (*(v74 + 8 * *(v75 - 188)))(v79);
+  v71 = (v65 - 245545598) & 0xEA2B6FB;
+  v72 = 5 * (v71 ^ 0x44F);
+  (*(v69 + 8 * (v71 ^ 0xC25)))(*a34, *(a1 + 192), LODWORD(STACK[0x270]), a4, a5, a6, a7, a8);
+  v73 = ((~v66 & 0x556690B08C95F615 | v66 & 0xAA996F4F736A09EALL) ^ 0x601C00FF013894F9) * v68;
+  *(v70 - 192) = v72 - 1318459185 - v73;
+  *(v70 - 184) = v73 + v72 - 1318459185 + 22;
+  *(v67 + 24) = v73 + 1541866447;
+  *(v67 + 32) = a65 ^ v73;
+  *(v70 - 152) = v73 + v72 - 2030745577;
+  *(v70 - 180) = (v72 - 1318459263) ^ v73;
+  *(v70 - 176) = v73;
+  v74 = (*(v69 + 8 * (v72 ^ 0xA18)))(v70 - 192);
+  return (*(v69 + 8 * *(v70 - 188)))(v74);
 }
 
 uint64_t sub_22D378C04(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56)
 {
   *v59 = v57 - 1824;
   LODWORD(STACK[0x334]) = -1541908459;
-  return (*(v58 + 8 * (((*(a56 + 360) > 1u) * ((181 * (v56 ^ 0xAF)) ^ 0xBC5)) ^ v56)))();
+  return (*(v58 + 8 * (((*(a56 + 360) > 1u) * ((181 * (v56 ^ 0xAF)) ^ 0xBC5)) ^ v56)))(a1);
 }
 
 uint64_t sub_22D378C84(_DWORD *a1)
@@ -9425,7 +9344,7 @@ uint64_t sub_22D378C84(_DWORD *a1)
   return (*(*(&off_284082B80 + v1) + v1 + 2412))(&v4);
 }
 
-uint64_t sub_22D378D48(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, int a15, int a16, int a17, char a18, __int16 a19, char a20, char *a21, int a22, unsigned int a23, char *a24, int a25, char *a26, int *a27, uint64_t a28)
+uint64_t sub_22D378D48(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, int a15, int a16, int a17, char a18, __int16 a19, char a20, char *a21, int a22, unsigned int a23, char *a24, unsigned int a25, char *a26, int *a27, uint64_t a28)
 {
   a17 = 242826067;
   v31 = *(a2 + 4);
@@ -9486,8 +9405,8 @@ uint64_t sub_22D37906C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   }
 
   *v58 = v60 - (v57 ^ 0x388 ^ (v57 + 905));
-  v61 = (*(v59 + 8 * (v57 + 2392)))(a57);
-  return sub_22D379108(v61);
+  v61 = (*(v59 + 8 * (v57 + 2392)))(a57, a2, a3, a4, a5, a6, a7, a8);
+  return sub_22D379108(v61, v62, v63, v64, 2147483089);
 }
 
 uint64_t sub_22D379108(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
@@ -9562,7 +9481,7 @@ uint64_t sub_22D37A064(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   LODWORD(a21) = (v25 + 1963) ^ ((((&a21 | 0xEBB0D718) - (&a21 & 0xEBB0D718)) ^ 0xFF9F4A83) * v24);
   a22 = a20;
   a24 = &a15;
-  (*(v28 + 8 * (v25 ^ 0x87B)))(&a21);
+  (*(v28 + 8 * (v25 ^ 0x87B)))(&a21, a2, a3, a4, a5, a6, a7, a8);
   LODWORD(a21) = (v25 + 1963) ^ ((((&a21 | 0x6078C498) - &a21 + (&a21 & 0x9F873B60)) ^ 0x74575903) * v24);
   a24 = &a18;
   a22 = a20;
@@ -9637,13 +9556,13 @@ uint64_t sub_22D37A3D8@<X0>(uint64_t a1@<X8>)
   return (*(v1 + 8 * ((105 * v5) ^ (v2 + 1280))))();
 }
 
-uint64_t sub_22D37A488(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, int a12, uint64_t a13, int a14, int a15, int a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, int a23, unsigned int a24)
+uint64_t sub_22D37A488(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, int a12, uint64_t a13, int a14, int a15, int a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, unsigned int a23, unsigned int a24)
 {
   v31 = (((&a20 ^ 0xD859559) - 148145018 - 2 * ((&a20 ^ 0xD859559) & 0xF72B7C86)) ^ 0xA6E3BD5A) * v26;
   a20 = a17;
   HIDWORD(a21) = 893672457 * v29 - v31 + ((860 * (v24 ^ 0x427)) ^ 0x9932F6E);
   LODWORD(a22) = (v24 - 864) ^ v31;
-  (*(v30 + 8 * (v24 + 1333)))(&a20);
+  (*(v30 + 8 * (v24 + 1333)))(&a20, a2, a3, a4, a5, a6, a7, a8);
   v32 = ((1873425182 - (&a20 | 0x6FAA331E) + (&a20 | 0x9055CCE1)) ^ 0xCC189864) * v26;
   a20 = a17;
   HIDWORD(a21) = 893672457 * a12 - v32 + 160639446;
@@ -9694,7 +9613,7 @@ uint64_t sub_22D37A7EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   }
 
   v67 = v66;
-  return (*(v63 + 8 * ((v67 * ((5 * (v65 ^ 0x656)) ^ 0x39C)) ^ v65)))();
+  return (*(v63 + 8 * ((v67 * ((5 * (v65 ^ 0x656)) ^ 0x39C)) ^ v65)))(a1);
 }
 
 uint64_t sub_22D37A96C()
@@ -9736,7 +9655,7 @@ uint64_t sub_22D37ABAC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v63 + 40) = a31;
   *(v62 - 168) = v65 ^ v66;
   *v63 = v64;
-  v67 = (*(v61 + 8 * (v58 ^ 0xC89)))(v62 - 192);
+  v67 = (*(v61 + 8 * (v58 ^ 0xC89)))(v62 - 192, a2, a3, a4, a5, a6, a7, a8);
   return (*(v61 + 8 * ((44 * (*(v62 - 128) != -1541908459)) ^ v58)))(v67);
 }
 
@@ -9807,7 +9726,7 @@ uint64_t sub_22D37B9B0(uint64_t a1, int a2, uint64_t a3, uint64_t a4, int a5)
     v8 = v6;
   }
 
-  return (*(v7 + 8 * ((77 * (v8 < 0x7FFFFFFF)) | a5)))();
+  return (*(v7 + 8 * ((77 * (v8 < 0x7FFFFFFF)) | a5)))(a1);
 }
 
 uint64_t sub_22D37BCF8()
@@ -9857,7 +9776,7 @@ void sub_22D37BEC0(uint64_t a1@<X1>, int a2@<W8>)
   JUMPOUT(0x22D37BEF0);
 }
 
-uint64_t sub_22D37BFA0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, int a11, int a12, int a13, int a14, char *a15, char a16, uint64_t a17)
+uint64_t sub_22D37BFA0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, int a11, int a12, unsigned int a13, int a14, char *a15, char a16, uint64_t a17)
 {
   v24 = 1361651671 * (((&a12 | 0x28369FFB) - (&a12 & 0x28369FFB)) ^ 0xFB146F77);
   a16 = (((v19 + 7) & 0xFE ^ 0xC6) + 53 * (*(v17 + 8) + v22)) ^ (-41 * (((&a12 | 0xFB) - (&a12 & 0xFB)) ^ 0x77));
@@ -9865,7 +9784,7 @@ uint64_t sub_22D37BFA0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   a12 = v21 + v24 + 1548131730;
   a13 = v19 - v24 + 143;
   a17 = v20;
-  v25 = (*(v23 + 8 * (v19 + 1340)))(&a12);
+  v25 = (*(v23 + 8 * (v19 + 1340)))(&a12, a2, a3, a4, a5, a6, a7, a8);
   return (*(v23 + 8 * ((446 * (a14 == v18)) ^ v19)))(v25);
 }
 
@@ -9882,7 +9801,7 @@ uint64_t sub_22D37C2B8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v21 - 128) = v17 - ((((v21 - 128) | 0x37A10523) - (v21 - 128) + ((v21 - 128) & 0xC85EFAD8)) ^ 0xA5773A87) * v19 + 1692;
   *(v21 - 120) = &a15;
   *(v21 - 112) = &a17;
-  v22 = (*(v18 + 8 * (v17 ^ 0x8E5)))(v21 - 128);
+  v22 = (*(v18 + 8 * (v17 ^ 0x8E5)))(v21 - 128, a2, a3, a4, a5, a6, a7, a8);
   return (*(v18 + 8 * ((1963 * (*(v21 - 104) > v20 + ((v17 - 1418784891) & 0x5490EFF6u) - 226)) ^ v17)))(v22);
 }
 
@@ -9900,14 +9819,14 @@ void sub_22D37C618(_DWORD *a1)
   __asm { BRAA            X8, X17 }
 }
 
-uint64_t sub_22D37C6DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+uint64_t sub_22D37C6DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
 {
-  v19 = 1037613739 * ((((v18 - 128) | 0x5300E28D) + (~(v18 - 128) | 0xACFF1D72)) ^ 0x8202CFF3);
-  *(v18 - 120) = &a15;
-  *(v18 - 128) = ((v17 ^ 0xFCF7DFC7) + 805207295 + (((v15 - 926) ^ 0xF9EFBD92) & (2 * v17))) ^ v19;
-  *(v18 - 124) = (v15 - 294) ^ v19;
-  v20 = (*(v16 + 8 * (v15 + 985)))(v18 - 128);
-  return sub_22D37C774(v20);
+  v21 = 1037613739 * ((((v20 - 128) | 0x5300E28D) + (~(v20 - 128) | 0xACFF1D72)) ^ 0x8202CFF3);
+  *(v20 - 120) = &a15;
+  *(v20 - 128) = ((v19 ^ 0xFCF7DFC7) + 805207295 + (((v17 - 926) ^ 0xF9EFBD92) & (2 * v19))) ^ v21;
+  *(v20 - 124) = (v17 - 294) ^ v21;
+  v22 = (*(v18 + 8 * (v17 + 985)))(v20 - 128, a2, a3, a4, a5, a6, a7, a8);
+  return sub_22D37C774(v22, v23, v24, v25, v26, v27, v28, v29, a9, a10, a11, a12, a13, a14, a15, a16, a17);
 }
 
 uint64_t sub_22D37C774(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
@@ -9915,25 +9834,112 @@ uint64_t sub_22D37C774(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v22 - 120) = &a17;
   *(v22 - 112) = v17;
   *(v22 - 128) = v21 - ((v22 - 128) ^ 0x92D63FA4) * v19 + 1510;
-  v23 = (*(v18 + 8 * (v21 + 1895)))(v22 - 128);
+  v23 = (*(v18 + 8 * (v21 + 1895)))(v22 - 128, a2, a3, a4, a5, a6, a7, a8);
   return (*(v18 + 8 * (((*(v22 - 104) > v20) * (((v21 + 763) ^ 0x59E) - 37)) ^ v21)))(v23);
 }
 
-uint64_t sub_22D37C828(__n128 a1, __n128 a2, uint64_t a3, uint64_t a4)
+uint64_t sub_22D37C848(unsigned int a1, int8x8_t a2, int8x8_t a3, uint64_t a4, unint64_t a5)
 {
-  a1.n128_u16[0] = 24672;
-  a1.n128_u8[2] = 96;
-  a1.n128_u8[3] = 96;
-  a1.n128_u8[4] = 96;
-  a1.n128_u8[5] = 96;
-  a1.n128_u8[6] = 96;
-  a1.n128_u8[7] = 96;
-  a2.n128_u16[0] = -20304;
-  a2.n128_u8[2] = -80;
-  a2.n128_u8[3] = -80;
-  a2.n128_u8[4] = -80;
-  a2.n128_u8[5] = -80;
-  a2.n128_u8[6] = -80;
-  a2.n128_u8[7] = -80;
-  return sub_22D37C848(353, a4, 1517, a1, a2);
+  *(v10 + ~v6 + v5) = vadd_s8(vsub_s8(*(v7 + ~v6 + v5), vand_s8(vadd_s8(*(v7 + ~v6 + v5), *(v7 + ~v6 + v5)), a2)), a3);
+  v12 = (((v8 + 894) | a1) ^ a5) + v6 == v9;
+  return (*(v11 + 8 * (v12 | (8 * v12) | v8)))();
+}
+
+uint64_t sub_22D37C8D8()
+{
+  v6 = v1 < v2;
+  if (v6 == (v0 + 1) > 0xFFFFFFFF7D1EBBF5)
+  {
+    v6 = ((v3 - 205) ^ (v4 + 1665)) + v0 < v1;
+  }
+
+  return (*(v5 + 8 * ((v6 * ((v3 - 921) ^ 2)) ^ v3)))();
+}
+
+uint64_t sub_22D37C93C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+{
+  *(v21 - 120) = &a15;
+  *(v21 - 112) = v15;
+  *(v21 - 128) = v17 - ((v21 - 128 + v18 - 2 * ((v21 - 128) & v18)) ^ 0x98A1D56) * v19 + 584;
+  v22 = (*(v16 + 8 * (v17 ^ 0xC39)))(v21 - 128, a2, a3, a4, a5, a6, a7, a8);
+  return (*(v16 + 8 * ((568 * (*(v21 - 104) == ((20 * (v17 ^ 0x5A1)) ^ (v20 - 530)))) ^ v17)))(v22);
+}
+
+uint64_t sub_22D37CC18(uint64_t a1)
+{
+  v5 = v1 - 1;
+  *(a1 + v5) = *(v3 + v5);
+  return (*(v4 + 8 * (((v5 == 0) * (v2 - 898)) ^ (v2 - 449))))();
+}
+
+uint64_t sub_22D37CC8C()
+{
+  *(v2 - 120) = v1 + 1388665877 * ((v2 + 1154748297 - 2 * ((v2 - 128) & 0x44D41009)) ^ 0xC97972E5) + 277;
+  *(v2 - 112) = &v5;
+  *(v2 - 128) = v4;
+  return (*(v0 + 8 * (v1 ^ 0x90F)))(v2 - 128);
+}
+
+void sub_22D37D498(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
+{
+  v6 = *(v5 - 156);
+  if (v6 == 1)
+  {
+    v10 = *(v5 - 188);
+    v9 = *(v5 - 184);
+    *(v5 - 196) = (8 * (v9 - ((2 * v9) & 4)) + 16) ^ 0xA0;
+    *(v5 - 195) = (v9 >> 5) ^ 0xB0;
+    *(v5 - 194) = (v9 >> 13) ^ 0xB0;
+    *(v5 - 193) = (v9 >> 21) ^ 0xB0;
+    *(v5 - 192) = ((__PAIR64__(v10, v9) >> 29) - ((2 * (__PAIR64__(v10, v9) >> 29)) & 0x9C) - 50) ^ 0x7E;
+    *(v5 - 191) = (v10 >> 5) ^ 0xB0;
+    *(v5 - 190) = (v10 >> 13) ^ 0xB0;
+    v8 = (v10 >> 21) ^ 0xFFFFFFB0;
+  }
+
+  else
+  {
+    if (v6 != 2)
+    {
+      goto LABEL_6;
+    }
+
+    v8 = *(v5 - 188);
+    v7 = *(v5 - 184);
+    *(v5 - 196) = (v8 >> 21) - ((a5 ^ (a5 - 107) ^ 0xCB) & (2 * (v8 >> 21))) - 80;
+    *(v5 - 195) = (v8 >> 13) - ((v8 >> 12) & 0x60) - 80;
+    *(v5 - 194) = (v8 >> 5) - ((v8 >> 4) & 0x60) - 80;
+    *(v5 - 193) = (__PAIR64__(v8, v7) >> 29) - ((2 * (__PAIR64__(v8, v7) >> 29)) & 0x60) - 80;
+    *(v5 - 192) = (v7 >> 21) - ((v7 >> 20) & 0x60) - 80;
+    *(v5 - 191) = (~(v7 >> 12) | 0x9F) + (v7 >> 13) - 79;
+    *(v5 - 190) = (~(v7 >> 4) | 0x9F) + (v7 >> 5) - 79;
+    LOBYTE(v8) = (8 * (v7 - 2 * (v7 & 3)) - 104) ^ 0x28;
+  }
+
+  *(v5 - 189) = v8;
+LABEL_6:
+  JUMPOUT(0x22D3742C4);
+}
+
+uint64_t sub_22D37D8B8(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 88) = 43;
+  *(a1 + 72) = *(a2 + 4);
+  *(a1 + 80) = *(a2 + 8);
+  return 0;
+}
+
+void sub_22D37D8D8(uint64_t a1)
+{
+  v8 = *MEMORY[0x277D85DE8];
+  v1 = 1785193651 * (((a1 ^ 0x4463FDDD | 0xA59C07CB) - (a1 ^ 0x4463FDDD | 0x5A63F834) + 1516501044) ^ 0xF2231636);
+  v2 = *(a1 + 24) ^ v1;
+  v3 = (*(a1 + 28) ^ v1);
+  v4 = *(&off_284082B80 + v2 - 642) - 8;
+  (*&v4[8 * v2 + 13720])(*(&off_284082B80 + v2 - 613) - 4, sub_22D35649C);
+  v5 = *(*(&off_284082B80 + v2 - 602) - 4);
+  v6 = v2 - 1037613739 * ((&v6 & 0x6E7F5963 | ~(&v6 | 0x6E7F5963)) ^ 0x40828BE3) + 403;
+  v7 = v5;
+  (*&v4[8 * v2 + 13568])(&v6);
+  __asm { BRAA            X8, X17 }
 }

@@ -6,7 +6,7 @@
 
 - (void)_in_writeDataToPathForImage:()INImageFilePersistence storeType:error:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = [v8 _in_writeableFilePersistenceConfigurationForStoreType:a4];
   v10 = v9;
@@ -23,9 +23,9 @@
       if (v15)
       {
         *buf = 136315394;
-        v29 = "[NSData(INImageFilePersistence) _in_writeDataToPathForImage:storeType:error:]";
-        v30 = 2112;
-        v31 = filePath;
+        v28 = "[NSData(INImageFilePersistence) _in_writeDataToPathForImage:storeType:error:]";
+        v29 = 2112;
+        v30 = filePath;
         v16 = "%s File already exists at path %@, overwriting";
         v17 = v14;
         v18 = 22;
@@ -37,11 +37,11 @@ LABEL_9:
     else if (v15)
     {
       *buf = 136315650;
-      v29 = "[NSData(INImageFilePersistence) _in_writeDataToPathForImage:storeType:error:]";
-      v30 = 2112;
-      v31 = v8;
-      v32 = 2112;
-      v33 = filePath;
+      v28 = "[NSData(INImageFilePersistence) _in_writeDataToPathForImage:storeType:error:]";
+      v29 = 2112;
+      v30 = v8;
+      v31 = 2112;
+      v32 = filePath;
       v16 = "%s Writing image %@ to new file path %@";
       v17 = v14;
       v18 = 32;
@@ -60,19 +60,18 @@ LABEL_9:
   }
 
   v19 = MEMORY[0x1E696ABC0];
-  v26 = *MEMORY[0x1E696A578];
+  v25 = *MEMORY[0x1E696A578];
   v20 = MEMORY[0x1E696AEC0];
   filePath = [v8 description];
   v21 = [v20 stringWithFormat:@"No writable file configuration available for image: %@", filePath];
-  v27 = v21;
-  v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+  v26 = v21;
+  v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
   *a5 = [v19 errorWithDomain:@"IntentsErrorDomain" code:6002 userInfo:v22];
 
   a5 = 0;
 LABEL_11:
 
 LABEL_12:
-  v24 = *MEMORY[0x1E69E9840];
 
   return a5;
 }

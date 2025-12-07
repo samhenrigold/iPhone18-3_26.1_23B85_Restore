@@ -138,10 +138,11 @@
 
 void __44__SFBrowserStateSQLiteStore_mergeAllWindows__block_invoke(uint64_t a1)
 {
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(*(*(a1 + 32) + 16), 0, @"BEGIN") != 101)
+  v2 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(*(*(a1 + 32) + 16), 0, @"BEGIN");
+  if (v2 != 101)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v2, v3);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [*(*(a1 + 32) + 16) lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -151,21 +152,26 @@ void __44__SFBrowserStateSQLiteStore_mergeAllWindows__block_invoke(uint64_t a1)
     goto LABEL_12;
   }
 
-  if ([*(a1 + 32) _mergeAllWindowsIfNeeded] != 101 && SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(*(*(a1 + 32) + 16), 0, @"ROLLBACK") != 101)
+  if ([*(a1 + 32) _mergeAllWindowsIfNeeded] != 101)
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(*(*(a1 + 32) + 16), 0, @"ROLLBACK");
+    if (v4 != 101)
     {
-      [*(*(a1 + 32) + 16) lastErrorMessage];
-      objc_claimAutoreleasedReturnValue();
-      __44__SFBrowserStateSQLiteStore_mergeAllWindows__block_invoke_cold_2();
+      v6 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v4, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      {
+        [*(*(a1 + 32) + 16) lastErrorMessage];
+        objc_claimAutoreleasedReturnValue();
+        __44__SFBrowserStateSQLiteStore_mergeAllWindows__block_invoke_cold_2();
+      }
     }
   }
 
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(*(*(a1 + 32) + 16), 0, @"COMMIT") != 101)
+  v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(*(*(a1 + 32) + 16), 0, @"COMMIT");
+  if (v7 != 101)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [*(*(a1 + 32) + 16) lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -178,13 +184,13 @@ LABEL_12:
 
 - (int)_mergeAllWindowsIfNeeded
 {
-  v69 = *MEMORY[0x1E69E9840];
-  MEMORY[0x18CFFE120](v61, @"com.apple.SafariServices.SavingBrowserState");
-  v48 = SafariShared::WBSSQLiteDatabaseFetch<>(self->_database, @"SELECT COUNT(*) FROM browser_windows");
-  nextObject = [v48 nextObject];
+  v74 = *MEMORY[0x1E69E9840];
+  MEMORY[0x18CFFE120](v66, @"com.apple.SafariServices.SavingBrowserState");
+  v53 = SafariShared::WBSSQLiteDatabaseFetch<>(self->_database, @"SELECT COUNT(*) FROM browser_windows");
+  nextObject = [v53 nextObject];
   v3 = [nextObject intAtIndex:0];
 
-  statement = [v48 statement];
+  statement = [v53 statement];
   [statement invalidate];
 
   if (v3 >= 2)
@@ -233,33 +239,33 @@ LABEL_12:
 
       v20 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(nextObject4, "intAtIndex:", 0)}];
       v21 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v19, "intAtIndex:", 1)}];
-      v22 = [dictionary2 objectForKeyedSubscript:v21];
-      if (v22)
+      v23 = [dictionary2 objectForKeyedSubscript:v21];
+      if (v23)
       {
-        v23 = [dictionary3 objectForKeyedSubscript:v22];
-        v24 = v23;
-        if (v23)
+        v24 = [dictionary3 objectForKeyedSubscript:v23];
+        v25 = v24;
+        if (v24)
         {
-          [v23 addObject:v20];
+          [v24 addObject:v20];
         }
 
         else
         {
-          v26 = [MEMORY[0x1E695DF70] arrayWithObject:v20];
-          [dictionary3 setObject:v26 forKeyedSubscript:v22];
+          v27 = [MEMORY[0x1E695DF70] arrayWithObject:v20];
+          [dictionary3 setObject:v27 forKeyedSubscript:v23];
         }
       }
 
       else
       {
-        v25 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v26 = WBS_LOG_CHANNEL_PREFIXStatePersistence(0, v22);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
           *&buf[4] = v20;
           *&buf[12] = 2114;
           *&buf[14] = v21;
-          _os_log_error_impl(&dword_18B7AC000, v25, OS_LOG_TYPE_ERROR, "Unknown window type for tab id %{public}@ in window id %{public}@", buf, 0x16u);
+          _os_log_error_impl(&dword_18B7AC000, v26, OS_LOG_TYPE_ERROR, "Unknown window type for tab id %{public}@ in window id %{public}@", buf, 0x16u);
         }
       }
     }
@@ -270,87 +276,89 @@ LABEL_12:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v68 = 1;
-    v28 = [objc_alloc(MEMORY[0x1E69C89F0]) initWithDatabase:self->_database query:{@"UPDATE tabs SET order_index = ?, browser_window_id = ?, browser_window_uuid = ? WHERE id = ?"}];
-    v56[0] = MEMORY[0x1E69E9820];
-    v56[1] = 3221225472;
-    v56[2] = __53__SFBrowserStateSQLiteStore__mergeAllWindowsIfNeeded__block_invoke;
-    v56[3] = &unk_1E721F430;
-    v47 = dictionary;
-    v57 = v47;
-    v29 = v28;
-    v58 = v29;
+    v73 = 1;
+    v29 = [objc_alloc(MEMORY[0x1E69C89F0]) initWithDatabase:self->_database query:{@"UPDATE tabs SET order_index = ?, browser_window_id = ?, browser_window_uuid = ? WHERE id = ?"}];
+    v61[0] = MEMORY[0x1E69E9820];
+    v61[1] = 3221225472;
+    v61[2] = __53__SFBrowserStateSQLiteStore__mergeAllWindowsIfNeeded__block_invoke;
+    v61[3] = &unk_1E721F430;
+    v52 = dictionary;
+    v62 = v52;
+    v30 = v29;
+    v63 = v30;
     selfCopy = self;
-    v60 = buf;
-    v46 = v29;
-    [dictionary3 enumerateKeysAndObjectsUsingBlock:v56];
-    [v29 invalidate];
-    v30 = [objc_alloc(MEMORY[0x1E69C89F0]) initWithDatabase:self->_database query:@"DELETE FROM browser_windows WHERE id = ?"];
-    v31 = MEMORY[0x1E695DFD8];
-    allValues = [v47 allValues];
-    v33 = [allValues safari_mapObjectsUsingBlock:&__block_literal_global_64];
-    v34 = [v31 setWithArray:v33];
+    v65 = buf;
+    v51 = v30;
+    [dictionary3 enumerateKeysAndObjectsUsingBlock:v61];
+    [v30 invalidate];
+    v31 = [objc_alloc(MEMORY[0x1E69C89F0]) initWithDatabase:self->_database query:@"DELETE FROM browser_windows WHERE id = ?"];
+    v32 = MEMORY[0x1E695DFD8];
+    allValues = [v52 allValues];
+    v34 = [allValues safari_mapObjectsUsingBlock:&__block_literal_global_64];
+    v35 = [v32 setWithArray:v34];
 
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
-    v53 = 0u;
+    v59 = 0u;
+    v60 = 0u;
+    v57 = 0u;
+    v58 = 0u;
     allKeys = [dictionary2 allKeys];
-    v36 = [allKeys countByEnumeratingWithState:&v52 objects:v66 count:16];
-    if (v36)
+    v37 = [allKeys countByEnumeratingWithState:&v57 objects:v71 count:16];
+    if (v37)
     {
-      v37 = *v53;
-      v38 = 1;
+      v38 = *v58;
+      v39 = 1;
       do
       {
-        for (i = 0; i != v36; ++i)
+        for (i = 0; i != v37; ++i)
         {
-          if (*v53 != v37)
+          if (*v58 != v38)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v40 = *(*(&v52 + 1) + 8 * i);
-          if (([v34 containsObject:v40] & 1) == 0)
+          v41 = *(*(&v57 + 1) + 8 * i);
+          if (([v35 containsObject:v41] & 1) == 0)
           {
-            [v30 bindInt:objc_msgSend(v40 atParameterIndex:{"intValue"), 1}];
-            execute = [v30 execute];
+            [v31 bindInt:objc_msgSend(v41 atParameterIndex:{"intValue"), 1}];
+            execute = [v31 execute];
+            v44 = execute;
             if (execute != 101)
             {
-              v42 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-              if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+              v45 = WBS_LOG_CHANNEL_PREFIXStatePersistence(execute, v43);
+              if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
               {
                 lastErrorMessage = [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
-                *v62 = 138543618;
-                v63 = lastErrorMessage;
-                v64 = 1024;
-                v65 = execute;
-                _os_log_error_impl(&dword_18B7AC000, v42, OS_LOG_TYPE_ERROR, "Failed to delete empty windows while merging: %{public}@ (%d)", v62, 0x12u);
+                *v67 = 138543618;
+                v68 = lastErrorMessage;
+                v69 = 1024;
+                v70 = v44;
+                _os_log_error_impl(&dword_18B7AC000, v45, OS_LOG_TYPE_ERROR, "Failed to delete empty windows while merging: %{public}@ (%d)", v67, 0x12u);
               }
 
-              v38 = 0;
+              v39 = 0;
             }
 
-            [v30 reset];
+            [v31 reset];
           }
         }
 
-        v36 = [allKeys countByEnumeratingWithState:&v52 objects:v66 count:16];
+        v37 = [allKeys countByEnumeratingWithState:&v57 objects:v71 count:16];
       }
 
-      while (v36);
+      while (v37);
     }
 
     else
     {
-      v38 = 1;
+      v39 = 1;
     }
 
-    [v30 invalidate];
-    v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"UPDATE browser_windows SET scene_id = NULL");
-    if (v5 == 101)
+    [v31 invalidate];
+    v47 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"UPDATE browser_windows SET scene_id = NULL");
+    v5 = v47;
+    if (v47 == 101)
     {
-      if (*(*&buf[8] + 24) & v38)
+      if (*(*&buf[8] + 24) & v39)
       {
         v5 = 101;
       }
@@ -363,8 +371,8 @@ LABEL_12:
 
     else
     {
-      v44 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v49 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v47, v48);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
       {
         [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
         objc_claimAutoreleasedReturnValue();
@@ -380,7 +388,7 @@ LABEL_12:
     v5 = 101;
   }
 
-  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v61);
+  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v66);
   return v5;
 }
 
@@ -532,7 +540,7 @@ void __50__SFBrowserStateSQLiteStore_recentlyClosedWindows__block_invoke(uint64_
   return v7;
 }
 
-uint64_t __49__SFBrowserStateSQLiteStore_initWithDatabaseURL___block_invoke(uint64_t a1)
+void *__49__SFBrowserStateSQLiteStore_initWithDatabaseURL___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _openDatabaseAndCheckIntegrity:0];
   result = [*(a1 + 32) _isDatabaseOpen];
@@ -557,8 +565,8 @@ uint64_t __49__SFBrowserStateSQLiteStore_initWithDatabaseURL___block_invoke(uint
 
   if (!nextObject)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v6, v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [SFBrowserStateSQLiteStore _checkDatabaseIntegrity];
     }
@@ -566,23 +574,24 @@ uint64_t __49__SFBrowserStateSQLiteStore_initWithDatabaseURL___block_invoke(uint
     goto LABEL_8;
   }
 
-  if (([v4 isEqualToString:@"ok"] & 1) == 0)
+  v8 = [v4 isEqualToString:@"ok"];
+  if ((v8 & 1) == 0)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v12 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v8, v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [SFBrowserStateSQLiteStore _checkDatabaseIntegrity];
     }
 
 LABEL_8:
-    v6 = 0;
+    v10 = 0;
     goto LABEL_9;
   }
 
-  v6 = 1;
+  v10 = 1;
 LABEL_9:
 
-  return v6;
+  return v10;
 }
 
 - (void)_openDatabaseAndCheckIntegrity:(BOOL)integrity
@@ -592,7 +601,8 @@ LABEL_9:
   database = self->_database;
   self->_database = v5;
 
-  if (([(WBSSQLiteDatabase *)self->_database openWithAccessType:3 error:0]& 1) != 0)
+  v7 = [(WBSSQLiteDatabase *)self->_database openWithAccessType:3 error:0];
+  if (v7)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     tabUUIDStrings = self->_tabUUIDStrings;
@@ -608,10 +618,11 @@ LABEL_9:
       goto LABEL_20;
     }
 
-    if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"PRAGMA journal_mode = WAL") != 100)
+    v13 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"PRAGMA journal_mode = WAL");
+    if (v13 != 100)
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v15 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [SFBrowserStateSQLiteStore _openDatabaseAndCheckIntegrity:];
       }
@@ -621,23 +632,23 @@ LABEL_9:
     _migrateToCurrentSchemaVersionIfNeeded = [(SFBrowserStateSQLiteStore *)self _migrateToCurrentSchemaVersionIfNeeded];
     if (_migrateToCurrentSchemaVersionIfNeeded != 8)
     {
-      v13 = _migrateToCurrentSchemaVersionIfNeeded;
+      v18 = _migrateToCurrentSchemaVersionIfNeeded;
       if (_migrateToCurrentSchemaVersionIfNeeded == 9)
       {
-        v14 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v19 = WBS_LOG_CHANNEL_PREFIXStatePersistence(_migrateToCurrentSchemaVersionIfNeeded, v17);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          *v18 = 0;
-          _os_log_impl(&dword_18B7AC000, v14, OS_LOG_TYPE_DEFAULT, "BrowserState Database's current version is 9 but target version is 8. It is likely you are upgrading from a main line build to a seed build. Don't fail the database creation.", v18, 2u);
+          *v23 = 0;
+          _os_log_impl(&dword_18B7AC000, v19, OS_LOG_TYPE_DEFAULT, "BrowserState Database's current version is 9 but target version is 8. It is likely you are upgrading from a main line build to a seed build. Don't fail the database creation.", v23, 2u);
         }
 
         return;
       }
 
-      v17 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v22 = WBS_LOG_CHANNEL_PREFIXStatePersistence(_migrateToCurrentSchemaVersionIfNeeded, v17);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        [(SFBrowserStateSQLiteStore *)&self->_databaseURL _openDatabaseAndCheckIntegrity:v13, v17];
+        [(SFBrowserStateSQLiteStore *)&self->_databaseURL _openDatabaseAndCheckIntegrity:v18, v22];
       }
 
 LABEL_20:
@@ -647,13 +658,13 @@ LABEL_20:
 
   else
   {
-    v15 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v20 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v7, v8);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [SFBrowserStateSQLiteStore _openDatabaseAndCheckIntegrity:];
     }
 
-    v16 = self->_database;
+    v21 = self->_database;
     self->_database = 0;
   }
 }
@@ -669,24 +680,24 @@ LABEL_20:
 
 - (int)_setDatabaseSchemaVersion:(int)version
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   database = self->_database;
   v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PRAGMA user_version = %d", *&version];
   v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(database, 0, v6);
 
   if (v7 != 101)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       lastErrorMessage = [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       *buf = 67109634;
       versionCopy = version;
-      v13 = 2114;
-      v14 = lastErrorMessage;
-      v15 = 1024;
-      v16 = v7;
-      _os_log_error_impl(&dword_18B7AC000, v8, OS_LOG_TYPE_ERROR, "Failed to set the database schema version to %d: %{public}@ (%d)", buf, 0x18u);
+      v15 = 2114;
+      v16 = lastErrorMessage;
+      v17 = 1024;
+      v18 = v7;
+      _os_log_error_impl(&dword_18B7AC000, v10, OS_LOG_TYPE_ERROR, "Failed to set the database schema version to %d: %{public}@ (%d)", buf, 0x18u);
     }
   }
 
@@ -706,53 +717,57 @@ LABEL_20:
 
 - (void)_migrateFromLegacyPlistWithPath:(id)path
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   pathCopy = path;
-  v16 = 0;
-  v5 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:pathCopy options:0 error:&v16];
-  v6 = v16;
+  v19 = 0;
+  v5 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:pathCopy options:0 error:&v19];
+  v6 = v19;
   v7 = v6;
   if (v5)
   {
     v8 = [MEMORY[0x1E696AE40] propertyListWithData:v5 options:0 format:0 error:0];
-    v9 = v8;
+    v10 = v8;
     if (v8)
     {
-      v10 = [v8 mutableCopy];
+      v11 = [v8 mutableCopy];
       uUID = [MEMORY[0x1E696AFB0] UUID];
       uUIDString = [uUID UUIDString];
-      [v10 setObject:uUIDString forKeyedSubscript:@"SafariStateBrowserWindowUUID"];
+      [v11 setObject:uUIDString forKeyedSubscript:@"SafariStateBrowserWindowUUID"];
 
-      [(SFBrowserStateSQLiteStore *)self _updateBrowserWindowStateWithDictionary:v10];
+      [(SFBrowserStateSQLiteStore *)self _updateBrowserWindowStateWithDictionary:v11];
     }
 
     else
     {
-      v14 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v17 = WBS_LOG_CHANNEL_PREFIXStatePersistence(0, v9);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [SFBrowserStateSQLiteStore _migrateFromLegacyPlistWithPath:];
       }
     }
   }
 
-  else if ([v6 safari_matchesErrorDomain:*MEMORY[0x1E696A250] andCode:260])
-  {
-    v13 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138543362;
-      v18 = pathCopy;
-      _os_log_impl(&dword_18B7AC000, v13, OS_LOG_TYPE_DEFAULT, "Legacy SuspendState.plist does not exist at %{public}@", buf, 0xCu);
-    }
-  }
-
   else
   {
-    v15 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v14 = [v6 safari_matchesErrorDomain:*MEMORY[0x1E696A250] andCode:260];
+    if (v14)
     {
-      [SFBrowserStateSQLiteStore _migrateFromLegacyPlistWithPath:];
+      v16 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v14, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543362;
+        v21 = pathCopy;
+        _os_log_impl(&dword_18B7AC000, v16, OS_LOG_TYPE_DEFAULT, "Legacy SuspendState.plist does not exist at %{public}@", buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      v18 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v14, v15);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        [SFBrowserStateSQLiteStore _migrateFromLegacyPlistWithPath:];
+      }
     }
   }
 }
@@ -760,18 +775,19 @@ LABEL_20:
 - (int)_migrateToSchemaVersion:(int)version
 {
   v3 = *&version;
-  MEMORY[0x18CFFE120](v17, @"com.apple.SafariServices.SavingBrowserState");
+  MEMORY[0x18CFFE120](v27, @"com.apple.SafariServices.SavingBrowserState");
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __53__SFBrowserStateSQLiteStore__migrateToSchemaVersion___block_invoke;
   aBlock[3] = &unk_1E721D568;
   aBlock[4] = self;
   v5 = _Block_copy(aBlock);
-  _migrateToSchemaVersion = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"BEGIN TRANSACTION");
-  if (_migrateToSchemaVersion != 101)
+  v6 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"BEGIN TRANSACTION");
+  _migrateToSchemaVersion = v6;
+  if (v6 != 101)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SFBrowserStateSQLiteStore _migrateToSchemaVersion:];
     }
@@ -794,10 +810,11 @@ LABEL_20:
     if (v3 == 3)
     {
       safari_browserDefaults = [MEMORY[0x1E695E000] safari_browserDefaults];
-      if ([safari_browserDefaults BOOLForKey:@"TabStateMigrationInProgress"])
+      v11 = [safari_browserDefaults BOOLForKey:@"TabStateMigrationInProgress"];
+      if (v11)
       {
-        v9 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v13 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v11, v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           [SFBrowserStateSQLiteStore _migrateToSchemaVersion:];
         }
@@ -808,12 +825,12 @@ LABEL_20:
 
       else
       {
-        [safari_browserDefaults setBool:1 forKey:@"TabStateMigrationInProgress"];
-        v14 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v22 = [safari_browserDefaults setBool:1 forKey:@"TabStateMigrationInProgress"];
+        v24 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v22, v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          *v15 = 0;
-          _os_log_impl(&dword_18B7AC000, v14, OS_LOG_TYPE_DEFAULT, "Start migrating from tab state database from V2 to V3", v15, 2u);
+          *v25 = 0;
+          _os_log_impl(&dword_18B7AC000, v24, OS_LOG_TYPE_DEFAULT, "Start migrating from tab state database from V2 to V3", v25, 2u);
         }
 
         _migrateToSchemaVersion = [(SFBrowserStateSQLiteStore *)self _migrateToSchemaVersion];
@@ -828,8 +845,8 @@ LABEL_20:
       }
 
 LABEL_30:
-      v12 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v20 = WBS_LOG_CHANNEL_PREFIXStatePersistence(_migrateToSchemaVersion2, v15);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [SFBrowserStateSQLiteStore _migrateToSchemaVersion:];
       }
@@ -838,7 +855,8 @@ LABEL_30:
     }
 
 LABEL_19:
-    _migrateToSchemaVersion = [(SFBrowserStateSQLiteStore *)self _migrateToSchemaVersion];
+    _migrateToSchemaVersion2 = [(SFBrowserStateSQLiteStore *)self _migrateToSchemaVersion];
+    _migrateToSchemaVersion = _migrateToSchemaVersion2;
     goto LABEL_20;
   }
 
@@ -850,8 +868,9 @@ LABEL_19:
     }
 
 LABEL_27:
-    v11 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v19 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v6, v7);
+    _migrateToSchemaVersion2 = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
+    if (_migrateToSchemaVersion2)
     {
       [SFBrowserStateSQLiteStore _migrateToSchemaVersion:];
     }
@@ -869,11 +888,12 @@ LABEL_32:
     goto LABEL_33;
   }
 
-  _migrateToSchemaVersion = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"COMMIT TRANSACTION");
-  if (_migrateToSchemaVersion != 101)
+  v16 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"COMMIT TRANSACTION");
+  _migrateToSchemaVersion = v16;
+  if (v16 != 101)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v18 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v16, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [SFBrowserStateSQLiteStore _migrateToSchemaVersion:];
     }
@@ -883,16 +903,17 @@ LABEL_32:
 
 LABEL_33:
 
-  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v17);
+  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v27);
   return _migrateToSchemaVersion;
 }
 
 void __53__SFBrowserStateSQLiteStore__migrateToSchemaVersion___block_invoke(uint64_t a1)
 {
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(*(*(a1 + 32) + 16), 0, @"ROLLBACK TRANSACTION") != 101)
+  v1 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(*(*(a1 + 32) + 16), 0, @"ROLLBACK TRANSACTION");
+  if (v1 != 101)
   {
-    v1 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v3 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v1, v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __53__SFBrowserStateSQLiteStore__migrateToSchemaVersion___block_invoke_cold_1();
     }
@@ -902,10 +923,11 @@ void __53__SFBrowserStateSQLiteStore__migrateToSchemaVersion___block_invoke(uint
 - (int)_migrateToSchemaVersion_2
 {
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE tabs ADD COLUMN uncompressed_session_data_size INTEGER NOT NULL DEFAULT 0");
+  v5 = v3;
   if (v3 != 101)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -913,20 +935,20 @@ void __53__SFBrowserStateSQLiteStore__migrateToSchemaVersion___block_invoke(uint
     }
   }
 
-  return v3;
+  return v5;
 }
 
 - (int)_migrateToSchemaVersion_3
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = SafariShared::WBSSQLiteDatabaseFetch<>(self->_database, @"SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND (name = 'tabs_old' OR name = 'tab_sessions')");
   nextObject = [v3 nextObject];
   v5 = nextObject;
   if (!nextObject)
   {
     lastResultCode = [v3 lastResultCode];
-    v11 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v16 = WBS_LOG_CHANNEL_PREFIXStatePersistence(lastResultCode, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [SFBrowserStateSQLiteStore _migrateToSchemaVersion_3];
     }
@@ -943,30 +965,31 @@ void __53__SFBrowserStateSQLiteStore__migrateToSchemaVersion___block_invoke(uint
 
   if (v6 >= 1)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_18B7AC000, v8, OS_LOG_TYPE_DEFAULT, "Database is in an inconsistent state on schema version 3. Atempting to recover", buf, 2u);
+      _os_log_impl(&dword_18B7AC000, v10, OS_LOG_TYPE_DEFAULT, "Database is in an inconsistent state on schema version 3. Atempting to recover", buf, 2u);
     }
 
-    lastResultCode = [(SFBrowserStateSQLiteStore *)self _recoverFromDatabaseInconsistencyFromSchemaVersion3Migration];
-    if (lastResultCode == 101)
+    _recoverFromDatabaseInconsistencyFromSchemaVersion3Migration = [(SFBrowserStateSQLiteStore *)self _recoverFromDatabaseInconsistencyFromSchemaVersion3Migration];
+    LODWORD(lastResultCode) = _recoverFromDatabaseInconsistencyFromSchemaVersion3Migration;
+    if (_recoverFromDatabaseInconsistencyFromSchemaVersion3Migration == 101)
     {
-      v10 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v14 = WBS_LOG_CHANNEL_PREFIXStatePersistence(_recoverFromDatabaseInconsistencyFromSchemaVersion3Migration, v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_18B7AC000, v10, OS_LOG_TYPE_INFO, "Successfully recovered from database inconsistency of schema version 3.", buf, 2u);
+        _os_log_impl(&dword_18B7AC000, v14, OS_LOG_TYPE_INFO, "Successfully recovered from database inconsistency of schema version 3.", buf, 2u);
       }
 
 LABEL_8:
-      lastResultCode = 101;
+      LODWORD(lastResultCode) = 101;
       goto LABEL_33;
     }
 
-    v15 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v30 = WBS_LOG_CHANNEL_PREFIXStatePersistence(_recoverFromDatabaseInconsistencyFromSchemaVersion3Migration, v12);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       [SFBrowserStateSQLiteStore _migrateToSchemaVersion_3];
     }
@@ -974,11 +997,12 @@ LABEL_8:
     goto LABEL_33;
   }
 
-  lastResultCode = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DROP INDEX IF EXISTS tabs__uuid");
-  if (lastResultCode != 101)
+  v18 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DROP INDEX IF EXISTS tabs__uuid");
+  LODWORD(lastResultCode) = v18;
+  if (v18 != 101)
   {
-    v16 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v31 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v18, v19);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -988,11 +1012,12 @@ LABEL_8:
     goto LABEL_32;
   }
 
-  lastResultCode = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE tabs RENAME TO tabs_old");
-  if (lastResultCode != 101)
+  v20 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE tabs RENAME TO tabs_old");
+  LODWORD(lastResultCode) = v20;
+  if (v20 != 101)
   {
-    v16 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v31 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v20, v21);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -1002,17 +1027,18 @@ LABEL_8:
     goto LABEL_32;
   }
 
-  lastResultCode = [(SFBrowserStateSQLiteStore *)self _createTableForTabs];
+  LODWORD(lastResultCode) = [(SFBrowserStateSQLiteStore *)self _createTableForTabs];
   if (lastResultCode != 101)
   {
     goto LABEL_33;
   }
 
-  lastResultCode = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"INSERT INTO tabs (id, uuid, title, url, user_visible_url, order_index, last_viewed_time, readinglist_bookmark_id, opened_from_link, showing_reader, reader_view_top_scroll_offset, private_browsing, displaying_standalone_image, browser_window_uuid, browser_window_id)SELECT tabs_old.id, tabs_old.uuid, tabs_old.title, tabs_old.url, tabs_old.user_visible_url, tabs_old.order_index, tabs_old.last_viewed_time, tabs_old.readinglist_bookmark_id, tabs_old.opened_from_link, tabs_old.showing_reader, tabs_old.reader_view_top_scroll_offset, tabs_old.private_browsing, tabs_old.displaying_standalone_image, tabs_old.browser_window_uuid, tabs_old.browser_window_id FROM tabs_old");
-  if (lastResultCode != 101)
+  v22 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"INSERT INTO tabs (id, uuid, title, url, user_visible_url, order_index, last_viewed_time, readinglist_bookmark_id, opened_from_link, showing_reader, reader_view_top_scroll_offset, private_browsing, displaying_standalone_image, browser_window_uuid, browser_window_id)SELECT tabs_old.id, tabs_old.uuid, tabs_old.title, tabs_old.url, tabs_old.user_visible_url, tabs_old.order_index, tabs_old.last_viewed_time, tabs_old.readinglist_bookmark_id, tabs_old.opened_from_link, tabs_old.showing_reader, tabs_old.reader_view_top_scroll_offset, tabs_old.private_browsing, tabs_old.displaying_standalone_image, tabs_old.browser_window_uuid, tabs_old.browser_window_id FROM tabs_old");
+  LODWORD(lastResultCode) = v22;
+  if (v22 != 101)
   {
-    v16 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v31 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v22, v23);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -1024,13 +1050,14 @@ LABEL_32:
     goto LABEL_33;
   }
 
-  lastResultCode = [(SFBrowserStateSQLiteStore *)self _createTableForTabSession];
+  LODWORD(lastResultCode) = [(SFBrowserStateSQLiteStore *)self _createTableForTabSession];
   if (lastResultCode == 101)
   {
-    if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"INSERT INTO tab_sessions (tab_uuid, session_data, uncompressed_session_data_size)SELECT tabs_old.uuid, tabs_old.session_data, tabs_old.uncompressed_session_data_size FROM tabs_old") != 101)
+    v24 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"INSERT INTO tab_sessions (tab_uuid, session_data, uncompressed_session_data_size)SELECT tabs_old.uuid, tabs_old.session_data, tabs_old.uncompressed_session_data_size FROM tabs_old");
+    if (v24 != 101)
     {
-      v13 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v26 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v24, v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
         objc_claimAutoreleasedReturnValue();
@@ -1038,11 +1065,12 @@ LABEL_32:
       }
     }
 
-    lastResultCode = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DROP TABLE tabs_old");
-    if (lastResultCode != 101)
+    v27 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DROP TABLE tabs_old");
+    LODWORD(lastResultCode) = v27;
+    if (v27 != 101)
     {
-      v14 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v29 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v27, v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
         objc_claimAutoreleasedReturnValue();
@@ -1063,9 +1091,9 @@ LABEL_33:
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DROP INDEX IF EXISTS tab_sessions__uuid");
   if (v3 != 101)
   {
-    v7 = v3;
-    v8 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v14 = v3;
+    v15 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v3, v4);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -1075,12 +1103,12 @@ LABEL_33:
     goto LABEL_17;
   }
 
-  v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE tab_sessions RENAME TO tab_sessions_old");
-  if (v4 != 101)
+  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE tab_sessions RENAME TO tab_sessions_old");
+  if (v5 != 101)
   {
-    v7 = v4;
-    v8 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v14 = v5;
+    v15 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v5, v6);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -1093,9 +1121,9 @@ LABEL_33:
   _createTableForTabSession = [(SFBrowserStateSQLiteStore *)self _createTableForTabSession];
   if (_createTableForTabSession != 101)
   {
-    v7 = _createTableForTabSession;
-    v8 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v14 = _createTableForTabSession;
+    v15 = WBS_LOG_CHANNEL_PREFIXStatePersistence(_createTableForTabSession, v8);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -1105,10 +1133,11 @@ LABEL_33:
     goto LABEL_17;
   }
 
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"INSERT INTO tab_sessions (tab_uuid, session_data, uncompressed_session_data_size)SELECT tab_sessions_old.tab_uuid, tab_sessions_old.session_data, tab_sessions_old.uncompressed_session_data_size FROM tab_sessions_old") != 101)
+  v9 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"INSERT INTO tab_sessions (tab_uuid, session_data, uncompressed_session_data_size)SELECT tab_sessions_old.tab_uuid, tab_sessions_old.session_data, tab_sessions_old.uncompressed_session_data_size FROM tab_sessions_old");
+  if (v9 != 101)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -1116,11 +1145,12 @@ LABEL_33:
     }
   }
 
-  v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DROP TABLE tab_sessions_old");
-  if (v7 != 101)
+  v12 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DROP TABLE tab_sessions_old");
+  v14 = v12;
+  if (v12 != 101)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v15 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v12, v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -1130,16 +1160,17 @@ LABEL_33:
 LABEL_17:
   }
 
-  return v7;
+  return v14;
 }
 
 - (int)_migrateToSchemaVersion_6
 {
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE tabs ADD COLUMN tab_group_uuid TEXT NOT NULL DEFAULT ''");
+  v5 = v3;
   if (v3 != 101)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -1147,16 +1178,17 @@ LABEL_17:
     }
   }
 
-  return v3;
+  return v5;
 }
 
 - (int)_migrateToSchemaVersion_7
 {
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE tabs ADD COLUMN profile_uuid TEXT NOT NULL DEFAULT ''");
+  v5 = v3;
   if (v3 != 101)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -1164,16 +1196,17 @@ LABEL_17:
     }
   }
 
-  return v3;
+  return v5;
 }
 
 - (int)_migrateToSchemaVersion_8
 {
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE browser_windows ADD COLUMN active_profile_identifier TEXT NOT NULL DEFAULT ''");
+  v5 = v3;
   if (v3 != 101)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -1181,7 +1214,7 @@ LABEL_17:
     }
   }
 
-  return v3;
+  return v5;
 }
 
 - (int)_recoverFromDatabaseInconsistencyFromSchemaVersion3Migration
@@ -1190,8 +1223,8 @@ LABEL_17:
   if (v3 != 101)
   {
     _createTableForTabs = v3;
-    v8 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v3, v4);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -1201,12 +1234,12 @@ LABEL_17:
     goto LABEL_16;
   }
 
-  v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DROP TABLE IF EXISTS tabs_old");
-  if (v4 != 101)
+  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DROP TABLE IF EXISTS tabs_old");
+  if (v5 != 101)
   {
-    _createTableForTabs = v4;
-    v8 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    _createTableForTabs = v5;
+    v11 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v5, v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -1216,12 +1249,12 @@ LABEL_17:
     goto LABEL_16;
   }
 
-  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DROP TABLE IF EXISTS tabs");
-  if (v5 != 101)
+  v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DROP TABLE IF EXISTS tabs");
+  if (v7 != 101)
   {
-    _createTableForTabs = v5;
-    v8 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    _createTableForTabs = v7;
+    v11 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v7, v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -1247,9 +1280,9 @@ LABEL_16:
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE tab_sessions (id INTEGER PRIMARY KEY AUTOINCREMENT,tab_uuid TEXT NOT NULL UNIQUE,session_data BLOB DEFAULT NULL,uncompressed_session_data_size INTEGER NOT NULL DEFAULT 0,FOREIGN KEY(tab_uuid) REFERENCES tabs(uuid) ON DELETE CASCADE ON UPDATE CASCADE)");
   if (v3 != 101)
   {
-    v4 = v3;
-    v5 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = v3;
+    v8 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v3, v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -1259,11 +1292,12 @@ LABEL_16:
     goto LABEL_7;
   }
 
-  v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE INDEX tab_sessions__uuid ON tab_sessions (tab_uuid)");
-  if (v4 != 101)
+  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE INDEX tab_sessions__uuid ON tab_sessions (tab_uuid)");
+  v7 = v5;
+  if (v5 != 101)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -1273,7 +1307,7 @@ LABEL_16:
 LABEL_7:
   }
 
-  return v4;
+  return v7;
 }
 
 - (int)_createTableForTabs
@@ -1281,9 +1315,9 @@ LABEL_7:
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE tabs (id INTEGER PRIMARY KEY AUTOINCREMENT,uuid TEXT NOT NULL UNIQUE,title TEXT,url TEXT COLLATE NOCASE,user_visible_url TEXT COLLATE NOCASE,order_index INTEGER NOT NULL,last_viewed_time REAL DEFAULT NULL,readinglist_bookmark_id INTEGER DEFAULT 0,opened_from_link BOOL DEFAULT 0,showing_reader BOOL DEFAULT 0,reader_view_top_scroll_offset INTEGER DEFAULT 0,private_browsing BOOL DEFAULT 0,displaying_standalone_image BOOL DEFAULT 0,browser_window_uuid TEXT NOT NULL,browser_window_id INTEGER NOT NULL,tab_group_uuid TEXT NOT NULL DEFAULT '',profile_uuid TEXT NOT NULL DEFAULT '',FOREIGN KEY(browser_window_id) REFERENCES browser_windows(id) ON DELETE CASCADE)");
   if (v3 != 101)
   {
-    v4 = v3;
-    v5 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = v3;
+    v8 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v3, v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -1293,11 +1327,12 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE INDEX tabs__uuid ON tabs (uuid)");
-  if (v4 != 101)
+  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE INDEX tabs__uuid ON tabs (uuid)");
+  v7 = v5;
+  if (v5 != 101)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -1307,7 +1342,7 @@ LABEL_7:
 LABEL_7:
   }
 
-  return v4;
+  return v7;
 }
 
 - (int)_createFreshDatabaseSchema
@@ -1316,8 +1351,8 @@ LABEL_7:
   if (v3 != 101)
   {
     _createTableForTabs = v3;
-    v6 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v3, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -1347,16 +1382,16 @@ LABEL_7:
 
   else
   {
-    v5 = v3;
-    v6 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v6 = v3;
+    v7 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v3, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
       [SFBrowserStateSQLiteStore _migrateToSchemaVersion_4];
     }
 
-    return v5;
+    return v6;
   }
 }
 
@@ -1378,30 +1413,31 @@ void __53__SFBrowserStateSQLiteStore__mergeAllWindowsIfNeeded__block_invoke(uint
 
 void __53__SFBrowserStateSQLiteStore__mergeAllWindowsIfNeeded__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v13 = a3;
+  v15 = a3;
   v6 = *(a1 + 32);
   *buf = [*(a1 + 40) databaseID];
-  v12 = [*(a1 + 40) UUIDString];
-  v11 = [v5 intValue];
-  SafariShared::_WBSSQLiteStatementBindAllParameters<1,unsigned long &,long,NSString * {__strong},int>(v6, &v13, buf, &v12, &v11);
+  v14 = [*(a1 + 40) UUIDString];
+  v13 = [v5 intValue];
+  SafariShared::_WBSSQLiteStatementBindAllParameters<1,unsigned long &,long,NSString * {__strong},int>(v6, &v15, buf, &v14, &v13);
 
   v7 = [*(a1 + 32) execute];
+  v9 = v7;
   if (v7 != 101)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v9 = [v5 intValue];
-      v10 = [*(*(a1 + 48) + 16) lastErrorMessage];
+      v11 = [v5 intValue];
+      v12 = [*(*(a1 + 48) + 16) lastErrorMessage];
       *buf = 67109634;
-      *&buf[4] = v9;
-      v15 = 2114;
-      v16 = v10;
-      v17 = 1024;
-      v18 = v7;
-      _os_log_error_impl(&dword_18B7AC000, v8, OS_LOG_TYPE_ERROR, "Failed to update tab id %d: %{public}@ (%d)", buf, 0x18u);
+      *&buf[4] = v11;
+      v17 = 2114;
+      v18 = v12;
+      v19 = 1024;
+      v20 = v9;
+      _os_log_error_impl(&dword_18B7AC000, v10, OS_LOG_TYPE_ERROR, "Failed to update tab id %d: %{public}@ (%d)", buf, 0x18u);
     }
 
     *(*(*(a1 + 56) + 8) + 24) = 0;
@@ -1445,27 +1481,27 @@ id __53__SFBrowserStateSQLiteStore__mergeAllWindowsIfNeeded__block_invoke_132(ui
 
 void __43__SFBrowserStateSQLiteStore_updateSceneID___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 40);
   v3 = *(*(a1 + 32) + 16);
-  v9 = [*(a1 + 40) sceneID];
-  v8 = [*v2 UUIDString];
-  v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * {__strong},NSString * {__strong}>(v3, 0, @"UPDATE browser_windows SET scene_id = ? WHERE uuid = ?", &v9, &v8);
+  v11 = [*(a1 + 40) sceneID];
+  v10 = [*v2 UUIDString];
+  v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * {__strong},NSString * {__strong}>(v3, 0, @"UPDATE browser_windows SET scene_id = ? WHERE uuid = ?", &v11, &v10);
 
   if (v4 != 101)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v6 = [*(a1 + 40) UUID];
-      v7 = [*(*(a1 + 32) + 16) lastErrorMessage];
+      v8 = [*(a1 + 40) UUID];
+      v9 = [*(*(a1 + 32) + 16) lastErrorMessage];
       *buf = 138412802;
-      v11 = v6;
-      v12 = 2114;
-      v13 = v7;
-      v14 = 1024;
-      v15 = v4;
-      _os_log_error_impl(&dword_18B7AC000, v5, OS_LOG_TYPE_ERROR, "Failed to update scene_id for window with UUID = %@: %{public}@ (%d)", buf, 0x1Cu);
+      v13 = v8;
+      v14 = 2114;
+      v15 = v9;
+      v16 = 1024;
+      v17 = v4;
+      _os_log_error_impl(&dword_18B7AC000, v7, OS_LOG_TYPE_ERROR, "Failed to update scene_id for window with UUID = %@: %{public}@ (%d)", buf, 0x1Cu);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 0;
@@ -1499,36 +1535,37 @@ void __43__SFBrowserStateSQLiteStore_updateSceneID___block_invoke(uint64_t a1)
 
 void __78__SFBrowserStateSQLiteStore_deleteRecentlyClosedWindowsWithProfileIdentifier___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  MEMORY[0x18CFFE120](v7, @"com.apple.SafariServices.SavingBrowserState");
+  v15 = *MEMORY[0x1E69E9840];
+  MEMORY[0x18CFFE120](v9, @"com.apple.SafariServices.SavingBrowserState");
   v2 = *(*(a1 + 32) + 16);
   *buf = 2;
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<SFBrowserWindowType,NSString * const {__strong}&>(v2, 0, @"DELETE FROM browser_windows WHERE type = ? AND active_profile_identifier = ?", buf, (a1 + 40));
+  v5 = v3;
   if (v3 != 101)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v5 = *(a1 + 40);
-      v6 = [*(*(a1 + 32) + 16) lastErrorMessage];
+      v7 = *(a1 + 40);
+      v8 = [*(*(a1 + 32) + 16) lastErrorMessage];
       *buf = 138543874;
-      *&buf[4] = v5;
-      v9 = 2114;
-      v10 = v6;
-      v11 = 1024;
-      v12 = v3;
-      _os_log_error_impl(&dword_18B7AC000, v4, OS_LOG_TYPE_ERROR, "Failed to remove recently closed windows (Profile: %{public}@) from BrowserState.db: %{public}@ (%d)", buf, 0x1Cu);
+      *&buf[4] = v7;
+      v11 = 2114;
+      v12 = v8;
+      v13 = 1024;
+      v14 = v5;
+      _os_log_error_impl(&dword_18B7AC000, v6, OS_LOG_TYPE_ERROR, "Failed to remove recently closed windows (Profile: %{public}@) from BrowserState.db: %{public}@ (%d)", buf, 0x1Cu);
     }
   }
 
-  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v7);
+  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v9);
 }
 
 - (void)_removeSavedSessionStateDataForTabsWithUUIDStrings:(id)strings
 {
-  v10[6] = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   stringsCopy = strings;
-  MEMORY[0x18CFFE120](v10, @"com.apple.SafariServices.SavingBrowserState");
+  MEMORY[0x18CFFE120](v12, @"com.apple.SafariServices.SavingBrowserState");
   database = self->_database;
   v6 = MEMORY[0x1E696AEC0];
   v7 = [stringsCopy componentsJoinedByString:{@"', '"}];
@@ -1537,8 +1574,8 @@ void __78__SFBrowserStateSQLiteStore_deleteRecentlyClosedWindowsWithProfileIdent
 
   if (database != 101)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -1546,7 +1583,7 @@ void __78__SFBrowserStateSQLiteStore_deleteRecentlyClosedWindowsWithProfileIdent
     }
   }
 
-  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v10);
+  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v12);
 }
 
 id *__79__SFBrowserStateSQLiteStore_removeSavedSessionStateDataForTabsWithUUIDStrings___block_invoke(uint64_t a1)
@@ -1787,24 +1824,24 @@ uint64_t __60__SFBrowserStateSQLiteStore_tabStatesWithBrowserWindowUUID___block_
 
 - (int64_t)_saveBrowserWindowStateWithData:(id)data
 {
-  v22[3] = *MEMORY[0x1E69E9840];
+  v26[3] = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  MEMORY[0x18CFFE120](v21, @"com.apple.SafariServices.SavingBrowserState");
+  MEMORY[0x18CFFE120](v25, @"com.apple.SafariServices.SavingBrowserState");
   uUIDString = [dataCopy UUIDString];
   v6 = [(SFBrowserStateSQLiteStore *)self _databaseIDForBrowserWindow:uUIDString];
 
-  v20 = v6;
+  v24 = v6;
   database = self->_database;
   if (v6 == 0x7FFFFFFFFFFFFFFFLL)
   {
     uUIDString2 = [dataCopy UUIDString];
     sceneID = [dataCopy sceneID];
-    v22[0] = [dataCopy activeDocumentIndex];
+    v26[0] = [dataCopy activeDocumentIndex];
     activePrivateDocumentIndex = [dataCopy activePrivateDocumentIndex];
     legacyPlistFileVersion = [dataCopy legacyPlistFileVersion];
     type = [dataCopy type];
     activeProfileIdentifier = [dataCopy activeProfileIdentifier];
-    v8 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * {__strong},NSString * {__strong},long,long,long,SFBrowserWindowType,NSString * {__strong}>(database, 0, @"INSERT INTO browser_windows (uuid, scene_id, active_document_index, active_private_document_index, legacy_plist_file_version, type, active_profile_identifier) VALUES (?, ?, ?, ?, ?, ?, ?)", &uUIDString2, &sceneID, v22, &activePrivateDocumentIndex, &legacyPlistFileVersion, &type, &activeProfileIdentifier);
+    v8 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * {__strong},NSString * {__strong},long,long,long,SFBrowserWindowType,NSString * {__strong}>(database, 0, @"INSERT INTO browser_windows (uuid, scene_id, active_document_index, active_private_document_index, legacy_plist_file_version, type, active_profile_identifier) VALUES (?, ?, ?, ?, ?, ?, ?)", &uUIDString2, &sceneID, v26, &activePrivateDocumentIndex, &legacyPlistFileVersion, &type, &activeProfileIdentifier);
 
     if (v8 == 101)
     {
@@ -1815,8 +1852,8 @@ uint64_t __60__SFBrowserStateSQLiteStore_tabStatesWithBrowserWindowUUID___block_
 
     else
     {
-      v12 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v16 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v9, v10);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
         objc_claimAutoreleasedReturnValue();
@@ -1829,13 +1866,14 @@ uint64_t __60__SFBrowserStateSQLiteStore_tabStatesWithBrowserWindowUUID___block_
 
   else
   {
-    v22[0] = [dataCopy activeDocumentIndex];
+    v26[0] = [dataCopy activeDocumentIndex];
     activePrivateDocumentIndex = [dataCopy activePrivateDocumentIndex];
     legacyPlistFileVersion = [dataCopy type];
-    if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<long,long,SFBrowserWindowType,long &>(database, 0, @"UPDATE browser_windows SET active_document_index = ?, active_private_document_index = ?, type = ? WHERE id = ?", v22, &activePrivateDocumentIndex, &legacyPlistFileVersion, &v20) != 101)
+    v13 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<long,long,SFBrowserWindowType,long &>(database, 0, @"UPDATE browser_windows SET active_document_index = ?, active_private_document_index = ?, type = ? WHERE id = ?", v26, &activePrivateDocumentIndex, &legacyPlistFileVersion, &v24);
+    if (v13 != 101)
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v15 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
         objc_claimAutoreleasedReturnValue();
@@ -1843,10 +1881,10 @@ uint64_t __60__SFBrowserStateSQLiteStore_tabStatesWithBrowserWindowUUID___block_
       }
     }
 
-    lastInsertRowID = v20;
+    lastInsertRowID = v24;
   }
 
-  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v21);
+  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v25);
 
   return lastInsertRowID;
 }
@@ -1935,17 +1973,17 @@ uint64_t __53__SFBrowserStateSQLiteStore__updateTabStateWithData___block_invoke(
 
 - (void)_insertTabStateWithData:(id)data
 {
-  v28[3] = *MEMORY[0x1E69E9840];
+  v32[3] = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  MEMORY[0x18CFFE120](v26, @"com.apple.SafariServices.SavingBrowserState");
+  MEMORY[0x18CFFE120](v30, @"com.apple.SafariServices.SavingBrowserState");
   v5 = [objc_alloc(MEMORY[0x1E69C89F0]) initWithDatabase:self->_database query:{@"INSERT INTO tabs (uuid, title, url, user_visible_url, order_index, last_viewed_time, readinglist_bookmark_id, opened_from_link, showing_reader, reader_view_top_scroll_offset, private_browsing, displaying_standalone_image, browser_window_uuid, browser_window_id, tab_group_uuid, profile_uuid)VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"}];
   uUIDString = [dataCopy UUIDString];
   title = [dataCopy title];
-  v23 = [dataCopy url];
+  v27 = [dataCopy url];
   userVisibleURL = [dataCopy userVisibleURL];
-  v28[0] = [dataCopy orderIndex];
+  v32[0] = [dataCopy orderIndex];
   [dataCopy lastViewedTime];
-  v27[0] = v6;
+  v31[0] = v6;
   readingListBookmarkID = [dataCopy readingListBookmarkID];
   wasOpenedFromLink = [dataCopy wasOpenedFromLink];
   showingReader = [dataCopy showingReader];
@@ -1956,34 +1994,17 @@ uint64_t __53__SFBrowserStateSQLiteStore__updateTabStateWithData___block_invoke(
   owningBrowserWindowDatabaseID = [dataCopy owningBrowserWindowDatabaseID];
   tabGroupUUID = [dataCopy tabGroupUUID];
   profileIdentifier = [dataCopy profileIdentifier];
-  SafariShared::_WBSSQLiteStatementBindAllParameters<1,NSString * {__strong},NSString * {__strong},NSString * {__strong},NSString * {__strong},long,double,int,BOOL,BOOL,long,BOOL,BOOL,NSString * {__strong},long,NSString * {__strong},NSString * {__strong}>(v5, &uUIDString, &title, &v23, &userVisibleURL, v28, v27, &readingListBookmarkID, &wasOpenedFromLink, &showingReader, &readerViewTopScrollOffset, &privateBrowsing, &displayingStandaloneImage, &owningBrowserWindowUUIDString, &owningBrowserWindowDatabaseID, &tabGroupUUID, &profileIdentifier);
+  SafariShared::_WBSSQLiteStatementBindAllParameters<1,NSString * {__strong},NSString * {__strong},NSString * {__strong},NSString * {__strong},long,double,int,BOOL,BOOL,long,BOOL,BOOL,NSString * {__strong},long,NSString * {__strong},NSString * {__strong}>(v5, &uUIDString, &title, &v27, &userVisibleURL, v32, v31, &readingListBookmarkID, &wasOpenedFromLink, &showingReader, &readerViewTopScrollOffset, &privateBrowsing, &displayingStandaloneImage, &owningBrowserWindowUUIDString, &owningBrowserWindowDatabaseID, &tabGroupUUID, &profileIdentifier);
 
-  if ([v5 execute] == 101)
+  execute = [v5 execute];
+  if (execute == 101)
   {
     [(SFBrowserStateSQLiteStore *)self _cacheUUIDForTabStateData:dataCopy];
   }
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
-      objc_claimAutoreleasedReturnValue();
-      [SFBrowserStateSQLiteStore _insertTabStateWithData:];
-    }
-  }
-
-  [v5 invalidate];
-  v8 = [objc_alloc(MEMORY[0x1E69C89F0]) initWithDatabase:self->_database query:{@"INSERT INTO tab_sessions (tab_uuid, session_data, uncompressed_session_data_size)VALUES (?, ?, ?)"}];
-  uUIDString2 = [dataCopy UUIDString];
-  sessionStateData = [dataCopy sessionStateData];
-  *&v27[0] = [dataCopy uncompressedSessionStateDataSize];
-  SafariShared::_WBSSQLiteStatementBindAllParameters<1,NSString * {__strong},NSData * {__strong},unsigned long>(v8, &uUIDString2, &sessionStateData, v27);
-
-  if ([v8 execute] != 101)
-  {
-    v9 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
+    v9 = WBS_LOG_CHANNEL_PREFIXStatePersistence(execute, v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
@@ -1992,9 +2013,28 @@ uint64_t __53__SFBrowserStateSQLiteStore__updateTabStateWithData___block_invoke(
     }
   }
 
-  [v8 invalidate];
+  [v5 invalidate];
+  v10 = [objc_alloc(MEMORY[0x1E69C89F0]) initWithDatabase:self->_database query:{@"INSERT INTO tab_sessions (tab_uuid, session_data, uncompressed_session_data_size)VALUES (?, ?, ?)"}];
+  uUIDString2 = [dataCopy UUIDString];
+  sessionStateData = [dataCopy sessionStateData];
+  *&v31[0] = [dataCopy uncompressedSessionStateDataSize];
+  SafariShared::_WBSSQLiteStatementBindAllParameters<1,NSString * {__strong},NSData * {__strong},unsigned long>(v10, &uUIDString2, &sessionStateData, v31);
 
-  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v26);
+  execute2 = [v10 execute];
+  if (execute2 != 101)
+  {
+    v13 = WBS_LOG_CHANNEL_PREFIXStatePersistence(execute2, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
+      objc_claimAutoreleasedReturnValue();
+      [SFBrowserStateSQLiteStore _insertTabStateWithData:];
+    }
+  }
+
+  [v10 invalidate];
+
+  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v30);
 }
 
 - (id)_sqliteStatementForTabDeleting
@@ -2014,9 +2054,9 @@ uint64_t __53__SFBrowserStateSQLiteStore__updateTabStateWithData___block_invoke(
 
 - (void)_updateBrowserWindowStateWithDictionary:(id)dictionary
 {
-  v26[6] = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  MEMORY[0x18CFFE120](v26, @"com.apple.SafariServices.SavingBrowserState");
+  MEMORY[0x18CFFE120](v30, @"com.apple.SafariServices.SavingBrowserState");
   v5 = [(SFBrowserStateSQLiteStore *)self _saveBrowserWindowStateWithDictionary:dictionaryCopy];
   if (v5 != 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -2029,7 +2069,8 @@ uint64_t __53__SFBrowserStateSQLiteStore__updateTabStateWithData___block_invoke(
 
     if ([v8 count])
     {
-      if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"BEGIN TRANSACTION") == 101)
+      v10 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"BEGIN TRANSACTION");
+      if (v10 == 101)
       {
         firstObject = [v8 firstObject];
         objc_opt_class();
@@ -2037,48 +2078,49 @@ uint64_t __53__SFBrowserStateSQLiteStore__updateTabStateWithData___block_invoke(
 
         if (isKindOfClass)
         {
-          v12 = [v8 safari_mapObjectsUsingBlock:&__block_literal_global_200];
+          v14 = [v8 safari_mapObjectsUsingBlock:&__block_literal_global_200];
         }
 
         else
         {
-          v12 = v8;
+          v14 = v8;
         }
 
-        v13 = v12;
-        v22[0] = MEMORY[0x1E69E9820];
-        v22[1] = 3221225472;
-        v22[2] = __69__SFBrowserStateSQLiteStore__updateBrowserWindowStateWithDictionary___block_invoke_2;
-        v22[3] = &unk_1E721F560;
-        v14 = v6;
+        v15 = v14;
+        v26[0] = MEMORY[0x1E69E9820];
+        v26[1] = 3221225472;
+        v26[2] = __69__SFBrowserStateSQLiteStore__updateBrowserWindowStateWithDictionary___block_invoke_2;
+        v26[3] = &unk_1E721F560;
+        v16 = v6;
         selfCopy = self;
-        v25 = v5;
-        v23 = v14;
-        [v13 enumerateObjectsUsingBlock:v22];
-        if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"COMMIT TRANSACTION") == 101)
+        v29 = v5;
+        v27 = v16;
+        [v15 enumerateObjectsUsingBlock:v26];
+        v17 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"COMMIT TRANSACTION");
+        if (v17 == 101)
         {
-          v15 = [v13 safari_mapAndFilterObjectsUsingBlock:&__block_literal_global_205];
-          v16 = [(SFBrowserStateSQLiteStore *)self _tabUUIDsInWindow:v14];
-          v20[0] = MEMORY[0x1E69E9820];
-          v20[1] = 3221225472;
-          v20[2] = __69__SFBrowserStateSQLiteStore__updateBrowserWindowStateWithDictionary___block_invoke_2_206;
-          v20[3] = &unk_1E721F5A8;
-          v17 = v15;
-          v21 = v17;
-          v18 = [v16 objectsPassingTest:v20];
-          v19[0] = MEMORY[0x1E69E9820];
-          v19[1] = 3221225472;
-          v19[2] = __69__SFBrowserStateSQLiteStore__updateBrowserWindowStateWithDictionary___block_invoke_3;
-          v19[3] = &unk_1E721F5D0;
-          v19[4] = self;
-          [v18 enumerateObjectsUsingBlock:v19];
-          [v16 minusSet:v18];
+          v19 = [v15 safari_mapAndFilterObjectsUsingBlock:&__block_literal_global_205];
+          v20 = [(SFBrowserStateSQLiteStore *)self _tabUUIDsInWindow:v16];
+          v24[0] = MEMORY[0x1E69E9820];
+          v24[1] = 3221225472;
+          v24[2] = __69__SFBrowserStateSQLiteStore__updateBrowserWindowStateWithDictionary___block_invoke_2_206;
+          v24[3] = &unk_1E721F5A8;
+          v21 = v19;
+          v25 = v21;
+          v22 = [v20 objectsPassingTest:v24];
+          v23[0] = MEMORY[0x1E69E9820];
+          v23[1] = 3221225472;
+          v23[2] = __69__SFBrowserStateSQLiteStore__updateBrowserWindowStateWithDictionary___block_invoke_3;
+          v23[3] = &unk_1E721F5D0;
+          v23[4] = self;
+          [v22 enumerateObjectsUsingBlock:v23];
+          [v20 minusSet:v22];
         }
 
         else
         {
-          v17 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v21 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v17, v18);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
             objc_claimAutoreleasedReturnValue();
@@ -2089,8 +2131,8 @@ uint64_t __53__SFBrowserStateSQLiteStore__updateTabStateWithData___block_invoke(
 
       else
       {
-        v13 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v15 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v10, v11);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
           objc_claimAutoreleasedReturnValue();
@@ -2100,7 +2142,7 @@ uint64_t __53__SFBrowserStateSQLiteStore__updateTabStateWithData___block_invoke(
     }
   }
 
-  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v26);
+  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v30);
 }
 
 SFTabStateData *__69__SFBrowserStateSQLiteStore__updateBrowserWindowStateWithDictionary___block_invoke(uint64_t a1, void *a2)
@@ -2147,29 +2189,31 @@ void __69__SFBrowserStateSQLiteStore__updateBrowserWindowStateWithDictionary___b
 
 - (void)_updateBrowserWindowWithData:(id)data tabs:(id)tabs
 {
-  v13[6] = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   tabsCopy = tabs;
-  MEMORY[0x18CFFE120](v13, @"com.apple.SafariServices.SavingBrowserState");
+  MEMORY[0x18CFFE120](v17, @"com.apple.SafariServices.SavingBrowserState");
   v8 = [(SFBrowserStateSQLiteStore *)self _saveBrowserWindowStateWithData:dataCopy];
   if (tabsCopy)
   {
     v9 = v8;
     if ([dataCopy needsQuickUpdate])
     {
-      if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"BEGIN TRANSACTION") == 101)
+      v10 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"BEGIN TRANSACTION");
+      if (v10 == 101)
       {
-        v12[0] = MEMORY[0x1E69E9820];
-        v12[1] = 3221225472;
-        v12[2] = __63__SFBrowserStateSQLiteStore__updateBrowserWindowWithData_tabs___block_invoke;
-        v12[3] = &unk_1E721F5F8;
-        v12[4] = self;
-        v12[5] = v9;
-        [tabsCopy enumerateObjectsUsingBlock:v12];
-        if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"COMMIT TRANSACTION") != 101)
+        v16[0] = MEMORY[0x1E69E9820];
+        v16[1] = 3221225472;
+        v16[2] = __63__SFBrowserStateSQLiteStore__updateBrowserWindowWithData_tabs___block_invoke;
+        v16[3] = &unk_1E721F5F8;
+        v16[4] = self;
+        v16[5] = v9;
+        [tabsCopy enumerateObjectsUsingBlock:v16];
+        v12 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"COMMIT TRANSACTION");
+        if (v12 != 101)
         {
-          v10 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v14 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v12, v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
             objc_claimAutoreleasedReturnValue();
@@ -2180,8 +2224,8 @@ void __69__SFBrowserStateSQLiteStore__updateBrowserWindowStateWithDictionary___b
 
       else
       {
-        v11 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v15 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v10, v11);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
           objc_claimAutoreleasedReturnValue();
@@ -2191,12 +2235,12 @@ void __69__SFBrowserStateSQLiteStore__updateBrowserWindowStateWithDictionary___b
     }
   }
 
-  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v13);
+  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v17);
 }
 
 void __63__SFBrowserStateSQLiteStore__updateBrowserWindowWithData_tabs___block_invoke(uint64_t a1, void *a2)
 {
-  v13[3] = *MEMORY[0x1E69E9840];
+  v15[3] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = objc_alloc(MEMORY[0x1E696AFB0]);
@@ -2211,10 +2255,10 @@ void __63__SFBrowserStateSQLiteStore__updateBrowserWindowWithData_tabs___block_i
   }
 
   v9 = *(*(a1 + 32) + 16);
-  v13[0] = [v3 orderIndex];
-  v12 = [v3 owningBrowserWindowUUIDString];
-  v11 = [v3 UUIDString];
-  LODWORD(v9) = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<long,NSString * {__strong},long const&,NSString * {__strong}>(v9, 0, @"UPDATE tabs SET order_index = ?, browser_window_uuid = ?, browser_window_id = ?WHERE uuid = ?", v13, &v12, (a1 + 40), &v11);
+  v15[0] = [v3 orderIndex];
+  v14 = [v3 owningBrowserWindowUUIDString];
+  v13 = [v3 UUIDString];
+  LODWORD(v9) = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<long,NSString * {__strong},long const&,NSString * {__strong}>(v9, 0, @"UPDATE tabs SET order_index = ?, browser_window_uuid = ?, browser_window_id = ?WHERE uuid = ?", v15, &v14, (a1 + 40), &v13);
 
   if (v9 == 101)
   {
@@ -2223,8 +2267,8 @@ void __63__SFBrowserStateSQLiteStore__updateBrowserWindowWithData_tabs___block_i
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [*(*(a1 + 32) + 16) lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -2438,23 +2482,23 @@ void __75__SFBrowserStateSQLiteStore_readSavedSessionStateDataForTabWithUUIDStri
 - (void)deleteTabStateWithBrowserWindowUUID:(id)d andRemoveWindow:(BOOL)window
 {
   windowCopy = window;
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v6 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = WBS_LOG_CHANNEL_PREFIXStatePersistence(dCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = @"NO";
+    v8 = @"NO";
     if (windowCopy)
     {
-      v7 = @"YES";
+      v8 = @"YES";
     }
 
-    v8 = v7;
+    v9 = v8;
     *buf = 138543618;
-    v10 = dCopy;
-    v11 = 2114;
-    v12 = v8;
-    _os_log_impl(&dword_18B7AC000, v6, OS_LOG_TYPE_DEFAULT, "Deleting tab state with Browser Window UUID:%{public}@ and removing window: %{public}@", buf, 0x16u);
+    v11 = dCopy;
+    v12 = 2114;
+    v13 = v9;
+    _os_log_impl(&dword_18B7AC000, v7, OS_LOG_TYPE_DEFAULT, "Deleting tab state with Browser Window UUID:%{public}@ and removing window: %{public}@", buf, 0x16u);
   }
 
   operator new();
@@ -2532,10 +2576,11 @@ void __50__SFBrowserStateSQLiteStore_removeTabWithTabData___block_invoke(uint64_
   v3 = [*(a1 + 40) UUIDString];
   [v2 bindString:v3 atParameterIndex:1];
 
-  if ([v2 execute] != 101)
+  v4 = [v2 execute];
+  if (v4 != 101)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [*(*(a1 + 32) + 16) lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -2544,16 +2589,16 @@ void __50__SFBrowserStateSQLiteStore_removeTabWithTabData___block_invoke(uint64_
   }
 
   [v2 invalidate];
-  v5 = *(a1 + 32);
-  v6 = [*(a1 + 40) owningBrowserWindowUUIDString];
-  v7 = [v5 _tabUUIDsInWindow:v6];
-  v8 = [*(a1 + 40) UUIDString];
-  [v7 removeObject:v8];
+  v7 = *(a1 + 32);
+  v8 = [*(a1 + 40) owningBrowserWindowUUIDString];
+  v9 = [v7 _tabUUIDsInWindow:v8];
+  v10 = [*(a1 + 40) UUIDString];
+  [v9 removeObject:v10];
 
-  v9 = *(a1 + 48);
-  if (v9)
+  v11 = *(a1 + 48);
+  if (v11)
   {
-    SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v9);
+    SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v11);
     MEMORY[0x18CFFE140]();
   }
 }
@@ -2574,28 +2619,29 @@ void __50__SFBrowserStateSQLiteStore_removeTabWithTabData___block_invoke(uint64_
 
 void __89__SFBrowserStateSQLiteStore_deleteActiveProfileReferencesOnWindowsWithProfileIdentifier___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  MEMORY[0x18CFFE120](v6, @"com.apple.SafariServices.SavingBrowserState");
+  v15 = *MEMORY[0x1E69E9840];
+  MEMORY[0x18CFFE120](v8, @"com.apple.SafariServices.SavingBrowserState");
   v2 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * const {__strong}&>(*(*(a1 + 32) + 16), 0, @"UPDATE browser_windows SET active_profile_identifier = 'DefaultProfile' WHERE active_profile_identifier = ?", (a1 + 40));
+  v4 = v2;
   if (v2 != 101)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v4 = *(a1 + 40);
-      v5 = [*(*(a1 + 32) + 16) lastErrorMessage];
+      v6 = *(a1 + 40);
+      v7 = [*(*(a1 + 32) + 16) lastErrorMessage];
       *buf = 138543874;
-      v8 = v4;
-      v9 = 2114;
-      v10 = v5;
-      v11 = 1024;
-      v12 = v2;
-      _os_log_error_impl(&dword_18B7AC000, v3, OS_LOG_TYPE_ERROR, "Failed to update references to profile %{public}@ on windows with error: %{public}@ (%d)", buf, 0x1Cu);
+      v10 = v6;
+      v11 = 2114;
+      v12 = v7;
+      v13 = 1024;
+      v14 = v4;
+      _os_log_error_impl(&dword_18B7AC000, v5, OS_LOG_TYPE_ERROR, "Failed to update references to profile %{public}@ on windows with error: %{public}@ (%d)", buf, 0x1Cu);
     }
   }
 
   [*(a1 + 32) _vacuum];
-  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v6);
+  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v8);
 }
 
 - (void)deleteSavedTabsForProfileWithIdentifier:(id)identifier
@@ -2614,53 +2660,55 @@ void __89__SFBrowserStateSQLiteStore_deleteActiveProfileReferencesOnWindowsWithP
 
 void __69__SFBrowserStateSQLiteStore_deleteSavedTabsForProfileWithIdentifier___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  MEMORY[0x18CFFE120](v6, @"com.apple.SafariServices.SavingBrowserState");
+  v15 = *MEMORY[0x1E69E9840];
+  MEMORY[0x18CFFE120](v8, @"com.apple.SafariServices.SavingBrowserState");
   v2 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * const {__strong}&>(*(*(a1 + 32) + 16), 0, @"DELETE FROM tabs WHERE profile_uuid = ?", (a1 + 40));
+  v4 = v2;
   if (v2 != 101)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v4 = *(a1 + 40);
-      v5 = [*(*(a1 + 32) + 16) lastErrorMessage];
+      v6 = *(a1 + 40);
+      v7 = [*(*(a1 + 32) + 16) lastErrorMessage];
       *buf = 138543874;
-      v8 = v4;
-      v9 = 2114;
-      v10 = v5;
-      v11 = 1024;
-      v12 = v2;
-      _os_log_error_impl(&dword_18B7AC000, v3, OS_LOG_TYPE_ERROR, "Failed to delete tabs in profile %{public}@ with error: %{public}@ (%d)", buf, 0x1Cu);
+      v10 = v6;
+      v11 = 2114;
+      v12 = v7;
+      v13 = 1024;
+      v14 = v4;
+      _os_log_error_impl(&dword_18B7AC000, v5, OS_LOG_TYPE_ERROR, "Failed to delete tabs in profile %{public}@ with error: %{public}@ (%d)", buf, 0x1Cu);
     }
   }
 
   [*(a1 + 32) _vacuum];
-  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v6);
+  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v8);
 }
 
 id *__52__SFBrowserStateSQLiteStore_checkPointWriteAheadLog__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v7 = 0;
-  v2 = [*(*(a1 + 32) + 16) checkpointWriteAheadLogWithLogFrameCount:&v7 + 4 checkpointedFrameCount:&v7] == 0;
-  v3 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-  v4 = v3;
-  if (v2)
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0;
+  v2 = [*(*(a1 + 32) + 16) checkpointWriteAheadLogWithLogFrameCount:&v9 + 4 checkpointedFrameCount:&v9];
+  v3 = v2 == 0;
+  v5 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v2, v4);
+  v6 = v5;
+  if (v3)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 67109376;
-      v9 = HIDWORD(v7);
-      v10 = 1024;
-      v11 = v7;
-      _os_log_impl(&dword_18B7AC000, v4, OS_LOG_TYPE_INFO, "Checkpointed write ahead log. Log frame count: %d, checkpointed frame count: %d", buf, 0xEu);
+      v11 = HIDWORD(v9);
+      v12 = 1024;
+      v13 = v9;
+      _os_log_impl(&dword_18B7AC000, v6, OS_LOG_TYPE_INFO, "Checkpointed write ahead log. Log frame count: %d, checkpointed frame count: %d", buf, 0xEu);
     }
   }
 
   else
   {
-    v5 = v3;
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = v5;
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [*(*(a1 + 32) + 16) lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -2692,7 +2740,7 @@ id *__52__SFBrowserStateSQLiteStore_checkPointWriteAheadLog__block_invoke(uint64
 
 void __52__SFBrowserStateSQLiteStore_setSecureDeleteEnabled___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
   v3 = *(*(a1 + 32) + 16);
   if (v2)
@@ -2708,19 +2756,19 @@ void __52__SFBrowserStateSQLiteStore_setSecureDeleteEnabled___block_invoke(uint6
   v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(v3, 0, v4);
   if (v5 != 100)
   {
-    v6 = v5;
-    v7 = WBS_LOG_CHANNEL_PREFIXStatePersistence();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v7 = v5;
+    v8 = WBS_LOG_CHANNEL_PREFIXStatePersistence(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v8 = [*(*(a1 + 32) + 16) lastErrorMessage];
-      v9 = *(a1 + 40);
-      v10 = 138543874;
-      v11 = v8;
-      v12 = 1024;
-      v13 = v6;
-      v14 = 1024;
-      v15 = v9;
-      _os_log_error_impl(&dword_18B7AC000, v7, OS_LOG_TYPE_ERROR, "Failed to toggle secure_delete pragma: %{public}@ (%d) (%d)", &v10, 0x18u);
+      v9 = [*(*(a1 + 32) + 16) lastErrorMessage];
+      v10 = *(a1 + 40);
+      v11 = 138543874;
+      v12 = v9;
+      v13 = 1024;
+      v14 = v7;
+      v15 = 1024;
+      v16 = v10;
+      _os_log_error_impl(&dword_18B7AC000, v8, OS_LOG_TYPE_ERROR, "Failed to toggle secure_delete pragma: %{public}@ (%d) (%d)", &v11, 0x18u);
     }
   }
 }

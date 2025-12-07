@@ -81,14 +81,14 @@
     CMTimeMake([VCPVideoKeyFrameAnalyzer analyzeFrame:frameStats:timestamp:]::kHeadingTime, 1, 1);
   }
 
-  v24 = *&timestamp->var0;
+  v30 = *&timestamp->var0;
   var3 = timestamp->var3;
   lhs = *timestamp;
   rhs = self->_timeRange.start;
-  CMTimeSubtract(&v23, &lhs, &rhs);
-  lhs = v23;
+  CMTimeSubtract(&v29, &lhs, &rhs);
+  lhs = v29;
   rhs = *[VCPVideoKeyFrameAnalyzer analyzeFrame:frameStats:timestamp:]::kHeadingTime;
-  [(VCPVideoKeyFrameAnalyzer *)self setKeyFrameTime:&v24 isHeadingFrame:CMTimeCompare(&lhs, &rhs) >> 31];
+  [(VCPVideoKeyFrameAnalyzer *)self setKeyFrameTime:&v30 isHeadingFrame:CMTimeCompare(&lhs, &rhs) >> 31];
   lhs = *timestamp;
   [(VCPVideoKeyFrameAnalyzer *)self prepareFrameStats:statsCopy timeStamp:&lhs];
   if (([(VCPVideoKeyFrame *)self->_activeKeyFrame statsFlags]& 1) == 0 && ([(VCPVideoKeyFrame *)self->_activeKeyFrame statsFlags]& 0x10) == 0)
@@ -97,61 +97,64 @@
     goto LABEL_27;
   }
 
-  if (([(VCPVideoKeyFrame *)self->_activeKeyFrame statsFlags]& 0x10) == 0 || ([(VCPVideoKeyFrame *)self->_activeKeyFrame statsFlags]& 1) != 0)
+  statsFlags = [(VCPVideoKeyFrame *)self->_activeKeyFrame statsFlags];
+  if (statsFlags & 0x10) == 0 || (statsFlags = [(VCPVideoKeyFrame *)self->_activeKeyFrame statsFlags], (statsFlags))
   {
-    v10 = VCPSignPostLog();
-    v11 = os_signpost_id_generate(v10);
+    v11 = VCPSignPostLog(statsFlags);
+    v12 = os_signpost_id_generate(v11);
 
-    v12 = VCPSignPostLog();
-    v13 = v12;
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+    v14 = VCPSignPostLog(v13);
+    v15 = v14;
+    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
     {
       LOWORD(lhs.value) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "VCPVideoKeyFrameBlurAnalyzer", "", &lhs, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "VCPVideoKeyFrameBlurAnalyzer", "", &lhs, 2u);
     }
 
-    finalizeKeyFrame = [(VCPVideoKeyFrameAnalyzer *)self computeSharpnessOfFrame:frame];
-    if (finalizeKeyFrame)
+    v16 = [(VCPVideoKeyFrameAnalyzer *)self computeSharpnessOfFrame:frame];
+    finalizeKeyFrame = v16;
+    if (v16)
     {
       goto LABEL_27;
     }
 
-    v14 = VCPSignPostLog();
-    v15 = v14;
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+    v17 = VCPSignPostLog(v16);
+    v18 = v17;
+    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
     {
       LOWORD(lhs.value) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_END, v11, "VCPVideoKeyFrameBlurAnalyzer", "", &lhs, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v18, OS_SIGNPOST_INTERVAL_END, v12, "VCPVideoKeyFrameBlurAnalyzer", "", &lhs, 2u);
     }
   }
 
-  if (!+[VCPVideoKeyFrameAnalyzer isLivePhotoKeyFrameEnabled]|| ([(VCPVideoKeyFrame *)self->_activeKeyFrame statsFlags]& 1) == 0 || !self->_isLivePhoto)
+  if (!+[VCPVideoKeyFrameAnalyzer isLivePhotoKeyFrameEnabled]|| (v19 = [(VCPVideoKeyFrame *)self->_activeKeyFrame statsFlags], (v19 & 1) == 0) || !self->_isLivePhoto)
   {
 LABEL_26:
     finalizeKeyFrame = [(VCPVideoKeyFrameAnalyzer *)self finalizeKeyFrame];
     goto LABEL_27;
   }
 
-  v16 = VCPSignPostLog();
-  v17 = os_signpost_id_generate(v16);
+  v20 = VCPSignPostLog(v19);
+  v21 = os_signpost_id_generate(v20);
 
-  v18 = VCPSignPostLog();
-  v19 = v18;
-  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+  v23 = VCPSignPostLog(v22);
+  v24 = v23;
+  if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
   {
     LOWORD(lhs.value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v17, "VCPVideoKeyFrameFaceQualityAnalyzer", "", &lhs, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_BEGIN, v21, "VCPVideoKeyFrameFaceQualityAnalyzer", "", &lhs, 2u);
   }
 
-  finalizeKeyFrame = [(VCPVideoKeyFrameAnalyzer *)self computeFaceQualityOfFrame:frame];
-  if (!finalizeKeyFrame)
+  v25 = [(VCPVideoKeyFrameAnalyzer *)self computeFaceQualityOfFrame:frame];
+  finalizeKeyFrame = v25;
+  if (!v25)
   {
-    v20 = VCPSignPostLog();
-    v21 = v20;
-    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+    v26 = VCPSignPostLog(v25);
+    v27 = v26;
+    if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
     {
       LOWORD(lhs.value) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v21, OS_SIGNPOST_INTERVAL_END, v17, "VCPVideoKeyFrameFaceQualityAnalyzer", "", &lhs, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_END, v21, "VCPVideoKeyFrameFaceQualityAnalyzer", "", &lhs, 2u);
     }
 
     goto LABEL_26;
@@ -414,9 +417,9 @@ LABEL_5:
               v13 = *(*(&v24 + 1) + 8 * j);
               if (v13)
               {
-                [*(*(&v24 + 1) + 8 * j) start];
-                [v13 last];
-                [v13 start];
+                objc_msgSend_start(*(*(&v24 + 1) + 8 * j));
+                objc_msgSend_last(v13);
+                objc_msgSend_start(v13);
               }
 
               else
@@ -434,7 +437,7 @@ LABEL_5:
               CMTimeRangeMake(&lhs, &start, &duration);
               if (v8)
               {
-                [v8 timestamp];
+                objc_msgSend_timestamp(v8);
               }
 
               else
@@ -513,8 +516,8 @@ void __45__VCPVideoKeyFrameAnalyzer_adjustScoreByFace__block_invoke(uint64_t a1,
         v12 = *(*(&v16 + 1) + 8 * i);
         if (v12)
         {
-          [*(*(&v16 + 1) + 8 * i) last];
-          [v12 start];
+          objc_msgSend_last(*(*(&v16 + 1) + 8 * i));
+          objc_msgSend_start(v12);
         }
 
         else
@@ -705,7 +708,7 @@ void __45__VCPVideoKeyFrameAnalyzer_adjustScoreByFace__block_invoke(uint64_t a1,
                 CMTimeRangeMake(&range, &start, &duration);
                 if (v2)
                 {
-                  [v2 timestamp];
+                  objc_msgSend_timestamp(v2);
                 }
 
                 else

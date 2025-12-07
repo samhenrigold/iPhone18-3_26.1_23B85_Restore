@@ -42,35 +42,30 @@
 
 - (BOOL)showsPhotoVideoCounts
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   bundleIdentifier = [(ICQOffer *)self bundleIdentifier];
   if (![bundleIdentifier isEqualToString:@"com.apple.mobileslideshow"] || !-[ICQOffer isDetailAppBannerOffer](self, "isDetailAppBannerOffer"))
   {
 
-    goto LABEL_8;
+    return 0;
   }
 
   placeholderExists = [(ICQOffer *)self placeholderExists];
 
   if (!placeholderExists)
   {
-LABEL_8:
-    result = 0;
-    goto LABEL_9;
+    return 0;
   }
 
   v5 = _ICQGetLogSystem();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
+    v7 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_275572000, v5, OS_LOG_TYPE_DEFAULT, "Offer %@ will show count", &v8, 0xCu);
+    _os_log_impl(&dword_275572000, v5, OS_LOG_TYPE_DEFAULT, "Offer %@ will show count", &v7, 0xCu);
   }
 
-  result = 1;
-LABEL_9:
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -300,42 +295,42 @@ LABEL_6:
 
 - (id)journeyLinkForId:(id)id
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   idCopy = id;
-  [(NSDictionary *)self->_serverDictionary objectForKeyedSubscript:@"journeyLinks"];
+  objc_msgSend_objectForKeyedSubscript_(self->_serverDictionary);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v5 = v22 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = v21 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
-        v11 = [v10 objectForKeyedSubscript:{@"btnId", v19}];
+        v10 = *(*(&v18 + 1) + 8 * i);
+        v11 = objc_msgSend_objectForKeyedSubscript_(v10, v18);
         if ([v11 isEqualToString:idCopy])
         {
-          v13 = [v10 objectForKeyedSubscript:@"btnTitle"];
-          v14 = [v10 objectForKeyedSubscript:@"btnAction"];
-          v15 = [v10 objectForKeyedSubscript:@"btnActParams"];
-          v16 = [v10 objectForKeyedSubscript:@"btnId"];
+          v13 = objc_msgSend_objectForKeyedSubscript_(v10);
+          v14 = objc_msgSend_objectForKeyedSubscript_(v10);
+          v15 = objc_msgSend_objectForKeyedSubscript_(v10);
+          v16 = objc_msgSend_objectForKeyedSubscript_(v10);
           v12 = _ICQLinkForServerValues(v13, v14, v15, 0, v16, 0);
 
           goto LABEL_11;
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v7)
       {
         continue;
@@ -347,8 +342,6 @@ LABEL_6:
 
   v12 = 0;
 LABEL_11:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -439,22 +432,22 @@ LABEL_11:
 
 - (id)inAppMessageSpecificationForReason:(id)reason bundleId:(id)id
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   idCopy = id;
-  v8 = [(NSDictionary *)self->_serverDictionary objectForKeyedSubscript:@"detailAppBannerInfo"];
+  v8 = objc_msgSend_objectForKeyedSubscript_(self->_serverDictionary);
   if (v8)
   {
 
     goto LABEL_4;
   }
 
-  v9 = [(NSDictionary *)self->_serverDictionary objectForKeyedSubscript:@"bubbleBannerInfo"];
+  v9 = objc_msgSend_objectForKeyedSubscript_(self->_serverDictionary);
 
   if (v9)
   {
 LABEL_4:
-    v10 = [(NSDictionary *)self->_serverDictionary objectForKeyedSubscript:@"bubbleBannerInfo"];
+    v10 = objc_msgSend_objectForKeyedSubscript_(self->_serverDictionary);
     v11 = _ICQBubbleBannerSpecificationForServerDict(v10, idCopy);
 
     if (v11)
@@ -464,7 +457,7 @@ LABEL_4:
       goto LABEL_26;
     }
 
-    v13 = [(NSDictionary *)self->_serverDictionary objectForKeyedSubscript:@"detailAppBannerInfo"];
+    v13 = objc_msgSend_objectForKeyedSubscript_(self->_serverDictionary);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -474,9 +467,9 @@ LABEL_4:
         v15 = _ICQGetLogSystem();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = 138412290;
-          v23 = reasonCopy;
-          _os_log_impl(&dword_275572000, v15, OS_LOG_TYPE_DEFAULT, "Using banner fallback search for reason %@", &v22, 0xCu);
+          v21 = 138412290;
+          v22 = reasonCopy;
+          _os_log_impl(&dword_275572000, v15, OS_LOG_TYPE_DEFAULT, "Using banner fallback search for reason %@", &v21, 0xCu);
         }
 
         v14 = _ICQServerDictionaryForBundleIdentifier(v13, @"__WILDCARD__", reasonCopy, 0);
@@ -499,11 +492,11 @@ LABEL_25:
         {
           v18 = objc_opt_class();
           Name = class_getName(v18);
-          v22 = 136315394;
-          v23 = Name;
-          v24 = 2112;
-          v25 = v14;
-          _os_log_impl(&dword_275572000, v17, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", &v22, 0x16u);
+          v21 = 136315394;
+          v22 = Name;
+          v23 = 2112;
+          v24 = v14;
+          _os_log_impl(&dword_275572000, v17, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", &v21, 0x16u);
         }
       }
     }
@@ -520,11 +513,11 @@ LABEL_25:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         v16 = objc_opt_class();
-        v22 = 136315394;
-        v23 = class_getName(v16);
-        v24 = 2112;
-        v25 = v13;
-        _os_log_impl(&dword_275572000, v14, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", &v22, 0x16u);
+        v21 = 136315394;
+        v22 = class_getName(v16);
+        v23 = 2112;
+        v24 = v13;
+        _os_log_impl(&dword_275572000, v14, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", &v21, 0x16u);
       }
     }
 
@@ -541,22 +534,20 @@ LABEL_25:
   v12 = 0;
 LABEL_26:
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (id)settingsBannerSpecificationForReason:(id)reason bundleId:(id)id
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   idCopy = id;
-  v8 = [(NSDictionary *)self->_serverDictionary objectForKeyedSubscript:@"settingsBannerInfo"];
+  v8 = objc_msgSend_objectForKeyedSubscript_(self->_serverDictionary);
 
   if (v8)
   {
     v9 = @"ICQBannerSourceSettingsBannerInfo";
-    v10 = [(NSDictionary *)self->_serverDictionary objectForKeyedSubscript:@"settingsBannerInfo"];
+    v10 = objc_msgSend_objectForKeyedSubscript_(self->_serverDictionary);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -577,11 +568,11 @@ LABEL_17:
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           v15 = objc_opt_class();
-          v18 = 136315394;
+          v17 = 136315394;
           Name = class_getName(v15);
-          v20 = 2112;
-          v21 = v11;
-          _os_log_impl(&dword_275572000, v14, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", &v18, 0x16u);
+          v19 = 2112;
+          v20 = v11;
+          _os_log_impl(&dword_275572000, v14, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", &v17, 0x16u);
         }
       }
     }
@@ -598,11 +589,11 @@ LABEL_17:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         v13 = objc_opt_class();
-        v18 = 136315394;
+        v17 = 136315394;
         Name = class_getName(v13);
-        v20 = 2112;
-        v21 = v10;
-        _os_log_impl(&dword_275572000, v11, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", &v18, 0x16u);
+        v19 = 2112;
+        v20 = v10;
+        _os_log_impl(&dword_275572000, v11, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", &v17, 0x16u);
       }
     }
 
@@ -619,17 +610,15 @@ LABEL_17:
   v12 = 0;
 LABEL_18:
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 + (id)_settingsBannerSpecificationWithServerDictionary:(id)dictionary bundleId:(id)id
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   idCopy = id;
-  v7 = [dictionaryCopy objectForKeyedSubscript:@"settingsBannerInfo"];
+  v7 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
 
   if (!v7)
   {
@@ -637,7 +626,7 @@ LABEL_18:
     goto LABEL_16;
   }
 
-  v8 = [dictionaryCopy objectForKeyedSubscript:@"settingsBannerInfo"];
+  v8 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -651,11 +640,11 @@ LABEL_18:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v11 = objc_opt_class();
-      v16 = 136315394;
+      v15 = 136315394;
       Name = class_getName(v11);
-      v18 = 2112;
-      v19 = v8;
-      _os_log_impl(&dword_275572000, v9, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", &v16, 0x16u);
+      v17 = 2112;
+      v18 = v8;
+      _os_log_impl(&dword_275572000, v9, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", &v15, 0x16u);
     }
 
     goto LABEL_13;
@@ -671,11 +660,11 @@ LABEL_18:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         v13 = objc_opt_class();
-        v16 = 136315394;
+        v15 = 136315394;
         Name = class_getName(v13);
-        v18 = 2112;
-        v19 = v9;
-        _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", &v16, 0x16u);
+        v17 = 2112;
+        v18 = v9;
+        _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", &v15, 0x16u);
       }
     }
 
@@ -689,8 +678,6 @@ LABEL_14:
 
 LABEL_15:
 LABEL_16:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -719,7 +706,7 @@ LABEL_16:
 
 - (ICQOffer)initWithServerDictionary:(id)dictionary accountAltDSID:(id)d notificationID:(id)iD retrievalDate:(id)date callbackInterval:(double)interval appLaunchLink:(id)link bundleIdentifier:(id)identifier
 {
-  v165 = *MEMORY[0x277D85DE8];
+  v156 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   dCopy = d;
   iDCopy = iD;
@@ -727,9 +714,9 @@ LABEL_16:
   obj = link;
   linkCopy = link;
   identifierCopy = identifier;
-  v152.receiver = self;
-  v152.super_class = ICQOffer;
-  v20 = [(ICQOffer *)&v152 init];
+  v143.receiver = self;
+  v143.super_class = ICQOffer;
+  v20 = [(ICQOffer *)&v143 init];
   if (!v20)
   {
     goto LABEL_103;
@@ -766,10 +753,10 @@ LABEL_16:
   v20->_bannerSpecification = v33;
 
   v35 = identifierCopy;
-  v36 = [dictionaryCopy objectForKeyedSubscript:@"iCloudInAppRecommendations"];
+  v36 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
   objc_opt_class();
   v37 = 0x277CBE000uLL;
-  v147 = identifierCopy;
+  v138 = identifierCopy;
   if (objc_opt_isKindOfClass())
   {
     v38 = _ICQServerDictionaryForBundleIdentifier(v36, v35, 0, 0);
@@ -791,9 +778,9 @@ LABEL_13:
         v44 = objc_opt_class();
         Name = class_getName(v44);
         *buf = 136315394;
-        v162 = Name;
-        v163 = 2112;
-        v164 = v38;
+        v153 = Name;
+        v154 = 2112;
+        v155 = v38;
         _os_log_impl(&dword_275572000, v43, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", buf, 0x16u);
       }
 
@@ -815,9 +802,9 @@ LABEL_12:
       v40 = objc_opt_class();
       v41 = class_getName(v40);
       *buf = 136315394;
-      v162 = v41;
-      v163 = 2112;
-      v164 = v36;
+      v153 = v41;
+      v154 = 2112;
+      v155 = v36;
       _os_log_impl(&dword_275572000, v38, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", buf, 0x16u);
     }
 
@@ -831,7 +818,7 @@ LABEL_14:
   v20->_recommendationSpecification = v39;
 
   v47 = v35;
-  v48 = [dictionaryCopy objectForKeyedSubscript:@"appBannerInfo"];
+  v48 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -854,9 +841,9 @@ LABEL_25:
         v55 = objc_opt_class();
         v56 = class_getName(v55);
         *buf = 136315394;
-        v162 = v56;
-        v163 = 2112;
-        v164 = v49;
+        v153 = v56;
+        v154 = 2112;
+        v155 = v49;
         _os_log_impl(&dword_275572000, v54, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", buf, 0x16u);
       }
 
@@ -878,9 +865,9 @@ LABEL_24:
       v51 = objc_opt_class();
       v52 = class_getName(v51);
       *buf = 136315394;
-      v162 = v52;
-      v163 = 2112;
-      v164 = v48;
+      v153 = v52;
+      v154 = 2112;
+      v155 = v48;
       _os_log_impl(&dword_275572000, v49, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", buf, 0x16u);
     }
 
@@ -894,7 +881,7 @@ LABEL_26:
   v20->_buttonSpecification = v50;
 
   v58 = dictionaryCopy;
-  v59 = [v58 objectForKeyedSubscript:@"followUpInfo"];
+  v59 = objc_msgSend_objectForKeyedSubscript_(v58);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -910,9 +897,9 @@ LABEL_26:
       v63 = objc_opt_class();
       v64 = class_getName(v63);
       *buf = 136315394;
-      v162 = v64;
-      v163 = 2112;
-      v164 = v59;
+      v153 = v64;
+      v154 = 2112;
+      v155 = v59;
       _os_log_impl(&dword_275572000, v62, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", buf, 0x16u);
     }
 
@@ -930,9 +917,9 @@ LABEL_26:
 
   v66 = v58;
   v67 = v47;
-  v68 = [v66 objectForKeyedSubscript:@"appContextInfo"];
+  v68 = objc_msgSend_objectForKeyedSubscript_(v66);
   v69 = v66;
-  v148 = dCopy;
+  v139 = dCopy;
   if (!v68)
   {
 LABEL_66:
@@ -943,9 +930,9 @@ LABEL_66:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v145 = v66;
-    v146 = iDCopy;
-    v144 = v68;
+    v136 = v66;
+    v137 = iDCopy;
+    v135 = v68;
     v70 = v68;
     v71 = v67;
     if ([v71 isEqualToString:@"__WILDCARD__"])
@@ -955,110 +942,107 @@ LABEL_66:
 
     else
     {
-      v142 = v67;
-      v143 = dictionaryCopy;
-      v155 = 0u;
-      v156 = 0u;
-      v153 = 0u;
-      v154 = 0u;
-      v141 = v70;
+      v133 = v67;
+      v134 = dictionaryCopy;
+      v146 = 0u;
+      v147 = 0u;
+      v144 = 0u;
+      v145 = 0u;
+      v132 = v70;
       v80 = v70;
-      v81 = [v80 countByEnumeratingWithState:&v153 objects:buf count:16];
+      v81 = [v80 countByEnumeratingWithState:&v144 objects:buf count:16];
       if (v81)
       {
         v82 = v81;
-        v83 = *v154;
+        v83 = *v145;
         do
         {
           for (i = 0; i != v82; ++i)
           {
-            if (*v154 != v83)
+            if (*v145 != v83)
             {
               objc_enumerationMutation(v80);
             }
 
-            v85 = *(*(&v153 + 1) + 8 * i);
+            v85 = *(*(&v144 + 1) + 8 * i);
             v86 = v37;
-            v87 = *(v37 + 2752);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v88 = [v85 objectForKeyedSubscript:@"appId"];
-              v89 = [v88 isEqualToString:v71];
+              v87 = objc_msgSend_objectForKeyedSubscript_(v85);
+              v88 = [v87 isEqualToString:v71];
 
-              if (v89)
+              if (v88)
               {
                 firstObject = v85;
 
-                dictionaryCopy = v143;
-                v37 = v86;
+                dictionaryCopy = v134;
                 goto LABEL_57;
               }
             }
 
             else if (v85)
             {
-              v90 = _ICQGetLogSystem();
-              if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
+              v89 = _ICQGetLogSystem();
+              if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
               {
-                v91 = *(v37 + 2752);
-                v92 = objc_opt_class();
-                v93 = class_getName(v92);
-                *v157 = 136315394;
-                v158 = v93;
-                v159 = 2112;
-                v160 = v85;
-                _os_log_impl(&dword_275572000, v90, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", v157, 0x16u);
+                v90 = objc_opt_class();
+                v91 = class_getName(v90);
+                *v148 = 136315394;
+                v149 = v91;
+                v150 = 2112;
+                v151 = v85;
+                _os_log_impl(&dword_275572000, v89, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", v148, 0x16u);
               }
             }
 
             v37 = v86;
           }
 
-          v82 = [v80 countByEnumeratingWithState:&v153 objects:buf count:16];
+          v82 = [v80 countByEnumeratingWithState:&v144 objects:buf count:16];
         }
 
         while (v82);
       }
 
       firstObject = 0;
-      dictionaryCopy = v143;
+      dictionaryCopy = v134;
 LABEL_57:
-      v70 = v141;
-      v67 = v142;
+      v70 = v132;
+      v67 = v133;
     }
 
-    v94 = _ICQGetLogSystem();
-    v95 = os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT);
+    v92 = _ICQGetLogSystem();
+    v93 = os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT);
     if (firstObject)
     {
-      if (v95)
+      if (v93)
       {
         *buf = 138412290;
-        v162 = v71;
-        _os_log_impl(&dword_275572000, v94, OS_LOG_TYPE_DEFAULT, "found app-specific flow for %@", buf, 0xCu);
+        v153 = v71;
+        _os_log_impl(&dword_275572000, v92, OS_LOG_TYPE_DEFAULT, "found app-specific flow for %@", buf, 0xCu);
       }
 
       v69 = firstObject;
-      v66 = v145;
-      v94 = v145;
+      v66 = v136;
+      v92 = v136;
     }
 
     else
     {
-      if (v95)
+      if (v93)
       {
         *buf = 138412290;
-        v162 = v71;
-        _os_log_impl(&dword_275572000, v94, OS_LOG_TYPE_DEFAULT, "app-specific flow for %@ not found; using top-level flow", buf, 0xCu);
+        v153 = v71;
+        _os_log_impl(&dword_275572000, v92, OS_LOG_TYPE_DEFAULT, "app-specific flow for %@ not found; using top-level flow", buf, 0xCu);
       }
 
-      v66 = v145;
-      v69 = v145;
+      v66 = v136;
+      v69 = v136;
     }
 
-    iDCopy = v146;
-    v68 = v144;
+    iDCopy = v137;
+    v68 = v135;
     goto LABEL_66;
   }
 
@@ -1071,9 +1055,9 @@ LABEL_57:
     v77 = objc_opt_class();
     v78 = class_getName(v77);
     *buf = 136315394;
-    v162 = v78;
-    v163 = 2112;
-    v164 = v75;
+    v153 = v78;
+    v154 = 2112;
+    v155 = v75;
     _os_log_impl(&dword_275572000, v76, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", buf, 0x16u);
   }
 
@@ -1087,192 +1071,185 @@ LABEL_67:
   upgradeFlowSpecification = v20->_upgradeFlowSpecification;
   v20->_upgradeFlowSpecification = v79;
 
-  v97 = [_ICQXMLSpecification alloc];
-  v98 = [v66 objectForKeyedSubscript:@"placeHolderInfo"];
-  v99 = [(_ICQXMLSpecification *)v97 initWithPlaceholderInfo:v98];
+  v95 = [_ICQXMLSpecification alloc];
+  v96 = objc_msgSend_objectForKeyedSubscript_(v66);
+  v97 = [(_ICQXMLSpecification *)v95 initWithPlaceholderInfo:v96];
   XMLSpecification = v20->_XMLSpecification;
-  v20->_XMLSpecification = v99;
+  v20->_XMLSpecification = v97;
 
-  v101 = v67;
-  v102 = v66;
-  v103 = [v66 objectForKeyedSubscript:@"universalLinkInfo"];
+  v99 = v67;
+  v100 = v66;
+  v101 = objc_msgSend_objectForKeyedSubscript_(v66);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v104 = _ICQServerDictionaryForBundleIdentifier(v103, v101, 0, 0);
-    if (!v104)
+    v102 = _ICQServerDictionaryForBundleIdentifier(v101, v99, 0, 0);
+    if (!v102)
     {
-      v104 = _ICQServerDictionaryForBundleIdentifier(v103, @"com.apple.icq", 0, 0);
+      v102 = _ICQServerDictionaryForBundleIdentifier(v101, @"com.apple.icq", 0, 0);
     }
 
-    v105 = *(v37 + 2752);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v106 = [[_ICQBannerSpecification alloc] initWithServerDictionary:v104];
+      v103 = [[_ICQBannerSpecification alloc] initWithServerDictionary:v102];
 LABEL_80:
 
       goto LABEL_81;
     }
 
-    if (v104)
+    if (v102)
     {
-      v109 = _ICQGetLogSystem();
-      if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
+      v106 = _ICQGetLogSystem();
+      if (os_log_type_enabled(v106, OS_LOG_TYPE_DEFAULT))
       {
-        v110 = *(v37 + 2752);
-        v111 = objc_opt_class();
-        v112 = class_getName(v111);
+        v107 = objc_opt_class();
+        v108 = class_getName(v107);
         *buf = 136315394;
-        v162 = v112;
-        v163 = 2112;
-        v164 = v104;
-        _os_log_impl(&dword_275572000, v109, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", buf, 0x16u);
+        v153 = v108;
+        v154 = 2112;
+        v155 = v102;
+        _os_log_impl(&dword_275572000, v106, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", buf, 0x16u);
       }
     }
 
 LABEL_79:
-    v106 = 0;
+    v103 = 0;
     goto LABEL_80;
   }
 
-  if (v103)
+  if (v101)
   {
-    v104 = _ICQGetLogSystem();
-    if (os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT))
+    v102 = _ICQGetLogSystem();
+    if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
     {
-      v107 = objc_opt_class();
-      v108 = class_getName(v107);
+      v104 = objc_opt_class();
+      v105 = class_getName(v104);
       *buf = 136315394;
-      v162 = v108;
-      v163 = 2112;
-      v164 = v103;
-      _os_log_impl(&dword_275572000, v104, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", buf, 0x16u);
+      v153 = v105;
+      v154 = 2112;
+      v155 = v101;
+      _os_log_impl(&dword_275572000, v102, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", buf, 0x16u);
     }
 
     goto LABEL_79;
   }
 
-  v106 = 0;
+  v103 = 0;
 LABEL_81:
 
   universalLinkSpecification = v20->_universalLinkSpecification;
-  v20->_universalLinkSpecification = v106;
+  v20->_universalLinkSpecification = v103;
 
-  v114 = v101;
-  v115 = [v102 objectForKeyedSubscript:@"universalSuccessLinkInfo"];
+  v110 = v99;
+  v111 = objc_msgSend_objectForKeyedSubscript_(v100);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    if (!v115)
+    if (!v111)
     {
-      v118 = 0;
+      v113 = 0;
       goto LABEL_95;
     }
 
-    v116 = _ICQGetLogSystem();
-    if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
+    v112 = _ICQGetLogSystem();
+    if (os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT))
     {
-      v119 = objc_opt_class();
-      v120 = class_getName(v119);
+      v114 = objc_opt_class();
+      v115 = class_getName(v114);
       *buf = 136315394;
-      v162 = v120;
-      v163 = 2112;
-      v164 = v115;
-      _os_log_impl(&dword_275572000, v116, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", buf, 0x16u);
+      v153 = v115;
+      v154 = 2112;
+      v155 = v111;
+      _os_log_impl(&dword_275572000, v112, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", buf, 0x16u);
     }
 
     goto LABEL_93;
   }
 
-  v116 = _ICQServerDictionaryForBundleIdentifier(v115, v114, 0, 0);
-  if (!v116)
+  v112 = _ICQServerDictionaryForBundleIdentifier(v111, v110, 0, 0);
+  if (!v112)
   {
-    v116 = _ICQServerDictionaryForBundleIdentifier(v115, @"com.apple.icq", 0, 0);
+    v112 = _ICQServerDictionaryForBundleIdentifier(v111, @"com.apple.icq", 0, 0);
   }
 
-  v117 = *(v37 + 2752);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    if (v116)
+    if (v112)
     {
-      v121 = _ICQGetLogSystem();
-      if (os_log_type_enabled(v121, OS_LOG_TYPE_DEFAULT))
+      v116 = _ICQGetLogSystem();
+      if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
       {
-        v122 = *(v37 + 2752);
-        v123 = objc_opt_class();
-        v124 = class_getName(v123);
+        v117 = objc_opt_class();
+        v118 = class_getName(v117);
         *buf = 136315394;
-        v162 = v124;
-        v163 = 2112;
-        v164 = v116;
-        _os_log_impl(&dword_275572000, v121, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", buf, 0x16u);
+        v153 = v118;
+        v154 = 2112;
+        v155 = v112;
+        _os_log_impl(&dword_275572000, v116, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", buf, 0x16u);
       }
     }
 
 LABEL_93:
-    v118 = 0;
+    v113 = 0;
     goto LABEL_94;
   }
 
-  v118 = [[_ICQBannerSpecification alloc] initWithServerDictionary:v116];
+  v113 = [[_ICQBannerSpecification alloc] initWithServerDictionary:v112];
 LABEL_94:
 
 LABEL_95:
   universalSuccessInfoSpecification = v20->_universalSuccessInfoSpecification;
-  v20->_universalSuccessInfoSpecification = v118;
+  v20->_universalSuccessInfoSpecification = v113;
 
-  v126 = [v102 objectForKeyedSubscript:@"actionBasedUniversalLinkInfo"];
-  v127 = *(v37 + 2752);
+  v120 = objc_msgSend_objectForKeyedSubscript_(v100);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v128 = [[ICQActionBasedUniversalLinkSpecification alloc] initWithServerDictionary:v126];
+    v121 = [[ICQActionBasedUniversalLinkSpecification alloc] initWithServerDictionary:v120];
   }
 
   else
   {
-    if (v126)
+    if (v120)
     {
-      v129 = _ICQGetLogSystem();
-      if (os_log_type_enabled(v129, OS_LOG_TYPE_DEFAULT))
+      v122 = _ICQGetLogSystem();
+      if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
       {
-        v130 = *(v37 + 2752);
-        v131 = objc_opt_class();
-        v132 = class_getName(v131);
+        v123 = objc_opt_class();
+        v124 = class_getName(v123);
         *buf = 136315394;
-        v162 = v132;
-        v163 = 2112;
-        v164 = v126;
-        _os_log_impl(&dword_275572000, v129, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", buf, 0x16u);
+        v153 = v124;
+        v154 = 2112;
+        v155 = v120;
+        _os_log_impl(&dword_275572000, v122, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", buf, 0x16u);
       }
     }
 
-    v128 = 0;
+    v121 = 0;
   }
 
   actionBasedUniversalLinkSpecification = v20->_actionBasedUniversalLinkSpecification;
-  v20->_actionBasedUniversalLinkSpecification = v128;
+  v20->_actionBasedUniversalLinkSpecification = v121;
 
   objc_storeStrong(&v20->_inAppMessageSpecification, v20->_bannerSpecification);
-  v134 = _ICQDetailBannerSpecificationForServerDict(v102, v114, 1);
+  v126 = _ICQDetailBannerSpecificationForServerDict(v100, v110, 1);
   conciseInAppMessageSpecification = v20->_conciseInAppMessageSpecification;
-  v20->_conciseInAppMessageSpecification = v134;
+  v20->_conciseInAppMessageSpecification = v126;
 
-  v136 = [ICQOffer _settingsBannerSpecificationWithServerDictionary:v102 bundleId:v114];
+  v128 = [ICQOffer _settingsBannerSpecificationWithServerDictionary:v100 bundleId:v110];
   settingsBannerSpecification = v20->_settingsBannerSpecification;
-  v20->_settingsBannerSpecification = v136;
+  v20->_settingsBannerSpecification = v128;
 
-  v138 = [v102 objectForKeyedSubscript:@"iTunesAccountExists"];
-  v20->_iTunesAccountExists = _ICQBooleanForServerObjectDefault(v138, 1);
+  v130 = objc_msgSend_objectForKeyedSubscript_(v100);
+  v20->_iTunesAccountExists = _ICQBooleanForServerObjectDefault(v130, 1);
 
   objc_storeStrong(&v20->_appLaunchLink, obj);
-  identifierCopy = v147;
-  dCopy = v148;
+  identifierCopy = v138;
+  dCopy = v139;
 LABEL_103:
 
-  v139 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -1342,78 +1319,76 @@ LABEL_7:
 
 - (id)alertSpecificationForAlertKey:(id)key
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   keyCopy = key;
-  v5 = [(NSDictionary *)self->_serverDictionary objectForKeyedSubscript:@"inlineAlertInfo"];
+  v5 = objc_msgSend_objectForKeyedSubscript_(self->_serverDictionary);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v34 = 0u;
-    v35 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v29 = v5;
+    v30 = 0u;
+    v31 = 0u;
+    v27 = v5;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v32 objects:v40 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v30 objects:v38 count:16];
     if (v7)
     {
       v8 = v7;
-      v31 = 0;
-      v9 = *v33;
+      v29 = 0;
+      v9 = *v31;
       v10 = 0x277CBE000uLL;
       v11 = @"alertKey";
       v12 = 0x277CCA000uLL;
       do
       {
         v13 = 0;
-        v30 = v8;
+        v28 = v8;
         do
         {
-          if (*v33 != v9)
+          if (*v31 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v14 = *(*(&v32 + 1) + 8 * v13);
-          v15 = *(v10 + 2752);
+          v14 = *(*(&v30 + 1) + 8 * v13);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v16 = [v14 objectForKeyedSubscript:v11];
-            v17 = *(v12 + 3240);
+            v15 = objc_msgSend_objectForKeyedSubscript_(v14);
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) != 0 && [v16 isEqualToString:keyCopy])
+            if ((objc_opt_isKindOfClass() & 1) != 0 && [v15 isEqualToString:keyCopy])
             {
-              v38 = @"alertInfo";
-              v39 = v14;
-              v18 = [*(v10 + 2752) dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-              _ICQAlertSpecificationForServerDict(v18);
-              v19 = v9;
-              v20 = v10;
-              v21 = v6;
-              v22 = v11;
-              v23 = v12;
-              v25 = v24 = keyCopy;
+              v36 = @"alertInfo";
+              v37 = v14;
+              v16 = [*(v10 + 2752) dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+              _ICQAlertSpecificationForServerDict(v16, v17);
+              v18 = v9;
+              v19 = v10;
+              v20 = v6;
+              v21 = v11;
+              v22 = v12;
+              v24 = v23 = keyCopy;
 
-              v31 = v25;
-              keyCopy = v24;
-              v12 = v23;
-              v11 = v22;
-              v6 = v21;
-              v10 = v20;
-              v9 = v19;
-              v8 = v30;
+              v29 = v24;
+              keyCopy = v23;
+              v12 = v22;
+              v11 = v21;
+              v6 = v20;
+              v10 = v19;
+              v9 = v18;
+              v8 = v28;
             }
           }
 
           else
           {
-            v16 = _ICQGetLogSystem();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+            v15 = _ICQGetLogSystem();
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v37 = v14;
-              _os_log_impl(&dword_275572000, v16, OS_LOG_TYPE_DEFAULT, "expected inlineAlertInfo to be NSArray<NSDictionary *> but found %@", buf, 0xCu);
+              v35 = v14;
+              _os_log_impl(&dword_275572000, v15, OS_LOG_TYPE_DEFAULT, "expected inlineAlertInfo to be NSArray<NSDictionary *> but found %@", buf, 0xCu);
             }
           }
 
@@ -1421,7 +1396,7 @@ LABEL_7:
         }
 
         while (v8 != v13);
-        v8 = [v6 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v30 objects:v38 count:16];
       }
 
       while (v8);
@@ -1429,31 +1404,29 @@ LABEL_7:
 
     else
     {
-      v31 = 0;
+      v29 = 0;
     }
 
-    v5 = v29;
-    v26 = v31;
+    v5 = v27;
+    v25 = v29;
   }
 
   else
   {
-    v26 = 0;
+    v25 = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
-  return v26;
+  return v25;
 }
 
 - (id)alertSpecificationAtIndex:(unint64_t)index
 {
   v14[1] = *MEMORY[0x277D85DE8];
-  v4 = [(NSDictionary *)self->_serverDictionary objectForKeyedSubscript:@"inlineAlertInfo"];
+  v4 = objc_msgSend_objectForKeyedSubscript_(self->_serverDictionary, a2, @"inlineAlertInfo");
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 || [v4 count] <= index)
   {
-    v8 = 0;
+    v9 = 0;
     goto LABEL_11;
   }
 
@@ -1472,26 +1445,24 @@ LABEL_7:
     goto LABEL_9;
   }
 
-  v6 = [v5 objectForKeyedSubscript:@"alertKey"];
+  v6 = objc_msgSend_objectForKeyedSubscript_(v5);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 LABEL_9:
-    v8 = 0;
+    v9 = 0;
     goto LABEL_10;
   }
 
   v13 = @"alertInfo";
   v14[0] = v5;
   v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
-  v8 = _ICQAlertSpecificationForServerDict(v7);
+  v9 = _ICQAlertSpecificationForServerDict(v7, v8);
 
 LABEL_10:
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v9;
 }
 
 + (id)offerReasonForServerReason:(id)reason
@@ -1529,8 +1500,8 @@ LABEL_11:
     reason = [v3 reason];
     date = [_ICQHelperFunctions lastUpdatedForReason:reason decayUntil:v7];
 
-    v10 = _ICQBannerLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _ICQBannerLogSystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       reason2 = [v3 reason];
       v15 = 138412802;
@@ -1539,53 +1510,44 @@ LABEL_11:
       v18 = v7;
       v19 = 2112;
       v20 = date;
-      _os_log_impl(&dword_275572000, v10, OS_LOG_TYPE_DEFAULT, "Providing last updated for Photos Bubble Banner - Reason: %@ Decay: %f lastUpdated: %@", &v15, 0x20u);
+      _os_log_impl(&dword_275572000, v11, OS_LOG_TYPE_DEFAULT, "Providing last updated for Photos Bubble Banner - Reason: %@ Decay: %f lastUpdated: %@", &v15, 0x20u);
     }
   }
 
   else
   {
-    v12 = _ICQBannerLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = _ICQBannerLogSystem(recommendationSpecification);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v15) = 0;
-      _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "We do not have a recommendation banner spec. In this case sending the current timestamp.", &v15, 2u);
+      _os_log_impl(&dword_275572000, v13, OS_LOG_TYPE_DEFAULT, "We do not have a recommendation banner spec. In this case sending the current timestamp.", &v15, 2u);
     }
 
     date = [MEMORY[0x277CBEAA8] date];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return date;
 }
 
 - (void)universalLink
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [self debugDescription];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_1(&dword_275572000, v2, v3, "Universal link is not available in offer %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_275572000, v2, v3, "Universal link is not available in offer %@", v4, v5, v6, v7);
 }
 
 - (void)universalSuccessLink
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [self debugDescription];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_1(&dword_275572000, v2, v3, "Universal success link is not available in offer %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_275572000, v2, v3, "Universal success link is not available in offer %@", v4, v5, v6, v7);
 }
 
 - (void)universalLinkForContext:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(&dword_275572000, v0, OS_LOG_TYPE_DEBUG, "universalLinkForContext: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_275572000, v0, OS_LOG_TYPE_DEBUG, "universalLinkForContext: %@", v1, 0xCu);
 }
 
 @end

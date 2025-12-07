@@ -18,18 +18,19 @@
 
 - (SCNAvoidOccluderConstraint)init
 {
-  v5.receiver = self;
-  v5.super_class = SCNAvoidOccluderConstraint;
-  v2 = [(SCNConstraint *)&v5 init];
+  v7.receiver = self;
+  v7.super_class = SCNAvoidOccluderConstraint;
+  v2 = [(SCNConstraint *)&v7 init];
+  v4 = v2;
   if (v2)
   {
-    AvoidOccluder = C3DConstraintCreateAvoidOccluder();
-    v2->_categoryBitMask = 1;
-    v2->super._constraintRef = AvoidOccluder;
-    v2->_offset = 0.00001;
+    AvoidOccluder = C3DConstraintCreateAvoidOccluder(v2, v3);
+    v4->_categoryBitMask = 1;
+    v4->super._constraintRef = AvoidOccluder;
+    v4->_offset = 0.00001;
   }
 
-  return v2;
+  return v4;
 }
 
 - (void)dealloc
@@ -39,10 +40,10 @@
     sceneRef = [(SCNNode *)self->_target sceneRef];
     if (sceneRef)
     {
-      v4 = sceneRef;
-      C3DSceneLock(sceneRef);
+      v5 = sceneRef;
+      C3DSceneLock(sceneRef, v4);
       C3DConstraintAvoidOccluderSetDelegate(self->super._constraintRef, 0);
-      C3DSceneUnlock(v4);
+      C3DSceneUnlock(v5, v6);
     }
 
     else
@@ -51,9 +52,9 @@
     }
   }
 
-  v5.receiver = self;
-  v5.super_class = SCNAvoidOccluderConstraint;
-  [(SCNConstraint *)&v5 dealloc];
+  v7.receiver = self;
+  v7.super_class = SCNAvoidOccluderConstraint;
+  [(SCNConstraint *)&v7 dealloc];
 }
 
 + (id)avoidOccluderConstraint
@@ -109,14 +110,14 @@
       }
 
       sceneRef = [(SCNConstraint *)self sceneRef];
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __42__SCNAvoidOccluderConstraint_setDelegate___block_invoke;
-      v10[3] = &unk_2782FE238;
-      v10[4] = self;
-      v10[5] = v4;
-      v10[6] = v5;
-      [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v10];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __42__SCNAvoidOccluderConstraint_setDelegate___block_invoke;
+      v12[3] = &unk_2782FE238;
+      v12[4] = self;
+      v12[5] = v4;
+      v12[6] = v5;
+      [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v12];
     }
 
     else
@@ -124,11 +125,11 @@
       sceneRef2 = [(SCNNode *)self->_target sceneRef];
       if (sceneRef2)
       {
-        v8 = sceneRef2;
-        C3DSceneLock(sceneRef2);
+        v9 = sceneRef2;
+        C3DSceneLock(sceneRef2, v8);
         C3DConstraintAvoidOccluderSetDelegate(self->super._constraintRef, 0);
 
-        C3DSceneUnlock(v8);
+        C3DSceneUnlock(v9, v10);
       }
 
       else
@@ -200,10 +201,10 @@ void __42__SCNAvoidOccluderConstraint_setDelegate___block_invoke(uint64_t *a1)
   [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v7];
 }
 
-float __38__SCNAvoidOccluderConstraint_setBias___block_invoke(uint64_t a1)
+float __38__SCNAvoidOccluderConstraint_setBias___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DConstraintAvoidOccluderSetOffset(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DConstraintAvoidOccluderSetOffset(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -218,8 +219,9 @@ float __38__SCNAvoidOccluderConstraint_setBias___block_invoke(uint64_t a1)
 
 - (void)_customDecodingOfSCNAvoidOccluderConstraint:(id)constraint
 {
-  self->_target = [constraint decodeObjectOfClass:objc_opt_class() forKey:@"target"];
-  AvoidOccluder = C3DConstraintCreateAvoidOccluder();
+  v5 = [constraint decodeObjectOfClass:objc_opt_class() forKey:@"target"];
+  self->_target = v5;
+  AvoidOccluder = C3DConstraintCreateAvoidOccluder(v5, v6);
   self->super._constraintRef = AvoidOccluder;
   C3DConstraintAvoidOccluderSetTarget(AvoidOccluder, [(SCNNode *)self->_target nodeRef]);
 

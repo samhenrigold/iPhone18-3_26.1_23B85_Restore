@@ -47,7 +47,7 @@
   assertionCopy = assertion;
   errorCopy = error;
   selfCopy = self;
-  InactiveAppearanceAnimationCoordinator.assertion(_:didFailToAcquireWithError:)(assertionCopy);
+  InactiveAppearanceAnimationCoordinator.assertion(_:didFailToAcquireWithError:)(assertionCopy, errorCopy);
 }
 
 - (void)assertion:(id)assertion didCancelWithError:(id)error

@@ -8,7 +8,7 @@
 
 - (id)collectLinkEntities
 {
-  v2 = [(TUILayout *)self box];
+  v2 = objc_msgSend_box(self, a2);
   linkEntities = [v2 linkEntities];
 
   return linkEntities;
@@ -16,7 +16,7 @@
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicHeight
 {
-  v4 = [(TUILayout *)self box];
+  v4 = objc_msgSend_box(self, a3);
   v5 = +[TUIButtonBox _metricsForButtonType:](TUIButtonBox, "_metricsForButtonType:", [v4 effectiveButtonTypeForLayout]);
 
   if (v5)
@@ -55,12 +55,12 @@
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicWidth
 {
-  v4 = [(TUILayout *)self box];
+  v4 = objc_msgSend_box(self, a3);
   effectiveButtonTypeForLayout = [v4 effectiveButtonTypeForLayout];
 
   v6 = [TUIButtonBox _metricsForButtonType:effectiveButtonTypeForLayout];
   [v6 contentWidthPadding];
-  v7 = [(TUILayout *)self box];
+  v7 = objc_msgSend_box(self);
   stateButtonAttributesMap = [v7 stateButtonAttributesMap];
   v9 = [stateButtonAttributesMap objectForKeyedSubscript:@"default"];
 

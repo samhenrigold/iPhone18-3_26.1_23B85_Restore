@@ -73,7 +73,7 @@
     v13 = color;
     if (color)
     {
-      [color csColour];
+      objc_msgSend_csColour(color);
       v14 = v16;
     }
 

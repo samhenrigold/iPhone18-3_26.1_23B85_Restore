@@ -63,7 +63,7 @@
   archiveCopy = archive;
   selfCopy = self;
   sub_100017560(archiveCopy, alert, v8, v9);
-  sub_10000C840(v8);
+  sub_10000C840(v8, v9);
 }
 
 - (NSDictionary)currentFirstVisibleObjectIDURLForContainerObjectIDURL
@@ -71,13 +71,13 @@
   v2 = *(self + OBJC_IVAR____TtC11MobileNotes26ICSelectionStateController_selectionStateAccessQueue);
   selfCopy = self;
   v4 = v2;
-  sub_10015DA04(&unk_1006C42E0);
+  sub_10015DA04(&unk_1006C42E0, &qword_100537290);
   OS_dispatch_queue.sync<A>(execute:)();
 
   if (v7)
   {
     type metadata accessor for URL();
-    sub_10000BF3C(&qword_1006C07C0, &type metadata accessor for URL);
+    sub_10000BF3C(&qword_1006C07C0, &type metadata accessor for URL, &protocol conformance descriptor for URL);
     v5.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
   }
 
@@ -121,7 +121,7 @@
   archiveCopy = archive;
   selfCopy = self;
   sub_1003192FC(modelCopy, archiveCopy, alert, v10, v11);
-  sub_10000C840(v10);
+  sub_10000C840(v10, v11);
 }
 
 - (void)adoptDeferredAnimated:(BOOL)animated startEditing:(BOOL)editing
@@ -285,7 +285,7 @@
 
 - (void)openURL:(id)l rootNoteBrowseViewController:(id)controller currentNoteContainerViewMode:(int64_t)mode completion:(id)completion
 {
-  v10 = sub_10015DA04(&qword_1006BCC20);
+  v10 = sub_10015DA04(&qword_1006BCC20, &qword_100531F40);
   __chkstk_darwin(v10 - 8);
   v12 = &v19 - v11;
   v13 = _Block_copy(completion);
@@ -317,9 +317,9 @@
   controllerCopy = controller;
   selfCopy = self;
   sub_10032B47C(v12, controller, v13, v16);
-  sub_10000C840(v13);
+  sub_10000C840(v13, v16);
 
-  sub_1000073B4(v12, &qword_1006BCC20);
+  sub_1000073B4(v12, &qword_1006BCC20, &qword_100531F40);
 }
 
 - (void)navigateBackwards

@@ -405,79 +405,77 @@ void __35__MIBUStatusResponse__deserialize___block_invoke_46()
 
 - (id)_reverseDict:(id)dict
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   v4 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = dictCopy;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
-        v11 = [v5 objectForKey:{v10, v14}];
+        v10 = *(*(&v13 + 1) + 8 * i);
+        v11 = [v5 objectForKey:{v10, v13}];
         [v4 setObject:v10 forKey:v11];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (BOOL)_serializeDict:(id)dict fromKeyToTagMapping:(id)mapping withSerializer:(id)serializer
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   mappingCopy = mapping;
   serializerCopy = serializer;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v9 = dictCopy;
-  v10 = [v9 countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v24 objects:v30 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v26;
+    v12 = *v25;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v26 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v25 + 1) + 8 * i);
+        v14 = *(*(&v24 + 1) + 8 * i);
         v15 = [v9 objectForKey:v14];
         v16 = [mappingCopy objectForKey:v14];
         v17 = v16;
         if (v16)
         {
-          v30 = v16;
-          v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
-          v29 = v15;
-          v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+          v29 = v16;
+          v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+          v28 = v15;
+          v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
           v20 = [serializerCopy serialize:v18 withValue:v19];
 
           if ((v20 & 1) == 0)
@@ -489,7 +487,7 @@ void __35__MIBUStatusResponse__deserialize___block_invoke_46()
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v24 objects:v30 count:16];
       if (v11)
       {
         continue;
@@ -502,36 +500,35 @@ void __35__MIBUStatusResponse__deserialize___block_invoke_46()
   v21 = 1;
 LABEL_11:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (id)_deserializeFromTagDict:(id)dict withKeyToTagMapping:(id)mapping
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   mappingCopy = mapping;
   v8 = objc_opt_new();
   v9 = [(MIBUStatusResponse *)self _reverseDict:mappingCopy];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * i);
+        v14 = *(*(&v18 + 1) + 8 * i);
         v15 = [dictCopy objectForKey:v14];
         if (v15)
         {
@@ -540,163 +537,157 @@ LABEL_11:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (BOOL)_serializeOperationDetailsWithSerializer:(id)serializer
 {
-  v11[6] = *MEMORY[0x277D85DE8];
+  v10[6] = *MEMORY[0x277D85DE8];
   serializerCopy = serializer;
   status = [(MIBUStatusResponse *)self status];
   operationDetails = [status operationDetails];
-  v10[0] = @"Progress";
-  v10[1] = @"TimeRemaining";
-  v11[0] = &unk_286AC7308;
-  v11[1] = &unk_286AC7320;
-  v10[2] = @"TargetOSVersion";
-  v10[3] = @"TargetBuildVersion";
-  v11[2] = &unk_286AC7338;
-  v11[3] = &unk_286AC7350;
-  v10[4] = @"SoftwareUpdatePhase";
-  v10[5] = @"TargetSUBundleSize";
-  v11[4] = &unk_286AC7368;
-  v11[5] = &unk_286AC7380;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:6];
+  v9[0] = @"Progress";
+  v9[1] = @"TimeRemaining";
+  v10[0] = &unk_286AC7308;
+  v10[1] = &unk_286AC7320;
+  v9[2] = @"TargetOSVersion";
+  v9[3] = @"TargetBuildVersion";
+  v10[2] = &unk_286AC7338;
+  v10[3] = &unk_286AC7350;
+  v9[4] = @"SoftwareUpdatePhase";
+  v9[5] = @"TargetSUBundleSize";
+  v10[4] = &unk_286AC7368;
+  v10[5] = &unk_286AC7380;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:6];
   LOBYTE(self) = [(MIBUStatusResponse *)self _serializeDict:operationDetails fromKeyToTagMapping:v7 withSerializer:serializerCopy];
 
-  v8 = *MEMORY[0x277D85DE8];
   return self;
 }
 
 - (id)_deserializeOperationDetailsFromDict:(id)dict
 {
-  v11[6] = *MEMORY[0x277D85DE8];
-  v10[0] = @"Progress";
-  v10[1] = @"TimeRemaining";
-  v11[0] = &unk_286AC7308;
-  v11[1] = &unk_286AC7320;
-  v10[2] = @"TargetOSVersion";
-  v10[3] = @"TargetBuildVersion";
-  v11[2] = &unk_286AC7338;
-  v11[3] = &unk_286AC7350;
-  v10[4] = @"SoftwareUpdatePhase";
-  v10[5] = @"TargetSUBundleSize";
-  v11[4] = &unk_286AC7368;
-  v11[5] = &unk_286AC7380;
+  v10[6] = *MEMORY[0x277D85DE8];
+  v9[0] = @"Progress";
+  v9[1] = @"TimeRemaining";
+  v10[0] = &unk_286AC7308;
+  v10[1] = &unk_286AC7320;
+  v9[2] = @"TargetOSVersion";
+  v9[3] = @"TargetBuildVersion";
+  v10[2] = &unk_286AC7338;
+  v10[3] = &unk_286AC7350;
+  v9[4] = @"SoftwareUpdatePhase";
+  v9[5] = @"TargetSUBundleSize";
+  v10[4] = &unk_286AC7368;
+  v10[5] = &unk_286AC7380;
   v4 = MEMORY[0x277CBEAC0];
   dictCopy = dict;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:v10 count:6];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:v9 count:6];
   v7 = [(MIBUStatusResponse *)self _deserializeFromTagDict:dictCopy withKeyToTagMapping:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (BOOL)_serializeThermalDetailsWithSerializer:(id)serializer
 {
-  v11[9] = *MEMORY[0x277D85DE8];
+  v10[9] = *MEMORY[0x277D85DE8];
   serializerCopy = serializer;
   status = [(MIBUStatusResponse *)self status];
   thermalDetails = [status thermalDetails];
-  v10[0] = @"TSRM/TVRM";
-  v10[1] = @"TSRR/TVRR";
-  v11[0] = &unk_286AC7398;
-  v11[1] = &unk_286AC73B0;
-  v10[2] = @"TVRQ";
-  v10[3] = @"TSBE/TVBE";
-  v11[2] = &unk_286AC73C8;
-  v11[3] = &unk_286AC73E0;
-  v10[4] = @"TSBQ/TVBQ";
-  v10[5] = @"TSBR/TVBR";
-  v11[4] = &unk_286AC73F8;
-  v11[5] = &unk_286AC7410;
-  v10[6] = @"TSLR/TVRH";
-  v10[7] = @"TG0V";
-  v11[6] = &unk_286AC7428;
-  v11[7] = &unk_286AC7440;
-  v10[8] = @"ThermalPressure";
-  v11[8] = &unk_286AC7458;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:9];
+  v9[0] = @"TSRM/TVRM";
+  v9[1] = @"TSRR/TVRR";
+  v10[0] = &unk_286AC7398;
+  v10[1] = &unk_286AC73B0;
+  v9[2] = @"TVRQ";
+  v9[3] = @"TSBE/TVBE";
+  v10[2] = &unk_286AC73C8;
+  v10[3] = &unk_286AC73E0;
+  v9[4] = @"TSBQ/TVBQ";
+  v9[5] = @"TSBR/TVBR";
+  v10[4] = &unk_286AC73F8;
+  v10[5] = &unk_286AC7410;
+  v9[6] = @"TSLR/TVRH";
+  v9[7] = @"TG0V";
+  v10[6] = &unk_286AC7428;
+  v10[7] = &unk_286AC7440;
+  v9[8] = @"ThermalPressure";
+  v10[8] = &unk_286AC7458;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:9];
   LOBYTE(self) = [(MIBUStatusResponse *)self _serializeDict:thermalDetails fromKeyToTagMapping:v7 withSerializer:serializerCopy];
 
-  v8 = *MEMORY[0x277D85DE8];
   return self;
 }
 
 - (id)_deserializeThermalDetailsFromDict:(id)dict
 {
-  v28[9] = *MEMORY[0x277D85DE8];
+  v27[9] = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   v5 = objc_opt_new();
-  v27[0] = @"TSRM/TVRM";
-  v27[1] = @"TSRR/TVRR";
-  v28[0] = &unk_286AC7398;
-  v28[1] = &unk_286AC73B0;
-  v27[2] = @"TVRQ";
-  v27[3] = @"TSBE/TVBE";
-  v28[2] = &unk_286AC73C8;
-  v28[3] = &unk_286AC73E0;
-  v27[4] = @"TSBQ/TVBQ";
-  v27[5] = @"TSBR/TVBR";
-  v28[4] = &unk_286AC73F8;
-  v28[5] = &unk_286AC7410;
-  v27[6] = @"TSLR/TVRH";
-  v27[7] = @"TG0V";
-  v28[6] = &unk_286AC7428;
-  v28[7] = &unk_286AC7440;
-  v27[8] = @"ThermalPressure";
-  v28[8] = &unk_286AC7458;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:9];
+  v26[0] = @"TSRM/TVRM";
+  v26[1] = @"TSRR/TVRR";
+  v27[0] = &unk_286AC7398;
+  v27[1] = &unk_286AC73B0;
+  v26[2] = @"TVRQ";
+  v26[3] = @"TSBE/TVBE";
+  v27[2] = &unk_286AC73C8;
+  v27[3] = &unk_286AC73E0;
+  v26[4] = @"TSBQ/TVBQ";
+  v26[5] = @"TSBR/TVBR";
+  v27[4] = &unk_286AC73F8;
+  v27[5] = &unk_286AC7410;
+  v26[6] = @"TSLR/TVRH";
+  v26[7] = @"TG0V";
+  v27[6] = &unk_286AC7428;
+  v27[7] = &unk_286AC7440;
+  v26[8] = @"ThermalPressure";
+  v27[8] = &unk_286AC7458;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:9];
   v7 = [(MIBUStatusResponse *)self _deserializeFromTagDict:dictCopy withKeyToTagMapping:v6];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         v14 = [v8 objectForKey:v13];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v21 = 0;
+          v20 = 0;
           v15 = v14;
           if ([v13 isEqualToString:@"TG0V"])
           {
-            v20 = 0;
-            [v15 getBytes:&v20 length:8];
-            v16 = v20 * 0.0000152587891;
+            v19 = 0;
+            [v15 getBytes:&v19 length:8];
+            v16 = v19 * 0.0000152587891;
             *&v16 = v16;
-            v21 = LODWORD(v16);
+            v20 = LODWORD(v16);
           }
 
           else
           {
-            [v15 getBytes:&v21 length:4];
-            LODWORD(v16) = v21;
+            [v15 getBytes:&v20 length:4];
+            LODWORD(v16) = v20;
           }
 
           v17 = [MEMORY[0x277CCABB0] numberWithFloat:v16];
@@ -709,74 +700,71 @@ LABEL_11:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v10);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (BOOL)_serializeBatteryDetailsWithSerializer:(id)serializer
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   serializerCopy = serializer;
   status = [(MIBUStatusResponse *)self status];
   batteryDetails = [status batteryDetails];
-  v10[0] = @"WARP";
-  v10[1] = @"WAVR";
-  v11[0] = &unk_286AC7470;
-  v11[1] = &unk_286AC7488;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v9[0] = @"WARP";
+  v9[1] = @"WAVR";
+  v10[0] = &unk_286AC7470;
+  v10[1] = &unk_286AC7488;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   LOBYTE(self) = [(MIBUStatusResponse *)self _serializeDict:batteryDetails fromKeyToTagMapping:v7 withSerializer:serializerCopy];
 
-  v8 = *MEMORY[0x277D85DE8];
   return self;
 }
 
 - (id)_deserializeBatteryDetailsFromDict:(id)dict
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   v5 = objc_opt_new();
-  v25[0] = @"WARP";
-  v25[1] = @"WAVR";
-  v26[0] = &unk_286AC7470;
-  v26[1] = &unk_286AC7488;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
-  v18 = dictCopy;
+  v24[0] = @"WARP";
+  v24[1] = @"WAVR";
+  v25[0] = &unk_286AC7470;
+  v25[1] = &unk_286AC7488;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+  v17 = dictCopy;
   v7 = [(MIBUStatusResponse *)self _deserializeFromTagDict:dictCopy withKeyToTagMapping:v6];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         v14 = [v8 objectForKey:v13];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v19 = 0;
-          [v14 getBytes:&v19 length:2];
-          v15 = [MEMORY[0x277CCABB0] numberWithShort:v19];
+          v18 = 0;
+          [v14 getBytes:&v18 length:2];
+          v15 = [MEMORY[0x277CCABB0] numberWithShort:v18];
           [v5 setObject:v15 forKey:v13];
         }
 
@@ -786,20 +774,18 @@ LABEL_11:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)serialize
 {
-  v48[6] = *MEMORY[0x277D85DE8];
+  v45[6] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   status = [(MIBUStatusResponse *)self status];
 
@@ -807,22 +793,22 @@ LABEL_11:
   {
     v5 = MEMORY[0x277CCABB0];
     status2 = [(MIBUStatusResponse *)self status];
-    v44 = [v5 numberWithUnsignedInteger:{objc_msgSend(status2, "state")}];
-    v48[0] = v44;
+    v41 = [v5 numberWithUnsignedInteger:{objc_msgSend(status2, "state")}];
+    v45[0] = v41;
     serialNumber = [(MIBUStatusResponse *)self serialNumber];
-    v48[1] = serialNumber;
+    v45[1] = serialNumber;
     osVersion = [(MIBUStatusResponse *)self osVersion];
-    v48[2] = osVersion;
+    v45[2] = osVersion;
     buildVersion = [(MIBUStatusResponse *)self buildVersion];
-    v48[3] = buildVersion;
+    v45[3] = buildVersion;
     v8 = MEMORY[0x277CCABB0];
     status3 = [(MIBUStatusResponse *)self status];
     v10 = [v8 numberWithUnsignedInteger:{objc_msgSend(status3, "operation")}];
-    v48[4] = v10;
+    v45[4] = v10;
     status4 = [(MIBUStatusResponse *)self status];
     batteryLevel = [status4 batteryLevel];
-    v48[5] = batteryLevel;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:6];
+    v45[5] = batteryLevel;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:6];
     LOBYTE(v5) = [v3 serialize:&unk_286AC83A0 withValue:v13];
 
     if (v5)
@@ -852,14 +838,14 @@ LABEL_11:
             dispatch_once(&MIBUOnceToken, &__block_literal_global_21);
           }
 
-          v32 = MIBUConnObj;
+          v30 = MIBUConnObj;
           if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
           {
-            v33 = v32;
+            v31 = v30;
             status6 = [(MIBUStatusResponse *)self status];
-            operationError2 = [status6 operationError];
-            HIDWORD(v47) = HIDWORD(operationError2);
-            OUTLINED_FUNCTION_2_0(&dword_259ABF000, v36, v37, "Failed to serialize operation error: %{public}@", v38, v39, v40, v41, v42, serialNumber, v44, status2, 2u);
+            [status6 operationError];
+            v44 = *buf = 138543362;
+            OUTLINED_FUNCTION_2_0(&dword_259ABF000, v33, v34, "Failed to serialize operation error: %{public}@", v35, v36, v37, v38, v39, serialNumber, v41, status2);
           }
         }
       }
@@ -871,13 +857,13 @@ LABEL_11:
           dispatch_once(&MIBUOnceToken, &__block_literal_global_18);
         }
 
-        v23 = MIBUConnObj;
+        v22 = MIBUConnObj;
         if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
         {
-          v24 = v23;
-          error2 = [(MIBUNFCResponse *)self error];
-          HIDWORD(v47) = HIDWORD(error2);
-          OUTLINED_FUNCTION_2_0(&dword_259ABF000, v26, v27, "Failed to serialize response error: %{public}@", v28, v29, v30, v31, v42, serialNumber, v44, status2, 2u);
+          v23 = v22;
+          [(MIBUNFCResponse *)self error];
+          v44 = *buf = 138543362;
+          OUTLINED_FUNCTION_2_0(&dword_259ABF000, v24, v25, "Failed to serialize response error: %{public}@", v26, v27, v28, v29, v39, serialNumber, v41, status2);
         }
       }
     }
@@ -889,19 +875,17 @@ LABEL_11:
         dispatch_once(&MIBUOnceToken, &__block_literal_global_2);
       }
 
-      v22 = MIBUConnObj;
+      v21 = MIBUConnObj;
       if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_259ABF000, v22, OS_LOG_TYPE_ERROR, "Failed to serialize device status, serial number, and nonce", buf, 2u);
+        _os_log_error_impl(&dword_259ABF000, v21, OS_LOG_TYPE_ERROR, "Failed to serialize device status, serial number, and nonce", buf, 2u);
       }
     }
   }
 
   serializedData = 0;
 LABEL_10:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return serializedData;
 }

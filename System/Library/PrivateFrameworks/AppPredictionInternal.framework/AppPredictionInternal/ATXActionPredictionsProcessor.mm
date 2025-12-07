@@ -15,7 +15,6 @@
 + (id)userAlarms;
 + (void)addEligibleCreateAlarmIndexesToAcceptedIndexes:(id)indexes currentDate:(id)date enabledAlarms:(id)alarms idx:(unint64_t)idx params:(id)params parameterCombinations:(id)combinations;
 + (void)addEligibleToggleAlarmIndexesToAcceptedIndexes:(id)indexes currentDate:(id)date disabledAlarms:(id)alarms enabledAlarms:(id)enabledAlarms idx:(unint64_t)idx params:(id)params parameterCombinations:(id)combinations;
-+ (void)userAlarms;
 @end
 
 @implementation ATXActionPredictionsProcessor
@@ -59,7 +58,7 @@
 
 void __76__ATXActionPredictionsProcessor_removeMissingOrBlockedRecipientPredictions___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v74[2] = *MEMORY[0x277D85DE8];
+  v76[2] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = objc_autoreleasePoolPush();
   v7 = [v5 scoredAction];
@@ -86,145 +85,147 @@ void __76__ATXActionPredictionsProcessor_removeMissingOrBlockedRecipientPredicti
       v17 = [MEMORY[0x277CBDA58] predicateForContactsWithIdentifiers:v16];
       v18 = *(*(*(a1 + 40) + 8) + 40);
       v19 = *MEMORY[0x277CBCFC0];
-      v74[0] = *MEMORY[0x277CBD098];
-      v74[1] = v19;
-      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:2];
-      v70 = 0;
-      v21 = [v18 unifiedContactsMatchingPredicate:v17 keysToFetch:v20 error:&v70];
-      v55 = v70;
+      v76[0] = *MEMORY[0x277CBD098];
+      v76[1] = v19;
+      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:2];
+      v72 = 0;
+      v21 = [v18 unifiedContactsMatchingPredicate:v17 keysToFetch:v20 error:&v72];
+      v57 = v72;
 
       if (v21)
       {
-        v22 = [v21 count];
-        if (v22 >= [v16 count])
+        v23 = [v21 count];
+        v24 = [v16 count];
+        if (v23 >= v24)
         {
-          v49 = v17;
-          v50 = a1;
-          v51 = v16;
-          v52 = v8;
-          v47 = a3;
-          v53 = v6;
-          v54 = v5;
-          v26 = v21;
-          v27 = objc_opt_new();
-          v28 = objc_opt_new();
-          v66 = 0u;
-          v67 = 0u;
+          v51 = v17;
+          v52 = a1;
+          v53 = v16;
+          v54 = v8;
+          v49 = a3;
+          v55 = v6;
+          v56 = v5;
+          v28 = v21;
+          v29 = objc_opt_new();
+          v30 = objc_opt_new();
           v68 = 0u;
           v69 = 0u;
-          v48 = v26;
-          obj = v26;
-          v29 = [obj countByEnumeratingWithState:&v66 objects:v73 count:16];
-          if (v29)
+          v70 = 0u;
+          v71 = 0u;
+          v50 = v28;
+          obj = v28;
+          v31 = [obj countByEnumeratingWithState:&v68 objects:v75 count:16];
+          if (v31)
           {
-            v30 = v29;
-            v57 = *v67;
+            v32 = v31;
+            v59 = *v69;
             do
             {
-              for (i = 0; i != v30; ++i)
+              for (i = 0; i != v32; ++i)
               {
-                if (*v67 != v57)
+                if (*v69 != v59)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v32 = *(*(&v66 + 1) + 8 * i);
-                v62 = 0u;
-                v63 = 0u;
+                v34 = *(*(&v68 + 1) + 8 * i);
                 v64 = 0u;
                 v65 = 0u;
-                v33 = [v32 phoneNumbers];
-                v34 = [v33 countByEnumeratingWithState:&v62 objects:v72 count:16];
-                if (v34)
+                v66 = 0u;
+                v67 = 0u;
+                v35 = [v34 phoneNumbers];
+                v36 = [v35 countByEnumeratingWithState:&v64 objects:v74 count:16];
+                if (v36)
                 {
-                  v35 = v34;
-                  v36 = *v63;
+                  v37 = v36;
+                  v38 = *v65;
                   do
                   {
-                    for (j = 0; j != v35; ++j)
+                    for (j = 0; j != v37; ++j)
                     {
-                      if (*v63 != v36)
+                      if (*v65 != v38)
                       {
-                        objc_enumerationMutation(v33);
+                        objc_enumerationMutation(v35);
                       }
 
-                      v38 = [*(*(&v62 + 1) + 8 * j) value];
-                      [v27 addObject:v38];
+                      v40 = [*(*(&v64 + 1) + 8 * j) value];
+                      [v29 addObject:v40];
                     }
 
-                    v35 = [v33 countByEnumeratingWithState:&v62 objects:v72 count:16];
+                    v37 = [v35 countByEnumeratingWithState:&v64 objects:v74 count:16];
                   }
 
-                  while (v35);
+                  while (v37);
                 }
 
+                v62 = 0u;
+                v63 = 0u;
                 v60 = 0u;
                 v61 = 0u;
-                v58 = 0u;
-                v59 = 0u;
-                v39 = [v32 emailAddresses];
-                v40 = [v39 countByEnumeratingWithState:&v58 objects:v71 count:16];
-                if (v40)
+                v41 = [v34 emailAddresses];
+                v42 = [v41 countByEnumeratingWithState:&v60 objects:v73 count:16];
+                if (v42)
                 {
-                  v41 = v40;
-                  v42 = *v59;
+                  v43 = v42;
+                  v44 = *v61;
                   do
                   {
-                    for (k = 0; k != v41; ++k)
+                    for (k = 0; k != v43; ++k)
                     {
-                      if (*v59 != v42)
+                      if (*v61 != v44)
                       {
-                        objc_enumerationMutation(v39);
+                        objc_enumerationMutation(v41);
                       }
 
-                      v44 = [*(*(&v58 + 1) + 8 * k) value];
-                      [v28 addObject:v44];
+                      v46 = [*(*(&v60 + 1) + 8 * k) value];
+                      [v30 addObject:v46];
                     }
 
-                    v41 = [v39 countByEnumeratingWithState:&v58 objects:v71 count:16];
+                    v43 = [v41 countByEnumeratingWithState:&v60 objects:v73 count:16];
                   }
 
-                  while (v41);
+                  while (v43);
                 }
               }
 
-              v30 = [obj countByEnumeratingWithState:&v66 objects:v73 count:16];
+              v32 = [obj countByEnumeratingWithState:&v68 objects:v75 count:16];
             }
 
-            while (v30);
+            while (v32);
           }
 
-          v24 = v55;
-          if (([*(v50 + 48) isBlockedPhoneNumberContainedInNumbers:v27] & 1) != 0 || objc_msgSend(*(v50 + 48), "isBlockedEmailAddressContainedInAddresses:", v28))
+          v47 = [*(v52 + 48) isBlockedPhoneNumberContainedInNumbers:v29];
+          v26 = v57;
+          if ((v47 & 1) != 0 || (v47 = [*(v52 + 48) isBlockedEmailAddressContainedInAddresses:v30], v47))
           {
-            v45 = __atxlog_handle_action_prediction();
-            v6 = v53;
-            v5 = v54;
-            v8 = v52;
-            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+            v48 = __atxlog_handle_action_prediction(v47);
+            v6 = v55;
+            v5 = v56;
+            v8 = v54;
+            if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
             {
-              __76__ATXActionPredictionsProcessor_removeMissingOrBlockedRecipientPredictions___block_invoke_cold_1(v54);
+              __76__ATXActionPredictionsProcessor_removeMissingOrBlockedRecipientPredictions___block_invoke_cold_1(v56);
             }
           }
 
           else
           {
-            [*(v50 + 32) addIndex:v47];
-            v6 = v53;
-            v5 = v54;
-            v8 = v52;
+            [*(v52 + 32) addIndex:v49];
+            v6 = v55;
+            v5 = v56;
+            v8 = v54;
           }
 
-          v16 = v51;
-          v21 = v48;
-          v17 = v49;
+          v16 = v53;
+          v21 = v50;
+          v17 = v51;
         }
 
         else
         {
-          v23 = __atxlog_handle_action_prediction();
-          v24 = v55;
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+          v25 = __atxlog_handle_action_prediction(v24);
+          v26 = v57;
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
           {
             __76__ATXActionPredictionsProcessor_removeMissingOrBlockedRecipientPredictions___block_invoke_cold_2(v5);
           }
@@ -233,9 +234,9 @@ void __76__ATXActionPredictionsProcessor_removeMissingOrBlockedRecipientPredicti
 
       else
       {
-        v25 = __atxlog_handle_action_prediction();
-        v24 = v55;
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v27 = __atxlog_handle_action_prediction(v22);
+        v26 = v57;
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           __76__ATXActionPredictionsProcessor_removeMissingOrBlockedRecipientPredictions___block_invoke_cold_3();
         }
@@ -252,12 +253,11 @@ void __76__ATXActionPredictionsProcessor_removeMissingOrBlockedRecipientPredicti
   }
 
   objc_autoreleasePoolPop(v6);
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_contactIdentifiersReferencedByAction:(id)action
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   actionCopy = action;
   intent = [actionCopy intent];
 
@@ -299,8 +299,8 @@ LABEL_9:
   {
     payee2 = [v8 payee];
     contactIdentifier2 = [payee2 contactIdentifier];
-    v15[0] = contactIdentifier2;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14[0] = contactIdentifier2;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   }
 
   else
@@ -312,53 +312,52 @@ LABEL_10:
 LABEL_11:
 
 LABEL_12:
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 + (BOOL)isBlockedEmailAddressContainedInAddresses:(id)addresses
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   addressesCopy = addresses;
-  v4 = [addressesCopy countByEnumeratingWithState:&v16 objects:v29 count:16];
+  v4 = [addressesCopy countByEnumeratingWithState:&v15 objects:v28 count:16];
   if (v4)
   {
-    v5 = *v17;
+    v5 = *v16;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v17 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(addressesCopy);
         }
 
-        v7 = *(*(&v16 + 1) + 8 * i);
-        v25 = 0;
-        v26 = &v25;
-        v27 = 0x2020000000;
+        v7 = *(*(&v15 + 1) + 8 * i);
+        v24 = 0;
+        v25 = &v24;
+        v26 = 0x2020000000;
         v8 = getCMFItemCreateWithEmailAddressSymbolLoc_ptr;
-        v28 = getCMFItemCreateWithEmailAddressSymbolLoc_ptr;
+        v27 = getCMFItemCreateWithEmailAddressSymbolLoc_ptr;
         if (!getCMFItemCreateWithEmailAddressSymbolLoc_ptr)
         {
-          v20 = MEMORY[0x277D85DD0];
-          v21 = 3221225472;
-          v22 = __getCMFItemCreateWithEmailAddressSymbolLoc_block_invoke;
-          v23 = &unk_2785967D8;
-          v24 = &v25;
+          v19 = MEMORY[0x277D85DD0];
+          v20 = 3221225472;
+          v21 = __getCMFItemCreateWithEmailAddressSymbolLoc_block_invoke;
+          v22 = &unk_2785967D8;
+          v23 = &v24;
           v9 = CommunicationsFilterLibrary();
           v10 = dlsym(v9, "CMFItemCreateWithEmailAddress");
-          *(v24[1] + 24) = v10;
-          getCMFItemCreateWithEmailAddressSymbolLoc_ptr = *(v24[1] + 24);
-          v8 = v26[3];
+          *(v23[1] + 24) = v10;
+          getCMFItemCreateWithEmailAddressSymbolLoc_ptr = *(v23[1] + 24);
+          v8 = v25[3];
         }
 
-        _Block_object_dispose(&v25, 8);
+        _Block_object_dispose(&v24, 8);
         if (!v8)
         {
           +[ATXActionPredictionsProcessor isBlockedEmailAddressContainedInAddresses:];
@@ -378,7 +377,7 @@ LABEL_12:
         }
       }
 
-      v4 = [addressesCopy countByEnumeratingWithState:&v16 objects:v29 count:16];
+      v4 = [addressesCopy countByEnumeratingWithState:&v15 objects:v28 count:16];
       if (v4)
       {
         continue;
@@ -390,32 +389,31 @@ LABEL_12:
 
 LABEL_15:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 + (BOOL)isBlockedPhoneNumberContainedInNumbers:(id)numbers
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   numbersCopy = numbers;
-  v4 = [numbersCopy countByEnumeratingWithState:&v21 objects:v34 count:16];
+  v4 = [numbersCopy countByEnumeratingWithState:&v20 objects:v33 count:16];
   if (v4)
   {
-    v5 = *v22;
+    v5 = *v21;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v22 != v5)
+        if (*v21 != v5)
         {
           objc_enumerationMutation(numbersCopy);
         }
 
-        v7 = *(*(&v21 + 1) + 8 * i);
+        v7 = *(*(&v20 + 1) + 8 * i);
         v8 = MEMORY[0x277CFBE78];
         stringValue = [v7 stringValue];
         v10 = [v8 countryCodeForNumber:stringValue];
@@ -428,26 +426,26 @@ LABEL_15:
           goto LABEL_14;
         }
 
-        v30 = 0;
-        v31 = &v30;
-        v32 = 0x2020000000;
+        v29 = 0;
+        v30 = &v29;
+        v31 = 0x2020000000;
         v13 = getCMFItemCreateWithPhoneNumberSymbolLoc_ptr;
-        v33 = getCMFItemCreateWithPhoneNumberSymbolLoc_ptr;
+        v32 = getCMFItemCreateWithPhoneNumberSymbolLoc_ptr;
         if (!getCMFItemCreateWithPhoneNumberSymbolLoc_ptr)
         {
-          v25 = MEMORY[0x277D85DD0];
-          v26 = 3221225472;
-          v27 = __getCMFItemCreateWithPhoneNumberSymbolLoc_block_invoke;
-          v28 = &unk_2785967D8;
-          v29 = &v30;
+          v24 = MEMORY[0x277D85DD0];
+          v25 = 3221225472;
+          v26 = __getCMFItemCreateWithPhoneNumberSymbolLoc_block_invoke;
+          v27 = &unk_2785967D8;
+          v28 = &v29;
           v14 = CommunicationsFilterLibrary();
           v15 = dlsym(v14, "CMFItemCreateWithPhoneNumber");
-          *(v29[1] + 24) = v15;
-          getCMFItemCreateWithPhoneNumberSymbolLoc_ptr = *(v29[1] + 24);
-          v13 = v31[3];
+          *(v28[1] + 24) = v15;
+          getCMFItemCreateWithPhoneNumberSymbolLoc_ptr = *(v28[1] + 24);
+          v13 = v30[3];
         }
 
-        _Block_object_dispose(&v30, 8);
+        _Block_object_dispose(&v29, 8);
         if (!v13)
         {
           +[ATXActionPredictionsProcessor isBlockedPhoneNumberContainedInNumbers:];
@@ -474,7 +472,7 @@ LABEL_14:
         }
       }
 
-      v4 = [numbersCopy countByEnumeratingWithState:&v21 objects:v34 count:16];
+      v4 = [numbersCopy countByEnumeratingWithState:&v20 objects:v33 count:16];
     }
 
     while (v4);
@@ -482,37 +480,36 @@ LABEL_14:
 
 LABEL_17:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 + (id)removeDuplicateTVActionPredictions:(id)predictions
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   predictionsCopy = predictions;
   context = objc_autoreleasePoolPush();
   v4 = [MEMORY[0x277CEB2C8] getActionKeyForBundleId:@"com.apple.tv" actionType:@"INPlayMediaIntent"];
   v5 = objc_opt_new();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v6 = predictionsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v29;
+    v9 = *v28;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v29 != v9)
+        if (*v28 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v28 + 1) + 8 * i);
+        v11 = *(*(&v27 + 1) + 8 * i);
         actionKey = [v11 actionKey];
         v13 = [actionKey isEqualToString:v4];
 
@@ -534,7 +531,7 @@ LABEL_17:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v8);
@@ -545,18 +542,17 @@ LABEL_17:
   if ([v5 count])
   {
     v20 = MEMORY[0x277CCAC30];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __68__ATXActionPredictionsProcessor_removeDuplicateTVActionPredictions___block_invoke;
-    v25[3] = &unk_27859F840;
-    v26 = v5;
-    v27 = v4;
-    v21 = [v20 predicateWithBlock:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __68__ATXActionPredictionsProcessor_removeDuplicateTVActionPredictions___block_invoke;
+    v24[3] = &unk_27859F840;
+    v25 = v5;
+    v26 = v4;
+    v21 = [v20 predicateWithBlock:v24];
     v19 = [v18 filteredArrayUsingPredicate:v21];
   }
 
   objc_autoreleasePoolPop(context);
-  v22 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -725,22 +721,23 @@ LABEL_18:
         predictedItem = [scoredAction predictedItem];
         actionKey = [predictedItem actionKey];
 
-        if (([actionKey isEqualToString:v4] & 1) != 0 || objc_msgSend(actionKey, "isEqualToString:", v5))
+        v14 = [actionKey isEqualToString:v4];
+        if ((v14 & 1) != 0 || (v14 = [actionKey isEqualToString:v5], v14))
         {
-          v15 = __atxlog_handle_action_prediction();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v16 = __atxlog_handle_action_prediction(v14);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             *v18 = 0;
-            _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "Found alarm action in alarm prediction candidates.", v18, 2u);
+            _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "Found alarm action in alarm prediction candidates.", v18, 2u);
           }
 
-          v14 = 1;
+          v15 = 1;
           goto LABEL_15;
         }
       }
 
       v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
-      v14 = 0;
+      v15 = 0;
       if (v8)
       {
         continue;
@@ -752,46 +749,45 @@ LABEL_18:
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
 LABEL_15:
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v15;
 }
 
 + (id)removeAlarmActionsInconsistentWithAlarmAppState:(id)state
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   if ([ATXActionPredictionsProcessor actionPredictionsContainsAlarmAction:stateCopy])
   {
     userAlarms = [self userAlarms];
     v6 = objc_opt_new();
     v7 = objc_opt_new();
-    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
     v8 = userAlarms;
-    v9 = [v8 countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v25;
+      v11 = *v26;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v25 != v11)
+          if (*v26 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v24 + 1) + 8 * i);
+          v13 = *(*(&v25 + 1) + 8 * i);
           v14 = objc_opt_new();
-          [v14 setHour:{objc_msgSend(v13, "hour", v24)}];
+          [v14 setHour:{objc_msgSend(v13, "hour", v25)}];
           [v14 setMinute:{objc_msgSend(v13, "minute")}];
           if ([v13 isEnabled])
           {
@@ -806,101 +802,99 @@ LABEL_15:
           [v15 addObject:v14];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
       }
 
       while (v10);
     }
 
-    v16 = __atxlog_handle_action_prediction();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = __atxlog_handle_action_prediction(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = [v6 count];
-      v18 = [v7 count];
+      v18 = [v6 count];
+      v19 = [v7 count];
       *buf = 134218240;
-      v29 = v17;
-      v30 = 2048;
-      v31 = v18;
-      _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "Found %lu enabled alarms and %lu disabled alarms.", buf, 0x16u);
+      v30 = v18;
+      v31 = 2048;
+      v32 = v19;
+      _os_log_impl(&dword_2263AA000, v17, OS_LOG_TYPE_DEFAULT, "Found %lu enabled alarms and %lu disabled alarms.", buf, 0x16u);
     }
 
-    v19 = __atxlog_handle_action_prediction();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v21 = __atxlog_handle_action_prediction(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = v6;
-      _os_log_impl(&dword_2263AA000, v19, OS_LOG_TYPE_DEFAULT, "Enabled alarms: %@", buf, 0xCu);
+      v30 = v6;
+      _os_log_impl(&dword_2263AA000, v21, OS_LOG_TYPE_DEFAULT, "Enabled alarms: %@", buf, 0xCu);
     }
 
-    v20 = objc_opt_new();
-    v21 = [ATXActionPredictionsProcessor removeAlarmActionsInconsistentWithAlarmAppState:stateCopy enabledAlarms:v6 disabledAlarms:v7 currentDate:v20];
+    v22 = objc_opt_new();
+    v23 = [ATXActionPredictionsProcessor removeAlarmActionsInconsistentWithAlarmAppState:stateCopy enabledAlarms:v6 disabledAlarms:v7 currentDate:v22];
   }
 
   else
   {
-    v21 = stateCopy;
+    v23 = stateCopy;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v23;
 }
 
 + (id)userAlarms
 {
   v2 = dispatch_semaphore_create(0);
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__80;
-  v23 = __Block_byref_object_dispose__80;
-  v24 = 0;
-  v16 = 0;
-  v17[0] = &v16;
-  v17[1] = 0x3032000000;
-  v17[2] = __Block_byref_object_copy__80;
-  v17[3] = __Block_byref_object_dispose__80;
-  v18 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__80;
+  v27 = __Block_byref_object_dispose__80;
+  v28 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__80;
+  v21 = __Block_byref_object_dispose__80;
+  v22 = 0;
   mEMORY[0x277CE89F0] = [MEMORY[0x277CE89F0] sharedAlarmManager];
   v4 = [mEMORY[0x277CE89F0] alarmsIncludingSleepAlarm:1];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __43__ATXActionPredictionsProcessor_userAlarms__block_invoke;
-  v12[3] = &unk_27859E3B0;
-  v14 = &v19;
-  v15 = &v16;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __43__ATXActionPredictionsProcessor_userAlarms__block_invoke;
+  v13[3] = &unk_27859E3B0;
+  v15 = &v23;
+  v16 = &v17;
   v5 = v2;
-  v13 = v5;
-  v6 = [v4 addCompletionBlock:v12];
+  v14 = v5;
+  v6 = [v4 addCompletionBlock:v13];
 
-  [MEMORY[0x277D425A0] waitForSemaphore:v5 timeoutSeconds:0 onAcquire:&__block_literal_global_51_0 onTimeout:5.0];
-  if (*(v17[0] + 40))
+  v7 = [MEMORY[0x277D425A0] waitForSemaphore:v5 timeoutSeconds:0 onAcquire:&__block_literal_global_51_0 onTimeout:5.0];
+  if (v18[5])
   {
-    v7 = __atxlog_handle_action_prediction();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_action_prediction(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      +[(ATXActionPredictionsProcessor *)v17];
+      +[ATXActionPredictionsProcessor userAlarms];
     }
   }
 
-  v8 = v20[5];
-  if (!v8)
+  v9 = v24[5];
+  if (!v9)
   {
-    v9 = __atxlog_handle_action_prediction();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = __atxlog_handle_action_prediction(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       +[ATXActionPredictionsProcessor userAlarms];
     }
 
-    v8 = v20[5];
+    v9 = v24[5];
   }
 
-  v10 = v8;
+  v11 = v9;
 
-  _Block_object_dispose(&v16, 8);
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v23, 8);
 
-  return v10;
+  return v11;
 }
 
 void __43__ATXActionPredictionsProcessor_userAlarms__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -920,10 +914,10 @@ void __43__ATXActionPredictionsProcessor_userAlarms__block_invoke(uint64_t a1, v
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void __43__ATXActionPredictionsProcessor_userAlarms__block_invoke_2()
+void __43__ATXActionPredictionsProcessor_userAlarms__block_invoke_2(uint64_t a1)
 {
-  v0 = __atxlog_handle_action_prediction();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_action_prediction(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __43__ATXActionPredictionsProcessor_userAlarms__block_invoke_2_cold_1();
   }
@@ -1028,18 +1022,19 @@ void __122__ATXActionPredictionsProcessor_removeAlarmActionsInconsistentWithAlar
         v25 = [v24 valueForKey:@"dateComponents"];
 
         v26 = [ATXActionPredictionsProcessor hourAndMinuteComponentsFromDateComponents:v25];
-        if (intValue == 1 && ([enabledAlarmsCopy containsObject:v26] & 1) == 0 && objc_msgSend(alarmsCopy, "containsObject:", v26) && +[ATXActionPredictionsProcessor validTimeToSuggestAlarmForAlarmComponents:currentDate:](ATXActionPredictionsProcessor, "validTimeToSuggestAlarmForAlarmComponents:currentDate:", v26, dateCopy))
+        v27 = v26;
+        if (intValue == 1 && (v26 = [enabledAlarmsCopy containsObject:v26], (v26 & 1) == 0) && (v26 = objc_msgSend(alarmsCopy, "containsObject:", v27), v26) && (v26 = +[ATXActionPredictionsProcessor validTimeToSuggestAlarmForAlarmComponents:currentDate:](ATXActionPredictionsProcessor, "validTimeToSuggestAlarmForAlarmComponents:currentDate:", v27, dateCopy), v26))
         {
           [indexesCopy addIndex:idx];
         }
 
         else
         {
-          v27 = __atxlog_handle_action_prediction();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+          v28 = __atxlog_handle_action_prediction(v26);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
           {
-            *v28 = 0;
-            _os_log_impl(&dword_2263AA000, v27, OS_LOG_TYPE_DEFAULT, "Suppressing MTToggleAlarmIntent because it is not toggling on an alarm that is disabled or the alarm time is over 12 hours away.", v28, 2u);
+            *v29 = 0;
+            _os_log_impl(&dword_2263AA000, v28, OS_LOG_TYPE_DEFAULT, "Suppressing MTToggleAlarmIntent because it is not toggling on an alarm that is disabled or the alarm time is over 12 hours away.", v29, 2u);
           }
         }
       }
@@ -1057,13 +1052,14 @@ void __122__ATXActionPredictionsProcessor_removeAlarmActionsInconsistentWithAlar
   {
     v17 = [combinationsCopy objectForKeyedSubscript:@"dateComponents"];
     v18 = [ATXActionPredictionsProcessor hourAndMinuteComponentsFromDateComponents:v17];
-    if (([alarmsCopy containsObject:v18] & 1) != 0 || !+[ATXActionPredictionsProcessor validTimeToSuggestAlarmForAlarmComponents:currentDate:](ATXActionPredictionsProcessor, "validTimeToSuggestAlarmForAlarmComponents:currentDate:", v18, dateCopy))
+    v19 = [alarmsCopy containsObject:v18];
+    if ((v19 & 1) != 0 || (v19 = [ATXActionPredictionsProcessor validTimeToSuggestAlarmForAlarmComponents:v18 currentDate:dateCopy], !v19))
     {
-      v19 = __atxlog_handle_action_prediction();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v20 = __atxlog_handle_action_prediction(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        *v20 = 0;
-        _os_log_impl(&dword_2263AA000, v19, OS_LOG_TYPE_DEFAULT, "Suppressing MTCreateAlarmIntent because there already exists an enabled alarm for the same time or the alarm time is over 12 hours away.", v20, 2u);
+        *v21 = 0;
+        _os_log_impl(&dword_2263AA000, v20, OS_LOG_TYPE_DEFAULT, "Suppressing MTCreateAlarmIntent because there already exists an enabled alarm for the same time or the alarm time is over 12 hours away.", v21, 2u);
       }
     }
 
@@ -1121,30 +1117,20 @@ uint64_t __67__ATXActionPredictionsProcessor_removeActionsMatchingARegexFilter__
 
 void __76__ATXActionPredictionsProcessor_removeMissingOrBlockedRecipientPredictions___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 scoredAction];
   v2 = [v1 predictedItem];
-  OUTLINED_FUNCTION_3_4(&dword_2263AA000, v3, v4, "Suppressing predicted action %@ due to blocked contact referenced by intent.", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_3_4(&dword_2263AA000, v3, v4, "Suppressing predicted action %@ due to blocked contact referenced by intent.", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 void __76__ATXActionPredictionsProcessor_removeMissingOrBlockedRecipientPredictions___block_invoke_cold_2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 scoredAction];
   v2 = [v1 predictedItem];
-  OUTLINED_FUNCTION_3_4(&dword_2263AA000, v3, v4, "Suppressing predicted action %@ due to missing contact referenced by intent.", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-void __76__ATXActionPredictionsProcessor_removeMissingOrBlockedRecipientPredictions___block_invoke_cold_3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_3_4(&dword_2263AA000, v3, v4, "Suppressing predicted action %@ due to missing contact referenced by intent.", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 + (void)isBlockedEmailAddressContainedInAddresses:.cold.1()
@@ -1163,15 +1149,6 @@ void __76__ATXActionPredictionsProcessor_removeMissingOrBlockedRecipientPredicti
   [v0 handleFailureInFunction:v1 file:@"ATXActionPredictionsProcessor.m" lineNumber:28 description:{@"%s", dlerror()}];
 
   __break(1u);
-}
-
-+ (void)userAlarms
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(*self + 40);
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

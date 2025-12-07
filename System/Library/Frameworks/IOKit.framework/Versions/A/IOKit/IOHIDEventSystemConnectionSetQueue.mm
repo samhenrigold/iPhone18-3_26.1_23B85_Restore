@@ -5,7 +5,7 @@
 
 void ___IOHIDEventSystemConnectionSetQueue_block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   CFRetain(*(a1 + 32));
   v2 = CFGetAllocator(*(a1 + 32));
   v3 = MEMORY[0x19A8DA570](v2, 92, 0x1000040504FFAC1, 0);
@@ -20,15 +20,15 @@ void ___IOHIDEventSystemConnectionSetQueue_block_invoke(uint64_t a1)
     v6 = v5;
     while (1)
     {
-      v7 = _IOHIDLogCategory(9u);
+      v7 = _IOHIDLogCategory(9);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = *(*(a1 + 32) + 168);
         v9 = mach_error_string(v6);
         *buf = 136315394;
-        v18 = v8;
-        v19 = 2080;
-        v20 = v9;
+        v17 = v8;
+        v18 = 2080;
+        v19 = v9;
         _os_log_impl(&dword_197195000, v7, OS_LOG_TYPE_INFO, "%s: mach_msg(sendPossiblePort):%s", buf, 0x16u);
       }
 
@@ -92,7 +92,6 @@ LABEL_7:
 
   CFAllocatorDeallocate(v2, v3);
   CFRelease(*(a1 + 32));
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void ___IOHIDEventSystemConnectionSetQueue_block_invoke_24(uint64_t a1)

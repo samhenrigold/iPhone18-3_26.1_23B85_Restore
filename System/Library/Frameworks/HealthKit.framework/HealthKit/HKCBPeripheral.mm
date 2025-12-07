@@ -42,7 +42,7 @@
 
 - (HKCBPeripheral)initWithCBPeripheral:(id)peripheral
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   peripheralCopy = peripheral;
   customPropertyNames = [peripheralCopy customPropertyNames];
   if (customPropertyNames)
@@ -53,31 +53,31 @@
     if (v7)
     {
       customPropertyNames = [MEMORY[0x1E695DF90] dictionary];
+      v21 = 0u;
       v22 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v25 = 0u;
       customPropertyNames3 = [peripheralCopy customPropertyNames];
-      v9 = [customPropertyNames3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v9 = [customPropertyNames3 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v23;
+        v11 = *v22;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v23 != v11)
+            if (*v22 != v11)
             {
               objc_enumerationMutation(customPropertyNames3);
             }
 
-            v13 = *(*(&v22 + 1) + 8 * i);
+            v13 = *(*(&v21 + 1) + 8 * i);
             v14 = [peripheralCopy customProperty:v13];
             [customPropertyNames setObject:v14 forKey:v13];
           }
 
-          v10 = [customPropertyNames3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v10 = [customPropertyNames3 countByEnumeratingWithState:&v21 objects:v25 count:16];
         }
 
         while (v10);
@@ -102,7 +102,6 @@
   name = [peripheralCopy name];
   v19 = [(HKCBPeripheral *)self _initWithIdentifer:identifier name:name properties:customPropertyNames tags:v16];
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 

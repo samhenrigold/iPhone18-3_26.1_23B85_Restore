@@ -37,11 +37,11 @@
       v22 = "W5PeerDiscoveryEvent.m";
       v23 = 1024;
       v24 = 33;
-      _os_log_send_and_compose_impl();
+      LODWORD(v17) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, p_super, 0, "[wifivelocity] %s (%s:%u) init error!", &v19, v17, LODWORD(v18.receiver));
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

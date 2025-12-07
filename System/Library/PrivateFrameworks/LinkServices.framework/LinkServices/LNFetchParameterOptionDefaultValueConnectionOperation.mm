@@ -8,10 +8,10 @@
 
 - (void)start
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = LNFetchParameterOptionDefaultValueConnectionOperation;
-  [(LNConnectionOperation *)&v13 start];
+  v17 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = LNFetchParameterOptionDefaultValueConnectionOperation;
+  [(LNConnectionOperation *)&v12 start];
   v3 = getLNLogCategoryConnection();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -19,9 +19,9 @@
     identifier = [actionMetadata identifier];
     parameterIdentifier = [(LNFetchParameterOptionDefaultValueConnectionOperation *)self parameterIdentifier];
     *buf = 138412546;
-    v15 = identifier;
-    v16 = 2112;
-    v17 = parameterIdentifier;
+    v14 = identifier;
+    v15 = 2112;
+    v16 = parameterIdentifier;
     _os_log_impl(&dword_19763D000, v3, OS_LOG_TYPE_INFO, "Fetching options default value for action %@ parameter %@", buf, 0x16u);
   }
 
@@ -29,14 +29,12 @@
   action = [(LNFetchParameterOptionDefaultValueConnectionOperation *)self action];
   actionMetadata2 = [(LNFetchParameterOptionDefaultValueConnectionOperation *)self actionMetadata];
   parameterIdentifier2 = [(LNFetchParameterOptionDefaultValueConnectionOperation *)self parameterIdentifier];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __62__LNFetchParameterOptionDefaultValueConnectionOperation_start__block_invoke;
-  v12[3] = &unk_1E74B12C8;
-  v12[4] = self;
-  [connectionInterface fetchParameterOptionDefaultValueForAction:action actionMetadata:actionMetadata2 parameterIdentifier:parameterIdentifier2 completionHandler:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __62__LNFetchParameterOptionDefaultValueConnectionOperation_start__block_invoke;
+  v11[3] = &unk_1E74B12C8;
+  v11[4] = self;
+  [connectionInterface fetchParameterOptionDefaultValueForAction:action actionMetadata:actionMetadata2 parameterIdentifier:parameterIdentifier2 completionHandler:v11];
 }
 
 void __62__LNFetchParameterOptionDefaultValueConnectionOperation_start__block_invoke(uint64_t a1, void *a2, void *a3)

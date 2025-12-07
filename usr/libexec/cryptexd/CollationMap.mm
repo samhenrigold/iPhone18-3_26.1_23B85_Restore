@@ -339,50 +339,57 @@ void __59__CollationMap_lookupEntryForUser_withBundleID_minVersion___block_invok
   }
 }
 
-uint64_t __59__CollationMap_lookupEntryForUser_withBundleID_minVersion___block_invoke_2(uint64_t a1, int a2, char *__s2)
+uint64_t __59__CollationMap_lookupEntryForUser_withBundleID_minVersion___block_invoke_2(uint64_t a1, int a2, char *__s2, uint64_t a4)
 {
-  v3 = *(*(a1 + 32) + 8);
-  if (*(v3 + 24) == 1)
+  v4 = *(*(a1 + 32) + 8);
+  if (*(v4 + 24) == 1)
   {
     __59__CollationMap_lookupEntryForUser_withBundleID_minVersion___block_invoke_2_cold_1(&v8, v9);
   }
 
   if (!strcmp(*(a1 + 40), __s2))
   {
-    v5 = *(a1 + 48);
-    if (v5)
+    v6 = *(a1 + 48);
+    if (v6)
     {
       *&v9[0] = cryptex_version_new();
-      v6 = *(a1 + 48);
       if ((cryptex_version_compare() & 0x80000000) == 0)
       {
         *(*(*(a1 + 32) + 8) + 24) = 1;
       }
 
       cryptex_version_destroy();
-      LOBYTE(v5) = *(*(*(a1 + 32) + 8) + 24) ^ 1;
+      LOBYTE(v6) = *(*(*(a1 + 32) + 8) + 24) ^ 1;
     }
 
     else
     {
-      *(v3 + 24) = 1;
+      *(v4 + 24) = 1;
     }
   }
 
   else
   {
-    LOBYTE(v5) = 1;
+    LOBYTE(v6) = 1;
   }
 
-  return v5 & 1;
+  return v6 & 1;
 }
 
 - (void)init
 {
   OUTLINED_FUNCTION_3(self, a2);
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0_3();
-  v3 = *v2;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v7 = 3;
+  }
+
+  else
+  {
+    v7 = 2;
+  }
+
+  OUTLINED_FUNCTION_0_3(v7, v2, v3, v4, &_mh_execute_header, v5, v6, "unexpected failure: %s: failed to allocate collation map");
   _os_crash_msg();
   __break(1u);
 }
@@ -390,9 +397,17 @@ uint64_t __59__CollationMap_lookupEntryForUser_withBundleID_minVersion___block_i
 void __22__CollationMap_getMap__block_invoke_cold_1(void *a1, _OWORD *a2)
 {
   OUTLINED_FUNCTION_3(a1, a2);
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0_3();
-  v3 = *v2;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v7 = 3;
+  }
+
+  else
+  {
+    v7 = 2;
+  }
+
+  OUTLINED_FUNCTION_0_3(v7, v2, v3, v4, &_mh_execute_header, v5, v6, "unexpected failure: %s: failed to allocate CollationMap");
   _os_crash_msg();
   __break(1u);
 }
@@ -424,7 +439,7 @@ void __45__CollationMap_removeEntryForUser_withValue___block_invoke_cold_3(int *
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "Collation: No remaining mounts for user %d", v3, 8u);
 }
 
-void __45__CollationMap_removeEntryForUser_withValue___block_invoke_cold_4(uint64_t *a1, _OWORD *a2, int *a3)
+void __45__CollationMap_removeEntryForUser_withValue___block_invoke_cold_4(void *a1, _OWORD *a2, int *a3)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -432,10 +447,21 @@ void __45__CollationMap_removeEntryForUser_withValue___block_invoke_cold_4(uint6
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  v6 = *a3;
-  _os_log_send_and_compose_impl();
-  v5 = *a1;
+  v6 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+  v7 = *a3;
+  if (v6)
+  {
+    v8 = 3;
+  }
+
+  else
+  {
+    v8 = 2;
+  }
+
+  v9[0] = 67109120;
+  v9[1] = v7;
+  _os_log_send_and_compose_impl(v8, a1, a2, 80, &_mh_execute_header, &_os_log_default, 16, "unexpected failure: Failed to find collation for usr (%d) removal", v9);
   _os_crash_msg();
   __break(1u);
 }
@@ -443,9 +469,17 @@ void __45__CollationMap_removeEntryForUser_withValue___block_invoke_cold_4(uint6
 void __59__CollationMap_lookupEntryForUser_withBundleID_minVersion___block_invoke_2_cold_1(void *a1, _OWORD *a2)
 {
   OUTLINED_FUNCTION_3(a1, a2);
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0_3();
-  v3 = *v2;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v7 = 3;
+  }
+
+  else
+  {
+    v7 = 2;
+  }
+
+  OUTLINED_FUNCTION_0_3(v7, v2, v3, v4, &_mh_execute_header, v5, v6, "unexpected failure: enumeration continued in %s after entry found");
   _os_crash_msg();
   __break(1u);
 }

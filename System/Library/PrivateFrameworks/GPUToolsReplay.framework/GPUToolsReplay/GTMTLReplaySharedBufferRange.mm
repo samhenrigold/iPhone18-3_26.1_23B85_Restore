@@ -30,7 +30,7 @@
 
 - (id)tensorAlias:(id)alias
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   aliasCopy = alias;
   strides = [aliasCopy strides];
 
@@ -38,9 +38,9 @@
   {
     heapBuffer = self->_heapBuffer;
     location = self->_heapRange.location;
-    v16 = 0;
-    v8 = [(MTLBuffer *)heapBuffer newTensorWithDescriptor:aliasCopy offset:location error:&v16];
-    v9 = v16;
+    v15 = 0;
+    v8 = [(MTLBuffer *)heapBuffer newTensorWithDescriptor:aliasCopy offset:location error:&v15];
+    v9 = v15;
     v10 = v9;
     if (v8)
     {
@@ -49,9 +49,9 @@
 
     else
     {
-      v17 = *MEMORY[0x277CCA7E8];
-      v18[0] = v9;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      v16 = *MEMORY[0x277CCA7E8];
+      v17[0] = v9;
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
       v13 = MakeNSError(101, v12);
       GTMTLReplay_handleNSError(v13);
     }
@@ -63,8 +63,6 @@
     GTMTLReplay_handleNSError(v10);
     v8 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

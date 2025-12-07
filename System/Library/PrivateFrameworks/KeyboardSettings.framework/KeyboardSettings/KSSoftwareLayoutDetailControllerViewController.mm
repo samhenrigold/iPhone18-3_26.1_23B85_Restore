@@ -12,10 +12,12 @@
 - (void)removeInputModeInMultilingualSet:(id)set;
 - (void)setShuangpinType:(id)type;
 - (void)setSoftwareLayout:(id)layout;
+- (void)setWubiStandard:(int)standard;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)updateTitle;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation KSSoftwareLayoutDetailControllerViewController
@@ -56,6 +58,14 @@
   [navigationItem setTitle:v4];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = KSSoftwareLayoutDetailControllerViewController;
+  [(KSSoftwareLayoutDetailControllerViewController *)&v4 viewWillAppear:appear];
+  [(KSSoftwareLayoutDetailControllerViewController *)self updateTitle];
+}
+
 - (id)specifiers
 {
   v3 = *MEMORY[0x277D3FC48];
@@ -71,51 +81,49 @@
 
 - (id)newSpecifiers
 {
-  v96 = *MEMORY[0x277D85DE8];
-  [(KSSoftwareLayoutDetailControllerViewController *)self inputMode];
-  if (KSInputModeIsChineseShuangpin())
+  v95 = *MEMORY[0x277D85DE8];
+  inputMode = [(KSSoftwareLayoutDetailControllerViewController *)self inputMode];
+  if (KSInputModeIsChineseShuangpin(inputMode))
   {
-    v2 = *MEMORY[0x277D85DE8];
 
     return [(KSSoftwareLayoutDetailControllerViewController *)self newSpecifiersForChineseShuangpin];
   }
 
-  if (KSInputModeIsChineseWubi())
+  if (KSInputModeIsChineseWubi(inputMode))
   {
-    v4 = *MEMORY[0x277D85DE8];
 
     return [(KSSoftwareLayoutDetailControllerViewController *)self newSpecifiersForChineseWubi];
   }
 
   NormalizedIdentifier = TIInputModeGetNormalizedIdentifier();
-  v70 = [TIInputModeGetComponentsFromIdentifier() objectForKey:@"sw"];
+  v69 = [TIInputModeGetComponentsFromIdentifier() objectForKey:@"sw"];
   multilingualSet = [(KSSoftwareLayoutDetailControllerViewController *)self multilingualSet];
   if (_os_feature_enabled_impl())
   {
-    v7 = [(NSArray *)multilingualSet count]> 1;
+    v6 = [(NSArray *)multilingualSet count]> 1;
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = MEMORY[0x277CBEB40];
+  v7 = MEMORY[0x277CBEB40];
   TIInputModeGetNormalizedIdentifier();
-  v9 = [v8 orderedSetWithArray:UIKeyboardGetSupportedSoftwareKeyboardsForInputMode()];
-  v69 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v9, "count") + 1}];
-  v61 = NormalizedIdentifier;
+  v8 = [v7 orderedSetWithArray:UIKeyboardGetSupportedSoftwareKeyboardsForInputMode()];
+  v68 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v8, "count") + 1}];
+  v60 = NormalizedIdentifier;
   if (_os_feature_enabled_impl())
   {
-    v10 = [TIUIGetAddableInputModesForMultilingualSet(multilingualSet) count] != 0;
+    v9 = [TIUIGetAddableInputModesForMultilingualSet(multilingualSet) count] != 0;
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  [(KSSoftwareLayoutDetailControllerViewController *)self setShowingLanguagesSection:v10 || v7];
+  [(KSSoftwareLayoutDetailControllerViewController *)self setShowingLanguagesSection:v9 || v6];
   if (_os_feature_enabled_impl())
   {
     IsMultiscriptInput = TIUIMultilingualSetIsMultiscriptInput(multilingualSet, 0);
@@ -126,56 +134,55 @@
     IsMultiscriptInput = 0;
   }
 
-  v11 = MEMORY[0x277CBEB70];
-  TIInputModeGetNormalizedIdentifier();
-  v63 = [v11 orderedSetWithArray:TIUIKeyboardGetSupportedSoftwareMultiscriptLayouts()];
-  v62 = v10 || v7;
-  if (v10 || v7)
+  v10 = MEMORY[0x277CBEB70];
+  v11 = TIInputModeGetNormalizedIdentifier();
+  v62 = [v10 orderedSetWithArray:{TIUIKeyboardGetSupportedSoftwareMultiscriptLayouts(v11, v12)}];
+  v61 = v9 || v6;
+  if (v9 || v6)
   {
     if (IsMultiscriptInput)
     {
-      v9 = [v63 mutableCopy];
+      v8 = [v62 mutableCopy];
     }
 
     else if ((TIUIMultilingualSetContainsTransliterationInputModes(multilingualSet) & 1) == 0)
     {
-      v89 = 0u;
-      v90 = 0u;
-      v87 = 0u;
       v88 = 0u;
-      v19 = [(NSArray *)multilingualSet countByEnumeratingWithState:&v87 objects:v95 count:16];
-      if (v19)
+      v89 = 0u;
+      v86 = 0u;
+      v87 = 0u;
+      v20 = [(NSArray *)multilingualSet countByEnumeratingWithState:&v86 objects:v94 count:16];
+      if (v20)
       {
-        v20 = v19;
-        v21 = *v88;
+        v21 = v20;
+        v22 = *v87;
         do
         {
-          for (i = 0; i != v20; ++i)
+          for (i = 0; i != v21; ++i)
           {
-            if (*v88 != v21)
+            if (*v87 != v22)
             {
               objc_enumerationMutation(multilingualSet);
             }
 
-            v23 = *(*(&v87 + 1) + 8 * i);
             TIInputModeGetNormalizedIdentifier();
-            [v9 addObjectsFromArray:UIKeyboardGetSupportedSoftwareKeyboardsForInputMode()];
+            [v8 addObjectsFromArray:UIKeyboardGetSupportedSoftwareKeyboardsForInputMode()];
           }
 
-          v20 = [(NSArray *)multilingualSet countByEnumeratingWithState:&v87 objects:v95 count:16];
+          v21 = [(NSArray *)multilingualSet countByEnumeratingWithState:&v86 objects:v94 count:16];
         }
 
-        while (v20);
+        while (v21);
       }
     }
 
-    v64 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:0];
-    obj = v9;
-    v58 = v10;
-    v59 = v7;
-    if (v7)
+    v63 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:0];
+    obj = v8;
+    v57 = v9;
+    v58 = v6;
+    if (v6)
     {
-      v24 = [(NSArray *)multilingualSet count]!= 2 || v10;
+      v24 = [(NSArray *)multilingualSet count]!= 2 || v9;
       v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       if (v24)
       {
@@ -195,14 +202,14 @@
     }
 
     v27 = [v25 localizedStringForKey:v26 value:&stru_28679E3A8 table:@"Keyboard"];
-    [v64 setProperty:v27 forKey:*MEMORY[0x277D3FF88]];
-    [v69 addObject:v64];
+    [v63 setProperty:v27 forKey:*MEMORY[0x277D3FF88]];
+    [v68 addObject:v63];
     [(NSArray *)multilingualSet firstObject];
     [MEMORY[0x277CBEAF8] preferredLanguages];
     MultilingualSetFromInputModesWithPreferredLanguages = TIInputModeGetMultilingualSetFromInputModesWithPreferredLanguages();
+    v82 = 0u;
     v83 = 0u;
-    v84 = 0u;
-    v60 = multilingualSet;
+    v59 = multilingualSet;
     if ([(NSArray *)MultilingualSetFromInputModesWithPreferredLanguages count])
     {
       v29 = MultilingualSetFromInputModesWithPreferredLanguages;
@@ -213,139 +220,139 @@
       v29 = multilingualSet;
     }
 
+    v84 = 0uLL;
     v85 = 0uLL;
-    v86 = 0uLL;
-    v30 = [(NSArray *)v29 countByEnumeratingWithState:&v83 objects:v94 count:16];
+    v30 = [(NSArray *)v29 countByEnumeratingWithState:&v82 objects:v93 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v84;
+      v32 = *v83;
       v33 = *MEMORY[0x277D3FFB8];
       v34 = *MEMORY[0x277D401A8];
       do
       {
         for (j = 0; j != v31; ++j)
         {
-          if (*v84 != v32)
+          if (*v83 != v32)
           {
             objc_enumerationMutation(v29);
           }
 
-          v36 = *(*(&v83 + 1) + 8 * j);
+          v36 = *(*(&v82 + 1) + 8 * j);
           if ((TIInputModeIsMultilingualOnly() & 1) == 0)
           {
             v37 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:+[KSKeyboardListController keyboardDisplayNameForIdentifier:](KSKeyboardListController target:"keyboardDisplayNameForIdentifier:" set:TIInputModeGetLanguageWithRegion()) get:0 detail:0 cell:0 edit:{0, 3, 0}];
             [v37 setProperty:v36 forKey:v33];
             [v37 setProperty:@"language" forKey:v34];
-            [v69 addObject:v37];
+            [v68 addObject:v37];
           }
         }
 
-        v31 = [(NSArray *)v29 countByEnumeratingWithState:&v83 objects:v94 count:16];
+        v31 = [(NSArray *)v29 countByEnumeratingWithState:&v82 objects:v93 count:16];
       }
 
       while (v31);
     }
 
-    if (v58)
+    if (v57)
     {
       v38 = MEMORY[0x277D3FAD8];
       v39 = [objc_msgSend(MEMORY[0x277CCA8D8] bundleForClass:{objc_opt_class()), "localizedStringForKey:value:table:", @"MULTILINGUAL_DETAIL_ADD_LANGUAGE", &stru_28679E3A8, @"Keyboard"}];
       v40 = [v38 preferenceSpecifierNamed:v39 target:self set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
       [v40 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FD80]];
-      [v69 addObject:v40];
+      [v68 addObject:v40];
     }
 
-    multilingualSet = v60;
-    if (v59)
+    multilingualSet = v59;
+    if (v58)
     {
       goto LABEL_66;
     }
 
 LABEL_22:
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
     v76 = 0u;
-    v12 = +[KSKeyboardListController inputModes];
-    v13 = [v12 countByEnumeratingWithState:&v75 objects:v92 count:16];
-    if (v13)
+    v77 = 0u;
+    v74 = 0u;
+    v75 = 0u;
+    v13 = +[KSKeyboardListController inputModes];
+    v14 = [v13 countByEnumeratingWithState:&v74 objects:v91 count:16];
+    if (v14)
     {
-      v14 = v13;
-      v15 = *v76;
+      v15 = v14;
+      v16 = *v75;
       do
       {
-        for (k = 0; k != v14; ++k)
+        for (k = 0; k != v15; ++k)
         {
-          if (*v76 != v15)
+          if (*v75 != v16)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v13);
           }
 
-          v17 = *(*(&v75 + 1) + 8 * k);
-          if (!_os_feature_enabled_impl() || [TIUIInputModeGetMultilingualSet(v17) count] <= 1)
+          v18 = *(*(&v74 + 1) + 8 * k);
+          if (!_os_feature_enabled_impl() || [TIUIInputModeGetMultilingualSet(v18) count] <= 1)
           {
-            if ([v61 isEqualToString:TIInputModeGetNormalizedIdentifier()])
+            if ([v60 isEqualToString:TIInputModeGetNormalizedIdentifier()])
             {
-              v18 = [TIInputModeGetComponentsFromIdentifier() objectForKey:@"sw"];
-              if (([v18 isEqualToString:v70] & 1) == 0)
+              v19 = [TIInputModeGetComponentsFromIdentifier() objectForKey:@"sw"];
+              if (([v19 isEqualToString:v69] & 1) == 0)
               {
-                [obj removeObject:v18];
+                [obj removeObject:v19];
               }
             }
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v75 objects:v92 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v74 objects:v91 count:16];
       }
 
-      while (v14);
+      while (v15);
     }
 
     goto LABEL_76;
   }
 
-  obj = v9;
-  v64 = 0;
-  if (!v7)
+  obj = v8;
+  v63 = 0;
+  if (!v6)
   {
     goto LABEL_22;
   }
 
 LABEL_66:
   v41 = [MEMORY[0x277D75680] multilingualSetsFromInputModeIdentifiers:{+[KSKeyboardListController inputModes](KSKeyboardListController, "inputModes")}];
+  v78 = 0u;
   v79 = 0u;
   v80 = 0u;
   v81 = 0u;
-  v82 = 0u;
-  v42 = [v41 countByEnumeratingWithState:&v79 objects:v93 count:16];
+  v42 = [v41 countByEnumeratingWithState:&v78 objects:v92 count:16];
   if (v42)
   {
     v43 = v42;
-    v44 = *v80;
+    v44 = *v79;
     do
     {
       for (m = 0; m != v43; ++m)
       {
-        if (*v80 != v44)
+        if (*v79 != v44)
         {
           objc_enumerationMutation(v41);
         }
 
-        [*(*(&v79 + 1) + 8 * m) identifier];
+        [*(*(&v78 + 1) + 8 * m) identifier];
         MultilingualSet = TIInputModeGetMultilingualSet();
         if (TIUIGetMultlingualSetsAreEqual(multilingualSet, MultilingualSet))
         {
           [MultilingualSet firstObject];
           v47 = [TIInputModeGetComponentsFromIdentifier() objectForKey:@"sw"];
-          if (([v47 isEqualToString:v70] & 1) == 0)
+          if (([v47 isEqualToString:v69] & 1) == 0)
           {
             [obj removeObject:v47];
           }
         }
       }
 
-      v43 = [v41 countByEnumeratingWithState:&v79 objects:v93 count:16];
+      v43 = [v41 countByEnumeratingWithState:&v78 objects:v92 count:16];
     }
 
     while (v43);
@@ -354,166 +361,163 @@ LABEL_66:
 LABEL_76:
   if ((IsMultiscriptInput & 1) == 0)
   {
-    [obj minusOrderedSet:v63];
+    [obj minusOrderedSet:v62];
   }
 
   if ([obj count] >= 2)
   {
     v48 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:0];
     [v48 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE8]];
-    v66 = v48;
-    [v69 addObject:v48];
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
+    v65 = v48;
+    [v68 addObject:v48];
     v72 = 0u;
-    v49 = [obj countByEnumeratingWithState:&v71 objects:v91 count:16];
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
+    v49 = [obj countByEnumeratingWithState:&v70 objects:v90 count:16];
     if (v49)
     {
       v50 = v49;
-      v51 = *v72;
+      v51 = *v71;
       v52 = *MEMORY[0x277D3FFB8];
       v53 = *MEMORY[0x277D40090];
       do
       {
         for (n = 0; n != v50; ++n)
         {
-          if (*v72 != v51)
+          if (*v71 != v51)
           {
             objc_enumerationMutation(obj);
           }
 
-          v55 = *(*(&v71 + 1) + 8 * n);
+          v55 = *(*(&v70 + 1) + 8 * n);
           v56 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8] target:"bundleForClass:" set:objc_opt_class()) get:"localizedStringForKey:value:table:" detail:v55 cell:&stru_28679E3A8 edit:{@"KeyboardLayouts", self, 0, 0, 0, 3, 0}];
           [v56 setProperty:v55 forKey:v52];
-          if ([v70 isEqualToString:v55])
+          if ([v69 isEqualToString:v55])
           {
-            [v66 setProperty:v56 forKey:v53];
+            [v65 setProperty:v56 forKey:v53];
           }
 
-          [v69 addObject:v56];
+          [v68 addObject:v56];
         }
 
-        v50 = [obj countByEnumeratingWithState:&v71 objects:v91 count:16];
+        v50 = [obj countByEnumeratingWithState:&v70 objects:v90 count:16];
       }
 
       while (v50);
     }
 
-    if (v62)
+    if (v61)
     {
-      [v64 setName:{objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "localizedStringForKey:value:table:", @"MULTILINGUAL_DETAIL_LANGUAGES_TITLE", &stru_28679E3A8, @"Keyboard"}];
-      [v66 setName:{objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "localizedStringForKey:value:table:", @"MULTILINGUAL_DETAIL_LAYOUTS_TITLE", &stru_28679E3A8, @"Keyboard"}];
+      [v63 setName:{objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "localizedStringForKey:value:table:", @"MULTILINGUAL_DETAIL_LANGUAGES_TITLE", &stru_28679E3A8, @"Keyboard"}];
+      [v65 setName:{objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "localizedStringForKey:value:table:", @"MULTILINGUAL_DETAIL_LAYOUTS_TITLE", &stru_28679E3A8, @"Keyboard"}];
     }
   }
 
-  v57 = *MEMORY[0x277D85DE8];
-  return v69;
+  return v68;
 }
 
 - (id)newSpecifiersForChineseShuangpin
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = KSGetShuangpinTypes();
   v4 = KSGetCurrentShuangpinType();
   v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v3, "count") + 1}];
   v6 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:0];
   [v6 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE8]];
-  v18 = v6;
+  v17 = v6;
   [v5 addObject:v6];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   obj = v3;
-  v7 = [v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     v10 = *MEMORY[0x277D3FFB8];
-    v17 = *MEMORY[0x277D40090];
+    v16 = *MEMORY[0x277D40090];
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         integerValue = [v12 integerValue];
         v14 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:KSGetShuangpinNameFromType(integerValue) target:self set:0 get:0 detail:0 cell:3 edit:0];
         [v14 setProperty:objc_msgSend(v12 forKey:{"stringValue"), v10}];
         if (v4 == integerValue)
         {
-          [v18 setProperty:v14 forKey:v17];
+          [v17 setProperty:v14 forKey:v16];
         }
 
         [v5 addObject:v14];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (id)newSpecifiersForChineseWubi
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = KSGetWubiStandards();
   v4 = KSGetCurrentWubiStandard();
   v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v3, "count") + 1}];
   v6 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:0];
   [v6 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE8]];
-  v18 = v6;
+  v17 = v6;
   [v5 addObject:v6];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   obj = v3;
-  v7 = [v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     v10 = *MEMORY[0x277D3FFB8];
-    v17 = *MEMORY[0x277D40090];
+    v16 = *MEMORY[0x277D40090];
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         integerValue = [v12 integerValue];
         v14 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:KSGetWubiStandardName(integerValue) target:self set:0 get:0 detail:0 cell:3 edit:0];
         [v14 setProperty:objc_msgSend(v12 forKey:{"stringValue"), v10}];
         if (v4 == integerValue)
         {
-          [v18 setProperty:v14 forKey:v17];
+          [v17 setProperty:v14 forKey:v16];
         }
 
         [v5 addObject:v14];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -526,8 +530,7 @@ LABEL_76:
   if (v7)
   {
     v8 = v7;
-    [(KSSoftwareLayoutDetailControllerViewController *)self inputMode];
-    if (KSInputModeIsChineseShuangpin())
+    if (KSInputModeIsChineseShuangpin([(KSSoftwareLayoutDetailControllerViewController *)self inputMode]))
     {
       specifier = [v8 specifier];
       v10 = [specifier propertyForKey:*MEMORY[0x277D3FFB8]];
@@ -540,12 +543,11 @@ LABEL_76:
 
     else
     {
-      [(KSSoftwareLayoutDetailControllerViewController *)self inputMode];
-      IsChineseWubi = KSInputModeIsChineseWubi();
+      v12 = KSInputModeIsChineseWubi([(KSSoftwareLayoutDetailControllerViewController *)self inputMode]);
       specifier2 = [v8 specifier];
       v14 = [specifier2 propertyForKey:*MEMORY[0x277D3FFB8]];
       v15 = v14;
-      if (IsChineseWubi)
+      if (v12)
       {
         if (v14)
         {
@@ -576,7 +578,7 @@ LABEL_76:
 
 - (NSArray)multilingualSet
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   result = self->_multilingualSet;
   if (!result)
   {
@@ -584,15 +586,14 @@ LABEL_76:
     v5 = [specifier propertyForKey:*MEMORY[0x277D401A8]];
     if (!v5)
     {
-      v7[0] = [(KSSoftwareLayoutDetailControllerViewController *)self inputMode];
-      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+      v6[0] = [(KSSoftwareLayoutDetailControllerViewController *)self inputMode];
+      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
     }
 
     result = v5;
     self->_multilingualSet = result;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -701,55 +702,65 @@ LABEL_20:
   [(KSSoftwareLayoutDetailControllerViewController *)self reloadKeyboardSpecifiers];
 }
 
+- (void)setWubiStandard:(int)standard
+{
+  v3 = *&standard;
+  mEMORY[0x277D6F470] = [MEMORY[0x277D6F470] sharedPreferencesController];
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+  [mEMORY[0x277D6F470] setValue:v6 forPreferenceKey:*MEMORY[0x277D6FD18]];
+
+  [(KSSoftwareLayoutDetailControllerViewController *)self reloadKeyboardSpecifiers];
+}
+
 - (void)removeInputModeInMultilingualSet:(id)set
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   setCopy = set;
   NormalizedIdentifier = TIInputModeGetNormalizedIdentifier();
   obj = TIUIGetPairedInputModesForInputMode(NormalizedIdentifier);
-  v7 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
+  v7 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
   if (v7)
   {
     v8 = v7;
-    v26 = *v33;
+    v25 = *v32;
     do
     {
       v9 = 0;
       do
       {
-        if (*v33 != v26)
+        if (*v32 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v32 + 1) + 8 * v9);
+        v10 = *(*(&v31 + 1) + 8 * v9);
+        v27 = 0u;
         v28 = 0u;
         v29 = 0u;
         v30 = 0u;
-        v31 = 0u;
         selfCopy = self;
         multilingualSet = [(KSSoftwareLayoutDetailControllerViewController *)self multilingualSet];
-        v13 = [(NSArray *)multilingualSet countByEnumeratingWithState:&v28 objects:v37 count:16];
+        v13 = [(NSArray *)multilingualSet countByEnumeratingWithState:&v27 objects:v36 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v29;
+          v15 = *v28;
           do
           {
             v16 = 0;
             do
             {
-              if (*v29 != v15)
+              if (*v28 != v15)
               {
                 objc_enumerationMutation(multilingualSet);
               }
 
-              v17 = *(*(&v28 + 1) + 8 * v16);
+              v17 = *(*(&v27 + 1) + 8 * v16);
               if ([TIInputModeGetNormalizedIdentifier() isEqualToString:v10])
               {
                 [array addObject:v17];
@@ -759,7 +770,7 @@ LABEL_20:
             }
 
             while (v14 != v16);
-            v14 = [(NSArray *)multilingualSet countByEnumeratingWithState:&v28 objects:v37 count:16];
+            v14 = [(NSArray *)multilingualSet countByEnumeratingWithState:&v27 objects:v36 count:16];
           }
 
           while (v14);
@@ -770,14 +781,14 @@ LABEL_20:
       }
 
       while (v9 != v8);
-      v8 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
+      v8 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
     }
 
     while (v8);
   }
 
-  v27 = 0;
-  if (TIUIMultilingualSetIsMultiscriptInput([(KSSoftwareLayoutDetailControllerViewController *)self multilingualSet], &v27))
+  v26 = 0;
+  if (TIUIMultilingualSetIsMultiscriptInput([(KSSoftwareLayoutDetailControllerViewController *)self multilingualSet], &v26))
   {
     v18 = [(NSArray *)[(KSSoftwareLayoutDetailControllerViewController *)self multilingualSet] copy];
     [v18 firstObject];
@@ -787,8 +798,8 @@ LABEL_20:
       [KSSoftwareLayoutDetailControllerViewController removeInputModeInMultilingualSet:];
     }
 
-    v36 = UIKeyboardInputModeWithNewSWLayout();
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+    v35 = UIKeyboardInputModeWithNewSWLayout();
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
   }
 
   else
@@ -798,14 +809,14 @@ LABEL_20:
   }
 
   v20 = [(NSArray *)[(KSSoftwareLayoutDetailControllerViewController *)self multilingualSet] mutableCopy];
-  [v20 removeObject:v24];
+  [v20 removeObject:v23];
   [v20 removeObjectsInArray:array];
   [v20 removeObjectsInArray:v18];
   [v20 addObjectsFromArray:v19];
   -[KSSoftwareLayoutDetailControllerViewController setInputMode:](self, "setInputMode:", [v20 firstObject]);
   [(KSSoftwareLayoutDetailControllerViewController *)self setMultilingualSet:v20];
   v21 = [+[KSKeyboardListController inputModes](KSKeyboardListController "inputModes")];
-  [v21 removeObject:v24];
+  [v21 removeObject:v23];
   [v21 removeObjectsInArray:array];
   [v21 removeObjectsInArray:v18];
   [v21 addObjectsFromArray:v19];
@@ -813,7 +824,6 @@ LABEL_20:
   [(KSSoftwareLayoutDetailControllerViewController *)self reloadSpecifiers];
   [(KSSoftwareLayoutDetailControllerViewController *)self reloadKeyboardSpecifiers];
   [(KSSoftwareLayoutDetailControllerViewController *)self updateTitle];
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reloadKeyboardSpecifiers

@@ -28,10 +28,10 @@
 
 - (void)_queue_start
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v31.receiver = self;
-  v31.super_class = HDUserDomainConceptQueryServer;
-  [(HDQueryServer *)&v31 _queue_start];
+  v35 = *MEMORY[0x277D85DE8];
+  v30.receiver = self;
+  v30.super_class = HDUserDomainConceptQueryServer;
+  [(HDQueryServer *)&v30 _queue_start];
   queryUUID = [(HDQueryServer *)self queryUUID];
   clientProxy = [(HDQueryServer *)self clientProxy];
   profile = [(HDQueryServer *)self profile];
@@ -55,9 +55,9 @@
   sortDescriptors = self->_sortDescriptors;
   if (sortDescriptors)
   {
-    v30 = 0;
-    v16 = [userDomainConceptManager orderingTermsForSortDescriptors:sortDescriptors error:&v30];
-    v17 = v30;
+    v29 = 0;
+    v16 = [userDomainConceptManager orderingTermsForSortDescriptors:sortDescriptors error:&v29];
+    v17 = v29;
     v18 = v17;
     if (!v16)
     {
@@ -75,15 +75,15 @@
 
   v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
   limit = self->_limit;
-  v29 = 0;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __46__HDUserDomainConceptQueryServer__queue_start__block_invoke;
-  v27[3] = &unk_278616670;
+  v28 = 0;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __46__HDUserDomainConceptQueryServer__queue_start__block_invoke;
+  v26[3] = &unk_278616670;
   v21 = v19;
-  v28 = v21;
-  v22 = [userDomainConceptManager enumerateUserDomainConceptsWithPredicate:v9 limit:limit orderingTerms:v18 error:&v29 enumerationHandler:v27];
-  v23 = v29;
+  v27 = v21;
+  v22 = [userDomainConceptManager enumerateUserDomainConceptsWithPredicate:v9 limit:limit orderingTerms:v18 error:&v28 enumerationHandler:v26];
+  v23 = v28;
   if (v22)
   {
     [clientProxy client_deliverResults:v21 queryUUID:queryUUID];
@@ -95,10 +95,10 @@
     v24 = HKLogHealthOntology();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v26 = HKSensitiveLogItem();
+      v25 = HKSensitiveLogItem();
       *buf = 138543618;
-      v33 = v26;
-      v34 = 2114;
+      v32 = v25;
+      v33 = 2114;
       selfCopy = self;
       _os_log_error_impl(&dword_228986000, v24, OS_LOG_TYPE_ERROR, "%{public}@: Error while fetching concepts: %{public}@", buf, 0x16u);
     }
@@ -107,7 +107,6 @@
   }
 
 LABEL_14:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__HDUserDomainConceptQueryServer__queue_start__block_invoke(uint64_t a1, void *a2, uint64_t a3)

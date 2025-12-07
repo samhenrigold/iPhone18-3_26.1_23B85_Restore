@@ -12,7 +12,7 @@
   v5 = type metadata accessor for ItemLayoutContext();
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   v6 = OBJC_IVAR____TtC8AppStore31ReviewSummaryCollectionViewCell_reviewSummaryView;
-  *(&self->super.super.super.super.super.isa + v6) = [objc_allocWithZone(type metadata accessor for ReviewSummaryView()) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  *(&self->super.super.super.super.super.isa + v6) = [objc_allocWithZone(type metadata accessor for ReviewSummaryView(0)) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
   return result;
@@ -21,7 +21,7 @@
 - (void)layoutSubviews
 {
   v12.receiver = self;
-  v12.super_class = type metadata accessor for ReviewSummaryCollectionViewCell();
+  v12.super_class = type metadata accessor for ReviewSummaryCollectionViewCell(0);
   v2 = v12.receiver;
   [(ReviewSummaryCollectionViewCell *)&v12 layoutSubviews];
   contentView = [v2 contentView];
@@ -37,15 +37,18 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
+  height = fits.height;
+  width = fits.width;
   selfCopy = self;
   traitCollection = [(ReviewSummaryCollectionViewCell *)selfCopy traitCollection];
-  v5 = sub_1006A0350();
-  v7 = v6;
+  v7.n128_f64[0] = width;
+  v8 = sub_1006A0350(traitCollection, v7, height);
+  v10 = v9;
 
-  v8 = v5;
-  v9 = v7;
-  result.height = v9;
-  result.width = v8;
+  v11 = v8;
+  v12 = v10;
+  result.height = v12;
+  result.width = v11;
   return result;
 }
 

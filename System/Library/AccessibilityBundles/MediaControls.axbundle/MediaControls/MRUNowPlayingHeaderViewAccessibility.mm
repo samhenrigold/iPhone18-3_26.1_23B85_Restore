@@ -84,14 +84,14 @@ double __74__MRUNowPlayingHeaderViewAccessibility__axMakeNowPlayingHeaderViewEle
 
 - (id)accessibilityElements
 {
-  v13[1] = *MEMORY[0x29EDCA608];
+  v12[1] = *MEMORY[0x29EDCA608];
   v3 = MEMORY[0x29EDC7620];
   v4 = [(MRUNowPlayingHeaderViewAccessibility *)self _accessibilityValueForKey:*MEMORY[0x29EDC7620]];
   if (!v4)
   {
     _axMakeNowPlayingHeaderViewElement = [(MRUNowPlayingHeaderViewAccessibility *)self _axMakeNowPlayingHeaderViewElement];
-    v13[0] = _axMakeNowPlayingHeaderViewElement;
-    v4 = [MEMORY[0x29EDB8D80] arrayWithObjects:v13 count:1];
+    v12[0] = _axMakeNowPlayingHeaderViewElement;
+    v4 = [MEMORY[0x29EDB8D80] arrayWithObjects:v12 count:1];
 
     [(MRUNowPlayingHeaderViewAccessibility *)self _accessibilitySetRetainedValue:v4 forKey:*v3];
   }
@@ -110,8 +110,6 @@ double __74__MRUNowPlayingHeaderViewAccessibility__axMakeNowPlayingHeaderViewEle
   {
     [v6 axSafelyAddObject:v8];
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 
   return v6;
 }

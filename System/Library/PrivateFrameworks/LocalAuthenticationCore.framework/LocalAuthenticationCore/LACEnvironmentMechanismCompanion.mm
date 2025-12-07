@@ -46,18 +46,18 @@
 + (id)companionForUser:(unsigned int)user type:(int64_t)type error:(id *)error
 {
   typeCopy = type;
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v8 = [LACError errorWithCode:-1000 debugDescription:@"companions not supported"];
-  v9 = LACLogEnvironment();
+  v9 = LACLogEnvironment(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v13[0] = 67109634;
-    v13[1] = user;
-    v14 = 1024;
-    v15 = typeCopy;
-    v16 = 2114;
-    v17 = v8;
-    _os_log_error_impl(&dword_1B0233000, v9, OS_LOG_TYPE_ERROR, "companionForUser:%u type:%d -> %{public}@", v13, 0x18u);
+    v12[0] = 67109634;
+    v12[1] = user;
+    v13 = 1024;
+    v14 = typeCopy;
+    v15 = 2114;
+    v16 = v8;
+    _os_log_error_impl(&dword_1B0233000, v9, OS_LOG_TYPE_ERROR, "companionForUser:%u type:%d -> %{public}@", v12, 0x18u);
   }
 
   if (error)
@@ -66,7 +66,6 @@
     *error = v8;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -101,11 +100,11 @@
 
 - (id)descriptionDetails
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF70];
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"companionType: %d", -[LACEnvironmentMechanismCompanion companionType](self, "companionType")];
-  v13[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   v6 = [v3 arrayWithArray:v5];
 
   stateHash = [(LACEnvironmentMechanismCompanion *)self stateHash];
@@ -117,8 +116,6 @@
     v10 = [v8 stringWithFormat:@"stateHash: %@", stateHash2];
     [v6 addObject:v10];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

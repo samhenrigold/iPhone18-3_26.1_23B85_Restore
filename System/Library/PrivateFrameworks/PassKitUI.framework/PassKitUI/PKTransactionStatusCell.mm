@@ -395,7 +395,7 @@ LABEL_9:
   width = bounds.size.width;
   y = bounds.origin.y;
   x = bounds.origin.x;
-  memset(&v38, 0, sizeof(v38));
+  memset(&v65, 0, sizeof(v65));
   [(UITableViewCell *)self pkui_effectiveLayoutMargins];
   v8 = y + 14.0;
   v11 = width - (v9 + v10);
@@ -406,39 +406,46 @@ LABEL_9:
   [(PKTransactionStatusCell *)self _shouldReverseLayoutDirection];
   [(UILabel *)self->_primaryLabel pkui_sizeThatFits:1 forceWordWrap:v11, height + -28.0];
   v13 = v12;
-  v41.origin.x = remainder.origin.x;
-  v41.origin.y = v8;
-  v41.size.width = v11;
-  v41.size.height = height + -28.0;
-  CGRectDivide(v41, &v38, &remainder, v13, CGRectMinYEdge);
+  v68.origin.x = remainder.origin.x;
+  v68.origin.y = v8;
+  v68.size.width = v11;
+  v68.size.height = height + -28.0;
+  CGRectDivide(v68, &v65, &remainder, v13, CGRectMinYEdge);
   if (!self->_templateLayout)
   {
-    [(UILabel *)self->_primaryLabel setFrame:*&v38.origin, *&v38.size];
+    [(UILabel *)self->_primaryLabel setFrame:*&v65.origin, *&v65.size];
   }
 
-  CGRectDivide(remainder, &v38, &remainder, 4.0, CGRectMinYEdge);
+  CGRectDivide(remainder, &v65, &remainder, 4.0, CGRectMinYEdge);
   [(UILabel *)self->_secondaryTitleLabel sizeThatFits:remainder.size.width, remainder.size.height];
   v15 = v14;
   v17 = v16;
   if ([(NSAttributedString *)self->_secondaryTitleAttributed length])
   {
-    CGRectDivide(remainder, &v38, &remainder, v17, CGRectMinYEdge);
+    CGRectDivide(remainder, &v65, &remainder, v17, CGRectMinYEdge);
     if (!self->_templateLayout)
     {
       secondaryTitleLabel = self->_secondaryTitleLabel;
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
+      v19 = PKContentAlignmentMake();
+      v21.n128_u64[0] = *&v65.origin.y;
+      v20.n128_u64[0] = *&v65.origin.x;
+      v23.n128_u64[0] = *&v65.size.height;
+      v22.n128_u64[0] = *&v65.size.width;
+      v24.n128_f64[0] = v15;
+      v25.n128_f64[0] = v17;
+      PKSizeAlignedInRect(v19, v24, v25, v20, v21, v22, v23, v26);
       [(UILabel *)secondaryTitleLabel setFrame:?];
     }
   }
 
-  v19 = v13 + 28.0;
+  v27 = v13 + 28.0;
   if ([(NSString *)self->_secondaryValue length])
   {
-    [(UILabel *)self->_secondaryValueLabel pkui_sizeThatFits:1 forceWordWrap:*&v38.size];
-    v21 = v20;
-    v22 = remainder.size.width;
-    if (v23 <= remainder.size.width - v15)
+    [(UILabel *)self->_secondaryValueLabel pkui_sizeThatFits:1 forceWordWrap:*&v65.size];
+    v29 = *&v28;
+    v31 = v30;
+    v32 = remainder.size.width;
+    if (v28 <= remainder.size.width - v15)
     {
       if (!self->_templateLayout)
       {
@@ -449,28 +456,34 @@ LABEL_9:
 
     else
     {
-      v24 = remainder.origin.x;
-      v25 = remainder.origin.y;
-      v26 = remainder.size.height;
-      CGRectDivide(*(&v22 - 2), &v38, &remainder, 4.0, CGRectMinYEdge);
-      CGRectDivide(remainder, &v38, &remainder, v21, CGRectMinYEdge);
-      v19 = v19 + v21 + 4.0;
+      v33 = remainder.origin.x;
+      v34 = remainder.origin.y;
+      v35 = remainder.size.height;
+      CGRectDivide(*(&v32 - 2), &v65, &remainder, 4.0, CGRectMinYEdge);
+      CGRectDivide(remainder, &v65, &remainder, v31, CGRectMinYEdge);
+      v27 = v27 + v31 + 4.0;
       if (!self->_templateLayout)
       {
         secondaryValueLabel = self->_secondaryValueLabel;
 LABEL_14:
-        PKContentAlignmentMake();
-        PKSizeAlignedInRect();
+        v37 = PKContentAlignmentMake();
+        v39.n128_u64[0] = *&v65.origin.y;
+        v38.n128_u64[0] = *&v65.origin.x;
+        v41.n128_u64[0] = *&v65.size.height;
+        v40.n128_u64[0] = *&v65.size.width;
+        v42.n128_u64[0] = v29;
+        v43.n128_f64[0] = v31;
+        PKSizeAlignedInRect(v37, v42, v43, v38, v39, v40, v41, v44);
         [(UILabel *)secondaryValueLabel setFrame:?];
       }
     }
 
-    CGRectDivide(remainder, &v38, &remainder, 4.0, CGRectMinYEdge);
-    v19 = v19 + 4.0;
+    CGRectDivide(remainder, &v65, &remainder, 4.0, CGRectMinYEdge);
+    v27 = v27 + 4.0;
     goto LABEL_16;
   }
 
-  v21 = *(MEMORY[0x1E695F060] + 8);
+  v31 = *(MEMORY[0x1E695F060] + 8);
   if (!self->_templateLayout)
   {
     [(UILabel *)self->_secondaryValueLabel setFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
@@ -479,16 +492,16 @@ LABEL_14:
 LABEL_16:
   if ([(NSString *)self->_tertiaryText length])
   {
-    CGRectDivide(remainder, &v38, &remainder, 4.0, CGRectMinYEdge);
+    CGRectDivide(remainder, &v65, &remainder, 4.0, CGRectMinYEdge);
     [(UILabel *)self->_tertiaryLabel pkui_sizeThatFits:1 forceWordWrap:remainder.size.width, remainder.size.height];
-    v29 = v28;
-    CGRectDivide(remainder, &v38, &remainder, v28, CGRectMinYEdge);
+    v46 = v45;
+    CGRectDivide(remainder, &v65, &remainder, v45, CGRectMinYEdge);
     if (!self->_templateLayout)
     {
-      [(UILabel *)self->_tertiaryLabel setFrame:*&v38.origin, *&v38.size];
+      [(UILabel *)self->_tertiaryLabel setFrame:*&v65.origin, *&v65.size];
     }
 
-    v19 = v19 + v29 + 4.0;
+    v27 = v27 + v46 + 4.0;
   }
 
   else if (!self->_templateLayout)
@@ -498,37 +511,44 @@ LABEL_16:
 
   if (([(UIButton *)self->_secondaryTitleButton isHidden]& 1) == 0)
   {
-    CGRectDivide(remainder, &v38, &remainder, 4.0, CGRectMinYEdge);
+    CGRectDivide(remainder, &v65, &remainder, 4.0, CGRectMinYEdge);
     [(UIButton *)self->_secondaryTitleButton sizeThatFits:remainder.size.width, remainder.size.height];
-    v31 = v30;
-    CGRectDivide(remainder, &v38, &remainder, v30, CGRectMinYEdge);
+    v48 = v47;
+    v50 = v49;
+    CGRectDivide(remainder, &v65, &remainder, v49, CGRectMinYEdge);
     if (!self->_templateLayout)
     {
       secondaryTitleButton = self->_secondaryTitleButton;
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
+      v52 = PKContentAlignmentMake();
+      v54.n128_u64[0] = *&v65.origin.y;
+      v53.n128_u64[0] = *&v65.origin.x;
+      v56.n128_u64[0] = *&v65.size.height;
+      v55.n128_u64[0] = *&v65.size.width;
+      v57.n128_u64[0] = v48;
+      v58.n128_f64[0] = v50;
+      PKSizeAlignedInRect(v52, v57, v58, v53, v54, v55, v56, v59);
       [(UIButton *)secondaryTitleButton setFrame:?];
     }
 
-    v19 = v19 + v31 + 4.0;
+    v27 = v27 + v50 + 4.0;
   }
 
-  v33 = fmax(v17, v21);
-  if (v33 <= 0.0)
+  v60 = fmax(v17, v31);
+  if (v60 <= 0.0)
   {
-    v34 = v19;
+    v61 = v27;
   }
 
   else
   {
-    v34 = v33 + 4.0 + v19;
+    v61 = v60 + 4.0 + v27;
   }
 
-  v35 = v34;
-  v36 = ceilf(v35);
-  v37 = width;
-  result.height = v36;
-  result.width = v37;
+  v62 = v61;
+  v63 = ceilf(v62);
+  v64 = width;
+  result.height = v63;
+  result.width = v64;
   return result;
 }
 

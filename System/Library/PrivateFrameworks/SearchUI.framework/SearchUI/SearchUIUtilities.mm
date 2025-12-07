@@ -727,7 +727,7 @@ void __114__SearchUIUtilities_downloadDemotedAppIfNecessaryForBundleIdentifier_p
 
 void __114__SearchUIUtilities_downloadDemotedAppIfNecessaryForBundleIdentifier_presentingViewControllerForExplanationAlert___block_invoke_2(uint64_t a1)
 {
-  v2 = a1 + 32;
+  v2 = (a1 + 32);
   if (*(a1 + 32))
   {
     v3 = SearchUIGeneralLog();
@@ -1209,6 +1209,27 @@ void __69__SearchUIUtilities_imageDataFromImage_scale_isDarkStyle_completion___b
 
     v5 = image;
   }
+}
+
+void __58__SearchUIUtilities_requestClipInstallWithURL_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_1DA169000, a2, a3, "Failed to fetch clip with error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __44__SearchUIUtilities_openURL_withCompletion___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_1DA169000, a2, a3, "Didnt punchout with error %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __114__SearchUIUtilities_downloadDemotedAppIfNecessaryForBundleIdentifier_presentingViewControllerForExplanationAlert___block_invoke_2_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_1DA169000, a2, a3, "Download of app failed with error %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

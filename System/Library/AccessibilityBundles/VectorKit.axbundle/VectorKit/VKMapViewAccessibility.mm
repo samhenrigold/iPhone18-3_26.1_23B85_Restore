@@ -239,7 +239,7 @@
     _axTourGuideElement = +[VKMapDebugView sharedInstance];
     [_axTourGuideElement removePointsAndPaths];
     v27 = objc_opt_class();
-    v28 = AXVKAccessibilityPaths(_axElements2, v27, 25);
+    v28 = AXVKAccessibilityPaths(_axElements2, v27, 0x19);
     [_axTourGuideElement addBuildingPaths:v28];
 
     v29 = objc_opt_class();
@@ -1746,7 +1746,7 @@ void __58__VKMapViewAccessibility__accessibilityHitTest_withEvent___block_invoke
   return result;
 }
 
-uint64_t __45__VKMapViewAccessibility_accessibilityBounds__block_invoke(uint64_t a1)
+void *__45__VKMapViewAccessibility_accessibilityBounds__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) bounds];
   v3 = *(*(a1 + 40) + 8);
@@ -1757,7 +1757,7 @@ uint64_t __45__VKMapViewAccessibility_accessibilityBounds__block_invoke(uint64_t
   return result;
 }
 
-uint64_t __45__VKMapViewAccessibility_accessibilityBounds__block_invoke_659(uint64_t a1)
+void *__45__VKMapViewAccessibility_accessibilityBounds__block_invoke_659(uint64_t a1)
 {
   [*(a1 + 32) convertPoint:*(a1 + 32) toCoordinateFromLayer:{*(a1 + 56), *(a1 + 64)}];
   v2 = *(*(a1 + 40) + 8);
@@ -1797,7 +1797,7 @@ uint64_t __45__VKMapViewAccessibility_accessibilityBounds__block_invoke_659(uint
   return result;
 }
 
-uint64_t __45__VKMapViewAccessibility_accessibilityCenter__block_invoke(uint64_t a1)
+void *__45__VKMapViewAccessibility_accessibilityCenter__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) centerCoordinate];
   v3 = *(*(a1 + 40) + 8);
@@ -1829,7 +1829,7 @@ uint64_t __45__VKMapViewAccessibility_accessibilityCenter__block_invoke(uint64_t
   return v2;
 }
 
-uint64_t __42__VKMapViewAccessibility_accessibilityYaw__block_invoke(uint64_t a1)
+void *__42__VKMapViewAccessibility_accessibilityYaw__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) yaw];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -1912,7 +1912,7 @@ uint64_t __42__VKMapViewAccessibility_accessibilityYaw__block_invoke(uint64_t a1
   return result;
 }
 
-uint64_t __70__VKMapViewAccessibility_accessibilityConvertScreenPointToCoordinate___block_invoke(uint64_t a1)
+void *__70__VKMapViewAccessibility_accessibilityConvertScreenPointToCoordinate___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) groundPointFromScreenPoint:{*(a1 + 48), *(a1 + 56)}];
   v3 = *(*(a1 + 40) + 8);

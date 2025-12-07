@@ -17,7 +17,7 @@
 
 - (uint64_t)isValidForContext:()RBProcessState withError:
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   v6 = a3;
   if (([v6 targetIsSystem] & 1) == 0)
   {
@@ -29,13 +29,13 @@
     v9 = MEMORY[0x277CCA9B8];
     v10 = *MEMORY[0x277D47050];
     v11 = *MEMORY[0x277CCA470];
-    v27[0] = @"Attribute is not current supported for process target";
+    v26[0] = @"Attribute is not current supported for process target";
     v12 = *MEMORY[0x277D47048];
-    v26[0] = v11;
-    v26[1] = v12;
+    v25[0] = v11;
+    v25[1] = v12;
     v13 = [self description];
-    v27[1] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+    v26[1] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
     v15 = v9;
     v16 = v10;
     v17 = 2;
@@ -58,18 +58,18 @@ LABEL_7:
         goto LABEL_8;
       }
 
-      v20 = MEMORY[0x277CCA9B8];
-      v21 = *MEMORY[0x277D47050];
-      v22 = *MEMORY[0x277CCA470];
-      v25[0] = @"Required client entitlement is missing";
-      v23 = *MEMORY[0x277D47048];
-      v24[0] = v22;
-      v24[1] = v23;
+      v19 = MEMORY[0x277CCA9B8];
+      v20 = *MEMORY[0x277D47050];
+      v21 = *MEMORY[0x277CCA470];
+      v24[0] = @"Required client entitlement is missing";
+      v22 = *MEMORY[0x277D47048];
+      v23[0] = v21;
+      v23[1] = v22;
       v13 = [self description];
-      v25[1] = v13;
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
-      v15 = v20;
-      v16 = v21;
+      v24[1] = v13;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+      v15 = v19;
+      v16 = v20;
       v17 = 3;
       goto LABEL_7;
     }
@@ -78,7 +78,6 @@ LABEL_7:
   a4 = 1;
 LABEL_8:
 
-  v18 = *MEMORY[0x277D85DE8];
   return a4;
 }
 

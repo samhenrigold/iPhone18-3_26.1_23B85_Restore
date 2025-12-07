@@ -9,7 +9,7 @@ void sub_1B5839298(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>*>(void *a1, void *a2)
+void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>*>(uint64_t *a1, uint64_t *a2)
 {
   if (a1 != a2)
   {
@@ -143,15 +143,15 @@ void sub_1B58395A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>*>(uint64_t a1, void *a2)
+void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>*>(void *a1, void *a2)
 {
   if (a1 != a2)
   {
     v2 = a1;
-    v3 = (a1 + 56);
-    if ((a1 + 56) != a2)
+    v3 = a1 + 7;
+    if (a1 + 7 != a2)
     {
-      v4 = (a1 + 104);
+      v4 = a1 + 13;
       do
       {
         v5 = v3;
@@ -271,18 +271,18 @@ void sub_1B5839890(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int> *,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> &>(unint64_t a1, uint64_t *a2)
+uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int> *,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> &>(uint64_t *a1, uint64_t *a2)
 {
   v3 = a1;
   v107 = *a1;
-  v4 = a1 + 8;
-  v108 = *(a1 + 8);
+  v4 = a1 + 1;
+  v108 = *(a1 + 2);
   v109 = *(a1 + 12);
   v111 = 0;
   v112 = 0;
   v110 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v110, *(a1 + 24), *(a1 + 32), (*(a1 + 32) - *(a1 + 24)) >> 2);
-  v113 = *(v3 + 48);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v110, a1[3], a1[4], (a1[4] - a1[3]) >> 2);
+  v113 = *(v3 + 12);
   v100 = v107;
   v101 = v108;
   v102 = v109;
@@ -318,7 +318,7 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   v24 = v3;
   if (v7 >= v93)
   {
-    for (v3 += 56; v3 < a2; v3 += 56)
+    for (v3 += 7; v3 < a2; v3 += 7)
     {
       v72 = v107;
       v73 = v108;
@@ -329,15 +329,15 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
       std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v75, v110, v111, (v111 - v110) >> 2);
       v78 = v113;
       v65 = *v3;
-      v66 = *(v3 + 8);
+      v66 = *(v3 + 2);
       v67 = *(v3 + 12);
       v69 = 0;
       v70 = 0;
-      v11 = *(v3 + 24);
-      v12 = *(v3 + 32);
+      v11 = v3[3];
+      v12 = v3[4];
       v68 = 0;
       std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v68, v11, v12, (v12 - v11) >> 2);
-      v71 = *(v3 + 48);
+      v71 = *(v3 + 12);
       v13 = v72;
       if (v68)
       {
@@ -370,16 +370,16 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
       v89 = 0;
       std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v89, v110, v111, (v111 - v110) >> 2);
       v92 = v113;
-      v79 = *(v3 + 56);
-      v80 = *(v3 + 64);
+      v79 = v3[7];
+      v80 = *(v3 + 16);
       v81 = *(v3 + 68);
       v83 = 0;
       v84 = 0;
-      v8 = *(v3 + 80);
-      v9 = *(v3 + 88);
+      v8 = v3[10];
+      v9 = v3[11];
       __p = 0;
       std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v8, v9, (v9 - v8) >> 2);
-      v85 = *(v3 + 104);
+      v85 = *(v3 + 26);
       v10 = v86;
       if (__p)
       {
@@ -393,7 +393,7 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
         operator delete(v89);
       }
 
-      v3 += 56;
+      v3 += 7;
     }
 
     while (v10 >= v79);
@@ -453,16 +453,16 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
       v47 = 0;
       std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v47, v110, v111, (v111 - v110) >> 2);
       v50 = v113;
-      v37 = *(v3 + 56);
-      v38 = *(v3 + 64);
+      v37 = v3[7];
+      v38 = *(v3 + 16);
       v39 = *(v3 + 68);
       v41 = 0;
       v42 = 0;
-      v17 = *(v3 + 80);
-      v18 = *(v3 + 88);
+      v17 = v3[10];
+      v18 = v3[11];
       v40 = 0;
       std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v40, v17, v18, (v18 - v17) >> 2);
-      v43 = *(v3 + 104);
+      v43 = *(v3 + 26);
       v19 = v44;
       v20 = v37;
       if (v40)
@@ -477,7 +477,7 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
         operator delete(v47);
       }
 
-      v3 += 56;
+      v3 += 7;
     }
 
     while (v19 >= v20);
@@ -516,22 +516,22 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
     while (v21 < v25);
   }
 
-  if (v3 - 56 != v24)
+  if (v3 - 7 != v24)
   {
-    *v24 = *(v3 - 56);
-    fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>::operator=(v23, v3 - 48);
-    *(v24 + 48) = *(v3 - 8);
+    *v24 = *(v3 - 7);
+    fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>::operator=(v23, (v3 - 6));
+    *(v24 + 12) = *(v3 - 2);
   }
 
-  *(v3 - 56) = v107;
-  *(v3 - 48) = v108;
+  *(v3 - 7) = v107;
+  *(v3 - 12) = v108;
   *(v3 - 44) = v109;
-  if ((v3 - 48) != &v108)
+  if (v3 - 6 != &v108)
   {
-    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((v3 - 32), v110, v111, (v111 - v110) >> 2);
+    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(v3 - 4, v110, v111, (v111 - v110) >> 2);
   }
 
-  *(v3 - 8) = v113;
+  *(v3 - 2) = v113;
   if (v110)
   {
     v111 = v110;
@@ -560,10 +560,10 @@ void sub_1B5839E74(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int> *,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> &>(uint64_t *a1, uint64_t *a2)
+uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int> *,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> &>(uint64_t *a1, uint64_t *a2)
 {
   v91 = *a1;
-  v21 = (a1 + 1);
+  v21 = a1 + 1;
   v92 = *(a1 + 2);
   v93 = *(a1 + 12);
   v95 = 0;
@@ -714,16 +714,16 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
       v13 = v12;
       do
       {
-        v14 = *(v12 + 56);
-        v12 += 56;
+        v14 = v12[7];
+        v12 += 7;
         v42 = v14;
-        v43 = *(v12 + 8);
+        v43 = *(v12 + 2);
         v44 = *(v12 + 12);
         v46 = 0;
         v47 = 0;
         v45 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v45, *(v12 + 24), *(v12 + 32), (*(v12 + 32) - *(v12 + 24)) >> 2);
-        v48 = *(v13 + 104);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v45, v12[3], v12[4], (v12[4] - v12[3]) >> 2);
+        v48 = *(v13 + 26);
         v35 = v91;
         v36 = v92;
         v37 = v93;
@@ -753,16 +753,16 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
       v17 = v11;
       do
       {
-        v18 = *(v11 - 56);
-        v11 -= 56;
+        v18 = *(v11 - 7);
+        v11 -= 7;
         v28 = v18;
-        v29 = *(v11 + 8);
+        v29 = *(v11 + 2);
         v30 = *(v11 + 12);
         v32 = 0;
         v33 = 0;
         v31 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v31, *(v11 + 24), *(v11 + 32), (*(v11 + 32) - *(v11 + 24)) >> 2);
-        v34 = *(v17 - 8);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v31, v11[3], v11[4], (v11[4] - v11[3]) >> 2);
+        v34 = *(v17 - 2);
         v23 = v91;
         v25 = 0;
         v26 = 0;
@@ -791,29 +791,29 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
     while (v12 < v11);
   }
 
-  if ((v12 - 56) != v22)
+  if (v12 - 7 != v22)
   {
-    *v22 = *(v12 - 56);
-    fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>::operator=(v21, v12 - 48);
-    *(v22 + 12) = *(v12 - 8);
+    *v22 = *(v12 - 7);
+    fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>::operator=(v21, (v12 - 6));
+    *(v22 + 12) = *(v12 - 2);
   }
 
-  *(v12 - 56) = v91;
-  *(v12 - 48) = v92;
+  *(v12 - 7) = v91;
+  *(v12 - 12) = v92;
   *(v12 - 44) = v93;
-  if ((v12 - 48) != &v92)
+  if (v12 - 6 != &v92)
   {
-    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((v12 - 32), v94, v95, (v95 - v94) >> 2);
+    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(v12 - 4, v94, v95, (v95 - v94) >> 2);
   }
 
-  *(v12 - 8) = v97;
+  *(v12 - 2) = v97;
   if (v94)
   {
     v95 = v94;
     operator delete(v94);
   }
 
-  return v12 - 56;
+  return v12 - 7;
 }
 
 void sub_1B583A464(_Unwind_Exception *a1)
@@ -828,7 +828,7 @@ void sub_1B583A464(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>*>(uint64_t a1, uint64_t a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>*>(uint64_t a1, uint64_t *a2)
 {
   v4 = 0x6DB6DB6DB6DB6DB7 * ((a2 - a1) >> 3);
   if (v4 <= 2)
@@ -837,15 +837,15 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::
     {
       if (v4 == 2)
       {
-        v5 = a2 - 56;
-        v59 = *(a2 - 56);
-        v60 = *(a2 - 48);
+        v5 = a2 - 7;
+        v59 = *(a2 - 7);
+        v60 = *(a2 - 12);
         v61 = *(a2 - 44);
         v63 = 0;
         v64 = 0;
         v62 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v62, *(a2 - 32), *(a2 - 24), (*(a2 - 24) - *(a2 - 32)) >> 2);
-        v65 = *(v5 + 48);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v62, *(a2 - 4), *(a2 - 3), (*(a2 - 3) - *(a2 - 4)) >> 2);
+        v65 = *(v5 + 12);
         v52 = *a1;
         v53 = *(a1 + 8);
         v54 = *(a1 + 12);
@@ -886,21 +886,21 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::
   switch(v4)
   {
     case 3:
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>*,0>(a1, a1 + 56, a2 - 56);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>*,0>(a1, (a1 + 56), a2 - 7);
       return 1;
     case 4:
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>*,0>(a1, a1 + 56, a1 + 112, a2 - 56);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>*,0>(a1, a1 + 56, a1 + 112, a2 - 7);
       return 1;
     case 5:
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>*,0>(a1, a1 + 56, a1 + 112, a1 + 168, a2 - 56);
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>*,0>(a1, a1 + 56, a1 + 112, a1 + 168, a2 - 7);
       return 1;
   }
 
 LABEL_15:
-  v9 = a1 + 112;
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>*,0>(a1, a1 + 56, a1 + 112);
-  v10 = a1 + 168;
-  if (a1 + 168 == a2)
+  v9 = (a1 + 112);
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>*,0>(a1, (a1 + 56), (a1 + 112));
+  v10 = (a1 + 168);
+  if ((a1 + 168) == a2)
   {
     return 1;
   }
@@ -910,21 +910,21 @@ LABEL_15:
   while (1)
   {
     v45 = *v10;
-    v46 = *(v10 + 8);
+    v46 = *(v10 + 2);
     v47 = *(v10 + 12);
     v49 = 0;
     v50 = 0;
     v48 = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v48, *(v10 + 24), *(v10 + 32), (*(v10 + 32) - *(v10 + 24)) >> 2);
-    v51 = *(v10 + 48);
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v48, v10[3], v10[4], (v10[4] - v10[3]) >> 2);
+    v51 = *(v10 + 12);
     v38 = *v9;
-    v39 = *(v9 + 8);
+    v39 = *(v9 + 2);
     v40 = *(v9 + 12);
     v42 = 0;
     v43 = 0;
     __p = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *(v9 + 24), *(v9 + 32), (*(v9 + 32) - *(v9 + 24)) >> 2);
-    v44 = *(v9 + 48);
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v9[3], v9[4], (v9[4] - v9[3]) >> 2);
+    v44 = *(v9 + 12);
     v13 = v45;
     v14 = v38;
     if (__p)
@@ -942,13 +942,13 @@ LABEL_15:
     if (v13 < v14)
     {
       v31 = *v10;
-      v32 = *(v10 + 8);
+      v32 = *(v10 + 2);
       v33 = *(v10 + 12);
       v35 = 0;
       v36 = 0;
       v34 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v34, *(v10 + 24), *(v10 + 32), (*(v10 + 32) - *(v10 + 24)) >> 2);
-      v37 = *(v10 + 48);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v34, v10[3], v10[4], (v10[4] - v10[3]) >> 2);
+      v37 = *(v10 + 12);
       for (i = v11; ; i -= 56)
       {
         *(a1 + i + 168) = *(a1 + i + 112);
@@ -1012,13 +1012,13 @@ LABEL_32:
 
       if (++v12 == 8)
       {
-        return v10 + 56 == a2;
+        return v10 + 7 == a2;
       }
     }
 
     v9 = v10;
     v11 += 56;
-    v10 += 56;
+    v10 += 7;
     if (v10 == a2)
     {
       return 1;
@@ -1040,7 +1040,7 @@ void sub_1B583A950(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void std::swap[abi:ne200100]<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>(uint64_t *a1, uint64_t *a2)
 {
-  v5 = (a1 + 1);
+  v5 = a1 + 1;
   v4 = *(a1 + 2);
   v6 = *a1;
   v7 = v4;
@@ -1186,27 +1186,27 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fs
     if ((v4 >> 1) >= 0x6DB6DB6DB6DB6DB7 * ((a4 - a1) >> 3))
     {
       v8 = (0xDB6DB6DB6DB6DB6ELL * ((a4 - a1) >> 3)) | 1;
-      v9 = (a1 + 56 * v8);
+      v9 = a1 + 56 * v8;
       v10 = 0xDB6DB6DB6DB6DB6ELL * ((a4 - a1) >> 3) + 2;
       if (v10 < a3)
       {
         v78 = *v9;
-        v79 = *(v9 + 2);
+        v79 = *(v9 + 8);
         v80 = *(v9 + 12);
         v82 = 0;
         v83 = 0;
         v81 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v81, v9[3], v9[4], (v9[4] - v9[3]) >> 2);
-        v11 = v9[7];
-        v84 = *(v9 + 12);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v81, *(v9 + 24), *(v9 + 32), (*(v9 + 32) - *(v9 + 24)) >> 2);
+        v11 = *(v9 + 56);
+        v84 = *(v9 + 48);
         v71 = v11;
-        v72 = *(v9 + 16);
+        v72 = *(v9 + 64);
         v73 = *(v9 + 68);
         v75 = 0;
         v76 = 0;
         v74 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v74, v9[10], v9[11], (v9[11] - v9[10]) >> 2);
-        v77 = *(v9 + 26);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v74, *(v9 + 80), *(v9 + 88), (*(v9 + 88) - *(v9 + 80)) >> 2);
+        v77 = *(v9 + 104);
         v12 = v78;
         if (v74)
         {
@@ -1222,19 +1222,19 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fs
 
         if (v12 < v71)
         {
-          v9 += 7;
+          v9 += 56;
           v8 = v10;
         }
       }
 
       v64 = *v9;
-      v65 = *(v9 + 2);
+      v65 = *(v9 + 8);
       v66 = *(v9 + 12);
       v68 = 0;
       v69 = 0;
       v67 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v67, v9[3], v9[4], (v9[4] - v9[3]) >> 2);
-      v70 = *(v9 + 12);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v67, *(v9 + 24), *(v9 + 32), (*(v9 + 32) - *(v9 + 24)) >> 2);
+      v70 = *(v9 + 48);
       v57 = *v5;
       v58 = *(v5 + 2);
       v59 = *(v5 + 12);
@@ -1272,8 +1272,8 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fs
         {
           v16 = v9;
           *v5 = *v9;
-          fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>::operator=((v5 + 1), (v9 + 1));
-          *(v5 + 12) = *(v9 + 12);
+          fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>::operator=((v5 + 1), v9 + 8);
+          *(v5 + 12) = *(v9 + 48);
           if (v23 < v8)
           {
             break;
@@ -1281,27 +1281,27 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fs
 
           v17 = 2 * v8;
           v8 = (2 * v8) | 1;
-          v9 = (a1 + 56 * v8);
+          v9 = a1 + 56 * v8;
           v18 = v17 + 2;
           if (v17 + 2 < a3)
           {
             v43 = *v9;
-            v44 = *(v9 + 2);
+            v44 = *(v9 + 8);
             v45 = *(v9 + 12);
             v47 = 0;
             v48 = 0;
             v46 = 0;
-            std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v46, v9[3], v9[4], (v9[4] - v9[3]) >> 2);
-            v19 = v9[7];
-            v49 = *(v9 + 12);
+            std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v46, *(v9 + 24), *(v9 + 32), (*(v9 + 32) - *(v9 + 24)) >> 2);
+            v19 = *(v9 + 56);
+            v49 = *(v9 + 48);
             v36 = v19;
-            v37 = *(v9 + 16);
+            v37 = *(v9 + 64);
             v38 = *(v9 + 68);
             v40 = 0;
             v41 = 0;
             v39 = 0;
-            std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v39, v9[10], v9[11], (v9[11] - v9[10]) >> 2);
-            v42 = *(v9 + 26);
+            std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v39, *(v9 + 80), *(v9 + 88), (*(v9 + 88) - *(v9 + 80)) >> 2);
+            v42 = *(v9 + 104);
             v20 = v43;
             v21 = v36;
             if (v39)
@@ -1318,19 +1318,19 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fs
 
             if (v20 < v21)
             {
-              v9 += 7;
+              v9 += 56;
               v8 = v18;
             }
           }
 
           v29 = *v9;
-          v30 = *(v9 + 2);
+          v30 = *(v9 + 8);
           v31 = *(v9 + 12);
           v33 = 0;
           v34 = 0;
           v32 = 0;
-          std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v32, v9[3], v9[4], (v9[4] - v9[3]) >> 2);
-          v35 = *(v9 + 12);
+          std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v32, *(v9 + 24), *(v9 + 32), (*(v9 + 32) - *(v9 + 24)) >> 2);
+          v35 = *(v9 + 48);
           v24 = v50;
           v26 = 0;
           v27 = 0;
@@ -1355,14 +1355,14 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fs
 
         while (v22 >= v24);
         *v16 = v50;
-        *(v16 + 2) = v51;
+        *(v16 + 8) = v51;
         *(v16 + 12) = v52;
         if (v16 != &v50)
         {
-          std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(v16 + 3, v53, v54, (v54 - v53) >> 2);
+          std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((v16 + 24), v53, v54, (v54 - v53) >> 2);
         }
 
-        *(v16 + 12) = v56;
+        *(v16 + 48) = v56;
         if (v53)
         {
           v54 = v53;
@@ -1383,18 +1383,18 @@ void sub_1B583B130(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>*>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4 >= 2)
   {
     v10 = *a1;
-    v11 = *(a1 + 8);
+    v11 = *(a1 + 2);
     v12 = *(a1 + 12);
     v14 = 0;
     v15 = 0;
     __p = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *(a1 + 24), *(a1 + 32), (*(a1 + 32) - *(a1 + 24)) >> 2);
-    v16 = *(a1 + 48);
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, a1[3], a1[4], (a1[4] - a1[3]) >> 2);
+    v16 = *(a1 + 12);
     v8 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>*>(a1, a3, a4);
     v9 = v8;
     if (v8 == a2 - 56)
@@ -1641,22 +1641,22 @@ uint64_t fst::PairWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<flo
   return fst::PairWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>::One(void)::one;
 }
 
-uint64_t fst::ArcMap<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::RmWeightMapper<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>(uint64_t a1, uint64_t a2)
+uint64_t fst::ArcMap<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::RmWeightMapper<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   (*(*a2 + 224))(a2);
-  v4 = (*(*a1 + 112))(a1);
-  (*(*a2 + 280))(a2, v4);
-  v5 = (*(*a1 + 120))(a1);
-  (*(*a2 + 288))(a2, v5);
-  v6 = (*(*a1 + 64))(a1, 0x3FFFFFFF0004, 0);
+  v5 = (*(*a1 + 112))(a1);
+  (*(*a2 + 280))(a2, v5);
+  v6 = (*(*a1 + 120))(a1);
+  (*(*a2 + 288))(a2, v6);
+  v7 = (*(*a1 + 64))(a1, 0x3FFFFFFF0004, 0);
   result = (*(*a1 + 24))(a1);
   if (result == -1)
   {
-    if ((v6 & 4) != 0)
+    if ((v7 & 4) != 0)
     {
-      v17 = *(*a2 + 192);
+      v18 = *(*a2 + 192);
 
-      return v17(a2, 4, 4);
+      return v18(a2, 4, 4);
     }
 
     return result;
@@ -1664,50 +1664,50 @@ uint64_t fst::ArcMap<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::Lexicographic
 
   if ((*(*a1 + 64))(a1, 1, 0))
   {
-    v8 = fst::CountStates<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>(a1) != 0;
-    (*(*a2 + 248))(a2, v8);
+    v9 = fst::CountStates<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>(a1) != 0;
+    (*(*a2 + 248))(a2, v9);
   }
 
-  HIDWORD(v41) = 0;
-  (*(*a1 + 128))(a1, &v39);
-  while (!v39)
+  HIDWORD(v42) = 0;
+  (*(*a1 + 128))(a1, &v40);
+  while (!v40)
   {
-    if (SHIDWORD(v41) >= v40)
+    if (SHIDWORD(v42) >= v41)
     {
       goto LABEL_14;
     }
 
 LABEL_9:
     (*(*a2 + 200))(a2);
-    if (v39)
+    if (v40)
     {
-      (*(*v39 + 32))(v39);
+      (*(*v40 + 32))(v40);
     }
 
     else
     {
-      ++HIDWORD(v41);
+      ++HIDWORD(v42);
     }
   }
 
-  if (!(*(*v39 + 16))(v39))
+  if (!(*(*v40 + 16))(v40))
   {
     goto LABEL_9;
   }
 
-  if (v39)
+  if (v40)
   {
-    (*(*v39 + 8))(v39);
+    (*(*v40 + 8))(v40);
   }
 
 LABEL_14:
-  v46 = 0;
-  (*(*a1 + 128))(a1, &v44);
+  v47 = 0;
+  (*(*a1 + 128))(a1, &v45);
   while (2)
   {
-    if (!v44)
+    if (!v45)
     {
-      if (v46 >= v45)
+      if (v47 >= v46)
       {
         goto LABEL_63;
       }
@@ -1715,34 +1715,34 @@ LABEL_14:
       goto LABEL_20;
     }
 
-    if (!(*(*v44 + 16))(v44))
+    if (!(*(*v45 + 16))(v45))
     {
-      if (v44)
+      if (v45)
       {
-        v9 = (*(*v44 + 24))(v44);
+        v10 = (*(*v45 + 24))(v45);
         goto LABEL_21;
       }
 
 LABEL_20:
-      v9 = v46;
+      v10 = v47;
 LABEL_21:
-      if (v9 == (*(*a1 + 24))(a1))
+      if (v10 == (*(*a1 + 24))(a1))
       {
-        (*(*a2 + 176))(a2, v9);
+        (*(*a2 + 176))(a2, v10);
       }
 
-      v10 = (*(*a1 + 40))(a1, v9);
-      (*(*a2 + 256))(a2, v9, v10);
-      v36 = 0;
-      (*(*a1 + 136))(a1, v9, &v33);
+      v11 = (*(*a1 + 40))(a1, v10);
+      (*(*a2 + 256))(a2, v10, v11);
+      v37 = 0;
+      (*(*a1 + 136))(a1, v10, &v34);
 LABEL_24:
-      if (v33)
+      if (v34)
       {
-        if ((*(*v33 + 24))(v33))
+        if ((*(*v34 + 24))(v34))
         {
-          if (v33)
+          if (v34)
           {
-            (*(*v33 + 8))();
+            (*(*v34 + 8))();
             goto LABEL_39;
           }
 
@@ -1753,150 +1753,150 @@ LABEL_37:
           }
 
 LABEL_39:
-          (*(*a1 + 32))(&v29, a1, v9);
-          v33 = 0;
-          LODWORD(v34) = v29;
-          *(&v34 + 4) = v30;
-          v36 = 0;
+          (*(*a1 + 32))(&v30, a1, v10);
+          v34 = 0;
+          LODWORD(v35) = v30;
+          *(&v35 + 4) = v31;
           v37 = 0;
+          v38 = 0;
           __p = 0;
-          std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v31, v32, (v32 - v31) >> 2);
-          v38 = -1;
-          fst::RmWeightMapper<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>::operator()(&v33, &v39);
+          std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v32, v33, (v33 - v32) >> 2);
+          v39 = -1;
+          fst::RmWeightMapper<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>::operator()(&v34, &v40);
           if (__p)
           {
-            v36 = __p;
+            v37 = __p;
             operator delete(__p);
           }
 
-          if (v31)
+          if (v32)
           {
-            v32 = v31;
-            operator delete(v31);
+            v33 = v32;
+            operator delete(v32);
           }
 
-          if (v39)
+          if (v40)
           {
-            v12 = FLAGS_fst_error_fatal;
+            v13 = FLAGS_fst_error_fatal;
             if (FLAGS_fst_error_fatal == 1)
             {
-              std::string::basic_string[abi:ne200100]<0>(v26, "FATAL");
-              v13 = fst::LogMessage::LogMessage(&v28, v26);
+              std::string::basic_string[abi:ne200100]<0>(v27, "FATAL");
+              v14 = fst::LogMessage::LogMessage(&v29, v27);
             }
 
             else
             {
-              std::string::basic_string[abi:ne200100]<0>(v23, "ERROR");
-              v13 = fst::LogMessage::LogMessage(&v25, v23);
+              std::string::basic_string[abi:ne200100]<0>(v24, "ERROR");
+              v14 = fst::LogMessage::LogMessage(&v26, v24);
             }
 
-            v14 = fst::cerr(v13);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "ArcMap: non-zero arc labels for superfinal arc", 46);
-            if (v12)
+            v15 = fst::cerr(v14);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, "ArcMap: non-zero arc labels for superfinal arc", 46);
+            if (v13)
             {
-              fst::LogMessage::~LogMessage(&v28);
-              if (v27 < 0)
+              fst::LogMessage::~LogMessage(&v29);
+              if (v28 < 0)
               {
-                v15 = v26[0];
+                v16 = v27[0];
                 goto LABEL_52;
               }
             }
 
             else
             {
-              fst::LogMessage::~LogMessage(&v25);
-              if (v24 < 0)
+              fst::LogMessage::~LogMessage(&v26);
+              if (v25 < 0)
               {
-                v15 = v23[0];
+                v16 = v24[0];
 LABEL_52:
-                operator delete(v15);
+                operator delete(v16);
               }
             }
 
             (*(*a2 + 192))(a2, 4, 4);
           }
 
-          v18 = v40;
           v19 = v41;
-          v21 = 0;
+          v20 = v42;
           v22 = 0;
-          v20 = 0;
-          std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v20, v42, v43, (v43 - v42) >> 2);
-          (*(*a2 + 184))(a2, v9, &v18);
-          if (v20)
+          v23 = 0;
+          v21 = 0;
+          std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v21, v43, v44, (v44 - v43) >> 2);
+          (*(*a2 + 184))(a2, v10, &v19);
+          if (v21)
           {
-            v21 = v20;
-            operator delete(v20);
+            v22 = v21;
+            operator delete(v21);
           }
 
-          if (v42)
+          if (v43)
           {
-            v43 = v42;
-            operator delete(v42);
+            v44 = v43;
+            operator delete(v43);
           }
 
-          if (v44)
+          if (v45)
           {
-            (*(*v44 + 32))(v44);
+            (*(*v45 + 32))(v45);
           }
 
           else
           {
-            ++v46;
+            ++v47;
           }
 
           continue;
         }
 
-        if (v33)
+        if (v34)
         {
-          v11 = (*(*v33 + 32))();
+          v12 = (*(*v34 + 32))();
 LABEL_30:
-          fst::RmWeightMapper<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>::operator()(v11, &v39);
-          (*(*a2 + 208))(a2, v9, &v39);
-          if (v42)
+          fst::RmWeightMapper<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>::operator()(v12, &v40);
+          (*(*a2 + 208))(a2, v10, &v40);
+          if (v43)
           {
-            v43 = v42;
-            operator delete(v42);
+            v44 = v43;
+            operator delete(v43);
           }
 
-          if (v33)
+          if (v34)
           {
-            (*(*v33 + 40))(v33);
+            (*(*v34 + 40))(v34);
           }
 
           else
           {
-            ++v36;
+            ++v37;
           }
 
           goto LABEL_24;
         }
       }
 
-      else if (v36 >= *(&v34 + 1))
+      else if (v37 >= *(&v35 + 1))
       {
         goto LABEL_37;
       }
 
-      v11 = v34 + 56 * v36;
+      v12 = v35 + 56 * v37;
       goto LABEL_30;
     }
 
     break;
   }
 
-  if (v44)
+  if (v45)
   {
-    (*(*v44 + 8))(v44);
+    (*(*v45 + 8))(v45);
   }
 
 LABEL_63:
-  v16 = (*(*a2 + 64))(a2, 0x3FFFFFFF0007, 0);
-  return (*(*a2 + 192))(a2, v6 & 0x3FFCFFFF0007 | v16 | 0x200000000, 0x3FFFFFFF0007);
+  v17 = (*(*a2 + 64))(a2, 0x3FFFFFFF0007, 0);
+  return (*(*a2 + 192))(a2, v7 & 0x3FFCFFFF0007 | v17 | 0x200000000, 0x3FFFFFFF0007);
 }
 
-void sub_1B583C1A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, int a22, __int16 a23, char a24, char a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void *a44, uint64_t a45)
+void sub_1B583C1A4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, int a22, __int16 a23, char a24, char a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void *a44, uint64_t a45)
 {
   v47 = *(v45 - 144);
   if (v47)
@@ -1908,7 +1908,7 @@ void sub_1B583C1A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   v48 = *(v45 - 112);
   if (v48)
   {
-    (*(*v48 + 8))(v48);
+    (*(*v48 + 8))(v48, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -1942,7 +1942,7 @@ void fst::RmWeightMapper<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::Lexicogra
   *(a2 + 32) = 0;
   *(a2 + 40) = 0;
   *(a2 + 24) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a2 + 24, v15, v16, (v16 - v15) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a2 + 24), v15, v16, (v16 - v15) >> 2);
   *(a2 + 48) = v7;
   if (v15)
   {
@@ -1993,7 +1993,7 @@ void fst::ShortestPath<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::Lexicograph
     {
       if ((*(a4 + 33) & 1) != 0 || (fst::ShortestDistance<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::AutoQueue<int>,fst::AnyArcFilter<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>(a1, a3, a4), a3[1] - *a3 != 40) || fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>::Member(*a3))
       {
-        fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>::VectorFst();
+        fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>::VectorFst(v13);
       }
 
       v8 = *(*a2 + 192);
@@ -2024,28 +2024,28 @@ void sub_1B583C8EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void fst::AutoQueue<int>::AutoQueue<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::AnyArcFilter<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>(uint64_t a1, uint64_t a2)
+void fst::AutoQueue<int>::AutoQueue<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::AnyArcFilter<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   *(a1 + 8) = 7;
   *(a1 + 12) = 0;
   *a1 = &unk_1F2CFB668;
   *(a1 + 24) = 0u;
-  v3 = a1 + 48;
+  v4 = (a1 + 48);
   *(a1 + 40) = 0u;
   *(a1 + 56) = 0u;
-  v4 = (*(*a2 + 64))(a2, 0x4E00000000, 0);
-  if ((v4 & 0x4000000000) == 0 && (*(*a2 + 24))(a2) != -1)
+  v5 = (*(*a2 + 64))(a2, 0x4E00000000, 0);
+  if ((v5 & 0x4000000000) == 0 && (*(*a2 + 24))(a2) != -1)
   {
-    if ((v4 & 0x800000000) == 0)
+    if ((v5 & 0x800000000) == 0)
     {
-      if ((v4 & 0x200000000) == 0)
+      if ((v5 & 0x200000000) == 0)
       {
-        v6 = 0;
-        v5[0] = v3;
-        v5[1] = 0;
-        v5[2] = 0;
-        v5[3] = &v6;
-        fst::DfsVisit<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::SccVisitor<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::AnyArcFilter<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>(a2, v5);
+        v7 = 0;
+        v6[0] = v4;
+        v6[1] = 0;
+        v6[2] = 0;
+        v6[3] = &v7;
+        fst::DfsVisit<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::SccVisitor<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::AnyArcFilter<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>(a2, v6, 0);
       }
 
       operator new();
@@ -2368,18 +2368,18 @@ LABEL_77:
   return result;
 }
 
-void sub_1B583D9A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
+void sub_1B583D9A0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
 {
   v27 = *(v25 - 128);
   if (v27)
   {
-    (*(*v27 + 8))(v27);
+    (*(*v27 + 8))(v27, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void fst::TopOrderQueue<int>::TopOrderQueue<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::AnyArcFilter<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>(uint64_t a1)
+void fst::TopOrderQueue<int>::TopOrderQueue<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::AnyArcFilter<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>(uint64_t a1, uint64_t a2)
 {
   *(a1 + 8) = 4;
   *(a1 + 12) = 0;
@@ -2389,9 +2389,9 @@ void fst::TopOrderQueue<int>::TopOrderQueue<fst::ArcTpl<fst::CompactLatticeWeigh
   *(a1 + 40) = 0u;
   *(a1 + 56) = 0u;
   v3 = 0;
-  v1 = a1 + 24;
-  v2 = &v3;
-  fst::DfsVisit<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::TopOrderVisitor<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::AnyArcFilter<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>();
+  v2[0] = a1 + 24;
+  v2[1] = &v3;
+  fst::DfsVisit<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::TopOrderVisitor<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::AnyArcFilter<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>(a2, v2, 0);
 }
 
 void sub_1B583DBA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, int a15, __int16 a16, char a17, char a18)
@@ -2419,25 +2419,25 @@ void sub_1B583DBA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1B583E3BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B583E3BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
   v19 = va_arg(va1, void);
-  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  v27 = va_arg(va1, void);
   fst::MemoryPool<fst::DfsState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>::~MemoryPool(va);
   std::deque<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> *,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> *>>::~deque[abi:ne200100](va1);
-  v11 = *(v9 - 112);
-  if (v11)
+  v18 = *(v16 - 112);
+  if (v18)
   {
-    *(v9 - 104) = v11;
-    operator delete(v11);
+    *(v16 - 104) = v18;
+    operator delete(v18);
   }
 
   _Unwind_Resume(a1);
@@ -2527,7 +2527,7 @@ BOOL fst::NaturalLess<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst:
   return v11;
 }
 
-uint64_t fst::Plus<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>@<X0>(float *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t *fst::Plus<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>@<X0>(float *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v4 = a1;
   if (!fst::NaturalLess<fst::TropicalWeightTpl<float>>::operator()(&v22, a1, a2))
@@ -2602,7 +2602,7 @@ LABEL_5:
   *(a3 + 24) = 0;
   *(a3 + 32) = 0;
   *(a3 + 16) = 0;
-  return std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a3 + 16, *(v4 + 2), *(v4 + 3), (*(v4 + 3) - *(v4 + 2)) >> 2);
+  return std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a3 + 16), *(v4 + 2), *(v4 + 3), (*(v4 + 3) - *(v4 + 2)) >> 2);
 }
 
 void *fst::ShortestFirstQueue<int,fst::StateWeightCompare<int,fst::NaturalLess<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>>,false>::~ShortestFirstQueue(void *a1)
@@ -3408,14 +3408,15 @@ uint64_t fst::ShortestDistance<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::Lex
   return fst::ShortestDistanceState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::AutoQueue<int>,fst::AnyArcFilter<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>::~ShortestDistanceState(v9);
 }
 
-void sub_1B583FF3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, char a14)
+void sub_1B583FF3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, ...)
 {
+  va_start(va, a13);
   if (__p)
   {
     operator delete(__p);
   }
 
-  fst::ShortestDistanceState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::AutoQueue<int>,fst::AnyArcFilter<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>::~ShortestDistanceState(&a14);
+  fst::ShortestDistanceState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::AutoQueue<int>,fst::AnyArcFilter<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>::~ShortestDistanceState(va);
   _Unwind_Resume(a1);
 }
 
@@ -3595,7 +3596,7 @@ LABEL_36:
     *&v73[8] = 0;
     *&v73[16] = 0;
     v74 = &v82;
-    fst::DfsVisit<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::SccVisitor<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::AnyArcFilter<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>(a1, v73);
+    fst::DfsVisit<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::SccVisitor<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::AnyArcFilter<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>(a1, v73, 0);
   }
 
   v20 = 0;
@@ -3943,7 +3944,7 @@ void fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTp
   *(a2 + 24) = 0;
   *(a2 + 32) = 0;
   *(a2 + 16) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a2 + 16, v6, v12, (v12 - v6) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a2 + 16), v6, v12, (v12 - v6) >> 2);
   if (__p)
   {
     v12 = __p;
@@ -4029,14 +4030,14 @@ unint64_t std::vector<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst:
   return v4;
 }
 
-void sub_1B58413A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B58413A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::pair<int,fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void fst::NShortestPath<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>(uint64_t a1, uint64_t a2, uint64_t *a3, unint64_t a4, uint64_t a5, int a6, int a7, float a8)
+void fst::NShortestPath<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, uint64_t a5, int a6, int a7, float a8)
 {
   v127 = *MEMORY[0x1E69E9840];
   if (!a4)
@@ -4044,7 +4045,7 @@ void fst::NShortestPath<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::Lexicograp
     return;
   }
 
-  if ((a7 & 1) != 0 && (*(*a1 + 64))(a1, 0x400000000, 1))
+  if ((a7 & 1) != 0 && (*(*result + 64))(result, 0x400000000, 1))
   {
     if (FLAGS_fst_error_fatal == 1)
     {
@@ -4071,9 +4072,9 @@ void fst::NShortestPath<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::Lexicograp
 
   v71 = a4;
   (*(*a2 + 224))(a2);
-  v17 = (*(*a1 + 112))(a1);
+  v17 = (*(*result + 112))(result);
   (*(*a2 + 280))(a2, v17);
-  v18 = (*(*a1 + 120))(a1);
+  v18 = (*(*result + 120))(result);
   (*(*a2 + 288))(a2, v18);
   v112 = 0;
   v113 = 0;
@@ -4084,13 +4085,13 @@ void fst::NShortestPath<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::Lexicograp
   v106 = 0;
   v107 = 0;
   v108 = 0;
-  if ((*(*a1 + 24))(a1) != -1)
+  if ((*(*result + 24))(result) != -1)
   {
     v20 = *a3;
     v19 = a3[1];
-    if (0xCCCCCCCCCCCCCCCDLL * ((v19 - v20) >> 3) > (*(*a1 + 24))(a1))
+    if (0xCCCCCCCCCCCCCCCDLL * ((v19 - v20) >> 3) > (*(*result + 24))(result))
     {
-      v21 = (*(*a1 + 24))(a1);
+      v21 = (*(*result + 24))(result);
       v22 = *a3;
       fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>::Zero(&v121);
       v23 = v22 + 40 * v21;
@@ -4175,7 +4176,7 @@ LABEL_19:
         }
       }
 
-      v31 = (*(*a1 + 24))(a1);
+      v31 = (*(*result + 24))(result);
       fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>::One(&v87);
       LODWORD(v121) = v31;
       *&v122 = v87;
@@ -4206,7 +4207,7 @@ LABEL_19:
       }
 
       std::vector<int>::push_back[abi:ne200100](&v109, &v104);
-      v33 = (*(*a1 + 24))(a1);
+      v33 = (*(*result + 24))(result);
       fst::Times<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>(*a3 + 40 * v33, a5, v100);
       v72 = 0;
       v97 = 0;
@@ -4427,7 +4428,7 @@ LABEL_103:
           }
 
           v81 = 0;
-          (*(*a1 + 136))(a1, LODWORD(v87), &v78);
+          (*(*result + 136))(result, LODWORD(v87), &v78);
           while (1)
           {
             if (v78)
@@ -4448,7 +4449,7 @@ LABEL_149:
                   }
                 }
 
-                (*(*a1 + 32))(&v121, a1, LODWORD(v87));
+                (*(*result + 32))(&v121, result, LODWORD(v87));
                 fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>::Reverse(&v121, v117);
                 if (*(&v122 + 1))
                 {
@@ -4670,7 +4671,7 @@ LABEL_136:
   }
 
 LABEL_21:
-  if ((*(*a1 + 64))(a1, 4, 0))
+  if ((*(*result + 64))(result, 4, 0))
   {
     (*(*a2 + 192))(a2, 4, 4);
   }
@@ -4723,7 +4724,7 @@ void sub_1B58426C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+uint64_t std::vector<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>::push_back[abi:ne200100](void *a1, uint64_t a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -4741,24 +4742,7 @@ uint64_t std::vector<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::
   return result;
 }
 
-{
-  v3 = a1[1];
-  if (v3 >= a1[2])
-  {
-    result = std::vector<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>::__emplace_back_slow_path<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>(a1, a2);
-  }
-
-  else
-  {
-    std::vector<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>::__construct_one_at_end[abi:ne200100]<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>(a1, a2);
-    result = v3 + 40;
-  }
-
-  a1[1] = result;
-  return result;
-}
-
-uint64_t std::vector<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>::__construct_one_at_end[abi:ne200100]<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int> const&>(uint64_t a1, uint64_t a2)
+uint64_t *std::vector<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>::__construct_one_at_end[abi:ne200100]<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int> const&>(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   *v3 = *a2;
@@ -4766,12 +4750,12 @@ uint64_t std::vector<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::
   *(v3 + 24) = 0;
   *(v3 + 32) = 0;
   *(v3 + 16) = 0;
-  result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v3 + 16, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
+  result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((v3 + 16), *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
   *(a1 + 8) = v3 + 40;
   return result;
 }
 
-uint64_t std::vector<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>::__emplace_back_slow_path<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int> const&>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>::__emplace_back_slow_path<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int> const&>(void *a1, uint64_t a2)
 {
   v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -4808,10 +4792,10 @@ uint64_t std::vector<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::
   *v7 = *a2;
   v8 = *(a2 + 4);
   *(v7 + 16) = 0;
-  v9 = 40 * v2 + 16;
+  v9 = (40 * v2 + 16);
   *(v9 - 12) = v8;
-  *(v9 + 8) = 0;
-  *(v9 + 16) = 0;
+  v9[1] = 0;
+  v9[2] = 0;
   std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v9, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
   *&v18 = v18 + 40;
   v10 = a1[1];
@@ -4830,9 +4814,9 @@ uint64_t std::vector<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::
   return v15;
 }
 
-void sub_1B5842B74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B5842B74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::pair<int,fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4860,10 +4844,10 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<fs
       *v4 = *v7;
       v8 = *(v7 + 4);
       *(v4 + 16) = 0;
-      v9 = v4 + 16;
+      v9 = (v4 + 16);
       *(v9 - 12) = v8;
-      *(v9 + 8) = 0;
-      *(v9 + 16) = 0;
+      v9[1] = 0;
+      v9[2] = 0;
       std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v9, *(v7 + 16), *(v7 + 24), (*(v7 + 24) - *(v7 + 16)) >> 2);
       v7 += 40;
       v4 = v15 + 40;
@@ -4962,7 +4946,7 @@ LABEL_133:
   fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>::One(&v60);
   v7 = *a1[1] + 40 * a2;
   *v7 = v60;
-  *(v7 + 4) = v61;
+  *(v7 + 4) = *v61;
   if (v7 != &v60)
   {
     std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((v7 + 16), __p, v63, (v63 - __p) >> 2);
@@ -4978,7 +4962,7 @@ LABEL_133:
   v8 = a1 + 5;
   v9 = a1[5] + 40 * v4;
   *v9 = v60;
-  *(v9 + 4) = v61;
+  *(v9 + 4) = *v61;
   if (v9 != &v60)
   {
     std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((v9 + 16), __p, v63, (v63 - __p) >> 2);
@@ -5038,7 +5022,7 @@ LABEL_132:
       fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>::Zero(&v56);
       v52 = v60;
       v48 = *&v56;
-      if (v60 == *&v56 && (v48 = *(&v61 + 1), v52 = *&v61, v65 = *(&v56 + 2), v66 = DWORD1(v56), *&v61 == *(&v56 + 1)) && v48 == v65)
+      if (v60 == *&v56 && (v48 = v61[1], v52 = v61[0], v65 = *(&v56 + 2), v66 = DWORD1(v56), v61[0] == *(&v56 + 1)) && v48 == v65)
       {
         v14 = v57;
         if (v63 - __p != v58 - v57)
@@ -5088,7 +5072,7 @@ LABEL_42:
     *(*v10 + ((v11 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= ~(1 << v11);
     v15 = *v8 + 40 * v11;
     v60 = *v15;
-    v61 = *(v15 + 4);
+    *v61 = *(v15 + 4);
     v63 = 0;
     v64 = 0;
     __p = 0;
@@ -5224,7 +5208,7 @@ LABEL_53:
       fst::Plus<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>(v29, &v52, &v48);
       v30 = *(a1 + 7);
       v31 = v48 > (v30 + *v29) || *v29 > (v30 + v48);
-      if (v31 || ((v33 = *(v29 + 4), v34 = *(v29 + 8), v33 == *&v49) ? (v35 = v34 == *(&v49 + 1)) : (v35 = 0), (v36 = vabds_f32(v33 + v34, *&v49 + *(&v49 + 1)), !v35) ? (v37 = v36 > v30) : (v37 = 0), v37))
+      if (v31 || ((v33 = *(v29 + 4), v34 = *(v29 + 8), v33 == v49[0]) ? (v35 = v34 == v49[1]) : (v35 = 0), (v36 = vabds_f32(v33 + v34, v49[0] + v49[1]), !v35) ? (v37 = v36 > v30) : (v37 = 0), v37))
       {
         v32 = 0;
         goto LABEL_87;
@@ -5263,7 +5247,7 @@ LABEL_89:
 
       fst::Plus<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>(v29, &v52, &v48);
       *v29 = v48;
-      *(v29 + 4) = v49;
+      *(v29 + 4) = *v49;
       if (v29 != &v48)
       {
         std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((v29 + 16), v50, v51, (v51 - v50) >> 2);
@@ -5278,7 +5262,7 @@ LABEL_89:
       v43 = v28 + 40 * m;
       fst::Plus<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>(v43, &v52, &v48);
       *v43 = v48;
-      *(v43 + 4) = v49;
+      *(v43 + 4) = *v49;
       if (v43 != &v48)
       {
         std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((v43 + 16), v50, v51, (v51 - v50) >> 2);
@@ -5416,16 +5400,16 @@ void std::vector<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::Trop
   }
 }
 
-uint64_t fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>::NoWeight@<X0>(uint64_t a1@<X8>)
+uint64_t *fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>::NoWeight@<X0>(uint64_t a1@<X8>)
 {
   v2 = fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>::NoWeight();
   *a1 = *v2;
   v3 = *(v2 + 4);
   *(a1 + 16) = 0;
-  v4 = a1 + 16;
+  v4 = (a1 + 16);
   *(v4 - 12) = v3;
-  *(v4 + 8) = 0;
-  *(v4 + 16) = 0;
+  v4[1] = 0;
+  v4[2] = 0;
 
   return std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v4, 0, 0, 0);
 }
@@ -5449,7 +5433,7 @@ uint64_t *std::vector<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst:
         *(v7 + 4) = v14;
         *(v7 + 24) = 0;
         *(v7 + 32) = 0;
-        result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v7 + 16, *(a3 + 16), *(a3 + 24), (*(a3 + 24) - *(a3 + 16)) >> 2);
+        result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((v7 + 16), *(a3 + 16), *(a3 + 24), (*(a3 + 24) - *(a3 + 16)) >> 2);
         v7 += 40;
         v13 -= 40;
       }
@@ -5513,17 +5497,17 @@ uint64_t *std::vector<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst:
   return result;
 }
 
-void sub_1B5843C10(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B5843C10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::pair<int,fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__split_buffer<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>::__construct_at_end(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t *std::__split_buffer<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>::__construct_at_end(uint64_t *result, uint64_t a2, uint64_t a3)
 {
   v3 = result;
-  v4 = *(result + 16);
+  v4 = result[2];
   if (a2)
   {
     v6 = v4 + 40 * a2;
@@ -5536,7 +5520,7 @@ uint64_t std::__split_buffer<fst::CompactLatticeWeightTpl<fst::LexicographicWeig
       *(v4 + 4) = v8;
       *(v4 + 24) = 0;
       *(v4 + 32) = 0;
-      result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v4 + 16, *(a3 + 16), *(a3 + 24), (*(a3 + 24) - *(a3 + 16)) >> 2);
+      result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((v4 + 16), *(a3 + 16), *(a3 + 24), (*(a3 + 24) - *(a3 + 16)) >> 2);
       v4 += 40;
       v7 -= 40;
     }
@@ -5545,7 +5529,7 @@ uint64_t std::__split_buffer<fst::CompactLatticeWeightTpl<fst::LexicographicWeig
     v4 = v6;
   }
 
-  *(v3 + 16) = v4;
+  v3[2] = v4;
   return result;
 }
 
@@ -5615,7 +5599,7 @@ void fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst
   JUMPOUT(0x1B8C85350);
 }
 
-uint64_t fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::Final@<X0>(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+uint64_t *fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::Final@<X0>(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3@<X8>)
 {
   v3 = *(*(*(a1 + 8) + 64) + 8 * a2);
   *a3 = *v3;
@@ -5623,10 +5607,10 @@ uint64_t fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst:
   *(a3 + 24) = 0;
   *(a3 + 32) = 0;
   *(a3 + 16) = 0;
-  return std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a3 + 16, *(v3 + 16), *(v3 + 24), (*(v3 + 24) - *(v3 + 16)) >> 2);
+  return std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a3 + 16), *(v3 + 16), *(v3 + 24), (*(v3 + 24) - *(v3 + 16)) >> 2);
 }
 
-uint64_t fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::Properties(uint64_t a1, uint64_t a2, int a3)
+unint64_t fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::Properties(uint64_t a1, uint64_t a2, int a3)
 {
   if (a3)
   {
@@ -5670,14 +5654,14 @@ uint64_t fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl
   return result;
 }
 
-uint64_t fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>::operator=(uint64_t result, uint64_t a2)
+uint64_t fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>::operator=(uint64_t a1, uint64_t a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
 unint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::SetStart(uint64_t a1, int a2)
@@ -5690,8 +5674,9 @@ unint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::Reverse
   return result;
 }
 
-void fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::SetFinal(uint64_t a1, int a2, int *a3)
+void fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::SetFinal(uint64_t a1, uint64_t a2, int *a3)
 {
+  v4 = a2;
   fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::MutateCheck(a1);
   v6 = *(a1 + 8);
   v7 = *a3;
@@ -5700,7 +5685,7 @@ void fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<f
   v11 = 0;
   __p = 0;
   std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *(a3 + 2), *(a3 + 3), (*(a3 + 3) - *(a3 + 2)) >> 2);
-  fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>::SetFinal(v6, a2, &v7);
+  fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>::SetFinal(v6, v4, &v7);
   if (__p)
   {
     v10 = __p;
@@ -5731,12 +5716,13 @@ uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseA
   return result;
 }
 
-uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::AddArc(uint64_t a1, int a2, float *a3)
+uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::AddArc(uint64_t a1, uint64_t a2, float *a3)
 {
+  v4 = a2;
   fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::MutateCheck(a1);
   v6 = *(a1 + 8);
 
-  return fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>::AddArc(v6, a2, a3);
+  return fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>::AddArc(v6, v4, a3);
 }
 
 uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::DeleteStates(uint64_t a1, char **a2)
@@ -5782,15 +5768,15 @@ uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseA
   return result;
 }
 
-void *fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>::ReserveStates(uint64_t a1, int a2)
+void fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>::ReserveStates(uint64_t a1, int a2)
 {
   fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::MutateCheck(a1);
   v4 = (*(a1 + 8) + 64);
 
-  return std::vector<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>> *,std::allocator<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>> *>>::reserve(v4, a2);
+  std::vector<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>> *,std::allocator<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>> *>>::reserve(v4, a2);
 }
 
-void *fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>::ReserveArcs(uint64_t a1, int a2, unint64_t a3)
+uint64_t *fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>::ReserveArcs(uint64_t a1, int a2, unint64_t a3)
 {
   fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::MutateCheck(a1);
   v6 = (*(*(*(a1 + 8) + 64) + 8 * a2) + 56);
@@ -6105,7 +6091,7 @@ uint64_t fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::Co
       }
 
 LABEL_10:
-      fst::VectorFstBaseImpl<fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::AddState();
+      fst::VectorFstBaseImpl<fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::AddState(a1);
     }
 
     if (v9)
@@ -6214,7 +6200,7 @@ void sub_1B5845908(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0x6DB6DB6DB6DB6DB7 * ((result[2] - *result) >> 3) < a2)
   {
@@ -6229,9 +6215,9 @@ void *std::vector<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::
   return result;
 }
 
-void sub_1B58459F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B58459F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6373,9 +6359,9 @@ uint64_t std::vector<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fs
   return v12;
 }
 
-void sub_1B5845CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B5845CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6436,7 +6422,7 @@ unint64_t fst::ComputeProperties<fst::ReverseArc<fst::ArcTpl<fst::CompactLattice
       v69[0] = 0;
       v69[1] = 0;
       v70 = &v74;
-      fst::DfsVisit<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::SccVisitor<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>,fst::AnyArcFilter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>(v7, &v68);
+      fst::DfsVisit<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::SccVisitor<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>,fst::AnyArcFilter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>(v7, &v68, 0);
     }
 
     if ((a2 & 0xFFFFF0C3FFFFFFF8) == 0)
@@ -6907,25 +6893,25 @@ void sub_1B58468C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1B5847198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B5847198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
   v19 = va_arg(va1, void);
-  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  v27 = va_arg(va1, void);
   fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::~MemoryPool(va);
   std::deque<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> *,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> *>>::~deque[abi:ne200100](va1);
-  v11 = *(v9 - 112);
-  if (v11)
+  v18 = *(v16 - 112);
+  if (v18)
   {
-    *(v9 - 104) = v11;
-    operator delete(v11);
+    *(v16 - 104) = v18;
+    operator delete(v18);
   }
 
   _Unwind_Resume(a1);
@@ -7072,7 +7058,7 @@ void sub_1B5847610(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::~MemoryPool(quasar::Bitmap *a1)
 {
   *a1 = &unk_1F2D34178;
-  fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::Link>::~MemoryArena(a1 + 1);
+  fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::Link>::~MemoryArena((a1 + 8));
   quasar::Bitmap::~Bitmap(a1);
 
   JUMPOUT(0x1B8C85350);
@@ -7080,7 +7066,7 @@ void fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatti
 
 {
   *a1 = &unk_1F2D34178;
-  fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::Link>::~MemoryArena(a1 + 1);
+  fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::Link>::~MemoryArena((a1 + 8));
 
   quasar::Bitmap::~Bitmap(a1);
 }
@@ -7103,7 +7089,7 @@ void sub_1B58477A0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::Link>::~MemoryArena(void *a1)
+void fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::Link>::~MemoryArena(quasar::Bitmap *a1)
 {
   fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::Link>::~MemoryArena(a1);
 
@@ -7112,9 +7098,9 @@ void fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<
 
 {
   *a1 = &unk_1F2D341B8;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v2 = (a1 + 24);
+  v3 = *(a1 + 4);
+  if (v3 != (a1 + 24))
   {
     do
     {
@@ -7135,9 +7121,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<
   quasar::Bitmap::~Bitmap(a1);
 }
 
-void *std::deque<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>> *,std::allocator<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>> *>>::push_back(void *result, void *a2)
+void std::deque<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>> *,std::allocator<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>> *>>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   if (v4 == v5)
@@ -7154,30 +7139,29 @@ void *std::deque<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWe
   v8 = v7 + result[4];
   if (v6 == v8)
   {
-    result = std::deque<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>> *,std::allocator<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>> *>>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v3[4] + v7;
+    std::deque<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>> *,std::allocator<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>> *>>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
   *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  result[5] = v7 + 1;
 }
 
-void *std::deque<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>> *,std::allocator<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>> *>>::__add_back_capacity(void *a1)
+void std::deque<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>> *,std::allocator<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>> *>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -7185,25 +7169,25 @@ void *std::deque<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWe
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **>>::emplace_back<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **>>::emplace_back<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **&>(a1, &v9);
 }
 
 void sub_1B5847AAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -7334,7 +7318,7 @@ void sub_1B5847DDC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>::WriteFst<fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>>(void *a1, void *a2, uint64_t a3)
+uint64_t fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>::WriteFst<fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>>(void *a1, void *a2, uint64_t **a3)
 {
   v42 = *MEMORY[0x1E69E9840];
   v34 = 0u;
@@ -7438,7 +7422,7 @@ LABEL_6:
           std::ostream::write();
           LODWORD(__p.__r_.__value_.__l.__data_) = v17[1];
           std::ostream::write();
-          fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>::Write((v17 + 2), a2);
+          fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>::Write(v17 + 2, a2);
           LODWORD(__p.__r_.__value_.__l.__data_) = v17[12];
           std::ostream::write();
           v17 += 14;
@@ -7480,7 +7464,7 @@ LABEL_6:
 
     else
     {
-      v24 = *(a3 + 8);
+      v24 = a3[1];
     }
 
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, v23, v24);
@@ -7584,7 +7568,7 @@ uint64_t fst::FstImpl<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<f
     }
 
     *(a7 + 60) = v16;
-    fst::FstHeader::Write();
+    fst::FstHeader::Write(a7, a2);
   }
 
   if ((*(*a1 + 112))(a1) && a3[25] == 1)
@@ -7604,7 +7588,7 @@ uint64_t fst::FstImpl<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<f
   return result;
 }
 
-uint64_t fst::FstImpl<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>::UpdateFstHeader(uint64_t a1, void *a2, uint64_t a3, int a4, std::string *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t fst::FstImpl<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>::UpdateFstHeader(uint64_t a1, void *a2, uint64_t **a3, int a4, std::string *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v43 = *MEMORY[0x1E69E9840];
   MEMORY[0x1B8C84B80](v32);
@@ -7653,7 +7637,7 @@ uint64_t fst::FstImpl<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<f
 
     else
     {
-      v23 = *(a3 + 8);
+      v23 = a3[1];
     }
   }
 
@@ -7684,7 +7668,7 @@ uint64_t fst::FstImpl<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<f
 
       else
       {
-        v23 = *(a3 + 8);
+        v23 = a3[1];
       }
     }
 
@@ -7729,7 +7713,7 @@ uint64_t fst::FstImpl<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<f
 
       else
       {
-        v23 = *(a3 + 8);
+        v23 = a3[1];
       }
     }
   }
@@ -7755,38 +7739,40 @@ uint64_t fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::Lexicogra
 
 uint64_t fst::Fst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>::WriteFile(fst *a1, uint64_t a2)
 {
+  v2 = a2;
   v25[19] = *MEMORY[0x1E69E9840];
   if (*(a2 + 23) < 0)
   {
     if (*(a2 + 8))
     {
-LABEL_5:
-      std::ofstream::basic_ofstream(&v20);
+      a2 = *a2;
+LABEL_6:
+      std::ofstream::basic_ofstream(&v20, a2, 20);
       if ((v24[*(v20.__r_.__value_.__r.__words[0] - 24)] & 5) != 0)
       {
         std::string::basic_string[abi:ne200100]<0>(&__p, "ERROR");
         v4 = fst::LogMessage::LogMessage(&v19, &__p);
         v5 = fst::cerr(v4);
         v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, "Fst::Write: Can't open file: ", 29);
-        v7 = *(a2 + 23);
+        v7 = *(v2 + 23);
         if (v7 >= 0)
         {
-          v8 = a2;
+          v8 = v2;
         }
 
         else
         {
-          v8 = *a2;
+          v8 = *v2;
         }
 
         if (v7 >= 0)
         {
-          v9 = *(a2 + 23);
+          v9 = *(v2 + 23);
         }
 
         else
         {
-          v9 = *(a2 + 8);
+          v9 = *(v2 + 8);
         }
 
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, v8, v9);
@@ -7802,14 +7788,14 @@ LABEL_5:
       else
       {
         v13 = FLAGS_fst_align;
-        if (*(a2 + 23) < 0)
+        if (*(v2 + 23) < 0)
         {
-          std::string::__init_copy_ctor_external(&__p, *a2, *(a2 + 8));
+          std::string::__init_copy_ctor_external(&__p, *v2, *(v2 + 8));
         }
 
         else
         {
-          __p = *a2;
+          __p = *v2;
         }
 
         v16 = 257;
@@ -7833,7 +7819,7 @@ LABEL_5:
 
   else if (*(a2 + 23))
   {
-    goto LABEL_5;
+    goto LABEL_6;
   }
 
   v11 = fst::cout(a1);
@@ -7966,153 +7952,154 @@ uint64_t fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::Co
 void fst::VectorFstBaseImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>::DeleteStates(uint64_t a1, char **a2)
 {
   v4 = (a1 + 64);
-  std::vector<int>::vector[abi:ne200100](__p, (*(a1 + 72) - *(a1 + 64)) >> 3);
-  v5 = *a2;
-  v6 = a2[1] - *a2;
-  if (v6)
+  v5 = (*(a1 + 72) - *(a1 + 64)) >> 3;
+  v36 = 0;
+  std::vector<int>::vector[abi:ne200100](__p, v5, &v36);
+  v6 = *a2;
+  v7 = a2[1] - *a2;
+  if (v7)
   {
-    v7 = v6 >> 2;
-    v8 = __p[0];
-    if (v7 <= 1)
+    v8 = v7 >> 2;
+    v9 = __p[0];
+    if (v8 <= 1)
     {
-      v7 = 1;
+      v8 = 1;
     }
 
     do
     {
-      v9 = *v5;
-      v5 += 4;
-      v8[v9] = -1;
-      --v7;
+      v10 = *v6++;
+      v9[v10] = -1;
+      --v8;
     }
 
-    while (v7);
+    while (v8);
   }
 
-  v10 = *(a1 + 64);
-  if (*(a1 + 72) == v10)
+  v11 = *(a1 + 64);
+  if (*(a1 + 72) == v11)
   {
-    v13 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v11 = 0;
     v12 = 0;
+    v13 = 0;
     do
     {
-      if (*(__p[0] + v11) == -1)
+      if (*(__p[0] + v12) == -1)
       {
-        fst::CacheState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>::Destroy(*(v10 + 8 * v11));
+        fst::CacheState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>::Destroy(*(v11 + 8 * v12));
       }
 
       else
       {
-        *(__p[0] + v11) = v12;
-        if (v11 != v12)
+        *(__p[0] + v12) = v13;
+        if (v12 != v13)
         {
-          *(v10 + 8 * v12) = *(v10 + 8 * v11);
+          *(v11 + 8 * v13) = *(v11 + 8 * v12);
         }
 
-        ++v12;
+        ++v13;
       }
 
-      ++v11;
-      v10 = *(a1 + 64);
+      ++v12;
+      v11 = *(a1 + 64);
     }
 
-    while (v11 < (*(a1 + 72) - v10) >> 3);
-    v13 = v12;
+    while (v12 < (*(a1 + 72) - v11) >> 3);
+    v14 = v13;
   }
 
-  std::vector<fst::QueueBase<int> *,std::allocator<fst::QueueBase<int> *>>::resize(v4, v13);
-  v14 = *(a1 + 64);
-  if (*(a1 + 72) != v14)
+  std::vector<fst::QueueBase<int> *,std::allocator<fst::QueueBase<int> *>>::resize(v4, v14);
+  v15 = *(a1 + 64);
+  if (*(a1 + 72) != v15)
   {
-    v15 = 0;
+    v16 = 0;
     do
     {
-      v16 = *(v14 + 8 * v15);
-      v17 = *(v16 + 40);
-      v18 = *(v16 + 64) - *(v16 + 56);
-      if (v18)
+      v17 = *(v15 + 8 * v16);
+      v18 = *(v17 + 40);
+      v19 = *(v17 + 64) - *(v17 + 56);
+      if (v19)
       {
-        v19 = *(v16 + 56);
+        v20 = *(v17 + 56);
       }
 
       else
       {
-        v19 = 0;
+        v20 = 0;
       }
 
-      if (v18)
+      if (v19)
       {
-        v20 = 0;
         v21 = 0;
-        v22 = (v19 + 48);
+        v22 = 0;
+        v23 = (v20 + 48);
         do
         {
-          v23 = *(__p[0] + *v22);
-          if (v23 == -1)
+          v24 = *(__p[0] + *v23);
+          if (v24 == -1)
           {
-            v25 = *(v22 - 6);
-            v26.i64[0] = v25;
-            v26.i64[1] = HIDWORD(v25);
-            v17 = vaddq_s64(v17, vceqzq_s64(v26));
+            v26 = *(v23 - 6);
+            v27.i64[0] = v26;
+            v27.i64[1] = HIDWORD(v26);
+            v18 = vaddq_s64(v18, vceqzq_s64(v27));
           }
 
           else
           {
-            *v22 = v23;
-            if (v20 != v21)
+            *v23 = v24;
+            if (v21 != v22)
             {
-              v34 = v17;
-              v24 = (v19 + 56 * v21);
-              *v24 = *(v22 - 6);
-              fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>::operator=((v24 + 1), (v22 - 10));
-              *(v19 + 56 * v21 + 48) = *v22;
-              v14 = *v4;
-              v17 = v34;
+              v35 = v18;
+              v25 = (v20 + 56 * v22);
+              *v25 = *(v23 - 6);
+              fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>::operator=((v25 + 1), (v23 - 10));
+              *(v20 + 56 * v22 + 48) = *v23;
+              v15 = *v4;
+              v18 = v35;
             }
 
-            ++v21;
+            ++v22;
           }
 
-          ++v20;
-          v16 = *(v14 + 8 * v15);
-          v27 = 0x6DB6DB6DB6DB6DB7 * ((*(v16 + 64) - *(v16 + 56)) >> 3);
-          v22 += 14;
+          ++v21;
+          v17 = *(v15 + 8 * v16);
+          v28 = 0x6DB6DB6DB6DB6DB7 * ((*(v17 + 64) - *(v17 + 56)) >> 3);
+          v23 += 14;
         }
 
-        while (v20 < v27);
-        v28 = v17.i64[1];
-        v29 = v17.i64[0];
+        while (v21 < v28);
+        v29 = v18.i64[1];
+        v30 = v18.i64[0];
       }
 
       else
       {
-        v21 = 0;
-        v27 = 0;
-        v28 = *(v16 + 48);
-        v29 = *(v16 + 40);
+        v22 = 0;
+        v28 = 0;
+        v29 = *(v17 + 48);
+        v30 = *(v17 + 40);
       }
 
-      fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>::DeleteArcs(v16, v27 - v21);
-      v14 = *(a1 + 64);
-      v30 = *(a1 + 72);
-      v31 = *(v14 + 8 * v15);
-      *(v31 + 40) = v29;
-      *(v31 + 48) = v28;
-      ++v15;
+      fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>::DeleteArcs(v17, v28 - v22);
+      v15 = *(a1 + 64);
+      v31 = *(a1 + 72);
+      v32 = *(v15 + 8 * v16);
+      *(v32 + 40) = v30;
+      *(v32 + 48) = v29;
+      ++v16;
     }
 
-    while (v15 < (v30 - v14) >> 3);
+    while (v16 < (v31 - v15) >> 3);
   }
 
-  v32 = *(a1 + 88);
-  if (v32 == -1)
+  v33 = *(a1 + 88);
+  if (v33 == -1)
   {
-    v33 = __p[0];
+    v34 = __p[0];
     if (!__p[0])
     {
       return;
@@ -8121,12 +8108,12 @@ void fst::VectorFstBaseImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::Co
 
   else
   {
-    v33 = __p[0];
-    *(a1 + 88) = *(__p[0] + v32);
+    v34 = __p[0];
+    *(a1 + 88) = *(__p[0] + v33);
   }
 
-  __p[1] = v33;
-  operator delete(v33);
+  __p[1] = v34;
+  operator delete(v34);
 }
 
 void sub_1B58492EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -8249,7 +8236,7 @@ LABEL_37:
   fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>::Zero(&v37);
   v32 = a2[2];
   v45 = v37;
-  if (v32 == v37 && (v22 = a2[4], v32 = a2[3], v45 = v22, v44 = v38, v43 = v39, v32 == v38) && v45 == v43 && (v23 = *(a2 + 3), v24 = *(a2 + 4) - v23, v25 = v40, v24 == v41 - v40) && !memcmp(v23, v40, v24))
+  if (v32 == v37 && (v22 = *(a2 + 4), v32 = a2[3], v45 = *&v22, v44 = v38, v43 = v39, v32 == v38) && v45 == v43 && (v23 = *(a2 + 3), v24 = *(a2 + 4) - v23, v25 = v40, v24 == v41 - v40) && !memcmp(v23, v40, v24))
   {
     v29 = 0;
     if (v25)
@@ -8265,7 +8252,7 @@ LABEL_52:
     fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>::One(&v32);
     v45 = a2[2];
     v44 = v32;
-    v29 = v45 != v32 || (v26 = a2[4], v45 = a2[3], v44 = v26, v43 = v33, v42 = v34, v45 != v33) || v44 != v42 || (v27 = *(a2 + 3), v28 = *(a2 + 4) - v27, v28 != v36 - __p) || memcmp(v27, __p, v28) != 0;
+    v29 = v45 != v32 || (v26 = *(a2 + 4), v45 = a2[3], v44 = *&v26, v43 = v33, v42 = v34, v45 != v33) || v44 != v42 || (v27 = *(a2 + 3), v28 = *(a2 + 4) - v27, v28 != v36 - __p) || memcmp(v27, __p, v28) != 0;
     if (__p)
     {
       v36 = __p;
@@ -8321,7 +8308,7 @@ uint64_t std::vector<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::
       *(v10 + 4) = v11;
       *(v10 + 24) = 0;
       *(v10 + 32) = 0;
-      result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v10 + 16, *(v8 + 16), *(v8 + 24), (*(v8 + 24) - *(v8 + 16)) >> 2);
+      result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((v10 + 16), *(v8 + 16), *(v8 + 24), (*(v8 + 24) - *(v8 + 16)) >> 2);
       v8 += 40;
       v10 += 40;
     }
@@ -8349,7 +8336,7 @@ uint64_t std::vector<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::
   return result;
 }
 
-uint64_t std::__split_buffer<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>::emplace_back<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int> const&>(void *a1, uint64_t a2)
+uint64_t *std::__split_buffer<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>::emplace_back<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int> const&>(void *a1, uint64_t a2)
 {
   v4 = a1[2];
   v5 = v4;
@@ -8396,10 +8383,10 @@ uint64_t std::__split_buffer<fst::CompactLatticeWeightTpl<fst::LexicographicWeig
   *v5 = *a2;
   v11 = *(a2 + 4);
   *(v5 + 16) = 0;
-  v12 = v5 + 16;
+  v12 = (v5 + 16);
   *(v12 - 12) = v11;
-  *(v12 + 8) = 0;
-  *(v12 + 16) = 0;
+  v12[1] = 0;
+  v12[2] = 0;
   result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v12, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
   a1[2] += 40;
   return result;
@@ -8430,10 +8417,10 @@ uint64_t std::vector<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::
   return v6;
 }
 
-uint64_t std::__split_buffer<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>::__construct_at_end_with_size<std::move_iterator<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>*>>(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t *std::__split_buffer<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>::__construct_at_end_with_size<std::move_iterator<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>*>>(uint64_t *result, uint64_t a2, uint64_t a3)
 {
   v3 = result;
-  v4 = *(result + 16);
+  v4 = result[2];
   if (a3)
   {
     v6 = v4 + 40 * a3;
@@ -8446,7 +8433,7 @@ uint64_t std::__split_buffer<fst::CompactLatticeWeightTpl<fst::LexicographicWeig
       *(v4 + 4) = v8;
       *(v4 + 24) = 0;
       *(v4 + 32) = 0;
-      result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v4 + 16, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
+      result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((v4 + 16), *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
       v4 += 40;
       a2 += 40;
       v7 -= 40;
@@ -8456,11 +8443,11 @@ uint64_t std::__split_buffer<fst::CompactLatticeWeightTpl<fst::LexicographicWeig
     v4 = v6;
   }
 
-  *(v3 + 16) = v4;
+  v3[2] = v4;
   return result;
 }
 
-uint64_t std::vector<std::pair<int,fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+uint64_t std::vector<std::pair<int,fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -8488,7 +8475,7 @@ void fst::Connect<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWei
   v1[1] = v4;
   v1[2] = v3;
   v1[3] = &v2;
-  fst::DfsVisit<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::SccVisitor<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::AnyArcFilter<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>(a1, v1);
+  fst::DfsVisit<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>,fst::SccVisitor<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::AnyArcFilter<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>(a1, v1, 0);
 }
 
 void sub_1B5849D50(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -8508,7 +8495,7 @@ void sub_1B5849D50(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::pair<int,fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>>::__emplace_back_slow_path<std::pair<int,fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<std::pair<int,fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>>::__emplace_back_slow_path<std::pair<int,fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>>(unint64_t *a1, uint64_t a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
@@ -8558,9 +8545,9 @@ uint64_t std::vector<std::pair<int,fst::CompactLatticeWeightTpl<fst::Lexicograph
   return v12;
 }
 
-void sub_1B5849EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B5849EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::pair<int,fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8573,7 +8560,7 @@ uint64_t std::pair<int,fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 24) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 24, *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 24), *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 2);
   return a1;
 }
 
@@ -8946,7 +8933,7 @@ void std::vector<std::pair<int,fst::CompactLatticeWeightTpl<fst::LexicographicWe
   a1[1] = v2;
 }
 
-void fst::DeterminizeFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>::DeterminizeFst<fst::DefaultCommonDivisor<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::IntegerFilterState<signed char>>>(void *a1, uint64_t a2)
+void fst::DeterminizeFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>::DeterminizeFst<fst::DefaultCommonDivisor<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::IntegerFilterState<signed char>>>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   *a1 = &unk_1F2D342A8;
   a1[1] = 0;
@@ -8962,12 +8949,12 @@ void fst::DeterminizeFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTp
       std::string::basic_string[abi:ne200100]<0>(__p, "ERROR");
     }
 
-    v3 = fst::LogMessage::LogMessage(&v8, __p);
-    v4 = fst::cerr(v3);
-    v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "DeterminizeFst:", 15);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, " distance to final states computed for acceptors only", 53);
-    fst::LogMessage::~LogMessage(&v8);
-    if (v7 < 0)
+    v6 = fst::LogMessage::LogMessage(&v11, __p);
+    v7 = fst::cerr(v6);
+    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "DeterminizeFst:", 15);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, " distance to final states computed for acceptors only", 53);
+    fst::LogMessage::~LogMessage(&v11);
+    if (v10 < 0)
     {
       operator delete(__p[0]);
     }
@@ -9036,7 +9023,7 @@ void fst::DeterminizeFst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTp
   JUMPOUT(0x1B8C85350);
 }
 
-uint64_t fst::ImplToFst<fst::DeterminizeFstImplBase<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>,fst::Fst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::Properties(uint64_t a1, uint64_t a2, int a3)
+unint64_t fst::ImplToFst<fst::DeterminizeFstImplBase<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>,fst::Fst<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::Properties(uint64_t a1, uint64_t a2, int a3)
 {
   if (a3)
   {
@@ -9095,7 +9082,7 @@ uint64_t fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::CompactLattice
   return *(a1 + 8) & a2;
 }
 
-void fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::DefaultCommonDivisor<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::IntegerFilterState<signed char>>>::Expand(void *a1, int a2)
+void fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::DefaultCommonDivisor<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::IntegerFilterState<signed char>>>::Expand(void *a1, uint64_t a2)
 {
   v9[0] = 0;
   v9[1] = 0;
@@ -9175,7 +9162,7 @@ void sub_1B584B460(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::DefaultCommonDivisor<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::IntegerFilterState<signed char>>>::ComputeFinal@<X0>(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+uint64_t *fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::DefaultCommonDivisor<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::IntegerFilterState<signed char>>>::ComputeFinal@<X0>(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3@<X8>)
 {
   v5 = *(*(*(a1 + 184) + 88) + 8 * a2);
   result = fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>::Zero(a3);
@@ -9290,24 +9277,6 @@ void fst::CacheBaseImpl<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::Compact
   *(a1 + 100) = -1;
   *(a1 + 104) = *a2;
   *(a1 + 112) = *(a2 + 8);
-  operator new();
-}
-
-{
-  *a1 = &unk_1F2D34000;
-  *(a1 + 8) = 0;
-  std::string::basic_string[abi:ne200100]<0>((a1 + 16), "null");
-  *(a1 + 40) = 0;
-  *(a1 + 48) = 0;
-  *(a1 + 56) = 1;
-  *a1 = &unk_1F2D34548;
-  *(a1 + 60) = 0;
-  *(a1 + 64) = -1;
-  *(a1 + 68) = 0u;
-  *(a1 + 84) = 0u;
-  *(a1 + 100) = -1;
-  *(a1 + 104) = *(a2 + 104);
-  *(a1 + 112) = *(a2 + 112);
   operator new();
 }
 
@@ -9492,15 +9461,15 @@ uint64_t fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::Comp
   return a1;
 }
 
-void std::__forward_list_base<fst::DeterminizeElement<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::clear(void **a1)
+void std::__forward_list_base<fst::DeterminizeElement<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::clear(void **result)
 {
-  for (i = *a1; i; i = v3)
+  for (i = *result; i; i = v3)
   {
     v3 = *i;
-    std::__forward_list_base<fst::DeterminizeElement<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::__delete_node[abi:ne200100](a1, i);
+    std::__forward_list_base<fst::DeterminizeElement<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::__delete_node[abi:ne200100](result, i);
   }
 
-  *a1 = 0;
+  *result = 0;
 }
 
 void std::__forward_list_base<fst::DeterminizeElement<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::__delete_node[abi:ne200100](int a1, void *__p)
@@ -9536,6 +9505,25 @@ void sub_1B584BFA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
   fst::CacheBaseImpl<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>,fst::DefaultCacheStore<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::~CacheBaseImpl(v15);
   _Unwind_Resume(a1);
+}
+
+void fst::CacheBaseImpl<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>,fst::DefaultCacheStore<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>::CacheBaseImpl(uint64_t a1, uint64_t a2, int a3)
+{
+  *a1 = &unk_1F2D34000;
+  *(a1 + 8) = 0;
+  std::string::basic_string[abi:ne200100]<0>((a1 + 16), "null");
+  *(a1 + 40) = 0;
+  *(a1 + 48) = 0;
+  *(a1 + 56) = 1;
+  *a1 = &unk_1F2D34548;
+  *(a1 + 60) = 0;
+  *(a1 + 64) = -1;
+  *(a1 + 68) = 0u;
+  *(a1 + 84) = 0u;
+  *(a1 + 100) = -1;
+  *(a1 + 104) = *(a2 + 104);
+  *(a1 + 112) = *(a2 + 112);
+  operator new();
 }
 
 void sub_1B584C160(_Unwind_Exception *a1)
@@ -9663,7 +9651,7 @@ uint64_t fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTp
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 16, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 16), *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
   v4 = *(a2 + 40);
   v5 = *(a2 + 56);
   v6 = *(a2 + 64);
@@ -9671,7 +9659,7 @@ uint64_t fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTp
   *(a1 + 40) = v4;
   *(a1 + 64) = 0;
   *(a1 + 72) = 0;
-  std::vector<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>::__init_with_size[abi:ne200100]<std::__wrap_iter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> const*>,std::__wrap_iter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> const*>>(a1 + 56, v5, v6, 0x6DB6DB6DB6DB6DB7 * ((v6 - v5) >> 3));
+  std::vector<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>::__init_with_size[abi:ne200100]<std::__wrap_iter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> const*>,std::__wrap_iter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> const*>>((a1 + 56), v5, v6, 0x6DB6DB6DB6DB6DB7 * ((v6 - v5) >> 3));
   *(a1 + 80) = *(a2 + 80);
   return a1;
 }
@@ -9688,7 +9676,7 @@ void sub_1B584C458(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>::__init_with_size[abi:ne200100]<std::__wrap_iter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> const*>,std::__wrap_iter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>::__init_with_size[abi:ne200100]<std::__wrap_iter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> const*>,std::__wrap_iter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>> const*>>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9733,15 +9721,15 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<f
   return v4;
 }
 
-void fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::DefaultCommonDivisor<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::IntegerFilterState<signed char>>>::GetLabelMap(void *a1, int a2, void *a3)
+void fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::DefaultCommonDivisor<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::IntegerFilterState<signed char>>>::GetLabelMap(void *result, int a2, void *a3)
 {
-  v5 = **(*(a1[23] + 88) + 8 * a2);
+  v5 = **(*(result[23] + 88) + 8 * a2);
   if (v5)
   {
     while (1)
     {
       v6 = *(v5 + 2);
-      v7 = a1[17];
+      v7 = result[17];
       v25 = 0;
       (*(*v7 + 136))(v7, v6, v23);
       if (!v23[0])
@@ -9775,7 +9763,7 @@ LABEL_7:
           operator delete(__p);
         }
 
-        fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>::FilterArc(a1[22], v8, (v5 + 1), v20, a3);
+        fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>::FilterArc(result[22], v8, (v5 + 1), v20, a3);
       }
 
       if (!v23[0])
@@ -9814,7 +9802,7 @@ LABEL_16:
   {
     do
     {
-      fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::DefaultCommonDivisor<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::IntegerFilterState<signed char>>>::NormArc(a1, (v11 + 5));
+      fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::DefaultCommonDivisor<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::IntegerFilterState<signed char>>>::NormArc(result, (v11 + 5));
       v13 = v11[1];
       if (v13)
       {
@@ -9846,11 +9834,11 @@ LABEL_16:
   }
 }
 
-void sub_1B584C818(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, _DWORD *a23)
+void sub_1B584C818(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, _DWORD *a23)
 {
   if (a20)
   {
-    (*(*a20 + 8))(a20);
+    (*(*a20 + 8))(a20, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else if (a23)
@@ -9859,4 +9847,23 @@ void sub_1B584C818(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::DefaultCommonDivisor<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::IntegerFilterState<signed char>>>::AddArc(void *a1, uint64_t a2, uint64_t a3)
+{
+  v4 = a2;
+  __p = 0;
+  v10 = 0;
+  v11 = 0;
+  v7[0] = *a3;
+  v7[1] = v7[0];
+  fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>::operator=(&v8, a3 + 8);
+  State = fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::DefaultCommonDivisor<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,fst::IntegerFilterState<signed char>>>::FindState(a1, *(a3 + 48));
+  MutableState = fst::GCCacheStore<fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>>>>>::GetMutableState(a1[15], v4);
+  std::vector<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LexicographicWeight<fst::TropicalWeightTpl<float>,fst::LatticeWeightTpl<float>>,int>,int>>>::push_back[abi:ne200100]((MutableState + 56), v7);
+  if (__p)
+  {
+    v10 = __p;
+    operator delete(__p);
+  }
 }

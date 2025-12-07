@@ -34,13 +34,13 @@
   return self;
 }
 
-void __49__ICNoteCryptoStrategyV1_writeEncryptedNoteData___block_invoke(uint64_t a1, void *a2)
+void __49__ICNoteCryptoStrategyV1_writeEncryptedNoteData___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
   if ([v3 isPasswordProtected])
   {
     v4 = objc_opt_class();
-    v5 = *(a1 + 40);
+    v5 = a1[5];
     v12[0] = MEMORY[0x277D85DD0];
     v12[1] = 3221225472;
     v12[2] = __49__ICNoteCryptoStrategyV1_writeEncryptedNoteData___block_invoke_2;
@@ -51,7 +51,7 @@ void __49__ICNoteCryptoStrategyV1_writeEncryptedNoteData___block_invoke(uint64_t
     v9[2] = __49__ICNoteCryptoStrategyV1_writeEncryptedNoteData___block_invoke_5;
     v9[3] = &unk_278194B28;
     v6 = v13;
-    v7 = *(a1 + 48);
+    v7 = a1[6];
     v10 = v6;
     v11 = v7;
     [v4 encryptWithMainKeyOfObject:v6 dataToEncrypt:v5 failureHandler:v12 successHandler:v9];
@@ -1080,14 +1080,14 @@ void __49__ICNoteCryptoStrategyV1_writeEncryptedNoteData___block_invoke_cold_1(v
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "note is not password-protected, but writeEncryptedNoteData is called. %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "note is not password-protected, but writeEncryptedNoteData is called. %@", v4, v5, v6, v7);
 }
 
 void __49__ICNoteCryptoStrategyV1_writeEncryptedNoteData___block_invoke_2_cold_1(uint64_t a1)
 {
   v1 = [*(a1 + 32) identifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Error encrypting data for note %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Error encrypting data for note %@", v4, v5, v6, v7);
 }
 
 void __49__ICNoteCryptoStrategyV1_writeEncryptedNoteData___block_invoke_5_cold_1(uint64_t a1, void *a2)
@@ -1132,7 +1132,7 @@ void __44__ICNoteCryptoStrategyV1_rewrapWithMainKey___block_invoke_cold_1(void *
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Not rewrapping attachments because note text couldn't be rewrapped {note: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Not rewrapping attachments because note text couldn't be rewrapped {note: %@}", v4, v5, v6, v7);
 }
 
 void __76__ICNoteCryptoStrategyV1_recoverMissingCryptoWrappedKeyIfNeededWithMainKey___block_invoke_cold_1(void *a1)
@@ -1158,7 +1158,7 @@ void __58__ICNoteCryptoStrategyV1_correctCryptoTagAndIVIfNecessary__block_invoke
   v9 = [v8 cryptoInitializationVector];
   [v9 hash];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_4_3(&dword_214D51000, v10, v11, "Correcting note crypto tag/IV using note data {note: %@, note.cryptoTag: %lu, noteData.cryptoTag: %lu, note.cryptoInitializationVector: %lu, noteData.cryptoInitializationVector: %lu}", v12, v13, v14, v15, log, v17, v19);
+  OUTLINED_FUNCTION_4_3(&dword_214D51000, v10, v11, "Correcting note crypto tag/IV using note data {note: %@, note.cryptoTag: %lu, noteData.cryptoTag: %lu, note.cryptoInitializationVector: %lu, noteData.cryptoInitializationVector: %lu}", v12, v13, v14, v15, loga, v17);
 }
 
 void __58__ICNoteCryptoStrategyV1_correctCryptoTagAndIVIfNecessary__block_invoke_cold_2(void *a1, os_log_t log)
@@ -1176,7 +1176,7 @@ void __58__ICNoteCryptoStrategyV1_correctCryptoTagAndIVIfNecessary__block_invoke
   v9 = [v8 cryptoInitializationVector];
   [v9 hash];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_4_3(&dword_214D51000, v10, v11, "Error correcting note crypto tag/IV using note data {note: %@, note.cryptoTag: %lu, noteData.cryptoTag: %lu, note.cryptoInitializationVector: %lu, noteData.cryptoInitializationVector: %lu}", v12, v13, v14, v15, log, v17, v19);
+  OUTLINED_FUNCTION_4_3(&dword_214D51000, v10, v11, "Error correcting note crypto tag/IV using note data {note: %@, note.cryptoTag: %lu, noteData.cryptoTag: %lu, note.cryptoInitializationVector: %lu, noteData.cryptoInitializationVector: %lu}", v12, v13, v14, v15, loga, v17);
 }
 
 @end

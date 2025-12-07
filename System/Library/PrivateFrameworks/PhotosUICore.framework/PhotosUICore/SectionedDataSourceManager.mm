@@ -7,7 +7,7 @@
 
 - (id)createInitialDataSource
 {
-  type metadata accessor for SectionedDataSource();
+  type metadata accessor for SectionedDataSource(0, a2);
   swift_getObjectType();
   v5[3] = swift_getAssociatedTypeWitness();
   v5[4] = swift_getAssociatedConformanceWitness();

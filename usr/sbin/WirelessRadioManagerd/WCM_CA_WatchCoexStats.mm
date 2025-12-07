@@ -13,7 +13,12 @@
 - (void)submitTxBlankingStats;
 - (void)submitWiFiAGCStats;
 - (void)updateCABTAFHIssue:(id)issue issueType:(id)type;
+- (void)updateCABTAGCStats:(id)stats issueType:(id)type btAGCMode:(int)mode hasIssue:(BOOL)issue;
 - (void)updateCABTPreferredMap:(id)map;
+- (void)updateCAWiFiAGCStats:(id)stats issueType:(id)type wifiAGCMode:(int)mode hasIssue:(BOOL)issue;
+- (void)updateFastChargingFreqDurationIsEnable:(BOOL)enable isLowBandDisable:(BOOL)disable;
+- (void)updateFastChargingFreqStatsIsEnable:(BOOL)enable isLowBandDisable:(BOOL)disable;
+- (void)updateTxBlankingStatsWithBand:(int)band rrcConnected:(BOOL)connected totalCount:(int)count txCount:(int)txCount spmiEnableCount:(int)enableCount wci2EnableCount:(int)wci2EnableCount spmiRequestCount:(int)requestCount wci2RequestCount:(int)self0 blankCount:(int)self1;
 @end
 
 @implementation WCM_CA_WatchCoexStats
@@ -326,6 +331,345 @@ LABEL_15:
   return wrmBTAFHStats;
 }
 
+- (void)updateCAWiFiAGCStats:(id)stats issueType:(id)type wifiAGCMode:(int)mode hasIssue:(BOOL)issue
+{
+  issueCopy = issue;
+  statsCopy = stats;
+  typeCopy = type;
+  [WCM_Logging logLevel:2 message:@"updateCAWiFiAGCStats"];
+  lockObjectWifiAGCStats = [(WCM_CA_WatchCoexStats *)self lockObjectWifiAGCStats];
+  objc_sync_enter(lockObjectWifiAGCStats);
+  v12 = [(WCM_CA_WatchCoexStats *)self findWiFiEntry:statsCopy issueType:typeCopy hasIssue:issueCopy];
+  v13 = v12;
+  if (v12)
+  {
+    v14 = [v12 objectForKeyedSubscript:@"count"];
+    v15 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v14 intValue] + 1);
+    [v13 setObject:v15 forKeyedSubscript:@"count"];
+
+    switch(mode)
+    {
+      case 3:
+        v16 = [v13 objectForKeyedSubscript:@"WiFiAGCMode_2_Count"];
+        wrmWiFiAGCCAStats = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v16 intValue] + 1);
+        [v13 setObject:wrmWiFiAGCCAStats forKeyedSubscript:@"WiFiAGCMode_2_Count"];
+        break;
+      case 2:
+        v16 = [v13 objectForKeyedSubscript:@"WiFiAGCMode_1_Count"];
+        wrmWiFiAGCCAStats = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v16 intValue] + 1);
+        [v13 setObject:wrmWiFiAGCCAStats forKeyedSubscript:@"WiFiAGCMode_1_Count"];
+        break;
+      case 1:
+        v16 = [v13 objectForKeyedSubscript:@"WiFiAGCMode_0_Count"];
+        wrmWiFiAGCCAStats = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v16 intValue] + 1);
+        [v13 setObject:wrmWiFiAGCCAStats forKeyedSubscript:@"WiFiAGCMode_0_Count"];
+        break;
+      default:
+        goto LABEL_19;
+    }
+  }
+
+  else
+  {
+    v16 = objc_alloc_init(NSMutableDictionary);
+    [v16 setObject:statsCopy forKeyedSubscript:@"IssueBand"];
+    [v16 setObject:typeCopy forKeyedSubscript:@"IssueType"];
+    [v16 setObject:&off_1002707B8 forKeyedSubscript:@"count"];
+    v18 = [NSNumber numberWithBool:issueCopy];
+    [v16 setObject:v18 forKeyedSubscript:@"HasIssue"];
+
+    if (mode == 1)
+    {
+      v19 = &off_1002707B8;
+    }
+
+    else
+    {
+      v19 = &off_1002707A0;
+    }
+
+    [v16 setObject:v19 forKeyedSubscript:@"WiFiAGCMode_0_Count"];
+    if (mode == 2)
+    {
+      v20 = &off_1002707B8;
+    }
+
+    else
+    {
+      v20 = &off_1002707A0;
+    }
+
+    [v16 setObject:v20 forKeyedSubscript:@"WiFiAGCMode_1_Count"];
+    if (mode == 3)
+    {
+      v21 = &off_1002707B8;
+    }
+
+    else
+    {
+      v21 = &off_1002707A0;
+    }
+
+    [v16 setObject:v21 forKeyedSubscript:@"WiFiAGCMode_2_Count"];
+    wrmWiFiAGCCAStats = [(WCM_CA_WatchCoexStats *)self wrmWiFiAGCCAStats];
+    [wrmWiFiAGCCAStats addObject:v16];
+  }
+
+LABEL_19:
+  objc_sync_exit(lockObjectWifiAGCStats);
+
+  +[NSDate timeIntervalSinceReferenceDate];
+  v23 = v22;
+  [(WCM_CA_WatchCoexStats *)self previousWiFiCAStartTime];
+  if (v23 - v24 > 300.0)
+  {
+    [(WCM_CA_WatchCoexStats *)self submitWiFiAGCStats];
+    [(WCM_CA_WatchCoexStats *)self setPreviousWiFiCAStartTime:v23];
+  }
+}
+
+- (void)updateCABTAGCStats:(id)stats issueType:(id)type btAGCMode:(int)mode hasIssue:(BOOL)issue
+{
+  issueCopy = issue;
+  statsCopy = stats;
+  typeCopy = type;
+  [WCM_Logging logLevel:2 message:@"updateCABTAGCStats"];
+  lockObjectBTAGCStats = [(WCM_CA_WatchCoexStats *)self lockObjectBTAGCStats];
+  objc_sync_enter(lockObjectBTAGCStats);
+  v12 = [(WCM_CA_WatchCoexStats *)self findBTEntry:statsCopy issueType:typeCopy hasIssue:issueCopy];
+  v13 = v12;
+  if (v12)
+  {
+    v14 = [v12 objectForKeyedSubscript:@"count"];
+    v15 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v14 intValue] + 1);
+    [v13 setObject:v15 forKeyedSubscript:@"count"];
+
+    if (mode == 2)
+    {
+      v16 = [v13 objectForKeyedSubscript:@"BTAGCMode_2_Count"];
+      wrmBTAGCCAStats = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v16 intValue] + 1);
+      [v13 setObject:wrmBTAGCCAStats forKeyedSubscript:@"BTAGCMode_2_Count"];
+    }
+
+    else if (mode == 1)
+    {
+      v16 = [v13 objectForKeyedSubscript:@"BTAGCMode_1_Count"];
+      wrmBTAGCCAStats = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v16 intValue] + 1);
+      [v13 setObject:wrmBTAGCCAStats forKeyedSubscript:@"BTAGCMode_1_Count"];
+    }
+
+    else
+    {
+      if (mode)
+      {
+        goto LABEL_19;
+      }
+
+      v16 = [v13 objectForKeyedSubscript:@"BTAGCMode_0_Count"];
+      wrmBTAGCCAStats = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v16 intValue] + 1);
+      [v13 setObject:wrmBTAGCCAStats forKeyedSubscript:@"BTAGCMode_0_Count"];
+    }
+  }
+
+  else
+  {
+    v16 = objc_alloc_init(NSMutableDictionary);
+    [v16 setObject:statsCopy forKeyedSubscript:@"IssueBand"];
+    [v16 setObject:typeCopy forKeyedSubscript:@"IssueType"];
+    [v16 setObject:&off_1002707B8 forKeyedSubscript:@"count"];
+    v18 = [NSNumber numberWithBool:issueCopy];
+    [v16 setObject:v18 forKeyedSubscript:@"HasIssue"];
+
+    if (mode)
+    {
+      v19 = &off_1002707A0;
+    }
+
+    else
+    {
+      v19 = &off_1002707B8;
+    }
+
+    [v16 setObject:v19 forKeyedSubscript:@"BTAGCMode_0_Count"];
+    if (mode == 1)
+    {
+      v20 = &off_1002707B8;
+    }
+
+    else
+    {
+      v20 = &off_1002707A0;
+    }
+
+    [v16 setObject:v20 forKeyedSubscript:@"BTAGCMode_1_Count"];
+    if (mode == 2)
+    {
+      v21 = &off_1002707B8;
+    }
+
+    else
+    {
+      v21 = &off_1002707A0;
+    }
+
+    [v16 setObject:v21 forKeyedSubscript:@"BTAGCMode_2_Count"];
+    wrmBTAGCCAStats = [(WCM_CA_WatchCoexStats *)self wrmBTAGCCAStats];
+    [wrmBTAGCCAStats addObject:v16];
+  }
+
+LABEL_19:
+  objc_sync_exit(lockObjectBTAGCStats);
+
+  +[NSDate timeIntervalSinceReferenceDate];
+  v23 = v22;
+  [(WCM_CA_WatchCoexStats *)self previousBTCAStartTime];
+  if (v23 - v24 > 300.0)
+  {
+    [(WCM_CA_WatchCoexStats *)self submitBTAGCStats];
+    [(WCM_CA_WatchCoexStats *)self setPreviousBTCAStartTime:v23];
+  }
+}
+
+- (void)updateTxBlankingStatsWithBand:(int)band rrcConnected:(BOOL)connected totalCount:(int)count txCount:(int)txCount spmiEnableCount:(int)enableCount wci2EnableCount:(int)wci2EnableCount spmiRequestCount:(int)requestCount wci2RequestCount:(int)self0 blankCount:(int)self1
+{
+  v11 = *&wci2EnableCount;
+  v12 = *&enableCount;
+  v13 = *&txCount;
+  connectedCopy = connected;
+  v15 = *&band;
+  v53 = *&count;
+  [WCM_Logging logLevel:3 message:@"TxBlankingCADebug_ band: %d, rrcConnected: %d, totalCount: %d, txCount: %d, spmiEnableCount: %d, wci2EnableCount: %d, spmiRequestCount: %d, wci2RequestCount: %d, blankCount: %d", *&band, connected, *&count, *&txCount, *&enableCount, *&wci2EnableCount, requestCount, wci2RequestCount, blankCount];
+  if (!connectedCopy)
+  {
+    goto LABEL_17;
+  }
+
+  v51 = v12;
+  v52 = v13;
+  obj = [(WCM_CA_WatchCoexStats *)self lockObjectTxBlankingFreqStats];
+  objc_sync_enter(obj);
+  wrmTxBlankingFreqStat = [(WCM_CA_WatchCoexStats *)self wrmTxBlankingFreqStat];
+
+  if (!wrmTxBlankingFreqStat)
+  {
+    goto LABEL_15;
+  }
+
+  v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
+  wrmTxBlankingFreqStat2 = [(WCM_CA_WatchCoexStats *)self wrmTxBlankingFreqStat];
+  v18 = [wrmTxBlankingFreqStat2 countByEnumeratingWithState:&v56 objects:v60 count:16];
+  if (!v18)
+  {
+
+LABEL_15:
+    v19 = objc_alloc_init(NSMutableDictionary);
+    v40 = [NSNumber numberWithInt:v15];
+    [v19 setObject:v40 forKeyedSubscript:@"Band"];
+
+    v41 = [NSNumber numberWithInt:v53];
+    [v19 setObject:v41 forKeyedSubscript:@"totalCount"];
+
+    v42 = [NSNumber numberWithInt:v52];
+    [v19 setObject:v42 forKeyedSubscript:@"txCount"];
+
+    v43 = [NSNumber numberWithInt:v51];
+    [v19 setObject:v43 forKeyedSubscript:@"spmiEnableCount"];
+
+    v44 = [NSNumber numberWithInt:v11];
+    [v19 setObject:v44 forKeyedSubscript:@"wci2EnableCount"];
+
+    v45 = [NSNumber numberWithInt:requestCount];
+    [v19 setObject:v45 forKeyedSubscript:@"spmiRequestCount"];
+
+    v46 = [NSNumber numberWithInt:wci2RequestCount];
+    [v19 setObject:v46 forKeyedSubscript:@"wci2RequestCount"];
+
+    v47 = [NSNumber numberWithInt:blankCount];
+    [v19 setObject:v47 forKeyedSubscript:@"blankCount"];
+
+    wrmTxBlankingFreqStat3 = [(WCM_CA_WatchCoexStats *)self wrmTxBlankingFreqStat];
+    [wrmTxBlankingFreqStat3 addObject:v19];
+    goto LABEL_16;
+  }
+
+  v19 = 0;
+  v20 = *v57;
+  do
+  {
+    for (i = 0; i != v18; i = i + 1)
+    {
+      if (*v57 != v20)
+      {
+        objc_enumerationMutation(wrmTxBlankingFreqStat2);
+      }
+
+      v22 = *(*(&v56 + 1) + 8 * i);
+      v23 = [v22 objectForKeyedSubscript:@"Band"];
+      v24 = [v23 intValue] == v15;
+
+      if (v24)
+      {
+        v25 = v22;
+
+        v19 = v25;
+      }
+    }
+
+    v18 = [wrmTxBlankingFreqStat2 countByEnumeratingWithState:&v56 objects:v60 count:16];
+  }
+
+  while (v18);
+
+  if (!v19)
+  {
+    goto LABEL_15;
+  }
+
+  v26 = [v19 objectForKeyedSubscript:@"totalCount"];
+  v27 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v26 intValue] + v53);
+  [v19 setObject:v27 forKeyedSubscript:@"totalCount"];
+
+  v28 = [v19 objectForKeyedSubscript:@"txCount"];
+  v29 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v28 intValue] + v52);
+  [v19 setObject:v29 forKeyedSubscript:@"txCount"];
+
+  v30 = [v19 objectForKeyedSubscript:@"spmiEnableCount"];
+  v31 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v30 intValue] + v51);
+  [v19 setObject:v31 forKeyedSubscript:@"spmiEnableCount"];
+
+  v32 = [v19 objectForKeyedSubscript:@"wci2EnableCount"];
+  v33 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v32 intValue] + v11);
+  [v19 setObject:v33 forKeyedSubscript:@"wci2EnableCount"];
+
+  v34 = [v19 objectForKeyedSubscript:@"spmiRequestCount"];
+  v35 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v34 intValue] + requestCount);
+  [v19 setObject:v35 forKeyedSubscript:@"spmiRequestCount"];
+
+  v36 = [v19 objectForKeyedSubscript:@"wci2RequestCount"];
+  v37 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v36 intValue] + wci2RequestCount);
+  [v19 setObject:v37 forKeyedSubscript:@"wci2RequestCount"];
+
+  wrmTxBlankingFreqStat3 = [v19 objectForKeyedSubscript:@"blankCount"];
+  v39 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [wrmTxBlankingFreqStat3 intValue] + blankCount);
+  [v19 setObject:v39 forKeyedSubscript:@"blankCount"];
+
+LABEL_16:
+  objc_sync_exit(obj);
+
+LABEL_17:
+  +[NSDate timeIntervalSinceReferenceDate];
+  v49 = v48;
+  [(WCM_CA_WatchCoexStats *)self previousTxBlankingFreqCAStartTime];
+  if (v49 - v50 > 3600.0)
+  {
+    [(WCM_CA_WatchCoexStats *)self submitTxBlankingStats];
+    [(WCM_CA_WatchCoexStats *)self setPreviousTxBlankingFreqCAStartTime:v49];
+  }
+}
+
 - (void)submitTxBlankingStats
 {
   obj = [(WCM_CA_WatchCoexStats *)self lockObjectTxBlankingFreqStats];
@@ -379,6 +723,61 @@ LABEL_15:
   objc_sync_exit(obj);
 }
 
+- (void)updateFastChargingFreqStatsIsEnable:(BOOL)enable isLowBandDisable:(BOOL)disable
+{
+  disableCopy = disable;
+  enableCopy = enable;
+  [WCM_Logging logLevel:3 message:@"FChargingCADebug_ updateFastChargingFreqStats isEnable: %d, isLowBandDisable: %d", enable, disable];
+  lockObjectFastChargingFreqStats = [(WCM_CA_WatchCoexStats *)self lockObjectFastChargingFreqStats];
+  objc_sync_enter(lockObjectFastChargingFreqStats);
+  if (enableCopy)
+  {
+    wrmFastChargingFreqStat = [(WCM_CA_WatchCoexStats *)self wrmFastChargingFreqStat];
+    v9 = [wrmFastChargingFreqStat objectForKeyedSubscript:@"EnableCount"];
+    v10 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v9 intValue] + 1);
+    wrmFastChargingFreqStat2 = [(WCM_CA_WatchCoexStats *)self wrmFastChargingFreqStat];
+    [wrmFastChargingFreqStat2 setObject:v10 forKeyedSubscript:@"EnableCount"];
+  }
+
+  else
+  {
+    wrmFastChargingFreqStat3 = [(WCM_CA_WatchCoexStats *)self wrmFastChargingFreqStat];
+    v13 = [wrmFastChargingFreqStat3 objectForKeyedSubscript:@"DisableCount"];
+    v14 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v13 intValue] + 1);
+    wrmFastChargingFreqStat4 = [(WCM_CA_WatchCoexStats *)self wrmFastChargingFreqStat];
+    [wrmFastChargingFreqStat4 setObject:v14 forKeyedSubscript:@"DisableCount"];
+
+    wrmFastChargingFreqStat = [(WCM_CA_WatchCoexStats *)self wrmFastChargingFreqStat];
+    if (disableCopy)
+    {
+      v9 = [wrmFastChargingFreqStat objectForKeyedSubscript:@"LowBandDisableCount"];
+      v10 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v9 intValue] + 1);
+      wrmFastChargingFreqStat2 = [(WCM_CA_WatchCoexStats *)self wrmFastChargingFreqStat];
+      [wrmFastChargingFreqStat2 setObject:v10 forKeyedSubscript:@"LowBandDisableCount"];
+    }
+
+    else
+    {
+      v9 = [wrmFastChargingFreqStat objectForKeyedSubscript:@"NonLowBandDisableCount"];
+      v10 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v9 intValue] + 1);
+      wrmFastChargingFreqStat2 = [(WCM_CA_WatchCoexStats *)self wrmFastChargingFreqStat];
+      [wrmFastChargingFreqStat2 setObject:v10 forKeyedSubscript:@"NonLowBandDisableCount"];
+    }
+  }
+
+  objc_sync_exit(lockObjectFastChargingFreqStats);
+  +[NSDate timeIntervalSinceReferenceDate];
+  v17 = v16;
+  [(WCM_CA_WatchCoexStats *)self previousFastChargingFreqCAStartTime];
+  if (v17 - v18 > 300.0)
+  {
+    [(WCM_CA_WatchCoexStats *)self submitFastChargingFreqStats];
+    [(WCM_CA_WatchCoexStats *)self setPreviousFastChargingFreqCAStartTime:v17];
+  }
+
+  [(WCM_CA_WatchCoexStats *)self updateFastChargingFreqDurationIsEnable:enableCopy isLowBandDisable:disableCopy];
+}
+
 - (void)submitFastChargingFreqStats
 {
   obj = [(WCM_CA_WatchCoexStats *)self lockObjectFastChargingFreqStats];
@@ -422,6 +821,52 @@ LABEL_15:
   +[NSDate timeIntervalSinceReferenceDate];
   [(WCM_CA_WatchCoexStats *)self setPreviousFastChargingDurationCAStartTime:?];
   objc_sync_exit(obj);
+}
+
+- (void)updateFastChargingFreqDurationIsEnable:(BOOL)enable isLowBandDisable:(BOOL)disable
+{
+  disableCopy = disable;
+  enableCopy = enable;
+  lockObjectFastChargingDurationStats = [(WCM_CA_WatchCoexStats *)self lockObjectFastChargingDurationStats];
+  objc_sync_enter(lockObjectFastChargingDurationStats);
+  if ([(WCM_CA_WatchCoexStats *)self fastChargingHasRecord])
+  {
+    +[NSDate timeIntervalSinceReferenceDate];
+    v9 = v8;
+    [(WCM_CA_WatchCoexStats *)self previousFastChargingDurationRecordTime];
+    v11 = v9 - v10;
+    [(WCM_CA_WatchCoexStats *)self setTotalDuration:(v11 + [(WCM_CA_WatchCoexStats *)self totalDuration])];
+    fastChargingIsEnabled = [(WCM_CA_WatchCoexStats *)self fastChargingIsEnabled];
+    fastChargingIsLowBandDisabled = [(WCM_CA_WatchCoexStats *)self fastChargingIsLowBandDisabled];
+    if ((fastChargingIsEnabled & 1) == 0)
+    {
+      v14 = fastChargingIsLowBandDisabled;
+      [(WCM_CA_WatchCoexStats *)self setDisableDuration:(v11 + [(WCM_CA_WatchCoexStats *)self disableDuration])];
+      if (v14)
+      {
+        [(WCM_CA_WatchCoexStats *)self setLowBandDisableDuration:(v11 + [(WCM_CA_WatchCoexStats *)self lowBandDisableDuration])];
+      }
+
+      else
+      {
+        [(WCM_CA_WatchCoexStats *)self setNoneLowBandDisableDuration:(v11 + [(WCM_CA_WatchCoexStats *)self noneLowBandDisableDuration])];
+      }
+    }
+  }
+
+  else
+  {
+    [(WCM_CA_WatchCoexStats *)self resetFastChargingFreqDurationStats];
+  }
+
+  [(WCM_CA_WatchCoexStats *)self setFastChargingIsEnabled:enableCopy];
+  [(WCM_CA_WatchCoexStats *)self setFastChargingIsLowBandDisabled:disableCopy];
+  [(WCM_CA_WatchCoexStats *)self setFastChargingHasRecord:1];
+  +[NSDate timeIntervalSinceReferenceDate];
+  [(WCM_CA_WatchCoexStats *)self setPreviousFastChargingDurationRecordTime:?];
+  objc_sync_exit(lockObjectFastChargingDurationStats);
+
+  [WCM_Logging logLevel:3 message:@"FChargingCADebug_ updateFastChargingFreqDuration totalDuration: %d, disableDuration: %d, self.lowBandDisableDuration: %d, self.noneLowBandDisableDuration: %d, self.cellPowerOn: %d", [(WCM_CA_WatchCoexStats *)self totalDuration], [(WCM_CA_WatchCoexStats *)self disableDuration], [(WCM_CA_WatchCoexStats *)self lowBandDisableDuration], [(WCM_CA_WatchCoexStats *)self noneLowBandDisableDuration], [(WCM_CA_WatchCoexStats *)self cellPowerOn]];
 }
 
 - (void)submitFastChargingDurationStats
@@ -481,29 +926,28 @@ LABEL_15:
   wrmWiFiAGCCAStats = [(WCM_CA_WatchCoexStats *)self wrmWiFiAGCCAStats];
   v5 = [NSArray arrayWithArray:wrmWiFiAGCCAStats];
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v12 + 1) + 8 * i);
         AnalyticsSendEventLazy();
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -523,29 +967,28 @@ LABEL_15:
   wrmBTAGCCAStats = [(WCM_CA_WatchCoexStats *)self wrmBTAGCCAStats];
   v5 = [NSArray arrayWithArray:wrmBTAGCCAStats];
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v12 + 1) + 8 * i);
         AnalyticsSendEventLazy();
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -565,29 +1008,28 @@ LABEL_15:
   wrmBTAFHStats = [(WCM_CA_WatchCoexStats *)self wrmBTAFHStats];
   v5 = [NSArray arrayWithArray:wrmBTAFHStats];
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v12 + 1) + 8 * i);
         AnalyticsSendEventLazy();
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);

@@ -68,19 +68,16 @@ void __49__SRMASandboxExtensionHandler_executeBlock_wait___block_invoke(uint64_t
 
 void __49__SRMASandboxExtensionHandler_executeBlock_wait___block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  _MAensureExtension();
-  v3 = SRLogCategoryAssets();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = _MAensureExtension();
+  v3 = SRLogCategoryAssets(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_1AE58E000, v3, OS_LOG_TYPE_DEFAULT, "Got sandbox extension for %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_1AE58E000, v3, OS_LOG_TYPE_DEFAULT, "Got sandbox extension for %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

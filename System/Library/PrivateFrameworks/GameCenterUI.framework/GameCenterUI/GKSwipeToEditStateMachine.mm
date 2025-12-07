@@ -247,11 +247,11 @@ uint64_t __39__GKSwipeToEditStateMachine_handlePan___block_invoke(uint64_t a1, d
   return [v7 setEditingContentOriginX:v6];
 }
 
-uint64_t __39__GKSwipeToEditStateMachine_handlePan___block_invoke_2(uint64_t result, int a2)
+id *__39__GKSwipeToEditStateMachine_handlePan___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) setCurrentState:@"EditingState"];
+    return [result[4] setCurrentState:@"EditingState"];
   }
 
   return result;
@@ -463,11 +463,11 @@ void __66__GKSwipeToEditStateMachine_shutActionPaneForEditingCellAnimated___bloc
   }
 }
 
-uint64_t __66__GKSwipeToEditStateMachine_shutActionPaneForEditingCellAnimated___block_invoke_3(uint64_t result, int a2)
+id *__66__GKSwipeToEditStateMachine_shutActionPaneForEditingCellAnimated___block_invoke_3(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) setCurrentState:@"NothingState"];
+    return [result[4] setCurrentState:@"NothingState"];
   }
 
   return result;

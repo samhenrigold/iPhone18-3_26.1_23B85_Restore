@@ -11,7 +11,7 @@
 - (void)viewDidLoad
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for DeleteJournalMoveEntriesViewController();
+  v3.super_class = type metadata accessor for DeleteJournalMoveEntriesViewController(0);
   v2 = v3.receiver;
   [(DeleteJournalMoveEntriesViewController *)&v3 viewDidLoad];
   sub_1004A1564();

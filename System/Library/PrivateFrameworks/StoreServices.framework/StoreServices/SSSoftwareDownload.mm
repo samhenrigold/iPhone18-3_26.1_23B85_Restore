@@ -60,36 +60,41 @@
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v19 = v18 = 138543362;
-  LODWORD(v17) = 12;
-  v9 = _os_log_send_and_compose_impl();
+  v9 = NSStringFromSelector(a2);
+  v18 = 138543362;
+  v19 = v9;
+  v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported method for software downloads", &v18, 12);
 
-  if (v9)
+  if (v10)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v18, v17}];
-    free(v9);
-    SSFileLog(v5, @"%@", v10, v11, v12, v13, v14, v15, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+    free(v10);
+    SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
+LABEL_12:
   }
 
   return 0;
@@ -160,36 +165,41 @@ LABEL_10:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v17 = v16 = 138543362;
-  LODWORD(v15) = 12;
-  v7 = _os_log_send_and_compose_impl();
+  v7 = NSStringFromSelector(a2);
+  v16 = 138543362;
+  v17 = v7;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported deprecated method for software downloads", &v16, 12);
 
-  if (v7)
+  if (v8)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v16, v15}];
-    free(v7);
-    SSFileLog(v3, @"%@", v8, v9, v10, v11, v12, v13, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+    free(v8);
+    SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
+LABEL_12:
   }
 
   return 0;
@@ -207,36 +217,41 @@ LABEL_11:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v17 = v16 = 138543362;
-  LODWORD(v15) = 12;
-  v7 = _os_log_send_and_compose_impl();
+  v7 = NSStringFromSelector(a2);
+  v16 = 138543362;
+  v17 = v7;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported deprecated method for software downloads", &v16, 12);
 
-  if (v7)
+  if (v8)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v16, v15}];
-    free(v7);
-    SSFileLog(v3, @"%@", v8, v9, v10, v11, v12, v13, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+    free(v8);
+    SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
+LABEL_12:
   }
 
   return 0;
@@ -254,36 +269,41 @@ LABEL_11:
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
   oSLogObject = [v4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (!v6)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v17 = v16 = 138543362;
-  LODWORD(v15) = 12;
-  v8 = _os_log_send_and_compose_impl();
+  v8 = NSStringFromSelector(a2);
+  v16 = 138543362;
+  v17 = v8;
+  v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported deprecated method for software downloads", &v16, 12);
 
-  if (v8)
+  if (v9)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v16, v15}];
-    free(v8);
-    SSFileLog(v4, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+    free(v9);
+    SSFileLog(v4, @"%@", v10, v11, v12, v13, v14, v15, oSLogObject);
+LABEL_12:
   }
 }
 
@@ -299,36 +319,41 @@ LABEL_11:
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
   oSLogObject = [v4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (!v6)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v17 = v16 = 138543362;
-  LODWORD(v15) = 12;
-  v8 = _os_log_send_and_compose_impl();
+  v8 = NSStringFromSelector(a2);
+  v16 = 138543362;
+  v17 = v8;
+  v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported deprecated method for software downloads", &v16, 12);
 
-  if (v8)
+  if (v9)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v16, v15}];
-    free(v8);
-    SSFileLog(v4, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+    free(v9);
+    SSFileLog(v4, @"%@", v10, v11, v12, v13, v14, v15, oSLogObject);
+LABEL_12:
   }
 }
 
@@ -344,36 +369,41 @@ LABEL_11:
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
   oSLogObject = [v4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (!v6)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v17 = v16 = 138543362;
-  LODWORD(v15) = 12;
-  v8 = _os_log_send_and_compose_impl();
+  v8 = NSStringFromSelector(a2);
+  v16 = 138543362;
+  v17 = v8;
+  v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported deprecated method for software downloads", &v16, 12);
 
-  if (v8)
+  if (v9)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v16, v15}];
-    free(v8);
-    SSFileLog(v4, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+    free(v9);
+    SSFileLog(v4, @"%@", v10, v11, v12, v13, v14, v15, oSLogObject);
+LABEL_12:
   }
 }
 
@@ -389,36 +419,41 @@ LABEL_11:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v17 = v16 = 138543362;
-  LODWORD(v15) = 12;
-  v7 = _os_log_send_and_compose_impl();
+  v7 = NSStringFromSelector(a2);
+  v16 = 138543362;
+  v17 = v7;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported deprecated method for software downloads", &v16, 12);
 
-  if (v7)
+  if (v8)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v16, v15}];
-    free(v7);
-    SSFileLog(v3, @"%@", v8, v9, v10, v11, v12, v13, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+    free(v8);
+    SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
+LABEL_12:
   }
 
   return 0;
@@ -436,36 +471,41 @@ LABEL_11:
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
   oSLogObject = [v4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (!v6)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v18 = v17 = 138543362;
-  LODWORD(v16) = 12;
-  v8 = _os_log_send_and_compose_impl();
+  v8 = NSStringFromSelector(a2);
+  v17 = 138543362;
+  v18 = v8;
+  v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported method for software downloads", &v17, 12);
 
-  if (v8)
+  if (v9)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v17, v16}];
-    free(v8);
-    SSFileLog(v4, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+    free(v9);
+    SSFileLog(v4, @"%@", v10, v11, v12, v13, v14, v15, oSLogObject);
+LABEL_12:
   }
 
   return 0;
@@ -483,36 +523,41 @@ LABEL_11:
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v19 = v18 = 138543362;
-  LODWORD(v17) = 12;
-  v9 = _os_log_send_and_compose_impl();
+  v9 = NSStringFromSelector(a2);
+  v18 = 138543362;
+  v19 = v9;
+  v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported method for software downloads", &v18, 12);
 
-  if (v9)
+  if (v10)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v18, v17}];
-    free(v9);
-    SSFileLog(v5, @"%@", v10, v11, v12, v13, v14, v15, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+    free(v10);
+    SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
+LABEL_12:
   }
 
   return 0;
@@ -530,36 +575,41 @@ LABEL_11:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v17 = v16 = 138543362;
-  LODWORD(v15) = 12;
-  v7 = _os_log_send_and_compose_impl();
+  v7 = NSStringFromSelector(a2);
+  v16 = 138543362;
+  v17 = v7;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported method for software downloads", &v16, 12);
 
-  if (v7)
+  if (v8)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v16, v15}];
-    free(v7);
-    SSFileLog(v3, @"%@", v8, v9, v10, v11, v12, v13, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+    free(v8);
+    SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
+LABEL_12:
   }
 
   return 0;
@@ -577,36 +627,41 @@ LABEL_11:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v17 = v16 = 138543362;
-  LODWORD(v15) = 12;
-  v7 = _os_log_send_and_compose_impl();
+  v7 = NSStringFromSelector(a2);
+  v16 = 138543362;
+  v17 = v7;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported method for software downloads", &v16, 12);
 
-  if (v7)
+  if (v8)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v16, v15}];
-    free(v7);
-    SSFileLog(v3, @"%@", v8, v9, v10, v11, v12, v13, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+    free(v8);
+    SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
+LABEL_12:
   }
 
   return 0;
@@ -624,36 +679,41 @@ LABEL_11:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v17 = v16 = 138543362;
-  LODWORD(v15) = 12;
-  v7 = _os_log_send_and_compose_impl();
+  v7 = NSStringFromSelector(a2);
+  v16 = 138543362;
+  v17 = v7;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported method for software downloads", &v16, 12);
 
-  if (v7)
+  if (v8)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v16, v15}];
-    free(v7);
-    SSFileLog(v3, @"%@", v8, v9, v10, v11, v12, v13, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+    free(v8);
+    SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
+LABEL_12:
   }
 
   return 0;
@@ -671,36 +731,41 @@ LABEL_11:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v17 = v16 = 138543362;
-  LODWORD(v15) = 12;
-  v7 = _os_log_send_and_compose_impl();
+  v7 = NSStringFromSelector(a2);
+  v16 = 138543362;
+  v17 = v7;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported method for software downloads", &v16, 12);
 
-  if (v7)
+  if (v8)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v16, v15}];
-    free(v7);
-    SSFileLog(v3, @"%@", v8, v9, v10, v11, v12, v13, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+    free(v8);
+    SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
+LABEL_12:
   }
 
   return 0;
@@ -718,36 +783,41 @@ LABEL_11:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v17 = v16 = 138543362;
-  LODWORD(v15) = 12;
-  v7 = _os_log_send_and_compose_impl();
+  v7 = NSStringFromSelector(a2);
+  v16 = 138543362;
+  v17 = v7;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported method for software downloads", &v16, 12);
 
-  if (v7)
+  if (v8)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v16, v15}];
-    free(v7);
-    SSFileLog(v3, @"%@", v8, v9, v10, v11, v12, v13, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+    free(v8);
+    SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
+LABEL_12:
   }
 
   return 0;
@@ -765,36 +835,41 @@ LABEL_11:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v17 = v16 = 138543362;
-  LODWORD(v15) = 12;
-  v7 = _os_log_send_and_compose_impl();
+  v7 = NSStringFromSelector(a2);
+  v16 = 138543362;
+  v17 = v7;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported method for software downloads", &v16, 12);
 
-  if (v7)
+  if (v8)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v16, v15}];
-    free(v7);
-    SSFileLog(v3, @"%@", v8, v9, v10, v11, v12, v13, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+    free(v8);
+    SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
+LABEL_12:
   }
 
   return -1.0;
@@ -812,36 +887,41 @@ LABEL_11:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v17 = v16 = 138543362;
-  LODWORD(v15) = 12;
-  v7 = _os_log_send_and_compose_impl();
+  v7 = NSStringFromSelector(a2);
+  v16 = 138543362;
+  v17 = v7;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported method for software downloads", &v16, 12);
 
-  if (v7)
+  if (v8)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v16, v15}];
-    free(v7);
-    SSFileLog(v3, @"%@", v8, v9, v10, v11, v12, v13, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+    free(v8);
+    SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
+LABEL_12:
   }
 
   return 0;
@@ -859,36 +939,41 @@ LABEL_11:
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
   oSLogObject = [v4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (!v6)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v18 = v17 = 138543362;
-  LODWORD(v16) = 12;
-  v8 = _os_log_send_and_compose_impl();
+  v8 = NSStringFromSelector(a2);
+  v17 = 138543362;
+  v18 = v8;
+  v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported method for software downloads", &v17, 12);
 
-  if (v8)
+  if (v9)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v17, v16}];
-    free(v8);
-    SSFileLog(v4, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+    free(v9);
+    SSFileLog(v4, @"%@", v10, v11, v12, v13, v14, v15, oSLogObject);
+LABEL_12:
   }
 
   return 0;
@@ -906,36 +991,41 @@ LABEL_11:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v16 = v15 = 138543362;
-  LODWORD(v14) = 12;
-  v7 = _os_log_send_and_compose_impl();
+  v7 = NSStringFromSelector(a2);
+  v15 = 138543362;
+  v16 = v7;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported method for software downloads", &v15, 12);
 
-  if (v7)
+  if (v8)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v15, v14}];
-    free(v7);
-    SSFileLog(v3, @"%@", v8, v9, v10, v11, v12, v13, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+    free(v8);
+    SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
+LABEL_12:
   }
 }
 
@@ -951,36 +1041,41 @@ LABEL_11:
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v18 = v17 = 138543362;
-  LODWORD(v16) = 12;
-  v9 = _os_log_send_and_compose_impl();
+  v9 = NSStringFromSelector(a2);
+  v17 = 138543362;
+  v18 = v9;
+  v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported method for software downloads", &v17, 12);
 
-  if (v9)
+  if (v10)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v17, v16}];
-    free(v9);
-    SSFileLog(v5, @"%@", v10, v11, v12, v13, v14, v15, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+    free(v10);
+    SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
+LABEL_12:
   }
 }
 
@@ -996,36 +1091,41 @@ LABEL_11:
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
   oSLogObject = [v4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (!v6)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v18 = v17 = 138543362;
-  LODWORD(v16) = 12;
-  v8 = _os_log_send_and_compose_impl();
+  v8 = NSStringFromSelector(a2);
+  v17 = 138543362;
+  v18 = v8;
+  v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported method for software downloads", &v17, 12);
 
-  if (v8)
+  if (v9)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v17, v16}];
-    free(v8);
-    SSFileLog(v4, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+    free(v9);
+    SSFileLog(v4, @"%@", v10, v11, v12, v13, v14, v15, oSLogObject);
+LABEL_12:
   }
 
   return 0;
@@ -1043,36 +1143,41 @@ LABEL_11:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v16 = v15 = 138543362;
-  LODWORD(v14) = 12;
-  v7 = _os_log_send_and_compose_impl();
+  v7 = NSStringFromSelector(a2);
+  v15 = 138543362;
+  v16 = v7;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported method for software downloads", &v15, 12);
 
-  if (v7)
+  if (v8)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v15, v14}];
-    free(v7);
-    SSFileLog(v3, @"%@", v8, v9, v10, v11, v12, v13, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+    free(v8);
+    SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
+LABEL_12:
   }
 }
 
@@ -1088,36 +1193,41 @@ LABEL_11:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v16 = v15 = 138543362;
-  LODWORD(v14) = 12;
-  v7 = _os_log_send_and_compose_impl();
+  v7 = NSStringFromSelector(a2);
+  v15 = 138543362;
+  v16 = v7;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported method for software downloads", &v15, 12);
 
-  if (v7)
+  if (v8)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v15, v14}];
-    free(v7);
-    SSFileLog(v3, @"%@", v8, v9, v10, v11, v12, v13, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+    free(v8);
+    SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
+LABEL_12:
   }
 }
 
@@ -1133,36 +1243,41 @@ LABEL_11:
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
   oSLogObject = [v4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (!v6)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v17 = v16 = 138543362;
-  LODWORD(v15) = 12;
-  v8 = _os_log_send_and_compose_impl();
+  v8 = NSStringFromSelector(a2);
+  v16 = 138543362;
+  v17 = v8;
+  v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported method for software downloads", &v16, 12);
 
-  if (v8)
+  if (v9)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v16, v15}];
-    free(v8);
-    SSFileLog(v4, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+    free(v9);
+    SSFileLog(v4, @"%@", v10, v11, v12, v13, v14, v15, oSLogObject);
+LABEL_12:
   }
 }
 
@@ -1178,36 +1293,41 @@ LABEL_11:
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
   oSLogObject = [v4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (!v6)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v17 = v16 = 138543362;
-  LODWORD(v15) = 12;
-  v8 = _os_log_send_and_compose_impl();
+  v8 = NSStringFromSelector(a2);
+  v16 = 138543362;
+  v17 = v8;
+  v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported method for software downloads", &v16, 12);
 
-  if (v8)
+  if (v9)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v16, v15}];
-    free(v8);
-    SSFileLog(v4, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+    free(v9);
+    SSFileLog(v4, @"%@", v10, v11, v12, v13, v14, v15, oSLogObject);
+LABEL_12:
   }
 }
 
@@ -1223,36 +1343,41 @@ LABEL_11:
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v18 = v17 = 138543362;
-  LODWORD(v16) = 12;
-  v9 = _os_log_send_and_compose_impl();
+  v9 = NSStringFromSelector(a2);
+  v17 = 138543362;
+  v18 = v9;
+  v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported method for software downloads", &v17, 12);
 
-  if (v9)
+  if (v10)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v17, v16}];
-    free(v9);
-    SSFileLog(v5, @"%@", v10, v11, v12, v13, v14, v15, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+    free(v10);
+    SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
+LABEL_12:
   }
 }
 
@@ -1268,36 +1393,41 @@ LABEL_11:
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
   oSLogObject = [v4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (!v6)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v17 = v16 = 138543362;
-  LODWORD(v15) = 12;
-  v8 = _os_log_send_and_compose_impl();
+  v8 = NSStringFromSelector(a2);
+  v16 = 138543362;
+  v17 = v8;
+  v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported method for software downloads", &v16, 12);
 
-  if (v8)
+  if (v9)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v16, v15}];
-    free(v8);
-    SSFileLog(v4, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+    free(v9);
+    SSFileLog(v4, @"%@", v10, v11, v12, v13, v14, v15, oSLogObject);
+LABEL_12:
   }
 }
 
@@ -1313,36 +1443,41 @@ LABEL_11:
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
   oSLogObject = [v4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (!v6)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  NSStringFromSelector(a2);
-  v17 = v16 = 138543362;
-  LODWORD(v15) = 12;
-  v8 = _os_log_send_and_compose_impl();
+  v8 = NSStringFromSelector(a2);
+  v16 = 138543362;
+  v17 = v8;
+  v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@ is an unsupported method for software downloads", &v16, 12);
 
-  if (v8)
+  if (v9)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v16, v15}];
-    free(v8);
-    SSFileLog(v4, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
-LABEL_11:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+    free(v9);
+    SSFileLog(v4, @"%@", v10, v11, v12, v13, v14, v15, oSLogObject);
+LABEL_12:
   }
 }
 

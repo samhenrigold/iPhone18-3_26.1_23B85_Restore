@@ -360,37 +360,35 @@ LABEL_59:
 
   if ((*&self->_has & 2) != 0)
   {
-    quotaUsed = self->_quotaUsed;
     PBDataWriterWriteUint64Field();
   }
 
-  v14 = 0u;
-  v15 = 0u;
+  v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   snapshots = self->_snapshots;
-  v6 = [(NSMutableArray *)snapshots countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v6)
+  v5 = [(NSMutableArray *)snapshots countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v5)
   {
-    v7 = v6;
-    v8 = *v13;
+    v6 = v5;
+    v7 = *v10;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v8)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(snapshots);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v7 = [(NSMutableArray *)snapshots countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMutableArray *)snapshots countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
-    while (v7);
+    while (v6);
   }
 
   if (self->_attributes)
@@ -400,7 +398,6 @@ LABEL_59:
 
   if (*&self->_has)
   {
-    keysLastModified = self->_keysLastModified;
     PBDataWriterWriteUint64Field();
   }
 }
@@ -502,7 +499,6 @@ LABEL_59:
     backupUDID = self->_backupUDID;
     if (!(backupUDID | *(equal + 4)) || (v5 = [(NSData *)backupUDID isEqual:?]) != 0)
     {
-      v7 = *(equal + 48);
       if ((*&self->_has & 2) != 0)
       {
         if ((*(equal + 48) & 2) == 0 || self->_quotaUsed != *(equal + 2))

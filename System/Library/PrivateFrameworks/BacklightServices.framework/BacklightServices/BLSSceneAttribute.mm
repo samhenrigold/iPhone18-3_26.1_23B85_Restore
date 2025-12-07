@@ -90,7 +90,8 @@
   v6 = BSCreateDeserializedBSXPCEncodableObjectFromXPCDictionaryWithKey();
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     self = [(BLSSceneAttribute *)self initWithSceneIdentityToken:v6];
     selfCopy = self;
@@ -98,8 +99,8 @@
 
   else
   {
-    v8 = bls_assertions_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = bls_assertions_log(isKindOfClass);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       v11 = objc_opt_class();
       v12 = NSStringFromClass(v11);
@@ -110,13 +111,12 @@
       v17 = v12;
       v18 = 2112;
       v19 = v13;
-      _os_log_fault_impl(&dword_21FE25000, v8, OS_LOG_TYPE_FAULT, "%@ not a FBSSceneIdentityToken for [%@ %@]", &v14, 0x20u);
+      _os_log_fault_impl(&dword_21FE25000, v9, OS_LOG_TYPE_FAULT, "%@ not a FBSSceneIdentityToken for [%@ %@]", &v14, 0x20u);
     }
 
     selfCopy = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -124,13 +124,12 @@
 {
   dictionaryCopy = dictionary;
   [@"identityToken" UTF8String];
-  sceneIdentityToken = self->_sceneIdentityToken;
   BSSerializeBSXPCEncodableObjectToXPCDictionaryWithKey();
 }
 
 - (BLSSceneAttribute)initWithCoder:(id)coder
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identityToken"];
   if (v6)
@@ -141,25 +140,24 @@
 
   else
   {
-    v8 = bls_assertions_log();
+    v8 = bls_assertions_log(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
-      v13 = NSStringFromSelector(a2);
-      v14 = 138543874;
-      v15 = coderCopy;
-      v16 = 2112;
-      v17 = v12;
-      v18 = 2112;
-      v19 = v13;
-      _os_log_fault_impl(&dword_21FE25000, v8, OS_LOG_TYPE_FAULT, "invalid FBSSceneIdentityToken from %{public}@ for [%@ %@]", &v14, 0x20u);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = NSStringFromSelector(a2);
+      v13 = 138543874;
+      v14 = coderCopy;
+      v15 = 2112;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v12;
+      _os_log_fault_impl(&dword_21FE25000, v8, OS_LOG_TYPE_FAULT, "invalid FBSSceneIdentityToken from %{public}@ for [%@ %@]", &v13, 0x20u);
     }
 
     selfCopy = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

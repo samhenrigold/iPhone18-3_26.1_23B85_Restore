@@ -10,40 +10,38 @@
 
 - (id)attributeDescriptions
 {
-  v29[7] = *MEMORY[0x277D85DE8];
+  v28[7] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   nodeID = [(HMMTRPairing *)self nodeID];
-  v27 = [v3 initWithName:@"Node ID" value:nodeID];
-  v29[0] = v27;
+  v26 = [v3 initWithName:@"Node ID" value:nodeID];
+  v28[0] = v26;
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   fabricID = [(HMMTRPairing *)self fabricID];
-  v25 = [v4 initWithName:@"Fabric ID" value:fabricID];
-  v29[1] = v25;
+  v24 = [v4 initWithName:@"Fabric ID" value:fabricID];
+  v28[1] = v24;
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   fabricLabel = [(HMMTRPairing *)self fabricLabel];
-  v23 = [v5 initWithName:@"Fabric Label" value:fabricLabel];
-  v29[2] = v23;
+  v22 = [v5 initWithName:@"Fabric Label" value:fabricLabel];
+  v28[2] = v22;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   rootPublicKey = [(HMMTRPairing *)self rootPublicKey];
   v8 = [v6 initWithName:@"Root Public Key" value:rootPublicKey];
-  v29[3] = v8;
+  v28[3] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   v10 = MEMORY[0x277CCABB0];
   rootPublicKey2 = [(HMMTRPairing *)self rootPublicKey];
   v12 = [v10 numberWithUnsignedInteger:{objc_msgSend(rootPublicKey2, "hash")}];
   v13 = [v9 initWithName:@"Root Public Key (Hash)" value:v12];
-  v29[4] = v13;
+  v28[4] = v13;
   v14 = objc_alloc(MEMORY[0x277D0F778]);
   vendorID = [(HMMTRPairing *)self vendorID];
   v16 = [v14 initWithName:@"Vendor ID" value:vendorID];
-  v29[5] = v16;
+  v28[5] = v16;
   v17 = objc_alloc(MEMORY[0x277D0F778]);
   vendorName = [(HMMTRPairing *)self vendorName];
   v19 = [v17 initWithName:@"Vendor Name" value:vendorName];
-  v29[6] = v19;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:7];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v28[6] = v19;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:7];
 
   return v20;
 }

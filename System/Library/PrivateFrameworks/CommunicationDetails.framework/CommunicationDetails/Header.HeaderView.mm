@@ -24,7 +24,7 @@
   if (!traitCollection)
   {
     v8.receiver = selfCopy;
-    v8.super_class = type metadata accessor for Header.HeaderView();
+    v8.super_class = type metadata accessor for Header.HeaderView(0);
     traitCollection = [(Header.HeaderView *)&v8 traitCollection];
   }
 
@@ -43,7 +43,7 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  specialized Header.HeaderView.init(frame:)();
+  specialized Header.HeaderView.init(frame:)(137);
 }
 
 - (_TtCV20CommunicationDetails6Header10HeaderView)initWithCoder:(id)coder
@@ -57,7 +57,7 @@
   }
 
   coderCopy = coder;
-  specialized Header.HeaderView.init(frame:)();
+  specialized Header.HeaderView.init(frame:)(142);
 }
 
 - (void)layoutSubviews

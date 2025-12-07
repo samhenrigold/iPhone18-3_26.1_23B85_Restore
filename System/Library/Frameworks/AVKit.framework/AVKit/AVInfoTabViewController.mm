@@ -26,7 +26,7 @@
 
 - (NSArray)actions
 {
-  sub_18B4AC60C(0, &qword_1EA9C3980);
+  sub_18B4AC60C(0, &qword_1EA9C3980, 0x1E69DC628);
   sub_18B6C450C();
   v2 = sub_18B6C575C();
 
@@ -35,7 +35,7 @@
 
 - (void)setActions:(id)actions
 {
-  sub_18B4AC60C(0, &qword_1EA9C3980);
+  sub_18B4AC60C(0, &qword_1EA9C3980, 0x1E69DC628);
   v4 = sub_18B6C576C();
   v5 = *(self + OBJC_IVAR____TtC5AVKit23AVInfoTabViewController_actions);
   *(self + OBJC_IVAR____TtC5AVKit23AVInfoTabViewController_actions) = v4;
@@ -51,7 +51,7 @@
 
 - (_TtC5AVKit23AVInfoTabViewController)initWithPlayerItem:(id)item actions:(id)actions
 {
-  sub_18B4AC60C(0, &qword_1EA9C3980);
+  sub_18B4AC60C(0, &qword_1EA9C3980, 0x1E69DC628);
   v5 = sub_18B6C576C();
   return sub_18B515F28(item, v5);
 }
@@ -69,7 +69,7 @@
 - (void)viewDidLoad
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for AVInfoTabViewController();
+  v6.super_class = type metadata accessor for AVInfoTabViewController(0);
   v2 = v6.receiver;
   [(AVInfoTabViewController *)&v6 viewDidLoad];
   view = [v2 view];
@@ -115,7 +115,7 @@
   *(self + v3) = 0;
 
   v8.receiver = self;
-  v8.super_class = type metadata accessor for AVInfoTabViewController();
+  v8.super_class = type metadata accessor for AVInfoTabViewController(0);
   [(AVInfoTabViewController *)&v8 dealloc];
 }
 

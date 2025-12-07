@@ -3,7 +3,7 @@
 
 @implementation AXSQuickSpeakEnabled
 
-uint64_t ___AXSQuickSpeakEnabled_block_invoke()
+void *___AXSQuickSpeakEnabled_block_invoke()
 {
   v1 = 1;
   result = _getBooleanPreference(kAXSQuickSpeakEnabledPreference, &v1);

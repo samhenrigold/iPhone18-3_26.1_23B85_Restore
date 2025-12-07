@@ -2,6 +2,7 @@
 - (id)clone;
 - (void)close;
 - (void)dealloc;
+- (void)readInternalWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
 @end
 
 @implementation ComAppleProactiveLuceneNSDataDirectory_SlicedIndexInput
@@ -33,6 +34,29 @@ LABEL_5:
   clone[8] = self->fileOffset_;
   clone[9] = self->length_;
   return clone;
+}
+
+- (void)readInternalWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  v5 = *&withInt;
+  v6 = *&int;
+  getFilePointer = [(OrgApacheLuceneStoreBufferedIndexInput *)self getFilePointer];
+  if (getFilePointer + v5 > self->length_)
+  {
+    v18 = JreStrcat("$@", v10, v11, v12, v13, v14, v15, v16, @"read past EOF: ");
+    v19 = new_JavaIoEOFException_initWithNSString_(v18);
+    objc_exception_throw(v19);
+  }
+
+  if (!self->base_)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [(OrgApacheLuceneStoreIndexInput *)self->base_ seekWithLong:self->fileOffset_ + getFilePointer];
+  base = self->base_;
+
+  [(OrgApacheLuceneStoreDataInput *)base readBytesWithByteArray:array withInt:v6 withInt:v5 withBoolean:0];
 }
 
 - (void)close

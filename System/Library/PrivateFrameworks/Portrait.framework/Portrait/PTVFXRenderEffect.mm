@@ -28,9 +28,9 @@
   detectionsCopy = detections;
   resourcesCopy = resources;
   queueCopy = queue;
-  v58.receiver = self;
-  v58.super_class = PTVFXRenderEffect;
-  v20 = [(PTVFXRenderEffect *)&v58 init];
+  v60.receiver = self;
+  v60.super_class = PTVFXRenderEffect;
+  v20 = [(PTVFXRenderEffect *)&v60 init];
   if (v20)
   {
     kdebug_trace();
@@ -47,9 +47,9 @@
     v20[68] = 0;
     v23 = [PTVFXSoftAlphaMask alloc];
     v24 = *(v20 + 1);
-    v56 = *&size->var0;
+    v58 = *&size->var0;
     var2 = size->var2;
-    v25 = [(PTVFXSoftAlphaMask *)v23 initWithMetalContext:v24 colorSize:&v56];
+    v25 = [(PTVFXSoftAlphaMask *)v23 initWithMetalContext:v24 colorSize:&v58];
     v26 = *(v20 + 6);
     *(v20 + 6) = v25;
 
@@ -64,37 +64,37 @@
 
     if (*(v20 + 3))
     {
-      v29 = objc_opt_new();
-      v30 = *(v20 + 32);
-      *(v20 + 32) = v29;
+      v30 = objc_opt_new();
+      v31 = *(v20 + 32);
+      *(v20 + 32) = v30;
 
-      v31 = objc_opt_new();
-      LODWORD(v56) = 0;
-      v32 = v20 + 264;
+      v32 = objc_opt_new();
+      LODWORD(v58) = 0;
+      v33 = v20 + 264;
       do
       {
-        [v31 reset];
-        [v31 setConstantValue:&v56 type:29 withName:@"kColorTransferFunction"];
-        v33 = [contextCopy computePipelineStateFor:@"convertRGBAlpha" withConstants:v31];
-        v34 = *&v32[8 * v56];
-        *&v32[8 * v56] = v33;
+        [v32 reset];
+        [v32 setConstantValue:&v58 type:29 withName:@"kColorTransferFunction"];
+        v34 = [contextCopy computePipelineStateFor:@"convertRGBAlpha" withConstants:v32];
+        v35 = *&v33[8 * v58];
+        *&v33[8 * v58] = v34;
 
-        v35 = v56;
-        if (!*&v32[8 * v56])
+        v37 = v58;
+        if (!*&v33[8 * v58])
         {
-          v45 = _PTLogSystem();
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+          v47 = _PTLogSystem(v36);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
           {
-            [(PTVFXRenderEffect *)v45 initWithMetalContext:v46 colorSize:v47 colorConversion:v48 prewarmOnly:v49 humanDetections:v50 sharedResources:v51 asyncInitQueue:v52];
+            [(PTVFXRenderEffect *)v47 initWithMetalContext:v48 colorSize:v49 colorConversion:v50 prewarmOnly:v51 humanDetections:v52 sharedResources:v53 asyncInitQueue:v54];
           }
 
           goto LABEL_15;
         }
 
-        LODWORD(v56) = v56 + 1;
+        LODWORD(v58) = v58 + 1;
       }
 
-      while (v35 <= 7);
+      while (v37 <= 7);
       if (only)
       {
         kdebug_trace();
@@ -102,53 +102,53 @@
 
       else
       {
-        v53 = [v20 initVFX:0 sharedResources:resourcesCopy asyncInitQueue:queueCopy];
+        v55 = [v20 initVFX:0 sharedResources:resourcesCopy asyncInitQueue:queueCopy];
         kdebug_trace();
-        if (v53)
+        if (v55)
         {
           goto LABEL_15;
         }
       }
 
-      v36 = v20;
+      v38 = v20;
     }
 
     else
     {
-      v31 = _PTLogSystem();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v32 = _PTLogSystem(v29);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        [(PTVFXRenderEffect *)v31 initWithMetalContext:v38 colorSize:v39 colorConversion:v40 prewarmOnly:v41 humanDetections:v42 sharedResources:v43 asyncInitQueue:v44];
+        [(PTVFXRenderEffect *)v32 initWithMetalContext:v40 colorSize:v41 colorConversion:v42 prewarmOnly:v43 humanDetections:v44 sharedResources:v45 asyncInitQueue:v46];
       }
 
 LABEL_15:
-      v36 = 0;
+      v38 = 0;
     }
 
-    v37 = detectionsCopy;
+    v39 = detectionsCopy;
   }
 
   else
   {
-    v36 = 0;
-    v37 = detectionsCopy;
+    v38 = 0;
+    v39 = detectionsCopy;
   }
 
-  return v36;
+  return v38;
 }
 
 - (void)dealloc
 {
   [(PTVFXResources *)self->_vfxResources setInitializationCancelled:1];
-  device = [(PTMetalContext *)self->_metalContext device];
-  purgeMetalDevice(device);
+  v3 = objc_msgSend_device(self->_metalContext);
+  purgeMetalDevice(v3);
   v4 = dispatch_time(0, 2000000000);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __28__PTVFXRenderEffect_dealloc__block_invoke;
   block[3] = &unk_278522E90;
-  v8 = device;
-  v5 = device;
+  v8 = v3;
+  v5 = v3;
   dispatch_after(v4, MEMORY[0x277D85CD0], block);
 
   v6.receiver = self;
@@ -394,7 +394,7 @@ LABEL_12:
 
 - (id)addNewEffectFromEvent:(id)event renderRequest:(id)request time:(double)time presenterOverlaySmall:(BOOL)small
 {
-  v169 = *MEMORY[0x277D85DE8];
+  v175 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   requestCopy = request;
   smallCopy = small;
@@ -407,9 +407,9 @@ LABEL_12:
   [v11 setEffectType:v14];
   [v11 setUiTriggeredReaction:{objc_msgSend(eventCopy, "uiTriggeredReaction")}];
   activeReactions = self->_activeReactions;
-  v137 = eventCopy;
+  v143 = eventCopy;
   v16 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(eventCopy, "triggerID")}];
-  v128 = v11;
+  v134 = v11;
   [(NSMutableDictionary *)activeReactions setObject:v11 forKeyedSubscript:v16];
 
   v17 = [[PTVFXRenderEffectBinding alloc] initWithHumanDetections:self->_humanDetections];
@@ -433,40 +433,40 @@ LABEL_12:
   [rootNode3 addChildNode:rootAssetNode];
 
   reactionTemplates2 = [(PTVFXResources *)self->_vfxResources reactionTemplates];
-  v141 = v14;
+  v147 = v14;
   v32 = [reactionTemplates2 objectAtIndexedSubscript:v14];
   v33 = [v32 copy];
 
   world3 = [(PTVFXResources *)self->_vfxResources world];
   rootNode4 = [(PTVFXRenderEffectBinding *)v17 rootNode];
   rootAssetNode2 = [(PTVFXRenderEffectBinding *)v17 rootAssetNode];
-  v127 = v33;
+  v133 = v33;
   [world3 mergeWorld:v33 parentNode:rootNode4 parentAssetNode:rootAssetNode2];
 
-  v158 = 0u;
-  v159 = 0u;
-  v156 = 0u;
-  v157 = 0u;
-  v142 = v17;
+  v164 = 0u;
+  v165 = 0u;
+  v162 = 0u;
+  v163 = 0u;
+  v148 = v17;
   rootAssetNode3 = [(PTVFXRenderEffectBinding *)v17 rootAssetNode];
   childNodes = [rootAssetNode3 childNodes];
 
-  v39 = [childNodes countByEnumeratingWithState:&v156 objects:v168 count:16];
+  v39 = [childNodes countByEnumeratingWithState:&v162 objects:v174 count:16];
   if (v39)
   {
     v41 = v39;
-    v42 = *v157;
+    v42 = *v163;
     gotLoadHelper_x27__OBJC_CLASS___VFXClientTextureAsset(v40);
     do
     {
       for (i = 0; i != v41; ++i)
       {
-        if (*v157 != v42)
+        if (*v163 != v42)
         {
           objc_enumerationMutation(childNodes);
         }
 
-        v44 = *(*(&v156 + 1) + 8 * i);
+        v44 = *(*(&v162 + 1) + 8 * i);
         asset = [v44 asset];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
@@ -485,14 +485,14 @@ LABEL_12:
         }
       }
 
-      v41 = [childNodes countByEnumeratingWithState:&v156 objects:v168 count:16];
+      v41 = [childNodes countByEnumeratingWithState:&v162 objects:v174 count:16];
     }
 
     while (v41);
   }
 
-  v51 = v142;
-  [(PTVFXRenderEffectBinding *)v142 setEffectType:v141];
+  v51 = v148;
+  v52 = [(PTVFXRenderEffectBinding *)v148 setEffectType:v147];
   cameraRotationDegrees = self->_cameraRotationDegrees;
   if (cameraRotationDegrees <= 179)
   {
@@ -533,7 +533,7 @@ LABEL_21:
     }
 
 LABEL_22:
-    v56 = 1;
+    v57 = 1;
     goto LABEL_24;
   }
 
@@ -541,163 +541,163 @@ LABEL_18:
   width = self->_colorSize.width;
   height = self->_colorSize.height;
 LABEL_23:
-  v56 = width == height;
+  v57 = width == height;
 LABEL_24:
   aspectRatio = self->_aspectRatio;
-  if (v141 > 3)
+  if (v147 > 3)
   {
-    if (v141 > 5)
+    if (v147 > 5)
     {
-      if (v141 != 7)
+      if (v147 != 7)
       {
-        if (v141 != 6)
+        if (v147 != 6)
         {
           goto LABEL_41;
         }
 
-        if (v56)
+        if (v57)
         {
-          LODWORD(v52) = 1084647014;
+          LODWORD(v53) = 1084647014;
 LABEL_49:
-          [(PTVFXRenderEffectBinding *)v142 setDuration:v52];
+          [(PTVFXRenderEffectBinding *)v148 setDuration:v53];
           goto LABEL_50;
         }
 
         _ZF = aspectRatio == 1;
-        LODWORD(v52) = 1087163597;
-        v68 = 6.0;
+        LODWORD(v53) = 1087163597;
+        v69 = 6.0;
 LABEL_47:
         if (!_ZF)
         {
-          *&v52 = v68;
+          *&v53 = v69;
         }
 
         goto LABEL_49;
       }
     }
 
-    else if (v141 != 4)
+    else if (v147 != 4)
     {
-      v58 = v142;
-      v59 = 0;
+      v59 = v148;
+      v60 = 0;
 LABEL_38:
-      [(PTVFXRenderEffectBinding *)v58 setUseBackgroundDimming:v59];
+      [(PTVFXRenderEffectBinding *)v59 setUseBackgroundDimming:v60];
       goto LABEL_50;
     }
 
-    v58 = v142;
-    v59 = 1;
+    v59 = v148;
+    v60 = 1;
     goto LABEL_38;
   }
 
-  if ((v141 - 1) >= 2)
+  if ((v147 - 1) >= 2)
   {
-    if (v141)
+    if (v147)
     {
-      if (v141 == 3)
+      if (v147 == 3)
       {
-        if (v56)
+        if (v57)
         {
-          LODWORD(v52) = 1082340147;
+          LODWORD(v53) = 1082340147;
         }
 
         else
         {
-          LODWORD(v52) = dword_2244A52F8[aspectRatio == 1];
+          LODWORD(v53) = dword_2244A52F8[aspectRatio == 1];
         }
 
         goto LABEL_49;
       }
 
 LABEL_41:
-      v60 = _PTLogSystem();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+      v61 = _PTLogSystem(v52);
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
       {
-        [(PTVFXRenderEffect *)v141 addNewEffectFromEvent:v60 renderRequest:v61 time:v62 presenterOverlaySmall:v63, v64, v65, v66];
+        [(PTVFXRenderEffect *)v147 addNewEffectFromEvent:v61 renderRequest:v62 time:v63 presenterOverlaySmall:v64, v65, v66, v67];
       }
 
       goto LABEL_50;
     }
 
-    if (v56)
+    if (v57)
     {
-      LODWORD(v52) = 1083388723;
+      LODWORD(v53) = 1083388723;
       goto LABEL_49;
     }
 
     _ZF = aspectRatio == 1;
-    LODWORD(v52) = 1084437299;
-    v68 = 5.0;
+    LODWORD(v53) = 1084437299;
+    v69 = 5.0;
     goto LABEL_47;
   }
 
 LABEL_50:
-  v154 = 0u;
-  v155 = 0u;
-  v152 = 0u;
-  v153 = 0u;
-  rootNode5 = [(PTVFXRenderEffectBinding *)v142 rootNode];
+  v160 = 0u;
+  v161 = 0u;
+  v158 = 0u;
+  v159 = 0u;
+  rootNode5 = [(PTVFXRenderEffectBinding *)v148 rootNode];
   childNodes2 = [rootNode5 childNodes];
 
   obj = childNodes2;
-  v134 = [childNodes2 countByEnumeratingWithState:&v152 objects:v167 count:16];
-  if (!v134)
+  v140 = [childNodes2 countByEnumeratingWithState:&v158 objects:v173 count:16];
+  if (!v140)
   {
     goto LABEL_153;
   }
 
-  v129 = v141 - 1;
-  v133 = *v153;
+  v135 = v147 - 1;
+  v139 = *v159;
   __asm { FMOV            V0.2S, #1.0 }
 
-  v131 = _D0;
-  v75 = vneg_f32(0x80000000800000);
+  v137 = _D0;
+  v76 = vneg_f32(0x80000000800000);
   do
   {
-    for (j = 0; j != v134; ++j)
+    for (j = 0; j != v140; ++j)
     {
-      if (*v153 != v133)
+      if (*v159 != v139)
       {
         objc_enumerationMutation(obj);
       }
 
-      v77 = *(*(&v152 + 1) + 8 * j);
-      behaviorGraph = [v77 behaviorGraph];
+      v78 = *(*(&v158 + 1) + 8 * j);
+      behaviorGraph = [v78 behaviorGraph];
       if (behaviorGraph)
       {
-        v136 = j;
-        name = [v77 name];
-        v148 = 0u;
-        v149 = 0u;
-        v150 = 0u;
-        v151 = 0u;
-        v135 = behaviorGraph;
+        v142 = j;
+        name = [v78 name];
+        v154 = 0u;
+        v155 = 0u;
+        v156 = 0u;
+        v157 = 0u;
+        v141 = behaviorGraph;
         bindings = [behaviorGraph bindings];
-        v81 = [bindings countByEnumeratingWithState:&v148 objects:v166 count:16];
-        if (!v81)
+        v82 = [bindings countByEnumeratingWithState:&v154 objects:v172 count:16];
+        if (!v82)
         {
           goto LABEL_150;
         }
 
-        v82 = v81;
-        v83 = *v149;
+        v83 = v82;
+        v84 = *v155;
         while (1)
         {
-          v84 = 0;
+          v85 = 0;
           do
           {
-            if (*v149 != v83)
+            if (*v155 != v84)
             {
               objc_enumerationMutation(bindings);
             }
 
-            v85 = *(*(&v148 + 1) + 8 * v84);
-            name2 = [v85 name];
+            v86 = *(*(&v154 + 1) + 8 * v85);
+            name2 = [v86 name];
             if ([name2 isEqualToString:@"position"] && objc_msgSend(name, "isEqualToString:", @"Emitter"))
             {
-              if (v141 == 6)
+              if (v147 == 6)
               {
-                [(PTVFXRenderEffectBinding *)v51 setPositionBinding:v85];
+                [(PTVFXRenderEffectBinding *)v51 setPositionBinding:v86];
               }
             }
 
@@ -705,30 +705,30 @@ LABEL_50:
             {
               if ([name2 isEqualToString:@"headPosition"])
               {
-                [(PTVFXRenderEffectBinding *)v51 setHeadPositionBinding:v85];
+                [(PTVFXRenderEffectBinding *)v51 setHeadPositionBinding:v86];
                 goto LABEL_104;
               }
 
               if ([name2 isEqualToString:@"seed"])
               {
                 *buf = 0;
-                v87 = kVFXRandomizationSeed;
+                v88 = kVFXRandomizationSeed;
                 if (kVFXRandomizationSeed == -1)
                 {
-                  v87 = mach_absolute_time();
+                  v88 = mach_absolute_time();
                 }
 
-                *buf = v87;
-                v88 = [MEMORY[0x277CBEA90] dataWithBytes:buf length:4];
-                [PTVFXRenderEffectBinding setRawValue:v88 onBinding:v85];
+                *buf = v88;
+                v89 = [MEMORY[0x277CBEA90] dataWithBytes:buf length:4];
+                [PTVFXRenderEffectBinding setRawValue:v89 onBinding:v86];
 
                 goto LABEL_103;
               }
 
               if ([name2 isEqualToString:@"orientation"])
               {
-                v89 = self->_cameraRotationDegrees;
-                *buf = v89;
+                v90 = self->_cameraRotationDegrees;
+                *buf = v90;
                 if (self->_aspectRatio == 3)
                 {
                   goto LABEL_73;
@@ -736,22 +736,22 @@ LABEL_50:
 
                 if (self->_colorSizeROI.width < self->_colorSizeROI.height)
                 {
-                  if (v89 > 179)
+                  if (v90 > 179)
                   {
-                    if (v89 == 270)
+                    if (v90 == 270)
                     {
                       goto LABEL_73;
                     }
 
-                    if (v89 != 180)
+                    if (v90 != 180)
                     {
                       goto LABEL_100;
                     }
                   }
 
-                  else if (v89)
+                  else if (v90)
                   {
-                    if (v89 != 90)
+                    if (v90 != 90)
                     {
                       goto LABEL_100;
                     }
@@ -765,11 +765,11 @@ LABEL_73:
                 }
 
 LABEL_100:
-                v102 = MEMORY[0x277CBEA90];
-                v103 = buf;
-                v104 = 4;
+                v105 = MEMORY[0x277CBEA90];
+                v106 = buf;
+                v107 = 4;
 LABEL_101:
-                opacityValue2 = [v102 dataWithBytes:v103 length:v104];
+                opacityValue2 = [v105 dataWithBytes:v106 length:v107];
                 goto LABEL_102;
               }
 
@@ -777,18 +777,18 @@ LABEL_101:
               {
                 if ((self->_aspectRatio & 0xFFFFFFFFFFFFFFFELL) == 2)
                 {
-                  v90 = 4;
+                  v91 = 4;
                 }
 
                 else
                 {
-                  v90 = 9;
+                  v91 = 9;
                 }
 
-                *buf = v90;
-                v91 = MEMORY[0x277CBEA90];
-                v92 = buf;
-                v93 = 4;
+                *buf = v91;
+                v92 = MEMORY[0x277CBEA90];
+                v93 = buf;
+                v94 = 4;
                 goto LABEL_79;
               }
 
@@ -799,23 +799,23 @@ LABEL_101:
                 if (!opacityValue)
                 {
                   *buf = 1065353216;
-                  v96 = [MEMORY[0x277CBEA90] dataWithBytes:buf length:4];
-                  [(PTVFXRenderEffectBinding *)v51 setOpacityValue:v96];
+                  v97 = [MEMORY[0x277CBEA90] dataWithBytes:buf length:4];
+                  [(PTVFXRenderEffectBinding *)v51 setOpacityValue:v97];
 
-                  v97 = objc_opt_new();
-                  [(PTVFXRenderEffectBinding *)v51 setOpacityBindings:v97];
+                  v98 = objc_opt_new();
+                  [(PTVFXRenderEffectBinding *)v51 setOpacityBindings:v98];
                 }
 
                 opacityBindings = [(PTVFXRenderEffectBinding *)v51 opacityBindings];
-                [opacityBindings addObject:v85];
+                [opacityBindings addObject:v86];
 
                 opacityValue2 = [(PTVFXRenderEffectBinding *)v51 opacityValue];
 LABEL_102:
-                v105 = opacityValue2;
-                [PTVFXRenderEffectBinding setRawValue:opacityValue2 onBinding:v85];
+                v108 = opacityValue2;
+                [PTVFXRenderEffectBinding setRawValue:opacityValue2 onBinding:v86];
 
 LABEL_103:
-                v51 = v142;
+                v51 = v148;
                 goto LABEL_104;
               }
 
@@ -825,25 +825,26 @@ LABEL_103:
 
                 if (durationBinding)
                 {
-                  v101 = _PTLogSystem();
-                  if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
+                  v103 = _PTLogSystem(v102);
+                  if (os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
                   {
-                    [PTVFXRenderEffect addNewEffectFromEvent:v147 renderRequest:v101 time:? presenterOverlaySmall:?];
+                    [PTVFXRenderEffect addNewEffectFromEvent:v153 renderRequest:v103 time:? presenterOverlaySmall:?];
                   }
                 }
 
-                rawValue = [v85 rawValue];
-                if ([rawValue length] == 4)
+                rawValue = [v86 rawValue];
+                v104 = [rawValue length];
+                if (v104 == 4)
                 {
-                  [(PTVFXRenderEffectBinding *)v142 setDurationBinding:v85];
+                  [(PTVFXRenderEffectBinding *)v148 setDurationBinding:v86];
                 }
 
                 else
                 {
-                  v107 = _PTLogSystem();
-                  if (os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
+                  v110 = _PTLogSystem(v104);
+                  if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
                   {
-                    [PTVFXRenderEffect addNewEffectFromEvent:v165 renderRequest:rawValue time:? presenterOverlaySmall:?];
+                    [PTVFXRenderEffect addNewEffectFromEvent:v171 renderRequest:rawValue time:? presenterOverlaySmall:?];
                   }
                 }
 
@@ -852,37 +853,38 @@ LABEL_103:
 
               if ([name2 isEqualToString:@"gestureTrigger"])
               {
-                v106 = [v137 uiTriggeredReaction] ^ 1;
+                v109 = [v143 uiTriggeredReaction] ^ 1;
                 goto LABEL_108;
               }
 
               if ([name2 isEqualToString:@"backgroundDimming"])
               {
-                rawValue2 = [v85 rawValue];
+                rawValue2 = [v86 rawValue];
                 backgroundDimmingBinding = [(PTVFXRenderEffectBinding *)v51 backgroundDimmingBinding];
 
                 if (backgroundDimmingBinding)
                 {
-                  v109 = _PTLogSystem();
-                  if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
+                  v113 = _PTLogSystem(v112);
+                  if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
                   {
-                    [PTVFXRenderEffect addNewEffectFromEvent:v145 renderRequest:v109 time:? presenterOverlaySmall:?];
+                    [PTVFXRenderEffect addNewEffectFromEvent:v151 renderRequest:v113 time:? presenterOverlaySmall:?];
                   }
 
-                  v51 = v142;
+                  v51 = v148;
                 }
 
-                if ([rawValue2 length] == 4)
+                v114 = [rawValue2 length];
+                if (v114 == 4)
                 {
-                  [(PTVFXRenderEffectBinding *)v51 setBackgroundDimmingBinding:v85];
+                  [(PTVFXRenderEffectBinding *)v51 setBackgroundDimmingBinding:v86];
                 }
 
                 else
                 {
-                  v110 = _PTLogSystem();
-                  if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
+                  v115 = _PTLogSystem(v114);
+                  if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
                   {
-                    [PTVFXRenderEffect addNewEffectFromEvent:v164 renderRequest:rawValue2 time:? presenterOverlaySmall:?];
+                    [PTVFXRenderEffect addNewEffectFromEvent:v170 renderRequest:rawValue2 time:? presenterOverlaySmall:?];
                   }
                 }
               }
@@ -891,108 +893,108 @@ LABEL_103:
               {
                 if ([name2 isEqualToString:@"bilbyFloating"])
                 {
-                  v91 = MEMORY[0x277CBEA90];
-                  v92 = &smallCopy;
+                  v92 = MEMORY[0x277CBEA90];
+                  v93 = &smallCopy;
                   goto LABEL_109;
                 }
 
                 if ([name2 isEqualToString:@"viewportScale"])
                 {
-                  v111 = self->_colorSizeROI.width;
-                  v112 = self->_colorSizeROI.height;
-                  HIDWORD(v113) = HIDWORD(v131);
-                  LODWORD(v114) = v131;
-                  if (v111 > v112)
+                  v116 = self->_colorSizeROI.width;
+                  v117 = self->_colorSizeROI.height;
+                  HIDWORD(v118) = HIDWORD(v137);
+                  LODWORD(v119) = v137;
+                  if (v116 > v117)
                   {
-                    *&v113 = v111 / v112;
-                    v115 = v113;
+                    *&v118 = v116 / v117;
+                    v120 = v118;
                   }
 
                   else
                   {
-                    *(&v114 + 1) = v112 / v111;
-                    v115 = v114;
+                    *(&v119 + 1) = v117 / v116;
+                    v120 = v119;
                   }
 
-                  *buf = v115;
-                  v91 = MEMORY[0x277CBEA90];
-                  v92 = buf;
-                  v93 = 8;
+                  *buf = v120;
+                  v92 = MEMORY[0x277CBEA90];
+                  v93 = buf;
+                  v94 = 8;
                   goto LABEL_79;
                 }
 
-                v51 = v142;
+                v51 = v148;
                 if ([name2 isEqualToString:@"left"] && objc_msgSend(name, "isEqualToString:", @"Emitter"))
                 {
-                  if (v129 <= 1)
+                  if (v135 <= 1)
                   {
-                    v106 = [v137 orientation] == 0;
+                    v109 = [v143 orientation] == 0;
                     goto LABEL_108;
                   }
                 }
 
                 else if ([name2 isEqualToString:@"up"] && objc_msgSend(name, "isEqualToString:", @"Emitter"))
                 {
-                  if (v129 <= 1)
+                  if (v135 <= 1)
                   {
-                    v106 = v141 == 1;
+                    v109 = v147 == 1;
 LABEL_108:
-                    buf[0] = v106;
-                    v91 = MEMORY[0x277CBEA90];
-                    v92 = buf;
+                    buf[0] = v109;
+                    v92 = MEMORY[0x277CBEA90];
+                    v93 = buf;
 LABEL_109:
-                    v93 = 1;
+                    v94 = 1;
 LABEL_79:
-                    rawValue = [v91 dataWithBytes:v92 length:v93];
-                    [PTVFXRenderEffectBinding setRawValue:rawValue onBinding:v85];
+                    rawValue = [v92 dataWithBytes:v93 length:v94];
+                    [PTVFXRenderEffectBinding setRawValue:rawValue onBinding:v86];
 LABEL_80:
 
-                    v51 = v142;
+                    v51 = v148;
                   }
                 }
 
                 else if ((![name2 isEqualToString:@"rate"] || (objc_msgSend(name, "isEqualToString:", @"Emitter") & 1) == 0) && objc_msgSend(name2, "isEqualToString:", @"boundsMin"))
                 {
-                  v143 = v75;
-                  v116 = 0.0;
-                  v117 = 1;
+                  v149 = v76;
+                  v121 = 0.0;
+                  v122 = 1;
                   do
                   {
-                    v138 = v117;
-                    v118 = 1;
-                    v119 = 0.0;
-                    v140 = v116;
+                    v144 = v122;
+                    v123 = 1;
+                    v124 = 0.0;
+                    v146 = v121;
                     do
                     {
-                      v120 = v118;
-                      v121 = COERCE_DOUBLE(__PAIR64__(LODWORD(v119), LODWORD(v140)));
-                      LODWORD(v119) = -1.0;
-                      [PTEffectUtil screenSpaceToCameraSpace:v121 zValue:v119 inverseProjection:*self->_anon_b0, *&self->_anon_b0[16], *&self->_anon_b0[32], *&self->_anon_b0[48]];
-                      v118 = 0;
-                      HIDWORD(v119) = v143.i32[1];
-                      v143 = vminnm_f32(v122, v143);
-                      LODWORD(v119) = 1.0;
+                      v125 = v123;
+                      v126 = COERCE_DOUBLE(__PAIR64__(LODWORD(v124), LODWORD(v146)));
+                      LODWORD(v124) = -1.0;
+                      v127 = [PTEffectUtil screenSpaceToCameraSpace:v126 zValue:v124 inverseProjection:*self->_anon_b0, *&self->_anon_b0[16], *&self->_anon_b0[32], *&self->_anon_b0[48]];
+                      v123 = 0;
+                      HIDWORD(v124) = v149.i32[1];
+                      v149 = vminnm_f32(v128, v149);
+                      LODWORD(v124) = 1.0;
                     }
 
-                    while ((v120 & 1) != 0);
-                    v117 = 0;
-                    v116 = 1.0;
+                    while ((v125 & 1) != 0);
+                    v122 = 0;
+                    v121 = 1.0;
                   }
 
-                  while ((v138 & 1) != 0);
-                  v123 = _PTLogSystem();
-                  if (os_log_type_enabled(v123, OS_LOG_TYPE_INFO))
+                  while ((v144 & 1) != 0);
+                  v129 = _PTLogSystem(v127);
+                  if (os_log_type_enabled(v129, OS_LOG_TYPE_INFO))
                   {
                     *buf = 134218240;
-                    *&buf[4] = v143.f32[0];
-                    v162 = 2048;
-                    v163 = v143.f32[1];
-                    _os_log_impl(&dword_2243FB000, v123, OS_LOG_TYPE_INFO, "boundsMin %f %f ", buf, 0x16u);
+                    *&buf[4] = v149.f32[0];
+                    v168 = 2048;
+                    v169 = v149.f32[1];
+                    _os_log_impl(&dword_2243FB000, v129, OS_LOG_TYPE_INFO, "boundsMin %f %f ", buf, 0x16u);
                   }
 
-                  v102 = MEMORY[0x277CBEA90];
-                  v103 = &v143;
-                  v104 = 8;
+                  v105 = MEMORY[0x277CBEA90];
+                  v106 = &v149;
+                  v107 = 8;
                   goto LABEL_101;
                 }
               }
@@ -1000,35 +1002,35 @@ LABEL_80:
 
 LABEL_104:
 
-            ++v84;
+            ++v85;
           }
 
-          while (v84 != v82);
-          v124 = [bindings countByEnumeratingWithState:&v148 objects:v166 count:16];
-          v82 = v124;
-          if (!v124)
+          while (v85 != v83);
+          v130 = [bindings countByEnumeratingWithState:&v154 objects:v172 count:16];
+          v83 = v130;
+          if (!v130)
           {
 LABEL_150:
 
-            behaviorGraph = v135;
-            j = v136;
+            behaviorGraph = v141;
+            j = v142;
             break;
           }
         }
       }
     }
 
-    v134 = [obj countByEnumeratingWithState:&v152 objects:v167 count:16];
+    v140 = [obj countByEnumeratingWithState:&v158 objects:v173 count:16];
   }
 
-  while (v134);
+  while (v140);
 LABEL_153:
 
   [(PTVFXRenderEffectBinding *)v51 setUseBackgroundDimming:[(PTVFXRenderEffectBinding *)v51 useBackgroundDimming]];
   [(PTVFXRenderEffectBinding *)v51 setCreationTimeSeconds:time];
   [(PTVFXRenderEffectBinding *)v51 setInverseCameraProjection:*self->_anon_b0, *&self->_anon_b0[16], *&self->_anon_b0[32], *&self->_anon_b0[48]];
-  *&v125 = self->_emitZValue;
-  [(PTVFXRenderEffectBinding *)v51 setEmitZValue:v125];
+  *&v131 = self->_emitZValue;
+  [(PTVFXRenderEffectBinding *)v51 setEmitZValue:v131];
 
   return v51;
 }
@@ -1145,16 +1147,16 @@ LABEL_19:
 
 - (BOOL)updateWithRenderRequest:(id)request lastFrameTime:(double)time
 {
-  v129 = *MEMORY[0x277D85DE8];
+  v131 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   [requestCopy frameTimeSeconds];
   v8 = v7;
   v9 = [requestCopy presenterOverlayMode] == 3 || objc_msgSend(requestCopy, "presenterOverlayMode") == 4;
-  v95 = v9;
+  v97 = v9;
   reactionTemplates = [(PTVFXResources *)self->_vfxResources reactionTemplates];
   v11 = [reactionTemplates count];
 
-  v102 = requestCopy;
+  v104 = requestCopy;
   if ([(NSMutableDictionary *)self->_activeReactions count])
   {
     v12 = 0;
@@ -1169,25 +1171,25 @@ LABEL_19:
   v14 = 0;
   if (!v11 || v12)
   {
-    goto LABEL_97;
+    goto LABEL_101;
   }
 
-  v15 = v102;
-  [v102 inReactionColorSize];
-  if (v16 != self->_colorSize.width || ([v102 inReactionColorSize], v17 != self->_colorSize.height))
+  v15 = v104;
+  [v104 inReactionColorSize];
+  if (v16 != self->_colorSize.width || ([v104 inReactionColorSize], v17 != self->_colorSize.height))
   {
-    [v102 inReactionColorSize];
+    [v104 inReactionColorSize];
     if (v18 != 0.0)
     {
-      [v102 inReactionColorSize];
+      [v104 inReactionColorSize];
       if (v19 != 0.0)
       {
-        [v102 inReactionColorSize];
+        [v104 inReactionColorSize];
         v21 = v20;
-        [v102 inReactionColorSize];
+        [v104 inReactionColorSize];
         self->_colorSize.width = v21;
         self->_colorSize.height = v22;
-        v15 = v102;
+        v15 = v104;
         self->_colorSize.depth = 0;
       }
     }
@@ -1214,18 +1216,18 @@ LABEL_19:
     self->_aspectRatio = [PTEffectUtil aspectRatio:v26, v29];
   }
 
-  v31 = v102;
-  if (v102)
+  v31 = v104;
+  if (v104)
   {
-    [v102 transform];
+    objc_msgSend_transform(v104);
   }
 
   else
   {
-    memset(v123, 0, sizeof(v123));
+    memset(v125, 0, sizeof(v125));
   }
 
-  v32 = [PTUtil getRotationDegreesFromAffineTransform:v123];
+  v32 = [PTUtil getRotationDegreesFromAffineTransform:v125];
   if (v32 == self->_cameraRotationDegrees)
   {
     if (!v30)
@@ -1243,65 +1245,76 @@ LABEL_19:
 LABEL_26:
   v33 = v8 - time;
   v34 = v33 > 0.25 && !self->_simulationWasSkippedForPreviousFrame;
-  v94 = v34;
+  if (v33 <= 0.0166666667)
+  {
+    v33 = 0.016667;
+  }
+
+  if (v33 > 0.25)
+  {
+    v33 = 0.25;
+  }
+
+  v35 = v33;
+  v96 = v34;
   kdebug_trace();
-  v35 = objc_alloc(MEMORY[0x277CBEB18]);
+  v36 = objc_alloc(MEMORY[0x277CBEB18]);
   allKeys = [(NSMutableDictionary *)self->_effectBindings allKeys];
-  v98 = [v35 initWithArray:allKeys];
+  v100 = [v36 initWithArray:allKeys];
 
   self->_emitNewReaction = 0;
   self->_dimmingFactor = 0.0;
-  v119 = 0u;
-  v120 = 0u;
   v121 = 0u;
   v122 = 0u;
-  obj = [v102 reactions];
-  v101 = [obj countByEnumeratingWithState:&v119 objects:v128 count:16];
-  if (v101)
+  v123 = 0u;
+  v124 = 0u;
+  obj = [v104 reactions];
+  v103 = [obj countByEnumeratingWithState:&v121 objects:v130 count:16];
+  if (v103)
   {
-    v97 = 0;
     v99 = 0;
-    v100 = *v120;
+    v101 = 0;
+    v102 = *v122;
     do
     {
-      for (i = 0; i != v101; ++i)
+      for (i = 0; i != v103; ++i)
       {
-        if (*v120 != v100)
+        if (*v122 != v102)
         {
           objc_enumerationMutation(obj);
         }
 
-        v38 = *(*(&v119 + 1) + 8 * i);
-        v39 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v38, "triggerID")}];
-        v115 = 0u;
-        v116 = 0u;
+        v39 = *(*(&v121 + 1) + 8 * i);
+        v40 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v39, "triggerID")}];
         v117 = 0u;
         v118 = 0u;
+        v119 = 0u;
+        v120 = 0u;
         allValues = [(NSMutableDictionary *)self->_effectBindings allValues];
-        v41 = [allValues countByEnumeratingWithState:&v115 objects:v127 count:16];
-        if (v41)
+        v42 = [allValues countByEnumeratingWithState:&v117 objects:v129 count:16];
+        if (v42)
         {
-          v42 = *v116;
+          v43 = *v118;
           while (2)
           {
-            for (j = 0; j != v41; j = j + 1)
+            for (j = 0; j != v42; j = j + 1)
             {
-              if (*v116 != v42)
+              if (*v118 != v43)
               {
                 objc_enumerationMutation(allValues);
               }
 
-              v44 = *(*(&v115 + 1) + 8 * j);
-              effectType = [v44 effectType];
-              if (effectType == [v38 effectType])
+              v45 = *(*(&v117 + 1) + 8 * j);
+              effectType = [v45 effectType];
+              if (effectType == [v39 effectType])
               {
-                v41 = v44;
-                goto LABEL_44;
+                v42 = v45;
+                goto LABEL_48;
               }
             }
 
-            v41 = [allValues countByEnumeratingWithState:&v115 objects:v127 count:16];
-            if (v41)
+            v42 = [allValues countByEnumeratingWithState:&v117 objects:v129 count:16];
+            if (v42)
             {
               continue;
             }
@@ -1309,215 +1322,215 @@ LABEL_26:
             break;
           }
 
-LABEL_44:
-          v31 = v102;
+LABEL_48:
+          v31 = v104;
         }
 
-        [v38 startTimeSeconds];
-        v47 = v46;
+        [v39 startTimeSeconds];
+        v48 = v47;
         [v31 frameTimeSeconds];
-        if (!v41 && v47 != v48)
+        if (!v42 && v48 != v49)
         {
-          if (([v38 uiTriggeredReaction] & 1) == 0)
+          if (([v39 uiTriggeredReaction] & 1) == 0)
           {
-            goto LABEL_71;
+            goto LABEL_75;
           }
 
-LABEL_50:
+LABEL_54:
+          v115 = 0u;
+          v116 = 0u;
           v113 = 0u;
           v114 = 0u;
-          v111 = 0u;
-          v112 = 0u;
           allValues2 = [(NSMutableDictionary *)self->_effectBindings allValues];
-          v50 = [allValues2 countByEnumeratingWithState:&v111 objects:v126 count:16];
-          if (v50)
+          v51 = [allValues2 countByEnumeratingWithState:&v113 objects:v128 count:16];
+          if (v51)
           {
-            v51 = v50;
-            v52 = *v112;
+            v52 = v51;
+            v53 = *v114;
             do
             {
-              for (k = 0; k != v51; ++k)
+              for (k = 0; k != v52; ++k)
               {
-                if (*v112 != v52)
+                if (*v114 != v53)
                 {
                   objc_enumerationMutation(allValues2);
                 }
 
-                [*(*(&v111 + 1) + 8 * k) forceFadeOut:v8];
+                [*(*(&v113 + 1) + 8 * k) forceFadeOut:v8];
               }
 
-              v51 = [allValues2 countByEnumeratingWithState:&v111 objects:v126 count:16];
+              v52 = [allValues2 countByEnumeratingWithState:&v113 objects:v128 count:16];
             }
 
-            while (v51);
+            while (v52);
           }
 
-          ++v99;
-          effectType2 = [v38 effectType];
-          v31 = v102;
-          v55 = [(PTVFXRenderEffect *)self addNewEffectFromEvent:v38 renderRequest:v102 time:v95 presenterOverlaySmall:v8];
-          v41 = v55;
-          v57 = effectType2 << 32 != 0x100000000 && effectType2 << 32 != 0x200000000 && v95;
-          [v55 setUseCircularGradient:v57];
-          [(NSMutableDictionary *)self->_effectBindings setObject:v41 forKeyedSubscript:v39];
-          self->_emitNewReaction |= v41 != 0;
-          goto LABEL_64;
+          ++v101;
+          effectType2 = [v39 effectType];
+          v31 = v104;
+          v56 = [(PTVFXRenderEffect *)self addNewEffectFromEvent:v39 renderRequest:v104 time:v97 presenterOverlaySmall:v8];
+          v42 = v56;
+          v58 = effectType2 << 32 != 0x100000000 && effectType2 << 32 != 0x200000000 && v97;
+          [v56 setUseCircularGradient:v58];
+          [(NSMutableDictionary *)self->_effectBindings setObject:v42 forKeyedSubscript:v40];
+          self->_emitNewReaction |= v42 != 0;
+          goto LABEL_68;
         }
 
-        if (!v41)
+        if (!v42)
         {
-          goto LABEL_50;
+          goto LABEL_54;
         }
 
-LABEL_64:
+LABEL_68:
         [v31 inReactionVideoRect];
-        [v41 updateWithEvent:v38 renderRequest:v31 videoRect:? time:?];
-        if ([v41 active])
+        [v42 updateWithEvent:v39 renderRequest:v31 videoRect:? time:?];
+        if ([v42 active])
         {
-          ++v97;
+          ++v99;
         }
 
         else
         {
-          rootNode = [v41 rootNode];
+          rootNode = [v42 rootNode];
 
           if (rootNode)
           {
-            rootNode2 = [v41 rootNode];
+            rootNode2 = [v42 rootNode];
             [rootNode2 removeFromParentNode];
 
-            [v41 setRootNode:0];
-            rootAssetNode = [v41 rootAssetNode];
+            [v42 setRootNode:0];
+            rootAssetNode = [v42 rootAssetNode];
             [rootAssetNode removeFromParent];
 
-            [v41 setRootAssetNode:0];
-            [(NSMutableDictionary *)self->_activeReactions removeObjectForKey:v39];
+            [v42 setRootAssetNode:0];
+            [(NSMutableDictionary *)self->_activeReactions removeObjectForKey:v40];
           }
         }
 
-        [v98 removeObject:v39];
+        [v100 removeObject:v40];
         dimmingFactor = self->_dimmingFactor;
-        [v41 dimmingFactor];
-        if (dimmingFactor >= v62)
+        [v42 dimmingFactor];
+        if (dimmingFactor >= v63)
         {
-          v62 = dimmingFactor;
+          v63 = dimmingFactor;
         }
 
-        self->_dimmingFactor = v62;
+        self->_dimmingFactor = v63;
 
-LABEL_71:
+LABEL_75:
       }
 
-      v101 = [obj countByEnumeratingWithState:&v119 objects:v128 count:16];
+      v103 = [obj countByEnumeratingWithState:&v121 objects:v130 count:16];
     }
 
-    while (v101);
+    while (v103);
   }
 
+  v111 = 0u;
+  v112 = 0u;
   v109 = 0u;
   v110 = 0u;
-  v107 = 0u;
-  v108 = 0u;
   allValues3 = [(NSMutableDictionary *)self->_effectBindings allValues];
-  v64 = [allValues3 countByEnumeratingWithState:&v107 objects:v125 count:16];
-  if (v64)
+  v65 = [allValues3 countByEnumeratingWithState:&v109 objects:v127 count:16];
+  if (v65)
   {
-    v66 = v64;
-    v67 = *v108;
+    v67 = v65;
+    v68 = *v110;
     do
     {
-      for (m = 0; m != v66; ++m)
+      for (m = 0; m != v67; ++m)
       {
-        if (*v108 != v67)
+        if (*v110 != v68)
         {
           objc_enumerationMutation(allValues3);
         }
 
-        *&v65 = self->_dimmingFactor;
-        [*(*(&v107 + 1) + 8 * m) updateBackgroundDimming:v65];
+        *&v66 = self->_dimmingFactor;
+        [*(*(&v109 + 1) + 8 * m) updateBackgroundDimming:v66];
       }
 
-      v66 = [allValues3 countByEnumeratingWithState:&v107 objects:v125 count:16];
+      v67 = [allValues3 countByEnumeratingWithState:&v109 objects:v127 count:16];
     }
 
-    while (v66);
+    while (v67);
   }
 
+  v107 = 0u;
+  v108 = 0u;
   v105 = 0u;
   v106 = 0u;
-  v103 = 0u;
-  v104 = 0u;
-  v69 = [v98 copy];
-  v70 = [v69 countByEnumeratingWithState:&v103 objects:v124 count:16];
-  if (v70)
+  v70 = [v100 copy];
+  v71 = [v70 countByEnumeratingWithState:&v105 objects:v126 count:16];
+  if (v71)
   {
-    v71 = 0;
-    v72 = *v104;
+    v72 = 0;
+    v73 = *v106;
     do
     {
-      for (n = 0; n != v70; ++n)
+      for (n = 0; n != v71; ++n)
       {
-        if (*v104 != v72)
+        if (*v106 != v73)
         {
-          objc_enumerationMutation(v69);
+          objc_enumerationMutation(v70);
         }
 
-        v74 = *(*(&v103 + 1) + 8 * n);
-        v75 = [(NSMutableDictionary *)self->_effectBindings objectForKey:v74];
-        [v102 inReactionVideoRect];
-        [v75 updateWithEvent:0 renderRequest:v102 videoRect:? time:?];
-        v76 = self->_dimmingFactor;
-        [v75 dimmingFactor];
-        if (v76 >= v77)
+        v75 = *(*(&v105 + 1) + 8 * n);
+        v76 = [(NSMutableDictionary *)self->_effectBindings objectForKey:v75];
+        [v104 inReactionVideoRect];
+        [v76 updateWithEvent:0 renderRequest:v104 videoRect:? time:?];
+        v77 = self->_dimmingFactor;
+        [v76 dimmingFactor];
+        if (v77 >= v78)
         {
-          v77 = v76;
+          v78 = v77;
         }
 
-        self->_dimmingFactor = v77;
-        if (([v75 active] & 1) == 0)
+        self->_dimmingFactor = v78;
+        if (([v76 active] & 1) == 0)
         {
-          [(PTVFXRenderEffect *)self removeEffectBindingWithKey:v74];
-          ++v71;
+          [(PTVFXRenderEffect *)self removeEffectBindingWithKey:v75];
+          ++v72;
         }
       }
 
-      v70 = [v69 countByEnumeratingWithState:&v103 objects:v124 count:16];
+      v71 = [v70 countByEnumeratingWithState:&v105 objects:v126 count:16];
     }
 
-    while (v70);
+    while (v71);
   }
 
-  if (v94)
+  if (v96)
   {
-    vfxRenderer = _PTLogSystem();
+    vfxRenderer = _PTLogSystem(v79);
     if (os_log_type_enabled(vfxRenderer, OS_LOG_TYPE_ERROR))
     {
-      [(PTVFXRenderEffect *)vfxRenderer updateWithRenderRequest:v80 lastFrameTime:v81, v82, v83, v84, v85, v86];
+      [(PTVFXRenderEffect *)vfxRenderer updateWithRenderRequest:v82 lastFrameTime:v83, v84, v85, v86, v87, v88, v35];
     }
 
-    v87 = 1;
+    v89 = 1;
   }
 
   else
   {
-    Helper_x8__OBJC_CLASS___VFXTransaction = gotLoadHelper_x8__OBJC_CLASS___VFXTransaction(v78);
-    [*(v89 + 344) flush];
+    Helper_x8__OBJC_CLASS___VFXTransaction = gotLoadHelper_x8__OBJC_CLASS___VFXTransaction(v80);
+    [*(v91 + 344) flush];
     vfxRenderer = [(PTVFXResources *)self->_vfxResources vfxRenderer];
     [vfxRenderer updateAtTime:v8];
-    v87 = 0;
+    v89 = 0;
   }
 
-  self->_simulationWasSkippedForPreviousFrame = v87;
-  v90 = self->_dimmingFactor * -0.95 + 1.0;
-  *v123 = v90;
-  v91 = [MEMORY[0x277CBEA90] dataWithBytes:v123 length:4];
+  self->_simulationWasSkippedForPreviousFrame = v89;
+  v92 = self->_dimmingFactor * -0.95 + 1.0;
+  *v125 = v92;
+  v93 = [MEMORY[0x277CBEA90] dataWithBytes:v125 length:4];
   lightBinding = [(PTVFXResources *)self->_vfxResources lightBinding];
-  [PTVFXRenderEffectBinding setRawValue:v91 onBinding:lightBinding];
+  [PTVFXRenderEffectBinding setRawValue:v93 onBinding:lightBinding];
 
   kdebug_trace();
   v14 = [(NSMutableDictionary *)self->_activeReactions count]!= 0;
 
-LABEL_97:
+LABEL_101:
   return v14;
 }
 
@@ -1549,7 +1562,7 @@ LABEL_97:
 
   else
   {
-    v19 = _PTLogSystem();
+    v19 = _PTLogSystem(depthCopy);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [PTVFXRenderEffect render:v19 effectRGBA:v20 effectDepth:v21];
@@ -1617,7 +1630,7 @@ LABEL_7:
 
 - (int)renderWithBackgroundDimming:(id)dimming effectRGBA:(id)a inCenteredDisparity:(id)disparity inSegmentation:(id)segmentation effectDepth:(id)depth disparityFiltered:(id)filtered focusDisparityModifiers:(id)modifiers renderRequest:(id)self0 debugType:(int64_t)self1
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   dimmingCopy = dimming;
   aCopy = a;
   disparityCopy = disparity;
@@ -1652,10 +1665,10 @@ LABEL_7:
     }
   }
 
-  v81 = modifiersCopy;
-  v82 = filteredCopy;
-  device = [(PTMetalContext *)self->_metalContext device];
-  v43 = [PTTexture createFromPixelbuffer:outColorBuffer device:device read:1 write:1];
+  v84 = modifiersCopy;
+  v85 = filteredCopy;
+  v42 = objc_msgSend_device(self->_metalContext);
+  v43 = [PTTexture createFromPixelbuffer:outColorBuffer device:v42 read:1 write:1];
 
   if (inBilbyAlphaMaskTexture)
   {
@@ -1671,35 +1684,35 @@ LABEL_7:
   v45 = [(PTEffectReactionBackgroundDimming *)self->_reactionBackground backgroundDimAndConvertRGBLinearFromPTTexture:dimmingCopy inPTTexture:v43 inCenteredDisparity:disparityCopy inSegmentation:segmentationCopy outRGBA:aCopy dimmingFactor:v44 disparityRemapping:v26 outColorROI:v28, v30, v32, *&v34, *&v36, *&v38, *&v40];
   v46 = [(PTVFXRenderEffect *)self render:dimmingCopy effectRGBA:aCopy effectDepth:depthCopy];
   isRGB = [v43 isRGB];
-  v79 = v46;
-  v80 = v45;
+  v82 = v46;
+  v83 = v45;
   if (inBilbyAlphaMaskTexture && isRGB)
   {
-    v76 = segmentationCopy;
-    v77 = disparityCopy;
-    v88 = 0u;
+    v79 = segmentationCopy;
+    v80 = disparityCopy;
+    v91 = 0u;
+    v92 = 0u;
     v89 = 0u;
-    v86 = 0u;
-    v87 = 0u;
+    v90 = 0u;
     allValues = [(NSMutableDictionary *)self->_effectBindings allValues];
-    v49 = [allValues countByEnumeratingWithState:&v86 objects:v90 count:16];
+    v49 = [allValues countByEnumeratingWithState:&v89 objects:v93 count:16];
     if (v49)
     {
       v50 = 0;
-      v51 = *v87;
+      v51 = *v90;
       do
       {
         for (i = 0; i != v49; ++i)
         {
-          if (*v87 != v51)
+          if (*v90 != v51)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v50 |= [*(*(&v86 + 1) + 8 * i) useCircularGradient];
+          v50 |= [*(*(&v89 + 1) + 8 * i) useCircularGradient];
         }
 
-        v49 = [allValues countByEnumeratingWithState:&v86 objects:v90 count:16];
+        v49 = [allValues countByEnumeratingWithState:&v89 objects:v93 count:16];
       }
 
       while (v49);
@@ -1719,44 +1732,47 @@ LABEL_7:
     {
     }
 
-    v72 = v43;
-    texRGBA = [v72 texRGBA];
-    transferFunction = [v72 transferFunction];
+    v75 = v43;
+    texRGBA = [v75 texRGBA];
+    transferFunction = [v75 transferFunction];
 
-    v71 = [(PTVFXRenderEffect *)self convertRGB:dimmingCopy inRGBA:aCopy inAlphaMask:v49 outRGBA:texRGBA toLinear:0 transferFunction:transferFunction];
-    v53 = v76;
-    disparityCopy = v77;
+    v74 = [(PTVFXRenderEffect *)self convertRGB:dimmingCopy inRGBA:aCopy inAlphaMask:v49 outRGBA:texRGBA toLinear:0 transferFunction:transferFunction];
+    v53 = v79;
+    disparityCopy = v80;
   }
 
   else
   {
     v53 = segmentationCopy;
-    LOWORD(v85) = [v43 width];
-    HIWORD(v85) = [v43 height];
-    [PTEffectUtil computeRectInPixelCoordinates:v85 pixelBufferSize:131074 alignment:v34, v36, v38, v40];
-    v78 = v54;
-    if ([aCopy width] != WORD2(v54))
+    LOWORD(v88) = [v43 width];
+    HIWORD(v88) = [v43 height];
+    [PTEffectUtil computeRectInPixelCoordinates:v88 pixelBufferSize:131074 alignment:v34, v36, v38, v40];
+    v81 = v54;
+    v55 = WORD2(v54);
+    width = [aCopy width];
+    if (width != v55)
     {
-      v55 = _PTLogSystem();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+      v57 = _PTLogSystem(width);
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
       {
-        [PTVFXRenderEffect renderWithBackgroundDimming:v55 effectRGBA:v56 inCenteredDisparity:v57 inSegmentation:v58 effectDepth:v59 disparityFiltered:v60 focusDisparityModifiers:v61 renderRequest:v62 debugType:?];
+        [PTVFXRenderEffect renderWithBackgroundDimming:v57 effectRGBA:v58 inCenteredDisparity:v59 inSegmentation:v60 effectDepth:v61 disparityFiltered:v62 focusDisparityModifiers:v63 renderRequest:v64 debugType:?];
       }
     }
 
-    if ([aCopy height] != HIWORD(v78))
+    height = [aCopy height];
+    if (height != HIWORD(v81))
     {
-      v63 = _PTLogSystem();
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+      v66 = _PTLogSystem(height);
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
-        [PTVFXRenderEffect renderWithBackgroundDimming:v63 effectRGBA:v64 inCenteredDisparity:v65 inSegmentation:v66 effectDepth:v67 disparityFiltered:v68 focusDisparityModifiers:v69 renderRequest:v70 debugType:?];
+        [PTVFXRenderEffect renderWithBackgroundDimming:v66 effectRGBA:v67 inCenteredDisparity:v68 inSegmentation:v69 effectDepth:v70 disparityFiltered:v71 focusDisparityModifiers:v72 renderRequest:v73 debugType:?];
       }
     }
 
-    v71 = [(PTColorConversion *)self->_colorConversion convertRGBLinearToPTTexture:dimmingCopy inRGBA:aCopy outPTTexture:v43 outRect:v78];
+    v74 = [(PTColorConversion *)self->_colorConversion convertRGBLinearToPTTexture:dimmingCopy inRGBA:aCopy outPTTexture:v43 outRect:v81];
   }
 
-  return v79 | v80 | v71;
+  return v82 | v83 | v74;
 }
 
 - (int)convertRGB:(id)b inRGBA:(id)a inAlphaMask:(id)mask outRGBA:(id)bA toLinear:(BOOL)linear transferFunction:(id)function
@@ -1772,10 +1788,10 @@ LABEL_7:
 
   if (!computeCommandEncoder)
   {
-    v21 = _PTLogSystem();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = _PTLogSystem(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [(PTRaytracingUtils *)v21 disparityApplyPostModifier:v22 inDisparity:v23 outDisparity:v24 postModifier:v25, v26, v27, v28];
+      [(PTRaytracingUtils *)v22 disparityApplyPostModifier:v23 inDisparity:v24 outDisparity:v25 postModifier:v26, v27, v28, v29];
     }
   }
 
@@ -1787,17 +1803,17 @@ LABEL_7:
   [computeCommandEncoder setTexture:bACopy atIndex:2];
   if (v19)
   {
-    [(PTImageblockConfig *)v19 threads];
-    [(PTImageblockConfig *)v19 threadsPerGroup];
+    objc_msgSend_threads(v19);
+    objc_msgSend_threadsPerGroup(v19);
   }
 
   else
   {
+    memset(v32, 0, sizeof(v32));
     memset(v31, 0, sizeof(v31));
-    memset(v30, 0, sizeof(v30));
   }
 
-  [computeCommandEncoder dispatchThreads:v31 threadsPerThreadgroup:v30];
+  [computeCommandEncoder dispatchThreads:v32 threadsPerThreadgroup:v31];
   [computeCommandEncoder endEncoding];
 
   return 0;
@@ -1810,7 +1826,7 @@ LABEL_7:
     *(&a2 + 1) = 1.0 - *(&a2 + 1);
   }
 
-  return [self transformVideoRectToCropCoordinates:a2 effectRenderRequest:?];
+  return [self transformVideoRectToCropCoordinates:request effectRenderRequest:a2];
 }
 
 + (uint64_t)transformVideoRectToCropCoordinates:(uint64_t)coordinates effectRenderRequest:(void *)request
@@ -1818,6 +1834,27 @@ LABEL_7:
   [request reactionsCombinedCropRect];
 
   return [PTEffectUtil transformRect:self intoCropCoordinates:v4];
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 colorConversion:(uint64_t)a5 prewarmOnly:(uint64_t)a6 humanDetections:(uint64_t)a7 sharedResources:(uint64_t)a8 asyncInitQueue:.cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_convertRGBAlpha[i]";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 colorConversion:(uint64_t)a5 prewarmOnly:(uint64_t)a6 humanDetections:(uint64_t)a7 sharedResources:(uint64_t)a8 asyncInitQueue:.cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_reactionBackground";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)addNewEffectFromEvent:(uint64_t)a3 renderRequest:(uint64_t)a4 time:(uint64_t)a5 presenterOverlaySmall:(uint64_t)a6 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a2, a3, "PTEffectReactionType found %lu", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)addNewEffectFromEvent:(NSObject *)a3 renderRequest:time:presenterOverlaySmall:.cold.2(uint8_t *a1, _BYTE *a2, NSObject *a3)
@@ -1848,6 +1885,27 @@ LABEL_7:
   *v3 = 134217984;
   *v2 = v4;
   OUTLINED_FUNCTION_1_0(&dword_2243FB000, v5, v6, "Unexpected length of duration: %lu");
+}
+
+- (void)updateWithRenderRequest:(uint64_t)a3 lastFrameTime:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
+{
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = a9;
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "VFX: Skip simulation step due to large delta time %f", a5, a6, a7, a8, v9, DWORD2(v9));
+}
+
+- (void)renderWithBackgroundDimming:(uint64_t)a3 effectRGBA:(uint64_t)a4 inCenteredDisparity:(uint64_t)a5 inSegmentation:(uint64_t)a6 effectDepth:(uint64_t)a7 disparityFiltered:(uint64_t)a8 focusDisparityModifiers:renderRequest:debugType:.cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "rect[2] == effectRGBA.width";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)renderWithBackgroundDimming:(uint64_t)a3 effectRGBA:(uint64_t)a4 inCenteredDisparity:(uint64_t)a5 inSegmentation:(uint64_t)a6 effectDepth:(uint64_t)a7 disparityFiltered:(uint64_t)a8 focusDisparityModifiers:renderRequest:debugType:.cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "rect[3] == effectRGBA.height";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

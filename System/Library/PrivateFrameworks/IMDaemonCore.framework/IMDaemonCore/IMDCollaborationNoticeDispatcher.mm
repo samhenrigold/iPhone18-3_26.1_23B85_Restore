@@ -44,10 +44,10 @@
 
 - (IMDCollaborationNoticeDispatcher)init
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = IMDCollaborationNoticeDispatcher;
-  v2 = [(IMDCollaborationNoticeDispatcher *)&v13 init];
+  v15 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = IMDCollaborationNoticeDispatcher;
+  v2 = [(IMDCollaborationNoticeDispatcher *)&v12 init];
   if (v2)
   {
     v3 = [objc_alloc(MEMORY[0x277D18778]) initWithService:@"com.apple.private.alloy.gelato"];
@@ -71,13 +71,12 @@
       {
         v10 = v2->_gelatoService;
         *buf = 138412290;
-        v15 = v10;
+        v14 = v10;
         _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Loaded notice dispatch service: %@", buf, 0xCu);
       }
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -91,7 +90,7 @@
 
 - (void)sendNotice:(id)notice toHandles:(id)handles fromHandle:(id)handle
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   noticeCopy = notice;
   handleCopy = handle;
   v10 = [(IMDCollaborationNoticeDispatcher *)self _handlesMinusSenderServiceAccountID:handles];
@@ -143,13 +142,13 @@
             if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
             {
               *buf = 138413058;
-              v37 = &unk_283F4E630;
-              v38 = 2112;
-              v39 = noticeCopy;
-              v40 = 2112;
-              v41 = v10;
-              v42 = 2112;
-              v43 = v16;
+              v36 = &unk_283F4E630;
+              v37 = 2112;
+              v38 = noticeCopy;
+              v39 = 2112;
+              v40 = v10;
+              v41 = 2112;
+              v42 = v16;
               _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Sending notice (command: %@) %@ to %@, message: %@", buf, 0x2Au);
             }
           }
@@ -167,11 +166,11 @@
 
           gelatoService = self->_gelatoService;
           v27 = [v25 copy];
+          v33 = 0;
           v34 = 0;
-          v35 = 0;
-          [(IDSService *)gelatoService sendProtobuf:v23 toDestinations:v10 priority:300 options:v27 identifier:&v35 error:&v34];
-          v28 = v35;
-          v29 = v34;
+          [(IDSService *)gelatoService sendProtobuf:v23 toDestinations:v10 priority:300 options:v27 identifier:&v34 error:&v33];
+          v28 = v34;
+          v29 = v33;
 
           if (v29)
           {
@@ -190,11 +189,11 @@
               if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
               {
                 *buf = 136315650;
-                v37 = "[IMDCollaborationNoticeDispatcher sendNotice:toHandles:fromHandle:]";
-                v38 = 2112;
-                v39 = v28;
-                v40 = 2112;
-                v41 = v10;
+                v36 = "[IMDCollaborationNoticeDispatcher sendNotice:toHandles:fromHandle:]";
+                v37 = 2112;
+                v38 = v28;
+                v39 = 2112;
+                v40 = v10;
                 _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, "%s Successfully sent Collaboration Notice (guid: %@) to handles: %@", buf, 0x20u);
               }
             }
@@ -220,9 +219,9 @@
         if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v37 = "[IMDCollaborationNoticeDispatcher sendNotice:toHandles:fromHandle:]";
-          v38 = 2112;
-          v39 = noticeCopy;
+          v36 = "[IMDCollaborationNoticeDispatcher sendNotice:toHandles:fromHandle:]";
+          v37 = 2112;
+          v38 = noticeCopy;
           _os_log_impl(&dword_22B4CC000, v31, OS_LOG_TYPE_INFO, "%s: Bailing due to rate limiting for notice: %@", buf, 0x16u);
         }
       }
@@ -246,13 +245,11 @@
       sub_22B7D3074();
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendClearNotice:(id)notice toHandles:(id)handles
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   noticeCopy = notice;
   handlesCopy = handles;
   v8 = [(IMDCollaborationNoticeDispatcher *)self _senderServiceAccountIDFrom:handlesCopy];
@@ -299,13 +296,13 @@
             if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
             {
               *buf = 138413058;
-              v33 = &unk_283F4E648;
-              v34 = 2112;
-              v35 = noticeCopy;
-              v36 = 2112;
-              v37 = handlesCopy;
-              v38 = 2112;
-              v39 = v14;
+              v32 = &unk_283F4E648;
+              v33 = 2112;
+              v34 = noticeCopy;
+              v35 = 2112;
+              v36 = handlesCopy;
+              v37 = 2112;
+              v38 = v14;
               _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Sending notice (command: %@) %@ to %@, message: %@", buf, 0x2Au);
             }
           }
@@ -325,13 +322,13 @@
           }
 
           v26 = [MEMORY[0x277D1AB80] contextWithKnownSender:1];
-          v29[0] = MEMORY[0x277D85DD0];
-          v29[1] = 3221225472;
-          v29[2] = sub_22B584EE8;
-          v29[3] = &unk_278704FB8;
-          v30 = v8;
+          v28[0] = MEMORY[0x277D85DD0];
+          v28[1] = 3221225472;
+          v28[2] = sub_22B584EE8;
+          v28[3] = &unk_278704FB8;
+          v29 = v8;
           selfCopy = self;
-          [IMBlastdoor sendClearNoticeData:data2 senderContext:v26 withCompletionBlock:v29];
+          [IMBlastdoor sendClearNoticeData:data2 senderContext:v26 withCompletionBlock:v28];
         }
 
         else
@@ -350,9 +347,9 @@
         if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v33 = "[IMDCollaborationNoticeDispatcher sendClearNotice:toHandles:]";
-          v34 = 2112;
-          v35 = noticeCopy;
+          v32 = "[IMDCollaborationNoticeDispatcher sendClearNotice:toHandles:]";
+          v33 = 2112;
+          v34 = noticeCopy;
           _os_log_impl(&dword_22B4CC000, v27, OS_LOG_TYPE_INFO, "%s: Bailing due to rate limiting for notice: %@", buf, 0x16u);
         }
       }
@@ -376,13 +373,11 @@
       sub_22B7D3208();
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reflectDismissalForNoticeGUIDs:(id)ds
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   if (IMOSLoggingEnabled())
   {
@@ -390,35 +385,33 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v20 = "[IMDCollaborationNoticeDispatcher reflectDismissalForNoticeGUIDs:]";
-      v21 = 2112;
-      v22 = dsCopy;
+      v19 = "[IMDCollaborationNoticeDispatcher reflectDismissalForNoticeGUIDs:]";
+      v20 = 2112;
+      v21 = dsCopy;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "%s: Handling request to reflect notice dismissal for guids: %@", buf, 0x16u);
     }
   }
 
-  v17[0] = @"at";
-  v17[1] = @"g";
-  v18[0] = &unk_283F4E660;
-  v18[1] = dsCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
-  v15 = *MEMORY[0x277D18570];
-  v16 = MEMORY[0x277CBEC38];
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v16[0] = @"at";
+  v16[1] = @"g";
+  v17[0] = &unk_283F4E660;
+  v17[1] = dsCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v14 = *MEMORY[0x277D18570];
+  v15 = MEMORY[0x277CBEC38];
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
   v8 = MEMORY[0x277D1AA08];
   gelatoService = self->_gelatoService;
   senderLoginIDs = [(IMDCollaborationNoticeDispatcher *)self senderLoginIDs];
+  v12 = 0;
   v13 = 0;
-  v14 = 0;
-  [v8 service:gelatoService sendMessage:v6 toDestinations:senderLoginIDs priority:300 options:v7 identifier:&v14 error:&v13];
-  v11 = v14;
-
-  v12 = *MEMORY[0x277D85DE8];
+  [v8 service:gelatoService sendMessage:v6 toDestinations:senderLoginIDs priority:300 options:v7 identifier:&v13 error:&v12];
+  v11 = v13;
 }
 
 - (void)handleIncomingNoticeProtobuf:(id)protobuf service:(id)service account:(id)account fromID:(id)d context:(id)context
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   protobufCopy = protobuf;
   serviceCopy = service;
   accountCopy = account;
@@ -430,9 +423,9 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v34 = "[IMDCollaborationNoticeDispatcher handleIncomingNoticeProtobuf:service:account:fromID:context:]";
-      v35 = 2112;
-      v36 = dCopy;
+      v33 = "[IMDCollaborationNoticeDispatcher handleIncomingNoticeProtobuf:service:account:fromID:context:]";
+      v34 = 2112;
+      v35 = dCopy;
       _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "%s: Handling incoming Collaboration Notice from: %@", buf, 0x16u);
     }
   }
@@ -463,13 +456,13 @@
       if (v25)
       {
         v26 = [MEMORY[0x277D1AB80] contextWithKnownSender:1];
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = sub_22B5857A0;
-        v30[3] = &unk_278704FE0;
-        v31 = v17;
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = sub_22B5857A0;
+        v29[3] = &unk_278704FE0;
+        v30 = v17;
         selfCopy = self;
-        [IMBlastdoor sendCollaborationNoticeData:data senderContext:v26 withCompletionBlock:v30];
+        [IMBlastdoor sendCollaborationNoticeData:data senderContext:v26 withCompletionBlock:v29];
       }
 
       else
@@ -500,13 +493,11 @@
       sub_22B7D34C0();
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d context:(id)context
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accountCopy = account;
   messageCopy = message;
@@ -518,11 +509,11 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v26 = "[IMDCollaborationNoticeDispatcher service:account:incomingMessage:fromID:context:]";
-      v27 = 2112;
-      v28 = dCopy;
-      v29 = 2112;
-      v30 = messageCopy;
+      v25 = "[IMDCollaborationNoticeDispatcher service:account:incomingMessage:fromID:context:]";
+      v26 = 2112;
+      v27 = dCopy;
+      v28 = 2112;
+      v29 = messageCopy;
       _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "%s fromID: %@, message: %@", buf, 0x20u);
     }
   }
@@ -536,12 +527,12 @@
     v21 = [v20 hasKnownSenderChatWithChatIdentifier:v19];
 
     v22 = [MEMORY[0x277D1AB80] contextWithKnownSender:v21];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = sub_22B585D60;
-    v24[3] = &unk_278705008;
-    v24[4] = self;
-    [IMBlastdoor sendCollaborationNoticeActionDictionary:messageCopy senderContext:v22 withCompletionBlock:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = sub_22B585D60;
+    v23[3] = &unk_278705008;
+    v23[4] = self;
+    [IMBlastdoor sendCollaborationNoticeActionDictionary:messageCopy senderContext:v22 withCompletionBlock:v23];
   }
 
   else
@@ -552,8 +543,6 @@
       sub_22B7D367C();
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 + (unint64_t)noticeFanoutThreshold
@@ -599,30 +588,30 @@
 
 - (id)senderLoginIDs
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   gelatoService = [(IMDCollaborationNoticeDispatcher *)self gelatoService];
   accounts = [gelatoService accounts];
 
-  v6 = [accounts countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [accounts countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(accounts);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         loginID = [v10 loginID];
 
         if (loginID)
@@ -635,39 +624,37 @@
         }
       }
 
-      v7 = [accounts countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [accounts countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (id)unarchiveNoticeTransmissionEvent:(id)event
 {
-  v16[7] = *MEMORY[0x277D85DE8];
+  v15[7] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if ([sub_22B58647C() eventClassForType:{objc_msgSend(eventCopy, "eventType")}])
   {
     allowedClasses = [sub_22B58647C() allowedClasses];
-    v16[0] = objc_opt_class();
-    v16[1] = objc_opt_class();
-    v16[2] = objc_opt_class();
-    v16[3] = objc_opt_class();
-    v16[4] = objc_opt_class();
-    v16[5] = objc_opt_class();
-    v16[6] = objc_opt_class();
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:7];
+    v15[0] = objc_opt_class();
+    v15[1] = objc_opt_class();
+    v15[2] = objc_opt_class();
+    v15[3] = objc_opt_class();
+    v15[4] = objc_opt_class();
+    v15[5] = objc_opt_class();
+    v15[6] = objc_opt_class();
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:7];
     v6 = [allowedClasses setByAddingObjectsFromArray:v5];
 
     v7 = MEMORY[0x277CCAAC8];
     eventData = [eventCopy eventData];
-    v15 = 0;
-    v9 = [v7 _strictlyUnarchivedObjectOfClasses:v6 fromData:eventData error:&v15];
-    v10 = v15;
+    v14 = 0;
+    v9 = [v7 _strictlyUnarchivedObjectOfClasses:v6 fromData:eventData error:&v14];
+    v10 = v14;
 
     if (v10 || !v9)
     {
@@ -696,8 +683,6 @@
 
     v11 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

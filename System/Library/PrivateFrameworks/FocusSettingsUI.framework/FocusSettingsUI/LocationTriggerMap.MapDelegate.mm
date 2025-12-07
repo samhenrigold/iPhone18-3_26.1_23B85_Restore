@@ -24,7 +24,7 @@
   selfCopy = self;
   [senderCopy value];
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F067368);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F067368, &qword_24BAB61C8);
   sub_24BAA9B6C();
 }
 

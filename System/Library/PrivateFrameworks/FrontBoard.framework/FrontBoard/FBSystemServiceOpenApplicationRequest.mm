@@ -14,9 +14,8 @@
   scheme = [v6 scheme];
   v8 = [v3 appendObject:scheme withName:@"urlScheme" skipIfNil:1];
 
-  clientProcess = self->_clientProcess;
-  v10 = FBSProcessPrettyDescription();
-  v11 = [v3 appendObject:v10 withName:@"client"];
+  v9 = FBSProcessPrettyDescription();
+  v10 = [v3 appendObject:v9 withName:@"client"];
 
   build = [v3 build];
 

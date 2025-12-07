@@ -113,9 +113,7 @@ id __58__NSError_EmailFoundationAdditions__ef_secureCodableError__block_invoke_2
 
 void __67__NSError_EFPubliclyDescribableAdditions__ef_setDecoder_forDomain___block_invoke(uint64_t a1)
 {
-  v2 = _Block_copy(*(a1 + 40));
-  v3 = *(a1 + 32);
-  v4 = v2;
+  v1 = _Block_copy(*(a1 + 40));
   [sErrorDecoders setObject:? forKeyedSubscript:?];
 }
 

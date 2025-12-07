@@ -1,5 +1,6 @@
 @interface USBCSimpleUVDMFirmwareUpdater
 - (BOOL)pingDevice;
+- (USBCSimpleUVDMFirmwareUpdater)initWithRegistryEntry:(unsigned int)entry;
 - (id)DeviceSerialNumber:(BOOL)number;
 - (id)DeviceSerialNumberForController:(id)controller;
 - (id)applyFirmware:(id)firmware hardware:(id)hardware firmware:(id)a5 progress:(id)progress;
@@ -10,6 +11,7 @@
 - (id)getAccessoryFWStagedInfoForSerialNum:(id)num;
 - (id)prepareFirmware:(id)firmware hardware:(id)hardware firmware:(id)a5 progress:(id)progress;
 - (id)queryPredicate;
+- (id)sendFirmwareBlock:(id)block atOffset:(unsigned int)offset;
 - (id)setWriteOffset:(unsigned int)offset length:(unsigned __int8)length;
 - (id)validateDevice:(id)device withFirmware:(id)firmware;
 - (int)holdSleepAssertion;
@@ -490,6 +492,27 @@ LABEL_32:
   return v27;
 }
 
+- (USBCSimpleUVDMFirmwareUpdater)initWithRegistryEntry:(unsigned int)entry
+{
+  v8.receiver = self;
+  v8.super_class = USBCSimpleUVDMFirmwareUpdater;
+  v3 = [(USBCFirmwareUpdater *)&v8 initWithRegistryEntry:*&entry];
+  v4 = v3;
+  if (v3)
+  {
+    v3->_initialDelay = 0.0;
+    v3->_USBDevice = 0;
+    v3->_hasSleepAssertion = 0;
+    v3->_useDropboxLocation = 0;
+    v3->_isManifestCommand = 0;
+    v5 = [[MobileAsset alloc] initWithDelegate:v3];
+    mobileAsset = v4->_mobileAsset;
+    v4->_mobileAsset = v5;
+  }
+
+  return v4;
+}
+
 - (id)prepareFirmware:(id)firmware hardware:(id)hardware firmware:(id)a5 progress:(id)progress
 {
   firmwareCopy = firmware;
@@ -874,6 +897,100 @@ LABEL_22:
 LABEL_5:
 
   return v5;
+}
+
+- (id)sendFirmwareBlock:(id)block atOffset:(unsigned int)offset
+{
+  v4 = *&offset;
+  blockCopy = block;
+  memset(v23, 0, 28);
+  if ([blockCopy length] > 0x7F)
+  {
+    bytes = [blockCopy bytes];
+    v10 = crc32(bytes, 0x80, v12);
+  }
+
+  else
+  {
+    v7 = [NSMutableData dataWithData:blockCopy];
+    [v7 increaseLengthBy:{128 - objc_msgSend(blockCopy, "length")}];
+    bytes2 = [v7 bytes];
+    v10 = crc32(bytes2, 0x80, v9);
+  }
+
+  v13 = 0;
+  while (1)
+  {
+    v14 = v13;
+    if (!v13)
+    {
+      goto LABEL_8;
+    }
+
+    if (v13 == 5)
+    {
+      v18 = [NSError errorWithDomain:@"USBCAccessoryFirmwareUpdater Domain" code:11520 userInfo:0];
+LABEL_19:
+      v20 = v18;
+      goto LABEL_20;
+    }
+
+    [(FudPluginDelegate *)self->super._delegate log:7 format:@"Retrying: %d time, resending block address %d", v13, v4];
+    v14 = 0;
+LABEL_8:
+    while ([blockCopy length] > v14)
+    {
+      v15 = v14;
+      if ([blockCopy length] - v14 <= 0x18)
+      {
+        v16 = [blockCopy length] - v14;
+      }
+
+      else
+      {
+        v16 = 24;
+      }
+
+      memset(v23, 0, 28);
+      [blockCopy getBytes:v23 range:{v15, v16}];
+      LOBYTE(v22) = 0;
+      sub_100010D40();
+      v18 = [v17 executeUVDM:v22 header:? svid:? data:? size:? sop:? response:?];
+      v14 = v16 + v15;
+      if (v18)
+      {
+        goto LABEL_19;
+      }
+    }
+
+    memset(v23 + 4, 0, 24);
+    LODWORD(v23[0]) = v10;
+    LOBYTE(v22) = 1;
+    sub_100010D40();
+    v18 = [v19 executeUVDM:v22 header:? svid:? data:? size:? sop:? response:?];
+    if (v18)
+    {
+      goto LABEL_19;
+    }
+
+    if (v10 == HIDWORD(v23[0]))
+    {
+      break;
+    }
+
+    [(FudPluginDelegate *)self->super._delegate log:7 format:@"FAILED: Manifest CRC Response Mismatch (Attempt %d/%d): expected CRC32 = %d, received = %d", v13, 5, v10, HIDWORD(v23[0])];
+    v13 = (v13 + 1);
+    v18 = [(USBCSimpleUVDMFirmwareUpdater *)self setWriteOffset:v4 length:1];
+    if (v18)
+    {
+      goto LABEL_19;
+    }
+  }
+
+  v20 = 0;
+LABEL_20:
+
+  return v20;
 }
 
 - (void)createUSBDevice

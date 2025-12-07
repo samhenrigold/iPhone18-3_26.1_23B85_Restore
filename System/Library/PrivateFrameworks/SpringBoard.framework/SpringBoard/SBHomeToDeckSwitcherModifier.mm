@@ -118,7 +118,7 @@ void __46__SBHomeToDeckSwitcherModifier_frameForIndex___block_invoke(uint64_t a1
   return v7;
 }
 
-uint64_t __46__SBHomeToDeckSwitcherModifier_scaleForIndex___block_invoke(uint64_t a1)
+void *__46__SBHomeToDeckSwitcherModifier_scaleForIndex___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) scaleForIndex:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -206,7 +206,7 @@ void __49__SBHomeToDeckSwitcherModifier_visibleAppLayouts__block_invoke(uint64_t
   layoutCopy = layout;
   visibleAppLayouts = [(SBHomeToDeckSwitcherModifier *)self visibleAppLayouts];
   v10 = 0.0;
-  if ([visibleAppLayouts containsObject:layoutCopy])
+  if (objc_msgSend_containsObject_(visibleAppLayouts))
   {
     v19 = 0;
     v20 = &v19;
@@ -265,7 +265,7 @@ void __73__SBHomeToDeckSwitcherModifier_opacityForLayoutRole_inAppLayout_atIndex
   return v10;
 }
 
-uint64_t __70__SBHomeToDeckSwitcherModifier_dimmingAlphaForLayoutRole_inAppLayout___block_invoke(uint64_t a1)
+void *__70__SBHomeToDeckSwitcherModifier_dimmingAlphaForLayoutRole_inAppLayout___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dimmingAlphaForLayoutRole:*(a1 + 56) inAppLayout:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = v3;
@@ -308,7 +308,7 @@ uint64_t __70__SBHomeToDeckSwitcherModifier_dimmingAlphaForLayoutRole_inAppLayou
   return result;
 }
 
-uint64_t __52__SBHomeToDeckSwitcherModifier_cornerRadiiForIndex___block_invoke(uint64_t a1)
+void *__52__SBHomeToDeckSwitcherModifier_cornerRadiiForIndex___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) cornerRadiiForIndex:*(a1 + 48)];
   v3 = *(*(a1 + 40) + 8);
@@ -341,7 +341,7 @@ uint64_t __52__SBHomeToDeckSwitcherModifier_cornerRadiiForIndex___block_invoke(u
   return v7;
 }
 
-uint64_t __60__SBHomeToDeckSwitcherModifier_titleAndIconOpacityForIndex___block_invoke(uint64_t a1)
+void *__60__SBHomeToDeckSwitcherModifier_titleAndIconOpacityForIndex___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) titleAndIconOpacityForIndex:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -370,7 +370,7 @@ uint64_t __60__SBHomeToDeckSwitcherModifier_titleAndIconOpacityForIndex___block_
   return v7;
 }
 
-uint64_t __53__SBHomeToDeckSwitcherModifier_titleOpacityForIndex___block_invoke(uint64_t a1)
+void *__53__SBHomeToDeckSwitcherModifier_titleOpacityForIndex___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) titleOpacityForIndex:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -400,7 +400,7 @@ uint64_t __53__SBHomeToDeckSwitcherModifier_titleOpacityForIndex___block_invoke(
   return v9;
 }
 
-uint64_t __67__SBHomeToDeckSwitcherModifier_shadowOpacityForLayoutRole_atIndex___block_invoke(uint64_t a1)
+void *__67__SBHomeToDeckSwitcherModifier_shadowOpacityForLayoutRole_atIndex___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) shadowOpacityForLayoutRole:*(a1 + 48) atIndex:*(a1 + 56)];
   *(*(*(a1 + 40) + 8) + 24) = v3;

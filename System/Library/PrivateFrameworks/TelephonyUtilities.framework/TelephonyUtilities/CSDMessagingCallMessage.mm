@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -14,10 +15,65 @@
 - (void)setHasProtoShouldSuppressInCallUI:(BOOL)i;
 - (void)setHasProtoWantsVideo:(BOOL)video;
 - (void)setHasType:(BOOL)type;
+- (void)setMomentsAvailable:(BOOL)available;
+- (void)setProtocolVersion:(int)version;
+- (void)setSenderMuteUplink:(BOOL)uplink;
+- (void)setShouldSuppressInCallUI:(BOOL)i;
+- (void)setWantsVideo:(BOOL)video;
 - (void)writeTo:(id)to;
 @end
 
 @implementation CSDMessagingCallMessage
+
+- (void)setProtocolVersion:(int)version
+{
+  v3 = *&version;
+  if (version || [(CSDMessagingCallMessage *)self protoProtocolVersion])
+  {
+
+    [(CSDMessagingCallMessage *)self setProtoProtocolVersion:v3];
+  }
+}
+
+- (void)setWantsVideo:(BOOL)video
+{
+  videoCopy = video;
+  if (video || [(CSDMessagingCallMessage *)self protoWantsVideo])
+  {
+
+    [(CSDMessagingCallMessage *)self setProtoWantsVideo:videoCopy];
+  }
+}
+
+- (void)setSenderMuteUplink:(BOOL)uplink
+{
+  uplinkCopy = uplink;
+  if (uplink || [(CSDMessagingCallMessage *)self protoSenderMuteUplink])
+  {
+
+    [(CSDMessagingCallMessage *)self setProtoSenderMuteUplink:uplinkCopy];
+  }
+}
+
+- (void)setMomentsAvailable:(BOOL)available
+{
+  availableCopy = available;
+  if (available || [(CSDMessagingCallMessage *)self protoMomentsV2Available])
+  {
+
+    [(CSDMessagingCallMessage *)self setProtoMomentsV2Available:availableCopy];
+  }
+}
+
+- (void)setShouldSuppressInCallUI:(BOOL)i
+{
+  iCopy = i;
+  if (i || [(CSDMessagingCallMessage *)self protoShouldSuppressInCallUI])
+  {
+
+    [(CSDMessagingCallMessage *)self setProtoShouldSuppressInCallUI:iCopy];
+  }
+}
 
 - (int)type
 {
@@ -45,6 +101,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_10061D6B8 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -266,12 +337,11 @@ LABEL_17:
 {
   toCopy = to;
   has = self->_has;
-  v14 = toCopy;
+  v7 = toCopy;
   if ((has & 2) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v14;
+    toCopy = v7;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -290,35 +360,32 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  protoProtocolVersion = self->_protoProtocolVersion;
   PBDataWriterWriteUint32Field();
-  toCopy = v14;
+  toCopy = v7;
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_4:
-    protoWantsVideo = self->_protoWantsVideo;
     PBDataWriterWriteBOOLField();
-    toCopy = v14;
+    toCopy = v7;
   }
 
 LABEL_5:
   if (self->_inviteData)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v14;
+    toCopy = v7;
   }
 
-  v7 = self->_has;
-  if ((v7 & 4) != 0)
+  v6 = self->_has;
+  if ((v6 & 4) != 0)
   {
-    oBSOLETEProtoMomentsAvailable = self->_oBSOLETEProtoMomentsAvailable;
     PBDataWriterWriteBOOLField();
-    toCopy = v14;
-    v7 = self->_has;
-    if ((v7 & 0x10) == 0)
+    toCopy = v7;
+    v6 = self->_has;
+    if ((v6 & 0x10) == 0)
     {
 LABEL_9:
-      if ((v7 & 0x20) == 0)
+      if ((v6 & 0x20) == 0)
       {
         goto LABEL_10;
       }
@@ -332,14 +399,13 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  protoSenderMuteUplink = self->_protoSenderMuteUplink;
   PBDataWriterWriteBOOLField();
-  toCopy = v14;
-  v7 = self->_has;
-  if ((v7 & 0x20) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 0x20) == 0)
   {
 LABEL_10:
-    if ((v7 & 8) == 0)
+    if ((v6 & 8) == 0)
     {
       goto LABEL_12;
     }
@@ -348,22 +414,20 @@ LABEL_10:
   }
 
 LABEL_22:
-  protoShouldSuppressInCallUI = self->_protoShouldSuppressInCallUI;
   PBDataWriterWriteBOOLField();
-  toCopy = v14;
+  toCopy = v7;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_11:
-    protoMomentsV2Available = self->_protoMomentsV2Available;
     PBDataWriterWriteBOOLField();
-    toCopy = v14;
+    toCopy = v7;
   }
 
 LABEL_12:
   if (self->_protoUpgradeSessionUUID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v14;
+    toCopy = v7;
   }
 }
 
@@ -570,7 +634,6 @@ LABEL_10:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 44);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 44) & 2) == 0 || self->_type != *(equalCopy + 8))
@@ -604,7 +667,6 @@ LABEL_10:
       goto LABEL_57;
     }
 
-    v11 = *(equalCopy + 40);
     if (self->_protoWantsVideo)
     {
       if ((*(equalCopy + 40) & 1) == 0)
@@ -635,7 +697,6 @@ LABEL_10:
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 44);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 44) & 4) == 0)
@@ -643,7 +704,6 @@ LABEL_10:
       goto LABEL_57;
     }
 
-    v12 = *(equalCopy + 36);
     if (self->_oBSOLETEProtoMomentsAvailable)
     {
       if ((*(equalCopy + 36) & 1) == 0)
@@ -670,7 +730,6 @@ LABEL_10:
       goto LABEL_57;
     }
 
-    v13 = *(equalCopy + 38);
     if (self->_protoSenderMuteUplink)
     {
       if ((*(equalCopy + 38) & 1) == 0)
@@ -697,7 +756,6 @@ LABEL_10:
       goto LABEL_57;
     }
 
-    v14 = *(equalCopy + 39);
     if (self->_protoShouldSuppressInCallUI)
     {
       if ((*(equalCopy + 39) & 1) == 0)
@@ -725,7 +783,7 @@ LABEL_10:
     }
 
 LABEL_57:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_58;
   }
 
@@ -734,7 +792,6 @@ LABEL_57:
     goto LABEL_57;
   }
 
-  v15 = *(equalCopy + 37);
   if (self->_protoMomentsV2Available)
   {
     if ((*(equalCopy + 37) & 1) == 0)
@@ -752,17 +809,17 @@ LABEL_25:
   protoUpgradeSessionUUID = self->_protoUpgradeSessionUUID;
   if (protoUpgradeSessionUUID | *(equalCopy + 3))
   {
-    v10 = [(NSString *)protoUpgradeSessionUUID isEqual:?];
+    v8 = [(NSString *)protoUpgradeSessionUUID isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_58:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

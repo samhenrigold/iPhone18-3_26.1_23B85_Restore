@@ -142,49 +142,50 @@
 
 - (uint64_t)_fetchDataRecordsOfTypes:()WKPrivate withOptions:completionHandler:
 {
-  v16 = *a2;
+  v17 = *a2;
   v3 = *(a2 + 8);
   v4 = *(a2 + 12);
   *a2 = 0;
   *(a2 + 8) = 0;
-  v17 = v3;
-  v18 = v4;
-  v20 = 0;
+  v18 = v3;
+  v19 = v4;
   v21 = 0;
+  v22 = 0;
   if (v4)
   {
-    if (v4 >> 29)
+    v5 = (v4 >> 29);
+    if (v5)
     {
       __break(0xC471u);
 LABEL_15:
       JUMPOUT(0x19DB39704);
     }
 
-    v5 = WTF::fastMalloc((8 * v4));
-    LODWORD(v21) = v4;
-    v20 = v5;
-    v6 = v18;
-    if (v18)
+    v6 = WTF::fastMalloc(v5, (8 * v4));
+    LODWORD(v22) = v4;
+    v21 = v6;
+    v7 = v19;
+    if (v19)
     {
-      v7 = v16;
-      v8 = 80 * v18;
+      v8 = v17;
+      v9 = 80 * v19;
       do
       {
-        v9 = API::Object::newObject(0x60uLL, 123);
-        *v5++ = API::WebsiteDataRecord::WebsiteDataRecord(v9, v7);
-        v7 += 10;
-        v8 -= 80;
+        v10 = API::Object::newObject(0x60uLL, 123);
+        *v6++ = API::WebsiteDataRecord::WebsiteDataRecord(v10, v8);
+        v8 += 10;
+        v9 -= 80;
       }
 
-      while (v8);
-      HIDWORD(v21) = v6;
+      while (v9);
+      HIDWORD(v22) = v7;
     }
   }
 
-  API::Array::create(&v20, &v19);
-  v10 = v19;
-  v11 = *(v19 + 1);
-  if (!v11)
+  API::Array::create(&v21, &v20);
+  v11 = v20;
+  var1 = v20->var1;
+  if (!var1)
   {
     goto LABEL_10;
   }
@@ -196,16 +197,16 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v12 = v11;
+  v13 = var1;
 LABEL_10:
   (*(*(self + 8) + 16))();
-  if (v11)
+  if (var1)
   {
   }
 
-  CFRelease(*(v10 + 1));
-  WTF::Vector<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v20, v13);
-  return WTF::Vector<WebKit::WebsiteDataRecord,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v16, v14);
+  CFRelease(v11->var1);
+  WTF::Vector<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v21, v14);
+  return WTF::Vector<WebKit::WebsiteDataRecord,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v17, v15);
 }
 
 - (uint64_t)_setResourceLoadStatisticsTestingCallback:()WKPrivate
@@ -250,59 +251,60 @@ LABEL_10:
 
 - (uint64_t)_loadedSubresourceDomainsFor:()WKPrivate completionHandler:
 {
-  v20 = 0;
   v21 = 0;
+  v22 = 0;
   v3 = *(a2 + 3);
   if (v3)
   {
-    if (v3 >> 29)
+    v4 = (v3 >> 29);
+    if (v4)
     {
       __break(0xC471u);
 LABEL_20:
       JUMPOUT(0x19DB39AE8);
     }
 
-    v5 = WTF::fastMalloc((8 * v3));
-    LODWORD(v21) = v3;
-    v20 = v5;
-    v6 = *(a2 + 3);
-    if (v6)
+    v6 = WTF::fastMalloc(v4, (8 * v3));
+    LODWORD(v22) = v3;
+    v21 = v6;
+    v7 = *(a2 + 3);
+    if (v7)
     {
-      v7 = 0;
-      v8 = *a2;
-      v9 = 8 * v6;
+      v8 = 0;
+      v9 = *a2;
+      v10 = 8 * v7;
       do
       {
-        v10 = *(v8 + 8 * v7);
-        if (v10)
+        v11 = *(v9 + 8 * v8);
+        if (v11)
         {
-          atomic_fetch_add_explicit(v10, 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(v11, 2u, memory_order_relaxed);
         }
 
-        v22 = v10;
-        API::String::create(&v22, &v23);
-        v12 = v22;
+        v23 = v11;
+        API::String::create(&v23, &v24);
         v13 = v23;
-        v22 = 0;
+        v14 = v24;
         v23 = 0;
-        if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        v24 = 0;
+        if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v12, v11);
+          WTF::StringImpl::destroy(v13, v12);
         }
 
-        *(v5 + 8 * v7++) = v13;
-        v9 -= 8;
+        v6[v8++] = v14;
+        v10 -= 8;
       }
 
-      while (v9);
-      HIDWORD(v21) = v6;
+      while (v10);
+      HIDWORD(v22) = v7;
     }
   }
 
-  API::Array::create(&v20, &v23);
-  v15 = v23;
-  v16 = *(v23 + 1);
-  if (!v16)
+  API::Array::create(&v21, &v24);
+  v16 = v24;
+  var1 = v24->var1;
+  if (!var1)
   {
     goto LABEL_15;
   }
@@ -314,15 +316,15 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v17 = v16;
+  v18 = var1;
 LABEL_15:
-  (*(*(self + 8) + 16))(*(self + 8), v16, v14);
-  if (v16)
+  (*(*(self + 8) + 16))(*(self + 8), var1, v15);
+  if (var1)
   {
   }
 
-  CFRelease(*(v15 + 1));
-  return WTF::Vector<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v20, v18);
+  CFRelease(v16->var1);
+  return WTF::Vector<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v21, v19);
 }
 
 - (uint64_t)_scheduleCookieBlockingUpdate:()WKPrivate
@@ -418,8 +420,8 @@ LABEL_14:
       *(v10 + 4) = 0;
       *(v10 + 3) = 0;
       WTF::VectorBuffer<WebCore::HTTPHeaderField,0ul,WTF::FastMalloc>::adopt(v10 + 24, v12);
-      v13 = v9[1];
-      if (v13)
+      var1 = v9->var1;
+      if (var1)
       {
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -427,9 +429,9 @@ LABEL_14:
           goto LABEL_14;
         }
 
-        v14 = v13;
-        CFRelease(v9[1]);
-        [(WTF::RunLoop *)v15 addObject:v13];
+        v14 = var1;
+        CFRelease(v9->var1);
+        [(WTF::RunLoop *)v15 addObject:var1];
       }
 
       else
@@ -507,64 +509,65 @@ LABEL_14:
 
 - (uint64_t)_appBoundDomains:()WKPrivate
 {
-  v18 = 0;
   v19 = 0;
+  v20 = 0;
   if (*a2 && (v5 = *(*a2 - 12), v5))
   {
-    if (v5 >> 29)
+    v6 = (v5 >> 29);
+    if (v6)
     {
       __break(0xC471u);
       goto LABEL_21;
     }
 
-    v6 = WTF::fastMalloc((8 * v5));
-    LODWORD(v19) = v5;
-    v18 = v6;
+    v7 = WTF::fastMalloc(v6, (8 * v5));
+    LODWORD(v20) = v5;
+    v19 = v7;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v7 = WTF::HashTable<WebCore::RegistrableDomain,WebCore::RegistrableDomain,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::RegistrableDomain>,WTF::HashTraits<WebCore::RegistrableDomain>,WTF::HashTraits<WebCore::RegistrableDomain>,WTF::FastMalloc>::begin(a2, a2, a3);
-  v20[0] = v7;
-  v20[1] = v8;
+  v8 = WTF::HashTable<WebCore::RegistrableDomain,WebCore::RegistrableDomain,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::RegistrableDomain>,WTF::HashTraits<WebCore::RegistrableDomain>,WTF::HashTraits<WebCore::RegistrableDomain>,WTF::FastMalloc>::begin(a2, a2, a3);
+  v21[0] = v8;
+  v21[1] = v9;
   if (*a2)
   {
-    v9 = (*a2 + 8 * *(*a2 - 4));
+    v10 = (*a2 + 8 * *(*a2 - 4));
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  if (v9 != v7)
+  if (v10 != v8)
   {
-    v10 = 0;
+    v11 = 0;
     do
     {
-      API::String::create(&v21);
-      *(v6 + 8 * v10) = v21;
-      v20[0] = (v20[0] + 8);
-      WTF::HashTableConstIterator<WTF::HashTable<WebCore::RegistrableDomain,WebCore::RegistrableDomain,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::RegistrableDomain>,WTF::HashTraits<WebCore::RegistrableDomain>,WTF::HashTraits<WebCore::RegistrableDomain>,WTF::FastMalloc>,WebCore::RegistrableDomain,WebCore::RegistrableDomain,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::RegistrableDomain>,WTF::HashTraits<WebCore::RegistrableDomain>,WTF::HashTraits<WebCore::RegistrableDomain>>::skipEmptyBuckets(v20, v11, v12);
-      ++v10;
+      API::String::create(&v22);
+      v7[v11] = v22;
+      v21[0] = (v21[0] + 8);
+      WTF::HashTableConstIterator<WTF::HashTable<WebCore::RegistrableDomain,WebCore::RegistrableDomain,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::RegistrableDomain>,WTF::HashTraits<WebCore::RegistrableDomain>,WTF::HashTraits<WebCore::RegistrableDomain>,WTF::FastMalloc>,WebCore::RegistrableDomain,WebCore::RegistrableDomain,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::RegistrableDomain>,WTF::HashTraits<WebCore::RegistrableDomain>,WTF::HashTraits<WebCore::RegistrableDomain>>::skipEmptyBuckets(v21, v12, v13);
+      ++v11;
     }
 
-    while (v20[0] != v9);
-    HIDWORD(v19) = v10;
+    while (v21[0] != v10);
+    HIDWORD(v20) = v11;
   }
 
-  API::Array::create(&v18, v20);
-  v13 = v20[0];
-  v14 = *(v20[0] + 1);
-  if (v14)
+  API::Array::create(&v19, v21);
+  v14 = v21[0];
+  var1 = v21[0]->var1;
+  if (var1)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v15 = v14;
+      v16 = var1;
       goto LABEL_16;
     }
 
@@ -575,77 +578,78 @@ LABEL_21:
 
 LABEL_16:
   (*(*(self + 8) + 16))();
-  if (v14)
+  if (var1)
   {
   }
 
-  CFRelease(*(v13 + 1));
-  return WTF::Vector<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v18, v16);
+  CFRelease(v14->var1);
+  return WTF::Vector<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v19, v17);
 }
 
 - (uint64_t)_appBoundSchemes:()WKPrivate
 {
-  v17 = 0;
   v18 = 0;
+  v19 = 0;
   if (*a2)
   {
     v4 = *(*a2 - 3);
     if (v4)
     {
-      if (v4 >> 29)
+      v5 = (v4 >> 29);
+      if (v5)
       {
         __break(0xC471u);
         goto LABEL_23;
       }
 
-      LODWORD(v18) = *(*a2 - 3);
-      v17 = WTF::fastMalloc((8 * v4));
+      LODWORD(v19) = *(*a2 - 3);
+      v18 = WTF::fastMalloc(v5, (8 * v4));
     }
   }
 
-  v5 = WTF::HashTable<WTF::String,WTF::String,WTF::IdentityExtractor,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::begin(a2);
-  v6 = v5;
-  v8 = v7;
+  v6 = WTF::HashTable<WTF::String,WTF::String,WTF::IdentityExtractor,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::begin(a2);
+  v7 = v6;
+  v9 = v8;
   if (*a2)
   {
-    v9 = &(*a2)[*(*a2 - 1)];
+    v10 = &(*a2)[*(*a2 - 1)];
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  if (v9 != v5)
+  if (v10 != v6)
   {
-    v10 = 0;
-    v11 = v17;
+    v11 = 0;
+    v12 = v18;
     do
     {
-      API::String::create(&v19);
-      *(v11 + 8 * v10) = v19;
+      API::String::create(&v20);
+      v12[v11] = v20;
       do
       {
-        ++v6;
+        ++v7;
       }
 
-      while (v6 != v8 && (*v6 + 1) <= 1);
-      ++v10;
+      while (v7 != v9 && (*v7 + 1) <= 1);
+      ++v11;
     }
 
-    while (v6 != v9);
-    HIDWORD(v18) = v10;
+    while (v7 != v10);
+    HIDWORD(v19) = v11;
   }
 
-  API::Array::create(&v17, &v19);
-  v12 = v19;
-  v13 = *(v19 + 1);
-  if (v13)
+  API::Array::create(&v18, &v20);
+  v13 = v20;
+  var1 = v20->var1;
+  if (var1)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v14 = v13;
+      v15 = var1;
       goto LABEL_17;
     }
 
@@ -656,12 +660,12 @@ LABEL_23:
 
 LABEL_17:
   (*(*(self + 8) + 16))();
-  if (v13)
+  if (var1)
   {
   }
 
-  CFRelease(*(v12 + 1));
-  return WTF::Vector<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v17, v15);
+  CFRelease(v13->var1);
+  return WTF::Vector<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v18, v16);
 }
 
 - (uint64_t)_sendNetworkProcessPrepareToSuspend:()WKPrivate

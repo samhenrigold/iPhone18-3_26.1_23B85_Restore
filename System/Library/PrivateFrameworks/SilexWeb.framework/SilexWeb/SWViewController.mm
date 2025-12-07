@@ -13,10 +13,13 @@
 - (void)loadURL:(id)l cachePolicy:(unint64_t)policy;
 - (void)prewarm;
 - (void)removeMenusForIdentifiers:(id)identifiers;
+- (void)setAllowsRemoteInspection:(BOOL)inspection;
 - (void)setHiddenPocketEdges:(unint64_t)edges;
 - (void)setInputAccessoryView:(id)view;
+- (void)setPocketsEnabled:(BOOL)enabled;
 - (void)setShortcutsBarWithLeadingGroups:(id)groups trailingGroups:(id)trailingGroups;
 - (void)setTextInputTraits:(id)traits;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
 - (void)webView:(id)view commitPreviewingViewController:(id)controller;
@@ -135,6 +138,15 @@ void __314__SWViewController_initWithWebView_setupManager_scriptsManager_message
     [view bounds];
     [webView setFrame:?];
   }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = SWViewController;
+  [(SWViewController *)&v5 viewDidDisappear:disappear];
+  webView = [(SWViewController *)self webView];
+  [webView pauseAllMediaPlaybackWithCompletionHandler:0];
 }
 
 - (void)prewarm
@@ -347,6 +359,18 @@ id __43__SWViewController_loadHTMLString_baseURL___block_invoke_2(uint64_t a1)
   return _allowsRemoteInspection;
 }
 
+- (void)setAllowsRemoteInspection:(BOOL)inspection
+{
+  inspectionCopy = inspection;
+  webView = [(SWViewController *)self webView];
+  configuration = [webView configuration];
+  preferences = [configuration preferences];
+  [preferences _setDeveloperExtrasEnabled:inspectionCopy];
+
+  webView2 = [(SWViewController *)self webView];
+  [webView2 setInspectable:inspectionCopy];
+}
+
 - (void)webViewWebContentProcessDidTerminate:(id)terminate
 {
   terminationManager = [(SWViewController *)self terminationManager];
@@ -435,12 +459,10 @@ LABEL_6:
 
 - (id)accessibilityElements
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   webView = [(SWViewController *)self webView];
-  v6[0] = webView;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = webView;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
@@ -490,6 +512,14 @@ LABEL_6:
   webView = [(SWViewController *)self webView];
   scrollView = [webView scrollView];
   [scrollView _setHiddenPocketEdges:edges];
+}
+
+- (void)setPocketsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  webView = [(SWViewController *)self webView];
+  scrollView = [webView scrollView];
+  [scrollView _setPocketsEnabled:enabledCopy];
 }
 
 @end

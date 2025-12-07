@@ -79,7 +79,7 @@
     memset(&v23, 0, sizeof(v23));
     if (videoCompositionInstruction)
     {
-      [videoCompositionInstruction sourceTrackPreferredTransform];
+      objc_msgSend_sourceTrackPreferredTransform(videoCompositionInstruction);
     }
 
     v22 = v23;
@@ -139,7 +139,7 @@
     renderContext = [(AVAsynchronousVideoCompositionRequest *)[(AVAsynchronousCIImageFilteringRequestInternal *)self->_internal compositingRequest] renderContext];
     if (renderContext)
     {
-      [(AVVideoCompositionRenderContext *)renderContext renderTransform];
+      objc_msgSend_renderTransform(renderContext);
     }
 
     else
@@ -152,7 +152,7 @@
       renderContext2 = [(AVAsynchronousVideoCompositionRequest *)[(AVAsynchronousCIImageFilteringRequestInternal *)self->_internal compositingRequest] renderContext];
       if (renderContext2)
       {
-        [(AVVideoCompositionRenderContext *)renderContext2 renderTransform];
+        objc_msgSend_renderTransform(renderContext2);
       }
 
       else
@@ -175,7 +175,7 @@
   if (result)
   {
 
-    return [(CMTime *)result compositionTime];
+    return objc_msgSend_compositionTime(result);
   }
 
   else

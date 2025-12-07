@@ -37,13 +37,13 @@
   v13 = v6;
   v14 = &v16;
   [(NSArray *)storeItems enumerateObjectsUsingBlock:v12];
-  v7 = sub_1002C0D84();
+  v7 = sub_1002C0D84(AppInstallScheduler);
   sub_1002C13BC(v7, 0x4000);
 
   sub_100282930(self->_purchaseBatch, v6, self->_purchaseInfo);
   if (*(v17 + 24) == 1)
   {
-    v8 = sub_1002C0D84();
+    v8 = sub_1002C0D84(AppInstallScheduler);
     sub_1002C19F0(v8);
   }
 

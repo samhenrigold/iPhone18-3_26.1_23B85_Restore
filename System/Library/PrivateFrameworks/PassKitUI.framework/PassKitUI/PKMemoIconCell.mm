@@ -150,10 +150,10 @@ LABEL_21:
 
 - (void)layoutSubviews
 {
-  v48[2] = *MEMORY[0x1E69E9840];
-  v45.receiver = self;
-  v45.super_class = PKMemoIconCell;
-  [(PKMemoIconCell *)&v45 layoutSubviews];
+  v60[2] = *MEMORY[0x1E69E9840];
+  v57.receiver = self;
+  v57.super_class = PKMemoIconCell;
+  [(PKMemoIconCell *)&v57 layoutSubviews];
   [(PKMemoIconCell *)self bounds];
   if (v3 != self->_priorBoundsSize.width || v4 != self->_priorBoundsSize.height)
   {
@@ -165,66 +165,75 @@ LABEL_21:
   contentView = [(PKMemoIconCell *)self contentView];
   [contentView bounds];
   v8 = v7;
-  PKSizeAlignedInRect();
   v10 = v9;
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
-  v17 = v8 * 0.55;
+  v12.n128_u64[0] = v11;
+  v14 = *&v13;
+  v15.n128_u64[0] = v13;
+  v16.n128_u64[0] = v13;
+  v17.n128_u64[0] = v8;
+  v18.n128_u64[0] = v10;
+  v19.n128_u64[0] = v12.n128_u64[0];
+  v20.n128_f64[0] = v14;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v15, v16, v17, v18, v19, v20, v12);
+  v22 = v21;
+  v24 = v23;
+  v26 = v25;
+  v28 = v27;
+  v29 = v14 * 0.55;
   type = [(PKMemoItem *)self->_item type];
   switch(type)
   {
     case 3uLL:
       goto LABEL_9;
     case 2uLL:
-      [(UITextView *)self->_emojiTextView setFrame:v10, v12, v14, v16];
-      v21 = [MEMORY[0x1E69DB878] systemFontOfSize:v17];
+      [(UITextView *)self->_emojiTextView setFrame:v22, v24, v26, v28];
+      v33 = [MEMORY[0x1E69DB878] systemFontOfSize:v29];
       mEMORY[0x1E69DCBF0] = [MEMORY[0x1E69DCBF0] sharedInputModeController];
       currentInputMode = [mEMORY[0x1E69DCBF0] currentInputMode];
       isDefaultRightToLeft = [currentInputMode isDefaultRightToLeft];
 
-      v25 = objc_alloc_init(MEMORY[0x1E69DB7E0]);
+      v37 = objc_alloc_init(MEMORY[0x1E69DB7E0]);
       text = [(UITextView *)self->_emojiTextView text];
       [contentView bounds];
-      v28 = v27;
-      v30 = v29;
-      v31 = *MEMORY[0x1E69DB778];
-      v47[0] = *MEMORY[0x1E69DB648];
-      v47[1] = v31;
-      v48[0] = v21;
-      v32 = [MEMORY[0x1E696AD98] numberWithInteger:isDefaultRightToLeft];
-      v46 = v32;
-      v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v46 count:1];
-      v48[1] = v33;
-      v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:2];
-      [text boundingRectWithSize:33 options:v34 attributes:v25 context:{v28, v30}];
-      v36 = v35;
+      v40 = v39;
+      v42 = v41;
+      v43 = *MEMORY[0x1E69DB778];
+      v59[0] = *MEMORY[0x1E69DB648];
+      v59[1] = v43;
+      v60[0] = v33;
+      v44 = [MEMORY[0x1E696AD98] numberWithInteger:isDefaultRightToLeft];
+      v58 = v44;
+      v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v58 count:1];
+      v60[1] = v45;
+      v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v60 forKeys:v59 count:2];
+      [text boundingRectWithSize:33 options:v46 attributes:v37 context:{v40, v42}];
+      v48 = v47;
 
       [(UITextView *)self->_emojiTextView contentOffset];
-      v38 = v37;
+      v50 = v49;
       textContainer = [(UITextView *)self->_emojiTextView textContainer];
       [textContainer size];
-      v41 = v40;
+      v53 = v52;
       [(UITextView *)self->_emojiTextView zoomScale];
-      v43 = v41 - v36 * v42;
+      v55 = v53 - v48 * v54;
 
-      v44 = -0.0;
-      if (v43 * 0.5 >= 0.0)
+      v56 = -0.0;
+      if (v55 * 0.5 >= 0.0)
       {
-        v44 = -(v43 * 0.5);
+        v56 = -(v55 * 0.5);
       }
 
-      [(UITextView *)self->_emojiTextView setContentOffset:v38, v44];
-      [(UITextView *)self->_emojiTextView setFont:v21];
+      [(UITextView *)self->_emojiTextView setContentOffset:v50, v56];
+      [(UITextView *)self->_emojiTextView setFont:v33];
 
       break;
     case 0uLL:
 LABEL_9:
       emojiLabel = self->_emojiLabel;
-      v20 = [MEMORY[0x1E69DB878] systemFontOfSize:v17];
-      [(UILabel *)emojiLabel setFont:v20];
+      v32 = [MEMORY[0x1E69DB878] systemFontOfSize:v29];
+      [(UILabel *)emojiLabel setFont:v32];
 
-      [(UILabel *)self->_emojiLabel setFrame:v10, v12, v14, v16];
+      [(UILabel *)self->_emojiLabel setFrame:v22, v24, v26, v28];
       break;
   }
 }

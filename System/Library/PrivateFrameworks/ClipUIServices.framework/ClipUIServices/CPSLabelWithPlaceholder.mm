@@ -160,17 +160,20 @@
   if (text != textCopy)
   {
     v8 = textCopy;
-    if (![(NSString *)text isEqualToString:textCopy])
+    text = [text isEqualToString:textCopy];
+    textCopy = v8;
+    if ((text & 1) == 0)
     {
-      v6 = [(NSString *)v8 copy];
+      v6 = [v8 copy];
       v7 = self->_text;
       self->_text = v6;
 
-      [(CPSLabelWithPlaceholder *)self _placeholderInputsDidChange];
+      text = [(CPSLabelWithPlaceholder *)self _placeholderInputsDidChange];
+      textCopy = v8;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](text, textCopy);
 }
 
 - (void)setPlaceholderColor:(id)color

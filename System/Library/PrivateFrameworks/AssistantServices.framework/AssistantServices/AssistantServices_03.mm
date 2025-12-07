@@ -32,14 +32,14 @@ void sub_1000B5A58(uint64_t a1, void *a2)
     block[1] = 3221225472;
     block[2] = sub_1000B5C64;
     block[3] = &unk_10051E0D8;
-    *v13 = *(a1 + 32);
-    v8 = *(v13[1] + 14);
-    v9 = v13[0];
+    v13 = *(a1 + 32);
+    v8 = *(v13.i64[1] + 112);
+    v9 = v13.i64[0];
     v10 = *(a1 + 48);
     v11 = *(a1 + 56);
     *&v12 = v10;
     *(&v12 + 1) = v11;
-    v15 = vextq_s8(*v13, *v13, 8uLL);
+    v15 = vextq_s8(v13, v13, 8uLL);
     v16 = v12;
     dispatch_async(v8, block);
   }
@@ -960,10 +960,11 @@ void sub_1000B9A50(uint64_t a1, void *a2, void *a3, void *a4)
   }
 }
 
-void sub_1000B9F90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_1000B9F90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3205,7 +3206,7 @@ void sub_1000C4154(uint64_t a1)
     v5 = [(ADCloudKitRecordZoneInfo *)v3 initWithZoneName:@"com.apple.assistant.backedup" subscriptionNames:v4 ckAccountInfo:*(a1 + 40)];
 
     [*(a1 + 32) _fetchChangesWithZoneInfo:v5 retryCount:0 useSharedDatabase:0 activity:0 container:*(a1 + 48) mirror:0];
-    v6 = [*(*(a1 + 32) + 168) objectForKey:@"com.apple.assistant.backedup"];
+    v6 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 168));
     [v2 addObjectsFromArray:v6];
 
     [v2 addObject:v5];
@@ -3226,7 +3227,7 @@ void sub_1000C4154(uint64_t a1)
     [*(a1 + 32) _fetchChangesWithZoneInfo:v10 retryCount:0 useSharedDatabase:0 activity:0 container:*(a1 + 48) mirror:0];
     v11 = +[NSMutableArray array];
 
-    v12 = [*(*(a1 + 32) + 168) objectForKey:@"com.apple.assistant.account.status"];
+    v12 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 168));
     [v11 addObjectsFromArray:v12];
 
     [v11 addObject:v10];
@@ -3250,7 +3251,7 @@ void sub_1000C4154(uint64_t a1)
     [*(a1 + 32) _fetchChangesWithZoneInfo:v16 retryCount:0 useSharedDatabase:0 activity:0 container:*(a1 + 48) mirror:0 completion:&stru_100510568];
     v17 = +[NSMutableArray array];
 
-    v18 = [*(*(a1 + 32) + 168) objectForKey:@"com.apple.assistant.multiuser.shared"];
+    v18 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 168));
     [v17 addObjectsFromArray:v18];
 
     [v17 addObject:v16];
@@ -3299,62 +3300,62 @@ void sub_1000C5470(uint64_t a1, void *a2)
   dispatch_async(v5, v7);
 }
 
-id sub_1000C550C(uint64_t a1)
+id sub_1000C550C(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v4 = *(v3 + 160);
-  if (v4 != v2)
+  v4 = *(a1 + 32);
+  v3 = *(a1 + 40);
+  v5 = *(v4 + 160);
+  if (v5 != v3)
   {
-    v5 = [v4 isEqualToString:?];
-    v3 = *(a1 + 32);
-    if ((v5 & 1) == 0)
+    v6 = [v5 isEqualToString:?];
+    v4 = *(a1 + 32);
+    if ((v6 & 1) == 0)
     {
-      if (*(v3 + 160))
+      if (*(v4 + 160))
       {
-        v6 = AFSiriLogContextDaemon;
+        v7 = AFSiriLogContextDaemon;
         if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v16 = "[ADCloudKitManager _handleAccountStatusChange:]_block_invoke_2";
-          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%s Deleting cached user data", buf, 0xCu);
-          v3 = *(a1 + 32);
+          v17 = "[ADCloudKitManager _handleAccountStatusChange:]_block_invoke_2";
+          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%s Deleting cached user data", buf, 0xCu);
+          v4 = *(a1 + 32);
         }
 
-        [v3 _deleteUserData];
+        [v4 _deleteUserData];
       }
 
-      v7 = [*(a1 + 40) copy];
-      v8 = *(a1 + 32);
-      v9 = *(v8 + 160);
-      *(v8 + 160) = v7;
+      v8 = [*(a1 + 40) copy];
+      v9 = *(a1 + 32);
+      v10 = *(v9 + 160);
+      *(v9 + 160) = v8;
 
       _AFPreferencesSetCloudUserID();
       AFBackedUpPreferencesSynchronize();
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
     }
   }
 
-  *(v3 + 49) = 0;
-  v10 = AFIsMultiUserCompanion();
-  v11 = *(a1 + 32);
-  if (!v10)
+  *(v4 + 49) = 0;
+  v11 = AFIsMultiUserCompanion();
+  v12 = *(a1 + 32);
+  if (!v11)
   {
-    return [v11 _setupAccountState];
+    return [v12 _setupAccountState];
   }
 
-  v12 = v11[17];
-  if (!v12)
+  v13 = v12[17];
+  if (!v13)
   {
-    return [v11 _setupAccountState];
+    return [v12 _setupAccountState];
   }
 
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_1000C5690;
-  v14[3] = &unk_10051C498;
-  v14[4] = v11;
-  return [v12 createMirroredZonesWithCompletion:v14];
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_1000C5690;
+  v15[3] = &unk_10051C498;
+  v15[4] = v12;
+  return [v13 createMirroredZonesWithCompletion:v15];
 }
 
 void sub_1000C5690(uint64_t a1, void *a2)
@@ -3783,9 +3784,11 @@ void sub_1000C8268(uint64_t a1, void *a2, void *a3)
 
 uint64_t sub_1000C8564(uint64_t a1)
 {
-  qword_10058FFA0 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = qword_10058FFA0;
+  qword_10058FFA0 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
 uint64_t sub_1000C89A8(uint64_t result, uint64_t a2)
@@ -3797,9 +3800,12 @@ uint64_t sub_1000C89A8(uint64_t result, uint64_t a2)
 
 uint64_t sub_1000C89C0(uint64_t a1)
 {
-  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _timeoutsExpiringAfter:*(a1 + 40)];
+  v2 = [*(a1 + 32) _timeoutsExpiringAfter:*(a1 + 40)];
+  v3 = *(*(a1 + 48) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v2, v4);
 }
 
 void sub_1000C8E04(uint64_t a1, void *a2, void *a3)
@@ -3892,7 +3898,7 @@ void sub_1000C9548(uint64_t a1)
   v5 = v4;
   if (v3)
   {
-    [v4 objectForKey:v3];
+    objc_msgSend_objectForKey_(v4);
   }
 
   else
@@ -3945,7 +3951,7 @@ void sub_1000C9784(uint64_t a1)
         v10 = [SASyncAnchor _af_normalizedKeyForKey:v8 appBundleID:*(a1 + 40) syncSlotName:*(*(&v13 + 1) + 8 * i)];
         if (v10)
         {
-          v11 = [v3 objectForKey:v10];
+          v11 = objc_msgSend_objectForKey_(v3);
 
           if (v11)
           {
@@ -3986,9 +3992,11 @@ void sub_1000C9AC0(uint64_t a1)
 
 uint64_t sub_1000C9C14(uint64_t a1)
 {
-  qword_10058FFC8 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = qword_10058FFC8;
+  qword_10058FFC8 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
 void sub_1000C9DCC(uint64_t a1, void *a2, void *a3)
@@ -4022,15 +4030,17 @@ uint64_t sub_1000C9EA8(void *a1)
 
 uint64_t sub_1000CA338(uint64_t a1)
 {
-  qword_10058FFE0 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = qword_10058FFE0;
+  qword_10058FFE0 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
-uint64_t sub_1000CAABC(uint64_t a1)
+uint64_t sub_1000CAABC(void *a1)
 {
   result = AFKeychainSetValueForAccountAndKey();
-  *(*(*(a1 + 56) + 8) + 24) = result;
+  *(*(a1[7] + 8) + 24) = result;
   return result;
 }
 
@@ -4041,11 +4051,14 @@ uint64_t sub_1000CAE1C(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_1000CAE34(uint64_t a1)
+uint64_t sub_1000CAE34(void *a1)
 {
-  *(*(*(a1 + 48) + 8) + 40) = AFKeychainValueForAccountAndKey();
+  v2 = AFKeychainValueForAccountAndKey();
+  v3 = *(a1[6] + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v2, v4);
 }
 
 uint64_t sub_1000CAEF8(uint64_t result)
@@ -4074,19 +4087,19 @@ id sub_1000CB53C(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
   return result;
 }
 
-id sub_1000CE244(__int16 a1)
+id sub_1000CE244(__int16 a1, uint64_t a2)
 {
   if ((a1 - 1) > 3u)
   {
-    v2 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v2 = objc_opt_class();
+    v3 = objc_opt_class();
   }
 
-  return v2;
+  return v3;
 }
 
 void sub_1000CE5E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
@@ -4305,19 +4318,19 @@ id sub_1000D00BC(uint64_t a1)
   return [v2 _handleCompanionServiceStereoConfigurationDidChange];
 }
 
-void sub_1000D02AC(uint64_t a1)
+void sub_1000D02AC(uint64_t a1, uint64_t a2)
 {
   if (AFIsInternalInstall())
   {
     if ([*(a1 + 32) _siriOrDictationIsEnabled])
     {
-      v2 = +[AFPreferences sharedPreferences];
-      v3 = [v2 longLivedIdentifierUploadingEnabled];
+      v3 = +[AFPreferences sharedPreferences];
+      v4 = [v3 longLivedIdentifierUploadingEnabled];
 
-      if (v3)
+      if (v4)
       {
-        v4 = +[ADCommandCenter sharedCommandCenter];
-        [v4 fetchActiveAccount:&stru_100510D20];
+        v5 = +[ADCommandCenter sharedCommandCenter];
+        [v5 fetchActiveAccount:&stru_100510D20];
       }
     }
   }
@@ -4334,9 +4347,11 @@ void sub_1000D0350(id a1, ADAccount *a2)
 
 void sub_1000D05F0(id a1)
 {
-  qword_10058FFF0 = objc_alloc_init(ADSiriAnalyticsServiceHost);
+  v1 = objc_alloc_init(ADSiriAnalyticsServiceHost);
+  v2 = qword_10058FFF0;
+  qword_10058FFF0 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000D0A04(uint64_t a1, xpc_object_t xdict)
@@ -4368,7 +4383,7 @@ void sub_1000D0EA4(uint64_t a1, xpc_object_t xdict)
 void sub_1000D25C4(uint64_t a1, uint64_t a2)
 {
   v4 = [ADServiceManager _serviceBundleIDFromServiceReloadNotification:a2];
-  v3 = [*(*(a1 + 32) + 16) objectForKey:v4];
+  v3 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 16));
   [*(a1 + 40) addObject:v3];
 }
 
@@ -4490,7 +4505,7 @@ void sub_1000D6674(uint64_t a1, void *a2, void *a3)
 
   if (sub_1000D6628(v8) && [(_ADChunkInfo *)v6 isValid])
   {
-    v7 = [*(a1 + 32) objectForKey:*(a1 + 40)];
+    v7 = objc_msgSend_objectForKey_(*(a1 + 32));
     if (!v7)
     {
       v7 = objc_alloc_init(NSMutableDictionary);
@@ -4542,9 +4557,11 @@ void sub_1000D73B0(uint64_t a1, uint64_t a2, void *a3)
 
 uint64_t sub_1000D7664(uint64_t a1)
 {
-  qword_10058FFF8 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = qword_10058FFF8;
+  qword_10058FFF8 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
 void sub_1000D8914(uint64_t a1, void *a2)
@@ -4874,9 +4891,11 @@ void sub_1000D8DFC(uint64_t a1, void *a2)
 
 void sub_1000D9EE4(id a1)
 {
-  qword_100590010 = objc_alloc_init(SOClockTimerObserver);
+  v1 = objc_alloc_init(SOClockTimerObserver);
+  v2 = qword_100590010;
+  qword_100590010 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000DA0AC(uint64_t a1)
@@ -5034,44 +5053,44 @@ void sub_1000DA578(void *a1)
 LABEL_15:
 }
 
-void sub_1000DA884(void *a1)
+void sub_1000DA884(void *a1, const char *a2)
 {
-  v2 = [*(a1[4] + 64) objectForKey:a1[5]];
-  if ([v2 length])
+  v3 = objc_msgSend_objectForKey_(*(a1[4] + 64), a2, a1[5]);
+  if ([v3 length])
   {
-    v3 = AFSiriLogContextDaemon;
+    v4 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
     {
-      v4 = a1[5];
-      v5 = 136315650;
-      v6 = "[ADCoreBluetoothV2DeviceSource fetchAddressForDeviceWithCBUUID:completion:]_block_invoke";
-      v7 = 2112;
-      v8 = v4;
-      v9 = 2112;
-      v10 = v2;
-      _os_log_debug_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "%s (cached): %@ -> (%@)", &v5, 0x20u);
+      v5 = a1[5];
+      v6 = 136315650;
+      v7 = "[ADCoreBluetoothV2DeviceSource fetchAddressForDeviceWithCBUUID:completion:]_block_invoke";
+      v8 = 2112;
+      v9 = v5;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_debug_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "%s (cached): %@ -> (%@)", &v6, 0x20u);
     }
 
     (*(a1[6] + 16))();
   }
 }
 
-void sub_1000DAA54(uint64_t a1)
+void sub_1000DAA54(uint64_t a1, const char *a2)
 {
-  v2 = [*(*(a1 + 32) + 56) objectForKey:*(a1 + 40)];
-  if ([v2 length])
+  v3 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 56), a2, *(a1 + 40));
+  if ([v3 length])
   {
-    v3 = AFSiriLogContextDaemon;
+    v4 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
     {
-      v7 = *(a1 + 40);
+      v8 = *(a1 + 40);
       *buf = 136315650;
-      v13 = "[ADCoreBluetoothV2DeviceSource fetchCBUUIDForDeviceWithAddress:completion:]_block_invoke";
-      v14 = 2112;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v2;
-      _os_log_debug_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "%s (cached): %@ -> (%@)", buf, 0x20u);
+      v14 = "[ADCoreBluetoothV2DeviceSource fetchCBUUIDForDeviceWithAddress:completion:]_block_invoke";
+      v15 = 2112;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v3;
+      _os_log_debug_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "%s (cached): %@ -> (%@)", buf, 0x20u);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -5079,17 +5098,17 @@ void sub_1000DAA54(uint64_t a1)
 
   else
   {
-    v4 = *(a1 + 40);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_1000DABE8;
-    v8[3] = &unk_100510F88;
-    v5 = v4;
-    v6 = *(a1 + 32);
-    v9 = v5;
+    v5 = *(a1 + 40);
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_1000DABE8;
+    v9[3] = &unk_100510F88;
+    v6 = v5;
+    v7 = *(a1 + 32);
     v10 = v6;
-    v11 = *(a1 + 48);
-    [ADCoreBluetoothManager fetchCBUUIDForConnectedDeviceWithAddress:v5 completion:v8];
+    v11 = v7;
+    v12 = *(a1 + 48);
+    [ADCoreBluetoothManager fetchCBUUIDForConnectedDeviceWithAddress:v6 completion:v9];
   }
 }
 
@@ -5248,7 +5267,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t sub_1000DBE60()
+uint64_t sub_1000DBE60(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_100590020 = result;
@@ -5271,8 +5290,8 @@ void sub_1000DC338(void *a1)
     _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "%s : %@ CBUUID: %@", &v7, 0x20u);
   }
 
-  v3 = [*(a1[6] + 32) objectForKey:a1[4]];
-  v4 = [*(a1[6] + 40) objectForKey:a1[5]];
+  v3 = objc_msgSend_objectForKey_(*(a1[6] + 32));
+  v4 = objc_msgSend_objectForKey_(*(a1[6] + 40));
   if (a1[4])
   {
     [*(a1[6] + 32) removeObjectForKey:?];
@@ -5340,7 +5359,7 @@ uint64_t sub_1000DCBF4(uint64_t result, uint64_t a2)
 void sub_1000DCC0C(void *a1)
 {
   v2 = AFNormalizeMacAddress();
-  v3 = [*(a1[5] + 72) objectForKey:v2];
+  v3 = objc_msgSend_objectForKey_(*(a1[5] + 72));
   v4 = *(a1[6] + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
@@ -5959,9 +5978,9 @@ void sub_1000DFABC(uint64_t a1)
   *(v3 + 16) = 0;
 }
 
-void sub_1000E00D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000E00D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6116,9 +6135,9 @@ void sub_1000E09EC()
   }
 }
 
-void sub_1000E0B38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000E0B38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6156,9 +6175,9 @@ void sub_1000E0B50()
   }
 }
 
-void sub_1000E0C9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000E0C9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6208,7 +6227,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t sub_1000E0E58()
+uint64_t sub_1000E0E58(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_100590040 = result;
@@ -6310,9 +6329,9 @@ void sub_1000E169C(uint64_t a1)
   dispatch_group_leave(*(*(a1 + 32) + 48));
 }
 
-void sub_1000E1E70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000E1E70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6350,9 +6369,9 @@ void sub_1000E1E98()
   }
 }
 
-void sub_1000E1FE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000E1FE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6435,9 +6454,9 @@ void sub_1000E21A0()
   }
 }
 
-void sub_1000E22EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000E22EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6469,7 +6488,7 @@ void *sub_1000E23A4(uint64_t a1)
   return result;
 }
 
-uint64_t sub_1000E23F4()
+uint64_t sub_1000E23F4(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_100590058 = result;
@@ -6485,9 +6504,9 @@ void *sub_1000E2468(uint64_t a1)
   return result;
 }
 
-void sub_1000E29C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000E29C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6519,11 +6538,13 @@ void *sub_1000E2A88(uint64_t a1)
   return result;
 }
 
-uint64_t sub_1000E2B80()
+uint64_t sub_1000E2B80(uint64_t a1, uint64_t a2)
 {
-  qword_100590030 = [objc_alloc(objc_opt_class()) _init];
+  v2 = [objc_alloc(objc_opt_class()) _init];
+  v3 = qword_100590030;
+  qword_100590030 = v2;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v2, v3);
 }
 
 void sub_1000E2EC0(uint64_t a1, void *a2, void *a3)
@@ -6762,9 +6783,9 @@ id sub_1000E4074(uint64_t a1)
   return [*(a1 + 40) _resetStateWithCompletion:*(a1 + 48)];
 }
 
-void sub_1000E444C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000E444C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7281,9 +7302,9 @@ LABEL_36:
   qword_1005900B8 = mach_absolute_time();
 }
 
-void sub_1000E769C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000E769C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7846,9 +7867,9 @@ void sub_1000E94B8(id a1)
   [v1 syncAnchorKeys:0 forceReset:0 reasons:&off_100533650];
 }
 
-void sub_1000E9990(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000E9990(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8135,9 +8156,9 @@ void sub_1000EC55C(uint64_t a1)
   CFNotificationCenterPostNotification(DistributedCenter, v3, 0, v4, 1u);
 }
 
-void sub_1000ECABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000ECABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8253,9 +8274,11 @@ void sub_1000EDC24(id a1)
   qword_1005900A8 = v2;
 
   qword_1005900B0 = mach_absolute_time();
-  qword_100590098 = objc_alloc_init(ADDaemon);
+  v3 = objc_alloc_init(ADDaemon);
+  v4 = qword_100590098;
+  qword_100590098 = v3;
 
-  _objc_release_x1();
+  _objc_release_x1(v3, v4);
 }
 
 void sub_1000EDF48(uint64_t a1, void *a2, void *a3)
@@ -8483,16 +8506,22 @@ uint64_t sub_1000EEE1C(uint64_t result, uint64_t a2)
 
 uint64_t sub_1000EEE34(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 16) peerBuildVersion];
+  v2 = [*(*(a1 + 32) + 16) peerBuildVersion];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v2, v4);
 }
 
 uint64_t sub_1000EEF74(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 16) peerType];
+  v2 = [*(*(a1 + 32) + 16) peerType];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v2, v4);
 }
 
 void sub_1000EF0B4(uint64_t a1, uint64_t a2, void *a3)
@@ -8631,80 +8660,85 @@ void sub_1000EFB08(uint64_t a1, void *a2)
 
 void sub_1000EFBDC(uint64_t a1)
 {
-  if ((AFIsNano() & 1) == 0 && (AFIsHorseman() & 1) == 0)
+  if ((AFIsNano() & 1) == 0)
   {
-    sub_100214D74();
-    _AFPreferencesSetLastPushedCensorSpeechSetting();
+    v2 = AFIsHorseman();
+    if ((v2 & 1) == 0)
+    {
+      sub_100214D74(v2);
+      _AFPreferencesSetLastPushedCensorSpeechSetting();
+    }
   }
 
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    v3 = [v2 objectForKey:@"ADSharedDataDidChangePreviousLanguageCodeKey"];
-    v4 = *(a1 + 40);
-    v5 = +[NSNull null];
-    if (v3 == v5)
+    v4 = objc_msgSend_objectForKey_(v3);
+    v5 = *(a1 + 40);
+    v6 = +[NSNull null];
+    if (v4 == v6)
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v6 = v3;
+      v7 = v4;
     }
 
-    [v4 setPreviousLanguageCode:v6];
+    [v5 setPreviousLanguageCode:v7];
 
-    v7 = [*(a1 + 32) objectForKey:@"ADSharedDataDidChangePreviousOutputVoiceKey"];
-    v8 = *(a1 + 40);
-    v9 = +[NSNull null];
-    if (v7 == v9)
+    v8 = objc_msgSend_objectForKey_(*(a1 + 32));
+    v9 = *(a1 + 40);
+    v10 = +[NSNull null];
+    if (v8 == v10)
     {
-      v10 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v10 = v7;
+      v11 = v8;
     }
 
-    [v8 setPreviousOutputVoice:v10];
+    [v9 setPreviousOutputVoice:v11];
 
-    v11 = [*(a1 + 32) objectForKey:@"ADSharedDataDidChangePeerSetKey"];
-    v12 = +[NSNull null];
-    if (v11 == v12)
+    v12 = objc_msgSend_objectForKey_(*(a1 + 32));
+    v13 = +[NSNull null];
+    if (v12 == v13)
     {
-      v13 = 0;
+      v14 = 0;
     }
 
     else
     {
-      v13 = v11;
+      v14 = v12;
     }
 
-    v16 = v13;
+    v19 = v14;
   }
 
   else
   {
-    v16 = 0;
+    v19 = 0;
   }
 
-  if ([*(*(a1 + 48) + 16) hasPeer])
-  {
-    [*(a1 + 48) _sendData:*(a1 + 40)];
-  }
-
-  if (sub_100214E18())
-  {
-    v14 = +[ADPeerCloudService sharedInstance];
-    [v14 sendSharedData:*(a1 + 40) toPeers:v16];
-  }
-
-  v15 = *(a1 + 56);
+  v15 = [*(*(a1 + 48) + 16) hasPeer];
   if (v15)
   {
-    (*(v15 + 16))();
+    v15 = [*(a1 + 48) _sendData:*(a1 + 40)];
+  }
+
+  if (sub_100214E18(v15, v16))
+  {
+    v17 = +[ADPeerCloudService sharedInstance];
+    [v17 sendSharedData:*(a1 + 40) toPeers:v19];
+  }
+
+  v18 = *(a1 + 56);
+  if (v18)
+  {
+    (*(v18 + 16))();
   }
 }
 
@@ -8717,15 +8751,16 @@ uint64_t sub_1000EFDE4(uint64_t a1)
     if ((result & 1) == 0)
     {
       PushedCensorSpeechSetting = _AFPreferencesLastPushedCensorSpeechSetting();
-      result = sub_100214D74();
-      if (PushedCensorSpeechSetting != result)
+      v4 = PushedCensorSpeechSetting;
+      result = sub_100214D74(PushedCensorSpeechSetting);
+      if (v4 != result)
       {
-        v4 = AFSiriLogContextDaemon;
+        v5 = AFSiriLogContextDaemon;
         if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
         {
-          v5 = 136315138;
-          v6 = "[ADSharedDataService effectiveSettingsChanged]_block_invoke";
-          _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%s Censor setting changed, pushing to peer.", &v5, 0xCu);
+          v6 = 136315138;
+          v7 = "[ADSharedDataService effectiveSettingsChanged]_block_invoke";
+          _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "%s Censor setting changed, pushing to peer.", &v6, 0xCu);
         }
 
         return [*(a1 + 32) _pushSharedDataToPeerFromNotification:0 completion:0];
@@ -8734,6 +8769,13 @@ uint64_t sub_1000EFDE4(uint64_t a1)
   }
 
   return result;
+}
+
+void sub_1000F0F84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
+{
+  va_start(va, a33);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_1000F0FAC(uint64_t a1, char a2)
@@ -9213,33 +9255,5 @@ LABEL_35:
     }
 
     while (v41);
-  }
-}
-
-void sub_1000F3B6C(uint64_t a1, int a2)
-{
-  if (a2)
-  {
-    v3 = *(*(a1 + 32) + 8);
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 3221225472;
-    block[2] = sub_1000F3C9C;
-    block[3] = &unk_10051CF58;
-    v7 = *(a1 + 48);
-    dispatch_async(v3, block);
-  }
-
-  else
-  {
-    v4 = AFSiriLogContextSession;
-    if (os_log_type_enabled(AFSiriLogContextSession, OS_LOG_TYPE_INFO))
-    {
-      v5 = *(a1 + 40);
-      *buf = 136315394;
-      v9 = "[ADSessionManager _sendCommand:opportunistically:logEvent:doSendPreProcessing:doSendPostProcessing:]_block_invoke";
-      v10 = 2112;
-      v11 = v5;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%s Dropped command: %@", buf, 0x16u);
-    }
   }
 }

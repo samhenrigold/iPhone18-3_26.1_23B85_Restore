@@ -51,7 +51,7 @@
 
 void __66__TRIActiveLaunchdDeliveredExperimentsReader_allActiveExperiments__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([v6 containsObject:@"__tri_sysctl_experiment"])
@@ -59,11 +59,11 @@ void __66__TRIActiveLaunchdDeliveredExperimentsReader_allActiveExperiments__bloc
     v7 = TRILogCategory_Server();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 138412546;
-      v16 = v5;
-      v17 = 2112;
-      v18 = v6;
-      _os_log_debug_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEBUG, "Namespace %@ targeting bundle ids: %@ is not considered as a launchd delievered experiment due to presence of kTRISysctlExperimentMagicBundleIdentifier", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = v5;
+      v16 = 2112;
+      v17 = v6;
+      _os_log_debug_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEBUG, "Namespace %@ targeting bundle ids: %@ is not considered as a launchd delievered experiment due to presence of kTRISysctlExperimentMagicBundleIdentifier", &v14, 0x16u);
     }
   }
 
@@ -85,8 +85,6 @@ void __66__TRIActiveLaunchdDeliveredExperimentsReader_allActiveExperiments__bloc
     [*(a1 + 40) addObject:v13];
     objc_autoreleasePoolPop(v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

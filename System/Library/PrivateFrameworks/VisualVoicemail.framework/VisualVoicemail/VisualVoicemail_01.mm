@@ -1,14 +1,13 @@
 uint64_t sub_100057D94(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v6 = *(a1 + 48);
+    v3 = *(a1 + 32);
+    v4 = *(a1 + 40);
+    v5 = *(a1 + 48);
 
-    return [v4 transcriptionController:v5 transcriptionStatusChanged:v6];
+    return [v3 transcriptionController:v4 transcriptionStatusChanged:v5];
   }
 
   return result;
@@ -62,15 +61,14 @@ void sub_100057E60(uint64_t a1)
 
 uint64_t sub_100058038(double *a1)
 {
-  v2 = *(a1 + 4);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 4);
-    v5 = *(a1 + 5);
-    v6 = a1[6];
+    v3 = *(a1 + 4);
+    v4 = *(a1 + 5);
+    v5 = a1[6];
 
-    return [v4 transcriptionController:v5 transcriptionProgressFractionCompletedChanged:v6];
+    return [v3 transcriptionController:v4 transcriptionProgressFractionCompletedChanged:v5];
   }
 
   return result;
@@ -125,23 +123,22 @@ void sub_100058100(uint64_t a1)
 
 uint64_t sub_1000582D4(void *a1)
 {
-  v2 = a1[4];
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = a1[4];
-    v5 = a1[5];
-    v6 = a1[6];
+    v3 = a1[4];
+    v4 = a1[5];
+    v5 = a1[6];
 
-    return [v4 transcriptionController:v5 transcriptionProgressTotalUnitCountChanged:v6];
+    return [v3 transcriptionController:v4 transcriptionProgressTotalUnitCountChanged:v5];
   }
 
   return result;
 }
 
-void sub_1000583D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000583D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -154,38 +151,36 @@ void sub_1000583E8(uint64_t a1)
   v5 = [v4 languageIdentifier];
   *(*(*(a1 + 40) + 8) + 24) = [v2 containsObject:v5];
 
-  v6 = sub_10005435C();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_10005435C(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 32);
     v8 = objc_opt_class();
     v9 = *(a1 + 32);
-    v10 = *(*(*(a1 + 40) + 8) + 24);
-    v11 = asNSStringBOOL();
-    v12 = [*(a1 + 32) locale];
-    v13 = [v12 languageIdentifier];
-    v14 = [*(a1 + 32) speechRecognizer];
-    v15 = [v14 locale];
-    v16 = [v15 languageIdentifier];
-    v17 = 138413570;
-    v18 = v8;
-    v19 = 2048;
-    v20 = v9;
-    v21 = 2112;
-    v22 = v11;
-    v23 = 2112;
-    v24 = v13;
-    v25 = 2112;
-    v26 = v16;
-    v27 = 2112;
-    v28 = v2;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "<%@ %p> isDictationModelInstalled %@ [self language: %@, speech language: %@, installed assets: %@]", &v17, 0x3Eu);
+    v10 = asNSStringBOOL();
+    v11 = [*(a1 + 32) locale];
+    v12 = [v11 languageIdentifier];
+    v13 = [*(a1 + 32) speechRecognizer];
+    v14 = [v13 locale];
+    v15 = [v14 languageIdentifier];
+    v16 = 138413570;
+    v17 = v8;
+    v18 = 2048;
+    v19 = v9;
+    v20 = 2112;
+    v21 = v10;
+    v22 = 2112;
+    v23 = v12;
+    v24 = 2112;
+    v25 = v15;
+    v26 = 2112;
+    v27 = v2;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "<%@ %p> isDictationModelInstalled %@ [self language: %@, speech language: %@, installed assets: %@]", &v16, 0x3Eu);
   }
 }
 
-void sub_10005870C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10005870C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -206,16 +201,16 @@ void sub_10005886C(uint64_t a1)
   [v3 cancelAllOperations];
 }
 
-void sub_100058994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100058994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100058B38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100058B38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -236,20 +231,21 @@ uint64_t sub_100058B70(uint64_t result)
 
 id sub_100058C24(uint64_t a1)
 {
-  if ([*(a1 + 32) isDictationModelInstalled])
+  v2 = [*(a1 + 32) isDictationModelInstalled];
+  if (v2)
   {
-    v2 = sub_10005435C();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_10005435C(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 32);
-      v4 = [v3 speechRecognizer];
-      v5 = [v4 locale];
-      v6 = [v5 localeIdentifier];
+      v4 = *(a1 + 32);
+      v5 = [v4 speechRecognizer];
+      v6 = [v5 locale];
+      v7 = [v6 localeIdentifier];
       *buf = 138412546;
-      v11 = v3;
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@: Dictation model for locale %@ is installed, request to install Transcription asset model is not processed.", buf, 0x16u);
+      v12 = v4;
+      v13 = 2112;
+      v14 = v7;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@: Dictation model for locale %@ is installed, request to install Transcription asset model is not processed.", buf, 0x16u);
     }
 
     return [*(a1 + 32) setTranscriptionAssetModelProcessed:1];
@@ -257,20 +253,20 @@ id sub_100058C24(uint64_t a1)
 
   else
   {
-    v8 = *(a1 + 32);
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_100058DC0;
-    v9[3] = &unk_1000EEDD8;
-    v9[4] = v8;
-    return [v8 requestTranscriptionAssetModelOperationWithCompletion:v9];
+    v9 = *(a1 + 32);
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100058DC0;
+    v10[3] = &unk_1000EEDD8;
+    v10[4] = v9;
+    return [v9 requestTranscriptionAssetModelOperationWithCompletion:v10];
   }
 }
 
 void sub_100058DC0(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = sub_10005435C();
+  v6 = sub_10005435C(v5);
   v7 = v6;
   if (a2)
   {
@@ -289,41 +285,42 @@ void sub_100058DC0(uint64_t a1, int a2, void *a3)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_10009D488(a1);
+      sub_10009D488();
     }
   }
 }
 
 void sub_100058F54(uint64_t a1)
 {
-  if ([*(a1 + 32) isLanguageIDModelInstalled])
+  v2 = [*(a1 + 32) isLanguageIDModelInstalled];
+  if (v2)
   {
-    v2 = sub_10005435C();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_10005435C(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
       *buf = 138412290;
-      v7 = v3;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@: Language ID model is installed, request to install is not processed.", buf, 0xCu);
+      v8 = v4;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@: Language ID model is installed, request to install is not processed.", buf, 0xCu);
     }
   }
 
   else
   {
-    v4 = *(a1 + 32);
-    v5[0] = _NSConcreteStackBlock;
-    v5[1] = 3221225472;
-    v5[2] = sub_100059068;
-    v5[3] = &unk_1000EEDD8;
-    v5[4] = v4;
-    [v4 requestLanguageIDModelOperationWithCompletion:v5];
+    v5 = *(a1 + 32);
+    v6[0] = _NSConcreteStackBlock;
+    v6[1] = 3221225472;
+    v6[2] = sub_100059068;
+    v6[3] = &unk_1000EEDD8;
+    v6[4] = v5;
+    [v5 requestLanguageIDModelOperationWithCompletion:v6];
   }
 }
 
 void sub_100059068(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = sub_10005435C();
+  v6 = sub_10005435C(v5);
   v7 = v6;
   if (a2)
   {
@@ -338,49 +335,50 @@ void sub_100059068(uint64_t a1, int a2, void *a3)
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    sub_10009D4F4(a1);
+    sub_10009D4F4();
   }
 }
 
 void sub_100059218(uint64_t a1)
 {
   v2 = +[VMConfiguration getVMLocaleSpeechAssetTypeforLocale:gasrEnabled:](VMConfiguration, "getVMLocaleSpeechAssetTypeforLocale:gasrEnabled:", *(a1 + 32), [*(a1 + 40) isGasrModelAvailable]);
-  if ([*(a1 + 40) isSpeechAnalyzerTranscriptionModelInstalledForTaskHint:*(a1 + 32) taskHint:v2])
+  v3 = [*(a1 + 40) isSpeechAnalyzerTranscriptionModelInstalledForTaskHint:*(a1 + 32) taskHint:v2];
+  if (v3)
   {
-    v3 = sub_10005435C();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_10005435C(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 40);
-      v5 = [*(a1 + 32) localeIdentifier];
+      v5 = *(a1 + 40);
+      v6 = [*(a1 + 32) localeIdentifier];
       *buf = 138412546;
-      v15 = v4;
-      v16 = 2112;
-      v17 = v5;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@: Transcription model for locale %@ is installed, request to install is not processed.", buf, 0x16u);
+      v16 = v5;
+      v17 = 2112;
+      v18 = v6;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@: Transcription model for locale %@ is installed, request to install is not processed.", buf, 0x16u);
     }
   }
 
   else
   {
-    v6 = [*(a1 + 40) assetModel];
-    v7 = [*(a1 + 32) localeIdentifier];
-    v8 = [*(a1 + 40) serialDispatchQueue];
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_10005942C;
-    v11[3] = &unk_1000EEE00;
-    v10 = *(a1 + 32);
-    v9 = v10.i64[0];
-    v12 = vextq_s8(v10, v10, 8uLL);
-    v13 = v2;
-    [v6 performInstallAssetModelWithType:1 speechTaskHint:v2 language:v7 queue:v8 completion:v11];
+    v7 = [*(a1 + 40) assetModel];
+    v8 = [*(a1 + 32) localeIdentifier];
+    v9 = [*(a1 + 40) serialDispatchQueue];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10005942C;
+    v12[3] = &unk_1000EEE00;
+    v11 = *(a1 + 32);
+    v10 = v11.i64[0];
+    v13 = vextq_s8(v11, v11, 8uLL);
+    v14 = v2;
+    [v7 performInstallAssetModelWithType:1 speechTaskHint:v2 language:v8 queue:v9 completion:v12];
   }
 }
 
 void sub_10005942C(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = sub_10005435C();
+  v6 = sub_10005435C(v5);
   v7 = v6;
   if (a2)
   {
@@ -418,7 +416,7 @@ void sub_10005942C(uint64_t a1, int a2, void *a3)
 void sub_100059654(uint64_t a1)
 {
   v2 = objc_alloc_init(VMTranscriptionSanitizeDatabaseOperation);
-  v3 = sub_10005435C();
+  v3 = sub_10005435C(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
@@ -438,7 +436,7 @@ void sub_100059A2C(uint64_t a1)
   *(*(*(a1 + 48) + 8) + 24) = [v3 containsObject:v2];
 }
 
-void sub_100059BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_100059BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -452,28 +450,28 @@ uint64_t sub_100059BD8(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_100059CEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_100059CEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_100059E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_100059E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_100059F24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_100059F24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_10005A040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_10005A040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -521,33 +519,34 @@ void sub_10005AFF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 uint64_t sub_10005B01C(uint64_t a1, uint64_t a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v4 = sub_100002850();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100002850(WeakRetained);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = objc_opt_class();
-      v6 = *(a2 + 16);
-      v7 = *(a2 + 20);
-      v10 = 136316418;
-      v11 = "";
-      v12 = 2080;
-      v13 = "";
-      v14 = 2112;
-      v15 = v5;
-      v16 = 2048;
-      v17 = WeakRetained;
-      v18 = 1024;
-      v19 = v6;
-      v20 = 1024;
-      v21 = v7;
-      v8 = v5;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#I %s%s<%@ %p> Received state dump request for api %d, reason %d", &v10, 0x36u);
+      v6 = objc_opt_class();
+      v7 = *(a2 + 16);
+      v8 = *(a2 + 20);
+      v11 = 136316418;
+      v12 = "";
+      v13 = 2080;
+      v14 = "";
+      v15 = 2112;
+      v16 = v6;
+      v17 = 2048;
+      v18 = v4;
+      v19 = 1024;
+      v20 = v7;
+      v21 = 1024;
+      v22 = v8;
+      v9 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%s<%@ %p> Received state dump request for api %d, reason %d", &v11, 0x36u);
     }
 
     if (*(a2 + 16) == 3)
     {
-      [WeakRetained dumpState];
+      [v4 dumpState];
     }
   }
 
@@ -567,18 +566,18 @@ void sub_10005B14C(uint64_t a1)
 void sub_10005B1D8(uint64_t a1, xpc_object_t xdict)
 {
   string = xpc_dictionary_get_string(xdict, _xpc_event_key_name);
-  if (string && ([NSString stringWithUTF8String:string], (v4 = objc_claimAutoreleasedReturnValue()) != 0))
+  if (string && ([NSString stringWithUTF8String:string], (string = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v5 = v4;
-    [*(a1 + 32) executeHandlerForNotificationWithName:v4 userInfo:0];
+    v4 = string;
+    [*(a1 + 32) executeHandlerForNotificationWithName:string userInfo:0];
   }
 
   else
   {
-    v5 = sub_100002850();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = sub_100002850(string);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_10009D734(a1, v5);
+      sub_10009D734(a1, v4);
     }
   }
 }
@@ -594,62 +593,60 @@ id sub_10005B480(uint64_t a1)
 
 void sub_10005BA08(uint64_t a1)
 {
-  v2 = sub_100002850();
+  v2 = sub_100002850(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = *(a1 + 40);
-    v6 = *(a1 + 48);
-    v17 = 136316162;
+    v3 = objc_opt_class();
+    v4 = *(a1 + 40);
+    v5 = *(a1 + 48);
+    v15 = 136316162;
+    v16 = "";
+    v17 = 2080;
     v18 = "";
-    v19 = 2080;
-    v20 = "";
+    v19 = 2112;
+    v20 = v3;
     v21 = 2112;
     v22 = v4;
     v23 = 2112;
     v24 = v5;
-    v25 = 2112;
-    v26 = v6;
-    v7 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ is handling %@ with user info %@", &v17, 0x34u);
+    v6 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ is handling %@ with user info %@", &v15, 0x34u);
   }
 
   if ([*(a1 + 40) isEqualToString:kCTIndicatorsVoiceMailNotification])
   {
-    v8 = *(a1 + 48);
-    if (v8)
+    v7 = *(a1 + 48);
+    if (v7)
     {
-      v9 = [v8 objectForKeyedSubscript:kCTIndicatorVoiceMailSubInstance];
-      if (v9)
+      v8 = [v7 objectForKeyedSubscript:kCTIndicatorVoiceMailSubInstance];
+      if (v8)
       {
-        v10 = [[NSUUID alloc] initWithUUIDString:v9];
-        if (v10)
+        v9 = [[NSUUID alloc] initWithUUIDString:v8];
+        if (v9)
         {
-          v11 = v10;
-          v12 = [*(a1 + 32) findContextInfoWithSubscriptionUUID:v10];
-          if (v12)
+          v10 = v9;
+          v11 = [*(a1 + 32) findContextInfoWithSubscriptionUUID:v9];
+          if (v11)
           {
-            [*(a1 + 32) executeHandlerForVoicemailInfoNotification:v12 userInfo:*(a1 + 48)];
+            [*(a1 + 32) executeHandlerForVoicemailInfoNotification:v11 userInfo:*(a1 + 48)];
           }
 
           else
           {
-            v13 = sub_100002850();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+            v12 = sub_100002850(0);
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
             {
-              v14 = *(a1 + 32);
-              v15 = objc_opt_class();
-              v17 = 136315906;
+              v13 = objc_opt_class();
+              v15 = 136315906;
+              v16 = "";
+              v17 = 2080;
               v18 = "";
-              v19 = 2080;
-              v20 = "";
+              v19 = 2112;
+              v20 = v13;
               v21 = 2112;
-              v22 = v15;
-              v23 = 2112;
-              v24 = v9;
-              v16 = v15;
-              _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ subscription for UUID %@ not found", &v17, 0x2Au);
+              v22 = v8;
+              v14 = v13;
+              _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ subscription for UUID %@ not found", &v15, 0x2Au);
             }
           }
         }
@@ -663,7 +660,7 @@ void sub_10005BA08(uint64_t a1)
   }
 }
 
-id sub_10005C978(void *a1, void *a2)
+CTXPCContextInfo *sub_10005C978(void *a1, void *a2)
 {
   v3 = a2;
   v15 = 0u;
@@ -716,7 +713,7 @@ LABEL_11:
 
 void sub_10005DEC4(uint64_t a1)
 {
-  v2 = sub_100002850();
+  v2 = sub_100002850(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) labelUUIDToService];
@@ -763,9 +760,9 @@ void sub_10005DEC4(uint64_t a1)
   }
 }
 
-void sub_10005E14C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10005E14C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -808,7 +805,7 @@ void sub_10005E17C(uint64_t a1)
 
 void sub_10005E38C(uint64_t a1)
 {
-  v2 = sub_100002850();
+  v2 = sub_100002850(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) labelID];
@@ -845,19 +842,19 @@ void sub_10005E57C(uint64_t a1)
   v2 = [*(a1 + 32) labelUUIDToService];
   v3 = [v2 objectForKey:*(a1 + 40)];
 
-  v4 = sub_100002850();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100002850(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 40);
-    v9 = 136315906;
-    v10 = "";
-    v11 = 2080;
+    v6 = *(a1 + 40);
+    v11 = 136315906;
     v12 = "";
-    v13 = 2112;
-    v14 = v5;
+    v13 = 2080;
+    v14 = "";
     v15 = 2112;
-    v16 = v3;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#I %s%sDo M2A merge for account %@, service %@", &v9, 0x2Au);
+    v16 = v6;
+    v17 = 2112;
+    v18 = v3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%sDo M2A merge for account %@, service %@", &v11, 0x2Au);
   }
 
   if (v3)
@@ -867,20 +864,20 @@ void sub_10005E57C(uint64_t a1)
 
   else
   {
-    v6 = sub_100002850();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100002850(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 40);
-      v8 = [*(a1 + 32) labelUUIDToService];
-      v9 = 136315906;
-      v10 = "";
-      v11 = 2080;
+      v9 = *(a1 + 40);
+      v10 = [*(a1 + 32) labelUUIDToService];
+      v11 = 136315906;
       v12 = "";
-      v13 = 2112;
-      v14 = v7;
+      v13 = 2080;
+      v14 = "";
       v15 = 2112;
-      v16 = v8;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#I %s%sM2A merge cannot find account %@ - fatal error. ALL:%@", &v9, 0x2Au);
+      v16 = v9;
+      v17 = 2112;
+      v18 = v10;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#I %s%sM2A merge cannot find account %@ - fatal error. ALL:%@", &v11, 0x2Au);
     }
   }
 }
@@ -919,7 +916,7 @@ void sub_10005E868(uint64_t a1)
           if (v12)
           {
             v13 = v12;
-            v14 = sub_100002850();
+            v14 = sub_100002850(v12);
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315650;
@@ -944,7 +941,7 @@ void sub_10005E868(uint64_t a1)
 
             else
             {
-              v18 = sub_100002850();
+              v18 = sub_100002850(0);
               if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
               {
                 v19 = sub_100087658(v11);
@@ -1061,7 +1058,7 @@ void sub_10005ED54(uint64_t a1)
           if (v12)
           {
             v13 = v12;
-            v14 = sub_100002850();
+            v14 = sub_100002850(v12);
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315650;
@@ -1086,7 +1083,7 @@ void sub_10005ED54(uint64_t a1)
 
             else
             {
-              v18 = sub_100002850();
+              v18 = sub_100002850(0);
               if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
               {
                 v19 = sub_100087658(v11);
@@ -1205,7 +1202,7 @@ void sub_10005F240(uint64_t a1)
 
           else
           {
-            v14 = sub_100002850();
+            v14 = sub_100002850(0);
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
               v15 = sub_100087658(v10);
@@ -1315,7 +1312,7 @@ void sub_10005F5FC(uint64_t a1)
             if (v12)
             {
               v13 = v12;
-              v14 = sub_100002850();
+              v14 = sub_100002850(v12);
               if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315650;
@@ -1338,7 +1335,7 @@ void sub_10005F5FC(uint64_t a1)
 
             else
             {
-              v18 = sub_100002850();
+              v18 = sub_100002850(0);
               if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
               {
                 v19 = sub_100087658(v11);
@@ -1454,7 +1451,7 @@ void sub_10005FAE8(uint64_t a1)
           if (v12)
           {
             v13 = v12;
-            v14 = sub_100002850();
+            v14 = sub_100002850(v12);
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315650;
@@ -1479,7 +1476,7 @@ void sub_10005FAE8(uint64_t a1)
 
             else
             {
-              v18 = sub_100002850();
+              v18 = sub_100002850(0);
               if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
               {
                 v19 = sub_100087658(v11);
@@ -1595,7 +1592,7 @@ void sub_10005FFDC(uint64_t a1)
           if (v12)
           {
             v13 = v12;
-            v14 = sub_100002850();
+            v14 = sub_100002850(v12);
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315650;
@@ -1620,7 +1617,7 @@ void sub_10005FFDC(uint64_t a1)
 
             else
             {
-              v18 = sub_100002850();
+              v18 = sub_100002850(0);
               if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
               {
                 v19 = sub_100087658(v11);
@@ -1738,7 +1735,7 @@ void sub_1000604D0(uint64_t a1)
 
           else
           {
-            v14 = sub_100002850();
+            v14 = sub_100002850(0);
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
               v15 = sub_100087658(v10);
@@ -1847,7 +1844,7 @@ void sub_100060894(uint64_t a1)
             if (v12)
             {
               v13 = v12;
-              v14 = sub_100002850();
+              v14 = sub_100002850(v12);
               if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315650;
@@ -1870,7 +1867,7 @@ void sub_100060894(uint64_t a1)
 
             else
             {
-              v18 = sub_100002850();
+              v18 = sub_100002850(0);
               if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
               {
                 v19 = sub_100087658(v11);
@@ -1955,50 +1952,48 @@ void sub_100060894(uint64_t a1)
 
 uint64_t sub_100060D08(uint64_t a1)
 {
-  v2 = sub_100002850();
+  v2 = sub_100002850(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v17 = 136315906;
-    v18 = "";
-    v19 = 2080;
-    v20 = "";
-    v21 = 2112;
-    v22 = v3;
-    v23 = 2112;
-    v24 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "#I %s%sReceived remapAccount from:%@ to:%@", &v17, 0x2Au);
+    v18 = 136315906;
+    v19 = "";
+    v20 = 2080;
+    v21 = "";
+    v22 = 2112;
+    v23 = v3;
+    v24 = 2112;
+    v25 = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "#I %s%sReceived remapAccount from:%@ to:%@", &v18, 0x2Au);
   }
 
   v5 = VMMain_StoreCopyMainRecordsWithLabelID(*(a1 + 32));
   if (v5)
   {
     v6 = v5;
-    if (CFArrayGetCount(v5) >= 1)
+    Count = CFArrayGetCount(v5);
+    if (Count >= 1)
     {
-      v7 = 0;
-      do
+      for (i = 0; i < Count; ++i)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(v6, v7);
+        ValueAtIndex = CFArrayGetValueAtIndex(v6, i);
         VMStoreRecordSetLabel(ValueAtIndex, *(a1 + 40));
-        ++v7;
+        Count = CFArrayGetCount(v6);
       }
-
-      while (v7 < CFArrayGetCount(v6));
     }
 
-    v9 = sub_100002850();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100002850(Count);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      Count = CFArrayGetCount(v6);
-      v17 = 136315650;
-      v18 = "";
-      v19 = 2080;
-      v20 = "";
-      v21 = 1024;
-      LODWORD(v22) = Count;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#I %s%sremapped %d records", &v17, 0x1Cu);
+      v11 = CFArrayGetCount(v6);
+      v18 = 136315650;
+      v19 = "";
+      v20 = 2080;
+      v21 = "";
+      v22 = 1024;
+      LODWORD(v23) = v11;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s%sremapped %d records", &v18, 0x1Cu);
     }
 
     CFRelease(v6);
@@ -2006,31 +2001,31 @@ uint64_t sub_100060D08(uint64_t a1)
 
   else
   {
-    v11 = sub_100002850();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100002850(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 136315394;
-      v18 = "";
-      v19 = 2080;
-      v20 = "";
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#I %s%snothing to remap", &v17, 0x16u);
+      v18 = 136315394;
+      v19 = "";
+      v20 = 2080;
+      v21 = "";
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#I %s%snothing to remap", &v18, 0x16u);
     }
   }
 
-  v12 = VMMap_copyAccountForLabel(*(a1 + 32));
-  if (v12)
+  v13 = VMMap_copyAccountForLabel(*(a1 + 32));
+  if (v13)
   {
-    v13 = v12;
-    v14 = VMMap_copyRecordWithLabel(*(a1 + 32));
-    if (v14)
+    v14 = v13;
+    v15 = VMMap_copyRecordWithLabel(*(a1 + 32));
+    if (v15)
     {
-      v15 = v14;
-      VMMap_removeRecord();
-      CFRelease(v15);
+      v16 = v15;
+      VMMap_removeRecord(v15);
+      CFRelease(v16);
     }
 
-    sub_100093258(v13);
-    CFRelease(v13);
+    sub_100093258(v14);
+    CFRelease(v14);
   }
 
   return VMStoreSave();
@@ -2038,14 +2033,14 @@ uint64_t sub_100060D08(uint64_t a1)
 
 void sub_100060FD8(uint64_t a1)
 {
-  v2 = sub_100002850();
+  v2 = sub_100002850(a1);
   v3 = &qword_1000C9000;
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v41 = "";
-    v42 = 2080;
-    v43 = "";
+    v51 = "";
+    v52 = 2080;
+    v53 = "";
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "#I %s%sresetNetworkSettings called", buf, 0x16u);
   }
 
@@ -2055,26 +2050,26 @@ void sub_100060FD8(uint64_t a1)
   v5 = [*(a1 + 32) labelUUIDToGreetingController];
   [v5 removeAllObjects];
 
-  v6 = sub_100002850();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100002850(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v41 = "";
-    v42 = 2080;
-    v43 = "";
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#I %s%sreleased all service controllers", buf, 0x16u);
+    v51 = "";
+    v52 = 2080;
+    v53 = "";
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I %s%sreleased all service controllers", buf, 0x16u);
   }
 
-  v7 = +[VMPreferences sharedInstance];
-  [v7 setPreferencesValue:0 forKey:@"LastActiveAccounts"];
+  v8 = +[VMPreferences sharedInstance];
+  [v8 setPreferencesValue:0 forKey:@"LastActiveAccounts"];
 
-  v8 = sub_10008546C();
-  v9 = [v8 path];
-  v10 = opendir([v9 UTF8String]);
+  v10 = sub_10008546C(v9);
+  v11 = [v10 path];
+  v12 = opendir([v11 UTF8String]);
 
-  if (v10)
+  if (v12)
   {
-    for (i = readdir(v10); i; i = readdir(v10))
+    for (i = readdir(v12); i; i = readdir(v12))
     {
       d_namlen = i->d_namlen;
       if (i->d_type == 4)
@@ -2090,58 +2085,58 @@ void sub_100060FD8(uint64_t a1)
           continue;
         }
 
-        v14 = sub_100002850();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v17 = sub_100002850(i);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
-          v41 = "";
-          v42 = 2080;
-          v43 = "";
-          v44 = 2080;
-          v45 = d_name;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "#I %s%sremoving account dir = %s", buf, 0x20u);
+          v51 = "";
+          v52 = 2080;
+          v53 = "";
+          v54 = 2080;
+          v55 = d_name;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "#I %s%sremoving account dir = %s", buf, 0x20u);
         }
 
-        v15 = sub_10008546C();
-        v16 = [NSString stringWithUTF8String:d_name];
-        v17 = [v15 URLByAppendingPathComponent:v16 isDirectory:1];
+        v19 = sub_10008546C(v18);
+        v20 = [NSString stringWithUTF8String:d_name];
+        v21 = [v19 URLByAppendingPathComponent:v20 isDirectory:1];
 
-        v18 = +[NSFileManager defaultManager];
-        v39 = 0;
-        v19 = [v18 removeItemAtURL:v17 error:&v39];
-        v20 = v39;
+        v22 = +[NSFileManager defaultManager];
+        v49 = 0;
+        v23 = [v22 removeItemAtURL:v21 error:&v49];
+        v24 = v49;
 
-        v21 = sub_100002850();
-        v22 = v21;
-        if (v19)
+        v26 = sub_100002850(v25);
+        v27 = v26;
+        if (v23)
         {
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
-            v41 = "";
-            v42 = 2080;
-            v43 = "";
-            v44 = 2112;
-            v45 = v17;
-            v23 = v22;
-            v24 = "#I %s%sRemoved account directory at %@";
+            v51 = "";
+            v52 = 2080;
+            v53 = "";
+            v54 = 2112;
+            v55 = v21;
+            v28 = v27;
+            v29 = "#I %s%sRemoved account directory at %@";
 LABEL_23:
-            _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, v24, buf, 0x20u);
+            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, v29, buf, 0x20u);
           }
         }
 
-        else if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        else if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315906;
-          v41 = "";
-          v42 = 2080;
-          v43 = "";
-          v44 = 2112;
-          v45 = v17;
-          v46 = 2112;
-          v47 = v20;
-          v32 = v22;
-          v33 = "#E %s%sCould not remove directory at %@ due to error %@";
+          v51 = "";
+          v52 = 2080;
+          v53 = "";
+          v54 = 2112;
+          v55 = v21;
+          v56 = 2112;
+          v57 = v24;
+          v40 = v27;
+          v41 = "#E %s%sCould not remove directory at %@ due to error %@";
           goto LABEL_31;
         }
       }
@@ -2153,104 +2148,106 @@ LABEL_23:
           continue;
         }
 
-        v25 = i->d_name;
-        if (strncmp(i->d_name, "SMS-", 4uLL))
+        v30 = i->d_name;
+        v31 = strncmp(i->d_name, "SMS-", 4uLL);
+        if (v31)
         {
           continue;
         }
 
-        v26 = sub_100002850();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v32 = sub_100002850(v31);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
-          v41 = "";
-          v42 = 2080;
-          v43 = "";
-          v44 = 2080;
-          v45 = v25;
-          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "#I %s%sremoving account SMS plist = %s", buf, 0x20u);
+          v51 = "";
+          v52 = 2080;
+          v53 = "";
+          v54 = 2080;
+          v55 = v30;
+          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "#I %s%sremoving account SMS plist = %s", buf, 0x20u);
         }
 
-        v27 = sub_10008546C();
-        v28 = [NSString stringWithUTF8String:v25];
-        v17 = [v27 URLByAppendingPathComponent:v28 isDirectory:0];
+        v34 = sub_10008546C(v33);
+        v35 = [NSString stringWithUTF8String:v30];
+        v21 = [v34 URLByAppendingPathComponent:v35 isDirectory:0];
 
-        v29 = +[NSFileManager defaultManager];
-        v38 = 0;
-        v30 = [v29 removeItemAtURL:v17 error:&v38];
-        v20 = v38;
+        v36 = +[NSFileManager defaultManager];
+        v48 = 0;
+        v37 = [v36 removeItemAtURL:v21 error:&v48];
+        v24 = v48;
 
-        v31 = sub_100002850();
-        v22 = v31;
-        if (v30)
+        v39 = sub_100002850(v38);
+        v27 = v39;
+        if (v37)
         {
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
-            v41 = "";
-            v42 = 2080;
-            v43 = "";
-            v44 = 2112;
-            v45 = v17;
-            v23 = v22;
-            v24 = "#I %s%sRemoved account SMS file at %@";
+            v51 = "";
+            v52 = 2080;
+            v53 = "";
+            v54 = 2112;
+            v55 = v21;
+            v28 = v27;
+            v29 = "#I %s%sRemoved account SMS file at %@";
             goto LABEL_23;
           }
         }
 
-        else if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        else if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315906;
-          v41 = "";
-          v42 = 2080;
-          v43 = "";
-          v44 = 2112;
-          v45 = v17;
-          v46 = 2112;
-          v47 = v20;
-          v32 = v22;
-          v33 = "#E %s%sCould not remove account SMS file at %@ due to error %@";
+          v51 = "";
+          v52 = 2080;
+          v53 = "";
+          v54 = 2112;
+          v55 = v21;
+          v56 = 2112;
+          v57 = v24;
+          v40 = v27;
+          v41 = "#E %s%sCould not remove account SMS file at %@ due to error %@";
 LABEL_31:
-          _os_log_error_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, v33, buf, 0x2Au);
+          _os_log_error_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, v41, buf, 0x2Au);
         }
       }
     }
 
-    closedir(v10);
+    v42 = closedir(v12);
     v3 = &qword_1000C9000;
   }
 
   else
   {
-    v34 = sub_100002850();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v43 = sub_100002850(v13);
+    v44 = os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT);
+    if (v44)
     {
-      v35 = sub_10008546C();
-      v36 = [v35 path];
+      v45 = sub_10008546C(v44);
+      v46 = [v45 path];
       *buf = 136315650;
-      v41 = "";
-      v42 = 2080;
-      v43 = "";
-      v44 = 2112;
-      v45 = v36;
-      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "#I %s%sunable to open %@", buf, 0x20u);
+      v51 = "";
+      v52 = 2080;
+      v53 = "";
+      v54 = 2112;
+      v55 = v46;
+      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "#I %s%sunable to open %@", buf, 0x20u);
     }
   }
 
-  v37 = sub_100002850();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+  v47 = sub_100002850(v42);
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
   {
     *buf = v3[4];
-    v41 = "";
-    v42 = 2080;
-    v43 = "";
-    _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "#I %s%sresetNetworkSettings complete", buf, 0x16u);
+    v51 = "";
+    v52 = 2080;
+    v53 = "";
+    _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "#I %s%sresetNetworkSettings complete", buf, 0x16u);
   }
 }
 
-void sub_100061770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100061770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2325,41 +2322,41 @@ void sub_10006317C(uint64_t a1)
 
   if (v3)
   {
-    v4 = [v3 isSubscribed];
-    v5 = sub_100002850();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v5 = [v3 isSubscribed];
+    v6 = sub_100002850(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [v3 getServiceObjLogPrefix];
-      v7 = @"not subscribed";
-      v8 = *(a1 + 40);
-      v10 = 136315650;
-      v11 = v6;
-      if (v4)
+      v7 = [v3 getServiceObjLogPrefix];
+      v8 = @"not subscribed";
+      v9 = *(a1 + 40);
+      v11 = 136315650;
+      v12 = v7;
+      if (v5)
       {
-        v7 = @"subscribed";
+        v8 = @"subscribed";
       }
 
-      v12 = 2112;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s Service state is '%@' for account UUID %@", &v10, 0x20u);
+      v13 = 2112;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v9;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#I %s Service state is '%@' for account UUID %@", &v11, 0x20u);
     }
   }
 
   else
   {
-    v5 = sub_100002850();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100002850(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 40);
-      v10 = 136315650;
-      v11 = "";
-      v12 = 2080;
-      v13 = "";
-      v14 = 2112;
-      v15 = v9;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#W %s%sCould not retrieve subscribed status for account UUID %@", &v10, 0x20u);
+      v10 = *(a1 + 40);
+      v11 = 136315650;
+      v12 = "";
+      v13 = 2080;
+      v14 = "";
+      v15 = 2112;
+      v16 = v10;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#W %s%sCould not retrieve subscribed status for account UUID %@", &v11, 0x20u);
     }
   }
 
@@ -2373,41 +2370,41 @@ void sub_1000633FC(uint64_t a1)
 
   if (v3)
   {
-    v4 = [v3 isOnline];
-    v5 = sub_100002850();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v5 = [v3 isOnline];
+    v6 = sub_100002850(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [v3 getServiceObjLogPrefix];
-      v7 = @"offline";
-      v8 = *(a1 + 40);
-      v10 = 136315650;
-      v11 = v6;
-      if (v4)
+      v7 = [v3 getServiceObjLogPrefix];
+      v8 = @"offline";
+      v9 = *(a1 + 40);
+      v11 = 136315650;
+      v12 = v7;
+      if (v5)
       {
-        v7 = @"online";
+        v8 = @"online";
       }
 
-      v12 = 2112;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s Service state is '%@' for account UUID %@", &v10, 0x20u);
+      v13 = 2112;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v9;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#I %s Service state is '%@' for account UUID %@", &v11, 0x20u);
     }
   }
 
   else
   {
-    v5 = sub_100002850();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100002850(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 40);
-      v10 = 136315650;
-      v11 = "";
-      v12 = 2080;
-      v13 = "";
-      v14 = 2112;
-      v15 = v9;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#W %s%sCould not retrieve online status for account UUID %@", &v10, 0x20u);
+      v10 = *(a1 + 40);
+      v11 = 136315650;
+      v12 = "";
+      v13 = 2080;
+      v14 = "";
+      v15 = 2112;
+      v16 = v10;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#W %s%sCould not retrieve online status for account UUID %@", &v11, 0x20u);
     }
   }
 
@@ -2422,62 +2419,63 @@ void sub_100063734(uint64_t a1)
     v3 = [*(a1 + 32) telephonyClient];
     v4 = [v3 carrierBundle:v2];
 
-    if (![v4 isServiceSupportedForSubscription])
+    v5 = [v4 isServiceSupportedForSubscription];
+    if (!v5)
     {
-      v6 = sub_100002850();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = sub_100002850(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = *(a1 + 40);
-        v16 = 136315650;
-        v17 = "";
-        v18 = 2080;
+        v16 = *(a1 + 40);
+        v18 = 136315650;
         v19 = "";
-        v20 = 2112;
-        v21 = v14;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#I %s%sCall voicemail is not supported for account UUID %@, voicemail service in not supported in carrier bundle", &v16, 0x20u);
+        v20 = 2080;
+        v21 = "";
+        v22 = 2112;
+        v23 = v16;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I %s%sCall voicemail is not supported for account UUID %@, voicemail service in not supported in carrier bundle", &v18, 0x20u);
       }
 
       goto LABEL_16;
     }
 
-    v5 = [*(a1 + 32) telephonyClient];
-    v6 = [v5 voicemailPhoneNumber:v2];
+    v6 = [*(a1 + 32) telephonyClient];
+    v7 = [v6 voicemailPhoneNumber:v2];
 
-    v7 = sub_100002850();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-    if (v6)
+    v9 = sub_100002850(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    if (v7)
     {
-      if (v8)
+      if (v10)
       {
-        v9 = *(a1 + 40);
-        v16 = 136315906;
-        v17 = "";
-        v18 = 2080;
+        v11 = *(a1 + 40);
+        v18 = 136315906;
         v19 = "";
-        v20 = 2112;
-        v21 = v6;
+        v20 = 2080;
+        v21 = "";
         v22 = 2112;
-        v23 = v9;
-        v10 = "#I %s%sCall voicemail with phoneNumber '%@' is supported for account UUID %@";
-        v11 = v7;
-        v12 = 42;
+        v23 = v7;
+        v24 = 2112;
+        v25 = v11;
+        v12 = "#I %s%sCall voicemail with phoneNumber '%@' is supported for account UUID %@";
+        v13 = v9;
+        v14 = 42;
 LABEL_14:
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v10, &v16, v12);
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v12, &v18, v14);
       }
     }
 
-    else if (v8)
+    else if (v10)
     {
-      v15 = *(a1 + 40);
-      v16 = 136315650;
-      v17 = "";
-      v18 = 2080;
+      v17 = *(a1 + 40);
+      v18 = 136315650;
       v19 = "";
-      v20 = 2112;
-      v21 = v15;
-      v10 = "#I %s%sCall voicemail is not supported for account UUID %@, invalid voicemail phoneNumber";
-      v11 = v7;
-      v12 = 32;
+      v20 = 2080;
+      v21 = "";
+      v22 = 2112;
+      v23 = v17;
+      v12 = "#I %s%sCall voicemail is not supported for account UUID %@, invalid voicemail phoneNumber";
+      v13 = v9;
+      v14 = 32;
       goto LABEL_14;
     }
 
@@ -2485,17 +2483,17 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v4 = sub_100002850();
+  v4 = sub_100002850(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = *(a1 + 40);
-    v16 = 136315650;
-    v17 = "";
-    v18 = 2080;
+    v15 = *(a1 + 40);
+    v18 = 136315650;
     v19 = "";
-    v20 = 2112;
-    v21 = v13;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#W %s%sCall voicemail is not supported for account UUID %@, could not find context", &v16, 0x20u);
+    v20 = 2080;
+    v21 = "";
+    v22 = 2112;
+    v23 = v15;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#W %s%sCall voicemail is not supported for account UUID %@, could not find context", &v18, 0x20u);
   }
 
 LABEL_17:
@@ -2511,57 +2509,57 @@ void sub_100063AD0(uint64_t a1)
 
   if (v4)
   {
-    v5 = [*(a1 + 32) findContextInfoWithLabelUUID:*(a1 + 40)];
-    if (v5)
+    v6 = [*(a1 + 32) findContextInfoWithLabelUUID:*(a1 + 40)];
+    if (v6)
     {
-      v6 = [*(a1 + 32) telephonyClient];
-      v7 = [v6 carrierBundle:v5];
+      v7 = [*(a1 + 32) telephonyClient];
+      v8 = [v7 carrierBundle:v6];
 
-      v8 = [v7 isPasswordChangeSupportedForSubscription];
-      v9 = sub_100002850();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v9 = [v8 isPasswordChangeSupportedForSubscription];
+      v10 = sub_100002850(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = [v4 getServiceObjLogPrefix];
-        v11 = @"not supported";
-        v12 = *v3;
-        v14 = 136315650;
-        v15 = v10;
-        if (v8)
+        v11 = [v4 getServiceObjLogPrefix];
+        v12 = @"not supported";
+        v13 = *v3;
+        v15 = 136315650;
+        v16 = v11;
+        if (v9)
         {
-          v11 = @"supported";
+          v12 = @"supported";
         }
 
-        v16 = 2112;
-        v17 = v11;
-        v18 = 2112;
-        v19 = v12;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#I %s Passcode change is %@ for account UUID %@", &v14, 0x20u);
+        v17 = 2112;
+        v18 = v12;
+        v19 = 2112;
+        v20 = v13;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s Passcode change is %@ for account UUID %@", &v15, 0x20u);
       }
     }
 
     else
     {
-      v7 = sub_100002850();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = sub_100002850(0);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        sub_10009D8D0(v4, (a1 + 40), v7);
+        sub_10009D8D0(v4, (a1 + 40), v8);
       }
     }
   }
 
   else
   {
-    v5 = sub_100002850();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100002850(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *v3;
-      v14 = 136315650;
-      v15 = "";
-      v16 = 2080;
-      v17 = "";
-      v18 = 2112;
-      v19 = v13;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#W %s%sRetrieving passcode change information failed for account UUID %@, could not find service", &v14, 0x20u);
+      v14 = *v3;
+      v15 = 136315650;
+      v16 = "";
+      v17 = 2080;
+      v18 = "";
+      v19 = 2112;
+      v20 = v14;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#W %s%sRetrieving passcode change information failed for account UUID %@, could not find service", &v15, 0x20u);
     }
   }
 
@@ -2575,35 +2573,36 @@ void sub_100063DD8(uint64_t a1)
 
   if (v3)
   {
-    v4 = [v3 minimumPasswordLength];
-    v5 = sub_100002850();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v5 = [v3 minimumPasswordLength];
+    v6 = v5;
+    v7 = sub_100002850(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [v3 getServiceObjLogPrefix];
-      v7 = *(a1 + 40);
-      v9 = 136315650;
-      v10 = v6;
-      v11 = 2048;
-      v12 = v4;
-      v13 = 2112;
-      v14 = v7;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s Minimum passcode length is %ld for account UUID %@", &v9, 0x20u);
+      v8 = [v3 getServiceObjLogPrefix];
+      v9 = *(a1 + 40);
+      v11 = 136315650;
+      v12 = v8;
+      v13 = 2048;
+      v14 = v6;
+      v15 = 2112;
+      v16 = v9;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I %s Minimum passcode length is %ld for account UUID %@", &v11, 0x20u);
     }
   }
 
   else
   {
-    v5 = sub_100002850();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100002850(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 40);
-      v9 = 136315650;
-      v10 = "";
-      v11 = 2080;
+      v10 = *(a1 + 40);
+      v11 = 136315650;
       v12 = "";
-      v13 = 2112;
-      v14 = v8;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#W %s%sRetrieving minimum passcode length failed for account UUID %@, could not find service", &v9, 0x20u);
+      v13 = 2080;
+      v14 = "";
+      v15 = 2112;
+      v16 = v10;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#W %s%sRetrieving minimum passcode length failed for account UUID %@, could not find service", &v11, 0x20u);
     }
   }
 
@@ -2617,35 +2616,36 @@ void sub_100064044(uint64_t a1)
 
   if (v3)
   {
-    v4 = [v3 maximumPasswordLength];
-    v5 = sub_100002850();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v5 = [v3 maximumPasswordLength];
+    v6 = v5;
+    v7 = sub_100002850(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [v3 getServiceObjLogPrefix];
-      v7 = *(a1 + 40);
-      v9 = 136315650;
-      v10 = v6;
-      v11 = 2048;
-      v12 = v4;
-      v13 = 2112;
-      v14 = v7;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s Maximum passcode length is %ld for account UUID %@", &v9, 0x20u);
+      v8 = [v3 getServiceObjLogPrefix];
+      v9 = *(a1 + 40);
+      v11 = 136315650;
+      v12 = v8;
+      v13 = 2048;
+      v14 = v6;
+      v15 = 2112;
+      v16 = v9;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I %s Maximum passcode length is %ld for account UUID %@", &v11, 0x20u);
     }
   }
 
   else
   {
-    v5 = sub_100002850();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100002850(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 40);
-      v9 = 136315650;
-      v10 = "";
-      v11 = 2080;
+      v10 = *(a1 + 40);
+      v11 = 136315650;
       v12 = "";
-      v13 = 2112;
-      v14 = v8;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#W %s%sRetrieving maximum passcode length failed for account UUID %@, could not find service", &v9, 0x20u);
+      v13 = 2080;
+      v14 = "";
+      v15 = 2112;
+      v16 = v10;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#W %s%sRetrieving maximum passcode length failed for account UUID %@, could not find service", &v11, 0x20u);
     }
   }
 
@@ -2657,24 +2657,24 @@ void sub_1000642D8(uint64_t a1)
   v2 = [*(a1 + 32) labelUUIDToService];
   v3 = [v2 objectForKeyedSubscript:*(a1 + 40)];
 
-  v4 = sub_100002850();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v5 = sub_100002850(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (v3)
   {
-    if (v5)
+    if (v6)
     {
-      v6 = [v3 getServiceObjLogPrefix];
-      v8 = *(a1 + 40);
-      v7 = *(a1 + 48);
+      v7 = [v3 getServiceObjLogPrefix];
+      v9 = *(a1 + 40);
+      v8 = *(a1 + 48);
       *buf = 136315906;
-      v17 = v6;
-      v18 = 2112;
-      v19 = v7;
-      v20 = 2112;
-      v21 = v3;
-      v22 = 2112;
-      v23 = v8;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#I %s Setting passcode %@ for service %@, accountUUID %@", buf, 0x2Au);
+      v18 = v7;
+      v19 = 2112;
+      v20 = v8;
+      v21 = 2112;
+      v22 = v3;
+      v23 = 2112;
+      v24 = v9;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s Setting passcode %@ for service %@, accountUUID %@", buf, 0x2Au);
     }
 
     [v3 setPasscode:*(a1 + 48) completion:*(a1 + 56)];
@@ -2682,25 +2682,25 @@ void sub_1000642D8(uint64_t a1)
 
   else
   {
-    if (v5)
+    if (v6)
     {
-      v9 = *(a1 + 40);
+      v10 = *(a1 + 40);
       *buf = 136315650;
-      v17 = "";
-      v18 = 2080;
-      v19 = "";
-      v20 = 2112;
-      v21 = v9;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#W %s%sSet passcode failed for account UUID %@, could not find service", buf, 0x20u);
+      v18 = "";
+      v19 = 2080;
+      v20 = "";
+      v21 = 2112;
+      v22 = v10;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#W %s%sSet passcode failed for account UUID %@, could not find service", buf, 0x20u);
     }
 
-    v10 = *(a1 + 56);
-    v11 = kVVErrorDomain;
-    v14 = NSLocalizedDescriptionKey;
-    v15 = @"Could not find service";
-    v12 = [NSDictionary dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-    v13 = [NSError errorWithDomain:v11 code:1029 userInfo:v12];
-    (*(v10 + 16))(v10, 0, v13);
+    v11 = *(a1 + 56);
+    v12 = kVVErrorDomain;
+    v15 = NSLocalizedDescriptionKey;
+    v16 = @"Could not find service";
+    v13 = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+    v14 = [NSError errorWithDomain:v12 code:1029 userInfo:v13];
+    (*(v11 + 16))(v11, 0, v14);
   }
 }
 
@@ -2712,17 +2712,17 @@ void sub_1000645B4(uint64_t a1)
   if (v3)
   {
     v4 = [v3 mailboxUsage];
-    v5 = sub_100002850();
+    v5 = sub_100002850(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = [v3 getServiceObjLogPrefix];
       v7 = *(a1 + 40);
       *buf = 136315650;
-      v15 = v6;
-      v16 = 2048;
-      v17 = v4;
-      v18 = 2112;
-      v19 = v7;
+      v16 = v6;
+      v17 = 2048;
+      v18 = v4;
+      v19 = 2112;
+      v20 = v7;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s Storage usage is %lu for account UUID %@", buf, 0x20u);
     }
 
@@ -2732,21 +2732,21 @@ void sub_1000645B4(uint64_t a1)
   else
   {
     v9 = kVVErrorDomain;
-    v12 = NSLocalizedDescriptionKey;
-    v13 = @"Could not find service";
-    v10 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+    v13 = NSLocalizedDescriptionKey;
+    v14 = @"Could not find service";
+    v10 = [NSDictionary dictionaryWithObjects:&v14 forKeys:&v13 count:1];
     v8 = [NSError errorWithDomain:v9 code:1021 userInfo:v10];
 
-    v5 = sub_100002850();
+    v5 = sub_100002850(v11);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 40);
+      v12 = *(a1 + 40);
       *buf = 136315650;
-      v15 = "";
-      v16 = 2080;
-      v17 = "";
-      v18 = 2112;
-      v19 = v11;
+      v16 = "";
+      v17 = 2080;
+      v18 = "";
+      v19 = 2112;
+      v20 = v12;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#W %s%sRetrieving storage usage failed for account UUID %@, could not find service", buf, 0x20u);
     }
   }
@@ -2754,9 +2754,9 @@ void sub_1000645B4(uint64_t a1)
   (*(*(a1 + 48) + 16))();
 }
 
-void sub_100064BD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100064BD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2768,212 +2768,213 @@ void sub_100064BE8(uint64_t a1)
 
   if (v3)
   {
-    v4 = [*(a1 + 48) objectForKeyedSubscript:kVMAccountSubscribedKey];
-    v5 = sub_100002850();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v5 = [*(a1 + 48) objectForKeyedSubscript:kVMAccountSubscribedKey];
+    v6 = sub_100002850(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v57 = "";
-      v58 = 2080;
-      v59 = "";
-      v60 = 2112;
-      v61 = v4;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%sSubscribed property %@", buf, 0x20u);
+      v61 = "";
+      v62 = 2080;
+      v63 = "";
+      v64 = 2112;
+      v65 = v5;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#I %s%sSubscribed property %@", buf, 0x20u);
     }
 
-    v6 = [*(a1 + 48) objectForKeyedSubscript:kVMAccountOnlineKey];
-    v7 = sub_100002850();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v7 = [*(a1 + 48) objectForKeyedSubscript:kVMAccountOnlineKey];
+    v8 = sub_100002850(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v57 = "";
-      v58 = 2080;
-      v59 = "";
-      v60 = 2112;
-      v61 = v6;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I %s%sOnline property %@", buf, 0x20u);
+      v61 = "";
+      v62 = 2080;
+      v63 = "";
+      v64 = 2112;
+      v65 = v7;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#I %s%sOnline property %@", buf, 0x20u);
     }
 
-    v8 = [*(a1 + 48) objectForKeyedSubscript:kVMAccountProvisionedKey];
-    v9 = sub_100002850();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v9 = [*(a1 + 48) objectForKeyedSubscript:kVMAccountProvisionedKey];
+    v10 = sub_100002850(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v57 = "";
-      v58 = 2080;
-      v59 = "";
-      v60 = 2112;
-      v61 = v8;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#I %s%sProvisioned property %@", buf, 0x20u);
+      v61 = "";
+      v62 = 2080;
+      v63 = "";
+      v64 = 2112;
+      v65 = v9;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s%sProvisioned property %@", buf, 0x20u);
     }
 
-    v10 = [*(a1 + 48) objectForKeyedSubscript:kVMAccountCallVoicemailSupportedKey];
-    v11 = sub_100002850();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v11 = [*(a1 + 48) objectForKeyedSubscript:kVMAccountCallVoicemailSupportedKey];
+    v12 = sub_100002850(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v57 = "";
-      v58 = 2080;
-      v59 = "";
-      v60 = 2112;
-      v61 = v10;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#I %s%sCallVoicemailSupported property %@", buf, 0x20u);
+      v61 = "";
+      v62 = 2080;
+      v63 = "";
+      v64 = 2112;
+      v65 = v11;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#I %s%sCallVoicemailSupported property %@", buf, 0x20u);
     }
 
-    v12 = [*(a1 + 48) objectForKeyedSubscript:kVMAccountUsageKey];
-    v13 = sub_100002850();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v13 = [*(a1 + 48) objectForKeyedSubscript:kVMAccountUsageKey];
+    v14 = sub_100002850(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v57 = "";
-      v58 = 2080;
-      v59 = "";
-      v60 = 2112;
-      v61 = v12;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#I %s%sMailbox usage property %@", buf, 0x20u);
+      v61 = "";
+      v62 = 2080;
+      v63 = "";
+      v64 = 2112;
+      v65 = v13;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "#I %s%sMailbox usage property %@", buf, 0x20u);
     }
 
-    if (!(v4 | v8))
+    if (!(v5 | v9))
     {
       goto LABEL_37;
     }
 
-    v14 = v3;
-    v15 = v4;
-    v16 = v10;
-    v17 = v6;
-    v18 = +[NSMutableDictionary dictionary];
-    v49 = [*(a1 + 32) findContextInfoWithLabelUUID:*(a1 + 40)];
-    [v49 uuid];
-    v19 = v51 = v8;
-    v20 = [v19 UUIDString];
-    v50 = v18;
-    [v18 setObject:v20 forKey:kCTIndicatorVoiceMailSubInstance];
+    v16 = v3;
+    v17 = v5;
+    v18 = v11;
+    v19 = v7;
+    v20 = +[NSMutableDictionary dictionary];
+    v53 = [*(a1 + 32) findContextInfoWithLabelUUID:*(a1 + 40)];
+    [v53 uuid];
+    v21 = v55 = v9;
+    v22 = [v21 UUIDString];
+    v54 = v20;
+    [v20 setObject:v22 forKey:kCTIndicatorVoiceMailSubInstance];
 
-    if (v51)
+    v23 = v55;
+    if (v55)
     {
-      if ([v51 BOOLValue])
+      if ([v55 BOOLValue])
       {
-        v21 = @"STATE?state=Active";
+        v24 = @"STATE?state=Active";
       }
 
       else
       {
-        v21 = @"STATE?state=NewAccount";
+        v24 = @"STATE?state=NewAccount";
       }
 
-      v23 = v18;
-      [v18 setObject:v21 forKey:kCTIndicatorsVoiceMailURL];
-      v6 = v17;
-      v10 = v16;
-      v4 = v15;
-      v3 = v14;
+      v26 = v20;
+      v23 = [v20 setObject:v24 forKey:kCTIndicatorsVoiceMailURL];
+      v7 = v19;
+      v11 = v18;
+      v5 = v17;
+      v3 = v16;
       goto LABEL_34;
     }
 
-    v23 = v18;
-    v6 = v17;
-    v10 = v16;
-    v4 = v15;
-    v3 = v14;
-    if (v4)
+    v26 = v20;
+    v7 = v19;
+    v11 = v18;
+    v5 = v17;
+    v3 = v16;
+    if (v5)
     {
-      if ([v4 BOOLValue])
+      if ([v5 BOOLValue])
       {
-        v47 = v12;
-        v48 = v10;
-        v24 = [*(a1 + 32) carrierAccountDataSource];
-        v25 = [v24 accounts];
+        v51 = v13;
+        v52 = v11;
+        v27 = [*(a1 + 32) carrierAccountDataSource];
+        v28 = [v27 accounts];
 
-        v54 = 0u;
-        v55 = 0u;
-        v52 = 0u;
-        v53 = 0u;
-        v26 = v25;
-        v27 = [v26 countByEnumeratingWithState:&v52 objects:v66 count:16];
-        if (v27)
+        v58 = 0u;
+        v59 = 0u;
+        v56 = 0u;
+        v57 = 0u;
+        v29 = v28;
+        v30 = [v29 countByEnumeratingWithState:&v56 objects:v70 count:16];
+        if (v30)
         {
-          v28 = v27;
-          v44 = v6;
-          v45 = v4;
-          v46 = v14;
-          v29 = 0;
-          v30 = 0;
-          v31 = *v53;
+          v31 = v30;
+          v48 = v7;
+          v49 = v5;
+          v50 = v16;
+          v32 = 0;
+          v33 = 0;
+          v34 = *v57;
           do
           {
-            for (i = 0; i != v28; i = i + 1)
+            for (i = 0; i != v31; i = i + 1)
             {
-              if (*v53 != v31)
+              if (*v57 != v34)
               {
-                objc_enumerationMutation(v26);
+                objc_enumerationMutation(v29);
               }
 
-              v33 = *(*(&v52 + 1) + 8 * i);
-              v34 = [v33 UUID];
-              v35 = [v34 isEqual:*(a1 + 40)];
+              v36 = *(*(&v56 + 1) + 8 * i);
+              v37 = [v36 UUID];
+              v38 = [v37 isEqual:*(a1 + 40)];
 
-              if (v35)
+              if (v38)
               {
-                v30 = [v33 isProvisioned];
-                v29 = 1;
+                v33 = [v36 isProvisioned];
+                v32 = 1;
               }
             }
 
-            v28 = [v26 countByEnumeratingWithState:&v52 objects:v66 count:16];
+            v31 = [v29 countByEnumeratingWithState:&v56 objects:v70 count:16];
           }
 
-          while (v28);
+          while (v31);
 
-          if (v29)
+          if (v32)
           {
-            v4 = v45;
-            v3 = v46;
-            v6 = v44;
-            v23 = v50;
-            if ((v30 & 1) == 0)
+            v5 = v49;
+            v3 = v50;
+            v7 = v48;
+            v26 = v54;
+            if ((v33 & 1) == 0)
             {
 LABEL_31:
-              v36 = @"STATE?state=NewAccount";
+              v40 = @"STATE?state=NewAccount";
 LABEL_52:
-              [v23 setObject:v36 forKey:kCTIndicatorsVoiceMailURL];
+              [v26 setObject:v40 forKey:kCTIndicatorsVoiceMailURL];
 
-              v12 = v47;
-              v10 = v48;
+              v13 = v51;
+              v11 = v52;
               goto LABEL_34;
             }
 
 LABEL_51:
-            v36 = @"STATE?state=Active";
+            v40 = @"STATE?state=Active";
             goto LABEL_52;
           }
 
-          v4 = v45;
-          v3 = v46;
-          v6 = v44;
+          v5 = v49;
+          v3 = v50;
+          v7 = v48;
         }
 
         else
         {
 
-          v30 = 0;
+          v33 = 0;
         }
 
-        v23 = v50;
-        v42 = sub_100002850();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+        v26 = v54;
+        v46 = sub_100002850(v39);
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
         {
-          v43 = *(a1 + 40);
+          v47 = *(a1 + 40);
           *buf = 136315650;
-          v57 = "";
-          v58 = 2080;
-          v59 = "";
-          v60 = 2112;
-          v61 = v43;
-          _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "#W %s%sCould not find account service for account UUID %@", buf, 0x20u);
+          v61 = "";
+          v62 = 2080;
+          v63 = "";
+          v64 = 2112;
+          v65 = v47;
+          _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "#W %s%sCould not find account service for account UUID %@", buf, 0x20u);
         }
 
-        if ((v30 & 1) == 0)
+        if ((v33 & 1) == 0)
         {
           goto LABEL_31;
         }
@@ -2981,72 +2982,72 @@ LABEL_51:
         goto LABEL_51;
       }
 
-      [v50 setObject:@"STATE?state=NotAvailable" forKey:kCTIndicatorsVoiceMailURL];
+      v23 = [v54 setObject:@"STATE?state=NotAvailable" forKey:kCTIndicatorsVoiceMailURL];
     }
 
 LABEL_34:
-    v37 = sub_100002850();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    v41 = sub_100002850(v23);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
-      v38 = *(a1 + 40);
+      v42 = *(a1 + 40);
       *buf = 136315906;
-      v57 = "";
-      v58 = 2080;
-      v59 = "";
-      v60 = 2112;
-      v61 = v23;
-      v62 = 2112;
-      v63 = v38;
-      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "#I %s%sPosting notification %@ for account UUID %@", buf, 0x2Au);
+      v61 = "";
+      v62 = 2080;
+      v63 = "";
+      v64 = 2112;
+      v65 = v26;
+      v66 = 2112;
+      v67 = v42;
+      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "#I %s%sPosting notification %@ for account UUID %@", buf, 0x2Au);
     }
 
-    [*(a1 + 32) executeHandlerForNotificationWithName:kCTIndicatorsVoiceMailNotification userInfo:v23];
-    v8 = v51;
+    [*(a1 + 32) executeHandlerForNotificationWithName:kCTIndicatorsVoiceMailNotification userInfo:v26];
+    v9 = v55;
 LABEL_37:
-    if (v6)
+    if (v7)
     {
-      [v3 setOnline:{objc_msgSend(v6, "BOOLValue")}];
+      v15 = [v3 setOnline:{objc_msgSend(v7, "BOOLValue")}];
     }
 
-    if (v12)
+    if (v13)
     {
-      [v3 setMailboxUsage:{objc_msgSend(v12, "unsignedIntValue")}];
+      v15 = [v3 setMailboxUsage:{objc_msgSend(v13, "unsignedIntValue")}];
     }
 
     *(*(*(a1 + 56) + 8) + 24) = 1;
-    v39 = sub_100002850();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    v43 = sub_100002850(v15);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
-      v41 = *(a1 + 40);
-      v40 = *(a1 + 48);
+      v45 = *(a1 + 40);
+      v44 = *(a1 + 48);
       *buf = 136316162;
-      v57 = "";
-      v58 = 2080;
-      v59 = "";
-      v60 = 2112;
-      v61 = v40;
-      v62 = 2112;
-      v63 = v3;
+      v61 = "";
+      v62 = 2080;
+      v63 = "";
       v64 = 2112;
-      v65 = v41;
-      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "#I %s%sSetting properties %@ for service %@: accountUUID: %@", buf, 0x34u);
+      v65 = v44;
+      v66 = 2112;
+      v67 = v3;
+      v68 = 2112;
+      v69 = v45;
+      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "#I %s%sSetting properties %@ for service %@: accountUUID: %@", buf, 0x34u);
     }
 
     goto LABEL_44;
   }
 
   *(*(*(a1 + 56) + 8) + 24) = 0;
-  v4 = sub_100002850();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100002850(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = *(a1 + 40);
+    v25 = *(a1 + 40);
     *buf = 136315650;
-    v57 = "";
-    v58 = 2080;
-    v59 = "";
-    v60 = 2112;
-    v61 = v22;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#W %s%sCould not retrieve service provider for account UUID %@", buf, 0x20u);
+    v61 = "";
+    v62 = 2080;
+    v63 = "";
+    v64 = 2112;
+    v65 = v25;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#W %s%sCould not retrieve service provider for account UUID %@", buf, 0x20u);
   }
 
 LABEL_44:
@@ -3064,26 +3065,26 @@ void sub_1000654B8(uint64_t a1)
 
   else
   {
-    v4 = sub_100002850();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100002850(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 40);
+      v6 = *(a1 + 40);
       *buf = 136315650;
-      v13 = "";
-      v14 = 2080;
-      v15 = "";
-      v16 = 2112;
-      v17 = v5;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#W %s%sRetrieving greeting failed for account UUID %@, could not find service", buf, 0x20u);
+      v14 = "";
+      v15 = 2080;
+      v16 = "";
+      v17 = 2112;
+      v18 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#W %s%sRetrieving greeting failed for account UUID %@, could not find service", buf, 0x20u);
     }
 
-    v6 = *(a1 + 48);
-    v7 = kVVErrorDomain;
-    v10 = NSLocalizedDescriptionKey;
-    v11 = @"Could not find service";
-    v8 = [NSDictionary dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-    v9 = [NSError errorWithDomain:v7 code:1034 userInfo:v8];
-    (*(v6 + 16))(v6, 0, v9);
+    v7 = *(a1 + 48);
+    v8 = kVVErrorDomain;
+    v11 = NSLocalizedDescriptionKey;
+    v12 = @"Could not find service";
+    v9 = [NSDictionary dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+    v10 = [NSError errorWithDomain:v8 code:1034 userInfo:v9];
+    (*(v7 + 16))(v7, 0, v10);
   }
 }
 
@@ -3099,26 +3100,26 @@ void sub_100065758(uint64_t a1)
 
   else
   {
-    v4 = sub_100002850();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100002850(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 40);
+      v6 = *(a1 + 40);
       *buf = 136315650;
-      v13 = "";
-      v14 = 2080;
-      v15 = "";
-      v16 = 2112;
-      v17 = v5;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#W %s%sSet greeting failed for account UUID %@, could not find service", buf, 0x20u);
+      v14 = "";
+      v15 = 2080;
+      v16 = "";
+      v17 = 2112;
+      v18 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#W %s%sSet greeting failed for account UUID %@, could not find service", buf, 0x20u);
     }
 
-    v6 = *(a1 + 56);
-    v7 = kVVErrorDomain;
-    v10 = NSLocalizedDescriptionKey;
-    v11 = @"Could not find service";
-    v8 = [NSDictionary dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-    v9 = [NSError errorWithDomain:v7 code:1036 userInfo:v8];
-    (*(v6 + 16))(v6, 0, v9);
+    v7 = *(a1 + 56);
+    v8 = kVVErrorDomain;
+    v11 = NSLocalizedDescriptionKey;
+    v12 = @"Could not find service";
+    v9 = [NSDictionary dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+    v10 = [NSError errorWithDomain:v8 code:1036 userInfo:v9];
+    (*(v7 + 16))(v7, 0, v10);
   }
 }
 
@@ -3129,86 +3130,87 @@ void sub_1000659D0(uint64_t a1)
 
   if (!v3)
   {
-    v4 = sub_100002850();
-    if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100002850(v4);
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_18;
     }
 
-    v12 = *(a1 + 40);
-    v17 = 136315650;
-    v18 = "";
-    v19 = 2080;
+    v14 = *(a1 + 40);
+    v19 = 136315650;
     v20 = "";
-    v21 = 2112;
-    v22 = v12;
-    v13 = "#W %s%sRetrieving greeting change information failed for account UUID %@, could not find service";
+    v21 = 2080;
+    v22 = "";
+    v23 = 2112;
+    v24 = v14;
+    v15 = "#W %s%sRetrieving greeting change information failed for account UUID %@, could not find service";
 LABEL_13:
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, v13, &v17, 0x20u);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, v15, &v19, 0x20u);
     goto LABEL_18;
   }
 
-  if (![v3 isSubscribed])
+  v5 = [v3 isSubscribed];
+  if (!v5)
   {
-    v4 = sub_100002850();
-    if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100002850(v5);
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_18;
     }
 
-    v14 = [v3 getServiceObjLogPrefix];
-    v15 = *(a1 + 40);
-    v17 = 136315650;
-    v18 = v14;
-    v19 = 2112;
-    v20 = @"not supported";
+    v16 = [v3 getServiceObjLogPrefix];
+    v17 = *(a1 + 40);
+    v19 = 136315650;
+    v20 = v16;
     v21 = 2112;
-    v22 = v15;
-    v13 = "#I %s Greeting change is %@ for account UUID %@, service state is not subscribed";
+    v22 = @"not supported";
+    v23 = 2112;
+    v24 = v17;
+    v15 = "#I %s Greeting change is %@ for account UUID %@, service state is not subscribed";
     goto LABEL_13;
   }
 
-  v4 = [*(a1 + 32) findContextInfoWithLabelUUID:*(a1 + 40)];
-  if (v4)
+  v6 = [*(a1 + 32) findContextInfoWithLabelUUID:*(a1 + 40)];
+  if (v6)
   {
-    v5 = [*(a1 + 32) telephonyClient];
-    v6 = [v5 carrierBundle:v4];
+    v7 = [*(a1 + 32) telephonyClient];
+    v8 = [v7 carrierBundle:v6];
 
-    v7 = [v6 isGreetingChangeSupportedForSubscription];
-    v8 = sub_100002850();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = [v8 isGreetingChangeSupportedForSubscription];
+    v10 = sub_100002850(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [v3 getServiceObjLogPrefix];
-      v10 = @"not supported";
-      v11 = *(a1 + 40);
-      v17 = 136315650;
-      v18 = v9;
-      if (v7)
+      v11 = [v3 getServiceObjLogPrefix];
+      v12 = @"not supported";
+      v13 = *(a1 + 40);
+      v19 = 136315650;
+      v20 = v11;
+      if (v9)
       {
-        v10 = @"supported";
+        v12 = @"supported";
       }
 
-      v19 = 2112;
-      v20 = v10;
       v21 = 2112;
-      v22 = v11;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#I %s Greeting change is %@ for account UUID %@", &v17, 0x20u);
+      v22 = v12;
+      v23 = 2112;
+      v24 = v13;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s Greeting change is %@ for account UUID %@", &v19, 0x20u);
     }
   }
 
   else
   {
-    v6 = sub_100002850();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100002850(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = *(a1 + 40);
-      v17 = 136315650;
-      v18 = "";
-      v19 = 2080;
+      v18 = *(a1 + 40);
+      v19 = 136315650;
       v20 = "";
-      v21 = 2112;
-      v22 = v16;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#W %s%sRetrieving greeting change information failed for account UUID %@, could not find context", &v17, 0x20u);
+      v21 = 2080;
+      v22 = "";
+      v23 = 2112;
+      v24 = v18;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#W %s%sRetrieving greeting change information failed for account UUID %@, could not find context", &v19, 0x20u);
     }
   }
 
@@ -3223,43 +3225,44 @@ void sub_100065D80(uint64_t a1)
 
   if (v3)
   {
-    v4 = [v3 maximumGreetingDuration];
-    v5 = sub_100002850();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v5 = [v3 maximumGreetingDuration];
+    v6 = v5;
+    v7 = sub_100002850(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [v3 getServiceObjLogPrefix];
-      v7 = *(a1 + 40);
-      v10 = 136315650;
-      v11 = v6;
-      v12 = 2048;
-      v13 = v4;
-      v14 = 2112;
-      v15 = v7;
-      v8 = "#I %s Maximum greeting duration is %lu for account UUID %@";
+      v8 = [v3 getServiceObjLogPrefix];
+      v9 = *(a1 + 40);
+      v12 = 136315650;
+      v13 = v8;
+      v14 = 2048;
+      v15 = v6;
+      v16 = 2112;
+      v17 = v9;
+      v10 = "#I %s Maximum greeting duration is %lu for account UUID %@";
 LABEL_6:
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, v8, &v10, 0x20u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, v10, &v12, 0x20u);
     }
   }
 
   else
   {
-    v5 = sub_100002850();
-    v4 = 0.0;
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100002850(v4);
+    v6 = 0.0;
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 40);
-      v10 = 136315650;
-      v11 = "";
-      v12 = 2080;
+      v11 = *(a1 + 40);
+      v12 = 136315650;
       v13 = "";
-      v14 = 2112;
-      v15 = v9;
-      v8 = "#W %s%sRetrieving maximum greeting duration failed for account UUID %@, could not find service";
+      v14 = 2080;
+      v15 = "";
+      v16 = 2112;
+      v17 = v11;
+      v10 = "#W %s%sRetrieving maximum greeting duration failed for account UUID %@, could not find service";
       goto LABEL_6;
     }
   }
 
-  (*(*(a1 + 48) + 16))(v4);
+  (*(*(a1 + 48) + 16))(v6);
 }
 
 void sub_100066CD4(id a1)
@@ -3269,10 +3272,11 @@ void sub_100066CD4(id a1)
   qword_10010D960 = v1;
 }
 
-void sub_100066D38(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100066D38(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
 void sub_100066F0C(uint64_t a1)
@@ -3435,28 +3439,30 @@ void sub_10006A3A8(uint64_t a1, void *a2)
   [*(a1 + 32) processTranscriptForVoicemail:v3];
 }
 
-void sub_10006A7C8(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void sub_10006A7C8(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_error_impl(a1, v11, OS_LOG_TYPE_ERROR, a4, &buf, 0x16u);
+  _os_log_error_impl(a1, v10, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_10006A80C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10006A80C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-id sub_10006B834()
+id sub_10006B834(uint64_t a1)
 {
   if (qword_10010D990 != -1)
   {
     sub_10009DF60();
   }
 
-  v1 = qword_10010D988;
+  v2 = qword_10010D988;
 
-  return v1;
+  return v2;
 }
 
 void sub_10006B878(id a1)
@@ -3559,9 +3565,9 @@ void sub_10006C890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_10006CAE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10006CAE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3578,7 +3584,7 @@ uint64_t sub_10006CB90(uint64_t result)
   return result;
 }
 
-void sub_10006CD20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_10006CD20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -3613,7 +3619,7 @@ void sub_10006CE74(uint64_t a1)
   }
 }
 
-void sub_10006CFC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_10006CFC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -3642,9 +3648,9 @@ void sub_10006D0C0(uint64_t a1)
   }
 }
 
-void sub_10006D238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10006D238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3661,9 +3667,9 @@ uint64_t sub_10006D2E0(uint64_t result)
   return result;
 }
 
-void sub_10006D3A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10006D3A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3680,9 +3686,9 @@ uint64_t sub_10006D450(uint64_t result)
   return result;
 }
 
-void sub_10006D520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10006D520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3862,19 +3868,51 @@ void sub_100073B30(uint64_t a1)
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) getServiceObjLogPrefix];
-    v4 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = v3;
-    v9 = 2080;
-    v10 = " ";
-    v11 = 2112;
-    v12 = objc_opt_class();
-    v5 = v12;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ posting VVServiceMailboxUsageChangedNotification", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = v3;
+    v8 = 2080;
+    v9 = " ";
+    v10 = 2112;
+    v11 = objc_opt_class();
+    v4 = v11;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ posting VVServiceMailboxUsageChangedNotification", &v6, 0x20u);
   }
 
-  v6 = +[NSNotificationCenter defaultCenter];
-  [v6 postNotificationName:@"VVServiceMailboxUsageChangedNotification" object:*(a1 + 32) userInfo:*(a1 + 40)];
+  v5 = +[NSNotificationCenter defaultCenter];
+  [v5 postNotificationName:@"VVServiceMailboxUsageChangedNotification" object:*(a1 + 32) userInfo:*(a1 + 40)];
+}
+
+void sub_100074D60(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, __int128 buf, int a20, __int16 a21, __int16 a22, id a23, __int16 a24)
+{
+  if (a2)
+  {
+
+    if (a2 == 2)
+    {
+      v30 = objc_begin_catch(a1);
+      v31 = sub_100026660(*&v24[v27]);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      {
+        v32 = [v24 getServiceObjLogPrefix];
+        LODWORD(buf) = 136315906;
+        *(&buf + 4) = v32;
+        WORD6(buf) = 2080;
+        *(&buf + 14) = " ";
+        a22 = 2112;
+        a23 = v30;
+        a24 = 2112;
+        _os_log_error_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "#E %s%s*** Raise the roof.  %@ while synchronizing service account %@.", &buf, 0x2Au);
+      }
+
+      objc_end_catch();
+      JUMPOUT(0x100074BD4);
+    }
+
+    objc_begin_catch(a1);
+    JUMPOUT(0x100074BD8);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 void sub_100074F2C(void *a1)
@@ -3895,7 +3933,7 @@ void sub_100074F2C(void *a1)
   }
 }
 
-void sub_100074F88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_100074F88(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
 {
   if (a10)
   {
@@ -3918,12 +3956,12 @@ uint64_t sub_100074FA0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_100074FBC(uint64_t a1)
+void sub_100074FBC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v1 = *(a1 + 56);
-  if (v1)
+  v5 = *(a1 + 56);
+  if (v5)
   {
-    sub_100083FCC(v1);
+    sub_100083FCC(v5);
   }
 }
 
@@ -3983,50 +4021,50 @@ void sub_100077F18(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_100077F6C(uint64_t a1)
+void sub_100077F6C(uint64_t a1, uint64_t a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = WeakRetained;
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v4 = sub_100026660(WeakRetained[53]);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100026660(WeakRetained[53]);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [v3 getServiceObjLogPrefix];
-      v6 = *(a1 + 40);
-      v7 = 136315906;
-      v8 = v5;
-      v9 = 2080;
-      v10 = " ";
-      v11 = 1024;
-      v12 = v6;
-      v13 = 2080;
-      v14 = asStringBOOL();
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#I %s%sDone processing transcription for record: %d finished: %s", &v7, 0x26u);
+      v6 = [v4 getServiceObjLogPrefix];
+      v7 = *(a1 + 40);
+      v8 = 136315906;
+      v9 = v6;
+      v10 = 2080;
+      v11 = " ";
+      v12 = 1024;
+      v13 = v7;
+      v14 = 2080;
+      v15 = asStringBOOL();
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%sDone processing transcription for record: %d finished: %s", &v8, 0x26u);
     }
   }
 }
 
-void sub_1000780A8(uint64_t a1)
+void sub_1000780A8(uint64_t a1, uint64_t a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = WeakRetained;
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v4 = sub_100026660(WeakRetained[53]);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100026660(WeakRetained[53]);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [v3 getServiceObjLogPrefix];
-      v6 = *(a1 + 40);
-      v7 = 136315906;
-      v8 = v5;
-      v9 = 2080;
-      v10 = " ";
-      v11 = 1024;
-      v12 = v6;
-      v13 = 2080;
-      v14 = asStringBOOL();
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#I %s%sDone processing transcription for record: %d finished: %s", &v7, 0x26u);
+      v6 = [v4 getServiceObjLogPrefix];
+      v7 = *(a1 + 40);
+      v8 = 136315906;
+      v9 = v6;
+      v10 = 2080;
+      v11 = " ";
+      v12 = 1024;
+      v13 = v7;
+      v14 = 2080;
+      v15 = asStringBOOL();
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%sDone processing transcription for record: %d finished: %s", &v8, 0x26u);
     }
   }
 }
@@ -4045,67 +4083,69 @@ void sub_100078E84(uint64_t a1)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [*(a1 + 32) getServiceObjLogPrefix];
-      v29 = 136315906;
-      v30 = v8;
-      v31 = 2080;
-      v32 = " ";
-      v33 = 2112;
-      v34 = v3;
+      v31 = 136315906;
+      v32 = v8;
+      v33 = 2080;
+      v34 = " ";
       v35 = 2112;
-      v36 = v6;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I %s%sRetrieved audio data for account store %@, record %@", &v29, 0x2Au);
+      v36 = v3;
+      v37 = 2112;
+      v38 = v6;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I %s%sRetrieved audio data for account store %@, record %@", &v31, 0x2Au);
     }
 
     sub_100092B3C(v3, v5, 2);
     [v3 save];
-    v9 = sub_100092820(v3, v5);
-    v10 = +[NSDate date];
-    v11 = [NSDate dateWithTimeIntervalSince1970:v9];
-    [v10 timeIntervalSinceDate:v11];
-    v13 = v12;
+    sub_100092820(v3, v5);
+    v10 = v9;
+    v11 = +[NSDate date];
+    v12 = [NSDate dateWithTimeIntervalSince1970:v10];
+    [v11 timeIntervalSinceDate:v12];
+    v14 = v13;
 
-    if (v13 >= 3600.0)
+    if (v14 >= 3600.0)
     {
-      v17 = sub_100026660(*(*(a1 + 32) + 424));
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v19 = sub_100026660(*(*(a1 + 32) + 424));
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = [*(a1 + 32) getServiceObjLogPrefix];
-        v29 = 136315394;
-        v30 = v23;
-        v31 = 2080;
-        v32 = " ";
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "#I %s%sNot reporting voicemail message length because voicemail is too old", &v29, 0x16u);
+        v25 = [*(a1 + 32) getServiceObjLogPrefix];
+        v31 = 136315394;
+        v32 = v25;
+        v33 = 2080;
+        v34 = " ";
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#I %s%sNot reporting voicemail message length because voicemail is too old", &v31, 0x16u);
       }
     }
 
     else
     {
-      v14 = sub_100092850(v3, v5);
-      v15 = [*(a1 + 32) contextInfo];
-      v16 = [v15 slotID];
+      sub_100092850(v3, v5);
+      v16 = v15;
+      v17 = [*(a1 + 32) contextInfo];
+      v18 = [v17 slotID];
 
-      v17 = [*(a1 + 32) serviceMCC];
-      v18 = [*(a1 + 32) serviceMNC];
-      v19 = +[VMAWDReporter sharedInstance];
-      [v19 reportVoicemailDownloadedWithDuration:v14 slotID:v16 mcc:v17 mnc:v18];
+      v19 = [*(a1 + 32) serviceMCC];
+      v20 = [*(a1 + 32) serviceMNC];
+      v21 = +[VMAWDReporter sharedInstance];
+      [v21 reportVoicemailDownloadedWithDuration:v16 slotID:v18 mcc:v19 mnc:v20];
     }
 
-    v24 = sub_100092A8C(v3, v5);
-    DeletedRecordWithToken = VMStoreCopyFirstDeletedRecordWithToken(v24, 0);
-    v26 = *(a1 + 32);
+    v26 = sub_100092A8C(v3, v5);
+    DeletedRecordWithToken = VMStoreCopyFirstDeletedRecordWithToken(v26, 0);
+    v28 = *(a1 + 32);
     if (DeletedRecordWithToken)
     {
-      v27 = sub_100026660(v26[53]);
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v29 = sub_100026660(v28[53]);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = [*(a1 + 32) getServiceObjLogPrefix];
-        v29 = 136315650;
-        v30 = v28;
-        v31 = 2080;
-        v32 = " ";
-        v33 = 2112;
-        v34 = v24;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "#I %s%sRecord with the same token '%@' is found in the deleted table, cancel copying the audio data", &v29, 0x20u);
+        v30 = [*(a1 + 32) getServiceObjLogPrefix];
+        v31 = 136315650;
+        v32 = v30;
+        v33 = 2080;
+        v34 = " ";
+        v35 = 2112;
+        v36 = v26;
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "#I %s%sRecord with the same token '%@' is found in the deleted table, cancel copying the audio data", &v31, 0x20u);
       }
 
       CFRelease(DeletedRecordWithToken);
@@ -4113,12 +4153,12 @@ void sub_100078E84(uint64_t a1)
 
     else
     {
-      [v26 addDataForRecord:v5];
+      [v28 addDataForRecord:v5];
     }
 
-    if (v24)
+    if (v26)
     {
-      CFRelease(v24);
+      CFRelease(v26);
     }
 
     if (v6)
@@ -4131,20 +4171,20 @@ void sub_100078E84(uint64_t a1)
 
   else
   {
-    v20 = sub_100026660(*(*(a1 + 32) + 424));
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v22 = sub_100026660(*(*(a1 + 32) + 424));
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = [*(a1 + 32) getServiceObjLogPrefix];
-      v22 = *(a1 + 40);
-      v29 = 136315906;
-      v30 = v21;
-      v31 = 2080;
-      v32 = " ";
-      v33 = 2112;
-      v34 = v3;
-      v35 = 1024;
-      LODWORD(v36) = v22;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "#I %s%sRetrieved audio data for account store %@, record with identifier %u not found", &v29, 0x26u);
+      v23 = [*(a1 + 32) getServiceObjLogPrefix];
+      v24 = *(a1 + 40);
+      v31 = 136315906;
+      v32 = v23;
+      v33 = 2080;
+      v34 = " ";
+      v35 = 2112;
+      v36 = v3;
+      v37 = 1024;
+      LODWORD(v38) = v24;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "#I %s%sRetrieved audio data for account store %@, record with identifier %u not found", &v31, 0x26u);
     }
   }
 }
@@ -4200,7 +4240,7 @@ void sub_10007E6A4(uint64_t a1, uint64_t a2, void *a3)
     v6 = (*(*(a1 + 32) + 16))();
     if ([v6 length])
     {
-      VMStoreRecordSetCallbackNumber(a2);
+      VMStoreRecordSetCallbackNumber(a2, v6);
     }
   }
 
@@ -4210,7 +4250,7 @@ void sub_10007E6A4(uint64_t a1, uint64_t a2, void *a3)
     v8 = (*(*(a1 + 32) + 16))();
     if ([v8 length])
     {
-      VMStoreRecordSetReceiver(a2);
+      VMStoreRecordSetReceiver(a2, v8);
     }
   }
 
@@ -4220,7 +4260,7 @@ void sub_10007E6A4(uint64_t a1, uint64_t a2, void *a3)
     v10 = (*(*(a1 + 32) + 16))();
     if ([v10 length])
     {
-      VMStoreRecordSetSender(a2);
+      VMStoreRecordSetSender(a2, v10);
     }
   }
 }
@@ -4250,7 +4290,7 @@ void sub_10007F138(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *sub_10007F334(_BYTE *a1, char *__s)
+void *sub_10007F334(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -4264,13 +4304,13 @@ _BYTE *sub_10007F334(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -4440,10 +4480,11 @@ void sub_1000840E8(void *a1@<X0>, const char *a2@<X3>, uint8_t *a3@<X4>, NSObjec
   _os_log_error_impl(a1, a4, OS_LOG_TYPE_ERROR, a2, a3, 0x20u);
 }
 
-void sub_100084104(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100084104(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 uint64_t sub_100084120()
@@ -4459,10 +4500,9 @@ uint64_t sub_100084120()
 
 void sub_1000841FC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_alloc_init(objc_opt_class());
-  v3 = qword_10010D998;
-  qword_10010D998 = v2;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = qword_10010D998;
+  qword_10010D998 = v1;
 }
 
 void sub_100084364(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
@@ -4498,16 +4538,16 @@ void sub_100084864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-id sub_10008546C()
+id sub_10008546C(uint64_t a1)
 {
   if (qword_10010D9B0 != -1)
   {
     sub_10009E2A8();
   }
 
-  v1 = qword_10010D9A8;
+  v2 = qword_10010D9A8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000854B0(id a1)
@@ -4523,21 +4563,21 @@ void sub_1000854B0(id a1)
   qword_10010D9A8 = v1;
 }
 
-id sub_100085530()
+id sub_100085530(uint64_t a1)
 {
   if (qword_10010D9C0 != -1)
   {
     sub_10009E2D0();
   }
 
-  v1 = qword_10010D9B8;
+  v2 = qword_10010D9B8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100085574(id a1)
 {
-  v3 = sub_10008546C();
+  v3 = sub_10008546C(a1);
   v1 = [v3 URLByAppendingPathComponent:@"voicemail.db" isDirectory:0];
   v2 = qword_10010D9B8;
   qword_10010D9B8 = v1;
@@ -4551,36 +4591,36 @@ id sub_1000855D4(void *a1)
   v3 = [v2 UUIDString];
   v4 = [NSString stringWithFormat:@"A-%@", v3];
 
-  v5 = sub_10008546C();
-  v6 = [v5 URLByAppendingPathComponent:v4 isDirectory:1];
+  v6 = sub_10008546C(v5);
+  v7 = [v6 URLByAppendingPathComponent:v4 isDirectory:1];
 
-  return v6;
+  return v7;
 }
 
 id sub_1000856C8(void *a1)
 {
   v1 = a1;
-  v2 = sub_10008546C();
+  v2 = sub_10008546C(v1);
   v3 = [v2 URLByAppendingPathComponent:v1 isDirectory:1];
 
   return v3;
 }
 
-id sub_100085730()
+id sub_100085730(uint64_t a1)
 {
   if (qword_10010D9D0 != -1)
   {
     sub_10009E2E4();
   }
 
-  v1 = qword_10010D9C8;
+  v2 = qword_10010D9C8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100085774(id a1)
 {
-  v3 = sub_10008546C();
+  v3 = sub_10008546C(a1);
   v1 = [v3 URLByAppendingPathComponent:@"sms" isDirectory:1];
   v2 = qword_10010D9C8;
   qword_10010D9C8 = v1;
@@ -4594,10 +4634,10 @@ id sub_1000857D4(void *a1)
   v3 = [v2 UUIDString];
   v4 = [NSString stringWithFormat:@"SMS-%@.plist", v3];
 
-  v5 = sub_100085730();
-  v6 = [v5 URLByAppendingPathComponent:v4];
+  v6 = sub_100085730(v5);
+  v7 = [v6 URLByAppendingPathComponent:v4];
 
-  return v6;
+  return v7;
 }
 
 void sub_1000858A0(id a1)
@@ -4665,7 +4705,7 @@ void sub_100086350(uint64_t a1)
 
 void sub_1000865B8(uint64_t a1)
 {
-  v2 = sub_100002894();
+  v2 = sub_100002894(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -4674,7 +4714,7 @@ void sub_1000865B8(uint64_t a1)
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "VMSpeechAnalyzerTranscribeOperation didStopTranscriptionWithError. Error? %@", &v11, 0xCu);
   }
 
-  [*(a1 + 40) duration];
+  objc_msgSend_duration(*(a1 + 40));
   v5 = v4;
   v6 = [*(a1 + 40) progress];
   [v6 setCompletedUnitCount:v5];
@@ -4694,7 +4734,7 @@ void sub_1000865B8(uint64_t a1)
 
 void sub_100086788(uint64_t a1)
 {
-  v2 = sub_100002894();
+  v2 = sub_100002894(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) transcript];
@@ -4703,7 +4743,7 @@ void sub_100086788(uint64_t a1)
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "VMSpeechAnalyzerTranscribeOperation speechAnalyzerDidProduceAllTranscriberResults. Transcript result saved: %@", &v11, 0xCu);
   }
 
-  [*(a1 + 32) duration];
+  objc_msgSend_duration(*(a1 + 32));
   v5 = v4;
   v6 = [*(a1 + 32) progress];
   [v6 setCompletedUnitCount:v5];
@@ -4728,7 +4768,7 @@ void sub_100086A90(id a1)
   qword_10010DA08 = v1;
 }
 
-void sub_100086B6C(void *a1, uint64_t a2, uint64_t a3)
+void sub_100086B6C(const char **a1, const char *a2, const char *a3)
 {
   *a1 = a2;
   a1[1] = a3;
@@ -4808,9 +4848,9 @@ void sub_10008745C(void *a1, uint64_t a2)
   operator new();
 }
 
-void sub_1000874DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1000874DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1000874F0(va);
   _Unwind_Resume(a1);
 }
@@ -4933,7 +4973,7 @@ uint64_t VMStoreRecordGetRemoteUID(uint64_t Property)
   return Property;
 }
 
-uint64_t VMStoreRecordSetRemoteUID(uint64_t a1)
+uint64_t VMStoreRecordSetRemoteUID(uint64_t a1, unsigned int a2)
 {
   pthread_mutex_lock(&stru_10010D620);
   if (a1)
@@ -5013,7 +5053,7 @@ const void *VMStoreRecordCopyToken(uint64_t a1)
   return v4;
 }
 
-uint64_t VMStoreRecordSetToken(uint64_t a1)
+uint64_t VMStoreRecordSetToken(uint64_t a1, uint64_t a2)
 {
   pthread_mutex_lock(&stru_10010D620);
   if (a1)
@@ -5024,7 +5064,7 @@ uint64_t VMStoreRecordSetToken(uint64_t a1)
   return pthread_mutex_unlock(&stru_10010D620);
 }
 
-uint64_t VMStoreRecordSetCallbackNumber(uint64_t a1)
+uint64_t VMStoreRecordSetCallbackNumber(uint64_t a1, uint64_t a2)
 {
   pthread_mutex_lock(&stru_10010D620);
   if (a1)
@@ -5035,7 +5075,7 @@ uint64_t VMStoreRecordSetCallbackNumber(uint64_t a1)
   return pthread_mutex_unlock(&stru_10010D620);
 }
 
-uint64_t VMStoreRecordSetReceiver(uint64_t a1)
+uint64_t VMStoreRecordSetReceiver(uint64_t a1, uint64_t a2)
 {
   pthread_mutex_lock(&stru_10010D620);
   if (a1)
@@ -5046,7 +5086,7 @@ uint64_t VMStoreRecordSetReceiver(uint64_t a1)
   return pthread_mutex_unlock(&stru_10010D620);
 }
 
-uint64_t VMStoreRecordSetSender(uint64_t a1)
+uint64_t VMStoreRecordSetSender(uint64_t a1, uint64_t a2)
 {
   pthread_mutex_lock(&stru_10010D620);
   if (a1)
@@ -5112,11 +5152,11 @@ uint64_t VMStoreInitialize()
   }
 
   context = v0;
-  memset(&v62, 0, sizeof(v62));
-  v1 = sub_10008552C();
-  v2 = sub_100085530();
+  memset(&v73, 0, sizeof(v73));
+  v1 = sub_10008552C(v0);
+  v2 = sub_100085530(v1);
   v3 = [v2 path];
-  v4 = stat([v3 UTF8String], &v62);
+  v4 = stat([v3 UTF8String], &v73);
 
   v5 = vm_vmd_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -5128,7 +5168,7 @@ uint64_t VMStoreInitialize()
     }
 
     *buf = 136315138;
-    v55 = v6;
+    v66 = v6;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Database file does%s exist", buf, 0xCu);
   }
 
@@ -5137,36 +5177,37 @@ uint64_t VMStoreInitialize()
   {
     v8 = [v1 path];
     *buf = 138412290;
-    v55 = v8;
+    v66 = v8;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Creating directories to %@", buf, 0xCu);
   }
 
   v9 = [v1 path];
   v10 = [v9 UTF8String];
-  v11 = sub_100011F44();
-  v12 = sub_100011F7C();
-  sub_100011C90(v10, v11, v12, 0x1EDu);
+  v12 = sub_100011F44(v10, v11);
+  v13 = v12;
+  v15 = sub_100011F7C(v12, v14);
+  sub_100011C90(v10, v13, v15, 0x1EDu);
 
   [v2 path];
-  v13 = CSDBRecordStoreCreateWithPath();
-  qword_10010DA20 = v13;
-  v14 = vm_vmd_log();
-  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
-  if (!v13)
+  v16 = CSDBRecordStoreCreateWithPath();
+  qword_10010DA20 = v16;
+  v17 = vm_vmd_log();
+  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+  if (!v16)
   {
-    if (v15)
+    if (v18)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Voicemail store is NOT valid", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Voicemail store is NOT valid", buf, 2u);
     }
 
     goto LABEL_28;
   }
 
-  if (v15)
+  if (v18)
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Voicemail store is valid", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Voicemail store is valid", buf, 2u);
   }
 
   CSDBRecordStoreRegisterClass();
@@ -5174,186 +5215,191 @@ uint64_t VMStoreInitialize()
   Database = CSDBRecordStoreGetDatabase();
   if (Database)
   {
-    v17 = Database;
-    v18 = vm_vmd_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = Database;
+    v21 = vm_vmd_log();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "db is valid", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "db is valid", buf, 2u);
     }
 
     CSDBSqliteDatabaseSetDataProtectionClass();
     CSDBSqliteDatabaseSetVersion();
-    *(v17 + 24) = sub_10008DA28;
+    *(v20 + 24) = sub_10008DA28;
     CSDBSqliteDatabaseSetMigrationHandlers();
-    v19 = CSDBSqliteDatabaseCopyValueForProperty();
-    if (v19)
+    v22 = CSDBSqliteDatabaseCopyValueForProperty();
+    if (v22)
     {
-      CFRelease(v19);
+      CFRelease(v22);
     }
   }
 
-  v20 = [v2 path];
-  v21 = stat([v20 UTF8String], &v62);
+  v23 = [v2 path];
+  v24 = stat([v23 UTF8String], &v73);
 
-  v22 = vm_vmd_log();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v25 = vm_vmd_log();
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = " not";
-    if (!v21)
+    v26 = " not";
+    if (!v24)
     {
-      v23 = "";
+      v26 = "";
     }
 
     *buf = 136315138;
-    v55 = v23;
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "DB does%s exist", buf, 0xCu);
+    v66 = v26;
+    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "DB does%s exist", buf, 0xCu);
   }
 
-  if (!v21 && (sub_100011F7C() != v62.st_gid || sub_100011F44() != v62.st_uid))
+  if (!v24)
   {
-    v24 = vm_vmd_log();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v29 = sub_100011F7C(v27, v28);
+    if (v29 != v73.st_gid || (v31 = sub_100011F44(v29, v30), v31 != v73.st_uid))
     {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Chowning data base", buf, 2u);
-    }
+      v32 = vm_vmd_log();
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Chowning data base", buf, 2u);
+      }
 
-    v14 = [v2 path];
-    v25 = [v14 UTF8String];
-    v26 = sub_100011F44();
-    v27 = sub_100011F7C();
-    chown(v25, v26, v27);
+      v17 = [v2 path];
+      v33 = [v17 UTF8String];
+      v35 = sub_100011F44(v33, v34);
+      v36 = v35;
+      v38 = sub_100011F7C(v35, v37);
+      chown(v33, v36, v38);
 LABEL_28:
+    }
   }
 
-  v51 = v2;
-  v52 = v1;
-  v50 = v4;
-  v28 = 0;
-  v29 = &off_1000EF8D8;
+  v62 = v2;
+  v63 = v1;
+  v61 = v4;
+  v39 = 0;
+  v40 = &off_1000EF8D8;
   do
   {
-    v30 = *v29;
-    dword_10010DA34[v28] = CSDBRecordIndexOfPropertyNamed();
-    v31 = vm_vmd_log();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v41 = *v40;
+    dword_10010DA34[v39] = CSDBRecordIndexOfPropertyNamed();
+    v42 = vm_vmd_log();
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
-      v32 = dword_10010DA34[v28];
+      v43 = dword_10010DA34[v39];
       *buf = 134218754;
-      v55 = v28;
-      v56 = 2080;
-      v57 = v30;
-      v58 = 2048;
-      v59 = v28;
-      v60 = 1024;
-      v61 = v32;
-      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "[%lu] Property ID of %s (%lu) is %d", buf, 0x26u);
+      v66 = v39;
+      v67 = 2080;
+      v68 = v41;
+      v69 = 2048;
+      v70 = v39;
+      v71 = 1024;
+      v72 = v43;
+      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "[%lu] Property ID of %s (%lu) is %d", buf, 0x26u);
     }
 
-    ++v28;
-    v29 += 5;
+    ++v39;
+    v40 += 5;
   }
 
-  while (v28 != 12);
-  v33 = 0;
-  v34 = 1;
+  while (v39 != 12);
+  v44 = 0;
+  v45 = 1;
   do
   {
-    v35 = v34;
-    v36 = (&off_1000EF888)[5 * v33];
-    dword_10010DA28[v33] = CSDBRecordIndexOfPropertyNamed();
-    v37 = vm_vmd_log();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    v46 = v45;
+    v47 = (&off_1000EF888)[5 * v44];
+    dword_10010DA28[v44] = CSDBRecordIndexOfPropertyNamed();
+    v48 = vm_vmd_log();
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
     {
-      v38 = dword_10010DA28[v33];
+      v49 = dword_10010DA28[v44];
       *buf = 134218754;
-      v55 = v33;
-      v56 = 2080;
-      v57 = v36;
-      v58 = 2048;
-      v59 = v33;
-      v60 = 1024;
-      v61 = v38;
-      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "[%lu] Property ID of %s (%lu) is %d", buf, 0x26u);
+      v66 = v44;
+      v67 = 2080;
+      v68 = v47;
+      v69 = 2048;
+      v70 = v44;
+      v71 = 1024;
+      v72 = v49;
+      _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "[%lu] Property ID of %s (%lu) is %d", buf, 0x26u);
     }
 
-    v34 = 0;
-    v33 = 1;
+    v45 = 0;
+    v44 = 1;
   }
 
-  while ((v35 & 1) != 0);
+  while ((v46 & 1) != 0);
   CSDBRecordStoreGetDatabase();
-  v39 = CSDBSqliteDatabaseConnectionForWriting();
-  v40 = CSDBSqliteDatabaseCopyValueForProperty();
-  if (!v40)
+  v50 = CSDBSqliteDatabaseConnectionForWriting();
+  v51 = CSDBSqliteDatabaseCopyValueForProperty();
+  if (!v51)
   {
     goto LABEL_52;
   }
 
-  v41 = v40;
-  v42 = vm_vmd_log();
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+  v52 = v51;
+  v53 = vm_vmd_log();
+  if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Perform UUID migration", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "Perform UUID migration", buf, 2u);
   }
 
   sub_10008EBE0(qword_10010DA20, &off_1000EF618);
   sub_10008EBE0(qword_10010DA20, &off_1000EF6B8);
-  if (!v39)
+  if (!v50)
   {
-    v43 = vm_vmd_log();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+    v54 = vm_vmd_log();
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Can't find sql connection for UUID migration", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "Can't find sql connection for UUID migration", buf, 2u);
     }
 
     goto LABEL_51;
   }
 
-  v43 = [[NSString alloc] initWithFormat:@"DELETE FROM _SqliteDatabaseProperties WHERE key = '%@';", @"UUIDMigration"];
-  v44 = CSDBSqliteConnectionPerformSQL();
-  if (v44 != 101 && v44)
+  v54 = [[NSString alloc] initWithFormat:@"DELETE FROM _SqliteDatabaseProperties WHERE key = '%@';", @"UUIDMigration"];
+  v55 = CSDBSqliteConnectionPerformSQL();
+  if (v55 != 101 && v55)
   {
-    v45 = vm_vmd_log();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+    v56 = vm_vmd_log();
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v46 = "Can't remove property for UUID migration";
+      v57 = "Can't remove property for UUID migration";
       goto LABEL_49;
     }
   }
 
   else
   {
-    v45 = vm_vmd_log();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+    v56 = vm_vmd_log();
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v46 = "Removed property for UUID migration";
+      v57 = "Removed property for UUID migration";
 LABEL_49:
-      _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, v46, buf, 2u);
+      _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, v57, buf, 2u);
     }
   }
 
 LABEL_51:
-  CFRelease(v41);
+  CFRelease(v52);
 LABEL_52:
 
-  v47 = vm_vmd_log();
-  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+  v58 = vm_vmd_log();
+  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
   {
-    v48 = " not";
-    if (v50 < 0)
+    v59 = " not";
+    if (v61 < 0)
     {
-      v48 = "";
+      v59 = "";
     }
 
-    v62.st_dev = 136315138;
-    *&v62.st_mode = v48;
-    _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Voicemail initialization occured while%s previously existing", &v62, 0xCu);
+    v73.st_dev = 136315138;
+    *&v73.st_mode = v59;
+    _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "Voicemail initialization occured while%s previously existing", &v73, 0xCu);
   }
 
   v0 = context;
@@ -5449,7 +5495,7 @@ uint64_t VMMap_addRecord(uint64_t a1, void *a2)
   return v3;
 }
 
-uint64_t VMMap_removeRecord()
+uint64_t VMMap_removeRecord(uint64_t a1)
 {
   pthread_mutex_lock(&stru_10010D620);
   CSDBRecordStoreRemoveRecord();
@@ -5643,7 +5689,7 @@ uint64_t VMStoreRecordGetDuration(uint64_t Property)
   return Property;
 }
 
-uint64_t VMStoreRecordSetDuration(uint64_t a1)
+uint64_t VMStoreRecordSetDuration(uint64_t a1, int a2)
 {
   pthread_mutex_lock(&stru_10010D620);
   if (a1)
@@ -5666,7 +5712,7 @@ uint64_t VMStoreRecordGetExpirationDate(uint64_t Property)
   return Property;
 }
 
-uint64_t VMStoreRecordSetExpirationDate(uint64_t a1)
+uint64_t VMStoreRecordSetExpirationDate(uint64_t a1, int a2)
 {
   pthread_mutex_lock(&stru_10010D620);
   if (a1)
@@ -5701,34 +5747,34 @@ uint64_t VMStoreRecordGetFlags(uint64_t Property)
   return Property;
 }
 
-uint64_t VMStoreRecordCopyDataPath()
+uint64_t VMStoreRecordCopyDataPath(uint64_t a1)
 {
-  v0 = sub_10008546C();
-  v1 = [NSString stringWithFormat:@"%d%s", CSDBRecordGetID(), ".amr"];
-  v2 = [v0 URLByAppendingPathComponent:v1];
-  v3 = [v2 path];
+  v1 = sub_10008546C(a1);
+  v2 = [NSString stringWithFormat:@"%d%s", CSDBRecordGetID(), ".amr"];
+  v3 = [v1 URLByAppendingPathComponent:v2];
+  v4 = [v3 path];
 
-  return v3;
+  return v4;
 }
 
-uint64_t VMStoreRecordCopyTranscriptionPath()
+uint64_t VMStoreRecordCopyTranscriptionPath(uint64_t a1)
 {
-  v0 = sub_10008546C();
-  v1 = [NSString stringWithFormat:@"%d%s", CSDBRecordGetID(), ".transcript"];
-  v2 = [v0 URLByAppendingPathComponent:v1];
-  v3 = [v2 path];
+  v1 = sub_10008546C(a1);
+  v2 = [NSString stringWithFormat:@"%d%s", CSDBRecordGetID(), ".transcript"];
+  v3 = [v1 URLByAppendingPathComponent:v2];
+  v4 = [v3 path];
 
-  return v3;
+  return v4;
 }
 
-uint64_t VMStoreRecordCopySummarizationPath()
+uint64_t VMStoreRecordCopySummarizationPath(uint64_t a1)
 {
-  v0 = sub_10008546C();
-  v1 = [NSString stringWithFormat:@"%d%s", CSDBRecordGetID(), ".summary"];
-  v2 = [v0 URLByAppendingPathComponent:v1];
-  v3 = [v2 path];
+  v1 = sub_10008546C(a1);
+  v2 = [NSString stringWithFormat:@"%d%s", CSDBRecordGetID(), ".summary"];
+  v3 = [v1 URLByAppendingPathComponent:v2];
+  v4 = [v3 path];
 
-  return v3;
+  return v4;
 }
 
 uint64_t VMStoreSave()
@@ -5870,7 +5916,7 @@ void sub_10008928C(uint64_t a1, const __CFString *a2, uint64_t a3)
   CFRelease(v6);
 }
 
-uint64_t VMStoreCreateAndAddRecord(uint64_t a1, uint64_t a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
+uint64_t VMStoreCreateAndAddRecord(unsigned int a1, int a2, const __CFString *a3, uint64_t a4, uint64_t a5, int a6, int a7, unsigned int a8, uint64_t a9, void *a10)
 {
   v11 = a10;
   pthread_mutex_lock(&stru_10010D620);
@@ -5979,7 +6025,7 @@ uint64_t VMStoreRemoveRecord(uint64_t a1)
   pthread_mutex_lock(&stru_10010D620);
   if (a1 && (CSDBRecordGetProperty() & 2) != 0)
   {
-    v4 = VMStoreRecordCopyDataPath();
+    v4 = VMStoreRecordCopyDataPath(a1);
     if (v4)
     {
       v5 = v4;
@@ -5991,7 +6037,7 @@ uint64_t VMStoreRemoveRecord(uint64_t a1)
       CFRelease(v5);
     }
 
-    v6 = VMStoreRecordCopyTranscriptionPath();
+    v6 = VMStoreRecordCopyTranscriptionPath(a1);
     if (v6)
     {
       v7 = v6;
@@ -6003,7 +6049,7 @@ uint64_t VMStoreRemoveRecord(uint64_t a1)
       CFRelease(v7);
     }
 
-    v8 = VMStoreRecordCopySummarizationPath();
+    v8 = VMStoreRecordCopySummarizationPath(a1);
     if (v8)
     {
       v9 = v8;
@@ -6020,8 +6066,9 @@ uint64_t VMStoreRemoveRecord(uint64_t a1)
   return pthread_mutex_unlock(&stru_10010D620);
 }
 
-void sub_1000898BC(int a1, void *a2)
+void sub_1000898BC(uint64_t a1, void *a2)
 {
+  v2 = a1;
   v3 = a2;
   if (v3)
   {
@@ -6046,35 +6093,35 @@ void sub_1000898BC(int a1, void *a2)
 
     else
     {
-      v14 = vm_vmd_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = vm_vmd_log();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 138412290;
-        v16 = v3;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Did not find any records for label %@; skipping record removal.", &v15, 0xCu);
+        v16 = 138412290;
+        v17 = v3;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Did not find any records for label %@; skipping record removal.", &v16, 0xCu);
       }
     }
   }
 
   else
   {
-    pthread_mutex_lock(&stru_10010D620);
+    v10 = pthread_mutex_lock(&stru_10010D620);
     if (qword_10010DA20)
     {
-      v10 = vm_vmd_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = vm_vmd_log();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v15) = 0;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Destroying voicemail store", &v15, 2u);
+        LOWORD(v16) = 0;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Destroying voicemail store", &v16, 2u);
       }
 
-      CSDBRecordStoreDestroy();
+      v10 = CSDBRecordStoreDestroy();
     }
 
     qword_10010DA20 = 0;
-    v11 = sub_10008546C();
-    v12 = [v11 fullPath];
-    sub_100089B2C([v12 UTF8String], a1);
+    v12 = sub_10008546C(v10);
+    v13 = [v12 fullPath];
+    sub_100089B2C([v13 UTF8String], v2);
 
     VMStoreInitialize();
     pthread_mutex_unlock(&stru_10010D620);
@@ -6084,8 +6131,10 @@ void sub_1000898BC(int a1, void *a2)
   }
 }
 
-uint64_t VMStoreCopyOfAllRecordsWithFlags(int a1, int a2, void *a3)
+uint64_t VMStoreCopyOfAllRecordsWithFlags(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
+  v4 = a1;
   v5 = a3;
   pthread_mutex_lock(&stru_10010D620);
   v6 = qword_10010DA20;
@@ -6095,7 +6144,7 @@ uint64_t VMStoreCopyOfAllRecordsWithFlags(int a1, int a2, void *a3)
     v6 = qword_10010DA20;
   }
 
-  v7 = sub_10008AC8C(v6, &off_1000EF618, a1, a2, v5);
+  v7 = sub_10008AC8C(v6, &off_1000EF618, v4, v3, v5);
   pthread_mutex_unlock(&stru_10010D620);
 
   return v7;
@@ -6249,83 +6298,83 @@ LABEL_37:
   }
 }
 
-void VMStoreCleanBackingFiles()
+void VMStoreCleanBackingFiles(uint64_t a1)
 {
-  v0 = sub_10008546C();
+  v1 = sub_10008546C(a1);
   pthread_mutex_lock(&stru_10010D620);
   if (qword_10010DA20 || (VMStoreInitialize(), qword_10010DA20))
   {
-    v1 = vm_vmd_log();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+    v2 = vm_vmd_log();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "Voicemail store is valid", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Voicemail store is valid", buf, 2u);
     }
 
-    v2 = CSDBRecordStoreCopyValueForProperty();
-    v3 = v2;
-    if (v2 && CFStringGetLength(v2))
+    v3 = CSDBRecordStoreCopyValueForProperty();
+    v4 = v3;
+    if (v3 && CFStringGetLength(v3))
     {
       goto LABEL_38;
     }
 
-    v4 = vm_vmd_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = vm_vmd_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "CLEANING BACKING FILES\n", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "CLEANING BACKING FILES\n", buf, 2u);
     }
 
-    v5 = [v0 fullPath];
-    v6 = opendir([v5 UTF8String]);
+    v6 = [v1 fullPath];
+    v7 = opendir([v6 UTF8String]);
 
-    if (v6)
+    if (v7)
     {
-      v7 = readdir(v6);
-      if (v7)
+      v8 = readdir(v7);
+      if (v8)
       {
-        v9 = v7;
+        v10 = v8;
         Mutable = 0;
-        *&v8 = 136315138;
-        v19 = v8;
+        *&v9 = 136315138;
+        v20 = v9;
         do
         {
-          if (v9->d_namlen)
+          if (v10->d_namlen)
           {
-            d_name = v9->d_name;
-            if (v9->d_name[0] != 46)
+            d_name = v10->d_name;
+            if (v10->d_name[0] != 46)
             {
-              v12 = vm_vmd_log();
-              if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+              v13 = vm_vmd_log();
+              if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
               {
-                *v20 = v19;
-                v21 = v9->d_name;
-                _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Entry name %s", v20, 0xCu);
+                *v21 = v20;
+                v22 = v10->d_name;
+                _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Entry name %s", v21, 0xCu);
               }
 
-              d_namlen = v9->d_namlen;
-              v14 = strncmp(v9->d_name, "Greeting.amr", d_namlen);
+              d_namlen = v10->d_namlen;
+              v15 = strncmp(v10->d_name, "Greeting.amr", d_namlen);
               if (d_namlen >= 5)
               {
-                if (v14)
+                if (v15)
                 {
                   if (!strncmp(&d_name[d_namlen - 4], ".amr", 4uLL))
                   {
-                    v15 = memchr(v9->d_name, 46, d_namlen);
-                    if (v15)
+                    v16 = memchr(v10->d_name, 46, d_namlen);
+                    if (v16)
                     {
-                      v16 = (v15 - d_name);
-                      if ((v15 - d_name) <= 0xFE)
+                      v17 = (v16 - d_name);
+                      if ((v16 - d_name) <= 0xFE)
                       {
                         __memcpy_chk();
-                        buf[v16] = 0;
-                        v17 = atoi(buf);
-                        v18 = vm_vmd_log();
-                        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+                        buf[v17] = 0;
+                        v18 = atoi(buf);
+                        v19 = vm_vmd_log();
+                        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
                         {
-                          *v20 = 67109120;
-                          LODWORD(v21) = v17;
-                          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Record ID = %d", v20, 8u);
+                          *v21 = 67109120;
+                          LODWORD(v22) = v18;
+                          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Record ID = %d", v21, 8u);
                         }
 
                         if (!Mutable)
@@ -6333,7 +6382,7 @@ void VMStoreCleanBackingFiles()
                           Mutable = CFSetCreateMutable(kCFAllocatorDefault, 0, &kCFTypeSetCallBacks);
                         }
 
-                        CFSetAddValue(Mutable, [NSNumber numberWithInt:v17]);
+                        CFSetAddValue(Mutable, [NSNumber numberWithInt:v18]);
                       }
                     }
                   }
@@ -6342,11 +6391,11 @@ void VMStoreCleanBackingFiles()
             }
           }
 
-          v9 = readdir(v6);
+          v10 = readdir(v7);
         }
 
-        while (v9);
-        closedir(v6);
+        while (v10);
+        closedir(v7);
         if (Mutable)
         {
           if (CSDBRecordStoreGetDatabase() && CSDBSqliteDatabaseConnectionForReading() && CSDBSqliteConnectionStatementForSQL())
@@ -6365,16 +6414,16 @@ void VMStoreCleanBackingFiles()
 
       else
       {
-        closedir(v6);
+        closedir(v7);
       }
     }
 
     CSDBRecordStoreSetValueForProperty();
     CSDBRecordSaveStore();
-    if (v3)
+    if (v4)
     {
 LABEL_38:
-      CFRelease(v3);
+      CFRelease(v4);
     }
   }
 
@@ -6407,30 +6456,30 @@ void sub_10008A4D4(uint64_t a1)
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v10 = a1;
+    v11 = a1;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Record ID = %d", buf, 8u);
   }
 
-  v3 = sub_10008546C();
-  v4 = [v3 fullPath];
-  v5 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@%d.amr", v4, a1);
+  v4 = sub_10008546C(v3);
+  v5 = [v4 fullPath];
+  v6 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@%d.amr", v5, a1);
 
-  if (v5)
+  if (v6)
   {
-    if (CFStringGetFileSystemRepresentation(v5, buf, 1024))
+    if (CFStringGetFileSystemRepresentation(v6, buf, 1024))
     {
-      v6 = vm_vmd_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = vm_vmd_log();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v7 = 136315138;
-        v8 = buf;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "DELETING FILE %s\n", v7, 0xCu);
+        *v8 = 136315138;
+        v9 = buf;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "DELETING FILE %s\n", v8, 0xCu);
       }
 
       unlink(buf);
     }
 
-    CFRelease(v5);
+    CFRelease(v6);
   }
 }
 
@@ -6439,7 +6488,7 @@ void VMStoreRecordSetData(void *a1, const void *a2, void *a3)
   v5 = a1;
   v6 = objc_autoreleasePoolPush();
   v7 = a3;
-  v8 = VMStoreRecordCopyDataPath();
+  v8 = VMStoreRecordCopyDataPath(a2);
   if (v8)
   {
     v17 = 0;
@@ -6489,7 +6538,7 @@ void VMStoreRecordSetFlag(void *a1, const void *a2, unsigned int a3)
   VMStoreRecordSetFlagsFromServer(v6, a2, Flags | a3, 0);
 }
 
-uint64_t VMStoreGetRecordCountWithMailboxType(uint64_t a1, const __CFBoolean *a2)
+uint64_t VMStoreGetRecordCountWithMailboxType(uint64_t a1, CFBooleanRef a2)
 {
   pthread_mutex_lock(&stru_10010D620);
   if (!qword_10010DA20)
@@ -6593,7 +6642,7 @@ uint64_t VMStoreGetRecordCountWithMailboxType(uint64_t a1, const __CFBoolean *a2
   return v17;
 }
 
-uint64_t sub_10008AA10(uint64_t a1, uint64_t a2, uint64_t a3, const __CFBoolean *a4, int a5, int a6)
+uint64_t sub_10008AA10(uint64_t a1, uint64_t a2, uint64_t a3, CFBooleanRef a4, int a5, int a6)
 {
   if (a4)
   {
@@ -6727,43 +6776,42 @@ uint64_t sub_10008AC8C(uint64_t a1, void *a2, int a3, int a4, void *a5)
   CSDBRecordStoreGetDatabase();
   if (CSDBSqliteDatabaseConnectionForReading())
   {
-    v9 = *a2;
-    v10 = @" AND label = ? ";
+    v9 = @" AND label = ? ";
     if (!v8)
     {
-      v10 = @" ";
+      v9 = @" ";
     }
 
-    v11 = [NSString stringWithFormat:@"SELECT * FROM %s WHERE ((flags & ?) = ?)%@ORDER BY date DESC, ROWID DESC", *a2, v10];;
-    v12 = CSDBSqliteConnectionStatementForSQL();
-    if (v12)
+    v10 = [NSString stringWithFormat:@"SELECT * FROM %s WHERE ((flags & ?) = ?)%@ORDER BY date DESC, ROWID DESC", *a2, v9];;
+    v11 = CSDBSqliteConnectionStatementForSQL();
+    if (v11)
     {
-      v13 = v12;
-      sqlite3_bind_int(*(v12 + 8), 1, a4 | a3);
-      sqlite3_bind_int(*(v13 + 8), 2, a3);
+      v12 = v11;
+      sqlite3_bind_int(*(v11 + 8), 1, a4 | a3);
+      sqlite3_bind_int(*(v12 + 8), 2, a3);
       if (v8)
       {
-        v14 = *(v13 + 8);
-        v15 = [v8 UUIDString];
-        sqlite3_bind_text(v14, 3, [v15 UTF8String], -1, 0);
+        v13 = *(v12 + 8);
+        v14 = [v8 UUIDString];
+        sqlite3_bind_text(v13, 3, [v14 UTF8String], -1, 0);
       }
 
-      v16 = CSDBRecordStoreProcessStatement();
+      v15 = CSDBRecordStoreProcessStatement();
       CSDBSqliteStatementReset();
     }
 
     else
     {
-      v16 = 0;
+      v15 = 0;
     }
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  return v16;
+  return v15;
 }
 
 uint64_t sub_10008ADE0(uint64_t a1, void *a2)
@@ -6923,8 +6971,10 @@ uint64_t sub_10008B214(uint64_t a1, __CFArray **a2)
   return 0;
 }
 
-const void *sub_10008B290(uint64_t a1, uint64_t a2, int a3, int a4, int a5, void *a6)
+const void *sub_10008B290(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, void *a6)
 {
+  v6 = a5;
+  v7 = a4;
   v10 = a6;
   Database = CSDBRecordStoreGetDatabase();
   v12 = CSDBSqliteDatabaseConnectionForReading();
@@ -6946,11 +6996,11 @@ const void *sub_10008B290(uint64_t a1, uint64_t a2, int a3, int a4, int a5, void
 
     v17 = v16;
     sqlite3_bind_int(*(v16 + 8), 1, a3);
-    sqlite3_bind_int(*(v17 + 8), 2, a5 | a4);
-    sqlite3_bind_int(*(v17 + 8), 3, a4);
+    sqlite3_bind_int(*(v17 + 8), 2, v6 | v7);
+    sqlite3_bind_int(*(v17 + 8), 3, v7);
     if (v10)
     {
-      v18 = a5;
+      v18 = v6;
       v19 = v15;
       v20 = *(v17 + 8);
       [v10 UUIDString];
@@ -6958,7 +7008,7 @@ const void *sub_10008B290(uint64_t a1, uint64_t a2, int a3, int a4, int a5, void
       v22 = [v21 UTF8String];
       v23 = v20;
       v15 = v19;
-      a5 = v18;
+      v6 = v18;
       sqlite3_bind_text(v23, 4, v22, -1, 0);
 
       a3 = cfa;
@@ -6971,8 +7021,8 @@ const void *sub_10008B290(uint64_t a1, uint64_t a2, int a3, int a4, int a5, void
       if (CFArrayGetCount(v24))
       {
         ValueAtIndex = CFArrayGetValueAtIndex(v25, 0);
-        v27 = VMStoreRecordCopyFlagsDescription(a4);
-        cf = VMStoreRecordCopyFlagsDescription(a5);
+        v27 = VMStoreRecordCopyFlagsDescription(v7);
+        cf = VMStoreRecordCopyFlagsDescription(v6);
         v28 = vm_vmd_log();
         if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
@@ -7066,7 +7116,7 @@ __CFString *VMStoreRecordCopyFlagsDescription(int a1)
   return MutableCopy;
 }
 
-const void *sub_10008B60C(uint64_t a1, uint64_t a2, int a3, int a4, int a5, void *a6)
+const void *sub_10008B60C(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, void *a6)
 {
   v11 = a6;
   pthread_mutex_lock(&stru_10010D620);
@@ -7076,7 +7126,7 @@ const void *sub_10008B60C(uint64_t a1, uint64_t a2, int a3, int a4, int a5, void
   return v12;
 }
 
-const void *VMStoreCopyRecordWithRemoteUID(int a1, int a2, int a3, void *a4)
+const void *VMStoreCopyRecordWithRemoteUID(int a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v7 = a4;
   pthread_mutex_lock(&stru_10010D620);
@@ -7221,41 +7271,40 @@ uint64_t sub_10008BAFC(uint64_t a1, void *a2, void *a3, void *a4)
   CSDBRecordStoreGetDatabase();
   if (CSDBSqliteDatabaseConnectionForReading())
   {
-    v7 = *a2;
-    v8 = @" AND label = ?";
+    v7 = @" AND label = ?";
     if (!v6)
     {
-      v8 = &stru_1000F0098;
+      v7 = &stru_1000F0098;
     }
 
-    v9 = [NSString stringWithFormat:@"SELECT * FROM %s WHERE token = ?%@ ORDER BY ROWID ASC", *a2, v8];;
-    v10 = CSDBSqliteConnectionStatementForSQL();
-    if (v10)
+    v8 = [NSString stringWithFormat:@"SELECT * FROM %s WHERE token = ?%@ ORDER BY ROWID ASC", *a2, v7];;
+    v9 = CSDBSqliteConnectionStatementForSQL();
+    if (v9)
     {
-      v11 = v10;
-      sqlite3_bind_text(*(v10 + 8), 1, [a3 UTF8String], -1, 0);
+      v10 = v9;
+      sqlite3_bind_text(*(v9 + 8), 1, [a3 UTF8String], -1, 0);
       if (v6)
       {
-        v12 = *(v11 + 8);
-        v13 = [v6 UUIDString];
-        sqlite3_bind_text(v12, 2, [v13 UTF8String], -1, 0);
+        v11 = *(v10 + 8);
+        v12 = [v6 UUIDString];
+        sqlite3_bind_text(v11, 2, [v12 UTF8String], -1, 0);
       }
 
-      v14 = CSDBRecordStoreProcessStatement();
+      v13 = CSDBRecordStoreProcessStatement();
     }
 
     else
     {
-      v14 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  return v14;
+  return v13;
 }
 
 CFTypeRef sub_10008BC4C(uint64_t a1, void *a2, void *a3, void *a4)
@@ -7993,7 +8042,7 @@ LABEL_9:
   return 1;
 }
 
-void *VMStoreRecordCopyArrayDescription(const __CFArray *a1)
+NSMutableString *VMStoreRecordCopyArrayDescription(const __CFArray *a1)
 {
   v2 = objc_opt_new();
   objc_msgSend(v2, "appendFormat:", @"(\n");
@@ -8020,7 +8069,7 @@ void *VMStoreRecordCopyArrayDescription(const __CFArray *a1)
   return v2;
 }
 
-uint64_t sub_10008D210()
+uint64_t sub_10008D210(uint64_t a1)
 {
   pthread_mutex_lock(&stru_10010D620);
   if (qword_10010DA20 || (VMStoreInitialize(), qword_10010DA20))
@@ -8078,10 +8127,10 @@ __CFString *sub_10008D2FC(const __CFString *a1)
 
 void sub_10008D374(uint64_t a1, const __CFString *a2)
 {
-  v3 = sub_10008D2FC(a2);
-  if (v3)
+  v4 = sub_10008D2FC(a2);
+  if (v4)
   {
-    v4 = v3;
+    v5 = v4;
     pthread_mutex_lock(&stru_10010D620);
     if (qword_10010DA20 || (VMStoreInitialize(), qword_10010DA20))
     {
@@ -8100,13 +8149,13 @@ void sub_10008D374(uint64_t a1, const __CFString *a2)
 
     pthread_mutex_unlock(&stru_10010D620);
 
-    CFRelease(v4);
+    CFRelease(v5);
   }
 
   else
   {
 
-    sub_10008D210();
+    sub_10008D210(a1);
   }
 }
 
@@ -8222,20 +8271,20 @@ void sub_10008D6D8(uint64_t a1, uint64_t a2)
   CSDBSqliteDatabaseSetValueForProperty();
 }
 
-uint64_t sub_10008D74C()
+id sub_10008D74C(uint64_t a1)
 {
   CSDBRecordStoreGetDatabase();
   result = CSDBSqliteDatabaseCopyValueForProperty();
   if (result)
   {
-    v1 = result;
-    v2 = objc_alloc_init(NSNumberFormatter);
-    [v2 setNumberStyle:1];
-    v3 = [v2 numberFromString:v1];
-    v4 = [v3 unsignedIntValue];
-    CFRelease(v1);
+    v2 = result;
+    v3 = objc_alloc_init(NSNumberFormatter);
+    [v3 setNumberStyle:1];
+    v4 = [v3 numberFromString:v2];
+    v5 = [v4 unsignedIntValue];
+    CFRelease(v2);
 
-    return v4;
+    return v5;
   }
 
   return result;
@@ -8273,31 +8322,46 @@ BOOL sub_10008D7D0(uint64_t a1, uint64_t a2, const void *a3)
   return v10;
 }
 
-uint64_t sub_10008D8AC(uint64_t a1, uint64_t a2)
+uint64_t sub_10008D8AC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   pthread_mutex_lock(&stru_10010D620);
   if (qword_10010DA20 || (VMStoreInitialize(), qword_10010DA20))
   {
-    v4 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@_%@", a2, a1);
-    if (v4)
+    v5 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@_%@", a2, a1);
+    if (v5)
     {
-      v5 = v4;
+      v6 = v5;
       CSDBRecordStoreGetDatabase();
       CSDBSqliteDatabaseSetValueForProperty();
-      CFRelease(v5);
+      CFRelease(v6);
     }
   }
 
   return pthread_mutex_unlock(&stru_10010D620);
 }
 
-uint64_t sub_10008D998()
+uint64_t VMStoreSetReceiverMigration(uint64_t a1, int a2)
 {
-  sub_10008E728(&off_1000EF618);
-  sub_10008E728(&off_1000EF6B8);
-  sub_10008E728(&off_1000EF578);
-  sub_10008E7EC();
-  sub_10008E7EC();
+  if (a2)
+  {
+    v2 = @"2";
+  }
+
+  else
+  {
+    v2 = 0;
+  }
+
+  return sub_10008D8AC(a1, @"ReceiverMigration", v2);
+}
+
+uint64_t sub_10008D998(uint64_t a1, uint64_t a2)
+{
+  sub_10008E728(&off_1000EF618, a2);
+  sub_10008E728(&off_1000EF6B8, a2);
+  sub_10008E728(&off_1000EF578, a2);
+  sub_10008E7EC(@"CREATE INDEX date_index on voicemail(date);", a2);
+  sub_10008E7EC(@"CREATE INDEX remote_uid_index on voicemail(remote_uid);", a2);
 
   return CSDBSqliteConnectionSetValueForProperty();
 }
@@ -8514,9 +8578,8 @@ LABEL_64:
                 _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "'ROWID' column is missing in 'map', table need to be recreated", buf, 2u);
               }
 
-              [NSString stringWithFormat:@"DROP TABLE %@;", @"map"];
-              sub_10008E7EC();
-              sub_10008E728(&off_1000EF578);
+              sub_10008E7EC([NSString stringWithFormat:@"DROP TABLE %@;", @"map"], a2);
+              sub_10008E728(&off_1000EF578, a2);
               v32 = vm_vmd_log();
               if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
               {
@@ -8549,9 +8612,8 @@ LABEL_64:
               _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Migrating database from schema version %d to schema version %d", buf, 0xEu);
             }
 
-            [NSString stringWithFormat:@"DROP TABLE %@;", @"map"];
-            sub_10008E7EC();
-            sub_10008E728(&off_1000EF578);
+            sub_10008E7EC([NSString stringWithFormat:@"DROP TABLE %@;", @"map"], a2);
+            sub_10008E728(&off_1000EF578, a2);
             v24 = vm_vmd_log();
             if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
@@ -8609,8 +8671,8 @@ LABEL_33:
         }
 
         v20 = sub_10008E844(a2, @"label", @"voicemail");
-        sub_10008E728(&off_1000EF6B8);
-        sub_10008E728(&off_1000EF578);
+        sub_10008E728(&off_1000EF6B8, a2);
+        sub_10008E728(&off_1000EF578, a2);
         v21 = vm_vmd_log();
         v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
         if (v20)
@@ -8738,21 +8800,21 @@ LABEL_42:
   return 3;
 }
 
-uint64_t sub_10008E728(uint64_t *a1)
+uint64_t sub_10008E728(uint64_t *a1, uint64_t a2)
 {
-  v2 = vm_vmd_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_vmd_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *a1;
-    v5 = 136315138;
-    v6 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Create %s table", &v5, 0xCu);
+    v4 = *a1;
+    v6 = 136315138;
+    v7 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Create %s table", &v6, 0xCu);
   }
 
   return CSDBRecordStoreCreateTablesForClass();
 }
 
-uint64_t sub_10008E7EC()
+uint64_t sub_10008E7EC(uint64_t a1, uint64_t a2)
 {
   result = CSDBSqliteConnectionStatementForSQL();
   if (result)
@@ -9032,7 +9094,7 @@ LABEL_26:
   }
 }
 
-uint64_t sub_10008FE44()
+uint64_t sub_10008FE44(uint64_t a1, uint64_t a2)
 {
   CSDBRecordStoreCreateTablesForClass();
   result = CSDBSqliteConnectionStatementForSQL();
@@ -9046,9 +9108,9 @@ uint64_t sub_10008FE44()
   return result;
 }
 
-void sub_1000900C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000900C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9071,16 +9133,15 @@ unsigned int *sub_1000901D8(unsigned int *result)
   return result;
 }
 
-void sub_1000902B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000902B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000902D0(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   result = CSDBRecordGetID();
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
@@ -9088,103 +9149,31 @@ uint64_t sub_1000902D0(uint64_t a1)
 
 id sub_1000903A0(uint64_t a1)
 {
-  v2 = nullsub_8([*(a1 + 32) getRecordProperty_sync:*(a1 + 40) property:8]);
-  v3 = *(a1 + 48);
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v6 = sub_1000878B8(v3 | v2);
+  [*(a1 + 32) getRecordProperty_sync:*(a1 + 40) property:8];
+  nullsub_8();
+  v2 = *(a1 + 48);
+  v4 = *(a1 + 32);
+  v3 = *(a1 + 40);
+  v6 = sub_1000878B8(v2 | v5);
 
-  return [v5 setRecordProperty_sync:v4 property:8 value:v6];
+  return [v4 setRecordProperty_sync:v3 property:8 value:v6];
 }
 
 id sub_1000904A0(uint64_t a1)
 {
-  v2 = nullsub_8([*(a1 + 32) getRecordProperty_sync:*(a1 + 40) property:8]);
-  v3 = *(a1 + 48);
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v6 = sub_1000878B8(v2 & ~v3);
+  [*(a1 + 32) getRecordProperty_sync:*(a1 + 40) property:8];
+  nullsub_8();
+  v2 = *(a1 + 48);
+  v4 = *(a1 + 32);
+  v3 = *(a1 + 40);
+  v6 = sub_1000878B8(v5 & ~v2);
 
-  return [v5 setRecordProperty_sync:v4 property:8 value:v6];
+  return [v4 setRecordProperty_sync:v3 property:8 value:v6];
 }
 
-void sub_100090684(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100090684(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
-}
-
-void sub_10009069C(uint64_t a1)
-{
-  [*(a1 + 32) getRecordDescriptor];
-  *(*(*(a1 + 72) + 8) + 24) = CSDBRecordCreate();
-  v2 = *(*(*(a1 + 72) + 8) + 24);
-  if (v2)
-  {
-    [*(a1 + 32) setRecordProperty_sync:v2 property:0 value:sub_1000878B8(*(a1 + 80))];
-    [*(a1 + 32) setRecordProperty_sync:*(*(*(a1 + 72) + 8) + 24) property:1 value:sub_100088C40(*(a1 + 84))];
-    [*(a1 + 32) setRecordProperty_sync:*(*(*(a1 + 72) + 8) + 24) property:2 value:nullsub_8(*(a1 + 40))];
-    [*(a1 + 32) setRecordProperty_sync:*(*(*(a1 + 72) + 8) + 24) property:3 value:nullsub_8(*(a1 + 48))];
-    [*(a1 + 32) setRecordProperty_sync:*(*(*(a1 + 72) + 8) + 24) property:4 value:nullsub_8(*(a1 + 56))];
-    [*(a1 + 32) setRecordProperty_sync:*(*(*(a1 + 72) + 8) + 24) property:5 value:sub_100088C40(*(a1 + 88))];
-    [*(a1 + 32) setRecordProperty_sync:*(*(*(a1 + 72) + 8) + 24) property:6 value:sub_100088C40(*(a1 + 92))];
-    [*(a1 + 32) setRecordProperty_sync:*(*(*(a1 + 72) + 8) + 24) property:8 value:sub_100088C40(*(a1 + 96))];
-    [*(a1 + 32) setRecordProperty_sync:*(*(*(a1 + 72) + 8) + 24) property:9 value:nullsub_8(*(a1 + 64))];
-    [*(a1 + 32) getStore];
-    v3 = *(*(*(a1 + 72) + 8) + 24);
-    CSDBRecordStoreAddRecord();
-    [*(a1 + 32) getStore];
-    CSDBRecordSaveStore();
-    v4 = VMStoreRecordCopyDescription(*(*(*(a1 + 72) + 8) + 24));
-    v5 = vm_vmd_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-    {
-      v6 = *(a1 + 32);
-      v7 = 138412546;
-      v8 = v4;
-      v9 = 2112;
-      v10 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Add record %@ for account %@", &v7, 0x16u);
-    }
-
-    if (v4)
-    {
-      CFRelease(v4);
-    }
-  }
-}
-
-uint64_t sub_1000909D0(uint64_t a1)
-{
-  v2 = VMStoreRecordCopyDescription(*(a1 + 40));
-  v3 = vm_vmd_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-  {
-    v4 = *(a1 + 32);
-    *buf = 138412546;
-    v12 = v2;
-    v13 = 2112;
-    v14 = v4;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Remove record %@ for account %@", buf, 0x16u);
-  }
-
-  if (v2)
-  {
-    CFRelease(v2);
-  }
-
-  if ((nullsub_8([*(a1 + 32) getRecordProperty_sync:*(a1 + 40) property:8]) & 2) != 0)
-  {
-    v5 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%d%s", [*(a1 + 32) getRecordIdentifier_sync:*(a1 + 40)], VMStoreGetDataFileExtension());
-    v6 = [*(a1 + 32) accountDir];
-    v7 = [v6 URLByAppendingPathComponent:v5 isDirectory:0];
-
-    v8 = [v7 path];
-    unlink([v8 UTF8String]);
-  }
-
-  [*(a1 + 32) getStore];
-  v9 = *(a1 + 40);
-  return CSDBRecordStoreRemoveRecord();
 }

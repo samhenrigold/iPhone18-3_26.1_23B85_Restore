@@ -88,60 +88,60 @@ void __44__SXCalendarPresenter_presentCalendarEvent___block_invoke_2(uint64_t a1
   objc_destroyWeak(&v9);
 }
 
-void __44__SXCalendarPresenter_presentCalendarEvent___block_invoke_3(uint64_t a1)
+void __44__SXCalendarPresenter_presentCalendarEvent___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  if (*(a1 + 64) == 1 && (v2 = objc_loadWeakRetained((a1 + 56)), v2, v2))
+  if (*(a1 + 64) == 1 && (v3 = objc_loadWeakRetained((a1 + 56)), v3, v3))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 56));
-    v3 = [MEMORY[0x1E6966A08] eventWithEventStore:*(a1 + 32)];
-    v4 = [*(a1 + 40) startDate];
-    [v3 setStartDate:v4];
+    v4 = [MEMORY[0x1E6966A08] eventWithEventStore:*(a1 + 32)];
+    v5 = [*(a1 + 40) startDate];
+    [v4 setStartDate:v5];
 
-    v5 = [*(a1 + 40) endDate];
-    [v3 setEndDate:v5];
+    v6 = [*(a1 + 40) endDate];
+    [v4 setEndDate:v6];
 
-    v6 = [*(a1 + 40) timeZone];
-    [v3 setTimeZone:v6];
+    v7 = [*(a1 + 40) timeZone];
+    [v4 setTimeZone:v7];
 
-    [v3 setAllDay:{objc_msgSend(*(a1 + 40), "allDay")}];
-    v7 = [*(a1 + 40) title];
-    [v3 setTitle:v7];
+    [v4 setAllDay:{objc_msgSend(*(a1 + 40), "allDay")}];
+    v8 = [*(a1 + 40) title];
+    [v4 setTitle:v8];
 
-    v8 = [*(a1 + 40) URL];
-    [v3 setURL:v8];
+    v9 = [*(a1 + 40) URL];
+    [v4 setURL:v9];
 
-    v9 = [*(a1 + 40) notes];
-    v10 = [v9 text];
-    [v3 setNotes:v10];
+    v10 = [*(a1 + 40) notes];
+    v11 = [v10 text];
+    [v4 setNotes:v11];
 
-    v11 = [*(a1 + 40) location];
-    [v3 setLocation:v11];
+    v12 = [*(a1 + 40) location];
+    [v4 setLocation:v12];
 
-    v12 = objc_alloc_init(MEMORY[0x1E6966B88]);
-    [v12 setEventStore:*(a1 + 32)];
-    [v12 setEvent:v3];
-    [v12 setEditViewDelegate:WeakRetained];
-    v13 = [WeakRetained viewControllerPresenting];
-    [v13 presentViewController:v12 animated:1];
+    v13 = objc_alloc_init(MEMORY[0x1E6966B88]);
+    [v13 setEventStore:*(a1 + 32)];
+    [v13 setEvent:v4];
+    [v13 setEditViewDelegate:WeakRetained];
+    v14 = [WeakRetained viewControllerPresenting];
+    [v14 presentViewController:v13 animated:1];
   }
 
   else
   {
-    v14 = MEMORY[0x1E69DC650];
-    v15 = SXBundle();
-    v16 = [v15 localizedStringForKey:@"Can’t Access Calendar" value:&stru_1F532F6C0 table:0];
-    v17 = SXBundle();
-    v18 = [v17 localizedStringForKey:@"SXRequirePermissionToAccessCalendar" value:&stru_1F532F6C0 table:0];
-    WeakRetained = [v14 alertControllerWithTitle:v16 message:v18 preferredStyle:1];
+    v15 = MEMORY[0x1E69DC650];
+    v16 = SXBundle(a1);
+    v17 = [v16 localizedStringForKey:@"Can’t Access Calendar" value:&stru_1F532F6C0 table:0];
+    v18 = SXBundle(v17);
+    v19 = [v18 localizedStringForKey:@"SXRequirePermissionToAccessCalendar" value:&stru_1F532F6C0 table:0];
+    WeakRetained = [v15 alertControllerWithTitle:v17 message:v19 preferredStyle:1];
 
-    v19 = MEMORY[0x1E69DC648];
-    v20 = SXBundle();
-    v21 = [v20 localizedStringForKey:@"OK" value:&stru_1F532F6C0 table:0];
-    v22 = [v19 actionWithTitle:v21 style:0 handler:0];
-    [WeakRetained addAction:v22];
+    v20 = MEMORY[0x1E69DC648];
+    v22 = SXBundle(v21);
+    v23 = [v22 localizedStringForKey:@"OK" value:&stru_1F532F6C0 table:0];
+    v24 = [v20 actionWithTitle:v23 style:0 handler:0];
+    [WeakRetained addAction:v24];
 
-    v3 = [*(a1 + 48) viewControllerPresenting];
-    [v3 presentViewController:WeakRetained animated:1];
+    v4 = [*(a1 + 48) viewControllerPresenting];
+    [v4 presentViewController:WeakRetained animated:1];
   }
 }
 

@@ -97,17 +97,15 @@ void __58__FAFamilySettings_launchiCloudFamilySettingsWithOptions___block_invoke
 
 void __55__FAFamilySettings__launchPrefsUsingDaemonWithOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = _FALogSystem();
+  v3 = _FALogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1B70B0000, v3, OS_LOG_TYPE_DEFAULT, "FAFamilySettings: Error from service launching family settings - %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1B70B0000, v3, OS_LOG_TYPE_DEFAULT, "FAFamilySettings: Error from service launching family settings - %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)familySetupPrompterDidFinish:(id)finish

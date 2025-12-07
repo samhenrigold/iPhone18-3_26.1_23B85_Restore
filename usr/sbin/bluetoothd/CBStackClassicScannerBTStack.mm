@@ -36,54 +36,57 @@
   v5 = [(NSMutableDictionary *)self->_deviceMap count];
   if (levelCopy < 0x15)
   {
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x3032000000;
-    v25 = sub_1000421F4;
-    v26 = sub_10004258C;
-    v27 = 0;
-    v21 = 0;
-    v12 = [objc_opt_class() description];
-    NSAppendPrintF_safe();
-    objc_storeStrong(&v27, 0);
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x3032000000;
+    v28 = sub_1000421F4;
+    v29 = sub_10004258C;
+    v30 = 0;
+    v24 = 0;
+    v8 = [objc_opt_class() description];
+    NSAppendPrintF_safe(&v24, "== %@: devices %d ==", v8, v5);
+    objc_storeStrong(&v30, v24);
 
-    v7 = v23;
-    obj = v23[5];
-    NSAppendPrintF_safe();
-    objc_storeStrong(v7 + 5, obj);
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x2020000000;
+    v9 = v26;
+    obj = v26[5];
+    NSAppendPrintF_safe(&obj, "\n");
+    objc_storeStrong(v9 + 5, obj);
     v19 = 0;
+    v20 = &v19;
+    v21 = 0x2020000000;
+    v22 = 0;
     deviceMap = self->_deviceMap;
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100115D20;
-    v14[3] = &unk_100ADF7F8;
-    v14[4] = &v22;
-    v14[5] = &v16;
-    v15 = levelCopy;
-    [(NSMutableDictionary *)deviceMap enumerateKeysAndObjectsUsingBlock:v14, v12, v5];
-    if (v5 > v17[3])
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_100115D20;
+    v17[3] = &unk_100ADF7F8;
+    v17[4] = &v25;
+    v17[5] = &v19;
+    v18 = levelCopy;
+    [(NSMutableDictionary *)deviceMap enumerateKeysAndObjectsUsingBlock:v17];
+    v11 = v20[3];
+    v12 = v5 >= v11;
+    v13 = &v5[-v11];
+    if (v13 != 0 && v12)
     {
-      v9 = v23;
-      v13 = v23[5];
-      NSAppendPrintF_safe();
-      objc_storeStrong(v9 + 5, v13);
+      v14 = v26;
+      v16 = v26[5];
+      NSAppendPrintF_safe(&v16, "... %d more, %d total\n", v13, v5);
+      objc_storeStrong(v14 + 5, v16);
     }
 
-    _Block_object_dispose(&v16, 8);
-    v6 = v23[5];
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v19, 8);
+    v7 = v26[5];
+    _Block_object_dispose(&v25, 8);
   }
 
   else
   {
-    v11 = [objc_opt_class() description];
-    v6 = NSPrintF_safe();
+    v6 = [objc_opt_class() description];
+    v7 = NSPrintF_safe("%@: devices %d", v6, v5);
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)activate
@@ -144,9 +147,12 @@ LABEL_57:
   }
 
   p_info = &OBJC_METACLASS___BTVCDevice.info;
-  if (dword_100B50CE0 <= 30 && (dword_100B50CE0 != -1 || _LogCategory_Initialize()))
+  if (dword_100B50CE0 <= 30)
   {
-    sub_100806A58();
+    if (dword_100B50CE0 != -1 || (v12 = _LogCategory_Initialize(), v12))
+    {
+      sub_100806A58(v12, v13, v14);
+    }
   }
 
   v4 = [[NSString alloc] initWithFormat:@"CBDaemon-0x%X", CBXPCGetNextClientID()];
@@ -156,48 +162,48 @@ LABEL_57:
   }
 
 LABEL_12:
-  v12 = qword_100B50B80;
+  v15 = qword_100B50B80;
   uTF8String = [v4 UTF8String];
-  v14 = strlen(uTF8String);
-  if (v14 >= 0x7FFFFFFFFFFFFFF8)
+  v17 = strlen(uTF8String);
+  if (v17 >= 0x7FFFFFFFFFFFFFF8)
   {
     sub_1000C7698();
   }
 
-  v15 = v14;
-  if (v14 >= 0x17)
+  v18 = v17;
+  if (v17 >= 0x17)
   {
     operator new();
   }
 
-  v31 = v14;
-  if (v14)
+  v34 = v17;
+  if (v17)
   {
-    memmove(&__dst, uTF8String, v14);
+    memmove(&__dst, uTF8String, v17);
   }
 
-  *(&__dst + v15) = 0;
-  v16 = sub_100044414(v12, &__dst);
-  v17 = v16;
-  if (v31 < 0)
+  *(&__dst + v18) = 0;
+  v19 = sub_100044414(v15, &__dst, p_btSession, 2);
+  v20 = v19;
+  if (v34 < 0)
   {
     operator delete(__dst);
-    if (!v17)
+    if (!v20)
     {
       goto LABEL_26;
     }
   }
 
-  else if (!v16)
+  else if (!v19)
   {
     goto LABEL_26;
   }
 
-  v18 = *(p_info + 824);
-  if (v18 <= 90 && (v18 != -1 || _LogCategory_Initialize()))
+  v21 = *(p_info + 824);
+  if (v21 <= 90 && (v21 != -1 || _LogCategory_Initialize()))
   {
-    v23 = CUPrintErrorCode();
-    LogPrintF_safe();
+    v22 = CUPrintErrorCode();
+    LogPrintF_safe(&dword_100B50CE0, "[CBStackClassicScannerBTStack activate]", 90, "### Attach session failed: %@", v22);
   }
 
 LABEL_26:
@@ -213,51 +219,51 @@ LABEL_27:
 LABEL_49:
     if (selfCopy->_profileChangedToken == -1)
     {
-      v22 = selfCopy->_dispatchQueue;
+      v27 = selfCopy->_dispatchQueue;
       handler[0] = _NSConcreteStackBlock;
       handler[1] = 3221225472;
       handler[2] = sub_1001166BC;
       handler[3] = &unk_100ADF848;
       handler[4] = selfCopy;
-      notify_register_dispatch("com.apple.MCX._managementStatusChangedForDomains", &selfCopy->_profileChangedToken, v22, handler);
+      notify_register_dispatch("com.apple.MCX._managementStatusChangedForDomains", &selfCopy->_profileChangedToken, v27, handler);
     }
 
     return;
   }
 
   __dst = 0;
-  v30 = 0;
+  v33 = 0;
   if (qword_100B50DB8 != -1)
   {
     sub_100806A88();
   }
 
   sub_1005C635C(off_100B50DB0, *p_btSession, &selfCopy->_btDiscoveryAgent, &__dst);
-  v19 = __dst;
+  v23 = __dst;
   if (__dst)
   {
-    *v28 = *off_100AE0BA8;
-    sub_1005C1D20(__dst, selfCopy->_btDiscoveryAgent, v28, selfCopy);
+    v31 = *off_100AE0BA8;
+    sub_1005C1D20(__dst, selfCopy->_btDiscoveryAgent, &v31, selfCopy);
     if (qword_100B50DB8 != -1)
     {
       sub_100806A88();
     }
 
-    v20 = off_100B50DB0;
-    v26 = __dst;
-    v27 = v30;
+    v24 = off_100B50DB0;
+    v29 = __dst;
+    v30 = v33;
+    if (v33)
+    {
+      atomic_fetch_add_explicit(&v33->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v25 = sub_1005C6EBC(v24, &v29, 0, 0xFFFFFFFFLL);
     if (v30)
     {
-      atomic_fetch_add_explicit(&v30->__shared_owners_, 1uLL, memory_order_relaxed);
+      sub_100117644(v30);
     }
 
-    v21 = sub_1005C6EBC(v20, &v26, 0, -1);
-    if (v27)
-    {
-      sub_100117644(v27);
-    }
-
-    if (v21)
+    if (v25)
     {
       if (dword_100B50CE0 > 90)
       {
@@ -266,29 +272,29 @@ LABEL_49:
 
       if (dword_100B50CE0 != -1 || _LogCategory_Initialize())
       {
-        v24 = CUPrintErrorCode();
-        LogPrintF_safe();
+        v26 = CUPrintErrorCode();
+        LogPrintF_safe(&dword_100B50CE0, "[CBStackClassicScannerBTStack activate]", 90, "### Scan start failed: %@", v26);
       }
     }
 
     if (dword_100B50CE0 <= 30 && (dword_100B50CE0 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_100B50CE0, "[CBStackClassicScannerBTStack activate]", 30, "Scan started: initial");
     }
   }
 
   else if (dword_100B50CE0 <= 90 && (dword_100B50CE0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_100B50CE0, "[CBStackClassicScannerBTStack activate]", 90, "### Create scan agent failed");
   }
 
 LABEL_46:
-  if (v30)
+  if (v33)
   {
-    sub_100117644(v30);
+    sub_100117644(v33);
   }
 
-  if (v19)
+  if (v23)
   {
     goto LABEL_49;
   }
@@ -300,15 +306,18 @@ LABEL_46:
   if (!self->_invalidateCalled)
   {
     self->_invalidateCalled = 1;
-    if (dword_100B50CE0 <= 30 && (dword_100B50CE0 != -1 || _LogCategory_Initialize()))
+    if (dword_100B50CE0 <= 30)
     {
-      sub_100806B30();
+      if (dword_100B50CE0 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_100806B30(v3, v4, v5);
+      }
     }
 
     os_unfair_lock_lock(&unk_100B552F8);
-    v3 = qword_100B552F0;
-    v4 = [NSNumber numberWithLong:self];
-    [v3 setObject:0 forKeyedSubscript:v4];
+    v6 = qword_100B552F0;
+    v7 = [NSNumber numberWithLong:self];
+    [v6 setObject:0 forKeyedSubscript:v7];
 
     os_unfair_lock_unlock(&unk_100B552F8);
     profileChangedToken = self->_profileChangedToken;
@@ -325,11 +334,14 @@ LABEL_46:
         sub_100806B4C();
       }
 
-      sub_1005C6734(off_100B50DB0, self->_btDiscoveryAgent);
+      v9 = sub_1005C6734(off_100B50DB0, self->_btDiscoveryAgent);
       self->_btDiscoveryAgent = 0;
-      if (dword_100B50CE0 <= 30 && (dword_100B50CE0 != -1 || _LogCategory_Initialize()))
+      if (dword_100B50CE0 <= 30)
       {
-        sub_100806B60();
+        if (dword_100B50CE0 != -1 || (v9 = _LogCategory_Initialize(), v9))
+        {
+          sub_100806B60(v9, v10, v11);
+        }
       }
     }
 
@@ -370,7 +382,7 @@ LABEL_46:
 
     if (dword_100B50CE0 <= 30 && (dword_100B50CE0 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_100B50CE0, "[CBStackClassicScannerBTStack _invalidated]", 30, "Invalidated");
     }
   }
 }
@@ -430,7 +442,7 @@ LABEL_46:
       [(NSMutableDictionary *)deviceMap setObject:v8 forKeyedSubscript:uUIDString];
       if (dword_100B50CE0 <= 30 && (dword_100B50CE0 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&dword_100B50CE0, "[CBStackClassicScannerBTStack _deviceFound:deviceUUID:]", 30, "Device found new: %@", v8);
       }
 
       v18 = objc_retainBlock(self->_deviceFoundHandler);
@@ -445,7 +457,7 @@ LABEL_46:
     {
       if (dword_100B50CE0 <= 30 && (dword_100B50CE0 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&dword_100B50CE0, "[CBStackClassicScannerBTStack _deviceFound:deviceUUID:]", 30, "Device found changed: %@", v8);
       }
 
       v18 = objc_retainBlock(self->_deviceFoundHandler);
@@ -486,7 +498,7 @@ LABEL_23:
     [(NSMutableDictionary *)self->_deviceMap setObject:0 forKeyedSubscript:uUIDString];
     if (dword_100B50CE0 <= 30 && (dword_100B50CE0 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_100B50CE0, "[CBStackClassicScannerBTStack _deviceLost:]", 30, "Device lost: %@", v5);
     }
 
     v9 = objc_retainBlock(self->_deviceLostHandler);
@@ -499,7 +511,7 @@ LABEL_23:
 
   else if (dword_100B50CE0 <= 20 && (dword_100B50CE0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_100B50CE0, "[CBStackClassicScannerBTStack _deviceLost:]", 20, "Device lost unknown: %@", uUIDString);
   }
 }
 
@@ -510,7 +522,6 @@ LABEL_23:
     return;
   }
 
-  v5 = *&attributes;
   if (qword_100B508F0 != -1)
   {
     sub_100806B7C();
@@ -526,7 +537,7 @@ LABEL_23:
       {
 LABEL_8:
         sub_1000E5A58(v9, __p);
-        if (v23 >= 0)
+        if (v20 >= 0)
         {
           v11 = __p;
         }
@@ -537,11 +548,8 @@ LABEL_8:
         }
 
 LABEL_15:
-        v20 = v11;
-        v21 = v5;
-        v19 = v10;
-        LogPrintF_safe();
-        if (v9 && v23 < 0)
+        LogPrintF_safe(&dword_100B50CE0, "[CBStackClassicScannerBTStack _discoveryEvent:device:attributes:]", 30, "Discovery event: %s, device %s, attrs 0x%X", v10, v11, attributes);
+        if (v9 && v20 < 0)
         {
           operator delete(__p[0]);
         }
@@ -570,20 +578,20 @@ LABEL_18:
   v15 = v9[131];
   v16 = v9[132];
   v17 = v9[133];
-  v24[0] = 0;
-  v24[1] = 0;
+  v21[0] = 0;
+  v21[1] = 0;
   if (qword_100B508D0 != -1)
   {
     sub_100806BBC();
   }
 
-  sub_1000498D4(off_100B508C8, (v12 << 40) | (v13 << 32) | (v14 << 24) | (v15 << 16) | (v16 << 8) | v17, 1u, 1u, 0, 0, v24);
-  v18 = sub_10004DF60(v24);
+  sub_1000498D4(off_100B508C8, (v12 << 40) | (v13 << 32) | (v14 << 24) | (v15 << 16) | (v16 << 8) | v17, 1u, 1u, 0, 0, v21);
+  v18 = sub_10004DF60(v21);
   if (v18)
   {
     if (!event || event == 2)
     {
-      [(CBStackClassicScannerBTStack *)self _deviceFound:v9 deviceUUID:v18, v19, v20, v21];
+      [(CBStackClassicScannerBTStack *)self _deviceFound:v9 deviceUUID:v18];
     }
 
     else if (event == 1)
@@ -594,7 +602,7 @@ LABEL_18:
 
   else if (dword_100B50CE0 <= 90 && (dword_100B50CE0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_100B50CE0, "[CBStackClassicScannerBTStack _discoveryEvent:device:attributes:]", 90, "### Get device UUID failed");
   }
 }
 
@@ -610,28 +618,28 @@ LABEL_18:
     v8 = sub_1000E41C0(off_100B508E8, device);
     if (dword_100B50CE0 > 30 || (v9 = v8, dword_100B50CE0 == -1) && !_LogCategory_Initialize())
     {
-LABEL_16:
+LABEL_19:
       if (event != 1)
       {
         return;
       }
 
-      v16 = 0;
-      v17 = 0;
+      v18 = 0;
+      v19 = 0;
       if (qword_100B50DB8 != -1)
       {
         sub_100806A88();
       }
 
-      sub_1005C6590(off_100B50DB0, self->_btDiscoveryAgent, &v16);
-      if (!v16)
+      sub_1005C6590(off_100B50DB0, self->_btDiscoveryAgent, &v18);
+      if (!v18)
       {
         if (dword_100B50CE0 <= 90 && (dword_100B50CE0 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF_safe();
+          LogPrintF_safe(&dword_100B50CE0, "[CBStackClassicScannerBTStack _statusEvent:device:result:]", 90, "### Get scan agent failed");
         }
 
-        goto LABEL_35;
+        goto LABEL_38;
       }
 
       if (qword_100B50DB8 != -1)
@@ -639,28 +647,28 @@ LABEL_16:
         sub_100806A88();
       }
 
-      v10 = off_100B50DB0;
-      v14 = v16;
-      v15 = v17;
+      v13 = off_100B50DB0;
+      v16 = v18;
+      v17 = v19;
+      if (v19)
+      {
+        atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
+      }
+
+      v14 = sub_1005C6EBC(v13, &v16, 0, 0xFFFFFFFFLL);
       if (v17)
       {
-        atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
+        sub_100117644(v17);
       }
 
-      v11 = sub_1005C6EBC(v10, &v14, 0, -1);
-      if (v15)
-      {
-        sub_100117644(v15);
-      }
-
-      if (v11)
+      if (v14)
       {
         if (dword_100B50CE0 > 90)
         {
-LABEL_35:
-          if (v17)
+LABEL_38:
+          if (v19)
           {
-            sub_100117644(v17);
+            sub_100117644(v19);
           }
 
           return;
@@ -668,43 +676,56 @@ LABEL_35:
 
         if (dword_100B50CE0 != -1 || _LogCategory_Initialize())
         {
-          v12 = CUPrintErrorCode();
-          LogPrintF_safe();
+          v15 = CUPrintErrorCode();
+          LogPrintF_safe(&dword_100B50CE0, "[CBStackClassicScannerBTStack _statusEvent:device:result:]", 90, "### Scan start failed: rescan, %@", v15);
         }
       }
 
       if (dword_100B50CE0 <= 30 && (dword_100B50CE0 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&dword_100B50CE0, "[CBStackClassicScannerBTStack _statusEvent:device:result:]", 30, "Scan started: rescan");
       }
 
-      goto LABEL_35;
+      goto LABEL_38;
     }
 
     if (event > 3)
     {
-      if (!v9)
+      v10 = "?";
+      if (v9)
       {
-        goto LABEL_13;
+LABEL_9:
+        v11 = __p;
+        sub_1000E5A58(v9, __p);
+        if (v21 < 0)
+        {
+          v11 = __p[0];
+        }
+
+        goto LABEL_16;
       }
     }
 
-    else if (!v9)
+    else
     {
-LABEL_13:
-      v13 = CUPrintErrorCode();
-      LogPrintF_safe();
-
-      if (v9 && v19 < 0)
+      v10 = off_100AE0C78[event];
+      if (v9)
       {
-        operator delete(__p);
+        goto LABEL_9;
       }
-
-      goto LABEL_16;
     }
 
-    sub_1000E5A58(v9, &__p);
-    goto LABEL_13;
+    v11 = 0;
+LABEL_16:
+    v12 = CUPrintErrorCode();
+    LogPrintF_safe(&dword_100B50CE0, "[CBStackClassicScannerBTStack _statusEvent:device:result:]", 30, "Status event: %s, device %s, result %@", v10, v11, v12);
+
+    if (v9 && v21 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    goto LABEL_19;
   }
 }
 

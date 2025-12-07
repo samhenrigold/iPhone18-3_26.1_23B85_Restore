@@ -33,16 +33,13 @@
 
   else
   {
-    v21.x = x;
-    v21.y = y;
-    v19 = NSStringFromCGPoint(v21);
-    v20 = viewCopy;
-    v18 = @"Tried to convert HNDScreen point %@ to view %@, but it had no window.";
-    LOBYTE(v17) = 1;
-    _AXLogWithFacility();
+    v18.x = x;
+    v18.y = y;
+    v17 = NSStringFromCGPoint(v18);
+    _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Tried to convert HNDScreen point %@ to view %@, but it had no window.");
   }
 
-  [viewCopy convertPoint:0 fromView:{x, y, v17, v18, v19, v20}];
+  [viewCopy convertPoint:0 fromView:{x, y}];
   v12 = v11;
   v14 = v13;
 
@@ -85,7 +82,7 @@
     v18.x = v8;
     v18.y = v10;
     v17 = NSStringFromCGPoint(v18);
-    _AXLogWithFacility();
+    _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Tried to convert HNDScreen point %@ from view %@, but it had no window.");
   }
 
   v15 = v8;
@@ -125,18 +122,15 @@
 
   else
   {
-    v31.origin.x = x;
-    v31.origin.y = y;
-    v31.size.width = width;
-    v31.size.height = height;
-    v29 = NSStringFromCGRect(v31);
-    v30 = viewCopy;
-    v28 = @"Tried to convert HNDScreen rect %@ to view %@, but it had no window.";
-    LOBYTE(v27) = 1;
-    _AXLogWithFacility();
+    v28.origin.x = x;
+    v28.origin.y = y;
+    v28.size.width = width;
+    v28.size.height = height;
+    v27 = NSStringFromCGRect(v28);
+    _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Tried to convert HNDScreen rect %@ to view %@, but it had no window.");
   }
 
-  [viewCopy convertRect:0 fromView:{x, y, width, height, v27, v28, v29, v30}];
+  [viewCopy convertRect:0 fromView:{x, y, width, height}];
   v16 = v15;
   v18 = v17;
   v20 = v19;
@@ -193,7 +187,7 @@
     v28.size.width = v14;
     v28.size.height = v16;
     v27 = NSStringFromCGRect(v28);
-    _AXLogWithFacility();
+    _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Tried to convert HNDScreen rect %@ from view %@, but it had no window.");
   }
 
   v23 = v10;

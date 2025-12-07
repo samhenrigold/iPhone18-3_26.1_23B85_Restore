@@ -118,7 +118,7 @@ uint64_t __52__PXFooterAnimatedIconView__mediaServicesWereReset___block_invoke(u
       player = self->_player;
       if (player)
       {
-        [(AVPlayer *)player currentTime];
+        objc_msgSend_currentTime(player);
         player = self->_player;
       }
 
@@ -128,7 +128,7 @@ uint64_t __52__PXFooterAnimatedIconView__mediaServicesWereReset___block_invoke(u
       v8 = currentItem;
       if (currentItem)
       {
-        [currentItem forwardPlaybackEndTime];
+        objc_msgSend_forwardPlaybackEndTime(currentItem);
       }
 
       else
@@ -208,7 +208,7 @@ void __38__PXFooterAnimatedIconView_isObscured__block_invoke(uint64_t a1)
   result = self->_player;
   if (result)
   {
-    [result currentTime];
+    objc_msgSend_currentTime(result);
     if (0 >> 96 == 1)
     {
       [(AVPlayer *)self->_player rate];
@@ -567,7 +567,7 @@ void __40__PXFooterAnimatedIconView__seekToTime___block_invoke_2(uint64_t a1)
     player = self->_player;
     if (player)
     {
-      [(AVPlayer *)player currentTime];
+      objc_msgSend_currentTime(player);
     }
 
     else

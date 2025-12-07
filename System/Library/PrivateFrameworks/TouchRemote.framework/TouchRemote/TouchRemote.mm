@@ -1,15 +1,15 @@
 void TRLogInitialize()
 {
-  v13[4] = *MEMORY[0x277D85DE8];
+  v12[4] = *MEMORY[0x277D85DE8];
   if (_TRLogEnabled == -1)
   {
     v0 = MEMORY[0x277CCACA8];
     v1 = NSHomeDirectoryForUser(&cfstr_Mobile.isa);
-    v13[0] = v1;
-    v13[1] = @"Library";
-    v13[2] = @"Preferences";
-    v13[3] = @"com.apple.TouchRemote.plist";
-    v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:4];
+    v12[0] = v1;
+    v12[1] = @"Library";
+    v12[2] = @"Preferences";
+    v12[3] = @"com.apple.TouchRemote.plist";
+    v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:4];
     v3 = [v0 pathWithComponents:v2];
 
     v4 = objc_alloc_init(MEMORY[0x277CCAA00]);
@@ -25,11 +25,11 @@ void TRLogInitialize()
   {
     v5 = MEMORY[0x277CCACA8];
     v6 = NSHomeDirectoryForUser(&cfstr_Mobile.isa);
-    v12[0] = v6;
-    v12[1] = @"Library";
-    v12[2] = @"Preferences";
-    v12[3] = @"com.apple.TouchRemote.plist";
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:4];
+    v11[0] = v6;
+    v11[1] = @"Library";
+    v11[2] = @"Preferences";
+    v11[3] = @"com.apple.TouchRemote.plist";
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:4];
     v8 = [v5 pathWithComponents:v7];
 
     v9 = objc_alloc_init(MEMORY[0x277CCAA00]);
@@ -47,20 +47,18 @@ void TRLogInitialize()
 
     _TRLogVerboseEnabled = AppBooleanValue;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-id TRLogHandle()
+id TRLogHandle(uint64_t a1)
 {
   if (TRLogHandle_once != -1)
   {
     TRLogHandle_cold_1();
   }
 
-  v1 = TRLogHandle_handle;
+  v2 = TRLogHandle_handle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __TRLogHandle_block_invoke()
@@ -70,31 +68,31 @@ uint64_t __TRLogHandle_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_26F2A4260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26F2A4260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getGKLocalPlayerClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!GameCenterFoundationLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __GameCenterFoundationLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_279DCEB60;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __GameCenterFoundationLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_279DCEB60;
+    v6 = 0;
     GameCenterFoundationLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (GameCenterFoundationLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -102,7 +100,7 @@ Class __getGKLocalPlayerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -117,17 +115,13 @@ LABEL_4:
   }
 
   getGKLocalPlayerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __GameCenterFoundationLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   GameCenterFoundationLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -138,16 +132,16 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_26F2A5320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_26F2A5320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26F2A5F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26F2A5F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -166,14 +160,14 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_26F2A9BCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_26F2A9BCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -298,39 +292,37 @@ void *__AuthKitUILibrary_block_invoke()
 
 id _StringFromAccountServices(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CCAB68] string];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = StringFromTRAccountService([*(*(&v11 + 1) + 8 * i) unsignedIntegerValue]);
+        v8 = StringFromTRAccountService([*(*(&v10 + 1) + 8 * i) unsignedIntegerValue]);
         [v2 appendString:v8];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -356,9 +348,9 @@ void sub_26F2B2C74(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_26F2B49B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_26F2B49B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -372,67 +364,66 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
 
 BOOL TRGetCurrentWiFiNetwork(void *a1, void *a2)
 {
-  v4 = *MEMORY[0x277CBECE8];
-  v5 = WiFiManagerClientCreate();
-  if (!v5)
+  v4 = WiFiManagerClientCreate();
+  if (!v4)
   {
     return 0;
   }
 
-  v6 = v5;
-  v7 = WiFiManagerClientCopyDevices();
-  if ([v7 count])
+  v5 = v4;
+  v6 = WiFiManagerClientCopyDevices();
+  if ([v6 count])
   {
-    v8 = [v7 objectAtIndex:0];
-    v9 = WiFiDeviceClientCopyCurrentNetwork();
-    if (v9)
+    v7 = [v6 objectAtIndex:0];
+    v8 = WiFiDeviceClientCopyCurrentNetwork();
+    if (v8)
     {
-      v10 = v9;
-      v11 = [WiFiNetworkGetSSID() copy];
-      v12 = v11;
+      v9 = v8;
+      v10 = [WiFiNetworkGetSSID() copy];
+      v11 = v10;
       if (a1)
       {
-        v13 = v11;
-        *a1 = v12;
+        v12 = v10;
+        *a1 = v11;
       }
 
-      v14 = WiFiNetworkCopyPassword();
-      v15 = v14;
+      v13 = WiFiNetworkCopyPassword();
+      v14 = v13;
       if (a2)
       {
-        v16 = v14;
-        *a2 = v15;
+        v15 = v13;
+        *a2 = v14;
       }
 
-      v17 = [v12 length] != 0;
-      CFRelease(v10);
+      v16 = [v11 length] != 0;
+      CFRelease(v9);
     }
 
     else
     {
-      v17 = 0;
+      v16 = 0;
     }
 
-    CFRelease(v8);
+    CFRelease(v7);
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  CFRelease(v6);
+  CFRelease(v5);
 
-  return v17;
+  return v16;
 }
 
 SCPreferencesRef TRGetNetworkConfigurationForIPv4(void *a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   result = SCPreferencesCreateWithAuthorization(*MEMORY[0x277CBECE8], @"com.apple.TouchRemote", 0, 0);
   if (!result)
   {
-    goto LABEL_30;
+    return result;
   }
 
   v3 = result;
@@ -443,29 +434,29 @@ SCPreferencesRef TRGetNetworkConfigurationForIPv4(void *a1)
   }
 
   v5 = v4;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v6 = SCNetworkSetCopyServices(v4);
-  v7 = [(__CFArray *)v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v7 = [(__CFArray *)v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v22 = a1;
-    v9 = *v24;
+    v21 = a1;
+    v9 = *v23;
     v10 = *MEMORY[0x277CE16D8];
     v11 = *MEMORY[0x277CE16E8];
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v23 + 1) + 8 * i);
+        v13 = *(*(&v22 + 1) + 8 * i);
         Interface = SCNetworkServiceGetInterface(v13);
         if (SCNetworkInterfaceGetBSDName(Interface))
         {
@@ -483,7 +474,7 @@ SCPreferencesRef TRGetNetworkConfigurationForIPv4(void *a1)
         }
       }
 
-      v8 = [(__CFArray *)v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v8 = [(__CFArray *)v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v8)
       {
         continue;
@@ -495,7 +486,7 @@ SCPreferencesRef TRGetNetworkConfigurationForIPv4(void *a1)
     v17 = 0;
     v18 = 0;
 LABEL_15:
-    a1 = v22;
+    a1 = v21;
   }
 
   else
@@ -521,7 +512,7 @@ LABEL_15:
   {
 LABEL_28:
     CFRelease(v3);
-    goto LABEL_29;
+    return 0;
   }
 
   v19 = 0;
@@ -530,9 +521,7 @@ LABEL_24:
   CFRelease(v3);
   if (!v19)
   {
-LABEL_29:
-    result = 0;
-    goto LABEL_30;
+    return 0;
   }
 
   if (a1)
@@ -541,10 +530,7 @@ LABEL_29:
     *a1 = v19;
   }
 
-  result = 1;
-LABEL_30:
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 uint64_t TRCanPerformSetupGetConfig(BOOL *a1, void *a2, void *a3)
@@ -555,14 +541,15 @@ uint64_t TRCanPerformSetupGetConfig(BOOL *a1, void *a2, void *a3)
   v6 = TRGetCurrentWiFiNetwork(&v21, &v20);
   v7 = v21;
   v8 = v20;
+  v9 = v8;
   if (v6)
   {
-    v9 = [v7 length];
-    if (v9)
+    v8 = [v7 length];
+    if (v8)
     {
       if (a1)
       {
-        *a1 = v9 != 0;
+        *a1 = v8 != 0;
       }
 
       if (a2)
@@ -573,8 +560,8 @@ uint64_t TRCanPerformSetupGetConfig(BOOL *a1, void *a2, void *a3)
 
       if (a3)
       {
-        v11 = v8;
-        *a3 = v8;
+        v11 = v9;
+        *a3 = v9;
       }
 
       v19 = 0;
@@ -587,7 +574,8 @@ uint64_t TRCanPerformSetupGetConfig(BOOL *a1, void *a2, void *a3)
       }
 
       v15 = [v13 objectForKey:*MEMORY[0x277CE1730]];
-      if ([v15 isEqualToString:*MEMORY[0x277CE1810]])
+      v16 = [v15 isEqualToString:*MEMORY[0x277CE1810]];
+      if (v16)
       {
 
         v12 = 1;
@@ -598,14 +586,14 @@ LABEL_22:
 
       if (_TRLogEnabled == 1)
       {
-        v16 = TRLogHandle();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v17 = TRLogHandle(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
           v23 = "BOOL TRCanPerformSetupGetConfig(BOOL *, NSString *__autoreleasing *, NSString *__autoreleasing *)";
           v24 = 2112;
           v25 = v15;
-          _os_log_impl(&dword_26F2A2000, v16, OS_LOG_TYPE_DEFAULT, "%s Unsupported network config method: %@", buf, 0x16u);
+          _os_log_impl(&dword_26F2A2000, v17, OS_LOG_TYPE_DEFAULT, "%s Unsupported network config method: %@", buf, 0x16u);
         }
       }
 
@@ -617,7 +605,7 @@ LABEL_21:
 
   if (_TRLogEnabled == 1)
   {
-    v14 = TRLogHandle();
+    v14 = TRLogHandle(v8);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -630,7 +618,6 @@ LABEL_21:
   v12 = 0;
 LABEL_23:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -675,7 +662,7 @@ uint64_t _TRSetupAccountTypeFromProtocolString(void *a1)
 id TRCopyDecompressedGZipDataForData()
 {
   v0 = MEMORY[0x28223BE20]();
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   memset(&strm.avail_in, 0, 104);
   strm.avail_in = [v0 length];
   strm.next_in = [v0 bytes];
@@ -686,7 +673,7 @@ id TRCopyDecompressedGZipDataForData()
     while (1)
     {
       strm.avail_out = 0x4000;
-      strm.next_out = v7;
+      strm.next_out = v6;
       v2 = inflate(&strm, 0);
       if (v2 > 1)
       {
@@ -696,23 +683,21 @@ id TRCopyDecompressedGZipDataForData()
       v3 = v2;
       if (strm.avail_out != 0x4000)
       {
-        [v1 appendBytes:v7 length:0x4000 - strm.avail_out];
+        [v1 appendBytes:v6 length:0x4000 - strm.avail_out];
       }
 
       if (v3)
       {
         inflateEnd(&strm);
-        goto LABEL_9;
+        return v1;
       }
     }
 
     inflateEnd(&strm);
 
-    v1 = 0;
+    return 0;
   }
 
-LABEL_9:
-  v4 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
@@ -816,10 +801,11 @@ void *__AppleAccountUILibrary_block_invoke()
   return result;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_26F2C49A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
@@ -877,22 +863,21 @@ void TRMetricsLog(void *a1, void *a2)
   v11 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
+  v5 = v4;
   if (_TRLogEnabled == 1)
   {
-    v5 = TRLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = TRLogHandle(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138412546;
       v8 = v3;
       v9 = 2112;
-      v10 = v4;
-      _os_log_impl(&dword_26F2A2000, v5, OS_LOG_TYPE_DEFAULT, "MetricEvent '%@' : %@\n", &v7, 0x16u);
+      v10 = v5;
+      _os_log_impl(&dword_26F2A2000, v6, OS_LOG_TYPE_DEFAULT, "MetricEvent '%@' : %@\n", &v7, 0x16u);
     }
   }
 
-  softLinkAnalyticsSendEvent(v3, v4);
-
-  v6 = *MEMORY[0x277D85DE8];
+  softLinkAnalyticsSendEvent(v3, v5);
 }
 
 void initAnalyticsSendEvent(void *a1, void *a2)
@@ -906,7 +891,7 @@ void initAnalyticsSendEvent(void *a1, void *a2)
   }
 
   softLinkAnalyticsSendEvent = dlsym(CoreAnalyticsLibrary_sLib, "AnalyticsSendEvent");
-  (softLinkAnalyticsSendEvent)(v5, v4);
+  softLinkAnalyticsSendEvent(v5, v4);
 }
 
 void *__CoreAnalyticsLibrary_block_invoke()

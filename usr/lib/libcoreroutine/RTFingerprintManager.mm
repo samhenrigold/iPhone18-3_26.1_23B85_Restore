@@ -1090,7 +1090,7 @@ uint64_t __58__RTFingerprintManager__startScanRequestForUnsettledState__block_in
   dispatch_async(queue, block);
 }
 
-void __47__RTFingerprintManager_onWiFiScanNotification___block_invoke(uint64_t a1)
+void __47__RTFingerprintManager_onWiFiScanNotification___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -1098,26 +1098,26 @@ void __47__RTFingerprintManager_onWiFiScanNotification___block_invoke(uint64_t a
     return;
   }
 
-  v2 = [*(a1 + 40) startCollectAccessPoints];
+  v3 = [*(a1 + 40) startCollectAccessPoints];
 
-  if (v2)
+  if (v3)
   {
-    v3 = [*(a1 + 40) startCollectAccessPoints];
-    [v3 timeIntervalSinceNow];
-    if (v4 < -300.0)
+    v4 = [*(a1 + 40) startCollectAccessPoints];
+    [v4 timeIntervalSinceNow];
+    if (v5 < -300.0)
     {
 
 LABEL_11:
-      v17 = [*(a1 + 40) wifiManager];
-      [v17 removeObserver:*(a1 + 40)];
+      v18 = [*(a1 + 40) wifiManager];
+      [v18 removeObserver:*(a1 + 40)];
 
       return;
     }
 
-    v6 = [*(a1 + 40) accessPointsCollectedPerFingerprint];
-    v7 = [*(a1 + 40) accessPointsFetchLimit];
+    v7 = [*(a1 + 40) accessPointsCollectedPerFingerprint];
+    v8 = [*(a1 + 40) accessPointsFetchLimit];
 
-    if (v6 >= v7)
+    if (v7 >= v8)
     {
       goto LABEL_11;
     }
@@ -1125,38 +1125,38 @@ LABEL_11:
 
   else
   {
-    v5 = [MEMORY[0x277CBEAA8] date];
-    [*(a1 + 40) setStartCollectAccessPoints:v5];
+    v6 = [MEMORY[0x277CBEAA8] date];
+    [*(a1 + 40) setStartCollectAccessPoints:v6];
 
     [*(a1 + 40) setAccessPointsCollectedPerFingerprint:0];
   }
 
-  v8 = [*(a1 + 32) scanResults];
-  v9 = [v8 count];
-  v10 = [*(a1 + 40) accessPointsCollectedPerFingerprint] + v9;
-  if (v10 > [*(a1 + 40) accessPointsFetchLimit])
+  v9 = [*(a1 + 32) scanResults];
+  v10 = [v9 count];
+  v11 = [*(a1 + 40) accessPointsCollectedPerFingerprint] + v10;
+  if (v11 > [*(a1 + 40) accessPointsFetchLimit])
   {
-    v11 = [v8 subarrayWithRange:{0, objc_msgSend(*(a1 + 40), "accessPointsFetchLimit") - objc_msgSend(*(a1 + 40), "accessPointsCollectedPerFingerprint")}];
+    v12 = [v9 subarrayWithRange:{0, objc_msgSend(*(a1 + 40), "accessPointsFetchLimit") - objc_msgSend(*(a1 + 40), "accessPointsCollectedPerFingerprint")}];
 
-    v12 = [*(a1 + 40) wifiManager];
-    [v12 removeObserver:*(a1 + 40)];
+    v13 = [*(a1 + 40) wifiManager];
+    [v13 removeObserver:*(a1 + 40)];
 
-    v8 = v11;
+    v9 = v12;
   }
 
-  [*(a1 + 40) setAccessPointsCollectedPerFingerprint:{objc_msgSend(v8, "count") + objc_msgSend(*(a1 + 40), "accessPointsCollectedPerFingerprint")}];
-  v13 = [*(a1 + 40) fingerprintStore];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __47__RTFingerprintManager_onWiFiScanNotification___block_invoke_2;
-  v18[3] = &unk_2788C8A48;
-  v15 = *(a1 + 40);
-  v14 = *(a1 + 48);
-  v19 = v8;
-  v20 = v14;
-  v18[4] = v15;
-  v16 = v8;
-  [v13 appendWiFiAccessPointsToLastFingerprint:v16 handler:v18];
+  [*(a1 + 40) setAccessPointsCollectedPerFingerprint:{objc_msgSend(v9, "count") + objc_msgSend(*(a1 + 40), "accessPointsCollectedPerFingerprint")}];
+  v14 = [*(a1 + 40) fingerprintStore];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __47__RTFingerprintManager_onWiFiScanNotification___block_invoke_2;
+  v19[3] = &unk_2788C8A48;
+  v16 = *(a1 + 40);
+  v15 = *(a1 + 48);
+  v20 = v9;
+  v21 = v15;
+  v19[4] = v16;
+  v17 = v9;
+  [v14 appendWiFiAccessPointsToLastFingerprint:v17 handler:v19];
 }
 
 void __47__RTFingerprintManager_onWiFiScanNotification___block_invoke_2(uint64_t a1, void *a2)

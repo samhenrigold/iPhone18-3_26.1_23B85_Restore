@@ -17,7 +17,7 @@
 
 + (id)columns
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"metadata_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_235_104301];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"audio" dataType:4 requestOnly:0 fieldNumber:2 protoDataType:14 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"preITNTranscript" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
@@ -25,16 +25,14 @@
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"profile" dataType:4 requestOnly:0 fieldNumber:5 protoDataType:14 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"contextualEntities_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_237];
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"userEditedText" dataType:2 requestOnly:0 fieldNumber:7 protoDataType:13 convertedType:0];
-  v12[0] = v2;
-  v12[1] = v3;
-  v12[2] = v4;
-  v12[3] = v5;
-  v12[4] = v6;
-  v12[5] = v7;
-  v12[6] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[0] = v2;
+  v11[1] = v3;
+  v11[2] = v4;
+  v11[3] = v5;
+  v11[4] = v6;
+  v11[5] = v7;
+  v11[6] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
 
   return v9;
 }
@@ -189,7 +187,7 @@ LABEL_27:
 
 - (id)jsonDictionary
 {
-  v29[7] = *MEMORY[0x1E69E9840];
+  v28[7] = *MEMORY[0x1E69E9840];
   metadata = [(BMASRContextualReplayRecord *)self metadata];
   jsonDictionary = [metadata jsonDictionary];
 
@@ -203,68 +201,68 @@ LABEL_27:
 
   _contextualEntitiesJSONArray = [(BMASRContextualReplayRecord *)self _contextualEntitiesJSONArray];
   userEditedText = [(BMASRContextualReplayRecord *)self userEditedText];
-  v28[0] = @"metadata";
+  v27[0] = @"metadata";
   null = jsonDictionary;
   if (!jsonDictionary)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25 = null;
-  v29[0] = null;
-  v28[1] = @"audio";
+  v24 = null;
+  v28[0] = null;
+  v27[1] = @"audio";
   null2 = v6;
   if (!v6)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = null2;
-  v29[1] = null2;
-  v28[2] = @"preITNTranscript";
+  v23 = null2;
+  v28[1] = null2;
+  v27[2] = @"preITNTranscript";
   null3 = preITNTranscript;
   if (!preITNTranscript)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27 = jsonDictionary;
-  v23 = null3;
-  v29[2] = null3;
-  v28[3] = @"postITNTranscript";
+  v26 = jsonDictionary;
+  v22 = null3;
+  v28[2] = null3;
+  v27[3] = @"postITNTranscript";
   null4 = postITNTranscript;
   if (!postITNTranscript)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26 = v6;
-  v29[3] = null4;
-  v28[4] = @"profile";
+  v25 = v6;
+  v28[3] = null4;
+  v27[4] = @"profile";
   null5 = v10;
   if (!v10)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[4] = null5;
-  v28[5] = @"contextualEntities";
+  v28[4] = null5;
+  v27[5] = @"contextualEntities";
   null6 = _contextualEntitiesJSONArray;
   if (!_contextualEntitiesJSONArray)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[5] = null6;
-  v28[6] = @"userEditedText";
+  v28[5] = null6;
+  v27[6] = @"userEditedText";
   null7 = userEditedText;
   if (!userEditedText)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[6] = null7;
-  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:7];
+  v28[6] = null7;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:7];
   if (userEditedText)
   {
     if (_contextualEntitiesJSONArray)
@@ -302,14 +300,14 @@ LABEL_18:
 
   if (preITNTranscript)
   {
-    if (v26)
+    if (v25)
     {
       goto LABEL_22;
     }
 
 LABEL_30:
 
-    if (v27)
+    if (v26)
     {
       goto LABEL_23;
     }
@@ -317,13 +315,13 @@ LABEL_30:
     goto LABEL_31;
   }
 
-  if (!v26)
+  if (!v25)
   {
     goto LABEL_30;
   }
 
 LABEL_22:
-  if (v27)
+  if (v26)
   {
     goto LABEL_23;
   }
@@ -331,51 +329,48 @@ LABEL_22:
 LABEL_31:
 
 LABEL_23:
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
 
 - (id)_contextualEntitiesJSONArray
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   contextualEntities = [(BMASRContextualReplayRecord *)self contextualEntities];
-  v5 = [contextualEntities countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [contextualEntities countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(contextualEntities);
         }
 
-        [v3 addObject:*(*(&v11 + 1) + 8 * i)];
+        [v3 addObject:*(*(&v10 + 1) + 8 * i)];
       }
 
-      v6 = [contextualEntities countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [contextualEntities countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BMASRContextualReplayRecord)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v115[1] = *MEMORY[0x1E69E9840];
+  v114[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"metadata"];
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -388,10 +383,10 @@ LABEL_23:
         v30 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy = error;
         v32 = *MEMORY[0x1E698F240];
-        v114 = *MEMORY[0x1E696A578];
+        v113 = *MEMORY[0x1E696A578];
         v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"metadata"];
-        v115[0] = v8;
-        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v115 forKeys:&v114 count:1];
+        v114[0] = v8;
+        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v114 forKeys:&v113 count:1];
         v34 = v30;
         v10 = v33;
         selfCopy4 = 0;
@@ -404,9 +399,9 @@ LABEL_23:
     }
 
     v10 = v7;
-    v92 = 0;
-    v8 = [[BMASRContextualReplayRecordRequestMetadata alloc] initWithJSONDictionary:v10 error:&v92];
-    v19 = v92;
+    v91 = 0;
+    v8 = [[BMASRContextualReplayRecordRequestMetadata alloc] initWithJSONDictionary:v10 error:&v91];
+    v19 = v91;
     if (v19)
     {
       if (error)
@@ -452,12 +447,12 @@ LABEL_23:
         {
           v35 = objc_alloc(MEMORY[0x1E696ABC0]);
           v36 = *MEMORY[0x1E698F240];
-          v112 = *MEMORY[0x1E696A578];
+          v111 = *MEMORY[0x1E696A578];
           v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected format for value of field '%@', expected base64 encoding", @"audio"];
-          v113 = v37;
+          v112 = v37;
           v38 = MEMORY[0x1E695DF20];
-          v39 = &v113;
-          v40 = &v112;
+          v39 = &v112;
+          v40 = &v111;
 LABEL_72:
           v11 = [v38 dictionaryWithObjects:v39 forKeys:v40 count:1];
           v63 = [v35 initWithDomain:v36 code:2 userInfo:v11];
@@ -472,12 +467,12 @@ LABEL_72:
       {
         v35 = objc_alloc(MEMORY[0x1E696ABC0]);
         v36 = *MEMORY[0x1E698F240];
-        v110 = *MEMORY[0x1E696A578];
+        v109 = *MEMORY[0x1E696A578];
         v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type (%@) for value of field '%@', expected NSData or base64 encoded NSString", objc_opt_class(), @"audio"];
-        v111 = v37;
+        v110 = v37;
         v38 = MEMORY[0x1E695DF20];
-        v39 = &v111;
-        v40 = &v110;
+        v39 = &v110;
+        v40 = &v109;
         goto LABEL_72;
       }
 
@@ -490,8 +485,8 @@ LABEL_72:
   v10 = 0;
 LABEL_7:
   v11 = [dictionaryCopy objectForKeyedSubscript:@"preITNTranscript"];
-  v87 = v8;
-  v85 = v10;
+  v86 = v8;
+  v84 = v10;
   if (v11 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     objc_opt_class();
@@ -501,12 +496,12 @@ LABEL_7:
       {
         v48 = objc_alloc(MEMORY[0x1E696ABC0]);
         v49 = *MEMORY[0x1E698F240];
-        v108 = *MEMORY[0x1E696A578];
+        v107 = *MEMORY[0x1E696A578];
         v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"preITNTranscript"];
-        v109 = v28;
-        v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v109 forKeys:&v108 count:1];
+        v108 = v28;
+        v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v108 forKeys:&v107 count:1];
         v51 = v48;
-        v10 = v85;
+        v10 = v84;
         v52 = v49;
         v53 = v50;
         v37 = 0;
@@ -521,13 +516,13 @@ LABEL_7:
     }
 
     v12 = v9;
-    v84 = v11;
+    v83 = v11;
   }
 
   else
   {
     v12 = v9;
-    v84 = 0;
+    v83 = 0;
   }
 
   v13 = [dictionaryCopy objectForKeyedSubscript:@"postITNTranscript"];
@@ -540,40 +535,40 @@ LABEL_7:
       {
         v54 = objc_alloc(MEMORY[0x1E696ABC0]);
         v55 = *MEMORY[0x1E698F240];
-        v106 = *MEMORY[0x1E696A578];
-        v83 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"postITNTranscript"];
-        v107 = v83;
-        v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v107 forKeys:&v106 count:1];
+        v105 = *MEMORY[0x1E696A578];
+        v82 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"postITNTranscript"];
+        v106 = v82;
+        v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
         v57 = v55;
         v53 = v13;
-        v82 = v56;
+        v81 = v56;
         selfCopy4 = 0;
         *errorCopy2 = [v54 initWithDomain:v57 code:2 userInfo:?];
-        v37 = v84;
+        v37 = v83;
         v9 = v12;
         v28 = 0;
         goto LABEL_82;
       }
 
       selfCopy4 = 0;
-      v37 = v84;
+      v37 = v83;
       v53 = v13;
       v9 = v12;
       v28 = 0;
       goto LABEL_83;
     }
 
-    v80 = v13;
+    v79 = v13;
   }
 
   else
   {
-    v80 = 0;
+    v79 = 0;
   }
 
   v14 = [dictionaryCopy objectForKeyedSubscript:@"profile"];
-  v81 = v13;
-  v82 = v14;
+  v80 = v13;
+  v81 = v14;
   if (v14)
   {
     v15 = v14;
@@ -584,15 +579,15 @@ LABEL_7:
       v9 = v12;
       if (objc_opt_isKindOfClass())
       {
-        v83 = v15;
+        v82 = v15;
         goto LABEL_16;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v83 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:v15 options:0];
-        if (v83)
+        v82 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:v15 options:0];
+        if (v82)
         {
           goto LABEL_16;
         }
@@ -601,67 +596,67 @@ LABEL_7:
         {
           v58 = objc_alloc(MEMORY[0x1E696ABC0]);
           v59 = *MEMORY[0x1E698F240];
-          v104 = *MEMORY[0x1E696A578];
+          v103 = *MEMORY[0x1E696A578];
           v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected format for value of field '%@', expected base64 encoding", @"profile"];
-          v105 = v16;
-          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
+          v104 = v16;
+          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
           v60 = [v58 initWithDomain:v59 code:2 userInfo:v21];
-          v83 = 0;
+          v82 = 0;
           selfCopy4 = 0;
           *errorCopy2 = v60;
 LABEL_91:
-          v28 = v80;
+          v28 = v79;
           goto LABEL_80;
         }
 
-        v83 = 0;
+        v82 = 0;
         selfCopy4 = 0;
       }
 
       else
       {
         selfCopy = self;
-        v68 = v11;
+        v67 = v11;
         if (errorCopy2)
         {
-          v69 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v70 = *MEMORY[0x1E698F240];
-          v102 = *MEMORY[0x1E696A578];
+          v68 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v69 = *MEMORY[0x1E698F240];
+          v101 = *MEMORY[0x1E696A578];
           v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type (%@) for value of field '%@', expected NSData or base64 encoded NSString", objc_opt_class(), @"profile"];
-          v103 = v16;
-          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v103 forKeys:&v102 count:1];
-          v71 = [v69 initWithDomain:v70 code:2 userInfo:v21];
-          v83 = 0;
+          v102 = v16;
+          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
+          v70 = [v68 initWithDomain:v69 code:2 userInfo:v21];
+          v82 = 0;
           selfCopy4 = 0;
-          *errorCopy2 = v71;
-          v11 = v68;
+          *errorCopy2 = v70;
+          v11 = v67;
           self = selfCopy;
           goto LABEL_91;
         }
 
-        v83 = 0;
+        v82 = 0;
         selfCopy4 = 0;
         self = selfCopy;
       }
 
-      v37 = v84;
-      v28 = v80;
-      v53 = v81;
+      v37 = v83;
+      v28 = v79;
+      v53 = v80;
       goto LABEL_82;
     }
   }
 
-  v83 = 0;
+  v82 = 0;
   v9 = v12;
 LABEL_16:
   v16 = [dictionaryCopy objectForKeyedSubscript:@"contextualEntities"];
   null = [MEMORY[0x1E695DFB0] null];
   v18 = [v16 isEqual:null];
 
-  v79 = v11;
+  v78 = v11;
   if (v18)
   {
-    v76 = v9;
+    v75 = v9;
     selfCopy3 = self;
 
     v16 = 0;
@@ -674,16 +669,16 @@ LABEL_16:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v28 = v80;
+        v28 = v79;
         if (errorCopy2)
         {
-          v78 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v77 = objc_alloc(MEMORY[0x1E696ABC0]);
           v61 = *MEMORY[0x1E698F240];
-          v100 = *MEMORY[0x1E696A578];
+          v99 = *MEMORY[0x1E696A578];
           v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"contextualEntities"];
-          v101 = v21;
-          v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
-          v62 = [v78 initWithDomain:v61 code:2 userInfo:v29];
+          v100 = v21;
+          v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v100 forKeys:&v99 count:1];
+          v62 = [v77 initWithDomain:v61 code:2 userInfo:v29];
           selfCopy4 = 0;
           *errorCopy2 = v62;
           goto LABEL_79;
@@ -694,34 +689,34 @@ LABEL_16:
       }
     }
 
-    v76 = v9;
+    v75 = v9;
     selfCopy3 = self;
   }
 
   v21 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v16, "count")}];
+  v87 = 0u;
   v88 = 0u;
   v89 = 0u;
   v90 = 0u;
-  v91 = 0u;
   v16 = v16;
-  v22 = [v16 countByEnumeratingWithState:&v88 objects:v99 count:16];
+  v22 = [v16 countByEnumeratingWithState:&v87 objects:v98 count:16];
   if (!v22)
   {
     goto LABEL_37;
   }
 
   v23 = v22;
-  v24 = *v89;
+  v24 = *v88;
   while (2)
   {
     for (i = 0; i != v23; ++i)
     {
-      if (*v89 != v24)
+      if (*v88 != v24)
       {
         objc_enumerationMutation(v16);
       }
 
-      v26 = *(*(&v88 + 1) + 8 * i);
+      v26 = *(*(&v87 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -729,18 +724,18 @@ LABEL_16:
         {
           v41 = objc_alloc(MEMORY[0x1E696ABC0]);
           v42 = *MEMORY[0x1E698F240];
-          v97 = *MEMORY[0x1E696A578];
+          v96 = *MEMORY[0x1E696A578];
           v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"contextualEntities"];
-          v98 = v27;
+          v97 = v27;
           v43 = MEMORY[0x1E695DF20];
-          v44 = &v98;
-          v45 = &v97;
+          v44 = &v97;
+          v45 = &v96;
 LABEL_56:
           v46 = [v43 dictionaryWithObjects:v44 forKeys:v45 count:1];
           v47 = [v41 initWithDomain:v42 code:2 userInfo:v46];
-          v9 = v76;
+          v9 = v75;
           self = selfCopy3;
-          v28 = v80;
+          v28 = v79;
           *errorCopy2 = v47;
 
           selfCopy4 = 0;
@@ -751,9 +746,9 @@ LABEL_56:
 LABEL_61:
         selfCopy4 = 0;
         v29 = v16;
-        v9 = v76;
+        v9 = v75;
         self = selfCopy3;
-        v28 = v80;
+        v28 = v79;
         goto LABEL_79;
       }
 
@@ -764,12 +759,12 @@ LABEL_61:
         {
           v41 = objc_alloc(MEMORY[0x1E696ABC0]);
           v42 = *MEMORY[0x1E698F240];
-          v95 = *MEMORY[0x1E696A578];
+          v94 = *MEMORY[0x1E696A578];
           v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"contextualEntities"];
-          v96 = v27;
+          v95 = v27;
           v43 = MEMORY[0x1E695DF20];
-          v44 = &v96;
-          v45 = &v95;
+          v44 = &v95;
+          v45 = &v94;
           goto LABEL_56;
         }
 
@@ -779,7 +774,7 @@ LABEL_61:
       [v21 addObject:v26];
     }
 
-    v23 = [v16 countByEnumeratingWithState:&v88 objects:v99 count:16];
+    v23 = [v16 countByEnumeratingWithState:&v87 objects:v98 count:16];
     if (v23)
     {
       continue;
@@ -794,17 +789,17 @@ LABEL_37:
   if (!v27)
   {
     v29 = 0;
-    v9 = v76;
+    v9 = v75;
     self = selfCopy3;
-    v64 = v87;
-    v28 = v80;
+    v64 = v86;
+    v28 = v79;
     goto LABEL_77;
   }
 
   objc_opt_class();
-  v9 = v76;
+  v9 = v75;
   self = selfCopy3;
-  v28 = v80;
+  v28 = v79;
   if (objc_opt_isKindOfClass())
   {
     v29 = 0;
@@ -816,9 +811,9 @@ LABEL_37:
   {
     v29 = v27;
 LABEL_76:
-    v64 = v87;
+    v64 = v86;
 LABEL_77:
-    self = [(BMASRContextualReplayRecord *)self initWithMetadata:v64 audio:v85 preITNTranscript:v84 postITNTranscript:v28 profile:v83 contextualEntities:v21 userEditedText:v29];
+    self = [(BMASRContextualReplayRecord *)self initWithMetadata:v64 audio:v84 preITNTranscript:v83 postITNTranscript:v28 profile:v82 contextualEntities:v21 userEditedText:v29];
     selfCopy4 = self;
   }
 
@@ -826,13 +821,13 @@ LABEL_77:
   {
     if (errorCopy2)
     {
-      v75 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v74 = *MEMORY[0x1E698F240];
-      v93 = *MEMORY[0x1E696A578];
-      v72 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"userEditedText"];
-      v94 = v72;
-      v73 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
-      *errorCopy2 = [v75 initWithDomain:v74 code:2 userInfo:v73];
+      v74 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v73 = *MEMORY[0x1E698F240];
+      v92 = *MEMORY[0x1E696A578];
+      v71 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"userEditedText"];
+      v93 = v71;
+      v72 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
+      *errorCopy2 = [v74 initWithDomain:v73 code:2 userInfo:v72];
     }
 
     v29 = 0;
@@ -842,26 +837,25 @@ LABEL_77:
 LABEL_78:
 
 LABEL_79:
-  v11 = v79;
+  v11 = v78;
 LABEL_80:
 
 LABEL_81:
-  v53 = v81;
+  v53 = v80;
 
-  v37 = v84;
+  v37 = v83;
 LABEL_82:
 
-  v10 = v85;
+  v10 = v84;
 LABEL_83:
 
-  v8 = v87;
+  v8 = v86;
 LABEL_84:
 
 LABEL_85:
 LABEL_86:
 
 LABEL_87:
-  v65 = *MEMORY[0x1E69E9840];
   return selfCopy4;
 }
 
@@ -876,11 +870,11 @@ LABEL_87:
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_metadata)
   {
-    v16 = 0;
+    v14 = 0;
     PBDataWriterPlaceMark();
     [(BMASRContextualReplayRecordRequestMetadata *)self->_metadata writeTo:toCopy];
     PBDataWriterRecallMark();
@@ -906,33 +900,32 @@ LABEL_87:
     PBDataWriterWriteDataField();
   }
 
-  v14 = 0u;
-  v15 = 0u;
   v12 = 0u;
   v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = self->_contextualEntities;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
         PBDataWriterWriteStringField();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
     }
 
     while (v7);
@@ -942,8 +935,6 @@ LABEL_87:
   {
     PBDataWriterWriteStringField();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initByReadFrom:(id)from
@@ -1170,44 +1161,42 @@ LABEL_43:
 
 + (id)protoFields
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"metadata" number:1 type:14 subMessageClass:objc_opt_class()];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"audio" number:2 type:14 subMessageClass:{0, v2}];
-  v12[1] = v3;
+  v11[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"preITNTranscript" number:3 type:13 subMessageClass:0];
-  v12[2] = v4;
+  v11[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"postITNTranscript" number:4 type:13 subMessageClass:0];
-  v12[3] = v5;
+  v11[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"profile" number:5 type:14 subMessageClass:0];
-  v12[4] = v6;
+  v11[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"contextualEntities" number:6 type:13 subMessageClass:0];
-  v12[5] = v7;
+  v11[5] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"userEditedText" number:7 type:13 subMessageClass:0];
-  v12[6] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[6] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
 
   return v9;
 }
 
-id __38__BMASRContextualReplayRecord_columns__block_invoke_2(uint64_t a1, void *a2)
+id __38__BMASRContextualReplayRecord_columns__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _contextualEntitiesJSONArray];
-  v4 = BMConvertObjectToJSONString();
-
-  return v4;
-}
-
-id __38__BMASRContextualReplayRecord_columns__block_invoke(uint64_t a1, void *a2)
-{
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 metadata];
-  v4 = [v3 jsonDictionary];
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _contextualEntitiesJSONArray];
   v5 = BMConvertObjectToJSONString();
 
   return v5;
+}
+
+id __38__BMASRContextualReplayRecord_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+{
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 metadata];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
+
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

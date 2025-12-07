@@ -19,12 +19,10 @@
 
 - (NSString)stringValue
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___PKStoreId_underlyingStoreId);
-  v3 = *&self->underlyingStoreId[OBJC_IVAR___PKStoreId_underlyingStoreId];
 
-  v4 = sub_25EA1E638();
+  v2 = sub_25EA1E638();
 
-  return v4;
+  return v2;
 }
 
 - (int64_t)longValue
@@ -38,13 +36,11 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v4 = *(&self->super.isa + OBJC_IVAR___PKStoreId_underlyingStoreId);
-  v5 = *&self->underlyingStoreId[OBJC_IVAR___PKStoreId_underlyingStoreId];
   coderCopy = coder;
   selfCopy = self;
-  v7 = sub_25EA1E638();
-  v8 = sub_25EA1E638();
-  [coderCopy encodeObject:v7 forKey:v8];
+  v5 = sub_25EA1E638();
+  v6 = sub_25EA1E638();
+  [coderCopy encodeObject:v5 forKey:v6];
 }
 
 - (PKStoreId)init

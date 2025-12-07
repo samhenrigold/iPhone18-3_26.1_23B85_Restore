@@ -47,79 +47,75 @@
 
 - (void)start
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v3 = RWIDefaultLog();
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = RWIDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     pageId = self->_pageId;
     applicationIdentifier = self->_applicationIdentifier;
     identifier = self->_identifier;
     v7 = [(NSArray *)self->_debuggers count];
-    v9 = 138544130;
-    v10 = identifier;
-    v11 = 2114;
-    v12 = pageId;
-    v13 = 2114;
-    v14 = applicationIdentifier;
-    v15 = 1024;
-    v16 = v7;
-    _os_log_impl(&dword_273C9C000, v3, OS_LOG_TYPE_DEFAULT, "Automatic Inspection Candidate START : Session (%{public}@) PageId (%{public}@) Application (%{public}@) Debuggers (%u)", &v9, 0x26u);
+    v8 = 138544130;
+    v9 = identifier;
+    v10 = 2114;
+    v11 = pageId;
+    v12 = 2114;
+    v13 = applicationIdentifier;
+    v14 = 1024;
+    v15 = v7;
+    _os_log_impl(&dword_273C9C000, v3, OS_LOG_TYPE_DEFAULT, "Automatic Inspection Candidate START : Session (%{public}@) PageId (%{public}@) Application (%{public}@) Debuggers (%u)", &v8, 0x26u);
   }
 
   [(_RWIAutomaticInspectionSession *)self _sendQuery];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)receivedRejectResponse
 {
   v13 = *MEMORY[0x277D85DE8];
   currentDebuggerIndex = self->_currentDebuggerIndex;
-  v4 = [(NSArray *)self->_debuggers count]- 1;
-  v5 = RWIDefaultLog();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-  if (currentDebuggerIndex == v4)
+  v4 = [(NSArray *)self->_debuggers count];
+  v5 = v4 - 1;
+  v6 = RWIDefaultLog(v4);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  if (currentDebuggerIndex == v5)
   {
-    if (v6)
+    if (v7)
     {
       identifier = self->_identifier;
       v11 = 138543362;
       v12 = identifier;
-      _os_log_impl(&dword_273C9C000, v5, OS_LOG_TYPE_DEFAULT, "Automatic Inspection Candidate REJECT : Final Rejection Session (%{public}@)", &v11, 0xCu);
+      _os_log_impl(&dword_273C9C000, v6, OS_LOG_TYPE_DEFAULT, "Automatic Inspection Candidate REJECT : Final Rejection Session (%{public}@)", &v11, 0xCu);
     }
   }
 
   else
   {
-    if (v6)
+    if (v7)
     {
-      v8 = self->_identifier;
+      v9 = self->_identifier;
       v11 = 138543362;
-      v12 = v8;
-      _os_log_impl(&dword_273C9C000, v5, OS_LOG_TYPE_DEFAULT, "Automatic Inspection Candidate REJECT : Continuing Session (%{public}@)", &v11, 0xCu);
+      v12 = v9;
+      _os_log_impl(&dword_273C9C000, v6, OS_LOG_TYPE_DEFAULT, "Automatic Inspection Candidate REJECT : Continuing Session (%{public}@)", &v11, 0xCu);
     }
 
     ++self->_currentDebuggerIndex;
     [(_RWIAutomaticInspectionSession *)self _sendQuery];
   }
 
-  result = currentDebuggerIndex == v4;
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return currentDebuggerIndex == v5;
 }
 
 - (void)_sendQuery
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [(NSArray *)self->_debuggers objectAtIndex:self->_currentDebuggerIndex];
-  v7 = *&self->_pageId;
-  v6[0] = @"WIRPageIdentifierKey";
-  v6[1] = @"WIRApplicationIdentifierKey";
-  v6[2] = @"WIRAutomaticInspectionSessionIdentifierKey";
+  v6 = *&self->_pageId;
+  v5[0] = @"WIRPageIdentifierKey";
+  v5[1] = @"WIRApplicationIdentifierKey";
+  v5[2] = @"WIRAutomaticInspectionSessionIdentifierKey";
   identifier = self->_identifier;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v7 forKeys:v6 count:3];
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v6 forKeys:v5 count:3];
   [v3 _rpc_reportAutomaticInspectionCandidate:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)matchesPageId:(id)id applicationIdentifier:(id)identifier

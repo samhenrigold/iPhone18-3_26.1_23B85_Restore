@@ -26,7 +26,7 @@
 - (void)loadView
 {
   selfCopy = self;
-  sub_B196C();
+  sub_B196C(v2);
 }
 
 - (void)viewDidLoad
@@ -62,19 +62,19 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_B24E8();
+  sub_B24E8(v2);
 }
 
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_B2590();
+  sub_B2590(v2);
 }
 
 - (void)didReceiveMemoryWarning
 {
   selfCopy = self;
-  sub_B26E8();
+  sub_B26E8(v2);
 }
 
 - (void)traitCollectionDidChange:(id)change

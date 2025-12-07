@@ -8,7 +8,7 @@
 
 + (id)metaDataDeviceQueryOperation
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AE18] predicateWithValue:1];
   v3 = [objc_alloc(MEMORY[0x1E695BA30]) initWithRecordType:@"metadata_device_type" predicate:v2];
   v4 = [objc_alloc(MEMORY[0x1E695BA48]) initWithQuery:v3];
@@ -16,12 +16,10 @@
   zoneID = [v5 zoneID];
   [v4 setZoneID:zoneID];
 
-  v10[0] = @"DeviceOSType";
-  v10[1] = @"DeviceOSVersionNumber";
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+  v9[0] = @"DeviceOSType";
+  v9[1] = @"DeviceOSVersionNumber";
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
   [v4 setDesiredKeys:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -71,7 +69,7 @@ void __86__WFCKContainerUtilities_fetchDeviceRecordsInContainer_withCursor_resul
 
 void __86__WFCKContainerUtilities_fetchDeviceRecordsInContainer_withCursor_results_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v8 = a2;
+  v7 = a2;
   v5 = a3;
   if (v5)
   {
@@ -81,14 +79,13 @@ LABEL_3:
     goto LABEL_6;
   }
 
-  if (!v8)
+  if (!v7)
   {
-    v7 = *(a1 + 40);
     v6 = *(*(a1 + 48) + 16);
     goto LABEL_3;
   }
 
-  [*(a1 + 56) fetchDeviceRecordsInContainer:*(a1 + 32) withCursor:v8 results:*(a1 + 40) completion:*(a1 + 48)];
+  [*(a1 + 56) fetchDeviceRecordsInContainer:*(a1 + 32) withCursor:v7 results:*(a1 + 40) completion:*(a1 + 48)];
 LABEL_6:
 }
 

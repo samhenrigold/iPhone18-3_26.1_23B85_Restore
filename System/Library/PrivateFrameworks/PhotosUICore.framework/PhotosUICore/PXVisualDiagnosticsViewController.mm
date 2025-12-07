@@ -47,11 +47,11 @@
   [popoverPresentationController2 setSourceRect:{v12, v14, v16, v18}];
 }
 
-uint64_t __64__PXVisualDiagnosticsViewController__handleActionBarButtonItem___block_invoke(uint64_t result, uint64_t a2)
+id *__64__PXVisualDiagnosticsViewController__handleActionBarButtonItem___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;

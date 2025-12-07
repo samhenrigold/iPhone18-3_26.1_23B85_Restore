@@ -153,11 +153,11 @@
 
 - (ASDAppEvent)initWithCoder:(id)coder
 {
-  v44[4] = *MEMORY[0x1E69E9840];
+  v43[4] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v43.receiver = self;
-  v43.super_class = ASDAppEvent;
-  v5 = [(ASDAppEvent *)&v43 init];
+  v42.receiver = self;
+  v42.super_class = ASDAppEvent;
+  v5 = [(ASDAppEvent *)&v42 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"accountID"];
@@ -202,11 +202,11 @@
 
     v5->_foregroundUsage = [coderCopy decodeInt64ForKey:@"foregroundUsage"];
     v24 = MEMORY[0x1E695DFD8];
-    v44[0] = objc_opt_class();
-    v44[1] = objc_opt_class();
-    v44[2] = objc_opt_class();
-    v44[3] = objc_opt_class();
-    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:4];
+    v43[0] = objc_opt_class();
+    v43[1] = objc_opt_class();
+    v43[2] = objc_opt_class();
+    v43[3] = objc_opt_class();
+    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:4];
     v26 = [v24 setWithArray:v25];
     v27 = [coderCopy decodeObjectOfClasses:v26 forKey:@"foregroundUsageEvents"];
     foregroundUsageEvents = v5->_foregroundUsageEvents;
@@ -240,7 +240,6 @@
     v5->_weekStartDate = v39;
   }
 
-  v41 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

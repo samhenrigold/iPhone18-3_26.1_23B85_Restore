@@ -64,7 +64,7 @@
 
 + (id)getCALFreeBusyFromEKSpans:(id)spans inRange:(id)range
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   spansCopy = spans;
   rangeCopy = range;
   v7 = objc_opt_new();
@@ -83,27 +83,27 @@
       [v7 addObject:&unk_1F1B6AC18];
     }
 
-    v29 = spansCopy;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
+    v28 = spansCopy;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v13 = spansCopy;
-    v14 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v31;
+      v16 = *v30;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v31 != v16)
+          if (*v30 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v30 + 1) + 8 * i);
+          v18 = *(*(&v29 + 1) + 8 * i);
           startDate4 = [v18 startDate];
           [v7 addObject:startDate4];
 
@@ -111,7 +111,7 @@
           [v7 addObject:v20];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v15);
@@ -133,7 +133,7 @@
       }
     }
 
-    spansCopy = v29;
+    spansCopy = v28;
   }
 
   else
@@ -144,38 +144,36 @@
     [v7 addObject:&unk_1F1B6AC18];
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 + (id)getCALFreeBusyFromResults:(id)results forAttendees:(id)attendees inRange:(id)range
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   attendeesCopy = attendees;
   rangeCopy = range;
-  v25 = objc_opt_new();
+  v24 = objc_opt_new();
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = attendeesCopy;
-  v10 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v10 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v27;
+    v12 = *v26;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v27 != v12)
+        if (*v26 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v26 + 1) + 8 * i);
+        v14 = *(*(&v25 + 1) + 8 * i);
         v15 = objc_opt_new();
         if (resultsCopy)
         {
@@ -196,19 +194,17 @@
           v19 = objc_opt_class();
           spans2 = [v15 spans];
           v21 = [v19 getCALFreeBusyFromEKSpans:spans2 inRange:rangeCopy];
-          [v25 setObject:v21 forKeyedSubscript:v14];
+          [v24 setObject:v21 forKeyedSubscript:v14];
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v11 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v11);
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
-  return v25;
+  return v24;
 }
 
 + (int64_t)summarizedAvailabilityTypeForSpans:(id)spans
@@ -237,15 +233,14 @@
   return v5;
 }
 
-uint64_t __62__EKAvailabilityUtilities_summarizedAvailabilityTypeForSpans___block_invoke(void *a1, void *a2)
+void *__62__EKAvailabilityUtilities_summarizedAvailabilityTypeForSpans___block_invoke(void *a1, void *a2)
 {
   v3 = [a2 type];
-  v4 = a1[6];
   result = [objc_opt_class() orderForType:v3];
-  v6 = *(a1[4] + 8);
-  if (result > *(v6 + 24))
+  v5 = *(a1[4] + 8);
+  if (result > *(v5 + 24))
   {
-    *(v6 + 24) = result;
+    *(v5 + 24) = result;
     *(*(a1[5] + 8) + 24) = v3;
   }
 
@@ -272,11 +267,9 @@ uint64_t __62__EKAvailabilityUtilities_summarizedAvailabilityTypeForSpans___bloc
   return self;
 }
 
-uint64_t __50__EKAvailabilityUtilities_spansIncludeBusyPeriod___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__50__EKAvailabilityUtilities_spansIncludeBusyPeriod___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v6 = [a2 type];
-  v7 = *(a1 + 40);
-  result = [objc_opt_class() showTypeAsBusy:v6];
+  result = [objc_opt_class() showTypeAsBusy:{objc_msgSend(a2, "type", a3)}];
   if (result)
   {
     *(*(*(a1 + 32) + 8) + 24) = 1;

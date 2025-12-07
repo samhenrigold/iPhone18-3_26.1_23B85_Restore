@@ -19,9 +19,10 @@
 
 uint64_t __38__CADDefaultAppProtectionGuard_shared__block_invoke()
 {
-  shared_guard = objc_alloc_init(CADDefaultAppProtectionGuard);
+  v0 = objc_alloc_init(CADDefaultAppProtectionGuard);
+  shared_guard = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 - (void)initiateAuthenticationForApplicationWithBundleIdentifier:(id)identifier onBehalfOfProcessWithAuditToken:(id *)token accessGrantedByEntitlement:(BOOL)entitlement completion:(id)completion
@@ -62,15 +63,15 @@ uint64_t __38__CADDefaultAppProtectionGuard_shared__block_invoke()
 
 void __159__CADDefaultAppProtectionGuard_initiateAuthenticationForApplicationWithBundleIdentifier_onBehalfOfProcessWithAuditToken_accessGrantedByEntitlement_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = CADLogHandle;
   if (v5 || (a2 & 1) == 0)
   {
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = v5;
+      v11 = 138412290;
+      v12 = v5;
       v7 = "CADDefaultAppProtectionGuard: initiateAuth error: %@";
       v8 = v6;
       v9 = OS_LOG_TYPE_ERROR;
@@ -81,18 +82,16 @@ void __159__CADDefaultAppProtectionGuard_initiateAuthenticationForApplicationWit
 
   else if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v12) = 0;
+    LOWORD(v11) = 0;
     v7 = "CADDefaultAppProtectionGuard: initiateAuth finished with success.";
     v8 = v6;
     v9 = OS_LOG_TYPE_DEFAULT;
     v10 = 2;
 LABEL_7:
-    _os_log_impl(&dword_22430B000, v8, v9, v7, &v12, v10);
+    _os_log_impl(&dword_22430B000, v8, v9, v7, &v11, v10);
   }
 
   (*(*(a1 + 32) + 16))(*(a1 + 32), a2);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

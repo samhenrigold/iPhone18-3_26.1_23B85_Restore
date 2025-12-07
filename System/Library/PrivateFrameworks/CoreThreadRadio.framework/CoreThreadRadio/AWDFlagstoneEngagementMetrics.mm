@@ -65,36 +65,35 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_header)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_sCntrsEngagement)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_sCntrsDiscoveryJoin)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_sCntrsReachability)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -170,7 +169,6 @@
     goto LABEL_15;
   }
 
-  v5 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -213,9 +211,9 @@ LABEL_15:
   sCntrsReachability = self->_sCntrsReachability;
   if (sCntrsReachability | *(equalCopy + 5))
   {
-    v11 = [(AWDCountersReachabilityS *)sCntrsReachability isEqual:?];
+    v10 = [(AWDCountersReachabilityS *)sCntrsReachability isEqual:?];
 
-    return v11;
+    return v10;
   }
 
   else

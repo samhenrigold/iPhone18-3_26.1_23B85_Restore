@@ -138,65 +138,61 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_fallbackURL)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 8) != 0)
   {
-    supportsContinuationOnTV = self->_supportsContinuationOnTV;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_title)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_subtitle)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_image)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    preferredBroadcastingAttributes = self->_preferredBroadcastingAttributes;
     PBDataWriterWriteUint32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_sceneAssociationBehavior)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    supportsActivityPreviews = self->_supportsActivityPreviews;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    lifetimePolicy = self->_lifetimePolicy;
     PBDataWriterWriteUint32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -330,7 +326,6 @@
     }
   }
 
-  v6 = *(equalCopy + 60);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 60) & 8) == 0)
@@ -338,7 +333,6 @@
       goto LABEL_16;
     }
 
-    v14 = *(equalCopy + 57);
     if (self->_supportsContinuationOnTV)
     {
       if ((*(equalCopy + 57) & 1) == 0)
@@ -383,7 +377,6 @@
   }
 
   has = self->_has;
-  v11 = *(equalCopy + 60);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 60) & 2) == 0 || self->_preferredBroadcastingAttributes != *(equalCopy + 7))
@@ -415,7 +408,6 @@
       goto LABEL_16;
     }
 
-    v16 = *(equalCopy + 56);
     if (self->_supportsActivityPreviews)
     {
       if ((*(equalCopy + 56) & 1) == 0)
@@ -435,7 +427,7 @@
     goto LABEL_16;
   }
 
-  v12 = (*(equalCopy + 60) & 1) == 0;
+  v10 = (*(equalCopy + 60) & 1) == 0;
   if ((has & 1) == 0)
   {
     goto LABEL_17;
@@ -443,15 +435,15 @@
 
   if ((*(equalCopy + 60) & 1) != 0 && self->_lifetimePolicy == *(equalCopy + 6))
   {
-    v12 = 1;
+    v10 = 1;
     goto LABEL_17;
   }
 
 LABEL_16:
-  v12 = 0;
+  v10 = 0;
 LABEL_17:
 
-  return v12;
+  return v10;
 }
 
 - (unint64_t)hash

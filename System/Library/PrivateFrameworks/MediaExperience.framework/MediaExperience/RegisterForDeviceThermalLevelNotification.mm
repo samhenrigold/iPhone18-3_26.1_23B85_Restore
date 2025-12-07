@@ -3,14 +3,15 @@
 
 @implementation RegisterForDeviceThermalLevelNotification
 
-void __cmsmdevicestate_RegisterForDeviceThermalLevelNotification_block_invoke(uint64_t a1, int a2)
+void __cmsmdevicestate_RegisterForDeviceThermalLevelNotification_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = MXGetSerialQueue();
+  v2 = a2;
+  v3 = MXGetSerialQueue(a1, a2);
   v4[0] = MEMORY[0x1E69E9820];
   v4[1] = 3221225472;
   v4[2] = __cmsmdevicestate_RegisterForDeviceThermalLevelNotification_block_invoke_2;
   v4[3] = &__block_descriptor_36_e5_v8__0l;
-  v5 = a2;
+  v5 = v2;
   MXDispatchAsync("cmsmdevicestate_RegisterForDeviceThermalLevelNotification_block_invoke", "CMSessionManager_DeviceState.m", 1595, 0, 0, v3, v4);
 }
 
@@ -48,8 +49,6 @@ void __cmsmdevicestate_RegisterForDeviceThermalLevelNotification_block_invoke_2(
 
     CMSMDeviceState_InterruptAllActiveSessionsAndSystemSounds();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -7,27 +7,27 @@
 
 - (id)valueForKey:(id)key
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   keyCopy = key;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   properties = [(LNEntity *)self->_entity properties];
-  v6 = [properties countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [properties countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(properties);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         identifier = [v9 identifier];
         v11 = [identifier isEqual:keyCopy];
 
@@ -40,7 +40,7 @@
         }
       }
 
-      v6 = [properties countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [properties countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -51,8 +51,6 @@
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

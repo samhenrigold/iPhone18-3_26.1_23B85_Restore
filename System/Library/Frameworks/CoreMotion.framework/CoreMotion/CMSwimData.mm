@@ -15,7 +15,7 @@
 
 - (void)convertToSwimEntry:(CLSwimEntry *)entry
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   memset(uu, 0, sizeof(uu));
   memset(src, 0, sizeof(src));
   uuid_clear(uu);
@@ -40,7 +40,6 @@
   entry->var16 = self->fSegment;
   entry->var18 = self->fSWOLF;
   entry->var19 = self->fSegmentSWOLF;
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (CMSwimData)initWithRecordId:(unint64_t)id sourceId:(id)sourceId sessionId:(id)sessionId startDate:(id)date endDate:(id)endDate strokeCount:(unint64_t)count distance:(double)distance distanceTimestamp:(id)self0 avgPace:(double)self1 lapCount:(unint64_t)self2 strokeType:(int64_t)self3 segment:(unint64_t)self4 SWOLF:(double)self5 segmentSWOLF:(double)self6
@@ -186,9 +185,7 @@
 {
   v5 = objc_opt_class();
   v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
-  fDistanceTimestamp = self->fDistanceTimestamp;
-  fStrokeType = self->fStrokeType;
-  return objc_msgSend_initWithRecordId_sourceId_sessionId_startDate_endDate_strokeCount_distance_distanceTimestamp_avgPace_lapCount_strokeType_segment_SWOLF_segmentSWOLF_(v7, v10, self->fRecordId, self->fSourceId, self->fSessionId, self->fStartDate, self->fEndDate, self->fStrokeCount, self->fDistance, self->fAvgPace, self->fSWOLF, self->fSegmentSWOLF, fDistanceTimestamp, self->fLapCount, fStrokeType, self->fSegment);
+  return objc_msgSend_initWithRecordId_sourceId_sessionId_startDate_endDate_strokeCount_distance_distanceTimestamp_avgPace_lapCount_strokeType_segment_SWOLF_segmentSWOLF_(v7, v8, self->fRecordId, self->fSourceId, self->fSessionId, self->fStartDate, self->fEndDate, self->fStrokeCount, self->fDistance, self->fAvgPace, self->fSWOLF, self->fSegmentSWOLF, self->fDistanceTimestamp, self->fLapCount, self->fStrokeType, self->fSegment);
 }
 
 - (void)encodeWithCoder:(id)coder

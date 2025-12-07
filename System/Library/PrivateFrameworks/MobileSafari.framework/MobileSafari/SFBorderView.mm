@@ -29,10 +29,10 @@
 - (SFBorderView)initWithFrame:(CGRect)frame
 {
   *(&self->super.super.super.isa + OBJC_IVAR___SFBorderView_borderColor) = 0;
-  v5.receiver = self;
-  v5.super_class = SFBorderView;
-  v3 = [(SFBorderView *)&v5 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
-  sub_18BA84C2C();
+  v6.receiver = self;
+  v6.super_class = SFBorderView;
+  v3 = [(SFBorderView *)&v6 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  sub_18BA84C2C(v3, v4);
 
   return v3;
 }
@@ -40,15 +40,15 @@
 - (SFBorderView)initWithCoder:(id)coder
 {
   *(&self->super.super.super.isa + OBJC_IVAR___SFBorderView_borderColor) = 0;
-  v8.receiver = self;
-  v8.super_class = SFBorderView;
+  v9.receiver = self;
+  v9.super_class = SFBorderView;
   coderCopy = coder;
-  v4 = [(SFBorderView *)&v8 initWithCoder:coderCopy];
+  v4 = [(SFBorderView *)&v9 initWithCoder:coderCopy];
   v5 = v4;
   if (v4)
   {
     v6 = v4;
-    sub_18BA84C2C();
+    sub_18BA84C2C(v6, v7);
   }
 
   return v5;

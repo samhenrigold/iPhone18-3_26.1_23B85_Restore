@@ -56,8 +56,8 @@
   v16[0] = v6 & 0xFFFFFFFFFFFFDFFFLL;
   v16[1] = v7 | 0x2000;
   v16[2] = v8;
-  sub_270365998(prim, v16, v13);
-  v11 = objc_msgSend_initWithSiblingRange_(self, v9, v13, v10);
+  sub_270365998(prim, v16, &v13);
+  v11 = objc_msgSend_initWithSiblingRange_(self, v9, &v13, v10);
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
   sub_2703143D8(&v15);
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
@@ -75,8 +75,8 @@
   v16[0] = first & 0xFFFFFFFFFFFFDFFFLL;
   v16[1] = v7 | 0x2000;
   v16[2] = v8;
-  sub_270365998(prim, v16, v13);
-  v11 = objc_msgSend_initWithSiblingRange_(self, v9, v13, v10);
+  sub_270365998(prim, v16, &v13);
+  v11 = objc_msgSend_initWithSiblingRange_(self, v9, &v13, v10);
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
   sub_2703143D8(&v15);
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
@@ -126,8 +126,8 @@
     else
     {
       v7 = [USKNode alloc];
-      sub_2703662FC(p_values, v11);
-      v6 = objc_msgSend_initWithUsdPrim_(v7, v8, v11, v9);
+      sub_2703662FC(p_values, &v11);
+      v6 = objc_msgSend_initWithUsdPrim_(v7, v8, &v11, v9);
       if ((v14 & 7) != 0)
       {
         atomic_fetch_add_explicit((v14 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);

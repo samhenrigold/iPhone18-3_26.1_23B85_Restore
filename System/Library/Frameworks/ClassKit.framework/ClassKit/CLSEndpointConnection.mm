@@ -171,20 +171,20 @@ LABEL_14:
     {
       objc_initWeak(location, v13);
       objc_initWeak(&from, self);
-      v50[0] = MEMORY[0x277D85DD0];
-      v50[1] = 3221225472;
-      v50[2] = sub_236FDCBB8;
-      v50[3] = &unk_278A191B0;
-      objc_copyWeak(&v51, &from);
-      objc_copyWeak(&v52, location);
-      objc_msgSend_setInterruptionHandler_(v14, v15, v50);
-      v47[0] = MEMORY[0x277D85DD0];
-      v47[1] = 3221225472;
-      v47[2] = sub_236FDCC1C;
-      v47[3] = &unk_278A191B0;
-      objc_copyWeak(&v48, &from);
-      objc_copyWeak(&v49, location);
-      objc_msgSend_setInvalidationHandler_(v14, v16, v47);
+      v49[0] = MEMORY[0x277D85DD0];
+      v49[1] = 3221225472;
+      v49[2] = sub_236FDCBB8;
+      v49[3] = &unk_278A191B0;
+      objc_copyWeak(&v50, &from);
+      objc_copyWeak(&v51, location);
+      objc_msgSend_setInterruptionHandler_(v14, v15, v49);
+      v46[0] = MEMORY[0x277D85DD0];
+      v46[1] = 3221225472;
+      v46[2] = sub_236FDCC1C;
+      v46[3] = &unk_278A191B0;
+      objc_copyWeak(&v47, &from);
+      objc_copyWeak(&v48, location);
+      objc_msgSend_setInvalidationHandler_(v14, v16, v46);
       v17 = CLSEndpointServerInterface();
       objc_msgSend_setRemoteObjectInterface_(v14, v18, v17);
 
@@ -217,10 +217,10 @@ LABEL_14:
         onConnect[2]();
       }
 
-      objc_destroyWeak(&v49);
       objc_destroyWeak(&v48);
-      objc_destroyWeak(&v52);
+      objc_destroyWeak(&v47);
       objc_destroyWeak(&v51);
+      objc_destroyWeak(&v50);
       objc_destroyWeak(&from);
       objc_destroyWeak(location);
 
@@ -251,7 +251,6 @@ LABEL_14:
 
   v38 = 0;
 LABEL_23:
-  v45 = *MEMORY[0x277D85DE8];
 
   return v38;
 }

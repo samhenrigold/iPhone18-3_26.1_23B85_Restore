@@ -5,6 +5,8 @@
 - (IATextInputActionsMetadataObserving)analyticsDelegate;
 - (id)_instanceOfActionClass:(Class)class;
 - (void)_didDeleteBackwardAction:(id)action;
+- (void)_didDeleteBackwardCount:(unint64_t)count withType:(int64_t)type shouldOverrideInputActionCountToZero:(BOOL)zero withInputMode:(id)mode forceNotMarkedText:(BOOL)text;
+- (void)_didDeleteBackwardText:(id)text withType:(int64_t)type shouldOverrideInputActionCountToZero:(BOOL)zero withInputMode:(id)mode forceNotMarkedText:(BOOL)markedText;
 - (void)_didDeleteBackwardTextDetails:(id)details withType:(int64_t)type shouldOverrideInputActionCountToZero:(BOOL)zero withInputMode:(id)mode forceNotMarkedText:(BOOL)text;
 - (void)_didDeletionKeyPressOfKey:(id)key withType:(int64_t)type;
 - (void)_didInsertTextAction:(id)action;
@@ -61,7 +63,7 @@
 
 - (void)didSessionBegin
 {
-  v3 = sub_1D461074C();
+  v3 = sub_1D461074C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462C470();
@@ -93,38 +95,39 @@
 {
   observerCopy = observer;
   v7 = objc_msgSend_xpcEnabled(IAUtility, v5, v6);
-  v8 = sub_1D461074C();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
-  if (v7)
+  v8 = v7;
+  v9 = sub_1D461074C(v7);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
+  if (v8)
   {
-    if (v9)
+    if (v10)
     {
       *buf = 0;
-      _os_log_impl(&dword_1D460F000, v8, OS_LOG_TYPE_INFO, "initWithAnalyticsMetadataObserver service", buf, 2u);
+      _os_log_impl(&dword_1D460F000, v9, OS_LOG_TYPE_INFO, "initWithAnalyticsMetadataObserver service", buf, 2u);
     }
 
-    v11 = objc_msgSend_initWithAnalyticsMetadataObserver_withServiceName_(self, v10, observerCopy, @"com.apple.inputanalyticsd");
+    v12 = objc_msgSend_initWithAnalyticsMetadataObserver_withServiceName_(self, v11, observerCopy, @"com.apple.inputanalyticsd");
   }
 
   else
   {
-    if (v9)
+    if (v10)
     {
-      *v15 = 0;
-      _os_log_impl(&dword_1D460F000, v8, OS_LOG_TYPE_INFO, "initWithAnalyticsMetadataObserver in-process", v15, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_1D460F000, v9, OS_LOG_TYPE_INFO, "initWithAnalyticsMetadataObserver in-process", v16, 2u);
     }
 
-    v11 = objc_msgSend_initWithAnalyticsMetadataObserver_withEventHandler_(self, v12, observerCopy, &unk_1F4FDA350);
+    v12 = objc_msgSend_initWithAnalyticsMetadataObserver_withEventHandler_(self, v13, observerCopy, &unk_1F4FDA350);
   }
 
-  v13 = v11;
+  v14 = v12;
 
-  return v13;
+  return v14;
 }
 
 - (void)invalidateConnection
 {
-  v3 = sub_1D461074C();
+  v3 = sub_1D461074C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -135,11 +138,11 @@
   xpcClient = self->_xpcClient;
   self->_xpcClient = 0;
 
-  v7 = sub_1D461074C();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = sub_1D461074C(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_1D460F000, v7, OS_LOG_TYPE_INFO, "invalidateConnection completed", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_1D460F000, v8, OS_LOG_TYPE_INFO, "invalidateConnection completed", v9, 2u);
   }
 }
 
@@ -149,144 +152,146 @@
 
   if (!v5)
   {
-    v6 = sub_1D461074C();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_1D461074C(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1D462C3AC();
     }
   }
 
-  v7 = objc_opt_class();
-  if (objc_msgSend_isSubclassOfClass_(class, v8, v7))
+  v8 = objc_opt_class();
+  if (objc_msgSend_isSubclassOfClass_(class, v9, v8))
   {
-    v9 = objc_alloc_init(class);
-    v12 = objc_msgSend_analyticsDelegate(self, v10, v11);
-    v15 = objc_msgSend_sessionIdentifier(v12, v13, v14);
-    objc_msgSend_setSessionIdentifier_(self, v16, v15);
+    v10 = objc_alloc_init(class);
+    v13 = objc_msgSend_analyticsDelegate(self, v11, v12);
+    v16 = objc_msgSend_sessionIdentifier(v13, v14, v15);
+    objc_msgSend_setSessionIdentifier_(self, v17, v16);
 
-    v19 = objc_msgSend_sessionIdentifier(self, v17, v18);
-    objc_msgSend_setTextInputSessionId_(v9, v20, v19);
+    v20 = objc_msgSend_sessionIdentifier(self, v18, v19);
+    objc_msgSend_setTextInputSessionId_(v10, v21, v20);
 
-    v23 = objc_msgSend_analyticsDelegate(self, v21, v22);
-    v26 = objc_msgSend_source(v23, v24, v25);
-    objc_msgSend_setSource_(v9, v27, v26);
+    v24 = objc_msgSend_analyticsDelegate(self, v22, v23);
+    v27 = objc_msgSend_source(v24, v25, v26);
+    objc_msgSend_setSource_(v10, v28, v27);
 
-    v30 = objc_msgSend_analyticsDelegate(self, v28, v29);
-    v33 = objc_msgSend_flagOptions(v30, v31, v32);
-    objc_msgSend_setFlagOptions_(v9, v34, v33);
+    v31 = objc_msgSend_analyticsDelegate(self, v29, v30);
+    v34 = objc_msgSend_flagOptions(v31, v32, v33);
+    objc_msgSend_setFlagOptions_(v10, v35, v34);
 
-    v37 = objc_msgSend_analyticsDelegate(self, v35, v36);
-    v40 = objc_msgSend_appBundleId(v37, v38, v39);
-    objc_msgSend_setAppBundleId_(v9, v41, v40);
+    v38 = objc_msgSend_analyticsDelegate(self, v36, v37);
+    v41 = objc_msgSend_appBundleId(v38, v39, v40);
+    objc_msgSend_setAppBundleId_(v10, v42, v41);
 
-    v44 = objc_msgSend_analyticsDelegate(self, v42, v43);
-    v47 = objc_msgSend_processBundleId(v44, v45, v46);
-    objc_msgSend_setProcessBundleId_(v9, v48, v47);
+    v45 = objc_msgSend_analyticsDelegate(self, v43, v44);
+    v48 = objc_msgSend_processBundleId(v45, v46, v47);
+    objc_msgSend_setProcessBundleId_(v10, v49, v48);
 
-    v51 = objc_msgSend_string(MEMORY[0x1E696AD60], v49, v50);
-    objc_msgSend_setClientSideSessionErrors_(v9, v52, v51);
+    v52 = objc_msgSend_string(MEMORY[0x1E696AD60], v50, v51);
+    objc_msgSend_setClientSideSessionErrors_(v10, v53, v52);
 
-    v55 = objc_msgSend_analyticsDelegate(self, v53, v54);
-    v58 = objc_msgSend_inputMode(v55, v56, v57);
-    objc_msgSend_populateActionInputMode_withInputMode_(self, v59, v9, v58);
+    v56 = objc_msgSend_analyticsDelegate(self, v54, v55);
+    v59 = objc_msgSend_inputMode(v56, v57, v58);
+    objc_msgSend_populateActionInputMode_withInputMode_(self, v60, v10, v59);
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)flushAndSetLastAction:(id)action
 {
   actionCopy = action;
+  v6 = actionCopy;
   if (self->_lastAction)
   {
     if (self->_useAnalyticsDaemon)
     {
-      v6 = sub_1D461074C();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      v7 = sub_1D461074C(actionCopy);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        *v15 = 0;
-        _os_log_impl(&dword_1D460F000, v6, OS_LOG_TYPE_INFO, "flushAndSetLastAction calling sendSignal:toChannel:withNullableSessionID:withPayload:", v15, 2u);
+        *v16 = 0;
+        _os_log_impl(&dword_1D460F000, v7, OS_LOG_TYPE_INFO, "flushAndSetLastAction calling sendSignal:toChannel:withNullableSessionID:withPayload:", v16, 2u);
       }
 
-      v9 = objc_msgSend_textInputSessionId(actionCopy, v7, v8);
-      v12 = objc_msgSend_toDictionary(self->_lastAction, v10, v11);
-      objc_msgSend_sendSignal_toChannel_withNullableSessionID_withPayload_(IASignalAnalytics, v13, @"DidAction", @"LegacyTextInputActions", v9, v12);
+      v10 = objc_msgSend_textInputSessionId(v6, v8, v9);
+      v13 = objc_msgSend_toDictionary(self->_lastAction, v11, v12);
+      objc_msgSend_sendSignal_toChannel_withNullableSessionID_withPayload_(IASignalAnalytics, v14, @"DidAction", @"LegacyTextInputActions", v10, v13);
     }
 
     if (self->_useLocalAnalytics)
     {
-      objc_msgSend_consumeAction_(self->_localServer, v4, self->_lastAction);
+      objc_msgSend_consumeAction_(self->_localServer, v5, self->_lastAction);
     }
   }
 
   lastAction = self->_lastAction;
-  self->_lastAction = actionCopy;
+  self->_lastAction = v6;
 }
 
 - (void)mergeOrConsumeAction:(id)action
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   v8 = actionCopy;
   if (actionCopy)
   {
-    if (objc_msgSend_flagOptions(actionCopy, v6, v7) >= 9)
+    v9 = objc_msgSend_flagOptions(actionCopy, v6, v7);
+    if (v9 >= 9)
     {
-      v11 = sub_1D461074C();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = sub_1D461074C(v9);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        sub_1D462C3E8(v8, v11, v12);
+        sub_1D462C3E8(v8, v12, v13);
       }
     }
 
     if (self->_useAnalyticsDaemon)
     {
-      v13 = objc_msgSend_asBegan(v8, v9, v10);
+      v14 = objc_msgSend_asBegan(v8, v10, v11);
 
-      if (v13)
+      if (v14)
       {
-        v14 = sub_1D461074C();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+        v16 = sub_1D461074C(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v43) = 0;
-          _os_log_impl(&dword_1D460F000, v14, OS_LOG_TYPE_INFO, "mergeOrConsumeAction calling sendSignal:toChannel:withNullableSessionID:withPayload:", &v43, 2u);
+          LOWORD(v45) = 0;
+          _os_log_impl(&dword_1D460F000, v16, OS_LOG_TYPE_INFO, "mergeOrConsumeAction calling sendSignal:toChannel:withNullableSessionID:withPayload:", &v45, 2u);
         }
 
-        v17 = objc_msgSend_textInputSessionId(v8, v15, v16);
-        v20 = objc_msgSend_toDictionary(v8, v18, v19);
-        objc_msgSend_sendSignal_toChannel_withNullableSessionID_withPayload_(IASignalAnalytics, v21, @"DidSessionBegin", @"LegacyTextInputActions", v17, v20);
+        v19 = objc_msgSend_textInputSessionId(v8, v17, v18);
+        v22 = objc_msgSend_toDictionary(v8, v20, v21);
+        objc_msgSend_sendSignal_toChannel_withNullableSessionID_withPayload_(IASignalAnalytics, v23, @"DidSessionBegin", @"LegacyTextInputActions", v19, v22);
       }
     }
 
-    v22 = objc_msgSend_asEnd(v8, v9, v10);
-    v25 = v22;
-    if (v22)
+    v24 = objc_msgSend_asEnd(v8, v10, v11);
+    v27 = v24;
+    if (v24)
     {
       if (self->_useLocalAnalytics)
       {
-        v26 = objc_msgSend_keyboardTrialParameters(v22, v23, v24);
-        objc_msgSend_setKeyboardTrialParameters_(self->_localServer, v27, v26);
+        v28 = objc_msgSend_keyboardTrialParameters(v24, v25, v26);
+        objc_msgSend_setKeyboardTrialParameters_(self->_localServer, v29, v28);
       }
 
-      objc_msgSend_flushAndSetLastAction_(self, v23, v25);
-      objc_msgSend_flushAndSetLastAction_(self, v28, 0);
+      objc_msgSend_flushAndSetLastAction_(self, v25, v27);
+      Action = objc_msgSend_flushAndSetLastAction_(self, v30, 0);
       if (self->_useAnalyticsDaemon)
       {
-        v29 = sub_1D461074C();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+        v32 = sub_1D461074C(Action);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v43) = 0;
-          _os_log_impl(&dword_1D460F000, v29, OS_LOG_TYPE_INFO, "mergeOrConsumeAction calling sendSignal:toChannel:withNullableSessionID:withPayload:", &v43, 2u);
+          LOWORD(v45) = 0;
+          _os_log_impl(&dword_1D460F000, v32, OS_LOG_TYPE_INFO, "mergeOrConsumeAction calling sendSignal:toChannel:withNullableSessionID:withPayload:", &v45, 2u);
         }
 
-        v32 = objc_msgSend_textInputSessionId(v25, v30, v31);
-        v35 = objc_msgSend_toDictionary(v25, v33, v34);
-        objc_msgSend_sendSignal_toChannel_withNullableSessionID_withPayload_(IASignalAnalytics, v36, @"DidSessionEnd", @"LegacyTextInputActions", v32, v35);
+        v35 = objc_msgSend_textInputSessionId(v27, v33, v34);
+        v38 = objc_msgSend_toDictionary(v27, v36, v37);
+        objc_msgSend_sendSignal_toChannel_withNullableSessionID_withPayload_(IASignalAnalytics, v39, @"DidSessionEnd", @"LegacyTextInputActions", v35, v38);
       }
     }
 
@@ -295,23 +300,23 @@
       lastAction = self->_lastAction;
       if (lastAction)
       {
-        v38 = objc_msgSend_mergeActionIfPossible_(lastAction, v23, v8);
-        v39 = sub_1D461074C();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+        v41 = objc_msgSend_mergeActionIfPossible_(lastAction, v25, v8);
+        v42 = sub_1D461074C(v41);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
         {
-          v42 = self->_lastAction;
-          v43 = 134218499;
-          v44 = v38;
-          v45 = 2113;
-          v46 = v42;
+          v44 = self->_lastAction;
+          v45 = 134218499;
+          v46 = v41;
           v47 = 2113;
-          v48 = v8;
-          _os_log_debug_impl(&dword_1D460F000, v39, OS_LOG_TYPE_DEBUG, "[IATextInputActionsAnalytics] mergeOrConsumeAction: Merge result %lu lastAction:%{private}@ newAction:%{private}@", &v43, 0x20u);
+          v48 = v44;
+          v49 = 2113;
+          v50 = v8;
+          _os_log_debug_impl(&dword_1D460F000, v42, OS_LOG_TYPE_DEBUG, "[IATextInputActionsAnalytics] mergeOrConsumeAction: Merge result %lu lastAction:%{private}@ newAction:%{private}@", &v45, 0x20u);
         }
 
-        if (!v38)
+        if (!v41)
         {
-          objc_msgSend_flushAndSetLastAction_(self, v40, v8);
+          objc_msgSend_flushAndSetLastAction_(self, v43, v8);
         }
       }
 
@@ -321,8 +326,6 @@
       }
     }
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)populateActionInputMode:(id)mode withInputMode:(id)inputMode
@@ -365,7 +368,7 @@
 
 - (void)didSessionEnd
 {
-  v3 = sub_1D461074C();
+  v3 = sub_1D461074C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462C4A4();
@@ -392,7 +395,7 @@
 
 - (void)didOther
 {
-  v2 = sub_1D461074C();
+  v2 = sub_1D461074C(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462C4D8();
@@ -402,24 +405,24 @@
 - (void)didInsertText:(id)text withType:(int64_t)type relativeRangeBefore:(_NSRange)before withNumAlternatives:(int64_t)alternatives selectedTextBefore:(id)textBefore withInputMode:(id)mode
 {
   length = before.length;
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   textCopy = text;
   textBeforeCopy = textBefore;
   modeCopy = mode;
-  v16 = sub_1D461074C();
+  v16 = sub_1D461074C(modeCopy);
   v17 = v16;
   if (textCopy)
   {
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      v49 = objc_msgSend_description(modeCopy, v18, v19);
-      v50 = 138478339;
-      v51 = textCopy;
-      v52 = 2113;
-      v53 = textBeforeCopy;
-      v54 = 2113;
-      v55 = v49;
-      _os_log_debug_impl(&dword_1D460F000, v17, OS_LOG_TYPE_DEBUG, "[IATextInputActionsAnalytics] didInsertText:%{private}@ selectedTextBefore:%{private}@ withInputMode:%{private}@", &v50, 0x20u);
+      v48 = objc_msgSend_description(modeCopy, v18, v19);
+      v49 = 138478339;
+      v50 = textCopy;
+      v51 = 2113;
+      v52 = textBeforeCopy;
+      v53 = 2113;
+      v54 = v48;
+      _os_log_debug_impl(&dword_1D460F000, v17, OS_LOG_TYPE_DEBUG, "[IATextInputActionsAnalytics] didInsertText:%{private}@ selectedTextBefore:%{private}@ withInputMode:%{private}@", &v49, 0x20u);
     }
 
     if (objc_msgSend_length(textBeforeCopy, v20, v21))
@@ -457,8 +460,6 @@
   {
     sub_1D462C50C();
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_didInsertTextAction:(id)action
@@ -494,43 +495,66 @@
   zeroCopy = zero;
   detailsCopy = details;
   modeCopy = mode;
+  v14 = modeCopy;
   if (detailsCopy)
   {
-    v14 = objc_opt_class();
-    v16 = objc_msgSend__instanceOfActionClass_(self, v15, v14);
-    v19 = objc_msgSend_asDeletion(v16, v17, v18);
+    v15 = objc_opt_class();
+    v17 = objc_msgSend__instanceOfActionClass_(self, v16, v15);
+    v20 = objc_msgSend_asDeletion(v17, v18, v19);
 
-    objc_msgSend_setTextInputActionsType_(v19, v20, type);
-    v23 = objc_msgSend_characters(detailsCopy, v21, v22);
-    objc_msgSend_setRemovedTextLength_(v19, v24, v23);
-    v27 = objc_msgSend_emojiCharacters(detailsCopy, v25, v26);
-    objc_msgSend_setRemovedEmojiCount_(v19, v28, v27);
-    if (objc_msgSend_textIsTooLong(detailsCopy, v29, v30))
+    objc_msgSend_setTextInputActionsType_(v20, v21, type);
+    v24 = objc_msgSend_characters(detailsCopy, v22, v23);
+    objc_msgSend_setRemovedTextLength_(v20, v25, v24);
+    v28 = objc_msgSend_emojiCharacters(detailsCopy, v26, v27);
+    objc_msgSend_setRemovedEmojiCount_(v20, v29, v28);
+    if (objc_msgSend_textIsTooLong(detailsCopy, v30, v31))
     {
-      v33 = objc_msgSend_clientSideSessionErrors(v19, v31, v32);
-      objc_msgSend_appendString_(v33, v34, @"T");
+      v34 = objc_msgSend_clientSideSessionErrors(v20, v32, v33);
+      objc_msgSend_appendString_(v34, v35, @"T");
     }
 
-    objc_msgSend_populateActionInputMode_withInputMode_(self, v31, v19, modeCopy);
+    objc_msgSend_populateActionInputMode_withInputMode_(self, v32, v20, v14);
     if (zeroCopy)
     {
-      v37 = objc_msgSend_inputActionCount(v19, v35, v36);
-      objc_msgSend_setInputActionCountFromMergedActions_(v19, v38, -v37);
+      v38 = objc_msgSend_inputActionCount(v20, v36, v37);
+      objc_msgSend_setInputActionCountFromMergedActions_(v20, v39, -v38);
     }
 
     if (textCopy)
     {
-      v39 = objc_msgSend_flagOptions(v19, v35, v36);
-      objc_msgSend_setFlagOptions_(v19, v40, v39 & 0xFFFFFFFFFFFFFFFDLL);
+      v40 = objc_msgSend_flagOptions(v20, v36, v37);
+      objc_msgSend_setFlagOptions_(v20, v41, v40 & 0xFFFFFFFFFFFFFFFDLL);
     }
 
-    objc_msgSend__didDeleteBackwardAction_(self, v35, v19);
+    objc_msgSend__didDeleteBackwardAction_(self, v36, v20);
   }
 
   else
   {
-    v41 = sub_1D461074C();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    v42 = sub_1D461074C(modeCopy);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    {
+      sub_1D462C59C();
+    }
+  }
+}
+
+- (void)_didDeleteBackwardText:(id)text withType:(int64_t)type shouldOverrideInputActionCountToZero:(BOOL)zero withInputMode:(id)mode forceNotMarkedText:(BOOL)markedText
+{
+  markedTextCopy = markedText;
+  zeroCopy = zero;
+  modeCopy = mode;
+  v14 = modeCopy;
+  if (text)
+  {
+    v15 = objc_msgSend_getDetailsForString_(IAStringDetails, v13, text);
+    objc_msgSend__didDeleteBackwardTextDetails_withType_shouldOverrideInputActionCountToZero_withInputMode_forceNotMarkedText_(self, v16, v15, type, zeroCopy, v14, markedTextCopy);
+  }
+
+  else
+  {
+    v17 = sub_1D461074C(modeCopy);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_1D462C59C();
     }
@@ -540,7 +564,7 @@
 - (void)didDeleteBackwardText:(id)text
 {
   textCopy = text;
-  v5 = sub_1D461074C();
+  v5 = sub_1D461074C(textCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462C5D8();
@@ -552,7 +576,7 @@
 - (void)didDeleteBackwardText:(id)text withType:(int64_t)type
 {
   textCopy = text;
-  v7 = sub_1D461074C();
+  v7 = sub_1D461074C(textCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462C64C();
@@ -563,25 +587,39 @@
 
 - (void)didDeleteBackwardText:(id)text withType:(int64_t)type withInputMode:(id)mode
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   textCopy = text;
   modeCopy = mode;
-  v10 = sub_1D461074C();
+  v10 = sub_1D461074C(modeCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v14 = objc_msgSend_stringForType_(IATextInputActionsUtils, v11, type);
-    v17 = objc_msgSend_description(modeCopy, v15, v16);
-    v18 = 138740483;
-    v19 = textCopy;
-    v20 = 2113;
-    v21 = v14;
-    v22 = 2113;
-    v23 = v17;
-    _os_log_debug_impl(&dword_1D460F000, v10, OS_LOG_TYPE_DEBUG, "[IATextInputActionsAnalytics] didDeleteBackwardText:%{sensitive}@ withType:%{private}@ withInputMode:'%{private}@'", &v18, 0x20u);
+    v13 = objc_msgSend_stringForType_(IATextInputActionsUtils, v11, type);
+    v16 = objc_msgSend_description(modeCopy, v14, v15);
+    v17 = 138740483;
+    v18 = textCopy;
+    v19 = 2113;
+    v20 = v13;
+    v21 = 2113;
+    v22 = v16;
+    _os_log_debug_impl(&dword_1D460F000, v10, OS_LOG_TYPE_DEBUG, "[IATextInputActionsAnalytics] didDeleteBackwardText:%{sensitive}@ withType:%{private}@ withInputMode:'%{private}@'", &v17, 0x20u);
   }
 
   objc_msgSend__didDeleteBackwardText_withType_shouldOverrideInputActionCountToZero_withInputMode_forceNotMarkedText_(self, v12, textCopy, type, 0, modeCopy, 0);
-  v13 = *MEMORY[0x1E69E9840];
+}
+
+- (void)_didDeleteBackwardCount:(unint64_t)count withType:(int64_t)type shouldOverrideInputActionCountToZero:(BOOL)zero withInputMode:(id)mode forceNotMarkedText:(BOOL)text
+{
+  zeroCopy = zero;
+  modeCopy = mode;
+  v12 = sub_1D461074C(modeCopy);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  {
+    sub_1D462C6EC(type, count);
+  }
+
+  v13 = objc_alloc_init(IAStringDetails);
+  objc_msgSend_setCharacters_(v13, v14, count);
+  objc_msgSend__didDeleteBackwardTextDetails_withType_shouldOverrideInputActionCountToZero_withInputMode_forceNotMarkedText_(self, v15, v13, type, zeroCopy, modeCopy, 0);
 }
 
 - (void)_didDeleteBackwardAction:(id)action
@@ -604,20 +642,20 @@
   location = before.location;
   v6 = selection.length;
   v7 = selection.location;
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (selection.length != before.length || selection.location != before.location)
   {
-    v9 = sub_1D461074C();
+    v9 = sub_1D461074C(self);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218752;
-      v24 = v7;
-      v25 = 2048;
-      v26 = v6;
-      v27 = 2048;
-      v28 = location;
-      v29 = 2048;
-      v30 = length;
+      v23 = v7;
+      v24 = 2048;
+      v25 = v6;
+      v26 = 2048;
+      v27 = location;
+      v28 = 2048;
+      v29 = length;
       _os_log_debug_impl(&dword_1D460F000, v9, OS_LOG_TYPE_DEBUG, "[IATextInputActionsAnalytics] didChangeToSelection:(%lu, %lu) rangeBefore:(%lu, %lu)", buf, 0x2Au);
     }
 
@@ -628,22 +666,20 @@
     objc_msgSend_setRelativeRangeBefore_(v15, v16, location, length);
     objc_msgSend_setRangeAfter_(v15, v17, v7, v6);
     queue = self->_queue;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = sub_1D4614188;
-    v21[3] = &unk_1E84897C8;
-    v21[4] = self;
-    v22 = v15;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = sub_1D4614188;
+    v20[3] = &unk_1E84897C8;
+    v20[4] = self;
+    v21 = v15;
     v19 = v15;
-    dispatch_async(queue, v21);
+    dispatch_async(queue, v20);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didCopy:(id)copy
 {
-  v4 = sub_1D461074C();
+  v4 = sub_1D461074C(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462C790();
@@ -667,7 +703,7 @@
 
 - (void)didCut:(id)cut
 {
-  v4 = sub_1D461074C();
+  v4 = sub_1D461074C(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462C7C4();
@@ -691,7 +727,7 @@
 
 - (void)didPaste:(id)paste
 {
-  v4 = sub_1D461074C();
+  v4 = sub_1D461074C(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462C7F8();
@@ -715,7 +751,7 @@
 
 - (void)didUndo
 {
-  v3 = sub_1D461074C();
+  v3 = sub_1D461074C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462C82C();
@@ -739,7 +775,7 @@
 
 - (void)didRedo
 {
-  v3 = sub_1D461074C();
+  v3 = sub_1D461074C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462C860();
@@ -765,77 +801,79 @@
 {
   textCopy = text;
   withTextCopy = withText;
+  v20 = withTextCopy;
   if (textCopy)
   {
-    v20 = textCopy;
+    v21 = textCopy;
   }
 
   else
   {
-    v20 = &stru_1F4FDAA18;
+    v21 = &stru_1F4FDAA18;
   }
 
   if (textCopy || nilText)
   {
-    if (objc_msgSend_length(v20, v17, v18) || emptyText)
+    v23 = objc_msgSend_length(v21, v18, v19);
+    if (v23 || emptyText)
     {
-      if (withTextCopy)
+      if (v20)
       {
-        v21 = withTextCopy;
+        v22 = v20;
       }
 
       else
       {
-        v21 = &stru_1F4FDAA18;
+        v22 = &stru_1F4FDAA18;
       }
 
-      if (withTextCopy || replacement)
+      if (v20 || replacement)
       {
-        v23 = objc_opt_class();
-        v25 = objc_msgSend__instanceOfActionClass_(self, v24, v23);
-        v28 = objc_msgSend_asReplaceText(v25, v26, v27);
+        v25 = objc_opt_class();
+        v27 = objc_msgSend__instanceOfActionClass_(self, v26, v25);
+        v30 = objc_msgSend_asReplaceText(v27, v28, v29);
 
-        objc_msgSend_setSource_(v28, v29, source);
-        objc_msgSend_setTextInputActionsType_(v28, v30, type);
-        v32 = objc_msgSend_getDetailsForString_(IAStringDetails, v31, v20);
-        v35 = objc_msgSend_characters(v32, v33, v34);
-        objc_msgSend_setRemovedTextLength_(v28, v36, v35);
-        v39 = objc_msgSend_emojiCharacters(v32, v37, v38);
-        objc_msgSend_setRemovedEmojiCount_(v28, v40, v39);
-        if (objc_msgSend_textIsTooLong(v32, v41, v42))
+        objc_msgSend_setSource_(v30, v31, source);
+        objc_msgSend_setTextInputActionsType_(v30, v32, type);
+        v34 = objc_msgSend_getDetailsForString_(IAStringDetails, v33, v21);
+        v37 = objc_msgSend_characters(v34, v35, v36);
+        objc_msgSend_setRemovedTextLength_(v30, v38, v37);
+        v41 = objc_msgSend_emojiCharacters(v34, v39, v40);
+        objc_msgSend_setRemovedEmojiCount_(v30, v42, v41);
+        if (objc_msgSend_textIsTooLong(v34, v43, v44))
         {
-          v45 = objc_msgSend_clientSideSessionErrors(v28, v43, v44);
-          objc_msgSend_appendString_(v45, v46, @"T");
+          v47 = objc_msgSend_clientSideSessionErrors(v30, v45, v46);
+          objc_msgSend_appendString_(v47, v48, @"T");
         }
 
-        v48 = objc_msgSend_getDetailsForString_(IAStringDetails, v47, v21);
-        v51 = objc_msgSend_characters(v48, v49, v50);
-        objc_msgSend_setInsertedTextLength_(v28, v52, v51);
-        v55 = objc_msgSend_emojiCharacters(v48, v53, v54);
-        objc_msgSend_setInsertedEmojiCount_(v28, v56, v55);
-        if (objc_msgSend_textIsTooLong(v48, v57, v58))
+        v50 = objc_msgSend_getDetailsForString_(IAStringDetails, v49, v22);
+        v53 = objc_msgSend_characters(v50, v51, v52);
+        objc_msgSend_setInsertedTextLength_(v30, v54, v53);
+        v57 = objc_msgSend_emojiCharacters(v50, v55, v56);
+        objc_msgSend_setInsertedEmojiCount_(v30, v58, v57);
+        if (objc_msgSend_textIsTooLong(v50, v59, v60))
         {
-          v61 = objc_msgSend_clientSideSessionErrors(v28, v59, v60);
-          objc_msgSend_appendString_(v61, v62, @"T");
+          v63 = objc_msgSend_clientSideSessionErrors(v30, v61, v62);
+          objc_msgSend_appendString_(v63, v64, @"T");
         }
 
-        v63 = objc_msgSend_inputActionCount(v28, v59, v60);
-        objc_msgSend_setInputActionCountFromMergedActions_(v28, v64, count - v63);
+        v65 = objc_msgSend_inputActionCount(v30, v61, v62);
+        objc_msgSend_setInputActionCountFromMergedActions_(v30, v66, count - v65);
         queue = self->_queue;
-        v67[0] = MEMORY[0x1E69E9820];
-        v67[1] = 3221225472;
-        v67[2] = sub_1D46149B0;
-        v67[3] = &unk_1E84897C8;
-        v67[4] = self;
-        v68 = v28;
-        v66 = v28;
-        dispatch_async(queue, v67);
+        v69[0] = MEMORY[0x1E69E9820];
+        v69[1] = 3221225472;
+        v69[2] = sub_1D46149B0;
+        v69[3] = &unk_1E84897C8;
+        v69[4] = self;
+        v70 = v30;
+        v68 = v30;
+        dispatch_async(queue, v69);
       }
 
       else
       {
-        v21 = sub_1D461074C();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v22 = sub_1D461074C(v23);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           sub_1D462C97C();
         }
@@ -844,25 +882,25 @@
 
     else
     {
-      v22 = sub_1D461074C();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v24 = sub_1D461074C(0);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         sub_1D462C914();
       }
 
-      v21 = withTextCopy;
+      v22 = v20;
     }
   }
 
   else
   {
-    v21 = sub_1D461074C();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = sub_1D461074C(withTextCopy);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       sub_1D462C894();
     }
 
-    v20 = withTextCopy;
+    v21 = v20;
   }
 }
 
@@ -870,7 +908,7 @@
 {
   textCopy = text;
   withTextCopy = withText;
-  v8 = sub_1D461074C();
+  v8 = sub_1D461074C(withTextCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462C9F8();
@@ -883,7 +921,7 @@
 {
   textCopy = text;
   withTextCopy = withText;
-  v8 = sub_1D461074C();
+  v8 = sub_1D461074C(withTextCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462CA60();
@@ -896,7 +934,7 @@
 {
   textCopy = text;
   withTextCopy = withText;
-  v8 = sub_1D461074C();
+  v8 = sub_1D461074C(withTextCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462CAC8();
@@ -911,7 +949,7 @@
 {
   textCopy = text;
   withTextCopy = withText;
-  v8 = sub_1D461074C();
+  v8 = sub_1D461074C(withTextCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462CB30();
@@ -924,7 +962,7 @@
 {
   textCopy = text;
   withTextCopy = withText;
-  v8 = sub_1D461074C();
+  v8 = sub_1D461074C(withTextCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462CB98();
@@ -939,7 +977,7 @@
 {
   textCopy = text;
   withTextCopy = withText;
-  v8 = sub_1D461074C();
+  v8 = sub_1D461074C(withTextCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462CC00();
@@ -952,7 +990,7 @@
 {
   textCopy = text;
   withTextCopy = withText;
-  v8 = sub_1D461074C();
+  v8 = sub_1D461074C(withTextCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462CC68();
@@ -963,7 +1001,7 @@
 
 - (void)didRevisionBubbleTap
 {
-  v3 = sub_1D461074C();
+  v3 = sub_1D461074C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462CCD0();
@@ -993,7 +1031,7 @@
 
 - (void)didReplaceWithCandidate:(int64_t)candidate
 {
-  v5 = sub_1D461074C();
+  v5 = sub_1D461074C(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462CD04(candidate, v5);
@@ -1021,7 +1059,7 @@
 {
   textCopy = text;
   withTextCopy = withText;
-  v8 = sub_1D461074C();
+  v8 = sub_1D461074C(withTextCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462CD9C();
@@ -1036,7 +1074,7 @@
 {
   textCopy = text;
   withTextCopy = withText;
-  v8 = sub_1D461074C();
+  v8 = sub_1D461074C(withTextCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462CE04();
@@ -1054,59 +1092,60 @@
   v10 = withTextCopy;
   if (textCopy && withTextCopy)
   {
-    if (objc_msgSend_length(textCopy, v8, v9) && objc_msgSend_length(v10, v11, v12))
+    v11 = objc_msgSend_length(textCopy, v8, v9);
+    if (v11 && (v11 = objc_msgSend_length(v10, v12, v13)) != 0)
     {
-      v15 = objc_msgSend_analyticsDelegate(self, v13, v14);
-      v18 = objc_msgSend_source(v15, v16, v17);
+      v16 = objc_msgSend_analyticsDelegate(self, v14, v15);
+      v19 = objc_msgSend_source(v16, v17, v18);
 
-      if (v18 <= 0xC && ((1 << v18) & 0x10B8) != 0)
+      if (v19 <= 0xC && ((1 << v19) & 0x10B8) != 0)
       {
-        v21 = objc_msgSend_analyticsDelegate(self, v19, v20);
-        v24 = objc_msgSend_flagOptions(v21, v22, v23);
-        isMarkedTextSetInFlagOptions = objc_msgSend_isMarkedTextSetInFlagOptions_(IATextInputActionsUtils, v25, v24);
+        v23 = objc_msgSend_analyticsDelegate(self, v21, v22);
+        v26 = objc_msgSend_flagOptions(v23, v24, v25);
+        isMarkedTextSetInFlagOptions = objc_msgSend_isMarkedTextSetInFlagOptions_(IATextInputActionsUtils, v27, v26);
 
         if (isMarkedTextSetInFlagOptions)
         {
-          v27 = sub_1D461074C();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          v30 = sub_1D461074C(v29);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
             sub_1D462CE6C();
           }
         }
 
-        v28 = objc_opt_class();
-        v30 = objc_msgSend__instanceOfActionClass_(self, v29, v28);
-        v33 = objc_msgSend_asInsertion(v30, v31, v32);
+        v31 = objc_opt_class();
+        v33 = objc_msgSend__instanceOfActionClass_(self, v32, v31);
+        v36 = objc_msgSend_asInsertion(v33, v34, v35);
 
-        objc_msgSend_setTextInputActionsType_(v33, v34, 7);
-        v36 = objc_msgSend_getDetailsForString_(IAStringDetails, v35, v10);
-        v39 = objc_msgSend_characters(v36, v37, v38);
-        objc_msgSend_setInsertedTextLength_(v33, v40, v39);
-        v43 = objc_msgSend_emojiCharacters(v36, v41, v42);
-        objc_msgSend_setInsertedEmojiCount_(v33, v44, v43);
-        if (objc_msgSend_textIsTooLong(v36, v45, v46))
+        objc_msgSend_setTextInputActionsType_(v36, v37, 7);
+        v39 = objc_msgSend_getDetailsForString_(IAStringDetails, v38, v10);
+        v42 = objc_msgSend_characters(v39, v40, v41);
+        objc_msgSend_setInsertedTextLength_(v36, v43, v42);
+        v46 = objc_msgSend_emojiCharacters(v39, v44, v45);
+        objc_msgSend_setInsertedEmojiCount_(v36, v47, v46);
+        if (objc_msgSend_textIsTooLong(v39, v48, v49))
         {
-          v49 = objc_msgSend_clientSideSessionErrors(v33, v47, v48);
-          objc_msgSend_appendString_(v49, v50, @"T");
+          v52 = objc_msgSend_clientSideSessionErrors(v36, v50, v51);
+          objc_msgSend_appendString_(v52, v53, @"T");
         }
 
-        v51 = objc_msgSend_inputActionCount(v33, v47, v48);
-        objc_msgSend_setInputActionCountFromMergedActions_(v33, v52, 1 - v51);
+        v54 = objc_msgSend_inputActionCount(v36, v50, v51);
+        objc_msgSend_setInputActionCountFromMergedActions_(v36, v55, 1 - v54);
         queue = self->_queue;
-        v55[0] = MEMORY[0x1E69E9820];
-        v55[1] = 3221225472;
-        v55[2] = sub_1D4615550;
-        v55[3] = &unk_1E84897C8;
-        v55[4] = self;
-        v56 = v33;
-        v54 = v33;
-        dispatch_async(queue, v55);
+        v58[0] = MEMORY[0x1E69E9820];
+        v58[1] = 3221225472;
+        v58[2] = sub_1D4615550;
+        v58[3] = &unk_1E84897C8;
+        v58[4] = self;
+        v59 = v36;
+        v57 = v36;
+        dispatch_async(queue, v58);
 
         goto LABEL_18;
       }
 
-      v36 = sub_1D461074C();
-      if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v39 = sub_1D461074C(v20);
+      if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_18;
       }
@@ -1114,8 +1153,8 @@
 
     else
     {
-      v36 = sub_1D461074C();
-      if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v39 = sub_1D461074C(v11);
+      if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_18;
       }
@@ -1125,8 +1164,8 @@
     goto LABEL_18;
   }
 
-  v36 = sub_1D461074C();
-  if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+  v39 = sub_1D461074C(withTextCopy);
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
   {
     sub_1D462CF3C();
   }
@@ -1138,9 +1177,9 @@ LABEL_18:
 {
   textCopy = text;
   v7 = textCopy;
-  if (textCopy && objc_msgSend_length(textCopy, v5, v6))
+  if (textCopy && (textCopy = objc_msgSend_length(textCopy, v5, v6)) != 0)
   {
-    v8 = sub_1D461074C();
+    v8 = sub_1D461074C(textCopy);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       sub_1D462CFA4();
@@ -1174,7 +1213,7 @@ LABEL_18:
 
   else
   {
-    v16 = sub_1D461074C();
+    v16 = sub_1D461074C(textCopy);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_1D462D050();
@@ -1190,29 +1229,29 @@ LABEL_18:
   v19 = down.x;
   height = size.height;
   width = size.width;
-  v71 = *MEMORY[0x1E69E9840];
-  v24 = sub_1D461074C();
+  v70 = *MEMORY[0x1E69E9840];
+  v24 = sub_1D461074C(self);
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
-    v48 = objc_msgSend_stringForKeyboardDockItemButtonPressResult_(IATextInputActionsUtils, v25, press);
-    v50 = objc_msgSend_stringForKeyboardDockItemButtonType_(IATextInputActionsUtils, v49, type);
+    v47 = objc_msgSend_stringForKeyboardDockItemButtonPressResult_(IATextInputActionsUtils, v25, press);
+    v49 = objc_msgSend_stringForKeyboardDockItemButtonType_(IATextInputActionsUtils, v48, type);
     *buf = 138479875;
-    v54 = v48;
-    v55 = 2113;
-    v56 = v50;
-    v57 = 2048;
-    v58 = width;
-    v59 = 2048;
-    v60 = height;
-    v61 = 2048;
-    v62 = v19;
-    v63 = 2048;
-    v64 = v18;
-    v65 = 2048;
-    v66 = x;
-    v67 = 2048;
-    v68 = y;
-    v69 = 2048;
+    v53 = v47;
+    v54 = 2113;
+    v55 = v49;
+    v56 = 2048;
+    v57 = width;
+    v58 = 2048;
+    v59 = height;
+    v60 = 2048;
+    v61 = v19;
+    v62 = 2048;
+    v63 = v18;
+    v64 = 2048;
+    v65 = x;
+    v66 = 2048;
+    v67 = y;
+    v68 = 2048;
     durationCopy = duration;
     _os_log_debug_impl(&dword_1D460F000, v24, OS_LOG_TYPE_DEBUG, "[IATextInputActionsAnalytics] didKeyboardDockItemButtonPress:%{private}@ buttonType:%{private}@ buttonSize:(%fw %fh) touchDown:(%f,%f) touchUp:(%f,%f) touchDuration:%f", buf, 0x5Cu);
   }
@@ -1231,23 +1270,21 @@ LABEL_18:
   objc_msgSend_setTouchUpPoint_(v31, v41, v42, x, y);
   objc_msgSend_setTouchDuration_(v31, v43, v44, duration);
   queue = self->_queue;
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = sub_1D46159C4;
-  v51[3] = &unk_1E84897C8;
-  v51[4] = self;
-  v52 = v31;
+  v50[0] = MEMORY[0x1E69E9820];
+  v50[1] = 3221225472;
+  v50[2] = sub_1D46159C4;
+  v50[3] = &unk_1E84897C8;
+  v50[4] = self;
+  v51 = v31;
   v46 = v31;
-  dispatch_async(queue, v51);
-
-  v47 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v50);
 }
 
 - (void)didGlomojiTap:(id)tap newInputMode:(id)mode
 {
   modeCopy = mode;
   tapCopy = tap;
-  v8 = sub_1D4620EF8();
+  v8 = sub_1D4620EF8(tapCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462D08C();
@@ -1276,7 +1313,7 @@ LABEL_18:
 {
   inputModeCopy = inputMode;
   modeCopy = mode;
-  v10 = sub_1D4620EF8();
+  v10 = sub_1D4620EF8(modeCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462D08C();
@@ -1304,7 +1341,7 @@ LABEL_18:
 - (void)didKBMenuAppear:(id)appear
 {
   appearCopy = appear;
-  v5 = sub_1D4620EF8();
+  v5 = sub_1D4620EF8(appearCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462D0C0();
@@ -1331,7 +1368,7 @@ LABEL_18:
 - (void)didKBMenuAppear:(unint64_t)appear originalInputMode:(id)mode
 {
   modeCopy = mode;
-  v7 = sub_1D4620EF8();
+  v7 = sub_1D4620EF8(modeCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462D0C0();
@@ -1358,7 +1395,7 @@ LABEL_18:
 - (void)didKBMenuInteraction:(unint64_t)interaction selectedAction:(unint64_t)action newInputMode:(id)mode
 {
   modeCopy = mode;
-  v9 = sub_1D4620EF8();
+  v9 = sub_1D4620EF8(modeCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462D0F4();
@@ -1385,7 +1422,7 @@ LABEL_18:
 
 - (void)didKBMenuDismiss:(unint64_t)dismiss
 {
-  v5 = sub_1D4620EF8();
+  v5 = sub_1D4620EF8(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462D128();
@@ -1409,7 +1446,7 @@ LABEL_18:
 
 - (void)didDictationBegin:(BOOL)begin usesMultiModalDictation:(BOOL)dictation
 {
-  v7 = sub_1D461074C();
+  v7 = sub_1D461074C(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462D15C();
@@ -1435,7 +1472,7 @@ LABEL_18:
 
 - (void)didDictationEnd
 {
-  v3 = sub_1D461074C();
+  v3 = sub_1D461074C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462D190();
@@ -1472,7 +1509,7 @@ LABEL_18:
 
 - (void)didInsertionKeyPress
 {
-  v3 = sub_1D461074C();
+  v3 = sub_1D461074C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462D1C4();
@@ -1484,7 +1521,7 @@ LABEL_18:
 - (void)didInsertionKeyPressOfKey:(id)key withType:(int64_t)type
 {
   keyCopy = key;
-  v7 = sub_1D461074C();
+  v7 = sub_1D461074C(keyCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462D1F8();
@@ -1509,7 +1546,7 @@ LABEL_18:
 
 - (void)didDeletionKeyPress
 {
-  v3 = sub_1D461074C();
+  v3 = sub_1D461074C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462D298();
@@ -1521,7 +1558,7 @@ LABEL_18:
 - (void)didDeletionKeyPressOfKey:(id)key withType:(int64_t)type
 {
   keyCopy = key;
-  v7 = sub_1D461074C();
+  v7 = sub_1D461074C(keyCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_1D462D2CC();
@@ -1581,23 +1618,22 @@ LABEL_18:
   xpcClient = v7->_xpcClient;
   v7->_xpcClient = v14;
 
-  v16 = sub_1D461074C();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  v17 = sub_1D461074C(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    v19 = v7->_xpcClient;
-    v22 = objc_msgSend_server(v19, v20, v21);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    v20 = v7->_xpcClient;
+    v23 = objc_msgSend_server(v20, v21, v22);
     *buf = 138478339;
-    v27 = v18;
+    v27 = v19;
     v28 = 2048;
-    v29 = v19;
+    v29 = v20;
     v30 = 2048;
-    v31 = v22;
-    _os_log_impl(&dword_1D460F000, v16, OS_LOG_TYPE_INFO, "initialized new %{private}@ xpc client 0x%lx with server 0x%lx", buf, 0x20u);
+    v31 = v23;
+    _os_log_impl(&dword_1D460F000, v17, OS_LOG_TYPE_INFO, "initialized new %{private}@ xpc client 0x%lx with server 0x%lx", buf, 0x20u);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

@@ -88,7 +88,7 @@ LABEL_29:
           {
             v53 = v25;
             v59 = &v53;
-            *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&v13->_sparseData.__table_.__bucket_list_.__ptr_, &v53) + 5) = v26;
+            *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&v13->_sparseData.__table_.__bucket_list_.__ptr_, &v53, &std::piecewise_construct, &v59) + 5) = v26;
           }
         }
 
@@ -283,7 +283,7 @@ LABEL_30:
           else
           {
             v55 = &v50;
-            *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&self->_sparseData.__table_.__bucket_list_.__ptr_, &v50) + 5) = v37;
+            *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&self->_sparseData.__table_.__bucket_list_.__ptr_, &v50, &std::piecewise_construct, &v55) + 5) = v37;
           }
 
           size = self->_size;
@@ -571,6 +571,27 @@ LABEL_12:
   *(self + 1) = 0u;
   *(self + 18) = 1065353216;
   return self;
+}
+
+- (void)initWithTensorBefore:(uint64_t)a3 tensorAfter:(uint64_t)a4 withScale:(uint64_t)a5 shouldSparsify:(uint64_t)a6 error:(uint64_t)a7 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"unable to compute difference between two tensors of different shapes";
+  OUTLINED_FUNCTION_0_0(&dword_1B501D000, a1, a3, "%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)accumulateDifferenceBetweenTensorBefore:(uint64_t)a3 andTensorAfter:(uint64_t)a4 withScale:(uint64_t)a5 error:(uint64_t)a6 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"unable to accumulate difference of mismatch size";
+  OUTLINED_FUNCTION_0_0(&dword_1B501D000, a1, a3, "%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)applyToTensor:(uint64_t)a3 scale:(uint64_t)a4 error:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Unable to apply gradient to mismatch tensor";
+  OUTLINED_FUNCTION_0_0(&dword_1B501D000, a1, a3, "%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)applyToTensor:(uint64_t)a1 scale:(float *)a2 error:(NSObject *)a3 .cold.2(uint64_t a1, float *a2, NSObject *a3)

@@ -89,7 +89,7 @@
   sub_100AB06A0();
   if (v8)
   {
-    sub_1005B981C(&unk_1019F61D0);
+    sub_1005B981C(&unk_1019F61D0, qword_10146E9A0);
     v9 = swift_allocObject();
     *(v9 + 16) = xmmword_10146C6B0;
     static UTType.utf8PlainText.getter();
@@ -163,7 +163,7 @@ LABEL_9:
   type metadata accessor for CRLWPShapeItemData(0);
   v5 = *swift_dynamicCastClassUnconditional();
   (*(v5 + 896))();
-  sub_1005B981C(&unk_101A0D9C0);
+  sub_1005B981C(&unk_101A0D9C0, "@0$");
   CRRegister.wrappedValue.getter();
   sub_100AB78F8(v4, type metadata accessor for CRLWPShapeItemCRDTData);
   return *&v7[3];
@@ -172,14 +172,14 @@ LABEL_9:
 - (void)setTextInset:(float)inset
 {
   selfCopy = self;
-  if (sub_1011255D0(selfCopy))
+  if (sub_1011255D0())
   {
     type metadata accessor for CRLWPShapeItemData(0);
     v3 = *(*swift_dynamicCastClassUnconditional() + 912);
 
     v4 = v3(v6);
     type metadata accessor for CRLWPShapeItemCRDTData(0);
-    sub_1005B981C(&unk_101A0D9C0);
+    sub_1005B981C(&unk_101A0D9C0, "@0$");
     CRRegister.wrappedValue.setter();
     v4(v6, 0);
   }
@@ -203,7 +203,7 @@ LABEL_9:
 - (void)setVerticalAlignment:(int64_t)alignment
 {
   selfCopy = self;
-  sub_100AB2840();
+  sub_100AB2840(alignment);
 }
 
 - (BOOL)shrinkToFit
@@ -215,7 +215,7 @@ LABEL_9:
   v5 = *swift_dynamicCastClassUnconditional();
   (*(v5 + 896))();
   type metadata accessor for CRLWPShapeItemCRDTData.WPShapeStyleData(0);
-  sub_1005B981C(&qword_101A2C810);
+  sub_1005B981C(&qword_101A2C810, &unk_101480B50);
   CRRegister.wrappedValue.getter();
   sub_100AB78F8(v4, type metadata accessor for CRLWPShapeItemCRDTData);
   return v7[15];
@@ -224,7 +224,7 @@ LABEL_9:
 - (void)setShrinkToFit:(BOOL)fit
 {
   selfCopy = self;
-  if (sub_1011255D0(selfCopy))
+  if (sub_1011255D0())
   {
     type metadata accessor for CRLWPShapeItemData(0);
     v3 = *(*swift_dynamicCastClassUnconditional() + 912);
@@ -232,7 +232,7 @@ LABEL_9:
     v4 = v3(v6);
     type metadata accessor for CRLWPShapeItemCRDTData(0);
     type metadata accessor for CRLWPShapeItemCRDTData.WPShapeStyleData(0);
-    sub_1005B981C(&qword_101A2C810);
+    sub_1005B981C(&qword_101A2C810, &unk_101480B50);
     CRRegister.wrappedValue.setter();
     v4(v6, 0);
   }
@@ -356,14 +356,13 @@ LABEL_9:
   v2 = *&self->super.super.super._TtC8Freeform12CRLBoardItem_opaque[OBJC_IVAR____TtC8Freeform14CRLWPShapeItem_textStorage];
   if (v2)
   {
-    sub_1005B981C(&unk_1019F4D60);
     v3 = swift_allocObject();
     *(v3 + 16) = xmmword_101465920;
     *(v3 + 32) = v2;
   }
 
   v4 = v2;
-  sub_1005B981C(&qword_1019F5720);
+  sub_1005B981C(&qword_1019F5720, &unk_101474E20);
   v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v5.super.isa;
@@ -382,7 +381,7 @@ LABEL_9:
 {
   selfCopy = self;
   childInfos = [(CRLWPShapeItem *)selfCopy childInfos];
-  sub_1005B981C(&qword_1019F5720);
+  sub_1005B981C(&qword_1019F5720, &unk_101474E20);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   sub_1006410F4(v4);

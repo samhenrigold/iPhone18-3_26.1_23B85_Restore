@@ -1,10 +1,10 @@
 @interface NSString(CNUI)
 - (id)cnui_stringByTransliteratingToKanaAsName:()CNUI;
 - (id)cnui_stringByTransliteratingToPhoneticCharactersForProperty:()CNUI;
-- (uint64_t)cnui_firstUTF32Character;
-- (uint64_t)cnui_shouldTransliterateToLatin;
 - (uint64_t)cnui_shouldUseJapaneseTransliteration;
 - (uint64_t)cnui_shouldUseZhuyinTransliteration;
+- (void)cnui_firstUTF32Character;
+- (void)cnui_shouldTransliterateToLatin;
 @end
 
 @implementation NSString(CNUI)
@@ -76,7 +76,7 @@ LABEL_16:
   return v12;
 }
 
-- (uint64_t)cnui_shouldTransliterateToLatin
+- (void)cnui_shouldTransliterateToLatin
 {
   if (cnui_shouldTransliterateToLatin___onceToken != -1)
   {
@@ -87,7 +87,7 @@ LABEL_16:
   if (result)
   {
     [self cnui_firstUTF32Character];
-    return [cnui_shouldTransliterateToLatin___supportedScripts containsIndex:uscript_getScript()] ^ 1;
+    return ([cnui_shouldTransliterateToLatin___supportedScripts containsIndex:uscript_getScript()] ^ 1);
   }
 
   return result;
@@ -282,7 +282,7 @@ LABEL_13:
   return v10;
 }
 
-- (uint64_t)cnui_firstUTF32Character
+- (void)cnui_firstUTF32Character
 {
   result = [self length];
   if (result)

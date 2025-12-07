@@ -1,6 +1,7 @@
 @interface NEIKEv2AddressAttribute
 - (NEIKEv2AddressAttribute)initWithAddress:(id)address;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initCustomWithAttributeType:(unint64_t)type attributeName:(id)name addressValue:(id)value;
 - (unint64_t)attributeType;
 @end
@@ -17,6 +18,25 @@
   v9 = [v4 initCustomWithAttributeType:attributeType attributeName:attributeName addressValue:v8];
 
   return v9;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  attributeName = [(NEIKEv2ConfigurationAttribute *)self attributeName];
+  [v7 appendPrettyObject:attributeName withName:@"Name" andIndent:v5 options:options];
+
+  String = NEIKEv2AttributeTypeCreateString([(NEIKEv2AddressAttribute *)self attributeType]);
+  [v7 appendPrettyObject:String withName:@"Type" andIndent:v5 options:options];
+
+  typeDescription = [(NEIKEv2AddressAttribute *)self typeDescription];
+  [v7 appendPrettyObject:typeDescription withName:@"Payload Type" andIndent:v5 options:options];
+
+  address = [(NEIKEv2AddressAttribute *)self address];
+  [v7 appendPrettyObject:address withName:@"Address" andIndent:v5 options:options];
+
+  return v7;
 }
 
 - (unint64_t)attributeType

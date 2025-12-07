@@ -11,7 +11,7 @@
 
 - (CATBatchRemoteTaskOperation)initWithTaskClient:(id)client requests:(id)requests
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   requestsCopy = requests;
   if (!clientCopy)
@@ -20,41 +20,40 @@
   }
 
   v9 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v10 = requestsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v20;
+    v13 = *v19;
     do
     {
       v14 = 0;
       do
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [clientCopy prepareTaskOperationForRequest:{*(*(&v19 + 1) + 8 * v14), v19}];
+        v15 = [clientCopy prepareTaskOperationForRequest:{*(*(&v18 + 1) + 8 * v14), v18}];
         [v9 addObject:v15];
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v12);
   }
 
   v16 = [(CATBatchRemoteTaskOperation *)self initWithRemoteTaskOperations:v9];
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -98,47 +97,44 @@
 
 - (void)main
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [(CATOperation *)self setTotalUnitCount:[(NSArray *)self->mRemoteTasks count]];
   [(CATOperation *)self setCompletedUnitCount:0];
   if ([(NSArray *)self->mRemoteTasks count])
   {
-    v13 = 0u;
-    v14 = 0u;
     v11 = 0u;
     v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v3 = self->mRemoteTasks;
-    v4 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v4 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v12;
+      v6 = *v10;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v12 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v11 + 1) + 8 * i);
-          [v8 addTarget:self selector:sel_remoteTaskDidFinish_ forOperationEvents:{6, v11}];
+          v8 = *(*(&v9 + 1) + 8 * i);
+          [v8 addTarget:self selector:sel_remoteTaskDidFinish_ forOperationEvents:{6, v9}];
           [(NSOperationQueue *)self->mQueue addOperation:v8];
         }
 
-        v5 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v5);
     }
-
-    v9 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v10 = *MEMORY[0x277D85DE8];
 
     [(CATOperation *)self endOperationWithResultObject:0];
   }

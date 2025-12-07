@@ -65,7 +65,7 @@
   if (viewCopy)
   {
     value = viewCopy;
-    v5 = [(NSMutableSet *)self->_views containsObject:viewCopy];
+    v5 = objc_msgSend_containsObject_(self->_views, viewCopy, viewCopy);
     viewCopy = value;
     if ((v5 & 1) == 0)
     {

@@ -28,9 +28,11 @@ uint64_t __50__CSFVoiceTriggerEventInfoSelfLogger_sharedLogger__block_invoke()
   result = +[CSUtils isDarwinOS];
   if (result)
   {
-    sharedLogger_sharedInstance = objc_alloc_init(CSFVoiceTriggerEventInfoSelfLoggerDarwin);
+    v3 = objc_alloc_init(CSFVoiceTriggerEventInfoSelfLoggerDarwin);
+    v4 = sharedLogger_sharedInstance;
+    sharedLogger_sharedInstance = v3;
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v3, v4);
   }
 
   return result;

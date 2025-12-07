@@ -36,7 +36,9 @@
 - (void)setMinimumNumberOfPeers:(NSUInteger)minimumNumberOfPeers;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)verifyPeerIsAccountedFor:(id)for;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation MCBrowserViewController
@@ -184,41 +186,41 @@ LABEL_4:
 
 - (void)handleViewWillAppear
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [(NSMutableArray *)[(MCBrowserViewController *)self nearbyPeersSection] removeAllObjects];
   [(NSMutableArray *)[(MCBrowserViewController *)self invitedPeersSection] removeAllObjects];
   [(NSMutableDictionary *)[(MCBrowserViewController *)self invitedPeersState] removeAllObjects];
   [(NSMutableArray *)[(MCBrowserViewController *)self foundPeers] removeAllObjects];
   [(MCBrowserViewController *)self setDeclinedPeersCount:0];
   [(UIBarButtonItem *)[(MCBrowserViewController *)self doneButton] setEnabled:0];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   connectedPeers = [(MCSession *)self->_session connectedPeers];
-  v4 = [(NSArray *)connectedPeers countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSArray *)connectedPeers countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(connectedPeers);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
+        v8 = *(*(&v9 + 1) + 8 * v7);
         [(NSMutableArray *)[(MCBrowserViewController *)self invitedPeersSection] addObject:v8];
         [(MCBrowserViewController *)self peer:v8 changedStateTo:2];
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)connectedPeers countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSArray *)connectedPeers countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
@@ -226,7 +228,14 @@ LABEL_4:
 
   [(UITableView *)[(MCBrowserViewController *)self tableView] reloadData];
   [(MCNearbyServiceBrowser *)[(MCBrowserViewController *)self browser] startBrowsingForPeers];
-  v9 = *MEMORY[0x277D85DE8];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = MCBrowserViewController;
+  [(MCBrowserViewController *)&v4 viewWillAppear:appear];
+  [(MCBrowserViewController *)self handleViewWillAppear];
 }
 
 - (void)handleViewDidDisappear
@@ -234,6 +243,15 @@ LABEL_4:
   browser = [(MCBrowserViewController *)self browser];
 
   [(MCNearbyServiceBrowser *)browser stopBrowsingForPeers];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(MCBrowserViewController *)self handleViewDidDisappear];
+  v5.receiver = self;
+  v5.super_class = MCBrowserViewController;
+  [(MCBrowserViewController *)&v5 viewDidDisappear:disappearCopy];
 }
 
 - (void)didReceiveMemoryWarning
@@ -289,19 +307,28 @@ LABEL_4:
 
 - (void)peer:(id)peer changedStateTo:(int)to
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (to <= 1)
   {
     if (to)
     {
       if (to != 1)
       {
-        goto LABEL_22;
+LABEL_22:
+        v15 = mcbrowser_ui_log(self, a2);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        {
+          v16[0] = 67109120;
+          v16[1] = to;
+          _os_log_impl(&dword_239FB7000, v15, OS_LOG_TYPE_DEFAULT, "Unknown peer state [%d].", v16, 8u);
+        }
+
+        return;
       }
 
       invitedPeersState = [(MCBrowserViewController *)self invitedPeersState];
-      v10 = MEMORY[0x277CCABB0];
-      v11 = 1;
+      v9 = MEMORY[0x277CCABB0];
+      v10 = 1;
     }
 
     else
@@ -309,14 +336,13 @@ LABEL_4:
       [(NSMutableArray *)[(MCBrowserViewController *)self nearbyPeersSection] removeObject:peer];
       [(NSMutableArray *)[(MCBrowserViewController *)self invitedPeersSection] addObject:peer];
       invitedPeersState = [(MCBrowserViewController *)self invitedPeersState];
-      v10 = MEMORY[0x277CCABB0];
-      v11 = 0;
+      v9 = MEMORY[0x277CCABB0];
+      v10 = 0;
     }
 
-    v17 = [v10 numberWithInteger:v11];
-    v18 = *MEMORY[0x277D85DE8];
+    v14 = [v9 numberWithInteger:v10];
 
-    [(NSMutableDictionary *)invitedPeersState setObject:v17 forKey:peer];
+    [(NSMutableDictionary *)invitedPeersState setObject:v14 forKey:peer];
   }
 
   else
@@ -326,17 +352,15 @@ LABEL_4:
       case 2:
         invitedPeersState2 = [(MCBrowserViewController *)self invitedPeersState];
         -[NSMutableDictionary setObject:forKey:](invitedPeersState2, "setObject:forKey:", [MEMORY[0x277CCABB0] numberWithInteger:2], peer);
-        v13 = *MEMORY[0x277D85DE8];
 
         [(MCBrowserViewController *)self peerJoinedSession];
         break;
       case 3:
         invitedPeersState3 = [(MCBrowserViewController *)self invitedPeersState];
         -[NSMutableDictionary setObject:forKey:](invitedPeersState3, "setObject:forKey:", [MEMORY[0x277CCABB0] numberWithInteger:3], peer);
-        declinedPeersCount = [(MCBrowserViewController *)self declinedPeersCount];
-        v16 = *MEMORY[0x277D85DE8];
+        v13 = [(MCBrowserViewController *)self declinedPeersCount]+ 1;
 
-        [(MCBrowserViewController *)self setDeclinedPeersCount:declinedPeersCount + 1];
+        [(MCBrowserViewController *)self setDeclinedPeersCount:v13];
         break;
       case 4:
         [(NSMutableArray *)[(MCBrowserViewController *)self invitedPeersSection] removeObject:peer];
@@ -344,26 +368,13 @@ LABEL_4:
         if ([(NSMutableArray *)[(MCBrowserViewController *)self foundPeers] containsObject:peer])
         {
           nearbyPeersSection = [(MCBrowserViewController *)self nearbyPeersSection];
-          v8 = *MEMORY[0x277D85DE8];
 
           [(NSMutableArray *)nearbyPeersSection addObject:peer];
-          return;
         }
 
-LABEL_24:
-        v20 = *MEMORY[0x277D85DE8];
         return;
       default:
-LABEL_22:
-        v19 = mcbrowser_ui_log();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
-        {
-          v21[0] = 67109120;
-          v21[1] = to;
-          _os_log_impl(&dword_239FB7000, v19, OS_LOG_TYPE_DEFAULT, "Unknown peer state [%d].", v21, 8u);
-        }
-
-        goto LABEL_24;
+        goto LABEL_22;
     }
   }
 }
@@ -633,62 +644,61 @@ LABEL_7:
 
 void __63__MCBrowserViewController_browser_foundPeer_withDiscoveryInfo___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   [objc_msgSend(*(a1 + 32) "foundPeers")];
-  if ([objc_msgSend(*(a1 + 32) "nearbyPeersSection")])
+  v2 = [objc_msgSend(*(a1 + 32) "nearbyPeersSection")];
+  if (v2)
   {
-    v2 = mcbrowser_ui_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v4 = mcbrowser_ui_log(v2, v3);
+    if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [*(a1 + 40) displayName];
-      *buf = 138412290;
-      v16 = v3;
-      v4 = "Found Peer [%@] - peer already previously discovered?";
+      return;
+    }
+
+    v5 = [*(a1 + 40) displayName];
+    *buf = 138412290;
+    v19 = v5;
+    v6 = "Found Peer [%@] - peer already previously discovered?";
 LABEL_7:
-      _os_log_impl(&dword_239FB7000, v2, OS_LOG_TYPE_DEFAULT, v4, buf, 0xCu);
-    }
+    _os_log_impl(&dword_239FB7000, v4, OS_LOG_TYPE_DEFAULT, v6, buf, 0xCu);
+    return;
   }
 
-  else
+  v7 = [objc_msgSend(objc_msgSend(*(a1 + 32) "session")];
+  v8 = v7;
+  v4 = mcbrowser_ui_log(v7, v9);
+  v10 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v8)
   {
-    v5 = [objc_msgSend(objc_msgSend(*(a1 + 32) "session")];
-    v2 = mcbrowser_ui_log();
-    v6 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
-    if (v5)
+    if (!v10)
     {
-      if (v6)
-      {
-        v7 = [*(a1 + 40) displayName];
-        *buf = 138412290;
-        v16 = v7;
-        v4 = "Found Peer [%@] - peer already connected.";
-        goto LABEL_7;
-      }
+      return;
     }
 
-    else
-    {
-      if (v6)
-      {
-        v8 = [*(a1 + 40) displayName];
-        *buf = 138412290;
-        v16 = v8;
-        _os_log_impl(&dword_239FB7000, v2, OS_LOG_TYPE_DEFAULT, "Found Peer [%@].", buf, 0xCu);
-      }
-
-      v9 = *(a1 + 32);
-      v10 = *(*(a1 + 32) + 1120);
-      block[0] = MEMORY[0x277D85DD0];
-      block[1] = 3221225472;
-      block[2] = __63__MCBrowserViewController_browser_foundPeer_withDiscoveryInfo___block_invoke_83;
-      block[3] = &unk_278B43C88;
-      v13 = v9;
-      v14 = *(a1 + 48);
-      dispatch_async(v10, block);
-    }
+    v11 = [*(a1 + 40) displayName];
+    *buf = 138412290;
+    v19 = v11;
+    v6 = "Found Peer [%@] - peer already connected.";
+    goto LABEL_7;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  if (v10)
+  {
+    v12 = [*(a1 + 40) displayName];
+    *buf = 138412290;
+    v19 = v12;
+    _os_log_impl(&dword_239FB7000, v4, OS_LOG_TYPE_DEFAULT, "Found Peer [%@].", buf, 0xCu);
+  }
+
+  v13 = *(a1 + 32);
+  v14 = *(*(a1 + 32) + 1120);
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __63__MCBrowserViewController_browser_foundPeer_withDiscoveryInfo___block_invoke_83;
+  block[3] = &unk_278B43C88;
+  v16 = v13;
+  v17 = *(a1 + 48);
+  dispatch_async(v14, block);
 }
 
 void __63__MCBrowserViewController_browser_foundPeer_withDiscoveryInfo___block_invoke_83(uint64_t a1)
@@ -726,38 +736,37 @@ uint64_t __63__MCBrowserViewController_browser_foundPeer_withDiscoveryInfo___blo
 
 void __44__MCBrowserViewController_browser_lostPeer___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   [objc_msgSend(*(a1 + 32) "foundPeers")];
-  if ([objc_msgSend(*(a1 + 32) "nearbyPeersSection")])
+  v2 = [objc_msgSend(*(a1 + 32) "nearbyPeersSection")];
+  if (v2)
   {
-    v2 = mcbrowser_ui_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v4 = mcbrowser_ui_log(v2, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [*(a1 + 40) displayName];
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&dword_239FB7000, v2, OS_LOG_TYPE_DEFAULT, "Removing peer [%@] from tableView.", &v7, 0xCu);
+      v5 = [*(a1 + 40) displayName];
+      v8 = 138412290;
+      v9 = v5;
+      _os_log_impl(&dword_239FB7000, v4, OS_LOG_TYPE_DEFAULT, "Removing peer [%@] from tableView.", &v8, 0xCu);
     }
 
     [objc_msgSend(*(a1 + 32) "nearbyPeersSection")];
-    [objc_msgSend(*(a1 + 32) "tableView")];
+    v2 = [objc_msgSend(*(a1 + 32) "tableView")];
   }
 
-  v4 = mcbrowser_ui_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v6 = mcbrowser_ui_log(v2, v3);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = [*(a1 + 40) displayName];
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_239FB7000, v4, OS_LOG_TYPE_DEFAULT, "Lost Peer [%@].", &v7, 0xCu);
+    v7 = [*(a1 + 40) displayName];
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_239FB7000, v6, OS_LOG_TYPE_DEFAULT, "Lost Peer [%@].", &v8, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)session:(id)session didReceiveData:(id)data fromPeer:(id)peer propagate:(BOOL *)propagate
 {
-  v6 = mcbrowser_ui_log();
+  v6 = mcbrowser_ui_log(self, a2);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [MCBrowserViewController session:didReceiveData:fromPeer:propagate:];
@@ -766,14 +775,14 @@ void __44__MCBrowserViewController_browser_lostPeer___block_invoke(uint64_t a1)
 
 - (void)session:(id)session peer:(id)peer didChangeState:(int64_t)state propagate:(BOOL *)propagate
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v9 = mcbrowser_ui_log();
+  v15 = *MEMORY[0x277D85DE8];
+  v9 = mcbrowser_ui_log(self, a2);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     displayName = [peer displayName];
-    v14 = 2112;
-    v15 = [MCSession stringForSessionState:state];
+    v13 = 2112;
+    v14 = [MCSession stringForSessionState:state];
     _os_log_impl(&dword_239FB7000, v9, OS_LOG_TYPE_DEFAULT, "Peer [%@] changed state to [%@].", buf, 0x16u);
   }
 
@@ -785,7 +794,6 @@ void __44__MCBrowserViewController_browser_lostPeer___block_invoke(uint64_t a1)
   block[6] = state;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __65__MCBrowserViewController_session_peer_didChangeState_propagate___block_invoke(uint64_t a1)
@@ -819,10 +827,10 @@ LABEL_12:
     v6 = [objc_msgSend(*(a1 + 32) "invitedPeersState")];
     if (v6)
     {
-      v7 = [v6 integerValue];
+      v8 = [v6 integerValue];
       v3 = *(a1 + 32);
       v4 = *(a1 + 40);
-      if (v7)
+      if (v8)
       {
         v5 = 4;
       }
@@ -835,24 +843,22 @@ LABEL_12:
       goto LABEL_12;
     }
 
-    v8 = mcbrowser_ui_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = mcbrowser_ui_log(0, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [*(a1 + 40) displayName];
+      v10 = [*(a1 + 40) displayName];
       v12 = 138412290;
-      v13 = v9;
-      _os_log_impl(&dword_239FB7000, v8, OS_LOG_TYPE_DEFAULT, "Peer [%@] disconnected but was not in 'invitees' section.", &v12, 0xCu);
+      v13 = v10;
+      _os_log_impl(&dword_239FB7000, v9, OS_LOG_TYPE_DEFAULT, "Peer [%@] disconnected but was not in 'invitees' section.", &v12, 0xCu);
     }
   }
 
-  result = [objc_msgSend(*(a1 + 32) "tableView")];
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return [objc_msgSend(*(a1 + 32) "tableView")];
 }
 
 - (void)session:(id)session didReceiveStream:(id)stream withName:(id)name fromPeer:(id)peer propagate:(BOOL *)propagate
 {
-  v7 = mcbrowser_ui_log();
+  v7 = mcbrowser_ui_log(self, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [MCBrowserViewController session:didReceiveData:fromPeer:propagate:];
@@ -861,7 +867,7 @@ LABEL_12:
 
 - (void)session:(id)session didStartReceivingResourceWithName:(id)name fromPeer:(id)peer withProgress:(id)progress propagate:(BOOL *)propagate
 {
-  v7 = mcbrowser_ui_log();
+  v7 = mcbrowser_ui_log(self, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [MCBrowserViewController session:didReceiveData:fromPeer:propagate:];
@@ -870,7 +876,7 @@ LABEL_12:
 
 - (void)session:(id)session didFinishReceivingResourceWithName:(id)name fromPeer:(id)peer atURL:(id)l withError:(id)error propagate:(BOOL *)propagate
 {
-  v8 = mcbrowser_ui_log();
+  v8 = mcbrowser_ui_log(self, a2);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [MCBrowserViewController session:didReceiveData:fromPeer:propagate:];

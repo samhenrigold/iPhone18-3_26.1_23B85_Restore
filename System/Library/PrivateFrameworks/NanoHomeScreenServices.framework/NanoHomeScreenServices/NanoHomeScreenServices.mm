@@ -1,13 +1,13 @@
-id NHSSLogDefault()
+id NHSSLogDefault(uint64_t a1)
 {
   if (NHSSLogDefault_onceToken != -1)
   {
     NHSSLogDefault_cold_1();
   }
 
-  v1 = NHSSLogDefault___logObj;
+  v2 = NHSSLogDefault___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __NHSSLogDefault_block_invoke()
@@ -17,7 +17,7 @@ uint64_t __NHSSLogDefault_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-uint64_t _NHSSPrivacyDefaultsMicrophonePermissionFromNumber(void *a1)
+void *_NHSSPrivacyDefaultsMicrophonePermissionFromNumber(void *a1)
 {
   result = [a1 integerValue];
   v2 = 1970168948;
@@ -48,10 +48,11 @@ void sub_25B175E64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 uint64_t sub_25B176178()
@@ -87,21 +88,20 @@ uint64_t NHSSSmartStackSuggestionDefaults.soundDetectionButtonUnmuteDate.getter@
   return v9(a1, v7, 1, v8);
 }
 
-uint64_t sub_25B176320(uint64_t a1, uint64_t *a2)
+uint64_t sub_25B176320(uint64_t a1)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FA3E940, &qword_25B177BC8) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v6 = &v9 - v5;
-  sub_25B17659C(a1, &v9 - v5);
-  v7 = *a2;
-  return NHSSSmartStackSuggestionDefaults.soundDetectionButtonUnmuteDate.setter(v6);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FA3E940, &qword_25B177BC8);
+  MEMORY[0x28223BE20](v2 - 8);
+  v4 = &v6 - v3;
+  sub_25B17659C(a1, &v6 - v3);
+  return NHSSSmartStackSuggestionDefaults.soundDetectionButtonUnmuteDate.setter(v4);
 }
 
 uint64_t NHSSSmartStackSuggestionDefaults.soundDetectionButtonUnmuteDate.setter(uint64_t a1)
 {
   v2 = v1;
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FA3E940, &qword_25B177BC8) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FA3E940, &qword_25B177BC8);
+  MEMORY[0x28223BE20](v4 - 8);
   v6 = &v14 - v5;
   sub_25B17659C(a1, &v14 - v5);
   v7 = sub_25B177188();
@@ -126,7 +126,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -148,7 +147,7 @@ uint64_t sub_25B17660C(uint64_t a1)
   return a1;
 }
 
-void (*NHSSSmartStackSuggestionDefaults.soundDetectionButtonUnmuteDate.modify(void *a1))(uint64_t *a1, char a2)
+void (*NHSSSmartStackSuggestionDefaults.soundDetectionButtonUnmuteDate.modify(void *a1))(uint64_t a1, char a2)
 {
   *a1 = v1;
   v3 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FA3E940, &qword_25B177BC8) - 8) + 64);
@@ -169,11 +168,10 @@ void (*NHSSSmartStackSuggestionDefaults.soundDetectionButtonUnmuteDate.modify(vo
   return sub_25B176730;
 }
 
-void sub_25B176730(uint64_t *a1, char a2)
+void sub_25B176730(uint64_t a1, char a2)
 {
-  v2 = a1[1];
-  v3 = a1[2];
-  v4 = *a1;
+  v2 = *(a1 + 8);
+  v3 = *(a1 + 16);
   if (a2)
   {
     sub_25B17659C(v3, v2);
@@ -194,20 +192,19 @@ void sub_25B176730(uint64_t *a1, char a2)
 Swift::Void __swiftcall NHSSSmartStackSuggestionDefaults.muteSoundDetectionPermissionPrompt()()
 {
   v1 = v0;
-  v2 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FA3E940, &qword_25B177BC8) - 8) + 64);
-  v3 = (MEMORY[0x28223BE20])();
-  v5 = &v31 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FA3E940, &qword_25B177BC8);
+  v3 = MEMORY[0x28223BE20](v2 - 8);
+  v5 = &v30 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v3);
-  v7 = &v31 - v6;
+  v7 = &v30 - v6;
   v8 = sub_25B177188();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x28223BE20](v8);
-  v13 = &v31 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = MEMORY[0x28223BE20](v11);
-  v16 = &v31 - v15;
-  MEMORY[0x28223BE20](v14);
-  v18 = &v31 - v17;
+  v10 = MEMORY[0x28223BE20](v8);
+  v12 = &v30 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = MEMORY[0x28223BE20](v10);
+  v15 = &v30 - v14;
+  MEMORY[0x28223BE20](v13);
+  v17 = &v30 - v16;
   if ([v1 soundDetectionButtonDismissedOnce])
   {
     sub_25B177128();
@@ -217,13 +214,13 @@ Swift::Void __swiftcall NHSSSmartStackSuggestionDefaults.muteSoundDetectionPermi
 
   else
   {
-    v32 = v18;
+    v31 = v17;
     NHSSSmartStackSuggestionDefaults.soundDetectionButtonUnmuteDate.getter(v7);
-    v19 = *(v9 + 48);
-    if (v19(v7, 1, v8) == 1)
+    v18 = *(v9 + 48);
+    if (v18(v7, 1, v8) == 1)
     {
       sub_25B177118();
-      if (v19(v7, 1, v8) != 1)
+      if (v18(v7, 1, v8) != 1)
       {
         sub_25B17660C(v7);
       }
@@ -231,47 +228,47 @@ Swift::Void __swiftcall NHSSSmartStackSuggestionDefaults.muteSoundDetectionPermi
 
     else
     {
-      (*(v9 + 32))(v32, v7, v8);
+      (*(v9 + 32))(v31, v7, v8);
     }
 
     [v1 defaultMuteForTodayDuration];
     sub_25B177178();
     sub_25B177138();
-    v20 = *(v9 + 8);
-    v20(v13, v8);
+    v19 = *(v9 + 8);
+    v19(v12, v8);
     if (sub_25B177158())
     {
-      v31 = v20;
-      v21 = [v1 soundDetectionButtonDismissedOnce];
+      v30 = v19;
+      v20 = [v1 soundDetectionButtonDismissedOnce];
       if (qword_27FA3E920 != -1)
       {
         swift_once();
       }
 
-      v22 = sub_25B1771B8();
-      __swift_project_value_buffer(v22, qword_27FA3E928);
-      v23 = sub_25B177198();
-      v24 = sub_25B1771E8();
-      if (os_log_type_enabled(v23, v24))
+      v21 = sub_25B1771B8();
+      __swift_project_value_buffer(v21, qword_27FA3E928);
+      v22 = sub_25B177198();
+      v23 = sub_25B1771E8();
+      if (os_log_type_enabled(v22, v23))
       {
-        v25 = swift_slowAlloc();
-        *v25 = 67240192;
-        *(v25 + 4) = v21;
-        _os_log_impl(&dword_25B171000, v23, v24, "User is muting permission prompt. Has already dismissed once? %{BOOL,public}d.", v25, 8u);
-        MEMORY[0x25F863190](v25, -1, -1);
+        v24 = swift_slowAlloc();
+        *v24 = 67240192;
+        *(v24 + 4) = v20;
+        _os_log_impl(&dword_25B171000, v22, v23, "User is muting permission prompt. Has already dismissed once? %{BOOL,public}d.", v24, 8u);
+        MEMORY[0x25F863190](v24, -1, -1);
       }
 
-      if ((v21 & 1) == 0)
+      if ((v20 & 1) == 0)
       {
         [v1 setSoundDetectionButtonDismissedOnce_];
       }
 
-      (*(v9 + 16))(v5, v16, v8);
+      (*(v9 + 16))(v5, v15, v8);
       (*(v9 + 56))(v5, 0, 1, v8);
       NHSSSmartStackSuggestionDefaults.soundDetectionButtonUnmuteDate.setter(v5);
-      v26 = v31;
-      v31(v16, v8);
-      v26(v32, v8);
+      v25 = v30;
+      v30(v15, v8);
+      v25(v31, v8);
     }
 
     else
@@ -281,20 +278,20 @@ Swift::Void __swiftcall NHSSSmartStackSuggestionDefaults.muteSoundDetectionPermi
         swift_once();
       }
 
-      v27 = sub_25B1771B8();
-      __swift_project_value_buffer(v27, qword_27FA3E928);
-      v28 = sub_25B177198();
-      v29 = sub_25B1771D8();
-      if (os_log_type_enabled(v28, v29))
+      v26 = sub_25B1771B8();
+      __swift_project_value_buffer(v26, qword_27FA3E928);
+      v27 = sub_25B177198();
+      v28 = sub_25B1771D8();
+      if (os_log_type_enabled(v27, v28))
       {
-        v30 = swift_slowAlloc();
-        *v30 = 0;
-        _os_log_impl(&dword_25B171000, v28, v29, "Existing unmute date is after proposed unmute date; keep existing unmute date.", v30, 2u);
-        MEMORY[0x25F863190](v30, -1, -1);
+        v29 = swift_slowAlloc();
+        *v29 = 0;
+        _os_log_impl(&dword_25B171000, v27, v28, "Existing unmute date is after proposed unmute date; keep existing unmute date.", v29, 2u);
+        MEMORY[0x25F863190](v29, -1, -1);
       }
 
-      v20(v16, v8);
-      v20(v32, v8);
+      v19(v15, v8);
+      v19(v31, v8);
     }
   }
 }
@@ -311,14 +308,11 @@ uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;

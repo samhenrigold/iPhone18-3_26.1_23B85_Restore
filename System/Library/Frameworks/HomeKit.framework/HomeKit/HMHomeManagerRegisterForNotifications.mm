@@ -5,7 +5,7 @@
 
 void ____HMHomeManagerRegisterForNotifications_block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -20,17 +20,15 @@ void ____HMHomeManagerRegisterForNotifications_block_invoke(uint64_t a1)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Refreshing config from HomeKit daemon", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Refreshing config from HomeKit daemon", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
     [v6 _setShouldConnectToDaemon];
     [v6 _fetchHomeConfigurationWithRefreshRequested:1];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

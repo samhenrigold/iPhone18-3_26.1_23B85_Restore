@@ -119,7 +119,7 @@
   v7 = sub_757640();
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
-  v10 = &v15[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v10 = &v15[-1] - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_757590();
   cellCopy = cell;
   selfCopy = self;
@@ -127,7 +127,7 @@
   if (imageView)
   {
     v14 = imageView;
-    sub_BE70(0, &qword_949D90);
+    sub_BE70(0, &qword_949D90, UIImageView_ptr);
     sub_41ADDC();
     sub_76A6E0();
     sub_75A0B0();

@@ -49,16 +49,16 @@
     v4 = &stru_2872E16E0;
   }
 
-  duration = [(PMRSplitTime *)self duration];
+  v5 = objc_msgSend_duration(self);
   v6 = MEMORY[0x277CCACA8];
-  if (duration)
+  if (v5)
   {
     v13.receiver = self;
     v13.super_class = PMRSplitTime;
     v7 = [(PMRSplitTime *)&v13 description];
     key = self->_key;
-    duration2 = [(PMRSplitTime *)self duration];
-    return [v6 stringWithFormat:@"%@ key: %@, duration: %.3f, splitTimes=%li, comment: %@", v7, key, (duration2 * (info.numer / info.denom)) / 1000000000.0, -[NSMutableArray count](self->_splitTimes, "count"), v4];
+    v9 = objc_msgSend_duration(self);
+    return [v6 stringWithFormat:@"%@ key: %@, duration: %.3f, splitTimes=%li, comment: %@", v7, key, (v9 * (info.numer / info.denom)) / 1000000000.0, -[NSMutableArray count](self->_splitTimes, "count"), v4];
   }
 
   else

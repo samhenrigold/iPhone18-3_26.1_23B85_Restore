@@ -71,14 +71,12 @@
 
 - (NSArray)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   keyPath = [(HMImmutableSetting *)self keyPath];
   v5 = [v3 initWithName:@"keyPath" value:keyPath];
-  v9[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
 
   return v6;
 }
@@ -92,7 +90,7 @@
 
 - (HMImmutableSetting)initWithProtoPayload:(id)payload
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   if (![payloadCopy hasSettingChangeEvent])
   {
@@ -122,10 +120,10 @@ LABEL_14:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v10;
-      v17 = 2112;
-      v18 = payloadCopy;
+      v14 = 138543618;
+      v15 = v10;
+      v16 = 2112;
+      v17 = payloadCopy;
       v11 = "%{public}@Failed to decode setting due to unknown setting event in protopayload: %@";
       goto LABEL_16;
     }
@@ -158,13 +156,13 @@ LABEL_21:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     v10 = HMFGetLogIdentifier();
-    v15 = 138543618;
-    v16 = v10;
-    v17 = 2112;
-    v18 = payloadCopy;
+    v14 = 138543618;
+    v15 = v10;
+    v16 = 2112;
+    v17 = payloadCopy;
     v11 = "%{public}@Setting event is not set in protopayload: %@";
 LABEL_16:
-    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_ERROR, v11, &v15, 0x16u);
+    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_ERROR, v11, &v14, 0x16u);
   }
 
 LABEL_17:
@@ -174,7 +172,6 @@ LABEL_18:
   v12 = 0;
 LABEL_22:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -191,15 +188,15 @@ LABEL_22:
 
 - (HMImmutableSetting)initWithPayload:(id)payload
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
-  v22 = 0;
-  v5 = [payloadCopy hmf_integerForKey:@"HMImmutableSettingTypePayloadKey" error:&v22];
-  v6 = v22;
+  v21 = 0;
+  v5 = [payloadCopy hmf_integerForKey:@"HMImmutableSettingTypePayloadKey" error:&v21];
+  v6 = v21;
   v7 = [payloadCopy hmf_stringForKey:@"HMImmutableSettingKeyPathPayloadKey"];
-  v21 = v6;
-  v8 = [payloadCopy hmf_BOOLForKey:@"HMImmutableSettingReadOnlyPayloadKey" error:&v21];
-  v9 = v21;
+  v20 = v6;
+  v8 = [payloadCopy hmf_BOOLForKey:@"HMImmutableSettingReadOnlyPayloadKey" error:&v20];
+  v9 = v20;
 
   if (v9 || !v7)
   {
@@ -210,9 +207,9 @@ LABEL_22:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v13;
-      v25 = 2112;
-      v26 = payloadCopy;
+      v23 = v13;
+      v24 = 2112;
+      v25 = payloadCopy;
       _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode setting payload: %@", buf, 0x16u);
     }
   }
@@ -278,11 +275,11 @@ LABEL_25:
       v17 = HMFGetLogIdentifier();
       v18 = HMImmutableSettingTypeAsString(v5);
       *buf = 138543874;
-      v24 = v17;
-      v25 = 2112;
-      v26 = v18;
-      v27 = 2112;
-      v28 = payloadCopy;
+      v23 = v17;
+      v24 = 2112;
+      v25 = v18;
+      v26 = 2112;
+      v27 = payloadCopy;
       _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode setting due to unknown value type: %@ in payload: %@", buf, 0x20u);
     }
   }
@@ -291,24 +288,21 @@ LABEL_25:
   v14 = 0;
 LABEL_27:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (id)payloadCopy
 {
-  v9[3] = *MEMORY[0x1E69E9840];
-  v9[0] = &unk_1F0EFD250;
-  v8[0] = @"HMImmutableSettingTypePayloadKey";
-  v8[1] = @"HMImmutableSettingKeyPathPayloadKey";
+  v8[3] = *MEMORY[0x1E69E9840];
+  v8[0] = &unk_1F0EFD250;
+  v7[0] = @"HMImmutableSettingTypePayloadKey";
+  v7[1] = @"HMImmutableSettingKeyPathPayloadKey";
   keyPath = [(HMImmutableSetting *)self keyPath];
-  v9[1] = keyPath;
-  v8[2] = @"HMImmutableSettingReadOnlyPayloadKey";
+  v8[1] = keyPath;
+  v7[2] = @"HMImmutableSettingReadOnlyPayloadKey";
   v4 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMImmutableSetting isReadOnly](self, "isReadOnly")}];
-  v9[2] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[2] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   return v5;
 }

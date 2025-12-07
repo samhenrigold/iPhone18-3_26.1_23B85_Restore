@@ -24,11 +24,12 @@
   v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC17SequoiaTranslator19FavoritesHeaderView_buttonAction);
   if (v2)
   {
+    v3 = *&self->label[OBJC_IVAR____TtC17SequoiaTranslator19FavoritesHeaderView_buttonAction];
     selfCopy = self;
-    v4 = sub_10001AD18(v2);
-    v2(v4);
+    v5 = sub_10001AD18(v2, v3);
+    v2(v5);
 
-    sub_10001ABE4(v2);
+    sub_10001ABE4(v2, v3);
   }
 }
 

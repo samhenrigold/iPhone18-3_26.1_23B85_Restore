@@ -11,7 +11,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_29D69F6F4();
+  sub_29D69F6F4(v2);
 }
 
 - (void)hxui_primaryFooterButtonTapped
@@ -28,12 +28,10 @@
 
 - (void)hxui_cancelButtonTapped
 {
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong)
+  if (swift_unknownObjectWeakLoadStrong())
   {
-    v4 = Strong;
     selfCopy = self;
-    sub_29D77C72C(v4);
+    sub_29D77C72C();
     sub_29D936978();
   }
 }

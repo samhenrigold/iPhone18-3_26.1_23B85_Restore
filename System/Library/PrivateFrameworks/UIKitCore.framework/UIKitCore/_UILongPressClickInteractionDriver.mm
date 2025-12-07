@@ -216,7 +216,7 @@
   {
     v8 = _UIInternalPreferenceUsesDefault_1(&unk_1ED48ABB0, @"LongPressClickInteractionDriverClickDownDurationShortAX");
     result = *&qword_1ED48ABB8;
-    v6 = v8 == 0;
+    v6 = !v8;
     v7 = 0.3;
   }
 
@@ -245,7 +245,7 @@
     {
       v13 = _UIInternalPreferenceUsesDefault_1(&unk_1ED48AB80, @"LongPressClickInteractionDriverClickDownDurationPad");
       result = *&qword_1ED48AB88;
-      v6 = v13 == 0;
+      v6 = !v13;
       v7 = 0.325;
     }
 
@@ -254,7 +254,7 @@
 LABEL_11:
       v14 = _UIInternalPreferenceUsesDefault_1(&_MergedGlobals_928, @"LongPressClickInteractionDriverClickDownDuration");
       result = *&qword_1ED48AB78;
-      v6 = v14 == 0;
+      v6 = !v14;
       v7 = 0.4;
     }
   }
@@ -263,7 +263,7 @@ LABEL_11:
   {
     v4 = _UIInternalPreferenceUsesDefault_1(&unk_1ED48ABA0, @"LongPressClickInteractionDriverClickDownDurationAX");
     result = *&qword_1ED48ABA8;
-    v6 = v4 == 0;
+    v6 = !v4;
     v7 = 0.5;
   }
 
@@ -284,7 +284,7 @@ LABEL_11:
     {
       v7 = _UIInternalPreferenceUsesDefault_1(&unk_1ED48AB90, @"LongPressClickInteractionDriverClickTimeoutDuration");
       result = *&qword_1ED48AB98;
-      v5 = v7 == 0;
+      v5 = !v7;
       v6 = 0.725;
     }
 
@@ -297,7 +297,7 @@ LABEL_11:
 
       v4 = _UIInternalPreferenceUsesDefault_1(&unk_1ED48ABD0, @"LongPressClickInteractionDriverClickTimeoutDurationShortAX");
       result = *&qword_1ED48ABD8;
-      v5 = v4 == 0;
+      v5 = !v4;
       v6 = 0.3;
     }
   }
@@ -306,7 +306,7 @@ LABEL_11:
   {
     v8 = _UIInternalPreferenceUsesDefault_1(&unk_1ED48ABC0, @"LongPressClickInteractionDriverClickTimeoutDurationAX");
     result = *&qword_1ED48ABC8;
-    v5 = v8 == 0;
+    v5 = !v8;
     v6 = 1.1;
   }
 
@@ -579,9 +579,9 @@ LABEL_37:
 
   name = [gestureRecognizerCopy name];
   name2 = [recognizerCopy name];
-  v12 = [name isEqualToString:name2];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
 
-  if (v12)
+  if (isEqualToString)
   {
     view = [recognizerCopy view];
     view2 = [gestureRecognizerCopy view];

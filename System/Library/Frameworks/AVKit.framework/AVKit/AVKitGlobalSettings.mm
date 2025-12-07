@@ -195,10 +195,10 @@ uint64_t __49__AVKitGlobalSettings_setSharedSetting_toString___block_invoke(uint
 + (uint64_t)_isTVApp
 {
   objc_opt_self();
-  v0 = AVApplicationIdentifier();
-  v1 = [v0 isEqualToString:@"com.apple.tv"];
+  v1 = AVApplicationIdentifier();
+  v2 = [v1 isEqualToString:@"com.apple.tv"];
 
-  return v1;
+  return v2;
 }
 
 - (void)setDisplayingCaptionsOnSkipBack:(BOOL)back
@@ -246,7 +246,7 @@ uint64_t __49__AVKitGlobalSettings_setSharedSetting_toString___block_invoke(uint
         v8 = @"NO";
       }
 
-      [(AVKitGlobalSettings *)self setSharedSetting:@"isDisplayingCaptionsOnSkipBack" toString:v8, *v9, *&v9[16]];
+      [(AVKitGlobalSettings *)self setSharedSetting:@"isDisplayingCaptionsOnSkipBack" toString:v8, *v9, *&v9[8]];
     }
   }
 }
@@ -414,191 +414,191 @@ uint64_t __49__AVKitGlobalSettings_setSharedSetting_toString___block_invoke(uint
 - (AVKitGlobalSettings)init
 {
   location[3] = *MEMORY[0x1E69E9840];
-  v77.receiver = self;
-  v77.super_class = AVKitGlobalSettings;
-  v2 = [(AVKitGlobalSettings *)&v77 init];
+  v78.receiver = self;
+  v78.super_class = AVKitGlobalSettings;
+  v2 = [(AVKitGlobalSettings *)&v78 init];
   if (!v2)
   {
     return v2;
   }
 
+  v3 = objc_opt_self();
   objc_opt_self();
-  objc_opt_self();
-  v3 = AVApplicationIdentifier();
-  v4 = [v3 isEqualToString:@"com.apple.Home"];
+  v4 = AVApplicationIdentifier();
+  v5 = [v4 isEqualToString:@"com.apple.Home"];
 
-  if (v4)
+  if (v5)
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  else if (+[AVKitGlobalSettings _thirdGenerationControlsEnabled])
+  else if (+[(AVKitGlobalSettings *)v3])
   {
-    v5 = 2;
+    v6 = 2;
   }
 
   else
   {
-    v5 = 1;
+    v6 = 1;
   }
 
-  v6 = AVKitUserDefaults();
-  v7 = [v6 integerForKey:@"playerGeneration"];
-  v8 = v7;
-  if (v7 > 1)
+  v7 = AVKitUserDefaults();
+  v8 = [v7 integerForKey:@"playerGeneration"];
+  v9 = v8;
+  if (v8 > 1)
   {
-    if (v7 == 3)
+    if (v8 == 3)
     {
-      v5 = 2;
+      v6 = 2;
       goto LABEL_18;
     }
 
-    if (v7 == 2)
+    if (v8 == 2)
     {
-      v5 = 1;
+      v6 = 1;
       goto LABEL_18;
     }
 
     goto LABEL_14;
   }
 
-  if (v7)
+  if (v8)
   {
-    if (v7 == 1)
+    if (v8 == 1)
     {
-      v5 = 0;
+      v6 = 0;
       goto LABEL_18;
     }
 
 LABEL_14:
-    v9 = _AVLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _AVLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       LODWORD(location[0]) = 134217984;
-      *(location + 4) = v8;
-      _os_log_error_impl(&dword_18B49C000, v9, OS_LOG_TYPE_ERROR, "Error: Invalid player generation %ld", location, 0xCu);
+      *(location + 4) = v9;
+      _os_log_error_impl(&dword_18B49C000, v10, OS_LOG_TYPE_ERROR, "Error: Invalid player generation %ld", location, 0xCu);
     }
   }
 
 LABEL_18:
 
-  v2->_playerGeneration = v5;
+  v2->_playerGeneration = v6;
   objc_opt_self();
   objc_opt_self();
   _CFMZEnabled();
-  v10 = dyld_program_sdk_at_least();
   v11 = dyld_program_sdk_at_least();
-  if (!(v11 & 1 | ((v10 & 1) == 0)))
+  v12 = dyld_program_sdk_at_least();
+  if (!(v12 & 1 | ((v11 & 1) == 0)))
   {
-    v12 = AVApplicationIdentifier();
-    lowercaseString = [v12 lowercaseString];
+    v13 = AVApplicationIdentifier();
+    lowercaseString = [v13 lowercaseString];
 
-    v11 = [lowercaseString hasPrefix:@"com.apple."];
+    v12 = [lowercaseString hasPrefix:@"com.apple."];
   }
 
-  v2->_playbackSpeedControlEnabled = v11;
+  v2->_playbackSpeedControlEnabled = v12;
   v2->_deviceSupportsVisualAnalysis = -1;
   v2->_visualAnalysisSupported = -1;
   v2->_visualAnalysisEnabled = -1;
   objc_opt_self();
-  v14 = AVApplicationIdentifier();
-  if ([v14 isEqualToString:@"com.apple.quicklook.UIExtension"])
+  v15 = AVApplicationIdentifier();
+  if ([v15 isEqualToString:@"com.apple.quicklook.UIExtension"])
   {
-    v15 = 1;
+    v16 = 1;
   }
 
   else
   {
-    v15 = [v14 isEqualToString:@"com.apple.quicklook.extension.previewUI"];
+    v16 = [v15 isEqualToString:@"com.apple.quicklook.extension.previewUI"];
   }
 
-  v2->_isQuickLook = v15;
+  v2->_isQuickLook = v16;
   v2->_isTVApp = +[AVKitGlobalSettings _isTVApp];
   objc_opt_self();
-  v16 = AVApplicationIdentifier();
-  v17 = [v16 isEqualToString:@"com.apple.applemediaroom"];
+  v17 = AVApplicationIdentifier();
+  v18 = [v17 isEqualToString:@"com.apple.applemediaroom"];
 
-  v2->_isArtemisApp = v17;
+  v2->_isArtemisApp = v18;
   objc_opt_self();
-  v18 = AVKitUserDefaults();
-  v19 = [v18 valueForKey:@"fluidSliderEnabled"];
+  v19 = AVKitUserDefaults();
+  v20 = [v19 valueForKey:@"fluidSliderEnabled"];
 
-  if (v19)
+  if (v20)
   {
-    v20 = [v18 BOOLForKey:@"fluidSliderEnabled"];
+    v21 = [v19 BOOLForKey:@"fluidSliderEnabled"];
   }
 
   else
   {
-    v20 = 1;
+    v21 = 1;
   }
 
-  v2->_fluidSliderEnabled = v20;
+  v2->_fluidSliderEnabled = v21;
   v2->_showsTVControls = 0;
   objc_opt_self();
   v2->_experienceControllerEnabled = _os_feature_enabled_impl();
   v2->_overVideoScrubbingGestureEnabled = +[AVKitGlobalSettings _overVideoScrubbingGestureEnabled];
   v2->_extendedVisualAnalysisEnabled = -1;
   objc_opt_self();
-  v21 = AVKitUserDefaults();
-  v22 = [v21 valueForKey:@"subjectLiftGestureEnabled"];
-  v23 = v22 == 0;
+  v22 = AVKitUserDefaults();
+  v23 = [v22 valueForKey:@"subjectLiftGestureEnabled"];
+  v24 = v23 == 0;
 
-  if (v23)
+  if (v24)
   {
-    v24 = 1;
+    v25 = 1;
   }
 
   else
   {
-    v24 = [v21 BOOLForKey:@"subjectLiftGestureEnabled"];
+    v25 = [v22 BOOLForKey:@"subjectLiftGestureEnabled"];
   }
 
-  v2->_subjectLiftGestureEnabled = v24;
+  v2->_subjectLiftGestureEnabled = v25;
   objc_opt_self();
-  v25 = AVApplicationIdentifier();
-  v26 = ([v25 isEqualToString:@"com.apple.Fitness"] & 1) != 0 || objc_msgSend(v25, "isEqualToString:", @"com.apple.AVKitTester");
+  v26 = AVApplicationIdentifier();
+  v27 = ([v26 isEqualToString:@"com.apple.Fitness"] & 1) != 0 || objc_msgSend(v26, "isEqualToString:", @"com.apple.AVKitTester");
 
-  v2->_attributedContentTitlesSupported = v26;
+  v2->_attributedContentTitlesSupported = v27;
   objc_opt_self();
-  v27 = AVKitUserDefaults();
-  v28 = [v27 valueForKey:@"searchBannerEnabled"];
+  v28 = AVKitUserDefaults();
+  v29 = [v28 valueForKey:@"searchBannerEnabled"];
 
-  if (v28)
+  if (v29)
   {
-    LOBYTE(v28) = [v27 BOOLForKey:@"searchBannerEnabled"];
+    LOBYTE(v29) = [v28 BOOLForKey:@"searchBannerEnabled"];
   }
 
-  v2->_searchBannerEnabled = v28;
+  v2->_searchBannerEnabled = v29;
   objc_opt_self();
   v2->_isAVKitMacPlayer = 0;
   v2->_isAVKitTester = +[AVKitGlobalSettings _isAVKitTester];
   objc_opt_self();
   v2->_isXCTester = 0;
   objc_opt_self();
-  v29 = AVApplicationIdentifier();
-  if ([v29 isEqualToString:@"com.apple.Photos"] & 1) != 0 || (objc_msgSend(v29, "isEqualToString:", @"com.appleinternal.PhotosPlayground-macOS"))
+  v30 = AVApplicationIdentifier();
+  if ([v30 isEqualToString:@"com.apple.Photos"] & 1) != 0 || (objc_msgSend(v30, "isEqualToString:", @"com.appleinternal.PhotosPlayground-macOS"))
   {
-    v30 = 1;
+    v31 = 1;
   }
 
   else
   {
-    v30 = [v29 isEqualToString:@"com.apple.mobileslideshow"];
+    v31 = [v30 isEqualToString:@"com.apple.mobileslideshow"];
   }
 
-  v2->_isPhotosApp = v30;
+  v2->_isPhotosApp = v31;
   objc_opt_self();
-  v31 = AVApplicationIdentifier();
-  v32 = [v31 isEqualToString:@"com.apple.Fitness"];
+  v32 = AVApplicationIdentifier();
+  v33 = [v32 isEqualToString:@"com.apple.Fitness"];
 
-  v2->_isFitnessApp = v32;
+  v2->_isFitnessApp = v33;
   v2->_isQuickTimePlayerX = +[AVKitGlobalSettings _isQuickTimePlayerX];
   objc_opt_self();
-  v33 = AVApplicationIdentifier();
-  v34 = [v33 isEqualToString:@"com.apple.Spotlight"];
+  v34 = AVApplicationIdentifier();
+  v35 = [v34 isEqualToString:@"com.apple.Spotlight"];
 
-  v2->_isSpotlight = v34;
+  v2->_isSpotlight = v35;
   objc_opt_self();
   v2->_backgroundEffectEnabled = 0;
   objc_opt_self();
@@ -622,112 +622,112 @@ LABEL_18:
   objc_opt_self();
   avkit_mainScreen = [MEMORY[0x1E69DCEB0] avkit_mainScreen];
   traitCollection = [avkit_mainScreen traitCollection];
-  v38 = [traitCollection userInterfaceIdiom] == 0;
+  v39 = [traitCollection userInterfaceIdiom] == 0;
 
-  if (v38)
+  if (v39)
   {
-    v39 = _os_feature_enabled_impl();
+    v40 = _os_feature_enabled_impl();
   }
 
   else
   {
-    v39 = 0;
+    v40 = 0;
   }
 
-  v2->_unconstrainedHDRForFullscreenEnabled = v39;
+  v2->_unconstrainedHDRForFullscreenEnabled = v40;
   v2->_thirdGenerationControlsEnabled = +[AVKitGlobalSettings _thirdGenerationControlsEnabled];
   objc_opt_self();
   v2->_inputPickerGainControlEnabled = _os_feature_enabled_impl();
   objc_opt_self();
   v2->_cameraControlWithAirPodsEnabled = _os_feature_enabled_impl();
-  v40 = v2->_isTVApp || v2->_isAVKitTester;
-  v2->_supportsContentTabs = v40 & 1;
+  v41 = v2->_isTVApp || v2->_isAVKitTester;
+  v2->_supportsContentTabs = v41 & 1;
   objc_opt_self();
   v2->_vibrancyEnabled = 1;
   objc_opt_self();
-  v41 = AVKitUserDefaults();
-  v42 = [v41 BOOLForKey:@"gradientDimmingLayerEnabled"];
+  v42 = AVKitUserDefaults();
+  v43 = [v42 BOOLForKey:@"gradientDimmingLayerEnabled"];
 
-  v2->_gradientDimmingLayerEnabled = v42;
+  v2->_gradientDimmingLayerEnabled = v43;
   objc_opt_self();
   v2->_shouldUseQTPXSpecificZooming = +[AVKitGlobalSettings _isQuickTimePlayerX];
   objc_opt_self();
-  v43 = AVKitUserDefaults();
-  [v43 floatForKey:@"extendedDynamicRangeGain"];
-  v45 = v44;
+  v44 = AVKitUserDefaults();
+  [v44 floatForKey:@"extendedDynamicRangeGain"];
+  v46 = v45;
 
-  v2->_extendedDynamicRangeGain = v45;
+  v2->_extendedDynamicRangeGain = v46;
   objc_opt_self();
-  v46 = AVKitUserDefaults();
-  v47 = [v46 BOOLForKey:@"cornerPanGestureForContentTabsEnabled"];
+  v47 = AVKitUserDefaults();
+  v48 = [v47 BOOLForKey:@"cornerPanGestureForContentTabsEnabled"];
 
-  v2->_cornerPanGestureForContentTabsEnabled = v47;
+  v2->_cornerPanGestureForContentTabsEnabled = v48;
   objc_opt_self();
-  v48 = AVKitUserDefaults();
-  v49 = [v48 objectForKey:@"visualAnalysisEnabled"];
-  if (v49 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v49 = AVKitUserDefaults();
+  v50 = [v49 objectForKey:@"visualAnalysisEnabled"];
+  if (v50 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v50 = v49;
+    v51 = v50;
   }
 
   else
   {
-    v50 = 0;
+    v51 = 0;
   }
 
-  if (v50)
+  if (v51)
   {
-    v2->_visualAnalysisEnabled = [v50 BOOLValue];
+    v2->_visualAnalysisEnabled = [v51 BOOLValue];
   }
 
-  v51 = +[AVKitGlobalSettings _mostRecentAudioLanguageCode];
+  v52 = +[AVKitGlobalSettings _mostRecentAudioLanguageCode];
   mostRecentAudioLanguageCode = v2->_mostRecentAudioLanguageCode;
-  v2->_mostRecentAudioLanguageCode = v51;
+  v2->_mostRecentAudioLanguageCode = v52;
 
-  v53 = _ObservationForSharedAVKitSetting(v2, @"RecentAudioLanguageCode", @"mostRecentAudioLanguageCode");
+  v54 = _ObservationForSharedAVKitSetting(v2, @"RecentAudioLanguageCode", @"mostRecentAudioLanguageCode");
   mostRecentAudioLanguageCodeObservation = v2->_mostRecentAudioLanguageCodeObservation;
-  v2->_mostRecentAudioLanguageCodeObservation = v53;
+  v2->_mostRecentAudioLanguageCodeObservation = v54;
 
-  v55 = +[AVKitGlobalSettings _mostRecentLegibleLanguageCode];
+  v56 = +[AVKitGlobalSettings _mostRecentLegibleLanguageCode];
   mostRecentLegibleLanguageCode = v2->_mostRecentLegibleLanguageCode;
-  v2->_mostRecentLegibleLanguageCode = v55;
+  v2->_mostRecentLegibleLanguageCode = v56;
 
-  v57 = _ObservationForSharedAVKitSetting(v2, @"RecentLegibleLanguageCode", @"mostRecentLegibleLanguageCode");
+  v58 = _ObservationForSharedAVKitSetting(v2, @"RecentLegibleLanguageCode", @"mostRecentLegibleLanguageCode");
   mostRecentLegibleLanguageCodeObservation = v2->_mostRecentLegibleLanguageCodeObservation;
-  v2->_mostRecentLegibleLanguageCodeObservation = v57;
+  v2->_mostRecentLegibleLanguageCodeObservation = v58;
 
   v2->_displayingCaptionsOnSkipBack = +[AVKitGlobalSettings _isDisplayingCaptionsOnSkipBack];
   objc_initWeak(location, v2);
-  v59 = MEMORY[0x1E696ADA8];
-  v60 = AVKitUserDefaults();
-  v61 = [v59 keyPathWithRootObject:v60 path:{objc_msgSend(@"isDisplayingCaptionsOnSkipBack", "UTF8String")}];
-  v75[0] = MEMORY[0x1E69E9820];
-  v75[1] = 3221225472;
-  v75[2] = __27__AVKitGlobalSettings_init__block_invoke;
-  v75[3] = &unk_1E7207158;
-  objc_copyWeak(&v76, location);
-  v62 = [v61 addObserverBlock:v75];
+  v60 = MEMORY[0x1E696ADA8];
+  v61 = AVKitUserDefaults();
+  v62 = [v60 keyPathWithRootObject:v61 path:{objc_msgSend(@"isDisplayingCaptionsOnSkipBack", "UTF8String")}];
+  v76[0] = MEMORY[0x1E69E9820];
+  v76[1] = 3221225472;
+  v76[2] = __27__AVKitGlobalSettings_init__block_invoke;
+  v76[3] = &unk_1E7207158;
+  objc_copyWeak(&v77, location);
+  v63 = [v62 addObserverBlock:v76];
   displayingCaptionsOnSkipBackObservation = v2->_displayingCaptionsOnSkipBackObservation;
-  v2->_displayingCaptionsOnSkipBackObservation = v62;
+  v2->_displayingCaptionsOnSkipBackObservation = v63;
 
   v2->_enhanceDialogueEnabled = +[AVKitGlobalSettings _enhanceDialogueEnabled];
   v2->_customMediaSelectionSchemeEnabled = +[AVKitGlobalSettings _customMediaSelectionSchemeEnabled];
   v2->_subtitleAutomaticallyEnabledState = +[AVKitGlobalSettings _subtitleAutomaticallyEnabledState];
-  v64 = MEMORY[0x1E696ADA8];
-  v65 = AVKitUserDefaults();
-  v66 = [v64 keyPathWithRootObject:v65 path:{objc_msgSend(@"subtitleAutomaticallyEnabledState", "UTF8String")}];
-  v70 = MEMORY[0x1E69E9820];
-  v71 = 3221225472;
-  v72 = __27__AVKitGlobalSettings_init__block_invoke_3;
-  v73 = &unk_1E7207158;
-  objc_copyWeak(&v74, location);
-  v67 = [v66 addObserverBlock:&v70];
+  v65 = MEMORY[0x1E696ADA8];
+  v66 = AVKitUserDefaults();
+  v67 = [v65 keyPathWithRootObject:v66 path:{objc_msgSend(@"subtitleAutomaticallyEnabledState", "UTF8String")}];
+  v71 = MEMORY[0x1E69E9820];
+  v72 = 3221225472;
+  v73 = __27__AVKitGlobalSettings_init__block_invoke_3;
+  v74 = &unk_1E7207158;
+  objc_copyWeak(&v75, location);
+  v68 = [v67 addObserverBlock:&v71];
   subtitleEnabledFromAutoStateCodeObservation = v2->_subtitleEnabledFromAutoStateCodeObservation;
-  v2->_subtitleEnabledFromAutoStateCodeObservation = v67;
+  v2->_subtitleEnabledFromAutoStateCodeObservation = v68;
 
-  v2->_hapticsEnabled = [AVKitGlobalSettings _hapticsIsEnabled:v70];
-  objc_destroyWeak(&v74);
-  objc_destroyWeak(&v76);
+  v2->_hapticsEnabled = [AVKitGlobalSettings _hapticsIsEnabled:v71];
+  objc_destroyWeak(&v75);
+  objc_destroyWeak(&v77);
   objc_destroyWeak(location);
 
   return v2;
@@ -736,19 +736,19 @@ LABEL_18:
 + (uint64_t)_isAVKitTester
 {
   objc_opt_self();
-  v0 = AVApplicationIdentifier();
-  v1 = [v0 isEqualToString:@"com.apple.AVKitTester"];
+  v1 = AVApplicationIdentifier();
+  v2 = [v1 isEqualToString:@"com.apple.AVKitTester"];
 
-  return v1;
+  return v2;
 }
 
 + (uint64_t)_isQuickTimePlayerX
 {
   objc_opt_self();
-  v0 = AVApplicationIdentifier();
-  v1 = [v0 isEqualToString:@"com.apple.QuickTimePlayerX"];
+  v1 = AVApplicationIdentifier();
+  v2 = [v1 isEqualToString:@"com.apple.QuickTimePlayerX"];
 
-  return v1;
+  return v2;
 }
 
 + (uint64_t)_thirdGenerationControlsEnabled
@@ -867,9 +867,11 @@ uint64_t __29__AVKitGlobalSettings_shared__block_invoke()
   v0 = dispatch_get_global_queue(0, 0);
   dispatch_async(v0, &__block_literal_global_124);
 
-  shared_AVKitSharedGlobalSettings = objc_alloc_init(AVKitGlobalSettings);
+  v1 = objc_alloc_init(AVKitGlobalSettings);
+  v2 = shared_AVKitSharedGlobalSettings;
+  shared_AVKitSharedGlobalSettings = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 uint64_t __29__AVKitGlobalSettings_shared__block_invoke_2()

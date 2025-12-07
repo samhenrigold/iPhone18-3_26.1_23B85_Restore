@@ -11,6 +11,7 @@
 - (void)__blendWithNoise:(id)noise selectionNoise:(id)selectionNoise selectionRangeLowerBound:(double)bound selectionRangeUpperBound:(double)upperBound selectionBoundaryBlendDistance:(double)distance;
 - (void)addWithNoise:(GKNoise *)noise;
 - (void)applyAbsoluteValue;
+- (void)applyTurbulenceWithFrequency:(double)frequency power:(double)power roughness:(int)roughness seed:(int32_t)seed;
 - (void)cacheBinaryModule:(id)module rhsNoise:(id)noise;
 - (void)cacheQuaternaryModule:(id)module xDisplacementNoise:(id)noise yDisplacementNoise:(id)displacementNoise zDisplacementNoise:(id)zDisplacementNoise;
 - (void)cacheTernaryModule:(id)module rhsNoise:(id)noise selectionNoise:(id)selectionNoise;
@@ -26,6 +27,7 @@
 - (void)raiseToPower:(double)power;
 - (void)raiseToPowerWithNoise:(GKNoise *)noise;
 - (void)remapValuesToCurveWithControlPoints:(NSDictionary *)controlPoints;
+- (void)remapValuesToTerracesWithPeaks:(NSArray *)peakInputValues terracesInverted:(BOOL)inverted;
 - (void)rotateBy:(_OWORD *)by;
 - (void)scaleBy:(_OWORD *)by;
 @end
@@ -59,24 +61,23 @@
 
 - (GKNoise)initWithNoiseSource:(GKNoiseSource *)noiseSource
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v4 = noiseSource;
   if ((atomic_load_explicit(&qword_27DF48778, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27DF48778))
   {
-    v10[0] = &unk_284B58770;
-    v8 = [MEMORY[0x277D75348] colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
-    v10[1] = &unk_284B58780;
-    v11[0] = v8;
-    v9 = [MEMORY[0x277D75348] colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
-    v11[1] = v9;
-    _MergedGlobals_0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+    v9[0] = &unk_284B58770;
+    v7 = [MEMORY[0x277D75348] colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
+    v9[1] = &unk_284B58780;
+    v10[0] = v7;
+    v8 = [MEMORY[0x277D75348] colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+    v10[1] = v8;
+    _MergedGlobals_0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
     __cxa_guard_release(&qword_27DF48778);
   }
 
   v5 = [(GKNoise *)self initWithNoiseSource:v4 gradientColors:_MergedGlobals_0];
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -502,11 +503,26 @@ uint64_t __94__GKNoise_noiseWithComponentNoises_selectionNoise_componentBoundari
   [(GKNoise *)self cacheUnaryModule:?];
 }
 
+- (void)applyTurbulenceWithFrequency:(double)frequency power:(double)power roughness:(int)roughness seed:(int32_t)seed
+{
+  v7 = [[GKTurbulenceNoiseModifier alloc] initWithFrequency:*&seed power:frequency roughness:power seed:roughness];
+  [(GKNoise *)self cacheUnaryModule:?];
+}
+
 - (void)remapValuesToCurveWithControlPoints:(NSDictionary *)controlPoints
 {
   v5 = controlPoints;
   v4 = [[GKCurveNoiseModifier alloc] initWithControlPoints:v5];
   [(GKNoise *)self cacheUnaryModule:v4];
+}
+
+- (void)remapValuesToTerracesWithPeaks:(NSArray *)peakInputValues terracesInverted:(BOOL)inverted
+{
+  v4 = inverted;
+  v7 = peakInputValues;
+  [(NSArray *)v7 count];
+  v6 = [[GKTerraceNoiseModifier alloc] initWithPeakInputValues:v7 terracesInverted:v4];
+  [(GKNoise *)self cacheUnaryModule:v6];
 }
 
 - (void)moveBy:(_OWORD *)by

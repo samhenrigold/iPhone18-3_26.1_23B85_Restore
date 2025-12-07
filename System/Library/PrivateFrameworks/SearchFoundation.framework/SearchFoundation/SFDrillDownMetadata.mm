@@ -1077,11 +1077,11 @@ LABEL_78:
 
 - (SFDrillDownMetadata)initWithProtobuf:(id)protobuf
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v57.receiver = self;
-  v57.super_class = SFDrillDownMetadata;
-  v5 = [(SFDrillDownMetadata *)&v57 init];
+  v56.receiver = self;
+  v56.super_class = SFDrillDownMetadata;
+  v5 = [(SFDrillDownMetadata *)&v56 init];
   if (v5)
   {
     cardIdentifier = [protobufCopy cardIdentifier];
@@ -1103,32 +1103,32 @@ LABEL_78:
       v9 = 0;
     }
 
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
     v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
     cardIdentifiers2 = [protobufCopy cardIdentifiers];
-    v11 = [cardIdentifiers2 countByEnumeratingWithState:&v53 objects:v59 count:16];
+    v11 = [cardIdentifiers2 countByEnumeratingWithState:&v52 objects:v58 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v54;
+      v13 = *v53;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v54 != v13)
+          if (*v53 != v13)
           {
             objc_enumerationMutation(cardIdentifiers2);
           }
 
-          if (*(*(&v53 + 1) + 8 * i))
+          if (*(*(&v52 + 1) + 8 * i))
           {
             [v9 addObject:?];
           }
         }
 
-        v12 = [cardIdentifiers2 countByEnumeratingWithState:&v53 objects:v59 count:16];
+        v12 = [cardIdentifiers2 countByEnumeratingWithState:&v52 objects:v58 count:16];
       }
 
       while (v12);
@@ -1146,32 +1146,32 @@ LABEL_78:
       v16 = 0;
     }
 
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     cardDomains2 = [protobufCopy cardDomains];
-    v18 = [cardDomains2 countByEnumeratingWithState:&v49 objects:v58 count:16];
+    v18 = [cardDomains2 countByEnumeratingWithState:&v48 objects:v57 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v50;
+      v20 = *v49;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v50 != v20)
+          if (*v49 != v20)
           {
             objc_enumerationMutation(cardDomains2);
           }
 
-          if (*(*(&v49 + 1) + 8 * j))
+          if (*(*(&v48 + 1) + 8 * j))
           {
             [v16 addObject:?];
           }
         }
 
-        v19 = [cardDomains2 countByEnumeratingWithState:&v49 objects:v58 count:16];
+        v19 = [cardDomains2 countByEnumeratingWithState:&v48 objects:v57 count:16];
       }
 
       while (v19);
@@ -1253,7 +1253,6 @@ LABEL_78:
     v46 = v5;
   }
 
-  v47 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

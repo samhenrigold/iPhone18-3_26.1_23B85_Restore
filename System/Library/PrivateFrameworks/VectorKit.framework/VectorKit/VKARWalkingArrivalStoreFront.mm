@@ -41,7 +41,7 @@
 
 - (id)description
 {
-  [(VKARWalkingArrivalStoreFront *)self bottomCenterCoordinate];
+  objc_msgSend_bottomCenterCoordinate(self, a2);
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
@@ -296,20 +296,20 @@
   boxCopy = box;
   if ([boxCopy hasPosition] && objc_msgSend(boxCopy, "hasWidth") && (objc_msgSend(boxCopy, "hasHeight") & 1) != 0)
   {
-    position = [boxCopy position];
-    if ([position hasX] && objc_msgSend(position, "hasY") && objc_msgSend(position, "hasZ") && objc_msgSend(position, "hasYaw") && objc_msgSend(position, "hasPitch") && (objc_msgSend(position, "hasRoll") & 1) != 0)
+    v5 = objc_msgSend_position(boxCopy);
+    if ([v5 hasX] && objc_msgSend(v5, "hasY") && objc_msgSend(v5, "hasZ") && objc_msgSend(v5, "hasYaw") && objc_msgSend(v5, "hasPitch") && (objc_msgSend(v5, "hasRoll") & 1) != 0)
     {
-      [position yaw];
+      [v5 yaw];
       v7 = v6;
-      [position pitch];
+      [v5 pitch];
       v9 = v8;
-      [position roll];
+      [v5 roll];
       v11 = v10;
-      [position x];
+      [v5 x];
       v13 = v12;
-      [position y];
+      [v5 y];
       v15 = v14;
-      [position z];
+      [v5 z];
       v17 = v16;
       [boxCopy width];
       v19 = v18;

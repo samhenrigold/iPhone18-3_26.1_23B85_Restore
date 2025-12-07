@@ -1,271 +1,8 @@
-id _MRMediaRemoteApplicationValueForKeyInBundle(uint64_t a1, uint64_t a2)
-{
-  if (a1)
-  {
-    v3 = [MEMORY[0x1E6963618] bundleProxyForIdentifier:a1];
-    v4 = v3;
-    if (v3)
-    {
-      v5 = MEMORY[0x1E696AAE8];
-      v6 = [v3 bundleURL];
-      v7 = [v5 bundleWithURL:v6];
-      v8 = [v7 infoDictionary];
-
-      v9 = [v8 objectForKey:a2];
-    }
-
-    else
-    {
-      v9 = 0;
-    }
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  return v9;
-}
-
-uint64_t MRMediaRemoteApplicationSupportsSectionedBrowsing(uint64_t a1)
-{
-  v1 = _MRMediaRemoteApplicationValueForKeyInBundle(a1, @"UIBrowsableContentSupportsSectionedBrowsing");
-  v2 = [v1 BOOLValue];
-
-  return v2;
-}
-
-uint64_t MRMediaRemoteApplicationSupportsImmediatePlayback(uint64_t a1)
-{
-  v1 = _MRMediaRemoteApplicationValueForKeyInBundle(a1, @"UIBrowsableContentSupportsImmediatePlayback");
-  v2 = [v1 BOOLValue];
-
-  return v2;
-}
-
-uint64_t MRMediaRemoteBeginLoadingBrowsableContent(void *a1, const void *a2, uint64_t a3)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  v14 = a2;
-  v15 = a3;
-  v3 = a1;
-  v4 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v5 = MRMediaRemoteIndexPathCopyDescription(&v14);
-  v6 = [v4 initWithFormat:@"bundleID=%@, indexPath=%@", v3, v5];
-
-  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@<%@>", @"beginLoadingBrowsableContent", 0];
-  v8 = v7;
-  if (v6)
-  {
-    [v7 appendFormat:@" for %@", v6];
-  }
-
-  v9 = _MRLogForCategory(0xAuLL);
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138543362;
-    v17 = v8;
-    _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
-  }
-
-  v10 = MRGetSharedService();
-  v11 = MRMediaRemoteServiceBeginLoadingBrowsableContent(v10, v3, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
-  return v11;
-}
-
-__CFString *MRMediaRemoteIndexPathCopyDescription(void *a1)
-{
-  if (!a1)
-  {
-    return 0;
-  }
-
-  Mutable = CFStringCreateMutable(*MEMORY[0x1E695E480], 0);
-  if (a1[1])
-  {
-    v3 = 0;
-    v4 = 1;
-    do
-    {
-      CFStringAppendFormat(Mutable, 0, @"%llu ", *(*a1 + 8 * v3));
-      v3 = v4;
-    }
-
-    while (a1[1] > v4++);
-  }
-
-  return Mutable;
-}
-
-void MRMediaRemoteBrowsableContentGetNowPlayingContentIdentifiers(void *a1, void *a2, void *a3)
-{
-  v29 = *MEMORY[0x1E69E9840];
-  v5 = a3;
-  v6 = MEMORY[0x1E695DF00];
-  v7 = a2;
-  v8 = [v6 date];
-  v9 = [MEMORY[0x1E696AFB0] UUID];
-  v10 = [v9 UUIDString];
-
-  v11 = a1;
-  v12 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@<%@>", @"nowPlayingContentIdentifiers", v10];
-  v13 = v12;
-  if (v11)
-  {
-    [v12 appendFormat:@" for %@", v11];
-  }
-
-  v14 = _MRLogForCategory(0xAuLL);
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138543362;
-    v28 = v13;
-    _os_log_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
-  }
-
-  v15 = MRGetSharedService();
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __MRMediaRemoteBrowsableContentGetNowPlayingContentIdentifiers_block_invoke;
-  v21[3] = &unk_1E76A1FE0;
-  v22 = v11;
-  v23 = @"nowPlayingContentIdentifiers";
-  v24 = v10;
-  v25 = v8;
-  v26 = v5;
-  v16 = v5;
-  v17 = v8;
-  v18 = v10;
-  v19 = v11;
-  MRMediaRemoteServiceCopyBrowsableContentNowPlayingIdentifiers(v15, v19, v7, v21);
-
-  v20 = *MEMORY[0x1E69E9840];
-}
-
-uint64_t __MRMediaRemoteBrowsableContentGetNowPlayingContentIdentifiers_block_invoke(void *a1, uint64_t a2)
-{
-  v37 = *MEMORY[0x1E69E9840];
-  v4 = a1[4];
-  v5 = _MRLogForCategory(0xAuLL);
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-  if (a2)
-  {
-    if (v4)
-    {
-      if (!v6)
-      {
-        goto LABEL_14;
-      }
-
-      v8 = a1[5];
-      v7 = a1[6];
-      v9 = a1[4];
-      v10 = [MEMORY[0x1E695DF00] date];
-      [v10 timeIntervalSinceDate:a1[7]];
-      v27 = 138544386;
-      v28 = v8;
-      v29 = 2114;
-      v30 = v7;
-      v31 = 2112;
-      v32 = a2;
-      v33 = 2114;
-      v34 = v9;
-      v35 = 2048;
-      v36 = v11;
-      v12 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
-      v13 = v5;
-      v14 = 52;
-      goto LABEL_13;
-    }
-
-    if (!v6)
-    {
-      goto LABEL_14;
-    }
-
-    v19 = a1[5];
-    v20 = a1[6];
-    v10 = [MEMORY[0x1E695DF00] date];
-    [v10 timeIntervalSinceDate:a1[7]];
-    v27 = 138544130;
-    v28 = v19;
-    v29 = 2114;
-    v30 = v20;
-    v31 = 2112;
-    v32 = a2;
-    v33 = 2048;
-    v34 = v21;
-    v12 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
-    goto LABEL_10;
-  }
-
-  if (v4)
-  {
-    if (!v6)
-    {
-      goto LABEL_14;
-    }
-
-    v16 = a1[5];
-    v15 = a1[6];
-    v17 = a1[4];
-    v10 = [MEMORY[0x1E695DF00] date];
-    [v10 timeIntervalSinceDate:a1[7]];
-    v27 = 138544130;
-    v28 = v16;
-    v29 = 2114;
-    v30 = v15;
-    v31 = 2114;
-    v32 = v17;
-    v33 = 2048;
-    v34 = v18;
-    v12 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
-LABEL_10:
-    v13 = v5;
-    v14 = 42;
-    goto LABEL_13;
-  }
-
-  if (!v6)
-  {
-    goto LABEL_14;
-  }
-
-  v22 = a1[5];
-  v23 = a1[6];
-  v10 = [MEMORY[0x1E695DF00] date];
-  [v10 timeIntervalSinceDate:a1[7]];
-  v27 = 138543874;
-  v28 = v22;
-  v29 = 2114;
-  v30 = v23;
-  v31 = 2048;
-  v32 = v24;
-  v12 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
-  v13 = v5;
-  v14 = 32;
-LABEL_13:
-  _os_log_impl(&dword_1A2860000, v13, OS_LOG_TYPE_DEFAULT, v12, &v27, v14);
-
-LABEL_14:
-  result = a1[8];
-  if (result)
-  {
-    result = (*(result + 16))(result, a2);
-  }
-
-  v26 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
 void MRMediaRemoteBrowsableContentSupportsPlaybackProgress(void *a1, const void *a2, uint64_t a3, void *a4, void *a5)
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v34 = a2;
-  v35 = a3;
+  v37 = *MEMORY[0x1E69E9840];
+  v33 = a2;
+  v34 = a3;
   v7 = a5;
   v8 = MEMORY[0x1E695DF00];
   v9 = a4;
@@ -275,7 +12,7 @@ void MRMediaRemoteBrowsableContentSupportsPlaybackProgress(void *a1, const void 
 
   v13 = a1;
   v14 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v15 = MRMediaRemoteIndexPathCopyDescription(&v34);
+  v15 = MRMediaRemoteIndexPathCopyDescription(&v33);
   v16 = [v14 initWithFormat:@"bundleID=%@, indexPath=%@", v13, v15];
 
   v17 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@<%@>", @"supportsBrowsableContentPlaybackProgress", v12];
@@ -289,34 +26,32 @@ void MRMediaRemoteBrowsableContentSupportsPlaybackProgress(void *a1, const void 
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v37 = v18;
+    v36 = v18;
     _os_log_impl(&dword_1A2860000, v19, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
   v20 = MRGetSharedService();
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __MRMediaRemoteBrowsableContentSupportsPlaybackProgress_block_invoke;
-  v28[3] = &unk_1E76A2008;
-  v29 = v16;
-  v30 = @"supportsBrowsableContentPlaybackProgress";
-  v31 = v12;
-  v32 = v10;
-  v33 = v7;
-  v21 = v34;
-  v22 = v35;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __MRMediaRemoteBrowsableContentSupportsPlaybackProgress_block_invoke;
+  v27[3] = &unk_1E76A2008;
+  v28 = v16;
+  v29 = @"supportsBrowsableContentPlaybackProgress";
+  v30 = v12;
+  v31 = v10;
+  v32 = v7;
+  v21 = v33;
+  v22 = v34;
   v23 = v7;
   v24 = v10;
   v25 = v12;
   v26 = v16;
-  MRMediaRemoteServiceGetBrowsableContentSupportsPlaybackProgress(v20, v13, v21, v22, v9, v28);
-
-  v27 = *MEMORY[0x1E69E9840];
+  MRMediaRemoteServiceGetBrowsableContentSupportsPlaybackProgress(v20, v13, v21, v22, v9, v27);
 }
 
 uint64_t __MRMediaRemoteBrowsableContentSupportsPlaybackProgress_block_invoke(void *a1, uint64_t a2)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E696AD98] numberWithBool:a2];
 
   v5 = a1[4];
@@ -337,16 +72,16 @@ uint64_t __MRMediaRemoteBrowsableContentSupportsPlaybackProgress_block_invoke(vo
       v11 = a1[4];
       v12 = [MEMORY[0x1E695DF00] date];
       [v12 timeIntervalSinceDate:a1[7]];
-      v32 = 138544386;
-      v33 = v8;
-      v34 = 2114;
-      v35 = v9;
-      v36 = 2112;
-      v37 = v10;
-      v38 = 2114;
-      v39 = v11;
-      v40 = 2048;
-      v41 = v13;
+      v31 = 138544386;
+      v32 = v8;
+      v33 = 2114;
+      v34 = v9;
+      v35 = 2112;
+      v36 = v10;
+      v37 = 2114;
+      v38 = v11;
+      v39 = 2048;
+      v40 = v13;
       v14 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
       v15 = v6;
       v16 = 52;
@@ -364,20 +99,20 @@ uint64_t __MRMediaRemoteBrowsableContentSupportsPlaybackProgress_block_invoke(vo
       v10 = [MEMORY[0x1E696AD98] numberWithBool:a2];
       v12 = [MEMORY[0x1E695DF00] date];
       [v12 timeIntervalSinceDate:a1[7]];
-      v32 = 138544130;
-      v33 = v24;
-      v34 = 2114;
-      v35 = v25;
-      v36 = 2112;
-      v37 = v10;
-      v38 = 2048;
-      v39 = v26;
+      v31 = 138544130;
+      v32 = v24;
+      v33 = 2114;
+      v34 = v25;
+      v35 = 2112;
+      v36 = v10;
+      v37 = 2048;
+      v38 = v26;
       v14 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
       v15 = v6;
       v16 = 42;
     }
 
-    _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_DEFAULT, v14, &v32, v16);
+    _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_DEFAULT, v14, &v31, v16);
   }
 
   else
@@ -394,14 +129,14 @@ uint64_t __MRMediaRemoteBrowsableContentSupportsPlaybackProgress_block_invoke(vo
       v19 = a1[4];
       v10 = [MEMORY[0x1E695DF00] date];
       [v10 timeIntervalSinceDate:a1[7]];
-      v32 = 138544130;
-      v33 = v18;
-      v34 = 2114;
-      v35 = v17;
-      v36 = 2114;
-      v37 = v19;
-      v38 = 2048;
-      v39 = v20;
+      v31 = 138544130;
+      v32 = v18;
+      v33 = 2114;
+      v34 = v17;
+      v35 = 2114;
+      v36 = v19;
+      v37 = 2048;
+      v38 = v20;
       v21 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
       v22 = v6;
       v23 = 42;
@@ -418,36 +153,35 @@ uint64_t __MRMediaRemoteBrowsableContentSupportsPlaybackProgress_block_invoke(vo
       v28 = a1[6];
       v10 = [MEMORY[0x1E695DF00] date];
       [v10 timeIntervalSinceDate:a1[7]];
-      v32 = 138543874;
-      v33 = v27;
-      v34 = 2114;
-      v35 = v28;
-      v36 = 2048;
-      v37 = v29;
+      v31 = 138543874;
+      v32 = v27;
+      v33 = 2114;
+      v34 = v28;
+      v35 = 2048;
+      v36 = v29;
       v21 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v22 = v6;
       v23 = 32;
     }
 
-    _os_log_impl(&dword_1A2860000, v22, OS_LOG_TYPE_DEFAULT, v21, &v32, v23);
+    _os_log_impl(&dword_1A2860000, v22, OS_LOG_TYPE_DEFAULT, v21, &v31, v23);
   }
 
 LABEL_15:
   result = a1[8];
   if (result)
   {
-    result = (*(result + 16))(result, a2);
+    return (*(result + 16))(result, a2);
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void MRMediaRemoteGetCountOfBrowsableContentChildItems(void *a1, const void *a2, uint64_t a3, void *a4, void *a5)
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v34 = a2;
-  v35 = a3;
+  v37 = *MEMORY[0x1E69E9840];
+  v33 = a2;
+  v34 = a3;
   v7 = a5;
   v8 = MEMORY[0x1E695DF00];
   v9 = a4;
@@ -457,7 +191,7 @@ void MRMediaRemoteGetCountOfBrowsableContentChildItems(void *a1, const void *a2,
 
   v13 = a1;
   v14 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v15 = MRMediaRemoteIndexPathCopyDescription(&v34);
+  v15 = MRMediaRemoteIndexPathCopyDescription(&v33);
   v16 = [v14 initWithFormat:@"bundleID=%@, indexPath=%@", v13, v15];
 
   v17 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@<%@>", @"countOfBrowsableContentChildItems", v12];
@@ -471,34 +205,32 @@ void MRMediaRemoteGetCountOfBrowsableContentChildItems(void *a1, const void *a2,
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v37 = v18;
+    v36 = v18;
     _os_log_impl(&dword_1A2860000, v19, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
   v20 = MRGetSharedService();
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __MRMediaRemoteGetCountOfBrowsableContentChildItems_block_invoke;
-  v28[3] = &unk_1E76A2030;
-  v29 = v16;
-  v30 = @"countOfBrowsableContentChildItems";
-  v31 = v12;
-  v32 = v10;
-  v33 = v7;
-  v21 = v34;
-  v22 = v35;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __MRMediaRemoteGetCountOfBrowsableContentChildItems_block_invoke;
+  v27[3] = &unk_1E76A2030;
+  v28 = v16;
+  v29 = @"countOfBrowsableContentChildItems";
+  v30 = v12;
+  v31 = v10;
+  v32 = v7;
+  v21 = v33;
+  v22 = v34;
   v23 = v7;
   v24 = v10;
   v25 = v12;
   v26 = v16;
-  MRMediaRemoteServiceGetCountOfBrowsableContentChildItems(v20, v13, v21, v22, v9, v28);
-
-  v27 = *MEMORY[0x1E69E9840];
+  MRMediaRemoteServiceGetCountOfBrowsableContentChildItems(v20, v13, v21, v22, v9, v27);
 }
 
 uint64_t __MRMediaRemoteGetCountOfBrowsableContentChildItems_block_invoke(void *a1, uint64_t a2)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a2];
 
   v5 = a1[4];
@@ -519,16 +251,16 @@ uint64_t __MRMediaRemoteGetCountOfBrowsableContentChildItems_block_invoke(void *
       v11 = a1[4];
       v12 = [MEMORY[0x1E695DF00] date];
       [v12 timeIntervalSinceDate:a1[7]];
-      v32 = 138544386;
-      v33 = v8;
-      v34 = 2114;
-      v35 = v9;
-      v36 = 2112;
-      v37 = v10;
-      v38 = 2114;
-      v39 = v11;
-      v40 = 2048;
-      v41 = v13;
+      v31 = 138544386;
+      v32 = v8;
+      v33 = 2114;
+      v34 = v9;
+      v35 = 2112;
+      v36 = v10;
+      v37 = 2114;
+      v38 = v11;
+      v39 = 2048;
+      v40 = v13;
       v14 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
       v15 = v6;
       v16 = 52;
@@ -546,20 +278,20 @@ uint64_t __MRMediaRemoteGetCountOfBrowsableContentChildItems_block_invoke(void *
       v10 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a2];
       v12 = [MEMORY[0x1E695DF00] date];
       [v12 timeIntervalSinceDate:a1[7]];
-      v32 = 138544130;
-      v33 = v24;
-      v34 = 2114;
-      v35 = v25;
-      v36 = 2112;
-      v37 = v10;
-      v38 = 2048;
-      v39 = v26;
+      v31 = 138544130;
+      v32 = v24;
+      v33 = 2114;
+      v34 = v25;
+      v35 = 2112;
+      v36 = v10;
+      v37 = 2048;
+      v38 = v26;
       v14 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
       v15 = v6;
       v16 = 42;
     }
 
-    _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_DEFAULT, v14, &v32, v16);
+    _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_DEFAULT, v14, &v31, v16);
   }
 
   else
@@ -576,14 +308,14 @@ uint64_t __MRMediaRemoteGetCountOfBrowsableContentChildItems_block_invoke(void *
       v19 = a1[4];
       v10 = [MEMORY[0x1E695DF00] date];
       [v10 timeIntervalSinceDate:a1[7]];
-      v32 = 138544130;
-      v33 = v18;
-      v34 = 2114;
-      v35 = v17;
-      v36 = 2114;
-      v37 = v19;
-      v38 = 2048;
-      v39 = v20;
+      v31 = 138544130;
+      v32 = v18;
+      v33 = 2114;
+      v34 = v17;
+      v35 = 2114;
+      v36 = v19;
+      v37 = 2048;
+      v38 = v20;
       v21 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
       v22 = v6;
       v23 = 42;
@@ -600,36 +332,35 @@ uint64_t __MRMediaRemoteGetCountOfBrowsableContentChildItems_block_invoke(void *
       v28 = a1[6];
       v10 = [MEMORY[0x1E695DF00] date];
       [v10 timeIntervalSinceDate:a1[7]];
-      v32 = 138543874;
-      v33 = v27;
-      v34 = 2114;
-      v35 = v28;
-      v36 = 2048;
-      v37 = v29;
+      v31 = 138543874;
+      v32 = v27;
+      v33 = 2114;
+      v34 = v28;
+      v35 = 2048;
+      v36 = v29;
       v21 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v22 = v6;
       v23 = 32;
     }
 
-    _os_log_impl(&dword_1A2860000, v22, OS_LOG_TYPE_DEFAULT, v21, &v32, v23);
+    _os_log_impl(&dword_1A2860000, v22, OS_LOG_TYPE_DEFAULT, v21, &v31, v23);
   }
 
 LABEL_15:
   result = a1[8];
   if (result)
   {
-    result = (*(result + 16))(result, a2);
+    return (*(result + 16))(result, a2);
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void MRMediaRemoteGetBrowsableContentChildItems(void *a1, const void *a2, uint64_t a3, int64_t a4, int64_t a5, void *a6, void *a7)
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v39 = a2;
-  v40 = a3;
+  v42 = *MEMORY[0x1E69E9840];
+  v38 = a2;
+  v39 = a3;
   v11 = a7;
   v12 = MEMORY[0x1E695DF00];
   v13 = a6;
@@ -639,8 +370,8 @@ void MRMediaRemoteGetBrowsableContentChildItems(void *a1, const void *a2, uint64
 
   v17 = a1;
   v18 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v19 = MRMediaRemoteIndexPathCopyDescription(&v39);
-  v32 = a5;
+  v19 = MRMediaRemoteIndexPathCopyDescription(&v38);
+  v31 = a5;
   v20 = [v18 initWithFormat:@"bundleID=%@, indexPath=%@, location=%ld, length=%ld", v17, v19, a4, a5];
 
   v21 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@<%@>", @"browsableContentChildItems", v16];
@@ -654,34 +385,32 @@ void MRMediaRemoteGetBrowsableContentChildItems(void *a1, const void *a2, uint64
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v42 = v22;
+    v41 = v22;
     _os_log_impl(&dword_1A2860000, v23, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
   v24 = MRGetSharedService();
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __MRMediaRemoteGetBrowsableContentChildItems_block_invoke;
-  v33[3] = &unk_1E76A1FE0;
-  v34 = v20;
-  v35 = @"browsableContentChildItems";
-  v36 = v16;
-  v37 = v14;
-  v38 = v11;
-  v26 = v39;
-  v25 = v40;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __MRMediaRemoteGetBrowsableContentChildItems_block_invoke;
+  v32[3] = &unk_1E76A1FE0;
+  v33 = v20;
+  v34 = @"browsableContentChildItems";
+  v35 = v16;
+  v36 = v14;
+  v37 = v11;
+  v26 = v38;
+  v25 = v39;
   v27 = v11;
   v28 = v14;
   v29 = v16;
   v30 = v20;
-  MRMediaRemoteServiceCopyBrowsableContentChildItems(v24, v17, v26, v25, a4, v32, v13, v33);
-
-  v31 = *MEMORY[0x1E69E9840];
+  MRMediaRemoteServiceCopyBrowsableContentChildItems(v24, v17, v26, v25, a4, v31, v13, v32);
 }
 
 uint64_t __MRMediaRemoteGetBrowsableContentChildItems_block_invoke(void *a1, void *a2)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v4 = MRContentItemsCopyMinimalReadableDescription(a2, 0);
 
   v5 = a1[4];
@@ -706,16 +435,16 @@ uint64_t __MRMediaRemoteGetBrowsableContentChildItems_block_invoke(void *a1, voi
       [v14 timeIntervalSinceDate:a1[7]];
       v16 = v15;
 
-      v38 = 138544386;
-      v39 = v8;
-      v40 = 2114;
-      v41 = v9;
-      v42 = 2112;
-      v43 = v10;
-      v44 = 2114;
-      v45 = v11;
-      v46 = 2048;
-      v47 = v16;
+      v37 = 138544386;
+      v38 = v8;
+      v39 = 2114;
+      v40 = v9;
+      v41 = 2112;
+      v42 = v10;
+      v43 = 2114;
+      v44 = v11;
+      v45 = 2048;
+      v46 = v16;
       v17 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
       v18 = v6;
       v19 = 52;
@@ -737,20 +466,20 @@ uint64_t __MRMediaRemoteGetBrowsableContentChildItems_block_invoke(void *a1, voi
       [v14 timeIntervalSinceDate:a1[7]];
       v32 = v31;
 
-      v38 = 138544130;
-      v39 = v27;
-      v40 = 2114;
-      v41 = v28;
-      v42 = 2112;
-      v43 = v29;
-      v44 = 2048;
-      v45 = v32;
+      v37 = 138544130;
+      v38 = v27;
+      v39 = 2114;
+      v40 = v28;
+      v41 = 2112;
+      v42 = v29;
+      v43 = 2048;
+      v44 = v32;
       v17 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
       v18 = v6;
       v19 = 42;
     }
 
-    _os_log_impl(&dword_1A2860000, v18, OS_LOG_TYPE_DEFAULT, v17, &v38, v19);
+    _os_log_impl(&dword_1A2860000, v18, OS_LOG_TYPE_DEFAULT, v17, &v37, v19);
   }
 
   else
@@ -767,14 +496,14 @@ uint64_t __MRMediaRemoteGetBrowsableContentChildItems_block_invoke(void *a1, voi
       v22 = a1[4];
       v13 = [MEMORY[0x1E695DF00] date];
       [(__CFString *)v13 timeIntervalSinceDate:a1[7]];
-      v38 = 138544130;
-      v39 = v21;
-      v40 = 2114;
-      v41 = v20;
-      v42 = 2114;
-      v43 = v22;
-      v44 = 2048;
-      v45 = v23;
+      v37 = 138544130;
+      v38 = v21;
+      v39 = 2114;
+      v40 = v20;
+      v41 = 2114;
+      v42 = v22;
+      v43 = 2048;
+      v44 = v23;
       v24 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
       v25 = v6;
       v26 = 42;
@@ -791,37 +520,36 @@ uint64_t __MRMediaRemoteGetBrowsableContentChildItems_block_invoke(void *a1, voi
       v34 = a1[6];
       v13 = [MEMORY[0x1E695DF00] date];
       [(__CFString *)v13 timeIntervalSinceDate:a1[7]];
-      v38 = 138543874;
-      v39 = v33;
-      v40 = 2114;
-      v41 = v34;
-      v42 = 2048;
-      v43 = v35;
+      v37 = 138543874;
+      v38 = v33;
+      v39 = 2114;
+      v40 = v34;
+      v41 = 2048;
+      v42 = v35;
       v24 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v25 = v6;
       v26 = 32;
     }
 
-    _os_log_impl(&dword_1A2860000, v25, OS_LOG_TYPE_DEFAULT, v24, &v38, v26);
+    _os_log_impl(&dword_1A2860000, v25, OS_LOG_TYPE_DEFAULT, v24, &v37, v26);
   }
 
 LABEL_15:
   result = a1[8];
   if (result)
   {
-    result = (*(result + 16))(result, a2);
+    return (*(result + 16))(result, a2);
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void MRMediaRemoteRequestPlaybackInitialization(void *a1, const void *a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v11 = a2;
-  v12 = a3;
-  v4 = MRMediaRemoteIndexPathCopyDescription(&v11);
+  v14 = *MEMORY[0x1E69E9840];
+  v10 = a2;
+  v11 = a3;
+  v4 = MRMediaRemoteIndexPathCopyDescription(&v10);
   v5 = a1;
   v6 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@<%@>", @"browsableContentPlaybackInitalization", v5];
   v7 = v6;
@@ -834,14 +562,12 @@ void MRMediaRemoteRequestPlaybackInitialization(void *a1, const void *a2, uint64
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v14 = v7;
+    v13 = v7;
     _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
   v9 = MRGetSharedService();
-  MRMediaRemoteServiceRequestPlaybackInitialization(v9, v5, v11, v12);
-
-  v10 = *MEMORY[0x1E69E9840];
+  MRMediaRemoteServiceRequestPlaybackInitialization(v9, v5, v10, v11);
 }
 
 void MRMediaRemotePostBrowsableContentNotification(void *a1, void *a2)
@@ -853,7 +579,7 @@ void MRMediaRemotePostBrowsableContentNotification(void *a1, void *a2)
 
 void MRMediaRemoteGetContentItemsForIdentifiers(void *a1, void *a2, void *a3, void *a4)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v7 = a4;
   v8 = MEMORY[0x1E695DF00];
   v9 = a3;
@@ -875,32 +601,30 @@ void MRMediaRemoteGetContentItemsForIdentifiers(void *a1, void *a2, void *a3, vo
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v32 = v17;
+    v31 = v17;
     _os_log_impl(&dword_1A2860000, v18, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
   v19 = MRGetSharedService();
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __MRMediaRemoteGetContentItemsForIdentifiers_block_invoke;
-  v25[3] = &unk_1E76A2058;
-  v26 = v15;
-  v27 = @"supportedBrowsableContentAPIs";
-  v28 = v12;
-  v29 = v10;
-  v30 = v7;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __MRMediaRemoteGetContentItemsForIdentifiers_block_invoke;
+  v24[3] = &unk_1E76A2058;
+  v25 = v15;
+  v26 = @"supportedBrowsableContentAPIs";
+  v27 = v12;
+  v28 = v10;
+  v29 = v7;
   v20 = v7;
   v21 = v10;
   v22 = v12;
   v23 = v15;
-  MRMediaRemoteServiceGetContentItemsForIdentifiers(v19, v13, v14, v9, v25);
-
-  v24 = *MEMORY[0x1E69E9840];
+  MRMediaRemoteServiceGetContentItemsForIdentifiers(v19, v13, v14, v9, v24);
 }
 
 uint64_t __MRMediaRemoteGetContentItemsForIdentifiers_block_invoke(void *a1, uint64_t a2, uint64_t a3)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v6 = a1[4];
   v7 = _MRLogForCategory(0xAuLL);
   v8 = v7;
@@ -919,16 +643,16 @@ uint64_t __MRMediaRemoteGetContentItemsForIdentifiers_block_invoke(void *a1, uin
       v12 = a1[4];
       v13 = [MEMORY[0x1E695DF00] date];
       [v13 timeIntervalSinceDate:a1[7]];
-      v36 = 138544386;
-      v37 = v11;
-      v38 = 2114;
-      v39 = v10;
-      v40 = 2112;
-      v41 = a2;
-      v42 = 2114;
-      v43 = v12;
-      v44 = 2048;
-      v45 = v14;
+      v35 = 138544386;
+      v36 = v11;
+      v37 = 2114;
+      v38 = v10;
+      v39 = 2112;
+      v40 = a2;
+      v41 = 2114;
+      v42 = v12;
+      v43 = 2048;
+      v44 = v14;
       v15 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
       v16 = v8;
       v17 = 52;
@@ -944,14 +668,14 @@ uint64_t __MRMediaRemoteGetContentItemsForIdentifiers_block_invoke(void *a1, uin
     v29 = a1[6];
     v13 = [MEMORY[0x1E695DF00] date];
     [v13 timeIntervalSinceDate:a1[7]];
-    v36 = 138544130;
-    v37 = v28;
-    v38 = 2114;
-    v39 = v29;
-    v40 = 2112;
-    v41 = a2;
-    v42 = 2048;
-    v43 = v30;
+    v35 = 138544130;
+    v36 = v28;
+    v37 = 2114;
+    v38 = v29;
+    v39 = 2112;
+    v40 = a2;
+    v41 = 2048;
+    v42 = v30;
     v15 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
     goto LABEL_15;
   }
@@ -971,17 +695,17 @@ uint64_t __MRMediaRemoteGetContentItemsForIdentifiers_block_invoke(void *a1, uin
       v21 = a1[4];
       v13 = [MEMORY[0x1E695DF00] date];
       [v13 timeIntervalSinceDate:a1[7]];
-      v36 = 138544386;
-      v37 = v20;
-      v38 = 2114;
-      v39 = v19;
-      v40 = 2114;
-      v41 = a3;
-      v42 = 2114;
-      v43 = v21;
-      v44 = 2048;
-      v45 = v22;
-      _os_log_error_impl(&dword_1A2860000, v8, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v36, 0x34u);
+      v35 = 138544386;
+      v36 = v20;
+      v37 = 2114;
+      v38 = v19;
+      v39 = 2114;
+      v40 = a3;
+      v41 = 2114;
+      v42 = v21;
+      v43 = 2048;
+      v44 = v22;
+      _os_log_error_impl(&dword_1A2860000, v8, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v35, 0x34u);
       goto LABEL_17;
     }
 
@@ -1006,20 +730,20 @@ uint64_t __MRMediaRemoteGetContentItemsForIdentifiers_block_invoke(void *a1, uin
       v26 = a1[4];
       v13 = [MEMORY[0x1E695DF00] date];
       [v13 timeIntervalSinceDate:a1[7]];
-      v36 = 138544130;
-      v37 = v25;
-      v38 = 2114;
-      v39 = v24;
-      v40 = 2114;
-      v41 = v26;
-      v42 = 2048;
-      v43 = v27;
+      v35 = 138544130;
+      v36 = v25;
+      v37 = 2114;
+      v38 = v24;
+      v39 = 2114;
+      v40 = v26;
+      v41 = 2048;
+      v42 = v27;
       v15 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
 LABEL_15:
       v16 = v8;
       v17 = 42;
 LABEL_16:
-      _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, v15, &v36, v17);
+      _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, v15, &v35, v17);
 LABEL_17:
 
       goto LABEL_22;
@@ -1031,12 +755,12 @@ LABEL_17:
       v32 = a1[6];
       v13 = [MEMORY[0x1E695DF00] date];
       [v13 timeIntervalSinceDate:a1[7]];
-      v36 = 138543874;
-      v37 = v31;
-      v38 = 2114;
-      v39 = v32;
-      v40 = 2048;
-      v41 = v33;
+      v35 = 138543874;
+      v36 = v31;
+      v37 = 2114;
+      v38 = v32;
+      v39 = 2048;
+      v40 = v33;
       v15 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v16 = v8;
       v17 = 32;
@@ -1049,16 +773,15 @@ LABEL_22:
   result = a1[8];
   if (result)
   {
-    result = (*(result + 16))(result, a2, a3);
+    return (*(result + 16))(result, a2, a3);
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void MRMediaRemoteSetBrowsableContentEndpoint(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%p", a1];
   v3 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@<%@>", @"setBrowsableContentEndpoint", 0];
   v4 = v3;
@@ -1071,20 +794,18 @@ void MRMediaRemoteSetBrowsableContentEndpoint(uint64_t a1)
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v9 = v4;
+    v8 = v4;
     _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
   v6 = MRGetSharedService();
   MRMediaRemoteServiceSetBrowsableContentEndpoint(v6, a1);
   MRMediaRemoteServicePostBrowsableContentNotification(v6, @"kMRMediaRemoteBrowsableContentEndpointChangedNotification", 0);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void MRMediaRemoteGetSupportedBrowsableContentAPIs(void *a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = MEMORY[0x1E695DF00];
   v7 = a2;
@@ -1104,32 +825,30 @@ void MRMediaRemoteGetSupportedBrowsableContentAPIs(void *a1, void *a2, void *a3)
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v28 = v13;
+    v27 = v13;
     _os_log_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
   v15 = MRGetSharedService();
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __MRMediaRemoteGetSupportedBrowsableContentAPIs_block_invoke;
-  v21[3] = &unk_1E76A2080;
-  v22 = v11;
-  v23 = @"supportedBrowsableContentAPIs";
-  v24 = v10;
-  v25 = v8;
-  v26 = v5;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __MRMediaRemoteGetSupportedBrowsableContentAPIs_block_invoke;
+  v20[3] = &unk_1E76A2080;
+  v21 = v11;
+  v22 = @"supportedBrowsableContentAPIs";
+  v23 = v10;
+  v24 = v8;
+  v25 = v5;
   v16 = v5;
   v17 = v8;
   v18 = v10;
   v19 = v11;
-  MRMediaRemoteServiceGetSupportedBrowsableContentAPI(v15, v19, v7, v21);
-
-  v20 = *MEMORY[0x1E69E9840];
+  MRMediaRemoteServiceGetSupportedBrowsableContentAPI(v15, v19, v7, v20);
 }
 
 void __MRMediaRemoteGetSupportedBrowsableContentAPIs_block_invoke(void *a1, uint64_t a2, __CFError *a3)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v6 = MRMediaRemoteCopyBrowsableContentAPIMaskDescription(a2);
   v7 = a1[4];
   v8 = _MRLogForCategory(0xAuLL);
@@ -1149,16 +868,16 @@ void __MRMediaRemoteGetSupportedBrowsableContentAPIs_block_invoke(void *a1, uint
       v13 = a1[4];
       v14 = [MEMORY[0x1E695DF00] date];
       [v14 timeIntervalSinceDate:a1[7]];
-      v38 = 138544386;
-      v39 = v12;
-      v40 = 2114;
-      v41 = v11;
-      v42 = 2112;
-      v43 = v6;
-      v44 = 2114;
-      v45 = v13;
-      v46 = 2048;
-      v47 = v15;
+      v37 = 138544386;
+      v38 = v12;
+      v39 = 2114;
+      v40 = v11;
+      v41 = 2112;
+      v42 = v6;
+      v43 = 2114;
+      v44 = v13;
+      v45 = 2048;
+      v46 = v15;
       v16 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
       v17 = v9;
       v18 = 52;
@@ -1174,14 +893,14 @@ void __MRMediaRemoteGetSupportedBrowsableContentAPIs_block_invoke(void *a1, uint
     v30 = a1[6];
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:a1[7]];
-    v38 = 138544130;
-    v39 = v29;
-    v40 = 2114;
-    v41 = v30;
-    v42 = 2112;
-    v43 = v6;
-    v44 = 2048;
-    v45 = v31;
+    v37 = 138544130;
+    v38 = v29;
+    v39 = 2114;
+    v40 = v30;
+    v41 = 2112;
+    v42 = v6;
+    v43 = 2048;
+    v44 = v31;
     v16 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
     goto LABEL_15;
   }
@@ -1201,17 +920,17 @@ void __MRMediaRemoteGetSupportedBrowsableContentAPIs_block_invoke(void *a1, uint
       v22 = a1[4];
       v14 = [MEMORY[0x1E695DF00] date];
       [v14 timeIntervalSinceDate:a1[7]];
-      v38 = 138544386;
-      v39 = v21;
-      v40 = 2114;
-      v41 = v20;
-      v42 = 2114;
-      v43 = a3;
-      v44 = 2114;
-      v45 = v22;
-      v46 = 2048;
-      v47 = v23;
-      _os_log_error_impl(&dword_1A2860000, v9, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v38, 0x34u);
+      v37 = 138544386;
+      v38 = v21;
+      v39 = 2114;
+      v40 = v20;
+      v41 = 2114;
+      v42 = a3;
+      v43 = 2114;
+      v44 = v22;
+      v45 = 2048;
+      v46 = v23;
+      _os_log_error_impl(&dword_1A2860000, v9, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v37, 0x34u);
       goto LABEL_17;
     }
 
@@ -1236,20 +955,20 @@ void __MRMediaRemoteGetSupportedBrowsableContentAPIs_block_invoke(void *a1, uint
       v27 = a1[4];
       v14 = [MEMORY[0x1E695DF00] date];
       [v14 timeIntervalSinceDate:a1[7]];
-      v38 = 138544130;
-      v39 = v26;
-      v40 = 2114;
-      v41 = v25;
-      v42 = 2114;
-      v43 = v27;
-      v44 = 2048;
-      v45 = v28;
+      v37 = 138544130;
+      v38 = v26;
+      v39 = 2114;
+      v40 = v25;
+      v41 = 2114;
+      v42 = v27;
+      v43 = 2048;
+      v44 = v28;
       v16 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
 LABEL_15:
       v17 = v9;
       v18 = 42;
 LABEL_16:
-      _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, v16, &v38, v18);
+      _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, v16, &v37, v18);
 LABEL_17:
 
       goto LABEL_22;
@@ -1261,12 +980,12 @@ LABEL_17:
       v33 = a1[6];
       v14 = [MEMORY[0x1E695DF00] date];
       [v14 timeIntervalSinceDate:a1[7]];
-      v38 = 138543874;
-      v39 = v32;
-      v40 = 2114;
-      v41 = v33;
-      v42 = 2048;
-      v43 = v34;
+      v37 = 138543874;
+      v38 = v32;
+      v39 = 2114;
+      v40 = v33;
+      v41 = 2048;
+      v42 = v34;
       v16 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v17 = v9;
       v18 = 32;
@@ -1291,8 +1010,6 @@ LABEL_22:
 
     (*(v35 + 16))(v35, a2, Code);
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 __CFString *MRMediaRemoteCopyBrowsableContentAPIMaskDescription(char a1)
@@ -1385,7 +1102,7 @@ LABEL_8:
 
 void MRMediaRemoteGetAppsSupportingBrowsableContentAPIs(unsigned int a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
   v7 = MRMediaRemoteCopyBrowsableContentAPIMaskDescription(a1);
@@ -1404,32 +1121,30 @@ void MRMediaRemoteGetAppsSupportingBrowsableContentAPIs(unsigned int a1, void *a
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v27 = v12;
+    v26 = v12;
     _os_log_impl(&dword_1A2860000, v13, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
   v14 = MRGetSharedService();
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __MRMediaRemoteGetAppsSupportingBrowsableContentAPIs_block_invoke;
-  v20[3] = &unk_1E76A20A8;
-  v21 = v7;
-  v22 = @"appsSupportingBrowsableContentAPIs";
-  v23 = v10;
-  v24 = v8;
-  v25 = v5;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __MRMediaRemoteGetAppsSupportingBrowsableContentAPIs_block_invoke;
+  v19[3] = &unk_1E76A20A8;
+  v20 = v7;
+  v21 = @"appsSupportingBrowsableContentAPIs";
+  v22 = v10;
+  v23 = v8;
+  v24 = v5;
   v15 = v5;
   v16 = v8;
   v17 = v10;
   v18 = v7;
-  MRMediaRemoteServiceGetAppsSupportingBrowsableContentAPIs(v14, a1, v6, v20);
-
-  v19 = *MEMORY[0x1E69E9840];
+  MRMediaRemoteServiceGetAppsSupportingBrowsableContentAPIs(v14, a1, v6, v19);
 }
 
 uint64_t __MRMediaRemoteGetAppsSupportingBrowsableContentAPIs_block_invoke(void *a1, uint64_t a2, uint64_t a3)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v6 = a1[4];
   v7 = _MRLogForCategory(0xAuLL);
   v8 = v7;
@@ -1448,16 +1163,16 @@ uint64_t __MRMediaRemoteGetAppsSupportingBrowsableContentAPIs_block_invoke(void 
       v12 = a1[4];
       v13 = [MEMORY[0x1E695DF00] date];
       [v13 timeIntervalSinceDate:a1[7]];
-      v36 = 138544386;
-      v37 = v11;
-      v38 = 2114;
-      v39 = v10;
-      v40 = 2112;
-      v41 = a2;
-      v42 = 2114;
-      v43 = v12;
-      v44 = 2048;
-      v45 = v14;
+      v35 = 138544386;
+      v36 = v11;
+      v37 = 2114;
+      v38 = v10;
+      v39 = 2112;
+      v40 = a2;
+      v41 = 2114;
+      v42 = v12;
+      v43 = 2048;
+      v44 = v14;
       v15 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
       v16 = v8;
       v17 = 52;
@@ -1473,14 +1188,14 @@ uint64_t __MRMediaRemoteGetAppsSupportingBrowsableContentAPIs_block_invoke(void 
     v29 = a1[6];
     v13 = [MEMORY[0x1E695DF00] date];
     [v13 timeIntervalSinceDate:a1[7]];
-    v36 = 138544130;
-    v37 = v28;
-    v38 = 2114;
-    v39 = v29;
-    v40 = 2112;
-    v41 = a2;
-    v42 = 2048;
-    v43 = v30;
+    v35 = 138544130;
+    v36 = v28;
+    v37 = 2114;
+    v38 = v29;
+    v39 = 2112;
+    v40 = a2;
+    v41 = 2048;
+    v42 = v30;
     v15 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
     goto LABEL_15;
   }
@@ -1500,17 +1215,17 @@ uint64_t __MRMediaRemoteGetAppsSupportingBrowsableContentAPIs_block_invoke(void 
       v21 = a1[4];
       v13 = [MEMORY[0x1E695DF00] date];
       [v13 timeIntervalSinceDate:a1[7]];
-      v36 = 138544386;
-      v37 = v20;
-      v38 = 2114;
-      v39 = v19;
-      v40 = 2114;
-      v41 = a3;
-      v42 = 2114;
-      v43 = v21;
-      v44 = 2048;
-      v45 = v22;
-      _os_log_error_impl(&dword_1A2860000, v8, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v36, 0x34u);
+      v35 = 138544386;
+      v36 = v20;
+      v37 = 2114;
+      v38 = v19;
+      v39 = 2114;
+      v40 = a3;
+      v41 = 2114;
+      v42 = v21;
+      v43 = 2048;
+      v44 = v22;
+      _os_log_error_impl(&dword_1A2860000, v8, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v35, 0x34u);
       goto LABEL_17;
     }
 
@@ -1535,20 +1250,20 @@ uint64_t __MRMediaRemoteGetAppsSupportingBrowsableContentAPIs_block_invoke(void 
       v26 = a1[4];
       v13 = [MEMORY[0x1E695DF00] date];
       [v13 timeIntervalSinceDate:a1[7]];
-      v36 = 138544130;
-      v37 = v25;
-      v38 = 2114;
-      v39 = v24;
-      v40 = 2114;
-      v41 = v26;
-      v42 = 2048;
-      v43 = v27;
+      v35 = 138544130;
+      v36 = v25;
+      v37 = 2114;
+      v38 = v24;
+      v39 = 2114;
+      v40 = v26;
+      v41 = 2048;
+      v42 = v27;
       v15 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
 LABEL_15:
       v16 = v8;
       v17 = 42;
 LABEL_16:
-      _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, v15, &v36, v17);
+      _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, v15, &v35, v17);
 LABEL_17:
 
       goto LABEL_22;
@@ -1560,12 +1275,12 @@ LABEL_17:
       v32 = a1[6];
       v13 = [MEMORY[0x1E695DF00] date];
       [v13 timeIntervalSinceDate:a1[7]];
-      v36 = 138543874;
-      v37 = v31;
-      v38 = 2114;
-      v39 = v32;
-      v40 = 2048;
-      v41 = v33;
+      v35 = 138543874;
+      v36 = v31;
+      v37 = 2114;
+      v38 = v32;
+      v39 = 2048;
+      v40 = v33;
       v15 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v16 = v8;
       v17 = 32;
@@ -1578,16 +1293,15 @@ LABEL_22:
   result = a1[8];
   if (result)
   {
-    result = (*(result + 16))(result, a2, a3);
+    return (*(result + 16))(result, a2, a3);
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void MRMediaRemoteSetSupportedBrowsableContentAPIs(unsigned int a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
   v7 = MRMediaRemoteCopyBrowsableContentAPIMaskDescription(a1);
@@ -1602,40 +1316,37 @@ void MRMediaRemoteSetSupportedBrowsableContentAPIs(unsigned int a1, void *a2, vo
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v14 = v9;
+    v13 = v9;
     _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
   v11 = MRGetSharedService();
   MRMediaRemoteServiceSetSupportedBrowsableContentAPI(v11, a1, v6, v5);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void MRMediaRemoteInvalidateBrowsableContent()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@<%@>", @"invalidateBrowsableContentDataSource", 0];
   v1 = _MRLogForCategory(0xAuLL);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v5 = v0;
+    v4 = v0;
     _os_log_impl(&dword_1A2860000, v1, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
   v2 = MRGetSharedService();
   MRMediaRemoteServicePostBrowsableContentNotification(v2, @"kMRMediaRemoteApplicationInvalidatedBrowsableContentDataSourceNotification", 0);
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void MRMediaRemoteUpdateNowPlayingIdentifiers(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v1 = [MEMORY[0x1E695DEC8] arrayWithArray:a1];
-  v10 = @"kMRMediaRemoteUpdatedNowPlayingIdentifiersInfoKey";
-  v11[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"kMRMediaRemoteUpdatedNowPlayingIdentifiersInfoKey";
+  v10[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v3 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@<%@>", @"setBrowsableContentNowPlayingIdentifiers", 0];
   v4 = v3;
   if (v1)
@@ -1647,61 +1358,59 @@ void MRMediaRemoteUpdateNowPlayingIdentifiers(uint64_t a1)
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v9 = v4;
+    v8 = v4;
     _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
   v6 = MRGetSharedService();
   MRMediaRemoteServicePostBrowsableContentNotification(v6, @"kMRMediaRemoteBrowsableContentNowPlayingIdentifiersUpdatedNotification", v2);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void MRMediaRemoteUpdateBrowsableContentItems(void *a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v20;
+    v6 = *v19;
     v7 = *MEMORY[0x1E695E480];
     do
     {
       v8 = 0;
       do
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        ExternalRepresentation = MRContentItemCreateExternalRepresentation(v7, *(*(&v19 + 1) + 8 * v8));
+        ExternalRepresentation = MRContentItemCreateExternalRepresentation(v7, *(*(&v18 + 1) + 8 * v8));
         [v2 addObject:ExternalRepresentation];
 
         ++v8;
       }
 
       while (v5 != v8);
-      v5 = [v3 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v5);
   }
 
   v10 = [MEMORY[0x1E696AE40] dataWithPropertyList:v2 format:200 options:0 error:0];
-  v25 = @"kMRMediaRemoteUpdatedContentItemsDataUserInfoKey";
-  v26 = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+  v24 = @"kMRMediaRemoteUpdatedContentItemsDataUserInfoKey";
+  v25 = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
   v12 = objc_alloc(MEMORY[0x1E696AD60]);
-  v13 = [v12 initWithFormat:@"%@<%@>", @"setBrowsableContentItems", 0, v19];
+  v13 = [v12 initWithFormat:@"%@<%@>", @"setBrowsableContentItems", 0, v18];
   v14 = MRContentItemsCopyMinimalReadableDescription(v3, 0);
 
   if (v14)
@@ -1714,25 +1423,23 @@ void MRMediaRemoteUpdateBrowsableContentItems(void *a1)
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v24 = v13;
+    v23 = v13;
     _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
   v17 = MRGetSharedService();
   MRMediaRemoteServicePostBrowsableContentNotification(v17, @"kMRMediaRemoteContentItemsUpdatedNotification", v11);
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void MRMediaRemoteFinishedPlaybackInitialization(uint64_t a1, uint64_t a2, __CFError *a3)
 {
-  v20[1] = *MEMORY[0x1E69E9840];
-  v16[0] = a1;
-  v16[1] = a2;
+  v19[1] = *MEMORY[0x1E69E9840];
+  v15[0] = a1;
+  v15[1] = a2;
   v4 = [MEMORY[0x1E695DEF0] dataWithBytes:a1 length:8 * a2];
-  v19 = @"kMRMediaRemoteIndexPathDataUserInfoKey";
-  v20[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+  v18 = @"kMRMediaRemoteIndexPathDataUserInfoKey";
+  v19[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
   v6 = [v5 mutableCopy];
 
   if (a3)
@@ -1752,7 +1459,7 @@ void MRMediaRemoteFinishedPlaybackInitialization(uint64_t a1, uint64_t a2, __CFE
     }
   }
 
-  v10 = MRMediaRemoteIndexPathCopyDescription(v16);
+  v10 = MRMediaRemoteIndexPathCopyDescription(v15);
   v11 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@<%@>", @"finishedBrowsableContentPlaybackInitialization", 0];
   v12 = v11;
   if (v10)
@@ -1764,21 +1471,27 @@ void MRMediaRemoteFinishedPlaybackInitialization(uint64_t a1, uint64_t a2, __CFE
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v18 = v12;
+    v17 = v12;
     _os_log_impl(&dword_1A2860000, v13, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
   v14 = MRGetSharedService();
   MRMediaRemoteServicePostBrowsableContentNotification(v14, @"kMRMediaRemoteApplicationInitiatedPlaybackOfContentItemNotification", v6);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1A2A5F62C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43)
+void sub_1A2A5E03C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  _Block_object_dispose(&a43, 8);
-  _Block_object_dispose((v43 - 256), 8);
-  _Block_object_dispose((v43 - 208), 8);
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1A2A5F62C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
+{
+  va_start(va, a42);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v42 - 256), 8);
+  _Block_object_dispose((v42 - 208), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1790,11 +1503,12 @@ void sub_1A2A60C10(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1A2A61D70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
+void sub_1A2A61D70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
 {
-  _Block_object_dispose(&a47, 8);
-  _Block_object_dispose((v47 - 256), 8);
-  _Block_object_dispose((v47 - 208), 8);
+  va_start(va, a46);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v46 - 256), 8);
+  _Block_object_dispose((v46 - 208), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2131,17 +1845,18 @@ void sub_1A2A6BE80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A2A6EEAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_1A2A6EEAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
-  _Block_object_dispose(&a41, 8);
-  _Block_object_dispose((v41 - 224), 8);
-  _Block_object_dispose((v41 - 176), 8);
+  va_start(va, a40);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v40 - 224), 8);
+  _Block_object_dispose((v40 - 176), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2A7D3E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1A2A7D3E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2470,42 +2185,40 @@ BOOL MRExternalDeviceIsConnected(void *a1)
 
 void MRExternalDeviceConnect(void *a1)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     MRExternalDeviceConnect_cold_1();
   }
 
   v2 = objc_autoreleasePoolPush();
-  v7 = @"MRExternalDeviceConnectionReasonUserInfoKey";
-  v8[0] = @"deprecated";
+  v6 = @"MRExternalDeviceConnectionReasonUserInfoKey";
+  v7[0] = @"deprecated";
   v3 = MEMORY[0x1E695DF20];
   v4 = a1;
-  v5 = [v3 dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v5 = [v3 dictionaryWithObjects:v7 forKeys:&v6 count:1];
   [v4 connectWithOptions:0 userInfo:v5];
 
   objc_autoreleasePoolPop(v2);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void MRExternalDeviceConnectEx(void *a1, uint64_t a2)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     MRExternalDeviceConnectEx_cold_1();
   }
 
   v4 = objc_autoreleasePoolPush();
-  v9 = @"MRExternalDeviceConnectionReasonUserInfoKey";
-  v10[0] = @"deprecated";
+  v8 = @"MRExternalDeviceConnectionReasonUserInfoKey";
+  v9[0] = @"deprecated";
   v5 = MEMORY[0x1E695DF20];
   v6 = a1;
-  v7 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v7 = [v5 dictionaryWithObjects:v9 forKeys:&v8 count:1];
   [v6 connectWithOptions:a2 userInfo:v7];
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void MRExternalDeviceDisconnect(void *a1)
@@ -2595,7 +2308,7 @@ void MRExternalDeviceSetPairingAllowedCallback(void *a1, void *a2, void *a3)
 
 void MRExternalDeviceGetPairedDevices(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (!v1)
   {
@@ -2607,29 +2320,29 @@ void MRExternalDeviceGetPairedDevices(void *a1)
   [(MRExternalDevicePairingSession *)v3 open];
   v4 = [(MRExternalDevicePairingSession *)v3 pairedDevices];
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [v5 addObject:{*(*(&v12 + 1) + 8 * i), v12}];
+        [v5 addObject:{*(*(&v11 + 1) + 8 * i), v11}];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
@@ -2637,8 +2350,6 @@ void MRExternalDeviceGetPairedDevices(void *a1)
 
   v1[2](v1, v5);
   objc_autoreleasePoolPop(v2);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void MRExternalDeviceDeletePairedDevice(uint64_t a1)
@@ -2821,16 +2532,16 @@ CFStringRef MRExternalDeviceConnectOptionsCopyDescription(char a1)
   return CFStringCreateCopy(*MEMORY[0x1E695E480], v1);
 }
 
-void sub_1A2A8132C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A2A8132C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2A81518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A2A81518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2905,45 +2616,41 @@ uint64_t MRPowerLogConnectionTransportTypeFromTransport(void *a1)
 
 void *__getPLLogRegisteredEventSymbolLoc_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!PowerLogLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __PowerLogLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E76A31D0;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __PowerLogLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E76A31D0;
+    v6 = 0;
     PowerLogLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v2 = PowerLogLibraryCore_frameworkLibrary;
   if (!PowerLogLibraryCore_frameworkLibrary)
   {
-    __getPLLogRegisteredEventSymbolLoc_block_invoke_cold_1(v5);
+    __getPLLogRegisteredEventSymbolLoc_block_invoke_cold_1(v4);
   }
 
-  if (v5[0])
+  if (v4[0])
   {
-    free(v5[0]);
+    free(v4[0]);
   }
 
   result = dlsym(v2, "PLLogRegisteredEvent");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getPLLogRegisteredEventSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __PowerLogLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PowerLogLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3225,9 +2932,9 @@ uint64_t MRDeviceSupportsSystemAperture()
   return v0();
 }
 
-void sub_1A2A8B15C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2A8B15C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3240,16 +2947,16 @@ void sub_1A2A8BA44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A2A8BF70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2A8BF70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2A8C1DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2A8C1DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3270,15 +2977,15 @@ void MRSetPrefersExpandedLockScreenPlatter(uint64_t a1)
 
 void MRSetUIServiceRelayEndpoint(void *a1)
 {
-  v2 = a1;
-  if (MRProcessIsUIService())
+  v3 = a1;
+  if (MRProcessIsUIService(v3, v1))
   {
-    v1 = MRGetSharedService();
-    [v1 setUIServiceRelayEndpoint:v2];
+    v2 = MRGetSharedService();
+    [v2 setUIServiceRelayEndpoint:v3];
   }
 }
 
-uint64_t MRSupportsSystemUIActivities()
+uint64_t MRSupportsSystemUIActivities(uint64_t a1, uint64_t a2)
 {
   if (MRSupportsSystemUIActivities_onceToken != -1)
   {
@@ -3288,24 +2995,24 @@ uint64_t MRSupportsSystemUIActivities()
   return MRSupportsSystemUIActivities___supportsSystemUIActivities;
 }
 
-void __MRSupportsSystemUIActivities_block_invoke()
+void __MRSupportsSystemUIActivities_block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (MRProcessIsMediaRemoteDaemon())
+  if (MRProcessIsMediaRemoteDaemon(a1, a2))
   {
-    v1 = MEMORY[0x1A58E3570](MRSupportsSystemUIActivitiesBlock);
-    if (v1)
+    v3 = MEMORY[0x1A58E3570](MRSupportsSystemUIActivitiesBlock);
+    if (v3)
     {
-      MRSupportsSystemUIActivities___supportsSystemUIActivities = v1[2]();
+      MRSupportsSystemUIActivities___supportsSystemUIActivities = v3[2]();
     }
 
-    v0 = MRSupportsSystemUIActivitiesBlock;
+    v2 = MRSupportsSystemUIActivitiesBlock;
     MRSupportsSystemUIActivitiesBlock = 0;
   }
 
   else
   {
-    v1 = MRGetSharedService();
-    MRSupportsSystemUIActivities___supportsSystemUIActivities = [v1 deviceSupportsUISessions];
+    v3 = MRGetSharedService();
+    MRSupportsSystemUIActivities___supportsSystemUIActivities = [v3 deviceSupportsUISessions];
   }
 }
 
@@ -3319,77 +3026,73 @@ uint64_t MRUseInternalUI()
 
 void *__getSBSIsSystemApertureAvailableSymbolLoc_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!SpringBoardServicesLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __SpringBoardServicesLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E76A3490;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __SpringBoardServicesLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E76A3490;
+    v6 = 0;
     SpringBoardServicesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v2 = SpringBoardServicesLibraryCore_frameworkLibrary;
   if (!SpringBoardServicesLibraryCore_frameworkLibrary)
   {
-    __getSBSIsSystemApertureAvailableSymbolLoc_block_invoke_cold_1(v5);
+    __getSBSIsSystemApertureAvailableSymbolLoc_block_invoke_cold_1(v4);
   }
 
-  if (v5[0])
+  if (v4[0])
   {
-    free(v5[0]);
+    free(v4[0]);
   }
 
   result = dlsym(v2, "SBSIsSystemApertureAvailable");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getSBSIsSystemApertureAvailableSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __SpringBoardServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SpringBoardServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t MRAVOutputDeviceArrayContainsLocalDevice(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
-    v3 = *v8;
+    v3 = *v7;
     while (2)
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v8 != v3)
+        if (*v7 != v3)
         {
           objc_enumerationMutation(v1);
         }
 
-        if ([*(*(&v7 + 1) + 8 * i) isLocalDevice])
+        if ([*(*(&v6 + 1) + 8 * i) isLocalDevice])
         {
           v2 = 1;
           goto LABEL_11;
         }
       }
 
-      v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
       if (v2)
       {
         continue;
@@ -3401,34 +3104,33 @@ uint64_t MRAVOutputDeviceArrayContainsLocalDevice(void *a1)
 
 LABEL_11:
 
-  v5 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 BOOL MRAVOutputDeviceArrayContainsOnlyLocalDevices(void *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       v5 = 0;
       do
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        if (![*(*(&v9 + 1) + 8 * v5) isLocalDevice])
+        if (![*(*(&v8 + 1) + 8 * v5) isLocalDevice])
         {
 
           v6 = 0;
@@ -3439,7 +3141,7 @@ BOOL MRAVOutputDeviceArrayContainsOnlyLocalDevices(void *a1)
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -3452,34 +3154,33 @@ BOOL MRAVOutputDeviceArrayContainsOnlyLocalDevices(void *a1)
   v6 = [v1 count] != 0;
 LABEL_11:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 BOOL MRAVOutputDeviceArrayContainsOnlyAirPlayDevices(void *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       v5 = 0;
       do
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        if ([*(*(&v9 + 1) + 8 * v5) deviceType] != 1)
+        if ([*(*(&v8 + 1) + 8 * v5) deviceType] != 1)
         {
 
           v6 = 0;
@@ -3490,7 +3191,7 @@ BOOL MRAVOutputDeviceArrayContainsOnlyAirPlayDevices(void *a1)
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -3503,34 +3204,33 @@ BOOL MRAVOutputDeviceArrayContainsOnlyAirPlayDevices(void *a1)
   v6 = [v1 count] != 0;
 LABEL_11:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 BOOL MRAVOutputDeviceArrayContainsOnlyGroupableDevices(void *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       v5 = 0;
       do
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        if (![*(*(&v9 + 1) + 8 * v5) isGroupable])
+        if (![*(*(&v8 + 1) + 8 * v5) isGroupable])
         {
 
           v6 = 0;
@@ -3541,7 +3241,7 @@ BOOL MRAVOutputDeviceArrayContainsOnlyGroupableDevices(void *a1)
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -3554,35 +3254,34 @@ BOOL MRAVOutputDeviceArrayContainsOnlyGroupableDevices(void *a1)
   v6 = [v1 count] != 0;
 LABEL_11:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 uint64_t MRAVOutputDeviceArrayNumberOfLogicalDevices(void *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         v9 = [v8 logicalDeviceID];
         if (v9)
         {
@@ -3597,46 +3296,45 @@ uint64_t MRAVOutputDeviceArrayNumberOfLogicalDevices(void *a1)
         [v2 addObject:v10];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
 
   v11 = [v2 count];
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 id MRAVOutputDeviceArrayDescription(void *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v14 + 1) + 8 * i) debugName];
+        v8 = [*(*(&v13 + 1) + 8 * i) debugName];
         [v2 addObject:v8];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
@@ -3653,8 +3351,6 @@ id MRAVOutputDeviceArrayDescription(void *a1)
   {
     v11 = [v9 initWithFormat:@"%@", v2];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -4004,7 +3700,7 @@ uint64_t MRAVOutputDeviceCopyCurrentBluetoothListeningMode(void *a1)
 
 uint64_t MRAVOutputDeviceSetCurrentBluetoothListeningMode(void *a1, uint64_t a2, void *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v6 = objc_autoreleasePoolPush();
   v7 = a1;
   objc_opt_class();
@@ -4015,15 +3711,15 @@ uint64_t MRAVOutputDeviceSetCurrentBluetoothListeningMode(void *a1, uint64_t a2,
     {
       v9 = [v7 debugName];
       *buf = 138543618;
-      v24 = v9;
-      v25 = 2114;
-      v26 = a2;
+      v23 = v9;
+      v24 = 2114;
+      v25 = a2;
       _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ - Setting listening mode: %{public}@", buf, 0x16u);
     }
 
-    v22 = 0;
-    v10 = [v7 setCurrentBluetoothListeningMode:a2 error:&v22];
-    v11 = v22;
+    v21 = 0;
+    v10 = [v7 setCurrentBluetoothListeningMode:a2 error:&v21];
+    v11 = v21;
     if (!v11)
     {
       goto LABEL_16;
@@ -4033,13 +3729,13 @@ LABEL_13:
     v17 = _MRLogForCategory(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v20 = [v7 debugName];
+      v19 = [v7 debugName];
       *buf = 138543874;
-      v24 = v20;
-      v25 = 2114;
-      v26 = a2;
-      v27 = 2114;
-      v28 = v11;
+      v23 = v19;
+      v24 = 2114;
+      v25 = a2;
+      v26 = 2114;
+      v27 = v11;
       _os_log_error_impl(&dword_1A2860000, v17, OS_LOG_TYPE_ERROR, "%{public}@ - Failed to set listening mode: %{public}@ - error: %{public}@", buf, 0x20u);
     }
 
@@ -4057,15 +3753,15 @@ LABEL_13:
     {
       v16 = [v7 debugName];
       *buf = 138543618;
-      v24 = v16;
-      v25 = 2114;
-      v26 = a2;
+      v23 = v16;
+      v24 = 2114;
+      v25 = a2;
       _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ - Setting listening mode: %{public}@", buf, 0x16u);
     }
 
-    v21 = 0;
-    v10 = [v14 setCurrentBluetoothListeningMode:a2 error:&v21];
-    v11 = v21;
+    v20 = 0;
+    v10 = [v14 setCurrentBluetoothListeningMode:a2 error:&v20];
+    v11 = v20;
   }
 
   else
@@ -4086,7 +3782,6 @@ LABEL_16:
   }
 
   objc_autoreleasePoolPop(v6);
-  v18 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -4170,9 +3865,9 @@ uint64_t MRAVOutputDeviceCopyDNSNames(void *a1)
   return v3;
 }
 
-void sub_1A2A8E3E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2A8E3E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4184,10 +3879,11 @@ void sub_1A2A8F7A8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1A2A8FB0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_1A2A8FB0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 144), 8);
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4362,7 +4058,7 @@ LABEL_45:
   return [a2 hasError] ^ 1;
 }
 
-uint64_t MRNowPlayingArtworkCreateWithImageData(uint64_t a1, uint64_t a2)
+MRNowPlayingArtworkImage *MRNowPlayingArtworkCreateWithImageData(uint64_t a1, uint64_t a2)
 {
   v4 = [MRNowPlayingArtworkImage alloc];
 
@@ -6683,23 +6379,23 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void sub_1A2AA1308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AA1308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AA1468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AA1468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AA1584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AA1584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6711,107 +6407,107 @@ uint64_t __Block_byref_object_copy__52(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_1A2AA17E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AA17E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AA1A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AA1A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AA1C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AA1C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AA1EC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AA1EC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AA2108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AA2108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AA2350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AA2350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AA2598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AA2598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AA27E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AA27E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AA2A28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AA2A28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AA2C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AA2C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AA2EB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AA2EB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AA312C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AA312C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AA3248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AA3248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AA34BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AA34BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AA361C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AA361C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6823,34 +6519,31 @@ void sub_1A2AA429C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AA4E88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AA4E88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AA5018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AA5018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AA79AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AA79AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __MediaExperienceLibraryCore_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MediaExperienceLibraryCore_frameworkLibrary_1 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7605,9 +7298,9 @@ LABEL_8:
 
   v10 = [v5 metadata];
   v11 = [v10 title];
-  v12 = [v11 isEqualToString:a3];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_7:
     v13 = *(a1 + 32);
@@ -7681,9 +7374,9 @@ LABEL_8:
 
   v10 = [v5 metadata];
   v11 = [v10 subtitle];
-  v12 = [v11 isEqualToString:a3];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_7:
     v13 = *(a1 + 32);
@@ -7757,9 +7450,9 @@ LABEL_8:
 
   v10 = [v5 metadata];
   v11 = [v10 classicalWork];
-  v12 = [v11 isEqualToString:a3];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_7:
     v13 = *(a1 + 32);
@@ -7820,9 +7513,9 @@ LABEL_8:
 
   v10 = [v5 metadata];
   v11 = [v10 albumName];
-  v12 = [v11 isEqualToString:a3];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_7:
     v13 = *(a1 + 32);
@@ -7892,9 +7585,9 @@ LABEL_8:
 
   v10 = [v5 metadata];
   v11 = [v10 albumYear];
-  v12 = [v11 isEqualToString:a3];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_7:
     v13 = *(a1 + 32);
@@ -7955,9 +7648,9 @@ LABEL_8:
 
   v10 = [v5 metadata];
   v11 = [v10 trackArtistName];
-  v12 = [v11 isEqualToString:a3];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_7:
     v13 = *(a1 + 32);
@@ -8031,9 +7724,9 @@ LABEL_8:
 
   v10 = [v5 metadata];
   v11 = [v10 albumArtistName];
-  v12 = [v11 isEqualToString:a3];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_7:
     v13 = *(a1 + 32);
@@ -8107,9 +7800,9 @@ LABEL_8:
 
   v10 = [v5 metadata];
   v11 = [v10 seriesName];
-  v12 = [v11 isEqualToString:a3];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_7:
     v13 = *(a1 + 32);
@@ -8183,9 +7876,9 @@ LABEL_8:
 
   v10 = [v5 metadata];
   v11 = [v10 directorName];
-  v12 = [v11 isEqualToString:a3];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_7:
     v13 = *(a1 + 32);
@@ -8208,7 +7901,7 @@ uint64_t MRContentItemGetSeasonNumber(void *a1)
   return v2;
 }
 
-void MRContentItemSetSeasonNumber(void *a1, uint64_t a2)
+void MRContentItemSetSeasonNumber(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -8247,7 +7940,7 @@ uint64_t MRContentItemGetEpisodeNumber(void *a1)
   return v2;
 }
 
-void MRContentItemSetEpisodeNumber(void *a1, uint64_t a2)
+void MRContentItemSetEpisodeNumber(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -8311,7 +8004,7 @@ LABEL_6:
   }
 }
 
-void MRContentItemSetPlayCount(void *a1, uint64_t a2)
+void MRContentItemSetPlayCount(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -8401,9 +8094,9 @@ LABEL_8:
 
   v10 = [v5 metadata];
   v11 = [v10 composer];
-  v12 = [v11 isEqualToString:a3];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_7:
     v13 = *(a1 + 32);
@@ -8426,7 +8119,7 @@ uint64_t MRContentItemGetDiscNumber(void *a1)
   return v2;
 }
 
-void MRContentItemSetDiscNumber(void *a1, uint64_t a2)
+void MRContentItemSetDiscNumber(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -8465,7 +8158,7 @@ uint64_t MRContentItemGetTotalDiscCount(void *a1)
   return v2;
 }
 
-void MRContentItemSetTotalDiscCount(void *a1, uint64_t a2)
+void MRContentItemSetTotalDiscCount(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -8504,7 +8197,7 @@ uint64_t MRContentItemGetTotalTrackCount(void *a1)
   return v2;
 }
 
-void MRContentItemSetTotalTrackCount(void *a1, uint64_t a2)
+void MRContentItemSetTotalTrackCount(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -8543,7 +8236,7 @@ uint64_t MRContentItemGetTrackNumber(void *a1)
   return v2;
 }
 
-void MRContentItemSetTrackNumber(void *a1, uint64_t a2)
+void MRContentItemSetTrackNumber(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -9103,9 +8796,9 @@ LABEL_8:
 
   v10 = [v5 metadata];
   v11 = [v10 genre];
-  v12 = [v11 isEqualToString:a3];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_7:
     v13 = *(a1 + 32);
@@ -9179,9 +8872,9 @@ LABEL_8:
 
   v10 = [v5 metadata];
   v11 = [v10 localizedContentRating];
-  v12 = [v11 isEqualToString:a3];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_7:
     v13 = *(a1 + 32);
@@ -9196,7 +8889,7 @@ LABEL_9:
   return v9;
 }
 
-void MRContentItemSetMediaType(void *a1, uint64_t a2)
+void MRContentItemSetMediaType(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -9235,7 +8928,7 @@ uint64_t MRContentItemGetMediaSubType(void *a1)
   return v2;
 }
 
-void MRContentItemSetMediaSubType(void *a1, uint64_t a2)
+void MRContentItemSetMediaSubType(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -9381,4 +9074,273 @@ LABEL_6:
   }
 
 LABEL_7:
+}
+
+uint64_t MRContentItemGetIsSharable(void *a1)
+{
+  v1 = [a1 metadata];
+  v2 = [v1 isSharable];
+
+  return v2;
+}
+
+void MRContentItemSetIsSharable(void *a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    return;
+  }
+
+  MRCreateItemMetadataIfNotPresent(a1);
+  v8 = a1;
+  v4 = [v8 metadata];
+  if ([v4 isSharable] != a2)
+  {
+
+LABEL_6:
+    v7 = [v8 metadata];
+    [v7 setSharable:a2];
+
+    goto LABEL_7;
+  }
+
+  v5 = [v8 metadata];
+  v6 = [v5 hasSharable];
+
+  if ((v6 & 1) == 0)
+  {
+    goto LABEL_6;
+  }
+
+LABEL_7:
+}
+
+uint64_t MRContentItemGetIsLiked(void *a1)
+{
+  v1 = [a1 metadata];
+  v2 = [v1 isLiked];
+
+  return v2;
+}
+
+void MRContentItemSetIsLiked(void *a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    return;
+  }
+
+  MRCreateItemMetadataIfNotPresent(a1);
+  v8 = a1;
+  v4 = [v8 metadata];
+  if ([v4 isLiked] != a2)
+  {
+
+LABEL_6:
+    v7 = [v8 metadata];
+    [v7 setLiked:a2];
+
+    goto LABEL_7;
+  }
+
+  v5 = [v8 metadata];
+  v6 = [v5 hasLiked];
+
+  if ((v6 & 1) == 0)
+  {
+    goto LABEL_6;
+  }
+
+LABEL_7:
+}
+
+uint64_t MRContentItemGetIsInWishList(void *a1)
+{
+  v1 = [a1 metadata];
+  v2 = [v1 isInWishList];
+
+  return v2;
+}
+
+void MRContentItemSetIsInWishList(void *a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    return;
+  }
+
+  MRCreateItemMetadataIfNotPresent(a1);
+  v8 = a1;
+  v4 = [v8 metadata];
+  if ([v4 isInWishList] != a2)
+  {
+
+LABEL_6:
+    v7 = [v8 metadata];
+    [v7 setInWishList:a2];
+
+    goto LABEL_7;
+  }
+
+  v5 = [v8 metadata];
+  v6 = [v5 hasInWishList];
+
+  if ((v6 & 1) == 0)
+  {
+    goto LABEL_6;
+  }
+
+LABEL_7:
+}
+
+uint64_t MRContentItemGetIsAlwaysLive(void *a1)
+{
+  v1 = [a1 metadata];
+  v2 = [v1 isAlwaysLive];
+
+  return v2;
+}
+
+void MRContentItemSetIsAlwaysLive(void *a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    return;
+  }
+
+  MRCreateItemMetadataIfNotPresent(a1);
+  v8 = a1;
+  v4 = [v8 metadata];
+  if ([v4 isAlwaysLive] != a2)
+  {
+
+LABEL_6:
+    v7 = [v8 metadata];
+    [v7 setAlwaysLive:a2];
+
+    goto LABEL_7;
+  }
+
+  v5 = [v8 metadata];
+  v6 = [v5 hasAlwaysLive];
+
+  if ((v6 & 1) == 0)
+  {
+    goto LABEL_6;
+  }
+
+LABEL_7:
+}
+
+CFTypeRef MRContentItemGetLocalizedDurationString(void *a1)
+{
+  v1 = [a1 metadata];
+  v2 = [v1 localizedDurationString];
+
+  if (!v2)
+  {
+    return 0;
+  }
+
+  return CFAutorelease(v2);
+}
+
+void MRContentItemSetLocalizedDurationString(void *a1, void *a2)
+{
+  if (objc_opt_respondsToSelector())
+  {
+    a2 = [a2 performSelector:sel_stringValue];
+  }
+
+  if (a2)
+  {
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+      MRContentItemSetLocalizedDurationString_cold_1();
+    }
+  }
+
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __MRContentItemSetLocalizedDurationString_block_invoke;
+  v4[3] = &__block_descriptor_40_e27_B24__0__MRContentItem_8_v16l;
+  v4[4] = a2;
+  MRContentItemSetMetadataRef(a1, a2, v4);
+}
+
+BOOL __MRContentItemSetLocalizedDurationString_block_invoke(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a2;
+  v6 = [v5 metadata];
+  v7 = [v6 localizedDurationString];
+  v8 = v7;
+  v9 = v7 != a3;
+  if (v7 == a3)
+  {
+
+LABEL_8:
+    goto LABEL_9;
+  }
+
+  if (!a3)
+  {
+
+    goto LABEL_7;
+  }
+
+  v10 = [v5 metadata];
+  v11 = [v10 localizedDurationString];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
+
+  if ((isEqualToString & 1) == 0)
+  {
+LABEL_7:
+    v13 = *(a1 + 32);
+    v6 = [v5 metadata];
+    [v6 setLocalizedDurationString:v13];
+    goto LABEL_8;
+  }
+
+  v9 = 0;
+LABEL_9:
+
+  return v9;
+}
+
+CFTypeRef MRContentItemGetDurationStringLocalizationKey(void *a1)
+{
+  v1 = [a1 metadata];
+  v2 = [v1 durationStringLocalizationKey];
+
+  if (!v2)
+  {
+    return 0;
+  }
+
+  return CFAutorelease(v2);
+}
+
+void MRContentItemSetDurationStringLocalizationKey(void *a1, void *a2)
+{
+  if (objc_opt_respondsToSelector())
+  {
+    a2 = [a2 performSelector:sel_stringValue];
+  }
+
+  if (a2)
+  {
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+      MRContentItemSetDurationStringLocalizationKey_cold_1();
+    }
+  }
+
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __MRContentItemSetDurationStringLocalizationKey_block_invoke;
+  v4[3] = &__block_descriptor_40_e27_B24__0__MRContentItem_8_v16l;
+  v4[4] = a2;
+  MRContentItemSetMetadataRef(a1, a2, v4);
 }

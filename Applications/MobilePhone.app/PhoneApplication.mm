@@ -169,12 +169,12 @@
 - (void)prepareForDefaultImageSnapshotForScreen:(id)screen
 {
   screenCopy = screen;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(screenCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = screenCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "-prepareForDefaultImageShapshotForScreen:%@", &v13, 0xCu);
+    v15 = 138412290;
+    v16 = screenCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "-prepareForDefaultImageShapshotForScreen:%@", &v15, 0xCu);
   }
 
   v6 = +[UIScreen mainScreen];
@@ -182,31 +182,33 @@
   if (v6 == screenCopy)
   {
     shouldSnapshot = [(PhoneApplication *)self shouldSnapshot];
-    v8 = PHDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v8 = shouldSnapshot;
+    v9 = PHDefaultLog(shouldSnapshot);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 67109120;
-      LODWORD(v14) = shouldSnapshot;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "-prepareForDefaultImageShapshotForScreen: is considering snapshotting for main screen, shouldSnapshot=%d", &v13, 8u);
+      v15 = 67109120;
+      LODWORD(v16) = v8;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "-prepareForDefaultImageShapshotForScreen: is considering snapshotting for main screen, shouldSnapshot=%d", &v15, 8u);
     }
 
-    if (shouldSnapshot)
+    if (v8)
     {
       rootViewController = [(PhoneApplication *)self rootViewController];
       baseViewController = [rootViewController baseViewController];
 
       shouldSnapshot2 = [baseViewController shouldSnapshot];
-      v12 = PHDefaultLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = shouldSnapshot2;
+      v14 = PHDefaultLog(shouldSnapshot2);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 138412546;
-        v14 = baseViewController;
-        v15 = 1024;
-        v16 = shouldSnapshot2;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "-prepareForDefaultImageShapshotForScreen: view controller %@ should snapshot=%d", &v13, 0x12u);
+        v15 = 138412546;
+        v16 = baseViewController;
+        v17 = 1024;
+        v18 = v13;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "-prepareForDefaultImageShapshotForScreen: view controller %@ should snapshot=%d", &v15, 0x12u);
       }
 
-      if (shouldSnapshot2)
+      if (v13)
       {
         [baseViewController prepareForSnapshot];
       }
@@ -217,7 +219,7 @@
 - (void)handleApplicationFinishedSnapshottingNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -234,30 +236,30 @@
   bundleIdentifier = [v2 bundleIdentifier];
   v4 = [bundleIdentifier isEqualToString:TUBundleIdentifierMobilePhoneApplication];
 
-  v5 = PHDefaultLog();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v6 = PHDefaultLog(v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v4)
   {
-    if (v6)
+    if (v7)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "asking to prewarm InCallService...", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "asking to prewarm InCallService...", buf, 2u);
     }
 
-    v5 = dispatch_get_global_queue(-32768, 0);
-    dispatch_async(v5, &__block_literal_global_0);
+    v6 = dispatch_get_global_queue(-32768, 0);
+    dispatch_async(v6, &__block_literal_global_0);
   }
 
-  else if (v6)
+  else if (v7)
   {
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "prewarming InCallService...", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "prewarming InCallService...", v8, 2u);
   }
 }
 
 void __48__PhoneApplication_warmInCallServiceIfNecessary__block_invoke(id a1)
 {
-  v1 = PHDefaultLog();
+  v1 = PHDefaultLog(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -266,18 +268,19 @@ void __48__PhoneApplication_warmInCallServiceIfNecessary__block_invoke(id a1)
 
   v2 = objc_alloc_init(CUTWeakLinkClass());
   v3 = TUBundleIdentifierInCallServiceApplication;
-  if ([v2 pidForApplication:TUBundleIdentifierInCallServiceApplication] == -1)
+  v4 = [v2 pidForApplication:TUBundleIdentifierInCallServiceApplication];
+  if (v4 == -1)
   {
     [v2 openApplication:v3 options:&__NSDictionary0__struct withResult:&__block_literal_global_143];
   }
 
   else
   {
-    v4 = PHDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = PHDefaultLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "InCallService is already running...", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "InCallService is already running...", v6, 2u);
     }
   }
 }
@@ -285,12 +288,13 @@ void __48__PhoneApplication_warmInCallServiceIfNecessary__block_invoke(id a1)
 void __48__PhoneApplication_warmInCallServiceIfNecessary__block_invoke_140(id a1, NSError *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = PHDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = PHDefaultLog(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __48__PhoneApplication_warmInCallServiceIfNecessary__block_invoke_140_cold_1(v2, v3);
+      __48__PhoneApplication_warmInCallServiceIfNecessary__block_invoke_140_cold_1(v3, v4);
     }
   }
 }
@@ -385,7 +389,7 @@ LABEL_5:
 
 - (void)didReceiveMemoryWarning
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -406,12 +410,12 @@ LABEL_5:
   object = [appear object];
   currentTabViewType = [object currentTabViewType];
 
-  v6 = PHDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = PHDefaultLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = currentTabViewType;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "tabBarControllerViewDidAppear with tab: %d", v7, 8u);
+    v8[0] = 67109120;
+    v8[1] = currentTabViewType;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "tabBarControllerViewDidAppear with tab: %d", v8, 8u);
   }
 
   if (currentTabViewType == 2)
@@ -424,7 +428,7 @@ LABEL_5:
 {
   lCopy = l;
   handlerCopy = handler;
-  v8 = PHDefaultLog();
+  v8 = PHDefaultLog(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = @"non-nil";
@@ -448,7 +452,7 @@ LABEL_5:
 - (void)applicationOpenURL:(id)l
 {
   lCopy = l;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -512,41 +516,42 @@ LABEL_5:
 
   if ((v10 & 1) == 0)
   {
-    v14 = PHDefaultLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = PHDefaultLog(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Aborting voicemail call, the device is in airplane mode", v18, 2u);
+      *v20 = 0;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Aborting voicemail call, the device is in airplane mode", v20, 2u);
     }
 
     provider = [v8 provider];
-    v11 = +[UIAlertController networkUnavailableAlertControllerWithCallProvider:dialType:senderIdentityUUID:](UIAlertController, "networkUnavailableAlertControllerWithCallProvider:dialType:senderIdentityUUID:", provider, [v8 dialType], 0);
+    v13 = +[UIAlertController networkUnavailableAlertControllerWithCallProvider:dialType:senderIdentityUUID:](UIAlertController, "networkUnavailableAlertControllerWithCallProvider:dialType:senderIdentityUUID:", provider, [v8 dialType], 0);
 
-    if (!v11)
+    if (!v13)
     {
       goto LABEL_16;
     }
 
     rootViewController = [(PhoneApplication *)self rootViewController];
-    [rootViewController presentViewController:v11 animated:1 completion:0];
+    [rootViewController presentViewController:v13 animated:1 completion:0];
     goto LABEL_15;
   }
 
-  if (![v8 isValid])
+  isValid = [v8 isValid];
+  if (!isValid)
   {
-    v11 = PHDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = PHDefaultLog(isValid);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(PhoneApplication *)v8 dialVoicemailWithAccountID:v11];
+      [(PhoneApplication *)v8 dialVoicemailWithAccountID:v13];
     }
 
     goto LABEL_16;
   }
 
-  v11 = [v8 URL];
-  if (!v11)
+  v13 = [v8 URL];
+  if (!v13)
   {
-    rootViewController = PHDefaultLog();
+    rootViewController = PHDefaultLog(0);
     if (os_log_type_enabled(rootViewController, OS_LOG_TYPE_ERROR))
     {
       [(PhoneApplication *)v8 dialVoicemailWithAccountID:rootViewController];
@@ -555,17 +560,17 @@ LABEL_5:
 LABEL_15:
 
 LABEL_16:
-    v13 = 0;
+    v15 = 0;
     goto LABEL_17;
   }
 
-  v12 = +[UIApplication sharedApplication];
-  [v12 openURL:v11 withCompletionHandler:0];
+  v14 = +[UIApplication sharedApplication];
+  [v14 openURL:v13 withCompletionHandler:0];
 
-  v13 = 1;
+  v15 = 1;
 LABEL_17:
 
-  return v13;
+  return v15;
 }
 
 - (int)userInterfaceScreenType
@@ -889,7 +894,7 @@ void __50__PhoneApplication_isLowGraphicsPerformanceDevice__block_invoke(id a1)
 - (BOOL)application:(id)application willContinueUserActivityWithType:(id)type
 {
   typeCopy = type;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(typeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -983,7 +988,7 @@ LABEL_11:
 
 void __64__PhoneApplication_Testing__scrollTestsWithCount_forScrollView___block_invoke(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32) + 1;
@@ -995,7 +1000,7 @@ void __64__PhoneApplication_Testing__scrollTestsWithCount_forScrollView___block_
 
 void __64__PhoneApplication_Testing__scrollTestsWithCount_forScrollView___block_invoke_96(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -1061,25 +1066,25 @@ void __64__PhoneApplication_Testing__scrollTestsWithCount_forScrollView___block_
   if (collectionView || ([favoritesViewController view], v12 = objc_claimAutoreleasedReturnValue(), -[PhoneApplication firstScrollViewInView:](self, "firstScrollViewInView:", v12), collectionView = objc_claimAutoreleasedReturnValue(), v12, collectionView))
   {
     [(PhoneApplication *)self startedTest:__CurrentTestName];
-    v13 = [__CurrentTestOptions objectForKey:@"recapBased"];
-    if ([v13 BOOLValue])
+    v14 = [__CurrentTestOptions objectForKey:@"recapBased"];
+    if ([v14 BOOLValue])
     {
-      v14 = +[RPTTestRunner isRecapAvailable];
+      v15 = +[RPTTestRunner isRecapAvailable];
 
-      if (v14)
+      if (v15)
       {
-        v15 = PHDefaultLog();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v17 = PHDefaultLog(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v19) = 0;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Running recap based scroll view test", &v19, 2u);
+          LOWORD(v21) = 0;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Running recap based scroll view test", &v21, 2u);
         }
 
-        v16 = __CurrentTestName;
-        v17 = [(PhoneApplication *)self scrollTestsWithCount:__TestIterations forScrollView:collectionView];
-        v18 = [RPTGroupScrollTestParameters newWithTestName:v16 parameters:v17 completionHandler:&__block_literal_global_1];
+        v18 = __CurrentTestName;
+        v19 = [(PhoneApplication *)self scrollTestsWithCount:__TestIterations forScrollView:collectionView];
+        v20 = [RPTGroupScrollTestParameters newWithTestName:v18 parameters:v19 completionHandler:&__block_literal_global_1];
 
-        [RPTTestRunner runTestWithParameters:v18];
+        [RPTTestRunner runTestWithParameters:v20];
         goto LABEL_25;
       }
     }
@@ -1092,12 +1097,12 @@ void __64__PhoneApplication_Testing__scrollTestsWithCount_forScrollView___block_
     goto LABEL_25;
   }
 
-  collectionView = PHDefaultLog();
+  collectionView = PHDefaultLog(v13);
   if (os_log_type_enabled(collectionView, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138412290;
-    v20 = favoritesViewController;
-    _os_log_impl(&_mh_execute_header, collectionView, OS_LOG_TYPE_DEFAULT, "[WARN] Could not perform the scroll test, a scroll view does not exist for view controller (%@).", &v19, 0xCu);
+    v21 = 138412290;
+    v22 = favoritesViewController;
+    _os_log_impl(&_mh_execute_header, collectionView, OS_LOG_TYPE_DEFAULT, "[WARN] Could not perform the scroll test, a scroll view does not exist for view controller (%@).", &v21, 0xCu);
   }
 
 LABEL_25:
@@ -1105,7 +1110,7 @@ LABEL_25:
 
 void __36__PhoneApplication_Testing___scroll__block_invoke(id a1)
 {
-  v1 = PHDefaultLog();
+  v1 = PHDefaultLog(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *v2 = 0;
@@ -1146,7 +1151,7 @@ void __36__PhoneApplication_Testing___scroll__block_invoke(id a1)
 {
   if ([__CurrentTestName rangeOfString:@"ScrollVoicemail"] == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v3 = PHDefaultLog();
+    v3 = PHDefaultLog(0x7FFFFFFFFFFFFFFFLL);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [(PhoneApplication(Testing) *)v3 startScrollWithInteractionTest];
@@ -1186,37 +1191,38 @@ void __68__PhoneApplication_Testing__startScrollVoicemailWithInteractionTest__bl
   v2 = [*(a1 + 32) collectionView];
   v3 = [v2 indexPathsForVisibleItems];
 
-  if ([v3 count] < 2)
+  v4 = [v3 count];
+  if (v4 < 2)
   {
-    v7 = PHDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = PHDefaultLog(v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [*(a1 + 32) collectionView];
+      v9 = [*(a1 + 32) collectionView];
       *buf = 138412290;
-      v13 = v8;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[WARN] Could not perform the scroll test, the voicemail collectionView has no visible rows (%@)", buf, 0xCu);
+      v14 = v9;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Could not perform the scroll test, the voicemail collectionView has no visible rows (%@)", buf, 0xCu);
     }
   }
 
   else
   {
-    v4 = dispatch_time(0, 2000000000);
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = __68__PhoneApplication_Testing__startScrollVoicemailWithInteractionTest__block_invoke_2;
-    v9[3] = &unk_1002852E0;
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v10 = v5;
+    v5 = dispatch_time(0, 2000000000);
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = __68__PhoneApplication_Testing__startScrollVoicemailWithInteractionTest__block_invoke_2;
+    v10[3] = &unk_1002852E0;
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
     v11 = v6;
-    dispatch_after(v4, &_dispatch_main_q, v9);
-    v7 = v10;
+    v12 = v7;
+    dispatch_after(v5, &_dispatch_main_q, v10);
+    v8 = v11;
   }
 }
 
 void __68__PhoneApplication_Testing__startScrollVoicemailWithInteractionTest__block_invoke_2(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) collectionView];
@@ -1304,54 +1310,55 @@ LABEL_13:
 {
   if ([__CurrentTestName rangeOfString:@"Favorites"] != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v6 = 1;
+    v7 = 1;
 LABEL_13:
-    v8 = 4;
+    v9 = 4;
 LABEL_14:
     baseViewController = [(PhoneRootViewController *)self->_rootController baseViewController];
     [(PhoneApplication *)self startedTest:__CurrentTestName];
-    [(PhoneApplication *)self runSwitchTabTestWithTabViewController:baseViewController fromTab:v8 switchTo:v6 numberOfIterations:test testNameReference:&__CurrentTestName];
+    [(PhoneApplication *)self runSwitchTabTestWithTabViewController:baseViewController fromTab:v9 switchTo:v7 numberOfIterations:test testNameReference:&__CurrentTestName];
     goto LABEL_15;
   }
 
-  if ([__CurrentTestName rangeOfString:@"Recents"] != 0x7FFFFFFFFFFFFFFFLL)
+  v5 = [__CurrentTestName rangeOfString:@"Recents"];
+  if (v5 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v7 = PHDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = PHDefaultLog(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "startSwitchTest - switch to recents", &v9, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "startSwitchTest - switch to recents", &v10, 2u);
     }
 
-    v6 = 2;
+    v7 = 2;
     goto LABEL_13;
   }
 
   if ([__CurrentTestName rangeOfString:@"Voicemail"] != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v6 = 5;
+    v7 = 5;
     goto LABEL_13;
   }
 
   if ([__CurrentTestName rangeOfString:@"Keypad"] != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v6 = 4;
-    v8 = 2;
+    v7 = 4;
+    v9 = 2;
     goto LABEL_14;
   }
 
   if ([__CurrentTestName rangeOfString:@"Contacts"] != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v6 = 3;
+    v7 = 3;
     goto LABEL_13;
   }
 
-  baseViewController = PHDefaultLog();
+  baseViewController = PHDefaultLog(0x7FFFFFFFFFFFFFFFLL);
   if (os_log_type_enabled(baseViewController, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = __CurrentTestName;
-    _os_log_impl(&_mh_execute_header, baseViewController, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find a valid view type for test name %@", &v9, 0xCu);
+    v10 = 138412290;
+    v11 = __CurrentTestName;
+    _os_log_impl(&_mh_execute_header, baseViewController, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find a valid view type for test name %@", &v10, 0xCu);
   }
 
 LABEL_15:
@@ -1641,7 +1648,7 @@ LABEL_13:
 - (void)setIgnoresInteractionEvents:(BOOL)events
 {
   eventsCopy = events;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -1721,7 +1728,7 @@ LABEL_13:
 
 - (void)switchToTabWaitingForViewDidLoad:(PhoneTabBarController *)load to:(int)to completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -1749,7 +1756,7 @@ LABEL_13:
 
 - (void)runSwitchTabTestWithTabViewController:(id)controller fromTab:(int)tab switchTo:(int)to numberOfIterations:(int64_t)iterations testNameReference:(const void *)reference
 {
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v13 - 8);
   v15 = &v23 - v14;
   v16 = type metadata accessor for TaskPriority();
@@ -1841,7 +1848,7 @@ LABEL_13:
   selfCopy = self;
   PhoneApplication.makeAudioOutputItems()();
 
-  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for UIMenuElement);
+  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for UIMenuElement, UIMenuElement_ptr);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;

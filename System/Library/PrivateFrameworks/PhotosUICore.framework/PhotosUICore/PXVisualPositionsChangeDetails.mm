@@ -23,7 +23,7 @@
     v8 = countBeforeChanges;
     for (i = 0; i != v8; ++i)
     {
-      [(PXVisualPositionsChangeDetails *)self visualPositionAfterApplyingChangesToIndex:i];
+      objc_msgSend_visualPositionAfterApplyingChangesToIndex_(self);
       if ((v17 & 1) == 0)
       {
         [v5 addIndex:i];
@@ -37,7 +37,7 @@
     v11 = countAfterChanges;
     for (j = 0; j != v11; ++j)
     {
-      [(PXVisualPositionsChangeDetails *)self visualPositionAfterRevertingChangesFromIndex:j];
+      objc_msgSend_visualPositionAfterRevertingChangesFromIndex_(self);
       if ((v16 & 1) == 0)
       {
         [v6 addIndex:j];
@@ -98,7 +98,7 @@
     v16 = headerIndexesAfterChanges;
     if ([headerIndexesAfterChanges containsIndex:a4])
     {
-      [(PXVisualPositionsChangeDetails *)self visualPositionAfterRevertingChangesFromIndex:a4 + 1];
+      objc_msgSend_visualPositionAfterRevertingChangesFromIndex_(self);
       retstr->var2 = 0;
       retstr->var1 = 1;
       headerIndexesAfterChanges = v16;
@@ -153,7 +153,7 @@
     v16 = headerIndexesBeforeChanges;
     if ([headerIndexesBeforeChanges containsIndex:a4])
     {
-      [(PXVisualPositionsChangeDetails *)self visualPositionAfterApplyingChangesToIndex:a4 + 1];
+      objc_msgSend_visualPositionAfterApplyingChangesToIndex_(self);
       retstr->var2 = 0;
       retstr->var1 = 1;
       headerIndexesBeforeChanges = v16;

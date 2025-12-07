@@ -46,7 +46,7 @@
 
 - (void)scheduleTask:(id)task
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   identifier = [taskCopy identifier];
   if (!identifier)
@@ -58,10 +58,10 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543618;
-      v19 = objc_opt_class();
-      v20 = 2112;
-      v21 = identifier;
-      v14 = v19;
+      v18 = objc_opt_class();
+      v19 = 2112;
+      v20 = identifier;
+      v13 = v18;
       _os_log_debug_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEBUG, "[%{public}@] generating identifier %@ for task", buf, 0x16u);
     }
   }
@@ -69,32 +69,30 @@
   v8 = HKSPLogForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v12 = objc_opt_class();
+    v11 = objc_opt_class();
     *buf = 138543618;
-    v19 = v12;
-    v20 = 2112;
-    v21 = identifier;
-    v13 = v12;
+    v18 = v11;
+    v19 = 2112;
+    v20 = identifier;
+    v12 = v11;
     _os_log_debug_impl(&dword_269A84000, v8, OS_LOG_TYPE_DEBUG, "[%{public}@] request to perform %@ task", buf, 0x16u);
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __38__HKSPLimitingScheduler_scheduleTask___block_invoke;
-  v15[3] = &unk_279C75CC0;
-  v15[4] = self;
-  v16 = identifier;
-  v17 = taskCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __38__HKSPLimitingScheduler_scheduleTask___block_invoke;
+  v14[3] = &unk_279C75CC0;
+  v14[4] = self;
+  v15 = identifier;
+  v16 = taskCopy;
   v9 = taskCopy;
   v10 = identifier;
-  [(HKSPLimitingScheduler *)self _withLock:v15];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [(HKSPLimitingScheduler *)self _withLock:v14];
 }
 
 void __38__HKSPLimitingScheduler_scheduleTask___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 24) containsObject:*(a1 + 40)];
   v3 = HKSPLogForCategory(0);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
@@ -102,14 +100,13 @@ void __38__HKSPLimitingScheduler_scheduleTask___block_invoke(uint64_t a1)
   {
     if (v4)
     {
-      v11 = *(a1 + 32);
-      v12 = objc_opt_class();
-      v13 = *(a1 + 40);
+      v10 = objc_opt_class();
+      v11 = *(a1 + 40);
       *buf = 138543618;
-      v25 = v12;
-      v26 = 2112;
-      v27 = v13;
-      v14 = v12;
+      v22 = v10;
+      v23 = 2112;
+      v24 = v11;
+      v12 = v10;
       _os_log_debug_impl(&dword_269A84000, v3, OS_LOG_TYPE_DEBUG, "[%{public}@] %@ task already in progress", buf, 0x16u);
     }
   }
@@ -118,18 +115,17 @@ void __38__HKSPLimitingScheduler_scheduleTask___block_invoke(uint64_t a1)
   {
     if (v4)
     {
-      v15 = *(a1 + 32);
-      v16 = objc_opt_class();
-      v18 = *(a1 + 40);
-      v17 = *(a1 + 48);
-      v19 = v16;
-      [v17 delay];
+      v13 = objc_opt_class();
+      v15 = *(a1 + 40);
+      v14 = *(a1 + 48);
+      v16 = v13;
+      [v14 delay];
       *buf = 138543874;
-      v25 = v16;
-      v26 = 2112;
-      v27 = v18;
-      v28 = 2048;
-      v29 = v20;
+      v22 = v13;
+      v23 = 2112;
+      v24 = v15;
+      v25 = 2048;
+      v26 = v17;
       _os_log_debug_impl(&dword_269A84000, v3, OS_LOG_TYPE_DEBUG, "[%{public}@] enqueuing %@ task with %f second delay", buf, 0x20u);
     }
 
@@ -148,60 +144,54 @@ void __38__HKSPLimitingScheduler_scheduleTask___block_invoke(uint64_t a1)
       v5 = *(a1 + 32);
     }
 
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __38__HKSPLimitingScheduler_scheduleTask___block_invoke_293;
-    v21[3] = &unk_279C75CC0;
-    v21[4] = v5;
-    v22 = *(a1 + 40);
-    v23 = *(a1 + 48);
-    v9 = [v6 afterDelay:v21 performBlock:v7];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __38__HKSPLimitingScheduler_scheduleTask___block_invoke_293;
+    v18[3] = &unk_279C75CC0;
+    v18[4] = v5;
+    v19 = *(a1 + 40);
+    v20 = *(a1 + 48);
+    v9 = [v6 afterDelay:v18 performBlock:v7];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __38__HKSPLimitingScheduler_scheduleTask___block_invoke_293(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = HKSPLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = *(a1 + 40);
+    v5 = objc_opt_class();
+    v6 = *(a1 + 40);
     *buf = 138543618;
-    v21 = v7;
-    v22 = 2112;
-    v23 = v8;
-    v9 = v7;
+    v18 = v5;
+    v19 = 2112;
+    v20 = v6;
+    v7 = v5;
     _os_log_debug_impl(&dword_269A84000, v2, OS_LOG_TYPE_DEBUG, "[%{public}@] performing %@ task", buf, 0x16u);
   }
 
   v3 = *(a1 + 32);
-  v14 = MEMORY[0x277D85DD0];
-  v15 = 3221225472;
-  v16 = __38__HKSPLimitingScheduler_scheduleTask___block_invoke_294;
-  v17 = &unk_279C73B58;
-  v18 = v3;
-  v19 = *(a1 + 40);
-  [v3 _withLock:&v14];
+  v11 = MEMORY[0x277D85DD0];
+  v12 = 3221225472;
+  v13 = __38__HKSPLimitingScheduler_scheduleTask___block_invoke_294;
+  v14 = &unk_279C73B58;
+  v15 = v3;
+  v16 = *(a1 + 40);
+  [v3 _withLock:&v11];
   [*(a1 + 48) execute];
   v4 = HKSPLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v10 = *(a1 + 32);
-    v11 = objc_opt_class();
-    v12 = *(a1 + 40);
+    v8 = objc_opt_class();
+    v9 = *(a1 + 40);
     *buf = 138543618;
-    v21 = v11;
-    v22 = 2112;
-    v23 = v12;
-    v13 = v11;
+    v18 = v8;
+    v19 = 2112;
+    v20 = v9;
+    v10 = v8;
     _os_log_debug_impl(&dword_269A84000, v4, OS_LOG_TYPE_DEBUG, "[%{public}@] finished %@ task", buf, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

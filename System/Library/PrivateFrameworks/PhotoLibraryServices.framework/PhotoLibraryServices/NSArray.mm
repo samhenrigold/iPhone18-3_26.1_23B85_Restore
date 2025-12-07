@@ -35,103 +35,103 @@ uint64_t __61__NSArray_Additions__pl_arrayOfUniqueObjectsNotInOrderedSet___block
   }
 }
 
-id __65__NSArray_PhotoLibraryServices___pl_prettyDescriptionWithIndent___block_invoke(uint64_t a1)
+id __65__NSArray_PhotoLibraryServices___pl_prettyDescriptionWithIndent___block_invoke(uint64_t a1, const char *a2)
 {
-  v2 = [*(a1 + 32) count] - 1;
-  if (v2 <= 0x3B9AC9FF)
+  v4 = objc_msgSend_count(*(a1 + 32), a2) - 1;
+  if (v4 <= 0x3B9AC9FF)
   {
-    if (v2 <= 0x5F5E0FF)
+    if (v4 <= 0x5F5E0FF)
     {
-      if (v2 <= 0x98967F)
+      if (v4 <= 0x98967F)
       {
-        if (v2 <= 0xF423F)
+        if (v4 <= 0xF423F)
         {
-          if (v2 >> 5 <= 0xC34)
+          if (v4 >> 5 <= 0xC34)
           {
-            if (v2 >> 4 <= 0x270)
+            if (v4 >> 4 <= 0x270)
             {
-              if (v2 <= 0x3E7)
+              if (v4 <= 0x3E7)
               {
-                if (v2 <= 0x63)
+                if (v4 <= 0x63)
                 {
-                  if (v2 <= 9)
+                  if (v4 <= 9)
                   {
-                    v3 = 1;
+                    v5 = 1;
                   }
 
                   else
                   {
-                    v3 = 2;
+                    v5 = 2;
                   }
                 }
 
                 else
                 {
-                  v3 = 3;
+                  v5 = 3;
                 }
               }
 
               else
               {
-                v3 = 4;
+                v5 = 4;
               }
             }
 
             else
             {
-              v3 = 5;
+              v5 = 5;
             }
           }
 
           else
           {
-            v3 = 6;
+            v5 = 6;
           }
         }
 
         else
         {
-          v3 = 7;
+          v5 = 7;
         }
       }
 
       else
       {
-        v3 = 8;
+        v5 = 8;
       }
     }
 
     else
     {
-      v3 = 9;
+      v5 = 9;
     }
   }
 
   else
   {
-    v3 = 10;
+    v5 = 10;
   }
 
-  v4 = [MEMORY[0x1E696AD60] string];
-  v5 = PLIndentToString();
-  [v4 appendFormat:@"<%@: %p> [", objc_opt_class(), *(a1 + 32)];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __65__NSArray_PhotoLibraryServices___pl_prettyDescriptionWithIndent___block_invoke_2;
-  v12[3] = &unk_1E7573A70;
-  v6 = *(a1 + 32);
-  v15 = *(a1 + 40);
-  v7 = v4;
-  v13 = v7;
-  v14 = v5;
-  v16 = v3;
-  v8 = v5;
-  [v6 enumerateObjectsUsingBlock:v12];
-  [v7 appendFormat:@"\n%@]", v8];
-  v9 = v14;
+  v6 = [MEMORY[0x1E696AD60] string];
+  v7 = PLIndentToString();
+  [v6 appendFormat:@"<%@: %p> [", objc_opt_class(), *(a1 + 32)];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __65__NSArray_PhotoLibraryServices___pl_prettyDescriptionWithIndent___block_invoke_2;
+  v14[3] = &unk_1E7573A70;
+  v8 = *(a1 + 32);
+  v17 = *(a1 + 40);
+  v9 = v6;
+  v15 = v9;
+  v16 = v7;
+  v18 = v5;
   v10 = v7;
+  [v8 enumerateObjectsUsingBlock:v14];
+  [v9 appendFormat:@"\n%@]", v10];
+  v11 = v16;
+  v12 = v9;
 
-  return v7;
+  return v9;
 }
 
 void __65__NSArray_PhotoLibraryServices___pl_prettyDescriptionWithIndent___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)

@@ -114,9 +114,11 @@
 
 uint64_t __65__CNVisualIdentityPickerViewController_descriptorForRequiredKeys__block_invoke(uint64_t a1)
 {
-  descriptorForRequiredKeys_cn_once_object_26 = [*(a1 + 32) makeDescriptorForRequiredKeys];
+  v1 = [*(a1 + 32) makeDescriptorForRequiredKeys];
+  v2 = descriptorForRequiredKeys_cn_once_object_26;
+  descriptorForRequiredKeys_cn_once_object_26 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (id)makeDescriptorForRequiredKeys
@@ -909,11 +911,11 @@ uint64_t __88__CNVisualIdentityPickerViewController_imagePickerController_didFin
   }
 }
 
-uint64_t __88__CNVisualIdentityPickerViewController_imagePickerController_didFinishWithProviderItem___block_invoke_3(uint64_t result)
+id *__88__CNVisualIdentityPickerViewController_imagePickerController_didFinishWithProviderItem___block_invoke_3(id *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
-    return [*(result + 40) sender:0 dismissViewController:?];
+    return [result[5] sender:0 dismissViewController:?];
   }
 
   return result;
@@ -2831,8 +2833,8 @@ LABEL_15:
 
     unifiedMeContactMonitor = [MEMORY[0x1E6996BA8] unifiedMeContactMonitor];
     visualIdentity = [sourceCopy visualIdentity];
-    contacts = [visualIdentity contacts];
-    firstObject = [contacts firstObject];
+    v18 = objc_msgSend_contacts(visualIdentity);
+    firstObject = [v18 firstObject];
     -[CNVisualIdentityImagePickerController setIsMeContact:](v12->_imagePickerController, "setIsMeContact:", [unifiedMeContactMonitor isMeContact:firstObject]);
 
     [(CNVisualIdentityImagePickerController *)v12->_imagePickerController setDelegate:v12];

@@ -61,7 +61,7 @@
 
 - (HMDAccessoryProfile)initWithCoder:(id)coder
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"accessory"];
   v6 = objc_alloc(MEMORY[0x277CCAD78]);
@@ -69,42 +69,41 @@
   v8 = [v6 initWithUUIDString:v7];
 
   v9 = MEMORY[0x277CBEB98];
-  v16[0] = objc_opt_class();
-  v16[1] = objc_opt_class();
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[0] = objc_opt_class();
+  v15[1] = objc_opt_class();
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   v11 = [v9 setWithArray:v10];
   v12 = [coderCopy decodeObjectOfClasses:v11 forKey:*MEMORY[0x277CD2668]];
 
   v13 = [(HMDAccessoryProfile *)self initWithAccessory:v5 uniqueIdentifier:v8 services:v12];
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (id)findServiceWithType:(id)type
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   typeCopy = type;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   services = [(HMDAccessoryProfile *)self services];
-  v6 = [services countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [services countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(services);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
-        serviceType = [v9 serviceType];
-        v11 = [serviceType isEqualToString:typeCopy];
+        v9 = *(*(&v13 + 1) + 8 * i);
+        v10 = objc_msgSend_serviceType(v9);
+        v11 = [v10 isEqualToString:typeCopy];
 
         if (v11)
         {
@@ -113,7 +112,7 @@
         }
       }
 
-      v6 = [services countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [services countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -125,14 +124,12 @@
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (void)configureWithMessageDispatcher:(id)dispatcher configurationTracker:(id)tracker
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dispatcherCopy = dispatcher;
   trackerCopy = tracker;
   v8 = objc_autoreleasePoolPush();
@@ -142,9 +139,9 @@ LABEL_11:
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v18 = v11;
-    v19 = 2112;
-    v20 = selfCopy;
+    v17 = v11;
+    v18 = 2112;
+    v19 = selfCopy;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Configuring profile: %@", buf, 0x16u);
   }
 
@@ -162,12 +159,10 @@ LABEL_11:
     block[2] = __75__HMDAccessoryProfile_configureWithMessageDispatcher_configurationTracker___block_invoke;
     block[3] = &unk_27868A010;
     block[4] = selfCopy;
-    v15 = dispatcherCopy;
-    v16 = trackerCopy;
+    v14 = dispatcherCopy;
+    v15 = trackerCopy;
     dispatch_async(workQueue, block);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HMDAccessoryProfile_configureWithMessageDispatcher_configurationTracker___block_invoke(uint64_t a1)
@@ -258,7 +253,7 @@ void __75__HMDAccessoryProfile_configureWithMessageDispatcher_configurationTrack
   v14 = [(HMDAccessoryProfile *)&v26 init];
   if (v14)
   {
-    v15 = [identifierCopy copy];
+    v15 = objc_msgSend_copy(identifierCopy);
     uniqueIdentifier = v14->_uniqueIdentifier;
     v14->_uniqueIdentifier = v15;
 
@@ -266,7 +261,7 @@ void __75__HMDAccessoryProfile_configureWithMessageDispatcher_configurationTrack
     objc_storeWeak(&v14->_accessory, accessoryCopy);
     if (servicesCopy)
     {
-      array = [servicesCopy copy];
+      array = objc_msgSend_copy(servicesCopy);
     }
 
     else
@@ -317,10 +312,9 @@ void __75__HMDAccessoryProfile_configureWithMessageDispatcher_configurationTrack
 
 void __34__HMDAccessoryProfile_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_179406;
-  logCategory__hmf_once_v2_179406 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_179406;
+  logCategory__hmf_once_v2_179406 = v0;
 }
 
 @end

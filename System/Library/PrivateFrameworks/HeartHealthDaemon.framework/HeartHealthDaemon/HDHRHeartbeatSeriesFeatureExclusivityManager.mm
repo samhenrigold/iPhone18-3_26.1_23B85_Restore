@@ -76,19 +76,19 @@ void __131__HDHRHeartbeatSeriesFeatureExclusivityManager_initWithIrregularRhythm
 
 - (void)_scheduleInitialMaintenanceOperationWithProfile:(id)profile
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   objc_initWeak(&location, self);
   v5 = MEMORY[0x277D10748];
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
   queue = self->_queue;
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __96__HDHRHeartbeatSeriesFeatureExclusivityManager__scheduleInitialMaintenanceOperationWithProfile___block_invoke;
-  v19 = &unk_2786609E0;
-  objc_copyWeak(&v20, &location);
-  v9 = [v5 maintenanceOperationWithName:v7 queue:queue synchronousBlock:&v16];
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __96__HDHRHeartbeatSeriesFeatureExclusivityManager__scheduleInitialMaintenanceOperationWithProfile___block_invoke;
+  v18 = &unk_2786609E0;
+  objc_copyWeak(&v19, &location);
+  v9 = [v5 maintenanceOperationWithName:v7 queue:queue synchronousBlock:&v15];
 
   _HKInitializeLogging();
   v10 = *MEMORY[0x277CCC2D8];
@@ -96,7 +96,7 @@ void __131__HDHRHeartbeatSeriesFeatureExclusivityManager_initWithIrregularRhythm
   {
     v11 = objc_opt_class();
     *buf = 138543362;
-    v23 = v11;
+    v22 = v11;
     v12 = v11;
     _os_log_impl(&dword_229486000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Scheduling initial maintenance operation", buf, 0xCu);
   }
@@ -105,15 +105,13 @@ void __131__HDHRHeartbeatSeriesFeatureExclusivityManager_initWithIrregularRhythm
   maintenanceWorkCoordinator = [daemon maintenanceWorkCoordinator];
   [maintenanceWorkCoordinator enqueueMaintenanceOperation:v9];
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(&location);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __96__HDHRHeartbeatSeriesFeatureExclusivityManager__scheduleInitialMaintenanceOperationWithProfile___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -122,13 +120,13 @@ void __96__HDHRHeartbeatSeriesFeatureExclusivityManager__scheduleInitialMaintena
     if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
     {
       v3 = v2;
-      LODWORD(v10) = 138543362;
-      *(&v10 + 4) = objc_opt_class();
-      v4 = *(&v10 + 4);
-      _os_log_impl(&dword_229486000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Running initial maintenance operation", &v10, 0xCu);
+      LODWORD(v9) = 138543362;
+      *(&v9 + 4) = objc_opt_class();
+      v4 = *(&v9 + 4);
+      _os_log_impl(&dword_229486000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Running initial maintenance operation", &v9, 0xCu);
     }
 
-    v5 = [WeakRetained[1] featureStatusWithError:{0, v10}];
+    v5 = [WeakRetained[1] featureStatusWithError:{0, v9}];
     v6 = WeakRetained[5];
     WeakRetained[5] = v5;
 
@@ -138,107 +136,107 @@ void __96__HDHRHeartbeatSeriesFeatureExclusivityManager__scheduleInitialMaintena
 
     [WeakRetained _queue_disableIrregularRhythmNotificationsIfAFibHistoryIsEnabled];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_disableIrregularRhythmNotificationsIfAFibHistoryIsEnabled
 {
-  v22 = *MEMORY[0x277D85DE8];
-  if (!self->_irregularRhythmNotificationsStatus)
+  v21 = *MEMORY[0x277D85DE8];
+  if (self->_irregularRhythmNotificationsStatus)
   {
-    _HKInitializeLogging();
-    v10 = *MEMORY[0x277CCC2D8];
-    if (!os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
+    if (self->_aFibHistoryStatus)
     {
-      goto LABEL_16;
-    }
+      v3 = [(HDHRHeartbeatSeriesFeatureExclusivityManager *)self _isFeatureStatusAvailableForUsageOrBlockedOnlyByMutualExclusivityRequirement:?];
+      v4 = [(HDHRHeartbeatSeriesFeatureExclusivityManager *)self _isFeatureStatusAvailableForUsageOrBlockedOnlyByMutualExclusivityRequirement:self->_aFibHistoryStatus];
+      if (v3 && v4)
+      {
+        onboardingRecord = [(HKFeatureStatus *)self->_irregularRhythmNotificationsStatus onboardingRecord];
+        featureSettings = [onboardingRecord featureSettings];
+        v7 = *MEMORY[0x277CCC120];
+        v8 = [featureSettings numberForKey:*MEMORY[0x277CCC120]];
 
-    v8 = v10;
-    *buf = 138543362;
-    v21 = objc_opt_class();
-    v11 = v21;
-    v12 = "[%{public}@] No feature status available for IRN: cannot proceed";
-LABEL_14:
-    _os_log_impl(&dword_229486000, v8, OS_LOG_TYPE_DEFAULT, v12, buf, 0xCu);
+        if (v8 && ([v8 BOOLValue]& 1) != 0)
+        {
+          featureAvailabilityProviding = [(HKFeatureStatusManager *)self->_irregularRhythmNotificationsStatusManager featureAvailabilityProviding];
+          v18[0] = MEMORY[0x277D85DD0];
+          v18[1] = 3221225472;
+          v18[2] = __112__HDHRHeartbeatSeriesFeatureExclusivityManager__queue_disableIrregularRhythmNotificationsIfAFibHistoryIsEnabled__block_invoke;
+          v18[3] = &unk_278660408;
+          v18[4] = self;
+          [featureAvailabilityProviding setFeatureSettingNumber:MEMORY[0x277CBEC28] forKey:v7 completion:v18];
+        }
 
-LABEL_15:
-    goto LABEL_16;
-  }
+        else
+        {
+          _HKInitializeLogging();
+          v15 = *MEMORY[0x277CCC2D8];
+          if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
+          {
+            v16 = v15;
+            *buf = 138543362;
+            v20 = objc_opt_class();
+            v17 = v20;
+            _os_log_impl(&dword_229486000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] Nothing to do: IRN is off", buf, 0xCu);
+          }
+        }
 
-  if (!self->_aFibHistoryStatus)
-  {
-    _HKInitializeLogging();
-    v13 = *MEMORY[0x277CCC2D8];
-    if (!os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_16;
-    }
+        goto LABEL_15;
+      }
 
-    v8 = v13;
-    *buf = 138543362;
-    v21 = objc_opt_class();
-    v11 = v21;
-    v12 = "[%{public}@] No feature status available for AFib History: cannot proceed";
-    goto LABEL_14;
-  }
+      _HKInitializeLogging();
+      v14 = *MEMORY[0x277CCC2D8];
+      if (!os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
+      {
+        return;
+      }
 
-  v3 = [(HDHRHeartbeatSeriesFeatureExclusivityManager *)self _isFeatureStatusAvailableForUsageOrBlockedOnlyByMutualExclusivityRequirement:?];
-  v4 = [(HDHRHeartbeatSeriesFeatureExclusivityManager *)self _isFeatureStatusAvailableForUsageOrBlockedOnlyByMutualExclusivityRequirement:self->_aFibHistoryStatus];
-  if (v3 && v4)
-  {
-    onboardingRecord = [(HKFeatureStatus *)self->_irregularRhythmNotificationsStatus onboardingRecord];
-    featureSettings = [onboardingRecord featureSettings];
-    v7 = *MEMORY[0x277CCC120];
-    v8 = [featureSettings numberForKey:*MEMORY[0x277CCC120]];
-
-    if (v8 && ([v8 BOOLValue]& 1) != 0)
-    {
-      featureAvailabilityProviding = [(HKFeatureStatusManager *)self->_irregularRhythmNotificationsStatusManager featureAvailabilityProviding];
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __112__HDHRHeartbeatSeriesFeatureExclusivityManager__queue_disableIrregularRhythmNotificationsIfAFibHistoryIsEnabled__block_invoke;
-      v19[3] = &unk_278660408;
-      v19[4] = self;
-      [featureAvailabilityProviding setFeatureSettingNumber:MEMORY[0x277CBEC28] forKey:v7 completion:v19];
+      v8 = v14;
+      *buf = 138543362;
+      v20 = objc_opt_class();
+      v11 = v20;
+      v12 = "[%{public}@] Nothing to do: at least one feature is unavailable for usage";
     }
 
     else
     {
       _HKInitializeLogging();
-      v16 = *MEMORY[0x277CCC2D8];
-      if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
+      v13 = *MEMORY[0x277CCC2D8];
+      if (!os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
       {
-        v17 = v16;
-        *buf = 138543362;
-        v21 = objc_opt_class();
-        v18 = v21;
-        _os_log_impl(&dword_229486000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Nothing to do: IRN is off", buf, 0xCu);
+        return;
       }
+
+      v8 = v13;
+      *buf = 138543362;
+      v20 = objc_opt_class();
+      v11 = v20;
+      v12 = "[%{public}@] No feature status available for AFib History: cannot proceed";
+    }
+  }
+
+  else
+  {
+    _HKInitializeLogging();
+    v10 = *MEMORY[0x277CCC2D8];
+    if (!os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
+    {
+      return;
     }
 
-    goto LABEL_15;
-  }
-
-  _HKInitializeLogging();
-  v14 = *MEMORY[0x277CCC2D8];
-  if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
-  {
-    v8 = v14;
+    v8 = v10;
     *buf = 138543362;
-    v21 = objc_opt_class();
-    v11 = v21;
-    v12 = "[%{public}@] Nothing to do: at least one feature is unavailable for usage";
-    goto LABEL_14;
+    v20 = objc_opt_class();
+    v11 = v20;
+    v12 = "[%{public}@] No feature status available for IRN: cannot proceed";
   }
 
-LABEL_16:
-  v15 = *MEMORY[0x277D85DE8];
+  _os_log_impl(&dword_229486000, v8, OS_LOG_TYPE_DEFAULT, v12, buf, 0xCu);
+
+LABEL_15:
 }
 
 void __112__HDHRHeartbeatSeriesFeatureExclusivityManager__queue_disableIrregularRhythmNotificationsIfAFibHistoryIsEnabled__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2D8];
@@ -247,12 +245,11 @@ void __112__HDHRHeartbeatSeriesFeatureExclusivityManager__queue_disableIrregular
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = v6;
-      *v12 = 138543362;
-      *&v12[4] = objc_opt_class();
-      v10 = *&v12[4];
-      _os_log_impl(&dword_229486000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Successfully turned off IRN; firing notification", v12, 0xCu);
+      v8 = v6;
+      *v10 = 138543362;
+      *&v10[4] = objc_opt_class();
+      v9 = *&v10[4];
+      _os_log_impl(&dword_229486000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Successfully turned off IRN; firing notification", v10, 0xCu);
     }
 
     [*(a1 + 32) _fireSystemAlertBecauseIrregularRhythmNotificationsWereTurnedOff];
@@ -262,8 +259,6 @@ void __112__HDHRHeartbeatSeriesFeatureExclusivityManager__queue_disableIrregular
   {
     __112__HDHRHeartbeatSeriesFeatureExclusivityManager__queue_disableIrregularRhythmNotificationsIfAFibHistoryIsEnabled__block_invoke_cold_1(a1, v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isFeatureStatusAvailableForUsageOrBlockedOnlyByMutualExclusivityRequirement:(id)requirement
@@ -358,26 +353,18 @@ void __112__HDHRHeartbeatSeriesFeatureExclusivityManager__fireSystemAlertBecause
 
 void __112__HDHRHeartbeatSeriesFeatureExclusivityManager__queue_disableIrregularRhythmNotificationsIfAFibHistoryIsEnabled__block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = objc_opt_class();
-  v5 = OUTLINED_FUNCTION_2(v4);
-  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to turned off IRN: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_2(v3);
+  OUTLINED_FUNCTION_3(&dword_229486000, v5, v6, "[%{public}@] Failed to turned off IRN: %{public}@", v7, v8, v9, v10);
 }
 
 void __112__HDHRHeartbeatSeriesFeatureExclusivityManager__fireSystemAlertBecauseIrregularRhythmNotificationsWereTurnedOff__block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = objc_opt_class();
-  v5 = OUTLINED_FUNCTION_2(v4);
-  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to post notification: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_2(v3);
+  OUTLINED_FUNCTION_3(&dword_229486000, v5, v6, "[%{public}@] Failed to post notification: %{public}@", v7, v8, v9, v10);
 }
 
 @end

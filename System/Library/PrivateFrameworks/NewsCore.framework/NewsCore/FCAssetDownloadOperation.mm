@@ -111,11 +111,11 @@ void __53__FCAssetDownloadOperation_sharedURLRequestScheduler__block_invoke(uint
 
 - (FCAssetDownloadOperation)initWithNetworkReachability:(id)reachability URLRequestScheduler:(id)scheduler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   schedulerCopy = scheduler;
-  v14.receiver = self;
-  v14.super_class = FCAssetDownloadOperation;
-  v7 = [(FCNetworkOperation *)&v14 initWithNetworkReachability:reachability];
+  v13.receiver = self;
+  v13.super_class = FCAssetDownloadOperation;
+  v7 = [(FCNetworkOperation *)&v13 initWithNetworkReachability:reachability];
   if (v7)
   {
     sharedURLRequestScheduler = schedulerCopy;
@@ -142,15 +142,15 @@ void __53__FCAssetDownloadOperation_sharedURLRequestScheduler__block_invoke(uint
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
       {
-        v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"More than %lu asset downloads were triggered within one second", 500];
+        v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"More than %lu asset downloads were triggered within one second", 500];
         *buf = 136315906;
-        v16 = "[FCAssetDownloadOperation initWithNetworkReachability:URLRequestScheduler:]";
-        v17 = 2080;
-        v18 = "FCAssetDownloadOperation.m";
-        v19 = 1024;
-        v20 = 150;
-        v21 = 2114;
-        v22 = v13;
+        v15 = "[FCAssetDownloadOperation initWithNetworkReachability:URLRequestScheduler:]";
+        v16 = 2080;
+        v17 = "FCAssetDownloadOperation.m";
+        v18 = 1024;
+        v19 = 150;
+        v20 = 2114;
+        v21 = v12;
         _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: TooManyAssetDownloads) : %s %s:%d %{public}@", buf, 0x26u);
       }
 
@@ -158,43 +158,42 @@ void __53__FCAssetDownloadOperation_sharedURLRequestScheduler__block_invoke(uint
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (BOOL)validateOperation
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = [(FCAssetDownloadOperation *)self URL];
 
   if (!v3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"asset download operation must have a non-nil URL"];
-    v10 = 136315906;
-    v11 = "[FCAssetDownloadOperation validateOperation]";
-    v12 = 2080;
-    v13 = "FCAssetDownloadOperation.m";
-    v14 = 1024;
-    v15 = 163;
-    v16 = 2114;
-    v17 = v8;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"asset download operation must have a non-nil URL"];
+    v9 = 136315906;
+    v10 = "[FCAssetDownloadOperation validateOperation]";
+    v11 = 2080;
+    v12 = "FCAssetDownloadOperation.m";
+    v13 = 1024;
+    v14 = 163;
+    v15 = 2114;
+    v16 = v7;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
   }
 
   scheduler = [(FCAssetDownloadOperation *)self scheduler];
 
   if (!scheduler && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"asset download operation must have a non-nil scheduler"];
-    v10 = 136315906;
-    v11 = "[FCAssetDownloadOperation validateOperation]";
-    v12 = 2080;
-    v13 = "FCAssetDownloadOperation.m";
-    v14 = 1024;
-    v15 = 167;
-    v16 = 2114;
-    v17 = v9;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"asset download operation must have a non-nil scheduler"];
+    v9 = 136315906;
+    v10 = "[FCAssetDownloadOperation validateOperation]";
+    v11 = 2080;
+    v12 = "FCAssetDownloadOperation.m";
+    v13 = 1024;
+    v14 = 167;
+    v15 = 2114;
+    v16 = v8;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
   }
 
   if (v3)
@@ -207,9 +206,7 @@ void __53__FCAssetDownloadOperation_sharedURLRequestScheduler__block_invoke(uint
     v5 = 1;
   }
 
-  result = !v5;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return !v5;
 }
 
 - (void)prepareOperation
@@ -221,7 +218,7 @@ void __53__FCAssetDownloadOperation_sharedURLRequestScheduler__block_invoke(uint
 
 - (void)performOperation
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695AC18];
   v4 = [(FCAssetDownloadOperation *)self URL];
   v5 = [v3 requestWithURL:v4];
@@ -249,15 +246,15 @@ void __53__FCAssetDownloadOperation_sharedURLRequestScheduler__block_invoke(uint
   }
 
   [v5 setAllHTTPHeaderFields:dictionary];
-  v26 = MEMORY[0x1E69E9820];
-  v27 = 3221225472;
-  v28 = __44__FCAssetDownloadOperation_performOperation__block_invoke;
-  v29 = &unk_1E7C46DD8;
+  v25 = MEMORY[0x1E69E9820];
+  v26 = 3221225472;
+  v27 = __44__FCAssetDownloadOperation_performOperation__block_invoke;
+  v28 = &unk_1E7C46DD8;
   selfCopy = self;
   v12 = v5;
-  v31 = v12;
-  v13 = _Block_copy(&v26);
-  v14 = [(FCAssetDownloadOperation *)self scheduler:v26];
+  v30 = v12;
+  v13 = _Block_copy(&v25);
+  v14 = [(FCAssetDownloadOperation *)self scheduler:v25];
   downloadDestination = [(FCAssetDownloadOperation *)self downloadDestination];
   relativePriority = [(FCOperation *)self relativePriority];
   shortOperationDescription = [(FCOperation *)self shortOperationDescription];
@@ -273,23 +270,21 @@ void __53__FCAssetDownloadOperation_sharedURLRequestScheduler__block_invoke(uint
     requestUUID2 = [(FCAssetDownloadOperation *)self requestUUID];
     v24 = [(FCAssetDownloadOperation *)self URL];
     *buf = 138544130;
-    v33 = shortOperationDescription2;
-    v34 = 2114;
-    v35 = loggingKey;
-    v36 = 2114;
-    v37 = requestUUID2;
-    v38 = 2114;
-    v39 = v24;
+    v32 = shortOperationDescription2;
+    v33 = 2114;
+    v34 = loggingKey;
+    v35 = 2114;
+    v36 = requestUUID2;
+    v37 = 2114;
+    v38 = v24;
     _os_log_impl(&dword_1B63EF000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@ will download asset %{public}@ with request UUID: %{public}@, URL: %{public}@", buf, 0x2Au);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __44__FCAssetDownloadOperation_performOperation__block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v33 = a2;
+  v35 = *MEMORY[0x1E69E9840];
+  v32 = a2;
   v9 = a3;
   v10 = a4;
   v11 = a5;
@@ -299,7 +294,7 @@ void __44__FCAssetDownloadOperation_performOperation__block_invoke(uint64_t a1, 
     v13 = v12;
     v14 = [v10 shortOperationDescription];
     *buf = 138543362;
-    v35 = v14;
+    v34 = v14;
     _os_log_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ finished", buf, 0xCu);
   }
 
@@ -322,18 +317,18 @@ void __44__FCAssetDownloadOperation_performOperation__block_invoke(uint64_t a1, 
     v15 = 0;
   }
 
-  v32 = v9;
+  v31 = v9;
   if (!v11)
   {
-    v31 = [*(a1 + 32) downloadDestination];
-    if (v31 == 1)
+    v30 = [*(a1 + 32) downloadDestination];
+    if (v30 == 1)
     {
-      [*(a1 + 32) setDownloadedData:v33];
+      [*(a1 + 32) setDownloadedData:v32];
     }
 
-    else if (!v31)
+    else if (!v30)
     {
-      [*(a1 + 32) setDownloadedFileURL:v33];
+      [*(a1 + 32) setDownloadedFileURL:v32];
     }
   }
 
@@ -353,12 +348,11 @@ void __44__FCAssetDownloadOperation_performOperation__block_invoke(uint64_t a1, 
   [v28 logNetworkEvent:v29];
 
   [*(a1 + 32) finishedPerformingOperationWithError:v11];
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)operationWillFinishWithError:(id)error
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v5 = errorCopy;
   if (!errorCopy)
@@ -382,17 +376,17 @@ void __44__FCAssetDownloadOperation_performOperation__block_invoke(uint64_t a1, 
     v20 = v19;
     networkEvent3 = [(FCAssetDownloadOperation *)self networkEvent];
     [networkEvent3 startTime];
-    v39 = 138544386;
-    v40 = shortOperationDescription;
-    v41 = 2114;
-    v42 = loggingKey;
-    v43 = 2114;
-    v44 = v15;
-    v45 = 2048;
-    v46 = v18;
-    v47 = 2048;
-    v48 = (fmax(v20 - v22, 0.0) * 1000.0);
-    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ successfully downloaded asset %{public}@ with size: %{public}@, network time: %llums, total time: %llums", &v39, 0x34u);
+    v38 = 138544386;
+    v39 = shortOperationDescription;
+    v40 = 2114;
+    v41 = loggingKey;
+    v42 = 2114;
+    v43 = v15;
+    v44 = 2048;
+    v45 = v18;
+    v46 = 2048;
+    v47 = (fmax(v20 - v22, 0.0) * 1000.0);
+    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ successfully downloaded asset %{public}@ with size: %{public}@, network time: %llums, total time: %llums", &v38, 0x34u);
 
     goto LABEL_9;
   }
@@ -408,11 +402,11 @@ void __44__FCAssetDownloadOperation_performOperation__block_invoke(uint64_t a1, 
     v7 = v6;
     shortOperationDescription2 = [(FCOperation *)self shortOperationDescription];
     loggingKey2 = [(FCAssetDownloadOperation *)self loggingKey];
-    v39 = 138543618;
-    v40 = shortOperationDescription2;
-    v41 = 2114;
-    v42 = loggingKey2;
-    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ cancelled downloading asset %{public}@", &v39, 0x16u);
+    v38 = 138543618;
+    v39 = shortOperationDescription2;
+    v40 = 2114;
+    v41 = loggingKey2;
+    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ cancelled downloading asset %{public}@", &v38, 0x16u);
     goto LABEL_5;
   }
 
@@ -430,13 +424,13 @@ void __44__FCAssetDownloadOperation_performOperation__block_invoke(uint64_t a1, 
       loggingKey3 = [(FCAssetDownloadOperation *)self loggingKey];
       userInfo2 = [v5 userInfo];
       v29 = [userInfo2 objectForKeyedSubscript:@"FCErrorHTTPStatusCode"];
-      v39 = 138543874;
-      v40 = shortOperationDescription2;
-      v41 = 2114;
-      v42 = loggingKey3;
-      v43 = 2114;
-      v44 = v29;
-      _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "%{public}@ failed to download asset %{public}@ with response status code: %{public}@", &v39, 0x20u);
+      v38 = 138543874;
+      v39 = shortOperationDescription2;
+      v40 = 2114;
+      v41 = loggingKey3;
+      v42 = 2114;
+      v43 = v29;
+      _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "%{public}@ failed to download asset %{public}@ with response status code: %{public}@", &v38, 0x20u);
 
       goto LABEL_6;
     }
@@ -448,13 +442,13 @@ void __44__FCAssetDownloadOperation_performOperation__block_invoke(uint64_t a1, 
     shortOperationDescription2 = [(FCOperation *)self shortOperationDescription];
     loggingKey2 = [(FCAssetDownloadOperation *)self loggingKey];
     localizedDescription = [v5 localizedDescription];
-    v39 = 138543874;
-    v40 = shortOperationDescription2;
-    v41 = 2114;
-    v42 = loggingKey2;
-    v43 = 2114;
-    v44 = localizedDescription;
-    _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "%{public}@ failed to download asset %{public}@ with error: %{public}@", &v39, 0x20u);
+    v38 = 138543874;
+    v39 = shortOperationDescription2;
+    v40 = 2114;
+    v41 = loggingKey2;
+    v42 = 2114;
+    v43 = localizedDescription;
+    _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "%{public}@ failed to download asset %{public}@ with error: %{public}@", &v38, 0x20u);
 
 LABEL_5:
 LABEL_6:
@@ -490,8 +484,6 @@ LABEL_20:
       (dataDownloadCompletionHandler2)[2](dataDownloadCompletionHandler2, v35, networkEvent4, v5);
     }
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (id)throttleGroup

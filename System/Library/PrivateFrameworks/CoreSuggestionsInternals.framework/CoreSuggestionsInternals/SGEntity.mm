@@ -38,27 +38,27 @@
 
 - (BOOL)isEventComplete
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [(SGEntity *)self tags];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  isEventComplete = v15 = 0u;
-  v3 = [isEventComplete countByEnumeratingWithState:&v12 objects:v16 count:16];
+  isEventComplete = v14 = 0u;
+  v3 = [isEventComplete countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
 LABEL_3:
     v6 = 0;
     while (1)
     {
-      if (*v13 != v5)
+      if (*v12 != v5)
       {
         objc_enumerationMutation(isEventComplete);
       }
 
-      v7 = *(*(&v12 + 1) + 8 * v6);
+      v7 = *(*(&v11 + 1) + 8 * v6);
       if ([v7 isEventCompletenessTag])
       {
         break;
@@ -66,7 +66,7 @@ LABEL_3:
 
       if (v4 == ++v6)
       {
-        v4 = [isEventComplete countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v4 = [isEventComplete countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -97,7 +97,6 @@ LABEL_9:
 LABEL_12:
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
@@ -187,54 +186,6 @@ LABEL_12:
 
 - (id)templateShortName
 {
-  v15 = *MEMORY[0x277D85DE8];
-  [(SGEntity *)self tags];
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v2 = v13 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v3)
-  {
-    v4 = *v11;
-    while (2)
-    {
-      for (i = 0; i != v3; i = i + 1)
-      {
-        if (*v11 != v4)
-        {
-          objc_enumerationMutation(v2);
-        }
-
-        v6 = *(*(&v10 + 1) + 8 * i);
-        if ([v6 isTemplateShortName])
-        {
-          v3 = v6;
-          goto LABEL_11;
-        }
-      }
-
-      v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
-      if (v3)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-LABEL_11:
-
-  value = [v3 value];
-
-  v8 = *MEMORY[0x277D85DE8];
-
-  return value;
-}
-
-- (id)extraKeyTag
-{
   v14 = *MEMORY[0x277D85DE8];
   [(SGEntity *)self tags];
   v9 = 0u;
@@ -255,7 +206,7 @@ LABEL_11:
         }
 
         v6 = *(*(&v9 + 1) + 8 * i);
-        if ([v6 isExtraKey])
+        if ([v6 isTemplateShortName])
         {
           v3 = v6;
           goto LABEL_11;
@@ -274,41 +225,85 @@ LABEL_11:
 
 LABEL_11:
 
-  v7 = *MEMORY[0x277D85DE8];
+  value = [v3 value];
+
+  return value;
+}
+
+- (id)extraKeyTag
+{
+  v13 = *MEMORY[0x277D85DE8];
+  [(SGEntity *)self tags];
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v2 = v11 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  if (v3)
+  {
+    v4 = *v9;
+    while (2)
+    {
+      for (i = 0; i != v3; i = i + 1)
+      {
+        if (*v9 != v4)
+        {
+          objc_enumerationMutation(v2);
+        }
+
+        v6 = *(*(&v8 + 1) + 8 * i);
+        if ([v6 isExtraKey])
+        {
+          v3 = v6;
+          goto LABEL_11;
+        }
+      }
+
+      v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      if (v3)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+LABEL_11:
 
   return v3;
 }
 
 - (BOOL)hasTag:(id)tag
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   tagCopy = tag;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   tags = [(SGEntity *)self tags];
-  v6 = [tags countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [tags countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(tags);
         }
 
-        if ([*(*(&v11 + 1) + 8 * i) isEqualToEntityTag:tagCopy])
+        if ([*(*(&v10 + 1) + 8 * i) isEqualToEntityTag:tagCopy])
         {
           LOBYTE(v6) = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [tags countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [tags countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         continue;
@@ -320,7 +315,6 @@ LABEL_11:
 
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

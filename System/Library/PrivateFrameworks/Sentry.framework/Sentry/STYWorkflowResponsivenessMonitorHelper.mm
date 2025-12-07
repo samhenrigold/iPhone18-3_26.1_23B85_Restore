@@ -94,33 +94,33 @@
 
 void __46__STYWorkflowResponsivenessMonitorHelper_init__block_invoke_2(uint64_t a1, void *a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
-  v26 = a2;
-  v28 = a1;
+  v40 = *MEMORY[0x277D85DE8];
+  v25 = a2;
+  v27 = a1;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v29 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v26, "count")}];
+    v28 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v25, "count")}];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    obj = v26;
+    obj = v25;
     v3 = 0;
-    v4 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
+    v4 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
     if (v4)
     {
-      v5 = *v35;
+      v5 = *v34;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v35 != v5)
+          if (*v34 != v5)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v34 + 1) + 8 * i);
+          v7 = *(*(&v33 + 1) + 8 * i);
           v8 = [v7 allowListForDiagnostics];
           v9 = +[STYFrameworkHelper sharedHelper];
           v10 = [v9 logHandle];
@@ -132,7 +132,7 @@ void __46__STYWorkflowResponsivenessMonitorHelper_init__block_invoke_2(uint64_t 
             {
               v12 = [v7 name];
               *buf = 138543362;
-              v39 = v12;
+              v38 = v12;
               _os_log_impl(&dword_2656CE000, &v10->super, OS_LOG_TYPE_DEFAULT, "Workflow %{public}@ starting monitoring", buf, 0xCu);
             }
 
@@ -146,19 +146,19 @@ void __46__STYWorkflowResponsivenessMonitorHelper_init__block_invoke_2(uint64_t 
             objc_initWeak(buf, v10);
             v13 = objc_alloc(MEMORY[0x277D7D298]);
             v14 = [WeakRetained processingQueue];
-            v31[0] = MEMORY[0x277D85DD0];
-            v31[1] = 3221225472;
-            v31[2] = __46__STYWorkflowResponsivenessMonitorHelper_init__block_invoke_487;
-            v31[3] = &unk_279B9B838;
-            objc_copyWeak(&v32, buf);
-            objc_copyWeak(&v33, (v28 + 32));
-            v15 = [v13 initForLiveStreamingWithWorkflow:v7 timeoutQueue:v14 eventCompletionCallback:v31];
+            v30[0] = MEMORY[0x277D85DD0];
+            v30[1] = 3221225472;
+            v30[2] = __46__STYWorkflowResponsivenessMonitorHelper_init__block_invoke_487;
+            v30[3] = &unk_279B9B838;
+            objc_copyWeak(&v31, buf);
+            objc_copyWeak(&v32, (v27 + 32));
+            v15 = [v13 initForLiveStreamingWithWorkflow:v7 timeoutQueue:v14 eventCompletionCallback:v30];
 
             [(STYWorkflowEventTracker *)v10 setWrTracker:v15];
-            [v29 addObject:v10];
+            [v28 addObject:v10];
 
-            objc_destroyWeak(&v33);
             objc_destroyWeak(&v32);
+            objc_destroyWeak(&v31);
             objc_destroyWeak(buf);
           }
 
@@ -166,21 +166,21 @@ void __46__STYWorkflowResponsivenessMonitorHelper_init__block_invoke_2(uint64_t 
           {
             v16 = [v7 name];
             *buf = 138543362;
-            v39 = v16;
+            v38 = v16;
             _os_log_impl(&dword_2656CE000, &v10->super, OS_LOG_TYPE_DEFAULT, "Workflow %{public}@ has no diagnostics enabled, not monitoring", buf, 0xCu);
           }
         }
 
-        v4 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
+        v4 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
       }
 
       while (v4);
     }
 
     [WeakRetained setWorkflowEventTrackers:0];
-    if ([v29 count])
+    if ([v28 count])
     {
-      v17 = [v29 copy];
+      v17 = [v28 copy];
       [WeakRetained setWorkflowEventTrackers:v17];
 
       [WeakRetained takeTransaction];
@@ -215,8 +215,6 @@ void __46__STYWorkflowResponsivenessMonitorHelper_init__block_invoke_2(uint64_t 
       }
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __46__STYWorkflowResponsivenessMonitorHelper_init__block_invoke_487(uint64_t a1, void *a2)
@@ -247,21 +245,19 @@ uint64_t __46__STYWorkflowResponsivenessMonitorHelper_init__block_invoke_490(uin
 
 uint64_t __46__STYWorkflowResponsivenessMonitorHelper_init__block_invoke_491(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = +[STYFrameworkHelper sharedHelper];
   v3 = [v2 logHandle];
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [*(a1 + 32) periodLengthSec];
-    v7[0] = 67109120;
-    v7[1] = v4;
-    _os_log_impl(&dword_2656CE000, v3, OS_LOG_TYPE_DEFAULT, "per-period (%ds) timer fired, resetting per-day counts", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = v4;
+    _os_log_impl(&dword_2656CE000, v3, OS_LOG_TYPE_DEFAULT, "per-period (%ds) timer fired, resetting per-day counts", v6, 8u);
   }
 
-  result = [*(a1 + 32) resetPerPeriodCounts];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) resetPerPeriodCounts];
 }
 
 - (void)notifyWhenSettingsChanged:(id)changed block:(id)block
@@ -273,30 +269,30 @@ uint64_t __46__STYWorkflowResponsivenessMonitorHelper_init__block_invoke_491(uin
 
 - (void)handleSignpost:(id)signpost
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   signpostCopy = signpost;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = [(STYWorkflowResponsivenessMonitorHelper *)self workflowEventTrackers];
-  v4 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v4 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v23;
+    v6 = *v22;
     do
     {
       v7 = 0;
-      v19 = v5;
+      v18 = v5;
       do
       {
-        if (*v23 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v22 + 1) + 8 * v7);
+        v8 = *(*(&v21 + 1) + 8 * v7);
         if ([(STYWorkflowResponsivenessMonitorHelper *)self workflowIsUnderLimits:v8])
         {
           [v8 wrTracker];
@@ -310,7 +306,7 @@ uint64_t __46__STYWorkflowResponsivenessMonitorHelper_init__block_invoke_491(uin
 
           self = v10;
           v6 = v9;
-          v5 = v19;
+          v5 = v18;
           if (v16)
           {
             wrTracker = [v8 wrTracker];
@@ -322,52 +318,48 @@ uint64_t __46__STYWorkflowResponsivenessMonitorHelper_init__block_invoke_491(uin
       }
 
       while (v5 != v7);
-      v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v5);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetState
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   workflowEventTrackers = [(STYWorkflowResponsivenessMonitorHelper *)self workflowEventTrackers];
-  v3 = [workflowEventTrackers countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [workflowEventTrackers countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(workflowEventTrackers);
         }
 
-        wrTracker = [*(*(&v9 + 1) + 8 * v6) wrTracker];
+        wrTracker = [*(*(&v8 + 1) + 8 * v6) wrTracker];
         [wrTracker reset];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [workflowEventTrackers countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [workflowEventTrackers countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)workflowIsUnderLimits:(id)limits
@@ -390,36 +382,36 @@ uint64_t __46__STYWorkflowResponsivenessMonitorHelper_init__block_invoke_491(uin
 
 - (void)resetCounts
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   obj = [(STYWorkflowResponsivenessMonitorHelper *)self workflowEventTrackers];
-  v3 = [obj countByEnumeratingWithState:&v42 objects:v56 count:16];
+  v3 = [obj countByEnumeratingWithState:&v41 objects:v55 count:16];
   if (!v3)
   {
 LABEL_27:
 
-    goto LABEL_28;
+    return;
   }
 
   v5 = v3;
-  v39 = 0;
-  v41 = *v43;
+  v38 = 0;
+  v40 = *v42;
   *&v4 = 138544386;
-  v38 = v4;
+  v37 = v4;
   do
   {
     v6 = 0;
     do
     {
-      if (*v43 != v41)
+      if (*v42 != v40)
       {
         objc_enumerationMutation(obj);
       }
 
-      v7 = *(*(&v42 + 1) + 8 * v6);
+      v7 = *(*(&v41 + 1) + 8 * v6);
       perDayEventCount = [v7 perDayEventCount];
       perPeriodEventCount = [v7 perPeriodEventCount];
       v10 = [(STYWorkflowResponsivenessMonitorHelper *)self workflowIsUnderLimits:v7];
@@ -443,16 +435,16 @@ LABEL_27:
           name = [workflow name];
           perDayLogLimit = [(STYWorkflowResponsivenessMonitorHelper *)self perDayLogLimit];
           perPeriodLogLimit = [(STYWorkflowResponsivenessMonitorHelper *)self perPeriodLogLimit];
-          *buf = v38;
-          v47 = name;
-          v48 = 1024;
-          v49 = perDayEventCount;
-          v50 = 1024;
-          v51 = perDayLogLimit;
-          v52 = 1024;
-          v53 = perPeriodEventCount;
-          v54 = 1024;
-          v55 = perPeriodLogLimit;
+          *buf = v37;
+          v46 = name;
+          v47 = 1024;
+          v48 = perDayEventCount;
+          v49 = 1024;
+          v50 = perDayLogLimit;
+          v51 = 1024;
+          v52 = perPeriodEventCount;
+          v53 = 1024;
+          v54 = perPeriodLogLimit;
           v19 = logHandle;
           v20 = "Workflow %{public}@ resetting all counts (was %d/%d per day, %d/%d per period), was already under limits";
           goto LABEL_18;
@@ -461,7 +453,7 @@ LABEL_27:
         if (!os_log_type_enabled(logHandle, OS_LOG_TYPE_FAULT))
         {
 LABEL_15:
-          v39 = 1;
+          v38 = 1;
           goto LABEL_19;
         }
 
@@ -470,16 +462,16 @@ LABEL_15:
         name2 = [workflow2 name];
         perDayLogLimit2 = [(STYWorkflowResponsivenessMonitorHelper *)self perDayLogLimit];
         perPeriodLogLimit2 = [(STYWorkflowResponsivenessMonitorHelper *)self perPeriodLogLimit];
-        *buf = v38;
-        v47 = name2;
-        v48 = 1024;
-        v49 = perDayEventCount;
-        v50 = 1024;
-        v51 = perDayLogLimit2;
-        v52 = 1024;
-        v53 = perPeriodEventCount;
-        v54 = 1024;
-        v55 = perPeriodLogLimit2;
+        *buf = v37;
+        v46 = name2;
+        v47 = 1024;
+        v48 = perDayEventCount;
+        v49 = 1024;
+        v50 = perDayLogLimit2;
+        v51 = 1024;
+        v52 = perPeriodEventCount;
+        v53 = 1024;
+        v54 = perPeriodLogLimit2;
         _os_log_fault_impl(&dword_2656CE000, logHandle, OS_LOG_TYPE_FAULT, "Workflow %{public}@ resetting all counts (was %d/%d per day, %d/%d per period), was already under limits, and is now above limit!", buf, 0x24u);
 LABEL_13:
 
@@ -499,16 +491,16 @@ LABEL_13:
         name2 = [workflow2 name];
         perDayLogLimit3 = [(STYWorkflowResponsivenessMonitorHelper *)self perDayLogLimit];
         perPeriodLogLimit3 = [(STYWorkflowResponsivenessMonitorHelper *)self perPeriodLogLimit];
-        *buf = v38;
-        v47 = name2;
-        v48 = 1024;
-        v49 = perDayEventCount;
-        v50 = 1024;
-        v51 = perDayLogLimit3;
-        v52 = 1024;
-        v53 = perPeriodEventCount;
-        v54 = 1024;
-        v55 = perPeriodLogLimit3;
+        *buf = v37;
+        v46 = name2;
+        v47 = 1024;
+        v48 = perDayEventCount;
+        v49 = 1024;
+        v50 = perDayLogLimit3;
+        v51 = 1024;
+        v52 = perPeriodEventCount;
+        v53 = 1024;
+        v54 = perPeriodLogLimit3;
         _os_log_impl(&dword_2656CE000, logHandle, OS_LOG_TYPE_DEFAULT, "Workflow %{public}@ resetting all counts (was %d/%d per day, %d/%d per period), turning on signpost streaming", buf, 0x24u);
         goto LABEL_13;
       }
@@ -523,16 +515,16 @@ LABEL_13:
       name = [workflow name];
       perDayLogLimit4 = [(STYWorkflowResponsivenessMonitorHelper *)self perDayLogLimit];
       perPeriodLogLimit4 = [(STYWorkflowResponsivenessMonitorHelper *)self perPeriodLogLimit];
-      *buf = v38;
-      v47 = name;
-      v48 = 1024;
-      v49 = perDayEventCount;
-      v50 = 1024;
-      v51 = perDayLogLimit4;
-      v52 = 1024;
-      v53 = perPeriodEventCount;
-      v54 = 1024;
-      v55 = perPeriodLogLimit4;
+      *buf = v37;
+      v46 = name;
+      v47 = 1024;
+      v48 = perDayEventCount;
+      v49 = 1024;
+      v50 = perDayLogLimit4;
+      v51 = 1024;
+      v52 = perPeriodEventCount;
+      v53 = 1024;
+      v54 = perPeriodLogLimit4;
       v19 = logHandle;
       v20 = "Workflow %{public}@ resetting all counts (was %d/%d per day, %d/%d per period), still above limits";
 LABEL_18:
@@ -543,13 +535,13 @@ LABEL_19:
     }
 
     while (v5 != v6);
-    v31 = [obj countByEnumeratingWithState:&v42 objects:v56 count:16];
+    v31 = [obj countByEnumeratingWithState:&v41 objects:v55 count:16];
     v5 = v31;
   }
 
   while (v31);
 
-  if (v39)
+  if (v38)
   {
     [(STYWorkflowResponsivenessMonitorHelper *)self updateAllowList];
     settingsChangedCallbackQueue = [(STYWorkflowResponsivenessMonitorHelper *)self settingsChangedCallbackQueue];
@@ -569,43 +561,40 @@ LABEL_19:
       }
     }
   }
-
-LABEL_28:
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetPerDayCounts
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   obj = [(STYWorkflowResponsivenessMonitorHelper *)self workflowEventTrackers];
-  v3 = [obj countByEnumeratingWithState:&v42 objects:v56 count:16];
+  v3 = [obj countByEnumeratingWithState:&v41 objects:v55 count:16];
   if (!v3)
   {
 LABEL_27:
 
-    goto LABEL_28;
+    return;
   }
 
   v5 = v3;
-  v39 = 0;
-  v41 = *v43;
+  v38 = 0;
+  v40 = *v42;
   *&v4 = 138544386;
-  v38 = v4;
+  v37 = v4;
   do
   {
     v6 = 0;
     do
     {
-      if (*v43 != v41)
+      if (*v42 != v40)
       {
         objc_enumerationMutation(obj);
       }
 
-      v7 = *(*(&v42 + 1) + 8 * v6);
+      v7 = *(*(&v41 + 1) + 8 * v6);
       perDayEventCount = [v7 perDayEventCount];
       perPeriodEventCount = [v7 perPeriodEventCount];
       v10 = [(STYWorkflowResponsivenessMonitorHelper *)self workflowIsUnderLimits:v7];
@@ -628,16 +617,16 @@ LABEL_27:
           name = [workflow name];
           perDayLogLimit = [(STYWorkflowResponsivenessMonitorHelper *)self perDayLogLimit];
           perPeriodLogLimit = [(STYWorkflowResponsivenessMonitorHelper *)self perPeriodLogLimit];
-          *buf = v38;
-          v47 = name;
-          v48 = 1024;
-          v49 = perDayEventCount;
-          v50 = 1024;
-          v51 = perDayLogLimit;
-          v52 = 1024;
-          v53 = perPeriodEventCount;
-          v54 = 1024;
-          v55 = perPeriodLogLimit;
+          *buf = v37;
+          v46 = name;
+          v47 = 1024;
+          v48 = perDayEventCount;
+          v49 = 1024;
+          v50 = perDayLogLimit;
+          v51 = 1024;
+          v52 = perPeriodEventCount;
+          v53 = 1024;
+          v54 = perPeriodLogLimit;
           v19 = logHandle;
           v20 = "Workflow %{public}@ resetting per day counts (was %d/%d per day, %d/%d per period), was already under limits";
           goto LABEL_18;
@@ -646,7 +635,7 @@ LABEL_27:
         if (!os_log_type_enabled(logHandle, OS_LOG_TYPE_FAULT))
         {
 LABEL_15:
-          v39 = 1;
+          v38 = 1;
           goto LABEL_19;
         }
 
@@ -655,16 +644,16 @@ LABEL_15:
         name2 = [workflow2 name];
         perDayLogLimit2 = [(STYWorkflowResponsivenessMonitorHelper *)self perDayLogLimit];
         perPeriodLogLimit2 = [(STYWorkflowResponsivenessMonitorHelper *)self perPeriodLogLimit];
-        *buf = v38;
-        v47 = name2;
-        v48 = 1024;
-        v49 = perDayEventCount;
-        v50 = 1024;
-        v51 = perDayLogLimit2;
-        v52 = 1024;
-        v53 = perPeriodEventCount;
-        v54 = 1024;
-        v55 = perPeriodLogLimit2;
+        *buf = v37;
+        v46 = name2;
+        v47 = 1024;
+        v48 = perDayEventCount;
+        v49 = 1024;
+        v50 = perDayLogLimit2;
+        v51 = 1024;
+        v52 = perPeriodEventCount;
+        v53 = 1024;
+        v54 = perPeriodLogLimit2;
         _os_log_fault_impl(&dword_2656CE000, logHandle, OS_LOG_TYPE_FAULT, "Workflow %{public}@ resetting per day counts (was %d/%d per day, %d/%d per period), was already under limits, and is now above limit!", buf, 0x24u);
 LABEL_13:
 
@@ -684,16 +673,16 @@ LABEL_13:
         name2 = [workflow2 name];
         perDayLogLimit3 = [(STYWorkflowResponsivenessMonitorHelper *)self perDayLogLimit];
         perPeriodLogLimit3 = [(STYWorkflowResponsivenessMonitorHelper *)self perPeriodLogLimit];
-        *buf = v38;
-        v47 = name2;
-        v48 = 1024;
-        v49 = perDayEventCount;
-        v50 = 1024;
-        v51 = perDayLogLimit3;
-        v52 = 1024;
-        v53 = perPeriodEventCount;
-        v54 = 1024;
-        v55 = perPeriodLogLimit3;
+        *buf = v37;
+        v46 = name2;
+        v47 = 1024;
+        v48 = perDayEventCount;
+        v49 = 1024;
+        v50 = perDayLogLimit3;
+        v51 = 1024;
+        v52 = perPeriodEventCount;
+        v53 = 1024;
+        v54 = perPeriodLogLimit3;
         _os_log_impl(&dword_2656CE000, logHandle, OS_LOG_TYPE_DEFAULT, "Workflow %{public}@ resetting per day counts (was %d/%d per day, %d/%d per period), turning on signpost streaming", buf, 0x24u);
         goto LABEL_13;
       }
@@ -708,16 +697,16 @@ LABEL_13:
       name = [workflow name];
       perDayLogLimit4 = [(STYWorkflowResponsivenessMonitorHelper *)self perDayLogLimit];
       perPeriodLogLimit4 = [(STYWorkflowResponsivenessMonitorHelper *)self perPeriodLogLimit];
-      *buf = v38;
-      v47 = name;
-      v48 = 1024;
-      v49 = perDayEventCount;
-      v50 = 1024;
-      v51 = perDayLogLimit4;
-      v52 = 1024;
-      v53 = perPeriodEventCount;
-      v54 = 1024;
-      v55 = perPeriodLogLimit4;
+      *buf = v37;
+      v46 = name;
+      v47 = 1024;
+      v48 = perDayEventCount;
+      v49 = 1024;
+      v50 = perDayLogLimit4;
+      v51 = 1024;
+      v52 = perPeriodEventCount;
+      v53 = 1024;
+      v54 = perPeriodLogLimit4;
       v19 = logHandle;
       v20 = "Workflow %{public}@ resetting per day counts (was %d/%d per day, %d/%d per period), still above limits";
 LABEL_18:
@@ -728,13 +717,13 @@ LABEL_19:
     }
 
     while (v5 != v6);
-    v31 = [obj countByEnumeratingWithState:&v42 objects:v56 count:16];
+    v31 = [obj countByEnumeratingWithState:&v41 objects:v55 count:16];
     v5 = v31;
   }
 
   while (v31);
 
-  if (v39)
+  if (v38)
   {
     [(STYWorkflowResponsivenessMonitorHelper *)self updateAllowList];
     settingsChangedCallbackQueue = [(STYWorkflowResponsivenessMonitorHelper *)self settingsChangedCallbackQueue];
@@ -754,43 +743,40 @@ LABEL_19:
       }
     }
   }
-
-LABEL_28:
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetPerPeriodCounts
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   obj = [(STYWorkflowResponsivenessMonitorHelper *)self workflowEventTrackers];
-  v3 = [obj countByEnumeratingWithState:&v42 objects:v56 count:16];
+  v3 = [obj countByEnumeratingWithState:&v41 objects:v55 count:16];
   if (!v3)
   {
 LABEL_27:
 
-    goto LABEL_28;
+    return;
   }
 
   v5 = v3;
-  v39 = 0;
-  v41 = *v43;
+  v38 = 0;
+  v40 = *v42;
   *&v4 = 138544386;
-  v38 = v4;
+  v37 = v4;
   do
   {
     v6 = 0;
     do
     {
-      if (*v43 != v41)
+      if (*v42 != v40)
       {
         objc_enumerationMutation(obj);
       }
 
-      v7 = *(*(&v42 + 1) + 8 * v6);
+      v7 = *(*(&v41 + 1) + 8 * v6);
       perDayEventCount = [v7 perDayEventCount];
       perPeriodEventCount = [v7 perPeriodEventCount];
       v10 = [(STYWorkflowResponsivenessMonitorHelper *)self workflowIsUnderLimits:v7];
@@ -813,16 +799,16 @@ LABEL_27:
           name = [workflow name];
           perDayLogLimit = [(STYWorkflowResponsivenessMonitorHelper *)self perDayLogLimit];
           perPeriodLogLimit = [(STYWorkflowResponsivenessMonitorHelper *)self perPeriodLogLimit];
-          *buf = v38;
-          v47 = name;
-          v48 = 1024;
-          v49 = perDayEventCount;
-          v50 = 1024;
-          v51 = perDayLogLimit;
-          v52 = 1024;
-          v53 = perPeriodEventCount;
-          v54 = 1024;
-          v55 = perPeriodLogLimit;
+          *buf = v37;
+          v46 = name;
+          v47 = 1024;
+          v48 = perDayEventCount;
+          v49 = 1024;
+          v50 = perDayLogLimit;
+          v51 = 1024;
+          v52 = perPeriodEventCount;
+          v53 = 1024;
+          v54 = perPeriodLogLimit;
           v19 = logHandle;
           v20 = "Workflow %{public}@ resetting per period counts (was %d/%d per day, %d/%d per period), was already under limits";
           goto LABEL_18;
@@ -831,7 +817,7 @@ LABEL_27:
         if (!os_log_type_enabled(logHandle, OS_LOG_TYPE_FAULT))
         {
 LABEL_15:
-          v39 = 1;
+          v38 = 1;
           goto LABEL_19;
         }
 
@@ -840,16 +826,16 @@ LABEL_15:
         name2 = [workflow2 name];
         perDayLogLimit2 = [(STYWorkflowResponsivenessMonitorHelper *)self perDayLogLimit];
         perPeriodLogLimit2 = [(STYWorkflowResponsivenessMonitorHelper *)self perPeriodLogLimit];
-        *buf = v38;
-        v47 = name2;
-        v48 = 1024;
-        v49 = perDayEventCount;
-        v50 = 1024;
-        v51 = perDayLogLimit2;
-        v52 = 1024;
-        v53 = perPeriodEventCount;
-        v54 = 1024;
-        v55 = perPeriodLogLimit2;
+        *buf = v37;
+        v46 = name2;
+        v47 = 1024;
+        v48 = perDayEventCount;
+        v49 = 1024;
+        v50 = perDayLogLimit2;
+        v51 = 1024;
+        v52 = perPeriodEventCount;
+        v53 = 1024;
+        v54 = perPeriodLogLimit2;
         _os_log_fault_impl(&dword_2656CE000, logHandle, OS_LOG_TYPE_FAULT, "Workflow %{public}@ resetting per period counts (was %d/%d per day, %d/%d per period), was already under limits, and is now above limit!", buf, 0x24u);
 LABEL_13:
 
@@ -869,16 +855,16 @@ LABEL_13:
         name2 = [workflow2 name];
         perDayLogLimit3 = [(STYWorkflowResponsivenessMonitorHelper *)self perDayLogLimit];
         perPeriodLogLimit3 = [(STYWorkflowResponsivenessMonitorHelper *)self perPeriodLogLimit];
-        *buf = v38;
-        v47 = name2;
-        v48 = 1024;
-        v49 = perDayEventCount;
-        v50 = 1024;
-        v51 = perDayLogLimit3;
-        v52 = 1024;
-        v53 = perPeriodEventCount;
-        v54 = 1024;
-        v55 = perPeriodLogLimit3;
+        *buf = v37;
+        v46 = name2;
+        v47 = 1024;
+        v48 = perDayEventCount;
+        v49 = 1024;
+        v50 = perDayLogLimit3;
+        v51 = 1024;
+        v52 = perPeriodEventCount;
+        v53 = 1024;
+        v54 = perPeriodLogLimit3;
         _os_log_impl(&dword_2656CE000, logHandle, OS_LOG_TYPE_DEFAULT, "Workflow %{public}@ resetting per period counts (was %d/%d per day, %d/%d per period), turning on signpost streaming", buf, 0x24u);
         goto LABEL_13;
       }
@@ -893,16 +879,16 @@ LABEL_13:
       name = [workflow name];
       perDayLogLimit4 = [(STYWorkflowResponsivenessMonitorHelper *)self perDayLogLimit];
       perPeriodLogLimit4 = [(STYWorkflowResponsivenessMonitorHelper *)self perPeriodLogLimit];
-      *buf = v38;
-      v47 = name;
-      v48 = 1024;
-      v49 = perDayEventCount;
-      v50 = 1024;
-      v51 = perDayLogLimit4;
-      v52 = 1024;
-      v53 = perPeriodEventCount;
-      v54 = 1024;
-      v55 = perPeriodLogLimit4;
+      *buf = v37;
+      v46 = name;
+      v47 = 1024;
+      v48 = perDayEventCount;
+      v49 = 1024;
+      v50 = perDayLogLimit4;
+      v51 = 1024;
+      v52 = perPeriodEventCount;
+      v53 = 1024;
+      v54 = perPeriodLogLimit4;
       v19 = logHandle;
       v20 = "Workflow %{public}@ resetting per period counts (was %d/%d per day, %d/%d per period), still above limits";
 LABEL_18:
@@ -913,13 +899,13 @@ LABEL_19:
     }
 
     while (v5 != v6);
-    v31 = [obj countByEnumeratingWithState:&v42 objects:v56 count:16];
+    v31 = [obj countByEnumeratingWithState:&v41 objects:v55 count:16];
     v5 = v31;
   }
 
   while (v31);
 
-  if (v39)
+  if (v38)
   {
     [(STYWorkflowResponsivenessMonitorHelper *)self updateAllowList];
     settingsChangedCallbackQueue = [(STYWorkflowResponsivenessMonitorHelper *)self settingsChangedCallbackQueue];
@@ -939,14 +925,11 @@ LABEL_19:
       }
     }
   }
-
-LABEL_28:
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workflowEventCompleted:(id)completed completedWRTracker:(id)tracker
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   completedCopy = completed;
   trackerCopy = tracker;
   v8 = [(STYWorkflowResponsivenessMonitorHelper *)self workflowIsUnderLimits:completedCopy];
@@ -959,17 +942,17 @@ LABEL_28:
     {
       workflow = [trackerCopy workflow];
       name = [workflow name];
-      v38 = 138544386;
-      v39 = name;
-      v40 = 1024;
+      v37 = 138544386;
+      v38 = name;
+      v39 = 1024;
       perDayEventCount = [completedCopy perDayEventCount];
-      v42 = 1024;
+      v41 = 1024;
       perDayLogLimit = [(STYWorkflowResponsivenessMonitorHelper *)self perDayLogLimit];
-      v44 = 1024;
+      v43 = 1024;
       perPeriodEventCount = [completedCopy perPeriodEventCount];
-      v46 = 1024;
+      v45 = 1024;
       perPeriodLogLimit = [(STYWorkflowResponsivenessMonitorHelper *)self perPeriodLogLimit];
-      _os_log_impl(&dword_2656CE000, logHandle, OS_LOG_TYPE_DEFAULT, "Workflow %{public}@ already exceeded limits (%d/%d per day, %d/%d per period), not reporting completed event", &v38, 0x24u);
+      _os_log_impl(&dword_2656CE000, logHandle, OS_LOG_TYPE_DEFAULT, "Workflow %{public}@ already exceeded limits (%d/%d per day, %d/%d per period), not reporting completed event", &v37, 0x24u);
     }
 
     goto LABEL_20;
@@ -979,17 +962,17 @@ LABEL_28:
   {
     workflow2 = [trackerCopy workflow];
     name2 = [workflow2 name];
-    v38 = 138544386;
-    v39 = name2;
-    v40 = 1024;
+    v37 = 138544386;
+    v38 = name2;
+    v39 = 1024;
     perDayEventCount = [completedCopy perDayEventCount];
-    v42 = 1024;
+    v41 = 1024;
     perDayLogLimit = [(STYWorkflowResponsivenessMonitorHelper *)self perDayLogLimit];
-    v44 = 1024;
+    v43 = 1024;
     perPeriodEventCount = [completedCopy perPeriodEventCount];
-    v46 = 1024;
+    v45 = 1024;
     perPeriodLogLimit = [(STYWorkflowResponsivenessMonitorHelper *)self perPeriodLogLimit];
-    _os_log_debug_impl(&dword_2656CE000, logHandle, OS_LOG_TYPE_DEBUG, "Workflow %{public}@ below limits (%d/%d per day, %d/%d per period)", &v38, 0x24u);
+    _os_log_debug_impl(&dword_2656CE000, logHandle, OS_LOG_TYPE_DEBUG, "Workflow %{public}@ below limits (%d/%d per day, %d/%d per period)", &v37, 0x24u);
   }
 
   v11 = +[STYFrameworkHelper sharedHelper];
@@ -999,9 +982,9 @@ LABEL_28:
   {
     workflow3 = [trackerCopy workflow];
     name3 = [workflow3 name];
-    v38 = 138543362;
-    v39 = name3;
-    _os_log_impl(&dword_2656CE000, logHandle2, OS_LOG_TYPE_INFO, "Workflow %{public}@ event completed, gathering diagnostics if needed", &v38, 0xCu);
+    v37 = 138543362;
+    v38 = name3;
+    _os_log_impl(&dword_2656CE000, logHandle2, OS_LOG_TYPE_INFO, "Workflow %{public}@ event completed, gathering diagnostics if needed", &v37, 0xCu);
   }
 
   gatherDiagnosticsIfNeeded = [trackerCopy gatherDiagnosticsIfNeeded];
@@ -1020,9 +1003,9 @@ LABEL_20:
 
     workflow4 = [trackerCopy workflow];
     name4 = [workflow4 name];
-    v38 = 138543362;
-    v39 = name4;
-    _os_log_impl(&dword_2656CE000, logHandle, OS_LOG_TYPE_DEFAULT, "Workflow %{public}@ event completed, no diagnostics were needed", &v38, 0xCu);
+    v37 = 138543362;
+    v38 = name4;
+    _os_log_impl(&dword_2656CE000, logHandle, OS_LOG_TYPE_DEFAULT, "Workflow %{public}@ event completed, no diagnostics were needed", &v37, 0xCu);
 
 LABEL_19:
     goto LABEL_20;
@@ -1032,9 +1015,9 @@ LABEL_19:
   {
     workflow5 = [trackerCopy workflow];
     name5 = [workflow5 name];
-    v38 = 138543362;
-    v39 = name5;
-    _os_log_impl(&dword_2656CE000, logHandle, OS_LOG_TYPE_DEFAULT, "Workflow %{public}@ event completed, diagnostics were kicked off", &v38, 0xCu);
+    v37 = 138543362;
+    v38 = name5;
+    _os_log_impl(&dword_2656CE000, logHandle, OS_LOG_TYPE_DEFAULT, "Workflow %{public}@ event completed, diagnostics were kicked off", &v37, 0xCu);
   }
 
   [completedCopy setPerPeriodEventCount:{objc_msgSend(completedCopy, "perPeriodEventCount") + 1}];
@@ -1052,17 +1035,17 @@ LABEL_19:
       perDayLogLimit2 = [(STYWorkflowResponsivenessMonitorHelper *)self perDayLogLimit];
       perPeriodEventCount2 = [completedCopy perPeriodEventCount];
       perPeriodLogLimit2 = [(STYWorkflowResponsivenessMonitorHelper *)self perPeriodLogLimit];
-      v38 = 138544386;
-      v39 = name6;
-      v40 = 1024;
+      v37 = 138544386;
+      v38 = name6;
+      v39 = 1024;
       perDayEventCount = perDayEventCount2;
-      v42 = 1024;
+      v41 = 1024;
       perDayLogLimit = perDayLogLimit2;
-      v44 = 1024;
+      v43 = 1024;
       perPeriodEventCount = perPeriodEventCount2;
-      v46 = 1024;
+      v45 = 1024;
       perPeriodLogLimit = perPeriodLogLimit2;
-      _os_log_impl(&dword_2656CE000, logHandle3, OS_LOG_TYPE_DEFAULT, "Workflow %{public}@ hit report limit (%d/%d per day, %d/%d per period), turning off signpost streaming", &v38, 0x24u);
+      _os_log_impl(&dword_2656CE000, logHandle3, OS_LOG_TYPE_DEFAULT, "Workflow %{public}@ hit report limit (%d/%d per day, %d/%d per period), turning off signpost streaming", &v37, 0x24u);
     }
 
     [(STYWorkflowResponsivenessMonitorHelper *)self updateAllowList];
@@ -1083,34 +1066,32 @@ LABEL_19:
   }
 
 LABEL_21:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAllowList
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = [(STYWorkflowResponsivenessMonitorHelper *)self workflowEventTrackers];
-  v3 = [obj countByEnumeratingWithState:&v32 objects:v46 count:16];
+  v3 = [obj countByEnumeratingWithState:&v31 objects:v45 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v33;
+    v6 = *v32;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v33 != v6)
+        if (*v32 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v32 + 1) + 8 * i);
+        v8 = *(*(&v31 + 1) + 8 * i);
         v9 = [(STYWorkflowResponsivenessMonitorHelper *)self workflowIsUnderLimits:v8];
         v10 = +[STYFrameworkHelper sharedHelper];
         logHandle = [v10 logHandle];
@@ -1128,15 +1109,15 @@ LABEL_21:
             perPeriodEventCount = [v8 perPeriodEventCount];
             perPeriodLogLimit = [(STYWorkflowResponsivenessMonitorHelper *)self perPeriodLogLimit];
             *buf = 138544386;
-            v37 = name;
-            v38 = 1024;
-            v39 = perDayEventCount;
-            v40 = 1024;
-            v41 = perDayLogLimit;
-            v42 = 1024;
-            v43 = perPeriodEventCount;
-            v44 = 1024;
-            v45 = perPeriodLogLimit;
+            v36 = name;
+            v37 = 1024;
+            v38 = perDayEventCount;
+            v39 = 1024;
+            v40 = perDayLogLimit;
+            v41 = 1024;
+            v42 = perPeriodEventCount;
+            v43 = 1024;
+            v44 = perPeriodLogLimit;
             _os_log_debug_impl(&dword_2656CE000, logHandle, OS_LOG_TYPE_DEBUG, "Workflow %{public}@ is below limit (%d/%d per day, %d/%d per period), including in allowlist", buf, 0x24u);
           }
 
@@ -1161,20 +1142,20 @@ LABEL_21:
           perPeriodEventCount2 = [v8 perPeriodEventCount];
           perPeriodLogLimit2 = [(STYWorkflowResponsivenessMonitorHelper *)self perPeriodLogLimit];
           *buf = 138544386;
-          v37 = name2;
-          v38 = 1024;
-          v39 = perDayEventCount2;
-          v40 = 1024;
-          v41 = perDayLogLimit2;
-          v42 = 1024;
-          v43 = perPeriodEventCount2;
-          v44 = 1024;
-          v45 = perPeriodLogLimit2;
+          v36 = name2;
+          v37 = 1024;
+          v38 = perDayEventCount2;
+          v39 = 1024;
+          v40 = perDayLogLimit2;
+          v41 = 1024;
+          v42 = perPeriodEventCount2;
+          v43 = 1024;
+          v44 = perPeriodLogLimit2;
           _os_log_debug_impl(&dword_2656CE000, logHandle, OS_LOG_TYPE_DEBUG, "Workflow %{public}@ is above limit (%d/%d per day, %d/%d per period), not including in allowlist", buf, 0x24u);
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v32 objects:v46 count:16];
+      v4 = [obj countByEnumeratingWithState:&v31 objects:v45 count:16];
     }
 
     while (v4);
@@ -1187,8 +1168,6 @@ LABEL_21:
 
   allowList = self->_allowList;
   self->_allowList = v5;
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPeriodLengthSec:(int)sec
@@ -1211,7 +1190,7 @@ LABEL_21:
 
 void __61__STYWorkflowResponsivenessMonitorHelper_setPeriodLengthSec___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) perPeriodTimer];
 
   if (v2)
@@ -1223,19 +1202,17 @@ void __61__STYWorkflowResponsivenessMonitorHelper_setPeriodLengthSec___block_inv
     {
       v5 = *(a1 + 40);
       v6 = *(a1 + 44);
-      v9[0] = 67109376;
-      v9[1] = v5;
-      v10 = 1024;
-      v11 = v6;
-      _os_log_impl(&dword_2656CE000, v4, OS_LOG_TYPE_DEFAULT, "Workflow Responsiveness logging period changed from %ds to %ds while actively monitoring", v9, 0xEu);
+      v8[0] = 67109376;
+      v8[1] = v5;
+      v9 = 1024;
+      v10 = v6;
+      _os_log_impl(&dword_2656CE000, v4, OS_LOG_TYPE_DEFAULT, "Workflow Responsiveness logging period changed from %ds to %ds while actively monitoring", v8, 0xEu);
     }
 
     [*(a1 + 32) resetPerPeriodCounts];
     v7 = [*(a1 + 32) perPeriodTimer];
     dispatch_source_set_timer(v7, 0xFFFFFFFFFFFFFFFELL, 1000000000 * [*(a1 + 32) periodLengthSec], 1000000000 * objc_msgSend(*(a1 + 32), "periodLengthSec") / 0xAuLL);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

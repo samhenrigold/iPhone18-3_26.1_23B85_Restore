@@ -37,7 +37,8 @@ void __78__HKDarwinNotificationDataSource_makeAndRegisterBridgedObserverForKey_h
 {
   observerCopy = observer;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     intValue = [observerCopy intValue];
     if (intValue != -1)
@@ -48,29 +49,27 @@ void __78__HKDarwinNotificationDataSource_makeAndRegisterBridgedObserverForKey_h
 
   else
   {
-    _HKInitializeLogging();
-    v7 = HKLogInfrastructure();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(isKindOfClass, v7);
+    v11 = HKLogInfrastructure(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(HKDarwinNotificationDataSource *)self unregisterBridgedObserver:observerCopy forKey:v7];
+      [(HKDarwinNotificationDataSource *)self unregisterBridgedObserver:observerCopy forKey:v11];
     }
   }
 }
 
 - (void)unregisterBridgedObserver:(NSObject *)a3 forKey:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_class();
   v5 = v4;
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
-  v9 = 138543618;
-  v10 = v4;
-  v11 = 2114;
-  v12 = v7;
-  _os_log_error_impl(&dword_19197B000, a3, OS_LOG_TYPE_ERROR, "[%{public}@] Cannot unregister observer of type %{public}@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8 = 138543618;
+  v9 = v4;
+  v10 = 2114;
+  v11 = v7;
+  _os_log_error_impl(&dword_19197B000, a3, OS_LOG_TYPE_ERROR, "[%{public}@] Cannot unregister observer of type %{public}@", &v8, 0x16u);
 }
 
 @end

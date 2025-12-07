@@ -1,7 +1,5 @@
 @interface BWEspressoInferenceContext
 - (BWEspressoInferenceContext)initWithExecutionTarget:(int)target shareIntermediateBuffer:(BOOL)buffer;
-- (int)configureIntermediateBufferSharingForPlanPostbuild:(void *)postbuild;
-- (int)configureIntermediateBufferSharingForPlanPrebuild:(void *)prebuild;
 - (int)enableIntermediateBufferSharingWithNetworksLoadedFromPath:(id)path;
 - (int)prepareForInference;
 - (void)dealloc;
@@ -65,69 +63,6 @@
   }
 }
 
-- (int)configureIntermediateBufferSharingForPlanPrebuild:(void *)prebuild
-{
-  if (!prebuild)
-  {
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_1_11();
-    FigDebugAssert3();
-    return 0;
-  }
-
-  if (!self->_shareIntermediateBuffer || self->_executionTarget != 3 || !self->_rootIntermediateBufferPlan)
-  {
-    return 0;
-  }
-
-  result = espresso_plan_share_intermediate_buffer();
-  if (result)
-  {
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_1_11();
-    FigDebugAssert3();
-    return -31702;
-  }
-
-  return result;
-}
-
-- (int)configureIntermediateBufferSharingForPlanPostbuild:(void *)postbuild
-{
-  if (self->_shareIntermediateBuffer)
-  {
-    if (self->_executionTarget == 3 && !self->_rootIntermediateBufferPlan)
-    {
-      self->_rootIntermediateBufferPlan = postbuild;
-      sharedBufferNetworksPath = self->_sharedBufferNetworksPath;
-      if (sharedBufferNetworksPath)
-      {
-        [(NSString *)sharedBufferNetworksPath UTF8String];
-        LODWORD(sharedBufferNetworksPath) = espresso_will_share_intermediate_buffer_with_existing_plan();
-        if (sharedBufferNetworksPath)
-        {
-          fig_log_get_emitter();
-          OUTLINED_FUNCTION_1_11();
-          FigDebugAssert3();
-          LODWORD(sharedBufferNetworksPath) = -31702;
-        }
-      }
-    }
-
-    else
-    {
-      LODWORD(sharedBufferNetworksPath) = 0;
-    }
-  }
-
-  else
-  {
-    LODWORD(sharedBufferNetworksPath) = 0;
-  }
-
-  return sharedBufferNetworksPath;
-}
-
 - (int)enableIntermediateBufferSharingWithNetworksLoadedFromPath:(id)path
 {
   if (!self->_shareIntermediateBuffer)
@@ -171,7 +106,7 @@ LABEL_6:
 LABEL_12:
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1_11();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
   return -31702;
 }
 

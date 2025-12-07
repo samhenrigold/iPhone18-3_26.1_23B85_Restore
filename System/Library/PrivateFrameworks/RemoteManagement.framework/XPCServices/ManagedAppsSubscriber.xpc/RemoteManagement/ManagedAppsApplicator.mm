@@ -8,13 +8,13 @@
 
 - (_TtC21ManagedAppsSubscriber21ManagedAppsApplicator)init
 {
-  v3 = [objc_allocWithZone(type metadata accessor for ManagedAppsAdapter()) init];
-  v6.receiver = self;
-  v6.super_class = type metadata accessor for ManagedAppsApplicator();
-  v4 = [(ManagedAppsApplicator *)&v6 initWithAdapter:v3 inPlaceUpdates:1];
+  v4 = [objc_allocWithZone(type metadata accessor for ManagedAppsAdapter(0 a2];
+  v9.receiver = self;
+  v9.super_class = type metadata accessor for ManagedAppsApplicator(v4, v5, v6);
+  v7 = [(ManagedAppsApplicator *)&v9 initWithAdapter:v4 inPlaceUpdates:1];
 
-  [(ManagedAppsApplicator *)v4 setRemoveBeforeApply:1];
-  return v4;
+  [(ManagedAppsApplicator *)v7 setRemoveBeforeApply:1];
+  return v7;
 }
 
 + (id)supportedConfigurationTypes

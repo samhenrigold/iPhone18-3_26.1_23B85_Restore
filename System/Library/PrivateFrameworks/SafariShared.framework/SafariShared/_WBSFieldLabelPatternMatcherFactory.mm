@@ -86,70 +86,70 @@ LABEL_14:
 + (__WBSFieldLabelPatternMatcherArray)createFieldLabelPatternMatcherArrayFromWordArrays:(id)arrays allowingEndOfWordMatches:(BOOL)matches
 {
   matchesCopy = matches;
-  v38 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
+  v37[0] = 0;
+  v37[1] = 0;
+  v36[0] = 0;
+  v36[1] = 0;
   v35[0] = 0;
   v35[1] = 0;
-  v34[0] = 0;
-  v34[1] = 0;
-  v33[0] = 0;
-  v33[1] = 0;
-  v29 = 0u;
-  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   obj = arrays;
-  v5 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v5 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v5)
   {
-    v6 = *v30;
+    v6 = *v32;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v30 != v6)
+        if (*v32 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v29 + 1) + 8 * i);
+        v8 = *(*(&v31 + 1) + 8 * i);
         v9 = objc_alloc_init(_WBSFieldLabelPatternMatcherFactory);
+        v29 = 0u;
+        v30 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v25 = 0u;
-        v26 = 0u;
         v10 = v8;
-        v11 = [v10 countByEnumeratingWithState:&v25 objects:v36 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v27 objects:v38 count:16];
         if (v11)
         {
-          v12 = *v26;
+          v12 = *v28;
           do
           {
             for (j = 0; j != v11; ++j)
             {
-              if (*v26 != v12)
+              if (*v28 != v12)
               {
                 objc_enumerationMutation(v10);
               }
 
-              lowercaseString = [*(*(&v25 + 1) + 8 * j) lowercaseString];
+              lowercaseString = [*(*(&v27 + 1) + 8 * j) lowercaseString];
               [(_WBSFieldLabelPatternMatcherFactory *)v9 _addWord:lowercaseString allowingEndOfWordMatch:matchesCopy];
             }
 
-            v11 = [v10 countByEnumeratingWithState:&v25 objects:v36 count:16];
+            v11 = [v10 countByEnumeratingWithState:&v27 objects:v38 count:16];
           }
 
           while (v11);
         }
 
-        LOWORD(v22) = addInitializersForTrie(v9->_trie, v35, v34);
-        *&v23 = HIDWORD(v35[1]);
-        v24 = HIDWORD(v34[1]);
-        v15 = HIDWORD(v33[1]);
-        if (HIDWORD(v33[1]) == LODWORD(v33[1]))
+        LOWORD(v24) = addInitializersForTrie(v9->_trie, v37, v36);
+        *&v25 = HIDWORD(v37[1]);
+        v26 = HIDWORD(v36[1]);
+        v15 = HIDWORD(v35[1]);
+        if (HIDWORD(v35[1]) == LODWORD(v35[1]))
         {
-          v16 = WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(v33, HIDWORD(v33[1]) + 1, &v22);
-          v15 = HIDWORD(v33[1]);
-          v17 = v33[0] + 40 * HIDWORD(v33[1]);
+          v16 = WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(v35, HIDWORD(v35[1]) + 1, &v24);
+          v15 = HIDWORD(v35[1]);
+          v17 = v35[0] + 40 * HIDWORD(v35[1]);
           v18 = *v16;
           v19 = *(v16 + 16);
           *(v17 + 4) = *(v16 + 32);
@@ -157,26 +157,26 @@ LABEL_14:
 
         else
         {
-          v17 = v33[0] + 40 * HIDWORD(v33[1]);
-          v18 = v22;
-          v19 = v23;
-          *(v17 + 4) = v24;
+          v17 = v35[0] + 40 * HIDWORD(v35[1]);
+          v18 = v24;
+          v19 = v25;
+          *(v17 + 4) = v26;
         }
 
         *v17 = v18;
         *(v17 + 1) = v19;
-        HIDWORD(v33[1]) = v15 + 1;
+        HIDWORD(v35[1]) = v15 + 1;
       }
 
-      v5 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v5 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
     while (v5);
   }
 
-  WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA::State,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(v35, HIDWORD(v35[1]));
-  WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA::State,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(v34, HIDWORD(v34[1]));
-  WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(v33, HIDWORD(v33[1]));
+  WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA::State,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(v37, HIDWORD(v37[1]), v20);
+  WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA::State,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(v36, HIDWORD(v36[1]), v21);
+  WTF::Vector<SafariShared::FieldLabelPatternMatcher::DFA,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(v35, HIDWORD(v35[1]));
   operator new();
 }
 

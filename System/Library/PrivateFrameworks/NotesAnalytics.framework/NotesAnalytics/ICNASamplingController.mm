@@ -46,10 +46,10 @@ uint64_t __42__ICNASamplingController_sharedController__block_invoke()
 
 - (void)init
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *a2;
-  v7 = 0x3FF0000000000000;
-  v6 = 134218498;
+  v6 = 0x3FF0000000000000;
+  v5 = 134218498;
   if (v3)
   {
     v4 = @"YES";
@@ -60,12 +60,11 @@ uint64_t __42__ICNASamplingController_sharedController__block_invoke()
     v4 = @"NO";
   }
 
-  v8 = 2048;
-  v9 = self % 0x64;
-  v10 = 2112;
-  v11 = v4;
-  _os_log_debug_impl(&dword_25C6BF000, log, OS_LOG_TYPE_DEBUG, "Sync Health Tracking Sampling Ratio = %f, generated random number %lu, decision = %@", &v6, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
+  v7 = 2048;
+  v8 = self % 0x64;
+  v9 = 2112;
+  v10 = v4;
+  _os_log_debug_impl(&dword_25C6BF000, log, OS_LOG_TYPE_DEBUG, "Sync Health Tracking Sampling Ratio = %f, generated random number %lu, decision = %@", &v5, 0x20u);
 }
 
 @end

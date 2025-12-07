@@ -6,6 +6,7 @@
 - (id)_axLikedBannedValueForState:(int64_t)state;
 - (id)_axUpNextBadgeValue;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)setControlsHidden:(BOOL)hidden animated:(BOOL)animated;
 - (void)viewDidLoad;
 @end
 
@@ -313,6 +314,20 @@ LABEL_7:
   v3 = [_accessibilityResponseTracklist safeValueForKey:@"playingItem"];
 
   return v3;
+}
+
+- (void)setControlsHidden:(BOOL)hidden animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  hiddenCopy = hidden;
+  if (UIAccessibilityIsVoiceOverRunning() || UIAccessibilityIsSwitchControlRunning())
+  {
+    hiddenCopy = 0;
+  }
+
+  v7.receiver = self;
+  v7.super_class = NowPlayingControlsViewControllerAccessibility;
+  [(NowPlayingControlsViewControllerAccessibility *)&v7 setControlsHidden:hiddenCopy animated:animatedCopy];
 }
 
 @end

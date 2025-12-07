@@ -82,11 +82,11 @@ LABEL_15:
 
   else
   {
-    v26 = localizedDescription;
+    v24 = localizedDescription;
     v12 = @"%@";
   }
 
-  [string appendFormat:v12, v26];
+  [string appendFormat:v12, v24];
 LABEL_19:
   if (!userInfo)
   {
@@ -100,27 +100,27 @@ LABEL_19:
   }
 
   [string appendString:@" UserInfo={"];
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__30;
-  v40 = __Block_byref_object_dispose__30;
-  v41 = 0;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 0;
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __55__FPErrorRedactionHelper_parseErrorIntoStringRedacted___block_invoke;
-  v27[3] = &unk_1E793ECF8;
-  v29 = &v36;
-  v31 = redactedCopy;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__30;
+  v38 = __Block_byref_object_dispose__30;
+  v39 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __55__FPErrorRedactionHelper_parseErrorIntoStringRedacted___block_invoke;
+  v25[3] = &unk_1E793ECF8;
+  v27 = &v34;
+  v29 = redactedCopy;
   v13 = string;
-  v28 = v13;
-  v30 = &v32;
-  [userInfo enumerateKeysAndObjectsUsingBlock:v27];
-  if (v33[3])
+  v26 = v13;
+  v28 = &v30;
+  [userInfo enumerateKeysAndObjectsUsingBlock:v25];
+  if (v31[3])
   {
     if (![v13 hasSuffix:{@", "}])
     {
@@ -143,36 +143,34 @@ LABEL_19:
 
   [v13 replaceCharactersInRange:v14 withString:{v16, v15}];
 LABEL_27:
-  v19 = v37;
-  if (v37[5])
+  if (v35[5])
   {
-    ++v33[3];
-    v20 = v19[5];
+    ++v31[3];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v21 = [FPErrorRedactionHelper alloc];
-      v22 = [(FPErrorRedactionHelper *)v21 initWithError:v37[5] depth:self->_depth + 1];
-      v23 = v22;
+      v19 = [FPErrorRedactionHelper alloc];
+      v20 = [(FPErrorRedactionHelper *)v19 initWithError:v35[5] depth:self->_depth + 1];
+      v21 = v20;
       if (redactedCopy)
       {
-        [(FPErrorRedactionHelper *)v22 redactedDescription];
+        [(FPErrorRedactionHelper *)v20 redactedDescription];
       }
 
       else
       {
-        [(FPErrorRedactionHelper *)v22 description];
+        [(FPErrorRedactionHelper *)v20 description];
       }
-      v24 = ;
-      [v13 appendFormat:@"Underlying={%@}", v24];
+      v22 = ;
+      [v13 appendFormat:@"Underlying={%@}", v22];
 
       goto LABEL_36;
     }
 
     if (!redactedCopy)
     {
-      v23 = [v37[5] description];
-      [v13 appendFormat:@"Underlying={%@}", v23];
+      v21 = [v35[5] description];
+      [v13 appendFormat:@"Underlying={%@}", v21];
 LABEL_36:
 
       goto LABEL_37;
@@ -182,13 +180,13 @@ LABEL_36:
   }
 
 LABEL_37:
-  if (v33[3])
+  if (v31[3])
   {
     [v13 appendString:@"}"];
   }
 
-  _Block_object_dispose(&v32, 8);
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v34, 8);
 
 LABEL_40:
 

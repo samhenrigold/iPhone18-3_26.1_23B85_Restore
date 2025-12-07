@@ -77,7 +77,7 @@
     v20 = 0u;
     v21 = 0u;
     v19 = frontObject;
-    v6 = [(NSMutableDictionary *)self->_queuedRequestMap objectForKey:frontObject];
+    v6 = objc_msgSend_objectForKey_(self->_queuedRequestMap);
     v7 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
     if (v7)
     {
@@ -156,7 +156,7 @@
     v40 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v10 = [(NSMutableDictionary *)self->_queuedRequestMap objectForKey:frontObject];
+    v10 = objc_msgSend_objectForKey_(self->_queuedRequestMap);
     v11 = [v10 countByEnumeratingWithState:&v37 objects:v45 count:16];
     if (v11)
     {
@@ -298,7 +298,7 @@ LABEL_10:
   }
 
   v7 = [(ADExternalNotificationRequestQueue *)self _identifierForNotificationRequest:v5];
-  v8 = [(NSMutableDictionary *)self->_queuedRequestMap objectForKey:v7];
+  v8 = objc_msgSend_objectForKey_(self->_queuedRequestMap);
   *&buf = 0;
   *(&buf + 1) = &buf;
   v24 = 0x2020000000;
@@ -425,7 +425,7 @@ LABEL_14:
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v8 = [(NSMutableDictionary *)self->_queuedRequestMap objectForKey:dequeueObject, 0];
+    v8 = objc_msgSend_objectForKey_(self->_queuedRequestMap, 0);
     v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v9)
     {
@@ -506,7 +506,7 @@ LABEL_14:
       v23 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v12 = [(NSMutableDictionary *)self->_queuedRequestMap objectForKey:v9, 0];
+      v12 = objc_msgSend_objectForKey_(self->_queuedRequestMap, 0);
       v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v13)
       {
@@ -546,7 +546,7 @@ LABEL_14:
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v5 = [(NSMutableDictionary *)self->_queuedRequestMap objectForKey:frontObject, 0];
+    v5 = objc_msgSend_objectForKey_(self->_queuedRequestMap, 0);
     v6 = [v5 countByEnumeratingWithState:&v31 objects:v39 count:16];
     if (v6)
     {
@@ -631,7 +631,7 @@ LABEL_23:
     _nextRequestIdentifier = [(ADExternalNotificationRequestQueue *)self _nextRequestIdentifier];
     if (_nextRequestIdentifier)
     {
-      v22 = [(NSMutableDictionary *)self->_queuedRequestMap objectForKey:_nextRequestIdentifier];
+      v22 = objc_msgSend_objectForKey_(self->_queuedRequestMap);
       firstObject = [v22 firstObject];
       currentRequest = self->_currentRequest;
       self->_currentRequest = firstObject;
@@ -709,7 +709,7 @@ LABEL_31:
         v24 = 0u;
         v25 = 0u;
         v22 = v26 = 0u;
-        v13 = [(NSMutableDictionary *)self->_queuedRequestMap objectForKey:?];
+        v13 = objc_msgSend_objectForKey_(self->_queuedRequestMap);
         v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v14)
         {
@@ -836,7 +836,7 @@ LABEL_10:
 
     if (announcementType2 == 1)
     {
-      _lastRequestIdentifierInQueue = [(NSMutableDictionary *)self->_queuedRequestMap objectForKey:v8];
+      _lastRequestIdentifierInQueue = objc_msgSend_objectForKey_(self->_queuedRequestMap);
       v14 = AFSiriLogContextDaemon;
       v15 = os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG);
       if (_lastRequestIdentifierInQueue)
@@ -898,7 +898,7 @@ LABEL_10:
         _os_log_debug_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "%s same type as current request, adding it to the current request's queue %@", buf, 0x16u);
       }
 
-      v31 = [(NSMutableDictionary *)self->_queuedRequestMap objectForKey:_lastRequestIdentifierInQueue];
+      v31 = objc_msgSend_objectForKey_(self->_queuedRequestMap);
       [v31 addObject:requestCopy];
       if ([requestCopy supportsImmediateBurstMode])
       {
@@ -928,7 +928,7 @@ LABEL_10:
       }
 
       _lastRequestIdentifierInQueue = [(ADExternalNotificationRequestQueue *)self _lastRequestIdentifierInQueue];
-      v35 = [(NSMutableDictionary *)self->_queuedRequestMap objectForKey:_lastRequestIdentifierInQueue];
+      v35 = objc_msgSend_objectForKey_(self->_queuedRequestMap);
       [v35 addObject:requestCopy];
 
       goto LABEL_33;
@@ -1001,7 +1001,7 @@ LABEL_34:
 - (int64_t)_lastRequestAnnouncementTypeInQueue
 {
   _lastRequestIdentifierInQueue = [(ADExternalNotificationRequestQueue *)self _lastRequestIdentifierInQueue];
-  if (_lastRequestIdentifierInQueue && (-[NSMutableDictionary objectForKey:](self->_queuedRequestMap, "objectForKey:", _lastRequestIdentifierInQueue), v4 = objc_claimAutoreleasedReturnValue(), [v4 firstObject], v5 = objc_claimAutoreleasedReturnValue(), v4, v5))
+  if (_lastRequestIdentifierInQueue && (objc_msgSend_objectForKey_(self->_queuedRequestMap), v4 = objc_claimAutoreleasedReturnValue(), [v4 firstObject], v5 = objc_claimAutoreleasedReturnValue(), v4, v5))
   {
     announcementType = [v5 announcementType];
   }

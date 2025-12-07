@@ -85,95 +85,97 @@
     self->_bcpriv = 0;
   }
 
-  v31.origin.x = x;
-  v31.origin.y = y;
-  v31.size.width = width;
-  v31.size.height = height;
-  v32 = CGRectStandardize(v31);
+  v36.origin.x = x;
+  v36.origin.y = y;
+  v36.size.width = width;
+  v36.size.height = height;
+  v37 = CGRectStandardize(v36);
   if (!bitmap)
   {
     goto LABEL_5;
   }
 
-  v15 = v32.origin.x;
-  v16 = v32.origin.y;
-  v17 = v32.size.width;
-  v18 = v32.size.height;
-  if (CGRectIsEmpty(v32))
+  v15 = v37.origin.x;
+  v16 = v37.origin.y;
+  v17 = v37.size.width;
+  v18 = v37.size.height;
+  if (CGRectIsEmpty(v37))
   {
     goto LABEL_5;
   }
 
-  v33.origin.x = v15;
-  v33.origin.y = v16;
-  v33.size.width = v17;
-  v33.size.height = v18;
-  if (CGRectIsInfinite(v33) || v17 >= 1000000.0 || v18 >= 1000000.0)
+  v38.origin.x = v15;
+  v38.origin.y = v16;
+  v38.size.width = v17;
+  v38.size.height = v18;
+  IsInfinite = CGRectIsInfinite(v38);
+  if (IsInfinite || v17 >= 1000000.0 || v18 >= 1000000.0)
   {
-    v26 = ci_logger_api();
-    v19 = os_log_type_enabled(v26, OS_LOG_TYPE_ERROR);
+    v31 = ci_logger_api(IsInfinite, v21);
+    v19 = os_log_type_enabled(v31, OS_LOG_TYPE_ERROR);
     if (!v19)
     {
       return v19;
     }
 
-    [CIBitmapContext setBitmap:v26 rowBytes:? bounds:? format:?];
+    [CIBitmapContext setBitmap:v31 rowBytes:? bounds:? format:?];
   }
 
   else
   {
-    v21 = CI::format_modernize(v6, "[CIBitmapContext setBitmap:rowBytes:bounds:format:]", v20);
-    if (v21 == 258)
+    v23 = CI::format_modernize(v6, "[CIBitmapContext setBitmap:rowBytes:bounds:format:]", v22);
+    if (v23 == 258)
     {
-      v22 = 259;
+      v24 = 259;
     }
 
     else
     {
-      v22 = v21;
+      v24 = v23;
     }
 
-    if (CI::format_is_supported_render_to_bitmap(v22))
+    is_supported_render_to_bitmap = CI::format_is_supported_render_to_bitmap(v24);
+    if (is_supported_render_to_bitmap)
     {
-      v23 = CI::format_destination_rowbytes_requirement(v22);
-      if (!(bytes % v23))
+      v27 = CI::format_destination_rowbytes_requirement(v24);
+      if (!(bytes % v27))
       {
-        v28 = malloc_type_malloc(0x38uLL, 0x10800402C4B44A1uLL);
-        self->_bcpriv = v28;
-        v28->var0 = bitmap;
-        v29 = self->_bcpriv;
-        v29->var1 = bytes;
-        v29->var2.origin.x = v15;
-        v29->var2.origin.y = v16;
-        v29->var2.size.width = v17;
-        v29->var2.size.height = v18;
-        v29->var3 = v22;
+        v33 = malloc_type_malloc(0x38uLL, 0x10800402C4B44A1uLL);
+        self->_bcpriv = v33;
+        v33->var0 = bitmap;
+        v34 = self->_bcpriv;
+        v34->var1 = bytes;
+        v34->var2.origin.x = v15;
+        v34->var2.origin.y = v16;
+        v34->var2.size.width = v17;
+        v34->var2.size.height = v18;
+        v34->var3 = v24;
 LABEL_5:
         LOBYTE(v19) = 1;
         return v19;
       }
 
-      v24 = v23;
-      v25 = ci_logger_api();
-      v19 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
+      v29 = v27;
+      v30 = ci_logger_api(v27, v28);
+      v19 = os_log_type_enabled(v30, OS_LOG_TYPE_ERROR);
       if (!v19)
       {
         return v19;
       }
 
-      [CIBitmapContext setBitmap:v24 rowBytes:v25 bounds:? format:?];
+      [CIBitmapContext setBitmap:v29 rowBytes:v30 bounds:? format:?];
     }
 
     else
     {
-      v27 = ci_logger_api();
-      v19 = os_log_type_enabled(v27, OS_LOG_TYPE_ERROR);
+      v32 = ci_logger_api(is_supported_render_to_bitmap, v26);
+      v19 = os_log_type_enabled(v32, OS_LOG_TYPE_ERROR);
       if (!v19)
       {
         return v19;
       }
 
-      [CIBitmapContext setBitmap:v22 rowBytes:? bounds:? format:?];
+      [CIBitmapContext setBitmap:v24 rowBytes:? bounds:? format:?];
     }
   }
 
@@ -206,20 +208,20 @@ LABEL_5:
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v39 = CGRectStandardize(fromRect);
-  v11 = v39.origin.x;
-  v12 = v39.origin.y;
-  v13 = v39.size.width;
-  v14 = v39.size.height;
-  v39.origin.x = x;
-  v39.origin.y = y;
-  v39.size.width = width;
-  v39.size.height = height;
-  v40 = CGRectStandardize(v39);
-  v15 = v40.origin.x;
-  v16 = v40.origin.y;
-  v17 = v40.size.width;
-  v18 = v40.size.height;
+  v43 = CGRectStandardize(fromRect);
+  v11 = v43.origin.x;
+  v12 = v43.origin.y;
+  v13 = v43.size.width;
+  v14 = v43.size.height;
+  v43.origin.x = x;
+  v43.origin.y = y;
+  v43.size.width = width;
+  v43.size.height = height;
+  v44 = CGRectStandardize(v43);
+  v15 = v44.origin.x;
+  v16 = v44.origin.y;
+  v17 = v44.size.width;
+  v18 = v44.size.height;
   _internalContext = [(CIContext *)self _internalContext];
   if (!image)
   {
@@ -231,40 +233,41 @@ LABEL_5:
     return;
   }
 
-  v41.origin.x = v15;
-  v41.origin.y = v16;
-  v41.size.width = v17;
-  v41.size.height = v18;
-  if (CGRectIsEmpty(v41))
+  v45.origin.x = v15;
+  v45.origin.y = v16;
+  v45.size.width = v17;
+  v45.size.height = v18;
+  if (CGRectIsEmpty(v45))
   {
     return;
   }
 
   [image extent];
-  v46.origin.x = v20;
-  v46.origin.y = v21;
-  v46.size.width = v22;
-  v46.size.height = v23;
-  v42.origin.x = v11;
-  v42.origin.y = v12;
-  v42.size.width = v13;
-  v42.size.height = v14;
-  v43 = CGRectIntersection(v42, v46);
-  if (CGRectIsEmpty(v43))
+  v50.origin.x = v20;
+  v50.origin.y = v21;
+  v50.size.width = v22;
+  v50.size.height = v23;
+  v46.origin.x = v11;
+  v46.origin.y = v12;
+  v46.size.width = v13;
+  v46.size.height = v14;
+  v47 = CGRectIntersection(v46, v50);
+  if (CGRectIsEmpty(v47))
   {
     return;
   }
 
-  v44.origin.x = v11;
-  v44.origin.y = v12;
-  v44.size.width = v13;
-  v44.size.height = v14;
-  if (CGRectIsInfinite(v44) || (v45.origin.x = v15, v45.origin.y = v16, v45.size.width = v17, v45.size.height = v18, CGRectIsInfinite(v45)))
+  v48.origin.x = v11;
+  v48.origin.y = v12;
+  v48.size.width = v13;
+  v48.size.height = v14;
+  IsInfinite = CGRectIsInfinite(v48);
+  if (IsInfinite || (v49.origin.x = v15, v49.origin.y = v16, v49.size.width = v17, v49.size.height = v18, IsInfinite = CGRectIsInfinite(v49)))
   {
-    v24 = ci_logger_api();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v26 = ci_logger_api(IsInfinite, v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      [CIBitmapContext drawImage:v24 inRect:? fromRect:?];
+      [CIBitmapContext drawImage:v26 inRect:? fromRect:?];
     }
 
     return;
@@ -278,8 +281,8 @@ LABEL_5:
     if (Model != kCGColorSpaceModelRGB)
     {
       _outputColorSpace = +[CIContext defaultRGBColorSpace];
-      v30 = ci_logger_api();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v34 = ci_logger_api(_outputColorSpace, v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         [CIBitmapContext drawImage:? inRect:? fromRect:?];
       }
@@ -288,7 +291,7 @@ LABEL_5:
     }
 
 LABEL_16:
-    v29 = 0;
+    v32 = 0;
     goto LABEL_20;
   }
 
@@ -298,25 +301,25 @@ LABEL_16:
   }
 
   _outputColorSpace = +[CIContext defaultGrayColorSpace];
-  v28 = ci_logger_api();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+  v31 = ci_logger_api(_outputColorSpace, v30);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
   {
     [CIBitmapContext drawImage:? inRect:? fromRect:?];
   }
 
 LABEL_19:
-  v29 = 1;
+  v32 = 1;
 LABEL_20:
-  v33 = v17 / v13;
-  v34 = v17 / v13 * 0.0;
-  v35 = v18 / v14 * 0.0;
-  v36 = v18 / v14;
-  v37 = v15 - v17 / v13 * v11 - v35 * v12;
-  v38 = v16 - v34 * v11 - v18 / v14 * v12;
-  v31 = [image imageByApplyingTransform:&v33];
+  v37 = v17 / v13;
+  v38 = v17 / v13 * 0.0;
+  v39 = v18 / v14 * 0.0;
+  v40 = v18 / v14;
+  v41 = v15 - v17 / v13 * v11 - v39 * v12;
+  v42 = v16 - v38 * v11 - v18 / v14 * v12;
+  v35 = [image imageByApplyingTransform:&v37];
   bcpriv = self->_bcpriv;
-  [(CIContext *)self render:v31 toBitmap:bcpriv->var0 rowBytes:bcpriv->var1 bounds:bcpriv->var3 format:_outputColorSpace colorSpace:bcpriv->var2.origin.x, bcpriv->var2.origin.y, bcpriv->var2.size.width, bcpriv->var2.size.height];
-  if (v29)
+  [(CIContext *)self render:v35 toBitmap:bcpriv->var0 rowBytes:bcpriv->var1 bounds:bcpriv->var3 format:_outputColorSpace colorSpace:bcpriv->var2.origin.x, bcpriv->var2.origin.y, bcpriv->var2.size.width, bcpriv->var2.size.height];
+  if (v32)
   {
     CGColorSpaceRelease(_outputColorSpace);
   }
@@ -349,8 +352,9 @@ LABEL_20:
 - (void)setBitmap:(int)a1 rowBytes:bounds:format:.cold.1(int a1)
 {
   CI::name_for_format(a1);
+  v7 = 136446466;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_19CC36000, v1, v2, "%{public}s format %{public}s is unsupported.\n", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_1_0(&dword_19CC36000, v1, v2, "%{public}s format %{public}s is unsupported.\n", v3, v4, v5, v6, v7);
 }
 
 - (void)setBitmap:(uint64_t)a1 rowBytes:(NSObject *)a2 bounds:format:.cold.2(uint64_t a1, NSObject *a2)
@@ -374,15 +378,17 @@ LABEL_20:
 - (void)drawImage:(int)a1 inRect:fromRect:.cold.1(int a1)
 {
   CI::name_for_format(a1);
+  v7 = 136446466;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_19CC36000, v1, v2, "%{public}s context's output colorspace can't be used with pixel format %{public}s. Using default RGB output colorspace instead.\n", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_1_0(&dword_19CC36000, v1, v2, "%{public}s context's output colorspace can't be used with pixel format %{public}s. Using default RGB output colorspace instead.\n", v3, v4, v5, v6, v7);
 }
 
 - (void)drawImage:(int)a1 inRect:fromRect:.cold.2(int a1)
 {
   CI::name_for_format(a1);
+  v7 = 136446466;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_19CC36000, v1, v2, "%{public}s context's output colorspace can't be used with pixel format %{public}s. Using default grayscale output colorspace instead.\n", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_1_0(&dword_19CC36000, v1, v2, "%{public}s context's output colorspace can't be used with pixel format %{public}s. Using default grayscale output colorspace instead.\n", v3, v4, v5, v6, v7);
 }
 
 - (void)drawImage:(os_log_t)log inRect:fromRect:.cold.3(os_log_t log)

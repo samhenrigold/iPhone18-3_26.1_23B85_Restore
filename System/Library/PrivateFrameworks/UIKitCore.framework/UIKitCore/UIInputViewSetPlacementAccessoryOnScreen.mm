@@ -152,7 +152,7 @@ LABEL_17:
         v22[0] = v13;
         v21[1] = @"Transform";
         v14 = MEMORY[0x1E696B098];
-        [(UIInputViewSetPlacement *)self transform];
+        objc_msgSend_transform(self);
         v15 = [v14 valueWithCGAffineTransform:v20];
         v22[1] = v15;
         v21[2] = @"Origin";

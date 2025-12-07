@@ -195,15 +195,15 @@ LABEL_19:
 
 + (id)pathFromData:(id)data
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   if (data)
   {
     v3 = MEMORY[0x277CCAAC8];
     v4 = MEMORY[0x277CBEB98];
     dataCopy = data;
-    v14[0] = objc_opt_class();
-    v14[1] = objc_opt_class();
-    v7 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v6, v14, 2);
+    v13[0] = objc_opt_class();
+    v13[1] = objc_opt_class();
+    v7 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v6, v13, 2);
     v9 = objc_msgSend_setWithArray_(v4, v8, v7);
     v11 = objc_msgSend_cls_secureUnarchiveObjectOfClasses_withData_(v3, v10, v9, dataCopy);
   }
@@ -212,8 +212,6 @@ LABEL_19:
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -275,7 +273,7 @@ LABEL_19:
 
 + (id)hashData:(id)data lastHashData:(id)hashData
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   hashDataCopy = hashData;
   memset(&c, 0, sizeof(c));
@@ -300,8 +298,6 @@ LABEL_19:
   }
 
   v25 = objc_msgSend_copy(v22, v21, v24);
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
@@ -345,32 +341,32 @@ LABEL_19:
 
 + (id)dictionaryStrippingNSNullValues:(id)values
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   v5 = valuesCopy;
   if (valuesCopy)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(valuesCopy, v4, &v23, v27, 16);
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(valuesCopy, v4, &v22, v26, 16);
     v9 = v5;
     if (v6)
     {
       v10 = v6;
       v11 = 0;
-      v12 = *v24;
+      v12 = *v23;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v24 != v12)
+          if (*v23 != v12)
           {
             objc_enumerationMutation(v5);
           }
 
-          v14 = *(*(&v23 + 1) + 8 * i);
+          v14 = *(*(&v22 + 1) + 8 * i);
           v15 = objc_msgSend_null(MEMORY[0x277CBEB68], v7, v8);
           v17 = objc_msgSend_objectForKeyedSubscript_(v5, v16, v14);
           isEqual = objc_msgSend_isEqual_(v15, v18, v17);
@@ -386,7 +382,7 @@ LABEL_19:
           }
         }
 
-        v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v23, v27, 16);
+        v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v22, v26, 16);
       }
 
       while (v10);
@@ -411,14 +407,12 @@ LABEL_19:
     v9 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 + (void)postNotification:(char *)notification
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = notify_post(notification);
   if (qword_280B2A720 != -1)
   {
@@ -430,20 +424,18 @@ LABEL_19:
   {
     if (os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315138;
+      v6 = 136315138;
       notificationCopy2 = notification;
-      _os_log_error_impl(&dword_236F71000, v5, OS_LOG_TYPE_ERROR, "Notification post failed: '%s'", &v7, 0xCu);
+      _os_log_error_impl(&dword_236F71000, v5, OS_LOG_TYPE_ERROR, "Notification post failed: '%s'", &v6, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_INFO))
   {
-    v7 = 136315138;
+    v6 = 136315138;
     notificationCopy2 = notification;
-    _os_log_impl(&dword_236F71000, v5, OS_LOG_TYPE_INFO, "Notification posted: '%s'", &v7, 0xCu);
+    _os_log_impl(&dword_236F71000, v5, OS_LOG_TYPE_INFO, "Notification posted: '%s'", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)postNotificationAsync:(char *)async

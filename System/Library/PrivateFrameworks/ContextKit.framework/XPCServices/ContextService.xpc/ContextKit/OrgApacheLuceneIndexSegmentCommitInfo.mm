@@ -448,26 +448,23 @@ LABEL_7:
     JreThrowNullPointerException();
   }
 
-  v15 = [(OrgApacheLuceneIndexSegmentInfo *)info toStringWithInt:(self->delCount_ + int)];
+  v12 = [(OrgApacheLuceneIndexSegmentInfo *)info toStringWithInt:(self->delCount_ + int)];
   if (self->delGen_ != -1)
   {
-    delGen = self->delGen_;
-    JreStrAppend(&v15, "$J", v5, v6, v7, v8, v9, v10, @":delGen=");
+    JreStrAppend(&v12, "$J", v5, v6, v7, v8, v9, v10, @":delGen=");
   }
 
   if (self->fieldInfosGen_ != -1)
   {
-    fieldInfosGen = self->fieldInfosGen_;
-    JreStrAppend(&v15, "$J", v5, v6, v7, v8, v9, v10, @":fieldInfosGen=");
+    JreStrAppend(&v12, "$J", v5, v6, v7, v8, v9, v10, @":fieldInfosGen=");
   }
 
   if (self->docValuesGen_ != -1)
   {
-    docValuesGen = self->docValuesGen_;
-    JreStrAppend(&v15, "$J", v5, v6, v7, v8, v9, v10, @":dvGen=");
+    JreStrAppend(&v12, "$J", v5, v6, v7, v8, v9, v10, @":dvGen=");
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)clone

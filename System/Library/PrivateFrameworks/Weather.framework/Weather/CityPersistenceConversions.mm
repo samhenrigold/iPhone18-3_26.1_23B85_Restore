@@ -22,25 +22,25 @@
 
 + (id)cityFromDictionary:(id)dictionary
 {
-  v93[3] = *MEMORY[0x277D85DE8];
+  v92[3] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v93[0] = @"Name";
-  v93[1] = @"Lat";
-  v93[2] = @"Lon";
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:3];
-  v90[0] = MEMORY[0x277D85DD0];
-  v90[1] = 3221225472;
-  v90[2] = __49__CityPersistenceConversions_cityFromDictionary___block_invoke;
-  v90[3] = &unk_279E68788;
+  v92[0] = @"Name";
+  v92[1] = @"Lat";
+  v92[2] = @"Lon";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v92 count:3];
+  v89[0] = MEMORY[0x277D85DD0];
+  v89[1] = 3221225472;
+  v89[2] = __49__CityPersistenceConversions_cityFromDictionary___block_invoke;
+  v89[3] = &unk_279E68788;
   v6 = dictionaryCopy;
-  v91 = v6;
-  if (![v5 na_all:v90])
+  v90 = v6;
+  if (![v5 na_all:v89])
   {
     v7 = 0;
     goto LABEL_28;
   }
 
-  v85 = v5;
+  v84 = v5;
   v7 = objc_alloc_init(City);
   v8 = [v6 objectForKey:@"Name"];
   [(City *)v7 setName:v8];
@@ -218,7 +218,7 @@ LABEL_15:
   v61 = [v6 objectForKey:@"CityTimeZoneUpdateDateKey"];
   unsignedIntegerValue = [v61 unsignedIntegerValue];
 
-  v84 = v47;
+  v83 = v47;
   if (unsignedIntegerValue)
   {
     [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:unsignedIntegerValue];
@@ -228,8 +228,8 @@ LABEL_15:
   {
     [MEMORY[0x277CBEAA8] distantPast];
   }
-  v83 = ;
-  [(City *)v7 setTimeZoneUpdateDate:v83];
+  v82 = ;
+  [(City *)v7 setTimeZoneUpdateDate:v82];
   v63 = [v6 objectForKeyedSubscript:@"Past24HoursPrecipitation"];
   [v63 floatValue];
   [(City *)v7 setPrecipitationPast24Hours:v64];
@@ -257,40 +257,38 @@ LABEL_15:
 
   v73 = [v6 objectForKey:@"SevereWeatherEvents"];
   v74 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v85 = 0u;
   v86 = 0u;
   v87 = 0u;
   v88 = 0u;
-  v89 = 0u;
   v75 = v73;
-  v76 = [v75 countByEnumeratingWithState:&v86 objects:v92 count:16];
+  v76 = [v75 countByEnumeratingWithState:&v85 objects:v91 count:16];
   if (v76)
   {
     v77 = v76;
-    v78 = *v87;
+    v78 = *v86;
     do
     {
       for (i = 0; i != v77; ++i)
       {
-        if (*v87 != v78)
+        if (*v86 != v78)
         {
           objc_enumerationMutation(v75);
         }
 
-        v80 = [objc_alloc(MEMORY[0x277D7B2B8]) initWithDictionary:*(*(&v86 + 1) + 8 * i)];
+        v80 = [objc_alloc(MEMORY[0x277D7B2B8]) initWithDictionary:*(*(&v85 + 1) + 8 * i)];
         [v74 addObject:v80];
       }
 
-      v77 = [v75 countByEnumeratingWithState:&v86 objects:v92 count:16];
+      v77 = [v75 countByEnumeratingWithState:&v85 objects:v91 count:16];
     }
 
     while (v77);
   }
 
   [(City *)v7 updateCityForSevereWeatherEvents:v74];
-  v5 = v85;
+  v5 = v84;
 LABEL_28:
-
-  v81 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -307,33 +305,33 @@ uint64_t __49__CityPersistenceConversions_cityFromDictionary___block_invoke(uint
 
 + (void)populateCity:(id)city withDayForecastDictionaries:(id)dictionaries
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   cityCopy = city;
   dictionariesCopy = dictionaries;
   v6 = objc_opt_new();
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = dictionariesCopy;
-  v7 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v7)
   {
     v8 = v7;
     LODWORD(v9) = 0;
-    v10 = *v28;
+    v10 = *v27;
     do
     {
       v11 = 0;
       v9 = v9;
       do
       {
-        if (*v28 != v10)
+        if (*v27 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v27 + 1) + 8 * v11);
+        v12 = *(*(&v26 + 1) + 8 * v11);
         v13 = objc_alloc_init(WADayForecast);
         v14 = [v12 objectForKey:@"ForecastDayOfWeek"];
         -[WADayForecast setDayOfWeek:](v13, "setDayOfWeek:", [v14 unsignedIntValue]);
@@ -363,43 +361,42 @@ uint64_t __49__CityPersistenceConversions_cityFromDictionary___block_invoke(uint
       }
 
       while (v8 != v11);
-      v8 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v8);
   }
 
   [cityCopy setDayForecasts:v6];
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 + (void)populateCity:(id)city withHourlyForecastDictionaries:(id)dictionaries
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   cityCopy = city;
   dictionariesCopy = dictionaries;
   v6 = objc_opt_new();
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = dictionariesCopy;
-  v7 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v24;
+    v9 = *v23;
     do
     {
       v10 = 0;
       do
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * v10);
+        v11 = *(*(&v22 + 1) + 8 * v10);
         v12 = objc_alloc_init(WAHourlyForecast);
         v13 = objc_opt_class();
         v14 = [v11 objectForKey:@"Temperature"];
@@ -421,14 +418,13 @@ uint64_t __49__CityPersistenceConversions_cityFromDictionary___block_invoke(uint
       }
 
       while (v8 != v10);
-      v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v8);
   }
 
   [cityCopy setHourlyForecasts:v6];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isCityValid:(id)valid
@@ -451,7 +447,7 @@ uint64_t __49__CityPersistenceConversions_cityFromDictionary___block_invoke(uint
 
 + (id)dictionaryRepresentationOfScaleCategory:(id)category
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   categoryCopy = category;
   v4 = categoryCopy;
   if (categoryCopy)
@@ -463,16 +459,16 @@ uint64_t __49__CityPersistenceConversions_cityFromDictionary___block_invoke(uint
 
       if (scaleClassName)
       {
-        v13[0] = @"AQICategoryDescription";
+        v12[0] = @"AQICategoryDescription";
         localizedCategoryDescription2 = [v4 localizedCategoryDescription];
-        v14[0] = localizedCategoryDescription2;
-        v13[1] = @"AQICategoryIndex";
+        v13[0] = localizedCategoryDescription2;
+        v12[1] = @"AQICategoryIndex";
         v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v4, "categoryIndex")}];
-        v14[1] = v8;
-        v13[2] = @"AQIScaleClass";
+        v13[1] = v8;
+        v12[2] = @"AQIScaleClass";
         scaleClassName2 = [v4 scaleClassName];
-        v14[2] = scaleClassName2;
-        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
+        v13[2] = scaleClassName2;
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
 
         goto LABEL_8;
       }
@@ -485,8 +481,6 @@ uint64_t __49__CityPersistenceConversions_cityFromDictionary___block_invoke(uint
 
   v10 = 0;
 LABEL_8:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -518,39 +512,37 @@ LABEL_8:
 
 + (id)dictionaryRepresentationOfTemperature:(id)temperature
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   if (temperature)
   {
     temperatureCopy = temperature;
     v4 = NSStringFromWFTemperatureUnit();
-    v18[0] = v4;
+    v17[0] = v4;
     v5 = MEMORY[0x277CCABB0];
     [temperatureCopy fahrenheit];
     v6 = [v5 numberWithDouble:?];
-    v19[0] = v6;
+    v18[0] = v6;
     v7 = NSStringFromWFTemperatureUnit();
-    v18[1] = v7;
+    v17[1] = v7;
     v8 = MEMORY[0x277CCABB0];
     [temperatureCopy celsius];
     v9 = [v8 numberWithDouble:?];
-    v19[1] = v9;
+    v18[1] = v9;
     v10 = NSStringFromWFTemperatureUnit();
-    v18[2] = v10;
+    v17[2] = v10;
     v11 = MEMORY[0x277CCABB0];
     [temperatureCopy kelvin];
     v13 = v12;
 
     v14 = [v11 numberWithDouble:v13];
-    v19[2] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
+    v18[2] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
   }
 
   else
   {
     v15 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -610,7 +602,7 @@ LABEL_10:
 
 + (id)dictionaryRepresentationOfCity:(id)city
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   cityCopy = city;
   if ([self isCityValid:cityCopy])
   {
@@ -631,30 +623,30 @@ LABEL_10:
     }
 
     v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     severeWeatherEvents = [cityCopy severeWeatherEvents];
-    v13 = [severeWeatherEvents countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v13 = [severeWeatherEvents countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v21;
+      v15 = *v20;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v21 != v15)
+          if (*v20 != v15)
           {
             objc_enumerationMutation(severeWeatherEvents);
           }
 
-          dictionaryRepresentation2 = [*(*(&v20 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
           [v11 addObject:dictionaryRepresentation2];
         }
 
-        v14 = [severeWeatherEvents countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v14 = [severeWeatherEvents countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v14);
@@ -671,14 +663,12 @@ LABEL_10:
     v5 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 + (BOOL)cityDictionaryHasValidCoordinates:(id)coordinates
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   coordinatesCopy = coordinates;
   v4 = [coordinatesCopy objectForKey:@"Lat"];
   v5 = [coordinatesCopy objectForKey:@"Lon"];
@@ -693,15 +683,14 @@ LABEL_10:
     v9 = WALogForCategory(5);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = coordinatesCopy;
-      _os_log_impl(&dword_272ACF000, v9, OS_LOG_TYPE_DEFAULT, "Not loading city due to invalid coordinates: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = coordinatesCopy;
+      _os_log_impl(&dword_272ACF000, v9, OS_LOG_TYPE_DEFAULT, "Not loading city due to invalid coordinates: %@", &v12, 0xCu);
     }
 
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -729,36 +718,34 @@ LABEL_10:
 
 id __62__CityPersistenceConversions_dayForecastDictionariesFromCity___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = MEMORY[0x277CBEB38];
-  v4 = a2;
-  v5 = [v3 dictionary];
-  v6 = *(a1 + 32);
-  v7 = objc_opt_class();
-  v8 = [v4 high];
-  v9 = [v7 dictionaryRepresentationOfTemperature:v8];
-  [v5 na_safeSetObject:v9 forKey:@"High"];
+  v2 = MEMORY[0x277CBEB38];
+  v3 = a2;
+  v4 = [v2 dictionary];
+  v5 = objc_opt_class();
+  v6 = [v3 high];
+  v7 = [v5 dictionaryRepresentationOfTemperature:v6];
+  [v4 na_safeSetObject:v7 forKey:@"High"];
 
-  v10 = *(a1 + 32);
-  v11 = objc_opt_class();
-  v12 = [v4 low];
-  v13 = [v11 dictionaryRepresentationOfTemperature:v12];
-  [v5 na_safeSetObject:v13 forKey:@"Low"];
+  v8 = objc_opt_class();
+  v9 = [v3 low];
+  v10 = [v8 dictionaryRepresentationOfTemperature:v9];
+  [v4 na_safeSetObject:v10 forKey:@"Low"];
+
+  v11 = MEMORY[0x277CCABB0];
+  [v3 percentPrecipitation];
+  v12 = [v11 numberWithDouble:?];
+  [v4 na_safeSetObject:v12 forKey:@"Precipitation"];
+
+  v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v3, "icon")}];
+  [v4 na_safeSetObject:v13 forKey:@"Icon"];
 
   v14 = MEMORY[0x277CCABB0];
-  [v4 percentPrecipitation];
-  v15 = [v14 numberWithDouble:?];
-  [v5 na_safeSetObject:v15 forKey:@"Precipitation"];
+  v15 = [v3 dayOfWeek];
 
-  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v4, "icon")}];
-  [v5 na_safeSetObject:v16 forKey:@"Icon"];
+  v16 = [v14 numberWithUnsignedInteger:v15];
+  [v4 na_safeSetObject:v16 forKey:@"ForecastDayOfWeek"];
 
-  v17 = MEMORY[0x277CCABB0];
-  v18 = [v4 dayOfWeek];
-
-  v19 = [v17 numberWithUnsignedInteger:v18];
-  [v5 na_safeSetObject:v19 forKey:@"ForecastDayOfWeek"];
-
-  return v5;
+  return v4;
 }
 
 + (id)hourlyForecastDictionariesFromCity:(id)city
@@ -785,29 +772,28 @@ id __62__CityPersistenceConversions_dayForecastDictionariesFromCity___block_invo
 
 id __65__CityPersistenceConversions_hourlyForecastDictionariesFromCity___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = MEMORY[0x277CBEB38];
-  v4 = a2;
-  v5 = [v3 dictionary];
-  v6 = *(a1 + 32);
-  v7 = objc_opt_class();
-  v8 = [v4 temperature];
-  v9 = [v7 dictionaryRepresentationOfTemperature:v8];
-  [v5 na_safeSetObject:v9 forKey:@"Temperature"];
+  v2 = MEMORY[0x277CBEB38];
+  v3 = a2;
+  v4 = [v2 dictionary];
+  v5 = objc_opt_class();
+  v6 = [v3 temperature];
+  v7 = [v5 dictionaryRepresentationOfTemperature:v6];
+  [v4 na_safeSetObject:v7 forKey:@"Temperature"];
 
-  v10 = [v4 time];
-  [v5 na_safeSetObject:v10 forKey:@"Time24"];
+  v8 = [v3 time];
+  [v4 na_safeSetObject:v8 forKey:@"Time24"];
 
-  v11 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v4, "conditionCode")}];
-  [v5 na_safeSetObject:v11 forKey:@"Condition"];
+  v9 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v3, "conditionCode")}];
+  [v4 na_safeSetObject:v9 forKey:@"Condition"];
 
-  v12 = MEMORY[0x277CCABB0];
-  [v4 percentPrecipitation];
-  v14 = v13;
+  v10 = MEMORY[0x277CCABB0];
+  [v3 percentPrecipitation];
+  v12 = v11;
 
-  v15 = [v12 numberWithDouble:v14];
-  [v5 na_safeSetObject:v15 forKey:@"Precipitation"];
+  v13 = [v10 numberWithDouble:v12];
+  [v4 na_safeSetObject:v13 forKey:@"Precipitation"];
 
-  return v5;
+  return v4;
 }
 
 + (id)weatherDetailsDictionaryFromCity:(id)city
@@ -999,22 +985,22 @@ id __65__CityPersistenceConversions_hourlyForecastDictionariesFromCity___block_i
 
 + (id)cityFromCloudDictionary:(id)dictionary
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v4 = *MEMORY[0x277D7B200];
   v5 = *MEMORY[0x277D7B1F0];
-  v19[0] = *MEMORY[0x277D7B200];
-  v19[1] = v5;
+  v18[0] = *MEMORY[0x277D7B200];
+  v18[1] = v5;
   v6 = *MEMORY[0x277D7B1F8];
-  v19[2] = *MEMORY[0x277D7B1F8];
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __54__CityPersistenceConversions_cityFromCloudDictionary___block_invoke;
-  v17[3] = &unk_279E68788;
+  v18[2] = *MEMORY[0x277D7B1F8];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __54__CityPersistenceConversions_cityFromCloudDictionary___block_invoke;
+  v16[3] = &unk_279E68788;
   v8 = dictionaryCopy;
-  v18 = v8;
-  if ([v7 na_all:v17])
+  v17 = v8;
+  if ([v7 na_all:v16])
   {
     v9 = objc_alloc_init(City);
     v10 = [v8 objectForKeyedSubscript:v4];
@@ -1040,8 +1026,6 @@ id __65__CityPersistenceConversions_hourlyForecastDictionariesFromCity___block_i
     v9 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
@@ -1057,30 +1041,30 @@ uint64_t __54__CityPersistenceConversions_cityFromCloudDictionary___block_invoke
 
 + (id)cloudDictionaryRepresentationOfCity:(id)city
 {
-  v22[3] = *MEMORY[0x277D85DE8];
+  v21[3] = *MEMORY[0x277D85DE8];
   cityCopy = city;
-  if (([cityCopy isLocalWeatherCity] & 1) != 0 || (objc_msgSend(cityCopy, "latitude"), v4 == 0.0) || (objc_msgSend(cityCopy, "longitude"), v5 == 0.0) || (objc_msgSend(cityCopy, "name"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "length"), v9, !v10))
+  if (([cityCopy isLocalWeatherCity] & 1) != 0 || (objc_msgSend(cityCopy, "latitude"), v4 == 0.0) || (objc_msgSend(cityCopy, "longitude"), v5 == 0.0) || (objc_msgSend(cityCopy, "name"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "length"), v8, !v9))
   {
     v6 = 0;
   }
 
   else
   {
-    v21[0] = *MEMORY[0x277D7B200];
+    v20[0] = *MEMORY[0x277D7B200];
     name = [cityCopy name];
-    v22[0] = name;
-    v21[1] = *MEMORY[0x277D7B1F0];
-    v12 = MEMORY[0x277CCABB0];
+    v21[0] = name;
+    v20[1] = *MEMORY[0x277D7B1F0];
+    v11 = MEMORY[0x277CCABB0];
     [cityCopy latitude];
-    v13 = [v12 numberWithDouble:?];
-    v22[1] = v13;
-    v21[2] = *MEMORY[0x277D7B1F8];
-    v14 = MEMORY[0x277CCABB0];
+    v12 = [v11 numberWithDouble:?];
+    v21[1] = v12;
+    v20[2] = *MEMORY[0x277D7B1F8];
+    v13 = MEMORY[0x277CCABB0];
     [cityCopy longitude];
-    v15 = [v14 numberWithDouble:?];
-    v22[2] = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
-    v6 = [v16 mutableCopy];
+    v14 = [v13 numberWithDouble:?];
+    v21[2] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
+    v6 = [v15 mutableCopy];
 
     searchTitle = [cityCopy searchTitle];
 
@@ -1098,8 +1082,6 @@ uint64_t __54__CityPersistenceConversions_cityFromCloudDictionary___block_invoke
       [v6 setObject:searchSubtitle2 forKeyedSubscript:*MEMORY[0x277D7B208]];
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1134,27 +1116,25 @@ uint64_t __54__CityPersistenceConversions_cityFromCloudDictionary___block_invoke
 
 + (id)cloudDictionaryRepresentationOfALCity:(id)city
 {
-  v16[3] = *MEMORY[0x277D85DE8];
-  v15[0] = *MEMORY[0x277D7B200];
+  v15[3] = *MEMORY[0x277D85DE8];
+  v14[0] = *MEMORY[0x277D7B200];
   cityCopy = city;
   name = [cityCopy name];
-  v16[0] = name;
-  v15[1] = *MEMORY[0x277D7B1F0];
+  v15[0] = name;
+  v14[1] = *MEMORY[0x277D7B1F0];
   v5 = MEMORY[0x277CCABB0];
   [cityCopy latitude];
   v6 = [v5 numberWithFloat:?];
-  v16[1] = v6;
-  v15[2] = *MEMORY[0x277D7B1F8];
+  v15[1] = v6;
+  v14[2] = *MEMORY[0x277D7B1F8];
   v7 = MEMORY[0x277CCABB0];
   [cityCopy longitude];
   v9 = v8;
 
   LODWORD(v10) = v9;
   v11 = [v7 numberWithFloat:v10];
-  v16[2] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[2] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
   return v12;
 }

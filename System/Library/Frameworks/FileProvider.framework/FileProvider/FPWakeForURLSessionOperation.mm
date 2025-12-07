@@ -51,16 +51,14 @@ void __42__FPWakeForURLSessionOperation_actionMain__block_invoke(uint64_t a1, vo
 
 void __42__FPWakeForURLSessionOperation_actionMain__block_invoke_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
   v5 = [a2 fp_prettyDescription];
-  v7 = 138412546;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_ERROR, "[ERROR] %@ failed to wake provider: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_ERROR, "[ERROR] %@ failed to wake provider: %@", &v6, 0x16u);
 }
 
 @end

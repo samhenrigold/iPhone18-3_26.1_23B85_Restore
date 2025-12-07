@@ -12,10 +12,10 @@
   {
     v4 = *&self->didRequestDismissal[OBJC_IVAR____TtCV15_MapKit_SwiftUIP33_88864655A4452E6E3BB4AF822A3E769217MapItemDetailView11Coordinator_didRequestDismissal];
     selfCopy = self;
-    v6 = sub_213CD4E28(v3);
+    v6 = sub_213CD4E28(v3, v4);
     v3(v6);
 
-    sub_213CCE520(v3);
+    sub_213CCE520(v3, v4);
   }
 }
 

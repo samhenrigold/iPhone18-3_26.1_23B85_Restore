@@ -118,7 +118,7 @@
 
 - (void)pushPearlDepth:(double)depth pose:(double)pose depthCalibration:(double)calibration irToDepthTransform:(uint64_t)transform timestamp:(uint64_t)timestamp
 {
-  v14 = [self[4] pushData:timestamp streamIndex:2 timestamp:a8 pose:a13 calibration:{a2, depth, pose, calibration}];
+  v14 = [self[4] pushData:timestamp streamIndex:2 timestamp:a8 pose:a13 calibration:{a2, depth, pose, calibration, a10, a11, a12}];
   [self processIfMatch:?];
 }
 

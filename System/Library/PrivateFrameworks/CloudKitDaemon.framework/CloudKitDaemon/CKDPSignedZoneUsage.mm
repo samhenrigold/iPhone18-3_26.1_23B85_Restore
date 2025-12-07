@@ -222,24 +222,23 @@ LABEL_38:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    version = self->_version;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_signature)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_zoneUsage)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -300,7 +299,6 @@ LABEL_38:
     goto LABEL_11;
   }
 
-  v8 = *(equalCopy + 32);
   if (*&self->_has)
   {
     if ((equalCopy[4] & 1) == 0 || self->_version != *(equalCopy + 4))
@@ -317,17 +315,17 @@ LABEL_11:
   }
 
   signature = self->_signature;
-  v10 = equalCopy[1];
-  if (signature | v10 && !objc_msgSend_isEqual_(signature, v7, v10))
+  v9 = equalCopy[1];
+  if (signature | v9 && !objc_msgSend_isEqual_(signature, v7, v9))
   {
     goto LABEL_11;
   }
 
   zoneUsage = self->_zoneUsage;
-  v12 = equalCopy[3];
-  if (zoneUsage | v12)
+  v11 = equalCopy[3];
+  if (zoneUsage | v11)
   {
-    isEqual = objc_msgSend_isEqual_(zoneUsage, v7, v12);
+    isEqual = objc_msgSend_isEqual_(zoneUsage, v7, v11);
   }
 
   else

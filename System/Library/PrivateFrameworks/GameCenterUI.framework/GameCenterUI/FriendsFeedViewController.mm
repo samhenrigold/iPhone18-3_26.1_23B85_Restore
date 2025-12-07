@@ -75,7 +75,7 @@
   sub_24E343498();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_24E1EA9A8(viewCopy);
+  v13 = sub_24E1EA9A8(viewCopy, v10);
 
   (*(v8 + 8))(v10, v7);
 
@@ -84,9 +84,10 @@
 
 - (void)loadMoreWithContinuationToken:(id)token
 {
-  sub_24E347CF8();
+  v4 = sub_24E347CF8();
+  v6 = v5;
   selfCopy = self;
-  sub_24E1EB104();
+  sub_24E1EB104(v4, v6);
 }
 
 @end

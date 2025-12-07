@@ -38,7 +38,7 @@
   }
 
   bundleCopy = bundle;
-  return sub_18BA2C734(v5, v7, bundle);
+  return sub_18BA2C734(v5, v7, bundle, v9);
 }
 
 @end

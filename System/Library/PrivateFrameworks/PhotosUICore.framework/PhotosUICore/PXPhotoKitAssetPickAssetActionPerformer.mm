@@ -16,7 +16,7 @@
     selectionSnapshot = [selectionManager selectionSnapshot];
 
     selectedIndexPaths = [selectionSnapshot selectedIndexPaths];
-    [objectReference indexPath];
+    objc_msgSend_indexPath(objectReference);
     v10 = [selectedIndexPaths containsIndexPath:&v13];
 
     if (v10)

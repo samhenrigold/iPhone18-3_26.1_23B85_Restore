@@ -2,6 +2,7 @@
 - (BOOL)holdBeforeDisplaying;
 - (id)languageCode;
 - (id)viewController;
+- (void)applyConfirmedOptin:(BOOL)optin;
 - (void)dealloc;
 - (void)voiceSelectionController:(id)controller didSelectVoice:(id)voice;
 @end
@@ -96,6 +97,13 @@
   }
 
   return voiceSelectionViewController;
+}
+
+- (void)applyConfirmedOptin:(BOOL)optin
+{
+  VTUISetSiriEnabled(optin);
+  delegate = [(VTUISiriVoiceSelectionViewController *)self delegate];
+  [delegate buddyControllerDone:self];
 }
 
 - (void)dealloc

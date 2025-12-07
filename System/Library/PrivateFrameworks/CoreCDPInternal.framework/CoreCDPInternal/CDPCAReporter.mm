@@ -41,20 +41,17 @@
 
 - (void)sendReport
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(self + 8);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Already sent CDPCA event %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Already sent CDPCA event %@", &v3, 0xCu);
 }
 
 - (void)_sendEvent
 {
   if (MEMORY[0x282217098])
   {
-    eventName = self->_eventName;
-    reportData = self->_reportData;
     AnalyticsSendEvent();
   }
 }

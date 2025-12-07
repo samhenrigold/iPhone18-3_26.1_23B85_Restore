@@ -114,7 +114,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v4 = dictionary;
   sessionId = self->_sessionId;
@@ -165,30 +165,30 @@
   if ([(NSMutableArray *)self->_shownSuggestions count])
   {
     v13 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_shownSuggestions, "count")}];
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
     v14 = self->_shownSuggestions;
-    v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v44 objects:v50 count:16];
+    v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v43 objects:v49 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v45;
+      v17 = *v44;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v45 != v17)
+          if (*v44 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          dictionaryRepresentation = [*(*(&v44 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v43 + 1) + 8 * i) dictionaryRepresentation];
           [v13 addObject:dictionaryRepresentation];
         }
 
-        v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v44 objects:v50 count:16];
+        v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v43 objects:v49 count:16];
       }
 
       while (v16);
@@ -200,30 +200,30 @@
   if ([(NSMutableArray *)self->_engagedSuggestions count])
   {
     v20 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_engagedSuggestions, "count")}];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v21 = self->_engagedSuggestions;
-    v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v40 objects:v49 count:16];
+    v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v39 objects:v48 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v41;
+      v24 = *v40;
       do
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v41 != v24)
+          if (*v40 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          dictionaryRepresentation2 = [*(*(&v40 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v39 + 1) + 8 * j) dictionaryRepresentation];
           [v20 addObject:dictionaryRepresentation2];
         }
 
-        v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v40 objects:v49 count:16];
+        v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v39 objects:v48 count:16];
       }
 
       while (v23);
@@ -235,30 +235,30 @@
   if ([(NSMutableArray *)self->_rejectedSuggestions count])
   {
     v27 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_rejectedSuggestions, "count")}];
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     v28 = self->_rejectedSuggestions;
-    v29 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v36 objects:v48 count:16];
+    v29 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v35 objects:v47 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v37;
+      v31 = *v36;
       do
       {
         for (k = 0; k != v30; ++k)
         {
-          if (*v37 != v31)
+          if (*v36 != v31)
           {
             objc_enumerationMutation(v28);
           }
 
-          dictionaryRepresentation3 = [*(*(&v36 + 1) + 8 * k) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v35 + 1) + 8 * k) dictionaryRepresentation];
           [v27 addObject:dictionaryRepresentation3];
         }
 
-        v30 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v36 objects:v48 count:16];
+        v30 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v35 objects:v47 count:16];
       }
 
       while (v30);
@@ -267,14 +267,12 @@
     [v4 setObject:v27 forKey:@"rejectedSuggestions"];
   }
 
-  v34 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_sessionId)
   {
@@ -293,7 +291,6 @@
 
   if (*&self->_has)
   {
-    clientModelCacheCreationDate = self->_clientModelCacheCreationDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -305,105 +302,98 @@
   has = self->_has;
   if ((has & 4) != 0)
   {
-    sessionStartDate = self->_sessionStartDate;
     PBDataWriterWriteDoubleField();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    sessionEndDate = self->_sessionEndDate;
     PBDataWriterWriteDoubleField();
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v9 = self->_shownSuggestions;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v36 objects:v42 count:16];
-  if (v10)
-  {
-    v11 = v10;
-    v12 = *v37;
-    do
-    {
-      for (i = 0; i != v11; ++i)
-      {
-        if (*v37 != v12)
-        {
-          objc_enumerationMutation(v9);
-        }
-
-        v14 = *(*(&v36 + 1) + 8 * i);
-        PBDataWriterWriteSubmessage();
-      }
-
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v36 objects:v42 count:16];
-    }
-
-    while (v11);
-  }
-
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v15 = self->_engagedSuggestions;
-  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v32 objects:v41 count:16];
-  if (v16)
-  {
-    v17 = v16;
-    v18 = *v33;
-    do
-    {
-      for (j = 0; j != v17; ++j)
-      {
-        if (*v33 != v18)
-        {
-          objc_enumerationMutation(v15);
-        }
-
-        v20 = *(*(&v32 + 1) + 8 * j);
-        PBDataWriterWriteSubmessage();
-      }
-
-      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v32 objects:v41 count:16];
-    }
-
-    while (v17);
-  }
-
-  v30 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v21 = self->_rejectedSuggestions;
-  v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v28 objects:v40 count:16];
-  if (v22)
+  v30 = 0u;
+  v6 = self->_shownSuggestions;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v29 objects:v35 count:16];
+  if (v7)
   {
-    v23 = v22;
-    v24 = *v29;
+    v8 = v7;
+    v9 = *v30;
     do
     {
-      for (k = 0; k != v23; ++k)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v29 != v24)
+        if (*v30 != v9)
         {
-          objc_enumerationMutation(v21);
+          objc_enumerationMutation(v6);
         }
 
-        v26 = *(*(&v28 + 1) + 8 * k);
         PBDataWriterWriteSubmessage();
       }
 
-      v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v28 objects:v40 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
-    while (v23);
+    while (v8);
   }
 
-  v27 = *MEMORY[0x1E69E9840];
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v11 = self->_engagedSuggestions;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v25 objects:v34 count:16];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = *v26;
+    do
+    {
+      for (j = 0; j != v13; ++j)
+      {
+        if (*v26 != v14)
+        {
+          objc_enumerationMutation(v11);
+        }
+
+        PBDataWriterWriteSubmessage();
+      }
+
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v25 objects:v34 count:16];
+    }
+
+    while (v13);
+  }
+
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v16 = self->_rejectedSuggestions;
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v21 objects:v33 count:16];
+  if (v17)
+  {
+    v18 = v17;
+    v19 = *v22;
+    do
+    {
+      for (k = 0; k != v18; ++k)
+      {
+        if (*v22 != v19)
+        {
+          objc_enumerationMutation(v16);
+        }
+
+        PBDataWriterWriteSubmessage();
+      }
+
+      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v21 objects:v33 count:16];
+    }
+
+    while (v18);
+  }
 }
 
 - (void)copyTo:(id)to
@@ -502,7 +492,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_sessionId copyWithZone:zone];
   v7 = *(v5 + 72);
@@ -540,94 +530,93 @@
     *(v5 + 88) |= 2u;
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v15 = self->_shownSuggestions;
-  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v43 objects:v49 count:16];
+  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v42 objects:v48 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v44;
+    v18 = *v43;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v44 != v18)
+        if (*v43 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = [*(*(&v43 + 1) + 8 * i) copyWithZone:zone];
+        v20 = [*(*(&v42 + 1) + 8 * i) copyWithZone:zone];
         [v5 addShownSuggestions:v20];
       }
 
-      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v43 objects:v49 count:16];
+      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v42 objects:v48 count:16];
     }
 
     while (v17);
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v21 = self->_engagedSuggestions;
-  v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v39 objects:v48 count:16];
+  v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v38 objects:v47 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v40;
+    v24 = *v39;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v40 != v24)
+        if (*v39 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        v26 = [*(*(&v39 + 1) + 8 * j) copyWithZone:zone];
+        v26 = [*(*(&v38 + 1) + 8 * j) copyWithZone:zone];
         [v5 addEngagedSuggestions:v26];
       }
 
-      v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v39 objects:v48 count:16];
+      v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v38 objects:v47 count:16];
     }
 
     while (v23);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v27 = self->_rejectedSuggestions;
-  v28 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v35 objects:v47 count:16];
+  v28 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v34 objects:v46 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v36;
+    v30 = *v35;
     do
     {
       for (k = 0; k != v29; ++k)
       {
-        if (*v36 != v30)
+        if (*v35 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        v32 = [*(*(&v35 + 1) + 8 * k) copyWithZone:{zone, v35}];
+        v32 = [*(*(&v34 + 1) + 8 * k) copyWithZone:{zone, v34}];
         [v5 addRejectedSuggestions:v32];
       }
 
-      v29 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v35 objects:v47 count:16];
+      v29 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v34 objects:v46 count:16];
     }
 
     while (v29);
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -667,7 +656,6 @@
   }
 
   has = self->_has;
-  v9 = *(equalCopy + 88);
   if (has)
   {
     if ((*(equalCopy + 88) & 1) == 0 || self->_clientModelCacheCreationDate != *(equalCopy + 1))
@@ -687,14 +675,13 @@
     if (![(NSString *)consumerSubType isEqual:?])
     {
 LABEL_32:
-      v15 = 0;
+      v13 = 0;
       goto LABEL_33;
     }
 
     has = self->_has;
   }
 
-  v11 = *(equalCopy + 88);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 88) & 4) == 0 || self->_sessionStartDate != *(equalCopy + 3))
@@ -739,17 +726,17 @@ LABEL_32:
   rejectedSuggestions = self->_rejectedSuggestions;
   if (rejectedSuggestions | *(equalCopy + 8))
   {
-    v15 = [(NSMutableArray *)rejectedSuggestions isEqual:?];
+    v13 = [(NSMutableArray *)rejectedSuggestions isEqual:?];
   }
 
   else
   {
-    v15 = 1;
+    v13 = 1;
   }
 
 LABEL_33:
 
-  return v15;
+  return v13;
 }
 
 - (unint64_t)hash
@@ -866,7 +853,7 @@ LABEL_33:
 
 - (void)mergeFrom:(id)from
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (*(fromCopy + 9))
   {
@@ -908,91 +895,89 @@ LABEL_33:
     *&self->_has |= 2u;
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v6 = *(fromCopy + 10);
-  v7 = [v6 countByEnumeratingWithState:&v30 objects:v36 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v31;
+    v9 = *v30;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v31 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(ATXPBBiomeProactiveSuggestionUIFeedbackResult *)self addShownSuggestions:*(*(&v30 + 1) + 8 * i)];
+        [(ATXPBBiomeProactiveSuggestionUIFeedbackResult *)self addShownSuggestions:*(*(&v29 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
     while (v8);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v11 = *(fromCopy + 7);
-  v12 = [v11 countByEnumeratingWithState:&v26 objects:v35 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v25 objects:v34 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v27;
+    v14 = *v26;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v27 != v14)
+        if (*v26 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(ATXPBBiomeProactiveSuggestionUIFeedbackResult *)self addEngagedSuggestions:*(*(&v26 + 1) + 8 * j)];
+        [(ATXPBBiomeProactiveSuggestionUIFeedbackResult *)self addEngagedSuggestions:*(*(&v25 + 1) + 8 * j)];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v26 objects:v35 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v25 objects:v34 count:16];
     }
 
     while (v13);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v16 = *(fromCopy + 8);
-  v17 = [v16 countByEnumeratingWithState:&v22 objects:v34 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v21 objects:v33 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v23;
+    v19 = *v22;
     do
     {
       for (k = 0; k != v18; ++k)
       {
-        if (*v23 != v19)
+        if (*v22 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        [(ATXPBBiomeProactiveSuggestionUIFeedbackResult *)self addRejectedSuggestions:*(*(&v22 + 1) + 8 * k), v22];
+        [(ATXPBBiomeProactiveSuggestionUIFeedbackResult *)self addRejectedSuggestions:*(*(&v21 + 1) + 8 * k), v21];
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v22 objects:v34 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v21 objects:v33 count:16];
     }
 
     while (v18);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 @end

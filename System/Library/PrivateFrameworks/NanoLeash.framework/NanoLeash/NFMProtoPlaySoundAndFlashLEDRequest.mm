@@ -38,7 +38,6 @@
 {
   if (*&self->_has)
   {
-    timeStamp = self->_timeStamp;
     PBDataWriterWriteDoubleField();
   }
 }

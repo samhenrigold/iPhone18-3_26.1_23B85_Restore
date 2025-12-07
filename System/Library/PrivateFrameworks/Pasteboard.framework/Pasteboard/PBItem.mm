@@ -120,10 +120,7 @@
 
 uint64_t __23__PBItem_localUserInfo__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) itemQueue_localUserInfo];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) itemQueue_localUserInfo];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -167,10 +164,7 @@ uint64_t __23__PBItem_localUserInfo__block_invoke(uint64_t a1)
 
 uint64_t __21__PBItem_localObject__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) itemQueue_localObject];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) itemQueue_localObject];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -214,10 +208,7 @@ uint64_t __21__PBItem_localObject__block_invoke(uint64_t a1)
 
 uint64_t __18__PBItem_metadata__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) itemQueue_metadata];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) itemQueue_metadata];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -261,10 +252,7 @@ uint64_t __18__PBItem_metadata__block_invoke(uint64_t a1)
 
 uint64_t __24__PBItem_availableTypes__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) itemQueue_availableTypes];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) itemQueue_availableTypes];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -295,28 +283,28 @@ uint64_t __24__PBItem_availableTypes__block_invoke(uint64_t a1)
 
 void __52__PBItem_availableTypesWithPreferredRepresentation___block_invoke(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = *(a1[4] + 56);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
-        v8 = [*(a1[4] + 48) objectForKeyedSubscript:{v7, v11}];
+        v7 = *(*(&v10 + 1) + 8 * i);
+        v8 = [*(a1[4] + 48) objectForKeyedSubscript:{v7, v10}];
         v9 = v8;
         if (v8 && [v8 preferredRepresentation] == a1[6])
         {
@@ -324,13 +312,11 @@ void __52__PBItem_availableTypesWithPreferredRepresentation___block_invoke(void 
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDictionary)privateMetadata
@@ -358,10 +344,7 @@ void __52__PBItem_availableTypesWithPreferredRepresentation___block_invoke(void 
 
 uint64_t __25__PBItem_privateMetadata__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) itemQueue_privateMetadata];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) itemQueue_privateMetadata];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -445,39 +428,39 @@ uint64_t __25__PBItem_privateMetadata__block_invoke(uint64_t a1)
 
 - (id)_itemQueue_copyWithDoNothingRepresentations
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   initDoNothing = [objc_alloc(objc_opt_class()) initDoNothing];
   v4 = [(NSMutableOrderedSet *)self->_itemQueue_typeOrder mutableCopy];
   v5 = *(initDoNothing + 56);
   *(initDoNothing + 56) = v4;
 
   v6 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{-[NSMutableDictionary count](self->_itemQueue_representationByType, "count")}];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v7 = self->_itemQueue_representationByType;
-  v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v32;
+    v10 = *v31;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v32 != v10)
+        if (*v31 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v31 + 1) + 8 * i);
-        v13 = [(NSMutableDictionary *)self->_itemQueue_representationByType objectForKeyedSubscript:v12, v31];
+        v12 = *(*(&v30 + 1) + 8 * i);
+        v13 = [(NSMutableDictionary *)self->_itemQueue_representationByType objectForKeyedSubscript:v12, v30];
         copyWithDoNothingLoaderBlock = [v13 copyWithDoNothingLoaderBlock];
         [v6 setObject:copyWithDoNothingLoaderBlock forKeyedSubscript:v12];
       }
 
-      v9 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v9 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v9);
@@ -512,7 +495,6 @@ uint64_t __25__PBItem_privateMetadata__block_invoke(uint64_t a1)
   *(initDoNothing + 40) = v27;
 
   *(initDoNothing + 8) = self->_itemQueue_isStoredOnServer;
-  v29 = *MEMORY[0x277D85DE8];
 
   return initDoNothing;
 }
@@ -542,10 +524,7 @@ uint64_t __25__PBItem_privateMetadata__block_invoke(uint64_t a1)
 
 uint64_t __42__PBItem_copyWithDoNothingRepresentations__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _itemQueue_copyWithDoNothingRepresentations];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _itemQueue_copyWithDoNothingRepresentations];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -579,9 +558,7 @@ uint64_t __42__PBItem_copyWithDoNothingRepresentations__block_invoke(uint64_t a1
 
   if (dCopy)
   {
-    uUID = [MEMORY[0x277CCAD78] UUID];
-    UUID = self->_UUID;
-    self->_UUID = uUID;
+    self->_UUID = [MEMORY[0x277CCAD78] UUID];
 
     MEMORY[0x2821F96F8]();
   }
@@ -589,11 +566,11 @@ uint64_t __42__PBItem_copyWithDoNothingRepresentations__block_invoke(uint64_t a1
 
 - (PBItem)initWithObject:(id)object
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   objectCopy = object;
-  v56.receiver = self;
-  v56.super_class = PBItem;
-  val = [(PBItem *)&v56 init];
+  v55.receiver = self;
+  v55.super_class = PBItem;
+  val = [(PBItem *)&v55 init];
   if (val)
   {
     if ([objectCopy conformsToProtocol:&unk_286FDC6B8])
@@ -614,42 +591,42 @@ uint64_t __42__PBItem_copyWithDoNothingRepresentations__block_invoke(uint64_t a1
     v7 = [v6 availableRepresentationTypesForClass:objc_opt_class()];
 
     objc_initWeak(&location, val);
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v51 objects:v59 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v50 objects:v58 count:16];
     if (v9)
     {
-      v10 = *v52;
+      v10 = *v51;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v52 != v10)
+          if (*v51 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v51 + 1) + 8 * i);
+          v12 = *(*(&v50 + 1) + 8 * i);
           v13 = objc_autoreleasePoolPush();
           v14 = [PBItemRepresentation alloc];
-          v49[0] = MEMORY[0x277D85DD0];
-          v49[1] = 3221225472;
-          v49[2] = __25__PBItem_initWithObject___block_invoke;
-          v49[3] = &unk_279A06B00;
-          objc_copyWeak(&v50, &location);
-          v49[4] = v12;
-          v15 = [(PBItemRepresentation *)v14 initWithType:v12 preferredRepresentation:0 v3_loader:v49];
+          v48[0] = MEMORY[0x277D85DD0];
+          v48[1] = 3221225472;
+          v48[2] = __25__PBItem_initWithObject___block_invoke;
+          v48[3] = &unk_279A06B00;
+          objc_copyWeak(&v49, &location);
+          v48[4] = v12;
+          v15 = [(PBItemRepresentation *)v14 initWithType:v12 preferredRepresentation:0 v3_loader:v48];
           [(PBItemRepresentation *)v15 setIsDataAvailableImmediately:1];
           [(PBItem *)val itemQueue_setItemRepresentation:v15];
 
-          objc_destroyWeak(&v50);
+          objc_destroyWeak(&v49);
           objc_autoreleasePoolPop(v13);
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v51 objects:v59 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v50 objects:v58 count:16];
       }
 
       while (v9);
@@ -658,81 +635,81 @@ uint64_t __42__PBItem_copyWithDoNothingRepresentations__block_invoke(uint64_t a1
     v16 = +[PBCoercionRegistry defaultRegistry];
     v17 = [v16 _availableClassesToCoerceFromClass:objc_opt_class()];
 
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     obj = v17;
-    v18 = [obj countByEnumeratingWithState:&v45 objects:v58 count:16];
+    v18 = [obj countByEnumeratingWithState:&v44 objects:v57 count:16];
     if (v18)
     {
-      v34 = *v46;
+      v33 = *v45;
       do
       {
         v19 = 0;
-        v35 = v18;
+        v34 = v18;
         do
         {
-          if (*v46 != v34)
+          if (*v45 != v33)
           {
             objc_enumerationMutation(obj);
           }
 
-          v37 = v19;
-          v20 = *(*(&v45 + 1) + 8 * v19);
+          v36 = v19;
+          v20 = *(*(&v44 + 1) + 8 * v19);
           context = objc_autoreleasePoolPush();
-          v43 = 0u;
-          v44 = 0u;
-          v41 = 0u;
           v42 = 0u;
+          v43 = 0u;
+          v40 = 0u;
+          v41 = 0u;
           v21 = +[PBCoercionRegistry defaultRegistry];
           v22 = [v21 availableRepresentationTypesForClass:v20];
 
-          v23 = [v22 countByEnumeratingWithState:&v41 objects:v57 count:16];
+          v23 = [v22 countByEnumeratingWithState:&v40 objects:v56 count:16];
           if (v23)
           {
-            v24 = *v42;
+            v24 = *v41;
             do
             {
               for (j = 0; j != v23; ++j)
               {
-                if (*v42 != v24)
+                if (*v41 != v24)
                 {
                   objc_enumerationMutation(v22);
                 }
 
-                v26 = *(*(&v41 + 1) + 8 * j);
+                v26 = *(*(&v40 + 1) + 8 * j);
                 v27 = objc_autoreleasePoolPush();
                 if (([v8 containsObject:v26] & 1) == 0)
                 {
                   v28 = [PBItemRepresentation alloc];
-                  v39[0] = MEMORY[0x277D85DD0];
-                  v39[1] = 3221225472;
-                  v39[2] = __25__PBItem_initWithObject___block_invoke_4;
-                  v39[3] = &unk_279A06B00;
-                  objc_copyWeak(&v40, &location);
-                  v39[4] = v26;
-                  v29 = [(PBItemRepresentation *)v28 initWithType:v26 preferredRepresentation:0 v3_loader:v39];
+                  v38[0] = MEMORY[0x277D85DD0];
+                  v38[1] = 3221225472;
+                  v38[2] = __25__PBItem_initWithObject___block_invoke_4;
+                  v38[3] = &unk_279A06B00;
+                  objc_copyWeak(&v39, &location);
+                  v38[4] = v26;
+                  v29 = [(PBItemRepresentation *)v28 initWithType:v26 preferredRepresentation:0 v3_loader:v38];
                   [(PBItem *)val itemQueue_setItemRepresentation:v29];
 
-                  objc_destroyWeak(&v40);
+                  objc_destroyWeak(&v39);
                 }
 
                 objc_autoreleasePoolPop(v27);
               }
 
-              v23 = [v22 countByEnumeratingWithState:&v41 objects:v57 count:16];
+              v23 = [v22 countByEnumeratingWithState:&v40 objects:v56 count:16];
             }
 
             while (v23);
           }
 
           objc_autoreleasePoolPop(context);
-          v19 = v37 + 1;
+          v19 = v36 + 1;
         }
 
-        while (v37 + 1 != v35);
-        v18 = [obj countByEnumeratingWithState:&v45 objects:v58 count:16];
+        while (v36 + 1 != v34);
+        v18 = [obj countByEnumeratingWithState:&v44 objects:v57 count:16];
       }
 
       while (v18);
@@ -741,7 +718,6 @@ uint64_t __42__PBItem_copyWithDoNothingRepresentations__block_invoke(uint64_t a1
     objc_destroyWeak(&location);
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return val;
 }
 
@@ -1004,10 +980,7 @@ void __50__PBItem_initWithContentsOfFileURL_type_outError___block_invoke_2(uint6
 
 uint64_t __25__PBItem_representations__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 48) allValues];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 48) allValues];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1390,50 +1363,48 @@ id __63__PBItem_addRepresentationType_preferredRepresentation_loader___block_inv
 
 - (void)itemQueue_registerLocalAvailableDerivedRepresentations
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = +[PBCoercionRegistry defaultRegistry];
   array = [(NSMutableOrderedSet *)self->_itemQueue_typeOrder array];
   v5 = [MEMORY[0x277CBEB58] setWithArray:array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   obj = array;
-  v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       v9 = 0;
       do
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = [(NSMutableDictionary *)self->_itemQueue_representationByType objectForKeyedSubscript:*(*(&v16 + 1) + 8 * v9)];
-        v13[0] = MEMORY[0x277D85DD0];
-        v13[1] = 3221225472;
-        v13[2] = __64__PBItem_itemQueue_registerLocalAvailableDerivedRepresentations__block_invoke;
-        v13[3] = &unk_279A06D58;
-        v14 = v5;
+        v10 = [(NSMutableDictionary *)self->_itemQueue_representationByType objectForKeyedSubscript:*(*(&v15 + 1) + 8 * v9)];
+        v12[0] = MEMORY[0x277D85DD0];
+        v12[1] = 3221225472;
+        v12[2] = __64__PBItem_itemQueue_registerLocalAvailableDerivedRepresentations__block_invoke;
+        v12[3] = &unk_279A06D58;
+        v13 = v5;
         selfCopy = self;
-        [v3 enumerateAvailableCoercionLoaderBlocksForRepresentation:v10 usingBlock:v13];
+        [v3 enumerateAvailableCoercionLoaderBlocksForRepresentation:v10 usingBlock:v12];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __64__PBItem_itemQueue_registerLocalAvailableDerivedRepresentations__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1723,7 +1694,7 @@ void __28__PBItem_visibilityForType___block_invoke(void *a1)
   return typeCopy;
 }
 
-uint64_t __34__PBItem_hasRepresentationOfType___block_invoke(uint64_t a1)
+void *__34__PBItem_hasRepresentationOfType___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) itemQueue_hasRepresentationOfType:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1732,34 +1703,34 @@ uint64_t __34__PBItem_hasRepresentationOfType___block_invoke(uint64_t a1)
 
 - (BOOL)itemQueue_hasRepresentationConformingToType:(id)type
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   typeCopy = type;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   itemQueue_typeOrder = [(PBItem *)self itemQueue_typeOrder];
-  v6 = [itemQueue_typeOrder countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [itemQueue_typeOrder countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(itemQueue_typeOrder);
         }
 
-        if (UTTypeConformsTo(*(*(&v11 + 1) + 8 * i), typeCopy))
+        if (UTTypeConformsTo(*(*(&v10 + 1) + 8 * i), typeCopy))
         {
           LOBYTE(v6) = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [itemQueue_typeOrder countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [itemQueue_typeOrder countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         continue;
@@ -1771,7 +1742,6 @@ uint64_t __34__PBItem_hasRepresentationOfType___block_invoke(uint64_t a1)
 
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1798,7 +1768,7 @@ LABEL_11:
   return typeCopy;
 }
 
-uint64_t __44__PBItem_hasRepresentationConformingToType___block_invoke(uint64_t a1)
+void *__44__PBItem_hasRepresentationConformingToType___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) itemQueue_hasRepresentationConformingToType:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1807,7 +1777,7 @@ uint64_t __44__PBItem_hasRepresentationConformingToType___block_invoke(uint64_t 
 
 - (BOOL)itemQueue_canInstantiateObjectOfClass:(Class)class excludingCoercionsFromTypes:(id)types
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   itemQueue_localObject = [(PBItem *)self itemQueue_localObject];
   isKindOfClass = objc_opt_isKindOfClass();
@@ -1820,26 +1790,26 @@ uint64_t __44__PBItem_hasRepresentationConformingToType___block_invoke(uint64_t 
   else
   {
     v10 = +[PBCoercionRegistry defaultRegistry];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     itemQueue_typeOrder = [(PBItem *)self itemQueue_typeOrder];
-    v12 = [itemQueue_typeOrder countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v12 = [itemQueue_typeOrder countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v20;
+      v14 = *v19;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v20 != v14)
+          if (*v19 != v14)
           {
             objc_enumerationMutation(itemQueue_typeOrder);
           }
 
-          v16 = *(*(&v19 + 1) + 8 * i);
+          v16 = *(*(&v18 + 1) + 8 * i);
           if ([typesCopy containsObject:v16] & 1) == 0 && (objc_msgSend(v10, "canCoerceFromRepresentationConformingToType:toObjectOfClass:", v16, class))
           {
             v9 = 1;
@@ -1847,7 +1817,7 @@ uint64_t __44__PBItem_hasRepresentationConformingToType___block_invoke(uint64_t 
           }
         }
 
-        v13 = [itemQueue_typeOrder countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v13 = [itemQueue_typeOrder countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v13)
         {
           continue;
@@ -1861,7 +1831,6 @@ uint64_t __44__PBItem_hasRepresentationConformingToType___block_invoke(uint64_t 
 LABEL_14:
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -1889,7 +1858,7 @@ LABEL_14:
   return class;
 }
 
-uint64_t __67__PBItem__canInstantiateObjectOfClass_excludingCoercionsFromTypes___block_invoke(uint64_t a1)
+void *__67__PBItem__canInstantiateObjectOfClass_excludingCoercionsFromTypes___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) itemQueue_canInstantiateObjectOfClass:*(a1 + 56) excludingCoercionsFromTypes:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1941,10 +1910,7 @@ uint64_t __67__PBItem__canInstantiateObjectOfClass_excludingCoercionsFromTypes__
 
 uint64_t __33__PBItem__representationForType___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) itemQueue_representationForType:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) itemQueue_representationForType:*(a1 + 40)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1996,10 +1962,7 @@ void __41__PBItem_representationConformingToType___block_invoke(uint64_t a1)
 
   if (*(*(*(a1 + 48) + 8) + 40))
   {
-    v8 = [*(a1 + 40) itemQueue_representationForType:?];
-    v9 = *(*(a1 + 56) + 8);
-    v10 = *(v9 + 40);
-    *(v9 + 40) = v8;
+    *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 40) itemQueue_representationForType:?];
 
     MEMORY[0x2821F96F8]();
   }
@@ -2007,7 +1970,7 @@ void __41__PBItem_representationConformingToType___block_invoke(uint64_t a1)
 
 - (id)_loadObjectOfClass:(Class)class context:(id)context completionBlock:(id)block
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   blockCopy = block;
   localObject = [(PBItem *)self localObject];
@@ -2028,16 +1991,16 @@ void __41__PBItem_representationConformingToType___block_invoke(uint64_t a1)
       goto LABEL_16;
     }
 
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __53__PBItem__loadObjectOfClass_context_completionBlock___block_invoke;
-    v41[3] = &unk_279A06B28;
-    v43 = blockCopy;
-    v42 = localObject;
-    PBDispatchAsyncCallback(v41);
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __53__PBItem__loadObjectOfClass_context_completionBlock___block_invoke;
+    v40[3] = &unk_279A06B28;
+    v42 = blockCopy;
+    v41 = localObject;
+    PBDispatchAsyncCallback(v40);
 
     v13 = 0;
-    v14 = v43;
+    v14 = v42;
   }
 
   else
@@ -2045,16 +2008,16 @@ void __41__PBItem_representationConformingToType___block_invoke(uint64_t a1)
     v15 = +[PBCoercionRegistry defaultRegistry];
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v49 = 0x3032000000;
-    v50 = __Block_byref_object_copy__1;
-    v51 = __Block_byref_object_dispose__1;
-    v52 = 0;
-    v39[0] = 0;
-    v39[1] = v39;
-    v39[2] = 0x3032000000;
-    v39[3] = __Block_byref_object_copy__1;
-    v39[4] = __Block_byref_object_dispose__1;
-    v40 = 0;
+    v48 = 0x3032000000;
+    v49 = __Block_byref_object_copy__1;
+    v50 = __Block_byref_object_dispose__1;
+    v51 = 0;
+    v38[0] = 0;
+    v38[1] = v38;
+    v38[2] = 0x3032000000;
+    v38[3] = __Block_byref_object_copy__1;
+    v38[4] = __Block_byref_object_dispose__1;
+    v39 = 0;
     v16 = PBItemQueue();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
@@ -2063,25 +2026,25 @@ void __41__PBItem_representationConformingToType___block_invoke(uint64_t a1)
     v17 = v15;
     p_buf = &buf;
     classCopy = class;
-    v34 = v17;
+    v33 = v17;
     selfCopy = self;
-    v36 = v39;
+    v35 = v38;
     dispatch_sync(v16, block);
 
     v18 = *(*(&buf + 1) + 40);
     if (v18)
     {
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __53__PBItem__loadObjectOfClass_context_completionBlock___block_invoke_3;
-      v28[3] = &unk_279A06E20;
-      v29 = v17;
-      v31 = v39;
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __53__PBItem__loadObjectOfClass_context_completionBlock___block_invoke_3;
+      v27[3] = &unk_279A06E20;
+      v28 = v17;
+      v30 = v38;
       classCopy2 = class;
-      v30 = blockCopy;
-      v19 = [v18 loadDataWithContext:contextCopy completion:v28];
+      v29 = blockCopy;
+      v19 = [v18 loadDataWithContext:contextCopy completion:v27];
 
-      v20 = v29;
+      v20 = v28;
     }
 
     else
@@ -2090,38 +2053,37 @@ void __41__PBItem_representationConformingToType___block_invoke(uint64_t a1)
       v21 = _PBLog();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        v24 = NSStringFromClass(class);
-        *v44 = 138412546;
-        v45 = v24;
-        v46 = 2112;
-        v47 = v20;
-        _os_log_error_impl(&dword_25E138000, v21, OS_LOG_TYPE_ERROR, "There are no representations available to instantiate a class of type %@: %@", v44, 0x16u);
+        v23 = NSStringFromClass(class);
+        *v43 = 138412546;
+        v44 = v23;
+        v45 = 2112;
+        v46 = v20;
+        _os_log_error_impl(&dword_25E138000, v21, OS_LOG_TYPE_ERROR, "There are no representations available to instantiate a class of type %@: %@", v43, 0x16u);
       }
 
       if (blockCopy)
       {
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __53__PBItem__loadObjectOfClass_context_completionBlock___block_invoke_53;
-        v25[3] = &unk_279A06B28;
-        v27 = blockCopy;
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __53__PBItem__loadObjectOfClass_context_completionBlock___block_invoke_53;
+        v24[3] = &unk_279A06B28;
+        v26 = blockCopy;
         v20 = v20;
-        v26 = v20;
-        PBDispatchAsyncCallback(v25);
+        v25 = v20;
+        PBDispatchAsyncCallback(v24);
       }
 
       v19 = 0;
     }
 
     v14 = v19;
-    _Block_object_dispose(v39, 8);
+    _Block_object_dispose(v38, 8);
 
     _Block_object_dispose(&buf, 8);
     v13 = v14;
   }
 
 LABEL_16:
-  v22 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -2554,7 +2516,7 @@ LABEL_14:
   _Block_object_dispose(&v48, 8);
 }
 
-uint64_t __26__PBItem_encodeWithCoder___block_invoke(uint64_t a1)
+void *__26__PBItem_encodeWithCoder___block_invoke(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 56) array];
   v3 = *(*(a1 + 40) + 8);
@@ -2595,7 +2557,7 @@ uint64_t __26__PBItem_encodeWithCoder___block_invoke(uint64_t a1)
 
 - (void)itemQueue_setDataTransferDelegate:(id)delegate
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   if (delegateCopy)
   {
@@ -2608,36 +2570,35 @@ uint64_t __26__PBItem_encodeWithCoder___block_invoke(uint64_t a1)
   }
 
   v6 = selfCopy;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   allValues = [(NSMutableDictionary *)self->_itemQueue_representationByType allValues];
-  v8 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v13 + 1) + 8 * i) setDataTransferDelegate:v6];
+        [*(*(&v12 + 1) + 8 * i) setDataTransferDelegate:v6];
       }
 
-      v9 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
 
   objc_storeWeak(&self->_itemQueue_dataTransferDelegate, delegateCopy);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDataTransferDelegate:(id)delegate
@@ -2679,10 +2640,7 @@ uint64_t __26__PBItem_encodeWithCoder___block_invoke(uint64_t a1)
 
 uint64_t __30__PBItem_dataTransferDelegate__block_invoke(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 32));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = WeakRetained;
+  *(*(*(a1 + 40) + 8) + 40) = objc_loadWeakRetained((*(a1 + 32) + 32));
 
   return MEMORY[0x2821F96F8]();
 }
@@ -2731,28 +2689,28 @@ uint64_t __30__PBItem_dataTransferDelegate__block_invoke(uint64_t a1)
 
 void __59__PBItem_enumeratePatternDetectionsForPatterns_usingBlock___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
-        v8 = [*(a1 + 40) objectForKeyedSubscript:{v7, v10}];
+        v7 = *(*(&v9 + 1) + 8 * i);
+        v8 = [*(a1 + 40) objectForKeyedSubscript:{v7, v9}];
         if (v8)
         {
           (*(*(a1 + 56) + 16))();
@@ -2764,13 +2722,11 @@ void __59__PBItem_enumeratePatternDetectionsForPatterns_usingBlock___block_invok
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addPatternDetections:(id)detections
@@ -2792,21 +2748,19 @@ void __59__PBItem_enumeratePatternDetectionsForPatterns_usingBlock___block_invok
 
 void __31__PBItem_addPatternDetections___block_invoke(id *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [a1[4] addEntriesFromDictionary:a1[5]];
   v2 = _PBLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v4 = [a1[5] count];
-    v5 = [a1[6] UUID];
-    v6 = 134218242;
-    v7 = v4;
-    v8 = 2112;
-    v9 = v5;
-    _os_log_debug_impl(&dword_25E138000, v2, OS_LOG_TYPE_DEBUG, "Cached %lu detected patterns on item with UUID %@", &v6, 0x16u);
+    v3 = [a1[5] count];
+    v4 = [a1[6] UUID];
+    v5 = 134218242;
+    v6 = v3;
+    v7 = 2112;
+    v8 = v4;
+    _os_log_debug_impl(&dword_25E138000, v2, OS_LOG_TYPE_DEBUG, "Cached %lu detected patterns on item with UUID %@", &v5, 0x16u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description
@@ -2830,33 +2784,33 @@ void __31__PBItem_addPatternDetections___block_invoke(id *a1)
 
 - (PBItem)initWithNSItemProvider:(id)provider
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   if (providerCopy)
   {
-    v30 = [(PBItem *)self init];
-    if (v30)
+    v29 = [(PBItem *)self init];
+    if (v29)
     {
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
       v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
       obj = [providerCopy registeredTypeIdentifiers];
-      v5 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v5 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
       if (v5)
       {
         v6 = v5;
-        v7 = *v36;
+        v7 = *v35;
         do
         {
           for (i = 0; i != v6; ++i)
           {
-            if (*v36 != v7)
+            if (*v35 != v7)
             {
               objc_enumerationMutation(obj);
             }
 
-            v9 = [providerCopy _representationConformingToType:*(*(&v35 + 1) + 8 * i)];
+            v9 = [providerCopy _representationConformingToType:*(*(&v34 + 1) + 8 * i)];
             if (v9)
             {
               v10 = [[PBItemRepresentation alloc] initWithNSItemRepresentation:v9];
@@ -2868,11 +2822,11 @@ void __31__PBItem_addPatternDetections___block_invoke(id *a1)
                 [(PBItemRepresentation *)v10 setIsDataAvailableImmediately:v12];
               }
 
-              [(PBItem *)v30 addRepresentation:v10];
+              [(PBItem *)v29 addRepresentation:v10];
             }
           }
 
-          v6 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+          v6 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
         }
 
         while (v6);
@@ -2900,26 +2854,26 @@ void __31__PBItem_addPatternDetections___block_invoke(id *a1)
       [v17 setObject:v19 forKeyedSubscript:@"com.apple.Pasteboard.suggestedName"];
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v20 = PBNSIPTopLevelMetadataKeys();
-    v21 = [v20 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v30 objects:v38 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v32;
+      v23 = *v31;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v32 != v23)
+          if (*v31 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v31 + 1) + 8 * j);
+          v25 = *(*(&v30 + 1) + 8 * j);
           v26 = [providerCopy _metadataValueForKey:v25];
           if (v26)
           {
@@ -2927,14 +2881,14 @@ void __31__PBItem_addPatternDetections___block_invoke(id *a1)
           }
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v30 objects:v38 count:16];
       }
 
       while (v22);
     }
 
-    [(PBItem *)v30 setMetadata:v17];
-    self = v30;
+    [(PBItem *)v29 setMetadata:v17];
+    self = v29;
 
     selfCopy = self;
   }
@@ -2944,7 +2898,6 @@ void __31__PBItem_addPatternDetections___block_invoke(id *a1)
     selfCopy = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

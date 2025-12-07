@@ -1,10 +1,34 @@
 @interface ANCCallAlert
+- (ANCCallAlert)initWithCall:(id)call callCenter:(id)center categoryID:(unsigned __int8)d;
 - (id)appIdentifier;
 - (id)subtitle;
 - (id)title;
 @end
 
 @implementation ANCCallAlert
+
+- (ANCCallAlert)initWithCall:(id)call callCenter:(id)center categoryID:(unsigned __int8)d
+{
+  dCopy = d;
+  callCopy = call;
+  centerCopy = center;
+  v16.receiver = self;
+  v16.super_class = ANCCallAlert;
+  v11 = [(ANCAlert *)&v16 initWithCategoryID:dCopy];
+  v12 = v11;
+  if (v11)
+  {
+    objc_storeStrong(v11 + 2, call);
+    objc_storeStrong(&v12->_call, center);
+    v13 = +[NSDate date];
+    callCenter = v12->_callCenter;
+    v12->_callCenter = v13;
+
+    *(&v12->super._silent + 1) = dCopy;
+  }
+
+  return v12;
+}
 
 - (id)appIdentifier
 {

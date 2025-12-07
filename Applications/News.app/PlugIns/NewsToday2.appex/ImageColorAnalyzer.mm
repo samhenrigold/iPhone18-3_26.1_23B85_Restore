@@ -123,11 +123,11 @@ LABEL_16:
 {
   imageCopy = image;
   cGImage = [image CGImage];
-  SRGB = CGColorSpaceGetSRGB();
+  SRGB = CGColorSpaceGetSRGB(cGImage, v7);
   if (SRGB)
   {
     CopyWithColorSpace = CGImageCreateCopyWithColorSpace(cGImage, SRGB);
-    v9 = CopyWithColorSpace;
+    v10 = CopyWithColorSpace;
     if (CopyWithColorSpace)
     {
       cGImage = CopyWithColorSpace;
@@ -136,30 +136,30 @@ LABEL_16:
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  v10 = TSDBitmapContextCreate(3, 102.0, 102.0);
-  CGContextSetInterpolationQuality(v10, kCGInterpolationHigh);
+  v11 = TSDBitmapContextCreate(3, 102.0, 102.0);
+  CGContextSetInterpolationQuality(v11, kCGInterpolationHigh);
+  if (v11)
+  {
+    v13.origin.x = CGPointZero.x;
+    v13.origin.y = CGPointZero.y;
+    v13.size.width = 102.0;
+    v13.size.height = 102.0;
+    CGContextDrawImage(v11, v13, cGImage);
+  }
+
   if (v10)
   {
-    v12.origin.x = CGPointZero.x;
-    v12.origin.y = CGPointZero.y;
-    v12.size.width = 102.0;
-    v12.size.height = 102.0;
-    CGContextDrawImage(v10, v12, cGImage);
+    CGImageRelease(v10);
   }
 
-  if (v9)
-  {
-    CGImageRelease(v9);
-  }
-
-  AnalyzeImagePlease(v10, &self->_analyzedColors);
-  if (v10)
+  AnalyzeImagePlease(v11, &self->_analyzedColors);
+  if (v11)
   {
 
-    CGContextRelease(v10);
+    CGContextRelease(v11);
   }
 }
 

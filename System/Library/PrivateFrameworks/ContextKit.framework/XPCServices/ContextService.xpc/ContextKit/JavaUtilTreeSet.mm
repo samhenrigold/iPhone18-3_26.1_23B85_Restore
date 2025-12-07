@@ -15,12 +15,15 @@
 - (id)descendingSet;
 - (id)first;
 - (id)floorWithId:(id)id;
+- (id)headSetWithId:(id)id withBoolean:(BOOL)boolean;
 - (id)higherWithId:(id)id;
 - (id)iterator;
 - (id)last;
 - (id)lowerWithId:(id)id;
 - (id)pollFirst;
 - (id)pollLast;
+- (id)subSetWithId:(id)id withBoolean:(BOOL)boolean withId:(id)withId withBoolean:(BOOL)withBoolean;
+- (id)tailSetWithId:(id)id withBoolean:(BOOL)boolean;
 - (int)size;
 - (unint64_t)countByEnumeratingWithState:(id *)state objects:(id *)objects count:(unint64_t)count;
 - (void)clear;
@@ -101,7 +104,6 @@ LABEL_13:
     JreThrowClassCastException();
   }
 
-  backingMap = self->backingMap_;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -121,9 +123,9 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v5 = self->backingMap_;
+  backingMap = self->backingMap_;
   objc_opt_class();
-  if (!v5)
+  if (!backingMap)
   {
     goto LABEL_14;
   }
@@ -133,8 +135,8 @@ LABEL_14:
     goto LABEL_13;
   }
 
-  clone2 = [(JavaUtilNavigableMap *)v5 clone];
-  v7 = JavaUtilNavigableMap_class_();
+  clone2 = [(JavaUtilNavigableMap *)backingMap clone];
+  v7 = JavaUtilNavigableMap_class_(clone2, v6);
   if (clone2)
   {
     if (![v7 isInstance:clone2])
@@ -345,6 +347,118 @@ LABEL_14:
   return result;
 }
 
+- (id)subSetWithId:(id)id withBoolean:(BOOL)boolean withId:(id)withId withBoolean:(BOOL)withBoolean
+{
+  backingMap = self->backingMap_;
+  if (!backingMap)
+  {
+    goto LABEL_11;
+  }
+
+  withBooleanCopy = withBoolean;
+  booleanCopy = boolean;
+  comparator = [(JavaUtilNavigableMap *)backingMap comparator];
+  if (comparator)
+  {
+    v14 = [comparator compareWithId:id withId:withId];
+    goto LABEL_7;
+  }
+
+  v15 = JavaLangComparable_class_(0, v13);
+  if (!id)
+  {
+LABEL_11:
+    JreThrowNullPointerException();
+  }
+
+  if (([v15 isInstance:id] & 1) == 0)
+  {
+    JreThrowClassCastException();
+  }
+
+  v14 = [id compareToWithId:withId];
+LABEL_7:
+  if (v14 > 0)
+  {
+    v18 = new_JavaLangIllegalArgumentException_init();
+    objc_exception_throw(v18);
+  }
+
+  v16 = new_JavaUtilTreeSet_initWithJavaUtilNavigableMap_([(JavaUtilNavigableMap *)self->backingMap_ subMapWithId:id withBoolean:booleanCopy withId:withId withBoolean:withBooleanCopy]);
+
+  return v16;
+}
+
+- (id)headSetWithId:(id)id withBoolean:(BOOL)boolean
+{
+  backingMap = self->backingMap_;
+  if (!backingMap)
+  {
+    goto LABEL_10;
+  }
+
+  booleanCopy = boolean;
+  comparator = [(JavaUtilNavigableMap *)backingMap comparator];
+  if (comparator)
+  {
+    [comparator compareWithId:id withId:id];
+    goto LABEL_7;
+  }
+
+  v10 = JavaLangComparable_class_(0, v9);
+  if (!id)
+  {
+LABEL_10:
+    JreThrowNullPointerException();
+  }
+
+  if (([v10 isInstance:id] & 1) == 0)
+  {
+    JreThrowClassCastException();
+  }
+
+  [id compareToWithId:id];
+LABEL_7:
+  v11 = new_JavaUtilTreeSet_initWithJavaUtilNavigableMap_([(JavaUtilNavigableMap *)self->backingMap_ headMapWithId:id withBoolean:booleanCopy]);
+
+  return v11;
+}
+
+- (id)tailSetWithId:(id)id withBoolean:(BOOL)boolean
+{
+  backingMap = self->backingMap_;
+  if (!backingMap)
+  {
+    goto LABEL_10;
+  }
+
+  booleanCopy = boolean;
+  comparator = [(JavaUtilNavigableMap *)backingMap comparator];
+  if (comparator)
+  {
+    [comparator compareWithId:id withId:id];
+    goto LABEL_7;
+  }
+
+  v10 = JavaLangComparable_class_(0, v9);
+  if (!id)
+  {
+LABEL_10:
+    JreThrowNullPointerException();
+  }
+
+  if (([v10 isInstance:id] & 1) == 0)
+  {
+    JreThrowClassCastException();
+  }
+
+  [id compareToWithId:id];
+LABEL_7:
+  v11 = new_JavaUtilTreeSet_initWithJavaUtilNavigableMap_([(JavaUtilNavigableMap *)self->backingMap_ tailMapWithId:id withBoolean:booleanCopy]);
+
+  return v11;
+}
+
 - (void)writeObjectWithJavaIoObjectOutputStream:(id)stream
 {
   if (!stream)
@@ -395,17 +509,17 @@ LABEL_9:
 
   [stream defaultReadObject];
   readObject = [stream readObject];
-  v6 = JavaUtilComparator_class_();
-  if (readObject && ([v6 isInstance:readObject] & 1) == 0)
+  v7 = JavaUtilComparator_class_(readObject, v6);
+  if (readObject && ([v7 isInstance:readObject] & 1) == 0)
   {
     JreThrowClassCastException();
   }
 
-  v7 = new_JavaUtilTreeMap_initWithJavaUtilComparator_(readObject);
+  v8 = new_JavaUtilTreeMap_initWithJavaUtilComparator_(readObject);
   readInt = [stream readInt];
   if (readInt >= 1)
   {
-    v9 = readInt;
+    v10 = readInt;
     do
     {
       readObject2 = [stream readObject];
@@ -414,14 +528,14 @@ LABEL_9:
         sub_100129828();
       }
 
-      [(JavaUtilTreeMap *)v7 putWithId:readObject2 withId:JavaLangBoolean_TRUE__];
-      --v9;
+      [(JavaUtilTreeMap *)v8 putWithId:readObject2 withId:JavaLangBoolean_TRUE__];
+      --v10;
     }
 
-    while (v9);
+    while (v10);
   }
 
-  JreStrongAssign(&self->backingMap_, v7);
+  JreStrongAssign(&self->backingMap_, v8);
 }
 
 - (void)dealloc

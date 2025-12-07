@@ -49,28 +49,28 @@
 
 - (id)_eventStreamForName:(id)name orKBName:(id)bName
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   bNameCopy = bName;
-  v70 = 0;
-  v71 = &v70;
-  v72 = 0x3032000000;
-  v73 = __Block_byref_object_copy__1;
-  v74 = __Block_byref_object_dispose__1;
-  v75 = 0;
+  v69 = 0;
+  v70 = &v69;
+  v71 = 0x3032000000;
+  v72 = __Block_byref_object_copy__1;
+  v73 = __Block_byref_object_dispose__1;
+  v74 = 0;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v49 = nameCopy;
-  v50 = bNameCopy;
-  v48 = (nameCopy | bNameCopy) == 0;
+  v48 = nameCopy;
+  v49 = bNameCopy;
+  v47 = (nameCopy | bNameCopy) == 0;
   obj = &selfCopy->super.isa;
   if (nameCopy | bNameCopy)
   {
     if (nameCopy)
     {
       v9 = [(NSDictionary *)selfCopy->_allEventStreams objectForKeyedSubscript:nameCopy];
-      v10 = v71[5];
-      v71[5] = v9;
+      v10 = v70[5];
+      v70[5] = v9;
     }
 
     else
@@ -81,14 +81,14 @@
       }
 
       v11 = [(NSDictionary *)selfCopy->_allKBEventStreams objectForKeyedSubscript:bNameCopy];
-      v12 = v71[5];
-      v71[5] = v11;
+      v12 = v70[5];
+      v70[5] = v11;
     }
 
-    v13 = v71[5];
+    v13 = v70[5];
     if (v13)
     {
-      v44 = v13;
+      v43 = v13;
       goto LABEL_11;
     }
   }
@@ -97,7 +97,7 @@
   {
     if ([(_CDEventStreams *)selfCopy allStreamsLoaded])
     {
-      v44 = 0;
+      v43 = 0;
 LABEL_11:
       objc_sync_exit(selfCopy);
 
@@ -109,8 +109,8 @@ LABEL_11:
 
 LABEL_12:
   array = [MEMORY[0x1E695DF70] array];
-  v42 = +[_CDPaths eventPlistPath];
-  if (v42)
+  v41 = +[_CDPaths eventPlistPath];
+  if (v41)
   {
     [array addObject:?];
   }
@@ -124,30 +124,30 @@ LABEL_12:
     }
   }
 
-  v47 = obj[2];
-  v46 = obj[3];
+  v46 = obj[2];
+  v45 = obj[3];
+  v65 = 0u;
   v66 = 0u;
   v67 = 0u;
   v68 = 0u;
-  v69 = 0u;
-  v45 = array;
-  v16 = [v45 countByEnumeratingWithState:&v66 objects:v81 count:16];
+  v44 = array;
+  v16 = [v44 countByEnumeratingWithState:&v65 objects:v80 count:16];
   if (v16)
   {
-    v53 = 0;
-    v51 = *v67;
+    v52 = 0;
+    v50 = *v66;
     while (2)
     {
       v17 = 0;
-      v52 = v16;
+      v51 = v16;
       do
       {
-        if (*v67 != v51)
+        if (*v66 != v50)
         {
-          objc_enumerationMutation(v45);
+          objc_enumerationMutation(v44);
         }
 
-        v18 = *(*(&v66 + 1) + 8 * v17);
+        v18 = *(*(&v65 + 1) + 8 * v17);
         v19 = objc_autoreleasePoolPush();
         v20 = [MEMORY[0x1E695DF70] arrayWithContentsOfFile:v18];
         if ([v20 count])
@@ -157,25 +157,25 @@ LABEL_12:
 
           if (v22)
           {
-            v65 = 0u;
-            v63 = 0u;
             v64 = 0u;
             v62 = 0u;
+            v63 = 0u;
+            v61 = 0u;
             v23 = v20;
-            v24 = [v23 countByEnumeratingWithState:&v62 objects:v80 count:16];
+            v24 = [v23 countByEnumeratingWithState:&v61 objects:v79 count:16];
             if (v24)
             {
-              v25 = *v63;
+              v25 = *v62;
               while (2)
               {
                 for (i = 0; i != v24; ++i)
                 {
-                  if (*v63 != v25)
+                  if (*v62 != v25)
                   {
                     objc_enumerationMutation(v23);
                   }
 
-                  v27 = *(*(&v62 + 1) + 8 * i);
+                  v27 = *(*(&v61 + 1) + 8 * i);
                   v28 = [v27 objectForKeyedSubscript:kCDESPEventNameKey];
                   v29 = [v28 isEqualToString:@"Default"];
 
@@ -183,12 +183,12 @@ LABEL_12:
                   {
                     v32 = [_CDEventStreamProperties eventStreamPropertiesFromDictionary:v27];
 
-                    v53 = v32;
+                    v52 = v32;
                     goto LABEL_37;
                   }
                 }
 
-                v24 = [v23 countByEnumeratingWithState:&v62 objects:v80 count:16];
+                v24 = [v23 countByEnumeratingWithState:&v61 objects:v79 count:16];
                 if (v24)
                 {
                   continue;
@@ -204,23 +204,23 @@ LABEL_37:
             [v23 filterUsingPredicate:kCDESPEventNameKey];
           }
 
-          v54[0] = MEMORY[0x1E69E9820];
-          v54[1] = 3221225472;
-          v54[2] = __48___CDEventStreams__eventStreamForName_orKBName___block_invoke;
-          v54[3] = &unk_1E7367738;
-          v61 = v48;
+          v53[0] = MEMORY[0x1E69E9820];
+          v53[1] = 3221225472;
+          v53[2] = __48___CDEventStreams__eventStreamForName_orKBName___block_invoke;
+          v53[3] = &unk_1E7367738;
+          v60 = v47;
+          v54 = v48;
           v55 = v49;
-          v56 = v50;
-          v53 = v53;
-          v57 = v53;
-          v58 = v47;
-          v59 = v46;
-          v60 = &v70;
-          [v20 enumerateObjectsUsingBlock:v54];
-          v34 = v71[5];
+          v52 = v52;
+          v56 = v52;
+          v57 = v46;
+          v58 = v45;
+          v59 = &v69;
+          [v20 enumerateObjectsUsingBlock:v53];
+          v34 = v70[5];
           if (v34)
           {
-            v44 = v34;
+            v43 = v34;
             v31 = 1;
           }
 
@@ -229,7 +229,7 @@ LABEL_37:
             v31 = 0;
           }
 
-          v30 = v55;
+          v30 = v54;
         }
 
         else
@@ -238,7 +238,7 @@ LABEL_37:
           if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v77 = v18;
+            v76 = v18;
             _os_log_error_impl(&dword_191750000, v30, OS_LOG_TYPE_ERROR, "Unable to load plist from path: %@", buf, 0xCu);
           }
 
@@ -256,8 +256,8 @@ LABEL_37:
         ++v17;
       }
 
-      while (v17 != v52);
-      v16 = [v45 countByEnumeratingWithState:&v66 objects:v81 count:16];
+      while (v17 != v51);
+      v16 = [v44 countByEnumeratingWithState:&v65 objects:v80 count:16];
       if (v16)
       {
         continue;
@@ -269,11 +269,11 @@ LABEL_37:
 
   else
   {
-    v53 = 0;
+    v52 = 0;
   }
 
-  v36 = v48;
-  if (v71[5])
+  v36 = v47;
+  if (v70[5])
   {
     v36 = 1;
   }
@@ -284,24 +284,24 @@ LABEL_37:
     if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v77 = v49;
-      v78 = 2112;
-      v79 = v50;
+      v76 = v48;
+      v77 = 2112;
+      v78 = v49;
       _os_log_impl(&dword_191750000, v37, OS_LOG_TYPE_DEFAULT, "unable to find stream (%@, %@) in event stream plists.", buf, 0x16u);
     }
 
     v38 = [_CDEventStream eventStreamWithProperties:0];
-    v39 = v71[5];
-    v71[5] = v38;
+    v39 = v70[5];
+    v70[5] = v38;
+
+    if (v48)
+    {
+      [v46 setObject:v70[5] forKeyedSubscript:v48];
+    }
 
     if (v49)
     {
-      [v47 setObject:v71[5] forKeyedSubscript:v49];
-    }
-
-    if (v50)
-    {
-      [v46 setObject:v71[5] forKeyedSubscript:?];
+      [v45 setObject:v70[5] forKeyedSubscript:?];
     }
   }
 
@@ -311,15 +311,13 @@ LABEL_59:
   objc_sync_exit(obj);
   if (v35)
   {
-    v44 = v71[5];
+    v43 = v70[5];
   }
 
 LABEL_61:
-  _Block_object_dispose(&v70, 8);
+  _Block_object_dispose(&v69, 8);
 
-  v40 = *MEMORY[0x1E69E9840];
-
-  return v44;
+  return v43;
 }
 
 + (void)loadAllEventStreams
@@ -409,32 +407,32 @@ LABEL_61:
 
 + (id)ephemeralitySchedule
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v2 = +[_CDEventStreams sharedInstance];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v21 = v2;
+  v20 = v2;
   allKBEventStreams = [v2 allKBEventStreams];
   allValues = [allKBEventStreams allValues];
 
-  v6 = [allValues countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         eventStreamProperties = [v10 eventStreamProperties];
         knowledgeBaseName = [eventStreamProperties knowledgeBaseName];
 
@@ -461,13 +459,11 @@ LABEL_61:
         }
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v7);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

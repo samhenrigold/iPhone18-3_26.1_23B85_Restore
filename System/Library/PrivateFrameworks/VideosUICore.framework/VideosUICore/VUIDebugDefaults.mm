@@ -26,10 +26,10 @@ uint64_t __34__VUIDebugDefaults_sharedInstance__block_invoke()
 
 - (VUIDebugDefaults)init
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v37.receiver = self;
-  v37.super_class = VUIDebugDefaults;
-  v2 = [(VUIDebugDefaults *)&v37 init];
+  v44 = *MEMORY[0x277D85DE8];
+  v41.receiver = self;
+  v41.super_class = VUIDebugDefaults;
+  v2 = [(VUIDebugDefaults *)&v41 init];
   if (v2)
   {
     standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
@@ -110,40 +110,40 @@ uint64_t __34__VUIDebugDefaults_sharedInstance__block_invoke()
     standardUserDefaults23 = [MEMORY[0x277CBEBD0] standardUserDefaults];
     v2->_overrideLastNLSQueryDate = [standardUserDefaults23 integerForKey:@"OverrideLastNLSQueryDate"];
 
-    v28 = VUICDefaultLogObject();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v29 = VUICDefaultLogObject(v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       hoverEffectDisabled = v2->_hoverEffectDisabled;
       *buf = 67109120;
-      v39 = hoverEffectDisabled;
-      _os_log_impl(&dword_270E6E000, v28, OS_LOG_TYPE_DEFAULT, "DebugDefault:: hoverEffectDisabled: %d", buf, 8u);
+      v43 = hoverEffectDisabled;
+      _os_log_impl(&dword_270E6E000, v29, OS_LOG_TYPE_DEFAULT, "DebugDefault:: hoverEffectDisabled: %d", buf, 8u);
     }
 
-    v30 = VUICDefaultLogObject();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v32 = VUICDefaultLogObject(v31);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       vStackInForEachEnabled = v2->_vStackInForEachEnabled;
       *buf = 67109120;
-      v39 = vStackInForEachEnabled;
-      _os_log_impl(&dword_270E6E000, v30, OS_LOG_TYPE_DEFAULT, "DebugDefault:: vStackInForEachEnabled: %d", buf, 8u);
+      v43 = vStackInForEachEnabled;
+      _os_log_impl(&dword_270E6E000, v32, OS_LOG_TYPE_DEFAULT, "DebugDefault:: vStackInForEachEnabled: %d", buf, 8u);
     }
 
-    v32 = VUICDefaultLogObject();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v35 = VUICDefaultLogObject(v34);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       impressionTrackingDisabled = v2->_impressionTrackingDisabled;
       *buf = 67109120;
-      v39 = impressionTrackingDisabled;
-      _os_log_impl(&dword_270E6E000, v32, OS_LOG_TYPE_DEFAULT, "DebugDefault:: impressionTrackingDisabled: %d", buf, 8u);
+      v43 = impressionTrackingDisabled;
+      _os_log_impl(&dword_270E6E000, v35, OS_LOG_TYPE_DEFAULT, "DebugDefault:: impressionTrackingDisabled: %d", buf, 8u);
     }
 
-    v34 = VUICDefaultLogObject();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v38 = VUICDefaultLogObject(v37);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
       stackedTextUseTypeAsViewIdEnabled = v2->_stackedTextUseTypeAsViewIdEnabled;
       *buf = 67109120;
-      v39 = stackedTextUseTypeAsViewIdEnabled;
-      _os_log_impl(&dword_270E6E000, v34, OS_LOG_TYPE_DEFAULT, "DebugDefault:: stackedTextUseTypeAsViewIdEnabled: %d", buf, 8u);
+      v43 = stackedTextUseTypeAsViewIdEnabled;
+      _os_log_impl(&dword_270E6E000, v38, OS_LOG_TYPE_DEFAULT, "DebugDefault:: stackedTextUseTypeAsViewIdEnabled: %d", buf, 8u);
     }
   }
 

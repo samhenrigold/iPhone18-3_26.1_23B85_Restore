@@ -12,7 +12,7 @@
 {
   if (self)
   {
-    if ((*(self + 8) & 8) != 0)
+    if ((self[1] & 8) != 0)
     {
       if ((*(self + 12) & 8) != 0)
       {
@@ -40,15 +40,15 @@ LABEL_10:
         v5 = 0;
       }
 
-      selfCopy[12] = selfCopy[12] & 0xF7 | v5;
-      selfCopy[8] |= 8u;
+      *(selfCopy + 12) = *(selfCopy + 12) & 0xF7 | v5;
+      *(selfCopy + 8) |= 8u;
       if (v5)
       {
         goto LABEL_4;
       }
     }
 
-    self = [(NWURLSessionDelegateWrapper *)*(self + 4) delegateFor_didCreateTask];
+    self = [(NWURLSessionDelegateWrapper *)self[4] delegateFor_didCreateTask];
     goto LABEL_10;
   }
 
@@ -61,7 +61,7 @@ LABEL_11:
 {
   if (self)
   {
-    if ((*(self + 8) & 2) != 0)
+    if ((self[1] & 2) != 0)
     {
       if ((*(self + 12) & 2) != 0)
       {
@@ -89,15 +89,15 @@ LABEL_10:
         v5 = 0;
       }
 
-      selfCopy[12] = selfCopy[12] & 0xFD | v5;
-      selfCopy[8] |= 2u;
+      *(selfCopy + 12) = *(selfCopy + 12) & 0xFD | v5;
+      *(selfCopy + 8) |= 2u;
       if (v5)
       {
         goto LABEL_4;
       }
     }
 
-    self = [(NWURLSessionDelegateWrapper *)*(self + 4) delegateFor_sessionDidReceiveChallenge];
+    self = [(NWURLSessionDelegateWrapper *)self[4] delegateFor_sessionDidReceiveChallenge];
     goto LABEL_10;
   }
 
@@ -138,9 +138,9 @@ LABEL_10:
         v5 = 0;
       }
 
-      v6 = v5 & 0x80 | selfCopy[12] & 0x7F;
-      selfCopy[12] = v6;
-      selfCopy[8] |= 0x80u;
+      v6 = v5 & 0x80 | *(selfCopy + 12) & 0x7F;
+      *(selfCopy + 12) = v6;
+      *(selfCopy + 8) |= 0x80u;
       if ((v6 & 0x80) == 0)
       {
         goto LABEL_4;
@@ -188,15 +188,15 @@ LABEL_10:
         v5 = 0;
       }
 
-      selfCopy[14] = selfCopy[14] & 0xDF | v5;
-      selfCopy[10] |= 0x20u;
+      *(selfCopy + 14) = *(selfCopy + 14) & 0xDF | v5;
+      *(selfCopy + 10) |= 0x20u;
       if (v5)
       {
         goto LABEL_4;
       }
     }
 
-    self = [(NWURLSessionDelegateWrapper *)*(self + 4) delegateFor_willCacheResponse];
+    self = [(NWURLSessionDelegateWrapper *)self[4] delegateFor_willCacheResponse];
     goto LABEL_10;
   }
 
@@ -237,15 +237,15 @@ LABEL_10:
         v5 = 0;
       }
 
-      selfCopy[13] = selfCopy[13] & 0xF7 | v5;
-      selfCopy[9] |= 8u;
+      *(selfCopy + 13) = *(selfCopy + 13) & 0xF7 | v5;
+      *(selfCopy + 9) |= 8u;
       if (v5)
       {
         goto LABEL_4;
       }
     }
 
-    self = [(NWURLSessionDelegateWrapper *)*(self + 4) delegateFor_didFinishCollectingMetrics];
+    self = [(NWURLSessionDelegateWrapper *)self[4] delegateFor_didFinishCollectingMetrics];
     goto LABEL_10;
   }
 

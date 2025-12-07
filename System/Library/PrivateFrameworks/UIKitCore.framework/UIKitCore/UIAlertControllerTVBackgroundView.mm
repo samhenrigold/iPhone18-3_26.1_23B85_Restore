@@ -12,7 +12,7 @@ uint64_t __53___UIAlertControllerTVBackgroundView_setHighlighted___block_invoke(
   return [v2 setShouldShowShadow:v3];
 }
 
-uint64_t __49___UIAlertControllerTVBackgroundView_setPressed___block_invoke(uint64_t a1)
+void *__49___UIAlertControllerTVBackgroundView_setPressed___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 432) setAlpha:*(a1 + 40)];
   result = [*(*(a1 + 32) + 424) setAlpha:*(a1 + 48)];

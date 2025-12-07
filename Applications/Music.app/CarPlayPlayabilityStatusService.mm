@@ -9,10 +9,10 @@
 {
   v4 = type metadata accessor for MusicPlayer.PlayabilityStatus();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
-  v10 = &v14 - v9;
+  __chkstk_darwin();
+  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v9 = &v13 - v8;
   if (playable)
   {
     objc_opt_self();
@@ -24,13 +24,13 @@
     else
     {
       playableCopy = playable;
-      sub_100537EF0(playableCopy, v10);
+      sub_100537EF0(playableCopy, v9);
       (*(v5 + 104))(v7, enum case for MusicPlayer.PlayabilityStatus.playable(_:), v4);
       LOBYTE(playable) = static MusicPlayer.PlayabilityStatus.== infix(_:_:)();
 
-      v12 = *(v5 + 8);
-      v12(v7, v4);
-      v12(v10, v4);
+      v11 = *(v5 + 8);
+      v11(v7, v4);
+      v11(v9, v4);
     }
   }
 

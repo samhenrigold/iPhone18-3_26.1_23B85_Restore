@@ -18,34 +18,32 @@
 
 + (id)columns
 {
-  v16[11] = *MEMORY[0x1E69E9840];
+  v15[11] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isNewChildAccount" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:12 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"startDate" dataType:3 requestOnly:0 fieldNumber:2 protoDataType:0 convertedType:2];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"endDate" dataType:3 requestOnly:0 fieldNumber:3 protoDataType:0 convertedType:2];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"completedSetup" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:12 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"lastViewedScreen" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:4 convertedType:0];
-  v14 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"appUsage" dataType:0 requestOnly:0 fieldNumber:6 protoDataType:12 convertedType:0];
+  v13 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"appUsage" dataType:0 requestOnly:0 fieldNumber:6 protoDataType:12 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"askToBuy" dataType:0 requestOnly:0 fieldNumber:7 protoDataType:12 convertedType:0];
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"commSafety" dataType:0 requestOnly:0 fieldNumber:8 protoDataType:12 convertedType:0];
-  v15 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"screenDistance" dataType:0 requestOnly:0 fieldNumber:9 protoDataType:12 convertedType:0];
+  v14 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"screenDistance" dataType:0 requestOnly:0 fieldNumber:9 protoDataType:12 convertedType:0];
   v9 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"age" dataType:0 requestOnly:0 fieldNumber:10 protoDataType:4 convertedType:0];
   v10 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"flowType" dataType:0 requestOnly:0 fieldNumber:11 protoDataType:4 convertedType:0];
-  v16[0] = v2;
-  v16[1] = v3;
-  v16[2] = v4;
-  v16[3] = v5;
-  v16[4] = v6;
-  v16[5] = v14;
-  v16[6] = v7;
-  v16[7] = v8;
-  v16[8] = v15;
-  v16[9] = v9;
-  v16[10] = v10;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:11];
+  v15[0] = v2;
+  v15[1] = v3;
+  v15[2] = v4;
+  v15[3] = v5;
+  v15[4] = v6;
+  v15[5] = v13;
+  v15[6] = v7;
+  v15[7] = v8;
+  v15[8] = v14;
+  v15[9] = v9;
+  v15[10] = v10;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:11];
 
-  v11 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v12;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -187,7 +185,7 @@ LABEL_50:
 
 - (id)jsonDictionary
 {
-  v44[11] = *MEMORY[0x1E69E9840];
+  v43[11] = *MEMORY[0x1E69E9840];
   if ([(BMAppleIDChildSetup *)self hasIsNewChildAccount])
   {
     v3 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMAppleIDChildSetup isNewChildAccount](self, "isNewChildAccount")}];
@@ -239,17 +237,7 @@ LABEL_50:
   v13 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMAppleIDChildSetup lastViewedScreen](self, "lastViewedScreen")}];
   if ([(BMAppleIDChildSetup *)self hasAppUsage])
   {
-    v42 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMAppleIDChildSetup appUsage](self, "appUsage")}];
-  }
-
-  else
-  {
-    v42 = 0;
-  }
-
-  if ([(BMAppleIDChildSetup *)self hasAskToBuy])
-  {
-    v41 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMAppleIDChildSetup askToBuy](self, "askToBuy")}];
+    v41 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMAppleIDChildSetup appUsage](self, "appUsage")}];
   }
 
   else
@@ -257,9 +245,9 @@ LABEL_50:
     v41 = 0;
   }
 
-  if ([(BMAppleIDChildSetup *)self hasCommSafety])
+  if ([(BMAppleIDChildSetup *)self hasAskToBuy])
   {
-    v40 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMAppleIDChildSetup commSafety](self, "commSafety")}];
+    v40 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMAppleIDChildSetup askToBuy](self, "askToBuy")}];
   }
 
   else
@@ -267,14 +255,24 @@ LABEL_50:
     v40 = 0;
   }
 
-  if ([(BMAppleIDChildSetup *)self hasScreenDistance])
+  if ([(BMAppleIDChildSetup *)self hasCommSafety])
   {
-    v39 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMAppleIDChildSetup screenDistance](self, "screenDistance")}];
+    v39 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMAppleIDChildSetup commSafety](self, "commSafety")}];
   }
 
   else
   {
     v39 = 0;
+  }
+
+  if ([(BMAppleIDChildSetup *)self hasScreenDistance])
+  {
+    v38 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMAppleIDChildSetup screenDistance](self, "screenDistance")}];
+  }
+
+  else
+  {
+    v38 = 0;
   }
 
   if ([(BMAppleIDChildSetup *)self hasAge])
@@ -288,104 +286,104 @@ LABEL_50:
   }
 
   v15 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMAppleIDChildSetup flowType](self, "flowType")}];
-  v43[0] = @"isNewChildAccount";
+  v42[0] = @"isNewChildAccount";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v34 = null;
-  v44[0] = null;
-  v43[1] = @"startDate";
+  v33 = null;
+  v43[0] = null;
+  v42[1] = @"startDate";
   null2 = v7;
   if (!v7)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v33 = null2;
-  v44[1] = null2;
-  v43[2] = @"endDate";
+  v32 = null2;
+  v43[1] = null2;
+  v42[2] = @"endDate";
   null3 = v11;
   if (!v11)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v32 = null3;
-  v44[2] = null3;
-  v43[3] = @"completedSetup";
+  v31 = null3;
+  v43[2] = null3;
+  v42[3] = @"completedSetup";
   null4 = v12;
   if (!v12)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v38 = v3;
-  v31 = null4;
-  v44[3] = null4;
-  v43[4] = @"lastViewedScreen";
+  v37 = v3;
+  v30 = null4;
+  v43[3] = null4;
+  v42[4] = @"lastViewedScreen";
   null5 = v13;
   if (!v13)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v37 = v7;
-  v30 = null5;
-  v44[4] = null5;
-  v43[5] = @"appUsage";
-  null6 = v42;
-  if (!v42)
+  v36 = v7;
+  v29 = null5;
+  v43[4] = null5;
+  v42[5] = @"appUsage";
+  null6 = v41;
+  if (!v41)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v36 = v11;
-  v44[5] = null6;
-  v43[6] = @"askToBuy";
-  null7 = v41;
-  if (!v41)
+  v35 = v11;
+  v43[5] = null6;
+  v42[6] = @"askToBuy";
+  null7 = v40;
+  if (!v40)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v44[6] = null7;
-  v43[7] = @"commSafety";
-  null8 = v40;
-  if (!v40)
+  v43[6] = null7;
+  v42[7] = @"commSafety";
+  null8 = v39;
+  if (!v39)
   {
     null8 = [MEMORY[0x1E695DFB0] null];
   }
 
   v24 = v13;
-  v44[7] = null8;
-  v43[8] = @"screenDistance";
-  null9 = v39;
-  if (!v39)
+  v43[7] = null8;
+  v42[8] = @"screenDistance";
+  null9 = v38;
+  if (!v38)
   {
     null9 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v44[8] = null9;
-  v43[9] = @"age";
+  v43[8] = null9;
+  v42[9] = @"age";
   null10 = v14;
   if (!v14)
   {
     null10 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v44[9] = null10;
-  v43[10] = @"flowType";
+  v43[9] = null10;
+  v42[10] = @"flowType";
   null11 = v15;
   if (!v15)
   {
     null11 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v44[10] = null11;
-  v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:v43 count:11];
+  v43[10] = null11;
+  v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:11];
   if (v15)
   {
     if (v14)
@@ -404,6 +402,10 @@ LABEL_50:
   }
 
 LABEL_52:
+  if (!v38)
+  {
+  }
+
   if (!v39)
   {
   }
@@ -416,17 +418,13 @@ LABEL_52:
   {
   }
 
-  if (!v42)
-  {
-  }
-
   if (!v24)
   {
   }
 
   if (v12)
   {
-    if (v36)
+    if (v35)
     {
       goto LABEL_64;
     }
@@ -435,17 +433,17 @@ LABEL_52:
   else
   {
 
-    if (v36)
+    if (v35)
     {
 LABEL_64:
-      if (v37)
+      if (v36)
       {
         goto LABEL_65;
       }
 
 LABEL_73:
 
-      if (v38)
+      if (v37)
       {
         goto LABEL_66;
       }
@@ -454,13 +452,13 @@ LABEL_73:
     }
   }
 
-  if (!v37)
+  if (!v36)
   {
     goto LABEL_73;
   }
 
 LABEL_65:
-  if (v38)
+  if (v37)
   {
     goto LABEL_66;
   }
@@ -468,14 +466,13 @@ LABEL_65:
 LABEL_74:
 
 LABEL_66:
-  v28 = *MEMORY[0x1E69E9840];
 
-  return v35;
+  return v34;
 }
 
 - (BMAppleIDChildSetup)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v147[1] = *MEMORY[0x1E69E9840];
+  v146[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"isNewChildAccount"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -518,16 +515,16 @@ LABEL_4:
               goto LABEL_98;
             }
 
-            v89 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v90 = *MEMORY[0x1E698F240];
-            v144 = *MEMORY[0x1E696A578];
-            v125 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"startDate"];
-            v145 = v125;
-            v123 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v145 forKeys:&v144 count:1];
-            v91 = [v89 initWithDomain:v90 code:2 userInfo:?];
+            v88 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v89 = *MEMORY[0x1E698F240];
+            v143 = *MEMORY[0x1E696A578];
+            v124 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"startDate"];
+            v144 = v124;
+            v122 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v144 forKeys:&v143 count:1];
+            v90 = [v88 initWithDomain:v89 code:2 userInfo:?];
             v10 = 0;
             errorCopy = 0;
-            *error = v91;
+            *error = v90;
             goto LABEL_97;
           }
 
@@ -542,7 +539,7 @@ LABEL_4:
     }
 
     v11 = [dictionaryCopy objectForKeyedSubscript:@"endDate"];
-    v123 = v11;
+    v122 = v11;
     if (v11 && (v12 = v11, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -554,7 +551,7 @@ LABEL_4:
         [v27 doubleValue];
         v30 = v29;
 
-        v125 = [v28 initWithTimeIntervalSince1970:v30];
+        v124 = [v28 initWithTimeIntervalSince1970:v30];
       }
 
       else
@@ -563,7 +560,7 @@ LABEL_4:
         if (objc_opt_isKindOfClass())
         {
           v47 = objc_alloc_init(MEMORY[0x1E696AC80]);
-          v125 = [v47 dateFromString:v12];
+          v124 = [v47 dateFromString:v12];
         }
 
         else
@@ -573,54 +570,54 @@ LABEL_4:
           {
             if (!error)
             {
-              v125 = 0;
+              v124 = 0;
               errorCopy = 0;
               goto LABEL_97;
             }
 
-            v92 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v118 = v10;
-            v93 = *MEMORY[0x1E698F240];
-            v142 = *MEMORY[0x1E696A578];
+            v91 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v117 = v10;
+            v92 = *MEMORY[0x1E698F240];
+            v141 = *MEMORY[0x1E696A578];
             v55 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"endDate"];
-            v143 = v55;
-            v94 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v143 forKeys:&v142 count:1];
-            v95 = v93;
-            v10 = v118;
-            v122 = v94;
-            v96 = [v92 initWithDomain:v95 code:2 userInfo:?];
-            v125 = 0;
+            v142 = v55;
+            v93 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v142 forKeys:&v141 count:1];
+            v94 = v92;
+            v10 = v117;
+            v121 = v93;
+            v95 = [v91 initWithDomain:v94 code:2 userInfo:?];
+            v124 = 0;
             errorCopy = 0;
-            *error = v96;
+            *error = v95;
             goto LABEL_96;
           }
 
-          v125 = v12;
+          v124 = v12;
         }
       }
     }
 
     else
     {
-      v125 = 0;
+      v124 = 0;
     }
 
     v13 = [dictionaryCopy objectForKeyedSubscript:@"completedSetup"];
-    v122 = v13;
+    v121 = v13;
     if (!v13 || (v14 = v13, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       v15 = v7;
       v16 = v8;
-      v121 = 0;
+      v120 = 0;
 LABEL_13:
       v17 = [dictionaryCopy objectForKeyedSubscript:@"lastViewedScreen"];
-      v115 = v17;
+      v114 = v17;
       if (v17 && (v18 = v17, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v124 = v18;
+          v123 = v18;
         }
 
         else
@@ -632,10 +629,10 @@ LABEL_13:
           {
             if (!error)
             {
-              v124 = 0;
+              v123 = 0;
               errorCopy = 0;
               self = selfCopy;
-              v55 = v121;
+              v55 = v120;
               v52 = v18;
               v8 = v16;
               v7 = v15;
@@ -643,44 +640,44 @@ LABEL_13:
             }
 
             v77 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v117 = v10;
+            v116 = v10;
             v78 = *MEMORY[0x1E698F240];
-            v138 = *MEMORY[0x1E696A578];
+            v137 = *MEMORY[0x1E696A578];
             v79 = objc_alloc(MEMORY[0x1E696AEC0]);
-            v100 = objc_opt_class();
+            v99 = objc_opt_class();
             v80 = v79;
             v52 = v18;
-            v120 = [v80 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", v100, @"lastViewedScreen"];
-            v139 = v120;
-            v81 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v139 forKeys:&v138 count:1];
+            v119 = [v80 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", v99, @"lastViewedScreen"];
+            v138 = v119;
+            v81 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v138 forKeys:&v137 count:1];
             v82 = v78;
-            v10 = v117;
-            v119 = v81;
+            v10 = v116;
+            v118 = v81;
             v83 = [v77 initWithDomain:v82 code:2 userInfo:?];
-            v124 = 0;
+            v123 = 0;
             errorCopy = 0;
             *errorCopy2 = v83;
             self = selfCopy;
-            v55 = v121;
+            v55 = v120;
             v8 = v16;
             v7 = v15;
             goto LABEL_94;
           }
 
-          v124 = [MEMORY[0x1E696AD98] numberWithInt:BMAppleIDChildSetupChildSetupScreenFromString(v18)];
+          v123 = [MEMORY[0x1E696AD98] numberWithInt:BMAppleIDChildSetupChildSetupScreenFromString(v18)];
           self = selfCopy;
         }
       }
 
       else
       {
-        v124 = 0;
+        v123 = 0;
       }
 
       v19 = [dictionaryCopy objectForKeyedSubscript:@"appUsage"];
       v8 = v16;
-      v111 = v9;
-      v119 = v19;
+      v110 = v9;
+      v118 = v19;
       if (v19)
       {
         v20 = v19;
@@ -688,7 +685,7 @@ LABEL_13:
         v7 = v15;
         if (objc_opt_isKindOfClass())
         {
-          v120 = 0;
+          v119 = 0;
         }
 
         else
@@ -698,10 +695,10 @@ LABEL_13:
           {
             if (!error)
             {
-              v120 = 0;
+              v119 = 0;
               errorCopy = 0;
-              v55 = v121;
-              v52 = v115;
+              v55 = v120;
+              v52 = v114;
               goto LABEL_94;
             }
 
@@ -709,38 +706,38 @@ LABEL_13:
             v58 = objc_alloc(MEMORY[0x1E696ABC0]);
             errorCopy3 = error;
             v59 = *MEMORY[0x1E698F240];
-            v136 = *MEMORY[0x1E696A578];
+            v135 = *MEMORY[0x1E696A578];
             v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"appUsage"];
-            v137 = v32;
-            v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v137 forKeys:&v136 count:1];
+            v136 = v32;
+            v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v136 forKeys:&v135 count:1];
             v60 = v58;
             v10 = v57;
-            v120 = 0;
+            v119 = 0;
             errorCopy = 0;
             *errorCopy3 = [v60 initWithDomain:v59 code:2 userInfo:v31];
             goto LABEL_106;
           }
 
-          v120 = v20;
+          v119 = v20;
         }
       }
 
       else
       {
-        v120 = 0;
+        v119 = 0;
         v7 = v15;
       }
 
       v31 = [dictionaryCopy objectForKeyedSubscript:@"askToBuy"];
-      v116 = v10;
+      v115 = v10;
       if (!v31 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
         v32 = 0;
 LABEL_35:
         v33 = [dictionaryCopy objectForKeyedSubscript:@"commSafety"];
-        v110 = v8;
+        v109 = v8;
         errorCopy4 = error;
-        v108 = v32;
+        v107 = v32;
         if (v33 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
         {
           objc_opt_class();
@@ -748,40 +745,40 @@ LABEL_35:
           {
             if (!error)
             {
-              v112 = 0;
+              v111 = 0;
               errorCopy = 0;
               goto LABEL_92;
             }
 
             v66 = objc_alloc(MEMORY[0x1E696ABC0]);
             v67 = *MEMORY[0x1E698F240];
-            v132 = *MEMORY[0x1E696A578];
+            v131 = *MEMORY[0x1E696A578];
             v68 = v7;
             v69 = objc_alloc(MEMORY[0x1E696AEC0]);
-            v99 = objc_opt_class();
+            v98 = objc_opt_class();
             v70 = v69;
             v7 = v68;
-            v109 = [v70 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v99, @"commSafety"];
-            v133 = v109;
-            v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v133 forKeys:&v132 count:1];
+            v108 = [v70 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v98, @"commSafety"];
+            v132 = v108;
+            v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v132 forKeys:&v131 count:1];
             v71 = v67;
-            v32 = v108;
-            v112 = 0;
+            v32 = v107;
+            v111 = 0;
             errorCopy = 0;
             *errorCopy4 = [v66 initWithDomain:v71 code:2 userInfo:v34];
             goto LABEL_91;
           }
 
-          v112 = v33;
+          v111 = v33;
         }
 
         else
         {
-          v112 = 0;
+          v111 = 0;
         }
 
         v34 = [dictionaryCopy objectForKeyedSubscript:@"screenDistance"];
-        v105 = v7;
+        v104 = v7;
         if (v34 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
         {
           objc_opt_class();
@@ -789,7 +786,7 @@ LABEL_35:
           {
             if (!error)
             {
-              v109 = 0;
+              v108 = 0;
               errorCopy = 0;
               goto LABEL_91;
             }
@@ -797,32 +794,32 @@ LABEL_35:
             v72 = objc_alloc(MEMORY[0x1E696ABC0]);
             selfCopy2 = self;
             v74 = *MEMORY[0x1E698F240];
-            v130 = *MEMORY[0x1E696A578];
+            v129 = *MEMORY[0x1E696A578];
             v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"screenDistance"];
-            v131 = v37;
-            v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v131 forKeys:&v130 count:1];
+            v130 = v37;
+            v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v130 forKeys:&v129 count:1];
             v75 = v72;
-            v32 = v108;
+            v32 = v107;
             v76 = v74;
             self = selfCopy2;
-            v109 = 0;
+            v108 = 0;
             errorCopy = 0;
             *errorCopy4 = [v75 initWithDomain:v76 code:2 userInfo:v35];
 LABEL_90:
 
-            v7 = v105;
+            v7 = v104;
 LABEL_91:
 
-            v8 = v110;
+            v8 = v109;
             goto LABEL_92;
           }
 
-          v109 = v34;
+          v108 = v34;
         }
 
         else
         {
-          v109 = 0;
+          v108 = 0;
         }
 
         v35 = [dictionaryCopy objectForKeyedSubscript:@"age"];
@@ -839,13 +836,13 @@ LABEL_91:
             }
 
             selfCopy5 = self;
-            v103 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v102 = objc_alloc(MEMORY[0x1E696ABC0]);
             v84 = *MEMORY[0x1E698F240];
-            v128 = *MEMORY[0x1E696A578];
+            v127 = *MEMORY[0x1E696A578];
             v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"age"];
-            v129 = v39;
-            v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v129 forKeys:&v128 count:1];
-            v85 = [v103 initWithDomain:v84 code:2 userInfo:v38];
+            v128 = v39;
+            v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v128 forKeys:&v127 count:1];
+            v85 = [v102 initWithDomain:v84 code:2 userInfo:v38];
             v37 = 0;
             errorCopy = 0;
             *errorCopy4 = v85;
@@ -878,13 +875,13 @@ LABEL_91:
             {
               if (errorCopy4)
               {
-                v104 = objc_alloc(MEMORY[0x1E696ABC0]);
-                v102 = *MEMORY[0x1E698F240];
-                v126 = *MEMORY[0x1E696A578];
-                v97 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"flowType"];
-                v127 = v97;
-                v98 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v127 forKeys:&v126 count:1];
-                *errorCopy4 = [v104 initWithDomain:v102 code:2 userInfo:v98];
+                v103 = objc_alloc(MEMORY[0x1E696ABC0]);
+                v101 = *MEMORY[0x1E698F240];
+                v125 = *MEMORY[0x1E696A578];
+                v96 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"flowType"];
+                v126 = v96;
+                v97 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v126 forKeys:&v125 count:1];
+                *errorCopy4 = [v103 initWithDomain:v101 code:2 userInfo:v97];
               }
 
               v39 = 0;
@@ -903,14 +900,14 @@ LABEL_91:
           v39 = 0;
         }
 
-        intValue = [v124 intValue];
-        LODWORD(v101) = [v39 intValue];
-        errorCopy = [(BMAppleIDChildSetup *)selfCopy5 initWithIsNewChildAccount:v110 startDate:v116 endDate:v125 completedSetup:v121 lastViewedScreen:intValue appUsage:v120 askToBuy:v108 commSafety:v112 screenDistance:v109 age:v37 flowType:v101];
+        intValue = [v123 intValue];
+        LODWORD(v100) = [v39 intValue];
+        errorCopy = [(BMAppleIDChildSetup *)selfCopy5 initWithIsNewChildAccount:v109 startDate:v115 endDate:v124 completedSetup:v120 lastViewedScreen:intValue appUsage:v119 askToBuy:v107 commSafety:v111 screenDistance:v108 age:v37 flowType:v100];
         selfCopy5 = errorCopy;
 LABEL_89:
 
         self = selfCopy5;
-        v32 = v108;
+        v32 = v107;
         goto LABEL_90;
       }
 
@@ -926,22 +923,22 @@ LABEL_89:
         errorCopy5 = error;
         v63 = objc_alloc(MEMORY[0x1E696ABC0]);
         v64 = *MEMORY[0x1E698F240];
-        v134 = *MEMORY[0x1E696A578];
-        v112 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"askToBuy"];
-        v135 = v112;
-        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v135 forKeys:&v134 count:1];
+        v133 = *MEMORY[0x1E696A578];
+        v111 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"askToBuy"];
+        v134 = v111;
+        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v134 forKeys:&v133 count:1];
         v65 = [v63 initWithDomain:v64 code:2 userInfo:v33];
         v32 = 0;
         errorCopy = 0;
         *errorCopy5 = v65;
 LABEL_92:
-        v55 = v121;
-        v52 = v115;
+        v55 = v120;
+        v52 = v114;
 
-        v10 = v116;
+        v10 = v115;
 LABEL_93:
 
-        v9 = v111;
+        v9 = v110;
 LABEL_94:
 
         goto LABEL_95;
@@ -950,8 +947,8 @@ LABEL_94:
       v32 = 0;
       errorCopy = 0;
 LABEL_106:
-      v55 = v121;
-      v52 = v115;
+      v55 = v120;
+      v52 = v114;
       goto LABEL_93;
     }
 
@@ -960,7 +957,7 @@ LABEL_106:
     {
       v15 = v7;
       v16 = v8;
-      v121 = v14;
+      v120 = v14;
       goto LABEL_13;
     }
 
@@ -969,12 +966,12 @@ LABEL_106:
       v48 = objc_alloc(MEMORY[0x1E696ABC0]);
       v49 = v10;
       v50 = *MEMORY[0x1E698F240];
-      v140 = *MEMORY[0x1E696A578];
+      v139 = *MEMORY[0x1E696A578];
       selfCopy6 = self;
       errorCopy6 = error;
-      v124 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"completedSetup"];
-      v141 = v124;
-      v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v141 forKeys:&v140 count:1];
+      v123 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"completedSetup"];
+      v140 = v123;
+      v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v140 forKeys:&v139 count:1];
       v53 = v50;
       v10 = v49;
       v54 = [v48 initWithDomain:v53 code:2 userInfo:v52];
@@ -1006,10 +1003,10 @@ LABEL_97:
   {
     v40 = objc_alloc(MEMORY[0x1E696ABC0]);
     v41 = *MEMORY[0x1E698F240];
-    v146 = *MEMORY[0x1E696A578];
+    v145 = *MEMORY[0x1E696A578];
     v42 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isNewChildAccount"];
-    v147[0] = v42;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v147 forKeys:&v146 count:1];
+    v146[0] = v42;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v146 forKeys:&v145 count:1];
     v43 = v41;
     v10 = v42;
     v44 = [v40 initWithDomain:v43 code:2 userInfo:v9];
@@ -1025,7 +1022,6 @@ LABEL_98:
   errorCopy = 0;
 LABEL_99:
 
-  v87 = *MEMORY[0x1E69E9840];
   return errorCopy;
 }
 
@@ -1043,61 +1039,50 @@ LABEL_99:
   toCopy = to;
   if (self->_hasIsNewChildAccount)
   {
-    isNewChildAccount = self->_isNewChildAccount;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasRaw_startDate)
   {
-    raw_startDate = self->_raw_startDate;
     PBDataWriterWriteDoubleField();
   }
 
   if (self->_hasRaw_endDate)
   {
-    raw_endDate = self->_raw_endDate;
     PBDataWriterWriteDoubleField();
   }
 
   if (self->_hasCompletedSetup)
   {
-    completedSetup = self->_completedSetup;
     PBDataWriterWriteBOOLField();
   }
 
-  lastViewedScreen = self->_lastViewedScreen;
   PBDataWriterWriteUint32Field();
   if (self->_hasAppUsage)
   {
-    appUsage = self->_appUsage;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasAskToBuy)
   {
-    askToBuy = self->_askToBuy;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasCommSafety)
   {
-    commSafety = self->_commSafety;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasScreenDistance)
   {
-    screenDistance = self->_screenDistance;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasAge)
   {
-    age = self->_age;
     PBDataWriterWriteUint32Field();
   }
 
-  flowType = self->_flowType;
   PBDataWriterWriteUint32Field();
 }
 
@@ -1825,32 +1810,30 @@ LABEL_155:
 
 + (id)protoFields
 {
-  v16[11] = *MEMORY[0x1E69E9840];
-  v15 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isNewChildAccount" number:1 type:12 subMessageClass:0];
-  v16[0] = v15;
-  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"startDate" number:2 type:0 subMessageClass:0];
-  v16[1] = v14;
+  v15[11] = *MEMORY[0x1E69E9840];
+  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isNewChildAccount" number:1 type:12 subMessageClass:0];
+  v15[0] = v14;
+  v13 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"startDate" number:2 type:0 subMessageClass:0];
+  v15[1] = v13;
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"endDate" number:3 type:0 subMessageClass:0];
-  v16[2] = v2;
+  v15[2] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"completedSetup" number:4 type:12 subMessageClass:0];
-  v16[3] = v3;
+  v15[3] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"lastViewedScreen" number:5 type:4 subMessageClass:0];
-  v16[4] = v4;
+  v15[4] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"appUsage" number:6 type:12 subMessageClass:0];
-  v16[5] = v5;
+  v15[5] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"askToBuy" number:7 type:12 subMessageClass:0];
-  v16[6] = v6;
+  v15[6] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"commSafety" number:8 type:12 subMessageClass:0];
-  v16[7] = v7;
+  v15[7] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"screenDistance" number:9 type:12 subMessageClass:0];
-  v16[8] = v8;
+  v15[8] = v8;
   v9 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"age" number:10 type:4 subMessageClass:0];
-  v16[9] = v9;
+  v15[9] = v9;
   v10 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"flowType" number:11 type:4 subMessageClass:0];
-  v16[10] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:11];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v15[10] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:11];
 
   return v11;
 }

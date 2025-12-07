@@ -46,161 +46,161 @@
 
 - (int64_t)_setupMetaDataFromLibrary
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   [(NSString *)self->_e5Path UTF8String];
-  if (e5rt_program_library_create())
+  v3 = e5rt_program_library_create();
+  if (v3)
   {
-    v3 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = __SceneIntelligenceLogSharedInstance(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 92);
+      v5 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 92);
       *buf = 136381187;
-      v30 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-      v31 = 1025;
-      v32 = 92;
-      v33 = 2113;
-      v34 = v4;
-      _os_log_impl(&dword_21DE0D000, v3, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
+      v36 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+      v37 = 1025;
+      v38 = 92;
+      v39 = 2113;
+      v40 = v5;
+      _os_log_impl(&dword_21DE0D000, v4, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
     }
 
-    v5 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = __SceneIntelligenceLogSharedInstance(v6);
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
     e5Path = self->_e5Path;
     *buf = 136381187;
-    v30 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-    v31 = 1025;
-    v32 = 92;
-    v33 = 2113;
-    v34 = e5Path;
-    v7 = " %{private}s:%{private}d *** Failed to create e5rt program library with e5Path=%{private}@ ***";
+    v36 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+    v37 = 1025;
+    v38 = 92;
+    v39 = 2113;
+    v40 = e5Path;
+    v9 = " %{private}s:%{private}d *** Failed to create e5rt program library with e5Path=%{private}@ ***";
 LABEL_24:
-    _os_log_impl(&dword_21DE0D000, v5, OS_LOG_TYPE_ERROR, v7, buf, 0x1Cu);
+    _os_log_impl(&dword_21DE0D000, v7, OS_LOG_TYPE_ERROR, v9, buf, 0x1Cu);
 LABEL_25:
 
-    v21 = 7;
-    goto LABEL_26;
+    return 7;
   }
 
   networkFunction = [(SINetworkConfiguration *)self->_configuration networkFunction];
-  v9 = networkFunction;
+  v11 = networkFunction;
   [networkFunction UTF8String];
-  v10 = e5rt_program_library_get_function_metadata() == 0;
+  v12 = e5rt_program_library_get_function_metadata() == 0;
 
-  if (!v10)
+  if (!v12)
   {
-    v11 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = __SceneIntelligenceLogSharedInstance(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v12 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 95);
+      v15 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 95);
       *buf = 136381187;
-      v30 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-      v31 = 1025;
-      v32 = 95;
-      v33 = 2113;
-      v34 = v12;
-      _os_log_impl(&dword_21DE0D000, v11, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
+      v36 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+      v37 = 1025;
+      v38 = 95;
+      v39 = 2113;
+      v40 = v15;
+      _os_log_impl(&dword_21DE0D000, v14, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
     }
 
-    v5 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = __SceneIntelligenceLogSharedInstance(v16);
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
-    v13 = self->_e5Path;
+    v17 = self->_e5Path;
     *buf = 136381187;
-    v30 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-    v31 = 1025;
-    v32 = 95;
-    v33 = 2113;
-    v34 = v13;
-    v7 = " %{private}s:%{private}d *** Failed to get e5rt main function metadata with e5Path=%{private}@ ***";
+    v36 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+    v37 = 1025;
+    v38 = 95;
+    v39 = 2113;
+    v40 = v17;
+    v9 = " %{private}s:%{private}d *** Failed to get e5rt main function metadata with e5Path=%{private}@ ***";
     goto LABEL_24;
   }
 
-  v14 = CFDictionaryGetValue(0, @"UserVersion");
+  v18 = CFDictionaryGetValue(0, @"UserVersion");
   networkVersion = self->_networkVersion;
-  self->_networkVersion = v14;
+  self->_networkVersion = v18;
 
   CFRelease(@"UserVersion");
   Value = CFDictionaryGetValue(0, @"Ops");
-  v17 = CFRetain(Value);
+  v21 = CFRetain(Value);
   opsForLibrary = self->_opsForLibrary;
-  self->_opsForLibrary = v17;
+  self->_opsForLibrary = v21;
 
-  v19 = [(NSArray *)self->_opsForLibrary objectAtIndexedSubscript:0];
-  v20 = [v19 objectForKeyedSubscript:@"ComputeBackend"];
+  v23 = [(NSArray *)self->_opsForLibrary objectAtIndexedSubscript:0];
+  v24 = [v23 objectForKeyedSubscript:@"ComputeBackend"];
 
-  if ([v20 isEqualToString:@"ANE"])
+  if ([v24 isEqualToString:@"ANE"])
   {
-    v21 = 0;
-    v22 = 1;
+    v25 = 0;
+    v26 = 1;
 LABEL_15:
-    self->_bundleBackend = v22;
+    self->_bundleBackend = v26;
     goto LABEL_19;
   }
 
-  if ([v20 isEqualToString:@"CPU"])
+  v27 = [v24 isEqualToString:@"CPU"];
+  if (v27)
   {
-    v21 = 0;
-    v22 = 2;
+    v25 = 0;
+    v26 = 2;
     goto LABEL_15;
   }
 
-  v23 = __SceneIntelligenceLogSharedInstance();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  v28 = __SceneIntelligenceLogSharedInstance(v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
     *buf = 136381187;
-    v30 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-    v31 = 1025;
-    v32 = 112;
-    v33 = 2112;
-    v34 = v20;
-    _os_log_impl(&dword_21DE0D000, v23, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Unsupported Backend: %@ ***", buf, 0x1Cu);
+    v36 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+    v37 = 1025;
+    v38 = 112;
+    v39 = 2112;
+    v40 = v24;
+    _os_log_impl(&dword_21DE0D000, v28, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Unsupported Backend: %@ ***", buf, 0x1Cu);
   }
 
-  v21 = 4;
+  v25 = 4;
 LABEL_19:
 
-  if (e5rt_program_library_release())
+  v29 = e5rt_program_library_release();
+  if (v29)
   {
-    v24 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v30 = __SceneIntelligenceLogSharedInstance(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      v25 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 124);
+      v31 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 124);
       *buf = 136381187;
-      v30 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-      v31 = 1025;
-      v32 = 124;
-      v33 = 2113;
-      v34 = v25;
-      _os_log_impl(&dword_21DE0D000, v24, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
+      v36 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+      v37 = 1025;
+      v38 = 124;
+      v39 = 2113;
+      v40 = v31;
+      _os_log_impl(&dword_21DE0D000, v30, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
     }
 
-    v5 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = __SceneIntelligenceLogSharedInstance(v32);
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
-    v26 = self->_e5Path;
+    v33 = self->_e5Path;
     *buf = 136381187;
-    v30 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-    v31 = 1025;
-    v32 = 124;
-    v33 = 2113;
-    v34 = v26;
-    v7 = " %{private}s:%{private}d *** Failed to get e5rt main function metadata with e5Path=%{private}@ ***";
+    v36 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+    v37 = 1025;
+    v38 = 124;
+    v39 = 2113;
+    v40 = v33;
+    v9 = " %{private}s:%{private}d *** Failed to get e5rt main function metadata with e5Path=%{private}@ ***";
     goto LABEL_24;
   }
 
-LABEL_26:
-  v27 = *MEMORY[0x277D85DE8];
-  return v21;
+  return v25;
 }
 
 - (SIBaseNetworkE5RT)initWithNetName:(id)name
@@ -227,11 +227,11 @@ LABEL_26:
 
 - (SIBaseNetworkE5RT)initWithNetworkConfiguration:(id)configuration
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
-  v35.receiver = self;
-  v35.super_class = SIBaseNetworkE5RT;
-  v6 = [(SIBaseNetworkE5RT *)&v35 init];
+  v39.receiver = self;
+  v39.super_class = SIBaseNetworkE5RT;
+  v6 = [(SIBaseNetworkE5RT *)&v39 init];
   if (v6)
   {
     networkPath = [configurationCopy networkPath];
@@ -268,64 +268,67 @@ LABEL_26:
 
     objc_storeStrong(&v6->_e5Path, networkPath2);
     v6->_isModelCompiledInRuntime = 0;
-    if (e5rt_execution_stream_create())
+    v20 = e5rt_execution_stream_create();
+    if (v20)
     {
-      v20 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = __SceneIntelligenceLogSharedInstance(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        v21 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 174);
+        v22 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 174);
         *buf = 136381187;
-        v37 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-        v38 = 1025;
-        v39 = 174;
-        v40 = 2113;
-        configurationCopy2 = v21;
-        _os_log_impl(&dword_21DE0D000, v20, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
+        v41 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+        v42 = 1025;
+        v43 = 174;
+        v44 = 2113;
+        configurationCopy2 = v22;
+        _os_log_impl(&dword_21DE0D000, v21, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
       }
 
-      v22 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v24 = __SceneIntelligenceLogSharedInstance(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         configuration = v6->_configuration;
         *buf = 136381187;
-        v37 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-        v38 = 1025;
-        v39 = 174;
-        v40 = 2113;
+        v41 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+        v42 = 1025;
+        v43 = 174;
+        v44 = 2113;
         configurationCopy2 = configuration;
-        _os_log_impl(&dword_21DE0D000, v22, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to init the model with networkConfiguration: %{private}@ ***", buf, 0x1Cu);
+        _os_log_impl(&dword_21DE0D000, v24, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to init the model with networkConfiguration: %{private}@ ***", buf, 0x1Cu);
       }
     }
 
     else
     {
-      if (!e5rt_execution_stream_create())
+      v26 = e5rt_execution_stream_create();
+      if (!v26)
       {
-        v27 = objc_alloc_init(SIIOSurfaceAllocator);
+        v31 = objc_alloc_init(SIIOSurfaceAllocator);
         surfaceAllocator = v6->_surfaceAllocator;
-        v6->_surfaceAllocator = v27;
+        v6->_surfaceAllocator = v31;
 
         v6->_aneService = 0;
-        if ([(SIBaseNetworkE5RT *)v6 _setupMetaDataFromLibrary])
+        _setupMetaDataFromLibrary = [(SIBaseNetworkE5RT *)v6 _setupMetaDataFromLibrary];
+        if (_setupMetaDataFromLibrary)
         {
-          v29 = __SceneIntelligenceLogSharedInstance();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+          v34 = __SceneIntelligenceLogSharedInstance(_setupMetaDataFromLibrary);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
           {
-            v30 = v6->_networkName;
+            v35 = v6->_networkName;
             *buf = 136381187;
-            v37 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-            v38 = 1025;
-            v39 = 198;
-            v40 = 2112;
-            configurationCopy2 = v30;
-            _os_log_impl(&dword_21DE0D000, v29, OS_LOG_TYPE_INFO, " %{private}s:%{private}d *** [Warning] Failed to get metadata for E5 Bundle (%@) ***", buf, 0x1Cu);
+            v41 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+            v42 = 1025;
+            v43 = 198;
+            v44 = 2112;
+            configurationCopy2 = v35;
+            _os_log_impl(&dword_21DE0D000, v34, OS_LOG_TYPE_INFO, " %{private}s:%{private}d *** [Warning] Failed to get metadata for E5 Bundle (%@) ***", buf, 0x1Cu);
           }
         }
 
         networkMode = [configurationCopy networkMode];
-        v32 = [(SIBaseNetworkE5RT *)v6 selectComputeOperationByFunctionName:networkMode]== 0;
+        v37 = [(SIBaseNetworkE5RT *)v6 selectComputeOperationByFunctionName:networkMode]== 0;
 
-        if (v32)
+        if (v37)
         {
           v10 = v6;
           goto LABEL_26;
@@ -338,30 +341,30 @@ LABEL_26:
         goto LABEL_27;
       }
 
-      v24 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v27 = __SceneIntelligenceLogSharedInstance(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v25 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 176);
+        v28 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 176);
         *buf = 136381187;
-        v37 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-        v38 = 1025;
-        v39 = 176;
-        v40 = 2113;
-        configurationCopy2 = v25;
-        _os_log_impl(&dword_21DE0D000, v24, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
+        v41 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+        v42 = 1025;
+        v43 = 176;
+        v44 = 2113;
+        configurationCopy2 = v28;
+        _os_log_impl(&dword_21DE0D000, v27, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
       }
 
-      v22 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v24 = __SceneIntelligenceLogSharedInstance(v29);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        v26 = v6->_configuration;
+        v30 = v6->_configuration;
         *buf = 136381187;
-        v37 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-        v38 = 1025;
-        v39 = 176;
-        v40 = 2113;
-        configurationCopy2 = v26;
-        _os_log_impl(&dword_21DE0D000, v22, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to init the model with networkConfiguration: %{private}@ ***", buf, 0x1Cu);
+        v41 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+        v42 = 1025;
+        v43 = 176;
+        v44 = 2113;
+        configurationCopy2 = v30;
+        _os_log_impl(&dword_21DE0D000, v24, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to init the model with networkConfiguration: %{private}@ ***", buf, 0x1Cu);
       }
     }
 
@@ -371,7 +374,6 @@ LABEL_26:
   v10 = 0;
 LABEL_27:
 
-  v33 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -407,7 +409,7 @@ LABEL_27:
 
 - (int64_t)selectComputeOperationByFunctionName:(id)name
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if ([(__CFString *)nameCopy isEqualToString:&stru_282F2BE40])
   {
@@ -425,7 +427,7 @@ LABEL_27:
   std::string::basic_string[abi:nn200100]<0>(__p, -[__CFString UTF8String](v6, "UTF8String"));
   v8 = std::__hash_table<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>>>::find<std::string>(&self->_e5rt_loaded_operations.__table_.__bucket_list_.__ptr_, __p);
   v9 = v8;
-  if (SBYTE3(v53) < 0)
+  if (SBYTE3(v61) < 0)
   {
     operator delete(*__p);
     if (v9)
@@ -439,96 +441,99 @@ LABEL_27:
     goto LABEL_8;
   }
 
-  v48 = 0;
-  if ([(SIBaseNetworkE5RT *)self _loadModel:v7 operation:&v48])
+  v56 = 0;
+  v16 = [(SIBaseNetworkE5RT *)self _loadModel:v7 operation:&v56];
+  if (v16)
   {
-    v16 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = __SceneIntelligenceLogSharedInstance(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       e5Path = self->_e5Path;
       *__p = 136381443;
       *&__p[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-      v50 = 1025;
-      v51 = 288;
-      v52 = 2113;
-      v53 = v7;
-      v54 = 2113;
-      v55 = e5Path;
-      _os_log_impl(&dword_21DE0D000, v16, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to create compute operation for function name: %{private}@, e5Path: %{private}@ ***", __p, 0x26u);
+      v58 = 1025;
+      v59 = 288;
+      v60 = 2113;
+      v61 = v7;
+      v62 = 2113;
+      v63 = e5Path;
+      _os_log_impl(&dword_21DE0D000, v17, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to create compute operation for function name: %{private}@, e5Path: %{private}@ ***", __p, 0x26u);
     }
 
     goto LABEL_34;
   }
 
-  v46 = 0;
-  v47 = 0;
-  if (e5rt_execution_stream_operation_get_num_inputs())
+  v54 = 0;
+  v55 = 0;
+  num_inputs = e5rt_execution_stream_operation_get_num_inputs();
+  if (num_inputs)
   {
-    v18 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = __SceneIntelligenceLogSharedInstance(num_inputs);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v19 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 294);
+      v21 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 294);
       *__p = 136381187;
       *&__p[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-      v50 = 1025;
-      v51 = 294;
-      v52 = 2113;
-      v53 = v19;
-      _os_log_impl(&dword_21DE0D000, v18, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", __p, 0x1Cu);
+      v58 = 1025;
+      v59 = 294;
+      v60 = 2113;
+      v61 = v21;
+      _os_log_impl(&dword_21DE0D000, v20, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", __p, 0x1Cu);
     }
 
-    v16 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = __SceneIntelligenceLogSharedInstance(v22);
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_34;
     }
 
-    v20 = self->_e5Path;
+    v23 = self->_e5Path;
     *__p = 136381443;
     *&__p[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-    v50 = 1025;
-    v51 = 294;
-    v52 = 2113;
-    v53 = v7;
-    v54 = 2113;
-    v55 = v20;
-    v21 = " %{private}s:%{private}d *** Failed to get #inputs for function name: %{private}@, e5Path: %{private}@ ***";
+    v58 = 1025;
+    v59 = 294;
+    v60 = 2113;
+    v61 = v7;
+    v62 = 2113;
+    v63 = v23;
+    v24 = " %{private}s:%{private}d *** Failed to get #inputs for function name: %{private}@, e5Path: %{private}@ ***";
     goto LABEL_33;
   }
 
-  if (e5rt_execution_stream_operation_get_num_outputs())
+  num_outputs = e5rt_execution_stream_operation_get_num_outputs();
+  if (num_outputs)
   {
-    v22 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v26 = __SceneIntelligenceLogSharedInstance(num_outputs);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      v23 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 297);
+      v27 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 297);
       *__p = 136381187;
       *&__p[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-      v50 = 1025;
-      v51 = 297;
-      v52 = 2113;
-      v53 = v23;
-      _os_log_impl(&dword_21DE0D000, v22, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", __p, 0x1Cu);
+      v58 = 1025;
+      v59 = 297;
+      v60 = 2113;
+      v61 = v27;
+      _os_log_impl(&dword_21DE0D000, v26, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", __p, 0x1Cu);
     }
 
-    v16 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = __SceneIntelligenceLogSharedInstance(v28);
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_34;
     }
 
-    v24 = self->_e5Path;
+    v29 = self->_e5Path;
     *__p = 136381443;
     *&__p[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-    v50 = 1025;
-    v51 = 297;
-    v52 = 2113;
-    v53 = v7;
-    v54 = 2113;
-    v55 = v24;
-    v21 = " %{private}s:%{private}d *** Failed to get #outputs for function name: %{private}@, e5Path: %{private}@ ***";
+    v58 = 1025;
+    v59 = 297;
+    v60 = 2113;
+    v61 = v7;
+    v62 = 2113;
+    v63 = v29;
+    v24 = " %{private}s:%{private}d *** Failed to get #outputs for function name: %{private}@, e5Path: %{private}@ ***";
 LABEL_33:
-    _os_log_impl(&dword_21DE0D000, v16, OS_LOG_TYPE_ERROR, v21, __p, 0x26u);
+    _os_log_impl(&dword_21DE0D000, v17, OS_LOG_TYPE_ERROR, v24, __p, 0x26u);
 LABEL_34:
 
 LABEL_35:
@@ -536,116 +541,118 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  v44 = 0;
-  v45 = 0;
-  v43 = 0;
-  v41 = 0;
-  v42 = 0;
-  v40 = 0;
+  v52 = 0;
+  v53 = 0;
+  v51 = 0;
+  v49 = 0;
+  v50 = 0;
+  v48 = 0;
   obj = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v37 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  if (e5rt_execution_stream_operation_get_input_names())
+  v45 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  input_names = e5rt_execution_stream_operation_get_input_names();
+  if (input_names)
   {
-    v27 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v32 = __SceneIntelligenceLogSharedInstance(input_names);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      v28 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 308);
+      v33 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 308);
       *__p = 136381187;
       *&__p[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-      v50 = 1025;
-      v51 = 308;
-      v52 = 2113;
-      v53 = v28;
-      _os_log_impl(&dword_21DE0D000, v27, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", __p, 0x1Cu);
+      v58 = 1025;
+      v59 = 308;
+      v60 = 2113;
+      v61 = v33;
+      _os_log_impl(&dword_21DE0D000, v32, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", __p, 0x1Cu);
     }
 
-    v29 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v35 = __SceneIntelligenceLogSharedInstance(v34);
+    if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_48;
     }
 
-    v30 = self->_e5Path;
+    v36 = self->_e5Path;
     *__p = 136381443;
     *&__p[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-    v50 = 1025;
-    v51 = 308;
-    v52 = 2113;
-    v53 = v7;
-    v54 = 2113;
-    v55 = v30;
-    v31 = " %{private}s:%{private}d *** Failed to get input blob names for function name: %{private}@, e5Path: %{private}@ ***";
+    v58 = 1025;
+    v59 = 308;
+    v60 = 2113;
+    v61 = v7;
+    v62 = 2113;
+    v63 = v36;
+    v37 = " %{private}s:%{private}d *** Failed to get input blob names for function name: %{private}@, e5Path: %{private}@ ***";
 LABEL_47:
-    _os_log_impl(&dword_21DE0D000, v29, OS_LOG_TYPE_ERROR, v31, __p, 0x26u);
+    _os_log_impl(&dword_21DE0D000, v35, OS_LOG_TYPE_ERROR, v37, __p, 0x26u);
 LABEL_48:
 
     goto LABEL_35;
   }
 
-  if (e5rt_execution_stream_operation_get_output_names())
+  output_names = e5rt_execution_stream_operation_get_output_names();
+  if (output_names)
   {
-    v32 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v39 = __SceneIntelligenceLogSharedInstance(output_names);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
-      v33 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 311);
+      v40 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 311);
       *__p = 136381187;
       *&__p[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-      v50 = 1025;
-      v51 = 311;
-      v52 = 2113;
-      v53 = v33;
-      _os_log_impl(&dword_21DE0D000, v32, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", __p, 0x1Cu);
+      v58 = 1025;
+      v59 = 311;
+      v60 = 2113;
+      v61 = v40;
+      _os_log_impl(&dword_21DE0D000, v39, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", __p, 0x1Cu);
     }
 
-    v29 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v35 = __SceneIntelligenceLogSharedInstance(v41);
+    if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_48;
     }
 
-    v34 = self->_e5Path;
+    v42 = self->_e5Path;
     *__p = 136381443;
     *&__p[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-    v50 = 1025;
-    v51 = 311;
-    v52 = 2113;
-    v53 = v7;
-    v54 = 2113;
-    v55 = v34;
-    v31 = " %{private}s:%{private}d *** Failed to get output blob names for function name: %{private}@, e5Path: %{private}@ ***";
+    v58 = 1025;
+    v59 = 311;
+    v60 = 2113;
+    v61 = v7;
+    v62 = 2113;
+    v63 = v42;
+    v37 = " %{private}s:%{private}d *** Failed to get output blob names for function name: %{private}@, e5Path: %{private}@ ***";
     goto LABEL_47;
   }
 
   objc_storeStrong(&self->_networkInputNames, obj);
-  objc_storeStrong(&self->_networkOutputNames, v37);
-  v35 = v48;
-  v36 = v7;
+  objc_storeStrong(&self->_networkOutputNames, v45);
+  v43 = v56;
+  v44 = v7;
   std::string::basic_string[abi:nn200100]<0>(__p, -[__CFString UTF8String](v7, "UTF8String"));
-  v39 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_e5rt_loaded_operations.__table_.__bucket_list_.__ptr_, __p)[5] = v35;
-  if (SBYTE3(v53) < 0)
+  v47 = __p;
+  std::__hash_table<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_e5rt_loaded_operations.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v47)[5] = v43;
+  if (SBYTE3(v61) < 0)
   {
     operator delete(*__p);
   }
 
-  if (v40)
+  if (v48)
   {
-    v41 = v40;
-    operator delete(v40);
+    v49 = v48;
+    operator delete(v48);
   }
 
-  if (v43)
+  if (v51)
   {
-    v44 = v43;
-    operator delete(v43);
+    v52 = v51;
+    operator delete(v51);
   }
 
 LABEL_8:
   v10 = v7;
   std::string::basic_string[abi:nn200100]<0>(__p, -[__CFString UTF8String](v7, "UTF8String"));
-  v43 = __p;
-  self->_enabled_e5rt_operation = std::__hash_table<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_e5rt_loaded_operations.__table_.__bucket_list_.__ptr_, __p)[5];
-  if (SBYTE3(v53) < 0)
+  v51 = __p;
+  self->_enabled_e5rt_operation = std::__hash_table<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_e5rt_loaded_operations.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v51)[5];
+  if (SBYTE3(v61) < 0)
   {
     operator delete(*__p);
   }
@@ -653,30 +660,30 @@ LABEL_8:
   objc_storeStrong(&self->_enabled_e5rt_function_name, v5);
   v11 = v7;
   std::string::basic_string[abi:nn200100]<0>(__p, -[__CFString UTF8String](v7, "UTF8String"));
-  v43 = __p;
-  v12 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,SIE5RTPort * {__strong}>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,SIE5RTPort * {__strong}>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,SIE5RTPort * {__strong}>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,SIE5RTPort * {__strong}>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_inputsForOperations.__table_.__bucket_list_.__ptr_, __p);
+  v51 = __p;
+  v12 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,SIE5RTPort * {__strong}>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,SIE5RTPort * {__strong}>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,SIE5RTPort * {__strong}>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,SIE5RTPort * {__strong}>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_inputsForOperations.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v51);
   if (&self->_inputs != (v12 + 5))
   {
     self->_inputs.__table_.__max_load_factor_ = *(v12 + 18);
     std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,void *> *>>(&self->_inputs.__table_.__bucket_list_.__ptr_, v12[7], 0);
   }
 
-  if (SBYTE3(v53) < 0)
+  if (SBYTE3(v61) < 0)
   {
     operator delete(*__p);
   }
 
   v13 = v7;
   std::string::basic_string[abi:nn200100]<0>(__p, -[__CFString UTF8String](v7, "UTF8String"));
-  v43 = __p;
-  v14 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,SIE5RTPort * {__strong}>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,SIE5RTPort * {__strong}>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,SIE5RTPort * {__strong}>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,SIE5RTPort * {__strong}>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputsForOperations.__table_.__bucket_list_.__ptr_, __p);
+  v51 = __p;
+  v14 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,SIE5RTPort * {__strong}>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,SIE5RTPort * {__strong}>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,SIE5RTPort * {__strong}>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,SIE5RTPort * {__strong}>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputsForOperations.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v51);
   if (&self->_outputs != (v14 + 5))
   {
     self->_outputs.__table_.__max_load_factor_ = *(v14 + 18);
     std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,void *> *>>(&self->_outputs.__table_.__bucket_list_.__ptr_, v14[7], 0);
   }
 
-  if (SBYTE3(v53) < 0)
+  if (SBYTE3(v61) < 0)
   {
     operator delete(*__p);
   }
@@ -684,7 +691,6 @@ LABEL_8:
   v15 = 0;
 LABEL_36:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -704,7 +710,7 @@ LABEL_36:
 
 - (int64_t)reset
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   [(SIBaseNetworkE5RT *)self unwirePrewiringBuffers];
   p_first_node = &self->_e5rt_loaded_operations.__table_.__first_node_;
   while (1)
@@ -715,115 +721,120 @@ LABEL_36:
       break;
     }
 
-    if (e5rt_execution_stream_operation_release())
+    v4 = e5rt_execution_stream_operation_release();
+    if (v4)
     {
-      v4 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = __SceneIntelligenceLogSharedInstance(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v5 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 361);
-        v17 = 136381187;
-        v18 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-        v19 = 1025;
-        v20 = 361;
-        v21 = 2113;
-        v22 = v5;
-        _os_log_impl(&dword_21DE0D000, v4, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v17, 0x1Cu);
+        v6 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 361);
+        v22 = 136381187;
+        v23 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+        v24 = 1025;
+        v25 = 361;
+        v26 = 2113;
+        v27 = v6;
+        _os_log_impl(&dword_21DE0D000, v5, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v22, 0x1Cu);
       }
 
-      v6 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = __SceneIntelligenceLogSharedInstance(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v7 = p_first_node + 2;
+        v9 = p_first_node + 2;
         if (SHIBYTE(p_first_node[4].__next_) < 0)
         {
-          v7 = v7->__next_;
+          v9 = v9->__next_;
         }
 
-        v17 = 136381187;
-        v18 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-        v19 = 1025;
-        v20 = 361;
-        v21 = 2081;
-        v22 = v7;
-        v8 = " %{private}s:%{private}d *** Failed to release loaded operation: %{private}s ***";
-        v9 = v6;
-        v10 = 28;
+        v22 = 136381187;
+        v23 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+        v24 = 1025;
+        v25 = 361;
+        v26 = 2081;
+        v27 = v9;
+        v10 = " %{private}s:%{private}d *** Failed to release loaded operation: %{private}s ***";
+        v11 = v8;
+        v12 = 28;
 LABEL_23:
-        _os_log_impl(&dword_21DE0D000, v9, OS_LOG_TYPE_ERROR, v8, &v17, v10);
+        _os_log_impl(&dword_21DE0D000, v11, OS_LOG_TYPE_ERROR, v10, &v22, v12);
       }
 
 LABEL_24:
 
-      result = 7;
-      goto LABEL_25;
+      return 7;
     }
   }
 
-  if (self->_stream && e5rt_execution_stream_release())
+  if (self->_stream)
   {
-    v11 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = e5rt_execution_stream_release();
+    if (v13)
     {
-      v12 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 366);
-      v17 = 136381187;
-      v18 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-      v19 = 1025;
-      v20 = 366;
-      v21 = 2113;
-      v22 = v12;
-      _os_log_impl(&dword_21DE0D000, v11, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v17, 0x1Cu);
-    }
+      v14 = __SceneIntelligenceLogSharedInstance(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        v15 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 366);
+        v22 = 136381187;
+        v23 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+        v24 = 1025;
+        v25 = 366;
+        v26 = 2113;
+        v27 = v15;
+        _os_log_impl(&dword_21DE0D000, v14, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v22, 0x1Cu);
+      }
 
-    v6 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_24;
-    }
+      v8 = __SceneIntelligenceLogSharedInstance(v16);
+      if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_24;
+      }
 
-    v17 = 136380931;
-    v18 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-    v19 = 1025;
-    v20 = 366;
-    v8 = " %{private}s:%{private}d *** Failed to release E5RT inference stream ***";
+      v22 = 136380931;
+      v23 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+      v24 = 1025;
+      v25 = 366;
+      v10 = " %{private}s:%{private}d *** Failed to release E5RT inference stream ***";
 LABEL_22:
-    v9 = v6;
-    v10 = 18;
-    goto LABEL_23;
+      v11 = v8;
+      v12 = 18;
+      goto LABEL_23;
+    }
   }
 
-  if (self->_initPrewiringStream && e5rt_execution_stream_release())
+  if (self->_initPrewiringStream)
   {
-    v13 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v17 = e5rt_execution_stream_release();
+    if (v17)
     {
-      v14 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 372);
-      v17 = 136381187;
-      v18 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-      v19 = 1025;
-      v20 = 372;
-      v21 = 2113;
-      v22 = v14;
-      _os_log_impl(&dword_21DE0D000, v13, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v17, 0x1Cu);
-    }
+      v18 = __SceneIntelligenceLogSharedInstance(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        v19 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 372);
+        v22 = 136381187;
+        v23 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+        v24 = 1025;
+        v25 = 372;
+        v26 = 2113;
+        v27 = v19;
+        _os_log_impl(&dword_21DE0D000, v18, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v22, 0x1Cu);
+      }
 
-    v6 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_24;
-    }
+      v8 = __SceneIntelligenceLogSharedInstance(v20);
+      if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_24;
+      }
 
-    v17 = 136380931;
-    v18 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-    v19 = 1025;
-    v20 = 372;
-    v8 = " %{private}s:%{private}d *** Failed to release E5RT ANEP stream ***";
-    goto LABEL_22;
+      v22 = 136380931;
+      v23 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+      v24 = 1025;
+      v25 = 372;
+      v10 = " %{private}s:%{private}d *** Failed to release E5RT ANEP stream ***";
+      goto LABEL_22;
+    }
   }
 
-  result = 0;
-LABEL_25:
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (int64_t)setInput:(id)input fromCVPixelBuffer:(__CVBuffer *)buffer
@@ -840,10 +851,10 @@ LABEL_25:
   v20 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   surfaceCopy = surface;
-  if (-[SIBaseNetworkE5RT IsPrewiringEnabled](self, "IsPrewiringEnabled") && !-[SIBaseNetworkE5RT IsSurfacePrewiredForCurrentFunctionForBlob:surfaceID:](self, "IsSurfacePrewiredForCurrentFunctionForBlob:surfaceID:", inputCopy, [surfaceCopy identifier]))
+  if (-[SIBaseNetworkE5RT IsPrewiringEnabled](self, "IsPrewiringEnabled") && (v8 = -[SIBaseNetworkE5RT IsSurfacePrewiredForCurrentFunctionForBlob:surfaceID:](self, "IsSurfacePrewiredForCurrentFunctionForBlob:surfaceID:", inputCopy, [surfaceCopy identifier]), (v8 & 1) == 0))
   {
-    v10 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __SceneIntelligenceLogSharedInstance(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *__p = 136381443;
       *&__p[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
@@ -853,17 +864,17 @@ LABEL_25:
       identifier = [surfaceCopy identifier];
       v18 = 2113;
       v19 = inputCopy;
-      _os_log_impl(&dword_21DE0D000, v10, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Trying to bind the buffer (id= %lld) for blob (%{private}@) that was not ANEP ready ***", __p, 0x26u);
+      _os_log_impl(&dword_21DE0D000, v11, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Trying to bind the buffer (id= %lld) for blob (%{private}@) that was not ANEP ready ***", __p, 0x26u);
     }
 
-    v9 = 3;
+    v10 = 3;
   }
 
   else
   {
     std::string::basic_string[abi:nn200100]<0>(__p, [inputCopy UTF8String]);
-    v8 = std::__hash_table<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>>>::find<std::string>(&self->_inputs.__table_.__bucket_list_.__ptr_, __p);
-    if (!v8)
+    v9 = std::__hash_table<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>>>::find<std::string>(&self->_inputs.__table_.__bucket_list_.__ptr_, __p);
+    if (!v9)
     {
       abort();
     }
@@ -873,11 +884,10 @@ LABEL_25:
       operator delete(*__p);
     }
 
-    v9 = [v8[5] bindSurface:surfaceCopy];
+    v10 = [v9[5] bindSurface:surfaceCopy];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v10;
 }
 
 - (int64_t)setInput:(id)input fromRawPointer:(const void *)pointer
@@ -885,7 +895,7 @@ LABEL_25:
   inputCopy = input;
   std::string::basic_string[abi:nn200100]<0>(__p, [inputCopy UTF8String]);
   v12 = __p;
-  v7 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_inputs.__table_.__bucket_list_.__ptr_, __p);
+  v7 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_inputs.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v12);
   if (v11 < 0)
   {
     operator delete(__p[0]);
@@ -901,7 +911,7 @@ LABEL_25:
   ptrCopy = ptr;
   std::string::basic_string[abi:nn200100]<0>(__p, [ptrCopy UTF8String]);
   v10 = __p;
-  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_inputs.__table_.__bucket_list_.__ptr_, __p);
+  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_inputs.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v10);
   if (v9 < 0)
   {
     operator delete(__p[0]);
@@ -917,7 +927,7 @@ LABEL_25:
   widthCopy = width;
   std::string::basic_string[abi:nn200100]<0>(__p, [widthCopy UTF8String]);
   v10 = __p;
-  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_inputs.__table_.__bucket_list_.__ptr_, __p);
+  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_inputs.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v10);
   if (v9 < 0)
   {
     operator delete(__p[0]);
@@ -933,7 +943,7 @@ LABEL_25:
   heightCopy = height;
   std::string::basic_string[abi:nn200100]<0>(__p, [heightCopy UTF8String]);
   v10 = __p;
-  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_inputs.__table_.__bucket_list_.__ptr_, __p);
+  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_inputs.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v10);
   if (v9 < 0)
   {
     operator delete(__p[0]);
@@ -949,7 +959,7 @@ LABEL_25:
   channelsCopy = channels;
   std::string::basic_string[abi:nn200100]<0>(__p, [channelsCopy UTF8String]);
   v10 = __p;
-  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_inputs.__table_.__bucket_list_.__ptr_, __p);
+  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_inputs.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v10);
   if (v9 < 0)
   {
     operator delete(__p[0]);
@@ -965,7 +975,7 @@ LABEL_25:
   numCopy = num;
   std::string::basic_string[abi:nn200100]<0>(__p, [numCopy UTF8String]);
   v10 = __p;
-  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_inputs.__table_.__bucket_list_.__ptr_, __p);
+  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_inputs.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v10);
   if (v9 < 0)
   {
     operator delete(__p[0]);
@@ -981,7 +991,7 @@ LABEL_25:
   lengthCopy = length;
   std::string::basic_string[abi:nn200100]<0>(__p, [lengthCopy UTF8String]);
   v10 = __p;
-  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_inputs.__table_.__bucket_list_.__ptr_, __p);
+  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_inputs.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v10);
   if (v9 < 0)
   {
     operator delete(__p[0]);
@@ -997,7 +1007,7 @@ LABEL_25:
   bytesCopy = bytes;
   std::string::basic_string[abi:nn200100]<0>(__p, [bytesCopy UTF8String]);
   v10 = __p;
-  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_inputs.__table_.__bucket_list_.__ptr_, __p);
+  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_inputs.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v10);
   if (v9 < 0)
   {
     operator delete(__p[0]);
@@ -1014,10 +1024,10 @@ LABEL_25:
   blobCopy = blob;
   surfaceCopy = surface;
   identifier = [surfaceCopy identifier];
-  if ([(SIBaseNetworkE5RT *)self IsPrewiringEnabled]&& ![(SIBaseNetworkE5RT *)self IsSurfacePrewiredForCurrentFunctionForBlob:blobCopy surfaceID:identifier])
+  if ([(SIBaseNetworkE5RT *)self IsPrewiringEnabled]&& (v9 = [(SIBaseNetworkE5RT *)self IsSurfacePrewiredForCurrentFunctionForBlob:blobCopy surfaceID:identifier], (v9 & 1) == 0))
   {
-    v11 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __SceneIntelligenceLogSharedInstance(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *__p = 136381443;
       *&__p[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
@@ -1027,17 +1037,17 @@ LABEL_25:
       v18 = identifier;
       v19 = 2113;
       v20 = blobCopy;
-      _os_log_impl(&dword_21DE0D000, v11, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Trying to bind the buffer (id= %lld) for blob (%{private}@) that was not ANEP ready ***", __p, 0x26u);
+      _os_log_impl(&dword_21DE0D000, v12, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Trying to bind the buffer (id= %lld) for blob (%{private}@) that was not ANEP ready ***", __p, 0x26u);
     }
 
-    v10 = 3;
+    v11 = 3;
   }
 
   else
   {
     std::string::basic_string[abi:nn200100]<0>(__p, [blobCopy UTF8String]);
-    v9 = std::__hash_table<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>>>::find<std::string>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p);
-    if (!v9)
+    v10 = std::__hash_table<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>>>::find<std::string>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p);
+    if (!v10)
     {
       abort();
     }
@@ -1047,11 +1057,10 @@ LABEL_25:
       operator delete(*__p);
     }
 
-    v10 = [v9[5] bindSurface:surfaceCopy];
+    v11 = [v10[5] bindSurface:surfaceCopy];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v11;
 }
 
 - (void)getRawOutput:(id)output
@@ -1059,7 +1068,7 @@ LABEL_25:
   outputCopy = output;
   std::string::basic_string[abi:nn200100]<0>(__p, [outputCopy UTF8String]);
   v10 = __p;
-  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p);
+  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v10);
   if (v9 < 0)
   {
     operator delete(__p[0]);
@@ -1075,7 +1084,7 @@ LABEL_25:
   surfaceCopy = surface;
   std::string::basic_string[abi:nn200100]<0>(__p, [surfaceCopy UTF8String]);
   v10 = __p;
-  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p);
+  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v10);
   if (v9 < 0)
   {
     operator delete(__p[0]);
@@ -1091,7 +1100,7 @@ LABEL_25:
   shapeCopy = shape;
   std::string::basic_string[abi:nn200100]<0>(__p, [shapeCopy UTF8String]);
   v13 = __p;
-  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((self + 256), __p);
+  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((self + 256), __p, &std::piecewise_construct, &v13);
   if (v12 < 0)
   {
     operator delete(__p[0]);
@@ -1111,7 +1120,7 @@ LABEL_25:
   widthCopy = width;
   std::string::basic_string[abi:nn200100]<0>(__p, [widthCopy UTF8String]);
   v10 = __p;
-  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p);
+  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v10);
   if (v9 < 0)
   {
     operator delete(__p[0]);
@@ -1127,7 +1136,7 @@ LABEL_25:
   heightCopy = height;
   std::string::basic_string[abi:nn200100]<0>(__p, [heightCopy UTF8String]);
   v10 = __p;
-  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p);
+  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v10);
   if (v9 < 0)
   {
     operator delete(__p[0]);
@@ -1143,7 +1152,7 @@ LABEL_25:
   channelsCopy = channels;
   std::string::basic_string[abi:nn200100]<0>(__p, [channelsCopy UTF8String]);
   v10 = __p;
-  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p);
+  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v10);
   if (v9 < 0)
   {
     operator delete(__p[0]);
@@ -1159,7 +1168,7 @@ LABEL_25:
   numCopy = num;
   std::string::basic_string[abi:nn200100]<0>(__p, [numCopy UTF8String]);
   v10 = __p;
-  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p);
+  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v10);
   if (v9 < 0)
   {
     operator delete(__p[0]);
@@ -1175,7 +1184,7 @@ LABEL_25:
   lengthCopy = length;
   std::string::basic_string[abi:nn200100]<0>(__p, [lengthCopy UTF8String]);
   v10 = __p;
-  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p);
+  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v10);
   if (v9 < 0)
   {
     operator delete(__p[0]);
@@ -1191,7 +1200,7 @@ LABEL_25:
   bytesCopy = bytes;
   std::string::basic_string[abi:nn200100]<0>(__p, [bytesCopy UTF8String]);
   v10 = __p;
-  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p);
+  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v10);
   if (v9 < 0)
   {
     operator delete(__p[0]);
@@ -1207,7 +1216,7 @@ LABEL_25:
   elementsCopy = elements;
   std::string::basic_string[abi:nn200100]<0>(__p, [elementsCopy UTF8String]);
   v10 = __p;
-  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p);
+  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v10);
   if (v9 < 0)
   {
     operator delete(__p[0]);
@@ -1223,7 +1232,7 @@ LABEL_25:
   rowCopy = row;
   std::string::basic_string[abi:nn200100]<0>(__p, [rowCopy UTF8String]);
   v10 = __p;
-  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p);
+  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v10);
   if (v9 < 0)
   {
     operator delete(__p[0]);
@@ -1239,7 +1248,7 @@ LABEL_25:
   sizeCopy = size;
   std::string::basic_string[abi:nn200100]<0>(__p, [sizeCopy UTF8String]);
   v10 = __p;
-  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p);
+  v5 = std::__hash_table<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SIE5RTPort * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v10);
   if (v9 < 0)
   {
     operator delete(__p[0]);
@@ -1266,25 +1275,24 @@ LABEL_25:
 - (int64_t)runNetwork
 {
   v23 = *MEMORY[0x277D85DE8];
-  stream = self->_stream;
-  enabled_e5rt_operation = self->_enabled_e5rt_operation;
-  if (e5rt_execution_stream_encode_operation())
+  v2 = e5rt_execution_stream_encode_operation();
+  if (v2)
   {
-    v5 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v3 = __SceneIntelligenceLogSharedInstance(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v6 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 548);
+      v4 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 548);
       v17 = 136381187;
       v18 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
       v19 = 1025;
       v20 = 548;
       v21 = 2113;
-      v22 = v6;
-      _os_log_impl(&dword_21DE0D000, v5, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v17, 0x1Cu);
+      v22 = v4;
+      _os_log_impl(&dword_21DE0D000, v3, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v17, 0x1Cu);
     }
 
-    v7 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = __SceneIntelligenceLogSharedInstance(v5);
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_17;
     }
@@ -1293,28 +1301,28 @@ LABEL_25:
     v18 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
     v19 = 1025;
     v20 = 548;
-    v8 = " %{private}s:%{private}d *** Failed to encode E5RT operation into execution stream. ***";
+    v7 = " %{private}s:%{private}d *** Failed to encode E5RT operation into execution stream. ***";
     goto LABEL_16;
   }
 
-  v9 = self->_stream;
-  if (e5rt_execution_stream_execute_sync())
+  v8 = e5rt_execution_stream_execute_sync();
+  if (v8)
   {
-    v10 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = __SceneIntelligenceLogSharedInstance(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 551);
+      v10 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 551);
       v17 = 136381187;
       v18 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
       v19 = 1025;
       v20 = 551;
       v21 = 2113;
-      v22 = v11;
-      _os_log_impl(&dword_21DE0D000, v10, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v17, 0x1Cu);
+      v22 = v10;
+      _os_log_impl(&dword_21DE0D000, v9, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v17, 0x1Cu);
     }
 
-    v7 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = __SceneIntelligenceLogSharedInstance(v11);
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_17;
     }
@@ -1323,18 +1331,17 @@ LABEL_25:
     v18 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
     v19 = 1025;
     v20 = 551;
-    v8 = " %{private}s:%{private}d *** Failed to run execution stream. ***";
+    v7 = " %{private}s:%{private}d *** Failed to run execution stream. ***";
     goto LABEL_16;
   }
 
-  v12 = self->_stream;
-  if (!e5rt_execution_stream_reset())
+  v12 = e5rt_execution_stream_reset();
+  if (!v12)
   {
-    result = 0;
-    goto LABEL_18;
+    return 0;
   }
 
-  v13 = __SceneIntelligenceLogSharedInstance();
+  v13 = __SceneIntelligenceLogSharedInstance(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     v14 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 554);
@@ -1347,170 +1354,162 @@ LABEL_25:
     _os_log_impl(&dword_21DE0D000, v13, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v17, 0x1Cu);
   }
 
-  v7 = __SceneIntelligenceLogSharedInstance();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v6 = __SceneIntelligenceLogSharedInstance(v15);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v17 = 136380931;
     v18 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
     v19 = 1025;
     v20 = 554;
-    v8 = " %{private}s:%{private}d *** Failed to reset execution stream. ***";
+    v7 = " %{private}s:%{private}d *** Failed to reset execution stream. ***";
 LABEL_16:
-    _os_log_impl(&dword_21DE0D000, v7, OS_LOG_TYPE_ERROR, v8, &v17, 0x12u);
+    _os_log_impl(&dword_21DE0D000, v6, OS_LOG_TYPE_ERROR, v7, &v17, 0x12u);
   }
 
 LABEL_17:
 
-  result = 7;
-LABEL_18:
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return 7;
 }
 
 - (int64_t)runNetwork:(void *)network
 {
-  v28 = *MEMORY[0x277D85DE8];
-  stream = self->_stream;
-  enabled_e5rt_operation = self->_enabled_e5rt_operation;
-  if (e5rt_execution_stream_encode_operation())
+  v29 = *MEMORY[0x277D85DE8];
+  v4 = e5rt_execution_stream_encode_operation();
+  if (v4)
   {
-    v7 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v5 = __SceneIntelligenceLogSharedInstance(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 563);
-      v22 = 136381187;
-      v23 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-      v24 = 1025;
-      v25 = 563;
-      v26 = 2113;
-      v27 = v8;
-      _os_log_impl(&dword_21DE0D000, v7, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v22, 0x1Cu);
+      v6 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 563);
+      v23 = 136381187;
+      v24 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+      v25 = 1025;
+      v26 = 563;
+      v27 = 2113;
+      v28 = v6;
+      _os_log_impl(&dword_21DE0D000, v5, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v23, 0x1Cu);
     }
 
-    v9 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = __SceneIntelligenceLogSharedInstance(v7);
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_7;
     }
 
-    v22 = 136380931;
-    v23 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-    v24 = 1025;
-    v25 = 563;
-    v10 = " %{private}s:%{private}d *** Failed to encode E5RT operation into execution stream. ***";
+    v23 = 136380931;
+    v24 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+    v25 = 1025;
+    v26 = 563;
+    v9 = " %{private}s:%{private}d *** Failed to encode E5RT operation into execution stream. ***";
     goto LABEL_6;
   }
 
-  v13 = self->_stream;
   if (network)
   {
-    if (ps_e5rt_execution_stream_execute_sync())
+    v11 = ps_e5rt_execution_stream_execute_sync();
+    if (v11)
     {
-      v14 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v12 = __SceneIntelligenceLogSharedInstance(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v15 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 571);
-        v22 = 136381187;
-        v23 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-        v24 = 1025;
-        v25 = 571;
-        v26 = 2113;
-        v27 = v15;
-        _os_log_impl(&dword_21DE0D000, v14, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v22, 0x1Cu);
+        v13 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 571);
+        v23 = 136381187;
+        v24 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+        v25 = 1025;
+        v26 = 571;
+        v27 = 2113;
+        v28 = v13;
+        _os_log_impl(&dword_21DE0D000, v12, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v23, 0x1Cu);
       }
 
-      v9 = __SceneIntelligenceLogSharedInstance();
-      if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v8 = __SceneIntelligenceLogSharedInstance(v14);
+      if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_7;
       }
 
-      v22 = 136380931;
-      v23 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-      v24 = 1025;
-      v25 = 571;
-      v10 = " %{private}s:%{private}d *** Failed to run execution stream with polaris handle. ***";
+      v23 = 136380931;
+      v24 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+      v25 = 1025;
+      v26 = 571;
+      v9 = " %{private}s:%{private}d *** Failed to run execution stream with polaris handle. ***";
       goto LABEL_6;
     }
   }
 
   else
   {
-    v16 = self->_stream;
-    if (e5rt_execution_stream_execute_sync())
+    v15 = e5rt_execution_stream_execute_sync();
+    if (v15)
     {
-      v17 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v16 = __SceneIntelligenceLogSharedInstance(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v18 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 567);
-        v22 = 136381187;
-        v23 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-        v24 = 1025;
-        v25 = 567;
-        v26 = 2113;
-        v27 = v18;
-        _os_log_impl(&dword_21DE0D000, v17, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v22, 0x1Cu);
+        v17 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 567);
+        v23 = 136381187;
+        v24 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+        v25 = 1025;
+        v26 = 567;
+        v27 = 2113;
+        v28 = v17;
+        _os_log_impl(&dword_21DE0D000, v16, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v23, 0x1Cu);
       }
 
-      v9 = __SceneIntelligenceLogSharedInstance();
-      if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v8 = __SceneIntelligenceLogSharedInstance(v18);
+      if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_7;
       }
 
-      v22 = 136380931;
-      v23 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-      v24 = 1025;
-      v25 = 567;
-      v10 = " %{private}s:%{private}d *** Failed to run execution stream. ***";
+      v23 = 136380931;
+      v24 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+      v25 = 1025;
+      v26 = 567;
+      v9 = " %{private}s:%{private}d *** Failed to run execution stream. ***";
       goto LABEL_6;
     }
   }
 
-  v19 = self->_stream;
-  if (!e5rt_execution_stream_reset())
+  v19 = e5rt_execution_stream_reset();
+  if (!v19)
   {
-    result = 0;
-    goto LABEL_8;
+    return 0;
   }
 
-  v20 = __SceneIntelligenceLogSharedInstance();
+  v20 = __SceneIntelligenceLogSharedInstance(v19);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     v21 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 575);
-    v22 = 136381187;
-    v23 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-    v24 = 1025;
-    v25 = 575;
-    v26 = 2113;
-    v27 = v21;
-    _os_log_impl(&dword_21DE0D000, v20, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v22, 0x1Cu);
+    v23 = 136381187;
+    v24 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+    v25 = 1025;
+    v26 = 575;
+    v27 = 2113;
+    v28 = v21;
+    _os_log_impl(&dword_21DE0D000, v20, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v23, 0x1Cu);
   }
 
-  v9 = __SceneIntelligenceLogSharedInstance();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v8 = __SceneIntelligenceLogSharedInstance(v22);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v22 = 136380931;
-    v23 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-    v24 = 1025;
-    v25 = 575;
-    v10 = " %{private}s:%{private}d *** Failed to reset execution stream. ***";
+    v23 = 136380931;
+    v24 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+    v25 = 1025;
+    v26 = 575;
+    v9 = " %{private}s:%{private}d *** Failed to reset execution stream. ***";
 LABEL_6:
-    _os_log_impl(&dword_21DE0D000, v9, OS_LOG_TYPE_ERROR, v10, &v22, 0x12u);
+    _os_log_impl(&dword_21DE0D000, v8, OS_LOG_TYPE_ERROR, v9, &v23, 0x12u);
   }
 
 LABEL_7:
 
-  result = 7;
-LABEL_8:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return 7;
 }
 
 - (int64_t)addPrewiringBuffersToStreamForFunctionName:(id)name inputPools:(id)pools outputPools:(id)outputPools clearWiredBuffer:(BOOL)buffer
 {
   bufferCopy = buffer;
-  v139 = *MEMORY[0x277D85DE8];
+  v143 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   poolsCopy = pools;
   outputPoolsCopy = outputPools;
@@ -1519,26 +1518,26 @@ LABEL_8:
     [(SIBaseNetworkE5RT *)self unwirePrewiringBuffersForFunctionName:nameCopy];
   }
 
-  v118 = 0u;
-  v119 = 0u;
-  v116 = 0u;
-  v117 = 0u;
+  v122 = 0u;
+  v123 = 0u;
+  v120 = 0u;
+  v121 = 0u;
   obj = poolsCopy;
   v11 = 0;
-  v12 = [obj countByEnumeratingWithState:&v116 objects:v138 count:16];
+  v12 = [obj countByEnumeratingWithState:&v120 objects:v142 count:16];
   if (v12)
   {
-    v13 = *v117;
+    v13 = *v121;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v117 != v13)
+        if (*v121 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v116 + 1) + 8 * i);
+        v15 = *(*(&v120 + 1) + 8 * i);
         v16 = [obj objectForKeyedSubscript:v15];
         v17 = [v16 count];
         if (v11 <= v17)
@@ -1547,32 +1546,32 @@ LABEL_8:
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v116 objects:v138 count:16];
+      v12 = [obj countByEnumeratingWithState:&v120 objects:v142 count:16];
     }
 
     while (v12);
   }
 
-  v114 = 0u;
-  v115 = 0u;
-  v112 = 0u;
-  v113 = 0u;
-  v101 = outputPoolsCopy;
-  v18 = [v101 countByEnumeratingWithState:&v112 objects:v137 count:16];
+  v118 = 0u;
+  v119 = 0u;
+  v116 = 0u;
+  v117 = 0u;
+  v105 = outputPoolsCopy;
+  v18 = [v105 countByEnumeratingWithState:&v116 objects:v141 count:16];
   if (v18)
   {
-    v19 = *v113;
+    v19 = *v117;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v113 != v19)
+        if (*v117 != v19)
         {
-          objc_enumerationMutation(v101);
+          objc_enumerationMutation(v105);
         }
 
-        v21 = *(*(&v112 + 1) + 8 * j);
-        v22 = [v101 objectForKeyedSubscript:v21];
+        v21 = *(*(&v116 + 1) + 8 * j);
+        v22 = [v105 objectForKeyedSubscript:v21];
         v23 = [v22 count];
         if (v11 <= v23)
         {
@@ -1580,7 +1579,7 @@ LABEL_8:
         }
       }
 
-      v18 = [v101 countByEnumeratingWithState:&v112 objects:v137 count:16];
+      v18 = [v105 countByEnumeratingWithState:&v116 objects:v141 count:16];
     }
 
     while (v18);
@@ -1589,8 +1588,8 @@ LABEL_8:
   v24 = nameCopy;
   std::string::basic_string[abi:nn200100]<0>(__p, [nameCopy UTF8String]);
   *buf = __p;
-  v25 = std::__hash_table<std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PrewiredFunctionInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_prewiredFunctionTable.__table_.__bucket_list_.__ptr_, __p);
-  if (SBYTE3(v131) < 0)
+  v25 = std::__hash_table<std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PrewiredFunctionInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_prewiredFunctionTable.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, buf);
+  if (SBYTE3(v135) < 0)
   {
     operator delete(*__p);
     if (!v11)
@@ -1605,96 +1604,97 @@ LABEL_8:
   {
 LABEL_25:
     v26 = 0;
-    v95 = 7;
+    v99 = 7;
     while (1)
     {
       context = objc_autoreleasePoolPush();
-      v111 = 0;
+      v115 = 0;
       [(NSString *)self->_e5Path UTF8String];
       [(NSString *)self->_e5Path UTF8String];
       v27 = nameCopy;
       [nameCopy UTF8String];
-      if (e5rt_execution_stream_operation_create_precompiled_compute_operation())
+      precompiled_compute_operation = e5rt_execution_stream_operation_create_precompiled_compute_operation();
+      if (precompiled_compute_operation)
       {
         break;
       }
 
-      v109 = 0u;
-      v110 = 0u;
-      v107 = 0u;
-      v108 = 0u;
-      v98 = self->_networkInputNames;
-      v35 = [(NSArray *)v98 countByEnumeratingWithState:&v107 objects:v136 count:16];
-      if (v35)
+      v113 = 0u;
+      v114 = 0u;
+      v111 = 0u;
+      v112 = 0u;
+      v102 = self->_networkInputNames;
+      v37 = [(NSArray *)v102 countByEnumeratingWithState:&v111 objects:v140 count:16];
+      if (v37)
       {
-        v36 = *v108;
+        v38 = *v112;
         do
         {
-          for (k = 0; k != v35; ++k)
+          for (k = 0; k != v37; ++k)
           {
-            if (*v108 != v36)
+            if (*v112 != v38)
             {
-              objc_enumerationMutation(v98);
+              objc_enumerationMutation(v102);
             }
 
-            v38 = *(*(&v107 + 1) + 8 * k);
-            v39 = [obj objectForKeyedSubscript:v38];
-            v40 = [v39 count];
+            v40 = *(*(&v111 + 1) + 8 * k);
+            v41 = [obj objectForKeyedSubscript:v40];
+            v42 = [v41 count];
 
-            v41 = [obj objectForKeyedSubscript:v38];
-            v42 = [v41 objectAtIndexedSubscript:v26 % v40];
+            v43 = [obj objectForKeyedSubscript:v40];
+            v44 = [v43 objectAtIndexedSubscript:v26 % v42];
 
-            v43 = [SIE5RTPort alloc];
-            v106 = [(SIE5RTPort *)v43 initPortWithE5RTStreamOperation:v111 blobName:v38 portType:0 operationBackend:self->_bundleBackend surfaceAllocator:self->_surfaceAllocator];
-            [v106 bindSurface:v42];
-            std::vector<SIE5RTPort * {__strong}>::push_back[abi:nn200100](v25 + 13, &v106);
-            v44 = v38;
-            std::string::basic_string[abi:nn200100]<0>(__p, [v38 UTF8String]);
+            v45 = [SIE5RTPort alloc];
+            v110 = [(SIE5RTPort *)v45 initPortWithE5RTStreamOperation:v115 blobName:v40 portType:0 operationBackend:self->_bundleBackend surfaceAllocator:self->_surfaceAllocator];
+            [v110 bindSurface:v44];
+            std::vector<SIE5RTPort * {__strong}>::push_back[abi:nn200100](v25 + 13, &v110);
+            v46 = v40;
+            std::string::basic_string[abi:nn200100]<0>(__p, [v40 UTF8String]);
             *buf = __p;
-            v45 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v25 + 8, __p);
-            *buf = [v42 identifier];
-            std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(v45 + 5, buf);
-            if (SBYTE3(v131) < 0)
+            v47 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v25 + 8, __p, &std::piecewise_construct, buf);
+            *buf = [v44 identifier];
+            std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(v47 + 5, buf, buf);
+            if (SBYTE3(v135) < 0)
             {
               operator delete(*__p);
             }
           }
 
-          v35 = [(NSArray *)v98 countByEnumeratingWithState:&v107 objects:v136 count:16];
+          v37 = [(NSArray *)v102 countByEnumeratingWithState:&v111 objects:v140 count:16];
         }
 
-        while (v35);
+        while (v37);
       }
 
-      v104 = 0u;
-      v105 = 0u;
-      v102 = 0u;
-      v103 = 0u;
-      v99 = self->_networkOutputNames;
-      v46 = [(NSArray *)v99 countByEnumeratingWithState:&v102 objects:v135 count:16];
-      if (v46)
+      v108 = 0u;
+      v109 = 0u;
+      v106 = 0u;
+      v107 = 0u;
+      v103 = self->_networkOutputNames;
+      v48 = [(NSArray *)v103 countByEnumeratingWithState:&v106 objects:v139 count:16];
+      if (v48)
       {
-        v47 = *v103;
+        v49 = *v107;
         do
         {
-          for (m = 0; m != v46; ++m)
+          for (m = 0; m != v48; ++m)
           {
-            if (*v103 != v47)
+            if (*v107 != v49)
             {
-              objc_enumerationMutation(v99);
+              objc_enumerationMutation(v103);
             }
 
-            v49 = *(*(&v102 + 1) + 8 * m);
-            v50 = [v101 objectForKey:v49];
-            v51 = v50 == 0;
+            v51 = *(*(&v106 + 1) + 8 * m);
+            v52 = [v105 objectForKey:v51];
+            v53 = v52 == 0;
 
-            if (v51)
+            if (v53)
             {
-              v56 = v49;
-              std::string::basic_string[abi:nn200100]<0>(__p, [v49 UTF8String]);
+              v58 = v51;
+              std::string::basic_string[abi:nn200100]<0>(__p, [v51 UTF8String]);
               *buf = __p;
-              v55 = [std::__hash_table<std::__hash_value_type<std::string SIE5RTPort * {:std::__unordered_map_hasher<std::string :{std::__hash_value_type<std::string, SIE5RTPort * {__strong}>, std::hash<std::string>, std::equal_to<std::string>, true>, std::__unordered_map_equal<std::string, std::__hash_value_type<std::string, SIE5RTPort * {__strong}>, std::equal_to<std::string>, std::hash<std::string>, true>, std::allocator<std::__hash_value_type<std::string, SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string, std::piecewise_construct_t const&, std::tuple<std::string&&>, std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p)[5], "getSurface"}strong}>];
-              if (SBYTE3(v131) < 0)
+              v57 = [std::__hash_table<std::__hash_value_type<std::string SIE5RTPort * {:std::__unordered_map_hasher<std::string :{std::__hash_value_type<std::string, SIE5RTPort * {__strong}>, std::hash<std::string>, std::equal_to<std::string>, true>, std::__unordered_map_equal<std::string, std::__hash_value_type<std::string, SIE5RTPort * {__strong}>, std::equal_to<std::string>, std::hash<std::string>, true>, std::allocator<std::__hash_value_type<std::string, SIE5RTPort * {__strong}>>>::__emplace_unique_key_args<std::string, std::piecewise_construct_t const&, std::tuple<std::string&&>, std::tuple<>>(&self->_outputs.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, buf)[5], "getSurface"}strong}>];
+              if (SBYTE3(v135) < 0)
               {
                 operator delete(*__p);
               }
@@ -1702,139 +1702,139 @@ LABEL_25:
 
             else
             {
-              v52 = [v101 objectForKeyedSubscript:v49];
-              v53 = [v52 count];
+              v54 = [v105 objectForKeyedSubscript:v51];
+              v55 = [v54 count];
 
-              v54 = [v101 objectForKeyedSubscript:v49];
-              v55 = [v54 objectAtIndexedSubscript:v26 % v53];
+              v56 = [v105 objectForKeyedSubscript:v51];
+              v57 = [v56 objectAtIndexedSubscript:v26 % v55];
             }
 
-            v57 = [SIE5RTPort alloc];
-            v106 = [(SIE5RTPort *)v57 initPortWithE5RTStreamOperation:v111 blobName:v49 portType:1 operationBackend:self->_bundleBackend surfaceAllocator:self->_surfaceAllocator];
-            [v106 bindSurface:v55];
-            std::vector<SIE5RTPort * {__strong}>::push_back[abi:nn200100](v25 + 13, &v106);
-            v58 = v49;
-            std::string::basic_string[abi:nn200100]<0>(__p, [v49 UTF8String]);
+            v59 = [SIE5RTPort alloc];
+            v110 = [(SIE5RTPort *)v59 initPortWithE5RTStreamOperation:v115 blobName:v51 portType:1 operationBackend:self->_bundleBackend surfaceAllocator:self->_surfaceAllocator];
+            [v110 bindSurface:v57];
+            std::vector<SIE5RTPort * {__strong}>::push_back[abi:nn200100](v25 + 13, &v110);
+            v60 = v51;
+            std::string::basic_string[abi:nn200100]<0>(__p, [v51 UTF8String]);
             *buf = __p;
-            v59 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v25 + 8, __p);
-            *buf = [v55 identifier];
-            std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(v59 + 5, buf);
-            if (SBYTE3(v131) < 0)
+            v61 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v25 + 8, __p, &std::piecewise_construct, buf);
+            *buf = [v57 identifier];
+            std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(v61 + 5, buf, buf);
+            if (SBYTE3(v135) < 0)
             {
               operator delete(*__p);
             }
           }
 
-          v46 = [(NSArray *)v99 countByEnumeratingWithState:&v102 objects:v135 count:16];
+          v48 = [(NSArray *)v103 countByEnumeratingWithState:&v106 objects:v139 count:16];
         }
 
-        while (v46);
+        while (v48);
       }
 
-      v61 = v25[6];
-      v60 = v25[7];
-      if (v61 >= v60)
+      v63 = v25[6];
+      v62 = v25[7];
+      if (v63 >= v62)
       {
-        v63 = v25[5];
-        v64 = (v61 - v63) >> 3;
-        if ((v64 + 1) >> 61)
+        v65 = v25[5];
+        v66 = (v63 - v65) >> 3;
+        if ((v66 + 1) >> 61)
         {
           std::__throw_bad_array_new_length[abi:nn200100]();
         }
 
-        v65 = v60 - v63;
-        v66 = v65 >> 2;
-        if (v65 >> 2 <= (v64 + 1))
+        v67 = v62 - v65;
+        v68 = v67 >> 2;
+        if (v67 >> 2 <= (v66 + 1))
         {
-          v66 = v64 + 1;
+          v68 = v66 + 1;
         }
 
-        if (v65 >= 0x7FFFFFFFFFFFFFF8)
+        if (v67 >= 0x7FFFFFFFFFFFFFF8)
         {
-          v67 = 0x1FFFFFFFFFFFFFFFLL;
+          v69 = 0x1FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v67 = v66;
+          v69 = v68;
         }
 
-        if (v67)
+        if (v69)
         {
-          std::__allocate_at_least[abi:nn200100]<std::allocator<e5rt_execution_stream_operation *>>((v25 + 5), v67);
+          std::__allocate_at_least[abi:nn200100]<std::allocator<e5rt_execution_stream_operation *>>((v25 + 5), v69);
         }
 
-        *(8 * v64) = v111;
-        v62 = 8 * v64 + 8;
-        v68 = v25[5];
-        v69 = v25[6] - v68;
-        v70 = (8 * v64 - v69);
-        memcpy(v70, v68, v69);
-        v71 = v25[5];
-        v25[5] = v70;
-        v25[6] = v62;
+        *(8 * v66) = v115;
+        v64 = 8 * v66 + 8;
+        v70 = v25[5];
+        v71 = v25[6] - v70;
+        v72 = (8 * v66 - v71);
+        memcpy(v72, v70, v71);
+        v73 = v25[5];
+        v25[5] = v72;
+        v25[6] = v64;
         v25[7] = 0;
-        if (v71)
+        if (v73)
         {
-          operator delete(v71);
+          operator delete(v73);
         }
       }
 
       else
       {
-        *v61 = v111;
-        v62 = (v61 + 8);
+        *v63 = v115;
+        v64 = (v63 + 8);
       }
 
-      v25[6] = v62;
-      initPrewiringStream = self->_initPrewiringStream;
-      if (!e5rt_execution_stream_encode_operation())
+      v25[6] = v64;
+      v74 = e5rt_execution_stream_encode_operation();
+      if (!v74)
       {
-        v76 = 1;
+        v79 = 1;
         goto LABEL_74;
       }
 
-      v73 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+      v75 = __SceneIntelligenceLogSharedInstance(v74);
+      if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
       {
-        v74 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 683);
+        v76 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 683);
         *__p = 136381187;
         *&__p[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-        v128 = 1025;
-        v129 = 683;
-        v130 = 2113;
-        v131 = v74;
-        _os_log_impl(&dword_21DE0D000, v73, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", __p, 0x1Cu);
+        v132 = 1025;
+        v133 = 683;
+        v134 = 2113;
+        v135 = v76;
+        _os_log_impl(&dword_21DE0D000, v75, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", __p, 0x1Cu);
       }
 
-      v30 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v32 = __SceneIntelligenceLogSharedInstance(v77);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        v75 = "YES";
+        v78 = "YES";
         if (!self->_initPrewiringStream)
         {
-          v75 = "NO";
+          v78 = "NO";
         }
 
         *__p = 136381187;
         *&__p[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-        v128 = 1025;
-        v129 = 683;
-        v130 = 2081;
-        v131 = v75;
-        v32 = v30;
-        v33 = " %{private}s:%{private}d *** Failed to encode operation into execution stream for ANEP. Has ANEP Stream init: %{private}s ***";
-        v34 = 28;
+        v132 = 1025;
+        v133 = 683;
+        v134 = 2081;
+        v135 = v78;
+        v34 = v32;
+        v35 = " %{private}s:%{private}d *** Failed to encode operation into execution stream for ANEP. Has ANEP Stream init: %{private}s ***";
+        v36 = 28;
 LABEL_72:
-        _os_log_impl(&dword_21DE0D000, v32, OS_LOG_TYPE_ERROR, v33, __p, v34);
+        _os_log_impl(&dword_21DE0D000, v34, OS_LOG_TYPE_ERROR, v35, __p, v36);
       }
 
 LABEL_73:
 
-      v76 = 0;
+      v79 = 0;
 LABEL_74:
       objc_autoreleasePoolPop(context);
-      if ((v76 & 1) == 0)
+      if ((v79 & 1) == 0)
       {
         goto LABEL_100;
       }
@@ -1845,21 +1845,21 @@ LABEL_74:
       }
     }
 
-    v28 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v29 = __SceneIntelligenceLogSharedInstance(precompiled_compute_operation);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      v29 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 647);
+      v30 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 647);
       *__p = 136381187;
       *&__p[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-      v128 = 1025;
-      v129 = 647;
-      v130 = 2113;
-      v131 = v29;
-      _os_log_impl(&dword_21DE0D000, v28, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", __p, 0x1Cu);
+      v132 = 1025;
+      v133 = 647;
+      v134 = 2113;
+      v135 = v30;
+      _os_log_impl(&dword_21DE0D000, v29, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", __p, 0x1Cu);
     }
 
-    v30 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v32 = __SceneIntelligenceLogSharedInstance(v31);
+    if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_73;
     }
@@ -1867,130 +1867,131 @@ LABEL_74:
     e5Path = self->_e5Path;
     *__p = 136381443;
     *&__p[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-    v128 = 1025;
-    v129 = 647;
-    v130 = 2113;
-    v131 = nameCopy;
-    v132 = 2113;
-    v133 = e5Path;
-    v32 = v30;
-    v33 = " %{private}s:%{private}d *** Failed to create compute operation for function name: %{private}@, e5Path: %{private}@ ***";
-    v34 = 38;
+    v132 = 1025;
+    v133 = 647;
+    v134 = 2113;
+    v135 = nameCopy;
+    v136 = 2113;
+    v137 = e5Path;
+    v34 = v32;
+    v35 = " %{private}s:%{private}d *** Failed to create compute operation for function name: %{private}@, e5Path: %{private}@ ***";
+    v36 = 38;
     goto LABEL_72;
   }
 
 LABEL_78:
-  v77 = self->_initPrewiringStream;
-  if (e5rt_execution_stream_prewire_in_use_allocations())
+  v80 = e5rt_execution_stream_prewire_in_use_allocations();
+  if (v80)
   {
-    v78 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
+    v81 = __SceneIntelligenceLogSharedInstance(v80);
+    if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
     {
-      v79 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 688);
+      v82 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 688);
       *__p = 136381187;
       *&__p[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-      v128 = 1025;
-      v129 = 688;
-      v130 = 2113;
-      v131 = v79;
-      _os_log_impl(&dword_21DE0D000, v78, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", __p, 0x1Cu);
+      v132 = 1025;
+      v133 = 688;
+      v134 = 2113;
+      v135 = v82;
+      _os_log_impl(&dword_21DE0D000, v81, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", __p, 0x1Cu);
     }
 
-    v80 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+    v84 = __SceneIntelligenceLogSharedInstance(v83);
+    if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
     {
-      v81 = "YES";
-      v82 = self->_initPrewiringStream;
+      v85 = "YES";
+      initPrewiringStream = self->_initPrewiringStream;
       *&__p[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
       *__p = 136381187;
-      if (!v82)
+      if (!initPrewiringStream)
       {
-        v81 = "NO";
+        v85 = "NO";
       }
 
-      v128 = 1025;
-      v129 = 688;
-      v130 = 2081;
-      v131 = v81;
-      _os_log_impl(&dword_21DE0D000, v80, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to prewire collected buffers. Has ANEP Stream init: %{private}s ***", __p, 0x1Cu);
+      v132 = 1025;
+      v133 = 688;
+      v134 = 2081;
+      v135 = v85;
+      _os_log_impl(&dword_21DE0D000, v84, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to prewire collected buffers. Has ANEP Stream init: %{private}s ***", __p, 0x1Cu);
     }
 
-    v95 = 7;
+    v99 = 7;
   }
 
   else
   {
-    v83 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v83, OS_LOG_TYPE_DEBUG))
+    v87 = __SceneIntelligenceLogSharedInstance(v80);
+    if (os_log_type_enabled(v87, OS_LOG_TYPE_DEBUG))
     {
       networkName = self->_networkName;
       *__p = 136381443;
       *&__p[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-      v128 = 1025;
-      v129 = 691;
-      v130 = 2113;
-      v131 = networkName;
-      v132 = 2113;
-      v133 = nameCopy;
-      _os_log_impl(&dword_21DE0D000, v83, OS_LOG_TYPE_DEBUG, " %{private}s:%{private}d *** ANEP info for %{private}@, function:%{private}@ ***", __p, 0x26u);
+      v132 = 1025;
+      v133 = 691;
+      v134 = 2113;
+      v135 = networkName;
+      v136 = 2113;
+      v137 = nameCopy;
+      _os_log_impl(&dword_21DE0D000, v87, OS_LOG_TYPE_DEBUG, " %{private}s:%{private}d *** ANEP info for %{private}@, function:%{private}@ ***", __p, 0x26u);
     }
 
     for (n = v25[10]; n; n = *n)
     {
       std::pair<std::string const,std::unordered_set<unsigned long long>>::pair[abi:nn200100](__p, n + 1);
-      v86 = objc_alloc(MEMORY[0x277CCACA8]);
-      if (SBYTE3(v131) >= 0)
+      v90 = objc_alloc(MEMORY[0x277CCACA8]);
+      if (SBYTE3(v135) >= 0)
       {
-        v87 = __p;
+        v91 = __p;
       }
 
       else
       {
-        v87 = *__p;
+        v91 = *__p;
       }
 
-      v88 = [v86 initWithUTF8String:v87];
-      for (ii = v134; ii; ii = *ii)
+      v92 = [v90 initWithUTF8String:v91];
+      v93 = v92;
+      for (ii = v138; ii; ii = *ii)
       {
-        v90 = ii[2];
-        v91 = __SceneIntelligenceLogSharedInstance();
-        if (os_log_type_enabled(v91, OS_LOG_TYPE_DEBUG))
+        v95 = ii[2];
+        v96 = __SceneIntelligenceLogSharedInstance(v92);
+        if (os_log_type_enabled(v96, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136381443;
           *&buf[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-          v121 = 1025;
-          v122 = 695;
-          v123 = 2113;
-          v124 = v88;
-          v125 = 2048;
-          v126 = v90;
-          _os_log_impl(&dword_21DE0D000, v91, OS_LOG_TYPE_DEBUG, " %{private}s:%{private}d *** %{private}@ - %lld ***", buf, 0x26u);
+          v125 = 1025;
+          v126 = 695;
+          v127 = 2113;
+          v128 = v93;
+          v129 = 2048;
+          v130 = v95;
+          _os_log_impl(&dword_21DE0D000, v96, OS_LOG_TYPE_DEBUG, " %{private}s:%{private}d *** %{private}@ - %lld ***", buf, 0x26u);
         }
       }
 
-      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v131 + 4);
-      if (SBYTE3(v131) < 0)
+      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v135 + 4);
+      if (SBYTE3(v135) < 0)
       {
         operator delete(*__p);
       }
     }
 
-    v95 = 0;
+    v99 = 0;
   }
 
 LABEL_100:
 
-  v92 = *MEMORY[0x277D85DE8];
-  return v95;
+  return v99;
 }
 
 - (int64_t)unwirePrewiringBuffersForFunctionName:(id)name
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   std::string::basic_string[abi:nn200100]<0>(__p, [nameCopy UTF8String]);
-  v5 = std::__hash_table<std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PrewiredFunctionInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_prewiredFunctionTable.__table_.__bucket_list_.__ptr_, __p);
-  if (SBYTE3(v22) < 0)
+  v18 = __p;
+  v5 = std::__hash_table<std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PrewiredFunctionInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_prewiredFunctionTable.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v18);
+  if (SBYTE3(v23) < 0)
   {
     operator delete(*__p);
   }
@@ -2001,23 +2002,24 @@ LABEL_100:
   {
 LABEL_7:
     v5[6] = v6;
-    v8 = v5[13];
-    for (i = v5[14]; i != v8; i -= 8)
+    v9 = v5[13];
+    for (i = v5[14]; i != v9; i -= 8)
     {
-      v10 = *(i - 1);
+      v11 = *(i - 1);
     }
 
-    v5[14] = v8;
+    v5[14] = v9;
     std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>>>::clear((v5 + 8));
-    v11 = 0;
+    v12 = 0;
   }
 
   else
   {
     while (1)
     {
-      v17 = *v6;
-      if (e5rt_execution_stream_operation_release())
+      v18 = *v6;
+      v8 = e5rt_execution_stream_operation_release();
+      if (v8)
       {
         break;
       }
@@ -2029,43 +2031,42 @@ LABEL_7:
       }
     }
 
-    v12 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = __SceneIntelligenceLogSharedInstance(v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v13 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 707);
+      v14 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 707);
       *__p = 136381187;
       *&__p[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-      v19 = 1025;
-      v20 = 707;
-      v21 = 2113;
-      v22 = v13;
-      _os_log_impl(&dword_21DE0D000, v12, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", __p, 0x1Cu);
+      v20 = 1025;
+      v21 = 707;
+      v22 = 2113;
+      v23 = v14;
+      _os_log_impl(&dword_21DE0D000, v13, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", __p, 0x1Cu);
     }
 
-    v14 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = __SceneIntelligenceLogSharedInstance(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *__p = 136381187;
       *&__p[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-      v19 = 1025;
-      v20 = 707;
-      v21 = 2113;
-      v22 = nameCopy;
-      _os_log_impl(&dword_21DE0D000, v14, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to release ANEP for function: %{private}@ ***", __p, 0x1Cu);
+      v20 = 1025;
+      v21 = 707;
+      v22 = 2113;
+      v23 = nameCopy;
+      _os_log_impl(&dword_21DE0D000, v16, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to release ANEP for function: %{private}@ ***", __p, 0x1Cu);
     }
 
-    v11 = 7;
+    v12 = 7;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 - (BOOL)IsPrewiringEnabled
 {
   std::string::basic_string[abi:nn200100]<0>(__p, -[NSString UTF8String](self->_enabled_e5rt_function_name, "UTF8String"));
   v7 = __p;
-  v3 = std::__hash_table<std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PrewiredFunctionInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_prewiredFunctionTable.__table_.__bucket_list_.__ptr_, __p);
+  v3 = std::__hash_table<std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PrewiredFunctionInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_prewiredFunctionTable.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v7);
   if (v6 < 0)
   {
     operator delete(__p[0]);
@@ -2077,10 +2078,10 @@ LABEL_7:
 - (BOOL)IsSurfacePrewiredForCurrentFunctionForBlob:(id)blob surfaceID:(unint64_t)d
 {
   blobCopy = blob;
-  v18[0] = d;
+  dCopy = d;
   std::string::basic_string[abi:nn200100]<0>(__p, -[NSString UTF8String](self->_enabled_e5rt_function_name, "UTF8String"));
   v14[0] = __p;
-  v7 = std::__hash_table<std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PrewiredFunctionInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_prewiredFunctionTable.__table_.__bucket_list_.__ptr_, __p);
+  v7 = std::__hash_table<std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PrewiredFunctionInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_prewiredFunctionTable.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, v14);
   if (v17 < 0)
   {
     operator delete(__p[0]);
@@ -2091,11 +2092,11 @@ LABEL_7:
   {
     std::string::basic_string[abi:nn200100]<0>(v14, [blobCopy UTF8String]);
     v12[0] = v14;
-    v8 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v7 + 8, v14);
-    v9 = std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>(v8 + 5, v18);
+    v8 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v7 + 8, v14, &std::piecewise_construct, v12);
+    v9 = std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>(v8 + 5, &dCopy);
     std::string::basic_string[abi:nn200100]<0>(v12, [blobCopy UTF8String]);
-    v18[2] = v12;
-    std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v7 + 8, v12);
+    v19 = v12;
+    std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<unsigned long long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v7 + 8, v12, &std::piecewise_construct, &v19);
     v10 = v9 != 0;
     if (v13 < 0)
     {
@@ -2123,7 +2124,7 @@ LABEL_7:
 
 - (int64_t)unwirePrewiringBuffers
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   for (i = self->_prewiredFunctionTable.__table_.__first_node_.__next_; i; i = *i)
   {
     v4 = i + 16;
@@ -2138,72 +2139,70 @@ LABEL_7:
   }
 
   std::__hash_table<std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PrewiredFunctionInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PrewiredFunctionInfo>>>::clear(&self->_prewiredFunctionTable);
-  if (e5rt_execution_stream_release())
+  v7 = e5rt_execution_stream_release();
+  if (v7)
   {
-    v7 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __SceneIntelligenceLogSharedInstance(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v8 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 739);
-      v15 = 136381187;
-      v16 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-      v17 = 1025;
-      v18 = 739;
-      v19 = 2113;
-      v20 = v8;
-      _os_log_impl(&dword_21DE0D000, v7, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v15, 0x1Cu);
+      v9 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 739);
+      v18 = 136381187;
+      v19 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+      v20 = 1025;
+      v21 = 739;
+      v22 = 2113;
+      v23 = v9;
+      _os_log_impl(&dword_21DE0D000, v8, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v18, 0x1Cu);
     }
 
-    v9 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = __SceneIntelligenceLogSharedInstance(v10);
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_16;
     }
 
-    v15 = 136380931;
-    v16 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-    v17 = 1025;
-    v18 = 739;
-    v10 = " %{private}s:%{private}d *** Failed to release E5RT ANEP stream ***";
+    v18 = 136380931;
+    v19 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+    v20 = 1025;
+    v21 = 739;
+    v12 = " %{private}s:%{private}d *** Failed to release E5RT ANEP stream ***";
     goto LABEL_15;
   }
 
-  if (!e5rt_execution_stream_create())
+  v13 = e5rt_execution_stream_create();
+  if (!v13)
   {
-    result = 0;
-    goto LABEL_17;
+    return 0;
   }
 
-  v11 = __SceneIntelligenceLogSharedInstance();
+  v14 = __SceneIntelligenceLogSharedInstance(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  {
+    v15 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 742);
+    v18 = 136381187;
+    v19 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+    v20 = 1025;
+    v21 = 742;
+    v22 = 2113;
+    v23 = v15;
+    _os_log_impl(&dword_21DE0D000, v14, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v18, 0x1Cu);
+  }
+
+  v11 = __SceneIntelligenceLogSharedInstance(v16);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    v12 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm", 742);
-    v15 = 136381187;
-    v16 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-    v17 = 1025;
-    v18 = 742;
-    v19 = 2113;
-    v20 = v12;
-    _os_log_impl(&dword_21DE0D000, v11, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", &v15, 0x1Cu);
-  }
-
-  v9 = __SceneIntelligenceLogSharedInstance();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-  {
-    v15 = 136380931;
-    v16 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
-    v17 = 1025;
-    v18 = 742;
-    v10 = " %{private}s:%{private}d *** Failed to create E5RT ANEP stream ***";
+    v18 = 136380931;
+    v19 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+    v20 = 1025;
+    v21 = 742;
+    v12 = " %{private}s:%{private}d *** Failed to create E5RT ANEP stream ***";
 LABEL_15:
-    _os_log_impl(&dword_21DE0D000, v9, OS_LOG_TYPE_ERROR, v10, &v15, 0x12u);
+    _os_log_impl(&dword_21DE0D000, v11, OS_LOG_TYPE_ERROR, v12, &v18, 0x12u);
   }
 
 LABEL_16:
 
-  result = 7;
-LABEL_17:
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return 7;
 }
 
 - (id).cxx_construct

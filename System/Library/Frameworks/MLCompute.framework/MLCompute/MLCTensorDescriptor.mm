@@ -1,5 +1,9 @@
 @interface MLCTensorDescriptor
++ (MLCTensorDescriptor)convolutionBiasesDescriptorWithFeatureChannelCount:(NSUInteger)featureChannelCount dataType:(MLCDataType)dataType;
++ (MLCTensorDescriptor)convolutionWeightsDescriptorWithInputFeatureChannelCount:(NSUInteger)inputFeatureChannelCount outputFeatureChannelCount:(NSUInteger)outputFeatureChannelCount dataType:(MLCDataType)dataType;
++ (MLCTensorDescriptor)convolutionWeightsDescriptorWithWidth:(NSUInteger)width height:(NSUInteger)height inputFeatureChannelCount:(NSUInteger)inputFeatureChannelCount outputFeatureChannelCount:(NSUInteger)outputFeatureChannelCount dataType:(MLCDataType)dataType;
 + (MLCTensorDescriptor)descriptorWithShape:(NSArray *)shape sequenceLengths:(NSArray *)sequenceLengths sortedSequences:(BOOL)sortedSequences dataType:(MLCDataType)dataType;
++ (MLCTensorDescriptor)descriptorWithShape:(id)shape stride:(id)stride dataType:(int)type;
 + (MLCTensorDescriptor)descriptorWithWidth:(NSUInteger)width height:(NSUInteger)height featureChannelCount:(NSUInteger)featureChannels batchSize:(NSUInteger)batchSize;
 + (MLCTensorDescriptor)descriptorWithWidth:(unint64_t)width height:(unint64_t)height featureChannels:(unint64_t)channels batchSize:(unint64_t)size strideForWidth:(unint64_t)forWidth strideForHeight:(unint64_t)forHeight strideForBatch:(unint64_t)batch dataType:(int)self0;
 + (unint64_t)elementByteCount:(int)count;
@@ -108,9 +112,45 @@ LABEL_14:
   return v21;
 }
 
++ (MLCTensorDescriptor)descriptorWithShape:(id)shape stride:(id)stride dataType:(int)type
+{
+  v5 = *&type;
+  shapeCopy = shape;
+  strideCopy = stride;
+  v10 = [shapeCopy count];
+  if (v10 == 4)
+  {
+    v14 = [shapeCopy objectAtIndexedSubscript:0];
+    unsignedIntegerValue = [v14 unsignedIntegerValue];
+    v16 = [shapeCopy objectAtIndexedSubscript:1];
+    v13 = [v16 unsignedIntegerValue] * unsignedIntegerValue;
+
+    v11 = [shapeCopy objectAtIndexedSubscript:2];
+    unsignedIntegerValue2 = [v11 unsignedIntegerValue] * v13;
+    goto LABEL_5;
+  }
+
+  if (v10 == 3)
+  {
+    v11 = [shapeCopy objectAtIndexedSubscript:2];
+    unsignedIntegerValue2 = [v11 unsignedIntegerValue];
+    v13 = 1;
+LABEL_5:
+
+    goto LABEL_7;
+  }
+
+  unsignedIntegerValue2 = 1;
+  v13 = 1;
+LABEL_7:
+  v17 = [[self alloc] initTensorWithShape:shapeCopy stride:strideCopy fanIn:unsignedIntegerValue2 fanOut:v13 dataType:v5];
+
+  return v17;
+}
+
 - (id)initNCHWTensorWithWidth:(unint64_t)width height:(unint64_t)height featureChannels:(unint64_t)channels batchSize:(unint64_t)size strideForWidth:(unint64_t)forWidth strideForHeight:(unint64_t)forHeight strideForChannel:(unint64_t)channel strideForBatch:(unint64_t)self0 fanIn:(unint64_t)self1 fanOut:(unint64_t)self2 dataType:(int)self3
 {
-  v38[4] = *MEMORY[0x277D85DE8];
+  v37[4] = *MEMORY[0x277D85DE8];
   v20 = [objc_opt_class() elementByteCount:type];
   if (v20)
   {
@@ -140,26 +180,26 @@ LABEL_14:
       batchCopy = channelCopy * channels;
     }
 
-    v36 = batchCopy;
+    v35 = batchCopy;
     v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:size];
-    v38[0] = v23;
+    v37[0] = v23;
     v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:channels];
-    v38[1] = v24;
+    v37[1] = v24;
     v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:height];
-    v38[2] = v25;
+    v37[2] = v25;
     v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:width];
-    v38[3] = v26;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:4];
+    v37[3] = v26;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:4];
 
-    v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v36];
-    v37[0] = v28;
+    v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v35];
+    v36[0] = v28;
     v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:channelCopy];
-    v37[1] = v29;
+    v36[1] = v29;
     v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:forHeight];
-    v37[2] = v30;
+    v36[2] = v30;
     v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:forWidth];
-    v37[3] = v31;
-    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:4];
+    v36[3] = v31;
+    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:4];
 
     self = [(MLCTensorDescriptor *)self initTensorWithShape:v27 stride:v32 fanIn:in fanOut:out dataType:type];
     selfCopy = self;
@@ -170,15 +210,14 @@ LABEL_14:
     selfCopy = 0;
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (id)initTensorWithShape:(id)shape stride:(id)stride sequenceLengths:(id)lengths sortedSequences:(BOOL)sequences fanIn:(unint64_t)in fanOut:(unint64_t)out dataType:(int)type
 {
   sequencesCopy = sequences;
-  v84 = a2;
-  v92 = *MEMORY[0x277D85DE8];
+  v83 = a2;
+  v91 = *MEMORY[0x277D85DE8];
   shapeCopy = shape;
   strideCopy = stride;
   lengthsCopy = lengths;
@@ -188,20 +227,20 @@ LABEL_14:
     v19 = +[MLCLog framework];
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v20 = NSStringFromSelector(v84);
+      v20 = NSStringFromSelector(v83);
       *buf = 138412802;
-      v87 = v20;
-      v88 = 2048;
+      v86 = v20;
+      v87 = 2048;
       unsignedIntegerValue2 = [shapeCopy count];
-      v90 = 2048;
-      v91 = v18;
+      v89 = 2048;
+      v90 = v18;
       _os_log_error_impl(&dword_238C1D000, v19, OS_LOG_TYPE_ERROR, "%@: Requested (%lu) dimensions exceed max supported (%lu) dimensions", buf, 0x20u);
     }
 
     goto LABEL_56;
   }
 
-  v83 = sequencesCopy;
+  v82 = sequencesCopy;
   if ([shapeCopy count])
   {
     v21 = 0;
@@ -227,14 +266,14 @@ LABEL_14:
       goto LABEL_56;
     }
 
-    v37 = NSStringFromSelector(v84);
+    v37 = NSStringFromSelector(v83);
     v38 = [shapeCopy objectAtIndexedSubscript:v21];
     *buf = 138412802;
-    v87 = v37;
-    v88 = 2048;
+    v86 = v37;
+    v87 = 2048;
     unsignedIntegerValue2 = [v38 unsignedIntegerValue];
-    v90 = 2048;
-    v91 = v21;
+    v89 = 2048;
+    v90 = v21;
     _os_log_error_impl(&dword_238C1D000, v19, OS_LOG_TYPE_ERROR, "%@: Requested (%lu) value in size for dimension (%lu) is zero", buf, 0x20u);
 
     goto LABEL_26;
@@ -255,13 +294,13 @@ LABEL_56:
         goto LABEL_57;
       }
 
-      v37 = NSStringFromSelector(v84);
+      v37 = NSStringFromSelector(v83);
       *buf = 138412802;
-      v87 = v37;
-      v88 = 2048;
+      v86 = v37;
+      v87 = 2048;
       unsignedIntegerValue2 = [shapeCopy count];
-      v90 = 2048;
-      v91 = [strideCopy count];
+      v89 = 2048;
+      v90 = [strideCopy count];
       _os_log_error_impl(&dword_238C1D000, v19, OS_LOG_TYPE_ERROR, "%@: Size (%lu) dimensions do not match stride (%lu) dimensions", buf, 0x20u);
 LABEL_26:
 
@@ -270,15 +309,15 @@ LABEL_26:
   }
 
   lengthsCopy2 = lengths;
-  v82 = strideCopy;
+  v81 = strideCopy;
   if (lengthsCopy)
   {
-    if (!v83)
+    if (!v82)
     {
       v19 = +[MLCLog framework];
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        [MLCTensorDescriptor initTensorWithShape:v84 stride:? sequenceLengths:? sortedSequences:? fanIn:? fanOut:? dataType:?];
+        [MLCTensorDescriptor initTensorWithShape:v83 stride:? sequenceLengths:? sortedSequences:? fanIn:? fanOut:? dataType:?];
       }
 
       goto LABEL_56;
@@ -289,7 +328,7 @@ LABEL_26:
       v19 = +[MLCLog framework];
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        [MLCTensorDescriptor descriptorWithShape:v84 sequenceLengths:? sortedSequences:? dataType:?];
+        [MLCTensorDescriptor descriptorWithShape:v83 sequenceLengths:? sortedSequences:? dataType:?];
       }
 
       goto LABEL_56;
@@ -306,7 +345,7 @@ LABEL_26:
         v19 = +[MLCLog framework];
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          [MLCTensorDescriptor initTensorWithShape:v84 stride:? sequenceLengths:? sortedSequences:? fanIn:? fanOut:? dataType:?];
+          [MLCTensorDescriptor initTensorWithShape:v83 stride:? sequenceLengths:? sortedSequences:? fanIn:? fanOut:? dataType:?];
         }
 
         goto LABEL_56;
@@ -321,7 +360,7 @@ LABEL_26:
       v19 = +[MLCLog framework];
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        [MLCTensorDescriptor initTensorWithShape:v84 stride:? sequenceLengths:? sortedSequences:? fanIn:? fanOut:? dataType:?];
+        [MLCTensorDescriptor initTensorWithShape:v83 stride:? sequenceLengths:? sortedSequences:? fanIn:? fanOut:? dataType:?];
       }
 
       goto LABEL_56;
@@ -344,10 +383,10 @@ LABEL_26:
       if (unsignedIntegerValue5 < unsignedIntegerValue6)
       {
         v19 = +[MLCLog framework];
-        strideCopy = v82;
+        strideCopy = v81;
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          [MLCTensorDescriptor initTensorWithShape:v84 stride:? sequenceLengths:? sortedSequences:? fanIn:? fanOut:? dataType:?];
+          [MLCTensorDescriptor initTensorWithShape:v83 stride:? sequenceLengths:? sortedSequences:? fanIn:? fanOut:? dataType:?];
         }
 
         goto LABEL_56;
@@ -356,13 +395,13 @@ LABEL_26:
       v35 = [lengthsCopy objectAtIndexedSubscript:v30];
       unsignedIntegerValue7 = [v35 unsignedIntegerValue];
 
-      strideCopy = v82;
+      strideCopy = v81;
       if (!unsignedIntegerValue7)
       {
         v19 = +[MLCLog framework];
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          [MLCTensorDescriptor initTensorWithShape:v84 stride:? sequenceLengths:? sortedSequences:? fanIn:? fanOut:? dataType:?];
+          [MLCTensorDescriptor initTensorWithShape:v83 stride:? sequenceLengths:? sortedSequences:? fanIn:? fanOut:? dataType:?];
         }
 
         goto LABEL_56;
@@ -374,9 +413,9 @@ LABEL_26:
   if (v39)
   {
     v40 = v39;
-    v85.receiver = self;
-    v85.super_class = MLCTensorDescriptor;
-    v41 = [(MLCTensorDescriptor *)&v85 init];
+    v84.receiver = self;
+    v84.super_class = MLCTensorDescriptor;
+    v41 = [(MLCTensorDescriptor *)&v84 init];
     v42 = v41;
     if (v41)
     {
@@ -387,9 +426,9 @@ LABEL_26:
 
       v42->_fanIn = in;
       v42->_fanOut = out;
-      if (v82)
+      if (v81)
       {
-        v45 = [v82 copy];
+        v45 = [v81 copy];
         stride = v42->_stride;
         v42->_stride = v45;
       }
@@ -402,7 +441,7 @@ LABEL_26:
           v49 = v48 - 1;
           do
           {
-            v80[v49] = v40;
+            v79[v49] = v40;
             v50 = [shapeCopy objectAtIndexedSubscript:v49];
             v40 *= [v50 unsignedIntegerValue];
 
@@ -418,7 +457,7 @@ LABEL_26:
           v52 = 0;
           do
           {
-            v53 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v80[v52]];
+            v53 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v79[v52]];
             [v51 addObject:v53];
 
             ++v52;
@@ -435,8 +474,8 @@ LABEL_26:
       }
 
       v56 = 0;
-      v57 = v83;
-      if (lengthsCopy && v83)
+      v57 = v82;
+      if (lengthsCopy && v82)
       {
         v42->_variableLengthSequences = 0;
         if ([lengthsCopy count] >= 2)
@@ -468,47 +507,47 @@ LABEL_26:
 
 LABEL_59:
         v56 = objc_alloc_init(MEMORY[0x277CBEB18]);
-        v66 = [lengthsCopy count];
-        v67 = [lengthsCopy objectAtIndexedSubscript:0];
-        unsignedIntegerValue10 = [v67 unsignedIntegerValue];
+        v65 = [lengthsCopy count];
+        v66 = [lengthsCopy objectAtIndexedSubscript:0];
+        unsignedIntegerValue10 = [v66 unsignedIntegerValue];
 
         if (unsignedIntegerValue10)
         {
-          v69 = 0;
+          v68 = 0;
           do
           {
-            v70 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{v66, lengthsCopy2}];
-            [(NSArray *)v56 setObject:v70 atIndexedSubscript:v69];
+            v69 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{v65, lengthsCopy2}];
+            [(NSArray *)v56 setObject:v69 atIndexedSubscript:v68];
 
-            ++v69;
-            if (v66)
+            ++v68;
+            if (v65)
             {
               do
               {
-                v71 = v66 - 1;
-                v72 = [lengthsCopy objectAtIndexedSubscript:v66 - 1];
-                unsignedIntegerValue11 = [v72 unsignedIntegerValue];
+                v70 = v65 - 1;
+                v71 = [lengthsCopy objectAtIndexedSubscript:v65 - 1];
+                unsignedIntegerValue11 = [v71 unsignedIntegerValue];
 
-                if (unsignedIntegerValue11 != v69)
+                if (unsignedIntegerValue11 != v68)
                 {
                   break;
                 }
 
-                --v66;
+                --v65;
               }
 
-              while (v71);
+              while (v70);
             }
 
-            v74 = [lengthsCopy objectAtIndexedSubscript:0];
-            unsignedIntegerValue12 = [v74 unsignedIntegerValue];
+            v73 = [lengthsCopy objectAtIndexedSubscript:0];
+            unsignedIntegerValue12 = [v73 unsignedIntegerValue];
           }
 
-          while (v69 < unsignedIntegerValue12);
+          while (v68 < unsignedIntegerValue12);
         }
 
         lengths = lengthsCopy2;
-        v57 = v83;
+        v57 = v82;
       }
 
       batchSizePerSequenceStep = v42->_batchSizePerSequenceStep;
@@ -516,10 +555,10 @@ LABEL_59:
 
       v42->_sortedSequences = v57;
       objc_storeStrong(&v42->_sequenceLengths, lengths);
-      v77 = [(NSArray *)v42->_stride objectAtIndexedSubscript:0];
-      unsignedIntegerValue13 = [v77 unsignedIntegerValue];
-      v79 = [(NSArray *)v42->_shape objectAtIndexedSubscript:0];
-      v42->_tensorAllocationSizeInBytes = [v79 unsignedIntegerValue] * unsignedIntegerValue13;
+      v76 = [(NSArray *)v42->_stride objectAtIndexedSubscript:0];
+      unsignedIntegerValue13 = [v76 unsignedIntegerValue];
+      v78 = [(NSArray *)v42->_shape objectAtIndexedSubscript:0];
+      v42->_tensorAllocationSizeInBytes = [v78 unsignedIntegerValue] * unsignedIntegerValue13;
     }
 
     self = v42;
@@ -531,11 +570,32 @@ LABEL_59:
     selfCopy = 0;
   }
 
-  strideCopy = v82;
+  strideCopy = v81;
 LABEL_57:
 
-  v64 = *MEMORY[0x277D85DE8];
   return selfCopy;
+}
+
++ (MLCTensorDescriptor)convolutionWeightsDescriptorWithWidth:(NSUInteger)width height:(NSUInteger)height inputFeatureChannelCount:(NSUInteger)inputFeatureChannelCount outputFeatureChannelCount:(NSUInteger)outputFeatureChannelCount dataType:(MLCDataType)dataType
+{
+  v7 = [[self alloc] initConvolutionWeightsDescriptorWithWidth:width height:height inputFeatureChannels:inputFeatureChannelCount outputFeatureChannels:outputFeatureChannelCount dataType:*&dataType];
+
+  return v7;
+}
+
++ (MLCTensorDescriptor)convolutionWeightsDescriptorWithInputFeatureChannelCount:(NSUInteger)inputFeatureChannelCount outputFeatureChannelCount:(NSUInteger)outputFeatureChannelCount dataType:(MLCDataType)dataType
+{
+  v5 = [[self alloc] initConvolutionWeightsDescriptorWithWidth:1 height:1 inputFeatureChannels:inputFeatureChannelCount outputFeatureChannels:outputFeatureChannelCount dataType:*&dataType];
+
+  return v5;
+}
+
++ (MLCTensorDescriptor)convolutionBiasesDescriptorWithFeatureChannelCount:(NSUInteger)featureChannelCount dataType:(MLCDataType)dataType
+{
+  v4 = *&dataType;
+  v6 = objc_opt_class();
+
+  return [v6 descriptorWithWidth:1 height:1 featureChannelCount:featureChannelCount batchSize:1 dataType:v4];
 }
 
 - (NSUInteger)dimensionCount
@@ -856,101 +916,74 @@ LABEL_20:
 
 + (void)descriptorWithShape:(const char *)a1 sequenceLengths:sortedSequences:dataType:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)descriptorWithShape:(const char *)a1 sequenceLengths:sortedSequences:dataType:.cold.2(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)descriptorWithShape:(const char *)a1 sequenceLengths:sortedSequences:dataType:.cold.3(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initTensorWithShape:(const char *)a1 stride:sequenceLengths:sortedSequences:fanIn:fanOut:dataType:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initTensorWithShape:(const char *)a1 stride:sequenceLengths:sortedSequences:fanIn:fanOut:dataType:.cold.2(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initTensorWithShape:(const char *)a1 stride:sequenceLengths:sortedSequences:fanIn:fanOut:dataType:.cold.3(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initTensorWithShape:(const char *)a1 stride:sequenceLengths:sortedSequences:fanIn:fanOut:dataType:.cold.4(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initTensorWithShape:(const char *)a1 stride:sequenceLengths:sortedSequences:fanIn:fanOut:dataType:.cold.5(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)elementByteCount:(const char *)a1 .cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

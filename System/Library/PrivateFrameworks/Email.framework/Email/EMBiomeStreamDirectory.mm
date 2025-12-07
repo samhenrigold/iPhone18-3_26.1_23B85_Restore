@@ -61,11 +61,10 @@ void __29__EMBiomeStreamDirectory_log__block_invoke(uint64_t a1)
 
 + (void)url
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1C6655000, a2, OS_LOG_TYPE_ERROR, "Error creating Biome storage directory: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C6655000, a2, OS_LOG_TYPE_ERROR, "Error creating Biome storage directory: %@", &v2, 0xCu);
 }
 
 @end

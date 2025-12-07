@@ -233,9 +233,9 @@ LABEL_3:
         }
 
         rootIdentity = [*(*(&v31 + 1) + 8 * i) rootIdentity];
-        v12 = [rootIdentity isEqual:identity];
+        isEqual = objc_msgSend_isEqual_(rootIdentity);
 
-        if (v12)
+        if (isEqual)
         {
           currentHandler3 = [MEMORY[0x1E696AAA8] currentHandler];
           [currentHandler3 handleFailureInMethod:a2 object:self file:@"_UISystemGestureManager.m" lineNumber:122 description:@"We're already tracking system gestures for a display with the same rootIdentity. These assertions must be mutually exclusive."];

@@ -35,41 +35,41 @@
   completionCopy = completion;
   if ([(LACDTOSensorTrustController *)self canProcessRequest:requestCopy])
   {
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __71__LACDTOSensorTrustController_processRequest_configuration_completion___block_invoke;
-    v21[3] = &unk_1E7A971C0;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __71__LACDTOSensorTrustController_processRequest_configuration_completion___block_invoke;
+    v22[3] = &unk_1E7A971C0;
     v11 = requestCopy;
-    v22 = v11;
-    v12 = __71__LACDTOSensorTrustController_processRequest_configuration_completion___block_invoke(v21);
+    v23 = v11;
+    v12 = __71__LACDTOSensorTrustController_processRequest_configuration_completion___block_invoke(v22);
     [v11 updateOptions:v12];
 
-    v13 = LACLogDTOSensor();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = LACLogDTOSensor(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&dword_1B0233000, v13, OS_LOG_TYPE_DEFAULT, "Sensor trust verification will start", &buf, 2u);
+      _os_log_impl(&dword_1B0233000, v14, OS_LOG_TYPE_DEFAULT, "Sensor trust verification will start", &buf, 2u);
     }
 
     objc_initWeak(&buf, self);
     verifier = self->_verifier;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __71__LACDTOSensorTrustController_processRequest_configuration_completion___block_invoke_3;
-    v16[3] = &unk_1E7A971E8;
-    objc_copyWeak(&v19, &buf);
-    v18 = completionCopy;
-    v17 = v11;
-    [(LACDTOSensorTrustVerifier *)verifier verifySensorTrustWithCompletion:v16];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __71__LACDTOSensorTrustController_processRequest_configuration_completion___block_invoke_3;
+    v17[3] = &unk_1E7A971E8;
+    objc_copyWeak(&v20, &buf);
+    v19 = completionCopy;
+    v18 = v11;
+    [(LACDTOSensorTrustVerifier *)verifier verifySensorTrustWithCompletion:v17];
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(&buf);
   }
 
   else
   {
-    v15 = [LACEvaluationResult resultWithNext:requestCopy];
-    (*(completionCopy + 2))(completionCopy, v15);
+    v16 = [LACEvaluationResult resultWithNext:requestCopy];
+    (*(completionCopy + 2))(completionCopy, v16);
   }
 }
 
@@ -124,32 +124,33 @@ void __71__LACDTOSensorTrustController_processRequest_configuration_completion__
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained(a1 + 6);
+  v8 = WeakRetained;
   if (WeakRetained)
   {
-    v8 = LACLogDTOSensor();
-    v9 = v8;
+    v9 = LACLogDTOSensor(WeakRetained);
+    v10 = v9;
     if (v6)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        __71__LACDTOSensorTrustController_processRequest_configuration_completion___block_invoke_3_cold_1(v6, v9);
+        __71__LACDTOSensorTrustController_processRequest_configuration_completion___block_invoke_3_cold_1(v6, v10);
       }
 
-      v10 = a1[5];
-      v11 = [LACEvaluationResult resultWithFailure:v6];
-      v10[2](v10, v11);
+      v11 = a1[5];
+      v12 = [LACEvaluationResult resultWithFailure:v6];
+      v11[2](v11, v12);
     }
 
     else
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         v19 = v5;
-        _os_log_impl(&dword_1B0233000, v9, OS_LOG_TYPE_DEFAULT, "Sensor trust verification did finish with result: %@", buf, 0xCu);
+        _os_log_impl(&dword_1B0233000, v10, OS_LOG_TYPE_DEFAULT, "Sensor trust verification did finish with result: %@", buf, 0xCu);
       }
 
-      v12 = WeakRetained[2];
+      v13 = v8[2];
       v14[0] = MEMORY[0x1E69E9820];
       v14[1] = 3221225472;
       v14[2] = __71__LACDTOSensorTrustController_processRequest_configuration_completion___block_invoke_4;
@@ -157,46 +158,45 @@ void __71__LACDTOSensorTrustController_processRequest_configuration_completion__
       objc_copyWeak(&v17, a1 + 6);
       v16 = a1[5];
       v15 = a1[4];
-      [v12 storeSensorTrustState:v5 completion:v14];
+      [v13 storeSensorTrustState:v5 completion:v14];
 
       objc_destroyWeak(&v17);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __71__LACDTOSensorTrustController_processRequest_configuration_completion___block_invoke_4(uint64_t a1, void *a2)
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
     if (v3)
     {
-      v5 = LACLogDTOSensor();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = LACLogDTOSensor(WeakRetained);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        __71__LACDTOSensorTrustController_processRequest_configuration_completion___block_invoke_4_cold_1(v3, v5);
+        __71__LACDTOSensorTrustController_processRequest_configuration_completion___block_invoke_4_cold_1(v3, v6);
       }
 
-      v6 = *(a1 + 40);
-      v7 = [LACEvaluationResult resultWithFailure:v3];
-      (*(v6 + 16))(v6, v7);
+      v7 = *(a1 + 40);
+      v8 = [LACEvaluationResult resultWithFailure:v3];
+      (*(v7 + 16))(v7, v8);
     }
 
     else
     {
-      v8 = *(a1 + 40);
-      v9 = [LACEvaluationResult resultWithNext:*(a1 + 32)];
-      (*(v8 + 16))(v8, v9);
+      v9 = *(a1 + 40);
+      v10 = [LACEvaluationResult resultWithNext:*(a1 + 32)];
+      (*(v9 + 16))(v9, v10);
     }
   }
 }
 
 - (void)postProcessRequest:(id)request result:(id)result completion:(id)completion
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   resultCopy = result;
   completionCopy = completion;
@@ -214,65 +214,64 @@ LABEL_11:
 
   if (bOOLValue)
   {
-    v17 = LACLogDTOSensor();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = LACLogDTOSensor(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       error = [resultCopy error];
       *buf = 138543362;
-      v37 = error;
-      _os_log_impl(&dword_1B0233000, v17, OS_LOG_TYPE_DEFAULT, "Mapping unapproved sensor error %{public}@ to success on client's request", buf, 0xCu);
+      v38 = error;
+      _os_log_impl(&dword_1B0233000, v18, OS_LOG_TYPE_DEFAULT, "Mapping unapproved sensor error %{public}@ to success on client's request", buf, 0xCu);
     }
 
-    v19 = [LACEvaluationResult resultWithSuccess:MEMORY[0x1E695E0F8]];
-    completionCopy[2](completionCopy, v19);
+    v20 = [LACEvaluationResult resultWithSuccess:MEMORY[0x1E695E0F8]];
+    completionCopy[2](completionCopy, v20);
 
     goto LABEL_12;
   }
 
   options2 = [requestCopy options];
-  v21 = [MEMORY[0x1E696AD98] numberWithInteger:1039];
-  v22 = [options2 objectForKey:v21];
-  bOOLValue2 = [v22 BOOLValue];
+  v22 = [MEMORY[0x1E696AD98] numberWithInteger:1039];
+  v23 = [options2 objectForKey:v22];
+  bOOLValue2 = [v23 BOOLValue];
 
   if (bOOLValue2)
   {
-    v24 = LACLogDTOSensor();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v26 = LACLogDTOSensor(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B0233000, v24, OS_LOG_TYPE_DEFAULT, "Skipping sensor trust alert on client's request", buf, 2u);
+      _os_log_impl(&dword_1B0233000, v26, OS_LOG_TYPE_DEFAULT, "Skipping sensor trust alert on client's request", buf, 2u);
     }
 
     goto LABEL_11;
   }
 
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __68__LACDTOSensorTrustController_postProcessRequest_result_completion___block_invoke;
-  v34[3] = &unk_1E7A97210;
-  v26 = requestCopy;
-  v35 = v26;
-  v27 = __68__LACDTOSensorTrustController_postProcessRequest_result_completion___block_invoke(v34);
-  v28 = LACLogDTOSensor();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __68__LACDTOSensorTrustController_postProcessRequest_result_completion___block_invoke;
+  v35[3] = &unk_1E7A97210;
+  v27 = requestCopy;
+  v36 = v27;
+  v28 = __68__LACDTOSensorTrustController_postProcessRequest_result_completion___block_invoke(v35);
+  v29 = LACLogDTOSensor(v28);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
-    v29 = [MEMORY[0x1E696AD98] numberWithInteger:v27];
+    v30 = [MEMORY[0x1E696AD98] numberWithInteger:v28];
     *buf = 138412290;
-    v37 = v29;
-    _os_log_impl(&dword_1B0233000, v28, OS_LOG_TYPE_DEFAULT, "Sensor trust alert with id: %@ will appear.", buf, 0xCu);
+    v38 = v30;
+    _os_log_impl(&dword_1B0233000, v29, OS_LOG_TYPE_DEFAULT, "Sensor trust alert with id: %@ will appear.", buf, 0xCu);
   }
 
   ui = self->_ui;
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __68__LACDTOSensorTrustController_postProcessRequest_result_completion___block_invoke_8;
-  v31[3] = &unk_1E7A95998;
-  v33 = completionCopy;
-  v32 = resultCopy;
-  [(LACUserInterfacePresenting *)ui presentUIForIdentifier:v27 request:v26 completion:v31];
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __68__LACDTOSensorTrustController_postProcessRequest_result_completion___block_invoke_8;
+  v32[3] = &unk_1E7A95998;
+  v34 = completionCopy;
+  v33 = resultCopy;
+  [(LACUserInterfacePresenting *)ui presentUIForIdentifier:v28 request:v27 completion:v32];
 
 LABEL_12:
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __68__LACDTOSensorTrustController_postProcessRequest_result_completion___block_invoke(uint64_t a1)
@@ -295,20 +294,17 @@ uint64_t __68__LACDTOSensorTrustController_postProcessRequest_result_completion_
 
 void __68__LACDTOSensorTrustController_postProcessRequest_result_completion___block_invoke_8(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = LACLogDTOSensor();
+  v4 = LACLogDTOSensor(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1B0233000, v4, OS_LOG_TYPE_DEFAULT, "Sensor trust alert did disappear (err: %@)", &v7, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1B0233000, v4, OS_LOG_TYPE_DEFAULT, "Sensor trust alert did disappear (err: %@)", &v5, 0xCu);
   }
 
-  v5 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isHardwareTrustError:(id)error
@@ -329,20 +325,18 @@ void __68__LACDTOSensorTrustController_postProcessRequest_result_completion___bl
 
 void __71__LACDTOSensorTrustController_processRequest_configuration_completion___block_invoke_3_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Sensor trust verification failed %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Sensor trust verification failed %{public}@", &v2, 0xCu);
 }
 
 void __71__LACDTOSensorTrustController_processRequest_configuration_completion___block_invoke_4_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Sensor trust verification result could not be stored %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Sensor trust verification result could not be stored %{public}@", &v2, 0xCu);
 }
 
 @end

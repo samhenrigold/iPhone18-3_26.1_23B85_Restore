@@ -9,23 +9,21 @@
 
 + (id)getCDMServiceAssetConfig
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(CDMServiceAssetConfig);
-  v7 = @"data_detectors";
-  v8 = @"com.apple.siri.nl.data_detectors";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v7 count:1];
-  v9[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6 = @"data_detectors";
+  v7 = @"com.apple.siri.nl.data_detectors";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [(CDMServiceAssetConfig *)v2 addCDMFactorToFoldersMapping:v4 forAssetSet:0];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 - (id)matchSpansForTokenChain:(id)chain asrHypothesis:(id)hypothesis
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   chainCopy = chain;
   v5 = os_signpost_id_generate(CDMLogContext);
   v6 = CDMLogContext;
@@ -36,7 +34,7 @@
     v9 = objc_opt_class();
     v10 = NSStringFromClass(v9);
     *buf = 138543362;
-    v39 = v10;
+    v38 = v10;
     _os_signpost_emit_with_name_impl(&dword_1DC287000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "SpanMatcher", "%{public}@", buf, 0xCu);
   }
 
@@ -45,32 +43,32 @@
 
   if (string)
   {
-    v30 = v5 - 1;
-    v31 = v5;
+    v29 = v5 - 1;
+    v30 = v5;
     upDataDetectors = self->_upDataDetectors;
     string2 = [chainCopy string];
     v15 = [(UPDataDetectors *)upDataDetectors matchSpansForUtterance:string2];
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v16 = v15;
-    v17 = [v16 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v34;
+      v19 = *v33;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v34 != v19)
+          if (*v33 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v33 + 1) + 8 * i);
+          v21 = *(*(&v32 + 1) + 8 * i);
           v22 = [CDMDateTimeProtoSpanMatcher buildMatchingSpan:v21 tokenChain:chainCopy];
           v23 = MEMORY[0x1E69D1408];
           usoGraph = [v21 usoGraph];
@@ -80,14 +78,14 @@
           [v11 addObject:v22];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v18);
     }
 
-    v8 = v30;
-    v5 = v31;
+    v8 = v29;
+    v5 = v30;
   }
 
   v26 = CDMLogContext;
@@ -97,8 +95,6 @@
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_1DC287000, v27, OS_SIGNPOST_INTERVAL_END, v5, "SpanMatcher", "", buf, 2u);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -122,7 +118,7 @@
 
 + (id)buildMatchingSpan:(id)span tokenChain:(id)chain
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   spanCopy = span;
   chainCopy = chain;
   tokens = [chainCopy tokens];
@@ -170,16 +166,16 @@
     range5 = [spanCopy range];
     range6 = [spanCopy range];
     [spanCopy range];
-    v39 = v38 + range6;
+    v38 = v37 + range6;
     string4 = [chainCopy string];
     *buf = 136315906;
-    v43 = "+[CDMDateTimeProtoSpanMatcher buildMatchingSpan:tokenChain:]";
-    v44 = 1024;
-    v45 = range5;
-    v46 = 1024;
-    v47 = v39;
-    v48 = 1024;
-    v49 = [string4 length];
+    v42 = "+[CDMDateTimeProtoSpanMatcher buildMatchingSpan:tokenChain:]";
+    v43 = 1024;
+    v44 = range5;
+    v45 = 1024;
+    v46 = v38;
+    v47 = 1024;
+    v48 = [string4 length];
     _os_log_debug_impl(&dword_1DC287000, v28, OS_LOG_TYPE_DEBUG, "%s Forced DateTime span match to align with final token due to invalid DD match range start=<%u>, end=<%u> (exclusive), tokenChain string length=<%u>", buf, 0x1Eu);
   }
 
@@ -189,10 +185,8 @@ LABEL_8:
   range7 = [spanCopy range];
   range8 = [spanCopy range];
   [spanCopy range];
-  LODWORD(v41) = 0;
-  v33 = [CDMProtoSpanMatcherHelper buildMatchingSpanProtoWithLabel:category inputStringForDebug:value startTokenIndex:v21 endTokenIndex:v10 startCharIndex:range7 endCharIndex:(v32 + range8) spanMatcherName:v41];
-
-  v34 = *MEMORY[0x1E69E9840];
+  LODWORD(v40) = 0;
+  v33 = [CDMProtoSpanMatcherHelper buildMatchingSpanProtoWithLabel:category inputStringForDebug:value startTokenIndex:v21 endTokenIndex:v10 startCharIndex:range7 endCharIndex:(v32 + range8) spanMatcherName:v40];
 
   return v33;
 }

@@ -17,6 +17,10 @@
 - (void)cloudkitAccountStateChange:(id)change to:(id)to;
 - (void)deleteSEView:(id)view reply:(id)reply;
 - (void)dropAllActors;
+- (void)fetchPCSIdentityOutOfBand:(id)band forceFetch:(BOOL)fetch complete:(id)complete;
+- (void)fetchSEViewKeyHierarchy:(id)hierarchy forceFetch:(BOOL)fetch reply:(id)reply;
+- (void)getCurrentItemForAccessGroup:(id)group identifier:(id)identifier viewHint:(id)hint fetchCloudValue:(BOOL)value complete:(id)complete;
+- (void)getCurrentItemOutOfBand:(id)band forceFetch:(BOOL)fetch complete:(id)complete;
 - (void)haltAll;
 - (void)handleKeychainEventDbConnection:(__OpaqueSecDbConnection *)connection source:(unint64_t)source added:(SecDbItem *)added deleted:(SecDbItem *)deleted;
 - (void)initialSyncStatus:(id)status reply:(id)reply;
@@ -27,12 +31,14 @@
 - (void)proposeTLKForSEView:(id)view proposedTLK:(id)k wrappedOldTLK:(id)lK tlkShares:(id)shares reply:(id)reply;
 - (void)registerSyncStatusCallback:(id)callback callback:(id)a4;
 - (void)rpcCKMetric:(id)metric attributes:(id)attributes reply:(id)reply;
+- (void)rpcFetchAndProcessChanges:(id)changes classA:(BOOL)a onlyIfNoRecentFetch:(BOOL)fetch reply:(id)reply;
 - (void)rpcGetCKDeviceIDWithReply:(id)reply;
 - (void)rpcPushOutgoingChanges:(id)changes reply:(id)reply;
 - (void)rpcResetCloudKit:(id)kit reason:(id)reason reply:(id)reply;
 - (void)rpcResetLocal:(id)local reply:(id)reply;
 - (void)rpcResync:(id)resync reply:(id)reply;
 - (void)rpcResyncLocal:(id)local reply:(id)reply;
+- (void)rpcStatus:(id)status fast:(BOOL)fast waitForNonTransientState:(unint64_t)state reply:(id)reply;
 - (void)setCurrentItemForAccessGroup:(id)group hash:(id)hash accessGroup:(id)accessGroup identifier:(id)identifier viewHint:(id)hint replacing:(id)replacing hash:(id)a9 complete:(id)self0;
 - (void)setupAnalytics;
 - (void)syncBackupAndNotifyAboutSync;
@@ -399,6 +405,78 @@ LABEL_14:
 LABEL_15:
 }
 
+- (void)fetchSEViewKeyHierarchy:(id)hierarchy forceFetch:(BOOL)fetch reply:(id)reply
+{
+  fetchCopy = fetch;
+  hierarchyCopy = hierarchy;
+  replyCopy = reply;
+  v24 = 0;
+  v10 = [(CKKSViewManager *)self allowClientRPC:&v24];
+  v11 = v24;
+  if (v10)
+  {
+    v12 = +[OTManager manager];
+    v13 = objc_alloc_init(OTControlArguments);
+    v23 = 0;
+    v14 = [v12 ckksForClientRPC:v13 createIfMissing:1 allowNonPrimaryAccounts:1 error:&v23];
+    v15 = v23;
+
+    if (!v14 || v15)
+    {
+      v17 = sub_100019104(@"ckks", 0);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412802;
+        v28 = @"com.apple.security.keychain";
+        v29 = 2112;
+        v30 = @"defaultContext";
+        v31 = 2112;
+        v32 = v15;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "No CKKS view for %@, %@, error: %@", buf, 0x20u);
+      }
+
+      if (v15)
+      {
+        (*(replyCopy + 2))(replyCopy, 0, 0, 0, v15);
+      }
+
+      else
+      {
+        v25 = NSLocalizedDescriptionKey;
+        v18 = [NSString stringWithFormat:@"No CKKS for %@, %@", @"com.apple.security.keychain", @"defaultContext"];
+        v26 = v18;
+        v19 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+        v20 = [NSError errorWithDomain:@"CKKSErrorDomain" code:11 userInfo:v19];
+        (*(replyCopy + 2))(replyCopy, 0, 0, 0, v20);
+      }
+    }
+
+    else
+    {
+      v21[0] = _NSConcreteStackBlock;
+      v21[1] = 3221225472;
+      v21[2] = sub_10015895C;
+      v21[3] = &unk_100338710;
+      v21[4] = self;
+      v22 = replyCopy;
+      [v14 fetchExternallyManagedViewKeyHierarchy:hierarchyCopy forceFetch:fetchCopy reply:v21];
+    }
+  }
+
+  else
+  {
+    v16 = sub_100006274("ckks");
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v28 = v11;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Rejecting a fetchSEViewHierarchy RPC: %@", buf, 0xCu);
+    }
+
+    (*(replyCopy + 2))(replyCopy, 0, 0, 0, v11);
+  }
+}
+
 - (void)proposeTLKForSEView:(id)view proposedTLK:(id)k wrappedOldTLK:(id)lK tlkShares:(id)shares reply:(id)reply
 {
   viewCopy = view;
@@ -688,6 +766,203 @@ LABEL_15:
     }
 
     replyCopy[2](replyCopy, v9);
+  }
+}
+
+- (void)rpcFetchAndProcessChanges:(id)changes classA:(BOOL)a onlyIfNoRecentFetch:(BOOL)fetch reply:(id)reply
+{
+  fetchCopy = fetch;
+  aCopy = a;
+  changesCopy = changes;
+  replyCopy = reply;
+  if (sub_100019064())
+  {
+    v37 = 0;
+    v12 = [(CKKSViewManager *)self allowClientRPC:&v37];
+    v13 = v37;
+    if (v12)
+    {
+      v14 = +[OTManager manager];
+      v15 = objc_alloc_init(OTControlArguments);
+      v36 = 0;
+      v16 = [v14 ckksForClientRPC:v15 createIfMissing:1 allowNonPrimaryAccounts:1 error:&v36];
+      v17 = v36;
+
+      if (!v16 || v17)
+      {
+        v23 = sub_100019104(@"ckks", 0);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412802;
+          v39 = @"com.apple.security.keychain";
+          v40 = 2112;
+          v41 = @"defaultContext";
+          v42 = 2112;
+          v43 = v17;
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "No CKKS view for %@, %@, error: %@", buf, 0x20u);
+        }
+
+        if (v17)
+        {
+          replyCopy[2](replyCopy, v17);
+        }
+
+        else
+        {
+          defaultViewError = [(CKKSViewManager *)self defaultViewError];
+          replyCopy[2](replyCopy, defaultViewError);
+        }
+      }
+
+      else
+      {
+        if (fetchCopy)
+        {
+          earliestFetchTime = [(__CFString *)v16 earliestFetchTime];
+          [earliestFetchTime timeIntervalSinceNow];
+          v31 = v19 > -600.0;
+          if (v19 > -600.0)
+          {
+            v20 = sub_100019104(@"ckks", 0);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 0;
+              _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Skipping fetch because a recent fetch was performed", buf, 2u);
+            }
+          }
+        }
+
+        else
+        {
+          v31 = 0;
+        }
+
+        v24 = [CKKSResultOperation named:@"rpc-fetch-and-process-result" withBlock:&stru_100338698];
+        objc_initWeak(&location, v24);
+        v32[0] = _NSConcreteStackBlock;
+        v32[1] = 3221225472;
+        v32[2] = sub_100159CD0;
+        v32[3] = &unk_1003445C0;
+        objc_copyWeak(&v34, &location);
+        v33 = replyCopy;
+        [v24 setCompletionBlock:v32];
+        zoneName = [(__CFString *)v16 zoneName];
+        v26 = sub_100019104(@"ckks", zoneName);
+
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v39 = v16;
+          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Beginning fetch for %@", buf, 0xCu);
+        }
+
+        if (v31)
+        {
+          [(__CFString *)v16 rpcProcessIncomingQueue:0 errorOnClassAFailure:aCopy];
+        }
+
+        else
+        {
+          [(__CFString *)v16 rpcFetchAndProcessIncomingQueue:0 because:@"api" errorOnClassAFailure:aCopy];
+        }
+        v27 = ;
+        [v24 addSuccessDependency:v27];
+        operationQueue = [(CKKSViewManager *)self operationQueue];
+        v29 = [v24 timeout:300000000000];
+        [operationQueue addOperation:v29];
+
+        objc_destroyWeak(&v34);
+        objc_destroyWeak(&location);
+      }
+    }
+
+    else
+    {
+      v22 = sub_100006274("ckks");
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v39 = v13;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Rejecting a fetch-and-process RPC: %@", buf, 0xCu);
+      }
+
+      replyCopy[2](replyCopy, v13);
+    }
+  }
+
+  else
+  {
+    v21 = sub_100019104(@"ckks", 0);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 0;
+      _os_log_debug_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "Skipping fetchAndProcessCKChanges due to disabled CKKS", buf, 2u);
+    }
+
+    v13 = [NSError errorWithDomain:@"CKKSErrorDomain" code:9 description:@"CKKS disabled"];
+    replyCopy[2](replyCopy, v13);
+  }
+}
+
+- (void)rpcStatus:(id)status fast:(BOOL)fast waitForNonTransientState:(unint64_t)state reply:(id)reply
+{
+  fastCopy = fast;
+  statusCopy = status;
+  replyCopy = reply;
+  v22 = 0;
+  v12 = [(CKKSViewManager *)self allowClientRPC:&v22];
+  v13 = v22;
+  if (v12)
+  {
+    v14 = +[OTManager manager];
+    v15 = objc_alloc_init(OTControlArguments);
+    v21 = 0;
+    v16 = [v14 ckksForClientRPC:v15 createIfMissing:1 allowNonPrimaryAccounts:1 error:&v21];
+    v17 = v21;
+
+    if (!v16 || v17)
+    {
+      v19 = sub_100019104(@"ckks", 0);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412802;
+        v24 = @"com.apple.security.keychain";
+        v25 = 2112;
+        v26 = @"defaultContext";
+        v27 = 2112;
+        v28 = v17;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "No CKKS view for %@, %@, error: %@", buf, 0x20u);
+      }
+
+      if (v17)
+      {
+        replyCopy[2](replyCopy, 0, v17);
+      }
+
+      else
+      {
+        defaultViewError = [(CKKSViewManager *)self defaultViewError];
+        replyCopy[2](replyCopy, 0, defaultViewError);
+      }
+    }
+
+    else
+    {
+      [v16 rpcStatus:statusCopy fast:fastCopy waitForNonTransientState:state reply:replyCopy];
+    }
+  }
+
+  else
+  {
+    v18 = sub_100006274("ckks");
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v24 = v13;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Rejecting a status RPC: %@", buf, 0xCu);
+    }
+
+    replyCopy[2](replyCopy, 0, v13);
   }
 }
 
@@ -1098,98 +1373,97 @@ LABEL_18:
         }
 
         v23 = *(*(&v47 + 1) + 8 * i);
-        if (!policyCopy)
+        if (policyCopy)
         {
-          goto LABEL_23;
+          syncingPolicy = [v44 syncingPolicy];
+          viewsToPiggybackTLKs = [syncingPolicy viewsToPiggybackTLKs];
+          zoneName = [v23 zoneName];
+          v27 = [viewsToPiggybackTLKs containsObject:zoneName];
+
+          if (!v27)
+          {
+            continue;
+          }
         }
 
-        syncingPolicy = [v44 syncingPolicy];
-        viewsToPiggybackTLKs = [syncingPolicy viewsToPiggybackTLKs];
-        zoneName = [v23 zoneName];
-        v27 = [viewsToPiggybackTLKs containsObject:zoneName];
+        keysets = [v14 keysets];
+        v29 = [keysets objectForKeyedSubscript:v23];
 
-        if (v27)
+        if (v29)
         {
-LABEL_23:
-          keysets = [v14 keysets];
-          v29 = [keysets objectForKeyedSubscript:v23];
+          v30 = [(__CFString *)v29 tlk];
 
-          if (v29)
+          if (v30)
           {
-            v30 = [(__CFString *)v29 tlk];
+            v31 = [(__CFString *)v29 tlk];
+            v46 = 0;
+            v32 = [v31 ensureKeyLoadedForContextID:&stru_100348050 cache:0 error:&v46];
+            v33 = v46;
 
-            if (v30)
+            if (v32)
             {
-              v31 = [(__CFString *)v29 tlk];
-              v46 = 0;
-              v32 = [v31 ensureKeyLoadedForContextID:&stru_100348050 cache:0 error:&v46];
-              v33 = v46;
-
-              if (v32)
-              {
-                v34 = v33 == 0;
-              }
-
-              else
-              {
-                v34 = 0;
-              }
-
-              if (v34)
-              {
-                v39 = [v32 copy];
-                [v42 addObject:v39];
-              }
-
-              else
-              {
-                v35 = sub_100019104(@"ckks", 0);
-                if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
-                {
-                  *buf = 138412290;
-                  v54 = v33;
-                  _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "Error loading key: %@", buf, 0xCu);
-                }
-
-                if (errorCopy)
-                {
-                  v36 = v33;
-                  *errorCopy = v33;
-                }
-              }
-
-              goto LABEL_40;
+              v34 = v33 == 0;
             }
 
-            v33 = sub_100019104(@"ckks", 0);
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+            else
             {
-              *buf = 138412290;
-              v54 = v29;
-              v37 = v33;
-              v38 = "Do not have TLK: %@";
+              v34 = 0;
+            }
+
+            if (v34)
+            {
+              v39 = [v32 copy];
+              [v42 addObject:v39];
+            }
+
+            else
+            {
+              v35 = sub_100019104(@"ckks", 0);
+              if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 138412290;
+                v54 = v33;
+                _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "Error loading key: %@", buf, 0xCu);
+              }
+
+              if (errorCopy)
+              {
+                v36 = v33;
+                *errorCopy = v33;
+              }
+            }
+
+            goto LABEL_40;
+          }
+
+          v33 = sub_100019104(@"ckks", 0);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138412290;
+            v54 = v29;
+            v37 = v33;
+            v38 = "Do not have TLK: %@";
 LABEL_37:
-              _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, v38, buf, 0xCu);
-            }
+            _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, v38, buf, 0xCu);
           }
+        }
 
-          else
+        else
+        {
+          v33 = sub_100019104(@"ckks", 0);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
-            v33 = sub_100019104(@"ckks", 0);
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
-            {
-              *buf = 138412290;
-              v54 = 0;
-              v37 = v33;
-              v38 = "Do not have keyset: %@";
-              goto LABEL_37;
-            }
+            *buf = 138412290;
+            v54 = 0;
+            v37 = v33;
+            v38 = "Do not have keyset: %@";
+            goto LABEL_37;
           }
+        }
 
 LABEL_40:
 
-          continue;
-        }
+        continue;
       }
 
       v20 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
@@ -1261,6 +1535,167 @@ LABEL_47:
   }
 
   [(CKKSViewManager *)self syncBackupAndNotifyAboutSync];
+}
+
+- (void)fetchPCSIdentityOutOfBand:(id)band forceFetch:(BOOL)fetch complete:(id)complete
+{
+  fetchCopy = fetch;
+  bandCopy = band;
+  completeCopy = complete;
+  v10 = +[OTManager manager];
+  v11 = objc_alloc_init(OTControlArguments);
+  v17 = 0;
+  v12 = [v10 ckksForClientRPC:v11 createIfMissing:1 allowNonPrimaryAccounts:1 error:&v17];
+  v13 = v17;
+
+  if (v12)
+  {
+    v14 = v13 == 0;
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  if (v14)
+  {
+    [v12 fetchPCSIdentityOutOfBand:bandCopy forceFetch:fetchCopy complete:completeCopy];
+  }
+
+  else
+  {
+    v15 = sub_100019104(@"ckks", 0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412802;
+      v19 = @"com.apple.security.keychain";
+      v20 = 2112;
+      v21 = @"defaultContext";
+      v22 = 2112;
+      v23 = v13;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "No CKKS view for %@, %@, error: %@", buf, 0x20u);
+    }
+
+    if (v13)
+    {
+      completeCopy[2](completeCopy, 0, v13);
+    }
+
+    else
+    {
+      defaultViewError = [(CKKSViewManager *)self defaultViewError];
+      completeCopy[2](completeCopy, 0, defaultViewError);
+    }
+  }
+}
+
+- (void)getCurrentItemOutOfBand:(id)band forceFetch:(BOOL)fetch complete:(id)complete
+{
+  fetchCopy = fetch;
+  bandCopy = band;
+  completeCopy = complete;
+  v10 = +[OTManager manager];
+  v11 = objc_alloc_init(OTControlArguments);
+  v17 = 0;
+  v12 = [v10 ckksForClientRPC:v11 createIfMissing:1 allowNonPrimaryAccounts:1 error:&v17];
+  v13 = v17;
+
+  if (v12)
+  {
+    v14 = v13 == 0;
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  if (v14)
+  {
+    [v12 getCurrentItemOutOfBand:bandCopy forceFetch:fetchCopy complete:completeCopy];
+  }
+
+  else
+  {
+    v15 = sub_100019104(@"ckks", 0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412802;
+      v19 = @"com.apple.security.keychain";
+      v20 = 2112;
+      v21 = @"defaultContext";
+      v22 = 2112;
+      v23 = v13;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "No CKKS view for %@, %@, error: %@", buf, 0x20u);
+    }
+
+    if (v13)
+    {
+      completeCopy[2](completeCopy, 0, v13);
+    }
+
+    else
+    {
+      defaultViewError = [(CKKSViewManager *)self defaultViewError];
+      completeCopy[2](completeCopy, 0, defaultViewError);
+    }
+  }
+}
+
+- (void)getCurrentItemForAccessGroup:(id)group identifier:(id)identifier viewHint:(id)hint fetchCloudValue:(BOOL)value complete:(id)complete
+{
+  valueCopy = value;
+  groupCopy = group;
+  identifierCopy = identifier;
+  hintCopy = hint;
+  completeCopy = complete;
+  v16 = +[OTManager manager];
+  v17 = objc_alloc_init(OTControlArguments);
+  v23 = 0;
+  v18 = [v16 ckksForClientRPC:v17 createIfMissing:1 allowNonPrimaryAccounts:1 error:&v23];
+  v19 = v23;
+
+  if (v18)
+  {
+    v20 = v19 == 0;
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  if (v20)
+  {
+    [v18 getCurrentItemForAccessGroup:groupCopy identifier:identifierCopy viewHint:hintCopy fetchCloudValue:valueCopy complete:completeCopy];
+  }
+
+  else
+  {
+    v21 = sub_100019104(@"ckks", 0);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412802;
+      v25 = @"com.apple.security.keychain";
+      v26 = 2112;
+      v27 = @"defaultContext";
+      v28 = 2112;
+      v29 = v19;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "No CKKS view for %@, %@, error: %@", buf, 0x20u);
+    }
+
+    if (v19)
+    {
+      completeCopy[2](completeCopy, 0, v19);
+    }
+
+    else
+    {
+      defaultViewError = [(CKKSViewManager *)self defaultViewError];
+      completeCopy[2](completeCopy, 0, defaultViewError);
+    }
+  }
 }
 
 - (void)unsetCurrentItemsForAccessGroup:(id)group identifiers:(id)identifiers viewHint:(id)hint complete:(id)complete

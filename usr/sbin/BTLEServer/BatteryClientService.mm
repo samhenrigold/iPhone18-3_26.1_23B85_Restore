@@ -3,7 +3,6 @@
 - (BOOL)isAccessoryCategoryPencil:(id)pencil;
 - (BOOL)updatePowerSource:(id)source;
 - (BatteryClientService)initWithManager:(id)manager peripheral:(id)peripheral service:(id)service;
-- (id)batteryPowerStateString:(unsigned __int8)string;
 - (unsigned)characteristicFormatFrom:(id)from;
 - (void)_handleValueForDescriptor:(id)descriptor;
 - (void)_setBatteryLevelCharacteristicFormatFrom:(id)from;
@@ -463,20 +462,8 @@ LABEL_20:
       powerSourceDetails = [(BatteryClientService *)self powerSourceDetails];
       v12 = [powerSourceDetails objectForKeyedSubscript:@"Current Capacity"];
 
-      if (!v12)
+      if (!v12 || (-[BatteryClientService powerSourceDetails](self, "powerSourceDetails"), v13 = objc_claimAutoreleasedReturnValue(), [v13 objectForKeyedSubscript:@"Current Capacity"], v14 = objc_claimAutoreleasedReturnValue(), v13, LODWORD(v13) = objc_msgSend(v14, "intValue"), v15 = v31, v14, v13 != v15))
       {
-        goto LABEL_11;
-      }
-
-      powerSourceDetails2 = [(BatteryClientService *)self powerSourceDetails];
-      v14 = [powerSourceDetails2 objectForKeyedSubscript:@"Current Capacity"];
-
-      LODWORD(powerSourceDetails2) = [v14 intValue];
-      v15 = v31;
-
-      if (powerSourceDetails2 != v15)
-      {
-LABEL_11:
         v16 = qword_1000DDBC8;
         if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
         {
@@ -504,26 +491,11 @@ LABEL_11:
         {
           if ((v21 & 1) == 0)
           {
-            if (!self->_requireDescriptor)
+            if (!self->_requireDescriptor || (-[BatteryClientService powerSourceDetails](self, "powerSourceDetails"), v22 = objc_claimAutoreleasedReturnValue(), [v22 objectForKeyedSubscript:@"Part Identifier"], v23 = objc_claimAutoreleasedReturnValue(), v22, -[BatteryClientService powerSourceDetails](self, "powerSourceDetails"), v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v24, "objectForKeyedSubscript:", @"Accessory Identifier"), v25 = objc_claimAutoreleasedReturnValue(), v24, -[BatteryClientService powerSourceDetails](self, "powerSourceDetails"), v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "setObject:forKeyedSubscript:", v25, @"Group Identifier"), v26, v25, v23, v23))
             {
-              goto LABEL_17;
-            }
-
-            powerSourceDetails3 = [(BatteryClientService *)self powerSourceDetails];
-            v23 = [powerSourceDetails3 objectForKeyedSubscript:@"Part Identifier"];
-
-            powerSourceDetails4 = [(BatteryClientService *)self powerSourceDetails];
-            v25 = [powerSourceDetails4 objectForKeyedSubscript:@"Accessory Identifier"];
-
-            powerSourceDetails5 = [(BatteryClientService *)self powerSourceDetails];
-            [powerSourceDetails5 setObject:v25 forKeyedSubscript:@"Group Identifier"];
-
-            if (v23)
-            {
-LABEL_17:
               v27 = +[BTLEXpcServer instance];
-              powerSourceDetails6 = [(BatteryClientService *)self powerSourceDetails];
-              [v27 sendBatteryServiceNotification:powerSourceDetails6];
+              powerSourceDetails2 = [(BatteryClientService *)self powerSourceDetails];
+              [v27 sendBatteryServiceNotification:powerSourceDetails2];
             }
           }
         }
@@ -884,20 +856,8 @@ LABEL_62:
     uUIDString4 = [uUID4 UUIDString];
     v26 = [uUIDString4 isEqualToString:CBUUIDCharacteristicFormatString];
 
-    if (!v26)
+    if (!v26 || ([v18 characteristic], v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "UUID"), v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v28, "UUIDString"), v29 = objc_claimAutoreleasedReturnValue(), v15 = CBUUIDBatteryLevelCharacteristicString, v30 = objc_msgSend(v29, "isEqualToString:", CBUUIDBatteryLevelCharacteristicString), v29, v28, v27, (v30 & 1) == 0))
     {
-      goto LABEL_33;
-    }
-
-    characteristic = [v18 characteristic];
-    uUID5 = [characteristic UUID];
-    uUIDString5 = [uUID5 UUIDString];
-    v15 = CBUUIDBatteryLevelCharacteristicString;
-    v30 = [uUIDString5 isEqualToString:CBUUIDBatteryLevelCharacteristicString];
-
-    if ((v30 & 1) == 0)
-    {
-LABEL_33:
       value4 = 0;
       v19 = 0;
       dataCopy = v23;
@@ -1090,13 +1050,6 @@ LABEL_16:
   return powerSourceID != 0;
 }
 
-- (id)batteryPowerStateString:(unsigned __int8)string
-{
-  v3 = off_1000BE660[string & 3];
-  v4 = off_1000BE680[(string >> 4) & 3];
-  return [NSString stringWithFormat:@"%@ / %@ / %@ / %@", v3, off_1000BE6A0[(string >> 2) & 3], v4, off_1000BE6C0[string >> 6]];
-}
-
 - (BOOL)isAccessoryCategoryPencil:(id)pencil
 {
   pencilCopy = pencil;
@@ -1138,26 +1091,11 @@ LABEL_16:
     v18[5] = v6;
     if (![(BatteryClientService *)self updatePowerSource:v18])
     {
-      if (!self->_requireDescriptor)
+      if (!self->_requireDescriptor || (-[BatteryClientService powerSourceDetails](self, "powerSourceDetails"), v11 = objc_claimAutoreleasedReturnValue(), [v11 objectForKeyedSubscript:@"Part Identifier"], v12 = objc_claimAutoreleasedReturnValue(), v11, -[BatteryClientService powerSourceDetails](self, "powerSourceDetails"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "objectForKeyedSubscript:", @"Accessory Identifier"), v14 = objc_claimAutoreleasedReturnValue(), v13, -[BatteryClientService powerSourceDetails](self, "powerSourceDetails"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "setObject:forKeyedSubscript:", v14, @"Group Identifier"), v15, v14, v12, v12))
       {
-        goto LABEL_7;
-      }
-
-      powerSourceDetails = [(BatteryClientService *)self powerSourceDetails];
-      v12 = [powerSourceDetails objectForKeyedSubscript:@"Part Identifier"];
-
-      powerSourceDetails2 = [(BatteryClientService *)self powerSourceDetails];
-      v14 = [powerSourceDetails2 objectForKeyedSubscript:@"Accessory Identifier"];
-
-      powerSourceDetails3 = [(BatteryClientService *)self powerSourceDetails];
-      [powerSourceDetails3 setObject:v14 forKeyedSubscript:@"Group Identifier"];
-
-      if (v12)
-      {
-LABEL_7:
         v16 = +[BTLEXpcServer instance];
-        powerSourceDetails4 = [(BatteryClientService *)self powerSourceDetails];
-        [v16 sendBatteryServiceNotification:powerSourceDetails4];
+        powerSourceDetails = [(BatteryClientService *)self powerSourceDetails];
+        [v16 sendBatteryServiceNotification:powerSourceDetails];
       }
     }
   }

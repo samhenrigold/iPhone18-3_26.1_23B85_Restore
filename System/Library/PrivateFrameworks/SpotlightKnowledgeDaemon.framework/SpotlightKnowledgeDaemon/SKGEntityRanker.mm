@@ -167,85 +167,85 @@ LABEL_21:
 
 - (void)updateWithEntities:(id)entities
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
   if ([(NSMutableDictionary *)self->_dates count]|| [(NSMutableDictionary *)self->_links count]|| [(NSMutableDictionary *)self->_locations count]|| [(NSMutableDictionary *)self->_entities count])
   {
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
     v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     allValues = [(NSMutableDictionary *)self->_links allValues];
-    v6 = [allValues countByEnumeratingWithState:&v54 objects:v62 count:16];
+    v6 = [allValues countByEnumeratingWithState:&v53 objects:v61 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v55;
+      v8 = *v54;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v55 != v8)
+          if (*v54 != v8)
           {
             objc_enumerationMutation(allValues);
           }
 
-          [entitiesCopy addLink:*(*(&v54 + 1) + 8 * i)];
+          [entitiesCopy addLink:*(*(&v53 + 1) + 8 * i)];
           [entitiesCopy setDidProcessBreadcrumbs:1];
         }
 
-        v7 = [allValues countByEnumeratingWithState:&v54 objects:v62 count:16];
+        v7 = [allValues countByEnumeratingWithState:&v53 objects:v61 count:16];
       }
 
       while (v7);
     }
 
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     obj = [(NSMutableDictionary *)self->_locations allValues];
-    v10 = [obj countByEnumeratingWithState:&v50 objects:v61 count:16];
+    v10 = [obj countByEnumeratingWithState:&v49 objects:v60 count:16];
     if (v10)
     {
       v11 = v10;
-      v36 = *v51;
+      v35 = *v50;
       do
       {
         for (j = 0; j != v11; ++j)
         {
-          if (*v51 != v36)
+          if (*v50 != v35)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v50 + 1) + 8 * j);
+          v13 = *(*(&v49 + 1) + 8 * j);
           address = [v13 address];
           if (address)
           {
-            v48 = 0u;
-            v49 = 0u;
-            v46 = 0u;
             v47 = 0u;
+            v48 = 0u;
+            v45 = 0u;
+            v46 = 0u;
             expansions = [v13 expansions];
-            v16 = [expansions countByEnumeratingWithState:&v46 objects:v60 count:16];
+            v16 = [expansions countByEnumeratingWithState:&v45 objects:v59 count:16];
             if (v16)
             {
               v17 = v16;
-              v18 = *v47;
+              v18 = *v46;
               do
               {
                 for (k = 0; k != v17; ++k)
                 {
-                  if (*v47 != v18)
+                  if (*v46 != v18)
                   {
                     objc_enumerationMutation(expansions);
                   }
 
-                  [address addComponent:*(*(&v46 + 1) + 8 * k)];
+                  [address addComponent:*(*(&v45 + 1) + 8 * k)];
                 }
 
-                v17 = [expansions countByEnumeratingWithState:&v46 objects:v60 count:16];
+                v17 = [expansions countByEnumeratingWithState:&v45 objects:v59 count:16];
               }
 
               while (v17);
@@ -265,54 +265,54 @@ LABEL_21:
           }
         }
 
-        v11 = [obj countByEnumeratingWithState:&v50 objects:v61 count:16];
+        v11 = [obj countByEnumeratingWithState:&v49 objects:v60 count:16];
       }
 
       while (v11);
     }
 
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
-    v32 = self->_entities;
-    obja = [(NSMutableDictionary *)v32 countByEnumeratingWithState:&v42 objects:v59 count:16];
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    v31 = self->_entities;
+    obja = [(NSMutableDictionary *)v31 countByEnumeratingWithState:&v41 objects:v58 count:16];
     if (obja)
     {
-      v33 = *v43;
+      v32 = *v42;
       do
       {
         v20 = 0;
         do
         {
-          if (*v43 != v33)
+          if (*v42 != v32)
           {
-            objc_enumerationMutation(v32);
+            objc_enumerationMutation(v31);
           }
 
-          v37 = v20;
-          v21 = *(*(&v42 + 1) + 8 * v20);
+          v36 = v20;
+          v21 = *(*(&v41 + 1) + 8 * v20);
+          v37 = 0u;
           v38 = 0u;
           v39 = 0u;
           v40 = 0u;
-          v41 = 0u;
           v22 = [(NSMutableDictionary *)self->_entities objectForKeyedSubscript:v21];
-          v23 = [v22 countByEnumeratingWithState:&v38 objects:v58 count:16];
+          v23 = [v22 countByEnumeratingWithState:&v37 objects:v57 count:16];
           if (v23)
           {
             v24 = v23;
-            v25 = *v39;
+            v25 = *v38;
             do
             {
               v26 = 0;
               do
               {
-                if (*v39 != v25)
+                if (*v38 != v25)
                 {
                   objc_enumerationMutation(v22);
                 }
 
-                v27 = *(*(&v38 + 1) + 8 * v26);
+                v27 = *(*(&v37 + 1) + 8 * v26);
                 v28 = [(NSMutableDictionary *)self->_entities objectForKeyedSubscript:v21];
                 v29 = [v28 objectForKeyedSubscript:v27];
 
@@ -382,25 +382,23 @@ LABEL_46:
               }
 
               while (v24 != v26);
-              v30 = [v22 countByEnumeratingWithState:&v38 objects:v58 count:16];
+              v30 = [v22 countByEnumeratingWithState:&v37 objects:v57 count:16];
               v24 = v30;
             }
 
             while (v30);
           }
 
-          v20 = v37 + 1;
+          v20 = v36 + 1;
         }
 
-        while ((v37 + 1) != obja);
-        obja = [(NSMutableDictionary *)v32 countByEnumeratingWithState:&v42 objects:v59 count:16];
+        while ((v36 + 1) != obja);
+        obja = [(NSMutableDictionary *)v31 countByEnumeratingWithState:&v41 objects:v58 count:16];
       }
 
       while (obja);
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (id)links
@@ -518,33 +516,33 @@ uint64_t __28__SKGEntityRanker_locations__block_invoke(uint64_t a1, void *a2, vo
 
 - (id)keyphrases
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   if (self->_keyphrases)
   {
     selfCopy = self;
     context = objc_autoreleasePoolPush();
     v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
     [(NSMutableDictionary *)selfCopy->_keyphrases allKeys];
+    v60 = 0u;
     v61 = 0u;
     v62 = 0u;
-    v63 = 0u;
-    obj = v64 = 0u;
-    v47 = [obj countByEnumeratingWithState:&v61 objects:v68 count:16];
-    if (v47)
+    obj = v63 = 0u;
+    v46 = [obj countByEnumeratingWithState:&v60 objects:v67 count:16];
+    if (v46)
     {
-      v45 = selfCopy;
-      v46 = *v62;
+      v44 = selfCopy;
+      v45 = *v61;
       do
       {
-        for (i = 0; i != v47; ++i)
+        for (i = 0; i != v46; ++i)
         {
           v5 = v3;
-          if (*v62 != v46)
+          if (*v61 != v45)
           {
             objc_enumerationMutation(obj);
           }
 
-          v6 = *(*(&v61 + 1) + 8 * i);
+          v6 = *(*(&v60 + 1) + 8 * i);
           v7 = [(NSMutableDictionary *)selfCopy->_keyphrases objectForKeyedSubscript:v6];
           allObjects = [v7 allObjects];
 
@@ -553,32 +551,32 @@ uint64_t __28__SKGEntityRanker_locations__block_invoke(uint64_t a1, void *a2, vo
           tokenCount = [firstObject tokenCount];
           [firstObject score];
           v12 = [(SKGKeyphrase *)v10 initWithKeyphrase:v6 components:MEMORY[0x277CBEBF8] tokenCount:tokenCount score:?];
+          v56 = 0u;
           v57 = 0u;
           v58 = 0u;
           v59 = 0u;
-          v60 = 0u;
           v13 = allObjects;
-          v14 = [v13 countByEnumeratingWithState:&v57 objects:v67 count:16];
+          v14 = [v13 countByEnumeratingWithState:&v56 objects:v66 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v58;
+            v16 = *v57;
             do
             {
               for (j = 0; j != v15; ++j)
               {
-                if (*v58 != v16)
+                if (*v57 != v16)
                 {
                   objc_enumerationMutation(v13);
                 }
 
-                components = [*(*(&v57 + 1) + 8 * j) components];
+                components = [*(*(&v56 + 1) + 8 * j) components];
                 [(SKGKeyphrase *)v12 addComponents:components];
 
                 [(SKGKeyphrase *)v12 setCount:[(SKGKeyphrase *)v12 count]+ 1];
               }
 
-              v15 = [v13 countByEnumeratingWithState:&v57 objects:v67 count:16];
+              v15 = [v13 countByEnumeratingWithState:&v56 objects:v66 count:16];
             }
 
             while (v15);
@@ -599,57 +597,57 @@ uint64_t __28__SKGEntityRanker_locations__block_invoke(uint64_t a1, void *a2, vo
           v24 = [v5 objectForKeyedSubscript:v23];
           [v24 addObject:v12];
 
-          selfCopy = v45;
+          selfCopy = v44;
         }
 
-        v47 = [obj countByEnumeratingWithState:&v61 objects:v68 count:16];
+        v46 = [obj countByEnumeratingWithState:&v60 objects:v67 count:16];
       }
 
-      while (v47);
+      while (v46);
     }
 
     v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v52 = 0u;
     v53 = 0u;
     v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
     v27 = v3;
-    v28 = [v27 countByEnumeratingWithState:&v53 objects:v66 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v52 objects:v65 count:16];
     if (v28)
     {
       v29 = v28;
-      v48 = *v54;
+      v47 = *v53;
       do
       {
         for (k = 0; k != v29; ++k)
         {
-          if (*v54 != v48)
+          if (*v53 != v47)
           {
             objc_enumerationMutation(v27);
           }
 
-          v31 = *(*(&v53 + 1) + 8 * k);
+          v31 = *(*(&v52 + 1) + 8 * k);
+          v48 = 0u;
           v49 = 0u;
           v50 = 0u;
           v51 = 0u;
-          v52 = 0u;
           v32 = [v27 objectForKeyedSubscript:v31];
-          v33 = [v32 countByEnumeratingWithState:&v49 objects:v65 count:16];
+          v33 = [v32 countByEnumeratingWithState:&v48 objects:v64 count:16];
           if (v33)
           {
             v34 = v33;
-            v35 = *v50;
+            v35 = *v49;
             do
             {
               for (m = 0; m != v34; ++m)
               {
-                if (*v50 != v35)
+                if (*v49 != v35)
                 {
                   objc_enumerationMutation(v32);
                 }
 
-                v37 = *(*(&v49 + 1) + 8 * m);
+                v37 = *(*(&v48 + 1) + 8 * m);
                 [v37 score];
                 if (fabs(v38) >= 1.0)
                 {
@@ -664,14 +662,14 @@ uint64_t __28__SKGEntityRanker_locations__block_invoke(uint64_t a1, void *a2, vo
                 [v39 addObject:v37];
               }
 
-              v34 = [v32 countByEnumeratingWithState:&v49 objects:v65 count:16];
+              v34 = [v32 countByEnumeratingWithState:&v48 objects:v64 count:16];
             }
 
             while (v34);
           }
         }
 
-        v29 = [v27 countByEnumeratingWithState:&v53 objects:v66 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v52 objects:v65 count:16];
       }
 
       while (v29);
@@ -688,8 +686,6 @@ uint64_t __28__SKGEntityRanker_locations__block_invoke(uint64_t a1, void *a2, vo
   {
     v40 = MEMORY[0x277CBEBF8];
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return v40;
 }

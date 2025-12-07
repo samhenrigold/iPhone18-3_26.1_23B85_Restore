@@ -1,10 +1,31 @@
 @interface _DPCMSSequenceRecord
 - (BOOL)copyFromManagedObject:(id)object;
 - (BOOL)copyToManagedObject:(id)object;
+- (_DPCMSSequenceRecord)initWithKey:(id)key plainSequence:(id)sequence sequence:(id)a5 sequenceHashIndex:(unsigned __int16)index creationDate:(double)date submitted:(BOOL)submitted objectId:(id)id;
 - (id)description;
 @end
 
 @implementation _DPCMSSequenceRecord
+
+- (_DPCMSSequenceRecord)initWithKey:(id)key plainSequence:(id)sequence sequence:(id)a5 sequenceHashIndex:(unsigned __int16)index creationDate:(double)date submitted:(BOOL)submitted objectId:(id)id
+{
+  submittedCopy = submitted;
+  v16 = a5;
+  v21.receiver = self;
+  v21.super_class = _DPCMSSequenceRecord;
+  v17 = [(_DPCMSRecord *)&v21 initWithKey:key creationDate:submittedCopy submitted:id objectId:date];
+  v18 = v17;
+  if (v17)
+  {
+    plainSequence = v17->_plainSequence;
+    v17->_plainSequence = 0;
+
+    objc_storeStrong(&v18->_sequence, a5);
+    v18->_sequenceHashIndex = index;
+  }
+
+  return v18;
+}
 
 - (id)description
 {

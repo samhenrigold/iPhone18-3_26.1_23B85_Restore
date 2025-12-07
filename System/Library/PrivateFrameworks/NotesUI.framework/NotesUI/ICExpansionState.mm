@@ -34,9 +34,10 @@
 
 uint64_t __40__ICExpansionState_sharedExpansionState__block_invoke()
 {
-  sharedExpansionState_instance = objc_alloc_init(ICExpansionState);
+  v0 = objc_alloc_init(ICExpansionState);
+  sharedExpansionState_instance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (ICExpansionState)init
@@ -56,217 +57,219 @@ uint64_t __40__ICExpansionState_sharedExpansionState__block_invoke()
 
 - (NSDictionary)archiveDictionary
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   expansionState = [(ICExpansionState *)self expansionState];
   allKeys = [expansionState allKeys];
 
   obj = allKeys;
-  v27 = [allKeys countByEnumeratingWithState:&v44 objects:v50 count:16];
-  if (v27)
+  v26 = [allKeys countByEnumeratingWithState:&v43 objects:v49 count:16];
+  if (v26)
   {
-    v25 = *v45;
+    v24 = *v44;
     do
     {
       v5 = 0;
       do
       {
-        if (*v45 != v25)
+        if (*v44 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = v5;
-        v6 = *(*(&v44 + 1) + 8 * v5);
+        v28 = v5;
+        v6 = *(*(&v43 + 1) + 8 * v5);
         expansionState2 = [(ICExpansionState *)self expansionState];
-        v28 = v6;
-        v8 = [expansionState2 objectForKeyedSubscript:v6];
+        v27 = v6;
+        v8 = objc_msgSend_objectForKeyedSubscript_(expansionState2);
 
         dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-        v33 = v8;
+        v32 = v8;
+        v39 = 0u;
         v40 = 0u;
         v41 = 0u;
         v42 = 0u;
-        v43 = 0u;
         allKeys2 = [v8 allKeys];
-        v34 = [allKeys2 countByEnumeratingWithState:&v40 objects:v49 count:16];
-        if (v34)
+        v33 = [allKeys2 countByEnumeratingWithState:&v39 objects:v48 count:16];
+        if (v33)
         {
-          v31 = *v41;
+          v30 = *v40;
           do
           {
-            for (i = 0; i != v34; ++i)
+            for (i = 0; i != v33; ++i)
             {
-              if (*v41 != v31)
+              if (*v40 != v30)
               {
                 objc_enumerationMutation(allKeys2);
               }
 
-              v35 = *(*(&v40 + 1) + 8 * i);
-              v10 = [v33 objectForKeyedSubscript:?];
+              v34 = *(*(&v39 + 1) + 8 * i);
+              v10 = objc_msgSend_objectForKeyedSubscript_(v32);
               dictionary3 = [MEMORY[0x1E695DF90] dictionary];
+              v35 = 0u;
               v36 = 0u;
               v37 = 0u;
               v38 = 0u;
-              v39 = 0u;
               allKeys3 = [v10 allKeys];
-              v13 = [allKeys3 countByEnumeratingWithState:&v36 objects:v48 count:16];
+              v13 = [allKeys3 countByEnumeratingWithState:&v35 objects:v47 count:16];
               if (v13)
               {
                 v14 = v13;
-                v15 = *v37;
+                v15 = *v36;
                 do
                 {
                   for (j = 0; j != v14; ++j)
                   {
-                    if (*v37 != v15)
+                    if (*v36 != v15)
                     {
                       objc_enumerationMutation(allKeys3);
                     }
 
-                    v17 = *(*(&v36 + 1) + 8 * j);
-                    v18 = [(ICExpansionState *)self archivableIdentifierForItemIdentifier:v17];
-                    v19 = [v10 objectForKeyedSubscript:v17];
-                    [dictionary3 setObject:v19 forKeyedSubscript:v18];
+                    v17 = [(ICExpansionState *)self archivableIdentifierForItemIdentifier:*(*(&v35 + 1) + 8 * j)];
+                    v18 = objc_msgSend_objectForKeyedSubscript_(v10);
+                    [dictionary3 setObject:v18 forKeyedSubscript:v17];
                   }
 
-                  v14 = [allKeys3 countByEnumeratingWithState:&v36 objects:v48 count:16];
+                  v14 = [allKeys3 countByEnumeratingWithState:&v35 objects:v47 count:16];
                 }
 
                 while (v14);
               }
 
-              v20 = [dictionary3 copy];
-              [dictionary2 setObject:v20 forKeyedSubscript:v35];
+              v19 = [dictionary3 copy];
+              [dictionary2 setObject:v19 forKeyedSubscript:v34];
             }
 
-            v34 = [allKeys2 countByEnumeratingWithState:&v40 objects:v49 count:16];
+            v33 = [allKeys2 countByEnumeratingWithState:&v39 objects:v48 count:16];
           }
 
-          while (v34);
+          while (v33);
         }
 
-        v21 = [dictionary2 copy];
-        [dictionary setObject:v21 forKeyedSubscript:v28];
+        v20 = [dictionary2 copy];
+        [dictionary setObject:v20 forKeyedSubscript:v27];
 
-        v5 = v29 + 1;
+        v5 = v28 + 1;
       }
 
-      while (v29 + 1 != v27);
-      v27 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+      while (v28 + 1 != v26);
+      v26 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
     }
 
-    while (v27);
+    while (v26);
   }
 
-  v22 = [dictionary copy];
+  v21 = [dictionary copy];
 
-  return v22;
+  return v21;
 }
 
 - (void)applyArchiveDictionary:(id)dictionary
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   dictionaryCopy = dictionary;
   obj = [dictionaryCopy allKeys];
-  v22 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
-  if (v22)
+  v21 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
+  if (v21)
   {
-    v20 = *v38;
+    v19 = *v37;
     do
     {
       v4 = 0;
       do
       {
-        if (*v38 != v20)
+        if (*v37 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = v4;
-        v5 = *(*(&v37 + 1) + 8 * v4);
-        v6 = [dictionaryCopy objectForKeyedSubscript:v5];
+        v22 = v4;
+        v5 = *(*(&v36 + 1) + 8 * v4);
+        v6 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
+        v32 = 0u;
         v33 = 0u;
         v34 = 0u;
         v35 = 0u;
-        v36 = 0u;
-        v26 = v6;
+        v25 = v6;
         allKeys = [v6 allKeys];
-        v27 = [allKeys countByEnumeratingWithState:&v33 objects:v42 count:16];
-        if (v27)
+        v26 = [allKeys countByEnumeratingWithState:&v32 objects:v41 count:16];
+        if (v26)
         {
-          v25 = *v34;
+          v24 = *v33;
           do
           {
             v7 = 0;
             do
             {
-              if (*v34 != v25)
+              if (*v33 != v24)
               {
                 objc_enumerationMutation(allKeys);
               }
 
-              v28 = v7;
-              v8 = *(*(&v33 + 1) + 8 * v7);
-              v9 = [v26 objectForKeyedSubscript:v8];
+              v27 = v7;
+              v8 = *(*(&v32 + 1) + 8 * v7);
+              v9 = objc_msgSend_objectForKeyedSubscript_(v25);
               v10 = ICExpansionStateItemTypeFromString(v8);
+              v28 = 0u;
               v29 = 0u;
               v30 = 0u;
               v31 = 0u;
-              v32 = 0u;
               allKeys2 = [v9 allKeys];
-              v12 = [allKeys2 countByEnumeratingWithState:&v29 objects:v41 count:16];
+              v12 = [allKeys2 countByEnumeratingWithState:&v28 objects:v40 count:16];
               if (v12)
               {
                 v13 = v12;
-                v14 = *v30;
+                v14 = *v29;
                 do
                 {
-                  for (i = 0; i != v13; ++i)
+                  v15 = 0;
+                  do
                   {
-                    if (*v30 != v14)
+                    if (*v29 != v14)
                     {
                       objc_enumerationMutation(allKeys2);
                     }
 
-                    v16 = *(*(&v29 + 1) + 8 * i);
-                    v17 = [(ICExpansionState *)self identifierForArchivableIdentifier:v16 itemType:v10];
-                    v18 = [v9 objectForKeyedSubscript:v16];
-                    -[ICExpansionState setExpanded:itemIdentifier:itemType:context:](self, "setExpanded:itemIdentifier:itemType:context:", [v18 BOOLValue], v17, v10, v5);
+                    v16 = [(ICExpansionState *)self identifierForArchivableIdentifier:*(*(&v28 + 1) + 8 * v15) itemType:v10];
+                    v17 = objc_msgSend_objectForKeyedSubscript_(v9);
+                    -[ICExpansionState setExpanded:itemIdentifier:itemType:context:](self, "setExpanded:itemIdentifier:itemType:context:", [v17 BOOLValue], v16, v10, v5);
+
+                    ++v15;
                   }
 
-                  v13 = [allKeys2 countByEnumeratingWithState:&v29 objects:v41 count:16];
+                  while (v13 != v15);
+                  v13 = [allKeys2 countByEnumeratingWithState:&v28 objects:v40 count:16];
                 }
 
                 while (v13);
               }
 
-              v7 = v28 + 1;
+              v7 = v27 + 1;
             }
 
-            while (v28 + 1 != v27);
-            v27 = [allKeys countByEnumeratingWithState:&v33 objects:v42 count:16];
+            while (v27 + 1 != v26);
+            v26 = [allKeys countByEnumeratingWithState:&v32 objects:v41 count:16];
           }
 
-          while (v27);
+          while (v26);
         }
 
-        v4 = v23 + 1;
+        v4 = v22 + 1;
       }
 
-      while (v23 + 1 != v22);
-      v22 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+      while (v22 + 1 != v21);
+      v21 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
     }
 
-    while (v22);
+    while (v21);
   }
 }
 
@@ -289,63 +292,52 @@ uint64_t __40__ICExpansionState_sharedExpansionState__block_invoke()
 - (id)itemIdentifiersExpanded:(BOOL)expanded itemType:(int64_t)type context:(id)context
 {
   expandedCopy = expanded;
-  v31 = *MEMORY[0x1E69E9840];
-  v8 = [(ICExpansionState *)self normalizedContext:context];
+  v28 = *MEMORY[0x1E69E9840];
+  v7 = [(ICExpansionState *)self normalizedContext:context];
   expansionState = [(ICExpansionState *)self expansionState];
-  v10 = [expansionState objectForKeyedSubscript:v8];
-  v11 = v10;
-  v25 = v8;
-  if (type > 2)
-  {
-    v12 = @"ICExpansionStateItemTypeUnknown";
-  }
+  v9 = objc_msgSend_objectForKeyedSubscript_(expansionState);
+  v22 = v7;
+  v10 = objc_msgSend_objectForKeyedSubscript_(v9);
 
-  else
-  {
-    v12 = off_1E8469E28[type];
-  }
-
-  v13 = [v10 objectForKeyedSubscript:v12];
-
-  v14 = [MEMORY[0x1E695DFA8] set];
+  v11 = [MEMORY[0x1E695DFA8] set];
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  allKeys = [v13 allKeys];
-  v16 = [allKeys countByEnumeratingWithState:&v26 objects:v30 count:16];
-  if (v16)
+  allKeys = [v10 allKeys];
+  v13 = [allKeys countByEnumeratingWithState:&v23 objects:v27 count:16];
+  if (v13)
   {
-    v17 = v16;
-    v18 = *v27;
+    v14 = v13;
+    v15 = *v24;
     do
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v27 != v18)
+        if (*v24 != v15)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v20 = *(*(&v26 + 1) + 8 * i);
-        v21 = [v13 objectForKeyedSubscript:v20];
-        bOOLValue = [v21 BOOLValue];
+        v17 = *(*(&v23 + 1) + 8 * i);
+        v18 = objc_msgSend_objectForKeyedSubscript_(v10);
+        bOOLValue = [v18 BOOLValue];
 
         if (bOOLValue == expandedCopy)
         {
-          [v14 addObject:v20];
+          [v11 addObject:v17];
         }
       }
 
-      v17 = [allKeys countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v14 = [allKeys countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
-    while (v17);
+    while (v14);
   }
 
-  v23 = [v14 copy];
+  v20 = [v11 copy];
 
-  return v23;
+  return v20;
 }
 
 - (BOOL)isSectionIdentiferExpanded:(id)expanded inContext:(id)context
@@ -353,12 +345,12 @@ uint64_t __40__ICExpansionState_sharedExpansionState__block_invoke()
   expandedCopy = expanded;
   v7 = [(ICExpansionState *)self normalizedContext:context];
   expansionState = [(ICExpansionState *)self expansionState];
-  v9 = [expansionState objectForKeyedSubscript:v7];
-  v10 = [v9 objectForKeyedSubscript:@"ICExpansionStateItemTypeSectionIdentifier"];
+  v9 = objc_msgSend_objectForKeyedSubscript_(expansionState);
+  v10 = objc_msgSend_objectForKeyedSubscript_(v9);
 
   expansionStateContext = [expandedCopy expansionStateContext];
 
-  v12 = [v10 objectForKeyedSubscript:expansionStateContext];
+  v12 = objc_msgSend_objectForKeyedSubscript_(v10);
 
   if (v12)
   {
@@ -460,7 +452,7 @@ uint64_t __40__ICExpansionState_sharedExpansionState__block_invoke()
   identifierCopy = identifier;
   v10 = [(ICExpansionState *)self normalizedContext:context];
   expansionState = [(ICExpansionState *)self expansionState];
-  dictionary = [expansionState objectForKeyedSubscript:v10];
+  dictionary = objc_msgSend_objectForKeyedSubscript_(expansionState);
 
   if (!dictionary)
   {
@@ -478,35 +470,25 @@ uint64_t __40__ICExpansionState_sharedExpansionState__block_invoke()
   v15 = v14;
   if (type != -1 && v14)
   {
-    if (type > 2)
-    {
-      v16 = @"ICExpansionStateItemTypeUnknown";
-    }
-
-    else
-    {
-      v16 = off_1E8469E28[type];
-    }
-
-    dictionary2 = [dictionary objectForKeyedSubscript:v16];
+    dictionary2 = objc_msgSend_objectForKeyedSubscript_(dictionary);
     if (!dictionary2)
     {
       dictionary2 = [MEMORY[0x1E695DF90] dictionary];
       if (type > 2)
       {
-        v18 = @"ICExpansionStateItemTypeUnknown";
+        v17 = @"ICExpansionStateItemTypeUnknown";
       }
 
       else
       {
-        v18 = off_1E8469E28[type];
+        v17 = off_1E8469E28[type];
       }
 
-      [dictionary setObject:dictionary2 forKeyedSubscript:v18];
+      [dictionary setObject:dictionary2 forKeyedSubscript:v17];
     }
 
-    v19 = [MEMORY[0x1E696AD98] numberWithBool:expandedCopy];
-    [dictionary2 setObject:v19 forKeyedSubscript:v15];
+    v18 = [MEMORY[0x1E696AD98] numberWithBool:expandedCopy];
+    [dictionary2 setObject:v18 forKeyedSubscript:v15];
   }
 }
 

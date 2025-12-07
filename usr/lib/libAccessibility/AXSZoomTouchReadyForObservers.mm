@@ -3,7 +3,7 @@
 
 @implementation AXSZoomTouchReadyForObservers
 
-uint64_t ___AXSZoomTouchReadyForObservers_block_invoke()
+void *___AXSZoomTouchReadyForObservers_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

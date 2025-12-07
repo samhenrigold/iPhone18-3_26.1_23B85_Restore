@@ -22,7 +22,7 @@
 - (void)cancelRecognition
 {
   selfCopy = self;
-  sub_10002C3BC();
+  sub_10002C3BC(selfCopy, v2, v3, v4, v5);
 }
 
 - (void)packetArrivalTimestampFromAudioTimestamp:(float)timestamp reply:(id)reply

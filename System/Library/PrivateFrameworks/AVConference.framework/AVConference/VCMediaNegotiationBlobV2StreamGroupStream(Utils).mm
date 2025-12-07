@@ -269,6 +269,63 @@
   }
 }
 
+- (void)streamConfigWithPayloadConfigs:()Utils payloadConfigSampleRates:streamGroupID:.cold.3()
+{
+  OUTLINED_FUNCTION_37();
+  OUTLINED_FUNCTION_30();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
+    {
+      OUTLINED_FUNCTION_8();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid payload specs", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_9_12();
+  OUTLINED_FUNCTION_36();
+}
+
+- (void)streamConfigWithPayloadConfigs:()Utils payloadConfigSampleRates:streamGroupID:.cold.4()
+{
+  OUTLINED_FUNCTION_37();
+  OUTLINED_FUNCTION_30();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
+    {
+      OUTLINED_FUNCTION_8();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid payload config Sample Rates", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_9_12();
+  OUTLINED_FUNCTION_36();
+}
+
+- (void)streamConfigWithPayloadConfigs:()Utils payloadConfigSampleRates:streamGroupID:.cold.5()
+{
+  OUTLINED_FUNCTION_37();
+  OUTLINED_FUNCTION_30();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
+    {
+      OUTLINED_FUNCTION_8();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid payload specs", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_9_12();
+  OUTLINED_FUNCTION_36();
+}
+
 - (void)streamConfigWithPayloadConfigs:()Utils payloadConfigSampleRates:streamGroupID:.cold.6(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, uint64_t a10, int a11, int a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   OUTLINED_FUNCTION_37();
@@ -437,7 +494,7 @@
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_21();
-      OUTLINED_FUNCTION_12_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d The audioChannelCount field doesn't fit in a uint8. audioChannelCount=%x", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_12_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d The audioChannelCount field doesn't fit in a uint8. audioChannelCount=%x", v2, v3, v4, v5);
     }
   }
 
@@ -454,7 +511,7 @@
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_21();
-      OUTLINED_FUNCTION_12_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d The maxNetworkBitrate field doesn't fit in a uint16. maxNetworkBitrate=%x", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_12_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d The maxNetworkBitrate field doesn't fit in a uint16. maxNetworkBitrate=%x", v2, v3, v4, v5);
     }
   }
 
@@ -471,7 +528,7 @@
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_21();
-      OUTLINED_FUNCTION_12_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d The metadata field doesn't fit in a uint16. metadata=%x", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_12_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d The metadata field doesn't fit in a uint16. metadata=%x", v2, v3, v4, v5);
     }
   }
 

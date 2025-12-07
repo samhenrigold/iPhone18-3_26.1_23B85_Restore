@@ -31,20 +31,20 @@ uint64_t __27__OspreyAnalytics_reporter__block_invoke()
 
 - (void)reportEvent:(id)event payload:(id)payload
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   payloadCopy = payload;
-  OspreyLoggingInit();
-  v7 = OspreyLogContextAnalytics;
+  OspreyLoggingInit(payloadCopy, v7);
+  v8 = OspreyLogContextAnalytics;
   if (os_log_type_enabled(OspreyLogContextAnalytics, OS_LOG_TYPE_INFO))
   {
-    v8 = 136315650;
-    v9 = "[OspreyAnalytics reportEvent:payload:]";
-    v10 = 2112;
-    v11 = eventCopy;
-    v12 = 2112;
-    v13 = payloadCopy;
-    _os_log_impl(&dword_25DDE6000, v7, OS_LOG_TYPE_INFO, "%s Successfully reportEvent with domain %@ and payload %@", &v8, 0x20u);
+    v9 = 136315650;
+    v10 = "[OspreyAnalytics reportEvent:payload:]";
+    v11 = 2112;
+    v12 = eventCopy;
+    v13 = 2112;
+    v14 = payloadCopy;
+    _os_log_impl(&dword_25DDE6000, v8, OS_LOG_TYPE_INFO, "%s Successfully reportEvent with domain %@ and payload %@", &v9, 0x20u);
   }
 
   AnalyticsSendEvent();

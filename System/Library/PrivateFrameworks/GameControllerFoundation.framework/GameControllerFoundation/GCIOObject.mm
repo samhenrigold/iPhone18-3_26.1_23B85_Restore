@@ -14,22 +14,22 @@
 
 - (GCIOObject)initWithPort:(unsigned int)port error:(id *)error
 {
-  v16[1] = *MEMORY[0x1E69E9840];
-  v14.receiver = self;
-  v14.super_class = GCIOObject;
-  v6 = [(GCIOObject *)&v14 init];
+  v15[1] = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = GCIOObject;
+  v6 = [(GCIOObject *)&v13 init];
   v7 = IOObjectRetain(port);
   if (v7)
   {
     if (error)
     {
-      v10 = MEMORY[0x1E696ABC0];
-      v11 = *MEMORY[0x1E696A5A0];
-      v12 = v7;
-      v15 = *MEMORY[0x1E696A580];
-      v16[0] = @"Error incrementing port retain count.";
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-      *error = [v10 errorWithDomain:v11 code:v12 userInfo:v13];
+      v9 = MEMORY[0x1E696ABC0];
+      v10 = *MEMORY[0x1E696A5A0];
+      v11 = v7;
+      v14 = *MEMORY[0x1E696A580];
+      v15[0] = @"Error incrementing port retain count.";
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      *error = [v9 errorWithDomain:v10 code:v11 userInfo:v12];
 
       error = 0;
     }
@@ -41,7 +41,6 @@
     error = v6;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return error;
 }
 

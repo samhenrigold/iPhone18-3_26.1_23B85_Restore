@@ -13,7 +13,7 @@
 
 - (void)_removeIndicator
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   indicatorURL = [(PGGraphUpdateJetsamIndicator *)self indicatorURL];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   path = [indicatorURL path];
@@ -21,13 +21,13 @@
 
   if (v6)
   {
-    v10 = 0;
-    v7 = [defaultManager removeItemAtURL:indicatorURL error:&v10];
-    v8 = v10;
+    v9 = 0;
+    v7 = [defaultManager removeItemAtURL:indicatorURL error:&v9];
+    v8 = v9;
     if ((v7 & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v12 = v8;
+      v11 = v8;
       _os_log_fault_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "JetsamIndicator - removing indicator file from disk failed with error: %@", buf, 0xCu);
     }
 
@@ -39,8 +39,6 @@
     *buf = 0;
     _os_log_fault_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "JetsamIndicator - no indicator file but JetsamIndicator instance believes indicator exists", buf, 2u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_readIndicator
@@ -86,28 +84,28 @@
 
 - (void)markUpdate
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   [(PGGraphUpdateJetsamIndicator *)self setRetryCount:[(PGGraphUpdateJetsamIndicator *)self retryCount]+ 1];
-  v16 = @"retryCount";
+  v15 = @"retryCount";
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:{-[PGGraphUpdateJetsamIndicator retryCount](self, "retryCount")}];
-  v17[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v16[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
 
-  v13 = 0;
-  v5 = [MEMORY[0x277CCAC58] dataWithPropertyList:v4 format:200 options:0 error:&v13];
-  v6 = v13;
+  v12 = 0;
+  v5 = [MEMORY[0x277CCAC58] dataWithPropertyList:v4 format:200 options:0 error:&v12];
+  v6 = v12;
   v7 = v6;
   if (v5)
   {
     indicatorURL = [(PGGraphUpdateJetsamIndicator *)self indicatorURL];
-    v12 = v7;
-    v9 = [v5 writeToURL:indicatorURL options:1073741825 error:&v12];
-    v10 = v12;
+    v11 = v7;
+    v9 = [v5 writeToURL:indicatorURL options:1073741825 error:&v11];
+    v10 = v11;
 
     if ((v9 & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v15 = v10;
+      v14 = v10;
       _os_log_fault_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "JetsamIndicator - failed to write indicator to disk with error: %@", buf, 0xCu);
     }
 
@@ -118,8 +116,6 @@
   {
     v10 = v6;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)updateDidCauseJetsam

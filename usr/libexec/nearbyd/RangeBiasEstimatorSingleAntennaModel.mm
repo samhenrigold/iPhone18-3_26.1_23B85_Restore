@@ -452,10 +452,10 @@ LABEL_21:
     v16 = v15;
     if (v14 && v15)
     {
-      [(RangeBiasEstimatorSingleAntennaModel *)self getNormalizedCirAndPeakMagnitude:v14];
-      [(RangeBiasEstimatorSingleAntennaModel *)self getNormalizedCirAndPeakMagnitude:v16];
-      [(RangeBiasEstimatorSingleAntennaModel *)self getNormalizedFftCir:v14];
-      [(RangeBiasEstimatorSingleAntennaModel *)self getNormalizedFftCir:v16];
+      objc_msgSend_getNormalizedCirAndPeakMagnitude_(self);
+      objc_msgSend_getNormalizedCirAndPeakMagnitude_(self);
+      objc_msgSend_getNormalizedFftCir_(self);
+      objc_msgSend_getNormalizedFftCir_(self);
       if (v72 - v71 == 56)
       {
         if (v70 - __p == 56)
@@ -1580,7 +1580,7 @@ LABEL_18:
     neuralNetworkRangeBiasEstimatorModelAntennaMask2 = self->_neuralNetworkRangeBiasEstimatorModelAntennaMask2;
     if (neuralNetworkRangeBiasEstimatorModelAntennaMask2)
     {
-      [(NeuralNetworkModelWithDataTransformer *)neuralNetworkRangeBiasEstimatorModelAntennaMask2 neuralNetworkModel];
+      objc_msgSend_neuralNetworkModel(neuralNetworkRangeBiasEstimatorModelAntennaMask2);
     }
 
     else
@@ -1605,7 +1605,7 @@ LABEL_29:
     v26 = self->_neuralNetworkRangeBiasEstimatorModelAntennaMask2;
     if (v26)
     {
-      [(NeuralNetworkModelWithDataTransformer *)v26 neuralNetworkModel];
+      objc_msgSend_neuralNetworkModel(v26);
     }
 
     else
@@ -1659,7 +1659,7 @@ LABEL_41:
     neuralNetworkRangeBiasEstimatorModelAntennaMask1 = self->_neuralNetworkRangeBiasEstimatorModelAntennaMask1;
     if (neuralNetworkRangeBiasEstimatorModelAntennaMask1)
     {
-      [(NeuralNetworkModelWithDataTransformer *)neuralNetworkRangeBiasEstimatorModelAntennaMask1 neuralNetworkModel];
+      objc_msgSend_neuralNetworkModel(neuralNetworkRangeBiasEstimatorModelAntennaMask1);
     }
 
     else
@@ -1680,7 +1680,7 @@ LABEL_41:
     v27 = self->_neuralNetworkRangeBiasEstimatorModelAntennaMask1;
     if (v27)
     {
-      [(NeuralNetworkModelWithDataTransformer *)v27 neuralNetworkModel];
+      objc_msgSend_neuralNetworkModel(v27);
     }
 
     else
@@ -1702,7 +1702,7 @@ LABEL_41:
     if (v28)
     {
 LABEL_49:
-      [(NeuralNetworkModelWithDataTransformer *)v28 neuralNetworkModel];
+      objc_msgSend_neuralNetworkModel(v28);
       goto LABEL_51;
     }
   }

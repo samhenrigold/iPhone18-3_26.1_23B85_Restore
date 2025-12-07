@@ -257,7 +257,7 @@
   v8 = v7;
   v175 = v9;
   v177 = v10;
-  spec = [(PXTitleSubtitleCALayerPromise *)self spec];
+  v11 = objc_msgSend_spec(self);
   selfCopy = self;
   typesettingMode = [(PXTitleSubtitleCALayerPromise *)self typesettingMode];
   v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -296,12 +296,12 @@
   v234 = v18;
   v19 = _Block_copy(aBlock);
   titleText = [(PXTitleSubtitleCALayerPromise *)selfCopy titleText];
-  titleLabelSpec = [spec titleLabelSpec];
+  titleLabelSpec = [v11 titleLabelSpec];
   v22 = v19[2](v19, titleText, titleLabelSpec, 0.0);
 
   subtitleText = [(PXTitleSubtitleCALayerPromise *)selfCopy subtitleText];
-  subtitleLabelSpec = [spec subtitleLabelSpec];
-  [spec distanceBetweenTitleBaselineAndSubtitleBaseline];
+  subtitleLabelSpec = [v11 subtitleLabelSpec];
+  [v11 distanceBetweenTitleBaselineAndSubtitleBaseline];
   v167 = v19;
   v169 = (v19[2])(v19, subtitleText, subtitleLabelSpec);
 
@@ -366,11 +366,11 @@ LABEL_9:
     v228 = v40;
     v229 = selfCopy;
     v41 = _Block_copy(v225);
-    titleLabelSpec2 = [spec titleLabelSpec];
+    titleLabelSpec2 = [v11 titleLabelSpec];
     v43 = v41[2](v41, [titleLabelSpec2 textAlignment]);
     [v43 addObjectsFromArray:v22];
 
-    subtitleLabelSpec2 = [spec subtitleLabelSpec];
+    subtitleLabelSpec2 = [v11 subtitleLabelSpec];
     v45 = v41[2](v41, [subtitleLabelSpec2 textAlignment]);
     [v45 addObjectsFromArray:v169];
 
@@ -396,7 +396,7 @@ LABEL_9:
           v51 = *(*(&v221 + 1) + 8 * i);
           if (v51)
           {
-            [*(*(&v221 + 1) + 8 * i) transform];
+            objc_msgSend_transform(*(*(&v221 + 1) + 8 * i));
             v52 = *&v218;
           }
 
@@ -606,11 +606,11 @@ LABEL_9:
   v99 = v96;
   v201 = v99;
   v100 = _Block_copy(v198);
-  titleLabelSpec3 = [spec titleLabelSpec];
+  titleLabelSpec3 = [v11 titleLabelSpec];
   v102 = v100[2](v100, [titleLabelSpec3 verticalAlignment]);
   [v102 addObjectsFromArray:v22];
 
-  subtitleLabelSpec3 = [spec subtitleLabelSpec];
+  subtitleLabelSpec3 = [v11 subtitleLabelSpec];
   v166 = v100;
   v104 = v100[2](v100, [subtitleLabelSpec3 verticalAlignment]);
   [v104 addObjectsFromArray:v169];
@@ -729,7 +729,7 @@ LABEL_9:
         v138 = *(*(&v186 + 1) + 8 * kk);
         if (v138)
         {
-          [*(*(&v186 + 1) + 8 * kk) transform];
+          objc_msgSend_transform(*(*(&v186 + 1) + 8 * kk));
           v139 = *&v183;
         }
 
@@ -754,7 +754,7 @@ LABEL_9:
 
         if (v141)
         {
-          [spec distanceBetweenTitleBaselineAndSubtitleBaseline];
+          [v11 distanceBetweenTitleBaselineAndSubtitleBaseline];
           v140 = v140 + (1.0 - v139) * v142;
         }
 
@@ -793,7 +793,7 @@ LABEL_82:
       v147 = *(*(&v179 + 1) + 8 * v146);
       if (v147)
       {
-        [*(*(&v179 + 1) + 8 * v146) transform];
+        objc_msgSend_transform(*(*(&v179 + 1) + 8 * v146));
         v148 = v178;
       }
 
@@ -1347,8 +1347,8 @@ LABEL_5:
       }
     }
 
-    spec = [(PXTitleSubtitleCALayerPromise *)self spec];
-    titleLabelSpec = [spec titleLabelSpec];
+    v12 = objc_msgSend_spec(self);
+    titleLabelSpec = [v12 titleLabelSpec];
 
     textColor = [titleLabelSpec textColor];
     textAttributes = [titleLabelSpec textAttributes];

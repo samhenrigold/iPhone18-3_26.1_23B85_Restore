@@ -24,53 +24,53 @@
   p_descriptor = &self->_descriptor;
   if ((self->_descriptor.flags & 4) != 0)
   {
-    v6 = printf_domain();
-    v7 = "Scoped ";
+    v7 = printf_domain(self, a2);
+    v8 = "Scoped ";
     if ((p_descriptor->flags & 0x1000000) == 0)
     {
-      v7 = "";
+      v8 = "";
     }
 
-    asxprintf(&__ret, v6, 0, "NWRouteSnapshot %s%N->%I->%N", v7, &p_descriptor->dst, p_descriptor->ifindex, &p_descriptor->gateway);
+    asxprintf(&__ret, v7, 0, "NWRouteSnapshot %s%N->%I->%N", v8, &p_descriptor->dst, p_descriptor->ifindex, &p_descriptor->gateway);
   }
 
   else
   {
     v3 = maskLeadingBitsCount(&self->_descriptor.mask);
-    v4 = printf_domain();
+    v5 = printf_domain(v3, v4);
     if ((p_descriptor->flags & 0x1000000) != 0)
     {
-      v5 = "Scoped ";
+      v6 = "Scoped ";
     }
 
     else
     {
-      v5 = "";
+      v6 = "";
     }
 
     if (v3)
     {
-      asxprintf(&__ret, v4, 0, "NWRouteSnapshot %s%N/%d->%I->%N", v5, &p_descriptor->dst, v3, p_descriptor->ifindex, &p_descriptor->gateway);
+      asxprintf(&__ret, v5, 0, "NWRouteSnapshot %s%N/%d->%I->%N", v6, &p_descriptor->dst, v3, p_descriptor->ifindex, &p_descriptor->gateway);
     }
 
     else
     {
-      asxprintf(&__ret, v4, 0, "NWRouteSnapshot %sDefault->%I->%N", v5, p_descriptor->ifindex, &p_descriptor->gateway);
+      asxprintf(&__ret, v5, 0, "NWRouteSnapshot %sDefault->%I->%N", v6, p_descriptor->ifindex, &p_descriptor->gateway);
     }
   }
 
   if (__ret)
   {
-    v8 = [MEMORY[0x277CCACA8] stringWithCString:__ret encoding:4];
+    v9 = [MEMORY[0x277CCACA8] stringWithCString:__ret encoding:4];
     free(__ret);
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (unsigned)connectAttempts

@@ -335,47 +335,15 @@ LABEL_22:
 
     minValue = [rangeCopy minValue];
 
-    if (minValue)
+    v25 = 0;
+    if (!minValue || ([rangeCopy minValue], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(metadata, "hf_valueRoundedToNearestStepValue:", v12), v13 = objc_claimAutoreleasedReturnValue(), v12, objc_msgSend(v10, "doubleValue"), v15 = v14, objc_msgSend(v13, "doubleValue"), v17 = v16 + -0.00000011920929, v13, v15 >= v17))
     {
-      minValue2 = [rangeCopy minValue];
-      v13 = [metadata hf_valueRoundedToNearestStepValue:minValue2];
+      maxValue = [rangeCopy maxValue];
 
-      [v10 doubleValue];
-      v15 = v14;
-      [v13 doubleValue];
-      v17 = v16 + -0.00000011920929;
-
-      if (v15 < v17)
+      if (!maxValue || ([rangeCopy maxValue], v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(metadata, "hf_valueRoundedToNearestStepValue:", v19), v20 = objc_claimAutoreleasedReturnValue(), v19, objc_msgSend(v10, "doubleValue"), v22 = v21, objc_msgSend(v20, "doubleValue"), v24 = v23 + 0.00000011920929, v20, v22 <= v24))
       {
-        goto LABEL_8;
+        v25 = 1;
       }
-    }
-
-    maxValue = [rangeCopy maxValue];
-
-    if (!maxValue)
-    {
-      goto LABEL_6;
-    }
-
-    maxValue2 = [rangeCopy maxValue];
-    v20 = [metadata hf_valueRoundedToNearestStepValue:maxValue2];
-
-    [v10 doubleValue];
-    v22 = v21;
-    [v20 doubleValue];
-    v24 = v23 + 0.00000011920929;
-
-    if (v22 > v24)
-    {
-LABEL_8:
-      v25 = 0;
-    }
-
-    else
-    {
-LABEL_6:
-      v25 = 1;
     }
   }
 

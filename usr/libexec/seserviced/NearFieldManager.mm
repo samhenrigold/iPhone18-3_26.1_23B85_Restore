@@ -15,28 +15,28 @@
     goto LABEL_26;
   }
 
-  v34 = 0;
-  v4 = [NFSecureElement embeddedSecureElementWithError:&v34];
-  v5 = v34;
+  v35 = 0;
+  v4 = [NFSecureElement embeddedSecureElementWithError:&v35];
+  v5 = v35;
   info = [v4 info];
 
   if (info)
   {
-    v7 = v5 == 0;
+    v8 = v5 == 0;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  if (v7)
+  if (v8)
   {
     sequenceCounter = [info sequenceCounter];
     unsignedIntValue = [sequenceCounter unsignedIntValue];
 
     deviceType = [info deviceType];
-    v33 = unsignedIntValue;
+    v34 = unsignedIntValue;
     if (deviceType > 114)
     {
       if (deviceType != 210 && deviceType != 200)
@@ -46,29 +46,29 @@
           goto LABEL_20;
         }
 
-        v32 = unsignedIntValue > 0x90B;
-        v13 = 2;
+        v33 = unsignedIntValue > 0x90B;
+        v14 = 2;
 LABEL_24:
-        v31 = v13;
-        v28 = [info signingKeyType] == 2;
+        v32 = v14;
+        v29 = [info signingKeyType] == 2;
 LABEL_25:
         serialNumber = [info serialNumber];
         hexStringAsData = [serialNumber hexStringAsData];
         ecdsaCertificate = [info ecdsaCertificate];
         hexStringAsData2 = [ecdsaCertificate hexStringAsData];
-        v19 = [SESTLV TLVWithTag:32545 value:hexStringAsData2];
-        asData = [v19 asData];
+        v20 = [SESTLV TLVWithTag:32545 value:hexStringAsData2];
+        asData = [v20 asData];
         rsaCertificate = [info rsaCertificate];
         hexStringAsData3 = [rsaCertificate hexStringAsData];
-        v23 = [SESTLV TLVWithTag:32545 value:hexStringAsData3];
-        asData2 = [v23 asData];
-        v25 = +[SecureElementInfo withSEID:casdCertificate:casdCertificateRSA:isProd:isSkyOrLater:secureElementType:csn:chipID:](SecureElementInfo, "withSEID:casdCertificate:casdCertificateRSA:isProd:isSkyOrLater:secureElementType:csn:chipID:", hexStringAsData, asData, asData2, v28, v32, v31, v33, [info deviceType]);
-        v26 = self->_secureElementInfo;
-        self->_secureElementInfo = v25;
+        v24 = [SESTLV TLVWithTag:32545 value:hexStringAsData3];
+        asData2 = [v24 asData];
+        v26 = +[SecureElementInfo withSEID:casdCertificate:casdCertificateRSA:isProd:isSkyOrLater:secureElementType:csn:chipID:](SecureElementInfo, "withSEID:casdCertificate:casdCertificateRSA:isProd:isSkyOrLater:secureElementType:csn:chipID:", hexStringAsData, asData, asData2, v29, v33, v32, v34, [info deviceType]);
+        v27 = self->_secureElementInfo;
+        self->_secureElementInfo = v26;
 
         secureElementInfo = self->_secureElementInfo;
 LABEL_26:
-        v9 = secureElementInfo;
+        v10 = secureElementInfo;
         goto LABEL_27;
       }
     }
@@ -77,15 +77,15 @@ LABEL_26:
     {
       if (deviceType == 44)
       {
-        v32 = 1;
-        v13 = 4;
+        v33 = 1;
+        v14 = 4;
         goto LABEL_24;
       }
 
       if (deviceType == 55)
       {
-        v32 = 1;
-        v13 = 5;
+        v33 = 1;
+        v14 = 5;
         goto LABEL_24;
       }
 
@@ -98,39 +98,39 @@ LABEL_20:
           persistentConfigID = [info persistentConfigID];
           unsignedIntValue2 = [persistentConfigID unsignedIntValue];
 
-          v28 = HIBYTE(unsignedIntValue2) != 80;
-          v32 = 1;
-          v31 = 6;
+          v29 = HIBYTE(unsignedIntValue2) != 80;
+          v33 = 1;
+          v32 = 6;
         }
 
         else
         {
-          v32 = 1;
-          v31 = 6;
-          v28 = signingKeyType == 2;
+          v33 = 1;
+          v32 = 6;
+          v29 = signingKeyType == 2;
         }
 
         goto LABEL_25;
       }
     }
 
-    v32 = unsignedIntValue > 0xA17;
-    v13 = 3;
+    v33 = unsignedIntValue > 0xA17;
+    v14 = 3;
     goto LABEL_24;
   }
 
-  v8 = sub_1000554DC();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = sub_1000554DC(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v36 = v5;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to retrieve eSE info %@", buf, 0xCu);
+    v37 = v5;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to retrieve eSE info %@", buf, 0xCu);
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_27:
 
-  return v9;
+  return v10;
 }
 
 - (void)getSecureElementWithReason:(id)reason callback:(id)callback
@@ -138,38 +138,38 @@ LABEL_27:
   reasonCopy = reason;
   callbackCopy = callback;
   dispatch_assert_queue_V2(self->_queue);
-  v9 = sub_1000554DC();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = sub_1000554DC(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     internalState = self->_internalState;
-    v11 = [(NSMutableArray *)self->_queuedWaiters count];
-    v21 = 67240448;
-    LODWORD(v22[0]) = internalState;
-    WORD2(v22[0]) = 1026;
-    *(v22 + 6) = v11;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Client request %{public}u queue (before) %{public}u", &v21, 0xEu);
+    v12 = [(NSMutableArray *)self->_queuedWaiters count];
+    v24 = 67240448;
+    LODWORD(v25[0]) = internalState;
+    WORD2(v25[0]) = 1026;
+    *(v25 + 6) = v12;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Client request %{public}u queue (before) %{public}u", &v24, 0xEu);
   }
 
-  v12 = self->_internalState;
-  if (v12 > 3)
+  v14 = self->_internalState;
+  if (v14 > 3)
   {
-    if ((v12 - 5) >= 2)
+    if ((v14 - 5) >= 2)
     {
-      if (v12 == 4)
+      if (v14 == 4)
       {
         self->_internalState = 3;
         objc_storeStrong(&self->_reasonForInUseSession, reason);
-        v19 = sub_1000554DC();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+        v22 = sub_1000554DC(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
-          v21 = 138543362;
-          v22[0] = reasonCopy;
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Free session claimed for reason %{public}@", &v21, 0xCu);
+          v24 = 138543362;
+          v25[0] = reasonCopy;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "Free session claimed for reason %{public}@", &v24, 0xCu);
         }
 
         sub_1003AE754(self->_timer);
-        v20 = sub_1003AFF44(&self->super.isa);
-        callbackCopy[2](callbackCopy, v20, 0);
+        v23 = sub_1003AFF44(&self->super.isa);
+        callbackCopy[2](callbackCopy, v23, 0);
       }
 
       goto LABEL_11;
@@ -177,31 +177,31 @@ LABEL_27:
 
 LABEL_10:
     queuedWaiters = self->_queuedWaiters;
-    v16 = sub_100056548(SERequest, reasonCopy, callbackCopy);
-    [(NSMutableArray *)queuedWaiters pushLast:v16];
+    v18 = sub_100056548(SERequest, reasonCopy, callbackCopy);
+    [(NSMutableArray *)queuedWaiters pushLast:v18];
 
     goto LABEL_11;
   }
 
-  switch(v12)
+  switch(v14)
   {
     case 2:
       goto LABEL_10;
     case 3:
-      v13 = sub_1000554DC();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v15 = sub_1000554DC(v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         reasonForInUseSession = self->_reasonForInUseSession;
-        v21 = 138543362;
-        v22[0] = reasonForInUseSession;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Currently in use for %{public}@", &v21, 0xCu);
+        v24 = 138543362;
+        v25[0] = reasonForInUseSession;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Currently in use for %{public}@", &v24, 0xCu);
       }
 
       goto LABEL_10;
     case 1:
-      v17 = self->_queuedWaiters;
-      v18 = sub_100056548(SERequest, reasonCopy, callbackCopy);
-      [(NSMutableArray *)v17 pushLast:v18];
+      v19 = self->_queuedWaiters;
+      v20 = sub_100056548(SERequest, reasonCopy, callbackCopy);
+      [(NSMutableArray *)v19 pushLast:v20];
 
       sub_1003AFD48(self);
       break;
@@ -235,39 +235,39 @@ LABEL_11:
 
   if (seid)
   {
-    v13 = sub_1000554DC();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = sub_1000554DC(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       asHexString = [tokenCopy asHexString];
       *buf = 138543618;
-      v27 = reasonCopy;
-      v28 = 2114;
-      v29 = asHexString;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Getting SE for reason %{public}@ with token %{public}@", buf, 0x16u);
+      v28 = reasonCopy;
+      v29 = 2114;
+      v30 = asHexString;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Getting SE for reason %{public}@ with token %{public}@", buf, 0x16u);
     }
 
-    v15 = +[NFHardwareManager sharedHardwareManager];
-    v24[0] = @"session.handofftoken";
-    v24[1] = @"session.handofftoken.failurebehaviour";
-    v25[0] = tokenCopy;
-    v25[1] = @"fail";
-    v16 = [NSDictionary dictionaryWithObjects:v25 forKeys:v24 count:2];
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_100056954;
-    v20[3] = &unk_1004C2E58;
-    v20[4] = self;
-    v21 = reasonCopy;
-    v23 = completionCopy;
-    v22 = seid;
-    v17 = [v15 startSecureElementManagerSessionWithAttributes:v16 completion:v20];
+    v16 = +[NFHardwareManager sharedHardwareManager];
+    v25[0] = @"session.handofftoken";
+    v25[1] = @"session.handofftoken.failurebehaviour";
+    v26[0] = tokenCopy;
+    v26[1] = @"fail";
+    v17 = [NSDictionary dictionaryWithObjects:v26 forKeys:v25 count:2];
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_100056954;
+    v21[3] = &unk_1004C2E58;
+    v21[4] = self;
+    v22 = reasonCopy;
+    v24 = completionCopy;
+    v23 = seid;
+    v18 = [v16 startSecureElementManagerSessionWithAttributes:v17 completion:v21];
   }
 
   else
   {
-    v18 = sub_1000554DC();
-    v19 = SESCreateAndLogError();
-    (*(completionCopy + 2))(completionCopy, 0, v19);
+    v19 = sub_1000554DC(v13);
+    v20 = SESCreateAndLogError();
+    (*(completionCopy + 2))(completionCopy, 0, v20);
   }
 }
 

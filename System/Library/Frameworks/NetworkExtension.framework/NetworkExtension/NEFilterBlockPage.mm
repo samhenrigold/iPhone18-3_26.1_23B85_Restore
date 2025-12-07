@@ -35,15 +35,15 @@
 
 - (id)page
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = self[2];
     if (v2)
     {
-      v18 = 0;
-      v3 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:v2 encoding:4 error:&v18];
-      v4 = v18;
+      v17 = 0;
+      v3 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:v2 encoding:4 error:&v17];
+      v4 = v17;
       v5 = v4;
       if (v3)
       {
@@ -103,7 +103,6 @@ LABEL_16:
 
   v10 = 0;
 LABEL_17:
-  v16 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

@@ -1,8 +1,10 @@
 @interface CPLTransaction
++ (id)newTransactionWithIdentifier:(id)identifier description:(id)description keepPower:(BOOL)power;
 + (id)transactions;
 + (unint64_t)transactionCount;
 + (void)beginTransactionWithIdentifier:(id)identifier description:(id)description keepPower:(BOOL)power;
 + (void)endTransactionWithIdentifier:(id)identifier;
+- (CPLTransaction)initWithIdentifier:(id)identifier description:(id)description keepPower:(BOOL)power;
 - (void)dealloc;
 - (void)endTransaction;
 @end
@@ -28,6 +30,37 @@
   v3.receiver = self;
   v3.super_class = CPLTransaction;
   [(CPLTransaction *)&v3 dealloc];
+}
+
+- (CPLTransaction)initWithIdentifier:(id)identifier description:(id)description keepPower:(BOOL)power
+{
+  powerCopy = power;
+  identifierCopy = identifier;
+  descriptionCopy = description;
+  v14.receiver = self;
+  v14.super_class = CPLTransaction;
+  v10 = [(CPLTransaction *)&v14 init];
+  if (v10)
+  {
+    [CPLTransaction beginTransactionWithIdentifier:identifierCopy description:descriptionCopy keepPower:powerCopy];
+    v11 = [identifierCopy copy];
+    identifier = v10->_identifier;
+    v10->_identifier = v11;
+
+    v10->_dirty = 1;
+  }
+
+  return v10;
+}
+
++ (id)newTransactionWithIdentifier:(id)identifier description:(id)description keepPower:(BOOL)power
+{
+  powerCopy = power;
+  descriptionCopy = description;
+  identifierCopy = identifier;
+  v9 = [[CPLTransaction alloc] initWithIdentifier:identifierCopy description:descriptionCopy keepPower:powerCopy];
+
+  return v9;
 }
 
 + (unint64_t)transactionCount
@@ -70,7 +103,7 @@
   return v11;
 }
 
-uint64_t __34__CPLTransaction_transactionCount__block_invoke(uint64_t a1)
+void *__34__CPLTransaction_transactionCount__block_invoke(uint64_t a1)
 {
   result = [_transactionIdentifiers count];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -122,32 +155,32 @@ uint64_t __34__CPLTransaction_transactionCount__block_invoke(uint64_t a1)
 
 void __30__CPLTransaction_transactions__block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if ([_transactionIdentifiers count])
   {
-    v25 = a1;
+    v24 = a1;
     v2 = objc_alloc(MEMORY[0x1E695DF70]);
     v3 = [v2 initWithCapacity:{objc_msgSend(_transactionIdentifiers, "count")}];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     obj = _transactionIdentifiers;
-    v4 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v4 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v28;
+      v6 = *v27;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v28 != v6)
+          if (*v27 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v27 + 1) + 8 * i);
+          v8 = *(*(&v26 + 1) + 8 * i);
           v9 = [_poweredIdentifiers containsObject:v8];
           v10 = MEMORY[0x1E696AEC0];
           v11 = [_transactionDescriptions objectForKeyedSubscript:v8];
@@ -166,15 +199,15 @@ void __30__CPLTransaction_transactions__block_invoke(uint64_t a1)
           [v3 addObject:v14];
         }
 
-        v5 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v5 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v5);
     }
 
     v15 = [v3 componentsJoinedByString:@"\n"];
-    a1 = v25;
-    v16 = *(*(v25 + 32) + 8);
+    a1 = v24;
+    v16 = *(*(v24 + 32) + 8);
     v17 = *(v16 + 40);
     *(v16 + 40) = v15;
   }
@@ -194,8 +227,6 @@ void __30__CPLTransaction_transactions__block_invoke(uint64_t a1)
     v23 = *(v22 + 40);
     *(v22 + 40) = v21;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 + (void)endTransactionWithIdentifier:(id)identifier
@@ -234,9 +265,9 @@ void __30__CPLTransaction_transactions__block_invoke(uint64_t a1)
   os_unfair_lock_unlock(&_lock);
 }
 
-uint64_t __47__CPLTransaction_endTransactionWithIdentifier___block_invoke(void *a1)
+void *__47__CPLTransaction_endTransactionWithIdentifier___block_invoke(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if ([_poweredIdentifiers containsObject:a1[4]])
   {
     [_poweredIdentifiers removeObject:a1[4]];
@@ -251,21 +282,21 @@ uint64_t __47__CPLTransaction_endTransactionWithIdentifier___block_invoke(void *
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v9 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v7 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v10 = a1[4];
+        v8 = a1[4];
         *buf = 138412290;
-        v16 = v10;
-        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Transaction '%@' is invalid", buf, 0xCu);
+        v14 = v8;
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_ERROR, "Transaction '%@' is invalid", buf, 0xCu);
       }
     }
 
-    v11 = [MEMORY[0x1E696AAA8] currentHandler];
-    v12 = a1[5];
-    v13 = a1[6];
-    v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLTransaction.m"];
-    [v11 handleFailureInMethod:v12 object:v13 file:v14 lineNumber:88 description:{@"Transaction '%@' is invalid", a1[4]}];
+    v9 = [MEMORY[0x1E696AAA8] currentHandler];
+    v10 = a1[5];
+    v11 = a1[6];
+    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLTransaction.m"];
+    [v9 handleFailureInMethod:v10 object:v11 file:v12 lineNumber:88 description:{@"Transaction '%@' is invalid", a1[4]}];
 
     abort();
   }
@@ -277,14 +308,8 @@ uint64_t __47__CPLTransaction_endTransactionWithIdentifier___block_invoke(void *
     [_transactions removeObjectForKey:a1[4]];
     v5 = _transactionDescriptions;
     v6 = a1[4];
-    v7 = *MEMORY[0x1E69E9840];
 
     return [v5 removeObjectForKey:v6];
-  }
-
-  else
-  {
-    v8 = *MEMORY[0x1E69E9840];
   }
 
   return result;
@@ -328,7 +353,7 @@ uint64_t __47__CPLTransaction_endTransactionWithIdentifier___block_invoke(void *
   os_unfair_lock_unlock(&_lock);
 }
 
-uint64_t __71__CPLTransaction_beginTransactionWithIdentifier_description_keepPower___block_invoke(uint64_t a1)
+void *__71__CPLTransaction_beginTransactionWithIdentifier_description_keepPower___block_invoke(uint64_t a1)
 {
   if (![_transactionIdentifiers countForObject:*(a1 + 32)])
   {

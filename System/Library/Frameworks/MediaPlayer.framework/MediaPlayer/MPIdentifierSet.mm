@@ -994,42 +994,57 @@ uint64_t __41__MPIdentifierSet_msv_initWithJSONValue___block_invoke_5(uint64_t a
 
 void __60__MPIdentifierSet__copyWithSource_asPlaylistEntryOccurence___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = a2;
-  [v13 setModelKind:*(a1 + 32)];
+  v16 = a2;
+  [v16 setModelKind:*(a1 + 32)];
   v3 = [*(a1 + 40) universalStore];
   v4 = [v3 universalCloudLibraryID];
-  [v4 length];
+  v5 = [v4 length];
 
-  if (![v3 subscriptionAdamID])
+  if ([v3 subscriptionAdamID] || objc_msgSend(v3, "adamID"))
   {
-    [v3 adamID];
+    v6 = 3;
   }
 
-  v5 = MPContainerUniqueIDPrefix(*(a1 + 40));
-  v6 = ML3ContainerItemOccurrenceID();
-  v7 = v6;
-  if (v6 == @"0" || (v8 = [(__CFString *)v6 isEqual:@"0"], v7, v7, v8))
+  else
   {
-    [v13 setContainerUniqueID:v7];
+    v6 = 2;
   }
 
-  v9 = [v13 library];
-  if ([v9 persistentID])
+  if (v5)
   {
-    v10 = [v13 library];
-    v11 = [v10 containedPersistentID];
+    v7 = v6;
+  }
 
-    if (v11)
+  else
+  {
+    v7 = 3;
+  }
+
+  v8 = MPContainerUniqueIDPrefix(*(a1 + 40), 8, v5 != 0, v7);
+  v9 = ML3ContainerItemOccurrenceID();
+  v10 = v9;
+  if (v9 == @"0" || (v11 = [(__CFString *)v9 isEqual:@"0"], v10, v10, v11))
+  {
+    [v16 setContainerUniqueID:v10];
+  }
+
+  v12 = [v16 library];
+  if ([v12 persistentID])
+  {
+    v13 = [v16 library];
+    v14 = [v13 containedPersistentID];
+
+    if (v14)
     {
-      goto LABEL_10;
+      goto LABEL_14;
     }
 
-    v9 = [v13 library];
-    v12 = [v9 databaseID];
-    [v13 setLibraryIdentifiersWithDatabaseID:v12 block:&__block_literal_global_335];
+    v12 = [v16 library];
+    v15 = [v12 databaseID];
+    [v16 setLibraryIdentifiersWithDatabaseID:v15 block:&__block_literal_global_335];
   }
 
-LABEL_10:
+LABEL_14:
 }
 
 void __60__MPIdentifierSet__copyWithSource_asPlaylistEntryOccurence___block_invoke_2(uint64_t a1, void *a2)

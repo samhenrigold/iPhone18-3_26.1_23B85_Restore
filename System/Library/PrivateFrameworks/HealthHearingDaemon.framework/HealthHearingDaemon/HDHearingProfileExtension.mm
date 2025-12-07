@@ -8,11 +8,11 @@
 
 - (HDHearingProfileExtension)initWithProfile:(id)profile
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
-  v44.receiver = self;
-  v44.super_class = HDHearingProfileExtension;
-  v5 = [(HDHearingProfileExtension *)&v44 init];
+  v43.receiver = self;
+  v43.super_class = HDHearingProfileExtension;
+  v5 = [(HDHearingProfileExtension *)&v43 init];
   if (v5)
   {
     v6 = [[HDAudioAnalyticsManager alloc] initWithProfile:profileCopy];
@@ -96,16 +96,15 @@
       v39 = objc_opt_class();
       profileType = [profileCopy profileType];
       *buf = 138543618;
-      v46 = v39;
-      v47 = 2048;
-      v48 = profileType;
+      v45 = v39;
+      v46 = 2048;
+      v47 = profileType;
       _os_log_impl(&dword_251764000, v38, OS_LOG_TYPE_DEFAULT, "%{public}@ Plugin loaded for profileType %ld", buf, 0x16u);
     }
 
     v41 = v5;
   }
 
-  v42 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

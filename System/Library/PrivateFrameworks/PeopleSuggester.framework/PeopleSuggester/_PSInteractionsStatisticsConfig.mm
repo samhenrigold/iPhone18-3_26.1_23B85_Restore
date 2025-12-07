@@ -59,9 +59,7 @@
 
 - (void)setLookBackTimeInterval:(double)interval
 {
-  v4 = [(NSDate *)self->_rightBoundDate dateByAddingTimeInterval:-interval];
-  leftBoundDate = self->_leftBoundDate;
-  self->_leftBoundDate = v4;
+  self->_leftBoundDate = [(NSDate *)self->_rightBoundDate dateByAddingTimeInterval:-interval];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -275,7 +273,7 @@ LABEL_5:
 
 - (id)shareSheetSharingInteractionsSelectionPredicateWithStartDate:(void *)date endDate:
 {
-  v19[4] = *MEMORY[0x1E69E9840];
+  v18[4] = *MEMORY[0x1E69E9840];
   v5 = a2;
   dateCopy = date;
   if (self)
@@ -299,11 +297,11 @@ LABEL_5:
     dateCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"(startDate >= %@) && (startDate <= %@)", v5, dateCopy];
     v13 = MEMORY[0x1E696AB28];
     v14 = objc_autoreleasePoolPush();
-    v19[0] = v9;
-    v19[1] = v10;
-    v19[2] = v11;
-    v19[3] = dateCopy;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:4];
+    v18[0] = v9;
+    v18[1] = v10;
+    v18[2] = v11;
+    v18[3] = dateCopy;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:4];
     objc_autoreleasePoolPop(v14);
     v16 = [v13 andPredicateWithSubpredicates:v15];
   }
@@ -313,14 +311,12 @@ LABEL_5:
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 - (id)shareSheetCommunicationInteractionsSelectionPredicateWithStartDate:(void *)date endDate:
 {
-  v17[4] = *MEMORY[0x1E69E9840];
+  v16[4] = *MEMORY[0x1E69E9840];
   v5 = a2;
   dateCopy = date;
   if (self)
@@ -333,11 +329,11 @@ LABEL_5:
     dateCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"(startDate >= %@) && (startDate <= %@)", v5, dateCopy];
     v11 = MEMORY[0x1E696AB28];
     v12 = objc_autoreleasePoolPush();
-    v17[0] = v7;
-    v17[1] = v8;
-    v17[2] = v9;
-    v17[3] = dateCopy;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:4];
+    v16[0] = v7;
+    v16[1] = v8;
+    v16[2] = v9;
+    v16[3] = dateCopy;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:4];
     objc_autoreleasePoolPop(v12);
     v14 = [v11 andPredicateWithSubpredicates:v13];
   }
@@ -346,8 +342,6 @@ LABEL_5:
   {
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

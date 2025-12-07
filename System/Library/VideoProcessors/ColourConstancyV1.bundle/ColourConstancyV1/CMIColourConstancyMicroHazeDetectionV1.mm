@@ -636,7 +636,7 @@ LABEL_14:
     v14 = [(CMIColourConstancyMicroHazeDetectionV1 *)self _encodeIntensityImageGeneration:extractionCopy inputAmbientTexture:textureCopy inputFlashTexture:flashTextureCopy outputAmbientIntensityTexture:self->_ambientIntensityTexture outputFlashIntensityTexture:self->_flashIntensityTexture outputTargetGainTexture:self->_targetGainTexture outputWeightMapTexture:self->_weightMapTexture];
     if (v14)
     {
-      v72 = v14;
+      v73 = v14;
       sub_136B0();
     }
 
@@ -659,7 +659,7 @@ LABEL_14:
       v29 = [(CMIColourConstancyMicroHazeDetectionV1 *)self _encodeIntensityGainTransformsGeneration:extractionCopy inputAmbientIntensityTexture:self->_ambientIntensityTexture inputTargetGainTexture:self->_targetGainTexture inputWeightMapTexture:self->_weightMapTexture gridRegionScale:self->_gridTransformsTexture bandingMinWeight:v25 bandingGaussianSigmaScale:v26 filterToSigmaScale:v27 spatialGaussianSigmaScale:v28 outputGridTransformsTexture:v24];
       if (v29)
       {
-        v72 = v29;
+        v73 = v29;
         sub_1372C();
       }
 
@@ -668,7 +668,7 @@ LABEL_14:
         v30 = [(CMIColourConstancyMicroHazeDetectionV1 *)self _encodeIntensityGainMapGeneration:extractionCopy inputAmbientIntensityTexture:self->_ambientIntensityTexture inputGridTransformsTexture:self->_gridTransformsTexture outputIntensityGainMapTexture:self->_intensityGainMapTexture];
         if (v30)
         {
-          v72 = v30;
+          v73 = v30;
           sub_137A8();
         }
 
@@ -677,18 +677,18 @@ LABEL_14:
           v31 = [(CMIColourConstancyMicroHazeDetectionV1 *)self _encodeClassifierMasksExtraction:extractionCopy inputAmbientIntensityTexture:self->_ambientIntensityTexture inputFlashIntensityTexture:self->_flashIntensityTexture inputIntensityGainMapTexture:self->_intensityGainMapTexture outputStrongerGradientsMaskTexture:self->_strongerGradientsMaskTexture outputPositiveIntensityMaskTexture:self->_positiveIntensityMaskTexture];
           if (v31)
           {
-            v72 = v31;
+            v73 = v31;
             sub_13824();
           }
 
           else
           {
             [(CMIColourConstancyMicroHazeDetectionConfigurationV1 *)self->_config strongGradientsMaskResponseGain];
-            v77 = v32;
+            v78 = v32;
             [(CMIColourConstancyMicroHazeDetectionConfigurationV1 *)self->_config strongGradientsMaskResponseBias];
-            v76 = v33;
+            v77 = v33;
             [(CMIColourConstancyMicroHazeDetectionConfigurationV1 *)self->_config strongGradientsMaskResponseExponent];
-            v75 = v34;
+            v76 = v34;
             [(CMIColourConstancyMicroHazeDetectionConfigurationV1 *)self->_config positiveIntensityMaskResponseGain];
             v36 = v35;
             [(CMIColourConstancyMicroHazeDetectionConfigurationV1 *)self->_config positiveIntensityMaskResponseBias];
@@ -706,19 +706,19 @@ LABEL_14:
             [(CMIColourConstancyMicroHazeDetectionConfigurationV1 *)self->_config ambientQualityZeroThreshold];
             v50 = v49;
             [(CMIColourConstancyMicroHazeDetectionConfigurationV1 *)self->_config ambientQualityOneThreshold];
-            v74 = __PAIR64__(v51, v50);
-            LODWORD(v53) = v76;
-            LODWORD(v52) = v77;
-            LODWORD(v54) = v75;
+            v75 = __PAIR64__(v51, v50);
+            LODWORD(v53) = v77;
+            LODWORD(v52) = v78;
+            LODWORD(v54) = v76;
             LODWORD(v55) = v36;
             LODWORD(v56) = v38;
             LODWORD(v57) = v40;
             LODWORD(v58) = v42;
             LODWORD(v59) = v44;
-            v60 = [(CMIColourConstancyMicroHazeDetectionV1 *)self _encodeMixMapGeneration:extractionCopy inputAmbientTexture:textureCopy inputFlashTexture:flashTextureCopy inputIntensityGainMapTexture:self->_intensityGainMapTexture inputStrongerGradientsMaskTexture:self->_strongerGradientsMaskTexture inputPositiveIntensityMaskTexture:self->_positiveIntensityMaskTexture strongGradientsMaskResponseGain:v52 strongGradientsMaskResponseBias:v53 strongGradientsMaskResponseExponent:v54 positiveIntensityMaskResponseGain:v55 positiveIntensityMaskResponseBias:v56 positiveIntensityMaskResponseExponent:v57 maskFusionGain:v58 maskFusionMixFactor:v59 ambientQualityMinGain:__PAIR64__(v48 ambientQualityMaxGain:v46) ambientQualityZeroThreshold:v74 ambientQualityOneThreshold:self->_mixMapTexture outputMixMapTexture:?];
+            v60 = [(CMIColourConstancyMicroHazeDetectionV1 *)self _encodeMixMapGeneration:extractionCopy inputAmbientTexture:textureCopy inputFlashTexture:flashTextureCopy inputIntensityGainMapTexture:self->_intensityGainMapTexture inputStrongerGradientsMaskTexture:self->_strongerGradientsMaskTexture inputPositiveIntensityMaskTexture:self->_positiveIntensityMaskTexture strongGradientsMaskResponseGain:v52 strongGradientsMaskResponseBias:v53 strongGradientsMaskResponseExponent:v54 positiveIntensityMaskResponseGain:v55 positiveIntensityMaskResponseBias:v56 positiveIntensityMaskResponseExponent:v57 maskFusionGain:v58 maskFusionMixFactor:v59 ambientQualityMinGain:__PAIR64__(v48 ambientQualityMaxGain:v46) ambientQualityZeroThreshold:v75 ambientQualityOneThreshold:self->_mixMapTexture outputMixMapTexture:?];
             if (v60)
             {
-              v72 = v60;
+              v73 = v60;
               sub_138A0();
             }
 
@@ -732,7 +732,7 @@ LABEL_14:
               v66 = [(CMIColourConstancyMicroHazeDetectionV1 *)self _encodeShadowEdgeMapExtraction:extractionCopy inputIntensityGainMapTexture:self->_intensityGainMapTexture shadowEdgesResponseGain:self->_shadowEdgeMaskTexture shadowEdgesResponseExponent:v65 outputShadowEdgeMaskTexture:v64];
               if (v66)
               {
-                v72 = v66;
+                v73 = v66;
                 sub_1391C();
               }
 
@@ -744,9 +744,10 @@ LABEL_14:
                 v70 = (2 * llroundf(v68 * v69)) | 1;
                 *&v71 = v68;
                 v72 = [(CMIColourConstancyMicroHazeDetectionV1 *)self _encodeFusionMapExtraction:extractionCopy inputMixMapTexture:self->_mixMapTexture inputShadowEdgeMaskTexture:self->_shadowEdgeMaskTexture gaussianFilterSize:v70 gaussianSigma:mapTextureCopy outputFusionMapTexture:v71];
+                v73 = v72;
                 if (v72)
                 {
-                  sub_13998();
+                  sub_13998(v72);
                 }
               }
             }
@@ -759,21 +760,22 @@ LABEL_14:
   else
   {
     sub_13A14();
-    v72 = 10;
+    v73 = 10;
   }
 
-  return v72;
+  return v73;
 }
 
 - (int)microHazeFusionMapExtraction:(id)extraction inputAmbientTexture:(id)texture inputFlashTexture:(id)flashTexture outputFusionMapTexture:(id)mapTexture
 {
   v6 = [(CMIColourConstancyMicroHazeDetectionV1 *)self _encodeMicroHazeFusionMapExtraction:extraction inputAmbientTexture:texture inputFlashTexture:flashTexture outputFusionMapTexture:mapTexture];
+  v7 = v6;
   if (v6)
   {
-    sub_13A88();
+    sub_13A88(v6);
   }
 
-  return v6;
+  return v7;
 }
 
 @end

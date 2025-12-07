@@ -59,7 +59,7 @@
 
 - (void)fitData:(id)data
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v4 = [data mutableCopy];
   [(_PSDBSCAN *)self setPointsArray:v4];
 
@@ -106,37 +106,35 @@
     while (v7 < v18);
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   clusters2 = [(_PSDBSCAN *)self clusters];
-  v20 = [clusters2 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v20 = [clusters2 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v26;
+    v22 = *v25;
     do
     {
       v23 = 0;
       do
       {
-        if (*v26 != v22)
+        if (*v25 != v22)
         {
           objc_enumerationMutation(clusters2);
         }
 
-        [*(*(&v25 + 1) + 8 * v23++) computeConvexHull];
+        [*(*(&v24 + 1) + 8 * v23++) computeConvexHull];
       }
 
       while (v21 != v23);
-      v21 = [clusters2 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v21 = [clusters2 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v21);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getNeighborIndices:(unint64_t)indices
@@ -235,29 +233,29 @@
 
 - (void)mergeCurrNeighbors:(id)neighbors withArray:(id)array andUpdateSet:(id)set
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   neighborsCopy = neighbors;
   arrayCopy = array;
   setCopy = set;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v10 = [arrayCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [arrayCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(arrayCopy);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * i);
+        v14 = *(*(&v15 + 1) + 8 * i);
         if (([setCopy containsObject:v14] & 1) == 0)
         {
           [neighborsCopy addObject:v14];
@@ -265,13 +263,11 @@
         }
       }
 
-      v11 = [arrayCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [arrayCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

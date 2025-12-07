@@ -16,9 +16,10 @@
   matchOperation = [(BKUIFaceIDEnrollOperationsHandler *)self matchOperation];
   [matchOperation setOperationsDelegate:operationsDelegate];
 
-  v19 = 0;
-  LOBYTE(matchOperation) = [(BKUIFaceIDEnrollOperationsHandler *)self _matchOperationPreflightCheck:&v19];
-  v8 = v19;
+  v20 = 0;
+  LOBYTE(matchOperation) = [(BKUIFaceIDEnrollOperationsHandler *)self _matchOperationPreflightCheck:&v20];
+  v8 = v20;
+  v9 = v8;
   if (matchOperation)
   {
     if ([(BKUIFaceIDEnrollOperationsHandler *)self enrollmentConfiguration]== 4)
@@ -32,22 +33,22 @@
     device = [(BKUIFaceIDEnrollOperationsHandler *)self device];
     identity = [(BKUIFaceIDEnrollOperationsHandler *)self identity];
     enrollmentConfiguration = [(BKUIFaceIDEnrollOperationsHandler *)self enrollmentConfiguration];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __121__BKUIFaceIDEnrollGlassesOperationsHandler_matchUserThenDoSingleEnrollmentWithExisitingEnrollmentConfigCompletionAction___block_invoke;
-    v15[3] = &unk_278D09A10;
-    objc_copyWeak(&v17, &location);
-    v16 = actionCopy;
-    [matchOperation2 startMatchOperationWithDevice:device identity:identity credential:v8 withConfiguration:enrollmentConfiguration matchOperationActionBlock:v15];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __121__BKUIFaceIDEnrollGlassesOperationsHandler_matchUserThenDoSingleEnrollmentWithExisitingEnrollmentConfigCompletionAction___block_invoke;
+    v16[3] = &unk_278D09A10;
+    objc_copyWeak(&v18, &location);
+    v17 = actionCopy;
+    [matchOperation2 startMatchOperationWithDevice:device identity:identity credential:v9 withConfiguration:enrollmentConfiguration matchOperationActionBlock:v16];
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v14 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _BKUILoggingFacility(v8);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [BKUIFaceIDEnrollGlassesOperationsHandler matchUserThenDoSingleEnrollmentWithExisitingEnrollmentConfigCompletionAction:];
     }
@@ -61,55 +62,58 @@ void __121__BKUIFaceIDEnrollGlassesOperationsHandler_matchUserThenDoSingleEnroll
   v5 = WeakRetained;
   if (!v3)
   {
-    v6 = [WeakRetained matchOperation];
-    v7 = [v5 matchOperation];
-    [v5 matchOperation:v6 failedToMatchWithUserPositionSubstate:objc_msgSend(v7 operationCompleteAction:{"lastErrorousSubState"), *(a1 + 32)}];
+    v9 = [WeakRetained matchOperation];
+    v10 = [v5 matchOperation];
+    [v5 matchOperation:v9 failedToMatchWithUserPositionSubstate:objc_msgSend(v10 operationCompleteAction:{"lastErrorousSubState"), *(a1 + 32)}];
 
 LABEL_14:
     goto LABEL_15;
   }
 
-  if (([WeakRetained supportsPeriocularEnrollment] & 1) == 0)
+  v6 = [WeakRetained supportsPeriocularEnrollment];
+  if ((v6 & 1) == 0)
   {
-    v8 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v11 = _BKUILoggingFacility(v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __121__BKUIFaceIDEnrollGlassesOperationsHandler_matchUserThenDoSingleEnrollmentWithExisitingEnrollmentConfigCompletionAction___block_invoke_cold_1();
     }
 
-    v9 = [v5 operationsDelegate];
-    v10 = MEMORY[0x277CCA9B8];
-    v11 = -4;
+    v12 = [v5 operationsDelegate];
+    v13 = MEMORY[0x277CCA9B8];
+    v14 = -4;
     goto LABEL_10;
   }
 
-  if (([v3 hasPeriocularEnrollment] & 1) == 0)
+  v7 = [v3 hasPeriocularEnrollment];
+  if ((v7 & 1) == 0)
   {
-    v13 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v16 = _BKUILoggingFacility(v7);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       __121__BKUIFaceIDEnrollGlassesOperationsHandler_matchUserThenDoSingleEnrollmentWithExisitingEnrollmentConfigCompletionAction___block_invoke_cold_2();
     }
 
-    v6 = [v5 matchOperation];
-    [v5 matchOperation:v6 failedToMatchWithUserPositionSubstate:11 operationCompleteAction:*(a1 + 32)];
+    v9 = [v5 matchOperation];
+    [v5 matchOperation:v9 failedToMatchWithUserPositionSubstate:11 operationCompleteAction:*(a1 + 32)];
     goto LABEL_14;
   }
 
-  if (([v3 canAddPeriocularEnrollment] & 1) == 0)
+  v8 = [v3 canAddPeriocularEnrollment];
+  if ((v8 & 1) == 0)
   {
-    v14 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v17 = _BKUILoggingFacility(v8);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       __121__BKUIFaceIDEnrollGlassesOperationsHandler_matchUserThenDoSingleEnrollmentWithExisitingEnrollmentConfigCompletionAction___block_invoke_cold_3();
     }
 
-    v9 = [v5 operationsDelegate];
-    v10 = MEMORY[0x277CCA9B8];
-    v11 = -6;
+    v12 = [v5 operationsDelegate];
+    v13 = MEMORY[0x277CCA9B8];
+    v14 = -6;
 LABEL_10:
-    v12 = [v10 errorWithDomain:@"com.apple.biometrickitui.pearl_enroll" code:v11 userInfo:0];
-    [v9 endEnrollFlowWithError:v12];
+    v15 = [v13 errorWithDomain:@"com.apple.biometrickitui.pearl_enroll" code:v14 userInfo:0];
+    [v12 endEnrollFlowWithError:v15];
 
     goto LABEL_15;
   }

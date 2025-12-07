@@ -47,17 +47,15 @@ void __89__ATXInternalActionPredictionUpdateNotification_registerForNotification
 
 + (void)postNotificationWithCacheRefreshTTL:(double)l reason:(unint64_t)reason
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"ttl";
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"ttl";
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:l];
-  v9[1] = @"reason";
-  v10[0] = v5;
+  v8[1] = @"reason";
+  v9[0] = v5;
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:reason];
-  v10[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v9[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
   [_ATXInternalNotification postData:v7 forNotificationNamed:@"com.apple.duetexpertd._ATXInternalInstallNotification.ActionPredictionUpdateCache"];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

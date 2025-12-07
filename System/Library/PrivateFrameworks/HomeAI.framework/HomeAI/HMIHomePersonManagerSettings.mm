@@ -39,36 +39,37 @@
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
 {
-  v4 = [[HMIMutableHomePersonManagerSettings allocWithZone:?]];
-  [(HMIHomePersonManagerSettings *)v4 setFaceClassificationEnabled:[(HMIHomePersonManagerSettings *)self isFaceClassificationEnabled]];
+  v4 = [+[HMIMutableHomePersonManagerSettings allocWithZone:](HMIMutableHomePersonManagerSettings init];
+  [(HMIHomePersonManagerSettings *)self isFaceClassificationEnabled];
+  [(HMIHomePersonManagerSettings *)v4 setFaceClassificationEnabled:?];
   return v4;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  [coderCopy encodeBool:-[HMIHomePersonManagerSettings isFaceClassificationEnabled](self forKey:{"isFaceClassificationEnabled"), @"HMPMS.fce"}];
+  [(HMIHomePersonManagerSettings *)self isFaceClassificationEnabled];
+  [coderCopy encodeBool:? forKey:?];
 }
 
 - (HMIHomePersonManagerSettings)initWithCoder:(id)coder
 {
   coderCopy = coder;
   v5 = objc_alloc_init(objc_opt_class());
-  v6 = [coderCopy decodeBoolForKey:@"HMPMS.fce"];
+  [coderCopy decodeBoolForKey:?];
 
-  [(HMIHomePersonManagerSettings *)v5 setFaceClassificationEnabled:v6];
+  [(HMIHomePersonManagerSettings *)v5 setFaceClassificationEnabled:?];
   return v5;
 }
 
 - (id)attributeDescriptions
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMIHomePersonManagerSettings *)self isFaceClassificationEnabled];
   v4 = HMFBooleanToString();
-  v5 = [v3 initWithName:@"Face Classification Enabled" value:v4];
-  v8[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v5 = [v3 initWithName:? value:?];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:v8];
 
   return v6;
 }

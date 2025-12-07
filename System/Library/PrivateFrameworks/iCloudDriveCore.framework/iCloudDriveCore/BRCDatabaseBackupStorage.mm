@@ -23,11 +23,11 @@
 
 - (BRCDatabaseBackupStorage)initWithDatabaseURL:(id)l
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v22.receiver = self;
-  v22.super_class = BRCDatabaseBackupStorage;
-  v6 = [(BRCDatabaseBackupStorage *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = BRCDatabaseBackupStorage;
+  v6 = [(BRCDatabaseBackupStorage *)&v21 init];
   v7 = v6;
   if (v6)
   {
@@ -36,19 +36,19 @@
     database = v7->_database;
     v7->_database = v8;
 
-    v21 = 0;
-    v10 = [(BRCDatabaseBackupStorage *)v7 setUpDatabaseWithError:&v21];
-    v11 = v21;
+    v20 = 0;
+    v10 = [(BRCDatabaseBackupStorage *)v7 setUpDatabaseWithError:&v20];
+    v11 = v20;
     if (v10)
     {
       v12 = *MEMORY[0x277CBECA8];
-      v23[0] = *MEMORY[0x277CBE7A0];
-      v23[1] = v12;
+      v22[0] = *MEMORY[0x277CBE7A0];
+      v22[1] = v12;
       v13 = *MEMORY[0x277CBE848];
-      v23[2] = *MEMORY[0x277CBE7C8];
-      v23[3] = v13;
-      v23[4] = *MEMORY[0x277CBE868];
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:5];
+      v22[2] = *MEMORY[0x277CBE7C8];
+      v22[3] = v13;
+      v22[4] = *MEMORY[0x277CBE868];
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:5];
       urlPropertiesToFetch = v7->_urlPropertiesToFetch;
       v7->_urlPropertiesToFetch = v14;
     }
@@ -61,11 +61,11 @@
       {
         path = [lCopy path];
         *buf = 138412802;
-        v25 = path;
-        v26 = 2112;
-        v27 = v11;
-        v28 = 2112;
-        v29 = v16;
+        v24 = path;
+        v25 = 2112;
+        v26 = v11;
+        v27 = 2112;
+        v28 = v16;
         _os_log_error_impl(&dword_223E7A000, v17, 0x90u, "[ERROR] Can't open database at %@: %@%@", buf, 0x20u);
       }
 
@@ -74,7 +74,6 @@
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -103,29 +102,27 @@
 
 void __35__BRCDatabaseBackupStorage_dealloc__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v9 = 0;
-  v3 = [v2 brc_closeWithError:&v9];
-  v4 = v9;
+  v8 = 0;
+  v3 = [v2 brc_closeWithError:&v8];
+  v4 = v8;
   if ((v3 & 1) == 0)
   {
     v5 = brc_bread_crumbs();
     v6 = brc_default_log();
     if (os_log_type_enabled(v6, 0x90u))
     {
-      v8 = [*(a1 + 40) path];
+      v7 = [*(a1 + 40) path];
       *buf = 138412802;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v4;
-      v14 = 2112;
-      v15 = v5;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v4;
+      v13 = 2112;
+      v14 = v5;
       _os_log_error_impl(&dword_223E7A000, v6, 0x90u, "[ERROR] Can't close database at %@: %@%@", buf, 0x20u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)setUpDatabaseWithError:(id *)error
@@ -177,7 +174,7 @@ void __35__BRCDatabaseBackupStorage_dealloc__block_invoke(uint64_t a1)
 
 uint64_t __38__BRCDatabaseBackupStorage_addRecord___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) relativePath];
   v5 = [v4 UTF8String];
@@ -192,20 +189,19 @@ uint64_t __38__BRCDatabaseBackupStorage_addRecord___block_invoke(uint64_t a1, vo
     v11 = brc_default_log();
     if (os_log_type_enabled(v11, 0x90u))
     {
-      v14 = [*(a1 + 40) databaseURL];
-      v15 = [v14 path];
-      v16 = [v3 lastError];
+      v13 = [*(a1 + 40) databaseURL];
+      v14 = [v13 path];
+      v15 = [v3 lastError];
       *buf = 138412802;
-      v18 = v15;
-      v19 = 2112;
-      v20 = v16;
-      v21 = 2112;
-      v22 = v10;
+      v17 = v14;
+      v18 = 2112;
+      v19 = v15;
+      v20 = 2112;
+      v21 = v10;
       _os_log_error_impl(&dword_223E7A000, v11, 0x90u, "[ERROR] Can't insert into the database %@: %@%@", buf, 0x20u);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -227,7 +223,7 @@ uint64_t __38__BRCDatabaseBackupStorage_addRecord___block_invoke(uint64_t a1, vo
 
 uint64_t __48__BRCDatabaseBackupStorage_addRecordIfNotExist___block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = (a1 + 32);
   v5 = [*(a1 + 32) relativePath];
@@ -240,7 +236,7 @@ uint64_t __48__BRCDatabaseBackupStorage_addRecordIfNotExist___block_invoke(uint6
 
   else
   {
-    v20 = v6;
+    v19 = v6;
     v8 = [*v4 relativePath];
     v9 = [v8 UTF8String];
     v10 = [*v4 fileID];
@@ -270,25 +266,24 @@ uint64_t __48__BRCDatabaseBackupStorage_addRecordIfNotExist___block_invoke(uint6
       v14 = brc_default_log();
       if (os_log_type_enabled(v14, 0x90u))
       {
-        v17 = [*(a1 + 40) databaseURL];
-        v18 = [v17 path];
-        v19 = [v3 lastError];
+        v16 = [*(a1 + 40) databaseURL];
+        v17 = [v16 path];
+        v18 = [v3 lastError];
         *buf = 138412802;
-        v22 = v18;
-        v23 = 2112;
-        v24 = v19;
-        v25 = 2112;
-        v26 = v13;
+        v21 = v17;
+        v22 = 2112;
+        v23 = v18;
+        v24 = 2112;
+        v25 = v13;
         _os_log_error_impl(&dword_223E7A000, v14, 0x90u, "[ERROR] Can't insert into the database %@: %@%@", buf, 0x20u);
       }
     }
 
-    v6 = v20;
+    v6 = v19;
   }
 
 LABEL_10:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -310,7 +305,7 @@ LABEL_10:
 
 void __41__BRCDatabaseBackupStorage_flushAndClose__block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v1 = (a1 + 32);
   v2 = [*(a1 + 32) database];
   v3 = [v2 execute:@"CREATE UNIQUE INDEX relative_path_index ON backup_manifest (relative_path)"];
@@ -332,9 +327,9 @@ void __41__BRCDatabaseBackupStorage_flushAndClose__block_invoke(uint64_t a1)
   [v7 flush];
 
   v8 = [*v1 database];
-  v16 = 0;
-  v9 = [v8 close:&v16];
-  v10 = v16;
+  v15 = 0;
+  v9 = [v8 close:&v15];
+  v10 = v15;
 
   if ((v9 & 1) == 0)
   {
@@ -342,21 +337,19 @@ void __41__BRCDatabaseBackupStorage_flushAndClose__block_invoke(uint64_t a1)
     v12 = brc_default_log();
     if (os_log_type_enabled(v12, 0x90u))
     {
-      v14 = [*v1 databaseURL];
-      v15 = [v14 path];
+      v13 = [*v1 databaseURL];
+      v14 = [v13 path];
       *buf = 138412802;
-      v18 = v15;
-      v19 = 2112;
-      v20 = v10;
-      v21 = 2112;
-      v22 = v11;
+      v17 = v14;
+      v18 = 2112;
+      v19 = v10;
+      v20 = 2112;
+      v21 = v11;
       _os_log_error_impl(&dword_223E7A000, v12, 0x90u, "[ERROR] Can't close database at %@: %@%@", buf, 0x20u);
     }
   }
 
   [*v1 setDatabase:0];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)backupManifestEnumerator:(id)enumerator
@@ -377,77 +370,74 @@ BRCDatabaseBackupRecord *__53__BRCDatabaseBackupStorage_backupManifestEnumerator
 
 - (void)populateNewColumnsWithBasePath:(id)path
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v5 = brc_bread_crumbs();
   v6 = brc_default_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v13 = pathCopy;
-    v14 = 2112;
-    v15 = v5;
+    v12 = pathCopy;
+    v13 = 2112;
+    v14 = v5;
     _os_log_impl(&dword_223E7A000, v6, OS_LOG_TYPE_INFO, "[INFO] Populating new columns with base path: %@%@", buf, 0x16u);
   }
 
   database = self->_database;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __59__BRCDatabaseBackupStorage_populateNewColumnsWithBasePath___block_invoke;
-  v10[3] = &unk_278500FA8;
-  v10[4] = self;
-  v11 = pathCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __59__BRCDatabaseBackupStorage_populateNewColumnsWithBasePath___block_invoke;
+  v9[3] = &unk_278500FA8;
+  v9[4] = self;
+  v10 = pathCopy;
   v8 = pathCopy;
-  [(BRCPQLConnection *)database performWithFlags:5 action:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [(BRCPQLConnection *)database performWithFlags:5 action:v9];
 }
 
 uint64_t __59__BRCDatabaseBackupStorage_populateNewColumnsWithBasePath___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) backupManifestEnumerator:v3];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = v16 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = v15 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
+        v9 = *(*(&v12 + 1) + 8 * v8);
         v10 = objc_autoreleasePoolPush();
-        [*(a1 + 32) populateNewColumnsInDatabase:v3 forRecord:v9 basePath:{*(a1 + 40), v13}];
+        [*(a1 + 32) populateNewColumnsInDatabase:v3 forRecord:v9 basePath:{*(a1 + 40), v12}];
         objc_autoreleasePoolPop(v10);
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (void)populateNewColumnsInDatabase:(id)database forRecord:(id)record basePath:(id)path
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   recordCopy = record;
   pathCopy = path;
@@ -456,15 +446,15 @@ uint64_t __59__BRCDatabaseBackupStorage_populateNewColumnsWithBasePath___block_i
 
   v13 = [MEMORY[0x277CBEBC0] fileURLWithPath:v12];
   urlPropertiesToFetch = self->_urlPropertiesToFetch;
-  v36 = 0;
-  v15 = [v13 resourceValuesForKeys:urlPropertiesToFetch error:&v36];
-  v16 = v36;
+  v35 = 0;
+  v15 = [v13 resourceValuesForKeys:urlPropertiesToFetch error:&v35];
+  v16 = v35;
   if (v15)
   {
-    v35 = v12;
+    v34 = v12;
     v17 = [v15 objectForKeyedSubscript:*MEMORY[0x277CBECA8]];
     docID = [recordCopy docID];
-    v34 = v16;
+    v33 = v16;
     v19 = databaseCopy;
     if ([docID unsignedLongLongValue])
     {
@@ -484,15 +474,15 @@ uint64_t __59__BRCDatabaseBackupStorage_populateNewColumnsWithBasePath___block_i
     {
       relativePath2 = [recordCopy relativePath];
       *buf = 138413314;
-      v38 = v17;
-      v39 = 2112;
-      v40 = v20;
-      v41 = 1024;
-      *v42 = v23;
-      *&v42[4] = 2112;
-      *&v42[6] = relativePath2;
-      v43 = 2112;
-      v44 = v24;
+      v37 = v17;
+      v38 = 2112;
+      v39 = v20;
+      v40 = 1024;
+      *v41 = v23;
+      *&v41[4] = 2112;
+      *&v41[6] = relativePath2;
+      v42 = 2112;
+      v43 = v24;
       _os_log_debug_impl(&dword_223E7A000, v25, OS_LOG_TYPE_DEBUG, "[DEBUG] Updating %@ %@ %d into database for %@%@", buf, 0x30u);
     }
 
@@ -509,24 +499,24 @@ uint64_t __59__BRCDatabaseBackupStorage_populateNewColumnsWithBasePath___block_i
         relativePath4 = [recordCopy relativePath];
         lastError = [v19 lastError];
         *buf = 138413570;
-        v38 = v17;
-        v39 = 2112;
-        v40 = v20;
-        v41 = 1024;
-        *v42 = v23;
-        *&v42[4] = 2112;
-        *&v42[6] = relativePath4;
-        v43 = 2112;
-        v44 = lastError;
-        v45 = 2112;
-        v46 = v28;
+        v37 = v17;
+        v38 = 2112;
+        v39 = v20;
+        v40 = 1024;
+        *v41 = v23;
+        *&v41[4] = 2112;
+        *&v41[6] = relativePath4;
+        v42 = 2112;
+        v43 = lastError;
+        v44 = 2112;
+        v45 = v28;
         _os_log_error_impl(&dword_223E7A000, v29, 0x90u, "[ERROR] Failed to update %@ %@ %d into database for %@: %@%@", buf, 0x3Au);
       }
     }
 
     databaseCopy = v19;
-    v16 = v34;
-    v12 = v35;
+    v16 = v33;
+    v12 = v34;
   }
 
   else
@@ -537,21 +527,19 @@ uint64_t __59__BRCDatabaseBackupStorage_populateNewColumnsWithBasePath___block_i
     {
       path = [v13 path];
       *buf = 138412802;
-      v38 = path;
-      v39 = 2112;
-      v40 = v16;
-      v41 = 2112;
-      *v42 = v17;
+      v37 = path;
+      v38 = 2112;
+      v39 = v16;
+      v40 = 2112;
+      *v41 = v17;
       _os_log_error_impl(&dword_223E7A000, v20, 0x90u, "[ERROR] Unable to fetch URL properties for %@: %@%@", buf, 0x20u);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)attachDatabase:(id)database error:(id *)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   v8 = brc_bread_crumbs();
   v9 = brc_default_log();
@@ -579,7 +567,7 @@ uint64_t __59__BRCDatabaseBackupStorage_populateNewColumnsWithBasePath___block_i
       *&buf[12] = 2112;
       *&buf[14] = path3;
       *&buf[22] = 2112;
-      v38 = v12;
+      v37 = v12;
       _os_log_error_impl(&dword_223E7A000, v13, 0x90u, "[ERROR] Already have attached database %@ while trying to attach database %@.%@", buf, 0x20u);
     }
 
@@ -591,18 +579,18 @@ uint64_t __59__BRCDatabaseBackupStorage_populateNewColumnsWithBasePath___block_i
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v38 = __Block_byref_object_copy__21;
-    v39 = __Block_byref_object_dispose__21;
-    v40 = 0;
+    v37 = __Block_byref_object_copy__21;
+    v38 = __Block_byref_object_dispose__21;
+    v39 = 0;
     database = self->_database;
-    v25 = MEMORY[0x277D85DD0];
-    v26 = 3221225472;
-    v27 = __49__BRCDatabaseBackupStorage_attachDatabase_error___block_invoke;
-    v28 = &unk_278502C70;
+    v24 = MEMORY[0x277D85DD0];
+    v25 = 3221225472;
+    v26 = __49__BRCDatabaseBackupStorage_attachDatabase_error___block_invoke;
+    v27 = &unk_278502C70;
     v16 = databaseCopy;
-    v29 = v16;
-    v30 = buf;
-    v14 = [(BRCPQLConnection *)database performWithFlags:1 action:&v25];
+    v28 = v16;
+    v29 = buf;
+    v14 = [(BRCPQLConnection *)database performWithFlags:1 action:&v24];
     if (v14)
     {
       objc_storeStrong(p_attachedDatabaseURL, database);
@@ -615,14 +603,14 @@ uint64_t __59__BRCDatabaseBackupStorage_populateNewColumnsWithBasePath___block_i
       if (os_log_type_enabled(v18, 0x90u))
       {
         path4 = [v16 path];
-        v24 = *(*&buf[8] + 40);
-        *v31 = 138412802;
-        v32 = path4;
-        v33 = 2112;
-        v34 = v24;
-        v35 = 2112;
-        v36 = v17;
-        _os_log_error_impl(&dword_223E7A000, v18, 0x90u, "[ERROR] Unable to attach db %@: %@%@", v31, 0x20u);
+        v23 = *(*&buf[8] + 40);
+        *v30 = 138412802;
+        v31 = path4;
+        v32 = 2112;
+        v33 = v23;
+        v34 = 2112;
+        v35 = v17;
+        _os_log_error_impl(&dword_223E7A000, v18, 0x90u, "[ERROR] Unable to attach db %@: %@%@", v30, 0x20u);
       }
 
       if (error)
@@ -634,7 +622,6 @@ uint64_t __59__BRCDatabaseBackupStorage_populateNewColumnsWithBasePath___block_i
     _Block_object_dispose(buf, 8);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -695,7 +682,7 @@ LABEL_9:
 
 - (BOOL)updateAttachedDatabase
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (self->_attachedDatabaseURL)
   {
     v3 = brc_bread_crumbs();
@@ -705,21 +692,21 @@ LABEL_9:
       path = [(NSURL *)self->_attachedDatabaseURL path];
       database = self->_database;
       *buf = 138412802;
-      v14 = path;
-      v15 = 2112;
-      v16 = database;
-      v17 = 2112;
-      v18 = v3;
+      v13 = path;
+      v14 = 2112;
+      v15 = database;
+      v16 = 2112;
+      v17 = v3;
       _os_log_impl(&dword_223E7A000, v4, OS_LOG_TYPE_INFO, "[INFO] Updating attached database %@ %@%@", buf, 0x20u);
     }
 
     v7 = self->_database;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __50__BRCDatabaseBackupStorage_updateAttachedDatabase__block_invoke;
-    v12[3] = &unk_2784FFA48;
-    v12[4] = self;
-    result = [(BRCPQLConnection *)v7 performWithFlags:5 action:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __50__BRCDatabaseBackupStorage_updateAttachedDatabase__block_invoke;
+    v11[3] = &unk_2784FFA48;
+    v11[4] = self;
+    return [(BRCPQLConnection *)v7 performWithFlags:5 action:v11];
   }
 
   else
@@ -731,11 +718,8 @@ LABEL_9:
       [BRCDatabaseBackupStorage updateAttachedDatabase];
     }
 
-    result = 0;
+    return 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t __50__BRCDatabaseBackupStorage_updateAttachedDatabase__block_invoke(uint64_t a1, void *a2)
@@ -1016,7 +1000,7 @@ LABEL_12:
 
 - (BOOL)fixUpBackupDetector:(id)detector
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   detectorCopy = detector;
   attachedDatabaseURL = [(BRCDatabaseBackupStorage *)self attachedDatabaseURL];
   uRLByDeletingLastPathComponent = [attachedDatabaseURL URLByDeletingLastPathComponent];
@@ -1024,20 +1008,20 @@ LABEL_12:
   v7 = [uRLByDeletingLastPathComponent URLByAppendingPathComponent:@"control-odd" isDirectory:0];
   v8 = [uRLByDeletingLastPathComponent URLByAppendingPathComponent:@"control-even" isDirectory:0];
   v9 = [detectorCopy fetchObjectOfClass:objc_opt_class() sql:@"SELECT counter FROM clientdb.backup_detector"];
-  v31 = 0;
-  v10 = *MEMORY[0x277CBECA8];
   v30 = 0;
-  v11 = [v7 getResourceValue:&v31 forKey:v10 error:&v30];
-  v12 = v31;
-  v13 = v30;
-  v27 = v8;
+  v10 = *MEMORY[0x277CBECA8];
+  v29 = 0;
+  v11 = [v7 getResourceValue:&v30 forKey:v10 error:&v29];
+  v12 = v30;
+  v13 = v29;
+  v26 = v8;
   if (v11)
   {
+    v27 = 0;
     v28 = 0;
-    v29 = 0;
-    v14 = [v8 getResourceValue:&v29 forKey:v10 error:&v28];
-    v15 = v29;
-    v16 = v28;
+    v14 = [v8 getResourceValue:&v28 forKey:v10 error:&v27];
+    v15 = v28;
+    v16 = v27;
 
     if (v14)
     {
@@ -1089,13 +1073,13 @@ LABEL_12:
       v22 = brc_default_log();
       if (os_log_type_enabled(v22, 0x90u))
       {
-        path = [v27 path];
+        path = [v26 path];
         *buf = 138412802;
-        v33 = path;
-        v34 = 2112;
-        v35 = v16;
-        v36 = 2112;
-        v37 = v20;
+        v32 = path;
+        v33 = 2112;
+        v34 = v16;
+        v35 = 2112;
+        v36 = v20;
         _os_log_error_impl(&dword_223E7A000, v22, 0x90u, "[ERROR] Unable to get inode for %@: %@%@", buf, 0x20u);
       }
     }
@@ -1112,11 +1096,11 @@ LABEL_20:
   {
     path2 = [v7 path];
     *buf = 138412802;
-    v33 = path2;
-    v34 = 2112;
-    v35 = v13;
-    v36 = 2112;
-    v37 = v15;
+    v32 = path2;
+    v33 = 2112;
+    v34 = v13;
+    v35 = 2112;
+    v36 = v15;
     _os_log_error_impl(&dword_223E7A000, v20, 0x90u, "[ERROR] Unable to get inode for %@: %@%@", buf, 0x20u);
   }
 
@@ -1124,297 +1108,199 @@ LABEL_20:
   v16 = v13;
 LABEL_21:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 void __48__BRCDatabaseBackupStorage_addRecordIfNotExist___block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_4(&dword_223E7A000, a2, a3, "[DEBUG] Added record: %@%@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = *a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_4(&dword_223E7A000, a2, a3, "[DEBUG] Added record: %@%@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 void __41__BRCDatabaseBackupStorage_flushAndClose__block_invoke_cold_1(id *a1, uint64_t a2, NSObject *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = [*a1 databaseURL];
   v7 = [v6 path];
   v8 = [*a1 database];
   v9 = [v8 lastError];
-  v11 = 138412802;
-  v12 = v7;
-  v13 = 2112;
-  v14 = v9;
-  v15 = 2112;
-  v16 = a2;
-  _os_log_error_impl(&dword_223E7A000, a3, 0x90u, "[ERROR] Could not create a unique index %@: %@%@", &v11, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10 = 138412802;
+  v11 = v7;
+  v12 = 2112;
+  v13 = v9;
+  v14 = 2112;
+  v15 = a2;
+  _os_log_error_impl(&dword_223E7A000, a3, 0x90u, "[ERROR] Could not create a unique index %@: %@%@", &v10, 0x20u);
 }
 
 - (void)docIDForURL:.cold.1()
 {
   OUTLINED_FUNCTION_18();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [v0 path];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] failed closing %@%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] failed closing %@%@", v4, v5, v6, v7);
 }
 
 - (void)docIDForURL:.cold.2()
 {
   OUTLINED_FUNCTION_18();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [v0 path];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to open %@%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to open %@%@", v4, v5, v6, v7);
 }
 
 - (void)updateAttachedDatabase
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] Not updating attached database because no database has been attached.%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-void __50__BRCDatabaseBackupStorage_updateAttachedDatabase__block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Beginning update attach database batch: %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __50__BRCDatabaseBackupStorage_updateAttachedDatabase__block_invoke_cold_2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Successfully finished updating attach database batch: %@%@");
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] Not updating attached database because no database has been attached.%@", v1, 0xCu);
 }
 
 - (void)setForeignKeys:enabled:.cold.1()
 {
   OUTLINED_FUNCTION_18();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [v0 lastError];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to disable foreign keys: %@%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to disable foreign keys: %@%@", v4, v5, v6, v7);
 }
 
 - (void)setForeignKeys:enabled:.cold.2()
 {
   OUTLINED_FUNCTION_18();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [v0 lastError];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to enable foreign keys: %@%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to enable foreign keys: %@%@", v4, v5, v6, v7);
 }
 
 - (void)negateIDs:.cold.1()
 {
   OUTLINED_FUNCTION_18();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [v0 lastError];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to negate file ids: %@%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to negate file ids: %@%@", v4, v5, v6, v7);
 }
 
 - (void)negateIDs:.cold.2()
 {
   OUTLINED_FUNCTION_18();
-  v9 = *MEMORY[0x277D85DE8];
   [v0 changes];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Changed %lld items when negating file ids%@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Changed %lld items when negating file ids%@", v3, v4, v5, v6);
 }
 
 - (void)negateIDs:.cold.3()
 {
   OUTLINED_FUNCTION_18();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [v0 lastError];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to negate doc ids: %@%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to negate doc ids: %@%@", v4, v5, v6, v7);
 }
 
 - (void)negateIDs:.cold.4()
 {
   OUTLINED_FUNCTION_18();
-  v9 = *MEMORY[0x277D85DE8];
   [v0 changes];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Changed %lld items when negating doc ids%@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Changed %lld items when negating doc ids%@", v3, v4, v5, v6);
 }
 
 - (void)updateIDs:.cold.1()
 {
   OUTLINED_FUNCTION_18();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [v0 lastError];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to create file_id_gen_count_index, so updating will be incredibly slow: %@%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)updateIDs:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Created file_id_gen_count_index%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to create file_id_gen_count_index, so updating will be incredibly slow: %@%@", v4, v5, v6, v7);
 }
 
 - (void)updateIDs:.cold.3()
 {
   OUTLINED_FUNCTION_18();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [v0 lastError];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to create doc_id_index, so updating will be incredibly slow: %@%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)updateIDs:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Created doc_id_index%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to create doc_id_index, so updating will be incredibly slow: %@%@", v4, v5, v6, v7);
 }
 
 - (void)updateIDs:.cold.5()
 {
   OUTLINED_FUNCTION_18();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [v0 lastError];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to update the gen count: %@%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to update the gen count: %@%@", v4, v5, v6, v7);
 }
 
 - (void)updateIDs:.cold.6()
 {
   OUTLINED_FUNCTION_18();
-  v9 = *MEMORY[0x277D85DE8];
   [v0 changes];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Changed %lld items when updating gen counts%@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Changed %lld items when updating gen counts%@", v3, v4, v5, v6);
 }
 
 - (void)updateIDs:.cold.7()
 {
   OUTLINED_FUNCTION_18();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [v0 lastError];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to update the file ids: %@%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to update the file ids: %@%@", v4, v5, v6, v7);
 }
 
 - (void)updateIDs:.cold.8()
 {
   OUTLINED_FUNCTION_18();
-  v9 = *MEMORY[0x277D85DE8];
   [v0 changes];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Changed %lld items when updating file ids%@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Changed %lld items when updating file ids%@", v3, v4, v5, v6);
 }
 
 - (void)updateIDs:.cold.9()
 {
   OUTLINED_FUNCTION_18();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [v0 lastError];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to update the doc ids: %@%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to update the doc ids: %@%@", v4, v5, v6, v7);
 }
 
 - (void)updateIDs:.cold.10()
 {
   OUTLINED_FUNCTION_18();
-  v9 = *MEMORY[0x277D85DE8];
   [v0 changes];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Changed %lld items when updating doc ids%@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Changed %lld items when updating doc ids%@", v3, v4, v5, v6);
 }
 
 - (void)clearStagedIDs:.cold.1()
 {
   OUTLINED_FUNCTION_18();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [v0 lastError];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to update the staged file ids: %@%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to update the staged file ids: %@%@", v4, v5, v6, v7);
 }
 
 - (void)clearStagedIDs:.cold.2()
 {
   OUTLINED_FUNCTION_18();
-  v9 = *MEMORY[0x277D85DE8];
   [v0 changes];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Changed %lld items when clearing the staged generation ids%@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Changed %lld items when clearing the staged generation ids%@", v3, v4, v5, v6);
 }
 
 - (void)clearStagedIDs:.cold.4()
 {
   OUTLINED_FUNCTION_18();
-  v9 = *MEMORY[0x277D85DE8];
   [v0 changes];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Changed %lld items when clearing the staged file ids%@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Changed %lld items when clearing the staged file ids%@", v3, v4, v5, v6);
 }
 
 - (void)fixUpBackupDetector:.cold.1()
 {
   OUTLINED_FUNCTION_18();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [v0 lastError];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to update the backup detector value: %@%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)fixUpBackupDetector:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Patched the backup detector%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] Failed to update the backup detector value: %@%@", v4, v5, v6, v7);
 }
 
 @end

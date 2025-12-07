@@ -4,7 +4,7 @@
 - (id).cxx_construct;
 - (id)allIndexes;
 - (id)description;
-- (uint64_t)enumerateFramesWithBlock:(uint64_t)result;
+- (void)enumerateFramesWithBlock:(void *)result;
 - (void)insertFrame:(CGFloat)frame forIndex:(CGFloat)index;
 @end
 
@@ -61,12 +61,12 @@
   return v7;
 }
 
-- (uint64_t)enumerateFramesWithBlock:(uint64_t)result
+- (void)enumerateFramesWithBlock:(void *)result
 {
   if (result)
   {
     v4 = 0;
-    v2 = *(result + 8);
+    v2 = result[1];
     v3[0] = MEMORY[0x1E69E9820];
     v3[1] = 3221225472;
     v3[2] = __37___UIRTree_enumerateFramesWithBlock___block_invoke;
@@ -115,11 +115,11 @@
       [currentHandler handleFailureInMethod:sel_insertFrame_forIndex_ object:v7 file:@"_UIRTree.mm" lineNumber:603 description:{@"Invalid parameter not satisfying: %@", @"!CGRectIsNull(frame)"}];
     }
 
-    v29.origin.x = frame;
-    v29.size.width = a5;
-    v29.origin.y = index;
-    v29.size.height = a6;
-    if (CGRectIsInfinite(v29))
+    v30.origin.x = frame;
+    v30.size.width = a5;
+    v30.origin.y = index;
+    v30.size.height = a6;
+    if (CGRectIsInfinite(v30))
     {
       currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
       [currentHandler2 handleFailureInMethod:sel_insertFrame_forIndex_ object:v7 file:@"_UIRTree.mm" lineNumber:604 description:{@"Invalid parameter not satisfying: %@", @"!CGRectIsInfinite(frame)"}];
@@ -136,20 +136,21 @@
     if (v13)
     {
       atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
-      *&v28.f64[0] = v12;
-      *&v28.f64[1] = v13;
+      v28 = v12;
+      v29 = v13;
       atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     else
     {
       v28 = v7[1];
+      v29 = 0;
     }
 
     _UIRTreeContainerNode<unsigned long>::addChild(&v27, v12, a2, &v28, v10, v11);
-    if (*&v28.f64[1])
+    if (v29)
     {
-      std::__shared_weak_count::__release_shared[abi:nn200100](*&v28.f64[1]);
+      std::__shared_weak_count::__release_shared[abi:nn200100](v29);
     }
 
     v14 = v7[2];

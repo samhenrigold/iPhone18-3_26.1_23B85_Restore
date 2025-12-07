@@ -1,8 +1,17 @@
 @interface CSDADataAnalyticsController
+- (BOOL)shouldStartAudioLogIsVoiceTrigger:(BOOL)trigger isButtonPress:(BOOL)press;
 - (CSDADataAnalyticsController)initWithLocale:(id)locale fbfBundleId:(id)id;
 @end
 
 @implementation CSDADataAnalyticsController
+
+- (BOOL)shouldStartAudioLogIsVoiceTrigger:(BOOL)trigger isButtonPress:(BOOL)press
+{
+  v5 = [[_TtC23CoreSpeechDataAnalytics26AudioRequestInvocationData alloc] initWithIsVoiceTrigger:trigger isButtonPress:press];
+  v6 = [(DataAnalyticsController *)self->_analyticsController shouldStartAudioLogFor:v5];
+
+  return v6;
+}
 
 - (CSDADataAnalyticsController)initWithLocale:(id)locale fbfBundleId:(id)id
 {

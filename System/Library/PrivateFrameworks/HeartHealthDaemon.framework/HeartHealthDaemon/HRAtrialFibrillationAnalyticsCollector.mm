@@ -60,7 +60,7 @@
 
 - (void)collectAnalyticsForRemoteDisableMessageShownForOnboardingCountryCode:(id)code
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   if (code)
   {
     codeCopy = code;
@@ -71,19 +71,18 @@
     codeCopy = @"nil";
   }
 
-  v8 = @"OnboardingCountryCode";
-  v9[0] = codeCopy;
+  v7 = @"OnboardingCountryCode";
+  v8[0] = codeCopy;
   v4 = MEMORY[0x277CBEAC0];
   codeCopy2 = code;
-  v6 = [v4 dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6 = [v4 dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   AnalyticsSendEvent();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)collectAnalyticsForRemoteReEnableMessageShownForOnboardingCountryCode:(id)code
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   if (code)
   {
     codeCopy = code;
@@ -94,14 +93,13 @@
     codeCopy = @"nil";
   }
 
-  v8 = @"OnboardingCountryCode";
-  v9[0] = codeCopy;
+  v7 = @"OnboardingCountryCode";
+  v8[0] = codeCopy;
   v4 = MEMORY[0x277CBEAC0];
   codeCopy2 = code;
-  v6 = [v4 dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6 = [v4 dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   AnalyticsSendEvent();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateCountAnalyzedTachogramsWithCount:(int64_t)count keyValueDomain:(id)domain
@@ -234,52 +232,44 @@
 - (void)updateCountAnalyzedTachogramsWithCount:keyValueDomain:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to get CountAnalyzedTacogramsPast24Hours, error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to get CountAnalyzedTacogramsPast24Hours, error: %{public}@", v8, v9, v10, v11);
 }
 
 - (void)updateCountAnalyzedTachogramsWithCount:keyValueDomain:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to set CountAnalyzedTacogramsPast24Hours, error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to set CountAnalyzedTacogramsPast24Hours, error: %{public}@", v8, v9, v10, v11);
 }
 
 - (void)_fetchCurrentAge
 {
   OUTLINED_FUNCTION_4();
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to get date of birth, error: %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v3 = v2;
+  v4 = OUTLINED_FUNCTION_2_4();
+  v6 = HRLogSensitiveClassName(v4, v5);
+  *v13 = 138543618;
+  *&v13[4] = v6;
+  *&v13[12] = 2112;
+  *&v13[14] = v0;
+  OUTLINED_FUNCTION_3(&dword_229486000, v7, v8, "[%{public}@] Failed to get date of birth, error: %@", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16]);
 }
 
 - (void)_fetchBiologicalSex
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to get biological sex, error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to get biological sex, error: %{public}@", v8, v9, v10, v11);
 }
 
 @end

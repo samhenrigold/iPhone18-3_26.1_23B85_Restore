@@ -109,7 +109,7 @@
   else
   {
     v14 = [appLayouts objectAtIndex:search];
-    v15 = [visibleAppLayouts containsObject:v14];
+    v15 = objc_msgSend_containsObject_(visibleAppLayouts);
 
     v16 = v12 - 1;
     if (!v12)
@@ -138,7 +138,7 @@
   if (search >= v17 && search < v12)
   {
     v21 = [appLayouts objectAtIndex:search];
-    v22 = [visibleAppLayouts containsObject:v21];
+    v22 = objc_msgSend_containsObject_(visibleAppLayouts);
 
     searchCopy = 0x7FFFFFFFFFFFFFFFLL;
     if (v22)
@@ -153,7 +153,7 @@
         }
 
         v25 = [appLayouts objectAtIndex:search];
-        v26 = [visibleAppLayouts containsObject:v25];
+        v26 = objc_msgSend_containsObject_(visibleAppLayouts);
       }
 
       while ((v26 & 1) != 0);
@@ -311,7 +311,7 @@
   [(SBSwitcherModifier *)self containerViewBounds];
   v6 = v5;
   v8 = v7;
-  [areaCopy frame];
+  objc_msgSend_frame(areaCopy);
   v10 = v9;
   v12 = v11;
   v14 = v13;
@@ -530,7 +530,7 @@ LABEL_24:
   return v4;
 }
 
-uint64_t __87__SBSwitcherModifier_SharedModifierUtilities__indexOfFirstMainAppLayoutFromAppLayouts___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__87__SBSwitcherModifier_SharedModifierUtilities__indexOfFirstMainAppLayoutFromAppLayouts___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 environment];
   if (result == 1)
@@ -561,7 +561,7 @@ uint64_t __87__SBSwitcherModifier_SharedModifierUtilities__indexOfFirstMainAppLa
   return v4;
 }
 
-uint64_t __85__SBSwitcherModifier_SharedModifierUtilities__indexOfFirstFloatingAppFromAppLayouts___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__85__SBSwitcherModifier_SharedModifierUtilities__indexOfFirstFloatingAppFromAppLayouts___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 environment];
   if (result == 2)
@@ -777,7 +777,7 @@ uint64_t __135__SBSwitcherModifier_SharedModifierUtilities__topMostLayoutElement
     v5 = [v3 appLayout];
     v6 = [v5 allItems];
     v7 = [v6 firstObject];
-    v8 = [v4 containsObject:v7];
+    v8 = objc_msgSend_containsObject_(v4);
   }
 
   else
@@ -827,8 +827,8 @@ BOOL __135__SBSwitcherModifier_SharedModifierUtilities__topMostLayoutElementsByA
   v27 = v25 - v26;
   v28 = v17 - v23;
   v29 = v13;
-  v71 = [(SBDisplayItemLayoutAttributes *)v17 * 0.5 normalizedPointForPoint:v13 inBounds:v15, v17, v19];
-  v73 = v30;
+  v72 = [SBDisplayItemLayoutAttributes normalizedPointForPoint:v21 + v27 * 0.5 inBounds:v13, v15, v17, v19];
+  v74 = v30;
   [windowingConfiguration defaultWindowSize];
   v33 = v28 < v31;
   v34 = v27 < v32;
@@ -862,11 +862,11 @@ BOOL __135__SBSwitcherModifier_SharedModifierUtilities__topMostLayoutElementsByA
   v49 = v48;
   v51 = v50;
   v52 = v28 >= v41 && v36 >= v43;
-  v78.origin.x = v29;
-  v78.origin.y = v21;
-  v78.size.width = v17;
-  v78.size.height = v27;
-  v53 = CGRectContainsRect(v78, *&v45);
+  v79.origin.x = v29;
+  v79.origin.y = v21;
+  v79.size.width = v17;
+  v79.size.height = v27;
+  v53 = CGRectContainsRect(v79, *&v45);
   v54 = v52 || v53;
   if (v52 || v53)
   {
@@ -889,22 +889,22 @@ BOOL __135__SBSwitcherModifier_SharedModifierUtilities__topMostLayoutElementsByA
   }
 
   v57 = 0.5;
-  v58 = v71;
+  v58 = v72;
   if ((v54 & v35) == 0)
   {
     v58 = 0.5;
   }
 
-  v72 = v58;
-  v76 = 0;
-  memset(&v75[1], 0, 32);
+  v73 = v58;
+  v77 = 0;
+  memset(&v76[1], 0, 32);
   if ((v54 & v35) != 0)
   {
-    v57 = v73;
+    v57 = v74;
   }
 
-  v74 = v57;
-  v75[0] = 0uLL;
+  v75 = v57;
+  v76[0] = 0uLL;
   [windowingConfiguration containerBounds];
   v60 = v59;
   v62 = v61;
@@ -912,13 +912,13 @@ BOOL __135__SBSwitcherModifier_SharedModifierUtilities__topMostLayoutElementsByA
   v66 = v65;
   [windowingConfiguration defaultWindowSize];
   [windowingConfiguration screenEdgePadding];
-  SBDisplayItemAttributedSizeInfer(v75, v56, v55, v60, v62, v64, v66);
-  v67 = [SBDisplayItemLayoutAttributes attributesByModifyingAttributedSize:attributesCopy];
-  v68 = [(SBDisplayItemLayoutAttributes *)v67 attributesByModifyingNormalizedCenter:v72, v74];
+  SBDisplayItemAttributedSizeInfer(v76, v56, v55, v60, v62, v64, v66, v67);
+  v68 = [SBDisplayItemLayoutAttributes attributesByModifyingAttributedSize:attributesCopy];
+  v69 = [(SBDisplayItemLayoutAttributes *)v68 attributesByModifyingNormalizedCenter:v73, v75];
 
-  v69 = [SBDisplayItemLayoutAttributes attributesByModifyingSizingPolicy:v68];
+  v70 = [SBDisplayItemLayoutAttributes attributesByModifyingSizingPolicy:v69];
 
-  return v69;
+  return v70;
 }
 
 - (id)windowingConfiguration

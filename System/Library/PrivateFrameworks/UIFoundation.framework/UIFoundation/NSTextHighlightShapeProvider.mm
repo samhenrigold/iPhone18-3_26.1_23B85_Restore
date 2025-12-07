@@ -150,7 +150,7 @@ uint64_t __57__NSTextHighlightShapeProvider_textSegmentRectsForRange___block_inv
   [ranges enumerateObjectsUsingBlock:v8];
 }
 
-uint64_t __76__NSTextHighlightShapeProvider_enumerateHighlightPathsForRanges_usingBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__76__NSTextHighlightShapeProvider_enumerateHighlightPathsForRanges_usingBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) enumerateHighlightPathsForRange:a2 options:0 usingBlock:*(a1 + 40)];
   *a4 = result;

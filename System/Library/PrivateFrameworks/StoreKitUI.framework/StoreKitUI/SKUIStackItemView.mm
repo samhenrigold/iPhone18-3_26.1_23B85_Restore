@@ -611,25 +611,25 @@ void __35__SKUIStackItemView_layoutSubviews__block_invoke_2(uint64_t a1, void *a
   labelCopy = label;
   contextCopy = context;
   style = [labelCopy style];
-  v8 = SKUIViewElementFontWithStyle(style);
-  if (!v8)
+  v9 = SKUIViewElementFontWithStyle(style);
+  if (!v9)
   {
-    v8 = SKUIFontPreferredFontForTextStyle(5);
+    v9 = SKUIFontPreferredFontForTextStyle(5, v8);
   }
 
   tintColor = [contextCopy tintColor];
-  v10 = SKUIViewElementPlainColorWithStyle(style, tintColor);
+  v11 = SKUIViewElementPlainColorWithStyle(style, tintColor);
 
-  if (!v10)
+  if (!v11)
   {
-    v11 = [labelCopy labelViewStyle] == 5;
-    v10 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:dbl_215F3FDA0[v11]];
+    v12 = [labelCopy labelViewStyle] == 5;
+    v11 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:dbl_215F3FDA0[v12]];
   }
 
   text = [labelCopy text];
-  v13 = [text attributedStringWithDefaultFont:v8 foregroundColor:v10 style:style];
+  v14 = [text attributedStringWithDefaultFont:v9 foregroundColor:v11 style:style];
 
-  return v13;
+  return v14;
 }
 
 + (id)_textViewLayoutWithWidth:(double)width string:(id)string
@@ -656,6 +656,36 @@ void __35__SKUIStackItemView_layoutSubviews__block_invoke_2(uint64_t a1, void *a
   result.left = left;
   result.top = top;
   return result;
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIStackItemView prefetchResourcesForViewElement:reason:context:]";
+}
+
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIStackItemView preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIStackItemView requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIStackItemView sizeThatFitsWidth:viewElement:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 numberOfLines:(uint64_t)a6 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIStackItemView sizeThatFitsWidth:viewElement:context:numberOfLines:]";
 }
 
 @end

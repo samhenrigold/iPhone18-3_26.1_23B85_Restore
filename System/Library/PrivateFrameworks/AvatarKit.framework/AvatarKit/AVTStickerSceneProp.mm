@@ -1,4 +1,5 @@
 @interface AVTStickerSceneProp
+- (AVTStickerSceneProp)initWithRootNode:(id)node scale:(BOOL)scale position:(id)position rotation:(id)rotation renderLast:(id)last palettesDescriptions:modifiers:adjustments:;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryWithTargetPath:(id)path;
 - (void)buildNodeForAvatar:(id)avatar withCamera:(id)camera options:(id)options completionHandler:(id)handler;
@@ -6,28 +7,44 @@
 
 @implementation AVTStickerSceneProp
 
+- (AVTStickerSceneProp)initWithRootNode:(id)node scale:(BOOL)scale position:(id)position rotation:(id)rotation renderLast:(id)last palettesDescriptions:modifiers:adjustments:
+{
+  scaleCopy = scale;
+  v21 = v8;
+  v22 = v9;
+  v20 = v7;
+  nodeCopy = node;
+  v23.receiver = self;
+  v23.super_class = AVTStickerSceneProp;
+  v17 = [(AVTStickerProp *)&v23 initWithSize:scaleCopy scale:0 position:position renderLast:rotation orientToCamera:last rotation:*MEMORY[0x1E695F060] palettesDescriptions:*(MEMORY[0x1E695F060] + 8) shaderModifiers:v20 adjustments:v21, v22];
+  v18 = v17;
+  if (v17)
+  {
+    objc_storeStrong(&v17->_rootNode, node);
+    [nodeCopy avt_enableSubdivisionOnHierarchyWithQuality:? animoji:?];
+  }
+
+  return v18;
+}
+
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [AVTStickerSceneProp alloc];
   rootNode = [(AVTStickerSceneProp *)self rootNode];
   [(AVTStickerProp *)self scale];
-  v17 = v6;
   [(AVTStickerProp *)self position];
-  v16 = v7;
   [(AVTStickerProp *)self rotation];
-  v15 = v8;
-  renderLast = [(AVTStickerProp *)self renderLast];
+  [(AVTStickerProp *)self renderLast];
   palettesDescriptions = [(AVTStickerProp *)self palettesDescriptions];
   shaderModifiers = [(AVTStickerProp *)self shaderModifiers];
   adjustments = [(AVTStickerProp *)self adjustments];
-  v13 = [(AVTStickerSceneProp *)v4 initWithRootNode:rootNode scale:renderLast position:palettesDescriptions rotation:shaderModifiers renderLast:adjustments palettesDescriptions:v17 modifiers:v16 adjustments:v15];
+  v9 = [AVTStickerSceneProp initWithRootNode:v4 scale:"initWithRootNode:scale:position:rotation:renderLast:palettesDescriptions:modifiers:adjustments:" position:? rotation:? renderLast:? palettesDescriptions:? modifiers:? adjustments:?];
 
-  return v13;
+  return v9;
 }
 
 - (void)buildNodeForAvatar:(id)avatar withCamera:(id)camera options:(id)options completionHandler:(id)handler
 {
-  v49 = *MEMORY[0x1E69E9840];
   avatarCopy = avatar;
   cameraCopy = camera;
   optionsCopy = options;
@@ -37,7 +54,7 @@
   if (!node)
   {
     rootNode = [(AVTStickerSceneProp *)self rootNode];
-    [(AVTStickerProp *)self setNode:rootNode];
+    [(AVTStickerProp *)self setNode:?];
   }
 
   node2 = [(AVTStickerProp *)self node];
@@ -50,90 +67,73 @@
   [(AVTStickerProp *)self scale];
   [v17 setScale:?];
   [(AVTStickerProp *)self opacity];
-  *&v18 = v18;
-  [v17 setOpacity:v18];
+  [v17 setOpacity:?];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v37 = cameraCopy;
-    v19 = avatarCopy;
-    v43 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v46 = 0u;
+    v31 = cameraCopy;
+    v18 = avatarCopy;
     adjustments = [(AVTStickerProp *)self adjustments];
-    v21 = [adjustments countByEnumeratingWithState:&v43 objects:v48 count:16];
-    if (v21)
+    v20 = [adjustments countByEnumeratingWithState:? objects:? count:?];
+    if (v20)
     {
-      v22 = v21;
-      v23 = *v44;
+      v21 = v20;
+      v22 = MEMORY[0];
       do
       {
-        v24 = 0;
-        do
+        for (i = 0; i != v21; i = (i + 1))
         {
-          if (*v44 != v23)
+          if (MEMORY[0] != v22)
           {
             objc_enumerationMutation(adjustments);
           }
 
-          [*(*(&v43 + 1) + 8 * v24++) applyAdjustmentIfNeededToNode:v17 forMemoji:v19 ignoreScaleZ:{0, v37}];
+          [*(8 * i) applyAdjustmentIfNeededToNode:v31 forMemoji:? ignoreScaleZ:?];
         }
 
-        while (v22 != v24);
-        v22 = [adjustments countByEnumeratingWithState:&v43 objects:v48 count:16];
+        v21 = [adjustments countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v22);
+      while (v21);
     }
 
-    [v19 updateMorphVariantsInStickerPropNodeHierarchy:v17];
-    cameraCopy = v37;
+    [v18 updateMorphVariantsInStickerPropNodeHierarchy:?];
+    cameraCopy = v31;
   }
 
   neckNode = [avatarCopy neckNode];
   [neckNode worldPosition];
-  v38 = v26;
   [cameraCopy worldPosition];
-  v28 = vsubq_f32(v38, v27);
-  v29 = vmulq_f32(v28, v28);
-  [(AVTStickerProp *)self applyCamera:cameraCopy toNode:v17 distToHead:sqrtf(v29.f32[2] + vaddv_f32(*v29.f32))];
+  [AVTStickerProp applyCamera:"applyCamera:toNode:distToHead:" toNode:? distToHead:?];
 
   palettesDescriptions = [(AVTStickerProp *)self palettesDescriptions];
-  [AVTStickerProp applyPalettesForAvatar:avatarCopy toNode:v17 palettesDescriptions:palettesDescriptions];
+  [AVTStickerProp applyPalettesForAvatar:"applyPalettesForAvatar:toNode:palettesDescriptions:" toNode:? palettesDescriptions:?];
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
-  v40 = 0u;
   shaderModifiers = [(AVTStickerProp *)self shaderModifiers];
-  v32 = [shaderModifiers countByEnumeratingWithState:&v39 objects:v47 count:16];
-  if (v32)
+  v27 = [shaderModifiers countByEnumeratingWithState:? objects:? count:?];
+  if (v27)
   {
-    v33 = v32;
-    v34 = *v40;
+    v28 = v27;
+    v29 = MEMORY[0];
     do
     {
-      v35 = 0;
-      do
+      for (j = 0; j != v28; j = (j + 1))
       {
-        if (*v40 != v34)
+        if (MEMORY[0] != v29)
         {
           objc_enumerationMutation(shaderModifiers);
         }
 
-        [*(*(&v39 + 1) + 8 * v35++) applyToMatchedMaterialsOfAvatar:avatarCopy inHierarchy:v17 options:optionsCopy reversionContext:0];
+        [*(8 * j) applyToMatchedMaterialsOfAvatar:? inHierarchy:? options:? reversionContext:?];
       }
 
-      while (v33 != v35);
-      v33 = [shaderModifiers countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v28 = [shaderModifiers countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v33);
+    while (v28);
   }
 
   handlerCopy[2](handlerCopy, v17);
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dictionaryWithTargetPath:(id)path
@@ -143,9 +143,9 @@
   v4 = [(AVTStickerProp *)&v8 dictionaryWithTargetPath:path];
   v5 = [v4 mutableCopy];
 
-  [v5 removeObjectForKey:@"orientToCamera"];
+  [v5 removeObjectForKey:?];
   originalName = [(AVTStickerProp *)self originalName];
-  [v5 setObject:originalName forKeyedSubscript:@"scene"];
+  [v5 setObject:? forKeyedSubscript:?];
 
   return v5;
 }

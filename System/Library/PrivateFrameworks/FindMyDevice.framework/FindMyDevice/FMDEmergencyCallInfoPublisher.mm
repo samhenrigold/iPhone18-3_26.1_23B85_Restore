@@ -7,18 +7,18 @@
 
 - (FMDEmergencyCallInfoPublisher)initWithConfiguration:(id)configuration
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
-  v11.receiver = self;
-  v11.super_class = FMDEmergencyCallInfoPublisher;
-  v6 = [(FMDEmergencyCallInfoPublisher *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = FMDEmergencyCallInfoPublisher;
+  v6 = [(FMDEmergencyCallInfoPublisher *)&v10 init];
   if (v6)
   {
     v7 = LogCategory_Unspecified();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v13 = "[FMDEmergencyCallInfoPublisher initWithConfiguration:]";
+      v12 = "[FMDEmergencyCallInfoPublisher initWithConfiguration:]";
       _os_log_impl(&dword_1DF650000, v7, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
     }
 
@@ -26,60 +26,57 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = configurationCopy;
+      v12 = configurationCopy;
       _os_log_impl(&dword_1DF650000, v8, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
     }
 
     objc_storeStrong(&v6->_publisherConfig, configuration);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)publishInfo:(id)info completion:(id)completion
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   infoCopy = info;
   v8 = LogCategory_Unspecified();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v27 = "[FMDEmergencyCallInfoPublisher publishInfo:completion:]";
+    v26 = "[FMDEmergencyCallInfoPublisher publishInfo:completion:]";
     _os_log_impl(&dword_1DF650000, v8, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
-  v24[0] = @"kFMDEmergencyCallInfoPublisherConfigKey";
+  v23[0] = @"kFMDEmergencyCallInfoPublisherConfigKey";
   publisherConfig = [(FMDEmergencyCallInfoPublisher *)self publisherConfig];
-  v24[1] = @"kFMDEmergencyCallInfoPublisherInfoKey";
-  v25[0] = publisherConfig;
-  v25[1] = infoCopy;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
+  v23[1] = @"kFMDEmergencyCallInfoPublisherInfoKey";
+  v24[0] = publisherConfig;
+  v24[1] = infoCopy;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
 
   v11 = +[FMNSXPCConnectionCache sharedCache];
   v12 = +[FMNSXPCConnectionConfiguration emergencyCallInfoPublisherConfiguration];
   v13 = [v11 resumeConnectionWithConfiguration:v12];
 
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __56__FMDEmergencyCallInfoPublisher_publishInfo_completion___block_invoke;
-  v22[3] = &unk_1E86BD0E0;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __56__FMDEmergencyCallInfoPublisher_publishInfo_completion___block_invoke;
+  v21[3] = &unk_1E86BD0E0;
   v14 = completionCopy;
-  v23 = v14;
-  [v13 addFailureBlock:v22];
+  v22 = v14;
+  [v13 addFailureBlock:v21];
   remoteObjectProxy = [v13 remoteObjectProxy];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __56__FMDEmergencyCallInfoPublisher_publishInfo_completion___block_invoke_4;
-  v19[3] = &unk_1E86BD320;
-  v20 = v13;
-  v21 = v14;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __56__FMDEmergencyCallInfoPublisher_publishInfo_completion___block_invoke_4;
+  v18[3] = &unk_1E86BD320;
+  v19 = v13;
+  v20 = v14;
   v16 = v13;
   v17 = v14;
-  [remoteObjectProxy publishInfo:v10 completion:v19];
-
-  v18 = *MEMORY[0x1E69E9840];
+  [remoteObjectProxy publishInfo:v10 completion:v18];
 }
 
 void __56__FMDEmergencyCallInfoPublisher_publishInfo_completion___block_invoke(uint64_t a1, uint64_t a2)
@@ -108,11 +105,10 @@ uint64_t __56__FMDEmergencyCallInfoPublisher_publishInfo_completion___block_invo
 
 void __56__FMDEmergencyCallInfoPublisher_publishInfo_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DF650000, a2, OS_LOG_TYPE_ERROR, "XPC error for publishInfo:completion: %li", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DF650000, a2, OS_LOG_TYPE_ERROR, "XPC error for publishInfo:completion: %li", &v2, 0xCu);
 }
 
 @end

@@ -36,7 +36,7 @@
 
 - (id)paragraphsByUpdatingLineWrappingTypesInGroups:(id)groups useHandwritingConfig:(BOOL)config
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB884D10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB884D10, &unk_1B42ACD40);
   v6 = sub_1B429FDF8();
   selfCopy = self;
   sub_1B4129E64(v6, config);

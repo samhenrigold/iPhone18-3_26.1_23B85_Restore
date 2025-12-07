@@ -68,7 +68,7 @@
 
 - (NSError)skipPeerErrorReason
 {
-  v2 = ConnectionInfo.skipPeerErrorReason.getter();
+  v2 = ConnectionInfo.skipPeerErrorReason.getter(self);
   if (v2)
   {
     v3 = v2;

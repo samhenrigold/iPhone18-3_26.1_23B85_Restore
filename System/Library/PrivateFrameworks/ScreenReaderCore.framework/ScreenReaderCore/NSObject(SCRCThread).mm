@@ -18,9 +18,9 @@
 
 - (NSString)threadDescription
 {
-  v0 = objc_opt_class();
+  v1 = objc_opt_class();
 
-  return NSStringFromClass(v0);
+  return NSStringFromClass(v1);
 }
 
 - (char)performSelector:()SCRCThread withObjectsAsArray:

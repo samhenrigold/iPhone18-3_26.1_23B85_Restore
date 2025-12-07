@@ -75,82 +75,78 @@ void __67__NSFileManager_RPExtensions___srMoveFileFromURL_toURL_completion___blo
 
 void __56__NSFileManager_RPExtensions___srDeleteFilesWithPrefix___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v3 = [*(a1 + 32) _srTempPath];
-  v26 = 0;
-  v4 = [v2 contentsOfDirectoryAtPath:v3 error:&v26];
-  v5 = v26;
+  v25 = 0;
+  v4 = [v2 contentsOfDirectoryAtPath:v3 error:&v25];
+  v5 = v25;
 
   v6 = [MEMORY[0x277CCAC30] predicateWithFormat:@"self BEGINSWITH[cd] %@", *(a1 + 40)];
-  v19 = v4;
+  v18 = v4;
   v7 = [v4 filteredArrayUsingPredicate:v6];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   obj = v7;
-  v8 = [obj countByEnumeratingWithState:&v22 objects:v29 count:16];
+  v8 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v23;
+    v10 = *v22;
     do
     {
       for (i = 0; i != v9; ++i)
       {
         v12 = v5;
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         if (v5 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          __56__NSFileManager_RPExtensions___srDeleteFilesWithPrefix___block_invoke_cold_1(buf, v5, v28);
+          __56__NSFileManager_RPExtensions___srDeleteFilesWithPrefix___block_invoke_cold_1(buf, v5, &buf[4]);
         }
 
         v14 = *(a1 + 32);
         v15 = MEMORY[0x277CCACA8];
         v16 = [v14 _srTempPath];
         v17 = [v15 stringWithFormat:@"%@/%@", v16, v13];
-        v21 = v12;
-        [v14 removeItemAtPath:v17 error:&v21];
-        v5 = v21;
+        v20 = v12;
+        [v14 removeItemAtPath:v17 error:&v20];
+        v5 = v20;
       }
 
-      v9 = [obj countByEnumeratingWithState:&v22 objects:v29 count:16];
+      v9 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v9);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __92__NSFileManager_RPExtensions___srDeleteFilesOlderThanTimeToLiveInSeconds_deleteSystemFiles___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  [a1 code];
-  OUTLINED_FUNCTION_0_0(&dword_23A863000, MEMORY[0x277D86220], v1, "error in _rkRemoveFile_srDeleteFilesOlderThanTimeToLiveInSeconds, error code: %i", v2, v3, v4, v5, 0);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = [a1 code];
+  OUTLINED_FUNCTION_0_0(&dword_23A863000, MEMORY[0x277D86220], v1, "error in _rkRemoveFile_srDeleteFilesOlderThanTimeToLiveInSeconds, error code: %i", v2, v3, v4, v5, v6);
 }
 
 void __56__NSFileManager_RPExtensions___srRemoveFile_completion___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  [a1 code];
-  OUTLINED_FUNCTION_0_0(&dword_23A863000, MEMORY[0x277D86220], v1, "_rkRemoveFile error: %i", v2, v3, v4, v5, 0);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = [a1 code];
+  OUTLINED_FUNCTION_0_0(&dword_23A863000, MEMORY[0x277D86220], v1, "_rkRemoveFile error: %i", v2, v3, v4, v5, v6);
 }
 
 void __67__NSFileManager_RPExtensions___srMoveFileFromURL_toURL_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_23A863000, MEMORY[0x277D86220], a3, "_rkMoveFileFromURL error: %i", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_23A863000, MEMORY[0x277D86220], a3, "_rkMoveFileFromURL error: %i", a5, a6, a7, a8, v8);
 }
 
 void __56__NSFileManager_RPExtensions___srDeleteFilesWithPrefix___block_invoke_cold_1(uint8_t *buf, int a2, _DWORD *a3)

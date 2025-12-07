@@ -38,29 +38,29 @@
     v70 = v69;
     objc_opt_class();
     v71 = TSUDynamicCast();
-    v76 = objc_msgSend_color(v71, v72, v73, v74, v75);
-    v81 = objc_msgSend_CGColor(v76, v77, v78, v79, v80);
+    v75 = objc_msgSend_color(v71, v72, v73, v74);
+    v80 = objc_msgSend_CGColor(v75, v76, v77, v78, v79);
 
-    if (!v81 || (Alpha = CGColorGetAlpha(v81), Alpha > 0.0) || objc_msgSend_forceRenderBlankBackground(v16, v82, Alpha, v84, v85))
+    if (!v80 || (Alpha = CGColorGetAlpha(v80), Alpha > 0.0) || objc_msgSend_forceRenderBlankBackground(v16, v81, Alpha, v83, v84))
     {
-      objc_msgSend_drawFill_inContext_frame_(TSCHRenderUtilities, v82, v64, v66, v68, v30, context, v70);
+      objc_msgSend_drawFill_inContext_frame_(TSCHRenderUtilities, v81, v64, v66, v68, v30, context, v70);
     }
 
-    if (v35 && objc_msgSend_shouldRender(v35, v82, v86, v87, v88))
+    if (v35 && objc_msgSend_shouldRender(v35, v81, v85, v86, v87))
     {
       CGContextSetLineWidth(context, v57);
       CGContextSetLineCap(context, kCGLineCapButt);
       CGContextSetLineJoin(context, kCGLineJoinMiter);
       CGContextSetMiterLimit(context, 1.0);
-      v93 = objc_msgSend_color(v35, v89, v90, v91, v92);
-      v98 = objc_msgSend_CGColor(v93, v94, v95, v96, v97);
-      CGContextSetStrokeColorWithColor(context, v98);
+      v91 = objc_msgSend_color(v35, v88, v89, v90);
+      v96 = objc_msgSend_CGColor(v91, v92, v93, v94, v95);
+      CGContextSetStrokeColorWithColor(context, v96);
 
-      v101.origin.x = v64;
-      v101.origin.y = v66;
-      v101.size.width = v68;
-      v101.size.height = v70;
-      CGContextStrokeRect(context, v101);
+      v99.origin.x = v64;
+      v99.origin.y = v66;
+      v99.size.width = v68;
+      v99.size.height = v70;
+      CGContextStrokeRect(context, v99);
     }
   }
 }

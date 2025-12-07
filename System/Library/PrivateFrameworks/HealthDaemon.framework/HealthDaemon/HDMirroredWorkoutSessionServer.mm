@@ -41,9 +41,9 @@
 {
   stateCopy = state;
   identifierCopy = identifier;
-  v33.receiver = self;
-  v33.super_class = HDMirroredWorkoutSessionServer;
-  v14 = [(HDWorkoutSessionServer *)&v33 initWithProfile:profile configuration:configuration sessionUUID:d];
+  v31.receiver = self;
+  v31.super_class = HDMirroredWorkoutSessionServer;
+  v14 = [(HDWorkoutSessionServer *)&v31 initWithProfile:profile configuration:configuration sessionUUID:d];
   v15 = v14;
   if (v14)
   {
@@ -103,11 +103,9 @@
     if ([(HDMirroredWorkoutSessionServer *)v15 isFirstPartyClient])
     {
       v15->_isBackgroundAssertionFeatureEnabled = 0;
-      v28 = *MEMORY[0x277CCE530];
-      v29 = *MEMORY[0x277CCE5C8];
-      v30 = HKObjectForNanoPreferencesUserDefaultsKey();
-      v31 = v30;
-      if (v30 && [v30 integerValue])
+      v28 = HKObjectForNanoPreferencesUserDefaultsKey();
+      v29 = v28;
+      if (v28 && [v28 integerValue])
       {
         v15->_isBackgroundAssertionFeatureEnabled = 1;
       }
@@ -122,7 +120,7 @@
 
 - (void)dealloc
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [(BSInvalidatable *)self->_liveActivitySubscription invalidate];
   liveActivitySubscription = self->_liveActivitySubscription;
   self->_liveActivitySubscription = 0;
@@ -165,10 +163,9 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v14.receiver = self;
-  v14.super_class = HDMirroredWorkoutSessionServer;
-  [(HDWorkoutSessionServer *)&v14 dealloc];
-  v13 = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = HDMirroredWorkoutSessionServer;
+  [(HDWorkoutSessionServer *)&v13 dealloc];
 }
 
 - (void)_setupProcessStateManagerObserver
@@ -181,21 +178,21 @@
 
 - (void)_executeClientDataUpdate:(id)update completion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   completionCopy = completion;
   if ([updateCopy count])
   {
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __70__HDMirroredWorkoutSessionServer__executeClientDataUpdate_completion___block_invoke;
-    v13[3] = &unk_278616CC8;
-    v13[4] = self;
-    v14 = completionCopy;
-    v12.receiver = self;
-    v12.super_class = HDMirroredWorkoutSessionServer;
-    [(HDWorkoutSessionServer *)&v12 didReceiveDataFromRemoteWorkoutSession:updateCopy completion:v13];
-    v8 = v14;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __70__HDMirroredWorkoutSessionServer__executeClientDataUpdate_completion___block_invoke;
+    v12[3] = &unk_278616CC8;
+    v12[4] = self;
+    v13 = completionCopy;
+    v11.receiver = self;
+    v11.super_class = HDMirroredWorkoutSessionServer;
+    [(HDWorkoutSessionServer *)&v11 didReceiveDataFromRemoteWorkoutSession:updateCopy completion:v12];
+    v8 = v13;
   }
 
   else
@@ -218,8 +215,6 @@
 
     (*(completionCopy + 2))(completionCopy, 1, 0);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __70__HDMirroredWorkoutSessionServer__executeClientDataUpdate_completion___block_invoke(uint64_t a1)
@@ -250,7 +245,7 @@ void __70__HDMirroredWorkoutSessionServer__executeClientDataUpdate_completion___
 
 void __67__HDMirroredWorkoutSessionServer_didDisconnectFromRemoteWithError___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 64) = 0;
   _HKInitializeLogging();
   v2 = MEMORY[0x277CCC330];
@@ -259,7 +254,7 @@ void __67__HDMirroredWorkoutSessionServer_didDisconnectFromRemoteWithError___blo
   {
     v4 = *(a1 + 32);
     *buf = 138543362;
-    v16 = v4;
+    v15 = v4;
     _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Did disconnect from remote. Tearing down and notifying client", buf, 0xCu);
   }
 
@@ -271,14 +266,14 @@ void __67__HDMirroredWorkoutSessionServer_didDisconnectFromRemoteWithError___blo
   if (v6)
   {
     [*(a1 + 32) _launchClientInTheBackgroundAndTakeBackgroundAssertionIfNeeded:*(*(a1 + 32) + 336)];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __67__HDMirroredWorkoutSessionServer_didDisconnectFromRemoteWithError___block_invoke_323;
-    v13[3] = &unk_278620E20;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __67__HDMirroredWorkoutSessionServer_didDisconnectFromRemoteWithError___block_invoke_323;
+    v12[3] = &unk_278620E20;
     v7 = *(a1 + 32);
-    v14 = *(a1 + 40);
-    [v7 _enqueueClientUpdate:v13 launchClient:0 waitForClientSetup:1];
-    WeakRetained = v14;
+    v13 = *(a1 + 40);
+    [v7 _enqueueClientUpdate:v12 launchClient:0 waitForClientSetup:1];
+    WeakRetained = v13;
   }
 
   else
@@ -287,9 +282,9 @@ void __67__HDMirroredWorkoutSessionServer_didDisconnectFromRemoteWithError___blo
     v9 = *v2;
     if (os_log_type_enabled(*v2, OS_LOG_TYPE_ERROR))
     {
-      v12 = *(a1 + 32);
+      v11 = *(a1 + 32);
       *buf = 138543362;
-      v16 = v12;
+      v15 = v11;
       _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Disconnecting before mirroring start handler called. Flushing all client and pending data updates", buf, 0xCu);
     }
 
@@ -298,8 +293,6 @@ void __67__HDMirroredWorkoutSessionServer_didDisconnectFromRemoteWithError___blo
     v10 = [WeakRetained workoutManager];
     [v10 tearDownMirroredWorkoutSession:*(a1 + 32)];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HDMirroredWorkoutSessionServer_didDisconnectFromRemoteWithError___block_invoke_323(uint64_t a1, void *a2)
@@ -336,66 +329,59 @@ void __67__HDMirroredWorkoutSessionServer_didDisconnectFromRemoteWithError___blo
 
 void __72__HDMirroredWorkoutSessionServer_syncTransitionToState_date_completion___block_invoke(void *a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v2 = a1[4];
-  v3 = *(v2 + 328);
-  *(v2 + 328) = a1[6];
-  v4 = HKWorkoutSessionStateFromServerState();
-  v5 = HKWorkoutSessionStateFromServerState();
+  v28 = *MEMORY[0x277D85DE8];
+  *(a1[4] + 328) = a1[6];
+  v2 = HKWorkoutSessionStateFromServerState();
+  v3 = HKWorkoutSessionStateFromServerState();
   _HKInitializeLogging();
-  v6 = *MEMORY[0x277CCC330];
-  v7 = os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT);
-  if (v4 == v5)
+  v4 = *MEMORY[0x277CCC330];
+  v5 = os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT);
+  if (v2 == v3)
   {
-    if (v7)
+    if (v5)
     {
-      v8 = a1[4];
-      v9 = a1[6];
-      v10 = v6;
-      v11 = _HKWorkoutSessionServerStateToString();
-      v12 = _HKWorkoutSessionServerStateToString();
+      v6 = a1[4];
+      v7 = v4;
+      v8 = _HKWorkoutSessionServerStateToString();
+      v9 = _HKWorkoutSessionServerStateToString();
       *buf = 138543874;
-      v29 = v8;
-      v30 = 2112;
-      v31 = v11;
-      v32 = 2112;
-      v33 = v12;
-      _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Synced state: %@ is equivalent to current state: %@, not notifying the client", buf, 0x20u);
+      v23 = v6;
+      v24 = 2112;
+      v25 = v8;
+      v26 = 2112;
+      v27 = v9;
+      _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Synced state: %@ is equivalent to current state: %@, not notifying the client", buf, 0x20u);
     }
   }
 
   else
   {
-    if (v7)
+    if (v5)
     {
-      v13 = a1[4];
-      v14 = v6;
-      v15 = objc_opt_class();
-      v16 = a1[6];
-      v17 = v15;
-      v18 = _HKWorkoutSessionServerStateToString();
+      v10 = v4;
+      v11 = objc_opt_class();
+      v12 = v11;
+      v13 = _HKWorkoutSessionServerStateToString();
       *buf = 138543618;
-      v29 = v15;
-      v30 = 2112;
-      v31 = v18;
-      _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Notifying client of synced transition to new state: %@", buf, 0x16u);
+      v23 = v11;
+      v24 = 2112;
+      v25 = v13;
+      _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Notifying client of synced transition to new state: %@", buf, 0x16u);
     }
 
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __72__HDMirroredWorkoutSessionServer_syncTransitionToState_date_completion___block_invoke_327;
-    v24[3] = &unk_278620E48;
-    v20 = a1[4];
-    v19 = a1[5];
-    v27 = a1[6];
-    v21 = v19;
-    v22 = a1[4];
-    v25 = v21;
-    v26 = v22;
-    [v20 _enqueueClientUpdate:v24 launchClient:1 waitForClientSetup:1];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __72__HDMirroredWorkoutSessionServer_syncTransitionToState_date_completion___block_invoke_327;
+    v18[3] = &unk_278620E48;
+    v15 = a1[4];
+    v14 = a1[5];
+    v21 = a1[6];
+    v16 = v14;
+    v17 = a1[4];
+    v19 = v16;
+    v20 = v17;
+    [v15 _enqueueClientUpdate:v18 launchClient:1 waitForClientSetup:1];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __72__HDMirroredWorkoutSessionServer_syncTransitionToState_date_completion___block_invoke_327(uint64_t a1, uint64_t a2)
@@ -413,9 +399,8 @@ void __72__HDMirroredWorkoutSessionServer_syncTransitionToState_date_completion_
 
 void __72__HDMirroredWorkoutSessionServer_syncTransitionToState_date_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 40);
-  v4 = a2;
-  [v4 didSyncTransitionToNewState:HKWorkoutSessionStateFromServerState() date:*(a1 + 32)];
+  v3 = a2;
+  [v3 didSyncTransitionToNewState:HKWorkoutSessionStateFromServerState() date:*(a1 + 32)];
 }
 
 - (void)syncSessionEvent:(int64_t)event date:(id)date
@@ -456,7 +441,7 @@ void *__56__HDMirroredWorkoutSessionServer_syncSessionEvent_date___block_invoke(
 
 void __56__HDMirroredWorkoutSessionServer_syncSessionEvent_date___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -464,16 +449,14 @@ void __56__HDMirroredWorkoutSessionServer_syncSessionEvent_date___block_invoke_2
     v6 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = 138543618;
-      v10 = v8;
-      v11 = 2114;
-      v12 = v5;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to send state event to remote device: %{public}@", &v9, 0x16u);
+      v7 = *(a1 + 32);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2114;
+      v11 = v5;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to send state event to remote device: %{public}@", &v8, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncCurrentActivity:(id)activity completion:(id)completion
@@ -494,7 +477,7 @@ void __56__HDMirroredWorkoutSessionServer_syncSessionEvent_date___block_invoke_2
 
 void __65__HDMirroredWorkoutSessionServer_syncCurrentActivity_completion___block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -508,32 +491,29 @@ void __65__HDMirroredWorkoutSessionServer_syncCurrentActivity_completion___block
       v5 = *MEMORY[0x277CCC330];
       if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
       {
-        v6 = *(a1 + 40);
-        v7 = v5;
-        v8 = objc_opt_class();
-        v9 = *(a1 + 32);
+        v6 = v5;
+        v7 = objc_opt_class();
+        v8 = *(a1 + 32);
         *buf = 138543618;
-        v33 = v8;
-        v34 = 2114;
-        v35 = v9;
-        v10 = v8;
-        _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Remote session beginning new activity: %{public}@", buf, 0x16u);
+        v30 = v7;
+        v31 = 2114;
+        v32 = v8;
+        v9 = v7;
+        _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Remote session beginning new activity: %{public}@", buf, 0x16u);
       }
 
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __65__HDMirroredWorkoutSessionServer_syncCurrentActivity_completion___block_invoke_328;
-      v30[3] = &unk_278620E70;
-      v11 = v31;
-      v12 = *(a1 + 40);
-      v13 = *(a1 + 32);
-      v14 = *(a1 + 40);
-      v31[0] = v13;
-      v31[1] = v14;
-      [v12 _enqueueClientUpdate:v30 launchClient:1 waitForClientSetup:1];
-LABEL_11:
-
-      goto LABEL_12;
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __65__HDMirroredWorkoutSessionServer_syncCurrentActivity_completion___block_invoke_328;
+      v27[3] = &unk_278620E70;
+      v10 = v28;
+      v11 = *(a1 + 40);
+      v12 = *(a1 + 32);
+      v13 = *(a1 + 40);
+      v28[0] = v12;
+      v28[1] = v13;
+      [v11 _enqueueClientUpdate:v27 launchClient:1 waitForClientSetup:1];
+      goto LABEL_11;
     }
   }
 
@@ -542,46 +522,44 @@ LABEL_11:
     v4 = 0;
   }
 
-  v15 = [v4 endDate];
+  v14 = [v4 endDate];
 
-  if (v15)
+  if (!v14)
   {
-    _HKInitializeLogging();
-    v16 = *MEMORY[0x277CCC330];
-    if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
-    {
-      v17 = *(a1 + 40);
-      v18 = v16;
-      v19 = objc_opt_class();
-      v20 = *(*(a1 + 40) + 56);
-      *buf = 138543618;
-      v33 = v19;
-      v34 = 2114;
-      v35 = v20;
-      v21 = v19;
-      _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Remote session ending current activity: %{public}@", buf, 0x16u);
-    }
-
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __65__HDMirroredWorkoutSessionServer_syncCurrentActivity_completion___block_invoke_329;
-    v28[3] = &unk_278620E70;
-    v11 = v29;
-    v22 = *(a1 + 40);
-    v23 = *(a1 + 32);
-    v24 = *(a1 + 40);
-    v29[0] = v23;
-    v29[1] = v24;
-    [v22 _enqueueClientUpdate:v28 launchClient:1 waitForClientSetup:1];
-    v25 = *(a1 + 40);
-    v26 = *(v25 + 56);
-    *(v25 + 56) = 0;
-
-    goto LABEL_11;
+    return;
   }
 
-LABEL_12:
-  v27 = *MEMORY[0x277D85DE8];
+  _HKInitializeLogging();
+  v15 = *MEMORY[0x277CCC330];
+  if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
+  {
+    v16 = v15;
+    v17 = objc_opt_class();
+    v18 = *(*(a1 + 40) + 56);
+    *buf = 138543618;
+    v30 = v17;
+    v31 = 2114;
+    v32 = v18;
+    v19 = v17;
+    _os_log_impl(&dword_228986000, v16, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Remote session ending current activity: %{public}@", buf, 0x16u);
+  }
+
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __65__HDMirroredWorkoutSessionServer_syncCurrentActivity_completion___block_invoke_329;
+  v25[3] = &unk_278620E70;
+  v10 = v26;
+  v20 = *(a1 + 40);
+  v21 = *(a1 + 32);
+  v22 = *(a1 + 40);
+  v26[0] = v21;
+  v26[1] = v22;
+  [v20 _enqueueClientUpdate:v25 launchClient:1 waitForClientSetup:1];
+  v23 = *(a1 + 40);
+  v24 = *(v23 + 56);
+  *(v23 + 56) = 0;
+
+LABEL_11:
 }
 
 void __65__HDMirroredWorkoutSessionServer_syncCurrentActivity_completion___block_invoke_328(uint64_t a1, uint64_t a2)
@@ -698,7 +676,7 @@ void __63__HDMirroredWorkoutSessionServer_syncWorkoutEvents_completion___block_i
 
 void __84__HDMirroredWorkoutSessionServer_didReceiveDataFromRemoteWorkoutSession_completion___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
   v3 = [WeakRetained daemon];
   v4 = [v3 processStateManager];
@@ -726,9 +704,9 @@ void __84__HDMirroredWorkoutSessionServer_didReceiveDataFromRemoteWorkoutSession
       if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
       {
         v8 = *(a1 + 32);
-        v17 = 138543362;
-        v18 = v8;
-        _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Adding data to pending.", &v17, 0xCu);
+        v16 = 138543362;
+        v17 = v8;
+        _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Adding data to pending.", &v16, 0xCu);
       }
 
       v9 = *(*(a1 + 32) + 408);
@@ -754,8 +732,6 @@ void __84__HDMirroredWorkoutSessionServer_didReceiveDataFromRemoteWorkoutSession
       (*(*(a1 + 48) + 16))();
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_executeClientUpdate:(id)update
@@ -771,20 +747,20 @@ void __84__HDMirroredWorkoutSessionServer_didReceiveDataFromRemoteWorkoutSession
 {
   setupCopy = setup;
   clientCopy = client;
-  *&v29[5] = *MEMORY[0x277D85DE8];
+  *&v28[5] = *MEMORY[0x277D85DE8];
   updateCopy = update;
   _HKInitializeLogging();
   v9 = MEMORY[0x277CCC330];
   v10 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 138543874;
+    v25 = 138543874;
     selfCopy4 = self;
-    v28 = 1024;
-    *v29 = clientCopy;
-    v29[2] = 1024;
-    *&v29[3] = setupCopy;
-    _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: enqueue client update. launchClient: %d, waitForClientSetup: %d", &v26, 0x18u);
+    v27 = 1024;
+    *v28 = clientCopy;
+    v28[2] = 1024;
+    *&v28[3] = setupCopy;
+    _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: enqueue client update. launchClient: %d, waitForClientSetup: %d", &v25, 0x18u);
   }
 
   if (self->_hasActiveLiveActivity && clientCopy)
@@ -808,11 +784,11 @@ void __84__HDMirroredWorkoutSessionServer_didReceiveDataFromRemoteWorkoutSession
       v17 = self->_pendingClientUpdates;
       v18 = v16;
       v19 = [(NSMutableArray *)v17 count];
-      v26 = 138543618;
+      v25 = 138543618;
       selfCopy4 = self;
-      v28 = 2048;
-      *v29 = v19;
-      _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: %ld current pending client updates", &v26, 0x16u);
+      v27 = 2048;
+      *v28 = v19;
+      _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: %ld current pending client updates", &v25, 0x16u);
     }
 
     taskServer = [(HDWorkoutSessionServer *)self taskServer];
@@ -831,11 +807,11 @@ void __84__HDMirroredWorkoutSessionServer_didReceiveDataFromRemoteWorkoutSession
         v22 = self->_pendingClientUpdates;
         v23 = v21;
         v24 = [(NSMutableArray *)v22 count];
-        v26 = 138543618;
+        v25 = 138543618;
         selfCopy4 = self;
-        v28 = 2048;
-        *v29 = v24;
-        _os_log_impl(&dword_228986000, v23, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Mirroring session not configured, not executing %ld client updates", &v26, 0x16u);
+        v27 = 2048;
+        *v28 = v24;
+        _os_log_impl(&dword_228986000, v23, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Mirroring session not configured, not executing %ld client updates", &v25, 0x16u);
       }
     }
   }
@@ -846,20 +822,18 @@ void __84__HDMirroredWorkoutSessionServer_didReceiveDataFromRemoteWorkoutSession
     v12 = *v9;
     if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = 138543362;
+      v25 = 138543362;
       selfCopy4 = self;
-      _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Not waiting for client setup, execute update immediately", &v26, 0xCu);
+      _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Not waiting for client setup, execute update immediately", &v25, 0xCu);
     }
 
     [(HDMirroredWorkoutSessionServer *)self _executeClientUpdate:updateCopy];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_flushPendingClientUpdates
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   _HKInitializeLogging();
   v3 = MEMORY[0x277CCC330];
@@ -870,12 +844,12 @@ void __84__HDMirroredWorkoutSessionServer_didReceiveDataFromRemoteWorkoutSession
     v6 = v4;
     *buf = 138543618;
     selfCopy2 = self;
-    v24 = 2048;
-    v25 = [(NSMutableArray *)pendingClientUpdates count];
+    v23 = 2048;
+    v24 = [(NSMutableArray *)pendingClientUpdates count];
     _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Attempting to execute %lu enqueued updated", buf, 0x16u);
   }
 
-  v7 = [(NSMutableArray *)self->_pendingClientUpdates copy];
+  v7 = objc_msgSend_copy(self->_pendingClientUpdates);
   [(NSMutableArray *)self->_pendingClientUpdates removeAllObjects];
   os_unfair_lock_unlock(&self->_lock);
   if ([v7 count])
@@ -888,41 +862,39 @@ void __84__HDMirroredWorkoutSessionServer_didReceiveDataFromRemoteWorkoutSession
       v10 = [v7 count];
       *buf = 138543618;
       selfCopy2 = self;
-      v24 = 2048;
-      v25 = v10;
+      v23 = 2048;
+      v24 = v10;
       _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Executing %lu pending updates", buf, 0x16u);
     }
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v11 = v7;
-    v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v18;
+      v14 = *v17;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v18 != v14)
+          if (*v17 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          [(HDMirroredWorkoutSessionServer *)self _executeClientUpdate:*(*(&v17 + 1) + 8 * i), v17];
+          [(HDMirroredWorkoutSessionServer *)self _executeClientUpdate:*(*(&v16 + 1) + 8 * i), v16];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v13);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_schedulePeriodicRuntime
@@ -979,34 +951,34 @@ void __58__HDMirroredWorkoutSessionServer__schedulePeriodicRuntime__block_invoke
 
 - (void)_flushPendingData
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
-  v3 = [(NSMutableArray *)self->_pendingData copy];
+  v3 = objc_msgSend_copy(self->_pendingData);
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v29 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        data = [*(*(&v19 + 1) + 8 * i) data];
+        data = [*(*(&v18 + 1) + 8 * i) data];
         [v4 addObjectsFromArray:data];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v29 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v28 count:16];
     }
 
     while (v7);
@@ -1018,42 +990,40 @@ void __58__HDMirroredWorkoutSessionServer__schedulePeriodicRuntime__block_invoke
   v11 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v14 = v11;
-    v15 = [v5 count];
+    v13 = v11;
+    v14 = [v5 count];
     clientProcessBundleIdentifier = self->super._clientProcessBundleIdentifier;
     *buf = 138543874;
     selfCopy = self;
-    v25 = 2048;
-    v26 = v15;
-    v27 = 2114;
-    v28 = clientProcessBundleIdentifier;
-    _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Flushing %ld pending data to client: %{public}@.", buf, 0x20u);
+    v24 = 2048;
+    v25 = v14;
+    v26 = 2114;
+    v27 = clientProcessBundleIdentifier;
+    _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Flushing %ld pending data to client: %{public}@.", buf, 0x20u);
   }
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __51__HDMirroredWorkoutSessionServer__flushPendingData__block_invoke;
-  v17[3] = &unk_278616020;
-  v17[4] = self;
-  v18 = v5;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __51__HDMirroredWorkoutSessionServer__flushPendingData__block_invoke;
+  v16[3] = &unk_278616020;
+  v16[4] = self;
+  v17 = v5;
   v12 = v5;
-  [(HDMirroredWorkoutSessionServer *)self _executeClientDataUpdate:v4 completion:v17];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [(HDMirroredWorkoutSessionServer *)self _executeClientDataUpdate:v4 completion:v16];
 }
 
 void __51__HDMirroredWorkoutSessionServer__flushPendingData__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v19 = MEMORY[0x277D85DD0];
-  v20 = 3221225472;
-  v21 = __51__HDMirroredWorkoutSessionServer__flushPendingData__block_invoke_2;
-  v22 = &unk_278613920;
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = __51__HDMirroredWorkoutSessionServer__flushPendingData__block_invoke_2;
+  v21 = &unk_278613920;
   v6 = *(a1 + 40);
-  v23 = *(a1 + 32);
-  v24 = v6;
-  v7 = _Block_copy(&v19);
+  v22 = *(a1 + 32);
+  v23 = v6;
+  v7 = _Block_copy(&v18);
   if (!a2)
   {
     _HKInitializeLogging();
@@ -1061,14 +1031,14 @@ void __51__HDMirroredWorkoutSessionServer__flushPendingData__block_invoke(uint64
     v9 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v17 = *(a1 + 32);
-      v18 = *(v17 + 24);
+      v16 = *(a1 + 32);
+      v17 = *(v16 + 24);
       *buf = 138543874;
-      v26 = v17;
-      v27 = 2114;
-      v28 = v18;
-      v29 = 2114;
-      v30 = v5;
+      v25 = v16;
+      v26 = 2114;
+      v27 = v17;
+      v28 = 2114;
+      v29 = v5;
       _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to send pending data to client: %{public}@ with error %{public}@", buf, 0x20u);
     }
 
@@ -1087,9 +1057,9 @@ void __51__HDMirroredWorkoutSessionServer__flushPendingData__block_invoke(uint64
           v13 = *(a1 + 32);
           v14 = *(v13 + 24);
           *buf = 138543618;
-          v26 = v13;
-          v27 = 2114;
-          v28 = v14;
+          v25 = v13;
+          v26 = 2114;
+          v27 = v14;
           _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Force Flushing of failed pending data updates during teardown for client %{public}@", buf, 0x16u);
         }
 
@@ -1102,7 +1072,7 @@ void __51__HDMirroredWorkoutSessionServer__flushPendingData__block_invoke(uint64
       os_unfair_lock_unlock((v10 + 320));
     }
 
-    v15 = [MEMORY[0x277CCAA78] indexSetWithIndexesInRange:{0, objc_msgSend(*(a1 + 40), "count", v19, v20, v21, v22, v23)}];
+    v15 = [MEMORY[0x277CCAA78] indexSetWithIndexesInRange:{0, objc_msgSend(*(a1 + 40), "count", v18, v19, v20, v21, v22)}];
     os_unfair_lock_lock((*(a1 + 32) + 320));
     [*(*(a1 + 32) + 408) insertObjects:*(a1 + 40) atIndexes:v15];
     os_unfair_lock_unlock((*(a1 + 32) + 320));
@@ -1113,51 +1083,49 @@ void __51__HDMirroredWorkoutSessionServer__flushPendingData__block_invoke(uint64
 LABEL_2:
   v7[2](v7);
 LABEL_11:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __51__HDMirroredWorkoutSessionServer__flushPendingData__block_invoke_2(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v13 = *(a1 + 32);
-    v12 = *(a1 + 40);
-    v14 = v2;
-    v15 = [v12 count];
-    v16 = *(*(a1 + 32) + 24);
+    v12 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    v13 = v2;
+    v14 = [v11 count];
+    v15 = *(*(a1 + 32) + 24);
     *buf = 138543874;
-    v23 = v13;
-    v24 = 2048;
-    v25 = v15;
-    v26 = 2114;
-    v27 = v16;
-    _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Completing %ld data updates from client: %{public}@", buf, 0x20u);
+    v22 = v12;
+    v23 = 2048;
+    v24 = v14;
+    v25 = 2114;
+    v26 = v15;
+    _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Completing %ld data updates from client: %{public}@", buf, 0x20u);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v3 = *(a1 + 40);
-  v4 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v18;
+    v6 = *v17;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
+        v8 = *(*(&v16 + 1) + 8 * i);
         v9 = [v8 completion];
 
         if (v9)
@@ -1167,63 +1135,58 @@ void __51__HDMirroredWorkoutSessionServer__flushPendingData__block_invoke_2(uint
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTaskServer:(id)server
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   serverCopy = server;
-  v7.receiver = self;
-  v7.super_class = HDMirroredWorkoutSessionServer;
-  [(HDWorkoutSessionServer *)&v7 setTaskServer:serverCopy];
+  v6.receiver = self;
+  v6.super_class = HDMirroredWorkoutSessionServer;
+  [(HDWorkoutSessionServer *)&v6 setTaskServer:serverCopy];
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v10 = 2114;
-    v11 = serverCopy;
+    v9 = 2114;
+    v10 = serverCopy;
     _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Task server configured: %{public}@", buf, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_queue_clientApplicationCanStartWorkoutSessionWithError:(id *)error
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Mirrored workout sessions always allowed to start", &v7, 0xCu);
+    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Mirrored workout sessions always allowed to start", &v6, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (void)runSetupPostClientMirroringStartHandler
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = MEMORY[0x277CCC330];
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy2 = self;
-    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Running runSetupPostClientMirroringStartHandler", &v8, 0xCu);
+    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Running runSetupPostClientMirroringStartHandler", &v7, 0xCu);
   }
 
   taskServer = [(HDWorkoutSessionServer *)self taskServer];
@@ -1235,9 +1198,9 @@ void __51__HDMirroredWorkoutSessionServer__flushPendingData__block_invoke_2(uint
     v6 = *v3;
     if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138543362;
+      v7 = 138543362;
       selfCopy2 = self;
-      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Flush pending data if any", &v8, 0xCu);
+      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Flush pending data if any", &v7, 0xCu);
     }
 
     [(HDMirroredWorkoutSessionServer *)self _flushPendingData];
@@ -1246,45 +1209,42 @@ void __51__HDMirroredWorkoutSessionServer__flushPendingData__block_invoke_2(uint
   os_unfair_lock_lock(&self->_lock);
   self->_lock_postMirroringClientStartHandlerCalled = 1;
   os_unfair_lock_unlock(&self->_lock);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processDidEnterBackground:(id)background
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_INFO))
   {
     clientProcessBundleIdentifier = self->super._clientProcessBundleIdentifier;
-    v7 = 138543618;
+    v6 = 138543618;
     selfCopy = self;
-    v9 = 2114;
-    v10 = clientProcessBundleIdentifier;
-    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_INFO, "[mirroring] %{public}@: Send pending data to background client: %{public}@", &v7, 0x16u);
+    v8 = 2114;
+    v9 = clientProcessBundleIdentifier;
+    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_INFO, "[mirroring] %{public}@: Send pending data to background client: %{public}@", &v6, 0x16u);
   }
 
   [(HDMirroredWorkoutSessionServer *)self _flushPendingData];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processDidEnterForeground:(id)foreground
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_INFO))
   {
     clientProcessBundleIdentifier = self->super._clientProcessBundleIdentifier;
-    v7 = 138543618;
+    v6 = 138543618;
     selfCopy = self;
-    v9 = 2114;
-    v10 = clientProcessBundleIdentifier;
-    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_INFO, "[mirroring] %{public}@: Send pending data to foreground client: %{public}@", &v7, 0x16u);
+    v8 = 2114;
+    v9 = clientProcessBundleIdentifier;
+    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_INFO, "[mirroring] %{public}@: Send pending data to foreground client: %{public}@", &v6, 0x16u);
   }
 
   [(HDMirroredWorkoutSessionServer *)self _flushPendingData];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)setTargetState:(int64_t)state date:(id)date error:(id *)error
@@ -1306,58 +1266,55 @@ void __51__HDMirroredWorkoutSessionServer__flushPendingData__block_invoke_2(uint
 
 void __60__HDMirroredWorkoutSessionServer_setTargetState_date_error___block_invoke(void *a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v2 = a1[6];
-  v3 = HKWorkoutSessionServerStateFromSessionState();
-  v4 = *(a1[4] + 328);
+  v21 = *MEMORY[0x277D85DE8];
+  v2 = HKWorkoutSessionServerStateFromSessionState();
+  v3 = *(a1[4] + 328);
   _HKInitializeLogging();
-  v5 = *MEMORY[0x277CCC330];
-  v6 = os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT);
-  if (v3 == v4)
+  v4 = *MEMORY[0x277CCC330];
+  v5 = os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT);
+  if (v2 == v3)
   {
-    if (v6)
+    if (v5)
     {
-      v7 = a1[4];
-      v8 = v5;
+      v6 = a1[4];
+      v7 = v4;
+      v8 = _HKWorkoutSessionServerStateToString();
       v9 = _HKWorkoutSessionServerStateToString();
-      v10 = _HKWorkoutSessionServerStateToString();
       *buf = 138543874;
-      v18 = v7;
+      v16 = v6;
+      v17 = 2114;
+      v18 = v8;
       v19 = 2114;
       v20 = v9;
-      v21 = 2114;
-      v22 = v10;
-      _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Target state: %{public}@ is same as current state: %{public}@", buf, 0x20u);
+      _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Target state: %{public}@ is same as current state: %{public}@", buf, 0x20u);
     }
   }
 
   else
   {
-    if (v6)
+    if (v5)
     {
-      v11 = a1[4];
+      v10 = a1[4];
       *buf = 138543362;
-      v18 = v11;
-      _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Sending mirrored session state update", buf, 0xCu);
+      v16 = v10;
+      _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Sending mirrored session state update", buf, 0xCu);
     }
 
-    v13 = a1[4];
-    v12 = a1[5];
-    v14 = *(v13 + 72);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __60__HDMirroredWorkoutSessionServer_setTargetState_date_error___block_invoke_337;
-    v16[3] = &unk_2786130B0;
-    v16[4] = v13;
-    [v14 sendStateUpdate:v3 date:v12 completion:v16];
+    v12 = a1[4];
+    v11 = a1[5];
+    v13 = *(v12 + 72);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __60__HDMirroredWorkoutSessionServer_setTargetState_date_error___block_invoke_337;
+    v14[3] = &unk_2786130B0;
+    v14[4] = v12;
+    [v13 sendStateUpdate:v2 date:v11 completion:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HDMirroredWorkoutSessionServer_setTargetState_date_error___block_invoke_337(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -1365,16 +1322,14 @@ void __60__HDMirroredWorkoutSessionServer_setTargetState_date_error___block_invo
     v6 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = 138543618;
-      v10 = v8;
-      v11 = 2114;
-      v12 = v5;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to send session updates to remote device: %{public}@", &v9, 0x16u);
+      v7 = *(a1 + 32);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2114;
+      v11 = v5;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to send session updates to remote device: %{public}@", &v8, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)beginNewActivityWithConfiguration:(id)configuration date:(id)date metadata:(id)metadata error:(id *)error
@@ -1396,7 +1351,7 @@ void __60__HDMirroredWorkoutSessionServer_setTargetState_date_error___block_invo
 
 void __88__HDMirroredWorkoutSessionServer_beginNewActivityWithConfiguration_date_metadata_error___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -1404,16 +1359,14 @@ void __88__HDMirroredWorkoutSessionServer_beginNewActivityWithConfiguration_date
     v6 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = 138543618;
-      v10 = v8;
-      v11 = 2114;
-      v12 = v5;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to send new activity request to remote device: %{public}@", &v9, 0x16u);
+      v7 = *(a1 + 32);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2114;
+      v11 = v5;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to send new activity request to remote device: %{public}@", &v8, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)endCurrentActivityOnDate:(id)date error:(id *)error
@@ -1449,7 +1402,7 @@ void __65__HDMirroredWorkoutSessionServer_endCurrentActivityOnDate_error___block
 
 void __65__HDMirroredWorkoutSessionServer_endCurrentActivityOnDate_error___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -1457,16 +1410,14 @@ void __65__HDMirroredWorkoutSessionServer_endCurrentActivityOnDate_error___block
     v6 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = 138543618;
-      v10 = v8;
-      v11 = 2114;
-      v12 = v5;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to send end current activity request to remote device: %{public}@", &v9, 0x16u);
+      v7 = *(a1 + 32);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2114;
+      v11 = v5;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to send end current activity request to remote device: %{public}@", &v8, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupLiveActivityObserver
@@ -1499,7 +1450,7 @@ void __60__HDMirroredWorkoutSessionServer__setupLiveActivityObserver__block_invo
 
 - (void)_didUpdateLiveActivity:(id)activity
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   descriptor = [activityCopy descriptor];
   platterTargetBundleIdentifier = [descriptor platterTargetBundleIdentifier];
@@ -1518,12 +1469,12 @@ void __60__HDMirroredWorkoutSessionServer__setupLiveActivityObserver__block_invo
       v13 = *v7;
       if (os_log_type_enabled(*v7, OS_LOG_TYPE_ERROR))
       {
-        v17 = MEMORY[0x277CCABB0];
-        v18 = v13;
-        v19 = [v17 numberWithInteger:v11];
-        v20 = 138412290;
-        selfCopy = v19;
-        _os_log_error_impl(&dword_228986000, v18, OS_LOG_TYPE_ERROR, "[mirroring]: Encountered unknown ACActivityState: %@", &v20, 0xCu);
+        v16 = MEMORY[0x277CCABB0];
+        v17 = v13;
+        v18 = [v16 numberWithInteger:v11];
+        v19 = 138412290;
+        selfCopy = v18;
+        _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "[mirroring]: Encountered unknown ACActivityState: %@", &v19, 0xCu);
       }
 
       v12 = @"<unknown>";
@@ -1534,15 +1485,15 @@ void __60__HDMirroredWorkoutSessionServer__setupLiveActivityObserver__block_invo
       v12 = off_278620F50[state];
     }
 
-    v20 = 138544130;
+    v19 = 138544130;
     selfCopy = self;
-    v22 = 2114;
-    v23 = identifier;
-    v24 = 2114;
-    v25 = v12;
-    v26 = 2114;
-    v27 = platterTargetBundleIdentifier;
-    _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Received Live Activity update %{public}@, state: %{public}@, bundle identifier: %{public}@", &v20, 0x2Au);
+    v21 = 2114;
+    v22 = identifier;
+    v23 = 2114;
+    v24 = v12;
+    v25 = 2114;
+    v26 = platterTargetBundleIdentifier;
+    _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Received Live Activity update %{public}@, state: %{public}@, bundle identifier: %{public}@", &v19, 0x2Au);
   }
 
   if ([platterTargetBundleIdentifier isEqualToString:self->super._clientProcessBundleIdentifier])
@@ -1562,13 +1513,11 @@ void __60__HDMirroredWorkoutSessionServer__setupLiveActivityObserver__block_invo
         v15 = @"NO";
       }
 
-      v20 = 138543362;
+      v19 = 138543362;
       selfCopy = v15;
-      _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "[mirroring] Did update Live Activity State. Active: %{public}@", &v20, 0xCu);
+      _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "[mirroring] Did update Live Activity State. Active: %{public}@", &v19, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_takeLiveActivityBackgroundAssertion
@@ -1600,7 +1549,7 @@ void __70__HDMirroredWorkoutSessionServer__takeLiveActivityBackgroundAssertion__
 
 - (void)_didInvalidateLiveActivityBackgroundAssertion:(id)assertion error:(id)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v7 = MEMORY[0x277CCACA8];
   assertionCopy = assertion;
@@ -1616,7 +1565,7 @@ void __70__HDMirroredWorkoutSessionServer__takeLiveActivityBackgroundAssertion__
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v16 = v10;
+      v15 = v10;
       _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
     }
   }
@@ -1624,13 +1573,11 @@ void __70__HDMirroredWorkoutSessionServer__takeLiveActivityBackgroundAssertion__
   else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543618;
-    v16 = v10;
-    v17 = 2114;
-    v18 = errorCopy;
+    v15 = v10;
+    v16 = 2114;
+    v17 = errorCopy;
     _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "%{public}@ with error: %{public}@.", buf, 0x16u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setLiveActivityBackgroundAssertionTimeout
@@ -1664,70 +1611,64 @@ void __76__HDMirroredWorkoutSessionServer__setLiveActivityBackgroundAssertionTim
 
 - (void)_liveActivityBackgroundAssertionDidTimeout
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Will invalidate Live Activity background assertion after timeout.", &v6, 0xCu);
+    _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Will invalidate Live Activity background assertion after timeout.", &v5, 0xCu);
   }
 
   [(SNAAssertion *)self->_liveActivityAssertion invalidate];
   liveActivityAssertion = self->_liveActivityAssertion;
   self->_liveActivityAssertion = 0;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_takeBackgroundRunningAssertionIfNeeded
 {
-  v17 = *MEMORY[0x277D85DE8];
-  if ([(HDAssertion *)self->_backgroundRunningAssertion state]== 2)
+  v15 = *MEMORY[0x277D85DE8];
+  if ([(HDAssertion *)self->_backgroundRunningAssertion state]!= 2)
   {
-LABEL_2:
-    v3 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
-  if (([mEMORY[0x277CCDD30] isAppleWatch] & 1) == 0 && self->_isBackgroundAssertionFeatureEnabled)
-  {
-    isBacklightOn = self->_isBacklightOn;
-
-    if (isBacklightOn)
+    mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
+    if (([mEMORY[0x277CCDD30] isAppleWatch] & 1) != 0 || !self->_isBackgroundAssertionFeatureEnabled)
     {
-      client = [(HDWorkoutSessionServer *)self client];
-      process = [client process];
+    }
 
-      if (process)
-      {
-        WeakRetained = objc_loadWeakRetained(&self->super._profile);
-        workoutManager = [WeakRetained workoutManager];
-        v9 = [workoutManager takeRBSAssertionWithOwnerIdentifier:self->super._clientProcessBundleIdentifier assertionIdentifier:@"WorkoutSessionUpdate" pid:objc_msgSend(process explanation:{"processIdentifier"), @"Running mirrored workout session on iOS"}];
-        backgroundRunningAssertion = self->_backgroundRunningAssertion;
-        self->_backgroundRunningAssertion = v9;
-      }
+    else
+    {
+      isBacklightOn = self->_isBacklightOn;
 
-      else
+      if (isBacklightOn)
       {
-        _HKInitializeLogging();
-        v12 = *MEMORY[0x277CCC330];
-        if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
+        client = [(HDWorkoutSessionServer *)self client];
+        process = [client process];
+
+        if (process)
         {
-          clientProcessBundleIdentifier = self->super._clientProcessBundleIdentifier;
-          *buf = 138412290;
-          v16 = clientProcessBundleIdentifier;
-          _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "Background assertion not taken for client. No process found for identifier %@", buf, 0xCu);
+          WeakRetained = objc_loadWeakRetained(&self->super._profile);
+          workoutManager = [WeakRetained workoutManager];
+          v8 = [workoutManager takeRBSAssertionWithOwnerIdentifier:self->super._clientProcessBundleIdentifier assertionIdentifier:@"WorkoutSessionUpdate" pid:objc_msgSend(process explanation:{"processIdentifier"), @"Running mirrored workout session on iOS"}];
+          backgroundRunningAssertion = self->_backgroundRunningAssertion;
+          self->_backgroundRunningAssertion = v8;
+        }
+
+        else
+        {
+          _HKInitializeLogging();
+          v10 = *MEMORY[0x277CCC330];
+          if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
+          {
+            clientProcessBundleIdentifier = self->super._clientProcessBundleIdentifier;
+            *buf = 138412290;
+            v14 = clientProcessBundleIdentifier;
+            _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "Background assertion not taken for client. No process found for identifier %@", buf, 0xCu);
+          }
         }
       }
     }
-
-    goto LABEL_2;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)backlight:(id)backlight didCompleteUpdateToState:(int64_t)state forEvent:(id)event

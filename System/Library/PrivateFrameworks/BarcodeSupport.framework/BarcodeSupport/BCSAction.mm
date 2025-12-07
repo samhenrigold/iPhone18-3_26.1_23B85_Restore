@@ -161,11 +161,11 @@ void __61__BCSAction_getActionWithData_codePayload_completionHandler___block_inv
 {
   dataCopy = data;
   payloadCopy = payload;
-  if (_bcs_deviceIsPad())
+  if (_bcs_deviceIsPad(payloadCopy, v7))
   {
-    v7 = BCSInvalidDataAction;
+    v8 = BCSInvalidDataAction;
 LABEL_8:
-    v11 = [[v7 alloc] initWithData:dataCopy codePayload:payloadCopy];
+    v12 = [[v8 alloc] initWithData:dataCopy codePayload:payloadCopy];
     goto LABEL_9;
   }
 
@@ -175,7 +175,7 @@ LABEL_8:
   {
 
 LABEL_7:
-    v7 = BCSURLAction;
+    v8 = BCSURLAction;
     goto LABEL_8;
   }
 
@@ -193,10 +193,10 @@ LABEL_7:
   {
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_9:
 
-  return v11;
+  return v12;
 }
 
 - (BCSAction)initWithData:(id)data codePayload:(id)payload
@@ -219,11 +219,10 @@ LABEL_9:
 
 - (void)showActionPicker
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_0(&dword_241993000, MEMORY[0x277D86220], v1, "%@: [BCSAction presentingViewControllerForAction:] must return non-nil view controller to perform action.", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  v2 = *(&v8 + 4);
+  OUTLINED_FUNCTION_0(&dword_241993000, MEMORY[0x277D86220], v3, "%@: [BCSAction presentingViewControllerForAction:] must return non-nil view controller to perform action.", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)performDefaultAction
@@ -242,30 +241,28 @@ LABEL_9:
 
 - (NSArray)actionPickerItems
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v2 = [[BCSActionPickerItem alloc] initWithAction:self];
-  v6[0] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
   return v3;
 }
 
 - (NSDictionary)debugDescriptionDictionary
 {
-  v13[3] = *MEMORY[0x277D85DE8];
-  v12[0] = @"actionClass";
+  v12[3] = *MEMORY[0x277D85DE8];
+  v11[0] = @"actionClass";
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v13[0] = v4;
-  v12[1] = @"actionDescription";
+  v12[0] = v4;
+  v11[1] = @"actionDescription";
   localizedActionDescription = [(BCSAction *)self localizedActionDescription];
-  v13[1] = localizedActionDescription;
-  v12[2] = @"defaultActionDescription";
+  v12[1] = localizedActionDescription;
+  v11[2] = @"defaultActionDescription";
   localizedDefaultActionDescription = [(BCSAction *)self localizedDefaultActionDescription];
-  v13[2] = localizedDefaultActionDescription;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = localizedDefaultActionDescription;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
 
   debugDescriptionExtraInfoDictionary = [(BCSAction *)self debugDescriptionExtraInfoDictionary];
   if (debugDescriptionExtraInfoDictionary)
@@ -279,8 +276,6 @@ LABEL_9:
     v9 = v7;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
@@ -292,7 +287,7 @@ LABEL_9:
 
   if (type == 8)
   {
-    isHostAppEntitled = _bcs_isHostAppEntitled();
+    isHostAppEntitled = _bcs_isHostAppEntitled(v6, v7);
   }
 
   else
@@ -330,11 +325,11 @@ LABEL_9:
   _bcs_performActionAfterUnlock(v6);
 }
 
-void __41__BCSAction_performActionWithCompletion___block_invoke(uint64_t a1)
+void __41__BCSAction_performActionWithCompletion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 32);
-  v3 = _bcs_frontBoardUnlockOptions();
-  [v2 performActionWithOptions:v3 completion:*(a1 + 40)];
+  v5 = *(a1 + 32);
+  v6 = _bcs_frontBoardUnlockOptions(a1, a2, a3, a4);
+  [v5 performActionWithOptions:v6 completion:*(a1 + 40)];
 }
 
 - (void)performActionWithOptions:(id)options completion:(id)completion
@@ -346,7 +341,7 @@ void __41__BCSAction_performActionWithCompletion___block_invoke(uint64_t a1)
 
 - (BOOL)preferItemsInSubmenu
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   detectedCode = [(BCSAction *)self detectedCode];
 
   if (detectedCode)
@@ -354,31 +349,31 @@ void __41__BCSAction_performActionWithCompletion___block_invoke(uint64_t a1)
     if (_bcs_isCurrentProcessSafari())
     {
       [(BCSAction *)self actionPickerItems];
+      v8 = 0u;
       v9 = 0u;
       v10 = 0u;
-      v11 = 0u;
-      v4 = v12 = 0u;
-      detectedCode = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = v11 = 0u;
+      detectedCode = [v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (detectedCode)
       {
-        v5 = *v10;
+        v5 = *v9;
         while (2)
         {
           for (i = 0; i != detectedCode; i = i + 1)
           {
-            if (*v10 != v5)
+            if (*v9 != v5)
             {
               objc_enumerationMutation(v4);
             }
 
-            if ([*(*(&v9 + 1) + 8 * i) canGroupInSubmenu])
+            if ([*(*(&v8 + 1) + 8 * i) canGroupInSubmenu])
             {
               LOBYTE(detectedCode) = 1;
               goto LABEL_14;
             }
           }
 
-          detectedCode = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+          detectedCode = [v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
           if (detectedCode)
           {
             continue;
@@ -397,7 +392,6 @@ LABEL_14:
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return detectedCode;
 }
 
@@ -427,42 +421,42 @@ LABEL_14:
 
 - (NSArray)menuElements
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   actionPickerItems = [(BCSAction *)self actionPickerItems];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = actionPickerItems;
-  v5 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v5 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v5)
   {
     v6 = v5;
-    v25 = *v28;
+    v24 = *v27;
     do
     {
       for (i = 0; i != v6; ++i)
       {
         v8 = array2;
         v9 = array;
-        if (*v28 != v25)
+        if (*v27 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * i);
+        v10 = *(*(&v26 + 1) + 8 * i);
         UIActionClass = getUIActionClass();
         label = [v10 label];
         icon = [v10 icon];
         label2 = [v10 label];
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __25__BCSAction_menuElements__block_invoke;
-        v26[3] = &unk_278CFE810;
-        v26[4] = v10;
-        v15 = [UIActionClass actionWithTitle:label image:icon identifier:label2 handler:v26];
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __25__BCSAction_menuElements__block_invoke;
+        v25[3] = &unk_278CFE810;
+        v25[4] = v10;
+        v15 = [UIActionClass actionWithTitle:label image:icon identifier:label2 handler:v25];
 
         array = v9;
         array2 = v8;
@@ -479,7 +473,7 @@ LABEL_14:
         [v16 addObject:v15];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v6 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v6);
@@ -506,8 +500,8 @@ LABEL_14:
   if ([(BCSAction *)self preferItemsInSubmenu])
   {
     v17 = [(BCSAction *)self subMenuWithMenuItems:array2];
-    v31 = v17;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+    v30 = v17;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
 LABEL_19:
 
     goto LABEL_20;
@@ -515,8 +509,6 @@ LABEL_19:
 
   v20 = array2;
 LABEL_20:
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -531,11 +523,11 @@ void __25__BCSAction_menuElements__block_invoke(uint64_t a1)
   _bcs_performActionAfterUnlock(v1);
 }
 
-void __25__BCSAction_menuElements__block_invoke_2(uint64_t a1)
+void __25__BCSAction_menuElements__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *(a1 + 32);
-  v2 = _bcs_frontBoardUnlockOptions();
-  [v1 performActionWithFBOptions:v2];
+  v4 = *(a1 + 32);
+  v5 = _bcs_frontBoardUnlockOptions(a1, a2, a3, a4);
+  [v4 performActionWithFBOptions:v5];
 }
 
 - (id)menuProvider

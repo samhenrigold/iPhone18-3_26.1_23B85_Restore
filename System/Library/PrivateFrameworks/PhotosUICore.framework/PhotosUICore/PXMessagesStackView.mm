@@ -156,8 +156,8 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  layout = [(PXBaseMessagesStackView *)self layout];
-  v8 = _StackItemIndexForSpriteIndexInLayout(v4, layoutCopy, layout);
+  v7 = objc_msgSend_layout(self);
+  v8 = _StackItemIndexForSpriteIndexInLayout(v4, layoutCopy, v7);
 
   if ((v8 & 0x8000000000000000) == 0)
   {
@@ -207,8 +207,8 @@ LABEL_14:
     goto LABEL_7;
   }
 
-  layout = [(PXBaseMessagesStackView *)self layout];
-  v8 = _StackItemIndexForSpriteIndexInLayout(v4, layoutCopy, layout);
+  v7 = objc_msgSend_layout(self);
+  v8 = _StackItemIndexForSpriteIndexInLayout(v4, layoutCopy, v7);
 
   if ((v8 & 0x8000000000000000) == 0)
   {
@@ -322,7 +322,7 @@ LABEL_13:
   v12 = v8;
   v13 = v7;
   v14 = v6;
-  v15 = [(PXBaseMessagesStackView *)self layout:index];
+  v15 = objc_msgSend_layout(self, configuration, index, *&layout, a6);
   [v15 tapbackConfigurationForProposedConfiguration:index spriteIndex:{v14, v13, v12, v11}];
 
   return result;
@@ -343,11 +343,11 @@ LABEL_13:
 
 - (id)displayAssetFetchResultForSpritesInRange:(_PXGSpriteIndexRange)range inLayout:(id)layout
 {
-  v5 = [(PXBaseMessagesStackView *)self layout:range];
+  v5 = objc_msgSend_layout(self, a2, range, layout);
   v6 = [v5 itemForSpriteIndex:0];
 
-  layout = [(PXBaseMessagesStackView *)self layout];
-  v8 = [layout numberOfItems] - v6;
+  v7 = objc_msgSend_layout(self);
+  v8 = [v7 numberOfItems] - v6;
 
   v9 = self->_cachedClampedItemRange.location == v6 && self->_cachedClampedItemRange.length == v8;
   if (!v9 || (cachedClampedFetchResult = self->_cachedClampedFetchResult) == 0)
@@ -505,7 +505,7 @@ LABEL_13:
 
     if (v13)
     {
-      [v13 indexPathForAssetReference:v14];
+      objc_msgSend_indexPathForAssetReference_(v13);
     }
   }
 
@@ -551,8 +551,8 @@ LABEL_13:
     if (!v8)
     {
       v10 = [PXGDisplayAssetVideoPresentationController alloc];
-      layout = [(PXBaseMessagesStackView *)self layout];
-      layoutQueue = [layout layoutQueue];
+      v11 = objc_msgSend_layout(self);
+      layoutQueue = [v11 layoutQueue];
       v8 = [(PXGDisplayAssetVideoPresentationController *)v10 initWithDisplayAsset:assetCopy accessQueue:layoutQueue];
 
       [(PXGDisplayAssetVideoPresentationController *)v8 setVisualEffectViewClass:[(PXMessagesStackView *)self customAssetImageViewContainerClass]];
@@ -587,11 +587,11 @@ void __55__PXMessagesStackView__presentationControllerForAsset___block_invoke(ui
 - (void)_updateCurrentPresentationController
 {
   isSettled = [(PXBaseMessagesStackView *)self isSettled];
-  layout = [(PXBaseMessagesStackView *)self layout];
-  primaryItemIndex = [layout primaryItemIndex];
+  v4 = objc_msgSend_layout(self);
+  primaryItemIndex = [v4 primaryItemIndex];
 
-  layout2 = [(PXBaseMessagesStackView *)self layout];
-  numberOfItems = [layout2 numberOfItems];
+  v6 = objc_msgSend_layout(self);
+  numberOfItems = [v6 numberOfItems];
 
   if (isSettled)
   {
@@ -684,8 +684,8 @@ void __59__PXMessagesStackView__updateCurrentPresentationController__block_invok
 - (BOOL)_isSpriteReferenceForPrimaryItem:(id)item
 {
   itemCopy = item;
-  layout = [(PXBaseMessagesStackView *)self layout];
-  primaryItemIndex = [layout primaryItemIndex];
+  v5 = objc_msgSend_layout(self);
+  primaryItemIndex = [v5 primaryItemIndex];
   if (primaryItemIndex == 0x7FFFFFFFFFFFFFFFLL)
   {
     v7 = 0;
@@ -694,15 +694,15 @@ void __59__PXMessagesStackView__updateCurrentPresentationController__block_invok
   else
   {
     v8 = primaryItemIndex;
-    v9 = [layout spriteIndexForSpriteReference:itemCopy];
-    if ([layout numberOfItems] <= v8)
+    v9 = [v5 spriteIndexForSpriteReference:itemCopy];
+    if ([v5 numberOfItems] <= v8)
     {
-      v10 = [layout spriteIndexForAccessoryItem:{v8 - objc_msgSend(layout, "numberOfItems")}];
+      v10 = [v5 spriteIndexForAccessoryItem:{v8 - objc_msgSend(v5, "numberOfItems")}];
     }
 
     else
     {
-      v10 = [layout spriteIndexForItem:v8];
+      v10 = [v5 spriteIndexForItem:v8];
     }
 
     v7 = v9 == v10;
@@ -725,7 +725,7 @@ void __59__PXMessagesStackView__updateCurrentPresentationController__block_invok
   v7 = v6;
   v9 = v8;
 
-  layout = [(PXBaseMessagesStackView *)self layout];
+  v10 = objc_msgSend_layout(self);
   tungstenView2 = [(PXBaseMessagesStackView *)self tungstenView];
   v12 = [tungstenView2 hitTestResultsAtPoint:{v7, v9}];
 
@@ -745,7 +745,7 @@ void __59__PXMessagesStackView__updateCurrentPresentationController__block_invok
   v16 = *off_1E7722020;
   v17 = *off_1E7722018;
   v18 = *off_1E7722010;
-  v51 = layout;
+  v51 = v10;
   v52 = tapCopy;
   while (2)
   {
@@ -766,15 +766,15 @@ void __59__PXMessagesStackView__updateCurrentPresentationController__block_invok
         spriteReference2 = [v20 spriteReference];
         v32 = [(PXMessagesStackView *)self _isSpriteReferenceForPrimaryItem:spriteReference2];
 
-        layout2 = [(PXBaseMessagesStackView *)self layout];
-        v34 = [layout2 spriteIndexForSpriteReference:spriteReference];
+        v33 = objc_msgSend_layout(self);
+        v34 = [v33 spriteIndexForSpriteReference:spriteReference];
 
-        layout3 = [(PXBaseMessagesStackView *)self layout];
-        v36 = [layout3 itemForSpriteIndex:v34];
+        v35 = objc_msgSend_layout(self);
+        v36 = [v35 itemForSpriteIndex:v34];
 
         if (v32)
         {
-          layout = v51;
+          v10 = v51;
           tapCopy = v52;
           if (!self->_delegateRespondsTo.didSelectAssetReference)
           {
@@ -789,17 +789,17 @@ LABEL_23:
           goto LABEL_37;
         }
 
-        layout = v51;
+        v10 = v51;
         tapCopy = v52;
 LABEL_27:
         if (v36 != 0x7FFFFFFFFFFFFFFFLL)
         {
-          primaryItemIndex = [layout primaryItemIndex];
+          primaryItemIndex = [v10 primaryItemIndex];
           v46 = primaryItemIndex;
           if (v36 >= primaryItemIndex)
           {
             v49 = primaryItemIndex + 1;
-            numberOfItems = [layout numberOfItems];
+            numberOfItems = [v10 numberOfItems];
             if (v49 < numberOfItems - 1)
             {
               v48 = v46 + 1;
@@ -849,7 +849,7 @@ LABEL_27:
         spriteReference4 = [v20 spriteReference];
         v41 = [(PXMessagesStackView *)self _isSpriteReferenceForPrimaryItem:spriteReference4];
 
-        layout = v51;
+        v10 = v51;
         v42 = [v51 spriteIndexForSpriteReference:spriteReference3];
         numberOfItems2 = [v51 numberOfItems];
         v44 = [v51 accessoryItemForSpriteIndex:v42];
@@ -882,7 +882,7 @@ LABEL_27:
         if ([v27 handleTapAtPoint:?])
         {
 
-          layout = v51;
+          v10 = v51;
           tapCopy = v52;
           goto LABEL_25;
         }
@@ -890,7 +890,7 @@ LABEL_27:
     }
 
     v14 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
-    layout = v51;
+    v10 = v51;
     tapCopy = v52;
     if (v14)
     {
@@ -936,8 +936,8 @@ LABEL_38:
     tungstenView = [(PXBaseMessagesStackView *)self tungstenView];
     [tungstenView setCustomAssetImageViewClassConfigurator:v10];
 
-    layout = [(PXBaseMessagesStackView *)self layout];
-    [layout setSpritesNeedUpdate];
+    v9 = objc_msgSend_layout(self);
+    [v9 setSpritesNeedUpdate];
 
     objc_destroyWeak(&v11);
     objc_destroyWeak(&location);
@@ -997,8 +997,8 @@ LABEL_5:
   activityIndicatorViewUserData = self->_activityIndicatorViewUserData;
   self->_activityIndicatorViewUserData = 0;
 
-  layout = [(PXBaseMessagesStackView *)self layout];
-  [layout invalidateDecoration];
+  v4 = objc_msgSend_layout(self);
+  [v4 invalidateDecoration];
 
   [(PXMessagesStackView *)self removeTransitionSnapshotView];
 }
@@ -1134,7 +1134,7 @@ LABEL_5:
   referenceCopy = reference;
   [(PXBaseMessagesStackView *)self tungstenView];
   objc_claimAutoreleasedReturnValue();
-  [(PXBaseMessagesStackView *)self layout];
+  objc_msgSend_layout(self);
   objc_claimAutoreleasedReturnValue();
   v7 = 0;
   PXRegionOfInterestForAssetReference();
@@ -1166,9 +1166,9 @@ id __75__PXMessagesStackView__regionOfInterestForAssetReference_forTransitioning
       [(PXLRUMemoryCache *)self->_videoPresentationControllersByItem removeAllObjects];
     }
 
-    layout = [(PXBaseMessagesStackView *)self layout];
-    v5 = [off_1E7721450 changeDetailsWithChangedIndexRange:{0, objc_msgSend(layout, "numberOfItems")}];
-    [layout setNumberOfItems:objc_msgSend(layout withChangeDetails:"numberOfItems") changeMediaVersionHandler:{v5, &__block_literal_global_251975}];
+    v6 = objc_msgSend_layout(self, a2);
+    v5 = [off_1E7721450 changeDetailsWithChangedIndexRange:{0, objc_msgSend(v6, "numberOfItems")}];
+    [v6 setNumberOfItems:objc_msgSend(v6 withChangeDetails:"numberOfItems") changeMediaVersionHandler:{v5, &__block_literal_global_251975}];
     [(PXMessagesStackView *)self _updateCurrentPresentationController];
   }
 }
@@ -1338,8 +1338,8 @@ id __75__PXMessagesStackView__regionOfInterestForAssetReference_forTransitioning
   if (self->_cornerRadiusClipsTopLevelContent != content)
   {
     self->_cornerRadiusClipsTopLevelContent = content;
-    layout = [(PXBaseMessagesStackView *)self layout];
-    [layout setSpritesNeedUpdate];
+    v4 = objc_msgSend_layout(self, a2);
+    [v4 setSpritesNeedUpdate];
   }
 }
 
@@ -1359,16 +1359,16 @@ id __75__PXMessagesStackView__regionOfInterestForAssetReference_forTransitioning
   v4 = v3;
   if (v3)
   {
-    layout = [(PXBaseMessagesStackView *)v3 layout];
+    v5 = objc_msgSend_layout(v3);
     tungstenView = [(PXBaseMessagesStackView *)v4 tungstenView];
     v7 = objc_alloc_init(off_1E7721800);
     assetDecorationSource = v4->_assetDecorationSource;
     v4->_assetDecorationSource = v7;
 
-    [(PXPhotosGridAssetDecorationSource *)v4->_assetDecorationSource setDecoratedLayout:layout];
+    [(PXPhotosGridAssetDecorationSource *)v4->_assetDecorationSource setDecoratedLayout:v5];
     [(PXPhotosGridAssetDecorationSource *)v4->_assetDecorationSource setDurationAlwaysHidden:1];
     [(PXPhotosGridAssetDecorationSource *)v4->_assetDecorationSource setEnableSpatialBadges:1];
-    [layout setDelegate:v4];
+    [v5 setDelegate:v4];
     v9 = [objc_alloc(MEMORY[0x1E69DD060]) initWithTarget:v4 action:sel__handleTap_];
     [(UITapGestureRecognizer *)v9 setDelegate:v4];
     [(UITapGestureRecognizer *)v9 setCancelsTouchesInView:0];
@@ -1381,7 +1381,7 @@ id __75__PXMessagesStackView__regionOfInterestForAssetReference_forTransitioning
     videoPresentationControllersByItem = v4->_videoPresentationControllersByItem;
     v4->_videoPresentationControllersByItem = v12;
 
-    -[PXLRUMemoryCache setNumberOfSlots:](v4->_videoPresentationControllersByItem, "setNumberOfSlots:", (2 * [layout stackedItemsCount]) | 1);
+    -[PXLRUMemoryCache setNumberOfSlots:](v4->_videoPresentationControllersByItem, "setNumberOfSlots:", (2 * [v5 stackedItemsCount]) | 1);
     v14 = objc_alloc_init(PXMessagesStackPlaybackControlViewModel);
     playbackControlViewModel = v4->_playbackControlViewModel;
     v4->_playbackControlViewModel = v14;

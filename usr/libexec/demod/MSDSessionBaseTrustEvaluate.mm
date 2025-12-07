@@ -1,4 +1,5 @@
 @interface MSDSessionBaseTrustEvaluate
+- (BOOL)saveHubCertificateIdentifer:(__SecCertificate *)identifer applePKI:(BOOL)i;
 - (BOOL)trustServer:(__SecTrust *)server isRedirect:(BOOL)redirect;
 - (BOOL)trustServer:(__SecTrust *)server withRootCA:(__SecCertificate *)a withHostName:(id)name;
 - (BOOL)trustServerWithApplePKI:(__SecTrust *)i;
@@ -16,11 +17,11 @@
   [(MSDSessionBaseTrustEvaluate *)self setApplePKI:1];
   if (redirectCopy)
   {
-    v20 = 0;
+    v23 = 0;
     v8 = 0;
-    if (!SecTrustEvaluate(server, &v20))
+    if (!SecTrustEvaluate(server, &v23))
     {
-      v8 = v20 == 4 || v20 == 1;
+      v8 = v23 == 4 || v23 == 1;
     }
 
     v10 = 0;
@@ -30,9 +31,10 @@
   if (![(MSDSessionBaseTrustEvaluate *)self trustServerWithApplePKI:server])
   {
     [(MSDSessionBaseTrustEvaluate *)self setApplePKI:0];
-    if (![(MSDSessionBaseTrustEvaluate *)self trustServerWithAxinoePKI:server])
+    v11 = [(MSDSessionBaseTrustEvaluate *)self trustServerWithAxinoePKI:server];
+    if ((v11 & 1) == 0)
     {
-      sub_1000E3970();
+      sub_1000E3970(v11);
       goto LABEL_25;
     }
   }
@@ -40,7 +42,7 @@
   [(MSDSessionBaseTrustEvaluate *)self setLeafCertificate:SecTrustGetCertificateAtIndex(server, 0)];
   if (![(MSDSessionBaseTrustEvaluate *)self leafCertificate])
   {
-    sub_1000E3A38();
+    sub_1000E3A38(0);
 LABEL_25:
     v10 = 0;
 LABEL_30:
@@ -57,37 +59,38 @@ LABEL_30:
     goto LABEL_22;
   }
 
-  v12 = [(MSDSessionBaseTrustEvaluate *)self hashForCertificate:self->_leafCertificate];
-  v13 = [v10 isEqualToData:v12];
+  v13 = [(MSDSessionBaseTrustEvaluate *)self hashForCertificate:self->_leafCertificate];
+  v14 = [v10 isEqualToData:v13];
 
-  v14 = sub_100063A54();
-  v15 = v14;
-  if ((v13 & 1) == 0)
+  v16 = sub_100063A54(v15);
+  v17 = v16;
+  if ((v14 & 1) == 0)
   {
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       hexStringRepresentation = [v10 hexStringRepresentation];
-      v18 = [(MSDSessionBaseTrustEvaluate *)self hashForCertificate:self->_leafCertificate];
-      hexStringRepresentation2 = [v18 hexStringRepresentation];
-      v20 = 138543618;
-      v21 = hexStringRepresentation;
-      v22 = 2114;
-      v23 = hexStringRepresentation2;
-      _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Certificate hash does not match the saved one - Saved:  %{public}@ - Current:  %{public}@", &v20, 0x16u);
+      v21 = [(MSDSessionBaseTrustEvaluate *)self hashForCertificate:self->_leafCertificate];
+      hexStringRepresentation2 = [v21 hexStringRepresentation];
+      v23 = 138543618;
+      v24 = hexStringRepresentation;
+      v25 = 2114;
+      v26 = hexStringRepresentation2;
+      _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Certificate hash does not match the saved one - Saved:  %{public}@ - Current:  %{public}@", &v23, 0x16u);
     }
 
     goto LABEL_30;
   }
 
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v20) = 0;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Migrating certificate pinning.", &v20, 2u);
+    LOWORD(v23) = 0;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Migrating certificate pinning.", &v23, 2u);
   }
 
-  if (![(MSDSessionBaseTrustEvaluate *)self saveHubCertificateIdentifer:[(MSDSessionBaseTrustEvaluate *)self leafCertificate] applePKI:[(MSDSessionBaseTrustEvaluate *)self applePKI]])
+  v18 = [(MSDSessionBaseTrustEvaluate *)self saveHubCertificateIdentifer:[(MSDSessionBaseTrustEvaluate *)self leafCertificate] applePKI:[(MSDSessionBaseTrustEvaluate *)self applePKI]];
+  if ((v18 & 1) == 0)
   {
-    sub_1000E39DC();
+    sub_1000E39DC(v18);
     goto LABEL_30;
   }
 
@@ -105,7 +108,7 @@ LABEL_22:
   v5 = CFDataCreate(kCFAllocatorDefault, byte_1001A4CB8, dword_1001A5040);
   if (!v5)
   {
-    sub_1000E3C30();
+    sub_1000E3C30(0);
     return 0;
   }
 
@@ -120,17 +123,17 @@ LABEL_22:
   v8 = v7;
   if (![(MSDSessionBaseTrustEvaluate *)self trustServer:i withRootCA:v7 withHostName:0])
   {
-    v10 = 0;
-LABEL_22:
     v11 = 0;
+LABEL_22:
+    v13 = 0;
     goto LABEL_8;
   }
 
   CertificateAtIndex = SecTrustGetCertificateAtIndex(i, 0);
   if (!CertificateAtIndex)
   {
-    v13 = sub_100063A54();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = sub_100063A54(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_1000E3B48();
     }
@@ -138,26 +141,28 @@ LABEL_22:
     goto LABEL_18;
   }
 
-  if (SecCertificateCopyCommonName(CertificateAtIndex, &commonName))
+  v10 = SecCertificateCopyCommonName(CertificateAtIndex, &commonName);
+  if (v10)
   {
-    v13 = sub_100063A54();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = sub_100063A54(v10);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_1000E3A94();
     }
 
 LABEL_18:
-    v10 = 0;
+    v11 = 0;
 LABEL_21:
 
     goto LABEL_22;
   }
 
-  v10 = commonName;
-  if (([(__CFString *)commonName hasSuffix:@".hubs.iosdm.demounit.net"]& 1) == 0)
+  v11 = commonName;
+  v12 = [(__CFString *)commonName hasSuffix:@".hubs.iosdm.demounit.net"];
+  if ((v12 & 1) == 0)
   {
-    v13 = sub_100063A54();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = sub_100063A54(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_1000E3AD4();
     }
@@ -165,12 +170,12 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v11 = 1;
+  v13 = 1;
 LABEL_8:
   CFRelease(v6);
   CFRelease(v8);
 
-  return v11;
+  return v13;
 }
 
 - (BOOL)trustServerWithAxinoePKI:(__SecTrust *)i
@@ -178,7 +183,7 @@ LABEL_8:
   v5 = CFDataCreate(kCFAllocatorDefault, byte_1001A48A8, dword_1001A4CB4);
   if (!v5)
   {
-    sub_1000E3D74();
+    sub_1000E3D74(0);
     return 0;
   }
 
@@ -212,9 +217,9 @@ LABEL_8:
   SSL = SecPolicyCreateSSL(1u, name);
   if (!SSL)
   {
-    sub_1000E3F68();
-    v16 = 0;
-    v14 = 0;
+    sub_1000E3F68(0);
+    v18 = 0;
+    v15 = 0;
     goto LABEL_18;
   }
 
@@ -231,38 +236,40 @@ LABEL_8:
     }
   }
 
-  if (SecTrustCreateWithCertificates(Mutable, v8, &trust))
+  v14 = SecTrustCreateWithCertificates(Mutable, v8, &trust);
+  if (v14)
   {
-    sub_1000E3E10();
-    v16 = 0;
-    v14 = 0;
+    sub_1000E3E10(v14);
+    v18 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v14 = [NSArray arrayWithObjects:a, 0];
-    v15 = SecTrustSetAnchorCertificates(trust, v14);
-    if (v15)
+    v15 = [NSArray arrayWithObjects:a, 0];
+    v16 = SecTrustSetAnchorCertificates(trust, v15);
+    if (v16)
     {
-      sub_1000E3EAC(v15);
+      sub_1000E3EAC(v16);
     }
 
     else
     {
       result = kSecTrustResultInvalid;
-      if (SecTrustEvaluate(trust, &result))
+      v17 = SecTrustEvaluate(trust, &result);
+      if (v17)
       {
-        sub_1000DC14C();
+        sub_1000DC14C(v17);
       }
 
       else if (result == kSecTrustResultUnspecified || result == kSecTrustResultProceed)
       {
-        v16 = 1;
+        v18 = 1;
         goto LABEL_16;
       }
     }
 
-    v16 = 0;
+    v18 = 0;
   }
 
 LABEL_16:
@@ -278,7 +285,7 @@ LABEL_18:
     CFRelease(trust);
   }
 
-  return v16;
+  return v18;
 }
 
 - (id)hashForCertificate:(__SecCertificate *)certificate
@@ -294,11 +301,29 @@ LABEL_18:
 
   else
   {
-    sub_1000E4004();
+    sub_1000E4004(0);
     v5 = 0;
   }
 
   return v5;
+}
+
+- (BOOL)saveHubCertificateIdentifer:(__SecCertificate *)identifer applePKI:(BOOL)i
+{
+  v4 = [(MSDSessionBaseTrustEvaluate *)self identifierFor:identifer applePKI:i];
+  v7 = 0;
+  if (v4)
+  {
+    v5 = +[MSDTargetDevice sharedInstance];
+    v6 = [v5 saveHubCertificateIdentifer:v4];
+
+    if (v6)
+    {
+      v7 = 1;
+    }
+  }
+
+  return v7;
 }
 
 - (id)identifierFor:(__SecCertificate *)for applePKI:(BOOL)i

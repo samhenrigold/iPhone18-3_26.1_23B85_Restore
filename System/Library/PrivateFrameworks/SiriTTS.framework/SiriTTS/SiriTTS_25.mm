@@ -1,215 +1,6 @@
-void sub_1C316C6C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
+void sub_1C316CAFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *kaldi::quasar::releaseE5OptionsAndHandles(void *result, void *a2)
-{
-  if (*result)
-  {
-    result = e5rt_e5_compiler_options_release();
-  }
-
-  if (*a2)
-  {
-
-    return MEMORY[0x1EEE03278](a2);
-  }
-
-  return result;
-}
-
-void std::vector<char const*>::push_back[abi:ne200100](uint64_t a1, void *a2)
-{
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  if (v5 >= v4)
-  {
-    v7 = (v5 - *a1) >> 3;
-    if ((v7 + 1) >> 61)
-    {
-      std::vector<int>::__throw_length_error[abi:ne200100]();
-    }
-
-    v8 = v4 - *a1;
-    v9 = v8 >> 2;
-    if (v8 >> 2 <= (v7 + 1))
-    {
-      v9 = v7 + 1;
-    }
-
-    if (v8 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      v10 = 0x1FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v10 = v9;
-    }
-
-    if (v10)
-    {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<char const*>>(a1, v10);
-    }
-
-    v11 = (8 * v7);
-    *v11 = *a2;
-    v6 = 8 * v7 + 8;
-    v12 = *(a1 + 8) - *a1;
-    v13 = v11 - v12;
-    memcpy(v11 - v12, *a1, v12);
-    v14 = *a1;
-    *a1 = v13;
-    *(a1 + 8) = v6;
-    *(a1 + 16) = 0;
-    if (v14)
-    {
-      operator delete(v14);
-    }
-  }
-
-  else
-  {
-    *v5 = *a2;
-    v6 = (v5 + 1);
-  }
-
-  *(a1 + 8) = v6;
-}
-
-void std::basic_regex<char,std::regex_traits<char>>::~basic_regex(std::locale *this)
-{
-  locale = this[6].__locale_;
-  if (locale)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](locale);
-  }
-
-  std::locale::~locale(this);
-}
-
-uint64_t kaldi::quasar::purgeE5BundlesForMil(uint64_t a1)
-{
-  v17[34].__locale_ = 0;
-  if (e5rt_e5_compiler_create())
-  {
-    if (kaldi::g_kaldi_verbose_level >= -1)
-    {
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(v17, "purgeE5BundlesForMil", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-v2-bridge/EspressoV2MilCompiler.cc", 311);
-      v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "purgeE5BundlesForMil failed for: ", 33);
-      v3 = *(a1 + 23);
-      if (v3 >= 0)
-      {
-        v4 = a1;
-      }
-
-      else
-      {
-        v4 = *a1;
-      }
-
-      if (v3 >= 0)
-      {
-        v5 = *(a1 + 23);
-      }
-
-      else
-      {
-        v5 = *(a1 + 8);
-      }
-
-LABEL_19:
-      v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, v4, v5);
-      v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, " - ", 3);
-      last_error_message = e5rt_get_last_error_message();
-      v11 = strlen(last_error_message);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, last_error_message, v11);
-      kaldi::KaldiWarnMessage::~KaldiWarnMessage(v17);
-      return 0;
-    }
-
-    return 0;
-  }
-
-  if (*(a1 + 23) < 0)
-  {
-    v6 = *a1;
-  }
-
-  if (e5rt_e5_compiler_purge_e5_bundles_for_input_model())
-  {
-    if (kaldi::g_kaldi_verbose_level >= -1)
-    {
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(v17, "purgeE5BundlesForMil", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-v2-bridge/EspressoV2MilCompiler.cc", 316);
-      v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "purgeE5BundlesForMil failed for : ", 34);
-      v7 = *(a1 + 23);
-      if (v7 >= 0)
-      {
-        v4 = a1;
-      }
-
-      else
-      {
-        v4 = *a1;
-      }
-
-      if (v7 >= 0)
-      {
-        v5 = *(a1 + 23);
-      }
-
-      else
-      {
-        v5 = *(a1 + 8);
-      }
-
-      goto LABEL_19;
-    }
-
-    return 0;
-  }
-
-  if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
-  {
-    kaldi::KaldiLogMessage::KaldiLogMessage(v17, "purgeE5BundlesForMil", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-v2-bridge/EspressoV2MilCompiler.cc", 319);
-    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "purged E5 bundles for: ", 23);
-    v14 = *(a1 + 23);
-    if (v14 >= 0)
-    {
-      v15 = a1;
-    }
-
-    else
-    {
-      v15 = *a1;
-    }
-
-    if (v14 >= 0)
-    {
-      v16 = *(a1 + 23);
-    }
-
-    else
-    {
-      v16 = *(a1 + 8);
-    }
-
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, v15, v16);
-    kaldi::KaldiLogMessage::~KaldiLogMessage(v17);
-  }
-
-  return 1;
-}
-
-void sub_1C316CAFC(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
   kaldi::KaldiLogMessage::~KaldiLogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -217,8 +8,7 @@ void sub_1C316CAFC(_Unwind_Exception *a1, uint64_t a2, ...)
 BOOL std::string::__init_with_sentinel[abi:ne200100]<std::istreambuf_iterator<char>,std::istreambuf_iterator<char>>(std::string *a1, void *a2, void *a3)
 {
   v11 = a3;
-  a1->__r_.__value_.__l.__size_ = 0;
-  a1->__r_.__value_.__r.__words[2] = 0;
+  *&a1->__r_.__value_.__r.__words[1] = 0uLL;
   a1->__r_.__value_.__r.__words[0] = 0;
   while (1)
   {
@@ -310,15 +100,15 @@ BOOL std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](void **a1)
   return 1;
 }
 
-void std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](std::regex_traits<char> *a1, const char *a2, int a3)
+void std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](std::regex_traits<char> *a1, char *a2, int a3)
 {
-  v5 = std::regex_traits<char>::regex_traits(a1);
-  LODWORD(v5[1].__loc_.__locale_) = a3;
-  *(&v5[1].__loc_.__locale_ + 4) = 0u;
-  *(&v5[1].__col_ + 4) = 0u;
-  HIDWORD(v5[2].__ct_) = 0;
-  strlen(a2);
-  std::basic_regex<char,std::regex_traits<char>>::__parse<char const*>();
+  v6 = std::regex_traits<char>::regex_traits(a1);
+  LODWORD(v6[1].__loc_.__locale_) = a3;
+  *(&v6[1].__loc_.__locale_ + 4) = 0u;
+  *(&v6[1].__col_ + 4) = 0u;
+  HIDWORD(v6[2].__ct_) = 0;
+  v7 = strlen(a2);
+  std::basic_regex<char,std::regex_traits<char>>::__parse<char const*>(a1, a2, &a2[v7]);
 }
 
 void sub_1C316CD8C(_Unwind_Exception *a1)
@@ -433,7 +223,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_basic_r
   return v3;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   end = a1->__end_;
   v7 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(a1, a2, a3);
@@ -447,7 +237,7 @@ LABEL_8:
   while (v8 != a3 && *v8 == 124)
   {
     v9 = a1->__end_;
-    v10 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(a1, (v8 + 1), a3);
+    v10 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(a1, v8 + 1, a3);
     if (v10 == v8 + 1)
     {
       goto LABEL_8;
@@ -520,7 +310,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_grep<ch
   return v8;
 }
 
-std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_egrep<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *__s, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_egrep<char const*>(std::basic_regex<char> *a1, unsigned __int8 *__s, unsigned __int8 *a3)
 {
   end = a1->__end_;
   v7 = memchr(__s, 10, a3 - __s);
@@ -542,7 +332,7 @@ std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_
   std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, __s, v8);
   if (v8 != a3)
   {
-    v8 = (v8 + 1);
+    ++v8;
   }
 
   while (v8 != a3)
@@ -573,7 +363,7 @@ std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_
 
     else
     {
-      v8 = (&v10->__traits_.__loc_.__locale_ + 1);
+      v8 = v10 + 1;
     }
   }
 
@@ -1299,38 +1089,37 @@ void std::__lookahead<char,std::regex_traits<char>>::~__lookahead(std::locale *a
 
 void std::__lookahead<char,std::regex_traits<char>>::__exec(uint64_t a1, uint64_t a2)
 {
+  v19 = 0;
   v20 = 0;
   v21 = 0;
-  v22 = 0;
-  memset(&v23, 0, 17);
+  memset(&v22, 0, 17);
+  v23 = 0;
   v24 = 0;
-  v25 = 0;
   memset(&__p, 0, sizeof(__p));
   v4 = (*(a1 + 44) + 1);
   v5 = *(a2 + 16);
-  v19.first = *(a2 + 24);
-  v19.second = v19.first;
-  v19.matched = 0;
-  std::vector<std::sub_match<char const*>>::assign(&__p, v4, &v19);
+  v18.first = *(a2 + 24);
+  v18.second = v18.first;
+  v18.matched = 0;
+  std::vector<std::sub_match<char const*>>::assign(&__p, v4, &v18);
+  v19 = v5;
   v20 = v5;
-  v21 = v5;
-  v22 = 0;
-  v23 = v19;
-  v25 = v5;
-  v24 = 1;
-  v6 = *(a2 + 88) & 0xFFF;
-  v7 = *(a2 + 16);
-  if (v7 == *(a2 + 8))
+  v21 = 0;
+  v22 = v18;
+  v24 = v5;
+  v23 = 1;
+  v6 = *(a2 + 16);
+  if (v6 == *(a2 + 8))
   {
-    v8 = *(a2 + 92);
+    v7 = *(a2 + 92);
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  if (*(a1 + 84) == std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1 + 16, v7, *(a2 + 24), &__p, *(a2 + 88) & 0xFBF | 0x40u, v8))
+  if (*(a1 + 84) == std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1 + 16, v6, *(a2 + 24), &__p, *(a2 + 88) & 0xFBF | 0x40u, v7))
   {
     *a2 = -993;
     *(a2 + 80) = 0;
@@ -1341,8 +1130,8 @@ void std::__lookahead<char,std::regex_traits<char>>::__exec(uint64_t a1, uint64_
   *a2 = -994;
   *(a2 + 80) = *(a1 + 8);
   begin = __p.__begin_;
-  v10 = 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3);
-  if (v10 < 2)
+  v9 = 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3);
+  if (v9 < 2)
   {
 LABEL_10:
     if (!begin)
@@ -1353,21 +1142,21 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v11 = *(a1 + 80);
-  v12 = *(a2 + 32);
-  v13 = 2;
-  v14 = 1;
+  v10 = *(a1 + 80);
+  v11 = *(a2 + 32);
+  v12 = 2;
+  v13 = 1;
   do
   {
-    v15 = &begin[v14];
-    v16 = v12 + 24 * v11;
-    *v16 = v15->std::pair<const char *, const char *>;
-    *(v16 + 16) = v15->matched;
-    v14 = v13;
-    ++v11;
+    v14 = &begin[v13];
+    v15 = v11 + 24 * v10;
+    *v15 = v14->std::pair<const char *, const char *>;
+    *(v15 + 16) = v14->matched;
+    v13 = v12;
+    ++v10;
   }
 
-  while (v10 > v13++);
+  while (v9 > v12++);
 LABEL_11:
   __p.__end_ = begin;
   operator delete(begin);
@@ -1792,7 +1581,7 @@ LABEL_19:
   return v3;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3, std::string *this)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<char const*>(std::basic_regex<char> *a1, std::basic_regex<char>::value_type *a2, std::basic_regex<char>::value_type *a3, std::string *this)
 {
   v4 = a2;
   if (a2 == a3)
@@ -1850,7 +1639,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_charact
           goto LABEL_72;
         }
 
-        v4 = a2 + 2;
+        v4 = (a2 + 2);
         if (a2 + 2 == a3)
         {
           goto LABEL_72;
@@ -2236,7 +2025,6 @@ uint64_t std::__back_ref_icase<char,std::regex_traits<char>>::__exec(uint64_t re
     if (*(a2 + 24) - v5 >= v4)
     {
       v7 = result;
-      v8 = *(v3 + 8) != *v3;
       if (v4 < 1)
       {
 LABEL_10:
@@ -2246,17 +2034,17 @@ LABEL_10:
         goto LABEL_4;
       }
 
-      v9 = 0;
+      v8 = 0;
       while (1)
       {
-        v10 = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*v3 + v9));
-        result = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*(a2 + 16) + v9));
-        if (v10 != result)
+        v9 = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*v3 + v8));
+        result = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*(a2 + 16) + v8));
+        if (v9 != result)
         {
           break;
         }
 
-        if (v4 == ++v9)
+        if (v4 == ++v8)
         {
           v5 = *(a2 + 16);
           goto LABEL_10;
@@ -3183,7 +2971,7 @@ LABEL_14:
   return v6 + 2;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3, std::string *this, uint64_t a5)
+std::basic_regex<char>::value_type *std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<char const*>(std::basic_regex<char> *a1, std::basic_regex<char>::value_type *a2, std::basic_regex<char>::value_type *a3, std::string *this, uint64_t a5)
 {
   if (a2 == a3)
   {
@@ -3665,11 +3453,11 @@ LABEL_74:
   }
 }
 
-void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, unsigned __int8 a2, uint64_t a3)
+void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 169) == 1)
   {
-    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24), a2);
     v11 = v5 | ((*(**(a1 + 24) + 40))(*(a1 + 24), a3) << 8);
     v6 = a1 + 112;
     v7 = &v11;
@@ -3852,14 +3640,12 @@ void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](ui
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = *(a2 + 24);
     *(v4 + 40) = *(a2 + 5);
     *(v4 + 24) = v7;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     v8 = v4 + 48;
   }
@@ -4108,7 +3894,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_nondupl
     v8 = v6[1];
     if (v8 == 40)
     {
-      v9 = v6 + 2;
+      v9 = (v6 + 2);
       std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(a1);
       marked_count = a1->__marked_count_;
       do
@@ -4319,7 +4105,7 @@ BOOL std::basic_regex<char,std::regex_traits<char>>::__test_back_ref(std::basic_
   return 1;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   v6 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<char const*>(a1, a2, a3);
   if (v6 == a2)
@@ -4337,7 +4123,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_bra
   return v7;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   end = a1->__end_;
   marked_count = a1->__marked_count_;
@@ -4355,7 +4141,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_exp
         std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(a1);
         v11 = a1->__marked_count_;
         ++a1->__open_count_;
-        v12 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, v9 + 1, a3);
+        v12 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, (v9 + 1), a3);
         if (v12 == a3 || (v9 = v12, *v12 != 41))
         {
           std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)6>();
@@ -4623,11 +4409,11 @@ std::string *std::match_results<std::__wrap_iter<char const*>>::format<std::back
             v35 = &(*a1)[3 * (v29 - 48)];
             if (0xAAAAAAAAAAAAAAABLL * (a1[1] - *a1) <= v34)
             {
-              v35 = (a1 + 3);
+              v35 = a1 + 3;
             }
 
             v36 = *v35;
-            v37 = *(v35 + 8);
+            v37 = v35[1];
             while (v36 != v37)
             {
               v38 = *v36++;
@@ -4748,7 +4534,7 @@ LABEL_54:
 
           if (0xAAAAAAAAAAAAAAABLL * (a1[1] - *a1) <= v18)
           {
-            v22 = (a1 + 3);
+            v22 = a1 + 3;
           }
 
           else
@@ -4757,7 +4543,7 @@ LABEL_54:
           }
 
           v23 = *v22;
-          v24 = *(v22 + 8);
+          v24 = v22[1];
           while (v23 != v24)
           {
             v25 = *v23++;
@@ -5299,6 +5085,13 @@ LABEL_71:
   return v49;
 }
 
+void sub_1C3173B64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  std::deque<std::__state<char>>::~deque[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
 uint64_t std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_subs<std::allocator<std::sub_match<char const*>>>(uint64_t a1, const char *a2, const char *a3, uint64_t *a4, int a5, char a6)
 {
   v52 = 0;
@@ -5539,50 +5332,49 @@ void sub_1C3174040(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-__n128 std::deque<std::__state<char>>::push_back(uint64_t a1, uint64_t a2)
+__n128 std::deque<std::__state<char>>::push_back(unint64_t *a1, uint64_t a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  v7 = 42 * ((v5 - v6) >> 3) - 1;
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  v6 = 42 * ((v4 - v5) >> 3) - 1;
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = *(a1 + 40) + *(a1 + 32);
-  if (v7 == v8)
+  v7 = a1[5] + a1[4];
+  if (v6 == v7)
   {
     std::deque<std::__state<char>>::__add_back_capacity(a1);
-    v6 = *(a1 + 8);
-    v8 = *(a1 + 40) + *(a1 + 32);
+    v5 = a1[1];
+    v7 = a1[5] + a1[4];
   }
 
-  v9 = *(v6 + 8 * (v8 / 0x2A)) + 96 * (v8 % 0x2A);
-  v10 = *(a2 + 16);
-  *v9 = *a2;
-  *(v9 + 16) = v10;
-  *(v9 + 40) = 0;
-  *(v9 + 48) = 0;
-  *(v9 + 32) = 0;
-  *(v9 + 32) = *(a2 + 32);
-  *(v9 + 48) = *(a2 + 48);
+  v8 = *(v5 + 8 * (v7 / 0x2A)) + 96 * (v7 % 0x2A);
+  v9 = *(a2 + 16);
+  *v8 = *a2;
+  *(v8 + 16) = v9;
+  *(v8 + 40) = 0;
+  *(v8 + 48) = 0;
+  *(v8 + 32) = 0;
+  *(v8 + 32) = *(a2 + 32);
+  *(v8 + 48) = *(a2 + 48);
   *(a2 + 32) = 0;
   *(a2 + 40) = 0;
   *(a2 + 48) = 0;
-  *(v9 + 56) = 0;
-  *(v9 + 64) = 0;
-  *(v9 + 72) = 0;
+  *(v8 + 56) = 0;
+  *(v8 + 64) = 0;
+  *(v8 + 72) = 0;
   result = *(a2 + 56);
-  *(v9 + 56) = result;
-  *(v9 + 72) = *(a2 + 72);
+  *(v8 + 56) = result;
+  *(v8 + 72) = *(a2 + 72);
   *(a2 + 56) = 0;
   *(a2 + 64) = 0;
   *(a2 + 72) = 0;
-  v12 = *(a2 + 80);
-  *(v9 + 85) = *(a2 + 85);
-  *(v9 + 80) = v12;
-  ++*(a1 + 40);
+  v11 = *(a2 + 80);
+  *(v8 + 85) = *(a2 + 85);
+  *(v8 + 80) = v11;
+  ++a1[5];
   return result;
 }
 
@@ -5644,19 +5436,19 @@ int64x2_t std::deque<std::__state<char>>::push_front(int64x2_t *a1, uint64_t a2)
   return result;
 }
 
-void *std::deque<std::__state<char>>::__add_back_capacity(void *a1)
+void std::deque<std::__state<char>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x2A;
   v3 = v1 - 42;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -5664,25 +5456,25 @@ void *std::deque<std::__state<char>>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<float> *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<float> *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<std::pair<int,int> *,std::allocator<std::pair<int,int> *>>::emplace_back<std::pair<int,int> *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<std::pair<int,int> *,std::allocator<std::pair<int,int> *>>::emplace_back<std::pair<int,int> *&>(a1, &v9);
 }
 
 void sub_1C31744A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -5735,10 +5527,10 @@ uint64_t std::deque<std::__state<char>>::__maybe_remove_back_spare[abi:ne200100]
   return v7 ^ 1u;
 }
 
-const void **std::deque<std::__state<char>>::__add_front_capacity(uint64_t a1)
+void std::deque<std::__state<char>>::__add_front_capacity(const void **a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
+  v1 = a1[1];
+  v2 = a1[2];
   v3 = v2 - v1;
   if (v2 == v1)
   {
@@ -5750,15 +5542,15 @@ const void **std::deque<std::__state<char>>::__add_front_capacity(uint64_t a1)
     v4 = 42 * ((v2 - v1) >> 3) - 1;
   }
 
-  v5 = *(a1 + 32);
-  if ((v4 - (*(a1 + 40) + v5)) < 0x2A)
+  v5 = a1[4];
+  if ((v4 - (a1[5] + v5)) < 0x2A)
   {
-    v7 = *(a1 + 24);
-    v8 = *a1;
-    v9 = &v7[-*a1];
-    if (v3 < v9)
+    v6 = a1[3];
+    v7 = *a1;
+    v8 = v6 - *a1;
+    if (v3 < v8)
     {
-      if (v1 != v8)
+      if (v1 != v7)
       {
         operator new();
       }
@@ -5766,24 +5558,24 @@ const void **std::deque<std::__state<char>>::__add_front_capacity(uint64_t a1)
       operator new();
     }
 
-    if (v7 == v8)
+    if (v6 == v7)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9 >> 2;
+      v9 = v8 >> 2;
     }
 
-    v11[4] = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<float> *>>(a1, v10);
+    v10[4] = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<float> *>>(a1, v9);
   }
 
-  *(a1 + 32) = v5 + 42;
-  v11[0] = *(v2 - 1);
-  *(a1 + 16) = v2 - 8;
-  return std::__split_buffer<std::pair<int,int> *,std::allocator<std::pair<int,int> *>>::emplace_front<std::pair<int,int> *>(a1, v11);
+  a1[4] = (v5 + 42);
+  v10[0] = *(v2 - 8);
+  a1[2] = (v2 - 8);
+  std::__split_buffer<std::pair<int,int> *,std::allocator<std::pair<int,int> *>>::emplace_front<std::pair<int,int> *>(a1, v10);
 }
 
 void sub_1C3174770(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -5876,7 +5668,7 @@ LABEL_16:
   return std::__split_buffer<char **>::~__split_buffer(a1);
 }
 
-_BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(void *a1, uint64_t a2, __int128 *a3, unint64_t a4)
+char *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t *a1, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -5925,7 +5717,7 @@ _BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100
     {
       *result = *v5;
       result[16] = *(v5 + 16);
-      v5 += 24;
+      v5 = (v5 + 24);
       result += 24;
     }
 
@@ -5941,7 +5733,7 @@ _BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100
       {
         *result = *v5;
         result[16] = *(v5 + 16);
-        v5 += 24;
+        v5 = (v5 + 24);
         result += 24;
       }
 
@@ -5975,7 +5767,7 @@ _BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100
   return result;
 }
 
-char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(char **a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
+char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t *a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -6060,7 +5852,8 @@ char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:
       v15 = v11;
       do
       {
-        v16 = *v12++;
+        v16 = *v12;
+        v12 += 2;
         *v11 = v16;
         v11 += 16;
         v15 += 16;
@@ -6363,7 +6156,7 @@ uint64_t kaldi::quasar::ESNetworkConfig::ESNetworkConfig(uint64_t a1, __int128 *
   return a1;
 }
 
-void kaldi::quasar::ESNetworkConfig::Read(uint64_t a1, uint64_t *a2, char a3, uint64_t a4, const char *a5)
+void kaldi::quasar::ESNetworkConfig::Read(uint64_t a1, uint64_t *a2, char a3, const void **a4, const char *a5)
 {
   memset(&__str, 0, sizeof(__str));
   v41[0] = 0;
@@ -6385,7 +6178,7 @@ void kaldi::quasar::ESNetworkConfig::Read(uint64_t a1, uint64_t *a2, char a3, ui
 
     else
     {
-      v13 = *(a4 + 8);
+      v13 = a4[1];
     }
 
     v14 = HIBYTE(v40);
@@ -6488,7 +6281,7 @@ LABEL_81:
 LABEL_57:
           kaldi::ReadToken(a2, a3, v41, a4, a5);
           v38[0] = v41;
-          v28 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 64, v41);
+          v28 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 64), v41, &std::piecewise_construct, v38, v44);
           std::string::operator=((v28 + 56), &__str);
           goto LABEL_71;
         }
@@ -6612,9 +6405,9 @@ void sub_1C3175594(_Unwind_Exception *a1)
   std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table(v5);
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v1 + 256, *(v1 + 264));
   std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table(v3);
-  std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table(v1 + 176);
+  std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table((v1 + 176));
   kaldi::quasar::ESNetworkConfig::~ESNetworkConfig(v2);
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(v1);
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
   _Unwind_Resume(a1);
 }
 
@@ -6648,14 +6441,14 @@ void kaldi::quasar::ESNetworkPlan::LoadNetwork(uint64_t a1, uint64_t a2)
         case 11:
           if (**v7 != 0x544E55525F454E41 || *(*v7 + 3) != 0x454D49544E55525FLL)
           {
-            goto LABEL_164;
+            goto LABEL_162;
           }
 
           break;
         case 15:
           if (**v7 != 0x504D5F4C4154454DLL || *(*v7 + 7) != 0x48504152475F5350)
           {
-            goto LABEL_164;
+            goto LABEL_162;
           }
 
           break;
@@ -6663,12 +6456,12 @@ void kaldi::quasar::ESNetworkPlan::LoadNetwork(uint64_t a1, uint64_t a2)
           v15 = **v7 == 0x544E55525F454E41 && *(*v7 + 1) == 0x455249445F454D49;
           if (!v15 || (*v7)[8] != 21571)
           {
-            goto LABEL_164;
+            goto LABEL_162;
           }
 
           break;
         default:
-          goto LABEL_164;
+          goto LABEL_162;
       }
     }
 
@@ -6680,7 +6473,7 @@ void kaldi::quasar::ESNetworkPlan::LoadNetwork(uint64_t a1, uint64_t a2)
         {
           if (v5 != 7)
           {
-            goto LABEL_164;
+            goto LABEL_162;
           }
 
           v8 = *v7;
@@ -6689,33 +6482,33 @@ void kaldi::quasar::ESNetworkPlan::LoadNetwork(uint64_t a1, uint64_t a2)
 
         if (**v7 != 1096041805 || *(*v7 + 4) != 76)
         {
-LABEL_164:
-          kaldi::KaldiErrorMessage::KaldiErrorMessage(&v76, "MakeEspressoContext", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 271);
-          v66 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v76, "Unknown platform: ", 18);
-          v67 = *(a1 + 119);
-          if (v67 >= 0)
+LABEL_162:
+          kaldi::KaldiErrorMessage::KaldiErrorMessage(&v66, "MakeEspressoContext", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 271);
+          v56 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v66, "Unknown platform: ", 18);
+          v57 = *(a1 + 119);
+          if (v57 >= 0)
           {
-            v68 = a1 + 96;
+            v58 = a1 + 96;
           }
 
           else
           {
-            v68 = *(a1 + 96);
+            v58 = *(a1 + 96);
           }
 
-          if (v67 >= 0)
+          if (v57 >= 0)
           {
-            v69 = *(a1 + 119);
+            v59 = *(a1 + 119);
           }
 
           else
           {
-            v69 = *(a1 + 104);
+            v59 = *(a1 + 104);
           }
 
-          v70 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v66, v68, v69);
-          std::operator<<[abi:ne200100]<std::char_traits<char>>(v70, ", a typo in config file?");
-          kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v76);
+          v60 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v56, v58, v59);
+          std::operator<<[abi:ne200100]<std::char_traits<char>>(v60, ", a typo in config file?");
+          kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v66);
         }
 
         goto LABEL_75;
@@ -6728,7 +6521,7 @@ LABEL_164:
         v28 = *(v25 + 2);
         if (v27 != 20547 || v28 != 85)
         {
-          goto LABEL_164;
+          goto LABEL_162;
         }
       }
     }
@@ -6741,14 +6534,14 @@ LABEL_164:
       case 11:
         if (*v7 != 0x544E55525F454E41 || *(a1 + 99) != 0x454D49544E55525FLL)
         {
-          goto LABEL_164;
+          goto LABEL_162;
         }
 
         break;
       case 15:
         if (*v7 != 0x504D5F4C4154454DLL || *(a1 + 103) != 0x48504152475F5350)
         {
-          goto LABEL_164;
+          goto LABEL_162;
         }
 
         break;
@@ -6756,12 +6549,12 @@ LABEL_164:
         v13 = *v7 == 0x544E55525F454E41 && *(a1 + 104) == 0x455249445F454D49;
         if (!v13 || *(a1 + 112) != 21571)
         {
-          goto LABEL_164;
+          goto LABEL_162;
         }
 
         break;
       default:
-        goto LABEL_164;
+        goto LABEL_162;
     }
   }
 
@@ -6774,7 +6567,7 @@ LABEL_164:
         v8 = (a1 + 96);
         if (v4 != 7)
         {
-          goto LABEL_164;
+          goto LABEL_162;
         }
 
 LABEL_17:
@@ -6782,7 +6575,7 @@ LABEL_17:
         v11 = *(v8 + 3);
         if (v10 != 1599426627 || v11 != 1414283615)
         {
-          goto LABEL_164;
+          goto LABEL_162;
         }
 
         goto LABEL_99;
@@ -6790,16 +6583,16 @@ LABEL_17:
 
       if (*v7 != 1096041805 || *(a1 + 100) != 76)
       {
-        goto LABEL_164;
+        goto LABEL_162;
       }
 
 LABEL_75:
       if (kaldi::g_kaldi_verbose_level >= -1)
       {
-        kaldi::KaldiWarnMessage::KaldiWarnMessage(&v76, "MakeEspressoContext", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 259);
-        v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v76, "Using The Metal GPU backend (legacy, deprecated) ", 49);
+        kaldi::KaldiWarnMessage::KaldiWarnMessage(&v66, "MakeEspressoContext", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 259);
+        v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v66, "Using The Metal GPU backend (legacy, deprecated) ", 49);
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, "\n", 1);
-        kaldi::KaldiWarnMessage::~KaldiWarnMessage(&v76);
+        kaldi::KaldiWarnMessage::~KaldiWarnMessage(&v66);
       }
 
       goto LABEL_99;
@@ -6807,7 +6600,7 @@ LABEL_75:
 
     if ((*v7 != 20557 || *(a1 + 98) != 83) && (*v7 != 20547 || *(a1 + 98) != 85))
     {
-      goto LABEL_164;
+      goto LABEL_162;
     }
   }
 
@@ -6815,8 +6608,8 @@ LABEL_99:
   context = espresso_create_context();
   if (kaldi::g_kaldi_verbose_level >= 3)
   {
-    kaldi::KaldiVlogMessage::KaldiVlogMessage(&v76, "MakeEspressoContext", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 273, 3);
-    v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v76, "Set compute platform to ", 24);
+    kaldi::KaldiVlogMessage::KaldiVlogMessage(&v66, "MakeEspressoContext", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 273, 3);
+    v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v66, "Set compute platform to ", 24);
     v32 = *(a1 + 119);
     if (v32 >= 0)
     {
@@ -6839,7 +6632,7 @@ LABEL_99:
     }
 
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, v33, v34);
-    kaldi::KaldiVlogMessage::~KaldiVlogMessage(&v76);
+    kaldi::KaldiVlogMessage::~KaldiVlogMessage(&v66);
   }
 
 LABEL_107:
@@ -6851,107 +6644,100 @@ LABEL_107:
   *(a1 + 144) = context;
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v75, *a2, *(a2 + 8));
-    v35 = *(a1 + 144);
+    std::string::__init_copy_ctor_external(&v65, *a2, *(a2 + 8));
   }
 
   else
   {
-    v75 = *a2;
+    v65 = *a2;
   }
 
   plan_and_load_network = espresso_create_plan_and_load_network();
   *(a1 + 168) = plan_and_load_network;
   if (!plan_and_load_network)
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(&v76, "LoadNetwork", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 369);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v76, "plan_ != nullptr", 16);
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v76);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(&v66, "LoadNetwork", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 369);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v66, "plan_ != nullptr", 16);
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v66);
   }
 
-  memset(v74, 0, sizeof(v74));
-  v37 = *(a1 + 152);
-  v38 = *(a1 + 160);
+  memset(v64, 0, sizeof(v64));
   c_network_get_input_names();
-  v71 = 0;
-  v72 = 0;
-  v73 = 0;
-  v39 = *(a1 + 152);
-  v40 = *(a1 + 160);
+  v61 = 0;
+  v62 = 0;
+  v63 = 0;
   c_network_get_output_names();
-  std::unordered_set<std::string>::unordered_set<std::__wrap_iter<std::string*>>(&v76, 0, 0);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__move_assign(a1 + 176, &v76);
-  std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table(&v76);
-  std::unordered_set<std::string>::unordered_set<std::__wrap_iter<std::string*>>(&v76, 0, 0);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__move_assign(a1 + 216, &v76);
-  std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table(&v76);
-  v41 = *(a1 + 168);
+  std::unordered_set<std::string>::unordered_set<std::__wrap_iter<std::string*>>(&v66, 0, 0);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__move_assign(a1 + 176, &v66);
+  std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table(&v66.__locale_);
+  std::unordered_set<std::string>::unordered_set<std::__wrap_iter<std::string*>>(&v66, 0, 0);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__move_assign(a1 + 216, &v66);
+  std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table(&v66.__locale_);
   if (espresso_plan_build())
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(&v76, "LoadNetwork", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 386);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v76, "espresso_plan_build(plan_) == ESPRESSO_STATUS_SUCCESS", 53);
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v76);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(&v66, "LoadNetwork", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 386);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v66, "espresso_plan_build(plan_) == ESPRESSO_STATUS_SUCCESS", 53);
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v66);
   }
 
   if (*(a1 + 168) != *(a1 + 152))
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(&v76, "LoadNetwork", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 387);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v76, "plan_ == network_.plan", 22);
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v76);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(&v66, "LoadNetwork", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 387);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v66, "plan_ == network_.plan", 22);
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v66);
   }
 
-  v76.__locale_ = 0;
-  v77 = 0;
-  v78 = 0;
-  v42 = *(a1 + 160);
+  v66.__locale_ = 0;
+  v67 = 0;
+  v68 = 0;
   espresso_get_additional_configuration_names();
-  locale = v76.__locale_;
-  if (v76.__locale_ == v77)
+  locale = v66.__locale_;
+  if (v66.__locale_ == v67)
   {
-    v46 = 0;
+    v39 = 0;
     *(a1 + 320) = 0;
   }
 
   else
   {
-    v44 = *(v76.__locale_ + 23);
-    if (v44 < 0)
+    v37 = *(v66.__locale_ + 23);
+    if (v37 < 0)
     {
-      v45 = *v76.__locale_;
-      v44 = *(v76.__locale_ + 1);
+      v38 = *v66.__locale_;
+      v37 = *(v66.__locale_ + 1);
     }
 
     else
     {
-      v45 = v76.__locale_;
+      v38 = v66.__locale_;
     }
 
-    if (v44 >= 13)
+    if (v37 >= 13)
     {
-      v47 = v45 + v44;
-      v48 = v45;
+      v40 = v38 + v37;
+      v41 = v38;
       do
       {
-        v49 = memchr(v48, 98, v44 - 12);
-        if (!v49)
+        v42 = memchr(v41, 98, v37 - 12);
+        if (!v42)
         {
           break;
         }
 
-        if (*v49 == 0x6F635F6863746162 && *(v49 + 5) == 0x5F6769666E6F635FLL)
+        if (*v42 == 0x6F635F6863746162 && *(v42 + 5) == 0x5F6769666E6F635FLL)
         {
           goto LABEL_130;
         }
 
-        v48 = (v49 + 1);
-        v44 = v47 - v48;
+        v41 = (v42 + 1);
+        v37 = v40 - v41;
       }
 
-      while (v47 - v48 > 12);
-      v49 = v47;
+      while (v40 - v41 > 12);
+      v42 = v40;
 LABEL_130:
-      v52 = v49 != v47 && v49 == v45;
-      *(a1 + 320) = v52;
+      v45 = v42 != v40 && v42 == v38;
+      *(a1 + 320) = v45;
     }
 
     else
@@ -6959,70 +6745,63 @@ LABEL_130:
       *(a1 + 320) = 0;
     }
 
-    v53 = *(locale + 23);
-    if (v53 < 0)
+    v46 = *(locale + 23);
+    if (v46 < 0)
     {
-      v54 = locale;
+      v47 = locale;
       locale = *locale;
-      v53 = *(v54 + 1);
+      v46 = *(v47 + 1);
     }
 
-    v55 = locale + v53;
-    if (v53 >= 13)
+    v48 = locale + v46;
+    if (v46 >= 13)
     {
-      v56 = locale;
+      v49 = locale;
       do
       {
-        v57 = memchr(v56, 119, v53 - 12);
-        if (!v57)
+        v50 = memchr(v49, 119, v46 - 12);
+        if (!v50)
         {
           break;
         }
 
-        if (*v57 == 0x6F635F6874646977 && *(v57 + 5) == 0x5F6769666E6F635FLL)
+        if (*v50 == 0x6F635F6874646977 && *(v50 + 5) == 0x5F6769666E6F635FLL)
         {
           goto LABEL_148;
         }
 
-        v56 = (v57 + 1);
-        v53 = v55 - v56;
+        v49 = (v50 + 1);
+        v46 = v48 - v49;
       }
 
-      while (v55 - v56 > 12);
+      while (v48 - v49 > 12);
     }
 
-    v57 = v55;
+    v50 = v48;
 LABEL_148:
-    v46 = v57 != v55 && v57 == locale;
+    v39 = v50 != v48 && v50 == locale;
   }
 
-  *(a1 + 321) = v46;
-  v60 = v71;
-  for (i = v72; v60 != i; v60 += 24)
+  *(a1 + 321) = v39;
+  v53 = v61;
+  for (i = v62; v53 != i; v53 += 3)
   {
-    LODWORD(v80) = 0;
-    if (*(v60 + 23) < 0)
-    {
-      v62 = *v60;
-    }
-
-    v63 = *(a1 + 152);
-    v64 = *(a1 + 160);
+    LODWORD(v71) = 0;
     espresso_blob_is_dynamic();
-    v65 = v80;
-    v79 = v60;
-    *(std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 280), v60) + 10) = v65;
+    v55 = v71;
+    v70 = v53;
+    *(std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 280), v53, &std::piecewise_construct, &v70, &v69) + 10) = v55;
   }
 
-  v80 = &v76;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v80);
-  v76.__locale_ = &v71;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v76);
-  v76.__locale_ = v74;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v76);
-  if (SHIBYTE(v75.__r_.__value_.__r.__words[2]) < 0)
+  v71 = &v66;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v71);
+  v66.__locale_ = &v61;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v66);
+  v66.__locale_ = v64;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v66);
+  if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v75.__r_.__value_.__l.__data_);
+    operator delete(v65.__r_.__value_.__l.__data_);
   }
 }
 
@@ -7031,27 +6810,26 @@ void kaldi::quasar::ESNetworkPlan::~ESNetworkPlan(kaldi::quasar::ESNetworkPlan *
   *this = &unk_1F42CD848;
   if (*(this + 21) && espresso_plan_destroy())
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v3, "~ESNetworkPlan", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 315);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, "ret == ESPRESSO_STATUS_SUCCESS", 30);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v2, "~ESNetworkPlan", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 315);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, "ret == ESPRESSO_STATUS_SUCCESS", 30);
 LABEL_9:
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v3);
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v2);
   }
 
-  v2 = *(this + 18);
   if (espresso_context_destroy())
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v3, "~ESNetworkPlan", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 318);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, "ret == ESPRESSO_STATUS_SUCCESS", 30);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v2, "~ESNetworkPlan", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 318);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, "ret == ESPRESSO_STATUS_SUCCESS", 30);
     goto LABEL_9;
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table(this + 280);
+  std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table(this + 35);
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(this + 256, *(this + 33));
-  std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table(this + 216);
-  std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table(this + 176);
+  std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table(this + 27);
+  std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table(this + 22);
   kaldi::quasar::ESNetworkConfig::~ESNetworkConfig(this + 1);
 
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(this);
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
 }
 
 {
@@ -7077,21 +6855,21 @@ void kaldi::quasar::ESNetworkPlan::CreateData()
   operator new();
 }
 
-void kaldi::quasar::ESNetworkPlan::CreateZeroedDataInt32(uint64_t a1, uint64_t a2)
+void kaldi::quasar::ESNetworkPlan::CreateZeroedDataInt32(void x0_0, uint64_t a1)
 {
-  std::vector<unsigned long>::vector[abi:ne200100](&__dst, (*(a2 + 8) - *a2) >> 3);
-  v3 = *(a2 + 8);
-  if (v3 != *a2)
+  std::vector<unsigned long>::vector[abi:ne200100](&__dst, (*(a1 + 8) - *a1) >> 3);
+  v3 = *(a1 + 8);
+  if (v3 != *a1)
   {
-    memmove(__dst, *a2, v3 - *a2);
+    memmove(__dst, *a1, v3 - *a1);
   }
 
   operator new();
 }
 
-void sub_1C3176490(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+void sub_1C3176490(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11)
 {
-  MEMORY[0x1C692AE10](v11, 0x1093C40B76D1C73);
+  MEMORY[0x1C692AE10](v11, 0x1093C40B76D1C73, a3, a4, a5, a6, a7, a8);
   if (__p)
   {
     operator delete(__p);
@@ -7100,21 +6878,21 @@ void sub_1C3176490(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void kaldi::quasar::ESNetworkPlan::CreateZeroedDataFloat(uint64_t a1, uint64_t a2)
+void kaldi::quasar::ESNetworkPlan::CreateZeroedDataFloat(void x0_0, uint64_t a1)
 {
-  std::vector<unsigned long>::vector[abi:ne200100](&__dst, (*(a2 + 8) - *a2) >> 3);
-  v3 = *(a2 + 8);
-  if (v3 != *a2)
+  std::vector<unsigned long>::vector[abi:ne200100](&__dst, (*(a1 + 8) - *a1) >> 3);
+  v3 = *(a1 + 8);
+  if (v3 != *a1)
   {
-    memmove(__dst, *a2, v3 - *a2);
+    memmove(__dst, *a1, v3 - *a1);
   }
 
   operator new();
 }
 
-void sub_1C3176558(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+void sub_1C3176558(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11)
 {
-  MEMORY[0x1C692AE10](v11, 0x1093C40B76D1C73);
+  MEMORY[0x1C692AE10](v11, 0x1093C40B76D1C73, a3, a4, a5, a6, a7, a8);
   if (__p)
   {
     operator delete(__p);
@@ -7123,28 +6901,26 @@ void sub_1C3176558(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void kaldi::quasar::ESNetworkPlan::CreateConcat(uint64_t a1, uint64_t a2)
+void kaldi::quasar::ESNetworkPlan::CreateConcat(void x0_0, const void ***a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
-  if (*a2 != *(a2 + 8))
+  v5 = *MEMORY[0x1E69E9840];
+  v3 = *a1;
+  if (*a1 != a1[1])
   {
-    v3 = *v2;
-    if (*v2)
+    if (*v3)
     {
-      v4 = **v3;
       {
-        memset(&v5[17], 0, 80);
+        memset(&v4[17], 0, 80);
         espresso_buffer_unpack_tensor_shape();
-        kaldi::KaldiErrorMessage::KaldiErrorMessage(v5, "CreateConcat", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 457);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, "rank > 0", 8);
-        kaldi::KaldiErrorMessage::~KaldiErrorMessage(v5);
+        kaldi::KaldiErrorMessage::KaldiErrorMessage(v4, "CreateConcat", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 457);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "rank > 0", 8);
+        kaldi::KaldiErrorMessage::~KaldiErrorMessage(v4);
       }
     }
 
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v5, "CreateConcat", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 453);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, "es_data != nullptr", 18);
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v5);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v4, "CreateConcat", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 453);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "es_data != nullptr", 18);
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v4);
   }
 
   operator new();
@@ -7162,46 +6938,42 @@ uint64_t kaldi::quasar::ESTensorData::GetDataFloat(kaldi::quasar::ESTensorData *
   return *(this + 4);
 }
 
-void *kaldi::quasar::ESNetworkPlan::CreateSplit@<X0>(char **a1@<X1>, void *a2@<X8>)
+void kaldi::quasar::ESNetworkPlan::CreateSplit(const kaldi::quasar::ComputeEngineBufferItf *a1@<X1>, uint64_t *a2@<X8>)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v5 = (*(*a1 + 23))(a1, 0);
-  result = std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>>::vector[abi:ne200100](a2, v5);
-  if (v5)
+  v12 = *MEMORY[0x1E69E9840];
+  v4 = (*(*a1 + 184))(a1, 0);
+  std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>>::vector[abi:ne200100](a2, v4);
+  if (v4)
   {
-    v7 = **a1;
     {
-      memset(v15, 0, 80);
-      v14 = 0;
+      memset(v11, 0, 80);
+      v10 = 0;
       espresso_buffer_unpack_tensor_shape();
       memset(__p, 0, sizeof(__p));
-      std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(__p, v15, v15, 0);
-      v8 = __p[0];
+      std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(__p, v11, v11, 0);
+      v5 = __p[0];
       *__p[0] = 1;
-      v9 = v14;
-      if (v14)
+      v6 = v10;
+      if (v10)
       {
-        v10 = 1;
+        v7 = 1;
         do
         {
-          v11 = *v8++;
-          v10 *= v11;
-          --v9;
+          v8 = *v5++;
+          v7 *= v8;
+          --v6;
         }
 
-        while (v9);
+        while (v6);
       }
 
       operator new();
     }
 
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v15, "CreateSplit", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 519);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, "src_buf != nullptr", 18);
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v15);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v11, "CreateSplit", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 519);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, "src_buf != nullptr", 18);
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v11);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void sub_1C31770E4(void *a1, int a2)
@@ -7214,36 +6986,36 @@ void sub_1C31770E4(void *a1, int a2)
   JUMPOUT(0x1C3177104);
 }
 
-uint64_t kaldi::quasar::ESNetworkPlan::CreateSlice(kaldi::quasar::ESNetworkPlan *this, const kaldi::quasar::ComputeEngineBufferItf *a2, int a3, unsigned int a4)
+void kaldi::quasar::ESNetworkPlan::CreateSlice(void x0_0, const kaldi::quasar::ComputeEngineBufferItf *a1, int a2, int a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  if ((*(*a2 + 176))(a2) <= 0)
+  v17 = *MEMORY[0x1E69E9840];
+  if ((*(*a1 + 176))(a1) <= 0)
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v20, "CreateSlice", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 542);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v20, "src->GetNumDims() >= 1");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v20);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v16, "CreateSlice", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 542);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v16, "src->GetNumDims() >= 1");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v16);
   }
 
-  if (a3 < 0)
+  if (a2 < 0)
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v20, "CreateSlice", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 543);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v20, "0 <= start");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v20);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v16, "CreateSlice", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 543);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v16, "0 <= start");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v16);
   }
 
-  if (a4 < a3)
+  if (a3 < a2)
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v20, "CreateSlice", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 544);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v20, "start <= end");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v20);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v16, "CreateSlice", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 544);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v16, "start <= end");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v16);
   }
 
-  v7 = (*(*a2 + 184))(a2, 0);
-  if (v7 < a4)
+  v7 = (*(*a1 + 184))(a1, 0);
+  if (v7 < a3)
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v20, "CreateSlice", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 546);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v20, "end <= num_split");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v20);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v16, "CreateSlice", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 546);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v16, "end <= num_split");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v16);
   }
 
   if (!v7)
@@ -7251,45 +7023,42 @@ uint64_t kaldi::quasar::ESNetworkPlan::CreateSlice(kaldi::quasar::ESNetworkPlan 
     operator new();
   }
 
-  v8 = *a2;
-  if (a3 || v7 != a4)
+  if (a2 || v7 != a3)
   {
-    v12 = *v8;
     {
-      memset(v20, 0, 80);
-      v19 = 0;
+      memset(v16, 0, 80);
+      v15 = 0;
       espresso_buffer_unpack_tensor_shape();
       memset(__p, 0, sizeof(__p));
-      std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(__p, v20, v20, 0);
-      v13 = __p[0];
-      *__p[0] = (a4 - a3);
-      if (v19 >= 2)
+      std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(__p, v16, v16, 0);
+      v9 = __p[0];
+      *__p[0] = a3 - a2;
+      if (v15 >= 2)
       {
-        v14 = v19 - 1;
-        v15 = (v13 + 8);
-        v16 = 1;
+        v10 = v15 - 1;
+        v11 = (v9 + 8);
+        v12 = 1;
         do
         {
-          v17 = *v15++;
-          v16 *= v17;
-          --v14;
+          v13 = *v11++;
+          v12 *= v13;
+          --v10;
         }
 
-        while (v14);
+        while (v10);
       }
 
       operator new();
     }
 
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v20, "CreateSlice", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 555);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v20, "src_buf != nullptr");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v20);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v16, "CreateSlice", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 555);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v16, "src_buf != nullptr");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v16);
   }
 
-  v9 = *(v8 + 2);
-  v10 = *MEMORY[0x1E69E9840];
+  v8 = *(*a1 + 16);
 
-  return v9(a2);
+  v8(a1);
 }
 
 void sub_1C31775C0(_Unwind_Exception *a1, int a2)
@@ -7323,15 +7092,7 @@ void kaldi::quasar::ESNetworkPlan::SetNetworkFunctionName(uint64_t a1, __int128 
 
       if (std::__tree<std::string>::__count_unique<std::string>(a1 + 72, &__p[0].__r_.__value_.__l.__data_))
       {
-        v9 = std::map<std::string,std::string>::at(a1 + 72, &__p[0].__r_.__value_.__l.__data_);
-        v11 = *(a1 + 152);
-        v10 = *(a1 + 160);
-        if (*(v9 + 23) < 0)
-        {
-          v12 = *v9;
-        }
-
-        v13 = *(a1 + 152);
+        std::map<std::string,std::string>::at(a1 + 72, &__p[0].__r_.__value_.__l.__data_);
         espresso_network_set_function_name();
         *a3 = 1;
       }
@@ -7349,8 +7110,6 @@ void kaldi::quasar::ESNetworkPlan::SetNetworkFunctionName(uint64_t a1, __int128 
     {
       return;
     }
-
-    v14 = *(a1 + 120);
   }
 
   else if (!*(a1 + 143))
@@ -7358,14 +7117,12 @@ void kaldi::quasar::ESNetworkPlan::SetNetworkFunctionName(uint64_t a1, __int128 
     return;
   }
 
-  v15 = *(a1 + 152);
-  v16 = *(a1 + 160);
   if (espresso_network_set_function_name())
   {
     kaldi::KaldiErrorMessage::KaldiErrorMessage(__p, "SetNetworkFunctionName", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 591);
-    v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "Set function name for checkpoint failed, error=", 47);
+    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "Set function name for checkpoint failed, error=", 47);
     last_error = espresso_get_last_error();
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v17, last_error);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v9, last_error);
     kaldi::KaldiErrorMessage::~KaldiErrorMessage(__p);
   }
 
@@ -7383,23 +7140,20 @@ uint64_t std::map<std::string,std::string>::at(uint64_t a1, const void **a2)
   return v2 + 56;
 }
 
-uint64_t kaldi::quasar::ESNetworkPlan::RunNitro(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4, void *a5)
+uint64_t kaldi::quasar::ESNetworkPlan::RunNitro(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4, const void **a5)
 {
   kdebug_trace();
-  v9 = *a2;
-  for (i = a2[1]; v9 != i; v9 += 32)
+  v8 = *a2;
+  for (i = a2[1]; v8 != i; v8 += 32)
   {
-    kaldi::quasar::StripColon(v9, __p);
-    v11 = *(a1 + 152);
-    v12 = *(a1 + 160);
-    v13 = *(v9 + 24);
+    kaldi::quasar::StripColon(v8, __p);
     if (espresso_network_bind_buffer())
     {
-      kaldi::KaldiErrorMessage::KaldiErrorMessage(&v29, "RunNitro", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 613);
+      kaldi::KaldiErrorMessage::KaldiErrorMessage(&v22, "RunNitro", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 613);
       last_error = espresso_get_last_error();
-      v20 = strlen(last_error);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v29, last_error, v20);
-      kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v29);
+      v13 = strlen(last_error);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v22, last_error, v13);
+      kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v22);
     }
 
     if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
@@ -7408,18 +7162,17 @@ uint64_t kaldi::quasar::ESNetworkPlan::RunNitro(uint64_t a1, uint64_t *a2, uint6
     }
   }
 
-  v14 = *(a1 + 152);
-  v15 = espresso_plan_execute_sync();
-  if (v15)
+  v10 = espresso_plan_execute_sync();
+  if (v10)
   {
-    v23 = v15;
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(&v29, "RunNitro", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 621);
-    v24 = MEMORY[0x1C692A960](&v29, v23);
+    v16 = v10;
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(&v22, "RunNitro", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 621);
+    v17 = MEMORY[0x1C692A960](&v22, v16);
     __p[0].__r_.__value_.__s.__data_[0] = 32;
-    v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, __p, 1);
-    v26 = espresso_get_last_error();
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v25, v26);
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v29);
+    v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, __p, 1);
+    v19 = espresso_get_last_error();
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v18, v19);
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v22);
   }
 
   if (a5)
@@ -7428,20 +7181,18 @@ uint64_t kaldi::quasar::ESNetworkPlan::RunNitro(uint64_t a1, uint64_t *a2, uint6
     std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>>::reserve(a5, 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 3));
     if (*a3 != a3[1])
     {
-      kaldi::quasar::StripColon(*a3, &v28);
-      v16 = *(a1 + 152);
-      v17 = *(a1 + 160);
+      kaldi::quasar::StripColon(*a3, &v21);
       if (!espresso_network_bind_buffer())
       {
-        kaldi::quasar::EspressoNDArray::EspressoNDArray(&v29, __p, 1);
+        kaldi::quasar::EspressoNDArray::EspressoNDArray(&v22, __p, 1);
         operator new();
       }
 
-      kaldi::KaldiErrorMessage::KaldiErrorMessage(&v29, "RunNitro", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 636);
-      v21 = espresso_get_last_error();
-      v22 = strlen(v21);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v29, v21, v22);
-      kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v29);
+      kaldi::KaldiErrorMessage::KaldiErrorMessage(&v22, "RunNitro", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 636);
+      v14 = espresso_get_last_error();
+      v15 = strlen(v14);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v22, v14, v15);
+      kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v22);
     }
   }
 
@@ -7494,101 +7245,89 @@ void kaldi::quasar::StripColon(uint64_t a1@<X0>, std::string *a2@<X8>)
   }
 }
 
-uint64_t kaldi::quasar::ESNetworkPlan::NeedShapeChange(void *a1, const void ***a2, const void ***a3)
+uint64_t kaldi::quasar::ESNetworkPlan::NeedShapeChange(void *a1, uint64_t **a2, uint64_t **a3)
 {
-  v37 = *MEMORY[0x1E69E9840];
-  v6 = a1[21];
+  v31 = *MEMORY[0x1E69E9840];
   if (espresso_plan_get_phase() == 1)
   {
-    memset(v31, 0, sizeof(v31));
-    v32 = 1065353216;
-    v7 = *a3;
-    v8 = a3[1];
-    while (v7 != v8)
+    memset(v25, 0, sizeof(v25));
+    v26 = 1065353216;
+    v6 = *a3;
+    v7 = a3[1];
+    while (v6 != v7)
     {
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(v31, v7);
-      v7 += 3;
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(v25, v6, v6);
+      v6 += 3;
     }
 
-    if (!std::operator==[abi:ne200100]<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>(v31, a1 + 27))
+    if (!std::operator==[abi:ne200100]<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>(v25, a1 + 27))
     {
-      v9 = 1;
-LABEL_26:
-      std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table(v31);
-      goto LABEL_27;
+      v8 = 1;
+LABEL_24:
+      std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table(v25);
+      return v8;
     }
 
-    memset(v29, 0, sizeof(v29));
-    v30 = 1065353216;
-    v10 = *a2;
-    v11 = a2[1];
-    while (v10 != v11)
+    memset(v23, 0, sizeof(v23));
+    v24 = 1065353216;
+    v9 = *a2;
+    v10 = a2[1];
+    while (v9 != v10)
     {
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(v29, v10);
-      v10 += 4;
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(v23, v9, v9);
+      v9 += 4;
     }
 
-    if (std::operator==[abi:ne200100]<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>(v29, a1 + 22))
+    if (std::operator==[abi:ne200100]<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>(v23, a1 + 22))
     {
-      v12 = *a2;
+      v11 = *a2;
       if (a2[1] == *a2)
       {
+LABEL_21:
+        v8 = 0;
 LABEL_23:
-        v9 = 0;
-LABEL_25:
-        std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table(v29);
-        goto LABEL_26;
+        std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table(v23);
+        goto LABEL_24;
       }
 
+      v12 = 0;
       v13 = 0;
-      v14 = 0;
       while (1)
       {
-        v15 = &v12[v13];
-        if (*(v15 + 23) < 0)
-        {
-          v16 = *v15;
-        }
-
-        v17 = v15[3];
-        v18 = a1[19];
-        v19 = a1[20];
+        v14 = v11[v12 + 3];
         blob_dimensions = espresso_network_query_blob_dimensions();
         if (blob_dimensions)
         {
-          kaldi::KaldiErrorMessage::KaldiErrorMessage(v28, "NeedShapeChange", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 683);
-          v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, "Espresso failed query blob info ", 32);
-          v24 = MEMORY[0x1C692A960](v23, blob_dimensions);
-          v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, ": ", 2);
+          kaldi::KaldiErrorMessage::KaldiErrorMessage(v22, "NeedShapeChange", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 683);
+          v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "Espresso failed query blob info ", 32);
+          v18 = MEMORY[0x1C692A960](v17, blob_dimensions);
+          v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, ": ", 2);
           last_error = espresso_get_last_error();
-          v27 = strlen(last_error);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, last_error, v27);
-          kaldi::KaldiErrorMessage::~KaldiErrorMessage(v28);
+          v21 = strlen(last_error);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, last_error, v21);
+          kaldi::KaldiErrorMessage::~KaldiErrorMessage(v22);
         }
 
-        if (v17[14] > 1uLL || v17[10] != v33 || v17[11] != v34 || v17[12] != v35 || v17[13] != v36)
+        if (v14[14] > 1uLL || v14[10] != v27 || v14[11] != v28 || v14[12] != v29 || v14[13] != v30)
         {
           break;
         }
 
-        ++v14;
-        v12 = *a2;
-        v13 += 4;
-        if (v14 >= (a2[1] - *a2) >> 5)
+        ++v13;
+        v11 = *a2;
+        v12 += 4;
+        if (v13 >= (a2[1] - *a2) >> 5)
         {
-          goto LABEL_23;
+          goto LABEL_21;
         }
       }
     }
 
-    v9 = 1;
-    goto LABEL_25;
+    v8 = 1;
+    goto LABEL_23;
   }
 
-  v9 = 1;
-LABEL_27:
-  v21 = *MEMORY[0x1E69E9840];
-  return v9;
+  return 1;
 }
 
 void sub_1C3177F34(_Unwind_Exception *exception_object, int a2)
@@ -7601,235 +7340,209 @@ void sub_1C3177F34(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t kaldi::quasar::ESNetworkPlan::PrepareInputsAndOutputs(uint64_t a1, const void ***a2, const void ***a3)
+uint64_t kaldi::quasar::ESNetworkPlan::PrepareInputsAndOutputs(uint64_t a1, uint64_t **a2, uint64_t **a3)
 {
-  v99 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   result = kaldi::quasar::ESNetworkPlan::NeedShapeChange(a1, a2, a3);
   if (!result)
   {
-    goto LABEL_51;
+    return result;
   }
 
-  v7 = *(a1 + 168);
   if (espresso_plan_get_phase() == 1)
   {
-    v8 = *(a1 + 168);
-    v9 = espresso_plan_build_clean();
-    if (v9)
+    v7 = espresso_plan_build_clean();
+    if (v7)
     {
-      v87 = v9;
-      kaldi::KaldiErrorMessage::KaldiErrorMessage(&v95, "PrepareInputsAndOutputs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 706);
-      v88 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v95, "Espresso failed to reset plan with ", 35);
-      v89 = MEMORY[0x1C692A960](v88, v87);
-      v90 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v89, ": ", 2);
+      v67 = v7;
+      kaldi::KaldiErrorMessage::KaldiErrorMessage(&v74, "PrepareInputsAndOutputs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 706);
+      v68 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v74, "Espresso failed to reset plan with ", 35);
+      v69 = MEMORY[0x1C692A960](v68, v67);
+      v70 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v69, ": ", 2);
       last_error = espresso_get_last_error();
-      std::operator<<[abi:ne200100]<std::char_traits<char>>(v90, last_error);
-      kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v95);
+      std::operator<<[abi:ne200100]<std::char_traits<char>>(v70, last_error);
+      kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v74);
     }
   }
 
   std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::clear(a1 + 176);
-  v10 = *a2;
-  v11 = a2[1];
-  while (v10 != v11)
+  v8 = *a2;
+  v9 = a2[1];
+  while (v8 != v9)
   {
-    if (*(v10 + 23) < 0)
+    v10 = espresso_network_declare_input();
+    if (v10)
     {
-      v12 = *v10;
-    }
-
-    v13 = *(a1 + 152);
-    v14 = *(a1 + 160);
-    v15 = espresso_network_declare_input();
-    if (v15)
-    {
-      v47 = v15;
-      kaldi::KaldiErrorMessage::KaldiErrorMessage(&v95, "PrepareInputsAndOutputs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 715);
-      v49 = *(v10 + 23);
-      if (v49 >= 0)
+      v27 = v10;
+      kaldi::KaldiErrorMessage::KaldiErrorMessage(&v74, "PrepareInputsAndOutputs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 715);
+      v29 = *(v8 + 23);
+      if (v29 >= 0)
       {
-        v50 = v10;
+        v30 = v8;
       }
 
       else
       {
-        v50 = *v10;
+        v30 = *v8;
       }
 
-      if (v49 >= 0)
+      if (v29 >= 0)
       {
-        v51 = *(v10 + 23);
+        v31 = *(v8 + 23);
       }
 
       else
       {
-        v51 = v10[1];
+        v31 = v8[1];
       }
 
-      v52 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v48, v50, v51);
-      v53 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v52, "' with ", 7);
-      v54 = MEMORY[0x1C692A960](v53, v47);
-      v55 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v54, ": ", 2);
-      v56 = espresso_get_last_error();
-      std::operator<<[abi:ne200100]<std::char_traits<char>>(v55, v56);
-      kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v95);
+      v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, v30, v31);
+      v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, "' with ", 7);
+      v34 = MEMORY[0x1C692A960](v33, v27);
+      v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, ": ", 2);
+      v36 = espresso_get_last_error();
+      std::operator<<[abi:ne200100]<std::char_traits<char>>(v35, v36);
+      kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v74);
     }
 
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>((a1 + 176), v10);
-    v10 += 4;
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>((a1 + 176), v8, v8);
+    v8 += 4;
   }
 
   std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::clear(a1 + 216);
-  v16 = *a3;
-  v17 = a3[1];
-  while (v16 != v17)
+  v11 = *a3;
+  v12 = a3[1];
+  while (v11 != v12)
   {
-    if (*(v16 + 23) < 0)
+    v13 = espresso_network_declare_output();
+    if (v13)
     {
-      v18 = *v16;
-    }
-
-    v19 = *(a1 + 152);
-    v20 = *(a1 + 160);
-    v21 = espresso_network_declare_output();
-    if (v21)
-    {
-      v57 = v21;
-      kaldi::KaldiErrorMessage::KaldiErrorMessage(&v95, "PrepareInputsAndOutputs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 726);
-      v59 = *(v16 + 23);
-      if (v59 >= 0)
+      v37 = v13;
+      kaldi::KaldiErrorMessage::KaldiErrorMessage(&v74, "PrepareInputsAndOutputs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 726);
+      v39 = *(v11 + 23);
+      if (v39 >= 0)
       {
-        v60 = v16;
+        v40 = v11;
       }
 
       else
       {
-        v60 = *v16;
+        v40 = *v11;
       }
 
-      if (v59 >= 0)
+      if (v39 >= 0)
       {
-        v61 = *(v16 + 23);
+        v41 = *(v11 + 23);
       }
 
       else
       {
-        v61 = v16[1];
+        v41 = v11[1];
       }
 
-      v62 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v58, v60, v61);
-      v63 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v62, "' with ", 7);
-      v64 = MEMORY[0x1C692A960](v63, v57);
-      v65 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v64, ": ", 2);
-      v66 = espresso_get_last_error();
-      std::operator<<[abi:ne200100]<std::char_traits<char>>(v65, v66);
-      kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v95);
+      v42 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, v40, v41);
+      v43 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, "' with ", 7);
+      v44 = MEMORY[0x1C692A960](v43, v37);
+      v45 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v44, ": ", 2);
+      v46 = espresso_get_last_error();
+      std::operator<<[abi:ne200100]<std::char_traits<char>>(v45, v46);
+      kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v74);
     }
 
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>((a1 + 216), v16);
-    v16 += 3;
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>((a1 + 216), v11, v11);
+    v11 += 3;
   }
 
   if (*(a1 + 320))
   {
-    v96 = 0;
-    v97 = 0uLL;
-    std::to_string(&v95, *((*a2)[3] + 13));
-    v22 = std::string::insert(&v95, 0, "batch_config_");
+    v75 = 0;
+    v76 = 0uLL;
+    std::to_string(&v74, *((*a2)[3] + 104));
+    v14 = std::string::insert(&v74, 0, "batch_config_");
   }
 
   else
   {
     if ((*(a1 + 321) & 1) == 0)
     {
-LABEL_35:
-      std::vector<char const*>::vector[abi:ne200100](&v98, (a2[1] - *a2) >> 5);
-      v30 = (a2[1] - *a2) >> 5;
-      LODWORD(v96) = -1;
-      std::vector<int>::vector[abi:ne200100](&v95, v30);
-      std::vector<std::vector<int>>::vector[abi:ne200100](v94, 5uLL);
-      if (v95.__r_.__value_.__r.__words[0])
+LABEL_31:
+      std::vector<char const*>::vector[abi:ne200100](&v77, (a2[1] - *a2) >> 5);
+      v20 = (a2[1] - *a2) >> 5;
+      LODWORD(v75) = -1;
+      std::vector<int>::vector[abi:ne200100](&v74, v20, &v75);
+      std::vector<std::vector<int>>::vector[abi:ne200100](v73, 5uLL, &v74);
+      if (v74.__r_.__value_.__r.__words[0])
       {
-        v95.__r_.__value_.__l.__size_ = v95.__r_.__value_.__r.__words[0];
-        operator delete(v95.__r_.__value_.__l.__data_);
+        v74.__r_.__value_.__l.__size_ = v74.__r_.__value_.__r.__words[0];
+        operator delete(v74.__r_.__value_.__l.__data_);
       }
 
       std::vector<int>::vector[abi:ne200100](__p, (a2[1] - *a2) >> 5);
-      v31 = *a2;
       if (a2[1] != *a2)
       {
-        v32 = 0;
+        v21 = 0;
         do
         {
-          v33 = v31[4 * v32 + 3];
-          v34 = espresso_buffer_unpack_tensor_shape();
-          if (v34)
+          v22 = espresso_buffer_unpack_tensor_shape();
+          if (v22)
           {
-            kaldi::KaldiErrorMessage::KaldiErrorMessage(&v95, "PrepareInputsAndOutputs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 763);
-            v68 = &(*a2)[4 * v32];
-            v69 = *(v68 + 23);
-            if (v69 >= 0)
+            kaldi::KaldiErrorMessage::KaldiErrorMessage(&v74, "PrepareInputsAndOutputs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 763);
+            v48 = &(*a2)[4 * v21];
+            v49 = *(v48 + 23);
+            if (v49 >= 0)
             {
-              v70 = &(*a2)[4 * v32];
+              v50 = &(*a2)[4 * v21];
             }
 
             else
             {
-              v70 = *v68;
+              v50 = *v48;
             }
 
-            if (v69 >= 0)
+            if (v49 >= 0)
             {
-              v71 = *(v68 + 23);
+              v51 = *(v48 + 23);
             }
 
             else
             {
-              v71 = *(v68 + 8);
+              v51 = v48[1];
             }
 
-            v72 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v67, v70, v71);
-            v73 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v72, "' with ", 7);
-            v74 = MEMORY[0x1C692A960](v73, v34);
-            v75 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v74, ": ", 2);
-            v76 = espresso_get_last_error();
-            v77 = strlen(v76);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v75, v76, v77);
-            kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v95);
+            v52 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v47, v50, v51);
+            v53 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v52, "' with ", 7);
+            v54 = MEMORY[0x1C692A960](v53, v22);
+            v55 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v54, ": ", 2);
+            v56 = espresso_get_last_error();
+            v57 = strlen(v56);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v55, v56, v57);
+            kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v74);
           }
 
-          *(__p[0] + v32) = 0;
-          v35 = &(*a2)[4 * v32];
-          if (*(v35 + 23) < 0)
+          *(__p[0] + v21) = 0;
+          v23 = &(*a2)[4 * v21];
+          if (*(v23 + 23) < 0)
           {
-            v35 = *v35;
+            v23 = *v23;
           }
 
-          *(v98 + 8 * v32++) = v35;
-          v31 = *a2;
+          *(v77 + 8 * v21++) = v23;
         }
 
-        while (v32 < (a2[1] - *a2) >> 5);
+        while (v21 < (a2[1] - *a2) >> 5);
       }
 
-      v36 = *(a1 + 152);
-      v37 = *(a1 + 160);
-      v38 = *v94[0];
-      v39 = *(v94[0] + 24);
-      v40 = *(v94[0] + 48);
-      v41 = *(v94[0] + 72);
-      v92 = *(v94[0] + 96);
-      v42 = espresso_network_change_input_blob_shapes_seq_rank();
-      if (v42)
+      v24 = espresso_network_change_input_blob_shapes_seq_rank();
+      if (v24)
       {
-        kaldi::KaldiErrorMessage::KaldiErrorMessage(&v95, "PrepareInputsAndOutputs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 777);
-        v82 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v95, "Espresso failed to change input blob shapes with ", 49);
-        v83 = MEMORY[0x1C692A960](v82, v42);
-        v84 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v83, ": ", 2);
-        v85 = espresso_get_last_error();
-        v86 = strlen(v85);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v84, v85, v86);
-        kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v95);
+        kaldi::KaldiErrorMessage::KaldiErrorMessage(&v74, "PrepareInputsAndOutputs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 777);
+        v62 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v74, "Espresso failed to change input blob shapes with ", 49);
+        v63 = MEMORY[0x1C692A960](v62, v24);
+        v64 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v63, ": ", 2);
+        v65 = espresso_get_last_error();
+        v66 = strlen(v65);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v64, v65, v66);
+        kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v74);
       }
 
       if (__p[0])
@@ -7838,109 +7551,104 @@ LABEL_35:
         operator delete(__p[0]);
       }
 
-      v95.__r_.__value_.__r.__words[0] = v94;
-      std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&v95);
-      v43 = v98;
-      if (!v98)
+      v74.__r_.__value_.__r.__words[0] = v73;
+      std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&v74);
+      v25 = v77;
+      if (!v77)
       {
-        goto LABEL_50;
+        goto LABEL_46;
       }
 
-      *(&v98 + 1) = v98;
-      goto LABEL_48;
+      *(&v77 + 1) = v77;
+      goto LABEL_44;
     }
 
-    v96 = 0;
-    v97 = 0uLL;
-    std::to_string(&v95, *((*a2)[3] + 10));
-    v22 = std::string::insert(&v95, 0, "width_config_");
+    v75 = 0;
+    v76 = 0uLL;
+    std::to_string(&v74, *((*a2)[3] + 80));
+    v14 = std::string::insert(&v74, 0, "width_config_");
   }
 
-  v23 = v22->__r_.__value_.__r.__words[0];
-  *&v98 = v22->__r_.__value_.__l.__size_;
-  *(&v98 + 7) = *(&v22->__r_.__value_.__r.__words[1] + 7);
-  v24 = HIBYTE(v22->__r_.__value_.__r.__words[2]);
-  v22->__r_.__value_.__l.__size_ = 0;
-  v22->__r_.__value_.__r.__words[2] = 0;
-  v22->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v97) < 0)
+  v15 = v14->__r_.__value_.__r.__words[0];
+  *&v77 = v14->__r_.__value_.__l.__size_;
+  *(&v77 + 7) = *(&v14->__r_.__value_.__r.__words[1] + 7);
+  v16 = HIBYTE(v14->__r_.__value_.__r.__words[2]);
+  v14->__r_.__value_.__l.__size_ = 0;
+  v14->__r_.__value_.__r.__words[2] = 0;
+  v14->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v76) < 0)
   {
-    operator delete(v96);
+    operator delete(v75);
   }
 
-  v96 = v23;
-  *&v97 = v98;
-  *(&v97 + 7) = *(&v98 + 7);
-  HIBYTE(v97) = v24;
-  if (SHIBYTE(v95.__r_.__value_.__r.__words[2]) < 0)
+  v75 = v15;
+  *&v76 = v77;
+  *(&v76 + 7) = *(&v77 + 7);
+  HIBYTE(v76) = v16;
+  if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v95.__r_.__value_.__l.__data_);
+    operator delete(v74.__r_.__value_.__l.__data_);
   }
 
-  v25 = *(a1 + 152);
-  v26 = *(a1 + 160);
   if (espresso_network_select_configuration())
   {
     if (kaldi::g_kaldi_verbose_level >= -1)
     {
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v95, "PrepareInputsAndOutputs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 747);
-      v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v95, "configuration name not supported: ", 34);
-      if (v97 >= 0)
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v74, "PrepareInputsAndOutputs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 747);
+      v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v74, "configuration name not supported: ", 34);
+      if (v76 >= 0)
       {
-        v28 = &v96;
+        v18 = &v75;
       }
 
       else
       {
-        v28 = v96;
+        v18 = v75;
       }
 
-      if (v97 >= 0)
+      if (v76 >= 0)
       {
-        v29 = HIBYTE(v97);
+        v19 = HIBYTE(v76);
       }
 
       else
       {
-        v29 = v97;
+        v19 = v76;
       }
 
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, v28, v29);
-      kaldi::KaldiWarnMessage::~KaldiWarnMessage(&v95);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, v18, v19);
+      kaldi::KaldiWarnMessage::~KaldiWarnMessage(&v74);
     }
 
-    if (SHIBYTE(v97) < 0)
+    if (SHIBYTE(v76) < 0)
     {
-      operator delete(v96);
+      operator delete(v75);
     }
 
-    goto LABEL_35;
+    goto LABEL_31;
   }
 
-  if (SHIBYTE(v97) < 0)
+  if (SHIBYTE(v76) < 0)
   {
-    v43 = v96;
-LABEL_48:
-    operator delete(v43);
+    v25 = v75;
+LABEL_44:
+    operator delete(v25);
   }
 
-LABEL_50:
-  v44 = *(a1 + 168);
+LABEL_46:
   result = espresso_plan_build();
-  v45 = result;
+  v26 = result;
   if (result)
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(&v95, "PrepareInputsAndOutputs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 783);
-    v78 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v95, "Espresso failed to build plan with ", 35);
-    v79 = MEMORY[0x1C692A960](v78, v45);
-    v80 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v79, ": ", 2);
-    v81 = espresso_get_last_error();
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v80, v81);
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v95);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(&v74, "PrepareInputsAndOutputs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 783);
+    v58 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v74, "Espresso failed to build plan with ", 35);
+    v59 = MEMORY[0x1C692A960](v58, v26);
+    v60 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v59, ": ", 2);
+    v61 = espresso_get_last_error();
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v60, v61);
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v74);
   }
 
-LABEL_51:
-  v46 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7954,13 +7662,13 @@ void sub_1C31787B0(void *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void kaldi::quasar::ESNetworkPlan::RunClassic(void *a1, const void ***a2, uint64_t a3, uint64_t a4, void *a5)
+void kaldi::quasar::ESNetworkPlan::RunClassic(void *a1, uint64_t **a2, uint64_t **a3, uint64_t a4, const void **a5)
 {
   if (!a1[21])
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(__C, "RunClassic", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 792);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(__C, "plan_ != nullptr");
-    goto LABEL_26;
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(&__C, "RunClassic", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 792);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(&__C, "plan_ != nullptr");
+    goto LABEL_20;
   }
 
   kdebug_trace();
@@ -7971,40 +7679,26 @@ void kaldi::quasar::ESNetworkPlan::RunClassic(void *a1, const void ***a2, uint64
   {
     while (1)
     {
-      v11 = *(v9[3] + 40);
+      v11 = *(v9[3] + 160);
       if (v11 == 131104)
       {
-        if (*(v9 + 23) < 0)
-        {
-          v12 = *v9;
-        }
-
-        v13 = a1[19];
-        v14 = a1[20];
-        v15 = espresso_network_bind_buffer();
-        vDSP_vflt32(*v9[3], 1, __C[0], 1, __C[19]);
+        v12 = espresso_network_bind_buffer();
+        vDSP_vflt32(*v9[3], 1, __C, 1, __N);
       }
 
       else
       {
         if (v11 != 65568)
         {
-          kaldi::KaldiErrorMessage::KaldiErrorMessage(__C, "RunClassic", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 814);
-          std::operator<<[abi:ne200100]<std::char_traits<char>>(__C, "kv.second->storage_type == ESPRESSO_STORAGE_TYPE_FLOAT32");
-          goto LABEL_26;
+          kaldi::KaldiErrorMessage::KaldiErrorMessage(&__C, "RunClassic", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 814);
+          std::operator<<[abi:ne200100]<std::char_traits<char>>(&__C, "kv.second->storage_type == ESPRESSO_STORAGE_TYPE_FLOAT32");
+          goto LABEL_20;
         }
 
-        if (*(v9 + 23) < 0)
-        {
-          v16 = *v9;
-        }
-
-        v17 = a1[19];
-        v18 = a1[20];
-        v15 = espresso_network_bind_buffer();
+        v12 = espresso_network_bind_buffer();
       }
 
-      if (v15)
+      if (v12)
       {
         break;
       }
@@ -8012,47 +7706,46 @@ void kaldi::quasar::ESNetworkPlan::RunClassic(void *a1, const void ***a2, uint64
       v9 += 4;
       if (v9 == v10)
       {
-        goto LABEL_13;
+        goto LABEL_9;
       }
     }
 
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(__C, "RunClassic", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 822);
-    v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__C, "espresso_network_bind_buffer failed: ", 37);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(&__C, "RunClassic", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 822);
+    v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__C, "espresso_network_bind_buffer failed: ", 37);
     last_error = espresso_get_last_error();
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v31, last_error);
-LABEL_26:
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(__C);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v20, last_error);
+LABEL_20:
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(&__C);
   }
 
-LABEL_13:
-  v19 = a1[19];
-  v20 = espresso_plan_execute_sync();
-  if (v20)
+LABEL_9:
+  v13 = espresso_plan_execute_sync();
+  if (v13)
   {
-    v21 = v20;
-    if (*a3 != *(a3 + 8))
+    v14 = v13;
+    if (*a3 != a3[1])
     {
-      kaldi::KaldiErrorMessage::KaldiErrorMessage(__C, "RunClassic", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 834);
-      v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__C, "espresso_plan_execute_sync() failed: ", 37);
-      v36 = MEMORY[0x1C692A960](v35, v21);
-      v39[0] = 32;
-      v37 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36, v39, 1);
-      v38 = espresso_get_last_error();
-      std::operator<<[abi:ne200100]<std::char_traits<char>>(v37, v38);
-      goto LABEL_26;
+      kaldi::KaldiErrorMessage::KaldiErrorMessage(&__C, "RunClassic", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 834);
+      v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__C, "espresso_plan_execute_sync() failed: ", 37);
+      v25 = MEMORY[0x1C692A960](v24, v14);
+      LOBYTE(v28[0]) = 32;
+      v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, v28, 1);
+      v27 = espresso_get_last_error();
+      std::operator<<[abi:ne200100]<std::char_traits<char>>(v26, v27);
+      goto LABEL_20;
     }
 
     if (kaldi::g_kaldi_verbose_level >= -1)
     {
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(__C, "RunClassic", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 831);
-      v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__C, "espresso_plan_execute_sync() failed: ", 37);
-      v23 = MEMORY[0x1C692A960](v22, v21);
-      v39[0] = 32;
-      v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, v39, 1);
-      v25 = espresso_get_last_error();
-      v26 = strlen(v25);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, v25, v26);
-      kaldi::KaldiWarnMessage::~KaldiWarnMessage(__C);
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(&__C, "RunClassic", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 831);
+      v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__C, "espresso_plan_execute_sync() failed: ", 37);
+      v16 = MEMORY[0x1C692A960](v15, v14);
+      LOBYTE(v28[0]) = 32;
+      v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, v28, 1);
+      v18 = espresso_get_last_error();
+      v19 = strlen(v18);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, v18, v19);
+      kaldi::KaldiWarnMessage::~KaldiWarnMessage(&__C);
     }
   }
 
@@ -8061,27 +7754,19 @@ LABEL_13:
     if (a5)
     {
       std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>>::clear[abi:ne200100](a5);
-      v27 = *a3;
-      if (*a3 != *(a3 + 8))
+      if (*a3 != a3[1])
       {
-        if (*(v27 + 23) < 0)
-        {
-          v28 = *v27;
-        }
-
-        v29 = a1[19];
-        v30 = a1[20];
         if (!espresso_network_bind_buffer())
         {
-          kaldi::quasar::EspressoNDArray::EspressoNDArray(__C, v39, 1);
+          kaldi::quasar::EspressoNDArray::EspressoNDArray(&__C, v28, 1);
           operator new();
         }
 
-        kaldi::KaldiErrorMessage::KaldiErrorMessage(__C, "RunClassic", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 848);
-        v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__C, "espresso_network_bind_buffer failed: ", 37);
-        v34 = espresso_get_last_error();
-        std::operator<<[abi:ne200100]<std::char_traits<char>>(v33, v34);
-        goto LABEL_26;
+        kaldi::KaldiErrorMessage::KaldiErrorMessage(&__C, "RunClassic", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 848);
+        v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__C, "espresso_network_bind_buffer failed: ", 37);
+        v23 = espresso_get_last_error();
+        std::operator<<[abi:ne200100]<std::char_traits<char>>(v22, v23);
+        goto LABEL_20;
       }
     }
 
@@ -8089,135 +7774,115 @@ LABEL_13:
   }
 }
 
-uint64_t kaldi::quasar::ESNetworkPlan::RunTraining(void *a1, const void ***a2, uint64_t a3, uint64_t a4, void *a5)
+void *kaldi::quasar::ESNetworkPlan::RunTraining(void *a1, uint64_t **a2, uint64_t **a3, uint64_t a4, const void **a5)
 {
   if (!a1[21])
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v40, "RunTraining", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 864);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v40, "plan_ != nullptr");
-    goto LABEL_19;
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v27, "RunTraining", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 864);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v27, "plan_ != nullptr");
+    goto LABEL_15;
   }
 
   kaldi::quasar::ESNetworkPlan::PrepareInputsAndOutputs(a1, a2, a3);
-  v10 = *a2;
-  v9 = a2[1];
-  while (v10 != v9)
+  v9 = *a2;
+  v8 = a2[1];
+  while (v9 != v8)
   {
-    if (*(v10 + 23) < 0)
-    {
-      v11 = *v10;
-    }
-
-    v12 = a1[19];
-    v13 = a1[20];
-    v14 = v10[3];
     if (espresso_network_bind_buffer())
     {
-      kaldi::KaldiErrorMessage::KaldiErrorMessage(v40, "RunTraining", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 877);
-      v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, "Failed to bind buffer for input=", 32);
-      v25 = *(v10 + 23);
-      if (v25 >= 0)
+      kaldi::KaldiErrorMessage::KaldiErrorMessage(v27, "RunTraining", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 877);
+      v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, "Failed to bind buffer for input=", 32);
+      v12 = *(v9 + 23);
+      if (v12 >= 0)
       {
-        v26 = v10;
+        v13 = v9;
       }
 
       else
       {
-        v26 = *v10;
+        v13 = *v9;
       }
 
-      if (v25 >= 0)
+      if (v12 >= 0)
       {
-        v27 = *(v10 + 23);
+        v14 = *(v9 + 23);
       }
 
       else
       {
-        v27 = v10[1];
+        v14 = v9[1];
       }
 
-      v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, v26, v27);
-      v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, ", error=", 8);
+      v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, v13, v14);
+      v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, ", error=", 8);
       last_error = espresso_get_last_error();
-      std::operator<<[abi:ne200100]<std::char_traits<char>>(v29, last_error);
-      goto LABEL_19;
+      std::operator<<[abi:ne200100]<std::char_traits<char>>(v16, last_error);
+      goto LABEL_15;
     }
 
-    v10 += 4;
+    v9 += 4;
   }
 
-  v15 = a1[19];
   if (espresso_plan_execute_sync())
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v40, "RunTraining", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 883);
-    v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, "Failed to run checkpoint network, error=", 40);
-    v34 = espresso_get_last_error();
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v33, v34);
-    goto LABEL_19;
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v27, "RunTraining", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 883);
+    v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, "Failed to run checkpoint network, error=", 40);
+    v21 = espresso_get_last_error();
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v20, v21);
+    goto LABEL_15;
   }
 
-  v16 = a1[19];
-  v17 = a1[20];
   get_main_function_name();
   if (espresso_network_set_function_name())
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v40, "RunTraining", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 888);
-    v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, "Failed to set function to main, error=", 38);
-    v36 = espresso_get_last_error();
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v35, v36);
-    goto LABEL_19;
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v27, "RunTraining", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 888);
+    v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, "Failed to set function to main, error=", 38);
+    v23 = espresso_get_last_error();
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v22, v23);
+    goto LABEL_15;
   }
 
-  v18 = a1[19];
   result = espresso_plan_execute_sync();
   if (result)
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v40, "RunTraining", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 893);
-    v37 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, "Failed to run main network, error=", 34);
-    v38 = espresso_get_last_error();
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v37, v38);
-    goto LABEL_19;
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v27, "RunTraining", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 893);
+    v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, "Failed to run main network, error=", 34);
+    v25 = espresso_get_last_error();
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v24, v25);
+    goto LABEL_15;
   }
 
   if (a5)
   {
     result = std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>>::clear[abi:ne200100](a5);
-    v20 = *a3;
-    if (*a3 != *(a3 + 8))
+    if (*a3 != a3[1])
     {
-      if (*(v20 + 23) < 0)
-      {
-        v21 = *v20;
-      }
-
-      v22 = a1[19];
-      v23 = a1[20];
       if (!espresso_network_bind_buffer())
       {
-        kaldi::quasar::EspressoNDArray::EspressoNDArray(v40, v39, 1);
+        kaldi::quasar::EspressoNDArray::EspressoNDArray(v27, v26, 1);
         operator new();
       }
 
-      kaldi::KaldiErrorMessage::KaldiErrorMessage(v40, "RunTraining", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 906);
-      v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, "espresso_network_bind_buffer failed: ", 37);
-      v32 = espresso_get_last_error();
-      std::operator<<[abi:ne200100]<std::char_traits<char>>(v31, v32);
-LABEL_19:
-      kaldi::KaldiErrorMessage::~KaldiErrorMessage(v40);
+      kaldi::KaldiErrorMessage::KaldiErrorMessage(v27, "RunTraining", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 906);
+      v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, "espresso_network_bind_buffer failed: ", 37);
+      v19 = espresso_get_last_error();
+      std::operator<<[abi:ne200100]<std::char_traits<char>>(v18, v19);
+LABEL_15:
+      kaldi::KaldiErrorMessage::~KaldiErrorMessage(v27);
     }
   }
 
   return result;
 }
 
-void kaldi::quasar::ESNetworkPlan::Run(void *a1, __int128 **a2, __int128 **a3, uint64_t a4, void *a5)
+void kaldi::quasar::ESNetworkPlan::Run(void *a1, char **a2, __int128 **a3, uint64_t a4, const void **a5)
 {
-  *v34 = 0;
-  kaldi::quasar::ESNetworkPlan::SetNetworkFunctionName(a1, a3, &v34[1], v34);
+  *v33 = 0;
+  kaldi::quasar::ESNetworkPlan::SetNetworkFunctionName(a1, a3, &v33[1], v33);
+  v30 = 0;
   v31 = 0;
   v32 = 0;
-  v33 = 0;
-  std::vector<std::pair<std::string,espresso_buffer_t const*>>::reserve(&v31, (a2[1] - *a2) >> 5);
+  std::vector<std::pair<std::string,espresso_buffer_t const*>>::reserve(&v30, (a2[1] - *a2) >> 5);
   v7 = *a2;
   v8 = a2[1];
   if (*a2 != v8)
@@ -8226,126 +7891,126 @@ void kaldi::quasar::ESNetworkPlan::Run(void *a1, __int128 **a2, __int128 **a3, u
     {
       v9 = *(v7 + 3);
       {
-        kaldi::KaldiErrorMessage::KaldiErrorMessage(v30, "Run", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 926);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, "es_data != nullptr", 18);
-        kaldi::KaldiErrorMessage::~KaldiErrorMessage(v30);
+        kaldi::KaldiErrorMessage::KaldiErrorMessage(v29, "Run", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 926);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, "es_data != nullptr", 18);
+        kaldi::KaldiErrorMessage::~KaldiErrorMessage(v29);
       }
 
-      v12 = v11;
-      if (*(v7 + 23) < 0)
+      v11 = v10;
+      if (v7[23] < 0)
       {
-        std::string::__init_copy_ctor_external(&v29, *v7, *(v7 + 1));
+        std::string::__init_copy_ctor_external(&v28, *v7, *(v7 + 1));
       }
 
       else
       {
-        v13 = *v7;
-        v29.__r_.__value_.__r.__words[2] = *(v7 + 2);
-        *&v29.__r_.__value_.__l.__data_ = v13;
+        v12 = *v7;
+        v28.__r_.__value_.__r.__words[2] = *(v7 + 2);
+        *&v28.__r_.__value_.__l.__data_ = v12;
       }
 
-      v14 = v12 + 32;
-      v15 = v32;
-      if (v32 >= v33)
+      v13 = v11 + 32;
+      v14 = v31;
+      if (v31 >= v32)
       {
-        v17 = (v32 - v31) >> 5;
-        v18 = v17 + 1;
-        if ((v17 + 1) >> 59)
+        v16 = (v31 - v30) >> 5;
+        v17 = v16 + 1;
+        if ((v16 + 1) >> 59)
         {
           std::vector<int>::__throw_length_error[abi:ne200100]();
         }
 
-        v19 = v33 - v31;
-        if ((v33 - v31) >> 4 > v18)
+        v18 = v32 - v30;
+        if ((v32 - v30) >> 4 > v17)
         {
-          v18 = v19 >> 4;
+          v17 = v18 >> 4;
         }
 
-        if (v19 >= 0x7FFFFFFFFFFFFFE0)
+        if (v18 >= 0x7FFFFFFFFFFFFFE0)
         {
-          v20 = 0x7FFFFFFFFFFFFFFLL;
+          v19 = 0x7FFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v20 = v18;
+          v19 = v17;
         }
 
-        v30[4] = &v31;
-        if (v20)
+        v29[4] = &v30;
+        if (v19)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::string,kaldi::quasar::ComputeEngineBufferItf const&>>>(&v31, v20);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::string,kaldi::quasar::ComputeEngineBufferItf const&>>>(&v30, v19);
         }
 
-        v21 = 32 * v17;
-        v22 = *&v29.__r_.__value_.__l.__data_;
-        *(v21 + 16) = *(&v29.__r_.__value_.__l + 2);
-        *v21 = v22;
-        memset(&v29, 0, sizeof(v29));
-        *(v21 + 24) = v14;
-        v23 = (32 * v17 - (v32 - v31));
-        memcpy(v23, v31, v32 - v31);
-        v24 = v31;
-        v25 = v33;
-        v31 = v23;
-        v32 = (32 * v17 + 32);
-        v33 = 0;
-        v30[2] = v24;
-        v30[3] = v25;
-        v30[0] = v24;
-        v30[1] = v24;
-        std::__split_buffer<std::pair<std::string,e5rt_execution_stream_operation **>>::~__split_buffer(v30);
-        v32 = (32 * v17 + 32);
-        if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+        v20 = 32 * v16;
+        v21 = *&v28.__r_.__value_.__l.__data_;
+        *(v20 + 16) = *(&v28.__r_.__value_.__l + 2);
+        *v20 = v21;
+        memset(&v28, 0, sizeof(v28));
+        *(v20 + 24) = v13;
+        v22 = (32 * v16 - (v31 - v30));
+        memcpy(v22, v30, v31 - v30);
+        v23 = v30;
+        v24 = v32;
+        v30 = v22;
+        v31 = (32 * v16 + 32);
+        v32 = 0;
+        v29[2] = v23;
+        v29[3] = v24;
+        v29[0] = v23;
+        v29[1] = v23;
+        std::__split_buffer<std::pair<std::string,e5rt_execution_stream_operation **>>::~__split_buffer(v29);
+        v31 = (32 * v16 + 32);
+        if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v29.__r_.__value_.__l.__data_);
+          operator delete(v28.__r_.__value_.__l.__data_);
         }
       }
 
       else
       {
-        v16 = v29.__r_.__value_.__r.__words[2];
-        *v32 = *&v29.__r_.__value_.__l.__data_;
-        *(v15 + 2) = v16;
-        *(v15 + 3) = v14;
-        v32 = v15 + 32;
+        v15 = v28.__r_.__value_.__r.__words[2];
+        *v31 = *&v28.__r_.__value_.__l.__data_;
+        *(v14 + 2) = v15;
+        *(v14 + 3) = v13;
+        v31 = v14 + 32;
       }
 
-      v7 += 2;
+      v7 += 32;
     }
 
     while (v7 != v8);
   }
 
-  if (v34[1])
+  if (v33[1])
   {
-    kaldi::quasar::ESNetworkPlan::RunNitro(a1, &v31, a3, v6, a5);
+    kaldi::quasar::ESNetworkPlan::RunNitro(a1, &v30, a3, v6, a5);
   }
 
-  else if (v34[0] == 1)
+  else if (v33[0] == 1)
   {
-    kaldi::quasar::ESNetworkPlan::RunTraining(a1, &v31, a3, v6, a5);
+    kaldi::quasar::ESNetworkPlan::RunTraining(a1, &v30, a3, v6, a5);
   }
 
   else
   {
-    kaldi::quasar::ESNetworkPlan::RunClassic(a1, &v31, a3, v6, a5);
+    kaldi::quasar::ESNetworkPlan::RunClassic(a1, &v30, a3, v6, a5);
   }
 
-  v30[0] = &v31;
-  std::vector<std::pair<std::string,e5rt_execution_stream_operation **>>::__destroy_vector::operator()[abi:ne200100](v30);
+  v29[0] = &v30;
+  std::vector<std::pair<std::string,e5rt_execution_stream_operation **>>::__destroy_vector::operator()[abi:ne200100](v29);
 }
 
 {
-  v65 = 0;
-  kaldi::quasar::ESNetworkPlan::SetNetworkFunctionName(a1, a3, &v65 + 1, &v65);
+  v64 = 0;
+  kaldi::quasar::ESNetworkPlan::SetNetworkFunctionName(a1, a3, &v64 + 1, &v64);
+  v61 = 0;
   v62 = 0;
   v63 = 0;
-  v64 = 0;
+  v58 = 0;
   v59 = 0;
   v60 = 0;
-  v61 = 0;
-  std::vector<std::pair<std::string,espresso_buffer_t const*>>::reserve(&v59, (a2[1] - *a2) >> 5);
+  std::vector<std::pair<std::string,espresso_buffer_t const*>>::reserve(&v58, (a2[1] - *a2) >> 5);
   v8 = *a2;
   v9 = a2[1];
   if (*a2 != v9)
@@ -8354,273 +8019,272 @@ void kaldi::quasar::ESNetworkPlan::Run(void *a1, __int128 **a2, __int128 **a3, u
     {
       v10 = *(v8 + 3);
       v11 = *v10;
-      v12 = **v10;
-      if (!v13)
+      if (!v12)
       {
-        v14 = (*(v11 + 22))(v10);
-        if (v14 == 1)
+        v13 = (*(v11 + 176))(v10);
+        if (v13 == 1)
         {
-          memset(&v66, 0, sizeof(v66));
-          (*(**(v8 + 3) + 56))(*(v8 + 3), &v66);
-          (*(*a1 + 24))(v69, a1, &v66, 0);
-          v13 = v69[0];
-          v17 = v63;
-          if (v63 >= v64)
+          memset(&v65, 0, sizeof(v65));
+          (*(**(v8 + 3) + 56))(*(v8 + 3), &v65);
+          (*(*a1 + 24))(v68, a1, &v65, 0);
+          v12 = v68[0];
+          v16 = v62;
+          if (v62 >= v63)
           {
-            v19 = v62;
-            v20 = v63 - v62;
-            v21 = (v63 - v62) >> 3;
-            v22 = v21 + 1;
-            if ((v21 + 1) >> 61)
+            v18 = v61;
+            v19 = v62 - v61;
+            v20 = (v62 - v61) >> 3;
+            v21 = v20 + 1;
+            if ((v20 + 1) >> 61)
             {
               std::vector<int>::__throw_length_error[abi:ne200100]();
             }
 
-            v23 = v64 - v62;
-            if ((v64 - v62) >> 2 > v22)
+            v22 = v63 - v61;
+            if ((v63 - v61) >> 2 > v21)
             {
-              v22 = v23 >> 2;
+              v21 = v22 >> 2;
             }
 
-            v24 = v23 >= 0x7FFFFFFFFFFFFFF8;
-            v25 = 0x1FFFFFFFFFFFFFFFLL;
-            if (!v24)
+            v23 = v22 >= 0x7FFFFFFFFFFFFFF8;
+            v24 = 0x1FFFFFFFFFFFFFFFLL;
+            if (!v23)
             {
-              v25 = v22;
+              v24 = v21;
             }
 
-            *(&v57 + 1) = &v62;
-            if (v25)
+            *(&v56 + 1) = &v61;
+            if (v24)
             {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<float> *>>(&v62, v25);
+              std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<float> *>>(&v61, v24);
             }
 
-            v69[0] = 0;
-            *(8 * v21) = v13;
-            v18 = 8 * v21 + 8;
-            memcpy(0, v19, v20);
-            v32 = v62;
-            v33 = v64;
-            v62 = 0;
-            v63 = v18;
-            v64 = 0;
-            *(&v56 + 1) = v32;
-            *&v57 = v33;
-            v55 = v32;
+            v68[0] = 0;
+            *(8 * v20) = v12;
+            v17 = 8 * v20 + 8;
+            memcpy(0, v18, v19);
+            v31 = v61;
+            v32 = v63;
+            v61 = 0;
+            v62 = v17;
+            v63 = 0;
+            *(&v55 + 1) = v31;
             *&v56 = v32;
-            std::__split_buffer<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>>::~__split_buffer(&v55);
+            v54 = v31;
+            *&v55 = v31;
+            std::__split_buffer<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>>::~__split_buffer(&v54);
           }
 
           else
           {
-            v69[0] = 0;
-            *v63 = v13;
-            v18 = (v17 + 1);
+            v68[0] = 0;
+            *v62 = v12;
+            v17 = (v16 + 1);
           }
 
-          v63 = v18;
-          v34 = v69[0];
-          v69[0] = 0;
-          if (v34)
+          v62 = v17;
+          v33 = v68[0];
+          v68[0] = 0;
+          if (v33)
           {
-            (*(*v34 + 8))(v34);
+            (*(*v33 + 8))(v33);
           }
 
-          if (v66.__r_.__value_.__r.__words[0])
+          if (v65.__r_.__value_.__r.__words[0])
           {
-            v66.__r_.__value_.__l.__size_ = v66.__r_.__value_.__r.__words[0];
-            operator delete(v66.__r_.__value_.__l.__data_);
+            v65.__r_.__value_.__l.__size_ = v65.__r_.__value_.__r.__words[0];
+            operator delete(v65.__r_.__value_.__l.__data_);
           }
         }
 
         else
         {
-          if (v14 != 2)
+          if (v13 != 2)
           {
-            kaldi::KaldiErrorMessage::KaldiErrorMessage(&v55, "Run", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 972);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v55, "Unsupported input dimensions", 28);
-            kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v55);
+            kaldi::KaldiErrorMessage::KaldiErrorMessage(&v54, "Run", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/espresso-bridge/es-model.cc", 972);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v54, "Unsupported input dimensions", 28);
+            kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v54);
           }
 
-          v57 = 0u;
           v56 = 0u;
-          v55 = &unk_1F42BFED8;
-          v58 = 0;
-          (*(**(v8 + 3) + 32))(*(v8 + 3), &v55);
-          (*(*a1 + 32))(v69, a1, &v55);
-          v13 = v69[0];
-          v15 = v63;
-          if (v63 >= v64)
+          v55 = 0u;
+          v54 = &unk_1F42BFED8;
+          v57 = 0;
+          (*(**(v8 + 3) + 32))(*(v8 + 3), &v54);
+          (*(*a1 + 32))(v68, a1, &v54);
+          v12 = v68[0];
+          v14 = v62;
+          if (v62 >= v63)
           {
-            v26 = v62;
-            v27 = v63 - v62;
-            v28 = (v63 - v62) >> 3;
-            v29 = v28 + 1;
-            if ((v28 + 1) >> 61)
+            v25 = v61;
+            v26 = v62 - v61;
+            v27 = (v62 - v61) >> 3;
+            v28 = v27 + 1;
+            if ((v27 + 1) >> 61)
             {
               std::vector<int>::__throw_length_error[abi:ne200100]();
             }
 
-            v30 = v64 - v62;
-            if ((v64 - v62) >> 2 > v29)
+            v29 = v63 - v61;
+            if ((v63 - v61) >> 2 > v28)
             {
-              v29 = v30 >> 2;
+              v28 = v29 >> 2;
             }
 
-            v24 = v30 >= 0x7FFFFFFFFFFFFFF8;
-            v31 = 0x1FFFFFFFFFFFFFFFLL;
-            if (!v24)
+            v23 = v29 >= 0x7FFFFFFFFFFFFFF8;
+            v30 = 0x1FFFFFFFFFFFFFFFLL;
+            if (!v23)
             {
-              v31 = v29;
+              v30 = v28;
             }
 
-            v68 = &v62;
-            if (v31)
+            v67 = &v61;
+            if (v30)
             {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<float> *>>(&v62, v31);
+              std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<float> *>>(&v61, v30);
             }
 
-            v35 = v69[0];
-            v69[0] = 0;
-            *(8 * v28) = v35;
-            v16 = 8 * v28 + 8;
-            memcpy(0, v26, v27);
-            v36 = v62;
-            v37 = v64;
-            v62 = 0;
-            v63 = v16;
-            v64 = 0;
-            v66.__r_.__value_.__r.__words[2] = v36;
-            v67 = v37;
-            v66.__r_.__value_.__r.__words[0] = v36;
-            v66.__r_.__value_.__l.__size_ = v36;
-            std::__split_buffer<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>>::~__split_buffer(&v66);
+            v34 = v68[0];
+            v68[0] = 0;
+            *(8 * v27) = v34;
+            v15 = 8 * v27 + 8;
+            memcpy(0, v25, v26);
+            v35 = v61;
+            v36 = v63;
+            v61 = 0;
+            v62 = v15;
+            v63 = 0;
+            v65.__r_.__value_.__r.__words[2] = v35;
+            v66 = v36;
+            v65.__r_.__value_.__r.__words[0] = v35;
+            v65.__r_.__value_.__l.__size_ = v35;
+            std::__split_buffer<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>>::~__split_buffer(&v65);
           }
 
           else
           {
-            v69[0] = 0;
-            *v63 = v13;
-            v16 = (v15 + 1);
+            v68[0] = 0;
+            *v62 = v12;
+            v15 = (v14 + 1);
           }
 
-          v63 = v16;
-          v38 = v69[0];
-          v69[0] = 0;
-          if (v38)
+          v62 = v15;
+          v37 = v68[0];
+          v68[0] = 0;
+          if (v37)
           {
-            (*(*v38 + 8))(v38);
+            (*(*v37 + 8))(v37);
           }
 
-          kaldi::CuMatrix<float>::~CuMatrix(&v55);
+          kaldi::CuMatrix<float>::~CuMatrix(&v54);
         }
       }
 
-      if (*(v8 + 23) < 0)
+      if (v8[23] < 0)
       {
-        std::string::__init_copy_ctor_external(&v66, *v8, *(v8 + 1));
+        std::string::__init_copy_ctor_external(&v65, *v8, *(v8 + 1));
       }
 
       else
       {
-        v39 = *v8;
-        v66.__r_.__value_.__r.__words[2] = *(v8 + 2);
-        *&v66.__r_.__value_.__l.__data_ = v39;
+        v38 = *v8;
+        v65.__r_.__value_.__r.__words[2] = *(v8 + 2);
+        *&v65.__r_.__value_.__l.__data_ = v38;
       }
 
-      v40 = v13 + 32;
-      v41 = v60;
-      if (v60 >= v61)
+      v39 = v12 + 32;
+      v40 = v59;
+      if (v59 >= v60)
       {
-        v43 = (v60 - v59) >> 5;
-        v44 = v43 + 1;
-        if ((v43 + 1) >> 59)
+        v42 = (v59 - v58) >> 5;
+        v43 = v42 + 1;
+        if ((v42 + 1) >> 59)
         {
           std::vector<int>::__throw_length_error[abi:ne200100]();
         }
 
-        v45 = v61 - v59;
-        if ((v61 - v59) >> 4 > v44)
+        v44 = v60 - v58;
+        if ((v60 - v58) >> 4 > v43)
         {
-          v44 = v45 >> 4;
+          v43 = v44 >> 4;
         }
 
-        if (v45 >= 0x7FFFFFFFFFFFFFE0)
+        if (v44 >= 0x7FFFFFFFFFFFFFE0)
         {
-          v46 = 0x7FFFFFFFFFFFFFFLL;
+          v45 = 0x7FFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v46 = v44;
+          v45 = v43;
         }
 
-        *(&v57 + 1) = &v59;
-        if (v46)
+        *(&v56 + 1) = &v58;
+        if (v45)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::string,kaldi::quasar::ComputeEngineBufferItf const&>>>(&v59, v46);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::string,kaldi::quasar::ComputeEngineBufferItf const&>>>(&v58, v45);
         }
 
-        v47 = 32 * v43;
-        v48 = *&v66.__r_.__value_.__l.__data_;
-        *(v47 + 16) = *(&v66.__r_.__value_.__l + 2);
-        *v47 = v48;
-        memset(&v66, 0, sizeof(v66));
-        *(v47 + 24) = v40;
-        v49 = 32 * v43 + 32;
-        v50 = (v47 - (v60 - v59));
-        memcpy(v50, v59, v60 - v59);
-        v51 = v59;
-        v52 = v61;
-        v59 = v50;
-        v60 = v49;
-        v61 = 0;
-        *(&v56 + 1) = v51;
-        *&v57 = v52;
-        v55 = v51;
+        v46 = 32 * v42;
+        v47 = *&v65.__r_.__value_.__l.__data_;
+        *(v46 + 16) = *(&v65.__r_.__value_.__l + 2);
+        *v46 = v47;
+        memset(&v65, 0, sizeof(v65));
+        *(v46 + 24) = v39;
+        v48 = 32 * v42 + 32;
+        v49 = (v46 - (v59 - v58));
+        memcpy(v49, v58, v59 - v58);
+        v50 = v58;
+        v51 = v60;
+        v58 = v49;
+        v59 = v48;
+        v60 = 0;
+        *(&v55 + 1) = v50;
         *&v56 = v51;
-        std::__split_buffer<std::pair<std::string,e5rt_execution_stream_operation **>>::~__split_buffer(&v55);
-        v60 = v49;
-        if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
+        v54 = v50;
+        *&v55 = v50;
+        std::__split_buffer<std::pair<std::string,e5rt_execution_stream_operation **>>::~__split_buffer(&v54);
+        v59 = v48;
+        if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v66.__r_.__value_.__l.__data_);
+          operator delete(v65.__r_.__value_.__l.__data_);
         }
       }
 
       else
       {
-        v42 = v66.__r_.__value_.__r.__words[2];
-        *v60 = *&v66.__r_.__value_.__l.__data_;
-        *(v41 + 2) = v42;
-        *(v41 + 3) = v40;
-        v60 = v41 + 32;
+        v41 = v65.__r_.__value_.__r.__words[2];
+        *v59 = *&v65.__r_.__value_.__l.__data_;
+        *(v40 + 2) = v41;
+        *(v40 + 3) = v39;
+        v59 = v40 + 32;
       }
 
-      v8 += 2;
+      v8 += 32;
     }
 
     while (v8 != v9);
   }
 
-  if ((v65 & 0x100) != 0)
+  if ((v64 & 0x100) != 0)
   {
-    kaldi::quasar::ESNetworkPlan::RunNitro(a1, &v59, a3, v7, a5);
+    kaldi::quasar::ESNetworkPlan::RunNitro(a1, &v58, a3, v7, a5);
   }
 
-  else if (v65 == 1)
+  else if (v64 == 1)
   {
-    kaldi::quasar::ESNetworkPlan::RunTraining(a1, &v59, a3, v7, a5);
+    kaldi::quasar::ESNetworkPlan::RunTraining(a1, &v58, a3, v7, a5);
   }
 
   else
   {
-    kaldi::quasar::ESNetworkPlan::RunClassic(a1, &v59, a3, v7, a5);
+    kaldi::quasar::ESNetworkPlan::RunClassic(a1, &v58, a3, v7, a5);
   }
 
-  v55 = &v59;
-  std::vector<std::pair<std::string,e5rt_execution_stream_operation **>>::__destroy_vector::operator()[abi:ne200100](&v55);
-  v55 = &v62;
-  std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>>::__destroy_vector::operator()[abi:ne200100](&v55);
+  v54 = &v58;
+  std::vector<std::pair<std::string,e5rt_execution_stream_operation **>>::__destroy_vector::operator()[abi:ne200100](&v54);
+  v54 = &v61;
+  std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>>::__destroy_vector::operator()[abi:ne200100](&v54);
 }
 
 void sub_1C3179540(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
@@ -8635,14 +8299,12 @@ void sub_1C3179540(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<std::pair<std::string,espresso_buffer_t const*>>::reserve(void *result, unint64_t a2)
+const void **std::vector<std::pair<std::string,espresso_buffer_t const*>>::reserve(const void **result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 5)
   {
     if (!(a2 >> 59))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::string,kaldi::quasar::ComputeEngineBufferItf const&>>>(result, a2);
     }
 
@@ -8679,11 +8341,11 @@ void kaldi::quasar::ESTensorData::Copy(kaldi::quasar::ESTensorData *this)
 {
   if (*(this + 25))
   {
-    v2 = *(this + 17);
-    v3 = *(this + 15) * *(this + 14) * *(this + 16);
+    v3 = *(this + 17);
+    v4 = *(this + 15) * *(this + 14) * *(this + 16);
     v23 = 0u;
     v24 = 0u;
-    v4 = v3 * v2;
+    v5 = v4 * v3;
     *__dst = 0u;
     v15 = 0u;
     v16 = 0u;
@@ -8695,29 +8357,28 @@ void kaldi::quasar::ESTensorData::Copy(kaldi::quasar::ESTensorData *this)
     v22 = 0u;
     v25 = 0;
     LODWORD(v24) = 65568;
-    kaldi::quasar::EspressoNDArray::InitBufferMemory(__dst, v3 * v2);
-    v5 = *(this + 9);
-    v6 = *(this + 11);
+    kaldi::quasar::EspressoNDArray::InitBufferMemory(__dst, v4 * v3);
+    v6 = *(this + 9);
+    v7 = *(this + 11);
     v22 = *(this + 10);
-    v23 = v6;
-    v7 = *(this + 5);
-    v8 = *(this + 7);
-    v9 = *(this + 8);
+    v23 = v7;
+    v8 = *(this + 5);
+    v9 = *(this + 7);
+    v10 = *(this + 8);
     v18 = *(this + 6);
-    v19 = v8;
-    v20 = v9;
-    v21 = v5;
-    v10 = *(this + 2);
+    v19 = v9;
+    v20 = v10;
+    v21 = v6;
     v11 = *(this + 3);
     v12 = *(this + 4);
     __dst[1] = *(this + 5);
     v15 = v11;
     v16 = v12;
-    v17 = v7;
+    v17 = v8;
     v13 = *(this + 25);
     *&v24 = *(this + 24);
     *(&v24 + 1) = v13;
-    memcpy(__dst[0], *(this + 4), 4 * v4);
+    memcpy(__dst[0], *(this + 4), 4 * v5);
   }
 
   else
@@ -8759,17 +8420,16 @@ void kaldi::quasar::ESTensorData::CopyToMatrix(uint64_t a1, uint64_t a2)
   kaldi::quasar::EspressoNDArray::ToMatrix<kaldi::CuMatrix<float>>((a1 + 32), a2);
 }
 
-void *kaldi::quasar::ESTensorData::CopyFromImpl(kaldi::quasar::ESTensorData *this, char **lpsrc)
+void *kaldi::quasar::ESTensorData::CopyFromImpl(kaldi::quasar::ESTensorData *this, const kaldi::quasar::ComputeEngineBufferItf *lpsrc)
 {
-  v3 = **lpsrc;
-  if (!v4)
+  if (!v3)
   {
     __cxa_bad_cast();
   }
 
-  v5 = (v4 + 32);
+  v4 = (v3 + 32);
 
-  return kaldi::quasar::EspressoNDArray::CopyTo(v5, (this + 32));
+  return kaldi::quasar::EspressoNDArray::CopyTo(v4, (this + 32));
 }
 
 void *kaldi::quasar::ESTensorData::FlatRangeCopy(kaldi::quasar::ESTensorData *this, const kaldi::quasar::ComputeEngineBufferItf *a2, int a3, int a4, int a5)
@@ -8969,11 +8629,9 @@ uint64_t kaldi::quasar::ESTensorData::GetDataInt32(kaldi::quasar::ESTensorData *
 
 uint64_t kaldi::quasar::ESTensorData::GetDimSize(kaldi::quasar::ESTensorData *this, int a2)
 {
-  v5[10] = *MEMORY[0x1E69E9840];
+  v4[10] = *MEMORY[0x1E69E9840];
   espresso_buffer_unpack_tensor_shape();
-  result = v5[a2];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return v4[a2];
 }
 
 void kaldi::quasar::ESTensorData::Reshape()
@@ -9009,7 +8667,7 @@ kaldi::quasar::ESNetworkConfig *kaldi::quasar::ESNetworkConfig::ESNetworkConfig(
     *(this + 40) = v5;
   }
 
-  std::map<std::string,std::string>::map[abi:ne200100](this + 8, a2 + 8);
+  std::map<std::string,std::string>::map[abi:ne200100](this + 8, a2 + 64);
   if (*(a2 + 111) < 0)
   {
     std::string::__init_copy_ctor_external((this + 88), *(a2 + 11), *(a2 + 12));
@@ -9056,30 +8714,30 @@ void sub_1C317A7E0(_Unwind_Exception *a1)
 
 void kaldi::quasar::EspressoNDArray::ToMatrix<kaldi::Matrix<float>>(uint64_t *a1, uint64_t a2)
 {
-  v28[9] = *MEMORY[0x1E69E9840];
-  v26 = 0;
+  v27[9] = *MEMORY[0x1E69E9840];
+  v25 = 0;
   espresso_buffer_unpack_tensor_shape();
   v4 = a1[21];
   if (v4 >= 3)
   {
     v5 = 0;
-    while (*&v27[8 * v5] == 1)
+    while (*&v26[8 * v5] == 1)
     {
-      if (v26 - 1 == ++v5)
+      if (v25 - 1 == ++v5)
       {
-        v5 = v26 - 1;
+        v5 = v25 - 1;
         break;
       }
     }
 
-    if (v26 <= v5 + 1)
+    if (v25 <= v5 + 1)
     {
       v6 = v5 + 1;
     }
 
     else
     {
-      v6 = v26;
+      v6 = v25;
     }
 
     v7 = v6 - 1;
@@ -9087,12 +8745,12 @@ void kaldi::quasar::EspressoNDArray::ToMatrix<kaldi::Matrix<float>>(uint64_t *a1
     while (1)
     {
       v9 = v8 + 1;
-      if (v8 + 1 >= v26)
+      if (v8 + 1 >= v25)
       {
         break;
       }
 
-      v10 = v28[v8++];
+      v10 = v27[v8++];
       if (v10 != 1)
       {
         v7 = v9 - 1;
@@ -9101,10 +8759,10 @@ void kaldi::quasar::EspressoNDArray::ToMatrix<kaldi::Matrix<float>>(uint64_t *a1
       }
     }
 
-    if (v7 + 2 < v26)
+    if (v7 + 2 < v25)
     {
-      v11 = v26 - v7 - 2;
-      v12 = &v28[v7 + 1];
+      v11 = v25 - v7 - 2;
+      v12 = &v27[v7 + 1];
       while (1)
       {
         v13 = *v12++;
@@ -9119,33 +8777,33 @@ void kaldi::quasar::EspressoNDArray::ToMatrix<kaldi::Matrix<float>>(uint64_t *a1
         }
       }
 
-      if (v9 < v26)
+      if (v9 < v25)
       {
-        kaldi::KaldiErrorMessage::KaldiErrorMessage(v25, "ToMatrix", "../engine/common/libquasar/libkaldi/src/espresso-bridge/espresso-ndarray.h", 253);
-        v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, "Tensor rank is greater than 2: ", 31);
-        MEMORY[0x1C692A980](v24, a1[21]);
-        kaldi::KaldiErrorMessage::~KaldiErrorMessage(v25);
+        kaldi::KaldiErrorMessage::KaldiErrorMessage(v24, "ToMatrix", "../engine/common/libquasar/libkaldi/src/espresso-bridge/espresso-ndarray.h", 253);
+        v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, "Tensor rank is greater than 2: ", 31);
+        MEMORY[0x1C692A980](v23, a1[21]);
+        kaldi::KaldiErrorMessage::~KaldiErrorMessage(v24);
       }
 
       goto LABEL_25;
     }
 
 LABEL_17:
-    if (v9 >= v26)
+    if (v9 >= v25)
     {
 LABEL_25:
-      v16 = &v27[8 * v5];
+      v16 = &v26[8 * v5];
       goto LABEL_26;
     }
 
-    v14 = *&v27[8 * v6];
-    v15 = &v27[8 * v5];
+    v14 = *&v26[8 * v6];
+    v15 = &v26[8 * v5];
 LABEL_22:
     v17 = *v15;
     kaldi::Matrix<float>::Resize(a2, *v15, v14, 1, 0);
     if (!v17)
     {
-      goto LABEL_33;
+      return;
     }
 
     goto LABEL_27;
@@ -9153,12 +8811,12 @@ LABEL_22:
 
   if (v4 != 1)
   {
-    v15 = v27;
-    v14 = v28[0];
+    v15 = v26;
+    v14 = v27[0];
     goto LABEL_22;
   }
 
-  v16 = v27;
+  v16 = v26;
 LABEL_26:
   v14 = *v16;
   kaldi::Matrix<float>::Resize(a2, 1, *v16, 1, 0);
@@ -9188,8 +8846,6 @@ LABEL_27:
   }
 
   while (v18 != v17);
-LABEL_33:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C317AA80(_Unwind_Exception *a1, int a2)
@@ -9204,30 +8860,30 @@ void sub_1C317AA80(_Unwind_Exception *a1, int a2)
 
 void kaldi::quasar::EspressoNDArray::ToMatrix<kaldi::CuMatrix<float>>(uint64_t *a1, uint64_t a2)
 {
-  v28[9] = *MEMORY[0x1E69E9840];
-  v26 = 0;
+  v27[9] = *MEMORY[0x1E69E9840];
+  v25 = 0;
   espresso_buffer_unpack_tensor_shape();
   v4 = a1[21];
   if (v4 >= 3)
   {
     v5 = 0;
-    while (*&v27[8 * v5] == 1)
+    while (*&v26[8 * v5] == 1)
     {
-      if (v26 - 1 == ++v5)
+      if (v25 - 1 == ++v5)
       {
-        v5 = v26 - 1;
+        v5 = v25 - 1;
         break;
       }
     }
 
-    if (v26 <= v5 + 1)
+    if (v25 <= v5 + 1)
     {
       v6 = v5 + 1;
     }
 
     else
     {
-      v6 = v26;
+      v6 = v25;
     }
 
     v7 = v6 - 1;
@@ -9235,12 +8891,12 @@ void kaldi::quasar::EspressoNDArray::ToMatrix<kaldi::CuMatrix<float>>(uint64_t *
     while (1)
     {
       v9 = v8 + 1;
-      if (v8 + 1 >= v26)
+      if (v8 + 1 >= v25)
       {
         break;
       }
 
-      v10 = v28[v8++];
+      v10 = v27[v8++];
       if (v10 != 1)
       {
         v7 = v9 - 1;
@@ -9249,10 +8905,10 @@ void kaldi::quasar::EspressoNDArray::ToMatrix<kaldi::CuMatrix<float>>(uint64_t *
       }
     }
 
-    if (v7 + 2 < v26)
+    if (v7 + 2 < v25)
     {
-      v11 = v26 - v7 - 2;
-      v12 = &v28[v7 + 1];
+      v11 = v25 - v7 - 2;
+      v12 = &v27[v7 + 1];
       while (1)
       {
         v13 = *v12++;
@@ -9267,33 +8923,33 @@ void kaldi::quasar::EspressoNDArray::ToMatrix<kaldi::CuMatrix<float>>(uint64_t *
         }
       }
 
-      if (v9 < v26)
+      if (v9 < v25)
       {
-        kaldi::KaldiErrorMessage::KaldiErrorMessage(v25, "ToMatrix", "../engine/common/libquasar/libkaldi/src/espresso-bridge/espresso-ndarray.h", 253);
-        v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, "Tensor rank is greater than 2: ", 31);
-        MEMORY[0x1C692A980](v24, a1[21]);
-        kaldi::KaldiErrorMessage::~KaldiErrorMessage(v25);
+        kaldi::KaldiErrorMessage::KaldiErrorMessage(v24, "ToMatrix", "../engine/common/libquasar/libkaldi/src/espresso-bridge/espresso-ndarray.h", 253);
+        v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, "Tensor rank is greater than 2: ", 31);
+        MEMORY[0x1C692A980](v23, a1[21]);
+        kaldi::KaldiErrorMessage::~KaldiErrorMessage(v24);
       }
 
       goto LABEL_25;
     }
 
 LABEL_17:
-    if (v9 >= v26)
+    if (v9 >= v25)
     {
 LABEL_25:
-      v16 = &v27[8 * v5];
+      v16 = &v26[8 * v5];
       goto LABEL_26;
     }
 
-    v14 = *&v27[8 * v6];
-    v15 = &v27[8 * v5];
+    v14 = *&v26[8 * v6];
+    v15 = &v26[8 * v5];
 LABEL_22:
     v17 = *v15;
-    kaldi::CuMatrix<float>::Resize(a2, *v15, v14, 1u, 0);
+    kaldi::CuMatrix<float>::Resize(a2, *v15, v14, 1, 0);
     if (!v17)
     {
-      goto LABEL_33;
+      return;
     }
 
     goto LABEL_27;
@@ -9301,15 +8957,15 @@ LABEL_22:
 
   if (v4 != 1)
   {
-    v15 = v27;
-    v14 = v28[0];
+    v15 = v26;
+    v14 = v27[0];
     goto LABEL_22;
   }
 
-  v16 = v27;
+  v16 = v26;
 LABEL_26:
   v14 = *v16;
-  kaldi::CuMatrix<float>::Resize(a2, 1, *v16, 1u, 0);
+  kaldi::CuMatrix<float>::Resize(a2, 1, *v16, 1, 0);
   v17 = 1;
 LABEL_27:
   v18 = 0;
@@ -9336,8 +8992,6 @@ LABEL_27:
   }
 
   while (v18 != v17);
-LABEL_33:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C317ACD4(_Unwind_Exception *a1, int a2)
@@ -9371,7 +9025,7 @@ float kaldi::quasar::EspressoNDArray::ToVector<kaldi::CuVector<float>>(uint64_t 
   return result;
 }
 
-char *std::vector<int>::__assign_with_size[abi:ne200100]<float *,float *>(char **a1, float *a2, float *a3, unint64_t a4)
+char *std::vector<int>::__assign_with_size[abi:ne200100]<float *,float *>(uint64_t *a1, float *a2, float *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -9469,20 +9123,18 @@ char *std::vector<int>::__assign_with_size[abi:ne200100]<float *,float *>(char *
 
 void *kaldi::quasar::EspressoNDArray::CopyTo(kaldi::quasar::EspressoNDArray *this, kaldi::quasar::EspressoNDArray *a2)
 {
-  v7[54] = *MEMORY[0x1E69E9840];
+  v6[54] = *MEMORY[0x1E69E9840];
   v2 = *(this + 11) * *(this + 10) * *(this + 12) * *(this + 13);
   if (v2 != *(a2 + 11) * *(a2 + 10) * *(a2 + 12) * *(a2 + 13))
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v7, "CopyTo", "../engine/common/libquasar/libkaldi/src/espresso-bridge/espresso-ndarray.h", 95);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v7, "total_elements == dst.Volume()");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v7);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v6, "CopyTo", "../engine/common/libquasar/libkaldi/src/espresso-bridge/espresso-ndarray.h", 95);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v6, "total_elements == dst.Volume()");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v6);
   }
 
   espresso_buffer_unpack_tensor_shape();
   espresso_buffer_unpack_tensor_shape();
-  result = memmove(*a2, *this, 4 * v2);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return memmove(*a2, *this, 4 * v2);
 }
 
 void sub_1C317B034(_Unwind_Exception *a1, int a2)
@@ -9495,7 +9147,7 @@ void sub_1C317B034(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unordered_set<std::string>::unordered_set<std::__wrap_iter<std::string*>>(uint64_t a1, const void **a2, const void **a3)
+unint64_t std::unordered_set<std::string>::unordered_set<std::__wrap_iter<std::string*>>(unint64_t a1, uint64_t *a2, uint64_t *a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -9505,7 +9157,7 @@ uint64_t std::unordered_set<std::string>::unordered_set<std::__wrap_iter<std::st
     v5 = a2;
     do
     {
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, v5);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, v5, v5);
       v5 += 3;
     }
 
@@ -9562,7 +9214,6 @@ void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::str
 
 uint64_t kaldi::quasar::EspressoNDArray::FromStdVector<std::vector<int>>(kaldi::quasar::EspressoNDArray *a1, int **a2, char a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
   kaldi::quasar::EspressoNDArray::InitBufferMemory(a1, a2[1] - *a2);
   v6 = *a2;
   if (a2[1] != *a2)
@@ -9598,14 +9249,11 @@ uint64_t kaldi::quasar::EspressoNDArray::FromStdVector<std::vector<int>>(kaldi::
     *(a1 + 21) = 1;
   }
 
-  result = espresso_buffer_pack_tensor_shape();
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return espresso_buffer_pack_tensor_shape();
 }
 
 uint64_t kaldi::quasar::EspressoNDArray::FromStdVector<std::vector<float>>(kaldi::quasar::EspressoNDArray *a1, int **a2, char a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
   kaldi::quasar::EspressoNDArray::InitBufferMemory(a1, a2[1] - *a2);
   v6 = *a2;
   if (a2[1] != *a2)
@@ -9641,14 +9289,11 @@ uint64_t kaldi::quasar::EspressoNDArray::FromStdVector<std::vector<float>>(kaldi
     *(a1 + 21) = 1;
   }
 
-  result = espresso_buffer_pack_tensor_shape();
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return espresso_buffer_pack_tensor_shape();
 }
 
-uint64_t kaldi::quasar::EspressoNDArray::FromMatrix<kaldi::CuMatrixBase<float>>(kaldi::quasar::EspressoNDArray *a1, uint64_t a2)
+void *kaldi::quasar::EspressoNDArray::FromMatrix<kaldi::CuMatrixBase<float>>(kaldi::quasar::EspressoNDArray *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
   v4 = *(a2 + 16);
   v5 = *(a2 + 20);
   kaldi::quasar::EspressoNDArray::InitBufferMemory(a1, v4 * v5);
@@ -9666,8 +9311,6 @@ uint64_t kaldi::quasar::EspressoNDArray::FromMatrix<kaldi::CuMatrixBase<float>>(
         kaldi::KaldiAssertFailure_("Row", "../engine/common/libquasar/libkaldi/src/cudamatrix/cu-matrix.h", 0x225, "static_cast<UnsignedMatrixIndexT>(i) < static_cast<UnsignedMatrixIndexT>(num_rows_)", v7);
       }
 
-      v12 = *(a2 + 16);
-      v13 = *(a2 + 32);
       result = memcpy(v9, (*(a2 + 8) + 4 * (*(a2 + 24) * v8++)), v10);
       v9 += v10;
     }
@@ -9675,11 +9318,10 @@ uint64_t kaldi::quasar::EspressoNDArray::FromMatrix<kaldi::CuMatrixBase<float>>(
     while (v5 != v8);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t kaldi::quasar::EspressoNDArray::FromMatrix<kaldi::MatrixBase<float>>(kaldi::quasar::EspressoNDArray *a1, uint64_t a2)
+void *kaldi::quasar::EspressoNDArray::FromMatrix<kaldi::MatrixBase<float>>(kaldi::quasar::EspressoNDArray *a1, uint64_t a2)
 {
   __src[5] = *MEMORY[0x1E69E9840];
   v4 = kaldi::MatrixBase<float>::NumRows(a2);
@@ -9706,18 +9348,17 @@ uint64_t kaldi::quasar::EspressoNDArray::FromMatrix<kaldi::MatrixBase<float>>(ka
     while (v4 != v9);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void *kaldi::quasar::ESTensorData::ESTensorData(void *a1, uint64_t a2)
+void *kaldi::quasar::ESTensorData::ESTensorData(void *a1, char **a2)
 {
   v4 = kaldi::quasar::ComputeEngineBufferItf::ComputeEngineBufferItf(a1);
   *v4 = &unk_1F42CD730;
   v4[25] = 0;
   v4[26] = 0;
   v5 = *a2;
-  v6 = *(a2 + 8) - *a2;
+  v6 = a2[1] - *a2;
   if (v6)
   {
     v7 = v6 >> 3;
@@ -9729,7 +9370,8 @@ void *kaldi::quasar::ESTensorData::ESTensorData(void *a1, uint64_t a2)
     v8 = 1;
     do
     {
-      v9 = *v5++;
+      v9 = *v5;
+      v5 += 8;
       v8 *= v9;
       --v7;
     }
@@ -9743,9 +9385,8 @@ void *kaldi::quasar::ESTensorData::ESTensorData(void *a1, uint64_t a2)
   }
 
   kaldi::quasar::EspressoNDArray::InitBufferMemory((a1 + 4), v8);
-  v10 = *(a2 + 8) - *a2;
   espresso_buffer_pack_tensor_shape();
-  a1[25] = (*(a2 + 8) - *a2) >> 3;
+  a1[25] = (a2[1] - *a2) >> 3;
   return a1;
 }
 
@@ -9808,7 +9449,7 @@ BOOL std::operator==[abi:ne200100]<std::string,std::hash<std::string>,std::equal
       break;
     }
 
-    v10 = v6 >= 0 ? (v3 + 2) : v3[2];
+    v10 = v6 >= 0 ? v3 + 2 : v3[2];
     v13 = v5[2];
     v11 = v5 + 2;
     v12 = v13;
@@ -9822,7 +9463,7 @@ BOOL std::operator==[abi:ne200100]<std::string,std::hash<std::string>,std::equal
 uint64_t *kaldi::quasar::EspressoNDArray::EspressoNDArray(uint64_t *a1, __int128 *a2, int a3)
 {
   v4 = 0;
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = *a2;
   v6 = a2[2];
   *(a1 + 1) = a2[1];
@@ -9855,15 +9496,15 @@ uint64_t *kaldi::quasar::EspressoNDArray::EspressoNDArray(uint64_t *a1, __int128
     if (v13)
     {
       exception = __cxa_allocate_exception(0x10uLL);
-      std::to_string(&v19, *(a1 + 40));
-      v17 = std::string::insert(&v19, 0, "Unsupported storage type ");
-      v18 = *&v17->__r_.__value_.__l.__data_;
-      v21 = v17->__r_.__value_.__r.__words[2];
-      v20 = v18;
-      v17->__r_.__value_.__l.__size_ = 0;
-      v17->__r_.__value_.__r.__words[2] = 0;
-      v17->__r_.__value_.__r.__words[0] = 0;
-      MEMORY[0x1C692A570](exception, &v20);
+      std::to_string(&v18, *(a1 + 40));
+      v16 = std::string::insert(&v18, 0, "Unsupported storage type ");
+      v17 = *&v16->__r_.__value_.__l.__data_;
+      v20 = v16->__r_.__value_.__r.__words[2];
+      v19 = v17;
+      v16->__r_.__value_.__l.__size_ = 0;
+      v16->__r_.__value_.__r.__words[2] = 0;
+      v16->__r_.__value_.__r.__words[0] = 0;
+      MEMORY[0x1C692A570](exception, &v19);
       __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
@@ -9871,6 +9512,386 @@ uint64_t *kaldi::quasar::EspressoNDArray::EspressoNDArray(uint64_t *a1, __int128
   }
 
   espresso_buffer_unpack_tensor_shape();
-  v14 = *MEMORY[0x1E69E9840];
   return a1;
+}
+
+void sub_1C317B840(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+{
+  if (a21 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a15 < 0)
+  {
+    operator delete(a10);
+    if ((v23 & 1) == 0)
+    {
+LABEL_8:
+      v25 = *(v21 + 176);
+      *(v21 + 176) = 0;
+      if (v25)
+      {
+        free(v25);
+      }
+
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if (!v23)
+  {
+    goto LABEL_8;
+  }
+
+  __cxa_free_exception(v22);
+  goto LABEL_8;
+}
+
+void *kaldi::quasar::EspressoNDArray::InitBufferMemory(kaldi::quasar::EspressoNDArray *this, size_t count)
+{
+  *(this + 20) = 0;
+  *(this + 8) = 0u;
+  *(this + 9) = 0u;
+  *(this + 6) = 0u;
+  *(this + 7) = 0u;
+  *(this + 4) = 0u;
+  *(this + 5) = 0u;
+  *(this + 2) = 0u;
+  *(this + 3) = 0u;
+  *this = 0u;
+  *(this + 1) = 0u;
+  *(this + 40) = 65568;
+  result = malloc_type_calloc(count, 4uLL, 0x100004052888210uLL);
+  v4 = *(this + 22);
+  *(this + 22) = result;
+  if (v4)
+  {
+    free(v4);
+    result = *(this + 22);
+  }
+
+  *this = result;
+  return result;
+}
+
+void *kaldi::quasar::MakeComputeEngineCachePath@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
+{
+  v11 = *MEMORY[0x1E69E9840];
+  bzero(__s, 0x400uLL);
+  v6 = atomic_load(&kaldi::quasar::sComputeEngineCacheLookupHandler);
+  if (*(a1 + 23) >= 0)
+  {
+    v7 = a1;
+  }
+
+  else
+  {
+    v7 = *a1;
+  }
+
+  if (*(a2 + 23) >= 0)
+  {
+    v8 = a2;
+  }
+
+  else
+  {
+    v8 = *a2;
+  }
+
+  v6(v7, v8, __s, 1024);
+  return std::string::basic_string[abi:ne200100]<0>(a3, __s);
+}
+
+void *kaldi::quasar::ComputeEngineBufferItf::ComputeEngineBufferItf(void *this)
+{
+  *this = &unk_1F42CD960;
+  this[1] = 0;
+  this[2] = 0;
+  this[3] = 0;
+  return this;
+}
+
+void kaldi::quasar::ComputeEngineBufferItf::~ComputeEngineBufferItf(void **this)
+{
+  *this = &unk_1F42CD960;
+  if (*(this + 31) < 0)
+  {
+    operator delete(this[1]);
+  }
+}
+
+void kaldi::quasar::ComputeEngineBufferItf::GetShape(const void **__return_ptr a1@<X8>, kaldi::quasar::ComputeEngineBufferItf *this@<X0>)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v4 = (*(*this + 176))(this);
+  if (v4 >= 1)
+  {
+    v5 = 0;
+    do
+    {
+      v6 = (*(*this + 184))(this, v5);
+      v8 = a1[1];
+      v7 = a1[2];
+      if (v8 >= v7)
+      {
+        v10 = *a1;
+        v11 = v8 - *a1;
+        v12 = v11 >> 3;
+        v13 = (v11 >> 3) + 1;
+        if (v13 >> 61)
+        {
+          std::vector<int>::__throw_length_error[abi:ne200100]();
+        }
+
+        v14 = v7 - v10;
+        if (v14 >> 2 > v13)
+        {
+          v13 = v14 >> 2;
+        }
+
+        if (v14 >= 0x7FFFFFFFFFFFFFF8)
+        {
+          v15 = 0x1FFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v15 = v13;
+        }
+
+        if (v15)
+        {
+          std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(a1, v15);
+        }
+
+        *(8 * v12) = v6;
+        v9 = (8 * v12 + 8);
+        memcpy(0, v10, v11);
+        v16 = *a1;
+        *a1 = 0;
+        a1[1] = v9;
+        a1[2] = 0;
+        if (v16)
+        {
+          operator delete(v16);
+        }
+      }
+
+      else
+      {
+        *v8 = v6;
+        v9 = v8 + 8;
+      }
+
+      a1[1] = v9;
+      v5 = (v5 + 1);
+    }
+
+    while (v4 != v5);
+  }
+}
+
+void sub_1C317BBE4(_Unwind_Exception *exception_object)
+{
+  v3 = *v1;
+  if (*v1)
+  {
+    *(v1 + 8) = v3;
+    operator delete(v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t kaldi::quasar::ComputeEngineBufferItf::GetSize(kaldi::quasar::ComputeEngineBufferItf *this)
+{
+  v2 = (*(*this + 176))(this);
+  if (v2 < 1)
+  {
+    return 1;
+  }
+
+  v3 = v2;
+  v4 = 0;
+  v5 = 1;
+  do
+  {
+    v5 *= (*(*this + 184))(this, v4);
+    v4 = (v4 + 1);
+  }
+
+  while (v3 != v4);
+  return v5;
+}
+
+uint64_t *kaldi::quasar::ComputeEngineBufferItf::GetShapeString@<X0>(uint64_t *__return_ptr a1@<X8>, kaldi::quasar::ComputeEngineBufferItf *this@<X0>)
+{
+  result = (*(*this + 176))(this);
+  if (result)
+  {
+    v5 = result;
+    std::ostringstream::basic_ostringstream[abi:ne200100](&v11);
+    v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, "[ ", 2);
+    v7 = (*(*this + 184))(this, 0);
+    MEMORY[0x1C692A960](v6, v7);
+    if (v5 >= 2)
+    {
+      v8 = 1;
+      do
+      {
+        v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, ", ", 2);
+        v10 = (*(*this + 184))(this, v8);
+        MEMORY[0x1C692A960](v9, v10);
+        v8 = (v8 + 1);
+      }
+
+      while (v5 != v8);
+    }
+
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, " ]", 2);
+    std::stringbuf::str();
+    v11 = *MEMORY[0x1E69E54E8];
+    *(&v11 + *(v11 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+    v12 = MEMORY[0x1E69E5548] + 16;
+    if (v14 < 0)
+    {
+      operator delete(v13[7].__locale_);
+    }
+
+    v12 = MEMORY[0x1E69E5538] + 16;
+    std::locale::~locale(v13);
+    std::ostream::~ostream();
+    return MEMORY[0x1C692AD30](&v15);
+  }
+
+  else
+  {
+    *(a1 + 23) = 2;
+    strcpy(a1, "[]");
+  }
+
+  return result;
+}
+
+void sub_1C317BF1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  std::ostringstream::~ostringstream(va, MEMORY[0x1E69E54E8]);
+  MEMORY[0x1C692AD30](va1);
+  _Unwind_Resume(a1);
+}
+
+void kaldi::quasar::ComputeEngineItf::CreateConcatMove(uint64_t a1@<X0>, uint64_t **a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
+{
+  v6 = *a2;
+  v7 = a2[1] - *a2;
+  if (v7 == 1)
+  {
+    v8 = *v6;
+    *v6 = 0;
+    *a4 = v8;
+  }
+
+  else if (v7)
+  {
+    __p = 0;
+    v22 = 0;
+    v23 = 0;
+    std::vector<kaldi::quasar::ComputeEngineBufferItf *>::reserve(&__p, v7);
+    v11 = *a2;
+    v12 = a2[1];
+    if (*a2 != v12)
+    {
+      v13 = v22;
+      do
+      {
+        v14 = *v11;
+        if (v13 >= v23)
+        {
+          v15 = (v13 - __p) >> 3;
+          if ((v15 + 1) >> 61)
+          {
+            std::vector<int>::__throw_length_error[abi:ne200100]();
+          }
+
+          v16 = (v23 - __p) >> 2;
+          if (v16 <= v15 + 1)
+          {
+            v16 = v15 + 1;
+          }
+
+          if (v23 - __p >= 0x7FFFFFFFFFFFFFF8)
+          {
+            v17 = 0x1FFFFFFFFFFFFFFFLL;
+          }
+
+          else
+          {
+            v17 = v16;
+          }
+
+          if (v17)
+          {
+            std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<float> *>>(&__p, v17);
+          }
+
+          v18 = (8 * v15);
+          *v18 = v14;
+          v13 = (8 * v15 + 8);
+          v19 = v18 - (v22 - __p);
+          memcpy(v19, __p, v22 - __p);
+          v20 = __p;
+          __p = v19;
+          v22 = v13;
+          v23 = 0;
+          if (v20)
+          {
+            operator delete(v20);
+          }
+        }
+
+        else
+        {
+          *v13 = v14;
+          v13 += 8;
+        }
+
+        v22 = v13;
+        ++v11;
+      }
+
+      while (v11 != v12);
+    }
+
+    (*(*a1 + 96))(a1, &__p, a3);
+    if (__p)
+    {
+      v22 = __p;
+      operator delete(__p);
+    }
+  }
+
+  else
+  {
+    *a4 = 0;
+  }
 }

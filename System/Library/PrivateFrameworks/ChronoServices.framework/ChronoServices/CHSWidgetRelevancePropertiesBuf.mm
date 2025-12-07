@@ -100,7 +100,7 @@ LABEL_23:
   }
 }
 
-uint64_t __52___CHSWidgetRelevancePropertiesBuf_verifyUTF8Fields__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__52___CHSWidgetRelevancePropertiesBuf_verifyUTF8Fields__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 verifyUTF8Fields];
   if ((result & 1) == 0)

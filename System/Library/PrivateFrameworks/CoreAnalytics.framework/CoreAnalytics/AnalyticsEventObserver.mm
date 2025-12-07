@@ -14,10 +14,10 @@
 
 - (AnalyticsEventObserver)init
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = AnalyticsEventObserver;
-  v2 = [(AnalyticsEventObserver *)&v7 init];
+  v7 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = AnalyticsEventObserver;
+  v2 = [(AnalyticsEventObserver *)&v6 init];
   if (v2)
   {
     v3 = dispatch_queue_create("com.apple.CoreAnalytics.EventObserver", MEMORY[0x1E69E96A8]);
@@ -28,13 +28,12 @@
     [(AnalyticsEventObserver *)v2 setDelegateQueue:0];
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 - (void)dealloc
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   cntrl = self->observer.__cntrl_;
   self->observer.__ptr_ = 0;
   self->observer.__cntrl_ = 0;
@@ -43,31 +42,28 @@
     std::__shared_weak_count::__release_shared[abi:ne200100](cntrl);
   }
 
-  v5.receiver = self;
-  v5.super_class = AnalyticsEventObserver;
-  [(AnalyticsEventObserver *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = AnalyticsEventObserver;
+  [(AnalyticsEventObserver *)&v4 dealloc];
 }
 
 - (void)setEventObserverDelegate:(id)delegate queue:(id)queue
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   queueCopy = queue;
   CASPIEnter();
   queue = [(AnalyticsEventObserver *)self queue];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __57__AnalyticsEventObserver_setEventObserverDelegate_queue___block_invoke;
-  v12[3] = &unk_1E7A2A538;
-  v12[4] = self;
-  v13 = delegateCopy;
-  v14 = queueCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __57__AnalyticsEventObserver_setEventObserverDelegate_queue___block_invoke;
+  v11[3] = &unk_1E7A2A538;
+  v11[4] = self;
+  v12 = delegateCopy;
+  v13 = queueCopy;
   v9 = queueCopy;
   v10 = delegateCopy;
-  dispatch_barrier_async(queue, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  dispatch_barrier_async(queue, v11);
 }
 
 uint64_t __57__AnalyticsEventObserver_setEventObserverDelegate_queue___block_invoke(uint64_t a1)
@@ -81,87 +77,87 @@ uint64_t __57__AnalyticsEventObserver_setEventObserverDelegate_queue___block_inv
 
 - (BOOL)startObservingEventList:(id)list withErrorHandler:(id)handler
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   listCopy = list;
   handlerCopy = handler;
   CASPIEnter();
-  v38 = 0xAAAAAAAAAAAAAAAALL;
-  applesauce::xpc::dict::create(&v38);
   v37 = 0xAAAAAAAAAAAAAAAALL;
-  applesauce::xpc::array::create(&v37);
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
+  applesauce::xpc::dict::create(&v37);
+  v36 = 0xAAAAAAAAAAAAAAAALL;
+  applesauce::xpc::array::create(&v36);
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v8 = listCopy;
-  v9 = [v8 countByEnumeratingWithState:&v43 objects:v42 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v42 objects:v41 count:16];
   if (v9)
   {
-    v10 = *v44;
+    v10 = *v43;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v44 != v10)
+        if (*v43 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v43 + 1) + 8 * i);
+        v12 = *(*(&v42 + 1) + 8 * i);
         v13 = v12;
-        applesauce::xpc::object::object(&v39, [v12 UTF8String]);
-        v14 = v39;
-        v15 = v37;
+        applesauce::xpc::object::object(&v38, [v12 UTF8String]);
+        v14 = v38;
+        v15 = v36;
         xpc_array_append_value(v15, v14);
 
-        v16 = v39;
-        v39 = 0;
+        v16 = v38;
+        v38 = 0;
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v43 objects:v42 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v42 objects:v41 count:16];
     }
 
     while (v9);
   }
 
-  applesauce::xpc::object::object(&v35, &v37);
-  v39 = &v38;
-  v40 = "events";
-  applesauce::xpc::dict::object_proxy::operator=(&v39, &v35, &v36);
-  v17 = v36;
-  v36 = 0;
-
-  v18 = v35;
+  applesauce::xpc::object::object(&v34, &v36);
+  v38 = &v37;
+  v39 = "events";
+  applesauce::xpc::dict::object_proxy::operator=(&v38, &v34, &v35);
+  v17 = v35;
   v35 = 0;
+
+  v18 = v34;
+  v34 = 0;
 
   v20 = CoreAnalytics::Client::get(v19);
   if (handlerCopy)
   {
     v21 = MEMORY[0x1B2704490](handlerCopy);
-    v39 = &unk_1F241FC98;
-    v40 = v21;
-    v41 = &v39;
-    CoreAnalytics::Client::registerErrorHandler(v20, &v39);
-    std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](&v39);
+    v38 = &unk_1F241FC98;
+    v39 = v21;
+    v40 = &v38;
+    CoreAnalytics::Client::registerErrorHandler(v20, &v38);
+    std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](&v38);
   }
 
-  v34 = 0xAAAAAAAAAAAAAAAALL;
+  v33 = 0xAAAAAAAAAAAAAAAALL;
   std::string::basic_string[abi:ne200100]<0>(__p, "create-event-observer");
-  applesauce::xpc::object::object(&v31, &v38);
-  CoreAnalytics::Client::sendManagementCommandWithReply(v20, __p, &v31, &v34);
-  v22 = v31;
-  v31 = 0;
+  applesauce::xpc::object::object(&v30, &v37);
+  CoreAnalytics::Client::sendManagementCommandWithReply(v20, __p, &v30, &v33);
+  v22 = v30;
+  v30 = 0;
 
-  if (v33 < 0)
+  if (v32 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (MEMORY[0x1B2704910](v34) == MEMORY[0x1E69E9E80])
+  if (MEMORY[0x1B2704910](v33) == MEMORY[0x1E69E9E80])
   {
-    v39 = &v34;
-    v40 = "error";
-    if (applesauce::xpc::dict::object_proxy::operator BOOL(&v39))
+    v38 = &v33;
+    v39 = "error";
+    if (applesauce::xpc::dict::object_proxy::operator BOOL(&v38))
     {
       exception = __cxa_allocate_exception(0x10uLL);
       MEMORY[0x1B2703DD0](exception, "create-event-observer failed");
@@ -170,23 +166,22 @@ uint64_t __57__AnalyticsEventObserver_setEventObserverDelegate_queue___block_inv
   }
 
   queue = [(AnalyticsEventObserver *)self queue];
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __67__AnalyticsEventObserver_startObservingEventList_withErrorHandler___block_invoke;
-  v30[3] = &unk_1E7A2A560;
-  v30[4] = self;
-  dispatch_barrier_async(queue, v30);
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __67__AnalyticsEventObserver_startObservingEventList_withErrorHandler___block_invoke;
+  v29[3] = &unk_1E7A2A560;
+  v29[4] = self;
+  dispatch_barrier_async(queue, v29);
 
-  v24 = v34;
-  v34 = 0;
+  v24 = v33;
+  v33 = 0;
 
-  v25 = v37;
+  v25 = v36;
+  v36 = 0;
+
+  v26 = v37;
   v37 = 0;
 
-  v26 = v38;
-  v38 = 0;
-
-  v27 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -203,17 +198,16 @@ void __67__AnalyticsEventObserver_startObservingEventList_withErrorHandler___blo
 
 - (BOOL)stopObserving
 {
-  v6[5] = *MEMORY[0x1E69E9840];
+  v5[5] = *MEMORY[0x1E69E9840];
   CASPIEnter();
   queue = [(AnalyticsEventObserver *)self queue];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __39__AnalyticsEventObserver_stopObserving__block_invoke;
-  v6[3] = &unk_1E7A2A560;
-  v6[4] = self;
-  dispatch_barrier_async(queue, v6);
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __39__AnalyticsEventObserver_stopObserving__block_invoke;
+  v5[3] = &unk_1E7A2A560;
+  v5[4] = self;
+  dispatch_barrier_async(queue, v5);
 
-  v4 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -245,7 +239,7 @@ void __39__AnalyticsEventObserver_stopObserving__block_invoke(uint64_t a1)
 
 - (void)startObservingEventList:withErrorHandler:
 {
-  *(&v8 + 1) = *MEMORY[0x1E69E9840];
+  *(&v7 + 1) = *MEMORY[0x1E69E9840];
   if (*(a2 + 23) < 0)
   {
     std::string::__init_copy_ctor_external(__p, *a2, *(a2 + 8));
@@ -254,11 +248,11 @@ void __39__AnalyticsEventObserver_stopObserving__block_invoke(uint64_t a1)
   else
   {
     *__p = *a2;
-    *&v8 = *(a2 + 16);
+    *&v7 = *(a2 + 16);
   }
 
   v3 = *(self + 8);
-  if ((SBYTE7(v8) & 0x80u) == 0)
+  if ((SBYTE7(v7) & 0x80u) == 0)
   {
     v4 = __p;
   }
@@ -268,15 +262,13 @@ void __39__AnalyticsEventObserver_stopObserving__block_invoke(uint64_t a1)
     v4 = __p[0];
   }
 
-  v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{v4, *__p, v8}];
+  v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{v4, *__p, v7}];
   (*(v3 + 16))(v3, v5);
 
-  if (SBYTE7(v8) < 0)
+  if (SBYTE7(v7) < 0)
   {
     operator delete(__p[0]);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)startObservingEventList:withErrorHandler:

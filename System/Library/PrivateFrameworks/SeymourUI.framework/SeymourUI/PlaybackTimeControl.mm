@@ -9,7 +9,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_20BF7C700();
+  sub_20BF7C700(selfCopy);
 }
 
 - (void)tintColorDidChange

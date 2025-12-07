@@ -94,7 +94,7 @@
   return v2;
 }
 
-uint64_t __36__HDSPWatchOnWristMonitor_isOnWrist__block_invoke(uint64_t a1)
+void *__36__HDSPWatchOnWristMonitor_isOnWrist__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _lock_isOnWrist];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -124,28 +124,24 @@ uint64_t __36__HDSPWatchOnWristMonitor_isOnWrist__block_invoke(uint64_t a1)
 
 uint64_t __42__HDSPWatchOnWristMonitor_lastOnWristDate__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _lock_lastOnWristDate];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _lock_lastOnWristDate];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (void)wristDetectionSettingManagerDidObserveWristDetectChange:(id)change
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = HKSPLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = objc_opt_class();
-    v5 = v8;
-    _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] wristDetectionSettingManagerDidObserveWristDetectChange", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = objc_opt_class();
+    v5 = v7;
+    _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] wristDetectionSettingManagerDidObserveWristDetectChange", &v6, 0xCu);
   }
 
   [(HKSPObserverSet *)self->_observers enumerateObserversWithBlock:&__block_literal_global_7];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __83__HDSPWatchOnWristMonitor_wristDetectionSettingManagerDidObserveWristDetectChange___block_invoke(uint64_t a1, void *a2)

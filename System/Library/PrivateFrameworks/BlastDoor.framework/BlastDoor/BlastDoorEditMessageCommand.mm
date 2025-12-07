@@ -12,26 +12,25 @@
 
 - (BlastDoorMetadata)metadata
 {
-  v3 = type metadata accessor for Metadata();
-  v4 = *(*(v3 - 8) + 64);
+  v3 = type metadata accessor for Metadata(0);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_213FB568C(self + OBJC_IVAR___BlastDoorEditMessageCommand_editMessageCommand, v6, type metadata accessor for Metadata);
-  v7 = type metadata accessor for _ObjCMetadataWrapper(0);
-  v8 = objc_allocWithZone(v7);
-  sub_213FB568C(v6, v8 + OBJC_IVAR___BlastDoorMetadata_metadata, type metadata accessor for Metadata);
-  v11.receiver = v8;
-  v11.super_class = v7;
-  v9 = [(BlastDoorEditMessageCommand *)&v11 init];
-  sub_213FB5844(v6, type metadata accessor for Metadata);
+  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_213FB568C(self + OBJC_IVAR___BlastDoorEditMessageCommand_editMessageCommand, v5, type metadata accessor for Metadata);
+  v6 = type metadata accessor for _ObjCMetadataWrapper(0);
+  v7 = objc_allocWithZone(v6);
+  sub_213FB568C(v5, v7 + OBJC_IVAR___BlastDoorMetadata_metadata, type metadata accessor for Metadata);
+  v10.receiver = v7;
+  v10.super_class = v6;
+  v8 = [(BlastDoorEditMessageCommand *)&v10 init];
+  sub_213FB5844(v5, type metadata accessor for Metadata);
 
-  return v9;
+  return v8;
 }
 
 - (int64_t)editType
 {
   v2 = self + OBJC_IVAR___BlastDoorEditMessageCommand_editMessageCommand;
-  result = v2[*(type metadata accessor for EditMessageCommand() + 24)];
+  result = v2[*(type metadata accessor for EditMessageCommand(0) + 24)];
   if (result > 2)
   {
     __break(1u);
@@ -43,7 +42,7 @@
 - (int64_t)editedMessagePartIndex
 {
   v2 = self + OBJC_IVAR___BlastDoorEditMessageCommand_editMessageCommand;
-  v3 = &v2[*(type metadata accessor for EditMessageCommand() + 28)];
+  v3 = &v2[*(type metadata accessor for EditMessageCommand(0) + 28)];
   if (v3[8])
   {
     return 0;
@@ -58,7 +57,7 @@
 - (BlastDoorMessageContent)editedMessagePartBody
 {
   v2 = self + OBJC_IVAR___BlastDoorEditMessageCommand_editMessageCommand;
-  v3 = type metadata accessor for EditMessageCommand();
+  v3 = type metadata accessor for EditMessageCommand(0);
   v4 = 0;
   v5 = &v2[*(v3 + 32)];
   v6 = *(v5 + 1);
@@ -81,7 +80,7 @@
     *(v15 + 5) = v8;
     *(v15 + 6) = v7;
 
-    sub_214031CA0(v9);
+    sub_214031CA0(v9, v8, v7);
     v17.receiver = v14;
     v17.super_class = v13;
     v4 = [(BlastDoorEditMessageCommand *)&v17 init];
@@ -93,7 +92,7 @@
 - (BlastDoorMessageContent)editedMessagePartTranslation
 {
   v2 = self + OBJC_IVAR___BlastDoorEditMessageCommand_editMessageCommand;
-  v3 = type metadata accessor for EditMessageCommand();
+  v3 = type metadata accessor for EditMessageCommand(0);
   v4 = 0;
   v5 = &v2[*(v3 + 40)];
   v6 = *(v5 + 1);
@@ -116,7 +115,7 @@
     *(v15 + 5) = v8;
     *(v15 + 6) = v7;
 
-    sub_214031CA0(v9);
+    sub_214031CA0(v9, v8, v7);
     v17.receiver = v14;
     v17.super_class = v13;
     v4 = [(BlastDoorEditMessageCommand *)&v17 init];
@@ -128,7 +127,7 @@
 - (BlastDoorMessageContent)messageContent
 {
   v2 = self + OBJC_IVAR___BlastDoorEditMessageCommand_editMessageCommand;
-  v3 = &v2[*(type metadata accessor for EditMessageCommand() + 44)];
+  v3 = &v2[*(type metadata accessor for EditMessageCommand(0) + 44)];
   v5 = *v3;
   v4 = *(v3 + 1);
   v7 = *(v3 + 2);
@@ -147,7 +146,7 @@
   *(v13 + 5) = v9;
   *(v13 + 6) = v10;
 
-  sub_214031CA0(v8);
+  sub_214031CA0(v8, v9, v10);
   v16.receiver = v12;
   v16.super_class = v11;
   v14 = [(BlastDoorEditMessageCommand *)&v16 init];

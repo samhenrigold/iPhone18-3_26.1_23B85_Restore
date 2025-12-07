@@ -414,7 +414,7 @@ LABEL_26:
 
 - (void)setFrameLength:(AVAudioFrameCount)frameLength
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   impl = self->super._impl;
   if (impl[5] < frameLength)
   {
@@ -427,17 +427,17 @@ LABEL_26:
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v11 = "AVAEInternal.h";
-      v12 = 1024;
-      v13 = 71;
-      v14 = 2080;
-      v15 = "AVAudioBuffer.mm";
-      v16 = 1024;
-      v17 = 389;
-      v18 = 2080;
-      v19 = "[AVAudioPCMBuffer setFrameLength:]";
-      v20 = 2080;
-      v21 = "length <= _imp->_frameCapacity";
+      v10 = "AVAEInternal.h";
+      v11 = 1024;
+      v12 = 71;
+      v13 = 2080;
+      v14 = "AVAudioBuffer.mm";
+      v15 = 1024;
+      v16 = 389;
+      v17 = 2080;
+      v18 = "[AVAudioPCMBuffer setFrameLength:]";
+      v19 = 2080;
+      v20 = "length <= _imp->_frameCapacity";
       _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -446,11 +446,10 @@ LABEL_26:
   }
 
   v7 = impl[6] * frameLength;
-  v9.receiver = self;
-  v9.super_class = AVAudioPCMBuffer;
-  [(AVAudioBuffer *)&v9 setByteLength:v7];
+  v8.receiver = self;
+  v8.super_class = AVAudioPCMBuffer;
+  [(AVAudioBuffer *)&v8 setByteLength:v7];
   *(self->super._impl + 4) = frameLength;
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setByteLength:(unsigned int)length
@@ -463,12 +462,12 @@ LABEL_26:
 
 - (AVAudioPCMBuffer)initWithPCMFormat:(AVAudioFormat *)format bufferListNoCopy:(const AudioBufferList *)bufferList deallocator:(void *)deallocator
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   streamDescription = [(AVAudioFormat *)format streamDescription];
   v10 = *&streamDescription->mBytesPerPacket;
-  v40 = *&streamDescription->mSampleRate;
-  v41 = v10;
-  v42 = *&streamDescription->mBitsPerChannel;
+  v39 = *&streamDescription->mSampleRate;
+  v40 = v10;
+  v41 = *&streamDescription->mBitsPerChannel;
   {
     if (AVAudioEngineLogCategory(void)::once != -1)
     {
@@ -479,17 +478,17 @@ LABEL_26:
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v44 = "AVAEInternal.h";
-      v45 = 1024;
-      v46 = 71;
-      v47 = 2080;
-      *v48 = "AVAudioBuffer.mm";
-      *&v48[8] = 1024;
-      *v49 = 345;
-      *&v49[4] = 2080;
-      v50 = "[AVAudioPCMBuffer initWithPCMFormat:bufferListNoCopy:deallocator:]";
-      v51 = 2080;
-      v52 = "isPCMFormat(fmt)";
+      v43 = "AVAEInternal.h";
+      v44 = 1024;
+      v45 = 71;
+      v46 = 2080;
+      *v47 = "AVAudioBuffer.mm";
+      *&v47[8] = 1024;
+      *v48 = 345;
+      *&v48[4] = 2080;
+      v49 = "[AVAudioPCMBuffer initWithPCMFormat:bufferListNoCopy:deallocator:]";
+      v50 = 2080;
+      v51 = "isPCMFormat(fmt)";
       _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -507,25 +506,25 @@ LABEL_26:
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v44 = "AVAEInternal.h";
-      v45 = 1024;
-      v46 = 71;
-      v47 = 2080;
-      *v48 = "AVAudioBuffer.mm";
-      *&v48[8] = 1024;
-      *v49 = 346;
-      *&v49[4] = 2080;
-      v50 = "[AVAudioPCMBuffer initWithPCMFormat:bufferListNoCopy:deallocator:]";
-      v51 = 2080;
-      v52 = "bufferList != nullptr";
+      v43 = "AVAEInternal.h";
+      v44 = 1024;
+      v45 = 71;
+      v46 = 2080;
+      *v47 = "AVAudioBuffer.mm";
+      *&v47[8] = 1024;
+      *v48 = 346;
+      *&v48[4] = 2080;
+      v49 = "[AVAudioPCMBuffer initWithPCMFormat:bufferListNoCopy:deallocator:]";
+      v50 = 2080;
+      v51 = "bufferList != nullptr";
       _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
     [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"required condition is false: %s", "bufferList != nullptr"}];
   }
 
-  v13 = DWORD2(v41);
-  if (!DWORD2(v41))
+  v13 = DWORD2(v40);
+  if (!DWORD2(v40))
   {
     v26 = gAVAudioBufferLog();
     if (!os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
@@ -534,9 +533,9 @@ LABEL_26:
     }
 
     *buf = 136315394;
-    v44 = "AVAudioBuffer.mm";
-    v45 = 1024;
-    v46 = 349;
+    v43 = "AVAudioBuffer.mm";
+    v44 = 1024;
+    v45 = 349;
     v27 = "%25s:%-5d format has zero bytes per frame";
     goto LABEL_37;
   }
@@ -551,9 +550,9 @@ LABEL_26:
     }
 
     *buf = 136315394;
-    v44 = "AVAudioBuffer.mm";
-    v45 = 1024;
-    v46 = 267;
+    v43 = "AVAudioBuffer.mm";
+    v44 = 1024;
+    v45 = 267;
     v27 = "%25s:%-5d the number of buffers is 0";
 LABEL_37:
     v28 = v26;
@@ -561,9 +560,9 @@ LABEL_37:
     goto LABEL_47;
   }
 
-  if ((BYTE12(v40) & 0x20) != 0)
+  if ((BYTE12(v39) & 0x20) != 0)
   {
-    v15 = HIDWORD(v41);
+    v15 = HIDWORD(v40);
   }
 
   else
@@ -581,13 +580,13 @@ LABEL_37:
 
     v31 = bufferList->mNumberBuffers;
     *buf = 136315906;
-    v44 = "AVAudioBuffer.mm";
-    v45 = 1024;
-    v46 = 274;
-    v47 = 1024;
-    *v48 = v31;
-    *&v48[4] = 1024;
-    *&v48[6] = v15;
+    v43 = "AVAudioBuffer.mm";
+    v44 = 1024;
+    v45 = 274;
+    v46 = 1024;
+    *v47 = v31;
+    *&v47[4] = 1024;
+    *&v47[6] = v15;
     v27 = "%25s:%-5d the number of buffers (%u) does not match the format's number of channel streams (%u)";
     v28 = v30;
     v29 = 30;
@@ -601,14 +600,14 @@ LABEL_47:
   {
     v17 = 0;
     v18 = 0;
-    if ((BYTE12(v40) & 0x20) != 0)
+    if ((BYTE12(v39) & 0x20) != 0)
     {
       v19 = 1;
     }
 
     else
     {
-      v19 = HIDWORD(v41);
+      v19 = HIDWORD(v40);
     }
 
     v20 = 16 * mNumberBuffers;
@@ -634,15 +633,15 @@ LABEL_47:
 
         v34 = *(v22 + 2);
         *buf = 136316162;
-        v44 = "AVAudioBuffer.mm";
-        v45 = 1024;
-        v46 = 296;
-        v47 = 1024;
-        *v48 = v18;
-        *&v48[4] = 1024;
-        *&v48[6] = v34;
-        *v49 = 1024;
-        *&v49[2] = v19;
+        v43 = "AVAudioBuffer.mm";
+        v44 = 1024;
+        v45 = 296;
+        v46 = 1024;
+        *v47 = v18;
+        *&v47[4] = 1024;
+        *&v47[6] = v34;
+        *v48 = 1024;
+        *&v48[2] = v19;
         v27 = "%25s:%-5d mBuffers[%d].mNumberChannels (%u) does not match the format's number of interleaved channels (%u)";
         v28 = v33;
         v29 = 36;
@@ -658,11 +657,11 @@ LABEL_47:
         }
 
         *buf = 136315650;
-        v44 = "AVAudioBuffer.mm";
-        v45 = 1024;
-        v46 = 299;
-        v47 = 1024;
-        *v48 = v18;
+        v43 = "AVAudioBuffer.mm";
+        v44 = 1024;
+        v45 = 299;
+        v46 = 1024;
+        *v47 = v18;
         v27 = "%25s:%-5d mBuffers[%u].mData is null";
         goto LABEL_46;
       }
@@ -671,9 +670,9 @@ LABEL_47:
       v17 += 16;
       if (v20 == v17)
       {
-        v39.receiver = self;
-        v39.super_class = AVAudioPCMBuffer;
-        v23 = [(AVAudioBuffer *)&v39 initWithPCMFormat:format byteCapacity:mDataByteSize bufferListNoCopy:bufferList deallocator:deallocator];
+        v38.receiver = self;
+        v38.super_class = AVAudioPCMBuffer;
+        v23 = [(AVAudioBuffer *)&v38 initWithPCMFormat:format byteCapacity:mDataByteSize bufferListNoCopy:bufferList deallocator:deallocator];
         v24 = v23;
         if (v23)
         {
@@ -689,31 +688,31 @@ LABEL_47:
           }
         }
 
-        goto LABEL_49;
+        return v24;
       }
     }
 
-    v37 = gAVAudioBufferLog();
-    if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v36 = gAVAudioBufferLog();
+    if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_48;
     }
 
-    v38 = *(v21 + 3);
+    v37 = *(v21 + 3);
     *buf = 136316418;
-    v44 = "AVAudioBuffer.mm";
-    v45 = 1024;
-    v46 = 291;
-    v47 = 1024;
-    *v48 = v18;
-    *&v48[4] = 1024;
-    *&v48[6] = v38;
-    *v49 = 1024;
-    *&v49[2] = v18 - 1;
-    LOWORD(v50) = 1024;
-    *(&v50 + 2) = mDataByteSize;
+    v43 = "AVAudioBuffer.mm";
+    v44 = 1024;
+    v45 = 291;
+    v46 = 1024;
+    *v47 = v18;
+    *&v47[4] = 1024;
+    *&v47[6] = v37;
+    *v48 = 1024;
+    *&v48[2] = v18 - 1;
+    LOWORD(v49) = 1024;
+    *(&v49 + 2) = mDataByteSize;
     v27 = "%25s:%-5d mBuffers[%u].mDataByteSize (%u) does not match the previous mBuffers[%u].mDataByteSize (%u)";
-    v28 = v37;
+    v28 = v36;
     v29 = 42;
     goto LABEL_47;
   }
@@ -722,11 +721,11 @@ LABEL_47:
   if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315650;
-    v44 = "AVAudioBuffer.mm";
-    v45 = 1024;
-    v46 = 281;
-    v47 = 1024;
-    *v48 = 0;
+    v43 = "AVAudioBuffer.mm";
+    v44 = 1024;
+    v45 = 281;
+    v46 = 1024;
+    *v47 = 0;
     v27 = "%25s:%-5d mBuffers[0].mDataByteSize (%u) should be non-zero";
 LABEL_46:
     v28 = v32;
@@ -736,20 +735,17 @@ LABEL_46:
 
 LABEL_48:
 
-  v24 = 0;
-LABEL_49:
-  v35 = *MEMORY[0x1E69E9840];
-  return v24;
+  return 0;
 }
 
 - (AVAudioPCMBuffer)initWithPCMFormat:(AVAudioFormat *)format frameCapacity:(AVAudioFrameCount)frameCapacity
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   streamDescription = [(AVAudioFormat *)format streamDescription];
   v8 = *&streamDescription->mBytesPerPacket;
-  v20 = *&streamDescription->mSampleRate;
-  v21 = v8;
-  v22 = *&streamDescription->mBitsPerChannel;
+  v19 = *&streamDescription->mSampleRate;
+  v20 = v8;
+  v21 = *&streamDescription->mBitsPerChannel;
   {
     if (AVAudioEngineLogCategory(void)::once != -1)
     {
@@ -760,52 +756,51 @@ LABEL_49:
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v24 = "AVAEInternal.h";
-      v25 = 1024;
-      v26 = 71;
-      v27 = 2080;
-      v28 = "AVAudioBuffer.mm";
-      v29 = 1024;
-      v30 = 312;
-      v31 = 2080;
-      v32 = "[AVAudioPCMBuffer initWithPCMFormat:frameCapacity:]";
-      v33 = 2080;
-      v34 = "isPCMFormat(fmt)";
+      v23 = "AVAEInternal.h";
+      v24 = 1024;
+      v25 = 71;
+      v26 = 2080;
+      v27 = "AVAudioBuffer.mm";
+      v28 = 1024;
+      v29 = 312;
+      v30 = 2080;
+      v31 = "[AVAudioPCMBuffer initWithPCMFormat:frameCapacity:]";
+      v32 = 2080;
+      v33 = "isPCMFormat(fmt)";
       _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
     [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"required condition is false: %s", "isPCMFormat(fmt)"}];
   }
 
-  v10 = DWORD2(v21);
-  if (!DWORD2(v21))
+  v10 = DWORD2(v20);
+  if (!DWORD2(v20))
   {
     v11 = gAVAudioBufferLog();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v24 = "AVAudioBuffer.mm";
-      v25 = 1024;
-      v26 = 315;
+      v23 = "AVAudioBuffer.mm";
+      v24 = 1024;
+      v25 = 315;
       v12 = "%25s:%-5d format has zero bytes per frame";
       goto LABEL_13;
     }
 
 LABEL_14:
 
-    v13 = 0;
-    goto LABEL_21;
+    return 0;
   }
 
-  if (((DWORD2(v21) * frameCapacity) & 0xFFFFFFFF00000000) != 0)
+  if (((DWORD2(v20) * frameCapacity) & 0xFFFFFFFF00000000) != 0)
   {
     v11 = gAVAudioBufferLog();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v24 = "AVAudioBuffer.mm";
-      v25 = 1024;
-      v26 = 322;
+      v23 = "AVAudioBuffer.mm";
+      v24 = 1024;
+      v25 = 322;
       v12 = "%25s:%-5d buffer byte capacity cannot be represented by an uint32_t";
 LABEL_13:
       _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_ERROR, v12, buf, 0x12u);
@@ -815,9 +810,9 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v19.receiver = self;
-  v19.super_class = AVAudioPCMBuffer;
-  frameCapacity = [(AVAudioBuffer *)&v19 initWithFormat:format byteCapacity:DWORD2(v21) * frameCapacity];
+  v18.receiver = self;
+  v18.super_class = AVAudioPCMBuffer;
+  frameCapacity = [(AVAudioBuffer *)&v18 initWithFormat:format byteCapacity:DWORD2(v20) * frameCapacity];
   v13 = frameCapacity;
   if (frameCapacity)
   {
@@ -825,14 +820,14 @@ LABEL_13:
     *(frameCapacity->super._impl + 6) = v10;
     *(frameCapacity->super._impl + 5) = frameCapacity;
     *(frameCapacity->super._impl + 4) = 0;
-    if ((BYTE12(v20) & 0x20) != 0)
+    if ((BYTE12(v19) & 0x20) != 0)
     {
       v15 = 1;
     }
 
     else
     {
-      v15 = HIDWORD(v21);
+      v15 = HIDWORD(v20);
     }
 
     *(frameCapacity->super._impl + 7) = v15;
@@ -843,8 +838,6 @@ LABEL_13:
     }
   }
 
-LABEL_21:
-  v17 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

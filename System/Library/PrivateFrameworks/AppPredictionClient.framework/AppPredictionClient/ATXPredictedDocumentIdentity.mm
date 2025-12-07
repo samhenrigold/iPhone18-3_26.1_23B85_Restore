@@ -83,18 +83,19 @@
     bookmarkData2 = [(ATXPredictedDocumentIdentity *)self bookmarkData];
     defaultManager = [(ATXFileIdentity *)v4 initWithItemURL:documentURL bookmarkData:bookmarkData2];
 
-    v14 = 0;
-    documentURL3 = [(ATXFileIdentity *)defaultManager resolveItemURLWithError:&v14];
-    documentURL2 = v14;
+    v15 = 0;
+    documentURL3 = [(ATXFileIdentity *)defaultManager resolveItemURLWithError:&v15];
+    v9 = v15;
+    documentURL2 = v9;
     if (documentURL3)
     {
-      v10 = documentURL3;
+      v11 = documentURL3;
     }
 
     else
     {
-      v12 = __atxlog_handle_document_predictor();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = __atxlog_handle_document_predictor(v9);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [(ATXPredictedDocumentIdentity *)self resolvedURL];
       }

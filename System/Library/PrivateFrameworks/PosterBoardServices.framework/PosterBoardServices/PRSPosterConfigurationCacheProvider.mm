@@ -136,7 +136,7 @@
       goto LABEL_15;
     }
 
-    v11 = PRSLogCommon();
+    v11 = PRSLogCommon(v8);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [PRSPosterConfigurationCacheProvider _lock_readAtURL:];
@@ -151,7 +151,7 @@
       goto LABEL_14;
     }
 
-    v11 = PRSLogCommon();
+    v11 = PRSLogCommon(v5);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [PRSPosterConfigurationCacheProvider _lock_readAtURL:];
@@ -172,14 +172,15 @@ LABEL_15:
   lCopy = l;
   dataCopy = data;
   [(PRSPosterConfigurationCacheProvider *)self _lock_setupSharedWorkspaceIfNeeded];
-  v10 = 0;
-  LOBYTE(self) = [dataCopy writeToURL:lCopy options:268435457 error:&v10];
+  v11 = 0;
+  LOBYTE(self) = [dataCopy writeToURL:lCopy options:268435457 error:&v11];
 
-  v8 = v10;
+  v8 = v11;
+  v9 = v8;
   if ((self & 1) == 0)
   {
-    v9 = PRSLogCommon();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = PRSLogCommon(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [PRSPosterConfigurationCacheProvider _lock_writeData:atURL:];
     }
@@ -196,7 +197,7 @@ LABEL_15:
   v7 = v6;
   if ((v5 & 1) == 0 && v6)
   {
-    v8 = PRSLogCommon();
+    v8 = PRSLogCommon(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [PRSPosterConfigurationCacheProvider _lock_removeAtURL:];
@@ -206,12 +207,9 @@ LABEL_15:
 
 - (void)_lock_setupSharedWorkspaceIfNeeded
 {
-  v8 = *MEMORY[0x1E69E9840];
   localizedDescription = [self localizedDescription];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithCachingReason:.cold.1()
@@ -226,49 +224,37 @@ LABEL_15:
 - (void)_lock_readAtURL:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [v0 localizedDescription];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_lock_readAtURL:.cold.2()
 {
   OUTLINED_FUNCTION_2();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [v0 localizedDescription];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_lock_writeData:atURL:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [v0 localizedDescription];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_lock_removeAtURL:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [v0 localizedDescription];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

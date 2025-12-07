@@ -112,13 +112,13 @@
   {
     chartDataElements = [powerProvider chartDataElements];
     swift_unknownObjectRelease();
-    type metadata accessor for WorkoutChartDataElement();
+    type metadata accessor for WorkoutChartDataElement(0);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
     selfCopy = chartDataElements;
   }
 
-  type metadata accessor for WorkoutChartDataElement();
+  type metadata accessor for WorkoutChartDataElement(0);
   v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v6.super.isa;
@@ -128,8 +128,7 @@
 {
   v6 = type metadata accessor for Date();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
+  MEMORY[0x28223BE20](v6, v8);
   v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
   v11 = *(self + OBJC_IVAR___WOIntervalWorkoutTracker_fallbackDataProvider);
@@ -153,10 +152,9 @@
 
 - (NLSessionDataProvider)fallbackDataProvider
 {
-  v2 = *(self + OBJC_IVAR___WOIntervalWorkoutTracker_fallbackDataProvider);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (NLWorkoutZoneTracker)zoneTracker
@@ -224,7 +222,7 @@
   unitCopy = unit;
   swift_unknownObjectRetain();
   selfCopy = self;
-  IntervalWorkoutTracker.updateZoneTracker(distanceUnit:metadataSavingDelegate:)(unitCopy);
+  IntervalWorkoutTracker.updateZoneTracker(distanceUnit:metadataSavingDelegate:)(unitCopy, delegate);
 
   swift_unknownObjectRelease();
 }
@@ -233,8 +231,7 @@
 {
   v4 = type metadata accessor for Date();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
+  MEMORY[0x28223BE20](v4, v6);
   v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;

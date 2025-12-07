@@ -83,9 +83,11 @@
 
 uint64_t __47__CNAutocompleteResultsTableViewController_log__block_invoke()
 {
-  log_cn_once_object_7 = os_log_create("com.apple.contacts.autocomplete.ui", "tableview controller");
+  v0 = os_log_create("com.apple.contacts.autocomplete.ui", "tableview controller");
+  v1 = log_cn_once_object_7;
+  log_cn_once_object_7 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (CNAutocompleteResultsTableViewController)initWithOptions:(id)options
@@ -105,9 +107,9 @@ uint64_t __47__CNAutocompleteResultsTableViewController_log__block_invoke()
 
 - (CNAutocompleteResultsTableViewController)initWithStyle:(int64_t)style
 {
-  v17.receiver = self;
-  v17.super_class = CNAutocompleteResultsTableViewController;
-  v4 = [(CNAutocompleteResultsTableViewController *)&v17 initWithStyle:?];
+  v18.receiver = self;
+  v18.super_class = CNAutocompleteResultsTableViewController;
+  v4 = [(CNAutocompleteResultsTableViewController *)&v18 initWithStyle:?];
   if (v4)
   {
     v5 = [CNAutocompleteResultsTableView alloc];
@@ -128,9 +130,9 @@ uint64_t __47__CNAutocompleteResultsTableViewController_log__block_invoke()
     [view2 addGestureRecognizer:v10];
 
     v11 = MEMORY[0x1E695D0E0];
-    v12 = CNAutocompleteSharedLocalOnlyContactStore();
-    v13 = [v11 settingsWithContactStore:v12 cacheSize:50 threeDTouchEnabled:0];
-    [(CNAutocompleteResultsTableViewController *)v4 setSharedAvatarViewControllerSettings:v13];
+    v13 = CNAutocompleteSharedLocalOnlyContactStore(v12);
+    v14 = [v11 settingsWithContactStore:v13 cacheSize:50 threeDTouchEnabled:0];
+    [(CNAutocompleteResultsTableViewController *)v4 setSharedAvatarViewControllerSettings:v14];
 
     tableView = [(CNAutocompleteResultsTableViewController *)v4 tableView];
     [tableView setAutoresizingMask:2];
@@ -500,8 +502,8 @@ BOOL __74__CNAutocompleteResultsTableViewController__updateTableViewModelAnimate
         [v22 addObject:v18];
         if (v18 == recipientCopy)
         {
-          sortedChildren = [v18 sortedChildren];
-          [v22 addObjectsFromArray:sortedChildren];
+          v23 = objc_msgSend_sortedChildren(v18);
+          [v22 addObjectsFromArray:v23];
         }
 
         if ([v18 isGroup])
@@ -611,7 +613,7 @@ BOOL __74__CNAutocompleteResultsTableViewController__updateTableViewModelAnimate
   }
 }
 
-uint64_t __85__CNAutocompleteResultsTableViewController_updateRecipients_disambiguatingRecipient___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__85__CNAutocompleteResultsTableViewController_updateRecipients_disambiguatingRecipient___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 count];
   if (result)
@@ -848,7 +850,7 @@ LABEL_6:
   return v7;
 }
 
-uint64_t __67__CNAutocompleteResultsTableViewController__indexPathForRecipient___block_invoke(void *a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__67__CNAutocompleteResultsTableViewController__indexPathForRecipient___block_invoke(void *a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 indexOfObject:a1[4]];
   *(*(a1[5] + 8) + 24) = result;
@@ -1530,7 +1532,7 @@ void __79__CNAutocompleteResultsTableViewController_didToggleDisambiguationAtInd
     [v3 addObject:v5];
 
     v6 = *(a1 + 48);
-    v7 = [*(a1 + 56) sortedChildren];
+    v7 = objc_msgSend_sortedChildren(*(a1 + 56));
     [v6 insertObjects:v7 atIndexes:*(a1 + 64)];
 
     v8 = [*(a1 + 32) tableView];

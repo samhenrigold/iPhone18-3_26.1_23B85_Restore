@@ -108,7 +108,7 @@
 
 - (void)contextDidPresentLoginAlertController:(id)controller
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedAccountsConfig];
   if (!mEMORY[0x1E698C968])
@@ -139,9 +139,9 @@
     v14 = ;
     v15 = AMSHashIfNeeded();
     *buf = 138543618;
-    v18 = v14;
-    v19 = 2114;
-    v20 = v15;
+    v17 = v14;
+    v18 = 2114;
+    v19 = v15;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@context: %{public}@", buf, 0x16u);
     if (logKey)
     {
@@ -149,13 +149,11 @@
       v14 = logKey2;
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)contextWillDismissLoginAlertController:(id)controller
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedAccountsConfig];
   if (!mEMORY[0x1E698C968])
@@ -186,9 +184,9 @@
     v14 = ;
     v15 = AMSHashIfNeeded();
     *buf = 138543618;
-    v18 = v14;
-    v19 = 2114;
-    v20 = v15;
+    v17 = v14;
+    v18 = 2114;
+    v19 = v15;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@context: %{public}@", buf, 0x16u);
     if (logKey)
     {
@@ -196,13 +194,11 @@
       v14 = logKey2;
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)contextDidDismissLoginAlertController:(id)controller
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedAccountsConfig];
   if (!mEMORY[0x1E698C968])
@@ -233,9 +229,9 @@
     v14 = ;
     v15 = AMSHashIfNeeded();
     *buf = 138543618;
-    v18 = v14;
-    v19 = 2114;
-    v20 = v15;
+    v17 = v14;
+    v18 = 2114;
+    v19 = v15;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@context: %{public}@", buf, 0x16u);
     if (logKey)
     {
@@ -243,13 +239,11 @@
       v14 = logKey2;
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)contextWillBeginPresentingSecondaryUI:(id)i
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   iCopy = i;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedAccountsConfig];
   if (!mEMORY[0x1E698C968])
@@ -280,9 +274,9 @@
     v14 = ;
     v15 = AMSHashIfNeeded();
     *buf = 138543618;
-    v18 = v14;
-    v19 = 2114;
-    v20 = v15;
+    v17 = v14;
+    v18 = 2114;
+    v19 = v15;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@context: %{public}@", buf, 0x16u);
     if (logKey)
     {
@@ -290,13 +284,11 @@
       v14 = logKey2;
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)contextDidEndPresentingSecondaryUI:(id)i
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   iCopy = i;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedAccountsConfig];
   if (!mEMORY[0x1E698C968])
@@ -327,9 +319,9 @@
     v14 = ;
     v15 = AMSHashIfNeeded();
     *buf = 138543618;
-    v18 = v14;
-    v19 = 2114;
-    v20 = v15;
+    v17 = v14;
+    v18 = 2114;
+    v19 = v15;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@context: %{public}@", buf, 0x16u);
     if (logKey)
     {
@@ -337,8 +329,6 @@
       v14 = logKey2;
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

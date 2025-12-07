@@ -80,7 +80,7 @@
 
 void __52__CKWatchfaceImageBalloonView_tapGestureRecognized___block_invoke(uint64_t a1, void *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -91,14 +91,14 @@ void __52__CKWatchfaceImageBalloonView_tapGestureRecognized___block_invoke(uint6
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v5 = v2;
+        v11 = v2;
         _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_DEBUG, "Failed to import URL: %@", buf, 0xCu);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      _CKLog();
+      _CKLog(0x2Fu, @"Failed to import URL: %@", v4, v5, v6, v7, v8, v9, v2);
     }
   }
 }

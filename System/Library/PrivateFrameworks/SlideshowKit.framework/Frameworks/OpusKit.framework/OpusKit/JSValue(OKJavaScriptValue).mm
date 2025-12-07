@@ -12,7 +12,7 @@
 - (double)toOffset;
 - (float)toVector3;
 - (float)toVector4;
-- (uint64_t)toCATransform3D;
+- (void)toCATransform3D;
 @end
 
 @implementation JSValue(OKJavaScriptValue)
@@ -22,7 +22,7 @@
   v14[4] = *MEMORY[0x277D85DE8];
   v11 = MEMORY[0x277CD4658];
   v13[0] = @"top";
-  v14[0] = [MEMORY[0x277CCABB0] numberWithDouble:?];
+  v14[0] = [MEMORY[0x277CCABB0] numberWithDouble:self];
   v13[1] = @"left";
   v14[1] = [MEMORY[0x277CCABB0] numberWithDouble:a2];
   v13[2] = @"bottom";
@@ -38,7 +38,7 @@
   v7 = MEMORY[0x277CD4658];
   v9[0] = @"latitude";
   v9[1] = @"longitude";
-  v10[0] = [MEMORY[0x277CCABB0] numberWithDouble:?];
+  v10[0] = [MEMORY[0x277CCABB0] numberWithDouble:self];
   v10[1] = [MEMORY[0x277CCABB0] numberWithDouble:a2];
   return [v7 valueWithObject:objc_msgSend(MEMORY[0x277CBEAC0] inContext:{"dictionaryWithObjects:forKeys:count:", v10, v9, 2), a5}];
 }
@@ -48,7 +48,7 @@
   v14[4] = *MEMORY[0x277D85DE8];
   v11 = MEMORY[0x277CD4658];
   v13[0] = @"latitude";
-  v14[0] = [MEMORY[0x277CCABB0] numberWithDouble:?];
+  v14[0] = [MEMORY[0x277CCABB0] numberWithDouble:self];
   v13[1] = @"longitude";
   v14[1] = [MEMORY[0x277CCABB0] numberWithDouble:a2];
   v13[2] = @"latitudeDelta";
@@ -64,7 +64,7 @@
   v7 = MEMORY[0x277CD4658];
   v9[0] = @"horizontal";
   v9[1] = @"vertical";
-  v10[0] = [MEMORY[0x277CCABB0] numberWithDouble:?];
+  v10[0] = [MEMORY[0x277CCABB0] numberWithDouble:self];
   v10[1] = [MEMORY[0x277CCABB0] numberWithDouble:a2];
   return [v7 valueWithObject:objc_msgSend(MEMORY[0x277CBEAC0] inContext:{"dictionaryWithObjects:forKeys:count:", v10, v9, 2), a5}];
 }
@@ -74,7 +74,7 @@
   v14[3] = *MEMORY[0x277D85DE8];
   v9 = MEMORY[0x277CD4658];
   v13[0] = @"x";
-  v14[0] = [MEMORY[0x277CCABB0] numberWithFloat:?];
+  v14[0] = [MEMORY[0x277CCABB0] numberWithFloat:self];
   v13[1] = @"y";
   *&v10 = a2;
   v14[1] = [MEMORY[0x277CCABB0] numberWithFloat:v10];
@@ -89,7 +89,7 @@
   v17[4] = *MEMORY[0x277D85DE8];
   v11 = MEMORY[0x277CD4658];
   v16[0] = @"x";
-  v17[0] = [MEMORY[0x277CCABB0] numberWithFloat:?];
+  v17[0] = [MEMORY[0x277CCABB0] numberWithFloat:self];
   v16[1] = @"y";
   *&v12 = a2;
   v17[1] = [MEMORY[0x277CCABB0] numberWithFloat:v12];
@@ -196,7 +196,7 @@
   return v3;
 }
 
-- (uint64_t)toCATransform3D
+- (void)toCATransform3D
 {
   [objc_msgSend(self objectForKeyedSubscript:{@"m11", "toDouble"}];
   *a2 = v4;

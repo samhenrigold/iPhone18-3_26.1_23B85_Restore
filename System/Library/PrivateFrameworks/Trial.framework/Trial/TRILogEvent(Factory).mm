@@ -39,7 +39,7 @@
 
 + (id)eventWithTrackingId:()Factory projectId:
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = objc_opt_new();
   v8 = objc_opt_new();
@@ -56,37 +56,35 @@
   denormalizedEvent = [v7 denormalizedEvent];
   [denormalizedEvent setSubject:subject];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   treatments = [v6 treatments];
-  v15 = [treatments countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v15 = [treatments countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v24;
+    v17 = *v23;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v24 != v17)
+        if (*v23 != v17)
         {
           objc_enumerationMutation(treatments);
         }
 
-        v19 = *(*(&v23 + 1) + 8 * i);
+        v19 = *(*(&v22 + 1) + 8 * i);
         denormalizedEvent2 = [v7 denormalizedEvent];
         [denormalizedEvent2 addTreatment:v19];
       }
 
-      v16 = [treatments countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v16 = [treatments countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v16);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

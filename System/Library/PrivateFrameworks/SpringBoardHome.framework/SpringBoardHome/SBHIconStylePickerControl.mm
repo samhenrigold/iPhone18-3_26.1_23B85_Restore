@@ -42,7 +42,7 @@
     height->_containerView = &v24->super;
 
     v26 = height->_containerView;
-    [(SBHIconStylePickerControl *)height bounds];
+    objc_msgSend_bounds(height);
     [(UIView *)v26 setFrame:?];
     [(SBHIconStylePickerControl *)height addSubview:height->_containerView];
     v27 = [resourceCopy copy];
@@ -61,7 +61,7 @@
     height->_packageView = v33;
 
     v35 = height->_packageView;
-    [(SBHIconStylePickerControl *)height bounds];
+    objc_msgSend_bounds(height);
     [(BSUICAPackageView *)v35 setFrame:?];
     [(BSUICAPackageView *)height->_packageView setUserInteractionEnabled:0];
     layer = [(BSUICAPackageView *)height->_packageView layer];
@@ -83,7 +83,7 @@
 id __96__SBHIconStylePickerControl_initWithFrame_URLForResource_extenstion_enabledState_disabledState___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v4 = a3;
-  [a2 bounds];
+  objc_msgSend_bounds(a2);
   v10 = CGRectInset(v9, -8.0, -8.0);
   v5 = [MEMORY[0x1E69DCDC8] shapeWithRoundedRect:{v10.origin.x, v10.origin.y, v10.size.width, v10.size.height}];
   v6 = [MEMORY[0x1E69DCDD0] styleWithEffect:v4 shape:v5];
@@ -96,7 +96,7 @@ id __96__SBHIconStylePickerControl_initWithFrame_URLForResource_extenstion_enabl
   v11.receiver = self;
   v11.super_class = SBHIconStylePickerControl;
   [(SBHIconStylePickerControl *)&v11 layoutSubviews];
-  [(SBHIconStylePickerControl *)self bounds];
+  objc_msgSend_bounds(self);
   v4 = v3;
   v6 = v5;
   v8 = v7;

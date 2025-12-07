@@ -147,7 +147,7 @@ id IntentHandler.__deallocating_deinit()
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = specialized _StringGuts._deconstructUTF8<A>(scratch:)(v11, 0, 0, 1, a1, a2);
@@ -247,11 +247,9 @@ LABEL_8:
 
 char *_StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
 {
-  v4 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
+  v3 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of _StringGuts._allocateForDeconstruct());
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
@@ -351,7 +349,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -365,15 +362,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v12, 1, v3);
+  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -388,15 +385,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -405,12 +402,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -518,15 +515,17 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
   return v10;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 void *__swift_project_boxed_opaque_existential_0(void *result, uint64_t a2)
@@ -552,7 +551,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -564,28 +562,23 @@ uint64_t static UsoRequest.makeSDAForPromptForContactValue()()
 {
   v0 = type metadata accessor for Siri_Nlu_External_SystemPrompted();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  v3 = __chkstk_darwin(v0);
-  v5 = &v16 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v7 = &v16 - v6;
-  v8 = type metadata accessor for UsoTaskBuilder_noVerb_common_Person();
-  v9 = *(v8 + 48);
-  v10 = *(v8 + 52);
+  v2 = __chkstk_darwin(v0);
+  v4 = &v9 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v2);
+  v6 = &v9 - v5;
+  type metadata accessor for UsoTaskBuilder_noVerb_common_Person();
   swift_allocObject();
-  v11 = UsoTaskBuilder_noVerb_common_Person.init()();
-  v12 = type metadata accessor for UsoEntityBuilder_common_Person();
-  v13 = *(v12 + 48);
-  v14 = *(v12 + 52);
+  v7 = UsoTaskBuilder_noVerb_common_Person.init()();
+  type metadata accessor for UsoEntityBuilder_common_Person();
   swift_allocObject();
   UsoEntityBuilder_common_Person.init()();
   dispatch thunk of Uso_VerbTemplateBuilder_NoVerb.setEntity(value:)();
-  static Siri_Nlu_External_SystemPrompted.from(_:)(v11, v7);
+  static Siri_Nlu_External_SystemPrompted.from(_:)(v7, v6);
   Siri_Nlu_External_SystemDialogAct.init()();
-  (*(v1 + 16))(v5, v7, v0);
+  (*(v1 + 16))(v4, v6, v0);
   Siri_Nlu_External_SystemDialogAct.prompted.setter();
 
-  return (*(v1 + 8))(v7, v0);
+  return (*(v1 + 8))(v6, v0);
 }
 
 uint64_t outlined init with copy of Siri_Nlu_External_UsoGraph?(uint64_t a1, uint64_t a2)
@@ -597,48 +590,44 @@ uint64_t outlined init with copy of Siri_Nlu_External_UsoGraph?(uint64_t a1, uin
 
 uint64_t static UsoRequest.makeSDAForYesNoCancel()@<X0>(uint64_t a1@<X8>)
 {
-  v30 = a1;
-  v29 = type metadata accessor for Siri_Nlu_External_SystemOffered();
-  v1 = *(v29 - 8);
-  v2 = v1[8];
-  v3 = __chkstk_darwin(v29);
-  v5 = &v27 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __chkstk_darwin(v3);
-  v8 = &v27 - v7;
-  __chkstk_darwin(v6);
-  v10 = &v27 - v9;
-  v11 = type metadata accessor for Siri_Nlu_External_UserCancelled();
-  v12 = *(*(v11 - 8) + 64);
+  v26 = a1;
+  v25 = type metadata accessor for Siri_Nlu_External_SystemOffered();
+  v1 = *(v25 - 8);
+  v2 = __chkstk_darwin(v25);
+  v4 = &v23 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = __chkstk_darwin(v2);
+  v7 = &v23 - v6;
+  __chkstk_darwin(v5);
+  v9 = &v23 - v8;
+  v10 = type metadata accessor for Siri_Nlu_External_UserCancelled();
+  __chkstk_darwin(v10 - 8);
+  v11 = type metadata accessor for Siri_Nlu_External_UserAccepted();
   __chkstk_darwin(v11 - 8);
-  v13 = type metadata accessor for Siri_Nlu_External_UserAccepted();
-  v14 = *(*(v13 - 8) + 64);
-  __chkstk_darwin(v13 - 8);
-  v15 = type metadata accessor for Siri_Nlu_External_UserDialogAct();
-  v28 = v15;
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = __chkstk_darwin(v15);
-  v20 = &v27 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v18);
-  v22 = &v27 - v21;
+  v12 = type metadata accessor for Siri_Nlu_External_UserDialogAct();
+  v24 = v12;
+  v13 = *(v12 - 8);
+  v14 = __chkstk_darwin(v12);
+  v16 = &v23 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v14);
+  v18 = &v23 - v17;
   Siri_Nlu_External_UserDialogAct.init()();
   Siri_Nlu_External_UserAccepted.init()();
   Siri_Nlu_External_UserDialogAct.accepted.setter();
   Siri_Nlu_External_UserCancelled.init()();
   Siri_Nlu_External_UserDialogAct.cancelled.setter();
   Siri_Nlu_External_SystemOffered.init()();
-  (*(v16 + 16))(v20, v22, v15);
+  (*(v13 + 16))(v16, v18, v12);
   Siri_Nlu_External_SystemOffered.offeredAct.setter();
-  v23 = v1[2];
-  v24 = v29;
-  v23(v8, v10, v29);
+  v19 = *(v1 + 16);
+  v20 = v25;
+  v19(v7, v9, v25);
   Siri_Nlu_External_SystemDialogAct.init()();
-  v23(v5, v8, v24);
+  v19(v4, v7, v20);
   Siri_Nlu_External_SystemDialogAct.offered.setter();
-  v25 = v1[1];
-  v25(v8, v24);
-  v25(v10, v24);
-  return (*(v16 + 8))(v22, v28);
+  v21 = *(v1 + 8);
+  v21(v7, v20);
+  v21(v9, v20);
+  return (*(v13 + 8))(v18, v24);
 }
 
 uint64_t Siri_Nlu_External_UserDialogAct.init(_:)(uint64_t a1)
@@ -654,12 +643,11 @@ uint64_t Siri_Nlu_External_SystemDialogAct.init(systemPrompted:)(uint64_t a1, ui
 {
   v7 = a2(0);
   v8 = *(v7 - 8);
-  v9 = (*(v8 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v10 = __chkstk_darwin();
-  v12 = &v14 - v11;
-  a3(v10);
-  (*(v8 + 16))(v12, a1, v7);
-  a4(v12);
+  v9 = __chkstk_darwin(v7);
+  v11 = &v13 - v10;
+  a3(v9);
+  (*(v8 + 16))(v11, a1, v7);
+  a4(v11);
   return (*(v8 + 8))(a1, v7);
 }
 
@@ -667,161 +655,152 @@ uint64_t static Siri_Nlu_External_UserDialogAct.from(_:)(uint64_t a1)
 {
   v2 = type metadata accessor for Siri_Nlu_External_UserStatedTask();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  v5 = __chkstk_darwin(v2);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v5);
-  v9 = &v11 - v8;
-  static Siri_Nlu_External_UserStatedTask.from(_:)(a1, &v11 - v8);
+  v4 = __chkstk_darwin(v2);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v8 = &v10 - v7;
+  static Siri_Nlu_External_UserStatedTask.from(_:)(a1, &v10 - v7);
   Siri_Nlu_External_UserDialogAct.init()();
-  (*(v3 + 16))(v7, v9, v2);
+  (*(v3 + 16))(v6, v8, v2);
   Siri_Nlu_External_UserDialogAct.userStatedTask.setter();
-  return (*(v3 + 8))(v9, v2);
+  return (*(v3 + 8))(v8, v2);
 }
 
 uint64_t static Siri_Nlu_External_UserStatedTask.from(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v29 = a2;
+  v26 = a2;
   v3 = type metadata accessor for Siri_Nlu_External_UsoGraph();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = __chkstk_darwin(v3);
-  v27 = &v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v28 = &v27 - v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  v11 = __chkstk_darwin(v9 - 8);
-  v13 = &v27 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __chkstk_darwin(v11);
-  v16 = &v27 - v15;
-  __chkstk_darwin(v14);
-  v18 = &v27 - v17;
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology17UsoBuilderOptionsVSgMd, &_s12SiriOntology17UsoBuilderOptionsVSgMR);
-  v20 = *(*(v19 - 8) + 64);
-  __chkstk_darwin(v19 - 8);
-  v22 = &v27 - v21;
+  v5 = __chkstk_darwin(v3);
+  v24 = &v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v25 = &v24 - v7;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
+  v9 = __chkstk_darwin(v8 - 8);
+  v11 = &v24 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = __chkstk_darwin(v9);
+  v14 = &v24 - v13;
+  __chkstk_darwin(v12);
+  v16 = &v24 - v15;
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology17UsoBuilderOptionsVSgMd, &_s12SiriOntology17UsoBuilderOptionsVSgMR);
+  __chkstk_darwin(v17 - 8);
+  v19 = &v24 - v18;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
-  v23 = swift_allocObject();
-  *(v23 + 16) = xmmword_100005670;
-  *(v23 + 32) = a1;
-  v24 = type metadata accessor for UsoBuilderOptions();
-  (*(*(v24 - 8) + 56))(v22, 1, 1, v24);
+  v20 = swift_allocObject();
+  *(v20 + 16) = xmmword_100005670;
+  *(v20 + 32) = a1;
+  v21 = type metadata accessor for UsoBuilderOptions();
+  (*(*(v21 - 8) + 56))(v19, 1, 1, v21);
 
   static UsoGraphBuilder.buildGraphWithOptions(taskBuilders:options:)();
 
-  outlined destroy of UsoBuilderOptions?(v22, &_s12SiriOntology17UsoBuilderOptionsVSgMd, &_s12SiriOntology17UsoBuilderOptionsVSgMR);
+  outlined destroy of UsoBuilderOptions?(v19, &_s12SiriOntology17UsoBuilderOptionsVSgMd, &_s12SiriOntology17UsoBuilderOptionsVSgMR);
   static UsoGraphProtoWriter.toSwiftProtobuf(graph:vocabManager:)();
-  (*(v4 + 56))(v18, 0, 1, v3);
-  outlined init with copy of Siri_Nlu_External_UsoGraph?(v18, v16);
+  (*(v4 + 56))(v16, 0, 1, v3);
+  outlined init with copy of Siri_Nlu_External_UsoGraph?(v16, v14);
   Siri_Nlu_External_UserStatedTask.init()();
-  outlined init with copy of Siri_Nlu_External_UsoGraph?(v16, v13);
-  if ((*(v4 + 48))(v13, 1, v3) == 1)
+  outlined init with copy of Siri_Nlu_External_UsoGraph?(v14, v11);
+  if ((*(v4 + 48))(v11, 1, v3) == 1)
   {
-    outlined destroy of UsoBuilderOptions?(v16, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
-    outlined destroy of UsoBuilderOptions?(v13, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
+    outlined destroy of UsoBuilderOptions?(v14, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
+    outlined destroy of UsoBuilderOptions?(v11, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
   }
 
   else
   {
-    v25 = v28;
-    (*(v4 + 32))(v28, v13, v3);
-    (*(v4 + 16))(v27, v25, v3);
+    v22 = v25;
+    (*(v4 + 32))(v25, v11, v3);
+    (*(v4 + 16))(v24, v22, v3);
     Siri_Nlu_External_UserStatedTask.task.setter();
-    outlined destroy of UsoBuilderOptions?(v16, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
-    (*(v4 + 8))(v25, v3);
+    outlined destroy of UsoBuilderOptions?(v14, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
+    (*(v4 + 8))(v22, v3);
   }
 
-  return outlined destroy of UsoBuilderOptions?(v18, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
+  return outlined destroy of UsoBuilderOptions?(v16, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
 }
 
-uint64_t static Siri_Nlu_External_UserDialogAct.from(_:)@<X0>(uint64_t a1@<X8>)
+uint64_t static Siri_Nlu_External_UserDialogAct.from(_:)@<X0>(uint64_t a2@<X8>)
 {
-  v35 = a1;
-  v1 = type metadata accessor for Siri_Nlu_External_UsoGraph();
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  v4 = __chkstk_darwin(v1);
-  v32 = &v31 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v33 = a2;
+  v2 = type metadata accessor for Siri_Nlu_External_UsoGraph();
+  v3 = *(v2 - 8);
+  v4 = __chkstk_darwin(v2);
+  v30 = &v29 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v4);
-  v33 = &v31 - v6;
+  v31 = &v29 - v6;
   v7 = type metadata accessor for Siri_Nlu_External_UserStatedTask();
   v8 = *(v7 - 8);
-  v9 = v8[8];
-  v10 = __chkstk_darwin(v7);
-  v34 = &v31 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __chkstk_darwin(v10);
-  v14 = &v31 - v13;
-  __chkstk_darwin(v12);
-  v16 = &v31 - v15;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
-  v18 = *(*(v17 - 8) + 64);
-  v19 = __chkstk_darwin(v17 - 8);
-  v21 = &v31 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = __chkstk_darwin(v19);
-  v24 = &v31 - v23;
-  __chkstk_darwin(v22);
-  v26 = &v31 - v25;
+  v9 = __chkstk_darwin(v7);
+  v32 = &v29 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __chkstk_darwin(v9);
+  v13 = &v29 - v12;
+  __chkstk_darwin(v11);
+  v15 = &v29 - v14;
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
+  v17 = __chkstk_darwin(v16 - 8);
+  v19 = &v29 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = __chkstk_darwin(v17);
+  v22 = &v29 - v21;
+  __chkstk_darwin(v20);
+  v24 = &v29 - v23;
   static UsoGraphProtoWriter.toSwiftProtobuf(graph:vocabManager:)();
-  (*(v2 + 56))(v26, 0, 1, v1);
-  outlined init with copy of Siri_Nlu_External_UsoGraph?(v26, v24);
+  (*(v3 + 56))(v24, 0, 1, v2);
+  outlined init with copy of Siri_Nlu_External_UsoGraph?(v24, v22);
   Siri_Nlu_External_UserStatedTask.init()();
-  outlined init with copy of Siri_Nlu_External_UsoGraph?(v24, v21);
-  if ((*(v2 + 48))(v21, 1, v1) == 1)
+  outlined init with copy of Siri_Nlu_External_UsoGraph?(v22, v19);
+  if ((*(v3 + 48))(v19, 1, v2) == 1)
   {
-    outlined destroy of UsoBuilderOptions?(v24, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
-    outlined destroy of UsoBuilderOptions?(v21, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
+    outlined destroy of UsoBuilderOptions?(v22, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
+    outlined destroy of UsoBuilderOptions?(v19, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
   }
 
   else
   {
-    v27 = v33;
-    (*(v2 + 32))(v33, v21, v1);
-    (*(v2 + 16))(v32, v27, v1);
+    v25 = v31;
+    (*(v3 + 32))(v31, v19, v2);
+    (*(v3 + 16))(v30, v25, v2);
     Siri_Nlu_External_UserStatedTask.task.setter();
-    outlined destroy of UsoBuilderOptions?(v24, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
-    (*(v2 + 8))(v27, v1);
+    outlined destroy of UsoBuilderOptions?(v22, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
+    (*(v3 + 8))(v25, v2);
   }
 
-  v28 = v8[2];
-  v28(v14, v16, v7);
+  v26 = *(v8 + 16);
+  v26(v13, v15, v7);
   Siri_Nlu_External_UserDialogAct.init()();
-  v28(v34, v14, v7);
+  v26(v32, v13, v7);
   Siri_Nlu_External_UserDialogAct.userStatedTask.setter();
-  v29 = v8[1];
-  v29(v14, v7);
-  v29(v16, v7);
-  return outlined destroy of UsoBuilderOptions?(v26, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
+  v27 = *(v8 + 8);
+  v27(v13, v7);
+  v27(v15, v7);
+  return outlined destroy of UsoBuilderOptions?(v24, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
 }
 
 uint64_t Siri_Nlu_External_UserStatedTask.init(_:)(uint64_t a1)
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   __chkstk_darwin(v2 - 8);
-  v5 = &v15 - v4;
-  v6 = type metadata accessor for Siri_Nlu_External_UsoGraph();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = __chkstk_darwin(v6);
-  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v9);
-  v13 = &v15 - v12;
+  v4 = &v13 - v3;
+  v5 = type metadata accessor for Siri_Nlu_External_UsoGraph();
+  v6 = *(v5 - 8);
+  v7 = __chkstk_darwin(v5);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v7);
+  v11 = &v13 - v10;
   Siri_Nlu_External_UserStatedTask.init()();
-  outlined init with copy of Siri_Nlu_External_UsoGraph?(a1, v5);
-  if ((*(v7 + 48))(v5, 1, v6) == 1)
+  outlined init with copy of Siri_Nlu_External_UsoGraph?(a1, v4);
+  if ((*(v6 + 48))(v4, 1, v5) == 1)
   {
     outlined destroy of UsoBuilderOptions?(a1, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
-    return outlined destroy of UsoBuilderOptions?(v5, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
+    return outlined destroy of UsoBuilderOptions?(v4, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
   }
 
   else
   {
-    (*(v7 + 32))(v13, v5, v6);
-    (*(v7 + 16))(v11, v13, v6);
+    (*(v6 + 32))(v11, v4, v5);
+    (*(v6 + 16))(v9, v11, v5);
     Siri_Nlu_External_UserStatedTask.task.setter();
     outlined destroy of UsoBuilderOptions?(a1, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
-    return (*(v7 + 8))(v13, v6);
+    return (*(v6 + 8))(v11, v5);
   }
 }
 
@@ -870,118 +849,113 @@ LABEL_6:
 
 uint64_t Siri_Nlu_External_UserDialogAct.contactId.getter()
 {
-  v36 = type metadata accessor for Google_Protobuf_StringValue();
-  v34 = *(v36 - 8);
-  v0 = *(v34 + 64);
-  __chkstk_darwin(v36);
-  v2 = &v34 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v39 = type metadata accessor for Siri_Nlu_External_UsoEntityIdentifier();
-  v3 = *(v39 - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin(v39);
-  v6 = &v34 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for Siri_Nlu_External_UsoGraph();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  __chkstk_darwin(v7);
-  v11 = &v34 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for Siri_Nlu_External_UserStatedTask();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  __chkstk_darwin(v12);
-  v16 = &v34 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriNLUTypes0A33_Nlu_External_UsoEntityIdentifierVSgMd, &_s12SiriNLUTypes0A33_Nlu_External_UsoEntityIdentifierVSgMR);
-  v18 = *(*(v17 - 8) + 64);
-  __chkstk_darwin(v17 - 8);
-  v35 = &v34 - v19;
+  v31 = type metadata accessor for Google_Protobuf_StringValue();
+  v29 = *(v31 - 8);
+  __chkstk_darwin(v31);
+  v1 = &v29 - ((v0 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v34 = type metadata accessor for Siri_Nlu_External_UsoEntityIdentifier();
+  v2 = *(v34 - 8);
+  __chkstk_darwin(v34);
+  v4 = &v29 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for Siri_Nlu_External_UsoGraph();
+  v6 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v8 = &v29 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for Siri_Nlu_External_UserStatedTask();
+  v10 = *(v9 - 8);
+  __chkstk_darwin(v9);
+  v12 = &v29 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriNLUTypes0A33_Nlu_External_UsoEntityIdentifierVSgMd, &_s12SiriNLUTypes0A33_Nlu_External_UsoEntityIdentifierVSgMR);
+  __chkstk_darwin(v13 - 8);
+  v30 = &v29 - v14;
   Siri_Nlu_External_UserDialogAct.userStatedTask.getter();
   Siri_Nlu_External_UserStatedTask.task.getter();
-  (*(v13 + 8))(v16, v12);
-  v20 = Siri_Nlu_External_UsoGraph.identifiers.getter();
-  result = (*(v8 + 8))(v11, v7);
-  v37 = *(v20 + 16);
-  if (v37)
+  (*(v10 + 8))(v12, v9);
+  v15 = Siri_Nlu_External_UsoGraph.identifiers.getter();
+  result = (*(v6 + 8))(v8, v5);
+  v32 = *(v15 + 16);
+  if (v32)
   {
-    v22 = 0;
-    v38 = v20 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
-    v23 = (v34 + 8);
-    v24 = v39;
+    v17 = 0;
+    v33 = v15 + ((*(v2 + 80) + 32) & ~*(v2 + 80));
+    v18 = (v29 + 8);
+    v19 = v34;
     while (1)
     {
-      if (v22 >= *(v20 + 16))
+      if (v17 >= *(v15 + 16))
       {
         __break(1u);
         return result;
       }
 
-      (*(v3 + 16))(v6, v38 + *(v3 + 72) * v22, v24);
-      if (Siri_Nlu_External_UsoEntityIdentifier.backingAppBundleID.getter() == 0x73746361746E6F43 && v26 == 0xE800000000000000)
+      (*(v2 + 16))(v4, v33 + *(v2 + 72) * v17, v19);
+      if (Siri_Nlu_External_UsoEntityIdentifier.backingAppBundleID.getter() == 0x73746361746E6F43 && v21 == 0xE800000000000000)
       {
       }
 
       else
       {
-        v27 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v22 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-        if ((v27 & 1) == 0)
+        if ((v22 & 1) == 0)
         {
           goto LABEL_4;
         }
       }
 
       Siri_Nlu_External_UsoEntityIdentifier.namespace.getter();
-      v28 = Google_Protobuf_StringValue.value.getter();
-      v30 = v29;
-      (*v23)(v2, v36);
-      if (v28 == 0x64695F6D657469 && v30 == 0xE700000000000000)
+      v23 = Google_Protobuf_StringValue.value.getter();
+      v25 = v24;
+      (*v18)(v1, v31);
+      if (v23 == 0x64695F6D657469 && v25 == 0xE700000000000000)
       {
 
 LABEL_16:
 
-        v32 = v35;
-        v24 = v39;
-        (*(v3 + 32))(v35, v6, v39);
-        v31 = 0;
+        v27 = v30;
+        v19 = v34;
+        (*(v2 + 32))(v30, v4, v34);
+        v26 = 0;
         goto LABEL_17;
       }
 
-      v25 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v20 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      if (v25)
+      if (v20)
       {
         goto LABEL_16;
       }
 
 LABEL_4:
-      ++v22;
-      v24 = v39;
-      result = (*(v3 + 8))(v6, v39);
-      if (v37 == v22)
+      ++v17;
+      v19 = v34;
+      result = (*(v2 + 8))(v4, v34);
+      if (v32 == v17)
       {
 
-        v31 = 1;
+        v26 = 1;
         goto LABEL_15;
       }
     }
   }
 
-  v31 = 1;
-  v24 = v39;
+  v26 = 1;
+  v19 = v34;
 LABEL_15:
-  v32 = v35;
+  v27 = v30;
 LABEL_17:
-  (*(v3 + 56))(v32, v31, 1, v24);
-  if ((*(v3 + 48))(v32, 1, v24) == 1)
+  (*(v2 + 56))(v27, v26, 1, v19);
+  if ((*(v2 + 48))(v27, 1, v19) == 1)
   {
-    outlined destroy of UsoBuilderOptions?(v32, &_s12SiriNLUTypes0A33_Nlu_External_UsoEntityIdentifierVSgMd, &_s12SiriNLUTypes0A33_Nlu_External_UsoEntityIdentifierVSgMR);
+    outlined destroy of UsoBuilderOptions?(v27, &_s12SiriNLUTypes0A33_Nlu_External_UsoEntityIdentifierVSgMd, &_s12SiriNLUTypes0A33_Nlu_External_UsoEntityIdentifierVSgMR);
     return 0;
   }
 
   else
   {
-    v33 = Siri_Nlu_External_UsoEntityIdentifier.value.getter();
-    (*(v3 + 8))(v32, v24);
-    return v33;
+    v28 = Siri_Nlu_External_UsoEntityIdentifier.value.getter();
+    (*(v2 + 8))(v27, v19);
+    return v28;
   }
 }
 
@@ -1022,91 +996,86 @@ uint64_t outlined destroy of UsoBuilderOptions?(uint64_t a1, uint64_t *a2, uint6
 
 uint64_t static Siri_Nlu_External_SystemPrompted.from(_:)@<X0>(uint64_t a1@<X0>, void (*a2)(uint64_t)@<X1>, void (*a3)(char *)@<X2>, uint64_t a4@<X8>)
 {
-  v33 = a3;
-  v34 = a2;
-  v35 = a4;
+  v30 = a3;
+  v31 = a2;
+  v32 = a4;
   v5 = type metadata accessor for Siri_Nlu_External_UsoGraph();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = (__chkstk_darwin)();
-  v32 = &v31 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
-  v11 = &v31 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology17UsoBuilderOptionsVSgMd, &_s12SiriOntology17UsoBuilderOptionsVSgMR);
-  v13 = (*(*(v12 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin(v12 - 8);
-  v15 = &v31 - v14;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = __chkstk_darwin(v16 - 8);
-  v20 = &v31 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = __chkstk_darwin(v18);
-  v23 = &v31 - v22;
-  __chkstk_darwin(v21);
-  v25 = &v31 - v24;
+  v7 = __chkstk_darwin(v5);
+  v29 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v7);
+  v10 = &v28 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology17UsoBuilderOptionsVSgMd, &_s12SiriOntology17UsoBuilderOptionsVSgMR);
+  __chkstk_darwin(v11 - 8);
+  v13 = &v28 - v12;
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
+  v15 = __chkstk_darwin(v14 - 8);
+  v17 = &v28 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = __chkstk_darwin(v15);
+  v20 = &v28 - v19;
+  __chkstk_darwin(v18);
+  v22 = &v28 - v21;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
-  v26 = swift_allocObject();
-  *(v26 + 16) = xmmword_100005670;
-  *(v26 + 32) = a1;
-  v27 = type metadata accessor for UsoBuilderOptions();
-  (*(*(v27 - 8) + 56))(v15, 1, 1, v27);
+  v23 = swift_allocObject();
+  *(v23 + 16) = xmmword_100005670;
+  *(v23 + 32) = a1;
+  v24 = type metadata accessor for UsoBuilderOptions();
+  (*(*(v24 - 8) + 56))(v13, 1, 1, v24);
 
   static UsoGraphBuilder.buildGraphWithOptions(taskBuilders:options:)();
 
-  outlined destroy of UsoBuilderOptions?(v15, &_s12SiriOntology17UsoBuilderOptionsVSgMd, &_s12SiriOntology17UsoBuilderOptionsVSgMR);
+  outlined destroy of UsoBuilderOptions?(v13, &_s12SiriOntology17UsoBuilderOptionsVSgMd, &_s12SiriOntology17UsoBuilderOptionsVSgMR);
   static UsoGraphProtoWriter.toSwiftProtobuf(graph:vocabManager:)();
 
-  (*(v6 + 56))(v25, 0, 1, v5);
-  v28 = outlined init with copy of Siri_Nlu_External_UsoGraph?(v25, v23);
-  v34(v28);
-  outlined init with copy of Siri_Nlu_External_UsoGraph?(v23, v20);
-  if ((*(v6 + 48))(v20, 1, v5) == 1)
+  (*(v6 + 56))(v22, 0, 1, v5);
+  v25 = outlined init with copy of Siri_Nlu_External_UsoGraph?(v22, v20);
+  v31(v25);
+  outlined init with copy of Siri_Nlu_External_UsoGraph?(v20, v17);
+  if ((*(v6 + 48))(v17, 1, v5) == 1)
   {
-    outlined destroy of UsoBuilderOptions?(v23, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
     outlined destroy of UsoBuilderOptions?(v20, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
+    outlined destroy of UsoBuilderOptions?(v17, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
   }
 
   else
   {
-    (*(v6 + 32))(v11, v20, v5);
-    v29 = v32;
-    (*(v6 + 16))(v32, v11, v5);
-    v33(v29);
-    outlined destroy of UsoBuilderOptions?(v23, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
-    (*(v6 + 8))(v11, v5);
+    (*(v6 + 32))(v10, v17, v5);
+    v26 = v29;
+    (*(v6 + 16))(v29, v10, v5);
+    v30(v26);
+    outlined destroy of UsoBuilderOptions?(v20, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
+    (*(v6 + 8))(v10, v5);
   }
 
-  return outlined destroy of UsoBuilderOptions?(v25, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
+  return outlined destroy of UsoBuilderOptions?(v22, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
 }
 
 uint64_t static Siri_Nlu_External_SystemOffered.from(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v20[0] = a1;
-  v20[1] = a2;
+  v18[0] = a1;
+  v18[1] = a2;
   v2 = type metadata accessor for Siri_Nlu_External_UserWantedToProceed();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  v5 = __chkstk_darwin(v2);
-  v7 = v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v5);
-  v9 = v20 - v8;
-  v10 = type metadata accessor for Siri_Nlu_External_UserDialogAct();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  v13 = __chkstk_darwin(v10);
-  v15 = v20 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v13);
-  v17 = v20 - v16;
-  v18 = *(v3 + 16);
-  v18(v9, v20[0], v2);
+  v4 = __chkstk_darwin(v2);
+  v6 = v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v8 = v18 - v7;
+  v9 = type metadata accessor for Siri_Nlu_External_UserDialogAct();
+  v10 = *(v9 - 8);
+  v11 = __chkstk_darwin(v9);
+  v13 = v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v11);
+  v15 = v18 - v14;
+  v16 = *(v3 + 16);
+  v16(v8, v18[0], v2);
   Siri_Nlu_External_UserDialogAct.init()();
-  v18(v7, v9, v2);
+  v16(v6, v8, v2);
   Siri_Nlu_External_UserDialogAct.wantedToProceed.setter();
-  (*(v3 + 8))(v9, v2);
+  (*(v3 + 8))(v8, v2);
   Siri_Nlu_External_SystemOffered.init()();
-  (*(v11 + 16))(v15, v17, v10);
+  (*(v10 + 16))(v13, v15, v9);
   Siri_Nlu_External_SystemOffered.offeredAct.setter();
-  return (*(v11 + 8))(v17, v10);
+  return (*(v10 + 8))(v15, v9);
 }
 
 SiriGeoIntentExtension::UsoIdentifierAppBundle_optional __swiftcall UsoIdentifierAppBundle.init(rawValue:)(Swift::String rawValue)
@@ -1139,79 +1108,75 @@ SiriGeoIntentExtension::UsoIdentifierAppBundle_optional __swiftcall UsoIdentifie
 
 uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance UsoIdentifierAppBundle(_BYTE *a1, _BYTE *a2)
 {
-  v2 = *a2;
-  v3 = *a1 == 0;
+  v2 = *a1 == 0;
   if (*a1)
   {
-    v4 = 0xD000000000000015;
+    v3 = 0xD000000000000015;
   }
 
   else
   {
-    v4 = 0x73746361746E6F43;
+    v3 = 0x73746361746E6F43;
   }
 
-  if (v3)
+  if (v2)
   {
-    v5 = 0xE800000000000000;
+    v4 = 0xE800000000000000;
   }
 
   else
   {
-    v5 = 0x8000000100005850;
+    v4 = 0x8000000100005850;
   }
 
   if (*a2)
   {
-    v6 = 0xD000000000000015;
+    v5 = 0xD000000000000015;
   }
 
   else
   {
-    v6 = 0x73746361746E6F43;
+    v5 = 0x73746361746E6F43;
   }
 
   if (*a2)
   {
-    v7 = 0x8000000100005850;
+    v6 = 0x8000000100005850;
   }
 
   else
   {
-    v7 = 0xE800000000000000;
+    v6 = 0xE800000000000000;
   }
 
-  if (v4 == v6 && v5 == v7)
+  if (v3 == v5 && v4 == v6)
   {
-    v9 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v9 & 1;
+  return v8 & 1;
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance UsoIdentifierAppBundle()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance UsoIdentifierAppBundle()
+uint64_t protocol witness for Hashable.hash(into:) in conformance UsoIdentifierAppBundle(uint64_t a1)
 {
-  *v0;
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance UsoIdentifierAppBundle()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance UsoIdentifierAppBundle(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
@@ -1337,23 +1302,19 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Uso
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance UsoIdentifierNamespace()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance UsoIdentifierNamespace()
+uint64_t protocol witness for Hashable.hash(into:) in conformance UsoIdentifierNamespace(uint64_t a1)
 {
-  *v0;
-  *v0;
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance UsoIdentifierNamespace()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance UsoIdentifierNamespace(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 

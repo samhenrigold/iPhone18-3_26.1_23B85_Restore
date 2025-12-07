@@ -3,9 +3,31 @@
 - (void)_updateSpecifiersFromPreferences;
 - (void)preferencesDidChange:(id)change;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 @end
 
 @implementation AssistantVoiceFeedbackController
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5 = +[NSNotificationCenter defaultCenter];
+  [v5 addObserver:self selector:"preferencesDidChange:" name:AFNanoPreferencesDidChangeNotification object:0];
+
+  v6.receiver = self;
+  v6.super_class = AssistantVoiceFeedbackController;
+  [(AssistantVoiceFeedbackController *)&v6 viewDidAppear:appearCopy];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = AssistantVoiceFeedbackController;
+  [(AssistantVoiceFeedbackController *)&v5 viewDidDisappear:disappear];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 removeObserver:self name:AFNanoPreferencesDidChangeNotification object:0];
+}
 
 - (void)preferencesDidChange:(id)change
 {

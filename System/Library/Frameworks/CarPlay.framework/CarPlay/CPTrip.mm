@@ -20,13 +20,13 @@
 
 - (CPTrip)initWithOrigin:(MKMapItem *)origin destination:(MKMapItem *)destination routeChoices:(NSArray *)routeChoices
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v9 = origin;
   v10 = destination;
   v11 = routeChoices;
-  v23.receiver = self;
-  v23.super_class = CPTrip;
-  v12 = [(CPTrip *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = CPTrip;
+  v12 = [(CPTrip *)&v22 init];
   if (v12)
   {
     uUID = [MEMORY[0x277CCAD78] UUID];
@@ -44,14 +44,13 @@
     if (name)
     {
       name2 = [(MKMapItem *)v10 name];
-      v24[0] = name2;
-      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+      v23[0] = name2;
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
       destinationNameVariants = v12->_destinationNameVariants;
       v12->_destinationNameVariants = v19;
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

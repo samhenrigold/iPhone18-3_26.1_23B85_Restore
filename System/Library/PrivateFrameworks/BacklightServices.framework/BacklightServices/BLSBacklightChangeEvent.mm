@@ -181,7 +181,7 @@ void __49__BLSBacklightChangeEvent_bls_shortLoggingString__block_invoke(uint64_t
 
   else
   {
-    v16 = bls_backlight_log();
+    v16 = bls_backlight_log(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       [(BLSBacklightChangeEvent *)dictionaryCopy initWithXPCDictionary:v16];
@@ -238,11 +238,10 @@ void __49__BLSBacklightChangeEvent_bls_shortLoggingString__block_invoke(uint64_t
 
 - (void)initWithXPCDictionary:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_21FE25000, a2, OS_LOG_TYPE_FAULT, "change request missing from encoding: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_21FE25000, a2, OS_LOG_TYPE_FAULT, "change request missing from encoding: %@", &v2, 0xCu);
 }
 
 @end

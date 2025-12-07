@@ -24,9 +24,9 @@
   v9 = v8;
   if ((v7 & 1) == 0)
   {
-    if (v8 && [v8 code] == 516)
+    if (v8 && (v8 = [v8 code], v8 == 516))
     {
-      v10 = tcc_access_log();
+      v10 = tcc_access_log(516);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         sub_100037884(neededCopy, v10);
@@ -35,7 +35,7 @@
 
     else
     {
-      v10 = tcc_access_log();
+      v10 = tcc_access_log(v8);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_1000378FC(neededCopy, v9, v10);
@@ -62,7 +62,7 @@
   directoryCopy = directory;
   if (![TCCDIconGenerator createDirectoryIfNeeded:directoryCopy])
   {
-    v20 = 0;
+    v21 = 0;
     goto LABEL_23;
   }
 
@@ -72,9 +72,9 @@
   }
 
   [NSString stringWithFormat:@"%@@%dx.png", serviceCopy, *&qword_1000C1158];
-  v28 = v27 = directoryCopy;
-  v22 = v28;
-  v7 = [NSArray arrayWithObjects:&v27 count:2];
+  v29 = v28 = directoryCopy;
+  v23 = v29;
+  v7 = [NSArray arrayWithObjects:&v28 count:2];
   v8 = [NSURL fileURLWithPathComponents:v7];
 
   v9 = +[NSFileManager defaultManager];
@@ -84,33 +84,33 @@
 
   if (v12)
   {
-    v13 = tcc_access_log();
-    v14 = v13;
+    v14 = tcc_access_log(v13);
+    v15 = v14;
     if (!v10)
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        sub_100037998(serviceCopy, v8, v14);
+        sub_100037998(serviceCopy, v8, v15);
       }
 
-      v20 = v8;
+      v21 = v8;
       goto LABEL_22;
     }
 
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       path2 = [v8 path];
       *buf = 138412546;
-      v24 = serviceCopy;
-      v25 = 2112;
-      v26 = path2;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "#tccIcon overriding cached icon for %@ at %@", buf, 0x16u);
+      v25 = serviceCopy;
+      v26 = 2112;
+      v27 = path2;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#tccIcon overriding cached icon for %@ at %@", buf, 0x16u);
     }
 
     [v9 removeItemAtURL:v8 error:0];
   }
 
-  v16 = [TCCDIconGenerator _iconForService:serviceCopy];
+  v17 = [TCCDIconGenerator _iconForService:serviceCopy];
   if (_os_feature_enabled_impl() && _os_feature_enabled_impl())
   {
     if (qword_1000C1150 != -1)
@@ -118,27 +118,27 @@
       sub_100037A44();
     }
 
-    v17 = [[ISImageDescriptor alloc] initWithSize:29.0 scale:{29.0, *&qword_1000C1158}];
-    [v17 setDrawBorder:1];
-    v18 = [[ISIcon alloc] initWithType:@"com.apple.graphic-icon.privacy"];
-    v19 = [TCCDIconGenerator _createCGImageIconWithBadge:v18 forService:serviceCopy withDescriptor:v17];
-    v20 = [TCCDIconGenerator _writeCGImage:v19 toTempURL:v8];
-    if (v19)
+    v18 = [[ISImageDescriptor alloc] initWithSize:29.0 scale:{29.0, *&qword_1000C1158}];
+    [v18 setDrawBorder:1];
+    v19 = [[ISIcon alloc] initWithType:@"com.apple.graphic-icon.privacy"];
+    v20 = [TCCDIconGenerator _createCGImageIconWithBadge:v19 forService:serviceCopy withDescriptor:v18];
+    v21 = [TCCDIconGenerator _writeCGImage:v20 toTempURL:v8];
+    if (v20)
     {
-      CGImageRelease(v19);
+      CGImageRelease(v20);
     }
   }
 
   else
   {
-    v17 = [ISImageDescriptor imageDescriptorNamed:kISImageDescriptorHomeScreen];
-    v20 = [TCCDIconGenerator _writeIcon:v16 withDescriptor:v17 toTempURL:v8];
+    v18 = [ISImageDescriptor imageDescriptorNamed:kISImageDescriptorHomeScreen];
+    v21 = [TCCDIconGenerator _writeIcon:v17 withDescriptor:v18 toTempURL:v8];
   }
 
 LABEL_22:
 LABEL_23:
 
-  return v20;
+  return v21;
 }
 
 + (id)_iconForService:(id)service
@@ -160,7 +160,7 @@ LABEL_23:
 
   else
   {
-    v9 = tcc_access_log();
+    v9 = tcc_access_log(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v11 = 136315394;
@@ -182,40 +182,42 @@ LABEL_23:
   descriptorCopy = descriptor;
   lCopy = l;
   v10 = [iconCopy imageForDescriptor:descriptorCopy];
-  if ([v10 placeholder])
+  placeholder = [v10 placeholder];
+  if (placeholder)
   {
-    v11 = [iconCopy prepareImageForDescriptor:descriptorCopy];
+    v12 = [iconCopy prepareImageForDescriptor:descriptorCopy];
 
-    v10 = v11;
+    v10 = v12;
   }
 
-  v12 = tcc_access_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v13 = tcc_access_log(placeholder);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v16 = 136315394;
-    v17 = "+[TCCDIconGenerator _writeIcon:withDescriptor:toTempURL:]";
-    v18 = 2112;
-    v19 = lCopy;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "#tccIcon %s: Attempting to write icon to %@", &v16, 0x16u);
+    v18 = 136315394;
+    v19 = "+[TCCDIconGenerator _writeIcon:withDescriptor:toTempURL:]";
+    v20 = 2112;
+    v21 = lCopy;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "#tccIcon %s: Attempting to write icon to %@", &v18, 0x16u);
   }
 
-  if ([v10 writeToURL:lCopy])
+  v14 = [v10 writeToURL:lCopy];
+  if (v14)
   {
-    v13 = lCopy;
+    v15 = lCopy;
   }
 
   else
   {
-    v14 = tcc_access_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = tcc_access_log(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_100037A6C();
     }
 
-    v13 = 0;
+    v15 = 0;
   }
 
-  return v13;
+  return v15;
 }
 
 + (CGImage)_createCGImageIconWithBadge:(id)badge forService:(id)service withDescriptor:(id)descriptor
@@ -243,22 +245,22 @@ LABEL_23:
     goto LABEL_5;
   }
 
-  v34 = [&off_1000AF5A0 objectForKeyedSubscript:v12];
+  v37 = [&off_1000AF5A0 objectForKeyedSubscript:v12];
 
-  if (v34)
+  if (v37)
   {
     v14 = [&off_1000AF5C8 objectForKeyedSubscript:v12];
-    v35 = [&off_1000B0238 containsObject:v12];
-    v36 = [ISIcon alloc];
-    v37 = v36;
-    if (v35)
+    v39 = [&off_1000B0238 containsObject:v12];
+    v40 = [ISIcon alloc];
+    v41 = v40;
+    if (v39)
     {
-      v18 = [v36 initWithType:v14];
+      v18 = [v40 initWithType:v14];
       goto LABEL_6;
     }
 
     v16 = [@"com.apple." stringByAppendingString:v14];
-    v17 = [v37 initWithType:v16];
+    v17 = [v41 initWithType:v16];
 LABEL_5:
     v18 = v17;
 
@@ -268,80 +270,82 @@ LABEL_6:
       sub_100037984();
     }
 
-    v19 = *&qword_1000C1158;
-    v20 = tcc_access_log();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v20 = *&qword_1000C1158;
+    v21 = tcc_access_log(v19);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v41 = "+[TCCDIconGenerator _createCGImageIconWithBadge:forService:withDescriptor:]";
-      v42 = 2048;
-      v43 = v19;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "#tccIcon %s: Setting display scale to %lf", buf, 0x16u);
+      v45 = "+[TCCDIconGenerator _createCGImageIconWithBadge:forService:withDescriptor:]";
+      v46 = 2048;
+      v47 = v20;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "#tccIcon %s: Setting display scale to %lf", buf, 0x16u);
     }
 
-    v21 = [[ISImageDescriptor alloc] initWithSize:64.0 scale:{64.0, v19}];
-    v22 = [v18 imageForDescriptor:v21];
-    if ([v22 placeholder])
+    v22 = [[ISImageDescriptor alloc] initWithSize:64.0 scale:{64.0, v20}];
+    v23 = [v18 imageForDescriptor:v22];
+    if ([v23 placeholder])
     {
-      v23 = [v18 prepareImageForDescriptor:v21];
+      v24 = [v18 prepareImageForDescriptor:v22];
 
-      v22 = v23;
+      v23 = v24;
     }
 
-    if ([v10 containsObject:v12])
+    v25 = [v10 containsObject:v12];
+    if (v25)
     {
-      v24 = [badgeCopy imageForDescriptor:descriptorCopy];
-      v38 = v10;
-      v39 = descriptorCopy;
-      if ([v24 placeholder])
+      v26 = [badgeCopy imageForDescriptor:descriptorCopy];
+      placeholder = [v26 placeholder];
+      v42 = v10;
+      v43 = descriptorCopy;
+      if (placeholder)
       {
-        v25 = [badgeCopy prepareImageForDescriptor:descriptorCopy];
+        v28 = [badgeCopy prepareImageForDescriptor:descriptorCopy];
 
-        v24 = v25;
+        v26 = v28;
       }
 
-      v26 = badgeCopy;
-      v27 = tcc_access_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v29 = badgeCopy;
+      v30 = tcc_access_log(placeholder);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = [v18 description];
-        v29 = [badgeCopy description];
+        v31 = [v18 description];
+        v32 = [badgeCopy description];
         *buf = 138412802;
-        v41 = v11;
-        v42 = 2112;
-        v43 = *&v28;
-        v44 = 2112;
-        v45 = v29;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "#tccIcon Service: %@, icon:%@, badge icon: %@", buf, 0x20u);
+        v45 = v11;
+        v46 = 2112;
+        v47 = *&v31;
+        v48 = 2112;
+        v49 = v32;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "#tccIcon Service: %@, icon:%@, badge icon: %@", buf, 0x20u);
       }
 
-      cGImage = +[TCCDIconGenerator _createCGImageRefByOverlay:ontoImage:](TCCDIconGenerator, "_createCGImageRefByOverlay:ontoImage:", [v24 CGImage], objc_msgSend(v22, "CGImage"));
-      badgeCopy = v26;
-      v10 = v38;
-      descriptorCopy = v39;
+      cGImage = +[TCCDIconGenerator _createCGImageRefByOverlay:ontoImage:](TCCDIconGenerator, "_createCGImageRefByOverlay:ontoImage:", [v26 CGImage], objc_msgSend(v23, "CGImage"));
+      badgeCopy = v29;
+      v10 = v42;
+      descriptorCopy = v43;
     }
 
     else
     {
-      v31 = tcc_access_log();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v34 = tcc_access_log(v25);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
-        v32 = [v22 description];
+        v35 = [v23 description];
         *buf = 138412546;
-        v41 = v11;
-        v42 = 2112;
-        v43 = *&v32;
-        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "#tccIcon Service: %@, icon:%@, ", buf, 0x16u);
+        v45 = v11;
+        v46 = 2112;
+        v47 = *&v35;
+        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "#tccIcon Service: %@, icon:%@, ", buf, 0x16u);
       }
 
-      CFRetain([v22 CGImage]);
-      cGImage = [v22 CGImage];
+      CFRetain([v23 CGImage]);
+      cGImage = [v23 CGImage];
     }
 
     goto LABEL_22;
   }
 
-  v18 = tcc_access_log();
+  v18 = tcc_access_log(v38);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
     sub_100037AF0();
@@ -387,18 +391,18 @@ LABEL_6:
   if (!image)
   {
 LABEL_9:
-    v15 = 0;
+    v16 = 0;
     goto LABEL_14;
   }
 
   v7 = CGImageDestinationCreateWithURL(lCopy, kUTTypePNG, 1uLL, 0);
   if (!v7)
   {
-    v14 = tcc_access_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v15 = tcc_access_log(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "#tccIcon Failed to create image destination", &v17, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "#tccIcon Failed to create image destination", &v18, 2u);
     }
 
     goto LABEL_9;
@@ -407,35 +411,36 @@ LABEL_9:
   v8 = v7;
   CGImageDestinationAddImage(v7, image, 0);
   v9 = CGImageDestinationFinalize(v8);
-  v10 = tcc_access_log();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
-  if (v9)
+  v10 = v9;
+  v11 = tcc_access_log(v9);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
+  if (v10)
   {
-    if (v11)
+    if (v12)
     {
       path = [(__CFURL *)v6 path];
-      v17 = 138412290;
-      v18 = path;
-      v13 = "#tccIcon Image saved to %@";
+      v18 = 138412290;
+      v19 = path;
+      v14 = "#tccIcon Image saved to %@";
 LABEL_12:
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, v13, &v17, 0xCu);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, v14, &v18, 0xCu);
     }
   }
 
-  else if (v11)
+  else if (v12)
   {
     path = [(__CFURL *)v6 path];
-    v17 = 138412290;
-    v18 = path;
-    v13 = "#tccIcon Failed to write image to %@";
+    v18 = 138412290;
+    v19 = path;
+    v14 = "#tccIcon Failed to write image to %@";
     goto LABEL_12;
   }
 
   CFRelease(v8);
-  v15 = v6;
+  v16 = v6;
 LABEL_14:
 
-  return v15;
+  return v16;
 }
 
 + (CGImage)_createCGImageRefByOverlay:(CGImage *)overlay ontoImage:(CGImage *)image
@@ -446,7 +451,7 @@ LABEL_14:
   }
 
   v6 = *&qword_1000C1158;
-  v7 = tcc_access_log();
+  v7 = tcc_access_log(self);
   v8 = v7;
   if (!overlay || !image)
   {
@@ -484,7 +489,7 @@ LABEL_14:
 
   else
   {
-    v11 = tcc_access_log();
+    v11 = tcc_access_log(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v33) = 0;
@@ -494,7 +499,7 @@ LABEL_14:
     v10 = CGColorSpaceCreateWithName(kCGColorSpaceExtendedSRGB);
     if (!v10)
     {
-      v27 = tcc_access_log();
+      v27 = tcc_access_log(0);
       if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
       {
         sub_100037BCC(v27);
@@ -508,7 +513,7 @@ LABEL_14:
   v13 = CGBitmapContextCreate(0, v12, v12, 0x10uLL, 8 * v12, v10, 0x1101u);
   if (!v13)
   {
-    v27 = tcc_access_log();
+    v27 = tcc_access_log(0);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       sub_100037B88(v27);
@@ -528,7 +533,7 @@ LABEL_26:
   v15 = +[NSLocale currentLocale];
   v16 = [v15 objectForKey:NSLocaleLanguageCode];
   v17 = [NSLocale characterDirectionForLanguage:v16];
-  v18 = tcc_access_log();
+  v18 = tcc_access_log(v17);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     v33 = 138412546;

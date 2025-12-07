@@ -7,32 +7,32 @@
 
 - (CLOSTransaction)initWithDescription:(const char *)description
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v12.receiver = self;
-  v12.super_class = CLOSTransaction;
-  v4 = [(CLOSTransaction *)&v12 init];
-  if (v4)
+  v22 = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = CLOSTransaction;
+  v6 = [(CLOSTransaction *)&v13 init];
+  if (v6)
   {
-    v4->_description = [MEMORY[0x1E696AEC0] stringWithUTF8String:description];
-    v4->_transaction = os_transaction_create();
+    v6->_description = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v4, description, v5);
+    v6->_transaction = os_transaction_create();
     if (qword_1EAFE47B8 != -1)
     {
       dispatch_once(&qword_1EAFE47B8, &unk_1F0E6D710);
     }
 
-    v5 = qword_1EAFE47C0;
+    v7 = qword_1EAFE47C0;
     if (os_log_type_enabled(qword_1EAFE47C0, OS_LOG_TYPE_DEFAULT))
     {
-      description = v4->_description;
+      description = v6->_description;
       *buf = 134218242;
-      p_transaction = &v4->_transaction;
-      v19 = 2112;
+      p_transaction = &v6->_transaction;
+      v20 = 2112;
       descriptionCopy = description;
-      _os_log_impl(&dword_19B873000, v5, OS_LOG_TYPE_DEFAULT, "os_transaction created: (%p) %@", buf, 0x16u);
+      _os_log_impl(&dword_19B873000, v7, OS_LOG_TYPE_DEFAULT, "os_transaction created: (%p) %@", buf, 0x16u);
     }
 
-    v7 = sub_19B87DD40();
-    if (*(v7 + 160) > 1 || *(v7 + 164) > 1 || *(v7 + 168) > 1 || *(v7 + 152))
+    v9 = sub_19B87DD40();
+    if (*(v9 + 160) > 1 || *(v9 + 164) > 1 || *(v9 + 168) > 1 || *(v9 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE47B8 != -1)
@@ -40,27 +40,26 @@
         dispatch_once(&qword_1EAFE47B8, &unk_1F0E6D710);
       }
 
-      v8 = v4->_description;
-      v13 = 134218242;
-      v14 = &v4->_transaction;
-      v15 = 2112;
-      v16 = v8;
-      v9 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 2, "[CLOSTransaction initWithDescription:]", "CoreLocation: %s\n", v9);
-      if (v9 != buf)
+      v10 = v6->_description;
+      v14 = 134218242;
+      v15 = &v6->_transaction;
+      v16 = 2112;
+      v17 = v10;
+      v11 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE47C0, 0, "os_transaction created: (%p) %@", &v14, 22);
+      sub_19B885924("Generic", 1, 0, 2, "[CLOSTransaction initWithDescription:]", "CoreLocation: %s\n", v11);
+      if (v11 != buf)
       {
-        free(v9);
+        free(v11);
       }
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-  return v4;
+  return v6;
 }
 
 - (void)dealloc
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE47B8 != -1)
   {
     dispatch_once(&qword_1EAFE47B8, &unk_1F0E6D710);
@@ -72,8 +71,8 @@
     description = self->_description;
     *buf = 134218242;
     p_transaction = &self->_transaction;
-    v16 = 2112;
-    v17 = description;
+    v15 = 2112;
+    v16 = description;
     _os_log_impl(&dword_19B873000, v3, OS_LOG_TYPE_DEFAULT, "os_transaction released: (%p) %@", buf, 0x16u);
   }
 
@@ -87,11 +86,11 @@
     }
 
     v6 = self->_description;
-    v10 = 134218242;
-    v11 = &self->_transaction;
-    v12 = 2112;
-    v13 = v6;
-    v7 = _os_log_send_and_compose_impl();
+    v9 = 134218242;
+    v10 = &self->_transaction;
+    v11 = 2112;
+    v12 = v6;
+    v7 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE47C0, 0, "os_transaction released: (%p) %@", &v9, 22);
     sub_19B885924("Generic", 1, 0, 2, "[CLOSTransaction dealloc]", "CoreLocation: %s\n", v7);
     if (v7 != buf)
     {
@@ -101,10 +100,9 @@
 
   self->_transaction = 0;
   self->_description = 0;
-  v9.receiver = self;
-  v9.super_class = CLOSTransaction;
-  [(CLOSTransaction *)&v9 dealloc];
-  v8 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = CLOSTransaction;
+  [(CLOSTransaction *)&v8 dealloc];
 }
 
 @end

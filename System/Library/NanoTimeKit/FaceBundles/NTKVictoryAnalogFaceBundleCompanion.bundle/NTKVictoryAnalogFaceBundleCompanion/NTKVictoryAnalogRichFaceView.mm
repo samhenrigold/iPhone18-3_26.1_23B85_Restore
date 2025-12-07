@@ -1,5 +1,6 @@
 @interface NTKVictoryAnalogRichFaceView
 - (CGPoint)_contentCenterOffset;
+- (CGRect)_keylineFrameForComplicationSlot:(id)slot selected:(BOOL)selected;
 - (NTKVictoryAnalogRichFaceView)initWithFaceStyle:(int64_t)style forDevice:(id)device clientIdentifier:(id)identifier;
 - (id)_newLegacyViewForComplication:(id)complication family:(int64_t)family slot:(id)slot;
 - (int64_t)_legacyLayoutOverrideforComplicationType:(unint64_t)type slot:(id)slot;
@@ -72,6 +73,43 @@
   v7.receiver = self;
   v7.super_class = NTKVictoryAnalogRichFaceView;
   return [(NTKVictoryAnalogFaceView *)&v7 _legacyLayoutOverrideforComplicationType:type slot:?];
+}
+
+- (CGRect)_keylineFrameForComplicationSlot:(id)slot selected:(BOOL)selected
+{
+  selectedCopy = selected;
+  if (NTKComplicationSlotBottomCenter == slot)
+  {
+    v25.receiver = self;
+    v25.super_class = NTKVictoryAnalogRichFaceView;
+    slotCopy = slot;
+    [(NTKVictoryAnalogFaceView *)&v25 _keylineFrameForComplicationSlot:slotCopy selected:selectedCopy];
+    v9 = v17;
+    v11 = v18;
+    v13 = v19;
+    v15 = v20;
+  }
+
+  else
+  {
+    slotCopy2 = slot;
+    complicationFactory = [(NTKVictoryAnalogRichFaceView *)self complicationFactory];
+    [complicationFactory keylineFrameForCornerComplicationSlot:slotCopy2 selected:selectedCopy faceView:self];
+    v9 = v8;
+    v11 = v10;
+    v13 = v12;
+    v15 = v14;
+  }
+
+  v21 = v9;
+  v22 = v11;
+  v23 = v13;
+  v24 = v15;
+  result.size.height = v24;
+  result.size.width = v23;
+  result.origin.y = v22;
+  result.origin.x = v21;
+  return result;
 }
 
 - (CGPoint)_contentCenterOffset

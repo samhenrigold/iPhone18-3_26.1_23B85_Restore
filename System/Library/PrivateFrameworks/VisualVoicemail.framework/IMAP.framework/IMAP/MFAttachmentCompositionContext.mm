@@ -9,28 +9,28 @@
 
 - (void)dealloc
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   attachments = [(MFAttachmentCompositionContext *)self attachments];
-  v4 = [attachments countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [attachments countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       v7 = 0;
       do
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(attachments);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * v7);
+        v8 = *(*(&v15 + 1) + 8 * v7);
         v9 = +[MFAttachmentManager defaultManager];
         v10 = [v8 url];
         [v9 removeAttachmentForURL:v10];
@@ -42,7 +42,7 @@
       }
 
       while (v5 != v7);
-      v5 = [attachments countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [attachments countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
@@ -52,10 +52,9 @@
   attachmentsBaseURL = [(MFAttachmentCompositionContext *)self attachmentsBaseURL];
   [v12 removeProviderForBaseURL:attachmentsBaseURL];
 
-  v15.receiver = self;
-  v15.super_class = MFAttachmentCompositionContext;
-  [(MFAttachmentCompositionContext *)&v15 dealloc];
-  v14 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = MFAttachmentCompositionContext;
+  [(MFAttachmentCompositionContext *)&v14 dealloc];
 }
 
 - (MFAttachmentCompositionContext)init

@@ -2,12 +2,12 @@
 + (uint64_t)allDefaultsKeys;
 - (BOOL)isEqual:(id)equal;
 - (NSCloudKitMirroringDelegatePreJazzkonMetadata)initWithStore:(id)store;
+- (_BYTE)changeTokenForDatabaseScope:(_BYTE *)result;
+- (_BYTE)changeTokenForZoneWithID:(uint64_t)d inDatabaseWithScope:;
 - (__CFString)_keyForDatabaseScope:(uint64_t)scope;
 - (id)_keyForZoneName:(uint64_t)name owner:(uint64_t)owner databseScope:(uint64_t)scope;
 - (id)ckIdentityRecordName;
 - (id)description;
-- (uint64_t)changeTokenForDatabaseScope:(uint64_t)result;
-- (uint64_t)changeTokenForZoneWithID:(uint64_t)d inDatabaseWithScope:;
 - (uint64_t)hasCheckedCKIdentity;
 - (uint64_t)hasInitializedDatabaseSubscription;
 - (uint64_t)hasInitializedZoneSubscription;
@@ -30,9 +30,7 @@
   v2[5] = @"NSCloudKitMirroringDelegateLastHistoryTokenKey";
   v2[6] = @"NSCloudKitMirroringDelegateServerChangeTokensKey";
   v2[7] = @"NSCloudKitMirroringDelegateInitializedDatabaseSubscriptionKey";
-  result = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:8];
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:8];
 }
 
 - (NSCloudKitMirroringDelegatePreJazzkonMetadata)initWithStore:(id)store
@@ -206,27 +204,28 @@ LABEL_26:
   {
     if ((*(self + 16) & 1) == 0)
     {
-      v16 = v5;
-      v17 = v4;
-      v18 = v3;
-      v19 = v2;
-      v11 = MEMORY[0x1E695DF30];
-      v12 = *MEMORY[0x1E695D930];
-      v13 = MEMORY[0x1E696AEC0];
-      v14 = objc_opt_class();
-      v15 = [v11 exceptionWithName:v12 reason:objc_msgSend(v13 userInfo:{"stringWithFormat:", @"%@:%@ called before load.", v14, NSStringFromSelector(sel_hasInitializedZoneSubscription), v6, v16, v17, v18, v19, v1, v7, v8), 0}];
-      objc_exception_throw(v15);
+      v18 = v6;
+      v19 = v5;
+      v20 = v4;
+      v21 = v3;
+      v12 = MEMORY[0x1E695DF30];
+      v13 = *MEMORY[0x1E695D930];
+      v14 = MEMORY[0x1E696AEC0];
+      v15 = objc_opt_class();
+      v16 = NSStringFromSelector(sel_hasInitializedZoneSubscription);
+      v17 = [v12 exceptionWithName:v13 reason:objc_msgSend_stringWithFormat_(v14 userInfo:{v15, v16, v7, v18, v19, v20, v21, v2, v8, v9), 0}];
+      objc_exception_throw(v17);
     }
 
-    v9 = *(self + 19);
+    v10 = *(self + 19);
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9 & 1;
+  return v10 & 1;
 }
 
 - (uint64_t)hasInitializedDatabaseSubscription
@@ -235,27 +234,28 @@ LABEL_26:
   {
     if ((*(self + 16) & 1) == 0)
     {
-      v16 = v5;
-      v17 = v4;
-      v18 = v3;
-      v19 = v2;
-      v11 = MEMORY[0x1E695DF30];
-      v12 = *MEMORY[0x1E695D930];
-      v13 = MEMORY[0x1E696AEC0];
-      v14 = objc_opt_class();
-      v15 = [v11 exceptionWithName:v12 reason:objc_msgSend(v13 userInfo:{"stringWithFormat:", @"%@:%@ called before load.", v14, NSStringFromSelector(sel_hasInitializedDatabaseSubscription), v6, v16, v17, v18, v19, v1, v7, v8), 0}];
-      objc_exception_throw(v15);
+      v18 = v6;
+      v19 = v5;
+      v20 = v4;
+      v21 = v3;
+      v12 = MEMORY[0x1E695DF30];
+      v13 = *MEMORY[0x1E695D930];
+      v14 = MEMORY[0x1E696AEC0];
+      v15 = objc_opt_class();
+      v16 = NSStringFromSelector(sel_hasInitializedDatabaseSubscription);
+      v17 = [v12 exceptionWithName:v13 reason:objc_msgSend_stringWithFormat_(v14 userInfo:{v15, v16, v7, v18, v19, v20, v21, v2, v8, v9), 0}];
+      objc_exception_throw(v17);
     }
 
-    v9 = *(self + 20);
+    v10 = *(self + 20);
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9 & 1;
+  return v10 & 1;
 }
 
 - (id)ckIdentityRecordName
@@ -264,17 +264,18 @@ LABEL_26:
   {
     if ((*(result + 16) & 1) == 0)
     {
-      v2 = MEMORY[0x1E695DF30];
-      v3 = *MEMORY[0x1E695D930];
-      v4 = MEMORY[0x1E696AEC0];
-      v5 = objc_opt_class();
-      v6 = [v2 exceptionWithName:v3 reason:objc_msgSend(v4 userInfo:{"stringWithFormat:", @"%@:%@ called before load.", v5, NSStringFromSelector(sel_ckIdentityRecordName)), 0}];
-      objc_exception_throw(v6);
+      v3 = MEMORY[0x1E695DF30];
+      v4 = *MEMORY[0x1E695D930];
+      v5 = MEMORY[0x1E696AEC0];
+      v6 = objc_opt_class();
+      v7 = NSStringFromSelector(sel_ckIdentityRecordName);
+      v8 = [v3 exceptionWithName:v4 reason:objc_msgSend_stringWithFormat_(v5 userInfo:{v6, v7), 0}];
+      objc_exception_throw(v8);
     }
 
-    v1 = *(result + 3);
+    v2 = *(result + 3);
 
-    return v1;
+    return v2;
   }
 
   return result;
@@ -286,44 +287,46 @@ LABEL_26:
   {
     if ((*(self + 16) & 1) == 0)
     {
-      v16 = v5;
-      v17 = v4;
-      v18 = v3;
-      v19 = v2;
-      v11 = MEMORY[0x1E695DF30];
-      v12 = *MEMORY[0x1E695D930];
-      v13 = MEMORY[0x1E696AEC0];
-      v14 = objc_opt_class();
-      v15 = [v11 exceptionWithName:v12 reason:objc_msgSend(v13 userInfo:{"stringWithFormat:", @"%@:%@ called before load.", v14, NSStringFromSelector(sel_hasCheckedCKIdentity), v6, v16, v17, v18, v19, v1, v7, v8), 0}];
-      objc_exception_throw(v15);
+      v18 = v6;
+      v19 = v5;
+      v20 = v4;
+      v21 = v3;
+      v12 = MEMORY[0x1E695DF30];
+      v13 = *MEMORY[0x1E695D930];
+      v14 = MEMORY[0x1E696AEC0];
+      v15 = objc_opt_class();
+      v16 = NSStringFromSelector(sel_hasCheckedCKIdentity);
+      v17 = [v12 exceptionWithName:v13 reason:objc_msgSend_stringWithFormat_(v14 userInfo:{v15, v16, v7, v18, v19, v20, v21, v2, v8, v9), 0}];
+      objc_exception_throw(v17);
     }
 
-    v9 = *(self + 32);
+    v10 = *(self + 32);
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9 & 1;
+  return v10 & 1;
 }
 
-- (uint64_t)changeTokenForZoneWithID:(uint64_t)d inDatabaseWithScope:
+- (_BYTE)changeTokenForZoneWithID:(uint64_t)d inDatabaseWithScope:
 {
   if (result)
   {
-    if ((*(result + 16) & 1) == 0)
+    if ((result[16] & 1) == 0)
     {
       v5 = MEMORY[0x1E695DF30];
       v6 = *MEMORY[0x1E695D930];
       v7 = MEMORY[0x1E696AEC0];
       v8 = objc_opt_class();
-      v9 = [v5 exceptionWithName:v6 reason:objc_msgSend(v7 userInfo:{"stringWithFormat:", @"%@:%@ called before load.", v8, NSStringFromSelector(sel_changeTokenForZoneWithID_inDatabaseWithScope_)), 0}];
-      objc_exception_throw(v9);
+      v9 = NSStringFromSelector(sel_changeTokenForZoneWithID_inDatabaseWithScope_);
+      v10 = [v5 exceptionWithName:v6 reason:objc_msgSend_stringWithFormat_(v7 userInfo:{v8, v9), 0}];
+      objc_exception_throw(v10);
     }
 
-    v3 = *(result + 40);
+    v3 = *(result + 5);
     v4 = -[NSCloudKitMirroringDelegatePreJazzkonMetadata _keyForZoneName:owner:databseScope:]([a2 zoneName], objc_msgSend(a2, "ownerName"), d);
 
     return [v3 objectForKey:v4];
@@ -334,29 +337,31 @@ LABEL_26:
 
 - (id)_keyForZoneName:(uint64_t)name owner:(uint64_t)owner databseScope:(uint64_t)scope
 {
-  v5 = [objc_alloc(MEMORY[0x1E696AD60]) initWithString:-[NSCloudKitMirroringDelegatePreJazzkonMetadata _keyForDatabaseScope:](scope)];
-  [v5 appendFormat:@".%@.%@", name, owner];
-  v6 = [v5 copy];
+  v6 = objc_alloc(MEMORY[0x1E696AD60]);
+  v8 = [v6 initWithString:{-[NSCloudKitMirroringDelegatePreJazzkonMetadata _keyForDatabaseScope:](scope, v7)}];
+  [v8 appendFormat:@".%@.%@", name, owner];
+  v9 = [v8 copy];
 
-  return v6;
+  return v9;
 }
 
-- (uint64_t)changeTokenForDatabaseScope:(uint64_t)result
+- (_BYTE)changeTokenForDatabaseScope:(_BYTE *)result
 {
   if (result)
   {
-    if ((*(result + 16) & 1) == 0)
+    if ((result[16] & 1) == 0)
     {
       v4 = MEMORY[0x1E695DF30];
       v5 = *MEMORY[0x1E695D930];
       v6 = MEMORY[0x1E696AEC0];
       v7 = objc_opt_class();
-      v8 = [v4 exceptionWithName:v5 reason:objc_msgSend(v6 userInfo:{"stringWithFormat:", @"%@:%@ called before load.", v7, NSStringFromSelector(sel_changeTokenForDatabaseScope_)), 0}];
-      objc_exception_throw(v8);
+      v8 = NSStringFromSelector(sel_changeTokenForDatabaseScope_);
+      v9 = [v4 exceptionWithName:v5 reason:objc_msgSend_stringWithFormat_(v6 userInfo:{v7, v8), 0}];
+      objc_exception_throw(v9);
     }
 
-    v2 = *(result + 40);
-    v3 = [NSCloudKitMirroringDelegatePreJazzkonMetadata _keyForDatabaseScope:a2];
+    v2 = *(result + 5);
+    v3 = [(NSCloudKitMirroringDelegatePreJazzkonMetadata *)a2 _keyForDatabaseScope:a2];
 
     return [v2 objectForKey:v3];
   }
@@ -368,7 +373,8 @@ LABEL_26:
 {
   if ((scope - 1) >= 3)
   {
-    objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"Unknown database scope: %lu", scope), 0}]);
+    v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{a2, @"Unknown database scope: %lu", scope), 0}];
+    objc_exception_throw(v3);
   }
 
   return off_1E6EC58F8[scope - 1];
@@ -380,16 +386,17 @@ LABEL_26:
   {
     if ((*(result + 16) & 1) == 0)
     {
-      v14 = v5;
-      v15 = v4;
-      v16 = v3;
-      v17 = v2;
-      v9 = MEMORY[0x1E695DF30];
-      v10 = *MEMORY[0x1E695D930];
-      v11 = MEMORY[0x1E696AEC0];
-      v12 = objc_opt_class();
-      v13 = [v9 exceptionWithName:v10 reason:objc_msgSend(v11 userInfo:{"stringWithFormat:", @"%@:%@ called before load.", v12, NSStringFromSelector(sel_lastHistoryToken), v6, v14, v15, v16, v17, v1, v7, v8), 0}];
-      objc_exception_throw(v13);
+      v16 = v6;
+      v17 = v5;
+      v18 = v4;
+      v19 = v3;
+      v10 = MEMORY[0x1E695DF30];
+      v11 = *MEMORY[0x1E695D930];
+      v12 = MEMORY[0x1E696AEC0];
+      v13 = objc_opt_class();
+      v14 = NSStringFromSelector(sel_lastHistoryToken);
+      v15 = [v10 exceptionWithName:v11 reason:objc_msgSend_stringWithFormat_(v12 userInfo:{v13, v14, v7, v16, v17, v18, v19, v2, v8, v9), 0}];
+      objc_exception_throw(v15);
     }
 
     return *(result + 48);
@@ -403,8 +410,7 @@ LABEL_26:
   v50 = *MEMORY[0x1E69E9840];
   if (!load)
   {
-    v3 = 0;
-    goto LABEL_49;
+    return 0;
   }
 
   if ((*(load + 16) & 1) == 0)
@@ -420,14 +426,15 @@ LABEL_26:
     *(load + 24) = [metadata objectForKey:@"NSCloudKitMirroringDelegateCKIdentityRecordNameDefaultsKey"];
     *(load + 32) = [objc_msgSend(metadata objectForKey:{@"NSCloudKitMirroringDelegateCheckedCKIdentityDefaultsKey", "BOOLValue"}];
     v7 = [metadata objectForKey:@"PFCloudKitServerChangeTokenKey"];
-    v8 = 0x1E696A000uLL;
+    v8 = v7;
+    v9 = 0x1E696A000uLL;
     if (v7)
     {
       *buf = 0;
-      v9 = MEMORY[0x1E696ACD0];
-      getCloudKitCKServerChangeTokenClass[0]();
-      v10 = [v9 unarchivedObjectOfClass:objc_opt_class() fromData:v7 error:buf];
-      if (v10 || [*buf code] == 4865 && (v11 = objc_msgSend(*buf, "domain"), (objc_msgSend(v11, "isEqualToString:", *MEMORY[0x1E696A250]) & 1) != 0))
+      v10 = MEMORY[0x1E696ACD0];
+      getCloudKitCKServerChangeTokenClass(v7);
+      v11 = [v10 unarchivedObjectOfClass:objc_opt_class() fromData:v8 error:buf];
+      if (v11 || [*buf code] == 4865 && (v12 = objc_msgSend(*buf, "domain"), (objc_msgSend(v12, "isEqualToString:", *MEMORY[0x1E696A250]) & 1) != 0))
       {
         v45 = 0;
         v46 = 1;
@@ -435,154 +442,154 @@ LABEL_26:
 
       else
       {
-        v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to deserialize '%@' out of the metadata for store: %@", @"PFCloudKitServerChangeTokenKey", v43];
-        v13 = objc_alloc_init(MEMORY[0x1E695DF90]);
-        [v13 setObject:v12 forKey:*MEMORY[0x1E696A588]];
+        v13 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], @"PFCloudKitServerChangeTokenKey", v43);
+        v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
+        [v14 setObject:v13 forKey:*MEMORY[0x1E696A588]];
         if (*buf)
         {
-          [v13 setObject:*buf forKey:*MEMORY[0x1E696AA08]];
+          [v14 setObject:*buf forKey:*MEMORY[0x1E696AA08]];
         }
 
-        v14 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v15 = [v14 initWithDomain:*MEMORY[0x1E696A250] code:134402 userInfo:v13];
+        v15 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v16 = [v15 initWithDomain:*MEMORY[0x1E696A250] code:134402 userInfo:v14];
 
-        v45 = v15;
+        v45 = v16;
         v46 = 0;
       }
     }
 
     else
     {
-      v10 = 0;
+      v11 = 0;
       v45 = 0;
       v46 = 1;
     }
 
-    v16 = [metadata objectForKey:@"NSCloudKitMirroringDelegateServerChangeTokensKey"];
-    if (v16)
+    v17 = [metadata objectForKey:@"NSCloudKitMirroringDelegateServerChangeTokensKey"];
+    if (v17)
     {
-      v17 = v5;
+      v18 = v5;
       *buf = 0;
-      v18 = MEMORY[0x1E696ACD0];
-      v19 = MEMORY[0x1E695DFD8];
-      v20 = objc_opt_class();
+      v19 = MEMORY[0x1E696ACD0];
+      v20 = MEMORY[0x1E695DFD8];
       v21 = objc_opt_class();
-      getCloudKitCKServerChangeTokenClass[0]();
-      v22 = [v18 unarchivedObjectOfClasses:objc_msgSend(v19 fromData:"setWithObjects:" error:{v20, v21, objc_opt_class(), 0), v16, buf}];
-      if (v22)
+      v22 = objc_opt_class();
+      (getCloudKitCKServerChangeTokenClass)();
+      v23 = [v19 unarchivedObjectOfClasses:objc_msgSend(v20 fromData:"setWithObjects:" error:{v21, v22, objc_opt_class(), 0), v17, buf}];
+      if (v23)
       {
-        *(load + 40) = v22;
-        v5 = v17;
+        *(load + 40) = v23;
+        v5 = v18;
       }
 
       else
       {
-        v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to deserialize '%@' out of the metadata for store: %@", @"NSCloudKitMirroringDelegateServerChangeTokensKey", v43];
-        v26 = objc_alloc_init(MEMORY[0x1E695DF90]);
-        v5 = v17;
-        [v26 setObject:v25 forKey:*MEMORY[0x1E696A588]];
+        v26 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], @"NSCloudKitMirroringDelegateServerChangeTokensKey", v43);
+        v27 = objc_alloc_init(MEMORY[0x1E695DF90]);
+        v5 = v18;
+        [v27 setObject:v26 forKey:*MEMORY[0x1E696A588]];
         if (*buf)
         {
-          [v26 setObject:*buf forKey:*MEMORY[0x1E696AA08]];
+          [v27 setObject:*buf forKey:*MEMORY[0x1E696AA08]];
         }
 
-        v27 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v45 = [v27 initWithDomain:*MEMORY[0x1E696A250] code:134402 userInfo:v26];
+        v28 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v45 = [v28 initWithDomain:*MEMORY[0x1E696A250] code:134402 userInfo:v27];
 
         v46 = 0;
       }
 
-      v8 = 0x1E696A000;
+      v9 = 0x1E696A000;
     }
 
     else
     {
-      if (v10)
+      if (v11)
       {
         CloudKitCKCurrentUserDefaultName = getCloudKitCKCurrentUserDefaultName();
-        v24 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v10, -[NSCloudKitMirroringDelegatePreJazzkonMetadata _keyForZoneName:owner:databseScope:](@"com.apple.coredata.cloudkit.zone", CloudKitCKCurrentUserDefaultName, 2), 0}];
+        v25 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v11, -[NSCloudKitMirroringDelegatePreJazzkonMetadata _keyForZoneName:owner:databseScope:](@"com.apple.coredata.cloudkit.zone", CloudKitCKCurrentUserDefaultName, 2), 0}];
       }
 
       else
       {
-        v24 = objc_alloc_init(MEMORY[0x1E695DF20]);
+        v25 = objc_alloc_init(MEMORY[0x1E695DF20]);
       }
 
-      *(load + 40) = v24;
+      *(load + 40) = v25;
     }
 
-    v28 = [metadata objectForKey:@"NSCloudKitMirroringDelegateLastHistoryTokenKey"];
-    if (v28)
+    v29 = [metadata objectForKey:@"NSCloudKitMirroringDelegateLastHistoryTokenKey"];
+    if (v29)
     {
       *buf = 0;
-      v29 = *(v8 + 3280);
-      v30 = v46;
-      v31 = v45;
-      v32 = [v29 unarchivedObjectOfClass:objc_opt_class() fromData:v28 error:buf];
-      if (v32)
+      v30 = *(v9 + 3280);
+      v31 = v46;
+      v32 = v45;
+      v33 = [v30 unarchivedObjectOfClass:objc_opt_class() fromData:v29 error:buf];
+      if (v33)
       {
-        *(load + 48) = v32;
+        *(load + 48) = v33;
       }
 
       else
       {
-        v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to deserialize '%@' out of the metadata for store: %@", @"NSCloudKitMirroringDelegateLastHistoryTokenKey", v43];
-        v34 = objc_alloc_init(MEMORY[0x1E695DF90]);
-        [v34 setObject:v33 forKey:*MEMORY[0x1E696A588]];
+        v34 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], @"NSCloudKitMirroringDelegateLastHistoryTokenKey", v43);
+        v35 = objc_alloc_init(MEMORY[0x1E695DF90]);
+        [v35 setObject:v34 forKey:*MEMORY[0x1E696A588]];
         if (*buf)
         {
-          [v34 setObject:*buf forKey:*MEMORY[0x1E696AA08]];
+          [v35 setObject:*buf forKey:*MEMORY[0x1E696AA08]];
         }
 
-        v35 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v31 = [v35 initWithDomain:*MEMORY[0x1E696A250] code:134402 userInfo:v34];
+        v36 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v32 = [v36 initWithDomain:*MEMORY[0x1E696A250] code:134402 userInfo:v35];
 
-        v30 = 0;
+        v31 = 0;
       }
     }
 
     else
     {
-      v30 = v46;
-      v31 = v45;
+      v31 = v46;
+      v32 = v45;
     }
 
     objc_autoreleasePoolPop(v5);
-    if (v31)
-    {
-      v36 = v30;
-    }
-
-    else
-    {
-      v36 = 1;
-    }
-
-    if (v36)
-    {
-      v37 = 0;
-    }
-
-    else
+    if (v32)
     {
       v37 = v31;
     }
 
-    if (v30)
+    else
+    {
+      v37 = 1;
+    }
+
+    if (v37)
+    {
+      v38 = 0;
+    }
+
+    else
+    {
+      v38 = v32;
+    }
+
+    if (v31)
     {
       v3 = 1;
       *(load + 16) = 1;
 LABEL_48:
 
-      goto LABEL_49;
+      return v3;
     }
 
-    if (v37)
+    if (v38)
     {
       if (a2)
       {
         v3 = 0;
-        *a2 = v37;
+        *a2 = v38;
         goto LABEL_48;
       }
     }
@@ -599,14 +606,14 @@ LABEL_48:
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
-      v39 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
+      v40 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
         *&buf[4] = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringDelegatePreJazzkonMetadata.m";
         v48 = 1024;
         v49 = 461;
-        _os_log_fault_impl(&dword_18565F000, v39, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+        _os_log_fault_impl(&dword_18565F000, v40, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
 
@@ -614,10 +621,7 @@ LABEL_48:
     goto LABEL_48;
   }
 
-  v3 = 1;
-LABEL_49:
-  v40 = *MEMORY[0x1E69E9840];
-  return v3;
+  return 1;
 }
 
 @end

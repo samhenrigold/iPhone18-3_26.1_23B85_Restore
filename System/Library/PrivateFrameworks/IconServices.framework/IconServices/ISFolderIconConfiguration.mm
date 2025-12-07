@@ -212,7 +212,7 @@ LABEL_8:
 
 - (NSDictionary)plistExcerpt
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   symbolName = [(ISFolderIconConfiguration *)self symbolName];
 
@@ -230,11 +230,9 @@ LABEL_8:
     [v3 setObject:colorString2 forKeyedSubscript:0x1F1A4F8E0];
   }
 
-  v11 = 0x1F1A4D480;
-  v12[0] = v3;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = 0x1F1A4D480;
+  v11[0] = v3;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
 
   return v8;
 }

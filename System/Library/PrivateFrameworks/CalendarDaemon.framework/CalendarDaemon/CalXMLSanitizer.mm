@@ -396,14 +396,14 @@ void __39__CalXMLSanitizer_currentRedactionRule__block_invoke()
 
 void __39__CalXMLSanitizer_currentRedactionRule__block_invoke_2(uint64_t a1)
 {
-  v2 = (a1 + 32);
+  v1 = (a1 + 32);
   if (([currentRedactionRule_loggedNamespaces containsObject:*(a1 + 32)] & 1) == 0)
   {
-    [currentRedactionRule_loggedNamespaces addObject:*v2];
-    v3 = +[CalDAVTrafficLogScrubber log];
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    [currentRedactionRule_loggedNamespaces addObject:*v1];
+    v2 = +[CalDAVTrafficLogScrubber log];
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      __39__CalXMLSanitizer_currentRedactionRule__block_invoke_2_cold_1((a1 + 32), a1);
+      __39__CalXMLSanitizer_currentRedactionRule__block_invoke_2_cold_1();
     }
   }
 }
@@ -416,14 +416,14 @@ void __39__CalXMLSanitizer_currentRedactionRule__block_invoke_120(uint64_t a1)
     v2 = +[CalDAVTrafficLogScrubber log];
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      __39__CalXMLSanitizer_currentRedactionRule__block_invoke_120_cold_1(a1);
+      __39__CalXMLSanitizer_currentRedactionRule__block_invoke_120_cold_1();
     }
   }
 }
 
 - (void)parser:(id)parser didStartElement:(id)element namespaceURI:(id)i qualifiedName:(id)name attributes:(id)attributes
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   iCopy = i;
   nameCopy = name;
@@ -462,7 +462,7 @@ void __39__CalXMLSanitizer_currentRedactionRule__block_invoke_120(uint64_t a1)
   }
 
   v21 = CalRedactString(elementName, v20);
-  v38 = getIndentation;
+  v37 = getIndentation;
   [(NSMutableString *)xml appendFormat:@"%@<%@", getIndentation, v21];
 
   if ([iCopy length])
@@ -477,30 +477,30 @@ void __39__CalXMLSanitizer_currentRedactionRule__block_invoke_120(uint64_t a1)
     }
   }
 
-  v39 = nameCopy;
-  v40 = iCopy;
+  v38 = nameCopy;
+  v39 = iCopy;
   selfCopy = self;
-  v41 = elementCopy;
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
+  v40 = elementCopy;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v25 = attributesCopy;
-  v26 = [v25 countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v44;
+    v28 = *v43;
     do
     {
       for (i = 0; i != v27; ++i)
       {
-        if (*v44 != v28)
+        if (*v43 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        v30 = *(*(&v43 + 1) + 8 * i);
+        v30 = *(*(&v42 + 1) + 8 * i);
         v31 = [currentRedactionRule redactionRuleForAttribute:v30];
         v32 = selfCopy->_xml;
         v33 = CalRedactString([v31 attributeName], v30);
@@ -510,7 +510,7 @@ void __39__CalXMLSanitizer_currentRedactionRule__block_invoke_120(uint64_t a1)
         [(NSMutableString *)v32 appendFormat:@" %@=%@", v33, v36];
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v43 objects:v47 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v42 objects:v46 count:16];
     }
 
     while (v27);
@@ -518,8 +518,6 @@ void __39__CalXMLSanitizer_currentRedactionRule__block_invoke_120(uint64_t a1)
 
   *&selfCopy->_currentElementStartTagNeedsClosing = 1;
   ++selfCopy->_nestingLevel;
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)parser:(id)parser didEndElement:(id)element namespaceURI:(id)i qualifiedName:(id)name
@@ -755,26 +753,20 @@ void __32__CalXMLSanitizer_flushContents__block_invoke()
   flushContents_notWhitespaceSet = v0;
 }
 
-void __39__CalXMLSanitizer_currentRedactionRule__block_invoke_2_cold_1(uint64_t *a1, uint64_t a2)
+void __39__CalXMLSanitizer_currentRedactionRule__block_invoke_2_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = *(a2 + 40);
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
-  v8 = v4;
-  _os_log_debug_impl(&dword_22430B000, v5, OS_LOG_TYPE_DEBUG, "Unknown namespace: %@ for element %@", v7, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_debug_impl(&dword_22430B000, v1, OS_LOG_TYPE_DEBUG, "Unknown namespace: %@ for element %@", v2, 0x16u);
 }
 
-void __39__CalXMLSanitizer_currentRedactionRule__block_invoke_120_cold_1(uint64_t a1)
+void __39__CalXMLSanitizer_currentRedactionRule__block_invoke_120_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
-  v2 = *(a1 + 48);
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
-  v7 = v3;
-  _os_log_debug_impl(&dword_22430B000, v4, OS_LOG_TYPE_DEBUG, "Unknown element name in namespace %@: %@", v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_debug_impl(&dword_22430B000, v1, OS_LOG_TYPE_DEBUG, "Unknown element name in namespace %@: %@", v2, 0x16u);
 }
 
 @end

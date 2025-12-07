@@ -133,10 +133,53 @@ void __30__BRNotificationReceiver_init__block_invoke(uint64_t a1)
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_1AE2A9000, v0, v1, "[CRIT] Assertion failed: _progressObserverByID.count == 0%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  memset(v11, 0, sizeof(v11));
+  __brc_create_section(0, "[BRNotificationReceiver dealloc]", 76, 0, v11);
+  v3 = brc_bread_crumbs("[BRNotificationReceiver dealloc]", 76);
+  v4 = brc_default_log(1, 0);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 134218498;
+    v13 = v11[0];
+    v14 = 2112;
+    selfCopy = self;
+    v16 = 2112;
+    v17 = v3;
+    _os_log_debug_impl(&dword_1AE2A9000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx dealloc %@%@", buf, 0x20u);
+  }
+
+  [(BRNotificationReceiver *)self invalidateAndNotify:0];
+  v5 = atomic_load(&self->_suspendCount);
+  if (v5 >= 1)
+  {
+    dispatch_resume(self->_source);
+  }
+
+  if (self->_timer)
+  {
+    v6 = brc_bread_crumbs("[BRNotificationReceiver dealloc]", 85);
+    v7 = brc_default_log(0, 0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    {
+      [BRNotificationReceiver dealloc];
+    }
+  }
+
+  if ([(NSMutableDictionary *)self->_progressObserverByID count])
+  {
+    v8 = brc_bread_crumbs("[BRNotificationReceiver dealloc]", 87);
+    v9 = brc_default_log(0, 0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    {
+      [BRNotificationReceiver dealloc];
+    }
+  }
+
+  __brc_leave_section(v11);
+  v10.receiver = self;
+  v10.super_class = BRNotificationReceiver;
+  [(BRNotificationReceiver *)&v10 dealloc];
 }
 
 - (unint64_t)pendingCount
@@ -158,7 +201,7 @@ void __30__BRNotificationReceiver_init__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __38__BRNotificationReceiver_pendingCount__block_invoke(uint64_t a1)
+void *__38__BRNotificationReceiver_pendingCount__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -175,18 +218,18 @@ uint64_t __38__BRNotificationReceiver_pendingCount__block_invoke(uint64_t a1)
 
 - (id)_obtainNotificationSenderFromDaemon
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = +[BRDaemonConnection defaultConnection];
   newSyncProxy = [v3 newSyncProxy];
 
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __61__BRNotificationReceiver__obtainNotificationSenderFromDaemon__block_invoke;
-  v24[3] = &unk_1E7A15678;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __61__BRNotificationReceiver__obtainNotificationSenderFromDaemon__block_invoke;
+  v23[3] = &unk_1E7A15678;
   v5 = newSyncProxy;
-  v25 = v5;
+  v24 = v5;
   selfCopy = self;
-  [v5 getItemUpdateSenderWithReceiver:self reply:v24];
+  [v5 getItemUpdateSenderWithReceiver:self reply:v23];
   result = [v5 result];
   if (result)
   {
@@ -210,7 +253,7 @@ uint64_t __38__BRNotificationReceiver_pendingCount__block_invoke(uint64_t a1)
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v28 = v10;
+          v27 = v10;
           _os_log_impl(&dword_1AE2A9000, v11, OS_LOG_TYPE_DEFAULT, "[WARNING] cannot query iCloud Drive items because we are logged out%@", buf, 0xCu);
         }
       }
@@ -236,12 +279,12 @@ uint64_t __38__BRNotificationReceiver_pendingCount__block_invoke(uint64_t a1)
 
       +[BRAccount startAccountTokenChangeObserverIfNeeded];
       defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __61__BRNotificationReceiver__obtainNotificationSenderFromDaemon__block_invoke_22;
-      v23[3] = &unk_1E7A156A0;
-      v23[4] = self;
-      v18 = [defaultCenter addObserverForName:@"BRAccountTokenDidChangeNotification" object:0 queue:0 usingBlock:v23];
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __61__BRNotificationReceiver__obtainNotificationSenderFromDaemon__block_invoke_22;
+      v22[3] = &unk_1E7A156A0;
+      v22[4] = self;
+      v18 = [defaultCenter addObserverForName:@"BRAccountTokenDidChangeNotification" object:0 queue:0 usingBlock:v22];
       accountTokenDidChangeNotificationObserver = self->_accountTokenDidChangeNotificationObserver;
       self->_accountTokenDidChangeNotificationObserver = v18;
     }
@@ -259,7 +302,6 @@ uint64_t __38__BRNotificationReceiver_pendingCount__block_invoke(uint64_t a1)
 
   v20 = result;
 
-  v21 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -289,7 +331,7 @@ void __61__BRNotificationReceiver__obtainNotificationSenderFromDaemon__block_inv
 
 void __61__BRNotificationReceiver__obtainNotificationSenderFromDaemon__block_invoke_8(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
   v6 = [v5 objectForKey:@"version"];
@@ -326,53 +368,49 @@ void __61__BRNotificationReceiver__obtainNotificationSenderFromDaemon__block_inv
       v14 = brc_default_log(0, 0);
       if (os_log_type_enabled(v14, 0x90u))
       {
-        v16 = 138412802;
-        v17 = v11;
-        v18 = 1024;
-        v19 = v12;
-        v20 = 2112;
-        v21 = v13;
-        _os_log_error_impl(&dword_1AE2A9000, v14, 0x90u, "[ERROR] Failed to consume extension %@ %{errno}d%@", &v16, 0x1Cu);
+        v15 = 138412802;
+        v16 = v11;
+        v17 = 1024;
+        v18 = v12;
+        v19 = 2112;
+        v20 = v13;
+        _os_log_error_impl(&dword_1AE2A9000, v14, 0x90u, "[ERROR] Failed to consume extension %@ %{errno}d%@", &v15, 0x1Cu);
       }
 
       *__error() = v12;
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __61__BRNotificationReceiver__obtainNotificationSenderFromDaemon__block_invoke_14(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  memset(v8, 0, sizeof(v8));
-  __brc_create_section(0, "[BRNotificationReceiver _obtainNotificationSenderFromDaemon]_block_invoke", 139, 0, v8);
+  memset(v7, 0, sizeof(v7));
+  __brc_create_section(0, "[BRNotificationReceiver _obtainNotificationSenderFromDaemon]_block_invoke", 139, 0, v7);
   v4 = brc_bread_crumbs("[BRNotificationReceiver _obtainNotificationSenderFromDaemon]_block_invoke", 139);
   v5 = brc_default_log(1, 0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 32);
+    v6 = *(a1 + 32);
     *buf = 134218754;
-    v10 = v8[0];
-    v11 = 2112;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v3;
-    v15 = 2112;
-    v16 = v4;
+    v9 = v7[0];
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v3;
+    v14 = 2112;
+    v15 = v4;
     _os_log_debug_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx %@ got error %@%@", buf, 0x2Au);
   }
 
   [*(a1 + 32) invalidate];
-  __brc_leave_section(v8);
-
-  v6 = *MEMORY[0x1E69E9840];
+  __brc_leave_section(v7);
 }
 
 void __61__BRNotificationReceiver__obtainNotificationSenderFromDaemon__block_invoke_22(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (([*(*(a1 + 32) + 144) isEqualToString:@"__defaultPersonaID__"] & 1) != 0 || (v4 = *(*(a1 + 32) + 144)) == 0)
   {
@@ -394,7 +432,7 @@ void __61__BRNotificationReceiver__obtainNotificationSenderFromDaemon__block_inv
   v7 = [MEMORY[0x1E69DF068] sharedManager];
   v8 = [v7 currentPersona];
 
-  v26 = 0;
+  v25 = 0;
   v9 = [v8 userPersonaUniqueString];
   v10 = v9;
   if (v9 == v5 || ([v9 isEqualToString:v5] & 1) != 0)
@@ -405,17 +443,17 @@ void __61__BRNotificationReceiver__obtainNotificationSenderFromDaemon__block_inv
 
   if (voucher_process_can_use_arbitrary_personas())
   {
-    v25 = 0;
-    v15 = [v8 copyCurrentPersonaContextWithError:&v25];
+    v24 = 0;
+    v14 = [v8 copyCurrentPersonaContextWithError:&v24];
+    v15 = v24;
     v16 = v25;
-    v17 = v26;
-    v26 = v15;
+    v25 = v14;
 
-    if (v16)
+    if (v15)
     {
-      v18 = brc_bread_crumbs("[BRNotificationReceiver _obtainNotificationSenderFromDaemon]_block_invoke", 172);
-      v19 = brc_default_log(0, 0);
-      if (os_log_type_enabled(v19, 0x90u))
+      v17 = brc_bread_crumbs("[BRNotificationReceiver _obtainNotificationSenderFromDaemon]_block_invoke", 172);
+      v18 = brc_default_log(0, 0);
+      if (os_log_type_enabled(v18, 0x90u))
       {
         __61__BRNotificationReceiver__obtainNotificationSenderFromDaemon__block_invoke_22_cold_4();
       }
@@ -425,18 +463,18 @@ void __61__BRNotificationReceiver__obtainNotificationSenderFromDaemon__block_inv
 
     if (v11)
     {
-      v20 = brc_bread_crumbs("[BRNotificationReceiver _obtainNotificationSenderFromDaemon]_block_invoke", 172);
-      v21 = brc_default_log(0, 0);
-      if (os_log_type_enabled(v21, 0x90u))
+      v19 = brc_bread_crumbs("[BRNotificationReceiver _obtainNotificationSenderFromDaemon]_block_invoke", 172);
+      v20 = brc_default_log(0, 0);
+      if (os_log_type_enabled(v20, 0x90u))
       {
-        v22 = *(*(a1 + 32) + 144);
+        v21 = *(*(a1 + 32) + 144);
         *buf = 138412802;
-        *&buf[4] = v22;
+        *&buf[4] = v21;
         *&buf[12] = 2112;
         *&buf[14] = v11;
         *&buf[22] = 2112;
-        v28 = v20;
-        _os_log_error_impl(&dword_1AE2A9000, v21, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
+        v27 = v19;
+        _os_log_error_impl(&dword_1AE2A9000, v20, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
       }
 
 LABEL_29:
@@ -447,9 +485,9 @@ LABEL_29:
   {
     if (v6 && ([v8 isDataSeparatedPersona] & 1) == 0)
     {
-      v20 = brc_bread_crumbs("[BRNotificationReceiver _obtainNotificationSenderFromDaemon]_block_invoke", 172);
-      v21 = brc_default_log(1, 0);
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v19 = brc_bread_crumbs("[BRNotificationReceiver _obtainNotificationSenderFromDaemon]_block_invoke", 172);
+      v20 = brc_default_log(1, 0);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         [BRAccount containerWithPendingChanges];
       }
@@ -458,9 +496,9 @@ LABEL_29:
       goto LABEL_29;
     }
 
-    v23 = brc_bread_crumbs("[BRNotificationReceiver _obtainNotificationSenderFromDaemon]_block_invoke", 172);
-    v24 = brc_default_log(1, 0);
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v22 = brc_bread_crumbs("[BRNotificationReceiver _obtainNotificationSenderFromDaemon]_block_invoke", 172);
+    v23 = brc_default_log(1, 0);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       [BRAccount containerWithPendingChanges];
     }
@@ -481,8 +519,7 @@ LABEL_10:
   [*(a1 + 32) invalidate];
   __brc_leave_section(buf);
 
-  _BRRestorePersona(&v26);
-  v14 = *MEMORY[0x1E69E9840];
+  _BRRestorePersona(&v25);
 }
 
 void __61__BRNotificationReceiver__obtainNotificationSenderFromDaemon__block_invoke_2()
@@ -495,46 +532,46 @@ void __61__BRNotificationReceiver__obtainNotificationSenderFromDaemon__block_inv
 
 - (void)_watchUbiquitousScopes:(id)scopes bundleID:(id)d predicate:(id)predicate
 {
-  v118 = *MEMORY[0x1E69E9840];
+  v117 = *MEMORY[0x1E69E9840];
   scopesCopy = scopes;
   dCopy = d;
   predicateCopy = predicate;
   dispatch_assert_queue_V2(self->_queue);
-  v71 = scopesCopy;
+  v70 = scopesCopy;
   if (!self->_sender)
   {
     selfCopy = self;
     [(BRNotificationReceiver *)self resume];
-    v110 = 0u;
-    v111 = 0u;
-    v108 = 0u;
     v109 = 0u;
+    v110 = 0u;
+    v107 = 0u;
+    v108 = 0u;
     v9 = scopesCopy;
-    v10 = [v9 countByEnumeratingWithState:&v108 objects:v112 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v107 objects:v111 count:16];
     if (v10)
     {
+      v73 = 0;
       v74 = 0;
-      v75 = 0;
       oslog = 0;
-      v79 = 0;
+      v78 = 0;
       v11 = 0;
       v12 = 0;
-      v13 = *v109;
+      v13 = *v108;
       v14 = *MEMORY[0x1E696A638];
       v15 = *MEMORY[0x1E696A640];
       v16 = *MEMORY[0x1E696A610];
-      v77 = *MEMORY[0x1E696A628];
+      v76 = *MEMORY[0x1E696A628];
       do
       {
         v17 = 0;
         do
         {
-          if (*v109 != v13)
+          if (*v108 != v13)
           {
             objc_enumerationMutation(v9);
           }
 
-          v18 = *(*(&v108 + 1) + 8 * v17);
+          v18 = *(*(&v107 + 1) + 8 * v17);
           if ([v18 isEqual:v14])
           {
             v12 = 1;
@@ -545,9 +582,9 @@ void __61__BRNotificationReceiver__obtainNotificationSenderFromDaemon__block_inv
             v11 = 1;
           }
 
-          else if ([v18 isEqual:v16] & 1) != 0 || (objc_msgSend(v18, "isEqual:", v77))
+          else if ([v18 isEqual:v16] & 1) != 0 || (objc_msgSend(v18, "isEqual:", v76))
           {
-            v79 = 1;
+            v78 = 1;
           }
 
           else
@@ -570,7 +607,7 @@ LABEL_41:
               }
 
               oslog = v18;
-              v74 = 10;
+              v73 = 10;
             }
 
             else
@@ -588,13 +625,13 @@ LABEL_41:
                 goto LABEL_41;
               }
 
-              array = v75;
-              if (!v75)
+              array = v74;
+              if (!v74)
               {
                 array = [MEMORY[0x1E695DF70] array];
               }
 
-              v75 = array;
+              v74 = array;
               [array addObject:v18];
             }
           }
@@ -603,7 +640,7 @@ LABEL_41:
         }
 
         while (v10 != v17);
-        v20 = [v9 countByEnumeratingWithState:&v108 objects:v112 count:16];
+        v20 = [v9 countByEnumeratingWithState:&v107 objects:v111 count:16];
         v10 = v20;
       }
 
@@ -612,15 +649,15 @@ LABEL_41:
 
     else
     {
+      v73 = 0;
       v74 = 0;
-      v75 = 0;
       oslog = 0;
-      v79 = 0;
+      v78 = 0;
       v11 = 0;
       v12 = 0;
     }
 
-    if ((dyld_get_active_platform() & 0xFFFFFFFB) == 2 && (dyld_program_sdk_at_least() & 1) == 0 && !(v79 & 1 | (((v12 | v11) & 1) == 0)))
+    if ((dyld_get_active_platform() & 0xFFFFFFFB) == 2 && (dyld_program_sdk_at_least() & 1) == 0 && !(v78 & 1 | (((v12 | v11) & 1) == 0)))
     {
       v21 = brc_bread_crumbs("[BRNotificationReceiver _watchUbiquitousScopes:bundleID:predicate:]", 259);
       v22 = brc_default_log(1, 0);
@@ -629,21 +666,21 @@ LABEL_41:
         [BRNotificationReceiver _watchUbiquitousScopes:bundleID:predicate:];
       }
 
-      v79 = 1;
+      v78 = 1;
     }
 
-    v102 = 0;
-    v103 = &v102;
-    v104 = 0x3032000000;
-    v105 = __Block_byref_object_copy__6;
-    v106 = __Block_byref_object_dispose__6;
-    v107 = 0;
-    v101[0] = MEMORY[0x1E69E9820];
-    v101[1] = 3221225472;
-    v101[2] = __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___block_invoke;
-    v101[3] = &unk_1E7A14830;
-    v101[4] = selfCopy;
-    v78 = MEMORY[0x1B26FEA90](v101);
+    v101 = 0;
+    v102 = &v101;
+    v103 = 0x3032000000;
+    v104 = __Block_byref_object_copy__6;
+    v105 = __Block_byref_object_dispose__6;
+    v106 = 0;
+    v100[0] = MEMORY[0x1E69E9820];
+    v100[1] = 3221225472;
+    v100[2] = __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___block_invoke;
+    v100[3] = &unk_1E7A14830;
+    v100[4] = selfCopy;
+    v77 = MEMORY[0x1B26FEA90](v100);
     if (v11 & v12)
     {
       br_watchedURL = [predicateCopy br_watchedURL];
@@ -663,7 +700,7 @@ LABEL_41:
         v24 = 10;
       }
 
-      v74 = v24;
+      v73 = v24;
       if (oslog)
       {
         v27 = brc_bread_crumbs("[BRNotificationReceiver _watchUbiquitousScopes:bundleID:predicate:]", 295);
@@ -692,69 +729,69 @@ LABEL_49:
 
     if (oslog)
     {
-      v96[0] = MEMORY[0x1E69E9820];
-      v96[1] = 3221225472;
-      v96[2] = __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___block_invoke_32;
-      v96[3] = &unk_1E7A156C8;
-      v99 = &v102;
-      v97[0] = oslog;
-      v97[1] = selfCopy;
-      v100 = v74;
-      v98 = v78;
-      BRPerformWithPersonaAndErrorForURLIfAble(v97[0], v96);
+      v95[0] = MEMORY[0x1E69E9820];
+      v95[1] = 3221225472;
+      v95[2] = __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___block_invoke_32;
+      v95[3] = &unk_1E7A156C8;
+      v98 = &v101;
+      v96[0] = oslog;
+      v96[1] = selfCopy;
+      v99 = v73;
+      v97 = v77;
+      BRPerformWithPersonaAndErrorForURLIfAble(v96[0], v95);
 
-      v29 = v97;
+      v29 = v96;
 LABEL_104:
 
 LABEL_105:
       if (selfCopy->_sender)
       {
-        v88 = 0;
-        v89 = &v88;
-        v90 = 0x2020000000;
-        v91 = 0;
+        v87 = 0;
+        v88 = &v87;
+        v89 = 0x2020000000;
+        v90 = 0;
         v53 = BRNotificationNameForServerAvailabilityChanges();
         v54 = v53;
         uTF8String = [v53 UTF8String];
-        v56 = v89;
+        v56 = v88;
         queue = selfCopy->_queue;
-        v84[0] = MEMORY[0x1E69E9820];
-        v84[1] = 3221225472;
-        v84[2] = __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___block_invoke_37;
-        v84[3] = &unk_1E7A156F0;
-        v87 = &v88;
+        v83[0] = MEMORY[0x1E69E9820];
+        v83[1] = 3221225472;
+        v83[2] = __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___block_invoke_37;
+        v83[3] = &unk_1E7A156F0;
+        v86 = &v87;
         v58 = v53;
-        v85 = v58;
-        v86 = selfCopy;
+        v84 = v58;
+        v85 = selfCopy;
         v59 = queue;
-        v60 = v84;
+        v60 = v83;
         mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
         br_currentPersonaID = [mEMORY[0x1E69DF068] br_currentPersonaID];
 
         *handler = MEMORY[0x1E69E9820];
         *&handler[8] = 3221225472;
         *&handler[16] = __br_notify_register_dispatch_block_invoke_4;
-        v114 = &unk_1E7A14940;
+        v113 = &unk_1E7A14940;
         v63 = br_currentPersonaID;
-        v115 = v63;
-        v117 = uTF8String;
+        v114 = v63;
+        v116 = uTF8String;
         v64 = v60;
-        v116 = v64;
+        v115 = v64;
         notify_register_dispatch(uTF8String, v56 + 6, v59, handler);
 
-        selfCopy->_networkReachabilityToken = v89[6];
+        selfCopy->_networkReachabilityToken = v88[6];
         v65 = selfCopy->_queue;
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___block_invoke_2;
         block[3] = &unk_1E7A15718;
-        v82 = selfCopy;
-        v83 = &v88;
-        v81 = v58;
+        v81 = selfCopy;
+        v82 = &v87;
+        v80 = v58;
         v66 = v58;
         dispatch_async(v65, block);
 
-        _Block_object_dispose(&v88, 8);
+        _Block_object_dispose(&v87, 8);
       }
 
       else
@@ -777,10 +814,10 @@ LABEL_105:
     if ([br_watchedURL length])
     {
       _obtainNotificationSenderFromDaemon = [(BRNotificationReceiver *)selfCopy _obtainNotificationSenderFromDaemon];
-      v31 = v103[5];
-      v103[5] = _obtainNotificationSenderFromDaemon;
+      v31 = v102[5];
+      v102[5] = _obtainNotificationSenderFromDaemon;
 
-      if (v103[5])
+      if (v102[5])
       {
         active_platform = dyld_get_active_platform();
         if ((active_platform & 0xFFFFFFFB) == 2 || active_platform == 1 || active_platform == 11)
@@ -828,15 +865,15 @@ LABEL_75:
           v43 = v42;
         }
 
-        v44 = v103[5];
-        v45 = v94;
-        v94[0] = MEMORY[0x1E69E9820];
-        v94[1] = 3221225472;
-        v94[2] = __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___block_invoke_35;
-        v94[3] = &unk_1E7A15168;
-        v94[4] = v9;
-        v95 = v78;
-        [v44 watchItemsNamesPrefixedBy:br_watchedURL inScopes:v43 appLibraryIDs:v75 gatherReply:v94];
+        v44 = v102[5];
+        v45 = v93;
+        v93[0] = MEMORY[0x1E69E9820];
+        v93[1] = 3221225472;
+        v93[2] = __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___block_invoke_35;
+        v93[3] = &unk_1E7A15168;
+        v93[4] = v9;
+        v94 = v77;
+        [v44 watchItemsNamesPrefixedBy:br_watchedURL inScopes:v43 appLibraryIDs:v74 gatherReply:v93];
 
 LABEL_103:
         v29 = (v45 + 4);
@@ -845,20 +882,20 @@ LABEL_103:
 
 LABEL_110:
 
-      _Block_object_dispose(&v102, 8);
+      _Block_object_dispose(&v101, 8);
       goto LABEL_111;
     }
 
-    if (((v11 | v12 | v79) & 1) == 0)
+    if (((v11 | v12 | v78) & 1) == 0)
     {
       goto LABEL_105;
     }
 
     _obtainNotificationSenderFromDaemon2 = [(BRNotificationReceiver *)selfCopy _obtainNotificationSenderFromDaemon];
-    v34 = v103[5];
-    v103[5] = _obtainNotificationSenderFromDaemon2;
+    v34 = v102[5];
+    v102[5] = _obtainNotificationSenderFromDaemon2;
 
-    if (!v103[5])
+    if (!v102[5])
     {
       goto LABEL_110;
     }
@@ -869,7 +906,7 @@ LABEL_110:
       v35 = v11 & 1 | 2;
     }
 
-    if (v79)
+    if (v78)
     {
       v36 = v35 | 4;
     }
@@ -914,18 +951,18 @@ LABEL_90:
           v50 = v49;
         }
 
-        v45 = v92;
-        v92[0] = MEMORY[0x1E69E9820];
-        v92[1] = 3221225472;
-        v92[2] = __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___block_invoke_36;
-        v92[3] = &unk_1E7A15168;
-        v92[4] = v9;
-        v93 = v78;
-        v51 = MEMORY[0x1B26FEA90](v92);
-        v52 = v103[5];
-        if (v75)
+        v45 = v91;
+        v91[0] = MEMORY[0x1E69E9820];
+        v91[1] = 3221225472;
+        v91[2] = __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___block_invoke_36;
+        v91[3] = &unk_1E7A15168;
+        v91[4] = v9;
+        v92 = v77;
+        v51 = MEMORY[0x1B26FEA90](v91);
+        v52 = v102[5];
+        if (v74)
         {
-          [v52 watchScopes:v50 appLibraryIDs:v75 gatherReply:v51];
+          [v52 watchScopes:v50 appLibraryIDs:v74 gatherReply:v51];
         }
 
         else
@@ -946,7 +983,7 @@ LABEL_90:
     goto LABEL_90;
   }
 
-  v75 = brc_bread_crumbs("[BRNotificationReceiver _watchUbiquitousScopes:bundleID:predicate:]", 198);
+  v74 = brc_bread_crumbs("[BRNotificationReceiver _watchUbiquitousScopes:bundleID:predicate:]", 198);
   oslog = brc_default_log(0, 0);
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_FAULT))
   {
@@ -954,13 +991,11 @@ LABEL_90:
   }
 
 LABEL_111:
-
-  v69 = *MEMORY[0x1E69E9840];
 }
 
 void __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -969,9 +1004,9 @@ void __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___bl
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v12 = v3;
-      v13 = 2112;
-      v14 = v4;
+      v11 = v3;
+      v12 = 2112;
+      v13 = v4;
       _os_log_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] gathering failed: %@%@", buf, 0x16u);
     }
   }
@@ -1003,8 +1038,6 @@ void __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___bl
     block[4] = v7;
     dispatch_async(v8, block);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___block_invoke_32(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
@@ -1053,7 +1086,7 @@ void __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___bl
 
 void __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___block_invoke_33(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 br_isPOSIXErrorCode:4])
   {
@@ -1062,24 +1095,22 @@ void __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___bl
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 32);
-      v8 = 138412802;
-      v9 = v6;
-      v10 = 2112;
-      v11 = v3;
-      v12 = 2112;
-      v13 = v4;
-      _os_log_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] The gathering phase for children of '%@' failed: %@%@", &v8, 0x20u);
+      v7 = 138412802;
+      v8 = v6;
+      v9 = 2112;
+      v10 = v3;
+      v11 = 2112;
+      v12 = v4;
+      _os_log_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] The gathering phase for children of '%@' failed: %@%@", &v7, 0x20u);
     }
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___block_invoke_35(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 br_isPOSIXErrorCode:4])
   {
@@ -1088,24 +1119,22 @@ void __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___bl
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 32);
-      v8 = 138412802;
-      v9 = v6;
-      v10 = 2112;
-      v11 = v3;
-      v12 = 2112;
-      v13 = v4;
-      _os_log_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] The gathering phase for scopes %@ failed: %@%@", &v8, 0x20u);
+      v7 = 138412802;
+      v8 = v6;
+      v9 = 2112;
+      v10 = v3;
+      v11 = 2112;
+      v12 = v4;
+      _os_log_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] The gathering phase for scopes %@ failed: %@%@", &v7, 0x20u);
     }
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___block_invoke_36(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 br_isPOSIXErrorCode:4])
   {
@@ -1114,31 +1143,29 @@ void __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___bl
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 32);
-      v8 = 138412802;
-      v9 = v6;
-      v10 = 2112;
-      v11 = v3;
-      v12 = 2112;
-      v13 = v4;
-      _os_log_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] The gathering phase for scopes %@ failed: %@%@", &v8, 0x20u);
+      v7 = 138412802;
+      v8 = v6;
+      v9 = 2112;
+      v10 = v3;
+      v11 = 2112;
+      v12 = v4;
+      _os_log_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] The gathering phase for scopes %@ failed: %@%@", &v7, 0x20u);
     }
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___block_invoke_37(uint64_t result, int a2)
+id *__68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___block_invoke_37(id *result, int a2)
 {
-  if (*(*(*(result + 48) + 8) + 24) == a2)
+  if (*(*(result[6] + 1) + 24) == a2)
   {
     v5[3] = v2;
     v5[4] = v3;
     v4 = result;
     v5[0] = 1;
-    brc_notify_get_state(a2, v5, [*(result + 32) UTF8String]);
-    return [*(v4 + 40) networkDidChangeReachabilityStatusTo:v5[0] != 0];
+    brc_notify_get_state(a2, v5, [result[4] UTF8String]);
+    return [v4[5] networkDidChangeReachabilityStatusTo:v5[0] != 0];
   }
 
   return result;
@@ -1173,7 +1200,7 @@ uint64_t __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate_
 
 - (void)suspend
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   add = atomic_fetch_add(&self->_suspendCount, 1u);
   if (!add)
   {
@@ -1184,31 +1211,28 @@ uint64_t __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate_
   v5 = brc_default_log(1, 0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138413058;
+    v6 = 138413058;
     selfCopy = self;
-    v9 = 1024;
-    v10 = add;
-    v11 = 1024;
-    v12 = add + 1;
-    v13 = 2112;
-    v14 = v4;
-    _os_log_debug_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: suspended (%d->%d)%@", &v7, 0x22u);
+    v8 = 1024;
+    v9 = add;
+    v10 = 1024;
+    v11 = add + 1;
+    v12 = 2112;
+    v13 = v4;
+    _os_log_debug_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: suspended (%d->%d)%@", &v6, 0x22u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resume
 {
-  v9 = *MEMORY[0x1E69E9840];
   v0 = brc_bread_crumbs("[BRNotificationReceiver resume]", 428);
   v1 = brc_default_log(0, 0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v2, v3, "[CRIT] Assertion failed: suspendCount >= 0%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v2, v3, "[CRIT] Assertion failed: suspendCount >= 0%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)flush
@@ -1226,7 +1250,7 @@ uint64_t __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate_
 - (void)_invalidateAndNotify:(BOOL)notify
 {
   notifyCopy = notify;
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if (self->_accountTokenDidChangeNotificationObserver)
   {
@@ -1237,31 +1261,31 @@ uint64_t __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate_
     self->_accountTokenDidChangeNotificationObserver = 0;
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   allValues = [(NSMutableDictionary *)self->_progressObserverByID allValues];
-  v8 = [allValues countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v8 = [allValues countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v23;
+    v10 = *v22;
     do
     {
       v11 = 0;
       do
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v22 + 1) + 8 * v11++) stop];
+        [*(*(&v21 + 1) + 8 * v11++) stop];
       }
 
       while (v9 != v11);
-      v9 = [allValues countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v9 = [allValues countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v9);
@@ -1286,13 +1310,13 @@ uint64_t __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate_
     if (notifyCopy)
     {
       ipcQueue = self->_ipcQueue;
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __47__BRNotificationReceiver__invalidateAndNotify___block_invoke;
-      v19[3] = &unk_1E7A14A08;
-      v20 = v14;
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __47__BRNotificationReceiver__invalidateAndNotify___block_invoke;
+      v18[3] = &unk_1E7A14A08;
+      v19 = v14;
       selfCopy = self;
-      dispatch_async(ipcQueue, v19);
+      dispatch_async(ipcQueue, v18);
     }
 
     timer = self->_timer;
@@ -1305,27 +1329,25 @@ uint64_t __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate_
 
     dispatch_source_cancel(self->_source);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidateAndNotify:(BOOL)notify
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (!self->_isInvalidated)
   {
-    memset(v11, 0, sizeof(v11));
-    __brc_create_section(0, "[BRNotificationReceiver invalidateAndNotify:]", 493, 0, v11);
+    memset(v10, 0, sizeof(v10));
+    __brc_create_section(0, "[BRNotificationReceiver invalidateAndNotify:]", 493, 0, v10);
     v5 = brc_bread_crumbs("[BRNotificationReceiver invalidateAndNotify:]", 493);
     v6 = brc_default_log(1, 0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218498;
-      v13 = v11[0];
-      v14 = 2112;
+      v12 = v10[0];
+      v13 = 2112;
       selfCopy = self;
-      v16 = 2112;
-      v17 = v5;
+      v15 = 2112;
+      v16 = v5;
       _os_log_debug_impl(&dword_1AE2A9000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx invalidating notifications from %@%@", buf, 0x20u);
     }
 
@@ -1337,36 +1359,122 @@ uint64_t __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate_
     block[4] = self;
     notifyCopy = notify;
     dispatch_sync(queue, block);
-    __brc_leave_section(v11);
+    __brc_leave_section(v10);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_signalSourceIfNeeded
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v0, v1, "[DEBUG] %@ notify delegate now%@");
-  v2 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
+  dispatch_assert_queue_V2(self->_queue);
+  if ([(BRNotificationQueue *)self->_notifs count])
+  {
+    v3 = brc_monotonic_time_now();
+    v4 = brc_monotonic_time_diff_to_interval(v3 - self->_lastBatchTime);
+    if (self->_receivedChanges < self->_batchingChanges && (batchingDelay = self->_batchingDelay, v4 <= batchingDelay))
+    {
+      if (!self->_timer)
+      {
+        v12 = ((batchingDelay - v4) * 1000000000.0);
+        v13 = brc_bread_crumbs("[BRNotificationReceiver _signalSourceIfNeeded]", 539);
+        v14 = brc_default_log(1, 0);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 138412802;
+          selfCopy = self;
+          v28 = 2048;
+          v29 = v12 / 1000000000.0;
+          v30 = 2112;
+          v31 = v13;
+          _os_log_debug_impl(&dword_1AE2A9000, v14, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ notifying delegate in %.3fs%@", buf, 0x20u);
+        }
+
+        v15 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_queue);
+        timer = self->_timer;
+        self->_timer = v15;
+
+        v17 = self->_timer;
+        v18 = dispatch_time(0, v12);
+        dispatch_source_set_timer(v17, v18, 0xFFFFFFFFFFFFFFFFLL, v12 / 0xA);
+        v19 = self->_timer;
+        v25[0] = MEMORY[0x1E69E9820];
+        v25[1] = 3221225472;
+        v25[2] = __47__BRNotificationReceiver__signalSourceIfNeeded__block_invoke;
+        v25[3] = &unk_1E7A14798;
+        v25[4] = self;
+        v20 = v19;
+        v21 = v25;
+        v22 = v21;
+        v23 = v21;
+        if (brc_block_remember_persona)
+        {
+          v23 = brc_block_remember_persona(v21);
+        }
+
+        v24 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_UTILITY, 0, v23);
+        dispatch_source_set_event_handler(v20, v24);
+
+        dispatch_resume(self->_timer);
+      }
+    }
+
+    else
+    {
+      v6 = brc_bread_crumbs("[BRNotificationReceiver _signalSourceIfNeeded]", 528);
+      v7 = brc_default_log(1, 0);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      {
+        [BRNotificationReceiver _signalSourceIfNeeded];
+      }
+
+      dispatch_source_merge_data(self->_source, 1uLL);
+      v8 = self->_timer;
+      if (v8)
+      {
+        dispatch_source_cancel(v8);
+        v9 = self->_timer;
+      }
+
+      else
+      {
+        v9 = 0;
+      }
+
+      self->_timer = 0;
+    }
+
+    [(BRNotificationReceiverDelegate *)self->_delegate notificationReceiverDidReceiveNotifications:self];
+  }
+
+  else
+  {
+    self->_receivedChanges = 0;
+    v10 = self->_timer;
+    if (v10)
+    {
+      dispatch_source_cancel(v10);
+      v11 = self->_timer;
+      self->_timer = 0;
+    }
+  }
 }
 
 void __47__BRNotificationReceiver__signalSourceIfNeeded__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  memset(v10, 0, sizeof(v10));
-  __brc_create_section(0, "[BRNotificationReceiver _signalSourceIfNeeded]_block_invoke", 545, 0, v10);
+  v16 = *MEMORY[0x1E69E9840];
+  memset(v9, 0, sizeof(v9));
+  __brc_create_section(0, "[BRNotificationReceiver _signalSourceIfNeeded]_block_invoke", 545, 0, v9);
   v2 = brc_bread_crumbs("[BRNotificationReceiver _signalSourceIfNeeded]_block_invoke", 545);
   v3 = brc_default_log(1, 0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v9 = *(a1 + 32);
+    v8 = *(a1 + 32);
     *buf = 134218498;
-    v12 = v10[0];
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2112;
-    v16 = v2;
+    v11 = v9[0];
+    v12 = 2112;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v2;
     _os_log_debug_impl(&dword_1AE2A9000, v3, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx %@ notification timer fired%@", buf, 0x20u);
   }
 
@@ -1388,42 +1496,41 @@ void __47__BRNotificationReceiver__signalSourceIfNeeded__block_invoke(uint64_t a
   v7 = *(v6 + 64);
   *(v6 + 64) = 0;
 
-  __brc_leave_section(v10);
-  v8 = *MEMORY[0x1E69E9840];
+  __brc_leave_section(v9);
 }
 
 - (void)_receiveUpdates:(id)updates
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   updatesCopy = updates;
   dispatch_assert_queue_V2(self->_queue);
   if (!self->_isInvalidated)
   {
     isNetworkReachable = self->_isNetworkReachable;
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
-    v24 = updatesCopy;
+    v23 = updatesCopy;
     v5 = updatesCopy;
-    v6 = [v5 countByEnumeratingWithState:&v27 objects:v33 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v26 objects:v32 count:16];
     if (!v6)
     {
       goto LABEL_34;
     }
 
     v7 = v6;
-    v8 = *v28;
+    v8 = *v27;
     while (1)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * i);
+        v10 = *(*(&v26 + 1) + 8 * i);
         fileObjectID = [v10 fileObjectID];
         if (fileObjectID)
         {
@@ -1476,12 +1583,12 @@ LABEL_25:
                 {
                   v20 = [[BRQueryItemProgressObserver alloc] initWithItem:v10];
                   [(BRQueryItemProgressObserver *)v20 setQueue:self->_queue];
-                  v26[0] = MEMORY[0x1E69E9820];
-                  v26[1] = 3221225472;
-                  v26[2] = __42__BRNotificationReceiver__receiveUpdates___block_invoke;
-                  v26[3] = &unk_1E7A15790;
-                  v26[4] = self;
-                  [(BRQueryItemProgressObserver *)v20 setProgressHandler:v26];
+                  v25[0] = MEMORY[0x1E69E9820];
+                  v25[1] = 3221225472;
+                  v25[2] = __42__BRNotificationReceiver__receiveUpdates___block_invoke;
+                  v25[3] = &unk_1E7A15790;
+                  v25[4] = self;
+                  [(BRQueryItemProgressObserver *)v20 setProgressHandler:v25];
                   [(NSMutableDictionary *)self->_progressObserverByID setObject:v20 forKey:fileObjectID];
                   [(BRQueryItemProgressObserver *)v20 start];
                 }
@@ -1520,31 +1627,29 @@ LABEL_31:
           if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412290;
-            v32 = v12;
+            v31 = v12;
             _os_log_fault_impl(&dword_1AE2A9000, v13, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: we should always have a fileObjectID%@", buf, 0xCu);
           }
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v26 objects:v32 count:16];
       if (!v7)
       {
 LABEL_34:
 
         self->_receivedChanges += [v5 count];
         [(BRNotificationReceiver *)self _signalSourceIfNeeded];
-        updatesCopy = v24;
+        updatesCopy = v23;
         break;
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __42__BRNotificationReceiver__receiveUpdates___block_invoke(uint64_t result, void *a2)
+void *__42__BRNotificationReceiver__receiveUpdates___block_invoke(void *result, void *a2)
 {
-  v3 = *(result + 32);
+  v3 = result[4];
   if ((*(v3 + 129) & 1) == 0)
   {
     v4 = result;
@@ -1552,8 +1657,8 @@ uint64_t __42__BRNotificationReceiver__receiveUpdates___block_invoke(uint64_t re
     v6 = [a2 copy];
     [v5 addNotification:v6 asDead:0];
 
-    ++*(*(v4 + 32) + 72);
-    v7 = *(v4 + 32);
+    ++*(v4[4] + 72);
+    v7 = v4[4];
 
     return [v7 _signalSourceIfNeeded];
   }
@@ -1563,38 +1668,37 @@ uint64_t __42__BRNotificationReceiver__receiveUpdates___block_invoke(uint64_t re
 
 - (void)receiveUpdates:(id)updates reply:(id)reply
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   updatesCopy = updates;
   replyCopy = reply;
-  memset(v17, 0, sizeof(v17));
-  __brc_create_section(0, "[BRNotificationReceiver receiveUpdates:reply:]", 643, 0, v17);
+  memset(v16, 0, sizeof(v16));
+  __brc_create_section(0, "[BRNotificationReceiver receiveUpdates:reply:]", 643, 0, v16);
   v8 = brc_bread_crumbs("[BRNotificationReceiver receiveUpdates:reply:]", 643);
   v9 = brc_default_log(1, 0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    v19 = v17[0];
-    v20 = 2112;
-    v21 = updatesCopy;
-    v22 = 2112;
-    v23 = v8;
+    v18 = v16[0];
+    v19 = 2112;
+    v20 = updatesCopy;
+    v21 = 2112;
+    v22 = v8;
     _os_log_debug_impl(&dword_1AE2A9000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx receiving %@%@", buf, 0x20u);
   }
 
   ipcQueue = self->_ipcQueue;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __47__BRNotificationReceiver_receiveUpdates_reply___block_invoke;
-  v14[3] = &unk_1E7A157B8;
-  v14[4] = self;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __47__BRNotificationReceiver_receiveUpdates_reply___block_invoke;
+  v13[3] = &unk_1E7A157B8;
+  v13[4] = self;
   v11 = replyCopy;
-  v16 = v11;
+  v15 = v11;
   v12 = updatesCopy;
-  v15 = v12;
-  dispatch_async_with_logs(ipcQueue, v14);
+  v14 = v12;
+  dispatch_async_with_logs(ipcQueue, v13);
 
-  __brc_leave_section(v17);
-  v13 = *MEMORY[0x1E69E9840];
+  __brc_leave_section(v16);
 }
 
 void __47__BRNotificationReceiver_receiveUpdates_reply___block_invoke(void *a1)
@@ -1626,127 +1730,122 @@ void __47__BRNotificationReceiver_receiveUpdates_reply___block_invoke(void *a1)
 
 - (void)receiveProgressUpdates:(id)updates reply:(id)reply
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   updatesCopy = updates;
   replyCopy = reply;
-  memset(v17, 0, sizeof(v17));
-  __brc_create_section(0, "[BRNotificationReceiver receiveProgressUpdates:reply:]", 662, 0, v17);
+  memset(v16, 0, sizeof(v16));
+  __brc_create_section(0, "[BRNotificationReceiver receiveProgressUpdates:reply:]", 662, 0, v16);
   v8 = brc_bread_crumbs("[BRNotificationReceiver receiveProgressUpdates:reply:]", 662);
   v9 = brc_default_log(1, 0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    v19 = v17[0];
-    v20 = 2112;
-    v21 = updatesCopy;
-    v22 = 2112;
-    v23 = v8;
+    v18 = v16[0];
+    v19 = 2112;
+    v20 = updatesCopy;
+    v21 = 2112;
+    v22 = v8;
     _os_log_debug_impl(&dword_1AE2A9000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx receiving progress updates %@%@", buf, 0x20u);
   }
 
   ipcQueue = self->_ipcQueue;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __55__BRNotificationReceiver_receiveProgressUpdates_reply___block_invoke;
-  v14[3] = &unk_1E7A157B8;
-  v14[4] = self;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __55__BRNotificationReceiver_receiveProgressUpdates_reply___block_invoke;
+  v13[3] = &unk_1E7A157B8;
+  v13[4] = self;
   v11 = replyCopy;
-  v16 = v11;
+  v15 = v11;
   v12 = updatesCopy;
-  v15 = v12;
-  dispatch_async_with_logs(ipcQueue, v14);
+  v14 = v12;
+  dispatch_async_with_logs(ipcQueue, v13);
 
-  __brc_leave_section(v17);
-  v13 = *MEMORY[0x1E69E9840];
+  __brc_leave_section(v16);
 }
 
 void __55__BRNotificationReceiver_receiveProgressUpdates_reply___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (*(*(a1 + 32) + 129) == 1)
   {
-    v2 = *(a1 + 48);
-    v3 = *(*(a1 + 48) + 16);
-    v4 = *MEMORY[0x1E69E9840];
+    v2 = *(*(a1 + 48) + 16);
 
-    v3();
+    v2();
   }
 
   else
   {
-    v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(*(a1 + 40), "count")}];
+    v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(*(a1 + 40), "count")}];
+    v14 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    v20 = 0u;
-    v6 = *(a1 + 40);
-    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
-    if (v7)
+    v4 = *(a1 + 40);
+    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    if (v5)
     {
-      v8 = v7;
-      v9 = *v18;
+      v6 = v5;
+      v7 = *v15;
       do
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v6; ++i)
         {
-          if (*v18 != v9)
+          if (*v15 != v7)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v4);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * i);
-          v12 = *(*(a1 + 32) + 112);
-          v13 = [v11 folderID];
-          v14 = [v12 objectForKeyedSubscript:v13];
+          v9 = *(*(&v14 + 1) + 8 * i);
+          v10 = *(*(a1 + 32) + 112);
+          v11 = [v9 folderID];
+          v12 = [v10 objectForKeyedSubscript:v11];
 
-          if (v14)
+          if (v12)
           {
-            [v14 mergeProgressUpdate:v11];
-            v15 = [v14 copy];
-            [v5 addObject:v15];
+            [v12 mergeProgressUpdate:v9];
+            v13 = [v12 copy];
+            [v3 addObject:v13];
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
-      while (v8);
+      while (v6);
     }
 
-    [*(a1 + 32) _receiveUpdates:v5];
+    [*(a1 + 32) _receiveUpdates:v3];
     (*(*(a1 + 48) + 16))();
-
-    v16 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (void)networkDidChangeReachabilityStatusTo:(BOOL)to
 {
   toCopy = to;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
-  memset(v22, 0, sizeof(v22));
-  __brc_create_section(0, "[BRNotificationReceiver networkDidChangeReachabilityStatusTo:]", 690, 0, v22);
+  memset(v21, 0, sizeof(v21));
+  __brc_create_section(0, "[BRNotificationReceiver networkDidChangeReachabilityStatusTo:]", 690, 0, v21);
   v5 = brc_bread_crumbs("[BRNotificationReceiver networkDidChangeReachabilityStatusTo:]", 690);
   v6 = brc_default_log(1, 0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    v25 = v22[0];
+    v24 = v21[0];
     if (toCopy)
     {
-      v17 = "reachable";
+      v16 = "reachable";
     }
 
     else
     {
-      v17 = "not reachable";
+      v16 = "not reachable";
     }
 
-    v26 = 2080;
-    v27 = v17;
-    v28 = 2112;
-    v29 = v5;
+    v25 = 2080;
+    v26 = v16;
+    v27 = 2112;
+    v28 = v5;
     _os_log_debug_impl(&dword_1AE2A9000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx network is %s%@", buf, 0x20u);
   }
 
@@ -1757,30 +1856,30 @@ void __55__BRNotificationReceiver_receiveProgressUpdates_reply___block_invoke(ui
     allValues = [(NSMutableDictionary *)self->_itemInTransferByID allValues];
     v9 = [v7 initWithArray:allValues copyItems:1];
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v11)
     {
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         v13 = 0;
         do
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          [*(*(&v18 + 1) + 8 * v13++) setIsNetworkOffline:{!toCopy, v18}];
+          [*(*(&v17 + 1) + 8 * v13++) setIsNetworkOffline:{!toCopy, v17}];
         }
 
         while (v11 != v13);
-        v11 = [v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v11);
@@ -1796,8 +1895,7 @@ void __55__BRNotificationReceiver_receiveProgressUpdates_reply___block_invoke(ui
     [(BRNotificationReceiver *)self _receiveUpdates:v10];
   }
 
-  __brc_leave_section(v22);
-  v16 = *MEMORY[0x1E69E9840];
+  __brc_leave_section(v21);
 }
 
 - (void)receiveStitchingUpdates:(id)updates
@@ -1824,121 +1922,40 @@ void __55__BRNotificationReceiver_receiveProgressUpdates_reply___block_invoke(ui
 
 - (void)init
 {
-  v9 = *MEMORY[0x1E69E9840];
   v0 = brc_bread_crumbs("[BRNotificationReceiver init]", 47);
   v1 = brc_default_log(0, 0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v2, v3, "[CRIT] Assertion failed: _source%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v2, v3, "[CRIT] Assertion failed: _source%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_obtainNotificationSenderFromDaemon
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
+  error = [self error];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_1AE2A9000, v0, v1, "[DEBUG] not iCloud Drive items to query%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __61__BRNotificationReceiver__obtainNotificationSenderFromDaemon__block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v0, v1, "[DEBUG] received %@%@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __61__BRNotificationReceiver__obtainNotificationSenderFromDaemon__block_invoke_22_cold_4()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_1AE2A9000, v0, v1, "[ERROR] won't restore persona: %@%@");
-  v2 = *MEMORY[0x1E69E9840];
+  v7 = 2112;
+  v8 = a2;
+  _os_log_error_impl(&dword_1AE2A9000, a3, 0x90u, "[ERROR] cannot query iCloud Drive items: %@%@", v6, 0x16u);
 }
 
 void __61__BRNotificationReceiver__obtainNotificationSenderFromDaemon__block_invoke_22_cold_5(void *a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 134218242;
-  *&v4[4] = *a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, a2, a3, "[DEBUG] ┏%llx received token change notification, reloading%@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_watchUbiquitousScopes:bundleID:predicate:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_1AE2A9000, v0, v1, "[CRIT] API MISUSE: It's not allowed to call -watchUbiquitousScopes:predicate: twice%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_watchUbiquitousScopes:bundleID:predicate:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_1AE2A9000, v0, v1, "[ERROR] Unable to understand scope: %@%@");
-  v2 = *MEMORY[0x1E69E9840];
+  *v3 = 134218242;
+  *&v3[4] = *a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_6(&dword_1AE2A9000, a2, a3, "[DEBUG] ┏%llx received token change notification, reloading%@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 - (void)_watchUbiquitousScopes:bundleID:predicate:.cold.3()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_1AE2A9000, v0, 0x90u, "[ERROR] cannot pass more than one URL in the scopes%@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_watchUbiquitousScopes:bundleID:predicate:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_1AE2A9000, v0, v1, "[DEBUG] forcing external documents even if not specified%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_1AE2A9000, v0, v1, "[DEBUG] gathering completed%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___block_invoke_32_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_1AE2A9000, v0, v1, "[CRIT] UNREACHABLE: Couldn't adopt persona in NSMDQ but falling back to daemon%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __68__BRNotificationReceiver__watchUbiquitousScopes_bundleID_predicate___block_invoke_32_cold_2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v0, v1, "[DEBUG] Using persona ID for NSMDQ %@%@");
   v2 = *MEMORY[0x1E69E9840];
-}
-
-void __47__BRNotificationReceiver_receiveUpdates_reply___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_1AE2A9000, v0, v1, "[DEBUG] skiping update process as we were invalidated%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)networkDidChangeReachabilityStatusTo:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v0, v1, "[DEBUG] updating items: %@%@");
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1AE2A9000, v0, 0x90u, "[ERROR] cannot pass more than one URL in the scopes%@", v1, 0xCu);
 }
 
 @end

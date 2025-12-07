@@ -1,8 +1,8 @@
 @interface NSCloudKitMirroringRequestOptions
 - (NSCloudKitMirroringRequestOptions)init;
+- (id)applyToOperation:(id *)result;
 - (id)copy;
 - (id)createDefaultOperationConfiguration;
-- (uint64_t)applyToOperation:(uint64_t)result;
 - (void)dealloc;
 - (void)setOperationConfiguration:(id)configuration;
 @end
@@ -43,7 +43,7 @@
 
 - (id)createDefaultOperationConfiguration
 {
-  v2 = objc_alloc_init(getCloudKitCKOperationConfigurationClass[0]());
+  v2 = objc_alloc_init(getCloudKitCKOperationConfigurationClass(self, a2));
   [v2 setQualityOfService:17];
   return v2;
 }
@@ -70,19 +70,19 @@
   self->_operationConfiguration = configurationCopy;
 }
 
-- (uint64_t)applyToOperation:(uint64_t)result
+- (id)applyToOperation:(id *)result
 {
   if (result)
   {
     v3 = result;
-    if ([*(result + 16) lastObject])
+    if ([result[2] lastObject])
     {
-      v4 = [objc_msgSend(*(v3 + 16) "lastObject")];
+      v4 = [objc_msgSend(v3[2] "lastObject")];
     }
 
     else
     {
-      v4 = *(v3 + 8);
+      v4 = v3[1];
     }
 
     return [a2 setConfiguration:v4];

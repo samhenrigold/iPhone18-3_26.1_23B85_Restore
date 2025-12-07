@@ -44,7 +44,7 @@
 - (void)drawRect:(CGRect)rect
 {
   v9[2] = *MEMORY[0x1E69E9840];
-  IsLeftToRight = CalInterfaceIsLeftToRight();
+  IsLeftToRight = CalInterfaceIsLeftToRight(self, a2);
   cGColor = [(UIColor *)self->_startColor CGColor];
   if (IsLeftToRight)
   {

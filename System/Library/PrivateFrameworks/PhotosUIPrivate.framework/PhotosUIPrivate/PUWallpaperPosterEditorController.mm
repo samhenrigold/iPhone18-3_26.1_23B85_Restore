@@ -293,7 +293,7 @@ void __71__PUWallpaperPosterEditorController_presentationControllerWillDismiss__
         {
           if (objectCopy)
           {
-            [v14 duration];
+            objc_msgSend_duration(v14);
           }
 
           else
@@ -1949,14 +1949,13 @@ LABEL_5:
 
     editor2 = [(PUWallpaperPosterEditorController *)self editor];
     pu_environment = [editor2 pu_environment];
-    PUAdjustedSalientContentRectangleFromEnvironment(pu_environment);
-    v21 = v20;
-    v23 = v22;
-    v25 = v24;
-    v27 = v26;
+    v20 = PUAdjustedSalientContentRectangleFromEnvironment(pu_environment);
+    v22 = v21;
+    v24 = v23;
+    v26 = v25;
 
     redColor = [MEMORY[0x1E69DC888] redColor];
-    [debugRectsView setDebugRect:@"current" forIdentifier:redColor color:v21 borderWidth:{v23, v25, v27, 3.0}];
+    [debugRectsView setDebugRect:@"current" forIdentifier:redColor color:v20 borderWidth:{v22, v24, v26, 3.0}];
     currentLayerStackViewModel = debugRectsView;
   }
 
@@ -2208,7 +2207,7 @@ void __67__PUWallpaperPosterEditorController_editorShouldBeginFinalization___blo
 void __57__PUWallpaperPosterEditorController_editorDidInvalidate___block_invoke(_BYTE *a1, void *a2)
 {
   v3 = a2;
-  if (a1[32] == 1 && a1[33] == 1)
+  if (__PAIR64__(a1[33], a1[32]) == 0x100000001)
   {
     v4 = v3;
     [v3 setIdleTimerDisabled:0 forReason:@"shuffleSave"];
@@ -2972,7 +2971,7 @@ void __59__PUWallpaperPosterEditorController__disableSettlingEffect__block_invok
   _Block_object_dispose(&v8, 8);
 }
 
-uint64_t __59__PUWallpaperPosterEditorController__disableSettlingEffect__block_invoke_4(uint64_t a1, void *a2)
+void *__59__PUWallpaperPosterEditorController__disableSettlingEffect__block_invoke_4(uint64_t a1, void *a2)
 {
   result = [a2 applyReframeVisibleFrameRestoration];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -6633,13 +6632,13 @@ void __99__PUWallpaperPosterEditorController__updateShuffleSuggestionFeaturedSta
 
   [environmentCopy px_minimumTitleBoundsForLayout:0];
   PXRectDenormalize();
-  recta.origin.x = v22;
+  rect.origin.x = v22;
   v24 = v23;
   v26 = v25;
   v28 = v27;
-  PUAdjustedSalientContentRectangleFromEnvironment(environmentCopy);
+  v35.origin.x = PUAdjustedSalientContentRectangleFromEnvironment(environmentCopy);
   CGRectGetMinY(v35);
-  v36.origin.x = recta.origin.x;
+  v36.origin.x = rect.origin.x;
   v36.origin.y = v24;
   v36.size.width = v26;
   v36.size.height = v28;
@@ -6662,14 +6661,14 @@ void __99__PUWallpaperPosterEditorController__updateShuffleSuggestionFeaturedSta
 
   [currentPosterMedia setEditConfiguration:posterEditConfigurationRepresentation];
   currentLayerStackViewModel = [(PUWallpaperPosterEditorController *)self currentLayerStackViewModel];
-  *&recta.origin.y = MEMORY[0x1E69E9820];
-  *&recta.size.width = 3221225472;
-  *&recta.size.height = __102__PUWallpaperPosterEditorController__savePosterEditConfigurationForCurrentPosterMediaWithEnvironment___block_invoke;
+  *&rect.origin.y = MEMORY[0x1E69E9820];
+  *&rect.size.width = 3221225472;
+  *&rect.size.height = __102__PUWallpaperPosterEditorController__savePosterEditConfigurationForCurrentPosterMediaWithEnvironment___block_invoke;
   v32 = &unk_1E7B78640;
   v34 = v17 < 2;
   v33 = posterEditConfigurationRepresentation;
   v30 = posterEditConfigurationRepresentation;
-  [currentLayerStackViewModel performChanges:&recta.origin.y];
+  [currentLayerStackViewModel performChanges:&rect.origin.y];
 }
 
 void __102__PUWallpaperPosterEditorController__savePosterEditConfigurationForCurrentPosterMediaWithEnvironment___block_invoke(uint64_t a1, void *a2)
@@ -7528,29 +7527,29 @@ void __71__PUWallpaperPosterEditorController__presentShuffleConfigurationEditor_
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __71__PUWallpaperPosterEditorController__presentShuffleConfigurationEditor__block_invoke_2(uint64_t a1)
+void __71__PUWallpaperPosterEditorController__presentShuffleConfigurationEditor__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (*(a1 + 48) == 1)
   {
-    v2 = *(a1 + 32);
+    v3 = *(a1 + 32);
 
-    [v2 _presentAuthenticatedShuffleConfigurationEditor];
+    [v3 _presentAuthenticatedShuffleConfigurationEditor];
   }
 
   else
   {
-    v3 = PLUIGetLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = PLUIGetLog();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *(a1 + 40);
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&dword_1B36F3000, v3, OS_LOG_TYPE_ERROR, "Failed to pass APGuard check with error: %@", &v6, 0xCu);
+      v5 = *(a1 + 40);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_1B36F3000, v4, OS_LOG_TYPE_ERROR, "Failed to pass APGuard check with error: %@", &v7, 0xCu);
     }
 
-    v5 = [*(a1 + 32) editor];
-    [v5 pu_requestDismissalWithAction:0];
+    v6 = [*(a1 + 32) editor];
+    [v6 pu_requestDismissalWithAction:0];
   }
 }
 
@@ -8618,7 +8617,7 @@ void __97__PUWallpaperPosterEditorController__loadSettlingEffectLayerStackForSeg
   v10 = 0u;
   v3 = MEMORY[0x1E69BDF28];
   scores = [item scores];
-  [v3 settlingEffectGatingStatisticsFromScores:scores];
+  objc_msgSend_settlingEffectGatingStatisticsFromScores_(v3);
 
   v6 = v10;
   v7 = v11;
@@ -10727,8 +10726,7 @@ void __64__PUWallpaperPosterEditorController__updatePreferredTitleBounds__block_
   v3 = a2;
   v5 = [v2 editor];
   v4 = [v5 pu_environment];
-  PUAdjustedSalientContentRectangleFromEnvironment(v4);
-  [v3 setConfiguredSalientContentRectangle:?];
+  [v3 setConfiguredSalientContentRectangle:PUAdjustedSalientContentRectangleFromEnvironment(v4)];
 }
 
 - (void)_updateContentOverlayContainerView
@@ -11090,7 +11088,7 @@ void __83__PUWallpaperPosterEditorController__updateSpatialPhotoGyroForLayerStac
       v7 = v6;
       if (v6)
       {
-        [v6 deviceAttitude];
+        objc_msgSend_deviceAttitude(v6);
       }
 
       else
@@ -11108,7 +11106,7 @@ void __83__PUWallpaperPosterEditorController__updateSpatialPhotoGyroForLayerStac
       v7 = v8;
       if (v8)
       {
-        [v8 deviceAttitude];
+        objc_msgSend_deviceAttitude(v8);
         v9 = v13;
       }
 

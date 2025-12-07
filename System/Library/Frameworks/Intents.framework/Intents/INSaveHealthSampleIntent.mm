@@ -34,8 +34,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v18[5] = *MEMORY[0x1E69E9840];
-  v17[0] = @"recordDate";
+  v17[5] = *MEMORY[0x1E69E9840];
+  v16[0] = @"recordDate";
   recordDate = [(INSaveHealthSampleIntent *)self recordDate];
   null = recordDate;
   if (!recordDate)
@@ -43,8 +43,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[0] = null;
-  v17[1] = @"objectType";
+  v17[0] = null;
+  v16[1] = @"objectType";
   objectType = [(INSaveHealthSampleIntent *)self objectType];
   if ((objectType - 1) > 0x49)
   {
@@ -57,8 +57,8 @@
   }
 
   v7 = v6;
-  v18[1] = v7;
-  v17[2] = @"values";
+  v17[1] = v7;
+  v16[2] = @"values";
   values = [(INSaveHealthSampleIntent *)self values];
   null2 = values;
   if (!values)
@@ -66,8 +66,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[2] = null2;
-  v17[3] = @"unit";
+  v17[2] = null2;
+  v16[3] = @"unit";
   unit = [(INSaveHealthSampleIntent *)self unit];
   null3 = unit;
   if (!unit)
@@ -75,8 +75,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[3] = null3;
-  v17[4] = @"sampleMetadatas";
+  v17[3] = null3;
+  v16[4] = @"sampleMetadatas";
   sampleMetadatas = [(INSaveHealthSampleIntent *)self sampleMetadatas];
   null4 = sampleMetadatas;
   if (!sampleMetadatas)
@@ -84,8 +84,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[4] = null4;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:5];
+  v17[4] = null4;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:5];
   if (!sampleMetadatas)
   {
   }
@@ -101,8 +101,6 @@
   if (!recordDate)
   {
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

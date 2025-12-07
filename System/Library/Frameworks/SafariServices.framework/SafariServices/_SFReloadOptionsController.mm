@@ -112,7 +112,7 @@
 
 - (void)didUpdateRequestDesktopSiteDefaultValue:(int64_t)value
 {
-  v5 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
+  v5 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(_SFReloadOptionsController *)v5 didUpdateRequestDesktopSiteDefaultValue:value];
@@ -125,44 +125,45 @@
 
 - (void)didUpdateRequestDesktopSitePerSitePreference:(id)preference
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   preferenceCopy = preference;
-  v5 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(preferenceCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [_SFReloadOptionsController didUpdateRequestDesktopSitePerSitePreference:v5];
+    [_SFReloadOptionsController didUpdateRequestDesktopSitePerSitePreference:v6];
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_webView);
-  v7 = [WeakRetained URL];
-  safari_userVisibleHostWithoutWWWSubdomain = [v7 safari_userVisibleHostWithoutWWWSubdomain];
-  v9 = [(NSDictionary *)self->_perSitePreferenceValues objectForKeyedSubscript:safari_userVisibleHostWithoutWWWSubdomain];
-  v10 = [(NSDictionary *)preferenceCopy objectForKeyedSubscript:safari_userVisibleHostWithoutWWWSubdomain];
-  if ((WBSIsEqual() & 1) == 0)
+  v8 = [WeakRetained URL];
+  safari_userVisibleHostWithoutWWWSubdomain = [v8 safari_userVisibleHostWithoutWWWSubdomain];
+  v10 = [(NSDictionary *)self->_perSitePreferenceValues objectForKeyedSubscript:safari_userVisibleHostWithoutWWWSubdomain];
+  v11 = [(NSDictionary *)preferenceCopy objectForKeyedSubscript:safari_userVisibleHostWithoutWWWSubdomain];
+  v12 = WBSIsEqual();
+  if ((v12 & 1) == 0)
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v14 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v13 = v11;
-      v14 = _SFStringFromRequestDesktopSiteSetting(v9);
-      v15 = _SFStringFromRequestDesktopSiteSetting(v10);
-      v16 = 138478339;
-      v17 = safari_userVisibleHostWithoutWWWSubdomain;
-      v18 = 2114;
-      v19 = v14;
-      v20 = 2114;
-      v21 = v15;
-      _os_log_debug_impl(&dword_1D4644000, v13, OS_LOG_TYPE_DEBUG, "Request Desktop Website setting for domain '%{private}@' changed from %{public}@ to %{public}@; reloading web view", &v16, 0x20u);
+      v16 = v14;
+      v17 = _SFStringFromRequestDesktopSiteSetting(v10);
+      v18 = _SFStringFromRequestDesktopSiteSetting(v11);
+      v19 = 138478339;
+      v20 = safari_userVisibleHostWithoutWWWSubdomain;
+      v21 = 2114;
+      v22 = v17;
+      v23 = 2114;
+      v24 = v18;
+      _os_log_debug_impl(&dword_1D4644000, v16, OS_LOG_TYPE_DEBUG, "Request Desktop Website setting for domain '%{private}@' changed from %{public}@ to %{public}@; reloading web view", &v19, 0x20u);
     }
 
-    if ([v10 BOOLValue])
+    if ([v11 BOOLValue])
     {
-      [(_SFReloadOptionsController *)self _requestDesktopSiteWithFallbackURL:v7];
+      [(_SFReloadOptionsController *)self _requestDesktopSiteWithFallbackURL:v8];
     }
 
     else
     {
-      [(_SFReloadOptionsController *)self _requestStandardSiteWithURL:v7];
+      [(_SFReloadOptionsController *)self _requestStandardSiteWithURL:v8];
     }
   }
 
@@ -245,8 +246,8 @@ LABEL_7:
     v11 = [(NSMutableDictionary *)self->_domainToUserAgentPolicyMap objectForKeyedSubscript:safari_highLevelDomainFromHostFallingBackToHostOrAbsoluteString];
     integerValue = [v11 integerValue];
 
-    v13 = WBS_LOG_CHANNEL_PREFIXRequestDesktopSite();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v15 = WBS_LOG_CHANNEL_PREFIXRequestDesktopSite(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       [_SFReloadOptionsController customUserAgentSettingForMainFrameURL:withTimeout:completionHandler:];
       if (integerValue)
@@ -263,77 +264,81 @@ LABEL_4:
     }
   }
 
-  safari_highLevelDomainFromHostFallingBackToHostOrAbsoluteString = [lCopy safari_userVisibleHostWithoutWWWSubdomain];
+  safari_userVisibleHostWithoutWWWSubdomain = [lCopy safari_userVisibleHostWithoutWWWSubdomain];
+  safari_highLevelDomainFromHostFallingBackToHostOrAbsoluteString = safari_userVisibleHostWithoutWWWSubdomain;
   if (self->_perSitePreferenceValues)
   {
-    v14 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v18 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(safari_userVisibleHostWithoutWWWSubdomain, v17);
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG);
+    if (v19)
     {
-      [_SFReloadOptionsController customUserAgentSettingForMainFrameURL:v14 withTimeout:? completionHandler:?];
+      [_SFReloadOptionsController customUserAgentSettingForMainFrameURL:v18 withTimeout:? completionHandler:?];
     }
 
-    v15 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v21 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v19, v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       [_SFReloadOptionsController customUserAgentSettingForMainFrameURL:withTimeout:completionHandler:];
     }
 
-    v16 = [(NSDictionary *)self->_perSitePreferenceValues objectForKeyedSubscript:safari_highLevelDomainFromHostFallingBackToHostOrAbsoluteString];
-    if (v16)
+    safari_userVisibleHostWithoutWWWSubdomain = [(NSDictionary *)self->_perSitePreferenceValues objectForKeyedSubscript:safari_highLevelDomainFromHostFallingBackToHostOrAbsoluteString];
+    v22 = safari_userVisibleHostWithoutWWWSubdomain;
+    if (safari_userVisibleHostWithoutWWWSubdomain)
     {
-      v17 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v23 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(safari_userVisibleHostWithoutWWWSubdomain, v17);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
-        [_SFReloadOptionsController customUserAgentSettingForMainFrameURL:v17 withTimeout:? completionHandler:?];
+        [_SFReloadOptionsController customUserAgentSettingForMainFrameURL:v23 withTimeout:? completionHandler:?];
       }
 
-      integerValue2 = [v16 integerValue];
+      integerValue2 = [v22 integerValue];
       selfCopy2 = self;
-      v20 = 2;
+      v26 = 2;
 LABEL_20:
-      [(_SFReloadOptionsController *)selfCopy2 _overrideSettingIfNeeded:integerValue2 source:v20 domain:safari_highLevelDomainFromHostFallingBackToHostOrAbsoluteString completion:handlerCopy];
+      [(_SFReloadOptionsController *)selfCopy2 _overrideSettingIfNeeded:integerValue2 source:v26 domain:safari_highLevelDomainFromHostFallingBackToHostOrAbsoluteString completion:handlerCopy];
 
       goto LABEL_26;
     }
 
     if (self->_requestDesktopSiteDefaultValue)
     {
-      v21 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v27 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(0, v17);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
-        [_SFReloadOptionsController customUserAgentSettingForMainFrameURL:v21 withTimeout:? completionHandler:?];
+        [_SFReloadOptionsController customUserAgentSettingForMainFrameURL:v27 withTimeout:? completionHandler:?];
       }
 
       integerValue2 = [(NSNumber *)self->_requestDesktopSiteDefaultValue integerValue];
       selfCopy2 = self;
-      v20 = 0;
+      v26 = 0;
       goto LABEL_20;
     }
   }
 
-  v22 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+  v28 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(safari_userVisibleHostWithoutWWWSubdomain, v17);
+  v29 = os_log_type_enabled(v28, OS_LOG_TYPE_INFO);
+  if (v29)
   {
     *buf = 0;
-    _os_log_impl(&dword_1D4644000, v22, OS_LOG_TYPE_INFO, "Request Desktop Website per site preferences haven't been cached yet, falling back to fetching the preference directly", buf, 2u);
+    _os_log_impl(&dword_1D4644000, v28, OS_LOG_TYPE_INFO, "Request Desktop Website per site preferences haven't been cached yet, falling back to fetching the preference directly", buf, 2u);
   }
 
-  v23 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+  v31 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v29, v30);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
   {
     [_SFReloadOptionsController customUserAgentSettingForMainFrameURL:withTimeout:completionHandler:];
   }
 
   perSitePreferenceManager = self->_perSitePreferenceManager;
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __98___SFReloadOptionsController_customUserAgentSettingForMainFrameURL_withTimeout_completionHandler___block_invoke;
-  v25[3] = &unk_1E8495398;
-  v25[4] = self;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __98___SFReloadOptionsController_customUserAgentSettingForMainFrameURL_withTimeout_completionHandler___block_invoke;
+  v33[3] = &unk_1E8495398;
+  v33[4] = self;
   safari_highLevelDomainFromHostFallingBackToHostOrAbsoluteString = safari_highLevelDomainFromHostFallingBackToHostOrAbsoluteString;
-  v26 = safari_highLevelDomainFromHostFallingBackToHostOrAbsoluteString;
-  v27 = handlerCopy;
-  [(_SFRequestDesktopSitePreferenceManager *)perSitePreferenceManager getRequestDesktopSitePreferenceForDomain:safari_highLevelDomainFromHostFallingBackToHostOrAbsoluteString withTimeout:v25 completionHandler:timeout];
+  v34 = safari_highLevelDomainFromHostFallingBackToHostOrAbsoluteString;
+  v35 = handlerCopy;
+  [(_SFRequestDesktopSitePreferenceManager *)perSitePreferenceManager getRequestDesktopSitePreferenceForDomain:safari_highLevelDomainFromHostFallingBackToHostOrAbsoluteString withTimeout:v33 completionHandler:timeout];
 
 LABEL_26:
 }
@@ -341,42 +346,42 @@ LABEL_26:
 - (id)customUserAgentForSetting:(int64_t)setting
 {
   v5 = _SFCustomUserAgentStringIfNeeded();
-  v6 = WBS_LOG_CHANNEL_PREFIXRequestDesktopSite();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
+  v7 = WBS_LOG_CHANNEL_PREFIXRequestDesktopSite(v5, v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
-    if (v7)
+    if (v8)
     {
-      [_SFReloadOptionsController customUserAgentForSetting:v6];
+      [_SFReloadOptionsController customUserAgentForSetting:v7];
     }
 
-    v8 = v5;
+    v9 = v5;
     goto LABEL_11;
   }
 
-  if (v7)
+  if (v8)
   {
-    [(_SFReloadOptionsController *)v6 customUserAgentForSetting:setting];
+    [(_SFReloadOptionsController *)v7 customUserAgentForSetting:setting];
   }
 
   if (setting == 1)
   {
-    v8 = _SFMacSafariUserAgentString();
+    v9 = _SFMacSafariUserAgentString();
 LABEL_11:
-    v9 = v8;
+    v10 = v9;
     goto LABEL_12;
   }
 
   if (self->_tryUsingMobileIfPossible)
   {
-    v8 = _SFIPhoneSafariUserAgentString();
+    v9 = _SFIPhoneSafariUserAgentString();
     goto LABEL_11;
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_12:
 
-  return v9;
+  return v10;
 }
 
 - (id)customNavigatorPlatformForSetting:(int64_t)setting
@@ -547,7 +552,7 @@ LABEL_9:
   v2 = a1;
   [OUTLINED_FUNCTION_2() count];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1_7(&dword_1D4644000, v3, v4, "Updating Request Desktop Website cached mappings with %lu values", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_7(&dword_1D4644000, v3, v4, "Updating Request Desktop Website cached mappings with %lu values", v5, v6, v7, v8);
 }
 
 - (void)customUserAgentSettingForMainFrameURL:withTimeout:completionHandler:.cold.1()
@@ -572,7 +577,7 @@ LABEL_9:
   v3 = OUTLINED_FUNCTION_2();
   v4 = _SFStringFromRequestDesktopSiteSetting(v3);
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1_7(&dword_1D4644000, v5, v6, "Found Request Desktop Website in-memory cache value of %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1_7(&dword_1D4644000, v5, v6, "Found Request Desktop Website in-memory cache value of %{public}@", v7, v8, v9, v10);
 }
 
 - (void)customUserAgentSettingForMainFrameURL:(uint64_t)a1 withTimeout:(void *)a2 completionHandler:.cold.5(uint64_t a1, void *a2)
@@ -581,7 +586,7 @@ LABEL_9:
   v4 = OUTLINED_FUNCTION_2();
   v5 = _SFStringFromRequestDesktopSiteSetting(v4);
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1_7(&dword_1D4644000, v6, v7, "In-memory cache didn't have value for domain, using cached default value: %{public}@", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_1_7(&dword_1D4644000, v6, v7, "In-memory cache didn't have value for domain, using cached default value: %{public}@", v8, v9, v10, v11);
 }
 
 - (void)customUserAgentSettingForMainFrameURL:withTimeout:completionHandler:.cold.6()

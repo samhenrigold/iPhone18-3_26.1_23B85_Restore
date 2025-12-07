@@ -1,190 +1,3 @@
-void sub_100034628(uint64_t a1, const char *a2)
-{
-  if (a1)
-  {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    v3 = *(a1 + 136);
-    if (v3)
-    {
-      Property = objc_getProperty(v3, a2, 72, 1);
-      v5 = [Property countByEnumeratingWithState:&v17 objects:v22 count:16];
-      if (v5)
-      {
-        goto LABEL_4;
-      }
-    }
-
-    else
-    {
-      Property = 0;
-      v5 = [0 countByEnumeratingWithState:&v17 objects:v22 count:16];
-      if (v5)
-      {
-LABEL_4:
-        v7 = v5;
-        v8 = *v18;
-        *&v6 = 138543362;
-        v16 = v6;
-        do
-        {
-          for (i = 0; i != v7; i = i + 1)
-          {
-            if (*v18 != v8)
-            {
-              objc_enumerationMutation(Property);
-            }
-
-            v10 = *(a1 + 136);
-            if (v10)
-            {
-              v11 = *(*(&v17 + 1) + 8 * i);
-              v12 = [*(v10 + 72) objectForKey:v11];
-              if (v12)
-              {
-                v14 = objc_getProperty(v12, v13, 24, 1);
-                v15 = qword_100071B30;
-                if (os_log_type_enabled(qword_100071B30, OS_LOG_TYPE_INFO))
-                {
-                  *buf = v16;
-                  v24 = v14;
-                  _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Resetting datastore for %{public}@", buf, 0xCu);
-                }
-
-                v21[0] = _NSConcreteStackBlock;
-                v21[1] = 3221225472;
-                v21[2] = sub_100034868;
-                v21[3] = &unk_1000611D0;
-                v21[4] = v14;
-                [objc_msgSend(v11 remoteObjectProxyWithErrorHandler:{v21, v16, v17), "resetDatastoreFiles:", &__NSDictionary0__struct}];
-              }
-            }
-          }
-
-          v7 = [Property countByEnumeratingWithState:&v17 objects:v22 count:16];
-        }
-
-        while (v7);
-      }
-    }
-
-    if (*(a1 + 8) == 1)
-    {
-      sub_10001D9A8(RDNotifier, @"com.apple.SensorKit.resetDatastore");
-    }
-  }
-}
-
-void sub_100034868(uint64_t a1, uint64_t a2)
-{
-  v4 = qword_100071B30;
-  if (os_log_type_enabled(qword_100071B30, OS_LOG_TYPE_ERROR))
-  {
-    v5 = *(a1 + 32);
-    v6 = 138543618;
-    v7 = v5;
-    v8 = 2114;
-    v9 = a2;
-    _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Error trying to reset datastore for %{public}@. %{public}@", &v6, 0x16u);
-  }
-}
-
-void sub_100034B50(void *a1, void *a2, void *a3, uint64_t a4)
-{
-  if (a1)
-  {
-    v8 = [SRSensorDescription sensorDescriptionForSensor:?];
-    if (v8)
-    {
-      v9 = v8;
-      v10 = objc_autoreleasePoolPush();
-      v23 = 0;
-      v11 = [LSBundleRecord sr_bundleRecordWithIdentifier:a2 error:&v23];
-      if (v11)
-      {
-        v12 = [a1 validateBundleRecord:v11 withFilters:{objc_msgSend(v9, "filters")}];
-        v13 = qword_100071B30;
-        if (os_log_type_enabled(qword_100071B30, OS_LOG_TYPE_INFO))
-        {
-          *buf = 138543874;
-          v25 = a3;
-          v26 = 2114;
-          v27 = a2;
-          v28 = 1026;
-          v29 = v12;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "[%{public}@] %{public}@ eligibility status: %{public, BOOL}d", buf, 0x1Cu);
-        }
-
-        v14 = *(a4 + 16);
-        v15 = a4;
-        v16 = v12;
-      }
-
-      else
-      {
-        v18 = qword_100071B30;
-        if (os_log_type_enabled(qword_100071B30, OS_LOG_TYPE_INFO))
-        {
-          *buf = 138543618;
-          v25 = a2;
-          v26 = 2114;
-          v27 = v23;
-          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Failed to find application record for %{public}@ because %{public}@", buf, 0x16u);
-        }
-
-        v19 = [objc_msgSend(v9 "eligibleDaemons")];
-        v20 = qword_100071B30;
-        if (!v19)
-        {
-          if (os_log_type_enabled(qword_100071B30, OS_LOG_TYPE_ERROR))
-          {
-            v22 = [v9 name];
-            *buf = 138543618;
-            v25 = a2;
-            v26 = 2114;
-            v27 = v22;
-            _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "%{public}@ not eligible for %{public}@ because an app nor daemon record couldn't be found", buf, 0x16u);
-          }
-
-          (*(a4 + 16))(a4, 0, [SRError errorWithCode:20480]);
-          goto LABEL_17;
-        }
-
-        if (os_log_type_enabled(qword_100071B30, OS_LOG_TYPE_INFO))
-        {
-          v21 = [v9 name];
-          *buf = 138543618;
-          v25 = a2;
-          v26 = 2114;
-          v27 = v21;
-          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "%{public}@ is an eligible daemon for writing to %{public}@", buf, 0x16u);
-        }
-
-        v14 = *(a4 + 16);
-        v15 = a4;
-        v16 = 1;
-      }
-
-      v14(v15, v16, 0);
-LABEL_17:
-      objc_autoreleasePoolPop(v10);
-      return;
-    }
-
-    v17 = qword_100071B30;
-    if (os_log_type_enabled(qword_100071B30, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 138543362;
-      v25 = a3;
-      _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to find a sensor description for %{public}@", buf, 0xCu);
-    }
-
-    (*(a4 + 16))(a4, 0, [SRError errorWithCode:8194]);
-  }
-}
-
 void sub_10003606C(uint64_t a1, const char *a2, uint64_t a3)
 {
   if (a1)
@@ -2214,9 +2027,9 @@ void *sub_100040CAC(void *a1, NSString *a2, void *a3, void *a4, uint64_t a5, uin
     return 0;
   }
 
-  v37.receiver = a1;
-  v37.super_class = SRDatastore;
-  v13 = objc_msgSendSuper2(&v37, "init");
+  v36.receiver = a1;
+  v36.super_class = SRDatastore;
+  v13 = objc_msgSendSuper2(&v36, "init");
   v14 = v13;
   if (v13)
   {
@@ -2236,51 +2049,50 @@ void *sub_100040CAC(void *a1, NSString *a2, void *a3, void *a4, uint64_t a5, uin
       if (a7)
       {
 LABEL_5:
-        v16 = *(a7 + 56);
-        v17 = *(a7 + 64);
-        if (v17)
+        v16 = *(a7 + 64);
+        if (v16)
         {
           if (a6)
           {
-            v18 = *(a6 + 64);
+            v17 = *(a6 + 64);
           }
 
           else
           {
-            v18 = 0.0;
+            v17 = 0.0;
           }
 
-          v19 = *(a7 + 8);
-          if (v19)
+          v18 = *(a7 + 8);
+          if (v18)
           {
-            v20 = *(a7 + 16) / v19;
+            v19 = *(a7 + 16) / v18;
           }
 
           else
           {
-            v20 = NAN;
+            v19 = NAN;
           }
 
-          v21 = (exp2((v18 - v20) / v18) * v17);
+          v20 = (exp2((v17 - v19) / v17) * v16);
           if (a6)
           {
-            v22 = *(a6 + 72);
+            v21 = *(a6 + 72);
           }
 
           else
           {
-            v22 = 0.0;
+            v21 = 0.0;
           }
 
-          v23 = v22 * v15;
-          if (v23 <= v21)
+          v22 = v21 * v15;
+          if (v22 <= v20)
           {
-            v15 = v21;
+            v15 = v20;
           }
 
           else
           {
-            v15 = v23;
+            v15 = v22;
           }
         }
       }
@@ -2288,112 +2100,112 @@ LABEL_5:
 
     if (a2)
     {
-      v24 = [(NSString *)sub_100041968(a2) lastPathComponent];
+      v23 = [(NSString *)sub_100041968(a2) lastPathComponent];
     }
 
     else
     {
-      v24 = 0;
+      v23 = 0;
     }
 
-    [(NSString *)v24 doubleValue];
-    sub_100041A3C(a7, v15, v25);
+    [(NSString *)v23 doubleValue];
+    sub_100041A3C(a7, v15, v24);
     if (a7)
     {
-      v26 = qword_100071B48;
+      v25 = qword_100071B48;
       if (os_log_type_enabled(qword_100071B48, OS_LOG_TYPE_INFO))
       {
         if (a6)
         {
-          v27 = *(a6 + 64);
-          v28 = *(a6 + 16);
+          v26 = *(a6 + 64);
+          v27 = *(a6 + 16);
         }
 
         else
         {
-          v28 = 0;
           v27 = 0;
+          v26 = 0;
         }
 
         *buf = 138412802;
-        v39 = a7;
-        v40 = 2050;
-        v41 = v27;
-        v42 = 2048;
-        v43 = v28;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Writing Stats: %@\nExpected segment lifetime: %{public}f\nDefault segment size: %lu", buf, 0x20u);
+        v38 = a7;
+        v39 = 2050;
+        v40 = v26;
+        v41 = 2048;
+        v42 = v27;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Writing Stats: %@\nExpected segment lifetime: %{public}f\nDefault segment size: %lu", buf, 0x20u);
       }
     }
 
     if (a6)
     {
-      v29 = *(a6 + 44);
+      v28 = *(a6 + 44);
     }
 
     else
     {
-      v29 = 0.0;
+      v28 = 0.0;
     }
 
-    v30 = (v29 * v15) / NSPageSize();
+    v29 = (v28 * v15) / NSPageSize();
     if (a6)
     {
-      v31 = *(a6 + 32);
+      v30 = *(a6 + 32);
     }
 
     else
     {
-      v31 = 0;
+      v30 = 0;
     }
 
-    if (v31 < v30)
+    if (v30 < v29)
     {
-      v30 = v31;
+      v29 = v30;
     }
 
-    if (v30 <= 1)
+    if (v29 <= 1)
     {
-      v32 = 1;
+      v31 = 1;
     }
 
     else
     {
-      v32 = v30;
+      v31 = v29;
     }
 
-    v33 = v32 * NSPageSize();
+    v32 = v31 * NSPageSize();
     if (a6)
     {
       v14[2] = *(a6 + 32);
-      v34 = *(a6 + 40);
-      v35 = *(a6 + 24);
+      v33 = *(a6 + 40);
+      v34 = *(a6 + 24);
     }
 
     else
     {
-      v35 = 0;
-      v14[2] = 0;
       v34 = 0;
+      v14[2] = 0;
+      v33 = 0;
     }
 
-    *(v14 + 6) = v34;
+    *(v14 + 6) = v33;
     v14[4] = a6;
-    v14[5] = sub_100041D98([SRFrameStore alloc], a2, v33, v14[1], a6);
+    v14[5] = sub_100041D98([SRFrameStore alloc], a2, v32, v14[1], a6);
     if (a3)
     {
-      v14[6] = sub_100041D98([SRFrameStore alloc], a3, v35, v14[1], a6);
+      v14[6] = sub_100041D98([SRFrameStore alloc], a3, v34, v14[1], a6);
     }
 
     if (a4)
     {
-      v14[7] = sub_100041D98([SRFrameStore alloc], a4, v35, v14[1], a6);
+      v14[7] = sub_100041D98([SRFrameStore alloc], a4, v34, v14[1], a6);
     }
   }
 
   return v14;
 }
 
-BOOL sub_100041018(_BOOL8 result, const char *a2, z_size_t a3, SRError **a4, double a5)
+BOOL sub_100041018(_BOOL8 result, const char *a2, NSUInteger a3, SRError **a4, double a5)
 {
   if (!result)
   {
@@ -2816,7 +2628,7 @@ LABEL_28:
   }
 }
 
-void sub_100041818(uint64_t *a1, uint64_t a2, double a3, double a4)
+void sub_100041818(void *a1, uint64_t a2, double a3, double a4)
 {
   if (a1)
   {
@@ -2892,7 +2704,6 @@ double sub_100041A3C(uint64_t a1, uint64_t a2, double result)
   if (a1)
   {
     v4 = result;
-    v6 = *(a1 + 16);
     Current = SRAbsoluteTimeGetCurrent();
     *(a1 + 56) = v4;
     *(a1 + 64) = a2;
@@ -3682,7 +3493,7 @@ uint64_t sub_10004327C(uint64_t result, void *a2)
   return result;
 }
 
-BOOL sub_1000434A0(_BOOL8 result, unint64_t a2, unint64_t a3, uint64_t a4)
+uint64_t sub_1000434A0(uint64_t result, unint64_t a2, unint64_t a3, uint64_t a4)
 {
   if (result)
   {

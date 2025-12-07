@@ -1,6 +1,8 @@
 @interface TSPDirectoryPackageWriter
+- (BOOL)writeData:(id)data toRelativePath:(id)path allowEncryption:(BOOL)encryption error:(id *)error;
 - (TSPDirectoryPackageWriter)initWithURL:(id)l documentTargetURL:(id)rL relativeURLForExternalData:(id)data packageIdentifier:(unsigned __int8)identifier documentProperties:(id)properties documentMetadata:(id)metadata fileFormatVersion:(unint64_t)version updateType:(int64_t)self0 cloneMode:(BOOL)self1 documentSaveValidationPolicy:(id)self2 encryptionKey:(id)self3 originalDocumentPackage:(id)self4 originalSupportPackage:(id)self5 fileCoordinatorDelegate:(id)self6 progress:(id)self7 error:(id *)self8;
 - (id)linkOrCopyData:(id)data fromURL:(id)l fromTemporaryLocation:(BOOL)location decryptionInfo:(id)info preferredFilename:(id)filename error:(id *)error;
+- (id)newPackageWithPackageIdentifier:(unsigned __int8)identifier documentProperties:(id)properties fileFormatVersion:(unint64_t)version decryptionKey:(id)key fileCoordinatorDelegate:(id)delegate;
 - (id)newRawComponentWriteChannelWithPackageLocator:(id)locator storeOutsideObjectArchive:(BOOL)archive;
 - (id)newRawDataWriteChannelForRelativePath:(id)path originalLastModificationDate:(id)date originalSize:(unint64_t)size originalCRC:(unsigned int)c forceCalculatingSizeAndCRCForPreservingLastModificationDate:(BOOL)modificationDate;
 - (id)packageEntryInfoForComponentLocator:(id)locator isStoredOutsideObjectArchive:(BOOL)archive packageURL:(id)l;
@@ -519,6 +521,39 @@ LABEL_24:
 LABEL_33:
 
   return v32;
+}
+
+- (BOOL)writeData:(id)data toRelativePath:(id)path allowEncryption:(BOOL)encryption error:(id *)error
+{
+  encryptionCopy = encryption;
+  dataCopy = data;
+  pathCopy = path;
+  if (encryptionCopy && ([(TSPPackageWriter *)self encryptionKey], v12 = objc_claimAutoreleasedReturnValue(), v12, v12))
+  {
+    v16.receiver = self;
+    v16.super_class = TSPDirectoryPackageWriter;
+    v13 = [(TSPPackageWriter *)&v16 writeData:dataCopy toRelativePath:pathCopy allowEncryption:1 error:error];
+  }
+
+  else
+  {
+    v13 = [(TSPDirectoryPackageDataWriter *)self->_dataWriter writeData:dataCopy toRelativePath:pathCopy allowEncryption:encryptionCopy error:error];
+  }
+
+  v14 = v13;
+
+  return v14;
+}
+
+- (id)newPackageWithPackageIdentifier:(unsigned __int8)identifier documentProperties:(id)properties fileFormatVersion:(unint64_t)version decryptionKey:(id)key fileCoordinatorDelegate:(id)delegate
+{
+  identifierCopy = identifier;
+  propertiesCopy = properties;
+  keyCopy = key;
+  delegateCopy = delegate;
+  v14 = [(TSPPackage *)[TSPDirectoryPackage alloc] initWithPackageIdentifier:identifierCopy documentProperties:propertiesCopy fileFormatVersion:version decryptionKey:keyCopy fileCoordinatorDelegate:delegateCopy isLazyLoading:0];
+
+  return v14;
 }
 
 - (id)newRawDataWriteChannelForRelativePath:(id)path originalLastModificationDate:(id)date originalSize:(unint64_t)size originalCRC:(unsigned int)c forceCalculatingSizeAndCRCForPreservingLastModificationDate:(BOOL)modificationDate

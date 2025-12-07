@@ -1,312 +1,3 @@
-void std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(uint64_t a1, unint64_t a2)
-{
-  if (a2 < 0xAAAAAAAAAAAAAABLL)
-  {
-    operator new();
-  }
-
-  std::__throw_bad_array_new_length[abi:ne200100]();
-}
-
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::string> &>(uint64_t a1, const void **a2)
-{
-  v2 = *std::__tree<std::__value_type<std::string,dmlc::parameter::FieldAccessEntry *>,std::__map_value_compare<std::string,std::__value_type<std::string,dmlc::parameter::FieldAccessEntry *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,dmlc::parameter::FieldAccessEntry *>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
-  {
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__construct_node<std::pair<std::string,std::string> &>();
-  }
-
-  return v2;
-}
-
-void dmlc::data::DiskRowIter<unsigned int,float>::~DiskRowIter(uint64_t a1)
-{
-  dmlc::data::DiskRowIter<unsigned int,float>::~DiskRowIter(a1);
-
-  JUMPOUT(0x277C69180);
-}
-
-uint64_t dmlc::data::DiskRowIter<unsigned int,float>::Next(_OWORD *a1)
-{
-  dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned int,float>>::Next((a1 + 7));
-  v3 = v2;
-  if (v2)
-  {
-    v4 = dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned int,float>>::Value((a1 + 7));
-    dmlc::data::RowBlockContainer<unsigned int,float>::GetBlock(v8, v4);
-    v5 = v8[1];
-    a1[3] = v8[0];
-    a1[4] = v5;
-    v6 = v8[3];
-    a1[5] = v8[2];
-    a1[6] = v6;
-  }
-
-  return v3;
-}
-
-void dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned int,float>>::~ThreadedIter(uint64_t a1)
-{
-  dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned int,float>>::~ThreadedIter(a1);
-
-  JUMPOUT(0x277C69180);
-}
-
-void dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned int,float>>::BeforeFirst(uint64_t a1)
-{
-  dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned int,float>>::ThrowExceptionIfSet(a1);
-  __lk.__m_ = (a1 + 56);
-  __lk.__owns_ = 1;
-  std::mutex::lock((a1 + 56));
-  if (*(a1 + 288))
-  {
-    std::deque<dmlc::data::RowBlockContainer<unsigned int,float> *,std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> *>>::push_back((a1 + 344), (a1 + 288));
-    *(a1 + 288) = 0;
-  }
-
-  if (atomic_load_explicit((a1 + 24), memory_order_acquire) != 2)
-  {
-    atomic_store(1u, (a1 + 24));
-    if (atomic_load_explicit((a1 + 28), memory_order_acquire))
-    {
-      Entry = dmlc::LogMessageFatal::GetEntry(&v10);
-      dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/dmlc/threadediter.h", 217);
-      v3 = dmlc::LogMessageFatal::GetEntry(&v10);
-      v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, "Check failed: !producer_sig_processed_.load(std::memory_order_acquire)", 70);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, ": ", 2);
-      dmlc::LogMessageFatal::~LogMessageFatal(&v10);
-    }
-
-    if (*(a1 + 188))
-    {
-      std::condition_variable::notify_one((a1 + 192));
-    }
-
-    if (atomic_load_explicit((a1 + 28), memory_order_acquire))
-    {
-      v5 = dmlc::LogMessageFatal::GetEntry(&v10);
-      dmlc::LogMessageFatal::Entry::Init(v5, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/dmlc/threadediter.h", 221);
-      v6 = dmlc::LogMessageFatal::GetEntry(&v10);
-      v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "Check failed: !producer_sig_processed_.load(std::memory_order_acquire)", 70);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ": ", 2);
-      dmlc::LogMessageFatal::~LogMessageFatal(&v10);
-    }
-
-    while ((atomic_load_explicit((a1 + 28), memory_order_acquire) & 1) == 0)
-    {
-      std::condition_variable::wait((a1 + 240), &__lk);
-    }
-
-    atomic_store(0, (a1 + 28));
-    if (*(a1 + 188))
-    {
-      v8 = atomic_load((a1 + 40));
-      v9 = v8 ^ 1;
-    }
-
-    else
-    {
-      v9 = 0;
-    }
-
-    if (!__lk.__owns_)
-    {
-      std::__throw_system_error(1, "unique_lock::unlock: not locked");
-      __break(1u);
-      return;
-    }
-
-    std::mutex::unlock(__lk.__m_);
-    __lk.__owns_ = 0;
-    if (v9)
-    {
-      std::condition_variable::notify_one((a1 + 192));
-    }
-
-    dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned int,float>>::ThrowExceptionIfSet(a1);
-  }
-
-  if (__lk.__owns_)
-  {
-    std::mutex::unlock(__lk.__m_);
-  }
-}
-
-void sub_274CF5C5C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, std::mutex *a14, char a15)
-{
-  if (a15 == 1)
-  {
-    std::mutex::unlock(a14);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned int,float>>::Next(uint64_t a1)
-{
-  if (*(a1 + 288))
-  {
-    dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned int,float>>::ThrowExceptionIfSet(a1);
-    std::mutex::lock((a1 + 56));
-    std::deque<dmlc::data::RowBlockContainer<unsigned int,float> *,std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> *>>::push_back((a1 + 344), (a1 + 288));
-    *(a1 + 288) = 0;
-    if (*(a1 + 188))
-    {
-      explicit = atomic_load_explicit((a1 + 40), memory_order_acquire);
-      std::mutex::unlock((a1 + 56));
-      if ((explicit & 1) == 0)
-      {
-        std::condition_variable::notify_one((a1 + 192));
-      }
-    }
-
-    else
-    {
-      std::mutex::unlock((a1 + 56));
-    }
-
-    dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned int,float>>::ThrowExceptionIfSet(a1);
-  }
-
-  if (atomic_load_explicit((a1 + 24), memory_order_acquire) != 2)
-  {
-    dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned int,float>>::ThrowExceptionIfSet(a1);
-    __lk.__m_ = (a1 + 56);
-    __lk.__owns_ = 1;
-    std::mutex::lock((a1 + 56));
-    if (atomic_load_explicit((a1 + 24), memory_order_acquire))
-    {
-      Entry = dmlc::LogMessageFatal::GetEntry(&v15);
-      dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/dmlc/threadediter.h", 446);
-      v4 = dmlc::LogMessageFatal::GetEntry(&v15);
-      v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "Check failed: producer_sig_.load(std::memory_order_acquire) == kProduce", 71);
-      v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, ": ", 2);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "Make sure you call BeforeFirst not inconcurrent with Next!", 58);
-      dmlc::LogMessageFatal::~LogMessageFatal(&v15);
-    }
-
-    v7 = *(a1 + 184);
-    *(a1 + 184) = v7 + 1;
-    v8 = *(a1 + 336);
-    if (!v8)
-    {
-      while ((atomic_load_explicit((a1 + 40), memory_order_acquire) & 1) == 0)
-      {
-        std::condition_variable::wait((a1 + 240), &__lk);
-        v8 = *(a1 + 336);
-        if (v8)
-        {
-          v7 = *(a1 + 184) - 1;
-          goto LABEL_20;
-        }
-      }
-
-      v8 = *(a1 + 336);
-      --*(a1 + 184);
-      if (v8)
-      {
-        goto LABEL_21;
-      }
-
-      if ((atomic_load_explicit((a1 + 40), memory_order_acquire) & 1) == 0)
-      {
-        v9 = dmlc::LogMessageFatal::GetEntry(&v15);
-        dmlc::LogMessageFatal::Entry::Init(v9, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/dmlc/threadediter.h", 465);
-        v10 = dmlc::LogMessageFatal::GetEntry(&v15);
-        v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "Check failed: produce_end_.load(std::memory_order_acquire)", 58);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, ": ", 2);
-        dmlc::LogMessageFatal::~LogMessageFatal(&v15);
-      }
-
-      if (__lk.__owns_)
-      {
-        std::mutex::unlock(__lk.__m_);
-        __lk.__owns_ = 0;
-        dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned int,float>>::ThrowExceptionIfSet(a1);
-        goto LABEL_30;
-      }
-
-      goto LABEL_33;
-    }
-
-LABEL_20:
-    *(a1 + 184) = v7;
-LABEL_21:
-    v12 = *(a1 + 304);
-    v13 = *(a1 + 328);
-    *(a1 + 288) = (*(v12 + ((v13 >> 6) & 0x3FFFFFFFFFFFFF8)))[v13 & 0x1FF];
-    *(a1 + 328) = ++v13;
-    *(a1 + 336) = v8 - 1;
-    if (v13 >= 0x400)
-    {
-      operator delete(*v12);
-      *(a1 + 304) += 8;
-      *(a1 + 328) -= 512;
-    }
-
-    if (*(a1 + 188))
-    {
-      v14 = atomic_load_explicit((a1 + 40), memory_order_acquire) ^ 1;
-    }
-
-    else
-    {
-      v14 = 0;
-    }
-
-    if (!__lk.__owns_)
-    {
-LABEL_33:
-      std::__throw_system_error(1, "unique_lock::unlock: not locked");
-      __break(1u);
-      return;
-    }
-
-    std::mutex::unlock(__lk.__m_);
-    __lk.__owns_ = 0;
-    if (v14)
-    {
-      std::condition_variable::notify_one((a1 + 192));
-    }
-
-    dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned int,float>>::ThrowExceptionIfSet(a1);
-LABEL_30:
-    if (__lk.__owns_)
-    {
-      std::mutex::unlock(__lk.__m_);
-    }
-  }
-}
-
-void sub_274CF5F74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, std::mutex *a14, char a15)
-{
-  dmlc::LogMessageFatal::~LogMessageFatal(&a13);
-  if (a15 == 1)
-  {
-    std::mutex::unlock(a14);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned int,float>>::Value(uint64_t a1)
-{
-  result = *(a1 + 288);
-  if (!result)
-  {
-    Entry = dmlc::LogMessageFatal::GetEntry(&v7);
-    dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/dmlc/threadediter.h", 203);
-    v4 = dmlc::LogMessageFatal::GetEntry(&v7);
-    v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "Check failed: out_data_ != NULL", 31);
-    v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, ": ", 2);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "Calling Value at beginning or end?", 34);
-    dmlc::LogMessageFatal::~LogMessageFatal(&v7);
-    return *(a1 + 288);
-  }
-
-  return result;
-}
-
 void dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned int,float>>::ThrowExceptionIfSet(uint64_t a1)
 {
   v4.__ptr_ = 0;
@@ -367,11 +58,10 @@ void std::unique_lock<std::mutex>::unlock[abi:ne200100](uint64_t a1)
   }
 }
 
-void *std::deque<dmlc::data::RowBlockContainer<unsigned int,float> *,std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> *>>::push_back(void *result, void *a2)
+void std::deque<dmlc::data::RowBlockContainer<unsigned int,float> *,std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> *>>::push_back(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  v5 = result[2];
+  v4 = a1[1];
+  v5 = a1[2];
   if (v5 == v4)
   {
     v6 = 0;
@@ -382,22 +72,22 @@ void *std::deque<dmlc::data::RowBlockContainer<unsigned int,float> *,std::alloca
     v6 = ((v5 - v4) << 6) - 1;
   }
 
-  v8 = result[4];
-  v7 = result[5];
+  v8 = a1[4];
+  v7 = a1[5];
   v9 = v7 + v8;
   if (v6 == v7 + v8)
   {
     if (v8 < 0x200)
     {
-      v10 = result[3];
-      v11 = v10 - *result;
+      v10 = a1[3];
+      v11 = v10 - *a1;
       if (v5 - v4 < v11)
       {
         operator new();
       }
 
       v12 = v11 >> 2;
-      if (v10 == *result)
+      if (v10 == *a1)
       {
         v13 = 1;
       }
@@ -410,18 +100,17 @@ void *std::deque<dmlc::data::RowBlockContainer<unsigned int,float> *,std::alloca
       std::__allocate_at_least[abi:ne200100]<std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>(v13);
     }
 
-    result[4] = v8 - 512;
+    a1[4] = v8 - 512;
     v14 = *v4;
-    result[1] = v4 + 8;
-    result = std::__split_buffer<dmlc::data::RowBlockContainer<unsigned int,float> **,std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>::emplace_back<dmlc::data::RowBlockContainer<unsigned int,float> **&>(result, &v14);
-    v4 = v3[1];
-    v7 = v3[5];
-    v9 = v3[4] + v7;
+    a1[1] = (v4 + 1);
+    std::__split_buffer<dmlc::data::RowBlockContainer<unsigned int,float> **,std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>::emplace_back<dmlc::data::RowBlockContainer<unsigned int,float> **&>(a1, &v14);
+    v4 = a1[1];
+    v7 = a1[5];
+    v9 = a1[4] + v7;
   }
 
-  *(*&v4[(v9 >> 6) & 0x3FFFFFFFFFFFFF8] + 8 * (v9 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  *(*(v4 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
+  a1[5] = v7 + 1;
 }
 
 void sub_274CF6654(_Unwind_Exception *a1)
@@ -435,24 +124,23 @@ void sub_274CF6654(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<dmlc::data::RowBlockContainer<unsigned int,float> **,std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>::emplace_back<dmlc::data::RowBlockContainer<unsigned int,float> **&>(void *result, void *a2)
+void std::__split_buffer<dmlc::data::RowBlockContainer<unsigned int,float> **,std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>::emplace_back<dmlc::data::RowBlockContainer<unsigned int,float> **&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
       std::__allocate_at_least[abi:ne200100]<std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>(v11);
@@ -464,18 +152,17 @@ void *std::__split_buffer<dmlc::data::RowBlockContainer<unsigned int,float> **,s
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>(unint64_t a1)
@@ -574,7 +261,7 @@ uint64_t std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100
   return a1;
 }
 
-void std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned int,float>>::Init(std::function<BOOL ()(dmlc::data::RowBlockContainer<unsigned int,float>**)>,std::function<void ()(void)>)::{lambda(void)#1}>>(uint64_t *a1)
+void std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned int,float>>::Init(std::function<BOOL ()(dmlc::data::RowBlockContainer<unsigned int,float>**)>,std::function<void ()(void)>)::{lambda(void)#1}>>(const void **a1)
 {
   v19 = a1;
   v2 = std::__thread_local_data();
@@ -731,7 +418,7 @@ LABEL_24:
   __break(1u);
 }
 
-void sub_274CF6F60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, uint64_t a10, uint64_t *a11, std::exception_ptr a12, char a13)
+void sub_274CF6F60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, uint64_t a10, uint64_t a11, std::exception_ptr a12, char a13)
 {
   std::mutex::unlock(v15);
   if (a2 != 1)
@@ -1122,20 +809,20 @@ uint64_t std::__function::__value_func<BOOL ()(dmlc::data::RowBlockContainer<uns
 
 void dmlc::data::RowBlockContainer<unsigned int,float>::Push<unsigned int>(std::vector<unsigned int> *a1, uint64_t a2)
 {
-  v4 = &a1[1];
+  v4 = a1 + 1;
   v5 = a1[1].__end_ - a1[1].__begin_;
   std::vector<float>::resize(a1 + 1, *a2 + (v5 >> 2));
-  if (v4[1] == *v4)
+  if (v4->__end_ == v4->__begin_)
   {
-    v6 = 0;
+    begin = 0;
   }
 
   else
   {
-    v6 = *v4;
+    begin = v4->__begin_;
   }
 
-  memcpy((v6 + v5), *(a2 + 16), 4 * *a2);
+  memcpy(begin + v5, *(a2 + 16), 4 * *a2);
   v7 = *(a2 + 24);
   if (v7)
   {
@@ -1164,14 +851,14 @@ void dmlc::data::RowBlockContainer<unsigned int,float>::Push<unsigned int>(std::
       do
       {
         v18 = *v15++;
-        begin = v18;
+        v17 = v18;
         *v14++ = v18;
         if (LODWORD(a1[7].__begin_) > v18)
         {
-          begin = a1[7].__begin_;
+          v17 = a1[7].__begin_;
         }
 
-        LODWORD(a1[7].__begin_) = begin;
+        LODWORD(a1[7].__begin_) = v17;
         --v16;
       }
 
@@ -1214,13 +901,13 @@ void dmlc::data::RowBlockContainer<unsigned int,float>::Push<unsigned int>(std::
   {
     std::vector<float>::resize(a1 + 6, v12 + a1[6].__end_ - a1[6].__begin_);
     v27 = a1[6].__begin_;
-    v28 = a1[6].__end_ - v27;
+    v28 = (a1[6].__end_ - v27);
     if (!v28)
     {
       v27 = 0;
     }
 
-    memcpy(v27 + v28 + -4 * v12, *(a2 + 56), 4 * v12);
+    memcpy(&v28[v27 + -4 * v12], *(a2 + 56), 4 * v12);
     end = a1->__end_;
   }
 
@@ -1250,55 +937,55 @@ void dmlc::data::RowBlockContainer<unsigned int,float>::Push<unsigned int>(std::
   }
 }
 
-uint64_t dmlc::data::RowBlockContainer<unsigned int,float>::Save(void *a1, uint64_t a2)
+uint64_t dmlc::data::RowBlockContainer<unsigned int,float>::Save(char *a1, uint64_t a2)
 {
-  v5 = (a1[1] - *a1) >> 3;
+  v5 = (*(a1 + 1) - *a1) >> 3;
   (*(*a2 + 8))(a2, &v5, 8);
   if (v5)
   {
-    (*(*a2 + 8))(a2, *a1, a1[1] - *a1);
+    (*(*a2 + 8))(a2, *a1, *(a1 + 1) - *a1);
   }
 
-  v5 = (a1[4] - a1[3]) >> 2;
+  v5 = (*(a1 + 4) - *(a1 + 3)) >> 2;
   (*(*a2 + 8))(a2, &v5, 8);
   if (v5)
   {
-    (*(*a2 + 8))(a2, a1[3], a1[4] - a1[3]);
+    (*(*a2 + 8))(a2, *(a1 + 3), *(a1 + 4) - *(a1 + 3));
   }
 
-  v5 = (a1[7] - a1[6]) >> 2;
+  v5 = (*(a1 + 7) - *(a1 + 6)) >> 2;
   (*(*a2 + 8))(a2, &v5, 8);
   if (v5)
   {
-    (*(*a2 + 8))(a2, a1[6], a1[7] - a1[6]);
+    (*(*a2 + 8))(a2, *(a1 + 6), *(a1 + 7) - *(a1 + 6));
   }
 
-  v5 = (a1[10] - a1[9]) >> 3;
+  v5 = (*(a1 + 10) - *(a1 + 9)) >> 3;
   (*(*a2 + 8))(a2, &v5, 8);
   if (v5)
   {
-    (*(*a2 + 8))(a2, a1[9], a1[10] - a1[9]);
+    (*(*a2 + 8))(a2, *(a1 + 9), *(a1 + 10) - *(a1 + 9));
   }
 
-  v5 = (a1[13] - a1[12]) >> 2;
+  v5 = (*(a1 + 13) - *(a1 + 12)) >> 2;
   (*(*a2 + 8))(a2, &v5, 8);
   if (v5)
   {
-    (*(*a2 + 8))(a2, a1[12], a1[13] - a1[12]);
+    (*(*a2 + 8))(a2, *(a1 + 12), *(a1 + 13) - *(a1 + 12));
   }
 
-  v5 = (a1[16] - a1[15]) >> 2;
+  v5 = (*(a1 + 16) - *(a1 + 15)) >> 2;
   (*(*a2 + 8))(a2, &v5, 8);
   if (v5)
   {
-    (*(*a2 + 8))(a2, a1[15], a1[16] - a1[15]);
+    (*(*a2 + 8))(a2, *(a1 + 15), *(a1 + 16) - *(a1 + 15));
   }
 
-  v5 = (a1[19] - a1[18]) >> 2;
+  v5 = (*(a1 + 19) - *(a1 + 18)) >> 2;
   (*(*a2 + 8))(a2, &v5, 8);
   if (v5)
   {
-    (*(*a2 + 8))(a2, a1[18], a1[19] - a1[18]);
+    (*(*a2 + 8))(a2, *(a1 + 18), *(a1 + 19) - *(a1 + 18));
   }
 
   (*(*a2 + 8))(a2, a1 + 21, 4);
@@ -1353,7 +1040,8 @@ char *std::vector<float>::__insert_with_size[abi:ne200100]<float const*,float co
     v35 = (4 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 4;
       *v35++ = v36;
       v34 -= 4;
     }
@@ -1496,7 +1184,8 @@ char *std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned
     v35 = (8 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 8;
       *v35++ = v36;
       v34 -= 8;
     }
@@ -2401,11 +2090,10 @@ void sub_274CF9B04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::deque<dmlc::data::RowBlockContainer<unsigned long long,float> *,std::allocator<dmlc::data::RowBlockContainer<unsigned long long,float> *>>::push_back(void *result, void *a2)
+void std::deque<dmlc::data::RowBlockContainer<unsigned long long,float> *,std::allocator<dmlc::data::RowBlockContainer<unsigned long long,float> *>>::push_back(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  v5 = result[2];
+  v4 = a1[1];
+  v5 = a1[2];
   if (v5 == v4)
   {
     v6 = 0;
@@ -2416,22 +2104,22 @@ void *std::deque<dmlc::data::RowBlockContainer<unsigned long long,float> *,std::
     v6 = ((v5 - v4) << 6) - 1;
   }
 
-  v8 = result[4];
-  v7 = result[5];
+  v8 = a1[4];
+  v7 = a1[5];
   v9 = v7 + v8;
   if (v6 == v7 + v8)
   {
     if (v8 < 0x200)
     {
-      v10 = result[3];
-      v11 = v10 - *result;
+      v10 = a1[3];
+      v11 = v10 - *a1;
       if (v5 - v4 < v11)
       {
         operator new();
       }
 
       v12 = v11 >> 2;
-      if (v10 == *result)
+      if (v10 == *a1)
       {
         v13 = 1;
       }
@@ -2444,18 +2132,17 @@ void *std::deque<dmlc::data::RowBlockContainer<unsigned long long,float> *,std::
       std::__allocate_at_least[abi:ne200100]<std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>(v13);
     }
 
-    result[4] = v8 - 512;
+    a1[4] = v8 - 512;
     v14 = *v4;
-    result[1] = v4 + 8;
-    result = std::__split_buffer<dmlc::data::RowBlockContainer<unsigned int,float> **,std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>::emplace_back<dmlc::data::RowBlockContainer<unsigned int,float> **&>(result, &v14);
-    v4 = v3[1];
-    v7 = v3[5];
-    v9 = v3[4] + v7;
+    a1[1] = (v4 + 1);
+    std::__split_buffer<dmlc::data::RowBlockContainer<unsigned int,float> **,std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>::emplace_back<dmlc::data::RowBlockContainer<unsigned int,float> **&>(a1, &v14);
+    v4 = a1[1];
+    v7 = a1[5];
+    v9 = a1[4] + v7;
   }
 
-  *(*&v4[(v9 >> 6) & 0x3FFFFFFFFFFFFF8] + 8 * (v9 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  *(*(v4 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
+  a1[5] = v7 + 1;
 }
 
 void sub_274CFA028(_Unwind_Exception *a1)
@@ -2520,7 +2207,7 @@ uint64_t std::__function::__value_func<BOOL ()(dmlc::data::RowBlockContainer<uns
   return a1;
 }
 
-void std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned long long,float>>::Init(std::function<BOOL ()(dmlc::data::RowBlockContainer<unsigned long long,float>**)>,std::function<void ()(void)>)::{lambda(void)#1}>>(uint64_t *a1)
+void std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned long long,float>>::Init(std::function<BOOL ()(dmlc::data::RowBlockContainer<unsigned long long,float>**)>,std::function<void ()(void)>)::{lambda(void)#1}>>(const void **a1)
 {
   v19 = a1;
   v2 = std::__thread_local_data();
@@ -2677,7 +2364,7 @@ LABEL_24:
   __break(1u);
 }
 
-void sub_274CFA6FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, uint64_t a10, uint64_t *a11, std::exception_ptr a12, char a13)
+void sub_274CFA6FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, uint64_t a10, uint64_t a11, std::exception_ptr a12, char a13)
 {
   std::mutex::unlock(v15);
   if (a2 != 1)
@@ -3004,20 +2691,20 @@ uint64_t std::__function::__value_func<BOOL ()(dmlc::data::RowBlockContainer<uns
 
 void dmlc::data::RowBlockContainer<unsigned long long,float>::Push<unsigned long long>(std::vector<unsigned int> *a1, uint64_t a2)
 {
-  v4 = &a1[1];
+  v4 = a1 + 1;
   v5 = a1[1].__end_ - a1[1].__begin_;
   std::vector<float>::resize(a1 + 1, *a2 + (v5 >> 2));
-  if (v4[1] == *v4)
+  if (v4->__end_ == v4->__begin_)
   {
-    v6 = 0;
+    begin = 0;
   }
 
   else
   {
-    v6 = *v4;
+    begin = v4->__begin_;
   }
 
-  memcpy((v6 + v5), *(a2 + 16), 4 * *a2);
+  memcpy(begin + v5, *(a2 + 16), 4 * *a2);
   v7 = *(a2 + 24);
   if (v7)
   {
@@ -3046,14 +2733,14 @@ void dmlc::data::RowBlockContainer<unsigned long long,float>::Push<unsigned long
       do
       {
         v18 = *v15++;
-        begin = v18;
+        v17 = v18;
         *v14++ = v18;
         if (a1[7].__begin_ > v18)
         {
-          begin = a1[7].__begin_;
+          v17 = a1[7].__begin_;
         }
 
-        a1[7].__begin_ = begin;
+        a1[7].__begin_ = v17;
         --v16;
       }
 
@@ -3096,13 +2783,13 @@ void dmlc::data::RowBlockContainer<unsigned long long,float>::Push<unsigned long
   {
     std::vector<float>::resize(a1 + 6, v12 + a1[6].__end_ - a1[6].__begin_);
     v27 = a1[6].__begin_;
-    v28 = a1[6].__end_ - v27;
+    v28 = (a1[6].__end_ - v27);
     if (!v28)
     {
       v27 = 0;
     }
 
-    memcpy(v27 + v28 + -4 * v12, *(a2 + 56), 4 * v12);
+    memcpy(&v28[v27 + -4 * v12], *(a2 + 56), 4 * v12);
     end = a1->__end_;
   }
 
@@ -3861,11 +3548,10 @@ void sub_274CFC9C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::deque<dmlc::data::RowBlockContainer<unsigned int,int> *,std::allocator<dmlc::data::RowBlockContainer<unsigned int,int> *>>::push_back(void *result, void *a2)
+void std::deque<dmlc::data::RowBlockContainer<unsigned int,int> *,std::allocator<dmlc::data::RowBlockContainer<unsigned int,int> *>>::push_back(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  v5 = result[2];
+  v4 = a1[1];
+  v5 = a1[2];
   if (v5 == v4)
   {
     v6 = 0;
@@ -3876,22 +3562,22 @@ void *std::deque<dmlc::data::RowBlockContainer<unsigned int,int> *,std::allocato
     v6 = ((v5 - v4) << 6) - 1;
   }
 
-  v8 = result[4];
-  v7 = result[5];
+  v8 = a1[4];
+  v7 = a1[5];
   v9 = v7 + v8;
   if (v6 == v7 + v8)
   {
     if (v8 < 0x200)
     {
-      v10 = result[3];
-      v11 = v10 - *result;
+      v10 = a1[3];
+      v11 = v10 - *a1;
       if (v5 - v4 < v11)
       {
         operator new();
       }
 
       v12 = v11 >> 2;
-      if (v10 == *result)
+      if (v10 == *a1)
       {
         v13 = 1;
       }
@@ -3904,18 +3590,17 @@ void *std::deque<dmlc::data::RowBlockContainer<unsigned int,int> *,std::allocato
       std::__allocate_at_least[abi:ne200100]<std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>(v13);
     }
 
-    result[4] = v8 - 512;
+    a1[4] = v8 - 512;
     v14 = *v4;
-    result[1] = v4 + 8;
-    result = std::__split_buffer<dmlc::data::RowBlockContainer<unsigned int,float> **,std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>::emplace_back<dmlc::data::RowBlockContainer<unsigned int,float> **&>(result, &v14);
-    v4 = v3[1];
-    v7 = v3[5];
-    v9 = v3[4] + v7;
+    a1[1] = (v4 + 1);
+    std::__split_buffer<dmlc::data::RowBlockContainer<unsigned int,float> **,std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>::emplace_back<dmlc::data::RowBlockContainer<unsigned int,float> **&>(a1, &v14);
+    v4 = a1[1];
+    v7 = a1[5];
+    v9 = a1[4] + v7;
   }
 
-  *(*&v4[(v9 >> 6) & 0x3FFFFFFFFFFFFF8] + 8 * (v9 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  *(*(v4 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
+  a1[5] = v7 + 1;
 }
 
 void sub_274CFCEE4(_Unwind_Exception *a1)
@@ -3980,7 +3665,7 @@ uint64_t std::__function::__value_func<BOOL ()(dmlc::data::RowBlockContainer<uns
   return a1;
 }
 
-void std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned int,int>>::Init(std::function<BOOL ()(dmlc::data::RowBlockContainer<unsigned int,int>**)>,std::function<void ()(void)>)::{lambda(void)#1}>>(uint64_t *a1)
+void std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned int,int>>::Init(std::function<BOOL ()(dmlc::data::RowBlockContainer<unsigned int,int>**)>,std::function<void ()(void)>)::{lambda(void)#1}>>(const void **a1)
 {
   v19 = a1;
   v2 = std::__thread_local_data();
@@ -4137,7 +3822,7 @@ LABEL_24:
   __break(1u);
 }
 
-void sub_274CFD5B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, uint64_t a10, uint64_t *a11, std::exception_ptr a12, char a13)
+void sub_274CFD5B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, uint64_t a10, uint64_t a11, std::exception_ptr a12, char a13)
 {
   std::mutex::unlock(v15);
   if (a2 != 1)
@@ -5265,11 +4950,10 @@ void sub_274CFF4A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::deque<dmlc::data::RowBlockContainer<unsigned long long,int> *,std::allocator<dmlc::data::RowBlockContainer<unsigned long long,int> *>>::push_back(void *result, void *a2)
+void std::deque<dmlc::data::RowBlockContainer<unsigned long long,int> *,std::allocator<dmlc::data::RowBlockContainer<unsigned long long,int> *>>::push_back(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  v5 = result[2];
+  v4 = a1[1];
+  v5 = a1[2];
   if (v5 == v4)
   {
     v6 = 0;
@@ -5280,22 +4964,22 @@ void *std::deque<dmlc::data::RowBlockContainer<unsigned long long,int> *,std::al
     v6 = ((v5 - v4) << 6) - 1;
   }
 
-  v8 = result[4];
-  v7 = result[5];
+  v8 = a1[4];
+  v7 = a1[5];
   v9 = v7 + v8;
   if (v6 == v7 + v8)
   {
     if (v8 < 0x200)
     {
-      v10 = result[3];
-      v11 = v10 - *result;
+      v10 = a1[3];
+      v11 = v10 - *a1;
       if (v5 - v4 < v11)
       {
         operator new();
       }
 
       v12 = v11 >> 2;
-      if (v10 == *result)
+      if (v10 == *a1)
       {
         v13 = 1;
       }
@@ -5308,18 +4992,17 @@ void *std::deque<dmlc::data::RowBlockContainer<unsigned long long,int> *,std::al
       std::__allocate_at_least[abi:ne200100]<std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>(v13);
     }
 
-    result[4] = v8 - 512;
+    a1[4] = v8 - 512;
     v14 = *v4;
-    result[1] = v4 + 8;
-    result = std::__split_buffer<dmlc::data::RowBlockContainer<unsigned int,float> **,std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>::emplace_back<dmlc::data::RowBlockContainer<unsigned int,float> **&>(result, &v14);
-    v4 = v3[1];
-    v7 = v3[5];
-    v9 = v3[4] + v7;
+    a1[1] = (v4 + 1);
+    std::__split_buffer<dmlc::data::RowBlockContainer<unsigned int,float> **,std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>::emplace_back<dmlc::data::RowBlockContainer<unsigned int,float> **&>(a1, &v14);
+    v4 = a1[1];
+    v7 = a1[5];
+    v9 = a1[4] + v7;
   }
 
-  *(*&v4[(v9 >> 6) & 0x3FFFFFFFFFFFFF8] + 8 * (v9 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  *(*(v4 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
+  a1[5] = v7 + 1;
 }
 
 void sub_274CFF9CC(_Unwind_Exception *a1)
@@ -5384,7 +5067,7 @@ uint64_t std::__function::__value_func<BOOL ()(dmlc::data::RowBlockContainer<uns
   return a1;
 }
 
-void std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned long long,int>>::Init(std::function<BOOL ()(dmlc::data::RowBlockContainer<unsigned long long,int>**)>,std::function<void ()(void)>)::{lambda(void)#1}>>(uint64_t *a1)
+void std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned long long,int>>::Init(std::function<BOOL ()(dmlc::data::RowBlockContainer<unsigned long long,int>**)>,std::function<void ()(void)>)::{lambda(void)#1}>>(const void **a1)
 {
   v19 = a1;
   v2 = std::__thread_local_data();
@@ -5541,7 +5224,7 @@ LABEL_24:
   __break(1u);
 }
 
-void sub_274D000A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, uint64_t a10, uint64_t *a11, std::exception_ptr a12, char a13)
+void sub_274D000A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, uint64_t a10, uint64_t a11, std::exception_ptr a12, char a13)
 {
   std::mutex::unlock(v15);
   if (a2 != 1)
@@ -5868,20 +5551,20 @@ uint64_t std::__function::__value_func<BOOL ()(dmlc::data::RowBlockContainer<uns
 
 void dmlc::data::RowBlockContainer<unsigned long long,int>::Push<unsigned long long>(std::vector<int> *a1, uint64_t a2)
 {
-  v4 = &a1[1];
+  v4 = a1 + 1;
   v5 = a1[1].__end_ - a1[1].__begin_;
   std::vector<int>::resize(a1 + 1, *a2 + (v5 >> 2));
-  if (v4[1] == *v4)
+  if (v4->__end_ == v4->__begin_)
   {
-    v6 = 0;
+    begin = 0;
   }
 
   else
   {
-    v6 = *v4;
+    begin = v4->__begin_;
   }
 
-  memcpy((v6 + v5), *(a2 + 16), 4 * *a2);
+  memcpy(begin + v5, *(a2 + 16), 4 * *a2);
   v7 = *(a2 + 24);
   if (v7)
   {
@@ -5910,14 +5593,14 @@ void dmlc::data::RowBlockContainer<unsigned long long,int>::Push<unsigned long l
       do
       {
         v18 = *v15++;
-        begin = v18;
+        v17 = v18;
         *v14++ = v18;
         if (a1[7].__begin_ > v18)
         {
-          begin = a1[7].__begin_;
+          v17 = a1[7].__begin_;
         }
 
-        a1[7].__begin_ = begin;
+        a1[7].__begin_ = v17;
         --v16;
       }
 
@@ -5960,13 +5643,13 @@ void dmlc::data::RowBlockContainer<unsigned long long,int>::Push<unsigned long l
   {
     std::vector<int>::resize(a1 + 6, v12 + a1[6].__end_ - a1[6].__begin_);
     v27 = a1[6].__begin_;
-    v28 = a1[6].__end_ - v27;
+    v28 = (a1[6].__end_ - v27);
     if (!v28)
     {
       v27 = 0;
     }
 
-    memcpy(v27 + v28 + -4 * v12, *(a2 + 56), 4 * v12);
+    memcpy(&v28[v27 + -4 * v12], *(a2 + 56), 4 * v12);
     end = a1->__end_;
   }
 
@@ -6670,11 +6353,10 @@ void sub_274D01F90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::deque<dmlc::data::RowBlockContainer<unsigned int,long long> *,std::allocator<dmlc::data::RowBlockContainer<unsigned int,long long> *>>::push_back(void *result, void *a2)
+void std::deque<dmlc::data::RowBlockContainer<unsigned int,long long> *,std::allocator<dmlc::data::RowBlockContainer<unsigned int,long long> *>>::push_back(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  v5 = result[2];
+  v4 = a1[1];
+  v5 = a1[2];
   if (v5 == v4)
   {
     v6 = 0;
@@ -6685,22 +6367,22 @@ void *std::deque<dmlc::data::RowBlockContainer<unsigned int,long long> *,std::al
     v6 = ((v5 - v4) << 6) - 1;
   }
 
-  v8 = result[4];
-  v7 = result[5];
+  v8 = a1[4];
+  v7 = a1[5];
   v9 = v7 + v8;
   if (v6 == v7 + v8)
   {
     if (v8 < 0x200)
     {
-      v10 = result[3];
-      v11 = v10 - *result;
+      v10 = a1[3];
+      v11 = v10 - *a1;
       if (v5 - v4 < v11)
       {
         operator new();
       }
 
       v12 = v11 >> 2;
-      if (v10 == *result)
+      if (v10 == *a1)
       {
         v13 = 1;
       }
@@ -6713,18 +6395,17 @@ void *std::deque<dmlc::data::RowBlockContainer<unsigned int,long long> *,std::al
       std::__allocate_at_least[abi:ne200100]<std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>(v13);
     }
 
-    result[4] = v8 - 512;
+    a1[4] = v8 - 512;
     v14 = *v4;
-    result[1] = v4 + 8;
-    result = std::__split_buffer<dmlc::data::RowBlockContainer<unsigned int,float> **,std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>::emplace_back<dmlc::data::RowBlockContainer<unsigned int,float> **&>(result, &v14);
-    v4 = v3[1];
-    v7 = v3[5];
-    v9 = v3[4] + v7;
+    a1[1] = (v4 + 1);
+    std::__split_buffer<dmlc::data::RowBlockContainer<unsigned int,float> **,std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>::emplace_back<dmlc::data::RowBlockContainer<unsigned int,float> **&>(a1, &v14);
+    v4 = a1[1];
+    v7 = a1[5];
+    v9 = a1[4] + v7;
   }
 
-  *(*&v4[(v9 >> 6) & 0x3FFFFFFFFFFFFF8] + 8 * (v9 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  *(*(v4 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
+  a1[5] = v7 + 1;
 }
 
 void sub_274D024B4(_Unwind_Exception *a1)
@@ -6789,7 +6470,7 @@ uint64_t std::__function::__value_func<BOOL ()(dmlc::data::RowBlockContainer<uns
   return a1;
 }
 
-void std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned int,long long>>::Init(std::function<BOOL ()(dmlc::data::RowBlockContainer<unsigned int,long long>**)>,std::function<void ()(void)>)::{lambda(void)#1}>>(uint64_t *a1)
+void std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned int,long long>>::Init(std::function<BOOL ()(dmlc::data::RowBlockContainer<unsigned int,long long>**)>,std::function<void ()(void)>)::{lambda(void)#1}>>(const void **a1)
 {
   v19 = a1;
   v2 = std::__thread_local_data();
@@ -6946,7 +6627,7 @@ LABEL_24:
   __break(1u);
 }
 
-void sub_274D02B88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, uint64_t a10, uint64_t *a11, std::exception_ptr a12, char a13)
+void sub_274D02B88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, uint64_t a10, uint64_t a11, std::exception_ptr a12, char a13)
 {
   std::mutex::unlock(v15);
   if (a2 != 1)
@@ -7272,20 +6953,20 @@ uint64_t std::__function::__value_func<BOOL ()(dmlc::data::RowBlockContainer<uns
 
 void dmlc::data::RowBlockContainer<unsigned int,long long>::Push<unsigned int>(std::vector<unsigned int> *a1, uint64_t a2)
 {
-  v4 = &a1[1];
+  v4 = a1 + 1;
   v5 = a1[1].__end_ - a1[1].__begin_;
   std::vector<unsigned long>::resize(&a1[1].__begin_, *a2 + (v5 >> 3));
-  if (v4[1] == *v4)
+  if (v4->__end_ == v4->__begin_)
   {
-    v6 = 0;
+    begin = 0;
   }
 
   else
   {
-    v6 = *v4;
+    begin = v4->__begin_;
   }
 
-  memcpy((v6 + v5), *(a2 + 16), 8 * *a2);
+  memcpy(begin + v5, *(a2 + 16), 8 * *a2);
   v7 = *(a2 + 24);
   if (v7)
   {
@@ -7314,14 +6995,14 @@ void dmlc::data::RowBlockContainer<unsigned int,long long>::Push<unsigned int>(s
       do
       {
         v18 = *v15++;
-        begin = v18;
+        v17 = v18;
         *v14++ = v18;
         if (LODWORD(a1[7].__begin_) > v18)
         {
-          begin = a1[7].__begin_;
+          v17 = a1[7].__begin_;
         }
 
-        LODWORD(a1[7].__begin_) = begin;
+        LODWORD(a1[7].__begin_) = v17;
         --v16;
       }
 
@@ -7363,13 +7044,13 @@ void dmlc::data::RowBlockContainer<unsigned int,long long>::Push<unsigned int>(s
   {
     std::vector<unsigned long>::resize(&a1[6].__begin_, v12 + ((a1[6].__end_ - a1[6].__begin_) >> 3));
     v26 = a1[6].__begin_;
-    v27 = a1[6].__end_ - v26;
+    v27 = (a1[6].__end_ - v26);
     if (!v27)
     {
       v26 = 0;
     }
 
-    memcpy(v26 + v27 + -8 * v12, *(a2 + 56), 8 * v12);
+    memcpy(&v27[v26 + -8 * v12], *(a2 + 56), 8 * v12);
     end = a1->__end_;
   }
 
@@ -7392,62 +7073,62 @@ void dmlc::data::RowBlockContainer<unsigned int,long long>::Push<unsigned int>(s
     v32 = 1;
     do
     {
-      *(v30 + 8 * v32) = v31[v32] + v28 - *v31;
+      *&v30[8 * v32] = v31[v32] + v28 - *v31;
     }
 
     while (v32++ < *a2);
   }
 }
 
-uint64_t dmlc::data::RowBlockContainer<unsigned int,long long>::Save(void *a1, uint64_t a2)
+uint64_t dmlc::data::RowBlockContainer<unsigned int,long long>::Save(char *a1, uint64_t a2)
 {
-  v5 = (a1[1] - *a1) >> 3;
+  v5 = (*(a1 + 1) - *a1) >> 3;
   (*(*a2 + 8))(a2, &v5, 8);
   if (v5)
   {
-    (*(*a2 + 8))(a2, *a1, a1[1] - *a1);
+    (*(*a2 + 8))(a2, *a1, *(a1 + 1) - *a1);
   }
 
-  v5 = (a1[4] - a1[3]) >> 3;
+  v5 = (*(a1 + 4) - *(a1 + 3)) >> 3;
   (*(*a2 + 8))(a2, &v5, 8);
   if (v5)
   {
-    (*(*a2 + 8))(a2, a1[3], a1[4] - a1[3]);
+    (*(*a2 + 8))(a2, *(a1 + 3), *(a1 + 4) - *(a1 + 3));
   }
 
-  v5 = (a1[7] - a1[6]) >> 2;
+  v5 = (*(a1 + 7) - *(a1 + 6)) >> 2;
   (*(*a2 + 8))(a2, &v5, 8);
   if (v5)
   {
-    (*(*a2 + 8))(a2, a1[6], a1[7] - a1[6]);
+    (*(*a2 + 8))(a2, *(a1 + 6), *(a1 + 7) - *(a1 + 6));
   }
 
-  v5 = (a1[10] - a1[9]) >> 3;
+  v5 = (*(a1 + 10) - *(a1 + 9)) >> 3;
   (*(*a2 + 8))(a2, &v5, 8);
   if (v5)
   {
-    (*(*a2 + 8))(a2, a1[9], a1[10] - a1[9]);
+    (*(*a2 + 8))(a2, *(a1 + 9), *(a1 + 10) - *(a1 + 9));
   }
 
-  v5 = (a1[13] - a1[12]) >> 2;
+  v5 = (*(a1 + 13) - *(a1 + 12)) >> 2;
   (*(*a2 + 8))(a2, &v5, 8);
   if (v5)
   {
-    (*(*a2 + 8))(a2, a1[12], a1[13] - a1[12]);
+    (*(*a2 + 8))(a2, *(a1 + 12), *(a1 + 13) - *(a1 + 12));
   }
 
-  v5 = (a1[16] - a1[15]) >> 2;
+  v5 = (*(a1 + 16) - *(a1 + 15)) >> 2;
   (*(*a2 + 8))(a2, &v5, 8);
   if (v5)
   {
-    (*(*a2 + 8))(a2, a1[15], a1[16] - a1[15]);
+    (*(*a2 + 8))(a2, *(a1 + 15), *(a1 + 16) - *(a1 + 15));
   }
 
-  v5 = (a1[19] - a1[18]) >> 3;
+  v5 = (*(a1 + 19) - *(a1 + 18)) >> 3;
   (*(*a2 + 8))(a2, &v5, 8);
   if (v5)
   {
-    (*(*a2 + 8))(a2, a1[18], a1[19] - a1[18]);
+    (*(*a2 + 8))(a2, *(a1 + 18), *(a1 + 19) - *(a1 + 18));
   }
 
   (*(*a2 + 8))(a2, a1 + 21, 4);
@@ -8024,11 +7705,10 @@ void sub_274D04C9C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::deque<dmlc::data::RowBlockContainer<unsigned long long,long long> *,std::allocator<dmlc::data::RowBlockContainer<unsigned long long,long long> *>>::push_back(void *result, void *a2)
+void std::deque<dmlc::data::RowBlockContainer<unsigned long long,long long> *,std::allocator<dmlc::data::RowBlockContainer<unsigned long long,long long> *>>::push_back(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  v5 = result[2];
+  v4 = a1[1];
+  v5 = a1[2];
   if (v5 == v4)
   {
     v6 = 0;
@@ -8039,22 +7719,22 @@ void *std::deque<dmlc::data::RowBlockContainer<unsigned long long,long long> *,s
     v6 = ((v5 - v4) << 6) - 1;
   }
 
-  v8 = result[4];
-  v7 = result[5];
+  v8 = a1[4];
+  v7 = a1[5];
   v9 = v7 + v8;
   if (v6 == v7 + v8)
   {
     if (v8 < 0x200)
     {
-      v10 = result[3];
-      v11 = v10 - *result;
+      v10 = a1[3];
+      v11 = v10 - *a1;
       if (v5 - v4 < v11)
       {
         operator new();
       }
 
       v12 = v11 >> 2;
-      if (v10 == *result)
+      if (v10 == *a1)
       {
         v13 = 1;
       }
@@ -8067,18 +7747,17 @@ void *std::deque<dmlc::data::RowBlockContainer<unsigned long long,long long> *,s
       std::__allocate_at_least[abi:ne200100]<std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>(v13);
     }
 
-    result[4] = v8 - 512;
+    a1[4] = v8 - 512;
     v14 = *v4;
-    result[1] = v4 + 8;
-    result = std::__split_buffer<dmlc::data::RowBlockContainer<unsigned int,float> **,std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>::emplace_back<dmlc::data::RowBlockContainer<unsigned int,float> **&>(result, &v14);
-    v4 = v3[1];
-    v7 = v3[5];
-    v9 = v3[4] + v7;
+    a1[1] = (v4 + 1);
+    std::__split_buffer<dmlc::data::RowBlockContainer<unsigned int,float> **,std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>::emplace_back<dmlc::data::RowBlockContainer<unsigned int,float> **&>(a1, &v14);
+    v4 = a1[1];
+    v7 = a1[5];
+    v9 = a1[4] + v7;
   }
 
-  *(*&v4[(v9 >> 6) & 0x3FFFFFFFFFFFFF8] + 8 * (v9 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  *(*(v4 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
+  a1[5] = v7 + 1;
 }
 
 void sub_274D051C0(_Unwind_Exception *a1)
@@ -8143,7 +7822,7 @@ uint64_t std::__function::__value_func<BOOL ()(dmlc::data::RowBlockContainer<uns
   return a1;
 }
 
-void std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned long long,long long>>::Init(std::function<BOOL ()(dmlc::data::RowBlockContainer<unsigned long long,long long>**)>,std::function<void ()(void)>)::{lambda(void)#1}>>(uint64_t *a1)
+void std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,dmlc::ThreadedIter<dmlc::data::RowBlockContainer<unsigned long long,long long>>::Init(std::function<BOOL ()(dmlc::data::RowBlockContainer<unsigned long long,long long>**)>,std::function<void ()(void)>)::{lambda(void)#1}>>(const void **a1)
 {
   v19 = a1;
   v2 = std::__thread_local_data();
@@ -8300,7 +7979,7 @@ LABEL_24:
   __break(1u);
 }
 
-void sub_274D05894(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, uint64_t a10, uint64_t *a11, std::exception_ptr a12, char a13)
+void sub_274D05894(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, uint64_t a10, uint64_t a11, std::exception_ptr a12, char a13)
 {
   std::mutex::unlock(v15);
   if (a2 != 1)
@@ -9128,12 +8807,12 @@ uint64_t dmlc::data::TextParserBase<unsigned int,float>::~TextParserBase(uint64_
   return a1;
 }
 
-void sub_274D073EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_274D073EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   std::mutex::~mutex((v10 + 136));
   std::exception_ptr::~exception_ptr((v10 + 128));
   *v10 = &unk_2883DFF60;
-  a10 = (v10 + 16);
+  a10 = v10 + 16;
   std::vector<dmlc::data::RowBlockContainer<unsigned int,float>>::__destroy_vector::operator()[abi:ne200100](&a10);
   _Unwind_Resume(a1);
 }
@@ -9313,7 +8992,7 @@ void sub_274D07B78(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void dmlc::data::LibSVMParser<unsigned int,float>::ParseBlock(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t a4)
+void dmlc::data::LibSVMParser<unsigned int,float>::ParseBlock(uint64_t a1, char *a2, char *a3, uint64_t a4)
 {
   *(a4 + 8) = *a4;
   v79 = 0;
@@ -9339,7 +9018,7 @@ void dmlc::data::LibSVMParser<unsigned int,float>::ParseBlock(uint64_t a1, unsig
     do
     {
       v10 = a2;
-      v11 = a2 + 1;
+      v11 = (a2 + 1);
       while (v11 != a3)
       {
         v13 = *v11++;
@@ -9348,12 +9027,12 @@ void dmlc::data::LibSVMParser<unsigned int,float>::ParseBlock(uint64_t a1, unsig
         if (v14)
         {
           v15 = v11 - 2;
-          a2 = v11 - 1;
+          a2 = (v11 - 1);
           goto LABEL_12;
         }
       }
 
-      v15 = a3 - 1;
+      v15 = (a3 - 1);
       a2 = a3;
 LABEL_12:
       v78 = 0;
@@ -9547,7 +9226,7 @@ LABEL_138:
 
         if (v28 != a2 && !strncmp(v28, "qid:", 4uLL))
         {
-          v31 = v28 + 4;
+          v31 = (v28 + 4);
           v79 = atoll(v28 + 4);
           if (v28 + 4 != a2)
           {
@@ -9568,7 +9247,7 @@ LABEL_138:
               v14 = v31++ == v15;
               if (v14)
               {
-                v31 = (v15 + 1);
+                v31 = v15 + 1;
                 break;
               }
             }
@@ -9820,9 +9499,9 @@ LABEL_165:
   }
 }
 
-void sub_274D0834C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_274D0834C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   dmlc::LogMessageFatal::~LogMessageFatal(va);
   _Unwind_Resume(a1);
 }
@@ -9850,4 +9529,510 @@ void std::vector<dmlc::data::RowBlockContainer<unsigned int,float>>::__destroy_v
 
     operator delete(v5);
   }
+}
+
+std::thread **std::vector<std::thread>::push_back[abi:ne200100](std::thread **result, std::__libcpp_thread_t *a2)
+{
+  v2 = result;
+  v4 = result[1];
+  v3 = result[2];
+  if (v4 >= v3)
+  {
+    v6 = *result;
+    v7 = v4 - *v2;
+    v8 = v7 + 1;
+    if ((v7 + 1) >> 61)
+    {
+      std::vector<void *>::__throw_length_error[abi:ne200100]();
+    }
+
+    v9 = v3 - v6;
+    if (v9 >> 2 > v8)
+    {
+      v8 = v9 >> 2;
+    }
+
+    if (v9 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      v10 = 0x1FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v10 = v8;
+    }
+
+    v18[4] = v2;
+    if (v10)
+    {
+      if (!(v10 >> 61))
+      {
+        operator new();
+      }
+
+      std::__throw_bad_array_new_length[abi:ne200100]();
+    }
+
+    v11 = v7;
+    v12 = (8 * v7);
+    v13 = &v12[-v11];
+    v12->__t_ = *a2;
+    v5 = v12 + 1;
+    *a2 = 0;
+    if (v6 != v4)
+    {
+      v14 = v6;
+      p_t = &v13->__t_;
+      do
+      {
+        *p_t++ = v14->__t_;
+        v14->__t_ = 0;
+        ++v14;
+      }
+
+      while (v14 != v4);
+      do
+      {
+        std::thread::~thread(v6);
+        v6 = v16 + 1;
+      }
+
+      while (v6 != v4);
+      v6 = *v2;
+    }
+
+    *v2 = v13;
+    v2[1] = v5;
+    v17 = v2[2];
+    v2[2] = 0;
+    v18[2] = v6;
+    v18[3] = v17;
+    v18[0] = v6;
+    v18[1] = v6;
+    result = std::__split_buffer<std::thread>::~__split_buffer(v18);
+  }
+
+  else
+  {
+    v4->__t_ = *a2;
+    *a2 = 0;
+    v5 = v4 + 1;
+  }
+
+  v2[1] = v5;
+  return result;
+}
+
+uint64_t std::__split_buffer<dmlc::data::RowBlockContainer<unsigned int,float>>::~__split_buffer(uint64_t a1)
+{
+  v3 = *(a1 + 8);
+  for (i = *(a1 + 16); i != v3; i = *(a1 + 16))
+  {
+    *(a1 + 16) = i - 176;
+    dmlc::data::RowBlockContainer<unsigned int,float>::~RowBlockContainer(i - 176);
+  }
+
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+uint64_t std::__split_buffer<std::thread>::~__split_buffer(uint64_t a1)
+{
+  v3 = *(a1 + 8);
+  for (i = *(a1 + 16); i != v3; i = *(a1 + 16))
+  {
+    *(a1 + 16) = i - 8;
+    std::thread::~thread((i - 8));
+  }
+
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,dmlc::data::TextParserBase<unsigned int,float>::FillData(std::vector<dmlc::data::RowBlockContainer<unsigned int,float>> *)::{lambda(void)#1}>>(const void **a1)
+{
+  v18 = a1;
+  v2 = std::__thread_local_data();
+  v3 = *a1;
+  *a1 = 0;
+  pthread_setspecific(v2->__key_, v3);
+  v4 = v18[2];
+  v5 = *(v18[1] + 8);
+  v7 = *(v18 + 8);
+  v6 = *(v18 + 9);
+  v8 = (v5 + v7 - 1) / v7;
+  if (v5 >= v8 * v6)
+  {
+    v9 = v8 * v6;
+  }
+
+  else
+  {
+    v9 = *(v18[1] + 8);
+  }
+
+  v10 = v8 * (v6 + 1);
+  if (v5 >= v10)
+  {
+    v5 = v10;
+  }
+
+  v11 = v18[2];
+  if (v9)
+  {
+    v11 = (v4 + v9);
+    while (1)
+    {
+      v12 = *v11;
+      if (v12 == 10 || v12 == 13)
+      {
+        break;
+      }
+
+      if (--v11 == v4)
+      {
+        v11 = v18[2];
+        break;
+      }
+    }
+  }
+
+  if (v6 + 1 == v7)
+  {
+    v14 = (v4 + v5);
+  }
+
+  else if (v5)
+  {
+    v14 = (v4 + v5);
+    while (1)
+    {
+      v15 = *v14;
+      if (v15 == 10 || v15 == 13)
+      {
+        break;
+      }
+
+      if (--v14 == v4)
+      {
+        goto LABEL_23;
+      }
+    }
+  }
+
+  else
+  {
+LABEL_23:
+    v14 = v18[2];
+  }
+
+  (*(*v18[5] + 56))(v18[5], v11, v14, *v18[3] + 176 * v6);
+  std::unique_ptr<std::tuple<std::unique_ptr<std::__thread_struct>,dmlc::data::TextParserBase<unsigned int,float>::FillData(std::vector<dmlc::data::RowBlockContainer<unsigned int,float>> *)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](&v18);
+  return 0;
+}
+
+uint64_t **std::unique_ptr<std::tuple<std::unique_ptr<std::__thread_struct>,dmlc::data::TextParserBase<unsigned int,float>::FillData(std::vector<dmlc::data::RowBlockContainer<unsigned int,float>> *)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](uint64_t **a1)
+{
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    v3 = std::unique_ptr<std::__thread_struct>::~unique_ptr[abi:ne200100](v2);
+    MEMORY[0x277C69180](v3, 0x1070C400BD5E6E0);
+  }
+
+  return a1;
+}
+
+void std::vector<std::thread>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+{
+  v1 = *a1;
+  v2 = **a1;
+  if (v2)
+  {
+    v4 = v1[1];
+    v5 = v2;
+    if (v4 != v2)
+    {
+      do
+      {
+        std::thread::~thread(v4 - 1);
+      }
+
+      while (v4 != v2);
+      v5 = **a1;
+    }
+
+    v1[1] = v2;
+
+    operator delete(v5);
+  }
+}
+
+float dmlc::ParseFloat<float,false>(unsigned __int8 *a1, unsigned __int8 **a2)
+{
+  while (1)
+  {
+    v2 = *a1;
+    if (v2 > 0x2D)
+    {
+      break;
+    }
+
+    if (((1 << v2) & 0x100003600) == 0)
+    {
+      if (v2 == 43)
+      {
+        ++a1;
+      }
+
+      else if (v2 == 45)
+      {
+        v3 = 0;
+        ++a1;
+        goto LABEL_9;
+      }
+
+      break;
+    }
+
+    ++a1;
+  }
+
+  v3 = 1;
+LABEL_9:
+  v4 = 0;
+  v5 = a1 + 8;
+  while ((a1[v4] | 0x20) == aInfinity[v4])
+  {
+    if (++v4 == 8)
+    {
+      goto LABEL_15;
+    }
+  }
+
+  v5 = &a1[v4];
+  if (v4 == 8 || v4 == 3)
+  {
+LABEL_15:
+    if (a2)
+    {
+      *a2 = v5;
+    }
+
+    result = -INFINITY;
+    if (v3)
+    {
+      return INFINITY;
+    }
+
+    return result;
+  }
+
+  v7 = 0;
+  v8 = a1 + 3;
+  while ((a1[v7] | 0x20) == aNan[v7])
+  {
+    if (++v7 == 3)
+    {
+      if (*v8 == 40)
+      {
+        for (i = (a1 + 4); ; ++i)
+        {
+          v10 = *i;
+          if ((v10 - 48) >= 0xA && v10 != 95 && (v10 & 0xFFFFFFDF) - 65 > 0x19)
+          {
+            break;
+          }
+        }
+
+        v33 = 41;
+        if (v10 != 41)
+        {
+          dmlc::LogCheckFormat<char,char>(i, &v33);
+        }
+
+        v8 = (i + 1);
+      }
+
+      if (a2)
+      {
+        *a2 = v8;
+      }
+
+      return NAN;
+    }
+  }
+
+  v12 = *a1;
+  result = 0.0;
+  if (v12 - 48 <= 9)
+  {
+    v13 = 0;
+    do
+    {
+      v13 = 10 * v13 + v12 - 48;
+      v14 = *++a1;
+      v12 = v14;
+    }
+
+    while (v14 - 48 < 0xA);
+    result = v13;
+  }
+
+  if (v12 == 46)
+  {
+    v15 = *++a1;
+    v12 = v15;
+    v16 = 0.0;
+    if (v15 - 48 <= 9)
+    {
+      v17 = 0;
+      v18 = 0;
+      v19 = 1;
+      do
+      {
+        v20 = 10 * v18 + v12 - 48;
+        if (v17 < 0x13)
+        {
+          v19 *= 10;
+          v18 = v20;
+        }
+
+        ++v17;
+        v21 = *++a1;
+        v12 = v21;
+      }
+
+      while (v21 - 48 < 0xA);
+      v16 = v18 / v19;
+    }
+
+    result = result + v16;
+  }
+
+  if ((v12 | 0x20) != 0x65)
+  {
+    v23 = a1;
+    goto LABEL_77;
+  }
+
+  v22 = a1[1];
+  v23 = a1 + 2;
+  v24 = v22 == 45 || v22 == 43;
+  v25 = 1;
+  if (v24)
+  {
+    v25 = 2;
+  }
+
+  else
+  {
+    v23 = a1 + 1;
+  }
+
+  v12 = a1[v25];
+  v26 = 1.0;
+  if (v12 - 48 <= 9)
+  {
+    v27 = 0;
+    do
+    {
+      v27 = v12 + 10 * v27 - 48;
+      v28 = *++v23;
+      v12 = v28;
+    }
+
+    while (v28 - 48 < 0xA);
+    if (v27 >= 0x26)
+    {
+      v29 = 38;
+    }
+
+    else
+    {
+      v29 = v27;
+    }
+
+    if (v27 < 0x26)
+    {
+      v26 = 1.0;
+      if (v27 < 8)
+      {
+        goto LABEL_72;
+      }
+    }
+
+    else
+    {
+      v30 = 3.4028;
+      v31 = result > 3.4028;
+      if (v22 == 45)
+      {
+        v31 = result < 1.1755;
+        v30 = 1.1755;
+      }
+
+      if (v31)
+      {
+        result = v30;
+      }
+    }
+
+    v26 = 1.0;
+    do
+    {
+      v26 = v26 * 100000000.0;
+      v29 -= 8;
+    }
+
+    while (v29 > 7);
+LABEL_72:
+    while (v29)
+    {
+      v26 = v26 * 10.0;
+      --v29;
+    }
+  }
+
+  if (v22 == 45)
+  {
+    result = result / v26;
+  }
+
+  else
+  {
+    result = result * v26;
+  }
+
+LABEL_77:
+  if ((v12 | 0x20) == 0x66)
+  {
+    v32 = v23 + 1;
+  }
+
+  else
+  {
+    v32 = v23;
+  }
+
+  if (a2)
+  {
+    *a2 = v32;
+  }
+
+  if (!v3)
+  {
+    return -result;
+  }
+
+  return result;
 }

@@ -11,15 +11,15 @@
   {
     styleCopy = style;
     v5 = [self alloc];
-    v9 = objc_msgSend_initWithTextStyle_(v5, v6, styleCopy, v7, v8);
+    v8 = objc_msgSend_initWithTextStyle_(v5, v6, styleCopy, v7);
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  return v9;
+  return v8;
 }
 
 - (TSTTextStyleHandle)initWithTextStyle:(id)style
@@ -30,14 +30,14 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v12 = MEMORY[0x277D81150];
-      v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSTTextStyleHandle initWithTextStyle:]", v10, v11);
-      v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTextStyleHandle.m", v15, v16);
-      v18 = objc_opt_class();
-      v19 = NSStringFromClass(v18);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v20, v13, v17, 28, 0, "expected text style got %{public}@", v19);
+      v10 = MEMORY[0x277D81150];
+      v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSTTextStyleHandle initWithTextStyle:]", v9);
+      v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTextStyleHandle.m", v13);
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v17, v11, v14, 28, 0, "expected text style got %{public}@", v16);
 
-      objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v21, v22, v23, v24);
+      objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v18, v19, v20);
       selfCopy = 0;
       goto LABEL_22;
     }
@@ -45,56 +45,56 @@
 
   else
   {
-    v26 = MEMORY[0x277D81150];
-    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSTTextStyleHandle initWithTextStyle:]", v6, v7);
-    v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTextStyleHandle.m", v29, v30);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v32, v27, v31, 24, 0, "invalid nil value for '%{public}s'", "textStyle");
+    v22 = MEMORY[0x277D81150];
+    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSTTextStyleHandle initWithTextStyle:]", v6);
+    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTextStyleHandle.m", v25);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v27, v23, v26, 24, 0, "invalid nil value for '%{public}s'", "textStyle");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v33, v34, v35, v36);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29, v30);
   }
 
-  v77.receiver = self;
-  v77.super_class = TSTTextStyleHandle;
-  v37 = [(TSTTextStyleHandle *)&v77 init];
-  v38 = v37;
-  if (v37)
+  v63.receiver = self;
+  v63.super_class = TSTTextStyleHandle;
+  v31 = [(TSTTextStyleHandle *)&v63 init];
+  v32 = v31;
+  if (v31)
   {
-    objc_storeStrong(&v37->_textStyle, style);
-    v38->_isVariation = objc_msgSend_isVariation(styleCopy, v39, v40, v41, v42);
-    objc_msgSend_overrideCGFloatValueForProperty_(styleCopy, v43, 17, v44, v45);
-    v51 = v50;
-    v38->_fontSize = v50;
-    if (((*&v50 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 >= 0x3FF && (*&v50 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FF0000000000000 && *&v50 != 0xFFF0000000000000 && (*&v50 & 0x7FFFFFFFFFFFFFFFuLL) - 1 >= 0xFFFFFFFFFFFFFLL)
+    objc_storeStrong(&v31->_textStyle, style);
+    v32->_isVariation = objc_msgSend_isVariation(styleCopy, v33, v34, v35);
+    objc_msgSend_overrideCGFloatValueForProperty_(styleCopy, v36, 17, v37);
+    v42 = v41;
+    v32->_fontSize = v41;
+    if (((*&v41 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 >= 0x3FF && (*&v41 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FF0000000000000 && *&v41 != 0xFFF0000000000000 && (*&v41 & 0x7FFFFFFFFFFFFFFFuLL) - 1 >= 0xFFFFFFFFFFFFFLL)
     {
-      v38->_nonDefaultFontSize = 0;
+      v32->_nonDefaultFontSize = 0;
     }
 
     else
     {
-      v55 = objc_msgSend_parent(styleCopy, v46, v47, v48, v49);
-      objc_msgSend_CGFloatValueForProperty_(v55, v56, 17, v57, v58);
-      v38->_nonDefaultFontSize = v51 != v59;
+      v46 = objc_msgSend_parent(styleCopy, v38, v39, v40);
+      objc_msgSend_CGFloatValueForProperty_(v46, v47, 17, v48);
+      v32->_nonDefaultFontSize = v42 != v49;
     }
 
-    v60 = objc_msgSend_overrideValueForProperty_(styleCopy, v46, 16, v48, v49);
-    v38->_nonDefaultFontName = v60 != 0;
+    v50 = objc_msgSend_overrideValueForProperty_(styleCopy, v38, 16, v40);
+    v32->_nonDefaultFontName = v50 != 0;
 
-    v38->_direction = objc_msgSend_intValueForProperty_(styleCopy, v61, 44, v62, v63);
-    if (objc_msgSend_intValueForProperty_(styleCopy, v64, 49, v65, v66))
+    v32->_direction = objc_msgSend_intValueForProperty_(styleCopy, v51, 44, v52);
+    if (objc_msgSend_intValueForProperty_(styleCopy, v53, 49, v54))
     {
       objc_opt_class();
-      v70 = objc_msgSend_objectForProperty_(styleCopy, v67, 48, v68, v69);
-      v71 = TSUCheckedDynamicCast();
-      v38->_containsGradientThatFillsContainer = objc_msgSend_fillType(v71, v72, v73, v74, v75) == 1;
+      v57 = objc_msgSend_objectForProperty_(styleCopy, v55, 48, v56);
+      v58 = TSUCheckedDynamicCast();
+      v32->_containsGradientThatFillsContainer = objc_msgSend_fillType(v58, v59, v60, v61) == 1;
     }
 
     else
     {
-      v38->_containsGradientThatFillsContainer = 0;
+      v32->_containsGradientThatFillsContainer = 0;
     }
   }
 
-  self = v38;
+  self = v32;
   selfCopy = self;
 LABEL_22:
 

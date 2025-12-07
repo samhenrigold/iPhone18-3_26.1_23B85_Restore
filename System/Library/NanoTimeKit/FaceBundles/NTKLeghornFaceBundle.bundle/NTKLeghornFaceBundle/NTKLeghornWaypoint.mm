@@ -52,9 +52,9 @@
   colorCopy = color;
   textCopy = text;
   v24 = objc_msgSend_now(v15, v22, v23);
-  v27 = objc_msgSend_initWithLabelText_labelColor_glyphColor_fillColor_sfSymbolName_location_waypointCategory_timestampOfCreation_(self, v25, v26, textCopy, colorCopy, glyphColorCopy, fillColorCopy, nameCopy, locationCopy, category, v24);
+  v26 = objc_msgSend_initWithLabelText_labelColor_glyphColor_fillColor_sfSymbolName_location_waypointCategory_timestampOfCreation_(self, v25, textCopy, colorCopy, glyphColorCopy, fillColorCopy, nameCopy, locationCopy, category, v24);
 
-  return v27;
+  return v26;
 }
 
 - (NTKLeghornWaypoint)initWithLabelText:(id)text labelColor:(id)color sfSymbolName:(id)name location:(id)location waypointCategory:(unint64_t)category
@@ -66,9 +66,9 @@
   textCopy = text;
   v19 = objc_msgSend_blackColor(v12, v17, v18);
   v22 = objc_msgSend_now(MEMORY[0x277CBEAA8], v20, v21);
-  v25 = objc_msgSend_initWithLabelText_labelColor_glyphColor_fillColor_sfSymbolName_location_waypointCategory_timestampOfCreation_(self, v23, v24, textCopy, colorCopy, v19, colorCopy, nameCopy, locationCopy, category, v22);
+  v24 = objc_msgSend_initWithLabelText_labelColor_glyphColor_fillColor_sfSymbolName_location_waypointCategory_timestampOfCreation_(self, v23, textCopy, colorCopy, v19, colorCopy, nameCopy, locationCopy, category, v22);
 
-  return v25;
+  return v24;
 }
 
 - (NTKLeghornWaypoint)initWithLabelText:(id)text labelColor:(id)color sfSymbolName:(id)name location:(id)location timestampOfCreation:(id)creation
@@ -80,9 +80,9 @@
   colorCopy = color;
   textCopy = text;
   v20 = objc_msgSend_blackColor(v12, v18, v19);
-  v23 = objc_msgSend_initWithLabelText_labelColor_glyphColor_fillColor_sfSymbolName_location_waypointCategory_timestampOfCreation_(self, v21, v22, textCopy, colorCopy, v20, colorCopy, nameCopy, locationCopy, 0, creationCopy);
+  v22 = objc_msgSend_initWithLabelText_labelColor_glyphColor_fillColor_sfSymbolName_location_waypointCategory_timestampOfCreation_(self, v21, textCopy, colorCopy, v20, colorCopy, nameCopy, locationCopy, 0, creationCopy);
 
-  return v23;
+  return v22;
 }
 
 - (NTKLeghornWaypoint)initWithLabelText:(id)text labelColor:(id)color sfSymbolName:(id)name location:(id)location
@@ -92,8 +92,8 @@
   nameCopy = name;
   colorCopy = color;
   textCopy = text;
-  v16 = objc_msgSend_dateWithTimeIntervalSinceNow_(v10, v15, -259200.0);
-  v19 = objc_msgSend_initWithLabelText_labelColor_sfSymbolName_location_timestampOfCreation_(self, v17, v18, textCopy, colorCopy, nameCopy, locationCopy, v16);
+  v17 = objc_msgSend_dateWithTimeIntervalSinceNow_(v10, v15, v16, -259200.0);
+  v19 = objc_msgSend_initWithLabelText_labelColor_sfSymbolName_location_timestampOfCreation_(self, v18, textCopy, colorCopy, nameCopy, locationCopy, v17);
 
   return v19;
 }
@@ -103,23 +103,23 @@
   v4 = MEMORY[0x277D75348];
   symbolCopy = symbol;
   v8 = objc_msgSend_cyanColor(v4, v6, v7);
-  v11 = objc_msgSend_iconImageForSFSymbol_color_(self, v9, v10, symbolCopy, v8);
+  v10 = objc_msgSend_iconImageForSFSymbol_color_(self, v9, symbolCopy, v8);
 
-  return v11;
+  return v10;
 }
 
 - (UIImage)glyphImage
 {
   v3 = objc_msgSend_sfSymbolName(self, a2, v2);
   v4 = objc_opt_class();
-  v7 = objc_msgSend_iconImageForSFSymbol_(v4, v5, v6, v3);
+  v6 = objc_msgSend_iconImageForSFSymbol_(v4, v5, v3);
 
-  return v7;
+  return v6;
 }
 
 + (CGRect)adjustDrawRect:(CGRect)rect forSFSymbol:(id)symbol
 {
-  MEMORY[0x2821F9670](rect.origin.x);
+  MEMORY[0x2821F9670](MEMORY[0x277D755B8], sel_ntk_adjustDrawRect_forSFSymbolName_, symbol);
   result.size.height = v7;
   result.size.width = v6;
   result.origin.y = v5;
@@ -133,22 +133,22 @@
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v7 = objc_msgSend_sfSymbolName(self, a2, rect.origin.x);
-  v8 = objc_opt_class();
-  objc_msgSend_adjustDrawRect_forSFSymbol_(v8, v9, x, v7, y, width, height);
-  v11 = v10;
-  v13 = v12;
-  v15 = v14;
-  v17 = v16;
+  v8 = objc_msgSend_sfSymbolName(self, a2, v3);
+  v9 = objc_opt_class();
+  objc_msgSend_adjustDrawRect_forSFSymbol_(v9, v10, v8, x, y, width, height);
+  v12 = v11;
+  v14 = v13;
+  v16 = v15;
+  v18 = v17;
 
-  v18 = v11;
-  v19 = v13;
-  v20 = v15;
-  v21 = v17;
-  result.size.height = v21;
-  result.size.width = v20;
-  result.origin.y = v19;
-  result.origin.x = v18;
+  v19 = v12;
+  v20 = v14;
+  v21 = v16;
+  v22 = v18;
+  result.size.height = v22;
+  result.size.width = v21;
+  result.origin.y = v20;
+  result.origin.x = v19;
   return result;
 }
 
@@ -159,45 +159,45 @@
   v4 = 6;
   do
   {
-    v39 = 0;
+    v38 = 0;
+    v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
-    sub_23BEDD69C(&v37, v3);
+    sub_23BEDD69C(&v36, v3);
     v5 = objc_alloc(MEMORY[0x277CE41F8]);
-    v7 = objc_msgSend_initWithLatitude_longitude_(v5, v6, *&v37, *(&v37 + 1));
-    v8 = v39;
-    if (objc_msgSend_isEqualToString_(v8, v9, v10, @"green"))
+    v8 = objc_msgSend_initWithLatitude_longitude_(v5, v6, v7, v36);
+    v9 = v38;
+    if (objc_msgSend_isEqualToString_(v9, v10, @"green"))
     {
       v13 = objc_msgSend_greenColor(MEMORY[0x277D75348], v11, v12);
       goto LABEL_12;
     }
 
-    if (objc_msgSend_isEqualToString_(v8, v11, v12, @"red"))
+    if (objc_msgSend_isEqualToString_(v9, v11, @"red"))
     {
-      v13 = objc_msgSend_redColor(MEMORY[0x277D75348], v15, v16);
+      v13 = objc_msgSend_redColor(MEMORY[0x277D75348], v16, v17);
       goto LABEL_12;
     }
 
-    if (objc_msgSend_isEqualToString_(v8, v15, v16, @"yellow"))
+    if (objc_msgSend_isEqualToString_(v9, v16, @"yellow"))
     {
-      v13 = objc_msgSend_yellowColor(MEMORY[0x277D75348], v17, v18);
+      v13 = objc_msgSend_yellowColor(MEMORY[0x277D75348], v18, v19);
       goto LABEL_12;
     }
 
-    isEqualToString = objc_msgSend_isEqualToString_(v8, v17, v18, @"blue");
-    v20 = 1.0;
-    v21 = 0.466666667;
-    v22 = 0.564705882;
+    isEqualToString = objc_msgSend_isEqualToString_(v9, v18, @"blue");
+    v21 = 1.0;
+    v22 = 0.466666667;
+    v23 = 0.564705882;
     if (isEqualToString)
     {
       goto LABEL_9;
     }
 
-    if (objc_msgSend_isEqualToString_(v8, v14, 0.466666667, @"cyan", 0.564705882, 1.0))
+    if (objc_msgSend_isEqualToString_(v9, v14, @"cyan", 0.466666667, 0.564705882, 1.0))
     {
-      v13 = objc_msgSend_cyanColor(MEMORY[0x277D75348], v23, v24);
+      v13 = objc_msgSend_cyanColor(MEMORY[0x277D75348], v24, v25);
 LABEL_12:
-      v25 = v13;
+      v26 = v13;
       if (v13)
       {
         goto LABEL_14;
@@ -206,42 +206,42 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    v34 = objc_msgSend_isEqualToString_(v8, v23, v24, @"highlight");
-    v21 = 0.729411765;
-    v22 = 0.31372549;
-    v20 = 0.552941176;
-    if (v34)
+    v33 = objc_msgSend_isEqualToString_(v9, v24, @"highlight");
+    v22 = 0.729411765;
+    v23 = 0.31372549;
+    v21 = 0.552941176;
+    if (v33)
     {
 LABEL_9:
-      v13 = objc_msgSend_colorWithRed_green_blue_alpha_(MEMORY[0x277D75348], v14, v21, v22, v20, 1.0);
+      v13 = objc_msgSend_colorWithRed_green_blue_alpha_(MEMORY[0x277D75348], v14, v15, v22, v23, v21, 1.0);
       goto LABEL_12;
     }
 
 LABEL_13:
-    v25 = objc_msgSend_colorWithRed_green_blue_alpha_(MEMORY[0x277D75348], v14, 1.0, 0.623529412, 0.866666667, 1.0);
+    v26 = objc_msgSend_colorWithRed_green_blue_alpha_(MEMORY[0x277D75348], v14, v15, 1.0, 0.623529412, 0.866666667, 1.0);
 LABEL_14:
-    v26 = [NTKLeghornWaypoint alloc];
-    v29 = objc_msgSend_initWithLabelText_labelColor_sfSymbolName_location_(v26, v27, v28, v38, v25, *(&v38 + 1), v7);
-    objc_msgSend_addObject_(v2, v30, v31, v29);
+    v27 = [NTKLeghornWaypoint alloc];
+    v29 = objc_msgSend_initWithLabelText_labelColor_sfSymbolName_location_(v27, v28, v37, v26, *(&v37 + 1), v8);
+    objc_msgSend_addObject_(v2, v30, v29);
 
     v3 += 40;
     --v4;
   }
 
   while (v4);
-  v35 = objc_msgSend_copy(v2, v32, v33);
+  v34 = objc_msgSend_copy(v2, v31, v32);
 
-  return v35;
+  return v34;
 }
 
 + (id)testAppleParkLocation
 {
   v2 = CLLocationCoordinate2DMake(37.33416, -122.011406);
-  v4 = objc_msgSend_dateWithTimeIntervalSinceNow_(MEMORY[0x277CBEAA8], v3, -180.0);
-  v5 = objc_alloc(MEMORY[0x277CE41F8]);
-  v7 = objc_msgSend_initWithCoordinate_altitude_horizontalAccuracy_verticalAccuracy_timestamp_(v5, v6, v2.latitude, v4, v2.longitude, 50.0, 50.0, 10.0);
+  v5 = objc_msgSend_dateWithTimeIntervalSinceNow_(MEMORY[0x277CBEAA8], v3, v4, -180.0);
+  v6 = objc_alloc(MEMORY[0x277CE41F8]);
+  v8 = objc_msgSend_initWithCoordinate_altitude_horizontalAccuracy_verticalAccuracy_timestamp_(v6, v7, v5, v2.latitude, v2.longitude, 50.0, 50.0, 10.0);
 
-  return v7;
+  return v8;
 }
 
 @end

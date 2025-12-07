@@ -19,9 +19,12 @@
 - (void)_showAboutPrivacy:(id)privacy;
 - (void)_showPrivacySheet:(id)sheet;
 - (void)_updateTableHeaderTitle;
+- (void)deselectSelectedProviderAnimated:(BOOL)animated;
+- (void)dismissSearchControllerAnimated:(BOOL)animated completion:(id)completion;
 - (void)handleDestination:(id)destination completion:(id)completion;
 - (void)handleSignInActionWithCompletion:(id)completion;
 - (void)setCancellationAllowed:(BOOL)allowed;
+- (void)setLayoutMarginsFollowReadableWidth:(BOOL)width;
 - (void)setRequestedStorefrontCountryCode:(id)code defaultToDeveloperProviders:(BOOL)providers;
 - (void)setRequestingAppDisplayName:(id)name;
 - (void)setResourceTitle:(id)title;
@@ -30,6 +33,7 @@
 - (void)showPrivacySheet:(id)sheet;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)tableViewDidFinishReload:(id)reload;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
 - (void)willMoveToParentViewController:(id)controller;
@@ -39,10 +43,10 @@
 
 - (VSIdentityProviderPickerViewController_iOS)initWithStyle:(int64_t)style
 {
-  v50[1] = *MEMORY[0x277D85DE8];
-  v49.receiver = self;
-  v49.super_class = VSIdentityProviderPickerViewController_iOS;
-  v3 = [(VSIdentityProviderPickerViewController_iOS *)&v49 initWithStyle:style];
+  v49[1] = *MEMORY[0x277D85DE8];
+  v48.receiver = self;
+  v48.super_class = VSIdentityProviderPickerViewController_iOS;
+  v3 = [(VSIdentityProviderPickerViewController_iOS *)&v48 initWithStyle:style];
   v4 = v3;
   if (v3)
   {
@@ -125,12 +129,11 @@
     [(VSIdentityProviderTableViewDataSource *)v42 vs_bind:@"tvProviderSupportedStorefronts" toObject:v43 withKeyPath:@"filteredStorefronts" options:v44];
 
     [(VSIdentityProviderPickerViewController_iOS *)v4 setDefinesPresentationContext:1];
-    v50[0] = objc_opt_class();
-    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:1];
+    v49[0] = objc_opt_class();
+    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:1];
     v46 = [(VSIdentityProviderPickerViewController_iOS *)v4 registerForTraitChanges:v45 withHandler:&__block_literal_global_15];
   }
 
-  v47 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -453,6 +456,23 @@ LABEL_9:
   [(VSIdentityProviderPickerViewController_iOS *)self _updateTableHeaderTitle];
 }
 
+- (void)dismissSearchControllerAnimated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  searchController = [(VSIdentityProviderPickerViewController_iOS *)self searchController];
+  [searchController resignFirstResponder];
+
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __89__VSIdentityProviderPickerViewController_iOS_dismissSearchControllerAnimated_completion___block_invoke;
+  v9[3] = &unk_279E1A470;
+  v9[4] = self;
+  v10 = completionCopy;
+  v8 = completionCopy;
+  [(VSIdentityProviderPickerViewController_iOS *)self dismissViewControllerAnimated:animatedCopy completion:v9];
+}
+
 - (void)_cancelButtonPressed:(id)pressed
 {
   delegate = [(VSIdentityProviderPickerViewController_iOS *)self delegate];
@@ -577,6 +597,42 @@ LABEL_6:
   return searchController;
 }
 
+- (void)deselectSelectedProviderAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v15 = *MEMORY[0x277D85DE8];
+  tableView = [(VSIdentityProviderPickerViewController_iOS *)self tableView];
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  indexPathsForSelectedRows = [tableView indexPathsForSelectedRows];
+  v6 = [indexPathsForSelectedRows countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v11;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v11 != v8)
+        {
+          objc_enumerationMutation(indexPathsForSelectedRows);
+        }
+
+        [tableView deselectRowAtIndexPath:*(*(&v10 + 1) + 8 * v9++) animated:animatedCopy];
+      }
+
+      while (v7 != v9);
+      v7 = [indexPathsForSelectedRows countByEnumeratingWithState:&v10 objects:v14 count:16];
+    }
+
+    while (v7);
+  }
+}
+
 - (void)viewDidLoad
 {
   v35.receiver = self;
@@ -682,6 +738,14 @@ LABEL_6:
   }
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = VSIdentityProviderPickerViewController_iOS;
+  [(VSIdentityProviderPickerViewController_iOS *)&v4 viewDidAppear:appear];
+  [(VSIdentityProviderPickerViewController_iOS *)self setReadyToHandleDeepLinks:1];
+}
+
 - (id)tableView:(id)view viewForFooterInSection:(int64_t)section
 {
   if ([view numberOfSections] - 1 == section)
@@ -703,6 +767,16 @@ LABEL_6:
   tableView = [filteredDataSource tableView];
 
   return tableView;
+}
+
+- (void)setLayoutMarginsFollowReadableWidth:(BOOL)width
+{
+  widthCopy = width;
+  tableView = [(VSIdentityProviderPickerViewController_iOS *)self tableView];
+  [tableView setLayoutMarginsFollowReadableWidth:widthCopy];
+
+  filteredTableView = [(VSIdentityProviderPickerViewController_iOS *)self filteredTableView];
+  [filteredTableView setLayoutMarginsFollowReadableWidth:widthCopy];
 }
 
 - (void)setSectionContentInset:(UIEdgeInsets)inset
@@ -760,35 +834,9 @@ LABEL_6:
     v5 = 1;
   }
 
-  else
+  else if (!_os_feature_enabled_impl() || ([view frame], Width = CGRectGetWidth(v13), objc_msgSend(MEMORY[0x277CBEB98], "setWithObjects:", *MEMORY[0x277D76820], *MEMORY[0x277D76818], 0), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(traitCollection, "preferredContentSizeCategory"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "containsObject:", v8), v8, v7, v10 = objc_msgSend(traitCollection, "horizontalSizeClass"), Width <= 320.0) && (v9 & 1) != 0 || (v10 != 2 ? (v11 = 1) : (v11 = Width <= 320.0), (v5 = 1, v11 || (v9 & 1) == 0) && (Width <= 320.0) | v9 & 1))
   {
-    if (!_os_feature_enabled_impl())
-    {
-      goto LABEL_11;
-    }
-
-    [view frame];
-    Width = CGRectGetWidth(v13);
-    v7 = [MEMORY[0x277CBEB98] setWithObjects:{*MEMORY[0x277D76820], *MEMORY[0x277D76818], 0}];
-    preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
-    v9 = [v7 containsObject:preferredContentSizeCategory];
-
-    horizontalSizeClass = [traitCollection horizontalSizeClass];
-    if (Width <= 320.0 && (v9 & 1) != 0)
-    {
-      goto LABEL_11;
-    }
-
-    v11 = horizontalSizeClass != 2 || Width <= 320.0;
-    v5 = 1;
-    if (v11 || (v9 & 1) == 0)
-    {
-      if ((Width <= 320.0) | v9 & 1)
-      {
-LABEL_11:
-        v5 = 0;
-      }
-    }
+    v5 = 0;
   }
 
   return v5;

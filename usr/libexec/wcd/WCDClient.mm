@@ -45,9 +45,11 @@
 - (void)removeOutstandingMessage:(id)message;
 - (void)removeProgressForFileTransfer:(id)transfer;
 - (void)sendMessage:(id)message clientPairingID:(id)d acceptanceHandler:(id)handler;
+- (void)sessionReadyForInitialStateForClientPairingID:(id)d supportsActiveDeviceSwitch:(BOOL)switch withErrorHandler:(id)handler;
 - (void)setClientCurrentPairingID:(id)d;
 - (void)setConnection:(id)connection;
 - (void)setCounterpartCanEstablishXPCConnection:(BOOL)connection;
+- (void)setPrivileged:(BOOL)privileged;
 - (void)setupBundleIDMonitoring;
 - (void)systemObserverActiveDeviceConnectedChanged;
 - (void)systemObserverActiveDeviceSwitchStarted;
@@ -136,52 +138,29 @@
 
 - (NSString)state
 {
+  v28 = 0;
   v3 = objc_opt_class();
-  v16 = NSStringFromClass(v3);
-  NSAppendPrintF();
-  v4 = 0;
+  v4 = NSStringFromClass(v3);
+  NSAppendPrintF(&v28, "%@\n", v4);
+  v5 = v28;
 
+  v27 = v5;
   communicationID = [(WCDClient *)self communicationID];
-  NSAppendPrintF();
-  v5 = v4;
+  NSAppendPrintF(&v27, "%@Communication ID: %@\n", @"    ", communicationID);
+  v7 = v27;
 
-  v18 = [(WCDClient *)self bundleID:@"    "];
-  NSAppendPrintF();
-  v6 = v5;
+  v26 = v7;
+  bundleID = [(WCDClient *)self bundleID];
+  NSAppendPrintF(&v26, "%@Bundle ID: %@\n", @"    ", bundleID);
+  v9 = v26;
 
-  v19 = [(WCDClient *)self clientCurrentPairingID:@"    "];
-  NSAppendPrintF();
-  v7 = v6;
+  v25 = v9;
+  clientCurrentPairingID = [(WCDClient *)self clientCurrentPairingID];
+  NSAppendPrintF(&v25, "%@Client Current Pairing ID: %@\n", @"    ", clientCurrentPairingID);
+  v11 = v25;
 
-  if ([(WCDClient *)self clientSupportsActiveDeviceSwitch:@"    "])
-  {
-    v8 = "YES";
-  }
-
-  else
-  {
-    v8 = "NO";
-  }
-
-  v20 = v8;
-  NSAppendPrintF();
-  v9 = v7;
-
-  if ([(WCDClient *)self watchAppInstalled:@"    "])
-  {
-    v10 = "YES";
-  }
-
-  else
-  {
-    v10 = "NO";
-  }
-
-  v21 = v10;
-  NSAppendPrintF();
-  v11 = v9;
-
-  if ([(WCDClient *)self complicationEnabled:@"    "])
+  v24 = v11;
+  if ([(WCDClient *)self clientSupportsActiveDeviceSwitch])
   {
     v12 = "YES";
   }
@@ -191,15 +170,43 @@
     v12 = "NO";
   }
 
-  v22 = v12;
-  NSAppendPrintF();
-  v13 = v11;
+  NSAppendPrintF(&v24, "%@Client Supports Active Device Switch: %s\n", @"    ", v12);
+  v13 = v24;
 
-  [(WCDClient *)self outstandingMessagesToSendCount:@"    "];
-  NSAppendPrintF();
-  v14 = v13;
+  v23 = v13;
+  if ([(WCDClient *)self watchAppInstalled])
+  {
+    v14 = "YES";
+  }
 
-  return v13;
+  else
+  {
+    v14 = "NO";
+  }
+
+  NSAppendPrintF(&v23, "%@Watch App Installed: %s\n", @"    ", v14);
+  v15 = v23;
+
+  v22 = v15;
+  if ([(WCDClient *)self complicationEnabled])
+  {
+    v16 = "YES";
+  }
+
+  else
+  {
+    v16 = "NO";
+  }
+
+  NSAppendPrintF(&v22, "%@Complication Enabled: %s\n", @"    ", v16);
+  v17 = v22;
+
+  v21 = v17;
+  NSAppendPrintF(&v21, "%@Outstanding Messages To Send Count: %d\n", @"    ", [(WCDClient *)self outstandingMessagesToSendCount]);
+  v18 = v21;
+  v19 = v21;
+
+  return v18;
 }
 
 - (void)setupBundleIDMonitoring
@@ -490,6 +497,16 @@ LABEL_7:
   }
 }
 
+- (void)setPrivileged:(BOOL)privileged
+{
+  if (![(WCDClient *)self privilegedCalled])
+  {
+    [(WCDClient *)self setPrivilegedCalled:1];
+
+    [(WCDClient *)self updateClientWithSessionState];
+  }
+}
+
 - (BOOL)watchAppInstalled
 {
   applicationInfo = [(WCDClient *)self applicationInfo];
@@ -517,9 +534,9 @@ LABEL_7:
     return 0;
   }
 
-  sharedComplication = [(objc_class *)off_1000546C8() sharedComplication];
+  v4 = [off_1000546C8(self a2)];
   bundleID = [(WCDClient *)self bundleID];
-  v6 = [sharedComplication remainingPushesOnComplicationForiOSApplicationWithBundleID:bundleID];
+  v6 = [v4 remainingPushesOnComplicationForiOSApplicationWithBundleID:bundleID];
 
   return v6;
 }
@@ -777,6 +794,126 @@ LABEL_7:
       }
     }
   }
+}
+
+- (void)sessionReadyForInitialStateForClientPairingID:(id)d supportsActiveDeviceSwitch:(BOOL)switch withErrorHandler:(id)handler
+{
+  switchCopy = switch;
+  dCopy = d;
+  (*(handler + 2))(handler, 0);
+  [(WCDClient *)self setPendingContentDequeued:0];
+  [(WCDClient *)self setClientSupportsActiveDeviceSwitch:switchCopy];
+  v9 = +[WCDSystemMonitor sharedSystemMonitor];
+  pairingID = [v9 pairingID];
+  v11 = wc_log();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    loggingIdentifier = [(WCDClient *)self loggingIdentifier];
+    clientSupportsActiveDeviceSwitch = [(WCDClient *)self clientSupportsActiveDeviceSwitch];
+    v14 = "NO";
+    *v27 = 138544130;
+    *&v27[12] = 2080;
+    *&v27[4] = loggingIdentifier;
+    if (clientSupportsActiveDeviceSwitch)
+    {
+      v14 = "YES";
+    }
+
+    *&v27[14] = v14;
+    v28 = 2114;
+    v29 = dCopy;
+    v30 = 2114;
+    v31 = pairingID;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: client supports switch: %s, client pairingID: %{public}@, system pairingID: %{public}@", v27, 0x2Au);
+  }
+
+  if (dCopy)
+  {
+    [(WCDClient *)self setClientCurrentPairingID:dCopy];
+    if ([v9 initialSetUpComplete] && !pairingID)
+    {
+      v15 = wc_log();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      {
+        loggingIdentifier2 = [(WCDClient *)self loggingIdentifier];
+        *v27 = 138543362;
+        *&v27[4] = loggingIdentifier2;
+        v17 = "%{public}@: unpair occurred";
+LABEL_17:
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, v17, v27, 0xCu);
+
+        goto LABEL_18;
+      }
+
+      goto LABEL_18;
+    }
+
+    v22 = [(WCDClient *)self clientCurrentPairingID:*v27];
+    v23 = [v22 isEqual:pairingID];
+
+    v15 = wc_log();
+    v24 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+    if (v23)
+    {
+      if (v24)
+      {
+        loggingIdentifier2 = [(WCDClient *)self loggingIdentifier];
+        *v27 = 138543362;
+        *&v27[4] = loggingIdentifier2;
+        v17 = "%{public}@: pairingIDs match. activating for currently active counterpart";
+        goto LABEL_17;
+      }
+
+LABEL_18:
+
+LABEL_19:
+      [(WCDClient *)self updateClientWithSessionState:*v27];
+      goto LABEL_26;
+    }
+
+    if (v24)
+    {
+      loggingIdentifier3 = [(WCDClient *)self loggingIdentifier];
+      *v27 = 138543362;
+      *&v27[4] = loggingIdentifier3;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: switch had started", v27, 0xCu);
+    }
+
+    [(WCDClient *)self handleActiveDeviceSwitchStarted];
+  }
+
+  else
+  {
+    initialSetUpComplete = [v9 initialSetUpComplete];
+    v19 = wc_log();
+    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+    if (initialSetUpComplete)
+    {
+      if (v20)
+      {
+        loggingIdentifier4 = [(WCDClient *)self loggingIdentifier];
+        *v27 = 138543362;
+        *&v27[4] = loggingIdentifier4;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: activating for currently active counterpart", v27, 0xCu);
+      }
+
+      [(WCDClient *)self setClientCurrentPairingID:pairingID];
+      goto LABEL_19;
+    }
+
+    if (v20)
+    {
+      loggingIdentifier5 = [(WCDClient *)self loggingIdentifier];
+      *v27 = 138543362;
+      *&v27[4] = loggingIdentifier5;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: activating for currently active counterpart; awaiting initial set up complete", v27, 0xCu);
+    }
+
+    [(WCDClient *)self setClientCurrentPairingID:0];
+    [v9 retrySetupInitialStateIfNeeded];
+  }
+
+LABEL_26:
 }
 
 - (void)handleActiveDeviceSwitchStarted
@@ -1291,7 +1428,7 @@ LABEL_17:
   v13 = connection;
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else

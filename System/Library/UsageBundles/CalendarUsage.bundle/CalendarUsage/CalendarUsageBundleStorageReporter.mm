@@ -10,25 +10,26 @@
 
 - (CalendarUsageBundleStorageReporter)init
 {
-  v8.receiver = self;
-  v8.super_class = CalendarUsageBundleStorageReporter;
-  v2 = [(CalendarUsageBundleStorageReporter *)&v8 init];
+  v10.receiver = self;
+  v10.super_class = CalendarUsageBundleStorageReporter;
+  v2 = [(CalendarUsageBundleStorageReporter *)&v10 init];
+  v4 = v2;
   if (v2)
   {
-    sub_13F8();
-    v3 = qword_8750;
+    sub_13F8(v2, v3);
+    v5 = qword_8750;
     if (os_log_type_enabled(qword_8750, OS_LOG_TYPE_DEBUG))
     {
-      v4 = v3;
-      v5 = objc_opt_class();
-      v6 = NSStringFromClass(v5);
+      v6 = v5;
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
       *buf = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEBUG, "Initializing %@", buf, 0xCu);
+      v12 = v8;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEBUG, "Initializing %@", buf, 0xCu);
     }
   }
 
-  return v2;
+  return v4;
 }
 
 - (void)populateUsageBundleApps

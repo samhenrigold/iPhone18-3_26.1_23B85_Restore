@@ -17,7 +17,6 @@
 
 - (void)cancel
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC20PreviewsFoundationOS19ObjcSingleFireEvent_event);
   selfCopy = self;
   SingleFireEvent.cancel()();
 }
@@ -28,13 +27,15 @@
   v5 = *(&self->super.isa + OBJC_IVAR____TtC20PreviewsFoundationOS19ObjcSingleFireEvent_event);
   _Block_copy(v4);
   selfCopy = self;
-  sub_25F2FBB88(v5, v4, &v8);
-  v7 = v8;
-  if (v8)
+  sub_25F2FBB88(v5, v4, v10);
+  v7 = v10[0];
+  if (v10[0])
   {
-    sub_25F2FC288(&v8);
+    v9 = v10[1];
+    v8 = v10[2];
+    sub_25F2FC288(v10);
     _Block_release(v4);
-    sub_25F1DF100(v7);
+    sub_25F1DF100(v7, v9, v8);
   }
 
   else
@@ -49,9 +50,10 @@
   selfCopy = self;
   os_unfair_lock_lock((v2 + 32));
   v4 = *(v2 + 16);
-  sub_25F2C403C(v4);
+  v5 = *(v2 + 24);
+  sub_25F2C403C(v4, v5);
   os_unfair_lock_unlock((v2 + 32));
-  sub_25F2C4080(v4);
+  sub_25F2C4080(v4, v5);
 
   return v4 == 0;
 }

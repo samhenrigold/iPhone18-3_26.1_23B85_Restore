@@ -71,7 +71,7 @@
 
 - (id)loadMetadata
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   resourceURL = [v3 resourceURL];
   if (self)
@@ -103,25 +103,23 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v15 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v15;
-      v20 = 2112;
-      v21 = v7;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot find user settings resource at: %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v15;
+      v19 = 2112;
+      v20 = v7;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot find user settings resource at: %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
     v11 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)settingValueForValue:(id)value type:(id)type constraintModels:(id)models error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   modelsCopy = models;
   v11 = valueCopy;
@@ -181,25 +179,25 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v17 = v12;
-  v15 = [v17 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v15 = [v17 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v15)
   {
-    v18 = *v28;
+    v18 = *v27;
     while (2)
     {
       for (i = 0; i != v15; i = i + 1)
       {
-        if (*v28 != v18)
+        if (*v27 != v18)
         {
           objc_enumerationMutation(v17);
         }
 
-        v20 = *(*(&v27 + 1) + 8 * i);
+        v20 = *(*(&v26 + 1) + 8 * i);
         stringValue = [v20 stringValue];
         v22 = [stringValue isEqualToString:v11];
 
@@ -214,7 +212,7 @@ LABEL_23:
         }
       }
 
-      v15 = [v17 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v15 = [v17 countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v15)
       {
         continue;
@@ -238,14 +236,12 @@ LABEL_27:
 
 LABEL_29:
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (id)settingModelForUpdateWithIdentifier:(id)identifier parentIdentifier:(id)parentIdentifier value:(id)value
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   parentIdentifierCopy = parentIdentifier;
   valueCopy = value;
@@ -263,16 +259,14 @@ LABEL_29:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v16;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Unable to set value on model", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = v16;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Unable to set value on model", &v18, 0xCu);
     }
 
     objc_autoreleasePoolPop(v13);
     v12 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -343,7 +337,7 @@ LABEL_29:
     objc_storeStrong(&v22->_metadataFileName, fileName);
     objc_storeStrong(&v22->_codingKey, key);
     objc_storeWeak(&v22->_migrationProvider, providerCopy);
-    v29 = [pruneCopy copy];
+    v29 = objc_msgSend_copy(pruneCopy);
     keyPathsToPrune = v22->_keyPathsToPrune;
     v22->_keyPathsToPrune = v29;
   }

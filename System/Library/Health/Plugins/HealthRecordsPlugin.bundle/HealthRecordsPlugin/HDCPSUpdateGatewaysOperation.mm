@@ -91,9 +91,7 @@
 
 - (void)didRefreshGateways:(id)gateways
 {
-  v4 = [gateways copy];
-  gateways = self->_gateways;
-  self->_gateways = v4;
+  self->_gateways = [gateways copy];
 
   _objc_release_x1();
 }

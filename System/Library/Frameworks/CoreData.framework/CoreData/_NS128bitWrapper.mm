@@ -7,12 +7,10 @@
 
 - (id)description
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   bits = self->bits;
   uuid_unparse(&bits, out);
-  result = [MEMORY[0x1E696AEC0] stringWithUTF8String:out];
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  return [MEMORY[0x1E696AEC0] stringWithUTF8String:out];
 }
 
 - (int64_t)compare:(id)compare

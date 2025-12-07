@@ -24,7 +24,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_1A47A76C4();
+  sub_1A47A76C4(selfCopy);
 }
 
 - (_TtC12PhotosUICore42MapOptionsChooseMapContainerViewController)initWithNibName:(id)name bundle:(id)bundle

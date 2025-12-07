@@ -2,6 +2,7 @@
 - (timespec)sr_credit_timesent;
 - (timespec)sr_timesent;
 - (void)dealloc;
+- (void)smb_rq_callback:(int)smb_rq_callback;
 - (void)smb_rq_done;
 @end
 
@@ -14,6 +15,17 @@
   v3.receiver = self;
   v3.super_class = SMB_rq;
   [(SMB_rq *)&v3 dealloc];
+}
+
+- (void)smb_rq_callback:(int)smb_rq_callback
+{
+  sr_callback = self->_sr_callback;
+  if (sr_callback)
+  {
+    sr_callback[2](sr_callback, *&smb_rq_callback);
+    v5 = self->_sr_callback;
+    self->_sr_callback = 0;
+  }
 }
 
 - (void)smb_rq_done

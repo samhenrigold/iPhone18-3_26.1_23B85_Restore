@@ -44,7 +44,7 @@
 
 - (Class)layoutClass
 {
-  sub_100006370(0, &unk_101A09280);
+  sub_100006370(0, &unk_101A09280, off_10182F8E0);
 
   return swift_getObjCClassFromMetadata();
 }

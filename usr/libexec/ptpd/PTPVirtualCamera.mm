@@ -2,22 +2,36 @@
 - (BOOL)hostIsLegacyOS;
 - (BOOL)hostIsMacOS;
 - (BOOL)hostIsWindows;
+- (BOOL)removeStorageWithID:(unsigned int)d;
 - (BOOL)visibleStorage:(id)storage;
 - (BOOL)willOverrideCapabilities;
 - (NSString)userAssignedName;
 - (PTPVirtualCamera)initWithName:(id)name andPath:(id)path;
 - (id)allStorages;
+- (id)dataSourceForObjectHandle:(unsigned int)handle responseCode:(unsigned __int16 *)code size:(unsigned int *)size;
 - (id)delegate;
 - (id)devicePropDescDatasetForProperty:(unsigned __int16)property;
 - (id)devicePropValueForProperty:(unsigned __int16)property;
+- (id)embeddedMetadataForObjectHandle:(unsigned int)handle responseCode:(unsigned __int16 *)code;
 - (id)objectForObjectHandle:(id)handle;
+- (id)objectHandlesInStorage:(unsigned int)storage forObjectFormatCode:(unsigned __int16)code inAssociation:(unsigned int)association responseCode:(unsigned __int16 *)responseCode;
+- (id)objectInfoDatasetForObjectHandle:(unsigned int)handle;
+- (id)objectInfoForNextObjectGroupInStorage:(unsigned int)storage responseCode:(unsigned __int16 *)code;
+- (id)objectInfoForObjectsInStorage:(unsigned int)storage forObjectFormatCode:(unsigned __int16)code inAssociation:(unsigned int)association withContentType:(int)type responseCode:(unsigned __int16 *)responseCode;
+- (id)objectInfosForObjectsInGroup:(unsigned int)group forObjectFormatCode:(unsigned __int16)code inAssociation:(unsigned int)association withContentType:(int)type responseCode:(unsigned __int16 *)responseCode;
 - (id)objectPropDescForObjectPropertyCode:(unsigned __int16)code responseCode:(unsigned __int16 *)responseCode;
+- (id)objectPropListForHandle:(unsigned int)handle withObjectFormatCode:(unsigned int)code andPropertyCode:(unsigned int)propertyCode andPropertyGroup:(unsigned int)group andDepth:(unsigned int)depth responseCode:(unsigned __int16 *)responseCode;
+- (id)objectPropValueForHandle:(unsigned int)handle withObjectPropertyCode:(unsigned __int16)code responseCode:(unsigned __int16 *)responseCode;
 - (id)objectPropertiesSupportedForObjectFormatCode:(unsigned __int16)code responseCode:(unsigned __int16 *)responseCode;
 - (id)overrideCapabilities;
+- (id)pathObjectInfoForObjectsInStorage:(unsigned int)storage forObjectFormatCode:(unsigned __int16)code inAssociation:(unsigned int)association withContentType:(int)type responseCode:(unsigned __int16 *)responseCode;
 - (id)photoStorageAvailable;
+- (id)storageInfoDatasetForStorageID:(unsigned int)d;
 - (id)storageWithID:(unsigned int)d;
+- (id)thumbnailForObjectHandle:(unsigned int)handle maxPixelSize:(unsigned int)size responseCode:(unsigned __int16 *)code;
 - (int64_t)transferBehaviorUserPreference;
 - (unsigned)numDownloadableObjects;
+- (unsigned)orientationForObjectHandle:(unsigned int)handle;
 - (void)addStorage:(id)storage;
 - (void)addedPhotoKeys:(id)keys deletedPhotoKeys:(id)photoKeys changedPhotoKeys:(id)changedPhotoKeys changePendingPhotoKeys:(id)pendingPhotoKeys;
 - (void)assignHostMediaCapabilities:(id)capabilities;
@@ -25,6 +39,8 @@
 - (void)cleanupStorageAfterTimeout:(double)timeout cleanup:(id)cleanup;
 - (void)closeSession;
 - (void)dealloc;
+- (void)deleteObjectWithObjectHandle:(unsigned int)handle responseCode:(unsigned __int16 *)code;
+- (void)generatePTPEventsForAddedObjectGroupInStorage:(unsigned int)storage;
 - (void)generatePTPEventsForAddedObjectHandles:(id)handles;
 - (void)generatePTPEventsForDeletedObjectHandles:(id)handles;
 - (void)handleInternalSettingsChanged;
@@ -39,7 +55,9 @@
 - (void)removeSecurity;
 - (void)removeStorages;
 - (void)resetPhotoStorage;
+- (void)sendEventAddStorageWithID:(unsigned int)d;
 - (void)sendEventDeviceUnlocked;
+- (void)sendEventRemoveStorageWithID:(unsigned int)d;
 - (void)setHostSupportsGroups:(BOOL)groups;
 - (void)setupStorageAfterTimeout:(id)timeout;
 - (void)startObservers;
@@ -55,9 +73,9 @@
 {
   nameCopy = name;
   pathCopy = path;
-  v61.receiver = self;
-  v61.super_class = PTPVirtualCamera;
-  v9 = [(PTPVirtualCamera *)&v61 init];
+  v62.receiver = self;
+  v62.super_class = PTPVirtualCamera;
+  v9 = [(PTPVirtualCamera *)&v62 init];
   v10 = v9;
   if (v9)
   {
@@ -152,28 +170,29 @@
 
     [(PTPVirtualCamera *)v10 updateUserAssignedName];
     [(PTPVirtualCamera *)v10 updateDeviceInformation];
-    v10->_notificationCenter = CFNotificationCenterGetDarwinNotifyCenter();
-    v51 = sub_10000C470();
-    v52 = [v51 cplStorageState] != 0;
-    cplStorageState = [v51 cplStorageState];
-    v54 = MGCopyAnswer();
-    v55 = [NSString stringWithFormat:@"ICPE^%d&CPLS^%lu", v52, cplStorageState];
-    if (v54)
+    DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+    v10->_notificationCenter = DarwinNotifyCenter;
+    v52 = sub_10000C470(DarwinNotifyCenter);
+    v53 = [v52 cplStorageState] != 0;
+    cplStorageState = [v52 cplStorageState];
+    v55 = MGCopyAnswer();
+    v56 = [NSString stringWithFormat:@"ICPE^%d&CPLS^%lu", v53, cplStorageState];
+    if (v55)
     {
-      v56 = [NSString stringWithFormat:@"%@&ASN^%@", v55, v54];
+      v57 = [NSString stringWithFormat:@"%@&ASN^%@", v56, v55];
 
-      v55 = v56;
+      v56 = v57;
     }
 
-    [(PTPDeviceInfoDataset *)v10->_deviceInfoDataset setVendorExtensionDescription:v55];
+    [(PTPDeviceInfoDataset *)v10->_deviceInfoDataset setVendorExtensionDescription:v56];
     [(PTPVirtualCamera *)v10 initializeMTPProperties];
     qword_1000403B8 = [(PTPVirtualCamera *)v10 transferBehaviorUserPreference];
-    v57 = [PTPStorage alloc];
-    v58 = [(PTPStorage *)v57 initWithParent:v10 andOptionalID:dword_1000401D0 forSessionID:0];
+    v58 = [PTPStorage alloc];
+    v59 = [(PTPStorage *)v58 initWithParent:v10 andOptionalID:dword_1000401D0 forSessionID:0];
     placeholderStorage = v10->_placeholderStorage;
-    v10->_placeholderStorage = v58;
+    v10->_placeholderStorage = v59;
 
-    [v51 setDelegate:v10];
+    [v52 setDelegate:v10];
     [(PTPVirtualCamera *)v10 startObservers];
   }
 
@@ -232,7 +251,6 @@
   v15 = MGCopyAnswer();
   if (v15)
   {
-    productType = self->_productType;
     self->_productType = v15;
 
     _objc_release_x1();
@@ -241,8 +259,7 @@
 
 - (void)dealloc
 {
-  [(PTPVirtualCamera *)self assignHostMediaCapabilities:0];
-  v3 = sub_10000C470();
+  v3 = sub_10000C470([(PTPVirtualCamera *)self assignHostMediaCapabilities:0]);
   delegate = [v3 delegate];
 
   __ICOSLogCreate();
@@ -725,6 +742,127 @@
   }
 }
 
+- (void)sendEventAddStorageWithID:(unsigned int)d
+{
+  v3 = *&d;
+  __ICOSLogCreate();
+  v5 = &stru_100038B48;
+  if ([&stru_100038B48 length] >= 0x15)
+  {
+    v6 = [&stru_100038B48 substringWithRange:{0, 18}];
+    v5 = [v6 stringByAppendingString:@".."];
+  }
+
+  v7 = [NSString stringWithFormat:@"Add Storage: 0x%x\n", v3];
+  v8 = _gICOSLog;
+  if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = v5;
+    v10 = v8;
+    *buf = 136446466;
+    uTF8String = [(__CFString *)v5 UTF8String];
+    v16 = 2114;
+    v17 = v7;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+  }
+
+  v11 = [NSNumber numberWithInt:v3];
+  v12 = NSSelectorFromString(@"reportStorageAdded:");
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained performSelector:v12 withObject:v11];
+}
+
+- (BOOL)removeStorageWithID:(unsigned int)d
+{
+  v4 = [(PTPVirtualCamera *)self storageWithID:*&d];
+  if (v4)
+  {
+    __ICOSLogCreate();
+    v5 = &stru_100038B48;
+    if ([&stru_100038B48 length] >= 0x15)
+    {
+      v6 = [&stru_100038B48 substringWithRange:{0, 18}];
+      v5 = [v6 stringByAppendingString:@".."];
+    }
+
+    v7 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"Storage 0x%x is being removed", [v4 storageID]);
+    v8 = _gICOSLog;
+    if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = v5;
+      v10 = v8;
+      *buf = 136446466;
+      uTF8String = [(__CFString *)v5 UTF8String];
+      v23 = 2114;
+      v24 = v7;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    }
+
+    storages = self->_storages;
+    v12 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v4 storageID]);
+    [(NSMutableDictionary *)storages removeObjectForKey:v12];
+
+    __ICOSLogCreate();
+    v13 = &stru_100038B48;
+    if ([&stru_100038B48 length] >= 0x15)
+    {
+      v14 = [&stru_100038B48 substringWithRange:{0, 18}];
+      v13 = [v14 stringByAppendingString:@".."];
+    }
+
+    v15 = [NSString stringWithFormat:@"Storage count is now: %lu", [(NSMutableDictionary *)self->_storages count]];
+    v16 = _gICOSLog;
+    if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = v13;
+      v18 = v16;
+      uTF8String2 = [(__CFString *)v13 UTF8String];
+      *buf = 136446466;
+      uTF8String = uTF8String2;
+      v23 = 2114;
+      v24 = v15;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    }
+  }
+
+  return v4 != 0;
+}
+
+- (void)sendEventRemoveStorageWithID:(unsigned int)d
+{
+  v3 = *&d;
+  v5 = [(PTPVirtualCamera *)self storageWithID:?];
+
+  if (v5)
+  {
+    __ICOSLogCreate();
+    v6 = &stru_100038B48;
+    if ([&stru_100038B48 length] >= 0x15)
+    {
+      v7 = [&stru_100038B48 substringWithRange:{0, 18}];
+      v6 = [v7 stringByAppendingString:@".."];
+    }
+
+    v8 = [NSString stringWithFormat:@"Remove Storage: 0x%x\n", v3];
+    v9 = _gICOSLog;
+    if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = v6;
+      v11 = v9;
+      *buf = 136446466;
+      uTF8String = [(__CFString *)v6 UTF8String];
+      v17 = 2114;
+      v18 = v8;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    }
+
+    v12 = [NSNumber numberWithInt:v3];
+    v13 = NSSelectorFromString(@"reportStorageDeleted:");
+    WeakRetained = objc_loadWeakRetained(&self->_delegate);
+    [WeakRetained performSelector:v13 withObject:v12];
+  }
+}
+
 - (void)removeStorages
 {
   storages = self->_storages;
@@ -983,7 +1121,7 @@
   }
 
   v4 = objc_opt_new();
-  v5 = sub_10000C470();
+  v5 = sub_10000C470(v4);
   v6 = +[NSMutableDictionary dictionary];
   v7 = +[NSMutableArray array];
   v8 = [overrideCapabilities objectForKeyedSubscript:@"HEIC"];
@@ -1026,51 +1164,53 @@ LABEL_9:
 - (void)assignHostMediaCapabilities:(id)capabilities
 {
   capabilitiesCopy = capabilities;
-  if (![(PTPVirtualCamera *)self willOverrideCapabilities])
+  willOverrideCapabilities = [(PTPVirtualCamera *)self willOverrideCapabilities];
+  if ((willOverrideCapabilities & 1) == 0)
   {
     if (capabilitiesCopy)
     {
-      v5 = [[PFMediaCapabilities alloc] initWithOpaqueRepresentation:capabilitiesCopy];
-      if (v5)
+      v6 = [[PFMediaCapabilities alloc] initWithOpaqueRepresentation:capabilitiesCopy];
+      v7 = v6;
+      if (v6)
       {
-        v6 = sub_10000C470();
-        [v6 setPeerMediaCapabilities:v5];
+        v8 = sub_10000C470(v6);
+        [v8 setPeerMediaCapabilities:v7];
 
-        v7 = @"Set";
+        v9 = @"Set";
       }
 
       else
       {
-        v7 = @"Failed";
+        v9 = @"Failed";
       }
     }
 
     else
     {
-      v5 = sub_10000C470();
-      [v5 setPeerMediaCapabilities:0];
-      v7 = @"Cleared";
+      v7 = sub_10000C470(willOverrideCapabilities);
+      [v7 setPeerMediaCapabilities:0];
+      v9 = @"Cleared";
     }
 
     __ICOSLogCreate();
-    v8 = &stru_100038B48;
+    v10 = &stru_100038B48;
     if ([&stru_100038B48 length] >= 0x15)
     {
-      v9 = [&stru_100038B48 substringWithRange:{0, 18}];
-      v8 = [v9 stringByAppendingString:@".."];
+      v11 = [&stru_100038B48 substringWithRange:{0, 18}];
+      v10 = [v11 stringByAppendingString:@".."];
     }
 
-    v10 = [NSString stringWithFormat:@"PFMediaCapabilities: %@", v7];
-    v11 = _gICOSLog;
+    v12 = [NSString stringWithFormat:@"PFMediaCapabilities: %@", v9];
+    v13 = _gICOSLog;
     if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = v8;
-      v13 = v11;
+      v14 = v10;
+      v15 = v13;
       *buf = 136446466;
-      uTF8String = [(__CFString *)v8 UTF8String];
-      v16 = 2114;
-      v17 = v10;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      uTF8String = [(__CFString *)v10 UTF8String];
+      v18 = 2114;
+      v19 = v12;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
   }
 }
@@ -1108,7 +1248,7 @@ LABEL_9:
     if (v11)
     {
       v12 = objc_opt_new();
-      v44 = sub_10000C470();
+      v44 = sub_10000C470(v12);
       v13 = +[NSMutableArray array];
       v14 = +[NSMutableDictionary dictionary];
       if (([v11 containsObject:&off_10003BE10] & 1) != 0 || objc_msgSend(v11, "containsObject:", &off_10003BE28))
@@ -1334,8 +1474,7 @@ LABEL_9:
   v6[2] = sub_10001093C;
   v6[3] = &unk_100038770;
   v6[4] = self;
-  [(PTPVirtualCamera *)self cleanupStorageAfterTimeout:v6 cleanup:v4];
-  v5 = sub_1000021F0();
+  v5 = sub_1000021F0([(PTPVirtualCamera *)self cleanupStorageAfterTimeout:v6 cleanup:v4]);
   [v5 closeSession:@"Host closed all sessions"];
 }
 
@@ -1671,6 +1810,455 @@ LABEL_6:
   return v3;
 }
 
+- (id)objectHandlesInStorage:(unsigned int)storage forObjectFormatCode:(unsigned __int16)code inAssociation:(unsigned int)association responseCode:(unsigned __int16 *)responseCode
+{
+  v7 = *&association;
+  codeCopy = code;
+  v9 = *&storage;
+  v11 = [NSMutableArray arrayWithCapacity:0];
+  *responseCode = 8193;
+  if (v9 == -1)
+  {
+    allStorages = [(PTPVirtualCamera *)self allStorages];
+    v16 = [allStorages count];
+    v17 = v16;
+    if (v16)
+    {
+      v18 = 0;
+      do
+      {
+        v19 = [allStorages objectAtIndex:v18];
+        v20 = [v19 objectHandlesForObjectFormatCode:codeCopy inAssociation:v7];
+        [v11 addObjectsFromArray:v20];
+
+        ++v18;
+      }
+
+      while (v17 != v18);
+    }
+  }
+
+  else
+  {
+    storages = self->_storages;
+    v13 = [NSNumber numberWithUnsignedInt:v9];
+    allStorages = [(NSMutableDictionary *)storages objectForKey:v13];
+
+    if (allStorages)
+    {
+      v15 = [allStorages objectHandlesForObjectFormatCode:codeCopy inAssociation:v7];
+      [v11 addObjectsFromArray:v15];
+    }
+
+    else
+    {
+      *responseCode = 8200;
+    }
+  }
+
+  return v11;
+}
+
+- (id)objectInfoForObjectsInStorage:(unsigned int)storage forObjectFormatCode:(unsigned __int16)code inAssociation:(unsigned int)association withContentType:(int)type responseCode:(unsigned __int16 *)responseCode
+{
+  v8 = *&type;
+  v9 = *&association;
+  codeCopy = code;
+  v11 = *&storage;
+  v13 = +[NSMutableData data];
+  *responseCode = 8193;
+  if (v11 == -1)
+  {
+    *responseCode = 8200;
+  }
+
+  else
+  {
+    storages = self->_storages;
+    v15 = [NSNumber numberWithUnsignedInt:v11];
+    v16 = [(NSMutableDictionary *)storages objectForKey:v15];
+
+    if (v16)
+    {
+      [v16 appendObjectData:v13 forObjectFormatCode:codeCopy inAssociation:v9 withContentType:v8];
+    }
+
+    else
+    {
+      *responseCode = 8200;
+    }
+  }
+
+  if (![v13 length])
+  {
+    v18 = 0;
+    [v13 appendBytes:&v18 length:4];
+  }
+
+  return v13;
+}
+
+- (id)pathObjectInfoForObjectsInStorage:(unsigned int)storage forObjectFormatCode:(unsigned __int16)code inAssociation:(unsigned int)association withContentType:(int)type responseCode:(unsigned __int16 *)responseCode
+{
+  v9 = *&association;
+  codeCopy = code;
+  v11 = *&storage;
+  v13 = NSTemporaryDirectory();
+  v14 = [NSString stringWithFormat:@"%@%@", v13, @"ptpObjects"];
+
+  v15 = open([v14 fileSystemRepresentation], 514, 33152);
+  if (v15 == -1)
+  {
+
+    v14 = 0;
+  }
+
+  else
+  {
+    v16 = v15;
+    typeCopy = type;
+    __ICOSLogCreate();
+    v17 = @"objectInfos";
+    if ([@"objectInfos" length] >= 0x15)
+    {
+      v18 = [@"objectInfos" substringWithRange:{0, 18}];
+      v17 = [v18 stringByAppendingString:@".."];
+    }
+
+    v19 = [NSString stringWithFormat:@"Created temporary file at: %@ -- fd: %d", v14, v16];
+    v20 = _gICOSLog;
+    if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+      v21 = v17;
+      v22 = v20;
+      buf.st_dev = 136446466;
+      *&buf.st_mode = [(__CFString *)v17 UTF8String];
+      WORD2(buf.st_ino) = 2114;
+      *(&buf.st_ino + 6) = v19;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &buf, 0x16u);
+    }
+
+    v23 = [[PTPWrappedBytes alloc] initWithFileDescriptor:v16 capacity:209715200];
+    *responseCode = 8193;
+    if (v11 == -1)
+    {
+      *responseCode = 8200;
+      v27 = &CopyArrayOfUnsignedShortsFromBufferMaxSize_ptr;
+    }
+
+    else
+    {
+      storages = self->_storages;
+      v25 = [NSNumber numberWithUnsignedInt:v11];
+      v26 = [(NSMutableDictionary *)storages objectForKey:v25];
+
+      v27 = &CopyArrayOfUnsignedShortsFromBufferMaxSize_ptr;
+      if (v26)
+      {
+        [v26 appendObjectData:v23 forObjectFormatCode:codeCopy inAssociation:v9 withContentType:typeCopy];
+      }
+
+      else
+      {
+        *responseCode = 8200;
+      }
+    }
+
+    if (![v23 length])
+    {
+      buf.st_dev = 0;
+      [v23 appendBytes:&buf length:4];
+    }
+
+    memset(&buf, 0, sizeof(buf));
+    lstat([v14 fileSystemRepresentation], &buf);
+    st_size = buf.st_size;
+    __ICOSLogCreate();
+    v29 = @"objectInfos";
+    if ([@"objectInfos" length] >= 0x15)
+    {
+      v30 = [@"objectInfos" substringWithRange:{0, 18}];
+      v29 = [v30 stringByAppendingString:@".."];
+    }
+
+    st_size = [v27[204] stringWithFormat:@"Output size: %llu", st_size];
+    v32 = _gICOSLog;
+    if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+      v33 = v29;
+      v34 = v32;
+      *v37 = 136446466;
+      uTF8String = [(__CFString *)v29 UTF8String];
+      v39 = 2114;
+      v40 = st_size;
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", v37, 0x16u);
+    }
+
+    close(v16);
+  }
+
+  return v14;
+}
+
+- (id)objectInfoForNextObjectGroupInStorage:(unsigned int)storage responseCode:(unsigned __int16 *)code
+{
+  v5 = *&storage;
+  v7 = +[NSMutableData data];
+  v69 = 0;
+  [v7 appendBytes:&v69 length:8];
+  *code = 8193;
+  __ICOSLogCreate();
+  v8 = &CopyArrayOfUnsignedShortsFromBufferMaxSize_ptr;
+  if (__ICLogTypeEnabled())
+  {
+    v9 = @"0x900f";
+    if ([@"0x900f" length] >= 0x15)
+    {
+      v10 = [@"0x900f" substringWithRange:{0, 18}];
+      v9 = [v10 stringByAppendingString:@".."];
+    }
+
+    v11 = [NSString stringWithFormat:@"objectInfoForObjectsInStorage"];
+    v12 = _gICOSLog;
+    if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = v9;
+      v14 = v12;
+      uTF8String = [(__CFString *)v9 UTF8String];
+      *buf = 136446466;
+      v72 = uTF8String;
+      v73 = 2114;
+      v74 = v11;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    }
+  }
+
+  __ICOSLogCreate();
+  if (v5 == -1)
+  {
+    v49 = @"0x900f";
+    if ([@"0x900f" length] >= 0x15)
+    {
+      v50 = [@"0x900f" substringWithRange:{0, 18}];
+      v49 = [v50 stringByAppendingString:@".."];
+    }
+
+    v51 = [NSString stringWithFormat:@"couldn't find storage"];
+    v52 = _gICOSLog;
+    if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_ERROR))
+    {
+      sub_100024884(v49, v52);
+    }
+
+    *code = 8200;
+  }
+
+  else
+  {
+    if (__ICLogTypeEnabled())
+    {
+      v16 = @"0x900f";
+      if ([@"0x900f" length] >= 0x15)
+      {
+        v17 = [@"0x900f" substringWithRange:{0, 18}];
+        v16 = [v17 stringByAppendingString:@".."];
+      }
+
+      v18 = [NSString stringWithFormat:@"storageID: %x", v5];
+      v19 = _gICOSLog;
+      if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+      {
+        v20 = v16;
+        v21 = v19;
+        uTF8String2 = [(__CFString *)v16 UTF8String];
+        *buf = 136446466;
+        v72 = uTF8String2;
+        v73 = 2114;
+        v74 = v18;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      }
+    }
+
+    __ICOSLogCreate();
+    if (__ICLogTypeEnabled())
+    {
+      v23 = @"0x900f";
+      if ([@"0x900f" length] >= 0x15)
+      {
+        v24 = [@"0x900f" substringWithRange:{0, 18}];
+        v23 = [v24 stringByAppendingString:@".."];
+      }
+
+      v25 = [NSString stringWithFormat:@"storages: %@", self->_storages];
+      v26 = _gICOSLog;
+      if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+      {
+        v27 = v23;
+        v28 = v26;
+        uTF8String3 = [(__CFString *)v23 UTF8String];
+        *buf = 136446466;
+        v72 = uTF8String3;
+        v73 = 2114;
+        v74 = v25;
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      }
+    }
+
+    storages = self->_storages;
+    v31 = [NSNumber numberWithUnsignedInt:v5];
+    v32 = [(NSMutableDictionary *)storages objectForKey:v31];
+
+    __ICOSLogCreate();
+    if (v32)
+    {
+      if (__ICLogTypeEnabled())
+      {
+        v33 = @"0x900f";
+        if ([@"0x900f" length] >= 0x15)
+        {
+          v34 = [@"0x900f" substringWithRange:{0, 18}];
+          v33 = [v34 stringByAppendingString:@".."];
+        }
+
+        v35 = [NSString stringWithFormat:@"found storage"];
+        v36 = _gICOSLog;
+        if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+        {
+          v37 = v33;
+          v38 = v36;
+          uTF8String4 = [(__CFString *)v33 UTF8String];
+          *buf = 136446466;
+          v72 = uTF8String4;
+          v73 = 2114;
+          v74 = v35;
+          _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+        }
+      }
+
+      [v32 dequeueGroup];
+      v65 = 0u;
+      v66 = 0u;
+      v67 = 0u;
+      v40 = v68 = 0u;
+      v41 = [v40 countByEnumeratingWithState:&v65 objects:v70 count:16];
+      if (v41)
+      {
+        v42 = v41;
+        v43 = *v66;
+        do
+        {
+          for (i = 0; i != v42; i = i + 1)
+          {
+            if (*v66 != v43)
+            {
+              objc_enumerationMutation(v40);
+            }
+
+            v45 = *(*(&v65 + 1) + 8 * i);
+            v46 = objc_autoreleasePoolPush();
+            v47 = -[PTPVirtualCamera objectInfoDatasetForObjectHandle:](self, "objectInfoDatasetForObjectHandle:", [v45 integerValue]);
+            v48 = [v47 content:2];
+            [v7 appendData:v48];
+            ++v69;
+
+            objc_autoreleasePoolPop(v46);
+          }
+
+          v42 = [v40 countByEnumeratingWithState:&v65 objects:v70 count:16];
+        }
+
+        while (v42);
+      }
+
+      v8 = &CopyArrayOfUnsignedShortsFromBufferMaxSize_ptr;
+    }
+
+    else
+    {
+      v53 = @"0x900f";
+      if ([@"0x900f" length] >= 0x15)
+      {
+        v54 = [@"0x900f" substringWithRange:{0, 18}];
+        v53 = [v54 stringByAppendingString:@".."];
+      }
+
+      v55 = [NSString stringWithFormat:@"invalid storage"];
+      v56 = _gICOSLog;
+      if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_ERROR))
+      {
+        sub_100024884(v53, v56);
+      }
+
+      *code = 8200;
+    }
+  }
+
+  __ICOSLogCreate();
+  v57 = @"0x900f";
+  if ([@"0x900f" length] >= 0x15)
+  {
+    v58 = [@"0x900f" substringWithRange:{0, 18}];
+    v57 = [v58 stringByAppendingString:@".."];
+  }
+
+  v59 = [v8[204] stringWithFormat:@"Sending %llu objects", v69];
+  v60 = _gICOSLog;
+  if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v61 = v57;
+    v62 = v60;
+    uTF8String5 = [(__CFString *)v57 UTF8String];
+    *buf = 136446466;
+    v72 = uTF8String5;
+    v73 = 2114;
+    v74 = v59;
+    _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+  }
+
+  [v7 replaceBytesInRange:0 withBytes:{8, &v69}];
+
+  return v7;
+}
+
+- (id)objectInfosForObjectsInGroup:(unsigned int)group forObjectFormatCode:(unsigned __int16)code inAssociation:(unsigned int)association withContentType:(int)type responseCode:(unsigned __int16 *)responseCode
+{
+  v8 = *&type;
+  v9 = *&association;
+  codeCopy = code;
+  v11 = *&group;
+  v13 = +[NSMutableData data];
+  *responseCode = 8193;
+  if (v11 == -1)
+  {
+    *responseCode = 8200;
+  }
+
+  else
+  {
+    storages = self->_storages;
+    v15 = [NSNumber numberWithUnsignedInt:v11];
+    v16 = [(NSMutableDictionary *)storages objectForKey:v15];
+
+    if (v16)
+    {
+      [v16 appendObjectData:v13 forObjectFormatCode:codeCopy inAssociation:v9 withContentType:v8];
+    }
+
+    else
+    {
+      *responseCode = 8200;
+    }
+  }
+
+  if (![v13 length])
+  {
+    v18 = 0;
+    [v13 appendBytes:&v18 length:4];
+  }
+
+  return v13;
+}
+
 - (unsigned)numDownloadableObjects
 {
   v2 = sub_1000041DC();
@@ -1894,6 +2482,232 @@ LABEL_15:
   }
 }
 
+- (id)storageInfoDatasetForStorageID:(unsigned int)d
+{
+  storages = self->_storages;
+  v4 = [NSNumber numberWithUnsignedInt:*&d];
+  v5 = [(NSMutableDictionary *)storages objectForKey:v4];
+
+  storageInfoDataset = [v5 storageInfoDataset];
+
+  return storageInfoDataset;
+}
+
+- (id)objectInfoDatasetForObjectHandle:(unsigned int)handle
+{
+  v4 = [NSNumber numberWithUnsignedInt:*&handle];
+  v5 = [(PTPVirtualCamera *)self objectForObjectHandle:v4];
+
+  objectInfoDataset = [v5 objectInfoDataset];
+
+  return objectInfoDataset;
+}
+
+- (unsigned)orientationForObjectHandle:(unsigned int)handle
+{
+  v4 = [NSNumber numberWithUnsignedInt:*&handle];
+  v5 = [(PTPVirtualCamera *)self objectForObjectHandle:v4];
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    desiredOrientation = [v5 desiredOrientation];
+  }
+
+  else
+  {
+    desiredOrientation = 0;
+  }
+
+  return desiredOrientation;
+}
+
+- (id)dataSourceForObjectHandle:(unsigned int)handle responseCode:(unsigned __int16 *)code size:(unsigned int *)size
+{
+  v8 = [NSNumber numberWithUnsignedInt:*&handle];
+  v9 = [(PTPVirtualCamera *)self objectForObjectHandle:v8];
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v10 = v9;
+    dataSource = [v10 dataSource];
+    objectInfoDataset = [v10 objectInfoDataset];
+
+    *size = [objectInfoDataset objectCompressedSize];
+    v13 = 8193;
+  }
+
+  else
+  {
+    dataSource = 0;
+    v13 = 8201;
+  }
+
+  *code = v13;
+
+  return dataSource;
+}
+
+- (id)embeddedMetadataForObjectHandle:(unsigned int)handle responseCode:(unsigned __int16 *)code
+{
+  v6 = [NSNumber numberWithUnsignedInt:*&handle];
+  v7 = [(PTPVirtualCamera *)self objectForObjectHandle:v6];
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v8 = v7;
+    v9 = [[NSKeyedArchiver alloc] initRequiringSecureCoding:1];
+    metadata = [v8 metadata];
+    v11 = [metadata mutableCopy];
+
+    v12 = [v11 objectForKeyedSubscript:@"{Raw}"];
+    v13 = [v12 objectForKeyedSubscript:@"filters"];
+
+    if (v13)
+    {
+      v14 = [v11 objectForKeyedSubscript:@"{Raw}"];
+      [v14 setObject:0 forKeyedSubscript:@"filters"];
+    }
+
+    v15 = [v11 copy];
+    [v9 encodeObject:v15 forKey:@"metadata"];
+
+    encodedData = [v9 encodedData];
+
+    *code = 8193;
+  }
+
+  else
+  {
+    encodedData = 0;
+    *code = 8201;
+  }
+
+  return encodedData;
+}
+
+- (id)thumbnailForObjectHandle:(unsigned int)handle maxPixelSize:(unsigned int)size responseCode:(unsigned __int16 *)code
+{
+  v6 = *&size;
+  v8 = [NSNumber numberWithUnsignedInt:*&handle];
+  v9 = [(PTPVirtualCamera *)self objectForObjectHandle:v8];
+
+  *code = 8193;
+  v17 = 0;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v10 = v9;
+    if ([v10 hasThumbnail])
+    {
+      v11 = [v10 thumbnailForMaxPixelSize:v6 compressedSize:&v17];
+      v12 = [v11 length];
+      if (v12 > v17)
+      {
+        bytes = [v11 bytes];
+        v14 = [NSData dataWithBytes:bytes length:v17];
+
+        v11 = v14;
+      }
+
+      if ([v11 length])
+      {
+        v15 = 8193;
+      }
+
+      else
+      {
+
+        v11 = 0;
+        v15 = 8199;
+      }
+    }
+
+    else
+    {
+      v11 = 0;
+      v15 = 8208;
+    }
+
+    *code = v15;
+  }
+
+  else
+  {
+    v11 = 0;
+    *code = 8201;
+  }
+
+  return v11;
+}
+
+- (void)deleteObjectWithObjectHandle:(unsigned int)handle responseCode:(unsigned __int16 *)code
+{
+  v6 = [NSNumber numberWithUnsignedInt:*&handle];
+  v7 = [(PTPVirtualCamera *)self objectForObjectHandle:v6];
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v8 = v7;
+    plAssetHandle = [v8 plAssetHandle];
+    v10 = sub_10000C470(plAssetHandle);
+    if (v10)
+    {
+      __ICOSLogCreate();
+      v11 = &stru_100038B48;
+      if ([&stru_100038B48 length] >= 0x15)
+      {
+        v12 = [&stru_100038B48 substringWithRange:{0, 18}];
+        v11 = [v12 stringByAppendingString:@".."];
+      }
+
+      baseName = [v8 baseName];
+      v14 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @" ───> [DELETE: %20s ]", [baseName UTF8String]);
+
+      v15 = _gICOSLog;
+      if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+      {
+        v16 = v11;
+        v17 = v15;
+        *buf = 136446466;
+        uTF8String = [(__CFString *)v11 UTF8String];
+        v23 = 2114;
+        v24 = v14;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      }
+
+      if (([v10 ptpDeletePhotoForAssetHandle:plAssetHandle] & 1) != 0 || (objc_msgSend(v8, "objectInfoDataset"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "sequenceNumber"), v18, v19 == 2))
+      {
+        parent = [v8 parent];
+        if (parent)
+        {
+          *code = 8193;
+          --dword_1000403A4;
+          if ([v8 size] >= &_mh_execute_header)
+          {
+            --dword_1000403A8;
+          }
+
+          [parent deleteFile:v8];
+        }
+      }
+
+      else
+      {
+        *code = 8207;
+      }
+    }
+  }
+
+  else
+  {
+    *code = 8201;
+  }
+}
+
 - (void)generatePTPEventsForAddedObjectHandles:(id)handles
 {
   objectEnumerator = [handles objectEnumerator];
@@ -1938,6 +2752,15 @@ LABEL_15:
   }
 }
 
+- (void)generatePTPEventsForAddedObjectGroupInStorage:(unsigned int)storage
+{
+  v3 = *&storage;
+  v5 = NSSelectorFromString(@"reportGroupAddedInStorage:");
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  v6 = [NSNumber numberWithUnsignedInt:v3];
+  [WeakRetained performSelector:v5 withObject:v6];
+}
+
 - (void)processAddedFiles:(id)files
 {
   filesCopy = files;
@@ -1953,7 +2776,7 @@ LABEL_15:
   v18 = sub_100011324;
   v19 = sub_100011334;
   v20 = +[NSMutableArray array];
-  v5 = sub_10000C470();
+  v5 = sub_10000C470(v20);
   v6 = v5;
   if (v5)
   {
@@ -2033,7 +2856,7 @@ LABEL_15:
   v31[3] = sub_100011324;
   v31[4] = sub_100011334;
   v32 = +[NSMutableArray array];
-  v24 = sub_10000C470();
+  v24 = sub_10000C470(v32);
   if (v24)
   {
     v30[0] = _NSConcreteStackBlock;
@@ -2212,6 +3035,182 @@ LABEL_15:
   return v6;
 }
 
+- (id)objectPropValueForHandle:(unsigned int)handle withObjectPropertyCode:(unsigned __int16)code responseCode:(unsigned __int16 *)responseCode
+{
+  codeCopy = code;
+  v7 = *&handle;
+  __ICOSLogCreate();
+  v9 = &stru_100038B48;
+  if ([&stru_100038B48 length] >= 0x15)
+  {
+    v10 = [&stru_100038B48 substringWithRange:{0, 18}];
+    v9 = [v10 stringByAppendingString:@".."];
+  }
+
+  codeCopy = [NSString stringWithFormat:@"---> objectPropValueForHandle For Handle 0x%lx with 0x%x\n", v7, codeCopy];
+  v12 = _gICOSLog;
+  if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = v9;
+    v14 = v12;
+    *buf = 136446466;
+    uTF8String = [(__CFString *)v9 UTF8String];
+    v61 = 2114;
+    v62 = codeCopy;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+  }
+
+  v15 = [NSMutableData dataWithLength:0];
+  *responseCode = 8193;
+  v16 = [NSNumber numberWithUnsignedInt:v7];
+  v17 = [(PTPVirtualCamera *)self objectForObjectHandle:v16];
+
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+      __ICOSLogCreate();
+      v41 = &stru_100038B48;
+      if ([&stru_100038B48 length] >= 0x15)
+      {
+        v47 = [&stru_100038B48 substringWithRange:{0, 18}];
+        v41 = [v47 stringByAppendingString:@".."];
+      }
+
+      v48 = [NSString stringWithFormat:@"Unknown Class\n"];
+      v49 = _gICOSLog;
+      if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+      {
+        v50 = v41;
+        v51 = v49;
+        uTF8String2 = [(NSMutableArray *)v41 UTF8String];
+        *buf = 136446466;
+        uTF8String = uTF8String2;
+        v61 = 2114;
+        v62 = v48;
+        _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      }
+
+      goto LABEL_36;
+    }
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    __ICOSLogCreate();
+    v18 = &stru_100038B48;
+    if ([&stru_100038B48 length] >= 0x15)
+    {
+      v19 = [&stru_100038B48 substringWithRange:{0, 18}];
+      v18 = [v19 stringByAppendingString:@".."];
+    }
+
+    v20 = [NSString stringWithFormat:@"File Class\n"];
+    v21 = _gICOSLog;
+    if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+      v22 = v18;
+      v23 = v21;
+      uTF8String3 = [(__CFString *)v18 UTF8String];
+      *buf = 136446466;
+      uTF8String = uTF8String3;
+      v61 = 2114;
+      v62 = v20;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    }
+
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      __ICOSLogCreate();
+      v25 = &stru_100038B48;
+      if ([&stru_100038B48 length] >= 0x15)
+      {
+        v26 = [&stru_100038B48 substringWithRange:{0, 18}];
+        v25 = [v26 stringByAppendingString:@".."];
+      }
+
+      v27 = [NSString stringWithFormat:@"Folder Class\n"];
+      v28 = _gICOSLog;
+      if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+      {
+        v29 = v25;
+        v30 = v28;
+        uTF8String4 = [(__CFString *)v25 UTF8String];
+        *buf = 136446466;
+        uTF8String = uTF8String4;
+        v61 = 2114;
+        v62 = v27;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      }
+
+      __ICOSLogCreate();
+      v32 = &stru_100038B48;
+      if ([&stru_100038B48 length] >= 0x15)
+      {
+        v33 = [&stru_100038B48 substringWithRange:{0, 18}];
+        v32 = [v33 stringByAppendingString:@".."];
+      }
+
+      objectInfoDataset = [v17 objectInfoDataset];
+      filename = [objectInfoDataset filename];
+      v36 = [NSString stringWithFormat:@"Inspecting: %@\n", filename];
+
+      v37 = _gICOSLog;
+      if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+      {
+        v38 = v32;
+        v39 = v37;
+        uTF8String5 = [(__CFString *)v32 UTF8String];
+        *buf = 136446466;
+        uTF8String = uTF8String5;
+        v61 = 2114;
+        v62 = v36;
+        _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      }
+
+      v56 = 0u;
+      v57 = 0u;
+      v54 = 0u;
+      v55 = 0u;
+      v41 = self->_objectDescriptionDataset;
+      v42 = [(NSMutableArray *)v41 countByEnumeratingWithState:&v54 objects:v58 count:16];
+      if (v42)
+      {
+        v43 = v42;
+        v44 = *v55;
+        do
+        {
+          for (i = 0; i != v43; i = i + 1)
+          {
+            if (*v55 != v44)
+            {
+              objc_enumerationMutation(v41);
+            }
+
+            v46 = *(*(&v54 + 1) + 8 * i);
+            if ([v46 propertyCode] == codeCopy)
+            {
+              [v46 objectValue:v15 withObject:v17 andHandle:v7];
+            }
+          }
+
+          v43 = [(NSMutableArray *)v41 countByEnumeratingWithState:&v54 objects:v58 count:16];
+        }
+
+        while (v43);
+      }
+
+LABEL_36:
+    }
+  }
+
+  return v15;
+}
+
 - (id)objectPropDescForObjectPropertyCode:(unsigned __int16)code responseCode:(unsigned __int16 *)responseCode
 {
   codeCopy = code;
@@ -2256,6 +3255,149 @@ LABEL_15:
 LABEL_11:
 
   return responseCode;
+}
+
+- (id)objectPropListForHandle:(unsigned int)handle withObjectFormatCode:(unsigned int)code andPropertyCode:(unsigned int)propertyCode andPropertyGroup:(unsigned int)group andDepth:(unsigned int)depth responseCode:(unsigned __int16 *)responseCode
+{
+  v9 = *&handle;
+  __ICOSLogCreate();
+  v11 = __ICLogTypeEnabled();
+  if (propertyCode != -1)
+  {
+    if (!v11)
+    {
+      goto LABEL_13;
+    }
+
+    v12 = @"objPropList";
+    if ([@"objPropList" length] >= 0x15)
+    {
+      v13 = [@"objPropList" substringWithRange:{0, 18}];
+      v12 = [v13 stringByAppendingString:@".."];
+    }
+
+    v14 = [NSString stringWithFormat:@"Building SPECIFIC - Object Handle: %d\n", v9];
+    v15 = _gICOSLog;
+    if (!os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_12;
+    }
+
+    goto LABEL_11;
+  }
+
+  if (!v11)
+  {
+    goto LABEL_13;
+  }
+
+  v12 = @"objPropList";
+  if ([@"objPropList" length] >= 0x15)
+  {
+    v16 = [@"objPropList" substringWithRange:{0, 18}];
+    v12 = [v16 stringByAppendingString:@".."];
+  }
+
+  v14 = [NSString stringWithFormat:@"Building GENERAL - Object Handle: %d\n", v9];
+  v15 = _gICOSLog;
+  if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+  {
+LABEL_11:
+    v17 = v12;
+    v18 = v15;
+    *buf = 136446466;
+    uTF8String = [(__CFString *)v12 UTF8String];
+    v44 = 2114;
+    v45 = v14;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+  }
+
+LABEL_12:
+
+LABEL_13:
+  if ((v9 + 1) > 1)
+  {
+    v26 = [NSMutableData dataWithLength:0];
+    v27 = [NSNumber numberWithUnsignedInt:v9];
+    v19 = [(PTPVirtualCamera *)self objectForObjectHandle:v27];
+
+    objc_opt_class();
+    if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
+    {
+      *buf = 0;
+      [v26 appendBytes:buf length:4];
+      v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
+      v28 = self->_objectDescriptionDataset;
+      v29 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      if (v29)
+      {
+        v30 = v29;
+        v31 = 0;
+        v32 = *v38;
+        do
+        {
+          for (i = 0; i != v30; i = i + 1)
+          {
+            if (*v38 != v32)
+            {
+              objc_enumerationMutation(v28);
+            }
+
+            v34 = *(*(&v37 + 1) + 8 * i);
+            propertyCode = [v34 propertyCode];
+            if (propertyCode == -1 || propertyCode == propertyCode)
+            {
+              *buf = ++v31;
+              [v26 replaceBytesInRange:0 withBytes:4 length:{buf, 4}];
+              [v34 objectPropertyListElement:v26 withObject:v19 andHandle:v9];
+            }
+          }
+
+          v30 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v37 objects:v41 count:16];
+        }
+
+        while (v30);
+      }
+    }
+
+    else
+    {
+      *buf = 0;
+      [v26 appendBytes:buf length:4];
+    }
+  }
+
+  else
+  {
+    __ICOSLogCreate();
+    v19 = &stru_100038B48;
+    if ([&stru_100038B48 length] >= 0x15)
+    {
+      v20 = [&stru_100038B48 substringWithRange:{0, 18}];
+      v19 = [v20 stringByAppendingString:@".."];
+    }
+
+    v21 = [NSString stringWithFormat:@"Unimplemented - Object Handle: %d\n", v9];
+    v22 = _gICOSLog;
+    if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+      v23 = v19;
+      v24 = v22;
+      uTF8String2 = [(__CFString *)v19 UTF8String];
+      *buf = 136446466;
+      uTF8String = uTF8String2;
+      v44 = 2114;
+      v45 = v21;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    }
+
+    v26 = 0;
+  }
+
+  return v26;
 }
 
 - (id)delegate

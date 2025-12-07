@@ -99,49 +99,48 @@
 
   [v17 setType:v18];
   [v17 setValue:disturbCopy];
-  [v16 setSender:v17];
-  v19 = sub_100004778();
+  v19 = sub_100004778([v16 setSender:v17]);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v29 = v9;
+    v32 = v9;
     _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "isDestinationIDAllowedThroughDoNotDisturb: provider=%@", buf, 0xCu);
   }
 
-  v20 = sub_100004778();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138412290;
-    v29 = bundleIdentifier;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "isDestinationIDAllowedThroughDoNotDisturb: bundleID=%@", buf, 0xCu);
-  }
-
-  v21 = sub_100004778();
+  v21 = sub_100004778(v20);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v29 = v16;
-    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "isDestinationIDAllowedThroughDoNotDisturb: eventDetails=%@", buf, 0xCu);
+    v32 = bundleIdentifier;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "isDestinationIDAllowedThroughDoNotDisturb: bundleID=%@", buf, 0xCu);
+  }
+
+  v23 = sub_100004778(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v32 = v16;
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "isDestinationIDAllowedThroughDoNotDisturb: eventDetails=%@", buf, 0xCu);
   }
 
   behaviorResolutionService = [(CSDIncomingCallFilterDataSource *)self behaviorResolutionService];
-  v27 = 0;
-  v23 = [behaviorResolutionService resolveBehaviorForEventDetails:v16 error:&v27];
-  v24 = v27;
+  v30 = 0;
+  v25 = [behaviorResolutionService resolveBehaviorForEventDetails:v16 error:&v30];
+  v26 = v30;
 
-  if (v23)
+  if (v25)
   {
-    v12 = [v23 interruptionSuppression] == 0;
+    v12 = [v25 interruptionSuppression] == 0;
   }
 
   else
   {
-    v25 = sub_100004778();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v28 = sub_100004778(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = v24;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "[WARN] Error encountered resolving behavior via DND. Defaulting isDestinationIDAllowedThroughDoNotDisturb to YES. error=%@", buf, 0xCu);
+      v32 = v26;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "[WARN] Error encountered resolving behavior via DND. Defaulting isDestinationIDAllowedThroughDoNotDisturb to YES. error=%@", buf, 0xCu);
     }
 
     v12 = 1;

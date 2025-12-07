@@ -1,8 +1,11 @@
 @interface AWDMETRICSKCellularPowerLogLteRrcStateChange
 - (BOOL)isEqual:(id)equal;
+- (id)causeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)prevStateAsString:(int)string;
+- (id)stateAsString:(int)string;
 - (int)StringAsCause:(id)cause;
 - (int)StringAsPrevState:(id)state;
 - (int)StringAsState:(id)state;
@@ -64,6 +67,79 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)stateAsString:(int)string
+{
+  if (string <= 3)
+  {
+    if (string > 1)
+    {
+      if (string == 2)
+      {
+        v4 = @"CONNECTING";
+      }
+
+      else
+      {
+        v4 = @"CONNECTED";
+      }
+    }
+
+    else if (string)
+    {
+      if (string != 1)
+      {
+LABEL_38:
+        v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"IDLE";
+    }
+
+    else
+    {
+      v4 = @"INACTIVE";
+    }
+  }
+
+  else if (string <= 5)
+  {
+    if (string == 4)
+    {
+      v4 = @"CLOSING";
+    }
+
+    else
+    {
+      v4 = @"ATMPT_OUTBND";
+    }
+  }
+
+  else
+  {
+    switch(string)
+    {
+      case 6:
+        v4 = @"ATMPT_INBND";
+
+        break;
+      case 7:
+        v4 = @"AIRPLANE_MODE";
+
+        break;
+      case 255:
+        v4 = @"NONE";
+
+        return v4;
+      default:
+        goto LABEL_38;
+    }
+  }
+
+  return v4;
 }
 
 - (int)StringAsState:(id)state
@@ -148,6 +224,79 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)prevStateAsString:(int)string
+{
+  if (string <= 3)
+  {
+    if (string > 1)
+    {
+      if (string == 2)
+      {
+        v4 = @"CONNECTING";
+      }
+
+      else
+      {
+        v4 = @"CONNECTED";
+      }
+    }
+
+    else if (string)
+    {
+      if (string != 1)
+      {
+LABEL_38:
+        v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"IDLE";
+    }
+
+    else
+    {
+      v4 = @"INACTIVE";
+    }
+  }
+
+  else if (string <= 5)
+  {
+    if (string == 4)
+    {
+      v4 = @"CLOSING";
+    }
+
+    else
+    {
+      v4 = @"ATMPT_OUTBND";
+    }
+  }
+
+  else
+  {
+    switch(string)
+    {
+      case 6:
+        v4 = @"ATMPT_INBND";
+
+        break;
+      case 7:
+        v4 = @"AIRPLANE_MODE";
+
+        break;
+      case 255:
+        v4 = @"NONE";
+
+        return v4;
+      default:
+        goto LABEL_38;
+    }
+  }
+
+  return v4;
 }
 
 - (int)StringAsPrevState:(id)state
@@ -247,6 +396,232 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)causeAsString:(int)string
+{
+  v4 = @"EMERGENCY";
+  switch(string)
+  {
+    case 0:
+      goto LABEL_125;
+    case 1:
+      v4 = @"HIGH_PRIORITY";
+
+      break;
+    case 2:
+      v4 = @"MT_ACCESS";
+
+      break;
+    case 3:
+      v4 = @"MO_SIGNALING";
+
+      break;
+    case 4:
+      v4 = @"MO_DATA";
+
+      break;
+    case 5:
+      v4 = @"DELAY_TOLERANT_ACCESS";
+
+      break;
+    case 6:
+      v4 = @"REEST_RECFG_FAIL";
+
+      break;
+    case 7:
+      v4 = @"REEST_HO_FAIL";
+
+      break;
+    case 8:
+      v4 = @"REEST_OTHER_FAIL";
+
+      break;
+    case 9:
+      v4 = @"REL_OTHER_RECFG_FAIL";
+
+      break;
+    case 10:
+      v4 = @"REL_CONN_FAIL_IRAT_RESEL";
+
+      break;
+    case 11:
+      v4 = @"REL_CONN_FAIL_T311_EXP";
+
+      break;
+    case 12:
+      v4 = @"REL_CONN_FAIL_CELL_NOT_SUIT";
+
+      break;
+    case 13:
+      v4 = @"REL_CONN_FAIL_REEST_REJ";
+
+      break;
+    case 14:
+      v4 = @"REL_LOAD_BAL_TAU_REQD";
+
+      break;
+    case 15:
+      v4 = @"REL_OTHER";
+
+      break;
+    case 16:
+      v4 = @"REL_CSFB_HIGH_PRIO";
+
+      break;
+    case 17:
+      v4 = @"REL_T310_EXP";
+
+      break;
+    case 18:
+      v4 = @"REL_RND_ACC";
+
+      break;
+    case 19:
+      v4 = @"REL_MAX_RLC_RETRANS";
+
+      break;
+    case 20:
+      v4 = @"REL_SUCC_MOB_FROM_EUTRAN";
+
+      break;
+    case 21:
+      v4 = @"EST_SUCC_MOB_TO_EUTRAN";
+
+      break;
+    case 22:
+      v4 = @"EST_FAIL_NO_RESP_FROM_CELL";
+
+      break;
+    case 23:
+      v4 = @"EST_FAIL_REJ";
+
+      break;
+    case 24:
+      v4 = @"EST_FAIL_CELL_RESEL";
+
+      break;
+    case 25:
+      v4 = @"EST_FAIL_ABORTED";
+
+      break;
+    case 26:
+      v4 = @"EST_FAIL_CELL_BARRED";
+
+      break;
+    case 27:
+      v4 = @"REEST_OTHER_FAIL_T310_EXP";
+
+      break;
+    case 28:
+      v4 = @"REEST_OTHER_FAIL_RND_ACC";
+
+      break;
+    case 29:
+      v4 = @"REEST_OTHER_FAIL_MAX_RLC_RETX";
+
+      break;
+    case 30:
+      v4 = @"REEST_OTHER_FAIL_INTEG_CHECK";
+
+      break;
+    case 31:
+      v4 = @"REL_SUSPEND";
+
+      break;
+    case 32:
+      v4 = @"REEST_OTHER_FAIL_T312_EXP";
+
+      break;
+    case 33:
+      v4 = @"REL_FAST_DORMANCY";
+
+      break;
+    case 34:
+      v4 = @"REEST_ARB_CONN_TXRX_SUSPEND";
+
+      break;
+    case 35:
+      v4 = @"REL_ARB_CONFLICT";
+
+      break;
+    case 36:
+      v4 = @"REL_ARB_DATA_INACTIVITY";
+
+      break;
+    case 37:
+      v4 = @"REL_ARB_PS_PREF_CHANGE";
+
+      break;
+    case 38:
+      v4 = @"REL_NR_NULL_CIPHERING";
+
+      break;
+    case 39:
+      v4 = @"REL_AIRPLANE_MODE";
+
+      break;
+    case 40:
+      v4 = @"REEST_OTHER_FAIL_CONGESTED_DATA_STALL";
+
+      break;
+    case 41:
+      v4 = @"REEST_NAS_GUARD_TIMER_EXPIRY";
+
+      break;
+    case 42:
+      v4 = @"REEST_L3C_DATA_STALL";
+
+      break;
+    case 43:
+      v4 = @"REL_NAS_GUARD_TIMER_EXPIRY";
+
+      break;
+    case 44:
+      v4 = @"REL_L3C_DATA_STALL";
+
+      break;
+    case 45:
+      v4 = @"REL_SDM";
+
+      break;
+    case 46:
+      v4 = @"REEST_MR_STALL";
+
+      break;
+    case 47:
+      v4 = @"REEST_MIB_SFN_MISMATCH";
+
+      break;
+    case 48:
+      v4 = @"REL_MIB_SFN_MISMATCH";
+
+      break;
+    case 49:
+      v4 = @"REEST_INVALID_RACH_CELL_CONFIG";
+
+      break;
+    default:
+      if (string == 254)
+      {
+        v4 = @"NO_SERVICE";
+      }
+
+      else if (string == 255)
+      {
+        v4 = @"NA";
+      }
+
+      else
+      {
+        v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_125:
+      }
+
+      break;
+  }
+
+  return v4;
 }
 
 - (int)StringAsCause:(id)cause
@@ -958,7 +1333,6 @@ LABEL_9:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -978,7 +1352,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -993,7 +1366,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  state = self->_state;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -1008,7 +1380,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  prevState = self->_prevState;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -1023,7 +1394,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  prevStateDurMs = self->_prevStateDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -1038,12 +1408,10 @@ LABEL_7:
   }
 
 LABEL_17:
-  cause = self->_cause;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_8:
-    isDataPreferred = self->_isDataPreferred;
     PBDataWriterWriteBOOLField();
   }
 

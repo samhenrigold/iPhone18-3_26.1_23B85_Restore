@@ -228,9 +228,9 @@ LABEL_9:
 - (QLURLHandler)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v18.receiver = self;
-  v18.super_class = QLURLHandler;
-  v5 = [(QLURLHandler *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = QLURLHandler;
+  v5 = [(QLURLHandler *)&v17 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"url"];
@@ -240,24 +240,23 @@ LABEL_9:
     v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"promiseSetPhysicalURL"];
     if (v8)
     {
-      v9 = v5->_fileURL;
       _CFURLPromiseSetPhysicalURL();
     }
 
-    v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"fileExtensionToken"];
+    v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"fileExtensionToken"];
     fileExtensionToken = v5->_fileExtensionToken;
-    v5->_fileExtensionToken = v10;
+    v5->_fileExtensionToken = v9;
 
-    v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"physicalFileExtensionToken"];
+    v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"physicalFileExtensionToken"];
     physicalFileExtensionToken = v5->_physicalFileExtensionToken;
-    v5->_physicalFileExtensionToken = v12;
+    v5->_physicalFileExtensionToken = v11;
 
-    v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"externalResourcesToken"];
+    v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"externalResourcesToken"];
     externalResourcesToken = v5->_externalResourcesToken;
-    v5->_externalResourcesToken = v14;
+    v5->_externalResourcesToken = v13;
 
     [(QLURLHandler *)v5 _consumeFileExtension];
-    v16 = v5;
+    v15 = v5;
   }
 
   return v5;
@@ -265,20 +264,18 @@ LABEL_9:
 
 - (void)_issueExternalResourcesExtensionForURL:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1CA1E7000, a2, OS_LOG_TYPE_ERROR, "Couldn't obtain directory for additional resources for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1CA1E7000, a2, OS_LOG_TYPE_ERROR, "Couldn't obtain directory for additional resources for %@", &v2, 0xCu);
 }
 
 - (void)_issueFileExtensionForURL:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1CA1E7000, a2, OS_LOG_TYPE_ERROR, "Couldn't issue file extension for url: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1CA1E7000, a2, OS_LOG_TYPE_ERROR, "Couldn't issue file extension for url: %@", &v2, 0xCu);
 }
 
 @end

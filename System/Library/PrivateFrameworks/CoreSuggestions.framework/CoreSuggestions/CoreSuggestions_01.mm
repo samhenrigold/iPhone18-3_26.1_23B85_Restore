@@ -1,6 +1,6 @@
 uint64_t tagsToEventCategory(void *a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (tagsToEventCategory__pasOnceToken9 != -1)
   {
@@ -8,27 +8,27 @@ uint64_t tagsToEventCategory(void *a1)
   }
 
   v2 = tagsToEventCategory__pasExprOnceResult;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     v7 = 9;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = [v2 objectForKeyedSubscript:{*(*(&v13 + 1) + 8 * i), v13}];
+        v9 = [v2 objectForKeyedSubscript:{*(*(&v12 + 1) + 8 * i), v12}];
         if (v9)
         {
           v10 = v9;
@@ -38,7 +38,7 @@ uint64_t tagsToEventCategory(void *a1)
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -55,7 +55,6 @@ uint64_t tagsToEventCategory(void *a1)
 
 LABEL_14:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -71,69 +70,68 @@ uint64_t tagsToEventExtraction(void *a1)
 
 void __tagsToEventCategory_block_invoke()
 {
-  v38[11] = *MEMORY[0x1E69E9840];
+  v37[11] = *MEMORY[0x1E69E9840];
   context = objc_autoreleasePoolPush();
-  v35 = +[SGEntityTag extractedFlight];
-  v34 = [v35 name];
-  v37[0] = v34;
-  v33 = [MEMORY[0x1E696B098] valueWithPointer:&SGMEventCategoryFlight];
-  v38[0] = v33;
-  v32 = +[SGEntityTag extractedBus];
-  v31 = [v32 name];
-  v37[1] = v31;
-  v30 = [MEMORY[0x1E696B098] valueWithPointer:&SGMEventCategoryBus];
-  v38[1] = v30;
-  v29 = +[SGEntityTag extractedTrain];
-  v28 = [v29 name];
-  v37[2] = v28;
-  v27 = [MEMORY[0x1E696B098] valueWithPointer:&SGMEventCategoryTrain];
-  v38[2] = v27;
-  v26 = +[SGEntityTag extractedBoat];
-  v25 = [v26 name];
-  v37[3] = v25;
-  v24 = [MEMORY[0x1E696B098] valueWithPointer:&SGMEventCategoryBoat];
-  v38[3] = v24;
-  v23 = +[SGEntityTag extractedHotel];
-  v22 = [v23 name];
-  v37[4] = v22;
-  v21 = [MEMORY[0x1E696B098] valueWithPointer:&SGMEventCategoryHotel];
-  v38[4] = v21;
-  v20 = +[SGEntityTag extractedCarRental];
-  v19 = [v20 name];
-  v37[5] = v19;
-  v18 = [MEMORY[0x1E696B098] valueWithPointer:&SGMEventCategoryCar];
-  v38[5] = v18;
-  v17 = +[SGEntityTag extractedTicket];
-  v16 = [v17 name];
-  v37[6] = v16;
-  v15 = [MEMORY[0x1E696B098] valueWithPointer:&SGMEventCategoryTicket];
-  v38[6] = v15;
-  v14 = +[SGEntityTag extractedMovie];
-  v13 = [v14 name];
-  v37[7] = v13;
+  v34 = +[SGEntityTag extractedFlight];
+  v33 = [v34 name];
+  v36[0] = v33;
+  v32 = [MEMORY[0x1E696B098] valueWithPointer:&SGMEventCategoryFlight];
+  v37[0] = v32;
+  v31 = +[SGEntityTag extractedBus];
+  v30 = [v31 name];
+  v36[1] = v30;
+  v29 = [MEMORY[0x1E696B098] valueWithPointer:&SGMEventCategoryBus];
+  v37[1] = v29;
+  v28 = +[SGEntityTag extractedTrain];
+  v27 = [v28 name];
+  v36[2] = v27;
+  v26 = [MEMORY[0x1E696B098] valueWithPointer:&SGMEventCategoryTrain];
+  v37[2] = v26;
+  v25 = +[SGEntityTag extractedBoat];
+  v24 = [v25 name];
+  v36[3] = v24;
+  v23 = [MEMORY[0x1E696B098] valueWithPointer:&SGMEventCategoryBoat];
+  v37[3] = v23;
+  v22 = +[SGEntityTag extractedHotel];
+  v21 = [v22 name];
+  v36[4] = v21;
+  v20 = [MEMORY[0x1E696B098] valueWithPointer:&SGMEventCategoryHotel];
+  v37[4] = v20;
+  v19 = +[SGEntityTag extractedCarRental];
+  v18 = [v19 name];
+  v36[5] = v18;
+  v17 = [MEMORY[0x1E696B098] valueWithPointer:&SGMEventCategoryCar];
+  v37[5] = v17;
+  v16 = +[SGEntityTag extractedTicket];
+  v15 = [v16 name];
+  v36[6] = v15;
+  v14 = [MEMORY[0x1E696B098] valueWithPointer:&SGMEventCategoryTicket];
+  v37[6] = v14;
+  v13 = +[SGEntityTag extractedMovie];
+  v12 = [v13 name];
+  v36[7] = v12;
   v0 = [MEMORY[0x1E696B098] valueWithPointer:&SGMEventCategoryMovie];
-  v38[7] = v0;
+  v37[7] = v0;
   v1 = +[SGEntityTag extractedFood];
   v2 = [v1 name];
-  v37[8] = v2;
+  v36[8] = v2;
   v3 = [MEMORY[0x1E696B098] valueWithPointer:&SGMEventCategoryFood];
-  v38[8] = v3;
+  v37[8] = v3;
   v4 = +[SGEntityTag extractedSocial];
   v5 = [v4 name];
-  v37[9] = v5;
+  v36[9] = v5;
   v6 = [MEMORY[0x1E696B098] valueWithPointer:&SGMEventCategorySocial];
-  v38[9] = v6;
+  v37[9] = v6;
   v7 = +[SGEntityTag extractedAppointment];
   v8 = [v7 name];
-  v37[10] = v8;
+  v36[10] = v8;
   v9 = [MEMORY[0x1E696B098] valueWithPointer:&SGMEventCategoryAppointment];
-  v38[10] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:11];
+  v37[10] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:11];
   v11 = tagsToEventCategory__pasExprOnceResult;
   tagsToEventCategory__pasExprOnceResult = v10;
 
   objc_autoreleasePoolPop(context);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t detailTypeFromSGContact(void *a1)
@@ -1001,14 +999,13 @@ uint64_t __SGThrottle_block_invoke(uint64_t a1)
 
   os_unfair_lock_lock((*(a1 + 40) + 16));
   v5 = *(a1 + 40);
-  v6 = *(v5 + 8);
   *v5 = v4;
   *(v5 + 8) = 0;
   *(v5 + 12) = 0;
   os_unfair_lock_unlock((v5 + 16));
-  v7 = *(*(a1 + 32) + 16);
+  v6 = *(*(a1 + 32) + 16);
 
-  return v7();
+  return v6();
 }
 
 id sgRemindersLogHandle()
@@ -1768,11 +1765,12 @@ LABEL_43:
   return [a2 hasError] ^ 1;
 }
 
-void sub_1BA7B06D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_1BA7B06D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
+  va_start(va, a34);
   _Block_object_dispose(&a31, 8);
-  _Block_object_dispose(&a35, 8);
-  _Block_object_dispose((v35 - 176), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1804,7 +1802,7 @@ void incrementKeyWithSuffix(void *a1)
 
 void __addValueForScalarKey_block_invoke(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v2 = [@"com.apple.suggestions" stringByAppendingString:@"."];
   v3 = [v2 stringByAppendingString:*(a1 + 32)];
 
@@ -1814,13 +1812,12 @@ void __addValueForScalarKey_block_invoke(uint64_t a1)
   [v5 trackScalarForMessage:v4 count:*(a1 + 40)];
 
   v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@.%@", @"com.apple.Proactive.CoreSuggestions", *(a1 + 32)];
-  v10 = @"clientaggdpush";
+  v9 = @"clientaggdpush";
   v7 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 40)];
-  v11[0] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   AnalyticsSendEvent();
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __getAggdDispatchQueue_block_invoke()
@@ -1846,9 +1843,9 @@ void sub_1BA7B1288(void *a1)
   JUMPOUT(0x1BA7B11B4);
 }
 
-void sub_1BA7B1860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BA7B1860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

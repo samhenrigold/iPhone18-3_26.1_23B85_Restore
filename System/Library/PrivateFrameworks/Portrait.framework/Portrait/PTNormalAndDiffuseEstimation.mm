@@ -17,9 +17,9 @@
 - (PTNormalAndDiffuseEstimation)initWithMetalContext:(id)context sensorWidth:(float)width focalLength:(float)length
 {
   contextCopy = context;
-  v19.receiver = self;
-  v19.super_class = PTNormalAndDiffuseEstimation;
-  v10 = [(PTNormalAndDiffuseEstimation *)&v19 init];
+  v21.receiver = self;
+  v21.super_class = PTNormalAndDiffuseEstimation;
+  v10 = [(PTNormalAndDiffuseEstimation *)&v21 init];
   v11 = v10;
   if (!v10)
   {
@@ -33,40 +33,40 @@
 
   if (!v11->_estimateNormalsFromDisparity)
   {
-    v17 = _PTLogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = _PTLogSystem(v14);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [PTNormalAndDiffuseEstimation initWithMetalContext:v17 sensorWidth:? focalLength:?];
+      [PTNormalAndDiffuseEstimation initWithMetalContext:v19 sensorWidth:? focalLength:?];
     }
 
     goto LABEL_9;
   }
 
-  v14 = [contextCopy computePipelineStateFor:@"estimateDiffuseFromDisparity" withConstants:0];
+  v15 = [contextCopy computePipelineStateFor:@"estimateDiffuseFromDisparity" withConstants:0];
   estimateDiffuseFromDisparity = v11->_estimateDiffuseFromDisparity;
-  v11->_estimateDiffuseFromDisparity = v14;
+  v11->_estimateDiffuseFromDisparity = v15;
 
   if (!v11->_estimateDiffuseFromDisparity)
   {
-    v17 = _PTLogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = _PTLogSystem(v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [PTNormalAndDiffuseEstimation initWithMetalContext:v17 sensorWidth:? focalLength:?];
+      [PTNormalAndDiffuseEstimation initWithMetalContext:v19 sensorWidth:? focalLength:?];
     }
 
 LABEL_9:
 
 LABEL_10:
-    v16 = 0;
+    v18 = 0;
     goto LABEL_11;
   }
 
   v11->_sensorWidth = width;
   v11->_focalLength = length;
-  v16 = v11;
+  v18 = v11;
 LABEL_11:
 
-  return v16;
+  return v18;
 }
 
 - (void)estimateNormalsFromDisparity:(id)disparity outNormal:(id)normal

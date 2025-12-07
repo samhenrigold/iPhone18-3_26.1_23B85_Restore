@@ -15,15 +15,16 @@
   v9.receiver = self;
   v9.super_class = VFXBillboardConstraint;
   v2 = [(VFXConstraint *)&v9 init];
+  v4 = v2;
   if (v2)
   {
-    *(v2 + 1) = sub_1AF1501E8();
-    objc_msgSend_setFreeAxes_(v2, v3, 7, v4);
-    *(v2 + 80) = sub_1AF151464(*(v2 + 1));
-    objc_msgSend_didInitConstraintRef(v2, v5, v6, v7);
+    v2->super._constraintRef = sub_1AF1501E8(v2, v3);
+    objc_msgSend_setFreeAxes_(v4, v5, 7);
+    v4->_preserveScale = sub_1AF151464(v4->super._constraintRef);
+    objc_msgSend_didInitConstraintRef(v4, v6, v7);
   }
 
-  return v2;
+  return v4;
 }
 
 + (id)billboardConstraint
@@ -60,11 +61,11 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(objc_opt_class());
-  objc_msgSend_copyTo_(self, v5, v4, v6);
-  v10 = objc_msgSend_freeAxes(self, v7, v8, v9);
-  objc_msgSend_setFreeAxes_(v4, v11, v10, v12);
-  v16 = objc_msgSend_preserveScale(self, v13, v14, v15);
-  objc_msgSend_setPreserveScale_(v4, v17, v16, v18);
+  objc_msgSend_copyTo_(self, v5, v4);
+  v8 = objc_msgSend_freeAxes(self, v6, v7);
+  objc_msgSend_setFreeAxes_(v4, v9, v8);
+  v12 = objc_msgSend_preserveScale(self, v10, v11);
+  objc_msgSend_setPreserveScale_(v4, v13, v12);
   return v4;
 }
 
@@ -79,23 +80,23 @@
 
 - (VFXBillboardConstraint)initWithCoder:(id)coder
 {
-  v26.receiver = self;
-  v26.super_class = VFXBillboardConstraint;
-  v7 = [(VFXConstraint *)&v26 initWithCoder:?];
-  if (v7)
+  v20.receiver = self;
+  v20.super_class = VFXBillboardConstraint;
+  v6 = [(VFXConstraint *)&v20 initWithCoder:?];
+  if (v6)
   {
-    v8 = objc_msgSend_immediateMode(VFXTransaction, v4, v5, v6);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v9, 1, v10);
-    v7->super._constraintRef = sub_1AF1501E8();
-    v13 = objc_msgSend_decodeIntegerForKey_(coder, v11, @"freeAxes", v12);
-    objc_msgSend_setFreeAxes_(v7, v14, v13, v15);
-    v18 = objc_msgSend_decodeBoolForKey_(coder, v16, @"preserveScale", v17);
-    objc_msgSend_setPreserveScale_(v7, v19, v18, v20);
-    objc_msgSend_finalizeDecodeConstraint_(v7, v21, coder, v22);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v23, v8, v24);
+    v7 = objc_msgSend_immediateMode(VFXTransaction, v4, v5);
+    v9 = objc_msgSend_setImmediateMode_(VFXTransaction, v8, 1);
+    v6->super._constraintRef = sub_1AF1501E8(v9, v10);
+    v12 = objc_msgSend_decodeIntegerForKey_(coder, v11, @"freeAxes");
+    objc_msgSend_setFreeAxes_(v6, v13, v12);
+    v15 = objc_msgSend_decodeBoolForKey_(coder, v14, @"preserveScale");
+    objc_msgSend_setPreserveScale_(v6, v16, v15);
+    objc_msgSend_finalizeDecodeConstraint_(v6, v17, coder);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v18, v7);
   }
 
-  return v7;
+  return v6;
 }
 
 @end

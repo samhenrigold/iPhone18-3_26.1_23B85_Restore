@@ -8,14 +8,12 @@
 + (id)makeViewControllerWithAccountIdentifier:(id)identifier institutionIdentifier:(id)institutionIdentifier
 {
   v4 = type metadata accessor for ConsentManagementView(0);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_23875A9F0();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8);
-  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_23875A9F0();
+  v8 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_23875ED50();
   sub_23875ED40();
   sub_23875ECE0();
@@ -27,12 +25,12 @@
   sub_23875EA80();
   sub_23875EA80();
   sub_23875A9D0();
-  v13 = objc_allocWithZone(type metadata accessor for BankConnectAccountConsentManagementViewController(0));
-  (*(v9 + 16))(v7, v12, v8);
-  v14 = sub_23875D080();
-  (*(v9 + 8))(v12, v8);
+  v11 = objc_allocWithZone(type metadata accessor for BankConnectAccountConsentManagementViewController(0));
+  (*(v8 + 16))(v6, v10, v7);
+  v12 = sub_23875D080();
+  (*(v8 + 8))(v10, v7);
 
-  return v14;
+  return v12;
 }
 
 - (_TtC12FinanceKitUI57BankConnectAccountConsentManagementViewControllerProvider)init

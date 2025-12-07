@@ -33,18 +33,16 @@
 
 void __36__HMDUserAccessCodeModel_properties__block_invoke()
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"value";
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"value";
   v0 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class() logging:3];
-  v5[1] = @"changedByUserUUID";
-  v6[0] = v0;
+  v4[1] = @"changedByUserUUID";
+  v5[0] = v0;
   v1 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
   v3 = properties__properties_133935;
   properties__properties_133935 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDUserAccessCodeModel)initWithUserUUID:(id)d

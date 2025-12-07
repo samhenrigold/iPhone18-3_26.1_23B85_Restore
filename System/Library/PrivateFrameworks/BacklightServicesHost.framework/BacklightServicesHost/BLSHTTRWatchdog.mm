@@ -74,7 +74,7 @@
 
 - (void)_watchdogFired:(id)fired
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = bls_diagnostics_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
@@ -96,22 +96,20 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       identifier2 = [(BLSHTTRWatchdogConfiguration *)self->_configuration identifier];
-      v11 = 138412290;
-      v12 = identifier2;
-      _os_log_impl(&dword_21FD11000, v7, OS_LOG_TYPE_INFO, "TTR watchdog timer fired for %@, was asked to skip showing the alert.", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = identifier2;
+      _os_log_impl(&dword_21FD11000, v7, OS_LOG_TYPE_INFO, "TTR watchdog timer fired for %@, was asked to skip showing the alert.", &v10, 0xCu);
     }
   }
 
   [(BSTimerScheduleQuerying *)self->_timer invalidate];
   timer = self->_timer;
   self->_timer = 0;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startWatchdog
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if ([(BLSHTTRWatchdog *)self _shouldRunWatchdog]&& !self->_timer)
   {
     v3 = bls_diagnostics_log();
@@ -120,9 +118,9 @@
       identifier = [(BLSHTTRWatchdogConfiguration *)self->_configuration identifier];
       [(BLSHTTRWatchdogConfiguration *)self->_configuration timeout];
       *buf = 138412546;
-      v18 = identifier;
-      v19 = 2048;
-      v20 = v5;
+      v17 = identifier;
+      v18 = 2048;
+      v19 = v5;
       _os_log_impl(&dword_21FD11000, v3, OS_LOG_TYPE_INFO, "TTR watchdog starting timer for %@, will fire in %lf seconds.", buf, 0x16u);
     }
 
@@ -133,20 +131,18 @@
     v9 = v8;
     [(BLSHTTRWatchdogConfiguration *)self->_configuration leeway];
     v11 = v10;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __32__BLSHTTRWatchdog_startWatchdog__block_invoke;
-    v15[3] = &unk_27841F898;
-    objc_copyWeak(&v16, buf);
-    v12 = [(BLSHOSInterfaceProviding *)osInterfaceProvider scheduledTimerWithIdentifier:timerIdentifier interval:v15 leewayInterval:v9 handler:v11];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __32__BLSHTTRWatchdog_startWatchdog__block_invoke;
+    v14[3] = &unk_27841F898;
+    objc_copyWeak(&v15, buf);
+    v12 = [(BLSHOSInterfaceProviding *)osInterfaceProvider scheduledTimerWithIdentifier:timerIdentifier interval:v14 leewayInterval:v9 handler:v11];
     timer = self->_timer;
     self->_timer = v12;
 
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(buf);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __32__BLSHTTRWatchdog_startWatchdog__block_invoke(uint64_t a1, void *a2)
@@ -158,74 +154,68 @@ void __32__BLSHTTRWatchdog_startWatchdog__block_invoke(uint64_t a1, void *a2)
 
 - (void)stopWatchdog
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (self->_timer)
   {
     v3 = bls_diagnostics_log();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       identifier = [(BLSHTTRWatchdogConfiguration *)self->_configuration identifier];
-      v7 = 138412290;
-      v8 = identifier;
-      _os_log_impl(&dword_21FD11000, v3, OS_LOG_TYPE_INFO, "TTR watchdog stopping timer for %@.", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = identifier;
+      _os_log_impl(&dword_21FD11000, v3, OS_LOG_TYPE_INFO, "TTR watchdog stopping timer for %@.", &v6, 0xCu);
     }
 
     [(BSTimerScheduleQuerying *)self->_timer invalidate];
     timer = self->_timer;
     self->_timer = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupUserDefaults
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   identifier = [*(self + 32) identifier];
   enabledByDefault = [*(self + 32) enabledByDefault];
-  v7 = 138412546;
-  v8 = identifier;
-  v9 = 1024;
-  v10 = enabledByDefault;
-  _os_log_debug_impl(&dword_21FD11000, a2, OS_LOG_TYPE_DEBUG, "TTR watchdog timer defaults for %@ - enabled? %x", &v7, 0x12u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = identifier;
+  v8 = 1024;
+  v9 = enabledByDefault;
+  _os_log_debug_impl(&dword_21FD11000, a2, OS_LOG_TYPE_DEBUG, "TTR watchdog timer defaults for %@ - enabled? %x", &v6, 0x12u);
 }
 
 - (void)_test_forceTryAgainNow
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   allValues = [__blsh_ttrwatchdog_lastFailureDetails allValues];
-  v3 = [allValues countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [allValues countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(allValues);
         }
 
-        _BLSHShowWatchdogFailureAlert(*(*(&v8 + 1) + 8 * v6++), 0, 1);
+        _BLSHShowWatchdogFailureAlert(*(*(&v7 + 1) + 8 * v6++), 0, 1);
       }
 
       while (v4 != v6);
-      v4 = [allValues countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [allValues countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_test_enabledViaDefaults
@@ -246,13 +236,11 @@ void __32__BLSHTTRWatchdog_startWatchdog__block_invoke(uint64_t a1, void *a2)
 
 - (void)_watchdogFired:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) identifier];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_21FD11000, a2, OS_LOG_TYPE_ERROR, "TTR watchdog timer fired for %@, requesting details to present alert.", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_21FD11000, a2, OS_LOG_TYPE_ERROR, "TTR watchdog timer fired for %@, requesting details to present alert.", &v4, 0xCu);
 }
 
 @end

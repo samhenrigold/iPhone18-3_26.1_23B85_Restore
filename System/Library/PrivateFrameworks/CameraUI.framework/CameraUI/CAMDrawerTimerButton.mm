@@ -30,7 +30,7 @@
 - (id)loadMenuItems
 {
   v24[4] = *MEMORY[0x1E69E9840];
-  v2 = CAMTimerDurationFormatter();
+  v2 = CAMTimerDurationFormatter(self);
   v23 = CAMLocalizedFrameworkString(@"TIMER_OFF_TEXT", 0);
   v22 = CAMLocalizedFrameworkString(@"TIMER_TIMER_OFF_TEXT", 0);
   v3 = CAMLocalizedFrameworkString(@"TIMER_DURATION_TEXT", 0);

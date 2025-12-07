@@ -35,36 +35,36 @@
 
 + (void)copyChangedGroupPreferencesToLocalContainer
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E695E000]);
   v4 = +[BDSAppGroupContainer containerIdentifier];
   v5 = +[BDSAppGroupContainer containerURL];
   v6 = [v3 _initWithSuiteName:v4 container:v5];
 
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = [self syncedPreferenceKeys];
-  v8 = [obj countByEnumeratingWithState:&v24 objects:v34 count:16];
+  v8 = [obj countByEnumeratingWithState:&v23 objects:v33 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v25;
+    v11 = *v24;
     *&v9 = 138412290;
-    v22 = v9;
+    v21 = v9;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v25 != v11)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
-        v14 = [@"watchSynced-" stringByAppendingString:{v13, v22}];
+        v13 = *(*(&v23 + 1) + 8 * i);
+        v14 = [@"watchSynced-" stringByAppendingString:{v13, v21}];
         v15 = [v6 objectForKey:v14];
         v16 = [standardUserDefaults objectForKey:v13];
         v17 = v16;
@@ -78,28 +78,28 @@
           v18 = v15 == 0;
         }
 
-        if (v18 && (!v16 || ([v16 isEqual:v15] & 1) != 0))
+        if (v18 && (!v16 || (v16 = [v16 isEqual:v15], (v16 & 1) != 0)))
         {
-          v19 = BDSCloudKitAudiobookLog();
+          v19 = BDSCloudKitAudiobookLog(v16);
           if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
-            *buf = v22;
-            v29 = v13;
+            *buf = v21;
+            v28 = v13;
             _os_log_impl(&dword_1E45E0000, v19, OS_LOG_TYPE_INFO, "Preference %@ was unchanged", buf, 0xCu);
           }
         }
 
         else
         {
-          v20 = BDSCloudKitAudiobookLog();
+          v20 = BDSCloudKitAudiobookLog(v16);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412802;
-            v29 = v13;
-            v30 = 2112;
-            v31 = v15;
-            v32 = 2112;
-            v33 = v17;
+            v28 = v13;
+            v29 = 2112;
+            v30 = v15;
+            v31 = 2112;
+            v32 = v17;
             _os_log_impl(&dword_1E45E0000, v20, OS_LOG_TYPE_DEFAULT, "Synced preference %@ changed in group, copying value locally (new value %@, old value %@)", buf, 0x20u);
           }
 
@@ -107,13 +107,11 @@
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v24 objects:v34 count:16];
+      v10 = [obj countByEnumeratingWithState:&v23 objects:v33 count:16];
     }
 
     while (v10);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 + (void)copyChangedLocalPreferencesToGroupContainerWithAppSuiteName:(id)name container:(id)container groupName:(id)groupName groupContainer:(id)groupContainer
@@ -123,7 +121,7 @@
   containerCopy = container;
   groupNameCopy = groupName;
   groupContainerCopy = groupContainer;
-  v14 = BDSCloudKitAudiobookLog();
+  v14 = BDSCloudKitAudiobookLog(groupContainerCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
@@ -199,9 +197,9 @@
           v31 = v28 == 0;
         }
 
-        if (v31 && (!v29 || ([v29 isEqual:v28] & 1) != 0))
+        if (v31 && (!v29 || (v29 = [v29 isEqual:v28], (v29 & 1) != 0)))
         {
-          v32 = BDSCloudKitAudiobookLog();
+          v32 = BDSCloudKitAudiobookLog(v29);
           if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
@@ -212,7 +210,7 @@
 
         else
         {
-          v33 = BDSCloudKitAudiobookLog();
+          v33 = BDSCloudKitAudiobookLog(v29);
           if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412802;
@@ -235,23 +233,22 @@
     while (v23);
   }
 
-  if ([v44 count])
+  v34 = [v44 count];
+  if (v34)
   {
-    v34 = BDSCloudKitAudiobookLog();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+    v35 = BDSCloudKitAudiobookLog(v34);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
       v51 = v44;
-      _os_log_impl(&dword_1E45E0000, v34, OS_LOG_TYPE_INFO, "Updating npsManager with sync keys: %@", buf, 0xCu);
+      _os_log_impl(&dword_1E45E0000, v35, OS_LOG_TYPE_INFO, "Updating npsManager with sync keys: %@", buf, 0xCu);
     }
 
-    v35 = +[BDSAppGroupContainer containerIdentifier];
     v36 = +[BDSAppGroupContainer containerIdentifier];
-    v37 = objc_alloc_init(MEMORY[0x1E69B3590]);
-    [v37 synchronizeUserDefaultsDomain:v35 keys:v44 container:@"com.apple.iBooks" appGroupContainer:v36];
+    v37 = +[BDSAppGroupContainer containerIdentifier];
+    v38 = objc_alloc_init(MEMORY[0x1E69B3590]);
+    [v38 synchronizeUserDefaultsDomain:v36 keys:v44 container:@"com.apple.iBooks" appGroupContainer:v37];
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 @end

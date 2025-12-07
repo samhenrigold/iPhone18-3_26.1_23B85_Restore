@@ -875,7 +875,7 @@ void __29__CUSystemMonitor_invalidate__block_invoke(uint64_t a1, uint64_t a2, ui
     *(v10 + 25) = 1;
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitor invalidate]_block_invoke", 0x1Eu, "Invalidate\n", a5, a6, a7, a8, v8);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitor invalidate]_block_invoke", 30, "Invalidate\n", a5, a6, a7, a8, v8);
     }
 
     pthread_mutex_lock(&gCUSystemMonitorLock);
@@ -1023,7 +1023,7 @@ uint64_t __42__CUSystemMonitor_activateWithCompletion___block_invoke(uint64_t a1
     {
       v11 = "Activating (again)\n";
 LABEL_8:
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitor activateWithCompletion:]_block_invoke", 0x1Eu, v11, a5, a6, a7, a8, v19);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitor activateWithCompletion:]_block_invoke", 30, v11, a5, a6, a7, a8, v19);
     }
   }
 
@@ -1076,7 +1076,7 @@ uint64_t __42__CUSystemMonitor_activateWithCompletion___block_invoke_2(uint64_t 
 {
   if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitor activateWithCompletion:]_block_invoke_2", 0x1Eu, "Activated (again)\n", a5, a6, a7, a8, v11);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitor activateWithCompletion:]_block_invoke_2", 30, "Activated (again)\n", a5, a6, a7, a8, v11);
   }
 
   result = *(a1 + 32);
@@ -1094,7 +1094,7 @@ uint64_t __42__CUSystemMonitor_activateWithCompletion___block_invoke_3(uint64_t 
 {
   if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitor activateWithCompletion:]_block_invoke_3", 0x1Eu, "Activated\n", a5, a6, a7, a8, v11);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitor activateWithCompletion:]_block_invoke_3", 30, "Activated\n", a5, a6, a7, a8, v11);
   }
 
   *(*(a1 + 32) + 9) = 1;

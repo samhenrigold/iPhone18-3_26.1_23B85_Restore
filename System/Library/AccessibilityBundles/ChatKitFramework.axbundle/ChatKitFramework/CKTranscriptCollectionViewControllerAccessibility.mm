@@ -140,7 +140,7 @@ uint64_t __94__CKTranscriptCollectionViewControllerAccessibility__accessibilityS
   effectCopy = effect;
   LOBYTE(v30) = 0;
   v8 = __UIAccessibilitySafeClass();
-  v36 = 0;
+  v36[0] = 0;
   objc_opt_class();
   v30 = 0;
   v31 = &v30;
@@ -162,7 +162,7 @@ uint64_t __94__CKTranscriptCollectionViewControllerAccessibility__accessibilityS
   _Block_object_dispose(&v30, 8);
   v11 = __UIAccessibilityCastAsSafeCategory();
 
-  if (v36 == 1)
+  if (v36[0] == 1)
   {
     abort();
   }

@@ -40,19 +40,19 @@
 
 - (void)start
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = +[MSPSharedTripCapabilityLevelFetcher sharedFetcher];
   v4 = [v3 capabilityLevelForContact:self->_contact];
 
   if (v4)
   {
-    v5 = MSPGetSharedTripCapabilityFetchingLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = MSPGetSharedTripCapabilityFetchingLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       contact = self->_contact;
       *buf = 138477827;
-      v23 = contact;
-      _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_INFO, "fetchCapabilityLevelForContact found existing capability for single destination %{private}@", buf, 0xCu);
+      v24 = contact;
+      _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_INFO, "fetchCapabilityLevelForContact found existing capability for single destination %{private}@", buf, 0xCu);
     }
 
     callbackQueue = self->_callbackQueue;
@@ -68,38 +68,36 @@
   else
   {
     timeoutInterval = self->_timeoutInterval;
-    v9 = self->_callbackQueue;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __51___MSPSharedTripSingleCapabilityLevelFetcher_start__block_invoke_2;
-    v19[3] = &unk_279867680;
-    v19[4] = self;
-    v10 = [GCDTimer scheduledTimerWithTimeInterval:v9 queue:v19 block:timeoutInterval];
+    v10 = self->_callbackQueue;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __51___MSPSharedTripSingleCapabilityLevelFetcher_start__block_invoke_2;
+    v20[3] = &unk_279867680;
+    v20[4] = self;
+    v11 = [GCDTimer scheduledTimerWithTimeInterval:v10 queue:v20 block:timeoutInterval];
     timeoutTimer = self->_timeoutTimer;
-    self->_timeoutTimer = v10;
+    self->_timeoutTimer = v11;
 
-    v12 = MSPGetSharedTripCapabilityFetchingLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v14 = MSPGetSharedTripCapabilityFetchingLog(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v13 = self->_contact;
-      v14 = self->_timeoutInterval;
+      v15 = self->_contact;
+      v16 = self->_timeoutInterval;
       *buf = 138478083;
-      v23 = v13;
-      v24 = 2048;
-      v25 = v14;
-      _os_log_impl(&dword_25813A000, v12, OS_LOG_TYPE_INFO, "fetchCapabilityLevelForContact enqueuing single destination %{private}@, timeout: %#.1lfs", buf, 0x16u);
+      v24 = v15;
+      v25 = 2048;
+      v26 = v16;
+      _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_INFO, "fetchCapabilityLevelForContact enqueuing single destination %{private}@, timeout: %#.1lfs", buf, 0x16u);
     }
 
-    v15 = +[MSPSharedTripCapabilityLevelFetcher sharedFetcher];
-    [v15 registerObserver:self];
+    v17 = +[MSPSharedTripCapabilityLevelFetcher sharedFetcher];
+    [v17 registerObserver:self];
 
-    v16 = +[MSPSharedTripCapabilityLevelFetcher sharedFetcher];
-    v21 = self->_contact;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
-    [v16 requestCapabilityLevelsForContacts:v17];
+    v18 = +[MSPSharedTripCapabilityLevelFetcher sharedFetcher];
+    v22 = self->_contact;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+    [v18 requestCapabilityLevelsForContacts:v19];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)capabilityLevelFetcher:(id)fetcher didUpdateCapabilityLevelsForHandles:(id)handles
@@ -117,19 +115,19 @@
 
     if (v10)
     {
-      v11 = MSPGetSharedTripCapabilityFetchingLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v12 = MSPGetSharedTripCapabilityFetchingLog(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v12 = self->_contact;
+        v13 = self->_contact;
         *buf = 138478083;
-        v18 = v12;
+        v18 = v13;
         v19 = 2048;
         v20 = v10;
-        _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_INFO, "fetchCapabilityLevelForContact response for contact %{private}@: %lu", buf, 0x16u);
+        _os_log_impl(&dword_25813A000, v12, OS_LOG_TYPE_INFO, "fetchCapabilityLevelForContact response for contact %{private}@: %lu", buf, 0x16u);
       }
 
-      v13 = +[MSPSharedTripCapabilityLevelFetcher sharedFetcher];
-      [v13 unregisterObserver:self];
+      v14 = +[MSPSharedTripCapabilityLevelFetcher sharedFetcher];
+      [v14 unregisterObserver:self];
 
       callbackQueue = self->_callbackQueue;
       v16[0] = MEMORY[0x277D85DD0];
@@ -141,20 +139,18 @@
       dispatch_async(callbackQueue, v16);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_timeout
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = MSPGetSharedTripCapabilityFetchingLog();
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = MSPGetSharedTripCapabilityFetchingLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     contact = self->_contact;
-    v8 = 138477827;
-    v9 = contact;
-    _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_INFO, "fetchCapabilityLevelForContact timed out waiting for contact %{private}@", &v8, 0xCu);
+    v7 = 138477827;
+    v8 = contact;
+    _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_INFO, "fetchCapabilityLevelForContact timed out waiting for contact %{private}@", &v7, 0xCu);
   }
 
   v5 = +[MSPSharedTripCapabilityLevelFetcher sharedFetcher];
@@ -162,15 +158,13 @@
 
   v6 = +[MSPSharedTripCapabilityLevelFetcher sharedFetcher];
   -[_MSPSharedTripSingleCapabilityLevelFetcher _finishWithType:](self, "_finishWithType:", [v6 capabilityLevelForContact:self->_contact]);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishWithType:(unint64_t)type
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   completion = self->_completion;
-  v6 = MSPGetSharedTripCapabilityFetchingLog();
+  v6 = MSPGetSharedTripCapabilityFetchingLog(self);
   v7 = v6;
   if (completion)
   {
@@ -187,11 +181,11 @@
       }
 
       contact = self->_contact;
-      v16 = 138543619;
-      v17 = v8;
-      v18 = 2113;
-      v19 = contact;
-      _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_INFO, "fetchCapabilityLevelForContact cleaning up and calling completion handler with type %{public}@ for contact %{private}@", &v16, 0x16u);
+      v15 = 138543619;
+      v16 = v8;
+      v17 = 2113;
+      v18 = contact;
+      _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_INFO, "fetchCapabilityLevelForContact cleaning up and calling completion handler with type %{public}@ for contact %{private}@", &v15, 0x16u);
     }
 
     [(GCDTimer *)self->_timeoutTimer invalidate];
@@ -213,12 +207,10 @@
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
     v9 = self->_contact;
-    v16 = 138477827;
-    v17 = v9;
-    _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_FAULT, "fetchCapabilityLevelForContact single-fetcher finish was called multiple times for contact %{private}@", &v16, 0xCu);
+    v15 = 138477827;
+    v16 = v9;
+    _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_FAULT, "fetchCapabilityLevelForContact single-fetcher finish was called multiple times for contact %{private}@", &v15, 0xCu);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

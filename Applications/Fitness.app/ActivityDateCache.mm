@@ -41,7 +41,7 @@
   selfCopy = self;
   [v2 removeObserver:selfCopy];
   v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for ActivityDateCache();
+  v4.super_class = type metadata accessor for ActivityDateCache(0);
   [(ActivityDateCache *)&v4 dealloc];
 }
 

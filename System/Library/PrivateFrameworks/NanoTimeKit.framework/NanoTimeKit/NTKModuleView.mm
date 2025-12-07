@@ -510,13 +510,13 @@ void __32__NTKModuleView_setHighlighted___block_invoke(uint64_t a1)
   [v2 setBackgroundColor:v3];
 }
 
-uint64_t __32__NTKModuleView_setHighlighted___block_invoke_2(uint64_t result, int a2)
+void *__32__NTKModuleView_setHighlighted___block_invoke_2(void *result, int a2)
 {
   if (a2)
   {
-    if ((*(result + 40) & 1) == 0)
+    if ((result[5] & 1) == 0)
     {
-      return [*(*(result + 32) + 464) setHidden:1];
+      return [*(result[4] + 464) setHidden:1];
     }
   }
 

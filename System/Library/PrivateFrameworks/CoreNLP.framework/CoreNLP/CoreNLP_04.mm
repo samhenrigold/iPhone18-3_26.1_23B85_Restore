@@ -1,3 +1,400 @@
+unint64_t CoreNLP::Parser::predictTransition(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+{
+  v7 = *(a1 + 20);
+  v8 = *a1;
+  v9 = *(a1 + 40);
+  v28[0] = *(a1 + 24);
+  v28[1] = v9;
+  CoreNLP::MontrealModel::setInputTensor(v8, v28, a2, @"input");
+  CoreNLP::MontrealModel::predict(*a1);
+  v10 = CoreNLP::MontrealModel::output(*a1, @"output");
+  v11 = *(a3 + 40);
+  v12 = v11 != 0;
+  if (v11)
+  {
+    v10[1] = v10[1] + 100000.0;
+  }
+
+  v13 = (2 * v7) | 1;
+  v14 = a4[1] - *a4;
+  if (v14 >= 9 && *(a4[1] - 8) < *(a4[1] - 4))
+  {
+    v10[v13 - 1] = v10[v13 - 1] + 100000.0;
+    v12 = 1;
+  }
+
+  v15 = v13 - 1;
+  if (v15 >= 3)
+  {
+    if (v11)
+    {
+      v16 = 0;
+    }
+
+    else
+    {
+      v16 = v14 == 8;
+    }
+
+    v17 = !v16;
+    for (i = 2; v15 != i; ++i)
+    {
+      if (v14 < 9 || (i & 1) != 0)
+      {
+        if (v14 <= 8)
+        {
+          if (i)
+          {
+            v19 = v17;
+          }
+
+          else
+          {
+            v19 = 1;
+          }
+
+          if (v19)
+          {
+            continue;
+          }
+        }
+
+        else if ((i & 1) == 0)
+        {
+          continue;
+        }
+      }
+
+      v10[i] = v10[i] + 100000.0;
+      v12 = 1;
+    }
+  }
+
+  if (!v12)
+  {
+    return 0;
+  }
+
+  if (v7)
+  {
+    v20 = v10 + 1;
+    v21 = *v10;
+    v22 = 4 * v15;
+    v23 = v10;
+    v24 = v10 + 1;
+    do
+    {
+      v25 = *v24++;
+      v26 = v25;
+      if (v21 < v25)
+      {
+        v21 = v26;
+        v23 = v20;
+      }
+
+      v20 = v24;
+      v22 -= 4;
+    }
+
+    while (v22);
+  }
+
+  else
+  {
+    v23 = v10;
+  }
+
+  return (v23 - v10) >> 2;
+}
+
+void CoreNLP::Parser::updateState(uint64_t a1, int a2, void *a3, uint64_t a4, void *a5)
+{
+  if (a2 == 1)
+  {
+    v7 = a3[5];
+    if (!v7)
+    {
+      std::__throw_out_of_range[abi:ne200100]("deque");
+    }
+
+    v8 = a3[4];
+    v21 = *(*(a3[1] + ((v8 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v8 & 0x3FF));
+    a3[4] = v8 + 1;
+    a3[5] = v7 - 1;
+    std::deque<int>::__maybe_remove_front_spare[abi:ne200100](a3, 1);
+    goto LABEL_4;
+  }
+
+  if (a2 == 2 * *(a1 + 20))
+  {
+    v9 = *(a4 + 8);
+    v10 = v9 - *a4;
+    if (v9 != *a4)
+    {
+      v21 = *(v9 - 4);
+      if (v10 > 4)
+      {
+        v20 = *(v9 - 8);
+        *(a4 + 8) = v9 - 8;
+        std::vector<int>::push_back[abi:ne200100](a4, &v21);
+        std::deque<int>::push_front(a3, &v20);
+        return;
+      }
+    }
+
+LABEL_18:
+    std::vector<int>::__throw_out_of_range[abi:ne200100]();
+  }
+
+  v11 = a2 / 2;
+  if (a2 % 2 == 1)
+  {
+    v16 = *(a4 + 8);
+    if (v16 == *a4 || (v16 - *a4) <= 4)
+    {
+      goto LABEL_18;
+    }
+
+    v18 = (v16 - 8);
+    v17 = *v18;
+    v19 = v18[1];
+    *(a4 + 8) = v16 - 4;
+    *(*a5 + 4 * v19) = v11;
+    *(a5[3] + 4 * v19) = v17;
+  }
+
+  else if (!(a2 % 2))
+  {
+    v12 = *(a4 + 8);
+    v13 = v12 - *a4;
+    if (v12 != *a4)
+    {
+      v14 = *(v12 - 4);
+      v21 = v14;
+      if (v13 > 4)
+      {
+        v15 = *(v12 - 8);
+        *(*a5 + 4 * v15) = v11;
+        *(a5[3] + 4 * v15) = v14;
+        *(a4 + 8) = v12 - 8;
+LABEL_4:
+        std::vector<int>::push_back[abi:ne200100](a4, &v21);
+        return;
+      }
+    }
+
+    goto LABEL_18;
+  }
+}
+
+void std::deque<int>::push_front(uint64_t result, _DWORD *a2)
+{
+  v4 = *(result + 32);
+  if (!v4)
+  {
+    std::deque<int>::__add_front_capacity(result);
+    v4 = *(result + 32);
+  }
+
+  v5 = *(result + 8);
+  v6 = (v5 + 8 * (v4 >> 10));
+  if (*(result + 16) == v5)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    v7 = *v6 + 4 * (v4 & 0x3FF);
+  }
+
+  if (v7 == *v6)
+  {
+    v7 = *(v6 - 1) + 4096;
+  }
+
+  *(v7 - 4) = *a2;
+  v8 = *(result + 40) + 1;
+  *(result + 32) = v4 - 1;
+  *(result + 40) = v8;
+}
+
+void CoreNLP::Dependency::~Dependency(CoreNLP::Dependency *this)
+{
+  v2 = *(this + 3);
+  if (v2)
+  {
+    *(this + 4) = v2;
+    operator delete(v2);
+  }
+
+  v3 = *this;
+  if (*this)
+  {
+    *(this + 1) = v3;
+    operator delete(v3);
+  }
+}
+
+uint64_t *std::vector<NLDepLabel>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, int *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<float>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
+void sub_19D1BEA64(_Unwind_Exception *exception_object)
+{
+  v3 = *v1;
+  if (*v1)
+  {
+    *(v1 + 8) = v3;
+    operator delete(v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t *std::vector<int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, int *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<float>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
+void sub_19D1BEB78(_Unwind_Exception *exception_object)
+{
+  v3 = *v1;
+  if (*v1)
+  {
+    *(v1 + 8) = v3;
+    operator delete(v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t *std::vector<NLDepLabel>::__init_with_size[abi:ne200100]<NLDepLabel*,NLDepLabel*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
+{
+  if (a4)
+  {
+    std::vector<float>::__vallocate[abi:ne200100](result, a4);
+  }
+
+  return result;
+}
+
+void sub_19D1BEBF4(_Unwind_Exception *exception_object)
+{
+  v3 = *v1;
+  if (*v1)
+  {
+    *(v1 + 8) = v3;
+    operator delete(v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::deque<int>::~deque[abi:ne200100](void *a1)
+{
+  v2 = a1[1];
+  v3 = a1[2];
+  a1[5] = 0;
+  v4 = v3 - v2;
+  if (v4 >= 3)
+  {
+    do
+    {
+      operator delete(*v2);
+      v3 = a1[2];
+      v2 = (a1[1] + 8);
+      a1[1] = v2;
+      v4 = v3 - v2;
+    }
+
+    while (v4 > 2);
+  }
+
+  if (v4 == 1)
+  {
+    v5 = 512;
+  }
+
+  else
+  {
+    if (v4 != 2)
+    {
+      goto LABEL_9;
+    }
+
+    v5 = 1024;
+  }
+
+  a1[4] = v5;
+LABEL_9:
+  while (v2 != v3)
+  {
+    v6 = *v2++;
+    operator delete(v6);
+  }
+
+  return std::__split_buffer<char *>::~__split_buffer(a1);
+}
+
+void std::deque<int>::__add_back_capacity(unint64_t *a1)
+{
+  v1 = a1[4];
+  v2 = v1 >= 0x400;
+  v3 = v1 - 1024;
+  if (!v2)
+  {
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
+    {
+      if (v6 != v5)
+      {
+        operator new();
+      }
+
+      operator new();
+    }
+
+    if (v6 == *a1)
+    {
+      v8 = 1;
+    }
+
+    else
+    {
+      v8 = v7 >> 2;
+    }
+
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<char *>>(a1, v8);
+  }
+
+  a1[4] = v3;
+  v4 = a1[1];
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<char *>::emplace_back<char *&>(a1, &v9);
+}
+
 void sub_19D1BEE44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
 {
   operator delete(v13);
@@ -37,10 +434,10 @@ uint64_t std::deque<int>::__maybe_remove_front_spare[abi:ne200100](uint64_t a1, 
   return v4 ^ 1u;
 }
 
-const void **std::deque<int>::__add_front_capacity(uint64_t a1)
+void std::deque<int>::__add_front_capacity(const void **a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
+  v1 = a1[1];
+  v2 = a1[2];
   v3 = v2 - v1;
   if (v2 == v1)
   {
@@ -52,15 +449,15 @@ const void **std::deque<int>::__add_front_capacity(uint64_t a1)
     v4 = ((v2 - v1) << 7) - 1;
   }
 
-  v5 = *(a1 + 32);
-  if ((v4 - (*(a1 + 40) + v5)) < 0x400)
+  v5 = a1[4];
+  if ((v4 - (a1[5] + v5)) < 0x400)
   {
-    v7 = *(a1 + 24);
-    v8 = *a1;
-    v9 = &v7[-*a1];
-    if (v3 < v9)
+    v6 = a1[3];
+    v7 = *a1;
+    v8 = v6 - *a1;
+    if (v3 < v8)
     {
-      if (v1 != v8)
+      if (v1 != v7)
       {
         operator new();
       }
@@ -68,24 +465,24 @@ const void **std::deque<int>::__add_front_capacity(uint64_t a1)
       operator new();
     }
 
-    if (v7 == v8)
+    if (v6 == v7)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9 >> 2;
+      v9 = v8 >> 2;
     }
 
-    v11[4] = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<char *>>(a1, v10);
+    v10[4] = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<char *>>(a1, v9);
   }
 
-  *(a1 + 32) = v5 + 1024;
-  v11[0] = *(v2 - 1);
-  *(a1 + 16) = v2 - 8;
-  return std::__split_buffer<char *>::emplace_front<char *>(a1, v11);
+  a1[4] = (v5 + 1024);
+  v10[0] = *(v2 - 8);
+  a1[2] = (v2 - 8);
+  std::__split_buffer<char *>::emplace_front<char *>(a1, v10);
 }
 
 void sub_19D1BF104(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -101,62 +498,57 @@ void sub_19D1BF104(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t hasRequiredKeys(_BOOL8 *a1)
 {
-  __p.length = *MEMORY[0x1E69E9840];
-  *&__p.isa = xmmword_1E7624AF8;
-  __p.data = @"kCoreLMLocaleKey";
-  v13[0] = &__p;
-  v13[1] = 3;
-  CFArray = applesauce::CF::details::make_CFArrayRef<__CFString const*>(v13);
+  v15 = *MEMORY[0x1E69E9840];
+  *__p = xmmword_1E7624AF8;
+  v14 = @"kCoreLMLocaleKey";
+  v12[0] = __p;
+  v12[1] = 3;
+  CFArray = applesauce::CF::details::make_CFArrayRef<__CFString const*>(v12);
   v3 = CFArray;
-  v13[2] = CFArray;
-  if (CFArray)
+  v12[2] = CFArray;
+  if (!CFArray)
   {
-    Count = CFArrayGetCount(CFArray);
-    v5 = CFArrayGetCount(v3);
-    if (Count)
+    return 1;
+  }
+
+  Count = CFArrayGetCount(CFArray);
+  v5 = CFArrayGetCount(v3);
+  if (Count)
+  {
+    v6 = v5;
+    v7 = 0;
+    while (v6 != v7)
     {
-      v6 = v5;
-      v7 = 0;
-      while (v6 != v7)
+      applesauce::CF::details::at_to<std::string>(v3, v7, __p);
+      if (!*a1)
       {
-        applesauce::CF::details::at_to<std::string>(v3, v7, &__p);
-        if (!*a1)
-        {
-          exception = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(exception, "Could not construct");
-          __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-        }
+        exception = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(exception, "Could not construct");
+        __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      }
 
-        v8 = applesauce::CF::details::has_key<std::string &>(*a1, &__p);
-        if (SHIBYTE(__p.data) < 0)
-        {
-          operator delete(__p.isa);
-        }
+      v8 = applesauce::CF::details::has_key<std::string &>(*a1, __p);
+      if (SHIBYTE(v14) < 0)
+      {
+        operator delete(__p[0]);
+      }
 
-        if (!v8)
-        {
-          v9 = 0;
-          goto LABEL_13;
-        }
+      if (!v8)
+      {
+        v9 = 0;
+        goto LABEL_13;
+      }
 
-        if (Count == ++v7)
-        {
-          break;
-        }
+      if (Count == ++v7)
+      {
+        break;
       }
     }
+  }
 
-    v9 = 1;
+  v9 = 1;
 LABEL_13:
-    CFRelease(v3);
-  }
-
-  else
-  {
-    v9 = 1;
-  }
-
-  v10 = *MEMORY[0x1E69E9840];
+  CFRelease(v3);
   return v9;
 }
 
@@ -182,15 +574,15 @@ void *applesauce::CF::DictionaryRef::operator->(void *result)
   return result;
 }
 
-void getLocaleAsString(const __CFDictionary *a1@<X0>, uint64_t a2@<X8>)
+void getLocaleAsString(const __CFDictionary *a1@<X0>, void *a2@<X8>)
 {
   Value = CFDictionaryGetValue(a1, @"kCoreLMLocaleKey");
   if (!Value)
   {
 LABEL_12:
     *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
+    a2[1] = 0;
+    a2[2] = 0;
     return;
   }
 
@@ -204,10 +596,11 @@ LABEL_12:
   }
 
   v7 = CFGetTypeID(v5);
-  if (v7 != CFLocaleGetTypeID())
+  TypeID = CFLocaleGetTypeID();
+  if (v7 != TypeID)
   {
-    v9 = _nlpDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = _nlpDefaultLog(TypeID, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       getLocaleAsString();
     }
@@ -215,8 +608,8 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v8 = MEMORY[0x19EAF8290](v5);
-  applesauce::CF::StringRef::from_get(v8, &cf);
+  v10 = MEMORY[0x19EAF8290](v5);
+  applesauce::CF::StringRef::from_get(&cf, v10);
   if (!cf)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -238,16 +631,16 @@ void sub_19D1BF4BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-const void *applesauce::CF::StringRef::from_get@<X0>(const void *this@<X0>, void *a2@<X8>)
+uint64_t *applesauce::CF::StringRef::from_get@<X0>(uint64_t **__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
   if (this)
   {
-    v4 = this;
+    v3 = this;
     CFRetain(this);
-    *a2 = v4;
-    v5 = CFGetTypeID(v4);
+    *a1 = v3;
+    v4 = CFGetTypeID(v3);
     this = CFStringGetTypeID();
-    if (v5 != this)
+    if (v4 != this)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       std::runtime_error::runtime_error(exception, "Could not construct");
@@ -257,7 +650,7 @@ const void *applesauce::CF::StringRef::from_get@<X0>(const void *this@<X0>, void
 
   else
   {
-    *a2 = 0;
+    *a1 = 0;
   }
 
   return this;
@@ -284,7 +677,7 @@ const __CFString *copyCFLocale(const __CFDictionary *a1)
   {
     applesauce::CF::details::find_at_key<std::string,__CFString const* const&>(a1, &kCoreLMLocaleKey, &__p);
     v3 = CFLocaleCreate(*MEMORY[0x1E695E480], v3);
-    if (v9 < 0)
+    if (v11 < 0)
     {
       operator delete(__p);
     }
@@ -293,10 +686,11 @@ const __CFString *copyCFLocale(const __CFDictionary *a1)
   }
 
   v5 = CFGetTypeID(v3);
-  if (v5 != CFLocaleGetTypeID())
+  TypeID = CFLocaleGetTypeID();
+  if (v5 != TypeID)
   {
-    v7 = _nlpDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = _nlpDefaultLog(TypeID, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       getLocaleAsString();
     }
@@ -317,7 +711,7 @@ void sub_19D1BF6A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void getModelNameAsString(const __CFDictionary **a1@<X0>, uint64_t a2@<X8>)
+void getModelNameAsString(const __CFDictionary **a1@<X0>, void *a2@<X8>)
 {
   v3 = *a1;
   if (!v3)
@@ -346,10 +740,11 @@ LABEL_6:
     goto LABEL_5;
   }
 
-  if (!CFEqual(v5, @"kCoreLMArchitectureTransformer"))
+  v7 = CFEqual(v5, @"kCoreLMArchitectureTransformer");
+  if (!v7)
   {
-    v9 = _nlpDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = _nlpDefaultLog(v7, v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       getModelNameAsString();
     }
@@ -362,13 +757,13 @@ LABEL_6:
     goto LABEL_28;
   }
 
-  v7 = applesauce::CF::details::has_key<__CFString const* const&>(*a1, kCoreLMNetworkNameKey);
-  v8 = *a1;
-  if (!v7)
+  v9 = applesauce::CF::details::has_key<__CFString const* const&>(*a1, kCoreLMNetworkNameKey);
+  v10 = *a1;
+  if (!v9)
   {
-    if (v8)
+    if (v10)
     {
-      if (!applesauce::CF::details::has_key<__CFString const* const&>(v8, &kCoreLMEngineKey))
+      if (!applesauce::CF::details::has_key<__CFString const* const&>(v10, &kCoreLMEngineKey))
       {
 LABEL_23:
         v6 = "unilm_joint_cpu.espresso.net";
@@ -377,28 +772,29 @@ LABEL_23:
 
       if (*a1)
       {
-        v10 = applesauce::CF::details::find_at_key<__CFString const*,__CFString const* const&>(*a1, &kCoreLMEngineKey);
-        if (CFEqual(v10, @"kCoreLMEngineCPU"))
+        v12 = applesauce::CF::details::find_at_key<__CFString const*,__CFString const* const&>(*a1, &kCoreLMEngineKey);
+        if (CFEqual(v12, @"kCoreLMEngineCPU"))
         {
           goto LABEL_23;
         }
 
-        if (CFEqual(v10, @"kCoreLMEngineANE"))
+        v13 = CFEqual(v12, @"kCoreLMEngineANE");
+        if (v13)
         {
           v6 = "unilm_joint_ane.espresso.net";
           goto LABEL_6;
         }
 
-        v11 = _nlpDefaultLog();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v15 = _nlpDefaultLog(v13, v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           getModelNameAsString();
         }
 
 LABEL_18:
         *a2 = 0;
-        *(a2 + 8) = 0;
-        *(a2 + 16) = 0;
+        a2[1] = 0;
+        a2[2] = 0;
         return;
       }
     }
@@ -409,24 +805,24 @@ LABEL_28:
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  if (!v8)
+  if (!v10)
   {
     goto LABEL_28;
   }
 
-  applesauce::CF::details::find_at_key<std::string,__CFString const* const&>(v8, kCoreLMNetworkNameKey, a2);
+  applesauce::CF::details::find_at_key<std::string,__CFString const* const&>(v10, kCoreLMNetworkNameKey, a2);
 }
 
 void copyModelInfo(uint64_t a1, uint64_t a2)
 {
-  v74 = *MEMORY[0x1E69E9840];
-  v71[0] = 0;
-  v71[1] = 0;
-  v70 = v71;
+  v73 = *MEMORY[0x1E69E9840];
+  v70[0] = 0;
+  v70[1] = 0;
+  v69 = v70;
   std::string::basic_string[abi:ne200100]<0>(&__p, "modelInfo.plist");
   hasFile = corelm::util::Directory::hasFile(a2, &__p);
   v5 = hasFile;
-  if ((v68.__r_.__value_.__s.__data_[15] & 0x80000000) == 0)
+  if ((v67.__r_.__value_.__s.__data_[15] & 0x80000000) == 0)
   {
     if (hasFile)
     {
@@ -434,8 +830,8 @@ void copyModelInfo(uint64_t a1, uint64_t a2)
     }
 
 LABEL_6:
-    std::runtime_error::runtime_error(&v55, "modelInfo.plist not found");
-    std::runtime_error::~runtime_error(&v55);
+    std::runtime_error::runtime_error(&v54, "modelInfo.plist not found");
+    std::runtime_error::~runtime_error(&v54);
     v7 = 0;
     goto LABEL_103;
   }
@@ -448,81 +844,81 @@ LABEL_6:
 
 LABEL_3:
   v6 = MEMORY[0x1E696AEC0];
-  std::string::basic_string[abi:ne200100]<0>(v65, "modelInfo.plist");
-  corelm::util::Directory::getFilePath(a2, v65, &__p);
-  if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
+  std::string::basic_string[abi:ne200100]<0>(v64, "modelInfo.plist");
+  corelm::util::Directory::getFilePath(a2, v64, &__p);
+  if (SHIBYTE(v67.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v69, v68.__r_.__value_.__l.__data_, v68.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v68, v67.__r_.__value_.__l.__data_, v67.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v69 = v68;
+    v68 = v67;
   }
 
-  if ((v69.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v68.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v8 = &v69;
+    v8 = &v68;
   }
 
   else
   {
-    v8 = v69.__r_.__value_.__r.__words[0];
+    v8 = v68.__r_.__value_.__r.__words[0];
   }
 
   v9 = [v6 stringWithUTF8String:v8];
-  if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v69.__r_.__value_.__l.__data_);
-  }
-
-  __p = &unk_1F10AD1D0;
   if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v68.__r_.__value_.__l.__data_);
   }
 
-  if (v66 < 0)
+  __p = &unk_1F10AD1D0;
+  if (SHIBYTE(v67.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v65[0]);
+    operator delete(v67.__r_.__value_.__l.__data_);
+  }
+
+  if (v65 < 0)
+  {
+    operator delete(v64[0]);
   }
 
   v10 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfFile:v9];
   if (([objc_msgSend(v10 "allKeys")] & 1) == 0)
   {
-    std::runtime_error::runtime_error(&v64, "modelInfo.plist should have keys MaximumSequenceLength");
-    std::runtime_error::~runtime_error(&v64);
+    std::runtime_error::runtime_error(&v63, "modelInfo.plist should have keys MaximumSequenceLength");
+    std::runtime_error::~runtime_error(&v63);
   }
 
-  v49 = v10;
+  v48 = v10;
   if ([objc_msgSend(v10 "allKeys")])
   {
-    v52 = [v10 objectForKeyedSubscript:@"SupportedBatchSizesAndSequenceLengthsForLM"];
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
+    v51 = [v10 objectForKeyedSubscript:@"SupportedBatchSizesAndSequenceLengthsForLM"];
     v61 = 0u;
-    obj = [v52 allKeys];
-    v11 = [obj countByEnumeratingWithState:&v60 objects:v73 count:16];
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
+    obj = [v51 allKeys];
+    v11 = [obj countByEnumeratingWithState:&v59 objects:v72 count:16];
     if (v11)
     {
-      v51 = *v61;
+      v50 = *v60;
       do
       {
         v12 = 0;
-        v53 = v11;
+        v52 = v11;
         do
         {
-          if (*v61 != v51)
+          if (*v60 != v50)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v60 + 1) + 8 * v12);
-          v69.__r_.__value_.__r.__words[0] = [v13 intValue];
-          __p = &v69;
-          v14 = std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v70, &v69);
-          v54 = v12;
+          v13 = *(*(&v59 + 1) + 8 * v12);
+          v68.__r_.__value_.__r.__words[0] = [v13 intValue];
+          __p = &v68;
+          v14 = std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v69, &v68, &std::piecewise_construct, &__p);
+          v53 = v12;
           v16 = v14 + 5;
           v15 = v14[5];
           if (v15)
@@ -537,27 +933,27 @@ LABEL_3:
           v16[1] = 0;
           v16[2] = 0;
           *v16 = 0;
+          v55 = 0u;
           v56 = 0u;
           v57 = 0u;
           v58 = 0u;
-          v59 = 0u;
-          v17 = [v52 objectForKey:v13];
-          v18 = [v17 countByEnumeratingWithState:&v56 objects:v72 count:16];
+          v17 = [v51 objectForKey:v13];
+          v18 = [v17 countByEnumeratingWithState:&v55 objects:v71 count:16];
           if (v18)
           {
-            v19 = *v57;
+            v19 = *v56;
             do
             {
               for (i = 0; i != v18; ++i)
               {
-                if (*v57 != v19)
+                if (*v56 != v19)
                 {
                   objc_enumerationMutation(v17);
                 }
 
-                v21 = *(*(&v56 + 1) + 8 * i);
-                __p = &v69;
-                v22 = std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v70, &v69);
+                v21 = *(*(&v55 + 1) + 8 * i);
+                __p = &v68;
+                v22 = std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v69, &v68, &std::piecewise_construct, &__p);
                 v23 = [v21 intValue];
                 v25 = v22[6];
                 v24 = v22[7];
@@ -615,33 +1011,33 @@ LABEL_3:
                 v22[6] = v26;
               }
 
-              v18 = [v17 countByEnumeratingWithState:&v56 objects:v72 count:16];
+              v18 = [v17 countByEnumeratingWithState:&v55 objects:v71 count:16];
             }
 
             while (v18);
           }
 
-          v12 = v54 + 1;
+          v12 = v53 + 1;
         }
 
-        while (v54 + 1 != v53);
-        v11 = [obj countByEnumeratingWithState:&v60 objects:v73 count:16];
+        while (v53 + 1 != v52);
+        v11 = [obj countByEnumeratingWithState:&v59 objects:v72 count:16];
       }
 
       while (v11);
     }
   }
 
-  if (![objc_msgSend(v49 "allKeys")])
+  if (![objc_msgSend(v48 "allKeys")])
   {
     goto LABEL_102;
   }
 
-  v38 = [objc_msgSend(v49 objectForKeyedSubscript:{@"PreProcessor", "objectForKeyedSubscript:", @"Name"}];
+  v38 = [objc_msgSend(v48 objectForKeyedSubscript:{@"PreProcessor", "objectForKeyedSubscript:", @"Name"}];
   std::string::basic_string[abi:ne200100]<0>(&__p, [v38 UTF8String]);
-  if ((v68.__r_.__value_.__s.__data_[15] & 0x80000000) == 0)
+  if ((v67.__r_.__value_.__s.__data_[15] & 0x80000000) == 0)
   {
-    if (v68.__r_.__value_.__s.__data_[15] != 7)
+    if (v67.__r_.__value_.__s.__data_[15] != 7)
     {
       goto LABEL_66;
     }
@@ -655,7 +1051,7 @@ LABEL_64:
     operator new();
   }
 
-  if (v68.__r_.__value_.__r.__words[0] != 7)
+  if (v67.__r_.__value_.__r.__words[0] != 7)
   {
     operator delete(__p);
     goto LABEL_66;
@@ -670,9 +1066,9 @@ LABEL_64:
 
 LABEL_66:
   std::string::basic_string[abi:ne200100]<0>(&__p, [v38 UTF8String]);
-  if ((v68.__r_.__value_.__s.__data_[15] & 0x80000000) == 0)
+  if ((v67.__r_.__value_.__s.__data_[15] & 0x80000000) == 0)
   {
-    if (v68.__r_.__value_.__s.__data_[15] != 7)
+    if (v67.__r_.__value_.__s.__data_[15] != 7)
     {
       goto LABEL_84;
     }
@@ -686,7 +1082,7 @@ LABEL_82:
     operator new();
   }
 
-  if (v68.__r_.__value_.__r.__words[0] != 7)
+  if (v67.__r_.__value_.__r.__words[0] != 7)
   {
     operator delete(__p);
     goto LABEL_84;
@@ -701,14 +1097,14 @@ LABEL_82:
 
 LABEL_84:
   std::string::basic_string[abi:ne200100]<0>(&__p, [v38 UTF8String]);
-  if ((v68.__r_.__value_.__s.__data_[15] & 0x80000000) == 0)
+  if ((v67.__r_.__value_.__s.__data_[15] & 0x80000000) == 0)
   {
-    if (v68.__r_.__value_.__s.__data_[15] != 10)
+    if (v67.__r_.__value_.__s.__data_[15] != 10)
     {
       goto LABEL_102;
     }
 
-    if (__p != 0x41326D6F74737563 || LOWORD(v68.__r_.__value_.__l.__data_) != 21075)
+    if (__p != 0x41326D6F74737563 || LOWORD(v67.__r_.__value_.__l.__data_) != 21075)
     {
       goto LABEL_102;
     }
@@ -717,7 +1113,7 @@ LABEL_100:
     operator new();
   }
 
-  if (v68.__r_.__value_.__r.__words[0] == 10)
+  if (v67.__r_.__value_.__r.__words[0] == 10)
   {
     v47 = *__p != 0x41326D6F74737563 || *(__p + 4) != 21075;
     operator delete(__p);
@@ -731,23 +1127,22 @@ LABEL_100:
 
   operator delete(__p);
 LABEL_102:
-  v7 = [objc_msgSend(v49 objectForKeyedSubscript:{@"MaximumSequenceLength", "intValue"}];
+  v7 = [objc_msgSend(v48 objectForKeyedSubscript:{@"MaximumSequenceLength", "intValue"}];
 LABEL_103:
-  if ((a1 + 32) != &v70)
+  if ((a1 + 32) != &v69)
   {
-    std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__tree_node<std::__value_type<unsigned long,std::vector<unsigned long>>,void *> *,long>>((a1 + 32), v70, v71);
+    std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__tree_node<std::__value_type<unsigned long,std::vector<unsigned long>>,void *> *,long>>((a1 + 32), v69, v70);
   }
 
   *(a1 + 24) = v7;
-  std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::destroy(&v70, v71[0]);
-  v48 = *MEMORY[0x1E69E9840];
+  std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::destroy(&v69, v70[0]);
 }
 
-void sub_19D1C01A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, uint64_t a44, uint64_t a45, void *__p, uint64_t a47, uint64_t a48, void *a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54)
+void sub_19D1C01A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, uint64_t a44, uint64_t a45, void *__p, uint64_t a47, uint64_t a48, void *a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, void *a54)
 {
   if (a20)
   {
-    copyModelInfo(a20);
+    copyModelInfo();
   }
 
   std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::destroy(&a53, a54);
@@ -871,672 +1266,108 @@ void sub_19D1C052C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void CoreLMCreate(const void *a1)
 {
-  v86 = *MEMORY[0x1E69E9840];
-  std::string::basic_string[abi:ne200100]<0>(&v83, "Unknown runtime error.");
-  applesauce::CF::DictionaryRef::from_get(a1, &v82);
-  v2 = v82;
-  if (v82)
+  v92 = *MEMORY[0x1E69E9840];
+  std::string::basic_string[abi:ne200100]<0>(&v89, "Unknown runtime error.");
+  applesauce::CF::DictionaryRef::from_get(a1, &v88);
+  v2 = v88;
+  if (v88)
   {
-    CFRetain(v82);
+    CFRetain(v88);
   }
 
-  v81 = v2;
-  v3 = hasRequiredKeys(&v81);
-  if (v81)
+  v87 = v2;
+  v3 = hasRequiredKeys(&v87);
+  if (v87)
   {
-    CFRelease(v81);
+    CFRelease(v87);
   }
 
   if ((v3 & 1) == 0)
   {
-    MEMORY[0x19EAF8860](&v83, "Creation options does not contain all required keys (kCoreLMVocabularyTypeKey, kCoreLMArchitectureKey, kCoreLMLocaleKey).");
-    v29 = _nlpDefaultLog();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v28 = MEMORY[0x19EAF8860](&v89, "Creation options does not contain all required keys (kCoreLMVocabularyTypeKey, kCoreLMArchitectureKey, kCoreLMLocaleKey).");
+    v30 = _nlpDefaultLog(v28, v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      CoreLMCreate_cold_1(&v83);
+      CoreLMCreate_cold_1();
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, &v83);
+    std::runtime_error::runtime_error(exception, &v89);
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  memset(&v80, 0, sizeof(v80));
-  v79 = &unk_1F10AD1F8;
-  memset(&v78, 0, sizeof(v78));
-  std::string::basic_string[abi:ne200100]<0>(v76, "CPU");
-  if (!v82)
+  memset(&v86, 0, sizeof(v86));
+  v85 = &unk_1F10AD1F8;
+  memset(&v84, 0, sizeof(v84));
+  std::string::basic_string[abi:ne200100]<0>(v82, "CPU");
+  if (!v88)
   {
-    v31 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v31, "Could not construct");
-    __cxa_throw(v31, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    v32 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v32, "Could not construct");
+    __cxa_throw(v32, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  if (applesauce::CF::details::has_key<__CFString const* const&>(v82, &kCoreLMURLKey))
+  if (applesauce::CF::details::has_key<__CFString const* const&>(v88, &kCoreLMURLKey))
   {
-    if (!v82)
+    if (!v88)
     {
-      v34 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v34, "Could not construct");
-      __cxa_throw(v34, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      v35 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v35, "Could not construct");
+      __cxa_throw(v35, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    applesauce::CF::details::find_at_key<applesauce::CF::URLRef,__CFString const* const&>(v82, &kCoreLMURLKey, v68);
-    if (!v68[0])
-    {
-      v36 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v36, "Could not construct");
-      __cxa_throw(v36, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-    }
-
-    applesauce::CF::get_filesystem_path(v68[0], &v84);
-    if (!v84.__r_.__value_.__r.__words[0])
+    applesauce::CF::details::find_at_key<applesauce::CF::URLRef,__CFString const* const&>(v88, &kCoreLMURLKey, v74);
+    if (!v74[0])
     {
       v37 = __cxa_allocate_exception(0x10uLL);
       std::runtime_error::runtime_error(v37, "Could not construct");
       __cxa_throw(v37, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    applesauce::CF::convert_to<std::string,0>(v84.__r_.__value_.__l.__data_, __p);
-    corelm::util::Directory::Directory<std::string>(v85, __p);
-    std::string::operator=(&v80, &v85[8]);
-    *v85 = &unk_1F10AD1D0;
-    if ((v85[31] & 0x80000000) != 0)
-    {
-      operator delete(*&v85[8]);
-    }
-
-    if (v61 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (v84.__r_.__value_.__r.__words[0])
-    {
-      CFRelease(v84.__r_.__value_.__l.__data_);
-    }
-
-    v4 = v82;
-    if (v82)
-    {
-      CFRetain(v82);
-    }
-
-    cf = v4;
-    getModelNameAsString(&cf, &v73);
-    corelm::util::Directory::getFilePath(&v79, &v73, v85);
-    if ((v85[31] & 0x80000000) != 0)
-    {
-      std::string::__init_copy_ctor_external(&v84, *&v85[8], *&v85[16]);
-    }
-
-    else
-    {
-      v84 = *&v85[8];
-    }
-
-    if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v78.__r_.__value_.__l.__data_);
-    }
-
-    v78 = v84;
-    *(&v84.__r_.__value_.__s + 23) = 0;
-    v84.__r_.__value_.__s.__data_[0] = 0;
-    *v85 = &unk_1F10AD1D0;
-    if ((v85[31] & 0x80000000) != 0)
-    {
-      operator delete(*&v85[8]);
-    }
-
-    if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v73.__r_.__value_.__l.__data_);
-    }
-
-    if (cf)
-    {
-      CFRelease(cf);
-    }
-
-    if (!v82)
+    applesauce::CF::get_filesystem_path(&v90, v74[0]);
+    if (!v90.__r_.__value_.__r.__words[0])
     {
       v38 = __cxa_allocate_exception(0x10uLL);
       std::runtime_error::runtime_error(v38, "Could not construct");
       __cxa_throw(v38, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    if (applesauce::CF::details::has_key<__CFString const* const&>(v82, &kCoreLMEngineKey))
+    applesauce::CF::convert_to<std::string,0>(v90.__r_.__value_.__l.__data_, __p);
+    corelm::util::Directory::Directory<std::string>(v91, __p);
+    std::string::operator=(&v86, &v91[8]);
+    *v91 = &unk_1F10AD1D0;
+    if ((v91[31] & 0x80000000) != 0)
     {
-      if (!v82)
-      {
-        v45 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v45, "Could not construct");
-        __cxa_throw(v45, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-      }
-
-      v11 = applesauce::CF::details::find_at_key<__CFString const*,__CFString const* const&>(v82, &kCoreLMEngineKey);
-      if (!CFEqual(v11, @"kCoreLMEngineCPU") && !CFEqual(v11, @"kCoreLMEngineANE"))
-      {
-        v55 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v55, "Invalid Engine type. Should be either kCoreLMEngineCPU or kCoreLMEngineANE");
-        __cxa_throw(v55, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-      }
-
-      if (CFEqual(v11, @"kCoreLMEngineANE"))
-      {
-        MEMORY[0x19EAF8860](v76, "ANE");
-      }
-    }
-
-    if (!corelm::util::Directory::exists(&v79))
-    {
-      if (SHIBYTE(v80.__r_.__value_.__r.__words[2]) < 0)
-      {
-        std::string::__init_copy_ctor_external(v85, v80.__r_.__value_.__l.__data_, v80.__r_.__value_.__l.__size_);
-      }
-
-      else
-      {
-        *v85 = v80;
-      }
-
-      v46 = std::string::insert(v85, 0, "Model directory does not exist: ");
-      v47 = v46->__r_.__value_.__r.__words[0];
-      v84.__r_.__value_.__r.__words[0] = v46->__r_.__value_.__l.__size_;
-      *(v84.__r_.__value_.__r.__words + 7) = *(&v46->__r_.__value_.__r.__words[1] + 7);
-      v48 = HIBYTE(v46->__r_.__value_.__r.__words[2]);
-      v46->__r_.__value_.__l.__size_ = 0;
-      v46->__r_.__value_.__r.__words[2] = 0;
-      v46->__r_.__value_.__r.__words[0] = 0;
-      if (SHIBYTE(v83.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v83.__r_.__value_.__l.__data_);
-      }
-
-      v83.__r_.__value_.__r.__words[0] = v47;
-      v83.__r_.__value_.__l.__size_ = v84.__r_.__value_.__r.__words[0];
-      *(&v83.__r_.__value_.__r.__words[1] + 7) = *(v84.__r_.__value_.__r.__words + 7);
-      *(&v83.__r_.__value_.__s + 23) = v48;
-      if ((v85[23] & 0x80000000) != 0)
-      {
-        operator delete(*v85);
-      }
-
-      v49 = _nlpDefaultLog();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
-      {
-        CoreLMCreate_cold_4(&v83.__r_.__value_.__r.__words[2] + 7, &v83);
-      }
-
-      v50 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v50, &v83);
-      __cxa_throw(v50, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-    }
-
-    if (v68[0])
-    {
-      CFRelease(v68[0]);
-    }
-
-    goto LABEL_124;
-  }
-
-  if (!v82)
-  {
-    v35 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v35, "Could not construct");
-    __cxa_throw(v35, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  if (!applesauce::CF::details::has_key<__CFString const* const&>(v82, &kCoreLMArchitectureKey))
-  {
-    goto LABEL_31;
-  }
-
-  if (!v82)
-  {
-    v44 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v44, "Could not construct");
-    __cxa_throw(v44, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  v5 = applesauce::CF::details::find_at_key<__CFString const*,__CFString const* const&>(v82, &kCoreLMArchitectureKey);
-  if (!CFEqual(v5, @"kCoreLMArchitectureTransformer"))
-  {
-LABEL_31:
-    getLocaleAsString(a1, &v84);
-    size = HIBYTE(v84.__r_.__value_.__r.__words[2]);
-    if ((v84.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      size = v84.__r_.__value_.__l.__size_;
-    }
-
-    if (!size)
-    {
-      MEMORY[0x19EAF8860](&v83, "Unable to determine model locale from options");
-      v39 = _nlpDefaultLog();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
-      {
-        CoreLMCreate_cold_3(&v83);
-      }
-
-      v40 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v40, &v83);
-      __cxa_throw(v40, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(v85, "-");
-    std::string::basic_string[abi:ne200100]<0>(&v73, "_");
-    corelm::util::replace(&v84, v85, &v73);
-    if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v73.__r_.__value_.__l.__data_);
-    }
-
-    if ((v85[23] & 0x80000000) != 0)
-    {
-      operator delete(*v85);
-    }
-
-    if (SHIBYTE(v84.__r_.__value_.__r.__words[2]) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v72, v84.__r_.__value_.__l.__data_, v84.__r_.__value_.__l.__size_);
-    }
-
-    else
-    {
-      v72 = v84;
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(v70, "_");
-    corelm::util::stripSplit(&v72, v70, v85);
-    if (*(*v85 + 23) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v73, **v85, *(*v85 + 8));
-    }
-
-    else
-    {
-      v12 = **v85;
-      v73.__r_.__value_.__r.__words[2] = *(*v85 + 16);
-      *&v73.__r_.__value_.__l.__data_ = v12;
-    }
-
-    v68[0] = v85;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v68);
-    if (v71 < 0)
-    {
-      operator delete(v70[0]);
-    }
-
-    if (SHIBYTE(v72.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v72.__r_.__value_.__l.__data_);
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(v68, "/System/Library/PrivateFrameworks/CVNLP.framework/Models/");
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v68, &v73.__r_.__value_.__l.__data_, v66);
-    corelm::util::Directory::Directory<std::string>(v85, v66);
-    std::string::operator=(&v80, &v85[8]);
-    *v85 = &unk_1F10AD1D0;
-    if ((v85[31] & 0x80000000) != 0)
-    {
-      operator delete(*&v85[8]);
+      operator delete(*&v91[8]);
     }
 
     if (v67 < 0)
     {
-      operator delete(v66[0]);
+      operator delete(__p[0]);
     }
 
-    v13 = v82;
-    if (v82)
+    if (v90.__r_.__value_.__r.__words[0])
     {
-      CFRetain(v82);
+      CFRelease(v90.__r_.__value_.__l.__data_);
     }
 
-    v62 = v13;
-    getModelNameAsString(&v62, v63);
-    corelm::util::Directory::getFilePath(&v79, v63, v85);
-    if ((v85[31] & 0x80000000) != 0)
+    v4 = v88;
+    if (v88)
     {
-      std::string::__init_copy_ctor_external(&v65, *&v85[8], *&v85[16]);
+      CFRetain(v88);
     }
 
-    else
+    cf = v4;
+    getModelNameAsString(&cf, &v79);
+    corelm::util::Directory::getFilePath(&v85, &v79, v91);
+    if ((v91[31] & 0x80000000) != 0)
     {
-      v65 = *&v85[8];
-    }
-
-    if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v78.__r_.__value_.__l.__data_);
-    }
-
-    v78 = v65;
-    *(&v65.__r_.__value_.__s + 23) = 0;
-    v65.__r_.__value_.__s.__data_[0] = 0;
-    *v85 = &unk_1F10AD1D0;
-    if ((v85[31] & 0x80000000) != 0)
-    {
-      operator delete(*&v85[8]);
-    }
-
-    if (v64 < 0)
-    {
-      operator delete(v63[0]);
-    }
-
-    if (v62)
-    {
-      CFRelease(v62);
-    }
-
-    if (!v82)
-    {
-      v41 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v41, "Could not construct");
-      __cxa_throw(v41, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-    }
-
-    if (!applesauce::CF::details::has_key<__CFString const* const&>(v82, &kCoreLMEngineKey))
-    {
-      goto LABEL_88;
-    }
-
-    if (!v82)
-    {
-      v51 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v51, "Could not construct");
-      __cxa_throw(v51, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-    }
-
-    v14 = applesauce::CF::details::find_at_key<__CFString const*,__CFString const* const&>(v82, &kCoreLMEngineKey);
-    if (CFEqual(v14, @"kCoreLMEngineANE"))
-    {
-      v43 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v43, "LSTM architecture only supports CPU");
+      std::string::__init_copy_ctor_external(&v90, *&v91[8], *&v91[16]);
     }
 
     else
     {
-LABEL_88:
-      if (corelm::util::Directory::exists(&v79))
-      {
-        if (v69 < 0)
-        {
-          operator delete(v68[0]);
-        }
-
-        if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v73.__r_.__value_.__l.__data_);
-        }
-
-        if (SHIBYTE(v84.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v84.__r_.__value_.__l.__data_);
-        }
-
-LABEL_124:
-        if ((v78.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v17 = &v78;
-        }
-
-        else
-        {
-          v17 = v78.__r_.__value_.__r.__words[0];
-        }
-
-        if ((v78.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v18 = HIBYTE(v78.__r_.__value_.__r.__words[2]);
-        }
-
-        else
-        {
-          v18 = v78.__r_.__value_.__l.__size_;
-        }
-
-        v73.__r_.__value_.__r.__words[0] = CFURLCreateWithBytes(0, v17, v18, 0, 0);
-        if (v73.__r_.__value_.__r.__words[0])
-        {
-          if ((v77 & 0x80u) == 0)
-          {
-            v19 = v76;
-          }
-
-          else
-          {
-            v19 = v76[0];
-          }
-
-          if (v19)
-          {
-            if ((v77 & 0x80u) == 0)
-            {
-              v20 = v77;
-            }
-
-            else
-            {
-              v20 = v76[1];
-            }
-
-            v68[0] = CFStringCreateWithBytes(0, v19, v20, 0x8000100u, 0);
-            if (!v68[0])
-            {
-              v21 = __cxa_allocate_exception(0x10uLL);
-              std::runtime_error::runtime_error(v21, "Could not construct");
-              __cxa_throw(v21, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-            }
-          }
-
-          else
-          {
-            v68[0] = 0;
-          }
-
-          applesauce::CF::TypeRef::TypeRef(v85, "MRLNeuralNetworkOptionModelURLKey");
-          v22 = v73.__r_.__value_.__r.__words[0];
-          if (v73.__r_.__value_.__r.__words[0])
-          {
-            CFRetain(v73.__r_.__value_.__l.__data_);
-          }
-
-          *&v85[8] = v22;
-          applesauce::CF::TypeRef::TypeRef(&v85[16], "MRLNeuralNetworkOptionEngineKey");
-          v23 = v68[0];
-          if (v68[0])
-          {
-            CFRetain(v68[0]);
-          }
-
-          *&v85[24] = v23;
-          v84.__r_.__value_.__r.__words[0] = v85;
-          v84.__r_.__value_.__l.__size_ = 2;
-          v24 = 0;
-          v65.__r_.__value_.__r.__words[0] = applesauce::CF::details::make_CFDictionaryRef(&v84);
-          while (1)
-          {
-            v25 = *&v85[v24 + 24];
-            if (v25)
-            {
-              CFRelease(v25);
-            }
-
-            v26 = *&v85[v24 + 16];
-            if (v26)
-            {
-              CFRelease(v26);
-            }
-
-            v24 -= 16;
-            if (v24 == -32)
-            {
-              if (v82)
-              {
-                v27 = applesauce::CF::details::find_at_key<__CFString const*,__CFString const* const&>(v82, &kCoreLMVocabularyTypeKey);
-                v28 = CFEqual(v27, @"kCoreLMVocabularyTypeFragment");
-                corelm::util::Directory::Directory(&v58, &v79);
-                corelm::VocabularyBuilder::makeVocabulary(&v58, 2 * (v28 != 0));
-              }
-
-              v33 = __cxa_allocate_exception(0x10uLL);
-              std::runtime_error::runtime_error(v33, "Could not construct");
-              __cxa_throw(v33, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-            }
-          }
-        }
-
-        v32 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v32, "Could not construct");
-        __cxa_throw(v32, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-      }
-
-      MEMORY[0x19EAF8860](&v83, "Requested core language model (locale, vocabulary type, architecture type) is not supported.");
-      v42 = _nlpDefaultLog();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
-      {
-        CoreLMCreate_cold_1(&v83);
-      }
-
-      v43 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v43, &v83);
-    }
-
-    __cxa_throw(v43, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  v68[0] = copyCFLocale(a1);
-  CoreNLP::Resource::getAssetResource(v68[0], @"LanguageModel", @"en.lm", 1, &v65);
-  if (!v65.__r_.__value_.__r.__words[0])
-  {
-    v52 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v52, "Unable to locate model. Should be of the format unilm_joint_ane.espresso.net or unilm_joint_cpu.espresso.net");
-    __cxa_throw(v52, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  CoreNLP::Resource::path(v65.__r_.__value_.__l.__data_, v6, v85);
-  v7 = std::string::append(v85, "/unilm.bundle");
-  v8 = v7->__r_.__value_.__r.__words[0];
-  v84.__r_.__value_.__r.__words[0] = v7->__r_.__value_.__l.__size_;
-  *(v84.__r_.__value_.__r.__words + 7) = *(&v7->__r_.__value_.__r.__words[1] + 7);
-  v9 = HIBYTE(v7->__r_.__value_.__r.__words[2]);
-  v7->__r_.__value_.__l.__size_ = 0;
-  v7->__r_.__value_.__r.__words[2] = 0;
-  v7->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v78.__r_.__value_.__l.__data_);
-  }
-
-  v78.__r_.__value_.__r.__words[0] = v8;
-  v78.__r_.__value_.__l.__size_ = v84.__r_.__value_.__r.__words[0];
-  *(&v78.__r_.__value_.__r.__words[1] + 7) = *(v84.__r_.__value_.__r.__words + 7);
-  *(&v78.__r_.__value_.__s + 23) = v9;
-  if ((v85[23] & 0x80000000) != 0)
-  {
-    operator delete(*v85);
-    if ((*(&v78.__r_.__value_.__s + 23) & 0x80) == 0)
-    {
-      goto LABEL_30;
-    }
-  }
-
-  else if ((v9 & 0x80) == 0)
-  {
-LABEL_30:
-    v75 = v78;
-LABEL_97:
-    corelm::util::Directory::Directory<std::string>(v85, &v75);
-    std::string::operator=(&v80, &v85[8]);
-    *v85 = &unk_1F10AD1D0;
-    if ((v85[31] & 0x80000000) != 0)
-    {
-      operator delete(*&v85[8]);
-    }
-
-    if (SHIBYTE(v75.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v75.__r_.__value_.__l.__data_);
-    }
-
-    v15 = v82;
-    if (v82)
-    {
-      CFRetain(v82);
-    }
-
-    v74 = v15;
-    getModelNameAsString(&v74, &v84);
-    if (v74)
-    {
-      CFRelease(v74);
-    }
-
-    if (!v82)
-    {
-      v53 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v53, "Could not construct");
-      __cxa_throw(v53, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-    }
-
-    if (applesauce::CF::details::has_key<__CFString const* const&>(v82, &kCoreLMEngineKey))
-    {
-      if (!v82)
-      {
-        v56 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v56, "Could not construct");
-        __cxa_throw(v56, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-      }
-
-      v16 = applesauce::CF::details::find_at_key<__CFString const*,__CFString const* const&>(v82, &kCoreLMEngineKey);
-      if (!CFEqual(v16, @"kCoreLMEngineCPU") && !CFEqual(v16, @"kCoreLMEngineANE"))
-      {
-        v57 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v57, "Invalid Engine type. Should be either kCoreLMEngineCPU or kCoreLMEngineANE");
-        __cxa_throw(v57, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-      }
-
-      if (CFEqual(v16, @"kCoreLMEngineANE"))
-      {
-        MEMORY[0x19EAF8860](v76, "ANE");
-      }
-    }
-
-    if (!corelm::util::Directory::hasFile(&v79, &v84))
-    {
-      v54 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v54, "Unable to locate espresso model inside the unilm bundle");
-      __cxa_throw(v54, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-    }
-
-    corelm::util::Directory::getFilePath(&v79, &v84, v85);
-    if ((v85[31] & 0x80000000) != 0)
-    {
-      std::string::__init_copy_ctor_external(&v73, *&v85[8], *&v85[16]);
-    }
-
-    else
-    {
-      v73 = *&v85[8];
-    }
-
-    if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v78.__r_.__value_.__l.__data_);
-    }
-
-    v78 = v73;
-    *(&v73.__r_.__value_.__s + 23) = 0;
-    v73.__r_.__value_.__s.__data_[0] = 0;
-    *v85 = &unk_1F10AD1D0;
-    if ((v85[31] & 0x80000000) != 0)
-    {
-      operator delete(*&v85[8]);
+      v90 = *&v91[8];
     }
 
     if (SHIBYTE(v84.__r_.__value_.__r.__words[2]) < 0)
@@ -1544,16 +1375,580 @@ LABEL_97:
       operator delete(v84.__r_.__value_.__l.__data_);
     }
 
-    std::unique_ptr<CoreNLP::Resource>::~unique_ptr[abi:ne200100](&v65);
-    if (v68[0])
+    v84 = v90;
+    *(&v90.__r_.__value_.__s + 23) = 0;
+    v90.__r_.__value_.__s.__data_[0] = 0;
+    *v91 = &unk_1F10AD1D0;
+    if ((v91[31] & 0x80000000) != 0)
     {
-      CFRelease(v68[0]);
+      operator delete(*&v91[8]);
+    }
+
+    if (SHIBYTE(v79.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v79.__r_.__value_.__l.__data_);
+    }
+
+    if (cf)
+    {
+      CFRelease(cf);
+    }
+
+    if (!v88)
+    {
+      v39 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v39, "Could not construct");
+      __cxa_throw(v39, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    }
+
+    if (applesauce::CF::details::has_key<__CFString const* const&>(v88, &kCoreLMEngineKey))
+    {
+      if (!v88)
+      {
+        v50 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v50, "Could not construct");
+        __cxa_throw(v50, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      }
+
+      v10 = applesauce::CF::details::find_at_key<__CFString const*,__CFString const* const&>(v88, &kCoreLMEngineKey);
+      if (!CFEqual(v10, @"kCoreLMEngineCPU") && !CFEqual(v10, @"kCoreLMEngineANE"))
+      {
+        v61 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v61, "Invalid Engine type. Should be either kCoreLMEngineCPU or kCoreLMEngineANE");
+        __cxa_throw(v61, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      }
+
+      if (CFEqual(v10, @"kCoreLMEngineANE"))
+      {
+        MEMORY[0x19EAF8860](v82, "ANE");
+      }
+    }
+
+    if (!corelm::util::Directory::exists(&v85))
+    {
+      if (SHIBYTE(v86.__r_.__value_.__r.__words[2]) < 0)
+      {
+        std::string::__init_copy_ctor_external(v91, v86.__r_.__value_.__l.__data_, v86.__r_.__value_.__l.__size_);
+      }
+
+      else
+      {
+        *v91 = v86;
+      }
+
+      v51 = std::string::insert(v91, 0, "Model directory does not exist: ");
+      v53 = v51->__r_.__value_.__r.__words[0];
+      v90.__r_.__value_.__r.__words[0] = v51->__r_.__value_.__l.__size_;
+      *(v90.__r_.__value_.__r.__words + 7) = *(&v51->__r_.__value_.__r.__words[1] + 7);
+      v54 = HIBYTE(v51->__r_.__value_.__r.__words[2]);
+      v51->__r_.__value_.__l.__size_ = 0;
+      v51->__r_.__value_.__r.__words[2] = 0;
+      v51->__r_.__value_.__r.__words[0] = 0;
+      if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v89.__r_.__value_.__l.__data_);
+      }
+
+      v89.__r_.__value_.__r.__words[0] = v53;
+      v89.__r_.__value_.__l.__size_ = v90.__r_.__value_.__r.__words[0];
+      *(&v89.__r_.__value_.__r.__words[1] + 7) = *(v90.__r_.__value_.__r.__words + 7);
+      *(&v89.__r_.__value_.__s + 23) = v54;
+      if ((v91[23] & 0x80000000) != 0)
+      {
+        operator delete(*v91);
+      }
+
+      v55 = _nlpDefaultLog(v51, v52);
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+      {
+        CoreLMCreate_cold_4();
+      }
+
+      v56 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v56, &v89);
+      __cxa_throw(v56, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    }
+
+    if (v74[0])
+    {
+      CFRelease(v74[0]);
     }
 
     goto LABEL_124;
   }
 
-  std::string::__init_copy_ctor_external(&v75, v78.__r_.__value_.__l.__data_, v78.__r_.__value_.__l.__size_);
+  if (!v88)
+  {
+    v36 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v36, "Could not construct");
+    __cxa_throw(v36, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+  }
+
+  if (!applesauce::CF::details::has_key<__CFString const* const&>(v88, &kCoreLMArchitectureKey))
+  {
+    goto LABEL_31;
+  }
+
+  if (!v88)
+  {
+    v49 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v49, "Could not construct");
+    __cxa_throw(v49, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+  }
+
+  v5 = applesauce::CF::details::find_at_key<__CFString const*,__CFString const* const&>(v88, &kCoreLMArchitectureKey);
+  if (!CFEqual(v5, @"kCoreLMArchitectureTransformer"))
+  {
+LABEL_31:
+    getLocaleAsString(a1, &v90);
+    size = HIBYTE(v90.__r_.__value_.__r.__words[2]);
+    if ((v90.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      size = v90.__r_.__value_.__l.__size_;
+    }
+
+    if (!size)
+    {
+      v40 = MEMORY[0x19EAF8860](&v89, "Unable to determine model locale from options");
+      v42 = _nlpDefaultLog(v40, v41);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      {
+        CoreLMCreate_cold_3();
+      }
+
+      v43 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v43, &v89);
+      __cxa_throw(v43, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    }
+
+    std::string::basic_string[abi:ne200100]<0>(v91, "-");
+    std::string::basic_string[abi:ne200100]<0>(&v79, "_");
+    corelm::util::replace(&v90, v91, &v79);
+    if (SHIBYTE(v79.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v79.__r_.__value_.__l.__data_);
+    }
+
+    if ((v91[23] & 0x80000000) != 0)
+    {
+      operator delete(*v91);
+    }
+
+    if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v78, v90.__r_.__value_.__l.__data_, v90.__r_.__value_.__l.__size_);
+    }
+
+    else
+    {
+      v78 = v90;
+    }
+
+    std::string::basic_string[abi:ne200100]<0>(v76, "_");
+    corelm::util::stripSplit(&v78, v76, v91);
+    if (*(*v91 + 23) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v79, **v91, *(*v91 + 8));
+    }
+
+    else
+    {
+      v11 = **v91;
+      v79.__r_.__value_.__r.__words[2] = *(*v91 + 16);
+      *&v79.__r_.__value_.__l.__data_ = v11;
+    }
+
+    v74[0] = v91;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v74);
+    if (v77 < 0)
+    {
+      operator delete(v76[0]);
+    }
+
+    if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v78.__r_.__value_.__l.__data_);
+    }
+
+    std::string::basic_string[abi:ne200100]<0>(v74, "/System/Library/PrivateFrameworks/CVNLP.framework/Models/");
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v74, &v79.__r_.__value_.__l.__data_, v72);
+    corelm::util::Directory::Directory<std::string>(v91, v72);
+    std::string::operator=(&v86, &v91[8]);
+    *v91 = &unk_1F10AD1D0;
+    if ((v91[31] & 0x80000000) != 0)
+    {
+      operator delete(*&v91[8]);
+    }
+
+    if (v73 < 0)
+    {
+      operator delete(v72[0]);
+    }
+
+    v12 = v88;
+    if (v88)
+    {
+      CFRetain(v88);
+    }
+
+    v68 = v12;
+    getModelNameAsString(&v68, v69);
+    corelm::util::Directory::getFilePath(&v85, v69, v91);
+    if ((v91[31] & 0x80000000) != 0)
+    {
+      std::string::__init_copy_ctor_external(&v71, *&v91[8], *&v91[16]);
+    }
+
+    else
+    {
+      v71 = *&v91[8];
+    }
+
+    if (SHIBYTE(v84.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v84.__r_.__value_.__l.__data_);
+    }
+
+    v84 = v71;
+    *(&v71.__r_.__value_.__s + 23) = 0;
+    v71.__r_.__value_.__s.__data_[0] = 0;
+    *v91 = &unk_1F10AD1D0;
+    if ((v91[31] & 0x80000000) != 0)
+    {
+      operator delete(*&v91[8]);
+    }
+
+    if (v70 < 0)
+    {
+      operator delete(v69[0]);
+    }
+
+    if (v68)
+    {
+      CFRelease(v68);
+    }
+
+    if (!v88)
+    {
+      v44 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v44, "Could not construct");
+      __cxa_throw(v44, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    }
+
+    if (!applesauce::CF::details::has_key<__CFString const* const&>(v88, &kCoreLMEngineKey))
+    {
+      goto LABEL_88;
+    }
+
+    if (!v88)
+    {
+      v57 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v57, "Could not construct");
+      __cxa_throw(v57, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    }
+
+    v13 = applesauce::CF::details::find_at_key<__CFString const*,__CFString const* const&>(v88, &kCoreLMEngineKey);
+    if (CFEqual(v13, @"kCoreLMEngineANE"))
+    {
+      v48 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v48, "LSTM architecture only supports CPU");
+    }
+
+    else
+    {
+LABEL_88:
+      if (corelm::util::Directory::exists(&v85))
+      {
+        if (v75 < 0)
+        {
+          operator delete(v74[0]);
+        }
+
+        if (SHIBYTE(v79.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v79.__r_.__value_.__l.__data_);
+        }
+
+        if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v90.__r_.__value_.__l.__data_);
+        }
+
+LABEL_124:
+        if ((v84.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v16 = &v84;
+        }
+
+        else
+        {
+          v16 = v84.__r_.__value_.__r.__words[0];
+        }
+
+        if ((v84.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v17 = HIBYTE(v84.__r_.__value_.__r.__words[2]);
+        }
+
+        else
+        {
+          v17 = v84.__r_.__value_.__l.__size_;
+        }
+
+        v79.__r_.__value_.__r.__words[0] = CFURLCreateWithBytes(0, v16, v17, 0, 0);
+        if (v79.__r_.__value_.__r.__words[0])
+        {
+          if ((v83 & 0x80u) == 0)
+          {
+            v18 = v82;
+          }
+
+          else
+          {
+            v18 = v82[0];
+          }
+
+          if (v18)
+          {
+            if ((v83 & 0x80u) == 0)
+            {
+              v19 = v83;
+            }
+
+            else
+            {
+              v19 = v82[1];
+            }
+
+            v74[0] = CFStringCreateWithBytes(0, v18, v19, 0x8000100u, 0);
+            if (!v74[0])
+            {
+              v20 = __cxa_allocate_exception(0x10uLL);
+              std::runtime_error::runtime_error(v20, "Could not construct");
+              __cxa_throw(v20, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+            }
+          }
+
+          else
+          {
+            v74[0] = 0;
+          }
+
+          applesauce::CF::TypeRef::TypeRef(v91, "MRLNeuralNetworkOptionModelURLKey");
+          v21 = v79.__r_.__value_.__r.__words[0];
+          if (v79.__r_.__value_.__r.__words[0])
+          {
+            CFRetain(v79.__r_.__value_.__l.__data_);
+          }
+
+          *&v91[8] = v21;
+          applesauce::CF::TypeRef::TypeRef(&v91[16], "MRLNeuralNetworkOptionEngineKey");
+          v22 = v74[0];
+          if (v74[0])
+          {
+            CFRetain(v74[0]);
+          }
+
+          *&v91[24] = v22;
+          v90.__r_.__value_.__r.__words[0] = v91;
+          v90.__r_.__value_.__l.__size_ = 2;
+          v23 = 0;
+          v71.__r_.__value_.__r.__words[0] = applesauce::CF::details::make_CFDictionaryRef(&v90);
+          while (1)
+          {
+            v24 = *&v91[v23 + 24];
+            if (v24)
+            {
+              CFRelease(v24);
+            }
+
+            v25 = *&v91[v23 + 16];
+            if (v25)
+            {
+              CFRelease(v25);
+            }
+
+            v23 -= 16;
+            if (v23 == -32)
+            {
+              if (v88)
+              {
+                v26 = applesauce::CF::details::find_at_key<__CFString const*,__CFString const* const&>(v88, &kCoreLMVocabularyTypeKey);
+                v27 = CFEqual(v26, @"kCoreLMVocabularyTypeFragment");
+                corelm::util::Directory::Directory(&v64, &v85);
+                corelm::VocabularyBuilder::makeVocabulary(&v64, 2 * (v27 != 0));
+              }
+
+              v34 = __cxa_allocate_exception(0x10uLL);
+              std::runtime_error::runtime_error(v34, "Could not construct");
+              __cxa_throw(v34, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+            }
+          }
+        }
+
+        v33 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v33, "Could not construct");
+        __cxa_throw(v33, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      }
+
+      v45 = MEMORY[0x19EAF8860](&v89, "Requested core language model (locale, vocabulary type, architecture type) is not supported.");
+      v47 = _nlpDefaultLog(v45, v46);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+      {
+        CoreLMCreate_cold_1();
+      }
+
+      v48 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v48, &v89);
+    }
+
+    __cxa_throw(v48, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+  }
+
+  v74[0] = copyCFLocale(a1);
+  CoreNLP::Resource::getAssetResource(&v71, v74[0], @"LanguageModel", @"en.lm", 1);
+  if (!v71.__r_.__value_.__r.__words[0])
+  {
+    v58 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v58, "Unable to locate model. Should be of the format unilm_joint_ane.espresso.net or unilm_joint_cpu.espresso.net");
+    __cxa_throw(v58, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+  }
+
+  CoreNLP::Resource::path(v91, v71.__r_.__value_.__l.__data_);
+  v6 = std::string::append(v91, "/unilm.bundle");
+  v7 = v6->__r_.__value_.__r.__words[0];
+  v90.__r_.__value_.__r.__words[0] = v6->__r_.__value_.__l.__size_;
+  *(v90.__r_.__value_.__r.__words + 7) = *(&v6->__r_.__value_.__r.__words[1] + 7);
+  v8 = HIBYTE(v6->__r_.__value_.__r.__words[2]);
+  v6->__r_.__value_.__l.__size_ = 0;
+  v6->__r_.__value_.__r.__words[2] = 0;
+  v6->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v84.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v84.__r_.__value_.__l.__data_);
+  }
+
+  v84.__r_.__value_.__r.__words[0] = v7;
+  v84.__r_.__value_.__l.__size_ = v90.__r_.__value_.__r.__words[0];
+  *(&v84.__r_.__value_.__r.__words[1] + 7) = *(v90.__r_.__value_.__r.__words + 7);
+  *(&v84.__r_.__value_.__s + 23) = v8;
+  if ((v91[23] & 0x80000000) != 0)
+  {
+    operator delete(*v91);
+    if ((*(&v84.__r_.__value_.__s + 23) & 0x80) == 0)
+    {
+      goto LABEL_30;
+    }
+  }
+
+  else if ((v8 & 0x80) == 0)
+  {
+LABEL_30:
+    v81 = v84;
+LABEL_97:
+    corelm::util::Directory::Directory<std::string>(v91, &v81);
+    std::string::operator=(&v86, &v91[8]);
+    *v91 = &unk_1F10AD1D0;
+    if ((v91[31] & 0x80000000) != 0)
+    {
+      operator delete(*&v91[8]);
+    }
+
+    if (SHIBYTE(v81.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v81.__r_.__value_.__l.__data_);
+    }
+
+    v14 = v88;
+    if (v88)
+    {
+      CFRetain(v88);
+    }
+
+    v80 = v14;
+    getModelNameAsString(&v80, &v90);
+    if (v80)
+    {
+      CFRelease(v80);
+    }
+
+    if (!v88)
+    {
+      v59 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v59, "Could not construct");
+      __cxa_throw(v59, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    }
+
+    if (applesauce::CF::details::has_key<__CFString const* const&>(v88, &kCoreLMEngineKey))
+    {
+      if (!v88)
+      {
+        v62 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v62, "Could not construct");
+        __cxa_throw(v62, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      }
+
+      v15 = applesauce::CF::details::find_at_key<__CFString const*,__CFString const* const&>(v88, &kCoreLMEngineKey);
+      if (!CFEqual(v15, @"kCoreLMEngineCPU") && !CFEqual(v15, @"kCoreLMEngineANE"))
+      {
+        v63 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v63, "Invalid Engine type. Should be either kCoreLMEngineCPU or kCoreLMEngineANE");
+        __cxa_throw(v63, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      }
+
+      if (CFEqual(v15, @"kCoreLMEngineANE"))
+      {
+        MEMORY[0x19EAF8860](v82, "ANE");
+      }
+    }
+
+    if (!corelm::util::Directory::hasFile(&v85, &v90))
+    {
+      v60 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v60, "Unable to locate espresso model inside the unilm bundle");
+      __cxa_throw(v60, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    }
+
+    corelm::util::Directory::getFilePath(&v85, &v90, v91);
+    if ((v91[31] & 0x80000000) != 0)
+    {
+      std::string::__init_copy_ctor_external(&v79, *&v91[8], *&v91[16]);
+    }
+
+    else
+    {
+      v79 = *&v91[8];
+    }
+
+    if (SHIBYTE(v84.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v84.__r_.__value_.__l.__data_);
+    }
+
+    v84 = v79;
+    *(&v79.__r_.__value_.__s + 23) = 0;
+    v79.__r_.__value_.__s.__data_[0] = 0;
+    *v91 = &unk_1F10AD1D0;
+    if ((v91[31] & 0x80000000) != 0)
+    {
+      operator delete(*&v91[8]);
+    }
+
+    if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v90.__r_.__value_.__l.__data_);
+    }
+
+    std::unique_ptr<CoreNLP::Resource>::~unique_ptr[abi:ne200100](&v71);
+    if (v74[0])
+    {
+      CFRelease(v74[0]);
+    }
+
+    goto LABEL_124;
+  }
+
+  std::string::__init_copy_ctor_external(&v81, v84.__r_.__value_.__l.__data_, v84.__r_.__value_.__l.__size_);
   goto LABEL_97;
 }
 
@@ -1638,7 +2033,7 @@ void sub_19D1C190C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
-uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
+char *std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
 {
   if (*(a1 + 23) >= 0)
   {
@@ -1661,7 +2056,7 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
   }
 
   result = std::string::basic_string[abi:ne200100](a3, v6 + v5);
-  if (*(result + 23) >= 0)
+  if (result[23] >= 0)
   {
     v8 = result;
   }
@@ -1708,29 +2103,28 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
 
 uint64_t CFWrapper<CoreLanguageModel,corelm::LanguageModel>::create<corelm::LanguageModel,applesauce::CF::DictionaryRef &,std::unique_ptr<corelm::AbstractVocabulary>>(const void **a1, uint64_t *a2)
 {
-  v4 = *MEMORY[0x1E695E480];
   if (CFWrapper<CoreLanguageModel,corelm::LanguageModel>::s_once != -1)
   {
     CFWrapper<CoreLanguageModel,corelm::LanguageModel>::create<corelm::LanguageModel,applesauce::CF::DictionaryRef &,std::unique_ptr<corelm::AbstractVocabulary>>();
   }
 
   Instance = _CFRuntimeCreateInstance();
-  v6 = *a1;
-  if (v6)
+  v5 = *a1;
+  if (v5)
   {
-    CFRetain(v6);
+    CFRetain(v5);
   }
 
-  v7 = *a2;
+  v6 = *a2;
   *a2 = 0;
-  v10 = v7;
-  cf = v6;
-  corelm::LanguageModel::LanguageModel(Instance + 16, &cf, &v10);
-  v8 = v10;
-  v10 = 0;
-  if (v8)
+  v9 = v6;
+  cf = v5;
+  corelm::LanguageModel::LanguageModel(Instance + 16, &cf, &v9);
+  v7 = v9;
+  v9 = 0;
+  if (v7)
   {
-    (*(*v8 + 8))(v8);
+    (*(*v7 + 8))(v7);
   }
 
   if (cf)
@@ -1741,12 +2135,12 @@ uint64_t CFWrapper<CoreLanguageModel,corelm::LanguageModel>::create<corelm::Lang
   return Instance;
 }
 
-void sub_19D1C2618(_Unwind_Exception *a1, uint64_t *a2, ...)
+void sub_19D1C2618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (a2)
+  va_start(va, a3);
+  if (a3)
   {
-    CFWrapper<CoreLanguageModel,corelm::LanguageModel>::create<corelm::LanguageModel,applesauce::CF::DictionaryRef &,std::unique_ptr<corelm::AbstractVocabulary>>(a2);
+    CFWrapper<CoreLanguageModel,corelm::LanguageModel>::create<corelm::LanguageModel,applesauce::CF::DictionaryRef &,std::unique_ptr<corelm::AbstractVocabulary>>();
   }
 
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
@@ -1755,7 +2149,6 @@ void sub_19D1C2618(_Unwind_Exception *a1, uint64_t *a2, ...)
 
 uint64_t CFWrapper<CoreLanguageModelWithState,corelm::LanguageModelWithState>::create<corelm::LanguageModelForANE,CoreLanguageModel *&>(CFTypeRef *a1)
 {
-  v2 = *MEMORY[0x1E695E480];
   if (CFWrapper<CoreLanguageModelWithState,corelm::LanguageModelWithState>::s_once != -1)
   {
     CFWrapper<CoreLanguageModelWithState,corelm::LanguageModelWithState>::create<corelm::LanguageModelForANE,CoreLanguageModel *&>();
@@ -1773,7 +2166,6 @@ uint64_t CFWrapper<CoreLanguageModelWithState,corelm::LanguageModelWithState>::c
 
 uint64_t CFWrapper<CoreLanguageModelWithState,corelm::LanguageModelWithState>::create<corelm::LanguageModelWithState,CoreLanguageModel *&>(CFTypeRef *a1)
 {
-  v2 = *MEMORY[0x1E695E480];
   if (CFWrapper<CoreLanguageModelWithState,corelm::LanguageModelWithState>::s_once != -1)
   {
     CFWrapper<CoreLanguageModelWithState,corelm::LanguageModelWithState>::create<corelm::LanguageModelForANE,CoreLanguageModel *&>();
@@ -1784,10 +2176,10 @@ uint64_t CFWrapper<CoreLanguageModelWithState,corelm::LanguageModelWithState>::c
   return Instance;
 }
 
-CFTypeRef CoreLMCopyTokenIdsForText(uint64_t a1, const void *a2)
+CFTypeRef CoreLMCopyTokenIdsForText(uint64_t a1, uint64_t *a2)
 {
   v3 = *((*(*(a1 + 16) + 112))() + 120);
-  applesauce::CF::StringRef::from_get(a2, &cf);
+  applesauce::CF::StringRef::from_get(&cf, a2);
   if (!cf)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1881,10 +2273,10 @@ void sub_19D1C2948(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-CFTypeRef CoreLMCopyTextForTokenIds(uint64_t a1, const void *a2)
+CFTypeRef CoreLMCopyTextForTokenIds(uint64_t a1, applesauce::CF::ArrayRef *a2)
 {
   v3 = *((*(*(a1 + 16) + 112))() + 120);
-  applesauce::CF::ArrayRef::from_get(a2, &v17);
+  applesauce::CF::ArrayRef::from_get(&v17, a2);
   if (!v17)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1894,12 +2286,12 @@ CFTypeRef CoreLMCopyTextForTokenIds(uint64_t a1, const void *a2)
 
   v12 = 0uLL;
   v13 = 0;
-  v4 = applesauce::CF::convert_or<std::vector<long>,0>(v17, &v12, &__p);
-  (*(*v3 + 24))(v15, v3, &__p, v4);
-  if (__p.n128_u64[0])
+  v4 = applesauce::CF::convert_or<std::vector<long>,0>(&v12, __p, v17);
+  (*(*v3 + 24))(v15, v3, __p, v4);
+  if (__p[0])
   {
-    __p.n128_u64[1] = __p.n128_u64[0];
-    operator delete(__p.n128_u64[0]);
+    __p[1] = __p[0];
+    operator delete(__p[0]);
   }
 
   if (v12.n128_u64[0])
@@ -1931,7 +2323,7 @@ CFTypeRef CoreLMCopyTextForTokenIds(uint64_t a1, const void *a2)
     }
 
     v7 = CFStringCreateWithBytes(0, v5, v6, 0x8000100u, 0);
-    __p.n128_u64[0] = v7;
+    __p[0] = v7;
     if (!v7)
     {
       v8 = __cxa_allocate_exception(0x10uLL);
@@ -1943,13 +2335,13 @@ CFTypeRef CoreLMCopyTextForTokenIds(uint64_t a1, const void *a2)
   else
   {
     v7 = 0;
-    __p.n128_u64[0] = 0;
+    __p[0] = 0;
   }
 
   v9 = CFRetain(v7);
-  if (__p.n128_u64[0])
+  if (__p[0])
   {
-    CFRelease(__p.n128_u64[0]);
+    CFRelease(__p[0]);
   }
 
   if (v16 < 0)
@@ -1977,16 +2369,16 @@ void sub_19D1C2B7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-const void *applesauce::CF::ArrayRef::from_get@<X0>(const void *this@<X0>, void *a2@<X8>)
+uint64_t *applesauce::CF::ArrayRef::from_get@<X0>(uint64_t **__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
   if (this)
   {
-    v4 = this;
+    v3 = this;
     CFRetain(this);
-    *a2 = v4;
-    v5 = CFGetTypeID(v4);
+    *a1 = v3;
+    v4 = CFGetTypeID(v3);
     this = CFArrayGetTypeID();
-    if (v5 != this)
+    if (v4 != this)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       std::runtime_error::runtime_error(exception, "Could not construct");
@@ -1996,7 +2388,7 @@ const void *applesauce::CF::ArrayRef::from_get@<X0>(const void *this@<X0>, void 
 
   else
   {
-    *a2 = 0;
+    *a1 = 0;
   }
 
   return this;
@@ -2009,144 +2401,110 @@ void sub_19D1C2CA0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t CoreLMGetSpecialTokenId(uint64_t a1, int a2)
+uint64_t CoreLMGetSpecialTokenId(uint64_t a1, unsigned int a2)
 {
   v3 = *((*(*(a1 + 16) + 112))() + 120);
-  if (a2 > 1)
+  if (a2 <= 1)
   {
-    if (a2 == 2)
+    if (a2 <= 1)
     {
-      if ((*(v3 + 79) & 0x8000000000000000) != 0)
-      {
-        v11 = *(v3 + 56);
-        v12 = *(v3 + 64);
-      }
-
-      goto LABEL_19;
-    }
-
-    if (a2 == 3)
-    {
-      if ((*(v3 + 103) & 0x8000000000000000) != 0)
-      {
-        v7 = *(v3 + 80);
-        v8 = *(v3 + 88);
-      }
-
-      goto LABEL_19;
+      goto LABEL_7;
     }
 
     return 0;
   }
 
-  if (!a2)
-  {
-    if ((*(v3 + 31) & 0x8000000000000000) != 0)
-    {
-      v9 = *(v3 + 8);
-      v10 = *(v3 + 16);
-    }
-
-    goto LABEL_19;
-  }
-
-  if (a2 != 1)
+  if (a2 != 2 && a2 != 3)
   {
     return 0;
   }
 
-  if ((*(v3 + 55) & 0x8000000000000000) != 0)
-  {
-    v5 = *(v3 + 32);
-    v6 = *(v3 + 40);
-  }
+LABEL_7:
+  v5 = *(*v3 + 32);
 
-LABEL_19:
-  v13 = *(*v3 + 32);
-
-  return v13();
+  return v5();
 }
 
 CFTypeRef CoreLMCopyVocabulary(uint64_t a1)
 {
   v1 = (*(*(a1 + 16) + 112))();
-  (*(**(v1 + 120) + 56))(&v15);
-  v2 = v17;
-  if (!v17 || *(v15 + 32))
+  v2 = (*(**(v1 + 120) + 56))(&v17);
+  v4 = v19;
+  if (!v19 || *(v17 + 32))
   {
     goto LABEL_16;
   }
 
-  v3 = v16;
-  if (v16)
+  v5 = v18;
+  if (v18)
   {
     do
     {
-      v4 = v3;
-      v3 = *(v3 + 1);
+      v6 = v5;
+      v5 = *(v5 + 1);
     }
 
-    while (v3);
+    while (v5);
   }
 
   else
   {
-    v5 = &v16;
+    v7 = &v18;
     do
     {
-      v4 = v5[2];
-      v6 = *v4 == v5;
-      v5 = v4;
+      v6 = v7[2];
+      v8 = *v6 == v7;
+      v7 = v6;
     }
 
-    while (v6);
+    while (v8);
   }
 
-  if (*(v4 + 4) == v17 - 1)
+  if (*(v6 + 4) == v19 - 1)
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "");
-    std::vector<std::string>::vector[abi:ne200100](v14, v2);
-    if (v13 < 0)
+    std::vector<std::string>::vector[abi:ne200100](v16, v4, __p);
+    if (v15 < 0)
     {
       operator delete(__p[0]);
     }
 
-    for (__p[0] = 0; __p[0] < v17; ++__p[0])
+    for (__p[0] = 0; __p[0] < v19; ++__p[0])
     {
-      v18 = __p;
-      v7 = std::__tree<std::__value_type<long,std::string>,std::__map_value_compare<long,std::__value_type<long,std::string>,std::less<long>,true>,std::allocator<std::__value_type<long,std::string>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(&v15, __p);
-      std::string::operator=(v14[0] + __p[0], (v7 + 5));
+      v20 = __p;
+      v9 = std::__tree<std::__value_type<long,std::string>,std::__map_value_compare<long,std::__value_type<long,std::string>,std::less<long>,true>,std::allocator<std::__value_type<long,std::string>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(&v17, __p, &std::piecewise_construct, &v20);
+      std::string::operator=(&v16[0][24 * __p[0]], (v9 + 5));
     }
 
-    v8 = applesauce::CF::details::make_CFArrayRef<std::string>(v14);
-    __p[0] = v8;
-    v9 = CFRetain(v8);
-    if (v8)
+    v10 = applesauce::CF::details::make_CFArrayRef<std::string>(v16);
+    __p[0] = v10;
+    v11 = CFRetain(v10);
+    if (v10)
     {
-      CFRelease(v8);
+      CFRelease(v10);
     }
 
-    __p[0] = v14;
+    __p[0] = v16;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](__p);
   }
 
   else
   {
 LABEL_16:
-    v10 = _nlpDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = _nlpDefaultLog(v2, v3);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       CoreLMCopyVocabulary_cold_1();
     }
 
-    v9 = 0;
+    v11 = 0;
   }
 
-  std::__tree<std::__value_type<long,std::string>,std::__map_value_compare<long,std::__value_type<long,std::string>,std::less<long>,true>,std::allocator<std::__value_type<long,std::string>>>::destroy(&v15, v16);
-  return v9;
+  std::__tree<std::__value_type<long,std::string>,std::__map_value_compare<long,std::__value_type<long,std::string>,std::less<long>,true>,std::allocator<std::__value_type<long,std::string>>>::destroy(&v17, v18);
+  return v11;
 }
 
-void sub_19D1C2FB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, uint64_t a17, uint64_t a18, char a19, char *a20)
+void sub_19D1C2FB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, char *a20)
 {
   applesauce::CF::ArrayRef::~ArrayRef(&__p);
   __p = &a16;
@@ -2157,52 +2515,52 @@ void sub_19D1C2FB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t CoreLMUpdateWithContext(uint64_t a1, applesauce::CF::ArrayRef *this)
 {
-  applesauce::CF::ArrayRef::from_get(this, &v11);
-  if (!v11)
+  applesauce::CF::ArrayRef::from_get(&v12, this);
+  if (!v12)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::runtime_error::runtime_error(exception, "Could not construct");
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  if (CFArrayGetCount(v11))
+  if (CFArrayGetCount(v12))
   {
-    if (!v11)
+    if (!v12)
     {
-      v7 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v7, "Could not construct");
-      __cxa_throw(v7, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      v8 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v8, "Could not construct");
+      __cxa_throw(v8, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    v8 = 0uLL;
-    v9 = 0;
-    v3 = applesauce::CF::convert_or<std::vector<long>,0>(v11, &v8, &__p);
-    (*(*(a1 + 16) + 24))(a1 + 16, &__p, v3);
-    if (__p.n128_u64[0])
+    v9 = 0uLL;
+    v10 = 0;
+    v4 = applesauce::CF::convert_or<std::vector<long>,0>(&v9, __p, v12);
+    (*(*(a1 + 16) + 24))(a1 + 16, __p, v4);
+    if (__p[0])
     {
-      __p.n128_u64[1] = __p.n128_u64[0];
-      operator delete(__p.n128_u64[0]);
+      __p[1] = __p[0];
+      operator delete(__p[0]);
     }
 
-    if (v8.n128_u64[0])
+    if (v9.n128_u64[0])
     {
-      v8.n128_u64[1] = v8.n128_u64[0];
-      operator delete(v8.n128_u64[0]);
+      v9.n128_u64[1] = v9.n128_u64[0];
+      operator delete(v9.n128_u64[0]);
     }
   }
 
   else
   {
-    v4 = _nlpDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = _nlpDefaultLog(0, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       CoreLMUpdateWithContext_cold_2();
     }
   }
 
-  if (v11)
+  if (v12)
   {
-    CFRelease(v11);
+    CFRelease(v12);
   }
 
   return 1;
@@ -2210,7 +2568,7 @@ uint64_t CoreLMUpdateWithContext(uint64_t a1, applesauce::CF::ArrayRef *this)
 
 CFTypeRef CoreLMCopyConditionalProbabilities(uint64_t a1, applesauce::CF::ArrayRef *this)
 {
-  applesauce::CF::ArrayRef::from_get(this, &theArray);
+  applesauce::CF::ArrayRef::from_get(&theArray, this);
   __src = 0;
   v25 = 0;
   v26 = 0;
@@ -2366,9 +2724,8 @@ void sub_19D1C3490(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CFWrapper<CoreLanguageModelWithState,corelm::LanguageModelWithState>::create<corelm::LanguageModelWithState,corelm::LanguageModelWithState&,BOOL>(const corelm::LanguageModelWithState *a1, unsigned __int8 *a2)
+uint64_t CFWrapper<CoreLanguageModelWithState,corelm::LanguageModelWithState>::create<corelm::LanguageModelWithState,corelm::LanguageModelWithState&,BOOL>(const corelm::LanguageModelWithState *a1, BOOL *a2)
 {
-  v4 = *MEMORY[0x1E695E480];
   if (CFWrapper<CoreLanguageModelWithState,corelm::LanguageModelWithState>::s_once != -1)
   {
     CFWrapper<CoreLanguageModelWithState,corelm::LanguageModelWithState>::create<corelm::LanguageModelForANE,CoreLanguageModel *&>();
@@ -2379,7 +2736,7 @@ uint64_t CFWrapper<CoreLanguageModelWithState,corelm::LanguageModelWithState>::c
   return Instance;
 }
 
-uint64_t CoreLMCopyPredictions(int a1, applesauce::CF::DictionaryRef *this)
+uint64_t CoreLMCopyPredictions(uint64_t a1, applesauce::CF::DictionaryRef *this)
 {
   applesauce::CF::DictionaryRef::from_get(this, &cf);
   if (!cf)
@@ -2392,17 +2749,17 @@ uint64_t CoreLMCopyPredictions(int a1, applesauce::CF::DictionaryRef *this)
   v2 = applesauce::CF::details::at_key<__CFString const* const&>(cf, &kCoreLMSamplingMethodKey);
   if (!cf)
   {
-    v17 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v17, "Could not construct");
-    __cxa_throw(v17, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    v24 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v24, "Could not construct");
+    __cxa_throw(v24, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
   applesauce::CF::details::find_at_key_or_optional<unsigned long,__CFString const* const&>(cf, &kCoreLMSamplingMaxLengthKey);
   if (!cf)
   {
-    v18 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v18, "Could not construct");
-    __cxa_throw(v18, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    v25 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v25, "Could not construct");
+    __cxa_throw(v25, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
   v4 = v3;
@@ -2422,55 +2779,60 @@ uint64_t CoreLMCopyPredictions(int a1, applesauce::CF::DictionaryRef *this)
         {
           if (!cf)
           {
-            v19 = __cxa_allocate_exception(0x10uLL);
-            std::runtime_error::runtime_error(v19, "Could not construct");
-            __cxa_throw(v19, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+            v26 = __cxa_allocate_exception(0x10uLL);
+            std::runtime_error::runtime_error(v26, "Could not construct");
+            __cxa_throw(v26, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
           }
 
-          if ((applesauce::CF::details::find_at_key_or_optional<int,__CFString const* const&>(cf, &kCoreLMSamplingTopKKey) & 0x100000000) != 0)
+          v11 = applesauce::CF::details::find_at_key_or_optional<int,__CFString const* const&>(cf, &kCoreLMSamplingTopKKey);
+          if ((v11 & 0x100000000) != 0)
           {
             operator new();
           }
 
-          v10 = _nlpDefaultLog();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v13 = _nlpDefaultLog(v11, v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             CoreLMCopyPredictions_cold_2();
           }
         }
 
-        else if (CFEqual(v2, @"kCoreLMSamplingMethodTOPP"))
-        {
-          v11 = applesauce::CF::DictionaryRef::operator->(&cf);
-          v12 = applesauce::CF::details::find_at_key_or_optional<float,__CFString const* const&>(*v11, &kCoreLMSamplingTopPKey);
-          v13 = applesauce::CF::DictionaryRef::operator->(&cf);
-          applesauce::CF::details::find_at_key_or_optional<int,__CFString const* const&>(*v13, &kCoreLMSamplingTopKKey);
-          if ((v12 & 0x100000000) != 0)
-          {
-            operator new();
-          }
-
-          v14 = _nlpDefaultLog();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-          {
-            CoreLMCopyPredictions_cold_3();
-          }
-        }
-
         else
         {
-          v15 = _nlpDefaultLog();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          v14 = CFEqual(v2, @"kCoreLMSamplingMethodTOPP");
+          if (v14)
           {
-            CoreLMCopyPredictions_cold_4();
+            v16 = applesauce::CF::DictionaryRef::operator->(&cf);
+            v17 = applesauce::CF::details::find_at_key_or_optional<float,__CFString const* const&>(*v16, &kCoreLMSamplingTopPKey);
+            v18 = applesauce::CF::DictionaryRef::operator->(&cf);
+            v19 = applesauce::CF::details::find_at_key_or_optional<int,__CFString const* const&>(*v18, &kCoreLMSamplingTopKKey);
+            if ((v17 & 0x100000000) != 0)
+            {
+              operator new();
+            }
+
+            v21 = _nlpDefaultLog(v19, v20);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            {
+              CoreLMCopyPredictions_cold_3();
+            }
+          }
+
+          else
+          {
+            v22 = _nlpDefaultLog(v14, v15);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+            {
+              CoreLMCopyPredictions_cold_4();
+            }
           }
         }
       }
 
       else
       {
-        v6 = _nlpDefaultLog();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v7 = _nlpDefaultLog(v5, v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           CoreLMCopyPredictions_cold_5();
         }
@@ -2479,8 +2841,8 @@ uint64_t CoreLMCopyPredictions(int a1, applesauce::CF::DictionaryRef *this)
 
     else
     {
-      v8 = _nlpDefaultLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = _nlpDefaultLog(v5, v6);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         CoreLMCopyPredictions_cold_1();
       }
@@ -2489,8 +2851,8 @@ uint64_t CoreLMCopyPredictions(int a1, applesauce::CF::DictionaryRef *this)
 
   else
   {
-    v7 = _nlpDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _nlpDefaultLog(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       CoreLMCopyPredictions_cold_6();
     }
@@ -2504,9 +2866,9 @@ uint64_t CoreLMCopyPredictions(int a1, applesauce::CF::DictionaryRef *this)
   return 0;
 }
 
-void sub_19D1C3A58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D1C3A58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
   _Unwind_Resume(a1);
 }
@@ -2525,7 +2887,7 @@ BOOL CoreLMSetTemperature(uint64_t a1, float a2)
 
 uint64_t CoreLMGetProbabilitiesForSequences(uint64_t a1, applesauce::CF::ArrayRef *this, _BOOL8 a3)
 {
-  applesauce::CF::ArrayRef::from_get(this, &v13);
+  applesauce::CF::ArrayRef::from_get(&v13, this);
   if (!v13)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -2535,7 +2897,7 @@ uint64_t CoreLMGetProbabilitiesForSequences(uint64_t a1, applesauce::CF::ArrayRe
 
   cf = 0uLL;
   v11 = 0;
-  applesauce::CF::convert_or<std::vector<std::vector<long>>,0>(v13, &cf, &v12);
+  applesauce::CF::convert_or<std::vector<std::vector<long>>,0>(&cf, v12, v13);
   p_cf = &cf;
   std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&p_cf);
   if (a3)
@@ -2565,8 +2927,8 @@ uint64_t CoreLMGetProbabilitiesForSequences(uint64_t a1, applesauce::CF::ArrayRe
     }
   }
 
-  v6 = (*(*(a1 + 16) + 16))(a1 + 16, &v12, a3);
-  cf.n128_u64[0] = &v12;
+  v6 = (*(*(a1 + 16) + 16))(a1 + 16, v12, a3);
+  cf.n128_u64[0] = v12;
   std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&cf);
   if (v13)
   {
@@ -2595,7 +2957,7 @@ CFDictionaryRef CoreLMCopyBatchingConfig(uint64_t a1)
 
 CFTypeRef CoreLMCopyPreprocessedText(uint64_t a1, applesauce::CF::StringRef *this)
 {
-  applesauce::CF::StringRef::from_get(this, &cf);
+  applesauce::CF::StringRef::from_get(&cf, this);
   if (!cf)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -2698,7 +3060,7 @@ CFTypeRef CoreLMCopyPreprocessedText(uint64_t a1, applesauce::CF::StringRef *thi
   return v10;
 }
 
-void sub_19D1C403C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, const void *a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
+void sub_19D1C403C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
 {
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(&a12);
   if (a25 < 0)
@@ -2714,7 +3076,7 @@ void sub_19D1C403C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-float CoreLMTerminationProbabilityForText(uint64_t a1, const void *a2)
+float CoreLMTerminationProbabilityForText(uint64_t a1, uint64_t *a2)
 {
   v45 = *MEMORY[0x1E69E9840];
   v4 = CoreLMCopyVocabulary(a1);
@@ -2735,9 +3097,9 @@ float CoreLMTerminationProbabilityForText(uint64_t a1, const void *a2)
   if (!v41)
   {
 LABEL_34:
-    v26 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v26, "Could not construct");
-    __cxa_throw(v26, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    v25 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v25, "Could not construct");
+    __cxa_throw(v25, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
   Count = CFArrayGetCount(v41);
@@ -2751,17 +3113,17 @@ LABEL_34:
   v8 = CFGetTypeID(v7);
   if (v8 != CFDictionaryGetTypeID())
   {
-    v30 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v30, "Could not construct");
-    __cxa_throw(v30, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    v29 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v29, "Could not construct");
+    __cxa_throw(v29, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
   if (!v40)
   {
 LABEL_35:
-    v27 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v27, "Could not construct");
-    __cxa_throw(v27, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    v26 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v26, "Could not construct");
+    __cxa_throw(v26, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
   applesauce::CF::convert_to<std::map<unsigned long,std::vector<unsigned long>>,0>(v40, v39);
@@ -2775,17 +3137,17 @@ LABEL_35:
   v10 = CFGetTypeID(v9);
   if (v10 != CFArrayGetTypeID())
   {
-    v31 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v31, "Could not construct");
-    __cxa_throw(v31, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    v30 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v30, "Could not construct");
+    __cxa_throw(v30, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
   if (!cf[0])
   {
 LABEL_36:
-    v28 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v28, "Could not construct");
-    __cxa_throw(v28, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    v27 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v27, "Could not construct");
+    __cxa_throw(v27, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
   applesauce::CF::convert_to<std::vector<long>,0>(cf[0], &__p);
@@ -2794,18 +3156,18 @@ LABEL_36:
   std::vector<long>::insert(&__p, __p, &v36);
   memset(cf, 0, sizeof(cf));
   std::vector<std::vector<long>>::push_back[abi:ne200100](cf, &__p);
-  v11 = CoreLMGetSpecialTokenId(a1, 3);
-  std::map<unsigned long,std::vector<unsigned long>>::map[abi:ne200100](v34, v39);
-  corelm::util::paddingBatchedContext<long>(cf, v34, v11);
-  std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::destroy(v34, v34[1]);
+  v11 = CoreLMGetSpecialTokenId(a1, 3u);
+  std::map<unsigned long,std::vector<unsigned long>>::map[abi:ne200100](v33, v39);
+  corelm::util::paddingBatchedContext<long>(cf, v33, v11);
+  std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::destroy(v33, v34);
   v43 = 0;
   v44 = 0;
   v42 = 0;
   std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(&v42, *cf[0], *(cf[0] + 1), (*(cf[0] + 1) - *cf[0]) >> 3);
-  v33[0] = &v42;
-  v33[1] = 1;
-  v12 = applesauce::CF::details::make_CFArrayRef<std::vector<long>>(v33);
-  v33[2] = v12;
+  v32[0] = &v42;
+  v32[1] = 1;
+  v12 = applesauce::CF::details::make_CFArrayRef<std::vector<long>>(v32);
+  v32[2] = v12;
   v13 = CoreLMGetProbabilitiesForSequences(a1, v12, 0);
   if (v12)
   {
@@ -2830,9 +3192,9 @@ LABEL_36:
   v17 = CFGetTypeID(v16);
   if (v17 != CFArrayGetTypeID())
   {
-    v32 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v32, "Could not construct");
-    __cxa_throw(v32, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    v31 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v31, "Could not construct");
+    __cxa_throw(v31, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
   v18 = v42;
@@ -2851,9 +3213,9 @@ LABEL_23:
   {
     if (!v42)
     {
-      v25 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v25, "Could not construct");
-      __cxa_throw(v25, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      v24 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v24, "Could not construct");
+      __cxa_throw(v24, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
     v21 = v21 + *(v20 + 4 * applesauce::CF::details::at_to<unsigned long>(v42, v19++));
@@ -2888,11 +3250,10 @@ LABEL_23:
     CFRelease(v41);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
-void sub_19D1C45B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, char a25, void *a26)
+void sub_19D1C45B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, uint64_t a25, void *a26)
 {
   __cxa_free_exception(v26);
   applesauce::CF::ObjectRef<__CFArray const*>::~ObjectRef((v27 - 96));
@@ -2924,7 +3285,7 @@ char *std::vector<long>::insert(void *a1, char *__src, char *a3)
       std::vector<CoreNLP::NLAttributedToken>::__throw_length_error[abi:ne200100]();
     }
 
-    v12 = __src - v10;
+    v12 = &__src[-v10];
     v13 = v7 - v10;
     if (v13 >> 2 > v11)
     {
@@ -2994,7 +3355,7 @@ char *std::vector<long>::insert(void *a1, char *__src, char *a3)
     else
     {
       *v6 = *(v6 - 1);
-      v9 = v6 + 8;
+      v9 = (v6 + 8);
     }
 
     a1[1] = v9;
@@ -3027,7 +3388,7 @@ void sub_19D1C492C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void corelm::util::paddingBatchedContext<long>(uint64_t a1, void *a2, uint64_t a3)
+void corelm::util::paddingBatchedContext<long>(const void **a1, void *a2, uint64_t a3)
 {
   v56 = a3;
   v55 = 0;
@@ -3148,7 +3509,7 @@ void corelm::util::paddingBatchedContext<long>(uint64_t a1, void *a2, uint64_t a
 
   std::__introsort<std::_ClassicAlgPolicy,std::greater<unsigned long> &,unsigned long *,true>(v5, *(&v5 + 1), &v58, v22, 1);
   v23 = *a1;
-  v24 = *(a1 + 8);
+  v24 = a1[1];
   v25 = 0xAAAAAAAAAAAAAAABLL * ((v24 - *a1) >> 3);
   v53 = v25;
   v26 = __src[0];
@@ -3170,7 +3531,7 @@ void corelm::util::paddingBatchedContext<long>(uint64_t a1, void *a2, uint64_t a
     while (v26 != __src[1]);
     for (; v27 > v25; v25 = 0xAAAAAAAAAAAAAAABLL * ((v24 - *a1) >> 3))
     {
-      v29 = *(a1 + 16);
+      v29 = a1[2];
       if (v24 >= v29)
       {
         if (v25 + 1 > 0xAAAAAAAAAAAAAAALL)
@@ -3206,14 +3567,14 @@ void corelm::util::paddingBatchedContext<long>(uint64_t a1, void *a2, uint64_t a
         *v33 = 0;
         *(v33 + 8) = 0;
         *(v33 + 16) = 0;
-        v34 = *(a1 + 8) - *a1;
+        v34 = a1[1] - *a1;
         v35 = 24 * v25 - v34;
         memcpy((v33 - v34), *a1, v34);
         v36 = *a1;
         *a1 = v35;
-        *(a1 + 8) = v24;
-        v37 = *(a1 + 16);
-        *(a1 + 16) = 0;
+        a1[1] = v24;
+        v37 = a1[2];
+        a1[2] = 0;
         v60 = v36;
         v61 = v37;
         v58 = v36;
@@ -3224,18 +3585,18 @@ void corelm::util::paddingBatchedContext<long>(uint64_t a1, void *a2, uint64_t a
       else
       {
         *v24 = 0;
-        v24[1] = 0;
-        v24[2] = 0;
-        v24 += 3;
+        *(v24 + 1) = 0;
+        *(v24 + 2) = 0;
+        v24 += 24;
       }
 
-      *(a1 + 8) = v24;
+      a1[1] = v24;
       v23 = *a1;
     }
   }
 
   v57 = &v53;
-  v38 = std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(a2, &v53);
+  v38 = std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(a2, &v53, &std::piecewise_construct, &v57);
   __p = 0;
   v60 = 0;
   v58 = 0;
@@ -3253,11 +3614,11 @@ void corelm::util::paddingBatchedContext<long>(uint64_t a1, void *a2, uint64_t a
 
   std::__introsort<std::_ClassicAlgPolicy,std::greater<unsigned long> &,unsigned long *,true>(v58, __p, &v57, v40, 1);
   v41 = *a1;
-  v42 = *(a1 + 8);
+  v42 = a1[1];
   v43 = 0;
   if (v42 != *a1)
   {
-    v44 = 0xAAAAAAAAAAAAAAABLL * (&v42[-*a1] >> 3);
+    v44 = 0xAAAAAAAAAAAAAAABLL * ((v42 - *a1) >> 3);
     if (v44 <= 1)
     {
       v44 = 1;
@@ -3313,7 +3674,7 @@ void corelm::util::paddingBatchedContext<long>(uint64_t a1, void *a2, uint64_t a
       v51 += 24;
     }
 
-    while (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3) > v52);
+    while (0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3) > v52);
     v46 = v58;
   }
 
@@ -3345,15 +3706,15 @@ void sub_19D1C4DB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-const void *applesauce::CF::get_filesystem_path@<X0>(applesauce::CF *this@<X0>, void *a2@<X8>)
+uint64_t *applesauce::CF::get_filesystem_path@<X0>(uint64_t *__return_ptr a1@<X8>, applesauce::CF *this@<X0>)
 {
   result = CFURLCopyFileSystemPath(this, kCFURLPOSIXPathStyle);
-  *a2 = result;
+  *a1 = result;
   if (result)
   {
-    v5 = CFGetTypeID(result);
+    v4 = CFGetTypeID(result);
     result = CFStringGetTypeID();
-    if (v5 != result)
+    if (v4 != result)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       std::runtime_error::runtime_error(exception, "Could not construct");
@@ -3438,7 +3799,7 @@ void *std::map<unsigned long,std::vector<unsigned long>>::map[abi:ne200100](void
   return a1;
 }
 
-uint64_t std::map<unsigned long,std::vector<unsigned long>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__tree_node<std::__value_type<unsigned long,std::vector<unsigned long>>,void *> *,long>>>(uint64_t result, void *a2, void *a3)
+void *std::map<unsigned long,std::vector<unsigned long>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__tree_node<std::__value_type<unsigned long,std::vector<unsigned long>>,void *> *,long>>>(void *result, void *a2, void *a3)
 {
   if (a2 != a3)
   {
@@ -3446,7 +3807,7 @@ uint64_t std::map<unsigned long,std::vector<unsigned long>>::insert[abi:ne200100
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_hint_unique_key_args<unsigned long,std::pair<unsigned long const,std::vector<unsigned long>> const&>(v5, v5 + 1, v4 + 4);
+      result = std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_hint_unique_key_args<unsigned long,std::pair<unsigned long const,std::vector<unsigned long>> const&>(v5, (v5 + 8), v4 + 4, v4 + 4);
       v6 = v4[1];
       if (v6)
       {
@@ -3480,9 +3841,9 @@ uint64_t std::map<unsigned long,std::vector<unsigned long>>::insert[abi:ne200100
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_hint_unique_key_args<unsigned long,std::pair<unsigned long const,std::vector<unsigned long>> const&>(void *a1, void *a2, unint64_t *a3)
+void *std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_hint_unique_key_args<unsigned long,std::pair<unsigned long const,std::vector<unsigned long>> const&>(uint64_t **a1, void *a2, unint64_t *a3, void *a4)
 {
-  result = *std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__find_equal<unsigned long>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__find_equal<unsigned long>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__construct_node<std::pair<unsigned long const,std::vector<unsigned long>> const&>();
@@ -3682,11 +4043,11 @@ LABEL_48:
   return a4;
 }
 
-CFArrayRef applesauce::CF::details::make_CFArrayRef<__CFString const*>(uint64_t *a1)
+CFArrayRef applesauce::CF::details::make_CFArrayRef<__CFString const*>(uint64_t **a1)
 {
   v1 = *a1;
   v2 = a1[1];
-  v3 = *a1 + 8 * v2;
+  v3 = &(*a1)[v2];
   v7 = 0;
   v8 = 0;
   __p = 0;
@@ -3724,7 +4085,7 @@ CFArrayRef applesauce::CF::details::make_CFArrayRef<void const*>(uint64_t a1)
   return result;
 }
 
-uint64_t std::vector<void const*>::__init_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<void const*>::__init_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3746,7 +4107,7 @@ void sub_19D1C54D8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<void const*>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<void const*>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -3756,7 +4117,7 @@ void std::vector<void const*>::__vallocate[abi:ne200100](uint64_t a1, unint64_t 
   std::vector<CoreNLP::NLAttributedToken>::__throw_length_error[abi:ne200100]();
 }
 
-_BYTE *applesauce::CF::details::at_to<std::string>@<X0>(const __CFArray *a1@<X0>, unint64_t a2@<X1>, _BYTE *a3@<X8>)
+void *applesauce::CF::details::at_to<std::string>@<X0>(const __CFArray *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   if (!a1 || CFArrayGetCount(a1) <= a2 || (ValueAtIndex = CFArrayGetValueAtIndex(a1, a2)) == 0)
   {
@@ -3768,27 +4129,27 @@ _BYTE *applesauce::CF::details::at_to<std::string>@<X0>(const __CFArray *a1@<X0>
   return applesauce::CF::convert_to<std::string,0>(ValueAtIndex, a3);
 }
 
-BOOL applesauce::CF::details::has_key<std::string &>(_BOOL8 a1, CFStringRef a2)
+BOOL applesauce::CF::details::has_key<std::string &>(_BOOL8 a1, const UInt8 *a2)
 {
   v2 = a2;
   v3 = a1;
-  data_high = HIBYTE(a2->data);
-  if ((data_high & 0x80u) != 0)
+  v4 = a2[23];
+  if ((v4 & 0x80u) != 0)
   {
-    a2 = a2->isa;
+    a2 = *a2;
   }
 
   if (a2)
   {
-    info = v2->info;
-    if ((data_high & 0x80u) == 0)
+    v5 = *(v2 + 1);
+    if ((v4 & 0x80u) == 0)
     {
-      v6 = data_high;
+      v6 = v4;
     }
 
     else
     {
-      v6 = info;
+      v6 = v5;
     }
 
     a2 = CFStringCreateWithBytes(0, a2, v6, 0x8000100u, 0);
@@ -3832,14 +4193,14 @@ LABEL_13:
   return v3;
 }
 
-void sub_19D1C56DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D1C56DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *applesauce::CF::details::find_at_key<std::string,__CFString const* const&>@<X0>(const __CFDictionary *a1@<X0>, const void **a2@<X1>, _BYTE *a3@<X8>)
+void *applesauce::CF::details::find_at_key<std::string,__CFString const* const&>@<X0>(const __CFDictionary *a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
 {
   v4 = applesauce::CF::details::at_key<__CFString const* const&>(a1, a2);
   if (!v4)
@@ -3905,7 +4266,7 @@ const __CFDictionary *applesauce::CF::details::find_at_key<__CFString const*,__C
 
 void corelm::Custom1PreProcessor::Custom1PreProcessor(corelm::Custom1PreProcessor *this)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   *this = &unk_1F10AF9C0;
   v2 = (this + 8);
   std::string::basic_string[abi:ne200100]<0>(v4, "The");
@@ -3922,16 +4283,16 @@ void corelm::Custom1PreProcessor::Custom1PreProcessor(corelm::Custom1PreProcesso
   v3 = 0;
   while (1)
   {
-    if (v13[v3 + 23] < 0)
+    if (SHIBYTE(v13[v3 + 2]) < 0)
     {
-      operator delete(*&v13[v3]);
+      operator delete(v13[v3]);
     }
 
-    v3 -= 24;
-    if (v3 == -240)
+    v3 -= 3;
+    if (v3 == -30)
     {
-      std::string::basic_string[abi:ne200100]<0>(this + 32, "_U_CAP_");
-      NLTokenizerCreate();
+      std::string::basic_string[abi:ne200100]<0>(this + 4, "_U_CAP_");
+      NLTokenizerCreate(0, 0x10000, 0);
     }
   }
 }
@@ -3949,7 +4310,7 @@ void sub_19D1C5A2C(_Unwind_Exception *a1)
 
 void corelm::Custom2PreProcessor::Custom2PreProcessor(corelm::Custom2PreProcessor *this)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28[3] = *MEMORY[0x1E69E9840];
   *this = &unk_1F10AFA18;
   v2 = (this + 8);
   std::string::basic_string[abi:ne200100]<0>(v5, "I'll");
@@ -3964,15 +4325,15 @@ void corelm::Custom2PreProcessor::Custom2PreProcessor(corelm::Custom2PreProcesso
   v3 = 0;
   while (1)
   {
-    if (v12[v3 + 23] < 0)
+    if (SHIBYTE(v12[v3 + 2]) < 0)
     {
-      operator delete(*&v12[v3]);
+      operator delete(v12[v3]);
     }
 
-    v3 -= 24;
-    if (v3 == -192)
+    v3 -= 3;
+    if (v3 == -24)
     {
-      std::string::basic_string[abi:ne200100]<0>(this + 32, "_U_CAP_");
+      std::string::basic_string[abi:ne200100]<0>(this + 4, "_U_CAP_");
       std::string::basic_string[abi:ne200100]<0>(v5, "it's");
       std::string::basic_string[abi:ne200100]<0>(v6, "that's");
       std::string::basic_string[abi:ne200100]<0>(v7, "he's");
@@ -4009,7 +4370,7 @@ void corelm::Custom2PreProcessor::Custom2PreProcessor(corelm::Custom2PreProcesso
         v4 -= 3;
         if (!(v4 * 8))
         {
-          NLTokenizerCreate();
+          NLTokenizerCreate(0, 0x10000, 0);
         }
       }
     }
@@ -4077,10 +4438,10 @@ void corelm::Custom2PreProcessor::~Custom2PreProcessor(corelm::Custom2PreProcess
   JUMPOUT(0x19EAF8CA0);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const*,char const*,0>(_BYTE *a1, char **a2)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const*,char const*,0>(void *a1, char **a2)
 {
   v4 = std::string::basic_string[abi:ne200100]<0>(a1, *a2);
-  std::string::basic_string[abi:ne200100]<0>(v4 + 24, a2[1]);
+  std::string::basic_string[abi:ne200100]<0>(v4 + 3, a2[1]);
   return a1;
 }
 
@@ -4094,18 +4455,18 @@ void sub_19D1C6BA0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::map<std::string,std::string>::map[abi:ne200100](void *a1, const void **a2, uint64_t a3)
+uint64_t **std::map<std::string,std::string>::map[abi:ne200100](uint64_t **a1, const void **a2, uint64_t a3)
 {
   a1[1] = 0;
   v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 48 * a3;
     do
     {
-      std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(a1, v4, a2);
+      std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(a1, v4, a2, a2);
       a2 += 6;
       v6 -= 48;
     }
@@ -4116,18 +4477,18 @@ void *std::map<std::string,std::string>::map[abi:ne200100](void *a1, const void 
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(void *a1, uint64_t a2, const void **a3)
+void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(uint64_t **a1, uint64_t *a2, const void **a3, uint64_t a4)
 {
-  v3 = *std::__tree<std::string>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::string>::__find_equal<std::string>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__construct_node<std::pair<std::string const,std::string> const&>();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -4417,9 +4778,9 @@ LABEL_60:
   v14 = v72 - *v3;
   v15 = v14 >> 3;
   *&v74 = &v78;
-  v16 = std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v9, &v78)[5];
+  v16 = std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v9, &v78, &std::piecewise_construct, &v74)[5];
   *&v74 = &v78;
-  v17 = std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v9, &v78);
+  v17 = std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v9, &v78, &std::piecewise_construct, &v74);
   v18 = v17[6];
   if (v16 != v18)
   {
@@ -4434,7 +4795,7 @@ LABEL_60:
   }
 
   *&v74 = &v78;
-  if (v16 == std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v9, &v78)[6])
+  if (v16 == std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v9, &v78, &std::piecewise_construct, &v74)[6])
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::runtime_error::runtime_error(exception, "input seq length not supported");
@@ -4444,7 +4805,7 @@ LABEL_62:
 
   v19 = v15 * v15;
   v77 = 1065353216;
-  std::vector<float>::vector[abi:ne200100](&v74, v15 * v15 * v78);
+  std::vector<float>::vector[abi:ne200100](&v74, v15 * v15 * v78, &v77);
   v21 = (v8 + 96);
   v20 = *(v8 + 96);
   if (v20)
@@ -4592,7 +4953,7 @@ LABEL_62:
 LABEL_45:
   v46 = v23 * v15 * *(v8 + 144);
   v77 = 0;
-  std::vector<float>::vector[abi:ne200100](&v74, v46);
+  std::vector<float>::vector[abi:ne200100](&v74, v46, &v77);
   v47 = *(v8 + 120);
   if (v47)
   {
@@ -4810,7 +5171,7 @@ LABEL_8:
 
 uint64_t corelm::LanguageModelWithState::updateWithContextIDs(uint64_t a1, uint64_t *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 80);
   v4 = *a2;
   if (a2[1] != *a2)
@@ -4818,25 +5179,25 @@ uint64_t corelm::LanguageModelWithState::updateWithContextIDs(uint64_t a1, uint6
     v6 = 0;
     do
     {
-      v21 = *(v4 + 8 * v6);
+      v20 = *(v4 + 8 * v6);
+      v14 = 0;
       v15 = 0;
-      v16 = 0;
       __p = 0;
-      std::vector<long>::__init_with_size[abi:ne200100]<long const*,long const*>(&__p, &v21, v22, 1uLL);
+      std::vector<long>::__init_with_size[abi:ne200100]<long const*,long const*>(&__p, &v20, v21, 1uLL);
       LOBYTE(cf) = 0;
-      v20 = 0;
+      v19 = 0;
       v7 = *(a1 + 48);
       if (v7 == 1)
       {
         std::__construct_at[abi:ne200100]<applesauce::CF::ArrayRef,applesauce::CF::ArrayRef const&,applesauce::CF::ArrayRef*>(&cf, (a1 + 40));
-        v20 = 1;
+        v19 = 1;
       }
 
       v8 = *(a1 + 88);
       v9 = __p;
-      v10 = v15;
-      LOBYTE(v21) = 0;
-      v22[0] = 0;
+      v10 = v14;
+      LOBYTE(v20) = 0;
+      LOBYTE(v21[0]) = 0;
       if (v7)
       {
         v11 = cf;
@@ -4845,34 +5206,34 @@ uint64_t corelm::LanguageModelWithState::updateWithContextIDs(uint64_t a1, uint6
           CFRetain(cf);
         }
 
-        v21 = v11;
-        v22[0] = 1;
+        v20 = v11;
+        LOBYTE(v21[0]) = 1;
       }
 
-      corelm::LanguageModel::updateModel<long,void>(v3 + 16, v9, (v10 - v9) >> 3, &v21, v8);
-      if (v22[0] == 1 && v21)
+      corelm::LanguageModel::updateModel<long,void>(v3 + 16, v9, (v10 - v9) >> 3, &v20, v8);
+      if (LOBYTE(v21[0]) == 1 && v20)
       {
-        CFRelease(v21);
+        CFRelease(v20);
       }
 
-      if (v20 == 1 && cf)
+      if (v19 == 1 && cf)
       {
         CFRelease(cf);
       }
 
-      *(a1 + 88) += (v15 - __p) >> 3;
-      corelm::NeuralNetwork::copyStates((v3 + 16), &v21);
-      v17 = v21;
-      v18 = 1;
-      (*(*a1 + 80))(a1, &v17);
-      if (v18 == 1 && v17)
+      *(a1 + 88) += (v14 - __p) >> 3;
+      corelm::NeuralNetwork::copyStates(&v20, (v3 + 16));
+      v16 = v20;
+      v17 = 1;
+      (*(*a1 + 80))(a1, &v16);
+      if (v17 == 1 && v16)
       {
-        CFRelease(v17);
+        CFRelease(v16);
       }
 
       if (__p)
       {
-        v15 = __p;
+        v14 = __p;
         operator delete(__p);
       }
 
@@ -4884,9 +5245,7 @@ uint64_t corelm::LanguageModelWithState::updateWithContextIDs(uint64_t a1, uint6
   }
 
   corelm::LanguageModel::getOutputProbs((v3 + 16), 1uLL, 0, &__p);
-  result = (*(*a1 + 56))(a1, &__p);
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*a1 + 56))(a1, &__p);
 }
 
 void sub_19D1C7F7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, char a16, uint64_t a17, char a18)
@@ -4899,16 +5258,9 @@ void sub_19D1C7F7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void corelm::LanguageModelWithState::updateWithContext(void *a1, uint64_t *a2)
+void corelm::LanguageModelWithState::updateWithContext(void *a1)
 {
-  v3 = *(a1[10] + 120);
-  if ((*(a2 + 23) & 0x8000000000000000) != 0)
-  {
-    v4 = *a2;
-    v6 = a2[1] == 0;
-  }
-
-  (*(*v3 + 16))(__p);
+  (*(**(a1[10] + 120) + 16))(__p);
   (*(*a1 + 24))(a1, __p);
   if (__p[0])
   {
@@ -4969,7 +5321,8 @@ uint64_t corelm::LanguageModelWithState::setOutputProbs(void *a1, CoreNLP::Model
   v14 = *MEMORY[0x1E69E9840];
   Revision = CoreNLP::ModelContainer::getRevision(this);
   corelm::util::Matrix<float>::row(this, Revision - 1, &__src);
-  std::vector<float>::vector[abi:ne200100](&v9, v13);
+  v8 = 0;
+  std::vector<float>::vector[abi:ne200100](&v9, v13, &v8);
   v5 = a1[7];
   if (v5)
   {
@@ -4984,14 +5337,12 @@ uint64_t corelm::LanguageModelWithState::setOutputProbs(void *a1, CoreNLP::Model
   *(a1 + 7) = v9;
   a1[9] = v10;
   memmove(v6, __src, 4 * v13);
-  result = std::__function::__value_func<unsigned long ()(unsigned long,unsigned long)>::~__value_func[abi:ne200100](&v12);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return std::__function::__value_func<unsigned long ()(unsigned long,unsigned long)>::~__value_func[abi:ne200100](&v12);
 }
 
-void sub_19D1C8288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_19D1C8288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<unsigned long ()(unsigned long,unsigned long)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5022,12 +5373,12 @@ CFTypeRef *corelm::LanguageModelWithState::copyNetworkStates@<X0>(CFTypeRef *thi
   return this;
 }
 
-uint64_t corelm::LanguageModelWithState::copyOutputProbs@<X0>(corelm::LanguageModelWithState *this@<X0>, void *a2@<X8>)
+uint64_t *corelm::LanguageModelWithState::copyOutputProbs@<X0>(uint64_t *a1@<X8>, uint64_t a2@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  return std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a2, *(this + 7), *(this + 8), (*(this + 8) - *(this + 7)) >> 2);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  return std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, *(a2 + 56), *(a2 + 64), (*(a2 + 64) - *(a2 + 56)) >> 2);
 }
 
 uint64_t corelm::LanguageModelWithState::getOutputProbs(corelm::LanguageModelWithState *this)
@@ -5055,7 +5406,7 @@ double corelm::LanguageModelWithState::getOutputProbs(corelm::LanguageModelWithS
   return result;
 }
 
-void corelm::LanguageModel::calculateProbsOnSequence<long,void>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+double corelm::LanguageModel::calculateProbsOnSequence<long,void>@<D0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v43 = *MEMORY[0x1E69E9840];
   v8 = *a2;
@@ -5143,9 +5494,9 @@ void corelm::LanguageModel::calculateProbsOnSequence<long,void>(uint64_t a1@<X0>
             v30.n128_u32[0] = *(a1 + 112);
             v38 = 0;
             __p = 0uLL;
-            std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&__p, &v30, v30.n128_i64 + 4, 1uLL);
+            std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&__p, &v30, &v30.n128_i32[1], 1uLL);
             std::string::basic_string[abi:ne200100]<0>(bytes, "temperature");
-            corelm::NeuralNetwork::setInputTensor<float,void>(a1, __p.n128_i64[0], (__p.n128_u64[1] - __p.n128_u64[0]) >> 2, bytes, 1);
+            corelm::NeuralNetwork::setInputTensor<float,void>(a1, __p.n128_u64[0], (__p.n128_u64[1] - __p.n128_u64[0]) >> 2, bytes, 1);
             if (v42 < 0)
             {
               operator delete(*bytes);
@@ -5163,9 +5514,9 @@ void corelm::LanguageModel::calculateProbsOnSequence<long,void>(uint64_t a1@<X0>
             v30.n128_u32[0] = 0;
             v38 = 0;
             __p = 0uLL;
-            std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&__p, &v30, v30.n128_i64 + 4, 1uLL);
+            std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&__p, &v30, &v30.n128_i32[1], 1uLL);
             std::string::basic_string[abi:ne200100]<0>(bytes, "segment");
-            corelm::NeuralNetwork::setInputTensor<float,void>(a1, __p.n128_i64[0], (__p.n128_u64[1] - __p.n128_u64[0]) >> 2, bytes, 1);
+            corelm::NeuralNetwork::setInputTensor<float,void>(a1, __p.n128_u64[0], (__p.n128_u64[1] - __p.n128_u64[0]) >> 2, bytes, 1);
             if (v42 < 0)
             {
               operator delete(*bytes);
@@ -5196,7 +5547,7 @@ void corelm::LanguageModel::calculateProbsOnSequence<long,void>(uint64_t a1@<X0>
             CFRelease(v31);
           }
 
-          corelm::NeuralNetwork::copyStates(a1, &__p);
+          corelm::NeuralNetwork::copyStates(&__p, a1);
           if (v17)
           {
             v22 = cf;
@@ -5218,7 +5569,7 @@ void corelm::LanguageModel::calculateProbsOnSequence<long,void>(uint64_t a1@<X0>
           v30.n128_u64[0] = v10;
           v30.n128_u64[1] = 1;
           std::string::basic_string[abi:ne200100]<0>(bytes, "output");
-          corelm::NeuralNetwork::getOutput<2ul>(bytes, a1, &v30, 1, &__p);
+          corelm::NeuralNetwork::getOutput<2ul>(bytes, a1, &v30, 0x100000001, &__p);
           memcpy((v23 + v11), __src, 4 * v10);
           if (v42 < 0)
           {
@@ -5253,8 +5604,8 @@ void corelm::LanguageModel::calculateProbsOnSequence<long,void>(uint64_t a1@<X0>
 
   __p.n128_u64[0] = v10;
   __p.n128_u64[1] = v25;
-  corelm::util::Matrix<float>::Matrix(a4, *(a1 + 120), &__p, 1);
-  v24 = *MEMORY[0x1E69E9840];
+  *&result = corelm::util::Matrix<float>::Matrix(a4, *(a1 + 120), &__p, 1).n128_u64[0];
+  return result;
 }
 
 uint64_t std::__function::__func<corelm::util::Matrix<float>::row(unsigned long)::{lambda(unsigned long,unsigned long)#1},std::allocator<corelm::util::Matrix<float>::row(unsigned long)::{lambda(unsigned long,unsigned long)#1}>,unsigned long ()(unsigned long,unsigned long)>::__clone(uint64_t result, void *a2)
@@ -5366,7 +5717,7 @@ void std::__optional_destruct_base<applesauce::CF::ArrayRef,false>::reset[abi:ne
   }
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5475,7 +5826,7 @@ void corelm::util::enumerate<float,unsigned long>(uint64_t *a1@<X0>, const void 
         v16 = 16 * v12;
         *v16 = *(v8 + 4 * v6);
         *(v16 + 8) = v6;
-        v5 = 16 * v12 + 16;
+        v5 = (16 * v12 + 16);
         v17 = (v16 - 16 * (v11 >> 4));
         memcpy(v17, v10, v11);
         v18 = *a2;
@@ -5491,7 +5842,7 @@ void corelm::util::enumerate<float,unsigned long>(uint64_t *a1@<X0>, const void 
       else
       {
         *v5 = *(v8 + 4 * v6);
-        *(v5 + 8) = v6;
+        *(v5 + 1) = v6;
         v5 += 16;
       }
 
@@ -5515,17 +5866,17 @@ void sub_19D1C8EB4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<std::pair<float,unsigned long>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::pair<float,unsigned long>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::pair<float,unsigned long>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::pair<float,unsigned long>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_19D1C8F30(_Unwind_Exception *exception_object)
@@ -5540,7 +5891,7 @@ void sub_19D1C8F30(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::pair<float,unsigned long>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<float,unsigned long>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -5550,7 +5901,7 @@ void std::vector<std::pair<float,unsigned long>>::__vallocate[abi:ne200100](uint
   std::vector<CoreNLP::NLAttributedToken>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t _ZNSt3__119__partial_sort_copyB8ne200100INS_17_ClassicAlgPolicyERZN6corelm4util15topKWithIndicesIfmEEDaRKNS_6vectorIT_NS_9allocatorIS7_EEEEiE11PairGreaterNS_11__wrap_iterIPNS_4pairIfmEEEESJ_SJ_SJ_NS_10__identityESK_EENSG_IT1_T3_EESL_T2_SM_T4_OT0_OT5_OT6_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+int *_ZNSt3__119__partial_sort_copyB8ne200100INS_17_ClassicAlgPolicyERZN6corelm4util15topKWithIndicesIfmEEDaRKNS_6vectorIT_NS_9allocatorIS7_EEEEiE11PairGreaterNS_11__wrap_iterIPNS_4pairIfmEEEESJ_SJ_SJ_NS_10__identityESK_EENSG_IT1_T3_EESL_T2_SM_T4_OT0_OT5_OT6_(int *a1, int *a2, int *a3, int *a4, uint64_t a5)
 {
   if (a3 != a4)
   {
@@ -5561,9 +5912,9 @@ uint64_t _ZNSt3__119__partial_sort_copyB8ne200100INS_17_ClassicAlgPolicyERZN6cor
       do
       {
         *v9 = *v8;
-        *(v9 + 8) = *(v8 + 8);
-        v8 += 16;
-        v9 += 16;
+        *(v9 + 1) = *(v8 + 1);
+        v8 += 4;
+        v9 += 4;
       }
 
       while (v8 != a2 && v9 != a4);
@@ -5573,12 +5924,12 @@ uint64_t _ZNSt3__119__partial_sort_copyB8ne200100INS_17_ClassicAlgPolicyERZN6cor
     if (v11 >= 2)
     {
       v12 = (v11 - 2) >> 1;
-      v13 = a3 + 16 * v12;
+      v13 = &a3[4 * v12];
       v14 = v12 + 1;
       do
       {
         _ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN6corelm4util15topKWithIndicesIfmEEDaRKNS_6vectorIT_NS_9allocatorIS7_EEEEiE11PairGreaterNS_11__wrap_iterIPNS_4pairIfmEEEEEEvT1_OT0_NS_15iterator_traitsISK_E15difference_typeESK_(a3, a5, (v9 - a3) >> 4, v13);
-        v13 -= 16;
+        v13 -= 4;
         --v14;
       }
 
@@ -5590,20 +5941,20 @@ uint64_t _ZNSt3__119__partial_sort_copyB8ne200100INS_17_ClassicAlgPolicyERZN6cor
       if (*v8 > *a3)
       {
         *a3 = *v8;
-        *(a3 + 8) = *(v8 + 8);
+        *(a3 + 1) = *(v8 + 1);
         _ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN6corelm4util15topKWithIndicesIfmEEDaRKNS_6vectorIT_NS_9allocatorIS7_EEEEiE11PairGreaterNS_11__wrap_iterIPNS_4pairIfmEEEEEEvT1_OT0_NS_15iterator_traitsISK_E15difference_typeESK_(a3, a5, (v9 - a3) >> 4, a3);
       }
 
-      v8 += 16;
+      v8 += 4;
     }
 
     if (v11 >= 2)
     {
-      v15 = v9 - 16;
+      v15 = v9 - 4;
       do
       {
         v16 = *a3;
-        v17 = *(a3 + 8);
+        v17 = *(a3 + 1);
         _ZNSt3__117__floyd_sift_downB8ne200100INS_17_ClassicAlgPolicyERZN6corelm4util15topKWithIndicesIfmEEDaRKNS_6vectorIT_NS_9allocatorIS7_EEEEiE11PairGreaterNS_11__wrap_iterIPNS_4pairIfmEEEEEET1_SK_OT0_NS_15iterator_traitsISK_E15difference_typeE(a3, a5, v11);
         if (v15 == v18)
         {
@@ -5614,13 +5965,13 @@ uint64_t _ZNSt3__119__partial_sort_copyB8ne200100INS_17_ClassicAlgPolicyERZN6cor
         else
         {
           *v18 = *v15;
-          *(v18 + 8) = *(v15 + 8);
+          *(v18 + 8) = *(v15 + 1);
           *v15 = v16;
-          *(v15 + 8) = v17;
+          *(v15 + 1) = v17;
           _ZNSt3__19__sift_upB8ne200100INS_17_ClassicAlgPolicyERZN6corelm4util15topKWithIndicesIfmEEDaRKNS_6vectorIT_NS_9allocatorIS7_EEEEiE11PairGreaterNS_11__wrap_iterIPNS_4pairIfmEEEEEEvT1_SK_OT0_NS_15iterator_traitsISK_E15difference_typeE(a3, v18 + 16, a5, (v18 + 16 - a3) >> 4);
         }
 
-        v15 -= 16;
+        v15 -= 4;
       }
 
       while (v11-- > 2);
@@ -5752,29 +6103,29 @@ uint64_t _ZNSt3__19__sift_upB8ne200100INS_17_ClassicAlgPolicyERZN6corelm4util15t
   return result;
 }
 
-void corelm::LanguageModel::calculateProbsOnSequence<float,void>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+void corelm::LanguageModel::calculateProbsOnSequence<float,void>(uint64_t **a1@<X0>, int **a2@<X1>, int **a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
 {
-  std::string::basic_string[abi:ne200100]<0>(&__p, "output");
-  v14 = corelm::NeuralNetwork::outputDimension(a1, &__p);
-  if (SHIBYTE(__p.data) < 0)
+  std::string::basic_string[abi:ne200100]<0>(__p, "output");
+  v14 = corelm::NeuralNetwork::outputDimension(a1, __p);
+  if (v20 < 0)
   {
-    operator delete(__p.isa);
+    operator delete(__p[0]);
   }
 
   v15 = *a2;
-  std::string::basic_string[abi:ne200100]<0>(&__p, "input");
-  corelm::NeuralNetwork::setInputTensorANE<float,void>(a1, v15, a5, &__p, a6, a4);
-  if (SHIBYTE(__p.data) < 0)
+  std::string::basic_string[abi:ne200100]<0>(__p, "input");
+  corelm::NeuralNetwork::setInputTensorANE<float,void>(a1, v15, a5, __p, a6, a4);
+  if (v20 < 0)
   {
-    operator delete(__p.isa);
+    operator delete(__p[0]);
   }
 
   v16 = *a3;
-  std::string::basic_string[abi:ne200100]<0>(&__p, "qk_mask");
-  corelm::NeuralNetwork::setInputTensorANE<float,void>(a1, v16, a5, &__p, a5, a4);
-  if (SHIBYTE(__p.data) < 0)
+  std::string::basic_string[abi:ne200100]<0>(__p, "qk_mask");
+  corelm::NeuralNetwork::setInputTensorANE<float,void>(a1, v16, a5, __p, a5, a4);
+  if (v20 < 0)
   {
-    operator delete(__p.isa);
+    operator delete(__p[0]);
   }
 
   cf = 0;
@@ -5786,11 +6137,11 @@ void corelm::LanguageModel::calculateProbsOnSequence<float,void>(uint64_t *a1@<X
 
   v17.n128_u64[0] = v14;
   v17.n128_u64[1] = a5 * a4;
-  std::string::basic_string[abi:ne200100]<0>(&__p, "output");
-  corelm::NeuralNetwork::getOutput<2ul>(&__p, a1, &v17, 1, a7);
-  if (SHIBYTE(__p.data) < 0)
+  std::string::basic_string[abi:ne200100]<0>(__p, "output");
+  corelm::NeuralNetwork::getOutput<2ul>(__p, a1, &v17, 0x100000001, a7);
+  if (v20 < 0)
   {
-    operator delete(__p.isa);
+    operator delete(__p[0]);
   }
 }
 
@@ -5804,7 +6155,7 @@ void sub_19D1C9418(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-CFArrayRef applesauce::CF::details::make_CFArrayRef<long>(void ****a1)
+CFArrayRef applesauce::CF::details::make_CFArrayRef<long>(uint64_t ***a1)
 {
   v2 = a1[1] - *a1;
   v8 = 0;
@@ -5842,21 +6193,19 @@ CFArrayRef applesauce::CF::details::make_CFArrayRef<long>(void ****a1)
   return v6;
 }
 
-void sub_19D1C9518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
+void sub_19D1C9518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t *a12)
 {
   a12 = &a9;
   std::vector<applesauce::CF::NumberRef>::__destroy_vector::operator()[abi:ne200100](&a12);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<applesauce::CF::NumberRef>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<applesauce::CF::NumberRef>::reserve(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<applesauce::CF::NumberRef>>(result, a2);
     }
 
@@ -5866,9 +6215,9 @@ void *std::vector<applesauce::CF::NumberRef>::reserve(void *result, unint64_t a2
   return result;
 }
 
-void sub_19D1C95EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D1C95EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<applesauce::CF::NumberRef>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6084,9 +6433,9 @@ uint64_t std::vector<applesauce::CF::NumberRef>::__emplace_back_slow_path<long>(
   return v13;
 }
 
-void sub_19D1C99E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D1C99E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<applesauce::CF::NumberRef>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6106,17 +6455,17 @@ CFNumberRef std::allocator_traits<std::allocator<applesauce::CF::NumberRef>>::co
   return result;
 }
 
-void *std::vector<void const*>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<void const*>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<void const*>::__vallocate[abi:ne200100](result, a2);
+    std::vector<void const*>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_19D1C9B04(_Unwind_Exception *exception_object)
@@ -6131,7 +6480,7 @@ void sub_19D1C9B04(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<applesauce::CF::NumberRef>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<applesauce::CF::NumberRef>::__destroy_vector::operator()[abi:ne200100](CFTypeRef ***a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -6156,15 +6505,15 @@ void std::vector<applesauce::CF::NumberRef>::__destroy_vector::operator()[abi:ne
   }
 }
 
-__n128 applesauce::CF::convert_or<std::vector<long>,0>@<Q0>(const __CFArray *a1@<X0>, __n128 *a2@<X1>, __n128 *a3@<X8>)
+__n128 applesauce::CF::convert_or<std::vector<long>,0>@<Q0>(__n128 *a1@<X1>, uint64_t *a2@<X8>, const __CFArray *a3@<X0>)
 {
-  applesauce::CF::convert_as<std::vector<long>,0>(a1, &__p);
+  applesauce::CF::convert_as<std::vector<long>,0>(a3, &__p);
   if (v8 == 1)
   {
-    a3->n128_u64[0] = 0;
-    a3->n128_u64[1] = 0;
-    a3[1].n128_u64[0] = 0;
-    std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(a3, __p, v7, (v7 - __p) >> 3);
+    *a2 = 0;
+    a2[1] = 0;
+    a2[2] = 0;
+    std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(a2, __p, v7, (v7 - __p) >> 3);
     if (v8)
     {
       if (__p)
@@ -6177,23 +6526,23 @@ __n128 applesauce::CF::convert_or<std::vector<long>,0>@<Q0>(const __CFArray *a1@
 
   else
   {
-    result = *a2;
-    *a3 = *a2;
-    a3[1].n128_u64[0] = a2[1].n128_u64[0];
-    a2->n128_u64[1] = 0;
-    a2[1].n128_u64[0] = 0;
-    a2->n128_u64[0] = 0;
+    result = *a1;
+    *a2 = *a1;
+    a2[2] = a1[1].n128_i64[0];
+    a1->n128_u64[1] = 0;
+    a1[1].n128_u64[0] = 0;
+    a1->n128_u64[0] = 0;
   }
 
   return result;
 }
 
-void applesauce::CF::convert_as<std::vector<long>,0>(const __CFArray *a1@<X0>, _BYTE *a2@<X8>)
+void applesauce::CF::convert_as<std::vector<long>,0>(const __CFArray *result@<X0>, _BYTE *a2@<X8>)
 {
-  if (a1 && (TypeID = CFArrayGetTypeID(), TypeID == CFGetTypeID(a1)))
+  if (result && (TypeID = CFArrayGetTypeID(), TypeID == CFGetTypeID(result)))
   {
 
-    applesauce::CF::details::CFArray_get_value_as<std::vector<long>>(a1, a2);
+    applesauce::CF::details::CFArray_get_value_as<std::vector<long>>(result, a2);
   }
 
   else
@@ -6485,73 +6834,61 @@ LABEL_36:
   return v21 | (v23 << 8);
 }
 
-void *std::vector<std::string>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::string>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, __int128 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::string>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::string>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
+void *std::__tree<std::__value_type<long,std::string>,std::__map_value_compare<long,std::__value_type<long,std::string>,std::less<long>,true>,std::allocator<std::__value_type<long,std::string>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<std::string>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
-}
-
-void *std::__tree<std::__value_type<long,std::string>,std::__map_value_compare<long,std::__value_type<long,std::string>,std::less<long>,true>,std::allocator<std::__value_type<long,std::string>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(uint64_t a1, uint64_t *a2)
-{
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-CFArrayRef applesauce::CF::details::make_CFArrayRef<std::string>(__int128 **a1)
+CFArrayRef applesauce::CF::details::make_CFArrayRef<std::string>(char **a1)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v11 = 0;
@@ -6562,7 +6899,7 @@ CFArrayRef applesauce::CF::details::make_CFArrayRef<std::string>(__int128 **a1)
   v4 = a1[1];
   while (v3 != v4)
   {
-    if (*(v3 + 23) < 0)
+    if (v3[23] < 0)
     {
       std::string::__init_copy_ctor_external(&__p, *v3, *(v3 + 1));
     }
@@ -6592,7 +6929,7 @@ CFArrayRef applesauce::CF::details::make_CFArrayRef<std::string>(__int128 **a1)
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    v3 = (v3 + 24);
+    v3 += 24;
   }
 
   v8 = applesauce::CF::details::make_CFArrayRef<applesauce::CF::NumberRef>(&v11);
@@ -6608,14 +6945,12 @@ void sub_19D1CA3D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<applesauce::CF::StringRef>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<applesauce::CF::StringRef>::reserve(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<applesauce::CF::NumberRef>>(result, a2);
     }
 
@@ -6625,9 +6960,9 @@ void *std::vector<applesauce::CF::StringRef>::reserve(void *result, unint64_t a2
   return result;
 }
 
-void sub_19D1CA4C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D1CA4C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<applesauce::CF::StringRef>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6775,9 +7110,9 @@ uint64_t std::vector<applesauce::CF::StringRef>::__emplace_back_slow_path<std::s
   return v13;
 }
 
-void sub_19D1CA7AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D1CA7AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<applesauce::CF::StringRef>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6823,7 +7158,7 @@ void std::allocator_traits<std::allocator<applesauce::CF::StringRef>>::construct
   }
 }
 
-void std::vector<applesauce::CF::StringRef>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<applesauce::CF::StringRef>::__destroy_vector::operator()[abi:ne200100](CFTypeRef ***a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -6969,9 +7304,9 @@ uint64_t std::vector<applesauce::CF::NumberRef>::__emplace_back_slow_path<float>
   return v13;
 }
 
-void sub_19D1CAC1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D1CAC1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<applesauce::CF::NumberRef>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7005,7 +7340,7 @@ corelm::LanguageModelWithState *corelm::LanguageModelWithState::LanguageModelWit
   *(this + 9) = 0;
   if (a3)
   {
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 56, *(a2 + 7), *(a2 + 8), (*(a2 + 8) - *(a2 + 7)) >> 2);
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 7, *(a2 + 7), *(a2 + 8), (*(a2 + 8) - *(a2 + 7)) >> 2);
   }
 
   v6 = (*(*a2 + 112))(a2);
@@ -7054,7 +7389,7 @@ LABEL_12:
   return this;
 }
 
-const __CFBoolean *applesauce::CF::details::find_at_key_or_optional<unsigned long,__CFString const* const&>(const __CFDictionary *a1, const void **a2)
+const __CFDictionary *applesauce::CF::details::find_at_key_or_optional<unsigned long,__CFString const* const&>(const __CFDictionary *a1, const void **a2)
 {
   result = applesauce::CF::details::at_key<__CFString const* const&>(a1, a2);
   if (result)
@@ -7065,7 +7400,7 @@ const __CFBoolean *applesauce::CF::details::find_at_key_or_optional<unsigned lon
   return result;
 }
 
-const __CFBoolean *applesauce::CF::convert_as<unsigned long,0>(const __CFNumber *a1)
+const __CFBoolean *applesauce::CF::convert_as<unsigned long,0>(const __CFBoolean *a1)
 {
   if (a1 && (TypeID = CFNumberGetTypeID(), TypeID == CFGetTypeID(a1)))
   {
@@ -7416,7 +7751,7 @@ const __CFDictionary *applesauce::CF::details::find_at_key_or_optional<float,__C
   return result;
 }
 
-uint64_t applesauce::CF::convert_as<float,0>(const __CFNumber *a1)
+unint64_t applesauce::CF::convert_as<float,0>(const __CFNumber *a1)
 {
   if (a1 && (TypeID = CFNumberGetTypeID(), TypeID == CFGetTypeID(a1)))
   {
@@ -7720,9 +8055,9 @@ uint64_t std::vector<applesauce::CF::TypeRefPair>::__emplace_back_slow_path<std:
   return v14;
 }
 
-void sub_19D1CB9E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D1CB9E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<applesauce::CF::TypeRefPair>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7770,15 +8105,15 @@ void sub_19D1CBB00(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-__n128 applesauce::CF::convert_or<std::vector<std::vector<long>>,0>@<Q0>(const __CFArray *a1@<X0>, __n128 *a2@<X1>, __n128 *a3@<X8>)
+__n128 applesauce::CF::convert_or<std::vector<std::vector<long>>,0>@<Q0>(__n128 *a1@<X1>, __n128 *a2@<X8>, const __CFArray *a3@<X0>)
 {
-  applesauce::CF::convert_as<std::vector<std::vector<long>>,0>(a1, &v6);
+  applesauce::CF::convert_as<std::vector<std::vector<long>>,0>(a3, &v6);
   if (v8 == 1)
   {
-    a3->n128_u64[0] = 0;
-    a3->n128_u64[1] = 0;
-    a3[1].n128_u64[0] = 0;
-    std::vector<std::vector<long>>::__init_with_size[abi:ne200100]<std::vector<long>*,std::vector<long>*>(a3, v6, v7, 0xAAAAAAAAAAAAAAABLL * ((v7 - v6) >> 3));
+    a2->n128_u64[0] = 0;
+    a2->n128_u64[1] = 0;
+    a2[1].n128_u64[0] = 0;
+    std::vector<std::vector<long>>::__init_with_size[abi:ne200100]<std::vector<long>*,std::vector<long>*>(a2, v6, v7, 0xAAAAAAAAAAAAAAABLL * ((v7 - v6) >> 3));
     if (v8)
     {
       v9 = &v6;
@@ -7788,23 +8123,23 @@ __n128 applesauce::CF::convert_or<std::vector<std::vector<long>>,0>@<Q0>(const _
 
   else
   {
-    result = *a2;
-    *a3 = *a2;
-    a3[1].n128_u64[0] = a2[1].n128_u64[0];
-    a2->n128_u64[1] = 0;
-    a2[1].n128_u64[0] = 0;
-    a2->n128_u64[0] = 0;
+    result = *a1;
+    *a2 = *a1;
+    a2[1].n128_u64[0] = a1[1].n128_u64[0];
+    a1->n128_u64[1] = 0;
+    a1[1].n128_u64[0] = 0;
+    a1->n128_u64[0] = 0;
   }
 
   return result;
 }
 
-void applesauce::CF::convert_as<std::vector<std::vector<long>>,0>(const __CFArray *a1@<X0>, char *a2@<X8>)
+void applesauce::CF::convert_as<std::vector<std::vector<long>>,0>(const __CFArray *result@<X0>, char *a2@<X8>)
 {
-  if (a1 && (TypeID = CFArrayGetTypeID(), TypeID == CFGetTypeID(a1)))
+  if (result && (TypeID = CFArrayGetTypeID(), TypeID == CFGetTypeID(result)))
   {
 
-    applesauce::CF::details::CFArray_get_value_as<std::vector<std::vector<long>>>(a1, a2);
+    applesauce::CF::details::CFArray_get_value_as<std::vector<std::vector<long>>>(result, a2);
   }
 
   else
@@ -7957,14 +8292,12 @@ void sub_19D1CBEBC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
   __clang_call_terminate(a1);
 }
 
-void *std::vector<std::vector<long>>::reserve(void *result, unint64_t a2)
+const void **std::vector<std::vector<long>>::reserve(const void **result, unint64_t a2)
 {
   if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 3) < a2)
   {
     if (a2 < 0xAAAAAAAAAAAAAABLL)
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<long>>>(result, a2);
     }
 
@@ -7974,7 +8307,7 @@ void *std::vector<std::vector<long>>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-uint64_t std::vector<std::vector<long>>::__init_with_size[abi:ne200100]<std::vector<long>*,std::vector<long>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::vector<long>>::__init_with_size[abi:ne200100]<std::vector<long>*,std::vector<long>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7991,7 +8324,7 @@ void sub_19D1CBFF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<long>>,std::vector<long>*,std::vector<long>*,std::vector<long>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<long>>,std::vector<long>*,std::vector<long>*,std::vector<long>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -8008,8 +8341,8 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(v4, *v6, v6[1], (v6[1] - *v6) >> 3);
-      v6 += 3;
+      std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 3);
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -8142,9 +8475,9 @@ uint64_t std::vector<applesauce::CF::TypeRefPair>::__emplace_back_slow_path<unsi
   return v14;
 }
 
-void sub_19D1CC2E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D1CC2E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<applesauce::CF::TypeRefPair>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8261,9 +8594,9 @@ uint64_t std::vector<applesauce::CF::NumberRef>::__emplace_back_slow_path<unsign
   return v13;
 }
 
-void sub_19D1CC5BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D1CC5BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<applesauce::CF::NumberRef>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8316,7 +8649,7 @@ void applesauce::CF::details::CFDictionary_get_value_to<std::map<unsigned long,s
       v7[0] = 0;
       v7[1] = 0;
       v8 = 0;
-      std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::pair<unsigned long const,std::vector<unsigned long>>>(a2, &v9);
+      std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::pair<unsigned long const,std::vector<unsigned long>>>(a2, &v9, &v9);
       if (__p[0])
       {
         __p[1] = __p[0];
@@ -8377,48 +8710,48 @@ void sub_19D1CC88C(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   JUMPOUT(0x19D1CC858);
 }
 
-void *std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::pair<unsigned long const,std::vector<unsigned long>>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::pair<unsigned long const,std::vector<unsigned long>>>(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-const __CFBoolean *applesauce::CF::convert_to<unsigned long,0>(const __CFNumber *a1)
+const __CFBoolean *applesauce::CF::convert_to<unsigned long,0>(const __CFBoolean *a1)
 {
   result = applesauce::CF::convert_as<unsigned long,0>(a1);
   if ((v2 & 1) == 0)
@@ -8492,7 +8825,7 @@ void applesauce::CF::details::CFArray_get_value_to<std::vector<unsigned long>>(c
         }
 
         *(8 * v13) = v7;
-        v10 = 8 * v13 + 8;
+        v10 = (8 * v13 + 8);
         memcpy(0, v11, v12);
         v17 = *a2;
         *a2 = 0;
@@ -8507,7 +8840,7 @@ void applesauce::CF::details::CFArray_get_value_to<std::vector<unsigned long>>(c
       else
       {
         *v9 = v7;
-        v10 = (v9 + 1);
+        v10 = v9 + 8;
       }
 
       a2[1] = v10;
@@ -8591,7 +8924,7 @@ void applesauce::CF::details::CFArray_get_value_to<std::vector<long>>(const __CF
         }
 
         *(8 * v13) = v7;
-        v10 = 8 * v13 + 8;
+        v10 = (8 * v13 + 8);
         memcpy(0, v11, v12);
         v17 = *a2;
         *a2 = 0;
@@ -8606,7 +8939,7 @@ void applesauce::CF::details::CFArray_get_value_to<std::vector<long>>(const __CF
       else
       {
         *v9 = v7;
-        v10 = (v9 + 1);
+        v10 = v9 + 8;
       }
 
       a2[1] = v10;
@@ -8629,27 +8962,26 @@ void sub_19D1CCDF8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::__split_buffer<long>::emplace_back<long const&>(void *result, void *a2)
+void std::__split_buffer<long>::emplace_back<long const&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -8658,33 +8990,32 @@ void *std::__split_buffer<long>::emplace_back<long const&>(void *result, void *a
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
+    a1[1] = &v5[8 * v7];
   }
 
   *v4 = *a2;
-  v3[2] = v4 + 8;
-  return result;
+  a1[2] = (v4 + 8);
 }
 
-void std::vector<long>::resize(void *a1, unint64_t a2, uint64_t *a3)
+void std::vector<long>::resize(void *result, unint64_t a2, uint64_t *a3)
 {
-  v3 = (a1[1] - *a1) >> 3;
+  v3 = (result[1] - *result) >> 3;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<long>::__append(a1, a2 - v3, a3);
+    std::vector<long>::__append(result, a2 - v3, a3);
   }
 }
 
@@ -8841,21 +9172,19 @@ CFArrayRef applesauce::CF::details::make_CFArrayRef<std::vector<long>>(uint64_t 
   return v7;
 }
 
-void sub_19D1CD1D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
+void sub_19D1CD1D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t *a12)
 {
   a12 = &a9;
   std::vector<applesauce::CF::ArrayRef>::__destroy_vector::operator()[abi:ne200100](&a12);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<applesauce::CF::ArrayRef>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<applesauce::CF::ArrayRef>::reserve(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<applesauce::CF::NumberRef>>(result, a2);
     }
 
@@ -8865,9 +9194,9 @@ void *std::vector<applesauce::CF::ArrayRef>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_19D1CD2A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D1CD2A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<applesauce::CF::ArrayRef>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8964,7 +9293,7 @@ void std::__split_buffer<applesauce::CF::ArrayRef>::clear[abi:ne200100](void *a1
   }
 }
 
-uint64_t std::vector<applesauce::CF::ArrayRef>::__emplace_back_slow_path<std::vector<long> const&>(uint64_t a1, void ****a2)
+uint64_t std::vector<applesauce::CF::ArrayRef>::__emplace_back_slow_path<std::vector<long> const&>(uint64_t a1, uint64_t ***a2)
 {
   v2 = (*(a1 + 8) - *a1) >> 3;
   v3 = v2 + 1;
@@ -9017,14 +9346,14 @@ uint64_t std::vector<applesauce::CF::ArrayRef>::__emplace_back_slow_path<std::ve
   return v14;
 }
 
-void sub_19D1CD584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D1CD584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<applesauce::CF::ArrayRef>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void std::vector<applesauce::CF::ArrayRef>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<applesauce::CF::ArrayRef>::__destroy_vector::operator()[abi:ne200100](CFTypeRef ***a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -9061,21 +9390,11 @@ const __CFBoolean *applesauce::CF::details::at_to<unsigned long>(const __CFArray
   return applesauce::CF::convert_to<unsigned long,0>(ValueAtIndex);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
-}
-
-uint64_t *OUTLINED_FUNCTION_1@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  if (*(result + 23) < 0)
-  {
-    v3 = *result;
-  }
-
-  return result;
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 uint64_t CoreNLP::TransferSeqTagModel::TransferSeqTagModel(uint64_t a1, const void ***a2)
@@ -9130,14 +9449,14 @@ uint64_t CoreNLP::TransferSeqTagModel::TransferSeqTagModel(uint64_t a1, const vo
   v16[1] = 0;
   v15 = v16;
   v6 = *a2;
-  v4 = a2 + 1;
+  v4 = (a2 + 1);
   v5 = v6;
   if (v6 != v4)
   {
     do
     {
-      v16[3] = (v5 + 7);
-      v7 = std::__tree<std::__value_type<int,std::string>,std::__map_value_compare<int,std::__value_type<int,std::string>,std::less<int>,true>,std::allocator<std::__value_type<int,std::string>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v15, v5 + 14);
+      v17 = v5 + 7;
+      v7 = std::__tree<std::__value_type<int,std::string>,std::__map_value_compare<int,std::__value_type<int,std::string>,std::less<int>,true>,std::allocator<std::__value_type<int,std::string>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v15, v5 + 14, &std::piecewise_construct, &v17);
       std::string::operator=((v7 + 5), (v5 + 4));
       v8 = v5[1];
       if (v8)
@@ -9419,7 +9738,7 @@ void CoreNLP::TransferSeqTagModel::initTrainer(uint64_t a1, const void **a2)
   }
 }
 
-void CoreNLP::TransferSeqTagModel::readSample(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, unsigned int a6)
+void CoreNLP::TransferSeqTagModel::readSample(uint64_t a1, void *a2, const void ***a3, uint64_t a4, uint64_t a5, unsigned int a6)
 {
   v8 = a1 + 24 * a6;
   v9 = a1 + 4 * a6;
@@ -9460,7 +9779,7 @@ void CoreNLP::TransferSeqTagModel::readSample(uint64_t a1, uint64_t *a2, uint64_
 
         else
         {
-          v15 = *(v10 + 8);
+          v15 = v10[1];
         }
 
         if (v14 >= 0)
@@ -9505,10 +9824,10 @@ LABEL_23:
         std::vector<std::string>::push_back[abi:ne200100](a1 + 632, v10);
         v20 = -1 - 1431655765 * ((*(a1 + 640) - *(a1 + 632)) >> 3);
         v21 = v10;
-        *(std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 600, v10) + 56) = v20;
+        *(std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 600), v10, &std::piecewise_construct, &v21, &v28) + 14) = v20;
       }
 
-      v10 += 24;
+      v10 += 3;
     }
 
     while (v10 != v11);
@@ -9575,290 +9894,4 @@ void std::vector<std::tuple<int,std::vector<std::string>,std::vector<std::string
   }
 
   *(a1 + 8) = v7;
-}
-
-uint64_t std::tuple<int,std::vector<std::string>,std::vector<std::string>,std::vector<int>,std::vector<int>>::~tuple(uint64_t a1)
-{
-  v2 = *(a1 + 80);
-  if (v2)
-  {
-    *(a1 + 88) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 56);
-  if (v3)
-  {
-    *(a1 + 64) = v3;
-    operator delete(v3);
-  }
-
-  v5 = (a1 + 32);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v5);
-  v5 = (a1 + 8);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v5);
-  return a1;
-}
-
-void CoreNLP::TransferSeqTagModel::prepareDataSubsetForBatch(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, void **a5, const void **a6, void **a7, uint64_t a8, uint64_t a9)
-{
-  v13 = *a2;
-  v14 = a2[1];
-  v15 = 126 - 2 * __clz(0x4EC4EC4EC4EC4EC5 * ((v14 - v13) >> 3));
-  if (v14 == v13)
-  {
-    v16 = 0;
-  }
-
-  else
-  {
-    v16 = v15;
-  }
-
-  std::__introsort<std::_ClassicAlgPolicy,CoreNLP::TransferSeqTagModel::prepareDataSubsetForBatch(std::vector<std::tuple<int,std::vector<std::string>,std::vector<std::string>,std::vector<int>,std::vector<int>>> &,std::vector<std::vector<std::string>> &,std::vector<std::vector<std::vector<int>>> &,std::vector<std::vector<std::string>> &,std::vector<int>&,std::vector<std::vector<std::string>> &,std::vector<std::vector<int>>&,std::vector<std::vector<int>>&)::$_0 &,std::tuple<int,std::vector<std::string>,std::vector<std::string>,std::vector<int>,std::vector<int>>*,false>(v13, v14, v16, 1);
-  v17 = a1[82];
-  if (!v17)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    applesauce::CF::construct_error(exception);
-    __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  v18 = applesauce::CF::details::find_at_key_or_optional<int,__CFString const* const&>(v17, CoreNLP::kNLModelTrainerMaxSeqLengthKey);
-  if ((v18 & 0x100000000) != 0)
-  {
-    v19 = v18;
-  }
-
-  else
-  {
-    v19 = 30;
-  }
-
-  v51 = v19;
-  v20 = *a2;
-  if (a2[1] != *a2)
-  {
-    v21 = 0;
-    v46 = a8;
-    do
-    {
-      v22 = (v20 + 104 * v21);
-      v24 = a6[1];
-      v23 = a6[2];
-      if (v24 >= v23)
-      {
-        v26 = *a6;
-        v27 = v24 - *a6;
-        v28 = v27 >> 2;
-        v29 = (v27 >> 2) + 1;
-        if (v29 >> 62)
-        {
-          std::vector<CoreNLP::NLAttributedToken>::__throw_length_error[abi:ne200100]();
-        }
-
-        v30 = v23 - v26;
-        if (v30 >> 1 > v29)
-        {
-          v29 = v30 >> 1;
-        }
-
-        v31 = v30 >= 0x7FFFFFFFFFFFFFFCLL;
-        v32 = 0x3FFFFFFFFFFFFFFFLL;
-        if (!v31)
-        {
-          v32 = v29;
-        }
-
-        if (v32)
-        {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(a6, v32);
-        }
-
-        *(4 * v28) = *v22;
-        v25 = 4 * v28 + 4;
-        memcpy(0, v26, v27);
-        v33 = *a6;
-        *a6 = 0;
-        a6[1] = v25;
-        a6[2] = 0;
-        if (v33)
-        {
-          operator delete(v33);
-        }
-
-        a8 = v46;
-      }
-
-      else
-      {
-        *v24 = *v22;
-        v25 = (v24 + 4);
-      }
-
-      a6[1] = v25;
-      std::vector<std::vector<std::string>>::push_back[abi:ne200100](a3, (*a2 + 104 * v21 + 8));
-      memset(v67, 0, 24);
-      v34 = *a2 + 104 * v21;
-      v65 = 0;
-      v66 = 0;
-      v64 = 0;
-      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v64, *(v34 + 32), *(v34 + 40), 0xAAAAAAAAAAAAAAABLL * ((*(v34 + 40) - *(v34 + 32)) >> 3));
-      if (v65 != v64)
-      {
-        v35 = 0;
-        v36 = 0;
-        do
-        {
-          v37 = 0xAAAAAAAAAAAAAAABLL * ((a1[80] - a1[79]) >> 3);
-          LODWORD(p_p) = 0;
-          std::vector<int>::vector[abi:ne200100](&__p, v37);
-          v38 = std::map<std::string,int>::at((a1 + 75), &v64[v35]);
-          *(__p + *v38) = 1;
-          std::vector<std::vector<int>>::push_back[abi:ne200100](v67, &__p);
-          std::map<std::string,int>::at((a1 + 75), &v64[v35]);
-          if (__p)
-          {
-            v62 = __p;
-            operator delete(__p);
-          }
-
-          ++v36;
-          v35 += 3;
-        }
-
-        while (0xAAAAAAAAAAAAAAABLL * (v65 - v64) > v36);
-      }
-
-      std::vector<std::vector<std::vector<int>>>::push_back[abi:ne200100](a4, v67);
-      v39 = 0xAAAAAAAAAAAAAAABLL * (v65 - v64);
-      if (v39 > v51)
-      {
-        LODWORD(v39) = v51;
-      }
-
-      v40 = v39;
-      v41 = 3 * v39;
-      __p = 0;
-      v62 = 0;
-      v63 = 0;
-      std::vector<std::string>::__init_with_size[abi:ne200100]<std::__wrap_iter<std::string*>,std::__wrap_iter<std::string*>>(&__p, v64, &v64[3 * v39], v39);
-      std::vector<std::vector<std::string>>::push_back[abi:ne200100](a7, &__p);
-      p_p = &__p;
-      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&p_p);
-      v42 = *a2 + 104 * v21;
-      v62 = 0;
-      v63 = 0;
-      __p = 0;
-      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&__p, *(v42 + 8), *(v42 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(v42 + 16) - *(v42 + 8)) >> 3));
-      v59 = 0;
-      v60 = 0;
-      p_p = 0;
-      std::vector<std::string>::__init_with_size[abi:ne200100]<std::__wrap_iter<std::string*>,std::__wrap_iter<std::string*>>(&p_p, __p, __p + 8 * v41, v40);
-      std::vector<std::vector<std::string>>::push_back[abi:ne200100](a5, &p_p);
-      p_p_p = &p_p;
-      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&p_p_p);
-      v43 = *a2 + 104 * v21;
-      v59 = 0;
-      v60 = 0;
-      p_p = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&p_p, *(v43 + 56), *(v43 + 64), (*(v43 + 64) - *(v43 + 56)) >> 2);
-      v56 = 0;
-      v57 = 0;
-      p_p_p = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>(&p_p_p, p_p, p_p + 4 * v40, v40);
-      std::vector<std::vector<int>>::push_back[abi:ne200100](a8, &p_p_p);
-      if (p_p_p)
-      {
-        v56 = p_p_p;
-        operator delete(p_p_p);
-      }
-
-      v44 = *a2 + 104 * v21;
-      v56 = 0;
-      v57 = 0;
-      p_p_p = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&p_p_p, *(v44 + 80), *(v44 + 88), (*(v44 + 88) - *(v44 + 80)) >> 2);
-      v53 = 0;
-      v54 = 0;
-      v52 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>(&v52, p_p_p, p_p_p + 4 * v40, v40);
-      std::vector<std::vector<int>>::push_back[abi:ne200100](a9, &v52);
-      if (v52)
-      {
-        v53 = v52;
-        operator delete(v52);
-      }
-
-      if (p_p_p)
-      {
-        v56 = p_p_p;
-        operator delete(p_p_p);
-      }
-
-      if (p_p)
-      {
-        v59 = p_p;
-        operator delete(p_p);
-      }
-
-      p_p = &__p;
-      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&p_p);
-      __p = &v64;
-      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
-      v64 = v67;
-      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v64);
-      ++v21;
-      v20 = *a2;
-    }
-
-    while (0x4EC4EC4EC4EC4EC5 * ((a2[1] - *a2) >> 3) > v21);
-  }
-}
-
-uint64_t std::vector<std::vector<std::string>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
-{
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
-  {
-    result = std::vector<std::vector<std::string>>::__emplace_back_slow_path<std::vector<std::string> const&>(a1, a2);
-  }
-
-  else
-  {
-    std::vector<std::vector<std::string>>::__construct_one_at_end[abi:ne200100]<std::vector<std::string> const&>(a1, a2);
-    result = v3 + 24;
-  }
-
-  *(a1 + 8) = result;
-  return result;
-}
-
-uint64_t std::map<std::string,int>::at(uint64_t a1, const void **a2)
-{
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
-  {
-    std::__throw_out_of_range[abi:ne200100]("map::at:  key not found");
-  }
-
-  return v2 + 56;
-}
-
-uint64_t std::vector<std::vector<std::vector<int>>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
-{
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
-  {
-    result = std::vector<std::vector<std::vector<int>>>::__emplace_back_slow_path<std::vector<std::vector<int>> const&>(a1, a2);
-  }
-
-  else
-  {
-    std::vector<std::vector<std::vector<int>>>::__construct_one_at_end[abi:ne200100]<std::vector<std::vector<int>> const&>(a1, a2);
-    result = v3 + 24;
-  }
-
-  *(a1 + 8) = result;
-  return result;
 }

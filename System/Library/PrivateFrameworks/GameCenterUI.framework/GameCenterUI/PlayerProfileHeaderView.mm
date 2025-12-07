@@ -25,23 +25,25 @@
 
 - (JUMeasurements)measurementsWithFitting:(CGSize)fitting in:(id)in
 {
+  height = fitting.height;
+  width = fitting.width;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_24E2C92E4();
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
-  v13 = v12;
+  sub_24E2C92E4(in, width, height);
+  v10 = v9;
+  v12 = v11;
+  v14 = v13;
+  v16 = v15;
   swift_unknownObjectRelease();
 
-  v14 = v7;
-  v15 = v9;
-  v16 = v11;
-  v17 = v13;
-  result.var3 = v17;
-  result.var2 = v16;
-  result.var1 = v15;
-  result.var0 = v14;
+  v17 = v10;
+  v18 = v12;
+  v19 = v14;
+  v20 = v16;
+  result.var3 = v20;
+  result.var2 = v19;
+  result.var1 = v18;
+  result.var0 = v17;
   return result;
 }
 
@@ -55,7 +57,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_24E2C9B48(change);
+  sub_24E2C9B48(change, v6);
 }
 
 - (_TtC12GameCenterUI16DynamicTypeLabel)accessibilityTitleLabel

@@ -100,7 +100,7 @@ uint64_t __95__WFAppInstalledResource_attemptRecoveryFromError_optionIndex_userI
 
 - (id)appNeedsUpdateErrorWithAppName:(id)name
 {
-  v19[4] = *MEMORY[0x1E69E9840];
+  v18[4] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   if (nameCopy)
   {
@@ -119,29 +119,27 @@ uint64_t __95__WFAppInstalledResource_attemptRecoveryFromError_optionIndex_userI
     nameCopy2 = WFLocalizedString(@"This shortcut cannot be imported because a required app is missing");
   }
 
-  v18[0] = *MEMORY[0x1E696A588];
-  v18[1] = @"WFResourceErrorImportErrorReason";
-  v19[0] = nameCopy;
-  v19[1] = nameCopy2;
-  v18[2] = *MEMORY[0x1E696A590];
+  v17[0] = *MEMORY[0x1E696A588];
+  v17[1] = @"WFResourceErrorImportErrorReason";
+  v18[0] = nameCopy;
+  v18[1] = nameCopy2;
+  v17[2] = *MEMORY[0x1E696A590];
   v11 = WFLocalizedString(@"View in App Store");
-  v17 = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
-  v18[3] = *MEMORY[0x1E6997138];
-  v19[2] = v12;
-  v19[3] = self;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:4];
+  v16 = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
+  v17[3] = *MEMORY[0x1E6997138];
+  v18[2] = v12;
+  v18[3] = self;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
 
   v14 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ResourceErrorDomain" code:0 userInfo:v13];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (id)appNotResolvedError
 {
-  v21[4] = *MEMORY[0x1E69E9840];
+  v20[4] = *MEMORY[0x1E69E9840];
   appName = [(WFAppInstalledResource *)self appName];
   if ([appName length])
   {
@@ -162,29 +160,27 @@ uint64_t __95__WFAppInstalledResource_attemptRecoveryFromError_optionIndex_userI
 
   v10 = MEMORY[0x1E696ABC0];
   v11 = *MEMORY[0x1E696A588];
-  v20[0] = *MEMORY[0x1E6997138];
-  v20[1] = v11;
-  v21[0] = self;
-  v21[1] = v6;
-  v21[2] = v9;
+  v19[0] = *MEMORY[0x1E6997138];
+  v19[1] = v11;
+  v20[0] = self;
+  v20[1] = v6;
+  v20[2] = v9;
   v12 = *MEMORY[0x1E696A590];
-  v20[2] = @"WFResourceErrorImportErrorReason";
-  v20[3] = v12;
+  v19[2] = @"WFResourceErrorImportErrorReason";
+  v19[3] = v12;
   v13 = WFLocalizedString(@"Select App");
-  v19 = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
-  v21[3] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:4];
+  v18 = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+  v20[3] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:4];
   v16 = [v10 errorWithDomain:@"ResourceErrorDomain" code:1 userInfo:v15];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (id)appNotInstalledError
 {
-  v21[4] = *MEMORY[0x1E69E9840];
+  v20[4] = *MEMORY[0x1E69E9840];
   appName = [(WFAppInstalledResource *)self appName];
   if ([appName length])
   {
@@ -205,22 +201,20 @@ uint64_t __95__WFAppInstalledResource_attemptRecoveryFromError_optionIndex_userI
 
   v10 = MEMORY[0x1E696ABC0];
   v11 = *MEMORY[0x1E696A588];
-  v20[0] = *MEMORY[0x1E6997138];
-  v20[1] = v11;
-  v21[0] = self;
-  v21[1] = v6;
-  v21[2] = v9;
+  v19[0] = *MEMORY[0x1E6997138];
+  v19[1] = v11;
+  v20[0] = self;
+  v20[1] = v6;
+  v20[2] = v9;
   v12 = *MEMORY[0x1E696A590];
-  v20[2] = @"WFResourceErrorImportErrorReason";
-  v20[3] = v12;
+  v19[2] = @"WFResourceErrorImportErrorReason";
+  v19[3] = v12;
   v13 = WFLocalizedString(@"View in App Store");
-  v19 = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
-  v21[3] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:4];
+  v18 = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+  v20[3] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:4];
   v16 = [v10 errorWithDomain:@"ResourceErrorDomain" code:0 userInfo:v15];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -372,7 +366,7 @@ void __74__WFAppInstalledResource_fetchiTunesStoreObjectForAppWithCompletionBloc
 
 void __74__WFAppInstalledResource_fetchiTunesStoreObjectForAppWithCompletionBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -401,49 +395,48 @@ void __74__WFAppInstalledResource_fetchiTunesStoreObjectForAppWithCompletionBloc
 
   v11 = v10;
 
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__35573;
-  v27 = __Block_byref_object_dispose__35574;
-  v28 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__35573;
+  v26 = __Block_byref_object_dispose__35574;
+  v27 = 0;
   v12 = *(*(a1 + 32) + 72);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __74__WFAppInstalledResource_fetchiTunesStoreObjectForAppWithCompletionBlock___block_invoke_188;
   block[3] = &unk_1E837F898;
   block[4] = WeakRetained;
-  block[5] = &v23;
+  block[5] = &v22;
   dispatch_sync(v12, block);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
-  v13 = v24[5];
-  v14 = [v13 countByEnumeratingWithState:&v18 objects:v29 count:16];
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v13 = v23[5];
+  v14 = [v13 countByEnumeratingWithState:&v17 objects:v28 count:16];
   if (v14)
   {
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        (*(*(*(&v18 + 1) + 8 * i) + 16))(*(*(&v18 + 1) + 8 * i));
+        (*(*(*(&v17 + 1) + 8 * i) + 16))(*(*(&v17 + 1) + 8 * i));
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v18 objects:v29 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v17 objects:v28 count:16];
     }
 
     while (v14);
   }
 
-  _Block_object_dispose(&v23, 8);
-  v17 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v22, 8);
 }
 
 uint64_t __74__WFAppInstalledResource_fetchiTunesStoreObjectForAppWithCompletionBlock___block_invoke_188(uint64_t a1)
@@ -658,33 +651,16 @@ void __45__WFAppInstalledResource_refreshAvailability__block_invoke_3(uint64_t a
 - (BOOL)appDescriptorOrAccompanyingExtensionIsInstalled:(id)installed
 {
   installedCopy = installed;
-  if ([installedCopy isInstalled])
+  v9 = 1;
+  if (([installedCopy isInstalled] & 1) == 0)
   {
-    goto LABEL_4;
-  }
+    extensionBundleIdentifier = [installedCopy extensionBundleIdentifier];
+    v5 = [extensionBundleIdentifier length];
 
-  extensionBundleIdentifier = [installedCopy extensionBundleIdentifier];
-  v5 = [extensionBundleIdentifier length];
-
-  if (!v5)
-  {
-    goto LABEL_5;
-  }
-
-  v6 = objc_alloc(MEMORY[0x1E69635D0]);
-  extensionBundleIdentifier2 = [installedCopy extensionBundleIdentifier];
-  v8 = [v6 initWithBundleIdentifier:extensionBundleIdentifier2 error:0];
-
-  if (v8)
-  {
-LABEL_4:
-    v9 = 1;
-  }
-
-  else
-  {
-LABEL_5:
-    v9 = 0;
+    if (!v5 || (v6 = objc_alloc(MEMORY[0x1E69635D0]), [installedCopy extensionBundleIdentifier], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "initWithBundleIdentifier:error:", v7, 0), v7, v8, !v8))
+    {
+      v9 = 0;
+    }
   }
 
   return v9;
@@ -713,32 +689,31 @@ LABEL_5:
 
 - (void)dealloc
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   descriptor = [(WFAppInstalledResource *)self descriptor];
   bundleIdentifier = [descriptor bundleIdentifier];
 
   if (bundleIdentifier && [(WFAppInstalledResource *)self requiresAppToBeInstalled])
   {
     v5 = +[WFInterchangeAppRegistry sharedRegistry];
-    v9[0] = bundleIdentifier;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+    v8[0] = bundleIdentifier;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
     [v5 removeInstallStatusObserver:self forAppIdentifiers:v6];
   }
 
-  v8.receiver = self;
-  v8.super_class = WFAppInstalledResource;
-  [(WFResource *)&v8 dealloc];
-  v7 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = WFAppInstalledResource;
+  [(WFResource *)&v7 dealloc];
 }
 
 - (id)_initWithDescriptor:(id)descriptor requiresAppToBeInstalled:(BOOL)installed isSyncedFromOtherDevice:(BOOL)device
 {
   installedCopy = installed;
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
-  v24.receiver = self;
-  v24.super_class = WFAppInstalledResource;
-  v10 = [(WFResource *)&v24 initWithDefinition:MEMORY[0x1E695E0F8]];
+  v23.receiver = self;
+  v23.super_class = WFAppInstalledResource;
+  v10 = [(WFResource *)&v23 initWithDefinition:MEMORY[0x1E695E0F8]];
   v11 = v10;
   if (v10)
   {
@@ -770,15 +745,14 @@ LABEL_5:
     {
       v18 = +[WFInterchangeAppRegistry sharedRegistry];
       bundleIdentifier2 = [(INAppDescriptor *)v11->_descriptor bundleIdentifier];
-      v25[0] = bundleIdentifier2;
-      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+      v24[0] = bundleIdentifier2;
+      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
       [v18 addInstallStatusObserver:v11 forAppIdentifiers:v20];
     }
 
     v21 = v11;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

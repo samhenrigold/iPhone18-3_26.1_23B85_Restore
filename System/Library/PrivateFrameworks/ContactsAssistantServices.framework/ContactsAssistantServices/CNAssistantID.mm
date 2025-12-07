@@ -4,6 +4,7 @@
 + (id)assistantIDFromContainer:(id)container;
 + (id)assistantIDFromExternalIdentifier:(id)identifier;
 + (id)assistantIDFromGroup:(id)group;
++ (id)assistantIDOfType:(id)type recordID:(int)d databaseID:(id)iD identifier:(id)identifier;
 + (id)contactIDFromAssistantID:(id)d;
 + (id)containerIDFromAssistantID:(id)d;
 + (id)databaseID;
@@ -21,14 +22,55 @@
   return v3;
 }
 
++ (id)assistantIDOfType:(id)type recordID:(int)d databaseID:(id)iD identifier:(id)identifier
+{
+  v7 = *&d;
+  iDCopy = iD;
+  identifierCopy = identifier;
+  v11 = MEMORY[0x277CBEB18];
+  typeCopy = type;
+  array = [v11 array];
+  if (v7)
+  {
+    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%d", @"recordID", v7];
+    [array addObject:v14];
+  }
+
+  if ([iDCopy length])
+  {
+    iDCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@", @"databaseID", iDCopy];
+    [array addObject:iDCopy];
+  }
+
+  if ([identifierCopy length])
+  {
+    identifierCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@", @"identifier", identifierCopy];
+    [array addObject:identifierCopy];
+  }
+
+  v17 = [array componentsJoinedByString:@"&"];
+  typeCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@://%@", @"com.apple.contacts", typeCopy];
+
+  if ([v17 length])
+  {
+    v19 = [typeCopy stringByAppendingString:@"?"];
+
+    typeCopy = [v19 stringByAppendingString:v17];
+  }
+
+  v20 = [MEMORY[0x277CBEBC0] URLWithString:typeCopy];
+
+  return v20;
+}
+
 + (id)assistantIDFromContactID:(id)d
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   v4 = +[CNAssistantID databaseID];
   v5 = objc_opt_new();
-  v12[0] = *MEMORY[0x277CBD010];
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = *MEMORY[0x277CBD010];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v7 = [v5 unifiedContactWithIdentifier:dCopy keysToFetch:v6 error:0];
 
   if (v7)
@@ -43,14 +85,12 @@
 
   v9 = [CNAssistantID assistantIDOfType:@"contact" recordID:iOSLegacyIdentifier databaseID:v4 identifier:dCopy];
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 + (id)assistantIDFromContact:(id)contact
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   if ([contactCopy isKeyAvailable:*MEMORY[0x277CBD018]])
   {
@@ -65,8 +105,8 @@
     else
     {
       v9 = objc_opt_new();
-      v14[0] = v6;
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+      v13[0] = v6;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
       v11 = [v9 unifiedContactWithIdentifier:identifier keysToFetch:v10 error:0];
 
       if (v11)
@@ -87,8 +127,6 @@
   {
     v8 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
